@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2004--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #include "tweak-registration.hh"
@@ -39,8 +38,8 @@ Tweak_registry::insert_tweak_from_file (SCM tweak)
 {
   SCM skey = scm_car (tweak);
 
-  assert (scm_is_pair (skey) &&
-	 scm_car (skey) == ly_symbol2scm ("key"));
+  assert (scm_is_pair (skey)
+	  && scm_car (skey) == ly_symbol2scm ("key"));
 
   Object_key const *key = undumper_->get_key (scm_to_int (scm_cadr (skey)));
   if (tweaks_.find (key) == tweaks_.end ())
@@ -67,7 +66,7 @@ Tweak_registry::replace_grob_tweak (Grob *g, SCM tweak)
 }
 
 SCM
-Tweak_registry::get_tweaks (Grob *g) 
+Tweak_registry::get_tweaks (Grob *g)
 {
   Object_key const *key = g->get_key ();
   if (tweaks_.find (key) == tweaks_.end ())
@@ -94,7 +93,7 @@ Tweak_registry::list_tweaks ()
 SCM
 Tweak_registry::mark_smob (SCM smob)
 {
-  Tweak_registry *me = (Tweak_registry*) SCM_CELL_WORD_1 (smob);
+  Tweak_registry *me = (Tweak_registry *) SCM_CELL_WORD_1 (smob);
 
   for (Tweak_map::const_iterator i (me->tweaks_.begin ());
        i != me->tweaks_.end ();
@@ -106,7 +105,7 @@ Tweak_registry::mark_smob (SCM smob)
 
   if (me->undumper_)
     scm_gc_mark (me->undumper_->self_scm ());
-		      
+
   return SCM_EOL;
 }
 
@@ -114,11 +113,11 @@ int
 Tweak_registry::print_smob (SCM smob, SCM port, scm_print_state*)
 {
   (void) smob;			// smother warning.
-  scm_puts ("#<Tweak_registry>", port); 
+  scm_puts ("#<Tweak_registry>", port);
   return 1;
 }
 
-Object_key_undumper*
+Object_key_undumper *
 Tweak_registry::undumper () const
 {
   return undumper_;
@@ -126,7 +125,6 @@ Tweak_registry::undumper () const
 
 IMPLEMENT_DEFAULT_EQUAL_P (Tweak_registry);
 IMPLEMENT_SMOBS (Tweak_registry);
-
 
 Tweak_registry *global_registry_;
 

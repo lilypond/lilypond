@@ -27,9 +27,9 @@
   clean up the mess left by ledger line handling.
 */
 static Stencil
-internal_print (Grob *me, String * font_char)
+internal_print (Grob *me, String *font_char)
 {
-  SCM style  = me->get_property ("style");
+  SCM style = me->get_property ("style");
   if (!scm_is_symbol (style))
     {
       return Stencil ();
@@ -39,7 +39,7 @@ internal_print (Grob *me, String * font_char)
   SCM proc = me->get_property ("glyph-name-procedure");
   SCM scm_font_char = scm_call_2 (proc, log, style);
 
-  Font_metric * fm = Font_interface::get_default_font (me);
+  Font_metric *fm = Font_interface::get_default_font (me);
 
   Direction stem_dir = CENTER;
   if (Grob *stem = unsmob_grob (me->get_property ("stem")))
@@ -50,20 +50,20 @@ internal_print (Grob *me, String * font_char)
 	  programming_error ("Must have stem dir for note head");
 	}
     }
-  
+
   Stencil out;
 
   String prefix = "noteheads.";
-  String idx =
-    prefix + ((stem_dir == UP) ? "u" : "d")  + ly_scm2string (scm_font_char);
+  String idx
+    = prefix + ((stem_dir == UP) ? "u" : "d") + ly_scm2string (scm_font_char);
   out = fm->find_by_name (idx);
   if (out.is_empty ())
     {
       idx = prefix + "s" + ly_scm2string (scm_font_char);
       out = fm->find_by_name (idx);
     }
-  
-  if (out.is_empty())
+
+  if (out.is_empty ())
     {
       me->warning (_f ("note head `%s' not found", idx.to_str0 ()));
     }
@@ -75,17 +75,15 @@ internal_print (Grob *me, String * font_char)
   return out;
 }
 
-
 MAKE_SCHEME_CALLBACK (Note_head, print, 1);
 SCM
-Note_head::print (SCM smob)  
+Note_head::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
   String idx;
   return internal_print (me, &idx).smobbed_copy ();
 }
-
 
 MAKE_SCHEME_CALLBACK (Note_head, brew_ez_stencil, 1);
 SCM
@@ -98,14 +96,14 @@ Note_head::brew_ez_stencil (SCM smob)
 
   SCM cause = me->get_property ("cause");
   SCM spitch = unsmob_music (cause)->get_property ("pitch");
-  Pitch* pit =  unsmob_pitch (spitch);
+  Pitch *pit = unsmob_pitch (spitch);
 
   SCM idx = scm_int2num (pit->get_notename ());
   SCM names = me->get_property ("note-names");
   SCM charstr = SCM_EOL;
   if (scm_is_vector (names))
     charstr = scm_vector_ref (names, idx);
-  else 
+  else
     {
       char s[2] = "a";
       s[0] = (pit->get_notename () + 2)%7 + 'a';
@@ -116,7 +114,7 @@ Note_head::brew_ez_stencil (SCM smob)
   SCM at = scm_list_n (ly_symbol2scm ("ez-ball"),
 		       charstr,
 		       scm_int2num (b),
-		       scm_int2num (1-b),
+		       scm_int2num (1 - b),
 		       SCM_UNDEFINED);
   Box bx (Interval (0, 1.0), Interval (-0.5, 0.5));
   Stencil m (bx, at);
@@ -124,19 +122,18 @@ Note_head::brew_ez_stencil (SCM smob)
   return m.smobbed_copy ();
 }
 
-
 Real
 Note_head::stem_attachment_coordinate (Grob *me, Axis a)
 {
   SCM brewer = me->get_property ("print-function");
-  Font_metric * fm  = Font_interface::get_default_font (me);
-  
+  Font_metric *fm = Font_interface::get_default_font (me);
+
   if (brewer == Note_head::print_proc)
     {
       String key;
       internal_print (me, &key);
 
-      int k = fm->name_to_index (key) ;
+      int k = fm->name_to_index (key);
       if (k >= 0)
 	{
 	  Box b = fm->get_indexed_char (k);
@@ -146,31 +143,31 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
 	    return 2 * (wxwy[a] - v.center ()) / v.length ();
 	}
     }
-  
+
   /*
     Fallback
-   */
+  */
   SCM v = me->get_property ("stem-attachment-function");
   if (!ly_c_procedure_p (v))
     return 0.0;
-  
+
   SCM result = scm_call_2 (v, me->self_scm (), scm_int2num (a));
   if (!scm_is_pair (result))
     return 0.0;
 
   result = (a == X_AXIS) ? scm_car (result) : scm_cdr (result);
-  
+
   return robust_scm2double (result, 0);
 }
 
 int
-Note_head::get_balltype (Grob*me) 
+Note_head::get_balltype (Grob *me)
 {
   SCM s = me->get_property ("duration-log");
   return scm_is_number (s) ? scm_to_int (s) <? 2 : 0;
 }
 
 ADD_INTERFACE (Note_head, "note-head-interface",
-  "Note head",
-  "note-names glyph-name-procedure accidental-grob style stem-attachment-function");
+	       "Note head",
+	       "note-names glyph-name-procedure accidental-grob style stem-attachment-function");
 

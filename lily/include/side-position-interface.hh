@@ -1,11 +1,10 @@
-/*   
+/*
   side-position-interface.hh -- declare Side_position_interface
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1999--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #ifndef SIDE_POSITION_INTERFACE_HH
 #define SIDE_POSITION_INTERFACE_HH
@@ -23,21 +22,19 @@ struct Side_position_interface
 public:
   DECLARE_SCHEME_CALLBACK (aligned_on_support_extents, (SCM element, SCM axis));
   DECLARE_SCHEME_CALLBACK (aligned_on_support_refpoints, (SCM element, SCM axis));
-  
-  DECLARE_SCHEME_CALLBACK (aligned_side, (SCM element, SCM axis));  
+
+  DECLARE_SCHEME_CALLBACK (aligned_side, (SCM element, SCM axis));
 
   DECLARE_SCHEME_CALLBACK (quantised_position, (SCM element, SCM axis));
 
-  static SCM general_side_position (Grob*, Axis, bool);
-  static Axis get_axis (Grob*) ;
-  static void set_axis (Grob*,  Axis) ;
-  static bool has_interface (Grob*) ;
-  static void add_support (Grob*, Grob*);
-  static void add_staff_support (Grob*);
-  static Direction get_direction (Grob*);
+  static SCM general_side_position (Grob *, Axis, bool);
+  static Axis get_axis (Grob *);
+  static void set_axis (Grob *, Axis);
+  static bool has_interface (Grob *);
+  static void add_support (Grob *, Grob *);
+  static void add_staff_support (Grob *);
+  static Direction get_direction (Grob *);
 };
-
-
 
 #endif /* SIDE_POSITION_INTERFACE_HH */
 

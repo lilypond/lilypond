@@ -20,11 +20,10 @@
 #include "global-context.hh"
 
 /*
-TODO: make matching rest engraver.
+  TODO: make matching rest engraver.
 */
 
 /*
-
   How does this work?
 
   When we catch the note, we predict the end of the note. We keep the
@@ -34,7 +33,7 @@ TODO: make matching rest engraver.
   figure out how long the note to typeset should be. It should be no
   longer than what's specified, than what is left to do and it should
   not cross barlines.
-  
+
   We copy the reqs into scratch note reqs, to make sure that we get
   all durations exactly right.
 */
@@ -44,7 +43,7 @@ class Completion_heads_engraver : public Engraver
   Link_array<Item> notes_;
   Link_array<Item> prev_notes_;
   Link_array<Grob> ties_;
-  
+
   Link_array<Item> dots_;
   Link_array<Music> note_reqs_;
   Link_array<Music> scratch_note_reqs_;
@@ -53,17 +52,17 @@ class Completion_heads_engraver : public Engraver
   bool is_first_;
   Rational left_to_do_;
   Rational do_nothing_until_;
-  
+
   Moment next_barline_moment ();
   Duration find_nearest_duration (Rational length);
-  
+
 public:
   TRANSLATOR_DECLARATIONS (Completion_heads_engraver);
 
 protected:
   virtual void initialize ();
   virtual void start_translation_timestep ();
-  virtual bool try_music (Music *req) ;
+  virtual bool try_music (Music *req);
   virtual void process_music ();
   virtual void stop_translation_timestep ();
 };
@@ -75,7 +74,7 @@ Completion_heads_engraver::initialize ()
 }
 
 bool
-Completion_heads_engraver::try_music (Music *m) 
+Completion_heads_engraver::try_music (Music *m)
 {
   if (m->is_mus_type ("note-event"))
     {
@@ -87,28 +86,28 @@ Completion_heads_engraver::try_music (Music *m)
 
       if (now_mom ().grace_part_)
 	{
-	  musiclen.grace_part_ = musiclen.main_part_ ;
+	  musiclen.grace_part_ = musiclen.main_part_;
 	  musiclen.main_part_ = Rational (0, 1);
 	}
-      note_end_mom_  = note_end_mom_ >? (now + musiclen);
+      note_end_mom_ = note_end_mom_ >? (now + musiclen);
       do_nothing_until_ = Rational (0, 0);
-      
+
       return true;
     }
-  else if  (m->is_mus_type ("busy-playing-event"))
+  else if (m->is_mus_type ("busy-playing-event"))
     {
-      return note_reqs_.size() && is_first_;
+      return note_reqs_.size () && is_first_;
     }
-  
+
   return false;
-  
+
 }
 
 /*
   The duration _until_ the next barline.
- */
+*/
 Moment
-Completion_heads_engraver::next_barline_moment ( )
+Completion_heads_engraver::next_barline_moment ()
 {
   Moment *e = unsmob_moment (get_property ("measurePosition"));
   Moment *l = unsmob_moment (get_property ("measureLength"));
@@ -121,7 +120,7 @@ Completion_heads_engraver::next_barline_moment ( )
   return (*l - *e);
 }
 
-Duration  
+Duration
 Completion_heads_engraver::find_nearest_duration (Rational length)
 {
   int log_limit = 6;
@@ -152,7 +151,7 @@ Completion_heads_engraver::find_nearest_duration (Rational length)
       // scale up.
       d = d.compressed (length / d.get_length ());
     }
-  
+
   return d;
 }
 
@@ -160,14 +159,14 @@ void
 Completion_heads_engraver::process_music ()
 {
   if (!is_first_ && !left_to_do_)
-    return ;
-  
+    return;
+
   is_first_ = false;
 
-  Moment now =  now_mom ();
+  Moment now = now_mom ();
   if (do_nothing_until_ > now.main_part_)
-    return ;
-  
+    return;
+
   Duration note_dur;
   Duration *orig = 0;
   if (left_to_do_)
@@ -186,7 +185,7 @@ Completion_heads_engraver::process_music ()
 
       Moment next = now;
       next.main_part_ += note_dur.get_length ();
-      
+
       get_global_context ()->add_moment_to_process (next);
       do_nothing_until_ = next.main_part_;
     }
@@ -201,37 +200,36 @@ Completion_heads_engraver::process_music ()
       if (!scratch_note_reqs_.size ())
 	for (int i = 0; i < note_reqs_.size (); i++)
 	  {
-	    Music * m = note_reqs_[i]->clone ();
+	    Music *m = note_reqs_[i]->clone ();
 	    scratch_note_reqs_.push (m);
 	  }
     }
 
-  
   for (int i = 0;
        left_to_do_ && i < note_reqs_.size (); i++)
     {
-      Music * req =  note_reqs_[i];
+      Music *req = note_reqs_[i];
       if (scratch_note_reqs_.size ())
 	{
 	  req = scratch_note_reqs_[i];
 	  SCM pits = note_reqs_[i]->get_property ("pitch");
 	  req->set_property ("pitch", pits);
 	}
-      
+
       req->set_property ("duration", note_dur.smobbed_copy ());
 
-      Item *note  = make_item ("NoteHead", req->self_scm ());
+      Item *note = make_item ("NoteHead", req->self_scm ());
       note->set_property ("duration-log",
 			  scm_int2num (note_dur.duration_log ()));
-      
+
       int dots = note_dur.dot_count ();
       if (dots)
 	{
-	  Item * d = make_item ("Dots", SCM_EOL);
+	  Item *d = make_item ("Dots", SCM_EOL);
 	  Rhythmic_head::set_dots (note, d);
 
 	  /*
-	   measly attempt to save an eeny-weenie bit of memory.
+	    measly attempt to save an eeny-weenie bit of memory.
 	  */
 	  if (dots != scm_to_int (d->get_property ("dot-count")))
 	    d->set_property ("dot-count", scm_int2num (dots));
@@ -247,22 +245,22 @@ Completion_heads_engraver::process_music ()
       if (scm_is_number (c0))
 	pos += scm_to_int (c0);
 
-      note->set_property ("staff-position",   scm_int2num (pos));
+      note->set_property ("staff-position", scm_int2num (pos));
       notes_.push (note);
     }
-  
+
   if (prev_notes_.size () == notes_.size ())
     {
       for (int i = 0; i < notes_.size (); i++)
 	{
-	  Grob * p = make_spanner ("Tie", SCM_EOL);
+	  Grob *p = make_spanner ("Tie", SCM_EOL);
 	  Tie::set_interface (p); // cannot remove yet!
-	  
+
 	  Tie::set_head (p, LEFT, prev_notes_[i]);
 	  Tie::set_head (p, RIGHT, notes_[i]);
-	  
+
 	  ties_.push (p);
-	  
+
 	}
     }
 
@@ -270,30 +268,30 @@ Completion_heads_engraver::process_music ()
 
   /*
     don't do complicated arithmetic with grace notes.
-   */
+  */
   if (orig
-      &&  now_mom ().grace_part_ )
+      && now_mom ().grace_part_)
     {
       left_to_do_ = Rational (0, 0);
     }
 }
- 
+
 void
 Completion_heads_engraver::stop_translation_timestep ()
 {
   ties_.clear ();
-  
+
   if (notes_.size ())
     prev_notes_ = notes_;
   notes_.clear ();
-  
+
   dots_.clear ();
 
   for (int i = scratch_note_reqs_.size (); i--;)
     {
-      scm_gc_unprotect_object (scratch_note_reqs_[i]->self_scm () );
+      scm_gc_unprotect_object (scratch_note_reqs_[i]->self_scm ());
     }
-  
+
   scratch_note_reqs_.clear ();
 }
 
@@ -313,11 +311,11 @@ Completion_heads_engraver::Completion_heads_engraver ()
 }
 
 ADD_TRANSLATOR (Completion_heads_engraver,
-/* descr */       "This engraver replaces "
-"@code{Note_heads_engraver}. It plays some trickery to "
-"break long notes and automatically tie them into the next measure.",
-/* creats*/       "NoteHead Dots Tie",
-/* accepts */     "busy-playing-event note-event",
-/* acks  */      "",
-/* reads */       "middleCPosition measurePosition measureLength",
-/* write */       "");
+		/* descr */ "This engraver replaces "
+		"@code{Note_heads_engraver}. It plays some trickery to "
+		"break long notes and automatically tie them into the next measure.",
+		/* creats*/ "NoteHead Dots Tie",
+		/* accepts */ "busy-playing-event note-event",
+		/* acks  */ "",
+		/* reads */ "middleCPosition measurePosition measureLength",
+		/* write */ "");

@@ -19,9 +19,9 @@
 /*
   Music is anything that has duration and supports both time compression
   and transposition.
-  
+
   In Lily, everything that can be thought to have a length and a pitch
- (which has a duration which can be transposed) is considered "music",
+  (which has a duration which can be transposed) is considered "music",
 */
 bool
 Music::internal_is_music_type (SCM k) const
@@ -87,7 +87,7 @@ Music::get_property_alist (bool m) const
 SCM
 Music::mark_smob (SCM m)
 {
-  Music *mus = (Music*) SCM_CELL_WORD_1 (m);
+  Music *mus = (Music *) SCM_CELL_WORD_1 (m);
   scm_gc_mark (mus->immutable_property_alist_);
   scm_gc_mark (mus->mutable_property_alist_);
   return SCM_EOL;
@@ -106,7 +106,7 @@ Music::get_length () const
       return *unsmob_moment (res);
     }
 
-  return Moment(0);
+  return Moment (0);
 }
 
 Moment
@@ -140,7 +140,7 @@ int
 Music::print_smob (SCM s, SCM p, scm_print_state*)
 {
   scm_puts ("#<Music ", p);
-  Music* m = unsmob_music (s);
+  Music *m = unsmob_music (s);
 
   SCM nm = m->get_property ("name");
   if (scm_is_symbol (nm) || scm_is_string (nm))
@@ -167,8 +167,8 @@ Music::generic_to_relative_octave (Pitch last)
       new_pit = new_pit.to_relative_octave (last);
 
       SCM check = get_property ("absolute-octave");
-      if (scm_is_number (check) &&
-	  new_pit.get_octave () != scm_to_int (check))
+      if (scm_is_number (check)
+	  && new_pit.get_octave () != scm_to_int (check))
 	{
 	  Pitch expected_pit (scm_to_int (check),
 			      new_pit.get_notename (),
@@ -178,9 +178,9 @@ Music::generic_to_relative_octave (Pitch last)
 				  new_pit.to_string ()));
 	  new_pit = expected_pit;
 	}
-      
+
       set_property ("pitch", new_pit.smobbed_copy ());
-  
+
       last = new_pit;
     }
 
@@ -197,7 +197,7 @@ Music::to_relative_octave (Pitch last)
   SCM callback = get_property ("to-relative-callback");
   if (ly_c_procedure_p (callback))
     {
-      Pitch * p = unsmob_pitch (scm_call_2 (callback, self_scm(), last.smobbed_copy ()));
+      Pitch *p = unsmob_pitch (scm_call_2 (callback, self_scm (), last.smobbed_copy ()));
       return *p;
     }
 
@@ -213,7 +213,7 @@ Music::compress (Moment factor)
     m->compress (factor);
 
   compress_music_list (get_property ("elements"), factor);
-  Duration *d =  unsmob_duration (get_property ("duration"));
+  Duration *d = unsmob_duration (get_property ("duration"));
   if (d)
     set_property ("duration", d ->compressed (factor.main_part_).smobbed_copy ());
 }
@@ -222,16 +222,16 @@ void
 Music::transpose (Pitch delta)
 {
   if (to_boolean (get_property ("untransposable")))
-    return ;
-  
+    return;
+
   for (SCM s = this->get_property_alist (true); scm_is_pair (s); s = scm_cdr (s))
     {
       SCM entry = scm_car (s);
       SCM val = scm_cdr (entry);
 
-      if (Pitch * p = unsmob_pitch (val))
+      if (Pitch *p = unsmob_pitch (val))
 	{
-	  Pitch transposed =  p->transposed (delta);
+	  Pitch transposed = p->transposed (delta);
 	  scm_set_cdr_x (entry, transposed.smobbed_copy ());
 
 	  if (abs (transposed.get_alteration ()) > DOUBLE_SHARP)
@@ -241,16 +241,16 @@ Music::transpose (Pitch delta)
 	    }
 	}
     }
- 
+
   SCM elt = get_property ("element");
 
-  if (Music* m = unsmob_music (elt))
+  if (Music *m = unsmob_music (elt))
     m->transpose (delta);
 
   transpose_music_list (get_property ("elements"), delta);
 
   /*
-    UGH - how do this more generically? 
+    UGH - how do this more generically?
   */
   SCM pa = get_property ("pitch-alist");
   if (scm_is_pair (pa))
@@ -291,7 +291,7 @@ Music::set_spot (Input ip)
   set_property ("origin", make_input (ip));
 }
 
-Input*
+Input *
 Music::origin () const
 {
   Input *ip = unsmob_input (get_property ("origin"));
@@ -306,7 +306,7 @@ Music::duration_log () const
   return 0;
 }
 
-Music*
+Music *
 make_music_by_name (SCM sym)
 {
   SCM make_music_proc = ly_lily_module_constant ("make-music");

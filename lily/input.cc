@@ -1,7 +1,7 @@
 /*
- input.cc -- implement Input
+  input.cc -- implement Input
 
- source file of the LilyPond music typesetter
+  source file of the LilyPond music typesetter
 
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
@@ -43,8 +43,8 @@ void
 Input::step_forward ()
 {
   if (end_ == start_)
-    end_ ++;
-  start_ ++;
+    end_++;
+  start_++;
 }
 
 void
@@ -58,43 +58,42 @@ Input::set_location (Input const &i_start, Input const &i_end)
 /*
   Produce GNU-compliant error message.  Correcting lilypond source is
   such a breeze if you ('re edidor) know (s) the error column too
-  
+
   Format:
 
-    [file:line:column:][warning:]message
-
- */
+  [file:line:column:][warning:]message
+*/
 void
 Input::message (String message_string) const
 {
   String str;
-  
-  /*
-    marked "Work in prgress" in GNU iostream 
-      libg++ 2.7.2.8
-      libstdc++ 2.8.1
 
-    why not just return always -1 (unknown), 
+  /*
+    marked "Work in prgress" in GNU iostream
+    libg++ 2.7.2.8
+    libstdc++ 2.8.1
+
+    why not just return always -1 (unknown),
     iso breaking the interface?
 
-  int col = cerr.rdbuf ()->column ();
+    int col = cerr.rdbuf ()->column ();
 
-   */
+  */
 
   // well, we don't want to loose first warning...
   int col = 1;
   if (col > 0)
     str += "\n";
-  
+
   if (source_file_)
     str += location_string () + String (": ");
 
   str += message_string;
   if (source_file_)
-   {
-    str += ":\n";
-    str += source_file_->error_string (start_);
-   }
+    {
+      str += ":\n";
+      str += source_file_->error_string (start_);
+    }
   fprintf (stderr, "%s\n", str.to_str0 ());
   fflush (stderr);
 }
@@ -141,7 +140,6 @@ Input::file_string () const
   else
     return "";
 }
-
 
 int
 Input::line_number () const

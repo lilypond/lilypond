@@ -1,6 +1,6 @@
 /*
   font-interface.cc -- implement Font_interface
-  
+
   source file of the GNU LilyPond music typesetter
 
   (c) 2000--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
@@ -21,24 +21,23 @@ Font_interface::get_default_font (Grob *me)
   if (!fm)
     {
       SCM chain = music_font_alist_chain (me);
-      
+
       fm = select_font (me->get_layout (), chain);
       me->set_property ("font", fm->self_scm ());
     }
-  
+
   return fm;
 }
 
 LY_DEFINE (ly_font_interface_get_default_font, "ly:get-default-font",
-	  1 , 0, 0, (SCM grob),
-	  "Return the default font for grob @var{gr}.")
+	   1, 0, 0, (SCM grob),
+	   "Return the default font for grob @var{gr}.")
 {
   Grob *gr = unsmob_grob (grob);
   SCM_ASSERT_TYPE (gr, grob, SCM_ARG1, __FUNCTION__, "grob");
 
   return Font_interface::get_default_font (gr)->self_scm ();
 }
-
 
 SCM
 Font_interface::music_font_alist_chain (Grob *g)

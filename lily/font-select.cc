@@ -1,5 +1,5 @@
 /*
-  font-select.cc -- implement property -> font_metric routines. 
+  font-select.cc -- implement property -> font_metric routines.
 
   source file of the GNU LilyPond music typesetter
 
@@ -16,7 +16,6 @@
 #include "pango-font.hh"
 #include "main.hh"
 
-
 Font_metric *
 get_font_by_design_size (Output_def *layout, Real requested,
 			 SCM font_vector)
@@ -31,7 +30,7 @@ get_font_by_design_size (Output_def *layout, Real requested,
   for (; i < n; i++)
     {
       SCM entry = scm_c_vector_ref (font_vector, i);
-      
+
       if (scm_promise_p (entry) == SCM_BOOL_T)
 	{
 	  Font_metric *fm = unsmob_metrics (scm_force (entry));
@@ -47,7 +46,7 @@ get_font_by_design_size (Output_def *layout, Real requested,
 	    = scm_cdr (entry);
 	}
 #endif
-      
+
       if (size > requested)
 	break;
       last_size = size;
@@ -65,7 +64,7 @@ get_font_by_design_size (Output_def *layout, Real requested,
 	  pango_description_string = last_pango_description_string;
 	}
     }
-  
+
   Font_metric *fm = 0;
   if (scm_is_string (pango_description_string))
     {
@@ -74,7 +73,7 @@ get_font_by_design_size (Output_def *layout, Real requested,
 			      pango_description_string,
 			      requested / size);
 #else
-      error ("Trying to retrieve pango font without HAVE_PANGO_FT2."); 
+      error ("Trying to retrieve pango font without HAVE_PANGO_FT2.");
 #endif
     }
   else
@@ -128,12 +127,12 @@ select_encoded_font (Output_def *layout, SCM chain)
 		     ? robust_scm2double (scm_cdr (mag), 1.0)
 		     : 1);
 	Font_metric *fm = all_fonts_global->find_font (ly_scm2string (name));
-		
+
 	return find_scaled_font (layout, fm, rmag);
       }
     else if (scm_instance_p (name))
       {
-	SCM base_size  = scm_slot_ref (name, ly_symbol2scm ("default-size"));
+	SCM base_size = scm_slot_ref (name, ly_symbol2scm ("default-size"));
 	SCM vec = scm_slot_ref (name, ly_symbol2scm ("size-vector"));
 
 	SCM font_size = ly_chain_assoc (ly_symbol2scm ("font-size"), chain);

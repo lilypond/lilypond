@@ -6,10 +6,8 @@
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #ifndef REAL_HH
 #define REAL_HH
-
 
 #include <climits>
 
@@ -38,16 +36,15 @@ template<class T> inline T sqr (T x)
   return x*x;
 }
 
-
 template<class T> inline T min (T x, T y)
 {
   return x <? y;
 }
 
 inline Real
-distance (Real x,Real y)
+distance (Real x, Real y)
 {
-    return abs (x-y);
+  return abs (x - y);
 }
 
 #endif

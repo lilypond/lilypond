@@ -1,11 +1,10 @@
-/*   
+/*
   separating-group-spanner.cc -- implement Separating_group_spanner
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1998--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #include "separating-group-spanner.hh"
 
@@ -16,7 +15,7 @@
 #include "group-interface.hh"
 
 void
-Separating_group_spanner::find_rods (Item * r, SCM next, Real padding)
+Separating_group_spanner::find_rods (Item *r, SCM next, Real padding)
 {
 
   /*
@@ -26,12 +25,11 @@ Separating_group_spanner::find_rods (Item * r, SCM next, Real padding)
     NEXT, making it linear in most of the cases.
   */
   if (Separation_item::width (r).is_empty ())
-    return; 
-
+    return;
 
   for (; scm_is_pair (next); next = scm_cdr (next))
     {
-      Item *l = dynamic_cast<Item*> (unsmob_grob (scm_car ( next)));
+      Item *l = dynamic_cast<Item *> (unsmob_grob (scm_car (next)));
       Item *lb = l->find_prebroken_piece (RIGHT);
 
       if (lb)
@@ -60,7 +58,7 @@ Separating_group_spanner::find_rods (Item * r, SCM next, Real padding)
 	  rod.item_drul_[RIGHT]= r;
 
 	  rod.distance_ = li[RIGHT] - ri[LEFT] + padding;
-	
+
 	  rod.add_to_cols ();
 	  break;
 	}
@@ -77,18 +75,18 @@ MAKE_SCHEME_CALLBACK (Separating_group_spanner, set_spacing_rods, 1);
 SCM
 Separating_group_spanner::set_spacing_rods (SCM smob)
 {
-  Grob*me = unsmob_grob (smob);
+  Grob *me = unsmob_grob (smob);
 
   /*
     Ugh: padding is added doubly, also for SeparationItem
-   */
+  */
   Real padding = robust_scm2double (me->get_property ("padding"), 0.1);
-  
+
   for (SCM s = me->get_property ("elements"); scm_is_pair (s) && scm_is_pair (scm_cdr (s)); s = scm_cdr (s))
     {
       /*
 	Order of elements is reversed!
-       */
+      */
       SCM elt = scm_car (s);
       Item *r = unsmob_item (elt);
 
@@ -96,25 +94,22 @@ Separating_group_spanner::set_spacing_rods (SCM smob)
 	continue;
 
       Item *rb
-	= dynamic_cast<Item*> (r->find_prebroken_piece (LEFT));
-      
+	= dynamic_cast<Item *> (r->find_prebroken_piece (LEFT));
+
       find_rods (r, scm_cdr (s), padding);
       if (rb)
 	find_rods (rb, scm_cdr (s), padding);
     }
 
-  return SCM_UNSPECIFIED ;
+  return SCM_UNSPECIFIED;
 }
 
 void
-Separating_group_spanner::add_spacing_unit (Grob* me , Item*i)
+Separating_group_spanner::add_spacing_unit (Grob *me, Item *i)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("elements"), i);
   me->add_dependency (i);
 }
-
-
-
 
 
 ADD_INTERFACE (Separating_group_spanner, "separation-spanner-interface",

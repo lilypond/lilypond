@@ -4,17 +4,17 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 1996--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-               Jan Nieuwenhuizen <janneke@gnu.org>
- */
+  Jan Nieuwenhuizen <janneke@gnu.org>
+*/
 
 #include "context.hh"
 #include "performer-group-performer.hh"
 #include "warn.hh"
 
-void 
-Performer::play_element (Audio_element* p) 
-{ 
-  get_daddy_performer ()->play_element (p); 
+void
+Performer::play_element (Audio_element *p)
+{
+  get_daddy_performer ()->play_element (p);
 }
 
 int
@@ -23,7 +23,7 @@ Performer::get_tempo () const
   return get_daddy_performer ()->get_tempo ();
 }
 
-Performer_group_performer*
+Performer_group_performer *
 Performer::get_daddy_performer () const
 {
   return
@@ -39,7 +39,6 @@ void
 Performer::create_audio_elements ()
 {
 }
-
 
 void
 Performer::announce_element (Audio_element_info i)

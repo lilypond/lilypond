@@ -47,7 +47,7 @@ IMPLEMENT_TYPE_P (Score, "ly:score?");
 SCM
 Score::mark_smob (SCM s)
 {
-  Score *sc = (Score*) SCM_CELL_WORD_1 (s);
+  Score *sc = (Score *) SCM_CELL_WORD_1 (s);
 
   scm_gc_mark (sc->header_);
   scm_gc_mark (sc->texts_);
@@ -57,7 +57,7 @@ Score::mark_smob (SCM s)
 }
 
 int
-Score::print_smob (SCM , SCM p, scm_print_state*)
+Score::print_smob (SCM, SCM p, scm_print_state*)
 {
   scm_puts ("#<Score>", p);
 
@@ -76,7 +76,7 @@ Score::Score (Score const &s)
   Music *m = unsmob_music (s.music_);
   music_ = m ? m->clone ()->self_scm () : SCM_EOL;
   scm_gc_unprotect_object (music_);
-  
+
   for (int i = 0, n = s.defs_.size (); i < n; i++)
     defs_.push (s.defs_[i]->clone ());
 
@@ -87,7 +87,6 @@ Score::Score (Score const &s)
   texts_ = s.texts_;
 }
 
-
 void
 default_rendering (SCM music, SCM outdef,
 		   SCM book_outputdef,
@@ -97,27 +96,27 @@ default_rendering (SCM music, SCM outdef,
 {
   SCM scaled_def = outdef;
   SCM scaled_bookdef = book_outputdef;
-  
+
   Output_def *bpd = unsmob_output_def (book_outputdef);
 
   /* ugh.  */
   if (bpd->c_variable ("is-paper") == SCM_BOOL_T)
     {
       Real scale = scm_to_double (bpd->c_variable ("outputscale"));
-      
+
       Output_def *def = scale_output_def (unsmob_output_def (outdef), scale);
       scaled_def = def->self_scm ();
 
       scaled_bookdef = scale_output_def (bpd, scale)->self_scm ();
       unsmob_output_def (scaled_def)->parent_
 	= unsmob_output_def (scaled_bookdef);
-      
+
       scm_gc_unprotect_object (scaled_bookdef);
       scm_gc_unprotect_object (scaled_def);
     }
-  
+
   SCM context = ly_run_translator (music, scaled_def, key);
-  if (Global_context *g = dynamic_cast<Global_context*>
+  if (Global_context *g = dynamic_cast<Global_context *>
       (unsmob_context (context)))
     {
       SCM systems = ly_format_output (context, outname);
@@ -144,11 +143,10 @@ default_rendering (SCM music, SCM outdef,
 }
 
 /*
-Format score, return systems. OUTNAME is still passed to create a midi
-file.
+  Format score, return systems. OUTNAME is still passed to create a midi
+  file.
 
-LAYOUTBOOK should be scaled already.
-
+  LAYOUTBOOK should be scaled already.
 */
 SCM
 Score::book_rendering (String outname,
@@ -158,21 +156,21 @@ Score::book_rendering (String outname,
 {
   if (error_found_)
     return SCM_EOL;
-   
+
   SCM scaled_bookdef = SCM_EOL;
   Real scale = 1.0;
 
   if (layoutbook && layoutbook->c_variable ("is-paper") == SCM_BOOL_T)
     scale = scm_to_double (layoutbook->c_variable ("outputscale"));
-  
+
   SCM out = scm_makfrom0str (outname.to_str0 ());
   SCM systems = SCM_EOL;
   int outdef_count = defs_.size ();
 
-  Object_key * key = new Lilypond_general_key (book_key, user_key_, 0);
-  SCM scm_key = key->self_scm();
+  Object_key *key = new Lilypond_general_key (book_key, user_key_, 0);
+  SCM scm_key = key->self_scm ();
   scm_gc_unprotect_object (scm_key);
-  
+
   for (int i = 0; !i || i < outdef_count; i++)
     {
       Output_def *def = outdef_count ? defs_[i] : default_def;
@@ -187,7 +185,7 @@ Score::book_rendering (String outname,
 
       /* TODO: fix or junk --no-layout.  */
       SCM context = ly_run_translator (music_, def->self_scm (), scm_key);
-      if (dynamic_cast<Global_context*> (unsmob_context (context)))
+      if (dynamic_cast<Global_context *> (unsmob_context (context)))
 	{
 	  SCM s = ly_format_output (context, out);
 	  if (s != SCM_UNDEFINED)
@@ -203,9 +201,6 @@ Score::book_rendering (String outname,
 }
 
 
-
-
-
 void
 Score::set_music (SCM music, SCM parser)
 {
@@ -216,20 +211,20 @@ Score::set_music (SCM music, SCM parser)
 
   if (unsmob_music (music_))
     {
-      unsmob_music (music)->origin ()->error (_("Already have music in score"));
-      unsmob_music (music_)->origin ()->error (_("This is the previous music"));
+      unsmob_music (music)->origin ()->error (_ ("Already have music in score"));
+      unsmob_music (music_)->origin ()->error (_ ("This is the previous music"));
     }
-  Music * m = unsmob_music (music);
+  Music *m = unsmob_music (music);
   if (m && to_boolean (m->get_property ("error-found")))
     {
-      m->origin()->error (_("Error found in this music expression. Ignoring it"));
-      
+      m->origin ()->error (_ ("Error found in this music expression. Ignoring it"));
+
       this->error_found_ = this->error_found_ || to_boolean (m->get_property ("error-found"));
-      
+
     }
 
   if (this->error_found_)
-    this->music_ = SCM_EOL; 
+    this->music_ = SCM_EOL;
   else
     this->music_ = music;
 

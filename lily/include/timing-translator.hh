@@ -6,7 +6,6 @@
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #ifndef TIMING_TRANSLATOR_HH
 #define TIMING_TRANSLATOR_HH
 
@@ -18,16 +17,15 @@
 class Timing_translator : public virtual Translator
 {
 public:
-  TRANSLATOR_DECLARATIONS(Timing_translator);
+  TRANSLATOR_DECLARATIONS (Timing_translator);
 
-
-protected: 
+protected:
   virtual void initialize ();
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
 
 public:
   Moment measure_position () const;
-  Rational measure_length () const;  
+  Rational measure_length () const;
 };
 #endif // TIMING_TRANSLATOR_HH

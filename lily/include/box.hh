@@ -1,5 +1,5 @@
 /*
-    some 2D geometrical concepts
+  some 2D geometrical concepts
 */
 
 #ifndef BOXES_HH
@@ -11,7 +11,7 @@
 struct Box
 {
   Interval interval_a_[NO_AXES];
-    
+
   Interval &x () {return interval_a_[X_AXIS]; }
   Interval &y (){ return interval_a_[Y_AXIS]; }
   Interval x () const{ return interval_a_[X_AXIS]; }
@@ -20,7 +20,7 @@ struct Box
   Interval &operator[] (Axis a);
 
   Offset center () const;
-    
+
   void translate (Offset o);
   /// smallest box enclosing #b#
   void set_empty ();
@@ -31,6 +31,5 @@ struct Box
   Box ();
   Box (Interval ix, Interval iy);
 };
-
 
 #endif

@@ -1,11 +1,10 @@
-/*   
+/*
   fingering-engraver.cc -- implement New_fingering_engraver
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1998--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #include "warn.hh"
 #include "engraver.hh"
@@ -32,11 +31,11 @@ struct Finger_tuple
     note_event_ = finger_event_ = 0;
     follow_into_staff_ = false;
   }
-  static int compare (Finger_tuple const & c1, Finger_tuple const & c2)
+  static int compare (Finger_tuple const &c1, Finger_tuple const &c2)
   {
-    return c1.position_-  c2.position_;
+    return c1.position_- c2.position_;
   }
-	       
+
 };
 
 class New_fingering_engraver : public Engraver
@@ -45,14 +44,14 @@ class New_fingering_engraver : public Engraver
   Array<Finger_tuple> articulations_;
   Link_array<Grob> heads_;
   Grob *stem_;
-  
+
 public:
   TRANSLATOR_DECLARATIONS (New_fingering_engraver);
 protected:
   virtual void stop_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
-  void add_fingering (Grob*, Music*, Music*);
-  void add_script  (Grob*, Music*, Music*);
+  void add_fingering (Grob *, Music *, Music *);
+  void add_script (Grob *, Music *, Music *);
   void position_scripts ();
 };
 
@@ -61,23 +60,22 @@ New_fingering_engraver::acknowledge_grob (Grob_info inf)
 {
   if (Rhythmic_head::has_interface (inf.grob_))
     {
-      Music * note_ev = inf.music_cause ();
+      Music *note_ev = inf.music_cause ();
       if (!note_ev)
 	return;
-      
+
       SCM arts = note_ev->get_property ("articulations");
 
-      for (SCM s = arts; scm_is_pair (s); s = scm_cdr  (s))
+      for (SCM s = arts; scm_is_pair (s); s = scm_cdr (s))
 	{
-	  Music * m = unsmob_music (scm_car (s));
+	  Music *m = unsmob_music (scm_car (s));
 
 	  if (!m)
 	    continue;
-	  
 
 	  if (m->is_mus_type ("fingering-event"))
 	    {
-	      add_fingering (inf.grob_ , m, note_ev);
+	      add_fingering (inf.grob_, m, note_ev);
 	    }
 	  else if (m->is_mus_type ("text-script-event"))
 	    {
@@ -90,9 +88,9 @@ New_fingering_engraver::acknowledge_grob (Grob_info inf)
 	  else if (m->is_mus_type ("harmonic-event"))
 	    {
 	      inf.grob_->set_property ("style", ly_symbol2scm ("harmonic"));
-	      Grob * d = unsmob_grob (inf.grob_->get_property ("dot"));
+	      Grob *d = unsmob_grob (inf.grob_->get_property ("dot"));
 	      if (d)
-		d->suicide ();  
+		d->suicide ();
 	    }
 	}
 
@@ -105,56 +103,55 @@ New_fingering_engraver::acknowledge_grob (Grob_info inf)
 }
 
 void
-New_fingering_engraver::add_script (Grob * head,
-				    Music * event,
-				    Music * )
+New_fingering_engraver::add_script (Grob *head,
+				    Music *event,
+				    Music *)
 {
-  Finger_tuple ft ;
+  Finger_tuple ft;
 
-  Grob * g =  make_item ("Script", event->self_scm () );
+  Grob *g = make_item ("Script", event->self_scm ());
   make_script_from_event (g, &ft.follow_into_staff_, context (),
 			  event->get_property ("articulation-type"), 0);
   if (g)
     {
-      ft.script_ = g ;
-      
+      ft.script_ = g;
+
       articulations_.push (ft);
- 
+
       ft.script_->set_parent (head, X_AXIS);
     }
-}				    
-				    
+}
 
 void
-New_fingering_engraver::add_fingering (Grob * head,
-				       Music * event,
+New_fingering_engraver::add_fingering (Grob *head,
+				       Music *event,
 				       Music *hevent)
 {
   Finger_tuple ft;
 
-  ft.script_ = make_item ("Fingering", event->self_scm () );
-  
+  ft.script_ = make_item ("Fingering", event->self_scm ());
+
   Side_position_interface::add_support (ft.script_, head);
 
   int d = scm_to_int (event->get_property ("digit"));
-  
+
   /*
     TODO:
-    
+
     Should add support for thumb.  It's a little involved, since
     the thumb lives in a different font. Maybe it should be moved?
-    
-   */
+
+  */
   if (d > 5)
     {
       /*
-	music for the softenon children? 
-       */
-      event->origin ()->warning (_("music for the martians."));
+	music for the softenon children?
+      */
+      event->origin ()->warning (_ ("music for the martians."));
     }
-  SCM sstr = scm_number_to_string (scm_int2num (d), scm_int2num (10)) ;
+  SCM sstr = scm_number_to_string (scm_int2num (d), scm_int2num (10));
   ft.script_->set_property ("text", sstr);
-       
+
   ft.finger_event_ = event;
   ft.note_event_ = hevent;
   ft.head_ = head;
@@ -176,25 +173,25 @@ New_fingering_engraver::position_scripts ()
     positioning the fingerings, setting both X and Y coordinates.
   */
   for (int i = 0; i < fingerings_.size (); i++)
-    {      
-      fingerings_[i].position_ = scm_to_int (fingerings_[i].head_ -> get_property ( "staff-position"));
+    {
+      fingerings_[i].position_ = scm_to_int (fingerings_[i].head_ -> get_property ("staff-position"));
     }
 
   for (int i = fingerings_.size (); i--;)
-    for (int j = heads_.size () ; j--;)
+    for (int j = heads_.size (); j--;)
       Side_position_interface::add_support (fingerings_[i].script_, heads_[j]);
-    
+
   Array<Finger_tuple> up, down, horiz;
   for (int i = fingerings_.size (); i--;)
     {
       SCM d = fingerings_[i].finger_event_->get_property ("direction");
       if (to_dir (d))
 	{
-	  ((to_dir (d) == UP) ? up : down ).push (fingerings_[i]);
+	  ((to_dir (d) == UP) ? up : down).push (fingerings_[i]);
 	  fingerings_.del (i);
 	}
     }
-  
+
   fingerings_.sort (&Finger_tuple::compare);
   SCM orientations = get_property ("fingeringOrientations");
 
@@ -234,11 +231,11 @@ New_fingering_engraver::position_scripts ()
       down.concat (fingerings_);
       fingerings_.clear ();
     }
-  
+
   for (int i = 0; i < horiz.size (); i++)
     {
       Finger_tuple ft = horiz[i];
-      Grob* f = ft.script_;
+      Grob *f = ft.script_;
       f->set_parent (ft.head_, X_AXIS);
       f->set_parent (ft.head_, Y_AXIS);
       f->add_offset_callback (Self_alignment_interface::centered_on_parent_proc, Y_AXIS);
@@ -252,25 +249,25 @@ New_fingering_engraver::position_scripts ()
   for (int i = 0; i < up.size (); i++)
     {
       Finger_tuple ft = up[i];
-      Grob* f = ft.script_;
+      Grob *f = ft.script_;
       f->set_parent (ft.head_, X_AXIS);
       f->set_property ("script-priority",
-			    scm_int2num (finger_prio + i));
+		       scm_int2num (finger_prio + i));
       f->add_offset_callback (Side_position_interface::aligned_side_proc, Y_AXIS);
       f->add_offset_callback (Self_alignment_interface::centered_on_parent_proc, X_AXIS);
       f->add_offset_callback (Self_alignment_interface::aligned_on_self_proc, X_AXIS);
-      
+
       f->set_property ("direction", scm_int2num (UP));
 
     }
-  
+
   for (int i = 0; i < down.size (); i++)
     {
       Finger_tuple ft = down[i];
-      Grob* f = ft.script_;
+      Grob *f = ft.script_;
       f->set_parent (ft.head_, X_AXIS);
       f->set_property ("script-priority",
-			    scm_int2num (finger_prio + down.size () - i));
+		       scm_int2num (finger_prio + down.size () - i));
 
       f->add_offset_callback (Self_alignment_interface::centered_on_parent_proc, X_AXIS);
       f->add_offset_callback (Self_alignment_interface::aligned_on_self_proc, X_AXIS);
@@ -284,31 +281,30 @@ New_fingering_engraver::stop_translation_timestep ()
 {
   if (fingerings_.size ())
     {
-      for (int i = 0;  i < fingerings_.size(); i++)
+      for (int i = 0; i < fingerings_.size (); i++)
 	if (stem_ && to_boolean (fingerings_[i].script_->get_property ("add-stem-support")))
 	  Side_position_interface::add_support (fingerings_[i].script_, stem_);
       position_scripts ();
       fingerings_.clear ();
     }
-  
-  for (int i =  articulations_.size (); i--;)
+
+  for (int i = articulations_.size (); i--;)
     {
       Grob *script = articulations_[i].script_;
-   
-      for (int j = heads_.size () ; j--;)
+
+      for (int j = heads_.size (); j--;)
 	Side_position_interface::add_support (script, heads_[j]);
 
       if (stem_ && to_dir (script->get_property ("side-relative-direction")))
 	script->set_property ("direction-source", stem_->self_scm ());
 
-
       if (stem_ && to_boolean (script->get_property ("add-stem-support")))
 	Side_position_interface::add_support (script, stem_);
-      
+
       if (articulations_[i].follow_into_staff_)
 	{
 	  script->add_offset_callback (Side_position_interface::quantised_position_proc, Y_AXIS);
-	  script->set_property ("staff-padding" , SCM_EOL);
+	  script->set_property ("staff-padding", SCM_EOL);
 	}
     }
 
@@ -317,18 +313,17 @@ New_fingering_engraver::stop_translation_timestep ()
   articulations_.clear ();
 }
 
-
 New_fingering_engraver::New_fingering_engraver ()
 {
-  stem_ = 0;  
+  stem_ = 0;
 }
 
 ADD_TRANSLATOR (New_fingering_engraver,
-/* descr */       "Create fingering-scripts for notes in a new chord.  "
-		  "This engraver is ill-named, since it "
-		  "also takes care of articulations and harmonic note heads",
-/* creats*/       "Fingering",
-/* accepts */     "",
-/* acks  */       "rhythmic-head-interface stem-interface",
-/* reads */       "fingeringOrientations",
-/* write */       "");
+		/* descr */ "Create fingering-scripts for notes in a new chord.  "
+		"This engraver is ill-named, since it "
+		"also takes care of articulations and harmonic note heads",
+		/* creats*/ "Fingering",
+		/* accepts */ "",
+		/* acks  */ "rhythmic-head-interface stem-interface",
+		/* reads */ "fingeringOrientations",
+		/* write */ "");

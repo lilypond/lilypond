@@ -1,7 +1,7 @@
 /*
- lily-proto.hh -- declare class names.
+  lily-proto.hh -- declare class names.
 
- source file of the GNU LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
@@ -9,8 +9,6 @@
 #ifndef LILY_PROTO_HH
 #define LILY_PROTO_HH
 #include "flower-proto.hh"
-
-
 
 
 class Adobe_font_metric;

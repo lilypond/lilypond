@@ -31,7 +31,7 @@ Pitch::Pitch ()
 int
 Pitch::compare (Pitch const &m1, Pitch const &m2)
 {
-  int o =  m1.octave_ - m2.octave_;
+  int o = m1.octave_ - m2.octave_;
   int n = m1.notename_ - m2.notename_;
   int a = m1.alteration_ - m2.alteration_;
 
@@ -47,12 +47,11 @@ Pitch::compare (Pitch const &m1, Pitch const &m2)
 int
 Pitch::steps () const
 {
-  return  notename_ + octave_*7;
+  return notename_ + octave_*7;
 }
 
 /* Should be settable from input?  */
-static Byte diatonic_scale_semitones[  ] = { 0, 2, 4, 5, 7, 9, 11 };
-
+static Byte diatonic_scale_semitones[ ] = { 0, 2, 4, 5, 7, 9, 11 };
 
 /* Calculate pitch height in 12th octave steps.  Don't assume
    normalised pitch as this function is used to normalise the pitch.  */
@@ -64,7 +63,7 @@ Pitch::semitone_pitch () const
   while (n < 0)
     {
       n += 7;
-      o --;
+      o--;
     }
 
   if (alteration_ % 2)
@@ -83,7 +82,7 @@ Pitch::quartertone_pitch () const
   while (n < 0)
     {
       n += 7;
-      o --;
+      o--;
     }
 
   return ((o + n / 7) * 24
@@ -140,7 +139,7 @@ Pitch::normalise ()
 void
 Pitch::transpose (Pitch delta)
 {
-  int new_semi = quartertone_pitch ()  +delta.quartertone_pitch ();
+  int new_semi = quartertone_pitch () +delta.quartertone_pitch ();
   octave_ += delta.octave_;
   notename_ += delta.notename_;
   alteration_ += new_semi - quartertone_pitch ();
@@ -149,9 +148,9 @@ Pitch::transpose (Pitch delta)
 }
 
 Pitch
-pitch_interval (Pitch const & from , Pitch const & to )
+pitch_interval (Pitch const &from, Pitch const &to)
 {
-  int sound = to.quartertone_pitch ()  - from.quartertone_pitch ();
+  int sound = to.quartertone_pitch () - from.quartertone_pitch ();
   Pitch pt (to.get_octave () - from.get_octave (),
 	    to.get_notename () - from.get_notename (),
 
@@ -160,11 +159,10 @@ pitch_interval (Pitch const & from , Pitch const & to )
   return pt.transposed (Pitch (0, 0, sound - pt.quartertone_pitch ()));
 }
 
-
 /* FIXME
    Merge with *pitch->text* funcs in chord-name.scm  */
 char const *accname[] = {"eses", "eseh", "es", "eh", "",
-			 "ih", "is" , "isih",  "isis"};
+			 "ih", "is", "isih", "isis"};
 
 String
 Pitch::to_string () const
@@ -196,7 +194,7 @@ Pitch
 Pitch::to_relative_octave (Pitch p) const
 {
   /* account for c' = octave 1 iso. 0 4 */
-  int oct_mod = octave_  + 1;
+  int oct_mod = octave_ + 1;
   Pitch up_pitch (p);
   Pitch down_pitch (p);
 
@@ -222,7 +220,7 @@ Pitch::up_to (int notename)
 {
   if (notename_ > notename)
     octave_++;
-  notename_  = notename;
+  notename_ = notename;
 }
 
 void
@@ -253,7 +251,7 @@ Pitch::print_smob (SCM s, SCM port, scm_print_state *)
 }
 
 SCM
-Pitch::equal_p (SCM a , SCM b)
+Pitch::equal_p (SCM a, SCM b)
 {
   Pitch *p = (Pitch *) SCM_CELL_WORD_1 (a);
   Pitch *q = (Pitch *) SCM_CELL_WORD_1 (b);
@@ -264,7 +262,6 @@ Pitch::equal_p (SCM a , SCM b)
 
   return eq ? SCM_BOOL_T : SCM_BOOL_F;
 }
-
 
 MAKE_SCHEME_CALLBACK (Pitch, less_p, 2);
 SCM
@@ -278,7 +275,6 @@ Pitch::less_p (SCM p1, SCM p2)
   else
     return SCM_BOOL_F;
 }
-
 
 int
 Pitch::get_octave () const

@@ -1,11 +1,10 @@
-/*   
+/*
   context-def.hh -- declare Context_def
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2000--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #ifndef CONTEXT_DEF_HH
 #define CONTEXT_DEF_HH
@@ -31,7 +30,7 @@ private:
   SCM context_name_;
   SCM context_aliases_;
   SCM translator_group_type_;
-  
+
 public:
   void add_context_mod (SCM);
   SCM default_child_context_name ();
@@ -42,19 +41,19 @@ public:
   void set_acceptor (SCM accepts, bool add);
 
   Link_array<Context_def> path_to_acceptable_context (SCM type_string,
-						      Output_def*) const;
-  Context * instantiate (SCM extra_ops, Object_key const*);
+						      Output_def *) const;
+  Context *instantiate (SCM extra_ops, Object_key const *);
 
   SCM to_alist () const;
   static SCM make_scm ();
 
   SCM clone_scm () const;
-  void apply_default_property_operations (Context*);
+  void apply_default_property_operations (Context *);
 
 private:
   DECLARE_SMOBS (Context_def, foo);
   Context_def ();
-  Context_def (Context_def const&);
+  Context_def (Context_def const &);
 };
 
 DECLARE_UNSMOB (Context_def, context_def);

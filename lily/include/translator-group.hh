@@ -6,7 +6,6 @@
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #ifndef TRANSLATOR_GROUP_HH
 #define TRANSLATOR_GROUP_HH
 
@@ -19,9 +18,9 @@ class Translator_group : public virtual Translator
 {
 public:
   VIRTUAL_COPY_CONSTRUCTOR (Translator, Translator_group);
-  virtual Translator_group* get_daddy_translator ()const;
+  virtual Translator_group *get_daddy_translator ()const;
   virtual SCM get_simple_trans_list ();
-  virtual bool try_music (Music* req);       
+  virtual bool try_music (Music *req);
   virtual void initialize ();
   Translator_group ();
 
@@ -31,9 +30,8 @@ protected:
   virtual void derived_mark () const;
 };
 
-SCM names_to_translators (SCM namelist, Context*tg);
-void recurse_over_translators (Context * c, Translator_method ptr, Direction);
+SCM names_to_translators (SCM namelist, Context *tg);
+void recurse_over_translators (Context *c, Translator_method ptr, Direction);
 void translator_each (SCM list, Translator_method method);
-
 
 #endif // TRANSLATOR_GROUP_HH

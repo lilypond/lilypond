@@ -10,7 +10,7 @@
 #include "open-type-font.hh"
 
 LY_DEFINE (ly_font_sub_fonts, "ly:font-sub-fonts", 1, 0, 0,
-	  (SCM font),
+	   (SCM font),
 	   "Given the font metric @var{font} of an OpenType font, return the "
 	   "names of the subfonts within @var{font}.")
 {
@@ -20,13 +20,13 @@ LY_DEFINE (ly_font_sub_fonts, "ly:font-sub-fonts", 1, 0, 0,
 }
 
 LY_DEFINE (ly_otf_font_glyph_info, "ly:otf-font-glyph-info", 2, 0, 0,
-	  (SCM font, SCM glyph),
+	   (SCM font, SCM glyph),
 	   "Given the font metric @var{font} of an OpenType font, return the "
 	   "information about named glyph @var{glyph} (a string)")
 {
-  Modified_font_metric * fm
-    = dynamic_cast<Modified_font_metric*> (unsmob_metrics (font));
-  Open_type_font * otf = dynamic_cast<Open_type_font*> (fm->original_font ());
+  Modified_font_metric *fm
+    = dynamic_cast<Modified_font_metric *> (unsmob_metrics (font));
+  Open_type_font *otf = dynamic_cast<Open_type_font *> (fm->original_font ());
   SCM_ASSERT_TYPE (otf, font, SCM_ARG1, __FUNCTION__, "OTF font-metric");
   SCM_ASSERT_TYPE (scm_is_string (glyph), glyph, SCM_ARG1,
 		   __FUNCTION__, "string");

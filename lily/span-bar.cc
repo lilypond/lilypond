@@ -17,9 +17,9 @@
 #include "bar-line.hh"
 
 void
-Span_bar::add_bar (Grob*me, Grob*b)
+Span_bar::add_bar (Grob *me, Grob *b)
 {
-  Pointer_group_interface::add_grob (me, ly_symbol2scm ("elements"),  b);
+  Pointer_group_interface::add_grob (me, ly_symbol2scm ("elements"), b);
 
   me->add_dependency (b);
 }
@@ -28,24 +28,24 @@ MAKE_SCHEME_CALLBACK (Span_bar, print, 1);
 
 /* Limitations/Bugs:
 
-   (1) Elements from 'me->get_property ("elements")' must be
-   ordered according to their y coordinates relative to their common
-   axis group parent.  Otherwise, the computation goes mad.
+(1) Elements from 'me->get_property ("elements")' must be
+ordered according to their y coordinates relative to their common
+axis group parent.  Otherwise, the computation goes mad.
 
-   (TODO:
-   apply a sort algorithm that ensures this precondition.)  However,
-   until now, I have seen no case where lily has not fulfilled this
-   precondition.
+(TODO:
+apply a sort algorithm that ensures this precondition.)  However,
+until now, I have seen no case where lily has not fulfilled this
+precondition.
 
-   (2) This method depends on bar_engraver not being removed from
-   staff context.  If bar_engraver is removed, the size of the staff
-   lines is evaluated as 0, which results in a solid span bar line
-   with faulty y coordinate. */
+(2) This method depends on bar_engraver not being removed from
+staff context.  If bar_engraver is removed, the size of the staff
+lines is evaluated as 0, which results in a solid span bar line
+with faulty y coordinate. */
 
 /* This routine was originally by Juergen Reuter, but it was a on the
    bulky side. Rewritten by Han-Wen. */
 SCM
-Span_bar::print (SCM smobbed_me) 
+Span_bar::print (SCM smobbed_me)
 {
   Grob *me = unsmob_grob (smobbed_me);
   SCM first_elt = me->get_property ("elements");
@@ -63,10 +63,10 @@ Span_bar::print (SCM smobbed_me)
   SCM glyph = me->get_property ("glyph");
 
   /* glyph may not be a string, when ME is killed by Hara Kiri in
-    between. */
+     between. */
   if (!scm_is_string (glyph))
     return SCM_EOL;
-  
+
   String glyph_string = ly_scm2string (glyph);
 
   /* compose span_bar_mol */
@@ -79,12 +79,12 @@ Span_bar::print (SCM smobbed_me)
       Grob *staff_bar = unsmob_grob (smobbed_staff_bar);
       Interval ext = staff_bar->extent (refp, Y_AXIS);
       if (ext.is_empty ())
-	continue; 
-      
+	continue;
+
       if (!prev_extent.is_empty ())
 	{
 	  Interval l (prev_extent [UP],
-		     ext[DOWN]);
+		      ext[DOWN]);
 
 	  if (l.is_empty ())
 	    {
@@ -93,8 +93,8 @@ Span_bar::print (SCM smobbed_me)
 	  else
 	    {
 	      Stencil interbar = Bar_line::compound_barline (staff_bar,
-							      glyph_string,
-							      l.length ());
+							     glyph_string,
+							     l.length ());
 	      interbar.translate_axis (l.center (), Y_AXIS);
 	      span_bar_mol.add_stencil (interbar);
 	    }
@@ -104,7 +104,7 @@ Span_bar::print (SCM smobbed_me)
 
   span_bar_mol.translate_axis (- me->relative_coordinate (refp, Y_AXIS),
 			       Y_AXIS);
-  
+
   return span_bar_mol.smobbed_copy ();
 }
 
@@ -121,7 +121,7 @@ Span_bar::width_callback (SCM element_smob, SCM scm_axis)
     urg.
   */
   Stencil m = Bar_line::compound_barline (se, gl, 40 PT);
-  
+
   return ly_interval2scm (m.extent (X_AXIS));
 }
 
@@ -129,7 +129,7 @@ MAKE_SCHEME_CALLBACK (Span_bar, before_line_breaking, 1);
 SCM
 Span_bar::before_line_breaking (SCM smob)
 {
-  Grob * g = unsmob_grob (smob);
+  Grob *g = unsmob_grob (smob);
   evaluate_empty (g);
   evaluate_glyph (g);
 
@@ -150,19 +150,19 @@ Span_bar::center_on_spanned_callback (SCM element_smob, SCM axis)
   Interval i (get_spanned_interval (me));
 
   /* Bar_line::print delivers a barline of y-extent (-h/2, h/2), so
-     we have to translate ourselves to be in the center of the 
+     we have to translate ourselves to be in the center of the
      interval that we span. */
   if (i.is_empty ())
     {
       me->suicide ();
       return scm_make_real (0.0);
     }
-  
+
   return scm_make_real (i.center ());
 }
 
 void
-Span_bar::evaluate_empty (Grob*me)
+Span_bar::evaluate_empty (Grob *me)
 {
   /* TODO: filter all hara-kiried out of ELEMENS list, and then
      optionally do suicide. Call this cleanage function from
@@ -174,13 +174,13 @@ Span_bar::evaluate_empty (Grob*me)
 }
 
 void
-Span_bar::evaluate_glyph (Grob*me)
+Span_bar::evaluate_glyph (Grob *me)
 {
   SCM gl = me->get_property ("glyph");
 
   if (scm_is_string (gl))
-    return ;
-  
+    return;
+
   for (SCM s = me->get_property ("elements");
        !scm_is_string (gl) && scm_is_pair (s); s = scm_cdr (s))
     {
@@ -193,9 +193,9 @@ Span_bar::evaluate_glyph (Grob*me)
       me->suicide ();
       return;
     }
-  
+
   String type = ly_scm2string (gl);
-  if (type == "|:") 
+  if (type == "|:")
     {
       type = ".|";
     }
@@ -215,18 +215,17 @@ Span_bar::evaluate_glyph (Grob*me)
 }
 
 Interval
-Span_bar::get_spanned_interval (Grob*me) 
+Span_bar::get_spanned_interval (Grob *me)
 {
   return ly_scm2interval (Axis_group_interface::group_extent_callback
-			  (me->self_scm (), scm_int2num (Y_AXIS))); 
+			  (me->self_scm (), scm_int2num (Y_AXIS)));
 }
-
 
 MAKE_SCHEME_CALLBACK (Span_bar, get_bar_size, 1);
 SCM
 Span_bar::get_bar_size (SCM smob)
 {
-  Grob* me =  unsmob_grob (smob);
+  Grob *me = unsmob_grob (smob);
   Interval iv (get_spanned_interval (me));
   if (iv.is_empty ())
     {
@@ -237,11 +236,8 @@ Span_bar::get_bar_size (SCM smob)
   return scm_make_real (iv.length ());
 }
 
-
-
 ADD_INTERFACE (Span_bar, "span-bar-interface",
-  "A bar line that spanned between other barlines. This interface is "
+	       "A bar line that spanned between other barlines. This interface is "
 	       " used for  bar lines that connect different staves.",
-  "elements");
-
+	       "elements");
 

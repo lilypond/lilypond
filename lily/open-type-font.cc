@@ -24,11 +24,11 @@ load_table (char const *tag_str, FT_Face face, FT_ULong *length)
   int error_code = FT_Load_Sfnt_Table (face, tag, 0, NULL, length);
   if (!error_code)
     {
-      FT_Byte *buffer = (FT_Byte*) malloc (*length);
+      FT_Byte *buffer = (FT_Byte *) malloc (*length);
       if (buffer == NULL)
 	error (_f ("Cannot allocate %d bytes", *length));
 
-      error_code = FT_Load_Sfnt_Table (face, tag, 0, buffer, length );
+      error_code = FT_Load_Sfnt_Table (face, tag, 0, buffer, length);
       if (error_code)
 	error (_f ("Could not load %s font table", tag_str));
 
@@ -47,8 +47,8 @@ load_scheme_table (char const *tag_str, FT_Face face)
   SCM tab = SCM_EOL;
   if (buffer)
     {
-      String contents ((Byte const*)buffer, length);
-      contents = "(quote (" +  contents + "))";
+      String contents ((Byte const *)buffer, length);
+      contents = "(quote (" + contents + "))";
 
       tab = scm_c_eval_string (contents.to_str0 ());
       free (buffer);
@@ -56,7 +56,7 @@ load_scheme_table (char const *tag_str, FT_Face face)
   return tab;
 }
 
-Index_to_charcode_map 
+Index_to_charcode_map
 make_index_to_charcode_map (FT_Face face)
 {
   Index_to_charcode_map m;
@@ -69,7 +69,7 @@ make_index_to_charcode_map (FT_Face face)
   return m;
 }
 
-Open_type_font::~Open_type_font()
+Open_type_font::~Open_type_font ()
 {
   FT_Done_Face (face_);
 }
@@ -78,7 +78,7 @@ SCM
 Open_type_font::make_otf (String str)
 {
   FT_Face face;
-  int error_code = FT_New_Face(freetype2_library, str.to_str0 (), 0, &face);
+  int error_code = FT_New_Face (freetype2_library, str.to_str0 (), 0, &face);
 
   if (error_code == FT_Err_Unknown_File_Format)
     {
@@ -101,7 +101,7 @@ Open_type_font::Open_type_font (FT_Face face)
   lily_character_table_ = SCM_EOL;
   lily_global_table_ = SCM_EOL;
   lily_subfonts_ = SCM_EOL;
-  
+
   lily_character_table_ = alist_to_hashq (load_scheme_table ("LILC", face_));
   lily_global_table_ = alist_to_hashq (load_scheme_table ("LILY", face_));
   lily_subfonts_ = load_scheme_table ("LILF", face_);
@@ -128,7 +128,7 @@ Open_type_font::attachment_point (String glyph_name) const
 
   SCM char_alist = entry;
   SCM att_scm = scm_cdr (scm_assq (ly_symbol2scm ("attachment"), char_alist));
-  
+
   return point_constant * ly_scm2offset (att_scm);
 }
 
@@ -142,14 +142,14 @@ Open_type_font::get_indexed_char (int signed_idx) const
       int code = FT_Get_Glyph_Name (face_, signed_idx, name, len);
       if (code)
 	warning (_f ("FT_Get_Glyph_Name() returned error: %d", code));
-	
+
       SCM sym = ly_symbol2scm (name);
       SCM alist = scm_hashq_ref (lily_character_table_, sym, SCM_BOOL_F);
-      
+
       if (alist != SCM_BOOL_F)
 	{
 	  SCM bbox = scm_cdr (scm_assq (ly_symbol2scm ("bbox"), alist));
-      
+
 	  Box b;
 	  b[X_AXIS][LEFT] = scm_to_double (scm_car (bbox));
 	  bbox = scm_cdr (bbox);
@@ -164,7 +164,7 @@ Open_type_font::get_indexed_char (int signed_idx) const
 	  return b;
 	}
     }
-  
+
   FT_UInt idx = signed_idx;
   FT_Load_Glyph (face_,
 		 idx,
@@ -176,14 +176,14 @@ Open_type_font::get_indexed_char (int signed_idx) const
   Box b (Interval (-hb, m.width - hb),
 	 Interval (-vb, m.height - vb));
 
-  b.scale (design_size ()  / Real (face_->units_per_EM));
+  b.scale (design_size () / Real (face_->units_per_EM));
   return b;
 }
 
 int
 Open_type_font::name_to_index (String nm) const
 {
-  char *nm_str = (char*) nm.to_str0 ();
+  char *nm_str = (char *) nm.to_str0 ();
   if (int idx = FT_Get_Name_Index (face_, nm_str))
     return idx;
   return -1;
@@ -192,13 +192,13 @@ Open_type_font::name_to_index (String nm) const
 unsigned
 Open_type_font::index_to_charcode (int i) const
 {
-  return ((Open_type_font*) this)->index_to_charcode_map_[i];
+  return ((Open_type_font *) this)->index_to_charcode_map_[i];
 }
 
 int
 Open_type_font::count () const
 {
-  return ((Open_type_font*) this)->index_to_charcode_map_.size ();
+  return ((Open_type_font *) this)->index_to_charcode_map_.size ();
 }
 
 Real
@@ -212,11 +212,10 @@ Open_type_font::design_size () const
 			       non-design-size fonts. I vote for 1 -
 			       which will trip errors more
 			       quickly. --hwn.
-			      */
+			     */
 			     scm_from_int (1));
   return scm_to_double (entry) * Real (point_constant);
 }
-
 
 SCM
 Open_type_font::sub_fonts () const

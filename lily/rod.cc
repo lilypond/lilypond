@@ -1,11 +1,10 @@
-/*   
+/*
   rod.cc -- implement Rod, Column_rod
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1998--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #include "rod.hh"
 
@@ -20,21 +19,21 @@ Rod::Rod ()
   item_drul_[LEFT] = item_drul_[RIGHT] = 0;
 }
 
-
-
 void
 Rod::columnize ()
 {
   if (!item_drul_[LEFT]
       || !item_drul_[RIGHT])
-    return ;
-  
+    return;
+
   Direction d = LEFT;
-  do {
-    Paper_column * pc = item_drul_[d]->get_column ();
-    distance_ += - d * item_drul_[d]->relative_coordinate (pc, X_AXIS);
-    item_drul_[d] = pc;
-  } while ((flip (&d))!= LEFT);
+  do
+    {
+      Paper_column *pc = item_drul_[d]->get_column ();
+      distance_ += -d * item_drul_[d]->relative_coordinate (pc, X_AXIS);
+      item_drul_[d] = pc;
+    }
+  while ((flip (&d))!= LEFT);
 
 }
 

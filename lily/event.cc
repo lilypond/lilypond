@@ -9,11 +9,11 @@
 #include "event.hh"
 #include "warn.hh"
 
-MAKE_SCHEME_CALLBACK(Event, length_callback, 1);
+MAKE_SCHEME_CALLBACK (Event, length_callback, 1);
 SCM
 Event::length_callback (SCM m)
 {
-  Music* me = unsmob_music (m);
+  Music *me = unsmob_music (m);
   Duration *d = unsmob_duration (me->get_property ("duration"));
 
   Moment mom;
@@ -21,9 +21,9 @@ Event::length_callback (SCM m)
     {
       mom = d->get_length ();
     }
-  return mom.smobbed_copy();
+  return mom.smobbed_copy ();
 }
-  
+
 Event::Event (SCM i)
   : Music (i)
 {
@@ -34,6 +34,4 @@ Event::Event (SCM i)
 }
 
 ADD_MUSIC (Event);
-
-
 

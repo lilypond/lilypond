@@ -38,7 +38,7 @@ void
 Property_unset_iterator::process (Moment m)
 {
   SCM sym = get_music ()->get_property ("symbol");
-  type_check_assignment (sym, SCM_EOL, ly_symbol2scm ("translation-type?"));  
+  type_check_assignment (sym, SCM_EOL, ly_symbol2scm ("translation-type?"));
   get_outlet ()->unset_property (sym);
 
   Simple_music_iterator::process (m);
@@ -46,10 +46,10 @@ Property_unset_iterator::process (Moment m)
 
 MAKE_SCHEME_CALLBACK (Property_iterator, once_finalization, 2);
 SCM
-Property_iterator::once_finalization (SCM translator, SCM music )
+Property_iterator::once_finalization (SCM translator, SCM music)
 {
-  Music * m = unsmob_music (music);
-  Context * tg
+  Music *m = unsmob_music (music);
+  Context *tg
     = dynamic_cast<Context *> (unsmob_context (translator));
   SCM sym = m->get_property ("symbol");
 
@@ -60,24 +60,23 @@ Property_iterator::once_finalization (SCM translator, SCM music )
 void
 Property_iterator::do_quit ()
 {
-  if (to_boolean (get_music ()->get_property  ("once")))
+  if (to_boolean (get_music ()->get_property ("once")))
     {
       SCM trans = get_outlet ()->self_scm ();
       SCM music = get_music ()->self_scm ();
 
-      Global_context * tg = get_outlet ()->get_global_context ();
+      Global_context *tg = get_outlet ()->get_global_context ();
       tg->add_finalization (scm_list_n (once_finalization_proc,
 					trans, music, SCM_UNDEFINED));
     }
 }
-
 
 SCM list_p = 0;
 
 /*
   This is a rather crude check: we merely check if the translator
   property is a list.
- */
+*/
 bool
 check_grob (Music *mus, SCM sym)
 {
@@ -85,16 +84,15 @@ check_grob (Music *mus, SCM sym)
     {
       list_p = scm_c_eval_string ("list?");
     }
-  
-  
+
   SCM type = scm_object_property (sym, ly_symbol2scm ("translation-type?"));
   bool ok = type == list_p;
 
   if (!ok)
     {
-      mus->origin ()->warning (_f ("Not a grob name, `%s'." , ly_symbol2string (sym)));
+      mus->origin ()->warning (_f ("Not a grob name, `%s'.", ly_symbol2string (sym)));
     }
-  return  ok;
+  return ok;
 }
 
 void
@@ -119,14 +117,14 @@ MAKE_SCHEME_CALLBACK (Push_property_iterator, once_finalization, 2);
 SCM
 Push_property_iterator::once_finalization (SCM trans, SCM music)
 {
-  Music * mus = unsmob_music (music);
-  Context * tg = dynamic_cast<Context *> (unsmob_context (trans));
-    
+  Music *mus = unsmob_music (music);
+  Context *tg = dynamic_cast<Context *> (unsmob_context (trans));
+
   SCM sym = mus->get_property ("symbol");
   if (check_grob (mus, sym))
     {
       SCM eprop = mus->get_property ("grob-property");
-  
+
       execute_pushpop_property (tg, sym, eprop, SCM_UNDEFINED);
     }
   return SCM_UNSPECIFIED;
@@ -135,12 +133,12 @@ Push_property_iterator::once_finalization (SCM trans, SCM music)
 void
 Push_property_iterator::do_quit ()
 {
-  if (to_boolean (get_music ()->get_property  ("once")))
+  if (to_boolean (get_music ()->get_property ("once")))
     {
       SCM trans = get_outlet ()->self_scm ();
       SCM music = get_music ()->self_scm ();
 
-      Global_context * tg =  get_outlet ()->get_global_context ();
+      Global_context *tg = get_outlet ()->get_global_context ();
       tg->add_finalization (scm_list_n (once_finalization_proc,
 					trans, music, SCM_UNDEFINED));
     }
@@ -150,16 +148,14 @@ void
 Pop_property_iterator::process (Moment m)
 {
   SCM sym = get_music ()->get_property ("symbol");
-  
+
   if (check_grob (get_music (), sym))
     {
       SCM eprop = get_music ()->get_property ("grob-property");
-execute_pushpop_property (get_outlet (), sym, eprop, SCM_UNDEFINED);
+      execute_pushpop_property (get_outlet (), sym, eprop, SCM_UNDEFINED);
     }
   Simple_music_iterator::process (m);
 }
-
-
 
 IMPLEMENT_CTOR_CALLBACK (Pop_property_iterator);
 IMPLEMENT_CTOR_CALLBACK (Push_property_iterator);

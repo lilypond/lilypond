@@ -13,20 +13,19 @@
 struct Keyword_ent
 {
   char const *name_;
-  int     tokcode_;
+  int tokcode_;
 };
 
 /*
   junkme, use  hash table.
- */
+*/
 struct Keyword_table
 {
   Array<Keyword_ent> table_;
 
   Keyword_table (Keyword_ent *);
-  int     lookup (char const *s) const;
+  int lookup (char const *s) const;
 };
-
 
 #endif // KEYWORD_HH
 

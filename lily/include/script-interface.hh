@@ -1,5 +1,5 @@
-/*   
-  script-interface.hh -- 
+/*
+  script-interface.hh --
 
   source file of the GNU LilyPond music typesetter
 
@@ -22,7 +22,7 @@ class Script_interface
 public:
   static Stencil get_stencil (Grob *, Direction d);
   static bool has_interface (Grob *);
-  DECLARE_SCHEME_CALLBACK (print, (SCM ));
+  DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
 };
 

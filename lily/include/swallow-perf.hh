@@ -6,7 +6,6 @@
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #ifndef SWALLOW_PERF_HH
 #define SWALLOW_PERF_HH
 
@@ -16,9 +15,9 @@ class Swallow_performer : public Performer
 {
 public:
   VIRTUAL_COPY_CONS (Translator);
-  
+
 protected:
-  virtual bool try_music (Music*) { return true; }
+  virtual bool try_music (Music *) { return true; }
 };
 
 #endif // SWALLOW_PERF_HH

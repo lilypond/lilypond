@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2004--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #include "object-key-dumper.hh"
@@ -14,15 +13,15 @@
 #include "ly-smobs.icc"
 
 SCM
-Object_key_dumper::mark_smob (SCM smob )
+Object_key_dumper::mark_smob (SCM smob)
 {
-  Object_key_dumper * dumper = (Object_key_dumper*) SCM_CELL_WORD_1 (smob);
-  
+  Object_key_dumper *dumper = (Object_key_dumper *) SCM_CELL_WORD_1 (smob);
+
   for (Key_to_key_map::const_iterator i (dumper->serialized_keys_.begin ());
-       i != dumper->serialized_keys_.end();
+       i != dumper->serialized_keys_.end ();
        i++)
     {
-      scm_gc_mark ((*i).first->self_scm());
+      scm_gc_mark ((*i).first->self_scm ());
     }
   return SCM_EOL;
 }
@@ -34,8 +33,8 @@ Object_key_dumper::print_smob (SCM, SCM port, scm_print_state*)
   return 1;
 }
 
-IMPLEMENT_DEFAULT_EQUAL_P(Object_key_dumper);
-IMPLEMENT_SMOBS(Object_key_dumper);
+IMPLEMENT_DEFAULT_EQUAL_P (Object_key_dumper);
+IMPLEMENT_SMOBS (Object_key_dumper);
 
 Object_key_dumper::Object_key_dumper ()
 {
@@ -54,10 +53,10 @@ Object_key_dumper::key_serial (int k)
 SCM
 Object_key_dumper::serialize_key (Object_key const *key)
 {
-  SCM skey = key->dump();
-  for (SCM s = skey ; scm_is_pair (s) ; s = scm_cdr (s))
+  SCM skey = key->dump ();
+  for (SCM s = skey; scm_is_pair (s); s = scm_cdr (s))
     {
-      if (Object_key const * sub_key = unsmob_key (scm_car (s)))
+      if (Object_key const *sub_key = unsmob_key (scm_car (s)))
 	{
 	  scm_set_car_x (s, dump_key (sub_key));
 	}
@@ -65,11 +64,11 @@ Object_key_dumper::serialize_key (Object_key const *key)
 	{
 	  scm_set_car_x (s,
 			 scm_list_2 (ly_symbol2scm ("unquote"),
-				     mom->as_scheme()));
+				     mom->as_scheme ()));
 	}
     }
 
-  file_contents_ = scm_cons (scm_list_3 (ly_symbol2scm("define-key"),
+  file_contents_ = scm_cons (scm_list_3 (ly_symbol2scm ("define-key"),
 					 scm_from_int (next_available_),
 					 skey),
 			     file_contents_);
@@ -77,7 +76,7 @@ Object_key_dumper::serialize_key (Object_key const *key)
   serialized_keys_[key] = key;
   key_serial_numbers_[key] = next_available_;
   SCM retval = key_serial (next_available_);
-  next_available_ ++;
+  next_available_++;
 
   return retval;
 }
@@ -93,7 +92,7 @@ Object_key_dumper::dump_key (Object_key const *key)
     {
       return key_serial (key_serial_numbers_[ serialized_keys_ [serialized] ]);
     }
-  
+
   return serialize_key (key);
 }
 
@@ -103,6 +102,6 @@ Object_key_dumper::get_file_contents () const
   return scm_reverse (file_contents_);
 }
 
-Object_key_dumper::~Object_key_dumper()
+Object_key_dumper::~Object_key_dumper ()
 {
 }

@@ -17,8 +17,8 @@
 int
 Staff_symbol_referencer::line_count (Grob *me)
 {
- Grob *st = get_staff_symbol (me);
- return st ? Staff_symbol::line_count (st) : 0;
+  Grob *st = get_staff_symbol (me);
+  return st ? Staff_symbol::line_count (st) : 0;
 }
 
 bool
@@ -30,7 +30,7 @@ Staff_symbol_referencer::on_staffline (Grob *me)
 /*
   This does not take size into account.
   maybe rename: on_virtual_staffline, on_staff_or_ledger_line?
- */
+*/
 bool
 Staff_symbol_referencer::on_staffline (Grob *me, int pos)
 {
@@ -38,12 +38,12 @@ Staff_symbol_referencer::on_staffline (Grob *me, int pos)
   return ((pos + sz) % 2) == 0;
 }
 
-Grob*
+Grob *
 Staff_symbol_referencer::get_staff_symbol (Grob *me)
 {
   if (Staff_symbol::has_interface (me))
     return me;
-  
+
   SCM st = me->get_property ("staff-symbol");
   return unsmob_grob (st);
 }
@@ -88,7 +88,7 @@ Staff_symbol_referencer::get_position (Grob *me)
 }
 
 int
-Staff_symbol_referencer::get_rounded_position (Grob*me)
+Staff_symbol_referencer::get_rounded_position (Grob *me)
 {
   return int (rint (get_position (me)));
 }
@@ -107,7 +107,6 @@ LY_DEFINE (ly_grob_staff_position, "ly:grob-staff-position",
   else
     return scm_make_real (pos);
 }
-
 
 /* should use offset callback!  */
 MAKE_SCHEME_CALLBACK (Staff_symbol_referencer, callback, 2);
@@ -165,15 +164,14 @@ Staff_symbol_referencer::staff_radius (Grob *me)
 int
 compare_position (Grob *const &a, Grob *const &b)
 {
-  return sign (Staff_symbol_referencer::get_position ((Grob*)a)
-	       - Staff_symbol_referencer::get_position ((Grob*) b));
+  return sign (Staff_symbol_referencer::get_position ((Grob *)a)
+	       - Staff_symbol_referencer::get_position ((Grob *) b));
 }
 
 ADD_INTERFACE (Staff_symbol_referencer, "staff-symbol-referencer-interface",
 	       "An object whose Y position is meant relative to a staff "
 	       "symbol. "
 	       "These usually have @code{Staff_symbol_referencer::callback} "
-	       "in their @code{Y-offset-callbacks}. "
-	       ,
+	       "in their @code{Y-offset-callbacks}. ",
 	       "staff-position");
 

@@ -1,4 +1,4 @@
-/*   
+/*
   gregorian-ligature.cc -- implement Gregorian_ligature
 
   source file of the GNU LilyPond music typesetter
@@ -25,8 +25,8 @@ String
 Gregorian_ligature::prefixes_to_str (Grob *primitive)
 {
   String str;
-  int prefix_set =
-    scm_to_int (primitive->get_property ("prefix-set"));
+  int prefix_set
+    = scm_to_int (primitive->get_property ("prefix-set"));
   check_prefix ("virga", VIRGA, prefix_set, &str);
   check_prefix ("stropha", STROPHA, prefix_set, &str);
   check_prefix ("inclinatum", INCLINATUM, prefix_set, &str);
@@ -48,7 +48,7 @@ Gregorian_ligature::prefixes_to_str (Grob *primitive)
   by code of GregorianLigatureEngraver that is virtually invoked by a
   subclass like VaticanaLigatureEngraver.  The property is lateron
   read by the associated item class, such as VaticanaLigature.--jr
- */
+*/
 ADD_INTERFACE (Gregorian_ligature, "gregorian-ligature-interface",
 	       "A gregorian ligature",
 	       "virga stropha inclinatum auctum descendens ascendens "

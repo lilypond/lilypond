@@ -2,7 +2,7 @@
   performance.hh -- declare Performance
 
   (c) 1997--2005 Jan Nieuwenhuizen <janneke@gnu.org>
- */
+*/
 
 #ifndef PERFORMANCE_HH
 #define PERFORMANCE_HH
@@ -18,10 +18,10 @@ public:
   Performance ();
   ~Performance ();
 
-  void add_element (Audio_element*p);
-    
-  void output (Midi_stream& midi_stream_r);
-  void output_header_track (Midi_stream& midi_stream_r);
+  void add_element (Audio_element *p);
+
+  void output (Midi_stream &midi_stream_r);
+  void output_header_track (Midi_stream &midi_stream_r);
 
   void print () const;
   SCM process (String);

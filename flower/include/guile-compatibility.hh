@@ -1,10 +1,9 @@
-/* 
+/*
   guile-compatibility.hh -- declare compat functions for GUILE 1.6
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2004--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-  
 */
 
 #ifndef GUILE_COMPATIBILITY_HH
@@ -22,7 +21,7 @@ inline SCM scm_cdr (SCM x)
 inline SCM scm_car (SCM x)
 {
   if (SCM_NCONSP (x))
-    abort ();    
+    abort ();
   return SCM_CAR (x);
 }
 inline SCM scm_caar (SCM x) { return SCM_CAAR (x); }
@@ -37,7 +36,7 @@ inline SCM scm_cadar (SCM x) { return SCM_CADAR (x); }
 #define scm_gc_register_collectable_memory(a, b, c) scm_done_malloc (b)
 #define scm_is_vector(x) (SCM_VECTORP ((SCM) x))
 #define SCM_HASHTABLE_P(x) (SCM_VECTORP ((SCM) x))
-#define SCM_VECTOR_REF(v, i) (SCM_VELTS ((v))[(i)])
+#define SCM_VECTOR_REF(v, i) (SCM_VELTS ((v))[ (i)])
 #define scm_from_bool(x) (x ? SCM_BOOL_T : SCM_BOOL_F)
 #define scm_from_int(x) SCM_MAKINUM (x)
 #define scm_from_unsigned_integer(x) scm_uint2num (x)
@@ -54,7 +53,7 @@ inline int ly_scm2int (SCM x) { return scm_num2int (x, 0, "ly_scm2int"); }
 inline int ly_c_symbol_p (SCM x) { return SCM_SYMBOLP (x); }
 #define scm_is_symbol(x) ly_c_symbol_p (x)
 inline int ly_c_boolean_p (SCM x) { return SCM_BOOLP (x); }
-#define scm_is_bool(x) ly_c_boolean_p(x)
+#define scm_is_bool(x) ly_c_boolean_p (x)
 inline int ly_c_eq_p (SCM x, SCM y) { return SCM_EQ_P (x, y); }
 #define scm_is_eq(x, y) (SCM_EQ_P ((x), (y)))
 
@@ -62,7 +61,7 @@ inline int ly_c_eq_p (SCM x, SCM y) { return SCM_EQ_P (x, y); }
 #define scm_is_pair(x) (SCM_CONSP (x))
 
 #define scm_c_vector_length(x) SCM_VECTOR_LENGTH (x)
-#define scm_c_vector_ref(x, y) SCM_VECTOR_REF(x, y)
+#define scm_c_vector_ref(x, y) SCM_VECTOR_REF (x, y)
 
 inline double ly_scm2double (SCM x) { return scm_num2dbl (x, "ly_scm2double"); }
 #define scm_to_double(x) (ly_scm2double (x))

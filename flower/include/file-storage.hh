@@ -6,21 +6,19 @@
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #ifndef FILE_STORAGE_HH
 #define FILE_STORAGE_HH
 
 #include "flower-proto.hh"
 
-
 /**
-  store a file in-memory.
- */
+   store a file in-memory.
+*/
 class File_storage
 {
 public:
-  virtual char const* to_str0 () const=0;
-  virtual int length () const=0;
+  virtual char const *to_str0 () const = 0;
+  virtual int length () const = 0;
   virtual ~File_storage (){}
 };
 

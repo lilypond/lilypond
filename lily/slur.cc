@@ -68,11 +68,11 @@ Slur::print (SCM smob)
   /*
     TODO: replace dashed with generic property.
   */
-  SCM p =  me->get_property ("dash-period");
-  SCM f =  me->get_property ("dash-fraction");
+  SCM p = me->get_property ("dash-period");
+  SCM f = me->get_property ("dash-fraction");
   if (scm_is_number (p) && scm_is_number (f))
-    a = Lookup::dashed_slur (one, thick, robust_scm2double (p, 1.0), 
-            robust_scm2double(f,0));
+    a = Lookup::dashed_slur (one, thick, robust_scm2double (p, 1.0),
+			     robust_scm2double (f, 0));
   else
     a = Lookup::slur (one, get_grob_direction (me) * base_thick * ss / 10.0,
 		      thick);
@@ -97,9 +97,8 @@ Slur::print (SCM smob)
   return a.smobbed_copy ();
 }
 
-
 Bezier
-Slur::get_curve (Grob*me)
+Slur::get_curve (Grob *me)
 {
   Bezier b;
   int i = 0;
@@ -111,20 +110,17 @@ Slur::get_curve (Grob*me)
 }
 
 void
-Slur::add_column (Grob*me, Grob*n)
+Slur::add_column (Grob *me, Grob *n)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("note-columns"), n);
-  add_bound_item (dynamic_cast<Spanner*> (me), dynamic_cast<Item*> (n));
+  add_bound_item (dynamic_cast<Spanner *> (me), dynamic_cast<Item *> (n));
 }
 
-
 void
-Slur::add_extra_encompass (Grob*me, Grob*n)
+Slur::add_extra_encompass (Grob *me, Grob *n)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("encompass-objects"), n);
 }
-
-
 
 MAKE_SCHEME_CALLBACK (Slur, outside_slur_callback, 2);
 SCM
@@ -138,7 +134,7 @@ Slur::outside_slur_callback (SCM grob, SCM axis)
 
   if (!slur)
     return scm_from_int (0);
-  
+
   Grob *cx = script->common_refpoint (slur, X_AXIS);
   Grob *cy = script->common_refpoint (slur, Y_AXIS);
 
@@ -150,12 +146,11 @@ Slur::outside_slur_callback (SCM grob, SCM axis)
   Interval yext = robust_relative_extent (script, cy, Y_AXIS);
   Interval xext = robust_relative_extent (script, cx, X_AXIS);
 
-
   Real slur_padding = robust_scm2double (script->get_property ("slur-padding"),
 					 0.0);	// todo: slur property, script property?
   yext.widen (slur_padding);
   Real EPS = 1e-3;
-  
+
   Interval bezext (curve.control_[0][X_AXIS],
 		   curve.control_[3][X_AXIS]);
 
@@ -172,13 +167,13 @@ Slur::outside_slur_callback (SCM grob, SCM axis)
       if (consider[k])
 	{
 	  ys[k]
-	    = (fabs(bezext[LEFT] - x) < EPS)
+	    = (fabs (bezext[LEFT] - x) < EPS)
 	    ? curve.control_[0][Y_AXIS]
-	    : ((fabs(bezext[RIGHT] - x) < EPS)
+	    : ((fabs (bezext[RIGHT] - x) < EPS)
 	       ? curve.control_[3][Y_AXIS]
 	       : curve.get_other_coordinate (X_AXIS, x));
 	  consider[k] = true;
-	  
+
 	  if (yext.contains (ys[k]))
 	    do_shift = true;
 	}
@@ -195,18 +190,18 @@ Slur::outside_slur_callback (SCM grob, SCM axis)
 	  k++;
 	}
     }
-  
+
   return scm_make_real (offset);
 }
 
 static Direction
-get_default_dir (Grob*me)
+get_default_dir (Grob *me)
 {
   Link_array<Grob> encompasses
     = extract_grob_array (me, ly_symbol2scm ("note-columns"));
 
   Direction d = DOWN;
-  for (int i = 0; i < encompasses.size (); i ++)
+  for (int i = 0; i < encompasses.size (); i++)
     {
       if (Note_column::dir (encompasses[i]) < 0)
 	{
@@ -217,12 +212,11 @@ get_default_dir (Grob*me)
   return d;
 }
 
-
 MAKE_SCHEME_CALLBACK (Slur, after_line_breaking, 1);
 SCM
 Slur::after_line_breaking (SCM smob)
 {
-  Spanner *me = dynamic_cast<Spanner*> (unsmob_grob (smob));
+  Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (smob));
   if (!scm_ilength (me->get_property ("note-columns")))
     {
       me->suicide ();
@@ -241,5 +235,4 @@ Slur::after_line_breaking (SCM smob)
 ADD_INTERFACE (Slur, "slur-interface",
 	       "A slur",
 	       "positions quant-score excentricity encompass-objects control-points dash-period dash-fraction slur-details direction height-limit note-columns ratio thickness");
-
 

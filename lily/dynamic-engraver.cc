@@ -31,12 +31,11 @@
 
   - TODO: the line-spanner is not killed after the (de)crescs are
   finished.
-
 */
 
 /**
    print text & hairpin dynamics.
- */
+*/
 class Dynamic_engraver : public Engraver
 {
   Item *script_;
@@ -48,25 +47,23 @@ class Dynamic_engraver : public Engraver
 
   Music *script_ev_;
   Music *current_cresc_ev_;
-  
-  Drul_array<Music*> accepted_spanreqs_drul_;
+
+  Drul_array<Music *> accepted_spanreqs_drul_;
 
   Link_array<Note_column> pending_columns_;
   Link_array<Grob> pending_elements_;
-  
+
   void typeset_all ();
 
   TRANSLATOR_DECLARATIONS (Dynamic_engraver);
-  
+
 protected:
   virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music *req);
   virtual void stop_translation_timestep ();
-  virtual void process_music ();  
+  virtual void process_music ();
 };
-
-
 
 
 Dynamic_engraver::Dynamic_engraver ()
@@ -114,14 +111,14 @@ Dynamic_engraver::process_music ()
     {
       if (!line_spanner_)
 	{
-	  Music * rq = accepted_spanreqs_drul_[START];
-	  line_spanner_ = make_spanner ("DynamicLineSpanner", rq ? rq->self_scm (): SCM_EOL );
+	  Music *rq = accepted_spanreqs_drul_[START];
+	  line_spanner_ = make_spanner ("DynamicLineSpanner", rq ? rq->self_scm (): SCM_EOL);
 
 	  if (script_ev_)
-	    rq =  script_ev_;
+	    rq = script_ev_;
 	}
     }
-  
+
   /*
     During a (de)crescendo, pending event will not be cleared,
     and a line-spanner will always be created, as \< \! are already
@@ -130,7 +127,6 @@ Dynamic_engraver::process_music ()
     Note: line-spanner must always have at least same duration
     as (de)crecsendo, b.o. line-breaking.
   */
-  
 
   /*
     maybe we should leave dynamic texts to the text-engraver and
@@ -142,7 +138,6 @@ Dynamic_engraver::process_music ()
       script_->set_property ("text",
 			     script_ev_->get_property ("text"));
 
-      
       if (Direction d = to_dir (script_ev_->get_property ("direction")))
 	set_grob_direction (line_spanner_, d);
 
@@ -157,18 +152,16 @@ Dynamic_engraver::process_music ()
       /*
 	finish side position alignment if the (de)cresc ends here, and
 	there are no new dynamics.
-       */
-
+      */
 
       if (cresc_)
 	{
 	  assert (!finished_cresc_ && cresc_);
 
 	  cresc_->set_bound (RIGHT, script_
-			       ? script_
-			       : unsmob_grob (get_property ("currentMusicalColumn")));
+			     ? script_
+			     : unsmob_grob (get_property ("currentMusicalColumn")));
 	  add_bound_item (line_spanner_, cresc_->get_bound (RIGHT));
-	  
 
 	  finished_cresc_ = cresc_;
 	  cresc_ = 0;
@@ -179,9 +172,9 @@ Dynamic_engraver::process_music ()
 	  accepted_spanreqs_drul_[STOP]->origin ()->warning (_ ("can't find start of (de)crescendo"));
 	  stop_ev = 0;
 	}
-      
+
     }
-  
+
   if (accepted_spanreqs_drul_[START])
     {
       if (current_cresc_ev_)
@@ -191,7 +184,7 @@ Dynamic_engraver::process_music ()
 	    msg = _ ("already have a crescendo");
 
 	  accepted_spanreqs_drul_[START]->origin ()->warning (msg);
-	  current_cresc_ev_->origin ()->warning (_("Cresc started here"));
+	  current_cresc_ev_->origin ()->warning (_ ("Cresc started here"));
 	}
       else
 	{
@@ -204,8 +197,8 @@ Dynamic_engraver::process_music ()
 	    TODO: Use symbols.
 	  */
 
-	  String start_type = 
-	    ly_symbol2string (current_cresc_ev_->get_property ("name"));
+	  String start_type
+	    = ly_symbol2string (current_cresc_ev_->get_property ("name"));
 
 	  /*
 	    ugh. Use push/pop?
@@ -214,17 +207,17 @@ Dynamic_engraver::process_music ()
 	    start_type = "decrescendo";
 	  else if (start_type == "CrescendoEvent")
 	    start_type = "crescendo";
-	  
+
 	  SCM s = get_property ((start_type + "Spanner").to_str0 ());
 	  if (!scm_is_symbol (s) || s == ly_symbol2scm ("hairpin"))
 	    {
-	      cresc_  = make_spanner ("Hairpin", accepted_spanreqs_drul_[START]->self_scm ());
+	      cresc_ = make_spanner ("Hairpin", accepted_spanreqs_drul_[START]->self_scm ());
 	      if (finished_cresc_)
 		{
 		  Pointer_group_interface::add_grob (finished_cresc_,
 						     ly_symbol2scm ("adjacent-hairpins"),
 						     cresc_);
-		  
+
 		  Pointer_group_interface::add_grob (cresc_,
 						     ly_symbol2scm ("adjacent-hairpins"),
 						     finished_cresc_);
@@ -232,10 +225,9 @@ Dynamic_engraver::process_music ()
 	      cresc_->set_property ("grow-direction",
 				    scm_int2num ((start_type == "crescendo")
 						 ? BIGGER : SMALLER));
-	      
+
 	    }
 
-	  
 	  /*
 	    This is a convenient (and legacy) interface to TextSpanners
 	    for use in (de)crescendi.
@@ -243,7 +235,7 @@ Dynamic_engraver::process_music ()
 	  */
 	  else
 	    {
-	      cresc_  = make_spanner ("DynamicTextSpanner", accepted_spanreqs_drul_[START]->self_scm ());
+	      cresc_ = make_spanner ("DynamicTextSpanner", accepted_spanreqs_drul_[START]->self_scm ());
 	      cresc_->set_property ("style", s);
 	      context ()->set_property ((start_type
 					 + "Spanner").to_str0 (), SCM_EOL);
@@ -265,7 +257,7 @@ Dynamic_engraver::process_music ()
 	      cresc_->set_bound (LEFT, script_);
 	      add_bound_item (line_spanner_, cresc_->get_bound (LEFT));
 	    }
-	  
+
 	  Axis_group_interface::add_element (line_spanner_, cresc_);
 	}
     }
@@ -287,7 +279,7 @@ Dynamic_engraver::stop_translation_timestep ()
       cresc_->set_bound (LEFT, unsmob_grob (get_property ("currentMusicalColumn")));
       add_bound_item (line_spanner_, cresc_->get_bound (LEFT));
     }
-  
+
   script_ev_ = 0;
   accepted_spanreqs_drul_[START] = 0;
   accepted_spanreqs_drul_[STOP] = 0;
@@ -297,7 +289,7 @@ void
 Dynamic_engraver::finalize ()
 {
   typeset_all ();
-  
+
   if (line_spanner_
       && !line_spanner_->is_live ())
     line_spanner_ = 0;
@@ -328,21 +320,21 @@ Dynamic_engraver::typeset_all ()
 	  finished_cresc_->set_bound (RIGHT, script_
 				      ? script_
 				      : unsmob_grob (get_property ("currentMusicalColumn")));
-	  
+
 	  if (finished_line_spanner_)
 	    add_bound_item (finished_line_spanner_,
 			    finished_cresc_->get_bound (RIGHT));
 	}
       finished_cresc_ = 0;
     }
-  
+
   script_ = 0;
   if (finished_line_spanner_)
     {
       /*
 	We used to have
-	
-	     extend-spanner-over-elements (finished_line_spanner_);
+
+	extend-spanner-over-elements (finished_line_spanner_);
 
 	but this is rather kludgy, since finished_line_spanner_
 	typically has a staff-symbol field set , extending it over the
@@ -350,8 +342,8 @@ Dynamic_engraver::typeset_all ()
 
       */
 
-      Grob * l = finished_line_spanner_->get_bound (LEFT);
-      Grob * r = finished_line_spanner_->get_bound (RIGHT);      
+      Grob *l = finished_line_spanner_->get_bound (LEFT);
+      Grob *r = finished_line_spanner_->get_bound (RIGHT);
       if (!r && l)
 	finished_line_spanner_->set_bound (RIGHT, l);
       else if (!l && r)
@@ -361,13 +353,13 @@ Dynamic_engraver::typeset_all ()
 	  /*
 	    This is a isolated dynamic apparently, and does not even have
 	    any interesting support item.
-	   */
-	  Grob * cc = unsmob_grob (get_property ("currentMusicalColumn"));
-	  Item * ci = dynamic_cast<Item*>(cc);
+	  */
+	  Grob *cc = unsmob_grob (get_property ("currentMusicalColumn"));
+	  Item *ci = dynamic_cast<Item *> (cc);
 	  finished_line_spanner_->set_bound (RIGHT, ci);
-	  finished_line_spanner_->set_bound (LEFT, ci);	  
+	  finished_line_spanner_->set_bound (LEFT, ci);
 	}
-	
+
       finished_line_spanner_ = 0;
     }
 }
@@ -385,24 +377,22 @@ Dynamic_engraver::acknowledge_grob (Grob_info info)
 	  && line_spanner_->is_live ())
 	{
 	  Side_position_interface::add_support (line_spanner_, info.grob_);
-	  add_bound_item (line_spanner_, dynamic_cast<Item*> (info.grob_));
+	  add_bound_item (line_spanner_, dynamic_cast<Item *> (info.grob_));
 	}
 
       if (script_ && !script_->get_parent (X_AXIS))
 	{
 	  SCM head = scm_last_pair (info.grob_->get_property ("note-heads"));
 	  if (scm_is_pair (head))
-	    script_->set_parent (unsmob_grob (scm_car (head)),  X_AXIS);
+	    script_->set_parent (unsmob_grob (scm_car (head)), X_AXIS);
 	}
-
-
 
       if (cresc_ && !cresc_->get_bound (LEFT))
 	{
 	  cresc_->set_bound (LEFT, info.grob_);
 	  add_bound_item (line_spanner_, cresc_->get_bound (LEFT));
 	}
-        
+
     }
   else if (Script_interface::has_interface (info.grob_) && script_)
     {
@@ -412,7 +402,7 @@ Dynamic_engraver::acknowledge_grob (Grob_info info)
 	UGH.
 
 	DynamicText doesn't really have a script-priority field.
-       */
+      */
       if (scm_is_number (p)
 	  && scm_to_int (p)
 	  < scm_to_int (script_->get_property ("script-priority")))
@@ -421,14 +411,13 @@ Dynamic_engraver::acknowledge_grob (Grob_info info)
 }
 
 ADD_TRANSLATOR (Dynamic_engraver,
-/* descr */       
-"This engraver creates hairpins, dynamic texts, and their vertical\n"
-"alignments.  The symbols are collected onto a DynamicLineSpanner grob\n"
-"which takes care of vertical positioning.  "
-,
-		  
-/* creats*/       "DynamicLineSpanner DynamicText Hairpin TextSpanner",
-/* accepts */     "absolute-dynamic-event crescendo-event decrescendo-event",
-/* acks  */      "note-column-interface script-interface",
-/* reads */       "",
-/* write */       "");
+		/* descr */
+		"This engraver creates hairpins, dynamic texts, and their vertical\n"
+		"alignments.  The symbols are collected onto a DynamicLineSpanner grob\n"
+		"which takes care of vertical positioning.  ",
+
+		/* creats*/ "DynamicLineSpanner DynamicText Hairpin TextSpanner",
+		/* accepts */ "absolute-dynamic-event crescendo-event decrescendo-event",
+		/* acks  */ "note-column-interface script-interface",
+		/* reads */ "",
+		/* write */ "");

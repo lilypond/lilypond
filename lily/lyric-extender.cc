@@ -18,27 +18,27 @@
 #include "group-interface.hh"
 
 MAKE_SCHEME_CALLBACK (Lyric_extender, print, 1)
-SCM 
-Lyric_extender::print (SCM smob) 
+  SCM
+Lyric_extender::print (SCM smob)
 {
   Spanner *me = unsmob_spanner (smob);
   Item *left_edge = me->get_bound (LEFT);
   Item *right_text = unsmob_item (me->get_property ("next"));
-  
+
   Grob *common = left_edge;
 
   if (right_text)
     common = common->common_refpoint (right_text, X_AXIS);
-  
+
   common = common->common_refpoint (me->get_bound (RIGHT), X_AXIS);
-  Real sl = me->get_layout ()->get_dimension (ly_symbol2scm ("linethickness"));  
+  Real sl = me->get_layout ()->get_dimension (ly_symbol2scm ("linethickness"));
   Link_array<Grob> heads (extract_grob_array (me, ly_symbol2scm ("heads")));
 
   if (!heads.size ())
     return SCM_EOL;
 
   common = common_refpoint_of_array (heads, common, X_AXIS);
-  
+
   Real left_point = 0.0;
   if (left_edge->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
     left_point = left_edge->extent (common, X_AXIS)[RIGHT];
@@ -54,7 +54,7 @@ Lyric_extender::print (SCM smob)
      note head, but haven't found a pattern in it yet. --hwn 1/1/04  */
   SCM minlen = me->get_property ("minimum-length");
   Real right_point
-    = left_point + (robust_scm2double  (minlen, 0));
+    = left_point + (robust_scm2double (minlen, 0));
 
   if (heads.size ())
     right_point = right_point >? heads.top ()->extent (common, X_AXIS)[RIGHT];
@@ -68,21 +68,20 @@ Lyric_extender::print (SCM smob)
   /* run to end of line. */
   if (me->get_bound (RIGHT)->break_status_dir ())
     right_point = right_point >? (robust_relative_extent (me->get_bound (RIGHT), common, X_AXIS)[LEFT] - pad);
-  
+
   left_point += pad;
   Real w = right_point - left_point;
 
   if (w < 1.5 * h)
     return SCM_EOL;
-  
-  Stencil  mol (Lookup::round_filled_box (Box (Interval (0, w),
-					       Interval (0, h)),
-					  0.8 * h));
+
+  Stencil mol (Lookup::round_filled_box (Box (Interval (0, w),
+					      Interval (0, h)),
+					 0.8 * h));
   mol.translate_axis (left_point - me->relative_coordinate (common, X_AXIS),
 		      X_AXIS);
   return mol.smobbed_copy ();
 }
-
 
 ADD_INTERFACE (Lyric_extender, "lyric-extender-interface",
 	       "The extender is a simple line at the baseline of the lyric "

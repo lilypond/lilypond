@@ -4,7 +4,6 @@
   Distributed under GNU GPL
 */
 
-
 #if 0
 #include "array.hh"
 #ifdef INLINE
@@ -15,65 +14,65 @@
 #endif
 
 /*
- functions with loops don't inline
- */
+  functions with loops don't inline
+*/
 
-template<class T> INLINE void 
-arrcpy (T*dest, T const* src, int count)
+template<class T> INLINE void
+arrcpy (T *dest, T const *src, int count)
 {
-  for (int i_shadows_local=0; i_shadows_local < count ; i_shadows_local++)
+  for (int i_shadows_local = 0; i_shadows_local < count; i_shadows_local++)
 #ifdef __powerpc__
     {
       /*
 	urg: wierd egcs-1.1.2-12c (stock LinuxPPC R5) bug on ppc
 	bug report filed
 	fixed in egcs-1.1.2-12f
-	ftp://dev.linuxppc.org/users/fsirl/R5/RPMS/ppc/ 
+	ftp://dev.linuxppc.org/users/fsirl/R5/RPMS/ppc/
       */
       *dest = *src;
       dest++, src++;
     }
 #else
-    *dest++ = *src++;
+  *dest++ = *src++;
 #endif
 }
 
 template<class T> INLINE void
-Array<T>::insert (T k, int j) 
+Array<T>::insert (T k, int j)
 {
   assert (j >=0 && j<= size_);
-  set_size (size_+1);
-  for (int i=size_-1; i > j; i--)
-    array_[i] = array_[i-1];
+  set_size (size_ + 1);
+  for (int i = size_ - 1; i > j; i--)
+    array_[i] = array_[i - 1];
   array_[j] = k;
 }
 
 template<class T> INLINE void
-Array<T>::sort (int (*compare) (T const&,T const&), int lower, int upper)
+Array<T>::sort (int (*compare) (T const &, T const &), int lower, int upper)
 {
-  if (lower < 0) 
+  if (lower < 0)
     {
-      lower = 0 ;
+      lower = 0;
       upper = size () - 1;
     }
   if (lower >= upper)
     return;
-  swap (lower, (lower+upper)/2);
+  swap (lower, (lower + upper) / 2);
   int last = lower;
   for (int i= lower +1; i <= upper; i++)
     if (compare (array_[i], array_[lower]) < 0)
-      swap (++last,i);
+      swap (++last, i);
   swap (lower, last);
-  sort (compare, lower, last-1);
-  sort (compare, last+1, upper);
+  sort (compare, lower, last - 1);
+  sort (compare, last + 1, upper);
 }
 
 template<class T> INLINE void
-Array<T>::reverse () 
+Array<T>::reverse ()
 {
-  int h = size_/2;
-  for (int i =0,j = size_-1; i < h; i++,j--)
-    swap (i,j);
+  int h = size_ / 2;
+  for (int i =0, j = size_ - 1; i < h; i++, j--)
+    swap (i, j);
 }
 
 template<class T> INLINE
@@ -88,7 +87,7 @@ template<class T> INLINE
 T *
 Array<T>::remove_array ()
 {
-  T * p = array_;
+  T *p = array_;
   size_ = 0;
   max_ = 0;
   array_ =0;
@@ -101,17 +100,16 @@ Array<T>::slice (int lower, int upper) const
 {
   assert (lower >= 0 && lower <=upper&& upper <= size_);
   Array<T> r;
-  int s =upper-lower;
+  int s =upper - lower;
   r.set_size (s);
-  arrcpy (r.array_, array_  + lower, s);
+  arrcpy (r.array_, array_ + lower, s);
   return r;
 }
-
 
 template<class T>
 void
 binary_search_bounds (Array<T> const &table,
-		      T const &key, int (*compare) (T const&, T const &),
+		      T const &key, int (*compare) (T const &, T const &),
 		      int *lo,
 		      int *hi)
 {
@@ -120,19 +118,18 @@ binary_search_bounds (Array<T> const &table,
 
   /* binary search */
   do
-  {
+    {
       cmp = (*lo + *hi) / 2;
 
-      result = (*compare)  (key, table[cmp]);
+      result = (*compare) (key, table[cmp]);
 
       if (result < 0)
-          *hi = cmp;
+	*hi = cmp;
       else
-          *lo = cmp;
+	*lo = cmp;
     }
   while (*hi - *lo > 1);
 }
-
 
 /*
   lookup with binsearch, return array index.
@@ -140,10 +137,9 @@ binary_search_bounds (Array<T> const &table,
 template<class T>
 int
 binary_search (Array<T> const &table,
-	       T const &key, int (*compare) (T const&, T const &),
+	       T const &key, int (*compare) (T const &, T const &),
 	       int lo = 0,
-	       int hi = -1
-	       ) 
+	       int hi = -1)
 {
   if (hi < 0)
     hi = table.size ();

@@ -4,7 +4,7 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 1996--2005 Jan Nieuwenhuizen <janneke@gnu.org>
- */
+*/
 
 #include "performer.hh"
 #include "audio-item.hh"
@@ -14,14 +14,15 @@
 
 /*
   this is C&P from beam_performer.
- */
+*/
 
-class Slur_performer : public Performer {
+class Slur_performer : public Performer
+{
 public:
   TRANSLATOR_DECLARATIONS (Slur_performer);
-  
+
 protected:
-  virtual bool try_music (Music *ev) ;
+  virtual bool try_music (Music *ev);
   virtual void start_translation_timestep ();
   virtual void process_music ();
   void set_melisma (bool);
@@ -38,8 +39,7 @@ Slur_performer::Slur_performer ()
   now_stop_ev_ = 0;
 }
 
-
-void 
+void
 Slur_performer::process_music ()
 {
   if (now_stop_ev_)
@@ -55,7 +55,6 @@ Slur_performer::process_music ()
     }
 }
 
-
 void
 Slur_performer::set_melisma (bool ml)
 {
@@ -68,7 +67,7 @@ Slur_performer::start_translation_timestep ()
   start_ev_ = 0;
   now_stop_ev_ = 0;
 }
- 
+
 bool
 Slur_performer::try_music (Music *m)
 {
@@ -90,5 +89,5 @@ Slur_performer::try_music (Music *m)
 }
 
 ADD_TRANSLATOR (Slur_performer, "", "",
-		  "slur-event", "", "", "");
+		"slur-event", "", "", "");
 

@@ -18,20 +18,20 @@
 #include "stem.hh"
 
 /**
-  Make stems upon receiving noteheads.
- */
+   Make stems upon receiving noteheads.
+*/
 class Stem_engraver : public Engraver
 {
   Grob *stem_;
   Grob *tremolo_;
   Music *rhythmic_ev_;
   Music *tremolo_ev_;
-  
+
   TRANSLATOR_DECLARATIONS (Stem_engraver);
 
 protected:
   void make_stem (Grob_info);
-  
+
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
   virtual bool try_music (Music *);
@@ -55,7 +55,7 @@ Stem_engraver::make_stem (Grob_info gi)
   /*
     docme: why do we take duration-log from request, not from note
     head?
-   */
+  */
   int duration_log = gi.music_cause ()->duration_log ();
   stem_->set_property ("duration-log", scm_int2num (duration_log));
 
@@ -85,7 +85,7 @@ Stem_engraver::make_stem (Grob_info gi)
 	- (duration_log > 2 ? duration_log - 2 : 0);
       if (tremolo_flags <= 0)
 	{
-	  tremolo_ev_->origin ()->warning (_("tremolo duration is too long"));
+	  tremolo_ev_->origin ()->warning (_ ("tremolo duration is too long"));
 	  tremolo_flags = 0;
 	}
 
@@ -94,7 +94,7 @@ Stem_engraver::make_stem (Grob_info gi)
 	  tremolo_ = make_item ("StemTremolo", tremolo_ev_->self_scm ());
 
 	  /* The number of tremolo flags is the number of flags of the
-	    tremolo-type minus the number of flags of the note itself.  */
+	     tremolo-type minus the number of flags of the note itself.  */
 	  tremolo_->set_property ("flag-count", scm_int2num (tremolo_flags));
 	  tremolo_->set_parent (stem_, X_AXIS);
 	  stem_->set_property ("tremolo-flag", tremolo_->self_scm ());
@@ -111,19 +111,19 @@ Stem_engraver::acknowledge_grob (Grob_info gi)
       if (Rhythmic_head::get_stem (gi.grob_))
 	return;
 
-      Music * cause = gi.music_cause ();
+      Music *cause = gi.music_cause ();
       if (!cause)
-	return ;
-      
+	return;
+
       if (!stem_)
 	make_stem (gi);
-      
+
       int duration_log = cause->duration_log ();
       if (Stem::duration_log (stem_) != duration_log)
 	{
 	  // FIXME: 
 	  gi.music_cause ()->origin ()->warning (_f ("Adding note head to incompatible stem (type = %d)", 1 << Stem::duration_log (stem_)));
-	  
+
 	  gi.music_cause ()->origin ()->warning (_f ("Don't you want polyphonic voices instead?"));
 	}
 
@@ -167,10 +167,10 @@ Stem_engraver::try_music (Music *m)
 }
 
 ADD_TRANSLATOR (Stem_engraver,
-/* descr */       "Create stems and single-stem tremolos.  It also works together with "
-"the beam engraver for overriding beaming.",
-/* creats*/       "Stem StemTremolo",
-/* accepts */     "tremolo-event",
-/* acks  */      "rhythmic-head-interface",
-/* reads */       "tremoloFlags stemLeftBeamCount stemRightBeamCount",
-/* write */       "");
+		/* descr */ "Create stems and single-stem tremolos.  It also works together with "
+		"the beam engraver for overriding beaming.",
+		/* creats*/ "Stem StemTremolo",
+		/* accepts */ "tremolo-event",
+		/* acks  */ "rhythmic-head-interface",
+		/* reads */ "tremoloFlags stemLeftBeamCount stemRightBeamCount",
+		/* write */ "");

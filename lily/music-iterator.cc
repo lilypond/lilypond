@@ -8,7 +8,7 @@
 
 /*
   UGH. too many includes.
- */
+*/
 
 #include "music-iterator.hh"
 
@@ -28,7 +28,7 @@ Music_iterator::Music_iterator ()
   smobify_self ();
 }
 
-Music_iterator::Music_iterator (Music_iterator const& )
+Music_iterator::Music_iterator (Music_iterator const &)
 {
   assert (false);
 }
@@ -37,7 +37,7 @@ Music_iterator::~Music_iterator ()
 {
 }
 
-Context * 
+Context *
 Music_iterator::get_outlet () const
 {
   return handle_.get_outlet ();
@@ -71,14 +71,12 @@ Music_iterator::ok () const
   return false;
 }
 
-
-
 SCM
 Music_iterator::get_static_get_iterator (Music *m)
 {
-  Music_iterator * p = 0;
+  Music_iterator *p = 0;
 
-  SCM ctor = m->get_property ("iterator-ctor") ;
+  SCM ctor = m->get_property ("iterator-ctor");
   SCM iter = SCM_EOL;
   if (ly_c_procedure_p (ctor))
     {
@@ -100,10 +98,9 @@ Music_iterator::get_static_get_iterator (Music *m)
   assert (m);
   p->music_length_ = m->get_length ();
   p->start_mom_ = m->start_mom ();
-  
+
   return iter;
 }
-
 
 Moment
 Music_iterator::music_get_length () const
@@ -143,10 +140,10 @@ SCM
 Music_iterator::get_iterator (Music *m) const
 {
   SCM ip = get_static_get_iterator (m);
-  Music_iterator*p = unsmob_iterator (ip);
-  
+  Music_iterator *p = unsmob_iterator (ip);
+
   p->init_translator (m, get_outlet ());
-  
+
   p->construct_children ();
   return ip;
 }
@@ -154,19 +151,18 @@ Music_iterator::get_iterator (Music *m) const
 /*
   TODO: rename to prevent confusion between Context::try_music and
   Iterator::try_music
-  
- */
-Music_iterator*
+*/
+Music_iterator *
 Music_iterator::try_music (Music *m) const
 {
-  bool b = get_outlet ()->try_music ((Music*)m); // ugh
-  Music_iterator * it = b ? (Music_iterator*) this : 0;	// ugh
+  bool b = get_outlet ()->try_music ((Music *)m); // ugh
+  Music_iterator *it = b ? (Music_iterator *) this : 0;	// ugh
   if (!it)
     it = try_music_in_children (m);
   return it;
 }
 
-Music_iterator*
+Music_iterator *
 Music_iterator::try_music_in_children (Music *) const
 {
   return 0;
@@ -189,24 +185,23 @@ IMPLEMENT_DEFAULT_EQUAL_P (Music_iterator);
 SCM
 Music_iterator::mark_smob (SCM smob)
 {
-  Music_iterator * mus = (Music_iterator *)SCM_CELL_WORD_1 (smob);
+  Music_iterator *mus = (Music_iterator *)SCM_CELL_WORD_1 (smob);
 
   mus->derived_mark ();
   /*
     Careful with GC, although we intend the following as pointers
     only, we _must_ mark them.
-   */
+  */
   if (mus->get_outlet ())
     scm_gc_mark (mus->get_outlet ()->self_scm ());
   if (mus->music_)
     scm_gc_mark (mus->music_->self_scm ());
-  
 
   return SCM_EOL;
 }
 
 int
-Music_iterator::print_smob (SCM sm , SCM port, scm_print_state*)
+Music_iterator::print_smob (SCM sm, SCM port, scm_print_state*)
 {
   char s[1000];
 
@@ -239,7 +234,6 @@ Music_iterator::run_always ()const
   return false;
 }
 
-
 bool
 is_child_context (Context *me, Context *child)
 {
@@ -247,18 +241,18 @@ is_child_context (Context *me, Context *child)
     {
       child = child->get_parent_context ();
     }
-  
+
   return child == me;
 }
 
 /*
   move to context of child iterator if it is deeper down in the
   hierarchy.
-  */
+*/
 void
-Music_iterator::descend_to_child (Context * child_report)
+Music_iterator::descend_to_child (Context *child_report)
 {
-  Context * me_report = get_outlet ();
+  Context *me_report = get_outlet ();
   if (is_child_context (me_report, child_report))
     set_context (child_report);
 }

@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 1997--2005 Jan Nieuwenhuizen <janneke@gnu.org>
-
 */
 
 #include <math.h>
@@ -16,35 +15,35 @@
 #include "scm-hash.hh"
 
 int
-get_tempo (Output_def * def,
+get_tempo (Output_def *def,
 	   Moment one_beat_mom)
 {
-  SCM wis  = ly_symbol2scm ("whole-in-seconds");
+  SCM wis = ly_symbol2scm ("whole-in-seconds");
   Moment *w = unsmob_moment (def->lookup_variable (wis));
 
   Moment wholes_per_min = Moment (60);
   if (!w)
     {
-      programming_error  ("wholes-in-seconds not set.");
+      programming_error ("wholes-in-seconds not set.");
       wholes_per_min /= 4;
     }
   else
     {
-      wholes_per_min /= *w; 
+      wholes_per_min /= *w;
     }
-  
-  int beats_per_min =  int ((wholes_per_min / one_beat_mom).main_part_);
+
+  int beats_per_min = int ((wholes_per_min / one_beat_mom).main_part_);
   return int (beats_per_min);
 }
 
 void
-set_tempo (Output_def * def,
+set_tempo (Output_def *def,
 	   Moment one_beat_mom,
 	   int beats_per_minute_i)
 {
   Moment beats_per_second = Moment (beats_per_minute_i) / Moment (60);
 
-  Moment m = Moment (1)/Moment (beats_per_second * one_beat_mom);
+  Moment m = Moment (1) / Moment (beats_per_second * one_beat_mom);
   def->set_variable (ly_symbol2scm ("whole-in-seconds"), m.smobbed_copy ());
 }
 

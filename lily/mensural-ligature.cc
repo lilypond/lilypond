@@ -1,12 +1,11 @@
 /*
   mensural-ligature.cc -- implement Mensural_ligature
-  
-  source file of the GNU LilyPond music typesetter
-  
-  (c) 2002--2005 Juergen Reuter <reuter@ipd.uka.de>,
-		 Pal Benko <benkop@freestart.hu>
-*/
 
+  source file of the GNU LilyPond music typesetter
+
+  (c) 2002--2005 Juergen Reuter <reuter@ipd.uka.de>,
+  Pal Benko <benkop@freestart.hu>
+*/
 
 #include <math.h>
 
@@ -41,33 +40,33 @@ brew_flexa (Grob *me,
   // and right endings due to slope.
   Real ypos_correction = -0.1*staff_space * sign (slope);
   Real slope_correction = 0.2*staff_space * sign (slope);
-  Real corrected_slope = slope + slope_correction/width;
+  Real corrected_slope = slope + slope_correction / width;
 
   if (solid) // this will come handy for colorated flexae
     {
-      Stencil solid_head =
-	Lookup::beam (corrected_slope, width, height, 0.0);
+      Stencil solid_head
+	= Lookup::beam (corrected_slope, width, height, 0.0);
       stencil.add_stencil (solid_head);
     }
   else // outline
     {
-      Stencil left_edge =
-	Lookup::beam (corrected_slope, thickness, height, 0.0);
+      Stencil left_edge
+	= Lookup::beam (corrected_slope, thickness, height, 0.0);
       stencil.add_stencil (left_edge);
 
-      Stencil right_edge =
-	Lookup::beam (corrected_slope, thickness, height, 0.0);
-      right_edge.translate_axis (width-thickness, X_AXIS);
-      right_edge.translate_axis (corrected_slope * (width-thickness), Y_AXIS);
+      Stencil right_edge
+	= Lookup::beam (corrected_slope, thickness, height, 0.0);
+      right_edge.translate_axis (width - thickness, X_AXIS);
+      right_edge.translate_axis (corrected_slope * (width - thickness), Y_AXIS);
       stencil.add_stencil (right_edge);
 
-      Stencil bottom_edge =
-	Lookup::beam (corrected_slope, width, thickness, 0.0);
+      Stencil bottom_edge
+	= Lookup::beam (corrected_slope, width, thickness, 0.0);
       bottom_edge.translate_axis (-0.5*height, Y_AXIS);
       stencil.add_stencil (bottom_edge);
 
-      Stencil top_edge =
-	Lookup::beam (corrected_slope, width, thickness, 0.0);
+      Stencil top_edge
+	= Lookup::beam (corrected_slope, width, thickness, 0.0);
       top_edge.translate_axis (+0.5*height, Y_AXIS);
       stencil.add_stencil (top_edge);
     }
@@ -101,8 +100,8 @@ internal_brew_primitive (Grob *me)
     {
       delta_pitch = robust_scm2int (me->get_property ("delta-pitch"),
 				    0);
-      width =
-	robust_scm2double (me->get_property ("flexa-width"), 2.0 * staff_space);
+      width
+	= robust_scm2double (me->get_property ("flexa-width"), 2.0 * staff_space);
     }
   if (primitive & MLP_SINGLE_HEAD)
     {
@@ -134,8 +133,8 @@ internal_brew_primitive (Grob *me)
       return Stencil ();
     }
 
-  Real blotdiameter =
-    (me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter")));
+  Real blotdiameter
+    = (me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter")));
 
   if (primitive & MLP_STEM)
     {
@@ -190,7 +189,7 @@ internal_brew_primitive (Grob *me)
   if (primitive & MLP_FLEXA)
     {
       pos += delta_pitch;
-      add_ledger_lines(me, &out, pos, 0.5*delta_pitch, ledger_take_space);
+      add_ledger_lines (me, &out, pos, 0.5*delta_pitch, ledger_take_space);
     }
 #endif
 

@@ -34,12 +34,11 @@ Event_chord_iterator::construct_children ()
   get_req_translator ();
 }
 
-Event_chord*
+Event_chord *
 Event_chord_iterator::get_elt () const
 {
-  return (Event_chord*) get_music ();
+  return (Event_chord *) get_music ();
 }
-
 
 void
 Event_chord_iterator::process (Moment m)
@@ -47,7 +46,7 @@ Event_chord_iterator::process (Moment m)
   if (last_processed_mom_ < Moment (0))
     {
       for (SCM s = get_music ()->get_property ("elements");
-	   scm_is_pair (s);  s = scm_cdr (s))
+	   scm_is_pair (s); s = scm_cdr (s))
 	{
 	  Music *mus = unsmob_music (scm_car (s));
 

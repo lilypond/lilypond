@@ -12,9 +12,9 @@
 #include "grob.hh"
 #include "warn.hh"
 
-void add_interface (const char * symbol,
-		    const char * descr,
-		    const char * vars)
+void add_interface (const char *symbol,
+		    const char *descr,
+		    const char *vars)
 {
   SCM s = ly_symbol2scm (symbol);
   SCM d = scm_makfrom0str (descr);
@@ -23,8 +23,6 @@ void add_interface (const char * symbol,
   ly_add_interface (s, d, l);
 }
 
-
-
 void
 check_interfaces_for_property (Grob const *me, SCM sym)
 {
@@ -32,8 +30,8 @@ check_interfaces_for_property (Grob const *me, SCM sym)
     {
       /*
 	otherwise we get in a nasty recursion loop.
-       */
-      return ;
+      */
+      return;
 
     }
   SCM ifs = me->get_property ("interfaces");
@@ -42,7 +40,7 @@ check_interfaces_for_property (Grob const *me, SCM sym)
   bool found = false;
   for (; !found && scm_is_pair (ifs); ifs = scm_cdr (ifs))
     {
-      SCM iface = scm_hashq_ref (all_ifaces , scm_car (ifs), SCM_BOOL_F);
+      SCM iface = scm_hashq_ref (all_ifaces, scm_car (ifs), SCM_BOOL_F);
       if (iface == SCM_BOOL_F)
 	{
 	  String msg = to_string (_f ("Unknown interface `%s'",

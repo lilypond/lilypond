@@ -1,8 +1,8 @@
 /*
   slur.hh -- declare Slur
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2004--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
@@ -22,7 +22,7 @@ public:
   DECLARE_SCHEME_CALLBACK (height, (SCM, SCM));
   DECLARE_SCHEME_CALLBACK (outside_slur_callback, (SCM, SCM));
   static bool has_interface (Grob *);
-  static Bezier get_curve (Grob*me);
+  static Bezier get_curve (Grob *me);
 };
 
 #endif /* SLUR_HH */

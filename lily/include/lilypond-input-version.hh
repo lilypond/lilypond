@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 1998--2005 Jan Nieuwenhuizen <janneke@gnu.org>
-
 */
 
 #ifndef LILYPOND_VERSION_HH
@@ -12,7 +11,7 @@
 
 #include "string.hh"
 
-struct Lilypond_version 
+struct Lilypond_version
 {
   Lilypond_version (int major, int minor, int patch);
   Lilypond_version (String str);

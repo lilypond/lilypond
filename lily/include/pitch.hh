@@ -1,11 +1,10 @@
-/*   
+/*
   pitch.hh -- declare Pitch
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1998--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #ifndef MUSICAL_PITCH_HH
 #define MUSICAL_PITCH_HH
@@ -14,36 +13,35 @@
 #include "smobs.hh"
 
 /** A "tonal" pitch. This is a pitch used in diatonal western music
-   (24 quartertones in an octave), as opposed to a frequency in Hz or a
-   integer number of semitones.
+    (24 quartertones in an octave), as opposed to a frequency in Hz or a
+    integer number of semitones.
 
-  Pitch is lexicographically ordered by (octave, notename,
-    alteration).    
-  
+    Pitch is lexicographically ordered by (octave, notename,
+    alteration).
 
-   TODO:
 
-   - add indeterminate octaves, so it can be used as a key in keySigature
+    TODO:
 
+    - add indeterminate octaves, so it can be used as a key in keySigature
 */
 class Pitch
 {
 private:				// fixme
   /*
     TODO: use SCM
-   */
+  */
 
   int notename_;
   int alteration_;
   int octave_;
- 
+
   void transpose (Pitch);
   void up_to (int);
   void down_to (int);
   void normalise ();
 
 public:
-  
+
   int get_octave () const;
   int get_notename () const;
   int get_alteration () const;
@@ -54,39 +52,39 @@ public:
   Pitch transposed (Pitch) const;
   Pitch to_relative_octave (Pitch) const;
 
-  static int compare (Pitch const&, Pitch const&);
+  static int compare (Pitch const &, Pitch const &);
 
   int steps () const;
-  int semitone_pitch () const; 
-  int quartertone_pitch () const; 
+  int semitone_pitch () const;
+  int quartertone_pitch () const;
   String to_string () const;
 
   DECLARE_SCHEME_CALLBACK (less_p, (SCM a, SCM b));
-  DECLARE_SIMPLE_SMOBS (Pitch, );
+  DECLARE_SIMPLE_SMOBS (Pitch,);
 };
 
-enum {
-  DOUBLE_FLAT = -4,
-  THREE_Q_FLAT,
-  FLAT ,
-  SEMI_FLAT,
-  NATURAL,
-  SEMI_SHARP,
-  SHARP ,
-  THREE_Q_SHARP,
-  DOUBLE_SHARP,
-};
+enum
+  {
+    DOUBLE_FLAT = -4,
+    THREE_Q_FLAT,
+    FLAT,
+    SEMI_FLAT,
+    NATURAL,
+    SEMI_SHARP,
+    SHARP,
+    THREE_Q_SHARP,
+    DOUBLE_SHARP,
+  };
 
-SCM ly_pitch_diff (SCM pitch, SCM  root);
+SCM ly_pitch_diff (SCM pitch, SCM root);
 SCM ly_pitch_transpose (SCM p, SCM delta);
-DECLARE_UNSMOB(Pitch, pitch);
+DECLARE_UNSMOB (Pitch, pitch);
 
 INSTANTIATE_COMPARE (Pitch, Pitch::compare);
 
 int compare (Array<Pitch>*, Array<Pitch>*);
 extern SCM pitch_less_proc;
-Pitch pitch_interval (Pitch const & from , Pitch const & to );
+Pitch pitch_interval (Pitch const &from, Pitch const &to);
 
 #endif /* MUSICAL_PITCH_HH */
-
 

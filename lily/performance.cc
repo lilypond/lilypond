@@ -29,14 +29,13 @@ Performance::Performance ()
   audio_elem_p_list_ = 0;
 }
 
-
 Performance::~Performance ()
 {
   delete audio_elem_p_list_;
 }
 
 void
-Performance::output (Midi_stream& midi_stream)
+Performance::output (Midi_stream &midi_stream)
 {
   int tracks_i = audio_staffs_.size () + 1;
 
@@ -52,36 +51,34 @@ Performance::output (Midi_stream& midi_stream)
     {
       Audio_staff *s = audio_staffs_[i];
       if (be_verbose_global)
-	progress_indication ("[" + to_string (i)) ;
+	progress_indication ("[" + to_string (i));
 
       /*
 	MIDI players tend to ignore instrument settings on
 	channel 10, the percussion channel by default.
-       */
+      */
       if (channel % 16 == 9)
-	 channel++;
-
+	channel++;
 
       /*
 	Huh? Why does each staff also have a separate channel? We
 	should map channels to voices, not staves. --hwn.
-	*/
+      */
       if (s->channel_ < 0)
 	{
 	  s->channel_ = channel % 16;
 	  if (channel > 15)
 	    warning ("MIDI channel wrapped around. Remapping modulo 16.");
 	}
-      
+
       s->output (midi_stream, channel++);
       if (be_verbose_global)
 	progress_indication ("]");
     }
 }
 
-
 void
-Performance::output_header_track (Midi_stream& midi_stream)
+Performance::output_header_track (Midi_stream &midi_stream)
 {
   Midi_track midi_track;
 
@@ -96,7 +93,7 @@ Performance::output_header_track (Midi_stream& midi_stream)
   /*
     This seems silly, but in fact the audio elements should
     be generated elsewhere: not midi-specific.
-   */
+  */
   Audio_text creator_a (Audio_text::TEXT, str);
   Midi_text creator (&creator_a);
   midi_track.add (Moment (0), &creator);
@@ -104,21 +101,20 @@ Performance::output_header_track (Midi_stream& midi_stream)
   /* Better not translate this */
   str = "Generated automatically by: ";
   str += id_string;
-  
+
   Audio_text generate_a (Audio_text::TEXT, str);
   Midi_text generate (&generate_a);
   midi_track.add (Moment (0), &generate);
-  
+
   str = _ ("at ");
   time_t t (time (0));
   str += ctime (&t);
   str = str.left_string (str.length () - 1);
   str = String_convert::pad_to (str, 60);
-  
+
   Audio_text at_a (Audio_text::TEXT, str);
   Midi_text at (&at_a);
   midi_track.add (Moment (0), &at);
-
 
   // TODO:
   //  str = _f ("from musical definition: %s", origin_string_);
@@ -144,7 +140,7 @@ Performance::output_header_track (Midi_stream& midi_stream)
 void
 Performance::add_element (Audio_element *p)
 {
-  if (Audio_staff*s = dynamic_cast<Audio_staff *> (p)) 
+  if (Audio_staff *s = dynamic_cast<Audio_staff *> (p))
     {
       audio_staffs_.push (s);
     }
@@ -156,12 +152,12 @@ Performance::process (String out)
 {
   if (out == "-")
     out = "lelie.midi";
-  
+
   /* Maybe a bit crude, but we had this before */
   File_name file_name (out);
   file_name.ext_ = "midi";
   out = file_name.to_string ();
-  
+
   Midi_stream midi_stream (out);
   progress_indication (_f ("MIDI output to `%s'...", out));
 

@@ -6,7 +6,6 @@
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #ifndef CPU_TIMER_HH
 #define CPU_TIMER_HH
 
@@ -14,7 +13,8 @@
 
 #include "real.hh"
 
-class Cpu_timer {
+class Cpu_timer
+{
   clock_t start_clock_;
 public:
   Cpu_timer ();

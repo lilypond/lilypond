@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #include "file-name.hh"
@@ -13,7 +12,7 @@
 #include "lily-parser.hh"
 #include "warn.hh"
 #include "source.hh"
-#include "lily-lexer.hh" 
+#include "lily-lexer.hh"
 #include "score.hh"
 #include "lilypond-key.hh"
 #include "ly-module.hh"
@@ -48,14 +47,14 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
   File_name out_file_name (file_name);
 
   global_path.append (out_file_name.dir_);
-  
+
   out_file_name.ext_ = "";
   out_file_name.root_ = "";
   out_file_name.dir_ = "";
 
   if (!output_name_global.is_empty ())
     out_file_name = File_name (output_name_global);
-  
+
   String init;
   if (!init_name_global.is_empty ())
     init = init_name_global;
@@ -82,7 +81,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
     {
       Sources sources;
       sources.set_path (&global_path);
-  
+
       progress_indication (_f ("Processing `%s'", file_name.to_str0 ()));
       progress_indication ("\n");
 
@@ -107,7 +106,7 @@ LY_DEFINE (ly_parse_string, "ly:parse-string",
 	   "Upon failure, throw @code{ly-file-failed} key.")
 {
   SCM_ASSERT_TYPE (scm_is_string (ly_code), ly_code, SCM_ARG1, __FUNCTION__, "string");
-  
+
   Sources sources;
   sources.set_path (&global_path);
   Lily_parser *parser = new Lily_parser (&sources);
@@ -116,13 +115,13 @@ LY_DEFINE (ly_parse_string, "ly:parse-string",
   parser->parse_string (ly_scm2string (ly_code));
   scm_gc_unprotect_object (parser->self_scm ());
   parser = 0;
-  
+
   return SCM_UNSPECIFIED;
 }
 
 LY_DEFINE (ly_clone_parser, "ly:clone-parser",
-           1, 0, 0, (SCM parser_smob),
-           "Return a clone of PARSER_SMOB.")
+	   1, 0, 0, (SCM parser_smob),
+	   "Return a clone of PARSER_SMOB.")
 {
   Lily_parser *parser = unsmob_my_lily_parser (parser_smob);
   Lily_parser *clone = new Lily_parser (*parser);
@@ -137,7 +136,7 @@ LY_DEFINE (ly_parser_define, "ly:parser-define",
 {
   Lily_parser *parser = unsmob_my_lily_parser (parser_smob);
   SCM_ASSERT_TYPE (scm_is_symbol (symbol), symbol, SCM_ARG2, __FUNCTION__, "symbol");
-  SCM_ASSERT_TYPE (parser, parser_smob, SCM_ARG2, __FUNCTION__, "parser");  
+  SCM_ASSERT_TYPE (parser, parser_smob, SCM_ARG2, __FUNCTION__, "parser");
 
   parser->lexer_->set_identifier (scm_symbol_to_string (symbol), val);
   return SCM_UNSPECIFIED;
@@ -151,7 +150,7 @@ LY_DEFINE (ly_parser_lookup, "ly:parser-lookup",
   Lily_parser *parser = unsmob_my_lily_parser (parser_smob);
 
   SCM_ASSERT_TYPE (scm_is_symbol (symbol), symbol, SCM_ARG2, __FUNCTION__, "symbol");
-  SCM_ASSERT_TYPE (parser, parser_smob, SCM_ARG2, __FUNCTION__, "parser");  
+  SCM_ASSERT_TYPE (parser, parser_smob, SCM_ARG2, __FUNCTION__, "parser");
 
   SCM val = parser->lexer_->lookup_identifier (ly_scm2string (scm_symbol_to_string (symbol)));
   if (val != SCM_UNDEFINED)
@@ -169,9 +168,9 @@ LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
 
   SCM_ASSERT_TYPE (parser, parser_smob, SCM_ARG1, __FUNCTION__, "parser");
   SCM_ASSERT_TYPE (scm_is_string (ly_code), ly_code, SCM_ARG2, __FUNCTION__, "string");
-  
+
   parser->parse_string (ly_scm2string (ly_code));
-  
+
   return SCM_UNSPECIFIED;
 }
 
@@ -185,17 +184,17 @@ LY_DEFINE (ly_parser_print_score, "ly:parser-print-score",
   Lily_parser *parser = unsmob_my_lily_parser (parser_smob);
   Score *score = unsmob_score (score_smob);
 
-  Object_key * key = new Lilypond_general_key (0, score->user_key_, 0);
-  
+  Object_key *key = new Lilypond_general_key (0, score->user_key_, 0);
+
   if (score->error_found_)
     return SCM_UNSPECIFIED;
-  
+
   SCM_ASSERT_TYPE (parser, parser_smob, SCM_ARG1, __FUNCTION__, "parser");
   SCM_ASSERT_TYPE (score, score_smob, SCM_ARG2, __FUNCTION__, "score");
 
   SCM header = ly_c_module_p (score->header_) ? score->header_
     : parser->lexer_->lookup_identifier ("$globalheader");
-  
+
   File_name outname (parser->output_basename_);
   int *c = &parser->book_count_;
   if (*c)
@@ -211,7 +210,7 @@ LY_DEFINE (ly_parser_print_score, "ly:parser-print-score",
   if (score->defs_.is_empty ())
     {
       Output_def *layout = get_layout (parser);
-      default_rendering (score->get_music(), layout->self_scm (),
+      default_rendering (score->get_music (), layout->self_scm (),
 			 get_paper (parser)->self_scm (),
 			 header, os, key->self_scm ());
       scm_gc_unprotect_object (layout->self_scm ());
@@ -221,8 +220,6 @@ LY_DEFINE (ly_parser_print_score, "ly:parser-print-score",
   return SCM_UNSPECIFIED;
 }
 
-
-
 LY_DEFINE (ly_parser_set_note_names, "ly:parser-set-note-names",
 	   2, 0, 0, (SCM parser, SCM names),
 	   "Replace current note names in @var{parser}. "
@@ -230,7 +227,7 @@ LY_DEFINE (ly_parser_set_note_names, "ly:parser-set-note-names",
 	   "This only has effect if the current mode is notes.")
 {
   Lily_parser *p = unsmob_my_lily_parser (parser);
-  SCM_ASSERT_TYPE(p, parser, SCM_ARG1, __FUNCTION__, "Lilypond parser");
+  SCM_ASSERT_TYPE (p, parser, SCM_ARG1, __FUNCTION__, "Lilypond parser");
 
   if (p->lexer_->is_note_state ())
     {
@@ -248,13 +245,13 @@ LY_DEFINE (ly_parser_print_book, "ly:parser-print-book",
   Lily_parser *parser = unsmob_my_lily_parser (parser_smob);
   Book *book = unsmob_book (book_smob);
   Output_def *bp = unsmob_output_def (parser->lexer_->lookup_identifier ("$defaultpaper"));
-  
+
   SCM_ASSERT_TYPE (parser, parser_smob, SCM_ARG1, __FUNCTION__, "Lilypond parser");
   SCM_ASSERT_TYPE (book, book_smob, SCM_ARG2, __FUNCTION__, "Book");
-  
+
   /*  ugh. changing argument.*/
   book->paper_ = bp;
-  
+
   File_name outname (parser->output_basename_);
   int *c = &parser->book_count_;
   if (*c)
@@ -262,8 +259,8 @@ LY_DEFINE (ly_parser_print_book, "ly:parser-print-book",
   (*c)++;
 
   Output_def *layout = get_layout (parser);
-  Paper_book* pb = book->process (outname.to_string (), layout);
-  
+  Paper_book *pb = book->process (outname.to_string (), layout);
+
   if (pb)
     {
       pb->output (outname.to_string ());

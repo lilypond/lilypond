@@ -1,11 +1,10 @@
-/*   
+/*
   music-wrapper-iterator.cc -- implement Music_wrapper_iterator
-  
-  source file of the GNU LilyPond music typesetter
-  
-  (c) 1998--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
- */
 
+  source file of the GNU LilyPond music typesetter
+
+  (c) 1998--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+*/
 
 #include "music-wrapper-iterator.hh"
 
@@ -30,7 +29,7 @@ Music_wrapper_iterator::derived_mark () const
 }
 
 void
-Music_wrapper_iterator::derived_substitute (Context *f, Context *t) 
+Music_wrapper_iterator::derived_substitute (Context *f, Context *t)
 {
   if (child_iter_)
     child_iter_->substitute_outlet (f, t);
@@ -39,7 +38,7 @@ Music_wrapper_iterator::derived_substitute (Context *f, Context *t)
 void
 Music_wrapper_iterator::construct_children ()
 {
-  Music * m =  dynamic_cast<Music_wrapper const*> (get_music ())-> element ();  
+  Music *m = dynamic_cast < Music_wrapper const *> (get_music ())-> element ();
   child_iter_ = unsmob_iterator (get_iterator (m));
 }
 
@@ -49,13 +48,11 @@ Music_wrapper_iterator::ok () const
   return child_iter_ && child_iter_->ok ();
 }
 
-
 void
 Music_wrapper_iterator::process (Moment m)
 {
   child_iter_->process (m);
 }
-
 
 Moment
 Music_wrapper_iterator::pending_moment () const
@@ -63,7 +60,7 @@ Music_wrapper_iterator::pending_moment () const
   return child_iter_->pending_moment ();
 }
 
-Music_iterator*
+Music_iterator *
 Music_wrapper_iterator::try_music_in_children (Music *m) const
 {
   return child_iter_->try_music (m);

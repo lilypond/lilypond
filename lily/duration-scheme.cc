@@ -4,8 +4,7 @@
   source file of the LilyPond music typesetter
 
   (c) 1997--2005 Jan Nieuwenhuizen <janneke@gnu.org>
-                 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-
+  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "duration.hh"
@@ -26,7 +25,7 @@ Duration::less_p (SCM p1, SCM p2)
 
 LY_DEFINE (ly_duration_less_p, "ly:duration<?",
 	   2, 0, 0, (SCM p1, SCM p2),
-	  "Is @var{p1} shorter than @var{p2}?")
+	   "Is @var{p1} shorter than @var{p2}?")
 {
   Duration *a = unsmob_duration (p1);
   Duration *b = unsmob_duration (p2);
@@ -91,7 +90,7 @@ LY_DEFINE (ly_make_duration, "ly:make-duration",
 
 LY_DEFINE (ly_duration_log, "ly:duration-log",
 	   1, 0, 0, (SCM dur),
-	  "Extract the duration log from @var{dur}")
+	   "Extract the duration log from @var{dur}")
 {
   SCM_ASSERT_TYPE (unsmob_duration (dur), dur, SCM_ARG1, __FUNCTION__, "duration");
   return scm_int2num (unsmob_duration (dur)->duration_log ());
@@ -99,7 +98,7 @@ LY_DEFINE (ly_duration_log, "ly:duration-log",
 
 LY_DEFINE (ly_duration_dot_count, "ly:duration-dot-count",
 	   1, 0, 0, (SCM dur),
-	  "Extract the dot count from @var{dur}")
+	   "Extract the dot count from @var{dur}")
 {
   SCM_ASSERT_TYPE (unsmob_duration (dur), dur, SCM_ARG1, __FUNCTION__, "duration");
   return scm_int2num (unsmob_duration (dur)->dot_count ());
@@ -107,7 +106,7 @@ LY_DEFINE (ly_duration_dot_count, "ly:duration-dot-count",
 
 LY_DEFINE (ly_intlog2, "ly:intlog2",
 	   1, 0, 0, (SCM d),
-	  "The 2-logarithm of 1/@var{d}.")
+	   "The 2-logarithm of 1/@var{d}.")
 {
   SCM_ASSERT_TYPE (scm_is_number (d), d, SCM_ARG1, __FUNCTION__, "integer");
   int log = intlog2 (scm_to_int (d));
@@ -116,7 +115,7 @@ LY_DEFINE (ly_intlog2, "ly:intlog2",
 
 LY_DEFINE (ly_duration_factor, "ly:duration-factor",
 	   1, 0, 0, (SCM dur),
-	  "Extract the compression factor from @var{dur}. Return as a pair.")
+	   "Extract the compression factor from @var{dur}. Return as a pair.")
 {
   SCM_ASSERT_TYPE (unsmob_duration (dur), dur, SCM_ARG1, __FUNCTION__, "duration");
   Rational r = unsmob_duration (dur)->factor ();

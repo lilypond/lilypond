@@ -1,9 +1,9 @@
 /* -*-C++-*-
-  String_data.inl -- implement String_data
+   String_data.inl -- implement String_data
 
-  source file of Flower lib
+   source file of Flower lib
 
-  (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #ifndef STRINGDATA_INL
@@ -15,29 +15,28 @@
 #include <memory.h>
 
 #include "string-data.hh"
-const int INITIALMAX=8;
+const int INITIALMAX = 8;
 
 #include <sys/types.h>
 
-INLINE void 
-String_data::OKW () 
+INLINE void
+String_data::OKW ()
 {
   assert (ref_count_ == 1);
 }
 
-INLINE void 
-String_data::OK () 
+INLINE void
+String_data::OK ()
 {
   assert (maxlen >= length_);
   assert (bool (data_byte_));
   assert (ref_count_ >= 1);
 }
 
-
 INLINE
-String_data::String_data () 
+String_data::String_data ()
 {
-  ref_count_=0;
+  ref_count_ = 0;
   maxlen = INITIALMAX;
   data_byte_ = new Byte[maxlen + 1];
   data_byte_[0] = 0;
@@ -45,143 +44,140 @@ String_data::String_data ()
 }
 
 INLINE
-String_data::String_data (String_data const &src) 
+String_data::String_data (String_data const &src)
 {
-  ref_count_=0;	
-  maxlen = length_ = src.length_;		
-  data_byte_ = new Byte[maxlen+1]; // should calc GNU 8byte overhead. 	
-  memcpy (data_byte_, src.data_byte_, length_ + 1);	
+  ref_count_ = 0;
+  maxlen = length_ = src.length_;
+  data_byte_ = new Byte[maxlen + 1]; // should calc GNU 8byte overhead. 	
+  memcpy (data_byte_, src.data_byte_, length_ + 1);
 }
 
 INLINE
-String_data::~String_data () 
+String_data::~String_data ()
 {
   assert (ref_count_ == 0);
   delete[] data_byte_;
 }
 
-INLINE void 
-String_data::setmax (int j) 
-{	
+INLINE void
+String_data::setmax (int j)
+{
   OKW ();
-  if (j > maxlen) 
+  if (j > maxlen)
     {
       delete[] data_byte_;
       maxlen = j;
       data_byte_ = new Byte[maxlen + 1];
-  
+
       data_byte_[0] = 0;
       length_ = 0;
     }
 }
 
-/* this is all quite hairy:  
-	 update of length_
-	 update of maxlen
-	 alloc of buffer
-	 copying of buffer
- needs blondification: 
- 	split tasks
-	define change authority
+/* this is all quite hairy:
+   update of length_
+   update of maxlen
+   alloc of buffer
+   copying of buffer
+   needs blondification:
+   split tasks
+   define change authority
 */
-INLINE void 
-String_data::remax (int j) 
+INLINE void
+String_data::remax (int j)
 {
   OKW ();
-  if (j > maxlen) 
+  if (j > maxlen)
     {
-      Byte *p = new Byte[j + 1];	
-      memcpy (p, data_byte_, (maxlen <? length_) + 1 );	    
+      Byte *p = new Byte[j + 1];
+      memcpy (p, data_byte_, (maxlen <? length_) + 1);
       maxlen = j;
       delete[] data_byte_;
       data_byte_ = p;
     }
 }
 
-INLINE void 
-String_data::tighten () 
+INLINE void
+String_data::tighten ()
 { // should be dec'd const
   maxlen = length_;
-  Byte *p = new Byte[maxlen + 1];	    
-  memcpy (p, data_byte_, length_ + 1);	    
+  Byte *p = new Byte[maxlen + 1];
+  memcpy (p, data_byte_, length_ + 1);
   delete[] data_byte_;
-  data_byte_ = p;		
+  data_byte_ = p;
 }
 // assignment.
-INLINE void 
-String_data::set (Byte const* byte, int length_i) 
+INLINE void
+String_data::set (Byte const *byte, int length_i)
 {
   OKW ();
 
   assert (byte && byte != data_byte_);
 
   length_ = length_i;
-  remax (length_);     // copies too
+  remax (length_); // copies too
   memcpy (data_byte_, byte, length_);
   data_byte_[ length_ ] = 0;
 }
 
 INLINE
-void 
-String_data::set (char const* str0) 
+void
+String_data::set (char const *str0)
 {
-  set ((Byte const*)str0, strlen (str0) );
+  set ((Byte const *)str0, strlen (str0));
 }
 
-
 /// concatenation.
-INLINE void 
-String_data::append (Byte const* byte, int length_i) 
+INLINE void
+String_data::append (Byte const *byte, int length_i)
 {
   OK ();
   OKW ();
   int old_i = length_;
-  
+
   length_ += length_i;
   remax (length_);
-  memcpy (data_byte_ + old_i, byte, length_i);	
+  memcpy (data_byte_ + old_i, byte, length_i);
   data_byte_[ length_ ] = 0;
 }
 
 INLINE
-void 
-String_data::operator += (char const* str0) 
+void
+String_data::operator+= (char const *str0)
 {
-  append ((Byte const*)str0, strlen (str0) );
+  append ((Byte const *)str0, strlen (str0));
 }
-
-
 
 INLINE
-char const*
+char const *
 String_data::to_str0 () const
 {
-  return (char const*)data_byte_; 
+  return (char const *)data_byte_;
 }
-INLINE char* 
-String_data::get_str0 () 
-{ 
-  return (char*)data_byte_; 
-}
-
-INLINE Byte const*
-String_data::to_bytes () const 
-{ 
-  return data_byte_; 
+INLINE char *
+String_data::get_str0 ()
+{
+  return (char *)data_byte_;
 }
 
-INLINE Byte* 
-String_data::get_bytes () 
+INLINE Byte const *
+String_data::to_bytes () const
+{
+  return data_byte_;
+}
+
+INLINE Byte *
+String_data::get_bytes ()
 {
   OKW ();
   return data_byte_;
 }
 
 INLINE
-void 
-String_data::trunc (int j) 
+void
+String_data::trunc (int j)
 {
-  OKW (); 
+  OKW ();
   assert (j >= 0 && j <= length_);
   data_byte_[j] = 0;
   length_ = j;
@@ -191,24 +187,22 @@ INLINE bool
 String_data::is_binary_bo () const
 {
   //    return !memchr (data_byte_, length_, 0);
-  return ((int)strlen ((char const*)data_byte_) != length_ );
+  return ((int)strlen ((char const *)data_byte_) != length_);
 }
 
-INLINE Byte&
-String_data::operator [] (int j) 
+INLINE Byte &
+String_data::operator[] (int j)
 {
   assert (j >= 0 && j <= length_);
-  return data_byte_[j] ; 
+  return data_byte_[j];
 }
 
-INLINE Byte 
-String_data::operator [] (int j) const 
+INLINE Byte
+String_data::operator[] (int j) const
 {
   assert (j >= 0 && j <= length_);
-  return data_byte_[j]; 
+  return data_byte_[j];
 }
-
-
 
 
 #endif // __STRING_UTIL_CC //

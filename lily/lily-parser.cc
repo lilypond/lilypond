@@ -4,7 +4,7 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-       Jan Nieuwenhuizen <janneke@gnu.org>
+  Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "lily-parser.hh"
@@ -66,7 +66,7 @@ IMPLEMENT_DEFAULT_EQUAL_P (Lily_parser);
 SCM
 Lily_parser::mark_smob (SCM s)
 {
-  Lily_parser *parser = (Lily_parser*) SCM_CELL_WORD_1 (s);
+  Lily_parser *parser = (Lily_parser *) SCM_CELL_WORD_1 (s);
   return (parser->lexer_) ? parser->lexer_->self_scm () : SCM_EOL;
 }
 
@@ -74,12 +74,11 @@ int
 Lily_parser::print_smob (SCM s, SCM port, scm_print_state*)
 {
   scm_puts ("#<my_lily_parser ", port);
-  Lily_parser *parser = (Lily_parser*) SCM_CELL_WORD_1 (s);
+  Lily_parser *parser = (Lily_parser *) SCM_CELL_WORD_1 (s);
   (void) parser;
   scm_puts (" >", port);
   return 1;
 }
-
 
 /* Process one .ly file, or book.  */
 void
@@ -87,16 +86,16 @@ Lily_parser::parse_file (String init, String name, String out_name)
 {
   if (output_backend_global == "tex")
     {
-      try_load_text_metrics (out_name); 
+      try_load_text_metrics (out_name);
     }
-  
+
   lexer_ = new Lily_lexer (sources_);
   scm_gc_unprotect_object (lexer_->self_scm ());
   // TODO: use $parser 
   lexer_->set_identifier (ly_symbol2scm ("parser"),
 			  self_scm ());
   output_basename_ = out_name;
-  
+
   lexer_->main_input_name_ = name;
 
   progress_indication (_ ("Parsing..."));
@@ -128,30 +127,29 @@ Lily_parser::parse_file (String init, String name, String out_name)
 void
 Lily_parser::parse_string (String ly_code)
 {
-  Lily_lexer * parent = lexer_;
+  Lily_lexer *parent = lexer_;
   lexer_ = (parent == 0 ? new Lily_lexer (sources_)
 	    : new Lily_lexer (*parent));
   scm_gc_unprotect_object (lexer_->self_scm ());
 
-
   SCM oldmod = scm_current_module ();
   scm_set_current_module (scm_car (lexer_->scopes_));
-  
+
   // TODO: use $parser 
   lexer_->set_identifier (ly_symbol2scm ("parser"),
 			  self_scm ());
-  
+
   lexer_->main_input_name_ = "<string>";
   lexer_->is_main_input_ = true;
 
   set_yydebug (0);
   lexer_->new_input (lexer_->main_input_name_, ly_code, sources_);
   do_yyparse ();
-  
+
   if (!define_spots_.is_empty ())
     {
-      if (define_spots_.is_empty()
-	  && !error_level_ )
+      if (define_spots_.is_empty ()
+	  && !error_level_)
 	programming_error ("define_spots_ don't match, but error_level_ not set.");
     }
 
@@ -175,7 +173,7 @@ Lily_parser::parser_error (String s)
 }
 
 void
-Lily_parser::parser_error (Input const& i, String s)
+Lily_parser::parser_error (Input const &i, String s)
 {
   i.error (s);
   error_level_ = 1;
@@ -183,8 +181,7 @@ Lily_parser::parser_error (Input const& i, String s)
 
 /****************************************************************/
 
-
-Output_def*
+Output_def *
 get_layout (Lily_parser *parser)
 {
   SCM id = parser->lexer_->lookup_identifier ("$defaultlayout");
@@ -195,8 +192,7 @@ get_layout (Lily_parser *parser)
   return layout;
 }
 
-
-Output_def*
+Output_def *
 get_midi (Lily_parser *parser)
 {
   SCM id = parser->lexer_->lookup_identifier ("$defaultmidi");
@@ -206,14 +202,13 @@ get_midi (Lily_parser *parser)
   return layout;
 }
 
-
-Output_def*
+Output_def *
 get_paper (Lily_parser *parser)
 {
   SCM id = parser->lexer_->lookup_identifier ("$defaultpaper");
   Output_def *layout = unsmob_output_def (id);
 
-  layout = layout ? dynamic_cast<Output_def*> (layout->clone ()) : new Output_def;
+  layout = layout ? dynamic_cast<Output_def *> (layout->clone ()) : new Output_def;
   layout->set_variable (ly_symbol2scm ("is-paper"), SCM_BOOL_T);
   return layout;
 }

@@ -24,7 +24,7 @@
 
 /*
   TODO: the column creation logic is rather hairy. Revise it.
- */
+*/
 Score_engraver::Score_engraver ()
 {
   system_ = 0;
@@ -39,25 +39,24 @@ Score_engraver::make_columns ()
 {
   /*
     ugh.
-   */
+  */
   if (!command_column_)
     {
       SCM nmp
 	= updated_grob_properties (context (),
 				   ly_symbol2scm ("NonMusicalPaperColumn"));
 
-      Object_key const *key1 = context()->get_grob_key ("NonMusicalPaperColumn");
-      
+      Object_key const *key1 = context ()->get_grob_key ("NonMusicalPaperColumn");
+
       SCM pc = updated_grob_properties (context (),
 					ly_symbol2scm ("PaperColumn"));
-      Object_key const *key2 = context()->get_grob_key ("PaperColumn");      
+      Object_key const *key2 = context ()->get_grob_key ("PaperColumn");
       set_columns (new Paper_column (nmp, key1), new Paper_column (pc, key2));
-
 
       Grob_info i1;
       i1.grob_ = command_column_;
       i1.origin_trans_ = this;
-  
+
       announce_grob (i1);
 
       Grob_info i2;
@@ -73,7 +72,7 @@ Score_engraver::prepare (Moment m)
 {
   /*
     TODO: don't make columns when skipTypesetting is true.
-   */
+  */
   make_columns ();
 
   SCM w = m.smobbed_copy ();
@@ -96,7 +95,7 @@ Score_engraver::finish ()
 
 /*
   use start/finish?
- */
+*/
 void
 Score_engraver::initialize ()
 {
@@ -107,19 +106,19 @@ Score_engraver::initialize ()
 	     + "\n"
 	     + _ ("Music font has not been installed properly.")
 	     + "\n"
-	     + _f ("Search path `%s'", global_path.to_string ().to_str0())
+	     + _f ("Search path `%s'", global_path.to_string ().to_str0 ())
 	     + "\n"
-	     + _ ("Aborting"));       
+	     + _ ("Aborting"));
     }
 
   pscore_ = new Paper_score;
-  pscore_->layout_ = dynamic_cast<Output_def*> (get_output_def ());
+  pscore_->layout_ = dynamic_cast<Output_def *> (get_output_def ());
 
   SCM props = updated_grob_properties (context (), ly_symbol2scm ("System"));
 
-  Object_key const *sys_key = context()->get_grob_key ("System");
+  Object_key const *sys_key = context ()->get_grob_key ("System");
   pscore_->typeset_line (new System (props, sys_key));
-  
+
   system_ = pscore_->system_;
   make_columns ();
   system_->set_bound (LEFT, command_column_);
@@ -128,20 +127,18 @@ Score_engraver::initialize ()
   Engraver_group_engraver::initialize ();
 }
 
-
 void
 Score_engraver::finalize ()
 {
   Score_translator::finalize ();
 
-  Grob * cc
+  Grob *cc
     = unsmob_grob (get_property ("currentCommandColumn"));
   system_->set_bound (RIGHT, cc);
   cc->set_property ("breakable", SCM_BOOL_T);
-  
+
   typeset_all ();
 }
-
 
 void
 Score_engraver::one_time_step ()
@@ -149,9 +146,9 @@ Score_engraver::one_time_step ()
   if (!to_boolean (get_property ("skipTypesetting")))
     {
       recurse_over_translators (context (), &Engraver::process_music, UP);
-      Engraver_group_engraver::do_announces();
+      Engraver_group_engraver::do_announces ();
     }
-  
+
   recurse_over_translators (context (), &Translator::stop_translation_timestep, UP);
 }
 
@@ -163,23 +160,19 @@ Score_engraver::announce_grob (Grob_info info)
   elems_.push (info.grob_);
 }
 
-
 void
 Score_engraver::typeset_all ()
 {
-  for (int i = 0; i < elems_.size (); i++) 
+  for (int i = 0; i < elems_.size (); i++)
     {
-      Grob * elem = elems_[i];
+      Grob *elem = elems_[i];
 
-      
-      if (dynamic_cast<Item*> (elem)) 
+      if (dynamic_cast<Item *> (elem))
 	{
-	  if (
-	      (!elem->get_parent (X_AXIS)
-	       || !unsmob_grob  (elem->get_property ("axis-group-parent-X")))
+	  if ((!elem->get_parent (X_AXIS)
+	       || !unsmob_grob (elem->get_property ("axis-group-parent-X")))
 	      && elem != command_column_
-	      && elem != musical_column_
-	      )
+	      && elem != musical_column_)
 	    {
 	      bool br = to_boolean (elem->get_property ("breakable"));
 	      Axis_group_interface::add_element (br ? command_column_ : musical_column_, elem);
@@ -197,22 +190,21 @@ Score_engraver::stop_translation_timestep ()
 {
   // this generates all items.
   Engraver_group_engraver::stop_translation_timestep ();
-  
+
   typeset_all ();
   if (to_boolean (command_column_->get_property ("breakable")))
     {
-      breaks_ ++;
+      breaks_++;
       if (! (breaks_%8))
 	progress_indication ("[" + to_string (breaks_) + "]");
     }
 
-  
   command_column_ = 0;
   musical_column_ = 0;
 }
 
 void
-Score_engraver::set_columns (Paper_column *new_command, 
+Score_engraver::set_columns (Paper_column *new_command,
 			     Paper_column *new_musical)
 {
   assert (!command_column_ && !musical_column_);
@@ -221,9 +213,9 @@ Score_engraver::set_columns (Paper_column *new_command,
   musical_column_ = new_musical;
   if (new_command)
     {
-      context ()->set_property ("currentCommandColumn", new_command->self_scm ());  
+      context ()->set_property ("currentCommandColumn", new_command->self_scm ());
     }
-  
+
   if (new_musical)
     {
       context ()->set_property ("currentMusicalColumn", new_musical->self_scm ());
@@ -233,11 +225,11 @@ Score_engraver::set_columns (Paper_column *new_command,
   system_->add_column (musical_column_);
 }
 
-Music_output*
+Music_output *
 Score_engraver::get_output ()
 {
   Music_output *o = pscore_;
-  ///FIXME WTF?  pscore_ = 0;
+  ///FIXME WTF? pscore_ = 0;
   return o;
 }
 
@@ -267,7 +259,7 @@ Score_engraver::try_music (Music *m)
       SCM mpage_pen = m->get_property ("page-penalty");
       if (scm_is_number (mpage_pen))
 	total_pp += scm_to_double (mpage_pen);
-      
+
       command_column_->set_property ("page-penalty", scm_make_real (total_pp));
       return true;
     }
@@ -280,7 +272,7 @@ Score_engraver::forbid_breaks ()
   if (command_column_)
     command_column_->set_property ("breakable", SCM_EOL);
 }
-  
+
 void
 Score_engraver::acknowledge_grob (Grob_info gi)
 {
@@ -302,8 +294,8 @@ Score_engraver::acknowledge_grob (Grob_info gi)
     {
       SCM spaceable = get_property ("verticallySpacedContexts");
       Context *orig = gi.origin_contexts (this)[0];
-      
-      if (scm_memq (ly_symbol2scm (orig->context_name ().to_str0()),
+
+      if (scm_memq (ly_symbol2scm (orig->context_name ().to_str0 ()),
 		    spaceable) != SCM_BOOL_F)
 	{
 	  Pointer_group_interface::add_grob (system_,
@@ -311,23 +303,20 @@ Score_engraver::acknowledge_grob (Grob_info gi)
 					     gi.grob_);
 	}
     }
-  
+
 }
 
-
-
 ADD_TRANSLATOR (Score_engraver,
-/* descr */       "Top level engraver. Takes care of generating columns and the complete  system (ie. System) "
-"\n\n "
-"This engraver decides whether a column is breakable. The default is "
-"that a column is always breakable. However, when every Bar_engraver "
-"that does not have a barline at a certain point will call "
-"Score_engraver::forbid_breaks to stop linebreaks.  In practice, this "
-"means that you can make a breakpoint by creating a barline (assuming "
-"that there are no beams or notes that prevent a breakpoint.) "
-,
-/* creats*/       "System PaperColumn NonMusicalPaperColumn", 
-/* accepts */     "break-event",
-/* acks  */       "note-spacing-interface staff-spacing-interface axis-group-interface",
-/* reads */       "currentMusicalColumn currentCommandColumn verticallySpacedContexts",
-/* write */       "");
+		/* descr */ "Top level engraver. Takes care of generating columns and the complete  system (ie. System) "
+		"\n\n "
+		"This engraver decides whether a column is breakable. The default is "
+		"that a column is always breakable. However, when every Bar_engraver "
+		"that does not have a barline at a certain point will call "
+		"Score_engraver::forbid_breaks to stop linebreaks.  In practice, this "
+		"means that you can make a breakpoint by creating a barline (assuming "
+		"that there are no beams or notes that prevent a breakpoint.) ",
+		/* creats*/ "System PaperColumn NonMusicalPaperColumn",
+		/* accepts */ "break-event",
+		/* acks  */ "note-spacing-interface staff-spacing-interface axis-group-interface",
+		/* reads */ "currentMusicalColumn currentCommandColumn verticallySpacedContexts",
+		/* write */ "");

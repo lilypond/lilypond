@@ -1,11 +1,10 @@
-/*   
-measure-grouping-spanner.hh -- declare 
+/*
+  measure-grouping-spanner.hh -- declare
 
-source file of the GNU LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
-(c) 2002--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-
- */
+  (c) 2002--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+*/
 
 #ifndef MEASURE_GROUPING_SPANNER_HH
 #define MEASURE_GROUPING_SPANNER_HH
@@ -15,11 +14,10 @@ source file of the GNU LilyPond music typesetter
 class Measure_grouping
 {
 public:
-  DECLARE_SCHEME_CALLBACK (print, (SCM ));
- 
-  static bool has_interface (Grob*);
-};
+  DECLARE_SCHEME_CALLBACK (print, (SCM));
 
+  static bool has_interface (Grob *);
+};
 
 #endif /* MEASURE_GROUPING_SPANNER_HH */
 

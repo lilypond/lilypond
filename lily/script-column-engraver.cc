@@ -1,11 +1,10 @@
-/*   
+/*
   script-column-engraver.cc -- implement Script_column_engraver
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1999--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #include "engraver.hh"
 #include "script-column.hh"
@@ -27,7 +26,6 @@ protected:
   virtual void stop_translation_timestep ();
 };
 
-
 Script_column_engraver::Script_column_engraver ()
 {
   scol_ = 0;
@@ -41,9 +39,9 @@ Script_column_engraver::stop_translation_timestep ()
 }
 
 void
-Script_column_engraver::acknowledge_grob (Grob_info inf) 
+Script_column_engraver::acknowledge_grob (Grob_info inf)
 {
-  Item *thing = dynamic_cast<Item*> (inf.grob_);
+  Item *thing = dynamic_cast<Item *> (inf.grob_);
   if (thing && Side_position_interface::has_interface (inf.grob_)) // ugh FIXME
     {
       if (!Item::is_breakable (thing)
@@ -60,7 +58,7 @@ Script_column_engraver::process_acknowledged_grobs ()
   if (!scol_ && scripts_.size () > 1)
     {
       scol_ = make_item ("ScriptColumn", SCM_EOL);
-      
+
     }
 
   if (scol_)
@@ -73,9 +71,9 @@ Script_column_engraver::process_acknowledged_grobs ()
 }
 
 ADD_TRANSLATOR (Script_column_engraver,
-/* descr */       "",
-/* creats*/       "ScriptColumn",
-/* accepts */     "",
-/* acks  */      "side-position-interface",
-/* reads */       "",
-/* write */       "");
+		/* descr */ "",
+		/* creats*/ "ScriptColumn",
+		/* accepts */ "",
+		/* acks  */ "side-position-interface",
+		/* reads */ "",
+		/* write */ "");

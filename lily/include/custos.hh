@@ -16,12 +16,12 @@ class Stencil;
 
 struct Custos
 {
-  DECLARE_SCHEME_CALLBACK (print, (SCM ));
-  static bool has_interface (Grob*);
+  DECLARE_SCHEME_CALLBACK (print, (SCM));
+  static bool has_interface (Grob *);
 
 private:
-  static void add_streepjes (Grob* me, int pos, int interspaces, Stencil* custos_);
-  static Stencil create_ledger_line (Interval x_extent, Grob *me) ;
+  static void add_streepjes (Grob *me, int pos, int interspaces, Stencil *custos_);
+  static Stencil create_ledger_line (Interval x_extent, Grob *me);
 
 };
 

@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #include "pitch.hh"
@@ -14,7 +13,7 @@ LY_DEFINE (ly_pitch_transpose, "ly:pitch-transpose",
 	   "Transpose @var{p} by the amount @var{delta}, "
 	   "where @var{delta} is relative to middle C.")
 {
-  Pitch* t = unsmob_pitch (p);
+  Pitch *t = unsmob_pitch (p);
   Pitch *d = unsmob_pitch (delta);
   SCM_ASSERT_TYPE (t, p, SCM_ARG1, __FUNCTION__, "pitch");
   SCM_ASSERT_TYPE (d, delta, SCM_ARG1, __FUNCTION__, "pitch");
@@ -31,7 +30,7 @@ LY_DEFINE (ly_make_pitch, "ly:make-pitch",
 	   "The @var{alter} is zero for a natural, negative for "
 	   "flats, or positive for sharps. ")
 {
-  SCM_ASSERT_TYPE (scm_integer_p (octave)== SCM_BOOL_T , octave, SCM_ARG1, __FUNCTION__, "integer");
+  SCM_ASSERT_TYPE (scm_integer_p (octave)== SCM_BOOL_T, octave, SCM_ARG1, __FUNCTION__, "integer");
   SCM_ASSERT_TYPE (scm_integer_p (note)== SCM_BOOL_T, note, SCM_ARG2, __FUNCTION__, "integer");
   SCM_ASSERT_TYPE (scm_integer_p (alter)== SCM_BOOL_T, alter, SCM_ARG3, __FUNCTION__, "integer");
 
@@ -116,9 +115,9 @@ LY_DEFINE (ly_pitch_less_p, "ly:pitch<?",
 }
 
 LY_DEFINE (ly_pitch_diff, "ly:pitch-diff",
-	   2 , 0, 0, (SCM pitch, SCM  root),
+	   2, 0, 0, (SCM pitch, SCM root),
 	   "Return pitch @var{delta} such that @code{pitch} transposed by "
-	   "@var{delta} equals @var{root}" )
+	   "@var{delta} equals @var{root}")
 {
   Pitch *p = unsmob_pitch (pitch);
   Pitch *r = unsmob_pitch (root);

@@ -8,10 +8,9 @@
 
 /* TODO:
 
- - do not show if a clef change immediately follows in the next line
+- do not show if a clef change immediately follows in the next line
 
- - decide: do or do not print custos if the next line starts with a rest
-
+- decide: do or do not print custos if the next line starts with a rest
 */
 
 #include <cstdio>
@@ -47,14 +46,14 @@ Custos::print (SCM smob)
    * staffline or not, or shall we use individual font characters
    * for both cases?
    */
-  bool adjust = true; 
+  bool adjust = true;
 
   int neutral_pos = robust_scm2int (me->get_property ("neutral-position"), 0);
-  Direction neutral_direction =
-    to_dir (me->get_property ("neutral-direction"));
+  Direction neutral_direction
+    = to_dir (me->get_property ("neutral-direction"));
 
   int pos = Staff_symbol_referencer::get_rounded_position (me);
-  int sz = Staff_symbol_referencer::line_count (me)-1;
+  int sz = Staff_symbol_referencer::line_count (me) - 1;
 
   String font_char = "custodes." + style + ".";
   if (pos < neutral_pos)
@@ -89,5 +88,5 @@ Custos::print (SCM smob)
 }
 
 ADD_INTERFACE (Custos, "custos-interface",
-  "A custos object.",
-  "style neutral-position neutral-direction");
+	       "A custos object.",
+	       "style neutral-position neutral-direction");

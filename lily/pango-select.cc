@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2004--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 #include <math.h>
 
@@ -12,7 +11,6 @@
 #include "all-font-metrics.hh"
 #include "output-def.hh"
 #include "pango-font.hh"
-
 
 PangoFontDescription *
 properties_to_pango_description (SCM chain, Real text_size)
@@ -31,12 +29,12 @@ properties_to_pango_description (SCM chain, Real text_size)
 				       SCM_BOOL_F);
       SCM variant = ly_chain_assoc_get (ly_symbol2scm ("font-shape"), chain,
 					SCM_BOOL_F);
-	
+
       SCM style = ly_chain_assoc_get (ly_symbol2scm ("font-shape"), chain,
 				      SCM_BOOL_F);
       SCM weight = ly_chain_assoc_get (ly_symbol2scm ("font-series"), chain,
 				       SCM_BOOL_F);
-      
+
       description
 	= symbols_to_pango_font_description (family, style, variant, weight,
 					     SCM_BOOL_F);
@@ -44,7 +42,7 @@ properties_to_pango_description (SCM chain, Real text_size)
 
   Real step = robust_scm2double (ly_symbol2scm ("font-size"), 0.0);
   Real size = text_size * pow (2.0, step / 6.0);
-  
+
   pango_font_description_set_size (description,
 				   gint (size * PANGO_SCALE));
   return description;
@@ -56,10 +54,10 @@ select_pango_font (Output_def *layout, SCM chain)
   PangoFontDescription *pfd = properties_to_pango_description (chain,
 							       point_constant * layout->get_dimension (ly_symbol2scm ("text-font-size")));
 
-  char * str = pango_font_description_to_string (pfd);
+  char *str = pango_font_description_to_string (pfd);
   SCM scm_str = scm_makfrom0str (str);
   g_free (str);
-    
+
   return find_pango_font (layout, scm_str, 1.0);
 }
 
@@ -72,8 +70,7 @@ symbol_to_pango_style (SCM style)
       pstyle = PANGO_STYLE_ITALIC;
     }
   else if (style == ly_symbol2scm ("oblique")
-	   || style == ly_symbol2scm ("slanted")
-	   )
+	   || style == ly_symbol2scm ("slanted"))
     {
       pstyle = PANGO_STYLE_OBLIQUE;
     }
@@ -91,7 +88,6 @@ symbol_to_pango_variant (SCM variant)
     }
   return pvariant;
 }
-
 
 PangoWeight
 symbol_to_pango_weight (SCM weight)
@@ -127,31 +123,29 @@ symbol_to_pango_stretch (SCM) //  stretch)
   PangoStretch ps = PANGO_STRETCH_NORMAL;
 
   /*
-    // TODO
-    
+  // TODO
+
   PANGO_STRETCH_ULTRA_CONDENSED,
   PANGO_STRETCH_EXTRA_CONDENSED,
   PANGO_STRETCH_CONDENSED,
   PANGO_STRETCH_SEMI_CONDENSED,
-  
+
   PANGO_STRETCH_SEMI_EXPANDED,
   PANGO_STRETCH_EXPANDED,
   PANGO_STRETCH_EXTRA_EXPANDED,
   PANGO_STRETCH_ULTRA_EXPANDED
-  */ 
+  */
   return ps;
 }
 
-
-
-PangoFontDescription* 
-symbols_to_pango_font_description(SCM family,
-				  SCM style,
-				  SCM variant,
-				  SCM weight,
-				  SCM stretch)
+PangoFontDescription *
+symbols_to_pango_font_description (SCM family,
+				   SCM style,
+				   SCM variant,
+				   SCM weight,
+				   SCM stretch)
 {
-  PangoFontDescription * description = pango_font_description_new ();
+  PangoFontDescription *description = pango_font_description_new ();
 
   String family_str = "roman";
   if (scm_is_symbol (family))

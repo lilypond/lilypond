@@ -1,8 +1,8 @@
 /*
   modified-font-metric.cc -- declare Modified_font_metric
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1999--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 #include <cctype>
@@ -19,12 +19,12 @@ Modified_font_metric::Modified_font_metric (Font_metric *fm,
 					    Real magnification)
 {
   magnification_ = magnification;
-  
+
   SCM desc = fm->description_;
 
   Real total_mag = magnification * scm_to_double (scm_cdr (desc));
   assert (total_mag);
-  
+
   description_ = scm_cons (scm_car (desc), scm_make_real (total_mag));
   orig_ = fm;
 }
@@ -42,21 +42,20 @@ Modified_font_metric::design_size () const
   return orig_->design_size ();
 }
 
-
-Box 
+Box
 Modified_font_metric::get_indexed_char (int i) const
 {
   Box b = orig_->get_indexed_char (i);
   b.scale (magnification_);
-  return b;  
+  return b;
 }
 
-Box 
+Box
 Modified_font_metric::get_ascii_char (int i) const
 {
   Box b = orig_->get_ascii_char (i);
   b.scale (magnification_);
-  return b;  
+  return b;
 }
 
 int
@@ -102,30 +101,30 @@ Modified_font_metric::derived_mark () const
 {
 }
 
-/* TODO: put this klutchness behind ly:option switch.  */  
+/* TODO: put this klutchness behind ly:option switch.  */
 Box
 Modified_font_metric::tex_kludge (String text) const
 {
   Interval ydims;
   Real w = 0;
-  for (int i = 0; i < text.length (); i++) 
+  for (int i = 0; i < text.length (); i++)
     {
-      switch (text[i]) 
+      switch (text[i])
 	{
 	case '\\':
 	  /* Accent marks use width of base letter */
-         if (i +1 < text.length ())
-	   {
-	     if (text[i+1]=='\'' || text[i+1]=='`' || text[i+1]=='"'
-		 || text[i+1]=='^')
-	       {
-		 i++;
-		 break;
-	       }
-	     /* For string width \\ is a \ and \_ is a _. */
-	     if (text[i+1]=='\\' || text[i+1]=='_')        
-		 break;
-	   }
+	  if (i +1 < text.length ())
+	    {
+	      if (text[i + 1]=='\'' || text[i + 1]=='`' || text[i+1]=='"'
+		  || text[i+1]=='^')
+		{
+		  i++;
+		  break;
+		}
+	      /* For string width \\ is a \ and \_ is a _. */
+	      if (text[i + 1]=='\\' || text[i+1]=='_')        
+		break;
+	    }
 	  
 	  for (i++; (i < text.length ()) && !isspace (text[i]) 
 		 && text[i]!='{' && text[i]!='}'; i++)
@@ -143,7 +142,7 @@ Modified_font_metric::tex_kludge (String text) const
 	  Box b = get_ascii_char ((unsigned char)text[i]);
 	  
 	  /* Use the width of 'x' for unknown characters */
-	  if (b[X_AXIS].length () == 0) 
+	  if (b[X_AXIS].length () == 0)
 	    b = get_ascii_char ((unsigned char)'x');
 	  
 	  w += b[X_AXIS].length ();
@@ -197,21 +196,21 @@ Modified_font_metric::text_dimension (String text) const
 
   Real w = 0.0;
 
-  for (int i = 0; i < text.length (); i++) 
+  for (int i = 0; i < text.length (); i++)
     {
       Box b = get_ascii_char ((unsigned char)text[i]);
-    
+
       w += b[X_AXIS].length ();
-      ydims.unite (b[Y_AXIS]); 
+      ydims.unite (b[Y_AXIS]);
     }
   if (ydims.is_empty ())
     ydims = Interval (0, 0);
 
-  b = Box(Interval(0, w), ydims);
+  b = Box (Interval (0, w), ydims);
   return b;
 }
 
-Font_metric*
+Font_metric *
 Modified_font_metric::original_font () const
 {
   return orig_;
@@ -220,11 +219,11 @@ Modified_font_metric::original_font () const
 SCM
 Modified_font_metric::sub_fonts () const
 {
-  return orig_->sub_fonts();
+  return orig_->sub_fonts ();
 }
-  
+
 String
 Modified_font_metric::font_name () const
 {
-  return original_font ()->font_name();
+  return original_font ()->font_name ();
 }

@@ -16,7 +16,7 @@ struct Lookup
 {
   static Stencil dot (Offset p, Real radius);
   static Stencil bracket (Axis a, Interval iv, Real thick, Real protude, Real blot);
-  static Stencil accordion (SCM arg, Real interline_f, Font_metric*fm);
+  static Stencil accordion (SCM arg, Real interline_f, Font_metric *fm);
   static Stencil round_filled_polygon (Array<Offset> points, Real blotdiameter);
   static Stencil frame (Box b, Real thick, Real blot);
   static Stencil slur (Bezier controls, Real cthick, Real thick);

@@ -1,11 +1,10 @@
-/*   
-staff-spacing.hh -- declare Staff_spacing
+/*
+  staff-spacing.hh -- declare Staff_spacing
 
-source file of the GNU LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
-(c) 2001--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-
- */
+  (c) 2001--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+*/
 
 #ifndef STAFF_SPACING_HH
 #define STAFF_SPACING_HH
@@ -15,12 +14,12 @@ source file of the GNU LilyPond music typesetter
 class Staff_spacing
 {
 public:
-  static Real next_notes_correction (Grob*, Grob*);
-  static Real next_note_correction (Grob*, Grob*, Interval);  
-  static bool has_interface (Grob*);
-  static void get_spacing_params (Grob*, Real*, Real*);
+  static Real next_notes_correction (Grob *, Grob *);
+  static Real next_note_correction (Grob *, Grob *, Interval);
+  static bool has_interface (Grob *);
+  static void get_spacing_params (Grob *, Real *, Real *);
 
-  static Interval bar_y_positions (Grob*);
+  static Interval bar_y_positions (Grob *);
 };
 
 #endif /* STAFF_SPACING_HH */

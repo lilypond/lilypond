@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2004--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #ifndef OBJECT_KEY_DUMPER_HH
@@ -14,9 +13,9 @@
 
 #include "object-key.hh"
 
-typedef std::map<Object_key const*, Object_key const*, Object_key_less> Key_to_key_map;
-typedef std::map<Object_key const*, int> Pointer_to_int_map;
-typedef std::map<int, Object_key const *> Int_to_key_map;
+typedef std::map < Object_key const *, Object_key const *, Object_key_less> Key_to_key_map;
+typedef std::map < Object_key const *, int> Pointer_to_int_map;
+typedef std::map < int, Object_key const *> Int_to_key_map;
 
 class Object_key_dumper
 {
@@ -24,17 +23,17 @@ class Object_key_dumper
   Key_to_key_map serialized_keys_;
   Pointer_to_int_map key_serial_numbers_;
   int next_available_;
-  
+
   SCM key_serial (int);
   SCM serialize_key (Object_key const *);
-  DECLARE_SMOBS (Object_key_dumper, );
+  DECLARE_SMOBS (Object_key_dumper,);
 public:
-  Object_key_dumper (); 
+  Object_key_dumper ();
   SCM get_file_contents () const;
   SCM dump_key (Object_key const *);
 };
 
-DECLARE_UNSMOB(Object_key_dumper, key_dumper);
+DECLARE_UNSMOB (Object_key_dumper, key_dumper);
 
 #endif /* OBJECT_KEY_DUMPER_HH */
 

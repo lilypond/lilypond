@@ -1,11 +1,10 @@
-/*   
+/*
   ligature-engraver.hh -- declare Ligature_engraver
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2002--2005 Juergen Reuter <reuter@ipd.uka.de>
-  
- */
+*/
 #ifndef LIGATURE_ENGRAVER_HH
 #define LIGATURE_ENGRAVER_HH
 
@@ -33,7 +32,7 @@ protected:
   virtual void finalize ();
 
   virtual void acknowledge_grob (Grob_info);
-  virtual bool try_music (Music*);
+  virtual bool try_music (Music *);
   virtual void process_music ();
   virtual Spanner *create_ligature_spanner (); /* abstract method */
   virtual void typeset_ligature (Spanner *ligature,
@@ -42,11 +41,11 @@ protected:
   SCM brew_ligature_primitive_proc;
 
 public:
-  TRANSLATOR_DECLARATIONS(Ligature_engraver);
+  TRANSLATOR_DECLARATIONS (Ligature_engraver);
 
 private:
-  Drul_array<Music*> reqs_drul_;
-  
+  Drul_array<Music *> reqs_drul_;
+
   Spanner *ligature_;
   Array<Grob_info> primitives_;
 

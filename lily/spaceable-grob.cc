@@ -1,15 +1,14 @@
-/*   
+/*
   spaceable-grob.cc -- implement Spaceable_grob
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2000--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #include "spaceable-grob.hh"
 
-#include <cstdio> 
+#include <cstdio>
 #include <math.h>
 
 #include "warn.hh"
@@ -17,7 +16,7 @@
 #include "group-interface.hh"
 
 SCM
-Spaceable_grob::get_minimum_distances (Grob*me)
+Spaceable_grob::get_minimum_distances (Grob *me)
 {
   return me->get_property ("minimum-distances");
 }
@@ -25,11 +24,11 @@ Spaceable_grob::get_minimum_distances (Grob*me)
 /*todo: merge code of spring & rod?
  */
 void
-Spaceable_grob::add_rod (Grob *me , Grob * p, Real d)
+Spaceable_grob::add_rod (Grob *me, Grob *p, Real d)
 {
   //  printf ("rod %lf\n", d);
 
-  
+
   SCM mins = get_minimum_distances (me);
   SCM newdist = scm_make_real (d);
   for (SCM s = mins; scm_is_pair (s); s = scm_cdr (s))
@@ -38,8 +37,8 @@ Spaceable_grob::add_rod (Grob *me , Grob * p, Real d)
       if (scm_car (dist) == p->self_scm ())
 	{
 	  scm_set_cdr_x (dist, scm_max (scm_cdr (dist),
-				       newdist));
-	  return ;
+					newdist));
+	  return;
 	}
     }
 
@@ -48,7 +47,7 @@ Spaceable_grob::add_rod (Grob *me , Grob * p, Real d)
 }
 
 void
-Spaceable_grob::add_spring (Grob*me, Grob * p, Real d, Real strength)
+Spaceable_grob::add_spring (Grob *me, Grob *p, Real d, Real strength)
 {
   //  printf ("dist %lf, str %lf\n", d, strength); 
   if (d <= 0.0 || strength <= 0.0)
@@ -57,53 +56,49 @@ Spaceable_grob::add_spring (Grob*me, Grob * p, Real d, Real strength)
       d = 1.0;
       strength = 1.0;
     }
-  
-  if (isinf (d) || isnan(d)
+
+  if (isinf (d) || isnan (d)
       || isnan (strength))
     {
       /*
 	strength == INF is possible. It means fixed distance.
-       */
+      */
       programming_error ("Insane distance found.");
       d = 1.0;
       strength = 1.0;
     }
-    
+
 #ifndef NDEBUG
   SCM mins = me->get_property ("ideal-distances");
   for (SCM s = mins; scm_is_pair (s); s = scm_cdr (s))
     {
-      Spring_smob * sp = unsmob_spring(scm_car (s));
+      Spring_smob *sp = unsmob_spring (scm_car (s));
       if (sp->other_ == p)
 	{
 	  programming_error ("already have that spring");
-	  return ;
+	  return;
 	}
     }
 #endif
-  
+
   Spring_smob spring;
   spring.strength_ = strength;
   spring.distance_ = d;
   spring.other_ = p;
-  
+
   Group_interface::add_thing (me, ly_symbol2scm ("ideal-distances"), spring.smobbed_copy ());
 }
 
-
 void
-Spaceable_grob::remove_interface (Grob*me)
+Spaceable_grob::remove_interface (Grob *me)
 {
-  me->set_property ("minimum-distances" , SCM_EOL);
+  me->set_property ("minimum-distances", SCM_EOL);
   me->set_property ("spacing-wishes", SCM_EOL);
   me->set_property ("ideal-distances", SCM_EOL);
 }
 
-
-
 ADD_INTERFACE (Spaceable_grob, "spaceable-grob-interface",
-	       "A layout object that takes part in the spacing problem. "
-	       ,
+	       "A layout object that takes part in the spacing problem. ",
 	       "measure-length spacing-wishes penalty minimum-distances ideal-distances "
 	       "allow-outside-line left-neighbors right-neighbors");
 

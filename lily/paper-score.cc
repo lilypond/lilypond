@@ -51,7 +51,7 @@ Paper_score::calc_breaking ()
   Break_algorithm *algorithm = 0;
   Array<Column_x_positions> sol;
 
-  algorithm = new Gourlay_breaking ;
+  algorithm = new Gourlay_breaking;
   algorithm->set_pscore (this);
   sol = algorithm->solve ();
   delete algorithm;
@@ -71,14 +71,14 @@ Paper_score::process (String)
 
   /* FIXME: Check out why we need this - removing gives assertion failures
      down the road.
-     
+
      doubly, also done in Score_engraver */
   Link_array<Grob> pc (system_->columns ());
   pc[0]->set_property ("breakable", SCM_BOOL_T);
   pc.top ()->set_property ("breakable", SCM_BOOL_T);
-    
+
   system_->pre_processing ();
- 
+
   Array<Column_x_positions> breaking = calc_breaking ();
   system_->break_into_pieces (breaking);
   SCM lines = system_->get_lines ();
@@ -86,9 +86,9 @@ Paper_score::process (String)
   /* gourlay:do_solve also prints newline.  */
   progress_indication ("\n");
 #endif
-  
+
   /* Only keep result stencils in lines_, *title_; delete all grobs.  */
   systems_ = SCM_EOL;
-  
+
   return lines;
 }

@@ -1,11 +1,10 @@
-/*   
+/*
   ottava-bracket.cc -- implement Ottava_bracket
 
   source file of the GNU LilyPond music typesetter
 
   (c) 2004--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
- */
+*/
 
 #include "text-item.hh"
 #include "line-spanner.hh"
@@ -24,28 +23,26 @@
 struct Ottava_bracket
 {
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  static bool has_interface (Grob*);
+  static bool has_interface (Grob *);
 };
-
 
 /*
   TODO: the string for ottava shoudl depend on the available space, ie.
-  
-  Long: 15ma        Short: 15ma    Empty: 15
-         8va                8va            8
-         8va bassa          8ba            8
 
+  Long: 15ma        Short: 15ma    Empty: 15
+  8va                8va            8
+  8va bassa          8ba            8
 */
 MAKE_SCHEME_CALLBACK (Ottava_bracket, print, 1);
 SCM
 Ottava_bracket::print (SCM smob)
 {
-  Spanner*me  = dynamic_cast<Spanner*> (unsmob_grob (smob));
+  Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (smob));
   Interval span_points;
-  
+
   Grob *common = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
-  Output_def * layout = me->get_layout ();
-  
+  Output_def *layout = me->get_layout ();
+
   Drul_array<bool> broken;
   Direction d = LEFT;
   do
@@ -59,8 +56,8 @@ Ottava_bracket::print (SCM smob)
 	  common = common_refpoint_of_list (heads, common, X_AXIS);
 	  for (SCM s = heads; scm_is_pair (s); s = scm_cdr (s))
 	    {
-	      Grob * h = unsmob_grob (scm_car (s));
-	      Grob * dots = Rhythmic_head::get_dots (h);
+	      Grob *h = unsmob_grob (scm_car (s));
+	      Grob *dots = Rhythmic_head::get_dots (h);
 	      if (dots)
 		common = dots->common_refpoint (common, X_AXIS);
 	    }
@@ -71,18 +68,16 @@ Ottava_bracket::print (SCM smob)
   SCM properties = Font_interface::text_font_alist_chain (me);
   SCM markup = me->get_property ("text");
   Stencil text;
-  if (Text_interface::markup_p (markup)) 
+  if (Text_interface::markup_p (markup))
     text = *unsmob_stencil (Text_interface::interpret_markup (layout->self_scm (), properties, markup));
-
 
   Drul_array<Real> shorten = robust_scm2interval (me->get_property ("shorten-pair"),
 						  Interval (0, 0));
 
-
   /*
     TODO: we should check if there are ledgers, and modify length of
     the spanner to that.
-   */
+  */
   do
     {
       Item *b = me->get_bound (d);
@@ -92,17 +87,17 @@ Ottava_bracket::print (SCM smob)
 	{
 	  for (SCM s = b->get_property ("note-heads"); scm_is_pair (s); s = scm_cdr (s))
 	    {
-	      Grob * h = unsmob_grob (scm_car (s));
+	      Grob *h = unsmob_grob (scm_car (s));
 	      ext.unite (h->extent (common, X_AXIS));
-	      Grob * dots = Rhythmic_head::get_dots (h);
+	      Grob *dots = Rhythmic_head::get_dots (h);
 
 	      if (dots && d == RIGHT)
 		{
-		  ext.unite (dots->extent (common, X_AXIS));  
+		  ext.unite (dots->extent (common, X_AXIS));
 		}
 	    }
 	}
-      
+
       if (ext.is_empty ())
 	{
 	  ext = robust_relative_extent (b, common, X_AXIS);
@@ -113,46 +108,42 @@ Ottava_bracket::print (SCM smob)
 	  span_points[d] = b->extent (common, X_AXIS)[RIGHT];
 	  shorten[d] = 0.;
 	}
-	    
+
       else
 	span_points[d] = ext[d];
     }
   while (flip (&d) != LEFT);
 
-
   /*
-    0.3 is ~ italic correction. 
-   */
-  Real text_size =  text.extent (X_AXIS).is_empty ()
-    ? 0.0 : text.extent (X_AXIS)[RIGHT] +  0.3;
-  
+    0.3 is ~ italic correction.
+  */
+  Real text_size = text.extent (X_AXIS).is_empty ()
+    ? 0.0 : text.extent (X_AXIS)[RIGHT] + 0.3;
+
   span_points[LEFT] = span_points[LEFT]
     <? (span_points[RIGHT] - text_size
-	- robust_scm2double (me->get_property ("minimum-length"), -1.0)); 
-  
+	- robust_scm2double (me->get_property ("minimum-length"), -1.0));
+
   Interval bracket_span_points = span_points;
   bracket_span_points[LEFT] += text_size;
-  
+
   Drul_array<Real> edge_height = robust_scm2interval (me->get_property ("edge-height"),
 						      Interval (1.0, 1.0));
 
-  
   Drul_array<Real> flare = robust_scm2interval (me->get_property ("bracket-flare"),
 						Interval (0, 0));
 
-
-
   edge_height[LEFT] = 0.0;
-  edge_height[RIGHT] *=  - get_grob_direction (me);
+  edge_height[RIGHT] *= -get_grob_direction (me);
   if (broken[RIGHT])
     edge_height[RIGHT] = 0.0;
-  
+
   Stencil b;
   Interval empty;
   if (!bracket_span_points.is_empty () && bracket_span_points.length () > 0.001)
     b = Tuplet_bracket::make_bracket (me,
 				      Y_AXIS, Offset (bracket_span_points.length (), 0),
-				       edge_height,
+				      edge_height,
 				      empty,
 				      flare, shorten);
 
@@ -160,31 +151,30 @@ Ottava_bracket::print (SCM smob)
     The vertical lines should not take space, for the following scenario:
 
     8 -----+
-        o  |
-       |
-       |
-       
+    o  |
+    |
+    |
+
 
     Just a small amount, yes.  In tight situations, it is even
     possible to center the `8' directly below the note, dropping the
     ottava line completely...
 
   */
-  
+
   b = Stencil (Box (b.extent (X_AXIS),
-		     Interval (0.1, 0.1)),
-		b.expr ());
-  
+		    Interval (0.1, 0.1)),
+	       b.expr ());
+
   b.translate_axis (bracket_span_points[LEFT], X_AXIS);
   text.translate_axis (span_points[LEFT], X_AXIS);
   text.align_to (Y_AXIS, CENTER);
   b.add_stencil (text);
-  
-  b.translate_axis (- me->relative_coordinate (common, X_AXIS), X_AXIS);
-  
-  return b.smobbed_copy ();  
-}
 
+  b.translate_axis (- me->relative_coordinate (common, X_AXIS), X_AXIS);
+
+  return b.smobbed_copy ();
+}
 
 ADD_INTERFACE (Ottava_bracket, "ottava-bracket-interface",
 	       "An ottava bracket",

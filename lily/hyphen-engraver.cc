@@ -2,10 +2,10 @@
   hyphen-engraver.cc -- implement Hyphen_engraver
 
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1999--2005 Glen Prideaux <glenprideaux@iname.com>,
-                  Han-Wen Nienhuys <hanwen@cs.uu.nl>,
-                  Jan Nieuwenhuizen <janneke@gnu.org>
+  Han-Wen Nienhuys <hanwen@cs.uu.nl>,
+  Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "warn.hh"
@@ -17,21 +17,19 @@ class Hyphen_engraver : public Engraver
 {
   Music *ev_;
   Spanner *hyphen_;
-  Spanner *finished_hyphen_;  
+  Spanner *finished_hyphen_;
 public:
   TRANSLATOR_DECLARATIONS (Hyphen_engraver);
 
 protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void finalize ();
-  virtual bool try_music (Music*);
+  virtual bool try_music (Music *);
   virtual void stop_translation_timestep ();
   virtual void process_music ();
 private:
 
 };
-
-
 
 
 Hyphen_engraver::Hyphen_engraver ()
@@ -44,7 +42,7 @@ Hyphen_engraver::Hyphen_engraver ()
 void
 Hyphen_engraver::acknowledge_grob (Grob_info i)
 {
-  Item * item =  dynamic_cast<Item*> (i.grob_);
+  Item *item = dynamic_cast<Item *> (i.grob_);
   // -> Text_item
   if (item && item->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
     {
@@ -56,9 +54,8 @@ Hyphen_engraver::acknowledge_grob (Grob_info i)
     }
 }
 
-
 bool
-Hyphen_engraver::try_music (Music* r)
+Hyphen_engraver::try_music (Music *r)
 {
   if (ev_)
     return false;
@@ -68,21 +65,19 @@ Hyphen_engraver::try_music (Music* r)
 }
 
 void
-completize_hyphen (Spanner* sp)
+completize_hyphen (Spanner *sp)
 {
   if (!sp->get_bound (RIGHT))
     {
       SCM heads = sp->get_property ("heads");
       if (scm_is_pair (heads))
 	{
-	  Item* it = dynamic_cast<Item*> (unsmob_grob (scm_car (heads)));
+	  Item *it = dynamic_cast<Item *> (unsmob_grob (scm_car (heads)));
 	  if (it)
 	    sp->set_bound (RIGHT, it);
 	}
     }
 }
-
-  
 
 void
 Hyphen_engraver::finalize ()
@@ -106,7 +101,7 @@ Hyphen_engraver::finalize ()
 
       if (!finished_hyphen_->get_bound (RIGHT))
 	{
-	  finished_hyphen_->warning (_("unterminated hyphen; removing"));
+	  finished_hyphen_->warning (_ ("unterminated hyphen; removing"));
 	  finished_hyphen_->suicide ();
 	}
       finished_hyphen_ = 0;
@@ -118,11 +113,9 @@ Hyphen_engraver::process_music ()
 {
   if (ev_)
     {
-      hyphen_ = make_spanner ("LyricHyphen", ev_->self_scm ()
-);
+      hyphen_ = make_spanner ("LyricHyphen", ev_->self_scm ());
     }
 }
-
 
 void
 Hyphen_engraver::stop_translation_timestep ()
@@ -137,7 +130,7 @@ Hyphen_engraver::stop_translation_timestep ()
       programming_error ("Haven't finished hyphen yet.");
       finished_hyphen_ = 0;
     }
-  
+
   if (hyphen_)
     finished_hyphen_ = hyphen_;
   hyphen_ = 0;
@@ -146,12 +139,10 @@ Hyphen_engraver::stop_translation_timestep ()
 }
 
 
-
-
 ADD_TRANSLATOR (Hyphen_engraver,
-/* descr */       "Create lyric hyphens",
-/* creats*/       "LyricHyphen",
-/* accepts */     "hyphen-event",
-/* acks  */      "lyric-syllable-interface",
-/* reads */       "",
-/* write */       "");
+		/* descr */ "Create lyric hyphens",
+		/* creats*/ "LyricHyphen",
+		/* accepts */ "hyphen-event",
+		/* acks  */ "lyric-syllable-interface",
+		/* reads */ "",
+		/* write */ "");

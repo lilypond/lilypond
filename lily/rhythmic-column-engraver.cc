@@ -19,7 +19,7 @@
 
   It also generates spacing objects.  Originally, we have tried to
   have the spacing functionality at different levels.
-  
+
   - by simply using the sequence of Separation-item as
   spacing-sequences (at staff level). Unfortunately, this fucks up if
   there are different kinds of tuplets in different voices (8th and
@@ -35,20 +35,18 @@
   spacing engraver don't know where to connect the last note of the
   voice on the right with), but we don't complain about those, and let
   the default spacing do its work.
-
- */
-
+*/
 
 class Rhythmic_column_engraver :public Engraver
 {
   Link_array<Grob> rheads_;
-  Grob * stem_;
-  Grob * note_column_;
-  Grob * dotcol_;
+  Grob *stem_;
+  Grob *note_column_;
+  Grob *dotcol_;
 
-  Grob * last_spacing_;
-  Grob * spacing_;
-  
+  Grob *last_spacing_;
+  Grob *spacing_;
+
   TRANSLATOR_DECLARATIONS (Rhythmic_column_engraver);
 protected:
 
@@ -57,18 +55,15 @@ protected:
   virtual void stop_translation_timestep ();
 };
 
-
-
 Rhythmic_column_engraver::Rhythmic_column_engraver ()
 {
-  spacing_ = 0 ;
+  spacing_ = 0;
   last_spacing_ = 0;
-  
+
   stem_ = 0;
   note_column_ = 0;
   dotcol_ = 0;
 }
-
 
 void
 Rhythmic_column_engraver::process_acknowledged_grobs ()
@@ -83,12 +78,10 @@ Rhythmic_column_engraver::process_acknowledged_grobs ()
 	  spacing_->set_property ("left-items", scm_cons (note_column_->self_scm (), SCM_EOL));
 
 
-	  
-
 	  if (last_spacing_)
 	    {
 	      Pointer_group_interface::add_grob (last_spacing_,
-						 ly_symbol2scm ("right-items" ),
+						 ly_symbol2scm ("right-items"),
 						 note_column_);
 	    }
 
@@ -102,7 +95,6 @@ Rhythmic_column_engraver::process_acknowledged_grobs ()
       rheads_.set_size (0);
     }
 
-  
   if (note_column_)
     {
       if (dotcol_
@@ -124,9 +116,9 @@ Rhythmic_column_engraver::process_acknowledged_grobs ()
 void
 Rhythmic_column_engraver::acknowledge_grob (Grob_info i)
 {
-  Item * item =  dynamic_cast <Item *> (i.grob_);
+  Item *item = dynamic_cast<Item *> (i.grob_);
   if (!item || item->get_parent (X_AXIS))
-    return ; 
+    return;
   if (Stem::has_interface (item))
     {
       stem_ = item;
@@ -144,24 +136,22 @@ Rhythmic_column_engraver::acknowledge_grob (Grob_info i)
 void
 Rhythmic_column_engraver::stop_translation_timestep ()
 {
-      note_column_ = 0;
+  note_column_ = 0;
 
   if (spacing_)
     {
       last_spacing_ = spacing_;
       spacing_ = 0;
     }
-  
+
   dotcol_ = 0;
   stem_ = 0;
 }
 
-
-
 ADD_TRANSLATOR (Rhythmic_column_engraver,
-/* descr */       "Generates NoteColumn, an objects that groups stems, noteheads and rests.",
-/* creats*/       "NoteColumn NoteSpacing",
-/* accepts */     "",
-/* acks  */      "stem-interface rhythmic-head-interface dot-column-interface",
-/* reads */       "",
-/* write */       "");
+		/* descr */ "Generates NoteColumn, an objects that groups stems, noteheads and rests.",
+		/* creats*/ "NoteColumn NoteSpacing",
+		/* accepts */ "",
+		/* acks  */ "stem-interface rhythmic-head-interface dot-column-interface",
+		/* reads */ "",
+		/* write */ "");

@@ -1,10 +1,9 @@
-/* 
+/*
   slur-configuration.hh -- declare Slur_configuration
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2004--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-  
 */
 
 #ifndef SLUR_CONFIGURATION_HH
@@ -21,9 +20,9 @@ public:
   Real score_;
   Bezier curve_;
   Real height_;
-  
+
   int index_;
-  
+
 #if DEBUG_SLUR_SCORING
   String score_card_;
 #endif
@@ -31,12 +30,12 @@ public:
   Slur_configuration ();
 
   void generate_curve (Slur_score_state const &state, Real r0, Real h_inf);
-  void score (Slur_score_state const&);
+  void score (Slur_score_state const &);
 protected:
-  void score_extra_encompass (Slur_score_state const&);
-  void score_slopes  (Slur_score_state const&);
-  void score_edges (Slur_score_state const&);
-  void score_encompass (Slur_score_state const&);
+  void score_extra_encompass (Slur_score_state const &);
+  void score_slopes (Slur_score_state const &);
+  void score_edges (Slur_score_state const &);
+  void score_encompass (Slur_score_state const &);
 };
 
 #endif /* SLUR_CONFIGURATION_HH */

@@ -6,7 +6,6 @@
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #ifndef DRUL_ARRAY_HH
 #define DRUL_ARRAY_HH
 
@@ -14,21 +13,21 @@
 #include "real.hh"
 
 /**
-  Left/right or Up/down arrays. Drul is nicer sounding than udlr
- */
+   Left/right or Up/down arrays. Drul is nicer sounding than udlr
+*/
 template<class T>
 struct Drul_array
 {
   T array_[2];
   T &elem_ref (Direction d)
   {
-    assert (d==1 || d== -1);
-    return array_[ (d+1)/2];
+    assert (d == 1 || d== -1);
+    return array_[ (d + 1) / 2];
   }
   T elem (Direction d) const
   {
-    assert (d==1 || d== -1);
-    return array_[ (d+1)/2];
+    assert (d == 1 || d== -1);
+    return array_[ (d + 1) / 2];
   }
   T &operator[] (Direction d)
   {

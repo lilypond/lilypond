@@ -1,4 +1,4 @@
-/*   
+/*
   moment.cc -- implement Moment bindings
 
   source file of the GNU LilyPond music typesetter
@@ -7,7 +7,6 @@
 */
 
 #include "moment.hh"
-
 
 /* TODO: add optional factor argument. */
 LY_DEFINE (ly_make_moment, "ly:make-moment",
@@ -83,7 +82,7 @@ LY_DEFINE (ly_moment_main_numerator, "ly:moment-main-numerator",
   Moment *ma = unsmob_moment (mom);
   SCM_ASSERT_TYPE (ma, mom, SCM_ARG1, __FUNCTION__, "moment");
 
-  return scm_from_int (ma->main_part_.numerator ()); 
+  return scm_from_int (ma->main_part_.numerator ());
 }
 
 LY_DEFINE (ly_moment_main_denominator, "ly:moment-main-denominator",
@@ -93,7 +92,7 @@ LY_DEFINE (ly_moment_main_denominator, "ly:moment-main-denominator",
   Moment *ma = unsmob_moment (mom);
   SCM_ASSERT_TYPE (ma, mom, SCM_ARG1, __FUNCTION__, "moment");
 
-  return scm_from_int (ma->main_part_.denominator ()); 
+  return scm_from_int (ma->main_part_.denominator ());
 }
 
 LY_DEFINE (ly_moment_less_p, "ly:moment<?",
@@ -104,6 +103,6 @@ LY_DEFINE (ly_moment_less_p, "ly:moment<?",
   Moment *mb = unsmob_moment (b);
   SCM_ASSERT_TYPE (ma, a, SCM_ARG1, __FUNCTION__, "moment");
   SCM_ASSERT_TYPE (mb, b, SCM_ARG2, __FUNCTION__, "moment");
-  return ly_bool2scm (*ma <  *mb);
+  return ly_bool2scm (*ma < *mb);
 }
 

@@ -5,7 +5,7 @@
 
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
- 
+
 #include "main.hh"
 
 #include <cassert>
@@ -72,44 +72,42 @@ String init_scheme_code_string = "(begin #t ";
 bool make_preview = false;
 bool make_pages = true;
 
-
 /*
  * Miscellaneous global stuff.
  */
 File_path global_path;
 
-
 /*
  * File globals.
  */
 
-static char const *AUTHORS =
-"  Han-Wen Nienhuys <hanwen@cs.uu.nl>\n"
-"  Jan Nieuwenhuizen <janneke@gnu.org>\n";
+static char const *AUTHORS
+= "  Han-Wen Nienhuys <hanwen@cs.uu.nl>\n"
+  "  Jan Nieuwenhuizen <janneke@gnu.org>\n";
 
 static char const *PROGRAM_NAME = "lilypond";
 static char const *PROGRAM_URL = "http://lilypond.org";
 
-static char const *NOTICE =
-_i("This program is free software.  It is covered by the GNU General Public\n"
-   "License and you are welcome to change it and/or distribute copies of it\n"
-   "under certain conditions.  Invoke as `%s --warranty' for more\n"
-   "information.\n");
-  
-static char const *WARRANTY =
-_i("    This program is free software; you can redistribute it and/or\n"
-   "modify it under the terms of the GNU General Public License version 2\n"
-   "as published by the Free Software Foundation.\n"
-   "\n"
-   "    This program is distributed in the hope that it will be useful,\n"
-   "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-   "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
-   "General Public License for more details.\n"
-   "\n"
-   "    You should have received a copy (refer to the file COPYING) of the\n"
-   "GNU General Public License along with this program; if not, write to\n"
-   "the Free Software Foundation, Inc., 59 Temple Place - Suite 330,\n"
-   "Boston, MA 02111-1307, USA.\n");
+static char const *NOTICE
+= _i ("This program is free software.  It is covered by the GNU General Public\n"
+      "License and you are welcome to change it and/or distribute copies of it\n"
+      "under certain conditions.  Invoke as `%s --warranty' for more\n"
+      "information.\n");
+
+static char const *WARRANTY
+= _i ("    This program is free software; you can redistribute it and/or\n"
+      "modify it under the terms of the GNU General Public License version 2\n"
+      "as published by the Free Software Foundation.\n"
+      "\n"
+      "    This program is distributed in the hope that it will be useful,\n"
+      "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+      "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
+      "General Public License for more details.\n"
+      "\n"
+      "    You should have received a copy (refer to the file COPYING) of the\n"
+      "GNU General Public License along with this program; if not, write to\n"
+      "the Free Software Foundation, Inc., 59 Temple Place - Suite 330,\n"
+      "Boston, MA 02111-1307, USA.\n");
 
 /* Where the init files live.  Typically:
    LILYPOND_DATADIR = /usr/share/lilypond
@@ -123,47 +121,47 @@ String jail_spec;
 static Getopt_long *option_parser = 0;
 
 /* Internationalisation kludge in two steps:
-   * use _i () to get entry in POT file
-   * call gettext () explicitely for actual "translation"  */
+ * use _i () to get entry in POT file
+ * call gettext () explicitely for actual "translation"  */
 
-static Long_option_init options_static[] =
-  {
-    {_i ("EXT"), "backend", 'b', _i ("select backend to use")},
-    {_i ("EXPR"), "evaluate", 'e',
-     _i ("set option, use -e '(ly:option-usage)' for help")},
-    /* Bug in option parser: --output =foe is taken as an abbreviation
-       for --output-format.  */
-    {_i ("EXTs"), "formats", 'f', _i ("list of formats to dump")},
-    {0, "help", 'h',  _i ("print this help")},
-    {_i ("FIELD"), "header", 'H',  _i ("write header field to BASENAME.FIELD")},
-    {_i ("DIR"), "include", 'I',  _i ("add DIR to search path")},
-    {_i ("FILE"), "init", 'i',  _i ("use FILE as init file")},
-    {_i ("FILE"), "output", 'o',  _i ("write output to FILE (suffix will be added)")},
-    {_i ("USER,GROUP,JAIL,DIR"), "jail", 'j', _i ("chroot to JAIL, become USER:GROUP and cd into DIR")},
-    {0, "preview", 'p',  _i ("generate a preview")},
-    {0, "no-pages", 0,  _i ("don't generate full pages")},
-    {0, "png", 0,  _i ("generate PNG")},
-    {0, "ps", 0,  _i ("generate PostScript")},
-    {0, "dvi", 0,  _i ("generate DVI")},
-    {0, "pdf", 0,  _i ("generate PDF (default)")},
-    {0, "tex", 0,  _i ("generate TeX")},
-    {0, "safe-mode", 's',  _i ("run in safe mode")},
-    {0, "version", 'v',  _i ("print version number")},
-    {0, "verbose", 'V', _i ("be verbose")},
-    {0, "warranty", 'w',  _i ("show warranty and copyright")},
-    {0, 0, 0, 0}
-  };
+static Long_option_init options_static[]
+= {
+  {_i ("EXT"), "backend", 'b', _i ("select backend to use")},
+  {_i ("EXPR"), "evaluate", 'e',
+   _i ("set option, use -e '(ly:option-usage)' for help")},
+  /* Bug in option parser: --output =foe is taken as an abbreviation
+     for --output-format.  */
+  {_i ("EXTs"), "formats", 'f', _i ("list of formats to dump")},
+  {0, "help", 'h',  _i ("print this help")},
+  {_i ("FIELD"), "header", 'H',  _i ("write header field to BASENAME.FIELD")},
+  {_i ("DIR"), "include", 'I',  _i ("add DIR to search path")},
+  {_i ("FILE"), "init", 'i',  _i ("use FILE as init file")},
+  {_i ("FILE"), "output", 'o',  _i ("write output to FILE (suffix will be added)")},
+  {_i ("USER,GROUP,JAIL,DIR"), "jail", 'j', _i ("chroot to JAIL, become USER:GROUP and cd into DIR")},
+  {0, "preview", 'p',  _i ("generate a preview")},
+  {0, "no-pages", 0, _i ("don't generate full pages")},
+  {0, "png", 0, _i ("generate PNG")},
+  {0, "ps", 0, _i ("generate PostScript")},
+  {0, "dvi", 0, _i ("generate DVI")},
+  {0, "pdf", 0, _i ("generate PDF (default)")},
+  {0, "tex", 0, _i ("generate TeX")},
+  {0, "safe-mode", 's',  _i ("run in safe mode")},
+  {0, "version", 'v',  _i ("print version number")},
+  {0, "verbose", 'V', _i ("be verbose")},
+  {0, "warranty", 'w',  _i ("show warranty and copyright")},
+  {0, 0, 0, 0}
+};
 
 static void
 dir_info (FILE *out)
 {
   fputs ("\n", out);
   fprintf (out, "LILYPOND_DATADIR=\"%s\"\n", LILYPOND_DATADIR);
-  if (char const * env = getenv ("LILYPONDPREFIX"))
-    fprintf (out, "LILYPONDPREFIX=\"%s\"\n",  env);
+  if (char const *env = getenv ("LILYPONDPREFIX"))
+    fprintf (out, "LILYPONDPREFIX=\"%s\"\n", env);
   fprintf (out, "LOCALEDIR=\"%s\"\n", LOCALEDIR);
 
-  fprintf (out, "\nEffective prefix: \"%s\"\n", prefix_directory.to_str0());
+  fprintf (out, "\nEffective prefix: \"%s\"\n", prefix_directory.to_str0 ());
 }
 
 static void
@@ -181,7 +179,7 @@ identify (FILE *out)
   fputs (gnu_lilypond_version_string ().to_str0 (), out);
   fputs ("\n", out);
 }
- 
+
 static void
 notice ()
 {
@@ -226,7 +224,7 @@ static void
 setup_paths ()
 {
   prefix_directory = LILYPOND_DATADIR;
-  if (char const * env = getenv ("LILYPONDPREFIX"))
+  if (char const *env = getenv ("LILYPONDPREFIX"))
     prefix_directory = env;
 
   global_path.append ("");
@@ -267,7 +265,7 @@ do_chroot_jail ()
     {
       USER_NAME, GROUP_NAME, JAIL, DIR, JAIL_MAX
     };
-  
+
   Array<String> components = String_convert::split (jail_spec, ',');
   if (components.size () != JAIL_MAX)
     {
@@ -286,10 +284,10 @@ do_chroot_jail ()
     {
       if (errno == 0)
 	error (_f ("no such user: %s", components[USER_NAME]));
-      else 
-	error(_f ("can't get user id from user name: %s: %s",
-		  components[USER_NAME],
-		  strerror (errno)));
+      else
+	error (_f ("can't get user id from user name: %s: %s",
+		   components[USER_NAME],
+		   strerror (errno)));
       exit (3);
     }
 
@@ -301,9 +299,9 @@ do_chroot_jail ()
     gid = group->gr_gid;
   else
     {
-      if (errno == 0) 
+      if (errno == 0)
 	error (_f ("no such group: %s", components[GROUP_NAME]));
-      else 
+      else
 	error (_f ("can't get group id from group name: %s: ",
 		   components[GROUP_NAME],
 		   strerror (errno)));
@@ -337,7 +335,7 @@ do_chroot_jail ()
     }
 }
 
-void test_pango();
+void test_pango ();
 
 static void
 main_with_guile (void *, int, char **)
@@ -354,19 +352,18 @@ main_with_guile (void *, int, char **)
 			  || output_backend_global == "texstr");
 
   is_pango_format_global = !is_TeX_format_global;
-    
 
   ly_c_init_guile ();
   call_constructors ();
   init_global_tweak_registry ();
   init_fontconfig ();
-  
+
   init_freetype ();
 
   all_fonts_global = new All_font_metrics (global_path.to_string ());
 
   init_scheme_code_string += ")";
-  scm_c_eval_string ((char*) init_scheme_code_string.to_str0 ());
+  scm_c_eval_string ((char *) init_scheme_code_string.to_str0 ());
 
   /* We accept multiple independent music files on the command line to
      reduce compile time when processing lots of small files.
@@ -391,8 +388,8 @@ main_with_guile (void *, int, char **)
       exit (2);
     }
 
-  if (! jail_spec.is_empty ()) 
-     do_chroot_jail ();
+  if (! jail_spec.is_empty ())
+    do_chroot_jail ();
 
   SCM result = scm_call_1 (ly_lily_module_constant ("lilypond-main"), files);
   (void) result;
@@ -407,11 +404,11 @@ setup_localisation ()
 #if HAVE_GETTEXT
   /* Enable locales */
   setlocale (LC_ALL, "");
-  
+
   /* FIXME: check if this is still true.
-    Disable localisation of float values.  This breaks TeX output.  */
+     Disable localisation of float values.  This breaks TeX output.  */
   setlocale (LC_NUMERIC, "C");
-  
+
   String name (PACKAGE);
   name.to_lower ();
   bindtextdomain (name.to_str0 (), LOCALEDIR);
@@ -450,7 +447,7 @@ parse_argv (int argc, char **argv)
 	  else if (String (opt->longname_str0_) == "no-pages")
 	    make_pages = false;
 	  break;
-	  
+
 	case 'v':
 	  notice ();
 	  exit (0);

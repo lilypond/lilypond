@@ -1,11 +1,11 @@
 /*
   mensural-ligature-engraver.cc -- implement Mensural_ligature_engraver
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2002--2005 Juergen Reuter <reuter@ipd.uka.de>,
-		 Pal Benko <benkop@freestart.hu>
- */
+  Pal Benko <benkop@freestart.hu>
+*/
 
 #include "coherent-ligature-engraver.hh"
 #include "mensural-ligature.hh"
@@ -56,7 +56,6 @@ private:
   void fold_up_primitives (Array<Grob_info> primitives);
 };
 
-
 Mensural_ligature_engraver::Mensural_ligature_engraver ()
 {
 }
@@ -85,196 +84,197 @@ Mensural_ligature_engraver::transform_heads (Array<Grob_info> primitives)
   bool prev_semibrevis = false;
   Item *prev_primitive = NULL;
 
-  for (int i = 0, s = primitives.size (); i < s; i++) {
-    Grob_info info = primitives[i];
-    Item *primitive = dynamic_cast<Item *> (info.grob_);
-    int duration_log = Note_head::get_balltype (primitive);
+  for (int i = 0, s = primitives.size (); i < s; i++)
+    {
+      Grob_info info = primitives[i];
+      Item *primitive = dynamic_cast<Item *> (info.grob_);
+      int duration_log = Note_head::get_balltype (primitive);
 
-    Music *nr = info.music_cause ();
-    
-    /*
-      ugh. why not simply check for pitch? 
-    */
-    if (!nr->is_mus_type ("note-event"))
-      {
-	nr->origin ()->warning
-	  (_f ("can not determine pitch of ligature primitive -> skipping"));
-	at_beginning = true;
-	continue;
-      }
+      Music *nr = info.music_cause ();
 
-    int pitch = unsmob_pitch (nr->get_property ("pitch"))->steps ();
-    int delta_pitch = 0;
+      /*
+	ugh. why not simply check for pitch?
+      */
+      if (!nr->is_mus_type ("note-event"))
+	{
+	  nr->origin ()->warning
+	    (_f ("can not determine pitch of ligature primitive -> skipping"));
+	  at_beginning = true;
+	  continue;
+	}
 
-    if (at_beginning)
-      {
-	if (i == s - 1)
-	  {
-	    // we can get here after invalid input
-	    nr->origin ()->warning
-	      (_f ("single note ligature - skipping"));
-	    break;
-	  }
-	prev_semibrevis = prev_brevis_shape = false;
-	prev_primitive = NULL;
-      }
-    else
-      {
-	delta_pitch = pitch - prev_pitch;
-	if (delta_pitch == 0)
-	  {
-	    nr->origin ()->warning
-	      (_f ("prime interval within ligature -> skipping"));
-	    at_beginning = true;
-	    primitive->set_property ("primitive",
-				     scm_int2num (MLP_NONE));
-	    continue;
-	  }
-      }
+      int pitch = unsmob_pitch (nr->get_property ("pitch"))->steps ();
+      int delta_pitch = 0;
 
-    if (duration_log < -3 // is this possible at all???
-	|| duration_log > 0)
-      {
-	nr->origin ()->warning
-	  (_f ("mensural ligature: duration none of Mx, L, B, S -> skipping"));
-	primitive->set_property ("primitive",
-				 scm_int2num (MLP_NONE));
-	at_beginning = true;
-	continue;
-      }
+      if (at_beginning)
+	{
+	  if (i == s - 1)
+	    {
+	      // we can get here after invalid input
+	      nr->origin ()->warning
+		(_f ("single note ligature - skipping"));
+	      break;
+	    }
+	  prev_semibrevis = prev_brevis_shape = false;
+	  prev_primitive = NULL;
+	}
+      else
+	{
+	  delta_pitch = pitch - prev_pitch;
+	  if (delta_pitch == 0)
+	    {
+	      nr->origin ()->warning
+		(_f ("prime interval within ligature -> skipping"));
+	      at_beginning = true;
+	      primitive->set_property ("primitive",
+				       scm_int2num (MLP_NONE));
+	      continue;
+	    }
+	}
 
-    // apply_transition replacement begins
-    bool general_case = true;
+      if (duration_log < -3 // is this possible at all???
+	  || duration_log > 0)
+	{
+	  nr->origin ()->warning
+	    (_f ("mensural ligature: duration none of Mx, L, B, S -> skipping"));
+	  primitive->set_property ("primitive",
+				   scm_int2num (MLP_NONE));
+	  at_beginning = true;
+	  continue;
+	}
 
-    // first check special cases
-    // 1. beginning
-    if (at_beginning)
-      {
-	// a. semibreves
-	if (duration_log == 0)
-	  {
-	    primitive->set_property ("primitive",
-				     scm_int2num (MLP_UP | MLP_BREVIS));
-	    prev_semibrevis = prev_brevis_shape = true;
-	    general_case = false;
-	  }
-	// b. descendens longa or brevis
-	else if (i < s - 1
-		 && (unsmob_pitch (primitives[i + 1].music_cause ()
-				   ->get_property ("pitch"))->steps () < pitch)
-		 && duration_log > -3)
-	  {
-	    int left_stem = duration_log == -1 ? MLP_DOWN : 0;
+      // apply_transition replacement begins
+      bool general_case = true;
 
-	    primitive->set_property ("primitive",
-				     scm_int2num (left_stem | MLP_BREVIS));
-	    prev_brevis_shape = true;
-	    prev_semibrevis = general_case = false;
-	  }
-      }
-    // 2. initial semibrevis must be followed by another one
-    else if (prev_semibrevis)
-      {
-	prev_semibrevis = false;
-	if (duration_log == 0)
-	  {
-	    primitive->set_property ("primitive", scm_int2num(MLP_BREVIS));
-	    general_case = false;
-	  }
-	else
-	  {
-	    nr->origin ()->warning
-	      (_f ("semibrevis must be followed by another one -> skipping"));
-	    primitive->set_property ("primitive",
-				     scm_int2num (MLP_NONE));
-	    at_beginning = true;
-	    continue;
-	  }
-      }
-    // 3. semibreves are otherwise not allowed
-    else if (duration_log == 0)
-      {
-	nr->origin ()->warning
-	  (_f ("semibreves can only appear at the beginning of a ligature,\n"
-	       "and there may be only zero or two of them"));
-	primitive->set_property ("primitive",
-				 scm_int2num (MLP_NONE));
-	at_beginning = true;
-	continue;
-      }
-    // 4. end, descendens
-    else if (i == s - 1 && delta_pitch < 0)
-      {
-	// brevis; previous note must be turned into flexa
-	if (duration_log == -1)
-	  {
-	    if (prev_brevis_shape)
-	      {
-		prev_primitive->set_property
-		  ("primitive",
-		   scm_int2num
-		   (MLP_FLEXA
-		    | (scm_to_int (prev_primitive->get_property ("primitive"))
-		       & MLP_DOWN)));
-		primitive->set_property ("primitive", scm_int2num (MLP_NONE));
-		break; // no more notes, no join
-	      }
-	    else
-	      {
-		nr->origin ()->warning
-		  (_f ("invalid ligatura ending:\n"
-		       "when the last note is a descending brevis,\n"
-		       "the penultimate note must be another one,\n"
-		       "or the ligatura must be LB or SSB"));
-		primitive->set_property ("primitive", scm_int2num (MLP_NONE));
-		break;
-	      }
-	  }
-	// longa
-	else if (duration_log == -2)
-	  {
-	    primitive->set_property ("primitive", scm_int2num (MLP_BREVIS));
-	    general_case = false;
-	  }
-	// else maxima; fall through regular case below
-      }
+      // first check special cases
+      // 1. beginning
+      if (at_beginning)
+	{
+	  // a. semibreves
+	  if (duration_log == 0)
+	    {
+	      primitive->set_property ("primitive",
+				       scm_int2num (MLP_UP | MLP_BREVIS));
+	      prev_semibrevis = prev_brevis_shape = true;
+	      general_case = false;
+	    }
+	  // b. descendens longa or brevis
+	  else if (i < s - 1
+		   && (unsmob_pitch (primitives[i + 1].music_cause ()
+				     ->get_property ("pitch"))->steps () < pitch)
+		   && duration_log > -3)
+	    {
+	      int left_stem = duration_log == -1 ? MLP_DOWN : 0;
 
-    if (general_case)
-      {
-	static int const shape[3] = {MLP_MAXIMA, MLP_LONGA, MLP_BREVIS};
+	      primitive->set_property ("primitive",
+				       scm_int2num (left_stem | MLP_BREVIS));
+	      prev_brevis_shape = true;
+	      prev_semibrevis = general_case = false;
+	    }
+	}
+      // 2. initial semibrevis must be followed by another one
+      else if (prev_semibrevis)
+	{
+	  prev_semibrevis = false;
+	  if (duration_log == 0)
+	    {
+	      primitive->set_property ("primitive", scm_int2num (MLP_BREVIS));
+	      general_case = false;
+	    }
+	  else
+	    {
+	      nr->origin ()->warning
+		(_f ("semibrevis must be followed by another one -> skipping"));
+	      primitive->set_property ("primitive",
+				       scm_int2num (MLP_NONE));
+	      at_beginning = true;
+	      continue;
+	    }
+	}
+      // 3. semibreves are otherwise not allowed
+      else if (duration_log == 0)
+	{
+	  nr->origin ()->warning
+	    (_f ("semibreves can only appear at the beginning of a ligature,\n"
+		 "and there may be only zero or two of them"));
+	  primitive->set_property ("primitive",
+				   scm_int2num (MLP_NONE));
+	  at_beginning = true;
+	  continue;
+	}
+      // 4. end, descendens
+      else if (i == s - 1 && delta_pitch < 0)
+	{
+	  // brevis; previous note must be turned into flexa
+	  if (duration_log == -1)
+	    {
+	      if (prev_brevis_shape)
+		{
+		  prev_primitive->set_property
+		    ("primitive",
+		     scm_int2num
+		     (MLP_FLEXA
+		      | (scm_to_int (prev_primitive->get_property ("primitive"))
+			 & MLP_DOWN)));
+		  primitive->set_property ("primitive", scm_int2num (MLP_NONE));
+		  break; // no more notes, no join
+		}
+	      else
+		{
+		  nr->origin ()->warning
+		    (_f ("invalid ligatura ending:\n"
+			 "when the last note is a descending brevis,\n"
+			 "the penultimate note must be another one,\n"
+			 "or the ligatura must be LB or SSB"));
+		  primitive->set_property ("primitive", scm_int2num (MLP_NONE));
+		  break;
+		}
+	    }
+	  // longa
+	  else if (duration_log == -2)
+	    {
+	      primitive->set_property ("primitive", scm_int2num (MLP_BREVIS));
+	      general_case = false;
+	    }
+	  // else maxima; fall through regular case below
+	}
 
-	primitive->set_property ("primitive",
-				 scm_int2num (shape[duration_log + 3]));
-	prev_brevis_shape = duration_log == -1;
-      }
+      if (general_case)
+	{
+	  static int const shape[3] = {MLP_MAXIMA, MLP_LONGA, MLP_BREVIS};
 
-    // join_primitives replacement
-    if (!at_beginning)
-      {
-	/*
-	  if the previous note is longa-shaped and this note is lower,
-	  then the joining line may hide the stem, so it is made longer
-	  to serve as stem as well
-	*/
-	if (delta_pitch < 0
-	    && (scm_to_int (prev_primitive->get_property ("primitive"))
-		& MLP_LONGA))
-	  {
-	    delta_pitch -= 6;
-	    // instead of number 6
-	    // the legth of the longa stem should be queried something like
-	    // Font_interface::get_default_font (ligature)->find_by_name
-	    //  ("noteheads.s-2mensural").extent (Y_AXIS).length ()
-	  }
-	prev_primitive->set_property ("join-right-amount",
-				      scm_int2num (delta_pitch));
-	// perhaps set add-join as well
-      }
-    at_beginning = false;
-    prev_primitive = primitive;
-    prev_pitch = pitch;
-    // apply_transition replacement ends
-  }
+	  primitive->set_property ("primitive",
+				   scm_int2num (shape[duration_log + 3]));
+	  prev_brevis_shape = duration_log == -1;
+	}
+
+      // join_primitives replacement
+      if (!at_beginning)
+	{
+	  /*
+	    if the previous note is longa-shaped and this note is lower,
+	    then the joining line may hide the stem, so it is made longer
+	    to serve as stem as well
+	  */
+	  if (delta_pitch < 0
+	      && (scm_to_int (prev_primitive->get_property ("primitive"))
+		  & MLP_LONGA))
+	    {
+	      delta_pitch -= 6;
+	      // instead of number 6
+	      // the legth of the longa stem should be queried something like
+	      // Font_interface::get_default_font (ligature)->find_by_name
+	      //  ("noteheads.s-2mensural").extent (Y_AXIS).length ()
+	    }
+	  prev_primitive->set_property ("join-right-amount",
+					scm_int2num (delta_pitch));
+	  // perhaps set add-join as well
+	}
+      at_beginning = false;
+      prev_primitive = primitive;
+      prev_pitch = pitch;
+      // apply_transition replacement ends
+    }
 }
 
 /*
@@ -295,18 +295,18 @@ void
 Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
 						  Array<Grob_info> primitives)
 {
-  Real thickness =
-    robust_scm2double (ligature->get_property ("thickness"), 1.4);
-  thickness *=
-    ligature->get_layout ()->get_dimension (ly_symbol2scm ("linethickness"));
+  Real thickness
+    = robust_scm2double (ligature->get_property ("thickness"), 1.4);
+  thickness
+    *= ligature->get_layout ()->get_dimension (ly_symbol2scm ("linethickness"));
 
-  Real head_width =
-    Font_interface::get_default_font (ligature)->
+  Real head_width
+    = Font_interface::get_default_font (ligature)->
     find_by_name ("noteheads.s-1mensural").extent (X_AXIS).length ();
-  Real flexa_width =
-    robust_scm2double (ligature->get_property ("flexa-width"), 2);
-  Real maxima_head_width =
-    Font_interface::get_default_font (ligature)->
+  Real flexa_width
+    = robust_scm2double (ligature->get_property ("flexa-width"), 2);
+  Real maxima_head_width
+    = Font_interface::get_default_font (ligature)->
     find_by_name ("noteheads.s-1neomensural").extent (X_AXIS).length ();
 
   flexa_width *= Staff_symbol_referencer::staff_space (ligature);
@@ -315,35 +315,36 @@ Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
 
   for (int i = 0; i < primitives.size (); i++)
     {
-      Item *primitive = dynamic_cast<Item*> (primitives[i].grob_);
+      Item *primitive = dynamic_cast<Item *> (primitives[i].grob_);
       int output = scm_to_int (primitive->get_property ("primitive"));
       primitive->set_property ("thickness",
 			       scm_make_real (thickness));
 
-      switch (output & MLP_ANY) {
-      case MLP_NONE:
-	primitive->set_property ("head-width",
-				 scm_make_real (half_flexa_width));
-	break;
-      case MLP_BREVIS:
-      case MLP_LONGA:
-	primitive->set_property ("head-width",
-				 scm_make_real (head_width));
-	break;
-      case MLP_MAXIMA:
-	primitive->set_property ("head-width",
-				 scm_make_real (maxima_head_width));
-	break;
-      case MLP_FLEXA:
-	primitive->set_property ("head-width",
-				 scm_make_real (half_flexa_width));
-	primitive->set_property ("flexa-width",
-				 scm_make_real (flexa_width));
-	break;
-      default:
-	programming_error (_f ("unexpected case fall-through"));
-	break;
-      }
+      switch (output & MLP_ANY)
+	{
+	case MLP_NONE:
+	  primitive->set_property ("head-width",
+				   scm_make_real (half_flexa_width));
+	  break;
+	case MLP_BREVIS:
+	case MLP_LONGA:
+	  primitive->set_property ("head-width",
+				   scm_make_real (head_width));
+	  break;
+	case MLP_MAXIMA:
+	  primitive->set_property ("head-width",
+				   scm_make_real (maxima_head_width));
+	  break;
+	case MLP_FLEXA:
+	  primitive->set_property ("head-width",
+				   scm_make_real (half_flexa_width));
+	  primitive->set_property ("flexa-width",
+				   scm_make_real (flexa_width));
+	  break;
+	default:
+	  programming_error (_f ("unexpected case fall-through"));
+	  break;
+	}
     }
 }
 
@@ -354,7 +355,7 @@ Mensural_ligature_engraver::fold_up_primitives (Array<Grob_info> primitives)
   Real distance = 0;
   for (int i = 0; i < primitives.size (); i++)
     {
-      Item *current = dynamic_cast<Item*> (primitives[i].grob_);
+      Item *current = dynamic_cast<Item *> (primitives[i].grob_);
       if (i == 0)
 	{
 	  first = current;
@@ -367,9 +368,9 @@ Mensural_ligature_engraver::fold_up_primitives (Array<Grob_info> primitives)
 	  current->translate_axis (distance, X_AXIS);
 	}
 
-      distance +=
-	scm_to_double (current->get_property ("head-width")) -
-	scm_to_double (current->get_property ("thickness"));
+      distance
+	+= scm_to_double (current->get_property ("head-width"))
+	- scm_to_double (current->get_property ("thickness"));
     }
 }
 
@@ -383,9 +384,9 @@ Mensural_ligature_engraver::build_ligature (Spanner *ligature,
 }
 
 ADD_TRANSLATOR (Mensural_ligature_engraver,
-/* descr */       "Handles Mensural_ligature_events by glueing special ligature heads together.",
-/* creats*/       "MensuralLigature",
-/* accepts */     "ligature-event",
-/* acks  */      "note-head-interface rest-interface",
-/* reads */       "",
-/* write */       "");
+		/* descr */ "Handles Mensural_ligature_events by glueing special ligature heads together.",
+		/* creats*/ "MensuralLigature",
+		/* accepts */ "ligature-event",
+		/* acks  */ "note-head-interface rest-interface",
+		/* reads */ "",
+		/* write */ "");

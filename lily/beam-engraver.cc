@@ -1,11 +1,10 @@
-/*   
+/*
   beam-engraver.cc -- implement Beam_engraver
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1998--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #include "engraver.hh"
 #include "beam.hh"
@@ -21,17 +20,17 @@
 
 class Beam_engraver : public Engraver
 {
-protected:  
-  Music * start_ev_;
-  
+protected:
+  Music *start_ev_;
+
   Spanner *finished_beam_;
   Spanner *beam_;
-  Music * prev_start_ev_;
+  Music *prev_start_ev_;
 
-  Music * now_stop_ev_;
-  
-  Beaming_info_list * beam_info_;
-  Beaming_info_list * finished_beam_info_;  
+  Music *now_stop_ev_;
+
+  Beaming_info_list *beam_info_;
+  Beaming_info_list *finished_beam_info_;
 
   /// location  within measure where beam started.
   Moment beam_start_location_;
@@ -51,21 +50,20 @@ protected:
   virtual void finalize ();
 
   virtual void acknowledge_grob (Grob_info);
-  virtual bool try_music (Music*);
+  virtual bool try_music (Music *);
   virtual void process_music ();
 
   virtual bool valid_start_point ();
   virtual bool valid_end_point ();
-  
+
 public:
   TRANSLATOR_DECLARATIONS (Beam_engraver);
 };
 
-
 /*
   Hmm. this isn't necessary, since grace beams and normal beams are
   always nested.
- */
+*/
 bool
 Beam_engraver::valid_start_point ()
 {
@@ -146,14 +144,13 @@ Beam_engraver::process_music ()
 
       beam_start_location_ = mp;
       beam_start_mom_ = now_mom ();
-      
+
       beam_info_ = new Beaming_info_list;
-      
+
       /* urg, must copy to Auto_beam_engraver too */
     }
 
 }
-
 
 void
 Beam_engraver::typeset_beam ()
@@ -162,7 +159,7 @@ Beam_engraver::typeset_beam ()
     {
       finished_beam_info_->beamify (beat_length_, subdivide_beams_);
       Beam::set_beaming (finished_beam_, finished_beam_info_);
-      
+
       delete finished_beam_info_;
       finished_beam_info_ = 0;
       finished_beam_ = 0;
@@ -173,11 +170,11 @@ void
 Beam_engraver::start_translation_timestep ()
 {
   start_ev_ = 0;
-  
+
   if (beam_)
     {
       set_melisma (true);
-      
+
       subdivide_beams_ = to_boolean (get_property ("subdivideBeams"));
       beat_length_ = robust_scm2moment (get_property ("beatLength"), Moment (1, 4));
     }
@@ -187,7 +184,7 @@ void
 Beam_engraver::stop_translation_timestep ()
 {
   typeset_beam ();
-  if (now_stop_ev_ )
+  if (now_stop_ev_)
     {
       finished_beam_ = beam_;
       finished_beam_info_ = beam_info_;
@@ -230,13 +227,13 @@ Beam_engraver::acknowledge_grob (Grob_info info)
 	  Moment now = now_mom ();
 
 	  if (!valid_start_point ())
-	    return ;
-	  
-	  Item *stem = dynamic_cast<Item*> (info.grob_);
+	    return;
+
+	  Item *stem = dynamic_cast<Item *> (info.grob_);
 	  if (Stem::get_beam (stem))
 	    return;
 
-	  Music* m = info.music_cause ();
+	  Music *m = info.music_cause ();
 	  if (!m->is_mus_type ("rhythmic-event"))
 	    {
 	      String s = _ ("stem must have Rhythmic structure");
@@ -244,13 +241,12 @@ Beam_engraver::acknowledge_grob (Grob_info info)
 		info.music_cause ()->origin ()->warning (s);
 	      else
 		::warning (s);
-	  
+
 	      return;
 	    }
 
-
 	  last_stem_added_at_ = now;
-	  int durlog  = unsmob_duration (m->get_property ("duration"))-> duration_log ();
+	  int durlog = unsmob_duration (m->get_property ("duration"))-> duration_log ();
 	  if (durlog <= 2)
 	    {
 	      m->origin ()->warning (_ ("stem doesn't fit in beam"));
@@ -263,33 +259,29 @@ Beam_engraver::acknowledge_grob (Grob_info info)
 	    }
 
 	  stem->set_property ("duration-log",
-				    scm_int2num (durlog));
+			      scm_int2num (durlog));
 	  Moment stem_location = now - beam_start_mom_ + beam_start_location_;
 	  beam_info_->add_stem (stem_location,
- (durlog- 2) >? 0);
+				(durlog- 2) >? 0);
 	  Beam::add_stem (beam_, stem);
 	}
     }
 }
 
 
-
-
-
 ADD_TRANSLATOR (Beam_engraver,
-/* descr */       "Handles Beam events by engraving Beams.    If omitted, then notes will be "
-"printed with flags instead of beams.",
-/* creats*/       "Beam",
-/* accepts */     "beam-event",
-/* acks  */      "stem-interface rest-interface",
-/* reads */       "beamMelismaBusy beatLength subdivideBeams",
-/* write */       "");
-
+		/* descr */ "Handles Beam events by engraving Beams.    If omitted, then notes will be "
+		"printed with flags instead of beams.",
+		/* creats*/ "Beam",
+		/* accepts */ "beam-event",
+		/* acks  */ "stem-interface rest-interface",
+		/* reads */ "beamMelismaBusy beatLength subdivideBeams",
+		/* write */ "");
 
 class Grace_beam_engraver : public Beam_engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS (Grace_beam_engraver);  
+  TRANSLATOR_DECLARATIONS (Grace_beam_engraver);
 
 protected:
   virtual bool valid_start_point ();
@@ -308,23 +300,19 @@ Grace_beam_engraver::valid_start_point ()
   return n.grace_part_ != Rational (0);
 }
 
-
 bool
 Grace_beam_engraver::valid_end_point ()
 {
   return beam_ && valid_start_point ();
 }
 
-
-
 ADD_TRANSLATOR (Grace_beam_engraver,
-/* descr */       "Handles Beam events by engraving Beams.  If omitted, then notes will "
-"be printed with flags instead of beams. Only engraves beams when we "
-" are at grace points in time. "
-,
-/* creats*/       "Beam",
-/* accepts */     "beam-event",
-/* acks  */      "stem-interface rest-interface",
-/* reads */       "beamMelismaBusy beatLength allowBeamBreak subdivideBeams",
-/* write */       "");
+		/* descr */ "Handles Beam events by engraving Beams.  If omitted, then notes will "
+		"be printed with flags instead of beams. Only engraves beams when we "
+		" are at grace points in time. ",
+		/* creats*/ "Beam",
+		/* accepts */ "beam-event",
+		/* acks  */ "stem-interface rest-interface",
+		/* reads */ "beamMelismaBusy beatLength allowBeamBreak subdivideBeams",
+		/* write */ "");
 

@@ -1,11 +1,10 @@
-/*   
+/*
   input-smob.cc -- implement Input smob
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2000--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #include "input-smob.hh"
 
@@ -27,7 +26,7 @@ SCM mark_smob (SCM)
 static int
 print_smob (SCM s, SCM port, scm_print_state *)
 {
-  String str = "#<location " +  unsmob_input (s)->location_string () + ">";
+  String str = "#<location " + unsmob_input (s)->location_string () + ">";
   scm_puts (str.to_str0 (), port);
   return 1;
 }
@@ -38,7 +37,6 @@ free_smob (SCM s)
   delete unsmob_input (s);
   return 0;
 }
-
 
 static void
 start_input_smobs ()
@@ -55,22 +53,21 @@ make_input (Input ip)
 {
   Input *nip = new Input (ip);
   SCM z;
-  
+
   SCM_NEWSMOB (z, input_tag, nip);
   return z;
 }
 
-Input *						
+Input *
 unsmob_input (SCM s)
 {
   if (SCM_IMP (s))
     return 0;
   if (SCM_CAR (s) == (SCM)input_tag) // ugh.
-    return (Input*) SCM_CDR (s);
-  else						
-    return 0;					
+    return (Input *) SCM_CDR (s);
+  else
+    return 0;
 }
-
 
 ADD_SCM_INIT_FUNC (input, start_input_smobs);
 

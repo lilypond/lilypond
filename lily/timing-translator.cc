@@ -35,7 +35,7 @@ Timing_translator::stop_translation_timestep ()
 	  /*
 	    Hmm. We insert the bar moment every time we process a
 	    moment.  A waste of cpu?
-	   */
+	  */
 	  && !now.grace_part_)
 	global->add_moment_to_process (now + barleft);
     }
@@ -46,18 +46,18 @@ Timing_translator::initialize ()
 {
 
   /*
-    move this to engraver-init.ly? 
-   */
+    move this to engraver-init.ly?
+  */
   context ()->add_alias (ly_symbol2scm ("Timing"));
-  context ()->set_property ("timing" , SCM_BOOL_T);  
-  context ()->set_property ("currentBarNumber" , scm_int2num (1));
+  context ()->set_property ("timing", SCM_BOOL_T);
+  context ()->set_property ("currentBarNumber", scm_int2num (1));
 
   context ()->set_property ("timeSignatureFraction",
-				scm_cons (scm_int2num (4), scm_int2num (4)));
+			    scm_cons (scm_int2num (4), scm_int2num (4)));
   /*
     Do not init measurePosition; this should be done from global
     context.
-   */
+  */
   context ()->set_property ("measureLength", Moment (Rational (1)).smobbed_copy ());
   context ()->set_property ("beatLength", Moment (Rational (1, 4)).smobbed_copy ());
 }
@@ -81,15 +81,15 @@ Moment
 Timing_translator::measure_position () const
 {
   SCM sm = get_property ("measurePosition");
-  
-  Moment m   = 0;
+
+  Moment m = 0;
   if (unsmob_moment (sm))
     {
       m = *unsmob_moment (sm);
       while (m.main_part_ < Rational (0))
 	m.main_part_ += measure_length ();
     }
-  
+
   return m;
 }
 
@@ -99,7 +99,7 @@ Timing_translator::start_translation_timestep ()
   Global_context *global = get_global_context ();
 
   Moment now = global->now_mom ();
-  Moment dt = now  - global->previous_moment ();
+  Moment dt = now - global->previous_moment ();
   if (dt < Moment (0))
     {
       programming_error ("Moving backwards in time");
@@ -110,7 +110,7 @@ Timing_translator::start_translation_timestep ()
       programming_error ("Moving infinitely to future");
       dt = 0;
     }
-  
+
   if (!dt.to_bool ())
     return;
 
@@ -127,9 +127,9 @@ Timing_translator::start_translation_timestep ()
       context ()->set_property ("measurePosition",
 				measposp.smobbed_copy ());
     }
-  
+
   measposp += dt;
-  
+
   SCM barn = get_property ("currentBarNumber");
   int b = 0;
   if (scm_is_number (barn))
@@ -144,7 +144,7 @@ Timing_translator::start_translation_timestep ()
   while (c && measposp.main_part_ >= len)
     {
       measposp.main_part_ -= len;
-      b ++;
+      b++;
     }
 
   context ()->set_property ("currentBarNumber", scm_int2num (b));
@@ -152,8 +152,7 @@ Timing_translator::start_translation_timestep ()
 }
 
 ADD_TRANSLATOR (Timing_translator,
-		   "This engraver adds the alias "
-		   "@code{Timing} to its containing context."
-		   ,
+		"This engraver adds the alias "
+		"@code{Timing} to its containing context.",
 
-		   "", "", "", "", "");
+		"", "", "", "", "");

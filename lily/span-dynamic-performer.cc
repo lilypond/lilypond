@@ -12,33 +12,33 @@
 /*
   TODO: fold this into 1 engraver: \< and \> should also stop when
   absdyn is encountered.
- */
+*/
 
 struct Audio_dynamic_tuple
 {
-  Audio_dynamic* audio_;
+  Audio_dynamic *audio_;
   Moment mom_;
 };
 
 /**
    perform span-dynamics
- */
+*/
 class Span_dynamic_performer : public Performer
 {
 public:
   TRANSLATOR_DECLARATIONS (Span_dynamic_performer);
 
 protected:
-  virtual bool try_music (Music*);
+  virtual bool try_music (Music *);
   virtual void acknowledge_audio_element (Audio_element_info);
   virtual void process_music ();
   virtual void stop_translation_timestep ();
 
 private:
-  Audio_dynamic* audio_;
+  Audio_dynamic *audio_;
   Real last_volume_;
-  Music* span_start_event_;
-  Drul_array<Music*> span_events_;
+  Music *span_start_event_;
+  Drul_array<Music *> span_events_;
   Array<Audio_dynamic_tuple> dynamic_tuples_;
   Array<Audio_dynamic_tuple> finished_dynamic_tuples_;
   Direction dir_;
@@ -57,7 +57,7 @@ Span_dynamic_performer::Span_dynamic_performer ()
 void
 Span_dynamic_performer::acknowledge_audio_element (Audio_element_info i)
 {
-  if (Audio_dynamic * d = dynamic_cast <Audio_dynamic*> (i.elem_))
+  if (Audio_dynamic *d = dynamic_cast<Audio_dynamic *> (i.elem_))
     {
       last_volume_ = d->volume_;
     }
@@ -76,7 +76,7 @@ Span_dynamic_performer::process_music ()
       Audio_dynamic_tuple a = { audio_, now_mom () };
       dynamic_tuples_.push (a);
     }
-  
+
   if (span_events_[STOP])
     {
       if (!span_start_event_)
@@ -95,20 +95,20 @@ Span_dynamic_performer::process_music ()
 
   if (span_events_[START])
     {
-      dir_ =  (span_events_[START]->is_mus_type ("crescendo-event"))
+      dir_ = (span_events_[START]->is_mus_type ("crescendo-event"))
 	? RIGHT : LEFT;
       span_start_event_ = span_events_[START];
-      
+
       dynamic_tuples_.clear ();
       Audio_dynamic_tuple a = { audio_, now_mom () };
       dynamic_tuples_.push (a);
     }
 
   if (span_events_[STOP])
-    { 
+    {
       finished_dynamic_tuples_.top ().audio_->volume_ = last_volume_;
     }
-  
+
   if (span_events_[START])
     {
       dynamic_tuples_[0].audio_->volume_ = last_volume_;
@@ -130,26 +130,26 @@ Span_dynamic_performer::stop_translation_timestep ()
 	urg.
 	Catch and fix the case of:
 
-             |                         |
-	    x|                        x|
-            f cresc.  -- -- -- -- --  pp 
+	|                         |
+	x|                        x|
+	f cresc.  -- -- -- -- --  pp
 
-	 Actually, we should provide a non-displayed dynamic/volume setting,
-	 to set volume to 'ff' just before the pp.
-       */
+	Actually, we should provide a non-displayed dynamic/volume setting,
+	to set volume to 'ff' just before the pp.
+      */
       if (!dv || sign (dv) != finished_dir_)
 	{
 	  // urg.  20%: about two volume steps
 	  dv = (Real)finished_dir_ * 0.2;
 	  if (!start_volume)
 	    start_volume = finished_dynamic_tuples_.top
- ().audio_->volume_ - dv;
+	      ().audio_->volume_ - dv;
 	}
       Moment start_mom = finished_dynamic_tuples_[0].mom_;
       Moment dt = finished_dynamic_tuples_.top ().mom_ - start_mom;
       for (int i = 0; i < finished_dynamic_tuples_.size (); i++)
 	{
-	  Audio_dynamic_tuple* a = &finished_dynamic_tuples_[i];
+	  Audio_dynamic_tuple *a = &finished_dynamic_tuples_[i];
 	  Real volume = start_volume + dv * (Real) (a->mom_ - start_mom).main_part_
 	    / (Real)dt.main_part_;
 	  a->audio_->volume_ = volume;
@@ -169,7 +169,7 @@ Span_dynamic_performer::stop_translation_timestep ()
 }
 
 bool
-Span_dynamic_performer::try_music (Music* r)
+Span_dynamic_performer::try_music (Music *r)
 {
   if (r->is_mus_type ("crescendo-event")
       || r->is_mus_type ("decrescendo-event"))
@@ -181,6 +181,6 @@ Span_dynamic_performer::try_music (Music* r)
   return false;
 }
 ADD_TRANSLATOR (Span_dynamic_performer,
-		   "", "",
-		   "crescendo-event decrescendo-event", 
-		   "", "", "");
+		"", "",
+		"crescendo-event decrescendo-event",
+		"", "", "");

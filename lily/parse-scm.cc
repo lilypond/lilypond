@@ -16,16 +16,16 @@
 
 /* Pass string to scm parser, evaluate one expression.
    Return result value and #chars read.
-   
+
    Thanks to Gary Houston <ghouston@freewire.co.uk>  */
 SCM
-internal_ly_parse_scm (Parse_start * ps)
+internal_ly_parse_scm (Parse_start *ps)
 {
   Source_file *sf = ps->start_location_.source_file_;
   SCM port = sf->get_port ();
 
   int off = ps->start_location_.start_ - sf->to_str0 ();
-  
+
   scm_seek (port, scm_long2num (off), scm_long2num (SEEK_SET));
   SCM from = scm_ftell (port);
 
@@ -48,7 +48,7 @@ internal_ly_parse_scm (Parse_start * ps)
       else
 	answer = scm_primitive_eval (form);
     }
- 
+
   /* Reset read_buf for scm_ftell.
      Shouldn't scm_read () do this for us?  */
   scm_fill_input (port);
@@ -67,18 +67,18 @@ internal_ly_parse_scm (Parse_start * ps)
 SCM
 catch_protected_parse_body (void *p)
 {
-  Parse_start *ps = (Parse_start*) p;
-  
+  Parse_start *ps = (Parse_start *) p;
+
   return internal_ly_parse_scm (ps);
 }
 
-SCM 
+SCM
 parse_handler (void *data, SCM tag, SCM args)
 {
-  Parse_start* ps = (Parse_start *) data;
+  Parse_start *ps = (Parse_start *) data;
   (void) tag;
-  
-  ps->start_location_.error (_("GUILE signaled an error for the expression beginning here"));
+
+  ps->start_location_.error (_ ("GUILE signaled an error for the expression beginning here"));
 
   if (scm_ilength (args) > 2)
     scm_display_error_message (scm_cadr (args), scm_caddr (args), scm_current_error_port ());
@@ -86,22 +86,21 @@ parse_handler (void *data, SCM tag, SCM args)
   /*
     The following is a kludge; we should probably search for
     [a-z][0-9] (a note), and start before that.
-   */
+  */
   ps->nchars = 1;
-    
+
   return SCM_UNDEFINED;
 }
 
 /*
   Do some magical incantations: if not, lily will exit on the first
-  GUILE error, leaving no location trace. 
- */
-
+  GUILE error, leaving no location trace.
+*/
 
 #if GUILE_MINOR_VERSION < 7
-  #define READ_ERROR "misc-error"
-  #else
-  #define READ_ERROR "read-error"
+#define READ_ERROR "misc-error"
+#else
+#define READ_ERROR "read-error"
 #endif
 
 SCM
@@ -109,11 +108,11 @@ protected_ly_parse_scm (Parse_start *ps)
 {
   return scm_internal_catch (ly_symbol2scm (READ_ERROR),
 			     &catch_protected_parse_body,
-			     (void*) ps,
-			     &parse_handler, (void*) ps);
+			     (void *) ps,
+			     &parse_handler, (void *) ps);
 }
 
-bool parse_protect_global = true; 
+bool parse_protect_global = true;
 
 /* Try parsing.  Upon failure return SCM_UNDEFINED.
    FIXME: shouldn't we return SCM_UNSCPECIFIED -- jcn  */
@@ -124,11 +123,11 @@ ly_parse_scm (char const *s, int *n, Input i, bool safe)
   ps.str = s;
   ps.start_location_ = i;
   ps.safe_ = safe;
-  
+
   SCM ans = parse_protect_global ? protected_ly_parse_scm (&ps)
     : internal_ly_parse_scm (&ps);
   *n = ps.nchars;
 
-  return ans;  
+  return ans;
 }
 

@@ -1,6 +1,6 @@
 /*
   rational.cc -- implement Rational
-  
+
   source file of the Flower Library
 
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
@@ -11,7 +11,7 @@
 #include <cmath>
 #include <cstdlib>
 
-#include "string-convert.hh"  
+#include "string-convert.hh"
 #include "libc-extension.hh"
 
 Rational::operator double () const
@@ -21,13 +21,12 @@ Rational::operator double () const
 
 #ifdef STREAM_SUPPORT
 ostream &
-operator << (ostream &o, Rational r)
+operator<< (ostream &o, Rational r)
 {
-  o <<  r.string ();
+  o << r.string ();
   return o;
 }
 #endif
-
 
 Rational
 Rational::trunc_rat () const
@@ -68,15 +67,14 @@ int gcd (int a, int b)
   return b;
 }
 
-
 void
 Rational::set_infinite (int s)
 {
-  sign_ = ::sign (s) * 2; 
+  sign_ = ::sign (s) * 2;
 }
 
 Rational
-Rational::operator - () const
+Rational::operator- () const
 {
   Rational r (*this);
   r.negate ();
@@ -119,7 +117,7 @@ Rational::normalise ()
     }
   else
     {
-      int g = gcd (num_ , den_);
+      int g = gcd (num_, den_);
 
       num_ /= g;
       den_ /= g;
@@ -144,48 +142,46 @@ Rational::compare (Rational const &r, Rational const &s)
     return 0;
   else
     {
-      return r.sign_ * ::sign  (int (r.num_ * s.den_) - int (s.num_ * r.den_));
+      return r.sign_ * ::sign (int (r.num_ * s.den_) - int (s.num_ * r.den_));
     }
 }
 
 int
 compare (Rational const &r, Rational const &s)
 {
-  return Rational::compare (r, s );
+  return Rational::compare (r, s);
 }
 
 Rational &
-Rational::operator %= (Rational r)
+Rational::operator%= (Rational r)
 {
   *this = r.mod_rat (r);
   return *this;
 }
 
 Rational &
-Rational::operator += (Rational r)
+Rational::operator+= (Rational r)
 {
-  if (is_infinity ())
-    ;
+  if (is_infinity ());
   else if (r.is_infinity ())
     {
       *this = r;
     }
-  else 
+  else
     {
       int n = sign_ * num_ *r.den_ + r.sign_ * den_ * r.num_;
       int d = den_ * r.den_;
-      sign_ =  ::sign (n) * ::sign (d);
+      sign_ = ::sign (n) * ::sign (d);
       num_ = abs (n);
       den_ = abs (d);
       normalise ();
     }
   return *this;
 }
-    
 
 /*
   copied from libg++ 2.8.0
- */ 
+*/
 Rational::Rational (double x)
 {
   if (x != 0.0)
@@ -208,7 +204,7 @@ Rational::Rational (double x)
 
       num_ = (unsigned int) (mantissa * FACT);
       den_ = (unsigned int) FACT;
-      normalise ();      
+      normalise ();
       if (expt < 0)
 	den_ <<= -expt;
       else
@@ -224,21 +220,20 @@ Rational::Rational (double x)
     }
 }
 
-
 void
 Rational::invert ()
 {
   int r (num_);
-  num_  = den_;
+  num_ = den_;
   den_ = r;
 }
 
 Rational &
-Rational::operator *= (Rational r)
+Rational::operator*= (Rational r)
 {
   sign_ *= ::sign (r.sign_);
   if (r.is_infinity ())
-    {	
+    {
       sign_ = sign () * 2;
       goto exit_func;
     }
@@ -250,9 +245,9 @@ Rational::operator *= (Rational r)
  exit_func:
   return *this;
 }
-  
+
 Rational &
-Rational::operator /= (Rational r)
+Rational::operator/= (Rational r)
 {
   r.invert ();
   return (*this *= r);
@@ -264,8 +259,8 @@ Rational::negate ()
   sign_ *= -1;
 }
 
-Rational&
-Rational::operator -= (Rational r)
+Rational &
+Rational::operator-= (Rational r)
 {
   r.negate ();
   return (*this += r);
@@ -276,7 +271,7 @@ Rational::to_string () const
 {
   if (is_infinity ())
     {
-      String s (sign_ > 0 ? "" : "-" );
+      String s (sign_ > 0 ? "" : "-");
       return String (s + "infinity");
     }
 

@@ -1,11 +1,10 @@
-/*   
+/*
   ligature-bracket-engraver.cc -- implement Ligature_bracket_engraver
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2002--2005 Juergen Reuter <reuter@ipd.uka.de>
-  
- */
+*/
 
 #include "ligature-engraver.hh"
 #include "note-column.hh"
@@ -27,7 +26,6 @@ public:
   TRANSLATOR_DECLARATIONS (Ligature_bracket_engraver);
 };
 
-
 Ligature_bracket_engraver::Ligature_bracket_engraver ()
 {
 }
@@ -38,7 +36,6 @@ Ligature_bracket_engraver::create_ligature_spanner ()
   return make_spanner ("LigatureBracket", SCM_EOL);
 }
 
-
 void
 Ligature_bracket_engraver::acknowledge_grob (Grob_info info)
 {
@@ -47,16 +44,16 @@ Ligature_bracket_engraver::acknowledge_grob (Grob_info info)
       if (Note_column::has_interface (info.grob_))
 	{
 	  Tuplet_bracket::add_column (current_ligature (),
-				      dynamic_cast<Item*> (info.grob_));
+				      dynamic_cast<Item *> (info.grob_));
 	}
       else Ligature_engraver::acknowledge_grob (info);
     }
 }
 
 ADD_TRANSLATOR (Ligature_bracket_engraver,
-/* descr */       "Handles Ligature_events by engraving Ligature brackets.",
-/* creats*/       "TupletBracket",
-/* accepts */     "ligature-event",
-/* acks  */      "rest-interface note-column-interface",
-/* reads */       "",
-/* write */       "");
+		/* descr */ "Handles Ligature_events by engraving Ligature brackets.",
+		/* creats*/ "TupletBracket",
+		/* accepts */ "ligature-event",
+		/* acks  */ "rest-interface note-column-interface",
+		/* reads */ "",
+		/* write */ "");

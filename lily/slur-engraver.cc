@@ -21,14 +21,14 @@
 class Slur_engraver : public Engraver
 {
   Drul_array<Music *> events_;
-  Music * running_slur_start_;
+  Music *running_slur_start_;
   Link_array<Grob> slurs_;
   Link_array<Grob> end_slurs_;
 
   void set_melisma (bool);
 
 protected:
-  virtual bool try_music (Music*);
+  virtual bool try_music (Music *);
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
   virtual void finalize ();
@@ -75,9 +75,9 @@ Slur_engraver::acknowledge_grob (Grob_info info)
   Grob *e = info.grob_;
   if (Note_column::has_interface (info.grob_))
     {
-      for (int i = slurs_.size (); i--; )
+      for (int i = slurs_.size (); i--;)
 	Slur::add_column (slurs_[i], e);
-      for (int i = end_slurs_.size (); i-- ; )
+      for (int i = end_slurs_.size (); i--;)
 	Slur::add_column (end_slurs_[i], e);
     }
   else
@@ -86,21 +86,21 @@ Slur_engraver::acknowledge_grob (Grob_info info)
       if (Tie::has_interface (e)
 	  || to_boolean (inside))
 	{
-	  for (int i = slurs_.size (); i--; )
+	  for (int i = slurs_.size (); i--;)
 	    Slur::add_extra_encompass (slurs_[i], e);
-	  for (int i = end_slurs_.size (); i--; )
+	  for (int i = end_slurs_.size (); i--;)
 	    Slur::add_extra_encompass (end_slurs_[i], e);
 	}
       else if (inside == SCM_BOOL_F)
 	{
-	  Grob *slur = slurs_.size()?slurs_[0] : 0;
-	  slur =  (end_slurs_.size () && !slur)
+	  Grob *slur = slurs_.size ()?slurs_[0] : 0;
+	  slur = (end_slurs_.size () && !slur)
 	    ? end_slurs_[0] : slur;
 
 	  if (slur)
 	    {
 	      e->add_offset_callback (Slur::outside_slur_callback_proc, Y_AXIS);
-	      e->set_property ("slur", slur->self_scm());
+	      e->set_property ("slur", slur->self_scm ());
 	    }
 	}
     }
@@ -110,7 +110,7 @@ void
 Slur_engraver::finalize ()
 {
   if (slurs_.size ())
-    slurs_[0]->warning (_("unterminated slur"));
+    slurs_[0]->warning (_ ("unterminated slur"));
 }
 
 void
@@ -118,22 +118,22 @@ Slur_engraver::process_music ()
 {
   if (events_[STOP])
     {
-      if (slurs_.size() == 0)
+      if (slurs_.size () == 0)
 	{
-	  events_[STOP]->origin()->warning (_ ("No slur to end"));
+	  events_[STOP]->origin ()->warning (_ ("No slur to end"));
 	}
-      
+
       end_slurs_ = slurs_;
       slurs_.clear ();
     }
-  
+
   if (events_[START] && slurs_.is_empty ())
     {
       Music *ev = events_[START];
 
       bool double_slurs = to_boolean (get_property ("doubleSlurs"));
 
-      Grob * slur = make_spanner ("Slur", events_[START]->self_scm ());
+      Grob *slur = make_spanner ("Slur", events_[START]->self_scm ());
       Direction updown = to_dir (ev->get_property ("direction"));
       if (updown && !double_slurs)
 	set_grob_direction (slur, updown);
@@ -145,7 +145,7 @@ Slur_engraver::process_music ()
 	  set_grob_direction (slur, DOWN);
 	  slur = make_spanner ("Slur", events_[START]->self_scm ());
 	  set_grob_direction (slur, UP);
-	  slurs_.push (slur); 
+	  slurs_.push (slur);
 	}
     }
   set_melisma (slurs_.size ());
@@ -159,9 +159,9 @@ Slur_engraver::stop_translation_timestep ()
 }
 
 ADD_TRANSLATOR (Slur_engraver,
-  /* descr */       "Build slurs grobs from slur events",
-  /* creats*/       "Slur",
-  /* accepts */     "slur-event",
-  /* acks  */      "note-column-interface accidental-interface fingering-interface script-interface tie-interface text-script-interface",
-  /* reads */       "slurMelismaBusy doubleSlurs",
-  /* write */       "");
+		/* descr */ "Build slurs grobs from slur events",
+		/* creats*/ "Slur",
+		/* accepts */ "slur-event",
+		/* acks  */ "note-column-interface accidental-interface fingering-interface script-interface tie-interface text-script-interface",
+		/* reads */ "slurMelismaBusy doubleSlurs",
+		/* write */ "");

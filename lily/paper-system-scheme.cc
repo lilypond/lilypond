@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #include "paper-system.hh"
@@ -17,10 +16,8 @@ LY_DEFINE (ly_paper_system_height, "ly:paper-system-extent",
   SCM_ASSERT_TYPE (ps, system, SCM_ARG1, __FUNCTION__, "paper-system");
   SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
   Axis ax = (Axis)scm_to_int (axis);
-  return ly_interval2scm (ps->to_stencil().extent (ax));
+  return ly_interval2scm (ps->to_stencil ().extent (ax));
 }
-
-
 
 LY_DEFINE (ly_paper_system_title_p, "ly:paper-system-title?",
 	   1, 0, 0, (SCM system),
@@ -57,8 +54,6 @@ LY_DEFINE (ly_paper_system_stencil, "ly:paper-system-stencil",
   SCM_ASSERT_TYPE (ps, system, SCM_ARG1, __FUNCTION__, "paper-system");
   return ps->to_stencil ().smobbed_copy ();
 }
-
-
 
 LY_DEFINE (ly_paper_system_staff_extent, "ly:paper-system-staff-extents",
 	   1, 0, 0, (SCM system),

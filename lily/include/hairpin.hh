@@ -6,20 +6,19 @@
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #ifndef HAIRPIN_HH
 #define HAIRPIN_HH
 
 #include "lily-guile.hh"
 #include "lily-proto.hh"
 /**
-  The hairpin symbol. 
- */
+   The hairpin symbol.
+*/
 struct Hairpin
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  static bool has_interface (Grob*);
+  static bool has_interface (Grob *);
 };
 
 #endif // HAIRPIN_HH

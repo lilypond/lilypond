@@ -1,11 +1,10 @@
-/*   
+/*
   dimension-cache.hh -- declare Dimension_cache
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1998--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #ifndef DIMENSION_CACHE_HH
 #define DIMENSION_CACHE_HH
@@ -16,39 +15,38 @@
 #include "lily-guile.hh"
 
 /**
-  Adminstration of offset dimension info.
+   Adminstration of offset dimension info.
 */
 struct Dimension_cache
 {
   /*
     Multi typed:
 
-     - cons: interval
-     - procedure: callback     
-     - else: empty
-   */
+    - cons: interval
+    - procedure: callback
+    - else: empty
+  */
   SCM dimension_;
   SCM dimension_callback_;
 
   /**
-    The offset wrt. to the center of #parent_#
-   */
+     The offset wrt. to the center of #parent_#
+  */
 
   Real offset_;
   SCM offset_callbacks_;
-  
+
   char offsets_left_;
 
   /**
-     What to call to find extent.  Nil means empty. 
-   */
-  Grob * parent_;
+     What to call to find extent.  Nil means empty.
+  */
+  Grob *parent_;
 
-  Dimension_cache (Dimension_cache const&);
+  Dimension_cache (Dimension_cache const &);
   Dimension_cache ();
   void init ();
 };
-
 
 #endif /* DIMENSION_CACHE_HH */
 

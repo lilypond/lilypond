@@ -4,7 +4,7 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 1997--2005 Jan Nieuwenhuizen <janneke@gnu.org>
- */
+*/
 
 #include "warn.hh"
 #include "audio-column.hh"
@@ -14,10 +14,9 @@
 #include "context.hh"
 
 /** Perform a staff. Individual notes should have their instrument
- (staff-wide) set, so we override play_element ()
-
-  */
-class Staff_performer : public Performer_group_performer 
+    (staff-wide) set, so we override play_element ()
+*/
+class Staff_performer : public Performer_group_performer
 {
 public:
   TRANSLATOR_DECLARATIONS (Staff_performer);
@@ -27,23 +26,23 @@ public:
   String instrument_string_;
 
 protected:
-  virtual void play_element (Audio_element* p);
+  virtual void play_element (Audio_element *p);
   virtual void finalize ();
   virtual void initialize ();
   virtual void create_audio_elements ();
   virtual void stop_translation_timestep ();
 
 private:
-  Audio_staff* audio_staff_;
-  Audio_instrument* instrument_;
-  Audio_text* instrument_name_;
-  Audio_text* name_;
-  Audio_tempo* tempo_;
+  Audio_staff *audio_staff_;
+  Audio_instrument *instrument_;
+  Audio_text *instrument_name_;
+  Audio_text *name_;
+  Audio_tempo *tempo_;
 };
 
 ADD_TRANSLATOR (Staff_performer, "", "",
-		   "",
-		   "", "", "");
+		"",
+		"", "", "");
 
 Staff_performer::Staff_performer ()
 {
@@ -86,7 +85,7 @@ Staff_performer::create_audio_elements ()
 
       /*
 	Have to be here before notes arrive into the staff.
-       */
+      */
       play_element (instrument_);
       play_element (instrument_name_);
     }
@@ -97,9 +96,9 @@ void
 Staff_performer::stop_translation_timestep ()
 {
   SCM proc = ly_lily_module_constant ("percussion?");
-  
+
   SCM drums = scm_call_1 (proc, ly_symbol2scm (instrument_string_.to_str0 ()));
-  audio_staff_->channel_ = (drums == SCM_BOOL_T ? 9 : -1 );
+  audio_staff_->channel_ = (drums == SCM_BOOL_T ? 9 : -1);
   if (name_)
     {
       play_element (name_);
@@ -123,9 +122,9 @@ Staff_performer::finalize ()
   audio_staff_ = 0;
 }
 
-String 
-Staff_performer::new_instrument_string () 
-{ 
+String
+Staff_performer::new_instrument_string ()
+{
   // mustn't ask Score for instrument: it will return piano!
   SCM minstr = get_property ("midiInstrument");
 
@@ -138,10 +137,10 @@ Staff_performer::new_instrument_string ()
   return instrument_string_;
 }
 
-void 
-Staff_performer::play_element (Audio_element* p)
+void
+Staff_performer::play_element (Audio_element *p)
 {
-  if (Audio_item *ai = dynamic_cast<Audio_item *> (p)) 
+  if (Audio_item *ai = dynamic_cast<Audio_item *> (p))
     {
       audio_staff_->add_audio_item (ai);
     }

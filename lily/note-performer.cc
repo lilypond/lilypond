@@ -4,7 +4,7 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 1996--2005 Jan Nieuwenhuizen <janneke@gnu.org>
- */
+*/
 
 #include "performer.hh"
 #include "audio-item.hh"
@@ -13,24 +13,25 @@
 #include "warn.hh"
 
 /**
-Convert evs to audio notes.
+   Convert evs to audio notes.
 */
-class Note_performer : public Performer {
+class Note_performer : public Performer
+{
 public:
   TRANSLATOR_DECLARATIONS (Note_performer);
-  
+
 protected:
-  virtual bool try_music (Music *ev) ;
+  virtual bool try_music (Music *ev);
 
   virtual void stop_translation_timestep ();
   virtual void create_audio_elements ();
- 
+
 private:
   Link_array<Music> note_evs_;
   Link_array<Audio_note> notes_;
 };
 
-void 
+void
 Note_performer::create_audio_elements ()
 {
   if (note_evs_.size ())
@@ -38,17 +39,17 @@ Note_performer::create_audio_elements ()
       int transposing = 0;
 
       SCM prop = get_property ("instrumentTransposition");
-      if (unsmob_pitch (prop)) 
+      if (unsmob_pitch (prop))
 	transposing = unsmob_pitch (prop)->semitone_pitch ();
 
       while (note_evs_.size ())
 	{
-	  Music* n = note_evs_.pop ();
-	  SCM pit =  n->get_property ("pitch");
+	  Music *n = note_evs_.pop ();
+	  SCM pit = n->get_property ("pitch");
 
-	  if (Pitch * pitp = unsmob_pitch (pit))
+	  if (Pitch *pitp = unsmob_pitch (pit))
 	    {
-	      Audio_note* p = new Audio_note (*pitp,  n->get_length (),  - transposing);
+	      Audio_note *p = new Audio_note (*pitp, n->get_length (), - transposing);
 	      Audio_element_info info (p, n);
 	      announce_element (info);
 	      notes_.push (p);
@@ -57,7 +58,6 @@ Note_performer::create_audio_elements ()
       note_evs_.clear ();
     }
 }
-
 
 void
 Note_performer::stop_translation_timestep ()
@@ -72,9 +72,9 @@ Note_performer::stop_translation_timestep ()
   notes_.clear ();
   note_evs_.clear ();
 }
- 
+
 bool
-Note_performer::try_music (Music* ev)
+Note_performer::try_music (Music *ev)
 {
   if (ev->is_mus_type ("note-event"))
     {
@@ -83,12 +83,12 @@ Note_performer::try_music (Music* ev)
     }
   else if (ev->is_mus_type ("busy-playing-event"))
     return note_evs_.size ();
-  
+
   return false;
 }
 
 ADD_TRANSLATOR (Note_performer, "", "",
-		  "note-event busy-playing-event", "", "", "");
+		"note-event busy-playing-event", "", "", "");
 
 Note_performer::Note_performer ()
 {

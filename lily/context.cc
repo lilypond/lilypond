@@ -1,10 +1,9 @@
-/*   
+/*
   context.cc -- implement Context
 
   source file of the GNU LilyPond music typesetter
 
   (c) 2004--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #include "context.hh"
@@ -22,8 +21,8 @@
 bool
 Context::is_removable () const
 {
-  return context_list_ == SCM_EOL && ! iterator_count_ &&
-	  !dynamic_cast<Score_context const*> (this);
+  return context_list_ == SCM_EOL && ! iterator_count_
+    && !dynamic_cast < Score_context const *> (this);
 }
 
 void
@@ -42,7 +41,7 @@ Context::check_removal ()
     }
 }
 
-Context::Context (Context const&)
+Context::Context (Context const &)
 {
   assert (false);
 }
@@ -59,7 +58,7 @@ Context::add_context (Context *t)
   SCM ts = t->self_scm ();
   context_list_ = ly_append2 (context_list_,
 			      scm_cons (ts, SCM_EOL));
-  
+
   t->daddy_context_ = this;
   if (!t->init_)
     {
@@ -78,25 +77,25 @@ Context::add_context (Context *t)
     }
 }
 
-Object_key const*
+Object_key const *
 Context::get_key () const
 {
   return key_;
 }
 
-Context::Context (Object_key const* key)
+Context::Context (Object_key const *key)
 {
   key_ = key;
   daddy_context_ = 0;
   init_ = false;
   aliases_ = SCM_EOL;
-  iterator_count_  = 0;
+  iterator_count_ = 0;
   implementation_ = SCM_EOL;
   properties_scm_ = SCM_EOL;
   accepts_list_ = SCM_EOL;
   context_list_ = SCM_EOL;
   definition_ = SCM_EOL;
-  
+
   smobify_self ();
   properties_scm_ = (new Scheme_hash_table)->self_scm ();
   scm_gc_unprotect_object (properties_scm_);
@@ -105,26 +104,26 @@ Context::Context (Object_key const* key)
 
 /*
   TODO:  this shares code with find_create_context().
- */
-Context*
+*/
+Context *
 Context::create_unique_context (SCM n, SCM operations)
 {
   /*
     Don't create multiple score contexts.
-   */
-  if (dynamic_cast<Global_context*> (this)
-      && dynamic_cast<Global_context*> (this)->get_score_context ())
+  */
+  if (dynamic_cast<Global_context *> (this)
+      && dynamic_cast<Global_context *> (this)->get_score_context ())
     return get_score_context ()->create_unique_context (n, operations);
 
   /*
     TODO: use accepts_list_.
-   */
+  */
   Link_array<Context_def> path
     = unsmob_context_def (definition_)->path_to_acceptable_context (n, get_output_def ());
 
   if (path.size ())
     {
-      Context * current = this;
+      Context *current = this;
 
       // start at 1.  The first one (index 0) will be us.
       for (int i = 0; i < path.size (); i++)
@@ -133,7 +132,7 @@ Context::create_unique_context (SCM n, SCM operations)
 
 	  current = current->create_context (path[i],
 					     "\\new",
-					     ops); 
+					     ops);
 	}
 
       return current;
@@ -142,9 +141,9 @@ Context::create_unique_context (SCM n, SCM operations)
   /*
     Don't go up to Global_context, because global goes down to
     Score_context
-   */
+  */
   Context *ret = 0;
-  if (daddy_context_ && !dynamic_cast<Global_context*> (daddy_context_))
+  if (daddy_context_ && !dynamic_cast<Global_context *> (daddy_context_))
     ret = daddy_context_->create_unique_context (n, operations);
   else
     {
@@ -155,15 +154,14 @@ Context::create_unique_context (SCM n, SCM operations)
   return ret;
 }
 
-
 Context *
 Context::find_create_context (SCM n, String id, SCM operations)
 {
   /*
     Don't create multiple score contexts.
-   */
-  if (dynamic_cast<Global_context*> (this)
-      && dynamic_cast<Global_context*> (this)->get_score_context ())
+  */
+  if (dynamic_cast<Global_context *> (this)
+      && dynamic_cast<Global_context *> (this)->get_score_context ())
     return get_score_context ()->find_create_context (n, id, operations);
 
   if (Context *existing = find_context_below (this, n, id))
@@ -171,19 +169,19 @@ Context::find_create_context (SCM n, String id, SCM operations)
 
   if (n == ly_symbol2scm ("Bottom"))
     {
-      Context* tg = get_default_interpreter ();
+      Context *tg = get_default_interpreter ();
       return tg;
     }
 
   /*
     TODO: use accepts_list_.
-   */
+  */
   Link_array<Context_def> path
     = unsmob_context_def (definition_)->path_to_acceptable_context (n, get_output_def ());
 
   if (path.size ())
     {
-      Context * current = this;
+      Context *current = this;
 
       // start at 1.  The first one (index 0) will be us.
       for (int i = 0; i < path.size (); i++)
@@ -196,10 +194,9 @@ Context::find_create_context (SCM n, String id, SCM operations)
 	      this_id = id;
 	    }
 
-
 	  current = current->create_context (path[i],
 					     this_id,
-					     ops); 
+					     ops);
 	}
 
       return current;
@@ -208,9 +205,9 @@ Context::find_create_context (SCM n, String id, SCM operations)
   /*
     Don't go up to Global_context, because global goes down to
     Score_context
-   */
+  */
   Context *ret = 0;
-  if (daddy_context_ && !dynamic_cast<Global_context*> (daddy_context_))
+  if (daddy_context_ && !dynamic_cast<Global_context *> (daddy_context_))
     ret = daddy_context_->find_create_context (n, id, operations);
   else
     {
@@ -221,17 +218,16 @@ Context::find_create_context (SCM n, String id, SCM operations)
   return ret;
 }
 
-
-Context*
-Context::create_context (Context_def * cdef,
+Context *
+Context::create_context (Context_def *cdef,
 			 String id,
 			 SCM ops)
 {
-  String type = ly_symbol2string (cdef->get_context_name());
+  String type = ly_symbol2string (cdef->get_context_name ());
   Object_key const *key = get_context_key (type, id);
-  Context * new_group
+  Context *new_group
     = cdef->instantiate (ops, key);
-	  
+
   new_group->id_string_ = id;
   add_context (new_group);
   apply_property_operations (new_group, ops);
@@ -239,9 +235,7 @@ Context::create_context (Context_def * cdef,
   return new_group;
 }
 
-
-
-Object_key const*
+Object_key const *
 Context::get_context_key (String type, String id)
 {
   String now_key = type + "@" + id;
@@ -253,16 +247,15 @@ Context::get_context_key (String type, String id)
     }
 
   context_counts_[now_key] = disambiguation_count + 1;
-  
-  
+
   return new Lilypond_context_key (get_key (),
-				   now_mom(),
+				   now_mom (),
 				   type, id,
 				   disambiguation_count);
 }
 
-Object_key const*
-Context::get_grob_key (String name) 
+Object_key const *
+Context::get_grob_key (String name)
 {
   int disambiguation_count = 0;
   if (grob_counts_.find (name) != grob_counts_.end ())
@@ -271,15 +264,13 @@ Context::get_grob_key (String name)
     }
   grob_counts_[name] = disambiguation_count + 1;
 
-  Object_key * k = new Lilypond_grob_key (get_key(),
-					  now_mom(),
-					  name,
-					  disambiguation_count);
+  Object_key *k = new Lilypond_grob_key (get_key (),
+					 now_mom (),
+					 name,
+					 disambiguation_count);
 
-  return k;					  
+  return k;
 }
-
-
 
 /*
   Default child context as a SCM string, or something else if there is
@@ -293,14 +284,13 @@ Context::default_child_context_name () const
     : SCM_EOL;
 }
 
-
 bool
 Context::is_bottom_context () const
 {
   return !scm_is_symbol (default_child_context_name ());
 }
 
-Context*
+Context *
 Context::get_default_interpreter ()
 {
   if (!is_bottom_context ())
@@ -327,13 +317,13 @@ Context::get_default_interpreter ()
 
 /*
   PROPERTIES
- */
-Context*
+*/
+Context *
 Context::where_defined (SCM sym) const
 {
   if (properties_dict ()->contains (sym))
     {
-      return (Context*)this;
+      return (Context *)this;
     }
 
   return (daddy_context_) ? daddy_context_->where_defined (sym) : 0;
@@ -351,7 +341,7 @@ Context::internal_get_property (SCM sym) const
 
   if (daddy_context_)
     return daddy_context_->internal_get_property (sym);
-  
+
   return val;
 }
 
@@ -363,7 +353,7 @@ Context::is_alias (SCM sym) const
     return true;
   if (sym == unsmob_context_def (definition_)->get_context_name ())
     return true;
-  
+
   return scm_c_memq (sym, aliases_) != SCM_BOOL_F;
 }
 
@@ -373,8 +363,6 @@ Context::add_alias (SCM sym)
   aliases_ = scm_cons (sym, aliases_);
 }
 
-
-
 void
 Context::internal_set_property (SCM sym, SCM val)
 {
@@ -382,13 +370,13 @@ Context::internal_set_property (SCM sym, SCM val)
   if (do_internal_type_checking_global)
     assert (type_check_assignment (sym, val, ly_symbol2scm ("translation-type?")));
 #endif
-  
+
   properties_dict ()->set (sym, val);
 }
 
 /*
-  TODO: look up to check whether we have inherited var? 
- */
+  TODO: look up to check whether we have inherited var?
+*/
 void
 Context::unset_property (SCM sym)
 {
@@ -397,9 +385,9 @@ Context::unset_property (SCM sym)
 
 /**
    Remove a context from the hierarchy.
- */
+*/
 Context *
-Context::remove_context (Context*trans)
+Context::remove_context (Context *trans)
 {
   assert (trans);
 
@@ -410,9 +398,9 @@ Context::remove_context (Context*trans)
 
 /*
   ID == "" means accept any ID.
- */
+*/
 Context *
-find_context_below (Context * where,
+find_context_below (Context *where,
 		    SCM type, String id)
 {
   if (where->is_alias (type))
@@ -420,7 +408,7 @@ find_context_below (Context * where,
       if (id == "" || where->id_string () == id)
 	return where;
     }
-  
+
   Context *found = 0;
   for (SCM s = where->children_contexts ();
        !found && scm_is_pair (s); s = scm_cdr (s))
@@ -430,7 +418,7 @@ find_context_below (Context * where,
       found = find_context_below (tr, type, id);
     }
 
-  return found; 
+  return found;
 }
 
 SCM
@@ -452,10 +440,10 @@ Context::context_name () const
   return ly_symbol2string (context_name_symbol ());
 }
 
-Score_context*
+Score_context *
 Context::get_score_context () const
 {
-  if (Score_context *sc = dynamic_cast<Score_context*> ((Context*) this))
+  if (Score_context *sc = dynamic_cast<Score_context *> ((Context *) this))
     return sc;
   else if (daddy_context_)
     return daddy_context_->get_score_context ();
@@ -471,7 +459,7 @@ Context::get_output_def () const
 
 Context::~Context ()
 {
-  
+
 }
 
 Moment
@@ -484,7 +472,7 @@ int
 Context::print_smob (SCM s, SCM port, scm_print_state *)
 {
   Context *sc = (Context *) SCM_CELL_WORD_1 (s);
-     
+
   scm_puts ("#<", port);
   scm_puts (classname (sc), port);
   if (Context_def *d = unsmob_context_def (sc->definition_))
@@ -498,25 +486,24 @@ Context::print_smob (SCM s, SCM port, scm_print_state *)
       scm_puts ("=", port);
       scm_puts (td->id_string_.to_str0 (), port);
     }
-  
 
   scm_puts (" ", port);
 
   scm_display (sc->context_list_, port);
   scm_puts (" >", port);
-  
+
   return 1;
 }
 
 SCM
 Context::mark_smob (SCM sm)
 {
-  Context *me = (Context*) SCM_CELL_WORD_1 (sm);
-  scm_gc_mark (me->key_->self_scm ());  
+  Context *me = (Context *) SCM_CELL_WORD_1 (sm);
+  scm_gc_mark (me->key_->self_scm ());
   scm_gc_mark (me->context_list_);
   scm_gc_mark (me->aliases_);
-  scm_gc_mark (me->definition_);  
-  scm_gc_mark (me->properties_scm_);  
+  scm_gc_mark (me->definition_);
+  scm_gc_mark (me->properties_scm_);
   scm_gc_mark (me->accepts_list_);
   scm_gc_mark (me->implementation_);
 
@@ -528,12 +515,12 @@ IMPLEMENT_DEFAULT_EQUAL_P (Context);
 IMPLEMENT_TYPE_P (Context, "ly:context?");
 
 bool
-Context::try_music (Music* m)
+Context::try_music (Music *m)
 {
-  Translator*  t = implementation ();
+  Translator *t = implementation ();
   if (!t)
     return false;
-  
+
   bool b = t->try_music (m);
   if (!b && daddy_context_)
     b = daddy_context_->try_music (m);
@@ -541,12 +528,11 @@ Context::try_music (Music* m)
   return b;
 }
 
-
-Global_context*
+Global_context *
 Context::get_global_context () const
 {
-  if (dynamic_cast<Global_context *>((Context*) this))
-    return dynamic_cast<Global_context *> ((Context*) this);
+  if (dynamic_cast<Global_context *> ((Context *) this))
+    return dynamic_cast<Global_context *> ((Context *) this);
 
   if (daddy_context_)
     return daddy_context_->get_global_context ();
@@ -555,25 +541,25 @@ Context::get_global_context () const
   return 0;
 }
 
-Context*
+Context *
 Context::get_parent_context () const
 {
   return daddy_context_;
 }
 
-Translator_group*
+Translator_group *
 Context::implementation () const
 {
-  return dynamic_cast<Translator_group*> (unsmob_translator (implementation_));
+  return dynamic_cast<Translator_group *> (unsmob_translator (implementation_));
 }
 
 void
 Context::clear_key_disambiguations ()
 {
-  grob_counts_.clear();
-  context_counts_.clear();
+  grob_counts_.clear ();
+  context_counts_.clear ();
   for (SCM s = context_list_; scm_is_pair (s); s = scm_cdr (s))
     {
-      unsmob_context (scm_car (s))->clear_key_disambiguations();
+      unsmob_context (scm_car (s))->clear_key_disambiguations ();
     }
 }

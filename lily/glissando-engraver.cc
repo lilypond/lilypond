@@ -1,10 +1,10 @@
-/*   
+/*
   note-head-line-engraver.cc -- implement Note_head_line_engraver
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2000--2005 Jan Nieuwenhuizen <janneke@gnu.org>
- */
+*/
 
 #include "warn.hh"
 #include "spanner.hh"
@@ -27,9 +27,9 @@ protected:
   virtual bool try_music (Music *);
   virtual void process_music ();
 private:
-  Spanner *line_; 
-  Spanner *last_line_; 
-  Music* event_;
+  Spanner *line_;
+  Spanner *last_line_;
+  Music *event_;
 };
 
 Glissando_engraver::Glissando_engraver ()
@@ -39,7 +39,7 @@ Glissando_engraver::Glissando_engraver ()
 }
 
 bool
-Glissando_engraver::try_music (Music* m)
+Glissando_engraver::try_music (Music *m)
 {
   if (!event_)
     {
@@ -58,21 +58,19 @@ Glissando_engraver::process_music ()
     }
 }
 
-
 void
 Glissando_engraver::acknowledge_grob (Grob_info info)
 {
   if (Rhythmic_head::has_interface (info.grob_))
     {
-      Grob * g = info.grob_;
+      Grob *g = info.grob_;
       if (line_)
 	line_->set_bound (LEFT, g);
 
       if (last_line_)
 	last_line_->set_bound (RIGHT, g);
-    }    
+    }
 }
-
 
 void
 Glissando_engraver::stop_translation_timestep ()
@@ -83,7 +81,7 @@ Glissando_engraver::stop_translation_timestep ()
     }
   if (line_)
     {
-      if ( last_line_)
+      if (last_line_)
 	programming_error ("Overwriting glissando.");
       last_line_ = line_;
     }
@@ -96,24 +94,22 @@ Glissando_engraver::finalize ()
 {
   if (line_)
     {
-      String msg = _("Unterminated glissando.");
-      
+      String msg = _ ("Unterminated glissando.");
+
       if (event_)
 	event_->origin ()->warning (msg);
       else
 	warning (msg);
-      
+
       line_->suicide ();
       line_ = 0;
     }
 }
 
-
-
 ADD_TRANSLATOR (Glissando_engraver,
-/* descr */       "Engrave a glissandi",
-/* creats*/       "Glissando",
-/* accepts */     "glissando-event",
-/* acks  */       "rhythmic-head-interface",
-/* reads */       "followVoice",
-/* write */       "");
+		/* descr */ "Engrave a glissandi",
+		/* creats*/ "Glissando",
+		/* accepts */ "glissando-event",
+		/* acks  */ "rhythmic-head-interface",
+		/* reads */ "followVoice",
+		/* write */ "");

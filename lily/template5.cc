@@ -26,6 +26,4 @@ Interval_t<Rational>::T_to_string (Rational a)
   return a.to_string ();
 }
 
-
-
 template INTERVAL__INSTANTIATE (Rational);

@@ -1,5 +1,5 @@
 /*
-  stringutil.cc -- generate non-inline members. 
+  stringutil.cc -- generate non-inline members.
 
   This should be in a separate file, because one can include the .icc
   only once.
@@ -8,7 +8,7 @@
 
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl> */
 
-#ifdef STRING_DEBUG 
+#ifdef STRING_DEBUG
 #define memmove mymemmove
 #endif
 
@@ -32,9 +32,9 @@
 #ifdef STRING_DEBUG
 #include <sys/types.h>
 #include <memory.h>
-void* 
-mymemmove (void* dest, void const* src, size_t n)
+void *
+mymemmove (void *dest, void const *src, size_t n)
 {
-	return memcpy (dest, src, n); 
+  return memcpy (dest, src, n);
 }
 #endif

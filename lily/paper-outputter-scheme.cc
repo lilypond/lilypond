@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #include "paper-outputter.hh"
@@ -16,11 +15,11 @@ LY_DEFINE (ly_make_paper_outputter, "ly:make-paper-outputter",
 	   "Create an outputter that evaluates within "
 	   "@code{output-}@var{format}, writing to file @var{outname}.")
 {
-  SCM_ASSERT_TYPE(scm_is_string (outname), outname, SCM_ARG1, __FUNCTION__,
-		  "String");
-  SCM_ASSERT_TYPE(scm_is_string (format), format, SCM_ARG2, __FUNCTION__,
-		  "String");
-  
+  SCM_ASSERT_TYPE (scm_is_string (outname), outname, SCM_ARG1, __FUNCTION__,
+		   "String");
+  SCM_ASSERT_TYPE (scm_is_string (format), format, SCM_ARG2, __FUNCTION__,
+		   "String");
+
   String outname_str = ly_scm2string (outname);
   String f = ly_scm2string (format);
 
@@ -55,10 +54,9 @@ LY_DEFINE (ly_outputter_dump_string, "ly:outputter-dump-string",
   Paper_outputter *po = unsmob_outputter (outputter);
   SCM_ASSERT_TYPE (po, outputter, SCM_ARG1, __FUNCTION__, "Paper_outputter");
   SCM_ASSERT_TYPE (scm_is_string (str), str, SCM_ARG1, __FUNCTION__, "Paper_outputter");
-  
+
   return po->dump_string (str);
 }
-
 
 LY_DEFINE (ly_outputter_port, "ly:outputter-port",
 	   1, 0, 0, (SCM outputter),
@@ -66,7 +64,7 @@ LY_DEFINE (ly_outputter_port, "ly:outputter-port",
 {
   Paper_outputter *po = unsmob_outputter (outputter);
   SCM_ASSERT_TYPE (po, outputter, SCM_ARG1, __FUNCTION__, "Paper_outputter");
-  
+
   return po->file ();
 }
 

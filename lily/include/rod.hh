@@ -1,11 +1,10 @@
-/*   
+/*
   rod.hh -- declare Rod, Column_rod
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1998--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #ifndef ROD_HH
 #define ROD_HH
@@ -15,14 +14,14 @@
 
 struct Rod
 {
-  Drul_array <Item*> item_drul_;
+  Drul_array<Item *> item_drul_;
   Real distance_;
 
   /**
-    translate the rod so as to refer to Paper_columns  
-   */
+     translate the rod so as to refer to Paper_columns
+  */
   void columnize ();
-  
+
   void add_to_cols ();
 
   Rod ();

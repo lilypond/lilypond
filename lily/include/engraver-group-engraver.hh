@@ -7,22 +7,20 @@
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #ifndef ENGRAVERGROUP_HH
 #define ENGRAVERGROUP_HH
 
 #include "engraver.hh"
 #include "translator-group.hh"
 
-
 class Engraver_group_engraver : public virtual Engraver,
 				public virtual Translator_group
 {
 protected:
   Array<Grob_info> announce_infos_;
-  
+
 public:
-  TRANSLATOR_DECLARATIONS(Engraver_group_engraver);
+  TRANSLATOR_DECLARATIONS (Engraver_group_engraver);
 
   virtual void initialize ();
   virtual void do_announces ();

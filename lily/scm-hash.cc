@@ -14,7 +14,7 @@
 
 /*
   Return: number of objects.
- */
+*/
 int
 copy_scm_hashes (SCM dest, SCM src)
 {
@@ -25,9 +25,8 @@ copy_scm_hashes (SCM dest, SCM src)
 	scm_hashq_set_x (dest, scm_caar (s), scm_cdar (s));
 	k++;
       }
-  return k ;
+  return k;
 }
-
 
 Scheme_hash_table::Scheme_hash_table ()
 {
@@ -37,7 +36,6 @@ Scheme_hash_table::Scheme_hash_table ()
   elt_count_ = 0;
 }
 
-
 Scheme_hash_table::Scheme_hash_table (Scheme_hash_table const &src)
 
 {
@@ -45,12 +43,12 @@ Scheme_hash_table::Scheme_hash_table (Scheme_hash_table const &src)
   elt_count_ = 0;
   smobify_self ();
 
-  hash_tab_ = scm_make_vector (scm_int2num (src.elt_count_ >? 11 ), SCM_EOL);
+  hash_tab_ = scm_make_vector (scm_int2num (src.elt_count_ >? 11), SCM_EOL);
   elt_count_ = copy_scm_hashes (hash_tab_, src.hash_tab_);
 }
 
 void
-Scheme_hash_table::operator = (Scheme_hash_table const & src)
+Scheme_hash_table::operator= (Scheme_hash_table const &src)
 {
   if (&src == this)
     return;
@@ -66,7 +64,7 @@ Scheme_hash_table::~Scheme_hash_table ()
 SCM
 Scheme_hash_table::mark_smob (SCM s)
 {
-  Scheme_hash_table *me = (Scheme_hash_table*) SCM_CELL_WORD_1 (s);
+  Scheme_hash_table *me = (Scheme_hash_table *) SCM_CELL_WORD_1 (s);
   scm_gc_mark (me->hash_tab_);
   return SCM_EOL;
 }
@@ -77,7 +75,7 @@ Scheme_hash_table::print_smob (SCM s, SCM p, scm_print_state*)
   assert (unsmob (s));
   char str[1000];
   sprintf (str, "#<Scheme_hash_table 0x%0lx ", SCM_UNPACK (s));
-  Scheme_hash_table *me = (Scheme_hash_table*) SCM_CELL_WORD_1 (s);
+  Scheme_hash_table *me = (Scheme_hash_table *) SCM_CELL_WORD_1 (s);
   scm_display (me->hash_tab_, p);
   scm_puts ("> ", p);
   return 1;
@@ -117,7 +115,7 @@ Scheme_hash_table::set (SCM k, SCM v)
   */
   if (elt_count_ > 2 * scm_c_vector_length (hash_tab_))
     {
-      SCM nh = scm_make_vector (scm_int2num (3* elt_count_+1), SCM_EOL);
+      SCM nh = scm_make_vector (scm_int2num (3* elt_count_ + 1), SCM_EOL);
       elt_count_ = copy_scm_hashes (nh, hash_tab_);
       hash_tab_ = nh;
     }
@@ -129,7 +127,7 @@ Scheme_hash_table::get (SCM k) const
 {
   /*
     42 will stick out like a sore thumb, hopefully.
-   */
+  */
   return scm_hashq_ref (hash_tab_, k, scm_from_int (42));
 }
 

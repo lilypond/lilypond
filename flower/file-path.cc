@@ -1,10 +1,10 @@
 /*
   file-path.cc - implement File_path
-   
+
   source file of the Flower Library
-  
+
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-                 Jan Nieuwenhuizen <janneke@gnu.org>
+  Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "file-path.hh"
@@ -13,7 +13,7 @@
 #include <cerrno>
 
 #include "config.hh"
-#if HAVE_SYS_STAT_H 
+#if HAVE_SYS_STAT_H
 #include <sys/stat.h>
 #endif
 
@@ -48,18 +48,18 @@ File_path::parse_path (String p)
 }
 
 /** Find a file.
-    
-  Check absolute file name, search in the current dir (DUH! FIXME!),
-  in the construction-arg (what's that?), and in any other appended
-  directory, in this order.
 
-  @return
-  The file name if found, or empty string if not found. */
+Check absolute file name, search in the current dir (DUH! FIXME!),
+in the construction-arg (what's that?), and in any other appended
+directory, in this order.
+
+@return
+The file name if found, or empty string if not found. */
 
 String
 File_path::find (String name) const
 {
-  if (!name.length () || (name == "-") )
+  if (!name.length () || (name == "-"))
     return name;
 
   /* Handle absolute file name.  */
@@ -71,7 +71,7 @@ File_path::find (String name) const
 	  return name;
 	}
     }
-       
+
   for (int i = 0; i < size (); i++)
     {
       String file_name = elem (i);
@@ -86,12 +86,12 @@ File_path::find (String name) const
       struct stat sbuf;
       if (stat (file_name.to_str0 (), &sbuf) != 0)
 	continue;
-      
+
       if (! (sbuf.st_mode & __S_IFREG))
 	continue;
 #endif
 #if !STAT_MACROS_BROKEN
-      
+
       struct stat sbuf;
       if (stat (file_name.to_str0 (), &sbuf) != 0)
 	continue;
@@ -112,15 +112,15 @@ File_path::find (String name) const
 }
 
 /** Find a file.
-    
-  Seach in the current dir (DUH! FIXME?), in the construction-arg
-  (what's that?, and in any other appended directory, in this order.
 
-  Search for NAME, or name without extension, or name with any of
-  EXTENSIONS, in that order.
+Seach in the current dir (DUH! FIXME?), in the construction-arg
+(what's that?, and in any other appended directory, in this order.
 
-  @return
-  The file name if found, or empty string if not found. */
+Search for NAME, or name without extension, or name with any of
+EXTENSIONS, in that order.
+
+@return
+The file name if found, or empty string if not found. */
 String
 File_path::find (String name, char const *extensions[])
 {
@@ -150,7 +150,7 @@ bool
 File_path::try_append (String s)
 {
   if (s == "")
-    s =  ".";
+    s = ".";
   if (FILE *f = fopen (s.to_str0 (), "r"))
     {
       fclose (f);

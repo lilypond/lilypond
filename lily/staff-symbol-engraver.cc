@@ -6,7 +6,6 @@
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #include "score.hh"
 #include "paper-column.hh"
 #include "output-def.hh"
@@ -15,21 +14,21 @@
 #include "moment.hh"
 
 /**
-  Manage the staff symbol.
- */
-class Staff_symbol_engraver : public Engraver { 
+   Manage the staff symbol.
+*/
+class Staff_symbol_engraver : public Engraver
+{
 public:
   TRANSLATOR_DECLARATIONS (Staff_symbol_engraver);
-  
+
 protected:
   Spanner *span_;
-  
+
   virtual ~Staff_symbol_engraver ();
   virtual void acknowledge_grob (Grob_info);
   virtual void finalize ();
   virtual void process_music ();
 };
-
 
 Staff_symbol_engraver::~Staff_symbol_engraver ()
 {
@@ -47,10 +46,9 @@ Staff_symbol_engraver::process_music ()
   if (!span_)
     {
       span_ = make_spanner ("StaffSymbol", SCM_EOL);
-  
+
       span_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
 
-      
     }
 }
 
@@ -71,19 +69,16 @@ Staff_symbol_engraver::acknowledge_grob (Grob_info s)
 }
 
 
-
-
 ADD_TRANSLATOR (Staff_symbol_engraver,
-/* descr */       "Create the constellation of five (default) "
-"staff lines.",
-/* creats*/       "StaffSymbol",
-/* accepts */     "",
-/* acks  */      "grob-interface",
-/* reads */       "",
-/* write */       "");
+		/* descr */ "Create the constellation of five (default) "
+		"staff lines.",
+		/* creats*/ "StaffSymbol",
+		/* accepts */ "",
+		/* acks  */ "grob-interface",
+		/* reads */ "",
+		/* write */ "");
 
 /****************************************************************/
-
 
 class Tab_staff_symbol_engraver : public Staff_symbol_engraver
 {
@@ -111,10 +106,10 @@ Tab_staff_symbol_engraver::Tab_staff_symbol_engraver ()
 }
 
 ADD_TRANSLATOR (Tab_staff_symbol_engraver,
-/* descr */       "Create a staff-symbol, but look at stringTunings for the number of lines."
-"staff lines.",
-/* creats*/       "StaffSymbol",
-/* accepts */     "",
-/* acks  */      "grob-interface",
-/* reads */       "stringTunings",
-/* write */       "");
+		/* descr */ "Create a staff-symbol, but look at stringTunings for the number of lines."
+		"staff lines.",
+		/* creats*/ "StaffSymbol",
+		/* accepts */ "",
+		/* acks  */ "grob-interface",
+		/* reads */ "stringTunings",
+		/* write */ "");

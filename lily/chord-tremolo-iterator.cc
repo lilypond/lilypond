@@ -1,17 +1,15 @@
-/*   
+/*
   chord-tremolo-iterator.cc -- implement Chord_tremolo_iterator
-  
-  source file of the GNU LilyPond music typesetter
-  
-  (c) 2000--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
 
+  source file of the GNU LilyPond music typesetter
+
+  (c) 2000--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+*/
 
 /*
   this is culled from various other iterators, but sharing code by
   subclassing proved to be too difficult.
- */
+*/
 
 #include "chord-tremolo-iterator.hh"
 
@@ -21,9 +19,9 @@
 void
 Chord_tremolo_iterator::construct_children ()
 {
-  Music *m = get_music();
-  
-  factor_  = Moment (Rational (1, 1));
+  Music *m = get_music ();
+
+  factor_ = Moment (Rational (1, 1));
   child_iter_ = unsmob_iterator (get_iterator (Repeated_music::body (m)));
 }
 
@@ -48,7 +46,7 @@ Chord_tremolo_iterator::derived_mark () const
 }
 
 void
-Chord_tremolo_iterator::derived_substitute (Context *f, Context *t) 
+Chord_tremolo_iterator::derived_substitute (Context *f, Context *t)
 {
   if (child_iter_)
     child_iter_->substitute_outlet (f, t);
@@ -57,7 +55,7 @@ Chord_tremolo_iterator::derived_substitute (Context *f, Context *t)
 void
 Chord_tremolo_iterator::process (Moment m)
 {
-  if (!m.to_bool () )
+  if (!m.to_bool ())
     {
       Music_iterator *yeah = try_music (get_music ());
       if (yeah)
@@ -81,8 +79,8 @@ Chord_tremolo_iterator::ok () const
   return child_iter_ && child_iter_->ok ();
 }
 
-Music_iterator*
-Chord_tremolo_iterator::try_music_in_children (Music  *m) const
+Music_iterator *
+Chord_tremolo_iterator::try_music_in_children (Music *m) const
 {
   return child_iter_->try_music (m);
 }

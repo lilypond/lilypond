@@ -12,14 +12,15 @@
 #include "flower-proto.hh"
 
 /**
-  Base class for anything that records its poisition in the parse file.
- */
-class Input {
+   Base class for anything that records its poisition in the parse file.
+*/
+class Input
+{
 public:
   char const *start_;
   char const *end_;
-  Source_file * source_file_;
-    
+  Source_file *source_file_;
+
   void warning (String) const; // should use member func?
   void non_fatal_error (String) const;
   void error (String) const;
@@ -31,14 +32,12 @@ public:
   String location_string () const;
   String line_number_string () const;
 
-
   String file_string ()const;
   int line_number ()const;
   int column_number ()const;
   int end_line_number ()const;
   int end_column_number ()const;
 
-  
   Input (Input const &i);
   Input ();
 };

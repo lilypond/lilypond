@@ -4,7 +4,7 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 1997--2005 Jan Nieuwenhuizen <janneke@gnu.org>
- */
+*/
 
 #include "audio-staff.hh"
 
@@ -13,14 +13,13 @@
 #include "midi-walker.hh"
 
 void
-Audio_staff::add_audio_item (Audio_item* l)
+Audio_staff::add_audio_item (Audio_item *l)
 {
   audio_items_.push (l);
 }
 
-
 void
-Audio_staff::output (Midi_stream& midi_stream_r, int track_i)
+Audio_staff::output (Midi_stream &midi_stream_r, int track_i)
 {
   Midi_track midi_track;
   midi_track.number_ = track_i;
@@ -29,5 +28,4 @@ Audio_staff::output (Midi_stream& midi_stream_r, int track_i)
     i.process ();
   midi_stream_r << midi_track;
 }
-
 

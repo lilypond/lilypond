@@ -19,13 +19,13 @@ Change_iterator::error (String reason)
   String to_type = ly_symbol2string (get_music ()->get_property ("change-to-type"));
   String to_id = ly_scm2string (get_music ()->get_property ("change-to-id"));
 
-  String warn1 = _f ("can't change `%s' to `%s'", to_type, to_id) 
+  String warn1 = _f ("can't change `%s' to `%s'", to_type, to_id)
     + ": " + reason;
 
   /*
     GUHG!
-   */
-  String warn2= "Change_iterator::process (): " 
+  */
+  String warn2= "Change_iterator::process (): "
     + get_outlet ()->context_name () + " = `"
     + get_outlet ()->id_string () + "': ";
   warning (warn2);
@@ -34,21 +34,20 @@ Change_iterator::error (String reason)
 
 /*
   move to construct_children ?
- */
+*/
 void
 Change_iterator::process (Moment m)
 {
-  Context * current = get_outlet ();
-  Context * last = 0;
+  Context *current = get_outlet ();
+  Context *last = 0;
 
   SCM to_type = get_music ()->get_property ("change-to-type");
-  String to_id =  ly_scm2string (get_music ()->get_property ("change-to-id"));
-
+  String to_id = ly_scm2string (get_music ()->get_property ("change-to-id"));
 
   /* find the type  of translator that we're changing.
-     
-     If \translator Staff = bass, then look for Staff = *
-   */
+
+  If \translator Staff = bass, then look for Staff = *
+  */
   while (current && !current->is_alias (to_type))
     {
       last = current;
@@ -60,18 +59,18 @@ Change_iterator::process (Moment m)
       String msg;
       msg += _ ("Can't switch translators, I'm there already");
     }
-  
-  if (current) 
+
+  if (current)
     if (last)
       {
-	Context * dest = 0;
-	Context * where = get_outlet ();
+	Context *dest = 0;
+	Context *where = get_outlet ();
 	while (!dest && where)
 	  {
 	    dest = find_context_below (where, to_type, to_id);
 	    where = where->get_parent_context ();
 	  }
-	
+
 	if (dest)
 	  {
 	    current->remove_context (last);
@@ -79,16 +78,16 @@ Change_iterator::process (Moment m)
 	  }
 	else
 	  {
-	    get_music ()->origin ()->warning  ("could not find context to switch to.");
+	    get_music ()->origin ()->warning ("could not find context to switch to.");
 	  }
       }
     else
       {
 	/*
-	  We could change the current translator's id, but that would make 
+	  We could change the current translator's id, but that would make
 	  errors hard to catch
-	  
-	   last->translator_id_string ()  = get_change ()->change_to_id_string ();
+
+	  last->translator_id_string ()  = get_change ()->change_to_id_string ();
 	*/
 	error (_ ("I'm one myself"));
       }
@@ -97,7 +96,5 @@ Change_iterator::process (Moment m)
 
   Simple_music_iterator::process (m);
 }
-
-
 
 IMPLEMENT_CTOR_CALLBACK (Change_iterator);

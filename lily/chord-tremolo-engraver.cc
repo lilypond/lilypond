@@ -1,10 +1,9 @@
-/*   
-     chord-tremolo-engraver.cc -- implement Chord_tremolo_engraver
-  
-     source file of the GNU LilyPond music typesetter
-  
-     (c) 2000--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
+/*
+  chord-tremolo-engraver.cc -- implement Chord_tremolo_engraver
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 2000--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "beam.hh"
@@ -19,7 +18,7 @@
 #include "item.hh"
 #include "chord-tremolo-iterator.hh"
 #include "stem-tremolo.hh"
-#include "math.h"           // ceil
+#include "math.h" // ceil
 
 /**
 
@@ -34,31 +33,30 @@ create dependencies between engravers, which is bad.
 - create dots if appropriate.
 
 - create TremoloBeam iso Beam?
-
 */
 class Chord_tremolo_engraver : public Engraver
 {
   void typeset_beam ();
   TRANSLATOR_DECLARATIONS (Chord_tremolo_engraver);
 protected:
-  Music * repeat_;
+  Music *repeat_;
 
   /// moment (global time) where beam started.
   Moment start_mom_;
   Moment stop_mom_;
-  int flags_ ;
+  int flags_;
   int total_duration_flags_;
-  
+
   /// location  within measure where beam started.
   Moment beam_start_location_;
 
   bool body_is_sequential_;
-  Spanner * beam_;
-  Spanner * finished_beam_;
-  Item * stem_tremolo_;
+  Spanner *beam_;
+  Spanner *finished_beam_;
+  Item *stem_tremolo_;
 protected:
   virtual void finalize ();
-  virtual bool try_music (Music*);
+  virtual bool try_music (Music *);
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
@@ -67,7 +65,7 @@ protected:
 
 Chord_tremolo_engraver::Chord_tremolo_engraver ()
 {
-  beam_  = finished_beam_ = 0;
+  beam_ = finished_beam_ = 0;
   repeat_ = 0;
   flags_ = 0;
   stem_tremolo_ = 0;
@@ -75,17 +73,16 @@ Chord_tremolo_engraver::Chord_tremolo_engraver ()
 }
 
 bool
-Chord_tremolo_engraver::try_music (Music * m)
+Chord_tremolo_engraver::try_music (Music *m)
 {
   if (m->is_mus_type ("repeated-music")
       && m->get_property ("iterator-ctor") == Chord_tremolo_iterator::constructor_proc
-      && !repeat_) 
+      && !repeat_)
     {
       Moment l = m->get_length ();
       repeat_ = m;
       start_mom_ = now_mom ();
       stop_mom_ = start_mom_ + l;
-
 
       Music *body = Repeated_music::body (m);
       body_is_sequential_ = body->is_mus_type ("sequential-music");
@@ -99,14 +96,14 @@ Chord_tremolo_engraver::try_music (Music * m)
 
       if (elt_count <= 0)
 	elt_count = 1;
-	  
+
       Rational total_dur = l.main_part_;
       Rational note_dur = total_dur / Rational (elt_count * Repeated_music::repeat_count (repeat_));
 
       total_duration_flags_ = 0 >? (intlog2 (total_dur.den ()) - 2);
-      
-      flags_ = intlog2 (note_dur.den ()) -2 ;
-      
+
+      flags_ = intlog2 (note_dur.den ()) -2;
+
       return true;
     }
 
@@ -147,13 +144,13 @@ Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
 {
   if (beam_ && Stem::has_interface (info.grob_))
     {
-      Grob * s = info.grob_;
+      Grob *s = info.grob_;
 
       if (start_mom_ == now_mom ())
 	Stem::set_beaming (s, flags_, RIGHT);
       else
 	Stem::set_beaming (s, flags_, LEFT);
-	  
+
       if (Stem::duration_log (s) != 1)
 	{
 	  beam_->set_property ("gap-count", scm_int2num (flags_ - total_duration_flags_));
@@ -172,8 +169,8 @@ Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
 	    ::warning (s);
 	}
     }
-  else if (repeat_ &&
-	   flags_ && !body_is_sequential_ && Stem::has_interface (info.grob_))
+  else if (repeat_
+	   && flags_ && !body_is_sequential_ && Stem::has_interface (info.grob_))
     {
       stem_tremolo_ = make_item ("StemTremolo", repeat_->self_scm ());
       stem_tremolo_->set_property ("flag-count",
@@ -183,7 +180,6 @@ Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
       stem_tremolo_->set_parent (info.grob_, X_AXIS);
     }
 }
-
 
 void
 Chord_tremolo_engraver::start_translation_timestep ()
@@ -195,7 +191,6 @@ Chord_tremolo_engraver::start_translation_timestep ()
       beam_ = 0;
     }
 }
-
 
 void
 Chord_tremolo_engraver::stop_translation_timestep ()
@@ -211,12 +206,10 @@ Chord_tremolo_engraver::stop_translation_timestep ()
   typeset_beam ();
 }
 
-
-
 ADD_TRANSLATOR (Chord_tremolo_engraver,
-/* descr */       "Generates beams for  tremolo repeats.",
-/* creats*/       "Beam",
-/* accepts */     "repeated-music",
-/* acks  */      "stem-interface note-head-interface",
-/* reads */       "",
-/* write */       "");
+		/* descr */ "Generates beams for  tremolo repeats.",
+		/* creats*/ "Beam",
+		/* accepts */ "repeated-music",
+		/* acks  */ "stem-interface note-head-interface",
+		/* reads */ "",
+		/* write */ "");

@@ -1,11 +1,10 @@
-/*   
+/*
   recording-group-engraver.cc -- implement Recording_group_engraver
 
   source file of the GNU LilyPond music typesetter
 
   (c) 2003--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
- */
+*/
 
 #include "context.hh"
 #include "engraver-group-engraver.hh"
@@ -28,7 +27,7 @@ public:
 void
 Recording_group_engraver::derived_mark () const
 {
-  Engraver_group_engraver::derived_mark();
+  Engraver_group_engraver::derived_mark ();
   scm_gc_mark (now_events_);
   scm_gc_mark (accumulator_);
 }
@@ -51,14 +50,13 @@ Recording_group_engraver::add_music (SCM music, SCM success)
   now_events_ = scm_cons (scm_cons (music, success), now_events_);
 }
 
-
 void
 Recording_group_engraver::stop_translation_timestep ()
 {
   Engraver_group_engraver::stop_translation_timestep ();
 
   accumulator_ = scm_acons (scm_cons (now_mom ().smobbed_copy (),
-				     get_property ("instrumentTransposition")),
+				      get_property ("instrumentTransposition")),
 			    now_events_,
 			    accumulator_);
   now_events_ = SCM_EOL;
@@ -71,11 +69,11 @@ Recording_group_engraver::finalize ()
   SCM proc = get_property ("recordEventSequence");
 
   if (ly_c_procedure_p (proc))
-    scm_call_2  (proc, context ()->self_scm (), scm_cdr (accumulator_));
+    scm_call_2 (proc, context ()->self_scm (), scm_cdr (accumulator_));
 }
 
 bool
-Recording_group_engraver::try_music (Music  *m)
+Recording_group_engraver::try_music (Music *m)
 {
   bool retval = Translator_group::try_music (m);
 
@@ -83,13 +81,12 @@ Recording_group_engraver::try_music (Music  *m)
   return retval;
 }
 
-
 ADD_TRANSLATOR (Recording_group_engraver,
-		  "Engraver_group_engraver that records all music events "
-		  "for this context. Calls the procedure "
-		  "in @code{recordEventSequence} when finished.",
-		  "",
-		  "",
-		  "",
-		  "recordEventSequence",
-		  "");
+		"Engraver_group_engraver that records all music events "
+		"for this context. Calls the procedure "
+		"in @code{recordEventSequence} when finished.",
+		"",
+		"",
+		"",
+		"recordEventSequence",
+		"");

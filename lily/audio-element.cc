@@ -16,7 +16,7 @@ Audio_element::~Audio_element ()
 {
 }
 
-char const * 
+char const *
 Audio_element::name () const
 {
   return classname (this);

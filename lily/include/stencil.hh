@@ -19,29 +19,29 @@
 
     It is implemented as a "tree" of scheme expressions, as in
 
-     Expr = combine Expr-list
-            | translate Offset Expr
-	    | origin (ORIGIN) Expr
-	    | no-origin Expr
-	    | (SCHEME)
-	    ;
+    Expr = combine Expr-list
+    | translate Offset Expr
+    | origin (ORIGIN) Expr
+    | no-origin Expr
+    | (SCHEME)
+    ;
 
     SCHEME is a Scheme expression that --when eval'd-- produces the
-    desired output.  
+    desired output.
 
     Notes:
-    
+
     * Because of the way that Stencil is implemented, it is the most
     efficient to add "fresh" stencils to what you're going to build.
 
     * Do not create Stencil objects on the heap. That includes passing
     around Stencil* which are produced by unsmob_stencil(). Either
     copy Stencil objects, or use SCM references.
-    
+
     * Empty stencils have empty dimensions.  If add_at_edge is used to
     init the stencil, we assume that
 
-      DIMENSIONS = (Interval (0, 0), Interval (0, 0)
+    DIMENSIONS = (Interval (0, 0), Interval (0, 0)
 */
 class Stencil
 {
@@ -51,16 +51,16 @@ class Stencil
     This provides the reference point of the symbol, for example with
     characters, it is on the base line of the character. Usually,
     ORIGIN is inside DIM_
-   */
+  */
   Offset origin_;
   Box dim_;
   SCM expr_;
-  
-  DECLARE_SIMPLE_SMOBS (Stencil, );  
+
+  DECLARE_SIMPLE_SMOBS (Stencil,);
 public:
   Stencil (Box, SCM s);
   Stencil ();
-  
+
   Offset origin () const;
   SCM expr () const;
 
@@ -76,7 +76,7 @@ public:
   void translate (Offset);
   void align_to (Axis a, Real x);
   void translate_axis (Real, Axis);
-  
+
   Interval extent (Axis) const;
   Box extent_box () const;
   bool is_empty () const;
@@ -86,14 +86,13 @@ public:
   static SCM ly_stencil_combined_at_edge (SCM, SCM, SCM, SCM, SCM);
 };
 
-
-DECLARE_UNSMOB(Stencil, stencil);
-SCM fontify_atom (Font_metric const*, SCM atom);
+DECLARE_UNSMOB (Stencil, stencil);
+SCM fontify_atom (Font_metric const *, SCM atom);
 
 void interpret_stencil_expression (SCM expr,
-                        void (*func) (void*, SCM),
-                        void *func_arg,
-                        Offset o);
+				   void (*func) (void *, SCM),
+				   void *func_arg,
+				   Offset o);
 
 Stencil create_stencil (SCM print);
 SCM find_expression_fonts (SCM expr);

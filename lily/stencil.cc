@@ -10,7 +10,7 @@
 
 #include <math.h>
 
-#include <libc-extension.hh>	// isinf
+#include <libc - extension.hh>	// isinf
 
 #include "input-smob.hh"
 #include "font-metric.hh"
@@ -43,7 +43,7 @@ Stencil::print_smob (SCM, SCM port, scm_print_state *)
 SCM
 Stencil::mark_smob (SCM smob)
 {
-  Stencil *s = (Stencil*) SCM_CELL_WORD_1 (smob);
+  Stencil *s = (Stencil *) SCM_CELL_WORD_1 (smob);
   return s->expr_;
 }
 
@@ -93,7 +93,7 @@ Stencil::translate (Offset o)
 	  programming_error (String_convert::form_string ("Improbable offset for stencil: %f staff space", o[a])
 			     + "\n"
 			     + "Setting to zero.");
-	  o[a] =  0.0;
+	  o[a] = 0.0;
 	}
       incr (a);
     }
@@ -120,8 +120,6 @@ Stencil::add_stencil (Stencil const &s)
   expr_ = scm_list_3 (ly_symbol2scm ("combine-stencil"), s.expr_, expr_);
   dim_.unite (s.dim_);
 }
-
-
 
 void
 Stencil::set_empty (bool e)
@@ -175,8 +173,8 @@ Stencil::moved_to_edge (Axis a, Direction d, Stencil const &s,
   toadd.translate_axis (offset, a);
 
   if (minimum > 0 && d * (-origin ()[a] + toadd.origin ()[a]) < minimum)
-    toadd.translate_axis ( -toadd.origin ()[a]
-			   + origin ()[a] + d * minimum, a);
+    toadd.translate_axis (-toadd.origin ()[a]
+			  + origin ()[a] + d * minimum, a);
 
   return toadd;
 }
@@ -189,38 +187,36 @@ Stencil::add_at_edge (Axis a, Direction d, Stencil const &s, Real padding,
   add_stencil (moved_to_edge (a, d, s, padding, minimum));
 }
 
-
 /****************************************************************/
-
 
 void
 interpret_stencil_expression (SCM expr,
-			      void (*func) (void*, SCM),
+			      void (*func) (void *, SCM),
 			      void *func_arg,
 			      Offset o)
 {
   while (1)
     {
       if (!scm_is_pair (expr))
-        return;
+	return;
 
       SCM head = scm_car (expr);
 
       if (head == ly_symbol2scm ("translate-stencil"))
-        {
-          o += ly_scm2offset (scm_cadr (expr));
-          expr = scm_caddr (expr);
-        }
+	{
+	  o += ly_scm2offset (scm_cadr (expr));
+	  expr = scm_caddr (expr);
+	}
       else if (head == ly_symbol2scm ("combine-stencil"))
-        {
-          for (SCM x = scm_cdr (expr); scm_is_pair (x); x = scm_cdr (x))
+	{
+	  for (SCM x = scm_cdr (expr); scm_is_pair (x); x = scm_cdr (x))
 	    interpret_stencil_expression (scm_car (x), func, func_arg, o);
-          return;
-        }
+	  return;
+	}
       else if (head == ly_symbol2scm ("grob-cause"))
 	{
 	  SCM grob = scm_cadr (expr);
-	
+
 	  (*func) (func_arg, scm_list_3 (head,
 					 ly_quote_scm (ly_offset2scm (o)), grob));
 	  interpret_stencil_expression (scm_caddr (expr), func, func_arg, o);
@@ -228,7 +224,7 @@ interpret_stencil_expression (SCM expr,
 	  return;
 	}
       else if (head == ly_symbol2scm ("color"))
-	{ 
+	{
 	  SCM color = scm_cadr (expr);
 	  SCM r = scm_car (color);
 	  SCM g = scm_cadr (color);
@@ -237,21 +233,20 @@ interpret_stencil_expression (SCM expr,
 	  (*func) (func_arg, scm_list_4 (ly_symbol2scm ("setcolor"), r, g, b));
 	  interpret_stencil_expression (scm_caddr (expr), func, func_arg, o);
 	  (*func) (func_arg, scm_list_1 (ly_symbol2scm ("resetcolor")));
-   
+
 	  return;
-	} 
+	}
       else
-        {
-          (*func) (func_arg,
-                   scm_list_4 (ly_symbol2scm ("placebox"),
-                               scm_make_real (o[X_AXIS]),
-                               scm_make_real (o[Y_AXIS]),
-                               expr));
-           return;
-        }
+	{
+	  (*func) (func_arg,
+		   scm_list_4 (ly_symbol2scm ("placebox"),
+			       scm_make_real (o[X_AXIS]),
+			       scm_make_real (o[Y_AXIS]),
+			       expr));
+	  return;
+	}
     }
 }
-
 
 struct Font_list
 {
@@ -261,7 +256,7 @@ struct Font_list
 static void
 find_font_function (void *fs, SCM x)
 {
-  Font_list *me = (Font_list*) fs;
+  Font_list *me = (Font_list *) fs;
 
   if (scm_car (x) == ly_symbol2scm ("placebox"))
     {
@@ -269,13 +264,13 @@ find_font_function (void *fs, SCM x)
       SCM what = scm_caddr (args);
 
       if (scm_is_pair (what))
-        {
-          SCM head = scm_car (what);
-          if (ly_symbol2scm ("text") == head)
-            me->fonts_ = scm_cons (scm_cadr (what), me->fonts_);
-          else if (head == ly_symbol2scm ("char"))
-            me->fonts_ = scm_cons (scm_cadr (what), me->fonts_);
-        }
+	{
+	  SCM head = scm_car (what);
+	  if (ly_symbol2scm ("text") == head)
+	    me->fonts_ = scm_cons (scm_cadr (what), me->fonts_);
+	  else if (head == ly_symbol2scm ("char"))
+	    me->fonts_ = scm_cons (scm_cadr (what), me->fonts_);
+	}
     }
 }
 
@@ -287,9 +282,8 @@ find_expression_fonts (SCM expr)
   fl.fonts_ = SCM_EOL;
 
   interpret_stencil_expression (expr, &find_font_function,
-				(void*) &fl, Offset (0, 0));
+				(void *) &fl, Offset (0, 0));
 
   return fl.fonts_;
 }
-
 

@@ -20,17 +20,17 @@
 
    TODO: interface is too complicated
 */
-class Lily_parser 
+class Lily_parser
 {
-  DECLARE_SMOBS (Lily_parser, );
-  friend int yyparse (void*);
+  DECLARE_SMOBS (Lily_parser,);
+  friend int yyparse (void *);
 
   Array<Input> define_spots_;
 
-  char const* here_str0 () const;
+  char const *here_str0 () const;
   Simultaneous_music *get_chord (Pitch tonic,
 				 Array<Pitch> *adds, Array<Pitch> *subs,
-				 Pitch *inversion, Pitch* bass, Duration d);
+				 Pitch *inversion, Pitch *bass, Duration d);
   void set_chord_tremolo (int type_i);
   void set_last_duration (Duration const *);
   void set_last_pitch (Pitch const *);
@@ -50,17 +50,17 @@ public:
   SCM last_beam_start_;
 
   Lily_parser (Sources *sources);
-  Lily_parser (Lily_parser const&);
+  Lily_parser (Lily_parser const &);
 
   DECLARE_SCHEME_CALLBACK (layout_description, ());
 
-  void beam_check (SCM); 
+  void beam_check (SCM);
   void do_init_file ();
   void do_yyparse ();
   void parse_file (String init, String name, String out_name);
   void parse_string (String ly_code);
   void parser_error (String);
-  void parser_error (Input const&, String);
+  void parser_error (Input const &, String);
   void set_yydebug (bool);
 };
 

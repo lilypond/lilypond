@@ -6,7 +6,6 @@
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #ifndef PAPER_OUTPUTTER_HH
 #define PAPER_OUTPUTTER_HH
 
@@ -26,9 +25,8 @@ class Paper_outputter
   String file_name_;
   SCM file_;
 
-
 public:
-  DECLARE_SMOBS (Paper_outputter, );
+  DECLARE_SMOBS (Paper_outputter,);
 
 public:
   SCM file ();
@@ -37,7 +35,7 @@ public:
   Paper_outputter (String nm, String format);
   SCM scheme_to_string (SCM);
   void output_stencil (Stencil);
-  void close();
+  void close ();
 };
 
 Paper_outputter *get_paper_outputter (String, String);

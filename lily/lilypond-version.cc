@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 1998--2005 Jan Nieuwenhuizen <janneke@gnu.org>
-
 */
 
 #include "lilypond-input-version.hh"
@@ -41,7 +40,7 @@ Lilypond_version::to_string () const
 
 Lilypond_version::operator int () const
 {
-    // ugh
+  // ugh
   return 100000 * major_ + 1000 * minor_ + patch_;
 }
 

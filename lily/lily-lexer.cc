@@ -20,7 +20,8 @@
 #include "main.hh"
 #include "moment.hh"
 
-static Keyword_ent the_key_tab[] = {
+static Keyword_ent the_key_tab[]
+= {
   {"accepts", ACCEPTS},
   {"addquote", ADDQUOTE},
   {"addlyrics", ADDLYRICS},
@@ -82,19 +83,18 @@ static Keyword_ent the_key_tab[] = {
   {0, 0}
 };
 
-
 Lily_lexer::Lily_lexer (Sources *sources)
 {
   keytable_ = new Keyword_table (the_key_tab);
   chordmodifier_tab_ = SCM_EOL;
-  pitchname_tab_stack_ = SCM_EOL; 
+  pitchname_tab_stack_ = SCM_EOL;
   sources_ = sources;
   scopes_ = SCM_EOL;
-  error_level_ = 0; 
+  error_level_ = 0;
   is_main_input_ = false;
 
   smobify_self ();
-  
+
   add_scope (ly_make_anonymous_module (false));
   push_note_state (scm_c_make_hash_table (0));
   chordmodifier_tab_ = scm_make_vector (scm_int2num (1), SCM_EOL);
@@ -107,14 +107,14 @@ Lily_lexer::Lily_lexer (Lily_lexer const &src)
   chordmodifier_tab_ = src.chordmodifier_tab_;
   pitchname_tab_stack_ = src.pitchname_tab_stack_;
   sources_ = src.sources_;
-  
-  error_level_ = src.error_level_; 
+
+  error_level_ = src.error_level_;
   is_main_input_ = src.is_main_input_;
 
   scopes_ = SCM_EOL;
-  
+
   smobify_self ();
-  
+
   SCM scopes = SCM_EOL;
   SCM *tail = &scopes;
   for (SCM s = src.scopes_; scm_is_pair (s); s = scm_cdr (s))
@@ -124,8 +124,8 @@ Lily_lexer::Lily_lexer (Lily_lexer const &src)
       *tail = scm_cons (newmod, SCM_EOL);
       tail = SCM_CDRLOC (*tail);
     }
-  
-  scopes_ =  scopes;
+
+  scopes_ = scopes;
   push_note_state (scm_c_make_hash_table (0));
 }
 
@@ -155,7 +155,6 @@ Lily_lexer::remove_scope ()
 
   return sc;
 }
-
 
 int
 Lily_lexer::lookup_keyword (String s)
@@ -187,7 +186,7 @@ Lily_lexer::start_main_input ()
 {
   // yy_flex_debug = 1;
   new_input (main_input_name_, sources_);
-  
+
   /* Do not allow \include in --safe-mode */
   allow_includes_b_ = allow_includes_b_ && !be_safe_global;
 
@@ -201,14 +200,14 @@ Lily_lexer::set_identifier (SCM name, SCM s)
 {
   SCM sym = name;
   if (scm_is_string (name))
-    sym =  scm_string_to_symbol (name);
-  
+    sym = scm_string_to_symbol (name);
+
   if (scm_is_symbol (sym))
     {
       if (lookup_keyword (ly_symbol2string (sym)) >= 0)
 	{
-	  String symstr = ly_symbol2string (sym); 
-	  warning (_f ("Identifier name is a keyword: `%s'", symstr.to_str0()));
+	  String symstr = ly_symbol2string (sym);
+	  warning (_f ("Identifier name is a keyword: `%s'", symstr.to_str0 ()));
 	}
 
       SCM mod = scm_car (scopes_);
@@ -264,9 +263,9 @@ Lily_lexer::prepare_for_next_token ()
 }
 
 /**
-  Since we don't create the buffer state from the bytes directly, we
-  don't know about the location of the lexer. Add this as a
-  YY_USER_ACTION */
+   Since we don't create the buffer state from the bytes directly, we
+   don't know about the location of the lexer. Add this as a
+   YY_USER_ACTION */
 void
 Lily_lexer::add_lexed_char (int count)
 {
@@ -275,7 +274,6 @@ Lily_lexer::add_lexed_char (int count)
   lexloc->end_ = lexloc->start_ + count;
   char_count_stack_.top () += count;
 }
-
 
 #include "ly-smobs.icc"
 
@@ -286,7 +284,7 @@ IMPLEMENT_DEFAULT_EQUAL_P (Lily_lexer);
 SCM
 Lily_lexer::mark_smob (SCM s)
 {
-  Lily_lexer *lexer = (Lily_lexer*) SCM_CELL_WORD_1 (s);
+  Lily_lexer *lexer = (Lily_lexer *) SCM_CELL_WORD_1 (s);
 
   scm_gc_mark (lexer->chordmodifier_tab_);
   scm_gc_mark (lexer->pitchname_tab_stack_);

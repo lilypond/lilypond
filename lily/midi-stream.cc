@@ -19,7 +19,7 @@
 Midi_stream::Midi_stream (String file_name)
 {
   file_name_string_ = file_name;
-  out_file_ = fopen (file_name.to_str0(), "wb");
+  out_file_ = fopen (file_name.to_str0 (), "wb");
 }
 
 Midi_stream::~Midi_stream ()
@@ -27,8 +27,8 @@ Midi_stream::~Midi_stream ()
   fclose (out_file_);
 }
 
-Midi_stream&
-Midi_stream::operator << (String str)
+Midi_stream &
+Midi_stream::operator<< (String str)
 {
   size_t sz = sizeof (Byte);
   size_t n = str.length ();
@@ -41,8 +41,8 @@ Midi_stream::operator << (String str)
   return *this;
 }
 
-Midi_stream&
-Midi_stream::operator << (Midi_item const& midi_c_r)
+Midi_stream &
+Midi_stream::operator<< (Midi_item const &midi_c_r)
 {
   String str = midi_c_r.to_string ();
 

@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2004--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #include "freetype.hh"
@@ -12,14 +11,13 @@
 
 FT_Library freetype2_library;
 
-
 void
-init_freetype()
+init_freetype ()
 {
-  int errorcode = FT_Init_FreeType( &freetype2_library );
+  int errorcode = FT_Init_FreeType (&freetype2_library);
   if (errorcode)
     {
-      error("Could  not initialize freetype");
+      error ("Could  not initialize freetype");
     }
 }
 

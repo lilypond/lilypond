@@ -1,11 +1,10 @@
-/*   
+/*
   time-scaled-music-iterator.cc -- implement Time_scaled_music_iterator
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1998--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #include "time-scaled-music-iterator.hh"
 #include "context.hh"
@@ -25,5 +24,5 @@ Time_scaled_music_iterator::process (Moment m)
 
   Music_wrapper_iterator::process (m);
 }
- 
+
 IMPLEMENT_CTOR_CALLBACK (Time_scaled_music_iterator);

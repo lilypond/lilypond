@@ -1,11 +1,10 @@
-/*   
+/*
   new-chord-tremolo-engraver.cc -- implement Chord_tremolo_engraver
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2000--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #include "repeated-music.hh"
 #include "global-context.hh"
@@ -18,15 +17,14 @@
 #include "score-engraver.hh"
 
 /**
-  This acknowledges repeated music with "percent" style.  It typesets
-  a % sign.  
+   This acknowledges repeated music with "percent" style.  It typesets
+   a % sign.
 
-  TODO:
+   TODO:
 
-  - BEAT case: Create items for single beat repeats, i.e. c4 / / /
+   - BEAT case: Create items for single beat repeats, i.e. c4 / / /
 
-  - DOUBLE_MEASURE case: attach a % to an appropriate barline.
-  
+   - DOUBLE_MEASURE case: attach a % to an appropriate barline.
 */
 class Percent_repeat_engraver : public Engraver
 {
@@ -45,18 +43,20 @@ protected:
   Moment next_moment_;
   Moment body_length_;
 
-  enum {
-    UNKNOWN,
-    MEASURE,
-    DOUBLE_MEASURE,
-  } repeat_sign_type_ ;
+  enum
+    {
+      UNKNOWN,
+      MEASURE,
+      DOUBLE_MEASURE,
+    }
+    repeat_sign_type_;
 
-  Item * double_percent_;
-  Spanner * perc_;
-  Spanner * finished_perc_;
+  Item *double_percent_;
+  Spanner *perc_;
+  Spanner *finished_perc_;
 protected:
   virtual void finalize ();
-  virtual bool try_music (Music*);
+  virtual bool try_music (Music *);
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
   virtual void process_music ();
@@ -64,7 +64,7 @@ protected:
 
 Percent_repeat_engraver::Percent_repeat_engraver ()
 {
-  perc_  = 0;
+  perc_ = 0;
   finished_perc_ = 0;
   repeat_ = 0;
 
@@ -72,16 +72,16 @@ Percent_repeat_engraver::Percent_repeat_engraver ()
 }
 
 bool
-Percent_repeat_engraver::try_music (Music * m)
+Percent_repeat_engraver::try_music (Music *m)
 {
   if (m->is_mus_type ("repeated-music")
       && m->get_property ("iterator-ctor")
-         == Percent_repeat_iterator::constructor_proc
+      == Percent_repeat_iterator::constructor_proc
       && !repeat_)
     {
       body_length_ = Repeated_music::body_get_length (m);
       int count = Repeated_music::repeat_count (m);
-      
+
       Moment now = now_mom ();
       start_mom_ = now;
       stop_mom_ = start_mom_ + Moment (count) * body_length_;
@@ -93,7 +93,7 @@ Percent_repeat_engraver::try_music (Music * m)
       else if (Moment (2)* meas_len == body_length_)
 	{
 	  repeat_sign_type_ = DOUBLE_MEASURE;
-	  next_moment_ += meas_len ;
+	  next_moment_ += meas_len;
 	}
       else
 	{
@@ -103,20 +103,19 @@ Percent_repeat_engraver::try_music (Music * m)
 
       repeat_ = m;
 
-      
       Global_context *global = get_global_context ();
-      for (int i = 0; i < count; i++)  
+      for (int i = 0; i < count; i++)
 	{
 	  global->add_moment_to_process (next_moment_ + Moment (i) * body_length_);
 
 	  /*
 	    bars between % too.
-	   */
+	  */
 	  if (repeat_sign_type_ == DOUBLE_MEASURE)
 	    global->add_moment_to_process (next_moment_ + meas_len + Moment (i) * body_length_);
-	  
+
 	}
-  
+
       return true;
     }
 
@@ -139,9 +138,9 @@ Percent_repeat_engraver::process_music ()
       else if (repeat_sign_type_ == DOUBLE_MEASURE)
 	{
 	  double_percent_ = make_item ("DoublePercentRepeat", repeat_->self_scm ());
-      /*
-	forbid breaks on a % line. Should forbid all breaks, really.
-       */
+	  /*
+	    forbid breaks on a % line. Should forbid all breaks, really.
+	  */
 
 	  get_score_engraver ()->forbid_breaks ();	// guh. Use properties!      
 	}
@@ -176,8 +175,6 @@ Percent_repeat_engraver::typeset_perc ()
 }
 
 
-
-
 void
 Percent_repeat_engraver::start_translation_timestep ()
 {
@@ -194,7 +191,6 @@ Percent_repeat_engraver::start_translation_timestep ()
     }
 }
 
-
 void
 Percent_repeat_engraver::stop_translation_timestep ()
 {
@@ -202,12 +198,10 @@ Percent_repeat_engraver::stop_translation_timestep ()
 }
 
 
-
-
 ADD_TRANSLATOR (Percent_repeat_engraver,
-/* descr */       "Make whole bar and double bar repeats.",
-/* creats*/       "PercentRepeat DoublePercentRepeat",
-/* accepts */     "repeated-music",
-/* acks  */      "",
-/* reads */       "measureLength currentCommandColumn",
-/* write */       "");
+		/* descr */ "Make whole bar and double bar repeats.",
+		/* creats*/ "PercentRepeat DoublePercentRepeat",
+		/* accepts */ "repeated-music",
+		/* acks  */ "",
+		/* reads */ "measureLength currentCommandColumn",
+		/* write */ "");

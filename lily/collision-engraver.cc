@@ -14,7 +14,7 @@
 
 class Collision_engraver : public Engraver
 {
-  Item * col_;
+  Item *col_;
   Link_array<Grob> note_columns_;
 
 protected:
@@ -25,18 +25,17 @@ public:
   TRANSLATOR_DECLARATIONS (Collision_engraver);
 };
 
-
 void
 Collision_engraver::process_acknowledged_grobs ()
 {
   if (col_ || note_columns_.size () < 2)
-    return ;
-  if (!col_) 
+    return;
+  if (!col_)
     {
       col_ = make_item ("NoteCollision", SCM_EOL);
-      
+
     }
-  
+
   for (int i = 0; i< note_columns_.size (); i++)
     Note_collision_interface::add_column (col_, note_columns_[i]);
 }
@@ -48,7 +47,7 @@ Collision_engraver::acknowledge_grob (Grob_info i)
     {
       /*should check Y axis? */
       if (Note_column::has_rests (i.grob_) || i.grob_->get_parent (X_AXIS))
-	return ;
+	return;
 
       note_columns_.push (i.grob_);
     }
@@ -67,12 +66,10 @@ Collision_engraver::Collision_engraver ()
 }
 
 
-
-
 ADD_TRANSLATOR (Collision_engraver,
-/* descr */       "Collect NoteColumns, and as soon as there are two or more, put them in a NoteCollision object.",
-/* creats*/       "NoteCollision",
-/* accepts */     "",
-/* acks  */      "note-column-interface",
-/* reads */       "",
-/* write */       "");
+		/* descr */ "Collect NoteColumns, and as soon as there are two or more, put them in a NoteCollision object.",
+		/* creats*/ "NoteCollision",
+		/* accepts */ "",
+		/* acks  */ "note-column-interface",
+		/* reads */ "",
+		/* write */ "");

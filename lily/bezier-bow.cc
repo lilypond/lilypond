@@ -11,11 +11,10 @@
 #include "misc.hh"
 #include "bezier.hh"
 
-
 static Real
 F0_1 (Real x)
 {
-  return 2 / M_PI * atan (M_PI * x / 2);
+  return 2 / M_PI *atan (M_PI *x / 2);
 }
 
 Real
@@ -24,17 +23,15 @@ slur_height (Real width, Real h_inf, Real r_0)
   return F0_1 (width * r_0 / h_inf) * h_inf;
 }
 
-  /*
-
-
-  ^              x                    x                  
+/*
+  ^              x                    x
   |
-height   <indent>
+  height   <indent>
   |
   v      x                                    x
 
-  
-  
+
+
   For small w, the height should be proportional to w, for w ->
   infinity, the height should rise to a limit asymptotically.
 
@@ -45,7 +42,7 @@ height   <indent>
 
   h = h_infinity * F (x * r_0 / h_infinity)
 
-  
+
   Examples:
 
   * F (x) = 2/pi * atan (pi x/2)
@@ -72,7 +69,7 @@ height   <indent>
 
   w -> 0,  G(w) -> .33 w
 
-  
+
   (due to derivative constraints, we cannot have indent > len/3)
 
   w -> inf, G(w) -> 2*h_inf
@@ -84,27 +81,25 @@ height   <indent>
 
   solve from
 
-   G(w) = r  + p/(w+q)
+  G(w) = r  + p/(w+q)
 
   yields
 
-   G(w) = 2 h_inf - max_fraction * q^2/ (w + q)
+  G(w) = 2 h_inf - max_fraction * q^2/ (w + q)
 
-  with q = 2 h_inf 
-  
-  
-  */
+  with q = 2 h_inf
+*/
 
 void
 get_slur_indent_height (Real *indent, Real *height,
 			Real width, Real h_inf, Real r_0)
 {
   Real max_fraction = 1.0 / 3.1;
-  *height =  slur_height (width, h_inf, r_0);
+  *height = slur_height (width, h_inf, r_0);
 
-  Real q = 2 * h_inf / max_fraction; 
-  *indent =
-    2 *h_inf - sqr (q) * max_fraction / (width + q);
+  Real q = 2 * h_inf / max_fraction;
+  *indent
+    = 2 *h_inf - sqr (q) * max_fraction / (width + q);
 }
 
 Bezier
@@ -112,9 +107,9 @@ slur_shape (Real width, Real h_inf, Real r_0)
 {
   Real indent;
   Real height;
-  
+
   get_slur_indent_height (&indent, &height,
-			  width,  h_inf,  r_0);
+			  width, h_inf, r_0);
 
   Bezier curve;
   curve.control_[0] = Offset (0, 0);

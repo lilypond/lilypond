@@ -39,7 +39,7 @@ unpack_identifier (SCM box)
 {
   if (SCM_IMP (box) || SCM_CELL_TYPE (box) != package_tag)
     return SCM_UNDEFINED;
-  
+
   return SCM_CELL_OBJECT_1 (box);
 }
 
@@ -51,4 +51,4 @@ init_box_type (void)
   scm_set_smob_print (package_tag, print_box);
 }
 
-ADD_SCM_INIT_FUNC (package, init_box_type); 
+ADD_SCM_INIT_FUNC (package, init_box_type);

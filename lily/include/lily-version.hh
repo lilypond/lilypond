@@ -1,11 +1,10 @@
-/*   
+/*
   lily-version.hh -- declare version strings
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1999--2005 Jan Nieuwenhuizen <janneke@gnu.org>
-  
- */
+*/
 
 #ifndef LILY_VERSION_HH
 #define LILY_VERSION_HH

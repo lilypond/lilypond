@@ -1,10 +1,9 @@
-/* 
+/*
   slur-scoring.hh -- declare Slur_score_parameters
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2004--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-  
 */
 
 #ifndef SLUR_SCORING_HH
@@ -40,14 +39,12 @@ struct Slur_score_parameters
   void fill (Grob *him);
 };
 
-
-
 struct Extra_collision_info
 {
   Real idx_;
   Box extents_;
   Real penalty_;
-  Grob * grob_;
+  Grob *grob_;
 
   Extra_collision_info (Grob *g, Real idx, Interval x, Interval y, Real p)
   {
@@ -64,7 +61,6 @@ struct Extra_collision_info
     grob_ = 0;
   }
 };
-
 
 struct Encompass_info
 {
@@ -116,12 +112,12 @@ struct Slur_score_state
   bool edge_has_beams_;
   bool is_broken_;
   bool has_same_beam_;
-  
+
   Real musical_dy_;
   Link_array<Grob> columns_;
   Array<Encompass_info> encompass_infos_;
   Array<Extra_collision_info> extra_encompass_infos_;
-  
+
   Direction dir_;
   Slur_score_parameters parameters_;
   Drul_array<Bound_info> extremes_;
@@ -129,25 +125,24 @@ struct Slur_score_state
   Link_array<Slur_configuration> configurations_;
   Real staff_space_;
   Real thickness_;
-  
-  Slur_score_state();
-  ~Slur_score_state();
+
+  Slur_score_state ();
+  ~Slur_score_state ();
 
   Bezier get_best_curve ();
-  void fill (Grob*);
+  void fill (Grob *);
   void set_next_direction ();
-  
+
   Drul_array<Bound_info> get_bound_info () const;
-  void generate_curves () const; 
+  void generate_curves () const;
   Link_array<Slur_configuration> enumerate_attachments (Drul_array<Real> end_ys) const;
-  Drul_array<Offset> get_base_attachments() const;
-  Drul_array<Real> get_y_attachment_range() const;
+  Drul_array<Offset> get_base_attachments () const;
+  Drul_array<Real> get_y_attachment_range () const;
   Encompass_info get_encompass_info (Grob *col) const;
   Array<Extra_collision_info> get_extra_encompass_infos () const;
   Real move_away_from_staffline (Real y, Grob *on_staff) const;
   int get_closest_index (SCM inspect_quants) const;
 };
-
 
 void set_slur_control_points (Grob *me);
 

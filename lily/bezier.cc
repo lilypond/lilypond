@@ -13,7 +13,7 @@
 #include "libc-extension.hh"
 
 Real
-binomial_coefficient (Real over , int under)
+binomial_coefficient (Real over, int under)
 {
   Real x = 1.0;
 
@@ -21,14 +21,14 @@ binomial_coefficient (Real over , int under)
     {
       x *= over / Real (under);
 
-      over  -= 1.0;
-      under --;
+      over -= 1.0;
+      under--;
     }
   return x;
 }
 
 void
-scale (Array<Offset>* array, Real x , Real y)
+scale (Array<Offset>* array, Real x, Real y)
 {
   for (int i = 0; i < array->size (); i++)
     {
@@ -53,17 +53,16 @@ translate (Array<Offset>* array, Offset o)
 }
 
 /*
-
   Formula of the bezier 3-spline
 
   sum_{j = 0}^3 (3 over j) z_j (1-t)^ (3-j)  t^j
 
 
   A is the axis of X coordinate.
- */
+*/
 
 Real
-Bezier::get_other_coordinate (Axis a,  Real x) const
+Bezier::get_other_coordinate (Axis a, Real x) const
 {
   Axis other = Axis ((a +1)%NO_AXES);
   Array<Real> ts = solve_point (a, x);
@@ -73,41 +72,39 @@ Bezier::get_other_coordinate (Axis a,  Real x) const
       programming_error ("No solution found for Bezier intersection.");
       return 0.0;
     }
-  
+
   Offset c = curve_point (ts[0]);
 
   if (fabs (c[a] - x) > 1e-8)
     programming_error ("Bezier intersection not correct?");
-  
+
   return c[other];
 }
-
 
 Offset
 Bezier::curve_point (Real t) const
 {
   Real tj = 1;
-  Real one_min_tj = (1-t)* (1-t)* (1-t);
+  Real one_min_tj = (1 - t)* (1 - t)* (1 - t);
 
   Offset o;
-  for (int j = 0 ; j < 4; j++)
+  for (int j = 0; j < 4; j++)
     {
       o += control_[j] * binomial_coefficient (3, j)
-	* pow (t, j) * pow (1-t, 3-j);
+	* pow (t, j) * pow (1 - t, 3 - j);
 
       tj *= t;
-      if (1-t)
-	one_min_tj /= (1-t);
+      if (1 - t)
+	one_min_tj /= (1 - t);
     }
 
 #ifdef PARANOID
   assert (fabs (o[X_AXIS] - polynomial (X_AXIS).eval (t))< 1e-8);
   assert (fabs (o[Y_AXIS] - polynomial (Y_AXIS).eval (t))< 1e-8);
 #endif
-  
+
   return o;
 }
-
 
 Polynomial
 Bezier::polynomial (Axis a) const
@@ -115,8 +112,8 @@ Bezier::polynomial (Axis a) const
   Polynomial p (0.0);
   for (int j = 0; j <= 3; j++)
     {
-      p +=
-	(control_[j][a] * binomial_coefficient (3, j))
+      p
+	+= (control_[j][a] * binomial_coefficient (3, j))
 	* Polynomial::power (j, Polynomial (0, 1))
 	* Polynomial::power (3 - j, Polynomial (1, -1));
     }
@@ -126,7 +123,7 @@ Bezier::polynomial (Axis a) const
 
 /**
    Remove all numbers outside [0, 1] from SOL
- */
+*/
 Array<Real>
 filter_solutions (Array<Real> sol)
 {
@@ -138,7 +135,7 @@ filter_solutions (Array<Real> sol)
 
 /**
    find t such that derivative is proportional to DERIV
- */
+*/
 Array<Real>
 Bezier::solve_derivative (Offset deriv) const
 {
@@ -146,39 +143,38 @@ Bezier::solve_derivative (Offset deriv) const
   Polynomial yp = polynomial (Y_AXIS);
   xp.differentiate ();
   yp.differentiate ();
-  
+
   Polynomial combine = xp * deriv[Y_AXIS] - yp * deriv [X_AXIS];
 
   return filter_solutions (combine.solve ());
 }
-  
 
 /*
   Find t such that curve_point (t)[AX] == COORDINATE
 */
-Array<Real> 
+Array<Real>
 Bezier::solve_point (Axis ax, Real coordinate) const
 {
   Polynomial p (polynomial (ax));
   p.coefs_[0] -= coordinate;
-  
+
   Array<Real> sol (p.solve ());
   return filter_solutions (sol);
 }
 
 /**
    Compute the bounding box dimensions in direction of A.
- */
+*/
 Interval
 Bezier::extent (Axis a) const
 {
-  int o = (a+1)%NO_AXES;
+  int o = (a + 1)%NO_AXES;
   Offset d;
   d[Axis (o)] =1.0;
   Interval iv;
   Array<Real> sols (solve_derivative (d));
   sols.push (1.0);
-  sols.push (0.0);  
+  sols.push (0.0);
   for (int i = sols.size (); i--;)
     {
       Offset o (curve_point (sols[i]));
@@ -189,7 +185,7 @@ Bezier::extent (Axis a) const
 
 /**
    Flip around axis A
- */
+*/
 void
 Bezier::scale (Real x, Real y)
 {
@@ -228,6 +224,6 @@ Bezier::reverse ()
 {
   Bezier b2;
   for (int i = 0; i < CONTROL_COUNT; i++)
-    b2.control_[CONTROL_COUNT-i-1] = control_[i];
+    b2.control_[CONTROL_COUNT - i - 1] = control_[i];
   *this = b2;
 }

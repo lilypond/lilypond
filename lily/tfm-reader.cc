@@ -1,13 +1,13 @@
-/*   
+/*
   tfm-reader.cc -- implement Tex_font_metric_reader
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1999--2005 Jan Nieuwenhuizen <janneke@gnu.org>
-  
+
 
   some code shamelessly copied from GNU fontutils-0.6/tfm/tfm_input.c
- */
+*/
 
 #include "tfm-reader.hh"
 
@@ -15,15 +15,14 @@
 #include "warn.hh"
 
 #define format_string String_convert::form_string
-#define FIX_UNITY \
- (1 << 20)
+#define FIX_UNITY				\
+  (1 << 20)
 static const Real fix_to_real (Fix f);
-
 
 Tex_font_metric_reader::Tex_font_metric_reader (String name)
   : input_ (name)
 {
-  
+
   for (int i = 0; i < TFM_SIZE; i++)
     ascii_to_metric_idx_.push (-1);
 
@@ -71,7 +70,7 @@ void
 Tex_font_metric_reader::read_header ()
 {
   U16 file_length = input_.get_U16 ();
- (void) file_length;
+  (void) file_length;
   U16 header_length = input_.get_U16 ();
 
   info_.first_charcode = input_.get_U16 ();
@@ -82,21 +81,21 @@ Tex_font_metric_reader::read_header ()
   U16 italic_correction_word_count = input_.get_U16 ();
   U16 lig_kern_word_count = input_.get_U16 ();
   U16 kern_word_count = input_.get_U16 ();
- (void)kern_word_count;
+  (void)kern_word_count;
   U16 extensible_word_count = input_.get_U16 ();
- (void)extensible_word_count;
-  
+  (void)extensible_word_count;
+
   header_.param_word_count = input_.get_U16 ();
   info_.parameter_count = header_.param_word_count;
 
   header_.char_info_pos = (6 + header_length) * 4;
   header_.width_pos = header_.char_info_pos
-                         + (info_.last_charcode
-                            - info_.first_charcode + 1) * 4;
+    + (info_.last_charcode
+       - info_.first_charcode + 1) * 4;
   header_.height_pos = header_.width_pos + width_word_count * 4;
   header_.depth_pos = header_.height_pos + height_word_count * 4;
   header_.italic_correction_pos = header_.depth_pos
-                                     + depth_word_count * 4;
+    + depth_word_count * 4;
   header_.lig_kern_pos = header_.italic_correction_pos
     + italic_correction_word_count * 4;
   header_.kern_pos = header_.lig_kern_pos + lig_kern_word_count * 4;
@@ -183,7 +182,7 @@ Tex_font_metric_reader::read_char_metric (Char_code code)
      try to read it. */
   if (code < info_.first_charcode || code > info_.last_charcode)
     return tfm_char;
-  
+
   //brr
   /* Move to the appropriate place in the `char_info' array.  */
   input_.seek_str0 (header_.char_info_pos + (code - info_.first_charcode) * 4);
@@ -196,7 +195,6 @@ Tex_font_metric_reader::read_char_metric (Char_code code)
 
   return tfm_char;
 }
-
 
 /* We assume we are positioned at the beginning of a `char_info' word.
    We read that word to get the indexes into the dimension tables; then
@@ -221,14 +219,14 @@ Tex_font_metric_reader::read_char ()
 
   Tex_font_char_metric tfm_char;
 
-#define GET_CHAR_DIMEN(d) \
-   if (d##_index != 0) \
-     { \
-       input_.seek_str0 (header_. d##_pos + d##_index*4); \
-       tfm_char.d##_fix_ = input_.get_U32 (); \
-       tfm_char.d##_ = fix_to_real (tfm_char.d##_fix_) \
-                      * info_.design_size; \
-     }
+#define GET_CHAR_DIMEN(d)					\
+  if (d##_index != 0)						\
+    {								\
+      input_.seek_str0 (header_. d##_pos + d##_index*4);	\
+      tfm_char.d##_fix_ = input_.get_U32 ();			\
+      tfm_char.d##_ = fix_to_real (tfm_char.d##_fix_)		\
+	* info_.design_size;					\
+    }
 
   GET_CHAR_DIMEN (width);
   GET_CHAR_DIMEN (height);
@@ -259,7 +257,7 @@ Tex_font_metric_reader::read_char ()
 #define KERN_FLAG 128
 
 void
-Tex_font_metric_reader::read_lig_kern_program (Array <Tfm_ligature>* ligatures, Array <Tfm_kern>* kerns)
+Tex_font_metric_reader::read_lig_kern_program (Array<Tfm_ligature>* ligatures, Array<Tfm_kern>* kerns)
 {
   bool end_b;
 
@@ -271,13 +269,12 @@ Tex_font_metric_reader::read_lig_kern_program (Array <Tfm_ligature>* ligatures, 
       bool kern_step_b = input_.get_U8 () >= KERN_FLAG;
       U8 remainder = input_.get_U8 ();
 
-
       if (kern_step_b)
 	{
 	  Tfm_kern kern_element;
 	  kern_element.character = next_char;
 
-	  char const* old_pos = input_.pos_str0 ();
+	  char const *old_pos = input_.pos_str0 ();
 	  input_.seek_str0 (header_.kern_pos + remainder * 4);
 	  kern_element.kern = get_U32_fix_scaled ();
 	  input_.set_pos (old_pos);
@@ -293,6 +290,8 @@ Tex_font_metric_reader::read_lig_kern_program (Array <Tfm_ligature>* ligatures, 
 	  ligatures->push (ligature_element);
 
 	}
-  } while (!end_b);
+    }
+  while (!end_b);
+
 }
 

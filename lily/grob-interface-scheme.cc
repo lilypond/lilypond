@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #include "lily-guile.hh"
@@ -14,10 +13,10 @@
 Protected_scm all_ifaces;
 
 LY_DEFINE (ly_add_interface, "ly:add-interface", 3, 0, 0, (SCM a, SCM b, SCM c),
-	  "Add an interface description.")
+	   "Add an interface description.")
 {
   SCM_ASSERT_TYPE (scm_is_symbol (a), a, SCM_ARG1, __FUNCTION__, "symbol");
-  SCM_ASSERT_TYPE (scm_is_string (b), b, SCM_ARG2, __FUNCTION__, "string");  
+  SCM_ASSERT_TYPE (scm_is_string (b), b, SCM_ARG2, __FUNCTION__, "string");
   SCM_ASSERT_TYPE (ly_c_list_p (c), c, SCM_ARG3, __FUNCTION__, "list of syms");
   if (!scm_is_vector (all_ifaces))
     all_ifaces = scm_make_vector (scm_int2num (40), SCM_EOL);
@@ -29,10 +28,9 @@ LY_DEFINE (ly_add_interface, "ly:add-interface", 3, 0, 0, (SCM a, SCM b, SCM c),
   return SCM_UNSPECIFIED;
 }
 
-
 LY_DEFINE (ly_all_grob_interfaces, "ly:all-grob-interfaces",
-	  0, 0, 0, (),
-	  "Get a hash table with all interface descriptions.")
+	   0, 0, 0, (),
+	   "Get a hash table with all interface descriptions.")
 {
   return all_ifaces;
 }

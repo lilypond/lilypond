@@ -21,7 +21,7 @@ class Stencil;
 
 class Paper_book
 {
-  DECLARE_SMOBS (Paper_book, );
+  DECLARE_SMOBS (Paper_book,);
 
   SCM systems_;
   SCM pages_;
@@ -31,7 +31,7 @@ public:
   SCM header_0_;
   SCM scores_;
   Output_def *paper_;
-  
+
   Paper_book ();
 
   void add_score (SCM);

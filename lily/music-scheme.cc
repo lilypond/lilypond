@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #include "duration.hh"
@@ -14,7 +13,7 @@
 
 LY_DEFINE (ly_music_length, "ly:music-length",
 	   1, 0, 0, (SCM mus),
-	  "Get the length of music expression @var{mus}, and return as a @code{Moment} object.")
+	   "Get the length of music expression @var{mus}, and return as a @code{Moment} object.")
 {
   Music *sc = unsmob_music (mus);
   SCM_ASSERT_TYPE (sc, mus, SCM_ARG1, __FUNCTION__, "music");
@@ -22,11 +21,11 @@ LY_DEFINE (ly_music_length, "ly:music-length",
 }
 
 LY_DEFINE (ly_music_property,
-	  "ly:music-property", 2, 0, 0, (SCM mus, SCM sym),
-	  "Get the property @var{sym} of music expression @var{mus}.\n"
-	  "If @var{sym} is undefined, return @code{' ()}.\n" )
+	   "ly:music-property", 2, 0, 0, (SCM mus, SCM sym),
+	   "Get the property @var{sym} of music expression @var{mus}.\n"
+	   "If @var{sym} is undefined, return @code{' ()}.\n")
 {
-  Music * sc = unsmob_music (mus);
+  Music *sc = unsmob_music (mus);
   SCM_ASSERT_TYPE (sc, mus, SCM_ARG1, __FUNCTION__, "music");
   SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
 
@@ -34,10 +33,10 @@ LY_DEFINE (ly_music_property,
 }
 
 LY_DEFINE (ly_music_set_property, "ly:music-set-property!",
-	  3, 0, 0, (SCM mus, SCM sym, SCM val),
-	  "Set property @var{sym} in music expression @var{mus} to @var{val}.")
+	   3, 0, 0, (SCM mus, SCM sym, SCM val),
+	   "Set property @var{sym} in music expression @var{mus} to @var{val}.")
 {
-  Music * sc = unsmob_music (mus);
+  Music *sc = unsmob_music (mus);
   SCM_ASSERT_TYPE (sc, mus, SCM_ARG1, __FUNCTION__, "music");
   SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
 
@@ -55,7 +54,7 @@ LY_DEFINE (ly_music_name, "ly:music-name",
 	   "Return the name of @var{music}.")
 {
   Music *m = unsmob_music (mus);
-  SCM_ASSERT_TYPE (m, mus, SCM_ARG1, __FUNCTION__ , "music");
+  SCM_ASSERT_TYPE (m, mus, SCM_ARG1, __FUNCTION__, "music");
 
   char const *nm = classname (m);
   return scm_makfrom0str (nm);
@@ -64,13 +63,12 @@ LY_DEFINE (ly_music_name, "ly:music-name",
 /* todo:  property args */
 LY_DEFINE (ly_extended_make_music, "ly:make-bare-music",
 	   2, 0, 0, (SCM type, SCM props),
-	  "Make a C++ music object of type @var{type}, initialize with\n"
-	  "@var{props}. \n\n"
-	  ""
-	  "This function is for internal use, and is only called by "
-	  "@code{make-music}, which is the preferred interface "
-	  "for creating music objects. "
-	  )
+	   "Make a C++ music object of type @var{type}, initialize with\n"
+	   "@var{props}. \n\n"
+	   ""
+	   "This function is for internal use, and is only called by "
+	   "@code{make-music}, which is the preferred interface "
+	   "for creating music objects. ")
 {
   SCM_ASSERT_TYPE (scm_is_string (type), type, SCM_ARG1, __FUNCTION__, "string");
   SCM s = make_music (ly_scm2string (type), props)->self_scm ();
@@ -80,10 +78,10 @@ LY_DEFINE (ly_extended_make_music, "ly:make-bare-music",
 
 /* todo: property args */
 LY_DEFINE (ly_music_mutable_properties, "ly:music-mutable-properties",
-	  1, 0, 0, (SCM mus),
-	  "Return an alist containing the mutable properties of @var{mus}.\n"
-	  "The immutable properties are not available, since "
-	  "they are constant and initialized by the "
+	   1, 0, 0, (SCM mus),
+	   "Return an alist containing the mutable properties of @var{mus}.\n"
+	   "The immutable properties are not available, since "
+	   "they are constant and initialized by the "
 	   "@code{make-music} function.\n")
 {
   Music *m = unsmob_music (mus);
@@ -108,8 +106,8 @@ LY_DEFINE (ly_music_list_p, "ly:music-list?",
 }
 
 LY_DEFINE (ly_music_deep_copy, "ly:music-deep-copy",
-	  1, 0, 0, (SCM m),
-	  "Copy @var{m} and all sub expressions of @var{m}")
+	   1, 0, 0, (SCM m),
+	   "Copy @var{m} and all sub expressions of @var{m}")
 {
   SCM copy = m;
   if (unsmob_music (m))
@@ -119,17 +117,17 @@ LY_DEFINE (ly_music_deep_copy, "ly:music-deep-copy",
     }
   else if (scm_is_pair (m))
     copy = scm_cons (ly_music_deep_copy (scm_car (m)),
-		    ly_music_deep_copy (scm_cdr (m)));
+		     ly_music_deep_copy (scm_cdr (m)));
   return copy;
 }
 
 LY_DEFINE (ly_music_transpose, "ly:music-transpose",
-	  2, 0, 0, (SCM m, SCM p),
-	  "Transpose @var{m} such that central C is mapped to @var{p}. "
-	  "Return @var{m}.")
+	   2, 0, 0, (SCM m, SCM p),
+	   "Transpose @var{m} such that central C is mapped to @var{p}. "
+	   "Return @var{m}.")
 {
-  Music * sc = unsmob_music (m);
-  Pitch * sp = unsmob_pitch (p);
+  Music *sc = unsmob_music (m);
+  Pitch *sp = unsmob_pitch (p);
   SCM_ASSERT_TYPE (sc, m, SCM_ARG1, __FUNCTION__, "music");
   SCM_ASSERT_TYPE (sp, p, SCM_ARG2, __FUNCTION__, "pitch");
 
@@ -140,74 +138,70 @@ LY_DEFINE (ly_music_transpose, "ly:music-transpose",
 
 /*
   TODO: should take moment factor?
- */
+*/
 LY_DEFINE (ly_music_compress, "ly:music-compress",
-	  2, 0, 0, (SCM m, SCM factor),
-	  "Compress music object @var{m} by moment @var{factor}."
-	   )
+	   2, 0, 0, (SCM m, SCM factor),
+	   "Compress music object @var{m} by moment @var{factor}.")
 {
-  Music * sc = unsmob_music (m);
+  Music *sc = unsmob_music (m);
 
   SCM_ASSERT_TYPE (sc, m, SCM_ARG1, __FUNCTION__, "music");
   SCM_ASSERT_TYPE (unsmob_moment (factor), factor, SCM_ARG2, __FUNCTION__, "moment");
-  
+
   sc->compress (*unsmob_moment (factor));
   return sc->self_scm ();
 }
 
 LY_DEFINE (ly_music_duration_length, "ly:music-duration-length", 1, 0, 0,
-	  (SCM mus),
-	  "Extract the duration field from @var{mus}, and return the length.")
+	   (SCM mus),
+	   "Extract the duration field from @var{mus}, and return the length.")
 {
-  Music* m =   unsmob_music (mus);
+  Music *m = unsmob_music (mus);
   SCM_ASSERT_TYPE (m, mus, SCM_ARG1, __FUNCTION__, "Music");
-  
+
   Duration *d = unsmob_duration (m->get_property ("duration"));
 
-  Moment l ;
-  
+  Moment l;
+
   if (d)
     {
-      l = d->get_length ();  
+      l = d->get_length ();
     }
   else
     programming_error ("Music has no duration");
   return l.smobbed_copy ();
-  
+
 }
 
-
 LY_DEFINE (ly_music_duration_compress, "ly:music-duration-compress", 2, 0, 0,
-	  (SCM mus, SCM fact),
-	  "Compress @var{mus} by factor @var{fact}, which is a @code{Moment}.")
+	   (SCM mus, SCM fact),
+	   "Compress @var{mus} by factor @var{fact}, which is a @code{Moment}.")
 {
-  Music* m =   unsmob_music (mus);
-  Moment * f = unsmob_moment (fact);
+  Music *m = unsmob_music (mus);
+  Moment *f = unsmob_moment (fact);
   SCM_ASSERT_TYPE (m, mus, SCM_ARG1, __FUNCTION__, "Music");
   SCM_ASSERT_TYPE (f, fact, SCM_ARG2, __FUNCTION__, "Moment");
-  
+
   Duration *d = unsmob_duration (m->get_property ("duration"));
   if (d)
     m->set_property ("duration", d->compressed (f->main_part_).smobbed_copy ());
   return SCM_UNSPECIFIED;
 }
 
-
-
 /*
   This is hairy, since the scale in a key-change event may contain
   octaveless notes.
 
 
-  TODO: this should use ly:pitch. 
- */
+  TODO: this should use ly:pitch.
+*/
 LY_DEFINE (ly_transpose_key_alist, "ly:transpose-key-alist",
-	  2, 0, 0, (SCM l, SCM pit),
-	  "Make a new key alist of @var{l} transposed by pitch @var{pit}")
+	   2, 0, 0, (SCM l, SCM pit),
+	   "Make a new key alist of @var{l} transposed by pitch @var{pit}")
 {
   SCM newlist = SCM_EOL;
   Pitch *p = unsmob_pitch (pit);
-  
+
   for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM key = scm_caar (s);
@@ -221,10 +215,10 @@ LY_DEFINE (ly_transpose_key_alist, "ly:transpose-key-alist",
 	  orig = orig.transposed (*p);
 
 	  SCM key = scm_cons (scm_int2num (orig.get_octave ()),
-			     scm_int2num (orig.get_notename ()));
+			      scm_int2num (orig.get_notename ()));
 
 	  newlist = scm_cons (scm_cons (key, scm_int2num (orig.get_alteration ())),
-			     newlist);
+			      newlist);
 	}
       else if (scm_is_number (key))
 	{
