@@ -4,6 +4,9 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2002--2003 Juergen Reuter <reuter@ipd.uka.de>
+
+  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+
 */
 
 #include <stdio.h>
@@ -18,6 +21,7 @@
 #include "interval.hh"
 #include "paper-def.hh"
 #include "paper-column.hh"
+#include "note-column.hh"
 
 /*
  * TODO: Add support for cubic spline segments.
@@ -140,62 +144,64 @@ Cluster::brew_molecule (SCM smob)
 
   Item *left_bound = spanner->get_bound (LEFT);
   Item *right_bound = spanner->get_bound (RIGHT);
-  bool right_broken = right_bound->break_status_dir () != CENTER;
 
   Grob *common = left_bound->common_refpoint (right_bound, X_AXIS);
-
-  Grob *column = 0;
-  Array<Offset> bottom_points;
-  Array<Offset> top_points;
-  bottom_points.clear ();
-  top_points.clear ();
-  SCM column_scm = SCM_EOL;
-
-  SCM columns_scm = me->get_grob_property ("segments");
-  if (columns_scm == SCM_EOL)
+  SCM cols  =me->get_grob_property ("columns");
+  if (!gh_pair_p (cols))
     {
       me->warning ("junking empty cluster");
+      me->suicide ();
+      
       return SCM_EOL;
     }
+  common = common_refpoint_of_list (cols, common, X_AXIS);
+  Array<Offset> bottom_points;
+  Array<Offset> top_points;
 
-  for (;
-       columns_scm != SCM_EOL;
-       columns_scm = ly_cdr (columns_scm)) {
-    column_scm = ly_car (columns_scm);
-    SCM col_scm = ly_car (column_scm);
-    if (gh_number_p (col_scm))
-      // broken spanner: this column not in this piece
-      if (!column)
-	continue; // still have to expect columns
-      else
-	break; // ok, we have seen all columns
-    column = unsmob_grob (col_scm);
-    column_scm = ly_cdr (column_scm);
-    Real y_bottom = gh_scm2double (ly_car (column_scm));
-    column_scm = ly_cdr (column_scm);
-    Real y_top = gh_scm2double (ly_car (column_scm));
-    Real x = column->relative_coordinate (common, X_AXIS);
-    if (right_broken)
-      x -= left_bound->relative_coordinate (common, X_AXIS);
-    bottom_points.push (Offset (x, y_bottom));
-    top_points.push (Offset (x, y_top));
-  }
-  if (right_broken)
+
+  Real left_coord = left_bound->relative_coordinate (common, X_AXIS);
+
+  for (SCM s = cols; gh_pair_p (s); s = ly_cdr (s))
     {
-      Real y_bottom = gh_scm2double (ly_car (column_scm));
-      column_scm = ly_cdr (column_scm);
-      Real y_top = gh_scm2double (ly_car (column_scm));
-      column_scm = ly_cdr (column_scm);
-      Real x =
-	right_bound->relative_coordinate (common, X_AXIS) -
-	left_bound->relative_coordinate (common, X_AXIS);
-      bottom_points.push (Offset (x, y_bottom));
-      top_points.push (Offset (x, y_top));
+      Grob * col = unsmob_grob (ly_car (s));
+      Slice s = Note_column::head_positions_interval (col);
+      Grob * h = Note_column::first_head (col);
+
+      Real x = h->relative_coordinate (common, X_AXIS) - left_coord;
+      bottom_points.push (Offset (x, s[DOWN] *0.5));
+      top_points.push (Offset (x, s[UP] * 0.5));
     }
+
+  /*
+    Across a line break we anticipate on the next pitches.
+   */
+  if (spanner->original_)
+    {
+      Spanner *orig = dynamic_cast<Spanner*> (spanner->original_);
+      
+      if (spanner->break_index_ < orig->broken_intos_.size()-1)
+	{
+	  Spanner * next = orig->broken_intos_[spanner->break_index_+1];
+	  SCM cols = next->get_grob_property ("columns");
+	  if (gh_pair_p (cols))
+	    {
+	      Grob * col = unsmob_grob (ly_car (scm_last_pair (cols)));
+	      Slice s = Note_column::head_positions_interval (col);
+	      Real x = right_bound->relative_coordinate (common,X_AXIS) - left_coord;
+	      
+	      bottom_points.insert (Offset (x, s[DOWN] * 0.5),0);
+	      top_points.insert (Offset (x, s[UP] * 0.5),0);
+	    }
+	}
+    }
+
+  bottom_points.reverse ();
+  top_points.reverse ();
+
   Molecule out = brew_cluster_piece (me, bottom_points, top_points);
   return out.smobbed_copy ();
 }
 
 ADD_INTERFACE (Cluster,"cluster-interface",
   "A graphically drawn musical cluster.",
-  "shape padding segments");
+  "shape padding columns");

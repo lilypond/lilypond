@@ -133,6 +133,7 @@ section.
 @menu
 * Creating contexts::           
 * Default contexts::            
+* Context evaluation::          
 * Context properties::          
 * Engravers and performers::    
 * Changing context definitions::  
@@ -246,8 +247,33 @@ case, a Thread, Voice, and Staff context are created.  The rest of the
 sequential music is also interpreted with the same Thread, Voice, and
 Staff context, putting the notes on the same staff, in the same voice.
 
+@node Context evaluation
+@subsection Context evaluation
+
+Scheme code can be used to modify contexts. The syntax for this is
+
+@example
+  \applycontext @var{function}
+@end example
+
+@var{function} should be a Scheme function taking a single argument,
+being the context to apply it with. The following code will print the
+current bar number on the standard output during the compile.
+
+@example
+    \applycontext
+	#(lambda (tr)
+	 (format #t "\nWe were called in barnumber ~a.\n"
+	  (ly:get-context-property tr 'currentBarNumber)))
+@end example
+
+
+
+
+
 @node Context properties
 @subsection Context properties
+
 
 Notation contexts have properties.  These properties are from
 the @file{.ly} file using the following expression:

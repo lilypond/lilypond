@@ -398,7 +398,6 @@ reference point.
 
 TODO: revise typing.")
 (grob-property-description 'self-alignment-Y number? "like self-alignment-X but for Y axis.")
-(grob-property-description 'segments list? "DOCME.  ")
 (grob-property-description 'semivocalis boolean? "is this neume a lisquescending one?.")
 (grob-property-description 'shape symbol? "shape of cluster segments.  Valid values include 'leftsided-stairs', 'rightsided-stairs', 'centered-stairs', and 'ramp'.")
 (grob-property-description 'shorten number? "the amount of space that a stem should be shortened (DOCME!)")

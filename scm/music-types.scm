@@ -105,9 +105,8 @@ c8-[ c c-] c8")
     (ClusterEvent
      . (
 	(description .  "Begins or ends a cluster.")
-
 	(internal-class-name . "Event")
-	(types . (general-music cluster-event event))
+	(types . (general-music cluster-event span-event event))
 	)) 
     (ContextSpeccedMusic
      . (

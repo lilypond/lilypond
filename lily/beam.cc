@@ -1252,6 +1252,8 @@ Beam::set_stem_lengths (Grob *me)
       if (Stem::invisible_b (s))
 	continue;
 
+      
+      bool french = to_boolean (s->get_grob_property ("french-beaming"));
       Real stem_y = calc_stem_y (me, s, common,
 				 xl, xr,
 				 pos, french && i > 0&& (i < stems.size  () -1));
@@ -1519,6 +1521,6 @@ ADD_INTERFACE (Beam, "beam-interface",
 "the ideal slope, how close the result is to the ideal stems, etc.). We "
 "take the best scoring combination. "
 ,
-  "knee french-beaming position-callbacks concaveness-gap concaveness-threshold dir-function quant-score auto-knee-gap gap chord-tremolo beamed-stem-shorten shorten least-squares-dy damping flag-width-function neutral-direction positions space-function thickness");
+  "knee position-callbacks concaveness-gap concaveness-threshold dir-function quant-score auto-knee-gap gap chord-tremolo beamed-stem-shorten shorten least-squares-dy damping flag-width-function neutral-direction positions space-function thickness");
 
 

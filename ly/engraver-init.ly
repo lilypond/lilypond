@@ -181,6 +181,8 @@ ThreadContext = \translator{
 	\consists "Thread_devnull_engraver"
 	\consists "Note_heads_engraver"
 	\consists "Rest_engraver"
+
+	% why here ? 
 	\consists "Note_head_line_engraver"
 	\consists "Output_property_engraver"	
 
