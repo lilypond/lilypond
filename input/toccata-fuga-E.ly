@@ -139,12 +139,16 @@ break = \melodic{
 
 % these should be two separate scores...
 \score{
-	 <
-		 \type Grandstaff \multi 3 <
-		   { \toccata_right \break \fuga2_right }
-		   { \toccata_left \break \fuga2_left }
+	 \type Score <
+		\type Grandstaff <
+		   \type Staff=treble {
+		   	 \toccata_right \break \fuga2_right 
+		   }
+		   \type Staff=bass { 
+		   	\toccata_left \break \fuga2_left 
+		   }
 		> 
-		\type Staff {  \toccata_pedal \break \fuga2_pedal }
+		\type Staff=pedal {  \toccata_pedal \break \fuga2_pedal }
 	>
 	\paper{}
 	\midi{
