@@ -16,7 +16,6 @@ class Unfolded_repeat_iterator : public Sequential_iterator
 {
 public:
   DECLARE_SCHEME_CALLBACK(constructor, ());
-  VIRTUAL_COPY_CONS (Music_iterator);
 protected:
   virtual SCM get_music_list () const;
 };
@@ -57,7 +56,6 @@ class Volta_repeat_iterator : public Sequential_iterator
 {
 public:
   DECLARE_SCHEME_CALLBACK(constructor, ());
-  VIRTUAL_COPY_CONS (Music_iterator);
   Volta_repeat_iterator();
 
   void add_repeat_command (SCM);

@@ -19,27 +19,6 @@ Simultaneous_music_iterator::Simultaneous_music_iterator ()
   children_list_ = SCM_EOL;
 }
 
-Simultaneous_music_iterator::Simultaneous_music_iterator (Simultaneous_music_iterator const& src)
-  : Music_iterator (src)
-{
-  separate_contexts_b_
-    = src.separate_contexts_b_;
-  children_list_ = SCM_EOL;
-  
-  SCM children_list = SCM_EOL;
-  SCM *tail  = &children_list; 
-  for (SCM s = src.children_list_; gh_pair_p (s); s = gh_cdr(s))
-    {
-      Music_iterator *i = unsmob_iterator (gh_car (s));
-      SCM cl = i->clone ()->self_scm();
-      *tail = scm_cons (cl, *tail);
-      tail = SCM_CDRLOC (*tail);
-      scm_gc_unprotect_object (cl);
-    }
-
-  children_list_ = children_list;
-  scm_remember_upto_here_1 (children_list);
-}
 
 void
 Simultaneous_music_iterator::derived_mark()const

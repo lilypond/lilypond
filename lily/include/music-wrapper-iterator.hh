@@ -21,10 +21,8 @@
 class Music_wrapper_iterator : public Music_iterator
 {
 public:
-  VIRTUAL_COPY_CONS (Music_iterator);
   DECLARE_SCHEME_CALLBACK(constructor, ());  
   Music_wrapper_iterator ();
-  Music_wrapper_iterator (Music_wrapper_iterator const&);
 
   virtual void derived_substitute (Translator_group*f, Translator_group*t) ;
 
@@ -33,7 +31,6 @@ public:
   virtual Moment pending_moment () const;
   virtual void do_quit(); 
   virtual bool ok () const;
-  virtual SCM get_pending_events (Moment)const;
   virtual bool run_always () const;
 protected:
   virtual void process (Moment);

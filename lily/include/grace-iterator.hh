@@ -15,7 +15,6 @@
 class Grace_iterator : public Music_wrapper_iterator
 {
 public:
-  VIRTUAL_COPY_CONS (Music_iterator);
   virtual void process (Moment);
   DECLARE_SCHEME_CALLBACK(constructor, ());
   Moment pending_moment () const;

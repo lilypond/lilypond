@@ -19,7 +19,6 @@
 class Folded_repeat_iterator : public Music_iterator
 {
 public:
-  VIRTUAL_COPY_CONS (Music_iterator);
   DECLARE_SCHEME_CALLBACK(constructor, ());
 
   Folded_repeat_iterator (Folded_repeat_iterator const &src);

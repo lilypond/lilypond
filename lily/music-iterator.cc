@@ -28,11 +28,7 @@ Music_iterator::Music_iterator ()
 
 Music_iterator::Music_iterator (Music_iterator const& src)
 {
-  handle_ = *src.handle_.clone ();
-  music_ = src.music_;
-  music_length_ = src.music_length_;
-  start_mom_ = src.start_mom_;
-  smobify_self ();
+  assert (false);
 }
 
 Music_iterator::~Music_iterator ()

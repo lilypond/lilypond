@@ -8,7 +8,6 @@
 class Apply_context_iterator : public Simple_music_iterator
 {
 public:
-  VIRTUAL_COPY_CONS (Music_iterator);
   DECLARE_SCHEME_CALLBACK(constructor, ());
 protected:
   virtual void process (Moment);
