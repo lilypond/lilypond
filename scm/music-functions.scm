@@ -81,6 +81,97 @@ First it recurses over the children, then the function is applied to MUSIC.
   (display " }\n")
   music)
 
+;;;
+;;; A scheme music pretty printer
+;;;
+(define (markup-expression->make-markup markup-expression)
+  "Transform `markup-expression' into an equivalent, hopefuly readable, scheme expression.
+For instance, 
+  \markup \bold \italic hello
+==>
+  (markup #:line (#:bold (#:italic (#:simple \"hello\"))))"
+  (define (proc->command-keyword proc)
+    "Return a keyword, eg. `#:bold', from the `proc' function, eg. #<procedure bold-markup (layout props arg)>"
+    (let ((cmd-markup (symbol->string (procedure-name proc))))
+      (symbol->keyword (string->symbol (substring cmd-markup 0 (- (string-length cmd-markup)
+								  (string-length "-markup")))))))
+  (define (transform-arg arg)
+    (cond ((and (pair? arg) (pair? (car arg))) ;; a markup list
+	   (apply append (map inner-markup->make-markup arg)))
+	  ((pair? arg)			       ;; a markup
+	   (inner-markup->make-markup arg))
+	  (else				       ;; scheme arg
+	   arg)))
+  (define (inner-markup->make-markup mrkup)
+    (let ((cmd (proc->command-keyword (car mrkup)))
+	  (args (map transform-arg (cdr mrkup))))
+      `(,cmd ,@args)))
+  ;; body:
+  `(markup ,@(inner-markup->make-markup markup-expression)))
+
+(define*-public (music-pretty-string obj #:optional (depth 0))
+  "Return a string describing `obj', in particular music expression
+will be printed as: (make-music 'MusicType 'property ...)"
+  (define (markup-expression? obj)
+    (and (list? obj) (markup-function? (car obj))))
+  (define (music-expression? obj)
+    (ly:music? obj))
+  (cond (;; markup expression
+	 (markup-expression? obj)
+	 (format #f "~a" (markup-expression->make-markup obj)))
+	(;; music expression
+	 (music-expression? obj)
+	 (format #f "(make-music '~a~{~a~})"
+		 (ly:music-property obj 'name)
+		 (map (lambda (prop)
+			(format #f "~%~v_'~a ~a" 
+				(+ 2 (* 13 depth))
+				(car prop)
+				(cond (;; property is a markup expression
+				       (markup-expression? (cdr prop))
+				       (music-pretty-string (cdr prop) (1+ depth)))
+				      (;; property is a list
+				       (list? (cdr prop))
+				       (format #f "(list ~{~a~})"
+					       (map (lambda (mus)
+						      (format #f "~%~v_~a"
+							      (* 13 (1+ depth))
+							      (music-pretty-string mus (1+ depth))))
+						    (cdr prop))))
+				      (;; property is a string
+				       (string? (cdr prop))
+				       (string-append "\"" (cdr prop) "\""))
+				      (else ;; property is something else
+				       (music-pretty-string (cdr prop) (1+ depth))))))
+		      (remove (lambda (prop)
+				(eqv? (car prop) 'origin))
+			      (ly:music-mutable-properties obj)))))
+	(;; string 
+	 (string? obj) (format #f "~s" obj))
+	(;; symbol
+	 (symbol? obj) (format #f "'~a" obj))
+	(;; note duration
+	 (ly:duration? obj) (format #f "(ly:make-duration ~a ~a ~a ~a)"
+				    (ly:duration-log obj)
+				    (ly:duration-dot-count obj)
+				    (car (ly:duration-factor obj))
+				    (cdr (ly:duration-factor obj))))
+	(;; note pitch
+	 (ly:pitch? obj) (format #f "(ly:make-pitch ~a ~a ~a)"
+				 (ly:pitch-octave obj)
+				 (ly:pitch-notename obj)
+				 (ly:pitch-alteration obj)))
+	(;; scheme procedure
+	 (procedure? obj) (or (procedure-name obj) (format #f "(lambda ...)")))
+	(else
+	 (format #f "~a" obj))))
+
+(define-public (display-scheme-music obj)
+  "Displays `obj', typically a music expression, in a friendly fashion,
+which often can be read back in order to generate an equivalent expression."
+  (display (music-pretty-string obj))
+  (newline))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define (shift-one-duration-log music shift dot)
