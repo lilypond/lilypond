@@ -54,15 +54,13 @@ public:
 
   DECLARE_SCHEME_CALLBACK (layout_description, ());
 
-  Input here_input () const;
-  Input pop_spot ();
   void beam_check (SCM); 
   void do_init_file ();
   void do_yyparse ();
   void parse_file (String init, String name, String out_name);
   void parse_string (String ly_code);
   void parser_error (String);
-  void push_spot ();
+  void parser_error (Input const&, String);
   void set_yydebug (bool);
 };
 

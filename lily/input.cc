@@ -13,16 +13,18 @@
 #include "source.hh"
 #include "source-file.hh"
 
-Input::Input (Source_file*s, char const *cl)
+Input::Input (Input const &i)
 {
-  source_file_ = s;
-  defined_str0_ = cl;
+  source_file_ = i.source_file_;
+  start_ = i.start_;
+  end_ = i.end_;
 }
 
 Input::Input ()
 {
   source_file_ = 0;
-  defined_str0_ = 0;
+  start_ = 0;
+  end_ = 0;
 }
 
 Input
@@ -35,6 +37,22 @@ void
 Input::set_spot (Input const &i)
 {
   *this = i;
+}
+
+void
+Input::step_forward ()
+{
+  if (end_ == start_)
+    end_ ++;
+  start_ ++;
+}
+
+void
+Input::set_location (Input const &i_start, Input const &i_end)
+{
+  source_file_ = i_start.source_file_;
+  start_ = i_start.start_;
+  end_ = i_end.end_;
 }
 
 /*
@@ -75,7 +93,7 @@ Input::message (String message_string) const
   if (source_file_)
    {
     str += ":\n";
-    str += source_file_->error_string (defined_str0_);
+    str += source_file_->error_string (start_);
    }
   fprintf (stderr, "%s\n", str.to_str0 ());
   fflush (stderr);
@@ -101,7 +119,7 @@ String
 Input::location_string () const
 {
   if (source_file_)
-    return source_file_->file_line_column_string (defined_str0_);
+    return source_file_->file_line_column_string (start_);
   else
     return " (" + _ ("position unknown") + ")";
 }
@@ -110,7 +128,7 @@ String
 Input::line_number_string () const
 {
   if (source_file_)
-    return to_string (source_file_->get_line (defined_str0_));
+    return to_string (source_file_->get_line (start_));
   else
     return "?";
 }
@@ -129,7 +147,7 @@ int
 Input::line_number () const
 {
   if (source_file_)
-    return source_file_->get_line (defined_str0_);
+    return source_file_->get_line (start_);
   else
     return 0;
 
@@ -139,7 +157,27 @@ int
 Input::column_number () const
 {
   if (source_file_)
-    return source_file_->get_column (defined_str0_);
+    return source_file_->get_column (start_);
+  else
+    return 0;
+
+}
+
+int
+Input::end_line_number () const
+{
+  if (source_file_)
+    return source_file_->get_line (end_);
+  else
+    return 0;
+
+}
+
+int
+Input::end_column_number () const
+{
+  if (source_file_)
+    return source_file_->get_column (end_);
   else
     return 0;
 

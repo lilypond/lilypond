@@ -72,6 +72,10 @@ Source_file::Source_file (String filename, String data)
   length_ = data.length ();
   pos_str0_ = to_str0 ();
   init_port ();
+
+  for (int i = 0; i < length_; i++)
+    if (contents_str0_[i] == '\n')
+      newline_locations_.push (contents_str0_ + i);
 }
 
 Source_file::Source_file (String filename_string)

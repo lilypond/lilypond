@@ -134,8 +134,6 @@ Lily_lexer::~Lily_lexer ()
   delete keytable_;
 }
 
-
-
 void
 Lily_lexer::add_scope (SCM module)
 {
@@ -231,7 +229,7 @@ Lily_lexer::LexerError (char const *s)
   else
     {
       error_level_ |= 1;
-      Input spot (get_source_file (), here_str0 ());
+      Input spot (*lexloc);
       spot.error (s);
     }
 }
@@ -256,8 +254,7 @@ Lily_lexer::escaped_char (char c) const
 Input
 Lily_lexer::here_input () const
 {
-  Source_file * f = get_source_file ();
-  return Input (f, (char*)here_str0 ());
+  return Input(*lexloc);
 }
 
 void
@@ -265,6 +262,20 @@ Lily_lexer::prepare_for_next_token ()
 {
   last_input_ = here_input ();
 }
+
+/**
+  Since we don't create the buffer state from the bytes directly, we
+  don't know about the location of the lexer. Add this as a
+  YY_USER_ACTION */
+void
+Lily_lexer::add_lexed_char (int count)
+{
+  lexloc->source_file_ = get_source_file ();
+  lexloc->start_ = here_str0 ();
+  lexloc->end_ = lexloc->start_ + count;
+  char_count_stack_.top () += count;
+}
+
 
 #include "ly-smobs.icc"
 

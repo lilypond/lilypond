@@ -161,12 +161,6 @@ Lily_parser::parse_string (String ly_code)
   lexer_ = 0;
 }
 
-void
-Lily_parser::push_spot ()
-{
-  define_spots_.push (here_input ());
-}
-
 char const *
 Lily_parser::here_str0 () const
 {
@@ -176,41 +170,16 @@ Lily_parser::here_str0 () const
 void
 Lily_parser::parser_error (String s)
 {
-  here_input ().error (s);
+  lexer_->here_input ().error (s);
   error_level_ = 1;
 }
 
-Input
-Lily_parser::pop_spot ()
+void
+Lily_parser::parser_error (Input const& i, String s)
 {
-  return define_spots_.pop ();
+  i.error (s);
+  error_level_ = 1;
 }
-
-Input
-Lily_parser::here_input () const
-{
-  /*
-    Parsing looks ahead , so we really want the previous location of the
-    lexer, not lexer_->here_input ().
-  */
-  
-  /*
-    Actually, that gets very icky when there are white space, because
-    the line-numbers are all wrong.  Let's try the character before
-    the current token. That gets the right result for note/duration
-    stuff, but doesn't mess up for errors in the 1st token of the
-    line.
-  */
-  Input hi (lexer_->here_input ());
-
-  char const * bla = hi.defined_str0_;
-  if (hi.line_number () > 1
-      || hi.column_number () > 1)
-    bla --;
-  
-  return Input (hi.source_file_, bla);
-}
-
 
 /****************************************************************/
 

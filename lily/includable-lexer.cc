@@ -138,15 +138,6 @@ Includable_lexer::~Includable_lexer ()
       close_input ();
     }
 }
-/**
-  Since we don't create the buffer state from the bytes directly, we
-  don't know about the location of the lexer. Add this as a
-  YY_USER_ACTION */
-void
-Includable_lexer::add_lexed_char (int count)
-{
-  char_count_stack_.top () += count;
-}
 
 Source_file*
 Includable_lexer::get_source_file () const
