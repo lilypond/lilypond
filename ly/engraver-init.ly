@@ -559,7 +559,7 @@ AncientRemoveEmptyStaffContext = \context {
 	(Voice Slur direction -1)
     )
 
-  quotedEventTypes = #'(note-event rest-event)
+  quotedEventTypes = #'(note-event rest-event time-scaled-music tie-event)
 }
 
 EasyNotation = \context {	% TODO: why \context override? 

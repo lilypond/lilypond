@@ -1,3 +1,8 @@
+2004-09-18  Werner Lemberg  <wl@gnu.org>
+
+	* ly/engraver-init.ly <Score> [quotedEventTypes]: Add tuplets and
+	ties.
+
 2004-09-18  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* input/{input,regression}/*.ly: run convert-ly
