@@ -232,9 +232,9 @@ respectively,
 @node Interpretation contexts
 @section Interpretation contexts
 
-When music is printed, a lot of things notation elements must be added
-to the input, which is often bare bones.  For example, compare the
-input and output of the following example:
+When music is printed, a lot of notation elements must be added to the
+input, which is often bare bones.  For example, compare the input and
+output of the following example:
 
 @lilypond[verbatim,relative=2]
   cis4 cis2. g4
@@ -909,10 +909,10 @@ Then the output at the start of this subsection can be entered as
 
 There are many different properties.  Not all of them are listed in
 this manual. However, the program reference lists them all in the
-section @internalsref{Context-properties}, and most properties are
-demonstrated in one of the
+section @internalsref{Tunable-context-properties}, and most properties
+are demonstrated in one of the
 @ifhtml
-@uref{../../../input/test/out-www/collated-files.html,tips-and-tricks}
+@uref{../../../../input/test/out-www/collated-files.html,tips-and-tricks}
 @end ifhtml
 @ifnothtml
 tips-and-tricks
