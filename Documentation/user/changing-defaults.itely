@@ -989,7 +989,7 @@ respectively.
 The exact tuning possibilities for each type of layout object are
 documented in the program reference of the respective
 object. However, many layout objects share properties, which can be
-used to apply generic tweaks.  We mention a couple of these:
+used to apply generic tweaks.  We mention a few of these:
 
 @itemize @bullet
 @item The @code{extra-offset} property, which
@@ -1065,7 +1065,7 @@ tweak}:
 
 @end itemize
 
-More specific overrides are also possible.  The following section
+More specific overrides are also possible.  The next section
 discusses in depth how to figure out these statements for yourself.
 
 
@@ -1183,10 +1183,16 @@ This path goes against the flow of information in the program: it
 starts from the output, and ends at the input event.
 
 The program reference can also be browsed like a normal document.  It
-contains a chapter on @internalsref{Music definitions}, on
-@internalsref{Translation}, and the @internalsref{Backend}. Every
- chapter lists all the definitions used, and all properties that may
- be tuned. 
+contains a chapter on
+@ifhtml
+@internalsref{Music-definitions},
+@end ifhtml
+@ifnothtml
+Music definitions
+@end ifnothtml
+on @internalsref{Translation}, and the @internalsref{Backend}. Every
+chapter lists all the definitions used, and all properties that may be
+tuned.
 
  
 @node Layout interfaces
@@ -1673,7 +1679,7 @@ The recommended font sizes are listed in the following table:
 @tab 7.9
 @tab 
 
-@item feta20
+@item feta26
 @tab 25.2 
 @tab 8.9
 @tab
@@ -2026,13 +2032,14 @@ through La@TeX{}.  Using the option @option{-f}
 (or @option{--format}) other output formats can be selected also, but
  none of them work reliably.
 
-Now the music is output system by system (a `system' consists of all
-staves belonging together).  From @TeX{}'s point of view, a system is an
-@code{\hbox} which contains a lowered @code{\vbox} so that it is centered
-vertically on the baseline of the text.  Between systems,
-@code{\interscoreline} is inserted vertically to have stretchable space.
-The horizontal dimension of the @code{\hbox} is given by the
-@code{linewidth} parameter from LilyPond's @code{\paper} block.
+Now the music is output system by system (a `system' is a single line
+from the score, consisting of staves belonging together).  From
+@TeX{}'s point of view, a system is an @code{\hbox} which contains a
+lowered @code{\vbox} so that it is centered vertically on the baseline
+of the text.  Between systems, @code{\interscoreline} is inserted
+vertically to have stretchable space.  The horizontal dimension of the
+@code{\hbox} is given by the @code{linewidth} parameter from
+LilyPond's @code{\paper} block.
 
 After the last system LilyPond emits a stronger variant of
 @code{\interscoreline} only if the macro
