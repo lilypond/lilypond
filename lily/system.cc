@@ -362,15 +362,27 @@ System::get_line ()
 	unsmob_stencil (my_stencil)->translate (o + extra);
 	stencils = scm_cons (my_stencil, stencils);
 
+#if 0
 	// FIXME: never original  
-	if (1 || g->original_)
+	if (!penalty || g->original_)
 	  {
-	    SCM s = g->get_property ("page-penalty");
-	    // FIXME: 'page-penalty is never set
-	    // FIXME; page breaking is not discrete at +-10000
-	    if (is_number (s)) // && fabs (ly_scm2double (s)) < 10000)
-	      penalty += ly_scm2double (s);
+	    if (Item *it = dynamic_cast <Item*> (g))
+	      {
+		Grob *col = it->get_column ();
+		SCM s = col->get_property ("page-penalty");
+		// FIXME: 'page-penalty is never set
+		// FIXME; page breaking is not discrete at +-10000
+		if (is_number (s)) // && fabs (ly_scm2double (s)) < 10000)
+		  penalty += ly_scm2double (s);
+	      }
 	  }
+#else
+	SCM s = g->get_property ("page-penalty");
+	// FIXME: 'page-penalty is never set
+	// FIXME; page breaking is not discrete at +-10000
+	if (is_number (s)) // && fabs (ly_scm2double (s)) < 10000)
+	  penalty += ly_scm2double (s);
+#endif	
       }
 
   Interval x (extent (this, X_AXIS));
