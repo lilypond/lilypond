@@ -14,7 +14,3 @@ outdir = os.path.join (env['build'], reldir, env['out'])
 scmdir = os.path.join (env['sharedir_package_version'], 'scm')
 env.Install (scmdir, sources)
 env.Alias ('install', scmdir)
-
-#testing
-all_sources = ['SConscript',] + sources
-x = env.Tar (env['tarball'], all_sources)

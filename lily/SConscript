@@ -41,14 +41,3 @@ env.Install (env['bindir'], lily)
 env.Alias ('install', env['bindir'])
 
 env.Alias ('lily', lily)
-
-all_sources = ['SConscript',] + sources + includes
-# ballprefix = env['ballprefix'] + '/lily'
-# ball = Builder (prefix = ballprefix + '/', action = 'ln $SOURCE $TARGET')
-# et = env.Copy (BUILDERS = {'BALL': ball})
-# ballize = map (et.BALL, all_sources)
-# tar = env.Tar (env['tarball'],
-# 	       map (lambda x: os.path.join (ballprefix, x), all_sources))
-
-tar = env['baller'] ('lily', all_sources, env)
-#env.Alias ('tar', tar)

@@ -47,7 +47,3 @@ env.Alias ('install', pfadir)
 map (lambda x: env.Alias ('fonts', x), t + a + p)
 env.Command ('cmr.enc', 'cmr.enc.in', 'cp $SOURCE $TARGET')
 env.Alias ('fonts', 'cmr.enc')
-
-#testing
-all_sources = ['SConscript',] + sources
-x = env.Tar (env['tarball'], all_sources)

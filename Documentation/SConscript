@@ -11,15 +11,3 @@ sources = ['index.html.in', 'texinfo.css']
 os.chdir (here)
 outdir = os.path.join (env['build'], reldir, env['out'])
 
-all_sources = ['SConscript',] + sources
-
-# ballprefix = env['ballprefix'] + '/Documentation'
-# ball = Builder (prefix = ballprefix + '/', action = 'ln $SOURCE $TARGET')
-# et = env.Copy (BUILDERS = {'BALL': ball})
-# ballize = map (et.BALL, all_sources)
-# tar = env.Tar (env['tarball'],
-# 	       map (lambda x: os.path.join (ballprefix, x), all_sources))
-
-tar = env['baller'] ('Documentation', all_sources, env)
-#env.Alias ('tar', tar)
-
