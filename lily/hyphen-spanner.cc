@@ -18,10 +18,10 @@
 #include "spanner.hh"
 #include "item.hh"
 
-MAKE_SCHEME_SCORE_ELEMENT_NON_DEFAULT_CALLBACKS(Hyphen_spanner)
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Hyphen_spanner,brew_molecule)
 
 SCM 
-Hyphen_spanner::scheme_molecule (SCM smob)
+Hyphen_spanner::brew_molecule (SCM smob)
 {
   Spanner * sp  =dynamic_cast<Spanner*> (unsmob_element (smob));
   Molecule  mol;

@@ -341,11 +341,14 @@ Slur::encompass_offset (Note_column const* col) const
   return o;
 }
 
-void
-Slur::after_line_breaking ()
+GLUE_SCORE_ELEMENT(Slur,after_line_breaking);
+
+SCM
+Slur::member_after_line_breaking ()
 {
   set_extremities ();
   set_control_points ();
+  return SCM_UNDEFINED;
 } 
 
 /*
@@ -602,14 +605,12 @@ Slur::get_rods () const
 }
 
 
-
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Slur);
-
 /*
   Ugh should have dash-length + dash-period
  */
-Molecule
-Slur::do_brew_molecule () const
+GLUE_SCORE_ELEMENT(Slur,brew_molecule);
+SCM
+Slur::member_brew_molecule () const
 {
   Real thick = paper_l ()->get_var ("slur_thickness");
   Bezier one = get_curve ();
@@ -621,7 +622,7 @@ Slur::do_brew_molecule () const
   else
     a = lookup_l ()->slur (one, directional_element (this).get () * thick, thick);
 
-  return a;
+  return a.create_scheme();
 }
 
 void

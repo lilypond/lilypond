@@ -377,8 +377,9 @@ Stem::position_noteheads ()
     }
 }
 
-void
-Stem::before_line_breaking ()
+GLUE_SCORE_ELEMENT(Stem,before_line_breaking);
+SCM
+Stem::member_before_line_breaking ()
 {
   stem_end_position ();	// ugh. Trigger direction calc.
   position_noteheads ();
@@ -390,6 +391,7 @@ Stem::before_line_breaking ()
     }
   
   set_spacing_hints ();
+  return SCM_UNDEFINED;
 }
 
 
@@ -455,9 +457,11 @@ Stem::dim_callback (Score_element const *se, Axis )
 
 const Real ANGLE = 20* (2.0*M_PI/360.0); // ugh! Should be settable.
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Stem)
-Molecule 
-Stem::do_brew_molecule () const
+
+GLUE_SCORE_ELEMENT(Stem,brew_molecule);
+
+SCM
+Stem::member_brew_molecule () const
 {
   Molecule mol;
 
@@ -490,7 +494,7 @@ Stem::do_brew_molecule () const
       mol.add_molecule (fl);
     }
 
-  return mol;
+  return mol.create_scheme();
 }
 
 Real

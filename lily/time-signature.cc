@@ -20,9 +20,10 @@ Time_signature::Time_signature (SCM s)
 }
 
 // ugh.!
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Time_signature)
-Molecule 
-Time_signature::do_brew_molecule () const
+
+GLUE_SCORE_ELEMENT(Time_signature,brew_molecule);
+SCM
+Time_signature::member_brew_molecule () const
 {
   SCM st = get_elt_property ("style");
 
@@ -41,15 +42,15 @@ Time_signature::do_brew_molecule () const
       String style (ly_scm2string (st));
       if (style[0]=='1')
 	{
-	  return time_signature (n, 0);
+	  return time_signature (n, 0).create_scheme();
 	}
       else
 	{
-	  return special_time_signature (style, n, d);
+	  return special_time_signature (style, n, d).create_scheme();
 	}
     }
   else
-    return     time_signature (n,d);
+    return time_signature (n,d).create_scheme();
 }
 
 Molecule

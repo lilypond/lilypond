@@ -48,9 +48,10 @@ Stem_tremolo::dim_callback (Score_element * se, Axis )
 }
 
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Stem_tremolo)
-Molecule 
-Stem_tremolo::do_brew_molecule () const
+
+GLUE_SCORE_ELEMENT(Stem_tremolo,brew_molecule);
+SCM
+Stem_tremolo::member_brew_molecule () const
 {
   Stem * stem = stem_l ();
   Beam * beam = stem->beam_l ();
@@ -128,7 +129,7 @@ Stem_tremolo::do_brew_molecule () const
 			     whole_note_correction, dy));
     }
   
-  return mol;
+  return mol.create_scheme();
 }
 
 

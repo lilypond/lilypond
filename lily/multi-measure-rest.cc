@@ -31,9 +31,11 @@ Multi_measure_rest::Multi_measure_rest (SCM s)
    [TODO]                                      17
  * variable-sized multi-measure rest symbol: |====| ??
 */
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Multi_measure_rest)
-Molecule 
-Multi_measure_rest::do_brew_molecule () const
+
+GLUE_SCORE_ELEMENT(Multi_measure_rest,brew_molecule);
+
+SCM
+Multi_measure_rest::member_brew_molecule () const
 {
   Real staff_space
     = staff_symbol_referencer (this).staff_space ();
@@ -131,7 +133,7 @@ Multi_measure_rest::do_brew_molecule () const
       mol.add_molecule (s);
     }
   mol.translate_axis (x_off, X_AXIS);
-  return mol;
+  return mol.create_scheme();
 }
 
 /*
@@ -152,14 +154,16 @@ Multi_measure_rest::do_add_processing ()
   // set columns to SCM_EOL?
 }
   
-void
-Multi_measure_rest::after_line_breaking ()
+GLUE_SCORE_ELEMENT(Multi_measure_rest,after_line_breaking);
+SCM
+Multi_measure_rest::member_after_line_breaking ()
 {
   if (!gh_pair_p (get_elt_pointer ("columns")))
     {
       suicide ();
     }
-     
+
+  return SCM_UNDEFINED;
 }
 
 

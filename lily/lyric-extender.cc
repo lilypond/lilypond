@@ -16,9 +16,9 @@
 #include "extender-spanner.hh"
 
 
-MAKE_SCHEME_SCORE_ELEMENT_NON_DEFAULT_CALLBACKS(Lyric_extender)
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Lyric_extender,brew_molecule)
 SCM 
-Lyric_extender::scheme_molecule (SCM smob) 
+Lyric_extender::brew_molecule (SCM smob) 
 {
   Spanner *sp = dynamic_cast<Spanner*> (unsmob_element (smob));
   

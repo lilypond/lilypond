@@ -22,21 +22,21 @@
 
   Properties:
 
-  glyph -- text string (TODO:   make one large glyph of the Ped symbol, removes need for do_brew_molecule ())
+  glyph -- text string (TODO:   make one large glyph of the Ped symbol, removes need for member_brew_molecule ())
 
 */
 
 struct Sustain_pedal
 {
 public:
-   static SCM scheme_molecule (SCM);
+   static SCM brew_molecule (SCM);
 };
 
 
-MAKE_SCHEME_SCORE_ELEMENT_NON_DEFAULT_CALLBACKS(Sustain_pedal);
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Sustain_pedal,brew_molecule);
 
 SCM
-Sustain_pedal::scheme_molecule (SCM smob) 
+Sustain_pedal::brew_molecule (SCM smob) 
 {
   Score_element * e = unsmob_element (smob);
   

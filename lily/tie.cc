@@ -92,14 +92,15 @@ Tie::do_add_processing()
   index_set_cell (get_elt_pointer ("heads"), RIGHT, new_head_drul[RIGHT]->self_scm_ );
 }
 
-void
-Tie::after_line_breaking ()
+GLUE_SCORE_ELEMENT(Tie,after_line_breaking);
+SCM
+Tie::member_after_line_breaking ()
 {
   if (!head (LEFT) && !head (RIGHT))
     {
       programming_error ("Tie without heads.");
       suicide ();
-      return;
+      return SCM_UNDEFINED;
     }
 
   if (!directional_element (this).get ())
@@ -169,6 +170,8 @@ Tie::after_line_breaking ()
     }
   
   dy_f_drul_[LEFT] = dy_f_drul_[RIGHT] = y_f;
+
+  return SCM_UNDEFINED;
 }
 
 
@@ -187,12 +190,10 @@ Tie::get_rods () const
   return a;
 }
 
+GLUE_SCORE_ELEMENT(Tie,brew_molecule);
 
-
-
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Tie)
-Molecule 
-Tie::do_brew_molecule () const
+SCM
+Tie::member_brew_molecule () const
 {
   Real thick = paper_l ()->get_var ("tie_thickness");
   Bezier one = get_curve ();
@@ -204,7 +205,7 @@ Tie::do_brew_molecule () const
   else
     a = lookup_l ()->slur (one, directional_element (this).get () * thick, thick);
   
-  return a; 
+  return a.create_scheme(); 
 }
 
 

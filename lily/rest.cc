@@ -15,8 +15,9 @@
 #include "staff-symbol-referencer.hh"
 
 // -> offset callback
-void
-Rest::after_line_breaking ()
+GLUE_SCORE_ELEMENT(Rest,after_line_breaking);
+SCM
+Rest::member_after_line_breaking ()
 {
   if (balltype_i () == 0)
     {
@@ -33,13 +34,15 @@ Rest::after_line_breaking ()
       staff_symbol_referencer (d)
 	.set_position ((balltype_i () == 7) ? 4 : 3);
     }
+
+  return SCM_UNDEFINED;
 }
 
 
-MAKE_SCHEME_SCORE_ELEMENT_NON_DEFAULT_CALLBACKS(Rest)
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Rest,brew_molecule)
 
 SCM 
-Rest::scheme_molecule (SCM smob) 
+Rest::brew_molecule (SCM smob) 
 {
   Score_element* sc = unsmob_element (smob);
   

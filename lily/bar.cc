@@ -33,7 +33,7 @@ Bar::get_bar_size () const
 
 
 SCM 
-Bar::scheme_molecule (SCM smob) 
+Bar::brew_molecule (SCM smob) 
 {
   Score_element * self = unsmob_element (smob);
   Bar * fly = dynamic_cast<Bar*> (self);
@@ -46,7 +46,7 @@ Bar::scheme_molecule (SCM smob)
   return SCM_EOL;
 }
 
-MAKE_SCHEME_SCORE_ELEMENT_NON_DEFAULT_CALLBACKS(Bar);
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Bar,brew_molecule);
 
 Molecule
 Bar::compound_barline (String str, Real h) const
@@ -132,8 +132,9 @@ Bar::simple_barline (Real w, Real h) const
 }
 
 
-void
-Bar::before_line_breaking ()
+GLUE_SCORE_ELEMENT(Bar,before_line_breaking );
+SCM
+Bar::member_before_line_breaking  ()
 {
   SCM g = get_elt_property ("glyph");
   SCM orig = g;
@@ -162,6 +163,9 @@ Bar::before_line_breaking ()
     }
   else if (! gh_equal_p  (g, orig))
     set_elt_property ("glyph", g);
+
+
+  return SCM_UNDEFINED;
 }
   
 

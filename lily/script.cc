@@ -42,34 +42,42 @@ Script::get_molecule(Direction d) const
 }
 
 
-void
-Script::before_line_breaking ()
+GLUE_SCORE_ELEMENT(Script,before_line_breaking);
+SCM
+Script::member_before_line_breaking ()
 {
   /*
     center my self on the note head.
    */
   Score_element * e = parent_l(X_AXIS);
   translate_axis (e->extent (X_AXIS).center (), X_AXIS);
+
+  return SCM_UNDEFINED;
 }
 
-void
-Script::after_line_breaking ()
+GLUE_SCORE_ELEMENT(Script,after_line_breaking);
+SCM
+Script::member_after_line_breaking ()
 {
   Side_position_interface i (this);
   Direction d =  i.get_direction ();
   i.set_direction (d);
+
+  return SCM_UNDEFINED;
 }
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Script)
-Molecule 
-Script::do_brew_molecule () const
+
+GLUE_SCORE_ELEMENT(Script,brew_molecule);
+
+SCM
+Script::member_brew_molecule () const
 {
   Direction dir = DOWN;
   SCM d = get_elt_property ("direction");
   if (isdir_b (d))
     dir = to_dir (d);
   
-  return get_molecule (dir);
+  return get_molecule (dir).create_scheme();
 }
 
 

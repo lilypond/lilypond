@@ -81,8 +81,9 @@ Beam::get_multiplicity () const
   [Alternatively, stems could set its own directions, according to
    their beam, during 'final-pre-processing'.]
  */
-void
-Beam::before_line_breaking ()
+GLUE_SCORE_ELEMENT(Beam,before_line_breaking);
+SCM
+Beam::member_before_line_breaking ()
 {
   // Why?
   if (visible_stem_count () < 2)
@@ -96,7 +97,9 @@ Beam::before_line_breaking ()
 
   auto_knees ();
   set_stem_directions ();
-  set_stem_shorten (); 
+  set_stem_shorten ();
+
+  return SCM_EOL;
 }
 
 /*
@@ -267,8 +270,9 @@ Beam::set_stem_shorten ()
   Set elt properties height and y-position if not set.
   Adjust stem lengths to reach beam.
  */
-void
-Beam::after_line_breaking ()
+GLUE_SCORE_ELEMENT(Beam,after_line_breaking);
+SCM
+Beam::member_after_line_breaking ()
 {
   /* first, calculate y, dy */
   Real y, dy;
@@ -333,7 +337,10 @@ Beam::after_line_breaking ()
   // UGH. Y is not in staff position unit?
   // Ik dacht datwe daar juist van weg wilden?
   set_stem_length (y, dy);
-  set_elt_property ("y-position", gh_double2scm (y)); 
+  set_elt_property ("y-position", gh_double2scm (y));
+
+
+  return SCM_UNDEFINED;
 }
 
 /*
@@ -719,14 +726,13 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
   return leftbeams;
 }
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS (Beam);
-
-Molecule 
-Beam::do_brew_molecule () const
+GLUE_SCORE_ELEMENT(Beam,brew_molecule);
+SCM
+Beam::member_brew_molecule () const
 {
   Molecule mol;
   if (!stem_count ())
-    return mol;
+    return SCM_EOL;
   Real x0,dx;
   if (visible_stem_count ())
     {
@@ -757,7 +763,7 @@ Beam::do_brew_molecule () const
   mol.translate_axis (x0 
     - get_bound (LEFT)->relative_coordinate (0, X_AXIS), X_AXIS);
 
-  return mol;
+  return mol.create_scheme ();
 }
 
 int

@@ -24,9 +24,10 @@ Crescendo::Crescendo (SCM s)
 
 
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Crescendo)
-Molecule 
-Crescendo::do_brew_molecule () const
+GLUE_SCORE_ELEMENT(Crescendo,brew_molecule);
+
+SCM
+Crescendo::member_brew_molecule () const
 {
   Real absdyn_dim = paper_l ()-> get_var ("crescendo_shorten");
   Real extra_left =  get_broken_left_end_align ();
@@ -38,9 +39,7 @@ Crescendo::do_brew_molecule () const
     {
       Crescendo * me = (Crescendo*)this;
       me->suicide ();
-      Molecule m;
-      
-      return m;
+      return SCM_EOL;
     }
   
   Direction gd = to_dir (dir);
@@ -133,7 +132,7 @@ Crescendo::do_brew_molecule () const
   m.add_at_edge (X_AXIS, RIGHT, span, pad);
   m.translate_axis (extra_left, X_AXIS);
 
-  return m;
+  return m.create_scheme ();
 }
 
 
