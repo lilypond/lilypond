@@ -663,7 +663,7 @@ Grob::internal_has_interface (SCM k)
 Grob*
 Grob::get_parent (Axis a) const
 {
-  return  dim_cache_[a].parent_;
+  return dim_cache_[a].parent_;
 }
 
 
