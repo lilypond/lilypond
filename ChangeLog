@@ -1,3 +1,12 @@
+2004-07-04  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/volta-engraver.cc (staff_eligible): backport. Always
+	use voltaOnThisStaff as override.
+	(stop_translation_timestep): backport: set bounds. 
+
+	* scm/define-grobs.scm (all-grob-descriptions): backport (0 . 0)
+	fix for clef-8.
+
 2004-07-01  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/abc2ly.py: Backport.
@@ -14,6 +23,8 @@
 	* debian/: Remove cruft (requested Anthony Fok.)
 
 2004-06-20  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* VERSION: 2.2.3
 
 	* po/tr.po: turkish translation.
 
