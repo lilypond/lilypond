@@ -275,15 +275,10 @@ def classic_lilypond_book_compatibility (o):
 		return 'linewidth=%f\\%s' % (f, m.group (2))
 	return None
 
-def compose_ly (code, option_string):
-	options = []
-	# urg
-	for i in default_ly_options.keys ():
-		options.append (i)
-		vars ()[i] = default_ly_options[i]
-
-	if option_string:
-		options = options + split_options (option_string)
+def compose_ly (code, options):
+	
+	options += default_ly_options.keys ()
+	vars ().update (default_ly_options)
 	
 	m = re.search (r'''\\score''', code)
 	if not m and (not options \
@@ -297,7 +292,7 @@ def compose_ly (code, option_string):
 	# defaults
 	relative = 0
 	staffsize = '16'
-
+	option_string = string.join (options, ',')
 	notes_options = []
 	paper_options = []
 	preamble_options = []
@@ -375,6 +370,13 @@ class Snippet:
 		self.source = source
 		self.match = match
 		self.hash = 0
+		self.options = []
+		try:
+			os = match.group ('options')
+			if os:
+				self.options = split_options (os)
+		except IndexError:
+			pass
 
 	def start (self, s):
 		return self.match.start (s)
@@ -397,7 +399,7 @@ class Snippet:
 	def full_ly (self):
 		s = self.ly ()
 		if s:
-			return compose_ly (s, self.match.group ('options'))
+			return compose_ly (s, self.options)
 		return ''
 	
 	def get_hash (self):
@@ -430,10 +432,8 @@ class Snippet:
 	
 	def output_html (self):
 		base = self.basename ()
-		option_string = self.match.group ('options')
 		str = self.output_print_filename (HTML)
-		if option_string and VERBATIM in split_options (option_string)\
-		       and format == HTML:
+		if VERBATIM in self.options and format == HTML:
 			verb = verbatim_html (self.substring ('code'))
 			str  += write (output[HTML][VERBATIM] % vars ())
 		return (str + output[HTML][BEFORE] 
@@ -441,7 +441,6 @@ class Snippet:
 			+ output[HTML][AFTER])
 			
 	def output_latex (self):
-		option_string = self.match.group ('options')
 
 		str = self.output_print_filename (LATEX)
 			
@@ -451,7 +450,7 @@ class Snippet:
 			 + output[LATEX][AFTER])
 
 		
-		if option_string and VERBATIM in split_options (option_string)\
+		if  VERBATIM in self.options\
 		   and format == LATEX:
 			verb = self.substring ('code')
 			str += (output[LATEX][VERBATIM] % vars ())
@@ -460,8 +459,7 @@ class Snippet:
 
 	def output_print_filename (self,format):
 		str = ''
-		option_string = self.substring ('options')
-		if option_string and PRINTFILENAME in split_options (option_string):
+		if  PRINTFILENAME in self.options:
 			base = self.basename ()
 			filename = self.substring ('filename')
 			str += output[format][PRINTFILENAME] % vars ()
@@ -471,11 +469,8 @@ class Snippet:
 	def output_texinfo (self):
 		str = ''
 
-		option_string = self.substring ('options')
-		if option_string and VERBATIM in split_options (option_string):
-			verb = verbatim_texinfo (self.substring ('code'))
-			str +=  (output[TEXINFO][VERBATIM] % vars ())
-
+		##  Ugh, this breaks texidoc.
+		
 		str += '\n@tex\n'
 		str += self.output_latex ()
 		str += ('\n@end tex\n')
@@ -484,6 +479,11 @@ class Snippet:
 		str += self.output_html ()
 		str += ('\n@end html\n')
 
+		
+		if  VERBATIM in self.options:
+			verb = verbatim_texinfo (self.substring ('code'))
+			str +=  (output[TEXINFO][VERBATIM] % vars ())
+		
 		return str
 			
 	def outdated_p (self):
@@ -655,7 +655,7 @@ def do_file (input_filename):
 		'include',
 		'lilypond', )
 	
-	(source, snippets) = simple_toplevel_snippets (source, snippet_types)
+	(source, snippets) = find_toplevel_snippets (source, snippet_types)
 	ly.progress ('\n')
 
 	output_file = None
@@ -771,6 +771,7 @@ def main ():
 	global process_cmd
 	if process_cmd:
 		process_cmd += string.join ([(' -I %s' % p) for p in include_path])
+
 	ly.identify (sys.stderr)
 	ly.setup_environment ()
 	if files:
