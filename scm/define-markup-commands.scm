@@ -138,7 +138,7 @@ determines the space between each markup in @var{args}."
 (def-markup-command (finger paper props arg) (markup?)
   "Set the argument as small numbers."
   (interpret-markup paper
-                    (cons '((font-size . -5) (font-family . number)) props)
+                    (cons '((font-size . -5) (font-encoding . fetaNumber)) props)
                     arg))
 
 (def-markup-command (fontsize paper props mag arg) (number? markup?)

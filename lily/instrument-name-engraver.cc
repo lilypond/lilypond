@@ -51,7 +51,7 @@ Instrument_name_engraver::stop_translation_timestep ()
   if (text_)
     {
       text_->set_property ("side-support-elements",
-				get_property ("instrumentSupport"));
+			   get_property ("instrumentSupport"));
       text_ = 0;
     }
 }
