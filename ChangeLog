@@ -1,5 +1,10 @@
 2004-01-15  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/beam.cc (rest_collision_callback): don't move anything if
+	staff-position is set.
+
+	* input/regression/rest-pitch.ly (texidoc): add rest under beam.
+
 	* lily/system.cc (typeset_grob): warn if adding twice.
 
 	* lily/sequential-iterator.cc (run_always): implement run_always().

@@ -15,7 +15,10 @@ collision will leave it alone."
    a4\rest b4\rest c4\rest
 
 <<d \\  d\rest^"rest pitch" >>
-<<d \\  r>> 
+<<d \\  r>>
+  c16 [ d r e] 
+  c16 [ d e\rest^"rest pitch" e] 
+  
 }
 }
 
