@@ -963,9 +963,9 @@ def schedule_lilypond_block (chunk):
 		
 
 	if 'smallverbatim' in opts:
-		newbody = output_verbatim (body, 1)
+		newbody = newbody + output_verbatim (body, 1)
 	elif 'verbatim' in opts:
-		newbody = output_verbatim (body, 0)
+		newbody = newbody + output_verbatim (body, 0)
 
 	for o in opts:
 		m = re.search ('intertext="(.*?)"', o)
