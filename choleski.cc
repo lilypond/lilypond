@@ -18,6 +18,8 @@ Choleski_decomposition::solve(Vector rhs)const
 	assert(D(i));
 	y(i) /= D(i);
     }
+
+    // backward subst
     Vector x(n);
     for (int i=n-1; i >= 0; i--) {
 	Real sum(0.0);
@@ -27,6 +29,10 @@ Choleski_decomposition::solve(Vector rhs)const
     }
     return x;
 }
+
+/*
+  Standard matrix algorithm.
+  */
 
 Choleski_decomposition::Choleski_decomposition(Matrix P)
     : L(P.dim()), D(P.dim())
@@ -49,9 +55,9 @@ Choleski_decomposition::Choleski_decomposition(Matrix P)
 	D(k) = d;
     }
 
-    #ifdef NDEBUG
+#ifdef NDEBUG
     assert((original()-P).norm() < EPS);
-    #endif
+#endif
 }
      
 Matrix
@@ -79,7 +85,11 @@ Choleski_decomposition::inverse() const
     Matrix I1(n), I2(original());
     I1.unit();
     assert((I1-original()*invm).norm() < EPS);
-    #endif
+#endif
     
     return invm;
 }
+
+
+
+
