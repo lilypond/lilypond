@@ -286,15 +286,6 @@
     texi
     ))
 
-(define (all-translation-properties-doc)
-    (make <texi-node>
-      #:name "Context properties"
-      #:desc "All context properties"
-      #:text (translation-properties-doc-string all-translation-properties))
-    )
-
-
-;(dump-node (all-contexts-doc) (current-output-port) 0 )
 
 (define (translation-doc-node)
   (make <texi-node>
@@ -304,6 +295,15 @@
     (list
      (all-contexts-doc)
      (all-engravers-doc)
-     (all-translation-properties-doc)
-     )
-  ))
+     (make <texi-node>
+       #:name "Tunable context properties"
+       #:desc "All tunable context properties"
+       #:text (translation-properties-doc-string
+	       all-user-translation-properties))
+
+     (make <texi-node>
+       #:name "Internal context properties"
+       #:desc "All internal context properties"
+       #:text (translation-properties-doc-string
+	       all-internal-translation-properties))
+     ) ) )

@@ -1,5 +1,8 @@
 2004-02-13  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* mf/feta-bolletjes.mf (overdone_heads): make note heads more
+	elliptical, to 1.49.
+
 	* lily/rest.cc (polyphonic_offset_callback): new function. Do
 	vertical positioning for polyphony, without RestCollision object.
 
@@ -14,6 +17,8 @@
 	* lily/simple-spacer.cc (solve): cleanup: remove code for linelen
 	< 0 case. 
 
+	* VERSION: 2.1.22 released
+	
 	* input/GNUmakefile (SUBDIRS): remove ascii-art
 
 2004-02-13  Jan Nieuwenhuizen  <janneke@gnu.org>
