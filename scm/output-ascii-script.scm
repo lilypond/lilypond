@@ -25,7 +25,7 @@
 			   (hashq (car ename-mag) 1000000))
 			  "m"
 			  (string-encode-integer
-			   (inexact->exact (* 1000 (cdr ename-mag)))))))))
+			   (inexact->exact (round (* 1000 (cdr ename-mag))))))))))
 
 (define (fontify name-mag-pair exp)
   (string-append (select-font name-mag-pair)
@@ -156,8 +156,8 @@
 (define (no-origin) "")
 
 (define (placebox x y s) 
-  (let ((ey (inexact->exact y)))
-    (string-append "(move-to " (number->string (inexact->exact x)) " "
+  (let ((ey (inexact->exact (round y))))
+    (string-append "(move-to " (number->string (inexact->exact (round x))) " "
 		   (if (= 0.5 (- (abs y) (abs ey)))
 		       (number->string y)
 		       (number->string ey))
