@@ -2320,7 +2320,7 @@ point up.
 Another option is to change the variables @code{startGraceMusic},
 @code{stopGraceMusic}, @code{startAccacciaturaMusic},
 @code{stopAccacciaturaMusic}, @code{startAppoggiaturaMusic},
-@code{stopAppoggiaturaMstuic}.  More information is in the file
+@code{stopAppoggiaturaMusic}.  More information is in the file
 @file{ly/grace-init.ly}
 
 
