@@ -1,3 +1,7 @@
+pl 18.jcn4
+	- beam length adjustments
+	- ugly beamtrend fix: input/test/beam-trend.ly
+
 pl 18.jcn3
 	- bf: (beamed) forced stem shorten
 	- bf: broken slurs and ties; minimal slur/tie length setting ignored

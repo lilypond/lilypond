@@ -54,10 +54,16 @@ beam_dir_algorithm = \MAJORITY;
 %    beam_*2 : multiplicity >= beam_multiple_break
 %
 beam_multiple_break = 3.0;
-beam_minimum_stem1 = 1.5 * \interline;
-beam_minimum_stem2 = 1.0 * \interline;
-beam_ideal_stem1 = 2.0 * \interline;
-beam_ideal_stem2 = 1.5 * \interline;
+% beam_minimum_stem1 = 1.5 * \interline;
+% beam_ideal_stem1 = 2.0 * \interline;
+% beam_minimum_stem2 = 1.0 * \interline;
+% beam_ideal_stem2 = 1.5 * \interline;
+
+% let's try these minor adjustments
+beam_minimum_stem1 = 1.25 * \interline;
+beam_ideal_stem1 = 1.75 * \interline;
+beam_minimum_stem2 = 0.75 * \interline;
+beam_ideal_stem2 = 1.25 * \interline;
 
 % beam_slope_damp_correct_factor = 2.0;
 beam_slope_damp_correct_factor = 0.0;

@@ -25,7 +25,8 @@ global = \notes {
   \bar "|."; |
 }
   
-dux = \notes \relative c'' {
+dux = \notes \relative c''{
+  \voicetwo
   \clef violin;
 
   \property Voice.ydirection = "-1"
@@ -75,8 +76,7 @@ dux = \notes \relative c'' {
 
 
 comes = \notes \relative c''  {
-  \stemup
-
+  \voiceone
   r1 |
   r1 |
   r8 [g'16 fis] [g8 c,] [es g16 fis] [g8 a] |
@@ -182,18 +182,26 @@ bassdux = \notes \relative c' {
 
   \paper {
     gourlay_maxmeasures = 4.;
-    % current default for 16pt -> three pages
-    % hmm, too tight already, better more vsize!
-    arithmetic_multiplier = 4.8\pt;
-    % arithmetic_multiplier = 4.4\pt;
+    indent = 8.\mm;
+    textheight = 295.\mm;
+
+    %hmm
+%    \translator { \BarNumberingScoreContext }
+    \translator { \BarNumberingStaffContext }
 
     % Breitkopf; unlike B\"arenreiter rule
     % really looks a lot better?
     % should have an array of min/ideal lengths (scheme)
     % and check B\"arenreiter rules again -- make testcase
-    beam_multiple_break = 2.0;
 
-    %    beam_dir_algorithm = \MEDIAN;
+    % beam_multiple_break = 2.0;
+    % beam_minimum_stem1 = 1.5 * \interline;
+    % beam_ideal_stem1 = 2.0 * \interline;
+    % beam_minimum_stem2 = 1.25 * \interline;
+    % beam_ideal_stem2 = 1.75 * \interline;
+  }
+  \header{
+	  opus = "BWV 847";
   }
 
   \midi {
