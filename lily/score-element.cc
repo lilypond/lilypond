@@ -832,15 +832,15 @@ spanner_get_bound (SCM slur, SCM dir)
 
 
 static SCM interfaces_sym;
-
+#define UNDEFINED_ARG 
 static void
 init_functions ()
 {
   interfaces_sym = scm_permanent_object (ly_symbol2scm ("interfaces"));
   
-  scm_make_gsubr ("ly-get-elt-property", 2, 0, 0, (SCM(*)(...))ly_get_elt_property);
-  scm_make_gsubr ("ly-set-elt-property", 3, 0, 0, (SCM(*)(...))ly_set_elt_property);
-  scm_make_gsubr ("ly-get-spanner-bound", 2 , 0, 0, (SCM(*)(...)) spanner_get_bound);
+  scm_make_gsubr ("ly-get-elt-property", 2, 0, 0, (SCM(*)(UNDEFINED_ARG))ly_get_elt_property);
+  scm_make_gsubr ("ly-set-elt-property", 3, 0, 0, (SCM(*)(UNDEFINED_ARG))ly_set_elt_property);
+  scm_make_gsubr ("ly-get-spanner-bound", 2 , 0, 0, (SCM(*)(UNDEFINED_ARG)) spanner_get_bound);
 }
 
 bool

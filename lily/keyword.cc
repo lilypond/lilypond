@@ -1,10 +1,8 @@
 /*
   keyword.cc -- keywords and identifiers
  */
-
+#include <string.h>
 #include <stdlib.h>
-
-
 #include "keyword.hh"
 
 
