@@ -12,23 +12,18 @@
 program_name = 'abc2ly'
 version = '@TOPLEVEL_VERSION@'
 if version == '@' + 'TOPLEVEL_VERSION' + '@':
-	version = '1.2.0'
+	version = '1.2.6'		# uGUHGUHGHGUGH
+
 import __main__
 import getopt
 import sys
 import re
 import string
 import os
-try:
-	import mpz
-except:
-	sys.stderr.write ("This script needs Python 1.5.1\n")
-	sys.exit (1)
+
 
 
 voice_idx_dict = {}
-
-
 header = {}
 lyrics = []
 voices = []
@@ -746,11 +741,15 @@ Usage: abc2ly [OPTION]... ABC-FILE
 Options:
   -h, --help          this help
   -o, --output=FILE   set output filename to FILE
+  -v, --version       version information
 """
 
+def print_version ():
+	print r"""abc2ly (GNU lilypond) %s""" % version
 
-identify()
-(options, files) = getopt.getopt (sys.argv[1:], 'o:h', ['help', 'output='])
+
+
+(options, files) = getopt.getopt (sys.argv[1:], 'vo:h', ['help','version', 'output='])
 out_filename = ''
 
 for opt in options:
@@ -758,12 +757,18 @@ for opt in options:
 	a = opt[1]
 	if o== '--help' or o == '-h':
 		help ()
+		sys.exit (0)
+	if o == '--version' or o == '-v':
+		print_version ()
+		sys.exit(0)
+		
 	if o == '--output' or o == '-o':
 		out_filename = a
 	else:
 		print o
 		raise getopt.error
 
+identify()
 
 header['tagline'] = 'Lily was here %s -- automatically converted from ABC' % version
 for f in files:

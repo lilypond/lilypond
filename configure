@@ -2623,312 +2623,11 @@ echo "configure:2608: checking for TeX TFM directory" >&5
     
 
 
-    if test "x$YODL" = "x"; then 
-	for ac_prog in striproff
-do
-# Extract the first word of "$ac_prog", so it can be a program name with args.
-set dummy $ac_prog; ac_word=$2
-echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:2633: checking for $ac_word" >&5
-if eval "test \"`echo '$''{'ac_cv_prog_STRIPROFF'+set}'`\" = set"; then
-  echo $ac_n "(cached) $ac_c" 1>&6
-else
-  if test -n "$STRIPROFF"; then
-  ac_cv_prog_STRIPROFF="$STRIPROFF" # Let the user override the test.
-else
-  IFS="${IFS= 	}"; ac_save_ifs="$IFS"; IFS=":"
-  ac_dummy="$PATH"
-  for ac_dir in $ac_dummy; do
-    test -z "$ac_dir" && ac_dir=.
-    if test -f $ac_dir/$ac_word; then
-      ac_cv_prog_STRIPROFF="$ac_prog"
-      break
-    fi
-  done
-  IFS="$ac_save_ifs"
-fi
-fi
-STRIPROFF="$ac_cv_prog_STRIPROFF"
-if test -n "$STRIPROFF"; then
-  echo "$ac_t""$STRIPROFF" 1>&6
-else
-  echo "$ac_t""no" 1>&6
-fi
-
-test -n "$STRIPROFF" && break
-done
-test -n "$STRIPROFF" || STRIPROFF="-echo no striproff"
-
-	for ac_prog in yodl
-do
-# Extract the first word of "$ac_prog", so it can be a program name with args.
-set dummy $ac_prog; ac_word=$2
-echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:2668: checking for $ac_word" >&5
-if eval "test \"`echo '$''{'ac_cv_prog_YODL'+set}'`\" = set"; then
-  echo $ac_n "(cached) $ac_c" 1>&6
-else
-  if test -n "$YODL"; then
-  ac_cv_prog_YODL="$YODL" # Let the user override the test.
-else
-  IFS="${IFS= 	}"; ac_save_ifs="$IFS"; IFS=":"
-  ac_dummy="$PATH"
-  for ac_dir in $ac_dummy; do
-    test -z "$ac_dir" && ac_dir=.
-    if test -f $ac_dir/$ac_word; then
-      ac_cv_prog_YODL="$ac_prog"
-      break
-    fi
-  done
-  IFS="$ac_save_ifs"
-fi
-fi
-YODL="$ac_cv_prog_YODL"
-if test -n "$YODL"; then
-  echo "$ac_t""$YODL" 1>&6
-else
-  echo "$ac_t""no" 1>&6
-fi
-
-test -n "$YODL" && break
-done
-test -n "$YODL" || YODL="-echo no yodl"
-
-	for ac_prog in yodl2html
-do
-# Extract the first word of "$ac_prog", so it can be a program name with args.
-set dummy $ac_prog; ac_word=$2
-echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:2703: checking for $ac_word" >&5
-if eval "test \"`echo '$''{'ac_cv_prog_YODL2HTML'+set}'`\" = set"; then
-  echo $ac_n "(cached) $ac_c" 1>&6
-else
-  if test -n "$YODL2HTML"; then
-  ac_cv_prog_YODL2HTML="$YODL2HTML" # Let the user override the test.
-else
-  IFS="${IFS= 	}"; ac_save_ifs="$IFS"; IFS=":"
-  ac_dummy="$PATH"
-  for ac_dir in $ac_dummy; do
-    test -z "$ac_dir" && ac_dir=.
-    if test -f $ac_dir/$ac_word; then
-      ac_cv_prog_YODL2HTML="$ac_prog"
-      break
-    fi
-  done
-  IFS="$ac_save_ifs"
-fi
-fi
-YODL2HTML="$ac_cv_prog_YODL2HTML"
-if test -n "$YODL2HTML"; then
-  echo "$ac_t""$YODL2HTML" 1>&6
-else
-  echo "$ac_t""no" 1>&6
-fi
-
-test -n "$YODL2HTML" && break
-done
-test -n "$YODL2HTML" || YODL2HTML="-echo no yodl"
-
-	for ac_prog in yodl2latex
-do
-# Extract the first word of "$ac_prog", so it can be a program name with args.
-set dummy $ac_prog; ac_word=$2
-echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:2738: checking for $ac_word" >&5
-if eval "test \"`echo '$''{'ac_cv_prog_YODL2LATEX'+set}'`\" = set"; then
-  echo $ac_n "(cached) $ac_c" 1>&6
-else
-  if test -n "$YODL2LATEX"; then
-  ac_cv_prog_YODL2LATEX="$YODL2LATEX" # Let the user override the test.
-else
-  IFS="${IFS= 	}"; ac_save_ifs="$IFS"; IFS=":"
-  ac_dummy="$PATH"
-  for ac_dir in $ac_dummy; do
-    test -z "$ac_dir" && ac_dir=.
-    if test -f $ac_dir/$ac_word; then
-      ac_cv_prog_YODL2LATEX="$ac_prog"
-      break
-    fi
-  done
-  IFS="$ac_save_ifs"
-fi
-fi
-YODL2LATEX="$ac_cv_prog_YODL2LATEX"
-if test -n "$YODL2LATEX"; then
-  echo "$ac_t""$YODL2LATEX" 1>&6
-else
-  echo "$ac_t""no" 1>&6
-fi
-
-test -n "$YODL2LATEX" && break
-done
-
-	for ac_prog in yodl2man
-do
-# Extract the first word of "$ac_prog", so it can be a program name with args.
-set dummy $ac_prog; ac_word=$2
-echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:2772: checking for $ac_word" >&5
-if eval "test \"`echo '$''{'ac_cv_prog_YODL2MAN'+set}'`\" = set"; then
-  echo $ac_n "(cached) $ac_c" 1>&6
-else
-  if test -n "$YODL2MAN"; then
-  ac_cv_prog_YODL2MAN="$YODL2MAN" # Let the user override the test.
-else
-  IFS="${IFS= 	}"; ac_save_ifs="$IFS"; IFS=":"
-  ac_dummy="$PATH"
-  for ac_dir in $ac_dummy; do
-    test -z "$ac_dir" && ac_dir=.
-    if test -f $ac_dir/$ac_word; then
-      ac_cv_prog_YODL2MAN="$ac_prog"
-      break
-    fi
-  done
-  IFS="$ac_save_ifs"
-fi
-fi
-YODL2MAN="$ac_cv_prog_YODL2MAN"
-if test -n "$YODL2MAN"; then
-  echo "$ac_t""$YODL2MAN" 1>&6
-else
-  echo "$ac_t""no" 1>&6
-fi
-
-test -n "$YODL2MAN" && break
-done
-test -n "$YODL2MAN" || YODL2MAN="-echo no yodl"
-
-	for ac_prog in yodl2msless
-do
-# Extract the first word of "$ac_prog", so it can be a program name with args.
-set dummy $ac_prog; ac_word=$2
-echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:2807: checking for $ac_word" >&5
-if eval "test \"`echo '$''{'ac_cv_prog_YODL2MSLESS'+set}'`\" = set"; then
-  echo $ac_n "(cached) $ac_c" 1>&6
-else
-  if test -n "$YODL2MSLESS"; then
-  ac_cv_prog_YODL2MSLESS="$YODL2MSLESS" # Let the user override the test.
-else
-  IFS="${IFS= 	}"; ac_save_ifs="$IFS"; IFS=":"
-  ac_dummy="$PATH"
-  for ac_dir in $ac_dummy; do
-    test -z "$ac_dir" && ac_dir=.
-    if test -f $ac_dir/$ac_word; then
-      ac_cv_prog_YODL2MSLESS="$ac_prog"
-      break
-    fi
-  done
-  IFS="$ac_save_ifs"
-fi
-fi
-YODL2MSLESS="$ac_cv_prog_YODL2MSLESS"
-if test -n "$YODL2MSLESS"; then
-  echo "$ac_t""$YODL2MSLESS" 1>&6
-else
-  echo "$ac_t""no" 1>&6
-fi
-
-test -n "$YODL2MSLESS" && break
-done
-test -n "$YODL2MSLESS" || YODL2MSLESS="-echo no yodl"
-
-	for ac_prog in yodl2texinfo
-do
-# Extract the first word of "$ac_prog", so it can be a program name with args.
-set dummy $ac_prog; ac_word=$2
-echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:2842: checking for $ac_word" >&5
-if eval "test \"`echo '$''{'ac_cv_prog_YODL2TEXINFO'+set}'`\" = set"; then
-  echo $ac_n "(cached) $ac_c" 1>&6
-else
-  if test -n "$YODL2TEXINFO"; then
-  ac_cv_prog_YODL2TEXINFO="$YODL2TEXINFO" # Let the user override the test.
-else
-  IFS="${IFS= 	}"; ac_save_ifs="$IFS"; IFS=":"
-  ac_dummy="$PATH"
-  for ac_dir in $ac_dummy; do
-    test -z "$ac_dir" && ac_dir=.
-    if test -f $ac_dir/$ac_word; then
-      ac_cv_prog_YODL2TEXINFO="$ac_prog"
-      break
-    fi
-  done
-  IFS="$ac_save_ifs"
-fi
-fi
-YODL2TEXINFO="$ac_cv_prog_YODL2TEXINFO"
-if test -n "$YODL2TEXINFO"; then
-  echo "$ac_t""$YODL2TEXINFO" 1>&6
-else
-  echo "$ac_t""no" 1>&6
-fi
-
-test -n "$YODL2TEXINFO" && break
-done
-test -n "$YODL2TEXINFO" || YODL2TEXINFO="-echo no yodl"
-
-	for ac_prog in yodl2txt
-do
-# Extract the first word of "$ac_prog", so it can be a program name with args.
-set dummy $ac_prog; ac_word=$2
-echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:2877: checking for $ac_word" >&5
-if eval "test \"`echo '$''{'ac_cv_prog_YODL2TXT'+set}'`\" = set"; then
-  echo $ac_n "(cached) $ac_c" 1>&6
-else
-  if test -n "$YODL2TXT"; then
-  ac_cv_prog_YODL2TXT="$YODL2TXT" # Let the user override the test.
-else
-  IFS="${IFS= 	}"; ac_save_ifs="$IFS"; IFS=":"
-  ac_dummy="$PATH"
-  for ac_dir in $ac_dummy; do
-    test -z "$ac_dir" && ac_dir=.
-    if test -f $ac_dir/$ac_word; then
-      ac_cv_prog_YODL2TXT="$ac_prog"
-      break
-    fi
-  done
-  IFS="$ac_save_ifs"
-fi
-fi
-YODL2TXT="$ac_cv_prog_YODL2TXT"
-if test -n "$YODL2TXT"; then
-  echo "$ac_t""$YODL2TXT" 1>&6
-else
-  echo "$ac_t""no" 1>&6
-fi
-
-test -n "$YODL2TXT" && break
-done
-test -n "$YODL2TXT" || YODL2TXT="-echo no yodl"
-
-	YODL2LESS_DIR='$(bindir)/'
-    else
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	export STRIPROFF YODL YODL2HTML YODL2LATEX YODL2MAN YODL2MSLESS YODL2TEXINFO YODL2TXT
-    fi
-    if test "x$YODL" = "-echo no yodl"; then
-	
-    echo "configure: warning: Did not find YODL (Yodl is Yet Oneother Document Language, see http://www.cs.uu.nl/~hanwen/yodl)" 1>&2
-    warn_b=yes
-
-    fi    
-
-
     
 ## The GUILE_FLAGS macro.
   ## First, let's just see if we can find Guile at all.
   echo $ac_n "checking for Guile""... $ac_c" 1>&6
-echo "configure:2932: checking for Guile" >&5
+echo "configure:2631: checking for Guile" >&5
   guile-config link > /dev/null || {
     echo "configure: cannot find guile-config; is Guile installed?" 1>&2
     exit 1
@@ -2949,7 +2648,7 @@ echo "configure:2932: checking for Guile" >&5
 
 
 echo $ac_n "checking for 8-bit clean memcmp""... $ac_c" 1>&6
-echo "configure:2953: checking for 8-bit clean memcmp" >&5
+echo "configure:2652: checking for 8-bit clean memcmp" >&5
 if eval "test \"`echo '$''{'ac_cv_func_memcmp_clean'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -2957,7 +2656,7 @@ else
   ac_cv_func_memcmp_clean=no
 else
   cat > conftest.$ac_ext <<EOF
-#line 2961 "configure"
+#line 2660 "configure"
 #include "confdefs.h"
 #ifdef __cplusplus
 extern "C" void exit(int);
@@ -2970,7 +2669,7 @@ main()
 }
 
 EOF
-if { (eval echo configure:2974: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+if { (eval echo configure:2673: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
 then
   ac_cv_func_memcmp_clean=yes
 else
@@ -2988,12 +2687,12 @@ echo "$ac_t""$ac_cv_func_memcmp_clean" 1>&6
 test $ac_cv_func_memcmp_clean = no && LIBOBJS="$LIBOBJS memcmp.${ac_objext}"
 
 echo $ac_n "checking for vprintf""... $ac_c" 1>&6
-echo "configure:2992: checking for vprintf" >&5
+echo "configure:2691: checking for vprintf" >&5
 if eval "test \"`echo '$''{'ac_cv_func_vprintf'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
-#line 2997 "configure"
+#line 2696 "configure"
 #include "confdefs.h"
 /* System header to define __stub macros and hopefully few prototypes,
     which can conflict with char vprintf(); below.  */
@@ -3019,7 +2718,7 @@ vprintf();
 
 ; return 0; }
 EOF
-if { (eval echo configure:3023: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+if { (eval echo configure:2722: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
   rm -rf conftest*
   eval "ac_cv_func_vprintf=yes"
 else
@@ -3043,12 +2742,12 @@ fi
 
 if test "$ac_cv_func_vprintf" != yes; then
 echo $ac_n "checking for _doprnt""... $ac_c" 1>&6
-echo "configure:3047: checking for _doprnt" >&5
+echo "configure:2746: checking for _doprnt" >&5
 if eval "test \"`echo '$''{'ac_cv_func__doprnt'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
-#line 3052 "configure"
+#line 2751 "configure"
 #include "confdefs.h"
 /* System header to define __stub macros and hopefully few prototypes,
     which can conflict with char _doprnt(); below.  */
@@ -3074,7 +2773,7 @@ _doprnt();
 
 ; return 0; }
 EOF
-if { (eval echo configure:3078: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+if { (eval echo configure:2777: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
   rm -rf conftest*
   eval "ac_cv_func__doprnt=yes"
 else
@@ -3101,12 +2800,12 @@ fi
 for ac_func in memmem snprintf vsnprintf gettext
 do
 echo $ac_n "checking for $ac_func""... $ac_c" 1>&6
-echo "configure:3105: checking for $ac_func" >&5
+echo "configure:2804: checking for $ac_func" >&5
 if eval "test \"`echo '$''{'ac_cv_func_$ac_func'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
-#line 3110 "configure"
+#line 2809 "configure"
 #include "confdefs.h"
 /* System header to define __stub macros and hopefully few prototypes,
     which can conflict with char $ac_func(); below.  */
@@ -3132,7 +2831,7 @@ $ac_func();
 
 ; return 0; }
 EOF
-if { (eval echo configure:3136: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+if { (eval echo configure:2835: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
   rm -rf conftest*
   eval "ac_cv_func_$ac_func=yes"
 else
@@ -3171,7 +2870,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:3175: checking for $ac_word" >&5
+echo "configure:2874: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_MAKEINFO'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -3201,14 +2900,41 @@ test -n "$MAKEINFO" && break
 done
 test -n "$MAKEINFO" || MAKEINFO="error"
 
+for ac_prog in perl
+do
+# Extract the first word of "$ac_prog", so it can be a program name with args.
+set dummy $ac_prog; ac_word=$2
+echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
+echo "configure:2909: checking for $ac_word" >&5
+if eval "test \"`echo '$''{'ac_cv_prog_PERL'+set}'`\" = set"; then
+  echo $ac_n "(cached) $ac_c" 1>&6
+else
+  if test -n "$PERL"; then
+  ac_cv_prog_PERL="$PERL" # Let the user override the test.
+else
+  IFS="${IFS= 	}"; ac_save_ifs="$IFS"; IFS=":"
+  ac_dummy="$PATH"
+  for ac_dir in $ac_dummy; do
+    test -z "$ac_dir" && ac_dir=.
+    if test -f $ac_dir/$ac_word; then
+      ac_cv_prog_PERL="$ac_prog"
+      break
+    fi
+  done
+  IFS="$ac_save_ifs"
+fi
+fi
+PERL="$ac_cv_prog_PERL"
+if test -n "$PERL"; then
+  echo "$ac_t""$PERL" 1>&6
+else
+  echo "$ac_t""no" 1>&6
+fi
 
-	result="`echo \"$YODL2TEXINFO\" | grep echo`"
-	if test "x$YODL2TEXINFO" = "xerror" -o "x$result" != "x"; then
-		
-    echo "configure: warning: can\'t find yodl. You should install Yodl 1.30.2 or newer" 1>&2
-    warn_b=yes
+test -n "$PERL" && break
+done
+test -n "$PERL" || PERL="error"
 
-	fi
 
 
 
@@ -3399,19 +3125,11 @@ s%@INIMPOST@%$INIMPOST%g
 s%@MFMODE@%$MFMODE%g
 s%@KPSEWHICH@%$KPSEWHICH%g
 s%@TEX_TFMDIR@%$TEX_TFMDIR%g
-s%@STRIPROFF@%$STRIPROFF%g
-s%@YODL@%$YODL%g
-s%@YODL2HTML@%$YODL2HTML%g
-s%@YODL2LATEX@%$YODL2LATEX%g
-s%@YODL2MAN@%$YODL2MAN%g
-s%@YODL2MSLESS@%$YODL2MSLESS%g
-s%@YODL2TEXINFO@%$YODL2TEXINFO%g
-s%@YODL2TXT@%$YODL2TXT%g
-s%@YODL2LESS_DIR@%$YODL2LESS_DIR%g
 s%@GUILE_CFLAGS@%$GUILE_CFLAGS%g
 s%@GUILE_LDFLAGS@%$GUILE_LDFLAGS%g
 s%@LIBOBJS@%$LIBOBJS%g
 s%@MAKEINFO@%$MAKEINFO%g
+s%@PERL@%$PERL%g
 
 CEOF
 EOF
