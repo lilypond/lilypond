@@ -1,3 +1,45 @@
+pl 13
+	- mutopia stuff (thanks, Peter)
+	- bugfix : \maininput
+
+*********
+
+
+pl 12
+pl 11.jcn3
+	- bf: missing triads
+	- @c @c min (* is taken, <<, <> don't work)
+	- chord-modifiers (urg, "sus" should also subtract 2...)
+
+pl 11.uu3
+	- --safe: security paranoia: disallow untrusted \include,
+disallow untrusted TeX code, disallow named output
+
+pl 11.jcn2
+	- duration with chords + change:  @4 c @c7
+
+pl 11.jcn1
+        - minor chord syntax change: *c6 iso @c6;
+
+**********
+
+pl 11
+
+pl9.tca1
+        - included that missing init/mudela-book-defs.py. Added
+          one line to init/GNUMakefile to make .py-files be included.
+        - fragment and nonfragment options to override autodetection
+
+pl 10.jcn1
+	- input/test/chords.ly
+	- \type ChordNames and chord-name-engraver.*
+	- chords mode: \chords { <c e g> @c; @d7; }
+
+pl 10.uu1
+	- scm/ directory.  install .scm stuff too.
+	- tuplet bug fixed.
+
+**********
 pl 10
 
 pl 9.jcn3
@@ -29,7 +71,7 @@ pl 9.uu1
 	- added faq entry
 	- copertina (thanks Maurizio)
 
-	
+*****************
 pl 9
 	- fixed \relative
 
