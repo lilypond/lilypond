@@ -4,7 +4,13 @@
 # Note: gettext work best if we use ' for docstrings and "
 # for gettextable strings
 
-''' TODO: --dependencies
+'''
+TODO:
+
+  * --dependencies
+
+  * dvi from lilypond .tex output?  This is hairy, because we create dvi
+    from lilypond .tex *and* header output.
 
 '''
 
@@ -97,9 +103,15 @@ def progress (s):
 	'''Make the progress messages stand out between lilypond stuff'''
 	# Why should they have to stand out?  Blend in would be nice too.
 	sys.stderr.write ('*** ' + s+ '\n')
+
+def warning (s):
+	sys.stderr.write (_ ("warning: ") + s)
+	sys.stderr.write ('\n')
 	
+		
 def error (s):
-	sys.stderr.write (s)
+	sys.stderr.write (_ ("error: ") + s)
+	sys.stderr.write ('\n')
 	raise _ ("Exiting ... ")
 
 
@@ -194,9 +206,8 @@ def help ():
 	sys.stdout.write ('\n')
 	sys.stdout.write (options_help_str (option_definitions))
 	sys.stdout.write ('\n\n')
-	sys.stdout.write (_ ("warning: "))
-	sys.stdout.write (_ ("all output is written in the CURRENT directory"))
-	sys.stdout.write ('\n\n')
+	warning (_ ("all output is written in the CURRENT directory"))
+	sys.stdout.write ('\n')
 	sys.stdout.write (_ ("Report bugs to %s") % 'bug-gnu-music@gnu.org')
 	sys.stdout.write ('\n')
 	sys.exit (0)
@@ -209,7 +220,7 @@ def setup_temp ():
 		temp_dir = tempfile.mktemp ('ly2dvi')
 		
 	try:
-		os.mkdir (temp_dir)
+		os.mkdir (temp_dir, 0777)
 	except OSError:
 		pass
 		
@@ -264,11 +275,13 @@ def set_setting (dict, key, val):
 	try:
 		val = string.atof (val)
 	except ValueError:
+		warning (_ ("invalid value: %s") % `val`)
 		pass
 
 	try:
 		dict[key].append (val)
 	except KeyError:
+		warning (_ ("no such setting: %s") % `key`)
 		dict[key] = [val]
 	
 
@@ -308,7 +321,7 @@ def find_tex_files (files, extra):
 		x = 0
 		while 1:
 			fname = os.path.basename (f)
-			fname = os.path.splitext (fname)[0]
+			fname = strip_ly_suffix (fname)
 			if x:
 				fname = fname + '-%d' % x
 
@@ -318,7 +331,9 @@ def find_tex_files (files, extra):
 			else:
 				break
 
-			x = x +1 
+			x = x + 1
+	if not x:
+		warning (_ ("no lilypond output found for %s") % `files`)
 	return tfiles
 
 def one_latex_definition (defn, first):
@@ -376,8 +391,12 @@ def global_latex_definition (tfiles, extra):
 	orientation = 'portrait'
 	if extra['orientation']:
 		orientation = extra['orientation'][0]
- 
-	s = s + '\geometry{width=%spt%s,headheight=2mm,headsep=0pt,footskip=2mm,%s}\n' % (extra['linewidth'][0], textheight, orientation)
+
+	# set sane geometry width (a4-width) for linewidth = -1.
+	linewidth = extra['linewidth'][0]
+	if linewidth < 0:
+		linewidth = 597
+	s = s + '\geometry{width=%spt%s,headheight=2mm,headsep=0pt,footskip=2mm,%s}\n' % (linewidth, textheight, orientation)
 
 	s= s + r'''
 \usepackage[latin1]{inputenc} 
@@ -542,6 +561,7 @@ if files:
 	if track_dependencies_p:
 		generate_dependency_file (depfile, dest)
 
+	os.chdir (original_dir)
 	cleanup_temp ()
 
 	# most insteresting info last

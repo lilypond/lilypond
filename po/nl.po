@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 1.3.59\n"
-"POT-Creation-Date: 2001-03-06 12:36+0100\n"
+"POT-Creation-Date: 2001-03-16 09:44+0100\n"
 "PO-Revision-Date: 2000-06-09 02:23+0200\n"
 "Last-Translator: Jan Nieuwenhuizen <janneke@gnu.org>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -20,118 +20,132 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Date: 1998-05-26 11:26:28+0200\n"
 "From:  <janneke@gnu.org>\n"
-"Xgettext-Options: --c++ --default-domain=lilypond --join --output-dir=../po "
-"--add-comments --keyword=_\n"
+"Xgettext-Options: --c++ --default-domain=lilypond --join --output-dir=../po --add-comments --keyword=_\n"
 "Files: bow.cc int.cc\n"
 
-#: ly2dvi.py:67 main.cc:95 main.cc:109
+#: ly2dvi.py:74 main.cc:95 main.cc:109
 msgid "this help"
 msgstr "deze hulp"
 
-#: ly2dvi.py:68
+#: ly2dvi.py:75
 msgid "change global setting KEY to VAL"
 msgstr "verander globale instelling SLEUTEL in WAARDE"
 
-#: ly2dvi.py:69
+#: ly2dvi.py:76
 msgid "generate PostScript output"
 msgstr "genereer PostScipt uitvoer"
 
-#: ly2dvi.py:70
+#: ly2dvi.py:77
 msgid "keep all output, and name the directory ly2dvi.dir"
 msgstr "bewaar alle uitvoer, en noem de directory ly2dvi.dir"
 
-#: ly2dvi.py:71
+#: ly2dvi.py:78
 msgid "don't run LilyPond"
 msgstr "draai LilyPond niet"
 
-#: ly2dvi.py:72 main.cc:104 main.cc:119
+#: ly2dvi.py:79 main.cc:104 main.cc:119
 msgid "print version number"
 msgstr "druk versienummer af"
 
-#: ly2dvi.py:73 main.cc:106 main.cc:121
+#: ly2dvi.py:80 main.cc:106 main.cc:121
 msgid "show warranty and copyright"
 msgstr "toon garantie en auteursrechten"
 
-#: ly2dvi.py:74
+#: ly2dvi.py:81
 msgid "dump all final output into DIR"
 msgstr "dump alle uiteindelijke uivoer in DIR"
 
-#: ly2dvi.py:75 main.cc:113
+#: ly2dvi.py:82 main.cc:113
 msgid "write Makefile dependencies for every input file"
 msgstr "schrijf Makefile afhankelijkheden voor elk invoerbestand"
 
-#: ly2dvi.py:101
+#: data-file.cc:118 input.cc:85 ly2dvi.py:108 midi-parser.cc:100 warn.cc:23
+msgid "warning: "
+msgstr "waarschuwing: "
+
+#: input.cc:90 ly2dvi.py:113 ly2dvi.py:247 warn.cc:9 warn.cc:17
+msgid "error: "
+msgstr "fout: "
+
+#: ly2dvi.py:115
 msgid "Exiting ... "
 msgstr "Beëidigen ..."
 
-#: ly2dvi.py:120
+#: ly2dvi.py:134
 #, c-format
 msgid "Reading `%s'"
 msgstr "Inlezen `%s'"
 
-#: ly2dvi.py:124 mapped-file-storage.cc:87 mudela-stream.cc:111
+#: ly2dvi.py:138 mapped-file-storage.cc:87 mudela-stream.cc:111
 #: paper-stream.cc:40 scores.cc:48 simple-file-storage.cc:44 text-stream.cc:23
 #, c-format
 msgid "can't open file: `%s'"
 msgstr "kan bestand niet openen: `%s'"
 
-#: ly2dvi.py:187
+#: ly2dvi.py:201
 #, c-format
 msgid "Usage: %s [OPTION]... FILE"
 msgstr "Gebruik: %s [OPTIE]... BESTAND"
 
-#: ly2dvi.py:189
+#: ly2dvi.py:203
 msgid "Generate .dvi with LaTeX for LilyPond"
 msgstr "Genereer .dvi met LaTeX voor LilyPond"
 
-#: ly2dvi.py:191 main.cc:119 main.cc:151
+#: ly2dvi.py:205 main.cc:119 main.cc:151
 msgid "Options:"
 msgstr "Opties:"
 
-#: data-file.cc:118 input.cc:85 ly2dvi.py:195 midi-parser.cc:100 warn.cc:23
-msgid "warning: "
-msgstr "waarschuwing: "
-
-#: ly2dvi.py:196
+#: ly2dvi.py:209
 msgid "all output is written in the CURRENT directory"
 msgstr "alle uitvoer wordt naar HUIDIGE directory geschreven"
 
-#: ly2dvi.py:198 main.cc:123 main.cc:174
+#: ly2dvi.py:211 main.cc:123 main.cc:174
 #, c-format
 msgid "Report bugs to %s"
 msgstr ""
 "Meld luizen in het programma aan %s;\n"
 "meld onjuistheden in de vertaling aan <janneke@gnu.org> of <hanwen@cs.uu.nl>"
 
-#: ly2dvi.py:230
+#: ly2dvi.py:243
 #, c-format
 msgid "Invoking `%s'"
 msgstr "Uitvoeren `%s'"
 
-#: input.cc:90 ly2dvi.py:234 warn.cc:9 warn.cc:17
-msgid "error: "
-msgstr "fout: "
-
-#: ly2dvi.py:234
+#: ly2dvi.py:247
 #, c-format
 msgid "command exited with value %d"
 msgstr "opdracht eindigde met waarde %d"
 
-#: ly2dvi.py:236
+#: ly2dvi.py:249
 msgid "(ignored)"
 msgstr "(genegeerd)"
 
-#: ly2dvi.py:277
+#: ly2dvi.py:278
+#, c-format
+msgid "invalid value: %s"
+msgstr "ongeldige waarde: %s"
+
+#: ly2dvi.py:284
+#, c-format
+msgid "no such setting: %s"
+msgstr "geen dergelijke instelling: %s"
+
+#: ly2dvi.py:292
 #, c-format
 msgid "Analyzing `%s'"
 msgstr "Analyseren `%s'"
 
-#: ly2dvi.py:539 scores.cc:44
+#: ly2dvi.py:336
+#, c-format
+msgid "no lilypond output found for %s"
+msgstr "geen lilypond uitvoer gevonden voor %s"
+
+#: ly2dvi.py:568 scores.cc:44
 #, c-format
 msgid "dependencies output to %s..."
 msgstr "afhankelijkheden uitvoer naar %s..."
 
-#: ly2dvi.py:540
+#: ly2dvi.py:569
 #, c-format
 msgid "%s file left in `%s'"
 msgstr "%s bestand achtergelaten in `%s'"
@@ -320,7 +334,7 @@ msgstr "ongeldige aftrek: maakt geen deel uit van accoord: %s"
 msgid "invalid inversion pitch: not part of chord: %s"
 msgstr "ongeldige inversie toon: geen onderdeel van accoord: %s"
 
-#: chord-tremolo-engraver.cc:141
+#: chord-tremolo-engraver.cc:141 percent-repeat-engraver.cc:162
 msgid "unterminated chord tremolo"
 msgstr "onbeëindigd akkoordtremolo"
 
@@ -328,7 +342,7 @@ msgstr "onbeëindigd akkoordtremolo"
 msgid "no one to print a tremolos"
 msgstr "niemand om tremolos af te drukken"
 
-#: collision.cc:116
+#: collision.cc:118
 msgid "Too many clashing notecolumns.  Ignoring them."
 msgstr "Te veel botsende nootkolommen.  Negeer ze."
 
@@ -356,7 +370,7 @@ msgstr "heb al een crescendo"
 msgid "already have a decrescendo"
 msgstr "heb al een decrescendo"
 
-#: dynamic-engraver.cc:307
+#: dynamic-engraver.cc:315
 msgid "unterminated (de)crescendo"
 msgstr "onbeëindigd (de)crescendo"
 
@@ -602,17 +616,21 @@ msgstr "rare toonhoogte"
 msgid "Transposition by %s makes accidental larger than two"
 msgstr "Transponering van %s geeft tripel kruizen/mollen"
 
-#: music.cc:222
+#: music.cc:226
 msgid "ly_get_mus_property (): Not a Music"
 msgstr "ly_get_mus_property (): Geen Muziek"
 
-#: music.cc:236
+#: music.cc:240
 msgid "ly_set_mus_property (): Not a symbol"
 msgstr "ly_set_mus_property (): Geen symbool"
 
-#: music.cc:248
+#: music.cc:252
 msgid "ly_set_mus_property ():  not of type Music"
 msgstr "ly_set_mus_property ():  niet van type Muziek"
+
+#: music.cc:266
+msgid "ly_make_music (): Not a string"
+msgstr "ly_make_music (): Geen string"
 
 #: music-output-def.cc:115
 #, c-format
@@ -633,7 +651,7 @@ msgstr "fout bij EOF: %s"
 msgid "Parsing..."
 msgstr "Ontleden..."
 
-#: my-lily-parser.cc:55
+#: my-lily-parser.cc:57
 msgid "Braces don't match"
 msgstr "Haakjes paren niet"
 
@@ -660,7 +678,7 @@ msgstr "Schijven van kop veld %s naar bestand %s..."
 msgid "Preprocessing elements..."
 msgstr "Voorbewerken van elementen..."
 
-#: paper-score.cc:113
+#: paper-score.cc:114
 msgid "Outputting Score, defined at: "
 msgstr "Uitvoer van Score, gedefinieerd op: "
 
@@ -688,6 +706,14 @@ msgstr "Ben er zelf een: `%s'"
 #, c-format
 msgid "none of these in my family: `%s'"
 msgstr "geen van deze in mijn gezin: `%s'"
+
+#: percent-repeat-engraver.cc:108
+msgid "Don't know yet how to handle this percent repeat."
+msgstr "Weet nog niet hoe deze procent herhaling af te handelen."
+
+#: percent-repeat-iterator.cc:53
+msgid "no one to print a percent"
+msgstr "niemand om een procent herhaling af te drukken"
 
 #: performance.cc:51
 msgid "Track ... "
@@ -765,7 +791,7 @@ msgstr "Fouten gevonden, /*verwerk partituur niet */"
 msgid "elapsed time: %.2f seconds"
 msgstr "duur: %.2f seconden"
 
-#: score-engraver.cc:177
+#: score-engraver.cc:183
 #, c-format
 msgid "unbound spanner `%s'"
 msgstr "ongebonden spanner `%s'"
@@ -801,7 +827,9 @@ msgstr "Boogje over rust?"
 msgid "unterminated slur"
 msgstr "onbeëindigde bindingsboog"
 
-#: slur-engraver.cc:142
+#. How to shut up this warning, when Voice_devnull_engraver has
+#. eaten start request?
+#: slur-engraver.cc:144
 msgid "can't find start of slur"
 msgstr "kan start van bindingsboog niet vinden"
 
@@ -835,22 +863,24 @@ msgstr "onbeëindigde tekst spanner"
 msgid "can't find ascii character: %d"
 msgstr "kan ascii teken niet vinden: %d"
 
-#: tfm-reader.cc:105
+#: tfm-reader.cc:106
 #, c-format
-msgid "TFM header of `%s' has only %u word(s)"
+msgid "TFM header of `%s' has only %u word (s)"
 msgstr "TFM kop van `%s' heeft slechts %u woord(en)"
 
-#: tfm-reader.cc:139
+#: tfm-reader.cc:140
 #, c-format
 msgid "%s: TFM file has %u parameters, which is more than the %u I can handle"
 msgstr ""
 "%s: TFM bestand heeft %u parameters, wat meer is dan de %u die ik aan kan"
 
-#: tie-engraver.cc:211 tie-performer.cc:173
+#. How to shut up this warning, when no notes appeared because
+#. they were suicided by Thread_devnull_engraver?
+#: tie-engraver.cc:213 tie-performer.cc:173
 msgid "No ties were created!"
 msgstr "Geen overbindingen geschapen!"
 
-#: tie-engraver.cc:230
+#: tie-engraver.cc:232
 msgid "lonely tie"
 msgstr "eenzame overbinding"
 
@@ -931,28 +961,28 @@ msgstr "Heb ook al een gestopte spanner.   Geef op."
 msgid "Oldest supported input version: %s"
 msgstr "Oudst ondersteunde invoerversie: %s"
 
-#: parser.yy:471
+#: parser.yy:472
 msgid "Wrong type for property value"
 msgstr "Verkeerd type voor property waarde"
 
-#: parser.yy:666
+#: parser.yy:667
 msgid "More alternatives than repeats.  Junking excess alternatives."
 msgstr ""
 "Meer alternatieven dan herhalingen.  Schroot overvloedige alternatieven."
 
-#: parser.yy:730
+#: parser.yy:731
 msgid "Second argument must be a symbol"
 msgstr "Tweede argument moet een symbool zijn"
 
-#: parser.yy:735
+#: parser.yy:736
 msgid "First argument must be a procedure taking 1 argument"
 msgstr "Eerste argument moet een procedure zijn met 1 argument"
 
-#: parser.yy:1211
+#: parser.yy:1212
 msgid "Expecting string as script definition"
 msgstr "Verwacht string voor script definitie"
 
-#: parser.yy:1221
+#: parser.yy:1222
 msgid "Can't specify direction for this request"
 msgstr "Kan richting voor dit verzoek niet specificeren"
 
@@ -989,53 +1019,53 @@ msgstr "heb integer getal arg nogig"
 msgid "Must be positive integer"
 msgstr "Moet positieve integer zijn"
 
-#: lexer.ll:165
+#: lexer.ll:166
 msgid "EOF found inside a comment"
 msgstr "EOF gevonden in een kommentaar"
 
-#: lexer.ll:179
+#: lexer.ll:180
 msgid "\\maininput disallowed outside init files"
 msgstr "\\maininput niet toegestaan buiten init bestanden"
 
-#: lexer.ll:203
+#: lexer.ll:204
 #, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr "verkeerde of ongedefiniëerde identifier: `%s'"
 
 #. backup rule
-#: lexer.ll:208
+#: lexer.ll:209
 msgid "Missing end quote"
 msgstr "Aanhalingsteken sluiten mist"
 
 #. backup rule
-#: lexer.ll:230 lexer.ll:234
+#: lexer.ll:231 lexer.ll:235
 msgid "white expected"
 msgstr "wit verwacht"
 
-#: lexer.ll:243
+#: lexer.ll:244
 msgid "Can't evaluate Scheme in safe mode"
 msgstr "Kan Scheme niet evalueren in veilige modus"
 
-#: lexer.ll:335
+#: lexer.ll:336
 msgid "Brace found at end of lyric. Did you forget a space?"
 msgstr "Accolade gevonden aan het eind van liedtektst.  Een spatie vergeten?"
 
-#: lexer.ll:439
+#: lexer.ll:440
 #, c-format
 msgid "invalid character: `%c'"
 msgstr "ongeldig teken: `%c'"
 
-#: lexer.ll:520
+#: lexer.ll:521
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr "onbekende ontsnapte string: `\\%s'"
 
-#: lexer.ll:602
+#: lexer.ll:603
 #, c-format
 msgid "incorrect lilypond version: %s (%s, %s)"
 msgstr "verkeerde lilypond versie: %s (%s, %s)"
 
-#: lexer.ll:603
+#: lexer.ll:604
 msgid "Consider converting the input with the convert-ly script"
 msgstr "Overweeg de invoer te converteren met het convert-ly script"
 
