@@ -553,18 +553,27 @@ L1 is copied, L2 not.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
 
 (define-public (postscript->pdf papersize name)
+  (let*
+      ((cmd  (string-append "ps2pdf -sPAPERSIZE=" papersize
+			 " "
+			 name))
+       (output-name (regexp-substitute/global #f "\\.ps" name 'pre ".pdf" 'post)))
+    
+
   (display
    (string-append
-    "Converting to "
-    (regexp-substitute/global #f "\\.ps" name 'pre ".pdf" 'post)
-    "\n"))
-  (system (string-append "ps2pdf -sPAPERSIZE=" papersize
-			 " "
-			 name)))
+    "Converting to " output-name    "\n"))
+
+  (if (ly:get-option 'verbose)
+      (display (format "Invoking ~S" cmd)))
+  
+  (system cmd)))
+
 
 
 (define-public (postscript->png resolution name)
-  (system (string-append
+  (let
+      ((cmd (string-append
 	   "ps2png --resolution="
 	   (if (number? resolution)
 	       (number->string resolution)
@@ -573,6 +582,9 @@ L1 is copied, L2 not.
 	       "--verbose "
 	       " ")
 	   name)))
+    (if (ly:get-option 'verbose)
+	(display (format "Invoking `~S'\n" cmd)))
+    (system cmd)))
 
 (define-public (lilypond-main files)
   "Entry point for LilyPond."
