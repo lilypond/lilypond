@@ -307,8 +307,9 @@ For example
 sets indentation of the first music system to zero.  This option
 affects LilyPond, not the text layout.
 
-@item notexidoc
-prevents including @code{texidoc}. This is only for Texinfo output.
+@item texidoc
+Includes the @code{texidoc} field, if defined in the file. This is
+only for Texinfo output.
 
 In Texinfo, the music fragment is normally preceded by the
 @code{texidoc} field from the @code{\header}. The LilyPond test

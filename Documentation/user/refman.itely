@@ -8703,7 +8703,7 @@ Since slurs are not interpreted, @code{\lyricsto} and
 
 The MIDI output allocates a channel for each Staff, and one for global
 settings.  Hence, the MIDI file should not have more than 15 staves
-(or 14 if you do not use drums). 
+(or 14 if you do not use drums).
 
 
 @menu
