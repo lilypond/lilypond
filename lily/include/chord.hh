@@ -33,7 +33,7 @@ public:
   static SCM add_above_tonic (SCM pitch, SCM pitches);
   static SCM add_below_tonic (SCM pitch, SCM pitches);
   static SCM tonic_add_sub_to_pitches (SCM tonic, SCM add, SCM sub);
-  static Simultaneous_music *get_chord (SCM tonic, SCM add, SCM sub, SCM inversion, SCM bass, SCM dur);
+  static Music *get_chord (SCM tonic, SCM add, SCM sub, SCM inversion, SCM bass, SCM dur);
 };
 
 #endif /* CHORD_HH */

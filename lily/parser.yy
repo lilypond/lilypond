@@ -94,24 +94,8 @@ set_music_properties (Music *p, SCM a)
 }
 
 
-SCM make_music_proc;
 
-Music*
-parser_make_music (SCM sym)
-{
-	if (!make_music_proc)
-		make_music_proc = scm_primitive_eval (ly_symbol2scm ("make-music-by-name"));
-	
-	SCM rv = scm_call_1 (make_music_proc, sym);
-
-	/*
-	UGH.
-	*/
-	scm_gc_protect_object (rv);
-	return unsmob_music (rv);
-}
-
-#define MY_MAKE_MUSIC(x)  parser_make_music (ly_symbol2scm (x))
+#define MY_MAKE_MUSIC(x)  make_music_by_name (ly_symbol2scm (x))
 
 Music* 
 set_property_music (SCM sym, SCM value)
@@ -156,7 +140,6 @@ of the parse stack onto the heap. */
     Scheme_hash_table *scmhash;
     Music_output_def * outputdef;
     SCM scm;
-    Tempo_req *tempo;
     int i;
 }
 %{
@@ -325,7 +308,7 @@ yylex (YYSTYPE *s,  void * v)
 %type <score>	score_block score_body
 
 %type <scm>	translator_spec_block translator_spec_body
-%type <tempo> 	tempo_request
+%type <music> 	tempo_request
 %type <scm> notenames_body notenames_block chordmodifiers_block
 %type <scm>	script_abbreviation
 
@@ -830,7 +813,7 @@ Simple_music:
 
 Composite_music:
 	CONTEXT STRING Music	{
-	Music*csm =TYPED_MAKE_MUSIC("ContextSpeccedMusic");
+		Music*csm =MY_MAKE_MUSIC("ContextSpeccedMusic");
 
 		csm->set_mus_property ("element", $3->self_scm ());
 		scm_gc_unprotect_object ($3->self_scm ());
@@ -1994,7 +1977,7 @@ simple_element:
 		$$= velt;
 	}
 	| chord {
-		Input i = THIS->pop_spot ();
+		THIS->pop_spot ();
 
 		if (!THIS->lexer_->chord_state_b ())
 			THIS->parser_error (_ ("Have to be in Chord mode for chords"));
