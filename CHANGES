@@ -1,3 +1,50 @@
+1.3.148.jcn3
+============
+
+* Added titling and page wrapping to direct PostScript output.
+Determining the line height still doesn't work, but you can set
+lineheight in paper block.
+
+* Bugfix: lilypond -o - foo.ly.
+
+* Took a stab at jazz-style chord name additions.
+
+* Compile fixes: gcc-3.0 snapshots hit Debian unstable.  Note that
+flex-2.5.4a-11 still breaks with g++-3.0pre.
+
+* Chord-name cleanups.
+
+* Markup text:
+- added (extent . (min . max))
+- overstrike, as alias for (extent . (0 . 0))
+- added overstrike property to super and sub
+- allow text to be in too deep list, ie: #'((("text"))) still works
+- allow HEAD to be in too deep list, ie: #'(((bold)) "foo")
+- fixes to raise
+- renamed (rows to (columns (Thanks Mats; I must have been asleep
+when I wrote that code)
+- renamed align to axis
+
+* Fixes for german-chords.ly (Rune).
+
+* update-lily: use ftplib, notify upon failure, not success.
+
+* Oops, I did it again (Han-Wen).
+
+1.3.148.hwn2
+============
+
+* Documentation updates.
+
+* Bugfix: header/footer for ly2dvi.
+
+* Fixed: ly2dvi file1.ly file2.ly
+
+* lilypond-bug bugfix: remove .png file if output fails.
+
+1.3.148
+=======
+
 1.3.147.jcn2
 ============
 
@@ -17,7 +64,6 @@ seems that these are no longer necessary; disabled by default.
 ============
 
 * Glossary and refman fixes
-
 
 1.3.147.lec1
 ============
