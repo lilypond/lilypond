@@ -366,59 +366,11 @@ ScoreContext = \translator {
 	splitInterval = #'(0 . 1)
 	changeMoment = #`(,(make-moment 0 0) . ,(make-moment 1 512))
 
-	defaultClef = #"treble"
-
 	StaffMinimumVerticalExtent = #(cons -4.0 4.0)
 
 	barAuto = ##t
 	voltaVisibility = ##t
 	%  name, glyph id, clef position 
-	supportedClefTypes = #'(
-	  ("treble" . ("clefs-G" -2))
-	  ("violin" . ("clefs-G" -2))
-	  ("G" . ("clefs-G" -2))
-	  ("G2" . ("clefs-G" -2))
-	  ("french" . ("clefs-G" -4 ))
-	  ("soprano" . ("clefs-C" -4 ))
-	  ("mezzosoprano" . ("clefs-C" -2 ))
-	  ("alto" . ("clefs-C" 0 ))
-	  ("tenor" . ("clefs-C" 2 ))
-	  ("baritone" . ("clefs-C" 4 ))
-	  ("varbaritone"  . ("clefs-F" 0))
-	  ("bass" . ("clefs-F" 2 ))
-	  ("F" . ( "clefs-F" 2))
-	  ("subbass" . ("clefs-F" 4))
-	  ("vaticana_do1" . ("clefs-vaticana_do" -1))
-	  ("vaticana_do2" . ("clefs-vaticana_do" 1))
-	  ("vaticana_do3" . ("clefs-vaticana_do" 3))
-	  ("vaticana_fa1" . ("clefs-vaticana_fa" -1))
-	  ("vaticana_fa2" . ("clefs-vaticana_fa" 1))
-	  ("medicaea_do1" . ("clefs-medicaea_do" -1))
-	  ("medicaea_do2" . ("clefs-medicaea_do" 1))
-	  ("medicaea_do3" . ("clefs-medicaea_do" 3))
-	  ("medicaea_fa1" . ("clefs-medicaea_fa" -1))
-	  ("medicaea_fa2" . ("clefs-medicaea_fa" 1))
-	  ("hufnagel_do1" . ("clefs-hufnagel_do" -1))
-	  ("hufnagel_do2" . ("clefs-hufnagel_do" 1))
-	  ("hufnagel_do3" . ("clefs-hufnagel_do" 3))
-	  ("hufnagel_fa1" . ("clefs-hufnagel_fa" -1))
-	  ("hufnagel_fa2" . ("clefs-hufnagel_fa" 1))
-	  ("hufnagel" . ("clefs-hufnagel_do_fa" 4))
-	  ("mensural1_c1" . ("clefs-mensural1_c" -4))
-	  ("mensural1_c2" . ("clefs-mensural1_c" -2))
-	  ("mensural1_c3" . ("clefs-mensural1_c" 0))
-	  ("mensural1_c4" . ("clefs-mensural1_c" 2))
-	  ("mensural2_c1" . ("clefs-mensural2_c" -4))
-	  ("mensural2_c2" . ("clefs-mensural2_c" -2))
-	  ("mensural2_c3" . ("clefs-mensural2_c" 0))
-	  ("mensural2_c4" . ("clefs-mensural2_c" 2))
-	  ("mensural2_c5" . ("clefs-mensural2_c" 4))
-	  ("mensural3_c1" . ("clefs-mensural3_c" -2))
-	  ("mensural3_c2" . ("clefs-mensural3_c" 0))
-	  ("mensural3_c3" . ("clefs-mensural3_c" 2))
-	  ("mensural3_c4" . ("clefs-mensural3_c" 4))
-	  ("mensural_f" . ("clefs-mensural_f" 2))
-	)
 	% where is c0 in this clef?
 	clefPitches = #'(("clefs-G" . -4)
 	  ("clefs-C" . 0)
@@ -435,9 +387,11 @@ ScoreContext = \translator {
 	  ("clefs-mensural3_c" . 0)
 	  ("clefs-mensural_f" . 0))
 
+	clefGlyph = #"clefs-G"
+	clefPosition = #-2
+
         automaticPhrasing = ##t;
 	alignmentReference = \down;
-	defaultClef = #"treble"
 	defaultBarType = #"|"
 
 	explicitClefVisibility = #all-visible

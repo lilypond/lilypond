@@ -14,12 +14,15 @@
 
 class Context_specced_music : public Music_wrapper
 {
-public:
+
+/*
   /// The kind of translation needed for this music.  
   String translator_type_str_;
 
   /// what identification for the translation unit
   String translator_id_str_;
+*/
+public:  
   Context_specced_music (Music*);
   VIRTUAL_COPY_CONS(Music);
 

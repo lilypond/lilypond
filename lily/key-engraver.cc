@@ -150,7 +150,7 @@ void
 Key_engraver::read_req (Key_change_req const * r)
 {
   SCM p = r->get_mus_property ("pitch-alist");
-  if (p == SCM_UNDEFINED)
+  if (!gh_pair_p (p))
     return;
 
   SCM n = scm_list_copy (p);

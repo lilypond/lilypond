@@ -1,5 +1,25 @@
-1.3.104.jcn3
+1.3.105.jcn1
 ============
+
+* Makeinfo html documentation generation fixes.
+
+1.3.105.uu1
+===========
+
+* Remove Bar_req, \bar is now a frontend to setting Score.whichBar
+
+* Move Context_specced_music::translator_{type,id}_str_ into music
+properties.
+
+* Don't make line breaks during note playing.
+
+* Clef engraver rewrite. Clef-engraver is now controlled through
+properties clefPosition, clefGlyph, clefOctavation. The \clef command
+is just a front-end to these, see scm/lily.scm, function
+clef-name-to-properties.  See also input/test/manual-clef.ly
+
+1.3.105
+=======
 
 * Bit of temporary makefile hacking to stay in sync with makeinfo patch.
 
@@ -213,7 +233,7 @@ input/test/instrument-name-grandstaff.ly
 
 * Moved Text_script_req's text_ member into mus-property.
 
-* Renamed ChordName to ChordNames, for consistancy.
+* Renamed ChordName to ChordNames, for consistency.
 
 * Resurrected most of chord names, superscripting and kerning
   is currently broken, though.
@@ -362,7 +382,6 @@ dynamicAbsoluteVolumeFunction
 Break_align_item::space-alist, Chord_name::chord-name-function
 
 * Added \property combineParts: part combiner switched off by default.
-
 
 * Remove all print methods.
 

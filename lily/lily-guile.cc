@@ -390,11 +390,6 @@ wave_sweep_goodbye (void *dummy1, void *dummy2, void *dummy3)
 }
 #endif
 
-SCM
-undefd ()
-{
-  return SCM_UNDEFINED;
-}
 
 #include "version.hh"
 SCM
@@ -413,7 +408,7 @@ init_functions ()
   scm_make_gsubr ("ly-version", 0, 0, 0, (Scheme_function_unknown)ly_warning);  
   scm_make_gsubr ("ly-gulp-file", 1,0, 0, (Scheme_function_unknown)ly_gulp_file);
   scm_make_gsubr ("dir?", 1,0, 0, (Scheme_function_unknown)ly_isdir_p);
-  scm_make_gsubr ("undefd", 0,0, 0, (Scheme_function_unknown)undefd);  
+
   scm_make_gsubr ("ly-number->string", 1, 0,0, (Scheme_function_unknown) ly_number2string);
 
 

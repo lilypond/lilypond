@@ -302,6 +302,7 @@
 		(Y-offset-callbacks . (,Side_position::aligned_side))
 		(molecule-callback . ,Text_item::brew_molecule)
                 (font-shape . italic)
+		(font-family . roman)
 		(meta . ,(element-description "OctavateEight" text-interface font-interface ))
 	))
 	

@@ -17,6 +17,8 @@ internals: LilyPond is smaller, cleaner, more flexible, etc.
 
 * New font selection scheme similar to Latex-NFSS.
 
+* Medieval notation features: clefs, custodes
+
 * Piano pedal support, Arpeggios, Custodes
 
 * MIDI: dynamics, tempo changes
@@ -37,6 +39,8 @@ internals: LilyPond is smaller, cleaner, more flexible, etc.
 * Many bugfixes.
 
 * Finished ouverture Coriolan as full orchestral score example.
+
+* Self-documenting: generated internal documentation.
 
 * AsciiScript: ASCII-art output 
 
