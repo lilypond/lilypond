@@ -11,8 +11,11 @@
 \font\fetanumber = feta-nummer12
 \font\fetafinger = feta-nummer5
 \font\fetadyn = feta-din10 scaled \magstep 2
+\font\title = cmbx12 scaled \magstep 4
+\font\subtitle = cmr9
 
-\def\setchar#1#2{\hbox to\charwidth{\hss{#1\char#2}}}
+\def\lilyfooter{Lily was here, 1.1.0}
+\def\setchar#1#2{\hbox to\charwidth{\hss{#1\char#2}\hss}}
 
 \def\charsperline{6}
 \def\charheight{55pt}
@@ -25,12 +28,19 @@
         \loop\ifnum\n<#3
 	\advance\n by\charsperline
 	\i=0
-	\vbox to\charheight{\vss\hbox{
+	{\vbox to\charheight{\vss\centerline{
 	{\loop\ifnum\i<\charsperline
 	\advance\i by1
 	\advance\n by1
         {\setchar{#1}{\number\n}}
-	\repeat}}}\repeat}
+	\repeat}}}}\repeat}
+
+
+\centerline{\title FETA}
+
+\centerline{\subtitle (definately not an abbreviation for Font-En-Tja)}
+
+\vskip5mm
 
 \listfont{\fetatwenty}{0}{78}
 % urg
@@ -42,5 +52,7 @@
 \vskip-\charheight
 \listfont{\fetadyn}{0}{6}
 \vskip-\charheight
+
+\lilyfooter
 
 \bye

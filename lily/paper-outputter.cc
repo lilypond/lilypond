@@ -8,6 +8,7 @@
 */
 
 #include <time.h>
+#include <fstream.h>
 #include "paper-outputter.hh"
 #include "paper-stream.hh"
 #include "molecule.hh"
@@ -94,6 +95,7 @@ Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
 #ifndef NPRINT
       if (check_debug && !monitor->silent_b ("Guile"))
 	{
+	  DOUT << i->str_ << "\n";
 	  gh_display (i->lambda_); gh_newline ();
 	}
 #endif
@@ -139,10 +141,29 @@ Paper_outputter::output_scheme (SCM scm)
   // urg; temporary hack to debug scheme error #unknown
   if (String (output_global_ch) == "scm")
     {
-//      char* c = gh_scm2newstr (scm, NULL);
-//      *outstream_l_ << c << "\n";
-//      free (c);
-	gh_display (scm); gh_newline ();
+      static SCM port = 0;
+      // urg
+      if (!port)
+        {
+	  int fd = 1;
+	  ofstream * of = dynamic_cast <ofstream*> (outstream_l_->os);
+	  if (of)
+	    fd = of->rdbuf()->fd();
+	  FILE *file = fdopen (fd, "a");
+	  port = scm_standard_stream_to_port (file, "a", "");
+	  scm_display (gh_str02scm ("(load 'lily.scm)\n"), port);
+	}
+#if 0
+      *outstream_l_ << "(display ((eval ";
+      scm_write (scm, port);
+      *outstream_l_ << ") 'tex))\n";
+#else
+      scm_display (gh_str02scm ("(display ((eval "), port);
+      scm_write (scm, port);
+      scm_display (gh_str02scm (") 'tex))\n"), port);
+      scm_newline (port);
+      scm_fflush (port);
+#endif
       return;
     }
   SCM str_scm = gh_call1 (ly_eval (scm), gh_eval_str (o.ch_l ()));

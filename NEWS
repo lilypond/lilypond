@@ -1,3 +1,10 @@
+pl 0.jcn4
+	-set:
+	   export GUILE_LOAD_PATH=$HOME/usr/src/lilypond/init
+	- dstream: Score_element, Column_info
+	- -fscm debug hack: lilypond -fscm a; guile a.scm > a.tex; tex a
+	- init/lily.scm
+
 pl 0.uu5
 	- fixed MIDI output.
 

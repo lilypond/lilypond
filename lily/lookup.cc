@@ -56,7 +56,8 @@ Lookup::~Lookup ()
 Atom
 Lookup::accidental (int j) const
 {
-  return afm_find (String ("accidentals") + String ("-") + to_str (j));
+  Atom a = afm_find (String ("accidentals") + String ("-") + to_str (j));
+  return a;
 }
 
 void
@@ -87,6 +88,7 @@ Lookup::afm_find (String s) const
   Array<Real> arr;
   arr.push (m.code ());
   a.lambda_ =  (lambda_scm ("char", arr));
+  a.str_ = "afm_find: " + s;
   a.font_ = font_;
   return a;
 }
@@ -107,6 +109,7 @@ Lookup::bar (String str, Real h) const
   arr.push (h);
   Atom a = (*symtables_p_) ("bars")->lookup (str);
   a.lambda_ =  (lambda_scm (a.str_, arr));
+  a.str_ = "bar";
   a.dim_.y () = Interval (-h/2, h/2);
   a.font_ = font_;
   return a;
@@ -126,6 +129,7 @@ Lookup::beam (Real slope, Real width, Real thick) const
 
   Atom a;
   a.lambda_ =  (lambda_scm ("beam", arr));
+  a.str_ = "beam";
   a.dim_[X_AXIS] = Interval (0, width);
   a.dim_[Y_AXIS] = Interval (min_y, max_y);
   return a;
@@ -162,6 +166,7 @@ Lookup::dashed_slur (Array<Offset> controls, Real thick, Real dash) const
     gh_cons (ly_list2 (gh_double2scm (controls[0].x ()), gh_double2scm (controls[0].y ())),
     SCM_EOL))))))))))));
 
+  a.str_ = "dashed_slur";
   return a;
 }
 
@@ -189,7 +194,8 @@ Atom
 Lookup::flag (int j, Direction d) const
 {
   char c = (d == UP) ? 'u' : 'd';
-  return afm_find (String ("flags") + String ("-") + to_str (c) + to_str (j));
+  Atom a = afm_find (String ("flags") + String ("-") + to_str (c) + to_str (j));
+  return a;
 }
 
 void
@@ -212,14 +218,14 @@ Lookup::rest (int j, bool o) const
 Atom
 Lookup::rule_symbol (Real height, Real width) const
 {
-  Atom bs= (*symtables_p_) ("param")->lookup ("rule");
-  Array<Real> args;
-  args.push (height);
-  args.push (width);
-  bs.lambda_ =  (lambda_scm (bs.str_, args));
-  bs.dim_.x () = Interval (0, width);
-  bs.dim_.y () = Interval (0, height);
-  return bs;
+  Atom a = (*symtables_p_) ("param")->lookup ("rule");
+  Array<Real> arr;
+  arr.push (height);
+  arr.push (width);
+  a.lambda_ = lambda_scm (a.str_, arr);
+  a.str_ = "rule_symbol";
+  a.dim_.x () = Interval (0, width);
+  a.dim_.y () = Interval (0, height);
 }
 
 Atom
@@ -261,22 +267,22 @@ Lookup::stem (Real y1, Real y2) const
       y1 = y2;
       y2 = t;
     }
-  Atom s;
+  Atom a;
 
-  s.dim_.x () = Interval (0,0);
-  s.dim_.y () = Interval (y1,y2);
+  a.dim_.x () = Interval (0,0);
+  a.dim_.y () = Interval (y1,y2);
 
-  Array<Real> a;
+  Array<Real> arr;
 
   Real stem_width = paper_l_->get_var ("stemthickness");
-  a.push (-stem_width /2);
-  a.push (stem_width);
-  a.push (y2);
-  a.push (-y1);
+  arr.push (-stem_width /2);
+  arr.push (stem_width);
+  arr.push (y2);
+  arr.push (-y1);
 
-  s.lambda_ =  (lambda_scm ("stem", a));
-  s.font_ = font_;
-  return s;
+  a.lambda_ = lambda_scm ("stem", arr);
+  a.str_ = "stem";
+  a.font_ = font_;
 }
 
 Atom
@@ -285,29 +291,28 @@ Lookup::streepje (int type) const
   if (type > 2)
     type = 2;
 
-  return  afm_find ("balls" + String ("-") +to_str (type) + "l");
+  Atom a = afm_find ("balls" + String ("-") + to_str (type) + "l");
+  return a;
 }
 
 Atom
 Lookup::text (String style, String text) const
 {
-  Array<Scalar> a;
+  Array<Scalar> arr;
 
-  a.push (text);
-  Atom s =  (*symtables_p_) ("style")->lookup (style);
-  s.lambda_ =  (lambda_scm (s.str_, a));
-  s.font_ = font_;
-
-  return s;
+  arr.push (text);
+  Atom a =  (*symtables_p_) ("style")->lookup (style);
+  a.lambda_ = lambda_scm (a.str_, arr);
+  a.str_ = "text";
+  a.font_ = font_;
 }
 
 Atom
 Lookup::time_signature (Array<Real> a) const
 {
-  Atom s ((*symtables_p_) ("param")->lookup ("time_signature"));
-  s.lambda_ =  (lambda_scm (s.str_, a));
-
-  return s;
+  Atom a ((*symtables_p_) ("param")->lookup ("time_signature"));
+  a.lambda_ = lambda_scm (a.str_, arr);
+  a.str_ = "time_signature";
 }
 
 /*
@@ -316,8 +321,8 @@ Lookup::time_signature (Array<Real> a) const
 Atom
 Lookup::vbrace (Real &y) const
 {
-  Atom brace = (*symtables_p_) ("param")->lookup ( "brace");
-  Interval ydims = brace.dim_[Y_AXIS];
+  Atom a = (*symtables_p_) ("param")->lookup ( "brace");
+  Interval ydims = a.dim_[Y_AXIS];
   Real min_y = ydims[LEFT];
   Real max_y = ydims[RIGHT];
   Real step = 1.0 PT;
@@ -338,14 +343,13 @@ Lookup::vbrace (Real &y) const
   
   int idx = int (rint ( (y- min_y)/step)) + 1;
   
-  Array<Real> a;
-  a.push (idx);
-  brace.lambda_ =  (lambda_scm (brace.str_, a));
-  brace.dim_[Y_AXIS] = Interval (-y/2,y/2);
-
-  brace.font_ = font_;
-
-  return brace;
+  Array<Real> arr;
+  arr.push (idx);
+  a.lambda_ = lambda_scm (a.str_, arr);
+  a.str_ = "brace";
+  a.dim_[Y_AXIS] = Interval (-y/2,y/2);
+  a.font_ = font_;
+  return a;
 }
 
 Atom
@@ -378,9 +382,9 @@ Lookup::plet (Real dy , Real dx, Direction dir) const
     + String_convert::int_str ( (int)dir) +
     " draw_plet ";
 
-  Atom s;
-  s.str_ = ps;
-  return s;
+  Atom a;
+  a.str_ = ps;
+  return a;
 }
 
 Atom
@@ -408,6 +412,7 @@ Lookup::slur (Array<Offset> controls) const
     gh_cons (ly_list2 (gh_double2scm (controls[3].x ()), gh_double2scm (controls[3].y ())),
     gh_cons (ly_list2 (gh_double2scm (controls[0].x ()), gh_double2scm (controls[0].y ())),
     SCM_EOL))))))))))))));
+  a.str_ = "slur";
 
   a.dim_[X_AXIS] = Interval (0, dx);
   a.dim_[Y_AXIS] = Interval (0 <? dy,  0 >? dy);
@@ -429,6 +434,7 @@ Lookup::vbracket (Real &y) const
   Array<Real> arr;
   arr.push (y);
   a.lambda_ =  (lambda_scm ("bracket", arr));
+  a.str_ = "vbracket";
   a.dim_[Y_AXIS] = Interval (-y/2,y/2);
   a.dim_[X_AXIS] = Interval (0,4 PT);
   return a;
