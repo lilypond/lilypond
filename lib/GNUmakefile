@@ -1,4 +1,4 @@
-# mi2mu/GNUmakefile
+# lib/GNUmakefile
 #
 # This file helps maintainers to keep their Makefile.am automatically
 # up to date using GNU make features.
@@ -19,8 +19,7 @@ biltdir=.
 else
 
 #ugh
-#ugh
-biltdir=../../build/mi2mu
+biltdir=../../build/lib
 
 make-in-build: wild-check
 	exec $(MAKE) -C $(biltdir)
@@ -39,16 +38,16 @@ distclean: wild-check
 
 endif
 
-# Makefile.am.wild: mi2mu_SOURCES = $(wildcard *.cc)
-CURRENT_mi2mu_SOURCES = $(wildcard *.cc)
+# Makefile.am.wild: liblily_la_SOURCES = $(wildcard *.cc)
+CURRENT_liblily_la_SOURCES = $(wildcard *.cc)
 
-wild-check: check-mi2mu-sources
+wild-check: check-lily-la-sources
 
-check-mi2mu-sources:
-ifneq ($(mi2mu_SOURCES),$(CURRENT_mi2mu_SOURCES))
-	@echo \"$(mi2mu_SOURCES)\"
-	@echo \"$(CURRENT_mi2mu_SOURCES)\"
-	@echo  mi2mu_SOURCES changed: rerunning make-wild.
+check-lily-la-sources:
+ifneq ($(liblily_la_SOURCES),$(CURRENT_libflower_la_SOURCES))
+	@echo \"$(liblily_la_SOURCES)\"
+	@echo \"$(CURRENT_liblily_la_SOURCES)\"
+	@echo  liblily_la_SOURCES changed: rerunning make-wild.
 	@-rm -f Makefile.am
 	$(PERL) $(top_srcdir)/bin/wild-perl < Makefile.am.wild > Makefile.am
 endif

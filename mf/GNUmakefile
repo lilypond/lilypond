@@ -1,4 +1,4 @@
-# mi2mu/GNUmakefile
+# mf/GNUmakefile
 #
 # This file helps maintainers to keep their Makefile.am automatically
 # up to date using GNU make features.
@@ -20,7 +20,7 @@ else
 
 #ugh
 #ugh
-biltdir=../../build/mi2mu
+biltdir=../../build/mf
 
 make-in-build: wild-check
 	exec $(MAKE) -C $(biltdir)
@@ -40,16 +40,7 @@ distclean: wild-check
 endif
 
 # Makefile.am.wild: mi2mu_SOURCES = $(wildcard *.cc)
-CURRENT_mi2mu_SOURCES = $(wildcard *.cc)
+# CURRENT_mi2mu_SOURCES = $(wildcard *.cc)
 
-wild-check: check-mi2mu-sources
-
-check-mi2mu-sources:
-ifneq ($(mi2mu_SOURCES),$(CURRENT_mi2mu_SOURCES))
-	@echo \"$(mi2mu_SOURCES)\"
-	@echo \"$(CURRENT_mi2mu_SOURCES)\"
-	@echo  mi2mu_SOURCES changed: rerunning make-wild.
-	@-rm -f Makefile.am
-	$(PERL) $(top_srcdir)/bin/wild-perl < Makefile.am.wild > Makefile.am
-endif
+wild-check: 
 

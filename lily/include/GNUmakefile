@@ -1,4 +1,4 @@
-# mi2mu/GNUmakefile
+# lily/include/GNUmakefile
 #
 # This file helps maintainers to keep their Makefile.am automatically
 # up to date using GNU make features.
@@ -18,37 +18,24 @@ biltdir=.
 
 else
 
-#ugh
-#ugh
-biltdir=../../build/mi2mu
-
-make-in-build: wild-check
-	exec $(MAKE) -C $(biltdir)
+biltdir=../../../build/lily/include
 
 # include Makefile
 include $(biltdir)/Makefile
 
-clean: wild-check
-	exec $(MAKE) -C $(biltdir) $@
-
-dist: wild-check
-	exec $(MAKE) -C $(biltdir) $@
-
-distclean: wild-check
-	exec $(MAKE) -C $(biltdir) $@
-
 endif
 
-# Makefile.am.wild: mi2mu_SOURCES = $(wildcard *.cc)
-CURRENT_mi2mu_SOURCES = $(wildcard *.cc)
+# Makefile.am.wild: noinst_HEADERS = $(wildcard *.hh *.icc *.tcc)
+CURRENT_noinst_HEADERS = $(wildcard *.hh *.icc *.tcc)
 
-wild-check: check-mi2mu-sources
+wild-check: check-noinst-headers
 
-check-mi2mu-sources:
-ifneq ($(mi2mu_SOURCES),$(CURRENT_mi2mu_SOURCES))
-	@echo \"$(mi2mu_SOURCES)\"
-	@echo \"$(CURRENT_mi2mu_SOURCES)\"
-	@echo  mi2mu_SOURCES changed: rerunning make-wild.
+
+check-noinst-headers:
+ifneq ($(noinst_HEADERS),$(CURRENT_noinst_HEADERS))
+	@echo \"$(noinst_HEADERS)\"
+	@echo \"$(CURRENT_noinst_HEADERS)\"
+	@echo  noinst_HEADERS changed: rerunning make-wild.
 	@-rm -f Makefile.am
 	$(PERL) $(top_srcdir)/bin/wild-perl < Makefile.am.wild > Makefile.am
 endif
