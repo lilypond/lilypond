@@ -6,7 +6,7 @@
 " Version:	6.1-1
 "
 " Installed As:	vim/syntax/lilypond.vim
-" Uses Generated File:	vim/syntax/lilypond.words.vim
+" Uses Generated File:	vim/syntax/lilypond-words.vim
 "
 " For version 5.x: Clear all syntax items
 " For version 6.x: Quit when a syntax file was already loaded
@@ -19,9 +19,9 @@ endif
 " Read the LilyPond syntax match groups: 
 "   lilyKeyword, lilyReservedWord, lilyNote
 if version < 600
-  so <sfile>:p:h/lilypond.words.vim
+  so <sfile>:p:h/lilypond-words.vim
 else
-  runtime! syntax/lilypond.words.vim
+  runtime! syntax/lilypond-words.vim
   if exists("b:current_syntax")
     unlet b:current_syntax
   endif

@@ -1,7 +1,7 @@
 #!@PYTHON@
 
 # Created 01 September 2003 by Heikki Junes.
-# Generates lilypond.words.el for (X)Emacs and lilypond.words.vim for Vim.
+# Generates lilypond-words.el for (X)Emacs and lilypond-words[.vim] for Vim.
 
 import string
 import re
@@ -104,46 +104,78 @@ for name in [
     F.close()
 
 # the output file
-if sys.argv[1:] == []:
-  out_el = open('lilypond.words.el', 'w')
-  out_vim = open('lilypond.words.vim', 'w')
-else:
-  out_el = open(sys.argv[1]+'/lilypond.words.el', 'w')
-  out_vim = open(sys.argv[1]+'/lilypond.words.vim', 'w')
-   
+outdir = '.';
+suffix = ['skip','skip','skip'];
+outs  = ['','',''];
+for s in sys.argv[1:]:
+    if s == '--words':
+        suffix[0] = '';
+    if s == '--el':
+        suffix[1] = '.el';
+    if s == '--vim':
+        suffix[2] = '.vim';
+    m = re.search(r"(--dir=)(\S*)",s)
+    if m:
+        outdir = m.group(2)
+
+if '' in suffix:
+    outs[0] = open(outdir+'/lilypond-words'+suffix[0], 'w')
+if '.el' in suffix:
+    outs[1] = open(outdir+'/lilypond-words'+suffix[1], 'w')
+if '.vim' in suffix:
+    outs[2] = open(outdir+'/lilypond-words'+suffix[2], 'w')
+
 # alphabetically ordered words
 kw.sort()
 kw.reverse()
 prevline = ''
-out_vim.write('syn match lilyKeyword \"[-_^]\\?\\\\\\(');
+if '.vim' in suffix:
+  outs[2].write('syn match lilyKeyword \"[-_^]\\?\\\\\\(');
 for line in kw:
     if line != prevline:
-        out_el.write('\\\\' + line + '\n')
-	out_vim.write(line + '\\|')
+	if '' in suffix:
+    	    outs[0].write('\\\\' + line + '\n')
+        if '.el' in suffix:
+    	    outs[1].write('\\\\' + line + '\n')
+        if '.vim' in suffix:
+    	    outs[2].write(line + '\\|')
     prevline = line
-out_vim.write('n\\)\\(\\A\\|\\n\\)\"me=e-1\n')
+if '.vim' in suffix:
+    outs[2].write('n\\)\\(\\A\\|\\n\\)\"me=e-1\n')
 
 rw.sort()
 rw.reverse()
 prevline = ''
-out_vim.write('syn match lilyReservedWord \"\\(\\A\\|\\n\\)\\(');
+if '.vim' in suffix:
+    outs[2].write('syn match lilyReservedWord \"\\(\\A\\|\\n\\)\\(')
 for line in rw:
     if line != prevline:
-        out_el.write(line + '\n')
-	out_vim.write(line + '\\|')
+        if '' in suffix:
+            outs[0].write(line + '\n')
+        if '.el' in suffix:
+            outs[1].write(line + '\n')
+        if '.vim' in suffix:
+    	    outs[2].write(line + '\\|')
     prevline = line
-out_vim.write('Score\\)\\(\\A\\|\\n\\)\"ms=s+1,me=e-1\n')
+if '.vim' in suffix:
+    outs[2].write('Score\\)\\(\\A\\|\\n\\)\"ms=s+1,me=e-1\n')
 
 notes.sort()
 notes.reverse()
 prevline = ''
-out_vim.write('syn match lilyNote \"\\<\\(\\(\\(');
+if '.vim' in suffix:
+    outs[2].write('syn match lilyNote \"\\<\\(\\(\\(');
 for line in notes:
     if line != prevline:
-        out_el.write(line + '\n')
-	out_vim.write(line + '\\|')
+        if '' in suffix:
+            outs[0].write(line + '\n')
+        if '.el' in suffix:
+            outs[1].write(line + '\n')
+        if '.vim' in suffix:
+    	    outs[2].write(line + '\\|')
     prevline = line
-out_vim.write('a\\)\\([,\']\\)\\{,4}\\([?!]\\)\\?\\)\\|s\\|r\\)\\(\\(128\\|64\\|32\\|16\\|8\\|4\\|2\\|1\\|\\\\breve\\|\\\\longa\\|\\\\maxima\\)[.]\\{,8}\\)\\?\\(\\A\\|\\n\\)\"me=e-1\n')
+if '.vim' in suffix:
+    outs[2].write('a\\)\\([,\']\\)\\{,4}\\([?!]\\)\\?\\)\\|s\\|r\\)\\(\\(128\\|64\\|32\\|16\\|8\\|4\\|2\\|1\\|\\\\breve\\|\\\\longa\\|\\\\maxima\\)[.]\\{,8}\\)\\?\\(\\A\\|\\n\\)\"me=e-1\n')
 
 # the menu in lilypond-mode.el
 for line in [
@@ -169,7 +201,12 @@ for line in [
 '//transpose - % { _ } -',
 ]:
     # urg. escape char '/' is replaced with '\\' which python writes as a '\'.
-    out_el.write(string.join(string.split(line,'/'),'\\') + '\n')
+    if '.el' in suffix:
+        outs[1].write(string.join(string.split(line,'/'),'\\') + '\n')
  
-out_el.close()
-out_vim.close()
+if '' in suffix:
+    outs[0].close()
+if '.el' in suffix:
+    outs[1].close()
+if '.vim' in suffix:
+    outs[2].close()

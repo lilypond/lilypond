@@ -60,13 +60,13 @@
 Finds file lilypond-words.el from load-path."
   (let ((fn nil)
 	(lp load-path)
-	(words-file "lilypond.words.el"))
+	(words-file "lilypond-words.el"))
     (while (and (> (length lp) 0) (not fn))
       (setq fn (concat (car lp) "/" words-file))
       (if (not (file-readable-p fn)) 
 	  (progn (setq fn nil) (setq lp (cdr lp)))))
     (if (not fn)
-	(progn (message "Warning: `lilypond.words.el' not found in `load-path'. See `lilypond-init.el'.")
+	(progn (message "Warning: `lilypond-words.el' not found in `load-path'. See `lilypond-init.el'.")
 	       (sit-for 5 0)))
     fn))
 
