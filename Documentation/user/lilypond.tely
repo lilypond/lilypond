@@ -67,12 +67,13 @@ this and other documentation.
 @mbinclude dedication.itely
 
 @menu
-* Preface::                        Preface 
+* Preface::                        Preface.
 * Tutorial::                       A tutorial introduction to LilyPond.
 * Reference Manual::               Reference Manual.
+* Mutopia project::                Mutopia project.
 * Tricks::                         Features, tips and tricks.
 * Invoking LilyPond::              Operation.
-* Bug reports:: 	           Where to report bugs.
+* Bug reports::                    Where to report bugs.
 * ly2dvi::                         Generating nice output with titles.
 * convert-ly::                     Upgrading input files.
 * Conversion tools::               Converting to lilypond source format.
@@ -94,6 +95,7 @@ this and other documentation.
 @mbinclude preface.itely
 @mbinclude tutorial.itely
 @mbinclude refman.itely
+@mbinclude mutopia.itely
 @mbinclude tricks.itely
 @mbinclude internals.itely
 @mbinclude invoking.itexi

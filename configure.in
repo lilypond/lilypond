@@ -53,3 +53,12 @@ AC_PATH_PROG(PERL, perl, error)
 
 AC_STEPMAKE_END
 
+cat <<EOF
+
+Type:
+    make all       to build LilyPond
+    make install   to install LilyPond
+    make help      to see all possible targets
+
+Do not worry if ./Documentation or ./mutopia should not build.
+EOF
