@@ -23,9 +23,14 @@ public:
   Array<SCM> global_headers_;
   Link_array<Paper_def> papers_;
   Array<SCM> scores_;
+  Real height_;
+  Protected_scm copyright_;
+  Protected_scm tagline_;
 
   Paper_book ();
+  void init ();
   Link_array<Page> *get_pages ();
+  Link_array<Page> *fill_pages (Page*, int, Real);
   SCM get_scopes (int);
   Stencil* get_title (int);
   void output (String);

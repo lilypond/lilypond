@@ -1,3 +1,8 @@
+2004-03-12  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/paper-book.cc (fill_pages): New method.  Try to cramp or
+	expand pages.
+
 2004-03-12  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scm/part-combiner.scm (make-autochange-music): switch rests

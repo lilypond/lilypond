@@ -78,7 +78,7 @@ spaceTest = \markup { "two space chars" }
 
 \score {
     \context Staff \notes \relative c' {
-	\repeat unfold 30 { a b c d \break }
+	\repeat unfold 35 { a b c d \break }
 	c1
     }
 }

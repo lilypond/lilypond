@@ -16,7 +16,7 @@
   UMGH. junkme!
   
  */
-LY_DEFINE (ly_stencil_set_extent_x,"ly:stencil-set-extent!",
+LY_DEFINE (ly_stencil_set_extent_x, "ly:stencil-set-extent!",
 	   3, 0, 0, (SCM stil, SCM axis, SCM np),
 	   "Set the extent of @var{stil} "
 	   "(@var{extent} must be a pair of numbers) "
@@ -49,7 +49,7 @@ LY_DEFINE (ly_translate_stencil_axis, "ly:stencil-translate-axis",
 
 }
 
-LY_DEFINE (ly_translate_stencil,"ly:stencil-translate",
+LY_DEFINE (ly_translate_stencil, "ly:stencil-translate",
 	   2, 0, 0, (SCM stil, SCM offset),
 	   "Return a @var{stil}, "
 	   "but translated by @var{offset} (a pair of numbers).")
@@ -66,7 +66,7 @@ LY_DEFINE (ly_translate_stencil,"ly:stencil-translate",
 }
 
 LY_DEFINE (ly_stencil_get_expr, "ly:stencil-get-expr",
-	   1 , 0, 0, (SCM stil),
+	   1, 0, 0, (SCM stil),
 	   "Return the expression of @var{stil}.")
 {
   Stencil *s = unsmob_stencil (stil);
@@ -74,8 +74,8 @@ LY_DEFINE (ly_stencil_get_expr, "ly:stencil-get-expr",
   return s->get_expr ();
 }
 
-LY_DEFINE (ly_stencil_get_extent,
-	   "ly:stencil-extent", 2 , 0, 0,  (SCM stil, SCM axis),
+LY_DEFINE (ly_stencil_get_extent, "ly:stencil-extent",
+	   2, 0, 0, (SCM stil, SCM axis),
 	   "Return a pair of numbers signifying the extent of @var{stil} in "
 	   "@var{axis} direction (0 or 1 for x and y axis respectively).")
 {
@@ -87,10 +87,8 @@ LY_DEFINE (ly_stencil_get_extent,
 }
 
 LY_DEFINE (ly_stencil_moved_to_edge, "ly:stencil-moved-to-edge",
-	   4, 2, 0,  (SCM first, SCM axis, SCM direction,
-		      SCM second,
-		      SCM padding,
-		      SCM minimum),
+	   4, 2, 0, (SCM first, SCM axis, SCM direction, SCM second,
+		     SCM padding, SCM minimum),
 	   "Similar to @code{ly:stencil-combine-edge}, but returns "
 	   "@var{second} positioned to be next to @var{first}. ")
 {
@@ -171,8 +169,8 @@ LY_DEFINE (ly_stencil_combine_at_edge, "ly:stencil-combine-at-edge",
   return result.smobbed_copy ();
 }
 
-LY_DEFINE (ly_stencil_add ,
-	   "ly:stencil-add", 0, 0, 1, (SCM args),
+LY_DEFINE (ly_stencil_add , "ly:stencil-add",
+	   0, 0, 1, (SCM args),
 	   "Combine stencils. Takes any number of arguments.")
 {
 #define FUNC_NAME __FUNCTION__
@@ -193,8 +191,8 @@ LY_DEFINE (ly_stencil_add ,
   return result.smobbed_copy ();
 }
 
-LY_DEFINE (ly_make_stencil,
-	   "ly:make-stencil", 3, 0, 0,  (SCM expr, SCM xext, SCM yext),
+LY_DEFINE (ly_make_stencil, "ly:make-stencil",
+	   3, 0, 0,  (SCM expr, SCM xext, SCM yext),
 	   " \n"
 	   "Stencils are a device independent output expressions."
 	   "They carry two pieces of information: \n\n"
@@ -221,8 +219,8 @@ fontify_atom (Font_metric const *met, SCM f)
 			ly_quote_scm (met->description_), f, SCM_UNDEFINED);
 }
 
-LY_DEFINE (ly_fontify_atom,"ly:fontify-atom", 2, 0, 0,
-	   (SCM met, SCM f),
+LY_DEFINE (ly_fontify_atom,"ly:fontify-atom",
+	   2, 0, 0, (SCM met, SCM f),
 	   "Add a font selection command for the font metric @var{met} "
 	   "to @var{f}.")
 {
