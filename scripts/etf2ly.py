@@ -14,10 +14,12 @@
 # 
 
 # todo:
+#  * automatic PC/mac/unix conversion
 #  * slur/stem directions
 #  * voices (2nd half of frame?)
 #  * more intelligent lyrics
 #  * beams (better use autobeam?)
+#  * more robust: try entertainer.etf (freenote), schubert ave maria (gmd)
 
 program_name = 'etf2ly'
 version = '@TOPLEVEL_VERSION@'
@@ -151,11 +153,19 @@ class Slur:
 	def calculate (self, chords):
 		startnote = self.finale[0][5]
 		endnote = self.finale[3][2]
+		try:
+			cs = chords[startnote]
+			ce = chords[endnote]
 
-		cs = chords[startnote]
-		cs.note_suffix = '(' + cs.note_suffix 
-		ce = chords[endnote]
-		ce.prefix = ce.prefix + ')'
+			if not cs or not ce:
+				raise IndexError
+			
+			cs.note_suffix = '(' + cs.note_suffix 
+			ce.note_prefix = ce.note_prefix + ')'
+		except IndexError:
+			sys.stderr.write ("""\nHuh? Incorrect slur start/endpoint
+len(list) is %d, start/end is (%d,%d)\n""" % (len (chords), startnote, endnote))
+					 
 		
 class Global_measure:
 	def __init__ (self, number):
@@ -166,6 +176,9 @@ class Global_measure:
 
 		self.finale = []
 
+	def __str__ (self):
+		return `self.finale `
+	
 	def set_timesig (self, finale):
 		(beats, fdur) = finale
 		(log, dots) = EDU_to_duration (fdur)
@@ -248,17 +261,23 @@ class Verse:
 class Measure:
 	def __init__(self, no):
 		self.number = no
-		self.frames = []
+		self.frames = [0] * 4
 		self.flags = 0
 		self.clef = 0
 		self.finale = []
 		self.global_measure = None
+		self.staff = None
 		
 	def add_finale_entry (self, entry):
 		self.finale.append (entry)
 
 	def calculate (self):
-		f0  = self.finale[0]
+		if len (self.finale) < 2:
+			sys.stderr.write ("Measure %d in staff %d  has incomplete information.\n" % (self.number, self.staff.number))
+			
+			return 
+			
+		f0 = self.finale[0]
 		f1 = self.finale[1]
 		
 		self.clef = string.atoi (f0[0])
@@ -286,11 +305,12 @@ class Frame:
 		for c in self.chords:
 			str = str + c.ly_string () + ' '
 			left = rat_subtract (left, c.length ())
+			
 		if left[0] < 0:
-			print self.number
-			print self.start, self.end
-			print left
-			raise 'bla'
+			sys.stderr.write ("""Huh? Going backwards.
+Frame no %d, start/end (%d,%d)
+""" % (self.number, self.start, self.end))
+			left = (0,1)
 		if left[0]:
 			str = str + 's*%d/%d' % left
 			
@@ -310,7 +330,10 @@ class Staff:
 			self.measures = self.measures + [None]* (1 + no - len (self.measures))
 
 		if self.measures[no] == None:
-			self.measures [no] = Measure (no)
+			m = Measure (no)
+			self.measures [no] =m
+			m.staff = self
+
 
 		return self.measures[no]
 	def staffid (self):
@@ -325,6 +348,9 @@ class Staff:
 		last_clef = None
 		gap = (0,1)
 		for m in self.measures[1:]:
+			if not m :
+				continue # ugh.
+			
 			g = m.global_measure
 			e = ''
 			if last_key <> g.keysignature:
@@ -359,6 +385,10 @@ class Staff:
 			first_frame = None
 			gap = (0,1)
 			for m in self.measures[1:]:
+				if not m:
+					continue
+				
+				
 				fr = m.frames[x]
 				if fr:
 					first_frame = fr
@@ -596,7 +626,12 @@ class Etf_file:
 			  = tuple (map (string.atoi, [no,prev,next,dur,pos,extended,follow]))
 
 			entryflag = string.atol (entryflag,16)
-			assert (no==len (self.entries))
+			if no > len (self.entries):
+				sys.stderr.write ("Huh? Entry number to large,\nexpected %d got %d. Filling with void entries.\n" % (len(self.entries), no  ))
+				while len (self.entries) <> no:
+					c = ((len (self.entries), 0, 0, 0, 0, 0L, 0, 0), [])
+					self.entries.append (c)
+					
 			current_entry = ((no, prev, next, dur, pos, entryflag, extended, follow), [])
 			self.entries.append (current_entry)
 		return m
@@ -632,6 +667,11 @@ class Etf_file:
 		if m:
 			(frameno, startnote, endnote, foo, bar) = m.groups ()
 			(frameno, startnote, endnote)  = tuple (map (string.atoi, [frameno, startnote, endnote]))
+			if frameno > len (self.frames):
+				sys.stderr.write ("Frame no %d missing, filling up to %d\n" % (len(self.frames), frameno))
+				while frameno <> len (self.frames):
+					self.frames.append (Frame ((len (self.frames), 0,0) ))
+			
 			self.frames.append (Frame ((frameno, startnote, endnote)))
 			
 		return m
@@ -660,8 +700,12 @@ class Etf_file:
 	def parse (self, name):
 		sys.stderr.write ('parsing ...')
 		sys.stderr.flush ()
+
+		gulp = open (name).read ()
+
+		gulp = re.sub ('[\n\r]+', '\n',  gulp)
+		ls = string.split (gulp, '\n')
 		
-		ls = open (name).readlines ()
 		for l in ls:
 			m = None
 			if not m: 
@@ -691,6 +735,9 @@ class Etf_file:
 				continue
 			mno = 1
 			for m in st.measures[1:]:
+				if not m:
+					continue
+				
 				m.global_measure = self.measures[mno]
 				m.calculate()
 
@@ -756,7 +803,7 @@ class Etf_file:
 
 
 	def __str__ (self):
-		return self.dump ()
+		return 'ETF FILE %s %s' % (self.measures,  self.entries)
 	
 	def unthread_entries (self):
 		self.chords = [None]
@@ -827,7 +874,7 @@ for f in files:
 	sys.stderr.write ('Processing `%s\'\n' % f)
 	e = Etf_file(f)
 	if not out_filename:
-		out_filename = os.path.basename (re.sub ('.etf$', '.ly', f))
+		out_filename = os.path.basename (re.sub ('(?i).etf$', '.ly', f))
 		
 	if out_filename == f:
 		out_filename = os.path.basename (f + '.ly')
