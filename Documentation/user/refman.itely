@@ -1225,7 +1225,7 @@ note, and a downstem half note, the 8th note gets the wrong offset.
 @section Beaming
 
 Beams are used to group short notes into chunks that are aligned with
-the metrum. They are inserted automatically in most cases.
+the metrum. They are inserted automatically in most cases:
 
 @lilypond[fragment,verbatim, relative=2]
 \time 2/4 c8 c c c \time 6/8 c c c c8. c16  c8
@@ -1249,7 +1249,7 @@ that differ from the defaults.
 In some cases it may be necessary to override the automatic beaming
 algorithm.  For example, the auto beamer will not put beams over rests
 or bar lines. Such beams are specified by manually: the begin and end
-point are marked with @code{[} and @code{]}.
+point are marked with @code{[} and @code{]}:
 
 @lilypond[fragment,relative,verbatim]
   \context Staff {
@@ -1278,7 +1278,7 @@ The property @code{subdivideBeams} can be set in order to subdivide
 all 16th or shorter beams at beat positions, as defined by the
 @code{beatLength} property .  This accomplishes the same effect as
 twiddling with @code{stemLeftBeamCount} and @code{stemRightBeamCount},
-but it take less typing.
+but it take less typing:
 
 
 @lilypond[relative=1,verbatim,noindent]
@@ -1371,7 +1371,7 @@ Since the duration of a quarter note is 1/4 of a whole note, it is
 entered as @code{(ly:make-moment 1 4)}.
 
 The same syntax can be used to specify beam starting points. In this
-example, automatic beams can only end on a dotted quarter note. 
+example, automatic beams can only end on a dotted quarter note:
 @example
 \property Voice.autoBeamSettings \override
     #'(end * * * *) = #(ly:make-moment 3 8)
@@ -1412,14 +1412,14 @@ automatic beaming. This is done by setting @code{Voice.autoBeaming} to
 @cindex @code{\autoBeamOff }
 @code{\autoBeamOff}, 
 @cindex @code{\autoBeamOn }
-@code{\autoBeamOn}, 
+@code{\autoBeamOn}.
 
 
 @refbugs
 
 It is not possible to specify beaming parameters for beams with mixed
 durations, that differ from the beaming parameters of all separate
-durations, i.e., you will have to specify manual beams to get:
+durations, i.e. you will have to specify manual beams to get:
 
 @lilypond[singleline,fragment,relative,noverbatim,quote]
   \property Voice.autoBeamSettings
@@ -1521,7 +1521,7 @@ rule is similar to @code{\defaultAccidentals}.
 @end lilypond
       Hence you should only use @code{\voiceAccidentals} if the voices
 are to be read solely by individual musicians. If the staff is to be
-used by one musician (e.g., a conductor) then you use
+used by one musician (e.g. a conductor) then you use
 @code{\modernVoiceAccidentals} or @code{\modernVoiceCautionaries}
 instead.
 
@@ -1531,7 +1531,7 @@ instead.
       century.
       The rule is  more complex than @code{\defaultAccidentals}.
       You get all the same accidentals, but temporary
-      accidentals also get cancelled in other octaves. Further more,
+      accidentals also get cancelled in other octaves. Furthermore,
       in the same octave, they also get cancelled in the following measure:
 @lilypond[singleline,fragment,verbatim]
       \modernAccidentals
@@ -1543,7 +1543,7 @@ instead.
      This rule is similar to @code{\modernAccidentals}, but the
      ``extra'' accidentals (the ones not typeset by
      @code{\defaultAccidentals}) are typeset as cautionary accidentals.
-     They are printed in reduced size or with parentheses.
+     They are printed in reduced size or with parentheses:
 @lilypond[singleline,fragment,verbatim]
       \modernCautionaries
       cis' c'' cis'2 | c'' c'
@@ -1646,7 +1646,7 @@ voices in the same staff share accidentals, but staves do not.
 @cindex @code{\noResetKey }
 @code{\noResetKey}, 
 @cindex @code{\forgetAccidentals }
-@code{\forgetAccidentals}, 
+@code{\forgetAccidentals}.
 
 @seealso
 
@@ -1658,7 +1658,7 @@ voices in the same staff share accidentals, but staves do not.
 
 Currently the simultaneous notes are considered to be entered in
 sequential mode. This means that in a chord the accidentals are
-typeset as if the notes in the chord happened one at a time - in the
+typeset as if the notes in the chord happened once at a time - in the
 order in which they appear in the input file.
 
 This is only a problem when there are simultaneous notes whose
@@ -1715,7 +1715,7 @@ However, in some situations with beams, slurs may be attached to stem
 ends.  If you want to override this layout you can do this through the
 object property @code{attachment} of @internalsref{Slur} in
 @internalsref{Voice} context.  Its value is a pair of symbols, specifying
-the attachment type of the left and right end points.
+the attachment type of the left and right end points:
 
 @lilypond[fragment,relative,verbatim]
   \slurUp
@@ -1748,7 +1748,7 @@ stems might look better:
 @cindex @code{\slurDotted }
 @code{\slurDotted}, 
 @cindex @code{\slurSolid }
-@code{\slurSolid}, 
+@code{\slurSolid}.
 
 @seealso
 
@@ -1772,7 +1772,7 @@ results are ugly.
 
 A phrasing slur (or phrasing mark) connects chords and is used to
 indicate a musical sentence. It is started using @code{\(} and @code{\)}
-respectively.
+respectively:
 
 @lilypond[fragment,verbatim,center,relative]
   \time 6/4 c'-\(  d-( e-) f-( e-)  d-\) 
@@ -1809,7 +1809,7 @@ slurs. Putting phrasing slurs over rests leads to spurious warnings.
 @node Breath marks
 @subsection Breath marks
 
-Breath marks are entered using @code{\breathe}.
+Breath marks are entered using @code{\breathe}:
 
 
 @lilypond[fragment,relative,verbatim]
@@ -1895,7 +1895,7 @@ Brackets are used in musical analysis to indicate structure in musical
 pieces. LilyPond supports a simple form of nested horizontal brackets.
 To use this, add the @internalsref{Horizontal_bracket_engraver} to
 @internalsref{Staff} context.  A bracket is started with
-@code{\startGroup} and closed with @code{\stopGroup}. 
+@code{\startGroup} and closed with @code{\stopGroup}:
 
 @lilypond[singleline,verbatim]
 \score { \notes \relative c'' {  
@@ -1926,7 +1926,7 @@ To use this, add the @internalsref{Horizontal_bracket_engraver} to
 A variety of symbols can appear above and below notes to indicate
 different characteristics of the performance. They are added to a note
 by adding a dash and  the character signifying the
-articulation. They are demonstrated here.
+articulation. They are demonstrated here:
 
 @lilypondfile[notexidoc]{script-abbreviations.ly}
 
@@ -1942,7 +1942,7 @@ put them up:
 
 Other symbols can be added using the syntax
 @var{note}@code{-\}@var{name}, e.g. @code{c4-\fermata}. Again, they
-can be forced up or down using @code{^} and @code{_}.
+can be forced up or down using @code{^} and @code{_}:
 
 @cindex accent
 @cindex marcato
@@ -1983,7 +1983,7 @@ can be forced up or down using @code{^} and @code{_}.
 @cindex @code{\scriptDown }
 @code{\scriptDown}, 
 @cindex @code{\scriptBoth}
-@code{\scriptBoth}, 
+@code{\scriptBoth}.
 
 @seealso
 
@@ -2025,13 +2025,13 @@ played with your thumb (used in cello music):
 @end lilypond
 
 Fingerings for chords can also be added to individual notes
-of the chord by adding them after the pitches
+of the chord by adding them after the pitches:
 @lilypond[verbatim,singleline,fragment,relative=1]
         << c-1  e-2 g-3 b-5 >> 4
 @end lilypond
 
 Setting @code{fingerHorizontalDirection} will put the fingerings next
-to the note head.
+to the note head:
 
 @lilypond[verbatim,singleline,fragment,relative=1]
 	\property Voice.fingerHorizontalDirection = #LEFT
@@ -2060,7 +2060,7 @@ It is possible to place arbitrary strings of text or markup text (see
 @ref{Text markup}) above or below notes by using a string:
 @code{c^"text"}.  By default, these indications do not influence the
 note spacing, but by using the command @code{\fatText}, the widths
-will be taken into account.
+will be taken into account:
 @c
 @lilypond[fragment,singleline,verbatim] \relative c' {
 c4^"longtext" \fatText c4_"longlongtext" c4 }
@@ -2085,7 +2085,7 @@ longer be computed.
 @cindex ornaments
 @cindex grace notes
 
-Grace notes are ornaments that are written out
+Grace notes are ornaments that are written out:
 
 @lilypond[relative=2,verbatim,fragment] c4 \grace c16 c4 \grace {
 [c16 d16] } c4
@@ -2099,7 +2099,7 @@ steps:
 
 Every point in musical time consists of two rational numbers: one
 denotes the logical time, one denotes the grace timing. The above
-example is shown here with timing tuples.
+example is shown here with timing tuples:
 
 @lilypond[]
 \score { \notes \relative c''{ 
@@ -2113,7 +2113,7 @@ example is shown here with timing tuples.
 
 The placement of grace notes is synchronized between different staves.
 In the following example, there are two sixteenth graces notes for
-every eighth grace note.
+every eighth grace note:
 
 @lilypond[relative=2,verbatim,fragment] 
 < \context Staff = SA { e4 \grace { c16-[ d e f-] } e4 }
@@ -2126,12 +2126,12 @@ stem. This can be controlled with object property @code{stroke-style} of
 @internalsref{Stem}. For proper  matching of override and reverts of
 such properties, it is necessary to use a Scheme function.
 
-The following fragment overrides the default formatting Grace style stems.
+The following fragment overrides the default formatting Grace style stems:
 @example
   #(add-to-grace-init "Voice" 'Stem  'stroke-style '())
 @end example
 
-The @code{\override} is carefully matched with a @code{\revert}.
+The @code{\override} is carefully matched with a @code{\revert}:
 
 @cindex slash
 @cindex grace slash
@@ -2188,7 +2188,7 @@ second bars in this example:
 
 @seealso
 
-@internalsref{GraceMusic},
+@internalsref{GraceMusic}
 
 @refbugs
 
@@ -2200,7 +2200,7 @@ note end up on different staffs.
 
 Grace note synchronization can also lead to surprises. Staff notation,
 such as key signatures, barlines, etc. are also synchronized. Take
-care when you mix staves with grace notes and staves without, for example:
+care when you mix staves with grace notes and staves without, for example,
 
 @lilypond[relative=2,verbatim,fragment]
 < \context Staff = SA { e4 \bar "|:" \grace c16 d4 }
@@ -2269,10 +2269,10 @@ Additional texts (such as @emph{gliss.}) is not supported.
 
 
 Absolute dynamic marks are specified using an variable after a
-note: @code{c4-\ff}.  The available dynamic marks are: @code{\ppp},
+note: @code{c4-\ff}.  The available dynamic marks are @code{\ppp},
 @code{\pp}, @code{\p}, @code{\mp}, @code{\mf}, @code{\f}, @code{\ff},
 @code{\fff}, @code{\fff}, @code{\fp}, @code{\sf}, @code{\sff},
-@code{\sp}, @code{\spp}, @code{\sfz}, and @code{\rfz}.
+@code{\sp}, @code{\spp}, @code{\sfz}, and @code{\rfz}:
 
 @lilypond[verbatim,singleline,fragment,relative]
   c'-\ppp c-\pp c -\p c-\mp c-\mf c-\f c-\ff c-\fff
@@ -2292,7 +2292,7 @@ note: @code{c4-\ff}.  The available dynamic marks are: @code{\ppp},
 A crescendo mark is started with @code{\<} and terminated with
 @code{\!}. A decrescendo is started with @code{\>} and also terminated
 with @code{\!}.  Because these marks are bound to notes, if you must
-use spacer notes if multiple marks during one note are needed.
+use spacer notes if multiple marks during one note are needed:
 
 @lilypond[fragment,verbatim,center,quote]
   c''-\< c''-\!   d''-\decr e''-\rced 
@@ -2335,7 +2335,7 @@ You can also supply your own texts:
 @cindex @code{\dynamicDown }
 @code{\dynamicDown}, 
 @cindex @code{\dynamicBoth }
-@code{\dynamicBoth}, 
+@code{\dynamicBoth}.
 
 @cindex direction, of dynamics
 
@@ -2348,9 +2348,8 @@ Dynamics are objects of @internalsref{DynamicText} and
 @internalsref{Hairpin}. Vertical positioning of these symbols is
 handled by the @internalsref{DynamicLineSpanner} object.
 
-If you want to adjust padding or vertical direction of the dynamics,
-you must set properties for the @internalsref{DynamicLineSpanner}
-object.
+If you want to adjust padding or vertical direction of the dynamics, you 
+must set properties for the @internalsref{DynamicLineSpanner} object.
 
 
 @node Repeats
@@ -3684,7 +3683,7 @@ the colon, and are separated by dots. For example
   \chords { c:5.6 c:3.7.8 c:3.6.13 }
 @end lilypond
 Chord steps can be  altered by suffixing a @code{-} or @code{+} sign
-to the number, for example:
+to the number, for example,
 @lilypond[verbatim,fragment,quote]
   \chords { c:7+ c:5+.3-  c:3-.5-.7- }
 @end lilypond
