@@ -1030,18 +1030,21 @@ struct Extra_collision_info
   Real idx_;
   Box extents_;
   Real penalty_;
-
-  Extra_collision_info (Real idx, Interval x, Interval y, Real p)
+  Grob * grob_;
+  
+  Extra_collision_info (Grob *g, Real idx, Interval x, Interval y, Real p)
   {
     idx_ = idx;
     extents_[X_AXIS] = x;
     extents_[Y_AXIS] = y;
-    penalty_ = p;    
+    penalty_ = p;
+    grob_ = g; 
   }
   Extra_collision_info ()
   {
     idx_ = 0.0;
     penalty_ = 0.;
+    grob_ = 0;
   }
 };
 
@@ -1096,7 +1099,8 @@ score_extra_encompass (Grob *me, Grob *common[],
 
 	    Interval xext(-1, 1);
 	    xext = xext *(thick*2) + z[X_AXIS];
-	    Extra_collision_info info (k - 1.0, 
+	    Extra_collision_info info (small_slur,
+				       k - 1.0, 
 				       xext,
 				       yext,
 				       score_param->extra_object_collision_);
@@ -1147,7 +1151,7 @@ score_extra_encompass (Grob *me, Grob *common[],
 
 	  ye.widen (thick * 0.5);
 	  xe.widen (thick * 1.0);
-	  Extra_collision_info info (xp, xe, ye,  penalty);
+	  Extra_collision_info info (g, xp, xe, ye,  penalty);
 	  collision_infos.push (info);
 	}
     }
@@ -1169,7 +1173,17 @@ score_extra_encompass (Grob *me, Grob *common[],
 	  
 	  do
 	    {
-	      if (collision_infos[j].extents_[X_AXIS].contains (attachment[d][X_AXIS]))
+	      /*
+		We need to check for the bound explicitly, since the
+		slur-ending can be almost vertical, making the Y
+		coordinate a bad approximation of the object-slur
+		distance.		
+	       */
+	      Item * as_item =  dynamic_cast<Item*> (collision_infos[j].grob_);
+	      if( (as_item
+		   && as_item->get_column ()
+		   == extremes[d] .bound_->get_column ())
+		  || collision_infos[j].extents_[X_AXIS].contains (attachment[d][X_AXIS]))
 		{
 		  y = attachment[d][Y_AXIS];
 		  found = true;
