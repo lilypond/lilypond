@@ -7,8 +7,10 @@
 */
 
 #include "horizontal-align-item.hh"
+
 IMPLEMENT_STATIC_NAME(Horizontal_align_item);
 IMPLEMENT_IS_TYPE_B1(Horizontal_align_item,Item);
+
 
 bool
 Horizontal_align_item::contains_b(Item *i)const
@@ -83,10 +85,18 @@ Horizontal_align_item::do_pre_processing()
     }
 
     Real where_f= total * (align_i_-1.0)/2.0;
+    Real center_dx_f = 0;
     for ( int i=0 ;  i < item_l_arr_.size(); i++) {
-	item_l_arr_[i]->translate_x(where_f -dims[i][-1] );
+	Real dx = where_f -dims[i][-1];
+	item_l_arr_[i]->translate_x( dx );
+	if (item_l_arr_[i] == center_l_)
+	    center_dx_f = where_f;
 	where_f += dims[i].length();
     }
+    if (center_dx_f && !align_i_ )
+	for ( int i=0 ;  i < item_l_arr_.size(); i++) 
+	    item_l_arr_[i]->translate_x( - center_dx_f );
+    
 }
 
 Interval
@@ -102,6 +112,7 @@ Horizontal_align_item::do_print()const
 
 Horizontal_align_item::Horizontal_align_item()
 {
+    center_l_ = 0;
     align_i_ = 0;
     empty_b_ = true;
     transparent_b_ = true;
