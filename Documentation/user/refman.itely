@@ -402,10 +402,13 @@ by replacing the @internalsref{Note_heads_engraver} by the
 @end example
 
 For example,
+
+@ignore
 @example[relative 0]
   \time 2/4
   c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 
 @end example
+@end ignore
 
 @lilypond[noindent]
 \score{
@@ -731,7 +734,7 @@ This command sets the context property
 @internalsref{Staff}.@code{keySignature}.  Non-standard key signatures
 can be specified by setting this property directly.
 
-@bugs
+@refbugs
 
 The ordering of a key restoration (alterations that change back to
 natural) is wrong when combined with a repeat barline.
@@ -1270,7 +1273,7 @@ inserts accidentals before the running notes.
 
 @menu
 * Using the predefined accidental variables::  
-* Defining your own accidental typesettings::  
+* Customized accidental rules::  
 @end menu
 
 @node Using the predefined accidental variables
@@ -1495,7 +1498,7 @@ for the problematic notes.
 * Slurs ::                      
 * Phrasing slurs::              
 * Breath marks::                
-* Tempo::                       
+* Metronome marks::             
 * Text spanners::               
 * Analysis brackets::           
 @end menu
@@ -1864,7 +1867,7 @@ commands will not work with direct PostScript output.
 
 Grace notes are ornaments that are written out
 
-@lilypond[relative=2,verbatim,ifragment] c4 \grace c16 c4 \grace {
+@lilypond[relative=2,verbatim,fragment] c4 \grace c16 c4 \grace {
 [c16 d16] } c4
 @end lilypond
 
