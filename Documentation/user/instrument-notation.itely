@@ -2013,7 +2013,7 @@ controlled by the @code{style} property of the
 @seealso
 
 In this manual: @ref{Pitches}, @ref{Cautionary accidentals} and
-@ref{Accidentals} give a general introduction of the use of
+@ref{Automatic accidentals} give a general introduction of the use of
 accidentals.  @ref{Key signature} gives a general introduction of
 the use of key signatures.
 
