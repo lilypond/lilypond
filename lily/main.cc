@@ -117,7 +117,7 @@ static Long_option_init options_static[] = {
   {0, "safe", 's',  _i ("inhibit file output naming and exporting")},
   {0, "no-timestamps", 'T',  _i ("don't timestamp the output")},
   {0, "version", 'v',  _i ("print version number")},
-  {0, "verbose", 'V', _i("verbose")},
+  {0, "verbose", 'V', _i ("verbose")},
   {0, "warranty", 'w',  _i ("show warranty and copyright")},
   {0, "midi-debug", 'X',  _i ("write midi ouput in formatted ascii")},
   {0,0,0,0}
@@ -141,7 +141,7 @@ usage ()
   cout << _ ("Typeset music and or play MIDI from FILE");
   cout << "\n\n";
   cout << 
-_(
+_ (
 "LilyPond is a music typesetter.  It produces beautiful sheet music\n"
 "using a high level description file as input.  LilyPond is part of \n"
 "the GNU Project.\n"
@@ -239,10 +239,10 @@ setup_paths ()
     urg; what *do* we want with $LILYPONDPREFIX, DIR_DATADIR and $prefix/share
     handy for multiple source-dir runs, though...
    */
-  if (!prefix_directory.empty_b())
+  if (!prefix_directory.empty_b ())
     {
       lily_locale_dir = prefix_directory + "/share/locale";
-      bindtextdomain (name.ch_C (), lily_locale_dir.ch_C());
+      bindtextdomain (name.ch_C (), lily_locale_dir.ch_C ());
     }
   else
     bindtextdomain (name.ch_C (), DIR_LOCALEDIR);
@@ -269,7 +269,7 @@ setup_paths ()
       global_path.add (p);
 
 #if !KPATHSEA
-      /* Urg: GNU make's $(word) index starts at 1 */
+      /* Urg: GNU make's $ (word) index starts at 1 */
       int i  = 1;
       while (global_path.try_add (p + to_str (".") + to_str (i)))
 	i++;
@@ -404,8 +404,8 @@ main (int argc, char **argv)
 
   ly_init_kpath (argv[0]);
   
-  oparser_p_static = new Getopt_long(argc, argv, options_static);
-  while (Long_option_init const * opt = (*oparser_p_static)())
+  oparser_p_static = new Getopt_long (argc, argv, options_static);
+  while (Long_option_init const * opt = (*oparser_p_static) ())
     {
       switch (opt->shortname_ch_)
 	{
@@ -473,7 +473,7 @@ main (int argc, char **argv)
 #ifdef WINNT
   gh_enter (argc, argv, main_prog);
 #else
-  gh_enter (argc, argv, (void(*)(int, char**))main_prog);
+  gh_enter (argc, argv, (void (*) (int, char**))main_prog);
 #endif
 
   return 0;			// unreachable

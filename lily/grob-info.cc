@@ -19,7 +19,7 @@ Grob_info::Grob_info (Grob*s_l, Music *r_l)
 }
 
 
-Grob_info::Grob_info()
+Grob_info::Grob_info ()
 {
   elem_l_ = 0;
   req_l_ = 0;

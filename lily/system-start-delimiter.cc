@@ -21,7 +21,7 @@
 Molecule
 System_start_delimiter::staff_bracket (Grob*me,Real height)  
 {
-  Real arc_height = gh_scm2double (me->get_grob_property("arch-height")) ;
+  Real arc_height = gh_scm2double (me->get_grob_property ("arch-height")) ;
   
   SCM at = gh_list (ly_symbol2scm ("bracket"),
 		    me->get_grob_property ("arch-angle"),
@@ -56,10 +56,10 @@ System_start_delimiter::simple_bar (Grob*me,Real h)
 {
   Real w = me->paper_l ()->get_var ("stafflinethickness") *
     gh_scm2double (me->get_grob_property ("thickness"));
-  return Lookup::filledbox (Box (Interval(0,w), Interval(-h/2, h/2)));
+  return Lookup::filledbox (Box (Interval (0,w), Interval (-h/2, h/2)));
 }
 
-MAKE_SCHEME_CALLBACK(System_start_delimiter,after_line_breaking,1);
+MAKE_SCHEME_CALLBACK (System_start_delimiter,after_line_breaking,1);
 
 SCM
 System_start_delimiter::after_line_breaking (SCM smob)
@@ -81,7 +81,7 @@ System_start_delimiter::try_collapse (Grob*me)
 }
 
 
-MAKE_SCHEME_CALLBACK(System_start_delimiter,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (System_start_delimiter,brew_molecule,1);
 
 SCM
 System_start_delimiter::brew_molecule (SCM smob)
@@ -97,13 +97,13 @@ System_start_delimiter::brew_molecule (SCM smob)
   
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Interval ext = ly_scm2interval (Axis_group_interface::group_extent_callback
-				  (me->self_scm(), gh_int2scm (Y_AXIS)));
+ (me->self_scm (), gh_int2scm (Y_AXIS)));
   Real l = ext.length () / staff_space;
   
   if (ext.empty_b ()
       || (gh_number_p (c) && l <= gh_scm2double (c)))
     {
-      me->suicide();
+      me->suicide ();
       return SCM_EOL;
     }
 
@@ -133,7 +133,7 @@ System_start_delimiter::staff_brace (Grob*me,Real y)
     int cmp = (lo + hi) / 2;
 
     b = fm->get_char (cmp);
-    if (b[Y_AXIS].empty_b () || b[Y_AXIS].length () > y )
+    if (b[Y_AXIS].empty_b () || b[Y_AXIS].length () > y)
       hi = cmp;
     else
       lo = cmp;
@@ -146,6 +146,6 @@ System_start_delimiter::staff_brace (Grob*me,Real y)
   b = fm->get_char (lo);
   b[X_AXIS] = Interval (0,0);
 
-  return Molecule(b, at);
+  return Molecule (b, at);
 }
   

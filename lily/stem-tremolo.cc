@@ -34,18 +34,18 @@ Stem_tremolo::has_interface (Grob *me)
   return me->has_interface (ly_symbol2scm ("stem-tremolo"));
 }
 
-MAKE_SCHEME_CALLBACK(Stem_tremolo,dim_callback,2);
+MAKE_SCHEME_CALLBACK (Stem_tremolo,dim_callback,2);
 
 /*
   todo: init with cons. 
  */
 SCM
-Stem_tremolo::dim_callback (SCM e, SCM )
+Stem_tremolo::dim_callback (SCM e, SCM)
 {
   Grob * se = unsmob_grob (e);
   
   Real space = Staff_symbol_referencer::staff_space (se);
-  return ly_interval2scm ( Interval (-space, space));
+  return ly_interval2scm (Interval (-space, space));
 }
 
 /*
@@ -57,14 +57,14 @@ Stem_tremolo::height (SCM smob, SCM ax)
 {
   Axis a = (Axis)gh_scm2int (ax);
   Grob * me = unsmob_grob (smob);
-  assert ( a == Y_AXIS);
+  assert (a == Y_AXIS);
 
   SCM mol = me->get_uncached_molecule ();
   return ly_interval2scm (unsmob_molecule (mol)->extent (a));
 }
 
 
-MAKE_SCHEME_CALLBACK(Stem_tremolo,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Stem_tremolo,brew_molecule,1);
 SCM
 Stem_tremolo::brew_molecule (SCM smob)
 {
@@ -122,9 +122,9 @@ Stem_tremolo::brew_molecule (SCM smob)
   if (beam)
     {
       // ugh, rather calc from Stem_tremolo_req
-      int beams_i = Stem::beam_count(stem, RIGHT) >? Stem::beam_count (stem, LEFT);
-      mol.translate (Offset(stem->relative_coordinate (0, X_AXIS) - me->relative_coordinate (0, X_AXIS),
-			    Stem::stem_end_position (stem ) * ss / 2 - 
+      int beams_i = Stem::beam_count (stem, RIGHT) >? Stem::beam_count (stem, LEFT);
+      mol.translate (Offset (stem->relative_coordinate (0, X_AXIS) - me->relative_coordinate (0, X_AXIS),
+			    Stem::stem_end_position (stem) * ss / 2 - 
 			    Directional_element_interface::get (beam) * beams_i * interbeam_f));
     }
   else
@@ -132,17 +132,17 @@ Stem_tremolo::brew_molecule (SCM smob)
       /*
 	Beams should intersect one beamthickness below stem end
       */
-      Real dy = Stem::stem_end_position (stem ) * ss / 2;
-      dy -= mol.extent (Y_AXIS).length () / 2 *  Stem::get_direction (stem );
+      Real dy = Stem::stem_end_position (stem) * ss / 2;
+      dy -= mol.extent (Y_AXIS).length () / 2 *  Stem::get_direction (stem);
 
       /*
 	uhg.  Should use relative coords and placement
       */
       Real whole_note_correction;
-      if (Stem::invisible_b (stem ))
+      if (Stem::invisible_b (stem))
 	{
-	  Grob *hed = Stem::support_head (stem );
-	  whole_note_correction = -Stem::get_direction (stem )
+	  Grob *hed = Stem::support_head (stem);
+	  whole_note_correction = -Stem::get_direction (stem)
 	    *hed->extent (hed, X_AXIS).length () / 2;
 	}
       else

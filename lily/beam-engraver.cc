@@ -69,7 +69,7 @@ Beam_engraver::Beam_engraver ()
 bool
 Beam_engraver::try_music (Music *m)
 {
-  if (Span_req * c = dynamic_cast<Span_req*>(m))
+  if (Span_req * c = dynamic_cast<Span_req*> (m))
     {
       if (scm_equal_p (c->get_mus_property ("span-type"),
 		       ly_str02scm ("abort")) == SCM_BOOL_T)
@@ -88,15 +88,15 @@ Beam_engraver::try_music (Music *m)
 
 	  if (d == STOP && !beam_p_)
 	    {
-	      m->origin ()->warning  (_ ("can't find start of beam"));
+	      m->origin ()->warning (_ ("can't find start of beam"));
 	      return false;
 	    }
 
-	  if(d == STOP)
+	  if (d == STOP)
 	    {
 	      SCM m = get_property ("automaticMelismata");
-	      SCM b = get_property("noAutoBeaming");
-	      if (to_boolean (m) && to_boolean(b))
+	      SCM b = get_property ("noAutoBeaming");
+	      if (to_boolean (m) && to_boolean (b))
 		{
 		  set_melisma (false);
 		}
@@ -121,7 +121,7 @@ Beam_engraver::process_music ()
   if (reqs_drul_[STOP])
     {
       if (!beam_p_)
-	reqs_drul_[STOP]->origin ()->warning (_("can't find start of beam"));
+	reqs_drul_[STOP]->origin ()->warning (_ ("can't find start of beam"));
       prev_start_req_ =0;
       finished_beam_p_ = beam_p_;
       finished_beam_info_p_ = beam_info_p_;
@@ -162,10 +162,10 @@ Beam_engraver::create_grobs ()
       prev_start_req_ = reqs_drul_[START];
       beam_p_ = new Spanner (get_property ("Beam"));
       SCM smp = get_property ("measurePosition");
-      Moment mp =  (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
+      Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
 
       beam_start_location_ = mp;
-      beam_start_mom_ = now_mom();
+      beam_start_mom_ = now_mom ();
       beam_info_p_ = new Beaming_info_list;
       
       
@@ -198,10 +198,10 @@ void
 Beam_engraver::start_translation_timestep ()
 {
   reqs_drul_ [START] =0;
-  if(beam_p_) {
+  if (beam_p_) {
     SCM m = get_property ("automaticMelismata");
-    SCM b = get_property("noAutoBeaming");
-    if (to_boolean (m) && to_boolean(b)) {
+    SCM b = get_property ("noAutoBeaming");
+    if (to_boolean (m) && to_boolean (b)) {
       set_melisma (true);
     }
   }
@@ -282,7 +282,7 @@ Beam_engraver::acknowledge_grob (Grob_info info)
 				    gh_int2scm (durlog));
 	  Moment stem_location = now_mom () - beam_start_mom_ + beam_start_location_;
 	  beam_info_p_->add_stem (stem_location,
-				  (durlog- 2) >? 1);
+ (durlog- 2) >? 1);
 	  Beam::add_stem (beam_p_, stem_l);
 	}
     }
@@ -290,5 +290,5 @@ Beam_engraver::acknowledge_grob (Grob_info info)
 
 
 
-ADD_THIS_TRANSLATOR(Beam_engraver);
+ADD_THIS_TRANSLATOR (Beam_engraver);
 

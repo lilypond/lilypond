@@ -43,7 +43,7 @@ Music::Music (Music const &m)
 }
 
 
-Music::Music(SCM l)
+Music::Music (SCM l)
 {
   immutable_property_alist_ = l;
   mutable_property_alist_ = SCM_EOL;
@@ -53,7 +53,7 @@ Music::Music(SCM l)
 SCM
 Music::mark_smob (SCM m)
 {
-  Music * mus = (Music *)SCM_CELL_WORD_1(m);
+  Music * mus = (Music *)SCM_CELL_WORD_1 (m);
   scm_gc_mark (mus->immutable_property_alist_);
   scm_gc_mark (mus->mutable_property_alist_);
   return SCM_EOL;
@@ -71,11 +71,11 @@ Music::length_mom () const
 {
   SCM l = get_mus_property ("length");
   if (unsmob_moment (l))
-    return *unsmob_moment(l);
+    return *unsmob_moment (l);
   else if (gh_procedure_p (l))
     {
-      SCM res = gh_call1(l, self_scm( ));
-      return *unsmob_moment(res);
+      SCM res = gh_call1 (l, self_scm ());
+      return *unsmob_moment (res);
     }
     
   return 0;
@@ -94,11 +94,11 @@ print_alist (SCM a, SCM port)
 }
 
 int
-Music::print_smob(SCM s, SCM p, scm_print_state*)
+Music::print_smob (SCM s, SCM p, scm_print_state*)
 {
   scm_puts ("#<Music ", p);
   Music* m = unsmob_music (s);
-  scm_puts (classname(m),p);
+  scm_puts (classname (m),p);
 
   print_alist (m->mutable_property_alist_, p);
   print_alist (m->immutable_property_alist_, p);
@@ -115,14 +115,14 @@ Music::to_relative_octave (Pitch m)
 
 
 void
-Music::transpose (Pitch )
+Music::transpose (Pitch)
 {
 }
 
-IMPLEMENT_TYPE_P(Music, "music?");
-IMPLEMENT_UNSMOB(Music,music);
-IMPLEMENT_SMOBS(Music);
-IMPLEMENT_DEFAULT_EQUAL_P(Music);
+IMPLEMENT_TYPE_P (Music, "music?");
+IMPLEMENT_UNSMOB (Music,music);
+IMPLEMENT_SMOBS (Music);
+IMPLEMENT_DEFAULT_EQUAL_P (Music);
 
 /****************************/
 
@@ -136,7 +136,7 @@ Music::get_mus_property (const char *nm) const
 SCM
 Music::get_mus_property (SCM sym) const
 {
-  SCM s = scm_sloppy_assq(sym, mutable_property_alist_);
+  SCM s = scm_sloppy_assq (sym, mutable_property_alist_);
   if (s != SCM_BOOL_F)
     return gh_cdr (s);
 
@@ -219,7 +219,7 @@ ly_get_mus_property (SCM mus, SCM sym)
     }
   else
     {
-      warning (_("ly_get_mus_property (): Not a Music"));
+      warning (_ ("ly_get_mus_property (): Not a Music"));
       scm_write (mus, scm_current_error_port ());
     }
   return SCM_EOL;
@@ -233,7 +233,7 @@ ly_set_mus_property (SCM mus, SCM sym, SCM val)
 
   if (!gh_symbol_p (sym))
     {
-      warning (_("ly_set_mus_property (): Not a symbol"));
+      warning (_ ("ly_set_mus_property (): Not a symbol"));
       scm_write (mus, scm_current_error_port ());      
 
       return SCM_UNSPECIFIED;
@@ -245,11 +245,31 @@ ly_set_mus_property (SCM mus, SCM sym, SCM val)
     }
   else
     {
-      warning (_("ly_set_mus_property ():  not of type Music"));
+      warning (_ ("ly_set_mus_property ():  not of type Music"));
       scm_write (mus, scm_current_error_port ());
     }
 
   return SCM_UNSPECIFIED;
+}
+
+
+// to do  property args 
+SCM
+ly_make_music (SCM type)
+{
+  if (!gh_string_p (type))
+    {
+      warning (_ ("ly_make_music (): Not a string"));
+      scm_write (type, scm_current_error_port ());      
+
+      return SCM_UNSPECIFIED;
+    }
+  else
+    {
+      SCM s =       get_music (ly_scm2string (type))->self_scm ();
+      scm_unprotect_object (s);
+      return s;
+    }
 }
 
 static void
@@ -257,5 +277,6 @@ init_functions ()
 {
   scm_make_gsubr ("ly-get-mus-property", 2, 0, 0, (Scheme_function_unknown)ly_get_mus_property);
   scm_make_gsubr ("ly-set-mus-property", 3, 0, 0, (Scheme_function_unknown)ly_set_mus_property);
+  scm_make_gsubr ("ly-make-music", 1, 0, 0, (Scheme_function_unknown)ly_make_music);  
 }
-ADD_SCM_INIT_FUNC(musicscm,init_functions);
+ADD_SCM_INIT_FUNC (musicscm,init_functions);

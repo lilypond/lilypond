@@ -63,7 +63,7 @@
 ;; silly, use alist? 
 (define (find-notehead-symbol duration style)
   (case style
-   ((cross) "2cross")
+   ((xcircle) "2xcircle")
    ((harmonic) "0mensural")
    ((baroque) 
     (string-append (number->string duration)

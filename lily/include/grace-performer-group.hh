@@ -3,7 +3,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-   (c) 1999--2001 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1999--2001 Jan Nieuwenhuizen <janneke@gnu.org>
   
  */
 
@@ -19,7 +19,7 @@ class Grace_performer_group : public Performer_group_performer, public Global_tr
   Array<Audio_element_info> announce_to_top_;
   bool calling_self_b_;
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
   Grace_performer_group ();
 protected:
   virtual void announce_element (Audio_element_info);

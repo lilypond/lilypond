@@ -18,7 +18,7 @@ public:
   static void set_interface (Grob*);
   static void do_measure (Grob*,Link_array<Grob>) ;
 
-  DECLARE_SCHEME_CALLBACK(set_springs, (SCM ));
+  DECLARE_SCHEME_CALLBACK (set_springs, (SCM ));
   static Real stem_dir_correction (Grob*,Grob*,Grob*)  ;
   static Real default_bar_spacing (Grob*,Grob*,Grob*,Moment)  ;
   static Real note_spacing (Grob*,Grob*,Grob*,Moment)  ;

@@ -18,6 +18,11 @@ Time_scaled_music::Time_scaled_music (SCM l)
   
 }
 
+Time_scaled_music::Time_scaled_music ()
+{
+  
+}
 
 
 
+ADD_MUSIC (Time_scaled_music);

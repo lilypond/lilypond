@@ -22,7 +22,7 @@ public:
   static void add_head (Grob * dotcol, Grob* rh );
   static void set_interface (Grob*);
   static bool has_interface (Grob*);
-  DECLARE_SCHEME_CALLBACK(force_shift_callback, (SCM ,SCM));
+  DECLARE_SCHEME_CALLBACK (force_shift_callback, (SCM ,SCM));
   static SCM do_shifts (SCM dotlist);
 };
 #endif // DOT_COLUMN_HH

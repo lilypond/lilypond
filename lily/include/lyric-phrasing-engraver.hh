@@ -26,27 +26,27 @@ class Syllable_group;
 /* 
 * Build an engraver that catches noteheads and lyrics.
 
-(It needs to be in a context above Staff and Lyrics, eg. in Score
+ (It needs to be in a context above Staff and Lyrics, eg. in Score
 context.)
 
 * Determine which heads belong to which lyrics
 
-(eg. by looking at the names of their originating contexts, or maybe
+ (eg. by looking at the names of their originating contexts, or maybe
 some \properties)
 
 * Attach the lyrics to the appropriate heads
 
-(by doing lyric->set_parent (head, X_AXIS), that will fix the current
+ (by doing lyric->set_parent (head, X_AXIS), that will fix the current
 noteheadwidth guessing kludge)
 
 * Check if the lyric syllables end or start a phrase.
 
-(eg. check if the syllable ends with punctuation, and remember that
+ (eg. check if the syllable ends with punctuation, and remember that
 fact for the next one.)
 
 * Adjust their alignment accordingly. 
 
-(eg. by doing lyric->add_offset_callback(centered_on_parent,X_AXIS)
+ (eg. by doing lyric->add_offset_callback (centered_on_parent,X_AXIS)
 and setting self-alignment-X)
 
 * Add a property to switch on/off the engraver (for multi stanza
@@ -62,16 +62,16 @@ for melismas as well.
 class Lyric_phrasing_engraver : public Engraver 
 {
 protected:
-  virtual void acknowledge_grob(Grob_info);
+  virtual void acknowledge_grob (Grob_info);
   virtual void create_grobs ();
-  virtual void stop_translation_timestep();
+  virtual void stop_translation_timestep ();
   virtual void finalize ();  
 private:
-  void record_notehead(const String &context_id, Grob * notehead);
-  void record_lyric(const String &context_id, Grob * lyric);
-  void record_melisma(const String &context_id);
-  void record_extender(const String &context_id, Grob * extender);
-  Syllable_group * lookup_context_id(const String &context_id);
+  void record_notehead (const String &context_id, Grob * notehead);
+  void record_lyric (const String &context_id, Grob * lyric);
+  void record_melisma (const String &context_id);
+  void record_extender (const String &context_id, Grob * extender);
+  Syllable_group * lookup_context_id (const String &context_id);
 
 public:
   Lyric_phrasing_engraver ();
@@ -97,25 +97,25 @@ class Syllable_group
   bool melisma_b_;
   Real group_translation_f_;
 public:
-  static SCM make_entry();
-  void set_first_in_phrase(bool f);
-  void set_notehead(Grob * notehead);
-  void add_lyric(Grob * lyric);
-  void add_extender(Grob * extender);
-  void set_melisma() { melisma_b_ = true; }
-  bool get_melisma() { return melisma_b_; }
-  int lyric_count() { return lyric_list_.size(); }
-  void clear();
-  bool is_empty();
-  bool set_lyric_align(const char *punc, Grob *default_notehead_l);
-  void adjust_melisma_align();
-  int appropriate_alignment(const char *punc);
-  Real amount_to_translate();
-  void next_lyric();
-  void copy(Syllable_group *);
+  static SCM make_entry ();
+  void set_first_in_phrase (bool f);
+  void set_notehead (Grob * notehead);
+  void add_lyric (Grob * lyric);
+  void add_extender (Grob * extender);
+  void set_melisma () { melisma_b_ = true; }
+  bool get_melisma () { return melisma_b_; }
+  int lyric_count () { return lyric_list_.size (); }
+  void clear ();
+  bool is_empty ();
+  bool set_lyric_align (const char *punc, Grob *default_notehead_l);
+  void adjust_melisma_align ();
+  int appropriate_alignment (const char *punc);
+  Real amount_to_translate ();
+  void next_lyric ();
+  void copy (Syllable_group *);
 private:
-  Syllable_group();
-  DECLARE_SIMPLE_SMOBS(Syllable_group,);
+  Syllable_group ();
+  DECLARE_SIMPLE_SMOBS (Syllable_group,);
 } ;
 
 Syllable_group * unsmob_voice_entry (SCM);

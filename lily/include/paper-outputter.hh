@@ -22,7 +22,7 @@
    itself.
 
    The Paper_outputter contains a reference to an output stream
-   (Paper_stream).  */
+ (Paper_stream).  */
 
 class Paper_outputter
 {

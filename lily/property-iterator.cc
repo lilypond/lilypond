@@ -19,7 +19,7 @@ void
 Property_iterator::process (Moment m)
 {
   SCM sym = music_l_->get_mus_property ("symbol");
-  if (gh_symbol_p(sym))
+  if (gh_symbol_p (sym))
     {
       SCM val = music_l_->get_mus_property ("value");
       bool ok= true;
@@ -38,7 +38,7 @@ Push_property_iterator::process (Moment m)
   SCM eprop = music_l_->get_mus_property ("grob-property");
   SCM val = music_l_->get_mus_property ("grob-value");
 
-  if (to_boolean (music_l_->get_mus_property ( "pop-first")))
+  if (to_boolean (music_l_->get_mus_property ("pop-first")))
     Translator_def::apply_pushpop_property (report_to_l (),
 					    syms, eprop, SCM_UNDEFINED);
 
@@ -57,6 +57,6 @@ Pop_property_iterator::process (Moment m)
   Simple_music_iterator::process (m);
 }
 
-IMPLEMENT_CTOR_CALLBACK(Pop_property_iterator);
-IMPLEMENT_CTOR_CALLBACK(Push_property_iterator);
-IMPLEMENT_CTOR_CALLBACK(Property_iterator);
+IMPLEMENT_CTOR_CALLBACK (Pop_property_iterator);
+IMPLEMENT_CTOR_CALLBACK (Push_property_iterator);
+IMPLEMENT_CTOR_CALLBACK (Property_iterator);

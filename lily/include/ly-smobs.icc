@@ -25,14 +25,14 @@ void init_type_p_ ## CL ()\
 {\
   scm_make_gsubr (FUNCNAME, 1, 0, 0, (Scheme_function_unknown) CL::smob_p);\
 }\
-ADD_SCM_INIT_FUNC(init_type_p_ ## CL, init_type_p_ ## CL)
+ADD_SCM_INIT_FUNC (init_type_p_ ## CL, init_type_p_ ## CL)
 
 #ifndef SCM_CELL_TYPE
-#define SCM_CELL_TYPE(X) SCM_CAR(X)
+#define SCM_CELL_TYPE(X) SCM_CAR (X)
 #endif
 
 #ifndef SCM_CELL_WORD_1
-#define SCM_CELL_WORD_1(X) SCM_CDR(X)
+#define SCM_CELL_WORD_1(X) SCM_CDR (X)
 #endif
 
 
@@ -41,7 +41,7 @@ long CL::smob_tag_;						\
 SCM								\
 CL::smob_p (SCM s)						\
 {								\
-  if (SCM_NIMP(s) && SCM_CELL_TYPE(s) == smob_tag_)		\
+  if (SCM_NIMP (s) && SCM_CELL_TYPE (s) == smob_tag_)		\
     return SCM_BOOL_T;						\
   else								\
     return SCM_BOOL_F;						\
@@ -57,30 +57,30 @@ CL::init_smobs ()						\
 SCM CL::smobbed_self () const					\
 {								\
   SCM s;							\
-  s = gh_cons (SCM_PACK(CL::smob_tag_), SCM_PACK(this));	\
-  scm_done_malloc(sizeof(CL));					\
+  s = gh_cons (SCM_PACK (CL::smob_tag_), SCM_PACK (this));	\
+  scm_done_malloc (sizeof (CL));					\
 								\
   return s;							\
 }								\
 CL *								\
 CL::unsmob (SCM s)						\
 {								\
-  if (SCM_NIMP(s) && SCM_CELL_TYPE(s) == smob_tag_)		\
-    return (CL*) SCM_CELL_WORD_1(s);				\
+  if (SCM_NIMP (s) && SCM_CELL_TYPE (s) == smob_tag_)		\
+    return (CL*) SCM_CELL_WORD_1 (s);				\
   else								\
     return 0;							\
 }								\
 scm_sizet							\
 CL::free_smob (SCM ses)						\
 {								\
-  CL * s = (CL*) SCM_CDR(ses);					\
+  CL * s = (CL*) SCM_CDR (ses);					\
    delete s;							\
   return sizeof (CL);						\
 }								\
-ADD_SCM_INIT_FUNC(CL, CL::init_smobs)
+ADD_SCM_INIT_FUNC (CL, CL::init_smobs)
 
 #define IMPLEMENT_SMOBS(CL)							\
-IMPLEMENT_SIMPLE_SMOBS(CL)							\
+IMPLEMENT_SIMPLE_SMOBS (CL)							\
 SCM										\
 CL::smobify_self ()								\
 {										\
@@ -96,15 +96,15 @@ CL::unprotected_smobify_self ()								\
     that S isn't GC-ed from under us.						\
 										\
     We don't use smobbed_self () to ensure that mark_smob () doesn't have to	\
-    deal half-initialized objects: scm_done_malloc( ) might trigger GC.		\
+    deal half-initialized objects: scm_done_malloc ( ) might trigger GC.		\
     the warning in smobs.hh is just to be doubleplus goodly sure		\
    */										\
   SCM s;										\
-  SCM_NEWCELL(s);								\
-  SCM_SETCAR(s,CL::smob_tag_);							\
-  SCM_SETCDR (s, SCM_PACK(this));						\
+  SCM_NEWCELL (s);								\
+  SCM_SETCAR (s,CL::smob_tag_);							\
+  SCM_SETCDR (s, SCM_PACK (this));						\
   self_scm_ = s;								\
- scm_done_malloc(sizeof(CL));							\
+ scm_done_malloc (sizeof (CL));							\
   return s;									\
 }
 

@@ -52,7 +52,7 @@ Simple_file_storage::load_file (String s)
   data_p_[len_i_] = 0;
   ret = fread (data_p_, sizeof (char), len_i_, f);
 
-  if  (ret!=len_i_)
+  if (ret!=len_i_)
     warning (_f ("Huh?  Got %d, expected %d characters", ret, len_i_));
 
   fclose (f);

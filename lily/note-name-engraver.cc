@@ -14,7 +14,7 @@
 class Note_name_engraver : public Engraver
 {
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
   Link_array<Note_req> req_l_arr_;
   Link_array<Item> texts_;
   virtual bool  try_music (Music*m);
@@ -45,10 +45,10 @@ Note_name_engraver::create_grobs ()
 	s += " ";
       s += unsmob_pitch (req_l_arr_[i]->get_mus_property ("pitch"))->str ();
     }
-  if (s.length_i())
+  if (s.length_i ())
     {
       Item * t = new Item (get_property ("NoteName"));
-      t->set_grob_property ("text", ly_str02scm ( s.ch_C()));
+      t->set_grob_property ("text", ly_str02scm (s.ch_C ()));
       announce_grob (t, req_l_arr_[0]);
       texts_.push (t);
     }
@@ -61,8 +61,8 @@ Note_name_engraver::stop_translation_timestep ()
     {
       typeset_grob (texts_[i]);
     }
-  texts_.clear() ;
+  texts_.clear () ;
   req_l_arr_.clear ();
 }
 
-ADD_THIS_TRANSLATOR(Note_name_engraver);
+ADD_THIS_TRANSLATOR (Note_name_engraver);

@@ -141,7 +141,7 @@ Simple_spacer::my_solve_linelen ()
 
       if (conf < line_len_f_)
 	{
-	  force_f_ +=  (line_len_f_  - conf) * active_springs_stiffness ();
+	  force_f_ += (line_len_f_  - conf) * active_springs_stiffness ();
 	  break;
 	}
       else
@@ -202,7 +202,7 @@ Simple_spacer::add_columns (Link_array<Grob> cols)
 	}
       
       desc.block_force_f_ = - desc.hooke_f_ * desc.ideal_f_; // block at distance 0
-      springs_.push  (desc);
+      springs_.push (desc);
     }
   
   for (int i=0; i < cols.size () - 1; i++)
@@ -239,12 +239,12 @@ Simple_spacer::solve (Column_x_positions *positions) const
       positions->config_.push (positions->config_.top () + springs_[i].length (force_f_));
     }
 
-  positions->satisfies_constraints_b_ =  (line_len_f_ < 0) || active_b ();
+  positions->satisfies_constraints_b_ = (line_len_f_ < 0) || active_b ();
 }
 
 
 
-Spring_description::Spring_description( )
+Spring_description::Spring_description ()
 {
   ideal_f_ =0.0;
   hooke_f_ =0.0;

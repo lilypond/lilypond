@@ -23,11 +23,12 @@ class Music_wrapper : public Music
 {
 public:
   Music_wrapper (SCM);
+  Music_wrapper ();
   Music * element () const;
   virtual void transpose (Pitch);
 
   
-  VIRTUAL_COPY_CONS(Music);
+  VIRTUAL_COPY_CONS (Music);
   virtual Moment length_mom () const;
   virtual Pitch to_relative_octave (Pitch);
   virtual void compress (Moment);

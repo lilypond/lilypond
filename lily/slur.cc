@@ -14,7 +14,7 @@
     * begin and end should be treated as a/acknowledge Scripts.
     * smart changing of endings
     * smart changing of (Y-?)offsets to avoid ugly beziers
-       (along-side-stem)
+ (along-side-stem)
  */
 
 #include "directional-element-interface.hh"
@@ -53,7 +53,7 @@ Slur::add_column (Grob*me, Grob*n)
       me->add_dependency (n);
     }
 
-  add_bound_item (dynamic_cast<Spanner*> (me), dynamic_cast<Item*>(n));
+  add_bound_item (dynamic_cast<Spanner*> (me), dynamic_cast<Item*> (n));
 }
 
 void
@@ -63,7 +63,7 @@ Slur::de_uglyfy (Grob*me, Slur_bezier_bow* bb, Real default_height)
   Real ff = bb->fit_factor ();
   for (int i = 1; i < 3; i++)
     {
-      Real ind = abs (bb->curve_.control_[(i-1)*3][X_AXIS]
+      Real ind = abs (bb->curve_.control_[ (i-1)*3][X_AXIS]
 		      - bb->curve_.control_[i][X_AXIS]) / length;
       Real h = bb->curve_.control_[i][Y_AXIS] * ff / length;
 
@@ -151,7 +151,7 @@ Slur::check_slope (Grob *me)
 	{
 	  Real staff_space = Staff_symbol_referencer::staff_space ((Grob*)me);
 	  Direction dir = (Direction)gh_scm2int (me->get_grob_property ("direction"));
-	  Direction d = (Direction)(- dir * (sign (dy)));
+	  Direction d = (Direction) (- dir * (sign (dy)));
 	  SCM a = me->get_grob_property ("attachment-offset");
 	  Drul_array<Offset> o;
 	  o[LEFT] = ly_scm2offset (index_cell (a, LEFT));
@@ -201,9 +201,9 @@ Slur::get_first_notecolumn_y (Grob *me, Direction dir)
 {
   Grob *col = dir == LEFT
     ? unsmob_grob (gh_car (scm_reverse (me->get_grob_property
-					   ("note-columns"))))
+ ("note-columns"))))
     : unsmob_grob
-    (gh_car (me->get_grob_property ("note-columns")));
+ (gh_car (me->get_grob_property ("note-columns")));
   
   Grob *common[] =
   {
@@ -248,7 +248,7 @@ Slur::broken_trend_offset (Grob *me, Direction dir)
 	      int neighbour_cols = scm_ilength (neighbour->get_grob_property ("note-columns"));
 	      int cols = scm_ilength (me->get_grob_property ("note-columns"));
 	      o = Offset (0, (y*neighbour_cols + neighbour_y*cols) /
-			  (cols + neighbour_cols));
+ (cols + neighbour_cols));
 	      break;
 	    }
 	}
@@ -267,7 +267,7 @@ Slur::get_attachment (Grob *me, Direction dir,
       s = me->get_grob_property ("attachment");
     }
   SCM a = dir == LEFT ? gh_car (s) : gh_cdr (s);
-  Spanner*sp = dynamic_cast<Spanner*>(me);
+  Spanner*sp = dynamic_cast<Spanner*> (me);
   String str = ly_symbol2string (a);
   Real staff_space = Staff_symbol_referencer::staff_space ((Grob*)me);
   Real hs = staff_space / 2.0;
@@ -309,7 +309,7 @@ Slur::get_attachment (Grob *me, Direction dir,
 		Default position is on stem X, at stem end Y
 	       */
 	      o += Offset (0.5 *
-			   (n->extent (n,X_AXIS).length ()
+ (n->extent (n,X_AXIS).length ()
 			    - stem->extent (stem,X_AXIS).length ())
 			    * (1 + Stem::get_direction (stem)),
 			    0);
@@ -339,7 +339,7 @@ Slur::get_attachment (Grob *me, Direction dir,
 int stemdir = stem ? Stem::get_direction (stem) : 1;
   int slurdir = gh_scm2int (me->get_grob_property ("direction"));
   SCM l = scm_assoc
-      (scm_listify (a,
+ (scm_listify (a,
                 gh_int2scm (stemdir * dir),
                 gh_int2scm (slurdir * dir),
                   SCM_UNDEFINED), alist);
@@ -411,7 +411,7 @@ Slur::encompass_offset (Grob*me,
 Array<Offset>
 Slur::get_encompass_offset_arr (Grob *me)
 {
-  Spanner*sp = dynamic_cast<Spanner*>(me);
+  Spanner*sp = dynamic_cast<Spanner*> (me);
   SCM eltlist = me->get_grob_property ("note-columns");
   Grob *common[] = {me->common_refpoint (eltlist, X_AXIS),
 			     me->common_refpoint (eltlist, Y_AXIS)};
@@ -479,14 +479,14 @@ Slur::get_encompass_offset_arr (Grob *me)
 }
 
 
-MAKE_SCHEME_CALLBACK(Slur,set_spacing_rods,1);
+MAKE_SCHEME_CALLBACK (Slur,set_spacing_rods,1);
 SCM
 Slur::set_spacing_rods (SCM smob)
 {
   Grob*me = unsmob_grob (smob);
 
   Rod r;
-  Spanner*sp = dynamic_cast<Spanner*>(me);
+  Spanner*sp = dynamic_cast<Spanner*> (me);
   r.item_l_drul_[LEFT] = sp->get_bound (LEFT);
   r.item_l_drul_[RIGHT] = sp->get_bound (RIGHT);
   r.distance_f_ =
@@ -507,7 +507,7 @@ Slur::height (SCM smob, SCM ax)
 {
   Axis a = (Axis)gh_scm2int (ax);
   Grob * me = unsmob_grob (smob);
-  assert ( a == Y_AXIS);
+  assert (a == Y_AXIS);
 
   SCM mol = me->get_uncached_molecule ();
   return ly_interval2scm (unsmob_molecule (mol)->extent (a));
@@ -542,7 +542,7 @@ Slur::brew_molecule (SCM smob)
   else
     a = Lookup::slur (one, Directional_element_interface::get (me) * thick, thick);
 
-  return a.smobbed_copy();
+  return a.smobbed_copy ();
 }
 
 void
@@ -571,7 +571,7 @@ Slur::set_control_points (Grob*me)
       if (gh_number_p (ssb))
 	sb = gh_scm2double (ssb);
 
-      bb.minimise_enclosed_area ( sb, details);
+      bb.minimise_enclosed_area (sb, details);
       SCM sbf = scm_assq (ly_symbol2scm ("force-blowfit"), details);
       Real bff = 1.0;
       if (gh_pair_p (sbf) && gh_number_p (gh_cdr (sbf)))
@@ -598,7 +598,7 @@ Slur::set_control_points (Grob*me)
   SCM controls = SCM_EOL;
   for (int i= 4; i--;)
     {
-      controls = gh_cons ( ly_offset2scm (b.control_[i]), controls);
+      controls = gh_cons (ly_offset2scm (b.control_[i]), controls);
       /*
 	BRRR WHURG.
 	All these null control-points, where do they all come from?
@@ -650,7 +650,7 @@ Slur::get_curve (Grob*me)
       if (x > x1 && x <x2)
 	{
 	  Real y = b.get_other_coordinate (X_AXIS, x);
-	  off = off >? dir *  (enc[i][Y_AXIS] - y);
+	  off = off >? dir * (enc[i][Y_AXIS] - y);
 	}
     }
   b.translate (Offset (0, dir * off));

@@ -1320,9 +1320,8 @@ This is a short-cut for doing
 @end example
 
 You are encouraged to use @code{\repeat} for repetitions.  See
-@ref{Repeats}, and the documentation of @code{whichBar} in
-@ref{(lilypond-internals)LilyPond context properties}.
-
+@ref{Repeats}, and the documentation of @code{whichBar} in the generated
+docuemntation.
 
 [FIXME]
 
@@ -1376,6 +1375,11 @@ practical for anything right now.
 
 @item tremolo
 Make tremolo beams.
+
+@item percent
+Make  measure repeats. These look like percent signs.
+
+
 @end table  
 
 @menu
@@ -1383,6 +1387,7 @@ Make tremolo beams.
 * Manual repeat commands::      
 * Tremolo repeats::             
 * Tremolo subdivision::         
+* Measure repeats::             
 @end menu
 
 @node Repeat syntax
@@ -1540,6 +1545,21 @@ default argument saves a lot of typing.
 
 
 
+
+@node Measure repeats
+@subsection Measure repeats
+
+@cindex percent repeats
+@cindex measure repeats
+
+In the @code{percent} style, a note pattern can be repeated. It is
+printed once, and then the pattern is replaced with a special sign.
+
+@lilypond[verbatim,singleline]
+ \context Voice { \repeat  "percent" 5  { c'1 } }  
+@end lilypond
+
+At present, only repeats of whole measures are supported.
 
 
 @c . {Piano music}

@@ -32,7 +32,7 @@ Tuplet_bracket::set_interface (Grob*me)
 /*
   TODO: use stem->beam fields to find Beams. Autobeams aren't found
   through the engraver mechanism.  */
-MAKE_SCHEME_CALLBACK(Tuplet_bracket,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Tuplet_bracket,brew_molecule,1);
 SCM
 Tuplet_bracket::brew_molecule (SCM smob) 
 {
@@ -65,8 +65,8 @@ Tuplet_bracket::brew_molecule (SCM smob)
       Link_array<Grob> column_arr=
 	Pointer_group_interface__extract_elements (me, (Grob*)0, "columns");
 	
-      Real ncw = column_arr.top ()->extent(column_arr.top (), X_AXIS).length ();
-      Real w = dynamic_cast<Spanner*>(me)->spanner_length () + ncw;
+      Real ncw = column_arr.top ()->extent (column_arr.top (), X_AXIS).length ();
+      Real w = dynamic_cast<Spanner*> (me)->spanner_length () + ncw;
 
       Real staff_space = 1.0;
       Direction dir = Directional_element_interface::get (me);
@@ -93,7 +93,7 @@ Tuplet_bracket::brew_molecule (SCM smob)
 	  SCM thick = me->get_grob_property ("thick");
 	  SCM gap = me->get_grob_property ("number-gap");
 	  
-	  SCM at =gh_list(ly_symbol2scm ("tuplet"),
+	  SCM at =gh_list (ly_symbol2scm ("tuplet"),
 			  gh_double2scm (1.0),
 			  gap,
 			  gh_double2scm (w),
@@ -131,11 +131,11 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
     Use outer non-rest columns to determine slope
    */
   int l = 0;
-  while (l <column_arr.size() && Note_column::rest_b(column_arr[l]))
+  while (l <column_arr.size () && Note_column::rest_b (column_arr[l]))
     l ++;
 
   int r = column_arr.size ()- 1;
-  while (r >= l && Note_column::rest_b(column_arr[r]))
+  while (r >= l && Note_column::rest_b (column_arr[r]))
     r--;
   
   if (l < r)
@@ -155,7 +155,7 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
   Real x0 = column_arr[0]->relative_coordinate (commonx, X_AXIS);
   Real x1 = column_arr.top ()->relative_coordinate (commonx, X_AXIS);
   
-  Real factor = column_arr.size () > 1 ? 1/(x1 - x0) : 1.0;
+  Real factor = column_arr.size () > 1 ? 1/ (x1 - x0) : 1.0;
   
   for (int i = 0; i < column_arr.size ();  i++)
     {
@@ -186,7 +186,7 @@ Tuplet_bracket::calc_dy (Grob*me,Real * dy)
   *dy = column_arr.top ()->extent (column_arr.top (), Y_AXIS) [d]
     - column_arr[0]->extent (column_arr[0], Y_AXIS) [d];
 }
-MAKE_SCHEME_CALLBACK(Tuplet_bracket,after_line_breaking,1);
+MAKE_SCHEME_CALLBACK (Tuplet_bracket,after_line_breaking,1);
 
 SCM
 Tuplet_bracket::after_line_breaking (SCM smob)

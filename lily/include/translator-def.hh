@@ -56,7 +56,7 @@ public:
   void apply_property_operations (Translator_group*);
 
 private:
-  DECLARE_SMOBS(Translator_def,foo);
+  DECLARE_SMOBS (Translator_def,foo);
   Translator_def ();
   Translator_def (Translator_def const&);
 

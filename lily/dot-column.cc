@@ -46,7 +46,7 @@ Dot_column::set_interface (Grob* me)
  */
 
 
-MAKE_SCHEME_CALLBACK(Dot_column,force_shift_callback,2);
+MAKE_SCHEME_CALLBACK (Dot_column,force_shift_callback,2);
 SCM
 Dot_column::force_shift_callback (SCM element_smob, SCM axis)
 {
@@ -88,7 +88,7 @@ Dot_column::do_shifts (SCM l)
 	}
       taken_posns.push ((int)p);
       s.unite (Slice ((int)p,
-		      (int)p));      
+ (int)p));      
     }
 
   if (!conflicts)
@@ -99,7 +99,7 @@ Dot_column::do_shifts (SCM l)
     +1 -> off by one 
    */
   int pos = middle - dots.size () + 1;
-  if (!(pos % 2))
+  if (! (pos % 2))
     pos ++;			// center () rounds down.
 
   for (int i=0; i < dots.size (); pos += 2, i++)

@@ -1,6 +1,6 @@
 /*   
   symbol-cache.cc --  implement a cache for literal symbols, eg
-    symbol("foo-bar")
+    symbol ("foo-bar")
     
   
   source file of the GNU LilyPond music typesetter
@@ -22,7 +22,7 @@ SCM
 symbol (const char*s)
 {
   Literal_symbol_map::const_iterator i = literal_map.find (s);
-  if (i != literal_map.end())
+  if (i != literal_map.end ())
     return (*i).second;
 
   SCM sym = gh_symbol2scm ((char*)s);
@@ -36,7 +36,7 @@ symbol (const char*s)
   This is a gory trick to cache the value gh_symbol2scm (), without
   cluttering up the C code with snarf macros.
   
-  You should *ONLY* use symbol() for arguments that are literal
+  You should *ONLY* use symbol () for arguments that are literal
   strings!
   
   without (wtk1-fugue2)

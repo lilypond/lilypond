@@ -28,9 +28,9 @@ protected:
   Real linewidth_f_;
 
   /// search all pcols which are breakable.
-  Link_array<Grob> find_breaks() const;
+  Link_array<Grob> find_breaks () const;
 
-  Array<int> find_break_indices() const;
+  Array<int> find_break_indices () const;
     
 
   /// helper: solve for the columns in #curline#.
@@ -42,14 +42,14 @@ protected:
 
   Simple_spacer* generate_spacing_problem (Link_array<Grob>, Interval) const;
 
-  virtual Array<Column_x_positions> do_solve() const=0;
+  virtual Array<Column_x_positions> do_solve () const=0;
 
 public:
-  Simple_spacer* (*get_line_spacer)();
-  Break_algorithm();
+  Simple_spacer* (*get_line_spacer) ();
+  Break_algorithm ();
   void set_pscore (Paper_score*);
 
-  Array<Column_x_positions> solve() const;
+  Array<Column_x_positions> solve () const;
 };
 
 #endif // BREAK_HH

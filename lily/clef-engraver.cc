@@ -57,7 +57,7 @@ Clef_engraver::Clef_engraver ()
   octavate_p_ = 0;
 
   /*
-    will trigger a clef at the start since #f != '()
+    will trigger a clef at the start since #f != ' ()
    */
   prev_cpos_ = prev_glyph_ = SCM_BOOL_F;
 }
@@ -135,7 +135,7 @@ Clef_engraver::acknowledge_grob (Grob_info info)
 	  /*
 	    Key_item adapts its formatting to make sure that the
 	    accidentals stay in the upper half of the staff. It needs
-	    to know c0-pos for this.  (?)
+	    to know c0-pos for this. (?)
 	  */
 
 	  item->set_grob_property ("c0-position", get_property ("centralCPosition"));
@@ -158,7 +158,7 @@ Clef_engraver::create_clef ()
   Staff_symbol_referencer::set_position (clef_p_,
 					 gh_scm2int (get_property ("clefPosition")));
 
-  SCM oct =  get_property("clefOctavation");
+  SCM oct =  get_property ("clefOctavation");
   if (gh_number_p (oct) && gh_scm2int (oct))
     {
       Item * g = new Item (get_property ("OctavateEight"));
@@ -187,9 +187,9 @@ Clef_engraver::create_grobs ()
       || scm_equal_p (clefpos, prev_cpos_) == SCM_BOOL_F
       || scm_equal_p (octavation, prev_octavation_) == SCM_BOOL_F
       || to_boolean (force_clef)
-      )
+)
     {
-      set_glyph();
+      set_glyph ();
       set_central_c (glyph, clefpos, octavation);
 	
       create_clef ();

@@ -13,9 +13,9 @@ struct Hyphen_spanner
 {
 public:
   Spanner* elt_l_;
-  Hyphen_spanner  (Spanner*);
+  Hyphen_spanner (Spanner*);
   void set_textitem (Direction, Grob*);
-  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
+  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
 };
 
 #endif // HYPHEN_SPANNER_HH

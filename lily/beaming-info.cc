@@ -9,14 +9,14 @@
 
 #include "beaming.hh"
 
-Beaming_info::Beaming_info( )
+Beaming_info::Beaming_info ()
 {
   start_mom_ = 0;
   beams_i_drul_[LEFT] = 0;
   beams_i_drul_[RIGHT] = 0;  
 }
 
-Beaming_info::Beaming_info(Moment m, int i)
+Beaming_info::Beaming_info (Moment m, int i)
 {
   start_mom_ = m;
   beams_i_drul_[LEFT] = i;
@@ -31,12 +31,12 @@ Beaming_info_list::min_denominator_index () const
   int minden = infinity_i;
   int minidx = -1;
 
-  for (int i=1; i < infos_.size ( ); i++)
+  for (int i=1; i < infos_.size (); i++)
     {
       if (infos_[i].start_mom_.den_i () < minden)
 	{
 	  minidx = i;
-	  minden = infos_[i].start_mom_.den_i  ();
+	  minden = infos_[i].start_mom_.den_i ();
 	}
     }
 
@@ -93,5 +93,5 @@ Beaming_info_list::beamify ()
 void
 Beaming_info_list::add_stem (Moment m, int b)
 {
-  infos_.push  (Beaming_info (m, b));
+  infos_.push (Beaming_info (m, b));
 }

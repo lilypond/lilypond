@@ -25,19 +25,19 @@ class Rhythmic_column_engraver :public Engraver
   Grob *dotcol_l_;
 
 protected:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
   virtual void acknowledge_grob (Grob_info);
   virtual void create_grobs ();
-  virtual void stop_translation_timestep();
-  virtual void start_translation_timestep();
+  virtual void stop_translation_timestep ();
+  virtual void start_translation_timestep ();
 public:
-  Rhythmic_column_engraver();
+  Rhythmic_column_engraver ();
   
 };
 
 
 
-Rhythmic_column_engraver::Rhythmic_column_engraver()
+Rhythmic_column_engraver::Rhythmic_column_engraver ()
 {
   stem_l_ =0;
   ncol_p_=0;
@@ -52,14 +52,14 @@ Rhythmic_column_engraver::create_grobs ()
     {
       if (!ncol_p_)
 	{
-	  ncol_p_ = new Item (get_property("NoteColumn"));
+	  ncol_p_ = new Item (get_property ("NoteColumn"));
 	  Note_column::set_interface (ncol_p_);
 	  announce_grob (ncol_p_, 0);
 	}
 
       for (int i=0; i < rhead_l_arr_.size (); i++)
 	{
-	  if (!rhead_l_arr_[i]->parent_l(X_AXIS))
+	  if (!rhead_l_arr_[i]->parent_l (X_AXIS))
 	    Note_column::add_head (ncol_p_, rhead_l_arr_[i]);
 	}
       rhead_l_arr_.set_size (0);
@@ -75,7 +75,7 @@ Rhythmic_column_engraver::create_grobs ()
 	}
 
       if (stem_l_
-	  && !stem_l_->parent_l(X_AXIS))
+	  && !stem_l_->parent_l (X_AXIS))
 	{
 	  Note_column::set_stem (ncol_p_, stem_l_);
 	  stem_l_ = 0;
@@ -85,7 +85,7 @@ Rhythmic_column_engraver::create_grobs ()
       bool wegrace = to_boolean (wg);
 
       if (!wegrace)
-	for (int i=0; i < grace_slur_endings_.size(); i++)
+	for (int i=0; i < grace_slur_endings_.size (); i++)
 	  Slur::add_column (grace_slur_endings_[i], ncol_p_);
       grace_slur_endings_.clear ();
     }
@@ -125,7 +125,7 @@ Rhythmic_column_engraver::acknowledge_grob (Grob_info i)
 }
 
 void
-Rhythmic_column_engraver::stop_translation_timestep()
+Rhythmic_column_engraver::stop_translation_timestep ()
 {
   if (ncol_p_) 
     {
@@ -135,12 +135,12 @@ Rhythmic_column_engraver::stop_translation_timestep()
 }
 
 void
-Rhythmic_column_engraver::start_translation_timestep()
+Rhythmic_column_engraver::start_translation_timestep ()
 {
   grace_slur_endings_.clear ();
   dotcol_l_ =0;
   stem_l_ =0;
 }
 
-ADD_THIS_TRANSLATOR(Rhythmic_column_engraver);
+ADD_THIS_TRANSLATOR (Rhythmic_column_engraver);
 

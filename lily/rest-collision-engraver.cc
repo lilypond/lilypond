@@ -20,16 +20,16 @@ class Rest_collision_engraver : public Engraver
 protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void create_grobs ();
-  virtual void stop_translation_timestep();
+  virtual void stop_translation_timestep ();
 public:
-  VIRTUAL_COPY_CONS(Translator);
-  Rest_collision_engraver();
+  VIRTUAL_COPY_CONS (Translator);
+  Rest_collision_engraver ();
   
 };
 
-ADD_THIS_TRANSLATOR(Rest_collision_engraver);
+ADD_THIS_TRANSLATOR (Rest_collision_engraver);
 
-Rest_collision_engraver::Rest_collision_engraver()
+Rest_collision_engraver::Rest_collision_engraver ()
 {
   rest_collision_p_ =0;
 }
@@ -44,7 +44,7 @@ Rest_collision_engraver::create_grobs ()
   Rest_collision::set_interface (rest_collision_p_);
   announce_grob (rest_collision_p_, 0);
   for (int i=0; i< note_column_l_arr_.size (); i++)
-    Rest_collision::add_column ( rest_collision_p_,note_column_l_arr_[i]);
+    Rest_collision::add_column (rest_collision_p_,note_column_l_arr_[i]);
 }
 
 void
@@ -55,7 +55,7 @@ Rest_collision_engraver::acknowledge_grob (Grob_info i)
 }
 
 void
-Rest_collision_engraver::stop_translation_timestep()
+Rest_collision_engraver::stop_translation_timestep ()
 {
   if (rest_collision_p_) 
     {

@@ -21,7 +21,7 @@
 class Lyric_engraver : public Engraver 
 {
 protected:
-  virtual void stop_translation_timestep();
+  virtual void stop_translation_timestep ();
   virtual bool try_music (Music *);
   virtual void create_grobs ();
   virtual void start_translation_timestep ();
@@ -38,7 +38,7 @@ private:
 ADD_THIS_TRANSLATOR (Lyric_engraver);
 
 
-Lyric_engraver::Lyric_engraver()
+Lyric_engraver::Lyric_engraver ()
 {
   text_p_ =0;
   req_l_ =0;
@@ -70,7 +70,7 @@ Lyric_engraver::create_grobs ()
 	We can't reach the notehead where we're centered from here. So
 	we kludge.
 
-	(UGH UGH, pulled amount of space out of thin air)
+ (UGH UGH, pulled amount of space out of thin air)
       */
       
       text_p_->translate_axis (0.66, X_AXIS);
@@ -81,7 +81,7 @@ Lyric_engraver::create_grobs ()
 }
 
 void
-Lyric_engraver::stop_translation_timestep()
+Lyric_engraver::stop_translation_timestep ()
 {
   if (text_p_)
     {

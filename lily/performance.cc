@@ -32,7 +32,7 @@ Performance::Performance ()
 }
 
 
-Performance::~Performance()
+Performance::~Performance ()
 {
   delete audio_elem_p_list_;
 }
@@ -40,7 +40,7 @@ Performance::~Performance()
 void
 Performance::output (Midi_stream& midi_stream)
 {
-  int tracks_i = audio_staff_l_arr_.size() + 1;
+  int tracks_i = audio_staff_l_arr_.size () + 1;
 
   // ugh
   int clocks_per_4_i = 384;
@@ -53,7 +53,7 @@ Performance::output (Midi_stream& midi_stream)
   for (int i =0; i < audio_staff_l_arr_.size (); i++)
     {
       Audio_staff *s = audio_staff_l_arr_[i];
-      if(verbose_global_b)
+      if (verbose_global_b)
 	progress_indication ("[" + to_str (i)) ;
 
       /*
@@ -64,7 +64,7 @@ Performance::output (Midi_stream& midi_stream)
       if (channel == 9)
 	channel++;
       s->output (midi_stream, channel++);
-      if(verbose_global_b)
+      if (verbose_global_b)
 	progress_indication ("]");
     }
 }
@@ -76,11 +76,11 @@ Performance::output_header_track (Midi_stream& midi_stream)
 
   // perhaps multiple text events?
   String id_str;
-  String str = String (_("Creator: "));
+  String str = String (_ ("Creator: "));
   if (no_timestamps_global_b)
     id_str = gnu_lilypond_str ();
   else
-    id_str = gnu_lilypond_version_str();
+    id_str = gnu_lilypond_version_str ();
   str += id_str;
   str += "\n";
 
@@ -99,10 +99,10 @@ Performance::output_header_track (Midi_stream& midi_stream)
     str += ".\n";
   else
     {
-      str += _(", at ");
+      str += _ (", at ");
       time_t t (time (0));
       str += ctime (&t);
-      str = str.left_str (str.length_i() - 1);
+      str = str.left_str (str.length_i () - 1);
     }
 
   /*
@@ -140,7 +140,7 @@ Performance::add_element (Audio_element *p)
     {
       audio_staff_l_arr_.push (s);
     }
-  else if (Audio_column *c = dynamic_cast<Audio_column*>(p))
+  else if (Audio_column *c = dynamic_cast<Audio_column*> (p))
     {
       c->performance_l_ = this;
     }
@@ -149,7 +149,7 @@ Performance::add_element (Audio_element *p)
 
 
 void
-Performance::process()
+Performance::process ()
 {
   String out = output_name_global;
   if (out == "-")
@@ -168,9 +168,9 @@ Performance::process()
   out = p.str ();
   
   Midi_stream midi_stream (out);
-  progress_indication ( _f ("MIDI output to %s...", out));
+  progress_indication (_f ("MIDI output to %s...", out));
   target_str_global_array.push (out);
 
   output (midi_stream);
-  progress_indication("\n");
+  progress_indication ("\n");
 }

@@ -16,13 +16,13 @@
 #include "translator-def.hh"
 
 Translator_group::Translator_group (Translator_group const&s)
-  : Translator(s)
+  : Translator (s)
 {
   iterator_count_ =0;
   
   Scheme_hash_table * tab =  new Scheme_hash_table (*s.properties_dict ());
   properties_scm_ = tab->self_scm ();
-  scm_unprotect_object (tab->self_scm( ));
+  scm_unprotect_object (tab->self_scm ());
 }
 
 Scheme_hash_table*
@@ -34,11 +34,11 @@ Translator_group::properties_dict () const
 Translator_group::~Translator_group ()
 {
   
-  //assert (removable_b());
+  //assert (removable_b ());
 }
 
 
-Translator_group::Translator_group()
+Translator_group::Translator_group ()
 {
   iterator_count_  = 0;
   Scheme_hash_table *tab = new Scheme_hash_table ;
@@ -48,7 +48,7 @@ Translator_group::Translator_group()
 }
 
 void
-Translator_group::check_removal()
+Translator_group::check_removal ()
 {
   SCM next = SCM_EOL; 
   for (SCM p = trans_group_list_; gh_pair_p (p); p = next)
@@ -58,7 +58,7 @@ Translator_group::check_removal()
       Translator_group *trg =  dynamic_cast<Translator_group*> (unsmob_translator (gh_car (p)));
 
       trg->check_removal ();
-      if (trg->removable_b())
+      if (trg->removable_b ())
 	terminate_translator (trg);
     }
 }
@@ -87,7 +87,7 @@ Translator_group::add_group_translator (Translator *t)
 
 
 bool
-Translator_group::removable_b() const
+Translator_group::removable_b () const
 {
   return trans_group_list_ == SCM_EOL && ! iterator_count_;
 }
@@ -120,7 +120,7 @@ Translator_group::find_create_translator_l (String n, String id)
     return existing;
 
   Link_array<Translator_def> path
-    = unsmob_translator_def (definition_)->path_to_acceptable_translator (ly_str02scm ((char*)n.ch_C()), output_def_l ());
+    = unsmob_translator_def (definition_)->path_to_acceptable_translator (ly_str02scm ((char*)n.ch_C ()), output_def_l ());
 
   if (path.size ())
     {
@@ -172,9 +172,9 @@ Translator_group::try_music (Music* m)
 }
 
 int
-Translator_group::depth_i() const
+Translator_group::depth_i () const
 {
-  return (daddy_trans_l_) ? daddy_trans_l_->depth_i()  + 1 : 0;
+  return (daddy_trans_l_) ? daddy_trans_l_->depth_i ()  + 1 : 0;
 }
 
 Translator_group*
@@ -189,7 +189,7 @@ Translator_group::ancestor_l (int level)
 void
 Translator_group::terminate_translator (Translator*r_l)
 {
-  r_l->removal_processing();
+  r_l->removal_processing ();
   /*
     Return value ignored. GC does the rest.
    */
@@ -218,7 +218,7 @@ Translator_group::is_bottom_translator_b () const
 }
 
 Translator_group*
-Translator_group::get_default_interpreter()
+Translator_group::get_default_interpreter ()
 {
   if (!is_bottom_translator_b ())
     {
@@ -228,7 +228,7 @@ Translator_group::get_default_interpreter()
       Translator_def *t = unsmob_translator_def (st);
       if (!t)
 	{
-	  warning (_f ("can't find or create: `%s'", ly_scm2string (nm).ch_C()));
+	  warning (_f ("can't find or create: `%s'", ly_scm2string (nm).ch_C ()));
 	  t = unsmob_translator_def (this->definition_);
 	}
       Translator_group *tg = t->instantiate (output_def_l_);
@@ -245,8 +245,8 @@ Translator_group::get_default_interpreter()
 static void
 static_each (SCM list, Method_pointer method)
 {
-  for (SCM p = list; gh_pair_p (p); p = gh_cdr(p))
-    (unsmob_translator (gh_car (p))->*method) ();
+  for (SCM p = list; gh_pair_p (p); p = gh_cdr (p))
+ (unsmob_translator (gh_car (p))->*method) ();
   
 }
 
@@ -291,7 +291,7 @@ Translator_group::get_property (SCM sym) const
 void
 Translator_group::set_property (String id, SCM val)
 {
-  set_property (ly_symbol2scm (id.ch_C()), val);
+  set_property (ly_symbol2scm (id.ch_C ()), val);
 }
 
 void
@@ -307,7 +307,7 @@ Translator_group::set_property (SCM sym, SCM val)
 void
 Translator_group::execute_single_pushpop_property (SCM prop, SCM eltprop, SCM val)
 {
-  if (gh_symbol_p(prop))
+  if (gh_symbol_p (prop))
     {
       if (val != SCM_UNDEFINED)
 	{
@@ -395,7 +395,7 @@ type_check_assignment (SCM val, SCM sym,  SCM type_symbol)
   bool ok = true;
   SCM type_p = SCM_EOL;
 
-  if (gh_symbol_p(sym))
+  if (gh_symbol_p (sym))
     type_p = scm_object_property (sym, type_symbol);
 
   if (type_p != SCM_EOL && !gh_procedure_p (type_p))
@@ -416,7 +416,7 @@ type_check_assignment (SCM val, SCM sym,  SCM type_symbol)
 
 	  scm_puts (_f ("Type check for `%s' failed; value `%s' must be of type `%s'",
 			ly_symbol2string (sym).ch_C (),
-			ly_scm2string (ly_write2scm( val)).ch_C (),
+			ly_scm2string (ly_write2scm (val)).ch_C (),
 			ly_scm2string (type_name).ch_C ()).ch_C (),
 		    errport);
 	  scm_puts ("\n", errport);		      
@@ -462,4 +462,4 @@ add_trans_scm_funcs ()
   scm_make_gsubr ("ly-set-trans-property", 3, 0, 0, (Scheme_function_unknown)ly_set_trans_property);
 }
 
-ADD_SCM_INIT_FUNC(trans_scm, add_trans_scm_funcs);
+ADD_SCM_INIT_FUNC (trans_scm, add_trans_scm_funcs);

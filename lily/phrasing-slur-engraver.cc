@@ -64,7 +64,7 @@ Phrasing_slur_engraver::try_music (Music *req_l)
 	  /*
 	    Let's not start more than one phrasing slur per moment.
 	   */
-	  if (sl->get_span_dir() == START)
+	  if (sl->get_span_dir () == START)
 	    {
 	      if (now_mom () > last_start_)
 	        {
@@ -128,7 +128,7 @@ Phrasing_slur_engraver::create_grobs ()
     {
       Span_req* phrasing_slur_req_l = new_phrasing_slur_req_l_arr_[i];
       // end phrasing slur: move the phrasing slur to other array
-      if (phrasing_slur_req_l->get_span_dir() == STOP)
+      if (phrasing_slur_req_l->get_span_dir () == STOP)
 	{
 	  if (phrasing_slur_l_stack_.empty ())
 	    phrasing_slur_req_l->origin ()->warning (_f ("can't find start of phrasing slur"));
@@ -144,7 +144,7 @@ Phrasing_slur_engraver::create_grobs ()
 	      requests_arr_.pop ();
 	    }
 	}
-      else  if (phrasing_slur_req_l->get_span_dir() == START)
+      else  if (phrasing_slur_req_l->get_span_dir () == START)
 	{
 	  // push a new phrasing_slur onto stack.
 	  // (use temp. array to wait for all phrasing_slur STOPs)

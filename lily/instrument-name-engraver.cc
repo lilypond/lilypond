@@ -23,14 +23,14 @@ class Instrument_name_engraver : public Engraver
   
   void create_text (SCM s);
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
   Instrument_name_engraver ();
   virtual void initialize ();
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
 };
 
-ADD_THIS_TRANSLATOR(Instrument_name_engraver);
+ADD_THIS_TRANSLATOR (Instrument_name_engraver);
 
 Instrument_name_engraver::Instrument_name_engraver ()
 {
@@ -60,7 +60,7 @@ Instrument_name_engraver::stop_translation_timestep ()
 void
 Instrument_name_engraver::create_text (SCM txt)
 {
-  if(!text_)
+  if (!text_)
     {
       text_ = new Item (get_property ("InstrumentName"));
       
@@ -97,10 +97,10 @@ Instrument_name_engraver::acknowledge_grob (Grob_info i)
     return;
   
   if (dynamic_cast<Spanner*> (i.elem_l_)
-      &&((Axis_group_interface::has_interface (i.elem_l_)
+      && ((Axis_group_interface::has_interface (i.elem_l_)
 	 && Axis_group_interface::axis_b (i.elem_l_, Y_AXIS))
 	 || (Align_interface::has_interface (i.elem_l_)
-	     && Align_interface::axis  (i.elem_l_) == Y_AXIS)))
+	     && Align_interface::axis (i.elem_l_) == Y_AXIS)))
     {
       SCM nl = gh_cons (i.elem_l_->self_scm (),
 			get_property ("instrumentSupport"));

@@ -18,9 +18,9 @@ Performer::play_element (Audio_element* p)
 }
 
 int
-Performer::get_tempo_i() const
+Performer::get_tempo_i () const
 {
-  return daddy_perf_l ()->get_tempo_i();
+  return daddy_perf_l ()->get_tempo_i ();
 }
 
 Performer_group_performer*
@@ -47,5 +47,5 @@ Performer::announce_element (Audio_element_info i)
 {
   if (!i.origin_trans_l_)
     i.origin_trans_l_= this;
-  daddy_perf_l()->announce_element (i);
+  daddy_perf_l ()->announce_element (i);
 }

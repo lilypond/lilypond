@@ -14,10 +14,10 @@
 class Key_performer : public Performer
 {
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
   
-  Key_performer();
-  ~Key_performer();
+  Key_performer ();
+  ~Key_performer ();
 
 protected:
   virtual bool try_music (Music* req_l);
@@ -51,7 +51,7 @@ Key_performer::create_audio_elements ()
       SCM acc = gh_call1 (proc, pitchlist);
       proc = scm_eval2 (ly_symbol2scm ("major-key"), SCM_EOL);
       SCM major = gh_call1 (proc, pitchlist);
-      audio_p_ = new Audio_key (gh_scm2int(acc), major == SCM_BOOL_T); 
+      audio_p_ = new Audio_key (gh_scm2int (acc), major == SCM_BOOL_T); 
       Audio_element_info info (audio_p_, key_req_l_);
       announce_element (info);
       key_req_l_ = 0;

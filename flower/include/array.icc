@@ -49,7 +49,7 @@ Array<T>::insert (T k, int j)
 }
 
 template<class T> INLINE void
-Array<T>::sort (int (*compare)(T const&,T const&),
+Array<T>::sort (int (*compare) (T const&,T const&),
 	   int lower = -1, int upper = -1) 
 {
   if (lower < 0) 
@@ -79,7 +79,7 @@ Array<T>::reverse ()
 
 template<class T> INLINE
 void
-Array<T>::OK() const
+Array<T>::OK () const
 {
   assert (max_ >= size_ && size_ >=0);
   if (max_) assert (array_p_);

@@ -135,7 +135,7 @@ Gourlay_breaking::do_solve () const
     }
 
   /* do the last one */
-  if  (break_idx % HAPPY_DOTS_I)
+  if (break_idx % HAPPY_DOTS_I)
     progress_indication (String ("[") + to_str (break_idx) + "]");    
 
 

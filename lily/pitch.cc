@@ -22,7 +22,7 @@ Pitch::Pitch (int o, int n, int a)
   if (n < 0 || n >= 7 ||
       a < -2 || a > 2)
     {
-      String s = _("Pitch arguments out of range");
+      String s = _ ("Pitch arguments out of range");
       s += ": alteration = " + to_str (a);
       s += ", notename = " + to_str (n);
       warning (s);
@@ -150,7 +150,7 @@ String
 Pitch::str () const
 {
   int n = (notename_i_ + 2) % 7;
-  String s = to_str (char(n + 'a'));
+  String s = to_str (char (n + 'a'));
   if (alteration_i_)
     s += String (accname[alteration_i_ + 2]);
 
@@ -239,15 +239,15 @@ pitch_transpose (SCM p, SCM delta)
 /****************************************************************/
 
 
-IMPLEMENT_TYPE_P(Pitch, "pitch?");
-IMPLEMENT_UNSMOB(Pitch, pitch);
+IMPLEMENT_TYPE_P (Pitch, "pitch?");
+IMPLEMENT_UNSMOB (Pitch, pitch);
 SCM
-Pitch::mark_smob (SCM )
+Pitch::mark_smob (SCM)
 {
   return SCM_EOL;
 }
 
-IMPLEMENT_SIMPLE_SMOBS(Pitch);
+IMPLEMENT_SIMPLE_SMOBS (Pitch);
 
 
 int
@@ -256,7 +256,7 @@ Pitch::print_smob (SCM s, SCM port, scm_print_state *)
   Pitch  *r = (Pitch *) gh_cdr (s);
      
   scm_puts ("#<Pitch ", port);
-  scm_display (ly_str02scm (r->str().ch_C()), port);
+  scm_display (ly_str02scm (r->str ().ch_C ()), port);
   scm_puts (" >", port);
   
   return 1;
@@ -275,14 +275,14 @@ Pitch::equal_p (SCM a , SCM b)
   return eq ? SCM_BOOL_T : SCM_BOOL_F;
 }
 
-MAKE_SCHEME_CALLBACK(Pitch, less_p, 2);
+MAKE_SCHEME_CALLBACK (Pitch, less_p, 2);
 SCM
 Pitch::less_p (SCM p1, SCM p2)
 {
   Pitch *a = unsmob_pitch (p1);
   Pitch *b = unsmob_pitch (p2);
 
-  if (compare(*a, *b) < 0 )
+  if (compare (*a, *b) < 0)
     return SCM_BOOL_T;
   else
     return SCM_BOOL_F;
@@ -307,7 +307,7 @@ pitch_octave (SCM pp)
   if (!p)
     warning ("Not a pitch");
   else
-    q = p->octave_i();
+    q = p->octave_i ();
 
   return gh_int2scm (q);
 }
@@ -320,7 +320,7 @@ pitch_alteration (SCM pp)
   if (!p)
     warning ("Not a pitch");
   else
-    q = p->alteration_i();
+    q = p->alteration_i ();
 
   return gh_int2scm (q);
 }
@@ -333,7 +333,7 @@ pitch_notename (SCM pp)
   if (!p)
     warning ("Not a pitch");
   else
-    q = p->notename_i();
+    q = p->notename_i ();
 
   return gh_int2scm (q);
 }
@@ -346,15 +346,15 @@ pitch_semitones (SCM pp)
   if (!p)
     warning ("Not a pitch");
   else
-    q = p->steps();
+    q = p->steps ();
 
   return gh_int2scm (q);
 }
 
 static void
-add_funcs()
+add_funcs ()
 {
-  // should take list?: (make-pitch '(octave name accidental))
+  // should take list?: (make-pitch ' (octave name accidental))
   scm_make_gsubr ("make-pitch", 3, 0, 0, (Scheme_function_unknown)make_pitch);
 
   scm_make_gsubr ("pitch-octave", 1, 0, 0, (Scheme_function_unknown)pitch_octave);
@@ -364,7 +364,7 @@ add_funcs()
   scm_make_gsubr ("Pitch::transpose", 2, 0, 0, (Scheme_function_unknown) pitch_transpose);
 }
 
-ADD_SCM_INIT_FUNC(pitch, add_funcs);
+ADD_SCM_INIT_FUNC (pitch, add_funcs);
 
 SCM
 Pitch::smobbed_copy ()const

@@ -76,7 +76,7 @@ Text_spanner_engraver::try_music (Music *m)
 	}
       else if (t == "text")
 	{
-	  req_drul_[s->get_span_dir()] = s;
+	  req_drul_[s->get_span_dir ()] = s;
 	  return true;
 	}
     }
@@ -91,7 +91,7 @@ Text_spanner_engraver::create_grobs ()
       if (!span_)
 	{
 	  req_drul_[STOP]->origin ()->warning
-	    (_ ("can't find start of text spanner"));
+ (_ ("can't find start of text spanner"));
 	}
       else
 	{
@@ -111,7 +111,7 @@ Text_spanner_engraver::create_grobs ()
       if (current_req_)
 	{
 	  req_drul_[START]->origin ()->warning
-	    (_ ("already have a text spanner"));
+ (_ ("already have a text spanner"));
 	}
       else
 	{

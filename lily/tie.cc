@@ -87,8 +87,8 @@ Tie::position_f (Grob*me)
 Direction
 Tie::get_default_dir (Grob*me) 
 {
-  Item * sl =  head(me,LEFT) ? Rhythmic_head::stem_l (head (me,LEFT)) :0;
-  Item * sr =  head(me,RIGHT) ? Rhythmic_head::stem_l (head (me,RIGHT)) :0;  
+  Item * sl =  head (me,LEFT) ? Rhythmic_head::stem_l (head (me,LEFT)) :0;
+  Item * sr =  head (me,RIGHT) ? Rhythmic_head::stem_l (head (me,RIGHT)) :0;  
 
   if (sl && sr)
     {
@@ -114,7 +114,7 @@ Tie::get_control_points (SCM smob)
   Direction headdir = CENTER; 
   if (head (me,LEFT))
     headdir = LEFT;
-  else if (head(me,RIGHT))
+  else if (head (me,RIGHT))
     headdir = RIGHT;
   else
     {
@@ -142,7 +142,7 @@ Tie::get_control_points (SCM smob)
     this is a kludge: the tie has to be long enough to be
     visible, but should not go through key sigs.
 
-    (please fixme)
+ (please fixme)
    */
   Real lambda = 0.5;		
   
@@ -174,7 +174,7 @@ Tie::get_control_points (SCM smob)
 	  - 2 * x_gap_f;
     }
   
-  Direction dir = Directional_element_interface::get(me);
+  Direction dir = Directional_element_interface::get (me);
 
   SCM details = me->get_grob_property ("details");
 
@@ -215,7 +215,7 @@ Tie::get_control_points (SCM smob)
     todo: tie / stem collision
    */
 
-  b = slur_shape(width,h_inf, r_0);
+  b = slur_shape (width,h_inf, r_0);
   b.scale (1, dir);
   b.translate (Offset (left_x, ypos));
   
@@ -249,7 +249,7 @@ Tie::get_control_points (SCM smob)
 	  Real y1 = ry + clear;
 	  Real y2 = ry - clear;
 	  
-	  newy =  (fabs (y1 - y) < fabs (y2 - y)) ? y1 : y2;
+	  newy = (fabs (y1 - y) < fabs (y2 - y)) ? y1 : y2;
 	  
 	  //	  newy = ry - 0.5 * staff_space * sign (diff) ;
 
@@ -265,7 +265,7 @@ Tie::get_control_points (SCM smob)
       Real y0 = b.control_ [0][Y_AXIS];
       b.control_[2][Y_AXIS] = 
       b.control_[1][Y_AXIS] =
-	(b.control_[1][Y_AXIS] - y0)  * ((newy - y0) / (y - y0)) + y0; 
+ (b.control_[1][Y_AXIS] - y0)  * ((newy - y0) / (y - y0)) + y0; 
     }
   else
     programming_error ("Tie is nowhere horizontal");
@@ -274,11 +274,11 @@ Tie::get_control_points (SCM smob)
 
   SCM controls = SCM_EOL;
   for (int i= 4; i--;)
-    controls = gh_cons ( ly_offset2scm (b.control_[i]), controls);
+    controls = gh_cons (ly_offset2scm (b.control_[i]), controls);
   return controls;
 }
 
-MAKE_SCHEME_CALLBACK(Tie,set_spacing_rods,1);
+MAKE_SCHEME_CALLBACK (Tie,set_spacing_rods,1);
 
 /*
   TODO: set minimum distances for begin/end of line
@@ -300,7 +300,7 @@ Tie::set_spacing_rods (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-MAKE_SCHEME_CALLBACK(Tie,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Tie,brew_molecule,1);
 SCM
 Tie::brew_molecule (SCM smob) 
 {

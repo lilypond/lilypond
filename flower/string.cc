@@ -2,7 +2,7 @@
 
  string.cc - implement String
  
- (c)  1997--2000 Han-Wen Nienhuys & Jan Nieuwenhuizen
+  (c)  1997--2000 Han-Wen Nienhuys & Jan Nieuwenhuizen
 
  */
 
@@ -198,7 +198,7 @@ String::index_last_i (char const c) const
     return -1;
 
   char const* me = strh_.ch_C ();
-  char const* p = (char const*)memrchr ( (Byte*)me, length_i (), c);
+  char const* p = (char const*)memrchr ((Byte*)me, length_i (), c);
   if (p)
     return p - me;
   return -1;
@@ -254,7 +254,7 @@ String::index_i (String searchfor) const
 {
   char const* me = strh_.ch_C ();
 
-  char const* p =     (char const *) 
+  char const* p = (char const *) 
     memmem (me, length_i (), searchfor.ch_C (), searchfor.length_i ());
   
   if (p)
@@ -347,7 +347,7 @@ String::cut_str (int index_i, int n) const
   if (!length_i () || (index_i < 0) || (index_i >= length_i () ) || (n < 1 ) )
     return String ();
 
-  if ( (n > length_i ()) ||  (index_i + n > length_i () ) )
+  if ((n > length_i ()) || (index_i + n > length_i () ) )
     n = length_i () - index_i;
 
   return String (byte_C () + index_i, n);

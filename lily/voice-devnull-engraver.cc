@@ -50,7 +50,7 @@ Voice_devnull_engraver::try_music (Music *m)
       if (Span_req *s = dynamic_cast <Span_req *> (m))
 	{
 	  SCM t = s->get_mus_property ("span-type");
-	  
+        
 	  for (char const **p = eat_spanners; *p; p++)
 	    {
 	      if (t == ly_str02scm (*p))
@@ -63,7 +63,7 @@ Voice_devnull_engraver::try_music (Music *m)
     }
   return false;
 }
-  
+    
 static char const *junk_interfaces[] = {
   "beam-interface",
   "dynamic-interface",
@@ -104,9 +104,10 @@ Voice_devnull_engraver::acknowledge_grob (Grob_info i)
 	  else
 	    ;
 #endif	  
-	    /* Ugh, we can suicide them, but they remain living */
+	  /* Ugh, we can suicide them, but they remain living */
 	  i.elem_l_->suicide ();
 	  return;
 	}
 }
  
+  

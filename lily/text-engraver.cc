@@ -24,7 +24,7 @@ class Text_engraver : public Engraver
   Link_array<Text_script_req> reqs_;
   Link_array<Item> texts_;
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
 protected:
   virtual bool try_music (Music* m);
   virtual void stop_translation_timestep ();
@@ -58,10 +58,10 @@ Text_engraver::acknowledge_grob (Grob_info inf)
 	  /*
 	    ugh.
 	   */
-	  if (Side_position_interface::get_axis( t) == X_AXIS
+	  if (Side_position_interface::get_axis (t) == X_AXIS
 	      && !t->parent_l (Y_AXIS))
 	    t->set_parent (inf.elem_l_, Y_AXIS);
-	  else if (Side_position_interface::get_axis(t) == Y_AXIS
+	  else if (Side_position_interface::get_axis (t) == Y_AXIS
 	      && !t->parent_l (X_AXIS))
 	    t->set_parent (inf.elem_l_, X_AXIS);
 	}
@@ -71,7 +71,7 @@ Text_engraver::acknowledge_grob (Grob_info inf)
     {
       for (int i=0; i < texts_.size (); i++)
 	{
-	  Side_position_interface::add_support(texts_[i],inf.elem_l_);
+	  Side_position_interface::add_support (texts_[i],inf.elem_l_);
 	}
     }
 }
@@ -157,5 +157,5 @@ Text_engraver::start_translation_timestep ()
   reqs_.clear ();
 }
 
-ADD_THIS_TRANSLATOR(Text_engraver);
+ADD_THIS_TRANSLATOR (Text_engraver);
 

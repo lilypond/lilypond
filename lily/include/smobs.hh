@@ -42,7 +42,7 @@
      DECLARE_SIMPLE_SMOBS;
      static SCM make_scm (void initdata) {
        Ssmob * sp = new Ssmob (initdata);
-       return sp->smobbed_self();
+       return sp->smobbed_self ();
      }
    private:
      Ssmob (initdata);
@@ -59,7 +59,7 @@
 
    class Csmob {
      DECLARE_SMOBS;
-     Csmob () { smobify_self(); }
+     Csmob () { smobify_self (); }
      Csmob (Csmob const & s) {
        // don't copy self_scm_
        smobify_self ();
@@ -95,8 +95,8 @@
 
    WARNING:
 
-   smobify_self() might trigger a GC, so make sure that objects are  
-   sane when you do smobify_self().
+   smobify_self () might trigger a GC, so make sure that objects are  
+   sane when you do smobify_self ().
 */
 
 #define DECLARE_SIMPLE_SMOBS(CL,dummy) \
@@ -112,14 +112,14 @@ public: \
 	static SCM equal_p (SCM a, SCM b);\
 	static CL * unsmob (SCM);\
 	static SCM smob_p (SCM);\
-	static void init_smobs();				\
+	static void init_smobs ();				\
 private:
 
 
 #define DECLARE_SMOBS(CL,dummy)					\
-	DECLARE_SIMPLE_SMOBS(CL,dammy) \
+	DECLARE_SIMPLE_SMOBS (CL,dammy) \
 protected:\
-	virtual ~CL();\
+	virtual ~CL ();\
 	SCM unprotected_smobify_self ();\
 private: \
 	SCM smobify_self ();					\

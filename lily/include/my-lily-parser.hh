@@ -31,9 +31,9 @@ class My_lily_parser
 {
 public:
   My_lily_parser (Sources * sources_l);
-  ~My_lily_parser();
+  ~My_lily_parser ();
 
-  void do_init_file();
+  void do_init_file ();
   void parse_file ( String init_str, String file_str);
   void set_version_check (bool ignore);
 
@@ -49,22 +49,22 @@ public:
   My_lily_lexer * lexer_p_;
   bool ignore_version_b_;
   
-  Input here_input() const;
-  void remember_spot();
-  Input pop_spot();
+  Input here_input () const;
+  void remember_spot ();
+  Input pop_spot ();
     
-  void do_yyparse();
+  void do_yyparse ();
   void parser_error (String);
 
   void set_yydebug (bool);
 
 
-  DECLARE_SCHEME_CALLBACK(paper_description, ());
+  DECLARE_SCHEME_CALLBACK (paper_description, ());
 private:
 
   Array<Input> define_spot_array_;
 
-  char const* here_ch_C() const;
+  char const* here_ch_C () const;
 
   Simultaneous_music * get_chord (Pitch tonic, Array<Pitch>* add_arr_p,
 				  Array<Pitch>* sub_arr_p, Pitch* inversion_p,

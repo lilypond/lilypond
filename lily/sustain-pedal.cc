@@ -30,11 +30,11 @@
 struct Sustain_pedal
 {
 public:
-  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM));
+  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM));
 };
 
 
-MAKE_SCHEME_CALLBACK(Sustain_pedal,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Sustain_pedal,brew_molecule,1);
 SCM
 Sustain_pedal::brew_molecule (SCM smob) 
 {

@@ -79,16 +79,16 @@ Duration::str () const
 }
 
 
-IMPLEMENT_TYPE_P(Duration, "duration?");
-IMPLEMENT_UNSMOB(Duration, duration);
+IMPLEMENT_TYPE_P (Duration, "duration?");
+IMPLEMENT_UNSMOB (Duration, duration);
 
 SCM
-Duration::mark_smob (SCM )
+Duration::mark_smob (SCM)
 {
   return SCM_EOL;
 }
 
-IMPLEMENT_SIMPLE_SMOBS(Duration);
+IMPLEMENT_SIMPLE_SMOBS (Duration);
 
 
 int
@@ -97,7 +97,7 @@ Duration::print_smob (SCM s, SCM port, scm_print_state *)
   Duration  *r = (Duration *) gh_cdr (s);
      
   scm_puts ("#<Duration ", port);
-  scm_display (ly_str02scm (r->str().ch_C()), port);
+  scm_display (ly_str02scm (r->str ().ch_C ()), port);
   scm_puts (" >", port);
   
   return 1;
@@ -116,14 +116,14 @@ Duration::equal_p (SCM a , SCM b)
   return eq ? SCM_BOOL_T : SCM_BOOL_F;
 }
   
-MAKE_SCHEME_CALLBACK(Duration, less_p, 2);
+MAKE_SCHEME_CALLBACK (Duration, less_p, 2);
 SCM
 Duration::less_p (SCM p1, SCM p2)
 {
   Duration *a = unsmob_duration (p1);
   Duration *b = unsmob_duration (p2);
 
-  if (compare(*a, *b) < 0 )
+  if (compare (*a, *b) < 0)
     return SCM_BOOL_T;
   else
     return SCM_BOOL_F;
@@ -132,17 +132,17 @@ Duration::less_p (SCM p1, SCM p2)
 static SCM
 make_duration (SCM l, SCM d)
 {
-  Duration p( gh_scm2int (l), gh_scm2int (d));
+  Duration p (gh_scm2int (l), gh_scm2int (d));
   return p.smobbed_copy ();
 }
 
 static void
-add_funcs()
+add_funcs ()
 {
   scm_make_gsubr ("make-duration", 2, 0, 0, (Scheme_function_unknown)make_duration);
 }
 
-ADD_SCM_INIT_FUNC(duration, add_funcs);
+ADD_SCM_INIT_FUNC (duration, add_funcs);
 
 SCM
 Duration::smobbed_copy ()const

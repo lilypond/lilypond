@@ -36,7 +36,7 @@
 void
 Beam::add_stem (Grob*me, Grob*s)
 {
-  Pointer_group_interface:: add_element(me, "stems", s);
+  Pointer_group_interface:: add_element (me, "stems", s);
   
   s->add_dependency (me);
 
@@ -68,7 +68,7 @@ Beam::get_multiplicity (Grob*me)
   [Alternatively, stems could set its own directions, according to
    their beam, during 'final-pre-processing'.]
  */
-MAKE_SCHEME_CALLBACK(Beam,before_line_breaking,1);
+MAKE_SCHEME_CALLBACK (Beam,before_line_breaking,1);
 SCM
 Beam::before_line_breaking (SCM smob)
 {
@@ -120,7 +120,7 @@ Beam::get_default_dir (Grob*me)
 	  count[d] ++;
 	}
 
-    } while (flip(&d) != DOWN);
+    } while (flip (&d) != DOWN);
   
   SCM func = me->get_grob_property ("dir-function");
   SCM s = gh_call2 (func,
@@ -148,7 +148,7 @@ void
 Beam::set_stem_directions (Grob*me)
 {
   Link_array<Item> stems
-    =Pointer_group_interface__extract_elements (me,  (Item*) 0, "stems");
+    =Pointer_group_interface__extract_elements (me, (Item*) 0, "stems");
   Direction d = Directional_element_interface::get (me);
   
   for (int i=0; i <stems.size (); i++)
@@ -279,7 +279,7 @@ Beam::set_stem_shorten (Grob*m)
   grob-properties y, dy.
 
   User may set grob-properties: y-position-hs and height-hs
-  (to be fixed) that override the calculated y and dy.
+ (to be fixed) that override the calculated y and dy.
 
   Because y and dy cannot be calculated and quanted separately, we
   always calculate both, then check for user override.
@@ -294,7 +294,7 @@ Beam::after_line_breaking (SCM smob)
   me->set_grob_property ("dy", gh_double2scm (0));
 
   /* Hmm, callbacks should be called by, a eh, callback mechanism
-    somewhere(?), I guess, not by looping here. */
+    somewhere (?), I guess, not by looping here. */
   
   SCM list = me->get_grob_property ("y-dy-callbacks");
   for (SCM i = list; gh_pair_p (i); i = gh_cdr (i))
@@ -387,7 +387,7 @@ Beam::cancel_suspect_slope (SCM smob)
   Real dx = last_visible_stem (me)->relative_coordinate (0, X_AXIS) - first_visible_stem (me)->relative_coordinate (0, X_AXIS);
   Real dydx = dy && dx ? dy/dx : 0;
 
-  if (((y - first_ideal > lengthened) && (dydx > steep))
+  if (( (y - first_ideal > lengthened) && (dydx > steep))
       || ((y + dy - last_ideal > lengthened) && (dydx < -steep)))
     {
       Real adjusted_y = y + dy / 2;
@@ -614,7 +614,7 @@ Beam::check_stem_length_f (Grob*me,Real y, Real dy)
   Link_array<Item> stems=
     Pointer_group_interface__extract_elements (me, (Item*)0, "stems");
 
-  for (int i=0; i < stems.size(); i++)
+  for (int i=0; i < stems.size (); i++)
     {
       Item* s = stems[i];
       if (Stem::invisible_b (s))
@@ -713,7 +713,7 @@ Beam::quantise_y_f (Grob*me,Real y, Real dy, int quant_dir)
   Real q = up_y - iv[SMALLER] <= iv[BIGGER] - up_y 
     ? iv[SMALLER] : iv[BIGGER];
   if (quant_dir)
-    q = iv[(Direction)quant_dir];
+    q = iv[ (Direction)quant_dir];
 
   return q * Directional_element_interface::get (me);
 }
@@ -725,7 +725,7 @@ Beam::set_beaming (Grob*me,Beaming_info_list *beaming)
     Pointer_group_interface__extract_elements (me, (Grob*)0, "stems");
   
   Direction d = LEFT;
-  for (int i=0; i  < stems.size(); i++)
+  for (int i=0; i  < stems.size (); i++)
     {
       do
 	{
@@ -754,8 +754,8 @@ Molecule
 Beam::stem_beams (Grob*me,Item *here, Item *next, Item *prev) 
 {
   // ugh -> use commonx
-  if ((next && !(next->relative_coordinate (0, X_AXIS) > here->relative_coordinate (0, X_AXIS))) ||
-      (prev && !(prev->relative_coordinate (0, X_AXIS) < here->relative_coordinate (0, X_AXIS))))
+  if ((next && ! (next->relative_coordinate (0, X_AXIS) > here->relative_coordinate (0, X_AXIS))) ||
+ (prev && ! (prev->relative_coordinate (0, X_AXIS) < here->relative_coordinate (0, X_AXIS))))
       programming_error ("Beams are not left-to-right");
 
   Real staffline_f = me->paper_l ()->get_var ("stafflinethickness");
@@ -824,14 +824,14 @@ Beam::stem_beams (Grob*me,Item *here, Item *next, Item *prev)
 
       Real w = next->relative_coordinate (0, X_AXIS) - here->relative_coordinate (0, X_AXIS);
       Molecule a = Lookup::beam (dydx, w + stemdx, thick);
-      a.translate_axis( - stemdx/2, X_AXIS);
+      a.translate_axis (- stemdx/2, X_AXIS);
       int j = 0;
       Real gap_f = 0;
 
       SCM gap = me->get_grob_property ("gap");
       if (gh_number_p (gap))
 	{
-	  int gap_i = gh_scm2int ( (gap));
+	  int gap_i = gh_scm2int ((gap));
 	  int nogap = rwholebeams - gap_i;
 	  
 	  for (; j  < nogap; j++)
@@ -874,7 +874,7 @@ Beam::stem_beams (Grob*me,Item *here, Item *next, Item *prev)
   return leftbeams;
 }
 
-MAKE_SCHEME_CALLBACK(Beam,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Beam,brew_molecule,1);
 SCM
 Beam::brew_molecule (SCM smob)
 {
@@ -895,7 +895,7 @@ Beam::brew_molecule (SCM smob)
   else
     {
       x0 = stems[0]->relative_coordinate (0, X_AXIS);
-      dx = stems.top()->relative_coordinate (0, X_AXIS) - x0;
+      dx = stems.top ()->relative_coordinate (0, X_AXIS) - x0;
     }
   
   
@@ -904,11 +904,11 @@ Beam::brew_molecule (SCM smob)
   Real y = gh_scm2double (me->get_grob_property ("y"));
 
 
-  for (int j=0; j <stems.size  (); j++)
+  for (int j=0; j <stems.size (); j++)
     {
       Item *i = stems[j];
       Item * prev = (j > 0)? stems[j-1] : 0;
-      Item * next = (j < stems.size()-1) ? stems[j+1] :0;
+      Item * next = (j < stems.size ()-1) ? stems[j+1] :0;
 
       Molecule sb = stem_beams (me, i, next, prev);
       Real x = i->relative_coordinate (0, X_AXIS)-x0;
@@ -925,7 +925,7 @@ int
 Beam::forced_stem_count (Grob*me) 
 {
   Link_array<Item>stems = 
-    Pointer_group_interface__extract_elements ( me, (Item*) 0, "stems");
+    Pointer_group_interface__extract_elements (me, (Item*) 0, "stems");
   int f = 0;
   for (int i=0; i < stems.size (); i++)
     {
@@ -934,8 +934,8 @@ Beam::forced_stem_count (Grob*me)
       if (Stem::invisible_b (s))
 	continue;
 
-      if (((int)Stem::chord_start_f (s)) 
-        && (Stem::get_direction (s ) != Stem::get_default_dir (s )))
+      if (( (int)Stem::chord_start_f (s)) 
+        && (Stem::get_direction (s) != Stem::get_default_dir (s)))
         f++;
     }
   return f;
@@ -962,10 +962,10 @@ Beam::visible_stem_count (Grob*me)
 }
 
 Item*
-Beam::first_visible_stem(Grob*me) 
+Beam::first_visible_stem (Grob*me) 
 {
   Link_array<Item>stems = 
-    Pointer_group_interface__extract_elements ( me, (Item*) 0, "stems");
+    Pointer_group_interface__extract_elements (me, (Item*) 0, "stems");
   
   for (int i = 0; i < stems.size (); i++)
     {
@@ -976,10 +976,10 @@ Beam::first_visible_stem(Grob*me)
 }
 
 Item*
-Beam::last_visible_stem(Grob*me) 
+Beam::last_visible_stem (Grob*me) 
 {
   Link_array<Item>stems = 
-    Pointer_group_interface__extract_elements ( me, (Item*) 0, "stems");
+    Pointer_group_interface__extract_elements (me, (Item*) 0, "stems");
   for (int i = stems.size (); i--;)
     {
       if (!Stem::invisible_b (stems[i]))
@@ -998,7 +998,7 @@ Beam::last_visible_stem(Grob*me)
     
     rest -> stem -> beam -> interpolate_y_position ()
 */
-MAKE_SCHEME_CALLBACK(Beam,rest_collision_callback,2);
+MAKE_SCHEME_CALLBACK (Beam,rest_collision_callback,2);
 SCM
 Beam::rest_collision_callback (SCM element_smob, SCM axis)
 {
@@ -1030,8 +1030,8 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
     beam_y = gh_scm2double (s);
   
   // ugh -> use commonx
-  Real x0 = first_visible_stem(beam)->relative_coordinate (0, X_AXIS);
-  Real dx = last_visible_stem(beam)->relative_coordinate (0, X_AXIS) - x0;
+  Real x0 = first_visible_stem (beam)->relative_coordinate (0, X_AXIS);
+  Real dx = last_visible_stem (beam)->relative_coordinate (0, X_AXIS) - x0;
   Real dydx = beam_dy && dx ? beam_dy/dx : 0;
 
   Direction d = Stem::get_direction (stem);
@@ -1056,7 +1056,7 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
   if (discrete_dist < stafflines+1)
     discrete_dist = int (ceil (discrete_dist / 2.0)* 2.0);
 
-  return gh_double2scm  (-d *  discrete_dist);
+  return gh_double2scm (-d *  discrete_dist);
 }
 
 

@@ -330,7 +330,7 @@ String
 Midi_item::i2varint_str (int i)
 {
   int buffer_i = i & 0x7f;
-  while ( (i >>= 7) > 0) 
+  while ((i >>= 7) > 0) 
     {
       buffer_i <<= 8;
       buffer_i |= 0x80;
@@ -472,7 +472,7 @@ Midi_dynamic::str () const
    */
   static Real const full_scale = 127;
   
-  int volume = (int)(audio_l_->volume_*full_scale);
+  int volume = (int) (audio_l_->volume_*full_scale);
   if (volume <= 0)
     volume = 1;
   if (volume > full_scale)
@@ -501,7 +501,7 @@ Midi_piano_pedal::str () const
   else if (audio_l_->type_str_ == "UnaChorda")
     str += to_str ((char)0x43);
 
-  int pedal = ((1 - audio_l_->dir_) / 2 ) * 0x7f;
+  int pedal = ((1 - audio_l_->dir_) / 2) * 0x7f;
   str += to_str ((char)pedal);
   return str;
 }

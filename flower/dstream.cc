@@ -57,13 +57,13 @@ Dstream::identify_as (String name)
     idx = cl;
   else
     {
-      (*silent_dict_p_)[idx] = default_silence_b_;
+ (*silent_dict_p_)[idx] = default_silence_b_;
     }
   local_silence_b_ = (*silent_dict_p_)[idx];
   if (current_classname_str_ != idx && !local_silence_b_)
     {
       current_classname_str_=idx;
-      if (!(*silent_dict_p_)["Dstream"])
+      if (! (*silent_dict_p_)["Dstream"])
 	*os_l_ << "[" << current_classname_str_ << ":]"; // messy.
     }
   return *this;
@@ -81,28 +81,28 @@ Dstream::silent_b (String s) const
 }
 
 Dstream &
-Dstream::operator<<(void const *v_l)
+Dstream::operator<< (void const *v_l)
 {
   output (String_convert::pointer_str (v_l));
   return *this;
 }
 
 Dstream &
-Dstream::operator <<(String s)
+Dstream::operator << (String s)
 {
   output (s);
   return *this;
 }
 
 Dstream &
-Dstream::operator <<(const char * s)
+Dstream::operator << (const char * s)
 {
   output (String (s));
   return *this;
 }
 
 Dstream &
-Dstream::operator <<(char c)
+Dstream::operator << (char c)
 {
   output (to_str (c));
   return *this;
@@ -111,19 +111,19 @@ Dstream::operator <<(char c)
 Dstream&
 Dstream::operator << (Real r)
 {
-  output (to_str  (r));
+  output (to_str (r));
   return *this;
 }
 Dstream &
-Dstream::operator <<(Rational c)
+Dstream::operator << (Rational c)
 {
   output (c.str ());
   return *this;
 }
 Dstream &
-Dstream::operator <<(int i)
+Dstream::operator << (int i)
 {
-  output (to_str(i));
+  output (to_str (i));
   return *this;
 }
   
@@ -148,7 +148,7 @@ Dstream::output (String s)
 	indent_level_i_ -= INDTAB;
 	*os_l_ << *cp		;
 
-	assert  (indent_level_i_>=0) ;
+	assert (indent_level_i_>=0) ;
 	break;
 
       case '\n':
@@ -181,12 +181,12 @@ Dstream::Dstream (ostream *r, char const * cfg_nm)
   Text_db cfg (fn);
   while (!cfg.eof_b ()){
     Text_record  r (cfg++);
-    if (r.size() != 2)
+    if (r.size () != 2)
       {
 	r.message (_ ("not enough fields in Dstream init"));
 	continue;
       }
-    (*silent_dict_p_)[r[0]] = r[1] == "1";
+ (*silent_dict_p_)[r[0]] = r[1] == "1";
   }
 
   if ((*silent_dict_p_).elem_b ("Dstream_default_silence"))
@@ -194,14 +194,14 @@ Dstream::Dstream (ostream *r, char const * cfg_nm)
 }
 
 
-Dstream::~Dstream()
+Dstream::~Dstream ()
 {
   delete silent_dict_p_;
   assert (!indent_level_i_) ;
 }
 
 void
-Dstream::clear_silence()
+Dstream::clear_silence ()
 {
   delete silent_dict_p_;
   silent_dict_p_ = 0;

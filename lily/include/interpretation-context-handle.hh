@@ -19,7 +19,7 @@ public:
   Interpretation_context_handle* clone () const;
   void set_translator (Translator_group*);
   bool try_music (Music *);
-  void operator =(Interpretation_context_handle const&);
+  void operator = (Interpretation_context_handle const&);
   Interpretation_context_handle (Interpretation_context_handle const&);
   Translator_group * report_to_l () const;
 

@@ -42,7 +42,7 @@ remove dynamic_cast<Spanner,Item> and put this code into respective
 
 #define INFINITY_MSG "Infinity or NaN encountered"
 
-Grob::Grob(SCM basicprops)
+Grob::Grob (SCM basicprops)
 {
   /*
     fixme: default should be no callback.
@@ -93,7 +93,7 @@ Grob::Grob(SCM basicprops)
 Grob::Grob (Grob const&s)
    : dim_cache_ (s.dim_cache_)
 {
-  original_l_ =(Grob*) &s;
+  original_l_ = (Grob*) &s;
   immutable_property_alist_ = s.immutable_property_alist_;
   mutable_property_alist_ = SCM_EOL;
   
@@ -103,7 +103,7 @@ Grob::Grob (Grob const&s)
   smobify_self ();
 }
 
-Grob::~Grob()
+Grob::~Grob ()
 {
   /*
     do nothing scm-ish and no unprotecting here.
@@ -121,7 +121,7 @@ Grob::get_grob_property (const char *nm) const
 SCM
 Grob::get_grob_property (SCM sym) const
 {
-  SCM s = scm_sloppy_assq(sym, mutable_property_alist_);
+  SCM s = scm_sloppy_assq (sym, mutable_property_alist_);
   if (s != SCM_BOOL_F)
     return gh_cdr (s);
 
@@ -153,7 +153,7 @@ Grob::set_grob_property (const char* k, SCM v)
 /*
   Puts the k, v in the immutable_property_alist_, which is convenient for
   storing variables that are needed during the breaking process. (eg.
-  Line_of_score::rank : int )
+  Line_of_score::rank : int)
  */
 void
 Grob::set_immutable_grob_property (const char*k, SCM v)
@@ -175,7 +175,7 @@ Grob::set_grob_property (SCM s, SCM v)
 }
 
 
-MAKE_SCHEME_CALLBACK(Grob,molecule_extent,2);
+MAKE_SCHEME_CALLBACK (Grob,molecule_extent,2);
 SCM
 Grob::molecule_extent (SCM element_smob, SCM scm_axis)
 {
@@ -185,11 +185,11 @@ Grob::molecule_extent (SCM element_smob, SCM scm_axis)
   Molecule *m = s->get_molecule ();
   Interval e ;
   if (m)
-    e = m->extent(a);
-  return ly_interval2scm ( e);
+    e = m->extent (a);
+  return ly_interval2scm (e);
 }
 
-MAKE_SCHEME_CALLBACK(Grob,preset_extent,2);
+MAKE_SCHEME_CALLBACK (Grob,preset_extent,2);
 
 SCM
 Grob::preset_extent (SCM element_smob, SCM scm_axis)
@@ -208,7 +208,7 @@ Grob::preset_extent (SCM element_smob, SCM scm_axis)
       return ly_interval2scm (Interval (l, r));
     }
   
-  return ly_interval2scm ( Interval ());
+  return ly_interval2scm (Interval ());
 }
 
 
@@ -243,7 +243,7 @@ Grob::calculate_dependencies (int final, int busy, SCM funcname)
 
   // ughugh.
   String s = ly_symbol2string (funcname);
-  SCM proc = get_grob_property (s.ch_C());
+  SCM proc = get_grob_property (s.ch_C ());
   if (gh_procedure_p (proc))
     gh_call1 (proc, this->self_scm ());
   
@@ -313,7 +313,7 @@ Grob::get_uncached_molecule ()const
 
  */
 void
-Grob::do_break_processing()
+Grob::do_break_processing ()
 {
 }
 
@@ -323,7 +323,7 @@ Grob::do_break_processing()
 
 
 Line_of_score *
-Grob::line_l() const
+Grob::line_l () const
 {
   return 0;
 }
@@ -362,7 +362,7 @@ Grob::handle_broken_smobs (SCM src, SCM criterion)
 	  if (i && i->break_status_dir () != d)
 	    {
 	      Item *br = i->find_prebroken_piece (d);
-	      return  (br) ? br->self_scm () : SCM_UNDEFINED;
+	      return (br) ? br->self_scm () : SCM_UNDEFINED;
 	    }
 	}
       else
@@ -422,7 +422,7 @@ Grob::handle_broken_smobs (SCM src, SCM criterion)
 }
 
 void
-Grob::handle_broken_dependencies()
+Grob::handle_broken_dependencies ()
 {
   Spanner * s= dynamic_cast<Spanner*> (this);
   if (original_l_ && s)
@@ -441,7 +441,7 @@ Grob::handle_broken_dependencies()
     }
 
 
-  Line_of_score *line = line_l();
+  Line_of_score *line = line_l ();
 
   if (line && common_refpoint (line, X_AXIS) && common_refpoint (line, Y_AXIS))
     {
@@ -462,9 +462,9 @@ Grob::handle_broken_dependencies()
 
 	do not do this for Line_of_score, since that would remove
 	references to the originals of score-elts, which get then GC'd
-	(a bad thing.)
+ (a bad thing.)
       */
-      suicide();
+      suicide ();
     }
 }
 
@@ -490,7 +490,7 @@ Grob::suicide ()
 }
 
 void
-Grob::handle_prebroken_dependencies()
+Grob::handle_prebroken_dependencies ()
 {
 }
 
@@ -504,7 +504,7 @@ void
 Grob::translate_axis (Real y, Axis a)
 {
   if (isinf (y) || isnan (y))
-    programming_error (_(INFINITY_MSG));
+    programming_error (_ (INFINITY_MSG));
   else
     {
       dim_cache_[a].offset_ += y;
@@ -550,18 +550,18 @@ Grob::get_offset (Axis a) const
 }
 
 
-MAKE_SCHEME_CALLBACK(Grob,point_dimension_callback,2);
+MAKE_SCHEME_CALLBACK (Grob,point_dimension_callback,2);
 SCM
-Grob::point_dimension_callback (SCM , SCM )
+Grob::point_dimension_callback (SCM , SCM)
 {
-  return ly_interval2scm ( Interval (0,0));
+  return ly_interval2scm (Interval (0,0));
 }
 
 bool
 Grob::empty_b (Axis a)const
 {
-  return ! (gh_pair_p (dim_cache_[a].dimension_ ) ||
-	    gh_procedure_p (dim_cache_[a].dimension_ ));
+  return ! (gh_pair_p (dim_cache_[a].dimension_) ||
+	    gh_procedure_p (dim_cache_[a].dimension_));
 }
 
 /*
@@ -586,7 +586,7 @@ Grob::extent (Grob * refp, Axis a) const
       /*
 	FIXME: add doco on types, and should typecheck maybe? 
        */
-      d->dimension_= gh_call2 (d->dimension_, self_scm(), gh_int2scm (a));
+      d->dimension_= gh_call2 (d->dimension_, self_scm (), gh_int2scm (a));
     }
   else
     return ext;
@@ -665,7 +665,7 @@ Grob::name () const
 {
   SCM meta = get_grob_property ("meta");
   SCM nm = scm_assoc (ly_symbol2scm ("name"), meta);
-  nm =  (gh_pair_p (nm)) ? gh_cdr (nm) : SCM_EOL;
+  nm = (gh_pair_p (nm)) ? gh_cdr (nm) : SCM_EOL;
   return  gh_string_p (nm) ?ly_scm2string (nm) :  classname (this);  
 }
 
@@ -674,7 +674,7 @@ Grob::add_offset_callback (SCM cb, Axis a)
 {
   if (!has_offset_callback_b (cb, a))
   {
-    dim_cache_[a].offset_callbacks_ = gh_cons (cb, dim_cache_[a].offset_callbacks_ );
+    dim_cache_[a].offset_callbacks_ = gh_cons (cb, dim_cache_[a].offset_callbacks_);
     dim_cache_[a].offsets_left_ ++;
   }
 }
@@ -710,7 +710,7 @@ Grob::set_parent (Grob *g, Axis a)
   dim_cache_[a].parent_l_ = g;
 }
 
-MAKE_SCHEME_CALLBACK(Grob,fixup_refpoint,1);
+MAKE_SCHEME_CALLBACK (Grob,fixup_refpoint,1);
 SCM
 Grob::fixup_refpoint (SCM smob)
 {
@@ -736,7 +736,7 @@ Grob::fixup_refpoint (SCM smob)
 	  if (parenti && i)
 	    {
 	      Direction  my_dir = i->break_status_dir () ;
-	      if (my_dir!= parenti->break_status_dir())
+	      if (my_dir!= parenti->break_status_dir ())
 		{
 		  Item *newparent =  parenti->find_prebroken_piece (my_dir);
 		  me->set_parent (newparent, ax);
@@ -754,14 +754,14 @@ Grob::fixup_refpoint (SCM smob)
  ****************************************************/
 
 
-IMPLEMENT_UNSMOB(Grob, grob);
-IMPLEMENT_SMOBS(Grob);
-IMPLEMENT_DEFAULT_EQUAL_P(Grob);
+IMPLEMENT_UNSMOB (Grob, grob);
+IMPLEMENT_SMOBS (Grob);
+IMPLEMENT_DEFAULT_EQUAL_P (Grob);
 
 SCM
 Grob::mark_smob (SCM ses)
 {
-  Grob * s = (Grob*) SCM_CELL_WORD_1(ses);
+  Grob * s = (Grob*) SCM_CELL_WORD_1 (ses);
   scm_gc_mark (s->immutable_property_alist_);
   scm_gc_mark (s->mutable_property_alist_);
 
@@ -787,7 +787,7 @@ Grob::print_smob (SCM s, SCM port, scm_print_state *)
   Grob *sc = (Grob *) gh_cdr (s);
      
   scm_puts ("#<Grob ", port);
-  scm_puts ((char *)sc->name ().ch_C(), port);
+  scm_puts ((char *)sc->name ().ch_C (), port);
 
   /*
     don't try to print properties, that is too much hassle.
@@ -848,7 +848,7 @@ ly_get_grob_property (SCM elt, SCM sym)
 
 
 void
-Grob::discretionary_processing()
+Grob::discretionary_processing ()
 {
 }
 
@@ -889,10 +889,10 @@ Grob::set_interface (SCM k)
   else
     {
       set_grob_property (interfaces_sym,
-			gh_cons  (k, get_grob_property (interfaces_sym)));
+			gh_cons (k, get_grob_property (interfaces_sym)));
     }
 }
 
 
-ADD_SCM_INIT_FUNC(scoreelt, init_functions);
-IMPLEMENT_TYPE_P(Grob, "ly-grob?");
+ADD_SCM_INIT_FUNC (scoreelt, init_functions);
+IMPLEMENT_TYPE_P (Grob, "ly-grob?");

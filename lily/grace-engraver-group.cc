@@ -60,7 +60,7 @@ Grace_engraver_group::typeset_grob (Grob*e)
 }
 
 
-Grace_engraver_group::Grace_engraver_group()
+Grace_engraver_group::Grace_engraver_group ()
 {
   calling_self_b_ = false;
 }
@@ -70,9 +70,9 @@ Grace_engraver_group::one_time_step ()
 {
   calling_self_b_  = true;
   process_music ();
-  announces();
-  pre_move_processing();
-  check_removal();
+  announces ();
+  pre_move_processing ();
+  check_removal ();
   calling_self_b_ = false;
 }
 
@@ -85,7 +85,7 @@ Grace_engraver_group::each (Method_pointer method)
 }
 
 
-ADD_THIS_TRANSLATOR(Grace_engraver_group);
+ADD_THIS_TRANSLATOR (Grace_engraver_group);
 
 
 /*

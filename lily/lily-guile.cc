@@ -79,11 +79,11 @@ ly_parse_scm (char const* s, int* n)
   /*
    After parsing
 
-       (begin (foo 1 2))
+ (begin (foo 1 2))
 
    all seems fine, but after parsing
 
-       (foo 1 2)
+ (foo 1 2)
 
    read_buf has been advanced to read_pos - 1,
    so that scm_ftell returns 1, instead of #parsed chars
@@ -116,7 +116,7 @@ ly_quote_scm (SCM s)
 
 
 SCM
-ly_symbol2scm(const char *s)
+ly_symbol2scm (const char *s)
 {
   return gh_symbol2scm ((char *)s);
 }
@@ -126,7 +126,7 @@ String
 ly_symbol2string (SCM s)
 {
   assert (gh_symbol_p (s));
-  return String((Byte*)SCM_CHARS (s), (int) SCM_LENGTH(s));
+  return String ((Byte*)SCM_CHARS (s), (int) SCM_LENGTH (s));
 }
 
 
@@ -142,11 +142,11 @@ gulp_file_to_string (String fn)
       error (e);
     }
   else if (verbose_global_b)
-    progress_indication ("[" + s );
+    progress_indication ("[" + s);
 
 
-  Simple_file_storage f(s);
-  String result (f.ch_C());
+  Simple_file_storage f (s);
+  String result (f.ch_C ());
   if (verbose_global_b)
     progress_indication ("]");
   return result;
@@ -155,7 +155,7 @@ gulp_file_to_string (String fn)
 SCM
 ly_gulp_file (SCM fn)
 {
-  return ly_str02scm (gulp_file_to_string (ly_scm2string (fn)).ch_C());
+  return ly_str02scm (gulp_file_to_string (ly_scm2string (fn)).ch_C ());
 }
 
 
@@ -166,7 +166,7 @@ ly_gulp_file (SCM fn)
 void
 read_lily_scm_file (String fn)
 {
-  gh_eval_str ((char *) gulp_file_to_string (fn).ch_C());
+  gh_eval_str ((char *) gulp_file_to_string (fn).ch_C ());
 }
 
 extern "C" {
@@ -196,7 +196,7 @@ SCM
 index_cell (SCM s, Direction d)
 {
   assert (d);
-  return (d == LEFT) ? gh_car  (s) : gh_cdr (s);
+  return (d == LEFT) ? gh_car (s) : gh_cdr (s);
 }
 
 SCM
@@ -230,24 +230,24 @@ ly_isdir_p (SCM s)
 
 
 
-typedef void (*Void_fptr)();
+typedef void (*Void_fptr) ();
 Array<Void_fptr> *scm_init_funcs_;
 
-void add_scm_init_func (void (*f)())
+void add_scm_init_func (void (*f) ())
 {
   if (!scm_init_funcs_)
     scm_init_funcs_ = new Array<Void_fptr>;
 
   scm_init_funcs_->push (f);
 }
-extern  void init_cxx_function_smobs();
+extern  void init_cxx_function_smobs ();
 
 void
 init_lily_guile ()
 {
-  init_cxx_function_smobs();
-  for (int i=scm_init_funcs_->size() ; i--;)
-    (scm_init_funcs_->elem (i)) ();
+  init_cxx_function_smobs ();
+  for (int i=scm_init_funcs_->size () ; i--;)
+ (scm_init_funcs_->elem (i)) ();
 }
 
 unsigned int ly_scm_hash (SCM s)
@@ -323,7 +323,7 @@ appendable_list_append (SCM l, SCM elt)
 SCM
 ly_offset2scm (Offset o)
 {
-  return gh_cons (gh_double2scm (o[X_AXIS]), gh_double2scm(o[Y_AXIS]));
+  return gh_cons (gh_double2scm (o[X_AXIS]), gh_double2scm (o[Y_AXIS]));
 }
 
 Offset
@@ -405,13 +405,13 @@ ly_number2string (SCM s)
 static void *
 greet_sweep (void *dummy1, void *dummy2, void *dummy3)
 {
-   fprintf(stderr, "entering sweep\n");
+   fprintf (stderr, "entering sweep\n");
 }
 
 static void *
 wave_sweep_goodbye (void *dummy1, void *dummy2, void *dummy3)
 {
-   fprintf(stderr, "leaving sweep\n");
+   fprintf (stderr, "leaving sweep\n");
 }
 #endif
 
@@ -420,7 +420,7 @@ wave_sweep_goodbye (void *dummy1, void *dummy2, void *dummy3)
 SCM
 ly_version ()
 {
-  char const* vs =  "\'(" MAJOR_VERSION " " MINOR_VERSION " "  PATCH_LEVEL " " MY_PATCH_LEVEL ")" ;
+  char const* vs =  "\' (" MAJOR_VERSION " " MINOR_VERSION " "  PATCH_LEVEL " " MY_PATCH_LEVEL ")" ;
 
   
   return gh_eval_str ((char*)vs);
@@ -443,7 +443,7 @@ init_functions ()
 #endif
 }
 
-ADD_SCM_INIT_FUNC(funcs, init_functions);
+ADD_SCM_INIT_FUNC (funcs, init_functions);
 
 SCM
 ly_deep_copy (SCM l)

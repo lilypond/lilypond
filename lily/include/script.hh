@@ -24,8 +24,8 @@ public:
   static Molecule get_molecule (Grob*,Direction d);
   static void set_interface (Grob*);
   static bool  has_interface (Grob*);
-  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
-  DECLARE_SCHEME_CALLBACK(after_line_breaking, (SCM ));
+  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
+  DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM ));
 };
 
 #endif /* Stem_SCRIPT_HH */

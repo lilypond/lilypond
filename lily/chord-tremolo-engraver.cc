@@ -41,8 +41,8 @@ class Chord_tremolo_engraver : public Engraver
 {
   void typeset_beam ();
 public:
-  VIRTUAL_COPY_CONS(Translator);
-  Chord_tremolo_engraver();
+  VIRTUAL_COPY_CONS (Translator);
+  Chord_tremolo_engraver ();
 protected:
   Repeated_music * repeat_;
 
@@ -60,15 +60,15 @@ protected:
   Spanner * finished_beam_p_;
   Item * stem_tremolo_;
 protected:
-  virtual void finalize();
+  virtual void finalize ();
   virtual bool try_music (Music*);
   virtual void acknowledge_grob (Grob_info);
-  virtual void stop_translation_timestep();
-  virtual void start_translation_timestep();
+  virtual void stop_translation_timestep ();
+  virtual void start_translation_timestep ();
   virtual void process_music ();
 };
 
-Chord_tremolo_engraver::Chord_tremolo_engraver()
+Chord_tremolo_engraver::Chord_tremolo_engraver ()
 {
   beam_p_  = finished_beam_p_ = 0;
   repeat_ =0;
@@ -112,13 +112,13 @@ Chord_tremolo_engraver::process_music ()
 
 	  SCM smp = get_property ("measurePosition");
 	  Moment mp
-	    =  (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
+	    = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
 	  beam_start_location_ = mp;
 	  announce_grob (beam_p_, repeat_);
 	}
       else if (!sequential_body_b_ && !stem_tremolo_)
 	{
-	  int flags = intlog2(note_head_i_ * repeat_->repeat_count ()) -2;
+	  int flags = intlog2 (note_head_i_ * repeat_->repeat_count ()) -2;
 	  if (flags)
 	    {
 	      stem_tremolo_ = new Item (get_property ("StemTremolo"));
@@ -179,10 +179,10 @@ Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
 		      --hwn.
 	   */
 	  SCM d = s->get_grob_property ("direction");
-	  if (Stem::type_i (s ) != 1)
+	  if (Stem::type_i (s) != 1)
 	    {
-	      int gap_i =Stem::flag_i (s ) - ((Stem::type_i (s ) >? 2) - 2);
-	      beam_p_->set_grob_property ("beam-gap", gh_int2scm(gap_i));
+	      int gap_i =Stem::flag_i (s) - ((Stem::type_i (s) >? 2) - 2);
+	      beam_p_->set_grob_property ("beam-gap", gh_int2scm (gap_i));
 	    }
 	  s->set_grob_property ("direction", d);
 
@@ -241,5 +241,5 @@ Chord_tremolo_engraver::stop_translation_timestep ()
   
 }
 
-ADD_THIS_TRANSLATOR(Chord_tremolo_engraver);
+ADD_THIS_TRANSLATOR (Chord_tremolo_engraver);
 

@@ -18,13 +18,13 @@ const int INITIALMAX=8;
 #include <sys/types.h>
 
 INLINE void 
-String_data::OKW() 
+String_data::OKW () 
 {
   assert (references == 1);
 }
 
 INLINE void 
-String_data::OK() 
+String_data::OK () 
 {
   assert (maxlen >= length_i_);
   assert (bool (data_byte_p_));
@@ -33,7 +33,7 @@ String_data::OK()
 
 
 INLINE
-String_data::String_data() 
+String_data::String_data () 
 {
   references=0;
   maxlen = INITIALMAX;
@@ -52,7 +52,7 @@ String_data::String_data (String_data const &src)
 }
 
 INLINE
-String_data::~String_data() 
+String_data::~String_data () 
 {
   assert (references == 0);
   delete[] data_byte_p_;
@@ -61,7 +61,7 @@ String_data::~String_data()
 INLINE void 
 String_data::setmax (int j) 
 {	
-  OKW();
+  OKW ();
   if (j > maxlen) 
     {
       delete data_byte_p_;
@@ -85,7 +85,7 @@ String_data::setmax (int j)
 INLINE void 
 String_data::remax (int j) 
 {
-  OKW();
+  OKW ();
   if (j > maxlen) 
     {
       Byte *p = new Byte[j + 1];	
@@ -97,7 +97,7 @@ String_data::remax (int j)
 }
 
 INLINE void 
-String_data::tighten() 
+String_data::tighten () 
 { // should be dec'd const
   maxlen = length_i_;
   Byte *p = new Byte[maxlen + 1];	    
@@ -109,7 +109,7 @@ String_data::tighten()
 INLINE void 
 String_data::set (Byte const* byte_C, int length_i) 
 {
-  OKW();
+  OKW ();
 
   assert (byte_C && byte_C != data_byte_p_);
 
@@ -131,8 +131,8 @@ String_data::set (char const* ch_C)
 INLINE void 
 String_data::append (Byte const* byte_C, int length_i) 
 {
-  OK();
-  OKW();
+  OK ();
+  OKW ();
   int old_i = length_i_;
   
   length_i_ += length_i;
@@ -152,26 +152,26 @@ String_data::operator += (char const* ch_C)
 
 INLINE
 char const*
-String_data::ch_C() const
+String_data::ch_C () const
 {
   return (char const*)data_byte_p_; 
 }
 INLINE char* 
-String_data::ch_l() 
+String_data::ch_l () 
 { 
   return (char*)data_byte_p_; 
 }
 
 INLINE Byte const*
-String_data::byte_C() const 
+String_data::byte_C () const 
 { 
   return data_byte_p_; 
 }
 
 INLINE Byte* 
-String_data::byte_l() 
+String_data::byte_l () 
 {
-  OKW();
+  OKW ();
   return data_byte_p_;
 }
 
@@ -179,28 +179,28 @@ INLINE
 void 
 String_data::trunc (int j) 
 {
-  OKW(); 
+  OKW (); 
   assert (j >= 0 && j <= length_i_);
   data_byte_p_[j] = 0;
   length_i_ = j;
 }
 
 INLINE bool
-String_data::is_binary_bo() const
+String_data::is_binary_bo () const
 {
   //    return !memchr (data_byte_p_, length_i_, 0);
   return ((int)strlen ((char const*)data_byte_p_) != length_i_ );
 }
 
 INLINE Byte&
-String_data::operator [](int j) 
+String_data::operator [] (int j) 
 {
   assert (j >= 0 && j <= length_i_);
   return data_byte_p_[j] ; 
 }
 
 INLINE Byte 
-String_data::operator [](int j) const 
+String_data::operator [] (int j) const 
 {
   assert (j >= 0 && j <= length_i_);
   return data_byte_p_[j]; 

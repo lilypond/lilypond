@@ -23,10 +23,10 @@ Global_translator::add_moment_to_process (Moment m)
   if (m  > final_mom_)
     return;
 
-  if (m < now_mom_ )
+  if (m < now_mom_)
     programming_error ("Trying to freeze in time.");
   
-  for (int i=0; i <  extra_mom_pq_.size(); i++)
+  for (int i=0; i <  extra_mom_pq_.size (); i++)
     if (extra_mom_pq_[i] == m)
       return;
   extra_mom_pq_.insert (m);
@@ -35,15 +35,15 @@ Global_translator::add_moment_to_process (Moment m)
 Moment
 Global_translator::sneaky_insert_extra_moment (Moment w)
 {
-  while (extra_mom_pq_.size() && extra_mom_pq_.front() <= w)
-    w = extra_mom_pq_.get();
+  while (extra_mom_pq_.size () && extra_mom_pq_.front () <= w)
+    w = extra_mom_pq_.get ();
   return w;
 }
 
 int
-Global_translator::moments_left_i() const
+Global_translator::moments_left_i () const
 {
-  return extra_mom_pq_.size();
+  return extra_mom_pq_.size ();
 }
 
 void
@@ -62,7 +62,7 @@ Global_translator::now_mom () const
 
 
 Music_output*
-Global_translator::get_output_p()
+Global_translator::get_output_p ()
 {
   return 0;
 }
@@ -89,7 +89,7 @@ Global_translator::run_iterator_on_me (Music_iterator * iter)
       w.set_infinite (1);
       if (iter->ok ())
 	{
-	  w = iter->pending_moment();
+	  w = iter->pending_moment ();
       
 	}
 

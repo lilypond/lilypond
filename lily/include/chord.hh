@@ -16,7 +16,7 @@
   functions
   
   ``chord'' is encoded:
-  (PITCHES . (INVERSION . BASS))
+ (PITCHES . (INVERSION . BASS))
 
   Chord:: namespace...  */
 class Chord

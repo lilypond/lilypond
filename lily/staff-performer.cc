@@ -14,13 +14,13 @@
 #include "performer-group-performer.hh"
 
 /** Perform a staff. Individual notes should have their instrument
-  (staff-wide) set, so we override play_element()
+ (staff-wide) set, so we override play_element ()
 
   */
 class Staff_performer : public Performer_group_performer 
 {
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
   
 
   Staff_performer ();
@@ -128,7 +128,7 @@ Staff_performer::new_instrument_str ()
   // mustn't ask Score for instrument: it will return piano!
   SCM minstr = get_property (ly_symbol2scm ("midiInstrument"));
 
-  if (!gh_string_p(minstr))
+  if (!gh_string_p (minstr))
     minstr = get_property (ly_symbol2scm ("instrument"));
 
   if (!gh_string_p (minstr)

@@ -23,13 +23,13 @@ protected:
   Spanner *staffline_p_;   
 
   virtual void create_line_spanner ();
-  virtual void initialize();
-  virtual void finalize();
+  virtual void initialize ();
+  virtual void finalize ();
   virtual void typeset_grob (Grob*);
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
   
-  Line_group_engraver_group();
+  Line_group_engraver_group ();
 };
 
 

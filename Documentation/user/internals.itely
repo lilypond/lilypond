@@ -456,6 +456,10 @@ Get the property @var{sym} of music expression @var{m}.
 Set property @var{sym} in music expression @var{m} to @var{val}.
 @end defun
 
+@defun ly-make-music name
+Make a music object/expression of type @var{name}. Warning: this
+interface will likely change in the near future.
+@end defun
 
 @node Molecules
 @section Molecules

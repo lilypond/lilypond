@@ -16,7 +16,7 @@
 static Real
 F0_1 (Real x)
 {
-  return 2 / M_PI * atan ( M_PI * x / 2);
+  return 2 / M_PI * atan (M_PI * x / 2);
 }
 
 Real
@@ -29,19 +29,19 @@ slur_height (Real width, Real h_inf, Real r_0)
   For small w, the height should be proportional to w, for w ->
   infinity, the height should rise to a limit asymptotically.
 
-  Hence we take F(x) such that
-  F(0) = 0 , F'(0) = 1, and F(infty) = 1
+  Hence we take F (x) such that
+  F (0) = 0 , F' (0) = 1, and F (infty) = 1
 
   and use
 
-  h = h_infinity * F(x * r_0 / h_infinity)
+  h = h_infinity * F (x * r_0 / h_infinity)
 
   
   Examples:
 
-  * F(x) = 2/pi * atan (pi x/2)
+  * F (x) = 2/pi * atan (pi x/2)
 
-  * F(x) 1/alpha * x^alpha / (1 + x^alpha)
+  * F (x) 1/alpha * x^alpha / (1 + x^alpha)
 
   * (etc.)
 
@@ -49,7 +49,7 @@ slur_height (Real width, Real h_inf, Real r_0)
   `small' slurs to `big' slurs occurs.]
 
   Although this might seem cand_idates to SCM-ify, it is not all clear
-  which parameters (ie. h_inf, r_0, F(.)) should be candidates for
+  which parameters (ie. h_inf, r_0, F (.)) should be candidates for
   this.  At present h_inf and r_0 come from paper settings, but we did
   no experiments for determining the best combinations of F, h_inf and
   r_0.

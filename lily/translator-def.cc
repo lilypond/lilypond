@@ -20,7 +20,7 @@ Translator_def::print_smob (SCM smob, SCM port, scm_print_state*)
 {
   Translator_def* me = (Translator_def*) SCM_CELL_WORD_1 (smob);
 
-  scm_puts("#<Translator_def ", port);
+  scm_puts ("#<Translator_def ", port);
   scm_display (me->type_name_, port);
   scm_puts (">", port);
   return 1;
@@ -49,7 +49,7 @@ foo_init ()
   assign_sym = scm_permanent_object (ly_symbol2scm ("assign"));
 }
 
-ADD_SCM_INIT_FUNC(transdef, foo_init);
+ADD_SCM_INIT_FUNC (transdef, foo_init);
 
 Translator_def::Translator_def ()
 {
@@ -99,8 +99,8 @@ Translator_def::modify_definition (SCM list, SCM str, bool add)
     {
       if (scm_memq (str, list) != SCM_BOOL_F)
 	{
-	  warning (_f("Already contains: `%s'", s));
-	  warning (_f("Not adding translator: `%s'", s));
+	  warning (_f ("Already contains: `%s'", s));
+	  warning (_f ("Not adding translator: `%s'", s));
 	}
       else
 	list= gh_cons (str, list);
@@ -154,9 +154,9 @@ void
 Translator_def::apply_pushpop_property (Translator_group* me,SCM syms, SCM eprop, SCM val)
 {
   if (gh_symbol_p (syms))
-    dynamic_cast<Translator_group*>(me)->execute_single_pushpop_property (syms, eprop, val);
+    dynamic_cast<Translator_group*> (me)->execute_single_pushpop_property (syms, eprop, val);
   else for (SCM s = syms; gh_pair_p (s); s = gh_cdr (s))
-    dynamic_cast<Translator_group*>(me)->execute_single_pushpop_property (gh_car (s), eprop, val);
+    dynamic_cast<Translator_group*> (me)->execute_single_pushpop_property (gh_car (s), eprop, val);
 }
 
 
@@ -199,9 +199,9 @@ Translator_def::path_to_acceptable_translator (SCM type_str, Music_output_def* o
 
   return best_result;
 }
-IMPLEMENT_UNSMOB(Translator_def,translator_def);
-IMPLEMENT_SMOBS(Translator_def);
-IMPLEMENT_DEFAULT_EQUAL_P(Translator_def);
+IMPLEMENT_UNSMOB (Translator_def,translator_def);
+IMPLEMENT_SMOBS (Translator_def);
+IMPLEMENT_DEFAULT_EQUAL_P (Translator_def);
 
 
 static SCM
@@ -268,7 +268,7 @@ Translator_def::apply_property_operations (Translator_group*tg)
 	}
       else if (type == assign_sym)
 	{
-	  tg->set_property (gh_car(entry), gh_cadr (entry));
+	  tg->set_property (gh_car (entry), gh_cadr (entry));
 	}
     }
 }

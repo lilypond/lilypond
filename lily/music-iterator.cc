@@ -72,7 +72,7 @@ Music_iterator::ok () const
 }
 
 void
-Music_iterator::skip (Moment )
+Music_iterator::skip (Moment)
 {
 }
 
@@ -109,7 +109,7 @@ Music_iterator::static_get_iterator_p (Music *m)
 
 
 Moment
-Music_iterator::music_length_mom() const
+Music_iterator::music_length_mom () const
 {
   return music_length_;
 }
@@ -155,7 +155,7 @@ Music_iterator::get_iterator_p (Music *m) const
 Music_iterator*
 Music_iterator::try_music (Music *m) const
 {
-  bool b = report_to_l ()->try_music ( (Music*)m); // ugh
+  bool b = report_to_l ()->try_music ((Music*)m); // ugh
   Music_iterator * it = b ? (Music_iterator*) this : 0;	// ugh
   if (!it)
     it = try_music_in_children (m);
@@ -168,4 +168,4 @@ Music_iterator::try_music_in_children (Music *) const
   return 0;
 }
 
-IMPLEMENT_CTOR_CALLBACK(Music_iterator);
+IMPLEMENT_CTOR_CALLBACK (Music_iterator);

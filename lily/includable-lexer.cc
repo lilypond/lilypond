@@ -21,7 +21,7 @@
 #endif
 
 #ifndef YY_START
-#define YY_START ((yy_start - 1) / 2)
+#define YY_START() ((yy_start - 1) / 2)
 #define YYSTATE YY_START
 #endif
 
@@ -47,7 +47,7 @@ Includable_lexer::new_input (String s, Sources  * global_sources)
     {
       String msg = _f ("can't find file: `%s'", s);
       msg += "\n";
-      msg += _f ("(search path: `%s')", global_sources->path_C_->str ().ch_C());
+      msg += _f ("(search path: `%s')", global_sources->path_C_->str ().ch_C ());
       msg += "\n";
       LexerError (msg.ch_C ());
 

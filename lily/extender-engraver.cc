@@ -38,9 +38,9 @@ public:
 
 protected:
   virtual void acknowledge_grob (Grob_info);
-  virtual void finalize();
+  virtual void finalize ();
   virtual bool try_music (Music*);
-  virtual void stop_translation_timestep();
+  virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
   virtual void process_music ();
 private:
@@ -62,7 +62,7 @@ void
 Extender_engraver::acknowledge_grob (Grob_info i)
 {
   // -> text_item
-  if (i.elem_l_->has_interface (ly_symbol2scm("lyric-syllable-interface")))
+  if (i.elem_l_->has_interface (ly_symbol2scm ("lyric-syllable-interface")))
     {
       current_lyric_l_ = i.elem_l_;
       if (extender_p_
@@ -95,7 +95,7 @@ Extender_engraver::finalize ()
   if (extender_p_)
     {
       req_l_->origin ()->warning (_ ("unterminated extender"));
-      extender_p_->set_bound(RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
+      extender_p_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
     }
 }
 
@@ -113,7 +113,7 @@ Extender_engraver::process_music ()
       extender_p_ = new Spanner (get_property ("LyricExtender"));
 
 
-      Lyric_extender::set_textitem  (extender_p_, LEFT, last_lyric_l_);
+      Lyric_extender::set_textitem (extender_p_, LEFT, last_lyric_l_);
       announce_grob (extender_p_, req_l_);
     }
 }

@@ -18,13 +18,13 @@
 class Global_translator : public virtual Translator_group{
   PQueue<Moment> extra_mom_pq_;
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
   Moment final_mom_;
   Moment prev_mom_;
   Moment now_mom_;
-  Global_translator();
+  Global_translator ();
 
-  int moments_left_i() const;
+  int moments_left_i () const;
   Moment sneaky_insert_extra_moment (Moment);
   void add_moment_to_process (Moment);
   void run_iterator_on_me (Music_iterator*);
@@ -32,8 +32,8 @@ public:
   virtual Music_output *get_output_p ();     
   virtual void prepare (Moment);
   virtual void one_time_step ();
-  virtual void finish();
-  virtual void start();
+  virtual void finish ();
+  virtual void start ();
 
   virtual Moment now_mom () const;
 

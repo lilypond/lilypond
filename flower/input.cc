@@ -3,7 +3,7 @@
 
  source file of the LilyPond music typesetter
 
- (c) 1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 #include <iostream.h>
 #include "flower-proto.hh"
@@ -38,7 +38,7 @@ Input::set_spot (Input const &i)
 
 /*
   Produce GNU-compliant error message.  Correcting mudela is such a
-  breeze if you('re edidor) know(s) the error column too
+  breeze if you ('re edidor) know (s) the error column too
   
   Format:
 
@@ -101,7 +101,7 @@ Input::location_str () const
   if (source_file_l_)
     return source_file_l_->file_line_column_str (defined_ch_C_);
   else
-    return "(" + _ ("position unknown") + ")";
+    return " (" + _ ("position unknown") + ")";
 }
 
 String

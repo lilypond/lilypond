@@ -20,7 +20,7 @@ struct Beaming_info
   Drul_array<int> beams_i_drul_;
 
   Beaming_info (Moment, int);
-  int count  (Direction d);
+  int count (Direction d);
   Beaming_info ();
 };
 

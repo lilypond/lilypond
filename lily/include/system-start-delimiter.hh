@@ -19,11 +19,11 @@
 class System_start_delimiter
 {
 public:
-  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
+  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
   
   static void set_interface (Grob*me);
   static bool has_interface (Grob*);
-  DECLARE_SCHEME_CALLBACK(after_line_breaking, (SCM ));
+  DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM ));
   static void try_collapse (Grob*);
   static Molecule staff_bracket (Grob*,Real) ;
   static Molecule staff_brace (Grob*,Real) ;

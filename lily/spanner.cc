@@ -41,7 +41,7 @@ Spanner::do_break_processing ()
 	  if (!parent->spanned_rank_iv ().contains_b (this->spanned_rank_iv ()))
 	    {
 	      programming_error (to_str ("Spanner `%s' is not fully contained in parent spanner `%s'.",
-					 name().ch_C(),
+					 name ().ch_C (),
 					 parent->name ().ch_C ()));
 	    }
 	}
@@ -50,7 +50,7 @@ Spanner::do_break_processing ()
   if (line_l () || broken_b ())
     return;
 
-  if  (left == right)
+  if (left == right)
     {
       /*
 	If we have a spanner spanning one column, we must break it
@@ -63,7 +63,7 @@ Spanner::do_break_processing ()
 	    programming_error ("no broken bound");
 	  else if (bound->line_l ())
 	    {
-	      Spanner * span_p = dynamic_cast<Spanner*>( clone ());
+	      Spanner * span_p = dynamic_cast<Spanner*> (clone ());
 	      span_p->set_bound (LEFT, bound);
 	      span_p->set_bound (RIGHT, bound);
 
@@ -72,7 +72,7 @@ Spanner::do_break_processing ()
 	      broken_into_l_arr_.push (span_p);
 	    }
 	}
-      while ((flip(&d))!= LEFT);
+      while ((flip (&d))!= LEFT);
     }
   else
     {
@@ -81,7 +81,7 @@ Spanner::do_break_processing ()
       break_points.insert (left,0);
       break_points.push (right);
 
-      for (int i=1; i < break_points.size(); i++) 
+      for (int i=1; i < break_points.size (); i++) 
 	{
 	  Drul_array<Item*> bounds;
 	  bounds[LEFT] = break_points[i-1];
@@ -89,10 +89,10 @@ Spanner::do_break_processing ()
 	  Direction d = LEFT;
 	  do
 	    {
-	      if (!bounds[d]->line_l())
-		bounds[d] = bounds[d]->find_prebroken_piece(- d);
+	      if (!bounds[d]->line_l ())
+		bounds[d] = bounds[d]->find_prebroken_piece (- d);
 	    }
-	  while ((flip(&d))!= LEFT);
+	  while ((flip (&d))!= LEFT);
 
   	  if (!bounds[LEFT] ||  ! bounds[RIGHT])
 	    {
@@ -100,9 +100,9 @@ Spanner::do_break_processing ()
 	      continue; 
 	    }
 
-	  Spanner *span_p = dynamic_cast<Spanner*>(clone ());
-	  span_p->set_bound(LEFT,bounds[LEFT]);
-	  span_p->set_bound(RIGHT,bounds[RIGHT]);
+	  Spanner *span_p = dynamic_cast<Spanner*> (clone ());
+	  span_p->set_bound (LEFT,bounds[LEFT]);
+	  span_p->set_bound (RIGHT,bounds[RIGHT]);
 
 	  if (!bounds[LEFT]->line_l () 
 	    
@@ -123,15 +123,15 @@ Spanner::do_break_processing ()
 }
 
 void
-Spanner::set_my_columns()
+Spanner::set_my_columns ()
 {
   Direction i = (Direction) LEFT;
   do 
     {
-      if (!spanned_drul_[i]->line_l())
-	set_bound(i,spanned_drul_[i]->find_prebroken_piece((Direction) -i));
+      if (!spanned_drul_[i]->line_l ())
+	set_bound (i,spanned_drul_[i]->find_prebroken_piece ((Direction) -i));
     } 
-  while (flip(&i) != LEFT);
+  while (flip (&i) != LEFT);
 }       
 
 Interval_t<int>
@@ -161,7 +161,7 @@ Spanner::get_bound (Direction d) const
   X-axis parent of THIS to S.
 */
 void
-Spanner::set_bound(Direction d, Grob*s)
+Spanner::set_bound (Direction d, Grob*s)
 {
   Item * i = dynamic_cast<Item*> (s);
   if (!i)
@@ -208,7 +208,7 @@ Spanner::Spanner (Spanner const &s)
 }
 
 Real
-Spanner::spanner_length() const
+Spanner::spanner_length () const
 {  
   Real l = spanned_drul_[LEFT]->relative_coordinate (0, X_AXIS);
   Real r = spanned_drul_[RIGHT]->relative_coordinate (0, X_AXIS);
@@ -220,20 +220,20 @@ Spanner::spanner_length() const
 }
 
 Line_of_score *
-Spanner::line_l() const
+Spanner::line_l () const
 {
   if (!spanned_drul_[LEFT] || !spanned_drul_[RIGHT])
     return 0;
   if (spanned_drul_[LEFT]->line_l () != spanned_drul_[RIGHT]->line_l ())
     return 0;
-  return spanned_drul_[LEFT]->line_l();
+  return spanned_drul_[LEFT]->line_l ();
 }
 
 
 Grob*
 Spanner::find_broken_piece (Line_of_score*l) const
 {
-  int idx = binsearch_link_array (broken_into_l_arr_,  (Spanner*)l, Spanner::compare);
+  int idx = binsearch_link_array (broken_into_l_arr_, (Spanner*)l, Spanner::compare);
   
   if (idx < 0)
     return 0;
@@ -249,9 +249,9 @@ Spanner::compare (Spanner * const &p1, Spanner * const &p2)
 }
 
 bool
-Spanner::broken_b() const
+Spanner::broken_b () const
 {
-  return broken_into_l_arr_.size();
+  return broken_into_l_arr_.size ();
 }
 
 
@@ -264,10 +264,10 @@ Spanner::broken_b() const
 Real
 Spanner::get_broken_left_end_align () const
 {
-  Paper_column *sc = dynamic_cast<Paper_column*> (spanned_drul_[LEFT]->column_l());
+  Paper_column *sc = dynamic_cast<Paper_column*> (spanned_drul_[LEFT]->column_l ());
 
   // Relevant only if left span point is first column in line
-  if(sc != NULL &&
+  if (sc != NULL &&
      sc->break_status_dir () == RIGHT)
     {
       /*
@@ -346,12 +346,12 @@ extend_spanner_over_elements (SCM value, SCM extremal_pair)
     }
   else if (unsmob_grob (value))
     {
-      if (Spanner * sp = dynamic_cast<Spanner*> (unsmob_grob(value)))
+      if (Spanner * sp = dynamic_cast<Spanner*> (unsmob_grob (value)))
 	{
 	  extend_spanner_over_item (sp->get_bound (LEFT), extremal_pair);
 	  extend_spanner_over_item (sp->get_bound (RIGHT), extremal_pair);
 	}
-      else if (Item * it= dynamic_cast<Item*> (unsmob_grob(value)))
+      else if (Item * it= dynamic_cast<Item*> (unsmob_grob (value)))
 	extend_spanner_over_item (it, extremal_pair);
     }
 }

@@ -72,7 +72,7 @@ Break_algorithm::generate_spacing_problem (Link_array<Grob> curline, Interval li
   /*
     sort out how interfacing this should work;
    */
-  if (line.empty_b())
+  if (line.empty_b ())
     {
      sp->line_len_f_ = -1;
     }
@@ -95,7 +95,7 @@ void
 Break_algorithm::set_pscore (Paper_score*s)
 {
   pscore_l_ = s;
-  linewidth_f_ = s->paper_l_->get_var("linewidth");
+  linewidth_f_ = s->paper_l_->get_var ("linewidth");
 }
 
 Array<Column_x_positions>

@@ -13,7 +13,7 @@
 
 
 /** The functor String_convert handles all conversions to/from String
-	(some time, anyway).  The class is quite empty from data view.  */
+ (some time, anyway).  The class is quite empty from data view.  */
 class String_convert {
   static int hex2bin_i (String hex_str, String& bin_str_r);
   static int hex2nibble_i (Byte byte);

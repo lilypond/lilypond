@@ -15,7 +15,7 @@
 #include "spanner.hh"
 
 
-Line_group_engraver_group::Line_group_engraver_group()
+Line_group_engraver_group::Line_group_engraver_group ()
 {
   staffline_p_ =0;
 }
@@ -31,24 +31,24 @@ Line_group_engraver_group::typeset_grob (Grob *elem)
 
 
 void
-Line_group_engraver_group::finalize()
+Line_group_engraver_group::finalize ()
 {
   Engraver_group_engraver::finalize ();
   Grob *  it
     = unsmob_grob (get_property (ly_symbol2scm ("currentCommandColumn")));
 
-  staffline_p_->set_bound(RIGHT,it);
+  staffline_p_->set_bound (RIGHT,it);
   Engraver_group_engraver::typeset_grob (staffline_p_);
   staffline_p_ = 0;
 }
 
 void
-Line_group_engraver_group::initialize()
+Line_group_engraver_group::initialize ()
 {
   create_line_spanner ();
   Grob *  it
     = unsmob_grob (get_property (ly_symbol2scm ("currentCommandColumn"))); 
-  staffline_p_->set_bound(LEFT,it);
+  staffline_p_->set_bound (LEFT,it);
   
   Engraver::announce_grob (staffline_p_,0);
 }
@@ -64,5 +64,5 @@ Line_group_engraver_group::create_line_spanner ()
 
 
 
-ADD_THIS_TRANSLATOR(Line_group_engraver_group);
+ADD_THIS_TRANSLATOR (Line_group_engraver_group);
 

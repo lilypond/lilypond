@@ -37,7 +37,7 @@ operator << (ostream &o, Rational r)
 Rational
 Rational::trunc_rat () const
 {
-  return Rational(num_ - (num_ % den_), den_);
+  return Rational (num_ - (num_ % den_), den_);
 }
 
 Rational::Rational ()
@@ -81,7 +81,7 @@ Rational::set_infinite (int s)
 Rational
 Rational::operator - () const
 {
-  Rational r(*this);
+  Rational r (*this);
   r.negate ();
   return r;
 }
@@ -144,7 +144,7 @@ Rational::compare (Rational const &r, Rational const &s)
   else if (r.infty_b ())
     return 0;
 
-  return  (r - s).sign ();
+  return (r - s).sign ();
 }
 
 int
@@ -173,7 +173,7 @@ Rational::operator += (Rational r)
     {
       int n = sign_ * num_ *r.den_ + r.sign_ * den_ * r.num_;
       int d = den_ * r.den_;
-      sign_ =  ::sign (n) * ::sign(d);
+      sign_ =  ::sign (n) * ::sign (d);
       num_ = abs (n);
       den_ = abs (d);
       normalise ();
@@ -185,7 +185,7 @@ Rational::operator += (Rational r)
 /*
   copied from libg++ 2.8.0
  */ 
-Rational::Rational(double x)
+Rational::Rational (double x)
 {
   if (x != 0.0)
     {
@@ -193,7 +193,7 @@ Rational::Rational(double x)
       x *= sign_;
 
       int expt;
-      double mantissa = frexp(x, &expt);
+      double mantissa = frexp (x, &expt);
 
       const int FACT = 1 << 20;
 

@@ -32,7 +32,7 @@ Score_performer::~Score_performer ()
 void
 Score_performer::play_element (Audio_element * p)
 {
-  if  (Audio_item * i=dynamic_cast<Audio_item *> (p)) 
+  if (Audio_item * i=dynamic_cast<Audio_item *> (p)) 
     {
       audio_column_l_->add_audio_item (i);
     }
@@ -68,29 +68,29 @@ void
 Score_performer::one_time_step ()
 {
   // fixme: put this back.
-  // process_music();
+  // process_music ();
   announces ();
-  pre_move_processing();
-  check_removal();
+  pre_move_processing ();
+  check_removal ();
 }
 
 void
-Score_performer::start()
+Score_performer::start ()
 {
 }
 
 
 int
-Score_performer::get_tempo_i() const
+Score_performer::get_tempo_i () const
 {
   return performance_p_->midi_l_->get_tempo_i (Moment (1, 4));
 }
 
 void
-Score_performer::finish()
+Score_performer::finish ()
 {
   check_removal ();
-  removal_processing();
+  removal_processing ();
 }
 
 Music_output *
@@ -107,7 +107,7 @@ Score_performer::initialize ()
   unsmob_translator_def (definition_)->apply_property_operations (this);
   assert (dynamic_cast<Midi_def *> (output_def_l_));
   performance_p_ = new Performance;
-  performance_p_->midi_l_ = dynamic_cast<Midi_def*>(output_def_l_);
+  performance_p_->midi_l_ = dynamic_cast<Midi_def*> (output_def_l_);
 
   Translator_group::initialize ();
 }

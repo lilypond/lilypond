@@ -13,7 +13,7 @@
 #include "paper-column.hh"
 #include "paper-def.hh"
 
-MAKE_SCHEME_CALLBACK(Grace_align_item,before_line_breaking,1);
+MAKE_SCHEME_CALLBACK (Grace_align_item,before_line_breaking,1);
 SCM
 Grace_align_item::before_line_breaking (SCM smob)
 {
@@ -23,7 +23,7 @@ Grace_align_item::before_line_breaking (SCM smob)
   me->set_grob_property ("threshold",
 			gh_cons (space,
 				 gh_double2scm (infinity_f)));
-  dynamic_cast<Item*>(me)->column_l ()->set_grob_property ("contains-grace", SCM_BOOL_T);
+  dynamic_cast<Item*> (me)->column_l ()->set_grob_property ("contains-grace", SCM_BOOL_T);
 
   return SCM_UNSPECIFIED;
 }
@@ -33,7 +33,7 @@ Grace_align_item::set_interface (Grob*me)
 {
   me->set_interface (ly_symbol2scm ("grace-align-interface"));
   me->set_grob_property ("stacking-dir", gh_int2scm (RIGHT));
-  Align_interface::set_interface(me);
+  Align_interface::set_interface (me);
   Align_interface::set_axis (me,X_AXIS);
 }
 

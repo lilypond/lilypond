@@ -116,4 +116,4 @@ Lyric_combine_music_iterator::try_music_in_children (Music *m) const
 }
 
 
-IMPLEMENT_CTOR_CALLBACK(Lyric_combine_music_iterator);
+IMPLEMENT_CTOR_CALLBACK (Lyric_combine_music_iterator);

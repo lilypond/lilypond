@@ -20,7 +20,7 @@ minimise_least_squares (Real * coef, Real * offset,
   Real sqx =0.0;
   Real sxy = 0.0;
 
-  for (int i=0; i < input.size();i++) 
+  for (int i=0; i < input.size ();i++) 
     {
       Real x=input[i][X_AXIS];
       Real y = input[i][Y_AXIS];
@@ -29,7 +29,7 @@ minimise_least_squares (Real * coef, Real * offset,
       sqx += sqr (x);
       sxy += x*y;
     }
-  int N = input.size();
+  int N = input.size ();
 
   *coef =0.0;
   *offset =0.;
@@ -37,7 +37,7 @@ minimise_least_squares (Real * coef, Real * offset,
   Real den = (N*sqx - sqr (sx));
   if (!N || !den)
     {
-      programming_error ("minimise_least_squares():  Nothing to minimise");
+      programming_error ("minimise_least_squares ():  Nothing to minimise");
       *coef = 0.0;
       *offset = N ? sy/N : 0.0;
     }

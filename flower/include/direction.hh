@@ -30,7 +30,7 @@ enum Direction
 inline Direction
 other_dir (Direction const d)
 {
-  return (Direction)(-d);
+  return (Direction) (-d);
 }
 
 inline Direction

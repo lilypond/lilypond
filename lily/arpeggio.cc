@@ -86,7 +86,7 @@ Arpeggio::brew_molecule (SCM smob)
   vertical alignment if it is cross-staff.
   This callback also adds padding.
 */
-MAKE_SCHEME_CALLBACK(Arpeggio, width_callback,2);
+MAKE_SCHEME_CALLBACK (Arpeggio, width_callback,2);
 SCM
 Arpeggio::width_callback (SCM smob, SCM axis)
 {

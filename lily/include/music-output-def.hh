@@ -32,7 +32,7 @@ public:
   SCM scaled_fonts_;
   SCM style_sheet_;
   
-  VIRTUAL_COPY_CONS(Music_output_def);
+  VIRTUAL_COPY_CONS (Music_output_def);
   Music_output_def (Music_output_def const&);
   Music_output_def ();
   virtual int get_next_score_count () const;
@@ -43,7 +43,7 @@ public:
   SCM find_translator_l (SCM name) const;
   String outname_str () ;
   
-  DECLARE_SMOBS(Music_output_def,);
+  DECLARE_SMOBS (Music_output_def,);
 };
 
 Music_output_def* unsmob_music_output_def (SCM);

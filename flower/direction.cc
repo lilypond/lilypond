@@ -13,10 +13,10 @@
 String
 direction_str (Direction d, Axis a)
 {
-  String s("center");
+  String s ("center");
   if (a == Y_AXIS)
     {
-       s =( d == UP ? "up" : "down");
+       s = ( d == UP ? "up" : "down");
     }
   else if (a == X_AXIS)
     {

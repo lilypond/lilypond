@@ -18,8 +18,8 @@ class Dot_column_engraver : public Engraver
   Grob *dotcol_p_ ;
   Link_array<Item> head_l_arr_;
 public:
-  VIRTUAL_COPY_CONS(Translator);
-  Dot_column_engraver();
+  VIRTUAL_COPY_CONS (Translator);
+  Dot_column_engraver ();
   
 protected:
   virtual void acknowledge_grob (Grob_info);
@@ -51,7 +51,7 @@ Dot_column_engraver::acknowledge_grob (Grob_info info)
     {
       if (!dotcol_p_)
 	{
-	  dotcol_p_ = new Item(get_property ("DotColumn"));
+	  dotcol_p_ = new Item (get_property ("DotColumn"));
 
 	  Dot_column::set_interface (dotcol_p_);
 	  Side_position_interface::set_axis (dotcol_p_, X_AXIS);
@@ -64,5 +64,5 @@ Dot_column_engraver::acknowledge_grob (Grob_info info)
 }
 
 
-ADD_THIS_TRANSLATOR(Dot_column_engraver);
+ADD_THIS_TRANSLATOR (Dot_column_engraver);
 

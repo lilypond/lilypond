@@ -28,7 +28,7 @@ float_handler (int)
 }
 
 void
-debug_init()
+debug_init ()
 {
   my_monitor = new Dstream (&cout, ".dstreamrc");
   signal (SIGFPE, float_handler);

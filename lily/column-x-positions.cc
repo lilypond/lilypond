@@ -10,7 +10,7 @@
 #include "real.hh"
 #include "debug.hh"
 
-Column_x_positions::Column_x_positions()
+Column_x_positions::Column_x_positions ()
 {
   satisfies_constraints_b_ = false;
   force_f_ = 0;

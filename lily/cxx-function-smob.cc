@@ -35,10 +35,10 @@ scm_sizet free_smob (SCM)
 SCM
 cxx_function_type_p (SCM x)
 {
-  return (SCM_CELL_TYPE(x) == callback_tag) ? SCM_BOOL_T : SCM_BOOL_F; 
+  return (SCM_CELL_TYPE (x) == callback_tag) ? SCM_BOOL_T : SCM_BOOL_F; 
 }
 
-void init_cxx_function_smobs()
+void init_cxx_function_smobs ()
 {
   callback_tag = scm_make_smob_type_mfpe ("callback", 0,
 					  mark_smob, free_smob,
@@ -52,7 +52,7 @@ smobify_cxx_function (Cxx_function cb)
 {
   SCM z;
   
-  SCM_NEWCELL(z);
+  SCM_NEWCELL (z);
   SCM_SETCDR (z, (SCM)cb);
   SCM_SETCAR (z, (SCM)callback_tag);
 
@@ -64,8 +64,8 @@ Cxx_function
 unsmob_cxx_function (SCM x)
 {
   
-  if (SCM_NIMP (x) && SCM_CELL_TYPE(x) == callback_tag)
-    return (Cxx_function) SCM_CELL_WORD_1(x);
+  if (SCM_NIMP (x) && SCM_CELL_TYPE (x) == callback_tag)
+    return (Cxx_function) SCM_CELL_WORD_1 (x);
   else
     return 0;
 }

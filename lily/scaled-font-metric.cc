@@ -35,7 +35,7 @@ Scaled_font_metric::find_by_name (String s) const
   Molecule m = orig_l_->find_by_name (s);
   Box b = m.extent_box ();
   b.scale (magnification_f_);
-  Molecule q(b,fontify_atom ((Font_metric*) this, m.get_expr ()));
+  Molecule q (b,fontify_atom ((Font_metric*) this, m.get_expr ()));
 
   return q ;
 }

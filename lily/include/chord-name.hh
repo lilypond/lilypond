@@ -16,8 +16,8 @@
 class Chord_name
 {
 public:
-  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
-  DECLARE_SCHEME_CALLBACK(after_line_breaking, (SCM ));
+  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
+  DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM ));
 };
 
 #endif // CHORD_NAME_HH

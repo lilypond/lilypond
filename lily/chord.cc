@@ -189,7 +189,7 @@ Chord::step_scm (SCM tonic, SCM p)
   int i = unsmob_pitch (p)->notename_i_
     - unsmob_pitch (tonic)->notename_i_
     + (unsmob_pitch (p)->octave_i_
-       - unsmob_pitch (tonic)->octave_i_ ) * 7;
+       - unsmob_pitch (tonic)->octave_i_) * 7;
   while (i < 0)
     i += 7;
   i++;

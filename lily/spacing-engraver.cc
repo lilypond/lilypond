@@ -22,7 +22,7 @@ struct Rhythmic_tuple
   Rhythmic_tuple ()
     {
     }
-  Rhythmic_tuple (Grob_info i, Moment m )
+  Rhythmic_tuple (Grob_info i, Moment m)
     {
       info_ = i;
       end_ = m;
@@ -44,7 +44,7 @@ class Spacing_engraver : public Engraver
 
   Spanner * spacing_p_;
 protected:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
   virtual void acknowledge_grob (Grob_info);
   virtual void start_translation_timestep ();
   virtual void stop_translation_timestep ();
@@ -64,10 +64,10 @@ int
 Rhythmic_tuple::time_compare (Rhythmic_tuple const &h1,
 			      Rhythmic_tuple const &h2)
 {
-  return (h1.end_ - h2.end_ ).sign ();
+  return (h1.end_ - h2.end_).sign ();
 }
 
-Spacing_engraver::Spacing_engraver()
+Spacing_engraver::Spacing_engraver ()
 {
   spacing_p_ = 0;
 }
@@ -99,9 +99,9 @@ Spacing_engraver::acknowledge_grob (Grob_info i)
   if (to_boolean (i.elem_l_->get_grob_property ("non-rhythmic")))
     return;
   
-  if (Rhythmic_req * r = dynamic_cast<Rhythmic_req*>(i.req_l_))
+  if (Rhythmic_req * r = dynamic_cast<Rhythmic_req*> (i.req_l_))
     {
-      Rhythmic_tuple t(i, now_mom () + r->length_mom ());
+      Rhythmic_tuple t (i, now_mom () + r->length_mom ());
       now_durations_.push (t);
     }
 }
@@ -138,8 +138,8 @@ Spacing_engraver::stop_translation_timestep ()
   Paper_column * sc
     = dynamic_cast<Paper_column*> (unsmob_grob (get_property ("currentMusicalColumn")));
 
-  SCM sh = shortest_playing.smobbed_copy( );
-  SCM st = starter.smobbed_copy();
+  SCM sh = shortest_playing.smobbed_copy ();
+  SCM st = starter.smobbed_copy ();
 
   sc->set_grob_property ("shortest-playing-duration", sh);  
   sc->set_grob_property ("shortest-starter-duration", st);
@@ -156,6 +156,6 @@ Spacing_engraver::start_translation_timestep ()
     stopped_durations_.push (playing_durations_.get ());
 }
 
-ADD_THIS_TRANSLATOR(Spacing_engraver);
+ADD_THIS_TRANSLATOR (Spacing_engraver);
 
 

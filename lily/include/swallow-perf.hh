@@ -15,7 +15,7 @@
 class Swallow_performer : public Performer
 {
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
   
 protected:
   virtual bool try_music (Music*) { return true; }

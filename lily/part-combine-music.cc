@@ -58,3 +58,11 @@ Part_combine_music::second_l () const
 {
   return unsmob_music (get_mus_property ("two"));
 }
+
+
+Part_combine_music::Part_combine_music ()
+  : Music (SCM_EOL)
+{
+}
+
+ADD_MUSIC (Part_combine_music);

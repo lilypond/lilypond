@@ -18,7 +18,7 @@ Convert reqs to audio notes.
 */
 class Note_performer : public Performer {
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
   
 protected:
   virtual bool try_music (Music *req_l) ;
@@ -43,7 +43,7 @@ Note_performer::create_audio_elements ()
       int transposing_i = 0;
       //urg
       SCM prop = get_property ("transposing");
-      if (gh_number_p(prop)) 
+      if (gh_number_p (prop)) 
 	transposing_i = gh_scm2int (prop);
 
       while (note_req_l_arr_.size ())

@@ -40,7 +40,7 @@ class Killing_cons : public Cons<T>
 {
 public:
   Killing_cons (T *t, Cons<T> *p)
-    : Cons<T>( t,p)
+    : Cons<T> ( t,p)
     {
     }
   virtual ~Killing_cons ();
@@ -60,7 +60,7 @@ Cons<T> *remove_cons (Cons<T> **pp)
 template<class T> int cons_list_size_i (Cons<T> *l)
 {
   int i=0;
-  while  (l)
+  while (l)
     {
       l = l->next_;
 	i++;
@@ -86,7 +86,7 @@ Cons<T> * last_cons (Cons<T> * head)
 
    Invariants:
 
-   (*tail_) is either the head_ pointer, or a next_ pointer from the list.
+ (*tail_) is either the head_ pointer, or a next_ pointer from the list.
    
    **tail_ == NULL
  */
@@ -115,7 +115,7 @@ public:
       assert (!c->next_);
       *nil_pointer_address_ = c;
       while (*nil_pointer_address_)
-	nil_pointer_address_ = &(*nil_pointer_address_)->next_;
+	nil_pointer_address_ = & (*nil_pointer_address_)->next_;
     }
   /**
      PRE: *pp should either be the head_ pointer, or the next_ pointer
@@ -123,7 +123,7 @@ public:
   */
   Cons<T> *remove_cons (Cons<T> **pp)
     {
-      if (&(*pp)->next_ == nil_pointer_address_)
+      if (& (*pp)->next_ == nil_pointer_address_)
 	nil_pointer_address_ = pp;
 
       return ::remove_cons (pp);
@@ -133,7 +133,7 @@ public:
   void truncate (int i)
     {
       Cons<T> **p  = &head_;
-      for (; *p && i;  p = &((*p)->next_))
+      for (; *p && i;  p = & ((*p)->next_))
 	{
 	  i--;
 	}

@@ -18,7 +18,7 @@ struct Column_x_positions
   Real force_f_;
   bool satisfies_constraints_b_;
 
-  Column_x_positions();
+  Column_x_positions ();
 };
 
 

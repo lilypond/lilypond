@@ -117,8 +117,8 @@ Auto_beam_engraver::test_moment (Direction dir, Moment test_mom)
   else
     function = gh_list (ly_symbol2scm ("end"), SCM_UNDEFINED);
 
-  Moment one_beat = *unsmob_moment( get_property ("beatLength"));
-  int num = *unsmob_moment (get_property("measureLength")) / one_beat;
+  Moment one_beat = *unsmob_moment (get_property ("beatLength"));
+  int num = *unsmob_moment (get_property ("measureLength")) / one_beat;
   int den = one_beat.den_i ();
   SCM time = gh_list (gh_int2scm (num), gh_int2scm (den), SCM_UNDEFINED);
 
@@ -130,7 +130,7 @@ Auto_beam_engraver::test_moment (Direction dir, Moment test_mom)
   /* first guess */
   
   /* begin beam at any position
-   (and fallback for end) */
+ (and fallback for end) */
   Moment moment (0);
   
   /* end beam at end of beat */
@@ -229,7 +229,7 @@ Auto_beam_engraver::create_beam_p ()
 	  scm_unprotect_object (beam_p->self_scm ());
 	  return 0;
 	}
-      Beam::add_stem (beam_p,(*stem_l_arr_p_)[i]);
+      Beam::add_stem (beam_p, (*stem_l_arr_p_)[i]);
     }
   
   announce_grob (beam_p, 0);
@@ -450,7 +450,7 @@ Auto_beam_engraver::create_grobs ()
 	{
 	  Moment now = now_mom ();
 	  if ((extend_mom_ < now)
-	      || ((extend_mom_ == now) && (last_add_mom_ != now )))
+	      || ((extend_mom_ == now) && (last_add_mom_ != now)))
 	    {
 	      end_beam ();
 	    }

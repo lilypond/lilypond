@@ -42,17 +42,17 @@ public:
     
 protected:
     /* MAIN ROUTINES */
-  virtual void process();
+  virtual void process ();
 
 private:
   /// before calc_breaking
-  void preprocess();
-  void calc_idealspacing();
+  void preprocess ();
+  void calc_idealspacing ();
   /// calculate where the lines are to be broken, and use results
-  Array<Column_x_positions> calc_breaking();
+  Array<Column_x_positions> calc_breaking ();
 
   /// after calc_breaking
-  void postprocess();
+  void postprocess ();
   Paper_score (Paper_score const &);
 };
 

@@ -13,14 +13,14 @@
 
 INLINE 
 char &
-String::operator [](int n)
+String::operator [] (int n)
 {
   return (char &) strh_[n]; 
 }
 
 INLINE 
 char 
-String::operator [](int n) const
+String::operator [] (int n) const
 {
   return strh_[n]; 
 }

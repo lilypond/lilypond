@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
- (c) 1998--2001 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1998--2001 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include <ctype.h>
@@ -28,7 +28,7 @@
 class Mark_engraver : public Engraver
 {
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
   Mark_engraver ();
 protected:
   Item* text_p_;
@@ -36,7 +36,7 @@ protected:
 protected:
   virtual void stop_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
-  void create_items(Request*);
+  void create_items (Request*);
   virtual bool try_music (Music *req_l);
   virtual void start_translation_timestep ();
   virtual void initialize ();
@@ -90,7 +90,7 @@ Mark_engraver::stop_translation_timestep ()
 {
   if (text_p_)
     {
-      text_p_->set_grob_property("side-support-elements" , get_property ("staffsFound"));
+      text_p_->set_grob_property ("side-support-elements" , get_property ("staffsFound"));
       typeset_grob (text_p_);
       text_p_ =0;
     }
@@ -180,7 +180,7 @@ Mark_engraver::process_music ()
 		  c++;
 		  next = to_str (c);
 		}
-	      m = ly_str02scm (next.ch_C());
+	      m = ly_str02scm (next.ch_C ());
 	    }
 	  else
 	    {
@@ -190,18 +190,18 @@ Mark_engraver::process_music ()
 	  daddy_trans_l_->set_property ("rehearsalMark", m);
 	  
 	  text_p_->set_grob_property ("text",
-				      ly_str02scm ( t.ch_C()));
+				      ly_str02scm (t.ch_C ()));
 
 	  String style = "mark";
-	  for (int i=0; i < t.length_i(); i++)
+	  for (int i=0; i < t.length_i (); i++)
 	    {
-	      if (!isdigit(t[i])) 
+	      if (!isdigit (t[i])) 
 		{
 		  style = "large";
 		  break;
 		}
 	    }
-	  SCM st = ly_symbol2scm (style.ch_C());
+	  SCM st = ly_symbol2scm (style.ch_C ());
 	  text_p_->set_grob_property ("font-style",  st);
 	}
 

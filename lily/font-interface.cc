@@ -19,7 +19,7 @@ SCM
 Font_interface::font_alist_chain (Grob *me)
 {
   SCM defaults = gh_cdr (scm_assoc (ly_symbol2scm ("font-defaults"),
-				    me->paper_l ()->style_sheet_ ));
+				    me->paper_l ()->style_sheet_));
 
   SCM ch = gh_list (me->mutable_property_alist_,
 		    me->immutable_property_alist_,
@@ -132,15 +132,15 @@ init_syms ()
 
 
 bool
-Font_interface::wild_compare(SCM field_val, SCM val)
+Font_interface::wild_compare (SCM field_val, SCM val)
 {
   return (val == SCM_BOOL_F || field_val == wild_sym || field_val == val);
 }
 
-ADD_SCM_INIT_FUNC(Font_interface_syms,init_syms);
+ADD_SCM_INIT_FUNC (Font_interface_syms,init_syms);
 
 
-MAKE_SCHEME_CALLBACK(Font_interface,properties_to_font_name,2);
+MAKE_SCHEME_CALLBACK (Font_interface,properties_to_font_name,2);
 SCM
 Font_interface::properties_to_font_name (SCM fonts, SCM alist_chain)
 {
@@ -186,16 +186,16 @@ Font_interface::properties_to_font_name (SCM fonts, SCM alist_chain)
 
       if (name != SCM_BOOL_F)
 	{
-	  if (!wild_compare(scm_list_ref (qlist, gh_int2scm (4)), name))
+	  if (!wild_compare (scm_list_ref (qlist, gh_int2scm (4)), name))
 	    continue;
 	}
       else
 	{
-	  if (!wild_compare(scm_list_ref (qlist, gh_int2scm (1)), series))
+	  if (!wild_compare (scm_list_ref (qlist, gh_int2scm (1)), series))
 	    continue;
-	  if (!wild_compare(scm_list_ref (qlist, gh_int2scm (2)), shape))
+	  if (!wild_compare (scm_list_ref (qlist, gh_int2scm (2)), shape))
 	    continue;
-	  if (!wild_compare(scm_list_ref (qlist, gh_int2scm (3)), family))
+	  if (!wild_compare (scm_list_ref (qlist, gh_int2scm (3)), family))
 	    continue;
 	}
   
@@ -203,12 +203,12 @@ Font_interface::properties_to_font_name (SCM fonts, SCM alist_chain)
 	{
 	  // This if statement will always be true since name must 
 	  // be SCM_BOOL_F here, right?  /MB
-	  if (!wild_compare(scm_list_ref (qlist, gh_int2scm (4)), name))
+	  if (!wild_compare (scm_list_ref (qlist, gh_int2scm (4)), name))
 	    continue;
 	}
       else
 	{
-	  if (!wild_compare(gh_car (qlist), rel_sz))
+	  if (!wild_compare (gh_car (qlist), rel_sz))
 	    continue;
 	}
 
@@ -217,9 +217,9 @@ Font_interface::properties_to_font_name (SCM fonts, SCM alist_chain)
       return qname;
     }
 
-  warning (_("couldn't find any font satisfying ") );
+  warning (_ ("couldn't find any font satisfying "));
   scm_write (gh_list (name, point_sz, shape, series , family, rel_sz, SCM_UNDEFINED), scm_current_error_port ());
-  scm_flush(scm_current_error_port ());
+  scm_flush (scm_current_error_port ());
  
   return ly_str02scm ("cmr10");
   

@@ -21,9 +21,9 @@
 #include "pitch.hh"
 #include "protected-scm.hh"
 
-bool busy_parsing();
-void kill_lexer();
-void set_lexer();
+bool busy_parsing ();
+void kill_lexer ();
+void set_lexer ();
 
 /// lexer for Lilypond
 class My_lily_lexer : public Includable_lexer 
@@ -55,22 +55,22 @@ public:
   void start_main_input ();
 
   SCM lookup_identifier (String s);
-  void push_note_state();
-  void push_chord_state();
-  void push_lyric_state();
-  void pop_state();
+  void push_note_state ();
+  void push_chord_state ();
+  void push_lyric_state ();
+  void pop_state ();
   void LexerError (char const *);
   void set_identifier (String str, SCM);
-  bool note_state_b() const;
-  bool chord_state_b() const;
-  bool lyric_state_b() const;
+  bool note_state_b () const;
+  bool chord_state_b () const;
+  bool lyric_state_b () const;
 
 private:
   int lookup_keyword (String);
   int scan_bare_word (String);
   int scan_escaped_word (String);
 
-  char escaped_char(char) const;
+  char escaped_char (char) const;
 };
 
 #endif

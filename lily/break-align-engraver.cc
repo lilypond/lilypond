@@ -20,18 +20,18 @@ class Break_align_engraver : public Engraver
   Protected_scm column_alist_;
 protected:
   virtual void finalize ();
-  virtual void acknowledge_grob(Grob_info i);
+  virtual void acknowledge_grob (Grob_info i);
   virtual void stop_translation_timestep ();
   void add_column (SCM);
   
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
   Break_align_engraver ();
 };
 
 
 
-ADD_THIS_TRANSLATOR(Break_align_engraver);
+ADD_THIS_TRANSLATOR (Break_align_engraver);
 
 void
 Break_align_engraver::add_column (SCM smob)
@@ -53,7 +53,7 @@ Break_align_engraver::stop_translation_timestep ()
   SCM order = get_property ("breakAlignOrder");
   for (; gh_pair_p (order); order = gh_cdr (order))
     {
-      SCM p = scm_assoc ( gh_car (order), column_alist_);
+      SCM p = scm_assoc (gh_car (order), column_alist_);
       if (gh_pair_p (p))
 	{
 	  add_column (gh_cdr (p));
@@ -136,7 +136,7 @@ Break_align_engraver::acknowledge_grob (Grob_info inf)
 
       if (s != SCM_BOOL_F)
 	{
-	  Grob *e =  unsmob_grob (gh_cdr(s));
+	  Grob *e =  unsmob_grob (gh_cdr (s));
 	  group = dynamic_cast<Item*> (e);
 	}
       else

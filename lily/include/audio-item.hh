@@ -32,7 +32,7 @@ public:
   
 private:
   Audio_item (Audio_item const&);
-  Audio_item& operator=( Audio_item const&);
+  Audio_item& operator= ( Audio_item const&);
 };
 
 class Audio_dynamic : public Audio_item

@@ -23,7 +23,7 @@ struct Audio_element_info {
   Link_array<Translator> origin_trans_l_arr (Translator*) const;  
 
   Audio_element_info (Audio_element*, Music*);
-  Audio_element_info();
+  Audio_element_info ();
 };
 
 

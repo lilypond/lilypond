@@ -33,7 +33,7 @@ Adobe_font_metric::make_afm (AFM_Font_info *fi, unsigned int checksum)
 {
   Adobe_font_metric * fm = new Adobe_font_metric (fi);
   fm->checksum_ = checksum;
-  return fm->self_scm();    
+  return fm->self_scm ();    
 }
 
 
@@ -48,7 +48,7 @@ Adobe_font_metric::find_ascii_metric (int a , bool warn) const
 	  return font_inf_->cmi + code;
 	}
     }
-  else if (warn )
+  else if (warn)
     {
       warning (_f ("can't find character number: %d", a));
     }
@@ -65,7 +65,7 @@ Adobe_font_metric::find_char_metric (String nm, bool warn) const
     {
       if (warn)
 	{
-	  warning (_f ("can't find character called: `%s'", nm.ch_C()));
+	  warning (_f ("can't find character called: `%s'", nm.ch_C ()));
 	}
       return 0;
     }
@@ -79,7 +79,7 @@ Adobe_font_metric::get_char (int code) const
 {
   AFM_CharMetricInfo const
     * c =  find_ascii_metric (code,false);
-  Box b (Interval (0,0),Interval(0,0));
+  Box b (Interval (0,0),Interval (0,0));
   if (c)
     b = afm_bbox_to_box (c->charBBox);			
 
@@ -89,7 +89,7 @@ Adobe_font_metric::get_char (int code) const
 SCM
 read_afm_file (String nm)
 {
-  FILE *f = fopen (nm.ch_C() , "r");
+  FILE *f = fopen (nm.ch_C () , "r");
   char s[2048];
   char *check_key = "TfmCheckSum"; 
   fgets (s, sizeof (s), f);
@@ -148,7 +148,7 @@ Adobe_font_metric::find_by_name (String s) const
       return m;
     }
   
-  SCM at =  (gh_list (ly_symbol2scm ("char"),
+  SCM at = (gh_list (ly_symbol2scm ("char"),
 		      gh_int2scm (cm->code),
 		      SCM_UNDEFINED));
   

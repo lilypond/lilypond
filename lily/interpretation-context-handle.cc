@@ -11,7 +11,7 @@
 #include "interpretation-context-handle.hh"
 #include "translator-group.hh"
 
-Interpretation_context_handle::Interpretation_context_handle()
+Interpretation_context_handle::Interpretation_context_handle ()
 {
   report_to_l_ =0;
 }
@@ -20,7 +20,7 @@ Interpretation_context_handle::Interpretation_context_handle (Interpretation_con
 {
   report_to_l_ =0;
   if (s.report_to_l_)
-    up (s.report_to_l_ );
+    up (s.report_to_l_);
 }
 
 Interpretation_context_handle*
@@ -45,7 +45,7 @@ Interpretation_context_handle::up (Translator_group*t)
 }
 
 void
-Interpretation_context_handle::down()
+Interpretation_context_handle::down ()
 {
   report_to_l_->iterator_count_ --;
   report_to_l_ = 0;

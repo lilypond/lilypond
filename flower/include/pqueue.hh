@@ -30,7 +30,7 @@ int compare (PQueue_ent<K,T> const &e1 , PQueue_ent<K,T> const &e2) {
   Hungarian postfix pq
   
   TODO: add increase/decrease operations,
-  add max() operation
+  add max () operation
  */
 template<class T>
 class PQueue {
@@ -45,21 +45,21 @@ public:
     /** acces an heap element.  Careful with this, as changing the
       priority might fuck up the invariants
 
-      @param 1 <= i < size() */
-    T& operator[](int i) { return heap_arr_[i]; }
-    T operator[](int i) const { return heap_arr_[i]; }
-    void OK() const
+      @param 1 <= i < size () */
+    T& operator[] (int i) { return heap_arr_[i]; }
+    T operator[] (int i) const { return heap_arr_[i]; }
+    void OK () const
     {
 #ifndef NDEBUG
-	for (int i =2; i <= size(); i++)
+	for (int i =2; i <= size (); i++)
 	    assert (compare (elt (i/2), elt (i)) <= 0);
 #endif
     }
-    T front() const { return elt (1); }
-    int size() const { return heap_arr_.size (); }
+    T front () const { return elt (1); }
+    int size () const { return heap_arr_.size (); }
     void insert (T v) {
 	heap_arr_.push (v);
-	int i = heap_arr_.size();
+	int i = heap_arr_.size ();
 	int j = i / 2 ;
 	while (j) {
 	    if (compare (elt (j), v) > 0) {
@@ -71,21 +71,21 @@ public:
 	    }
 	}
 	elt (i) = v;
-	OK();
+	OK ();
     }
-    T max() const {
-	//int first_leaf_i = size();
+    T max () const {
+	//int first_leaf_i = size ();
 	T max_t;
 	return max_t;
     }
-    void delmin() {
-	assert (size());
-	T last = heap_arr_.top();
+    void delmin () {
+	assert (size ());
+	T last = heap_arr_.top ();
 	
 	int mini=2;
 	int lasti=1;
 
-	while (mini < size()) {
+	while (mini < size ()) {
 	    if (compare (elt (mini + 1), elt (mini)) <0)
 		mini++;
 	    if (compare (last,elt (mini)) < 0)
@@ -95,12 +95,12 @@ public:
 	    mini *= 2;
 	}
 	elt (lasti) = last;
-	heap_arr_.pop();
-	OK();
+	heap_arr_.pop ();
+	OK ();
     }
-    T get() { 
-	T t = front();
-	delmin();
+    T get () { 
+	T t = front ();
+	delmin ();
 	return t;
     }
 };

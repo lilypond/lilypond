@@ -43,7 +43,7 @@ Grob*
 Staff_symbol_referencer::staff_symbol_l (Grob*me) 
 {
   SCM st = me->get_grob_property ("staff-symbol");
-  return unsmob_grob(st);
+  return unsmob_grob (st);
 }
 
 Real
@@ -86,9 +86,9 @@ Staff_symbol_referencer::position_f (Grob*me)
 /*
   should use offset callback!
  */
-MAKE_SCHEME_CALLBACK(Staff_symbol_referencer,callback,2);
+MAKE_SCHEME_CALLBACK (Staff_symbol_referencer,callback,2);
 SCM
-Staff_symbol_referencer::callback (SCM element_smob, SCM )
+Staff_symbol_referencer::callback (SCM element_smob, SCM)
 {
   Grob *me = unsmob_grob (element_smob);
 
@@ -125,7 +125,7 @@ void
 Staff_symbol_referencer::set_position (Grob*me,Real p)
 {
   Grob * st = staff_symbol_l (me);
-  if (st && me->common_refpoint(st, Y_AXIS))
+  if (st && me->common_refpoint (st, Y_AXIS))
     {
       Real oldpos = position_f (me);
       me->set_grob_property ("staff-position", gh_double2scm (p - oldpos));
@@ -149,15 +149,15 @@ Staff_symbol_referencer::set_position (Grob*me,Real p)
 Real
 Staff_symbol_referencer::staff_radius (Grob*me)
 {
-  return  (line_count (me) -1) / 2;
+  return (line_count (me) -1) / 2;
 }
 
 
 int
 compare_position (Grob *const  &a, Grob * const &b)
 {
-  return sign (Staff_symbol_referencer::position_f((Grob*)a) - 
-    Staff_symbol_referencer::position_f((Grob*)b));
+  return sign (Staff_symbol_referencer::position_f ((Grob*)a) - 
+    Staff_symbol_referencer::position_f ((Grob*)b));
 }
 
 

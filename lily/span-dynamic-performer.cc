@@ -146,14 +146,14 @@ Span_dynamic_performer::stop_translation_timestep ()
 	  dv = (Real)finished_dir_ * 0.2;
 	  if (!start_volume)
 	    start_volume = finished_dynamic_tuple_arr_.top
-	      ().audio_l_->volume_ - dv;
+ ().audio_l_->volume_ - dv;
 	}
       Moment start_mom = finished_dynamic_tuple_arr_[0].mom_;
       Moment dt = finished_dynamic_tuple_arr_.top ().mom_ - start_mom;
       for (int i=0; i < finished_dynamic_tuple_arr_.size (); i++)
 	{
 	  Audio_dynamic_tuple* a = &finished_dynamic_tuple_arr_[i];
-	  Real volume = start_volume + dv * (Real)(a->mom_ - start_mom)
+	  Real volume = start_volume + dv * (Real) (a->mom_ - start_mom)
 	    / (Real)dt;
 	  a->audio_l_->volume_ = volume;
 	}
@@ -177,12 +177,12 @@ Span_dynamic_performer::start_translation_timestep ()
 bool
 Span_dynamic_performer::try_music (Music* r)
 {
-  if (Span_req * s = dynamic_cast<Span_req*>(r))
+  if (Span_req * s = dynamic_cast<Span_req*> (r))
     {
       String t =  ly_scm2string (s->get_mus_property ("span-type"));      
       if (t == "crescendo" || t == "decrescendo")
 	{
-	  span_req_l_drul_[s->get_span_dir()] = s;
+	  span_req_l_drul_[s->get_span_dir ()] = s;
 	  return true;
 	}
     }

@@ -25,7 +25,7 @@ public:
   virtual Box text_dimension (String)  const;
   virtual Molecule find_by_name (String) const;
 
-  DECLARE_SMOBS(Font_metric,);
+  DECLARE_SMOBS (Font_metric,);
 private:
   Font_metric (Font_metric const&); // no copy.
 protected:

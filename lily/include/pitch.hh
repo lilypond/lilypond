@@ -58,16 +58,16 @@ public:
 
   static int compare (Pitch const&,Pitch const&);
   /// return large part of interval from central c
-  int steps() const;
+  int steps () const;
   /// return pitch from central c (in halfnotes)
-  int semitone_pitch() const; 
+  int semitone_pitch () const; 
   String str () const;
 
   static SCM transpose (SCM p, SCM delta);
 
   SCM smobbed_copy () const;
-  DECLARE_SCHEME_CALLBACK(less_p, (SCM a, SCM b));
-  DECLARE_SIMPLE_SMOBS(Pitch,);
+  DECLARE_SCHEME_CALLBACK (less_p, (SCM a, SCM b));
+  DECLARE_SIMPLE_SMOBS (Pitch,);
 
 
 };
@@ -75,7 +75,7 @@ public:
 Pitch* unsmob_pitch (SCM);
 
 #include "compare.hh"
-INSTANTIATE_COMPARE(Pitch, Pitch::compare);
+INSTANTIATE_COMPARE (Pitch, Pitch::compare);
 
 int compare (Array<Pitch>*, Array<Pitch>*);
 

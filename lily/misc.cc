@@ -14,7 +14,7 @@
   Return the 2-log, rounded down 
  */
 int
-intlog2(int d)
+intlog2 (int d)
 {
   assert (d);
   int i=0;
@@ -24,12 +24,12 @@ intlog2(int d)
       i++;
     }
   
-  assert (!(d/2));
+  assert (! (d/2));
   return i;
 }
 
 double
-log_2(double x)
+log_2 (double x)
 {
   return log (x)  /log (2.0);
 }
@@ -48,7 +48,7 @@ quantise_iv (Array<Real> positions, Real x)
   Real period = positions.top () - positions[0];
   
   int n =  int ((x - positions[0]) / period);
-  Real frac = (x - positions[0] ) -  n * period;
+  Real frac = (x - positions[0]) -  n * period;
 
   while (frac < 0)
     {
@@ -57,7 +57,7 @@ quantise_iv (Array<Real> positions, Real x)
     }
   
   Real px = frac + positions[0];
-  assert ( positions[0] <= px && px <= positions.top ());
+  assert (positions[0] <= px && px <= positions.top ());
   int i=0;
   for (; i < positions.size () - 1; i++)
     {

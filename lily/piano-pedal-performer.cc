@@ -49,7 +49,7 @@ Piano_pedal_performer::Piano_pedal_performer ()
   info_alist_ = 0;
 }
 
-Piano_pedal_performer::~Piano_pedal_performer()
+Piano_pedal_performer::~Piano_pedal_performer ()
 {
   delete[] info_alist_;
 }
@@ -71,7 +71,7 @@ Piano_pedal_performer::initialize ()
 
       p++;
     }
-  while (*(np ++));
+  while (* (np ++));
 }
 
 void
@@ -130,14 +130,14 @@ Piano_pedal_performer::start_translation_timestep ()
 bool
 Piano_pedal_performer::try_music (Music* r)
 {
-  if (Span_req * s = dynamic_cast<Span_req*>(r))
+  if (Span_req * s = dynamic_cast<Span_req*> (r))
     {
       for (Pedal_info*p = info_alist_; p->name_; p ++)
 	{
 	  if (scm_equal_p (s->get_mus_property ("span-type"),
 			   ly_str02scm (p->name_)) == SCM_BOOL_T)
 	    {
-	      p->req_l_drul_[s->get_span_dir()] = s;
+	      p->req_l_drul_[s->get_span_dir ()] = s;
 	      return true;
 	    }
 	}

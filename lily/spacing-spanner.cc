@@ -54,7 +54,7 @@ Spacing_spanner::do_measure (Grob*me, Link_array<Grob> cols)
       if (dynamic_cast<Paper_column*> (cols[i])->musical_b ())
 	{
 	  SCM  st = cols[i]->get_grob_property ("shortest-starter-duration");
-	  Moment this_shortest = *unsmob_moment(st);
+	  Moment this_shortest = *unsmob_moment (st);
 	  shortest = shortest <? this_shortest;
 	  if (!mean_shortest.infty_b ())
 	    {
@@ -70,8 +70,8 @@ Spacing_spanner::do_measure (Grob*me, Link_array<Grob> cols)
     {
       Item * l = dynamic_cast<Item*> (cols[i]);
       Item * r =  dynamic_cast<Item*> (cols[i+1]);
-      Item * lb = dynamic_cast<Item*> ( l->find_prebroken_piece (RIGHT));
-      Item * rb = dynamic_cast<Item*> ( r->find_prebroken_piece (LEFT));
+      Item * lb = dynamic_cast<Item*> (l->find_prebroken_piece (RIGHT));
+      Item * rb = dynamic_cast<Item*> (r->find_prebroken_piece (LEFT));
 
       Item* combinations[4][2]={{l,r}, {lb,r}, {l,rb},{lb,rb}};
 
@@ -108,12 +108,12 @@ Spacing_spanner::do_measure (Grob*me, Link_array<Grob> cols)
 	    {
 	      left_distance = gh_scm2double (gh_cdr (hint)); 
 	    }
-	   // 2nd condition should be (i+1 < col_count()), ie. not the last column in score.  FIXME
-	  else if (!lc->musical_b() && i+1 < cols.size ()) 
+	   // 2nd condition should be (i+1 < col_count ()), ie. not the last column in score.  FIXME
+	  else if (!lc->musical_b () && i+1 < cols.size ()) 
 	    {
 	      left_distance= default_bar_spacing (me,lc,rc,shortest <? base_shortest_duration);
 	    }
-	  else if (lc->musical_b())
+	  else if (lc->musical_b ())
 	    {
 	      left_distance  = note_spacing (me,lc, rc, shortest <? base_shortest_duration);
 	    }
@@ -148,7 +148,7 @@ Spacing_spanner::do_measure (Grob*me, Link_array<Grob> cols)
 	  else
 	    {
 	      Interval ext (rc->extent (rc, X_AXIS));
-	      right_dist =  ext.empty_b() ? 0.0 : - ext [LEFT];
+	      right_dist =  ext.empty_b () ? 0.0 : - ext [LEFT];
 	    }
 
 	  /*
@@ -172,13 +172,13 @@ Spacing_spanner::do_measure (Grob*me, Link_array<Grob> cols)
 	  
 	  if (gh_pair_p (next_stretch_hint))
 	    // see regtest spacing-tight
-	    stretch_dist += - gh_scm2double (gh_car  (next_stretch_hint));
+	    stretch_dist += - gh_scm2double (gh_car (next_stretch_hint));
 	  else
 	    stretch_dist += right_dist;
 
 	  if (s.distance_f_ <0)
 	    {
-	      programming_error("Negative dist, setting to 1.0 PT");
+	      programming_error ("Negative dist, setting to 1.0 PT");
 	      s.distance_f_ = 1.0;
 	    }
 	  if (stretch_dist == 0.0)
@@ -233,7 +233,7 @@ Real
 Spacing_spanner::get_duration_space (Grob*me, Moment d, Moment shortest) 
 {
   Real log =  log_2 (shortest);
-  Real k = gh_scm2double (me->get_grob_property  ("arithmetic-basicspace"))
+  Real k = gh_scm2double (me->get_grob_property ("arithmetic-basicspace"))
     - log;
   
   return (log_2 (d) + k) * gh_scm2double (me->get_grob_property ("arithmetic-multiplier"));
@@ -249,7 +249,7 @@ Spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
 
   //  SCM s = lc->get_grob_property ("mean-playing-duration");  
   if (unsmob_moment (s))
-    shortest_playing_len = *unsmob_moment(s);
+    shortest_playing_len = *unsmob_moment (s);
   
   if (! shortest_playing_len)
     {
@@ -264,7 +264,7 @@ Spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
     }
   Moment delta_t = Paper_column::when_mom (rc) - Paper_column::when_mom (lc);
   Real dist = get_duration_space (me, shortest_playing_len, shortest);
-  dist *= (double)(delta_t / shortest_playing_len);
+  dist *= (double) (delta_t / shortest_playing_len);
 
   /*
     UGH: KLUDGE!
@@ -305,7 +305,7 @@ Spacing_spanner::stem_dir_correction (Grob*me, Grob*l, Grob*r)
   dl = gh_car (dl);
   dr = gh_car (dr);
 
-  assert (gh_number_p (dl) && gh_number_p(dr));
+  assert (gh_number_p (dl) && gh_number_p (dr));
   int d1 = gh_scm2int (dl);
   int d2 = gh_scm2int (dr);
 
@@ -314,7 +314,7 @@ Spacing_spanner::stem_dir_correction (Grob*me, Grob*l, Grob*r)
 
 
   Real correction = 0.0;
-  Real ssc = gh_scm2double (me->get_grob_property("stem-spacing-correction"));
+  Real ssc = gh_scm2double (me->get_grob_property ("stem-spacing-correction"));
 
   if (d1 && d2 && d1 * d2 == -1)
     {
@@ -326,7 +326,7 @@ Spacing_spanner::stem_dir_correction (Grob*me, Grob*l, Grob*r)
 }
   
 
-MAKE_SCHEME_CALLBACK(Spacing_spanner, set_springs,1);
+MAKE_SCHEME_CALLBACK (Spacing_spanner, set_springs,1);
 SCM
 Spacing_spanner::set_springs (SCM smob)
 {

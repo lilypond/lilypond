@@ -21,10 +21,11 @@ Repeated_music::body ()const
 Music_sequence*
 Repeated_music::alternatives ()const
 {
-  return dynamic_cast<Music_sequence*>  (unsmob_music (get_mus_property ("alternatives")));
+  return dynamic_cast<Music_sequence*> (unsmob_music (get_mus_property ("alternatives")));
 }
 
-Repeated_music::Repeated_music(SCM l)
+
+Repeated_music::Repeated_music (SCM l)
   : Music (l)
 {
   set_mus_property ("type", ly_symbol2scm ("repeated-music"));
@@ -69,10 +70,10 @@ Repeated_music::compress (Moment p)
 Moment
 Repeated_music::alternatives_length_mom (bool fold) const
 {
-  if (!alternatives () )
+  if (!alternatives ())
     return 0;
   
-  if  (fold)
+  if (fold)
     return alternatives ()->maximum_length ();
 
   Moment m =0;
@@ -109,6 +110,10 @@ Repeated_music::alternatives_volta_length_mom () const
   return m;
 }
 
+
+/*
+  Length of the body in THIS. Disregards REPEAT-COUNT. 
+ */
 Moment
 Repeated_music::body_length_mom () const
 {
@@ -127,9 +132,9 @@ Repeated_music::repeat_count () const
 }
 
 
-MAKE_SCHEME_CALLBACK(Repeated_music,unfolded_music_length, 1);
-MAKE_SCHEME_CALLBACK(Repeated_music,folded_music_length, 1);
-MAKE_SCHEME_CALLBACK(Repeated_music,volta_music_length, 1);
+MAKE_SCHEME_CALLBACK (Repeated_music,unfolded_music_length, 1);
+MAKE_SCHEME_CALLBACK (Repeated_music,folded_music_length, 1);
+MAKE_SCHEME_CALLBACK (Repeated_music,volta_music_length, 1);
 
 SCM
 Repeated_music::unfolded_music_length (SCM m)
@@ -155,4 +160,12 @@ Repeated_music::volta_music_length (SCM m)
   Repeated_music* r = dynamic_cast<Repeated_music*> (unsmob_music (m));
   Moment l =  r->body_length_mom () + r->alternatives_volta_length_mom ();
   return l.smobbed_copy ();
+}
+
+ADD_MUSIC (Repeated_music);
+
+Repeated_music::Repeated_music ()
+  : Music (SCM_EOL)
+{
+ set_mus_property ("type", ly_symbol2scm ("repeated-music"));
 }

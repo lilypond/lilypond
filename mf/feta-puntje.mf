@@ -17,5 +17,11 @@ fet_beginchar("repeat dots", "repeatcolon", "repeatcolon")
 	set_char_box(0, dot_diam#, staff_space#/2, staff_space#/2);
 fet_endchar;
 
+fet_beginchar("even repeat dots", "evenrepeatcolon", "evenrepeatcolon")
+	pickup pencircle scaled dot_diam;
+	draw (dot_diam/2, staff_space);
+	addto currentpicture also currentpicture yscaled -1;
+	set_char_box(0, dot_diam#, staff_space#, staff_space#);
+fet_endchar;
 
 fet_endgroup("dots");

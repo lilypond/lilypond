@@ -85,7 +85,7 @@ Part_combine_music_iterator::change_to (Music_iterator *it, String to_type,
      
      If \translator Staff = bass, then look for Staff = *
    */
-  while  (current && current->type_str_ != to_type)
+  while (current && current->type_str_ != to_type)
     {
       last = current;
       current = current->daddy_trans_l_;
@@ -130,9 +130,9 @@ get_music_info (Moment m, Music_iterator* iter, SCM *pitches, SCM *durations)
 	{
 	  Music *m = unsmob_music (gh_car (i));
 	  if (Melodic_req *r = dynamic_cast<Melodic_req *> (m))
-	    *pitches = gh_cons (r->get_mus_property("pitch"), *pitches);
+	    *pitches = gh_cons (r->get_mus_property ("pitch"), *pitches);
 	  if (Rhythmic_req *r = dynamic_cast<Rhythmic_req *> (m))
-	    *durations = gh_cons (r->get_mus_property("duration"), *durations);
+	    *durations = gh_cons (r->get_mus_property ("duration"), *durations);
 	}
     }
 }
@@ -228,22 +228,22 @@ Part_combine_music_iterator::get_state (Moment)
 	    }
 	  
 	  if (first_pitches != SCM_EOL && second_pitches == SCM_EOL
-		  && !(second_until_ > now))
+		  && ! (second_until_ > now))
 	    {
 	      state |= UNRELATED;
 	      state &= ~UNISILENCE;
-	      if (!(state & ~(UNRELATED | SOLO1 | UNISILENCE)))
+	      if (! (state & ~ (UNRELATED | SOLO1 | UNISILENCE)))
 		state |= SOLO1;
 	    }
 	  else
 	    state &= ~SOLO1;
 
 	  if (first_pitches == SCM_EOL && second_pitches != SCM_EOL
-	      && !(first_until_ > now))
+	      && ! (first_until_ > now))
 	    {
 	      state |= UNRELATED;
 	      state &= ~UNISILENCE;
-	      if (!(state & ~(UNRELATED | SOLO2 | UNISILENCE)))
+	      if (! (state & ~ (UNRELATED | SOLO2 | UNISILENCE)))
 		state |= SOLO2;
 	    }
 	  else
@@ -252,31 +252,31 @@ Part_combine_music_iterator::get_state (Moment)
  	  if (gh_equal_p (first_durations, second_durations))
 	    {
 	      state &= ~UNISILENCE;
-	      if (!(state & ~(UNIRHYTHM | UNISON)))
+	      if (! (state & ~ (UNIRHYTHM | UNISON)))
 		state |= UNIRHYTHM;
 	    }
 	  else
-	    state &= ~(UNIRHYTHM | UNISILENCE);
+	    state &= ~ (UNIRHYTHM | UNISILENCE);
 	  
 	  if (first_pitches != SCM_EOL
 	      && gh_equal_p (first_pitches, second_pitches))
 	    {
 	      state &= ~UNISILENCE;
-	      if (!(state & ~(UNIRHYTHM | UNISON)))
+	      if (! (state & ~ (UNIRHYTHM | UNISON)))
 		state |= UNISON;
 	    }
 	  else
-	    state &= ~(UNISON);
+	    state &= ~ (UNISON);
 	    
 	  if (first_pitches == SCM_EOL && second_pitches == SCM_EOL)
 	    {
-	      if (!(state & ~(UNIRHYTHM | UNISILENCE)))
+	      if (! (state & ~ (UNIRHYTHM | UNISILENCE)))
 		state |= UNISILENCE;
 	    }
 	  else if (!state)
 	    state |= UNRELATED;
 	  else
-	    state &= ~(UNISILENCE);
+	    state &= ~ (UNISILENCE);
 
 	  if (gh_number_p (interval))
 	    {
@@ -288,11 +288,11 @@ Part_combine_music_iterator::get_state (Moment)
 		  && i >= gh_scm2int (gh_car (s))
 		  && i <= gh_scm2int (gh_cdr (s)))
 		{
-		  if (!(state & ~(SPLIT_INTERVAL | UNIRHYTHM | UNISON)))
+		  if (! (state & ~ (SPLIT_INTERVAL | UNIRHYTHM | UNISON)))
 		    state |= SPLIT_INTERVAL;
 		}
 	      else
-		state &= ~(SPLIT_INTERVAL);
+		state &= ~ (SPLIT_INTERVAL);
 	    }
 
 	  if (first && first_pitches != SCM_EOL)
@@ -349,7 +349,7 @@ Part_combine_music_iterator::process (Moment m)
 
   bool combine_b = previously_combined_b;
 
-  if (!(state & UNIRHYTHM)
+  if (! (state & UNIRHYTHM)
       || (state & SPLIT_INTERVAL)
       || (state & (SOLO1 | SOLO2)))
     combine_b = false;
@@ -438,4 +438,4 @@ Part_combine_music_iterator::get_music (Moment m)const
   return s;
 }
 
-IMPLEMENT_CTOR_CALLBACK(Part_combine_music_iterator);
+IMPLEMENT_CTOR_CALLBACK (Part_combine_music_iterator);

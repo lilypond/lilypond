@@ -119,6 +119,8 @@
 		       (length . ,Repeated_music::unfolded_music_length)))
 	    ("fold" . ((iterator-ctor  . ,Folded_repeat_iterator::constructor)
 		       (length . ,Repeated_music::folded_music_length)))
+	    ("percent" . ((iterator-ctor . ,Percent_repeat_iterator::constructor)
+			  (length . ,Repeated_music::unfolded_music_length)))
 	    ("tremolo" . ((iterator-ctor . ,Chord_tremolo_iterator::constructor)
 			  (length . ,Repeated_music::unfolded_music_length)))))
 	  
@@ -128,5 +130,5 @@
 	(cdr handle)
 	(begin
 	  (ly-warn
-	   (string-append "Unknown repeat type `" name "'\nSee scm/lily.scm for supported repeats"))
+	   (string-append "Unknown repeat type `" name "'\nSee scm/c++.scm for supported repeats"))
 	  '(type . 'repeated-music)))))

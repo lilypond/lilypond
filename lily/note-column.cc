@@ -48,11 +48,11 @@ Item *
 Note_column::stem_l (Grob*me) 
 {
   SCM s = me->get_grob_property ("stem");
-  return  dynamic_cast<Item*>(unsmob_grob (s));
+  return  dynamic_cast<Item*> (unsmob_grob (s));
 }
   
 Slice
-Note_column::head_positions_interval(Grob *me)
+Note_column::head_positions_interval (Grob *me)
 {
   Slice  iv;
 

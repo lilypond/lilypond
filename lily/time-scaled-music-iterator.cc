@@ -22,10 +22,10 @@ Time_scaled_music_iterator::process (Moment m)
       if (yeah)
 	set_translator (yeah->report_to_l ());
       else
-	music_l_->origin ()->warning ( _("no one to print a tuplet start bracket"));
+	music_l_->origin ()->warning (_ ("no one to print a tuplet start bracket"));
     }
 
   Music_wrapper_iterator::process (m);
 }
 
-IMPLEMENT_CTOR_CALLBACK(Time_scaled_music_iterator);
+IMPLEMENT_CTOR_CALLBACK (Time_scaled_music_iterator);

@@ -23,5 +23,6 @@ $(outdir)/my-lily-parser.o: $(outdir)/parser.hh
 $(outdir)/my-lily-lexer.o: $(outdir)/parser.hh
 $(outdir)/lexer.o: $(outdir)/parser.hh
 
+$(outdir)/kpath.o: $(outdir)/version.hh
 $(outdir)/lily-guile.o: $(outdir)/version.hh
 $(outdir)/lily-version.o: $(outdir)/version.hh

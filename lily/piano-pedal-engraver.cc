@@ -51,7 +51,7 @@ Piano_pedal_engraver::Piano_pedal_engraver ()
   info_list_ = 0;
 }
 void
-Piano_pedal_engraver::initialize()
+Piano_pedal_engraver::initialize ()
 {
   info_list_ = new Pedal_info[4];
   Pedal_info *p = info_list_;
@@ -69,10 +69,10 @@ Piano_pedal_engraver::initialize()
 
       p++;
     }
-  while (*(np ++));
+  while (* (np ++));
 }
 
-Piano_pedal_engraver::~Piano_pedal_engraver()
+Piano_pedal_engraver::~Piano_pedal_engraver ()
 {
   delete[] info_list_;
 }
@@ -92,7 +92,7 @@ Piano_pedal_engraver::acknowledge_grob (Grob_info info)
 	    {
 	      Side_position_interface::add_support (p->item_p_, info.elem_l_);
 
-	      if (Side_position_interface::get_axis(p->item_p_) == X_AXIS
+	      if (Side_position_interface::get_axis (p->item_p_) == X_AXIS
 		  && !p->item_p_->parent_l (Y_AXIS))
 		p->item_p_->set_parent (info.elem_l_, Y_AXIS);
 	    }
@@ -107,14 +107,14 @@ Piano_pedal_engraver::acknowledge_grob (Grob_info info)
 bool
 Piano_pedal_engraver::try_music (Music *m)
 {
-  if (Span_req * s = dynamic_cast<Span_req*>(m))
+  if (Span_req * s = dynamic_cast<Span_req*> (m))
     {
       for (Pedal_info*p = info_list_; p->name_; p ++)
 	{
 	  if (scm_equal_p (s->get_mus_property ("span-type"),
 			   ly_str02scm (p->name_))==SCM_BOOL_T)
 	    {
-	      p->req_l_drul_[s->get_span_dir()] = s;
+	      p->req_l_drul_[s->get_span_dir ()] = s;
 	      return true;
 	    }
 	}
@@ -131,15 +131,15 @@ Piano_pedal_engraver::create_grobs ()
 	continue;
       
       SCM s = SCM_EOL;
-      SCM strings = get_property( ("pedal" + String (p->name_) + "Strings").ch_C());
-      if( scm_ilength (strings) < 3)
+      SCM strings = get_property (("pedal" + String (p->name_) + "Strings").ch_C ());
+      if (scm_ilength (strings) < 3)
 	continue;
       
       if (p->req_l_drul_[STOP] && p->req_l_drul_[START])
 	{
 	  if (!p->start_req_l_)
 	    {
-	      p->req_l_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: %s",  p->name_ ));
+	      p->req_l_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: %s",  p->name_));
 	    }
 	  else
 	    {
@@ -151,7 +151,7 @@ Piano_pedal_engraver::create_grobs ()
 	{
 	  if (!p->start_req_l_)
 	    {
-	      p->req_l_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: %s", p->name_ ));
+	      p->req_l_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: %s", p->name_));
 	    }
 	  else
 	    {
@@ -168,7 +168,7 @@ Piano_pedal_engraver::create_grobs ()
       if (gh_string_p (s))
 	{
 	  String propname = String (p->name_) + "Pedal";
-	  p->item_p_ = new Item (get_property (propname.ch_C()));
+	  p->item_p_ = new Item (get_property (propname.ch_C ()));
 	  p->item_p_->set_grob_property ("text", s);
 
 	  announce_grob (p->item_p_,

@@ -46,7 +46,7 @@ struct Dimension_cache
    */
   Grob * parent_l_;
 
-  Dimension_cache(Dimension_cache const&);
+  Dimension_cache (Dimension_cache const&);
   Dimension_cache ();
   void init ();
 };

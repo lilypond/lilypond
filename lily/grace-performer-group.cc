@@ -62,7 +62,7 @@ Grace_performer_group::play_element (Audio_element*e)
 }
 
 
-Grace_performer_group::Grace_performer_group()
+Grace_performer_group::Grace_performer_group ()
 {
   calling_self_b_ = false;
 }
@@ -72,9 +72,9 @@ Grace_performer_group::one_time_step ()
 {
   calling_self_b_  = true;
   // process_music ();
-  announces();
-  pre_move_processing();
-  check_removal();
+  announces ();
+  pre_move_processing ();
+  check_removal ();
   calling_self_b_ = false;
 }
 

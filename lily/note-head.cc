@@ -28,7 +28,7 @@ Note_head::ledger_line (Interval xwid, Grob *me)
   Molecule *e = &endings[LEFT];
   endings[RIGHT] = *e;
   
-  Real thick = e->extent (Y_AXIS).length();
+  Real thick = e->extent (Y_AXIS).length ();
   Real len = e->extent (X_AXIS).length () - thick;
 
   Molecule total;
@@ -36,7 +36,7 @@ Note_head::ledger_line (Interval xwid, Grob *me)
   do {
     endings[d].translate_axis (xwid[d] - endings[d].extent (X_AXIS)[d], X_AXIS);
     total.add_molecule (endings[d]);    
-  } while ((flip(&d)) != LEFT);
+  } while ((flip (&d)) != LEFT);
 
   Real xpos = xwid [LEFT] + len;
 
@@ -51,7 +51,7 @@ Note_head::ledger_line (Interval xwid, Grob *me)
 }
 
 
-MAKE_SCHEME_CALLBACK(Note_head,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Note_head,brew_molecule,1);
 
 SCM
 Note_head::brew_molecule (SCM smob)  
@@ -64,7 +64,7 @@ Note_head::brew_molecule (SCM smob)
   int p = (int)  rint (Staff_symbol_referencer::position_f (me));
   int streepjes_i = abs (p) < sz 
     ? 0
-    : (abs(p) - sz) /2;
+    : (abs (p) - sz) /2;
 
   SCM style  = me->get_grob_property ("style");
   if (!gh_symbol_p (style))
@@ -74,9 +74,9 @@ Note_head::brew_molecule (SCM smob)
 
   // ugh: use gh_call ()
   Molecule out = Font_interface::get_default_font (me)->find_by_name (String ("noteheads-") + 
-		ly_scm2string (scm_eval2 (gh_list (ly_symbol2scm("find-notehead-symbol"),
+		ly_scm2string (scm_eval2 (gh_list (ly_symbol2scm ("find-notehead-symbol"),
 						  me->get_grob_property ("duration-log"),
-						  ly_quote_scm(style),
+						  ly_quote_scm (style),
 						  SCM_UNDEFINED),
 					  SCM_EOL)));
 
@@ -85,7 +85,7 @@ Note_head::brew_molecule (SCM smob)
       Direction dir = (Direction)sign (p);
       Interval hd = out.extent (X_AXIS);
       Real hw = hd.length ()/4;
-      Molecule ledger (ledger_line  (Interval (hd[LEFT] - hw,
+      Molecule ledger (ledger_line (Interval (hd[LEFT] - hw,
 					       hd[RIGHT] + hw), me));
       
 
@@ -102,7 +102,7 @@ Note_head::brew_molecule (SCM smob)
 	  out.add_molecule (s);
 	}
     }
-  return out.smobbed_copy();
+  return out.smobbed_copy ();
 }
 
 bool
@@ -112,7 +112,7 @@ Note_head::has_interface (Grob*m)
 }
 
 
-MAKE_SCHEME_CALLBACK(Note_head,brew_ez_molecule,1);
+MAKE_SCHEME_CALLBACK (Note_head,brew_ez_molecule,1);
 
 SCM
 Note_head::brew_ez_molecule (SCM smob)

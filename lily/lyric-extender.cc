@@ -16,7 +16,7 @@
 #include "lyric-extender.hh"
 
 
-MAKE_SCHEME_CALLBACK(Lyric_extender,brew_molecule,1)
+MAKE_SCHEME_CALLBACK (Lyric_extender,brew_molecule,1)
 SCM 
 Lyric_extender::brew_molecule (SCM smob) 
 {
@@ -28,7 +28,7 @@ Lyric_extender::brew_molecule (SCM smob)
 
   Real sl = sp->paper_l ()->get_var ("stafflinethickness");  
   Real righttrim = 0.5; // default to half a space gap on the right
-  SCM righttrim_scm = sp->get_grob_property("right-trim-amount");
+  SCM righttrim_scm = sp->get_grob_property ("right-trim-amount");
   if (gh_number_p (righttrim_scm)) {
     righttrim = gh_scm2double (righttrim_scm);
   }
@@ -40,10 +40,10 @@ Lyric_extender::brew_molecule (SCM smob)
     }
   Real w = sp->spanner_length () - leftext - righttrim;
   
-  Real h = sl * gh_scm2double (sp->get_grob_property  ("height"));
-  Molecule  mol (Lookup::filledbox ( Box (Interval (0,w), Interval (0,h))));
+  Real h = sl * gh_scm2double (sp->get_grob_property ("height"));
+  Molecule  mol (Lookup::filledbox (Box (Interval (0,w), Interval (0,h))));
   mol.translate (Offset (leftext, 0));
-  return mol.smobbed_copy();
+  return mol.smobbed_copy ();
 }
 
 void

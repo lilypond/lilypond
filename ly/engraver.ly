@@ -121,6 +121,7 @@ VoiceContext = \translator {
 	\consists "Auto_beam_engraver";
 
 	\consists "Chord_tremolo_engraver";
+	\consists "Percent_repeat_engraver";
 	\consists "Melisma_engraver";
 
 %{

@@ -22,8 +22,8 @@
 class Volta_engraver : public Engraver
 {
 public:
-  Volta_engraver();
-  VIRTUAL_COPY_CONS(Translator);
+  Volta_engraver ();
+  VIRTUAL_COPY_CONS (Translator);
 protected:
 
   virtual void acknowledge_grob (Grob_info);
@@ -39,7 +39,7 @@ protected:
   SCM start_str_;
 };
 
-ADD_THIS_TRANSLATOR(Volta_engraver);
+ADD_THIS_TRANSLATOR (Volta_engraver);
 
 Volta_engraver::Volta_engraver ()
 {
@@ -84,7 +84,7 @@ Volta_engraver::process_music ()
   
   if (end && !volta_span_p_)
     {
-      warning (_("No volta spanner to end")); // fixme: be more verbose.
+      warning (_ ("No volta spanner to end")); // fixme: be more verbose.
     }
   else if (end)
     {
@@ -148,7 +148,7 @@ Volta_engraver::acknowledge_grob (Grob_info i)
 	  if (volta_span_p_)
 	    Volta_spanner::add_bar (volta_span_p_, item);
 	  if (end_volta_span_p_)
-	    Volta_spanner::add_bar(end_volta_span_p_ , item);
+	    Volta_spanner::add_bar (end_volta_span_p_ , item);
 	}
     }
 }
@@ -158,7 +158,7 @@ Volta_engraver::finalize ()
 {
   if (volta_span_p_)
     {
-      typeset_grob(volta_span_p_);
+      typeset_grob (volta_span_p_);
     }
   if (end_volta_span_p_)
     {
@@ -175,7 +175,7 @@ Volta_engraver::stop_translation_timestep ()
     {
       Side_position_interface::add_staff_support (end_volta_span_p_);
       
-      typeset_grob (end_volta_span_p_ );
+      typeset_grob (end_volta_span_p_);
       end_volta_span_p_ =0;
     }
 }

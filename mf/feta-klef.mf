@@ -1054,10 +1054,11 @@ def draw_percussion_clef(expr reduction) =
 	save reduced_il;
 	reduced_il# = staff_space# * reduction;
 	define_pixels(reduced_il);
-	set_char_box(.5reduced_il#,1.25reduced_il#,reduced_il#,reduced_il#);
-        pickup pencircle scaled 3.33 stafflinethickness;
-	draw (b,h) -- (b,-d);
-	draw (w,h) -- (w,-d);
+	set_char_box(-.67reduced_il#,2.0reduced_il#,reduced_il#,reduced_il#);
+	razt := 0.45reduced_il;
+        pickup penrazor scaled razt;
+	draw (-b+razt/2,h) -- (-b+razt/2,-d);
+	draw (w-razt/2,h) -- (w-razt/2,-d);
 enddef;
 
 fet_beginchar("percussion clef", "percussion", "percussionclef")
@@ -1066,6 +1067,41 @@ fet_endchar;
 
 fet_beginchar("percussion clef", "percussion_change", "cpercussionclef")
 	draw_percussion_clef(.8);
+fet_endchar;
+
+def draw_tab_clef(expr reduction) =
+	save reduced_il;
+	reduced_il# = staff_space# * reduction;
+	define_pixels(reduced_il);
+	set_char_box(-.5reduced_il#,1.8reduced_il#,2.25reduced_il#,2.25reduced_il#);
+	bs := -d+0.65reduced_il;
+	cx := 0.5(-b+w);
+	xp := 0.32 reduced_il;
+	yp := 0.25reduced_il;
+        pickup pensquare xscaled xp yscaled yp;
+
+	draw (-b,h) -- (w,h);
+	draw (cx,h) -- (cx,h-1.2reduced_il);
+
+	pickup penrazor scaled yp rotated 90;
+	draw (-0.85b+0.15w,-0.25reduced_il) -- (-0.15b+0.85w,-0.25reduced_il);
+	pickup penrazor scaled xp;
+	draw (-b,-0.6reduced_il-yp/2) -- (cx,0.6reduced_il+yp/2) -- (w,-0.6reduced_il-yp/2);
+
+
+        pickup pensquare xscaled xp yscaled yp;
+	draw (-b,-d+1.2reduced_il) -- (-b,-d);
+        pickup pencircle xscaled xp yscaled yp;
+	draw (-b,-d) --- (cx,-d) .. (w,0.5(bs-d)) .. (cx,bs) --- (-b,bs) --- (cx,bs)
+	     .. (0.3cx+0.7w,0.5(bs-d+1.2reduced_il)) .. (cx,-d+1.2reduced_il) --- (-b,-d+1.2reduced_il)
+enddef;
+
+fet_beginchar("tab clef", "tab", "tabclef")
+	draw_tab_clef(1.0);
+fet_endchar;
+
+fet_beginchar("tab clef", "tab_change", "ctabclef")
+	draw_tab_clef(.8);
 fet_endchar;
 
 fet_endgroup("clefs");

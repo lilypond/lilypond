@@ -6,7 +6,7 @@
 const char *
 demangle_classname (type_info const &t)
 {
-  char const *s = t.name();
+  char const *s = t.name ();
   while (isdigit (*s))
     s++;
   return s;

@@ -14,8 +14,8 @@
 
 struct Clef 
 {
-  DECLARE_SCHEME_CALLBACK(before_line_breaking, (SCM ));
-  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
+  DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM ));
+  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
   static bool has_interface (Grob*);
   static void set_interface (Grob*);
 };

@@ -15,7 +15,7 @@
 class Stem 
 {
 public:
-  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
+  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
 
   static  int flag_i (Grob*) ;
   static int beam_count (Grob*,Direction) ;
@@ -30,18 +30,18 @@ public:
   static Direction get_direction (Grob*) ;
   static int type_i (Grob *) ;
   static void set_stemend (Grob *,Real);
-  static Direction get_default_dir(Grob *) ;
-  static int get_center_distance(Grob *,Direction) ;
+  static Direction get_default_dir (Grob *) ;
+  static int get_center_distance (Grob *,Direction) ;
   static int heads_i (Grob *) ;
-  static bool invisible_b(Grob *) ;
-  static Interval head_positions(Grob *) ;
+  static bool invisible_b (Grob *) ;
+  static Interval head_positions (Grob *) ;
   static Real get_default_stem_end_position (Grob*me) ;
-  static void position_noteheads(Grob*);
+  static void position_noteheads (Grob*);
   static Real stem_end_position (Grob*) ;
-  DECLARE_SCHEME_CALLBACK(off_callback, (SCM element, SCM axis));
+  DECLARE_SCHEME_CALLBACK (off_callback, (SCM element, SCM axis));
   static Molecule flag (Grob*);
-  DECLARE_SCHEME_CALLBACK(before_line_breaking, (SCM ));
-  DECLARE_SCHEME_CALLBACK(dim_callback, (SCM smob, SCM axis));
+  DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM ));
+  DECLARE_SCHEME_CALLBACK (dim_callback, (SCM smob, SCM axis));
   DECLARE_SCHEME_CALLBACK (height, (SCM,SCM));
   static bool has_interface (Grob*);
   static void set_interface (Grob*);

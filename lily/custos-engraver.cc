@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (C) 2000 Juergen Reuter <reuterj@ira.uka.de>,
+ (C) 2000 Juergen Reuter <reuterj@ira.uka.de>,
 
   Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
@@ -23,16 +23,16 @@
 class Custos_engraver : public Engraver
 {
 public:
-  Custos_engraver();
-  virtual void start_translation_timestep();
-  virtual void acknowledge_grob(Grob_info);
+  Custos_engraver ();
+  virtual void start_translation_timestep ();
+  virtual void acknowledge_grob (Grob_info);
   virtual void create_grobs ();
   virtual void stop_translation_timestep ();
   virtual void finalize ();
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
 
 private:
-  Item * create_custos();
+  Item * create_custos ();
   bool custos_permitted;
   Link_array<Grob> custos_arr_;
   Array<Pitch> pitches_;
@@ -45,7 +45,7 @@ Custos_engraver::Custos_engraver ()
 
 
 void
-Custos_engraver::stop_translation_timestep()
+Custos_engraver::stop_translation_timestep ()
 {
   /*
     delay typeset until we're at the next moment, so we can silence custodes at the end of the piece.
@@ -69,7 +69,7 @@ Custos_engraver::start_translation_timestep ()
 void
 Custos_engraver::acknowledge_grob (Grob_info info)
 {
-  Item *item = dynamic_cast <Item *>(info.elem_l_);
+  Item *item = dynamic_cast <Item *> (info.elem_l_);
   if (item)
     {
       if (Bar::has_interface (info.elem_l_))
@@ -95,7 +95,7 @@ Custos_engraver::acknowledge_grob (Grob_info info)
 void
 Custos_engraver::create_grobs ()
 {
-  if (gh_string_p (get_property( "whichBar")))
+  if (gh_string_p (get_property ("whichBar")))
     custos_permitted = true;
   
   if (custos_permitted)
@@ -114,7 +114,7 @@ Custos_engraver::create_grobs ()
 }
 
 Item* 
-Custos_engraver::create_custos()
+Custos_engraver::create_custos ()
 {
   SCM basicProperties = get_property ("Custos");
   Item* custos = new Item (basicProperties);

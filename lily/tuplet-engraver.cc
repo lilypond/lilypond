@@ -20,7 +20,7 @@
 class Tuplet_engraver : public Engraver
 {
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
 
 protected:
   Link_array<Time_scaled_music> time_scaled_music_arr_;
@@ -52,7 +52,7 @@ Tuplet_engraver::try_music (Music *r)
 	  stop_moments_.push (m);
 
 	  SCM s = get_property ("tupletSpannerDuration");
-	  if (unsmob_moment(s))
+	  if (unsmob_moment (s))
 	    m = m <? (now_mom () + *unsmob_moment (s));
 	  
 	  span_stop_moments_.push (m);
@@ -83,7 +83,7 @@ Tuplet_engraver::create_grobs ()
       
 
       SCM proc = get_property ("tupletNumberFormatFunction");
-      if (gh_procedure_p( proc))
+      if (gh_procedure_p (proc))
 	{
 	  SCM t = gh_apply (proc, gh_list (time_scaled_music_arr_[i]->self_scm (), SCM_UNDEFINED));
 	  glep->set_grob_property ("text", t);
@@ -102,11 +102,11 @@ Tuplet_engraver::acknowledge_grob (Grob_info i)
   if (grace != wgb)
     return;
   
-  if (Note_column::has_interface(i.elem_l_))
+  if (Note_column::has_interface (i.elem_l_))
     {
       for (int j =0; j  <started_span_p_arr_.size (); j++)
 	if (started_span_p_arr_[j]) 
-	  Tuplet_bracket::add_column (started_span_p_arr_[j], dynamic_cast<Item*>(i.elem_l_));
+	  Tuplet_bracket::add_column (started_span_p_arr_[j], dynamic_cast<Item*> (i.elem_l_));
     }
   else if (Beam::has_interface (i.elem_l_))
     {
@@ -126,7 +126,7 @@ Tuplet_engraver::start_translation_timestep ()
   if (unsmob_moment (s))
     tsd = *unsmob_moment (s);
 
-  for (int i= started_span_p_arr_.size (); i--; )
+  for (int i= started_span_p_arr_.size (); i--;)
     {
       if (now >= span_stop_moments_[i])
 	{
@@ -143,9 +143,9 @@ Tuplet_engraver::start_translation_timestep ()
       if (now >= stop_moments_[i])
 	{
 	  started_span_p_arr_.del (i);
-	  stop_moments_.del(i);
+	  stop_moments_.del (i);
 	  span_stop_moments_.del (i);
-	  time_scaled_music_arr_.del(i);
+	  time_scaled_music_arr_.del (i);
 	}
     }
 }
@@ -160,6 +160,6 @@ Tuplet_engraver::finalize ()
     }  
 }
 
-ADD_THIS_TRANSLATOR(Tuplet_engraver);
+ADD_THIS_TRANSLATOR (Tuplet_engraver);
 
 

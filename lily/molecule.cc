@@ -23,13 +23,13 @@
 SCM
 Molecule::smobbed_copy () const
 {
-  Molecule * m = new Molecule(*this);
+  Molecule * m = new Molecule (*this);
 
   return m->smobbed_self ();
 }
 
 Interval
-Molecule::extent(Axis a) const
+Molecule::extent (Axis a) const
 {
   return dim_[a];
 }
@@ -40,7 +40,7 @@ Molecule::Molecule (Box b, SCM func)
   dim_ = b;
 }
 
-Molecule::Molecule()
+Molecule::Molecule ()
 {
   expr_ = SCM_EOL;
   set_empty (true);
@@ -52,7 +52,7 @@ Molecule::translate (Offset o)
   Axis a = X_AXIS;
   while (a < NO_AXES)
     {
-      if (abs(o[a]) > 30 CM
+      if (abs (o[a]) > 30 CM
 	  || isinf (o[a]) || isnan (o[a]))
 	{
 	  programming_error ("Improbable offset for translation: setting to zero");
@@ -72,7 +72,7 @@ Molecule::translate (Offset o)
 void
 Molecule::translate_axis (Real x,Axis a)
 {
-  Offset o(0,0);
+  Offset o (0,0);
   o[a] = x;
   translate (o);
 }  
@@ -98,7 +98,7 @@ Molecule::set_empty (bool e)
     }
   else
     {
-      dim_[X_AXIS] = Interval(0,0);
+      dim_[X_AXIS] = Interval (0,0);
       dim_[Y_AXIS] = Interval (0,0);
     }
 }
@@ -108,7 +108,7 @@ void
 Molecule::align_to (Axis a, Direction d)
 {
   Interval i (extent (a));
-  Real r =  (d == CENTER) ? i.center () : i[d];
+  Real r = (d == CENTER) ? i.center () : i[d];
   translate_axis (-r, a);
 }
 
@@ -154,7 +154,7 @@ Molecule::ly_set_molecule_extent_x (SCM mol, SCM axis, SCM np)
   if (m && axis_p (axis) && number_pair_p (np))
     {
       Interval iv = ly_scm2interval (np);
-      m->dim_[Axis(gh_scm2int (axis))] = ly_scm2interval (np);
+      m->dim_[Axis (gh_scm2int (axis))] = ly_scm2interval (np);
     }
   else
     warning ("ly-set-molecule-extent!: invalid arguments");
@@ -208,7 +208,7 @@ molecule_init ()
   scm_make_gsubr ("ly-set-molecule-extent!", 3 , 0, 0, (Scheme_function_unknown) Molecule::ly_set_molecule_extent_x);
   scm_make_gsubr ("ly-get-molecule-extent", 2 , 0, 0, (Scheme_function_unknown) Molecule::ly_get_molecule_extent);
 }
-ADD_SCM_INIT_FUNC(molecule,molecule_init);
+ADD_SCM_INIT_FUNC (molecule,molecule_init);
 
 
 bool
@@ -218,7 +218,7 @@ Molecule::empty_b () const
 }
 
 SCM
-fontify_atom(Font_metric * met, SCM f)
+fontify_atom (Font_metric * met, SCM f)
 {
   if (f == SCM_EOL)
     return f;
@@ -240,7 +240,7 @@ Molecule::extent_box () const
 {
   return dim_;
 }
-IMPLEMENT_SIMPLE_SMOBS(Molecule);
+IMPLEMENT_SIMPLE_SMOBS (Molecule);
 
 
 int
@@ -249,8 +249,8 @@ Molecule::print_smob (SCM s, SCM port, scm_print_state *)
   Molecule  *r = (Molecule *) gh_cdr (s);
      
   scm_puts ("#<Molecule ", port);
-  /*  String str(r->str());
-  scm_puts ((char *)str.ch_C(), port);*/
+  /*  String str (r->str ());
+  scm_puts ((char *)str.ch_C (), port);*/
   scm_puts (" >", port);
   
   return 1;
@@ -265,6 +265,6 @@ Molecule::mark_smob (SCM s)
   return r->expr_;
 }
 
-IMPLEMENT_TYPE_P(Molecule, "molecule?");
-IMPLEMENT_DEFAULT_EQUAL_P(Molecule);
-IMPLEMENT_UNSMOB(Molecule, molecule);
+IMPLEMENT_TYPE_P (Molecule, "molecule?");
+IMPLEMENT_DEFAULT_EQUAL_P (Molecule);
+IMPLEMENT_UNSMOB (Molecule, molecule);

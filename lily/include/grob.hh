@@ -85,7 +85,7 @@ public:
   bool linked_b () const;
 
 
-  VIRTUAL_COPY_CONS(Grob);
+  VIRTUAL_COPY_CONS (Grob);
  
   /**
      Recursively track all dependencies of this Grob.  The
@@ -108,9 +108,9 @@ public:
   
   void suicide ();
   
-  DECLARE_SCHEME_CALLBACK(preset_extent, (SCM smob, SCM axis));
-  DECLARE_SCHEME_CALLBACK(point_dimension_callback, (SCM smob, SCM axis));
-  DECLARE_SCHEME_CALLBACK(molecule_extent, (SCM smob, SCM axis));
+  DECLARE_SCHEME_CALLBACK (preset_extent, (SCM smob, SCM axis));
+  DECLARE_SCHEME_CALLBACK (point_dimension_callback, (SCM smob, SCM axis));
+  DECLARE_SCHEME_CALLBACK (molecule_extent, (SCM smob, SCM axis));
 
 
   static SCM ly_set_grob_property (SCM, SCM,SCM);
@@ -123,7 +123,7 @@ public:
   virtual void handle_prebroken_dependencies ();
 
 
-  DECLARE_SMOBS(Grob,foo);
+  DECLARE_SMOBS (Grob,foo);
 
   void init ();
 
@@ -171,7 +171,7 @@ public:
   void set_parent (Grob* e, Axis);
   
   Grob *parent_l (Axis a) const;
-  DECLARE_SCHEME_CALLBACK(fixup_refpoint, (SCM));
+  DECLARE_SCHEME_CALLBACK (fixup_refpoint, (SCM));
 };
 
 Grob * unsmob_grob (SCM);

@@ -19,9 +19,9 @@
 
 struct SCM_less
 {
-  bool operator  () (SCM s1, SCM s2) const
+  bool operator () (SCM s1, SCM s2) const
   {
-    return long(s1) < long (s2);
+    return long (s1) < long (s2);
   }
 };
 
@@ -75,7 +75,7 @@ public:
   Scheme_hash_table (Scheme_hash_table const &);
 
   SCM to_alist () const;
-  DECLARE_SMOBS(Scheme_hash_table,foo);
+  DECLARE_SMOBS (Scheme_hash_table,foo);
 };
 
 #endif /* SCM_HASH_HH */

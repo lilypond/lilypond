@@ -1,11 +1,10 @@
 /*   
-kpath.cc --  glue kpathsea to lily. Need some ugly kludges for gcc 2.96
+  kpath.cc -- glue kpathsea to lily. Need some ugly kludges for gcc 2.96
 
-source file of the GNU LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
-(c) 2000--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-
- */
+  (c) 2000--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+*/
 
 #include <stdio.h>
 
@@ -23,10 +22,11 @@ extern "C" {
 #endif
 
 #include "kpath.hh"
-#include "version.hh"
+#include "lily-version.hh"
 
 
-char * ly_find_afm (char const * name)
+char *
+ly_find_afm (char const * name)
 {
 #if (KPATHSEA && HAVE_KPSE_FIND_FILE)
   return kpse_find_file (name, kpse_afm_format, true);
@@ -34,7 +34,8 @@ char * ly_find_afm (char const * name)
   return 0;
 }
 
-char * ly_find_tfm (char const * name)
+char *
+ly_find_tfm (char const * name)
 {
 #if (KPATHSEA && HAVE_KPSE_FIND_FILE)
   return kpse_find_file (name, kpse_tfm_format, true);
@@ -50,21 +51,17 @@ ly_init_kpath (char *av0)
   /*
    initialize kpathsea
    */
-  kpse_set_program_name(av0, NULL);
-  kpse_maketex_option("tfm", TRUE);
+  kpse_set_program_name (av0, NULL);
+  kpse_maketex_option ("tfm", TRUE);
 
-  /*
-    ugh: apparently the program_args is non-functional.
-   */
-#define VERSION MAJOR_VERSION "." MINOR_VERSION "."  PATCH_LEVEL
-  
-#define MY_TFMPATH "$VARTEXFONTS/tfm/lilypond/" VERSION "/"
+  String my_tfm = "$VARTEXFONTS/tfm/lilypond/";
+  my_tfm += version_str () + "/";
 
-  char * mypath = kpse_expand (MY_TFMPATH);
+  char * mypath = kpse_expand (my_tfm.ch_C ());
   String prog = "mktextfm --destdir ";
   prog += mypath;
   
-  kpse_format_info[kpse_tfm_format].program = strdup (prog.ch_C());
+  kpse_format_info[kpse_tfm_format].program = strdup (prog.ch_C ());
   kpse_format_info[kpse_tfm_format].client_path = mypath;
 #endif
 }

@@ -53,24 +53,24 @@ public:
   Music_sequence * alternatives () const;
 
   /// how often do we repeat?
-  int repeat_count( ) const;
+  int repeat_count ( ) const;
   virtual Pitch to_relative_octave (Pitch);
 
   Moment body_length_mom () const;
   Moment alternatives_length_mom (bool fold) const;
   Moment alternatives_volta_length_mom () const;  
 
-  DECLARE_SCHEME_CALLBACK(unfolded_music_length, (SCM));
-  DECLARE_SCHEME_CALLBACK(volta_music_length, (SCM));
-  DECLARE_SCHEME_CALLBACK(folded_music_length, (SCM));    
+  DECLARE_SCHEME_CALLBACK (unfolded_music_length, (SCM));
+  DECLARE_SCHEME_CALLBACK (volta_music_length, (SCM));
+  DECLARE_SCHEME_CALLBACK (folded_music_length, (SCM));    
   
   /// Transpose, with the interval central C to #p#
   virtual void transpose (Pitch p);
 
   /// Scale the music in time by #factor#.
   virtual void compress (Moment factor);
-  VIRTUAL_COPY_CONS(Music);
-
+  VIRTUAL_COPY_CONS (Music);
+  Repeated_music ();
   Repeated_music (SCM);
 };
 

@@ -79,7 +79,7 @@ Line_spanner::get_broken_offset (Grob *me, Direction dir)
 				Y_AXIS)
       };
   
-      return Offset ( abs (bound->extent (common[X_AXIS], X_AXIS)[-dir]),
+      return Offset (abs (bound->extent (common[X_AXIS], X_AXIS)[-dir]),
 		      bound->extent (common[Y_AXIS], Y_AXIS).center ());
     }
   return Offset ();
@@ -105,9 +105,9 @@ Line_spanner::broken_trend_offset (Grob *me, Direction dir)
 	      Offset me_o = get_broken_offset (me, -dir);
 	      // Hmm, why not return me_o[X], but recalc in brew_mol?
 	      o = Offset (0,
-			  (neighbour_o[Y_AXIS]*me_o[X_AXIS]
+ (neighbour_o[Y_AXIS]*me_o[X_AXIS]
 			   - me_o[Y_AXIS]*neighbour_o[X_AXIS]) * dir /
-			  (me_o[X_AXIS] + neighbour_o[X_AXIS]));
+ (me_o[X_AXIS] + neighbour_o[X_AXIS]));
 	      break;
 	    }
 	}
@@ -119,7 +119,7 @@ Line_spanner::broken_trend_offset (Grob *me, Direction dir)
 /*
   Warning: this thing is a cross-staff object, so it should have empty Y-dimensions.
 
-  (If not, you risk that this is called from the staff-alignment
+ (If not, you risk that this is called from the staff-alignment
   routine, via molecule_extent. At this point, the staffs aren't
   separated yet, so it doesn't work cross-staff.
 
@@ -189,8 +189,8 @@ Line_spanner::brew_molecule (SCM smob)
       dxy[Y_AXIS] = bound[RIGHT]->extent (common[Y_AXIS], Y_AXIS).center ()
 	- bound[LEFT]->extent (common[Y_AXIS], Y_AXIS).center ();
 
-      dist = sqrt(dxy[X_AXIS]*dxy[X_AXIS]+dxy[Y_AXIS]*dxy[Y_AXIS]);
-      ofxy = dxy*(off/dist);
+      dist = sqrt (dxy[X_AXIS]*dxy[X_AXIS]+dxy[Y_AXIS]*dxy[Y_AXIS]);
+      ofxy = dxy* (off/dist);
       dxy -= 2*ofxy;
 
       my_off = Offset (me->relative_coordinate (common[X_AXIS], X_AXIS),

@@ -65,17 +65,17 @@ Music_output_def::Music_output_def (Music_output_def const &s)
 }
 
 
-IMPLEMENT_SMOBS(Music_output_def);
-IMPLEMENT_UNSMOB(Music_output_def,music_output_def);
-IMPLEMENT_DEFAULT_EQUAL_P(Music_output_def);
+IMPLEMENT_SMOBS (Music_output_def);
+IMPLEMENT_UNSMOB (Music_output_def,music_output_def);
+IMPLEMENT_DEFAULT_EQUAL_P (Music_output_def);
 
 SCM
 Music_output_def::mark_smob (SCM m)
 {
   Music_output_def * mo = (Music_output_def*) SCM_CELL_WORD_1 (m);
   scm_gc_mark (mo->style_sheet_);
-  scm_gc_mark (mo->translator_tab_->self_scm());
-  scm_gc_mark (mo->variable_tab_->self_scm());
+  scm_gc_mark (mo->translator_tab_->self_scm ());
+  scm_gc_mark (mo->variable_tab_->self_scm ());
 
   return mo->scaled_fonts_;
 }
