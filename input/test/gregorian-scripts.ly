@@ -3,7 +3,7 @@
     title	= "Gregorian Scripts"
     texidoc  = "@cindex Gregorian Scripts
 
-Gregorian Scripts:
+Here is demonstrated a preliminary support of Gregorian Scripts:
 
 ictus, circulus, semicirculus, accentus, episem.
 

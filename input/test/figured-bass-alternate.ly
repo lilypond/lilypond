@@ -1,7 +1,7 @@
 \header
 {
 texidoc = "An alternate method to make bass figures is to use
-markup texts."
+@code{markup} texts."
 }
 \version "2.1.26"
 

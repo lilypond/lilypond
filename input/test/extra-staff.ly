@@ -29,7 +29,9 @@ extra-staff.ly:
 
 \header{ texidoc="@cindex Staff Extra
 @cindex Staff Ossia
-You can add an extra staff after the beginning of a piece. "}
+You can add (possibly temporarily) an extra staff after the beginning of 
+a piece. "
+}
 
 \score {
 	<<

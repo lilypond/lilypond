@@ -4,7 +4,8 @@
 
 \header { texidoc="@cindex Seperate Staccato
 You can enter notes and articulations separately, and merge
-them into one thread.  Here is an example to add repeated staccato dots."
+them into one thread.  In this example, a repead series of staccato dots 
+is attached to the notes."
 } 
 
 staccatos = \notes { s4-. s-. s-. s s }

@@ -2,7 +2,7 @@
 % TODO: check to see if this example can be simplified using \small
 % or \tiny.
 \header { texidoc = "@cindex Cue Notes
-Cue notes should be set in smaller type. "
+Cue notes are typeset in a smaller font. "
 %  Cue clefs are usually not restored explicitly. "
 }
 

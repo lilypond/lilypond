@@ -13,7 +13,9 @@
 
 texidoc = "@cindex Orchestra Score
 @cindex Coriolan Score
-Demonstration of how to set up an orchestral score (Beethoven's Coriolan overture).
+In an orchestral score (Beethoven's Coriolan overture), there are 
+different instrument groups, and some of the instruments may be
+transposed. Instruments are indicated either with a long or short name.
 " }
 
 #(set-global-staff-size 16)

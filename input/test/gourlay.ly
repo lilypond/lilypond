@@ -3,8 +3,8 @@
 
     texidoc="@cindex Gourlay
 
-This is taken from Gourlay's paper on
-breaking lines.  "
+The breaking of line works also with polyphony. This is taken from 
+Gourlay's paper on breaking lines.  "
 
 }
 

@@ -4,14 +4,15 @@
 \header {
 
 texidoc = " Chord names are generated from a list pitches.  The
-functions constructing the names are customisable. This file shows
-Jazz chords, following Ignatzek (1995), page 17 and 18, Banter chords,
+functions which construct these names can be customised. Here are shown
+Jazz chords, following Ignatzek (pp. 17-18, 1995), Banter chords,
 and an alternative Jazz  chord notation.
-
 
 "
 
 }
+% There are three references, but only two ways to print chord names?
+% Which refers to where? -HJJ
 
 chs = \notes \transpose c' c' 
 {

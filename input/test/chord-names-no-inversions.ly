@@ -1,7 +1,8 @@
 \version "2.1.26"
 \header { texidoc= "@cindex Chord Names No Inversions
-Chord names don't attempt to find inversions and
-bass notes. " }
+Since there are several interpretations for recognizing 
+chord names, the lowest note is the bass note of a chord and the inversion 
+of the chord is found accordingly. " }
 
 scheme = \notes {
   <c' e' g'>1

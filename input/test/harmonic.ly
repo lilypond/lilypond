@@ -2,9 +2,8 @@
 \header {
     texidoc ="@cindex Artificial Harmonics
 
-
-Artificial harmonics are notated with a different notehead style. This
-achieved by marking the harmonic pitch with @code{\harmonic}."
+Artificial harmonics are notated with a different notehead style, by 
+marking the harmonic pitch with @code{\harmonic}."
 
 }
 

@@ -2,7 +2,7 @@
 \version "2.1.26"
 \header {
     texidoc="@cindex Force hshift
-Force hshift to override collisions. " }
+Horizontal shift (@code{hshift}) can be forced in order to avoid collisions. " }
 
 \score { 
      \notes\relative c'

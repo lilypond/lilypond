@@ -1,13 +1,9 @@
 \version "2.1.26"
 \header  {
     texidoc = "@cindex Chord Names German
-By setting @code{chordRootNamer}, the root
-of the chord may be named with a different function.
-
-Setting @code{\germanChords} gives true german chord-names,
-@code{\semiGermanChords} gives semi-german chord-names - - with Bb and
-keeping the english names.
-
+The english naming of chords (default) can be changed to german 
+(@code{\germanChords} replaces B and Bes to H and B) or semi-german 
+(@code{\semiGermanChords} replaces B and Bes to H and Bb).
 
 " }
 
