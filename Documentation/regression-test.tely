@@ -12,7 +12,7 @@
 
 @section Introduction
 
-This document tries give an brief overview of LilyPond features.  When
+This document tries give a brief overview of LilyPond features.  When
 the text correspond with the shown notation, we consider LilyPond
 Officially BugFree (tm).  This document is intended for finding bugs,
 and documenting bugfixes.
@@ -308,6 +308,11 @@ Adding a @code{Bar_engraver} to the LyricsVoice context makes sure that
 lyrics don't collide with barlines.
 
 @mudelafile{lyrics-bar.ly}
+
+Text is set with empty horizontal dimensions.  The boolean property
+textNonEmpty is used to respect the horizontal size of text.
+
+@mudelafile{non-empty-text.ly}
 
 @section Global stuff
 
