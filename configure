@@ -1574,8 +1574,6 @@ touch make/out/Site.make
 sed 's/TOPLEVEL_//g' <  .version >  lily/.version
 (cd lily; CXX="$ac_cv_prog_CXX" ../bin/make_version > out/version.hh
 )
- (cd flower;
-)
 
 cat << END
 Finished configuring. For making everything, do:
