@@ -12,7 +12,7 @@ SUBDIRS = buildscripts python scripts \
 	flower lily \
 	mf ly tex ps scm \
 	po make \
-	cygwin debian $(builddir)/stepmake \
+	cygwin debian stepmake \
 	Documentation input
 #
 
