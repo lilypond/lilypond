@@ -14,18 +14,18 @@
     c-\markup \bold "textb"
 
     d-\markup { "one" "two" "three" } |
-    e1-\markup { \column < \bold "one"
+    e1-\markup { \column << \bold "one"
     { "and" "there" "is" \override #'(font-family . number) "2" }
-	\italic "three" > }
+	\italic "three" >> }
     e2.
     f4-\markup \teeny \number "3"
     f2.
     b4-\markup { "a" \hspace #-8 \raise #2 "b"  "c" }
     b4-\markup { "1" \raise #-2 \hspace #-1 "2"  "3" }
-    d4-\markup { \column <  "Violoncello" "    e" "Contrabasso" > }
+    d4-\markup { \column <<  "Violoncello" "    e" "Contrabasso" >> }
     d4_\markup {\override #'(baseline-skip . 0.0)
 		\override #'(word-space . 1.5)
-		\column <  "Violoncello" "    e" "Contrabasso" > }
+		\column <<  "Violoncello" "    e" "Contrabasso" >> }
 
     
     g1-"ÅÖÄÜÇÕ"
