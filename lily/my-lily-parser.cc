@@ -211,9 +211,7 @@ My_lily_parser::get_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p,
   triads.push (mthird);  // d f 
   triads.push (mthird);  // e g 
   triads.push (third);   // f a 
-  // 7 always seems means 7-...
   triads.push (third);   // g b 
-//  triads.push (mthird);   // g bes
   triads.push (mthird);  // a c 
   triads.push (mthird);  // b d 
 
@@ -249,6 +247,8 @@ My_lily_parser::get_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p,
 	      }
 	    missing.transpose (triads[(missing.notename_i_ - tonic.notename_i_ + 7) % 7]);
 	  }
+      else if (p.notename_i_ == missing.notename_i_)
+        missing.transpose (triads[(missing.notename_i_ - tonic.notename_i_ + 7) % 7]);
       else
 	i++;
     }
