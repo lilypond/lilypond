@@ -6,6 +6,7 @@
 \include "menuetto-urtext.ly";
 
 menuettoICelloGlobal =  \notes{
+	\context Voice=i
 	\time 3/4;
 	\key f \major;
 	\clef bass;
@@ -14,7 +15,7 @@ menuettoICelloGlobal =  \notes{
 	}
 	\repeat "volta" 2 {
 		\skip 2.*1;
-		\slurDotted
+		%\slurDotted
 		\skip 2.*14;
 		\emptyText
 		s2._"Fine"
@@ -63,6 +64,7 @@ menuettoICelloStaff =  \context Staff <
 }
 
 menuettoIiCelloGlobal =  \notes{
+	\context Voice=i
 	\time 3/4;
 	\key d \major;
 	\clef bass;
@@ -71,7 +73,7 @@ menuettoIiCelloGlobal =  \notes{
 	}
 	\repeat  "volta" 2 {
 		\skip 2.*1;
-		\slurDotted
+		%\slurDotted
 		\skip 2.*14;
 		\emptyText
 		s2._"Menuetto I da Capo"

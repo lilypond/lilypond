@@ -6,6 +6,7 @@
 \include "menuetto-urtext.ly";
 
 menuettoIViolaGlobal =  \notes{
+	\context Voice=i
 	\time 3/4;
 	\key f \major;
 	\clef alto;
@@ -14,7 +15,7 @@ menuettoIViolaGlobal =  \notes{
 		\clef violin;
 		\skip 2.*1;
 	} \repeat "volta" 2 {
-		\slurDotted
+		%\slurDotted
 		\skip 2.*3;
 		\clef alto;
 		\skip 2.*11;
@@ -48,7 +49,6 @@ menuettoIViolaStaff =  \context Staff <
 \score{
 	\menuettoIViolaStaff
 	\paper{
-		\include "scs-paper.ly";
 		gourlay_maxmeasures = 7.0;
 		\translator{
 			\VoiceContext
@@ -64,6 +64,7 @@ menuettoIViolaStaff =  \context Staff <
 }
 
 menuettoIiViolaGlobal =  \notes{
+	\context Voice=i
 	\time 3/4;
 	\key d \major;
 	\clef alto;
@@ -71,7 +72,7 @@ menuettoIiViolaGlobal =  \notes{
 		\skip 2.*8;
 	} \repeat "volta" 2 {
 		\skip 2.*1;
-		\slurDotted
+		%\slurDotted
 		\skip 2.*14;
 		\emptyText
 		s2._"Menuetto I da Capo"

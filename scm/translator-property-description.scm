@@ -100,10 +100,7 @@ key signatures after the bar lines:
 @end example
 ")
 (translator-property-description 'centralCPosition number? "Place of the central C. Usually determined by looking at clefPosition and clefGlyph.")
-(translator-property-description 'chordInversion boolean? " Determines whether LilyPond should look for chord inversions when
-    translating from notes to chord names.  Set to 1 to find
-    inversions.  The default is 0 which does not look for
-    inversions.")
+(translator-property-description 'chordChanges boolean? "Only show changes in chords scheme?")
 (translator-property-description 'clefGlyph string? "Name of the symbol within the music font")
 (translator-property-description 'clefOctavation integer? "Add
 this much extra octavation. Values of 7 and -7 are common.")

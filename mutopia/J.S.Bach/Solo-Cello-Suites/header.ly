@@ -20,14 +20,21 @@ information is taken to the extreme.
 
   % mutopia headers.
   mutopiatitle = "Solo Cello Suites, Suite II";
-  mutopiacomposer = "J.S.Bach";
+  mutopiacomposer = "J.S.Bach (1685-1750)";
   mutopiaopus =	"BWV1008";
-  style = "baroque";
-  maintainername = "Jan Nieuwenhuizen";
-    
-  copyright =    "\\\\This music is part of the Mutopia project, http://www.mutopiaproject.org/\\\\It has been typeset and placed in the public domain by " +  \maintainername + ".\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!";
-  maintainer =	"janneke@gnu.org";
-
-  tagline =	 \copyright;
-  lastupdated =	 "2001/Jan/28";
+  mutopiainstrument = \intrument;
+  date = "1710s, 1720s";
+  source = "Baerenreiter urtext";
+  style = "Baroque";
+  copyright = "Public Domain";
+  maintainer = "Jan Nieuwenhuizen";
+  maintainer_email = "janneke@gnu.org";
+  lastupdated =	 "2001/Jan/31";
+  mutopiapublicdomain = "\\parbox{\hsize}{\\thefooter\\quad\\small
+    \\\\This music is part of the Mutopia project,
+    \\texttt{http://www.mutopiaproject.org/}\\\\It has been typeset
+    and placed in the public domain by " + \maintainer +
+    ".\\\\Unrestricted modification and redistribution is permitted
+    and encouraged---copy this music and share it!}";
+ tagline = \mutopiapublicdomain;
 }
