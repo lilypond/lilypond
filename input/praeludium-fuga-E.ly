@@ -127,13 +127,13 @@ fugaII_right = \notes   \relative c''   {
    > |
   %16
   \type Staff <
-    { \stemup dis2 dis4 |
+    \type VoiceOne {  dis2 dis4 |
       cis2 cis4 |
       b4. [cis8 dis e] }
-    { \stemup \shifton [b8 fis] b2 ~ |
+    \type VoiceThree {  \stemup \shifton [b8 fis] b2 ~ |
       [b8 a!16 gis] a2 ~ |
       a4 gis2 }
-    { \stemdown fis2. ~ |
+    \type VoiceTwo {  \stemdown fis2. ~ |
       fis ~ |
       fis4 e2 }
   > |
@@ -146,9 +146,9 @@ fugaII_left = \notes {
 
   %15
   \type Staff < 
-    { \stemdown b2 \stemup ais4 |
+    \type VoiceTwo { \stemdown b2 \stemup ais4 |
       b2 b4 }
-    { \stemdown s2 e4 |
+    \type VoiceTwo { \stemdown s2 e4 |
       fis2 fis4 }
   >
   \stemdown cis2 e4 |
@@ -188,10 +188,6 @@ breakmusic = \notes {
   >
 
   \paper {
-    \translator {
-    \VoiceContext
-    \name "BLA";
-    }
     \translator {
     \VoiceContext
     \name "VoiceOne";

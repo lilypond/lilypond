@@ -146,6 +146,7 @@ Beam_engraver::acknowledge_element (Score_element_info info)
 	if (rhythmic_req->duration_.durlog_i_<= 2)
 	  {
 	    rhythmic_req->warning (_ ("stem doesn't fit in beam"));
+	    reqs_drul_[LEFT]->warning (_("beam was started here"));
 	    return;
 	  }
 
