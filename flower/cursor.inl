@@ -25,7 +25,7 @@ Cursor<T>::Cursor( const Cursor<T>& cursor ) :
 
 template<class T>
 inline T&
-Cursor<T>::operator *()
+Cursor<T>::thing()
 {
     assert( pointer_ );
     return pointer_->thing();
@@ -42,16 +42,16 @@ Cursor<T>::operator =( const Cursor<T>& c )
 
 template<class T>
 inline void
-Cursor<T>::add( const T& thing )
+Cursor<T>::add( const T& th )
 {
-    list_.add( thing, *this );
+    list_.add( th, *this );
 }
 
 template<class T>
 inline void
-Cursor<T>::insert( const T& thing )
+Cursor<T>::insert( const T& th )
 {
-    list_.insert( thing, *this );
+    list_.insert( th, *this );
 }
 
 template<class T>
