@@ -42,7 +42,7 @@ endif
 include $(configuration)
 
 ifeq ($(builddir),.)
-  outroot=.
+  outroot=$(builddir)
 else
   outroot=$(depth)/$(builddir)/$(patsubst $(shell cd $(depth); pwd)%,%,$(shell cd .; pwd))
 endif

@@ -36,7 +36,10 @@ import time
 import glob
 import tempfile
 
-os.environ['LANG'] = ''		# Can't grep localized msgs
+# Can't grep localized msgs
+os.environ['LC_ALL'] = ''
+os.environ['LANG'] = ''
+os.environ['LC_LANG'] = ''
 
 
 

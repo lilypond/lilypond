@@ -1,7 +1,30 @@
-dnl WARNING WARNING WARNING WARNING
-dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
 dnl aclocal.m4   -*-shell-script-*-
 dnl StepMake subroutines for configure.in
+
+function base ()
+{
+    expr "$1" : "\(/[^/]*\)"
+}
+
+function unbase ()
+{
+    expr "$1" : "/[^/]*\(.*\)"
+}
+
+function walk ()
+{
+    from=`(cd "$1" && pwd)`
+    to=`pwd`
+    t=`base "$to"`
+    f=`base "$from"`
+    while [ -n "$t" -a "$t" = "$f" ]; do
+	to=`unbase "$to"`
+	from=`unbase "$from"`
+	t=`base "$to"`
+	f=`base "$from"`
+    done
+    echo ..$to
+}
 
 AC_DEFUN(AC_STEPMAKE_BIBTEX2HTML, [
     AC_CHECK_PROGS(BIBTEX2HTML, bibtex2html bib2html, error)
@@ -147,10 +170,13 @@ AC_DEFUN(AC_STEPMAKE_DATADIR, [
 AC_DEFUN(AC_STEPMAKE_END, [
     AC_OUTPUT($CONFIGFILE.make:config.make.in)
 
-    rm -f $srcdir/GNUmakefile
-    cp $srcdir/make/toplevel.make.in $srcdir/GNUmakefile
-    chmod 444 $srcdir/GNUmakefile
-    if test "$builddir" != "."; then
+    # regular in-place build
+    # test for srcdir_build = yes ?
+    if test "$builddir" = "."; then
+	rm -f $srcdir/GNUmakefile
+	cp $srcdir/GNUmakefile.in $srcdir/GNUmakefile
+	chmod 444 $srcdir/GNUmakefile
+    else # --srcdir build
         rm -f GNUmakefile
     	cp $srcdir/make/srcdir.make.in GNUmakefile
     	chmod 444 GNUmakefile
@@ -241,19 +267,16 @@ AC_DEFUN(AC_STEPMAKE_INIT, [
     if test "x$PACKAGE" = "xSTEPMAKE"; then
 	AC_MSG_RESULT(Stepmake package!)
 
-	#if test "x$builddir" != "x"; then
-	#    builddir="../$builddir"
-	#else
-	#    builddir=..
-	#fi
-	if test "$srcdir" != "."; then
+	AC_MSG_CHECKING(builddir)
+	if test "$srcdir" = "."; then
+	    builddir=.
+	else
 	    absolute_builddir="`pwd`"
 	    package_absolute_builddir="`dirname $absolute_builddir`"
 	    package_srcdir="`dirname  $srcdir`"
 	    builddir="`dirname $package_srcdir`/`basename $package_absolute_builddir`/`basename $absolute_builddir`"
-	else
-	    builddir=.
 	fi
+	AC_MSG_RESULT($builddir)
 
 	(cd stepmake 2>/dev/null || mkdir stepmake)
 	(cd stepmake; rm -f stepmake; ln -s ../$srcdir/stepmake .)
@@ -263,11 +286,20 @@ AC_DEFUN(AC_STEPMAKE_INIT, [
     else
         AC_MSG_RESULT($PACKAGE)
 
-	if test "$srcdir" != "."; then
-	    absolute_builddir="`pwd`"
-	    builddir="`dirname  $srcdir`/`basename $absolute_builddir`"
-	else
+	AC_MSG_CHECKING(builddir)
+	if test "$srcdir" = "."; then
 	    builddir=.
+	    srcdir_build=no
+	else
+	    absolute_builddir="`pwd`"
+#	    builddir="`dirname  $srcdir`/`basename $absolute_builddir`"
+	    builddir="`bash $srcdir/buildscripts/walk.sh \"$srcdir\"`"
+	    srcdir_build=yes
+	fi
+	AC_MSG_RESULT($builddir)
+	if expr "$srcdir" : '/' > /dev/null 2>&1; then
+	    absolute_srcdir=yes
+	    AC_STEPMAKE_WARN(Absolute --srcdir specified: $srcdir)
 	fi
 
 	AC_MSG_CHECKING(for stepmake)
@@ -275,9 +307,14 @@ AC_DEFUN(AC_STEPMAKE_INIT, [
 	if test -d $stepmake; then
 	    AC_MSG_RESULT($stepmake)
 	else
-	    stepmake='$(depth)'/$srcdir/stepmake
+	    if test "$absolute_srcdir" != "yes"; then
+		stepmake='$(depth)'/$srcdir/stepmake
+	    else
+		stepmake=$srcdir/stepmake
+	    fi
 	    AC_MSG_RESULT($srcdir/stepmake  ($datadir/stepmake not found))
 	fi
+
 	AC_CONFIG_AUX_DIR(\
 	  $HOME/usr/local/share/stepmake/bin\
 	  $HOME/usr/local/lib/stepmake/bin\

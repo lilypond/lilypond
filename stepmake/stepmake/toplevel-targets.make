@@ -12,7 +12,7 @@ local-distclean:
 local-maintainerclean:
 	rm -f configure
 
-GNUmakefile: make/toplevel.make.in
+GNUmakefile: GNUmakefile.in
 	$(MAKE) INFILE=$< OUTFILE=$@ -f $(stepdir)/automatically-generated.sub.make
 
 ifneq ($(PACKAGE),STEPMAKE)
