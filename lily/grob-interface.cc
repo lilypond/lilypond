@@ -1,4 +1,12 @@
-#include  "protected-scm.hh"
+/*
+  grob-interface.cc -- implement graphic objects interface
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 2002--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+*/
+
+#include "protected-scm.hh"
 #include "grob-interface.hh"
 #include "lily-guile.hh"
 #include "grob.hh"
@@ -14,7 +22,6 @@ void add_interface (const char * symbol,
   SCM d = scm_makfrom0str (descr);
   SCM l = parse_symbol_list (vars);
 
-
   ly_add_interface (s,d,l);
 }
 
@@ -24,16 +31,13 @@ LY_DEFINE (ly_add_interface, "ly:add-interface", 3,0,0, (SCM a, SCM b, SCM c),
 {
   SCM_ASSERT_TYPE (gh_symbol_p (a), a, SCM_ARG1, __FUNCTION__, "symbol");
   SCM_ASSERT_TYPE (gh_string_p (b), b, SCM_ARG2, __FUNCTION__, "string");  
-  SCM_ASSERT_TYPE (gh_list_p (c), c,  SCM_ARG3, __FUNCTION__, "list of syms");    
+  SCM_ASSERT_TYPE (gh_list_p (c), c, SCM_ARG3, __FUNCTION__, "list of syms");    
   if (!gh_vector_p (all_ifaces))
-    {
-      all_ifaces = scm_make_vector (gh_int2scm (40), SCM_EOL);
-    }
+    all_ifaces = scm_make_vector (gh_int2scm (40), SCM_EOL);
 
   SCM entry = scm_list_n (a, b, c, SCM_UNDEFINED);
 
   scm_hashq_set_x (all_ifaces, a, entry);
-
 
   return SCM_UNSPECIFIED;
 }
@@ -46,6 +50,7 @@ LY_DEFINE (ly_all_grob_interfaces, "ly:all-grob-interfaces",
   return all_ifaces;
 }
 
+
 void
 check_interfaces_for_property (Grob const *me, SCM sym)
 {
@@ -57,7 +62,7 @@ check_interfaces_for_property (Grob const *me, SCM sym)
       return ;
 
     }
-  SCM ifs =  me->get_property ("interfaces");
+  SCM ifs = me->get_property ("interfaces");
 
   bool found = false;
   for (; !found && gh_pair_p (ifs); ifs =gh_cdr (ifs))
@@ -76,9 +81,9 @@ check_interfaces_for_property (Grob const *me, SCM sym)
 
   if (!found)
     {
-     String str = to_string ("Grob %s has no interface for property %s",
+      String str = to_string ("Grob `%s' has no interface for property `%s'",
 			 me->name ().to_str0 (),
 			 ly_symbol2string (sym).to_str0 ());
-     programming_error (str);
+      programming_error (str);
     }
 }
