@@ -49,7 +49,7 @@
 
 	* buildscripts/mutopia-index.py: polish.
 
-	* input/regression/{ many }: polish texidocs.
+	* input/regression/{ many }, input/test{ many }: polish texidocs.
 
 2003-07-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 

@@ -5,7 +5,7 @@ Scheme expressions as lilypond input.  Within a Scheme expression,
 you can use, define or change lilypond variables.
 
 In this example, the E-s and D-s are generated using scheme functions,
-and woven together with manually entered C-s
+and woven together with manually entered C-s.
 
 " }
 

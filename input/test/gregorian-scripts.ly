@@ -12,9 +12,9 @@ TODO: augmentum.
 FIXME: when applying an episem within a ligature, the TextSpanner's width
 collapses to 0.0.
 
-FIXME: clef does not show on each line
+FIXME: clef does not show on each line.
 
-FIXME: horizontal spacing (ragged right mode)
+FIXME: horizontal spacing (ragged right mode).
 
 FIXME: padding/minimum-distance is fragile.
 

@@ -4,9 +4,9 @@
 By setting @code{ChordNames.chordRootNamer}, the root
 of the chord may be named with a different function.
 
-@code{\germanChords} gives true german chord-names
+Setting @code{\germanChords} gives true german chord-names,
 @code{\semiGermanChords} gives semi-german chord-names - - with Bb and
-below keeping the english names
+keeping the english names.
 
 
 " }

@@ -8,7 +8,7 @@ Grob extents may be hard coded using grob properties.  This
 requires Grob::preset_extent () function.
 
 The lyrics in this example have extent (-10,10) which is why they are
-spaced so widely,
+spaced so widely.
 
 "
 
