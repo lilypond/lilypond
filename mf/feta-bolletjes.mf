@@ -13,13 +13,14 @@ fet_begingroup("balls");
 
 noteheight#:=interline#+ (1 + overdone_heads) *stafflinethickness#;
 define_pixels(noteheight);
+brevis_wid# := 2 interline#;
 
-def draw_brevis =
+def draw_brevis(expr brevwid) =
 	save beamheight, head_width;
 	save holeheight, stem_width;
 	save serif_size, serif_protrude;
 
-	head_width# = 2 interline#;
+	head_width# = brevwid;
 	holeheight = 3 stafflinethickness;
 	stem_width = 1.4 stafflinethickness;
 
@@ -51,17 +52,31 @@ def draw_brevis =
 	addto currentpicture also currentpicture reflectedabout(z4r, z4l);
 enddef;
 
-fet_beginchar("Brevis notehead", "-1", "brevisball")
-	draw_brevis;
-fet_endchar;
+save uitsteek;
+ uitsteek = .25;
+def draw_ledger(expr wid)=	
+	set_char_box(uitsteek * wid, (1+ uitsteek)*wid, 
+		ledgerlinethickness#/2,ledgerlinethickness#/2);
+	pickup pencircle scaled ledgerlinethickness;
+	rt x2 = w;
+	lft x1 = -b;
+	y1 = y2 = 0;
+	draw z1 .. z2;
+enddef;
 
+fet_beginchar("Brevis notehead", "-1", "brevisball")
+	draw_brevis(brevis_wid#);
+fet_endchar;
+fet_beginchar("Brevis ledger", "-1l", "brevisledger")
+	draw_ledger(brevis_wid#);
+fet_endchar;
 
 %
 % Some sources (eg Musix/OpusTeX think that the appendage should be on
 % the right, my only other ref [Willemze], shows an appendage to the left
 %
 fet_beginchar("Longa notehead", "-2", "longaball");
-	draw_brevis;
+	draw_brevis(brevis_wid#);
 	save theta;
 	z7 = z5;
 	z6 - z7 = (-stem_width/2, -interline);
@@ -72,6 +87,10 @@ fet_beginchar("Longa notehead", "-2", "longaball");
 	fill z7r .. z6r{z6-z7} .. {z7-z6} z6l -- z7l -- cycle;
 	penlabels(6,7);
 fet_endchar;
+fet_beginchar("Longa ledger", "-2l", "longaledger")
+	draw_ledger(brevis_wid#);
+fet_endchar;
+
 
 % setup user vars
 def setup_notehead_vars =
@@ -141,9 +160,14 @@ fet_beginchar("Whole notehead", "0", "wholeball")
 	a_w:=1; % no rotate-> no width correction
 
 	notehead_calc;
+	whole_notehead_width# := wd#;
 	notehead_draw;
 fet_endchar;
 
+
+fet_beginchar("Whole ledger line", "0l", "wholeledger")
+	draw_ledger(whole_notehead_width#);
+fet_endchar;
 
 % half note
 % Wanske, p.39
@@ -168,9 +192,14 @@ fet_beginchar("Half notehead", "1",
 	a_w:=1.12;
 
 	notehead_calc;
+	half_notehead_width# := wd#;
 	notehead_draw;
 fet_endchar;
 
+
+fet_beginchar("Half ledger", "1l", "halfledger")
+	draw_ledger(half_notehead_width#);
+fet_endchar;
 
 % quarter note
 % Wanske p.38
@@ -196,7 +225,9 @@ fet_beginchar("Quart notehead", "2", "quartball")
 fet_endchar;
 
 
-
+fet_beginchar("Quart ledger", "2l", "quartledger")
+	draw_ledger(black_notehead_width#);
+fet_endchar;
 
 fet_endgroup("balls");
 
