@@ -261,9 +261,9 @@ for the reader.
       (cons line-markup  'markup-list0)
 
       (cons combine-markup 'markup0-markup1)
-      (cons simple-markup 'markup0)
+      (cons simple-markup 'scm0)
       (cons musicglyph-markup 'scm0)
-
+      
       (cons translate-markup 'scm0-markup1)
       (cons override-markup 'scm0-markup1)
       (cons char-markup 'scm0)
