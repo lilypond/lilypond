@@ -114,7 +114,8 @@ bool
 Text_script_req::do_equal_b (Request const* r) const
 {
   Text_script_req const* t  = dynamic_cast<Text_script_req const*> (r);
-  return t && t->text_str_ == text_str_ && t->style_str_ == style_str_;
+  return t && gh_equal_p (get_mus_property ("text"),
+			  t->get_mus_property ("text"));
 }
 
 

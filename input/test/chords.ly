@@ -1,4 +1,4 @@
-\version "1.3.93";
+\version "1.3.97";
 
 %{
 Would this be acceptable/good enough/convenient for entry?
@@ -59,4 +59,10 @@ keys = \notes{
 		\context ChordNames \scales
 		\context Staff < \scales \keys >
 	>
+	\paper{
+        	\translator { 
+			\ChordNamesContext
+			ChordNames \push #'word-space = #1 
+		}
+	}
 }

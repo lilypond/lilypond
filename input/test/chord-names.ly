@@ -1,3 +1,4 @@
+\version "1.3.96"
 chord = \notes\transpose c''\chords{
    c1
    c:m
@@ -20,8 +21,10 @@ chord = \notes\transpose c''\chords{
     >
     \paper{
     	linewidth = -1.0;
-        \translator { \ChordNameContext chordNameWordSpace = #1 }
-        \translator { \LyricsContext textScriptWordSpace = #0.3 }
+        	\translator { 
+			\ChordNamesContext
+			ChordNames \push #'word-space = #1 
+		}
     }
 }
 

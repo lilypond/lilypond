@@ -10,23 +10,12 @@
    (ice-9 regex)
    )
 
-;; The regex module may not be available, or may be broken.
-(define chord-use-regex
-  (let ((os (string-downcase (vector-ref (uname) 0))))
-    (not (equal? "cygwin" (substring os 0 (min 6 (string-length os)))))))
-
-;; If you have trouble with regex, define #f
-(define chord-use-regex #t)
-;;(define chord-use-regex #f)
-
 ;;
 ;; (octave notename accidental)
 ;;
 
 ;;
-;; text: list of word
-;; word: string + optional list of property
-;; property: size, style, font, super, offset
+;; text: scm markup text -- see font.scm and input/test/markup.ly
 ;;
 
 ;; TODO
@@ -52,17 +41,17 @@
 	; Cm iso Cm.no5
 	(((0 . 0) (2 . -1)) . ("m"))
 	; C2 iso C2.no3
-	(((0 . 0) (1 . 0) (4 . 0)) . (("2" (type . "super"))))
+	(((0 . 0) (1 . 0) (4 . 0)) . (super "2"))
 	; C4 iso C4.no3
-	(((0 . 0) (3 . 0) (4 . 0)) . (("4" (type . "super"))))
+	(((0 . 0) (3 . 0) (4 . 0)) . (super "4"))
 	; Cdim iso Cm5-
 	(((0 . 0) (2 . -1) (4 . -1)) . ("dim"))
 	; Co iso Cm5-7-
 	; urg
-        (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . (("o" (type . "super"))))
+        (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . (super "o"))
 	; Cdim9
-	(((0 . 0) (2 . -1) (4 . -1) (6 . -2) (1 . -1)) . ("dim" ("9" (type . "super"))))
-	(((0 . 0) (2 . -1) (4 . -1) (6 . -2) (1 . -1) (3 . -1)) . ("dim" ("11" (type . "super"))))
+	(((0 . 0) (2 . -1) (4 . -1) (6 . -2) (1 . -1)) . ("dim" (super "9")))
+	(((0 . 0) (2 . -1) (4 . -1) (6 . -2) (1 . -1) (3 . -1)) . ("dim" (super "11")))
 	)
       chord::names-alist-banter))
 
@@ -87,21 +76,21 @@
 	 (((0 . 0) (2 . -1)) . ("m"))
 	 (((0 . 0) (3 . 0) (4 . 0)) . ("sus"))
 	 (((0 . 0) (2 . -1) (4 . -1)) . ("dim"))
-;Alternate:	 (((0 . 0) (2 . -1) (4 . -1)) . (("o" (type . "super"))))
+;Alternate:	 (((0 . 0) (2 . -1) (4 . -1)) . ((super "o")))
 	 (((0 . 0) (2 . 0) (4 . 1)) . ("aug"))
 ;Alternate:	 (((0 . 0) (2 . 0) (4 . 1)) . ("+"))
 	 (((0 . 0) (1 . 0) (4 . 0)) . ("2"))
 	 ;; Common seventh chords
-	 (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . (("o" (type . "super")) "7"))
+	 (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . (rows (super "o") "7"))
 	 (((0 . 0) (2 . 0) (4 . 0) (6 . 0)) . ("maj7"))
 	 (((0 . 0) (2 . -1) (4 . 0) (6 . -1)) . ("m7"))
 	 (((0 . 0) (2 . 0) (4 . 0) (6 . -1)) . ("7"))
 	 (((0 . 0) (2 . -1) (4 . 0) (6 . 0)) . ("m(maj7)"))
 	 ;jazz: the delta, see jazz-chords.ly
-	 ;(((0 . 0) (2 . -1) (4 . -1) (6 . -2)) .  (("N" (type . "super") (style . "msam") (size . -3))))
-	 (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (("o" (type . "super")) ("/" (size . -2) (offset . (-0.58 . 0.5))) "7")) ; slashed o
+	 ;(((0 . 0) (2 . -1) (4 . -1) (6 . -2)) .  (super ((family . "math") "N"))
+	 (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (rows (super "o") ((kern . -0.5) ((size . "-3") "/")) "7")) ; slashed o
 	 (((0 . 0) (2 . 0) (4 . 1) (6 . -1)) . ("aug7"))
-	 (((0 . 0) (2 . 0) (4 . -1) (6 . 0)) . (("maj7") ("accidentals--1" (font . "feta") (type . "super")) ("5")))
+	 (((0 . 0) (2 . 0) (4 . -1) (6 . 0)) . (rows "maj7" (music (named ("accidentals--1"))) "5"))
 	 (((0 . 0) (3 . 0) (4 . 0) (6 . -1)) . ("7sus4"))
 	 ;; Common ninth chords
 	 (((0 . 0) (2 . 0) (4 . 0) (5 . 0) (1 . 0)) . ("6/9")) ;; we don't want the '/no7'
@@ -126,10 +115,14 @@
     (make-string 1 (integer->char (+ (modulo (+ (cadr pitch) 2) 7) 65)))
     (if (= (caddr pitch) 0)
       '()
-      (list (list (string-append "accidentals-" 
-				 (number->string (caddr pitch)))
-				   ;; Keep accidentals from being too large
-		  '(font . "feta") '(type . "super") )))))
+      (list
+       (append '(music)
+	       (list
+		(append '(named)
+			(list
+			 (string-append "accidentals-" 
+					(number->string (caddr pitch)))))))))))
+
 
 (define (step->text pitch)
   (string-append
@@ -265,51 +258,52 @@
 ;; additions, subtractions and base or inversion to chord name
 ;;
 (define (chord::inner-name-banter tonic user-name additions subtractions base-and-inversion)
-    (apply append (pitch->text-banter tonic)
-	   (if user-name user-name '())
-	   ;; why does list->string not work, format seems only hope...
-	   (if (and chord-use-regex
-		    (string-match "super" (format "~s" user-name))
-		    (or (pair? additions)
-			(pair? subtractions)))
-	       '(("/" (type . "super")))
-	       '())
-	   (let loop ((from additions) (to '()))
-	     (if (pair? from)
+  (apply append
+	 '(rows)
+	 (pitch->text-banter tonic)
+	 (if user-name user-name '())
+	 ;; why does list->string not work, format seems only hope...
+	 (if (and (string-match "super" (format "~s" user-name))
+		  (or (pair? additions)
+		      (pair? subtractions)))
+	     '((super "/"))
+	     '())
+	 (let loop ((from additions) (to '()))
+	   (if (pair? from)
+	       (let ((p (car from)))
+		 (loop (cdr from) 
+		       (append to
+			       (cons
+				(list 'super (step->text-banter p))
+				(if (or (pair? (cdr from))
+					(pair? subtractions))
+				    '((super "/"))
+				    '())))))
+	       to))
+	 (let loop ((from subtractions) (to '()))
+	   (if (pair? from)
 		 (let ((p (car from)))
 		   (loop (cdr from) 
 			 (append to
-			  (cons
-			   (cons (step->text-banter p) '((type . "super")))
-			   (if (or (pair? (cdr from))
-				   (pair? subtractions))
-			       '(("/" (type . "super")))
-			       '())))))
+				 (cons '(super "no")
+				       (cons
+					(list 'super (step->text-banter p))
+					(if (pair? (cdr from))
+					    '((super "/"))
+					    '()))))))
 		 to))
-	   (let loop ((from subtractions) (to '()))
-	     (if (pair? from)
-		 (let ((p (car from)))
-		   (loop (cdr from) 
-			 (append to
-			   (cons '("no" (type . "super"))
-				 (cons
-				  (cons (step->text-banter p) '((type . "super")))
-					    (if (pair? (cdr from))
-						'(("/" (type . "super")))
-						'()))))))
-		 to))
-	   (if (and (pair? base-and-inversion)
-		    (or (car base-and-inversion)
-			(cdr base-and-inversion)))
-	       (cons "/" (append
-			  (if (car base-and-inversion)
-			      (pitch->text 
-			       (car base-and-inversion))
-			      (pitch->text 
-			       (cdr base-and-inversion)))
-			  '()))
-	       '())
-	   '()))
+	 (if (and (pair? base-and-inversion)
+		  (or (car base-and-inversion)
+		      (cdr base-and-inversion)))
+	     (cons "/" (append
+			(if (car base-and-inversion)
+			    (pitch->text 
+			     (car base-and-inversion))
+			    (pitch->text 
+			     (cdr base-and-inversion)))
+			'()))
+	     '())
+	 '()))
 
 (define (chord::name-banter tonic user-name pitches base-and-inversion)
   (let ((additions (chord::additions pitches))
@@ -366,4 +360,5 @@
 			   ())
 		  transposed)))
       (name-func (car pitches) user-name completed base-and-inversion))))))
+
 

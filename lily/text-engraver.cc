@@ -38,9 +38,6 @@ Text_engraver::do_try_music (Music *m)
 {
   if (Text_script_req *r = dynamic_cast<Text_script_req*> (m))
     {
-      if (r->style_str_ == "dynamic")
-	return false;
-      
       reqs_.push (r);
       return true;
     }
@@ -84,15 +81,20 @@ Text_engraver::do_process_music ()
   for (int i=0; i < reqs_.size (); i++)
     {
       Text_script_req * r = reqs_[i];
+      
+      // URG: Text vs TextScript
+      String basic = "TextScript";
 
-      String basic =  "TextScript";
-
+#if 0
+      // maybe use some sort of TYPE for script/dynamic/finger?
+      
 				// separate engraver?
       if (r->style_str_== "finger")
 	{
 	  basic = "Fingering";
 	}
-      Item *text = new Item (get_property (basic.ch_C()));
+#endif
+      Item *text = new Item (get_property (basic.ch_C ()));
 
       /*
 	FIXME -> need to use basic props.
@@ -102,6 +104,7 @@ Text_engraver::do_process_music ()
       Axis ax = to_boolean (axisprop) ? X_AXIS : Y_AXIS;
       Side_position::set_axis (text, ax);
 
+#if 0
       if (r->style_str_ == "finger" && ax == Y_AXIS)
 	{
 	  /*
@@ -110,6 +113,7 @@ Text_engraver::do_process_music ()
 	  text->add_offset_callback (Side_position::aligned_on_self_proc, X_AXIS);
 	  text->add_offset_callback (Side_position::centered_on_parent_proc, X_AXIS);
 	}
+#endif
       
 
       
@@ -122,12 +126,8 @@ Text_engraver::do_process_music ()
       if (r->get_direction ())
 	Side_position::set_direction (text, r->get_direction ());
       
-      text->set_elt_property ("text",
-			      ly_str02scm ( r->text_str_.ch_C ()));
+      text->set_elt_property ("text", r->get_mus_property ("text"));
       
-      if (r->style_str_.length_i ())
-	text->set_elt_property ("style", ly_str02scm (r->style_str_.ch_C()));
-
       SCM nonempty = get_property ("textNonEmpty");
       if (to_boolean (nonempty))
 	/*

@@ -21,9 +21,13 @@ Lyric_performer::Lyric_performer ()
 void
 Lyric_performer::do_process_music ()
 {
-  if (lreq_arr_.size () && lreq_arr_[0]->text_str_.length_i ())
+  // FIXME: won't work with fancy lyrics
+  if (lreq_arr_.size ()
+      && gh_string_p (lreq_arr_[0]->get_mus_property ("text"))
+      && ly_scm2string (lreq_arr_[0]->get_mus_property ("text")).length_i ())
     {
-      audio_p_ = new Audio_text (Audio_text::LYRIC, lreq_arr_[0]->text_str_);
+      audio_p_ = new Audio_text (Audio_text::LYRIC,
+				 ly_scm2string (lreq_arr_[0]->get_mus_property ("text")));
       Audio_element_info info (audio_p_, lreq_arr_[0]);
       announce_element (info);
     }

@@ -32,11 +32,11 @@
  */
 class Dynamic_engraver : public Engraver
 {
-  Item * text_p_;
+  Item * script_p_;
   Spanner * finished_cresc_p_;
   Spanner * cresc_p_;
 
-  Text_script_req* text_req_l_;
+  Dynamic_script_req* script_req_l_;
   
   Span_req * current_cresc_req_;
   Drul_array<Span_req*> accepted_spanreqs_drul_;
@@ -67,14 +67,14 @@ ADD_THIS_TRANSLATOR (Dynamic_engraver);
 
 Dynamic_engraver::Dynamic_engraver ()
 {
-  text_p_ = 0;
+  script_p_ = 0;
   finished_cresc_p_ = 0;
   line_spanner_ = 0;
   finished_line_spanner_ = 0;
   current_cresc_req_ = 0;
   cresc_p_ =0;
 
-  text_req_l_ = 0;
+  script_req_l_ = 0;
   accepted_spanreqs_drul_[START] = 0;
   accepted_spanreqs_drul_[STOP] = 0;
 }
@@ -82,7 +82,7 @@ Dynamic_engraver::Dynamic_engraver ()
 void
 Dynamic_engraver::do_post_move_processing ()
 {
-  text_req_l_ = 0;
+  script_req_l_ = 0;
   accepted_spanreqs_drul_[START] = 0;
   accepted_spanreqs_drul_[STOP] = 0;
 }
@@ -90,13 +90,10 @@ Dynamic_engraver::do_post_move_processing ()
 bool
 Dynamic_engraver::do_try_music (Music * m)
 {
-  if (Text_script_req* d = dynamic_cast <Text_script_req*> (m))
+  if (Dynamic_script_req* d = dynamic_cast <Dynamic_script_req*> (m))
     {
-      if (d->style_str_ == "dynamic")
-	{
-	  text_req_l_ = d;
-	  return true;
-	}
+      script_req_l_ = d;
+      return true;
     }
   else if (Span_req* s =  dynamic_cast <Span_req*> (m))
     {
@@ -124,7 +121,7 @@ Dynamic_engraver::do_try_music (Music * m)
 void
 Dynamic_engraver::do_process_music ()
 {
-  if (accepted_spanreqs_drul_[START] || accepted_spanreqs_drul_[STOP] || text_req_l_)
+  if (accepted_spanreqs_drul_[START] || accepted_spanreqs_drul_[STOP] || script_req_l_)
     
     {
       if (!line_spanner_)
@@ -136,7 +133,7 @@ Dynamic_engraver::do_process_music ()
 	  Axis_group_interface::set_axes (line_spanner_, Y_AXIS, Y_AXIS);
 
 	  Request * rq = accepted_spanreqs_drul_[START];
-	  if (text_req_l_) rq =  text_req_l_ ;
+	  if (script_req_l_) rq =  script_req_l_ ;
 	  announce_element (line_spanner_, rq);
 			 
 
@@ -149,7 +146,7 @@ Dynamic_engraver::do_process_music ()
     
    */
   else if (accepted_spanreqs_drul_[STOP]
-	   && !accepted_spanreqs_drul_[START] && !text_req_l_)
+	   && !accepted_spanreqs_drul_[START] && !script_req_l_)
     {
       finished_line_spanner_ = line_spanner_;
       line_spanner_ = 0;
@@ -182,18 +179,17 @@ Dynamic_engraver::do_process_music ()
     maybe we should leave dynamic texts to the text-engraver and
     simply acknowledge them?
   */
-  if (text_req_l_)
+  if (script_req_l_)
     {
-      String loud = text_req_l_->text_str_;
-
-      text_p_ = new Item (get_property ("DynamicText"));
-      text_p_->set_elt_property ("text", ly_str02scm (loud.ch_C ()));
-      if (Direction d=text_req_l_->get_direction ())
+      script_p_ = new Item (get_property ("DynamicText"));
+      script_p_->set_elt_property ("text",
+				   script_req_l_->get_mus_property ("text"));
+      if (Direction d = script_req_l_->get_direction ())
 	Directional_element_interface::set (line_spanner_, d);
 
-      Axis_group_interface::add_element (line_spanner_, text_p_);
+      Axis_group_interface::add_element (line_spanner_, script_p_);
 
-      announce_element (text_p_, text_req_l_);
+      announce_element (script_p_, script_req_l_);
     }
 
   if (accepted_spanreqs_drul_[STOP])
@@ -266,11 +262,11 @@ Dynamic_engraver::do_process_music ()
 	  Score_element *cc = unsmob_element (get_property ("currentMusicalColumn"));
 	  cresc_p_->set_bound (LEFT, cc);
 
-	  if (text_p_)
+	  if (script_p_)
 	    {
-	      Side_position::set_direction (text_p_, LEFT);
-	      Side_position::set_axis (text_p_, X_AXIS);
-	      Side_position::add_support (text_p_, cresc_p_);
+	      Side_position::set_direction (script_p_, LEFT);
+	      Side_position::set_axis (script_p_, X_AXIS);
+	      Side_position::add_support (script_p_, cresc_p_);
 	    }
 
 	  Axis_group_interface::add_element (line_spanner_, cresc_p_);
@@ -312,10 +308,10 @@ Dynamic_engraver::typeset_all ()
       finished_cresc_p_ =0;
     }
   
-  if (text_p_)
+  if (script_p_)
     {
-      typeset_element (text_p_);
-      text_p_ = 0;
+      typeset_element (script_p_);
+      script_p_ = 0;
     }
   if (finished_line_spanner_)
     {

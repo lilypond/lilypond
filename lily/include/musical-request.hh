@@ -16,7 +16,6 @@
 #include "musical-pitch.hh"
 #include "array.hh"
 
-
 /** a request with a duration.
   This request is used only used as a base class.
  */
@@ -46,13 +45,13 @@ struct Tremolo_req : public Request {
 };
 
 
-/** a syllable  or lyric is a string with rhythm.
+/**
+   a syllable or lyric is a string with rhythm.
   */
-class Lyric_req  : public  Rhythmic_req  {
-public:
-
-  String text_str_;
-  VIRTUAL_COPY_CONS(Music);
+class Lyric_req : public Rhythmic_req
+{
+protected:
+  VIRTUAL_COPY_CONS (Music);
 };
 
 
@@ -66,18 +65,18 @@ protected:
   VIRTUAL_COPY_CONS(Music);
 };
 
-class Text_script_req : public Script_req {
-public:
-  String text_str_;
-
-  // should be generic property of some kind.. 
-  String style_str_;
+class Text_script_req : public Script_req
+{
 protected:
-  VIRTUAL_COPY_CONS(Music);
-  virtual bool do_equal_b (Request const*)const;
-
+  VIRTUAL_COPY_CONS (Music);
+  virtual bool do_equal_b (Request const*) const;
 };
 
+class Dynamic_script_req : public Script_req
+{
+protected:
+  VIRTUAL_COPY_CONS (Music);
+};
 
 /// request which has some kind of pitch
 struct Melodic_req :virtual Request

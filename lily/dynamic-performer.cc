@@ -33,7 +33,7 @@ protected:
   virtual void do_pre_move_processing ();
 
 private:
-  Text_script_req* text_script_req_l_;
+  Dynamic_script_req* script_req_l_;
   Audio_dynamic* audio_p_;
 };
 
@@ -41,7 +41,7 @@ ADD_THIS_TRANSLATOR (Dynamic_performer);
 
 Dynamic_performer::Dynamic_performer ()
 {
-  text_script_req_l_ = 0;
+  script_req_l_ = 0;
   audio_p_ = 0;
 }
 
@@ -53,14 +53,15 @@ Dynamic_performer::~Dynamic_performer ()
 void
 Dynamic_performer::do_process_music ()
 {
-  if (text_script_req_l_)
+  if (script_req_l_)
     {
       SCM proc = get_property ("dynamicAbsoluteVolumeFunction");
 
       SCM svolume  = SCM_EOL;
       if (gh_procedure_p (proc))
 	{
-	  svolume = gh_call1 (proc, ly_str02scm (text_script_req_l_->text_str_.ch_C ())); 
+	  // urg
+	  svolume = gh_call1 (proc, script_req_l_->get_mus_property ("text"));
 	}
 
       Real volume = 0.5; 
@@ -111,9 +112,9 @@ Dynamic_performer::do_process_music ()
 	}
       
       audio_p_ = new Audio_dynamic (volume);
-      Audio_element_info info (audio_p_, text_script_req_l_);
+      Audio_element_info info (audio_p_, script_req_l_);
       announce_element (info);
-      text_script_req_l_ = 0;
+      script_req_l_ = 0;
     }
 }
 
@@ -130,16 +131,12 @@ Dynamic_performer::do_pre_move_processing ()
 bool
 Dynamic_performer::do_try_music (Music* r)
 {
-  if (!text_script_req_l_)
+  if (!script_req_l_)
     {
-      // urg, text script, style `dynamic' is how absolute dynamics appear
-      if(Text_script_req* t = dynamic_cast <Text_script_req*> (r))
+      if(Dynamic_script_req* d = dynamic_cast <Dynamic_script_req*> (r))
 	{
-	  if (t->style_str_ == "dynamic")
-	    {
-	      text_script_req_l_ = t;
-	      return true;
-	    }
+	  script_req_l_ = d;
+	  return true;
 	}
     }
   return false;

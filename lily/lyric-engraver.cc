@@ -43,10 +43,7 @@ Lyric_engraver::do_process_music()
     {
       text_p_=  new Item (get_property ("LyricText"));
       
-      text_p_->set_elt_property ("text",
-// 				 ly_str02scm   ((req_l_->text_str_ + " ").ch_C ()));
- 				 ly_str02scm   ((req_l_->text_str_).ch_C ()));
-
+      text_p_->set_elt_property ("text", req_l_->get_mus_property ("text"));
 
       /*
 	We can't reach the notehead where we're centered from here. So

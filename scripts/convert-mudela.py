@@ -538,7 +538,13 @@ if 1:
 			    'property definiton case (eg. onevoice -> oneVoice)')
 
 
+if 1:
+	def conv (str):
+		str = re.sub ('ChordNames*', 'ChordNames', str)
 
+		return str
+	
+	conversions.append ((1,3,97), conv, 'ChordName -> ChordNames')
 
 ############################
 	
