@@ -34,7 +34,7 @@ NB should have no bracket, B should have bracket.
 	\times 4/6 { c_"shorter, no edges" f b  b f c}	
 	\property Voice.TupletBracket \revert #'edge-height
 	\property Voice.TupletBracket \revert #'shorten-pair
-    	\property Voice.TupletBracket \override #'edge-width = #'(-0.5 . 0.5)
+    	\property Voice.TupletBracket \override #'edge-widen = #'(-0.5 . 0.5)
 	\times 2/3 { b^""^""^"angled edges" b b }
  	\property Voice.TupletBracket \revert #'direction
 	\times 2/3 { b b b }

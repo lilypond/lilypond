@@ -89,7 +89,7 @@
 "\\(archi\\|bassi\\|legni\\|ottoni\\|timpani\\|viole\\|violini\\)\\(Group\\)" ; *Group
 "melisma\\(End\\)?" "staff\\(One\\|Two\\)?" "rests\\(II\\)?" "specialKey"
 "noBreak" "paperTwentysix" "endHorizScript" "FontBody" "text(I)+"
-"\\(modern\\|forget\\)Accidentals" ; *Accidentals
+"\\(modern\\|forget\\)Accidental" ; *Accidentals
 "noResetKey" "modern\\(Voice\\)?Cautionaries" "unaCorda" "treCorde"
 
                       ))
@@ -97,7 +97,7 @@
   (reservedwords '(
 
 ;; Other words which look nicer when colored
-"Accidentals" "autoBeamSettings" "BarLine" "Beam"
+"Accidental" "autoBeamSettings" "BarLine" "Beam"
 "ChordName\\([s]?\\|s.[a-zA-Z]*\\)" "Dots" "DynamicText"
 "FiguredBass" "Hairpin" "\\(\\(Inner\\)?Choir\\|Grand\\|Piano\\|Tab\\)Staff"
 "Slur" "Stem" "SpacingSpanner" "System\\(StartDelimiter\\)?"

@@ -28,6 +28,6 @@ create, then write a function that will build the structure for you."
    m)
 
 \score {
-  \apply #(lambda (x) (add-script x "6") (display x) x ) \notes { c4-3 }
+  \apply #(lambda (x) (add-text-script x "6") (display x) x ) \notes { c4-3 }
 }
 
