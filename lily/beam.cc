@@ -347,13 +347,9 @@ Beam::set_stem_shorten (Grob *m)
 }
 
 /*  Call list of y-dy-callbacks, that handle setting of
-    grob-properties y, dy.
-    
-    User may set grob-properties: y-position-hs and height-hs
- (to be fixed) that override the calculated y and dy.
-    
-    Because y and dy cannot be calculated and quanted separately, we
-    always calculate both, then check for user override. */
+    grob-properties
+
+*/
 MAKE_SCHEME_CALLBACK (Beam, after_line_breaking, 1);
 SCM
 Beam::after_line_breaking (SCM smob)

@@ -121,6 +121,8 @@ Grace note do weird things with timing. Fragile.
 
 @lilypondfile[printfilename]{grace.ly}
 
+@lilypondfile[printfilename]{grace-beam.ly}
+
 @lilypondfile[printfilename]{grace-bar-line.ly}
 
 @lilypondfile[printfilename]{grace-nest2.ly}
@@ -146,12 +148,13 @@ Grace note do weird things with timing. Fragile.
 
 @lilypondfile[printfilename]{beam-concave.ly}
 
+@lilypondfile[printfilename]{beam-manual.ly}
+
 @lilypondfile[printfilename]{beam-extreme.ly}
 
 @lilypondfile[printfilename]{beam-position.ly}
 
 @lilypondfile[printfilename]{beam-center-slope.ly}
-
 
 @lilypondfile[printfilename]{auto-beam-bar.ly}
 

@@ -112,7 +112,6 @@
 	(position-callbacks . (,Beam::least_squares
 			       ,Beam::check_concave
 			       ,Beam::slope_damping
-			       ,Beam::shift_region_to_valid
 			       ,Beam::quanting
 			      ))
 
