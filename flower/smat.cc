@@ -22,7 +22,7 @@ Full_storage::OK() const
 	Real *r = els[maxh -1];
 	if (maxw>0) {
 	    assert(r);
-	    Real s = r[maxw -1];
+	    Real s = r[maxw -1]; // accessing unitialised memory.
 	    s = sin(s);
 	}
     }
