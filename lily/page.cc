@@ -34,15 +34,14 @@ Page::Page (Paper_def *paper, int number)
   
   page_count_++;
 
-  SCM make_header = ly_scheme_function ("make-header");
-  SCM make_footer = ly_scheme_function ("make-footer");
-
-  header_ = scm_call_2 (make_header, paper_->self_scm (),
+  header_ = scm_call_2 (paper_->c_variable ("make-header"),
+			paper_->self_scm (),
 			scm_int2num (number_));
   if (unsmob_stencil (header_))
     unsmob_stencil (header_)->align_to (Y_AXIS, UP);
     
-  footer_ = scm_call_2 (make_footer, paper_->self_scm (),
+  footer_ = scm_call_2 (paper_->c_variable ("make-footer"),
+			paper_->self_scm (),
 			scm_int2num (number_));
   if (unsmob_stencil (footer_))
     unsmob_stencil (footer_)->align_to (Y_AXIS, UP);

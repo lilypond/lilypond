@@ -19,7 +19,7 @@
 
 // JUNKME
 SCM
-stencil2line (Stencil* stil, bool is_title = false)
+stencil2line (Stencil *stil, bool is_title = false)
 {
   static SCM z;
   if (!z)
@@ -217,14 +217,14 @@ Paper_book::init ()
   Paper_def *paper = papers_[0];
   SCM scopes = this->scopes (0);
 
-  SCM make_tagline = ly_scheme_function ("make-tagline");
+  SCM make_tagline = paper->c_variable ("make-tagline");
   tagline_ = scm_call_2 (make_tagline, paper->self_scm (), scopes);
   Real tag_height = 0;
   if (Stencil *s = unsmob_stencil (tagline_))
     tag_height = s->extent (Y_AXIS).length ();
   height_ += tag_height;
 
-  SCM make_copyright = ly_scheme_function ("make-copyright");
+  SCM make_copyright = paper->c_variable ("make-copyright");
   copyright_ = scm_call_2 (make_copyright, paper->self_scm (), scopes);
   Real copy_height = 0;
   if (Stencil *s = unsmob_stencil (copyright_))
@@ -269,7 +269,7 @@ Paper_book::pages ()
     tag_height = s->extent (Y_AXIS).length ();
 
   SCM all = lines ();
-  SCM proc = paper->get_scmvar ("page-breaking");
+  SCM proc = paper->c_variable ("page-breaking");
   SCM breaks = scm_apply_0 (proc, scm_list_n (all, scm_make_real (height_),
 					      scm_make_real (text_height),
 					      scm_make_real (-copy_height),
@@ -286,7 +286,8 @@ Paper_book::pages ()
   for (int i = 0; i < page_count; i++)
     {
       if (i)
-	page = new Page (paper, i+1);
+	page = new Page (paper, i + 1);
+
       int next = i + 1 < page_count
 	? ly_scm2int (scm_vector_ref (breaks, scm_int2num (i))) : 0;
       while ((!next && all != SCM_EOL) || line <= next)

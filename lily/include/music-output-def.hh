@@ -36,7 +36,7 @@ public:
   void assign_context_def (SCM transdef);
   SCM find_context_def (SCM name) const;
   String outname_string () ;
-  SCM get_scmvar (String id) const;
+  SCM c_variable (String id) const;
   SCM lookup_variable (SCM sym) const;
   void set_variable (SCM, SCM sym);
   // fixme: dependencies

@@ -76,6 +76,12 @@ melismaEnd = #(make-span-event 'ManualMelismaEvent STOP)
 
     #(define page-to-stencil ly:page-header-lines-footer-stencil)
 
+    #(define make-header plain-header)
+    #(define make-footer plain-footer)
+    %%#(define make-footer empty-markup)
+    #(define make-tagline TAGLINE-or-tagline-from-header)
+    #(define make-copyright copyright-from-header)
+
     \include "engraver-init.ly"
 }
 
