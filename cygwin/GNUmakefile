@@ -2,14 +2,14 @@ depth = ..
 
 NAME = cygwin
 
-EXTRA_DIST_FILES = README changelog mknetrel $(wildcard *.sh *.hint)
-
-STEPMAKE_TEMPLATES = install install-out
+EXTRA_DIST_FILES = changelog mknetrel $(wildcard *.sh *.hint)
 
 include $(depth)/make/stepmake.make
 
 # For cygwin builds only
 ifneq ($(CYGWIN_BUILD),)
+
+STEPMAKE_TEMPLATES = install install-out
 
 POST_INSTALLS=$(wildcard post-*.sh)
 OUT_POST_INSTALLS=$(POST_INSTALLS:%=$(outdir)/%)
@@ -47,14 +47,6 @@ INSTALLATION_OUT_FILES1=$(OUT_PROFILES)
 
 INSTALLATION_OUT_DIR2=$(local_lilypond_datadir)/tex
 INSTALLATION_OUT_FILES2=$(shell kpsewhich geometry.sty)
-
-else
-
-local-install:
-	@echo skipping
-
-local-install-outfiles:
-	@echo skipping
 
 endif
 
