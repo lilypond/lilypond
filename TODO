@@ -63,9 +63,13 @@ specify the third.  Should there be?
 .* TODO before 1.2
 . *
 > Yes.  I want ties to tie only notes of the same pitch, so that
-> 	< a~  a,>  a
+> 	f < a~  a,>  a
 > works as you'd expect it to.
+
+I don't think that's functional, but there is a bug (--jcn):
+Lily will set a tie between the a and the preceeding f.
 . * 1. Can Lily be told where to start numbering?
+Fix: set bar-number to 0 if first bar is an anacrouse?
 . * The timpani part has rests the full first line. Is it possible
    to force lilypond to print all parts on the first page of the score
    but use the hara-kiri mechanism on the remaining pages?
@@ -729,12 +733,13 @@ if you just sit there."
   "Additional expressions to highlight in Outline mode.")
 
 (add-hook 'outline-mode-hook
-	  (lambda ()
+	  '(lambda ()
 	    (setq font-lock-maximum-decoration t)
 	    (setq font-lock-maximum-decoration t)
 	    (make-local-variable 'font-lock-defaults)
 	    (setq font-lock-defaults '(outline-font-lock-keywords t))
-	    (font-lock-mode (global-font-lock-mode))))
+	    (font-lock-mode global-font-lock-mode)
+	))
  
 (require 'allout)
 (outline-init 't)

@@ -122,6 +122,11 @@ Slur::do_post_processing ()
 
   Direction d=LEFT;
  
+#define NORMAL_SLUR_b(dir) \
+  (extrema[dir]->stem_l_ \
+   && !extrema[dir]->stem_l_->transparent_b_  \
+   && extrema[dir]->head_l_arr_.size ()) 
+
   do 
     {
       /*
@@ -146,8 +151,7 @@ Slur::do_post_processing ()
       /*
         normal slur
        */
-      else if (extrema[d]->stem_l_ && !extrema[d]->stem_l_->transparent_b_ 
-	       && extrema[d]->head_l_arr_.size ()) 
+      else if (NORMAL_SLUR_b (d))
         {
 	  Real notewidth_f = extrema[d]->extent (X_AXIS).length ();
 	  dy_f_drul_[d] = (int)rint (extrema[d]->stem_l_-> extent (Y_AXIS)[dir_]);
@@ -194,8 +198,43 @@ Slur::do_post_processing ()
   while (flip(&d) != LEFT);
 
   /*
+    Slur should follow line of music
+   */
+  if (NORMAL_SLUR_b (LEFT) && NORMAL_SLUR_b (RIGHT)
+      && (extrema[LEFT]->stem_l_ != extrema[RIGHT]->stem_l_))
+    {
+      Real note_dy = extrema[RIGHT]->stem_l_->head_positions ()[dir_]
+	- extrema[LEFT]->stem_l_->head_positions ()[dir_];
+      Real dy = dy_f_drul_[RIGHT] - dy_f_drul_[LEFT];
+      /*
+	Should we always follow note-heads, (like a tie)?
+	For now, only if the note_dy != slur_dy, we'll do
+	slur_dy := note_dy * factor.
+      */
+      if (sign (dy) != sign (note_dy))
+	{
+	  Real damp_f = paper ()->get_var ("slur_slope_follow_music_factor");
+	  Real dy = note_dy * damp_f;
+	  Direction adjust_dir = (Direction)(- dir_ * sign (dy));
+	  /*
+	    adjust only if no beam gets in the way
+	   */
+	  if (!extrema[adjust_dir]->stem_l_->beam_l_
+	      || (adjust_dir == extrema[adjust_dir]->stem_l_->dir_)
+	      || (extrema[adjust_dir]->stem_l_->beams_i_drul_[-adjust_dir] < 1))
+	    {
+	      dy_f_drul_[adjust_dir] = dy_f_drul_[-adjust_dir]
+		+ 2 * adjust_dir * dy;
+	      Real dx = notewidth_f / 2;
+	      if (adjust_dir != extrema[adjust_dir]->stem_l_->dir_)
+		dx /= 2;
+	      dx_f_drul_[adjust_dir] -= adjust_dir * dx;
+	    }
+	}
+    }
+
+  /*
     Avoid too steep slurs.
-      * slur from notehead to stemend: c''()b''
    */
   Real damp_f = paper ()->get_var ("slur_slope_damping");
   Offset d_off = Offset (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT],
@@ -302,3 +341,4 @@ Slur::get_rods () const
   a.push (r);
   return a;
 }
+

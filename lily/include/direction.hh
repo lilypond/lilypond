@@ -28,6 +28,19 @@ enum Direction
 };
 
 inline Direction
+other_dir (Direction const d)
+{
+  return (Direction)(-d);
+}
+
+inline Direction
+operator - (Direction const d)
+{
+  return other_dir (d);
+}
+
+// huh?
+inline Direction
 flip (Direction *i) {
   if (*i == (Direction)1)
     *i = (Direction)-1;

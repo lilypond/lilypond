@@ -401,12 +401,15 @@ distill_inname_str (String name_str, String& ext_r)
 	  split_path (str,a,b,c,ext_r);
 
 	  // add extension if not present.
-	  // UGH. Should parametrise in list of default extensions.
-	  if (ext_r.empty_b ())
+	  char const* extensions[] = {"", "", ".ly", ".fly", ".sly", 0};
+	  extensions[0] = ext_r.ch_C ();
+	  for (int i = 0; extensions[i]; i++)
 	    {
-	      ext_r = ".fly";
-	      if (global_path.find (a+b+c+ext_r).empty_b ())
-		ext_r = ".ly";
+	      if (!global_path.find (a+b+c+extensions[i]).empty_b ())
+		{
+		  ext_r = extensions[i];
+		  break;
+		}
 	    }
 	  str = a+b+c+ext_r;
 	}

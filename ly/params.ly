@@ -70,6 +70,9 @@ slur_x_minimum = 3.0 * \interline;
 % slope damping: keep dy/dx < slur_slope_damping
 slur_slope_damping = 0.6;
 
+% dy_slur := dy_music * factor
+slur_slope_follow_music_factor = 0.8;
+
 tie_x_minimum = \slur_x_minimum;
 tie_x_gap = \slur_x_gap;
 tie_slope_damping = 0.8;

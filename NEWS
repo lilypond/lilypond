@@ -1,4 +1,13 @@
---- ../lilypond-1.1.29.jcn1/NEWS	Tue Feb  9 17:15:49 1999
+--- ../lilypond-1.1.29.jcn2/NEWS	Tue Feb  9 22:46:07 1999
+++ b/NEWS	Wed Feb 10 15:21:05 1999
+@@ -1,3 +1,7 @@
+pl 29.jcn3
+	- fix: slur-case3.ly 
+	- init.sly: .fly with linewidt=-1
+
+ pl 29.jcn2
+ 	- resurrected ps output
+ --- ../lilypond-1.1.29.jcn1/NEWS	Tue Feb  9 17:15:49 1999
 ++ b/NEWS	Tue Feb  9 22:46:07 1999
 @@ -1,3 +1,6 @@
 pl 29.jcn2
