@@ -110,7 +110,7 @@ add_accidentals (Item *me, Molecule *head, int num_acc,
       Molecule accidental (Font_interface::get_default_font (me)->
 			   find_by_name (String ("accidentals-") +
 					 accidentals_style +
-					 to_string (pitch->get_alteration())));
+					 to_string (pitch->get_alteration ())));
       accidental.translate_axis (yoffs, Y_AXIS);
       head->add_at_edge (X_AXIS,  LEFT, accidental, 0.1, 0);
     }

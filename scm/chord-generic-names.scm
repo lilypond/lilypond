@@ -57,13 +57,13 @@ input/test/dpncnt.ly).
     (ly:pitch-transpose pitch
 			(ly:make-pitch 0 2 (if (or (= (step-nr pitch) 3)
 						   (= (step-nr pitch) 5))
-					       -1 0))))
+					       FLAT 0))))
 
   (define (step-alteration pitch)
     (let* ((diff (ly:pitch-diff (ly:make-pitch 0 0 0) (car pitches)))
 	   (normalized-pitch (ly:pitch-transpose pitch diff))
 	   (alteration (ly:pitch-alteration normalized-pitch)))
-      (if (= (step-nr pitch) 7) (+ alteration 1) alteration)))
+      (if (= (step-nr pitch) 7) (+ alteration SEMI-TONE) alteration)))
     
   (define (pitch-unalter pitch)
     (let ((alteration (step-alteration pitch)))
@@ -84,11 +84,11 @@ input/test/dpncnt.ly).
       (make-simple-markup (number->string (step-nr pitch)))
       (make-simple-markup
        (case (step-alteration pitch)
-	 ((-2) "--")
-	 ((-1) "-")
-	 ((0) "")
-	 ((1) "+")
-	 ((2) "++"))))))
+	 ((DOUBLE-FLAT) "--")
+	 ((FLAT) "-")
+	 ((NATURAL) "")
+	 ((SHARP) "+")
+	 ((DOUBLE-SHARP) "++"))))))
   
   (define (step->markup-accidental pitch)
     (make-line-markup

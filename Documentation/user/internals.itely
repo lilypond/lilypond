@@ -770,7 +770,7 @@ its argument:
      (ly:set-mus-property! m 'elements (reverse
        (ly:get-mus-property m 'elements)))
      m)
-  \score {  \notes \apply #rev-music-1 { c4 d4 } }
+  \score { \notes \apply #rev-music-1 { c4 d4 } }
 @end lilypond
 
 The use of such a function is very limited. The effect of this
@@ -813,7 +813,7 @@ A slightly more elaborate example is in
 Some of the input syntax is also implemented as recursive music
 functions. For example, the syntax for polyphony
 @example
-  << a \\ b>>
+  <<a \\ b>>
 @end example
 
 @noindent

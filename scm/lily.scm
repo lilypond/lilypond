@@ -18,10 +18,11 @@
 ;;; have a more sensible default.
 
 
-
-(debug-enable 'debug)
-;(debug-enable 'backtrace)
-(read-enable 'positions)
+(if (ly:get-option 'verbose)
+    (begin
+      (debug-enable 'debug)
+      (debug-enable 'backtrace)
+      (read-enable 'positions)))
 
 
 (define-public (line-column-location line col file)
@@ -65,12 +66,16 @@
 (define-public DOWN -1)
 (define-public CENTER 0)
 
-(define-public DOUBLE-FLAT -2)
-(define-public FLAT -1)
-(define-public SHARP 1)
-(define-public DOUBLE-SHARP 2)
+(define-public DOUBLE-FLAT -4)
+(define-public THREE-Q-FLAT -3)
+(define-public FLAT -2)
+(define-public SEMI-FLAT -1)
 (define-public NATURAL 0)
-
+(define-public SEMI-SHARP 1)
+(define-public SHARP 2)
+(define-public THREE-Q-SHARP 3)
+(define-public DOUBLE-SHARP 4)
+(define-public SEMI-TONE 2)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; lily specific variables.
@@ -288,7 +293,7 @@ L1 is copied, L2 not.
 	 (fn (%search-load-path x))
 
 	 )
-    (if (ly:verbose)
+    (if (ly:get-option 'verbose)
 	(format (current-error-port) "[~A]" fn))
     (primitive-load fn)))
 

@@ -1,4 +1,4 @@
-\version "1.9.1"
+\version "1.9.7"
 % Symbols needed to print accordion music
 % 
 %  2' = T

@@ -495,8 +495,7 @@ Rest can contain a list of beat groupings
 (define (voicify-chord ch)
   "Split the parts of a chord into different Voices using separator"
    (let* ((es (ly:get-mus-property ch 'elements)))
-
-
+     
      (ly:set-mus-property!  ch 'elements
        (voicify-list (split-list es music-separator?) 0))
      ch

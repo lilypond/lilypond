@@ -13,9 +13,9 @@
 #include "lily-proto.hh"
 #include "smobs.hh"
 
-/** A "tonal" pitch. This is a pitch used in diatonal western
-   music (12 semitones in an octave), as opposed to a frequency in Hz
-   or a integer number of semitones.
+/** A "tonal" pitch. This is a pitch used in diatonal western music
+   (24 quartertones in an octave), as opposed to a frequency in Hz or a
+   integer number of semitones.
 
   Pitch is lexicographically ordered by (octave, notename,
     alteration).    
@@ -25,8 +25,6 @@
 
    - add indeterminate octaves, so it can be used as a key in keySigature
 
-   - abstract out the representation of alteration_, so we can
-   put micropitches (quartertones, etc.) in the Pitch object
 */
 class Pitch
 {
@@ -35,13 +33,8 @@ private:				// fixme
     TODO: use SCM
    */
 
-    /// 0 is c, 6 is b
   int notename_;
-  
-  /// 0 natural, 1 sharp, etc
   int alteration_;
-
-  /// 0 is central c
   int octave_;
  
   void transpose (Pitch);
@@ -62,15 +55,27 @@ public:
   Pitch to_relative_octave (Pitch) const;
 
   static int compare (Pitch const&,Pitch const&);
-  /// return large part of interval from central c
+
   int steps () const;
-  /// return pitch from central c (in halfnotes)
   int semitone_pitch () const; 
+  int quartertone_pitch () const; 
   String to_string () const;
 
   SCM smobbed_copy () const;
   DECLARE_SCHEME_CALLBACK (less_p, (SCM a, SCM b));
   DECLARE_SIMPLE_SMOBS (Pitch,);
+};
+
+enum {
+  DOUBLE_FLAT = -4,
+  THREE_Q_FLAT,
+  FLAT ,
+  SEMI_FLAT,
+  NATURAL,
+  SEMI_SHARP,
+  SHARP ,
+  THREE_Q_SHARP,
+  DOUBLE_SHARP  ,
 };
 
 SCM ly_pitch_transpose (SCM p, SCM delta);

@@ -8,7 +8,7 @@
 
 
 (define-module (scm output-tex) )
-(debug-enable 'backtrace)
+; (debug-enable 'backtrace)
 (use-modules (scm output-ps)
 	     (ice-9 regex)
 	     (ice-9 string-fun)

@@ -44,7 +44,7 @@ Event::transpose (Pitch delta)
 
   Pitch np = p->transposed (delta);
   
-  if (abs (np.get_alteration ()) > 2)
+  if (abs (np.get_alteration ()) > DOUBLE_SHARP)
     {
 	warning (_f ("Transposition by %s makes alteration larger than two",
 	  delta.to_string ()));

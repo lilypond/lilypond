@@ -262,12 +262,12 @@ DURATION, and INVERSION."
 ; chord modifiers change the pitch list.
 
 (define (aug-modifier  pitches)
-  (set! pitches  (replace-step (ly:make-pitch 0 4 1) pitches))
+  (set! pitches  (replace-step (ly:make-pitch 0 4 SHARP) pitches))
   (replace-step (ly:make-pitch 0 2 0) pitches) 
   )
 
 (define (minor-modifier  pitches)
-  (replace-step (ly:make-pitch 0 2 -1) pitches)
+  (replace-step (ly:make-pitch 0 2 FLAT) pitches)
   )
 
 (define (maj7-modifier  pitches)
@@ -276,9 +276,9 @@ DURATION, and INVERSION."
   )
 
 (define (dim-modifier  pitches)
-  (set! pitches (replace-step (ly:make-pitch 0 2 -1) pitches))
-  (set! pitches (replace-step (ly:make-pitch 0 4 -1) pitches))
-  (set! pitches (replace-step (ly:make-pitch 0 6 -2) pitches))
+  (set! pitches (replace-step (ly:make-pitch 0 2 FLAT) pitches))
+  (set! pitches (replace-step (ly:make-pitch 0 4 FLAT) pitches))
+  (set! pitches (replace-step (ly:make-pitch 0 6 DOUBLE-FLAT) pitches))
   pitches
   )
 
@@ -301,7 +301,7 @@ DURATION, and INVERSION."
   (map
    (lambda (n)
      (define (nca x)
-       (if (= x 7) -1 0))
+       (if (= x 7) FLAT 0))
      (if (>= n 8)
 	 (ly:make-pitch 1 (- n 8) (nca n))
 	 (ly:make-pitch 0 (- n 1) (nca n))))

@@ -53,7 +53,7 @@ Pitch::steps () const
 /*
   should be settable from input?
  */
-static Byte pitch_byte_a[  ] = { 0, 2, 4, 5, 7, 9, 11 };
+static Byte diatonic_scale_semitones[  ] = { 0, 2, 4, 5, 7, 9, 11 };
 
 
 /* Calculate pitch height in 12th octave steps.  Don't assume
@@ -68,26 +68,47 @@ Pitch::semitone_pitch () const
       n += 7;
       o --;
     }
-  return (o + n / 7) * 12 + pitch_byte_a[n % 7] + alteration_;
+
+  if (alteration_ % 2)
+    {
+      programming_error ("Calling semitone_pitch() for quarter tone alterations.");
+      
+    }
+  
+  return (o + n / 7) * 12 + diatonic_scale_semitones[n % 7] + (alteration_/2);
+}
+
+int
+Pitch::quartertone_pitch () const
+{
+  int o = octave_;
+  int n = notename_;
+  while (n < 0)
+    {
+      n += 7;
+      o --;
+    }
+  
+  return (o + n / 7) * 24 +  2*  diatonic_scale_semitones[n % 7] + (alteration_);
 }
 
 void
 Pitch::normalise ()
 {
-  int pitch = semitone_pitch ();
+  int pitch = quartertone_pitch ();
   while (notename_ >= 7)
     {
       notename_ -= 7;
       octave_++;
-      alteration_ -= semitone_pitch () - pitch;
+      alteration_ -= quartertone_pitch () - pitch;
     }
   while (notename_ < 0)
     {
       notename_ += 7;
       octave_--;
-      alteration_ -= semitone_pitch () - pitch;
+      alteration_ -= quartertone_pitch () - pitch;
     }
-  while (alteration_ >= 3)
+  while (alteration_ > DOUBLE_SHARP)
     {
       if (notename_ == 6)
 	{
@@ -98,9 +119,10 @@ Pitch::normalise ()
 	notename_++;
 
       alteration_ = 0;
-      alteration_ -= semitone_pitch () - pitch;
+      alteration_ -= quartertone_pitch () - pitch;
     }
-  while (alteration_ <= -3)
+  
+  while (alteration_ < DOUBLE_FLAT)
     {
       if (notename_ == 0)
 	{
@@ -111,7 +133,7 @@ Pitch::normalise ()
 	notename_--;
 
       alteration_ = 0;
-      alteration_ -= semitone_pitch () - pitch;
+      alteration_ -= quartertone_pitch () - pitch;
     }
 }
 
@@ -119,10 +141,10 @@ Pitch::normalise ()
 void
 Pitch::transpose (Pitch delta)
 {
-  int new_semi = semitone_pitch ()  +delta.semitone_pitch();
+  int new_semi = quartertone_pitch ()  +delta.quartertone_pitch();
   octave_ += delta.octave_;
   notename_ += delta.notename_;
-  alteration_ += new_semi - semitone_pitch();
+  alteration_ += new_semi - quartertone_pitch();
 
   normalise ();
 }
@@ -130,19 +152,21 @@ Pitch::transpose (Pitch delta)
 Pitch
 interval (Pitch const & from , Pitch const & to )
 {
-  int sound = to.semitone_pitch()  - from.semitone_pitch ();
+  int sound = to.quartertone_pitch()  - from.quartertone_pitch ();
   Pitch pt (to.get_octave () - from.get_octave (),
 	    to.get_notename() - from.get_notename(),
+
 	    to.get_alteration() - from.get_alteration());
 
-  return pt.transposed (Pitch(0,0,sound - pt.semitone_pitch()));
+  return pt.transposed (Pitch(0,0,sound - pt.quartertone_pitch()));
 }
 
 
 /* FIXME
    Merge with *pitch->text* funcs in chord-name.scm
  */
-char const *accname[] = {"eses", "es", "", "is" , "isis"};
+char const *accname[] = {"eses", "eseh", "es", "eh" "",
+			 "ih", "is" , "isih",  "isis"};
 
 String
 Pitch::to_string () const
@@ -150,7 +174,7 @@ Pitch::to_string () const
   int n = (notename_ + 2) % 7;
   String s = ::to_string (char (n + 'a'));
   if (alteration_)
-    s += String (accname[alteration_ + 2]);
+    s += String (accname[alteration_ - DOUBLE_FLAT]);
 
   if (octave_ >= 0)
     {
@@ -342,7 +366,19 @@ LY_DEFINE(pitch_notename, "ly:pitch-notename", 1, 0, 0,
   return gh_int2scm (q);
 }
 
-LY_DEFINE(pitch_semitones,  "ly:pitch-semitones", 1, 0, 0, 
+LY_DEFINE(ly_pitch_quartertones,  "ly:pitch-quartertones", 1, 0, 0, 
+	  (SCM pp),
+	  "calculate the number of semitones of @var{p} from central C.")
+{
+  Pitch *p = unsmob_pitch (pp);
+  SCM_ASSERT_TYPE(p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
+ 
+  int q = p->quartertone_pitch ();
+  
+  return gh_int2scm (q);
+}
+
+LY_DEFINE(ly_pitch_semitones,  "ly:pitch-semitones", 1, 0, 0, 
 	  (SCM pp),
 	  "calculate the number of semitones of @var{p} from central C.")
 {
@@ -372,7 +408,7 @@ LY_DEFINE(pitch_less, "ly:pitch<?", 2,0,0, (SCM p1, SCM p2),
 LY_DEFINE(ly_pitch_diff, "ly:pitch-diff", 2 ,0 ,0,
 	  (SCM pitch, SCM  root),
 	  "Return pitch with value DELTA =  PITCH - ROOT, ie, "
-"ROOT == (ly:pitch-transpose root delta).")
+	  "ROOT == (ly:pitch-transpose root delta).")
 {
   Pitch *p = unsmob_pitch (pitch);
   Pitch *r = unsmob_pitch (root);
@@ -381,10 +417,6 @@ LY_DEFINE(ly_pitch_diff, "ly:pitch-diff", 2 ,0 ,0,
 
   return interval (*r,  *p).smobbed_copy();
 }
-
-	  
-
-
 
 SCM
 Pitch::smobbed_copy ()const

@@ -7,7 +7,7 @@
 
 #(reset-drum-kit)
 
-\version "1.9.1"
+\version "1.9.7"
 
 \include "declarations-init.ly"
 
