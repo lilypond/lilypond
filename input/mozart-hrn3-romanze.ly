@@ -1,6 +1,6 @@
 
 \version "1.5.49"
-%\include  "mozart-hrn3-defs.ly"
+\include  "mozart-hrn3-defs.ly"
 
 romanze = \notes \relative c' {
 	\key f \major
@@ -43,7 +43,7 @@ romanze = \notes \relative c' {
 	[d8( e f )d] b4 r8 g
 	[c ()e g g] [g( f e )d]
 	c4(
-	\grace { \longgrace e16 }
+	\grace { \longgrace e16 \endlonggrace }
 	[d8. )c16 \< ] [c8 c-.( c-. \! )c-.]
 	\mark "C"
 	des1\sfp

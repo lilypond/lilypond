@@ -26,13 +26,13 @@ startGraceMusic = {
     % be smaller as well.
 
     \property Voice.fontSize = #-2
-    \property Staff.Accidentals \override #'font-relative-size = #-2
+    \property Staff.Accidental \override #'font-relative-size = #-2
     \property Voice.Slur \override #'direction = #-1
 }
 
 stopGraceMusic = {
     \property Voice.Slur \revert #'direction
-    \property Staff.Accidentals \revert #'font-relative-size
+    \property Staff.Accidental \revert #'font-relative-size
     \property Voice.Beam \revert #'thickness
 
     \property Voice.Stem \revert #'flag-style
