@@ -67,7 +67,7 @@ Tie_engraver::Tie_engraver ()
 bool
 Tie_engraver::try_music (Music *mus)
 {
-  if(mus->is_mus_type( "tie-event"))
+  if (mus->is_mus_type ("tie-event"))
     {
       event_ = mus;
     }

@@ -11,7 +11,7 @@
    
 
             \property Voice.Fingering \revert #'extra-offset
-            fis16 a-)^" "^#'(finger "5") } \\
+            fis16 a-)^" "^\markup { \finger "5" } } \\
         {
             \dynamicUp
             \property Voice.DynamicLineSpanner \override #'padding = #5.0
