@@ -1,0 +1,117 @@
+@node Point and click
+@appendix Point and click
+@cindex point and click
+
+@cindex source specials
+@cindex specials, source
+
+Point and click lets you find notes in the input by clicking on them in
+the Xdvi window. This makes it easier to find input that causes some
+error in the sheet music.
+
+To use it, you need the following software:
+@itemize @bullet
+@item a dvi viewer that supports src specials.
+
+The most obvious choice is Xdvi@footnote{KDVI also provides src
+@cindex Xdvi
+@cindex KDVI
+@cindex KDE
+specials, but does not use the kpathsea library, so it cannot find
+LilyPond font and PostScript library files.}, version 22.36 or newer.
+It is available from
+@uref{ftp://ftp.math.berkeley.edu/pub/Software/TeX/xdvi.tar.gz,ftp.math.berkeley.edu}.
+
+   Most @TeX{} distributions ship with xdvik, which is always a few
+versions behind the official Xdvi. To find out which Xdvi you are
+running, try @code{xdvi -version} or @code{xdvi.bin -version}.
+
+@item an editor with a client/server interface (or a lightweight GUI
+editor):
+
+@cindex editor
+
+@itemize @bullet
+@item Emacs. Emacs is an extensible text-editor.  It is available from
+@uref{http://www.gnu.org/software/emacs/}.  You need version 21 to use
+column location.
+
+@c move this elsewhere?
+
+
+@cindex Emacs
+@cindex Emacs mode
+@cindex lilypond-mode for Emacs
+@cindex syntax coloring
+
+@item XEmacs. XEmacs is very similar to Emacs.
+
+@cindex XEmacs
+
+@item NEdit.  NEdit runs under Windows, and Unix.
+  It is available from @uref{http://www.nedit.org}.
+
+@cindex NEdit
+
+@item GVim.  GVim is a GUI variant of VIM, the popular VI
+clone.  It is available from @uref{http://www.vim.org}.
+
+@cindex GVim
+@cindex Vim
+
+@end itemize
+@end itemize
+
+
+Xdvi must be configured to find the @TeX{} fonts and music
+fonts. Refer to the Xdvi documentation for more information.
+
+To use point-and-click, add one of these lines to the top of your .ly
+file:
+@example
+#(ly:set-point-and-click 'line)
+@end example
+@cindex line-location
+
+When viewing, Control-Mousebutton 1 will take you to the originating
+spot in the @file{.ly} file.  Control-Mousebutton 2 will show all
+clickable boxes.
+
+If you correct large files with point-and-click, be sure to start
+correcting at the end of the file. When you start at the top, and
+insert one line, all following locations will be off by a line.
+
+@cindex Emacs
+For using point-and-click with Emacs,  add the following
+In your Emacs startup file (usually @file{~/.emacs}):
+@example
+(server-start)
+@end example
+
+Make sure that the environment variable @var{XEDITOR} is set to
+@example
+emacsclient --no-wait +%l %f
+@end example
+@cindex @var{XEDITOR}
+If you use XEmacs instead of Emacs, you use @code{(gnuserve-start)} in
+your @file{.emacs}, and set @code{XEDITOR} to @code{gnuclient -q +%l %f}.
+
+For using Vim, set @code{XEDITOR} to @code{gvim --remote +%l %f}, or
+use this argument with Xdvi's @code{-editor} option.
+
+@cindex NEdit
+For using NEdit, set @code{XEDITOR} to @code{nc -noask +%l %f}, or
+use this argument with Xdvi's @code{-editor} option.
+
+If can also make your editor jump to the exact location of the note
+you clicked. This is only supported on Emacs and VIM. Users of Emacs version
+20 must apply the patch @file{emacsclient.patch}. Users of version 21
+must apply @file{server.el.patch} (version 21.2 and earlier).  At the
+top of the @code{ly} file, replace the @code{set-point-and-click} line
+with the following line:
+@example
+#(ly:set-point-and-click 'line-column)
+@end example
+@cindex line-column-location
+and set @code{XEDITOR} to @code{emacsclient --no-wait +%l:%c %f}.  Vim
+users can set @var{XEDITOR} to @code{gvim --remote +:%l:norm%c| %f}.
