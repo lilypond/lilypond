@@ -172,8 +172,8 @@ s16_" "
 The @rglos{clef} can be set using the @code{\clef} command:
 
 @c what is more common name treble or violin?
-@c in Dutch, its violin.
-@c in English its definitely treble.
+@c in Dutch, it's violin.
+@c in English it's definitely treble.
 @example
 \clef treble
 \clef bass
@@ -216,7 +216,7 @@ The printing command is the so-called @code{\paper} block:
 
 The @code{\paper} block is used to customize printing specifics. The
 customization commands go between @code{@{} and @code{@}}, but for
-now, we accept the defaults.  The music and the @code{\paper} block
+now, we will accept the defaults.  The music and the @code{\paper} block
 are combined by enclosing them in @code{\score @{ ... @}}, so the
 following is a complete and valid input file:
 
@@ -266,7 +266,7 @@ see  @ref{Time signature}.
 @section Running LilyPond
 
 In the last section we explained what kind of things you could enter
-in a LilyPond file.  In this section we explain what commands to run
+in a LilyPond file.  In this section we will explain what commands to run
 and how to view or print the output.  If you have not used LilyPond
 before, want to test your setup, or want to run an example file
 yourself, read this section.  The instructions that follow are for
@@ -349,7 +349,7 @@ File/Print inside your viewing program.
 @cindex PDF
 
 
-On Windows, the same procedure should work, the terminal is started by
+On Windows, the same procedure should work.  The terminal is started by
 clicking on the LilyPond or Cygwin icon.  Any text editor (such as
 NotePad, Emacs or Vim) may be used to edit the LilyPond file.
 
@@ -410,13 +410,13 @@ g'
 @end quotation
 
 
-Key signatures together with the pitch (including alterations) are
+Key signatures together with the pitches (including alterations) are
 used together to determine when to print accidentals.  This is a
 feature that often causes confusion to newcomers, so let us explain it
 in more detail:
 
 
-LilyPond has a sharp distinction between musical content and
+LilyPond makes a sharp distinction between musical content and
 layout. The alteration (flat, natural or sharp) of a note is part of
 the pitch, and is therefore musical content. Whether an accidental (a
 flat, natural or sharp @emph{sign}) is a printed in front of the
@@ -510,8 +510,8 @@ This example shows the key signature, accidentals and ties in action:
 
 There are some interesting points to note in this example.  Bar lines
 and beams are drawn automatically.  Line breaks are calculated
-automatically; it does not matter where the lines breaks are in the
-source file. Finally, the order of time, key and clef changes is not
+automatically; it does not matter where the line breaks are in the
+source file. Finally, the order in which time, key and clef changes are entered is not
 relevant: in the printout, these are ordered according to standard
 notation conventions.
 
@@ -728,7 +728,7 @@ music. When you are playing, you combine the symbols printed at a
 certain point with contextual information. For example, without
 knowing the current clef, and the accidentals in the last measure, it
 would be impossible to determine the pitch of a note. In other words,
-this information forms context that helps you decipher a
+this information forms a context that helps you decipher a
 score. LilyPond produces notation from music, so in effect, it does
 the inverse of reading scores. Therefore, it also needs to keep track
 of contextual information. This information is maintained in
@@ -770,7 +770,7 @@ The example shows how small chunks of music, for example, the notes
 @code{c2}, @code{e4}, etc. of the second staff, are combined to form a
 larger chunk by enclosing it in braces. Again, a larger chunk is
 formed by prefix @code{\new Staff} to it, and that chunk is combined
-with @code{<< >>}. This mechanism is similar with mathematical
+with @code{<< >>}. This mechanism is similar to mathematical
 formulas: a big formula is created by composing small formulas.  Such
 formulas are called expressions, and their definition is recursive, so
 you can make arbitrarily complex and large expressions.  For example,
@@ -808,7 +808,7 @@ arbitrarily deep, e.g.
 @cindex indent
 When spreading expressions over multiple lines, it is customary to use
 an indent that indicates the nesting level. Formatting music like this
-eases reading, and helps you  insert the right amount of closing
+eases reading, and helps you  insert the right number of closing
 braces at the end of an expression. For example,
 @example
 \score @{
@@ -1025,7 +1025,7 @@ see @ref{Partial measures}.
 @cindex line comment
 @cindex block comment
 Comments are pieces of the input that are ignored.  There are two
-types of comments. A line comments is introduced by @code{%}: after
+types of comments. A line comment is introduced by @code{%}: after
 that, the rest of that line is ignored.  Block comments span larger
 sections of input.  Anything that is enclosed in @code{%@{} and
 @code{%@}} is ignored too. The following fragment shows possible uses
@@ -1164,7 +1164,7 @@ root of the chord), and a durations following that:
 The result of @code{\chords} is a list of chords, and is  equivalent
 to entering chords with @code{<@dots{}>}.
 
-Other chords can be created by adding modifiers, after a colon.  The
+Other chords can be created by adding modifiers after a colon.  The
 following example shows a few common modifiers:
 @c
 @lilypond[verbatim]
@@ -1208,7 +1208,7 @@ a lead sheet, for example,
 @end lilypond
 
 
-A complete list of modifiers, and other options for layout are in the
+A complete list of modifiers and other options for layout are in the
 reference manual section @ref{Chords}.
 
 @node Listening to output
@@ -1219,10 +1219,10 @@ reference manual section @ref{Chords}.
 
 MIDI (Musical Instrument Digital Interface) is a standard for
 connecting and recording digital instruments.  A MIDI file is like a
-tape recording of a MIDI instrument. The @code{\midi} block makes the
-music go to a MIDI file, so you can listen to the music you entered.
-It is great for checking the music: octaves that are off, or
-accidentals that were mistyped, stand out very much when listening to
+tape recording of a MIDI instrument. The @code{\midi} block causes LilyPond
+to create a MIDI file, so you can listen to the music you entered.
+It is great for checking the music: octaves that are off or
+accidentals that were mistyped stand out very much when listening to
 the musical transcription.
 
 @code{\midi} can be used in similarly to @code{\paper @{ @}}, for
@@ -1264,18 +1264,18 @@ example,
 @cindex composer
 @cindex Engraved by LilyPond
 
-When the file is processed by the @code{lilypond} wrapper script, then
+When the file is processed by the @code{lilypond} wrapper script
 the title and composer specified are printed above the music. The
-`tagline' is a short line printed at bottom of the last page, which
+`tagline' is a short line printed at bottom of the last page which
 normally says ``Engraved by LilyPond, version @dots{}''. In the
-example above, it is replaced by the line ``small is
+example above it is replaced by the line ``small is
 beautiful.''@footnote{Nicely printed parts are good PR for us, so do
 us a favor, and leave the tagline if you can.}
 
 Normally, the @code{\header} is put at the top of the file. However,
 for a document that contains multiple pieces (e.g. an etude book, or
-an orchestral part with multiple movements), then the header can be
-put into the @code{\score} block as follows; in this case, the name of
+an orchestral part with multiple movements), the header can be
+put in the @code{\score} block as follows; in this case, the name of
 each piece will be printed before each movement:
 
 
@@ -1308,7 +1308,7 @@ More information on titling can be found in @ref{Invoking lilypond}.
 @cindex multiple voices
 @cindex voices, more -- on a staff
 
-When different melodic lines are combined on a single staff, these are
+When different melodic lines are combined on a single staff they are
 printed as polyphonic voices: each voice has its own stems, slurs and
 beams, and the top voice has the stems up, while the bottom voice has
 them down.
@@ -1365,7 +1365,7 @@ in @ref{Polyphony}.
 @cindex @code{\translator}
 
 Piano music is always typeset in two staves connected by a brace.
-Printing such a staff is done similar to the polyphonic example in
+Printing such a staff is similar to the polyphonic example in
 @ref{Combining music into compound expressions}:
 @example
  << \new Staff @{ @dots{} @}
@@ -1394,9 +1394,9 @@ More information on formatting piano music is in @ref{Piano music}.
 @node Setting variables
 @section Setting variables
 
-When the music is converted from notes to print, it is interpreted
-from left-to-right order, similar to what happens when we read
-music. During this step, context-sensitive information, such as the
+When the music is converted from notes to print it is interpreted
+in left-to-right order. This is similar to what happens when we read
+music. During this step context-sensitive information such as the
 accidentals to print, and where barlines must be placed, are stored in
 variables. These variables are called @emph{context properties}.
 The properties can also be manipulated from input files. Consider this input:
@@ -1464,7 +1464,7 @@ list of symbols:
 
 @end itemize
 
-There are many different properties, and not all of them are listed in
+There are many different properties.  Not all of them are listed in
 this manual. However, the program reference lists them all in the
 section @internalsref{Context-properties}, and most properties are
 demonstrated in one of the
@@ -1499,9 +1499,11 @@ symbol) is set to 3 in the @code{Stem} layout objects of the current
 As a result, the notes following @code{\override} have thicker
 stems.
 
-In most cases of manual overrides, only a single object must be
-changed. This can be achieved by prefixing @code{\once} to the
-@code{\override} statement, i.e.
+For the most part, a manual override is needed only on a case by
+case basis and not for all subsequent instances of the altered
+property. To accomplish this, simply prefix @code{\once} to the
+@code{\override} statement and the override will apply only once,
+immediately reverting to its default setting, i.e.
 
 @example
  \once \override Stem #'thickness = #3.0
@@ -1534,7 +1536,7 @@ used to apply generic tweaks.  We mention a couple of these:
 has a pair of numbers as value, moves around objects in the printout.
 The first number controls left-right movement; a positive number will
 move the object to the right.  The second number controls up-down
-movement; a positive number will move it higher.  The unit of these
+movement; a positive number will move it higher.  The units of these
 offsets are staff-spaces.  The @code{extra-offset} property is a
 low-level feature: the formatting engine is completely oblivious to
 these offsets.
@@ -1553,16 +1555,16 @@ f-5
 @end lilypond
 
 @item
-Setting the @code{transparent} property will make an object be printed
+Setting the @code{transparent} property will cause an object to be printed
 in `invisible ink': the object is not printed, but all its other
-behavior is retained. The object still takes space, it takes part in
-collisions, and slurs, ties and beams can be attached to it.
+behavior is retained. The object still takes up space, it takes part in
+collisions, and slurs, and ties and beams can be attached to it.
 
 @cindex transparent objects
 @cindex removing objects
 @cindex invisible objects
 The following example demonstrates how to connect different voices
-using ties. Normally ties only happen between notes of the same
+using ties. Normally, ties only connect two notes in the same
 voice. By introducing a tie in a different voice, and blanking a stem
 in that voice, the tie appears to cross voices:
 
@@ -1625,7 +1627,7 @@ seufzer = \notes {
 } }
 @end lilypond
 
-The name of an identifier should have alphabetic characters only, and
+The name of an identifier should have alphabetic characters only;
 no numbers, underscores or dashes. The assignment should be outside of
 the @code{\score} block.
 
@@ -1658,7 +1660,7 @@ technical manual, in @ref{Scheme datatypes}.
 In orchestral music, all notes are printed twice: both in a part for
 the musicians, and in a full score for the conductor. Identifiers can
 be used to avoid double work: the music is entered once, and stored in
-variable. The contents of that variable is then used to generate
+a variable. The contents of that variable is then used to generate
 both the part and the score.
 
 It is convenient  to define the notes in a  special file, for example,
@@ -1700,16 +1702,16 @@ transposition can be seen in the following output:
 
 In ensemble pieces, one of the voices often does not play for many
 measures. This is denoted by a special rest, the multi-measure
-rest. It is entered with a capital R, and followed by a duration (1
+rest. It is entered with a capital R followed by a duration (1
 for a whole note, 2 for a half note, etc.) By multiplying the
-duration, longer rests can be constructed. For example, the next rest
+duration, longer rests can be constructed. For example, this rest
 takes 3 measures in 2/4 time:
 @example
   R2*3
 @end example
 
 When printing the part, the following @code{skipBars} property must be
-set to false, to prevent the rest from being expanded in three one bar
+set to true, to prevent the rest from being expanded to three one bar
 rests:
 @example
   \set Score.skipBars = ##t
@@ -1773,8 +1775,8 @@ If you use HTML, La@TeX{}, or Texinfo, you can mix text and LilyPond
 code.  A script called @code{lilypond-book} will extract the music
 fragments, run LilyPond on them, and put back the resulting notation.
 This program is fully described in @ref{lilypond-book manual}.  Here
-we show a small example. The example contains also explanatory text,
-so we will not comment it further:
+we show a small example. The example also contains explanatory text,
+so we will not comment on it further:
 
 @example
 \documentclass[a4paper]@{article@}
@@ -1795,7 +1797,7 @@ If you have no \verb+\score+ block in the fragment,
   c'4
 \end@{lilypond@}
 
-In the example you see here, two things happened: a
+In the example you see here two things happened: a
 \verb+\score+ block was added, and the line width was set to natural
 length. You can specify  options by putting them in brackets:
 
@@ -1803,7 +1805,7 @@ length. You can specify  options by putting them in brackets:
   c'4 f16
 \end@{lilypond@}
 
-If you want to include large examples into the text, it is more
+If you want to include large examples in the text it is more
 convenient to put it in a separate file:
 
 \lilypondfile@{screech-boink.ly@}
@@ -1836,7 +1838,7 @@ $ ps2pdf lilybook.ps
 
 
 Running lilypond-book and running latex creates a lot of temporary
-files, and you would not want those to clutter up your working
+files.  You would not want those to clutter up your working
 directory.  The @code{outdir} option to lilypond-book creates the
 temporary files in a separate subdirectory @file{out}.
 
@@ -1872,7 +1874,7 @@ length.  You can specify options by putting them in brackets:
   c'4 f16
 @end lilypond
 
-If you want to include large examples into the text, it is more
+If you want to include large examples in the text, it is more
 convenient to put it in a separate file:
 
 @lilypondfile{screech-boink.ly}

@@ -6,6 +6,8 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include <math.h>
+
 #include "warn.hh"
 #include "note-collision.hh"
 #include "note-column.hh"
@@ -237,7 +239,7 @@ check_meshing_chords (Grob *me,
   /* TODO: these numbers are magic; should devise a set of grob props
      to tune this behavior.  */
   else if (stem_to_stem)
-    shift_amount *= -0.65; 
+    shift_amount = -abs (shift_amount) * 0.65; 
   else if (close_half_collide && !touch)
     shift_amount *= 0.52;
   else if (distant_half_collide && !touch)

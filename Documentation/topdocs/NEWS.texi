@@ -261,12 +261,12 @@ octave should be.  In the following example,
 @noindent
 the d will generate a warning, because a d'' is
 expected, but a d' is found.
-@c @code adds ` ' very confusing.
+@c @code adds ` ', very confusing.
 
 @item There is a new mechanism for putting lyrics to melodies.
-With this mechanism, @code{LyricVoice}s can be put melodies
+With this mechanism, @code{Lyrics} lines can be put melodies
 individually, allowing for different melismatic sections in every
-@code{LyricVoice}. See @file{input/regression/lyric-combine-new.ly}.
+@code{Lyrics}. See @file{input/regression/lyric-combine-new.ly}.
 
 @item Bar lines may now be dotted.
 
