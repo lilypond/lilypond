@@ -18,7 +18,6 @@ $(outdir)/%.ps.gz.omf: %.texi
 
 # Generic rule not possible?
 $(outdir)/%/%.html: $(outdir)/%.texi 
-	$(MAKEINFO) -I $(outdir) --output=$@ --html --no-split --no-headers $<
 	$(MAKEINFO) --output=$@ --html $<
 
 

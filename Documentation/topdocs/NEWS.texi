@@ -184,41 +184,60 @@ The manual has been completely revised and extended.
 @chapter New features in 1.6 since 1.4
 
 
+@itemize @bullet
 
+@item
 Support for figured bass and tablature.
 
+@item
 Completely rewritten beam formatting: provides much better output
 now.
 
+
+@item
 Completely revised and improved music font.
 
+
+@item
 Completely rewritten MIDI import support.
 
+@item
 Completely rewritten grace note support. Practically speaking this
 means that grace notes can be slurred to normal normal notes.
 
+
+@item
 Improved accidental handling and formatting: styles for producing
 cautionaries may vary, and complex collisions between accidentals of a
 chord are handled much better.
 
+@item
 Better spacing: both globally and locally. This includes subtle
 details like optical stem spacing.
 
+@item
 More support for ancient notation: mensural ligatures, ambitus
 (pitch range) of voices, more shapes, etc.
 
+@item
 More support for piano notation: bracket pedals, directed arpeggios,
 arpeggio brackets.
 
+@item
 Easier music polyphonic music entry.
 
+@item
 More extensibility, many speedups and bugfixes
 
+@item
 The manual has been thoroughly revised.
 
+@item
 Development is now hosted at http://savannah.gnu.org, and sources
 can be downloaded through anonymous CVS.
 
+@item
 Support for windows: LilyPond is part of the cygwin distribution,
 which comes with a user-friendly installer.
 
+@end itemize
