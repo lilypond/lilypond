@@ -23,6 +23,10 @@ Rod::Rod ()
 void
 Rod::columnize ()
 {
+  if (!item_l_drul_[LEFT]
+      || !item_l_drul_[RIGHT])
+    return ;
+  
   Direction d = LEFT;
   do {
     Paper_column * pc = item_l_drul_[d]->get_column ();
@@ -36,9 +40,10 @@ void
 Rod::add_to_cols ()
 {
   columnize ();
-  if (item_l_drul_[LEFT] != item_l_drul_[RIGHT])
+  if (item_l_drul_[LEFT] != item_l_drul_[RIGHT]
+      && item_l_drul_[LEFT] && item_l_drul_[RIGHT])
     Spaceable_grob::add_rod (item_l_drul_[LEFT],
-				item_l_drul_[RIGHT],
-				distance_);
+			     item_l_drul_[RIGHT],
+			     distance_);
 }
 

@@ -215,55 +215,6 @@ Script_engraver::stop_translation_timestep ()
 				     ::quantised_position_proc, Y_AXIS);
 	    sc->set_property ("staff-padding", SCM_EOL);
 	  }
-	
-	/* Simplistic slur collision handling.  This fixes simple collisions
-	   like
-	   
-	   a_\upbow( b)
-	   
-	   but it most probably breaks for more interesting cases.
-	   Maybe make a new colission engraver.
-
-	   
-	   Assume that a SCRIPT that should collide with SLUR does not
-	   have a negative priority. */
-	SCM priority = sc->get_property ("script-priority");
-
-#if 0
-	// this segfaults...
-	int rank = Paper_column::get_rank (sc);
-#endif
-	
-	int rank = -1;
-#if 1
-	// this always yields -1
-	if (Item *i = dynamic_cast<Item*> (sc))
-	  if (i->get_column ())
-	    rank = i->get_column ()->rank_;
-#else
-	// this always yields -1
-	for (Grob *p = sc; p && rank < 0; p = p->get_parent (Y_AXIS))
-	  {
-	    if (Item *i = dynamic_cast<Item*> (p))
-	      if (i->get_column ())
-		rank = i->get_column ()->rank_;
-	  }
-#endif
-
-	if (robust_scm2int (priority, 0) >= 0
-	    && slur_
-	    && get_grob_direction (sc) == get_slur_dir (slur_)
-	    && (slur_->spanned_rank_iv ().contains (rank)
-		/* I'm a bit out of ideas about and time to search for
-		   how to get our rank.  Sue me.  */
-		|| rank == -1))
-	  {
-	    Real ss = Staff_symbol_referencer::staff_space (sc);
-	    Real pad = robust_scm2double (sc->get_property ("padding"), 0);
-
-	    /* FIXME: 1ss padding hardcoded */
-	    sc->set_property ("padding", scm_make_real (pad + ss));
-	  }
       }
   scripts_.clear ();
 }

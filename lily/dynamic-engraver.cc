@@ -313,27 +313,6 @@ Dynamic_engraver::finalize ()
 void
 Dynamic_engraver::typeset_all ()
 {
-  /* Simplistic slur collision handling.  This fixes simple collisions
-     like
-     
-         a\p( b)
-
-     which are unacceptable, but it most probably breaks for more
-     interesting cases.  Maybe make a new colission engraver.  */
-  if (finished_line_spanner_
-      && slur_
-      && get_slur_dir (slur_) == get_grob_direction (finished_line_spanner_)
-      && !intersection (slur_->spanned_rank_iv (),
-			finished_line_spanner_->spanned_rank_iv ()).is_empty ())
-    {
-      Real ss = Staff_symbol_referencer::staff_space (finished_line_spanner_);
-      Real pad = robust_scm2double (finished_line_spanner_
-				    ->get_property ("padding"), 0);
-      /* FIXME: 1ss padding hardcoded */
-      finished_line_spanner_->set_property ("padding",
-					    scm_make_real (pad + ss));
-    }
-
   if (finished_cresc_)
     {
       if (!finished_cresc_->get_bound (RIGHT))
