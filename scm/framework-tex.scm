@@ -13,6 +13,7 @@
 	     (ice-9 format)
 	     (guile)
 	     (srfi srfi-13)
+	     (srfi srfi-1)
 	     (lily))
 
 ;; FIXME: rename
@@ -239,7 +240,11 @@
 (define-public (output-preview-framework
 		outputter book scopes fields basename )
   (let* ((paper (ly:paper-book-paper book))
-	 (lines (ly:paper-book-systems book)))
+	 (lines (ly:paper-book-systems book))
+	 (first-notes-index (list-index
+			     (lambda (s) (not (ly:paper-system-title? s)))
+			     lines)))
+
     (for-each
      (lambda (x)
        (ly:outputter-dump-string outputter x))
@@ -251,7 +256,10 @@
       (define-fonts paper)
       (header-end)))
 
-    (dump-line outputter (car lines) #t)
+    (for-each
+     (lambda (l)
+       (dump-line outputter l (not (ly:paper-system-title? l))))
+     (take lines (1+ first-notes-index)))
     (ly:outputter-dump-string outputter "\\lilypondend\n")))
 
 (define-public (convert-to-pdf book name)
