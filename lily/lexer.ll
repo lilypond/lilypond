@@ -740,8 +740,8 @@ strip_trailing_white (String&s)
 
 
 
-/* 1.9.0 == postfix articulations */ 
-Lilypond_version oldest_version ("1.9.0");
+/* 2.1.2x something -> \property -> \set. */ 
+Lilypond_version oldest_version ("2.1.25");
 
 
 bool

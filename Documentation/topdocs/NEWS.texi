@@ -5,7 +5,7 @@
 @node Top, , , 
 @top
 
-@unnumbered New features in 2.1 since 2.0
+@unnumbered New features in 2.2 since 2.0
 
 @itemize @bullet
 
@@ -346,13 +346,16 @@ attached to the lyric syllable.
 
 @item
 When redefining a context, the associated identifier is also
-updated. For example, after reading the following snippet,
+updated. For example, after reading 
+
 @example
  \translator @{
         \ScoreContext
         autoBeaming = ##f
  @}
 @end example
+
+@noindent
 the definition of @code{ScoreContext} is updated to include the changed
 setting.
 
