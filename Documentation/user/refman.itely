@@ -108,12 +108,11 @@ The verbose syntax for pitch specification is
 
 where @var{scmpitch} is a pitch scheme object.
 
-In Note and Chord mode, pitches may be designated by names.  The default
-names are the Dutch note names.  The notes are specified by the letters
-@code{a} through @code{g}, while the octave is formed with notes ranging
-from @code{c} to @code{b}.  The pitch @code{c} is an octave below
-middle C and the letters span the octave above that C.  Here's an example
-which should make things more clear:
+In Note and Chord mode, pitches may be designated by names.  The
+default names are the Dutch note names.  The notes are specified by
+the letters @code{a} through @code{g}, while the octave is formed with
+notes ranging from @code{c} to @code{b}.  The pitch @code{c} is an
+octave below middle C and the letters span the octave above that C.
 
 @lilypond[fragment,verbatim]
 \clef bass
@@ -123,15 +122,15 @@ which should make things more clear:
 @cindex note names, Dutch
 
 In Dutch, a sharp is formed by adding @code{-is} to the end of a pitch
-name and a flat is formed by adding @code{-es}.  Double sharps and double
-flats are obtained by adding @code{-isis} or @code{-eses}.  @code{aes}
-and @code{ees} are contracted to @code{as} and @code{es} in Dutch, but
-both forms are accepted.
+name and a flat is formed by adding @code{-es}.  Double sharps and
+double flats are obtained by adding @code{-isis} or @code{-eses}.
+@code{aes} is contracted to @code{as} in Dutch, but both forms are
+accepted. Similarly, both @code{es} and @code{ees} are accepted.
 
-LilyPond has predefined sets of note names for various other languages.
-To use them, simply include the language specific init file.  For
-example: @code{\include "english.ly"}.  The available language files and
-the note names they define are:
+There are predefined sets of note names for various other languages.
+To use them,  include the language specific init file.  For
+example: @code{\include "english.ly"}.  The available language files
+and the note names they define are:
 
 @anchor{note name}
 @anchor{note names}
@@ -189,7 +188,7 @@ ways. For more information, refer to @ref{Accidentals}.
 @subsection Rests
 @cindex Rests
 
-Rests are entered like notes, with a ``note name'' of `@code{r}':
+Rests are entered like notes, with the note name @code{r}.
 
 @lilypond[singleline,verbatim]
 r1 r2 r4 r8
@@ -223,21 +222,7 @@ with note name `@code{s}' or with @code{\skip @var{duration}}:
 a2 s4 a4 \skip 1 a4 
 @end lilypond
 
-@c FIXME: in Lyrics mode, we have " " and _
-
-In Lyrics mode, you can make invisible syllables by entering `@code{" "}' 
-or `@code{_}':
-@lilypond[singleline,verbatim,quote]
-<
-  \context Lyrics \lyrics { lah2 di4 " " dah2 _4 di }
-  \notes\relative c'' { a2 a4 a a2 a4 a }
->
-@end lilypond
-In this case, syllables containing a space will be printed. In the
-case that you really need an invisible space (i.e. something taking up
-time, but not space), you should use @code{\skip}.
-
-Note that the @code{s} syntax is only available in Note mode and Chord
+ The @code{s} syntax is only available in Note mode and Chord
 mode.  In other situations, you should use the @code{\skip} command,
 which will work outside of those two modes:
 
@@ -301,9 +286,9 @@ r1 r2 r4 r8 r16 r32 r64 r64
 
 
 If the duration is omitted then it is set to the previously entered
-duration.  At the start of parsing, a quarter note is assumed.  The
-duration can be followed by dots (`@code{.}') in order to obtain dotted
-note lengths:
+duration. Default for the first note is a quarter note.  The duration
+can be followed by dots (`@code{.}') in order to obtain dotted note
+lengths:
 @cindex @code{.}
 
 @lilypond[fragment,verbatim,center]
@@ -353,6 +338,8 @@ musical phrasing.  A tie is entered using the tilde symbol `@code{~}'.
 When a tie is applied to a chord, all note heads (whose pitches match) are
 connected.  If you try to tie together chords that have no common pitches,
 no ties will be created.
+
+[TODO: seealso]
 
 If you want less ties created for a chord, you can set
 @code{Voice.sparseTies} to true.  In this case, a single tie is used
@@ -483,12 +470,13 @@ Hal-Leonard Inc. music publishers.
 }
 @end lilypond
 
-Note that @code{EasyNotation} overrides a @internalsref{Score} context.  You
-probably will want to print it with magnification or a large font size to
-make it more readable.  To print with magnification, you must create a dvi
-(with @file{ly2dvi}) and then enlarge it with something like @file{dvips -x
-2000 file.dvi}.  See @file{man dvips} for details.  To print with a larger
-font, see @ref{Font Size}.
+The @code{EasyNotation} identifier overrides a @internalsref{Score}
+context.  You probably will want to print it with magnification or a
+large font size to make it more readable.  To print with
+magnification, you must create a dvi (with @file{ly2dvi}) and then
+enlarge it with something like @file{dvips -x 2000 file.dvi}.  See
+@file{man dvips} for details.  To print with a larger font, see
+@ref{Font Size}.
 
 
 @cindex Xdvi
@@ -679,7 +667,7 @@ To use it, you need the following software
 @item Xdvi, version 22.36 or newer.  Available from
 @uref{ftp://ftp.math.berkeley.edu/pub/Software/TeX/xdvi.tar.gz,ftp.math.berkeley.edu}.
 
-  Note that most @TeX{} distributions ship with xdvik, which is always
+   Most @TeX{} distributions ship with xdvik, which is always
   a few versions behind the official Xdvi. To find out which xdvi you
   are running, try @code{xdvi -version} or @code{xdvi.bin -version}.
 @item KDVI.  A dvi viewer for KDE.  You need KDVI from KDE 3.0 or
@@ -934,7 +922,7 @@ G clef on 2nd line
 @end table
 
 By adding @code{_8} or @code{^8} to the clef name, the clef is
-transposed one octave down or up, respectively.  Note that you have to
+transposed one octave down or up, respectively.   You have to
 enclose @var{clefname} in quotes if you use underscores or digits in the
 name. For example,
 @example
@@ -1765,9 +1753,8 @@ A @code{\slurUp} will have no effect on a phrasing slur; instead, you
 should use @code{\phrasingSlurUp}, @code{\phrasingSlurDown}, and
 @code{\phrasingSlurBoth}.
 
-Note that the commands
-@code{\slurUp}, @code{\slurDown}, and @code{\slurBoth} will only affect
-normal slurs and not phrasing slurs.
+The commands @code{\slurUp}, @code{\slurDown}, and @code{\slurBoth}
+will only affect normal slurs and not phrasing slurs.
 
 @node Breath marks
 @subsection Breath marks
@@ -2251,8 +2238,8 @@ note: @code{c4-\ff}.  The available dynamic marks are: @code{\ppp},
 @code{\sp}, @code{\spp}, @code{\sfz}, and @code{\rfz}.
 
 @lilypond[verbatim,singleline,fragment,relative]
-  c'\ppp c\pp c \p c\mp c\mf c\f c\ff c\fff
-  c2\sf c\rfz
+  c'-\ppp c-\pp c -\p c-\mp c-\mf c-\f c-\ff c-\fff
+  c2-\sf c-\rfz
 @end lilypond
 
 @cindex @code{\cr}
@@ -2264,22 +2251,21 @@ note: @code{c4-\ff}.  The available dynamic marks are: @code{\ppp},
 @cindex @code{\"!}
 
 
+
 A crescendo mark is started with @code{\cr} and terminated with
-@code{\rc} (the textual reverse of @code{cr}).  A decrescendo mark is
-started with @code{\decr} and terminated with @code{\rced}.  There are
-also shorthands for these marks.  A crescendo can be started with
-@code{\<} and a decrescendo can be started with @code{\>}.  Either one
-can be terminated with @code{\!}.  Note that @code{\!}  must go before
-the last note of the dynamic mark whereas @code{\rc} and @code{\rced} go
-after the last note.  Because these marks are bound to notes, if you
-want several marks during one note, you have to use spacer notes.
+@code{\endcr}, and decrescendi similarly with @code{\decr} and
+@code{\enddecr}.  There are also shorthands for these marks.  A
+crescendo can be started with @code{\<} and a decrescendo can be
+started with @code{\>}.  Either one can be terminated with @code{\!}.
+Because these marks are bound to notes, if you must use spacer notes
+if marks during one note are needed.
 
 @lilypond[fragment,verbatim,center,quote]
-  c'' \< \! c''   d'' \decr e'' \rced 
-  < f''1 { s4 s4 \< \! s4 \> \! s4 } >
+  c''-\< c''-\!   d''-\decr e''-\rced 
+  < f''1 { s4 s4-\< s4-\! \>  s4-\! } >
 @end lilypond
 This may give rise to very short hairpins. Use @code{minimum-length}
-in Voice.HairPin to lengthen these, e.g.
+in @internalsref{Voice}.@internalsref{HairPin} to lengthen these, e.g.
 
 @example
  \property Staff.Hairpin \override #'minimum-length = #5
@@ -2301,7 +2287,7 @@ You can also supply your own texts:
   \context Voice {
     \property Voice.crescendoText = "cresc. poco"
     \property Voice.crescendoSpanner = #'dashed-line
-    a'2\mf\< a a \!a 
+    a'2-\mf-\< a a a-\!
   }
 @end lilypond
 
@@ -3933,13 +3919,18 @@ The object for this object is @internalsref{MultiMeasureRest},
 It is not possible to use fingerings (e.g. @code{R1-4}) to put numbers
 over multi-measure rests.
 
-
 @cindex condensing rests
 
-Currently, there is no way to automatically condense multiple rests
+ There is no way to automatically condense multiple rests
 into a single multimeasure rest. Multi measure rests do not take part
 in rest collisions.
 
+Be careful when entering multimeasure rests followed by whole notes,
+@example
+ R1*4 cis cis 
+@end example
+will enter two notes lasting four measures each. The result will look
+ok, but the bar numbering will be off.
 
 @node Automatic part combining
 @subsection Automatic part combining

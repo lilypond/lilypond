@@ -253,7 +253,7 @@ You will see the following on your screen:
 
 @quotation
 @example
-GNU LilyPond 1.6.0
+GNU LilyPond 1.7.16
 Now processing: `/home/fred/ly/test.ly'
 Parsing...
 Interpreting music...[1]
@@ -1814,15 +1814,10 @@ The code for the untuned example shows us some new things.
 @cindex loudness
 @cindex forte
 @cindex crescendo
-@cindex @code{\<}
-@cindex @code{\!}
 
-Hairpin dynamics can be easily added to Lilypond scores.  A crescendo
-is started with @code{\<} and ended with @code{\!}.  A decrescendo is
-started with @code{\>} and ended with @code{\!}.  Absolute dynamics
-can be entered using @code{\p}, @code{\mf}, etc.
 
 @cindex fingering instructions
+[TODO: moveme]
 
 Fingering indications are entered with @code{-@var{N}}, where
 @var{N} is a digit.
@@ -1869,18 +1864,19 @@ This command fixes one particular problem with a slur. The rest of
 this section explains how to figure out which properties to tune for
 your own scores. To discover this, you must have a copy of the
 internals document. This is a set of HTML pages which should be
-included if you installed a binary distribution.  These HTML pages are
-also available on the web: go to the lilypond website, click
-``Documentation: Index'' on the side bar, look in the ``Information
-for uses'' section, and click on ``Documentation of internals''.
+included if you installed a binary distribution.  [TODO: revise for
+new site.]  These HTML pages are also available on the web: go to the
+lilypond website, click ``Documentation: Index'' on the side bar, look
+in the ``Information for uses'' section, and click on ``Documentation
+of internals''.
 
 You might want to bookmark either the HTML files on your disk, or the
 one on the web (the HTML on your hard drive will load much faster than
 the ones on the web!).  One word of caution: the internals
 documentation is generated from the definitions that the program uses.
 Hence, the internals documentation is strongly tied to the version you
-use.  Before you proceed, make sure that the versions of program and
-documentation match.
+use.  Before you proceed, make sure that the program and documentation
+have matching version numbers.
 
 @c  TODO: the quote is incorrect, although that shouldn't be a big
 @c    problem for the reader.
@@ -1950,7 +1946,7 @@ For shifting the fingering, we use the property @code{extra-offset}.
 The following command manually adds an offset to the object.  We move
 it a little to the left, and 1.8 staff space downwards.
 @example
- \property Voice.Fingering \set #'extra-offset = #'(-0.3 . -1.8) 
+ \once \property Voice.Fingering \set #'extra-offset = #'(-0.3 . -1.8) 
 @end example   
 The @code{extra-offset} is a low-level feature: it moves around
 objects in the printout; the formatting engine is completely oblivious
@@ -1958,15 +1954,8 @@ to these offsets.  The unit of these offsets are staff-spaces.  The
 first number controls left-right movement; a positive number will move
 the object to the right.  The second number controls up-down movement;
 a positive number will move it higher.
-
-@cindex reverting object properties
-@cindex undoing object properties
-
-We only want to offset a single object, so after the F-sharp we must
-undo the setting. The technical term is to revert the property.
-@example
-  \property Voice.Fingering \revert #'extra-offset
-@end example
+We only want to offset a single object, so this statement is adorned
+with @code{\once}.
 
 @cindex property types
 @cindex translator properties
@@ -1993,9 +1982,9 @@ text pushes the fingering instruction away:
 @end example
 
 A fingering instruction, which would be entered as @code{^5}, is put
-as close to the notes as possible, closer than the space entered to 
-push away the 5. Hence, the 5 is entered as a normal text, formatting
-of fingering instructions.  
+as close to the notes as possible, closer than the space entered to
+push away the 5. Hence, the 5 is entered as a normal text, with the
+formatting of fingering instructions.
  
 @separate
 
@@ -2009,16 +1998,17 @@ forced by using the precooked command
   \dynamicsUp
 @end example
 
-However, if you do that the decrescendo will be too close to the
-upper voice and collide with the stems.  Looking at the manual for
-dynamics, we notice that ``Vertical positioning of these symbols is
-handled by the @internalsref{DynamicLineSpanner} grob.''.  If we turn
-to the documentation of @code{DynamicLineSpanner}, we find that
-@code{DynamicLineSpanner} supports several so-called `interfaces'.  This
-object not only puts dynamic objects next to the staff
+However, if you do that the decrescendo will be too close to the upper
+voice and collide with the stems.  Looking at the manual for dynamics,
+we notice that ``Vertical positioning of these symbols is handled by
+the @internalsref{DynamicLineSpanner} grob.''.  If we turn to the
+documentation of @code{DynamicLineSpanner}, we find that
+@code{DynamicLineSpanner} supports several so-called `interfaces'.
+This object not only puts objects next to the staff
 (@code{side-position-interface}), but it also groups dynamic objects
-(@code{axis-group-interface}), is considered a dynamic sign
-itself (@code{dynamic-interface}), and is an object.  It has the standard
+(@code{axis-group-interface}), is considered a dynamic sign itself
+(@code{dynamic-interface}), and is an spanning object
+(@code{spanner-interface}).  It also has the standard
 @code{grob-interface} with all the variables that come with it.
 
 For the moment we are interested in side positioning:
@@ -2029,22 +2019,22 @@ For the moment we are interested in side positioning:
   support).  In this case, the direction signifies where to put the
   victim object relative to the support (left or right, up or down?)
 @end quotation
-Between the object and its support (in this case the notes in the voice
-going down), there should be more space.  This space is controlled by
+Between the object and its support (in this case, the descending
+notes), there should be more space.  This space is controlled by
 @code{padding}, so we increase it.
 @example
-\property Voice.DynamicLineSpanner \override #'padding = #5.0
+ \property Voice.DynamicLineSpanner \override #'padding = #5.0
 @end example
 
-This command is almost like the command for setting slur attachments,
-but subtly different in its details.  Grob properties can be
-manipulated with two commands: @code{\override} extends the 
-variables with a setting, and @code{\revert} releases this
-setting.  This has a certain theoretical appeal: the operations are
-simple and symmetric.  But for practical use, it can be cumbersome.  The
-commands act like parentheses: you should carefully balance the use of
-@code{\override} and @code{\revert}.  The @code{\set} command is more
-friendly: it first does a @code{\revert} followed by @code{\override}.
+This command resembles the one for setting slur attachments, but
+subtly differs in its details.  Grob properties can be manipulated
+with two commands: @code{\override} extends the definition of a grob
+with one setting, and @code{\revert} releases this setting.  This has
+a theoretical appeal: the operations are simple and symmetric.  For
+practical use, it can be cumbersome.  The commands act like
+parentheses: you should carefully balance the use of @code{\override}
+and @code{\revert}.  The @code{\set} command is more friendly: it
+first does a @code{\revert} followed by @code{\override}.
 
 @separate
 
@@ -2095,20 +2085,19 @@ in LilyPond.  When typesetting a piece for several instruments, you'll
 want to create a full score (for the conductor) along with several
 individual parts (for the players).
 
-LilyPond is well suited for this task.  We will declare the music for
-each instrument individually, giving the music of each instrument its
-own name.  These pieces of music are then combined in different
-@code{\score} blocks to produce different combinations of instruments
-(for example, one @code{\score} block may only include the cello part;
-another @code{\score} block may be for all the strings, and yet another
-@code{\score} block may be for all parts together).
+  We will declare the music for each instrument individually, giving
+the music of each instrument its own name.  These pieces of music are
+then combined in different @code{\score} blocks to produce different
+combinations of instruments (for example, one @code{\score} block may
+only include the cello part; another @code{\score} block may be for
+all the strings, and yet another @code{\score} block may be for all
+parts together).
 
 This orchestral score example consists of three input files.  In the
 first file, @file{os-music.ly}, we define the music for all
-instruments.  This file will be used for producing the score and
-the separate parts, but the file does not produce any sheet music
-itself.  Other files reference this file by doing @code{\include
-"os-music.ly"}.
+instruments.  This file will be used for producing the score and the
+separate parts, but the file does not produce any sheet music itself.
+Other files reference it by stating @code{\include "os-music.ly"}.
 
 @example
 % os-music.ly
@@ -2159,20 +2148,20 @@ global = @{
 @}
 @end example
 
-Declare setting to be used globally.  The @code{\skip} command produces
-no output, but moves forward in time: in this case, the duration of a
-half note (@code{2}), and that four times (@code{*4}).  This brings us
-to the end of the piece, and we can set the end bar.  You can use @code{s}
-as a shortcut for @code{\skip} (the last line of this section would
-be @code{s2*4 \bar"|."}).
+This declares settings to be used globally.  The @code{\skip} command
+produces no output, but moves forward in time: in this case, the
+duration of a half note (@code{2}), and that four times (@code{*4}).
+This brings us to the end of the piece, and we can set the end bar.
+You can use @code{s} as a shortcut for @code{\skip} (the last line of
+this section would be @code{s2*4 \bar"|."}).
 
 @separate
 @example
 Key = \notes \key as \major
 @end example
-Declare the key signature of the piece and assign it to the identifier
-@var{Key}.  Later on we will use @code{\Key} for all staves except those
-for transposing instruments.
+This declares the key signature of the piece and assign it to the
+identifier @var{Key}.  Later on we will use @code{\Key} for all staves
+except those for transposing instruments.
 
 @node The full score
 @subsection The full score
@@ -2188,7 +2177,6 @@ defines the @code{\score} block for the full conductor's score.
 \include "os-music.ly"
 \include "paper13.ly"
 
-#(ly:set-point-and-click 'line-column)
 textFlat = \markup @{\smaller \musicglyph #"accidentals--1"@}
 \score @{
   <
@@ -2274,6 +2262,10 @@ Opus 1.
 First we need to include the music definitions we made in
 @file{os-music.ly}.
 
+@ignore
+
+[TODO: mention in a more relevant place]
+  
 @separate
 @example
 #(ly:set-point-and-click 'line-column)
@@ -2288,6 +2280,7 @@ music on the screen.  The point-and-click mechanism makes it easy to
 find the origin of an error in the LY file: when you view the file with
 Xdvi and click on a note, your editor will jump to the spot where that
 note was entered.  For more information, see @ref{Point and click}.
+@end ignore
 
 
 @separate
@@ -2560,13 +2553,12 @@ the LilyPond manual).  You can make such texts by hand, simply by
 importing a PostScript figure into your word processor.  However,
 there is an automated procedure to reduce the amount of work.
 
-If you use HTML, La@TeX{}, or texinfo, you can mix text and LilyPond
+If you use HTML, La@TeX{}, or Texinfo, you can mix text and LilyPond
 code.  A script called @code{lilypond-book} will extract the music
-fragments, run LilyPond on them, and put back the resulting
-notation.  This program is fully described in the chapter
-@ref{Integrating text and music with lilypond-book}.  Here we show a
-small example.  Since the example also contains explanatory text, we
-will not comment on the contents.
+fragments, run LilyPond on them, and put back the resulting notation.
+This program is fully described in @ref{Integrating text and music
+with lilypond-book}.  Here we show a small example.  Since the example
+also contains explanatory text, we will not comment it further.
 
 @example
 \documentclass[a4paper]@{article@}
@@ -2579,6 +2571,7 @@ example:
      c2 g'2 \times 2/3 @{ f8 e d @} c'2 g4
   @} @}
 \end@{lilypond@}
+
 Notice that the music line length matches the margin settings of the
 document.
 
@@ -2599,13 +2592,11 @@ in brackets:
   c'4 f bes es
 \end@{lilypond@}
 
-\texttt@{verbatim@} prints the LilyPond code in addition to the
-graphical score,
-\texttt@{11pt@} selects the default music size,
-\texttt@{fragment@} adds a score block,
-\texttt@{relative@} uses relative mode for the fragment, and
-\texttt@{intertext@} specifies what to print between the
-\texttt@{verbatim@} code and the music.
+The option \texttt@{verbatim@} prints the LilyPond code in addition to
+the graphical score, \texttt@{11pt@} selects the default music size,
+\texttt@{fragment@} adds a score block, \texttt@{relative@} uses
+relative mode for the fragment, and \texttt@{intertext@} specifies
+what to print between the \texttt@{verbatim@} code and the music.
 
 If you want to include large examples into the text, it may be more
 convenient to put the example in a separate file:
@@ -2622,7 +2613,7 @@ Under Unix, you can view the results as follows.
 $ cd input/tutorial
 $ mkdir -p out/
 $ lilypond-book --outdir=out/ lilbook.tex
-lilypond-book (GNU LilyPond) 1.6.1
+lilypond-book (GNU LilyPond) 1.7.16
 Reading `input/tutorial/lilbook.tex'
 Reading `input/tutorial/sammartini.ly'
 @var{lots of stuff deleted}
@@ -2654,6 +2645,7 @@ example:
   }
 }
 @end lilypond
+
 Notice that the music line length matches the margin settings of the
 document.
 
@@ -2674,7 +2666,7 @@ in brackets:
   c'4 f bes es
 @end lilypond
 
-@code{verbatim} also shows the LilyPond code, @code{11pt} selects
+The option @code{verbatim} also shows the LilyPond code, @code{11pt} selects
 the default music size, @code{fragment} adds a score block,
 @code{relative} uses relative mode for the fragment, and
 @code{intertext} specifies what to print between the
@@ -2686,24 +2678,5 @@ to put the example in a separate file:
 @lilypondfile[printfilename]{sammartini.ly}
 
 The @code{printfilename} option adds the file name to the output.
-@node  End of tutorial
-@section End of tutorial
-         
-This is the end of the tutorial.  If you read everything until this point
-(and understood everything!) then you are now an accomplished lilypond
-hacker.  From here you should try fiddling with input files or making your
-own input files.  Come back to the reference manual for more information
-if you get stuck!
 
-Do not forget to check out the 
-@ifhtml
-@uref{../../../../input/template/out-www/template.html,templates},
-@uref{../../../../input/test/out-www/test.html,examples} and 
-@uref{../../../../input/regression/out-www/regression.html,feature tests}.
-@end ifhtml
-@ifnothtml
-templates, examples and feature tests.
-@end ifnothtml
-If you want to see real action LilyPond, head over to
-@uref{http://www.mutopiaproject.org}, which has many examples of
-classical music typeset with LilyPond.
+[TODO: include excercises? ]

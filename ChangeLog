@@ -1,5 +1,9 @@
 2003-04-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/user/*.itely: various updates.
+
+	* ly/spanners-init.ly: enddecr/ endcr.
+
 	* Documentation/user/tutorial.itely (Fine tuning a piece): editing
 	of tutorial
 

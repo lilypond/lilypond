@@ -358,5 +358,23 @@ facility.
 @cindex overview of manual
 @cindex idiom
 
+[TODO: edit following]
 
+This is the end of the tutorial.  If you read everything until this point
+(and understood everything!) then you are now an accomplished lilypond
+hacker.  From here you should try fiddling with input files or making your
+own input files.  Come back to the reference manual for more information
+if you get stuck!
 
+Do not forget to check out the 
+@ifhtml
+@uref{../../../../input/template/out-www/template.html,templates},
+@uref{../../../../input/test/out-www/test.html,examples} and 
+@uref{../../../../input/regression/out-www/regression.html,feature tests}.
+@end ifhtml
+@ifnothtml
+templates, examples and feature tests.
+@end ifnothtml
+If you want to see real action LilyPond, head over to
+@uref{http://www.mutopiaproject.org}, which has many examples of
+classical music typeset with LilyPond.

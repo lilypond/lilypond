@@ -9,9 +9,13 @@ groupClose = #(make-span-event 'NoteGroupingEvent STOP)
 
 
 cr = #(make-span-event 'CrescendoEvent START)
-rc = #(make-span-event 'CrescendoEvent STOP)
 decr = #(make-span-event 'DecrescendoEvent START)
-rced = #(make-span-event 'DecrescendoEvent STOP)
+enddecr = #(make-span-event 'DecrescendoEvent STOP)
+endcr = #(make-span-event 'CrescendoEvent STOP) 
+
+%% TODO: remove for 2.0
+rc = \endcr
+rced = \enddecr
 
 startTextSpan = #(make-span-event 'TextSpanEvent START)
 stopTextSpan = #(make-span-event 'TextSpanEvent STOP)
