@@ -144,7 +144,8 @@ Slur_bezier_bow::area_x_gradients_array (Real area)
   algorithm, instead of this homebrew.
 */
 void
-Slur_bezier_bow::minimise_enclosed_area (Paper_def* paper_l, Real beauty)
+Slur_bezier_bow::minimise_enclosed_area (Paper_def* paper_l, Real beauty,
+					 SCM bezier_props)
 {
   Real length = curve_.control_[3][X_AXIS]; 
   Real beautiful = beauty * length * slur_height (length, h_inf_, r_0_);
@@ -153,11 +154,11 @@ Slur_bezier_bow::minimise_enclosed_area (Paper_def* paper_l, Real beauty)
   if (fit_factor () > 1.0)
     blow_fit ();
   
-  Real pct_c0 = paper_l->get_var ("bezier_pct_c0");
-  Real pct_c3 = paper_l->get_var ("bezier_pct_c3");
-  Real pct_in_max = paper_l->get_var ("bezier_pct_in_max");
-  Real pct_out_max = paper_l->get_var ("bezier_pct_out_max");
-  Real steps = paper_l->get_var ("bezier_area_steps");
+  Real pct_c0 = gh_scm2double (gh_cdr (scm_assoc (ly_symbol2scm ("bezier-pct-c0"), bezier_props)));
+  Real pct_c3 = gh_scm2double (gh_cdr (scm_assoc (ly_symbol2scm ("bezier-pct-c3"), bezier_props)));
+  Real pct_in_max =  gh_scm2double (gh_cdr (scm_assoc (ly_symbol2scm ("bezier-pct-in-max"), bezier_props)));
+  Real pct_out_max = gh_scm2double (gh_cdr (scm_assoc (ly_symbol2scm ("bezier-pct-out-max"), bezier_props)));
+  Real steps =  gh_scm2double (gh_cdr (scm_assoc (ly_symbol2scm ("bezier-area-steps"),bezier_props)));
 
   for (int i=0; i < steps; i++)
     {

@@ -65,7 +65,7 @@ Spacing_spanner::do_measure (Score_element*me, Link_array<Score_element> cols)
     }
   mean_shortest /= n;
 
-  Real non_musical_space_strength = me->paper_l ()->get_var ("breakable_column_space_strength");
+
   for (int i= 0; i < cols.size () - 1; i++)
     {
       Item * l = dynamic_cast<Item*> (cols[i]);
@@ -129,7 +129,10 @@ Spacing_spanner::do_measure (Score_element*me, Link_array<Score_element> cols)
 	  */
 	  SCM sfac =lc->get_elt_property ("space-factor");
 	  if (Item::breakable_b (lc) || lc->original_l_)
-	    s.strength_f_ =  non_musical_space_strength;
+	    {
+	      s.strength_f_ =
+		gh_scm2double (lc->get_elt_property ("column-space-strength"));
+	    }
 	  else if (gh_number_p (sfac))
 	    left_distance *= gh_scm2double (sfac);
 
@@ -151,7 +154,7 @@ Spacing_spanner::do_measure (Score_element*me, Link_array<Score_element> cols)
 	  if (rc->musical_b ())
 	   {
 	      if (to_boolean (rc->get_elt_property ("contains-grace")))
-		right_dist *= me->paper_l ()->get_var ("before_grace_spacing_factor"); // fixme.
+		right_dist *= gh_scm2double (rc->get_elt_property ("before-grace-spacing-factor")); // fixme.
 	      else
 		right_dist *= gh_scm2double (lc->get_elt_property ("before-musical-spacing-factor"));
 	   }
@@ -227,10 +230,10 @@ Real
 Spacing_spanner::get_duration_space (Score_element*me, Moment d, Moment shortest) 
 {
   Real log =  log_2 (shortest);
-  Real k=   me->paper_l ()->get_var ("arithmetic_basicspace")
+  Real k = gh_scm2double (me->get_elt_property  ("arithmetic-basicspace"))
     - log;
   
-  return (log_2 (d) + k) * me->paper_l ()->get_var ("arithmetic_multiplier");
+  return (log_2 (d) + k) * gh_scm2double (me->get_elt_property ("arithmetic-multiplier")) * me->paper_l ()->get_var ("staffspace");
 }
 
 
@@ -308,8 +311,9 @@ Spacing_spanner::stem_dir_correction (Score_element*me, Score_element*l, Score_e
 
 
   Real correction = 0.0;
-  Real ssc = me->paper_l ()->get_var("stemSpacingCorrection");
+  Real ssc = gh_scm2double (me->get_elt_property("stem-spacing-correction"));
 
+  ssc *= me->paper_l ()->get_var ("staffspace");
 
   if (d1 && d2 && d1 * d2 == -1)
     {
@@ -347,8 +351,6 @@ Spacing_spanner::set_springs (SCM smob)
   me->suicide ();
   return SCM_UNSPECIFIED;
 }
-
-
 
 
 

@@ -6,9 +6,6 @@
 ;;; (c) 2000 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;
 
-	 
-
-
 (define style-to-font-alist
   `(
     (finger . ((font-family . number) (font-relative-size . -3)))
@@ -20,7 +17,6 @@
     (large . ((font-family . roman) (font-relative-size . 1)))
     (Large . ((font-series . bold) (font-family . roman) (font-relative-size . 2)))
     (dynamic . ((font-series . bold) (font-family . dynamic) (font-relative-size . 0)))
-    
 ))
 
 (define (font-field name font-descr)
@@ -35,7 +31,6 @@
 	((eq? name 'font-point-size-size) 5)
 	)
        ))
-
   
 ;; return that part of LIST for which PRED is true.
 (define (filter-list pred? list)
@@ -51,30 +46,17 @@
       )
   )
 
-;; return those descriptions from FONT-DESCR-LIST whose FIELD-NAME matches VALUE
-
 ;;;;;;;;; TODO TODO . (should not use filtering?)
 ;; this is bad, since we generate garbage every font-lookup.
 ;; otoh, if the qualifiers is narrow enough , we don't generate much garbage.
-;;o
 
 
-;;; kut kut, het lukt gewoon niet, vandaag:
-
-;;;couldn't find font satisfying ((font-family . roman) (font-shape . upright) (font-relative-size . -3))
-
-
+;; return those descriptions from FONT-DESCR-LIST whose FIELD-NAME matches VALUE
 (define (filter-field field-name value font-descr-alist)
-    (if (string? value)
-      (let ((err (current-error-port)))
-	(display "\nignoring string qualifier: " err)
-	(display value err)
-	(display "\n" err)	  
-	font-descr-alist)
       (filter-list
        (lambda (x) (eq? value (font-field field-name (car x))))
        font-descr-alist)
-      ))
+      )
 
 (define paper20-style-sheet-alist
   '(
@@ -192,14 +174,14 @@
 			      q-order))
 			
 	  (qualifiers (filter-list pair? rawqualifiers))
-	  (fontnm     (qualifiers-to-fontname qualifiers fonts))
+	  (fontnm (qualifiers-to-fontname qualifiers fonts))
 	  (err (current-error-port))
 	  )
 
     (if (eq? fontnm "")
 	(begin
 	  (display "\ncouldn't find font satisfying " err)
-	  (display qualifiers err)
+	  (write qualifiers err)
 	  (display "\n" err)	  
 	  "cmr10"
 	  )

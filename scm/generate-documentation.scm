@@ -73,8 +73,10 @@
 ;
 ; generate HTML, return filename.
 ;
-(define (document-element description)
+(define (document-element iname description)
+  (display (string-append "Processing " iname " ... ") (current-error-port))
   (let* ((metah (assoc 'meta description))
+	 
 	 (meta (if (pair? metah)
 		   (cdr metah)
 		   '((properties . ()) (name . "huh?"))
@@ -98,7 +100,7 @@
   )
 
 (define (document-elements elts)
-  (let* ((files (map (lambda (x) (document-element (cdr x)))
+  (let* ((files (map (lambda (x) (document-element (car x) (cdr x)))
 		    elts))
 	(outname  (string-append "backend.html"))
 	(out (open-output-file outname))
@@ -120,7 +122,7 @@
    ))
 
 ; (display (document-interface stem-interface '()))
-; (define b (cdr (assoc 'Beam all-element-descriptions)))
+; (define b (cdr (assoc 'Dyna all-element-descriptions)))
 ;(display b)
 
 ;(document-element  b)

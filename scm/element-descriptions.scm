@@ -156,7 +156,7 @@
 		(break-align-symbol . Left_edge_item)
 		(X-offset-callbacks . (,Break_align_interface::alignment_callback))
 		(breakable . #t)
-m		(meta . ,(element-description "LeftEdge" break-aligned-interface))
+		(meta . ,(element-description "LeftEdge" break-aligned-interface))
 	))
 	
 	(Fingering . (
@@ -325,12 +325,14 @@ m		(meta . ,(element-description "LeftEdge" break-aligned-interface))
 	
 	(PaperColumn . (
 		(axes 0)
+		(before-grace-spacing-factor . 1.2)
                 (before-musical-spacing-factor . 0.4)
  		(meta . ,(element-description "PaperColumn" paper-column-interface axis-group-interface spaceable-element-interface))
 	))
 	(NonMusicalPaperColumn . (
                 (axes 0)
                 (before-musical-spacing-factor . 1.0)
+		(column-space-strength . 2.0)
  		(meta . ,(element-description "NonMusicalPaperColumn" paper-column-interface axis-group-interface spaceable-element-interface))
         ))
 	
@@ -361,7 +363,9 @@ m		(meta . ,(element-description "LeftEdge" break-aligned-interface))
 	(Slur . ,default-basic-slur-properties)
 	(SpacingSpanner . (
 		(spacing-procedure . ,Spacing_spanner::set_springs)
-
+		(stem-spacing-correction . 0.5)
+		(arithmetic-basicspace . 2.0)
+		(arithmetic-multiplier . ,(* 0.9 1.32))
 		;; assume that notes at least this long are present.
 		(maximum-duration-for-spacing . ,(make-moment 1 8))
 		(meta . ,(element-description "SpacingSpanner"  spacing-spanner-interface))

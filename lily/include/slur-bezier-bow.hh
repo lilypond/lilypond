@@ -34,7 +34,7 @@ public:
 		   Real hinf, Real r0);
   Bezier get_bezier () const;
 
-  void minimise_enclosed_area (Paper_def* paper_l, Real beauty);
+  void minimise_enclosed_area (Paper_def* paper_l, Real beauty, SCM props);
   Real fit_factor () const;
   void blow_fit ();
   Real enclosed_area_f () const;

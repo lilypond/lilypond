@@ -12,9 +12,13 @@ Versioning
 
    LilyPond uses a versioning scheme similar to the Linux kernel.  In a
 version "x.y.z", an even second number 'y' denotes a stable version.
-For development versions 'y' is odd.  For using straightforward score
-production, please use the latest stable version.  Development versions
-may not produce good or nice scores.
+For development versions 'y' is odd.  Sh, in theory, version 1.2 is
+stable, which means that there are no glaring errors in it. In practice
+1.2.x is also unmaintained.
+
+   1.3.x is in healthy development: lots of problems turn up, but
+they're fixed quickly. Therefore we recommend you try 1.2.x, if you
+have any problem with it, upgrade to the latest 1.3.x release.
 
 Requirements
 ============
@@ -47,7 +51,8 @@ Documentation
 
             make -C Documentation/user/ dvi
 
-     You need a working LilyPond binary to create the DVI sources  .
+     You need a working LilyPond binary to create the DVI and HTML
+     sources.
 
    * use ASCII. Do using
           	make doc
@@ -61,8 +66,21 @@ criticism, comments, bugreports, patches, etc., but please,
 
      	   Please send your e-mail to one of the MAILING LISTS
 
-   and _not_ to us personally.  See `Documentation/mail.texi' for more
-info.
+   and _not_ to us personally. We have the following mailing lists:
+
+   * info-gnu-music@gnu.org
+     (http://mail.gnu.org/mailman/listinfo/info-gnu-music) is a
+     low-volume list for information on the GNU Music project.
+     This list is moderated; ask     David R. Linn <drl@gnu.org> or
+     Han-Wen <hanwen@cs.uu.nl> to send announcements for this list.
+
+   * help-gnu-music@gnu.org
+     (http://mail.gnu.org/mailman/listinfo/help-gnu-music)     For help
+     with using LilyPond.
+
+   * bug-gnu-music@gnu.org
+     (http://mail.gnu.org/mailman/listinfo/bug-gnu-music) If you have
+     bugreports, you should send them to this list.
 
 Windows 32
 ==========

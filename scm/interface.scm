@@ -14,13 +14,6 @@
   )
 
 
-(define (merge-interfaces ifs)
-   (list
-    (apply append (map car ifs))
-    (apply append (map cadr ifs))
-    (apply append (map caddr ifs))
-  ))
-
 (define (uniqued-alist  alist acc)
   (if (null? alist) acc
       (if (assoc (caar alist) acc)
@@ -31,6 +24,8 @@
 (define (element-description name . interfaces)
   (let* ((ifs (cons general-element-interface interfaces))
 	 (props (map caddr ifs))
+	 (prop-typep-pairs (map (lambda (x) (cons (car x) (cadr x)))
+					(apply append props)))
 	 (syms (map car ifs))
 	)
     (list (cons 'separator "\n\n\n")	;easy printing.
@@ -39,7 +34,7 @@
 	  (cons 'interface-descriptions ifs)
 	  ; (cons 'interface-descriptions (cadr merged))
 	  ;; description of the element itself?
-	  (cons 'properties (apply append props))
+	  (cons 'properties prop-typep-pairs)
   )))
 
 
@@ -436,13 +431,14 @@ The following abbreviations are currently defined:
     (property-description 'font-name symbol? "partial font definition: base name of font file FIXME: should override other partials")
     (property-description 'font-point-size number? "partial font definition: exact font size in points FIXME: should override font-relative-size")
     (property-description 'font-relative-size number? "partial font definition: the relative size, 0 is style-sheet's normal size, -1 is smaller, +1 is bigger")
+
+    ;; Should move this somewhere else?  
     (property-description 'align number? "the alignment of the text, 0 is horizontal, 1 is vertical")
     (property-description 'lookup symbol? "lookup method: 'value for plain text, 'name for character-name")
     (property-description 'raise number? "height for text to be raised (a negative value lowers the text")
     (property-description 'kern number? "amount of extra white space to add before text.  This is `relative'(?) to the current alignment.")
     (property-description 'magnify number? "the magnification factor.  FIXME: doesn't work for feta fonts")
     )))
-
 
 (define dot-column-interface
   (lily-interface
@@ -571,6 +567,13 @@ syllables.   The length of the hyphen line should stretch based on the
    'paper-column-interface
    ""
    (list
+    (property-description 'column-space-strength number? "relative strength of space following breakable columns (eg. prefatory matter)")
+    (property-description 'before-musical-spacing-factor number?
+"space before musical columns (eg. taken by accidentals) get this much
+stretched when they follow a musical column, in absence of grace
+notes.  0.0 means no extra space (accidentals are ignored)")
+    (property-description 'stem-spacing-correction number? "optical correction amount.")
+    (property-description 'before-grace-spacing-factor number? " stretch space this much if there are grace notes before the column")
     (property-description 'when moment? "when does this column happen?")
     (property-description 'bounded-by-me list? "list of spanners that have this
 column as start/begin point. Only columns that have elements or act as bounds are spaced.")
@@ -628,6 +631,47 @@ to a pointer to the collision")
    ""
    (list
     (property-description 'maximum-duration-for-spacing moment? "space as if a duration of this type is available in this measure.")
+    (property-description 'arithmetic-basicspace number? "The space taken by a note is determined by the formula 
+
+   SPACE = arithmetic_multiplier * ( C + log2 (TIME) ))
+
+where TIME is the amount of time a note occupies.  The value of C is
+chosen such that the smallest space within a measure is
+arithmetic_basicspace:
+
+  C = arithmetic_basicspace - log2 (mininum (SHORTEST, 1/8)) 
+
+The smallest space is the one following the shortest note in the
+measure, or the space following a hypothetical 1/8 note.  Typically
+arithmetic_basicspace is set to a value so that the shortest note
+takes about two noteheads of space (ie, is followed by a notehead of
+space):
+
+   2*quartwidth = arithmetic_multiplier * ( C + log2 (SHORTEST) ))
+
+   { using: C = arithmetic_basicspace - log2 (mininum (SHORTEST, 1/8)) }
+   { assuming: SHORTEST <= 1/8 }
+
+               = arithmetic_multiplier *
+	       ( arithmetic_basicspace - log2 (SHORTEST) + log2 (SHORTEST) )
+
+               = arithmetic_multiplier * arithmetic_basicspace
+
+   { choose: arithmetic_multiplier = 1.0*quartwidth (why?)}
+
+               = quartwidth * arithmetic_basicspace
+
+   =>	       
+
+   arithmetic_basicspace = 2/1 = 2
+
+If you want to space your music wider, use something like:
+
+   arithmetic_basicspace = 4.;
+
+")
+    (property-description 'arithmetic-multiplier number? "see arithmetic-basicspace")    
+    
     )))
 
 (define staff-symbol-interface
