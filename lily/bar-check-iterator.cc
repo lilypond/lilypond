@@ -36,6 +36,10 @@ Bar_check_iterator::process (Moment m)
     {
       Context *tr = get_outlet ();
 
+      SCM check = tr->get_property ("ignoreBarChecks");
+      if (to_boolean (check))
+	return;
+      
       SCM mp = tr->get_property ("measurePosition");
       SCM sync = tr->get_property ("barCheckSynchronize");
 
