@@ -10,6 +10,8 @@ GNU LilyPond was written with some considerations in mind:
 
 =over 4
 
+=item *
+
 Describing a well-defined language for defining music. We call
 this language (rather arrogantly) The Musical Definition Language
 (mudela for short). GNU LilyPond reads a mudela sourcefile and outputs a
