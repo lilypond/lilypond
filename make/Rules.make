@@ -53,4 +53,4 @@ $(outdir)/%: %.m4
 
 $(depth)/%.txt: check-doc-deps
 	rm -f $@
-	ln `find ${depth}/Documentation -name $@|head -1` .
+	ln `find ${depth}/Documentation -name $@ -print|head -1 ` .

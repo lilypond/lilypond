@@ -86,7 +86,12 @@ class Ly_file(Indentable_file):
 	self.write('\"%s\"\t' % str)
 
     def print_f_dimen(self, f):
-	self.write( '%.2f\\pt\t' % f);
+	dimstr = '%.2f' % f
+
+	# try to mask rounding errors
+	if (dimstr == '-0.00'):
+		dimstr = '0.00'
+	self.write( dimstr  +'\\pt\t');
 
     def print_dimen(self, str):
 	self.print_f_dimen(atof(str))
