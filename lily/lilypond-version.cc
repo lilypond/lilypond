@@ -1,5 +1,5 @@
 /*
-  mudela-version.cc -- implement Mudela_version
+  lilypond-version.cc -- implement Lilypond_version
 
   source file of the GNU LilyPond music typesetter
 
@@ -7,18 +7,18 @@
 
 */
 
-#include "mudela-version.hh"
+#include "lilypond-input-version.hh"
 #include "string-convert.hh"
 #include "array.hh"
 
-Mudela_version::Mudela_version (int major, int minor, int patch)
+Lilypond_version::Lilypond_version (int major, int minor, int patch)
 {
   major_i_ = major;
   minor_i_ = minor;
   patch_i_ = patch;
 }
 
-Mudela_version::Mudela_version (String str)
+Lilypond_version::Lilypond_version (String str)
 {
   Array<String> version;
   version = String_convert::split_arr (str, '.');
@@ -29,12 +29,12 @@ Mudela_version::Mudela_version (String str)
 }
 
 String
-Mudela_version::str () const
+Lilypond_version::str () const
 {
   return to_str (major_i_) + "." + to_str (minor_i_) + "." + to_str (patch_i_);
 }
 
-Mudela_version::operator int () const
+Lilypond_version::operator int () const
 {
     // ugh
   return 100000 * major_i_ + 1000 * minor_i_ + patch_i_;
