@@ -2,6 +2,8 @@
 
 #include "ly-module.hh"
 #include "lily-guile.hh"
+#include "main.hh"
+#include "paper-book.hh"
 #include "parse-scm.hh"
 #include "string.hh"
 #include "source-file.hh"

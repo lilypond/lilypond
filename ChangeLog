@@ -1,3 +1,8 @@
+2004-03-15  Heikki Junes <hjunes@cc.hut.fi>
+
+	* lily/parse-scm.cc: compile-bugfix: add missing header files for
+	`output_format_global' and `PAGE_LAYOUT'.
+
 2004-03-14  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/parse-scm.cc (internal_ly_parse_scm)[PAGE_LAYOUT]: Import
