@@ -1,5 +1,7 @@
 2002-11-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION: 1.7.8 released 
+
 	* lily/grob.cc (warning): better robustness fix.
 
 2002-11-19 Juergen Reuter  <reuter@ipd.uka.de>
