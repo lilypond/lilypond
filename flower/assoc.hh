@@ -11,6 +11,7 @@ struct Assoc_ent_ {
     V val;
 };
 
+/// hungarian: map
 template<class K, class V>
 struct Assoc {
     Array< Assoc_ent_<K,V> > arr;
