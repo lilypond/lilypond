@@ -4,6 +4,11 @@
 
 2003-07-24  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* make/srcdir.make.in (web): Add special web target.
+
+	* stepmake/stepmake/generic-targets.make (WWW): Remove $(MAKE)
+	from inner $(LOOP).
+
 	* cygwin/mknetrel: Override $(webdir) (was: $(docdir)).
 
 	* stepmake/stepmake/generic-targets.make (www-targets-help):

@@ -43,6 +43,8 @@ Usage: make ["VARIABLE=value"]... [TARGET]\n\
 \n\
 Targets:\n"
 
+# urg
+webdir = $(local_package_docdir)
 help: generic-help local-help
 	@echo -e "\
   all         update everything\n\
@@ -53,6 +55,9 @@ help: generic-help local-help
   help        this help\n\
   install     install programs and data (prefix=$(prefix))\n\
   lib         update all libraries\n\
+  web         update website in out-www\n\
+  web-install install website documentation in (webdir=$(webdir))\n\
+  web-clean   clean out-www\n\
   TAGS        genarate tagfiles\n\
 \n\
 Make may be invoked from any subdirectory\n\
@@ -169,23 +174,14 @@ release:
 local-WWW:
 local-WWW-post:
 local-web-post:
+web-install:
 
 WWW: local-WWW
 	$(LOOP)
-	$(MAKE) local-WWW-post
 
-web:
+WWW-post:
+	$(LOOP)
+
+web: 
 	$(MAKE) out=www WWW
-	$(MAKE) local-web-post
-
-local-help: www-targets-help
-
-# hmm, append these to generic help?
-# (local help targets are prepended)
-webdir = $(local_package_docdir)
-www-targets-help:
-	@echo -e "\
-  web         update website in out-www\n\
-  web-install install website documentation in (webdir=$(webdir))\n\
-  web-clean   clean out-www\n\
-"
+	$(MAKE) out=www WWW-post
