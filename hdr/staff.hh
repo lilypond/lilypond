@@ -14,10 +14,14 @@ struct Staff {
 
     Score *score_l_;
     PScore *pscore_l_;
-
+    String define_spot_str_;
     /****************************************************************/
     void add(PointerList<Voice*> &s);
+    void do_commands(PointerList<Input_command*> score_wide,
+		     PointerList<Input_command*> staff_wide);
 
+    void get_marks(Array<String>&, Array<Moment>&);
+    
     /// throw away cols later the #l#
     void truncate_cols(Moment l);
 
