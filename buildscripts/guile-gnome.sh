@@ -76,7 +76,8 @@ if ! pkg-config --atleast-version=1.5.1 pango; then
     cd ../..
 fi
 
-## 3. Currently (2004-9-15) GUILE CVS works again
+## 3. Currently (2004-9-15) GUILE CVS works somewhat
+##    There's a guile/g-wrap problem with integer parameters
 unset GUILE_LOAD_PATH
 PATH=/usr/bin:$PATH
 
