@@ -1,4 +1,4 @@
-;;;; stenicil.scm -- 
+;;;; stencil.scm -- 
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 

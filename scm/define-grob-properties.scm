@@ -489,9 +489,6 @@ reading this property.")
 @code{linethickness}.")
      (thickness ,number? "Bar line thickness, measured in
 @code{linethickness}.")
-;;TODO -- change to fret-thickness
-     (thickness ,number? "Thickness of fret and string lines in a fret
-diagram.  Multiplier on bar thickness.")
      (thin-kern ,number? "The space after a hair-line in a bar line.")
      (forced-distance ,ly:dimension? "A fixed distance between object
 reference points in an alignment.")
@@ -636,7 +633,7 @@ entries @code{name} and @code{interfaces}.")
      (chord-tremolo ,boolean? "if set, this beam is a tremolo. ")
      (begin-of-line-visible ,boolean? "Used for marking ChordNames that should only show changes.")
      (head-pair ,pair? "Pair of grob pointers, pointing to the two heads of the tie.")
-     (quant-score ,number? "Beam quanting score -- can be stored for
+     (quant-score ,string? "Beam quanting score -- can be stored for
 debugging")
      (least-squares-dy ,number? 
 		       "ideal beam slope, without damping.")
