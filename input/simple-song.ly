@@ -1,3 +1,6 @@
+% remove-me
+#(ly:set-point-and-click 'line-column)
+
 %% A simple song in LilyPond
 <<
     \relative {
