@@ -5,15 +5,32 @@
 # Red Hat-like systems should install this in /etc/profile.d/
 
 # If run by hand or from you .profile, run as follows
-#   . lilypond-profile
+#   . /PATH/TO/lilypond-profile
+
 if [ `basename "$0"` = "lilypond-profile" ] ; then
-    echo "This script must be sourced, i.e."
-    echo ""
-    echo "  . lilypond-profile"
-    echo ""
-    
+    cat >/dev/stderr <<EOF
+Error: This script must be sourced, i.e, you must do:
+
+    . /PATH/TO/lilypond-profile
+
+Note the space after the period.  If you install this script, you must
+logout and re-login before you can use LilyPond.  On a Red Hat-like
+system, install this script as:
+
+    /etc/profile.d/lilypond-profile
+
+Alternatively, put it in:
+
+    ~/bin/lilypond-profile
+
+and in your ~/.profile, say:
+
+    . ~/bin/lilypond-profile
+
+EOF
     exit 2 
-fi 
+fi
+
 if [ -z "$LILYPONDPREFIX" ]; then
     datadir=`echo "@local_lilypond_datadir@" | sed 's!//!/!g'`
 else
