@@ -21,6 +21,7 @@
 
 	* lilypond-mode.el (LilyPond-kill-job): Kill all Lilypond compiling
 	jobs at the same time. Add horizontal lines to Command menu.
+	Allow one compiling job -- propose killing others before a new one.
 
 	* lilypond.words: add markup, teeny, etc.
 

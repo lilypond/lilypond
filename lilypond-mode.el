@@ -151,9 +151,17 @@ in LilyPond-include-path."
     found))
 
 (defun LilyPond-running ()
-  (let ((process (get-process "lilypond")))
-  (and process
-       (eq (process-status process) 'run))))
+  "Return the currently running LilyPond compiling jobs."
+  (interactive)
+  (let ((process-names (list "lilypond" "tex" "2dvi" "2ps" "2midi" 
+			     "book" "latex"))
+	(running nil))
+    (while (setq process-name (pop process-names))
+      (setq process (get-process process-name))
+      (if (and process 
+	       (eq (process-status process) 'run))
+	  (push process-name running)))
+    running)) ; return the running jobs
 
 (defun Midi-running ()
   (let ((process (get-process "midi")))
@@ -168,16 +176,13 @@ in LilyPond-include-path."
 (defun LilyPond-kill-jobs ()
   "Kill the currently running LilyPond compiling jobs."
   (interactive)
-  (let ((process-names (list "lilypond" "tex" "2dvi" "2ps" "2midi" 
-			     "book" "latex"))
+  (let ((process-names (LilyPond-running))
 	(killed nil))
     (while (setq process-name (pop process-names))
       (setq process (get-process process-name))
-      (if (and process 
-	       (eq (process-status process) 'run))
-	  (progn (quit-process process t)
-		 (setq killed t))))
-    killed))
+      (quit-process process t)
+      (push process-name killed))
+    killed)) ; return the killed jobs
 
 ;; URG, should only run LilyPond-compile for LilyPond
 ;; not for tex,xdvi (ly2dvi?)
@@ -554,7 +559,9 @@ command."
   (let ((entry (assoc name LilyPond-command-alist)))
     (if entry
 	(let ((command (LilyPond-command-expand (cadr entry)
-						(apply file nil))))
+						(apply file nil)))
+	      (jobs nil)
+	      (job-string "no jobs"))
 	  (if (string-equal name "View")
 	      (let ((buffer-xdvi (get-buffer-create "*view*")))
 		(if LilyPond-kick-xdvi
@@ -565,11 +572,31 @@ command."
 		  (LilyPond-shell-process name buffer-xdvi command)))
 	    (progn
 	      (if (string-equal name "Midi")
-		  (setq command (concat LilyPond-midi-command " " (LilyPond-string-current-midi))))
+		  (progn
+		    (setq command (concat LilyPond-midi-command " " (LilyPond-string-current-midi)))
+		    (if (LilyPond-stop-midi)
+			(setq job-string nil)))) ; either stop or start playing
 	      (if (string-equal name "MidiAll")
-		  (setq command (concat LilyPond-all-midi-command " " (LilyPond-string-all-midi))))
+		  (progn
+		    (setq command (concat LilyPond-all-midi-command " " (LilyPond-string-all-midi)))
+		    (LilyPond-stop-midi))) ; stop and start playing
+	      (if (member name (list "LilyPond" "TeX" "2Midi" "2PS" "2Dvi" 
+				     "Book" "LaTeX"))
+		  (if (setq jobs (LilyPond-running))
+		      (progn
+			(setq job-string "Process") ; could also suggest compiling after process has ended
+			(while jobs
+			  (setq job-string (concat job-string " \"" (pop jobs) "\"")))
+			(setq job-string (concat job-string " is already running; kill it to proceed "))
+			(if (y-or-n-p job-string)
+			    (progn
+			      (setq job-string "no jobs")
+			      (LilyPond-kill-jobs)
+			      (sit-for 0 500 nil)) ; should wait killing
+			  (setq job-string nil)))))
+
 	      (setq LilyPond-command-default name)
-	      (if (not (and (LilyPond-stop-midi) (string-equal name "Midi")))
+	      (if (string-equal job-string "no jobs")
 		  (LilyPond-compile-file command name))))))))
 	  
 ;; XEmacs stuff
