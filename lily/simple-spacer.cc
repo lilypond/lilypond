@@ -144,7 +144,7 @@ Simple_spacer::active_blocking_force () const
 Real
 Simple_spacer::active_springs_stiffness () const
 {
-  range_stiffness (0, springs_.size ());
+  return range_stiffness (0, springs_.size ());
 }
 
 void
@@ -326,20 +326,11 @@ Simple_spacer::solve (Column_x_positions *positions, bool ragged)
   else
     my_solve_linelen ();
 
-  
   positions->force_ = force_;
-  if ((force_ < 0))
-    {
-
-      /*
-	We used to have a penalty for compression, no matter what, but that
-	fucked up wtk1-fugue2 (taking 3 full pages.)
-
-	maybe this should be tunable?
-       */
-      if (compression_penalty_b_)
-	; //	positions->force_ *= 2; //  hmm.
-    }
+  /*
+    We used to have a penalty for compression, no matter what, but that
+    fucked up wtk1-fugue2 (taking 3 full pages.)
+  */
   
   positions->config_.push (indent_);
   for (int i=0; i <springs_.size (); i++)
@@ -350,6 +341,14 @@ Simple_spacer::solve (Column_x_positions *positions, bool ragged)
 	we have l>= 0 here, up to rounding errors 
       */
     }
+
+  if (ragged && line_len_ > 0)
+    {
+      Real len = positions->config_.top ();
+      positions->force_ = (line_len_ - len) *  active_springs_stiffness ();
+    }
+
+
   positions->cols_ = spaced_cols_;
   positions->loose_cols_ = loose_cols_;
   
