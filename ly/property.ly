@@ -7,17 +7,43 @@ stemDown = \property Voice.Stem \override #'direction = #-1
 stemBoth= \property Voice.Stem \revert #'direction
 
 slurUp   = \property Voice.Slur \override #'direction = #1
-slurBoth = \property Voice.Slur \revert #'direction 
 slurDown = \property Voice.Slur \override #'direction = #-1
+slurBoth = \property Voice.Slur \revert #'direction 
 shiftOn  = \property Voice.NoteColumn \override #'horizontal-shift = #1
 shiftOnn  = \property Voice.NoteColumn \override #'horizontal-shift = #2
 shiftOnnn  = \property Voice.NoteColumn \override #'horizontal-shift = #3
 shiftOff  = \property Voice.NoteColumn \revert #'horizontal-shift 
 
-
 tieUp = \property Voice.Tie \override #'direction = #1
 tieDown = \property Voice.Tie \override #'direction = #-1
 tieBoth = \property Voice.Tie \revert #'direction 
+
+dynamicUp  = {
+  \property Voice.DynamicText \override #'direction = #1
+  \property Voice.DynamicLineSpanner \override #'direction = #1
+}
+dynamicDown = {
+  \property Voice.DynamicText \override #'direction = #-1
+  \property Voice.DynamicLineSpanner \override #'direction = #-1
+}
+dynamicBoth = {
+  \property Voice.DynamicText \revert #'direction
+  \property Voice.DynamicLineSpanner \revert #'direction
+}
+
+scriptUp  = {
+  \property Voice.TextScript \override #'direction = #1
+  \property Voice.Script \override #'direction = #1
+}
+scriptDown = {
+  \property Voice.TextScript \override #'direction = #-1
+  \property Voice.Script \override #'direction = #-1
+}
+scriptBoth = {
+  \property Voice.TextScript \revert #'direction
+  \property Voice.Script \revert #'direction
+}
+
 
 cadenzaOn = \property Score.timing = ##f
 cadenzaOff = {
@@ -25,7 +51,7 @@ cadenzaOff = {
   \property Score.measurePosition = #(make-moment 0 1)
 }
 
-	
+% dynamic dir?  text script, articulation script dir?	
 oneVoice = { 	
   \stemBoth
   \slurBoth
@@ -59,8 +85,11 @@ voiceFour = {
   \shiftOn
 }
 
+% There's also dash, but setting dash period/length should be fixed.
 slurDotted = \property Voice.Slur \override #'dashed = #1
-slurNoDots = \property Voice.Slur \revert #'dashed
+slurSolid = \property Voice.Slur \revert #'dashed
+tieDotted = \property Voice.Tie \override #'dashed = #1
+tieSolid = \property Voice.Tie \revert #'dashed
 
 	
 tiny  = 
@@ -97,8 +126,8 @@ autoBeamOn = \property Voice.noAutoBeaming = ##f
 emptyText = \property Voice.textNonEmpty = ##f
 fatText = \property Voice.textNonEmpty = ##t
 
-showStaffSwitch = \property Thread.followThread = ##t
-hideStaffSwitch = \property Thread.followThread = ##f
+showStaffSwitch = \property PianoStaff.followVoice = ##t
+hideStaffSwitch = \property PianoStaff.followVoice = ##f
 
 
 % To remove a Volta bracet or some other graphical object,

@@ -42,6 +42,7 @@ Try to convert to newer lilypond-versions.  The version number of the
 input is guessed by default from \version directive
 
 Options:
+  -a, --assume-old       apply all conversions to unversioned files
   -h, --help             print this help
   -e, --edit             in place edit
   -f, --from=VERSION     start from version
@@ -113,11 +114,19 @@ def show_rules (file):
 
 ############################
 		
+if 1:
+	def conv(str):
+		if re.search ('\\\\multi', str):
+			sys.stderr.write ('\nNot smart enough to convert \\multi')
+		return str
+	
+	conversions.append (((0,1,9), conv, '\\header { key = concat + with + operator }'))
+
 if 1:					# need new a namespace
 	def conv (str):
 		if re.search ('\\\\octave', str):
 			sys.stderr.write ('\nNot smart enough to convert \\octave')
-			raise FatalConversionError()
+		#	raise FatalConversionError()
 		
 		return str
 
@@ -129,7 +138,8 @@ if 1:					# need new a namespace
 	def conv (str):
 		str = re.sub ('\\\\textstyle([^;]+);',
 					 '\\\\property Lyrics . textstyle = \\1', str)
-		str = re.sub ('\\\\key([^;]+);', '\\\\accidentals \\1;', str)
+		# harmful to current .lys
+		# str = re.sub ('\\\\key([^;]+);', '\\\\accidentals \\1;', str)
 			
 		return str
 
@@ -178,10 +188,7 @@ if 1:
 
 if 1:
 	def conv(str):
-		str =  re.sub ('\\\\melodic', '\\\\notes',str)
-		if re.search ('\\\\header', str):
-			sys.stderr.write ('\nNot smart enough to convert \\multi constructs')
-			
+		str =  re.sub ('\\\\melodic([^a-zA-Z])', '\\\\notes\\1',str)
 		return str
 	
 	conversions.append (((1,0,3), conv, '\\melodic -> \\notes'))
@@ -197,7 +204,7 @@ if 1:
 if 1:
 	def conv(str):
 		str =  re.sub ('ChoireStaff', 'ChoirStaff',str)
-		str =  re.sub ('\\output', 'output = ',str)
+		str =  re.sub ('\\\\output', 'output = ',str)
 			
 		return str
 	
@@ -207,7 +214,7 @@ if 1:
 	def conv(str):
 		if re.search ('[a-zA-Z]+ = *\\translator',str):
 			sys.stderr.write ('\nNot smart enough to change \\translator syntax')
-			raise FatalConversionError()
+		#	raise FatalConversionError()
 		return str
 	
 	conversions.append (((1,0,6), conv, 'foo = \\translator {\\type .. } ->\\translator {\\type ..; foo; }'))
@@ -215,7 +222,7 @@ if 1:
 
 if 1:
 	def conv(str):
-		str =  re.sub ('\\\\lyric', '\\\\lyrics',str)
+		str =  re.sub ('\\\\lyrics*', '\\\\lyrics',str)
 			
 		return str
 	
@@ -262,7 +269,10 @@ if 1:
 
 if 1:
 	def conv(str):
+		str =  re.sub ('\\\\type([^\n]*engraver)','\\\\TYPE\\1', str)
+		str =  re.sub ('\\\\type([^\n]*performer)','\\\\TYPE\\1', str)
 		str =  re.sub ('\\\\type','\\\\context', str)
+		str =  re.sub ('\\\\TYPE','\\\\type', str)
 		str =  re.sub ('textstyle','textStyle', str)
 			
 		return str
@@ -274,7 +284,7 @@ if 1:
 	def conv(str):
 		if re.search ('\\\\repeat',str):
 			sys.stderr.write ('\nNot smart enough to convert \\repeat')
-			raise FatalConversionError()
+		#	raise FatalConversionError()
 		return str
 	
 	conversions.append (((1,0,18), conv,
@@ -417,6 +427,18 @@ if 1:
 
 	conversions.append (((1,3,18), conv, 'staffLineLeading -> staffSpace'))
 
+
+if 1:
+	def conv(str):
+		if re.search ('\\\\repetitions',str):
+			sys.stderr.write ('\nNot smart enough to convert \\repetitions')
+		#	raise FatalConversionError()
+		return str
+	
+	conversions.append (((1,3,23), conv,
+                '\\\\repetitions feature dropped'))
+
+
 if 1:
 	def conv (str):
 		str = re.sub ('textEmptyDimension *= *##t',
@@ -478,6 +500,16 @@ if 1:
 
 if 1:
 	def conv (str):
+		if re.search ('\\\\keysignature', str):
+			sys.stderr.write ('\nNot smart enough to convert to new tremolo format')
+		return str
+
+
+	conversions.append (((1,3,58), conv,
+                'noteHeadStyle value: string -> symbol'))
+
+if 1:
+	def conv (str):
 		str = re.sub (r"""\\key *([a-z]+) *;""", r"""\\key \1 \major;""",str);
 		return str
 	conversions.append (((1,3,59), conv,
@@ -507,12 +539,13 @@ if 1:
 
 
 		str = re.sub ('basicLocalKeyProperties' ,"Accidentals", str)
-		str = re.sub ('basicMarkProperties' ,"Accidentals", str) 				
+		str = re.sub ('basicMarkProperties' ,"Accidentals", str)
 		str = re.sub ('basic([A-Za-z_]+)Properties', '\\1', str)
 
+		str = re.sub ('Repeat_engraver' ,'Volta_engraver', str)
 		return str
 	
-	conversions.append (((1,3,92), conv, 'basicXXXProperties -> XXX'))
+	conversions.append (((1,3,92), conv, 'basicXXXProperties -> XXX, Repeat_engraver -> Volta_engraver'))
 
 if 1:
 	def conv (str):
@@ -540,10 +573,36 @@ if 1:
 		str = re.sub ('\\\\voicefour', '\\\\voiceFour', str)
 
 		# I don't know exactly when these happened...
-		str = re.sub ('\\\\property *[^ ]*verticalDirection[^=]*= *#?(1|(\\\\up))', '\\\\stemUp\\\\slurUp\\\\tieUp', str)
-		str = re.sub ('\\\\property *[^ ]*verticalDirection[^=]*= *#?((-1)|(\\\\down))', '\\\\stemDown\\\\slurDown\\\\tieDown', str)
-		str = re.sub ('\\\\property *[^ .]*[.]?([a-z]+)VerticalDirection[^=]*= *#?(1|(\\\\up))', '\\\\\\1Up', str)
-		str = re.sub ('\\\\property *[^ .]*[.]?([a-z]+)VerticalDirection[^=]*= *#?((-1)|(\\\\down))', '\\\\\\1Down', str)
+		# ugh, we loose context setting here...
+		str = re.sub ('\\\\property *[^ ]*verticalDirection[^=]*= *#?"?(1|(\\\\up))"?', '\\\\stemUp\\\\slurUp\\\\tieUp', str)
+		str = re.sub ('\\\\property *[^ ]*verticalDirection[^=]*= *#?"?((-1)|(\\\\down))"?', '\\\\stemDown\\\\slurDown\\\\tieDown', str)
+		str = re.sub ('\\\\property *[^ ]*verticalDirection[^=]*= *#?"?(0|(\\\\center))"?', '\\\\stemBoth\\\\slurBoth\\\\tieBoth', str)
+
+		str = re.sub ('verticalDirection[^=]*= *#?"?(1|(\\\\up))"?', 'Stem \\\\override #\'direction = #0\nSlur \\\\override #\'direction = #0\n Tie \\\\override #\'direction = #1', str)
+		str = re.sub ('verticalDirection[^=]*= *#?"?((-1)|(\\\\down))"?', 'Stem \\\\override #\'direction = #0\nSlur \\\\override #\'direction = #0\n Tie \\\\override #\'direction = #-1', str)
+		str = re.sub ('verticalDirection[^=]*= *#?"?(0|(\\\\center))"?', 'Stem \\\\override #\'direction = #0\nSlur \\\\override #\'direction = #0\n Tie \\\\override #\'direction = #0', str)
+		
+		str = re.sub ('\\\\property *[^ .]*[.]?([a-z]+)VerticalDirection[^=]*= *#?"?(1|(\\\\up))"?', '\\\\\\1Up', str)
+		str = re.sub ('\\\\property *[^ .]*[.]?([a-z]+)VerticalDirection[^=]*= *#?"?((-1)|(\\\\down))"?', '\\\\\\1Down', str)
+		str = re.sub ('\\\\property *[^ .]*[.]?([a-z]+)VerticalDirection[^=]*= *#?"?(0|(\\\\center))"?', '\\\\\\1Both', str)
+
+		# (lacks capitalisation slur -> Slur)
+		str = re.sub ('([a-z]+)VerticalDirection[^=]*= *#?"?(1|(\\\\up))"?', '\\1 \\\\override #\'direction = #1', str)
+		str = re.sub ('([a-z]+)VerticalDirection[^=]*= *#?"?((-1)|(\\\\down))"?', '\\1 \\override #\'direction = #-1', str)
+		str = re.sub ('([a-z]+)VerticalDirection[^=]*= *#?"?(0|(\\\\center))"?', '\\1 \\\\override #\'direction = #0', str)
+
+		## dynamic..
+		str = re.sub ('\\\\property *[^ .]*[.]?dynamicDirection[^=]*= *#?"?(1|(\\\\up))"?', '\\\\dynamicUp', str)
+		str = re.sub ('\\\\property *[^ .]*[.]?dyn[^=]*= *#?"?((-1)|(\\\\down))"?', '\\\\dynamicDown', str)
+		str = re.sub ('\\\\property *[^ .]*[.]?dyn[^=]*= *#?"?(0|(\\\\center))"?', '\\\\dynamicBoth', str)
+
+		str = re.sub ('\\\\property *[^ .]*[.]?([a-z]+)Dash[^=]*= *#?"?(0|(""))"?', '\\\\\\1NoDots', str)
+		str = re.sub ('\\\\property *[^ .]*[.]?([a-z]+)Dash[^=]*= *#?"?([1-9]+)"?', '\\\\\\1Dotted', str)
+
+		str = re.sub ('\\\\property *[^ .]*[.]?noAutoBeaming[^=]*= *#?"?(0|(""))"?', '\\\\autoBeamOn', str)
+		str = re.sub ('\\\\property *[^ .]*[.]?noAutoBeaming[^=]*= *#?"?([1-9]+)"?', '\\\\autoBeamOff', str)
+
+
 
 		return str
 	
@@ -579,7 +638,7 @@ if 1:
 		
 		str = re.sub ('#\'style *= #*"([^"])"', '#\'style = #\'\\1', str)
 		
-		str = re.sub ('\\\\property *"?([^.]+)"? *[.] *"?horizontalNoteShift"? *= *"?#?([0-9]+)"?', '\\\\property \\1.NoteColumn \\\\override #\'horizontal-shift = #\\2', str) 
+		str = re.sub ('\\\\property *"?([^.]+)"? *[.] *"?horizontalNoteShift"? *= *"?#?([-0-9]+)"?', '\\\\property \\1.NoteColumn \\\\override #\'horizontal-shift = #\\2', str) 
 
 		# ugh
 		str = re.sub ('\\\\property *"?([^.]+)"? *[.] *"?flagStyle"? *= *""', '\\\\property \\1.Stem \\\\override #\'flag-style = ##f', str)
@@ -694,6 +753,7 @@ if 1:
 if 1:
 	def conv (str):
 		str = re.sub ('followThread', 'followVoice', str)
+		str = re.sub ('Thread.FollowThread', 'Voice.VoiceFollower', str)
 		str = re.sub ('FollowThread', 'VoiceFollower', str)
 		return str
 	
@@ -705,6 +765,13 @@ if 1:
 		return str
 	
 	conversions.append (((1,3,139), conv, 'font-point-size -> font-design-size.'))
+
+if 1:
+	def conv (str):
+		str = re.sub ('([a-zA-Z]*)NoDots', '\\1Solid', str)
+		return str
+	
+	conversions.append (((1,3,141), conv, 'xNoDots -> xSolid'))
 
 
 ############################
@@ -804,12 +871,13 @@ def do_one_file (infile_name):
 	sys.stderr.flush ()
 
 edit = 0
+assume_old = 0
 to_version = ()
 from_version = ()
 outfile_name = ''
 
 (options, files) = getopt.getopt (
-	sys.argv[1:], 'o:f:t:seh', ['version', 'output', 'show-rules', 'help', 'edit', 'from=', 'to='])
+	sys.argv[1:], 'ao:f:t:seh', ['assume-old', 'version', 'output', 'show-rules', 'help', 'edit', 'from=', 'to='])
 
 for opt in options:
 	o = opt[0]
@@ -831,6 +899,8 @@ for opt in options:
 		sys.exit(0)
 	elif o == '--output' or o == '-o':
 		outfile_name = a
+	elif o == '--assume-old' or o == '-a':
+		assume_old = 1
 	else:
 		print o
 		raise getopt.error
@@ -845,6 +915,12 @@ for f in files:
 		sys.stderr.write ('\n')
 		sys.stderr.write ("%s: can't determine version for %s" % (program_name, f))
 		sys.stderr.write ('\n')
-		sys.stderr.write ("%s: skipping" % program_name)
+		if assume_old:
+			fv = from_version
+			from_version = (0,0,0)
+			do_one_file (f)
+			from_version = fv
+		else:
+			sys.stderr.write ("%s: skipping: %s " % (program_name,  f))
 		pass
 sys.stderr.write ('\n')
