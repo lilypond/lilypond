@@ -90,9 +90,9 @@ Score_engraver::initialize ()
   pscore_p_ = new Paper_score;
   pscore_p_->paper_l_ = dynamic_cast<Paper_def*> (output_def_l_);
 
-  SCM props = get_property ("LineOfScore");
+  SCM props = get_property ("System");
 
-  pscore_p_->typeset_line (new Line_of_score (props));
+  pscore_p_->typeset_line (new System (props));
   
   make_columns ();
   scoreline_l_ = pscore_p_->line_l_;
@@ -303,7 +303,7 @@ Score_engraver::acknowledge_grob (Grob_info gi)
 
 
 ENTER_DESCRIPTION(Score_engraver,
-/* descr */       "Top level engraver. Takes care of generating columns and the complete  system (ie. LineOfScore)
+/* descr */       "Top level engraver. Takes care of generating columns and the complete  system (ie. System)
 
 
 This engraver decides whether a column is breakable. The default is
@@ -315,7 +315,7 @@ that there are no beams or notes that prevent a breakpoint.)
 
 
 ",
-/* creats*/       "LineOfScore PaperColumn NonMusicalPaperColumn",
+/* creats*/       "System PaperColumn NonMusicalPaperColumn",
 /* acks  */       "note-spacing-interface staff-spacing-interface",
 /* reads */       "currentMusicalColumn currentCommandColumn",
 /* write */       "");
