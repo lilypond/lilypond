@@ -56,13 +56,13 @@ Rest_collision::do_post_processing()
   if (!(stem_l->beams_left_i_ || stem_l->beams_right_i_))
   	return;
 
-  int dir_i = rest_l_arr_[0]->dir_i_;
+  int dir_i = rest_l_arr_[0]->dir_;
   int midpos = 4;
 #if 1
   // ugh
   int stem_length_i = 7 - 2;
   // ugh, Stem::stem_start vs Stem::stem_end
-  int pos = (stem_l->stem_end_f() - midpos) - dir_i * stem_length_i;
+  int pos = (int)(stem_l->stem_end_f() - midpos) - dir_i * stem_length_i;
 #else // nogo: stem_start not set for rests?
   int pos = (stem_l->stem_start_f() - midpos) + dir_i * 2;
 #endif
@@ -92,9 +92,9 @@ Rest_collision::do_pre_processing()
     {
 	int dy = rest_l_arr_.size() > 2 ? 6 : 4;
 	
-	rest_l_arr_[0]->translate_heads (rest_l_arr_[0]->dir_i_ *dy);	
+	rest_l_arr_[0]->translate_heads (rest_l_arr_[0]->dir_ *dy);	
 	// top is last element...
-	rest_l_arr_.top()->translate_heads (rest_l_arr_.top ()->dir_i_* dy);	
+	rest_l_arr_.top()->translate_heads (rest_l_arr_.top ()->dir_* dy);	
     }
   // meisjes met jongetjes
   else 
@@ -104,8 +104,8 @@ Rest_collision::do_pre_processing()
 	int dir_i = -1;
 	rest_l_arr_[0]->translate_heads (dir_i * 3);	
 #else
-	// int dir_i = - ncol_l_arr_[0]->dir_i_;
-	int dir_i = rest_l_arr_[0]->dir_i_;
+	// int dir_i = - ncol_l_arr_[0]->dir_;
+	int dir_i = rest_l_arr_[0]->dir_;
 	// hope it's 4: if it works->doco
 	int midpos = 4;
 	
@@ -121,7 +121,7 @@ Rest_collision::do_pre_processing()
 	  {
 	    // how to know whether to sort?
 	    ncol_l_arr_[i]->sort();
-	    for ( int j = 0; j < ncol_l_arr_[i]->head_l_arr_.size(); j++)
+	    for (int j = 0; j < ncol_l_arr_[i]->head_l_arr_.size(); j++)
 		minpos = minpos >? dir_i * 
 		    (ncol_l_arr_[i]->head_l_arr_[j]->position_i_ -midpos) + sep_i;
 	  }

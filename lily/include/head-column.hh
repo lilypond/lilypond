@@ -18,27 +18,27 @@
 class Head_column : public Script_column
 { 
 public:
-    Link_array<Note_head> head_l_arr_;
-    /** The relative position of the "voice" containing this
-      chord. Normally this would be the same as the stem direction,
-      but rests do not have stems.  
+  Link_array<Note_head> head_l_arr_;
+  /** The relative position of the "voice" containing this
+    chord. Normally this would be the same as the stem direction,
+    but rests do not have stems.  
 
-      Hmm. outdated.. Rests *do* have stems.
-      */
+    Hmm. outdated.. Rests *do* have stems.
+    */
 
-    int dir_i_;
-    Stem* stem_l_;
+  Direction dir_;
+  Stem* stem_l_;
 
-    void add (Note_head*);
-    virtual void add (Script*s);
-    virtual void set (Stem*);
-    Head_column();
-    DECLARE_MY_RUNTIME_TYPEINFO;
+  void add (Note_head*);
+  virtual void add (Script*s);
+  void set (Stem*);
+  Head_column();
+  DECLARE_MY_RUNTIME_TYPEINFO;
 protected:
 
 
-    virtual void do_pre_processing();
-    virtual void do_print()const;
-    virtual void do_substitute_dependency (Score_elem*,Score_elem*);
+  virtual void do_pre_processing();
+  virtual void do_print() const;
+  virtual void do_substitute_dependency (Score_elem*,Score_elem*);
 };
 #endif // HEAD_COLUMN_HH

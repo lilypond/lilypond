@@ -21,10 +21,10 @@ class Note_column_engraver :public Engraver {
     Note_column *ncol_p_;
     Rest_column *restcol_p_;
     bool h_shift_b_;
-    int dir_i_;
+    Direction dir_;
     
 
-    bool acceptable_elem_b (Score_elem const*)const;
+    bool acceptable_elem_b (Score_elem const*) const;
 protected:
     virtual void set_feature (Feature);
     virtual void acknowledge_element (Score_elem_info);

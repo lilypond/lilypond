@@ -30,7 +30,7 @@ int idx (int dir, bool h_shift_b)
 {
   assert (abs (dir) == 1);
   int j = dir > 0 ? 0 : 3;
-  if ( h_shift_b) 
+  if (h_shift_b) 
 	j += dir;
   return j;
 }
@@ -57,12 +57,12 @@ Collision::do_pre_processing()
   for (int i=0; i < clash_l_arr_.size(); i++) 
     {
 	Note_column* c_l = clash_l_arr_[i];
-	if (! c_l->dir_i_) 
+	if (! c_l->dir_) 
 	  {
 	    warning ("No stem direction set. Ignoring column in clash. ");
 	    continue;
 	  }
-	int d = (c_l->dir_i_);
+	int d = (c_l->dir_);
 	
 	clash_group_arr_a[idx (d, c_l->h_shift_b_)].push (c_l);
     }

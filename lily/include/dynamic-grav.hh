@@ -13,7 +13,7 @@
 #include "engraver.hh"
 
 class Dynamic_engraver : public Engraver {
-    int dir_i_;
+    Direction dir_;
     Text_item * dynamic_p_;
     Crescendo * to_end_cresc_p_;
     Crescendo * cresc_p_;

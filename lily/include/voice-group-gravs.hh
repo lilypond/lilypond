@@ -17,7 +17,7 @@
  */
 class Voice_group_engravers  : public Engraver_group_engraver {
     Moment termination_mom_;
-    int dir_i_;
+    Direction dir_;
 
 protected:
     virtual void do_print() const;
