@@ -4,106 +4,97 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  Jan Nieuwenhuizen <janneke@gnu.org>
+                 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include <time.h>
 #include <math.h>
+#include <time.h>
 
-#include "dimensions.hh"
-#include "virtual-methods.hh"
-#include "paper-outputter.hh"
-#include "stencil.hh"
 #include "array.hh"
+#include "dimensions.hh"
+#include "font-metric.hh"
+#include "input-file-results.hh"
+#include "input-smob.hh"
+#include "lily-guile.hh"
+#include "lily-version.hh"
+#include "ly-module.hh"
+#include "main.hh"
+#include "paper-book.hh"
+#include "paper-def.hh"
+#include "paper-line.hh"
+#include "paper-outputter.hh"
+#include "scm-hash.hh"
+#include "stencil.hh"
 #include "string-convert.hh"
 #include "warn.hh"
-#include "font-metric.hh"
-#include "main.hh"
-#include "scm-hash.hh"
-#include "lily-version.hh"
-#include "paper-def.hh"
-#include "input-file-results.hh"
-#include "ly-module.hh"
-#include "paper-book.hh"
-#include "paper-line.hh"
-#include "input-smob.hh"  // output_expr
 
 
-Paper_outputter::Paper_outputter (String name)
+Paper_outputter::Paper_outputter (String filename)
 {
   if (safe_global_b)
     scm_define (ly_symbol2scm ("safe-mode?"), SCM_BOOL_T);      
   
-  file_ = scm_open_file (scm_makfrom0str (name.to_str0 ()),
+  file_ = scm_open_file (scm_makfrom0str (filename.to_str0 ()),
 			 scm_makfrom0str ("w"));
 
-  if (output_format_global == PAGE_LAYOUT)
+  String module_name = "scm output-" + output_format_global;
+  if (safe_global_b)
     {
-      output_func_ = SCM_EOL;
-      String name = "scm output-" + output_format_global;
-      if (safe_global_b)
-	{
-	  /* In safe mode, start from a GUILE safe-module and import
-	     all symbols from the output module.  */
-	  scm_c_use_module ("ice-9 safe");
-	  SCM msm = scm_primitive_eval (ly_symbol2scm ("make-safe-module"));
- 	  output_module_ = scm_call_0 (msm);
-	  ly_import_module (output_module_,
-			    scm_c_resolve_module (name.to_str0 ()));
-	}
-      else
-	output_module_ = scm_c_resolve_module (name.to_str0 ());
-
-      /* FIXME: output-lib should be module, that can be imported.  */
-#define IMPORT_LESS 1 // only import the list of IMPORTS
-#if IMPORT_LESS
-      scm_c_use_module ("lily");
-      scm_c_use_module ("ice-9 regex");
-      scm_c_use_module ("srfi srfi-13");
-#endif
-      char const *imports[] = {
-	"lilypond-version",          /* from lily */
-	"ly:output-def-scope",
-	"ly:gulp-file",
-	"ly:number->string",
-	"ly:ragged-page-breaks",
-	"ly:optimal-page-breaks",
-	
-	"ly:number-pair->string",    /* output-lib.scm */
-	"ly:numbers->string",
-	"ly:inexact->string",
-	
-	"assoc-get",
-#if IMPORT_LESS	
-	"string-index",              /* from srfi srfi-13 */
-	"string-join",
-	"regexp-substitute/global",  /* from (ice9 regex) */
-#endif	
-	0,
-      };
-      
-      for (int i = 0; imports[i]; i++)
-	{
-	  SCM s = ly_symbol2scm (imports[i]);
-	  scm_module_define (output_module_, s, scm_primitive_eval (s));
-	}
-#ifndef IMPORT_LESS  // rather crude, esp for safe-mode let's not
-      SCM m = scm_set_current_module (output_module_);
-      /* not present in current module*/
-      scm_c_use_module ("ice-9 regex");
-      scm_c_use_module ("srfi srfi-13");
-      /* Need only a few of these, see above
-	 scm_c_use_module ("lily"); */
-      scm_set_current_module (m);
-#endif
+      /* In safe mode, start from a GUILE safe-module and import
+	 all symbols from the output module.  */
+      scm_c_use_module ("ice-9 safe");
+      SCM msm = scm_primitive_eval (ly_symbol2scm ("make-safe-module"));
+      output_module_ = scm_call_0 (msm);
+      ly_import_module (output_module_,
+			scm_c_resolve_module (module_name.to_str0 ()));
     }
   else
+    output_module_ = scm_c_resolve_module (module_name.to_str0 ());
+  
+  /* FIXME: output-lib should be module, that can be imported.  */
+#define IMPORT_LESS 1 // only import the list of IMPORTS
+#if IMPORT_LESS
+  scm_c_use_module ("lily");
+  scm_c_use_module ("ice-9 regex");
+  scm_c_use_module ("srfi srfi-1");
+  scm_c_use_module ("srfi srfi-13");
+#endif
+  char const *imports[] = {
+    "lilypond-version",          /* from lily */
+    "ly:output-def-scope",
+    "ly:gulp-file",
+    "ly:number->string",
+    "ly:ragged-page-breaks",
+    "ly:optimal-page-breaks",
+    
+    "ly:number-pair->string",    /* output-lib.scm */
+    "ly:numbers->string",
+    "ly:inexact->string",
+    
+    "assoc-get",
+#if IMPORT_LESS	
+    "remove",                    /* from srfi srfi-1 */
+    "string-index",              /* from srfi srfi-13 */
+    "string-join",
+    "regexp-substitute/global",  /* from (ice9 regex) */
+#endif	
+    0,
+  };
+      
+  for (int i = 0; imports[i]; i++)
     {
-      output_func_
-	= scm_call_1 (ly_scheme_function ("find-dumper"),
-		      scm_makfrom0str (output_format_global.to_str0 ()));
-      output_module_ = SCM_EOL;
+      SCM s = ly_symbol2scm (imports[i]);
+      scm_module_define (output_module_, s, scm_primitive_eval (s));
     }
+#ifndef IMPORT_LESS  // rather crude, esp for safe-mode let's not
+  SCM m = scm_set_current_module (output_module_);
+  /* not present in current module*/
+  scm_c_use_module ("ice-9 regex");
+  scm_c_use_module ("srfi srfi-13");
+  /* Need only a few of these, see above
+     scm_c_use_module ("lily"); */
+  scm_set_current_module (m);
+#endif
 }
 
 Paper_outputter::~Paper_outputter ()
@@ -115,10 +106,7 @@ Paper_outputter::~Paper_outputter ()
 void
 Paper_outputter::output_scheme (SCM scm)
 {
-  if (output_format_global == PAGE_LAYOUT)
-    scm_display (scm_eval (scm, output_module_), file_);
-  else
-    scm_call_2 (output_func_, scm, file_);
+  scm_display (scm_eval (scm, output_module_), file_);
 }
 
 void
@@ -156,15 +144,15 @@ Paper_outputter::output_header (Paper_def *paper, SCM scopes, int page_count)
 
   output_scheme (scm_list_1 (ly_symbol2scm ("header-end")));
 
-  /*
-    TODO: maybe have Scheme extract the fonts directly from \paper?
-
-    Alternatively, we could simply load the fonts on demand in the
-    output, and do away with this define-fonts step.
-   */
+  /* TODO: maybe have Scheme extract the fonts directly from \paper ?
+          
+     Alternatively, we could simply load the fonts on demand in the
+     output, and do away with this define-fonts step.  */
+  SCM fonts = paper->font_descriptions ();
   output_scheme (scm_list_3 (ly_symbol2scm ("define-fonts"),
 			     paper->self_scm (),
-			     ly_quote_scm (paper->font_descriptions ())));
+			     //FIXME:
+			     ly_quote_scm (ly_list_qsort_uniq_x (fonts))));
 }
 
 void
@@ -178,37 +166,17 @@ Paper_outputter::output_line (SCM line, Offset *origin, bool is_last)
       dim[Y_AXIS] = 50 CM;
     }
 
-  if (output_format_global != PAGE_LAYOUT)
-    output_scheme (scm_list_3 (ly_symbol2scm ("start-system"),
-			       scm_make_real (dim[X_AXIS]),
-			       scm_make_real (dim[Y_AXIS])));
-  else
-    {
-      output_scheme (scm_list_3 (ly_symbol2scm ("new-start-system"),
-				 ly_quote_scm (ly_offset2scm (*origin)),
-				 ly_quote_scm (ly_offset2scm (dim))));
-      (*origin)[Y_AXIS] += dim[Y_AXIS];
-    }
+  output_scheme (scm_list_3 (ly_symbol2scm ("start-system"),
+			     ly_quote_scm (ly_offset2scm (*origin)),
+			     ly_quote_scm (ly_offset2scm (dim))));
 
-  SCM between = SCM_EOL;
   for (SCM s = pl->stencils (); is_pair (s); s = ly_cdr (s))
-    {
-      Stencil *stil = unsmob_stencil (ly_car (s));
-      if (stil)
-	output_expr (stil->get_expr (), Offset (0,0));
-      /* Only if !PAGE_LAYOUT */
-      else if (ly_caar (s) == ly_symbol2scm ("between-system-string"))
-	between = ly_cdar (s);
-    }
+    output_expr (unsmob_stencil (ly_car (s))->get_expr (), Offset (0, 0));
 
-  if (is_last)
-    output_scheme (scm_list_1 (ly_symbol2scm ("stop-last-system")));
-  else
-    {
-      output_scheme (scm_list_1 (ly_symbol2scm ("stop-system")));
-      if (output_format_global != PAGE_LAYOUT && between != SCM_EOL)
-	output_scheme (between);
-    }
+  output_scheme (scm_list_2 (ly_symbol2scm ("stop-system"),
+			     ly_bool2scm (is_last)));
+
+  (*origin)[Y_AXIS] += dim[Y_AXIS];
 }
 
 void

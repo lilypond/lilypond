@@ -274,10 +274,12 @@
 	 ;; CDR: junk dummy node
 	 (breaks (cdr (reverse (map robust-line-number path)))))
 
-    (format (current-error-port) "ESTIMATE: ~S\n"
-	    (/ book-height text-height))
-    (format (current-error-port) "breaks: ~S\n" breaks)
-    ;; TODO: if solution is bad return no breaks and revert to
-    ;;       ragged bottom
-    (force-output (current-error-port))
+    (if (ly:get-option 'verbose)
+	(begin
+	  (format (current-error-port) "Estimated page count: ~S\n"
+		  (/ book-height text-height))
+	(format (current-error-port) "breaks: ~S\n" breaks)
+	(force-output (current-error-port))))
+	;; TODO: if solution is bad return no breaks and revert to
+	;;       ragged bottom
     (list->vector breaks)))

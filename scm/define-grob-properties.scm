@@ -105,8 +105,6 @@ beaming patterns from stem to stem inside a beam.")
 called before line breaking, but after splitting breakable items at
 potential line breaks.")
      (between-cols ,pair? "Where to attach a loose column to")
-     (between-system-string ,string? "string
- to dump between two systems. Useful for forcing page breaks.")
      (bracket-thick ,number? "width of a system start bracket.")
      (break-align-symbol ,symbol? "This key is used for aligning and
 spacing breakable items.")

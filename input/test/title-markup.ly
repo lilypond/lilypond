@@ -1,13 +1,12 @@
 \version "2.2.0"
 
 %{
-   Experimental markup titles are available in direct PostScript output:
+   Markup titles also available for direct PostScript output:
 
    export GS_LIB=$(pwd)/mf/out:/usr/share/texmf/fonts/type1/bluesky/cm
    lilypond-bin -fps input/title/title-markup.ly
 
-
-PostScript fonts: WIP.
+  PostScript fonts: WIP.
 
   * Nonstandardised install directory / how to locate a ps font?
   * Nonstandardised filenames?
@@ -28,7 +27,8 @@ For century schoolbook font:
 
 \paper{
     #(define page-breaking ly:optimal-page-breaks)
-	fonts = #(make-century-schoolbook-tree 1.0)
+    %% Ughr, this breaks TeX output...
+    %% fonts = #(make-century-schoolbook-tree 1.0)
     inputencoding = #"latin1"
 }
 
@@ -85,30 +85,32 @@ spaceTest = \markup { "two space chars" }
     %% bookTitle = \markup { \fill-line < \huge\bold \title > > }
 }
 
-\score {
-    \context Staff \notes \relative c' {
-	c2-\sizeTest c2-\spaceTest
+\book {
+    
+    \score {
+	\context Staff \notes \relative c' {
+	    c2-\sizeTest c2-\spaceTest
+	}
+	\paper {
+	    %% #(paper-set-staff-size (* 11.0 pt)) 
+	}
     }
-    \paper {
-	%% #(paper-set-staff-size (* 11.0 pt)) 
-    }
-}
-
-\header {
-    %% Override automatic score title
-    %% scoreTitle = \markup { "Tweetje" }
-    opus = "opus 1"
-    piece = "Second"
-}
-
-\score {
-    \context Staff \notes \relative c' {
-	%% stress page breaking:
-	%% 35 keep on 3 pages
-	%% 36 spread evenly over 4 pages
-	\repeat unfold 36 { a b c d \break }
-	c1
-    }
-    \paper {
+    
+    \score {
+	\context Staff \notes \relative c' {
+	    %% stress page breaking:
+	    %% 35 keep on 3 pages
+	    %% 36 spread evenly over 4 pages
+	    \repeat unfold 36 { a b c d \break }
+	    c1
+	}
+	\header {
+	    %% Override automatic score title
+	    %% scoreTitle = \markup { "Tweetje" }
+	    opus = "opus 1"
+	    piece = "Second"
+	}
+	\paper {
+	}
     }
 }

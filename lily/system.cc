@@ -38,63 +38,11 @@ System::element_count () const
 int
 System::spanner_count () const
 {
-  int k =0;
-  for (SCM s = get_property ("all-elements");
-       is_pair (s); s = ly_cdr (s))
-    {
-      if (dynamic_cast<Spanner*> (unsmob_grob (ly_car (s))))
-	k++;
-    }
-
-  return k;
-}
-  
-
-int
-scm_default_compare (const void * a, const void *b)
-{
-  SCM pa = *(SCM *)a;
-  SCM pb = *(SCM *)b;
-
-  if (pa < pb)
-    return -1;
-  else if (pa > pb)
-    return 1;
-  else
-    return 0;
-}
-
-/*
-  modify L in place: sort it 
-*/
-SCM
-uniquify_list (SCM l)
-{
-  int len = scm_ilength (l);
-  SCM  * arr = new SCM[len];
   int k = 0;
-  for (SCM s = l; SCM_NNULLP (s); s = SCM_CDR (s))
-    arr[k++] = SCM_CAR (s);
-
-  assert (k == len);
-  qsort (arr, len, sizeof (SCM), &scm_default_compare);
-
-  k = 0;
-  SCM *tail = &l;
-  
-  for (int i = 0; i < len ; i++)
-    {
-      if (i && arr[i] == arr[i-1])
-	continue;
-
-      SCM_SETCAR (*tail, arr[i]);
-      tail = SCM_CDRLOC(*tail);
-    }
-
-  *tail = SCM_EOL;
-  delete[] arr;
-  
-  return l; 
+  for (SCM s = get_property ("all-elements"); is_pair (s); s = ly_cdr (s))
+    if (dynamic_cast<Spanner*> (unsmob_grob (ly_car (s))))
+      k++;
+  return k;
 }
 
 void
@@ -168,12 +116,12 @@ System::get_lines ()
   /* Because the this->get_property (all-elements) contains items in 3
      versions, handle_broken_dependencies () will leave duplicated
      items in all-elements.  Strictly speaking this is harmless, but
-     it leads to duplicated symbols in the output.  uniquify_list ()
+     it leads to duplicated symbols in the output.  ly_list_qsort_uniq_x ()
      makes sure that no duplicates are in the list.  */
   for (int i = 0; i < line_count; i++)
     {
       SCM all = broken_intos_[i]->get_property ("all-elements");
-      all = uniquify_list (all); 
+      all = ly_list_qsort_uniq_x(all); 
     }
 #endif
   
@@ -201,10 +149,9 @@ System::get_lines ()
 
 
 
-/*
-  Find the loose columns in POSNS, and drape them around the columns
-  specified in BETWEEN-COLS.  */
-void
+/* Find the loose columns in POSNS, and drape them around the columns
+   specified in BETWEEN-COLS.  */
+static void
 set_loose_columns (System* which, Column_x_positions const *posns)
 {
   for (int i = 0; i < posns->loose_cols_.size (); i++)
@@ -225,64 +172,53 @@ set_loose_columns (System* which, Column_x_positions const *posns)
 	    break;
 
 
-	  Item * l=dynamic_cast<Item*> (unsmob_grob (ly_car (between)));
-	  Item * r=dynamic_cast<Item*> (unsmob_grob (ly_cdr (between)));
+	  Item *le = dynamic_cast<Item*> (unsmob_grob (ly_car (between)));
+	  Item *re = dynamic_cast<Item*> (unsmob_grob (ly_cdr (between)));
 
-	  if (!(l && r))
+	  if (!(le && re))
 	    break ;
 	  
-	  if (!left && l)
+	  if (!left && le)
 	    {
-	      left = l->get_column ();
+	      left = le->get_column ();
 	      if (!left->get_system ())
 		left = left->find_prebroken_piece (RIGHT);
 	    }
 
 	  divide_over ++;
-	  loose = right = r->get_column ();
+	  loose = right = re->get_column ();
 	}
       while (1);
 
       if (!right->get_system ())
 	right = right->find_prebroken_piece (LEFT);
       
-      /*
-	We divide the remaining space of the column over the left and
-	right side. At the moment, we  
-	
-      */
-      Grob * common = right->common_refpoint (left, X_AXIS);
+      /* Divide the remaining space of the column over the left and
+	right side.  At the moment,  FIXME  */
+      Grob *common = right->common_refpoint (left, X_AXIS);
       
       Real rx =	right->extent (common, X_AXIS)[LEFT];
       Real lx = left->extent (common, X_AXIS)[RIGHT];
       Real total_dx = rx - lx;
       Interval cval =col->extent (col, X_AXIS);
 
-      /*
-	
-	We put it in the middle. This is not an ideal solution -- the
-	break alignment code inserts a fixed space before the clef
-	(about 1 SS), while the space following the clef is
-	flexible. In tight situations, the clef will almost be on top
-	of the following note. 
-	
-      */
-      Real dx = rx-lx - cval.length ();
+      /* Put it in the middle.  This is not an ideal solution -- the
+	 break alignment code inserts a fixed space before the clef
+	 (about 1 SS), while the space following the clef is flexible.
+	 In tight situations, the clef will almost be on top of the
+	 following note.  */
+      Real dx = rx - lx - cval.length ();
       if (total_dx < 2* cval.length ())
 	{
-	  /*
-	    todo: this is discontinuous. I'm too tired to
-	    invent a sliding mechanism. Duh.
-
-	    TODO.
-	   */
+	  /* TODO: this is discontinuous. I'm too tired to
+	    invent a sliding mechanism.  Duh. */
 	  dx *= 0.25;
 	}
       else
 	dx *= 0.5;
 
       col->system_ = which;
-      col->translate_axis (- col->relative_coordinate (common, X_AXIS), X_AXIS);
+      col->translate_axis (-col->relative_coordinate (common, X_AXIS), X_AXIS);
       col->translate_axis (lx + dx - cval[LEFT], X_AXIS); 
     }
 }
@@ -376,7 +312,7 @@ System::post_processing ()
      This might seem inefficient, but Stencils are cached per grob
      anyway. */
   SCM all = get_property ("all-elements");
-  all = uniquify_list (all);
+  all = ly_list_qsort_uniq_x (all);
 
   this->get_stencil ();
   for (SCM s = all; is_pair (s); s = ly_cdr (s))
@@ -429,17 +365,6 @@ System::get_line ()
 	unsmob_stencil (my_stencil)->translate (o + extra);
 	stencils = scm_cons (my_stencil, stencils);
       }
-
-  if (output_format_global != PAGE_LAYOUT)
-    {
-      SCM lastcol = ly_car (get_property ("columns"));
-      Grob *g = unsmob_grob (lastcol);
-      
-      SCM between = ly_symbol2scm ("between-system-string");
-      SCM inter = g->internal_get_property (between);
-      if (is_string (inter))
-	stencils = scm_cons (scm_cons (between, inter), stencils);
-    }
 
   Interval x (extent (this, X_AXIS));
   Interval y (extent (this, Y_AXIS));
@@ -507,4 +432,4 @@ System::columns ()const
 ADD_INTERFACE (System,"system-interface",
 	       "This is the toplevel object: each object in a score "
 	       "ultimately has a System object as its X and Y parent. ",
-	       "between-system-string all-elements columns")
+	       "all-elements columns")

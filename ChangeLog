@@ -1,5 +1,37 @@
 2004-04-10  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	Page layout for SCOREs enclosed in a BOOK:
+
+	* scripts/lilypond.py: Remove LaTeX titling kludge.  Remove page
+	layout tweaking.
+
+	* input/les-nereides.ly (theScore): Add \book.
+	
+	* input/test/title-markup.ly: Add \book.
+
+	* scm/page-layout.scm (ly:optimal-page-breaks): Debugging output
+	only if 'verbose.
+
+	* lily/include/paper-book.hh (PAGE_LAYOUT): Remove.
+
+	* lily/paper-outputter.cc (output_line): Remove PAGE_LAYOUT check.
+
+	* tex/lilyponddefs.tex (lilypondstart, lybox, lyitem):
+	* scm/output-tex.scm (start-system): Update for page layout by
+	LilyPond.
+
+	* scm/output-ps.scm (start-system): Previously (new-start-system).
+
+	* lily/paper-outputter.cc (output_header): Uniquify list of fonts
+	passed to define-fonts.
+
+	* lily/paper-column.cc: 
+	* lily/system.cc (get_line):
+	* ly/property-init.ly (newpage): 
+	* scm/define-grob-properties.scm:
+	* scm/output-ps.scm: 
+	* scm/output-tex.scm: Remove between-system-string kludge.
+
 	* scm/output-ps.scm (define-fonts, font-command,
 	font-load-encoding): Handle ENCODING = #f.
 

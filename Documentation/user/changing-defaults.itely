@@ -2047,6 +2047,7 @@ After the last system LilyPond emits a stronger variant of
 to the top of the page).  You can avoid that by setting the variable
 @code{lastpagefill} in LilyPond's @code{\paper} block.
 
+@c FIXME: broken by page layout
 It is possible to fine-tune the vertical offset further by defining the
 macro @code{\lilypondscoreshift}:
 

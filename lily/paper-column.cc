@@ -35,7 +35,7 @@ ADD_INTERFACE (Paper_column, "paper-column-interface",
 	       "  non-adjacent numbers.\n"
 	       "\n"
 	       ,
-	       "between-cols between-system-string when bounded-by-me "
+	       "between-cols when bounded-by-me "
 	       "shortest-playing-duration shortest-starter-duration");
 
 void

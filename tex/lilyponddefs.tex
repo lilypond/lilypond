@@ -1,37 +1,35 @@
-% lilyponddefs.tex
-%
-% Include file for LilyPond.
-%
-% This file defines various macros to acommodate lilypond output.
-%
-% It should run with plain TeX, LaTeX, pdftex, and texinfo.
-%
-% To avoid interferences, lilyponddefs.tex should be loaded within a group.
-% To load it only once, most of the definitions must be global.
-%
-% The overall structure of a file created by LilyPond is as follows:
-%
-%   <lilypond parameter definitions>
-%   \ifx\lilypondstart \undefined
-%     \input lilyponddefs
-%   \fi
-%   \lilypondstart
-%   <font setup and note output>
-%   \lilypondend
-%
-% No footers and headers are provided for the stand-alone run (i.e., for
-% directly saying `latex <LilyPond output>'.
-%
-%
-% Avoid \par while reading this file.
+%%% lilyponddefs.tex -- TeX macros for LilyPond output.
+%%%
+%%%  source file of the GNU LilyPond music typesetter
+%%% 
+%%% (c)  1998--2004 Jan Nieuwenhuizen <janneke@gnu.org>
+%%%                 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+%%%                 Mats Bengtsson <mats.bengtsson@s3.kth.se>
+%%%
+%% Avoid \par while reading this file.
 \edef\lilyponddefsELC{\the\endlinechar}%
 \endlinechar -1\relax
 
-% the next three macros are taken from LaTeX
+%% This runs with plain TeX, LaTeX, pdftex, and texinfo.
+%%
+%% To avoid interferences, lilyponddefs.tex must be loaded within a group.
+%% It is loaded only once, so the definitions must be global.
+%%
+%% The overall structure of a file created by LilyPond is as follows:
+%%
+%%   <lilypond parameter definitions>
+%%   \ifx\lilypondstart \undefined
+%%     \input lilyponddefs
+%%   \fi
+%%   \lilypondstart
+%%   <font setup and note output>
+%%   \lilypondend
+
+\newdimen\outputscale
+
+%% Handy macros from the LaTeX manual.
 \long\gdef\lilypondfirst#1#2{#1}
-
 \long\gdef\lilypondsecond#1#2{#2}
-
 \gdef\lilypondifundefined#1{
   \expandafter\ifx\csname#1\endcsname\relax
     \expandafter\lilypondfirst
@@ -43,72 +41,46 @@
 \gdef\lilypondstart{
   \begingroup
   \catcode `\@=11\relax
-  % \@nodocument is defined as \relax after `\begin{document}'
+  %% \@nodocument is defined as \relax after `\begin{document}'
   \lilypondifundefined{@nodocument}
     {
-      % either plain TeX or texinfo or not at the beginning of LaTeX input
-      \def\x{\endgroup}
-    }
+      %% either plain TeX or texinfo or not at the beginning of LaTeX input
+      \def\x{\endgroup}}
     {
-      % provide a proper LaTeX preamble (for A4 paper format)
+      %% FIXME: a4
+      %% provide a proper LaTeX preamble (for A4 paper format)
       \def\x{
         \endgroup
         \def\lilyponddocument{}
         \documentclass[a4paper]{article}
-	\nofiles
+        %% safe-mode
+        \nofiles
+        %% Nullify [La]TeX page layout settings, page layout by LilyPond.
         \pagestyle{empty}
-        % \begin is defined as \outer in texinfo, thus we use \csname
-        \csname begin\endcsname{document}
-        % center staves horizontally on page
-        \ifdim\lilypondpaperlinewidth\lilypondpaperunit > 0pt
-          \hsize\lilypondpaperlinewidth\lilypondpaperunit
-          % we abuse \scoreshift temporarily
-          \scoreshift \paperwidth
-          \advance\scoreshift -\the\hsize
-          \scoreshift 0.5\scoreshift
-          \advance\scoreshift -1in
-          \oddsidemargin \scoreshift
-          \evensidemargin \scoreshift
-        \fi
+        \topmargin-1in
+        %% FIXME: empirical computer science: page is ca 5mm too low.
+        \advance\topmargin-5mm
+        \headheight0pt\headsep0pt
+        \oddsidemargin-1in
+        \evensidemargin\oddsidemargin
         \parindent 0pt
-      }
-    }
-
-  \x
-
-  \lilypondifundefined{mustmakelilypondtitle}
-    {}
-    {\makelilypondtitle}
-
-  \lilypondifundefined{mustmakelilypondpiecetitle}
-    {}
-    {\makelilypondpiecetitle}
-}
+        %% TEXINFO workaround: \begin is defined as \outer, use \csname.
+        \csname begin\endcsname{document}}}
+  \x}
 
 \gdef\lilypondend{
   \lilypondifundefined{lilypondbook}
-    {\lilypondifundefined{lilypondpaperlastpagefill}
-      {\vskip 0pt plus \lilypondpaperinterscorelinefill00 fill}
-      {}
-    }
-    {}
-
+  {\lilypondifundefined{lilypondpaperlastpagefill}
+    {\vskip 0pt plus\lilypondpaperinterscorelinefill00 fill}
+    {}}
+  {}
   \begingroup
   \lilypondifundefined{lilyponddocument}
-    {
-      \def\x{\endgroup}
-    }
-    {
-      \def\x{
-        \endgroup
-        \csname end\endcsname{document}
-      }
-    }
+    {\def\x{\endgroup}}
+    {\def\x{\endgroup\csname end\endcsname{document}}}
+  \x}
 
-  \x
-}
-
-% this is an inversed \loop ... \repeat macro
+%% Inversed \loop ... \repeat macro
 \def\lilypondloop#1\lilypondrepeat{
   \def\lilypondbody{#1}
   \lilyponditerate
@@ -124,82 +96,59 @@
   \lilypondnext
 }
 
-% the following macro is executed only once
+%% Include \special only once.
 \gdef\lilypondspecial{
   \special{header=music-drawing-routines.ps}
   \gdef\lilypondspecial{}
 }
 
-% the feta characters
+%% The feta characters.
 \input feta20
 
 \global\font\fetasixteen = feta16
 \gdef\fetafont{\fetasixteen}
 \gdef\fetachar#1{\hbox{\fetasixteen#1}}
 
-\gdef\botalign#1{
-  \vbox to 0pt{\vss #1}
-}
-\gdef\leftalign#1{
-  \hbox to 0pt{#1\hss}
-}
+\gdef\topalign#1{\vbox to 0pt{\hbox{#1}\vss}}
+\gdef\leftalign#1{\hbox to 0pt{#1\hss}}
 
 \gdef\lyitem#1#2#3{
-  \botalign{
-    \hbox{\raise #1\outputscale
-          \leftalign{\kern #2\outputscale #3}}
-  }
-}
+  \topalign{\raise#2\outputscale\leftalign{\kern#1\outputscale#3}}}
 
-\gdef\lybox#1#2#3{
-  \hbox to #1\outputscale {
-    \lower\scoreshift \vbox to #2\outputscale {
-      \hbox{#3}
-      \vss
-    }
-    \hss
-  }
-}
+\gdef\XXXlybox#1#2#3#4#5{
+  \vbox to #4\outputscale{
+    \hbox to #3\outputscale{
+      \leftalign{\kern#1\outputscale\lower#2\outputscale\topalign{#5}}}
+    \hss}\vss}
+
+%% FIXME: no dimensions, should fix at toplevel
+\gdef\lybox#1#2#3#4#5{
+  \leftalign{\kern#1\outputscale\lower#2\outputscale\topalign{#5}}}
 
 \gdef\lyvrule#1#2#3#4{
-  \kern #1\outputscale
-  \vrule width #2\outputscale depth #3\outputscale height #4\outputscale
-}
-
-% Attempt to keep lilypiecetitle together with the piece:
-%
-% TODO: figure this out.
-\gdef\myfilbreak{}%\par\vfil\penalty200\vfilneg}
+  \kern#1\outputscale
+  \vrule width #2\outputscale depth #3\outputscale height #4\outputscale}
 
 \lilypondifundefined{lilypondpaperinterscorelinefill}
   {\gdef\lilypondpaperinterscorelinefill{0}}
   {\gdef\lilypondpaperinterscorelinefill{1}}
 
-%% Allow overriding of interscoreline, eg for lilypond --preview
+%% Allow overriding of interscoreline, e.g. for lilypond.py's --preview
 \lilypondifundefined{interscoreline}
-{\gdef\interscoreline{
-  \vskip \lilypondpaperinterscoreline \lilypondpaperunit
-    plus \lilypondpaperinterscorelinefill fill
-}}{}
+{\gdef\interscoreline{}}{}
 
-% Are we using PDFTeX?  If so, use pdf definitions.
-% MiKTeX checks \pdfoutput the wrong way, thus we use \csname.
+%% Include postscript definitions unless using PDFTeX,
+%% in that case use pdf definitions.
+%% MiKTeX workaround: use \csname.
 \lilypondifundefined{lilypondpostscript}
-  {
-    \lilypondifundefined{pdfoutput}
-      {\input lily-ps-defs }
-      {
-        \pdfoutput = 1
-        \input lily-pdf-defs %
-      }
-  }
-  {}
+{\lilypondifundefined{pdfoutput}
+  {\input lily-ps-defs }
+  {\pdfoutput = 1
+    \input lily-pdf-defs }}
+{}
 
-\newdimen\outputscale
-\newdimen\scoreshift
-
-% Restore newline functionality (disabled to avoid \par).
+%% Restore newline functionality (disabled to avoid \par).
 \endlinechar \lilyponddefsELC
 \endinput
 
-% EOF
+%% end lilyponddefs.tex

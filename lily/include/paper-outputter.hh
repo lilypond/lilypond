@@ -27,18 +27,16 @@
 class Paper_outputter
 {
   bool verbatim_scheme_b_;
-public:
 
-  SCM output_func_;
+public:
   SCM output_module_;
   Protected_scm file_;
-  
   String basename_;
+
   Paper_outputter (String nm);
   ~Paper_outputter ();
   
   void dump_scheme (SCM);
-
   void output_metadata (Paper_def*, SCM);
   void output_music_output_def (Music_output_def* odef);
   void output_scheme (SCM scm);
