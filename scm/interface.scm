@@ -828,15 +828,6 @@ Calc dimensions for the Separating_group_spanner; this has to be
     )
 ))
 
-(define text-script-interface
-  (lily-interface
-   'text-script-interface
-   ""
-   (list
-    
-    )))
-
-
 (define tie-interface
   (lily-interface
    'tie-interface

@@ -13,6 +13,9 @@
 	  (uniqued-alist (cdr alist) (cons (car alist) acc)
   ))))
 
+(define (processing name)
+  (display (string-append "\nProcessing " name " ... ") (current-error-port)))
+
 (define (self-evaluating? x)
   (or (number? x) (string? x) (procedure? x) (boolean? x)))
 
