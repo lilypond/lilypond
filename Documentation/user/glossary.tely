@@ -7,8 +7,16 @@
 @c @evenheading @thispage @| @| 
 @c @oddheading @| @| @thispage @|
 
-@itemize 
+@ignore
+ glossary by Christian Mondrup
 
+ spanish by David González <dgonzal@quanta.net.py> 
+
+@end ignore
+
+
+@itemize 
+@item ES - Spanish
 @item I - Italian 
 @item F - French 
 @item D - German 
@@ -38,15 +46,16 @@ A reference is indicated by @ar{} followed by the term in @strong{boldface}.
 @table @strong
 
 @item A
-I: la, F: la,  D: A, a, NL: a, DK: a, S: a, N: a.
+ES: la
+: la, F: la,  D: A, a, NL: a, DK: a, S: a, N: a.
 
 @item accent
-I: accento, F: accent, D: Akzent, NL: accent, DK: accent, S: accent, N: 
+ES: acento, I: accento, F: accent, D: Akzent, NL: accent, DK: accent, S: accent, N: 
 
 The stress of one tone over others.
 
 @item accidental
-I: alterazione, accidente, F: alt@'eration accidentelle, D: Vorzeichen,
+ES: alteración, I: alterazione, accidente, F: alt@'eration accidentelle, D: Vorzeichen,
 Versetzungszeichen, NL: voorteken, DK: l@o{}st fortegn, S: tillf@"alligt 
 f@"ortecken, N:
 
@@ -71,15 +80,15 @@ accidental.
   g!1_"natural" s2
 }
 @end lilypond
-@item accelerando 
-I: accelerando, F: accelerando, en acc@'el@'erant, D: accelerando, Schneller,
+@item accelerando
+ES: acelerando, I: accelerando, F: accelerando, en acc@'el@'erant, D: accelerando, Schneller,
 NL: accelerando, DK: accelerando, S: accelerando, N:
 
 Still faster tempo.
 
 
 @item adagio
-I: adagio, F: adagio, lent, D: Adagio, Langsam, NL: adagio, DK: adagio, S:
+ES: adagio, I: adagio, F: adagio, lent, D: Adagio, Langsam, NL: adagio, DK: adagio, S:
 adagio, N: adagio.
 
 It. comfortable, easy. 1. Slow tempo, slower - especially in even meter - than
@@ -88,14 +97,14 @@ movement in slow tempo, esepecially the scond (slow) movement of
 @w{@ar{}@strong{sonata}s}, symphonies etc.
 
 @item allegro
-I: allegro, F: allegro, D: Allegro, Schnell, Fr@"ohlich, Lustig, NL: allegro,
+ES: allegro, I: allegro, F: allegro, D: Allegro, Schnell, Fr@"ohlich, Lustig, NL: allegro,
 DK: allegro, S: allegro, N: allegro.
 
 It. cheerful. Quick tempo. Also used as a title for pieces in a quick tempo,
 especially the first and last movements of a @w{@ar{}@strong{sonata}}.
 
 @item alto
-I: contralto, F: alto, D: Alt, NL: alt, DK: alt, S: alt, N: alt.
+ES: alto, I: contralto, F: alto, D: Alt, NL: alt, DK: alt, S: alt, N: alt.
 
 A female voice of low range (@emph{contralto}). Originally the alto was a high
 male voice (hence the name) which by the use of falsetto reached the height of
@@ -103,7 +112,7 @@ the female voice. This type of voice is also known as @w{@ar{}@strong{counter
 tenor}}.
 
 @item alto clef
-I: chiave di contralto, F: clef d'ut troisi@`eme ligne, D: Altschl@"ussel,
+ES: clave de do en tercera, I: chiave di contralto, F: clef d'ut troisi@`eme ligne, D: Altschl@"ussel,
 Bratschenschl@"ussel, NL: alt sleutel, DK: altn@o{}gle, S: altklav, N:
 
 C clef setting central C on the middle line of the staff 
@@ -122,13 +131,13 @@ a1 b c d e f g a }
 @end lilypond
 
 @item andante
-I: andante, F: andante, D: Andante, NL: andante, DK: andante, S: andante,
+ES: andante, I: andante, F: andante, D: Andante, NL: andante, DK: andante, S: andante,
 N: andante. 
 
 walking tempo/character
 
-@item appoggiatura 
-I: appoggiatura, F: appogiature, (port de voix), D: Vorschlag, NL: voorslag,
+@item appoggiatura
+ES: apoyatura, I: appoggiatura, F: appogiature, (port de voix), D: Vorschlag, NL: voorslag,
 DK: forslag, S: f@"orslag, N:
 
 Ornamental note, usually a second, that is melodically connected with the main
@@ -178,7 +187,7 @@ An appoggiatura may have more notes preceding the main note.
 @end lilypond
 
 @item arpeggio
-I: arpeggio, F: arp@`ege, D: Arpeggio, Akkordbrechungen, gebrochener
+ES: arpegio, I: arpeggio, F: arp@`ege, D: Arpeggio, Akkordbrechungen, gebrochener
 Akkord, NL: gebroken akoord, DK: arpeggio, akkordbrydning, S: arpeggio, N:
 
 @
@@ -204,13 +213,13 @@ Akkord, NL: gebroken akoord, DK: arpeggio, akkordbrydning, S: arpeggio, N:
 @end lilypond
 
 @item ascending interval
-I: intervallo ascendente, F: intervalle ascendant, D: steigendes Intervall,
+ES: Intervalo ascendente, I: intervallo ascendente, F: intervalle ascendant, D: steigendes Intervall,
 NL: stijgend interval, DK:@w{ }stigende interval, S: stigande intervall, N:
 
 A distance between a starting lower note and a higher ending note.
 
 @item augmented interval
-I: intervallo aumentato, F: intervalle augment@'e, D: @"uberm@"a@ss{}iges
+ES: intervalo aumentado, I: intervallo aumentato, F: intervalle augment@'e, D: @"uberm@"a@ss{}iges
 Intervall, NL: overmatig interval, DK: forst@o{}rret interval, S:
 @"overstigande intervall, N:
 
@@ -226,26 +235,27 @@ straightedge ruler and T-square, which attempts to emulate
 engraving. This required more skill than did engraving.
 
 @item B
-I: si, F: si,  D: H, h, NL: b, DK: h, S: h, N: h.
+ES: si, I: si, F: si,  D: H, h, NL: b, DK: h, S: h, N: h.
 
 @item backfall; forefall 
 @w{@ar{}@strong{appoggiatura}}
 
 @item bar line
-I: stanghetta, barra (di divisione), F: barre (de mesure), D: Taktstrich, NL:
+ES: , I: stanghetta, barra (di divisione), F: barre (de mesure), D: Taktstrich, NL:
 maatstreep, DK: taktstreg, S: taktstreck, N:
 
 @item bar
-@w{@ar{}@strong{measure}}
+ES: compás, @w{@ar{}@strong{measure}}
 
 @item baritone
-I: baritono, F: bariton, D: Bariton, NL: bariton, DK: baryton, S: baryton, N:
+ES: barítono, I: baritono, F: bariton, D: Bariton, NL: bariton, DK: baryton, S: baryton, N:
 baryton.
 
 The male voice intermediate between the @w{@ar{}@strong{bass}} and the
 @w{@ar{}@strong{tenor}}.
 
 @item baritone clef
+ES:  clave de fa en tercera
 I: chiave di baritono, F: clef de ut cinqui@`eme ligne, clef de troisi@`eme
 ligne, D: Barytonschl@"ussel, NL: baritonsleutel, DK: barytonn@o{}gle, S:
 barytonklav, N: .
@@ -254,7 +264,7 @@ C or F clef setting central C on the upper staff line. @w{@ar{}@strong{c clef}}
 @w{@ar{}@strong{f clef}}
 
 @item bass clef
-I: chiave di basso, F: cl@'e de fa quatri@`eme ligne, D: Bass-Schl@"ussel, NL:
+ES: clave de fa en cuarta, I: chiave di basso, F: cl@'e de fa quatri@`eme ligne, D: Bass-Schl@"ussel, NL:
 bassleutel, DK: basn@o{}gle, S: basklav, N:
 
 A clef setting with central C on the first top ledger line. @w{@ar{}@strong{f
@@ -286,7 +296,7 @@ beams determine the note value of the connected notes.
 @end lilypond
 
 @item beat
-I: tempi, F: temps, D: Taktschlag, Zeit (im Takt), NL: tel, DK: (takt)slag, S:
+ES: tiempo, I: tempi, F: temps, D: Taktschlag, Zeit (im Takt), NL: tel, DK: (takt)slag, S:
 taktslag, N:
 
 Note value used for counting, most often half-, fourth- and eighth notes. The
@@ -307,6 +317,7 @@ start of the music.
 @w{@ar{}@strong{tie}}
 
 @item brace
+ES:  llave, corchete
 I: graffa, F: accolade, D: Klammer, Klavierklammer, Akkolade, Chorklammer, NL:
 accolade, teksthaak, DK: klamme, S: klammer, N:
 
@@ -328,7 +339,7 @@ orchestral or choral score.
 @end lilypond
 
 @item brass
-I: ottoni, D: Blechbl@"aser, NL: koper (blazers), F: cuivres,
+ES: metales, I: ottoni, D: Blechbl@"aser, NL: koper (blazers), F: cuivres,
 DK: messingbl@ae{}sere, S: brassinstrument, m@"assingsinstrument, N:
 
 A family of blown musical instruments made of brass all using a cup formed
@@ -343,7 +354,7 @@ vejrtr@ae{}kningstegn, S: andningstecken, N: .
 Indication of where to breathe in vocal and wind instrument parts.
 
 @item breve
-I: breve, F: br@`eve, D: Brevis, NL: brevis, DK: brevis, S: brevis, N:
+ES: breve, I: breve, F: br@`eve, D: Brevis, NL: brevis, DK: brevis, S: brevis, N:
 
 @w{@ar{}@strong{Note value}} twice as long as a whole note. Mainly used
 in pre-1650 music.
@@ -356,10 +367,10 @@ in pre-1650 music.
 @end lilypond
 
 @item C
-I: do, F: ut,  D: C, c, NL: c, DK: c, S: c, N: c
+ES: do, I: do, F: ut,  D: C, c, NL: c, DK: c, S: c, N: c
 
 @item C clef
-I: chiave di do, F: cl@'e d'ut, D: C-Schl@"ussel, NL: C-sleutel, DK:
+ES: Clave de do, I: chiave di do, F: cl@'e d'ut, D: C-Schl@"ussel, NL: C-sleutel, DK:
 c-n@o{}gle, S: c-klav, N:
 
 Clef symbol indicating the position of the central C. Used on all note
@@ -384,13 +395,13 @@ lines.
 }
 @end lilypond
 
-@item cadence 
-I: cadenza, F: cadence, D: Kadenz, NL: cadens, DK: kadence, S: kadens, N: .
+@item cadence
+ES: cadencia, I: cadenza, F: cadence, D: Kadenz, NL: cadens, DK: kadence, S: kadens, N: .
 
 @w{@ar{}@strong{harmonic cadence}} @w{@ar{}@strong{functional harmony}}
 
 @item cadenza
-I: cadenza, F: cadence, D: Kadenz, NL: cadens, DK: kadence, S: kadens, N: .
+ES: cadenza, I: cadenza, F: cadence, D: Kadenz, NL: cadens, DK: kadence, S: kadens, N: .
 
 An extended, improvisatory style section inserted near the end of
 movement. The purpose of a cadenza is to give the singer or player a chance to
@@ -399,12 +410,12 @@ the middle of the 19'th century, however, most cadences have been written down
 by the composer.
 
 @item canon
-I: canone, F: canon, D: Kanon, NL: canon, DK: kanon, S: kanon, N: .
+ES: canon, I: canone, F: canon, D: Kanon, NL: canon, DK: kanon, S: kanon, N: .
 
 @w{@ar{}@strong{counterpoint}}
 
 @item cent
-I: cent, F: cent, D: Cent, NL: cent, DK: cent, S: cent, N: .
+ES: cent, I: cent, F: cent, D: Cent, NL: cent, DK: cent, S: cent, N: .
 
 Logarithmic unit of measurement. 1 cent is 1/1200 of an octave (1/100 of an
 equally tempered @w{@ar{}@strong{semitone}}) @w{@ar{}@strong{equal temperament}}
@@ -413,7 +424,7 @@ equally tempered @w{@ar{}@strong{semitone}}) @w{@ar{}@strong{equal temperament}}
 @w{@ar{}@strong{middle C}}
 
 @item chord
-I: accordo, F: accord, D: Akkord, NL: akkoord, DK: akkord, S: ackord, N: .
+ES: acorde, I: accordo, F: accord, D: Akkord, NL: akkoord, DK: akkord, S: ackord, N: .
 
 Three or more tones sounding simultaneously. In traditional European music the
 base chord is a @emph{triad} consisting of 2 thirds. @emph{Major} (major +
@@ -442,7 +453,7 @@ chords are denoted open chords
 @end lilypond
 
 @item chromatic scale
-I: scala cromatica, F: gamme chromatique, D: Chromatische Tonleiter, NL:
+ES: escala cromática, I: scala cromatica, F: gamme chromatique, D: Chromatische Tonleiter, NL:
 chromatische toonladder, DK: kromatisk skala, S: kromatisk skala, N: .
 
 A scale consisting of all 11 @w{@ar{}@strong{semitone}}s.
@@ -455,19 +466,19 @@ A scale consisting of all 11 @w{@ar{}@strong{semitone}}s.
 @end lilypond
 
 @item chromaticism
-I: cromatismo, F: chromatisme, D: Chromatik, NL: chromatiek, DK: kromatik, S:
+ES: cromatismo, I: cromatismo, F: chromatisme, D: Chromatik, NL: chromatiek, DK: kromatik, S:
 kromatik, N:
 
 Use of tones extraneous to a @w{@ar{}@strong{diatonic scale}} (minor, major).
 
-@item church mode; ecclesiastical mode 
-I: modo ecclesiastico, F: mode eccl@'esiastique, D: Kirchentonart, NL:
+@item church mode; ecclesiastical mode ES: modo eclesiástico, I: modo
+ecclesiastico, F: mode eccl@'esiastique, D: Kirchentonart, NL:
 kerktoonladder, DK: kirketoneart, S: kyrkotonart, N:
 
 @w{@ar{}@strong{diatonic scale}}
 
 @item clef
-I: chiave, F: cl@'e, clef, D: Schl@"ussel, Schl@"ussel, Notenschl@"ussel, NL:
+ES: clave, I: chiave, F: cl@'e, clef, D: Schl@"ussel, Schl@"ussel, Notenschl@"ussel, NL:
 sleutel, DK: n@o{}gle, S: klav, N:
 
 @w{@ar{}@strong{c clef}} @w{@ar{}@strong{f clef}} @w{@ar{}@strong{g clef}}
@@ -482,7 +493,7 @@ derived from some other tuning method. @w{@ar{}@strong{temperament}}
 @w{@ar{}@strong{meter}}
 
 @item compound interval
-I: intervallo composto, F: intervalle compos@'e, D: Weites Intervall(?), NL:
+ES: intervalo compuesto, I: intervallo composto, F: intervalle compos@'e, D: Weites Intervall(?), NL:
 samengesteld interval, DK: sammensat interval, S: sammansatt intervall, N: .
 
 Intervals larger than an octave
@@ -497,7 +508,7 @@ komplement@"arintervall (?), N:
 @w{@ar{}@strong{inverted interval}}
 
 @item conjunct movement
-I: moto congiunto, F: mouvement conjoint, D: schrittweise/stufenweise
+ES: movimiento conjunto, I: moto congiunto, F: mouvement conjoint, D: schrittweise/stufenweise
 Bewegung, NL: , DK: trinvis bev@ae{}gelse, S: stegvis r@"orelse, N:
 
 Melody moving in the narrow steps of the scale;
@@ -509,19 +520,19 @@ Melody moving in the narrow steps of the scale;
 \notes\relative c'' { g4 g g a | b2 a | g4 b a a | g1 \bar "||"; }
 @end lilypond
 
-@item consonance 
-I: consonanza, F: consonance, D: Konsonanz, NL: consonant, DK: konsonans, S:
+@item consonance
+ES: consonancia, I: consonanza, F: consonance, D: Konsonanz, NL: consonant, DK: konsonans, S:
 konsonans, N:
 
 @w{@ar{}@strong{harmony}}
 
 @item contralto
-I: contralto, F: contralto, D: Alt, NL: contralto, DK: alt, S: alt, N:
+ES: contralto, I: contralto, F: contralto, D: Alt, NL: contralto, DK: alt, S: alt, N:
 
 @w{@ar{}@strong{alto}}
 
-@item counterpoint 
-I: contrappunto, F: contrepoint, D: Kontrapunkt, NL: contrapunt, DK:
+@item counterpoint
+ES: contrapunto, I: contrappunto, F: contrepoint, D: Kontrapunkt, NL: contrapunt, DK:
 kontrapunkt, S: kontrapunkt, N: .
 
 From latin @emph{punctus contra punctum}, note against note. The combination
@@ -572,7 +583,7 @@ composition methods.
 @end lilypond
 
 @item counter tenor
-I: controtenore, F: contre-tenor, D: Kontratenor, NL: contratenor, DK:
+ES: contratenor, I: controtenore, F: contre-tenor, D: Kontratenor, NL: contratenor, DK:
 kontratenor, S: kontratenor, counter tenor, N: kontratenor
 
 @w{@ar{}@strong{contralto}}
@@ -585,7 +596,7 @@ methods were superior and could well be adopted by music typesetters. This
 required more skill than engraving.
 
 @item crescendo
-I: crescendo, F: crescendo, D: Crescendo, Lauter, NL: crescendo, DK:
+ES: crescendo, I: crescendo, F: crescendo, D: Crescendo, Lauter, NL: crescendo, DK:
 crescendo, S: crescendo, N:@w{ }crescendo.
 
 Increasing volume. Indicated by a rightwards opening horizontal wedge or the
@@ -599,24 +610,24 @@ abbreviation "cresc.".
 @end lilypond
 
 @item cue-notes
-I: notine, F: petites notes pr@'ec@'edent l'entr@'ee d'in instrument,
+ES: notas guia, I: notine, F: petites notes pr@'ec@'edent l'entr@'ee d'in instrument,
 r@'eplique, D: Stichnoten, NL: stichnoten, DK: stiknoder, S: inprickningar, N:
 
 In a separate part notes belonging to another part with the purpose of hinting
 when to start playing.  Usually printed in a smaller type.
 
 @item D
-I: re, F: r@'e, D: D, d, NL: d, DK: d, S: d, N: d
+ES: Re, I: re, F: r@'e, D: D, d, NL: d, DK: d, S: d, N: d
 
-@item da capo 
-I: da capo, F: da capo, depuis le commencement, D: da capo, von Anfang, NL: da
+@item da capo
+ES: da capo, I: da capo, F: da capo, depuis le commencement, D: da capo, von Anfang, NL: da
 capo, DK: da capo, S: da capo, N: .
 
 The term indicates repetition of the piece from the beginning to the end or to
 a certain place marked @emph{fine}. Mostly abbreviated D.C.
 
 @item dal segno
-I: dal segno, F: dal segno, depuis le signe, D: dal segno, NL: dal segno, DK:
+ES: dal segno, I: dal segno, F: dal segno, depuis le signe, D: dal segno, NL: dal segno, DK:
 dal segno, S: dal segno, N: .
 
 abbreviated d.s. Repetition, not from the beginning, but from another place
@@ -631,7 +642,7 @@ frequently near the beginning marked by a sign:
 @end lilypond
 
 @item decrescendo
-I: decrescendo, D: Decrescendo, Leiser, NL: decrescendo, DK: decrescendo, S:
+ES: decrescendo, I: decrescendo, D: Decrescendo, Leiser, NL: decrescendo, DK: decrescendo, S:
 decrescendo, N: decrescendo
 
 Decreasing tone volume. Indicated by a leftwards opening horizontal wedge  
@@ -645,14 +656,14 @@ or the abbreviation "decresc.".
 @end lilypond
 
 @item descending interval
-I: intervallo discendente, F: intervalle descendant, D: fallendes Intervall,
+ES: intervalo descendente, I: intervallo discendente, F: intervalle descendant, D: fallendes Intervall,
 absteigendes Intervall, NL: dalend interval, DK:@w{ }faldende interval, S:
 fallande intervall, N:
 
 An distance between a starting higher note and a lower ending note.
 
 @item diatonic scale
-I: scala diatonica, F: gamme diatonique, D: diatonische Tonleiter, NL:
+ES: escala diatónica, I: scala diatonica, F: gamme diatonique, D: diatonische Tonleiter, NL:
 diatonische toonladder, DK: diatonisk skala, S: diatonisk skala, N:
 
 A scale consisting of 5 @w{@ar{}@strong{whole tones}} and 2
@@ -830,20 +841,20 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 @end lilypond
 
 @item diminished interval
-I: intervallo diminuito, F: intervalle diminu@'e, D: vermindertes Intervall,
+ES: intervalo disminuído, I: intervallo diminuito, F: intervalle diminu@'e, D: vermindertes Intervall,
 NL: verminderd interval, DK: formindsket interval, S: f@"orminskat
 intervall, N: .
 
 @w{@ar{}@strong{interval}}
 
 @item diminuendo
-I: diminuendo, F: diminuendo, D: Diminuendo, NL: diminuendo, DK: diminuendo,
+ES: diminuendo, I: diminuendo, F: diminuendo, D: Diminuendo, NL: diminuendo, DK: diminuendo,
 S:@w{ }diminuendo, N:@w{ }diminuendo.
 
 @w{@ar{}@strong{decrescendo}}
 
 @item disjunct movement
-I: moto disgiunto, F: mouvement disjoint, D:
+ES: movimiendo disjunto, I: moto disgiunto, F: mouvement disjoint, D:
 sprunghafte Bewegung, NL: , DK: springende bev@ae{}gelse, S: hoppande
 r@"orelse, N:
 
@@ -861,6 +872,7 @@ scale. Opposite of @ar{}@strong{conjunct movement}.
 @end lilypond
 
 @item dissonant interval; dissonance
+ES: intervalo disonante, disonancias,
 I: intervallo dissonante, dissonanza, F: dissonance, D: Dissonanz, NL:
 dissonant interval; dissonant, DK: dissonerende interval, dissonans, S:
 dissonans, N: .
@@ -875,38 +887,38 @@ dominantnoneakkord, S: dominantnonackord, N: .
 @w{@ar{}@strong{chord}} @w{@ar{}@strong{functional harmony}}
 
 @item dominant seventh chord
-I: accordo di settima di dominante, F: accord de septi@`eme dominante, D:
+ES: acorde de séptima de dominante, I: accordo di settima di dominante, F: accord de septi@`eme dominante, D:
 Dominantseptakkord, NL: dominant septiem akkoord, DK: dominantseptimakkord, S:
 dominantseptimackord, N:
 
 @w{@w{@ar{}@strong{chord}} @ar{}@strong{functional harmony}}
 
 @item dominant
-I: dominante, F: dominante, D: Dominante, NL: dominant, DK: dominant, S:
+ES: dominante, I: dominante, F: dominante, D: Dominante, NL: dominant, DK: dominant, S:
 dominant, N: .
 
 The fifth @w{@ar{}@strong{scale degree}} @w{@ar{}@strong{functional harmony}}
 
 @item dorian mode
-I: modo dorico, F: mode dorien, D: Dorischer Kirchenton, NL: dorische
+ES: modo dórico, I: modo dorico, F: mode dorien, D: Dorischer Kirchenton, NL: dorische
 toonladder, dorischer Kirchenton, DK: dorisk skala, S: dorisk tonart, N:
 
 @w{@ar{}@strong{diatonic scale}}
 
 @item dot (augmentation dot)
-I: punto (di valore), F: point, D: Punkt (Verl@"angerungspunkt), NL: punt, DK:
+ES: puntillo, I: punto (di valore), F: point, D: Punkt (Verl@"angerungspunkt), NL: punt, DK:
 punkt, S: punkt, N:
 
 @w{@ar{}@strong{dotted note}}
 
 @item dotted note
-I: nota puntata, F: note point@'ee, D: punktierte Note, NL: gepuncteerde noot,
+ES: nota con puntillo, I: nota puntata, F: note point@'ee, D: punktierte Note, NL: gepuncteerde noot,
 DK: punkteret node, S: punkterad not, N:
 
 @w{@ar{}@strong{note value}}
 
 @item double appoggiatura
-I: appoggiatura doppia, F: appoggiature double, D: doppelter Vorschlag, NL:
+ES: apoyatura doble, I: appoggiatura doppia, F: appoggiature double, D: doppelter Vorschlag, NL:
 dubbele voorslag, DK: dobbelt forslag, S: dubbelslag, N:
 
 @w{@ar{}@strong{appoggiatura}}
@@ -918,44 +930,44 @@ dobbeltstreg, S: dubbelstreck, N: .
 Indicates the end of a section within a movement.
 
 @item double dotted note
-I: nota doppiamente puntata, F: note doublement point@'ee, D:
+ES: nota con dos puntillos, I: nota doppiamente puntata, F: note doublement point@'ee, D:
 doppel-punktierte Note, NL: dubbelgepuncteerde noot, DK:
 dob@-belt@-punk@-te@-ret node, S: dub@-bel@-punk@-te@-rad not, N: .
 
 @w{@ar{}@strong{note value}}
 
 @item double flat
-
+ES: doble bemol, 
 I: doppio bemolle, F: double b@'emol, D: Doppel-B, NL: dubbelmol, 
 DK:@w{ }dob@-belt-b, S: dubbelbe, N: .
 
 @w{@ar{}@strong{accidental}}
 
 @item double sharp
-I: doppio diesis, F: double di@`ese,  D: Doppelkreuz, NL: dubbelkruis, 
+ES: doble sostenido, I: doppio diesis, F: double di@`ese,  D: Doppelkreuz, NL: dubbelkruis, 
 DK:@w{ }dob@-belt@-kryds, S: dubbelkors, N: .
 
 @w{@ar{}@strong{accidental}}
 
 @item double trill
-I: doppio trillo, F: trille double, D: Doppeltriller, NL: dubbele triller, DK:
+ES: trino doble, I: doppio trillo, F: trille double, D: Doppeltriller, NL: dubbele triller, DK:
 dobbelttrille, S: dubbeldrill, N: .
 
 A simultaneous trill on two notes, usually in the distance of a third.
 
 @item duple meter
-I: tempo binario, F: temps binaire, D: zweiteiliger Takt, NL: tweedelige
+ES: tiempo binario, I: tempo binario, F: temps binaire, D: zweiteiliger Takt, NL: tweedelige
 maatsoort, DK: todelt takt, S: tv@aa{}takt, N: .
 
 @w{@ar{}@strong{meter}}
 
 @item duplet
-I: duina, F: duolet, D: Duole, NL: duool, DK: duol, S: duol, N: .
+ES: dosillo, I: duina, F: duolet, D: Duole, NL: duool, DK: duol, S: duol, N: .
 
 @w{@ar{}@strong{note value}}
 
 @item duration
-I: durata, F: dur@'ee, D: Dauer, L@"ange, NL: duur, lengte, DK: varighed, S:
+ES: duración, I: durata, F: dur@'ee, D: Dauer, L@"ange, NL: duur, lengte, DK: varighed, S:
 tonl@"angd, N: .
 
 @w{@ar{}@strong{note value}}
@@ -964,22 +976,22 @@ tonl@"angd, N: .
 @w{@ar{}@strong{syntonic comma}}
 
 @item E
-I: mi, F: mi, D: E, e, NL: e, DK: e, S: e, N: e.
+ES: mi, I: mi, F: mi, D: E, e, NL: e, DK: e, S: e, N: e.
 
 @item eighth note
-I: croma, F: croche, UK: quaver, D: Achtel, Achtelnote, NL: achtste noot, DK:
+ES: corchea, I: croma, F: croche, UK: quaver, D: Achtel, Achtelnote, NL: achtste noot, DK:
 ottendedelsnode, S: @aa{}ttondelsnot, N: .
 
 @w{@ar{}@strong{note value}}
 
 @item eighth rest
-I: pausa di croma, F: demi-soupir, UK: quaver rest, D: Achtelpause, NL:
+ES: silencio de corchea, I: pausa di croma, F: demi-soupir, UK: quaver rest, D: Achtelpause, NL:
 achtste rust, DK:@w{ }ottendedelspause, S: @aa{}ttonddelspaus, N: .
 
 @w{@ar{}@strong{note value}}
 
 @item engraving
-I: incisione, F: gravure, D: Notenstechen, NL: steken, DK: nodestik, S:
+ES: Grabar, I: incisione, F: gravure, D: Notenstechen, NL: steken, DK: nodestik, S:
 nottryck, N: .
 
 Engraving means incising or etching a metal plate for
@@ -990,7 +1002,7 @@ The traditional process of music printing is done through cutting in a
 plate of metal. Now also the term for the art of music typesetting.
 
 @item enharmonic
-I: enarmonico, F: enharmonique, D: enharmonisch, NL: enharmonisch, DK:
+ES: enharmónico, I: enarmonico, F: enharmonique, D: enharmonisch, NL: enharmonisch, DK:
 enharmonisk, S: enharmonisk, N: .
 
 Two notes, intervals, or scales are enharmonic if they have different names
@@ -1024,10 +1036,10 @@ Performance indications concerning 1. volume, dynamics (for example
 @w{@ar{}@strong{andante}}, @w{@ar{}@strong{allegro}})
  
 @item F
-I: fa, F: fa, D: F, f, NL: f, DK: f, S: f, N: f.
+ES: fa, I: fa, F: fa, D: F, f, NL: f, DK: f, S: f, N: f.
 
 @item F clef
-I: chiave di fa, F: cl@'e de fa, D: F-Schl@"ussel, NL: F-sleutel, DK:
+ES: Clave de Fa, I: chiave di fa, F: cl@'e de fa, D: F-Schl@"ussel, NL: F-sleutel, DK:
 F-n@o{}gle, S: f-klav, N: .
 
 The position between the dots of the key symbol is the line of the F below
@@ -1065,7 +1077,7 @@ octave lower (for example on double bass @w{@ar{}@strong{strings}}).
 @end lilypond
 
 @item fermata
-I: corona, F: pause, D: Fermate, NL: fermate, DK: fermat, S: fermat, N: .
+ES: Calderón, I: corona, F: pause, D: Fermate, NL: fermate, DK: fermat, S: fermat, N: .
 
 Prolonged note or rest of indefinite duration.
 
@@ -1077,21 +1089,22 @@ a4 b c2^\fermata \bar "|."; }
 @end lilypond
 
 @item fifth
-I: quinta, F: quinte, D: Quinte, NL: kwint, DK: kvint, S: kvint, N:
+ES: quinta, I: quinta, F: quinte, D: Quinte, NL: kwint, DK: kvint, S: kvint, N:
 kvint.
 
 @w{@ar{}@strong{interval}}
 
 @item figured bass
-@w{@ar{}@strong{thorough bass}}
+ES: bajo cifrado, @w{@ar{}@strong{thorough bass}}
 
 @item fingering
-I: diteggiatura, F: doigt@'e, D: Fingersatz, NL: vingerzetting, DK:
+ES: digitación, I: diteggiatura, F: doigt@'e, D: Fingersatz, NL: vingerzetting, DK:
 fingers@ae{}tning, S: fingers@"attning, N: .
 
 The methodical use of fingers in the playing of instruments.
 
 @item flag; pennant 
+ES: corchete, 
 I: coda (uncinata), bandiera, F: crochet, D: Fahne, F@"ahnchen, NL: vlaggetje,
 DK: fane, S: flagga, N: .
 
@@ -1111,7 +1124,7 @@ a quarter note. The number of flags determines the @w{@ar{}@strong{note value}}.
 @end lilypond
 
 @item flat
-I: bemolle, F: b@'emol, D: B, b, NL: mol, DK: b, S: bef@"ortecken, N: .
+ES: bemol, I: bemolle, F: b@'emol, D: B, b, NL: mol, DK: b, S: bef@"ortecken, N: .
 
 @w{@ar{}@strong{accidental}}
 
@@ -1119,23 +1132,23 @@ I: bemolle, F: b@'emol, D: B, b, NL: mol, DK: b, S: bef@"ortecken, N: .
 @w{@ar{}@strong{appoggiatura}}
 
 @item forte
-I: forte, F: forte, D: forte, Laut, NL: forte, DK: forte, S: forte, N: .
+ES: forte, I: forte, F: forte, D: forte, Laut, NL: forte, DK: forte, S: forte, N: .
 
 Loud, abbreviated @b{f}, @emph{fortissimo} (@b{ff}) very loud,
 @emph{mezzoforte} (@b{mf}) medium loud.
 
 @item fourth
-I: quarta, F: quarte, D: Quarte, NL: kwart, DK: kvart, S: kvart, N: .
+ES: cuarta, I: quarta, F: quarte, D: Quarte, NL: kwart, DK: kvart, S: kvart, N: .
 
 @w{@ar{}@strong{interval}}
 
-@item fugue 
-I: fuga, F: fugue, D: Fuge, NL: fuga, DK: fuga, S: fuga, N: .
+@item fugue
+ES: fuga, I: fuga, F: fugue, D: Fuge, NL: fuga, DK: fuga, S: fuga, N: .
 
 @w{@ar{}@strong{counterpoint}}
 
 @item functional harmony
-I: armonia funzionale, F: @'etude des functions, D: Funktionslehre, NL: , DK:
+ES: armonía funcional, I: armonia funzionale, F: @'etude des functions, D: Funktionslehre, NL: , DK:
 funktionsanalyse, funktionsharmonik, S: funktionsl@"ara, N:
 
 A system of harmonic analysis. It is based on the idea that, in a given key,
@@ -1159,10 +1172,10 @@ of the base chords.
 @end lilypond
 
 @item G
-I: sol, F: sol, D: G, g, NL: g, DK: g, S: g, N: g.
+ES: sol, I: sol, F: sol, D: G, g, NL: g, DK: g, S: g, N: g.
 
 @item G clef
-I: chiave di sol, F: cl@'e de sol, D: G-Schl@"ussel, Violinschl@"ussel, NL:
+ES: Clave de sol, I: chiave di sol, F: cl@'e de sol, D: G-Schl@"ussel, Violinschl@"ussel, NL:
 G-sleutel, DK: g-n@o{}gle, S: g-klav, N: .
 
 A clef symbol indicating the G above central C. Used on the first and second
@@ -1197,7 +1210,7 @@ that).
 @end lilypond
 
 @item glissando
-I: glissando, F: glissando, D: Glissando, NL: glissando, DK: glissando, S:
+ES: glissando, I: glissando, F: glissando, D: Glissando, NL: glissando, DK: glissando, S:
 glissando, N: glissando.
 
 Letting the pitch  slide fluently from one note to the other
@@ -1218,13 +1231,13 @@ S: ackolad, b@"ojd klammer, N: .
 A combination of two staffs with a brace.  Usually used for piano music.
 
 @item grave
-I: grave, F: grave, D: grave, langsam, traurig, NL: grave, ernstig, DK: grave, S: grave, N:
+ES: grave, I: grave, F: grave, D: grave, langsam, traurig, NL: grave, ernstig, DK: grave, S: grave, N:
 .
 
 Slow, solemn.
 
 @item half note
-I: minima, F: blanche, UK: minim, D: Halbe, halbe Note, NL: halve noot, DK:
+ES: blanca, I: minima, F: blanche, UK: minim, D: Halbe, halbe Note, NL: halve noot, DK:
 halvnode, S: halvnot, N: .
 
 @w{@ar{}@strong{note value}}
@@ -1236,7 +1249,7 @@ rust, DK: halvnodespause, S: halvpaus, N: .
 @w{@ar{}@strong{note value}}
 
 @item harmonic cadence
-I: cadenza (armonica), F: cadence harmonique, D: Schlusskadenz, NL:
+ES: cadencia (armónica), I: cadenza (armonica), F: cadence harmonique, D: Schlusskadenz, NL:
 harmonische cadens, DK: harmonisk kadence, S: (harmonisk) kadens, N: .
 
 Sequence of chords that terminate a musical phrase or
@@ -1260,7 +1273,7 @@ section. @ar{}@w{}@strong{functional harmony}
 @end lilypond
 
 @item harmony
-I: armonia, F: harmonie, D: Harmonie, Zusammenklang, NL: harmonie, DK:
+ES: armonía	, I: armonia, F: harmonie, D: Harmonie, Zusammenklang, NL: harmonie, DK:
 samklang, S: samklang, N:
 
 Tones sounding simultaneously. Two note harmonies fall into the cathegories
@@ -1301,14 +1314,14 @@ Dissonances:
 Three note harmony @w{@ar{}@strong{chord}}
 
 @item homophony
-I: omofonia, F: homophonie, D: Homophonie, NL: homofonie, DK: homofoni, S:
+ES: homofonía, I: omofonia, F: homophonie, D: Homophonie, NL: homofonie, DK: homofoni, S:
 homofoni, N: .
 
 Music in which one voice leads melodically followed by the other voices more
 or less in the same rhythm. In contrast to @w{@ar{}@strong{polyphony}}.
 
 @item interval
-I: intervallo, F: intervalle, D: Intervall, NL: interval, DK: interval, S:
+ES: intervalo, I: intervallo, F: intervalle, D: Intervall, NL: interval, DK: interval, S:
 intervall, N: .
 
 Difference in pitch between two notes. Intervals may be perfect, minor, major,
@@ -1381,7 +1394,7 @@ forms an octave.
 @end lilypond
 
 @item inverted interval
-I: intervallo rivolto, F: intervalle renvers@'e, D: umgekerhtes Intervall, NL:
+ES: intervalo invertido, I: intervallo rivolto, F: intervalle renvers@'e, D: umgekerhtes Intervall, NL:
 interval inversie, DK: omvendingsinterval, S: intervallets omv@"andning, N: .
 
 The difference between an interval and an octave.
@@ -1406,14 +1419,14 @@ Tuning system in which the notes are obtained by adding and subtracting
 @w{natural} fifths and thirds. @w{@ar{}@strong{temperament}}
 
 @item key
-I: tonalit@`a, F: tonalit@'e, D: Tonart, NL: toonsoort, DK: toneart, S:
+ES: tonalidad, I: tonalit@`a, F: tonalit@'e, D: Tonart, NL: toonsoort, DK: toneart, S:
 tonart, N: .
 
 According to the 12 tones of the @w{@ar{}@strong{chromatic scale}} there are 12
 keys, one on c, one on c-sharp etc. @w{@ar{}@strong{key signature}}
 
 @item key signature
-I: armatura di chiave, F: armure, armature [de la cl@'e], D: Vorzeichen,
+ES: armadura de clave, I: armatura di chiave, F: armure, armature [de la cl@'e], D: Vorzeichen,
 Tonart, NL: @w{ }toon@-soort (voortekens), DK: faste fortegn, 
 S: tonartssignatur, N: .
 
@@ -1421,14 +1434,14 @@ The sharps or flats appearing at the beginning of each staff indicating the
 key of the music. @w{@ar{}@strong{accidental}}
 
 @item largo
-I: largo, F: largo, D: Largo, Langsam, Breit, NL: largo, DK: largo, S: largo,
+ES: largo, I: largo, F: largo, D: Largo, Langsam, Breit, NL: largo, DK: largo, S: largo,
 N: largo
 
 Very slow in tempo, usually combined with great
 expressiveness. @emph{Larghetto} less slow than largo.
 
 @item leading note
-I: sensibile, F: note sensible, D: Leitton, NL: leidtoon, DK: ledetone, S:
+ES: sensible, I: sensibile, F: note sensible, D: Leitton, NL: leidtoon, DK: ledetone, S:
 ledton, N: .
 
 The seventh @w{@ar{}@strong{scale degree}}, a @w{@ar{}@strong{semitone}} below
@@ -1437,7 +1450,7 @@ upwards) to the tonic scale degree.
 
 @item ledger line; leger line
 
-I: tagli addizionali, F: ligne suppl@'ementaire, D: Hilfslinie, NL:
+ES: líneas adicionales, I: tagli addizionali, F: ligne suppl@'ementaire, D: Hilfslinie, NL:
 hulplijntje, DK: hj@ae{}lpelinie, S: hj@"alplinje, N: .
 
 A ledger line is an extension of the staff.
@@ -1450,7 +1463,7 @@ A ledger line is an extension of the staff.
 @end lilypond
 
 @item legato
-I: legato, F: legato, li@'e, D: legato, NL: legato, DK: legato, S: legato, N:
+ES: ligado, I: legato, F: legato, li@'e, D: legato, NL: legato, DK: legato, S: legato, N:
 .
 
 To be performed without any perceptible interruption between the notes (a)
@@ -1477,25 +1490,26 @@ unlike @emph{leggiero} or @emph{non-legato} (b), @emph{portato} (c) and
 @w{@ar{}@strong{slur}} @w{@ar{}@strong{legato}}
 
 @item lilypond
+ES: estanque de lilas, 
 I: stagno del giglio, F: @'etang de lis, UK: lily pond, D: Seerosenteich, NL:
 le@-lie@-vij@-ver, DK: liliedam, S: liljedamm, N: .
 
 A pond with  lilies floating in it, also the name of a music typesetter.
 
 @item line
-I: linea, F: ligne, D: Linie, Notenlinie, NL: lijn, DK: nodelinie, S:
+ES: línea, I: linea, F: ligne, D: Linie, Notenlinie, NL: lijn, DK: nodelinie, S:
 notlinje, N: .
 
 @w{@ar{}@strong{staff}}
 
-@item long appoggiatura 
-I: appoggiatura lunga, F: appoggiature longue, D: langer Vorschlag, DK: langt
+@item long appoggiatura
+ES: apoyatura larga, I: appoggiatura lunga, F: appoggiature longue, D: langer Vorschlag, DK: langt
 forslag, S: l@aa{}ngt f@"orslag, N: .
 
 @w{@ar{}@strong{appoggiatura}}
 
 @item longa
-I: longa, F: longa, D: Longa, NL: longa, DK: longa, S: longa, N: longa
+ES: longa, I: longa, F: longa, D: Longa, NL: longa, DK: longa, S: longa, N: longa
 
 note value: double length of @w{@ar{}@strong{brevis}}. @w{@ar{}@strong{note value}}
 
@@ -1510,13 +1524,13 @@ note value: double length of @w{@ar{}@strong{brevis}}. @w{@ar{}@strong{note valu
 @end lilypond
 
 @item major interval
-I: intervallo maggiore, F: intervalle majeur, D: gro@ss{}es Intervall, NL:
+ES: intervalo mayor, I: intervallo maggiore, F: intervalle majeur, D: gro@ss{}es Intervall, NL:
 groot interval, DK: stort interval, S: stort intervall, N: .
 
 @w{@ar{}@strong{interval}}
 
 @item major
-I: maggiore, F: [mode] majeur, D: Dur, NL: majeur, DK: dur, S: dur, N: dur.
+ES: mayor, I: maggiore, F: [mode] majeur, D: Dur, NL: majeur, DK: dur, S: dur, N: dur.
 
 @w{@ar{}@strong{diatonic scale}}
 
@@ -1530,7 +1544,7 @@ by 16 @w{@ar{}@strong{cent}}s. Due to the non-circular character of this
 tuning keyboard instruments for performance of pre-1650 music.
 
 @item measure, bar
-I: misura, battuta, F: mesure, D: Takt, NL: maat, DK: takt, S: takt, N: takt.
+ES: compás, I: misura, battuta, F: mesure, D: Takt, NL: maat, DK: takt, S: takt, N: takt.
 
 A group of @w{@ar{}@strong{beat}}s (units of musical time) the first of which
 bears an accent. Such groups in numbers of two or more recur consistently
@@ -1538,7 +1552,7 @@ throughout the composition and are marked from each other by
 bar-lines. @w{@ar{}@strong{meter}}
 
 @item mediant
-I: mediante, modale, F: m@'ediante, NL: mediant, D: Mediant, DK: mediant, S:
+ES: mediante, I: mediante, modale, F: m@'ediante, NL: mediant, D: Mediant, DK: mediant, S:
 mediant, N: .
 
 1. The third @b{scale degree}. 2. A @w{@ar{}@strong{chord}} having its base tone
@@ -1551,7 +1565,7 @@ harmony}} @w{@ar{}@strong{relative key}}.
 @w{@ar{}@strong{cadenza}}
 
 @item meter, time
-I: tempo, metro, F: m@`etre, D: Taktart, Metrum, NL: maatsoort, DK: taktart,
+ES: compás, I: tempo, metro, F: m@`etre, D: Taktart, Metrum, NL: maatsoort, DK: taktart,
 S: taktart, N: .
 
 The basic scheme of @ar{}@w{}@strong{note value}s and @ar{}@w{}@strong{accent}s
@@ -1588,28 +1602,28 @@ one speaks of @emph{duple} (2/2, 2/4, 2/8), @emph{triple} (3/2, 3/4, 3/8) or
 @end lilypond
 
 @item metronome
-I: metronomo, F: m@'etronome, D: Metronom, NL: metronoom, 
+ES: metrónomo, I: metronomo, F: m@'etronome, D: Metronom, NL: metronoom, 
 DK:@w{ }me@-tro@-nom, S:@w{ }me@-tro@-nom, N: metronom.
 
 Device indicating the exact tempo of a piece. @w{@ar{}@strong{metronomic
 indication}}
 
 @item metronomic indication
-I: indicazione metronomica, F: indication m@'etronomique, D: Metronomangabe,
+ES: indicación metronómica, I: indicazione metronomica, F: indication m@'etronomique, D: Metronomangabe,
 NL: metronoom aanduiding, DK: metronomtal, S: metronomangivelse, N: .
 
 Exact tempo indication (in beats per minute).  Also denoted by
 M.M. (M@"alzel's Metronom) 
 
 @item mezzo-soprano
-I: mezzo-soprano, F: mezzo-soprano, D: Mezzosopran, NL: mezzosopraan, DK:
+ES: mezzo soprano, I: mezzo-soprano, F: mezzo-soprano, D: Mezzosopran, NL: mezzosopraan, DK:
 mezzosopran, S: mezzosopran, N: mezzosopran.
 
 The female voice between @w{@ar{}@strong{soprano}} and
 @w{@ar{}@strong{contralto}}.
 
 @item middle C
-I: do centrale, F: do central, D: eingestrichenes c, NL: centrale c, DK:
+ES: do central, I: do centrale, F: do central, D: eingestrichenes c, NL: centrale c, DK:
 enstreget c, S: ettstruket c, N:
 
 First C below the 440 Hz A.
@@ -1627,23 +1641,23 @@ First C below the 440 Hz A.
 @end lilypond
 
 @item minor interval
-I: intervallo minore, F: intervalle mineur, D: kleines Intervall, NL: klein
+ES: intervalo mayor, I: intervallo minore, F: intervalle mineur, D: kleines Intervall, NL: klein
 interval, DK: lille interval, S: litet intervall, N: .
 
 @w{@ar{}@strong{interval}}
 
 @item minor
-I: minore, F: mode mineur, D: Moll, NL: mineur, DK: mol, S: moll, N: .
+ES: menor, I: minore, F: mode mineur, D: Moll, NL: mineur, DK: mol, S: moll, N: .
 
 @w{@ar{}@strong{diatonic scale}}
 
 @item mode
-I: modo, F: mode, D: Modus, NL: modus, DK: skala, S: modus, skala, N: .
+ES: modo, I: modo, F: mode, D: Modus, NL: modus, DK: skala, S: modus, skala, N: .
 
 @w{@ar{}@strong{church mode}} @w{@ar{}@strong{diatonic scale}}
 
 @item modulation
-I: modulazione, F: modulation, D: Modulation, NL: modulatie, DK: modulation,
+ES: modulación, I: modulazione, F: modulation, D: Modulation, NL: modulatie, DK: modulation,
 S: modulering, N: .
 
 Moving from one @w{@ar{}@strong{key}} to another. For example the second
@@ -1658,6 +1672,7 @@ I: mordente, F: mordant, D: Mordent, NL: mordent, DK: mordent, S: mordent, N:
 @w{@ar{}@strong{ornament}}
 
 @item motive; motif
+ES: tema, 
 I: inciso, F: incise, D: Motiv, NL: motief, DK: motiv, S: motiv, N: .
 
 The briefest intelligible and self-contained fragment of a musical theme or
@@ -1679,14 +1694,14 @@ subject.
 @end lilypond
 
 @item movement
-I: movimento, F: mouvement, D: Satz, NL: deel, DK: sats, S: sats, N: .
+ES: movimiento, I: movimento, F: mouvement, D: Satz, NL: deel, DK: sats, S: sats, N: .
 
 Greater musical works like @w{@ar{}@strong{symphony}} and
 @w{@ar{}@strong{sonata}} most often consist of several - more or less -
 independant pieces called movements.
 
 @item multibar rest
-I: pausa multipla, F: pause multiple, NL: meermaats rust, D:
+ES: compases de espera, I: pausa multipla, F: pause multiple, NL: meermaats rust, D:
 mehrtaktige Pause, DK: flertaktspause, S: flertaktspaus, N: .
 
 @
@@ -1702,7 +1717,7 @@ a1 }
 @w{@ar{}@strong{diatonic scale}}
 
 @item natural sign
-I: bequadro, F: b@'ecarre, D: Aufl@"osungszeichen, NL: herstellingsteken, 
+ES: becuadro, I: bequadro, F: b@'ecarre, D: Aufl@"osungszeichen, NL: herstellingsteken, 
 DK:@w{ }op@-l@o{}sningstegn, S: @aa{}terst@"allningstecken, N: .
 
 @w{@ar{}@strong{accidental}}
@@ -1711,7 +1726,7 @@ DK:@w{ }op@-l@o{}sningstegn, S: @aa{}terst@"allningstecken, N: .
 @w{@ar{}@strong{appoggiatura}}
 
 @item ninth
-I: nona, F: neuvi@`eme, D: None, NL: noon, DK: none, S: nona, N: .
+ ES: novena, I: nona, F: neuvi@`eme, D: None, NL: noon, DK: none, S: nona, N: .
 
 @w{@ar{}@strong{interval}}
 
@@ -1719,7 +1734,7 @@ I: nona, F: neuvi@`eme, D: None, NL: noon, DK: none, S: nona, N: .
 @w{@ar{}@strong{legato}}
 
 @item note
-I: nota, F: note, D: Note, NL: noot, DK: node, S: not, N: ,
+ES: nota, I: nota, F: note, D: Note, NL: noot, DK: node, S: not, N: ,
 
 Notes are signs by means of which music is fixed in writing. The term is also
 used for the sound indicated by a note, and even for the key of the piano
@@ -1728,7 +1743,7 @@ and @w{@ar{}@strong{note}} is strongly recommended. Briefly, one sees a note,
 and hears a tone.
 
 @item note head
-I: testa, testina, capocchia, F: t@^ete de la note, D: Notenkopf, NL:
+ES: oval, I: testa, testina, capocchia, F: t@^ete de la note, D: Notenkopf, NL:
 nootballetje, DK: nodehovede, S: nothuvud, N: .
 
 A head like sign which indicates pitch by its position on a
@@ -1739,7 +1754,7 @@ instruments (often having no defined pitch) the note head may indicate the
 instrument.
 
 @item note value
-I: valore, durata, F: dur@'ee, valeur (d'une note), D: Notenwert, NL:
+ES: valor, I: valore, durata, F: dur@'ee, valeur (d'une note), D: Notenwert, NL:
 nootwaarde, DK nodev@ae{}rdi, S: notv@"arde, N: .
 
 Note values (durations) are measured as fractions, normally 1/2, of the next
@@ -1811,11 +1826,12 @@ frequently used.
 @w{@ar{}@strong{g clef}} @w{@ar{}@strong{f clef}}
 
 @item octave
-I: ottava, F: octave, D: Oktave, NL: octaaf, DK: oktav, S: oktav, N: .
+ES: octava, I: ottava, F: octave, D: Oktave, NL: octaaf, DK: oktav, S: oktav, N: .
 
 @w{@ar{}@strong{interval}}
 
 @item ornament; embellishment; accessory
+ES: adorno, 
 I: abbellimento, fioriture, F: agr@'ement, ornement, D: Verzierung, Ornament,
 NL: versiering, DK: forsiring, S: ornament, N: .
 
@@ -1869,21 +1885,21 @@ Other frequently used ornaments are the @emph{turn}, the @emph{mordent} and the
 @w{@ar{}@strong{appoggiatura}}
 
 @item ossia
-I: ossia, F: ossia, D: Ossia, NL: alternatief, DK: ossia, S: ossia, N: .
+ES: ossia, I: ossia, F: ossia, D: Ossia, NL: alternatief, DK: ossia, S: ossia, N: .
 
 Ossia (otherwise) marks an alternative. It is an added staff or piano
 score, usually only a few measures long, which presents another version
 of the music, for example for small hands.
 
 @item part
-I: voce, parte, F: partie, D: Stimme, NL: partij, DK: stemme, S: st@"amma, N: .
+ES: parte, I: voce, parte, F: partie, D: Stimme, NL: partij, DK: stemme, S: st@"amma, N: .
 
 1. In instrumental or choral music the music for the single instrument
 or voice. 2. in contrapuntal music @w{@ar{}@strong{counterpoint}} the single
 melodic line of the contrapuntal web.
 
 @item percussion
-I: percussioni, F: percussion, D: Schlagzeug, NL: slagwerk, DK: slagt@o{}j, S:
+ES: percusión, I: percussioni, F: percussion, D: Schlagzeug, NL: slagwerk, DK: slagt@o{}j, S:
 slagverk, N: .
 
 A family of musical instruments which are played on by striking or
@@ -1893,42 +1909,42 @@ tambourine, cymbals, chinese gong (tam-tam), triangle, celesta, glockenspiel
 and xylophone.
 
 @item perfect interval
-
+ES: intervalo justo, 
 I: intervallo giusto, F: intervalle juste, D: reines Intervall, NL: rein
 interval, DK: rent interval, S: rent intervall, N: .
 
 @w{@ar{}@strong{interval}}
 
 @item phrase
-I: frase, F: phrase, D: Phrase, NL: frase, zin, DK: frase, S: fras, N: .
+ES: frase, I: frase, F: phrase, D: Phrase, NL: frase, zin, DK: frase, S: fras, N: .
 
 A natural division of the melodic line, comparable to a sentence of speech.
 
 @item phrasing
-I: fraseggio, F: phras@'e, D: Phrasierung, NL: frasering, DK: frasering, S:
+ES: fraseo, I: fraseggio, F: phras@'e, D: Phrasierung, NL: frasering, DK: frasering, S:
 fra@-se@-ring, N: .
 
 The clear rendering in musical performance of the @w{@ar{}@strong{phrase}}s of
 the melody. Phrasing may be indicated by a @w{@ar{}@strong{slur}}.
 
-@item piano 
-I: piano, F: piano, D: piano, leise, NL: piano, DK: piano, S: piano, N: .
+@item piano
+ES: piano, I: piano, F: piano, D: piano, leise, NL: piano, DK: piano, S: piano, N: .
 
 @emph{piano} (@b{p}) soft, @emph{pianissimo} (@b{pp}) very soft,
 @emph{mezzopiano} (@b{mp}) medium soft.
 
 @item pitch
-I: altezza, F: hauteur, D: Tonh@"ohe, NL: toonhoogte, DK: toneh@o{}jde, S:
+ES: altura, I: altezza, F: hauteur, D: Tonh@"ohe, NL: toonhoogte, DK: toneh@o{}jde, S:
 tonh@"ojd, N: .
 
 @item pizzicato
-I: pizzicato, F: pizzicato, D: pizzicato, NL: pizzicato, getokkeld, DK:
+ES: pizzicato, I: pizzicato, F: pizzicato, D: pizzicato, NL: pizzicato, getokkeld, DK:
 pizzicato, S: pizzicato.
 
 Play by plucking the strings.
 
 @item polyphony
-I: polifonia, F: polyphonie, D: Polyphonie, NL: polyfonie, DK: polyfoni, S:
+ES: polifonía, I: polifonia, F: polyphonie, D: Polyphonie, NL: polyfonie, DK: polyfoni, S:
 polyfoni, N: .
 
 Music written in a combination of several simultaneous voices (parts) of a
@@ -1938,13 +1954,14 @@ more or less pronounced individuality. @w{@ar{}@strong{counterpoint}}
 @w{@ar{}@strong{legato}}
 
 @item presto
-I: presto, F: presto, D: Presto, Sehr schnell, NL: presto, Sehr schnell, DK:
+ES: presto, I: presto, F: presto, D: Presto, Sehr schnell, NL: presto, Sehr schnell, DK:
 presto, S: presto, N: .
 
 Very quick, i.e. quicker than @w{@ar{}@strong{allegro}}. @emph{prestissimo}
 denotes the highest possible degree of speed.
 
 @item Pythagorean comma
+ES: coma pitagórico, 
 I: comma pitagorico, F: comma pythagoricien, D: Pythagor@"aisches Komma, NL:
 komma van Pythagoras, DK: pythagor@ae{}isk komma, S: pytagoreiskt komma, N: .
 
@@ -1954,37 +1971,37 @@ obtained by adding 7 octaves. The difference between those two pitches is
 called the Pythagorean comma.
 
 @item quadruplet
-I: quartina, F: quartolet, D: Quartole, NL: kwartool, DK: kvartol, S: kvartol,
+ES: cuatrillo, I: quartina, F: quartolet, D: Quartole, NL: kwartool, DK: kvartol, S: kvartol,
 N: .
 
 @w{@ar{}@strong{note value}}
 
 @item quarter note
-I: semiminima, nera, F: noire, UK: crotchet, D: Viertel, Viertelnote, NL:
+ES: negra, I: semiminima, nera, F: noire, UK: crotchet, D: Viertel, Viertelnote, NL:
 kwartnoot, DK: fjerdedelsnode, S: fj@"ardedelsnot, N:
 
 @w{@ar{}@strong{note value}}
 
 @item quarter rest
-I: pausa di semiminima, F: soupir, UK: crotchet rest, D: Viertelpause, NL:
+ES: silencio de negra, I: pausa di semiminima, F: soupir, UK: crotchet rest, D: Viertelpause, NL:
 kwart rust, DK:@w{ }fjerdedelspause, S: fj@"ardedelspaus, N: .
 
 @w{@ar{}@strong{note value}}
 
 @item quintuplet
-I: quintina, F: quintuplet, D: Quintole, NL: kwintool, DK: kvintol, S:
+ES: quintillo, I: quintina, F: quintuplet, D: Quintole, NL: kwintool, DK: kvintol, S:
 kvintol, N: .
 
 @w{@ar{}@strong{note value}}
 
 @item rallentando
-I: rallentando, F: rallentando, D: rallentando, langsamer, NL: rallentando, DK:
+ES: rallentando, I: rallentando, F: rallentando, D: rallentando, langsamer, NL: rallentando, DK:
 rallentando, S: rallentando, N: rallentando.
 
 Abbreviation "rall.". @w{@ar{}@strong{ritardando}}
 
 @item relative key
-I: tonalit@`a relativa, F: tonalit@'e relative, D: Paralleltonart, DK:
+ES: relativa, I: tonalit@`a relativa, F: tonalit@'e relative, D: Paralleltonart, DK:
 paralleltoneart, S: parallelltonart, N: .
 
 @w{@ar{}@strong{Major}} and @w{@ar{}@strong{minor}} @w{@ar{}@strong{key}} with
@@ -2006,7 +2023,7 @@ the same @w{@ar{}@strong{signature}}.
 @end lilypond
 
 @item repeat
-I: ritornello, F: barre de reprise, D: Wiederholung, NL: herhaling, DK:
+ES: barra de repetición, I: ritornello, F: barre de reprise, D: Wiederholung, NL: herhaling, DK:
 gen@-ta@-gel@-se, S: repris, N: .
 
 @
@@ -2020,12 +2037,12 @@ gen@-ta@-gel@-se, S: repris, N: .
 @end lilypond
 
 @item rest
-I: pausa, F: silence, D: Pause, NL: rust, DK: pause, S: paus, N: .
+ES: silencio, I: pausa, F: silence, D: Pause, NL: rust, DK: pause, S: paus, N: .
 
 @w{@ar{}@strong{note value}}
 
 @item rhythm
-I: ritmo, F: rythme, D: Rhythmus, NL: ritme, DK: rytme, S: rytm, N: .
+ES: ritmo, I: ritmo, F: rythme, D: Rhythmus, NL: ritme, DK: rytme, S: rytm, N: .
 
 (a) metrical rhythm in which every time value is a multiple or fraction of a
 fixed unit of time, called @w{@ar{}@strong{beat}}, and in which the normal
@@ -2037,24 +2054,24 @@ different measures. (c) Free rhythm, i.e. the use of temporal values having no
 common metrical unit (beat).
 
 @item ritardando
-I: ritardando, F: ritardando, D: Ritardando, Langsamer, NL: ritardando, DK:
+ES: retardando, I: ritardando, F: ritardando, D: Ritardando, Langsamer, NL: ritardando, DK:
 ritardando, S: ritardando, N: .
 
 Gradually slackening in speed. Mostly abbreviated to rit. or ritard. 
 
 @item ritenuto
-I: ritenuto, F: ritenuto, D: Ritenuto, NL: ritenuto, DK: ritenuto, S:
+ES: ritenuto, I: ritenuto, F: ritenuto, D: Ritenuto, NL: ritenuto, DK: ritenuto, S:
 ritenuto, N: .
 
 Immediate reduction of speed.
 
 @item scale
-I: scala, F: gamme, D: Tonleiter, NL: toonladder, DK: Skala, S: skala, N: .
+ES: escala, I: scala, F: gamme, D: Tonleiter, NL: toonladder, DK: Skala, S: skala, N: .
 
 @w{@ar{}@strong{diatonic scale}}
 
 @item scale degree
-I: grado della scala, F: degr@'e [de la gamme], D: Tonleiterstufe, NL: trap
+ES: grados de la escala, I: grado della scala, F: degr@'e [de la gamme], D: Tonleiterstufe, NL: trap
 [van de toonladder], DK: skalatrin, S: skalsteg (?), N: .
 
 Names and symbols used in harmonic analysis to denote tones of the scale as
@@ -2080,7 +2097,7 @@ sub@-do@-mi@-nant (S) and V = dominant (D).
 @w{@ar{}@strong{functional harmony}}
 
 @item score
-I: partitura, F: partition, D: Partitur, NL: partituur, DK: partitur, S:
+ES: partitura, I: partitura, F: partition, D: Partitur, NL: partituur, DK: partitur, S:
 partitur, N: .
 
 A copy of orchestral, choral or chamber music showing what each instrument is
@@ -2088,7 +2105,7 @@ to play, each voice to sing, having each part arranged one underneath the
 other on different @w{@ar{}@strong{stave}}s.
 
 @item second
-I: secunda, F: seconde, D: Sekunde, NL: secunde, DK: sekund, S: sekund, N: .
+ES: segunda, I: secunda, F: seconde, D: Sekunde, NL: secunde, DK: sekund, S: sekund, N: .
 
 The @w{@ar{}@strong{interval}} between two neigbouring tones of a scale. A
 @w{@ar{}@strong{diatonic scale}} consists of alternating
@@ -2096,7 +2113,7 @@ The @w{@ar{}@strong{interval}} between two neigbouring tones of a scale. A
 of a se@-cond depends on the scale degrees in question.
 
 @item semitone
-I: semitono, F: demi-ton, D: Halbton, NL: halve toon, DK: halvtone, S:
+ES: semitono, I: semitono, F: demi-ton, D: Halbton, NL: halve toon, DK: halvtone, S:
 halvton, N: .
 
 The @w{@ar{}@strong{interval}} of a minor second. The (usually) smallest
@@ -2113,7 +2130,7 @@ semitones. @w{@ar{}@strong{interval}} @w{@ar{}@strong{chromatic scale}}
 @end lilypond
 
 @item seventh
-I: settima, F: septi@`eme, D: Septime, NL: septiem, DK: septim, S: septim, N: .
+ES: séptima, I: settima, F: septi@`eme, D: Septime, NL: septiem, DK: septim, S: septim, N: .
 
 @w{@ar{}@strong{interval}}
 
@@ -2124,7 +2141,7 @@ I: sestina, F: sextolet, D: Sextole, NL: sextool, DK: sekstol, S: sextol, N:
 @w{@ar{}@strong{note value}}
 
 @item sharp
-I: diesis, F: di@`ese, D: Kreuz, NL: kruis, DK: kryds, S: korsf@"ortecken, N: .
+ES: sostenido, I: diesis, F: di@`ese, D: Kreuz, NL: kruis, DK: kryds, S: korsf@"ortecken, N: .
 
 @w{@ar{}@strong{accidental}}
 
@@ -2132,25 +2149,26 @@ I: diesis, F: di@`ese, D: Kreuz, NL: kruis, DK: kryds, S: korsf@"ortecken, N: .
 @w{@ar{}@strong{appoggiatura}}
 
 @item sixteenth note
-I: semicroma, F: double croche, UK: semiquaver, D: Sechzehntel,
+ES: semicorchea, I: semicroma, F: double croche, UK: semiquaver, D: Sechzehntel,
 Sechzehntelnote, NL:@w{ }zes@-ti@-ende noot, DK: sekstendedelsnode, S:
 sextondelsnot, N: .
 
 @w{@ar{}@strong{note value}}
 
 @item sixteenth rest
-I: pausa di semicroma, F: quart de soupir, UK: semiquaver rest, D:
+ES: silencia de semicorchea, I: pausa di semicroma, F: quart de soupir, UK: semiquaver rest, D:
 Sechzehntelpause, NL: zestiende rust, DK: sekstendedelspause, S:
 sextondelspaus, N: .
 
 @w{@ar{}@strong{note value}}
 
 @item sixth
-I: sesta, F: sixte, D: Sexte, NL: sext, DK: sekst, S: sext, N: .
+ES: sexta, I: sesta, F: sixte, D: Sexte, NL: sext, DK: sekst, S: sext, N: .
 
 @w{@ar{}@strong{interval}}
 
 @item sixty-fourth note
+ES: semifusa, 
 I: semibiscroma, F: quadruple croche, UK: hemidemisemiquaver, D:
 Vierundsechzigstel, Vierundsechzigstelnote, NL: vierenzestigste noot, DK:
 fi@-re@-og@-tred@-sinds@-ty@-ven@-de@-dels@-no@-de, S:
@@ -2159,6 +2177,7 @@ sextiofj@"ardedelsnot, N: .
 @w{@ar{}@strong{note value}}
 
 @item sixty-fourth rest
+ES: silencia de semifusa, 
 I: pausa di semibiscroma, F: seizi@`eme de soupir, UK: hemidemisemiquaver
 rest, D: Vierundsechzigstelpause, NL: vierenzestigste rust, DK:
 fi@-re@-og@-tred@-sinds@-ty@-ven@-de@-dels@-pau@-se, S:
@@ -2167,7 +2186,7 @@ sextiofj@"ardedelspaus, N: .
 @w{@ar{}@strong{note value}}
 
 @item slur
-I: legatura (di portamento or espressiva), F: liaison, coul@'e, D: Bogen,
+ES: ligadura, I: legatura (di portamento or espressiva), F: liaison, coul@'e, D: Bogen,
 Bindebogen, Legatobogen, Phrasierungsbogen, NL: binding, bindingsboog, 
 DK:@w{ }legatobue, fraseringsbue, S: b@aa{}ge, N: .
 
@@ -2185,14 +2204,14 @@ General term for systems of designating the degrees of the
 (@emph{ti})). @w{@ar{}@strong{scale degree}}.
 
 @item sonata
-I: sonata, F: sonate, D: Sonate, NL: sonate, DK: sonate, S: sonat, N: .
+ES: sonata, I: sonata, F: sonate, D: Sonate, NL: sonate, DK: sonate, S: sonat, N: .
 
 In its present-day meaning a sonata denotes an instrumental composition for
 piano or for some other instrument with piano accompaniment, which consists of
 three or four independant pieces, called movements.
 
 @item sonata form
-I: forma sonata, F: [en] forme de sonate, D: Sonatenform, NL: hoofdvorm,
+ES: forma sonata, I: forma sonata, F: [en] forme de sonate, D: Sonatenform, NL: hoofdvorm,
 sonatevorm, DK: sonateform, S: sonatform, N: .
 
 A form used frequently for single movements of the @w{@ar{}@strong{sonata}},
@@ -2210,12 +2229,12 @@ two. The second theme is in another key, normally in the key of the
 tonic is @w{@ar{}@strong{minor}}.
 
 @item soprano
-I: soprano, F: soprano, D: Sopran, NL: sopraan, DK: sopran, S: sopran, N: .
+ES: soprano, I: soprano, F: soprano, D: Sopran, NL: sopraan, DK: sopran, S: sopran, N: .
 
 The highest female voice.
 
 @item staccato
-I: staccato, F: staccato, piqu@'e, d@'etach@'e, D: staccato, NL: staccato, DK:
+ES: staccato, I: staccato, F: staccato, piqu@'e, d@'etach@'e, D: staccato, NL: staccato, DK:
 staccato, S: staccato, N:
 
 Playing the note(s) short. Staccato is indicated by a dot above or below the
@@ -2233,7 +2252,7 @@ notehead.
 @end lilypond
 
 @item staff
-I: pentagramma, rigo (musicale), F: port@'ee, D: Notensystem, NL: (noten)balk;
+ES: pentagrama, I: pentagramma, rigo (musicale), F: port@'ee, D: Notensystem, NL: (noten)balk;
 partij, DK: nodesystem, S: notsystem, N: .
 
 pl. staves or staffs. A series of (normally 5) horizontal lines upon and
@@ -2242,7 +2261,7 @@ with a @w{@ar{}@strong{clef}}) their pitch. Staffs for
 @w{@ar{}@strong{percussion}} instruments may have fewer lines.
 
 @item stem
-I: gamba, F: queue, D: Hals, Notenhals, Stiel, NL: stok, DK: hals, S: skaft,
+ES: plica, I: gamba, F: queue, D: Hals, Notenhals, Stiel, NL: stok, DK: hals, S: skaft,
 N: .
 
 Vertical line above or below a @w{@ar{}@strong{note head}} shorter than a whole
@@ -2264,58 +2283,58 @@ note. @w{@ar{}@strong{beam}}
 @end lilypond
 
 @item strings
-I: archi, F: cordes, D: Streicher, NL: strijkers, DK: strygere, S:
+ES: arcos, cuerdas, I: archi, F: cordes, D: Streicher, NL: strijkers, DK: strygere, S:
 str@aa{}kar, N: .
 
 A family of stringed musical instruments played with a bow. Strings commonly
 used in a symphony orchestra are violin, viola, violoncello and double bass.
 
 @item strong beat
-I: tempo forte, F: temps fort, D: betonter Taktteil oder -schlag, NL: thesis,
+ES: tiempo fuerte, I: tempo forte, F: temps fort, D: betonter Taktteil oder -schlag, NL: thesis,
 D: betonet taktslag, S: betonat taktslag, N: .
 
 @w{@ar{}@strong{beat}} @w{@ar{}@strong{accent}} @w{@ar{}@strong{measure}}
 @w{@ar{}@strong{rhythm}}
 
 @item subdominant
-I: sottodominante, F: sous-dominante, D: Subdominante, NL: subdominant, DK:
+ES: subdominante, I: sottodominante, F: sous-dominante, D: Subdominante, NL: subdominant, DK:
 subdominant, S: subdominant, N: .
 
 The fourth @w{@ar{}@strong{scale degree}}. @w{@ar{}@strong{functional
 harmony}}
 
 @item submediant
-I: sopratonica, F: sous-m@'ediante, D: Submediant, NL: submediant, DK:
+ES: superdominante, I: sopratonica, F: sous-m@'ediante, D: Submediant, NL: submediant, DK:
 Submediant, S: submediant, N: .
 
 The sixth @w{@ar{}@strong{scale degree}}.
 
 @item subtonic
-I: sottotonica, F: sous-tonique, D: Subtonika, NL: subtonica, DK: Subtonika, S:
+ES: sensible, I: sottotonica, F: sous-tonique, D: Subtonika, NL: subtonica, DK: Subtonika, S:
 subtonika, N: .
 
 The seventh @w{@ar{}@strong{scale degree}}
 
 @item superdominant
-I: sopradominante, F: sus-dominante, D: Superdominant, NL: superdominant, DK:
+ES: superdominante, I: sopradominante, F: sus-dominante, D: Superdominant, NL: superdominant, DK:
 superdominant, S: superdominant, N: .
 
 The sixth @w{@ar{}@strong{scale degree}} 
 
 @item supertonic
-I: sopratonica, F: sus-tonique, D: Supertonika, NL: supertonica, DK:
+ES: supertónica, I: sopratonica, F: sus-tonique, D: Supertonika, NL: supertonica, DK:
 supertonika, S: supertonika, N: .
 
 The second @w{@ar{}@strong{scale degree}}.
 
 @item symphony
-I: sinfonia, F: symphonie, D: Sinfonie, NL: symfonie, DK: symfoni, S: symfoni,
+ES: sinfonía, I: sinfonia, F: symphonie, D: Sinfonie, NL: symfonie, DK: symfoni, S: symfoni,
 N: .
 
 A symphony may be defined as a @w{@ar{}@strong{sonata}} for orchestra.
 
 @item syncopation
-I: sincope, F: syncope, D: Synkope, NL: syncope, DK: synkope, S: synkop, N: .
+ES: sincopado, I: sincope, F: syncope, D: Synkope, NL: syncope, DK: synkope, S: synkop, N: .
 
 Any deliberate upsetting of the normal pulse of @w{@ar{}@strong{meter}},
 @w{@ar{}@strong{accent}} and @w{@ar{}@strong{rhythm}}. Our system of musical
@@ -2353,7 +2372,7 @@ The collection of staves @w{@ar{}@strong{staff}}, two or more, as used for the
 writing down of keyboard, chamber, choral or orchestral music.
 
 @item temperament
-I: temperamento, F: temp@'erament, D: Stimmung, Temperatur, NL: temperament,
+ES: temperamento, I: temperamento, F: temp@'erament, D: Stimmung, Temperatur, NL: temperament,
 DK: temperatur, S: temperatur, N: .
 
 Systems of tuning in which the intervals deviate from the accoustically pure
@@ -2361,7 +2380,7 @@ intervals. @w{@ar{}@strong{meantone temperament}} @w{@ar{}@strong{equal
 temperament}}
 
 @item tempo indication
-I: indicazione di tempo, F: indication de temps, D: Zeitma@ss{},
+ES: indicación de tempo, I: indicazione di tempo, F: indication de temps, D: Zeitma@ss{},
 Tempobezeichnung, NL: tempo aanduiding, DK: tempobetegelse, S:
 tempobeteckning, N: .
 
@@ -2371,22 +2390,22 @@ slowest to the quickest, as is indicated by tempo marks as
 @w{@ar{}@strong{allegro}} and @w{@ar{}@strong{presto}}.
 
 @item tenor
-I: tenore, F: t@'enor, D: Tenor, NL: tenor, DK: tenor, S: tenor, N: .
+ES: tenor, I: tenore, F: t@'enor, D: Tenor, NL: tenor, DK: tenor, S: tenor, N: .
 
 The highest voice of men (apart from @w{@ar{}@strong{counter tenor}})
  
 @item tenth
-I: decima, F: dixi@`eme, D: Dezime, NL: deciem, DK: decim, S: decima, N: .
+ES: décima, I: decima, F: dixi@`eme, D: Dezime, NL: deciem, DK: decim, S: decima, N: .
 
 @w{@ar{}@strong{note value}}
 
 @item third
-I: terza, F: tierce, D: Terz, NL: terts, DK: terts, S: ters, N: .
+ES: tercera, I: terza, F: tierce, D: Terz, NL: terts, DK: terts, S: ters, N: .
 
 @w{@ar{}@strong{interval}}
 
 @item thirty-second note
-
+ES: fusa, 
 I: biscroma, F: triple croche, UK: demisemiquaver, D:
 Zweiunddrei@ss{}igstel, Zweiunddrei@ss{}igstelnote, NL: twee-endertig@-ste
 noot, DK: toogtredivtedelsnode, S: trettiotv@aa{}ondelsnot, N: .
@@ -2394,7 +2413,7 @@ noot, DK: toogtredivtedelsnode, S: trettiotv@aa{}ondelsnot, N: .
 @w{@ar{}@strong{note value}}
 
 @item thirty-second rest
-
+ES: silencio de fusa, 
 I: pausa di biscroma, F: huiti@`eme de soupir, UK: demisemiquaver rest, D:
 Zweiunddrei@ss{}igstel@-pause, NL: 32e rust, DK: toogtredivtedelspause, S:
 trettiotv@aa{}ondelspaus, N: .
@@ -2402,6 +2421,7 @@ trettiotv@aa{}ondelspaus, N: .
 @w{@ar{}@strong{note value}}
 
 @item thorough bass; figured bass
+ES: bajo cifrado, 
 I: basso continuo, basso numerato, F: basse chiffr@'ee, D: Generalbass,
 bezifferter Bass, NL: basso continuo, DK:@w{ }generalbas, S: generalbas, N: .
 
@@ -2442,6 +2462,7 @@ with figures designating the chief @w{@ar{}@strong{interval}}s and
 @end lilypond
 
 @item tie; bind
+ES: ligadura de prolongación, 
 I: legatura (di valore), F: liaison, D: Haltebogen, NL: overbinding, DK:
 bindebue, S: bindeb@aa{}ge, @"overbindning, N: .
 
@@ -2458,6 +2479,7 @@ uniting them into a single sound equal to the combined durations.
 
 @item time signature
 
+ES: cifra indicadora de compás, 
 I: segni di tempo, F: chiffrage (chiffres indicateurs), signe de valeur,  D:
 Taktangabe, Angabe der Taktart, NL: maatsoort, DK: taktangivelse, S:
 taktartssignatur, N: .
@@ -2465,19 +2487,19 @@ taktartssignatur, N: .
 @w{@ar{}@strong{meter}}
 
 @item tone
-I: suono, F: ton, D: Ton, NL: toon, DK: tone, S: ton, N: .
+ES: sonido, I: suono, F: ton, D: Ton, NL: toon, DK: tone, S: ton, N: .
 
 A sound of definite pitch and duration, as distinct from @emph{noise}. Tone is
 a primary building material of music. Music from the 20th century may be based
 on non tone related sounds.
 
 @item tonic
-I: tonica, F: tonique, D: Tonika, NL: tonica, DK: tonika, S: tonika, N: .
+ES: tonica, I: tonica, F: tonique, D: Tonika, NL: tonica, DK: tonika, S: tonika, N: .
 
 The first @w{@ar{}@strong{scale degree}}@w{@ar{}@strong{functional harmony}}
 
 @item transposition
-I: trasposizione, F: transposition, D: Transposition, NL: transpositie, DK:
+ES: transposición, I: trasposizione, F: transposition, D: Transposition, NL: transpositie, DK:
 transposition, S: transponering, N: .
 
 Shifting a melody up or down in pitch, while keeping the same relative pitches.
@@ -2497,14 +2519,14 @@ Shifting a melody up or down in pitch, while keeping the same relative pitches.
 @end lilypond
 
 @item treble clef
-I: chiave di violino, F: cl@'e de sol, D: Violinschl@"ussel,
+ES: clave de sol, I: chiave di violino, F: cl@'e de sol, D: Violinschl@"ussel,
 Sopranschl@"ussel, NL: viool sleutel, DK:@w{ }diskantn@o{}gle, S: diskantklav,
 N: .
 
 @w{@ar{}@strong{G clef}}
 
 @item tremolo
-I: tremolo, F: tr@'emolo, D: Tremolo, NL: tremolo, DK: tremolo, S: tremolo, N:
+ES: tremolo, I: tremolo, F: tr@'emolo, D: Tremolo, NL: tremolo, DK: tremolo, S: tremolo, N:
 .
 
 On stringed instruments (@w{@ar{}@strong{strings}}) the quick reiteration of
@@ -2527,47 +2549,49 @@ a @w{@ar{}@strong{chord}}, usually in the distance of a third
 @end lilypond
 
 @item triad
-I: triade, F: triade, accord parfait, accord de trois sons, D: Dreiklang, NL:
+ES: tríada, I: triade, F: triade, accord parfait, accord de trois sons, D: Dreiklang, NL:
 drieklank, DK: treklang, S: treklang, N:
 
 @w{@ar{}@strong{chord}}
 
 @item trill; shake
+ES: trino, 
 I: trillo, F: trille, tremblement, battement (cadence), D: Triller, NL:
 triller, DK:@w{ }trille, S:@w{ }drill, N:@w{ }.
 
 @w{@ar{}@strong{ornament}}
 
 @item triple meter
-I: tempo ternario, F: mesure ternaire, D: dreiteiliger Takt, NL: driedelige
+ES: compás compuesto , I: tempo ternario, F: mesure ternaire, D: dreiteiliger Takt, NL: driedelige
 maatsoort, DK: tredelt takt, S: tretakt, N: .
 
 @w{@ar{}@strong{meter}}
 
 @item triplet
-I: terzina, F: triolet,  D: Triole, NL: triool, DK: triol, S: triol, N: .
+ES: tresillo, I: terzina, F: triolet,  D: Triole, NL: triool, DK: triol, S: triol, N: .
 
 @w{@ar{}@strong{note value}}
 
 @item tritone
-I: tritono, F: triton, D: Tritonus, NL: tritoon, DK: tritonus, S: tritonus, N:
+ES: trítono, I: tritono, F: triton, D: Tritonus, NL: tritoon, DK: tritonus, S: tritonus, N:
 .
 
 @w{@ar{}@strong{interval}}
 
 @item tuning fork
-I: diapason, corista, F: diapason, D: Stimmgabel, NL: stemvork, DK:
+ES: diapasón, I: diapason, corista, F: diapason, D: Stimmgabel, NL: stemvork, DK:
 stemmegaffel, S: st@"amgaffel, N: .
 
 A two-pronged piece of steel used to indicate absolute pitch. Tuning forks
 give the international pitch for the tone @emph{a} (440 vibrations per second.)
  
 @item turn; gruppetto
+ES: grupo, 
 I: gruppetto, F: grupetto, D: Doppelschlag, NL: dubbelslag, DK: dobbeltslag,
 S: dubbelslag, N: .
 
 @item unison
-I: unisono, F: unisson, D: Unison, unisono, NL: unisono, DK: unison, S:
+ES: unísono, I: unisono, F: unisson, D: Unison, unisono, NL: unisono, DK: unison, S:
 unison, N: .
 
 Playing of the same notes or the same melody by various instruments (voices)
@@ -2575,7 +2599,7 @@ or by the whole orchestra (choir), either at exactly the same pitch or in a
 different octave.
 
 @item upbeat
-I: anacrusi, F: anacrouse, D: Auftakt, NL: opmaat, DK: optakt, S:
+ES: entrada anacrúsica, I: anacrusi, F: anacrouse, D: Auftakt, NL: opmaat, DK: optakt, S:
 upptakt, N:
 
 Initial note(s) of a melody occurring before the first bar
@@ -2592,7 +2616,7 @@ line. @w{@ar{}@strong{measure}} @w{@ar{}@strong{meter}}
 @end lilypond
 
 @item voice
-I: voce, F: voix, D: Stimme, NL: stem, DK: stemme, S: st@"amma, N: ,
+ES: voz, I: voce, F: voix, D: Stimme, NL: stem, DK: stemme, S: st@"amma, N: ,
 
 1. Human voices: @w{@ar{}@strong{soprano}}, @w{@ar{}@strong{mezzo-soprano}},
 @w{@ar{}@strong{contralto}}, @w{@ar{}@strong{tenor}},
@@ -2600,25 +2624,25 @@ I: voce, F: voix, D: Stimme, NL: stem, DK: stemme, S: st@"amma, N: ,
 of a polyphonic composition.
 
 @item weak beat
-I: tempo debole, arsi, F: temps faible, D: unbetonter Taktteil oder -schlag,
+ES: tiempo débil, I: tempo debole, arsi, F: temps faible, D: unbetonter Taktteil oder -schlag,
 NL: arsis, DK: ubetonet taktslag, S: obetonat taktslag, N: .
 
 @w{@ar{}@strong{beat}} @w{@ar{}@strong{measure}} @w{@ar{}@strong{rhythm}}
 
 @item whole note
-I: semibreve, F: ronde, UK: semibreve, D: Ganze, Ganze Note, NL: hele noot,
+ES: redonda, I: semibreve, F: ronde, UK: semibreve, D: Ganze, Ganze Note, NL: hele noot,
 DK: helnode, S: helnot, N: .
 
 @w{@ar{}@strong{note value}}
 
 @item whole rest
-I: pausa di semibreve, F: pause, UK: semibreve rest, D: Ganze Pause, NL: hele
+ES: silencio de redonda, I: pausa di semibreve, F: pause, UK: semibreve rest, D: Ganze Pause, NL: hele
 rust, DK: helnodespause, S: helpaus, N: .
 
 @w{@ar{}@strong{note value}}
 
 @item whole tone
-I: tono intero, F: ton entier, D: Ganzton, NL: hele toon, DK: heltone, S:
+ES: tono, I: tono intero, F: ton entier, D: Ganzton, NL: hele toon, DK: heltone, S:
 helton, N: .
 
 The @w{@ar{}@strong{interval}} of a major second. The interval between two
@@ -2626,7 +2650,7 @@ tones on the piano keyboard with exactly one key between them - including
 black and white keys - is a whole tone.
 
 @item woodwind
-I: legni, F: le bois, D: Holzbl@"aser, NL: houtblazers, DK tr@ae{}bl@ae{}sere,
+ES: maderas, I: legni, F: le bois, D: Holzbl@"aser, NL: houtblazers, DK tr@ae{}bl@ae{}sere,
 S: tr@"abl@aa{}sare, N: .
 
 A family of blown wooden musical instruments. Today some of these instruments
@@ -2784,3 +2808,4 @@ Oxford Advanced Learner's Dictionary of Current English, Third Edition 1974.
 @end table
 
 @bye
+
