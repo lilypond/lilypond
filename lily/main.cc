@@ -12,8 +12,6 @@
 #include <locale.h>
 #include <stdio.h>
 
-#include <iostream>
-
 #include "config.h"
 
 #if HAVE_GETTEXT
@@ -152,59 +150,59 @@ dirinfo (FILE *out)
 void
 usage ()
 {
-  std::cout << "\n";
+  printf ("\n");
   /* No version number or newline here. It confuses help2man.  */
-  std::cout << _f ("Usage: %s [OPTION]... FILE...", "lilypond").to_str0 ();
-  std::cout << "\n\n";
-  std::cout << _ ("Typeset music and or play MIDI from FILE").to_str0 ();
-  std::cout << "\n\n";
-  std::cout << 
-_ (
+  printf (_f ("Usage: %s [OPTION]... FILE...", "lilypond").to_str0 ());
+  printf ("\n\n");
+  printf (_ ("Typeset music and or play MIDI from FILE").to_str0 ());
+  printf ("\n\n");
+  printf(_ (
 "LilyPond is a music typesetter.  It produces beautiful sheet music\n"
 "using a high level description file as input.  LilyPond is part of \n"
 "the GNU Project.\n"
-).to_str0 ();
+).to_str0 ());
 
-  std::cout << '\n';
-  std::cout << _ ("Options:").to_str0 ();
-  std::cout << '\n';
-  std::cout << Long_option_init::table_string (options_static).to_str0 ();
-  std::cout << '\n';
-  std::cout << std::endl;
+  printf ("\n");
+  printf (_ ("Options:").to_str0 ());
+  printf ("\n");
+  printf (Long_option_init::table_string (options_static).to_str0 ());
+  printf ("\n");
+  printf ("\n");
 
-  std::cout << _f ("Report bugs to %s", "bug-lilypond@gnu.org").to_str0 () << std::endl;
+  printf (_f ("Report bugs to %s", "bug-lilypond@gnu.org").to_str0 ());
+  printf ("\n");
 }
 
 void
 version ()
 {
   identify (stdout);
-  std::cout << '\n';
-  std::cout << _f (""
+  printf ("\n");
+  printf (_f (
   "This is free software.  It is covered by the GNU General Public License,\n"
   "and you are welcome to change it and/or distribute copies of it under\n"
   "certain conditions.  Invoke as `%s --warranty' for more information.\n",
-    "lilypond").to_str0 ();
-  std::cout << std::endl;
+    "lilypond").to_str0 ());
+  printf ("\n");
 
-  std::cout << _f ("Copyright (c) %s by", "1996--2002").to_str0 ();
-  std::cout << '\n';
-  std::cout << "  Han-Wen Nienhuys <hanwen@cs.uu.nl>\n";
-  std::cout << "  Jan Nieuwenhuizen <janneke@gnu.org>\n";
+  printf (_f ("Copyright (c) %s by", "1996--2002").to_str0 ());
+  printf ("\n");
+  printf ("  Han-Wen Nienhuys <hanwen@cs.uu.nl>\n");
+  printf ("  Jan Nieuwenhuizen <janneke@gnu.org>\n");
 }
 
 void
 notice ()
 {
-  std::cout << '\n';
-  std::cout << _ ("GNU LilyPond -- The music typesetter").to_str0 ();
-  std::cout << '\n';
-  std::cout << _f ("Copyright (c) %s by", "1996--2002").to_str0 ();
-  std::cout << '\n';
-  std::cout << "  Han-Wen Nienhuys <hanwen@cs.uu.nl>\n";
-  std::cout << "  Jan Nieuwenhuizen <janneke@gnu.org>\n";
-  std::cout << '\n';
-  std::cout << _ (
+  printf ("\n");
+  printf (_ ("GNU LilyPond -- The music typesetter").to_str0 ());
+  printf ("\n");
+  printf (_f ("Copyright (c) %s by", "1996--2002").to_str0 ());
+  printf ("\n");
+  printf ("  Han-Wen Nienhuys <hanwen@cs.uu.nl>\n");
+  printf ("  Jan Nieuwenhuizen <janneke@gnu.org>\n");
+  printf ("\n");
+  printf ( _ (
 	     "    This program is free software; you can redistribute it and/or\n"
 	     "modify it under the terms of the GNU General Public License version 2\n"
 	     "as published by the Free Software Foundation.\n"
@@ -217,7 +215,7 @@ notice ()
 	     "    You should have received a copy (refer to the file COPYING) of the\n"
 	     "GNU General Public License along with this program; if not, write to\n"
 	     "the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,\n"
-	     "USA.\n").to_str0 ();
+	     "USA.\n").to_str0 ());
 }
 
 
@@ -344,8 +342,8 @@ main_prog (void *, int, char **)
     dirinfo (stderr);
   
   ly_init_guile ();
-  
-  std::cout << std::endl;
+
+  printf ("\n");
 
   call_constructors ();
   all_fonts_global = new All_font_metrics (global_path.string ());
@@ -463,11 +461,10 @@ main (int argc, char **argv)
 	  exit (0);
 	  break;
 	case 'f':
-	  if (output_name_global == "help")
+	  if (oparser_p_static->optional_argument_str0_ == "help")
 	    {
-	      cout << \
-		"See http://lilypond.org/wiki?OutputFormats for more information.\n"\
-		"This option is for developers only.\n";
+	      printf("See http://lilypond.org/wiki?OutputFormats for more information.\n"\
+		     "This option is for developers only.\n");
 	      exit (0);
 	    }
 	  output_format_global = oparser_p_static->optional_argument_str0_;

@@ -42,8 +42,7 @@ which substitutes some @AT_VARIABLES@ as well.
       </td></tr>
       <tr><td><font size="-1">
     	<a href="@TOP@index.html">General information</a><br>
-	<a href="@TOP@short-examples.html">Simple examples</a><br>
-	<a href="@TOP@long-examples.html">Complex examples</a><br>
+	<a href="@TOP@examples.html">Examples</a><br>
       </font></td></tr>
       <tr><td bgcolor="#e8e8ff">
 	<b>Download </b>
