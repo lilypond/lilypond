@@ -286,14 +286,6 @@
     )
 
 
-  (define (rulesym h w) 
-    (string-append 
-     "\\vrule height " (number->dim (/ h 2))
-     " depth " (number->dim (/ h 2))
-     " width " (number->dim w)
-     )
-    )
-
   (define (bezier-sandwich l thick)
     (embedded-ps ((ps-scm 'bezier-sandwich) l thick)))
 
@@ -347,7 +339,6 @@
 	    (define invoke-dim1 ,invoke-dim1)
 	    (define pianobrace ,pianobrace)
 	    (define placebox ,placebox)
-	    (define rulesym ,rulesym)
 	    (define select-font ,select-font)
 	    (define start-line ,start-line)
 	    (define stop-line ,stop-line)
@@ -373,7 +364,6 @@
 	((eq? action-name 'invoke-char) invoke-char) 
 	((eq? action-name 'invoke-dim1) invoke-dim1)
 	((eq? action-name 'placebox) placebox)
-	((eq? action-name 'rulesym) rulesym)
 	((eq? action-name 'bezier-sandwich) bezier-sandwich)
 	((eq? action-name 'start-line) start-line)
 	((eq? action-name 'stem) stem)
@@ -521,12 +511,6 @@
     )
 
 
-  (define (rulesym x y) 
-    (string-append 
-     (number->string x) " "
-     (number->string y) " "
-     " rulesym"))
-
   (define (bezier-sandwich l thick)
     (string-append 
      (apply string-append (map control->string l))
@@ -588,7 +572,6 @@
 	    (define invoke-char ,invoke-char) 
 	    (define invoke-dim1 ,invoke-dim1)
 	    (define placebox ,placebox)
-	    (define rulesym ,rulesym)
 	    (define select-font ,select-font)
 	    (define start-line ,start-line)
 	    (define stem ,stem)
