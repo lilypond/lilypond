@@ -113,7 +113,7 @@ c' e'
 has also the \verb|eps| options, but is not floating because there
 are an emptry line before and after the lilypond block. That is
 correct behaviour because it follows La\TeX{} convention that an
-empty line signals a new paragraph. Note that the \verb|eps| option
+empty line signals a new paragraph. The \verb|eps| option
 is not necessary when you want the music in a paragraph on its own.
 
 \subsection{More examples}

@@ -6,23 +6,23 @@
         {   \key d\major 
             \property Voice.Slur \set #'attachment = #'(stem . stem)
 
-            \property Voice.Fingering \set #'extra-offset = #'(-0.3 . -1.8) 
+	    \once \property Voice.Fingering
+	      \override #'extra-offset = #'(-0.3 . -1.8) 
            fis4-3_\p-(-~
    
 
-            \property Voice.Fingering \revert #'extra-offset
             fis16 a-)^" "^\markup { \finger "5" } } \\
         {
             \dynamicUp
-            \property Voice.DynamicLineSpanner \override #'padding = #5.0
+            \property Voice.DynamicLineSpanner
+	      \override #'padding = #5.0
             \tieUp
             fis16-(-\> d b-\! \translator Staff = down
 	    \stemUp
 	    \clef treble g-~ <<g e>>8-) } \\
         { s16
-	  \property Voice.Stem \set #'transparent = ##t
+	  \once \property Voice.Stem \set #'transparent = ##t
           d'
-          \property Voice.Stem \revert #'transparent
           ~ <<d b>>4 }
     >
     \context Staff = down {

@@ -22,7 +22,8 @@ textFlat = \markup {\smaller \musicglyph #"accidentals--1"}
     \context StaffGroup = timpani <
       \context Staff = timpani <
 	\property Staff.midiInstrument = #"timpani"
-	\property Staff.instrument = \markup { \column <<  "Timpani" "(C-G)" >> }
+	\property Staff.instrument =
+	  \markup { \column <<  "Timpani" "(C-G)" >> }
 	\property Staff.instr = #"Timp."
 	\clef bass
         \Key
@@ -32,8 +33,10 @@ textFlat = \markup {\smaller \musicglyph #"accidentals--1"}
     \context StaffGroup = brass <
       \context Staff = trombe <
   	\property Staff.midiInstrument = #"trumpet"
-	\property Staff.instrument = \markup { \column << "2 Trombe" "(C)" >> }
-	\property Staff.instr = \markup{ \column << "Tbe." "(C)">> }
+	\property Staff.instrument =
+	  \markup { \column << "2 Trombe" "(C)" >> }
+	\property Staff.instr =
+	  \markup{ \column << "Tbe." "(C)">> }
         \Key
 	\context Voice=one \partcombine Voice
 	  \context Thread=one \tromboI
@@ -42,9 +45,9 @@ textFlat = \markup {\smaller \musicglyph #"accidentals--1"}
       \context Staff = corni <
         \property Staff.midiInstrument = #"french horn"
 	\property Staff.instrument
-	= \markup { \column << "Corno" { "(E"  \textFlat ")" } >> }
-	\property Staff.instr =
-	\markup { \column << "Cor." { "(E"  \textFlat ")" } >> }
+	  = \markup { \column << "Corno" { "(E"  \textFlat ")" } >> }
+	\property Staff.instr 
+	  = \markup { \column << "Cor." { "(E"  \textFlat ")" } >> }
 	\property Staff.transposing = #3
 	\notes \key bes \major
 	\context Voice=one \corno
