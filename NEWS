@@ -1,3 +1,48 @@
+pl 35
+
+pl 34.hwn2
+	- "Lily Was Here" is def'd as \mudelatagline, override with
+	\header { tagline = "... " ; }
+	- \property currentBarNumber: set
+	current bar number.
+	- \property postBreakPadding: tune extra
+	space padding after linebreaks.
+	- \property textEmptyDimension: disregard script text
+	dimensions (untested)
+	- \property staffLineLeading: set the staff space
+	- adjustable staff space size (per staff)
+	- Staff_symbol_referencer as base class for elements that use
+	info of the staff symbol.  \property numberOfStaffLines also works  OK
+	with ledger lines. (Is that useful? dunno.)
+	- warning  if someone does \translator with no name
+	- junk Item::breakable_b_
+	- junk PointerList<Music*>, use Killing_cons
+	- bf: Auto_beam_engraver.
+	- bf: mmrest engraver.
+	- use callbacks for Dimension_cache.
+	- lots of small cleanups. Junk various members of
+	Score_element & derived classes:
+	  * Item::original_l_,
+	  * Spanner::original_l_,
+	  * Score_element::transparent_b_,
+	  * Item::break_priority_i_,
+	  * Item::break_status_dir_,
+	- merge Score_priority_engraver / Score_horizontal_align_engraver
+	- Use more generic element properties. 
+	- precompute SCM symbols. 
+	- remove_elt_property (): Try to junk an element property, if not
+	needed anymore.
+
+
+
+pl 34.uu1
+	- more PointerList junkings.
+	- MIDI bugfix.
+	- be more conservative with Dicts/Hashes mem usage
+
+*********
+pl 34
+
 pl 33.uu2
 	- some performance cleanups: junked PointerList instance, plugged some leaks.
 	- style -> fontname now in scheme.
