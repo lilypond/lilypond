@@ -67,13 +67,14 @@
 		       (ly-get-elt-property stem 'beam)
 		       ;; and beam on same side as slur
 		       (let ((beaming (ly-get-elt-property stem 'beaming)))
+			 ;; (display "beaming (") (display dir) (display "): ") (write beaming) (newline)
 			 (if (pair? beaming)
-			     (<= 1
-				 (if (= dir -1) (car beaming) (cdr beaming)))
+			     (>= (if (= dir -1) (cdr beaming) (car beaming))
+				1)
 			     #f))))))
 	 'stem)
 
-   ;;(cons (lambda (slur dir) (begin (display "before loose-end") (newline))#f) #f)
+   ;; (cons (lambda (slur dir) (begin (display "before loose-end") (newline))#f) #f)
    (cons (lambda (slur dir) (not (attached-to-stem slur dir)))  'loose-end)
    ;; (cons (lambda (slur dir) (begin (display "after loose-end") (newline))#f) #f)
 

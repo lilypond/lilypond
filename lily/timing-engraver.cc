@@ -5,8 +5,6 @@
 
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-#include <iostream.h>
-
 #include "translator-group.hh"
 #include "command-request.hh"
 #include "grob-info.hh"
@@ -47,6 +45,7 @@ Timing_engraver::start_translation_timestep( )
       if (!measure_position ()
 	  || (to_boolean (always)))
 	{
+	  /* should this work, or be junked?  See input/bugs/no-bars.ly */
 	  which=get_property ("defaultBarType" );
 	}
     }

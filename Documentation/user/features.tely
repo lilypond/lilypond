@@ -1,0 +1,294 @@
+\input texinfo @c -*-texinfo-*-
+@setfilename features.info
+@settitle GNU LilyPond Features
+
+@ignore
+TODO
+  * add more un/badly documented features
+  * write some text
+  * add to/merge with refman
+@end ignore
+
+@node Top
+@chapter Features
+
+@menu
+* Arpeggio::                       Arpeggio
+* Glissando::                      Glissando
+* Manual beam settings::           Manual beam settings
+* Slur attachments::               Slur attachments
+* Text spanner::                   Text spanner
+* Engraver hacking::               Engraver hacking
+* Markup text::                    Markup text
+* Output property::                Output property
+* Embedded TeX::                   Embedded TeX
+* Embedded PostScript::            Embedded PostScript
+@end menu
+
+Testin'' a b c...
+@lilypond[fragment,relative,verbatim,center]
+  a'' b c
+@end lilypond
+
+@node Arpeggio
+@section Arpeggio
+
+@lilypond[fragment,relative,verbatim,center]
+  \context Voice <c'\arpeggio e g c>
+@end lilypond
+
+@lilypond[fragment,relative,verbatim,center]
+  \context PianoStaff <
+    \property PianoStaff.connectArpeggios = ##t
+    \context Staff \context Voice <c''\arpeggio e g c>
+    \context Staff=other \context Voice <c,\arpeggio e g>
+  >  
+@end lilypond
+
+
+@node Glissando
+@section Glissando
+
+
+@lilypond[fragment,relative,verbatim,center]
+  c'' \glissando c'
+@end lilypond
+
+@subsection Follow Thread
+@lilypond[fragment,relative,verbatim,center]
+  \context PianoStaff <
+    \property PianoStaff.followThread = ##t
+    \context Staff \context Voice {
+      c'1
+      \translator Staff=two
+      b2 a
+    }
+    \context Staff=two {\clef bass; \skip 1*2;}
+  >  
+@end lilypond
+
+@c part combiner
+
+@node Manual beam settings
+@section Manual beam settings
+
+
+Beams over rests...
+
+@lilypond[fragment,relative,verbatim,center]
+  \context Staff {
+    r4 [r8 g'' a]
+  }
+@end lilypond
+
+
+Control number of beams...
+
+@lilypond[fragment,relative,verbatim,center]
+  \context Staff {
+    [f'8 r16 f g a]
+    [f8 r16 \property Voice.stemLeftBeamCount = #1 f g a]
+  }
+@end lilypond
+
+@lilypond[fragment,relative,verbatim,center]
+    f'32 g a b b a g f
+    
+    \property Voice.autoBeamSettings
+      \set #'(end * * * *) = #(make-moment 1 4)
+    f32 g a b b a g f
+    
+    f32 g a
+    \property Voice.stemRightBeamCount = #1 b
+    \property Voice.stemLeftBeamCount = #1 b
+    a g f
+@end lilypond
+
+Don't extend to middle line esp. for grace
+
+@lilypond[fragment,relative,verbatim,center]
+    \grace a'8 a4
+    \property Voice.Stem \set #'no-stem-extend = ##t
+    \grace g8 g4
+@end lilypond
+  
+@c  beam slope
+@c beam start beam end
+
+
+@node Slur attachments
+@section Slur attachments
+
+BUG Override attachments...
+@lilypond[fragment,relative,verbatim,center]
+    \property Voice.Slur \set #'direction = #1
+    \property Voice.Stem \set #'length = #5.5
+    g''8(g)g4
+    g4(g8)g
+    \property Voice.Slur \set #'attachment = #'(stem . stem)
+    g8(g)g4
+    g4(g8)g
+@end lilypond
+
+Ophee slurs...
+@lilypond[fragment,relative,verbatim,center]
+    \property Voice.Slur \set #'direction = #1
+    \property Voice.Slur \set #'attachment = #'(head . head)
+    g''16()g()g()g()d'()d()d()d
+@end lilypond
+
+
+@c steep slur correct
+@c  high slurs, eg from gnossienes
+
+
+@node Text spanner
+@section Text spanner
+
+Have crescendo set a text spanner iso hairpin
+@lilypond[fragment,relative,verbatim,center]
+  \context Voice {
+    \property Voice.crescendoText = "cresc."
+    \property Voice.crescendoSpanner = #'dashed-line
+    a''2\mf\< a a \!a 
+  }
+@end lilypond
+
+@subsection Ottava
+
+@lilypond[fragment,relative,verbatim,center]
+    a'''' b c a
+    \property Voice.TextSpanner \set #'type = #'dotted-line
+    \property Voice.TextSpanner \set #'edge-height = #'(0 . 1.5)
+    \property Voice.TextSpanner \set #'edge-text = #'("8va " . "")
+    \property Staff.centralCPosition = #-13
+    a\spanrequest \start "text" b c a \spanrequest \stop "text"
+@end lilypond
+
+
+@node Engraver hacking
+@section Engraver hacking
+
+No time signature, no barlines... 
+@lilypond[verbatim,center]
+\score {
+  \notes \relative c'' {
+    a b c d
+    d c b a
+  }
+  \paper {
+    \translator {
+      \StaffContext
+      whichBar = #""
+      \remove "Time_signature_engraver";
+      linewidth = -1.;
+    }
+  }
+}
+@end lilypond
+
+No staff, no clef, squash pitches
+@lilypond[verbatim,center]
+\score {
+  \notes { c4 c4 c8 c8 }
+  \paper {
+    \translator {
+      \StaffContext
+      \remove Staff_symbol_engraver;
+      \consists Pitch_squash_engraver;
+      \remove Clef_engraver;
+    }
+    linewidth = -1.;
+  }
+}
+@end lilypond
+
+
+@node Markup text
+@section Markup text
+
+@c markup text hacking
+
+Metrome hack...
+
+@lilypond[verbatim,center]
+#(define note '(rows (music "noteheads-2" ((kern . -0.1) "flags-stem"))))
+#(define eight-note `(rows ,note ((kern . -0.1) (music ((raise . 3.5) "flags-u3")))))
+#(define dotted-eight-note `(rows ,eight-note (music "dots-dot")))
+
+\score {
+  \notes\relative c'' {
+    a1^#`(rows ,dotted-eight-note " = 64")
+  }
+  \paper {
+    linewidth = -1.;
+    \translator{
+      \ScoreContext
+      TextScript \override #'font-shape = #'upright
+    }
+  }
+}
+@end lilypond
+
+
+@node Output property
+@section Output property
+
+@lilypond[fragment,relative,verbatim,center]
+    \outputproperty #(make-type-checker 'note-head-interface) 
+      #'extra-offset = #'(2 . 3)
+    c''2 c
+@end lilypond
+
+Don't move the finger 2, only text "m.d." ...
+@lilypond[verbatim,center]
+#(define (make-text-checker text)
+   (lambda (grob) (equal? text (ly-get-elt-property grob 'text))))
+
+\score {    
+  \notes\relative c''' {
+    \property Voice.Stem \set #'direction = #1
+    \outputproperty #(make-text-checker "m.d.")
+      #'extra-offset = #'(-3.5 . -4.5)
+    a^2^"m.d."    
+  }
+  \paper { linewidth = -1.; }
+}
+@end lilypond
+
+  
+@c subsection no clefs
+@c  equalizer
+
+
+@c Embedded TeX
+
+@node Embedded TeX
+@section Embedded TeX
+@lilypond[fragment,relative,verbatim,center]
+  a''^"3 $\\times$ \\`a deux"
+@end lilypond
+
+@node Embedded PostScript
+@section Embedded PostScript
+
+Arbitrary lines and curves not supported...
+@lilypond[verbatim,center]
+\score {
+  \notes \relative c'' {
+    a-#"\\embeddedps{3 4 moveto 5 3 rlineto stroke}"
+    -#"\\embeddedps{ [ 0 1 ] 0 setdash 3 5 moveto 5 -3 rlineto stroke}"
+    b-#"\\embeddedps{3 4 moveto 0 0 1 2 8 4 20 3.5 rcurveto stroke}"
+    s2
+    a'1
+  }
+  \paper {
+    linewidth = 70.0*\staffspace;
+  }
+}
+@end lilypond
+
+@bye
+
+
+
