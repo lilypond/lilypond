@@ -85,35 +85,31 @@ Auto_beam_engraver::do_process_music ()
 void
 Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
 {
-  Moment one_beat = *unsmob_moment( get_property ("beatLength"));
+  SCM wild = gh_list (ly_symbol2scm ("*"), ly_symbol2scm ("*"), SCM_UNDEFINED);
+  SCM b = gh_list (ly_symbol2scm ("begin"), SCM_UNDEFINED);
+  SCM e = gh_list (ly_symbol2scm ("end"), SCM_UNDEFINED);
 
+  Moment one_beat = *unsmob_moment( get_property ("beatLength"));
   int num = *unsmob_moment (get_property("measureLength")) / one_beat;
   int den = one_beat.den_i ();
+  SCM time = gh_list (gh_int2scm (num), gh_int2scm (den), SCM_UNDEFINED);
+
+  SCM type = gh_list (gh_int2scm (test_mom.num_i ()),
+		      gh_int2scm (test_mom.den_i ()), SCM_UNDEFINED);
+
+  // fixme
+  SCM settings = scm_eval2 (ly_symbol2scm ("auto-beam-settings"), SCM_EOL);
   
-  String time_str = String ("time") + to_str (num) + "_" + to_str (den);
-
-  String type_str;
-  if (test_mom.num () != 1)
-    type_str = to_str (test_mom.num ());
-  if (test_mom.den () != 1)
-    type_str = type_str + "_" + to_str (test_mom.den ());
-
-  /*
-    URG
-    
-    FIXME: SHOULD USE ALIST
-    
-   */
-
   /*
     Determine end moment for auto beaming (and begin, mostly 0==anywhere) 
     In order of increasing priority:
 
-    i.   every beat <den>
-    ii.  time<num>_<den>beamAutoEnd
-    iii. time<num>_<den>beamAutoEnd<type>
-    iv.  beamAutoEnd
-    v.   beamAutoEnd<type>
+    i.   every beat
+    ii.  end   *    <num> <den>
+    iii. end <type> <num> <den>
+
+    iv.  end   *      *     *
+    v.   end <type>   *     *
 
 
     Rationale:
@@ -127,8 +123,16 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
     iv.  generic override
     v.   override for specific duration type
 
-    The user overrides should be required for common cases.
-   */
+  */
+  
+
+
+  //
+  //
+  // FIXME: arg: why all these guesses in reverse order?
+  // 
+  // 
+
   
   /*
     first guess: begin beam at any position
@@ -146,54 +150,47 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
   /*
     second guess: property generic time exception
   */
-  SCM begin = get_property ((time_str + "beamAutoBegin").ch_C());
-  if (unsmob_moment (begin))
-    begin_mom = * unsmob_moment (begin);
+  SCM begin = gh_assoc (gh_append3 (b, wild, time), settings);
+  
+  if (begin != SCM_BOOL_F && unsmob_moment (gh_cdr (begin)))
+    begin_mom = * unsmob_moment (gh_cdr (begin));
 
-  SCM end = get_property ((time_str + "beamAutoEnd").ch_C());
-  if (unsmob_moment (end))
-    end_mom = * unsmob_moment (end);
+  SCM end = gh_assoc (gh_append3 (e, wild, time), settings);
+  if (end != SCM_BOOL_F && unsmob_moment (gh_cdr (end)))
+    end_mom = * unsmob_moment (gh_cdr (end));
 
   /*
     third guess: property time exception, specific for duration type
   */
-  if (type_str.length_i ())
-    {
-      SCM end_mult = get_property ((time_str + "beamAutoEnd" + type_str).ch_C());
-      if (unsmob_moment (end_mult))
-	end_mom = * unsmob_moment (end_mult);
-
-      SCM begin_mult = get_property ((time_str + "beamAutoBegin" + type_str).ch_C());
-      if (unsmob_moment (begin_mult))
-	begin_mom = * unsmob_moment (begin_mult);
-    }
+  SCM begin_mult = gh_assoc (gh_append3 (b, type, time), settings);
+  if (begin_mult != SCM_BOOL_F && unsmob_moment (gh_cdr (begin_mult)))
+    begin_mom = * unsmob_moment (gh_cdr (begin_mult));
+  
+  SCM end_mult = gh_assoc (gh_append3 (e, type, time), settings);
+  if (end_mult != SCM_BOOL_F && unsmob_moment (gh_cdr (end_mult)))
+    end_mom = * unsmob_moment (gh_cdr (end_mult));
 
   /*
     fourth guess [user override]: property plain generic
   */
-  begin = get_property ("beamAutoBegin");
-  if (unsmob_moment (begin))
-    begin_mom = * unsmob_moment (begin);
+  begin = gh_assoc (gh_append3 (b, wild, wild), settings);
+  if (begin != SCM_BOOL_F && unsmob_moment (gh_cdr (begin)))
+    begin_mom = * unsmob_moment (gh_cdr (begin));
 
-
-  
-  end = get_property ("beamAutoEnd");
-  if (unsmob_moment (end))
-    end_mom = * unsmob_moment (end);
+  end = gh_assoc (gh_append3 (e, wild, wild), settings);
+  if (end != SCM_BOOL_F && unsmob_moment (gh_cdr (end)))
+    end_mom = * unsmob_moment (gh_cdr (end));
 
   /*
     fifth guess [user override]: property plain, specific for duration type
   */
-  if (type_str.length_i ())
-    {
-      SCM end_mult = get_property ((String ("beamAutoEnd") + type_str).ch_C());
-      if (unsmob_moment (end_mult))
-	end_mom = * unsmob_moment (end_mult);
-
-      SCM begin_mult = get_property ((String ("beamAutoBegin") + type_str).ch_C());
-      if (unsmob_moment (begin_mult))
-	begin_mom = * unsmob_moment (begin_mult);
-    }
+  begin_mult = gh_assoc (gh_append3 (b, type, wild), settings);
+  if (begin_mult != SCM_BOOL_F && unsmob_moment (gh_cdr (begin_mult)))
+    begin_mom = * unsmob_moment (gh_cdr (begin_mult));
+  
+  end_mult = gh_assoc (gh_append3 (e, type, wild), settings);
+  if (end_mult != SCM_BOOL_F && unsmob_moment (gh_cdr (end_mult)))
+    end_mom = * unsmob_moment (gh_cdr (end_mult));
 
   Rational r;
   if (end_mom)

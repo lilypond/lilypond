@@ -87,7 +87,7 @@
 	 (((0 . 0) (2 . 0) (4 . 0) (6 . -1)) . ("7"))
 	 (((0 . 0) (2 . -1) (4 . 0) (6 . 0)) . ("m(maj7)"))
 	 ;jazz: the delta, see jazz-chords.ly
-	 ;;(((0 . 0) (2 . -1) (4 . -1) (6 . -2)) .  (super ((font-family . "math") "N"))
+	 ;;(((0 . 0) (2 . -1) (4 . -1) (6 . -2)) .  (super ((font-family . math) "N"))
 	 ;; slashed o
 	 (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (rows ((raise . 1) "o") ((raise . 0.5) ((kern . -0.5) ((font-relative-size . -3) "/"))) "7")) ; slashed o
 	 (((0 . 0) (2 . 0) (4 . 1) (6 . -1)) . ("aug7"))
@@ -106,23 +106,125 @@
 	 )
       chord::names-alist-american))
 
-;; Jazz chords, by Atte André Jensen
-;; Note: This uses the american list as a base
+;; Jazz chords, by Atte André Jensen <atte@post.com>
+;; NBs:	This uses the american list as a base.
+;;	Some defs take up more than one line,
+;; be carefull when messing with ;'s!!
 
+
+;; FIXME
+;;
+;; This is getting out-of hand?  Only exceptional chord names that
+;; cannot be generated should be here.
+;; Maybe we should have inner-jazz-name and inner-american-name functions;
+;; 
+;;       
+;;
 (define chord::names-alist-jazz '())
 (set! chord::names-alist-jazz
       (append 
       '(
-         ; half diminished seventh chord = slashed o
-         (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (("o" (type . "super")) ("/" (size . -2) (offset . (-0.58 . 0.5))) ))
-         ; diminished seventh chord =  o
-         (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . (("o" (type . "super"))))
-         ; major seventh chord = triangle
-         (((0 . 0) (2 . 0) (4 . 0) (6 . 0)) .  ((super ((font-family . "math") "N")) (size . -3)))
-         ; minor major seventh chord = m triangle
-         (((0 . 0) (2 . -1) (4 . 0) (6 . 0)) .  (("m") ((super ((font-family . math) "N")) (size . -3))))
-         ; augmented dominant = +7
-         (((0 . 0) (2 . 0) (4 . +1) (6 . -1)) . (super "+7"))
+	;; major chords
+	; major sixth chord = 6
+ 	(((0 . 0) (2 . 0) (4 . 0) (5 . 0)) . (((raise . 0.5) "6")))
+	; major seventh chord = triangle
+	(((0 . 0) (2 . 0) (4 . 0) (6 . 0)) .  (((raise . 0.5)((font-family . "math") "M"))))
+	; major chord add nine = add9
+	(((0 . 0) (2 . 0) (4 . 0) (1 . 0)) . (((raise . 0.5) "add9")))
+	; major sixth chord with nine = 6/9
+	(((0 . 0) (2 . 0) (4 . 0) (5 . 0) (1 . 0)) . (((raise . 0.5) "6/9")))
+
+	;; minor chords
+	; minor sixth chord = m6
+ 	(((0 . 0) (2 . -1) (4 . 0) (5 . 0)) . (rows("m")((raise . 0.5) "6")))
+	; minor major seventh chord = m triangle
+	(((0 . 0) (2 . -1) (4 . 0) (6 . 0)) . (rows ("m") ((raise . 0.5)((font-family . "math") "M"))))
+	; minor seventh chord = m7
+	(((0 . 0) (2 . -1) (4 . 0) (6 . -1)) . (rows("m")((raise . 0.5) "7")))
+	; minor sixth nine chord = m6/9
+	(((0 . 0) (2 . -1) (4 . 0) (5 . 0) (1 . 0)) . (rows("m")((raise . 0.5) "6/9")))
+	; minor with added nine chord = madd9
+	(((0 . 0) (2 . -1) (4 . 0) (1 . 0)) . (rows("m")((raise . 0.5) "add9")))
+	; minor ninth chord = m9
+	(((0 . 0) (2 . -1) (4 . 0) (6 . -1) (1 . 0)) . (rows("m")((raise . 0.5) "9")))
+
+	;; dominant chords
+	; dominant seventh = 7
+	(((0 . 0) (2 . 0) (4 . 0) (6 . -1)) . (((raise . 0.5) "7")))
+	; augmented dominant = +7
+	;(((0 . 0) (2 . 0) (4 . +1) (6 . -1)) . (((raise . 0.5) "+7"))) ; +7 with both raised
+	(((0 . 0) (2 . 0) (4 . +1) (6 . -1)) . (rows("+")((raise . 0.5) "7"))) ; +7 with 7 raised
+	;(((0 . 0) (2 . 0) (4 . +1) (6 . -1)) . (rows((raise . 0.5) "7(")
+	;	((raise . 0.3)(music (named ("accidentals-1"))))
+	;	((raise . 0.5) "5)"))); 7(#5)
+	; dominant flat 5 = 7(b5)
+	(((0 . 0) (2 . 0) (4 . -1) (6 . -1)) . (rows((raise . 0.5) "7(")
+		((raise . 0.3)(music (named ("accidentals--1"))))
+		((raise . 0.5) "5)")))
+	; dominant 9 = 7(9)
+	(((0 . 0) (2 . 0) (4 . 0) (6 . -1) (1 . 0)) . (((raise . 0.8)"7(9)")))
+	; dominant flat 9 = 7(b9)
+	(((0 . 0) (2 . 0) (4 . 0) (6 . -1) (1 . -1)) . (
+		((raise . 0.8)"7(")
+		((raise . 0.3)(music (named ("accidentals--1"))))
+		((raise . 0.8)"9)")))
+	; dominant sharp 9 = 7(#9)
+	(((0 . 0) (2 . 0) (4 . 0) (6 . -1) (1 . +1)) . (
+		((raise . 0.8)"7(")
+		((raise . 0.3)(music (named ("accidentals-1"))))
+		((raise . 0.8)"9)")))
+	; dominant 13 = 7(13)
+	(((0 . 0) (2 . 0) (4 . 0) (6 . -1) (5 . 0)) . (((raise . 0.8)"7(13)")))
+	; dominant flat 13 = 7(b13)
+	(((0 . 0) (2 . 0) (4 . 0) (6 . -1) (5 . -1)) . (
+		((raise . 0.8)"7(")
+		((raise . 0.3)(music (named ("accidentals--1"))))
+		((raise . 0.8)"13)")))
+	; dominant 9, 13 = 7(9,13)
+	(((0 . 0) (2 . 0) (4 . 0) (6 . -1) (1 . 0) (5 . 0)) . (((raise . 0.8)"7(9, 13)")))
+	; dominant flat 9, 13 = 7(b9,13)
+	(((0 . 0) (2 . 0) (4 . 0) (6 . -1) (1 . -1) (5 . 0)) . (
+		((raise . 0.8)"7(")
+		((raise . 0.3)(music (named ("accidentals--1"))))
+		((raise . 0.8)"9, 13)")))
+	; dominant sharp 9, 13 = 7(#9,13)
+	(((0 . 0) (2 . 0) (4 . 0) (6 . -1) (1 . +1) (5 . 0)) . (
+		((raise . 0.8)"7(")
+		((raise . 0.3)(music (named ("accidentals-1"))))
+		((raise . 0.8)"9, 13)")))
+	; dominant 9, flat 13 = 7(9,b13)
+	(((0 . 0) (2 . 0) (4 . 0) (6 . -1) (1 . 0) (5 . -1)) . (
+		((raise . 0.8)"7(9, ")
+		((raise . 0.3)(music (named ("accidentals--1"))))
+		((raise . 0.8)"13)")))
+	; dominant flat 9, flat 13 = 7(b9,b13)
+	(((0 . 0) (2 . 0) (4 . 0) (6 . -1) (1 . -1) (5 . -1)) . (
+		((raise . 0.8)"7(")
+		((raise . 0.3)(music (named ("accidentals--1"))))
+		((raise . 0.8)"9, ")
+		((raise . 0.3)(music (named ("accidentals--1"))))
+		((raise . 0.8)"13)")))
+	; dominant sharp 9, flat 13 = 7(#9,b13)
+	(((0 . 0) (2 . 0) (4 . 0) (6 . -1) (1 . +1) (5 . -1)) . (
+		((raise . 0.8)"7(")
+		((raise . 0.3)(music (named ("accidentals-1"))))
+		((raise . 0.8)"9, ")
+		((raise . 0.3)(music (named ("accidentals--1"))))
+		((raise . 0.8)"13)")))
+
+	;; diminished chord(s)
+	; diminished seventh chord =  o
+	;(((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . (((raise . 0.8)"o"))); works, but "o" is a little big
+	(((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . (("°")))
+
+	;; half diminshed chords
+	; half diminished seventh chord = slashed o
+	(((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (((raise . 0.8)"ø"))); works, but "ø" is a little big
+	; half diminished seventh chord  with major 9 = slashed o cancelation 9
+	(((0 . 0) (2 . -1) (4 . -1) (6 . -1) (1 . 0)) . (
+		((raise . 0.8)"ø(")
+		((raise . 0.3)(music (named ("accidentals-0"))))
+		((raise . 0.8)"9)"))); works, but "ø" is a little big
 
 ;; Missing jazz chord definitions go here (note new syntax: see american for hints)
 

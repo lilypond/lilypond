@@ -441,10 +441,6 @@ ScoreContext = \translator {
 	% TODO: uniform naming.;  
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
-
-
-	\include "auto-beam-settings.ly";
-
 }
 
 OrchestralScoreContext= \translator {
