@@ -1224,7 +1224,8 @@ underneath.
         c''-\rtoe        c''-\turn         c''-\open          c''-\flageolet
         c''-\reverseturn c''-\trill        c''-\prall         c''-\mordent
         c''-\prallprall  c''-\prallmordent c''-\upprall       c''-\downprall
-        c''-\thumb       c''-\segno        c''-\coda
+        c''-\upmordent   c''-\downmordent  c''-\pralldown     c''-\prallup
+        c''-\lineprall   c''-\thumb        c''-\segno         c''-\coda
       }
       \context Lyrics \lyrics {
         accent__      marcato__      staccatissimo__ fermata
@@ -1233,7 +1234,8 @@ underneath.
         rtoe__        turn__         open__          flageolet
         reverseturn__ trill__        prall__         mordent
         prallprall__  prallmordent__ uprall__        downprall
-        thumb__       segno__        coda
+        upmordent__   downmordent__  pralldown__  prallup__
+        lineprall__   thumb__       segno__        coda
       }
     >
     \paper {

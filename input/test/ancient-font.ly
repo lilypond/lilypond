@@ -26,43 +26,74 @@ upperVoice =  \context Staff = upperVoice <
 	\property Staff.KeySignature \override #'style = #'vaticana
 	\property Staff.Accidentals \override #'style = #'vaticana
 	\property Staff.Custos \override #'style = #'vaticana
-	\property Voice.NoteHead \override #'style = #'mensural
+	\property Voice.NoteHead \override #'style = #'vaticana_punctum
 	\key es \major
 	\clef "vaticana_fa2"
-	cis!2 des! e! fis! ges!
+	c!1 des! e! f! ges!
 
 %	\property Staff.clefGlyph = #"clefs-vaticana_do"
 %	\property Staff.clefPosition = #1
 %	\property Staff.clefOctavation = #0 
 	\clef "vaticana_do2"
 
-	a b c'
-	b as gis fes
+	\property Voice.NoteHead \override #'style = #'vaticana_subbipunctum
+	a! b! ces'
+	\property Voice.NoteHead \override #'style = #'vaticana_virga
+	b! a! ges fes
 	\clef "vaticana_fa1"
-	es dis ces1 \bar "|"
+	\property Voice.NoteHead \override #'style = #'vaticana_quilisma
+	es d
+	\property Voice.NoteHead \override #'style = #'vaticana_rvirga
+	c d
+	\breathe
+	\property Voice.NoteHead \override #'style = #'vaticana_rvirga
+	es f
+	\property Staff.BarLine \override #'bar-size = #3.0 \bar "|"
+	\property Voice.NoteHead \override #'style = #'vaticana_lpes
+	g as
+	\property Staff.BarLine \override #'bar-size = #2.0 \bar "|"
+	\property Voice.NoteHead \override #'style = #'vaticana_upes
+	bes as
+	\breathe
+	\property Voice.NoteHead \override #'style = #'vaticana_vupes
+	g f
+	\property Voice.NoteHead \override #'style = #'vaticana_plica
+	\property Staff.BarLine \override #'bar-size = #2.0 \bar "|"
+	es d
+	\property Voice.NoteHead \override #'style = #'vaticana_epiphonus
+	\property Staff.BarLine \override #'bar-size = #3.0 \bar "|"
+	c d
+	\property Voice.NoteHead \override #'style = #'vaticana_cephalicus
+	es f
 
 	\property Staff.KeySignature \override #'style = #'medicaea
 	\property Staff.Accidentals \override #'style = #'medicaea
 	\property Staff.Custos \override #'style = #'medicaea
-	\property Voice.NoteHead \override #'style = #'mensural
+	\property Voice.NoteHead \override #'style = #'medicaea_punctum
 	\clef "medicaea_fa2"
-	ces2 des es fes ges
+	ces! des! e! f! ges!
 	\clef "medicaea_do2"
-	as bes ces'
-	bes as ges fes
+	\property Voice.NoteHead \override #'style = #'medicaea_subbipunctum
+	a! b! ces'!
+	\property Voice.NoteHead \override #'style = #'medicaea_virga
+	b! a! ges! fes!
 	\clef "medicaea_fa1"
-	es des ces1 \bar "|"
+	\property Voice.NoteHead \override #'style = #'medicaea_rvirga
+	e! des! ces! \bar "|"
 
 	\property Staff.KeySignature \override #'style = #'hufnagel
 	\property Staff.Accidentals \override #'style = #'hufnagel
 	\property Staff.Custos \override #'style = #'hufnagel
-	\property Voice.NoteHead \override #'style = #'mensural
+	\property Voice.NoteHead \override #'style = #'hufnagel_punctum
 	\clef "hufnagel_fa2"
-	ces!2 des! es! fes! ges!
+	ces! des! es! fes! ges!
 	\clef "hufnagel_do2"
+	\property Voice.NoteHead \override #'style = #'hufnagel_lpes
 	as! bes! ces'!
+	\property Voice.NoteHead \override #'style = #'hufnagel_virga
 	bes! as! ges! fes!
 	\clef "hufnagel_do_fa"
+	\property Voice.NoteHead \override #'style = #'hufnagel_punctum
 	es! des! ces!1 \bar "||"
     }
 >
@@ -79,7 +110,7 @@ lowerVoice =  \context Staff = lowerNotes <
 	\property Staff.KeySignature \override #'style = #'mensural
 	\property Staff.Accidentals \override #'style = #'mensural
 	\property Staff.Custos \override #'style = #'mensural
-        \property Voice.NoteHead \override #'style = #'mensural
+        \property Voice.NoteHead \override #'style = #'neo_mensural
 	\key a \major
 	\clef "neo_mensural_c2"
 	c2 dis es fis ges
@@ -99,6 +130,7 @@ lowerVoice =  \context Staff = lowerNotes <
 	\clef "mensural_g"
 	e d c1 \bar "|"
 
+        \property Voice.NoteHead \override #'style = #'mensural
 	\clef "petrucci_f"
 	c2 d e f g
         \property Staff.forceClef = ##t
@@ -139,15 +171,15 @@ lowerVoice =  \context Staff = lowerNotes <
 %	\paperTwentysix
 	linewidth = 17.25\cm
 	textheight = 26.0\cm
-	stafflinethickness = \staffspace / 5.0
+%	stafflinethickness = \staffspace / 5.0
 	indent = 0.0
 	\translator {
 	    \StaffContext
 	    \consists Custos_engraver
 %	    Custos \override #'style = #'mensural
 	    \remove Time_signature_engraver
+	    StaffSymbol \override #'thickness = #2.0
 %	    StaffSymbol \override #'line-count = #4
 	}
     }
 }
-

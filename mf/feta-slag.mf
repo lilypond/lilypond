@@ -93,7 +93,7 @@ fet_endchar;
 
 fet_beginchar("mordent", "mordent", "mordent")
 	trills := 2;
-	set_char_box(trills*twidth#-0.5toverlap#, trills*twidth#-0.5toverlap#, theight#, theight#);
+	set_char_box(trills*twidth#-0.5toverlap#, trills*twidth#-0.5toverlap#, 4/3*theight#, 4/3*theight#);
 	draw_trill_two;
 	draw_mordent(0);
 fet_endchar;
@@ -112,7 +112,7 @@ fet_endchar;
 
 fet_beginchar("prallmordent", "prallmordent", "prallmordent")
 	trills := 3;
-	set_char_box(trills*twidth#-(trills-1)*0.5toverlap#, trills*twidth#-(trills-1)*0.5toverlap#, theight#, theight#);
+	set_char_box(trills*twidth#-(trills-1)*0.5toverlap#, trills*twidth#-(trills-1)*0.5toverlap#, 4/3*theight#, 4/3*theight#);
 	draw_trill_three;
 	draw_mordent(twidth-0.5toverlap);
 fet_endchar;
@@ -144,5 +144,63 @@ fet_beginchar("downprall", "downprall", "downprall")
 %	currentpicture := currentpicture shifted (-0.5w+tthin,-tfat*theight+0.75tthin);
 	currentpicture := currentpicture shifted (-0.5w+tthin,-tfat*theight+0.5tthin);
 	draw_trill_three;
+fet_endchar;
+
+fet_beginchar("upmordent", "upmordent", "upmordent")
+%	trills := 4;
+	trills := 3;
+	set_char_box(trills*twidth#-(trills-1)*0.5toverlap#, trills*twidth#-(trills-1)*0.5toverlap#, 4/3*theight#, 4/3*theight#);
+%	draw_slur(-2twidth#,-2theight#,0,-1);
+%	currentpicture := currentpicture shifted (-0.5w+tthin,-tfat*theight+0.75tthin);
+	draw_slur(0,-2theight#,0,-1);
+%	currentpicture := currentpicture shifted (-0.5w+1.3tthin,-tfat*theight+1.5tthin);
+	currentpicture := currentpicture shifted (-0.5w+1.65tthin,-tfat*theight+1.15tthin);
+%	draw_trill_four;
+	draw_trill_three;
+	draw_mordent(twidth-0.5toverlap);
+fet_endchar;
+
+fet_beginchar("downmordent", "downmordent", "downmordent")
+	trills := 3;
+	set_char_box(trills*twidth#-(trills-1)*0.5toverlap#, trills*twidth#-(trills-1)*0.5toverlap#, 4/3*theight#, 4/3*theight#);
+%	draw_slur(-2twidth#,2theight#,0,1);
+	draw_slur(0,2theight#,0,1);
+%	currentpicture := currentpicture shifted (-0.5w+tthin,-tfat*theight+0.75tthin);
+	currentpicture := currentpicture shifted (-0.5w+tthin,-tfat*theight+0.5tthin);
+	draw_trill_three;
+	draw_mordent(twidth-0.5toverlap);
+fet_endchar;
+
+fet_beginchar("lineprall", "lineprall", "lineprall")
+	trills := 3;
+	set_char_box(trills*twidth#-(trills-1)*0.5toverlap#, trills*twidth#-(trills-1)*0.5toverlap#, theight#, 4*theight#);
+	pickup pencircle scaled tthin;
+	draw (-0.5w+tthin,-tfat*theight+0.5tthin) -- (-0.5w+tthin,h);
+	draw_trill_three;
+fet_endchar;
+
+fet_beginchar("pralldown", "pralldown", "pralldown")
+%	trills := 4;
+	trills := 3;
+	set_char_box(trills*twidth#-(trills-1)*0.5toverlap#, trills*twidth#-(trills-1)*0.5toverlap#, theight#, theight#);
+%	draw_slur(-2twidth#,-2theight#,0,-1);
+%	currentpicture := currentpicture shifted (-0.5w+tthin,-tfat*theight+0.75tthin);
+	draw_slur(0,-2theight#,0,-1);
+%	currentpicture := currentpicture shifted (-0.5w+1.3tthin,-tfat*theight+1.5tthin);
+	currentpicture := currentpicture shifted (-0.5w+1.65tthin,-tfat*theight+1.15tthin);
+%	draw_trill_four;
+	draw_trill_three;
+	currentpicture := currentpicture xscaled -1;
+fet_endchar;
+
+fet_beginchar("prallup", "prallup", "prallup")
+	trills := 3;
+	set_char_box(trills*twidth#-(trills-1)*0.5toverlap#, trills*twidth#-(trills-1)*0.5toverlap#, theight#, theight#);
+%	draw_slur(-2twidth#,2theight#,0,1);
+	draw_slur(0,2theight#,0,1);
+%	currentpicture := currentpicture shifted (-0.5w+tthin,-tfat*theight+0.75tthin);
+	currentpicture := currentpicture shifted (-0.5w+tthin,-tfat*theight+0.5tthin);
+	draw_trill_three;
+	currentpicture := currentpicture xscaled -1;
 fet_endchar;
 

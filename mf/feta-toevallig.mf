@@ -328,7 +328,7 @@ fet_beginchar("Ed. Med. Flat" , "medicaea-1", "medicaeaflat");
 %
 %
 fet_beginchar("Ed. Vat. Flat" , "vaticana-1", "vaticanaflat");
-        set_char_box(0, 0.8 staff_space#, 0.6 staff_space#, 
+        set_char_box(0, 0.7 staff_space#, 0.6 staff_space#, 
                 2.0 staff_space#);
         define_pixels (stafflinethickness, staff_space);
 
@@ -349,7 +349,7 @@ fet_beginchar("Ed. Vat. Flat" , "vaticana-1", "vaticanaflat");
         fet_endchar;
 
 fet_beginchar("Ed. Vat. Natural" , "vaticana0", "vaticananatural");
-	set_char_box(0, 0.7 staff_space#, 0.6 staff_space#, 
+	set_char_box(0, 0.6 staff_space#, 0.6 staff_space#, 
 		2.0 staff_space#);
 	define_pixels (stafflinethickness, staff_space);
 
@@ -381,7 +381,7 @@ fet_beginchar("Ed. Vat. Natural" , "vaticana0", "vaticananatural");
 %
 %
 fet_beginchar("Mensural Sharp" , "mensural1", "mensuralsharp");
-	set_char_box(0, 0.7 staff_space#, 0.5 staff_space#, 
+	set_char_box(0.4 staff_space#, 0.6 staff_space#, 0.5 staff_space#, 
 		0.5 staff_space#);
 	save stemthick;
 	define_pixels (stemthick, staff_space);
@@ -400,7 +400,7 @@ fet_beginchar("Mensural Sharp" , "mensural1", "mensuralsharp");
 	fet_endchar;
 
 fet_beginchar("Mensural Flat" , "mensural-1", "mensuralflat");
-	set_char_box(0, 0.7 staff_space#, 0.4 staff_space#, 
+	set_char_box(0.1 staff_space#, 0.7 staff_space#, 0.4 staff_space#, 
 		1.8 staff_space#);
 	save stemthick;
 	define_pixels (stemthick, staff_space);
@@ -422,7 +422,7 @@ fet_beginchar("Mensural Flat" , "mensural-1", "mensuralflat");
 	fet_endchar;
 
 fet_beginchar("Hufnagel Flat" , "hufnagel-1", "hufnagelflat");
-	set_char_box(0, 0.7 staff_space#, 0.4 staff_space#, 
+	set_char_box(0.5 staff_space#, 0.7 staff_space#, 0.4 staff_space#, 
 		1.8 staff_space#);
 	save stemthick;
 	define_pixels (stemthick, staff_space);
