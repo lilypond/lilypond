@@ -118,7 +118,8 @@ Lily_parser::parse_file (String init, String name, String out_name)
 void
 Lily_parser::parse_string (String ly_code)
 {
-  Lily_lexer *parent = lexer_;
+  SCM parent_prot = lexer_ ? lexer_->self_scm () : SCM_EOL;
+  Lily_lexer * parent = lexer_;
   lexer_ = (parent == 0 ? new Lily_lexer (sources_)
 	    : new Lily_lexer (*parent));
   scm_gc_unprotect_object (lexer_->self_scm ());
@@ -146,9 +147,12 @@ Lily_parser::parse_string (String ly_code)
 
   error_level_ = error_level_ | lexer_->error_level_;
 
-  if (parent != 0)
+#if 0
+  if (Lily_lexer::unsmob (parent_prot))
     {
-      parent->keytable_ = lexer_->keytable_;
+      /*
+	what the fuck is this good for?
+       */
       parent->encoding_ = lexer_->encoding_;
       parent->chordmodifier_tab_ = lexer_->chordmodifier_tab_;
       parent->pitchname_tab_stack_ = lexer_->pitchname_tab_stack_;
@@ -157,7 +161,10 @@ Lily_parser::parse_string (String ly_code)
       parent->error_level_ = lexer_->error_level_; 
       parent->main_input_b_ = lexer_->main_input_b_;
     }
-
+  
+  scm_remember_upto_here_1 (parent_prot);
+#endif
+  
   scm_set_current_module (oldmod);
   lexer_ = 0;
 }
