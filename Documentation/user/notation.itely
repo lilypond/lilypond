@@ -1428,6 +1428,22 @@ voices have @code{\shiftOn}, @code{\shiftOnn}, etc.
 @cindex @code{\shiftOff}
 @code{\shiftOff}.
 
+When LilyPond cannot cope, the @code{force-hshift}
+property of the @internalsref{NoteColumn} object and pitched rests can
+be used to override typesetting decisions.
+
+@lilypond[verbatim,raggedright]
+\relative <<
+{
+  <d g>
+  <d g>
+} \\ {
+  <b f'>
+  \once \override NoteColumn  #'force-hshift = #1.7
+  <b f'>
+} >> 
+@end lilypond
+
 
 
 @seealso
@@ -1445,10 +1461,6 @@ Examples: See also example files
 
 @refbugs
 
-Resolving collisions is a intricate subject, and only a few situations
-are handled. When LilyPond cannot cope, the @code{force-hshift}
-property of the @internalsref{NoteColumn} object and pitched rests can
-be used to override typesetting decisions.
 
 When using @code{merge-differently-headed} with an upstem eighth or a
 shorter note, and a downstem half note, the eighth note gets the wrong
@@ -4057,11 +4069,39 @@ This results in the following output
 If you have multiple voices in a single staff, and you want a single
 ambitus per staff rather than per each voice, add the
 @internalsref{Ambitus_engraver} to the @internalsref{Staff} context
-rather than to the @internalsref{Voice} context.
+rather than to the @internalsref{Voice} context.  Here is an example,
 
-It is possible to tune individual ambituses for multiple voices on a
-single staff, for example by erasing or shifting them horizontally. An
-example is in @inputfileref{input/test,ambitus-mixed.ly}.
+@lilypond[verbatim,raggedright] 
+\new Staff <<
+    \new Voice \with {
+	\consists "Ambitus_engraver"
+    } \relative c'' {
+	\override Ambitus #'X-offset-callbacks
+	=  #(list (lambda (grob axis) -1.0))
+	\voiceOne
+	c4 a d e f2
+    }
+    \new Voice \with {
+	\consists "Ambitus_engraver"
+    } \relative c' {
+	\voiceTwo
+	es4 f g as b2
+    }
+>>
+@end lilypond
+
+@noindent
+This example uses one advanced feature,
+
+@example
+	\override Ambitus #'X-offset-callbacks
+	=  #(list (lambda (grob axis) -1.0))
+@end example
+
+@noindent
+This code moves the ambitus to the left. The same effect could have
+been achieved with @code{extra-offset}, but then the formatting system
+would not reserve space for the moved object. 
 
 @seealso
 
@@ -4069,8 +4109,7 @@ Program reference: @internalsref{Ambitus},
 @internalsref{AmbitusLine}, @internalsref{AmbitusNoteHead},
 @internalsref{AmbitusAccidental}.
 
-Examples:  @inputfileref{input/regression,ambitus.ly},
-@inputfileref{input/test,ambitus-mixed.ly}.
+Examples:  @inputfileref{input/regression,ambitus.ly}.
 
 @refbugs
 
@@ -4422,12 +4461,15 @@ for showing repeats.
 @lilypond[raggedright,verbatim]
 \new ChordNames \with {
 	\override BarLine #'bar-size = #4
-	\consists Bar_engraver
+	voltaOnThisStaff = ##t
+  	\consists Bar_engraver
 	\consists "Volta_engraver"
 } 
 \repeat volta 2 \chords {
 	f1:maj f:7 bes:7
-	c:maj  es
+	c:maj  
+} \alternative {
+  es e
 }
 @end lilypond
 
