@@ -139,11 +139,14 @@ Grob_pq_engraver::start_translation_timestep ()
 
 
 ENTER_DESCRIPTION(Grob_pq_engraver,
-/* descr */       "Administrate when certain grobs (eg. note heads) stop playing; this
-engraver is a sort-of a failure, since it doesn't handle all sorts of borderline cases very well.
-",
-/* creats*/       "",
-/* accepts */     "",
-/* acks  */      "grob-interface",
-/* reads */       "busyGrobs",
+
+/* descr */       "Administrate when certain grobs (eg. note heads) stop playing; this \
+engraver is a sort-of a failure, since it doesn't handle all sorts of \
+borderline cases very well. \
+",												  \
+		  
+/* creats*/       "",										  \
+/* accepts */     "",										  \
+/* acks  */      "grob-interface",								  \
+/* reads */       "busyGrobs",									  \
 /* write */       "busyGrobs");

@@ -26,6 +26,7 @@ public:
 };
 
 IMPLEMENT_CTOR_CALLBACK(Bar_check_iterator);
+
 Bar_check_iterator::Bar_check_iterator()
 {
 }

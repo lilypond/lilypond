@@ -18,6 +18,7 @@ Simultaneous_music::start_mom () const
 
 Simultaneous_music::Simultaneous_music()
 {
+
 }
 
 Pitch

@@ -23,7 +23,6 @@ this.
 
 */
 
-#include <iostream.h>
 #include <ctype.h>
 
 #include "translator-def.hh"
@@ -61,6 +60,7 @@ regular_identifier_b (SCM id)
    }
   return v;
 }
+
 
 
 bool
@@ -790,7 +790,7 @@ Simple_music:
 			THIS->parser_error (_ ("First argument must be a procedure taking one argument"));
 		}
 
-	Music*m = MY_MAKE_MUSIC("OutputPropertySetMusic");
+		Music*m = MY_MAKE_MUSIC("OutputPropertySetMusic");
 		m->set_mus_property ("predicate", pred);
 		m->set_mus_property ("grob-property", $3);
 		m->set_mus_property ("grob-value",  $5);
@@ -822,6 +822,7 @@ Composite_music:
 	| AUTOCHANGE STRING Music	{
 	Music*chm = MY_MAKE_MUSIC("AutoChangeMusic");
 		chm->set_mus_property ("element", $3->self_scm ());
+		chm->set_mus_property ("iterator-ctor", Auto_change_iterator::constructor_proc);
 
 		scm_gc_unprotect_object ($3->self_scm ());
 		chm->set_mus_property ("what", $2); 
@@ -1060,7 +1061,6 @@ simple_property_def:
 		  = gh_equal_p ($4, scm_makfrom0str ("autoBeamSettings"));
 		bool itc = internal_type_checking_global_b;
 		Music *t = MY_MAKE_MUSIC("OverrideProperty");
-
 		t->set_mus_property ("symbol", scm_string_to_symbol ($4));
 		t->set_mus_property ("pop-first", SCM_BOOL_T);
 		if (autobeam)

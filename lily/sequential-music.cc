@@ -7,7 +7,6 @@ Sequential_music::Sequential_music ()
 {
 }
 
-
 Moment
 Sequential_music::get_length () const
 {

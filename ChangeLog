@@ -1,3 +1,185 @@
+2002-10-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* python/midi.c (midi_error): take two arguments.
+
+	* Merge 1.6.5 changes:
+	
+2002-10-04  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/grob-description.scm (minimum-beam-collision-distance): 0.75
+	staff-space.  Previous 1.5 was probably meant as half-spaces.
+	(cautionary-style): parentheses (was: smaller).  This is what doco
+	says, and it seems more logical.
+
+	* Documentation/user/refman.itely (Chromatic alterations): Bugfix
+	for 2nd sentence.
+
+2002-10-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* make/lilypond.redhat.spec.in: various fixes for RedHat 8.0
+
+2002-10-03  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/beam.cc (rest_collision_callback): Fixed: partial rewrite.
+
+2002-09-30  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scripts/lilypond-book.py (make_pixmap): don't produce empty pages.
+
+2002-09-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/translator-property-description.scm (voltaOnThisStaff): add
+	property.
+
+2002-09-28  Werner Lemberg  <wl@gnu.org>
+
+	* scm/tex.scm (header-end): Suppress page numbering.
+
+	* scripts/lilypond-book.py (output_dict) <output-texi-quoted>:
+	Fix quotation for HTML output.
+
+2002-09-28   Graham Percival   <gperciva@sfu.ca>
+	
+	* Documentation/user/refman.itely: grammar and phrasing
+	  fixes to "Note Entry" section.  Also adds a few new examples.
+
+2002-09-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* flower/include/string-data.icc: include string.h
+
+2002-09-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/chord-name.scm (chord::inner-name-banter): remove space.
+
+2002-09-27  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/user/GNUmakefile (extra-local-help): Add.
+
+	* stepmake/stepmake/www-targets.make (local-help): Add.
+
+2002-09-26  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/topdocs/INSTALL.texi (Top): recommend binary
+	packages.
+
+	* Documentation/topdocs/README.texi (Top): building documentation
+	(not website.)
+
+2002-09-26  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/user/refman.itely: 
+	* Documentation/user/tutorial.itely: 
+	* Documentation/user/music-glossary.tely: Merge changes.
+
+	* Documentation/user/glossary.html.in: 
+	* Documentation/index.texi: 
+	* Documentation/header.html.in: Accomodate renaming of glossary.
+	
+	* Documentation/user/tutorial.itely: Add some glossary references.
+	
+	* Documentation/user/refman.itely: Minor fixes.
+	
+	* Documentation/user/lilypond.tely: Add glossary do direntry.
+
+	* Documentation/user/music-glossary.tely: Rename (previously:
+	glossary.tely).  Fix anchor placement.
+
+	* Documentation/user/GNUmakefile: Make music-glossary.info too.
+
+2002-09-23  Werner Lemberg  <wl@gnu.org>
+
+	* scripts/lilypond-book.py (output_dict): Fix handling of
+	various environments by avoid extraneous newlines.
+	Rename `output-all' regexp for html to `output-html'.
+	Replace `output-all' regexp for texi with `output-texi-quote'
+	and `output-texi-noquote'.
+	(compose_full_body): Don't override `linewidth' user option
+	for `singleline'.
+	(schedule_lilypond_block): Don't indent text specified with
+	`intertext' option.
+	Add new option `noquote'.
+	(compile_all_files): Use latex instead of tex to compile ly
+	files directly.
+
+	* Documentation/user/lilypond-book.itely: Updated and revised.
+	Improve layout.
+
+	* Documentation/user/glossary.tely,
+	Documentation/user/introduction.itely,
+	Documentation/user/tutorial.itely,
+	Documentation/user/refman.itely,
+	Documentation/user/appendices.itely: Fix overfull LilyPond
+	boxes caused by the new lilypond-book code.  Other minor
+	fixes.
+
+	* Documentation/user/macros.itexi (@texiflat): Don't emit
+	trailing space.
+
+	* scm/tex.scm (end-output, header-end): Add preamble and
+	postamble to make lilypond output directly compilable with
+	latex.
+
+	
+2002-09-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/topdocs/INSTALL.texi (Top): bugfix for RH RPM
+	instructions.
+
+2002-09-25  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/user/glossary.tely: Add titling and hyperlinks.
+
+2002-09-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/beam.cc (connect_beams): don't crash if there are quarter
+	notes in beams.
+
+2002-09-24  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* Documentation/user/refman.itely: corrected ancient clef
+	docu; added docu on ligatures
+
+2002-09-21  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* Documentation/user/glossary.tely,
+	Documentation/user/refman.itely, input/les-nereides.ly,
+	input/mutopia/W.A.Mozart/mozart-hrn3-defs.ly,
+	input/test/bagpipe.ly, lily/stem.cc, ly/grace-init.ly,
+	scm/grob-property-description.scm, scripts/convert-ly.py: renamed
+	Stem properties: flag-style -> stroke-style, style -> flag-style.
+
+
+2002-09-22  Werner Lemberg  <wl@gnu.org>
+
+	* scripts/lilypond-book.py: Add option `notime' to suppress
+	printing of a time signature.  Specify default indentation of 0pt
+	if single line fragment.  Don't emit redundant `\paper{ }'.
+
+	* Documentation/user/lilypond-book.itely: Updated.
+
+	* Documentation/user/glossary.tely: Completely reformatting.
+
+2002-09-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* GNUmakefile.in (top-web): generate (possibly empty) examples.html
+
+2002-09-22  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/user/tutorial.itely: Fix links.
+	
+	* Documentation/topdocs/index.tely:
+	* Documentation/index.texi:
+	* Documentation/header.html.in: Small website fixes and updates.
+
+	* debian/: Debian patch by Anthony Fok.
+
+2002-09-21  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/footer.html.in: How time flies: It's already 2002!
+
+	* Documentation/topdocs/index.tely: Stable/development fix.  Use
+	more descriptive link names than 'here'.
+
 2002-10-03  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/beam.cc (rest_collision_callback): Fixed: partial rewrite.
@@ -26,7 +208,6 @@
 	lily/event.cc, lily/event-chord-iterator.cc: add
 
 2002-09-29  Jan Nieuwenhuizen  <janneke@gnu.org>
-
 
 	* lily/: some (c) header fixes.
 	

@@ -537,7 +537,7 @@ Stem::flag (Grob*me)
   SCM flag_style_scm = me->get_grob_property ("flag-style");
   if (gh_symbol_p (flag_style_scm))
     {
-      flag_style = (ly_scm2string (scm_symbol_to_string (flag_style_scm)));
+      flag_style = ly_scm2string (scm_symbol_to_string (flag_style_scm));
     }
   else
     {
