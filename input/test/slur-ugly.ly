@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 \header {
 texidoc="You can get ugly slurs, if you want.
@@ -19,7 +19,7 @@ baseWalk = \notes \relative c {
     >
   >
   \paper {
-    linewidth = -1.
+    raggedright = ##t
     \translator {
       \VoiceContext
       Slur \override #'beautiful = #5.0

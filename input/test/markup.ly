@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 \header {
   texidoc ="Test font selection and scm text markup
@@ -35,7 +35,7 @@
     
   }
   \paper{
-				%linewidth = -1.\mm
+				%raggedright = ##t
     fontenc = "T1"
     \translator{
       \ScoreContext

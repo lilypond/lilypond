@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 
 % barline spacing  disrupts visual rhythm.
@@ -25,7 +25,7 @@
     >
 
     \paper{
-    	linewidth = -1.0\cm
+    	raggedright = ##t
 	\translator{
 	    \ScoreContext
 %%FIXME	    BreakAlignment \override #'space-alist = #nbal

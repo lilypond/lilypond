@@ -1,11 +1,11 @@
-\version "1.7.6"
+\version "1.7.16"
 \header { texidoc = "
 Conventionally, stems and beams extend to the middle staff line.  This
 extension can be controlled through @code{Voice.Stem}'s grob-property
 @code{no-stem-extend}:
 "}
 
-\paper { linewidth = -1.}
+\paper { raggedright = ##t}
 \score {\notes \relative c \context Voice {
   \grace a'8 a4
   \property Voice.Stem \set #'no-stem-extend = ##t

@@ -2,7 +2,7 @@
     texidoc = "Absolute dynamics have effect in MIDI files."
 }
 
-\version "1.7.6"
+\version "1.7.16"
 
 \score{
 \notes\relative c''{

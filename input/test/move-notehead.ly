@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 
 fragment = \notes {
@@ -7,7 +7,7 @@ fragment = \notes {
     c''2 c
 }
 
-\paper { linewidth = -1. } 
+\paper { raggedright = ##t} 
 
 \score {
   \notes\relative c \fragment

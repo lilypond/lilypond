@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 \score{
 	\notes\relative c'{
@@ -13,7 +13,7 @@
 		[g16 a b c]
 	}
 	\paper{
-		linewidth=-1.
+		raggedright = ##t
 	}
 }
 %% new-chords-done %%

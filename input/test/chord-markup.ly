@@ -1,9 +1,9 @@
-\version "1.7.10"
+\version "1.7.16"
 \header{
     texidoc = "chord/markup test"
 }
 
-\paper{ linewidth = -1.0\mm }
+\paper{ raggedright = ##t }
 
 \score{
     <

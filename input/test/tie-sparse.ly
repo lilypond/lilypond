@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header {
 
 texidoc = "setting sparseTies causes only one tie to be
@@ -13,7 +13,7 @@ generated per chord pair."
 	c''  <<c e g>> ~ <<c e g>> 
   }
   \paper {
-    linewidth=-1.0
+    raggedright = ##t
   }  
   \midi { }
 }

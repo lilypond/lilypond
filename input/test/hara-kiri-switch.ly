@@ -2,7 +2,7 @@
 \header {
 texidoc = "some instruments (notably: cello and double bass) are alternatively written on one and two staves. This is the way to do it:"
 }
-\version "1.7.6"
+\version "1.7.16"
 
 
 voiceOne =  \notes \relative c'' {

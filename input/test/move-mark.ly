@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 \score{
 \context Staff \notes\relative c''{
@@ -13,7 +13,7 @@
 	e
 }
 \paper{
-	linewidth=-1.0
+	raggedright = ##t
 	\translator {
 		\ScoreContext
 		\consists "Mark_engraver"

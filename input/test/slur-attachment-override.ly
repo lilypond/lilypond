@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 \header{
 texidoc="
@@ -16,7 +16,7 @@ fragment = \notes {
   d,32( f'4 )d8.
 }
 
-\paper { linewidth = -1. } 
+\paper { raggedright = ##t} 
 
 \score {
   \notes\relative c \fragment

@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 \score {
   \notes \relative c'' {
@@ -6,7 +6,7 @@
     d c b a
   }
   \paper {
-    linewidth = -1.
+    raggedright = ##t
     \translator {
       \StaffContext
       whichBar = #""

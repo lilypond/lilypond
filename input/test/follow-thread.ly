@@ -6,7 +6,7 @@ property @code{followVoice}.
 "
 }
 
-\version "1.7.6"
+\version "1.7.16"
 % followVoice: connect note heads with line when thread switches staff 
 
 fragment = \notes {
@@ -22,7 +22,7 @@ fragment = \notes {
   >
 }
 
-\paper { linewidth = -1. } 
+\paper { raggedright = ##t} 
 
 \score {
   \notes\relative c \fragment

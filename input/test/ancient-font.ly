@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header {
     title	= "ancient font test"
     date	= "2002"

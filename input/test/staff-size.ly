@@ -4,7 +4,7 @@ are two options: using StaffContainer and override/revert, or
 \outputproperty. Both methods are shown in this example."
 }
 
-\version "1.7.6"
+\version "1.7.16"
 \score {
   \notes \relative c' < \context StaffContainer = SA{
      \property StaffContainer.StaffSymbol \set #'staff-space = #(/ 16 20)
@@ -27,7 +27,7 @@ are two options: using StaffContainer and override/revert, or
   c8 c c c  c c c c
 }
 >
-\paper { linewidth = -1. }
+\paper { raggedright = ##t}
 }
 
 %% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 #(define (make-text-checker text)
    (lambda (grob) (equal? text (ly:get-grob-property grob 'text))))
@@ -10,6 +10,6 @@
       #'extra-offset = #'(-3.5 . -4.5)
     a^2^"m.d."
   }
-  \paper { linewidth = -1. }
+  \paper { raggedright = ##t}
 }
 %% new-chords-done %%

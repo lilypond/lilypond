@@ -1,4 +1,4 @@
-\version "1.7.7"
+\version "1.7.16"
 \header {
     texidoc =" Harmonic notes: a different style on the same stem. "
 }

@@ -2,7 +2,7 @@
 {
     texidoc = "Bar numbers can also be printed at regular intervals."
 }
-\version "1.7.7"
+\version "1.7.16"
 
 \score {
     \context Staff \notes \transpose  c c' {

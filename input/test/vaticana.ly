@@ -1,4 +1,4 @@
-\version "1.7.10"
+\version "1.7.16"
 \header {
     title	= "vaticana ligature test"
     date	= "2003"

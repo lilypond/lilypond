@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \score{
 	\context PianoStaff <
 	\context Staff=one \notes\relative c'{
@@ -13,7 +13,7 @@
 	}
 	>
 	\paper{
-		linewidth=-1.
+		raggedright = ##t
 	}
 }
 

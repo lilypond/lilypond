@@ -1,10 +1,10 @@
-\version "1.7.6"
+\version "1.7.16"
 
 \header {
 texidoc="show trill line type"
 }
 
-\paper { linewidth = -1. } 
+\paper { raggedright = ##t} 
 
 \score {
   \context RhythmicStaff \notes {
