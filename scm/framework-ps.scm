@@ -266,6 +266,18 @@
 
 
 (define-public (dump-stencil-as-EPS paper dump-me filename load-fonts?)
+  (define (mm-to-bp-box mmbox)
+    (let*
+	((scale  (ly:output-def-lookup paper 'outputscale))
+	 (box (map 
+	       (lambda (x)
+		 (inexact->exact
+		  (round (* x scale mm-to-bigpoint)))) mmbox)))
+
+    (list (car box) (cadr box)
+	  (max (1+ (car box)) (caddr box))
+	  (max (1+ (cadr box)) (cadddr box)))))
+  
   (let*
       ((outputter (ly:make-paper-outputter (format "~a.eps" filename)
 					   "ps"))
@@ -273,7 +285,7 @@
        (port (ly:outputter-port outputter))
        (xext (ly:stencil-extent dump-me X))
        (yext (ly:stencil-extent dump-me Y))
-       (scale  (ly:output-def-lookup paper 'outputscale))
+       
        (bbox
 	(map
 	 (lambda (x)
@@ -281,11 +293,7 @@
 	       0.0 x))
 	 (list (car xext) (car yext)
 	       (cdr xext) (cdr yext))))
-       (rounded-bbox
-	(map
-	 (lambda (x)
-	   (inexact->exact
-	    (round (* x scale mm-to-bigpoint)))) bbox))
+       (rounded-bbox (mm-to-bp-box bbox))
        (port (ly:outputter-port outputter))
        (header (eps-header paper rounded-bbox load-fonts?)))
 

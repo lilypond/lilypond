@@ -18,7 +18,6 @@
 
 /init-paper {
 	gsave
-	.1 setlinewidth
 	clippath pathbbox newpath
 	/vsize exch def
 	/hsize exch def pop pop pop
@@ -93,7 +92,6 @@
 /init-lilypond-parameters {
 	staff-line-thickness setlinewidth
 	staff-height init-paper
-	pstack
 } bind def
 
 

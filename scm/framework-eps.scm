@@ -52,7 +52,7 @@
     (for-each (lambda (c)
 		(display (format "\\includegraphics{~a-~a.eps}%\n"
 				 basename (1+ c)) tex-system-port)
-		(display (format "@image{~a-~a}%\n"
+		(display (format "@image{~a-~a}@c\n"
 				 basename (1+ c)) texi-system-port))
 	      (iota (length stencils)))
 
