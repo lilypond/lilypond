@@ -36,7 +36,7 @@ substitute_args(String source, Array<Scalar> args)
 {
     Array<String> sv;
     for (int i = 0 ; i < args.size(); i++)
-	sv.add(args[i]);
+	sv.push(args[i]);
     
     return substitute_args(source, sv);
 }

@@ -35,7 +35,7 @@ Staff_column::add(Voice_element*ve)
 	score_column_l_->add_duration(d);
     }
 	
-    v_elts.add(ve);
+    v_elts.push(ve);
 }
 
 Staff_column::Staff_column(Score_column *s_l)

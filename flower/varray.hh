@@ -91,7 +91,7 @@ public:
     }
 
     /// add to the end of array
-    void add(T x) {
+    void push(T x) {
 	if (size_ == max)
 	    remax(2*max + 1);
 

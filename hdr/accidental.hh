@@ -9,11 +9,12 @@
 #include "item.hh"
 
 struct Accidental : Item {
+const char * name() const;
     int type,pos; 
 
     void preprocess();
     Accidental(int type, int position);
-    void print()const;
+    void do_print()constt;
 private:
     void brew_molecule();
 };

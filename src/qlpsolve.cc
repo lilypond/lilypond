@@ -34,7 +34,7 @@ Active_constraints::OK()
     Array<int> allcons;
 
     for (int i=0; i < opt->cons.size(); i++)
-	allcons.add(0);
+	allcons.push(0);
     for (int i=0; i < active.size(); i++) {
 	int j = active[i];
 	allcons[j]++;
@@ -61,7 +61,7 @@ Active_constraints::add(int k)
 {
     // add indices
     int cidx=inactive[k];
-    active.add(cidx);
+    active.push(cidx);
 
     inactive.swap(k,inactive.size()-1);
     inactive.pop();
@@ -98,7 +98,7 @@ Active_constraints::drop(int k)
     int q=active.size()-1;
 
         // drop indices
-    inactive.add(active[k]);
+    inactive.push(active[k]);
     active.swap(k,q);
     A.swap_rows(k,q);
     active.pop();
@@ -128,7 +128,7 @@ Active_constraints::Active_constraints(Ineq_constrained_qp const *op)
 	    opt(op)
 {
     for (int i=0; i < op->cons.size(); i++)
-	inactive.add(i);
+	inactive.push(i);
     Choleski_decomposition chol(op->quad);
     H=chol.inverse();
 }

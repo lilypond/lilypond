@@ -19,9 +19,10 @@ struct Spanner:Staff_elem {
     
     Spanner();
     virtual Interval width()const;
-    void print()const;
-
+    void do_print()const;
+    const char* name()const;
     Spanner *broken_at(PCol *c1,  PCol *c2) const;
+    virtual Spanner* spanner() { return this; }
 protected:
     /// clone a piece of  this spanner.
     virtual Spanner *do_break_at( PCol *c1,  PCol *c2) const=0; 
@@ -31,9 +32,9 @@ protected:
     c1 >= start, c2  <= stop
     */
 };
-/**
-  A spanner is a symbol whose final appearance can only be calculated
-  after the breaking problem is solved.
+/** A spanner is a symbol which spans across several columns, so its
+  final appearance can only be calculated after the breaking problem
+  is solved.
 
   Examples
 

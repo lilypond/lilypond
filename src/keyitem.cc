@@ -8,7 +8,7 @@
 
 const int FLAT_TOP_PITCH=2; /* fes,ges,as and bes typeset in lower octave */
 const int SHARP_TOP_PITCH=4; /*  ais and bis typeset in lower octave */
-
+NAME_METHOD(Keyitem);
 Keyitem::Keyitem(int c)
 {
     c_position = c;
@@ -39,8 +39,8 @@ Keyitem::add(int p, int a)
         (a>0 && p>SHARP_TOP_PITCH)) {
       p=p-7; /* Typeset below c_position */
     }
-    pitch.add(p);
-    acc.add(a);
+    pitch.push(p);
+    acc.push(a);
 }
 
 

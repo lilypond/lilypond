@@ -11,6 +11,7 @@
 #include "item.hh"
   
 struct Text_item : Item {
+    const char * name() const;
     int pos_i_;
     int staffsize_i_;
     int dir_i_;

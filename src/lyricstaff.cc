@@ -36,12 +36,7 @@ void
 Lyric_staff::walk()
 {
     for (Lyric_walker lcols(this); lcols.ok(); lcols++) {
-	lcols.lcol_l()->process_requests();// TODO
+	lcols.lcol_l()->setup_requests();// TODO
 	lcols.process();
     }
-}
-Staff *
-get_new_lyricstaff()
-{
-    return new Lyric_staff;
 }

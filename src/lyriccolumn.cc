@@ -3,14 +3,12 @@
 #include "staffwalker.hh"
 #include "debug.hh"
 #include "staff.hh"
-#include "command.hh"
-//#include "simplestaff.hh"
+//#include "command.hh"
 #include "lyricstaff.hh"
 #include "lyriccolumn.hh"
 #include "sccol.hh" 
-//#include "simplewalker.hh"
 #include "pscore.hh"
-#include "paper.hh"
+//#include "paper.hh"
 
 
 Lyric_column::Lyric_column(Score_column*s, Lyric_staff* lstaff_l)
@@ -20,7 +18,7 @@ Lyric_column::Lyric_column(Score_column*s, Lyric_staff* lstaff_l)
 }
 
 void
-Lyric_column::process_requests()
+Lyric_column::setup_requests()
 {
     for (int i = 0 ; i < v_elts.size(); i ++) {
 	for (iter_top(v_elts[i]->reqs,j); j.ok(); j++) {
@@ -30,13 +28,8 @@ Lyric_column::process_requests()
 		    error("Barcheck failed, " + tdescription_->str());
 		}
 	    }
-#if 0
-	    if (req_l->rhythmic()){
-		notes.add(rq->rhythmic());
-	    }
-#endif
 	    if (req_l->lreq_l()) {
-		winfo_array_.add(req_l->lreq_l());
+		winfo_array_.push(req_l->lreq_l());
 	    }
 	}
     }

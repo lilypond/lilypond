@@ -1,15 +1,18 @@
 #!/bin/sh
 
+PREFIX=${PREFIX:-.}
+echo using PREFIX=$PREFIX
 
-NEEDFLOWERVER=1.0.21
+NEEDFLOWERVER=1.0.22
 flowertar=flower-$NEEDFLOWERVER
 here=`pwd`
-if [ -x ../flower ]
+cd ..
+if [ -x flower ]
 then
     echo Found flowerdir
 else
-    cd ../
-    if [ ! -f $flowertar ]
+
+    if [ ! -d $flowertar ]
     then
 	echo "can't find $flowertar"
 	exit 1;
@@ -19,11 +22,10 @@ else
 
 fi
 echo Compiling Library
-cd flower; make
+(cd flower;make)
+
 cd $here
 
-PREFIX="."
 echo '#define LIBDIR "'$PREFIX'/"'> hdr/config.hh
 
-touch depend
 make -f Initial.make

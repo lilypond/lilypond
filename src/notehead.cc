@@ -5,7 +5,9 @@
 #include "paper.hh"
 #include "lookup.hh"
 #include "molecule.hh"
+#include "request.hh"
 
+NAME_METHOD(Notehead);
 
 Notehead::Notehead(int ss)
 {
@@ -16,14 +18,19 @@ Notehead::Notehead(int ss)
     dots = 0;
     extremal = 0;
 }
-
 void
-Notehead::print()const
+Notehead::set_rhythmic(Rhythmic_req*r_req_l)
+{
+    balltype = r_req_l->balltype;
+    dots = r_req_l->dots;
+}
+    
+void
+Notehead::do_print()const
 {
 #ifndef NPRINT
-    mtor << "Head "<< balltype << ", position = "<< position
+    mtor << "balltype "<< balltype << ", position = "<< position
 	 << "dots " << dots;
-    Item::print();
 #endif
 }
 
@@ -64,7 +71,6 @@ Notehead::brew_molecule_p() const return out;
 	out->add(sm);	    
     }
     
-
     out->translate(Offset(0,dy*position));
 }
 

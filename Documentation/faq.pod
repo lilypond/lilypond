@@ -5,17 +5,6 @@ FAQ - LilyPond FAQs
 =head1 DESCRIPTION
 
 
-
-Q: I want to enter meterchanges inside the music.
-
-A: You can't; a meterchange is scorewide (well, staffwide in some
-modern music). If allowed inside the music, we get complicated and
-conflicting situations if two voices asked for (possibly different)
-meterchanges.
-
-You can mark certain spots, though: please check out F<cadenza.ly>
-
-
 Q: Why are [] around the notes, and () inbetween?
 
 A: [] designate beams, a note can only be in one beam at the same
@@ -24,3 +13,11 @@ time. () is a slur, which connects notes. You need to be able to specify
 	a()a()a
 
 
+Q: I want a DOS/NT/W95 port.
+
+A: I haven't had time to find a GCC crosscompiler to DOS/win (in rpm,
+please :).  No, I'm not considering compilation in W95, but feel free to give it a try.
+
+Q: Why GPL?
+
+A: Yes.

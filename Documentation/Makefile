@@ -3,7 +3,7 @@ PODS=README.pod CodingStyle.pod lilygut.pod lilyinput.pod error.pod\
 TXTS=$(PODS:.pod=.txt)
 MANS=$(PODS:.pod=.1)
 HTMLS=$(PODS:.pod=.html)
-DISTFILES=$(PODS) Makefile
+DISTFILES=$(PODS) Makefile lelie_logo.png #lelieblond.gif 
 
 
 default:

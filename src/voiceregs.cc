@@ -1,0 +1,169 @@
+#include "rest.hh"
+#include "notehead.hh"
+#include "paper.hh"
+#include "debug.hh"
+#include "slur.hh"
+#include "request.hh"
+#include "complexwalker.hh"
+#include "complexstaff.hh"
+#include "voicegroup.hh"
+#include "register.hh"
+
+Voice_registers::Voice_registers(Complex_walker*c_l, Voice *v_p)
+    : head_reg_(c_l), slur_reg_(c_l)
+{
+    voice_l_ = v_p;
+}
+
+bool
+Voice_registers::try_request(Request * r_l)
+{
+    bool b = head_reg_.try_request(r_l);
+    if (!b)
+	b = slur_reg_.try_request(r_l);
+    return b;
+}
+
+void
+Voice_registers::announce_element(Staff_elem_info i)
+{
+    if (i.voice_l_ != voice_l_)
+	return;
+    if (i.origin_reg_l_ != &slur_reg_)
+	slur_reg_.acknowledge_element(i);
+}
+
+void
+Voice_registers::pre_move_processing()
+{
+    head_reg_.pre_move_processing();
+    slur_reg_.pre_move_processing();
+}
+void
+Voice_registers::post_move_processing()
+{
+    head_reg_.post_move_processing();
+    slur_reg_.post_move_processing();
+}
+
+void
+Voice_registers::process_requests()
+{
+    head_reg_.process_request();
+    slur_reg_.process_request();
+}
+
+/****************/
+
+Notehead_register::Notehead_register(Complex_walker*w_l)
+    :Request_register(w_l)
+{
+    note_l_ = 0;
+}
+
+bool
+Notehead_register::try_request(Request *req_l) 
+{
+    if (req_l->note() || req_l->rest())
+	accepted_req_arr_.push(req_l);
+    else
+	return false;
+
+    return true;
+}
+
+void
+Notehead_register::process_request()
+{
+    Request* req_l = accepted_req_arr_.last();
+    if (req_l->note()) {
+	Notehead*n_p = new Notehead(8);	// ugh
+	note_l_ = n_p;
+	n_p->set_rhythmic(req_l->rhythmic());
+	n_p->position = req_l->note()->height() + -2;
+    } else {
+	note_l_ = new Rest ( req_l->rhythmic()->balltype,
+			     req_l->rhythmic()->dots);
+	if (req_l->rhythmic()->balltype <= 2)
+	    note_l_->translate(
+		Offset(0,
+		       5 * walk_l_->staff()->paper()->internote()));
+    }
+    Staff_elem_info itinf(note_l_,req_l,this);
+    walk_l_->announce_element(itinf);
+}
+
+void
+Notehead_register::do_pre_move_process()
+{
+    if (note_l_) {
+	walk_l_->typeset_element(note_l_);
+	note_l_ = 0;
+    }
+}
+
+/****************/
+/****************/
+
+Slur_register::Slur_register(Complex_walker* w)
+    : Request_register(w)
+{
+}
+
+bool
+Slur_register::try_request(Request *req_l)
+{
+    if(!req_l->slur())
+	return false;
+
+    accepted_req_arr_.push(req_l);
+    return true;
+}
+
+void
+Slur_register::acknowledge_element(Staff_elem_info info)
+{
+    if (info.elem_p_->name() == String("Notehead")) { 
+	Notehead *head_p =(Notehead*) info.elem_p_ ;// ugh
+	for (int i = 0; i < slur_l_stack_.size(); i++)
+	    slur_l_stack_[i]->add(head_p );
+	for (int i = 0; i < end_slur_l_arr_.size(); i++)
+	    end_slur_l_arr_[i]->add(head_p);
+    }
+}
+
+void
+Slur_register::process_request()
+{
+    Array<Slur*> start_slur_l_arr_;
+    for (int i=0; i< accepted_req_arr_.size(); i++) {
+	Slur_req* slur_req_l = accepted_req_arr_[i]->slur();
+	if (slur_req_l->spantype == Span_req::STOP) {
+	    if (slur_l_stack_.empty())
+		error_t("can't find slur to end; ", 
+			*walk_l_->col()->tdescription_);
+	    end_slur_l_arr_.push(slur_l_stack_.pop());
+	    
+	} else  if (slur_req_l->spantype == Span_req::START) {
+	    Slur * s_p =new Slur;
+	    start_slur_l_arr_.push(s_p);
+	    walk_l_->announce_element(Staff_elem_info(s_p, slur_req_l, this));
+	}
+    }
+    for (int i=0; i < start_slur_l_arr_.size(); i++)
+	slur_l_stack_.push(start_slur_l_arr_[i]);
+}
+
+void
+Slur_register::do_pre_move_process()
+{
+    for (int i = 0; i < end_slur_l_arr_.size(); i++)
+	walk_l_->typeset_element(end_slur_l_arr_[i]);
+    end_slur_l_arr_.set_size(0);
+}
+
+Slur_register::~Slur_register()
+{
+    if (slur_l_stack_.size())
+	error("unterminated slur");
+}

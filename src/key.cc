@@ -48,8 +48,8 @@ Key::read(Array<Scalar> s)
 	int small = s[i++];
 	accidentals[large]=small;
 
-	newkey.add(large);
-	newkey.add(small);
+	newkey.push(large);
+	newkey.push(small);
     }
     return newkey;
 }
@@ -70,8 +70,8 @@ Key::oldkey_undo(Array<Scalar>s)
     }
     for (int i=0; i < newkey.size(); i++)
 	if (accidentals[i] && accidentals[i] != newkey[i]) {
-	    oldkey.add(i);
-	    oldkey.add(0);
+	    oldkey.push(i);
+	    oldkey.push(0);
 	}
     
 

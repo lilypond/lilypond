@@ -4,9 +4,8 @@
 %
 %
 
-
-
-ritme = staff {rhythmic
+ritme = staff {
+	rhythmic
 	music {$
 	c8
 	|[a8() a8. a8 a16 a16 a16] c4.
@@ -25,6 +24,7 @@ ritme = staff {rhythmic
 
 melody=
 staff { melodic
+%	complex
 	music{$
 	c8
 	|r4 r4 r4 r4
@@ -56,7 +56,7 @@ staff { melodic
 		skip 2:0
 		key 
 		skip 5:0
-		clef "bass"
+		clef bass
 	}
 }
 

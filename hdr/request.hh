@@ -11,14 +11,15 @@ struct Request {
     Voice_element*elt_l_;
     
     /****************/
-
     Request();
     Request(Request const&);
     virtual ~Request(){}
 
-    virtual void print()const ;
-    virtual Moment duration() const { return 0.0; }
+    virtual const char * name() const { return "Request";}
     virtual Request* clone() const =0;
+    void print()const ;
+
+    virtual Moment duration() const { return 0; }
 
     /*  accessors for children */
     virtual Barcheck_req *barcheck() { return 0; }
@@ -35,17 +36,23 @@ struct Request {
     virtual Melodic_req *melodic() { return 0; }
     virtual Mark_req * mark() { return 0; }
     virtual Staff_command_req* command() { return 0;}
+protected:
+    virtual void do_print()const ;
 };
-
 /**
  a voice element wants something printed.
 see lilygut page
  */
+
+
+#define REQUESTMETHODS(T,accessor)	\
+virtual T * accessor() { return this;}\
+virtual const char* name()const { return #T; }\
+virtual Request *clone() const { return  new T(*this); } \
+virtual void do_print() const
 	
 struct Barcheck_req : Request {
-    virtual Barcheck_req *barcheck() { return this; }
-    void print ()const;
-    Request*clone() const;
+    REQUESTMETHODS(Barcheck_req,barcheck);
 };
 
 /// a request with a duration
@@ -54,12 +61,11 @@ struct Rhythmic_req : virtual Request {
     int dots;
     Moment plet_factor;
     /****************/
-
+    static int compare(const Rhythmic_req &, const Rhythmic_req &);
     Moment duration() const;
     Rhythmic_req();
-    Rhythmic_req*rhythmic() { return this;}
-    void print ()const;
-    Request*clone() const;
+        Rhythmic_req(int,int);
+    REQUESTMETHODS(Rhythmic_req, rhythmic);
 };
 
 
@@ -68,29 +74,24 @@ struct Text_req : virtual Request {
     int dir_i_;
     Text_def *tdef_p_;
     /****************/
-    Text_req* text() { return this; }
-    virtual void print() const;
-    Request *clone()const;
-
     Text_req(int d, Text_def*);
     ~Text_req();
     Text_req(Text_req const&);
+    REQUESTMETHODS(Text_req,text);
 };
 
 
 struct Lyric_req : public Rhythmic_req, Text_req {
 
     Lyric_req(Text_def* t_p);
-    void print() const;
-    Lyric_req* lreq_l() { return this; }
-    Request* clone() const;
+    REQUESTMETHODS(Lyric_req, lreq_l);
 };
 
 
 struct Melodic_req :virtual  Request
 {
     /// 0 is c
-    int name;
+    int notename;
     int octave;
     int accidental;
     bool forceacc;
@@ -98,19 +99,17 @@ struct Melodic_req :virtual  Request
     // return height from central c (in halflines)
     int height()const; 
     Melodic_req();
-    Melodic_req*melodic() { return this;}
-    virtual void print() const;
-    Request*clone() const;
+   
+    REQUESTMETHODS(Melodic_req,melodic);
 };
 
 /// Put a note of specified type, height, and with accidental on the staff.
 struct Note_req : Rhythmic_req, virtual Melodic_req {
-    Rhythmic_req* rhythmic() { return Rhythmic_req::rhythmic(); }
     
-    Note_req*note() { return this;}
-    virtual void print() const;
-    Request*clone() const;
-};
+
+    Rhythmic_req* rhythmic() { return Rhythmic_req::rhythmic(); }
+    REQUESTMETHODS(Note_req, note);
+ };
 /**
 */
 
@@ -118,25 +117,20 @@ struct Note_req : Rhythmic_req, virtual Melodic_req {
 ///Put a rest on the staff.
 struct Rest_req : Rhythmic_req {
 
-    void print()const;
-
-    Rest_req * rest() { return this;}
-    Request*clone() const ;
+ REQUESTMETHODS(Rest_req,rest);
 };
 /**
 Why a request? It might be a good idea to not typeset the rest, if the paper is too crowded.
 */
 
 /// attach a stem to the noteball
-struct Stem_req : Request {
-    /// 4,8,16, ..
-    int stem_number;
-
-    virtual Stem_req *stem() {return this;}
-    Stem_req(int s) { stem_number = s; }
-    Request*clone() const;
-    virtual void print() const;
+struct Stem_req : Rhythmic_req {
+    Stem_req(int s, int dots);
+    REQUESTMETHODS(Stem_req,stem);
 };
+/**
+  Rhythmic_req parent needed to  determine if it will fit inside a beam.
+  */
 
 /// requests to start or stop something.
 struct Span_req : Request {
@@ -144,11 +138,11 @@ struct Span_req : Request {
     enum {
 	NOSPAN, START, STOP
     } spantype ;
+    static int compare(const Span_req &r1, const Span_req &r2);
+    REQUESTMETHODS(Span_req,span);
 
-    virtual void print() const;
-    Span_req*span() { return this; }
     Span_req();
-    virtual Request*clone()const;
+  
 };
 /**
  This type of request typically results in the creation of a #Spanner#
@@ -160,20 +154,19 @@ struct Beam_req : Span_req {
     int nplet;
 
     /****************/
-    
+     REQUESTMETHODS(Beam_req,beam);
+
     Beam_req();
-    virtual Beam_req * beam() { return this; }
-    virtual Request*clone()const;
 };
+
 /**   if #nplet# is set, the staff will try to put an
 appropriate number over the beam
     */
 
 /// a slur
 struct Slur_req : Span_req {
+ REQUESTMETHODS(Slur_req,slur);
 
-    virtual Request*clone()const;
-    virtual Slur_req*slur() { return this; }
 };
 
 
@@ -183,10 +176,8 @@ struct Script_req : Request {
     Script_def *scriptdef;
 
     /****************/
-    Script_req*script() { return this; }
-    virtual void print() const;
-    Request *clone()const;
     Script_req(int d, Script_def*);
+    REQUESTMETHODS(Script_req,script);
     ~Script_req();
     Script_req(Script_req const&);
 };
@@ -199,19 +190,16 @@ struct Mark_req : Request {
     String mark_str_;
     /****************/
     Mark_req(String);
-    Mark_req* mark() { return this; }
-    virtual void print() const;
-    Request *clone() const;
+    REQUESTMETHODS(Mark_req,mark);
 };
 
 struct Staff_command_req : Request {
     Input_command * com_p_;
-    Staff_command_req* command() { return this;}
+    /****************/
     Staff_command_req(Staff_command_req const&);
     ~Staff_command_req();
     Staff_command_req(Input_command*);
-    Request*clone()const;
-    void print()const;
+    REQUESTMETHODS(Staff_command_req,command);
 };
 
 #if 0
@@ -243,7 +231,6 @@ enum Loudness {
 struct Bracket_req : Span_req {
     int nplet;			// print a number over the beam.
 };
-
 /**
 Start/stop a bracket at this note. if #nplet# is set, the staff will
 try to put an appropriate number over the bracket

@@ -104,13 +104,15 @@ text3 = music {
 }
 
 mstaf = staff {
-	melodic
+%	melodic
+	complex
 	music { melodie }
 	commands { clef "violin" }
 }
 
 bass_staf = staff {
-	melodic
+%	melodic
+	complex
 	music { begeleiding }
 	commands { clef "bass" }
 }
@@ -148,7 +150,7 @@ score {
 	staff { english_staf }
 	staff { bass_staf }
 	paper {
-		unitspace 2.5cm	% a whole note takes 2.5 cm ideally.
+		unitspace 2.5cm
 	}
 	commands {
 		meter 2 * 4

@@ -58,5 +58,5 @@ Score_column::add_duration(Moment d)
 	if (d == durations[i])
 	    return ;
     }
-    durations.add(d);
+    durations.push(d);
 }

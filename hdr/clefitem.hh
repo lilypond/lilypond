@@ -11,6 +11,7 @@
 
 
 struct Clef_item : Item {
+    const char * name() const;
     String type;
     int y_off;
     bool change;

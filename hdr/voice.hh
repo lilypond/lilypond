@@ -25,15 +25,10 @@ struct Voice {
 
     */
 
-struct Voicegroup {
-    /// don't know how to identify these.
-};
-
 /// one horizontal bit. 
 struct Voice_element {
     Moment duration;
-    const Voicegroup *group;
-    const Voice *voice_;
+    const Voice *voice_l_;
     IPointerList<Request*> reqs;
 
     /****************/
@@ -43,8 +38,6 @@ struct Voice_element {
     Voice_element(Voice_element const & src );
     void print ()const;
 };
-/** Apart from being a container for the requests, Voice_element is
-    glue between related items and spanners, between requests and
-    (voice)groups
+/** Apart from being a container for the requests, Voice_element is nothing
     */
 #endif

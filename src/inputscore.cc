@@ -40,7 +40,7 @@ Input_score::parse()
     Array<Staff*> parsed_staffs;
     for (iter_top(staffs_,i); i.ok(); i++) {
 	Staff* staf_p=i->parse(s_p);
-	parsed_staffs.add(staf_p);
+	parsed_staffs.push(staf_p);
 	s_p->add(staf_p);
     }
     int j = 0;

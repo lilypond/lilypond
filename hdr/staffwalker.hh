@@ -11,8 +11,8 @@
 #include "staff.hh"
 
 struct Staff_walker : public PCursor<Staff_column*> {
-    Staff * staff_;
-    PScore * pscore_;
+    Staff * staff_l_;
+    PScore * pscore_l_;
 
     int break_status;
     
@@ -31,7 +31,8 @@ struct Staff_walker : public PCursor<Staff_column*> {
      ****************/
 
     /// every time ++ is called
-    virtual void reset(){}
+    virtual void do_pre_move(){}
+    virtual void do_post_move(){}
     virtual void process_requests()=0;
     virtual void do_TYPESET_command(Command*)=0;
     virtual void do_INTERPRET_command(Command*)=0 ;

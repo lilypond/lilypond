@@ -9,10 +9,10 @@
 #include "misc.hh"
 
 const int STEMLEN=7;
-
-Stem::Stem(int c, Moment len)
+NAME_METHOD(Stem);
+Stem::Stem(int c) //, Moment len)
 {
-    note_length = len;
+//    note_length = len;
     beams_left = 0;
     beams_right = 0;
     minnote = 1000;		// invalid values
@@ -27,16 +27,11 @@ Stem::Stem(int c, Moment len)
 }
 
 void
-Stem::print() const
+Stem::do_print() const
 {
 #ifndef NPRINT
-    mtor << "{\n";
     mtor << "flag "<< flag << " print_flag " << print_flag
 	 << "min,max [" << minnote << ", " << maxnote << "]";
-	
-
-    Item::print();
-    mtor << "}\n";
 #endif
 }
 void
@@ -63,8 +58,8 @@ Stem::add(Notehead *n)
 	minnote = p;
     if ( p> maxnote)
 	maxnote = p;
-    heads.add(n);
-    n->dependencies.add(this);
+    heads.push(n);
+    n->dependencies.push(this);
 }
 
 

@@ -13,10 +13,10 @@ Idealspacing		1
 
 # yydebug
 InitParser		1
-Parser			0
-
+Parser			1
 
 # FlexLexer debug
+InitLexer		1
 Lexer			1
 
 parse_duration		1

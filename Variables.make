@@ -37,12 +37,9 @@ endif
 # version info
 MAJVER=0
 MINVER=0
-PATCHLEVEL=25
+PATCHLEVEL=26
 VERSION=$(MAJVER).$(MINVER).$(PATCHLEVEL)
 CXXVER=`$(CXX) --version`
-
-#flower version
-NEEDEFLOWERVER=1.0.20
 
 # directories
 TOPDIR  := $(shell if [ "$$PWD" != "" ]; then echo $$PWD; else pwd; fi)
@@ -84,7 +81,8 @@ SCRIPTS=make_version make_patch genheader clearlily
 MAKFILES=Makefile Variables.make Sources.make Initial.make Generate.make \
 	configure
 OFILES=COPYING README NEWS TODO
-IFILES= standchen.tex titledefs.tex pavane.tex lilyponddefs.tex test.tex .dstreamrc dimen.tex 
+IFILES= standchen.tex titledefs.tex pavane.tex lilyponddefs.tex \
+	ltest.tex test.tex .dstreamrc dimen.tex 
 DFILES=$(MAKFILES) $(OFILES) $(IFILES) $(SCRIPTS)
 
 #compiling

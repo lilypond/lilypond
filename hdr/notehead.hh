@@ -9,8 +9,8 @@
 #include "item.hh"
 
 /// ball at the end of the stem
-struct Notehead : public Item
-{
+struct Notehead : Item {
+    const char * name() const;
     int position;
     /// -1 = lowest, 0 = inside, 1 = top
     int extremal;
@@ -22,13 +22,13 @@ struct Notehead : public Item
     
     /****************/
     
-
+    void set_rhythmic(Rhythmic_req *);
     Notehead(int staff_size);
     /**
       position of top line (5 linestaff: 8)
       */
 
-    void print()const;
+    void do_print()const;
     static int compare(Notehead*&a, Notehead*&b) ;
     Molecule* brew_molecule_p()const;
 };

@@ -54,9 +54,9 @@ score {
 		geometric 1.4
 	}
 	commands  {
-                meter 6 8
+                meter 6* 8
                 skip 6:0
-		meter 4 4
+		meter 4* 4
 		skip 2:0
 		skip 11:0
 

@@ -13,8 +13,8 @@ Staff_walker::Staff_walker(Staff_walker const &s)
 Staff_walker::Staff_walker(Staff * s, PScore*ps )
     : PCursor<Staff_column*> (s->cols)
 {
-    staff_ = s;
-    pscore_ = ps;
+    staff_l_ = s;
+    pscore_l_ = ps;
     break_status = BREAK_END - BREAK_PRE;
 }
 
@@ -28,12 +28,13 @@ void
 Staff_walker::process()
 {
     break_status = BREAK_END - BREAK_PRE;
-    if (ptr()->staff_commands_p_)
+
+    if (ptr()->mus()) {
+	process_requests();
+    } else if (ptr()->staff_commands_p_)
 	for (iter_top(*ptr()->staff_commands_p_,i); i.ok(); i++) {
 	    process_command(i);
     }
-
-    process_requests();
 }
 
 
@@ -64,6 +65,7 @@ Staff_walker::process_command(Command*com)
 void
 Staff_walker::operator++(int i)
 {
+    do_pre_move();
     PCursor<Staff_column*>::operator++(i);
-    reset();
+    do_post_move();
 }

@@ -17,6 +17,8 @@
 %option yylineno
 %option debug
 %option yyclass="My_flex_lexer"
+%option stack
+
 %x notes
 %x incl
 %x quote
@@ -30,7 +32,8 @@ N		[0-9]
 AN		{AA}|{N}
 PUNCT		[?!,.:;]
 ACCENT		[\\'"^]
-TEX		{AA}|-|{PUNCT}|{ACCENT}
+NATIONAL	[\241-\377]
+TEX		{AA}|-|{PUNCT}|{ACCENT}|{NATIONAL}
 
 WORD		{A}{AN}*
 ALPHAWORD	{A}+
@@ -49,11 +52,11 @@ COMMENT		[%#].*\n
 %%
 
 \$		{
-	BEGIN(notes); 
+	yy_push_state(notes); 
 }
 
 \@		{
-	BEGIN(lyrics); 
+	yy_push_state(lyrics); 
 }
 
 <notes>{RESTNAME} 	{
@@ -86,9 +89,8 @@ COMMENT		[%#].*\n
 		return IDENTIFIER;
 	}
 	String *sp = new String( c);
-
 	yylval.string=sp;
-	return NEWIDENTIFIER;
+	return STRING;
 }
 
 <notes>{PITCHMOD}	{
@@ -111,13 +113,9 @@ COMMENT		[%#].*\n
 
 }
 <notes>\$	{
-	BEGIN(INITIAL); 
+	yy_pop_state();
 }
-<notes>[{}]	{
-	return YYText()[0];
-	
-}
-<notes>\"[^\"]*\" {
+<notes>\"[^"]*\" {
 	String s (YYText()+1);
 	s = s.left(s.len()-1);
 	yylval.string = new String(s);
@@ -128,14 +126,14 @@ COMMENT		[%#].*\n
 }
 
 \"		{
-	BEGIN(quote);
+	yy_push_state(quote);
 }
-<quote>[^\"]*	{
+<quote>[^"]*	{
 	yylval.string = new String (YYText());
 }
 <quote>\"	{
 	mtor << "quoted string\n";
-	BEGIN(INITIAL);
+	yy_pop_state();
 	return STRING;
 }
 
@@ -155,7 +153,7 @@ COMMENT		[%#].*\n
 		return l;
 
 /* let's try passing tex's typesetting macros like \ss \alpha \c */
-	String* str_p = new String(YYText());
+	String* str_p = new String(YYText());//huh?
 	return STRING;	
 
 /* and skip identifiers...
@@ -167,10 +165,10 @@ COMMENT		[%#].*\n
 	String *sp = new String( c);
 
 	yylval.string=sp;
-	return NEWIDENTIFIER;
+	return STRING;
 */
 }
-<lyrics>\"[^\"]*\" {
+<lyrics>\"[^"]*\" {
 	String s (YYText()+1);
 	s = s.left(s.len()-1);
 	yylval.string = new String(s);
@@ -204,7 +202,7 @@ COMMENT		[%#].*\n
 <lyrics>[ \t\n]+		{
 }
 <lyrics>@	{
-	BEGIN(INITIAL); 
+	yy_pop_state();
 }
 
 <<EOF>> {
@@ -215,13 +213,15 @@ COMMENT		[%#].*\n
 }
 
 
-include           { BEGIN(incl); }
+include           {
+	yy_push_state(incl);
+}
 <incl>[ \t]*      { /* eat the whitespace */ }
 <incl>\"[^"]*\"+   { /* got the include file name */
    String s (YYText()+1);
 	s = s.left(s.len()-1);
    new_input(s);
-   BEGIN(INITIAL);
+   yy_pop_state();
 }
 
 
@@ -239,7 +239,7 @@ include           { BEGIN(incl); }
 	String *sp = new String( c);
 	mtor << "new id: " << *sp << eol;
 	yylval.string=sp;
-	return NEWIDENTIFIER;
+	return STRING;
 }
 
 {REAL}		{

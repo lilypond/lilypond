@@ -33,9 +33,9 @@ Atom::TeXstring() const
     // whugh.. Hard coded...
     String s("\\placebox{%}{%}{%}");
     Array<String> a;
-    a.add(print_dimen(off.y));
-    a.add(print_dimen(off.x));
-    a.add(sym.tex);
+    a.push(print_dimen(off.y));
+    a.push(print_dimen(off.x));
+    a.push(sym.tex);
     return substitute_args(s, a);
 }
 

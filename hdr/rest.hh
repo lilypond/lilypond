@@ -9,8 +9,8 @@
 #include "item.hh"
 
 /// ball at the end of the stem
-struct Rest : public Item
-{
+struct Rest : Item {
+
     int dots;
     int balltype;
 
@@ -18,8 +18,8 @@ struct Rest : public Item
 
 
     Rest(int dur,int dots);
-    void print()const;
-
+    void do_print()const;
+    const char * name() const;
     Molecule* brew_molecule_p()const;
 };
 /**

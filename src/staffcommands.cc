@@ -156,14 +156,14 @@ Staff_commands_at::add(Command c)
 	    { /* every line a currentkey. */
 		Command kc;
 		kc.code =TYPESET;
-		kc.args.add( "CURRENTKEY");
+		kc.args.push( "CURRENTKEY");
 		kc.priority = 60;
 		add(kc);
 	    }
 	    { /* every line a currentclef. */
 		Command kc;
 		kc.code =TYPESET;
-		kc.args.add( "CURRENTCLEF");
+		kc.args.push( "CURRENTCLEF");
 		kc.priority = 80;
 		add(kc);
 	    }

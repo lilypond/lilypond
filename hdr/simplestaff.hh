@@ -34,7 +34,6 @@ struct Simple_column : Staff_column {
     Beam_req *beam_;
     Simple_staff* staff_l_;
     Text_req *text_;
-    Lyric_req* lreq_p_;
     
     /****************/
     Slur_req  * find_slur(Voice *);
@@ -44,7 +43,7 @@ struct Simple_column : Staff_column {
     Molecule *create_command_mol(Command *com);
 
     void take_request(Request *rq);   
-    virtual void process_requests();
+    virtual void setup_requests();
 
     Simple_column(Score_column*s,Simple_staff*rs);
 };
@@ -59,7 +58,7 @@ struct Simple_staff : Staff {
     Staff_column*create_col(Score_column*);
     
     virtual Item *get_TYPESET_item(Command*);
-    virtual Stem *get_stem(Stem_req *rq, Moment)=0;
+    virtual Stem *get_stem(Stem_req *rq)=0;
     virtual Notehead *get_notehead(Note_req *rq, int b)=0;
     virtual Rest *get_rest(Rest_req *rq);
     virtual void set_output(PScore *);

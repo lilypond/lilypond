@@ -3,22 +3,33 @@
 #include "scalar.hh"
 #include "lookup.hh"
 #include "paper.hh"
+#include "request.hh"
 #include "notehead.hh"
+
+NAME_METHOD(Local_key_item);
 Local_key_item::Local_key_item(int i)
 {
     c0_position  = i;
 }
-
 void
-Local_key_item::add (int o, int p , int a,Notehead*head_p)
+Local_key_item::add(Item*head_l)
+{
+    group.push(head_l);
+    dependencies.push(head_l);
+}
+void
+Local_key_item::add(Melodic_req*m_l)
+{
+    add(m_l->octave, m_l->notename, m_l->accidental);
+}
+void
+Local_key_item::add (int o, int p , int a)
 {
     Local_acc l;
     l.octave = o;
     l.name = p;
     l.acc = a;
-    accs.add(l);
-    group.add(head_p);
-    dependencies.add(head_p);
+    accs.push(l);
 }
 
 void
@@ -26,11 +37,11 @@ Local_key_item::do_pre_processing()
 {
     accs.sort(Local_acc::compare);
 }
+
 Molecule*
 Local_key_item::brew_molecule_p()const
 {
-
-    Molecule*    output = new Molecule;
+    Molecule* output = new Molecule;
     Molecule*octmol = 0;
     int lastoct = -100;
     for  (int i = 0; i <  accs.size(); i++) {
@@ -58,6 +69,13 @@ Local_key_item::brew_molecule_p()const
 	output->add(*octmol);
 	delete octmol;
     }
+
+    Interval head_width;
+    for (int i = 0; i  < group.size(); i++) {
+	head_width.unite(group[i]->width());
+    }
+    output->translate(Offset(-output->extent().x.right + head_width.left ,0));
+    
     return output;
 }
 

@@ -15,7 +15,7 @@ clean:
 	done
 
 distclean: clean
-	rm -f  version.hh $(gencc) .GENERATE *~ deps/*.dep
+	rm -f  version.hh $(gencc) .GENERATE *~ $(ALLDEPS)
 
 all: kompijl doc
 
@@ -34,7 +34,7 @@ $(OBJECTDIR)/%.o: $(CCDIR)/%.cc
 
 include $(DEPDIR)/*.dep
 
-version.o: $(obs) version.hh
+$(OBJECTDIR)/version.o: $(obs) $(HEADERDIR)/version.hh
 
 include Generate.make
 

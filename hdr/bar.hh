@@ -9,6 +9,7 @@
 #include "item.hh"
 
 struct Bar: Item {
+    const char * name() const;
     String type;
     
     Bar(String type);
