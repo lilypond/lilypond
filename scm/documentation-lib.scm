@@ -32,7 +32,7 @@
 ;; don't confuse users with #<procedure .. > syntax. 
 ;; 
 (define (scm->string val)
-  (if (procedure? val)
+  (if (and (procedure? val) (symbol? (procedure-name val)))
       (symbol->string (procedure-name val))
       (string-append
        (if (self-evaluating? val) "" "'")

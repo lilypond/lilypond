@@ -9,6 +9,7 @@
 ;;;; staffspace (distances)
 
 ;;;; WARNING: the meta field should be the last one.
+;;;; WARNING: don't use anonymous functions for initialization. 
 
 ;; TODO: junk the meta field in favor of something more compact?
 (define all-grob-descriptions
