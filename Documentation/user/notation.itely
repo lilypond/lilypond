@@ -4669,7 +4669,7 @@ as argument, and generate a @code{\skip} or multi rest, exactly as
 long as the piece. The use of @code{mmrest-of-length} is demonstrated
 in the following example. 
 
-@lilypond[raggedright] 
+@lilypond[verbatim,raggedright] 
 cadenza =  \relative c' {
     c4 d8 << { e f g } \\ { d4. } >>
     g4 f2 g4 g
@@ -5585,7 +5585,7 @@ modern style mensural C clef @tab
 @code{neomensural_c1}, @code{neomensural_c2},
 @code{neomensural_c3}, @code{neomensural_c4} @tab
 @lilypond[fragment,quote,relative=1,notime]
-\override Staff.TimeSignature   #'transparent = ##t
+
 \clef "neomensural_c2" c
 @end lilypond
 
@@ -5601,24 +5601,24 @@ petrucci style mensural C clefs, for use  on different  staff lines
 @code{petrucci_c5}
 
 @tab
-@lilypond[fragment,quote,relative=1,notime]
-\override Staff.TimeSignature   #'transparent = ##t
+@lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
+
 \clef "petrucci_c2" c
 @end lilypond
 
 @item
 petrucci style mensural F clef @tab
 @code{petrucci_f} @tab
-@lilypond[fragment,quote,relative=1,notime]
-\override Staff.TimeSignature   #'transparent = ##t
+@lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
+
 \clef "petrucci_f" c
 @end lilypond
 
 @item
 petrucci style mensural G clef @tab
 @code{petrucci_g} @tab
-@lilypond[fragment,quote,relative=1,notime]
-\override Staff.TimeSignature   #'transparent = ##t
+@lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
+
 \clef "petrucci_g" c
 @end lilypond
 
@@ -5626,86 +5626,85 @@ petrucci style mensural G clef @tab
 historic style mensural C clef @tab
 @code{mensural_c1}, @code{mensural_c2}, @code{mensural_c3},
 @code{mensural_c4} @tab
-@lilypond[fragment,quote,relative=1,notime]
-\override Staff.TimeSignature   #'transparent = ##t
+@lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
+
 \clef "mensural_c2" c
 @end lilypond
 
 @item
 historic style mensural F clef @tab
 @code{mensural_f} @tab
-@lilypond[fragment,quote,relative=1,notime]
-\override Staff.TimeSignature   #'transparent = ##t
+@lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
+
 \clef "mensural_f" c
 @end lilypond
 
 @item
 historic style mensural G clef @tab
 @code{mensural_g} @tab
-@lilypond[fragment,quote,relative=1,notime]
-\override Staff.TimeSignature   #'transparent = ##t
+@lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
+
 \clef "mensural_g" c
 @end lilypond
 
 @item
 Editio Vaticana style do clef @tab
 @code{vaticana_do1}, @code{vaticana_do2}, @code{vaticana_do3} @tab
-@lilypond[fragment,quote,relative=1,notime]
+@lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
     \override Staff.StaffSymbol   #'line-count = #4
-\override Staff.TimeSignature   #'transparent = ##t
+
 \clef "vaticana_do2" c
 @end lilypond
 
 @item
 Editio Vaticana style fa clef @tab
 @code{vaticana_fa1}, @code{vaticana_fa2} @tab
-@lilypond[quote,relative=1,notime,fragment]
+@lilypond[quote,relative=1,notime,indent=0.0\mm,fragment]
     \override Staff.StaffSymbol   #'line-count = #4
-\override Staff.TimeSignature   #'transparent = ##t
+
 \clef "vaticana_fa2" c
 @end lilypond
 
 @item
 Editio Medicaea style do clef @tab
 @code{medicaea_do1}, @code{medicaea_do2}, @code{medicaea_do3} @tab
-@lilypond[fragment,quote,relative=1,notime]
+@lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
     \override Staff.StaffSymbol   #'line-count = #4
-\override Staff.TimeSignature   #'transparent = ##t
+
 \clef "medicaea_do2" c
 @end lilypond
 
 @item
 Editio Medicaea style fa clef @tab
 @code{medicaea_fa1}, @code{medicaea_fa2} @tab
-@lilypond[fragment,quote,relative=1,notime]
+@lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
     \override Staff.StaffSymbol   #'line-count = #4
-\override Staff.TimeSignature   #'transparent = ##t
+
 \clef "medicaea_fa2" c
 @end lilypond
 
 @item
 historic style hufnagel do clef @tab
 @code{hufnagel_do1}, @code{hufnagel_do2}, @code{hufnagel_do3} @tab
-@lilypond[fragment,quote,relative=1,notime]
+@lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
     \override Staff.StaffSymbol   #'line-count = #4
-\override Staff.TimeSignature   #'transparent = ##t
+
 \clef "hufnagel_do2" c
 @end lilypond
 
 @item
 historic style hufnagel fa clef @tab
 @code{hufnagel_fa1}, @code{hufnagel_fa2} @tab
-@lilypond[fragment,quote,relative=1,notime]
+@lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
     \override Staff.StaffSymbol   #'line-count = #4
-\override Staff.TimeSignature   #'transparent = ##t
+
 \clef "hufnagel_fa2" c
 @end lilypond
 
 @item
 historic style hufnagel combined do/fa clef @tab
 @code{hufnagel_do_fa} @tab
-@lilypond[fragment,quote,relative=1,notime]
-\override Staff.TimeSignature   #'transparent = ##t
+@lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
 \clef "hufnagel_do_fa" c
 @end lilypond
 
@@ -5851,18 +5850,18 @@ The following examples shows the differences in style,
   \time 2/2
   c1^\markup { \hspace #-2.0 \typewriter default }
 
-  \override TimeSignature #'style = #'numbered  
+  \override Staff.TimeSignature #'style = #'numbered  
   \time 2/2
   c1^\markup { \hspace #-2.0 \typewriter numbered }
 
-    \override TimeSignature #'style = #'mensural
+  \override Staff.TimeSignature #'style = #'mensural
   \time 2/2
   c1^\markup { \hspace #-2.0 \typewriter mensural }
   
-    \override TimeSignature #'style = #'neomensural
+  \override Staff.TimeSignature #'style = #'neomensural
   \time 2/2
   c1^\markup { \hspace #-2.0 \typewriter neomensural }
-    \override TimeSignature #'style = #'single-digit
+  \override Staff.TimeSignature #'style = #'single-digit
   \time 2/2
   c1^\markup { \hspace #-2.0 \typewriter single-digit }
 }
