@@ -14,9 +14,9 @@ SUBDIRS = scripts buildscripts  flower lib lily mf midi2ly po debian \
 #
 
 SCRIPTS = configure aclocal.m4
-README_FILES = BUGS DEDICATION ANNOUNCE-0.1 ANNOUNCE-1.0 ANNOUNCE-1.2 \
+README_FILES =  DEDICATION ANNOUNCE-0.1 ANNOUNCE-1.0 ANNOUNCE-1.2 \
  COPYING NEWS-0.1 NEWS-1.0 NEWS-0.0 NEWS-1.1  NEWS TODO AIMS  CHANGES
-README_TXT_FILES = README.txt AUTHORS.txt INSTALL.txt
+README_TXT_FILES = README.txt AUTHORS.txt INSTALL.txt 
 IN_FILES := $(wildcard *.in)
 EXTRA_DIST_FILES = dstreamrc mudela-mode.el vimrc VERSION $(README_FILES)  $(SCRIPTS) $(IN_FILES) 
 NON_ESSENTIAL_DIST_FILES = $(README_TXT_FILES)
@@ -32,10 +32,11 @@ website: fonts htmldoc examples doc++
 fonts:
 	$(MAKE) -C $(depth)/mf 
 
+
 examples:
 	$(MAKE) CONFIGSUFFIX='www' -C input WWW
 	$(MAKE) CONFIGSUFFIX='www' -C mutopia WWW
-	$(footify) `$(FIND) . -name '*.html' -print`
+	$(footify-all-command)
 	tar --exclude='*.dvi' --exclude='*.tex' --exclude='*.ps' --exclude='*.ppm' -czf $(outdir)/examples.tar.gz  `find input mutopia -type d -name 'out-www' -print`
 
 localinstall:
@@ -46,5 +47,3 @@ localinstall:
 local-WWW-clean:
 	$(depth)/buildscripts/out/clean-fonts
 
-footify:
-	$(footify) `$(FIND) . -name '*.html' -print`

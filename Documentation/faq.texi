@@ -134,13 +134,8 @@ should be documented, please do so and send in a patch.
 @node Language- mudela, Do you support -, Documentation, FAQ - GNU LilyPond FAQs
 @section Language: mudela
 
-@subsubsection Why can't you type @code{#c} in stead of @code{cis} ?
-
-We think that @code{#c} looks as if you are entering the symbols to
-print (which you are not; remember, you're entering the musical
-content in Mudela)
-
-@subsubsection Why do I have to type the accidentals to the note if I specified them?
+@subsubsection Why do I have to type the accidentals to the note if I
+specified them in the keysignature?
 
 Take this example
 @example 
@@ -150,16 +145,8 @@ Take this example
 @end example 
 
 Independently of how it was written and what the current key was, you
-would say that you are playing and reading "two C-sharp" notes.  We
-have tried to make the language somewhat context-free.  Of course
-sheet music is not context-free.  Unfortunately, sheet music is also 2
-dimensional, and ASCII is not.
-
-Technically it would be feasible to have the Interpreting phase do
-tricky things to add (or leave out) the accidentals, but we think that
-it is impractical: it hampers the readability and portability of your
-source, since you need LilyPond to fill in the details and actually
-make sense of it.
+would say that you are playing and reading "two C-sharp" notes, so you
+have to enter C-sharp twice.
 
 @subsubsection What is @code{cis} anyway
 
@@ -548,6 +535,8 @@ subsubsection(How does copyright for sheet music work? Can I enter and spread my
 
 Silas S. Brown <ssb22@@hermes.cam.ac.uk>:
 
+@quotation
+
 There are several aspects to sheet music copyright:
 
 1.  The music itself - copyright for the composer's life plus 70 years (so
@@ -594,33 +583,45 @@ restrictions imposed on you.
 References - best one I know is the UK-based Performing Right Society,
 @uref{http://www.prs.co.uk/} (especially "membership") and their links to other
 international equivalents.  
-
-@email{wl@@gnu.org} writes:
-
-@quotation
-   I realise that typesetting can be copyright - this is the reason I
-   can't buy a book of Bach's Urtexts (for example), photocopy parts
-   of it and give them away.
 @end quotation
 
-Sorry, but you can (at least in Austria or Germany, but not in
-France)!  Typesetting an Urtext edition isn't copyrighted --
-typesetting is a handcraft, not an art.  What's copyrighted in an
-Urtext edition is the editor's comment or the revision remarks,
-cadenzas added by the editor, etc.
+Werner Lemberg @email{wl@@gnu.org} writes:
+
+@quotation
+
+Typesetting [at least in Austria or Germany, but not in France] [..]
+isn't copyrighted -- typesetting is a handcraft, not an
+art.
+
+What's copyrighted in an Urtext edition is the editor's comment or
+the revision remarks, cadenzas added by the editor, etc.
+
+Urtext editions per se are @emph{not} copyrighted -- if you print
+exactly what the composer has written, how can there some copyright be
+added?  Copyrighted are usually only the `Critical notes', the foreword,
+and the cadenzas some editors have added.
+
+This means that the `Photocopying forbidden' sign in many scores is not
+always correct for e.g. J.S. Bach -- you are allowed to copy the pages
+which don't contain editorial stuff which is probably copyrighted.
+
+A very unfortunate situation for the publishers.
+
+@end  quotation
+
 
 Glen Prideaux, @email{glenprideaux@@MailAndNews.com}:
 
+@quotation
 One has to be careful. In Australia typesetting IS covered by copyright, but
 only for 25 years (as opposed to 50 years from the death of the
 author/composer/artist for virtually any other copyright). If the
 typesetting originates in a country that does not protect typesetting then
 there may indeed be no copyright protection available to control the use of
 mudela files.
+@end quotation
 
-
-
-Juergen Reuter <reuterj@@ira.uka.de>:
+Juergen Reuter @email{reuterj@@ira.uka.de}
 
 [More information can be had at: ]
 
@@ -642,20 +643,6 @@ John Sankey:
 See @uref{http://www.geocities.com/Vienna/Studio/1714/harpsichord.html}
 for a summary of copyright relative to old music, also for the
 expert forum for such subsubsections.
-
-Werner Lemberg <sx0005@@sx2.HRZ.Uni-Dortmund.DE>:
-
-This is not correct.  Urtext editions per se are @emph{not} copyrighted
--- if you print exactly what the composer has written, how can there
-some copyright be added?  Copyrighted are usually only the `Critical
-notes', the foreword, and the cadenzas some editors have added.
-
-This means that the `Photocopying forbidden' sign in many scores is
-not always correct for e.g. J.S. Bach -- you are allowed to copy the
-pages which don't contain editorial stuff which is probably
-copyrighted.
-
-A very unfortunate situation for the publishers.
 
 
 @node Windows32, Top, Copyright, FAQ - GNU LilyPond FAQs
