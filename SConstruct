@@ -475,10 +475,11 @@ env.PrependENVPath ('PATH',
 
 if os.environ.has_key ('TEXMF'):
 	env.Append (ENV = {'TEXMF' : os.environ['TEXMF']})
-env.Append (ENV = {'TEXMF' : '{$LILYPONDPREFIX,' \
-		   + os.popen ('kpsexpand \$TEXMF').read ()[:-1] + '}' })
-
-
+env.Append (ENV = {
+	'TEXMF' : '{$LILYPONDPREFIX,' \
+	+ os.popen ('kpsexpand \$TEXMF').read ()[:-1] + '}',
+	'LILYPONDPREFIX' : os.path.join (run_prefix, 'share/lilypond'),
+	})
 
 BUILD_ABC2LY = '${set__x}$PYTHON $srcdir/scripts/abc2ly.py'
 BUILD_LILYPOND = '${set__x}$PYTHON $srcdir/scripts/lilypond.py${__verbose}'
