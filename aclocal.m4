@@ -147,7 +147,7 @@ AC_DEFUN(STEPMAKE_COMPILE, [
     [debug_b=$enableval])
 
     AC_ARG_ENABLE(optimising,
-    [  --enable-optimising      compile with optimising.  Default: on],
+    [  --enable-optimising     compile with optimising.  Default: on],
     [optimise_b=$enableval])
 
     AC_ARG_ENABLE(profiling, 
@@ -611,9 +611,28 @@ AC_DEFUN(STEPMAKE_INIT, [
     STEPMAKE_DATADIR
 ])
 
-
+    
 AC_DEFUN(STEPMAKE_KPATHSEA, [
-
+	
+    AC_ARG_WITH(kpathsea-include,
+	[  --with-kpathsea-include=DIR
+	                  location of the kpathsea include dir],[
+	    if test "$withval" = "yes" -o "$withval" = "no"; then
+		AC_MSG_WARN(Usage: --with-kpathsea-include=includedir)
+	    else
+		CPPFLAGS="$CPPFLAGS -I${withval}"
+	    fi
+	    ])
+    
+    AC_ARG_WITH(kpathsea-lib,
+	[  --with-kpathsea-lib=DIR location of the kpathsea lib dir],[
+	    if test "$withval" = "yes" -o "$withval" = "no"; then
+		AC_MSG_WARN(Usage: --with-kpathsea-lib=libdir)
+	    else
+		LDFLAGS="$LDFLAGS -L${withval}"
+	    fi
+	    ])
+    
     kpathsea_b=yes
     #FIXME --with-xxx is meant for specifying a PATH too,
     # so this should read: --enable-kpathsea,
@@ -625,7 +644,16 @@ AC_DEFUN(STEPMAKE_KPATHSEA, [
     if test "$kpathsea_b" != "no"; then	
 	AC_HAVE_HEADERS(kpathsea/kpathsea.h)
 	AC_CHECK_LIB(kpathsea, kpse_find_file)
-	AC_CHECK_FUNCS(kpse_find_file,, AC_ERROR(Cannot find kpathsea functions.  You should install kpathsea; see INSTALL.txt.  Rerun ./configure --without-kpathsea only if kpathsea is not available for your platform.))
+	AC_CHECK_FUNCS(kpse_find_file,,kpathsea_b=no)
+	if test "$kpathsea_b" = "no"; then
+	    warn='kpathsea (libkpathsea-dev or kpathsea-devel package)
+   Else, please specify the location of your kpathsea using
+   --with-kpathea-include and --with-kpathsea-lib options.  You should
+   install kpathsea; see INSTALL.txt.  Rerun ./configure
+   --without-kpathsea only if kpathsea is not available for your
+   platform.'
+	    STEPMAKE_ADD_ENTRY(REQUIRED, $warn)
+	fi
     fi
     AC_MSG_CHECKING(whether to use kpathsea)
     if test "$kpathsea_b" != no; then
