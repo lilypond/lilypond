@@ -15,7 +15,10 @@
 
 IMPLEMENT_IS_TYPE_B(Music_iterator);
 
-Chord_iterator::~Chord_iterator(){}
+Chord_iterator::~Chord_iterator()
+{
+}
+
 void
 Music_iterator::do_print()const
 {
@@ -27,14 +30,15 @@ Music_iterator::print() const
 {
 #ifndef NPRINT
     mtor << name() << "{";
-    mtor << "report to " << report_to_l() << " (" << report_to_l()->name() << ")\n";
+    mtor << "report to " << 
+	report_to_l() << " (" << report_to_l()->name() << ")\n";
     mtor << "next at " << next_moment() << " ";
     do_print();
     mtor << "}\n";
 #endif
 }
 
-Translator*
+Translator *
 Music_iterator::get_req_translator_l()
 {
     assert(report_to_l());
