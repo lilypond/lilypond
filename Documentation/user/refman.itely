@@ -1,5 +1,6 @@
 @c Note: -*-texinfo-*-
-@c
+@c This file is part of lilypond.tely
+
 @c A menu is needed before every deeper *section nesting of @node's; run
 @c     M-x texinfo-all-menus-update
 @c to automagically fill in these menus before saving changes
