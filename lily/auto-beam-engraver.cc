@@ -294,58 +294,87 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
 	{
 	  end_beam ();
 	}
-      else if (Stem* stem_l = dynamic_cast<Stem *> (info.elem_l_))
+    }
+  
+  if (Stem* stem_l = dynamic_cast<Stem *> (info.elem_l_))
+    {
+      Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (info.req_l_);
+      if (!rhythmic_req)
 	{
-	  Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (info.req_l_);
-	  if (!rhythmic_req)
-	    {
-	      programming_error ("Stem must have rhythmic structure");
-	      return;
-	    }
-	  
-	  if (stem_l->beam_l_)
-	    {
-	      junk_beam ();
-	      return ;
-	    }
-	      
-	      /*
-		now that we have last_add_mom_, perhaps we can (should) do away
-		with these individual junk_beams
-	      */
+	  programming_error ("Stem must have rhythmic structure");
+	  return;
+	}
+      
+#if 0
+      /*
+	Don't (start) auto-beam over empty stems.
+	ugly check for rests!
+	--> doesn't even work: stem-dir is not set
 
-	  int durlog  =rhythmic_req->duration_.durlog_i_;
-	  if (durlog <= 2)
+	../flower/include/drul-array.hh:26: Real & Drul_array<double>::elem<Real>(enum Direction): Assertion `d==1 || d== -1' failed.
+/home/fred/root/usr/scripts/src/out/Linux/li: line 8: 14641 Aborted                 (core dumped) lilypond $opts
+
+      */
+      if (stem_l->extent (Y_AXIS).empty_b ())
+	{
+	  if (stem_l_arr_p_)
 	    end_beam ();
-	  else 
+	  return;
+	}
+#else
+      if (!stem_l->head_l_arr_.size ())
+	{
+	  if (stem_l_arr_p_)
+	    end_beam ();
+	  return;
+	}
+#endif
+
+      if (stem_l->beam_l_)
+	{
+	  if (stem_l_arr_p_)
+	    junk_beam ();
+	  return ;
+	}
+	      
+      /*
+	now that we have last_add_mom_, perhaps we can (should) do away
+	with these individual junk_beams
+      */
+      
+      int durlog  =rhythmic_req->duration_.durlog_i_;
+      if (durlog <= 2)
+	{
+	  if (stem_l_arr_p_)
+	    end_beam ();
+	  return;
+	}
+
+      /*
+	if shortest duration would change
+	reconsider ending/starting beam first.
+      */
+      Moment mom = rhythmic_req->duration_.length_mom ();
+      consider_end_and_begin (mom);
+      if (!stem_l_arr_p_)
+	return;
+      if (mom < shortest_mom_)
+	{
+	  if (stem_l_arr_p_->size ())
 	    {
-	      /*
-		if shortest duration would change
-		reconsider ending/starting beam first.
-	      */
-	      Moment mom = rhythmic_req->duration_.length_mom ();
-	      consider_end_and_begin (mom);
+	      shortest_mom_ = mom;
+	      consider_end_and_begin (shortest_mom_);
 	      if (!stem_l_arr_p_)
 		return;
-	      if (mom < shortest_mom_)
-		{
-		  if (stem_l_arr_p_->size ())
-		    {
-		      shortest_mom_ = mom;
-		      consider_end_and_begin (shortest_mom_);
-		      if (!stem_l_arr_p_)
-			return;
-		    }
-		  shortest_mom_ = mom;
-		}
-	      Moment now = now_mom ();
-
-	      grouping_p_->add_stem (now - beam_start_moment_ + beam_start_location_, durlog - 2);
-	      stem_l_arr_p_->push (stem_l);
-	      last_add_mom_ = now;
-	      extend_mom_ = extend_mom_ >? now + rhythmic_req->length_mom ();
 	    }
+	  shortest_mom_ = mom;
 	}
+      Moment now = now_mom ();
+      
+      grouping_p_->add_stem (now - beam_start_moment_ + beam_start_location_, durlog - 2);
+      stem_l_arr_p_->push (stem_l);
+      last_add_mom_ = now;
+      extend_mom_ = extend_mom_ >? now + rhythmic_req->length_mom ();
     }
 }
 

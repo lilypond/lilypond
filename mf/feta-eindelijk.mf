@@ -107,6 +107,8 @@ fet_beginchar("longa rest", "-2", "longarest");
        draw_block ((0,-breve_rest_y), (breve_rest_x, breve_rest_y));
 fet_endchar;
 
+tracingvariables := 1;
+
 fet_beginchar("multi rest", "-4", "multirest");
        set_char_box(multi_rest_x#, multi_rest_x#,
                     breve_rest_y#, breve_rest_y#);

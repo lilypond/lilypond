@@ -9,10 +9,11 @@
 #TODO.  This could be more efficient.
 
 name = 'ps-to-pfa'
-version = '0.3'
+version = '0.4'
 
 datadir = ''
 
+import find
 import os
 import sys
 
@@ -90,78 +91,94 @@ def header (f):
 	f.write ('%!PS-AdobeFont-3.0: ' + font_name + '\n')
 	f.write ('%%%%Creator: %s-%s\n' % (name, version))
 	f.write ('\n')
-	f.write ('/setgray { 1 add } bind def\n'
-		'\n'
-'8 dict begin\n'
-'/FontType 3 def                             %% Required elements of font\n'
-'/FontName /%s def\n'
-'/FontMatrix [.001 0 0 .001 0 0] def\n'
-'%%/FontMatrix [.01 0 0 .01 0 0] def\n'
-'%%/FontMatrix [0.1 0 0 0.1 0 0] def\n'
-'%%/FontBBox [-1000 -1000 1000 1000] def\n'
-'/FontBBox [-3000 -3000 3000 3000] def\n'
-'%%/FontBBox [-300 -300 300 300] def\n'
-'%%/FontBBox [-30 -30 30 30] def\n'
-'\n'
-'/Encoding 256 array def                     %% Trivial encoding vector\n'
-'0 1 255 {Encoding exch /.notdef put} for\n' % (font_name))
-
+	f.write (r"""
+8 dict begin
+/FontType 3 def                             %% Required elements of font
+/FontName /%s def""" % font_name)
+	f.write (r"""
+/FontMatrix [.083 0 0 .083 0 0] def       %% why .83?
+/FontBBox [-1000 -1000 1000 1000] def	  %% does not seem to matter.
+/Encoding 256 array def                     %% Trivial encoding vector
+0 1 255 {Encoding exch /.notdef put} for
+""")
 def footer (f):
-	f.write ('\n'
-'/BuildGlyph {                               % Stack contains: font charname\n'
-'%  1000 0                                   % Width\n'
-'%  -1000 -1000 1000 1000                    % Bounding Box\n'
-'%  -750 -750 750 750                        % Bounding Box\n'
-'%  -750 -750 750 750                        % Bounding Box\n'
-'   3000 0                                   % Width\n'
-'   -3000 -3000 3000 3000                    % Bounding Box\n'
-'%  300 0                                    % Width\n'
-'%  -300 -300 300 300                        % Bounding Box\n'
-'%  30 0                                     % Width\n'
-'%  -30 -30 30 30                            % Bounding Box\n'
-'  setcachedevice\n'
-'  exch /CharProcs get exch                  % Get CharProcs dictionary\n'
-'  2 copy known not {pop /.notdef} if        % See if charname is known\n'
-'  get exec                                  % Execute character procedure\n'
-'} bind def\n'
-'\n'
-'/BuildChar {                                % Level 1 compatibility\n'
-'  1 index /Encoding get exch get\n'
-'  1 index /BuildGlyph get exec\n'
-'} bind def\n'
-'\n'
-'currentdict\n'
-'end                                         % of font dictionary\n')
-	f.write ('\n')
+	f.write (r"""
+/BuildGlyph {                               % Stack contains: font charname
+  1000 0                                   % Width
+  -1000 -1000 1000 1000                    % Bounding Box
+  setcachedevice
+  exch /CharProcs get exch                  % Get CharProcs dictionary
+  2 copy known not {pop /.notdef} if        % See if charname is known
+  get exec                                  % Execute character procedure
+} bind def
+
+/BuildChar {                                % Level 1 compatibility
+  1 index /Encoding get exch get
+  1 index /BuildGlyph get exec
+} bind def
+
+currentdict
+end                                         % of font dictionary
+"""
+)
+
 	f.write ('/%s\n' % font_name)
 	f.write (''
 'exch definefont pop                         % Define the font\n')
 
+
+suspect_re = re.compile ('closepath (.*?) 1 setgray newpath (.*?) closepath fill')
+
 def characters (f):
-	#urg
-	# chars = os.listdir ()
-	# chars.sort ()
 	sys.stderr.write ('[')
-	pipe = os.popen ('/bin/ls -1 ' + font_name + '.[0-9] ' + font_name + '.[0-9][0-9] ' + font_name + '.[0-9][0-9][0-9] 2> /dev/null')
-	chars = []
-	i = pipe.readline ()
-	while i:
-		chars.append (i[0:len (i)-1])
-		i = pipe.readline ()
-	f.write ('\n'
-'/CharProcs 3 dict def                       % Subsidiary dictiorary for\n'
-'CharProcs begin                             % individual character definitions\n')
+	
+	files = []
+	import find			# q
+	suffixes = [".[0-9]", ".[0-9][0-9]",  ".[0-9][0-9][0-9]"]
+	for suf in suffixes:
+		files = files + find.find (font_name + suf)
+
+
+	# concat all files into charprocs.
 	charprocs = '  /.notdef {} def\n'
 	encoding = ''
-	for i in chars: 
+	for i in files: 
 		s = gulp_file (i)
-		s = regsub.gsub ('^%.*\n', '', s)
-		s = regsub.gsub ('^showpage\n', '', s)
-		s = regsub.gsub ('^', '    ', s)
-		n = atoi (regsub.gsub ('.*\.', '', i))
+		s = re.sub ('%[^\n]*\n', '', s)
+		
+		# if you want readable stuff, look at MP output.
+		s = re.sub ('[\n\t ]+', ' ', s)
+		s = re.sub ('showpage', '', s)
+
+		# MP's implementation of unfill confuses GS.
+		# Look for "Metapost & setgray" on deja.com
+		# we do some twiddling to use eofill i.s.o. fill
+		if re.search ('setgray',s ):
+			m = suspect_re.search (s)
+			while m:
+				fill = m.group (1)
+				path = m.group (2)
+
+				# be complicated, in case of gsave/grestore.
+				# vill as quick hack to avoid duple substitutions.
+				fill = re.sub ('fill', 'eovill', fill, count = 1)
+				s = re.sub (m.group (0), ' %s %s ' % (path, fill), s)
+				m = suspect_re.search (s)
+
+			s = re.sub ('eovill' , 'eofill', s)
+			s = re.sub ('0 setgray' ,'', s)
+
+			
+		m = re.match ('.*\.([0-9]+)',i)
+		n = atoi (m.group (1))
+
 		s = '\n  /%s-%d{\n%s} bind def\n' % (font_name, n, s)
 		encoding = encoding + 'Encoding %d /%s-%d put\n' % (n, font_name, n)
 		charprocs = charprocs + s
+
+	f.write ('\n'
+'/CharProcs 3 dict def                       % Subsidiary dictiorary for\n'
+'CharProcs begin                             % individual character definitions\n')
 	f.write (charprocs)
 	f.write ('\n')
 	f.write ('end                                         % of CharProcs\n')
@@ -176,5 +193,5 @@ characters (ps_file)
 footer (ps_file)
 sys.stderr.write ('\n')
 ps_file.close ()
-sys.stderr.write ('Wrote PostScript font: %s\n'% output_name)
+sys.stderr.write ('Wrote PostScript font: %s\n' % output_name)
 

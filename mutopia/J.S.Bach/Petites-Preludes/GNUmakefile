@@ -4,6 +4,9 @@ depth = ../../..
 
 EXTRA_DIST_FILES=
 
+LILYINCLUDE:=$(LILYINCLUDE):out
+export LILYINCLUDE
+
 examples=preludes-2
 LOCALSTEPMAKE_TEMPLATES=mutopia
 

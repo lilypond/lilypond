@@ -6,8 +6,14 @@
 #	-$(METAPOST) "&mfmp \mode=ljfour; \mag=100.0; batchmode; input $<"
 #	-$(METAPOST) "&mfplain \mode=lowres; \mag=100.0; batchmode; input $<"
 
-$(outdir)/%.0: %.mf
-	-$(METAPOST) "&mfplain \mode=lowres; \mag=30.0; batchmode; input $<"
+$(outdir)/%.0: %.mf mfplain.mem  
+	-$(METAPOST) "&mfplain \mode=lowres; \mag=1.0; nonstopmode; input $<"
+
+
+
+mfplain.mem: mfplain.ini
+	$(INIMETAPOST) mfplain.ini
+
 
 $(outdir)/%.pfa: $(outdir)/%.0
 	$(PYTHON) $(depth)/buildscripts/ps-to-pfa.py --output $(basename $<).pfa $<

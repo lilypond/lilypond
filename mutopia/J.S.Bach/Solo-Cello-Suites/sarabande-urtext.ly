@@ -7,45 +7,42 @@ Well, there are still some scripts in this "urtext".
 But merging melodic and scripts doen't work too well yet (see viola_scripts).
 %}
 
-n = { \slurnormal }
-d = { \slurdotted }
-
 sarabande_a = \context Staff \notes \relative c {
 	\context Voice=i
-	\stemup \d d8.()e16 e4.-\trill( d16 )e |
-	f4. \stemboth e8(d)c |
-	bes g' \n f e16(f g a bes)d, |
-	cis4.-\trill\d b8(a)g |
+	\stemup d8. e16 e4.-\trill d16 e |
+	f4. \stemboth e8 d c |
+	[bes g'] f e16(f g a bes)d, |
+	cis4.-\trill b8 a g |
 	% copy bar 1, half bar 2
-	\stemup \d d'8.()e16 f4.-\trill( d16 )e |
+	\stemup d'8. e16 f4.-\trill d16 e |
 	%5
-	f4. \stemboth d8(e)f |
-	\n g bes16()a c()bes a()g d'8 f, |
-	\stemup e4.-\trill \stemboth \d d8(c)bes |
+	f4. \stemboth d8 e f |
+	g bes16()a c()bes a()g d'8 f, |
+	\stemup e4.-\trill \stemboth d8 c bes |
 	%8
-	\stemup \n f' g16()a a4. g16()f |
+	\stemup f' g16()a a4. g16()f |
 	g8 a16()bes bes4. c16()d |
 	% 11
-	\stemboth \d e,8()f c, g' f'()e |
+	\stemboth e,8 f c, g' f' e |
 	f4 f,2 |
-	\stemup a'4 \d a4.-\trill()bes8 |
-	c bes16()a \stemboth fis8.-\trill()es16 d8()c |
-	bes g' a, fis' es'()d |
+	\stemup a'4 a4.-\trill bes8 |
+	c bes16 a \stemboth fis8.-\trill es16 d8 c |
+	bes g' a, fis' es' d |
 	%16
-	\stemup bes4.-\trill \stemboth a8(g)f! |
-	e bes()a f'(g)a |
-	d, as()g es'(f)g |
-	cis, bes' a g16()f e!8 f16()d |
-	cis8 e16()a a,8. g'16 \n f8()e |
+	\stemup bes4.-\trill \stemboth a8 g f! |
+	e bes a f' g a |
+	d, as g es' f g |
+	cis, bes' a g16 f e!8 f16 d |
+	cis8 e16 a a,8. g'16 f8()e |
 	%21
 	\stemup d e16()f f4. e16()d |
 	e8 f16()g g4. a16()bes |
-	\d a8 cis16()d d,8 e16(f32)g f8-\trill \n e16()d |
+	a8 cis16 d d,8 e16 f32 g f8-\trill e16()d |
 	d4 d,16 a'( b cis d e f )g |
 	%25
 	a(b c)b c4. b16()a |
-	\d b(cis d )cis d4. \n e16()f |
-	\stemboth d(cis)d f,  a,8 e' \d d'()cis |
+	b cis d cis d4. e16()f |
+	\stemboth d(cis)d f,  a,8 e' d' cis |
 	d4 d,,2 |
 }
 
@@ -70,7 +67,7 @@ sarabande_b = \context Staff \notes \relative c {
 	%10
 	bes4 <g2 f'> |
 	s2.*2 |
-	\d f'8()es es4. r8 |
+	f'8 es es4. r8 |
 	d4 s2 |
 	%15
 	s2. |
@@ -92,4 +89,4 @@ sarabande = \context Staff \notes<
 	\$sarabande_b
 >
 
-\version "1.1.52";
+\version "1.1.55";

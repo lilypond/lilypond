@@ -36,7 +36,7 @@ ritme = \notes\transpose c'' {
 	
 
 another = 
-	\relative c'' \notes{ \time 6/4; 
+	\notes \relative c'' { \time 6/4; 
 		c1.  c1. \time 4/4;c4 c4 c4 c4  c1 c1 c1
 	 }
 

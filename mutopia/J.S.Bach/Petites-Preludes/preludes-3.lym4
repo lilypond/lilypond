@@ -20,8 +20,8 @@ copyright =	 "public domain";
 \version "1.1.60";
 
 
-upper = \type Staff \notes \transpose c'' {
-	\type Voice=i
+upper = \context Staff \notes \transpose c'' {
+	\context Voice=i
 	\property Voice . textstyle = "italic"
 %#	s(^c@ ^es@ ^g@ ^\p(\<@ ^\!@ ^)\!@ ^\>@)
 	t(c,es,g,^\p(\<@,\!,^)\!@,\>)
@@ -79,15 +79,15 @@ upper = \type Staff \notes \transpose c'' {
 	s(fis` c es)
 	s(fis` c es)
 	r16 [g`(\< b` d] [b` g` b` d] [es c a` \!fis] |
-	<
-		{\stemup ) g2.-\fermata\mf}
-		\type Voice=ii {\stemdown <b`2. d>}
+	\context Staff <
+		\context Voice=i {\stemup ) g2.-\fermata\mf}
+		\context Voice=ii {\stemdown <b`2. d>}
 	>
 	\stemboth
 	\bar "|.";
 }
 
-lower = \type Staff \notes{
+lower = \context Staff \notes{
 	% c4 r [g8-.(\ped )es-.\*] |
 	c4 r [g8-.( )es-.] |
 	c4 r [g8-.( )es-.] |
@@ -155,12 +155,12 @@ global  = \notes{
 
 \score{
 	% Semplice e non troppo legato
-	\type GrandStaff <
-		\type Staff = upper <
+	\context GrandStaff <
+		\context Staff = upper <
 			\global
 			\upper
 		>
-		\type Staff = lower <
+		\context Staff = lower <
 			\global
 			\clef "bass";
 			\lower

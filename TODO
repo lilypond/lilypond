@@ -12,9 +12,9 @@ Grep for TODO and ugh/ugr/urg.
 . * align left edge of broken (de)cresc/slur/tie/tuplet/volta
 . * auto-staff-switching.
 . * broken examples:
-mutopia/J.S.Bach/Petites-Preludes/preludes-paper.ly
-mutopia/J.S.Bach/Petites-Preludes/preludes-4.ly
-mutopia/J.S.Bach/Solo-Cello-Suites/*
+input/star-spangled-banner.ly: hw?
+mutopia/J.S.Bach/Petites-Preludes/preludes-paper.ly? hw?
+mutopia/J.S.Bach/Solo-Cello-Suites/prelude-cello.ly: hw: slurs + autobeamer ?
 mutopia/Coriolan/*
 
 . * spacing of accidentals
@@ -30,7 +30,7 @@ mutopia/Coriolan/*
 . * PostScript
 .  * half notes in pfa
 . * We need feta-din*.mf files for more sizes than 10.
-. * fix dynamics decently, ie. use kerning & ligatures.  
+. * fix dynamics decently, ie. use kerning & ligatures.
 
 .* Cleanups needed
 . * \$ and $ identifier syntax in examples.
@@ -555,3 +555,4 @@ hesitate to ask.
 (require 'allout)
 (outline-init 't)
 
+ 

@@ -1,3 +1,41 @@
+pl 62.hwn1
+	- ps-to-pfa.py: use std modules re, find 
+	- minor input fixes
+	- use mfplain.mp
+	- Metapost does unfill with setgray.  This confuses
+GS.  Do text substitution with eofill.
+
+pl 62.jcn3
+	- bfs: preludes
+	- found more wierd spacing
+
+pl 62.jcn2
+	- bf: don't start auto-beam on stem that contains only a rest
+ 	- bf: rm .ms yodl output
+ 	- bumped stepmake version
+ 
+pl 62.uu1
+	- don't space rhythmic requests coming from Lyrics. 
+
+pl 62.jcn1
+	- bf: auto-beamer: consider starting beam based on new rhythmic head
+	- bfs: preludes-4, cello-suites
+	- \addlyricsified standchen and twinkle (ugh: \repeat and \addlyrics)
+	- bf: interstaff slur slope damping
+	- bf: in-band signaling slur snap
+
+pl 61.jbr1
+        - Documentation/ntweb/GNUmakefile: Made EXTRA_DIST_FILE style fix and
+          added dist-plain target as dependency to the default target.
+        - scripts/ly2dvi.py: getpid does not behave very well across platforms
+          so I am creating temp file names with the Python tempfile module. 
+          The generate lilypond dependency file option was broken and
+          is now operational.  I also changed the dependency switch
+          from -d or -M to match lilypond.
+        - stepmake/bin/package-zip32.sh: Added build of ntweb html 
+          documentation
+
+***********
 pl 61.hwn2
 	- revise / junk various input files.
 	- junk Music_list_iterator
