@@ -1080,7 +1080,7 @@ does not amount to much. The initialization file
 @verbatim
    (Fingering
      . (
-	(print-function . ,Text_item::print)
+	(print-function . ,Text_interface::print)
 	(padding . 0.6)
 	(staff-padding . 0.6)
 	(self-alignment-X . 0)

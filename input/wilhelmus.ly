@@ -1,4 +1,4 @@
-\version "2.3.16"
+\version "2.3.18"
 
 \header {
   texidoc = "Wilhelmus van Nassouwe"
@@ -173,7 +173,7 @@ oneHalfNoteTime = \markup {
       \set Staff.minimumVerticalExtent = #'(2 . 2)
       
       %% Custom time signature
-      \override Staff.TimeSignature #'print-function = #Text_item::print
+      \override Staff.TimeSignature #'print-function = #Text_interface::print
       \override Staff.TimeSignature #'text = #oneHalfNoteTime
       \noclefs
     
