@@ -1,4 +1,6 @@
-melodie staff.
+fonttables -> fontdims
+clear IDENTIFIERs
+Paperdef -> fontsize .
 beam + stem
 
 
