@@ -1,6 +1,8 @@
-2003-07-20  Heikki Junes  <hjunes@cc.hut.fi>
+2003-07-21  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-font-lock.el: do not try to match two-char slurs \) \].
+
+	* lilypond-mode.el: turn on blink-matching-paren.
 
 2003-07-21  Jan Nieuwenhuizen  <janneke@gnu.org>
 
