@@ -13,7 +13,7 @@ set -ex
 if  [ -d $HOME/usr/pkg/libffi/ ]; then
     export LDFLAGS=-L$HOME/usr/pkg/libffi/lib
     export CPPFLAGS=-I$HOME/usr/pkg/libffi/include
-fi 
+fi
 
 export AUTOMAKE=automake-1.8
 export AUTOCONF=autoconf2.50 
@@ -81,13 +81,24 @@ export GUILE_LOAD_PATH=$HOME/usr/pkg/g-wrap/share/guile/site:$GUILE_LOAD_PATH
 export LD_LIBRARY_PATH=$HOME/usr/pkg/g-wrap/lib:$LD_LIBRARY_PATH
 export PKG_CONFIG_PATH=$HOME/usr/pkg/g-wrap/lib/pkgconfig:$PKG_CONFIG_PATH
 
+# ugh
+# pango CVS wants libtool 1.5.6 (barfs with 1.6.0)
+# guile-gnome wants libtool 1.6.0 (barfs with 1.5.6)
+if  [ -d $HOME/usr/pkg/pango/ ]; then
+    export PKG_CONFIG_PATH=$HOME/usr/pkg/pango/lib/pkgconfig:$PKG_CONFIG_PATH
+    export LDFLAGS=-L$HOME/usr/pkg/pango/lib
+    export CPPFLAGS=-I$HOME/usr/pkg/pango/include/pango-1.0
+fi 
+
 ../src/configure --prefix=$HOME/usr/pkg/guile-gnome
 
-# requires 800mb RAM with -O2
-# using gcc-3.4 may help here -- jcn
-(cd libgnomecanvas/gnome/gw; perl -i~ -pe 's/-O2//g' Makefile)
-
-G_WRAP_MODULE_DIR=$HOME/usr/pkg/g-wrap/share/guile/site make install
+if [ -x /usr/bin/gcc-3.4 ]; then
+    G_WRAP_MODULE_DIR=$HOME/usr/pkg/g-wrap/share/guile/site make install CC=gcc-3.4
+else
+    ## requires 800mb RAM with -O2  -- are you sure that's not for ./gtk ?
+    (cd libgnomecanvas/gnome/gw; perl -i~ -pe 's/-O2//g' Makefile)
+    G_WRAP_MODULE_DIR=$HOME/usr/pkg/g-wrap/share/guile/site make install
+fi
 
 export GUILE_LOAD_PATH=$HOME/usr/pkg/guile-gnome/share/guile:$GUILE_LOAD_PATH
 export LD_LIBRARY_PATH=$HOME/usr/pkg/guile-gnome/lib:$LD_LIBRARY_PATH

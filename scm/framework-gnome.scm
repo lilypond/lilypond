@@ -7,53 +7,30 @@
 (define-module (scm framework-gnome))
 (use-modules (guile) (lily))
 
+(use-modules 
+ (gnome gtk)
+ (gnome gtk gdk-event)
+ (gnome gw canvas))
+
 (define-public (output-framework-gnome outputter book scopes fields basename)
   (let* ((bookpaper (ly:paper-book-book-paper book))
 	 (pages (list->vector (ly:paper-book-pages book))))
 
-;; try #1
-    (if #f
-	(use-modules 
-	 (gnome gtk)
-	 (gnome gtk gdk-event)
-	 (gnome gw canvas)))
-
-;; try #2
-    ;; waarom maken ze dit nou allemaal toch weer zo moeilijk?
-    ;; is there any documentation about modules for guile 1.6.4?
-    (map (lambda (x) (ly:import-module (current-module) (resolve-module x)))
-	 '((gnome gtk)
-	   (gnome gtk gdk-event)
-	   (gnome gw canvas)))
-
-    (if #f
-	(let* ((window (make <gtk-window> #:type 'toplevel)))
-	  (write window)))
+    ;; yay, it works
+    ;; TODO: goops class instance with
+    ;;  - main-window?
+    ;;  - main-scrolled window
+    ;;  - canvas
+    ;;  - page-number
+    ;;  - pixels-per-unit (or can get from canvas?)
+    ;;  - text-items list
+    ;;  - item-locations hashmap
     
-    ;; try #3
-    (if #f
-	(let ((the-module-previously-known-as-current-module (current-module)))
-	  (map (lambda (x) (ly:import-module
-			    the-module-previously-known-as-current-module
-			    (resolve-module x)))
-	       '((gnome gtk)
-		 (gnome gtk gdk-event)
-		 (gnome gw canvas)))
-	  
-	  (eval '(let* ((window (make <gtk-window> #:type 'toplevel)))
-		   (write window))
-		the-module-previously-known-as-current-module)))
-
-   ;;try #4
-    (if #f
-	(eval '(use-modules
-		(gnome gtk)
-		(gnome gtk gdk-event)
-		(gnome gw canvas))
-	      (let* ((window (make <gtk-window> #:type 'toplevel)))
-		(write window))
-	      (current-module)))
-
+    ;; give that as first argument to all outputter/stencil functions?
+    ;; 
+    (let* ((window (make <gtk-window> #:type 'toplevel)))
+      (write window))
+    
     (ly:outputter-dump-stencil
      outputter
      (ly:make-stencil (list 'main outputter bookpaper pages)
