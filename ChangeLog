@@ -1,3 +1,8 @@
+2003-08-26  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* stepmake/autogen.sh: Bugfix: copy aclocal.m4, autogen.sh also if
+	they do not exist.
+
 2003-08-26  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* VERSION (PACKAGE_NAME): released 1.9.1 
