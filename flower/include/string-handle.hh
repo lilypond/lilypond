@@ -26,7 +26,6 @@ class String_handle {
   /// decrease ref count. Named kind of like a Tanenbaum semafore 
   void down ();
 
-  /// increase ref count
   void up (String_data *d);
     
   /** make sure data has only one reference.      

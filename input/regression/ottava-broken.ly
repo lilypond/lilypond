@@ -1,3 +1,4 @@
+#(ly:set-option 'old-relative)
 
 \header
 {
@@ -7,7 +8,7 @@ line, and the horizontal line doesn't stick out."
 
 
 }
-\version "1.7.19"
+\version "1.9.0"
 
 
 \paper { raggedright = ##t} 

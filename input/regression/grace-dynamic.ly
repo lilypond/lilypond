@@ -1,4 +1,5 @@
-\version "1.7.18"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 \header{
  % ?
 % niet zo onschuldig!  je hebt graces gefixt in 1.5, zie maar eens 1.3.150

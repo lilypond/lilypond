@@ -1,3 +1,4 @@
+#(ly:set-option 'old-relative)
 \header {
 texidoc = "@cindex Ancient Accidentals
 Accidentals are available in different ancient styles. This
@@ -5,7 +6,7 @@ file lists all of them.
 "
 }
 
-\version "1.7.18"
+\version "1.9.0"
 
 \score { 
   \context Voice \notes\relative c {

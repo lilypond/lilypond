@@ -492,12 +492,13 @@ None
 	f.close ()
 
 	cmd = latex_cmd + ' \\\\nonstopmode \\\\input %s' % latex_fn
+	
 	# Ugh.  (La)TeX writes progress and error messages on stdout
 	# Redirect to stderr
-	cmd += ' 1>/dev/stderr'
+	cmd = '(( %s  >&2 ) >&- )' % cmd
 	status = ly.system (cmd, ignore_error = 1)
 	signal = 0xf & status
-	exit_status = status >> 8
+ 	exit_status = status >> 8
 
 	if exit_status:
 

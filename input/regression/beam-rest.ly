@@ -1,8 +1,9 @@
+#(ly:set-option 'old-relative)
 \header {
  texidoc = "The number of beams doesn't change on a rest."
 }
 
-\version "1.7.18"
+\version "1.9.0"
 
 \score { \notes \relative c, {
   \clef bass	 

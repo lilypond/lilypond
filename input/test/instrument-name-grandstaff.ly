@@ -1,4 +1,4 @@
-\version "1.7.18"
+\version "1.9.0"
 \header { texidoc = "@cindex Instrument Name Grandstaff
 You can name the whole grandstaff in addition to individual staffs. " }
 

@@ -1,4 +1,5 @@
-\version "1.7.18"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 % candidate for regression.  -gp
 \header { texidoc = "@cindex Rest Dot Positions
 This file tests dotted rests. " }

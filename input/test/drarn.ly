@@ -1,4 +1,5 @@
-\version "1.7.18"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 \header{texidoc="@cindex Drarn
 You can attach slurs and ties to noteheads.
 " }

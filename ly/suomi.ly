@@ -45,4 +45,4 @@
 	(his . ,(ly:make-pitch -1 6 1 ))
 	(hisis . ,(ly:make-pitch -1 6 2 ))
 )
-\version "1.7.18"
+\version "1.9.0"

@@ -77,7 +77,7 @@ gulp_file (String fn, int* len)
  */
 Source_file::Source_file (String filename, String data)
 {
-  name_string_ = filename;
+  name_ = filename;
   istream_ = 0;
   contents_str0_ = data.get_copy_str0();
   length_ = data.length();
@@ -87,7 +87,7 @@ Source_file::Source_file (String filename, String data)
 
 Source_file::Source_file (String filename_string)
 {
-  name_string_ = filename_string;
+  name_ = filename_string;
   istream_ = 0;
   contents_str0_ = 0;
 
@@ -113,7 +113,7 @@ Source_file::init_port ()
   str_port_ = scm_mkstrport (SCM_INUM0, str, SCM_OPN | SCM_RDNG,
 			     __FUNCTION__);
   scm_set_port_filename_x (str_port_,
-			   scm_makfrom0str (name_string_.get_str0()));
+			   scm_makfrom0str (name_.get_str0()));
 }
 
 int
@@ -152,7 +152,7 @@ Source_file::file_line_column_string (char const *context_str0) const
 String
 Source_file::name_string () const
 {
-  return name_string_;
+  return name_;
 }
 
 Source_file::~Source_file ()

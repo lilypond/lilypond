@@ -1,4 +1,5 @@
-\version "1.7.18"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 % keep for now, although merging into beam-auto-override is a possibility.
 \header {
 	texidoc = "@cindex Auto Beaming 4/8

@@ -1,4 +1,5 @@
-\version "1.7.18"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 \header{
 texidoc="
 Arpeggios are supported, both cross-staff and broken single staff.

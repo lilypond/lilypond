@@ -1,4 +1,5 @@
-\version "1.7.19"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 
 
 % Ugh, we need to override some LaTeX titling stuff

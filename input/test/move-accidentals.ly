@@ -1,4 +1,5 @@
-\version "1.7.18"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 % possible rename to scheme- or something like that.  -gp
 \header { texidoc= "@cindex Scheme Manual Accidentals
 Positions of accidentals may be manually set. This

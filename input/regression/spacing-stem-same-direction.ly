@@ -1,4 +1,5 @@
-\version "1.7.18"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 \header {
 	texidoc = "For juxtaposed chords with the same direction, a
 slight optical correction is used. It is constant, and only works if

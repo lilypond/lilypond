@@ -113,7 +113,7 @@ c c,
 @end lilypond
 
 
-@item @code{-( -)}
+@item @code{( )}
 @tab slur
 @tab
 @lilypond[fragment, relative 1]
@@ -121,11 +121,11 @@ c c,
 \property Staff.TimeSignature = \turnOff
 \property Staff.autoBeaming = ##f
 \property Staff.Clef = \turnOff
-c-( d e-)
+c( d e)
 @end lilypond
 
 
-@item @code{-\( -\)}
+@item @code{\( \)}
 @tab phrasing slur
 @tab
 @lilypond[fragment, relative 1]
@@ -133,7 +133,7 @@ c-( d e-)
 \property Staff.TimeSignature = \turnOff
 \property Staff.autoBeaming = ##f
 \property Staff.Clef = \turnOff
-c-\(  c-( d-) e-\)
+c\(  c( d) e\)
 @end lilypond
 
 
@@ -168,17 +168,17 @@ c-> c-.
 @end lilypond
 
 
-@item @code{-\mf -\sfz}
+@item @code{\mf \sfz}
 @tab dynamics
 @tab
 @lilypond[fragment, relative 1]
 \property Staff.TimeSignature = \turnOff
 \property Staff.Clef = \turnOff
-c-\mf c-\sfz
+c\mf c\sfz
 @end lilypond
 
 
-@item @code{-\< -\!}
+@item @code{\< \!}
 @tab crescendo
 @tab
 @lilypond[fragment, relative 1]
@@ -189,7 +189,7 @@ c-\mf c-\sfz
 a\< a \!a
 @end lilypond
 
-@item @code{-\> -\!}
+@item @code{\> \!}
 @tab decrescendo
 @tab
 @lilypond[fragment, relative 1]
@@ -197,7 +197,7 @@ a\< a \!a
 \property Staff.TimeSignature = \turnOff
 \property Staff.autoBeaming = ##f
 \property Staff.Clef = \turnOff
-a-\> a a-\!
+a\> a a\!
 @end lilypond
 
 

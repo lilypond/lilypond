@@ -29,7 +29,6 @@ String_handle::down ()
 
   THIS does not have to be initialized.
 */
-
 INLINE void 
 String_handle::up (String_data *d) 
 { 

@@ -1,4 +1,4 @@
-\version "1.7.20"
+\version "1.9.0"
 \header  {
     texidoc = "@cindex Chord Names German
 By setting @code{ChordNames.chordRootNamer}, the root

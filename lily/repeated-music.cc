@@ -12,6 +12,7 @@
 #include "pitch.hh"
 #include "warn.hh"
 #include "music-sequence.hh"
+#include "scm-option.hh"
 
 Music *
 Repeated_music::body ()const
@@ -33,6 +34,7 @@ Repeated_music::to_relative_octave (Pitch p)
 {
   if (lily_1_8_relative)
     {
+      lily_1_8_compatibility_used = true; 
       if (body ())
 	p = body ()->to_relative_octave (p);
 

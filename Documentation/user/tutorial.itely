@@ -801,7 +801,7 @@ Similarly, fingering indications can be added to a note using a dash
 Dynamic signs are made by adding the markings to the note:
 @quotation
 @lilypond[verbatim,relative 1]
-c-\ff c-\mf
+c\ff c\mf
 @end lilypond
 @end quotation
 @separate
@@ -815,7 +815,7 @@ Crescendi and decrescendi are started with the commands @code{\<} and
 is attached to:
 @quotation
 @lilypond[verbatim,relative 1]
-c2-\<  c2-\!-\ff  c2-\>  c2-\!
+c2\<  c2\!\ff  c2\>  c2\!
 @end lilypond
 @end quotation
 @separate
@@ -850,7 +850,7 @@ phrasing), you can also make a phrasing slur with @code{\(} and
 
 @quotation
 @lilypond[fragment,relative 1, verbatim]
-a8(-\( ais b  c) cis2 b'2 a4 cis,  c-\)
+a8(\( ais b  c) cis2 b'2 a4 cis,  c\)
 @end lilypond
 @end quotation
 
@@ -884,11 +884,11 @@ r4 <<c e g>>8[ <<c f a>>]-~ <<c f a>>
 
 @quotation
 @example
-r4 <<c e g>>8-\>( <<c e g>> <<c e g>>  <<c f a>>8-\!)
+r4 <<c e g>>8\>( <<c e g>> <<c e g>>  <<c f a>>8\!)
 @end example
 @lilypond[relative 0, fragment]
 \slurUp
-r4 <<c e g>>8-\>( <<c e g>> <<c e g>>  <<c f a>>8-\!)
+r4 <<c e g>>8\>( <<c e g>> <<c e g>>  <<c f a>>8\!)
 @end lilypond
 @end quotation
 @separate
@@ -1504,9 +1504,9 @@ example; a more elaborate explanation is in @ref{Constructing a
 tweak}:
 
 @lilypond[relative 1]
-  c2-\fermata
+  c2\fermata
   \property Voice.Script \set #'padding = #3
-  b2-\fermata
+  b2\fermata
 @end lilypond
 
 @end itemize

@@ -1,3 +1,4 @@
+#(ly:set-option 'old-relative)
 
 % #(ly:set-point-and-click 'line-column)
 
@@ -41,7 +42,7 @@ instrument = "Piano"
  footer = "Mutopia-2001/04/27-xx"
 } 
 
-\version "1.7.18"
+\version "1.9.0"
 
 dynamicUp = \property Voice.DynamicLineSpanner \override #'direction = #1
 dynamicRevert = \property Voice.DynamicLineSpanner \revert #'direction
@@ -209,12 +210,12 @@ trebleThrough =  \notes \relative c'{
 	<<e e'>>2. |
 	%61
 	R2. |
-	[<<g, g'>>8.-\< <<g g'>>16 <<b b'>>8. <<b b'>>16-\>-\! <<d d'>>8. <<d d'>>16] |
+	<<g, g'>>8.[\< <<g g'>>16 <<b b'>>8. <<b b'>>16-\>-\! <<d d'>>8. <<d d'>>16] |
 
 	%% score has double slur on chord.
 	<<c c'>>4-( <<b c'>>-) r-\!
 
-	<<g g'>>4. <<b b'>>8 [<<d' d, >>8.-> c16] |
+	<<g g'>>4. <<b b'>>8 <<d' d, >>8.->[ c16] |
 	%65
         <<d, e b'>>2.-~-(-\f
 	<<c e a>>2-)  r4
@@ -274,73 +275,73 @@ bassVerseOne =  \notes\relative c{
 	<<as as'>>2 r4 |
 	<<g g'>>2 r4 |
 	<<c c'>>2 r4 |
-	<<g g'>>8 [<<g'' d'>> <<d' f>> <<g, d'>> <<d' f>> <<g, d'>>] |
+	<<g g'>>8 <<g'' d'>>[ <<d' f>> <<g, d'>> <<d' f>> <<g, d'>>] |
 %10
-	<<c,, c'>>8 [<<g'' c>> <<c es>> <<g c>> <<c es>> <<g c>>] |
+	<<c,, c'>>8 <<g'' c>>[ <<c es>> <<g c>> <<c es>> <<g c>>] |
 	<<c,, c'>>2 r4 |
 	<<as as'>>2 r4 |
 	<<bes bes'>>2 r4 |
 	<<es, es'>>2 r4 |
 %15
-	bes'8 [<<bes' f'>> <<f' as>> <<bes, f'>> <<f' as>> <<bes, f'>>] |
-	es,8 [<<bes' es>> <<es g>> <<bes es>> <<es g>> <<bes es>>] |
+	bes'8 <<bes' f'>>[ <<f' as>> <<bes, f'>> <<f' as>> <<bes, f'>>] |
+	es,8 <<bes' es>>[ <<es g>> <<bes es>> <<es g>> <<bes es>>] |
 	<<g, g'>>2 r4 |
 	<<c c'>>2 r4 |
 	<<as as'>>2 r4 |
 	<<es es'>>2 r4 |
-	<<bes' bes'>>8 [<<f'' bes>> <<bes d>> <<f bes>> <<bes d>> <<f bes>>] |
-	<<es,, es'>>8 [<<es'' g bes>> <<g bes es>> <<es g bes>> <<g bes es>> <<es g bes>>] |
+	<<bes' bes'>>8 <<f'' bes>>[ <<bes d>> <<f bes>> <<bes d>> <<f bes>>] |
+	<<es,, es'>>8 <<es'' g bes>>[ <<g bes es>> <<es g bes>> <<g bes es>> <<es g bes>>] |
 	<<g,, g'>>2 r4 |
 	<<c c'>>2 r4 |
 	<<f, f'>>2 r4 |
 	<<c' c'>>2 r4 |
-	<<g g'>>8 [<<d'' g>> <<g b>> <<d g>> <<g b>> <<d g>>] |
-	c,8 [<<c' e g>> <<e g c>> <<c e g>> <<e g c>> <<c e g>>] |
+	<<g g'>>8 <<d'' g>>[ <<g b>> <<d g>> <<g b>> <<d g>>] |
+	c,8 <<c' e g>>[ <<e g c>> <<c e g>> <<e g c>> <<c e g>>] |
 }
 
 bassEentje =  \notes\relative c{
 	\dynamicUp
-	<<c, c'>>8 [<<c' f as!>> <<f as c>> <<c f as>> <<f as c>> <<c f as>>] |
-	c,8 [<<c' e g>> <<e g c>> <<c e g>> <<e g c>> <<c e g>>] |
-	<<g, g'>>8 [<<d'' g>> <<g b>> <<d g>> <<g b>> <<d g>>] |
-	c,8 [<<e' g>> <<g c>> <<e g>> <<g c>> <<e g>>] |
-	<<c, c'>>8 [<<c' f a>> <<f a c>> <<c f a>> <<f a c>> <<c f a>>] |
-	c,8 [<<c' e g>> <<e g c>> <<c e g>> <<e g c>> <<c e g>>] |
-	<<g, g'>>8 [<<d'' g>> <<g b>> <<d g>> <<g b>> <<d g>>] |
-	c,8 [<<e' g>> <<g c>> <<e g>> <<g c>> <<e g>>] |
+	<<c, c'>>8 <<c' f as!>>[ <<f as c>> <<c f as>> <<f as c>> <<c f as>>] |
+	c,8 <<c' e g>>[ <<e g c>> <<c e g>> <<e g c>> <<c e g>>] |
+	<<g, g'>>8 <<d'' g>>[ <<g b>> <<d g>> <<g b>> <<d g>>] |
+	c,8 <<e' g>>[ <<g c>> <<e g>> <<g c>> <<e g>>] |
+	<<c, c'>>8 <<c' f a>>[ <<f a c>> <<c f a>> <<f a c>> <<c f a>>] |
+	c,8 <<c' e g>>[ <<e g c>> <<c e g>> <<e g c>> <<c e g>>] |
+	<<g, g'>>8 <<d'' g>>[ <<g b>> <<d g>> <<g b>> <<d g>>] |
+	c,8 <<e' g>>[ <<g c>> <<e g>> <<g c>> <<e g>>] |
 }
 
 bassThrough =  \notes\relative c{
 	\dynamicUp
 	%61
-	<<g, g'>>8^"cresc." [<<g' b d>> <<b d f>> <<g b d>> <<as! b d >>-> <<b d f>>] |
-	<<g, g'>>8 [<<g' d'>> <<d' f>> <<g, d'>> <<as b d >>-> <<b d f>>] |
+	<<g, g'>>8^"cresc." <<g' b d>>[ <<b d f>> <<g b d>> <<as! b d >>-> <<b d f>>] |
+	<<g, g'>>8 <<g' d'>>[ <<d' f>> <<g, d'>> <<as b d >>-> <<b d f>>] |
 	% copied
-	<<g, g'>>8 [<<g' d'>> <<d' f>> <<g, d'>> <<as b d >>-> <<b d f>>] |
-	<<g, g'>>8 [<<g' d'>> <<d' f>> <<g, d'>> <<gis b d >>-> <<b d f>>] |
+	<<g, g'>>8 <<g' d'>>[ <<d' f>> <<g, d'>> <<as b d >>-> <<b d f>>] |
+	<<g, g'>>8 <<g' d'>>[ <<d' f>> <<g, d'>> <<gis b d >>-> <<b d f>>] |
 	%65
-	<<gis, gis'>>8 [<<d'' e>>-\> <<e b'>> <<d e>> <<e b'>> <<d e>> -\!] |
-	<<a, a'>>8 [<<c' e>> <<e a>> <<c e>> <<e a>> <<c e>>] |
-	<<a, a'>>8 [<<a' d f>> <<d f a>> <<a d f>> <<d f a>> <<a d f>>] |
-	<<a, a'>>8 [<<a' c e>> <<c e a>> <<a c e>> <<c e a>> <<a c e>>] |
+	<<gis, gis'>>8 <<d'' e>>[-\> <<e b'>> <<d e>> <<e b'>> <<d e>> -\!] |
+	<<a, a'>>8 <<c' e>>[ <<e a>> <<c e>> <<e a>> <<c e>>] |
+	<<a, a'>>8 <<a' d f>>[ <<d f a>> <<a d f>> <<d f a>> <<a d f>>] |
+	<<a, a'>>8 <<a' c e>>[ <<c e a>> <<a c e>> <<c e a>> <<a c e>>] |
 	% 4 bars copied from end verse1
 	<<f, f'>>2-\p r4 |
 	%70
 	<<c' c'>>2 r4 |
-	<<g g'>>8 [<<d'' g>> <<g b>> <<d g>> <<g b>> <<d g>>] |
-	c,8\> [<<c' e g>> << e g c>> -\! <<c e g>> <<e g c>> <<c e g>>] |
+	<<g g'>>8 <<d'' g>>[ <<g b>> <<d g>> <<g b>> <<d g>>] |
+	c,8\> <<c' e g>>[ << e g c>> -\! <<c e g>> <<e g c>> <<c e g>>] |
 
-	<<c, c'>>8 [<<c' es! g>> <<es g c>> <<c es g>> <<es g c>> <<c es g>>] |
-	<<f,, f'>>8 [<<d'' f>> <<f as!>> <<d f>> <<f as>> <<d f>>] |
+	<<c, c'>>8 <<c' es! g>>[ <<es g c>> <<c es g>> <<es g c>> <<c es g>>] |
+	<<f,, f'>>8 <<d'' f>>[ <<f as!>> <<d f>> <<f as>> <<d f>>] |
 	%75
-	<<g,, g'>>8 [<<d'' f>> <<f g>> <<d f>> <<f g>> <<d f>>] |
-	c,8 [<<c' e>> <<e g>> <<c e>> <<e g>> <<c e>>] |
-	c,8 [<<c' f>> <<f as>> <<c f>> <<f as>> <<c f>>] |
-	c,8 [<<c' e>> <<e g>> <<c e>> <<e g>> <<c e>>] |
-	g,8 [<<g' d'>> <<d' f>> <<g, d'>> <<d' f>> <<g, d'>>] |
+	<<g,, g'>>8 <<d'' f>>[ <<f g>> <<d f>> <<f g>> <<d f>>] |
+	c,8 <<c' e>>[ <<e g>> <<c e>> <<e g>> <<c e>>] |
+	c,8 <<c' f>>[ <<f as>> <<c f>> <<f as>> <<c f>>] |
+	c,8 <<c' e>>[ <<e g>> <<c e>> <<e g>> <<c e>>] |
+	g,8 <<g' d'>>[ <<d' f>> <<g, d'>> <<d' f>> <<g, d'>>] |
 	%80
-	c,8 [<<c' e>> <<e g>> <<c e>> <<e g>> <<c e>>] |
-	c,8 [<<c' g>> <<e c>> <<c g>> <<e c>> <<c g>>] |
+	c,8 <<c' e>>[ <<e g>> <<c e>> <<e g>> <<c e>>] |
+	c,8 <<c' g>>[ <<e c>> <<c g>> <<e c>> <<c g>>] |
 	<<c, g' c>>2._\fermata |
 }
 		
@@ -460,7 +461,7 @@ grandStaff =  \context PianoStaff <
 		textheight = 270.0\mm
 		linewidth = 180.0\mm
 
-		\translator { \HaraKiriStaffContext }
+		\translator { \RemoveEmptyStaffContext }
 	}
 	\midi{
 		\tempo 4 = 54

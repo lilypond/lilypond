@@ -1,4 +1,5 @@
-\version "1.7.21"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 
 \header {
     texidoc = "Accidentals don't influence the amount of stretchable space. "

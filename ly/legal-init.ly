@@ -1,4 +1,4 @@
-\version "1.7.18"
+\version "1.9.0"
 % legal-init.ly
 
 hsize = 8.5 \in

@@ -1,3 +1,4 @@
+#(ly:set-option 'old-relative)
 % NOT FINISHED!!!!
 
 \include "deutsch.ly"
@@ -5,7 +6,7 @@
 %% 19 is broken --hwn.
 %\include "paper19.ly"
 \include "paper16.ly"
-\version "1.7.18"
+\version "1.9.0"
 
 \header {
   title = "Romanzen"
@@ -268,7 +269,7 @@ leftb = \notes \transpose c cis {
     pagenumber = no
     linewidth = 17.0 \cm
     \translator {
-      \HaraKiriStaffContext
+      \RemoveEmptyStaffContext
     }
     \translator {
       \ScoreContext

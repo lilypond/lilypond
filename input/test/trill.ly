@@ -1,4 +1,4 @@
-\version "1.7.22"
+\version "1.9.0"
 
 \header { texidoc="@cindex Trill
 Show trill line type. "

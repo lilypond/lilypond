@@ -1,4 +1,5 @@
-\version "1.7.18"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 % probably should be merged into refman.
 \header{
     texidoc = "@cindex Dynamic Piu Forte

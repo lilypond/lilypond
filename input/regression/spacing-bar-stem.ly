@@ -1,4 +1,5 @@
-\version "1.7.18"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 \header {
 texidoc = "Downstem notes following a barline are
 printed with some extra space. This is an optical correction similar

@@ -1,4 +1,4 @@
-\version "1.7.18"
+\version "1.9.0"
 
 
 
@@ -375,7 +375,7 @@ RemoveEmptyStaffContext = \translator {
 	Beam \override #'auto-knee-gap = #'()
 }
 
-HaraKiriStaffContext = \translator {
+RemoveEmptyStaffContext = \translator {
 	\RemoveEmptyStaffContext
 	\accepts "VaticanaVoice"
 	\accepts "GregorianTranscriptionVoice"

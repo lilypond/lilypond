@@ -1,4 +1,5 @@
-\version "1.7.22"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 % TODO: check about other ottava functions.
 
 \header { texidoc = "@cindex Ottava Spanner

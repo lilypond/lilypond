@@ -1,9 +1,10 @@
+#(ly:set-option 'old-relative)
 \header
 {
 texidoc = "Automatic beaming is also done on tuplets."
 }
 
-\version "1.7.18"
+\version "1.9.0"
 
 \score{
 	\notes\relative c''{

@@ -690,6 +690,7 @@ def compose_full_body (body, opts):
 }
 '''
 
+	orig_name = ''
 	for o in opts:
 		m= re.search ('relative(.*)', o)
 		v = 0
@@ -707,7 +708,10 @@ def compose_full_body (body, opts):
 				pitch = pitch + '\'' * v
 
 			body = '\\relative %s { %s }' % (pitch, body)
-
+		m =re.search ("filename=(.*)", o)
+		if m:
+			orig_name = m.group (1)
+		
 	if is_fragment:
 		body = r'''
 \score {
@@ -730,6 +734,10 @@ def compose_full_body (body, opts):
   %s
 }
 ''' % (optstring, music_size, linewidth, indent, notime) + body
+
+	if orig_name:
+		body = '\\renameinput \"%s\"\n%s' % (orig_name, body)
+	
 
 	# ughUGH not original options
 	return body

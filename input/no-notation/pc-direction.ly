@@ -1,4 +1,5 @@
-\version "1.7.18"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 
 % move to regtest once it works?
 
@@ -116,7 +117,7 @@ staffCombinePianoStaffProperties = {
       \consists "Thread_devnull_engraver"
     }
     \translator{
-      \HaraKiriStaffContext
+      \RemoveEmptyStaffContext
       \consists "Mark_engraver"
     }
     \translator {

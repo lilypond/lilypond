@@ -1,3 +1,4 @@
+#(ly:set-option 'old-relative)
 \header {
     texidoc = "Ambituses indicate pitch ranges for voices.
 
@@ -51,7 +52,7 @@ paper block:
 
 
  %}
-\version "1.7.18"
+\version "1.9.0"
 
 upper = \notes \relative c {
 	\clef "treble"

@@ -1,4 +1,5 @@
-\version "1.7.18"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 
 \header {
   texidoc ="Classical song format: one staff with melody and lyrics,
@@ -41,7 +42,7 @@ lower = \notes\relative c {
     >
   >
   \paper {
-    \translator { \HaraKiriStaffContext }
+    \translator { \RemoveEmptyStaffContext }
   }  
   \midi { }  
 }

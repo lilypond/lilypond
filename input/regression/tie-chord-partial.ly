@@ -1,3 +1,4 @@
+#(ly:set-option 'old-relative)
 \header {
 
 texidoc = "Tieing only parts of chords is possible. It requires
@@ -5,7 +6,7 @@ putting the Tie engraver at Thread level, and redirecting untied notes
 to a different thread."
 
 }
-\version "1.7.18"
+\version "1.9.0"
     \paper { raggedright= ##t }
 
 \score {

@@ -1,4 +1,5 @@
-\version "1.7.18"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 \header{
 texidoc = "Here startGraceMusic should set no-stem-extend to true;
 the two grace beams should be the same here.

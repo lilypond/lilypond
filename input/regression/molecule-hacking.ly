@@ -1,4 +1,5 @@
-\version "1.7.18"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 
 \header { texidoc=" You can write molecule callbacks in Scheme, thus
 providing custom glyphs for notation elements.  A simple example is

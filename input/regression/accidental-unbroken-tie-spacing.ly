@@ -1,9 +1,10 @@
+#(ly:set-option 'old-relative)
 \header {
 texidoc = "Tied accidentaled notes (which cause reminder accidentals) don't wreak havoc in
 the spacing when unbroken."
 }
 
-\version "1.7.18"
+\version "1.9.0"
 \include "deutsch.ly"
 
 rechts = \notes \relative c' {
