@@ -829,7 +829,7 @@ are chosen whenever the page gets full.
 @cindex distance between staves
 @cindex staff distance
 @cindex between staves, distance
-@cindex staffs per page
+@cindex staves per page
 @cindex space between staves
 
 The height of each system is determined automatically by LilyPond, to
@@ -1053,7 +1053,7 @@ The recommended font sizes are listed in the following table:
 These fonts are available in any sizes. The context property
 @code{fontSize} and the layout property @code{staff-space} (in
 @internalsref{StaffSymbol}) can be used to tune size for individual
-staffs. The size of individual staffs are relative to the global size,
+staves. The size of individual staves are relative to the global size,
 which can be set   in the following manner:
 
 @example
@@ -1279,7 +1279,7 @@ finished, so after the third quarter, @code{another} is removed.
 The @code{\new} construction creates a context with a
 generated, unique @var{contextname}. An expression with
 @code{\new} always leads to a new context. This is convenient
-for creating multiple staffs, multiple lyric lines, etc.
+for creating multiple staves, multiple lyric lines, etc.
 
 When using automatic staff changes, automatic phrasing, etc., the
 context names have special meanings, so @code{\new} cannot be

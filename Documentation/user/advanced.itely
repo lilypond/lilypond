@@ -4,6 +4,20 @@
 @section Advanced concepts
 
 
+
+To understand this concept, imagine that you are performing a piece of
+music. When you are playing, you combine the symbols printed at a
+certain point with contextual information. For example, without
+knowing the current clef, and the accidentals in the last measure, it
+would be impossible to determine the pitch of a note. In other words,
+this information forms a context that helps you decipher a
+score. LilyPond produces notation from music, so in effect, it does
+the inverse of reading scores. Therefore, it also needs to keep track
+of contextual information. This information is maintained in
+``notation contexts.''  
+
+****************
+
 Although LilyPond was designed to produce standard music notation, its
 architecture is flexible, and it is possible to manipulate the
 translation from a @file{.ly} file to a PDF file in many ways. This

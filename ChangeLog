@@ -1,3 +1,12 @@
+2004-03-08  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* Documentation/user/tutorial.itely (Automatic and manual beams):
+	editing of tutorial.
+
+2004-03-07  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* buildscripts/mf-to-table.py (base): write encoding name.
+
 2004-03-07  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/user/GNUmakefile (local-install-info): Issue
@@ -28,6 +37,8 @@
 
 2004-03-07  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* VERSION: 2.1.29 released.
+	
 	* Documentation/user/changing-defaults.itely (Changing defaults):
 	new file.
 
@@ -171,7 +182,7 @@
 
 	* ps/lilyponddefs.ps: Disable PostScript titling.
 
-	* lily/paper-score.cc (process): Qute PORT argument to make-title.
+	* lily/paper-score.cc (process): Quote PORT argument to make-title.
 
 2004-03-01  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
