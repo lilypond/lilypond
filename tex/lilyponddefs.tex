@@ -34,7 +34,11 @@
 \def\myfilbreak{\par\vfil\penalty200\vfilneg}
 
 % stacked horizontal lines
-\def\interscoreline{\vskip 16pt\myfilbreak}
+\ifundefined{mudelapaperinterscoreline}
+        \def\interscoreline{\vskip 16pt\myfilbreak}
+\else
+        \def\interscoreline{\vskip\mudelapaperinterscoreline pt\myfilbreak}
+\fi
 \def\placebox#1#2#3{%
         \botalign{\hbox{\raise #1\leftalign{\kern #2{}#3}}}}%
 
