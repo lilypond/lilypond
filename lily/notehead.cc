@@ -17,6 +17,7 @@ Notehead::Notehead(int ss)
     balltype = 0;
     dots = 0;
     extremal = 0;
+    rest_b_ = false;
 }
 
 void
@@ -32,6 +33,8 @@ void
 Notehead::do_print()const
 {
 #ifndef NPRINT
+    if (rest_b_)
+	mtor << "REST! ";
     mtor << "balltype "<< balltype << ", position = "<< position
 	 << "dots " << dots;
 #endif
@@ -50,7 +53,11 @@ Notehead::brew_molecule_p() const return out;
     Paper_def *p = paper();
 
     Real dy = p->internote();
-    Symbol s = p->lookup_l()->ball(balltype);
+    Symbol s;
+    if (!rest_b_)
+	s = p->lookup_l()->ball(balltype);
+    else 
+	s = p->lookup_l()->rest(balltype);
     
     out = new Molecule(Atom(s));
     if (dots) {

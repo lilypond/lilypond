@@ -4,6 +4,8 @@
 %
 %	Public Domain -- typed by by HWN
 %
+\version "0.0.50";
+
  global = \melodic{
  	\meter 4/4 ;
  	\grouping 2*2; 

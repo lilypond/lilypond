@@ -48,6 +48,7 @@ include ./$(depth)/make/Rules.make
 #
 
 localclean:
+	rm -f out/*
 	rm -f $(TEXTFILES) $(HTMLFILES) $(GROFFFILES) $(HTMLFILES)
 
 localinstall: $(outdir)/lilypond.1 $(outdir)/mudela.5
