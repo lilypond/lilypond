@@ -143,6 +143,10 @@ if conf.CheckLib ('dl'):
 if conf.CheckLib ('kpathsea'):
 	defines['KPATHSEA'] = '1'
 
+# huh? 
+if conf.CheckLib ('kpathsea', 'kpse_find_file'):
+	defines['HAVE_KPSE_FIND_FILE'] = '1'
+
 env = conf.Finish ()
 
 Export ('env')
