@@ -1,10 +1,18 @@
 2004-09-23  Graham Percival  <gperlist@shaw.ca>
 
-	* Documentation/user/tutorial.itely: do manual style 2-space indents in examples
+	* Documentation/user/tutorial.itely: do manual style 2-space
+	indents in examples
 
 	* Documentation/user/notation.itely: more editing.
 
 2004-09-23  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/lyric-engraver.cc (get_current_rest): New function.
+
+	* lily/extender-engraver.cc (stop_translation_timestep): Use it:
+	stop at rest.
+
+	* lily/lyric-extender.cc (print): Fix crash (Russ Ross).
 
 	* lily/slur-scoring.cc (get_bezier): Fix for broken beziers.
 

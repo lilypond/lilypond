@@ -21,82 +21,72 @@
 bool
 Lyric_extender::is_visible (Grob *gr)
 {
-  Spanner*me = dynamic_cast<Spanner*> (gr);
+  Spanner *me = dynamic_cast<Spanner*> (gr);
 
   SCM heads = me->get_property ("heads");
-  int l = scm_ilength (heads);
-  if (l == 0)
-    return false;
-  
-  return true;
+  int il = scm_ilength (heads);
+  return il != 0;
 }
 
-MAKE_SCHEME_CALLBACK (Lyric_extender,print,1)
+MAKE_SCHEME_CALLBACK (Lyric_extender, print, 1)
 SCM 
 Lyric_extender::print (SCM smob) 
 {
   Spanner *me = unsmob_spanner (smob);
-  Item *l = me->get_bound (LEFT);
-  Item *r = me->get_bound (RIGHT);
-  Grob *common = l->common_refpoint (r, X_AXIS);
-  
+  Item *le = me->get_bound (LEFT);
+  Item *ri = me->get_bound (RIGHT);
+  Grob *common = le->common_refpoint (ri, X_AXIS);
 
   Real sl = me->get_paper ()->get_dimension (ly_symbol2scm ("linethickness"));  
 
   Link_array<Grob> heads (Pointer_group_interface__extract_grobs (me, (Grob*)0,
 								  "heads"));
 
-  if (!heads.size () && r->break_status_dir () == CENTER)
+  if (!heads.size () && ri->break_status_dir () == CENTER)
     return SCM_EOL;
 
   common = common_refpoint_of_array (heads, common, X_AXIS);
   
   Real left_point = 0.0;
-  if (l->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
-    left_point = l->extent (common, X_AXIS)[RIGHT];
-  else
+  if (le->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
+    left_point = le->extent (common, X_AXIS)[RIGHT];
+  else if (heads.size ())
     left_point = heads[0]->extent (common, X_AXIS)[LEFT];
+  else
+    left_point = le->extent (common, X_AXIS)[RIGHT];
 
   if (isinf (left_point))
     return SCM_EOL;
 
-  /*
-    It seems that short extenders are even lengthened to go past the
-    note head, but haven't found a pattern in it yet. --hwn 1/1/04
-    
-   */
-  SCM minlen =  me->get_property ("minimum-length");
+  /* It seems that short extenders are even lengthened to go past the
+     note head, but haven't found a pattern in it yet. --hwn 1/1/04  */
+  SCM minlen = me->get_property ("minimum-length");
   Real right_point
-    = left_point + (robust_scm2double  (minlen,0));
+    = left_point + (robust_scm2double  (minlen, 0));
 
   Spanner *orig = dynamic_cast<Spanner*> (me->original_);
   bool last_line = orig
     && (me->get_break_index () == orig->broken_intos_.size () - 2)
     && !Lyric_extender::is_visible (orig->broken_intos_.top ());
     
-
   if (heads.size ())
     right_point = right_point >? heads.top ()->extent (common, X_AXIS)[RIGHT];
 
   Real h = sl * robust_scm2double (me->get_property ("thickness"), 0);
   Real pad = 2* h;
 
-  if (r->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
-    right_point = right_point <? (r->extent (common, X_AXIS)[LEFT] - pad);
-  else if (Note_head::has_interface (r))
+  if (ri->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
+    right_point = right_point <? (ri->extent (common, X_AXIS)[LEFT] - pad);
+  else if (Note_head::has_interface (ri))
     ; 
   else if (!last_line)
-    {
-      /*
-	run to end of line.
-       */
-      right_point = right_point >? (r->extent (common, X_AXIS)[LEFT] - pad);
-    }
+    /* run to end of line. */
+    right_point = right_point >? (ri->extent (common, X_AXIS)[LEFT] - pad);
   
   if (isinf (right_point))
     {
       programming_error ("Right point of extender not defined?");
-      right_point = r->relative_coordinate (common, X_AXIS);
+      right_point = ri->relative_coordinate (common, X_AXIS);
     }  
 
   left_point += pad;
@@ -106,9 +96,11 @@ Lyric_extender::print (SCM smob)
   if (w < 1.5 * h)
     return SCM_EOL;
   
-  Stencil  mol (Lookup::round_filled_box (Box (Interval (0,w), Interval (0,h)),
-					   0.8 * h));
-  mol.translate_axis (left_point - me->relative_coordinate (common, X_AXIS), X_AXIS);
+  Stencil  mol (Lookup::round_filled_box (Box (Interval (0, w),
+					       Interval (0, h)),
+					  0.8 * h));
+  mol.translate_axis (left_point - me->relative_coordinate (common, X_AXIS),
+		      X_AXIS);
   return mol.smobbed_copy ();
 }
 

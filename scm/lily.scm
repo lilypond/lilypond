@@ -571,7 +571,7 @@ possibly turned off."
     (newline (current-error-port))
     
     (if (ly:get-option 'verbose)
-	(display (format "Invoking `~a'..." cmd) (current-error-port)))
+	(display (format (_"Invoking `~a'...") cmd) (current-error-port)))
 
   (system cmd)))
 
