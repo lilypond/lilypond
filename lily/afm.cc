@@ -6,6 +6,12 @@
   (c) 2000--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
+
+#ifndef _GNU_SOURCE // we want memmem
+#define _GNU_SOURCE
+#endif
+#include <string.h>
+#include "libc-extension.hh"
 #include "afm.hh"
 #include "warn.hh"
 #include "molecule.hh"
@@ -103,19 +109,30 @@ read_afm_file (String nm)
 {
   FILE *f = fopen (nm.to_str0 () , "r");
   char s[2048];
-  char *check_key = "TfmCheckSum"; 
-  fgets (s, sizeof (s), f);
+  char *check_key = "Comment TfmCheckSum";
 
-  unsigned int cs = 0;  
-  if (strncmp (s, check_key, strlen (check_key)) == 0)
-    {
-      sscanf (s + strlen (check_key), "%ud", &cs);
-    }
-  else
-    {
-      rewind (f);
-    }
+  unsigned int cs = 0;
 
+#if 0
+  fread (s, sizeof (s), sizeof (*s), f);
+  if (char const* p = (char const *)
+      memmem (s, sizeof (s), check_key, strlen (check_key)))
+    sscanf (p + strlen (check_key), "%ud", &cs);
+#else
+  s[0] = 0;
+  /* Assume check_key in first 10 lines */
+  for (int i = 0; i < 10; i++)
+    {
+      fgets (s, sizeof (s), f);
+      if (strncmp (s, check_key, strlen (check_key)) == 0)
+	{
+	  sscanf (s + strlen (check_key), "%ud", &cs);
+	  break;
+	}
+    }
+#endif
+  
+  rewind (f);
     
   AFM_Font_info * fi;
   int ok = AFM_parseFile (f, &fi, ~1);

@@ -1,3 +1,16 @@
+2002-10-14  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/lily.scm: Register sodipodi output module.
+
+	* scm/sodipodi.scm: New file.
+
+	* lily/afm.cc (read_afm_file): Read TfmCheckSum from comment.
+
+	* buildscripts/mf-to-table.py (base): Write TfmChecksum in
+	comment, after header.
+	(parse_logfile): Remove invalid key FontFamily.  Add mandatory key
+	FullName.  Fix FontName key.
+
 2002-10-14  Rune Zedeler  <rune@zedeler.dk>
 
 	* lily/rest.cc (after_line_breaking): bugfix: dots after half
