@@ -62,7 +62,7 @@ public:
   SCM get_scmvar (String id)const; 
   void reinit ();
   Paper_def ();
-  void set_lookup (int, Lookup*);
+  void set_lookup (int, SCM lookup_smob);
   Paper_def (Paper_def const&);
 
   /** The distance between beams of multiplicity_i

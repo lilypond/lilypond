@@ -26,7 +26,6 @@
  */
 class Request : public Music {
 public:
-  virtual ~Request(){}
   VIRTUAL_COPY_CONS(Music);
   bool equal_b (Request const*) const;
 protected:
