@@ -610,24 +610,31 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real inc
   */
   max_fixed_note_space = max_fixed_note_space <? max_note_space;
 
-#if 0
-  /*
-    This doesn't make sense. For ragged right we want to have the same
-    spacing. Otherwise  the option should be called differently.
-
-    ragged-righted-and-weird-spacing. Whatever.
-
-  */
-  Real strength = (ragged) ? 1.0 : 1 / (max_note_space - max_fixed_note_space);
-  Real distance = (ragged) ? max_fixed_note_space : max_note_space;
-#else
+  bool packed = to_boolean (me->get_paper ()->get_scmvar ("packed"));
+  Real strength, distance;
 
   /*
     TODO: make sure that the space doesn't exceed the right margin.
    */
-  Real strength = 1 / (max_note_space - max_fixed_note_space);
-  Real distance = max_note_space;
-#endif
+  if (packed)
+    {
+      /*
+	In packed mode, pack notes as tight as possible.  This makes
+	sense mostly in combination with raggedright mode: the notes
+	are then printed at minimum distance.  This is mostly useful
+	for ancient notation, but may also be useful for some flavours
+	of contemporary music.  If not in raggedright mode, lily will
+	pack as much bars of music as possible into a line, but the
+	line will then be stretched to fill the whole linewidth.
+      */
+      strength = 1.0;
+      distance = max_fixed_note_space;
+    }
+  else
+    {
+      strength = 1 / (max_note_space - max_fixed_note_space);
+      distance = max_note_space;
+    }
 
   //  Spaceable_grob::add_spring (lc, rc, distance, strength, expand_only);
 
