@@ -1,3 +1,9 @@
+2003-09-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scripts/lilypond.py (escape_path): revise.
+
+	* scm/music-functions.scm (set-output-property): new function.
+	
 2003-09-27  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* cygwin/mknetrel: Next try in building doc on Cygwin natively;
@@ -14,6 +20,8 @@
 	dependency
 
 2003-09-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scripts/lilypond.py (escape_path): escape quotes too. 
 
 	* Documentation/user/lilypond.tely (Unified index): rename Index
 	to accomodate Windows breakage.
@@ -57,7 +65,7 @@
 
 2003-09-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
-	* lily/tie-performer.cc (initialize): init  prev_event
+	* lily/tie-performer.cc (initialize): init prev_event
 
 	* make/lilypond.redhat.spec.in: move site-start back to /usr/share.
 

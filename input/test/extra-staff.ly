@@ -1,6 +1,7 @@
-#(ly:set-option 'old-relative)
+
 \version "1.9.8"
-% definately wil be renamed to something.
+
+% definitely wil be renamed to something.
 %{
 (Message vers:9)
 To: Adrian Mariano <adrian@camcornelledu>.
@@ -25,6 +26,7 @@ Try this (we'll include it in pl23/24):
 extra-staff.ly:
 %}
 
+
 \header{ texidoc="@cindex Staff Extra
 @cindex Staff Ossia
 You can add an extra staff after the beginning of a piece. "}
@@ -35,7 +37,7 @@ You can add an extra staff after the beginning of a piece. "}
 		\new StaffGroup \notes\relative c''{ 
 			\new Staff 
 			c1 c
-			<< \new Staff { c1 } \new Staff { c1 } >>
+			<< c1 \new Staff { c1 } >>
 			c
 		}
 	>>
