@@ -25,7 +25,7 @@ Paperdef::rule_thickness()const
 
 Paperdef::Paperdef(Lookup *l)
 {
-    lookup_ = l;
+    lookup_p_ = l;
 
     linewidth = convert_dimen(15,"cm");		// in cm for now
     whole_width = 8 * note_width();
@@ -34,32 +34,40 @@ Paperdef::Paperdef(Lookup *l)
 
 Paperdef::~Paperdef()
 {
-    delete lookup_;
+    delete lookup_p_;
+}
+Paperdef::Paperdef(Paperdef const&s)
+{
+    lookup_p_ = new Lookup(*s.lookup_p_);
+    geometric_ = s.geometric_;
+    whole_width = s.whole_width;
+    outfile = s.outfile;
+    linewidth = s.linewidth;
 }
 
 void
 Paperdef::set(Lookup*l)
 {
-    assert(l != lookup_);
-    delete lookup_;
-    lookup_ = l;
+    assert(l != lookup_p_);
+    delete lookup_p_;
+    lookup_p_ = l;
 }
 
 Real
 Paperdef::interline() const
 {
-    return lookup_->ball(4).dim.y.length();
+    return lookup_p_->ball(4).dim.y.length();
 }
 
 Real
 Paperdef::internote() const
 {
-    return lookup_->internote();
+    return lookup_p_->internote();
 }
 Real
 Paperdef::note_width()const
 {
-    return lookup_->ball(4).dim.x.length( );
+    return lookup_p_->ball(4).dim.x.length( );
 }
 Real
 Paperdef::standard_height() const
