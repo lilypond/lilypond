@@ -4,6 +4,7 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
+#include "plist.hh"
 #include "musicalrequest.hh"
 #include "complexwalker.hh"
 #include "slurreg.hh"

@@ -4,25 +4,25 @@ staff {melodic
 	music{ 	$
 \duration { 8 }
 			\octave{ }
-			\plet { 6/9 } |[ a a a a a a a a a ] \plet { 1/1 }
+			 |[ a a a a a a a a a ] 
 			\octave{ ' }
-			\plet { 6/9 } |[ a a a a a a a a a ] \plet { 1/1 }
+			 |[ a a a a a a a a a ] 
 			\octave { ` } 
-			\plet { 6/9 } [ `c `g d a 'e 'b ''f '''c '''g ] \plet { 1/1 }
-			\plet { 6/9 } [ '''g '''c ''f 'b 'e a d `g `c ] \plet { 1/1 }
+			 [ `c `g d a 'e 'b ''f '''c '''g ] 
+			 [ '''g '''c ''f 'b 'e a d `g `c ] 
 			\octave{ ' }
-			\plet { 6/9 } [ `c `g d a 'e 'b ''f '''c '''g ] \plet { 1/1 }
-			\plet { 6/9 } [ '''g '''c ''f 'b 'e a d `g `c ] \plet { 1/1 }
+			 [ `c `g d a 'e 'b ''f '''c '''g ] 
+			 [ '''g '''c ''f 'b 'e a d `g `c ] 
 			\octave { } 
-			\plet { 2/3 } [ c g 'd ] \plet { 1/1 }
-			\plet { 2/3 } [ 'd g c ] \plet { 1/1 } 
-			\plet { 2/3 } [ f 'c 'g ] \plet { 1/1 }
-			\plet { 2/3 } [ 'g 'c f ] \plet { 1/1 } 
+			 [ c g 'd ]2/3 
+			 [ 'd g c ]2/3  
+			 [ f 'c 'g ]2/3 
+			 [ 'g 'c f ]2/3  
 			\octave{ ' }
-			\plet { 2/3 } [ c g 'd ] \plet { 1/1 }
-			\plet { 2/3 } [ 'd g c ] \plet { 1/1 } 
-			\plet { 2/3 } [ f 'c 'g ] \plet { 1/1 }
-			\plet { 2/3 } [ 'g 'c f ] \plet { 1/1 }
+			 [ c g 'd ]2/3 
+			 [ 'd g c ]2/3  
+			 [ f 'c 'g ]2/3 
+			 [ 'g 'c f ]2/3 
 
 c1
 	\duration { 8}

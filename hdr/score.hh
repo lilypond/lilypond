@@ -21,6 +21,7 @@
 struct Score {
     /// paper_, staffs_ and commands_ form the problem definition.
     Paperdef *paper_p_;
+    Mididef *midi_p_;
     IPointerList<Staff*> staffs_;
     
     /// "runtime" fields for setting up spacing    
@@ -42,6 +43,12 @@ struct Score {
     
     /// output to file
     void output(String fn);
+
+    /// do midi stuff
+    void midi();
+
+    ///
+    void set(Mididef* midi_p);
 
     // standard
     void OK() const;

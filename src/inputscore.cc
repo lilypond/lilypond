@@ -12,6 +12,7 @@
 #include "inputmusic.hh"
 #include "score.hh"
 #include "paperdef.hh"
+#include "mididef.hh"
 #include "staff.hh"
 
 
@@ -28,6 +29,13 @@ Input_score::set(Paperdef*p)
     paper_p_ = p;
 }
 
+void
+Input_score::set(Mididef* midi_p)
+{
+    delete midi_p_;
+    midi_p_ = midi_p;
+}
+ 
 Input_score::Input_score(Input_score const&s)
 {
     paper_p_ = (s.paper_p_)? new Paperdef(*s.paper_p_) :0;
@@ -44,6 +52,8 @@ Input_score::parse()
     Score *s_p = new Score(paper_p);
     s_p->defined_ch_c_l_= defined_ch_c_l_;
     s_p->errorlevel_i_ = errorlevel_i_;
+    s_p->set(midi_p_);
+    midi_p_ = 0;
 
     for (iter_top(staffs_,i); i.ok(); i++) {
 	Staff* staf_p=i->parse(s_p, score_wide_music_p_);
@@ -65,6 +75,7 @@ Input_score::~Input_score()
 {
     delete paper_p_;
     delete score_wide_music_p_;
+    delete midi_p_;
 }
 
 Input_score::Input_score()
@@ -72,6 +83,7 @@ Input_score::Input_score()
     score_wide_music_p_ =0;
     defined_ch_c_l_=0;
     paper_p_= 0;
+    midi_p_ = 0;
     errorlevel_i_ = 0;
 }
 

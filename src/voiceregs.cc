@@ -66,3 +66,4 @@ Voice_registers::set_dir(int i)
     head_reg_->set_dir(i);
     slur_reg_->set_dir(i);
 }
+

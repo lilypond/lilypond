@@ -45,6 +45,7 @@ struct Request {
     virtual Rest_req *rest() { return 0; }
     virtual Span_req *span() { return 0; }
     virtual Beam_req *beam() { return 0 ; }
+    virtual Plet_req* plet() { return 0; }
     virtual Slur_req *slur() { return 0 ; }
     virtual Rhythmic_req*rhythmic() { return 0; }
     virtual Lyric_req* lreq_l() { return 0; }

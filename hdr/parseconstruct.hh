@@ -25,6 +25,7 @@ Request* get_request(char);
 void set_text_style(String);
 Script_def* get_scriptdef(char);
 Text_def*get_text(String s);
+Request* get_plet_request( char c, int dur_i, int type_i ); 
 Request*get_script_req(int d , Script_def*def);
 Request*get_text_req(int d , Text_def*def);
 Request* get_stemdir_req(int);

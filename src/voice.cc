@@ -10,11 +10,32 @@
 #include "voice.hh"
 #include "musicalrequest.hh"
 #include "commandrequest.hh"
+#include "midiitem.hh"
+#include "midistream.hh"
 
 void
 Voice::set_default_group(String s)
 {
     elts.top()->set_default_group(s);
+}
+
+bool
+Voice::find_plet_start_bo(char c, Moment& moment_r)
+{
+    for (iter_bot(elts, i); i.ok(); i--)
+	if ( i->find_plet_start_bo(c, moment_r) )
+	    return true;
+    return false;
+}
+
+void 
+Voice::set_plet_backwards(Moment& now_moment_r, Moment until_moment, int num_i, int den_i)
+{
+    for (iter_bot(elts, i); i.ok(); i--) 
+	if ( now_moment_r <= until_moment ) 
+	    i->set_plet_backwards(now_moment_r, until_moment, num_i, den_i);
+	else
+	    return;
 }
 
 Voice::Voice(Voice const&src)

@@ -1,7 +1,7 @@
 //
 //  lyricitem.hh -- part of LilyPond
 //
-//  copyright 1997 Jan Nieuwenhuizen <jan@digicash.nl>
+//  copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 
 #ifndef LYRIC_ITEM_HH
 #define LYRIC_ITEM_HH
@@ -15,5 +15,5 @@ struct Lyric_item : Text_item {
 };
 
 
-#endif // LYRICITEM_HH
+#endif // LYRIC_ITEM_HH //
 

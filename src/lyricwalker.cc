@@ -3,7 +3,7 @@
 
   source file of the LilyPond music typesetter
 
-  (c) 1997 Jan Nieuwenhuizen <jan@digicash.nl>
+  (c) 1997 Jan Nieuwenhuizen <jan@digicash.com>
 */
 
 #include "musicalrequest.hh"
