@@ -53,9 +53,7 @@ for the reader.
 ;;
 
 (define-public (simple-markup grob props . rest)
-  (Text_item::text_to_molecule grob props (car rest))
-  )
-
+  (Text_item::text_to_molecule grob props (car rest)))
 
 (define-public (stack-molecule-line space molecules)
   (if (pair? molecules)
@@ -101,14 +99,12 @@ for the reader.
 		      (cadr rest))
     ))
 
-
 (define-public (finger-markup grob props . rest)
   (interpret-markup grob
 		    (cons (list '(font-relative-size . -3)
 				'(font-family . number))
 				props)
 		    (car rest)))
-
 
 (define-public fontsize-markup (set-property-markup 'font-relative-size))
 (define-public magnify-markup (set-property-markup 'font-magnification))
@@ -674,11 +670,15 @@ against SIGNATURE, reporting MAKE-NAME as the user-invoked function.
  markup-module
  )
 
+;;
+;; TODO: add module argument so user-defined markups can also be 
+;; processed.
+;;
 (define-public (lookup-markup-command code)
   (let*
-      ( (sym (string->symbol (string-append code "-markup")))
-	(var (module-local-variable markup-module sym))
-	)
+      ((sym (string->symbol (string-append code "-markup")))
+       (var (module-local-variable markup-module sym))
+       )
     (if (eq? var #f)
 	#f   
 	(cons (variable-ref var) (object-property  (variable-ref var) 'markup-keyword))
