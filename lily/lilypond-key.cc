@@ -78,7 +78,7 @@ Lilypond_grob_key::from_scheme (SCM a)
   return new Lilypond_grob_key (unsmob_key (scm_car (a)),
 				*unsmob_moment (scm_cadr (a)),
 				ly_scm2string  (scm_caddr (a)),
-				scm_to_int (scm_cadddr (a)));
+				scm_to_int  (scm_list_ref (a, scm_from_int (3))));
 }
 
 
