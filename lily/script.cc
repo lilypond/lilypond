@@ -1,5 +1,5 @@
 /*   
-     script.cc --  implement Script
+  script.cc --  implement Script
   
   source file of the GNU LilyPond music typesetter
   
@@ -44,7 +44,7 @@ Script::do_pre_processing ()
   /*
     center my self on the note head.
    */
-  Graphical_element * e = parent_l(X_AXIS);
+  Score_element * e = parent_l(X_AXIS);
   translate_axis (e->extent (X_AXIS).center (), X_AXIS);
 }
 

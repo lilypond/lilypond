@@ -22,7 +22,6 @@ class Hyphen_spanner : public Directional_spanner
 {
 public:
 Hyphen_spanner ();
-  Offset center () const;  
   void set_textitem (Direction, Item*);
 
 protected:

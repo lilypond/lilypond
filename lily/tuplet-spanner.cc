@@ -21,6 +21,9 @@
 
 Tuplet_spanner::Tuplet_spanner ()
 {
+  /*
+    -> GUILE
+   */
   parallel_beam_b_ = false;
 }
 

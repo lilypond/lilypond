@@ -12,21 +12,14 @@
 
 #include "spanner.hh"
 
-
 class Separating_group_spanner : public Spanner
 {
-  Link_array<Single_malt_grouping_item> spacing_unit_l_arr_;
 public:
-  /**
-     extra space to add after  postbreak. (FIXME).
-   */
-  Real padding_f_ ;
-  Separating_group_spanner ();
   void add_spacing_unit (Single_malt_grouping_item*);
+  Separating_group_spanner();
 protected:
   VIRTUAL_COPY_CONS(Score_element);
   virtual Array<Rod> get_rods () const;
-  virtual void do_substitute_element_pointer (Score_element*,Score_element*);
 };
 
 #endif /* SEPARATING_GROUP_SPANNER_HH */

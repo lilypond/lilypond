@@ -157,13 +157,13 @@ Note_column::do_post_processing ()
   if (!stem_l_ || !rest_b ())
     return;
 
-  Beam * b = stem_l_->beam_l_;
-  if (!b || !b->stems_.size ())
+  Beam * b = stem_l_->beam_l ();
+  if (!b || !b->stem_count ())
     return;
   
   /* ugh. Should be done by beam. */
   Direction d = stem_l_->get_direction ();
-  Real beamy = (stem_l_->hpos_f () - b->stems_[0]->hpos_f ()) * b->slope_f_ + b->left_y_;
+  Real beamy = (stem_l_->hpos_f () - b->stem(0)->hpos_f ()) * b->slope_f_ + b->left_y_;
 
   Real staff_space = rest_l_arr_[0]->staff_line_leading_f ();      
   Real rest_dim = extent (Y_AXIS)[d]*2.0  /staff_space ;

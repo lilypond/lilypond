@@ -28,12 +28,17 @@ public:
   Paper_def *paper_l_;
 
   /// the columns, ordered left to right
+  /*
+    UGH. MOVE INTO LINE_OF_SCORE ?!
+   */
   Link_array<Paper_column> col_l_arr_;
 
   Paper_outputter *outputter_l_;  
   Line_of_score * line_l_;
   
   Paper_score ();
+
+  void fixup_refpoints ();
 
 
   /// add to bottom of pcols

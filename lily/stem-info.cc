@@ -29,13 +29,13 @@ Stem_info::Stem_info ()
 
   GURG UGRGINRG INA UG R
 
-  JUNKME -> This should be in Beam
+  JUNKME -> this should set elt properties of STEM.
 */
 Stem_info::Stem_info (Stem*s, int mult)
 {
   mult_i_ =mult;
   stem_l_ = s;
-  Beam* beam_l = stem_l_->beam_l_;
+  Beam* beam_l = stem_l_->beam_l ();
   
   x_ = stem_l_->hpos_f ();
   set_direction (stem_l_->get_direction ());

@@ -29,9 +29,10 @@ Span_bar::do_substitute_element_pointer (Score_element*o, Score_element*n)
 
 
 Interval
-Span_bar::do_width () const
+Span_bar::width_callback (Dimension_cache const * c)
 {
-  Molecule m = lookup_l ()->bar (type_str_, 40 PT, paper_l ());
+  Span_bar*  s= dynamic_cast<Span_bar*> (c->element_l ());  
+  Molecule m = s->lookup_l ()->bar (s->type_str_, 40 PT, s->paper_l ());
   
   return m.extent (X_AXIS);
 }
@@ -43,7 +44,7 @@ Span_bar::do_pre_processing ()
   
   evaluate_empty ();
   
-  set_empty (false, Y_AXIS); // a hack to make mark scripts work.
+  //  set_empty (false, Y_AXIS); // a hack to make mark scripts work.
 }
 
 void
@@ -61,13 +62,14 @@ Span_bar::evaluate_empty ()
   if (spanning_l_arr_.size () < 1) 
     {
       set_elt_property ("transparent", SCM_BOOL_T);
-      set_empty (true, X_AXIS, Y_AXIS);   
-
+      set_empty (X_AXIS);
+      set_empty (Y_AXIS);   
     }
   if (type_str_.empty_b ()) 
     {
       set_elt_property ("transparent", SCM_BOOL_T);
-      set_empty (true);
+      set_empty (X_AXIS);
+      set_empty (Y_AXIS);   
     }
   else if (type_str_ == "|:") 
     {
@@ -90,7 +92,7 @@ Span_bar::get_spanned_interval () const
 
   for (int i=0; i < spanning_l_arr_.size (); i++) 
     {
-      Graphical_element*common = common_refpoint (spanning_l_arr_[i], Y_AXIS);
+      Score_element*common = common_refpoint (spanning_l_arr_[i], Y_AXIS);
       Real y = spanning_l_arr_[i]->relative_coordinate (common, Y_AXIS)  
 	- relative_coordinate (common, Y_AXIS);
 
@@ -100,9 +102,10 @@ Span_bar::get_spanned_interval () const
 }
 
 Interval
-Span_bar::do_height () const
+Span_bar::height_callback (Dimension_cache const *c) 
 {
-  return get_spanned_interval ();
+  Span_bar * s= dynamic_cast<Span_bar*> (c->element_l ()); 
+  return s->get_spanned_interval ();
 }
 
 Molecule*
@@ -126,5 +129,7 @@ Span_bar::do_brew_molecule_p () const
 Span_bar::Span_bar ()
 {
   type_str_ = "";
+  dim_cache_[X_AXIS]->set_callback (width_callback);
+  dim_cache_[Y_AXIS]->set_callback (height_callback);  
 }
 

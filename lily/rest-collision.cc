@@ -138,6 +138,7 @@ Rest_collision::do_substitute_element_pointer (Score_element*o,Score_element*n)
 Rest_collision::Rest_collision()
 {
   set_elt_property ("transparent", SCM_BOOL_T);
-  set_empty (true, X_AXIS, Y_AXIS);
+  set_empty (X_AXIS);
+  set_empty (Y_AXIS);
 }
 

@@ -29,7 +29,7 @@ Break_align_item::do_pre_processing()
     align_dir_ = RIGHT;
   
   flip (&align_dir_);
-  sort_elements ();
+
   Real interline= paper_l ()->get_var ("interline");	
   
   Link_array<Score_element> elems;

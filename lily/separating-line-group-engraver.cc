@@ -31,16 +31,6 @@ Separating_line_group_engraver::do_creation_processing ()
 void
 Separating_line_group_engraver::do_removal_processing ()
 {
-  SCM sz (get_property ("postBreakPadding", 0));
-  if (gh_number_p(sz))
-    {
-      sep_span_p_->padding_f_ = Real(sz);
-    }
-  else
-    {
-      sep_span_p_->padding_f_ = paper_l ()->get_realvar (ly_symbol2scm ("postBreakPadding"));
-    }
-
   sep_span_p_->set_bounds (RIGHT, get_staff_info ().command_pcol_l ());
   typeset_element (sep_span_p_);
   sep_span_p_ =0;

@@ -22,9 +22,6 @@ class Axis_group_spanner : public virtual Axis_group_element,
   void do_break_processing_if_unbroken();
 protected:
   virtual void do_break_processing();
-  virtual void do_print() const;
-  virtual Interval do_width () const;
-
 public:
   VIRTUAL_COPY_CONS(Score_element);
 };

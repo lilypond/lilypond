@@ -11,6 +11,7 @@
 /*
   CLEAN ME UP.
  */
+
 #include <ctype.h>
 #include "bar.hh"
 #include "clef-engraver.hh"

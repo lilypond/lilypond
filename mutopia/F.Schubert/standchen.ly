@@ -44,7 +44,7 @@ Note: Original key F.
 \version "1.3.4";
 
 vocalVerse = \notes\relative c''{
-	\property Voice.dynamicDirection=1
+	\property Voice.dynamicDirection=\up
 	\times 2/3 { [ g8( )as] g } c4. g8 |
 	\times 2/3 { [ f8( )g] f } c'4 f,8 r |
 	g4.-> f8 \times 2/3 { [ f( )es] d } |
@@ -73,7 +73,7 @@ vocalVerse = \notes\relative c''{
 }
 
 vocalThrough = \notes\relative c{
-	\property Voice.dynamicDirection=1
+	\property Voice.dynamicDirection=\up
 	g''8. g16 b8. b16 d8. d16 |
 	c4 b r |
 	g4. b8 d8. c16 |
@@ -176,7 +176,7 @@ trebleVerseOne = \notes\relative c{
 }
 
 trebleEentje = \notes \relative c'{
-	\context Voice=one \property Voice.verticalDirection = 0
+	\context Voice=one \property Voice.verticalDirection = \center
 	<e2 e'> <e4 g>|
 	<f2\mf as!(> <as8.->( c> <)f16 )as> |
 	<e4. g> <e8-. g-.(> <e-. g-.> <e-. )g-.> |
@@ -190,7 +190,7 @@ trebleEentje = \notes \relative c'{
 }
 
 trebleThrough = \notes \relative c'{
-	\context Voice=one \property Voice.verticalDirection = 0
+	\context Voice=one \property Voice.verticalDirection = \center
 	<e2. e'> |
 	%61
 	R2. |
@@ -348,8 +348,8 @@ lyricStaff = \context Lyrics = lyric<
 vocals = \notes{
 	\clef treble;
  	% certainly no auto-beaming for vocals
- 	\property Voice.noAutoBeaming = "1"
-	\property Staff.automaticMelismata=1
+ 	\property Voice.noAutoBeaming = ##t
+	\property Staff.automaticMelismata= ##t
 
 	\property Voice.dynamicDirection = \up
 	\skip 4 * 12; 
@@ -367,7 +367,7 @@ vocalStaff = \context Staff = vocal<
 
 treble = {
 	\clef treble;
-	\property Voice.beamAutoBegin=0
+	\property Voice.beamAutoBegin= #(make-moment 0 1)
 	\trebleIntro 
 	\trebleVerseOne 
 	\trebleEentje

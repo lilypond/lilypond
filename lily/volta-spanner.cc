@@ -17,12 +17,13 @@
 #include "paper-def.hh"
 #include "volta-spanner.hh"
 #include "stem.hh"
-
+#include "dimension-cache.hh"
 #include "pointer.tcc"
 
 Volta_spanner::Volta_spanner ()
 {
   last_b_ = false;
+  dim_cache_ [Y_AXIS]->set_callback (dim_callback);
 }
 
 Molecule*
@@ -82,11 +83,8 @@ Volta_spanner::do_add_processing ()
       set_bounds (RIGHT, bar_arr_.top ());  
     }
 }
-  
-Interval
-Volta_spanner::do_height () const
-{
-  /*
+
+/*
     Originally the following comment existed here
     "in most cases, it's a lot better not no have height...",
     but problems existed with collision between volta spanner
@@ -94,8 +92,12 @@ Volta_spanner::do_height () const
     height is now being returned. Additional space should still
     be added elsewhere so lyrics from above staff do not sit on
     volta spanner. (Roy R. Rankin)
-  */
-  Real h = paper_l()->get_var ("volta_spanner_height") * 2.;
+*/
+Interval
+Volta_spanner::dim_callback (Dimension_cache const *c)
+{
+  Volta_spanner * v = dynamic_cast<Volta_spanner*> (c->element_l ());
+  Real h = v->paper_l()->get_var ("volta_spanner_height") * 2.;
   return Interval (0., h);
 }
 

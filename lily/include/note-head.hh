@@ -25,7 +25,7 @@ protected:
   Molecule make_molecule () const;
 
   
-  virtual Interval do_width () const;
+  static  Interval dim_callback (Dimension_cache const*);
   virtual void do_pre_processing();
   virtual Molecule* do_brew_molecule_p() const;
 };

@@ -10,7 +10,8 @@
   TODO: too complicated implementation.  Why the dx_drul?.
  */
 
-
+#
+#include "dimension-cache.hh"
 #include "box.hh"
 #include "debug.hh"
 #include "lookup.hh"
@@ -23,16 +24,11 @@ Extender_spanner::Extender_spanner ()
   : Directional_spanner ()
 {
   dx_f_drul_[LEFT] = dx_f_drul_[RIGHT] = 0.0;
+  dim_cache_[Y_AXIS]->set_callback (Dimension_cache::point_dimension_callback);
 }
 
 
-Offset
-Extender_spanner::center () const
-{
-  Real dx = extent (X_AXIS).length ();
 
-  return Offset (dx / 2, 0);
-}
 
 Molecule*
 Extender_spanner::do_brew_molecule_p () const
@@ -51,11 +47,7 @@ Extender_spanner::do_brew_molecule_p () const
   return mol_p;
 }
 
-Interval
-Extender_spanner::do_height () const
-{
-  return Interval (0,0);
-}
+
 
 void
 Extender_spanner::do_post_processing ()

@@ -22,7 +22,8 @@ Dots::do_post_processing ()
   if (!dots_i_)
     {
       set_elt_property ("transparent", SCM_BOOL_T);
-      set_empty (true, X_AXIS, Y_AXIS);
+      set_empty (X_AXIS);
+      set_empty (Y_AXIS);
     }
   else
     {

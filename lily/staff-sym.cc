@@ -29,18 +29,11 @@ Staff_symbol::do_print() const
 #endif
 }
 
-Interval
-Staff_symbol::do_height() const
-{
-  Interval i =Interval (0, staff_line_leading_f_ * (no_lines_i_-1));
-  i += - i.center ();
-  return i;
-}
 
 Molecule*
 Staff_symbol::do_brew_molecule_p() const
 {
-  Graphical_element * common
+  Score_element * common
     = spanned_drul_[LEFT]->common_refpoint (spanned_drul_[RIGHT], X_AXIS);
 
 #if 0

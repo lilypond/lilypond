@@ -14,9 +14,11 @@
 Single_malt_grouping_item ::Single_malt_grouping_item()
 {
   set_elt_property ("transparent", SCM_BOOL_T);
+  set_elt_property ("elements", SCM_EOL);
 
   // this is weird! , but needed!
-  set_empty (true, X_AXIS, Y_AXIS);
+  set_empty (X_AXIS);
+  set_empty ( Y_AXIS);
 
 }
 
@@ -24,7 +26,10 @@ void
 Single_malt_grouping_item::add_item (Item* i)
 {
   assert (i);
-  item_l_arr_.push (i);
+  set_elt_property ("elements",
+		    gh_cons (i->self_scm_,
+			     get_elt_property ("elements")));
+
   add_dependency (i);
 }
 
@@ -33,9 +38,16 @@ Single_malt_grouping_item::my_width () const
 {
   Paper_column * pc = column_l ();
   Interval w;
-  for (int i=0; i < item_l_arr_.size (); i++)
+  
+  for (SCM s = get_elt_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
     {
-      Item *il = item_l_arr_[i];
+      SCM elt = gh_car (s);
+      if (!SMOB_IS_TYPE_B(Score_element, elt))
+	continue;
+
+      
+      
+      Item *il = dynamic_cast<Item*> (SMOB_TO_TYPE (Score_element, elt));
       if (pc != il->column_l ())
 	{
 	  /* this shouldn't happen, but let's continue anyway. */
@@ -56,26 +68,4 @@ Single_malt_grouping_item::my_width () const
 }
 
 
-
-void
-Single_malt_grouping_item::do_substitute_element_pointer (Score_element*o,
-							  Score_element*n)
-{
-  if (dynamic_cast <Item *> (o))
-    {
-      item_l_arr_.unordered_substitute (dynamic_cast <Item *> (o),
-					dynamic_cast <Item *> (n));
-    }
-}
-
-void
-Single_malt_grouping_item::do_print () const
-{
-#ifndef NDEBUG
-  for (int i=0; i < item_l_arr_.size (); i++)
-    {
-      DEBUG_OUT << classname (item_l_arr_[i]) << ", ";
-    }
-#endif
-}
 

@@ -85,7 +85,7 @@ Bar::do_pre_processing ()
     }
 
   if (type_str_ =="")
-    set_empty (true, X_AXIS);
+    set_empty (X_AXIS);
 }
   
 

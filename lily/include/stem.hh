@@ -63,7 +63,7 @@ public:
     don't print flag when in beam.
     our beam, for aligning abbrev flags
    */
-  Beam* beam_l_;
+  Beam* beam_l () const;
 
   Drul_array<int> beams_i_drul_;
   Stem ();
@@ -100,7 +100,7 @@ protected:
   Molecule flag () const;
   virtual void do_substitute_element_pointer (Score_element*,Score_element*);
   virtual void do_pre_processing();
-  virtual Interval do_width() const;
+  static Interval dim_callback (Dimension_cache const*);
   virtual Molecule* do_brew_molecule_p() const;
 
   void set_spacing_hints () ;

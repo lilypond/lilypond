@@ -207,7 +207,7 @@ Auto_beam_engraver::create_beam_p ()
       /*
 	watch out for stem tremolos and abbreviation beams
        */
-      if ((*stem_l_arr_p_)[i]->beam_l_)
+      if ((*stem_l_arr_p_)[i]->beam_l ())
 	{
 	  return 0;
 	}
@@ -334,7 +334,7 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
 	  return;
 	}
 
-      if (stem_l->beam_l_)
+      if (stem_l->beam_l ())
 	{
 	  if (stem_l_arr_p_)
 	    junk_beam ();

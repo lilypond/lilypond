@@ -152,7 +152,7 @@ Beam_engraver::acknowledge_element (Score_element_info info)
   if (beam_p_)
     {
       Stem* stem_l = dynamic_cast<Stem *> (info.elem_l_);
-      if (!stem_l || stem_l->beam_l_)
+      if (!stem_l || stem_l->beam_l ())
 	return;
 
 

@@ -8,17 +8,18 @@
 
 #include "dimension-cache.hh"
 #include "parray.hh"
-#include "graphical-element.hh"
+#include "score-element.hh"
+
 
 Dimension_cache::Dimension_cache (Dimension_cache const &d)
 {
   init();
   callback_l_ = d.callback_l_;
-  empty_b_ = d.empty_b_;
   basic_offset_ = d.basic_offset_;
   extra_offset_ = d.extra_offset_;
   off_valid_b_ = d.off_valid_b_;
   off_callbacks_ = d.off_callbacks_;
+  parent_l_ = d.parent_l_;  
 }
 
 Dimension_cache::Dimension_cache ()
@@ -38,7 +39,6 @@ Dimension_cache::init()
   dim_.set_empty ();
   parent_l_ =0;
   valid_b_ = false;
-  empty_b_ = false;
   off_valid_b_ = false;
 }
 
@@ -127,38 +127,29 @@ Dimension_cache::common_refpoint (Dimension_cache const* s) const
   return (Dimension_cache*) common;
 }
 
-
-
-void
-Dimension_cache::set_empty (bool b)
+Interval
+Dimension_cache::point_dimension_callback (Dimension_cache const* )
 {
-  if (empty_b_ != b)
-    {
-      empty_b_ = b;
-      if (!empty_b_)
-	invalidate ();
-    }
-}  
+  return Interval (0,0);
+}
 
 Interval
 Dimension_cache::get_dim () const
 {
   Interval r;
-  if (empty_b_)
+  Dimension_cache *nc = ((Dimension_cache*)this);
+  if (!callback_l_)
     {
-      r.set_empty ();
-      return r;
+      nc->dim_.set_empty ();
     }
-      
-  if (!valid_b_)
+  else if (!valid_b_)
     {
-      Dimension_cache *nc = ((Dimension_cache*)this);
+
       nc->dim_= (*callback_l_ ) (nc);
       nc->valid_b_ = true;
     }
 
   r=dim_;
-
   return r;
 }
 

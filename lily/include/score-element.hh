@@ -9,8 +9,8 @@
 
 #include "parray.hh"
 #include "virtual-methods.hh"
-#include "graphical-element.hh"
 #include "lily-guile.hh"
+#include "lily-proto.hh"
 #include "smobs.hh"
 
 typedef void (Score_element::*Score_element_method_pointer) (void);
@@ -34,7 +34,7 @@ Boolean (true iff defined)
  transparent -- do not calc. output
 
 */
-class Score_element : public virtual Graphical_element {
+class Score_element  {
   /**
      properties specific for this element. Destructor will not call
      scm_unprotect, so as to allow more flexible GC arrangements.  The
@@ -116,9 +116,7 @@ protected:
   int dependency_size () const;
   
   virtual void output_processing ();
-  virtual Interval do_height () const;
-  virtual Interval do_width () const;
-
+  static Interval molecule_extent (Dimension_cache const*);
 
   /// do printing of derived info.
   virtual void do_print () const;
@@ -138,37 +136,58 @@ protected:
     
   virtual void do_substitute_element_pointer (Score_element * , Score_element *);
   virtual void do_break_processing ();
-  virtual void handle_broken_dependencies ();
-  virtual void handle_prebroken_dependencies ();
-  virtual void handle_prebroken_dependents ();
-  virtual void handle_broken_dependents ();
+
   virtual Link_array<Score_element> get_extra_dependencies () const;
 
   static Interval dim_cache_callback (Dimension_cache const*);
 public:
+  virtual void handle_broken_dependencies ();
+  virtual void handle_prebroken_dependencies ();
+
 
   DECLARE_SMOBS;
+
+  void init ();
+
+public:
+  Dimension_cache *dim_cache_[NO_AXES];
+
+  /**
+     Set this if anyone points to me, or if I point to anyone.
+   */
+  bool used_b_;
+  
+  char const * name () const;
+  /**
+     Set empty in direction A.
+   */
+  void set_empty (Axis a);
+  bool empty_b (Axis a) const;
+  void invalidate_cache (Axis);
+  Interval extent (Axis) const;
+ 
+  /**
+    translate in one direction
+    */
+    
+  void translate_axis (Real, Axis);
+
+  Real relative_coordinate (Score_element const* refp, Axis) const;
+  /**
+    Find the group-element which has both #this# and #s#
+   */
+  Score_element*common_refpoint (Score_element const* s, Axis a) const;
+  Score_element*common_refpoint (Link_array<Score_element> elems, Axis a) const;
+
+  /**
+     Set the  parent refpoint of THIS to E
+   */
+  void set_parent (Score_element* e, Axis);
+  
+  Score_element *parent_l (Axis a) const;
+  void fixup_refpoint ();
 };
 
-
-template<class T>
-void
-substitute_element_array (Link_array<T> &arr, Line_of_score * to)
-{
-  Link_array<T> newarr;
-  for (int i =0; i < arr.size (); i++)
-    {
-      T * t = arr[i];
-      if (t->line_l () != to)
-	{
-	  t = dynamic_cast<T*> (t->find_broken_piece (to));
-	}
-      
-      if (t)
-	newarr.push (t);
-    }
-  arr = newarr;
-}
 
 
 

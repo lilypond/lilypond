@@ -132,11 +132,14 @@ Paper_column::column_l () const
 }
 
 /*
-  ugh.
+  ugh. JUNKME
  */
 void
 Paper_column::preprocess ()
 {
+  /*
+    JUNKME
+   */ 
   minimal_dists_arr_drul_[LEFT].sort (Column_rod::compare);
   minimal_dists_arr_drul_[RIGHT].sort (Column_rod::compare);  
   spring_arr_drul_[LEFT].sort (Column_spring::compare);

@@ -7,7 +7,7 @@
 
   TODO: This is way too hairy
 */
-
+#include "dimension-cache.hh"
 #include "stem.hh"
 #include "debug.hh"
 #include "paper-def.hh"
@@ -24,7 +24,6 @@ Stem::Stem ()
   beams_i_drul_[LEFT] = beams_i_drul_[RIGHT] = -1;
   yextent_drul_[DOWN] = yextent_drul_[UP] = 0;
   flag_i_ = 2;
-  beam_l_ = 0;
 }
 
 Interval_t<int>
@@ -55,8 +54,6 @@ Stem::do_print () const
 {
 #ifndef NPRINT
   DEBUG_OUT << "flag "<< flag_i_;
-  if (beam_l_)
-    DEBUG_OUT << "beamed";
 #endif
 }
 
@@ -238,8 +235,11 @@ Stem::do_pre_processing ()
   if (invisible_b ())
     {
       set_elt_property ("transparent", SCM_BOOL_T);
+      set_empty (Y_AXIS);      
+      set_empty (X_AXIS);      
     }
-  set_empty (invisible_b (), X_AXIS, Y_AXIS);
+
+
   set_spacing_hints ();
 }
 
@@ -290,15 +290,17 @@ Stem::flag () const
 }
 
 Interval
-Stem::do_width () const
+Stem::dim_callback (Dimension_cache const* c) 
 {
+  Stem * s = dynamic_cast<Stem*> (c->element_l ());
+  
   Interval r (0, 0);
-  if (beam_l_ || abs (flag_i_) <= 2)
+  if (s->get_elt_property ("beam") != SCM_UNDEFINED || abs (s->flag_i_) <= 2)
     ;	// TODO!
   else
     {
-      r = flag ().dim_.x ();
-      r += note_delta_f ();
+      r = s->flag ().dim_.x ();
+      r += s->note_delta_f ();
     }
   return r;
 }
@@ -328,7 +330,8 @@ Stem::do_brew_molecule_p () const
       mol_p->add_molecule (ss);
     }
 
-  if (!beam_l_ && abs (flag_i_) > 2)
+  if (get_elt_property ("beam") == SCM_UNDEFINED
+      && abs (flag_i_) > 2)
     {
       Molecule fl = flag ();
       fl.translate_axis(stem_y[get_direction ()]*dy, Y_AXIS);
@@ -373,11 +376,14 @@ Stem::do_substitute_element_pointer (Score_element*o,Score_element*n)
     head_l_arr_.substitute (h, dynamic_cast<Note_head*>(n));
   if (Rest *r=dynamic_cast<Rest*> (o))
     rest_l_arr_.substitute (r, dynamic_cast<Rest*>(n));
-  if (Beam* b = dynamic_cast<Beam*> (o))
-    {
-      if (b == beam_l_) 
-	beam_l_ = dynamic_cast<Beam*> (n);
-    }
-  Staff_symbol_referencer::do_substitute_element_pointer (o,n);
 }
 
+Beam*
+Stem::beam_l ()const
+{
+  SCM b=  get_elt_property ("beam");
+  if (SMOB_IS_TYPE_B(Score_element, b))
+    return dynamic_cast<Beam*> (SMOB_TO_TYPE(Score_element,b));
+  else
+    return 0;
+}

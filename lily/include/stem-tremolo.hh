@@ -14,13 +14,12 @@
 
 
 class Stem_tremolo : public Item {
-  Stem * stem_l_;
 protected:
+  Stem * stem_l () const;
   virtual void do_print () const;
   virtual Molecule *do_brew_molecule_p () const;
-  virtual void do_substitute_element_pointer (Score_element*, Score_element*);
-  virtual Interval do_width () const;
-  virtual void do_pre_processing ();
+
+  static Interval dim_callback (Dimension_cache const*);
 public:
   int abbrev_flags_i_;
   Stem_tremolo ();

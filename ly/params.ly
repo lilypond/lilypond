@@ -96,9 +96,12 @@ grace_forced_stem_shorten3 = \grace_forced_stem_shorten2;
 % * MEDIAN   : mean centre distance weighted per note
 %
 
-#'slope-quantisation = #'normal
 #'beam-dir-algorithm = #'majority	%urg.
 #'Stem_tremolo::beam-width = 1.5 * \quartwidth ; 
+
+% The beams should be prevented to conflict with the stafflines, 
+% especially at small slopes.
+#'slope-quantisation = #'normal
 
 
 

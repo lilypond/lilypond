@@ -44,5 +44,5 @@ localinstall:
 	$(LN_S) $(TEX_TFMDIR) $(datadir)/cmtfm
 
 local-WWW-clean:
-	$(depth)/buildscripts/out/clean-fonts
+	$(SHELL) $(depth)/buildscripts/clean-fonts.sh
 

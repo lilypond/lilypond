@@ -25,10 +25,6 @@ typedef Real (*Offset_cache_callback)(Dimension_cache const *);
 class Dimension_cache
 {
   bool valid_b_;
-  /** Is this element dimensionless?.
-    This is private to guarantee correctness of the cache
-   */
-  bool empty_b_;
   Interval dim_;
   /**
     The offset wrt. to the center of #parent_l_#
@@ -36,18 +32,19 @@ class Dimension_cache
 
   Real extra_offset_;
   Real basic_offset_;
-  
   bool off_valid_b_;
 
-  
-  Graphical_element *elt_l_;
-  Dim_cache_callback callback_l_;
-  friend class Graphical_element;
+  Score_element *elt_l_;
+  friend class Score_element;
 
   void init ();
 public:
   Array<Offset_cache_callback> off_callbacks_;
-  
+  /**
+     What to call to find extent.  Nil means empty. 
+   */
+  Dim_cache_callback callback_l_;
+  static Interval point_dimension_callback (Dimension_cache const* );
   Axis axis () const;
   Real get_offset () const;
   void set_callback (Dim_cache_callback);
@@ -56,7 +53,7 @@ public:
   void set_offset_callback (Offset_cache_callback);
   Dimension_cache * parent_l_;
 
-  Graphical_element *element_l () const { return elt_l_; }
+  Score_element *element_l () const { return elt_l_; }
 
   void invalidate ();
   void invalidate_dependencies ();
@@ -81,7 +78,7 @@ public:
   void set_offset (Real);
 
   bool valid_b () const { return valid_b_; }
-  bool empty_b() const { return empty_b_; }
+  bool empty_b() const;
   Interval get_dim () const;
 };
 
