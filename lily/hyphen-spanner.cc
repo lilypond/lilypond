@@ -20,20 +20,14 @@
 #include "paper-column.hh"
 #include "paper-def.hh"
 #include "hyphen-spanner.hh"
+#include "dimension-cache.hh"
 
 Hyphen_spanner::Hyphen_spanner ()
   : Directional_spanner ()
 {
   dx_f_drul_[LEFT] = dx_f_drul_[RIGHT] = 0.0;
-}
 
-// UGH - is this even used?
-Offset
-Hyphen_spanner::center () const
-{
-  Real dx = extent (X_AXIS).length ();
-
-  return Offset (dx / 2, 0);
+  dim_cache_[Y_AXIS]->set_callback (Dimension_cache::point_dimension_callback);
 }
 
 Molecule*
@@ -41,7 +35,7 @@ Hyphen_spanner::do_brew_molecule_p () const
 {
   Molecule* mol_p = new Molecule;
 
-  Real w = extent (X_AXIS).length ();
+  Real w = spanner_length ();
 
   w += (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
 
@@ -61,11 +55,6 @@ Hyphen_spanner::do_brew_molecule_p () const
   return mol_p;
 }
 
-Interval
-Hyphen_spanner::do_height () const
-{
-  return Interval (0,0);
-}
 
 void
 Hyphen_spanner::do_post_processing ()
