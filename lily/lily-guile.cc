@@ -80,69 +80,6 @@ ly_write2scm (SCM s)
 }
 
 
-/*
-  Pass string to scm parser, evaluate one expression.
-  Return result value and #chars read.
-
-  Thanks to Gary Houston <ghouston@freewire.co.uk>
-
-  Need guile-1.3.4 (>1.3 anyway) for ftell on str ports -- jcn
-*/
-/*
-  should move this func elsewhere (?)
- */
-SCM
-ly_parse_scm (char const* s, int* n, Input ip)
-{
-  SCM str = ly_str02scm (s);
-  SCM port = scm_mkstrport (SCM_INUM0, str, SCM_OPN | SCM_RDNG,
-                            "ly_eval_scm_0str");
-
-  scm_set_port_filename_x (port, scm_makfrom0str (ip.file_string ().str0()));
-  scm_set_port_line_x (port,  gh_int2scm (ip.line_number ()));
-  scm_set_port_column_x (port,  gh_int2scm (ip.column_number()));
-  
-  SCM from = scm_ftell (port);
-
-  SCM form;
-  SCM answer = SCM_UNSPECIFIED;
-
-  /* Read expression from port */
-  if (!SCM_EOF_OBJECT_P (form = scm_read (port)))
-    answer = scm_primitive_eval (form);
- 
-  /*
-   After parsing
-
- (begin (foo 1 2))
-
-   all seems fine, but after parsing
-
- (foo 1 2)
-
-   read_buf has been advanced to read_pos - 1,
-   so that scm_ftell returns 1, instead of #parsed chars
-   */
-  
-  /*
-    urg: reset read_buf for scm_ftell
-    shouldn't scm_read () do this for us?
-  */
-  scm_fill_input (port);
-  SCM to = scm_ftell (port);
-  *n = gh_scm2int (to) - gh_scm2int (from);
-
-  /* Don't close the port here; if we re-enter this function via a
-     continuation, then the next time we enter it, we'll get an error.
-     It's a string port anyway, so there's no advantage to closing it
-     early.
-
-     scm_close_port (port);
-  */
-
-  return answer;
-}
-
 SCM
 ly_quote_scm (SCM s)
 {
