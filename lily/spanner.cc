@@ -6,6 +6,7 @@
   (c) 1996--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 #include <math.h>
+#include <libc-extension.hh>
 
 #include "dimension-cache.hh"
 #include "debug.hh"

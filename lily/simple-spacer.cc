@@ -11,6 +11,7 @@
 */
 
 #include <math.h>
+#include <libc-extension.hh>
 
 #include "simple-spacer.hh"
 #include "paper-column.hh"
