@@ -232,3 +232,26 @@ Lookup::stem(Real y1,Real y2) const
     s.tex = substitute_args(src,a);
     return s;
 }
+
+Symbol
+Lookup::vbrace(Real &y) const
+{
+    if (y < 2* 20 PT) {
+	warning ( "piano brace too small (" + print_dimen(y)+ ")");
+	y = 2*20 PT;
+    }
+    if (y > 67 * 2 PT) {
+	warning ( "piano brace too big (" + print_dimen(y)+ ")");	
+	y = 67 *2 PT;
+    }
+    
+    int idx = (y/2.0 - 20 ) + 148;
+    
+    Symbol s = (*symtables_)("param")->lookup("brace");
+    
+    Array<String> a;
+    a.push(idx);
+    s.tex = substitute_args(s.tex,a);
+    s.dim.y = Interval(0,y);
+    return s;
+}
