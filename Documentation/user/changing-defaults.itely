@@ -1593,7 +1593,7 @@ interpreting non-ASCII strings.
 
 @seealso
 
-@inputfileref{input/regression,utf8.ly}
+@inputfileref[fontload]{input/regression,utf8.ly}
 
 
 @node Nested scores

@@ -36,7 +36,7 @@
 	  (dump-stencil-as-EPS
 	   paper
 	   line (format "~a-~a" basename count)
-	   #f)
+	   (ly:output-def-lookup paper 'force-eps-font-include))
 
 	  (dump-stencils-as-separate-EPS rest (1+ count))
 	  )))

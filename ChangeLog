@@ -1,5 +1,13 @@
 2005-02-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/user/changing-defaults.itely (Text encoding): add
+	fontload option to utf8 include
+
+	* scripts/lilypond-book.py (compose_ly): add fontload option
+
+	* scm/framework-eps.scm (dump-stencils-as-EPSes): add
+	force-eps-font-include option.
+
 	* ly/chord-modifiers-init.ly (blackTriangleMarkup): reinstate
 	black triangle
 
