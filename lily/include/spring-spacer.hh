@@ -13,10 +13,12 @@
 #include "line-spacer.hh"
 #include "plist.hh"
 #include "col-info.hh"
+#include "colhpos.hh"
 
-/** the problem, given by the columns (which include constraints) and
-    intercolumn spacing. The problem is:
-
+/** 
+  Determine positions of columns connected by springs and held apart by rods
+  
+  
     Generate a spacing which
     \begin{itemize}
     \item
@@ -24,6 +26,7 @@
     \item
     Looks good, ie tries to conform to  an ideal spacing as much as possible.
     \end{itemize}
+  
     This is converted by regarding idealspacing as "springs" attached
     to columns. The equilibrium of one spring is the ideal
     distance. The columns have a size, this imposes "hard" constraints
@@ -33,7 +36,7 @@
     The quality is given by the total potential energy in the
     springs. The lower the energy, the better the configuration.
 
-    TODO: make item widths work per pstaff.
+    TODO: make item widths work per Staff.
 
 */
 
@@ -77,22 +80,24 @@ class Spring_spacer : public Line_spacer {
     void add_ideal(Idealspacing const *i);
     Vector try_initial_solution() const;
     void calc_idealspacing();
+    void set_fixed_cols(Mixed_qp&)const;
 
     Score_column* scol_l(int);
     void connect(int i,int j, Real,Real);
+    Line_of_cols error_pcol_l_arr()const;
 public:
     static Line_spacer *constructor();
-    Array<PCol*> error_pcol_l_arr() const;
 
-    virtual   Array<Real> solve() const;
-    virtual  void add_column(PCol  *, bool fixed=false, Real fixpos=0.0);
+    virtual void solve(Col_hpositions*) const;
+    virtual void lower_bound_solution(Col_hpositions*) const;
+    virtual void add_column(PCol  *, bool fixed=false, Real fixpos=0.0);
  
 
     virtual Vector default_solution() const;
-    virtual   bool check_constraints(Vector v) const;
-    virtual    void OK() const;
-    virtual    void print() const;
-    virtual    void prepare();
+    virtual bool check_constraints(Vector v) const;
+    virtual void OK() const;
+    virtual void print() const;
+    virtual void prepare();
     virtual ~Spring_spacer(){}
 };
 

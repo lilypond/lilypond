@@ -48,6 +48,10 @@ public:
     virtual MInterval time_int()const;
 };
 
+/**
+  The request is a collection of Requests. A note that you enter in mudela is 
+  one Request_chord, one syllable of lyrics is one Request_chord
+ */
 class Request_chord : public Chord {
 public:
     DECLARE_MY_RUNTIME_TYPEINFO;

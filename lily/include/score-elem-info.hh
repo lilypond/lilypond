@@ -14,7 +14,9 @@
 #include "lily-proto.hh"
 #include "varray.hh"
 
-/// data container.
+/**
+  Data container for broadcasts 
+  */
 struct Score_elem_info {
     Score_elem * elem_l_;
     Request*req_l_;
