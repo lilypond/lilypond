@@ -33,9 +33,11 @@ $}
 
 				% more of this.
 begeleiding =
-$	\clef "bass"		% bass-clef
-	\music { 		% as you can see, the $ sign obliges 
+%	$\clef bass		% bass-clef
+%	\music { 		% as you can see, the $ sign obliges 
 				% you to precede keyword by a backslash: \
+	music { $
+	\clef "bass"
 	\octave { ` } 		% default octave: 1 below the first octave.
 
 	%%% theme
