@@ -12,9 +12,9 @@ closer to the note head (staccato, accent) are reckoned with.
 		      e,-.-> -\f
 		      e \rfz		      
 		      c' -\mf
-		      c -\mp \> \!
-		      c \ppppp \< \!
-		      c \sfp
+		      c -\mp \> 
+		      c-\!-\ppppp \< 
+		      c-\sfp-\!
 		      
 }
 }

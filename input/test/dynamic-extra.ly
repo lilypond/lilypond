@@ -10,9 +10,9 @@ piuf =	\markup {  \italic "pi\\`u" \dynamic "f" }
     \notes\relative c''{
 	c-\piuf
 	c
-	c2\< \! c2
+	c2\< c2-\!
 	
-	c2\< \! c2
+	c2\< c2-\!
 	}
 \paper{raggedright = ##t}
     }

@@ -9,7 +9,7 @@
     \relative c'' <
         {
 	    \stemDown
-            f16( \> d \! b \translator Staff = down \stemUp
+            f16( \> d b-\! \translator Staff = down \stemUp
             \clef treble g ~ << g e>>8-)
 	    
 	     e-[ \translator Staff = up

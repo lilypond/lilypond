@@ -11,7 +11,7 @@ line. Isolated dynamics may be forced up or down.
 \score{
 \notes\relative c''{
 a1^\sfz
-a1-\fff\> \!c,,-\pp a'' a-\p
+a1-\fff\> c,,-\!-\pp a'' a-\p
 
 % We need this to test if we get two Dynamic line spanners
 a

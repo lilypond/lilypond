@@ -203,7 +203,7 @@ trebleThrough =  \notes \relative c'{
 	[<<g, g'>>8.-\< <<g g'>>16 <<b b'>>8. <<b b'>>16-\>-\! <<d d'>>8. <<d d'>>16] |
 
 	%% score has double slur on chord.
-	<<c c'>>4-( <<b c'>>-) \! r  
+	<<c c'>>4-( <<b c'>>-) r-\!
 
 	<<g g'>>4. <<b b'>>8 [<<d' d, >>8.-> c16] |
 	%65

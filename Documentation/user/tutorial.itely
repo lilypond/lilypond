@@ -52,7 +52,6 @@ should then be able to create and print your first sheets of music.
 * Running LilyPond::            Printing music.
 * More about pitches and accidentals::  
 * Octave entry::                
-* Relative octave entry::       
 * Combining music into compound expressions::  
 * Adding articulation marks to notes::  
 * Combining notes into chords::  
@@ -481,6 +480,22 @@ typing, but the advantage is that transposing is easier. It also makes
 it possible to use different conventions for when to print
 accidentals.
 
+@cindex beams, by hand 
+Beams are drawn automatically, but if you do not like where they are
+put, they can be entered by hand. Mark the first note to be beamed
+with @code{[} and the last one with @code{]}:
+@quotation
+@lilypond[fragment,relative 1, verbatim]
+a8-[ ais-] d-[ es r d-]
+@end lilypond
+@end quotation
+@separate
+
+Rests are described in full detail in @ref{Rests}. 
+
+The notation manual discusses ties in @ref{Ties}.
+
+
 @node  Octave entry
 @section Octave entry
 
@@ -627,38 +642,7 @@ Here is an example of the difference between relative mode and
 
 
 
-@node  Relative octave entry
-@section Relative octave entry
 
-@c lousy example
-@c ? --hwn
-@c fragment of 1st hrn in Adams' The Chairman Dances, with creative
-@c chromatic thing pasted in front.  (admittedly the original does not
-@c have a phrasing slur. The problem is that we do not want the slur
-@c and the Phrasing slur to collide. We are trying to make a good
-@c impression here.
-
-@quotation
-@lilypond[fragment,relative 1, verbatim]
-a8-(-\( ais b  c-) cis2 b'2 a4 cis,  c-\)
-@end lilypond
-@end quotation
-@separate
-
-@cindex beams, by hand 
-Beams are drawn automatically, but if you do not like where they are
-put, they can be entered by hand. Mark the first note to be beamed
-with @code{[} and the last one with @code{]}:
-@quotation
-@lilypond[fragment,relative 1, verbatim]
-a8-[ ais-] d-[ es r d-]
-@end lilypond
-@end quotation
-@separate
-
-Rests are described in full detail in @ref{Rests}. 
-
-The notation manual discusses ties in @ref{Ties}.
 
 
 
@@ -866,6 +850,13 @@ c2-~-( c8 fis fis4 ~ fis2 g2-)
 If you need two slurs at the same time (one for articulation, one for
 phrasing), you can also make a phrasing slur with @code{\(} and
 @code{\)}.
+
+@quotation
+@lilypond[fragment,relative 1, verbatim]
+a8-(-\( ais b  c-) cis2 b'2 a4 cis,  c-\)
+@end lilypond
+@end quotation
+
 
 More information on fingering, articulation, slurs, phrasing slurs,
 and dynamics can be found in @ref{Fingering instructions},

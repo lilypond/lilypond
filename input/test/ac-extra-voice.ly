@@ -18,7 +18,7 @@ global = \notes{
 melody = \notes\relative c''{
     r2 r r 
     r2 r r
-    r4 a'8-- \< a-- a-- a-- c-- \!b-- a--\> gis f \!e 
+    r4 a'8-- \< a-- a-- a-- c-- b-\!-- a--\> gis f e-\!
     es8 \grace b c r4 r2 r
 }
 

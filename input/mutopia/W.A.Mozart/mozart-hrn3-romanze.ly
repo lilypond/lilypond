@@ -29,7 +29,7 @@ romanze = \notes \relative c' {
 	% 25
 	 c16-[ ( d c  d-)]  e-[ ( f e  f-)]  g-[( e-) c-. c-.]  f-[( d-) b-. b-.]
 	 c16-[-\p ( d c  d-)]  e-[ ( f e  f-)]  g-[( e-) c-. c-.]  f-[( d-) b-. b-.]
-	 c8-[ \< c, c c]  c-[ c c \! c ]
+	 c8-[ \< c, c c]  c-[ c c c-\!-]
 	\mark "B"
 	c1-\f
 	R1*9
@@ -44,22 +44,22 @@ romanze = \notes \relative c' {
 	 c-[ ( e-) g g]  g-[( f e  d-)]
 	c4(
 	\grace { \longgrace e16 \endlonggrace }
-	 d8.-[  c16-) \< ]  c8-[ c-.( c-. \!  c-)-.]
+	 d8.-[  c16-) \< ]  c8-[ c-.( c-. c-)-.-]-\!
 	\mark "C"
 
 	%% this is a trick to get the sfp-s to align. 
 	\property Voice.Hairpin \override #'transparent = ##t
-	des1\sfp \> \!
-	g,1\sfp  \> \!
-	c\sfp    \> \!
-	c,\sfp
+	des1\sfp \> 
+	g,1\sfp-\!  \> 
+	c\sfp -\!   \> 
+	c,\sfp-\!
 	\property Voice.Hairpin \revert #'transparent 
 	R1*3
 	r8  c-[-\p c c] c2~
 	 c8-[ c' c c] c2~
-	 c8-[ \< e( g f]  e-[ \! d \> c bes]
+	 c8-[ \< e( g f]  e-[  d-\!-\> c bes]
 	\mark "D"
-	\!  a4-) r r2
+	a4-\!-) r r2
 	R1*3
 	c4.-\p ( f8-) a,4 a |
 	 bes8-[ (c d bes-)] g4 r8 c,
