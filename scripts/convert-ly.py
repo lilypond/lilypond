@@ -1876,14 +1876,19 @@ conversions.append (((2,1,22), conv, """new syntax for property settings:
 def conv (str):
 	def subst_in_trans (match):
 		s = match.group (0)
-		s = re.sub (r'([a-zA-Z]+)\s*\\override',
-			      r'\\override \1', s)
-		s = re.sub (r'([a-zA-Z]+)\s*\\set',
-			      r'\\override \1', s)
-		s = re.sub (r'([a-zA-Z]+)\s*\\revert',
-			      r'\\revert \1', s)
+		s = re.sub (r'\s([a-zA-Z]+)\s*\\override',
+			      r' \\override \1', s)
+		s = re.sub (r'\s([a-zA-Z]+)\s*\\set',
+			      r' \\override \1', s)
+		s = re.sub (r'\s([a-zA-Z]+)\s*\\revert',
+			      r' \\revert \1', s)
 		return s
 	str = re.sub (r'\\(translator|with)\s*{[^}]+}',  subst_in_trans, str)
+
+	str = re.sub (r"""\\override\s*autoBeamSettings\s*#([^=]+)\s*=\s*#\(ly:make-moment\s+(\d+)\s+(\d)\s*\)""",
+		      r"""#(override-auto-beam-setting \1 \2 \3)""",
+		      str)
+	
 	return str
 	
 conversions.append (((2,1,23), conv, """Property setting syntax in \\translator{ }"""))

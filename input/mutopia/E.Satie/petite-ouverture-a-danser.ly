@@ -139,14 +139,14 @@ lower = \context Staff \notes \relative c{
 	\clef bass
         \lower
       >>
+	    \override Slur #'attachment = #'(stem . stem)
+	    #(override-auto-beam-setting '(end 1 8 * *)  1 4)
+	    #(override-auto-beam-setting '(end 1 16 * *)  1 4)
     >>
 
   \paper {
     \translator{
 	    \VoiceContext
-	    \override Slur #'attachment = #'(stem . stem)
-	    \override autoBeamSettings #'(end 1 8 * *) = #(ly:make-moment 1 4)
-	    \override autoBeamSettings #'(end 1 16 * *) = #(ly:make-moment 1 4)
     }
   }
   \midi {

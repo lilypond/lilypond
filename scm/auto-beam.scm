@@ -116,7 +116,7 @@ a fresh copy of the  list-head is made."
 		   setting))
   )
 
-(define-public (override-auto-beam-setting setting num den)
+(define-public (override-auto-beam-setting setting num den . rest)
   (ly:export
    (context-spec-music
     (make-apply-context (lambda (c)
@@ -124,18 +124,19 @@ a fresh copy of the  list-head is made."
 			   c 'autoBeamSettings
 			   setting (ly:make-moment num den))
 			  ))
-    'Voice)
-  ))
+    (if (and (pair? rest) (symbol? (car rest)))
+	(car rest)
+	'Voice)
+  )))
 
-(define-public (revert-auto-beam-setting setting)
+(define-public (revert-auto-beam-setting setting . rest)
   (ly:export
    (context-spec-music
     (make-apply-context (lambda (c)
 			  (revert-property-setting
 			   c 'autoBeamSettings
 			   setting)))
-    
-    'Voice)))
-  
-
+    (if (and (pair? rest) (symbol? (car rest)))
+	(car rest)
+	'Voice))))
 

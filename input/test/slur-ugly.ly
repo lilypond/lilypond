@@ -15,6 +15,7 @@ baseWalk = \notes \relative c {
     \context Staff=up { s1 * 6/4 }
     \context Staff=down <<
       \clef bass
+      #(override-auto-beam-setting '(end * * * *)  1 2 'Score)
       \autochange  \context Voice \baseWalk
     >>
   >>
@@ -25,8 +26,6 @@ baseWalk = \notes \relative c {
       \override Slur #'beautiful = #5.0
       \override Slur #'direction = #1
       \override Stem #'direction = #-1
-      \override autoBeamSettings #'(end * * * *)
-     = #(ly:make-moment 1 2)
     }
     \translator {
       \PianoStaffContext

@@ -456,7 +456,7 @@ AncientRemoveEmptyStaffContext = \translator {
     
     explicitClefVisibility = #all-visible
     explicitKeySignatureVisibility = #all-visible
-    autoBeamSettings = #(cons default-auto-beam-settings '())
+    autoBeamSettings = #default-auto-beam-settings
     autoBeaming = ##t
     scriptDefinitions = #default-script-alist
 

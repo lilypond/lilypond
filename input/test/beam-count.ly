@@ -1,5 +1,5 @@
 
-\version "2.1.22"
+\version "2.1.23"
 \header{
 	texidoc="@cindex Beam Count
 
@@ -9,7 +9,7 @@ two sets of four 32nds joined as if they were 8th notes.
 " }
 
 fragment = \notes {
-  \override autoBeamSettings  #'(end * * * *) = #(ly:make-moment 1 4)
+  #(override-auto-beam-setting '(end * * * *)  1 4)
   f32 g a b b a g f
 
   f32 g a b 

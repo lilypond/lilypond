@@ -149,7 +149,7 @@ Auto_beam_engraver::test_moment (Direction dir, Moment test_mom)
     UGH UGH.
     settings aren't grob-properties.
    */
-  SCM settings = updated_grob_properties (daddy_trans_, ly_symbol2scm ("autoBeamSettings"));
+  SCM settings = get_property ("autoBeamSettings");
   
   /* first guess */
   
