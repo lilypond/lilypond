@@ -7,6 +7,7 @@
 Col_hpositions::Col_hpositions()
 {
     energy = INFTY;
+    ugh_b_ = false;
 }
 
 void

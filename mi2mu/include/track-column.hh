@@ -15,7 +15,7 @@ public:
 	Moment mom();
 
 //private:
-	IPointerList<Midi_event*> midi_event_p_list_;
+	IPointer_list<Midi_event*> midi_event_p_list_;
 	Moment mom_;
 };
 

@@ -38,7 +38,8 @@ private:
 
 class Midi_note : public Midi_event {
 public:
-	int const c0_pitch_i_c_ = 60;
+//	int const c0_pitch_i_c_ = 60; // huh?
+	int const c0_pitch_i_c_ = 48;
 
 	Midi_note( String name_str, Duration dur );
 	virtual Moment mom();

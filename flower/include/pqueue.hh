@@ -74,7 +74,7 @@ public:
 	OK();
     }
     T max() const {
-	int first_leaf_i = size();
+	//int first_leaf_i = size();
 	T max_t;
 	return max_t;
     }

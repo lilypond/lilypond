@@ -6,7 +6,7 @@ const char * mi2mu_version_sz();
 String
 mi2mu_version_str()
 {
-	return String ( "This is " ) + mi2mu_version_sz()
+	return  String( mi2mu_version_sz())
 	    + "/" + flower_version_sz()
 		+ " of " +  __DATE__ + " " + __TIME__;
 }

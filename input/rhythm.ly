@@ -3,7 +3,7 @@
  filename:rhythm.ly
  title:
  description: 
- composers:HWN
+ composers:
  entered-by:HWN
  copyright:public domain
 

@@ -202,9 +202,6 @@ Molecule*
 Stem::brew_molecule_p()const 
 {
     Molecule *out =0;
-    if (invisible_b() && ! rest_l_arr_.size())
-	warning("Empty stem. Ugh!");
-    
     if ( invisible_b() )
 	return Staff_elem::brew_molecule_p();
     

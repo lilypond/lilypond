@@ -80,7 +80,13 @@ Midi_key::notename_str( int pitch_i )
 }
 
 // statics Midi_note
-bool const Midi_note::simple_plet_b_s = false;
+/*
+ this switch can be used to write simple plets like 
+     c4*2/3 
+ as  
+     \plet{ 2/3 } c4 \plet{ 1/1 }
+ */
+bool const Midi_note::simple_plet_b_s = true;
 
 Midi_note::Midi_note( String name_str, Duration dur )
 {

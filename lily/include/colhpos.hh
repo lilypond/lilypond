@@ -12,6 +12,8 @@
 typedef Array<PCol*>  Line_of_cols;
 
 struct Col_hpositions {
+    bool ugh_b_;
+    Line_of_cols error_col_l_arr_;
     Line_of_cols cols;
     Array<Real> config;
     Real energy;

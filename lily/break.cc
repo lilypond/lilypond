@@ -27,6 +27,23 @@ Break_algorithm::find_breaks() const
     return retval;
 }
 
+
+Col_hpositions
+Break_algorithm::stupid_solution(Line_of_cols curline)const
+{
+    Spacing_problem sp;
+    sp.add_column(curline[0], true, 0.0);
+    for (int i=1; i< curline.size()-1; i++)
+       sp.add_column(curline[i]);
+    sp.add_column(curline.top(), true, linelength);
+   Col_hpositions colhpos;
+   colhpos.cols = curline;
+   colhpos.energy = INFTY;
+   colhpos.ugh_b_ = true;
+   colhpos.config = sp.try_initial_solution();
+   return colhpos;
+}
+
 /// construct an appropriate Spacing_problem and solve it. 
 Col_hpositions
 Break_algorithm::solve_line(Line_of_cols curline) const
@@ -42,11 +59,14 @@ Break_algorithm::solve_line(Line_of_cols curline) const
    for (iter_top(pscore_.suz,i); i.ok(); i++) {
        sp.add_ideal(i);
    }
+   sp.prepare();
+   
    Array<Real> the_sol=sp.solve();
    Col_hpositions col_hpos;
    col_hpos.cols = curline;
    col_hpos.energy = the_sol.pop();
    col_hpos.config = the_sol;
+   col_hpos.error_col_l_arr_ = sp.error_pcol_l_arr();
    col_hpos.OK();
    return col_hpos;
 }

@@ -101,6 +101,7 @@ PCol::breakable_b() const
 
 PCol::PCol(PCol *parent)
 {
+    error_mark_b_ = false;
     daddy_l_ = parent;
     prebreak_p_=0;
     postbreak_p_=0;

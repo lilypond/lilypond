@@ -32,10 +32,6 @@ bla = \lyric{
 }
 
 
-% Setting up music ...lilypond: ../flower/include/cursor.inl:98: class Cursor<void *> Cursor<void *>::operator ++(int): Assertion 'pointer_' failed.
-%IOT trap/Abort
-% als geen music in staff
-
 \include "this-is-hopefully-a-nonexisting-file"
 \score{
 	\staff{ bla }

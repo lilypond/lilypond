@@ -58,6 +58,7 @@ Show a summary of usage
 set init file to F<FILE> (default: F<symbol.ini>)
 
 =item B<--include, -I>=F<DIRECTORY>
+
 add F<DIRECTORY> to the search path for input files.
 
 =back
@@ -181,10 +182,27 @@ Check out the input files, some of them have comments
 
 =head1 PROBLEMS
 
-If GNU LilyPond bombs out, then please recompile using with debugging info
-turned on, and send a copy of the input which causes the error and a
-gdb stacktrace of the crash. It also helps if you can print the values
-of the objects. So if your trace is
+
+There is an extensive list of todoes and bugs. See F<TODO>. In
+general, try to find out 
+
+=over 4
+
+=item *
+
+if the bug has been fixed in a newer release.  
+
+=item *
+
+if the bug has been found earlier, consult F<TODO>
+
+=item * 
+
+where the bug comes from: if GNU LilyPond bombs out, then please
+recompile using with debugging info turned on, and send a copy of the
+input which causes the error and a gdb stacktrace of the crash. It
+also helps if you can print the values of the objects. So if your
+trace is
 
 	(gdb) backtrace 12
 	#0  Interval::operator+= (this=0x11fffec60..)
@@ -197,11 +215,12 @@ of the objects. So if your trace is
 Than it would help if you send a dump of the Interval and the Item
 (use: C<print *this> or use GNU LilyPond C<print()> methods).
 
-This is a beta version of GNU LilyPond. Please send your helpful comments
-and patches to me (see AUTHORS section)
+=back
 
-GNU LilyPond is updated very frequently, the latest version is always available at:
-ftp://pcnov095.win.tue.nl/pub/lilypond.
+Bug reports should be directed to
+bug-gnu-music@vuse.vanderbilt.edu. In any case, they should contain a
+description of the problem, an small input file which reproduces it
+(if applicable), lilypond version and a description of the platform.
 
 
 =head1 FILES
@@ -219,6 +238,8 @@ includes files from the directory F<init/>.
 
 B<LILYINCLUDE> an (one) additional directory for finding lilypond data.
 
+=head1 BUGS
+
 =head1 SEE ALSO
 
 =over 4
@@ -235,21 +256,62 @@ On the input format
 
 Goals of the GNU LilyPond project.
 
-=item The GNU LilyPond FAQ list
+=item FAQ
 
-=back
+The GNU LilyPond FAQ list
+
+
+
+=item http://?
+
+The GNU Music project. GNU LilyPond is part of the GNU Music
+project. For more information on the GNU Music project, 
+
+=item http://www.stack.nl/~hanwen/lilypond/index.html
 
 GNU LilyPond has her own webpage at
-http://www.stack.nl/~hanwen/lilypond/index.html. This webpage contains
+This webpage contains
 the MIDI, GIF and PS files for some standard music files. It also has
 the complete LilyPond documentation
 
-A mailing list for GNU LilyPond has been setup, it's at
-lilypond@gnu.ai.mit.edu. To subscribe, send mail to
-lilypond-request@gnu.ai.mit.edu.
 
-For discussions concerning the GNU Music project, 
-gnu-music-discuss@vanderbilt. .edu
+=back
+
+GNU LilyPond is
+updated very frequently, the latest version is always available at:
+ftp://pcnov095.win.tue.nl/pub/lilypond.
+
+For programs which part of the GNU music project, the following mailing list
+have been setup:
+
+
+=over 4
+
+=item info-gnu-music@vuse.vanderbilt.edu
+
+For information on the GNU Music project, to subscribe: send mail with
+subject "subscribe" to info-gnu-music-request@vuse.vanderbilt.edu
+
+=item help-gnu-music@vuse.vanderbilt.edu
+
+For help with programs from the GNU music project. To subscribe: send
+mail with subject "subscribe" to
+help-gnu-music-request@vuse.vanderbilt.edu
+
+=item bug-gnu-music@vuse.vanderbilt.edu
+
+If you have bugreports, you should send them to this list. If you want
+to read all bugreports, you should subscribe to this list.  To
+subscribe: send mail with subject "subscribe" to
+bug-gnu-music-request@vuse.vanderbilt.edu
+	
+=item gnu-music-discuss@vuse.vanderbilt.edu,
+
+For discussions concerning the GNU Music project, to subscribe: send
+mail with subject "subscribe" to
+gnu-music-discuss-request@vuse.vanderbilt.edu,
+
+=back
 
 =head1  REMARKS
 

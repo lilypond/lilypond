@@ -1,5 +1,22 @@
+pl 61.jnc1
+	- smarter + faster duration-convert using Array
+	- bf: mi2mu compilation/duration-conversions
+	- lots faster mi2mu, hopefully does type 1 too...
+pl 60.jnc1
+	- mi2mu handles non-quantified rests, try mi2mu -b wtk-i/fugue2.midi
+
+
+pl 62
+	- make clean bf: remove lex & yacc files too 
+	- added kludge in case measure too long 
+	- added kludge in case of unconnected columns.
+	- kludged columns get error marker
+	- kludged lines get error marker
+	
+**********
+may 14 
 pl 61
-	- scales.ly bugfix: dimensions default to ((0,0),(0,0))
+	- scales.ly bugfix: dimensions default to ((0,0), (0,0))
 	- naming: PointerList->Pointer_list
 	- tied notes don't get accidental
 	- bf: crescendo size
@@ -11,14 +28,19 @@ pl 60.mb
 	- set_flower_debug: Warning if -d is used when NPRINT is defined.
 	- Fixed several TeX details. vcenter renamed since it interfered
 	  with LaTeX. Position of accents changed.
-	- New example; scriptS.ly
+	- New example; scripts.ly
 	- table_sixteen: added scriptdefinition (Lilypond breaks if a
 	  script is defined without dimensions).
 	- bf: ifndef typos in p-score.cc, choleski.cc
 	- bf: Slur::do_post_processing(), whole notes caused SIGSEGV.
 
-
+(ascension break :-)
 *******
+pl 57.jcn4
+	- mi2mu handles rests (quantified only)
+	- fixed configure buglet
+        - "!date" Fri May  2 02:18:12 MET DST 1997
+
 pl 60
 	- Request_register::get_feature(), tie direction, Slur direction
 	- lilypond output is now directly texable. 

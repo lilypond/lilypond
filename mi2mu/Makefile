@@ -79,4 +79,6 @@ DEPFILES = $(wildcard $(depdir)/*.dep)
 #
 -include /dev/null $(DEPFILES)
 #
+localclean:
+	rm -f $(outdir)/{midi-parser,midi-lexer}.*
 

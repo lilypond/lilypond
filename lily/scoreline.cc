@@ -1,3 +1,11 @@
+/*
+  scoreline.cc -- implement Line_of_score
+
+  source file of the LilyPond music typesetter
+
+  (c) 1996, 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include "scoreline.hh"
 #include "staffline.hh"
 #include "dimen.hh"
@@ -12,6 +20,8 @@ String
 Line_of_score::TeXstring() const
 {
      String s("\\vbox{%<- line of score\n");
+     if (error_mark_b_)
+	 s+= "\\scorelineerrormark";
      for (iter_top(staffs,sc); sc.ok(); sc++){
 	 s += sc->TeXstring();
 	 if ((sc+1).ok())
@@ -25,6 +35,7 @@ Line_of_score::TeXstring() const
 Line_of_score::Line_of_score(Array<PCol *> sv,
 			     PScore *ps)
 {
+    error_mark_b_ = 0;
     pscore_l_ = ps;
     for (int i=0; i< sv.size(); i++) {
 	PCol *p=(PCol *) sv[i];

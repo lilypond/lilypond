@@ -8,6 +8,8 @@
 Midi_voice::Midi_voice( Moment begin_mom )
 {
 	begin_mom_ = begin_mom;
+	end_mom_ = begin_mom;
+	events_i_ = 0;
 }
 
 void
@@ -25,6 +27,9 @@ Midi_voice::begin_mom()
 Moment 
 Midi_voice::end_mom()
 {
+//	if ( events_i_ == midi_event_p_list_.length_i() )
+	if ( events_i_ == midi_event_p_list_.size() )
+		return end_mom_;
 	Moment now_mom = begin_mom_;
 	tor( DEBUG_ver ) << now_mom << ", ";
 	for ( PCursor<Midi_event*> i( midi_event_p_list_.top() ); i.ok(); i++ ) {
@@ -32,7 +37,10 @@ Midi_voice::end_mom()
 		now_mom += i->mom();
 	}
 	tor( DEBUG_ver ) << endl;
-	return now_mom;
+	end_mom_ = now_mom;
+//	events_i_ = midi_event_p_list_.length_i();
+	events_i_ = midi_event_p_list_.size();
+	return end_mom_;
 }
 
 String 

@@ -21,9 +21,9 @@ P<T>::copy_p()const
 template<class T>
 inline
 void
-P<T>::copy(T *l)
+P<T>::copy(T const *l_C)
 {
-    t_p = l ? new T(*l) : 0;
+    t_p = l_C ? new T(*l_C) : 0;
 }
 
 template<class T>
@@ -74,13 +74,13 @@ P<T>::set_p(T * np)
 template<class T>
 inline
 void
-P<T>::set_l(T * l) 
+P<T>::set_l(T const * l_C) 
 {
-    if (t_p == l)
+    if (t_p == l_C)
 	return;
     
     junk();
-    copy(l);
+    copy(l_C);
 }
 
 

@@ -136,6 +136,8 @@
 \mdef\eighthrest{63}
 \mdef\sixteenthrest{64}
 \mdef\thirtysecondrest{65}
+\mdef\sixtyfourthrest{66}
+\mdef\hundredtwentyeighthrest{67}
 \mdef\sharp{52}
 \mdef\flat{50}
 \mdef\natural{54}
@@ -154,14 +156,18 @@
 \mdef\cbassclef{74}
 \mdef\caltoclef{76}
 
-\mdef\deigthflag{45}
+\mdef\deighthflag{45}
 \mdef\dsixteenthflag{46}
 \mdef\dthirtysecondflag{47}
+\mdef\dsixtyfourthflag{48}
+\mdef\dhundredtwentyeighthflag{49}
 
 % pointing up
-\mdef\ueigthflag{40}
+\mdef\ueighthflag{40}
 \mdef\usixteenthflag{41}
 \mdef\uthirtysecondflag{42}
+\mdef\usixtyfourthflag{43}
+\mdef\uhundredtwentyeighthflag{44}
 
 \maccentdef\repeatcolon{55}{2/1}
 \def\emptybar{}
@@ -222,14 +228,18 @@
 % bottom at baseline
 \def\linestafsym#1#2{\leftalign{\botalign{\lines{#1}{#2}}}}
 
-\def\eigthflag{\topalign{\ueigthflag}}
+\def\eighthflag{\topalign{\ueighthflag}}
 \def\sixteenthflag{\topalign{\usixteenthflag}}
 \def\thirtysecondflag{\topalign{\uthirtysecondflag}}
+\def\sixtyfourthflag{\topalign{\usixtyfourthflag}}
+\def\hundredtwentyeighthflag{\topalign{\uhundredtwentyeighthflag}}
 
 \def\cquartrest{\vertcenter\quartrest}
 \def\ceighthrest{\vertcenter\eighthrest}
 \def\csixteenthrest{\vertcenter\sixteenthrest}
 \def\cthirtysecondrest{\vertcenter\thirtysecondrest}
+\def\csixtyfourthrest{\vertcenter\sixtyfourthrest}
+\def\chundredtwentyeighthrest{\vertcenter\hundredtwentyeighthrest}
 
 \def\lsingledot{\kern-\notewidth\singledot}
 \def\ldoubledot{\kern-\notewidth\doubledot}
@@ -292,3 +302,5 @@
 
         
 
+\def\columnerrormark{\placebox{-5pt}{0pt}{\bf C!}}
+\def\linescoreerrormark{\placebox{0pt}{-10pt}{\bf L!}}

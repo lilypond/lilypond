@@ -46,7 +46,7 @@ mv $patch ../patches/
 RPMS=`find ~/rpms/ -name lilypond-$NEWVER'*'rpm`
 rm *.rpm {lilypond,patch}-*.gz
 
-if [ ! -z $RPMS ]; then
+if [ ! -z "$RPMS" ]; then
     ln $RPMS . 
 fi
     
@@ -54,8 +54,8 @@ ln ../releases/$tarball .
 ln ../patches/$patch .    
 
 
-if [ ! -z $RPMS ]; then
-    RPMS=lilypond-$LILYVER-1.i386.rpm lilypond-$LILYVER-1.src.rpm 
+if [ ! -z "$RPMS" ]; then
+    RPMS="lilypond-$LILYVER-1.i386.rpm lilypond-$LILYVER-1.src.rpm"
 fi    
 tar cf updeet $tarball $patch $RPMS
 tar tfv updeet

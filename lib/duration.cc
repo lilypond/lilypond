@@ -43,6 +43,8 @@ Duration::duration_type_b(int t)
     return bit_i == 1;
 }
 
+// ugh, what's this?
+// i should be called "mom()", ... or at least "length_mom()"
 Moment
 Duration::length() const
 {

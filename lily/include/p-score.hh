@@ -1,7 +1,14 @@
-// the breaking problem for a score.
+/*
+  p-score.hh -- declare PScore
 
-#ifndef PSCORE_HH
-#define PSCORE_HH
+  source file of the LilyPond music typesetter
+
+  (c) 1996,1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
+
+#ifndef P_SCORE_HH
+#define P_SCORE_HH
 
 #include "colhpos.hh"
 #include "varray.hh"
@@ -43,7 +50,7 @@ struct PScore {
     
     PScore(Paper_def*);
     /// add a line to the broken stuff. Positions given in #config#
-    void set_breaking(Array<Col_hpositions>);
+    void set_breaking(Array<Col_hpositions> const &);
 
     void add(PStaff *);
     

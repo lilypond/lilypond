@@ -30,7 +30,7 @@ usage()
 	"  -d, --debug            print lots of debugging stuff\n"
 	"  -h, --help             this help\n"
         "  -I, --include=DIR      add DIR to search path\n"
-        "  -n, --no-silly         assume no plets or double dots, smallest is 16\n"
+        "  -n, --no-silly         assume no plets or double dots, smallest is 32\n"
 	"  -o, --output=FILE      set FILE as default output\n"
 	"  -p, --no-plets         assume no plets\n"
 	"  -q, --quiet            be quiet\n"
@@ -54,9 +54,8 @@ notice()
 	"\n"
 	"Mi2mu, translate midi to mudela.\n"
 	"Copyright (C) 1997 by\n"
-	"  Han-Wen Nienhuys <hanwen@stack.nl>\n"
-//	"Contributors\n"
 	"  Jan Nieuwenhuizen <jan@digicash.com>\n"
+	"  Han-Wen Nienhuys <hanwen@stack.nl>\n"
 	"\n"
 	"    This program is free software; you can redistribute it and/or\n"
 	"modify it under the terms of the GNU General Public License version 2\n"
@@ -112,7 +111,7 @@ main( int argc_i, char* argv_sz_a[] )
 		case 'n':
 			Duration_convert::no_double_dots_b_s = true;
 			Duration_convert::no_triplets_b_s = true;
-			Duration_convert::no_smaller_than_i_s = 16;
+			Duration_convert::no_smaller_than_i_s = 32;
 			break;
 		case 'o':
 			output_str = getopt_long.optarg;
