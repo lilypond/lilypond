@@ -1,27 +1,22 @@
 #!@PYTHON@
 
-# info taken from
+# info mostly taken from looking at files. See also
+# http://www.cs.uu.nl/~hanwen/lily-devel/etf.html
 
-#  * convertmusic (see sourceforge)
-#  * Margaret Cahill's thesis
-#  * http://www.codamusic.com/coda/Fin2000_pdk_download.asp (you have
-#    to register, but you don't need to have bought a code product
-
-#
 # This supports
-
 #
 #  * notes
 #  * rests
 #  * ties
 #  * slurs
-#
+#  * lyrics
+#  * articulation
+# 
 
 # todo:
 #  * slur/stem directions
-#  * articulation
 #  * voices (2nd half of frame?)
-#  * lyrics
+#  * more intelligent lyrics
 #  * beams (better use autobeam?)
 
 program_name = 'etf2ly'
@@ -36,10 +31,7 @@ import re
 import string
 import os
 
-
-
 finale_clefs= ['treble', 'alto', 'tenor', 'bass', 'percussion', 'treble8vb', 'bass8vb', 'baritone']
-
 
 def lily_clef (fin):
 	return finale_clefs[fin]
@@ -52,6 +44,7 @@ distances = [0, 2, 4, 5, 7, 9, 11, 12]
 def semitones (name, acc):
 	return (name / 7 ) * 12 + distances[name % 7] + acc
 
+# represent pitches as (notename, alteration), relative to C-major scale
 def transpose(orig, delta):
 	(oname, oacc) = orig
 	(dname, dacc) = delta
@@ -146,6 +139,7 @@ def lily_notename (tuple2):
 
 	return nn
 
+
 class Slur:
 	def __init__ (self, number):
 		self.number = number
@@ -159,7 +153,7 @@ class Slur:
 		endnote = self.finale[3][2]
 
 		cs = chords[startnote]
-		cs.suffix = '(' + cs.suffix 
+		cs.note_suffix = '(' + cs.note_suffix 
 		ce = chords[endnote]
 		ce.prefix = ce.prefix + ')'
 		
@@ -187,7 +181,70 @@ class Global_measure:
 		self.scale = find_scale (k)
 
 
+articulation_dict ={
+	11: '\\prall',
+	12: '\\mordent',
+	8: '\\fermata',
+	18: '"arp"' , # arpeggio
+};
 
+class Articulation:
+	def __init__ (self, a,b, finale):
+		self.type = finale[0]
+		self.notenumber = b
+	def calculate (self, chords):
+		c = chords[self.notenumber]
+
+		try:
+			a = articulation_dict[self.type]
+		except KeyError:
+			a = '"art"'
+			
+		c.note_suffix = '-' + a + c.note_suffix
+
+class Syllable:
+	def __init__ (self, a,b , finale):
+		self.chordnum = b
+		self.syllable = finale[1]
+		self.verse = finale[0]
+	def calculate (self, chords, lyrics):
+		self.chord = chords[self.chordnum]
+
+class Verse:
+	def __init__ (self, number, body):
+		self.body = body
+		self.number = number
+		self.split_syllables ()
+	def split_syllables (self):
+		ss = re.split ('(-| +)', self.body)
+
+		sep = 0
+		syls = [None]
+		for s in ss:
+			if sep:
+				septor = re.sub (" +", "", s)
+				septor = re.sub ("-", " -- ", septor) 
+				syls[-1] = syls[-1] + septor
+			else:
+				syls.append (s)
+			
+			sep = not sep 
+
+		self.syllables = syls
+
+	def dump (self):
+		str = ''
+		line = ''
+		for s in self.syllables[1:]:
+			line = line + ' ' + s
+			if len (line) > 72:
+				str = str + ' ' * 4 + line + '\n'
+				line = ''
+			
+		str = """\nverse%s = \\lyrics {\n %s}\n""" %  (encodeint (self.number - 1) ,str)
+		return str
+
+	
 class Measure:
 	def __init__(self, no):
 		self.number = no
@@ -240,6 +297,9 @@ class Frame:
 		str = str + '\n'
 		return str
 		
+def encodeint (i):
+	return chr ( i  + ord ('A'))
+
 class Staff:
 	def __init__ (self, number):
 		self.number = number
@@ -254,7 +314,7 @@ class Staff:
 
 		return self.measures[no]
 	def staffid (self):
-		return 'staff%s'% chr (self.number - 1 +ord ('A'))
+		return 'staff' + encodeint (self.number - 1)
 	def layerid (self, l):
 		return self.staffid() +  'layer%s' % chr (l -1 + ord ('A'))
 	
@@ -349,8 +409,11 @@ class Chord:
 		self.duration  = None
 		self.next = None
 		self.prev = None
-		self.prefix= ''
-		self.suffix = ''
+		self.note_prefix= ''
+		self.note_suffix = ''
+		self.chord_suffix = ''
+		self.chord_prefix = ''
+		
 	def measure (self):
 		if not self.frame:
 			return None
@@ -396,7 +459,7 @@ class Chord:
 				self.pitches.append ((sn, acc))
 				tiestart =  tiestart or (flag & Chord.TIE_START_MASK)
 		if tiestart :
-			self.suffix = self.suffix + ' ~ '
+			self.chord_suffix = self.chord_suffix + ' ~ '
 		
 	REST_MASK = 0x40000000L
 	TIE_START_MASK = 0x40000000L
@@ -427,13 +490,14 @@ class Chord:
 				nn = rest
 				
 			s = s + '%s%d%s' % (nn, self.duration[0], '.'* self.duration[1])
-			
+
+		if not self.pitches:
+			s  = 'r%d%s' % (self.duration[0] , '.'* self.duration[1])
+		s = self.note_prefix + s + self.note_suffix
 		if len (self.pitches) > 1:
 			s = '<%s>' % s
-		elif not self.pitches:
-			s  = 'r%d%s' % (self.duration[0] , '.'* self.duration[1])
-
-		s = self.prefix + s + self.suffix
+		
+		s = self.chord_prefix + s + self.chord_suffix
 		return s
 
 GFre = re.compile(r"""^\^GF\(([0-9-]+),([0-9-]+)\) ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+)""")
@@ -443,6 +507,9 @@ FRre = re.compile (r"""^\^FR\(([0-9-]+)\) ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+
 MSre = re.compile (r"""^\^MS\(([0-9-]+)\) ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+)""")
 note_re = re.compile (r"""^ +([0-9-]+) \$([A-Fa-f0-9]+)""")
 Sxre  = re.compile (r"""^\^Sx\(([0-9-]+)\) ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+)""")
+IMre = re.compile (r"""^\^IM\(([0-9-]+),([0-9-]+)\) ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+)""")
+vere = re.compile(r"""^\^(ve|ch|se)\(([0-9-]+),([0-9-]+)\) ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+)""")
+versere = re.compile(r"""^\^verse\(([0-9]+)\)(.*)\^end""")
 
 class Etf_file:
 	def __init__ (self, name):
@@ -452,7 +519,10 @@ class Etf_file:
 		self.frames = [None]
 		self.staffs = [None]
 		self.slurs = [None]
-
+		self.articulations = [None]
+		self.syllables = [None]
+		self.verses = [None]
+		
 		## do it
 		self.parse (name)
 
@@ -486,6 +556,37 @@ class Etf_file:
 			where = string.atoi (m.group (2)) / 1024.0
 		return m
 
+	def try_IM (self, l):
+		m = IMre.match (l)
+		if m:
+			a = string.atoi (m.group (1))
+			b = string.atoi (m.group (2))
+
+			fin = map (string.atoi, m.groups ()[2:])
+
+			self.articulations.append (Articulation (a,b,fin))
+		return m
+	def try_verse (self,l):
+		m =  versere .match (l)
+		if m:
+			a = string.atoi (m.group (1))
+			body =m.group (2)
+
+			body = re.sub (r"""\^[a-z]+\([^)]+\)""", "", body)
+			body = re.sub ("\^[a-z]+", "", body)
+			self.verses.append (Verse (a, body))
+			
+		return m
+	def try_ve (self,l):
+		m = vere .match (l)
+		if m:
+			a = string.atoi (m.group (1))
+			b = string.atoi (m.group (2))
+
+			fin = map (string.atoi, m.groups ()[2:])
+
+			self.syllables.append (Syllable (a,b,fin))
+		return m
 	def try_eE (self, l):
 		m = eEre.match (l)
 		if m:
@@ -574,7 +675,11 @@ class Etf_file:
 			if not m: 
 				m = self.try_eE (l)
 			if not m:
+				m = self.try_IM (l)
+			if not m:
 				m = self.try_Sx (l)
+			if not m:
+				m = self.try_verse (l)
 
 		sys.stderr.write ('processing ...')
 		sys.stderr.flush ()
@@ -612,6 +717,8 @@ class Etf_file:
 			
 		for s in self.slurs [1:]:
 			s.calculate (self.chords)
+		for s in self.articulations[1:]:
+			s.calculate (self.chords)
 			
 	def get_thread (self, startno, endno):
 
@@ -637,7 +744,14 @@ class Etf_file:
 		if staffs:
 			str = str + '\\score { < %s > } ' % string.join (staffs)
 
-		
+		# should use \addlyrics ?
+
+		for v in self.verses[1:]:
+			str = str + v.dump()
+
+		if len (self.verses) > 1:
+			sys.stderr.write ("\nLyrics found; edit to use \\addlyrics to couple to a staff\n")
+			
 		return str
 
 
