@@ -1100,8 +1100,12 @@ The bar line objects that are created at @internalsref{Staff} level
 are called @internalsref{BarLine}, the bar lines that span staffs are
 @internalsref{SpanBar}s.
 
+@cindex bar lines at start of system
+@cindex start of system
+
 The barlines at the start of each system are
-@internalsref{SystemStartDelimiter}s, which are spanner objects and
+@internalsref{SystemStartBar}, @internalsref{SystemStartBrace}, and
+@internalsref{SystemStartBracket}.  They are spanner objects and
 typically must be tuned from a @code{\translator} block.
 
 
@@ -1301,10 +1305,10 @@ property @code{auto-knee-gap}.
 
 @refbugs
 
-@cindex hara kiri
+@cindex Frenched staves
 
-Automatically kneed beams cannot be used together with Hara Kiri
-staves.
+Automatically kneed beams cannot be used together with hidden staves.
+
 
 
 @menu
@@ -4306,7 +4310,7 @@ The part combiner is slated to be rewritten [TODO: explain why].
 @subsection Hiding staffs
 
 @cindex Frenched scores
-
+@cindex Hiding staffs
 
 In orchestral scores, staff lines that only have rests are usually
 removed.  This saves some space. This style is called `French Score'.
