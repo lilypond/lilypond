@@ -117,7 +117,7 @@
 	stroke 
 } bind def 
 % 
-/draw_dashed_line % dash thickness width
+/draw_dashed_line % dash thickness dx dy
 { 
 	1 setlinecap 
 	1 setlinejoin 
@@ -128,7 +128,7 @@
 	dup
 	0 moveto
 	neg add
-	0 lineto
+	lineto
 	stroke 
 } bind def 
 %

@@ -223,8 +223,8 @@
   (define (char i)
     (string-append "\\char" (inexact->string i 10) " "))
   
-  (define (dashed-line thick on off w)
-    (embedded-ps ((ps-scm 'dashed-line) thick on off w)))
+  (define (dashed-line thick on off dx dy)
+    (embedded-ps ((ps-scm 'dashed-line) thick on off dx dy)))
 
   (define (decrescendo thick w h cont)
     (embedded-ps ((ps-scm 'decrescendo) thick w h cont)))
@@ -504,9 +504,11 @@
      (number->string (* 10 thick))	;UGH.  10 ?
      " ] 0 draw_dashed_slur"))
 
-  (define (dashed-line thick on off width)
+  (define (dashed-line thick on off dx dy)
     (string-append 
-     (number->string width) 
+     (number->string dx)
+     " "
+     (number->string dy)
      " "
      (number->string thick) 
      " [ "

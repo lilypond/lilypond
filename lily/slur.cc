@@ -465,6 +465,10 @@ Slur::brew_molecule (SCM smob)
     gh_scm2double (me->get_elt_property ("thickness"));
   Bezier one = get_curve (me);
 
+  // get_curve may suicide
+  if (!scm_ilength (me->get_elt_property ("note-columns")))
+    return SCM_EOL;
+
   Molecule a;
   SCM d =  me->get_elt_property ("dashed");
   if (gh_number_p (d))
@@ -532,7 +536,10 @@ Slur::set_control_points (Score_element*me)
 	All these null control-points, where do they all come from?
       */
       if (i && b.control_[i][X_AXIS] == 0)
-	me->suicide ();
+	{
+	  me->suicide ();
+	  return;
+	}
     }
 
   me->set_elt_property ("control-points", controls);
@@ -545,11 +552,16 @@ Slur::get_curve (Score_element*me)
   int i = 0;
 
   if (!Directional_element_interface::get (me)
-      || ! gh_symbol_p (index_cell (me->get_elt_property ("attachment"), LEFT)))
+      || ! gh_symbol_p (index_cell (me->get_elt_property ("attachment"), LEFT))
+      || ! gh_symbol_p (index_cell (me->get_elt_property ("attachment"), RIGHT)))
     set_extremities (me);
   
   if (!gh_pair_p (me->get_elt_property ("control-points")))
     set_control_points (me);
+
+  // set_control_points may suicide
+  if (!scm_ilength (me->get_elt_property ("note-columns")))
+    return b;
 
   for (SCM s= me->get_elt_property ("control-points"); s != SCM_EOL; s = gh_cdr (s))
     {

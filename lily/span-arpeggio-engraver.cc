@@ -61,7 +61,7 @@ Span_arpeggio_engraver::process_acknowledged ()
     {
       span_arpeggio_ = new Item (get_property ("SpanArpeggio"));
       span_arpeggio_->set_parent (arpeggios_[0], Y_AXIS);
-      Side_position::set_axis (span_arpeggio_, X_AXIS);
+      // Side_position::set_axis (span_arpeggio_, X_AXIS);
       Pointer_group_interface pgi (span_arpeggio_, "arpeggios");
       for (int i = 0; i < arpeggios_.size () ; i++)
 	{

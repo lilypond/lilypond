@@ -20,12 +20,19 @@
   Generic Text spanner:
 
   type: "line", "dashed-line", "dotted-line"
-  text: "text"
   edge-text: ("le" . "re")
   text-style: "italic"
+  egde-height: (lh . rh)
 
-     not-yet-text
-  le -------------- re
+  "le"--------------"re"
+                    |^ 
+                    |v rh
+
+  fine tuning:
+
+  dash-period 
+  dash-length 
+  line-thickness
 
   TODO:
     - vertical start / vertical end (fixme-name) |
@@ -44,7 +51,7 @@ Text_spanner::brew_molecule (SCM smob)
   Spanner *spanner = dynamic_cast<Spanner*> (me);
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
-  Real line = me->paper_l ()->get_var ("stafflinethickness");  
+  Real thickness = me->paper_l ()->get_var ("stafflinethickness");  
   
 
   Drul_array<bool> broken;
@@ -65,16 +72,15 @@ Text_spanner::brew_molecule (SCM smob)
   Drul_array<Molecule> edge;
   if (gh_pair_p (edge_text))
     {
-      edge[LEFT] = me->lookup_l ()->text (text_style,
-					  ly_scm2string (gh_car (edge_text)),
-					  me->paper_l ());
-      if (!edge[LEFT].empty_b ())
-	edge[LEFT].align_to (Y_AXIS, CENTER);
-      edge[RIGHT] = me->lookup_l ()->text (text_style,
-					   ly_scm2string (gh_cdr (edge_text)),
-					   me->paper_l ());
-      if (!edge[RIGHT].empty_b ())
-	edge[RIGHT].align_to (Y_AXIS, CENTER);
+      Direction d = LEFT;
+      do
+	{
+	  String text = ly_scm2string (index_cell (edge_text, d));
+	  edge[d] = me->lookup_l ()->text (text_style, text, me->paper_l ());
+	  if (!edge[d].empty_b ())
+	    edge[d].align_to (Y_AXIS, CENTER);
+	}
+      while (flip (&d) != LEFT);
     }
 
   Drul_array<Real> shorten;
@@ -108,13 +114,13 @@ Text_spanner::brew_molecule (SCM smob)
   if (gh_string_p (s))
     type = ly_scm2string (s);
 
-  Real height;
-  SCM at;
+  Molecule line;
+  Drul_array<Molecule> edge_line;
   if (type == "line"
       || type == "dashed-line"
       || type == "dotted-line")
     {
-      Real thick = line;
+      Real thick = thickness;
       s = me->get_elt_property ("line-thickness");
       if (gh_number_p (s))
 	thick *= gh_scm2double (s);
@@ -139,23 +145,56 @@ Text_spanner::brew_molecule (SCM smob)
       Real on = length - thick;
       Real off = period - on;
 
-      height = thick;
-      at = gh_list (ly_symbol2scm ("dashed-line"),
-		    gh_double2scm (thick),
-		    gh_double2scm (on),
-		    gh_double2scm (off),
-		    gh_double2scm (width),
-		    SCM_UNDEFINED);
+      SCM list = gh_list (ly_symbol2scm ("dashed-line"),
+			  gh_double2scm (thick),
+			  gh_double2scm (on),
+			  gh_double2scm (off),
+			  gh_double2scm (width),
+			  gh_double2scm (0),
+			  SCM_UNDEFINED);
+
+      Box b (Interval (0, width), Interval (-thick / 2, thick / 2));
+      line = Molecule (b, list);
+
+      s = me->get_elt_property ("edge-height");
+      if (gh_pair_p (s))
+	{
+	  Direction d = LEFT;
+	  int dir = me->get_elt_property ("direction");
+	  do
+	    {
+	      Real dy = gh_scm2double (index_cell (s, d)) * - dir;
+	      if (dy)
+		{
+		  SCM list = gh_list (ly_symbol2scm ("dashed-line"),
+				      gh_double2scm (thick),
+				      gh_double2scm (on),
+				      gh_double2scm (off),
+				      gh_double2scm (0),
+				      gh_double2scm (dy),
+				      SCM_UNDEFINED);
+		  
+		  Box b (Interval (0, thick),
+			 dy > 0
+			 ? Interval (0, dy)
+			 : Interval (dy, 0));
+		  edge_line[d] = Molecule (b, list);
+		}
+	    }
+	  while (flip (&d) != LEFT);
+	}
     }
-  Box b (Interval (0, width), Interval (-height / 2, height / 2));
-  Molecule span (b, at);
 
   Molecule m;
   if (!edge[LEFT].empty_b ())
     m = edge[LEFT];
 
-  if (!span.empty_b ())
-    m.add_at_edge (X_AXIS, RIGHT, span, 0);
+  if (!edge_line[LEFT].empty_b ())
+    m.add_at_edge (X_AXIS, RIGHT, edge_line[LEFT], 0);
+  if (!line.empty_b ())
+    m.add_at_edge (X_AXIS, RIGHT, line, 0);
+  if (!edge_line[RIGHT].empty_b ())
+    m.add_at_edge (X_AXIS, RIGHT, edge_line[RIGHT], 0);
   if (!edge[RIGHT].empty_b ())
     m.add_at_edge (X_AXIS, RIGHT, edge[RIGHT], 0);
   m.translate_axis (broken_left, X_AXIS);
