@@ -1,3 +1,70 @@
+1.3.140.jcn6
+============
+
+* po update.
+
+* Renamed remaining mudela -> lilypond (except for old change logs).
+
+* Dropped Solo-Cello-Suite II and gnossienne-4 from ./mutopia, as
+they're now accessible throug the ports.
+
+* Fixed compilation of lots of examples.
+
+* Convert-ly: added and fixed some conversions.
+
+* Doco updates.
+
+* Ly2dvi: don't hang compilation process: run latex in batchmode.
+
+* Some ly2dvi updates.
+
+* Junked cruft from makefiles.
+
+* Added message about make help at end of configure.
+
+* Some documentation updates.
+
+* Convert-ly: added some missing rules.
+
+* Ly2dvi: changed footer (and header) macros to match mutopia headers again.
+
+* Convert-ly: always insert or update version number.  New option:
+--assume-old will apply all conversions if version cannot be
+determined.
+
+* Small documentation fixes.
+
+* Removed default (font-shape . italic) settings from TextScript and
+TextSpanner.
+
+* Moved ports section of mutopia to mutopia/ports.  Fixed make
+bootstrapping.  Added sync target, synced with www.mutopiaproject.org.
+
+* Bugfix: ly2dvi sets footers, headers, tagline.  Pagenumbering on by default.
+
+1.3.140.hwn1
+============
+
+* input/trick/boxed-molecule.ly : show how to draw boxes around grobs.
+
+* added font-shape caps, input/test/caps.
+
+* Added minimum-length for hairpin. Unified Tie::set_spacing_rods and
+Slur::set_spacing_rods into Spanner::set_spacing_rods
+
+* Small doco fixes.
+
+1.3.140.mb1
+===========
+
+* Bugfix: Some more examples in input/test/ work again.
+
+* bugfix: cautionary accidentals
+
+
+1.3.140
+=======
+
 1.3.139.jcn5
 ============
 

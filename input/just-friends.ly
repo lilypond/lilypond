@@ -32,7 +32,7 @@ of a certain tune (Jazz, Real Book, for example), like
 \score{
 	\context ChordNames \chords{
 		\property Score.barAtLineStart = 1
-		\repeat semi 2 {
+		\repeat volta 2 {
 			f1:maj f:maj f:7 bes:7
 			c:maj c:maj es es
 			d:7 g:7 b2:7/fis e:7 a1:7\break
@@ -49,9 +49,9 @@ of a certain tune (Jazz, Real Book, for example), like
 		linewidth = 100.0\mm;
 		\translator{
 			\ChordNamesContext
-			barAuto = "1";
+			barNonAuto = ##f;
 			\consists Bar_engraver;
-			\consists "Repeat_engraver";
+			\consists "Volta_engraver";
 		}
 	}
 }

@@ -143,7 +143,8 @@
 		(molecule-callback . ,Hairpin::brew_molecule)
 		(thickness . 1.0)
 		(height . 0.6666)
-
+		(spacing-procedure . ,Spanner::set_spacing_rods)
+		(minimum-length . 2.0)
 		(if-text-padding . 1.0)
 		(width-correct . -1.0)
 		
@@ -385,7 +386,7 @@
 	(PhrasingSlur . (
 		 (molecule-callback . ,Slur::brew_molecule)
 		 (thickness . 1.2)		
-		 (spacing-procedure . ,Slur::set_spacing_rods)		
+		 (spacing-procedure . ,Spanner::set_spacing_rods)		
 		 (minimum-length . 1.5)
 		 (after-line-breaking-callback . ,Slur::after_line_breaking)
 		 (extremity-rules . ,default-slur-extremity-rules)
@@ -456,7 +457,7 @@
 	(Slur . (
 		 (molecule-callback . ,Slur::brew_molecule)
 		 (thickness . 1.2)		
-		 (spacing-procedure . ,Slur::set_spacing_rods)		
+		 (spacing-procedure . ,Spanner::set_spacing_rods)		
 		 (minimum-length . 1.5)
 		 (after-line-breaking-callback . ,Slur::after_line_breaking)
 		 (extremity-rules . ,default-slur-extremity-rules)
@@ -620,12 +621,10 @@
 		(padding . 0.5)
 		(baseline-skip . 2)
 		(font-family . roman)
-		(font-shape . italic)
 		(meta . ,(grob-description "TextScript" text-script-interface text-interface side-position-interface font-interface ))
 	))
 	(TextSpanner . (
 		(molecule-callback . ,Text_spanner::brew_molecule)
-                (font-shape . italic)
 		(font-family . roman)
 		(type . "line")
 		
@@ -638,7 +637,7 @@
 	))
 	(Tie . (
 		(molecule-callback . ,Tie::brew_molecule)
-		(spacing-procedure . ,Tie::set_spacing_rods)
+		(spacing-procedure . ,Spanner::set_spacing_rods)
 		(staffline-clearance . 0.35)
 		(details . ((ratio . 0.333) (height-limit . 1.0)))
 		(thickness . 1.2)

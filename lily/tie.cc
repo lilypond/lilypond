@@ -278,27 +278,6 @@ Tie::get_control_points (SCM smob)
   return controls;
 }
 
-MAKE_SCHEME_CALLBACK (Tie,set_spacing_rods,1);
-
-/*
-  TODO: set minimum distances for begin/end of line
- */
-SCM
-Tie::set_spacing_rods (SCM smob)  
-{
-  Grob*me = unsmob_grob (smob);
-  Spanner*sp = dynamic_cast<Spanner*> (me);
-  Rod r;
-
-  r.item_l_drul_ [LEFT]=sp->get_bound (LEFT);
-  r.item_l_drul_ [RIGHT]=sp->get_bound (RIGHT);  
-  
-  r.distance_f_
-    = gh_scm2double (me->get_grob_property ("minimum-length"))
-    * 1.0;
-  r.add_to_cols ();
-  return SCM_UNSPECIFIED;
-}
 
 MAKE_SCHEME_CALLBACK (Tie,brew_molecule,1);
 SCM

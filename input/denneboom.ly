@@ -4,6 +4,7 @@ enteredby = 	 "jcn";
 copyright = 	 "public domain";
 }
 %{ file tests silly line shapes %}
+% Broken since 1.3.55
 
 \include "paper20.ly"
 
@@ -66,7 +67,7 @@ verseOne =  \notes{
 }
 
 verseOneStaff =  \context Lyrics = one 
-	\verse_one
+	\$verse_one
 
 
 verseTwo =  \notes{
@@ -77,7 +78,7 @@ verseTwo =  \notes{
 }
 
 verseTwoStaff =  \context Lyrics = two 
-	\verse_two
+	\$verse_two
 
 
 denneboomShape =  \paper{ 
@@ -107,9 +108,9 @@ denneboomShape =  \paper{
 \score{
 	\addlyrics
 		\context Staff { \time 3/4; \melody }
-		\context Lyrics \verse_one
+		\context Lyrics \$verse_one
 	\paper{ 
-		\denneboom_shape 
+		\$denneboom_shape 
 	}
 	\midi{ \tempo 4 = 90; }
 }

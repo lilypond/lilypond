@@ -479,23 +479,6 @@ Slur::get_encompass_offset_arr (Grob *me)
 }
 
 
-MAKE_SCHEME_CALLBACK (Slur,set_spacing_rods,1);
-SCM
-Slur::set_spacing_rods (SCM smob)
-{
-  Grob*me = unsmob_grob (smob);
-
-  Rod r;
-  Spanner*sp = dynamic_cast<Spanner*> (me);
-  r.item_l_drul_[LEFT] = sp->get_bound (LEFT);
-  r.item_l_drul_[RIGHT] = sp->get_bound (RIGHT);
-  r.distance_f_ =
-    gh_scm2double (me->get_grob_property ("minimum-length"))
-    * 1.0;
-
-  r.add_to_cols ();
-  return SCM_UNSPECIFIED;
-}
 
 
 /*

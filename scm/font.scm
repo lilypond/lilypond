@@ -90,6 +90,12 @@
     ((-1 bold upright roman cmbx 8) . "cmbx8")
     ((-2 bold upright roman cmbx 7) . "cmbx7")
     
+    ((2 bold italic roman cmbxti 12) . "cmbxti12")
+    ((1 bold italic roman cmbxti 12) . "cmbxti12")
+    ((0 bold italic roman cmbxti 10) . "cmbxti10")
+    ((-1 bold italic roman cmbxti 8) . "cmbxti8")
+    ((-2 bold italic roman cmbxti 7) . "cmbxti7")
+    
     ((4 medium upright typewriter cmtt 17) . "cmtt17")
     ((3 medium upright typewriter cmtt 17) . "cmtt17")
     ((2 medium upright typewriter cmtt 12) . "cmtt12")
@@ -100,7 +106,16 @@
     ((-3 medium upright typewriter cmtt 6) . "cmtt6" )
     ((-4 medium upright typewriter cmtt 5) . "cmtt5" )
     ((-5 medium upright typewriter cmtt 5) . "cmtt5" )
+    
+    ((3 medium caps roman cmcsc 12) . "cmcsc12")
+    ((2 medium caps roman cmcsc 12) . "cmcsc12")
+    ((1 medium caps roman cmcsc 12) . "cmcsc12")
+    ((0 medium caps roman cmcsc 10) . "cmcsc10")
+    ((-1 medium caps roman cmcsc 8) . "cmcsc8")
+    ((-2 medium caps roman cmcsc 7) . "cmcsc7")
+    ((-3 medium caps roman cmcsc 7) . "cmcsc7")
 
+    
     ;; should use the same brace font every where and fix C++ code.
     ((2 * * braces feta-braces 26) . "feta-braces26")
     ((1 * * braces feta-braces 23) . "feta-braces23")
@@ -199,8 +214,8 @@
 	(mark . ((font-family . number) (font-relative-size . 1)))
 	(script . ((font-family . roman) (font-relative-size . -1)))
 	(large . ((font-family . roman) (font-relative-size . 1)))
-	(Large . ((font-series . bold) (font-shape . upright) 
-		  (font-family . roman) (font-relative-size . 2)))
+	(Large . ((font-series . bold) (font-family . roman)
+		  (font-relative-size . 2)))
 	(dynamic . ((font-family . dynamic) (font-relative-size . 0)))
 	))
     (properties-to-font .

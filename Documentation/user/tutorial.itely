@@ -182,6 +182,9 @@ manual was written using lilypond-book. lilypond-book is discussed in
 
 [TODO]
 
+* setting of env vars (TFMINPUTS,MFINPUTS,TEXINPUTS)
+* dvi viewer doesn't display postscript
+
 
 @node The first tune
 @section The first tune
@@ -1135,7 +1138,7 @@ oboes = \notes \relative c'' \context Voice = oboe {
 }
 
 hoomPah  =  \repeat unfold 8
-  \notes  \transpose c' { c8 \stemDown c'8 \stemUp }
+  \notes  \transpose c' { \stemUp c8 \stemBoth \stemDown c'8  \stemBoth  }
 
 bassvoices = \notes \relative c' {
 	c4 g8. b,16
@@ -1819,9 +1822,8 @@ bars.
 @section The end        
          
 That's all folks.  From here, you can either try fiddling with input
-files, or you can read the reference manual.
+files, or you can read the reference manual.  You can find more example
+files in @file{input} and @file{input/test}.  You can also look at Real
+Music (TM), have a look at the @ref{Mutopia project}.
 
 
-@c @lilypond[nofragment]
-@c #(set! point-and-click #f)
-@c @end lilypond 

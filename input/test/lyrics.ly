@@ -1,7 +1,7 @@
 
 
 somewhatLong =  \lyrics{
-	\property Lyrics.LyricText \set #'font-style = #'roman 
+	\property Lyrics . LyricText \set #'font-style = #'roman 
 	AaaaaaA2
 	BbbbbbB2
 	CcccccC2 
@@ -11,7 +11,7 @@ somewhatLong =  \lyrics{
 }
 
 ratherLong =  \lyrics{
-	\property Lyrics.LyricText \set #'font-style = #'roman 
+	\property Lyrics . LyricText \set #'font-style = #'roman 
 	LLLLoooonggggg2 
 	Syyllllaaabbble2 
 	LLLLoooonggggg2 
@@ -21,7 +21,7 @@ ratherLong =  \lyrics{
 }
 
 quiteLong =  \lyrics{
-	\property Lyrics.LyricText \set #'font-style = #'roman
+	\property Lyrics . LyricText \set #'font-style = #'roman
 	LLLLLLLLLooooongggggggg2 
 	Syyyyyyyyyyyyylllllllaaaaaabbble2 
 	LLLLLLLLLooooongggggggg2 

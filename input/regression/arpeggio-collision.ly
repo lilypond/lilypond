@@ -1,5 +1,5 @@
 
-xheader = {
+header = {
 texidoc = "arpeggio stays clear of accidentals and flipped note heads.
 Since Arpeggio engraver is Voice, it does nothing for voice collisions."
 };

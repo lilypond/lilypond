@@ -33,6 +33,8 @@ class Spanner : public  Grob {
   Drul_array<Item*> spanned_drul_;
 
 public:
+  DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM ));
+  
   Link_array<Spanner> broken_into_l_arr_;
 
   // todo: move to somewhere else.
@@ -54,6 +56,7 @@ public:
   virtual SCM do_derived_mark ();
 protected:
   void set_my_columns ();
+
   VIRTUAL_COPY_CONS (Grob);
   virtual void do_break_processing ();
   virtual Line_of_score*line_l () const;
