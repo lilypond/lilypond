@@ -32,12 +32,11 @@ _Interval__compare (const Interval_t<T>&a,Interval_t<T> const&b)
   return -2;
 }
 
-
 template<class T>
 bool 
 Interval_t<T>::superset (Interval_t<T> const& a) const
 {
-  int c_i= _Interval__compare (*this, a);
+  int c_i = _Interval__compare (*this, a);
   if (c_i == -2)
     return false;
   return c_i >= 0;
@@ -45,7 +44,7 @@ Interval_t<T>::superset (Interval_t<T> const& a) const
 
 template<class T>
 int
-Interval__compare (const Interval_t<T>&a,Interval_t<T> const&b)
+Interval__compare (Interval_t<T> const& a,Interval_t<T> const& b)
 {
   int i = _Interval__compare (a,b);
   if (i < -1)
@@ -108,6 +107,7 @@ Interval_t<T>::intersect (Interval_t<T> h)
 #endif
 }
 
+#if 0 //this is called intersection
 template<class T>
 Interval_t<T>
 intersect (Interval_t<T> x, Interval_t<T> const &y)
@@ -115,6 +115,7 @@ intersect (Interval_t<T> x, Interval_t<T> const &y)
   x.intersect (y);
   return x;
 }
+#endif
 
 template<class T>
 String

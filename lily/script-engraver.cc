@@ -12,6 +12,7 @@
 #include "event.hh"
 #include "new-slur.hh"
 #include "note-column.hh"
+#include "paper-column.hh"
 #include "rhythmic-head.hh"
 #include "script-interface.hh"
 #include "side-position-interface.hh"
@@ -35,7 +36,7 @@ struct Script_tuple
 class Script_engraver : public Engraver
 {
   Array<Script_tuple> scripts_;
-  Grob *slur_;
+  Spanner *slur_;
 
 protected:
   virtual bool try_music (Music*);
@@ -53,20 +54,20 @@ Script_engraver::Script_engraver ()
 }
 
 bool
-Script_engraver::try_music (Music *r)
+Script_engraver::try_music (Music *m)
 {
-  if (r->is_mus_type ("articulation-event"))
+  if (m->is_mus_type ("articulation-event"))
     {
       /* Discard double articulations for part-combining.  */
       int script_count = scripts_.size ();
       for (int i = 0; i < script_count; i++)
 	if (ly_c_equal_p (scripts_[i].event_
 			  ->get_property ("articulation-type"),
-			  r->get_property ("articulation-type")))
+			  m->get_property ("articulation-type")))
 	  return true;
 
       Script_tuple t;
-      t.event_ = r;
+      t.event_ = m;
       scripts_.push (t);
       return true;
     }
@@ -146,24 +147,24 @@ Script_engraver::process_music ()
 }
 
 void
-Script_engraver::acknowledge_grob (Grob_info inf)
+Script_engraver::acknowledge_grob (Grob_info info)
 {
   int script_count = scripts_.size ();
-  if (Stem::has_interface (inf.grob_))
+  if (Stem::has_interface (info.grob_))
     {
       for (int i = 0; i < script_count; i++)
 	{
 	  Grob *e = scripts_[i].script_;
 
 	  if (to_dir (e->get_property ("side-relative-direction")))
-	    e->set_property ("direction-source", inf.grob_->self_scm ());
+	    e->set_property ("direction-source", info.grob_->self_scm ());
 
 	  /* FIXME: add dependency */
-	  e->add_dependency (inf.grob_);
-	  Side_position_interface::add_support (e, inf.grob_);
+	  e->add_dependency (info.grob_);
+	  Side_position_interface::add_support (e, info.grob_);
 	}
     }
-  else if (Rhythmic_head::has_interface (inf.grob_))
+  else if (Rhythmic_head::has_interface (info.grob_))
     {
       for (int i = 0; i < script_count; i++)
 	{
@@ -172,13 +173,13 @@ Script_engraver::acknowledge_grob (Grob_info inf)
 	  if (Side_position_interface::get_axis (e) == X_AXIS
 	      && !e->get_parent (Y_AXIS))
 	    {
-	      e->set_parent (inf.grob_, Y_AXIS);
-	      e->add_dependency (inf.grob_); // ??
+	      e->set_parent (info.grob_, Y_AXIS);
+	      e->add_dependency (info.grob_);
 	    }
-	  Side_position_interface::add_support (e,inf.grob_);
+	  Side_position_interface::add_support (e,info.grob_);
 	}
     }
-  else if (Note_column::has_interface (inf.grob_))
+  else if (Note_column::has_interface (info.grob_))
     {
       /* Make note column the parent of the script.  That is not
 	correct, but due to seconds in a chord, noteheads may be
@@ -192,11 +193,11 @@ Script_engraver::acknowledge_grob (Grob_info inf)
 
 	  if (!e->get_parent (X_AXIS)
 	      && Side_position_interface::get_axis (e) == Y_AXIS)
-	    e->set_parent (inf.grob_, X_AXIS);
+	    e->set_parent (info.grob_, X_AXIS);
 	}
     }
-  else if (New_slur::has_interface (inf.grob_) && script_count)
-    slur_ = inf.grob_;
+  else if (New_slur::has_interface (info.grob_))
+    slur_ = dynamic_cast<Spanner*> (info.grob_);
 }
 
 void
@@ -227,9 +228,35 @@ Script_engraver::stop_translation_timestep ()
 	   Assume that a SCRIPT that should collide with SLUR does not
 	   have a negative priority. */
 	SCM priority = sc->get_property ("script-priority");
+
+#if 0
+	// this segfaults...
+	int rank = Paper_column::get_rank (sc);
+#endif
+	
+	int rank = -1;
+#if 1
+	// this always yields -1
+	if (Item *i = dynamic_cast<Item*> (sc))
+	  if (i->get_column ())
+	    rank = i->get_column ()->rank_;
+#else
+	// this always yields -1
+	for (Grob *p = sc; p && rank < 0; p = p->get_parent (Y_AXIS))
+	  {
+	    if (Item *i = dynamic_cast<Item*> (p))
+	      if (i->get_column ())
+		rank = i->get_column ()->rank_;
+	  }
+#endif
+
 	if (robust_scm2int (priority, 0) >= 0
 	    && slur_
-	    && get_grob_direction (sc) == get_slur_dir (slur_))
+	    && get_grob_direction (sc) == get_slur_dir (slur_)
+	    && (slur_->spanned_rank_iv ().contains (rank)
+		/* I'm a bit out of ideas about and time to search for
+		   how to get our rank.  Sue me.  */
+		|| rank == -1))
 	  {
 	    Real ss = Staff_symbol_referencer::staff_space (sc);
 	    Real pad = robust_scm2double (sc->get_property ("padding"), 0);
@@ -238,7 +265,6 @@ Script_engraver::stop_translation_timestep ()
 	    sc->set_property ("padding", scm_make_real (pad + ss));
 	  }
       }
-  slur_ = 0;
   scripts_.clear ();
 }
 

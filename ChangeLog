@@ -1,5 +1,7 @@
 2004-08-13  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/spanner.cc (spanned_rank_iv): Bugfix.
+
 	* lily.scm: Mark un-internationlised user messages (with FIXME).
 
 	* lily/include/modified-font-metric.hh (struct

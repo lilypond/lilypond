@@ -16,7 +16,7 @@
 #include "staff-symbol-referencer.hh"
 #include "text-item.hh"
 
-MAKE_SCHEME_CALLBACK (Chord_name,after_line_breaking,1);
+MAKE_SCHEME_CALLBACK (Chord_name, after_line_breaking, 1);
 SCM
 Chord_name::after_line_breaking (SCM smob)
 {
@@ -33,8 +33,6 @@ Chord_name::after_line_breaking (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-
 ADD_INTERFACE (Chord_name, "chord-name-interface",
   "A chord name.",
   "begin-of-line-visible");
-
