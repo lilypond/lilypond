@@ -1,3 +1,13 @@
+2002-04-20  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/key-signature-interface.cc (brew_molecule): add padding for
+	natural signs. Make natural typesetting like the sharp.
+	
+
+	* mf/feta-klef.mf: rewrote portion of the G-clef code. Downstroke
+	is now slightly curved, not straight.
+	
+
 2002-04-18  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el: Toggles font-lock-multiline (Emacs 21.1 or newer).
