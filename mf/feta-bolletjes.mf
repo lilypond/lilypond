@@ -61,19 +61,19 @@ define_whole_vertical_pixels (noteheight);
 
 def draw_outside_ellipse (expr ellipticity, tilt, superness, slant) =
 	save attachment_y;
-	save p;
-	path p;
+	save pat;
+	path pat;
 
-	p := superellipse ((ellipticity, 0), (-slant * ellipticity, 1.0),
-			   (-ellipticity, 0), (slant * ellipticity, -1.0),
-			   superness);
-	p := p rotated tilt;
+	pat := superellipse ((ellipticity, 0), (-slant * ellipticity, 1.0),
+			     (-ellipticity, 0), (slant * ellipticity, -1.0),
+			     superness);
+	pat := pat rotated tilt;
 
 	save top_point, right_point;
 	pair top_point, right_point;
 
-	top_point := directionpoint left of p;
-	right_point := directionpoint up of p;
+	top_point := directionpoint left of pat;
+	right_point := directionpoint up of pat;
 
 	save scaling, width;
 
@@ -89,45 +89,45 @@ def draw_outside_ellipse (expr ellipticity, tilt, superness, slant) =
 	charwy := ypart (right_point) * scaling#;
 	charwx := width#;
 
-	p := p scaled scaling shifted (w / 2, .5 (h - d));
+	pat := pat scaled scaling shifted (w / 2, .5 (h - d));
 
 	width := hround width;
 
 	if test_outlines = 1:
-		draw p;
+		draw pat;
 	else:
-		fill p;
+		fill pat;
 	fi;
 enddef;
 
 
 def undraw_inside_ellipse (expr ellipticity, tilt, superness, clearance) =
 begingroup
-	save p;
-	path p;
+	save pat;
+	path pat;
 
-	p := superellipse ((ellipticity, 0), (0, 1.0),
-			   (-ellipticity, 0), (0, -1.0),
-			   superness);
-	p := p rotated tilt;
+	pat := superellipse ((ellipticity, 0), (0, 1.0),
+			     (-ellipticity, 0), (0, -1.0),
+			     superness);
+	pat := pat rotated tilt;
 
 	save top_point, right_point;
 	pair top_point, right_point;
 
-	top_point := directionpoint left of p;
-	right_point := directionpoint up of p;
+	top_point := directionpoint left of pat;
+	right_point := directionpoint up of pat;
 
 	save height, scaling;
 
 	height# = staff_space# + stafflinethickness# - clearance;
 	scaling# = height# / (2 ypart (top_point));
 	define_pixels (scaling);
-	p := (p scaled scaling) shifted (w / 2, .5 (h - d));
+	pat := pat scaled scaling shifted (w / 2, .5 (h - d));
 
 	if test_outlines = 1:
-		draw p;
+		draw pat;
 	else:
-		unfill p;
+		unfill pat;
 	fi
 endgroup;
 enddef;

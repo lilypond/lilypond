@@ -1,3 +1,16 @@
+2005-01-24  Werner Lemberg  <wl@gnu.org>
+
+	* mf/feta-autometric.mf (fet_beginfont): Set font_coding_scheme
+	to `asis'.
+	(fet_begingroup): Save group name in string `feta_group'.
+	(fet_endgroup): Updated.
+	(fet_beginchar): Emit `glyph_name' special for mf2pt1.
+
+	* mf/feta-bolletjes.mf: s/p/pat/ for paths.
+
+	* mf/feta-pendaal.mf ("Pedal asterisk"): Add workaround for bug
+	in metapost.
+
 2005-01-24  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/notation.itely: really minor editing.
