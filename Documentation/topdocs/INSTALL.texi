@@ -135,7 +135,7 @@ script automating this has been included, see
 
 @subsection Compilation
 
-You need the following packages to compile Lilypond.
+You need the following packages to compile Lilypond:
 
 @itemize
 @item The GNU c++ compiler (version 2.95.2 or newer).
@@ -568,7 +568,7 @@ prerequisites (python, TeX, X11, ghostscript) and then LilyPond
 itself.
 
 
-@subsection compiling on MacOS X
+@subsection Compiling on MacOS X
 LilyPond has been built on Darwin, to be precise, on:
 @example
     Darwin buoux.aspiratie.nl 5.3 Darwin Kernel Version 5.3: Thu Jan 24
