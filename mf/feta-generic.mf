@@ -40,7 +40,7 @@ else:
 % 	input feta-eindelijk;
 %	input feta-klef;
 %	input feta-toevallig;
-	input feta-schrift;
+%	input feta-schrift;
 %	input feta-haak;
 %	input feta-timesig;
 fi

@@ -173,8 +173,11 @@ Stem::set_default_stemlen ()
     }
   else
     length_f = paper_l ()->get_var ("stem_length0");
-  
-  Real shorten_f = paper_l ()->get_var ("forced_stem_shorten0");
+
+  bool grace_b = get_elt_property (grace_scm_sym) != SCM_BOOL_F;
+  String type_str = grace_b ? "grace_" : "";
+
+  Real shorten_f = paper_l ()->get_var (type_str + "forced_stem_shorten0");
 
   if (!dir_)
     dir_ = get_default_dir ();
@@ -195,7 +198,7 @@ Stem::set_default_stemlen ()
   set_stemend ((dir_ > 0) ? head_positions()[BIGGER] + length_f:
 	       head_positions()[SMALLER] - length_f);
 
-  if (dir_ * stem_end_f () < 0)
+  if (!grace_b && (dir_ * stem_end_f () < 0))
     set_stemend (0);
 }
 
@@ -284,6 +287,20 @@ Stem::set_spacing_hints ()
     }
 }
 
+Molecule
+Stem::flag () const
+{
+  String style;
+  SCM st = get_elt_property (style_scm_sym);
+  if ( st != SCM_BOOL_F)
+    {
+      st = SCM_CDR(st);
+      style = ly_scm2string (st);
+    }
+
+  char c = (dir_ == UP) ? 'u' : 'd';
+  return lookup_l ()->afm_find (String ("flags-") + to_str (c) + to_str (flag_i_) + style);
+}
 
 Interval
 Stem::do_width () const
@@ -293,7 +310,7 @@ Stem::do_width () const
     ;	// TODO!
   else
     {
-      r = lookup_l ()->flag (flag_i_, dir_).dim_.x ();
+      r = flag ().dim_.x ();
       r += note_delta_f ();
     }
   return r;
@@ -326,7 +343,7 @@ Stem::do_brew_molecule_p () const
 
   if (!beam_l_ && abs (flag_i_) > 2)
     {
-      Molecule fl = lookup_l ()->flag (flag_i_, dir_);
+      Molecule fl = flag ();
       fl.translate_axis(stem_y[dir_]*dy, Y_AXIS);
       mol_p->add_molecule (fl);
     }

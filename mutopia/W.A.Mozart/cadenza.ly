@@ -41,7 +41,7 @@ cad = \notes  \relative c' {
 		\bar "" ;
 
 	r8 a [b cis]
-%	\grace e16
+	\grace { e8( }
 	[d16 cis d e]
 	f4 ~ [f16 e d c]
 	b4-\turn
@@ -54,13 +54,13 @@ cad = \notes  \relative c' {
 	[g8.(_"a tempo" e16 g8. )e16]
 	a4. g8 [f8 e8 d8 c8]
 	g2 d'2-\trill
-%	\grace { [c32 d] }
+	\grace { [c32 d] }
 	 c4
 	} }
 	
 \score {
 	\notes { \cad }
-	\paper {
-	}
-	\midi { \tempo 4 = 90; }
+%	\midi { \tempo 4 = 90; }
+	\paper {  casting_algorithm = \Wordwrap;}
+
 }
