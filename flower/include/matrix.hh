@@ -1,6 +1,14 @@
+/*
+  matrix.hh -- declare Matrix
+
+  source file of the Flower Library
+
+  (c) 1996,1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
+
 #ifndef MATRIX_HH
 #define MATRIX_HH
-
 
 #include "matrix-storage.hh"
 #include "vector.hh"
