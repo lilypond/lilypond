@@ -29,8 +29,8 @@ stencil2line (Stencil* stil, bool is_title = false)
     z = scm_permanent_object (ly_offset2scm (Offset (0, 0)));
   Offset dim = Offset (stil->extent (X_AXIS).length (),
 		       stil->extent (Y_AXIS).length ());
-  Paper_line pl (dim, scm_cons (stil->smobbed_copy (), SCM_EOL), is_title);
-  return pl.smobbed_copy ();
+  Paper_line * pl = new Paper_line (dim, scm_cons (stil->smobbed_copy (), SCM_EOL), is_title);
+  return pl->self_scm ();
 }
 
 /* Simplistic page interface */
@@ -100,13 +100,13 @@ Page::Page (Paper_def *paper, int number)
   SCM make_header = scm_primitive_eval (ly_symbol2scm ("make-header"));
   SCM make_footer = scm_primitive_eval (ly_symbol2scm ("make-footer"));
 
-  header_ = scm_call_2 (make_header, paper_->smobbed_copy (),
+  header_ = scm_call_2 (make_header, paper_->self_scm (),
 			scm_int2num (number_));
   // FIXME: why does this (generates Stencil) not trigger font load?
   if (get_header ())
     get_header ()->align_to (Y_AXIS, UP);
     
-  footer_ = scm_call_2 (make_footer, paper_->smobbed_copy (),
+  footer_ = scm_call_2 (make_footer, paper_->self_scm (),
 			scm_int2num (number_));
   if (get_footer ())
     get_footer ()->align_to (Y_AXIS, UP);
@@ -284,14 +284,14 @@ Paper_book::init ()
   SCM scopes = get_scopes (0);
 
   SCM make_tagline = scm_primitive_eval (ly_symbol2scm ("make-tagline"));
-  tagline_ = scm_call_2 (make_tagline, paper->smobbed_copy (), scopes);
+  tagline_ = scm_call_2 (make_tagline, paper->self_scm (), scopes);
   Real tag_height = 0;
   if (Stencil *s = unsmob_stencil (tagline_))
     tag_height = s->extent (Y_AXIS).length ();
   height_ += tag_height;
 
   SCM make_copyright = scm_primitive_eval (ly_symbol2scm ("make-copyright"));
-  copyright_ = scm_call_2 (make_copyright, paper->smobbed_copy (), scopes);
+  copyright_ = scm_call_2 (make_copyright, paper->self_scm (), scopes);
   Real copy_height = 0;
   if (Stencil *s = unsmob_stencil (copyright_))
     copy_height = s->extent (Y_AXIS).length ();

@@ -684,12 +684,15 @@ music_output_def_head:
 
 
 music_output_def_body:
-	music_output_def_head '{' { 
+	music_output_def_head '{' {
+		$$ = $1;
+		$$->input_origin_. set_spot (THIS->here_input ());
 		
 	}
 	| music_output_def_head '{' MUSIC_OUTPUT_DEF_IDENTIFIER 	{
 		scm_gc_unprotect_object ($1->self_scm ());
 		Music_output_def * o =  unsmob_music_output_def ($3);
+		o->input_origin_.set_spot (THIS->here_input ());
 		$$ = o;
 		THIS->lexer_->remove_scope ();
 		THIS->lexer_->add_scope (o->scope_);

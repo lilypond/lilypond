@@ -71,6 +71,13 @@ check_meshing_chords (Grob *me,
   // FIXME: what's this?
   bool merge_possible = (ups[0] >= dps[0]) && (ups.top () >= dps.top ());
 
+
+
+  /* Do not merge notes typeset in different style. */
+  if ( !gh_equal_p (nu->get_property ("style"),
+		     nd->get_property ("style") ) )
+    merge_possible = false;
+  
   int upball_type = Note_head::get_balltype (nu);
   int dnball_type = Note_head::get_balltype (nd);
   

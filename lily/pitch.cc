@@ -396,12 +396,6 @@ LY_DEFINE (ly_pitch_diff, "ly:pitch-diff",
   return interval (*r, *p).smobbed_copy ();
 }
 
-SCM
-Pitch::smobbed_copy ()const
-{
-  Pitch *p = new Pitch (*this);
-  return p->smobbed_self ();
-}
 
 int
 Pitch::get_octave ()const

@@ -32,7 +32,6 @@ public:
 
   static int compare (Duration const&, Duration const&);
 
-  SCM smobbed_copy () const;
   DECLARE_SCHEME_CALLBACK (less_p, (SCM a, SCM b));
   DECLARE_SIMPLE_SMOBS (Duration,);
 

@@ -21,9 +21,12 @@ There are X areas where the default settings may be changed:
 
 @itemize @bullet
 @item Output: changing the appearance of individual
-  objects
-@item Context: changing the translation from music events to
-  notation
+  objects. For example, changing stem directions, or the location of
+  subscripts.
+  
+@item Context: changing aspects of the translation from music events to
+  notation. For example, giving each staff a separate time signature. 
+  
 @item Global layout: changing the appearance of the spacing, line
   breaks and page dimensions.
 @end itemize
@@ -33,16 +36,15 @@ Then, there are separate systems for typesetting text (like
 discusses these.
 
 Internally, LilyPond uses Scheme (a LISP dialect) to provide
-infrastructure.  Since overriding layout decisions in effect
-accesses the program internals,  it is necessary to learn a (very
-small) subset of Scheme. That is why this chapter starts with
-a short tutorial on entering  numbers,  lists, strings and symbols in
-Scheme.
+infrastructure.  Overriding layout decisions in effect accesses the
+program internals, so it is necessary to learn a (very small) subset
+of Scheme. That is why this chapter starts with a short tutorial on
+entering numbers, lists, strings and symbols in Scheme.
 
 
 @menu
 * Scheme tutorial::             
-* Setting variables::           
+* Context ::                    
 * Fine tuning layout::          
 * Tuning output::               
 * Text markup::                 
@@ -165,16 +167,21 @@ The quote mark @code{'} prevents Scheme interpreter from substituting
 @code{twentyFour}.
 
 This syntax will be used very frequently, since many of the layout
-tweaks involve assigning (Scheme) values to variables, for example
+tweaks involve assigning (Scheme) values to internal variables, for
+example
 
 @example
-  \override Stem #'thickness = #2.5
+  \override Stem #'thickness = #2.6
 @end example
 
-This instruction adjusts the appearance of stems. The value @code{2.5}
+This instruction adjusts the appearance of stems. The value @code{2.6}
 is put into a the @code{thickness} variable of a @code{Stem}
 object. This makes stems almost twice as thick as their normal size.
- 
+To distinguish between variables defined in input files (like
+@code{twentyFour} in the example above), and internal variables, we
+will call the latter ``properties.'' So, the stem object has a
+@code{thickness} property.
+
 Two-dimensional offsets (X and Y coordinates) as well as object sizes
 (intervals with a left and right point) are entered as @code{pairs}. A
 pair@footnote{In Scheme terminology, the pair is called @code{cons},
@@ -197,8 +204,8 @@ The two elements of a pair may be arbitrary values, for example
   #'("blah-blah" . 3.14159265)
 @end example
 
-A list is entered by enclosing its elements in parentheses, and
-adding a quote. . For example,
+A list is entered by enclosing its elements in parentheses, and adding
+a quote. For example,
 @example
   #'(1 2 3)
   #'(1 2 "string" #f)
@@ -210,102 +217,112 @@ and 2). For entering lists, use a quote @code{'} and for
 calculations, do not use a quote. 
 
 Inside a quoted list or pair, there is no need to quote anymore.  The
-following is a pair and a list of symbols respectively.
+following is a pair of symbols, a list of symbols and a list of lists
+respectively,
+
 @example
   #'(stem . head)
   #'(staff clef key-signature)
+  #'((1) (2))
 @end example
 
+
+@node Context 
+@section Context
+
+When music is printed, a lot of things notation elements must be added
+to the input, which is often bare bones.  For example, compare the
+input and output of the following example
+
+@lilypond[verbatim,relative=2]
+  cis4 cis2. g4
+@end lilypond
+
+The input is rather sparse, but in the output, bar lines, accidentals,
+clef and time signature are added. LilyPond @emph{interprets} the
+input. During this step, the musical information is inspected in time
+order, similar to reading a score from left to right. While reading,
+the program remembers where measure boundaries are, and what pitches
+need explicit accidentals. 
+
+This information can be present on several levels.  For example, the
+effect of an accidental is limited to a single stave, while a bar line
+must be synchronized across the entire score.  To match this
+hierarchy, LilyPond's interpretation step is hierarchical. Properties
+are maintained `interpretation contexts', like Voice, Staff and Score,
+and each context can have different @emph{properties}, variables that
+are contained in a context.
 
 @menu
-* Inline Scheme::               
+* Changing context properties on the fly ::  
+* context property defaults ::  
+* which properties to change::  
 @end menu
 
-@node Inline Scheme
-@subsection Inline Scheme
+@node Changing context properties on the fly 
+@subsection Changing context properties  on the fly
 
-Scheme expressions can be entered in the input file by entering a
-hash-sign (@code{#}).  The expression following the hash-sign is
-evaluated as Scheme. For example, the boolean value @var{true} is
-@code{#t} in Scheme, so for LilyPond @var{true} looks like @code{##t},
-and can be used in property assignments:
-@example
-  \set Staff.autoBeaming = ##f
-@end example
+Such variables can be changed during the interpretation step.
+This is achieved by  inserting the @code{\set} command in the music,
 
+@quotation
+  @code{\set }[@var{context}]@code{.}@var{prop}@code{ = #}@var{value} 
+@end quotation
 
-@node Setting variables
-@section Setting variables
+For example,
+@lilypond[verbatim,relative=2]
+  R1*2 
+  \set Score.skipBars = ##t
+  R1*2
+@end lilypond
 
-When the music is converted from notes to print it is interpreted
-in left-to-right order. This is similar to what happens when we read
-music. During this step context-sensitive information such as the
-accidentals to print, and where bar lines must be placed, are stored in
-variables. These variables are called @emph{context properties}.
-The properties can also be manipulated from input files. Consider this input:
-@example
-\set Staff.autoBeaming = ##f
-@end example 
+This command skips measures that have no notes. The result is that
+multi rests are condensed.  The value assigned is a Scheme object. In
+this case, it is @code{#t}, the boolean True value.
 
-@noindent
-It sets the property named @code{autoBeaming} in the current staff at
-this point in the music to @code{##f}, which means `false'. This
-property controls whether beams are printed automatically:
-@c
-@lilypond[relative=1,fragment,verbatim]
+If the @var{context} argument is left out, then the current
+bottom-most context (typically ChordNames, Voice or Lyrics) is used.
+In this example,
+
+@lilypond[verbatim,relative=2]
   c8 c c c
-  \set Staff.autoBeaming = ##f
-  c8 c c c  
+  \set autoBeaming = ##f
+  c8 c c c
 @end lilypond
 
 @noindent
-LilyPond includes a built-in programming language, namely, a dialect
-of Scheme.  The argument to @code{\set}, @code{##f}, is an
-expression in that language.  The first hash-mark signals that a piece
-of Scheme code follows. The second hash character is part of the
-boolean value true (@code{#t}).  Values of other types may be
-entered as follows:
-@itemize @bullet
-@item a string, enclosed in double quotes, for example,
-@example
-  \set Staff.instrument = #"French Horn"
-@end example
-@item a boolean: either @code{#t} or @code{#f}, for true and false
-respectively, e.g.
-@example
-  \set autoBeaming = ##f
-  \set Score.skipBars = ##t
-@end example
+the @var{context} argument to @code{\set} is left out, and the current
+@internalsref{Voice} is used.  Contexts are hierarchical, so if a
+bigger context was specified, for example @code{Staff}, then the
+change would apply to all Voices in the current stave.
 
-@item a number, such as
-@example
-  \set Score.currentBarNumber = #20
-@end example
+There is also an @code{\unset} command,
+@quotation
+  @code{\set }[@var{context}]@code{.}@var{prop}
+@end quotation
 
-@item a symbol, which is introduced by a quote character, as in 
-@example
-  \set Staff.crescendoSpanner = #'dashed-line
-@end example
-
-@item a pair, which is also introduced by a quote character, like in
-the following statements, which set properties to the pairs (-7.5, 6) 
-and (3, 4) respectively:
+@noindent
+which removes the definition of @var{prop}. This command only removes
+definitions  set in
+@var{context}. in
 
 @example
-  \set Staff.minimumVerticalExtent = #'(-7.5 . 6)
-  \set Staff.timeSignatureFraction = #'(3 . 4)
+  \set staff.autobeaming = ##f
+  \unset voice.autobeaming
 @end example
 
-@item a list, which is also introduced by a quote character. In the
-following example, the @code{breakAlignOrder} property is set to a
-list of symbols:
-@example
-  \set Score.breakAlignOrder = 
- #'(left-edge time-signature key-signatures)
-@end example
+@noindent
+the current voice does not have the property, and the definition at
+staff level remains intact.
+
+@node context property defaults 
+@subsection context property defaults
 
 
-@end itemize
+
+@node which properties to change
+@subsection which properties to change
+
 
 There are many different properties.  Not all of them are listed in
 this manual. However, the program reference lists them all in the

@@ -46,7 +46,6 @@ public:
   /*
     Deliver a copy of THIS as a smobified SCM
    */
-  SCM smobbed_copy () const;
   String to_string () const;
   static int compare (Moment const&, Moment const&);
   

@@ -100,9 +100,13 @@
 */
 
 #define DECLARE_SIMPLE_SMOBS(CL,dummy) \
-protected: \
+public: \
+	SCM smobbed_copy () const; \
+DECLARE_BASE_SMOBS(CL)
+
+
+#define DECLARE_BASE_SMOBS(CL) \
 	friend class Non_existant_class ; \
-	SCM smobbed_self () const; \
 private:\
 	static scm_t_bits smob_tag_;		       		\
 	static SCM mark_smob (SCM);				\
@@ -122,7 +126,7 @@ private:
 
 
 #define DECLARE_SMOBS(CL,dummy)					\
-	DECLARE_SIMPLE_SMOBS (CL,dammy) \
+	DECLARE_BASE_SMOBS (CL) \
 protected:\
 	virtual ~CL ();\
 	SCM unprotected_smobify_self ();\

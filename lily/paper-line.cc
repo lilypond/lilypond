@@ -14,6 +14,7 @@ Paper_line::Paper_line (Offset o, SCM stencils, bool is_title)
   dim_ = o;
   stencils_ = stencils;
   is_title_ = is_title;
+  smobify_self ();
 }
 
 Offset
@@ -49,13 +50,10 @@ Paper_line::print_smob (SCM, SCM port, scm_print_state*)
   return 1;
 }
 
-SCM
-Paper_line::smobbed_copy () const
+Paper_line::~Paper_line ()
 {
-  Paper_line *line = new Paper_line (*this);
-  return line->smobbed_self ();
 }
 
-IMPLEMENT_SIMPLE_SMOBS (Paper_line);
+IMPLEMENT_SMOBS (Paper_line);
 IMPLEMENT_TYPE_P (Paper_line, "ly:paper-line?");
 IMPLEMENT_DEFAULT_EQUAL_P (Paper_line);

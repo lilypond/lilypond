@@ -28,6 +28,7 @@ private:
   SCM split_list_;
   Direction where_dir_;
   void change_to (Music_iterator* , SCM, String);
+  Moment start_moment_;
 };
 
 
@@ -93,9 +94,10 @@ Auto_change_iterator::process (Moment m)
   for (; gh_pair_p (split_list_); split_list_ = gh_cdr (split_list_))
     {
       splitm = unsmob_moment (gh_caar (split_list_));
-      if (*splitm > now)
+      if ((*splitm + start_moment_) > now)
 	break ;
 
+      *splitm += start_moment_;
       SCM tag = gh_cdar (split_list_);
       Direction d = to_dir  (tag);
       
@@ -121,6 +123,7 @@ Auto_change_iterator::construct_children ()
 {
   Music_wrapper_iterator::construct_children ();
   split_list_ =  get_music ()->get_property ("split-list");
+  start_moment_ = get_outlet ()->now_mom ();
 }
 
 IMPLEMENT_CTOR_CALLBACK (Auto_change_iterator);

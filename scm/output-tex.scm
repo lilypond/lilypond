@@ -28,6 +28,7 @@
   (display (eval expr output-ps) port))
 
 ;;; Output interface entry
+
 (define-public (tex-output-expression expr port)
   (display (eval expr this-module) port ))
 

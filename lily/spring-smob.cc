@@ -39,9 +39,3 @@ Spring_smob::equal_p (SCM a , SCM b)
   return a==b? SCM_BOOL_T : SCM_BOOL_F;
 }
 
-SCM
-Spring_smob::smobbed_copy ()const
-{
-  Spring_smob *  p = new Spring_smob (*this);
-  return p->smobbed_self ();
-}

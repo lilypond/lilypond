@@ -53,7 +53,6 @@ public:
   Stencil ();
   
   Offset origin () const;
-  SCM smobbed_copy () const;
   SCM get_expr () const;
 
   /**

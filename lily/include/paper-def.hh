@@ -65,8 +65,6 @@ public:
   /* JUNKME   */
   Real get_realvar (SCM symbol) const;
   
-  SCM smobbed_copy () const;
-  
   friend int yyparse (void*);
 };
 

@@ -15,15 +15,17 @@
 #include "lily-guile.hh"
 #include "virtual-methods.hh"
 #include "smobs.hh"
+#include "input.hh"
 
 /**
   Definition of how to output lilypond.
  */
-class Music_output_def  
+class Music_output_def   
 {
 public:
   Scheme_hash_table * translator_tab_;
-
+  Input input_origin_;
+  
   SCM scope_;
   SCM scaled_fonts_;
   
