@@ -7,12 +7,14 @@
 #ifndef SCCOL_HH
 #define SCCOL_HH
 #include "pcol.hh"
+#include "vray.hh"
 
 
 struct Score_column {
 
     /// indirection to column
     PCol * pcol_;
+
     /// length of notes/rests in this column
     svec<Real> durations;
     
@@ -46,4 +48,7 @@ struct Score_column {
 instantiate_compare(Score_column&, Score_column::compare);
 
 #endif // SCCOL_HH
+
+
+
 

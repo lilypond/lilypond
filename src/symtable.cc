@@ -1,4 +1,5 @@
 #include "misc.hh"
+#include "textdb.hh"
 #include "dimen.hh"
 #include "debug.hh"
 #include "real.hh"
@@ -13,8 +14,10 @@ Symtable::lookup(String s) const
     if (elt_query(s))
 	return (*this)[s];
     else {
-	error( "Unknown symbol " +s+'\n');
+	error( "Unknown symbol `" +s+"'\n");
     }
+    Symbol sy;			// unreachable
+    return sy;
 }
 
 Symtable* 
@@ -27,7 +30,7 @@ void
 Symtables::read(Text_db &symini)
 {
      while (!symini.eof()) {
-	 Text_record  r(  symini++);
+	 Text_record  r(symini++);
 	 if (r[0] == "end" )
 	     return;
 	 assert (r[0] == "table");
@@ -55,6 +58,3 @@ Symtables::read(Text_db &symini)
 	 (*this)[tabnam] = sp;	 	 
      }
 }
-
-
-

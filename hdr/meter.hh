@@ -7,6 +7,7 @@
 #ifndef METER_HH
 #define METER_HH
 #include "item.hh"
+#include "vray.hh"
 
 struct Meter: Item {
     svec<String> args;

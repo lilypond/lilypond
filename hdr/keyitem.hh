@@ -8,7 +8,7 @@
 #define KEYITEM_HH
 
 #include "item.hh"
-
+#include "vray.hh"
 struct Keyitem : Item {
     svec<int> pitch;
     svec<int> acc;
