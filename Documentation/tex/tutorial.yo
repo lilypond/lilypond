@@ -715,8 +715,8 @@ signatures, which can be useful for unconventional keys or modes.  The
 key signature is given in the form of a list of notes.  The notes will
 be printed in the key signature in the order that they appear on the list.
 For example, the key
-of C-minor can be specified as `code(\accidentals bes es as)'.  The
-command `code(\accidentals fis es bis)' provides a more exotic
+of C-minor can be specified as `code(\keysignature bes es as)'.  The
+command `code(\keysignature fis es bis)' provides a more exotic
 example.
 
 
