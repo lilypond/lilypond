@@ -184,13 +184,13 @@ Akkord, NL: gebroken akoord, DK: arpeggio, akkordbrydning, S: arpeggio, N:
 @
 
 @lilypond[13pt,eps]
-\context GrandStaff <
-  \notes\relative c'' { 
+  \notes \context PianoStaff <
+  \context Staff = SA \relative c'' { 
     \time 4/4;
     \clef treble; 
     r8 g16 c e g, c e r8 g,16 c e g, c e |
     r8 a,16 d f a, d f r8 a,16 d f a, d f \bar "||"; }
-  \notes\relative c' {
+  \context Staff = SB \relative c' {
     \clef bass; 
     < \context Voice = va { 
         \stemUp 
@@ -314,23 +314,17 @@ Symbol at the start of a system connecting staffs. Curly braces are used
 for connecting piano staves, angular brackets for connecting parts in an
 orchestral or choral score.
 
-@
-
-@lilypond[13pt,eps] 
-\context GrandStaff < 
-  \property GrandStaff.minVerticalAlign = 12
-  \notes\relative c'' { \clef treble; g4 e c2 }
-  \notes\relative c { \clef bass; c1 \bar "|."; } > 
+@lilypond[13pt,eps]
+\notes\context GrandStaff < 
+  \relative c''\context Staff = SA  { \clef treble; g4 e c2 }
+  \relative c \context Staff = SB { \clef bass; c1 \bar "|."; } > 
 @end lilypond
 
-@
-
 @lilypond[13pt,eps] 
-%\context StaffGroup < 
-\context ChoirStaff < 
-  \property StaffGroup.minVerticalAlign = 12
-  \notes\relative c'' { \clef treble; g4 e c2 }
-  \notes\relative c { \clef bass; c1 \bar "|."; } > 
+\context StaffGroup < 
+%  \property StaffGroup.minVerticalAlign = 12
+  \notes\relative c'' \context Staff = SA { \clef treble; g4 e c2 }
+  \notes\relative c \context Staff = SB { \clef bass; c1 \bar "|."; } > 
 @end lilypond
 
 @item brass
@@ -375,16 +369,15 @@ lines.
 
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t
-\property Staff.clefStyle = #"fullSizeChanges"
-\property Staff.textStyle = #"large"
-\property Lyrics.textStyle = #"large"
+\property Score.Clef \override #'full-size-change = ##t
+\property Score.LyricText \set #'font-style = #'large
 \addlyrics
-\notes\relative c' { 
-  \clef soprano; c1 s s
-  \clef mezzosoprano; c s s
-  \clef alto; c s s
-  \clef tenor; c s s
-  \clef baritone; c s
+\context Staff \notes\relative c' { 
+  \clef soprano; c1 
+  \clef mezzosoprano; c 
+  \clef alto; c 
+  \clef tenor; c 
+  \clef baritone; c 
 }
 \context Lyrics \lyrics { 
   Soprano Mezzosoprano Alto Tenor Baritone 
@@ -544,8 +537,8 @@ composition methods.
 
 @lilypond[13pt,eps]
 \property Score.TimeSignature \override #'style = #'C2/2
-\context GrandStaff <
-  \notes\relative c' { 
+\notes\context PianoStaff <
+  \context Staff = SA \relative c' { 
     \key bes \major;
     \time 4/4;
     \clef treble; 
@@ -561,7 +554,7 @@ composition methods.
       }
     >
   }
-  \notes\relative c' {
+  \context Staff = SB \relative c' {
     \clef bass; 
     \key bes \major;
     < \context Voice = lha {
@@ -647,8 +640,8 @@ or the abbreviation "decresc.".
 @
 
 @lilypond[13pt,eps] 
-\key g \major; \time 4/4;
-\notes\relative c'' { d4 \> c b a | \! g1 \bar "|."; }
+\context Staff \notes\relative c'' {\key g \major; \time 4/4;
+ d4 \> c b a | \! g1 \bar "|."; }
 @end lilypond
 
 @item descending interval
@@ -679,9 +672,9 @@ also to some extent in newer jazz music.
 \addlyrics
 \notes\relative c' { 
   c1 d
-  \property Voice.textScriptPadding = #-10
+  \property Voice.TextScript \set #'padding = #-10
   e^"~~ S" f g a 
-  \property Voice.textScriptPadding = #-4
+  \property Voice.TextScript \set #'padding = #-4
   b^"~~ S" c }
   \context Lyrics \lyrics { Ionian }
 @end lilypond
@@ -694,10 +687,10 @@ also to some extent in newer jazz music.
 \addlyrics
 \notes\relative c' { 
   d1
-  \property Voice.textScriptPadding = #-10
+  \property Voice.TextScript \set #'padding = #-10
   e^"~~ S"
   f g a 
-  \property Voice.textScriptPadding = #-4
+  \property Voice.TextScript \set #'padding = #-4
   b^"~~ S" c d }
   \context Lyrics \lyrics { Dorian }
 @end lilypond
@@ -709,10 +702,10 @@ also to some extent in newer jazz music.
 \property Voice.TextScript \set #'font-style = #'large
 \addlyrics
 \notes\relative c' { 
-  \property Voice.textScriptPadding = #-10
+  \property Voice.TextScript \set #'padding = #-10
   e1^"~~ S"
   f g a 
-  \property Voice.textScriptPadding = #-4
+  \property Voice.TextScript \set #'padding = #-4
   b^"~~ S" c d e }
   \context Lyrics \lyrics { Phrygian }
 @end lilypond
@@ -725,9 +718,9 @@ also to some extent in newer jazz music.
 \addlyrics
 \notes\relative c' { 
   f1 g a 
-  \property Voice.textScriptPadding = #-4
+  \property Voice.TextScript \set #'padding = #-4
   b^"~~ S" c d 
-  \property Voice.textScriptPadding = #0
+  \property Voice.TextScript \set #'padding = #0
   e^"~~ S" f }
   \context Lyrics \lyrics { Lydian }
 @end lilypond
@@ -740,9 +733,9 @@ also to some extent in newer jazz music.
 \addlyrics
 \notes\relative c'' { 
   g1 a 
-  \property Voice.textScriptPadding = #-4
+  \property Voice.TextScript \set #'padding = #-4
   b^"~~ S" c d 
-  \property Voice.textScriptPadding = #0
+  \property Voice.TextScript \set #'padding = #0
   e^"~~ S" f g }
   \context Lyrics \lyrics { Mixolydian }
 @end lilypond
@@ -755,9 +748,9 @@ also to some extent in newer jazz music.
 \addlyrics
 \notes\relative c'' { 
   a1
-  \property Voice.textScriptPadding = #-4
+  \property Voice.TextScript \set #'padding = #-4
   b^"~~ S" c d 
-  \property Voice.textScriptPadding = #0
+  \property Voice.TextScript \set #'padding = #0
   e^"~~ S" f g a }
   \context Lyrics \lyrics { Aeolian }
 @end lilypond
@@ -775,9 +768,9 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 \addlyrics
 \notes\relative c' { 
   c1 d
-  \property Voice.textScriptPadding = #-10
+  \property Voice.TextScript \set #'padding = #-10
   e^"~~ S" f g a 
-  \property Voice.textScriptPadding = #-4
+  \property Voice.TextScript \set #'padding = #-4
   b^"~~ S" c }
   \context Lyrics \lyrics { Major }
 @end lilypond
@@ -790,9 +783,9 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 \addlyrics
 \notes\relative c'' { 
   a1
-  \property Voice.textScriptPadding = #-4
+  \property Voice.TextScript \set #'padding = #-4
   b^"~~ S" c d 
-  \property Voice.textScriptPadding = #0
+  \property Voice.TextScript \set #'padding = #0
   e^"~~ S" f g a }
   \context Lyrics \lyrics { "ancient minor" }
 @end lilypond
@@ -805,11 +798,11 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 \addlyrics
 \notes\relative c'' { 
   a1
-  \property Voice.textScriptPadding = #-4
+  \property Voice.TextScript \set #'padding = #-4
   b^"~~ S" c d 
-  \property Voice.textScriptPadding = #0
+  \property Voice.TextScript \set #'padding = #0
   e^"~~ S" 
-  \property Voice.textScriptPadding = #1
+  \property Voice.TextScript \set #'padding = #1
   f!^"~~ A" 
   gis^"~~ S" 
   a }
@@ -824,13 +817,13 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 \addlyrics
 \notes\relative c'' { 
   a1
-  \property Voice.textScriptPadding = #-4
+  \property Voice.TextScript \set #'padding = #-4
   b^"~~ S" c d e fis 
-  \property Voice.textScriptPadding = #0
+  \property Voice.TextScript \set #'padding = #0
   gis^"~~ S" a g! 
-  \property Voice.textScriptPadding = #-1
+  \property Voice.TextScript \set #'padding = #-1
   f!^"~~ S" e d 
-  \property Voice.textScriptPadding = #-4
+  \property Voice.TextScript \set #'padding = #-4
   c^"~~ S" b a
 }
   \context Lyrics \lyrics { "Melodic minor" }
@@ -1046,23 +1039,21 @@ octave lower (for example on double bass @w{@ar{}@strong{strings}}).
 
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t 
-\property Staff.clefStyle = #"fullSizeChanges"
+\property Staff.Clef \override #'full-size-change = ##t
 \property Lyrics.LyricText \set #'font-style = #'large
 \addlyrics
 \notes\relative c { 
 %  \clef "F3";
   \clef varbaritone;
-  f1 s
-%  \clef "F4";
+  f1
   \clef bass;
-  f1 s
-%  \clef "F5";
+  f1
   \clef subbass;
-  f1 s
+  f1
   \clef "F^8";
-  f'1 s s
+  f1
   \clef "F_8";
-  f,,1 s s
+  f1
 } 
 \context Lyrics \lyrics { 
   baritone 
@@ -1184,18 +1175,18 @@ that).
 
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t 
-\property Staff.clefStyle = #"fullSizeChanges"
+\property Staff.Clef \set #'full-size-change = ##t
 \property Lyrics.LyricText \set #'font-style = #'large
 \addlyrics
 \notes\relative c'' { 
   \clef french; 
-  g1 s s s s
+  g1
   \clef treble; 
-  g s s s
+  g
   \clef "G^8"; 
-  g' s s s 
+  g
   \clef "G_8"; 
-  g,, s s
+  g
 }
 \context Lyrics \lyrics { 
   "french violin clef" 
@@ -1254,14 +1245,14 @@ section. @ar{}@w{}@strong{functional harmony}
 @
 
 @lilypond[13pt,eps] 
-\context GrandStaff < 
-  \notes\relative c'' { 
+\notes\context PianoStaff < 
+  \context Staff = SA \relative c'' { 
     \time 4/4;
     \clef treble; 
     \partial 4; < c4 g e > | < c a f > < b g d > < c2 g e > }
   \property Lyrics.LyricText \set #'font-style = #'large
   \addlyrics
-  \notes\relative c { 
+  \context Staff = SB \relative c { 
     \clef bass; 
     \partial 4; c4 | f, g c2
     \bar "|."; } 
@@ -1330,10 +1321,10 @@ forms an octave.
 
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t
-\property Lyrics.LyricText \set #'font-style = #'large
-\property Voice.TextScript \set #'font-style = #'large
+\property Score.LyricText \set #'font-style = #'large
+\property Score.TextScript \set #'font-style = #'large
 \addlyrics
-\notes\relative c'' {
+\context Staff \notes\relative c'' {
   < g1 g > s
   < g^"minor" as > s
   < g^"major" a! > s
@@ -1351,10 +1342,10 @@ forms an octave.
 
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t
-\property Lyrics.LyricText \set #'font-style = #'large
-\property Voice.TextScript \set #'font-style = #'large
+\property Score.LyricText \set #'font-style = #'large
+\property Score.TextScript \set #'font-style = #'large
 \addlyrics
-\notes\relative c'' {
+\context Staff \notes\relative c'' {
   < g1^"perfect" c > s
   < g^"augm" cis > s
   < g^"perfect" d' > s
@@ -1372,10 +1363,10 @@ forms an octave.
 
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t
-\property Lyrics.LyricText \set #'font-style = #'large
-\property Voice.TextScript \set #'font-style = #'large
+\property Score.LyricText \set #'font-style = #'large
+\property Score.TextScript \set #'font-style = #'large
 \addlyrics
-\notes\relative c'' {
+\context Staff \notes\relative c'' {
   < gis1^"dimin" f'! > s
   < g!^"minor" f'! > s
   < g^"major" fis' > s
@@ -1399,8 +1390,8 @@ The difference between an interval and an octave.
 
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t
-\property Voice.TextScript \set #'font-style = #'large
-\notes\relative c'' {
+\property Score.TextScript \set #'font-style = #'large
+\context Staff \notes\relative c'' {
   < g1_"second" a > s < g'_"seventh" a, > s \bar "||"; 
   < g,_"third" b > s < g'_"sixth" b, > s \bar "||";
   < g,_"fourth" c > s < g'_"fifth" c, > s \bar "||";
@@ -1513,7 +1504,7 @@ note value: double length of @w{@ar{}@strong{brevis}}. @w{@ar{}@strong{note valu
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t 
 \notes\relative c'' { 
-  \property Voice.noteHeadStyle = #'mensural
+  \property Voice.NoteHead \set #'style = #'mensural
   g\longa 
 } 
 @end lilypond
@@ -1627,7 +1618,7 @@ First C below the 440 Hz A.
 
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t 
-\property Staff.clefStyle = #"fullSizeChanges"
+\property Staff.Clef \set #'full-size-change = ##t
 \notes\relative c' { 
   \clef bass; c1 s
   \clef alto; c s
@@ -1762,9 +1753,9 @@ but sometimes (mostly in pre baroque music) the double length note value
 \property Voice.TextScript \set #'font-style = #'large
 \property Score.barNonAuto = ##t
 \notes\relative c'' { 
-  \property Voice.noteHeadStyle = #'mensural
+  \property Voice.NoteHead \override #'style = #'mensural
   g\longa_"longa" g\breve_"breve" 
-  \property Voice.noteHeadStyle = ##f
+  \property Voice.NoteHead \revert #'style
   g1_"1/1" g2_"1/2" g4_"1/4" s16 g8_"1/8" s16
   g16_"1/16" s16 g32_"1/32" s16 g64_"1/64" s32 }
 @end lilypond
@@ -2076,7 +2067,7 @@ sub@-do@-mi@-nant (S) and V = dominant (D).
 \emptyText
 \property Score.barNonAuto = ##t 
 \property Lyrics.LyricText \set #'font-style = #'large
-\property Lyrics.minVerticalAlign = 8
+%\property Lyrics.minVerticalAlign = 8
 \addlyrics
 \notes\relative c' { 
   c1 d e f g a b c }

@@ -208,12 +208,18 @@ Tie_engraver::stop_translation_timestep ()
     }
   now_heads_.clear ();
 
+  /*
+    we don't warn for no ties, since this happens naturally when you
+    use skipTypesetting.  */
+  
+#if 0
   if (req_l_ && !tie_p_arr_.size ())
     {
       /* How to shut up this warning, when no notes appeared because
 	 they were suicided by Thread_devnull_engraver? */
       req_l_->origin ()->warning (_ ("No ties were created!"));
     }
+#endif
   
   for (int i=0; i<  tie_p_arr_.size (); i++)
    {

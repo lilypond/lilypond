@@ -121,13 +121,15 @@ recommended for comfortable use.
 @section Website
 
 The website is the most convenient form to use for reading the
-documentation on-line documentation. It is made by entering @example 
+documentation on-line documentation. It is made by entering
 
-  make htmldoc
+@example 
+
+  make web-doc
  
 @end example 
-This does require a functioning LilyPond.  The binary doesn't have to
-be installed. 
+This does require a functioning LilyPond.  The executable doesn't have
+to be installed, though.
 
 If you want to auto-generate Lily's website, you'll need some additional
 conversion tools.
