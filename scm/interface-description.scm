@@ -134,7 +134,7 @@
    support-head 
    heads 
    direction 
-   stem-length 
+   length 
    style 
    flag-style 
    dir-forced 

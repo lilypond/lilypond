@@ -150,7 +150,7 @@ typesetting engine is completely oblivious to it.
 slur dir) -> attachment to determine the attachment (see above).  If
 procedure returns #t, attachment is used.  Otherwise, the next
 procedure is tried.")
-(grob-property-description 'flag-style string? "style for flag (hook of a stem).")
+(grob-property-description 'flag-style string? "turn stroke through stem on/off.")
 (grob-property-description 'flag-width-function procedure? "Procedure that computes the width of a half-beam (a non-connecting beam.).")
 (grob-property-description 'font-family symbol? "partial font
 definition: music roman braces dynamic math ...")
