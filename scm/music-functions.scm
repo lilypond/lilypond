@@ -272,8 +272,8 @@ a property set for MultiMeasureRestNumber."
 	  (
 	   (text? (lambda (x) (memq 'script-event (ly:get-mus-property x 'types))))
 	   (es (ly:get-mus-property  music 'elements))
-	   (texts (map script-to-mmrest-text  (filter-list text? es)))
-	   (others (filter-out-list text? es))
+	   (texts (map script-to-mmrest-text  (filter text? es)))
+	   (others (remove text? es))
 	   )
 	(if (pair? texts)
 	    (ly:set-mus-property!
@@ -452,7 +452,7 @@ Rest can contain a list of beat groupings
 	 (ly:set-mus-property! m 'element  (voicify-music e)))
      (if
       (and (equal? (ly:music-name m) "Simultaneous_music")
-	   (reduce (lambda (x y ) (or x y)) 	(map music-separator? es)))
+	   (reduce (lambda (x y ) (or x y)) #f (map music-separator? es)))
       (voicify-chord m)
       )
 
@@ -498,7 +498,7 @@ Rest can contain a list of beat groupings
 ;; warn for bare chords at start.
 
 (define (has-request-chord elts)
-  (reduce (lambda (x y) (or x y)) (map (lambda (x) (equal? (ly:music-name x)
+  (reduce (lambda (x y) (or x y)) #f (map (lambda (x) (equal? (ly:music-name x)
 							   "Request_chord")) elts)
   ))
 

@@ -9,7 +9,7 @@
   (if (null? l)
       '()
       (let*
-	  ((x (split-at pred? l)))
+	  ((x (split-at-predicate pred? l)))
 	(set-cdr! x (recursive-split-at pred? (cdr x)))
 	x
 	)))

@@ -119,7 +119,8 @@ LY_DEFINE(ly_molecule_combined_at_edge,
 }
 
 /*
-  FIXME: support variable number of arguments "
+  FIXME: support variable number of arguments. 
+  
  */
 LY_DEFINE(ly_molecule_add , 
 	  "ly:molecule-add", 2, 0, 0, (SCM first, SCM second),

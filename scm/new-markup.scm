@@ -223,13 +223,13 @@ for the reader.
        (dot (ly:find-glyph-by-name font "dots-dot"))
        (dotwid  (interval-length (ly:molecule-get-extent dot X)))
        (dots (if (> dot-count 0)
-		 (reduce
+		 (reduce-no-unit 	; TODO: use reduce.
 		  (lambda (x y)
 		    (ly:molecule-add x y))
 		  (map (lambda (x)
 			 (ly:molecule-translate-axis
 			  dot  (* (+ 1 (* 2 x)) dotwid) X) )
-		       (range dot-count 1)))
+		       (iota dot-count 1)))
 		 #f
 		 ))
        

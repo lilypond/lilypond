@@ -113,7 +113,7 @@ input/test/dpncnt.ly).
     (make-line-markup (list (make-simple-markup "no") (step->markup pitch))))
 			 
   (define (get-full-list pitch)
-    (if (<= (step-nr pitch) (step-nr (tail pitches)))
+    (if (<= (step-nr pitch) (step-nr (last pitches)))
 	(cons pitch (get-full-list (next-third pitch)))
 	'()))
 
@@ -139,7 +139,7 @@ input/test/dpncnt.ly).
     (if (pair? exceptions)
 	(let* ((e (car exceptions))
 	       (e-pitches (car e)))
-	  (if (equal? e-pitches (first-n (length e-pitches) pitches))
+	  (if (equal? e-pitches (take pitches (length e-pitches) ))
 	      e
 	      (partial-match (cdr exceptions))))
 	#f))
@@ -165,15 +165,15 @@ input/test/dpncnt.ly).
 	 ;; kludge alert: replace partial matched lower part of all with
 	 ;; 'normal' pitches from full
 	 ;; (all pitches)
-	 (all (append (first-n (length partial-pitches) full)
-		      (butfirst-n (length partial-pitches) pitches)))
+	 (all (append (take full (length partial-pitches) )
+		      (drop pitches (length partial-pitches) )))
 	      
-	 (highest (tail all))
+	 (highest (last all))
 	 (missing (list-minus full (map pitch-unalter all)))
 	 (consecutive (get-consecutive 1 all))
 	 (rest (list-minus all consecutive))
-	 (altered (filter-list step-even-or-altered? all))
-	 (cons-alt (filter-list step-even-or-altered? consecutive))
+	 (altered (filter step-even-or-altered? all))
+	 (cons-alt (filter step-even-or-altered? consecutive))
 	 (base (list-minus consecutive altered)))
 	 
 
@@ -260,7 +260,7 @@ input/test/dpncnt.ly).
 	       
 	       ;; kludge alert: omit <= 5
 	       ;;(markup-join (map step->markup
-	       ;;			 (cons (tail base) cons-alt)) sep)
+	       ;;			 (cons (last base) cons-alt)) sep)
 	       
 	       ;; This fixes:
 	       ;;  c     C5       -> C
@@ -269,7 +269,7 @@ input/test/dpncnt.ly).
 	       ;;  c:6.9 C5 6add9 -> C6 add 9 (add?)
 	       ;;  ch = \chords { c c:2 c:3- c:6.9^7 }
 	       (markup-join (map step->markup
-  				 (let ((tb (tail base)))
+  				 (let ((tb (last base)))
   				   (if (> (step-nr tb) 5)
   				       (cons tb cons-alt)
   				       cons-alt))) sep)

@@ -8,8 +8,8 @@
 ;;; Library functions
 
 
-(use-modules (ice-9 regex))
-
+(use-modules (ice-9 regex)
+	     (srfi srfi-1))
 
 ;;; General settings
 ;; debugging evaluator is slower.
@@ -102,10 +102,6 @@
 
 ;;;;;;;;;;;;;;;;
 ; list
-(define (tail lst)
-  "Return tail element of LST."
-  (car (last-pair lst)))
-
 
 (define (flatten-list lst)
   "Unnest LST" 
@@ -118,44 +114,10 @@
 
 (define (list-minus a b)
   "Return list of elements in A that are not in B."
-  (if (pair? a)
-      (if (pair? b)
-	  (if (member (car a) b)
-	      (list-minus (cdr a) b)
-	      (cons (car a) (list-minus (cdr a) b)))
-	  a)
-      '()))
+  (lset-difference eq? a b))
+
 
 ;; TODO: use the srfi-1 partition function.
-
-;; why -list suffix (see reduce-list)
-(define-public (filter-list pred? list)
-  "return that part of LIST for which PRED is true.
-
- TODO: rewrite using accumulator. Now it takes O(n) stack. "
-  
-  (if (null? list) '()
-      (let* ((rest (filter-list pred? (cdr list))))
-	(if (pred? (car list))
-	    (cons (car list)  rest)
-	    rest))))
-
-(define-public (filter-out-list pred? list)
-  "return that part of LIST for which PRED is false."
-  (if (null? list) '()
-      (let* ((rest (filter-out-list pred? (cdr list))))
-	(if (not (pred? (car list)))
-	    (cons (car list)  rest)
-	    rest))))
-
-
-(define (first-n n lst)
-  "Return first N elements of LST"
-  (if (and (pair? lst)
-	   (> n 0))
-      (cons (car lst) (first-n (- n 1) (cdr lst)))
-      '()))
-
 (define-public (uniq-list list)
   (if (null? list) '()
       (if (null? (cdr list))
@@ -164,21 +126,13 @@
 	      (uniq-list (cdr list))
 	      (cons (car list) (uniq-list (cdr list)))))))
 
-(define (butfirst-n n lst)
-  "Return all but first N entries of LST"
-  (if (pair? lst)
-      (if (> n 0)
-	  (butfirst-n (- n 1) (cdr lst))
-	  lst)
-      '()))
-  
-(define (split-at predicate l)
+(define (split-at-predicate predicate l)
  "Split L = (a_1 a_2 ... a_k b_1 ... b_k)
 into L1 = (a_1 ... a_k ) and L2 =(b_1 .. b_k) 
 Such that (PREDICATE a_i a_{i+1}) and not (PREDICATE a_k b_1).
 L1 is copied, L2 not.
 
-(split-at (lambda (x y) (= (- y x) 2))  '(1 3 5 9 11) (cons '() '()))"
+(split-at-predicate (lambda (x y) (= (- y x) 2))  '(1 3 5 9 11) (cons '() '()))"
 ;; "
 
 ;; KUT EMACS MODE.
@@ -208,19 +162,16 @@ L1 is copied, L2 not.
 
 
 (define-public (split-list l sep?)
-  "
-
+"
 (display (split-list '(a b c / d e f / g) (lambda (x) (equal? x '/))) )
 =>
 ((a b c) (d e f) (g))
 
 "
+;; " KUT EMACS.
 
 (define (split-one sep?  l acc)
-  "Split off the first parts before separator and return both parts.
-
-"
-  ;; " KUT EMACS
+  "Split off the first parts before separator and return both parts."
   (if (null? l)
       (cons acc '())
       (if (sep? (car l))
@@ -233,19 +184,8 @@ L1 is copied, L2 not.
     '()
     (let* ((c (split-one sep? l '())))
       (cons (reverse! (car c) '()) (split-list (cdr c) sep?))
-      )
-    )
-)
+      )))
 
-
-(define-public (range x y)
-  "Produce a list of integers starting at Y with X elements."
-  (if (<= x 0)
-      '()
-      (cons y (range (- x 1)  (+ y 1)))
-
-      )
-  )
 
 (define-public (interval-length x)
   "Length of the number-pair X, when an interval"
@@ -276,30 +216,13 @@ L1 is copied, L2 not.
   "map F to contents of X"
   (cons (f (car x)) (f (cdr x))))
 
-;; used where?
-(define-public (reduce operator list)
+;; TODO: remove.
+(define-public (reduce-no-unit operator list)
   "reduce OP [A, B, C, D, ... ] =
    A op (B op (C ... ))
 "
       (if (null? (cdr list)) (car list)
-	  (operator (car list) (reduce operator (cdr list)))))
-
-(define (take-from-list-until todo gathered crit?)
-  "return (G, T), where (reverse G) + T = GATHERED + TODO, and the last of G
-is the  first to satisfy CRIT
-
- (take-from-list-until '(1 2 3  4 5) '() (lambda (x) (eq? x 3)))
-=>
- ((3 2 1) 4 5)
-
-"
-  (if (null? todo)
-      (cons gathered todo)
-      (if (crit? (car todo))
-	  (cons (cons (car todo) gathered) (cdr todo))
-	  (take-from-list-until (cdr todo) (cons (car todo) gathered) crit?)
-      )
-  ))
+	  (operator (car list) (reduce-no-unit operator (cdr list)))))
 
 (define-public (list-insert-separator list between)
   "Create new list, inserting BETWEEN between elements of LIST"
