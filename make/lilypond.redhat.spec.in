@@ -15,12 +15,8 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-root
 
 
 Buildrequires: t1utils bison flex mftrace ImageMagick
-
-#  requires texinfo >= 4.6 really, otherwise the info files fuck up.
-# however, that's still not standard on RH 9, so we'll leave it at  this
-# for now
-
-Buildrequires: texinfo
+Buildrequires: texinfo >= 4.6
+Buildrequires: guile-devel >= 1.6.4-7
 Requires: tetex  tetex-latex libstdc++ python  tetex-dvips tetex-latex
 Requires: guile >= 1.6.4-7
 
