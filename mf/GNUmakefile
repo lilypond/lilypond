@@ -58,7 +58,7 @@ $(outdir)/%.otf: $(outdir)/%.pe
 	(cd $(outdir) && fontforge -script $(notdir $<)) 
 
 $(outdir)/%.otf-table: $(outdir)/%.lisp
-	cat $< $(subst parmesan,feta,$<) > $@
+	cat $< $(subst parmesan,feta,$<) $(subst feta-alphabet,feta,$<) > $@
 
 $(outdir)/aybabtu.otf: $(outdir)/aybabtu.subfonts $(outdir)/aybabtu.otf-table $(outdir)/aybabtu.otf-gtable
 
@@ -195,16 +195,6 @@ $(outdir)/fonts.scale: $(PFA_FILES)
 
 $(outdir)/fonts.dir: $(outdir)/fonts.scale
 	cd $(outdir) && mkfontdir
-
-# Sketch map file
-$(outdir)/lilypond.sfd:
-#	cd $(outdir) && echo sketch $(FETA_MF_FILES:.mf=.pfa) | $(PYTHON) $(topdir)/buildscripts/make-font-dir.py  > $(@F)
-	cd $(outdir) && echo sketch *.pfa | $(PYTHON) $(topdir)/buildscripts/make-font-dir.py  > $(@F)
-
-# Sodipodi map file
-SODIPODI_FONTS = parmesan20 feta-braces0 feta-nummer10 feta20
-$(outdir)/private-fonts:
-	cd $(outdir) && echo sodipodi $(SODIPODI_FONTS:%=%.pfa) | $(PYTHON) $(topdir)/buildscripts/make-font-dir.py  > $(@F)
 
 local-clean:
 	rm -f mfplain.mem mfplain.log 
