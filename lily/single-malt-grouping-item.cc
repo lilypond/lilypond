@@ -9,10 +9,12 @@
 
 #include "single-malt-grouping-item.hh"
 #include "p-col.hh"
+#include "debug.hh"
 
 Single_malt_grouping_item ::Single_malt_grouping_item()
 {
   transparent_b_ = true;
+  set_empty (true);
 }
 
 void
@@ -24,7 +26,7 @@ Single_malt_grouping_item::add (Item* i)
 }
 
 Interval
-Single_malt_grouping_item::do_width () const
+Single_malt_grouping_item::my_width () const
 {
   Paper_column * pc = column_l ();
   Interval w;
@@ -35,7 +37,8 @@ Single_malt_grouping_item::do_width () const
       w.unite  (il->width () + il->relative_coordinate (pc, X_AXIS));
     }
   
-  return w + (- relative_coordinate (pc, X_AXIS)); // TODO
+  return w;
+ // add this->offset_ ? this-> relative_coordinate ()? 
 }
 
 IMPLEMENT_IS_TYPE_B1(Single_malt_grouping_item, Item);
@@ -47,4 +50,15 @@ Single_malt_grouping_item::do_substitute_dependency (Score_elem*o, Score_elem*n)
     {
       item_l_arr_.unordered_substitute (o->item (),  n ? n->item () : 0);
     }
+}
+
+void
+Single_malt_grouping_item::do_print () const
+{
+#ifndef NDEBUG
+  for (int i=0; i < item_l_arr_.size (); i++)
+    {
+      DOUT << item_l_arr_[i]->name () << ", ";
+    }
+#endif
 }
