@@ -291,7 +291,7 @@ problem.  Don't forget to tell which version of LilyPond you use!  Send
 the report to @email{bug-lilypond@@gnu.org}.
 
 When you've found a bug, have a look at our
-@uref{http://lilypond.org/doc/v2.3/bugs/,bug database} to see if it
+@uref{http://@/lilypond.org/@/doc/@/v2.3/@/bugs/,bug database} to see if it
 has already been reported.  You could also try doing a few searches
 on the mailing list for the bug.  Sometimes the bug will have already
 been reported and a fix or workaround is already known.

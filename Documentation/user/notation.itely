@@ -801,7 +801,7 @@ by replacing the @internalsref{Note_heads_engraver} by the
 In the following examples, notes crossing the bar line are split and tied.
 
 
-@lilypond[quote,fragment,verbatim,relative=1,raggedright]
+@lilypond[quote,fragment,verbatim,relative=1,linewidth=12\cm]
 \new Voice \with {
   \remove "Note_heads_engraver"
   \consists "Completion_heads_engraver"
@@ -1523,11 +1523,11 @@ Program reference: the objects responsible for resolving collisions are
 @internalsref{NoteCollision} and @internalsref{RestCollision}.
 
 Examples: 
-@inputfileref{input/regression,collision-dots.ly},
-@inputfileref{input/regression,collision-head-chords.ly},
-@inputfileref{input/regression,collision-heads.ly},
-@inputfileref{input/regression,collision-mesh.ly}, and
-@inputfileref{input/regression,collisions.ly}.
+@inputfileref{input/@/regression,collision@/-dots@/.ly},
+@inputfileref{input/@/regression,collision@/-head-chords@/.ly},
+@inputfileref{input/@/regression,collision@/-heads@/.ly},
+@inputfileref{input/@/regression,collision@/-mesh@/.ly}, and
+@inputfileref{input/@/regression,collisions@/.ly}.
 
 
 @refbugs
@@ -1626,7 +1626,7 @@ all 16th or shorter beams at beat positions, as defined by the
 @code{beatLength} property.
 
 
-@lilypond[fragment,raggedright,quote,relative=2,verbatim,noindent]
+@lilypond[fragment,quote,relative=2,verbatim,noindent]
 c16[ c c c c c c c]
 \set subdivideBeams = ##t
 c16[ c c c c c c c]
@@ -4740,10 +4740,9 @@ Fret diagrams can be added to music as a markup to the desired note. The
 markup contains information about the desired fret diagram, as shown in the
 following example
 
-@lilypond[verbatim, quote]
+@lilypond[verbatim, raggedright, quote]
 \context Voice {
   d' ^\markup \fret-diagram #"6-x;5-x;4-o;3-2;2-3;1-2;"
-  d' d' d'
   fis' ^\markup \override #'(size . 0.75) {
     \override #'(finger-code . below-string) {
       \fret-diagram-verbose #'((place-fret 6 2 1) (barre 6 1 2)
@@ -4752,7 +4751,6 @@ following example
                                (place-fret 1 2 1))
     }
   }
-  fis' fis' fis'
   c' ^\markup  \override #'(dot-radius . 0.35) {
     \override #'(finger-code . in-dot) {
       \override #'(dot-color . white) {
@@ -4760,7 +4758,6 @@ following example
       }
     }
   }
-  c' c' c' c'
 }
 @end lilypond
 
@@ -6571,7 +6568,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{1. Punctum}
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.5\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.5\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6586,7 +6583,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=2.5\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=2.5\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6605,7 +6602,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6619,7 +6616,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{2. Virga}
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6635,7 +6632,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{3. Apostropha vel Stropha}
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6646,7 +6643,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6661,7 +6658,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{4. Oriscus}
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6677,7 +6674,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{5. Clivis vel Flexa}
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6688,7 +6685,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=2.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=2.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6703,7 +6700,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6717,7 +6714,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{6. Podatus vel Pes}
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6728,7 +6725,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=2.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=2.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6743,7 +6740,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6757,7 +6754,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{7. Pes Quassus}
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6768,7 +6765,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6783,7 +6780,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{8. Quilisma Pes}
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6794,7 +6791,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6809,7 +6806,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{9. Podatus Initio Debilis}
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6820,7 +6817,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6835,7 +6832,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{10. Torculus}
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6846,7 +6843,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6857,7 +6854,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6871,7 +6868,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{11. Torculus Initio Debilis}
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6882,7 +6879,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6893,7 +6890,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6907,7 +6904,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{12. Porrectus}
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6918,7 +6915,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6929,7 +6926,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6943,7 +6940,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{13. Climacus}
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6955,7 +6952,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 }
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6966,7 +6963,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6980,7 +6977,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{14. Scandicus}
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6991,7 +6988,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -7002,7 +6999,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -7016,7 +7013,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{15. Salicus}
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -7027,7 +7024,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -7042,7 +7039,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{16. Trigonus}
 @tab
-@lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
+@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {

@@ -76,7 +76,6 @@ instrument or a melodic fragment.  Cut and paste this into a file,
 add notes, and you're finished!
 
 @lilypond[verbatim,raggedright]
-
 \version "2.3.22"
 melody = \relative c' {
    \clef treble
@@ -86,12 +85,11 @@ melody = \relative c' {
    a4 b c d
 }
 
-\score{
+\score {
    \new Staff \melody
    \layout { }
    \midi { \tempo 4=60 }
 }
-
 @end lilypond
 
 @subsection Notes and lyrics
@@ -103,7 +101,6 @@ automatic beaming, you'll have to change or comment out the relevant
 line.
 
 @lilypond[verbatim,raggedright]
-
 \version "2.3.22"
 melody = \relative c' {
    \clef treble
@@ -128,7 +125,6 @@ text = \lyricmode {
    \layout { }
    \midi { \tempo 4=60 }
 }
-
 @end lilypond
 
 @subsection Notes and chords
@@ -136,7 +132,6 @@ text = \lyricmode {
 Want to prepare a lead sheet with a melody and chords?  Look no further!
 
 @lilypond[verbatim,raggedright]
-
 \version "2.3.22"
 melody =  \relative c' {
    \clef treble
@@ -163,7 +158,6 @@ harmonies = \chordmode {
    \layout{ }
    \midi  { \tempo 4=60}
 }
-
 @end lilypond
 
 @subsection Notes, lyrics, and chords.
@@ -171,7 +165,6 @@ harmonies = \chordmode {
 This template allows you to prepare a song with melody, words, and chords.
 
 @lilypond[verbatim,raggedright]
-
 \version "2.3.22"
 melody =  \relative c' {
    \clef treble
@@ -202,9 +195,8 @@ harmonies = \chordmode {
    \lyricsto "one" \new Lyrics \text
    >>
    \layout { }
-   \midi  { \tempo 4=60}
+   \midi { \tempo 4=60 }
 }
-
 @end lilypond
 
 @node Piano templates
@@ -214,7 +206,6 @@ harmonies = \chordmode {
 Here is a simple piano staff.
 
 @lilypond[verbatim,raggedright]
-
 \version "2.3.22"
 upper = \relative c'' {
    \clef treble
@@ -237,11 +228,10 @@ lower = \relative c {
       \set PianoStaff.instrument = "Piano  "
       \context Staff = upper \upper
       \context Staff = lower \lower
-   >>  
-   \layout { }  
-   \midi { \tempo 4=60 }  
+   >>
+   \layout { }
+   \midi { \tempo 4=60 }
 }
-
 @end lilypond
 
 @subsection Piano and melody with lyrics
@@ -250,7 +240,6 @@ Here is a typical song format: one staff with the melody and lyrics, with
 piano accompaniment underneath.
 
 @lilypond[verbatim,raggedright]
-
 \version "2.3.22"
 melody =  \relative c'' {
    \clef treble
@@ -295,10 +284,9 @@ lower = \relative c {
    >>
    \layout {
       \context { \RemoveEmptyStaffContext }
-   }  
+   }
    \midi { \tempo 4=60 }
 }
-
 @end lilypond
 
 
@@ -308,7 +296,6 @@ Instead of having a full staff for the melody and lyrics, you can place
 the lyrics between the piano staff (and omit the separate melody staff).
 
 @lilypond[verbatim,raggedright]
-
 \version "2.3.22"
 upper = \relative c'' {
    \clef treble
@@ -333,17 +320,17 @@ text = \lyricmode {
 \score {
   \context GrandStaff <<
     \context Staff = upper {
-	\context Voice = singer \upper }
+        \context Voice = singer \upper }
     \lyricsto "singer" \new Lyrics \text
     \context Staff = lower <<
       \clef bass
       \lower
-    >>  
+    >>
   >>
   \layout {
     \context { \GrandStaff \accepts "Lyrics" }
     \context { \Lyrics \consists "Bar_engraver" }
-  }  
+  }
   \midi { \tempo 4=60 }
 }
 @end lilypond
@@ -357,7 +344,6 @@ since the template is right here, you don't have to do the
 tweaking yourself.
 
 @lilypond[verbatim,raggedright]
-
 \version "2.3.22"
 upper = \relative c'' {
   \clef treble
@@ -400,11 +386,11 @@ pedal =  {
       \name Dynamics
       \alias Voice % So that \cresc works, for example.
       \consists "Output_property_engraver"
-      
+
       minimumVerticalExtent = #'(-1 . 1)
       pedalSustainStrings = #'("Ped." "*Ped." "*")
       pedalUnaCordaStrings = #'("una corda" "" "tre corde")
-      
+
       \consists "Piano_pedal_engraver"
       \consists "Script_engraver"
       \consists "Dynamic_engraver"
@@ -450,34 +436,38 @@ This template demonstrates a string quartet.  It also uses a @code{\global}
 section for time and key signatures.
 
 @lilypond[verbatim,raggedright]
-
 \version "2.3.22"
 global = {
    \time 4/4
    \key c \major
 }
+
 violinOne = \relative c''{
    \set Staff.instrument = "Violin 1  "
    c2 d
    e1
 }
+
 violinTwo = \relative c''{
    \set Staff.instrument = "Violin 2  "
    g2 g
    g1
 }
+
 viola = \relative c'{
    \set Staff.instrument = "Viola  "
    \clef alto
    e2 d
    c1
 }
+
 cello = \relative c'{
    \set Staff.instrument = "Cello  "
    \clef bass
    c2 g
    c,1
 }
+
 \score {
    \new StaffGroup <<
       \new Staff << \global \violinOne >>
@@ -488,7 +478,6 @@ cello = \relative c'{
    \layout { }
    \midi { \tempo 4=60}
 }
-
 @end lilypond
 
 
@@ -503,7 +492,6 @@ parts.  For example, the time signature and key signatures are almost
 always the same for all parts.
 
 @lilypond[verbatim,raggedright]
-
 \version "2.3.22"
 global = {
    \key c \major
@@ -518,7 +506,7 @@ sopWords = \lyricmode {
 }
 
 altoMusic = \relative c' {
-   e4 f d e 
+   e4 f d e
 }
 altoWords =\lyricmode {
    ha ha ha ha
@@ -538,7 +526,7 @@ bassWords = \lyricmode {
    ho ho ho ho
 }
 
-\score { 
+\score {
    \context ChoirStaff <<
       \context Lyrics = sopranos { s1 }
       \context Staff = women <<
@@ -561,12 +549,11 @@ bassWords = \lyricmode {
 
    \layout {
       \context {
-         % a little smaller so lyrics can be closer to the staff. 
-         \Staff minimumVerticalExtent = #'(-3 . 3) 
+         % a little smaller so lyrics can be closer to the staff.
+         \Staff minimumVerticalExtent = #'(-3 . 3)
       }
    }
 }
-
 @end lilypond
 
 
@@ -584,218 +571,218 @@ mensural music; in fact, the meter often changed after every few
 notes.  As a compromise, bar lines are often printed between the
 staves rather than on the staves.
 
-@lilypond[verbatim,raggedright]
-
+@lilypond[verbatim,linewidth=11.0\cm]
 \version "2.3.22"
 
 global = {
-    % incipit
-    \once \override Score.SystemStartBracket #'transparent = ##t
-    \key f \major
-    \time 2/2
-    \once \override Staff.TimeSignature #'style = #'neomensural
-    \override Voice.NoteHead #'style = #'neomensural
-    \override Voice.Rest #'style = #'neomensural
-    \set Staff.printKeyCancellation = ##f
-    \cadenzaOn % turn off bar lines
-    \skip 1*10
-    \once \override Staff.BarLine #'transparent = ##f
-    \bar "||"
-    \skip 1*1 % need this extra \skip such that clef change comes
-              % after bar line
-    \bar ""
+   % incipit
+   \once \override Score.SystemStartBracket #'transparent = ##t
+   \key f \major
+   \time 2/2
+   \once \override Staff.TimeSignature #'style = #'neomensural
+   \override Voice.NoteHead #'style = #'neomensural
+   \override Voice.Rest #'style = #'neomensural
+   \set Staff.printKeyCancellation = ##f
+   \cadenzaOn % turn off bar lines
+   \skip 1*10
+   \once \override Staff.BarLine #'transparent = ##f
+   \bar "||"
+   \skip 1*1 % need this extra \skip such that clef change comes
+             % after bar line
+   \bar ""
 
-    % main
-    \cadenzaOff % turn bar lines on again
-    \once \override Staff.Clef #'full-size-change = ##t
-    \set Staff.forceClef = ##t
-    \key g \major
-    \time 4/4
-    \override Voice.NoteHead #'style = #'default
-    \override Voice.Rest #'style = #'default
+   % main
+   \cadenzaOff % turn bar lines on again
+   \once \override Staff.Clef #'full-size-change = ##t
+   \set Staff.forceClef = ##t
+   \key g \major
+   \time 4/4
+   \override Voice.NoteHead #'style = #'default
+   \override Voice.Rest #'style = #'default
 
-    % FIXME: setting printKeyCancellation back to #t must not
-    % occur in the first bar after the incipit.  Dto. for forceClef.
-    % Therefore, we need an extra \skip.
-    \skip 1*1
-    \set Staff.printKeyCancellation = ##t
-    \set Staff.forceClef = ##f
+   % FIXME: setting printKeyCancellation back to #t must not
+   % occur in the first bar after the incipit.  Dto. for forceClef.
+   % Therefore, we need an extra \skip.
+   \skip 1*1
+   \set Staff.printKeyCancellation = ##t
+   \set Staff.forceClef = ##f
 
-    \skip 1*5
+   \skip 1*5
 
-    % last bar contains a brevis (i.e. spans 2 bars);
-    % therefore do not draw this particular bar
-    \cadenzaOn
-    \skip 1*2
-    \cadenzaOff
+   % last bar contains a brevis (i.e. spans 2 bars);
+   % therefore do not draw this particular bar
+   \cadenzaOn
+   \skip 1*2
+   \cadenzaOff
 
-    % let finis bar go through all staves
-    \override Staff.BarLine #'transparent = ##f
+   % let finis bar go through all staves
+   \override Staff.BarLine #'transparent = ##f
 
-    % finis bar
-    \bar "|."
+   % finis bar
+   \bar "|."
 }
 
 discantusNotes = {
-    \transpose c' c'' {
-	\set Staff.instrument = "Discantus  "
+   \transpose c' c'' {
+      \set Staff.instrument = "Discantus  "
 
-	% incipit
-	\clef "neomensural-c1"
-	c'1. s2   % two bars
-	\skip 1*8 % eight bars
-	\skip 1*1 % one bar
+      % incipit
+      \clef "neomensural-c1"
+      c'1. s2   % two bars
+      \skip 1*8 % eight bars
+      \skip 1*1 % one bar
 
-	% main
-	\clef "treble"
-	d'2. d'4 |
-	b e' d'2 |
-	c'4 e'4.( d'8 c' b |
-	a4) b a2 |
-	b4.( c'8 d'4) c'4 |
-	\once \override NoteHead #'transparent = ##t c'1 |
-	b\breve |
-    }
+      % main
+      \clef "treble"
+      d'2. d'4 |
+      b e' d'2 |
+      c'4 e'4.( d'8 c' b |
+      a4) b a2 |
+      b4.( c'8 d'4) c'4 |
+      \once \override NoteHead #'transparent = ##t c'1 |
+      b\breve |
+   }
 }
 
 discantusLyrics = \lyricmode {
-    % incipit
-    IV-
+   % incipit
+   IV-
 
-    % main
-    Ju -- bi -- |
-    la -- te De -- |
-    o, om --
-    nis ter -- |
-    ra, __ om- |
-    "..." |
-    -us. |
+   % main
+   Ju -- bi -- |
+   la -- te De -- |
+   o, om --
+   nis ter -- |
+   ra, __ om- |
+   "..." |
+   -us. |
 }
 
 altusNotes = {
-    \transpose c' c'' {
-	\set Staff.instrument = "Altus  "
+   \transpose c' c'' {
+      \set Staff.instrument = "Altus  "
 
-	% incipit
-	\clef "neomensural-c3"
-	r1        % one bar
-	f1. s2    % two bars
-	\skip 1*7 % seven bars
-	\skip 1*1 % one bar
+      % incipit
+      \clef "neomensural-c3"
+      r1        % one bar
+      f1. s2    % two bars
+      \skip 1*7 % seven bars
+      \skip 1*1 % one bar
 
-	% main
-	\clef "treble"
-	r2 g2. e4 fis g | % two bars
-	a2 g4 e |
-	fis g4.( fis16 e fis4) |
-	g1 |
-	\once \override NoteHead #'transparent = ##t g1 |
-	g\breve |
-    }
+      % main
+      \clef "treble"
+      r2 g2. e4 fis g | % two bars
+      a2 g4 e |
+      fis g4.( fis16 e fis4) |
+      g1 |
+      \once \override NoteHead #'transparent = ##t g1 |
+      g\breve |
+   }
 }
 
 altusLyrics = \lyricmode {
-    % incipit
-    IV-
+   % incipit
+   IV-
 
-    % main
-    Ju -- bi -- la -- te | % two bars
-    De -- o, om -- |
-    nis ter -- ra, |
-    "..." |
-    -us. |
+   % main
+   Ju -- bi -- la -- te | % two bars
+   De -- o, om -- |
+   nis ter -- ra, |
+   "..." |
+   -us. |
 }
 
 tenorNotes = {
-    \transpose c' c' {
-	\set Staff.instrument = "Tenor  "
+   \transpose c' c' {
+      \set Staff.instrument = "Tenor  "
 
-	% incipit
-	\clef "neomensural-c4"
-	r\longa   % four bars
-	r\breve   % two bars
-	r1        % one bar
-	c'1. s2   % two bars
-	\skip 1*1 % one bar
-	\skip 1*1 % one bar
+      % incipit
+      \clef "neomensural-c4"
+      r\longa   % four bars
+      r\breve   % two bars
+      r1        % one bar
+      c'1. s2   % two bars
+      \skip 1*1 % one bar
+      \skip 1*1 % one bar
 
-	% main
-	\clef "treble_8"
-	R1 |
-	R1 |
-	R1 |
-	r2 d'2. d'4 b e' | % two bars
-	\once \override NoteHead #'transparent = ##t e'1 |
-	d'\breve |
-    }
+      % main
+      \clef "treble_8"
+      R1 |
+      R1 |
+      R1 |
+      r2 d'2. d'4 b e' | % two bars
+      \once \override NoteHead #'transparent = ##t e'1 |
+      d'\breve |
+   }
 }
 
 tenorLyrics = \lyricmode {
-    % incipit
-    IV-
+   % incipit
+   IV-
 
-    % main
-    Ju -- bi -- la -- te | % two bars
-    "..." |
-    -us. |
+   % main
+   Ju -- bi -- la -- te | % two bars
+   "..." |
+   -us. |
 }
 
 bassusNotes = {
-    \transpose c' c' {
-	\set Staff.instrument = "Bassus  "
+   \transpose c' c' {
+      \set Staff.instrument = "Bassus  "
 
-	% incipit
-	\clef "bass"
-	r\maxima  % eight bars
-	f1. s2    % two bars
-	\skip 1*1 % one bar
+      % incipit
+      \clef "bass"
+      r\maxima  % eight bars
+      f1. s2    % two bars
+      \skip 1*1 % one bar
 
-	% main
-	\clef "bass"
-	R1 |
-	R1 |
-	R1 |
-	R1 |
-	g2. e4 |
-	\once \override NoteHead #'transparent = ##t e1 |
-	g\breve |
-    }
+      % main
+      \clef "bass"
+      R1 |
+      R1 |
+      R1 |
+      R1 |
+      g2. e4 |
+      \once \override NoteHead #'transparent = ##t e1 |
+      g\breve |
+   }
 }
 
 bassusLyrics = \lyricmode {
-    % incipit
-    IV-
+   % incipit
+   IV-
 
-    % main
-    Ju -- bi- |
-    "..." |
-    -us. |
+   % main
+   Ju -- bi- |
+   "..." |
+   -us. |
 }
 
 \score {
-    \context StaffGroup = choirStaff <<
-	\context Voice = discantusNotes << \global \discantusNotes >>
-	\context Lyrics = discantusLyrics \lyricsto discantusNotes { \discantusLyrics }
-	\context Voice = altusNotes << \global \altusNotes >>
-	\context Lyrics = altusLyrics \lyricsto altusNotes { \altusLyrics }
-	\context Voice = tenorNotes << \global \tenorNotes >>
-	\context Lyrics = tenorLyrics \lyricsto tenorNotes { \tenorLyrics }
-	\context Voice = bassusNotes << \global \bassusNotes >>
-	\context Lyrics = bassusLyrics \lyricsto bassusNotes { \bassusLyrics }
-    >>
-    \layout {
-	\context {
-	    \Score
-	    \override BarLine #'transparent = ##t
-	    \remove "System_start_delimiter_engraver"
-	}
-	\context {
-	    \Voice
-	    \override Slur #'transparent = ##t
-	}
-    }
+   \context StaffGroup = choirStaff <<
+      \context Voice = discantusNotes << \global \discantusNotes >>
+      \context Lyrics = discantusLyrics
+                          \lyricsto discantusNotes { \discantusLyrics }
+      \context Voice = altusNotes << \global \altusNotes >>
+      \context Lyrics = altusLyrics \lyricsto altusNotes { \altusLyrics }
+      \context Voice = tenorNotes << \global \tenorNotes >>
+      \context Lyrics = tenorLyrics \lyricsto tenorNotes { \tenorLyrics }
+      \context Voice = bassusNotes << \global \bassusNotes >>
+      \context Lyrics = bassusLyrics
+                          \lyricsto bassusNotes { \bassusLyrics }
+   >>
+   \layout {
+      \context {
+         \Score
+         \override BarLine #'transparent = ##t
+         \remove "System_start_delimiter_engraver"
+      }
+      \context {
+         \Voice
+         \override Slur #'transparent = ##t
+      }
+   }
 }
-
 @end lilypond
 
 
@@ -816,18 +803,18 @@ is within a @code{\transpose} section.
 @c     make whatever changes I feel like.
 
 @c FIXME: produces a warning ; key change merge.
+@c The `linewidth' argument is for the \header.
 
-@lilypond[verbatim,raggedright]
-
+@lilypond[verbatim,raggedright,linewidth]
 \version "2.3.22"
 \header {
-        title = "Song"
-        subtitle = "(tune)"
-        composer = "Me"
-        meter = "moderato"
-        piece = "Swing"
-	tagline = "LilyPond example file by Amelie Zapf, Berlin 07/07/2003"
-	texidoc = "Jazz tune for combo (horns, guitar, piano, bass, drums)."
+  title = "Song"
+  subtitle = "(tune)"
+  composer = "Me"
+  meter = "moderato"
+  piece = "Swing"
+  tagline = "LilyPond example file by Amelie Zapf, Berlin 07/07/2003"
+  texidoc = "Jazz tune for combo (horns, guitar, piano, bass, drums)."
 }
 
 #(set-global-staff-size 16)
@@ -848,7 +835,7 @@ ncr = \revert NoteHead #'style
 
 %% insert chord name style stuff here.
 
-jzchords = { } 
+jzchords = { }
 
 
 %%%%%%%%%%%% Keys'n'thangs %%%%%%%%%%%%%%%%%
@@ -868,17 +855,17 @@ trpt =  \transpose c d \relative c'' {
 
 trpharmony = \transpose c' d { \jzchords }
 trumpet = {
-    \global 
+    \global
     \set Staff.instrument = #"Trumpet"
     \clef treble
     \context Staff <<
-	\trpt
+        \trpt
     >>
 }
 
 % ------ Alto Saxophone ------
 alto = \transpose c a \relative c' {
-	\Key
+        \Key
         c1 c c
 }
 
@@ -894,7 +881,7 @@ altosax = {
 
 % ------ Baritone Saxophone ------
 bari = \transpose c a' \relative c {
-	\Key
+        \Key
         c1 c \sl d4^"Solo" d d d \nsl
 }
 
@@ -909,7 +896,7 @@ barisax = {
 }
 % ------ Trombone ------
 tbone =  \relative c {
-	\Key
+        \Key
         c1 c c
 }
 
@@ -925,7 +912,7 @@ trombone = {
 % ############ Rhythm Section #############
 % ------ Guitar ------
 gtr =  \relative c'' {
-	\Key
+        \Key
         c1 \sl b4 b b b \nsl c1
 }
 
@@ -938,32 +925,32 @@ guitar = {
         \set Staff.instrument = #"Guitar"
         \clef treble
         \context Staff <<
-        	\gtr
+                \gtr
         >>
 }
 
 %% ------ Piano ------
 rhUpper =  \relative c'' {
         \voiceOne
-	\Key
+        \Key
         c1 c c
 }
 
 rhLower =  \relative c' {
         \voiceTwo
-	\Key
+        \Key
         e1 e e
 }
 
 lhUpper =  \relative c' {
         \voiceOne
-	\Key
+        \Key
         g1 g g
 }
 
 lhLower =  \relative c {
         \voiceTwo
-	\Key
+        \Key
         c1 c c
 }
 
@@ -973,7 +960,7 @@ PianoRH = {
         \set Staff.midiInstrument = "acoustic grand"
         \context Staff <<
                 \context Voice = one \rhUpper
-        	\context Voice = two \rhLower
+                \context Voice = two \rhLower
         >>
 }
 
@@ -982,22 +969,22 @@ PianoLH = {
         \global
         \set Staff.midiInstrument = "acoustic grand"
         \context Staff <<
-        	\context Voice = one \lhUpper
-        	\context Voice = two \lhLower
+                \context Voice = one \lhUpper
+                \context Voice = two \lhLower
         >>
 }
 
 piano = {
-	\context PianoStaff <<
-		\set PianoStaff.instrument = #"Piano"
-        	\context Staff = upper \PianoRH
-        	\context Staff = lower \PianoLH
+        \context PianoStaff <<
+                \set PianoStaff.instrument = #"Piano"
+                \context Staff = upper \PianoRH
+                \context Staff = lower \PianoLH
         >>
 }
 
 % ------ Bass Guitar ------
 bass =  \relative c {
-	\Key
+        \Key
         c1 c c
 }
 
@@ -1006,11 +993,11 @@ bass = {
     \set Staff.instrument = #"Bass"
     \clef bass
     \context Staff <<
-	\bass
+        \bass
     >>
 }
 
-				% ------ Drums ------
+                                % ------ Drums ------
 
 up = \drummode {
     hh4 <hh sn>4 hh <hh sn> hh <hh sn>4
@@ -1024,12 +1011,12 @@ down = \drummode {
 }
 
 drumContents = {
-	\global
-	<<
-		\set DrumStaff.instrument = #"Drums"
-		\new DrumVoice { \voiceOne \up }
-		\new DrumVoice { \voiceTwo \down }
-	>>
+        \global
+        <<
+                \set DrumStaff.instrument = #"Drums"
+                \new DrumVoice { \voiceOne \up }
+                \new DrumVoice { \voiceTwo \down }
+        >>
 }
 
 %%%%%%%%% It All Goes Together Here %%%%%%%%%%%%%%%%%%%%%%
@@ -1041,7 +1028,7 @@ drumContents = {
 
                 \context Staff = altosax \altosax
 
-		\context ChordNames = barichords \bariharmony
+                \context ChordNames = barichords \bariharmony
 
                 \context Staff = barisax \barisax
 
@@ -1049,12 +1036,12 @@ drumContents = {
         >>
 
         \context StaffGroup = rhythm <<
-		\context ChordNames = chords \gtrharmony
+                \context ChordNames = chords \gtrharmony
                 \context Staff = guitar \guitar
-		\context PianoStaff = piano \piano
-                
+                \context PianoStaff = piano \piano
+
                 \context Staff = bass \bass
-                
+
                 \new DrumStaff { \drumContents }
         >>
 >>
@@ -1084,8 +1071,8 @@ music.  For example, Mutopia lists the composer of the famous D major
 violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 "Petr Tchaikowski" on your music.
 
-@lilypond[verbatim,raggedright]
-
+@ The `linewidth' is for \header.
+@lilypond[verbatim,raggedright,linewidth]
 \version "2.3.22"
 \header {
    dedication = "dedication"
@@ -1140,7 +1127,6 @@ quarter notes, and two types of barlines, a short one indicating a rest,
 and a second one indicating a breath mark.
 
 @lilypond[verbatim,raggedright]
-
 barOne = { \once \override Staff.BarLine  #'bar-size = #2
    \bar "|" }
 barTwo = { \once \override Staff.BarLine  #'extra-offset = #'(0 . 2)
@@ -1172,7 +1158,7 @@ completely.  This template defines a large number of small segments
 
 TODO - replace Bagpipe template with Andrew McNabb's work?
 
-@lilypond[verbatim,raggedright]
+@lilypond[verbatim]
 
 taor = { \grace { g32[ d' g e'] } }
 grip = { \grace { g32[ b g ]    } }
@@ -1197,13 +1183,13 @@ gefg = { \grace { g'32[ e' f']  } }
 efg  = { \grace { e'32[ f']     } }
 gdcg = { \grace { g'32[ d' c']  } }
 gcdg = { \grace { g'32[ c' d']  } }
-	
+
 \transpose a a' {
     #(add-grace-property 'Voice 'Stem 'length 6)
     \time 6/8 \partial 4
     \tieUp
     \slurUp
-    
+
     f'4 |
     \gg f'4 e'8 \thrd d'4. |
     \eg a4.(a4) d'8 |
@@ -1231,7 +1217,7 @@ gcdg = { \grace { g'32[ c' d']  } }
     \thrd d'4.( d'4) \cg d'8 |
     \gg c'4 e'8 \thrd d'4.( |
     d'4.) \gdcg d'4.
-    
+
 }
 
 @end lilypond

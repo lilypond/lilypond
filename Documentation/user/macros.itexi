@@ -134,7 +134,7 @@
 @end macro
 
 @macro inputfileref{DIR,NAME}@c
-@file{\DIR\/\NAME\}@c
+@file{\DIR\/@/\NAME\}@c
 @end macro
 
 
