@@ -1,3 +1,8 @@
+2004-07-15  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scripts/lilypond-book.py (PREAMBLE_LY): set
+	toplevel-music-handler too.
+
 2004-07-15  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* SConstruct (symlink): Add dvips and music-drawing-routines.ps.

@@ -670,8 +670,8 @@ to group expressions.
 
 Like mathematical expressions, music expressions can be nested
 arbitrarily deep@footnote{The reason for getting three staves in the
-previous example but just a single staff in current one will be explained
-later.}
+previous example but just a single staff in the current one will be
+explained later.}
 
 @lilypond[quote,verbatim,relative=2] 
 {

@@ -141,7 +141,7 @@
 (define (dump-page putter page last?)
   (ly:outputter-dump-string
    putter
-   "\n\\vbox to 0pt{%\n\\leavevmode\n\\lybox{0}{0}{0}{0}{%\n")
+   "\\vbox to 0pt{%\n\\leavevmode\n\\lybox{0}{0}{0}{0}{%\n")
   (ly:outputter-dump-stencil putter page)
   (ly:outputter-dump-string
    putter
