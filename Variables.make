@@ -37,7 +37,7 @@ endif
 # version info
 MAJVER=0
 MINVER=0
-PATCHLEVEL=21
+PATCHLEVEL=22
 VERSION=$(MAJVER).$(MINVER).$(PATCHLEVEL)
 CXXVER=`$(CXX) --version`
 
@@ -77,7 +77,8 @@ DNAME=$(PACKAGENAME)-$(VERSION)
 othersrc=lexer.l parser.y
 SCRIPTS=make_version make_patch genheader
 IFILES=dimen.tex symbol.ini kortjakje.ly pavane.ly  maartje.ly\
-	lilyponddefs.tex test.tex .dstreamrc cadenza.ly
+	lilyponddefs.tex test.tex .dstreamrc cadenza.ly scales.ly\
+	titledefs.tex pavane.tex
 OFILES=Makefile Variables.make Sources.make COPYING README NEWS
 DFILES=$(OFILES) $(IFILES) $(SCRIPTS)
 

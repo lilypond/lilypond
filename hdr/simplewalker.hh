@@ -12,22 +12,23 @@
 
 struct Simple_walker: Staff_walker {
     Stem *stem_;
-    svec<Notehead *>noteheads;
+    Array<Notehead *>noteheads;
     Local_key local_key_;
     Key key_;
-    svec<int> *oldkey_undo;
-    svec<int> typesetkey;
+    Array<int> *oldkey_undo;
+    Array<int> typesetkey;
     Beam *beam_;
     Local_key_item *local_key_item_;
     bool wantkey;		// urgh
+    int processed_bar_priority;
     bool processed_key;
     bool processed_clef;
     Clef clef_;
     Rhythmic_grouping default_grouping;
     Rhythmic_grouping *current_grouping;
-    svec<Slur_req*> pending_slur_reqs;
-    svec<Slur*>  pending_slurs;
-    
+    Array<Slur_req*> pending_slur_reqs;
+    Array<Slur*>  pending_slurs;
+
     /****************/
 
     virtual void do_TYPESET_command(Command*);

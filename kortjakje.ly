@@ -11,17 +11,20 @@ melodie = music {
 	\octave {} 		% set the default octave
 	% the default note duratino is 4
 	%%% theme
-	  c c g g	a a
-	  g2		% g2 means a "g-1" pitched half-note 
-	f f	e e	d d  c2
-	  g g	f f	e e 	d d	g g	f f	e e 	d d
+	c c |			% the '|' checks if there is a new measure here.
+	g g|
+	a a|
+
+	g2|	% g2 means a "g-1" pitched half-note 
+	f f|	e e|	d d|  c2
+	g g|	f f|	e e| 	d d|	g g|	f f|	e e| 	d d|
  	%%% var 1
 	  c r8 c8		% r8 means an 8th rest.
-		  (		% start a slur
+		  (|		% start a slur
 				% NOTE: the slurstart should be directly after the note
 			) 	% end a slur.
-			  g r8 g8 (	) a r8 a8 (	) g r4 
-	  f r8 f8 (	) e4 r8 e8 (	) d4 r8 d8 (	) c4 r4
+			  g r8 g8 (|	) a r8 a8 (|	) g r4 
+	  f r8 f8 (|	) e4 r8 e8 (	|) d4 r8 d8 (|	) c4 r4 
 $}
 
 				% more of this.
@@ -49,7 +52,6 @@ bstaf = staff {
 	music { begeleiding }	% use the declared music
 		commands {	% commands with Staff-wide impact.
 			clef bass	% bass-clef
-
 		}
 	}
 
@@ -57,6 +59,7 @@ bstaf = staff {
 vstaf = staff {
 	melodic
 		music { melodie }
+		commands { clef violin }
 				% default clef is violin clef
 	}
 
@@ -69,8 +72,8 @@ score {
 	}
 	commands {
 		meter 2 4 	% a 2/4 meter.
-		skip 32:0	% skip 32 measures, and generate the bars
-		meter 6 8 	% another meter
+		skip 33:0	% skip 32 measures, and generate the bars
+%		meter 6 8 	% another meter
 	}
 }
 
