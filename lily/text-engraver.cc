@@ -89,11 +89,6 @@ Text_engraver::create_grobs ()
       // URG: Text vs TextScript
       String basic = "TextScript";
 
-      if (r->get_mus_property ("text-type") == ly_symbol2scm ("finger"))
-	{
-	  basic = "Fingering";
-	}
-
       Item *text = new Item (get_property (basic.ch_C ()));
 
       /*
@@ -104,19 +99,6 @@ Text_engraver::create_grobs ()
       Axis ax = to_boolean (axisprop) ? X_AXIS : Y_AXIS;
       Side_position_interface::set_axis (text, ax);
 
-#if 0
-      if (r->style_str_ == "finger" && ax == Y_AXIS)
-	{
-	  /*
-	    nicely center the scripts.
-	   */ 
-	  text->add_offset_callback (Side_position_interface::aligned_on_self_proc, X_AXIS);
-	  text->add_offset_callback (Side_position_interface::centered_on_parent_proc, X_AXIS);
-	}
-#endif
-      
-
-      
       /*
 	make sure they're in order by adding i to the priority field.
 	*/
@@ -127,19 +109,6 @@ Text_engraver::create_grobs ()
 	Side_position_interface::set_direction (text, r->get_direction ());
       
       text->set_grob_property ("text", r->get_mus_property ("text"));
-      
-      SCM nonempty = get_property ("textNonEmpty");
-
-      if (gh_boolean_p (nonempty))
-	if (gh_scm2bool (nonempty))
-	  /*
-	    empty text: signal that no rods should be applied.
-	    Default nowadays.
-	  */
-	  text->set_grob_property ("no-spacing-rods" , SCM_BOOL_F);
-	else
-	  text->set_grob_property ("no-spacing-rods" , SCM_BOOL_T);
-       
       announce_grob (text, r->self_scm ());
       texts_.push (text);
     }
@@ -171,5 +140,5 @@ ENTER_DESCRIPTION(Text_engraver,
 /* descr */       "Create text-scripts",
 /* creats*/       "TextScript",
 /* acks  */       "rhythmic-head-interface stem-interface",
-/* reads */       "scriptHorizontal textNonEmpty",
+/* reads */       "scriptHorizontal",
 /* write */       "");

@@ -1416,11 +1416,11 @@ text (see @ref{Text markup}) above or below notes by using a string:
 @code{c^"text"}. 
 
 By default, these indications do not influence the note spacing, but
-if @code{Voice.textNonEmpty} is set to true the widths will be taken
-into account.  The identifier @code{\fatText} is defined in the standard
-includes.
-@lilypond[fragment,singleline,verbatim]
-\relative c' { c4^"longtext" \fatText c4_"longlongtext" c4 }
+by setting the grob property @code{no-spacing-rods} to false, the
+widths will be taken into account.  The identifier @code{\fatText} is
+defined in the standard includes.
+@lilypond[fragment,singleline,verbatim] \relative c' { c4^"longtext"
+\fatText c4_"longlongtext" c4 }
 @end lilypond
 
 Text scripts are created in form of @internalsref{TextScript} grobs, in

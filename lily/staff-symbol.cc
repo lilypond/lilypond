@@ -35,8 +35,7 @@ Staff_symbol::brew_molecule (SCM smob)
   SCM width_scm = me->get_grob_property ("width");
   if (gh_number_p (width_scm)) // user-defined width
     {
-      width =
-	gh_scm2double (width_scm) *
+      width = gh_scm2double (width_scm) *
 	Staff_symbol_referencer::staff_space (me);
     }
   else // determine width automatically
