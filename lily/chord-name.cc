@@ -16,30 +16,8 @@
 #include "lily-guile.icc"
 
 /*
-  ugh, move to chord-name-engraver
-
-  Hmm, why not represent complete chord as list?
-  ((tonic third fifth) (inversion bass))
+  TODO: move text lookup out of Chord_name
  */
-void
-Chord_name::set (Chord const& c)
-{
-  set_elt_property ("pitches", array_to_scm (c.pitch_arr_));
-  if (c.inversion_b_)
-    set_elt_property ("inversion", to_scm (c.inversion_pitch_));
-  if (c.bass_b_)
-    set_elt_property ("bass", to_scm (c.bass_pitch_));
-}
-
-/*
-  junkme
- */
-
-SCM
-notename2scm (Musical_pitch p)
-{
-  return gh_cons (gh_int2scm (p.notename_i_), gh_int2scm (p.accidental_i_));
-}
 
 /*
   word is roman text or styled text:
@@ -72,21 +50,21 @@ Chord_name::ly_text2molecule (SCM scm) const
     {
       while (gh_cdr (scm) != SCM_EOL)
         {
-	  mol.add_at_edge (X_AXIS, RIGHT, 
-            ly_word2molecule (gh_car (scm)), 0);
+	  mol.add_at_edge (X_AXIS, RIGHT, ly_word2molecule (gh_car (scm)), 0);
 	  scm = gh_cdr (scm);
 	}
       scm = gh_car (scm);
     }  
-  mol.add_at_edge (X_AXIS, RIGHT, 
-    ly_word2molecule (scm), 0);
+  mol.add_at_edge (X_AXIS, RIGHT, ly_word2molecule (scm), 0);
   return mol;
 }
 
 Molecule
 Chord_name::pitch2molecule (Musical_pitch p) const
 {
-  SCM name = scm_eval (gh_list (ly_symbol2scm ("user-pitch-name"), ly_quote_scm (notename2scm (p)), SCM_UNDEFINED));
+  SCM name = scm_eval (gh_list (ly_symbol2scm ("user-pitch-name"),
+				ly_quote_scm (to_scm (p)),
+				SCM_UNDEFINED));
 
   if (name != SCM_UNSPECIFIED)
     {
@@ -129,17 +107,26 @@ diff_pitch (Musical_pitch tonic, Musical_pitch  p)
   return diff;
 }
 
+/*
+  JUNKME
+ */
 bool
 Chord_name::user_chord_name (Array<Musical_pitch> pitch_arr, Chord_mol* name_p) const
 {
-  SCM chord = SCM_EOL;
   Array<Musical_pitch> chord_type = pitch_arr;
   Chord::rebuild_transpose (&chord_type, diff_pitch (pitch_arr[0], Musical_pitch (0)), false);
 
+#if 0
+  SCM chord = SCM_EOL;
   for (int i= chord_type.size (); i--; )
-    chord = gh_cons (notename2scm (chord_type[i]), chord);
+    chord = gh_cons (to_scm (chord_type[i]), chord);
+#else
+  SCM chord = array_to_scm (chord_type);
+#endif
 
-  SCM name = scm_eval (gh_list (ly_symbol2scm ("user-chord-name"), ly_quote_scm (chord), SCM_UNDEFINED));
+  SCM name = scm_eval (gh_list (ly_symbol2scm ("user-chord-name"),
+				ly_quote_scm (chord),
+				SCM_UNDEFINED));
   if (gh_pair_p (name))
     {
       name_p->modifier_mol = ly_text2molecule (gh_car (name));

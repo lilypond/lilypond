@@ -260,16 +260,6 @@ Stem::get_default_stemlen () const
       && (get_direction () != get_default_dir ()))
     length_f -= shorten_f;
 
-#if 0
-  /*
-    UGK.!
-   */
- if (flag_i () >= 5)
-    length_f += 2.0;
-  if (flag_i () >= 6)
-    length_f += 1.0;
-#endif
-  
   Real st_f = head_positions()[-dir] + dir * length_f;
 
   bool no_extend_b = get_elt_property ("no-stem-extend") != SCM_UNDEFINED;

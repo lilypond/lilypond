@@ -34,15 +34,6 @@ to the width of a quarter note head.
 arithmetic_basicspace = 2.;
 arithmetic_multiplier = 0.9 * \quartwidth ;
 
-% there are several ways to calculate the direction of a beam
-% 
-% * MAJORITY : number count of up or down notes
-% * MEAN     : mean centre distance of all notes
-% * MEDIAN   : mean centre distance weighted per note
-%
-
-#'beam-dir-algorithm = #'majority	%urg.
-
 
 #'Stem_tremolo::beam-width = 1.5 * \quartwidth ; 
 

@@ -21,13 +21,19 @@
 
 ;; inter seems to be a modern quirk, we don't use that
 
+(define staff-line 0.10)
+(define beam-thickness (* 0.52 (- 1 staff-line)))
+(define beam-straddle 0)
+(define beam-sit (/ (+ beam-thickness staff-line) 2))
+(define beam-hang (- 1 (/ (- beam-thickness staff-line) 2)))
+
 (define beam-normal-dy-quants
-  '(0 (/2 (+ beam-thickness staff-line) 2) (+ beam-thickness staff-line) 1))
+  (list 0 (/ (+ beam-thickness staff-line) 2) (+ beam-thickness staff-line) 1))
 
 ;; two popular veritcal beam quantings
 ;; see params.ly: #'beam-vertical-quants
 (define (beam-normal-y-quants multiplicity dy)
-  (let ((quants `(,beam-hang 1)))
+  (let ((quants (list beam-hang 1)))
     (if (or (<= multiplicity 1) (>= (abs dy) (/ staff-line 2)))
 	(set! quants (cons beam-sit quants)))
     (if (or (<= multiplicity 2) (>= (abs dy) (/ staff-line 2)))
@@ -45,16 +51,47 @@
     quants))
 
 
-;;; Default variables and settings
+;; There are several ways to calculate the direction of a beam
+;;
+;; * majority: number count of up or down notes
+;; * mean    : mean centre distance of all notes
+;; * median  : mean centre distance weighted per note
 
-(define staff-line 0.10)
-(define beam-thickness (* 0.52 (- 1 staff-line)))
-(define beam-straddle 0)
-(define beam-sit (/ (+ beam-thickness staff-line) 2))
-(define beam-hang (- 1 (/ (- beam-thickness staff-line) 2)))
+(define (dir-compare up down)
+  (if (= up down)
+      0
+      (if (> up down)
+	  1
+	  -1)))
+
+;; (up . down)
+(define (beam-dir-majority count total)
+  (dir-compare (car count) (cdr count)))
+
+(define (beam-dir-mean count total)
+  (dir-compare (car total) (cdr total)))
+
+(define (beam-dir-median count total)
+  (if (and (> (car count) 0)
+	   (> (cdr count) 0))
+      (dir-compare (/ (car total) (car count)) (/ (cdr total) (cdr count)))
+      (dir-compare (car count) (cdr count))))
+	    
+
+;;; Default variables and settings
 
 (define beam-height-quants beam-normal-dy-quants)
 (define beam-vertical-position-quants beam-normal-y-quants)
+
+
+;; [Ross] states that the majority of the notes dictates the
+;; direction (and not the mean of "center distance")
+;;
+;; But is that because it really looks better, or because he wants
+;; to provide some real simple hands-on rules?
+;;     
+;; We have our doubts, so we simply provide all sensible alternatives.
+(define beam-dir-algorithm beam-dir-majority)
 
 
 ;; array index flag-2 (what a name!!), last if index>size
@@ -68,7 +105,7 @@
 ;; beamed stems
 (define beamed-stem-shorten '(0.5))
 (define beamed-stem-length '(0.0 2.5 2.0 1.5))
-(define beamed-stem-minimum-length '(0.0 3.0 2.5 2.0))
+(define beamed-stem-minimum-length '(0.0 1.5 1.25 1.0))
 (define grace-beamed-stem-minimum-length
   (map (lambda (x) (* grace-length-factor x)) beamed-stem-minimum-length))
 

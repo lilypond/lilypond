@@ -1,11 +1,11 @@
-;; pitch: (notename . accidental)
+;; note-name: (note . accidental)
 ;; list:  (list-of-pitches . (modifier-string . addition-subtraction-string))
 
 ;; if a complete chord is found, use name
 ;; if a chord's base triad is found (c e g), use name
 
-(define pitch-names-alist '())
-(set! pitch-names-alist
+(define note-names-alist '())
+(set! note-names-alist
       (append 
       '(
 	; use these for German naming
@@ -17,10 +17,13 @@
 	;((0 . 1) . ("C" ("feta-1" . "")))
 	;((0 . -1) . ("C" ("feta-1" . "")))
 	)
-      pitch-names-alist))
+      note-names-alist))
 
+(define (pitch->note-name pitch)
+  (cons (car pitch) (cadr pitch)))
+  
 (define (user-pitch-name pitch)
-  (let ((entry (assoc pitch pitch-names-alist)))
+  (let ((entry (assoc (pitch->note-name pitch) note-names-alist)))
        (if entry
 	   (cdr entry))))
 
@@ -47,9 +50,7 @@
       chord-names-alist))
 
 (define (user-chord-name chord)
-  ;(display chord)
-  ;(newline)
-  (let ((entry (assoc chord chord-names-alist)))
-       (if entry
-	   (cdr entry))))
-
+  (let ((entry (assoc (map (lambda (x) (pitch->note-name x)) chord)
+		      chord-names-alist)))
+    (if entry
+	(cdr entry))))

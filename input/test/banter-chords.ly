@@ -16,14 +16,14 @@ TestedFeatures =	 "Banter named chords";
 % when this file has been parsed...
 
 % {
-#(set! pitch-names-alist
+#(set! note-names-alist
       (append 
       '(
 	; use these for German naming
 	((6 . 0) . ("H" ""))
 	((6 . -1) . ("B" ("feta-1" . "")))
 	)
-      pitch-names-alist))
+      note-names-alist))
 
 #(set! chord-names-alist
       (append 

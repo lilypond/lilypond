@@ -5,7 +5,6 @@
 	 (list 'beamSlopeDamping number? 'damping)
 	 (list 'autoKneeGap number? 'auto-knee-gap)
 	 (list 'autoInterstaffKneeGap number? 'auto-interstaff-knee-gap)
-	 (list 'beamQuantisation symbol? 'slope-quantisation)
 	 (list 'beamDirAlgorithm symbol? 'beam-dir-algorithm)
 	 (list 'beamSlope number? 'height)
 	 (list 'beamVerticalPosition number? 'y-position)

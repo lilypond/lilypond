@@ -15,6 +15,7 @@
 #include "main.hh"
 #include "dimensions.hh"
 #include "text-item.hh"
+#include "lily-guile.icc"
 
 ADD_THIS_TRANSLATOR (Chord_name_engraver);
 
@@ -73,8 +74,20 @@ Chord_name_engraver::do_process_requests ()
     find_inversion_b = gh_scm2bool (chord_inversion);
 
   chord_name_p_ = new Chord_name;
-  chord_name_p_->set (to_chord (pitch_arr_, tonic_req_, inversion_req_, bass_req_, find_inversion_b));
-    
+  Chord chord = to_chord (pitch_arr_, tonic_req_, inversion_req_, bass_req_,
+			  find_inversion_b);
+
+  /*
+    Hmm, why not represent complete chord as list?
+    ((tonic third fifth) (inversion bass))
+  */
+  chord_name_p_->set_elt_property ("pitches", array_to_scm (chord.pitch_arr_));
+  if (chord.inversion_b_)
+    chord_name_p_->set_elt_property ("inversion",
+				     to_scm (chord.inversion_pitch_));
+  if (chord.bass_b_)
+    chord_name_p_->set_elt_property ("bass", to_scm (chord.bass_pitch_));
+
   announce_element (Score_element_info (chord_name_p_, 0));
 }
 

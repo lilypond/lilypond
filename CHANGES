@@ -1,4 +1,10 @@
-pl 15.jcn2
+pl 15.jcn4
+	- removed old notename2scm conversion
+	- beam-dir-algorithm through scm
+	- bfs paper-scm
+	- bf: knee-stemlengths
+
+pl 15.jcn3
 	- moved poor man's stem arrays to scm
 	
 pl 15.jcn2

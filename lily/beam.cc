@@ -120,46 +120,21 @@ Beam::get_default_dir () const
 
     } while (flip(&d) != DOWN);
   
-  /* 
-     [Ross] states that the majority of the notes dictates the
-     direction (and not the mean of "center distance")
 
-     But is that because it really looks better, or because he wants
-     to provide some real simple hands-on rules?
-     
-     We have our doubts, so we simply provide all sensible alternatives.
-
-     If dir is not determined: up (see stem::get_default_dir ()) */
-
-  Direction beam_dir = CENTER;
-  Direction neutral_dir = (Direction)(int)paper_l ()->get_var ("stem_default_neutral_direction");
-
-  SCM a = get_elt_property ("beam-dir-algorithm");
+  SCM s = scm_eval (gh_list (ly_symbol2scm ("beam-dir-algorithm"),
+			     ly_quote_scm (gh_cons (gh_int2scm (count[UP]),
+						    gh_int2scm (count[DOWN]))),
+			     ly_quote_scm (gh_cons (gh_int2scm (total[UP]),
+						    gh_int2scm (total[DOWN]))),
+			     SCM_UNDEFINED));
+  if (gh_number_p (s) && gh_scm2int (s))
+    return to_dir (s);
   
-  if (a == ly_symbol2scm ("majority")) // should get default from paper.
-    beam_dir = (count[UP] == count[DOWN]) ? neutral_dir 
-      : (count[UP] > count[DOWN]) ? UP : DOWN;
-  else if (a == ly_symbol2scm ("mean"))
-    // mean center distance
-    beam_dir = (total[UP] == total[DOWN]) ? neutral_dir
-      : (total[UP] > total[DOWN]) ? UP : DOWN;
-  else if (a == ly_symbol2scm ("median"))
-    {
-      // median center distance
-      if (count[DOWN] && count[UP])
-	{
-	  beam_dir = (total[UP] / count[UP] == total[DOWN] / count[DOWN]) 
-	    ? neutral_dir 
-	    : (total[UP] / count[UP] > total[DOWN] / count[DOWN]) ? UP : DOWN;
-	}
-      else
-	{
-	  beam_dir = (count[UP] == count[DOWN]) ? neutral_dir 
-	    : (count[UP] > count[DOWN]) ? UP : DOWN;
-	}
-    }
-  
-  return beam_dir;
+  /*
+    If dir is not determined: get from paper
+  */
+  return (Direction)(int)
+    paper_l ()->get_var ("stem_default_neutral_direction");
 }
 
 
@@ -444,16 +419,16 @@ Beam::calc_stem_y_f (Stem* s, Real y, Real dy) const
   if (get_direction () != s->get_direction ())
     {
       stem_y -= get_direction ()
-	* (thick / 2 + (beam_multiplicity - 1 - stem_multiplicity))
-	* interbeam_f;
+	* (thick / 2 + (beam_multiplicity - 1) * interbeam_f);
 
       Staff_symbol_referencer_interface me (s);
       Staff_symbol_referencer_interface last (last_visible_stem ());
       
-      if ((s != first_visible_stem ())
-	  && me.staff_symbol_l () != last.staff_symbol_l ())
-	stem_y += get_direction () 
-	          * (beam_multiplicity - stem_multiplicity) * interbeam_f;
+      // huh, why not for first visible?
+      if (//(s != first_visible_stem ()) &&
+	  me.staff_symbol_l () != last.staff_symbol_l ())
+	stem_y += get_direction ()
+	  * (beam_multiplicity - stem_multiplicity) * interbeam_f;
     }
   return stem_y;
 }
