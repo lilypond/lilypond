@@ -14,18 +14,22 @@ EXTRA_DIST_FILES += README feta.tex
 TEST_FILES = $(wildcard *test*.mf)
 
 # What are these?
-FET_FILES = $(filter-out $(TEST_FILES),\
+XXXFET_FILES = $(filter-out $(TEST_FILES),\
 	$(wildcard feta[0-9]*.mf)\
 	$(wildcard feta-braces*[0-9].mf)\
 	$(wildcard feta-din*[0-9].mf)\
-	$(wildcard parmesan[0-9]*.mf))\
+	$(wildcard parmesan[0-9]*.mf))
 
 # No braces?
 FONT_FILES = $(filter-out $(TEST_FILES),\
 	$(wildcard feta[0-9]*.mf)\
 	$(wildcard feta-braces*[0-9].mf)\
 	$(wildcard feta-din*[0-9].mf)\
-	$(wildcard parmesan[0-9]*.mf))\
+	$(wildcard feta-nummer*[0-9].mf)\
+	$(wildcard parmesan[0-9]*.mf))
+
+# let's see what happens
+FET_FILES=$(FONT_FILES)
 
 XPM_FONTS = feta20 feta-nummer10 feta-braces20
 #CM_AFM_FILES = cmr10
@@ -40,8 +44,6 @@ AFM_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.afm) $(PARMESAN_FILES:.mf=.
 ENC_FILES=$(TEXTABLES:.tex=.enc)
 TFM_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.tfm))
 
-fet:
-	echo $(FET_FILES)
 
 # Make tfm files first, log files last, 
 # so that normally log files aren't made twice
@@ -69,10 +71,6 @@ INSTALLATION_OUT_FILES3=$(TFM_FILES)
 
 
 SAUTER_FONT_FILES=cmbxti7 cmbxti8 cmbxti12  cmbxti14 cmcsc7 cmcsc12 cmtt17 cmbx14 cmbx17
-#PFA_FILES= $(addprefix $(outdir)/, $(addsuffix .pfa, $(SAUTER_FONT_FILES)) $(FONT_FILES:.mf=.pfa)) 
-#PFA_FILES= $(addprefix $(outdir)/, $(addsuffix .pfa, $(SAUTER_FONT_FILES)))
-#PFB_FILES= $(addprefix $(outdir)/, $(addsuffix .pfb, $(SAUTER_FONT_FILES)) $(FONT_FILES:.mf=.pfb)) 
-#PFB_FILES= $(addprefix $(outdir)/, $(addsuffix .pfb, $(SAUTER_FONT_FILES)) $(FONT_FILES:.mf=.pfb)) 
 
 PFA_FILES=$(SAUTER_FONT_FILES:%=$(outdir)/%.pfa)
 PFA_FILES+=$(FONT_FILES:%.mf=$(outdir)/%.pfa)
