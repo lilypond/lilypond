@@ -63,7 +63,7 @@ Finds file lilypond-words from load-path."
 	  (progn (setq fn nil) (setq lp (cdr lp)))))
     (if (not fn)
 	(progn (message "Error (shown for 12 seconds; press a key to skip):\n\n File `lilypond.words' containing keywords to be autocompleted and fontified,\n was not found. Place it to your `load-path' (see `lilypond-init.el').\n")
-	       (sit-for 12 0 1)))
+	       (sit-for 12 0)))
     fn))
 
 (defun LilyPond-add-dictionary-word (x)
@@ -675,7 +675,8 @@ command."
   (define-key LilyPond-mode-map ")" 'LilyPond-electric-close-paren)
   (define-key LilyPond-mode-map ">" 'LilyPond-electric-close-paren)
   (define-key LilyPond-mode-map "}" 'LilyPond-electric-close-paren)
-  (define-key LilyPond-mode-map [(shift iso-lefttab)] 'LilyPond-autocompletion)
+  (define-key LilyPond-mode-map [iso-lefttab] 'LilyPond-autocompletion) ; Emacs
+  (define-key LilyPond-mode-map [iso-left-tab] 'LilyPond-autocompletion) ; XEmacs
   (define-key LilyPond-mode-map "\C-c\t" 'LilyPond-info-index-search)
   )
 
@@ -685,16 +686,17 @@ command."
   "Insert notes with fewer key strokes by using a simple keyboard piano."
   (interactive)
   (setq dutch-notes
-	'(("k" "a") ("l" "b") ("a" "c") ("s" "d") 
-	  ("d" "e") ("f" "f") ("j" "g") ("r" "r")))
+       '(("k" "a") ("l" "b") ("a" "c") ("s" "d")
+         ("d" "e") ("f" "f") ("j" "g") ("r" "r")))
   (setq dutch-note-ends '("eses" "es" "" "is" "isis"))
   (setq dutch-note-replacements '("" ""))
   (setq finnish-note-replacements
-	'(("eeses" "eses") ("ees" "es") ("aeses" "asas") ("aes" "as") ("b" "h")
-	  ("beses" "heses") ("bes" "b") ("bis" "his") ("bisis" "hisis")))
-			      ; add more translations of the note names
+       '(("eeses" "eses") ("ees" "es") ("aeses" "asas") ("aes" "as") ("b" "h")
+         ("beses" "heses") ("bes" "b") ("bis" "his") ("bisis" "hisis")))
+                             ; add more translations of the note names
   (setq spanish-note-replacements
-	'(("c" "do") ("d" "re") ("e" "mi") ("f" "fa") ("g" "sol") ("a" "la") ("b" "si")
+       '(("c" "do") ("d" "re") ("e" "mi") ("f" "fa") ("g" "sol") ("a" "la") ("b
+" "si")
       ("cis" "dos") ("cisis" "doss") ("ces" "dob") ("ceses" "dobb")
       ("dis" "res") ("disis" "ress") ("des" "reb") ("deses" "rebb")
       ("eis" "mis") ("eisis" "miss") ("ees" "mib") ("eeses" "mibb")
@@ -705,38 +707,43 @@ command."
   (setq other-keys "()<>~}")
   (setq accid 0) (setq octav 0) (setq durat "") (setq dots 0)
 
-  (message "Press h for help.") (sit-for 0 750 1)
+  (message "Press h for help.") (sit-for 0 750)
 
   (setq note-replacements dutch-note-replacements)
-  (while (not (= 27 ; esc to quit
-    (setq x (read-char-exclusive 
-	     (format " | a[_]s[_]d | f[_]j[_]k[_]l | r with ie ,' 12345678 . 0 (<~>)/}\\b\\n Esc \n | c | d | e | f | g | a | %s | r with %s%s%s%s"
+  (setq xkey 0) (setq xinitpoint (point))
+  (< xinitpoint (point))
+  (while (not (= xkey 27)) ; esc to quit
+    (message (format " | a[_]s[_]d | f[_]j[_]k[_]l | r with ie ,' 12345678 . 0 (<~>)/}b\\b\\n Esc \n | c | d | e | f | g | a | %s | r with %s%s%s%s"
 		     (if (string= (car(cdr(assoc "b" note-replacements))) "h")
 			 "h" "b")
 		     (nth (+ accid 2) dutch-note-ends)
-		     (make-string (abs octav) (if (> octav 0) ?' ?,)) 
-		     durat 
-		     (if (string= durat "") "" (make-string dots ?.)))))))
-    ;; (insert (number-to-string x)) ; test numbers for characters
-    (setq note (cdr (assoc (char-to-string x) dutch-notes)))
+		     (make-string (abs octav) (if (> octav 0) ?' ?,))
+		     durat
+		     (if (string= durat "") "" (make-string dots ?.))))
+    (setq xkey (read-char-exclusive))
+    (setq x (char-to-string xkey))
+    (setq note (cdr (assoc x dutch-notes)))
     (cond
-     ((= x 127) (backward-kill-word 1)) ; backspace
-     ((= x 13) (progn (insert "\n") (LilyPond-indent-line)))) ; return
-    (setq x (char-to-string x))
-    (cond
+     ((= xkey 13) (progn (insert "\n") (LilyPond-indent-line))) ; return
+     ((or (= xkey 127) (string= x "b")) ; backspace is a char only in Emacs
+      (progn (narrow-to-region xinitpoint (point))
+	     (backward-kill-word 1)
+	     (widen)))
      ((and (string< x "9") (string< "0" x))
       (progn (setq durat (int-to-string (expt 2 (- (string-to-int x) 1))))
-	     (setq dots 0)))
+             (setq dots 0)))
      ((string= x " ") (insert " "))
      ((string= x "/") (progn (insert "\\times ")
-			     (while (not (and (string< x "9") (string< "0" x)))
-			       (setq x (char-to-string (read-char-exclusive "Insert a number for the denominator (\"x/\")"))))
-			     (insert (format "%s/" x)) (setq x "/")
-			     (while (not (and (string< x "9") (string< "0" x)))
-			       (setq x (char-to-string (read-char-exclusive "Insert a number for the numerator (\"/y\")"))))
-			     (insert (format "%s { " x))))
-     ((string= x "0") (progn (setq accid 0) (setq octav 0) 
-			     (setq durat "") (setq dots 0)))
+			     (message "Insert a number for the denominator (\"x/\")")
+                             (while (not (and (string< x "9") (string< "0" x)))
+                               (setq x (char-to-string (read-char-exclusive))))
+                             (insert (format "%s/" x)) (setq x "/")
+			     (message "Insert a number for the numerator (\"/y\")")
+                             (while (not (and (string< x "9") (string< "0" x)))
+                               (setq x (char-to-string (read-char-exclusive))))
+                             (insert (format "%s { " x))))
+     ((string= x "0") (progn (setq accid 0) (setq octav 0)
+                             (setq durat "") (setq dots 0)))
      ((string= x "i") (setq accid (if (= accid 2) 0 (max (+ accid 1) 1))))
      ((string= x "e") (setq accid (if (= accid -2) 0 (min (+ accid -1) -1))))
      ((string= x "'") (setq octav (if (= octav 4) 0 (max (+ octav 1) 1))))
@@ -746,37 +753,37 @@ command."
       (insert (format "%s " x)))
      ((not (null note))
       (progn
-	(setq note 
-	      (format "%s%s" (car note) (if (string= "r" (car note)) "" 
-					  (nth (+ accid 2) dutch-note-ends))))
-	(setq notetwo (car (cdr (assoc note note-replacements))))
-	(if (not (null notetwo)) (setq note notetwo))
-	(insert
-	 (format "%s%s%s%s " 
-		 note
-		 (if (string= "r" note) ""
-		     (make-string (abs octav) (if (> octav 0) ?' ?,)))
-		 durat
-		 (if (string= durat "") "" (make-string dots ?.))))
-	(setq accid 0) (setq octav 0) (setq durat "") (setq dots 0)))
+        (setq note
+              (format "%s%s" (car note) (if (string= "r" (car note)) ""
+                                          (nth (+ accid 2) dutch-note-ends))))
+        (setq notetwo (car (cdr (assoc note note-replacements))))
+        (if (not (null notetwo)) (setq note notetwo))
+        (insert
+         (format "%s%s%s%s "
+                 note
+                 (if (string= "r" note) ""
+                     (make-string (abs octav) (if (> octav 0) ?' ?,)))
+                 durat
+                 (if (string= durat "") "" (make-string dots ?.))))
+        (setq accid 0) (setq octav 0) (setq durat "") (setq dots 0)))
      ((string= x "t") (progn (setq note-replacements dutch-note-replacements)
-			     (message "Selected Dutch notes") 
-			     (sit-for 0 750 1))) ; t
+                             (message "Selected Dutch notes")
+                             (sit-for 0 750)))
      ((string= x "n") (progn (setq note-replacements finnish-note-replacements)
-			     (message "Selected Finnish/Deutsch notes") 
-			     (sit-for 0 750 1))) ; n
-			      ; add more translations of the note names
+                             (message "Selected Finnish/Deutsch notes")
+                             (sit-for 0 750)))
+                              ; add more translations of the note names
      ((string= x "p") (progn (setq note-replacements spanish-note-replacements)
-			     (message "Selected Spanish notes") 
-			     (sit-for 0 750 1))) ; p
-     ((string= x "h") 
-      (progn (message "Insert notes with fewer key strokes. For example \"i,5.f\" produces \"fis,32. \".") (sit-for 5 0 1) 
-	     (message "Add also \"a ~ a\"-ties, \"a ( ) b\"-slurs and \"< a b >\"-chords.") (sit-for 5 0 1) 
-	     (message "Note names are in Du(t)ch by default. Hit 'n' for Fin(n)ish/Deutsch note names. Hit 'p' for S(p)anish note names") (sit-for 5 0 1) 
-	     (message "Backspace deletes last note, return starts a new indented line and Esc quits.") (sit-for 5 0 1) 
-	     (message "Insert note triplets \"\\times 2/3 { a b } \" by typing \"/23ab}\".") (sit-for 5 0 1) 
-	     (message "Remember to add all other details as well.") (sit-for 5 0 1)))
-    )))
+                             (message "Selected Spanish notes")
+                             (sit-for 0 750)))
+     ((string= x "h")
+      (progn (message "Insert notes with fewer key strokes. For example \"i,5.f\" produces \"fis,32. \".") (sit-for 5 0)
+             (message "Add also \"a ~ a\"-ties, \"a ( ) b\"-slurs and \"< a b >\"-chords.") (sit-for 5 0)
+             (message "Note names are in Du(t)ch by default. Hit 'n' for Fin(n)ish/Deutsch note names. Hit 'p' for S(p)anish note names") (sit-for 5 0 1)
+             (message "Backspace deletes last note, return starts a new indented line and Esc quits.") (sit-for 5 0)
+             (message "Insert note triplets \"\\times 2/3 { a b } \" by typing \"/23ab}\".") (sit-for 5 0)
+             (message "Remember to add all other details as well.") (sit-for 5 0)))))
+  (message "Normal editing mode."))
 
 (defun LilyPond-pre-word-search ()
   "Fetch the alphabetic characters and \\ in front of the cursor."
@@ -830,7 +837,7 @@ command."
 	  (setq compsstr (concat compsstr "\"" (car complist) "\" "))
 	  (setq complist (cdr complist)))
 	(message compsstr) 
-	(sit-for 0 100 1)))))
+	(sit-for 0 100)))))
 
 (defun LilyPond-info ()
   "Launch Info for lilypond."
