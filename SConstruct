@@ -99,6 +99,7 @@ config_vars = (
 	)
 
 # Put your favourite stuff in custom.py
+CacheDir ("buildcache")
 opts = Options ([config_cache, 'custom.py'], ARGUMENTS)
 opts.Add ('prefix', 'Install prefix', '/usr/')
 opts.Add ('out', 'Output directory', 'out-scons')
