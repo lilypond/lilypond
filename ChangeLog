@@ -1,5 +1,11 @@
 2004-08-02  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/lookup.cc (round_filled_box): remove warnings about blot
+	diameter.
+
+	* scm/paper.scm (paper-set-staff-size): tune up linethickness by
+	10% for  20pt staffs. Leave 16.5 untouched.
+
 	* lily/parser.yy (new_lyrics): \addlyrics -> \oldaddlyrics,
 	\newlyrics -> \addlyrics
 

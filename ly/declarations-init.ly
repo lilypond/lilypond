@@ -27,6 +27,8 @@ center=0
 should also set allowBeamBreak, but how to do it "portably"? (ie. also
 working with lyric sections)
 
+try \once \set Score.allowBeamBreak = ##t
+
 %}
 
 %% rather name \newline, \newpage ?
@@ -69,45 +71,6 @@ melismaEnd = #(make-span-event 'ManualMelismaEvent STOP)
 
 #(set-default-paper-size "a4")
 
-
-
-%{
-
-%% these would supercede defaults in \bookpaper.
-% let's comment this out for now. 
-
-
-paperEleven = \paper {
-    #(paper-set-staff-size (* 11.0 pt))
-}
-
-paperThirteen = \paper {
-    #(paper-set-staff-size (* 13.0 pt))
-}
-
-paperSixteen = \paper {
-    #(paper-set-staff-size (* 16.0 pt))
-}
-
-paperEightteen = \paper {
-    #(paper-set-staff-size (* 18.0 pt))
-}
-
-paperTwenty = \paper {
-    #(paper-set-staff-size (* 20.0 pt))
-}
-
-paperTwentythree = \paper {
-    #(paper-set-staff-size (* 23.0 pt))
-}
-
-paperTwentysix = \paper {
-    #(paper-set-staff-size (* 26.0 pt))
-}
-
-\paper { \paperTwenty }
-
-%}
 
 partCombineListener = \paper {
  \context {

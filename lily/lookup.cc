@@ -166,12 +166,10 @@ Lookup::round_filled_box (Box b, Real blotdiameter)
 {
   if (b.x ().length () < blotdiameter)
     {
-      programming_error (_f ("round filled box horizontal extent smaller than blot; decreasing blot"));
       blotdiameter = b.x ().length ();
     }
   if (b.y ().length () < blotdiameter)
     {
-      programming_error (_f ("round filled box vertical extent smaller than blot; decreasing blot"));
       blotdiameter = b.y ().length ();
     }
 

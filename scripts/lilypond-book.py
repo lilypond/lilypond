@@ -1071,7 +1071,7 @@ def do_options ():
 def main ():
 	files = do_options ()
 	global process_cmd
-	if process_cmd = '':
+	if process_cmd == '':
 		process_cmd = lilypond_binary + " -f tex "
 	
 	if process_cmd:

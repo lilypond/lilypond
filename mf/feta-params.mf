@@ -15,7 +15,12 @@ staff_space# = staffsize#/(stafflines-1);
 % for increased contrast with beams.
 
 %% !! synchronize with paper.scm
-stafflinethickness#  = 0.3 pt# + 0.04 staff_space#; 
+
+save fixed_line_thickness, variable_line_factor;
+fixed_line_thickness + variable_line_factor * 5 pt# = 0.50 pt#;
+fixed_line_thickness + variable_line_factor * 4.125 pt# = 0.47 pt#;
+
+stafflinethickness#  = fixed_line_thickness + variable_line_factor * staff_space#; 
 
 %
 % The following tunes the general blackness of the glyphs. 
