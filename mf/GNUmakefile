@@ -14,8 +14,9 @@ LOG_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.log))
 TEXTABLES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.tex))
 XPM_FONTS = feta20
 AFM_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.afm)) 
+TFM_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.tfm)) 
 
-ALL_GEN_FILES=$(LYTABLES) $(TEXTABLES) $(LOG_FILES) $(AFM_FILES)
+ALL_GEN_FILES=$(LYTABLES) $(TEXTABLES) $(LOG_FILES) $(AFM_FILES) $(TFM_FILES)
 
 #PRE_INSTALL=$(MAKE) "$(ALL_GEN_FILES)"
 INSTALLATION_DIR=$(datadir)/mf/
@@ -25,10 +26,11 @@ INSTALLATION_OUT_DIR=$(datadir)/tex
 INSTALLATION_OUT_FILES=$(TEXTABLES)
 
 INSTALLATION_OUT_DIR1=$(datadir)/afm
-INSTALLATION_OUT_FILES1=$(AFM_FILES)
+INSTALLATION_OUT_FILES1=$(AFM_FILES) $(TFM_FILES)#ugh
 
 INSTALLATION_OUT_DIR2=$(datadir)/ly
 INSTALLATION_OUT_FILES2=$(LYTABLES)
+
 export MFINPUTS:=.:$(MFINPUTS)
 include $(depth)/make/stepmake.make 
 

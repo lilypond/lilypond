@@ -59,12 +59,12 @@ All_font_metrics::find_tfm (String name)
 
 Font_metric *
 All_font_metrics::find_font (String name)
-{
-  Font_metric * f= find_afm (name);
+{  Font_metric * f=0;
+  f = find_tfm (name);
   if (f)
     return f;
 
-  f = find_tfm (name);
+  f= find_afm (name);
   if (f)
     return f;
 

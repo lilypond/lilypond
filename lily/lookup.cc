@@ -410,8 +410,7 @@ Lookup::text (String style, String text) const
     }
 
   Real w = 0;
-  Real h = 0;
-  Real d = 0;
+  Interval ydims (0,0);
 
   Font_metric* afm_l = all_fonts_global_p->find_font (style);
   DOUT << "\nChars: ";
@@ -425,14 +424,13 @@ Lookup::text (String style, String text) const
 	{
 	  Character_metric *c = afm_l->get_char (text[i],false);
 	  w += c->dimensions()[X_AXIS].length ();
- 	  h = h >? c->dimensions()[Y_AXIS].max ();
-	  d = d <? c->dimensions()[Y_AXIS].min ();
+	  ydims.unite (c->dimensions()[Y_AXIS]);
 	}
     }
 
   DOUT << "\n" << to_str (w) << "\n";
   a.dim_.x () = Interval (0, w);
-  a.dim_.y () = Interval (d, h);
+  a.dim_.y () = ydims;
   a.font_ = font_name_;
   return a;
 }
