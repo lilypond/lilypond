@@ -112,8 +112,7 @@ clef changes, meter changes, cadenza-mode, key changes, repeat bars
 
 =back
 
-=head1
-DISCLAIMER & COPYING POLICY
+=head1 DISCLAIMER & COPYING POLICY
 
 GNU LilyPond is copyright 1996,97 by its authors. GNU LilyPond is
 distributed under the terms of the GNU General Public
@@ -153,32 +152,28 @@ At this time, GNU LilyPond output looks nice, but is not of production
 quality. If you're not discouraged; this is what I type in my xterm:
 
 	lilypond someinput.ly
-	tex test
+	tex lelie.tex
 	xdvi test&
 
 This is what the output looks like over here:
 
-	hw:~/musix/spacer$ lilypond input/kortjakje.ly
-	GNU LilyPond 0.0.52 #1/FlowerLib 1.1.12 #1
-	Parsing ... [/home/hw/share/lilypond/init//symbol.ini[
-		<lots of stuff deleted>
-	][./input/kortjakje.ly]
+	hw:~/musix/spacer$ GNU LilyPond 0.0.60 #8/FlowerLib 1.1.14 #2
+	Parsing ... [./input/kortjakje.ly[lots of stuff]]
+	Setting up requests...Processing requests ...[8][16][24][25]
+	Preprocessing elements... 
+	Calculating column positions ... [3][7][12][16][20][25]
+	Postprocessing elements...
+	TeX output to lelie.tex ...
 
-	Setting up music ...Processing music ...[8][16][24][25]
-	Preprocessing ... 
-	Calculating column positions ... [3][9][14][18][22][25]
-	Postprocessing ...
-	TeX output to lelie.out ...
-
-	hw:~/musix/spacer$ tex test
+	hw:~/musix/spacer$ tex lelie
 	This is TeX, Version 3.14159 (C version 6.1)
-	(/home/hw/lib/texmf/tex/lilypond/test.tex
-	Hyphenation patterns for english, dutch, loaded.
-	(/home/hw/lib/texmf/tex/lilypond/lilyponddefs.tex) (lelie.out) [1] )
-	Output written on test.dvi (1 page, 9180 bytes).
-	Transcript written on test.log.
+	(lelie.tex
+	Hyphenation patterns for english, dutch, german, loaded.
+	(/home/hw/lib/texmf/tex/lilypond/lilyponddefs.tex) [1] )
+	Output written on lelie.dvi (1 page, 8944 bytes).
+	Transcript written on lelie.log.
 
-	hw:~/musix/spacer$ xdvi test&
+	hw:~/musix/spacer$ xdvi lelie&
 	[1] 855
 
 Check out the input files, some of them have comments
