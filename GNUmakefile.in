@@ -59,6 +59,9 @@ $(outdir)/$(fontball): $(outdir)/$(deb)
 get-pfa-fonts: $(outdir)/$(fontball)
 	# install by hand from $<
 
+lilypond.words:
+	cd $(builddir) && $(PYTHON) $(buildscript-dir)/lilypond.words.py
+
 web-install: 
 	-$(INSTALL) -m 755 -d $(webdir) 
 	tar -C $(webdir)/ -xzf $(outdir)/web.tar.gz
