@@ -1,3 +1,12 @@
+2002-09-01  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* input/test/ancient-font.ly, input/test/ancient-time.ly,
+	  input/test/mensural-ligatures.ly, lily/ligature-head.cc,
+	  lily/mensural-ligature-engraver.cc, lily/note-head.cc,
+	  lily/time-signature.cc, scm/output-lib.scm: removed obsolete
+	  code that sets grob property font-family; also small updates to
+	  various input/test files.
+
 2002-09-01  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/test/tab-staff.ly: removed.

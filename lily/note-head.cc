@@ -103,7 +103,7 @@ Note_head::brew_ledger_lines (Grob *me,
 }
 
 Molecule
-internal_brew_molecule (Grob *me,  bool ledger_take_space)
+internal_brew_molecule (Grob *me, bool ledger_take_space)
 {
   SCM style  = me->get_grob_property ("style");
   if (!gh_symbol_p (style))
@@ -120,20 +120,16 @@ internal_brew_molecule (Grob *me,  bool ledger_take_space)
   SCM exp = scm_list_n (ly_symbol2scm ("find-notehead-symbol"), log,
 			ly_quote_scm (style),
 			SCM_UNDEFINED);
-  SCM scm_pair = scm_primitive_eval (exp);
-  SCM scm_font_char = ly_car (scm_pair);
-  SCM scm_font_family = ly_cdr (scm_pair);
+  SCM scm_font_char = scm_primitive_eval (exp);
   String font_char = "noteheads-" + ly_scm2string (scm_font_char);
-  String font_family = ly_scm2string (scm_font_family);
 
-  me->set_grob_property("font-family", ly_symbol2scm (font_family.to_str0 ()));
   Font_metric * fm = Font_interface::get_default_font (me);
   Molecule out = fm->find_by_name (font_char);
   if (out.empty_b())
     {
-      me->warning (_f ("Symbol `%s' not found in family `%s'",
-		       font_char.to_str0 (), font_family.to_str0 ()));
+      me->warning (_f ("note head `%s' not found", font_char.to_str0 ()));
     }
+
   int interspaces = Staff_symbol_referencer::line_count (me)-1;
   int pos = (int)rint (Staff_symbol_referencer::get_position (me));
   if (abs (pos) - interspaces > 1)

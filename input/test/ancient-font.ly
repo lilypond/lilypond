@@ -17,12 +17,8 @@ upperStaff =  \context GregorianStaff = upperStaff <
       #'line-count = #4
 
     \notes \transpose c' {
-	\property Staff.Clef \set #'font-family = #'ancient
-	\property Staff.KeySignature \set #'font-family = #'ancient
 	\property Staff.KeySignature \override #'style = #'vaticana
-	\property Staff.Accidental \set #'font-family = #'ancient
 	\property Staff.Accidental \override #'style = #'vaticana
-	\property Voice.NoteHead \set #'font-family = #'ancient
 	\property Voice.NoteHead \override #'style = #'vaticana_punctum
 	\key es \major
 	\clef "vaticana_fa2"
@@ -125,12 +121,8 @@ lowerStaff =  \context MensuralStaff = lowerStaff <
       #'line-count = #5
 
     \notes \transpose c' {
-	\property Staff.Clef \set #'font-family = #'ancient
 	\property Voice.autoBeaming = ##f
-	\property Voice.NoteHead \set #'font-family = #'ancient
 	\property Voice.NoteHead \override #'style = #'neo_mensural
-	\property Voice.Stem \set #'font-family = #'ancient % ancient flags
-	\property Voice.Rest \set #'font-family = #'music
 	\property Voice.Rest \override #'style = #'neo_mensural
 	\key a \major
 
@@ -168,7 +160,6 @@ lowerStaff =  \context MensuralStaff = lowerStaff <
 	\property Voice.NoteHead \override #'style = #'mensural
 	\property Voice.Stem \override #'style = #'mensural
 	\property Voice.Stem \override #'thickness = #1.0
-	\property Voice.Rest \set #'font-family = #'ancient
 	\property Voice.Rest \override #'style = #'mensural
 	\clef "petrucci_f"
 	c8 b, c16 b, c32 b, c64 b, c64 b,
@@ -186,7 +177,7 @@ lowerStaff =  \context MensuralStaff = lowerStaff <
 	% segmentation fault on r8/r16/r32.  (Strange: what has
 	% Voice.Stem style to do with mensural rests?)
 	\property Voice.Stem \override #'style = #'neo_mensural
-	r2 r4 r8 r16 r32 r32
+	r2 r4 r8 r16 r16
 	\property Voice.Stem \override #'style = #'mensural
 	\property Staff.forceClef = ##t
 	\clef "mensural_f"
@@ -241,12 +232,9 @@ lowerStaff =  \context MensuralStaff = lowerStaff <
 	    \alias Voice
 	    \remove Ligature_bracket_engraver
 	    \consists Mensural_ligature_engraver
-	    NoteHead \set #'font-family = #'ancient
 	    NoteHead \set #'style = #'mensural
-	    Stem \set #'font-family = #'ancient
 %	    Stem \set #'style = #'mensural %%%%%%%% FIXME: this core dumps
 	    Stem \set #'thickness = #1.0
-	    Rest \set #'font-family = #'music
 	    Rest \set #'style = #'mensural
 	    autoBeaming = ##f
 	}
@@ -256,7 +244,6 @@ lowerStaff =  \context MensuralStaff = lowerStaff <
 	    \alias Voice
 	    \remove Ligature_bracket_engraver
 %	    \consists Gregorian_ligature_engraver %%%%%%%% TODO: not yet implemented
-	    NoteHead \set #'font-family = #'ancient
 	    NoteHead \set #'style = #'vaticana_punctum
 	    autoBeaming = ##f
 	}
@@ -266,18 +253,13 @@ lowerStaff =  \context MensuralStaff = lowerStaff <
 	    \alias Staff
 	    \accepts MensuralVoice
 	    \consists Custos_engraver
-	    TimeSignature \set #'font-family = #'ancient
 	    TimeSignature \set #'style = #'mensural
-	    KeySignature \set #'font-family = #'ancient
 	    KeySignature \set #'style = #'mensural
-	    Accidental \set #'font-family = #'ancient
 	    Accidental \set #'style = #'mensural
-	    Custos \set #'font-family = #'ancient
 	    Custos \set #'style = #'mensural
 	    Custos \set #'neutral-position = #3
 	    Custos \set #'neutral-direction = #-1
 	    Custos \set #'adjust-if-on-staffline = ##t
-	    Clef \set #'font-family = #'ancient
 	    clefGlyph = #"clefs-petrucci_c2"
 	    clefPosition = #-2
 	    clefOctavation = #0 
@@ -291,16 +273,12 @@ lowerStaff =  \context MensuralStaff = lowerStaff <
 	    \remove Time_signature_engraver
 	    StaffSymbol \set #'thickness = #2.0
 	    StaffSymbol \set #'line-count = #4
-	    KeySignature \set #'font-family = #'ancient
 	    KeySignature \set #'style = #'vaticana
-	    Accidental \set #'font-family = #'ancient
 	    Accidental \set #'style = #'vaticana
-	    Custos \set #'font-family = #'ancient
 	    Custos \set #'style = #'vaticana
 	    Custos \set #'neutral-position = #4
 	    Custos \set #'neutral-direction = #-1
 	    Custos \set #'adjust-if-on-staffline = ##t
-	    Clef \set #'font-family = #'ancient
 	    clefGlyph = #"clefs-vaticana_do"
 	    clefPosition = #1
 	    clefOctavation = #0 

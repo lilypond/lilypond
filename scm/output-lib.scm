@@ -127,22 +127,20 @@
 ;; silly, use alist? 
 (define (find-notehead-symbol duration style)
   (case style
-   ((xcircle) (cons "2xcircle" "music"))
-   ((harmonic) (cons "0neo_mensural" "music"))
+   ((xcircle) "2xcircle")
+   ((harmonic) "0neo_mensural")
    ((baroque) 
     ;; Oops, I actually would not call this "baroque", but, for
     ;; backwards compatibility to 1.4, this is supposed to take
     ;; brevis, longa and maxima from the neo-mensural font and all
     ;; other note heads from the default font.  -- jr
     (if (< duration 0)
-	(cons (string-append (number->string duration) "neo_mensural") "music")
-	(cons (number->string duration) "music")))
+	(string-append (number->string duration) "neo_mensural")
+	(number->string duration)))
    ((mensural)
-    (cons (string-append (number->string duration) (symbol->string style))
-     "music"))
+    (string-append (number->string duration) (symbol->string style)))
    ((neo_mensural)
-    (cons (string-append (number->string duration) (symbol->string style))
-     "music"))
+    (string-append (number->string duration) (symbol->string style)))
    ((default)
     ;; The default font in mf/feta-bolletjes.mf defines a brevis, but
     ;; neither a longa nor a maxima.  Hence let us, for the moment,
@@ -151,14 +149,13 @@
     ;; should look exactly like the brevis of the default font, but
     ;; with a stem exactly like that of the quarter note. -- jr
     (if (< duration -1)
-	(cons (string-append (number->string duration) "neo_mensural") "music")
-	(cons (number->string duration) "music")))
+	(string-append (number->string duration) "neo_mensural")
+	(number->string duration)))
    (else
     (if (string-match "vaticana*|hufnagel*|medicaea*" (symbol->string style))
-	(cons (symbol->string style) "music")
-	(cons (string-append (number->string (max 0 duration))
-			     (symbol->string style))
-	      "music")))))
+	(symbol->string style)
+	(string-append (number->string (max 0 duration))
+		       (symbol->string style))))))
 
 
 (define (note-head-style->attachment-coordinates style duration)
@@ -190,43 +187,6 @@ centered, X==1 is at the right, X == -1 is at the left."
      ;; this also works for easy notation.
      '(1.0 . 0.0)
      )))
-
-(define (find-timesig-symbol nom denom style)
-  (case style
-   ((mensural)
-    (cons (string-append
-	     "mensural"
-	     (number->string nom)
-	     "/"
-	     (number->string denom))
-	  "ancient"))
-   ((neo_mensural)
-    (cons (string-append
-	     "neo_mensural"
-	     (number->string nom)
-	     "/"
-	     (number->string denom))
-	  "ancient"))
-   ((numbered)
-    (cons (string-append
-	   (number->string nom)
-	   "/"
-	   (number->string denom))
-	  "music"))
-   (else
-    ;; default: use "C" style when possible, otherwise return ""
-    (cons
-     (case nom
-       ((2)
-	(case denom
-	  ((2) "C2/2")
-	  (else "")))
-       ((4)
-	(case denom
-	  ((4) "C4/4")
-	  (else "")))
-       (else ""))
-     "music"))))
 
 (define (string-encode-integer i)
   (cond
