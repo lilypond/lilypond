@@ -253,22 +253,7 @@ Score::book_rendering (String outname,
   return systems;
 }
 
-LY_DEFINE (ly_score_bookify, "ly:score-bookify",
-	   2, 0, 0,
-	   (SCM score_smob, SCM header),
-	   "Return @var{score_smob} encapsulated in a Book object. Set "
-	   "@var{header} as book level header.")
-{
-  SCM_ASSERT_TYPE (unsmob_score (score_smob), score_smob,
-		   SCM_ARG1, __FUNCTION__, "Score");
-  
-  Score *score = unsmob_score (score_smob);
-  Book *book = new Book;
-  book->scores_.push (score);
-  book->header_ = header;
-  scm_gc_unprotect_object (book->self_scm ());
-  return book->self_scm ();
-}
+
 
 
 LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
