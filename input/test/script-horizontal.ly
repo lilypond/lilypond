@@ -3,7 +3,8 @@
 \header{ texidoc = "@cindex Script Horizontal
 Please don't use this Scheme hacking unless you have a good reason. "
 }
-	
+
+% delete me, input/regression/finger-horizontal is a better example. -hwn
 \score {
 	\notes \context Voice <
 		\context Thread = TA { c'4_1 }

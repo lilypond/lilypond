@@ -7,6 +7,9 @@ You can print a slur in each voice. "
 % We'd want to combine the stems, but have two slurs too...
 % Looks like the a-due engraver
 
+
+% remove?  -hwn
+
 \score{
 	\context Staff <
 		\context Voice=v \notes\relative c''{

@@ -1,5 +1,6 @@
 \version "1.7.18"
 % regression or delete.  -gp
+% regression -hwn
 
 \score {
   \context Voice \notes \relative c'' {
