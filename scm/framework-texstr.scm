@@ -17,10 +17,16 @@
 	     (lily))
 
 
+(define (define-fonts paper)
+   ;; UGH. FIXME.
+   (format "(globalscale ~a)\n" (ly:paper-outputscale paper)))
+
+
 (define-public (output-framework outputter book scopes fields basename )
   (let* ((paper (ly:paper-book-paper book))
 	 (pages (ly:paper-book-pages book))
 	 )
+    (ly:outputter-dump-string outputter (define-fonts paper))
     (for-each
      (lambda (page)
        (ly:outputter-dump-stencil outputter page))
