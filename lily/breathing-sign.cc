@@ -28,10 +28,10 @@ Breathing_sign::Breathing_sign (SCM  s)
 
 
 
-MAKE_SCHEME_SCORE_ELEMENT_NON_DEFAULT_CALLBACKS(Breathing_sign);
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Breathing_sign,brew_molecule);
 
 SCM 
-Breathing_sign::scheme_molecule (SCM smob)
+Breathing_sign::brew_molecule (SCM smob)
 {
   Score_element * sc = unsmob_element (smob);
   Staff_symbol_referencer_interface si (sc);
@@ -45,8 +45,9 @@ Breathing_sign::scheme_molecule (SCM smob)
   return sc->lookup_l()->filledbox(b).create_scheme ();
 }
 
-void
-Breathing_sign::after_line_breaking ()
+GLUE_SCORE_ELEMENT(Breathing_sign,after_line_breaking);
+SCM
+Breathing_sign::member_after_line_breaking ()
 {
   Real space = staff_symbol_referencer (this).staff_space();
   Direction d = directional_element (this). get ();
@@ -57,5 +58,7 @@ Breathing_sign::after_line_breaking ()
     }
 
   translate_axis(2.0 * space * d, Y_AXIS);
+
+  return SCM_UNDEFINED;
 }
 

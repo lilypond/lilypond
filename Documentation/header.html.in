@@ -37,7 +37,6 @@ which substitutes some @AT_VARIABLES@ as well.
     <table align=left>
       <tr><td bgcolor="#e8e8ff"><a href="@INDEX@"><b>Home</b></a></td></tr>
       <tr><td><font size=-1>
-        <a href="http://www.cs.uu.nl/~hanwen/lilypond">Development</a><br>
         <a href="http://appel.dyndns.org/lilypond">Hacking</a><br>
         <a href="http://www.gnu.org">GNU Project</a><br>
         <a href="http://www2.iro.umontreal.ca/~pinard/po/registry.cgi?domain=lilypond">Translations</a><br>

@@ -60,8 +60,9 @@ col2rhythmic_head (Note_column* c)
   return dynamic_cast<Rhythmic_head*> (e);
 }
 
-void
-Rest_collision::before_line_breaking ()
+GLUE_SCORE_ELEMENT(Rest_collision,before_line_breaking);
+SCM
+Rest_collision::member_before_line_breaking ()
 {
   Link_array<Note_column> rest_l_arr =
     Pointer_group_interface__extract_elements (this, (Note_column*) 0, "rests");
@@ -80,11 +81,11 @@ Rest_collision::before_line_breaking ()
 
   // no rests to collide
   if (!rest_l_arr.size())
-    return;
+    return SCM_UNDEFINED;
 
   // no partners to collide with
   if (rest_l_arr.size() + ncol_l_arr.size () < 2)
-    return;
+    return SCM_UNDEFINED;
 
   // meisjes met meisjes
   if (!ncol_l_arr.size()) 
@@ -145,7 +146,7 @@ Rest_collision::before_line_breaking ()
 
       Interval restdim = rcol->rest_dim ();
       if (restdim.empty_b ())
-	return;
+	return SCM_UNDEFINED;
       
       // staff ref'd?
       Real staff_space = paper_l()->get_var ("interline");
@@ -188,6 +189,7 @@ Rest_collision::before_line_breaking ()
       
       rcol->translate_rests (dir * discrete_dist);
     }
+  return SCM_UNDEFINED;
 }
 
 

@@ -18,8 +18,9 @@ Dots::Dots (SCM s)
 {
 }
 
-void
-Dots::after_line_breaking ()
+GLUE_SCORE_ELEMENT(Dots,after_line_breaking);
+SCM
+Dots::member_after_line_breaking ()
 {
   SCM d= get_elt_property ("dot-count");
   if (gh_number_p (d) && gh_scm2int (d))
@@ -32,12 +33,15 @@ Dots::after_line_breaking ()
       if (!(p % 2))
 	si.set_position (p  + directional_element (this).get ());
     }
+
+    return SCM_UNDEFINED;
+
 }
 
-MAKE_SCHEME_SCORE_ELEMENT_NON_DEFAULT_CALLBACKS(Dots);
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Dots,brew_molecule);
 
 SCM  
-Dots::scheme_molecule (SCM d)
+Dots::brew_molecule (SCM d)
 {
   Score_element *sc = unsmob_element (d);
   Molecule mol (sc->lookup_l ()->blank (Box (Interval (0,0),

@@ -67,7 +67,9 @@ Paper_score::calc_breaking ()
 void
 Paper_score::process ()
 {
-  progress_indication ( _f("Element count %d ",  line_l_->element_count ()));
+  if (verbose_global_b)
+    progress_indication ( _f("Element count %d ",  line_l_->element_count ()));
+
   
   progress_indication (_ ("Preprocessing elements...") + " ");
 

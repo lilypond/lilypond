@@ -6,14 +6,14 @@
   (c) 1999--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
-#include "hara-kiri-vertical-group-spanner.hh"
+#include "hara-kiri-group-spanner.hh"
 #include "hara-kiri-engraver.hh"
 #include "rhythmic-head.hh"
 
 Spanner*
 Hara_kiri_engraver::get_spanner_p () const
 {
-  return new Hara_kiri_group_spanner (SCM_EOL);
+  return new Hara_kiri_group_spanner (get_property ("basicHaraKiriVerticalGroupspannerProperties"));
 }
 
 void

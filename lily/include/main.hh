@@ -29,7 +29,7 @@ extern int exit_status_i_;
 extern bool experimental_features_global_b;
 extern char const* output_global_ch;
 extern bool dependency_global_b;
-extern bool version_ignore_global_b;
+extern bool verbose_global_b;
 
 
 extern Array<String> get_inclusion_names ();

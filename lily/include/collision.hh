@@ -37,12 +37,13 @@
 */
 class Collision : public Item
 {
-protected:
+public:
   SCM automatic_shift ();
   SCM forced_shift ();
   void do_shifts ();  
-  virtual void before_line_breaking ();
-public:
+  SCM member_before_line_breaking ();
+  static SCM before_line_breaking (SCM);
+
     
   void add_column (Note_column*ncol_l);
   Collision(SCM);

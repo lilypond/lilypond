@@ -29,11 +29,11 @@ class Key_item :public  Item
 public:
   VIRTUAL_COPY_CONS(Score_element);
   Key_item (SCM);
-  static SCM scheme_molecule (SCM);
+  static SCM brew_molecule (SCM);
   
 
-protected:
-  Molecule do_brew_molecule() const;
+
+  SCM member_brew_molecule() const;
 };
 
 #endif // KEYITEM_HH

@@ -17,9 +17,9 @@
 */
 class Note_column : public Item
 {
-protected:
-  virtual void after_line_breaking () ;
 public:
+  SCM member_after_line_breaking ();
+  static SCM after_line_breaking (SCM);
   static int shift_compare (Note_column *const &, Note_column*const&);
   
   /** The relative position of the "voice" containing this

@@ -108,12 +108,8 @@ ly_symbol2string (SCM s)
 }
 
 
-/**
-   Read a file, and shove it down GUILE.  GUILE also has file read
-   functions, but you can't fiddle with the path of those.
- */
-void
-read_lily_scm_file (String fn)
+String
+gulp_file_to_string (String fn)
 {
   String s = global_path.find (fn);
   if (s == "")
@@ -123,38 +119,34 @@ read_lily_scm_file (String fn)
       e += _f ("(load path: `%s')", global_path.str ());
       error (e);
     }
-  else
-    progress_indication ("[" + s);
-
-
-  Simple_file_storage f(s);
-  
-  gh_eval_str ((char *) f.ch_C());
-  progress_indication ("]");
-}
-
-
-SCM
-ly_gulp_file (SCM name)
-{
-  String fn (ly_scm2string (name));
- String s = global_path.find (fn);
-  if (s == "")
-    {
-      String e = _f ("can't find file: `%s'", fn);
-      e += " ";
-      e += _f ("(load path: `%s')", global_path.str ());
-      error (e);
-    }
-  else
+  else if (verbose_global_b)
     progress_indication ("[" + s );
 
 
   Simple_file_storage f(s);
-  SCM result = ly_str02scm (f.ch_C());
-  progress_indication ("]");
+  String result (f.ch_C());
+  if (verbose_global_b)
+    progress_indication ("]");
   return result;
 }
+
+SCM
+ly_gulp_file (SCM fn)
+{
+  return ly_str02scm (gulp_file_to_string (ly_scm2string (fn)).ch_C());
+}
+
+
+/**
+   Read a file, and shove it down GUILE.  GUILE also has file read
+   functions, but you can't fiddle with the path of those.
+ */
+void
+read_lily_scm_file (String fn)
+{
+  gh_eval_str ((char *) gulp_file_to_string (fn).ch_C());
+}
+
 
 void
 ly_display_scm (SCM s)

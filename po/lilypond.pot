@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-06-21 16:48+0200\n"
+"POT-Creation-Date: 2000-06-09 02:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "warning: "
 msgstr ""
 
-#: dstream.cc:187
+#: dstream.cc:184
 msgid "not enough fields in Dstream init"
 msgstr ""
 
@@ -249,11 +249,11 @@ msgstr ""
 msgid "unterminated (de)crescendo"
 msgstr ""
 
-#: extender-engraver.cc:97
+#: extender-engraver.cc:96
 msgid "unterminated extender"
 msgstr ""
 
-#: extender-engraver.cc:109
+#: extender-engraver.cc:108
 msgid "Nothing to connect extender to on the left.  Ignoring extender request."
 msgstr ""
 
@@ -273,15 +273,15 @@ msgstr ""
 msgid "Unattached grace notes.  Attaching to last musical column."
 msgstr ""
 
-#: hyphen-engraver.cc:91
+#: hyphen-engraver.cc:59
 msgid "unterminated hyphen"
 msgstr ""
 
-#: hyphen-engraver.cc:103
+#: hyphen-engraver.cc:71
 msgid "Nothing to connect hyphen to on the left.  Ignoring hyphen request."
 msgstr ""
 
-#: identifier.cc:47
+#: identifier.cc:44
 #, c-format
 msgid "wrong identifier type, expected: `%s'"
 msgstr ""
@@ -292,7 +292,15 @@ msgstr ""
 msgid "can't find file: `%s'"
 msgstr ""
 
-#: key-engraver.cc:92 key-performer.cc:54
+#: key-def.cc:31
+msgid "No key name, assuming `C'"
+msgstr ""
+
+#: key-def.cc:92
+msgid "Don't know how handle empty keys"
+msgstr ""
+
+#: key-engraver.cc:74 key-performer.cc:65
 msgid "FIXME: key change merge"
 msgstr ""
 
@@ -301,18 +309,28 @@ msgstr ""
 msgid "(load path: `%s')"
 msgstr ""
 
-#: line-of-score.cc:86
+#: line-of-score.cc:90
 #, c-format
 msgid "Element count %d."
 msgstr ""
 
-#: line-of-score.cc:203 paper-score.cc:70
+#: line-of-score.cc:207 paper-score.cc:70
 #, c-format
 msgid "Element count %d "
 msgstr ""
 
-#: line-of-score.cc:217
+#: line-of-score.cc:221
 msgid "Calculating column positions..."
+msgstr ""
+
+#: local-key-engraver.cc:82
+msgid "out of tune:"
+msgstr ""
+
+#: local-key-engraver.cc:83 time-signature-engraver.cc:29
+#: translator-group.cc:416 translator-group.cc:425
+#, c-format
+msgid "can't find: `%s'"
 msgstr ""
 
 #: lookup.cc:58
@@ -469,16 +487,16 @@ msgstr ""
 msgid "no such instrument: `%s'"
 msgstr ""
 
-#: midi-item.cc:366
+#: midi-item.cc:365
 #, c-format
 msgid "unconventional key: flats: %d, sharps: %d"
 msgstr ""
 
-#: midi-item.cc:413
+#: midi-item.cc:410
 msgid "silly duration"
 msgstr ""
 
-#: midi-item.cc:426
+#: midi-item.cc:423
 msgid "silly pitch"
 msgstr ""
 
@@ -486,11 +504,11 @@ msgstr ""
 msgid "Error syncing file (disk full?)"
 msgstr ""
 
-#: music-output-def.cc:50
+#: music-output-def.cc:57
 msgid "Interpretation context with empty type"
 msgstr ""
 
-#: music-output-def.cc:77
+#: music-output-def.cc:87
 #, c-format
 msgid "can't find `%s' context"
 msgstr ""
@@ -500,12 +518,12 @@ msgstr ""
 msgid "Transposition by %s makes accidental larger than two"
 msgstr ""
 
-#: my-lily-lexer.cc:118
+#: my-lily-lexer.cc:129
 #, c-format
 msgid "Identifier name is a keyword: `%s'"
 msgstr ""
 
-#: my-lily-lexer.cc:137
+#: my-lily-lexer.cc:148
 #, c-format
 msgid "error at EOF: %s"
 msgstr ""
@@ -518,16 +536,21 @@ msgstr ""
 msgid "Braces don't match"
 msgstr ""
 
-#: paper-def.cc:85
+#: paper-def.cc:70
+#, c-format
+msgid "unknown paper variable: `%s'"
+msgstr ""
+
+#: paper-def.cc:74
 msgid "not a real variable"
 msgstr ""
 
-#: paper-def.cc:174
+#: paper-def.cc:165
 #, c-format
 msgid "paper output to %s..."
 msgstr ""
 
-#: mudela-stream.cc:93 paper-outputter.cc:91 performance.cc:95
+#: mudela-stream.cc:93 paper-outputter.cc:92 performance.cc:95
 msgid ", at "
 msgstr ""
 
@@ -715,12 +738,6 @@ msgstr ""
 msgid "lost in time:"
 msgstr ""
 
-#: time-signature-engraver.cc:29 translator-group.cc:417
-#: translator-group.cc:426
-#, c-format
-msgid "can't find: `%s'"
-msgstr ""
-
 #: timing-translator.cc:36
 msgid "conflicting timing request"
 msgstr ""
@@ -739,21 +756,21 @@ msgstr ""
 msgid "unknown translator: `%s'"
 msgstr ""
 
-#: translator-group.cc:80 translator-group.cc:93
+#: translator-group.cc:81 translator-group.cc:94
 msgid "Program has no such type"
 msgstr ""
 
-#: translator-group.cc:84 translator-group.cc:99
+#: translator-group.cc:85 translator-group.cc:100
 #, c-format
 msgid "Already contains: `%s'"
 msgstr ""
 
-#: translator-group.cc:211
+#: translator-group.cc:210
 #, c-format
 msgid "can't find or create `%s' called `%s'"
 msgstr ""
 
-#: translator-group.cc:323
+#: translator-group.cc:322
 #, c-format
 msgid "can't find or create: `%s'"
 msgstr ""
@@ -767,66 +784,50 @@ msgstr ""
 msgid "Oldest supported input version: %s"
 msgstr ""
 
-#: parser.yy:418
+#: parser.yy:427
 msgid "Need a translator group for a context"
 msgstr ""
 
-#: parser.yy:433
+#: parser.yy:448
 msgid "Wrong type for property value"
 msgstr ""
 
-#: parser.yy:607
+#: parser.yy:694
 msgid "More alternatives than repeats.  Junking excess alternatives."
 msgstr ""
 
-#: parser.yy:652
+#: parser.yy:739
 msgid "Second argument must be a symbol"
 msgstr ""
 
-#: parser.yy:657
+#: parser.yy:744
 msgid "First argument must be a procedure taking 1 argument"
 msgstr ""
 
-#: parser.yy:957
-msgid "Expecting string as script definition"
-msgstr ""
-
-#: parser.yy:967
+#: parser.yy:1069
 msgid "Can't specify direction for this request"
 msgstr ""
 
-#: parser.yy:1059
+#: parser.yy:1170
 #, c-format
 msgid "Expecting %d arguments"
 msgstr ""
 
-#: parser.yy:1075
-msgid "Must have 2 arguments for duration"
-msgstr ""
-
-#: parser.yy:1082 parser.yy:1090 parser.yy:1331
+#: parser.yy:1193 parser.yy:1201 parser.yy:1443
 msgid "Have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:1231 parser.yy:1251
+#: parser.yy:1342 parser.yy:1362
 #, c-format
 msgid "not a duration: %d"
 msgstr ""
 
-#: parser.yy:1260
+#: parser.yy:1371
 msgid "Have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:1347
+#: parser.yy:1459
 msgid "Have to be in Chord mode for chords"
-msgstr ""
-
-#: parser.yy:1508 parser.yy:1526
-msgid "need integer number arg"
-msgstr ""
-
-#: parser.yy:1512
-msgid "Must be positive integer"
 msgstr ""
 
 #: lexer.ll:158
@@ -837,36 +838,36 @@ msgstr ""
 msgid "\\maininput disallowed outside init files"
 msgstr ""
 
-#: lexer.ll:196
+#: lexer.ll:202
 #, c-format
-msgid "wrong or undefined identifier: `%s'"
+msgid "undefined identifier: `%s'"
 msgstr ""
 
 #. backup rule
-#: lexer.ll:201
+#: lexer.ll:207
 msgid "Missing end quote"
 msgstr ""
 
 #. backup rule
-#: lexer.ll:223 lexer.ll:227
+#: lexer.ll:229 lexer.ll:233
 msgid "white expected"
 msgstr ""
 
-#: lexer.ll:235
+#: lexer.ll:241
 msgid "Can't evaluate Scheme in safe mode"
 msgstr ""
 
-#: lexer.ll:431
+#: lexer.ll:436
 #, c-format
 msgid "invalid character: `%c'"
 msgstr ""
 
-#: lexer.ll:503
+#: lexer.ll:494
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr ""
 
-#: lexer.ll:589
+#: lexer.ll:580
 #, c-format
 msgid "incorrect mudela version: %s (%s, %s)"
 msgstr ""

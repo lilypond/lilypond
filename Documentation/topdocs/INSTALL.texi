@@ -61,10 +61,13 @@ NT/95/98 as well.  See Section Windows NT/95,es.
 Check out
 @uref{ftp://ftp.python.org} or @uref{ftp://ftp.cwi.nl/pub/python}.
 
-@item  GUILE 1.3.4,  check out @uref{http://www.gnu.org/software/guile/guile.html,http://www.gnu.org/software/guile/guile.html}.
+@item  GUILE 1.3.4 or newer,  check out
+@uref{http://www.gnu.org/software/guile/guile.html,http://www.gnu.org/software/guile/guile.html}.
+Version 1.4 is recommended for better performance.
 
-@item GNU make. 
-Check out @uref{ftp://ftp.gnu.org/gnu/make/,ftp://ftp.gnu.org/gnu/make/}.
+@item GNU Make. 
+Check out
+@uref{ftp://ftp.gnu.org/gnu/make/,ftp://ftp.gnu.org/gnu/make/}.
 
 @item Flex (version 2.5.4 or newer). 
 Check out @uref{ftp://ftp.gnu.org/gnu/flex/,ftp://ftp.gnu.org/gnu/flex/}.

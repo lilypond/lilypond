@@ -18,11 +18,12 @@ public:
 
   Molecule compound_barline (String, Real height) const;
   Molecule simple_barline (Real wid, Real height) const;      
-  static SCM scheme_molecule (SCM);
+  static SCM brew_molecule (SCM);
   
 
-protected:
-  virtual void before_line_breaking ();
+public:
+  SCM member_before_line_breaking ();
+  static SCM before_line_breaking (SCM);
 
   virtual Real get_bar_size () const;
 };

@@ -7,7 +7,6 @@
 #ifndef Tuplet_spanner_HH
 #define Tuplet_spanner_HH
 
-#include "pointer.hh"
 #include "spanner.hh"
 
 /** supportable plet: triplets, eentweetjes, ottava, etc.
@@ -21,19 +20,21 @@ class Tuplet_spanner : public Spanner
 {
 public:
   Tuplet_spanner (SCM);
-  static SCM scheme_molecule (SCM);
+  static SCM brew_molecule (SCM);
   
 
   void add_column (Note_column*);
   void add_beam (Beam*);
-protected:
+
   void calc_dy (Real *) const;
   void calc_position_and_height (Real*,Real *dy)const;
   
-  Molecule do_brew_molecule () const;
+  SCM member_after_line_breaking ();
+  static SCM after_line_breaking (SCM);
+  SCM member_brew_molecule () const;
   VIRTUAL_COPY_CONS(Score_element);
+
   virtual void do_add_processing ();
-  virtual void after_line_breaking ();
   virtual Direction get_default_dir () const;
 };
 

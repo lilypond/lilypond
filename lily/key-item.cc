@@ -74,14 +74,13 @@ Key_item::calculate_position(SCM pair) const
   }
 }
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Key_item)
-
 /*
   TODO
   - space the `natural' signs wider
  */
-Molecule 
-Key_item::do_brew_molecule () const
+GLUE_SCORE_ELEMENT(Key_item,brew_molecule);
+SCM
+Key_item::member_brew_molecule () const
 {
   Molecule mol;
 
@@ -134,12 +133,9 @@ Key_item::do_brew_molecule () const
               mol.add_at_edge (X_AXIS, LEFT, m,0);	
             }
         }
-
-
     }
- 
 
-  return mol;
+  return mol.create_scheme();
 }
 
 

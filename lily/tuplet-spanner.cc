@@ -35,9 +35,10 @@ Tuplet_spanner::Tuplet_spanner (SCM s)
 /*
   TODO. 
  */
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Tuplet_spanner)
-Molecule 
-Tuplet_spanner::do_brew_molecule () const
+
+GLUE_SCORE_ELEMENT(Tuplet_spanner,brew_molecule);
+SCM
+Tuplet_spanner::member_brew_molecule () const
 {
   Molecule  mol;
 
@@ -111,7 +112,7 @@ Tuplet_spanner::do_brew_molecule () const
 	  mol.add_molecule (Molecule (b, at));
 	}
     }
-  return mol;
+  return mol.create_scheme();
 }
   
 void
@@ -201,8 +202,9 @@ Tuplet_spanner::calc_dy (Real * dy) const
     - column_arr[0]->extent (Y_AXIS) [d];
 }
 
-void
-Tuplet_spanner::after_line_breaking ()
+GLUE_SCORE_ELEMENT(Tuplet_spanner,after_line_breaking);
+SCM
+Tuplet_spanner::member_after_line_breaking ()
 {
   Link_array<Note_column> column_arr=
     Pointer_group_interface__extract_elements (this, (Note_column*)0, "columns");
@@ -210,6 +212,7 @@ Tuplet_spanner::after_line_breaking ()
   if (!column_arr.size ())
     {
       suicide ();
+      return SCM_UNDEFINED;
     }
 
   Direction d = directional_element (this).get ();
@@ -237,6 +240,7 @@ Tuplet_spanner::after_line_breaking ()
 	  && get_bound (RIGHT)->column_l () == beam_l->get_bound (RIGHT)->column_l ())
 	set_elt_property ("parallel-beam", SCM_BOOL_T);
     }
+  return SCM_UNDEFINED;
 }
 
 

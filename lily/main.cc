@@ -34,7 +34,7 @@
 #endif
 
 
-bool version_ignore_global_b = false;
+bool verbose_global_b = false;
 bool no_paper_global_b = false;
 bool no_timestamps_global_b = false;
 bool find_old_relative_b = false;
@@ -80,8 +80,8 @@ Long_option_init theopts[] = {
   {0, "safe", 's',  _i ("inhibit file output naming and exporting")},
   {0, "no-timestamps", 'T',  _i ("don't timestamp the output")},
   {0, "test", 't',  _i ("switch on experimental features")},
-  {0, "ignore-version", 'V',  _i ("ignore mudela version")},
   {0, "version", 'v',  _i ("print version number")},
+  {0, "verbose", 'V', _i("verbose")},
   {0, "warranty", 'w',  _i ("show warranty and copyright")},
   {0,0,0, 0}
 };
@@ -346,7 +346,7 @@ main (int argc, char **argv)
 	  exit (0);
 	  break;
 	case 'V':
-	  version_ignore_global_b = true;
+	  verbose_global_b = true;
 	  break;
 	case 's':
 	  safe_global_b = true;

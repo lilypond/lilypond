@@ -59,7 +59,11 @@ Span_bar_engraver::acknowledge_element (Score_element_info i)
 
       if (bar_l_arr_.size() >= 2 && !spanbar_p_) 
 	{
-	  spanbar_p_ = get_span_bar_p( bar_l_arr_[0]->property_alist_);
+	  spanbar_p_ = get_span_bar_p (get_property ("basicSpanBarProperties"));
+	  spanbar_p_->set_elt_property ("glyph", bar_l_arr_[0]->get_elt_property ("glyph"));
+	  spanbar_p_->set_elt_property ("visibility-lambda",
+					bar_l_arr_[0]->get_elt_property ("visibility-lambda"));	  
+					
 	  spanbar_p_->set_parent (bar_l_arr_[0], Y_AXIS);
 	  spanbar_p_->set_parent (bar_l_arr_[0], X_AXIS);
 

@@ -22,14 +22,14 @@
 class Chord_name : public Item
 {
 public:
-   static SCM scheme_molecule (SCM);
+  static SCM brew_molecule (SCM);
   
-VIRTUAL_COPY_CONS (Score_element);
+  VIRTUAL_COPY_CONS (Score_element);
   Molecule ly_word2molecule (SCM scm, Real* x) const;
   Molecule ly_text2molecule (SCM scm) const;
   Chord_name(SCM s);
-protected:
-  Molecule do_brew_molecule () const;
+public:
+  SCM member_brew_molecule () const;
 
 };
 

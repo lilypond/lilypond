@@ -25,9 +25,10 @@
  */
 class Clef_item : public Item
 {
-protected:
-  virtual void before_line_breaking ();
 public:
+  SCM member_before_line_breaking ();
+  static SCM before_line_breaking (SCM);
+
   VIRTUAL_COPY_CONS(Score_element);
   Clef_item (SCM);
 };

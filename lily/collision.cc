@@ -27,10 +27,12 @@ Collision::add_column (Note_column* ncol_l)
   add_dependency (ncol_l);
 }
 
-void
-Collision::before_line_breaking ()
+GLUE_SCORE_ELEMENT(Collision,before_line_breaking);
+SCM
+Collision::member_before_line_breaking ()
 {
   do_shifts();
+      return SCM_UNDEFINED;
 }
 
 /*

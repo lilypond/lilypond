@@ -34,8 +34,9 @@ public:
   Stem * stem_l () const;
   Dots * dots_l () const;
   int dot_count () const;
-protected:
-  virtual void after_line_breaking ();
+
+  SCM member_after_line_breaking ();
+  static SCM after_line_breaking (SCM);
   Rhythmic_head (SCM s);
 };
 

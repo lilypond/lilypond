@@ -83,17 +83,24 @@ Line_of_score::output_lines ()
       unsmob_element (gh_car (s))->handle_broken_dependencies ();
     }
   handle_broken_dependencies ();
-  progress_indication ( _f("Element count %d.",  count + element_count()));
+
+  if (verbose_global_b)
+    progress_indication ( _f("Element count %d.",  count + element_count()));
 
   
   for (int i=0; i < broken_into_l_arr_.size (); i++)
     {
       Line_of_score *line_l = dynamic_cast<Line_of_score*> (broken_into_l_arr_[i]);
 
-      progress_indication ("[");
+      if (verbose_global_b)
+	progress_indication ("[");
       line_l->post_processing ();
-      progress_indication (to_str (i));
-      progress_indication ("]");
+
+      if (verbose_global_b)
+	{
+	  progress_indication (to_str (i));
+	  progress_indication ("]");
+	}
     }
 }
 
@@ -200,7 +207,8 @@ Line_of_score::pre_processing ()
   for (SCM s = get_elt_pointer ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
     unsmob_element (gh_car (s))->discretionary_processing ();
 
-  progress_indication ( _f("Element count %d ",  element_count ()));
+  if(verbose_global_b)
+    progress_indication ( _f("Element count %d ",  element_count ()));
 
   
   for (SCM s = get_elt_pointer ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
@@ -211,7 +219,7 @@ Line_of_score::pre_processing ()
   for (SCM s = get_elt_pointer ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
     {
       Score_element* sc = unsmob_element (gh_car (s));
-      sc->calculate_dependencies (PRECALCED, PRECALCING, &Score_element::before_line_breaking);
+      sc->calculate_dependencies (PRECALCED, PRECALCING, ly_symbol2scm ("before-line-breaking-callback"));
     }
   
   progress_indication ("\n" + _ ("Calculating column positions...") + " " );
@@ -226,7 +234,8 @@ Line_of_score::post_processing ()
        gh_pair_p (s); s = gh_cdr (s))
     {
       Score_element* sc = unsmob_element (gh_car (s));
-      sc->calculate_dependencies (POSTCALCED, POSTCALCING, &Score_element::after_line_breaking);
+      sc->calculate_dependencies (POSTCALCED, POSTCALCING,
+				  ly_symbol2scm ("after-line-breaking-callback"));
     }
 
   Interval i(extent(Y_AXIS));

@@ -26,7 +26,7 @@
 class Beam : public Spanner
 {
 public:
-  static SCM scheme_molecule (SCM);
+  static SCM brew_molecule (SCM);
   
 
   int stem_count () const;
@@ -45,11 +45,13 @@ public:
 
   int get_multiplicity () const;
 
-protected:
+public:
  
-  virtual void before_line_breaking ();
-  virtual void after_line_breaking ();
-  Molecule do_brew_molecule () const;
+  SCM member_before_line_breaking ();
+  static SCM before_line_breaking (SCM);
+  SCM member_after_line_breaking ();
+  static SCM after_line_breaking (SCM);
+  SCM member_brew_molecule () const;
 
   Molecule stem_beams (Stem *here, Stem *next, Stem *prev) const;
 private:

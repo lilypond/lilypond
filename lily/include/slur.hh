@@ -20,12 +20,9 @@ public:
   VIRTUAL_COPY_CONS(Score_element);
 
   void add_column (Note_column*);
- static SCM scheme_molecule (SCM);
+ static SCM brew_molecule (SCM);
   
-
-
-protected:
-  Molecule do_brew_molecule () const;
+  SCM member_brew_molecule () const;
   virtual Array<Offset> get_encompass_offset_arr () const;
   Bezier get_curve () const;
 
@@ -36,7 +33,8 @@ protected:
   Drul_array<Real> dx_f_drul_;
 
   virtual Direction get_default_dir () const;
-  virtual void after_line_breaking ();
+  SCM member_after_line_breaking ();
+  static SCM after_line_breaking (SCM);
   virtual void do_add_processing ();
   Array<Rod> get_rods () const;
 

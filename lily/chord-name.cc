@@ -128,10 +128,10 @@ Chord_name::ly_text2molecule (SCM text) const
   return mol;
 }
 
-MAKE_SCHEME_SCORE_ELEMENT_NON_DEFAULT_CALLBACKS(Chord_name);
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Chord_name,brew_molecule);
 
 SCM
-Chord_name::scheme_molecule (SCM smob) 
+Chord_name::brew_molecule (SCM smob) 
 {
   Score_element *sc = unsmob_element (smob);
   SCM style = sc->get_elt_property ("style");

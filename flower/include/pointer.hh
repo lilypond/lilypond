@@ -10,6 +10,8 @@
 #ifndef POINTER_HH
 #define POINTER_HH
 
+#error
+
 /** P<T> is a handy template to use iso T*. It inits to 0, deletes on
   destruction, deep copies upon copying
 

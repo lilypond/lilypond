@@ -18,12 +18,12 @@
  */
 class Crescendo : public Spanner {
 public:
-   static SCM scheme_molecule (SCM);
+   static SCM brew_molecule (SCM);
   
-Crescendo(SCM);
-protected:
+  Crescendo(SCM);
+
   VIRTUAL_COPY_CONS(Score_element);
-  Molecule do_brew_molecule() const;
+  SCM member_brew_molecule() const;
     
 private:
   Molecule get_symbol() const;

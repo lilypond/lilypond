@@ -19,8 +19,9 @@ public:
   VIRTUAL_COPY_CONS (Score_element);
   void add_tie (Tie*);
   Tie_column (SCM s);
-protected:
-  virtual void after_line_breaking ();
+
+  SCM member_after_line_breaking ();
+  static SCM after_line_breaking (SCM);
   void set_directions ();
 };
 

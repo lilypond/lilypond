@@ -14,15 +14,13 @@
 
 
 class Stem_tremolo : public Item {
-protected:
+public:
   Stem * stem_l () const;
-  Molecule do_brew_molecule () const;
+  SCM member_brew_molecule () const;
 
   static Interval dim_callback (Score_element*, Axis);
-public:
-   static SCM scheme_molecule (SCM);
-  
-Stem_tremolo (SCM);
+  static SCM brew_molecule (SCM);
+  Stem_tremolo (SCM);
   void set_stem (Stem *);
 };
 

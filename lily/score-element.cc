@@ -199,8 +199,7 @@ Score_element::add_processing()
 }
 
 void
-Score_element::calculate_dependencies (int final, int busy,
-				       Score_element_method_pointer funcptr)
+Score_element::calculate_dependencies (int final, int busy, SCM funcname)
 {
   assert (status_i_ >=0);
 
@@ -218,11 +217,17 @@ Score_element::calculate_dependencies (int final, int busy,
   for (SCM d=  get_elt_pointer ("dependencies"); gh_pair_p (d); d = gh_cdr (d))
     {
       unsmob_element (gh_car (d))
-	->calculate_dependencies (final, busy, funcptr);
+	->calculate_dependencies (final, busy, funcname);
     }
 
-  (this->*funcptr)();
+  // ughugh.
+  String s = ly_symbol2string (funcname);
+  SCM proc = get_elt_property (s.ch_C());
+  if (gh_procedure_p (proc))
+    gh_call1 (proc, this->self_scm_);
+  
   status_i_= final;
+
 }
 
 Molecule
@@ -247,17 +252,6 @@ Score_element::do_break_processing()
 }
 
 void
-Score_element::after_line_breaking ()
-{
-}
-
-
-void
-Score_element::before_line_breaking ()
-{
-}
-
-void
 Score_element::do_space_processing ()
 {
 }
@@ -268,13 +262,13 @@ Score_element::do_add_processing()
 }
 
 
-MAKE_SCHEME_SCORE_ELEMENT_NON_DEFAULT_CALLBACKS(Score_element)
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Score_element,brew_molecule)
 
 /*
   ugh.
  */  
 SCM
-Score_element::scheme_molecule (SCM smob) 
+Score_element::brew_molecule (SCM smob) 
 {
   Score_element * sc = unsmob_element (smob);
   SCM glyph = sc->get_elt_property ("glyph");

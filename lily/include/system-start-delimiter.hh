@@ -19,11 +19,12 @@ class System_start_delimiter : public Spanner
 {
 public:
   System_start_delimiter (SCM);
-  static SCM scheme_molecule (SCM);
+  static SCM brew_molecule (SCM);
   
   VIRTUAL_COPY_CONS (Score_element);
-protected:
-  virtual void after_line_breaking();
+
+  virtual SCM member_after_line_breaking ();
+  static SCM after_line_breaking (SCM);
   
   Molecule staff_bracket (Real) const;
   Molecule staff_brace (Real) const;

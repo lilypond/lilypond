@@ -25,12 +25,11 @@
   */
 class Dots :  public Item
 {
-protected:
-  Molecule do_brew_molecule () const;
-  virtual void after_line_breaking ();
 public:
-   static SCM scheme_molecule (SCM);
-  
+  SCM member_brew_molecule () const;
+  SCM member_after_line_breaking ();
+  static SCM after_line_breaking (SCM);
+  static SCM brew_molecule (SCM);
 
   Dots (SCM);
 };

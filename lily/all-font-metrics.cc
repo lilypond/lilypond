@@ -33,11 +33,15 @@ All_font_metrics::find_afm (String name)
       path = search_path_.find (path);
       if (path.empty_b ())
 	return 0;
-      progress_indication ("[" + path);
+
+      if (verbose_global_b)
+	progress_indication ("[" + path);
       Adobe_font_metric * afm_p = read_afm_file (path);
 
       afm_p->name_ = ly_symbol2scm (name.ch_C ());
-      progress_indication ("]");
+
+      if (verbose_global_b)
+	progress_indication ("]");
 
       afm_p_dict_.set (sname,afm_p->self_scm_);
     }
@@ -76,10 +80,13 @@ All_font_metrics::find_tfm (String name)
       path = search_path_.find (path);
       if (path.empty_b ())
 	return 0;
-      progress_indication ("[" + path);
+      if (verbose_global_b)
+	progress_indication ("[" + path);
       Tex_font_metric	* tfm_p = Tex_font_metric_reader::read_file (path);
       tfm_p->name_ = ly_symbol2scm (name.ch_C( ));
-      progress_indication ("]");
+
+      if (verbose_global_b)
+	progress_indication ("]");
 
       tfm_p_dict_.set (sname, tfm_p->self_scm_);
     }
@@ -119,8 +126,8 @@ All_font_metrics::find_font (String name)
   if (f)
     return f;
 
-  non_fatal_error (_f ("can't find default font: `%s'", def_name.ch_C ()));
-  non_fatal_error (_f ("(search path: `%s')", search_path_.str ()));
+  error (_f ("can't find default font: `%s'", def_name.ch_C ()));
+  error (_f ("(search path: `%s')", search_path_.str ()));
   error (_ ("Giving up"));
 
   return 0;

@@ -26,9 +26,10 @@
 
 class Break_align_item : public Item
 {
-protected:
-  virtual void before_line_breaking ();
 public:
+  SCM member_before_line_breaking ();
+  static SCM before_line_breaking (SCM);
+
   Break_align_item (SCM s);
   VIRTUAL_COPY_CONS(Score_element);
 };

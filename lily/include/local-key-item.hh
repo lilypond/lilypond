@@ -41,12 +41,13 @@ class Local_key_item : public Item
   Molecule accidental (int,bool,bool) const;
 public:
   Local_key_item (SCM );
-   static SCM scheme_molecule (SCM);
+   static SCM brew_molecule (SCM);
   
   void add_pitch (Musical_pitch, bool cautionary, bool natural);
-protected:
-  virtual void before_line_breaking ();
-  Molecule do_brew_molecule() const;
+
+  SCM member_before_line_breaking ();
+  static SCM before_line_breaking (SCM);
+  SCM member_brew_molecule() const;
 };
 
 #endif // LOCALKEYITEM_HH

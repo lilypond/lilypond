@@ -21,11 +21,12 @@
  */
 class  Rest : public Rhythmic_head
 {
-protected:
-  virtual void after_line_breaking ();
-  Molecule do_brew_molecule () const;
 public:
-   static SCM scheme_molecule (SCM);
+  SCM member_after_line_breaking ();
+  static SCM after_line_breaking (SCM);
+  SCM member_brew_molecule () const;
+
+   static SCM brew_molecule (SCM);
   
 Rest (SCM s);
 };

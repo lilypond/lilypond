@@ -15,9 +15,11 @@
 
 
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Staff_symbol)
-Molecule 
-Staff_symbol::do_brew_molecule () const
+
+GLUE_SCORE_ELEMENT(Staff_symbol,brew_molecule);
+
+SCM
+Staff_symbol::member_brew_molecule () const
 {
   Score_element * common
     = get_bound (LEFT)->common_refpoint (get_bound (RIGHT), X_AXIS);
@@ -43,7 +45,7 @@ Staff_symbol::do_brew_molecule () const
       m.add_molecule (a);
     }
 
-  return m;
+  return m.create_scheme();
 }
 
 int

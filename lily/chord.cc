@@ -49,7 +49,7 @@ to_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p, Array<Musical_pi
       int j = Chord::find_pitch_i (add_arr_p, (*add_arr_p)[i]);
       if ((j != -1) && (i != j))
         {
-	    add_arr_p->get (i);
+	  add_arr_p->get (i);
 	} 
     }
 
@@ -400,7 +400,7 @@ Chord::find_tonic_i (Array<Musical_pitch> const* pitch_arr_p)
     find tonic
     
     first try: base of longest line of thirds
-   */
+  */
   int tonic_i = 0;
   int longest_i = 0;
   for (int i = 0; i < pitch_arr_p->size (); i++)
@@ -437,7 +437,7 @@ Chord::find_tonic_i (Array<Musical_pitch> const* pitch_arr_p)
       {
 	int gap = (*pitch_arr_p)[i].notename_i_
 	  - (*pitch_arr_p)[(i - 1 + pitch_arr_p->size ()) 
-	  % pitch_arr_p->size ()].notename_i_;
+			  % pitch_arr_p->size ()].notename_i_;
 	while (gap < 0)
 	  gap += 7;
 	gap %= 7;

@@ -53,11 +53,12 @@ Prerequisites
    * Python 1.5, Check out `ftp://ftp.python.org' or
      `ftp://ftp.cwi.nl/pub/python'.
 
-   * GUILE 1.3.4,  check out
+   * GUILE 1.3.4 or newer,  check out
      http://www.gnu.org/software/guile/guile.html
-     (http://www.gnu.org/software/guile/guile.html).
+     (http://www.gnu.org/software/guile/guile.html).  Version 1.4 is
+     recommended for better performance.
 
-   * GNU make.  Check out ftp://ftp.gnu.org/gnu/make/
+   * GNU Make.  Check out ftp://ftp.gnu.org/gnu/make/
      (ftp://ftp.gnu.org/gnu/make/).
 
    * Flex (version 2.5.4 or newer).  Check out

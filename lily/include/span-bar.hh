@@ -29,14 +29,15 @@ public:
     
   VIRTUAL_COPY_CONS(Score_element);
   void add_bar (Score_element*);
-protected:
   void evaluate_empty ();
 
   static Interval width_callback(Score_element const*, Axis) ;
   
   virtual Real get_bar_size () const;
-  virtual void before_line_breaking ();
-  virtual void after_line_breaking ();
+  SCM member_before_line_breaking ();
+  static SCM before_line_breaking (SCM);
+  SCM member_after_line_breaking ();
+  static SCM after_line_breaking (SCM);
 };
 
 #endif // SPAN_BAR_HH

@@ -52,8 +52,9 @@ Note_head::ledger_line (Interval xwid) const
 }
 
 
-void
-Note_head::before_line_breaking ()
+GLUE_SCORE_ELEMENT(Note_head,before_line_breaking);
+SCM
+Note_head::member_before_line_breaking ()
 {
   // 8 ball looks the same as 4 ball:
   
@@ -67,14 +68,16 @@ Note_head::before_line_breaking ()
       
       si.set_position(int (me.position_f ()));
     }
+
+  return SCM_UNDEFINED;
 }
 
 
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Note_head);
+GLUE_SCORE_ELEMENT(Note_head,brew_molecule);
 
-Molecule 
-Note_head::do_brew_molecule() const 
+SCM
+Note_head::member_brew_molecule () const 
 {
   Staff_symbol_referencer_interface si (this);
   
@@ -117,7 +120,7 @@ Note_head::do_brew_molecule() const
 	  out.add_molecule (s);
 	}
     }
-  return out;
+  return out.create_scheme();
 }
 
 

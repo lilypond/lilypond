@@ -43,7 +43,7 @@
 class Stem : public Item
 {
 public:
- static SCM scheme_molecule (SCM);
+ static SCM brew_molecule (SCM);
   
 
 
@@ -82,7 +82,7 @@ public:
   /// heads that the stem encompasses (positions)
   Interval head_positions() const;
 
-protected:
+public:
   friend class Stem_tremolo;	// ugh.
   Real get_default_stem_end_position () const;
   void position_noteheads();
@@ -91,9 +91,10 @@ protected:
   static Real off_callback (Score_element const*, Axis);
   Molecule flag () const;
 
-  virtual void before_line_breaking();
+  SCM member_before_line_breaking ();
+  static SCM before_line_breaking (SCM);
   static Interval dim_callback (Score_element const*,Axis);
-  Molecule do_brew_molecule() const;
+  SCM member_brew_molecule() const;
 
   void set_spacing_hints () ;
 };

@@ -512,7 +512,7 @@ def try_parse_header_line (ln, state):
 				m = re.match ('^([^ \t]*) *(.*)$', a) # seperate clef info
 				if m:
 					__main__.global_key  =compute_key (m.group(1))# ugh.
-					voices_append ('\\key %s \\major;' % lily_key(m.group(1)))
+					voices_append ('\\key %s;' % lily_key(m.group(1)))
 					check_clef(m.group(2))
 				else:
 					__main__.global_key  =compute_key (a)# ugh.

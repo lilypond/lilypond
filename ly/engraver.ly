@@ -403,10 +403,10 @@ ScoreContext = \translator {
 	
 	basicBarProperties = #`(
 		(break-align-symbol . Staff_bar)
-		(molecule-callback . ,Bar::scheme_molecule)	   
+		(molecule-callback . ,Bar::brew_molecule)	   
 		(visibility-lambda . ,begin-of-line-invisible)
 		(breakable . #t)
-
+		(before-line-breaking-callback . ,Bar::before_line_breaking)
 		;;
 		;; Ross. page 151 lists other values, we opt for a leaner look
 		;; 
@@ -417,47 +417,56 @@ ScoreContext = \translator {
 	)
 
 	basicBarNumberProperties = #`(
-		(molecule-callback . ,Text_item::scheme_molecule)
+		(molecule-callback . ,Text_item::brew_molecule)
 		(breakable . #t)
 		(visibility-lambda . ,begin-of-line-visible)
 	)
 
 	basicBeamProperties = #`(
-		(molecule-callback . ,Beam::scheme_molecule)
-		(beam-thickness . 0.42) ; interline!
+		(molecule-callback . ,Beam::brew_molecule)
+		(beam-thickness . 0.42) ; interline
+		(before-line-breaking-callback . ,Beam::before_line_breaking)
+		(after-line-breaking-callback . ,Beam::after_line_breaking)				
 	)
 
 	basicBreakAlignProperties = #`(
 		(breakable . #t)
-	)
+		(before-line-breaking-callback . ,Break_align_item::before_line_breaking)
+)
 
 	
 	basicBreathingSignProperties = #`(
 		(break-align-symbol . Breathing_sign)
+		(after-line-breaking-callback . ,Breathing_sign::after_line_breaking)
 		(breakable . #t )
-		(molecule-callback . ,Breathing_sign::scheme_molecule)
+		(molecule-callback . ,Breathing_sign::brew_molecule)
 		(visibility-lambda . ,begin-of-line-invisible)
+
 	)
 	 basicClefItemProperties = #`(
-   	   (molecule-callback . ,Score_element::scheme_molecule)
+   	   (molecule-callback . ,Score_element::brew_molecule)
+	   (before-line-breaking-callback . ,Clef_item::before_line_breaking)
 	   (breakable . #t)
 	   (break-align-symbol . Clef_item)
 	   (visibility-lambda . ,begin-of-line-visible) 
 	 )
 	basicSlurProperties = #`(
-		(molecule-callback . ,Slur::scheme_molecule)
+		(molecule-callback . ,Slur::brew_molecule)
+		(after-line-breaking-callback . ,Slur::after_line_breaking)
 	)
 	basicChordNameProperties = #`(
-		(molecule-callback . ,Chord_name::scheme_molecule)
+		(molecule-callback . ,Chord_name::brew_molecule)
 	)
 	basicCollisionProperties = #`(
 		(axes 0 1)
+		(before-line-breaking-callback . ,Collision::before_line_breaking)
 	)
 	basicCrescendoProperties = #`(
-		(molecule-callback . ,Crescendo::scheme_molecule)
+		(molecule-callback . ,Crescendo::brew_molecule)
 	)
 	basicDotsProperties = #`(
-		(molecule-callback . ,Dots::scheme_molecule)
+		(molecule-callback . ,Dots::brew_molecule)
+		(after-line-breaking-callback . ,Dots::after_line_breaking)
 		(dot-count . 1) 
 	)
 	basicDynamicLineSpannerProperties = #`(
@@ -465,7 +474,7 @@ ScoreContext = \translator {
 	)
 	basicDynamicTextProperties	 = # `(
 		(style . "dynamic")
-		(molecule-callback . ,Text_item::scheme_molecule)
+		(molecule-callback . ,Text_item::brew_molecule)
 		(script-priority . 100)
 		(self-alignment-Y . 0)
 	)
@@ -473,54 +482,62 @@ ScoreContext = \translator {
 	  (break-align-symbol . Left_edge_item)
 	  (breakable . #t)
 	)
+	basicGraceAlignItemProperties = #`(
+		(axes . (0))
+		(before-line-breaking-callback . ,Grace_align_item::before_line_breaking)
+	)
+	basicHaraKiriVerticalGroupspannerProperties = #`(
+		(after-line-breaking-callback . ,Hara_kiri_group_spanner::after_line_breaking)
+	)
 	basicHyphenSpannerProperties = #`(
-	(thickness . 1.0)
-	(height . 0.4)
-	(minimum-length .  0.5) 
-		(molecule-callback . ,Hyphen_spanner::scheme_molecule)
+		(thickness . 1.0)
+		(height . 0.4)
+		(minimum-length .  0.5) 
+		(molecule-callback . ,Hyphen_spanner::brew_molecule)
 	)
 	basicKeyProperties = #`(
-  	  (molecule-callback . ,Key_item::scheme_molecule)
+  	  (molecule-callback . ,Key_item::brew_molecule)
 	  (break-align-symbol . Key_item)
 	  (visibility-lambda . ,begin-of-line-visible)
 	  (breakable . #t)
 	  )	
 	basicLocalKeyProperties = #`(
-		(molecule-callback . ,Local_key_item::scheme_molecule)
+		(molecule-callback . ,Local_key_item::brew_molecule)
 		(left-padding . 0.2)
 		(right-padding . 0.4)
 	)
 	basicLyricExtenderProperties = #`(
-		(molecule-callback . ,Lyric_extender::scheme_molecule)
+		(molecule-callback . ,Lyric_extender::brew_molecule)
 	)
 	basicLyricTextProperties = #`(
-		(molecule-callback . ,Text_item::scheme_molecule)
+		(molecule-callback . ,Text_item::brew_molecule)
 		(non-rhythmic . #t)
 	)
 	basicMarkProperties = #`(
-	  (molecule-callback . ,Text_item::scheme_molecule)	
+	  (molecule-callback . ,Text_item::brew_molecule)	
 	  (breakable . #t)
 	  (visibility-lambda . ,end-of-line-invisible)
 	)
 	basicMultiMeasureRestProperties = #`(
-		(molecule-callback . ,Multi_measure_rest::scheme_molecule)
+		(molecule-callback . ,Multi_measure_rest::brew_molecule)
 		(staff-position . 0)
+		(after-line-breaking-callback . ,Multi_measure_rest::after_line_breaking)
 	)
 	basicNoteColumnProperties = #`(
 		(axes 0 1)
 	)
 	basicNoteHeadProperties = #`(
-		(molecule-callback . ,Note_head::scheme_molecule)
+		(molecule-callback . ,Note_head::brew_molecule)
 	)
 	basicOctavateEightProperties  = #`(
 		(self-alignment-X . 0)
 		(text . "8")
 		(visibility-lambda . ,begin-of-line-visible) 
-		(molecule-callback . ,Text_item::scheme_molecule)
+		(molecule-callback . ,Text_item::brew_molecule)
 		(style . "italic")
 	)
 	basicPedalProperties = #`(
-		(molecule-callback . ,Text_item::scheme_molecule)
+		(molecule-callback . ,Text_item::brew_molecule)
 		(style . "italic")
 		(no-spacing-rods . #t)
 		(self-alignment-X . 0)
@@ -528,25 +545,46 @@ ScoreContext = \translator {
 	)
 	basicTextProperties = #`( )
 	basicRestProperties = #`( 
-		(molecule-callback . ,Rest::scheme_molecule)
+		(molecule-callback . ,Rest::brew_molecule)
 	)
 	
 	basicRestCollisionProperties = #`(
 	)
 	basicScriptProperties	 = #`(
-		(molecule-callback . ,Script::scheme_molecule)
+		(molecule-callback . ,Script::brew_molecule)
 	)
  		
 	basicSlurProperties = #`(
-		(molecule-callback . ,Slur::scheme_molecule)
+		(molecule-callback . ,Slur::brew_molecule)
+		(after-line-breaking-callback . ,Rest::after_line_breaking) 
+	)
+	basicSpanBarProperties = #`(
+		(break-align-symbol . Staff_bar)
+		(molecule-callback . ,Bar::brew_molecule)
+		(visibility-lambda . ,begin-of-line-invisible)
+		(breakable . #t)
+		(before-line-breaking-callback . ,Span_bar::before_line_breaking)
+		(after-line-breaking-callback . ,Span_bar::after_line_breaking)
+
+		;; ugh duplication! 
+		
+		;;
+		;; Ross. page 151 lists other values, we opt for a leaner look
+		;; 
+		(kern . 3.0)
+		(thin-kern . 3.0)
+		(hair-thickness . 1.6)
+		(thick-thickness . 6.0)
+
 	)
 	basicSustainPedalProperties = #`(
 		(no-spacing-rods . #t)
-		(molecule-callback . ,Sustain_pedal::scheme_molecule)
+		(molecule-callback . ,Sustain_pedal::brew_molecule)
 		(self-alignment-X . 0)
 	)	
 	basicSystemStartDelimiterProperties = #`(
-		(molecule-callback . ,System_start_delimiter::scheme_molecule)
+		(molecule-callback . ,System_start_delimiter::brew_molecule)
+		(after-line-breaking-callback . ,System_start_delimiter::after_line_breaking) 
 		(collapse-height . 1.0)
 		(thickness . 1.6)
 		(arch-height . 1.5)
@@ -557,36 +595,39 @@ ScoreContext = \translator {
 		(bracket-width . 2.0)
 	)
 	basicStemProperties = #`(
-		(molecule-callback . ,Stem::scheme_molecule)
+		(before-line-breaking-callback . ,Stem::before_line_breaking)
+		(molecule-callback . ,Stem::brew_molecule)
 	)
 	staffSymbolBasicProperties = #`(
-		(molecule-callback . ,Staff_symbol::scheme_molecule)
+		(molecule-callback . ,Staff_symbol::brew_molecule)
 		(staff-space . 1.0 )
 		(line-count . 5 )
 	)
 	basicTextScriptProperties = #`(
-		(molecule-callback . ,Text_item::scheme_molecule)
+		(molecule-callback . ,Text_item::brew_molecule)
 		(no-spacing-rods . #t)
 	)
 	basicTimeSignatureProperties = #`(
-		(molecule-callback . ,Time_signature::scheme_molecule)
+		(molecule-callback . ,Time_signature::brew_molecule)
 		(break-align-symbol . Time_signature)
 		(visibility-lambda . ,all-visible)
 		(breakable . #t)
 	)
 	basicTieProperties = #`(
-		(molecule-callback . ,Tie::scheme_molecule)
+		(molecule-callback . ,Tie::brew_molecule)
+		(after-line-breaking-callback . ,System_start_delimiter::after_line_breaking) 		
 	)
 	basicTieColumnProperties = #`(
-		
+		(after-line-breaking-callback .,Tie_engraver::after_line_breaking)
 	)
 	basicTupletSpannerProperties = #`(
 		(number-gap . 2.0)   
-		(thick . 1.0) 
-		(molecule-callback . ,Tuplet_spanner::scheme_molecule)
+		(thick . 1.0)
+		(after-line-breaking-callback . ,Tuplet_spanner::after_line_breaking)
+		(molecule-callback . ,Tuplet_spanner::brew_molecule)
 	)	
 	basicStemTremoloProperties = #`(
-	   	(molecule-callback . ,Stem_tremolo::scheme_molecule)
+	   	(molecule-callback . ,Stem_tremolo::brew_molecule)
 		(beam-width . 4.0) ; interline!
 		(beam-thickness . 0.42) ; interline!		
 	)
@@ -596,7 +637,7 @@ ScoreContext = \translator {
 	)
 	basicInstrumentNameProperties = #`(
 		(breakable . #t)
-		(molecule-callback . ,Text_item::scheme_molecule)		
+		(molecule-callback . ,Text_item::brew_molecule)		
 		(break-align-symbol . Instrument_name)
 		(visibility-lambda . ,begin-of-line-visible)
 	)
@@ -604,7 +645,8 @@ ScoreContext = \translator {
 		(axes 1)
 	)
 	basicVoltaSpannerProperties = #`(
-		(molecule-callback . ,Volta_spanner::scheme_molecule)
+		(molecule-callback . ,Volta_spanner::brew_molecule)
+		(after-line-breaking-callback . ,Volta_spanner::after_line_breaking) 
 	)
 	
 	\accepts "Staff";

@@ -14,7 +14,6 @@
 #include "note-head.hh"
 #include "misc.hh"
 
-
 void
 Local_key_item::add_pitch (Musical_pitch p, bool cautionary, bool natural)
 {
@@ -30,12 +29,13 @@ Local_key_item::add_pitch (Musical_pitch p, bool cautionary, bool natural)
   accidental_arr_.push (t);
 }
 
+GLUE_SCORE_ELEMENT(Local_key_item,before_line_breaking);
 
-
-void
-Local_key_item::before_line_breaking ()
+SCM
+Local_key_item::member_before_line_breaking ()
 {
   accidental_arr_.sort (Local_key_cautionary_tuple::compare);
+  return SCM_UNDEFINED;
 }
 
 Molecule
@@ -61,9 +61,10 @@ Local_key_item::accidental (int j, bool cautionary, bool natural) const
 /*
   UGH. clean me up
  */
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Local_key_item)
-Molecule 
-Local_key_item::do_brew_molecule () const
+
+GLUE_SCORE_ELEMENT(Local_key_item,brew_molecule);
+SCM
+Local_key_item::member_brew_molecule () const
 {
   Molecule mol;
   Staff_symbol_referencer_interface si (this);
@@ -134,7 +135,7 @@ Local_key_item::do_brew_molecule () const
       } while ( flip (&d)!= LEFT);
     }
 
-  return mol;
+  return mol.create_scheme();
 }
 
 Local_key_item::Local_key_item (SCM s)

@@ -33,7 +33,7 @@ public:
   Spanner*elt_l_;
   Lyric_extender (Spanner*);
   void set_textitem (Direction, Item*);
-  static SCM scheme_molecule (SCM);
+  static SCM brew_molecule (SCM);
 };
 
 #endif // EXTENDER_SPANNER_HH

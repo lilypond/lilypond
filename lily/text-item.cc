@@ -15,14 +15,14 @@
 
 struct Text_item
 {
-  static SCM scheme_molecule (SCM);
+  static SCM brew_molecule (SCM);
 };
 
 
-MAKE_SCHEME_SCORE_ELEMENT_NON_DEFAULT_CALLBACKS(Text_item)
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Text_item,brew_molecule)
 
 SCM 
-Text_item::scheme_molecule (SCM sm) 
+Text_item::brew_molecule (SCM sm) 
 {
   Score_element * s = unsmob_element (sm);
   

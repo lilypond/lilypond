@@ -41,9 +41,10 @@ Volta_spanner::Volta_spanner (SCM s)
   
   
 */
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Volta_spanner)
-Molecule 
-Volta_spanner::do_brew_molecule () const
+
+GLUE_SCORE_ELEMENT(Volta_spanner,brew_molecule);
+SCM
+Volta_spanner::member_brew_molecule () const
 {
   Molecule  mol;
 
@@ -51,7 +52,7 @@ Volta_spanner::do_brew_molecule () const
     = Pointer_group_interface__extract_elements (this, (Bar*)0, "bars");
 
   if (!bar_arr.size ())
-    return mol;
+    return mol.create_scheme();
 
   bool no_vertical_start = false;
   bool no_vertical_end = to_boolean (get_elt_property ("last-volta"));
@@ -94,13 +95,12 @@ Volta_spanner::do_brew_molecule () const
 
   mol.add_at_edge (X_AXIS, LEFT, num, - num.extent (X_AXIS).length ()
 		   - staff_space);
-  return mol;
+  return mol.create_scheme();
 }
   
 void
 Volta_spanner::do_add_processing ()
 {
-
   Link_array<Bar> bar_arr
     = Pointer_group_interface__extract_elements (this, (Bar*)0, "bars");
 
@@ -111,10 +111,12 @@ Volta_spanner::do_add_processing ()
     }
 }
 
-void
-Volta_spanner::after_line_breaking ()
+GLUE_SCORE_ELEMENT(Volta_spanner,after_line_breaking);
+SCM
+Volta_spanner::member_after_line_breaking ()
 {
   Side_position_interface (this).add_staff_support ();
+  return SCM_UNDEFINED;
 }
   
 void
