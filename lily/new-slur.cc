@@ -478,12 +478,14 @@ New_slur::score_slopes (Grob * me,  Grob *common[], Drul_array<Offset> base_atta
 
   Direction d = LEFT;
   Drul_array<Direction> stem_dirs;
+  Drul_array<bool> beams;
   do {
     Grob *stem = Note_column::get_stem (extremes [d]);
     ys[d] = Stem::extremal_heads (stem)[Direction (dir)]
       ->relative_coordinate (common[Y_AXIS], Y_AXIS);
 
     stem_dirs[d] = get_grob_direction (stem);
+    beams[d] = Stem::get_beam (stem);
   } while (flip (&d) != LEFT);
 
 
@@ -496,7 +498,7 @@ New_slur::score_slopes (Grob * me,  Grob *common[], Drul_array<Offset> base_atta
       Real demerit = 0.0;
 
 
-      if (stem_dirs[LEFT] == stem_dirs[RIGHT])
+      if(! (beams[LEFT] || beams[RIGHT]))
 	demerit += STEEPER_SLOPE_FACTOR *  (dir * (fabs (slur_dy) - fabs (dy)) >? 0);
       if (sign (dy) == 0 &&
 	  sign (slur_dy) != 0)
@@ -508,7 +510,7 @@ New_slur::score_slopes (Grob * me,  Grob *common[], Drul_array<Offset> base_atta
 	  && sign (slur_dy)
 	  && sign (slur_dy) != sign (dy))
 	demerit +=
-	  (stem_dirs[LEFT] * stem_dirs[RIGHT] == -1)
+	  (beams[LEFT] || beams[RIGHT])
 	  ? SAME_SLOPE_PENALTY/10 : SAME_SLOPE_PENALTY;
       
 #if DEBUG_SLUR_QUANTING
