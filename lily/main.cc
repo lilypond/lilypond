@@ -34,8 +34,6 @@
 #include "global-ctor.hh"
 #include "kpath.hh"
 
-Array<String> failed_files;
-
 /*
  * Global options that can be overridden through command line.
  */
@@ -78,8 +76,6 @@ String init_scheme_code_string = "(begin #t ";
 /*
  * Miscellaneous global stuff.
  */
-
-int exit_status_global;
 File_path global_path;
 
 
@@ -281,38 +277,35 @@ main_with_guile (void *, int, char **)
   /* We accept multiple independent music files on the command line to
      reduce compile time when processing lots of small files.
      Starting the GUILE engine is very time consuming.  */
+
+  SCM files = SCM_EOL;
+  SCM *tail = &files;
   bool first = true;
   while (char const *arg = option_parser->get_next_arg ())
     {
-#if 0
-      /* Code to debug memory leaks.  Cannot call from within .ly
-	 since then we get the protects from the parser state too.  */
-      scm_gc ();
-      scm_call_0 (ly_scheme_function ("dump-gc-protects"));
-#endif
-      ly_parse_file (scm_makfrom0str (arg));
-      first = false;
+      *tail = scm_cons (scm_makfrom0str (arg), SCM_EOL);
+      tail = SCM_CDRLOC(*tail);
     }
   delete option_parser;
   option_parser = 0;
 
-  /* No FILE arguments is now a usage error to help newbies.  If you
+  if (files == SCM_EOL)
+    {
+      /* No FILE arguments is now a usage error to help newbies.  If you
      want a filter, you're not a newbie and should know to use file
      argument `-'.  */
-  if (first)
-    {
       usage ();
       exit (2);
     }
 
-  if (exit_status_global)
-    {
-      printf ("Failed files: ");
-      for (int i = 0; i < failed_files.size (); i++)
-	printf ("%s ", failed_files[i].to_str0 ());
-      printf ("\n");
-    }
-  exit (exit_status_global);
+  SCM result = scm_call_1 (ly_scheme_function ("lilypond-main"),
+			   files);
+
+
+  /*
+    unreachable.
+   */
+  exit (0);
 }
 
 static void

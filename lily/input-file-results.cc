@@ -130,7 +130,7 @@ distill_inname (String str)
 LY_DEFINE(ly_parse_file, "ly:parse-file",
 	  1,0,0,
 	  (SCM name),
-	  "Parse a single @code{.ly} file."
+	  "Parse a single @code{.ly} file. If this fails, then throw @code{ly-file-failed} key. "
 	  )
 {
   SCM_ASSERT_TYPE (is_string (name), name, SCM_ARG1, __FUNCTION__, "string");
@@ -161,45 +161,51 @@ LY_DEFINE(ly_parse_file, "ly:parse-file",
   String in_file = inpath.to_string ();
   String out_file = outpath.to_string ();
 
+
   if (init.length () && global_path.find (init).is_empty ())
     {
-      warning (_f ("can't find file: `%s'", init));
+      warning (_f ("can't find init file: `%s'", init));
       warning (_f ("(search path: `%s')", global_path.to_string ().to_str0 ()));
-      return SCM_UNSPECIFIED;
+      exit (2);
     }
 
   if ((in_file != "-") && global_path.find (in_file).is_empty ())
     {
       warning (_f ("can't find file: `%s'", in_file));
-      return SCM_UNSPECIFIED;
+      scm_throw (ly_symbol2scm ("ly-file-failed"), scm_list_1 (scm_makfrom0str (in_file.to_str0 ())));
     }
-  
-  Sources sources;
-  sources.set_path (&global_path);
-  
-  progress_indication (_f ("Now processing `%s'", in_file.to_str0 ()));
-  progress_indication ("\n");
-
-  My_lily_parser parser (&sources);
-  parser.parse_file (init, in_file, out_file);
-  
-  if (parser.error_level_)
+  else
     {
-      exit_status_global = 1;
-      failed_files.push (in_file);
-    }
+      Sources sources;
+      sources.set_path (&global_path);
+  
+      progress_indication (_f ("Now processing `%s'", in_file.to_str0 ()));
+      progress_indication ("\n");
+
+      My_lily_parser parser (&sources);
+      parser.parse_file (init, in_file, out_file);
+  
+
 
 #if 0
-  // fixme dependencies
-  if (dependency_global_b)
-    {
-      Path p = split_path (output);
-      p.ext = "dep";
-      write_dependency_file (p.to_string (),
-			     target_strings_,
-			     inclusion_names_);
-    }
+      // fixme dependencies
+      if (dependency_global_b)
+	{
+	  Path p = split_path (output);
+	  p.ext = "dep";
+	  write_dependency_file (p.to_string (),
+				 target_strings_,
+				 inclusion_names_);
+	}
 #endif
-
+  
+      if (parser.error_level_)
+	{
+	  /*
+	    TODO: pass renamed input file too.
+	  */
+	  scm_throw (ly_symbol2scm ("ly-file-failed"), scm_list_1 (scm_makfrom0str (in_file.to_str0 ()))); 
+	}
+    }
   return SCM_UNSPECIFIED;
 }

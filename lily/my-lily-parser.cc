@@ -82,7 +82,6 @@ My_lily_parser::parser_error (String s)
 {
   here_input ().error (s);
   error_level_ = 1;
-  exit_status_global = 1;
 }
 
 
