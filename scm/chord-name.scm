@@ -161,6 +161,7 @@
 (define (chord::text? text)
   (not (or (not text) (empty? text) (unspecified? text))))
 
+;; FIXME: remove need for me, use text-append throughout
 (define (chord::text-cleanup dirty)
   "
    Recursively remove '() #f, and #<unspecified> from markup text tree.
@@ -327,14 +328,6 @@
      (list (list '((raise . 1) (font-relative-size . -1))) adds-text subs-text)
      b+i-text)))
 
-(define (chord::name-banter tonic exception-part unmatched-steps
-			    bass-and-inversion steps)
-  (let ((additions (chord::additions unmatched-steps))
-	(subtractions (chord::subtractions unmatched-steps)))
-    (chord::inner-name-banter tonic exception-part additions subtractions
-			      bass-and-inversion steps)))
-
-
 (define (c++-pitch->scm p)
   (if (pitch? p)
       (list (pitch-octave p) (pitch-notename p) (pitch-alteration p))
@@ -342,10 +335,11 @@
 
 (define (chord::name-banter tonic exception-part unmatched-steps
 			    bass-and-inversion steps)
-  (let ((additions (chord::additions unmatched-steps))
-	(subtractions (chord::subtractions unmatched-steps)))
-    (chord::inner-name-banter tonic exception-part additions subtractions
-			      bass-and-inversion steps)))
+   (let ((additions (chord::additions unmatched-steps))
+	 (subtractions (chord::subtractions unmatched-steps)))
+     (chord::inner-name-banter tonic exception-part additions subtractions
+			       bass-and-inversion steps)))
+
 
 (define (chord::restyle name style)
   (primitive-eval (string->symbol
@@ -402,8 +396,9 @@
   (let* ((lookup (chord::exceptions-lookup style steps))
 	 (exception-part (car lookup))
 	 (unmatched-steps (cadr lookup)))
-    ((chord::restyle 'chord::name- style)
-     tonic exception-part unmatched-steps bass-and-inversion steps)))
+    (chord::text-cleanup
+     ((chord::restyle 'chord::name- style)
+      tonic exception-part unmatched-steps bass-and-inversion steps))))
 
 ;; C++ entry point
 ;; 

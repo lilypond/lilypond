@@ -1,5 +1,10 @@
 2002-06-26  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scm/chord-name.scm (chord::name->text): Workaround: clean markup
+	text.
+
+	* lily/text-item.cc (markup_text2molecule): Bugfix: raise only once.
+
 	* input/test/ambitus.ly:
 	* lily/ambitus-engraver.cc:
 	* lily/ambitus.cc:
