@@ -12,6 +12,7 @@
 
 #include "score-element.hh"
 
+
 /**
    A notation object that needs access to variables of the staff (no
    lines, leading).
@@ -37,6 +38,8 @@ public:
   int lines_i () const;
   Real position_f () const;
 };
+
+int compare_position (Score_element *const&,Score_element *const&); 
 
 
 Staff_symbol_referencer_interface staff_symbol_referencer_interface  (Score_element const*);

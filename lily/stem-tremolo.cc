@@ -55,7 +55,7 @@ Stem_tremolo::do_brew_molecule_p () const
   int mult =0;
   if (Beam * b = st->beam_l ())
     {
-      mult = b->multiplicity_i_;
+      mult = b->multiplicity_i ();
     }
   
   Real interbeam_f = paper_l ()->interbeam_f (mult);
@@ -70,7 +70,7 @@ Stem_tremolo::do_brew_molecule_p () const
   if (st && st->beam_l ()) {
     slope_f = st->beam_l ()->slope_f_;
     // ugh, rather calc from Stem_tremolo_req
-    beams_i = st->beams_i_drul_[RIGHT] >? st->beams_i_drul_[LEFT];
+    beams_i = st->beam_count (RIGHT) >? st->beam_count (LEFT);
   } 
 
   Molecule a (lookup_l ()->beam (slope_f, w, beam_f));

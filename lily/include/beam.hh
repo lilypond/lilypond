@@ -45,10 +45,7 @@ public:
   Real left_y_;
 
   /** 
-    highest number of beams present, for opening-up of beam-spacing
-    and calculation of stem lengths
    */
-  int multiplicity_i_;
 
   Beam ();
   void add_stem (Stem*);
@@ -57,6 +54,7 @@ public:
   void set_beaming (Beaming_info_list *);
   void set_stemlens ();
   VIRTUAL_COPY_CONS(Score_element);
+  int multiplicity_i () const;
 
 protected:
   Offset center () const;
@@ -68,7 +66,6 @@ protected:
   
   virtual void do_pre_processing ();
   virtual void do_post_processing ();
-  virtual void do_add_processing ();
   virtual void do_print() const;
   virtual Molecule*do_brew_molecule_p () const;
 

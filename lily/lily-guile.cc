@@ -187,6 +187,15 @@ index_cell (SCM s, Direction d)
   return (d == LEFT) ? SCM_CAR (s) : SCM_CDR (s);
 }
 
+SCM
+index_set_cell (SCM s, Direction d, SCM v)
+{
+  if (d == LEFT)
+    gh_set_car_x (s, v);
+  else if (d == RIGHT)
+    gh_set_cdr_x (s, v);
+  return s;
+}
   
 SCM
 array_to_list (SCM *a , int l)

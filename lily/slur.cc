@@ -180,7 +180,7 @@ Slur::do_post_processing ()
 	  if ((stem_l->extent (Y_AXIS).empty_b ()
 	       || !((stem_l->get_direction () == get_direction ()) && (get_direction () != d)))
 	      && !((get_direction () == stem_l->get_direction ())
-		   && stem_l->beam_l () && (stem_l->beams_i_drul_[-d] >= 1)))
+		   && stem_l->beam_l () && (stem_l->beam_count (-d) >= 1)))
 	    {
 	      dx_f_drul_[d] = spanned_drul_[d]->extent (X_AXIS).length () / 2;
 	      dx_f_drul_[d] -= d * x_gap_f;
@@ -206,7 +206,7 @@ Slur::do_post_processing ()
 	      /*
 		side attached to beamed stem
 	       */
-	      if (stem_l->beam_l () && (stem_l->beams_i_drul_[-d] >= 1))
+	      if (stem_l->beam_l () && (stem_l->beam_count (-d) >= 1))
 		{
 		  dy_f_drul_[d] = stem_l->extent (Y_AXIS)[get_direction ()];
 		  dy_f_drul_[d] += get_direction () * 2 * y_gap_f;

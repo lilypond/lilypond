@@ -65,19 +65,22 @@ Real
 Staff_symbol_referencer_interface::position_f () const
 {
   Real p =0.0;
-  SCM pos = elt_l_->get_elt_property ("staff-position");
-  if (gh_number_p (pos))
-    p = gh_scm2double (pos);
-
   Staff_symbol * st = staff_symbol_l ();
-  if (st)
+  Score_element * c = st ? elt_l_->common_refpoint (st, Y_AXIS) : 0;
+  if (st && c)
     {
-      Score_element * c = elt_l_->common_refpoint (st, Y_AXIS);
       Real y = elt_l_->relative_coordinate (c, Y_AXIS)
 	- st->relative_coordinate (c, Y_AXIS);
 
       p += 2.0 * y / st->staff_line_leading_f ();
     }
+  else
+    {
+      SCM pos = elt_l_->get_elt_property ("staff-position");
+      if (gh_number_p (pos))
+	return gh_scm2double (pos);
+    }
+  
   return  p;
 }
 
@@ -133,4 +136,13 @@ Staff_symbol_referencer_interface
 staff_symbol_referencer_interface (Score_element const*e)
 {
   return e;			// gee, I'm so smart!
+}
+
+int
+compare_position (Score_element *const  &a, Score_element * const &b)
+{
+  Staff_symbol_referencer_interface s1(a);
+  Staff_symbol_referencer_interface s2(b);      
+
+  return sign(s1.position_f () - s2.position_f ());
 }

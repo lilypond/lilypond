@@ -40,7 +40,6 @@ Beam::Beam ()
   
   slope_f_ = 0;
   left_y_ = 0;
-  multiplicity_i_ = 0;
 }
 
 /*
@@ -377,7 +376,9 @@ Beam::solve_slope ()
 Real
 Beam::check_stemlengths_f (bool set_b)
 {
-  Real interbeam_f = paper_l ()->interbeam_f (multiplicity_i_);
+  int multiplicity = multiplicity_i ();
+
+  Real interbeam_f = paper_l ()->interbeam_f (multiplicity);
 
   Real beam_f = gh_scm2double (get_elt_property ("beam-thickness"));
   Real staffline_f = paper_l ()-> get_var ("stafflinethickness");
@@ -397,7 +398,7 @@ Beam::check_stemlengths_f (bool set_b)
       if (get_direction () != s->get_direction ())
 	{
 	  y -= get_direction () * (beam_f / 2
-	    + (multiplicity_i_ - 1) * interbeam_f);
+	    + (multiplicity - 1) * interbeam_f);
 
 
 	  Staff_symbol_referencer_interface s1 (s);
@@ -405,7 +406,7 @@ Beam::check_stemlengths_f (bool set_b)
 	  
 	  if (!i
 	    && s1.staff_symbol_l () != s2.staff_symbol_l ())
-	    y += get_direction () * (multiplicity_i_ - (s->flag_i () - 2) >? 0)
+	    y += get_direction () * (multiplicity - (s->flag_i () - 2) >? 0)
 	      * interbeam_f;
 	}
 
@@ -433,9 +434,15 @@ Beam::set_stem_shorten ()
 {
   if(!stem_count ())
     return;
-  
-  assert (multiplicity_i_);
 
+  int multiplicity = multiplicity_i();
+
+  if  (multiplicity <= 0)
+    {
+      programming_error ("Singular beam");
+      return;
+    }
+  
   int total_count_i = 0;
   int forced_count_i = 0;
   for (int i=0; i < stem_count (); i++)
@@ -455,7 +462,7 @@ Beam::set_stem_shorten ()
   String type_str = grace_b ? "grace_" : "";
   int stem_max = (int)rint(paper_l ()->get_var ("stem_max"));
   Real shorten_f = paper_l ()->get_var (type_str + "forced_stem_shorten"
-    + to_str (multiplicity_i_ <? stem_max)) * internote_f;
+    + to_str (multiplicity <? stem_max)) * internote_f;
     
   for (int i=0; i < stem_count (); i++)
     {
@@ -632,21 +639,23 @@ Beam::quantise_left_y (bool extend_b)
   Real beamdx_f = stem (stem_count () -1)->hpos_f () - first_visible_stem ()->hpos_f ();
   Real beamdy_f = beamdx_f * slope_f_;
 
+  int multiplicity = multiplicity_i ();
+
   Array<Real> allowed_position;
   if (q == ly_symbol2scm ("normal"))
     {
-      if ((multiplicity_i_ <= 2) || (abs (beamdy_f) >= staffline_f / 2))
+      if ((multiplicity <= 2) || (abs (beamdy_f) >= staffline_f / 2))
 	allowed_position.push (straddle);
-      if ((multiplicity_i_ <= 1) || (abs (beamdy_f) >= staffline_f / 2))
+      if ((multiplicity <= 1) || (abs (beamdy_f) >= staffline_f / 2))
 	allowed_position.push (sit);
       allowed_position.push (hang);
     }
   else if (q == ly_symbol2scm ("traditional"))
     {
       // TODO: check and fix TRADITIONAL
-      if ((multiplicity_i_ <= 2) || (abs (beamdy_f) >= staffline_f / 2))
+      if ((multiplicity <= 2) || (abs (beamdy_f) >= staffline_f / 2))
 	allowed_position.push (straddle);
-      if ((multiplicity_i_ <= 1) && (beamdy_f <= staffline_f / 2))
+      if ((multiplicity <= 1) && (beamdy_f <= staffline_f / 2))
 	allowed_position.push (sit);
       if (beamdy_f >= -staffline_f / 2)
 	allowed_position.push (hang);
@@ -692,28 +701,28 @@ Beam::set_beaming (Beaming_info_list *beaming)
     {
       do
 	{
-	  if (stem (i)->beams_i_drul_[d] < 0)
-	    stem (i)->beams_i_drul_[d] = beaming->infos_.elem (i).beams_i_drul_[d];
+	  if (stem (i)->beam_count (d) < 0)
+	    stem (i)->set_beaming (beaming->infos_.elem (i).beams_i_drul_[d], d);
 	}
       while (flip (&d) != LEFT);
     }
 }
 
 
-void
-Beam::do_add_processing ()
+
+int
+Beam::multiplicity_i () const 
 {
-  for (int i=0; i < stem_count () ; i++) 
+  int m = 0;
+  for (SCM s = get_elt_property ("stems"); gh_pair_p (s); s = gh_cdr (s))
     {
-      Direction d = LEFT;
-      do {
-	multiplicity_i_ = multiplicity_i_ >? stem (i)->beams_i_drul_[d];
-      } while ((flip (&d)) != LEFT);
+      Score_element * sc = unsmob_element (gh_car (s));
+
+      if (Stem * st = dynamic_cast<Stem*> (sc))
+	m = m >? st->beam_count (LEFT) >? st->beam_count (RIGHT);
     }
-
+  return m;
 }
-
-
 
 /*
   beams to go with one stem.
@@ -727,8 +736,12 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       (prev && !(prev->hpos_f () < here->hpos_f ())))
       programming_error ("Beams are not left-to-right");
 
+
+  int multiplicity = multiplicity_i();
+
   Real staffline_f = paper_l ()->get_var ("stafflinethickness");
-  Real interbeam_f = paper_l ()->interbeam_f (multiplicity_i_);
+  Real interbeam_f = paper_l ()->interbeam_f (multiplicity);
+  
   Real beam_f = gh_scm2double (get_elt_property ("beam-thickness"));;
 
   Real dy = interbeam_f;
@@ -752,8 +765,9 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
   /* half beams extending to the left. */
   if (prev)
     {
-      int lhalfs= lhalfs = here->beams_i_drul_[LEFT] - prev->beams_i_drul_[RIGHT] ;
-      int lwholebeams= here->beams_i_drul_[LEFT] <? prev->beams_i_drul_[RIGHT] ;
+      int lhalfs= lhalfs = here->beam_count (LEFT)
+	- prev->beam_count (RIGHT);
+      int lwholebeams= here->beam_count (LEFT) <? prev->beam_count (RIGHT);
       /*
        Half beam should be one note-width, 
        but let's make sure two half-beams never touch
@@ -774,8 +788,8 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 
   if (next)
     {
-      int rhalfs = here->beams_i_drul_[RIGHT] - next->beams_i_drul_[LEFT];
-      int rwholebeams = here->beams_i_drul_[RIGHT] <? next->beams_i_drul_[LEFT];
+      int rhalfs = here->beam_count (RIGHT) - next->beam_count (LEFT);
+      int rwholebeams = here->beam_count(RIGHT) <? next->beam_count (LEFT);
 
       Real w = next->hpos_f () - here->hpos_f ();
       Molecule a = lookup_l ()->beam (sl, w + stemdx, beam_f);

@@ -139,13 +139,10 @@ Chord_tremolo_engraver::acknowledge_element (Score_element_info i)
 	  int type_i = prev_start_req_->type_i_;
 	  s->set_elt_property ("duration-log",  gh_int2scm (intlog2 (type_i) - 2));
 
-	  s->beams_i_drul_[LEFT] = s->flag_i ();
-	  s->beams_i_drul_[RIGHT] = s->flag_i ();
+	  s->set_beaming (s->flag_i (), LEFT);
+	  s->set_beaming ( s->flag_i (), RIGHT);
 	  
-	  abeam_p_->multiplicity_i_ = s->flag_i ();
-	  /*
-	    abbrev gaps on all but half note
-	  */
+
 #if 0
 	  if (s->type_i () != 1)
 	    {

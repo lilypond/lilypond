@@ -44,7 +44,7 @@ void init_ly_protection ();
 unsigned int ly_scm_hash (SCM s);
 
 SCM index_cell (SCM cellp, Direction d);
-
+SCM index_set_cell (SCM cellp, Direction d, SCM val);
 
 /*
   snarfing.

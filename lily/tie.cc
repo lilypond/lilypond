@@ -17,13 +17,9 @@ void
 Tie::set_head (Direction d, Note_head * head_l)
 {
   assert (!head (d));
-  if (d == LEFT)
-    gh_set_car_x (get_elt_property ("heads"), head_l->self_scm_ );
-  else if (d == RIGHT)
-    gh_set_cdr_x (get_elt_property ("heads"), head_l->self_scm_ );
+  index_set_cell (get_elt_property ("heads"), d, head_l->self_scm_);
   
   set_bounds (d, head_l);
-
   add_dependency (head_l);
 }
 
@@ -76,8 +72,9 @@ Tie::do_add_processing()
       new_head_drul[d] = head((Direction)-d);
   } while (flip(&d) != LEFT);
 
-  gh_set_car_x (get_elt_property ("heads"), new_head_drul[LEFT]->self_scm_ );
-  gh_set_cdr_x (get_elt_property ("heads"), new_head_drul[RIGHT]->self_scm_ );
+  index_set_cell (get_elt_property ("heads"), LEFT, new_head_drul[LEFT]->self_scm_ );
+  index_set_cell (get_elt_property ("heads"), RIGHT, new_head_drul[LEFT]->self_scm_ );
+
 }
 
 void
