@@ -93,3 +93,6 @@
 
 /* define if you have libkpathsea.so */
 #define HAVE_LIBKPATHSEA_SO 0
+
+/* define if you have utf8/wchar.h */
+#define HAVE_UTF8_WCHAR_H 0

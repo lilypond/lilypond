@@ -797,7 +797,8 @@ AC_DEFUN(STEPMAKE_KPATHSEA, [
     AC_TRY_LINK([#include <kpathsea/kpathsea.h>],
                  [kpse_var_expand ("\$TEXMF");],
                  [have_libkpathsea_so=maybe;
-		  shared_size=`wc -c conftest | sed -e 's/ .*//g'`],
+		  shared_size=`wc -c conftest`;
+		  shared_size=`echo $shared_size | sed -e 's/ .*//g'`],
                  [have_libkpathsea_so=no])
 
     if test "$have_libkpathsea_so" = "maybe"; then
