@@ -40,8 +40,9 @@ epartialmusic = \notes {
 
 epartial = #(sequential-music-to-chord-exceptions epartialmusic #f)
 
-
-ch = \notes \transpose c' c' 
+% ugh FIXME?
+% default octave \chord mode has changed to c'
+ch = \notes \transpose c c' 
 {
 	<<c e g>>1
 	<<c es g>>

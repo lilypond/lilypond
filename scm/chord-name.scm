@@ -91,7 +91,13 @@ FOOBAR-MARKUP) if OMIT-ROOT.
 			  elts)))
 	   (sorted (sort pitches ly:pitch<?))
 	   (root (car sorted))
-	   (normalized (map (lambda (x) (ly:pitch-diff x root)) sorted))
+	   ;; ugh?
+	   ;;(diff (ly:pitch-diff root (ly:make-pitch -1 0 0)))
+	   ;; FIXME.  This results in #<Pitch c> ...,
+	   ;; but that is what we need because default octave for
+	   ;; \chords has changed to c' too?
+	   (diff (ly:pitch-diff root (ly:make-pitch 0 0 0)))
+	   (normalized (map (lambda (x) (ly:pitch-diff x diff)) sorted))
 	   (texts (map (lambda (x) (ly:get-mus-property x 'text))
 		       (filter-list
 			(lambda (y) (memq 'text-script-event
