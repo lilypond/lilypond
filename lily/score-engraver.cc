@@ -20,6 +20,7 @@
 #include "staff-spacing.hh"
 #include "note-spacing.hh"
 #include "global-context.hh"
+#include "open-type-font.hh"
 
 /*
   TODO: the column creation logic is rather hairy. Revise it.

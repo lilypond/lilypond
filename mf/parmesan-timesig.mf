@@ -57,10 +57,10 @@ def draw_nail (expr bottom_left, top_right) =
 
 enddef;
 
-def mensural_timesig (expr verbose_name, internal_name, ly_name,
+def mensural_timesig (expr verbose_name, internal_name,
 		      full_circle, reverse_circle, slashed, dotted) =
 
-	fet_beginchar(verbose_name, internal_name, ly_name)
+	fet_beginchar(verbose_name, internal_name)
 		if slashed:
 			set_char_box(0,
 				     mensural_Cdiameter# + mensural_Cthickness#,
@@ -94,47 +94,47 @@ def mensural_timesig (expr verbose_name, internal_name, ly_name,
 enddef;
 
 %% tempus imperfectum cum prolatione imperfecta
-mensural_timesig ("Mensural 4/4 meter", "mensural44", "mensuralfourfourmeter",
+mensural_timesig ("Mensural 4/4 meter", "mensural44",
 		  false, false, false, false);
 
 %% tempus imperfectum cum prolatione imperfecta proportio dupla
-mensural_timesig ("Mensural 2/2 meter", "mensural22", "mensuralallabreve",
+mensural_timesig ("Mensural 2/2 meter", "mensural22",
 		  false, false, true, false);
 
 %% tempus perfectum cum prolatione imperfecta
-mensural_timesig ("Mensural 3/2 meter", "mensural32", "mensuralthreetwometer",
+mensural_timesig ("Mensural 3/2 meter", "mensural32",
 		  true, false, false, false);
 
 %% tempus imperfectum cum prolatione perfecta
-mensural_timesig ("Mensural 6/4 meter", "mensural64", "mensuralsixfourmeter",
+mensural_timesig ("Mensural 6/4 meter", "mensural64",
 		  false, false, false, true);
 
 %% tempus perfectum cum prolatione perfecta
-mensural_timesig ("Mensural 9/4 meter", "mensural94", "mensuralninefourmeter",
+mensural_timesig ("Mensural 9/4 meter", "mensural94",
 		  true, false, false, true);
 
 %% tempus perfectum cum prolatione imperfecta proportio dupla
-mensural_timesig ("Mensural 3/4 meter", "mensural34", "mensuralthreefourmeter",
+mensural_timesig ("Mensural 3/4 meter", "mensural34",
 		  true, false, true, false);
 
 %% tempus imperfectum cum prolatione perfecta proportio dupla
-mensural_timesig ("Mensural 6/8 meter", "mensural68", "mensuralsixeightmeter",
+mensural_timesig ("Mensural 6/8 meter", "mensural68",
 		  false, false, true, true);
 
 %% tempus perfectum cum prolatione perfecta proportio dupla
-mensural_timesig ("Mensural 9/8 meter", "mensural98", "mensuralnineeight",
+mensural_timesig ("Mensural 9/8 meter", "mensural98",
 		  true, false, true, true);
 	
 %% tempus imperfectum cum prolatione imperfecta diminutio simplex
-mensural_timesig ("Mensural 4/8 meter", "mensural48", "mensuralfoureightmeter",
+mensural_timesig ("Mensural 4/8 meter", "mensural48",
 		  false, true, false, false);
 
 %% tempus imperfectum cum prolatione perfecta diminutio simplex
-mensural_timesig ("Mensural 6/8 meter", "mensural68alt", "mensuralsixeightmeteralt",
+mensural_timesig ("Mensural 6/8 meter", "mensural68alt",
 		  false, true, false, true);
 
 %% tempus imperfectum cum prolatione imperfecta diminutio duplex
-mensural_timesig ("Mensural 2/4 meter", "mensural24", "mensuraltwofourmeter",
+mensural_timesig ("Mensural 2/4 meter", "mensural24",
 		  false, true, true, false);
 
 %%%%%%%%
@@ -151,10 +151,10 @@ neomensural_Cdiameter# := 3/2 staff_space#;
 neomensural_Cthickness# := 2 linethickness#;
 define_pixels(neomensural_Cdiameter, neomensural_Cthickness);
 
-def neomensural_timesig (expr verbose_name, internal_name, ly_name,
+def neomensural_timesig (expr verbose_name, internal_name,
 			 full_circle, reverse_circle, slashed, dotted) =
 
-	fet_beginchar(verbose_name, internal_name, ly_name)
+	fet_beginchar(verbose_name, internal_name)
 		if slashed:
 			set_char_box(0,
 				     neomensural_Cdiameter# + neomensural_Cthickness#,
@@ -188,47 +188,47 @@ def neomensural_timesig (expr verbose_name, internal_name, ly_name,
 enddef;
 
 %% tempus imperfectum cum prolatione imperfecta
-neomensural_timesig ("Mensural 4/4 meter", "neomensural44", "neomensuralfourfourmeter",
+neomensural_timesig ("Mensural 4/4 meter", "neomensural44",
 			false, false, false, false);
 
 %% tempus imperfectum cum prolatione imperfecta proportio dupla
-neomensural_timesig ("Mensural 2/2 meter", "neomensural22", "neomensuralallabreve",
+neomensural_timesig ("Mensural 2/2 meter", "neomensural22",
 			false, false, true, false);
 
 %% tempus perfectum cum prolatione imperfecta
-neomensural_timesig ("Mensural 3/2 meter", "neomensural32", "neomensuralthreetwometer",
+neomensural_timesig ("Mensural 3/2 meter", "neomensural32",
 			true, false, false, false);
 
 %% tempus imperfectum cum prolatione perfecta
-neomensural_timesig ("Mensural 6/4 meter", "neomensural64", "neomensuralsixfourmeter",
+neomensural_timesig ("Mensural 6/4 meter", "neomensural64",
 			false, false, false, true);
 
 %% tempus perfectum cum prolatione perfecta
-neomensural_timesig ("Mensural 9/4 meter", "neomensural94", "neomensuralninefourmeter",
+neomensural_timesig ("Mensural 9/4 meter", "neomensural94",
 			true, false, false, true);
 
 %% tempus perfectum cum prolatione imperfecta proportio dupla
-neomensural_timesig ("Mensural 3/4 meter", "neomensural34", "neomensuralthreefourmeter",
+neomensural_timesig ("Mensural 3/4 meter", "neomensural34",
 			true, false, true, false);
 
 %% tempus imperfectum cum prolatione perfecta proportio dupla
-neomensural_timesig ("Mensural 6/8 meter", "neomensural68", "neomensuralsixeightmeter",
+neomensural_timesig ("Mensural 6/8 meter", "neomensural68",
 			false, false, true, true);
 
 %% tempus perfectum cum prolatione perfecta proportio dupla
-neomensural_timesig ("Mensural 9/8 meter", "neomensural98", "neomensuralnineeight",
+neomensural_timesig ("Mensural 9/8 meter", "neomensural98",
 			true, false, true, true);
 	
 %% tempus imperfectum cum prolatione imperfecta diminutio simplex
-neomensural_timesig ("Mensural 4/8 meter", "neomensural48", "neomensuralfoureightmeter",
+neomensural_timesig ("Mensural 4/8 meter", "neomensural48",
 			false, true, false, false);
 
 %% tempus imperfectum cum prolatione perfecta diminutio simplex
-neomensural_timesig ("Mensural 6/8 meter", "neomensural68alt", "neomensuralsixeightmeteralt",
+neomensural_timesig ("Mensural 6/8 meter", "neomensural68alt",
 			false, true, false, true);
 
 %% tempus imperfectum cum prolatione imperfecta diminutio duplex
-neomensural_timesig ("Mensural 2/4 meter", "neomensural24", "neomensuraltwofourmeter",
+neomensural_timesig ("Mensural 2/4 meter", "neomensural24",
 			false, true, true, false);
 
 fet_endgroup ("timesig")
