@@ -38,19 +38,42 @@ Font_interface::get_default_font (Score_element*me)
   if (fm)
     return fm;
 
+  fm = get_font (me,  font_alist_chain (me));
+  me->set_elt_property ("font", fm->self_scm ());
+  return fm;
+}
+
+Font_metric *
+Font_interface::get_font (Score_element *me, SCM chain)
+{
+  
   SCM ss = me->paper_l ()->style_sheet_;
 
   SCM proc = gh_cdr (scm_assoc (ly_symbol2scm ("properties-to-font"),
 				ss));
 
   SCM fonts = gh_cdr (scm_assoc (ly_symbol2scm ("fonts"), ss));
-  SCM defaults = gh_cdr (scm_assoc (ly_symbol2scm ("font-defaults"),
-				    ss));
 
   assert (gh_procedure_p (proc));
-  SCM font_name = gh_call2 (proc, fonts, font_alist_chain (me));
+  SCM font_name = gh_call2 (proc, fonts, chain);
 
-  fm = me->paper_l ()->find_font (font_name, 1.0);
-  me->set_elt_property ("font", fm->self_scm ());
+  Font_metric *fm = me->paper_l ()->find_font (font_name, 1.0);
+
   return fm;
+}
+
+SCM
+Font_interface::add_style (Score_element* me, SCM style, SCM chain)
+{
+  assert (gh_symbol_p (style));
+  
+  SCM sheet = me->paper_l ()->style_sheet_;
+      
+  SCM style_alist = gh_cdr (scm_assoc (ly_symbol2scm ("style-alist"), sheet));
+  SCM entry = scm_assoc (style, style_alist);
+  if (gh_pair_p (entry))
+    {
+      chain = gh_cons (gh_cdr (entry), chain);
+    }
+  return chain;
 }

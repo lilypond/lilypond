@@ -10,6 +10,8 @@
 #ifndef TEXT_ITEM
 #define TEXT_ITEM
 
+
+#include "lily-proto.hh"
 #include "lily-guile.hh"
 #include "molecule.hh"
 
@@ -20,8 +22,10 @@ public:
   static Molecule text2molecule (Score_element *me, SCM text, SCM properties);
   static Molecule string2molecule (Score_element *me, SCM text, SCM properties);
   static Molecule markup_sentence2molecule (Score_element *me, SCM markup_sentence, SCM properties);
-  static Molecule lookup_character (Score_element *me, SCM font_name, SCM text);
-  static Molecule lookup_text (Score_element *me, SCM font_name, SCM char_name);
+
+private:
+  static Molecule lookup_character (Score_element *me, Font_metric*, SCM char_name);
+  static Molecule lookup_text (Score_element *me, Font_metric*, SCM text);
 };
 
 #endif /* TEXT_ITEM */

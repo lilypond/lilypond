@@ -1,3 +1,26 @@
+1.3.101.jcn2
+============
+
+* Fixed bracket, and made some other PostScript code fixes.
+
+* Silly font initialisation fix for paper19 non-feature.
+
+1.3.101.uu1
+===========
+
+* Automatic engraver/property documentation infrastructure. 
+
+* Fixed system-start braces
+
+* Fix for forgetAccidentals: do print accidentals, just don't remember
+them.
+
+* Bugfix: forced script directions for scripts that have relative stem-direction.
+
+* Bugfix: Tie_column doesn't force Tie directions ties that already
+have a direction.
+
+* Bugfix: multimeasure rest 
 
 1.3.101
 =======

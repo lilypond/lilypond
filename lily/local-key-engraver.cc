@@ -19,10 +19,7 @@
 #include "arpeggio.hh"
 
 /**
-   Make accidentals.  Catches note heads, ties and notices key-change
-   events.  Due to interaction with ties (which don't come together
-   with note heads), this needs to be in a context higher than Tie_engraver.
-   (FIXME).
+
 
    FIXME: should not compute vertical positioning of accidentals, but
    get them from the noteheads
@@ -81,8 +78,6 @@ Local_key_engraver::process_acknowledged ()
     {
       SCM localsig = get_property ("localKeySignature");
   
-      SCM f = get_property ("forgetAccidentals");
-      bool forget = to_boolean (f);
       for (int i=0; i  < mel_l_arr_.size(); i++) 
 	{
 	  Score_element * support_l = support_l_arr_[i];
@@ -103,9 +98,7 @@ Local_key_engraver::process_acknowledged ()
 	  bool different = prev_acc != a;
 	  
 	  bool tie_changes = tied_l_arr_.find_l (support_l) && different;
-	  if (!forget
-	      && (note_l->forceacc_b_ || different)
-	      && !tie_changes)
+	  if ((note_l->forceacc_b_ || different) && !tie_changes)
 	    {
 	      if (!key_item_p_) 
 		{
@@ -137,6 +130,7 @@ Local_key_engraver::process_acknowledged ()
 	    always do the correct thing?
 
 	   */
+	  bool forget = to_boolean (get_property ("forgetAccidentals"));
 	  if (!forget && !tie_changes)
 	    {
 	      /*

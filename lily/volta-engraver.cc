@@ -104,7 +104,6 @@ Volta_engraver::do_process_music ()
 
 	    }
 
-		     
 	  end_volta_span_p_ = volta_span_p_;
 	  volta_span_p_ = 0;
 	}

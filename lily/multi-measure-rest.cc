@@ -42,6 +42,17 @@ Multi_measure_rest::brew_molecule (SCM smob)
 {
   Score_element *me = unsmob_element (smob);
   Spanner * sp = dynamic_cast<Spanner*> (me);
+
+  SCM alist_chain = Font_interface::font_alist_chain (me);
+
+  
+  SCM style_chain =
+    Font_interface::add_style (me, ly_symbol2scm ("mmrest-symbol"),
+			       alist_chain);
+
+  Font_metric *musfont
+    = Font_interface::get_font (me,style_chain);
+			
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
   Interval sp_iv;
@@ -111,7 +122,7 @@ Multi_measure_rest::brew_molecule (SCM smob)
 	  Real pad = s.empty_b ()
 	    ? 0.0 : gh_scm2double (me->get_elt_property ("padding")) * staff_space;
 
-	  Molecule r (Font_interface::get_default_font (me)->find_by_name ("rests-" + to_str (k)));
+	  Molecule r (musfont->find_by_name ("rests-" + to_str (k)));
 	  if (k == 0)
 	    r.translate_axis (staff_space, Y_AXIS);
 	  
@@ -124,17 +135,16 @@ Multi_measure_rest::brew_molecule (SCM smob)
   else 
     {
       String idx =  ("rests-") + to_str (-4);
-      s = Font_interface::get_default_font (me)->find_by_name (idx);
+      s = musfont->find_by_name (idx);
     }
   
   mol.add_molecule (s);
 
   if (measures > 1)
     {
-      SCM properties = Font_interface::font_alist_chain (me);
       Molecule s = Text_item::text2molecule (me,
 					     ly_str02scm (to_str (measures).ch_C ()),
-					     properties);
+					     alist_chain);
       s.align_to (X_AXIS, CENTER);
       s.translate_axis (3.0 * staff_space, Y_AXIS);
       mol.add_molecule (s);
