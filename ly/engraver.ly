@@ -539,11 +539,14 @@ ScoreContext = \translator {
 	)
 	basicLyricExtenderProperties = #`(
 		(molecule-callback . ,Lyric_extender::brew_molecule)
+		(right-trim-amount . 0.5)
+		(interfaces . (lyric-extender-interface))
 	)
 	basicLyricTextProperties = #`(
 		(molecule-callback . ,Text_item::brew_molecule)
 		(self-alignment-X . 0)
 		(non-rhythmic . #t)
+		(word-space . 0.6)
 		(interfaces .  (lyric-syllable-interface text-item-interface))
 	)
 	basicMarkProperties = #`(
@@ -551,6 +554,9 @@ ScoreContext = \translator {
 	  (breakable . #t)
 	  (interfaces . (mark-interface))
 	  (visibility-lambda . ,end-of-line-invisible)
+	)
+	basicMelismaProperties = #`(
+	        (interfaces . (melisma-interface))
 	)
 	basicMultiMeasureRestProperties = #`(
 		(spacing-procedure . ,Multi_measure_rest::set_spacing_rods)		
@@ -637,12 +643,32 @@ ScoreContext = \translator {
 		(thick-thickness . 6.0)
 		(interfaces . (bar-interface span-bar-interface))
 	)
+	basicStanzaNumberProperties = #`(
+		(breakable . #t)
+		(molecule-callback . ,Text_item::brew_molecule)		
+		(break-align-symbol . Clef_item)
+		(visibility-lambda . ,begin-of-line-visible)
+	)
+	basicStemProperties = #`(
+		(before-line-breaking-callback . ,Stem::before_line_breaking)
+		(molecule-callback . ,Stem::brew_molecule)
+
+		; if stem is on middle line, choose this direction.
+		(default-neutral-direction . 1)
+		(interfaces . (stem-interface))
+	)
 	basicSustainPedalProperties = #`(
 		(no-spacing-rods . #t)
 		(molecule-callback . ,Sustain_pedal::brew_molecule)
 		(self-alignment-X . 0)
 		(interface . (sustain-pedal-interface))
 	)	
+	staffSymbolBasicProperties = #`(
+		(molecule-callback . ,Staff_symbol::brew_molecule)
+		(staff-space . 1.0)
+		(line-count . 5 )
+		(interfaces . (staff-symbol-interface ))
+	)
 	basicSystemStartDelimiterProperties = #`(
 		(molecule-callback . ,System_start_delimiter::brew_molecule)
 		(after-line-breaking-callback . ,System_start_delimiter::after_line_breaking)
@@ -654,20 +680,6 @@ ScoreContext = \translator {
 		(arch-width . 1.5)
 		(bracket-thick . 0.25)
 		(bracket-width . 2.0)
-	)
-	basicStemProperties = #`(
-		(before-line-breaking-callback . ,Stem::before_line_breaking)
-		(molecule-callback . ,Stem::brew_molecule)
-
-		; if stem is on middle line, choose this direction.
-		(default-neutral-direction . 1)
-		(interfaces . (stem-interface))
-	)
-	staffSymbolBasicProperties = #`(
-		(molecule-callback . ,Staff_symbol::brew_molecule)
-		(staff-space . 1.0)
-		(line-count . 5 )
-		(interfaces . (staff-symbol-interface ))
 	)
 	basicTextScriptProperties = #`(
 		(molecule-callback . ,Text_item::brew_molecule)
@@ -726,15 +738,6 @@ ScoreContext = \translator {
 	basicVoltaSpannerProperties = #`(
 		(molecule-callback . ,Volta_spanner::brew_molecule)
 		(interfaces . (volta-spanner-interface))
-	)
-	basicStanzaNumberProperties = #`(
-		(breakable . #t)
-		(molecule-callback . ,Text_item::brew_molecule)		
-		(break-align-symbol . Clef_item)
-		(visibility-lambda . ,begin-of-line-visible)
-	)
-	basicMelismaProperties = #`(
-	        (interfaces . (melisma-interface))
 	)
 	
 	\accepts "Staff";

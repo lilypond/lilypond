@@ -11,6 +11,10 @@
 #include "note-head.hh"
 #include "translator-group.hh"
 #include "side-position-interface.hh"
+#include "ly-smobs.icc"
+#include "spanner.hh"
+#include "paper-def.hh"
+
 
 String get_context_id(Translator_group * ancestor, const char * type);
 String trim_suffix(String &id);
@@ -99,6 +103,24 @@ Lyric_phrasing_engraver::record_lyric(const String &context_id, Score_element * 
 }
 
 void 
+Lyric_phrasing_engraver::record_extender(const String &context_id, Score_element * extender)
+{
+  SCM key = ly_str02scm(context_id.ch_C());
+  if( ! gh_null_p(voice_alist_) ) {
+    SCM s = scm_assoc(key, voice_alist_);
+    if(! (gh_boolean_p(s) && !to_boolean(s))) {
+      /* match found */
+      // ( key . ( (alist_entry . old_entry) . previous_entry) )
+      SCM previous_scm = gh_cddr(s);
+      if(previous_scm != SCM_EOL) {
+	Voice_alist_entry * v = unsmob_voice_entry(previous_scm);
+	v->add_extender(extender);
+      }
+    }
+  }
+}
+
+void 
 Lyric_phrasing_engraver::record_melisma(const String &context_id)
 {
   Voice_alist_entry * v = lookup_context_id(context_id);
@@ -144,6 +166,24 @@ Lyric_phrasing_engraver::acknowledge_element(Score_element_info i)
     record_melisma(voice_context_id);
     return;
   }
+    /* How about catching any extender items and then if we have a melisma, 
+       set the RIGHT item of the extender spanner to the melismatic note in 
+       the corresponding context (if any).
+       This has the effect of finishing the extender under the last note
+       of the melisma, instead of extending it to the next lyric.
+
+       Problem: the extender request is thrown at the same moment as the next lyric,
+       by which time we have already passed the last note of the melisma.
+       However, the Lyric_phrasing_engraver remembers the last note, so just 
+       attach it to that, provided it was melismatic. If it was not melismatic, 
+       then ignore it and let the Extender_engraver take care of it (i.e. finish at next
+       lyric).
+    */
+  if(h->has_interface (ly_symbol2scm ("lyric-extender-interface"))) {
+    String voice_context_id = get_context_id(i.origin_trans_l_->daddy_trans_l_, "LyricVoice");
+    record_extender(trim_suffix(voice_context_id), h);
+    return;
+  }
 }
 
 String 
@@ -183,19 +223,21 @@ void Lyric_phrasing_engraver::process_acknowledged ()
   for(SCM v=voice_alist_; gh_pair_p(v); v = gh_cdr(v)) {
     SCM v_entry = gh_cdar(v);
     // ((current . oldflag) . previous)
-    Voice_alist_entry *entry = unsmob_voice_entry(gh_caar(v_entry));
-    if(! entry->set_lyric_align(punc.ch_C(), any_notehead_l_))
-      warning (_ ("lyrics found without any matching notehead"));
+    if(!to_boolean(gh_cdar(v_entry))) { // not an old entry left over from a prior note ...
+      Voice_alist_entry *entry = unsmob_voice_entry(gh_caar(v_entry));
+      if(! entry->set_lyric_align(punc.ch_C(), any_notehead_l_))
+	warning (_ ("lyrics found without any matching notehead"));
 
-    // is this note melismatic? If so adjust alignment of previous one.
-    if(entry->get_melisma()) {
-      if(entry->lyric_count())
-	warning (_ ("Huh? Melismatic note found to have associated lyrics."));
-      SCM previous_scm = gh_cdr(v_entry);
-      if(previous_scm != SCM_EOL) {
-	Voice_alist_entry *previous = unsmob_voice_entry(previous_scm);
-	if (previous->lyric_count())
-	  previous->adjust_melisma_align();
+      // is this note melismatic? If so adjust alignment of previous one.
+      if(entry->get_melisma()) {
+	if(entry->lyric_count())
+	  warning (_ ("Huh? Melismatic note found to have associated lyrics."));
+	SCM previous_scm = gh_cdr(v_entry);
+	if(previous_scm != SCM_EOL) {
+	  Voice_alist_entry *previous = unsmob_voice_entry(previous_scm);
+	  if (previous->lyric_count())
+	    previous->adjust_melisma_align();
+	}
       }
     }
   }
@@ -290,7 +332,25 @@ Voice_alist_entry::add_lyric(Score_element * lyric)
     longest_lyric_l_ = shortest_lyric_l_ = lyric;
 }
 
- void 
+void 
+Voice_alist_entry::add_extender(Score_element * extender)
+{
+  if(notehead_l_ && melisma_b_) {
+    dynamic_cast<Spanner*>(extender)->set_bound (RIGHT, notehead_l_);
+    // should the extender finish at the right of the last note of the melisma, or the left?
+    // Comments in lyric-extender.hh say left, but right looks better to me. GP.
+
+    // Left:
+//     extender->set_elt_property("right-trim-amount", gh_double2scm(0.0));
+
+    // Right:
+    Real ss = extender->paper_l ()->get_var ("staffspace");
+    extender->set_elt_property("right-trim-amount", 
+			       gh_double2scm(-notehead_l_->extent(X_AXIS).length()/ss));
+  }
+}
+
+void 
 Voice_alist_entry::set_melisma()
 {
   melisma_b_ = true;
@@ -375,9 +435,8 @@ Voice_alist_entry::appropriate_alignment(const char *punc)
     SCM lyric_scm = lyric->get_elt_property("text");
     String lyric_str = gh_string_p(lyric_scm)?ly_scm2string(lyric_scm):"";
     char lastchar;
-    if(lyric_str.length_i()>1) {
-      lastchar = lyric_str[lyric_str.length_i()-2];
-      /* We look at the second last character, because lily always appends a space. */
+    if(lyric_str.length_i()>0) {
+      lastchar = lyric_str[lyric_str.length_i()-1];
       /* If it doesn't end in punctuation then it ain't an end of phrase */
       if(! strchr(punc, lastchar)) {
 	/* Special case: trailing space. Here examine the previous character and reverse the
@@ -390,8 +449,8 @@ Voice_alist_entry::appropriate_alignment(const char *punc)
 	   FIXME: The extra space throws alignment out a bit.
 	*/
 	if(lastchar == ' ') {
-	  if(lyric_str.length_i()>2) {
-	    lastchar = lyric_str[lyric_str.length_i()-3];
+	  if(lyric_str.length_i()>1) {
+	    lastchar = lyric_str[lyric_str.length_i()-2];
 	    if(strchr(punc, lastchar))
 	      end_phrase=false;
 	  }
@@ -448,7 +507,7 @@ Voice_alist_entry::next_lyric()
 
 /* SMOB */
 
-#include "ly-smobs.icc"
+
 
 SCM
 Voice_alist_entry::mark_smob (SCM)

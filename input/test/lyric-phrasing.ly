@@ -38,11 +38,6 @@ textIII =  \lyrics  { la -- da __ doo dah; dargh la dargh loo.  }
     >
 
   \paper {
-    \translator {
-      \ScoreContext
-      \consists "Lyric_phrasing_engraver";
-      automaticPhrasing = ##t;
-    }
   }
 
 }
