@@ -10,12 +10,10 @@
  Tested Features: scripts, text.
 EndMudelaHeader
 %}
-\version "0.0.58";
+\version "0.0.61";
 
 
-blah = \staff{  melodicregs
-
-	\melodic {
+blah = 	\melodic {
 	\octave c';
 	'c ->-.-\fermata-"text"
 	c ->-.-\fermata-"text"
@@ -65,11 +63,9 @@ blah = \staff{  melodicregs
 	[c-\lheel \< d-\lheel e-\lheel \! f-\lheel]
 		[d'-\lheel \> e'-\lheel f'-\lheel \! g'-\lheel]
 }
-}
+
 
 \score{
-	blah
-	\paper{
-		\symboltables {table_sixteen}
-	}
+	\blah
+
 }

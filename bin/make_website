@@ -71,7 +71,8 @@ sub my_system
 
 
 local $base="lilypond/";
-local @examples=("multi", "wohltemperirt" ,"standchen", "toccata-fuga-E", "scsii-menuetto", "collisions");
+local @examples=("multi", "wohltemperirt" ,"standchen", "toccata-fuga-E", 
+		 "scsii-menuetto", "collisions", "cadenza", "scales");
 
 # rhythm, scales, 
 
