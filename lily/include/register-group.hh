@@ -29,8 +29,15 @@ protected:
     Array<Score_elem_info> announce_info_arr_;
     
     virtual void do_print()const;
-    
+
+    virtual bool removable_b()const;
+
 public:
+    int iterator_count_;
+    void check_removal();
+    Register_group_register();
+    ~Register_group_register();
+    
     /// Score_register = 0, Staff_registers = 1, etc)
     virtual int depth_i()const;
     /**
@@ -62,6 +69,7 @@ public:
     virtual void do_removal_processing();
     virtual bool do_try_request(Request*);
     virtual void do_process_requests();
+
     virtual Staff_info get_staff_info()const;
     
     virtual Register_group_register * find_register_l(String name,String id);
