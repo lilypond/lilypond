@@ -551,7 +551,7 @@ ScoreContext = \translator {
 		(interfaces . (dot-interface))
 		(molecule-callback . ,Dots::brew_molecule)
 		(dot-count . 1)
-		(position . 0.0)
+		(staff-position . 0.0)
 		(Y-offset-callbacks  . (,Dots::quantised_position_callback ,Staff_symbol_referencer::callback))
 
 		(name . "Dots")		

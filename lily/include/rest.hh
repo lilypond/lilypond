@@ -14,8 +14,10 @@
 
 /**
    A pause.
+
+   See also Rhythmic_head, Staff_symbol_referencer.
    
-   Properties
+   Read-only properties:
 
    style -- string specifying glyph style
  */

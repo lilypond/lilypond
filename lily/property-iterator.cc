@@ -7,7 +7,7 @@
 */
 
 #include "property-iterator.hh"
-#include "translation-property.hh"
+#include "music.hh"
 #include "translator-def.hh"
 #include "translator-group.hh"
 

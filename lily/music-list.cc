@@ -24,12 +24,13 @@ Simultaneous_music::length_mom () const
 Simultaneous_music::Simultaneous_music(SCM head)
   : Music_sequence (head)
 {
-
+  set_mus_property ("type", ly_symbol2scm ("simultaneous-music"));
 }
 
 Sequential_music::Sequential_music(SCM head)
   : Music_sequence (head)
 {
+  set_mus_property ("type", ly_symbol2scm ("sequential-music"));
 }
 
 
@@ -48,14 +49,15 @@ Simultaneous_music::to_relative_octave (Musical_pitch p)
 Request_chord::Request_chord(SCM s)
   : Simultaneous_music (s)
 {
+  set_mus_property ("type", ly_symbol2scm ("request-chord"));
 }
 
 Musical_pitch
 Request_chord::to_relative_octave (Musical_pitch last)
 {
-   for (SCM s = music_list (); gh_pair_p (s);  s = gh_cdr (s))
-     {
-       Music * mus = unsmob_music (gh_car (s));
+  for (SCM s = music_list (); gh_pair_p (s);  s = gh_cdr (s))
+    {
+      Music * mus = unsmob_music (gh_car (s));
       if (Melodic_req *m= dynamic_cast <Melodic_req *> (mus))
 	{
 	  Musical_pitch &pit = m->pitch_;

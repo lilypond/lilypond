@@ -18,6 +18,8 @@ Part_combine_music::Part_combine_music (String what, Music * f, Music * s)
 
   scm_unprotect_object (f->self_scm());
   scm_unprotect_object (s->self_scm());  
+
+  set_mus_property ("type", ly_symbol2scm ("part-combined-music"));
 }
 
 void

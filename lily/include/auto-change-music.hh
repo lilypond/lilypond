@@ -12,11 +12,12 @@
 
 #include "music-wrapper.hh"
 
+
 class Auto_change_music : public Music_wrapper
 {
 public:
-  Auto_change_music (String what, Music *);
-  String what_str_;
+  Auto_change_music (Music *);
+
 };
 
 

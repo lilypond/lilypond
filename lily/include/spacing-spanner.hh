@@ -12,6 +12,29 @@
 
 #include "spanner.hh"
 
+/**
+   Read-only properties
+
+   maximum-duration-for-spacing -- rational: space as if a duration of
+     this type is available in this measure.
+
+
+   
+   Read properties from paper-column
+
+   dir-list -- list of stem directions
+
+   shortest-playing-duration -- duration of the shortest playing in that column.
+
+   shortest-starter-duration -- duration of the shortest notes that starts
+     exactly in that column.
+
+   contains-grace -- boolean. Used to widen entries for grace notes.
+
+   extra-space --  pair of distances
+
+   stretch-distance -- pair of distances
+ */
 class Spacing_spanner
 {
 public:

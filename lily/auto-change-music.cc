@@ -10,8 +10,8 @@
 
 #include "auto-change-music.hh"
 
-Auto_change_music::Auto_change_music (String what, Music * m)
+Auto_change_music::Auto_change_music (Music * m)
   : Music_wrapper (m)
 {
-  what_str_ = what;
+  set_mus_property ("type", ly_symbol2scm ("auto-change-music"));
 }

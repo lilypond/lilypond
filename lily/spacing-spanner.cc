@@ -340,3 +340,41 @@ Spacing_spanner::set_springs (SCM smob)
 
 
 
+/*
+  maximum-duration-for-spacing
+From: bf250@freenet.carleton.ca (John Sankey)
+To: gnu-music-discuss@gnu.org
+Subject: note spacing suggestion
+Date: Mon, 10 Jul 2000 11:28:03 -0400 (EDT)
+
+Currently, Lily spaces notes by starting with a basic distance,
+arithmetic_multiplier, which it applies to the minimum duration note
+of the bar. Then she adds a logarithmic increment, scaled from
+arithmetic_basicspace, for longer notes. (Then, columns are aligned
+and justified.) Fundamentally, this matches visual spacing to musical
+weight and works well.
+
+A lot of the time in music, I see a section basically in melodic
+notes that occasionally has a rapid ornamental run (scale). So, there
+will be a section in 1/4 notes, then a brief passage in 1/32nds, then
+a return to long notes. Currently, Lily gives the same horizontal
+space to the 1/32nd notes in their bar (even if set in small size as
+is commonly done for cadenzii) as she gives to 1/4 notes in bars
+where 1/4 note is the minimum duration. The resulting visual weight
+does not match the musical weight over the page.
+
+Looking at the music I am typesetting, I feel that Lily's spacing
+could be significantly improved if, with no change in the basic
+method used, arithmetic_multiplier could be applied referred to the
+same duration throughout a piece. Of course, the current method
+should be retained for those who have already set music in it, so I
+suggest a property called something like arithmetic_base=16 to fix
+1/16 duration as the reference for arithmetic_multiplier; the default
+would be a dynamic base is it is now.
+
+Does anyone else feel that this would be a useful improvement for
+their music? (Of course, if arithmetic_multiplier became a regular
+property, this could be used to achieve a similar result by
+tweaking.)
+  
+ */

@@ -28,3 +28,5 @@ public:
 };
 
 #endif /* OUTPUT_PROPERTY_HH */
+
+#error

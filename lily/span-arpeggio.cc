@@ -60,7 +60,7 @@ Span_arpeggio::brew_molecule (SCM smob)
       a.translate_axis (i * staff_space, Y_AXIS);
       mol.add_molecule (a);
     }
-  mol.translate (Offset (-2 * staff_space, 0);
+  mol.translate (Offset (-2 * staff_space, 0));
 
   return mol.create_scheme (); 
 }

@@ -23,3 +23,8 @@ Request::do_equal_b (Request const*) const
   return true;
 }
   
+
+Request::Request ()
+{
+  set_mus_property ("type", ly_symbol2scm ("request"));
+}

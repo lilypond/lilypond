@@ -15,13 +15,13 @@ Transposed_music::Transposed_music (Music *p, Musical_pitch pit)
 {
   transpose_to_pitch_ = pit;
   p->transpose (pit);
+  set_mus_property ("type", ly_symbol2scm ("transposed-music"));
 }
 
 
 Musical_pitch
 Transposed_music::to_relative_octave (Musical_pitch p)
 {
-
   return p;
 }
 

@@ -1,3 +1,4 @@
+#if 0
 /*
   translation-property.hh -- declare Translation_property
 
@@ -23,6 +24,7 @@
 class Translation_property : public Music
 {
 public:
+  Translation_property ();
   VIRTUAL_COPY_CONS(Music);
 };
 
@@ -61,3 +63,4 @@ void apply_pop_property (Translator_group*trans, SCM syms, SCM eprop);
 
 
 #endif // PROPERTY_HH
+#endif

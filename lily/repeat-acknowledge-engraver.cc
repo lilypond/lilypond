@@ -57,6 +57,12 @@ Repeat_acknowledge_engraver::do_post_move_processing ()
 void
 Repeat_acknowledge_engraver::do_process_music ()
 {
+  /*
+    At the start of a piece, we don't print any repeat bars.
+   */
+  if (now_mom () == Moment (0))
+    return ; 
+  
   SCM cs = get_property ("repeatCommands");
 
   String s = "";
