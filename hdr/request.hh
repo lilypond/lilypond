@@ -6,7 +6,7 @@
 #include "string.hh"
 #include "moment.hh"
 
-/// a voice element wants something printed
+/// Hungarian postfix: req
 struct Request {
     Voice_element*elt_l_;
     
@@ -31,11 +31,14 @@ struct Request {
     virtual Beam_req *beam() { return 0 ; }
     virtual Slur_req *slur() { return 0 ; }
     virtual Rhythmic_req*rhythmic() { return 0; }
+    virtual Lyric_req* lreq_l() { return 0; }
     virtual Melodic_req *melodic() { return 0; }
     virtual Mark_req * mark() { return 0; }
+    virtual Staff_command_req* command() { return 0;}
 };
 
 /**
+ a voice element wants something printed.
 see lilygut page
  */
 	
@@ -57,6 +60,30 @@ struct Rhythmic_req : virtual Request {
     Rhythmic_req*rhythmic() { return this;}
     void print ()const;
     Request*clone() const;
+};
+
+
+///Put a text above or below (?) this staff.
+struct Text_req : virtual Request {
+    int dir_i_;
+    Text_def *tdef_p_;
+    /****************/
+    Text_req* text() { return this; }
+    virtual void print() const;
+    Request *clone()const;
+
+    Text_req(int d, Text_def*);
+    ~Text_req();
+    Text_req(Text_req const&);
+};
+
+
+struct Lyric_req : public Rhythmic_req, Text_req {
+
+    Lyric_req(Text_def* t_p);
+    void print() const;
+    Lyric_req* lreq_l() { return this; }
+    Request* clone() const;
 };
 
 
@@ -167,19 +194,6 @@ struct Script_req : Request {
 slurs and brackets, so this also a request */
 
 
-///Put a text above or below (?) this staff.
-struct Text_req : Request {
-    int dir;
-    Text_def *spec;
-    /****************/
-    Text_req*text() { return this; }
-    virtual void print() const;
-    Request *clone()const;
-    Text_req(int d, Text_def*);
-    ~Text_req();
-    Text_req(Text_req const&);
-};
-
 /// designate this spot with a name.
 struct Mark_req : Request {
     String mark_str_;
@@ -190,6 +204,15 @@ struct Mark_req : Request {
     Request *clone() const;
 };
 
+struct Staff_command_req : Request {
+    Input_command * com_p_;
+    Staff_command_req* command() { return this;}
+    Staff_command_req(Staff_command_req const&);
+    ~Staff_command_req();
+    Staff_command_req(Input_command*);
+    Request*clone()const;
+    void print()const;
+};
 
 #if 0
 
@@ -285,6 +308,10 @@ struct Spacing_req {
 struct Glissando_req : Span_req {
     
 };
-
+struct Stemdir_req : Request {
+    int which;
+};
+struct Group_change_req : Request {
+};
 #endif
 #endif
