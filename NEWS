@@ -1,3 +1,9 @@
+pl 13.jcn2
+	- gaps on abbrev-beams 
+	- bf: stem-info
+	- bf: last abbrev
+	- bf: stem: do_width
+	- bf: removed rest-column.hh
 
 pl 13
 	- big Rest/notehead rewrite:

@@ -33,7 +33,6 @@ class Stem : public Item {
     
   Real stem_bottom_f_, stem_top_f_;
     
-    
   /// needed for determining direction/length
   int staff_size_i_;
 
@@ -54,6 +53,9 @@ class Stem : public Item {
 public:
   /// abbrev flag? + count
   int abbrev_flag_i_;
+
+  /// how many abbrev beam don't reach stem?
+  int beam_gap_i_;
 
   /// flagtype? 4 none, 8 8th flag, 0 = beam.
   int flag_i_;
@@ -79,7 +81,9 @@ public:
   DECLARE_MY_RUNTIME_TYPEINFO;
 
   Real hpos_f() const;
-    
+  
+  int type_i () const;
+
   void do_print() const;
   void set_stemend (Real);
   Direction get_default_dir();

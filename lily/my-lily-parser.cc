@@ -216,7 +216,7 @@ Chord *
 My_lily_parser::get_note_element (Note_req *rq, Duration * duration_p)
 {
   Chord*v = new Request_chord;
-  v->set_spot (here_input());
+  v->set_spot (here_input ());
 
   v->add (rq);
   
@@ -227,8 +227,14 @@ My_lily_parser::get_note_element (Note_req *rq, Duration * duration_p)
       assert (!duration_p->plet_b ());
       duration_p->set_plet (1, 2);
     }
+  if (default_abbrev_type_i_)
+    {
+      Abbreviation_req* a = new Abbreviation_req;
+      a->type_i_ = default_abbrev_type_i_;
+      v->add (a);
+    }
   rq->set_duration (*duration_p);
-  rq->set_spot (here_input());
+  rq->set_spot (here_input ());
   delete duration_p ;
   return v;
 }

@@ -8,7 +8,6 @@
 
 #include "debug.hh"
 #include "rest-collision.hh"
-#include "rest-column.hh"
 #include "note-column.hh"
 #include "stem.hh"
 #include "note-head.hh"

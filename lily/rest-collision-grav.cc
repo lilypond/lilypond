@@ -10,7 +10,6 @@
 #include "rest-collision.hh"
 #include "rest-collision-grav.hh"
 #include "collision.hh"
-#include "rest-column.hh"
 #include "note-column.hh"
 
 

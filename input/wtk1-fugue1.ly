@@ -47,12 +47,12 @@ tenor =
 	\stemboth
 	[c'. d'32 c'] [b8 e'] [a d'] ~ [d'16 e' d' c'] |
 	[b8 g' cis' d'] [e' cis' d' e' ] |
-	\stemdown a8 r8 r e [fis g] \stemboth[a. b32 a] |
+	\stemdown a8 r8 r e [fis g] \stemboth [a. b32 a] |
 %% 20
-	[g8 c' fis b] ~ [b16 c' b a] \stemdown [g fis e d] \stemboth|
+	[g8 c' fis b] ~ [b16 c' b a] \stemdown [g fis e d] \stemboth |
 	e4 \stemdown d ~ [d16 a g f!] [e g f! a] |
 	g4 ~ [g16 a bes8] c'4 [d'8 g] |
-	\stembothg4. f8 ~ [f e] d4 |
+	\stemboth g4. f8 ~ [f e] d4 |
 	\stemdown e8 a4 g8 ~ [g8 f g a] |
 %% 25
 	[bes8. c'32 b] [a8 d'] [g c'] ~ [c'16 d' c' bes] |
