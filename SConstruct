@@ -194,6 +194,10 @@ version_hh = os.path.join (outdir, 'version.hh')
 
 env.Alias ('config', config_cache)
 
+cachedir = os.path.join (outdir, 'build-cache')
+
+if not os.path.exists(cachedir):
+	os.makedirs(cachedir)
 
 CacheDir (os.path.join (outdir, 'build-cache'))
 
