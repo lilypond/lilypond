@@ -15,13 +15,17 @@ nowildcard: lexer.cc parser.cc
 lilypond_SOURCES = $(wildcard *.cc *.ll *.yy)
 noinst_HEADERS = parser.hh
 
-lilypond_LDADD = -llily -lflower @LEXLIB@
+#lilypond_LDADD = -llily -lflower @LEXLIB@
+lilypond_LDADD = $(top_builddir)/lib/liblily.la $(top_builddir)/flower/libflower.la @LEXLIB@
 
-lilypond_LDFLAGS = -L$(LILYPOND_SOURCEDIR)/lib/.libs -L$(LILYPOND_SOURCEDIR)/flower/.libs
+lilypond_LDFLAGS = -L$(absolute_builddir)/lib/.libs -L$(absolute_builddir)/flower/.libs
+
+
+ 
 
 INCLUDES =  -I$(srcdir)/include -I$(srcdir)/../lib/include -I$(srcdir)/../flower/include 
 
-EXTRA_DIST = Makefile.am.wild Stable.make VERSION
+EXTRA_DIST = Makefile.am.wild GNUmakefile Stable.make VERSION
 
 # force these: Make can't know these have to be generated in advance
 my-lily-lexer.cc: parser.hh
@@ -36,15 +40,10 @@ parser.hh: parser.yy
 	$(BISON) -d $<
 	mv $<.tab.h $@
 	mv $<.tab.c $(shell basename $@ .hh).cc
-# .ll.cc:
-# ugh, stupid automake 
-# now set output root by hand...
-#	touch lex.yy.cc
 
-# .yy.cc:
-# 	$(BISON) $<
-# 	mv $(shell basename $@ .cc ).tab.c $@
-# 	$(FLEX) -Cfe -p -p -t $< > $@
-# # could be faster:
-# #	$(FLEX) -8 -Cf -t $< > $@
+# override default target for all-am: to get an extra dependency
+all-am: Makefile $(PROGRAMS) wild-check
+
+# dummy target for non-GNU makes; is overridden in GNUmakefile
+wild-check:
 
