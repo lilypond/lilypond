@@ -1466,19 +1466,31 @@ chord_body_elements:
 	;
 
 chord_body_element:
-	pitch exclamations questions post_events
+	pitch  exclamations questions octave_check post_events
 	{
+		int q = $3;
+		int ex = $2;
+		SCM check = $4;
+		SCM post = $5;
+
 		Music *n = MY_MAKE_MUSIC ("NoteEvent");
 		n->set_property ("pitch", $1);
-		if ($3 % 2)
+		if (q % 2)
 			n->set_property ("cautionary", SCM_BOOL_T);
-		if ($2 % 2 || $3 % 2)
+		if (ex % 2 || q % 2)
 			n->set_property ("force-accidental", SCM_BOOL_T);
 
-		if (ly_c_pair_p ($4)) {
-			SCM arts = scm_reverse_x ($4, SCM_EOL);
+		if (ly_c_pair_p (post)) {
+			SCM arts = scm_reverse_x (post, SCM_EOL);
 			n->set_property ("articulations", arts);
 		}
+		if (ly_c_number_p (check))
+		{
+			int q = ly_scm2int (check);
+			n->set_property ("absolute-octave", scm_int2num (q-1));
+		}
+
+		
 		$$ = n;
 	}
 	| DRUM_PITCH post_events {
