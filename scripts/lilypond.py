@@ -620,6 +620,8 @@ def generate_dependency_file (depfile, outname):
 
 def find_file_in_path (path, name):
 	for d in string.split (path, os.pathsep):
+		if not d:
+			d = original_dir
 		if name in os.listdir (d):
 			return os.path.join (d, name)
 
@@ -633,12 +635,12 @@ def find_pfa_fonts (name):
 		ly.error (_ ("not a PostScript file: `%s\'" % name))
 		ly.exit (1)
 	here = 0
-	m = re.match ('.*?/(feta[-a-z0-9]+) +findfont', s[here:], re.DOTALL)
+	m = re.match ('.*?/([-a-zA-Z]*(feta|parmesan)[-a-z0-9]+) +findfont', s[here:], re.DOTALL)
 	pfa = []
 	while m:
-		here = m.end (1)
+		here = here + m.end (0)
 		pfa.append (m.group (1))
-		m = re.match ('.*?/(feta[-a-z0-9]+) +findfont', s[here:], re.DOTALL)
+		m = re.match ('.*?/([-a-zA-Z]*(feta|parmesan)[-a-z0-9]+) +findfont', s[here:], re.DOTALL)
 	return pfa
 
 
