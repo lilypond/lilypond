@@ -27,7 +27,7 @@ applycontext = #(def-music-function (parser location proc) (procedure?)
                    'procedure proc))
 
 displayMusic = #(def-music-function (parser location music) (ly:music?)
-		 (display-music music)
+		 (display-scheme-music music)
 		 music)
 applyoutput = #(def-music-function (parser location proc) (procedure?)
                 (make-music 'ApplyOutputEvent 
