@@ -48,8 +48,8 @@ Item::line_l() const
   if (!ga)
     return 0;
   
-  assert (ga->access_Score_element());
-  return ga->access_Score_element ()-> line_l ();
+  assert (dynamic_cast <Score_element *> (ga));
+  return dynamic_cast <Score_element *> (ga)-> line_l ();
 }
 
 Direction
@@ -67,7 +67,7 @@ Item::copy_breakable_items()
   Direction  i=LEFT;
   do 
     {
-      Item * item_p = clone()->access_Item ();
+      Item * item_p = dynamic_cast<Item*>(clone());
 
       item_p->break_status_dir_ =  i;
       pscore_l_->typeset_element (item_p);
@@ -130,9 +130,9 @@ int
 Item::left_right_compare(Item const *l, Item const *r)
 {
   while (!l->is_type_b (Paper_column::static_name ()))
-    l = l->axis_group_l_a_[X_AXIS]->access_Score_element ()->access_Item ();
+    l = dynamic_cast<Item*> (l->axis_group_l_a_[X_AXIS]);
   while (!r->is_type_b (Paper_column::static_name ()))
-    r = r->axis_group_l_a_[X_AXIS]->access_Score_element ()->access_Item ();
+    r = dynamic_cast<Item*> (r->axis_group_l_a_[X_AXIS]);
 
   Paper_column *p1 = (Paper_column*)l;
   Paper_column* p2 = (Paper_column*)r;
@@ -176,7 +176,7 @@ Item::do_unlink()
 Paper_column *
 Item::column_l () const
 {
-  return axis_group_l_a_[X_AXIS]->access_Score_element ()->access_Item ()->column_l ();
+  return dynamic_cast<Item*> (axis_group_l_a_[X_AXIS]) ->column_l ();
 }
 
 Item::Item (Item const &s)
