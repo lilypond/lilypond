@@ -484,7 +484,7 @@ output = {
 @end quotation
 ''',
 
-		# FIXME: @exampleindent 5  is the default...
+		# FIXME: @exampleindent 5 is the default...
 		VERBATIM: r'''@exampleindent 0
 @example
 %(verb)s@end example
@@ -587,8 +587,9 @@ def compose_ly (code, options, type):
 	# defaults
 	relative = 1
 	override = {}
-	#FIXME: where to get sane value for exampleindent?
-	override[EXAMPLEINDENT] = r'9.0\mm'
+	# FIXME: Where to get sane value for exampleindent?
+	#        In texinfo.tex, its maximum value is 0.4in, so we use that.
+	override[EXAMPLEINDENT] = r'0.4\in'
 	override[LINEWIDTH] = None
 	override.update (default_ly_options)
 
@@ -1152,7 +1153,7 @@ def do_file (input_filename):
 	if not format:
 		e = os.path.splitext (input_filename)[1]
 		if e in ext2format.keys ():
-			#FIXME
+			# FIXME
 			format = ext2format[e]
 		else:
 			ly.error (_ ("cannot determine format for: %s" \
@@ -1207,7 +1208,8 @@ def do_file (input_filename):
 		source = in_handle.read ()
 		ly.progress ('\n')
 
-		# FIXME: containing blocks must be first, see find_toplevel_snippets
+		# FIXME: containing blocks must be first, see
+		#        find_toplevel_snippets
 		snippet_types = (
 			'multiline_comment',
 			'verbatim',

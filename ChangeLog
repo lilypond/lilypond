@@ -1,3 +1,12 @@
+2004-10-28  Werner Lemberg  <wl@gnu.org>
+
+	* Documentation/user/music-glossary.tely: More fixes to improve
+	appearance with DVI output.
+
+	* scripts/lilypond-book.py (compose_ly): Use 0.4in for
+	EXAMPLEINDENT.  This is the maximum value for quotation environments
+	used in `texinfo.tex' -- many warnings in lilypond.dvi are now gone.
+
 2004-10-27  Werner Lemberg  <wl@gnu.org>
 
 	* Documentation/user/music-glossary.tely: Revised.
