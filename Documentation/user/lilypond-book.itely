@@ -476,7 +476,7 @@ This will produce a .tex or .texi file.  To produce a pdf from the
 
 @example
 latex yourfile.tex
-dvips -Ppdf -u+ex-mftrace -u +lilypond.map yourfile.dvi
+dvips -Ppdf -u+ec-mftrace.map -u+lilypond.map yourfile.dvi
 ps2pdf yourfile.ps
 @end example
 
