@@ -185,7 +185,7 @@
 (lily-interface
  'accidentals-interface
  "Accidentals"
- '(
+ '(accidentals
    left-padding 
    right-padding 
    ))

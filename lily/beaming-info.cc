@@ -24,23 +24,29 @@ Beaming_info::Beaming_info (Moment m, int i)
 }
 
 const int infinity_i = INT_MAX;	// guh.
+const int at_beat = 1<<15;
 
 int
-Beaming_info_list::min_denominator_index () const
+Beaming_info_list::best_splitpoint_index (Moment &beat_length,bool subdivide) const
 {
   int minden = infinity_i;
   int minidx = -1;
+  Moment beat_pos;
 
   for (int i=1; i < infos_.size (); i++)
     {
-      if (infos_[i].start_mom_.den () < minden)
+      beat_pos = infos_[i].start_mom_ / beat_length;
+      int den = beat_pos.den ();
+      if (infos_[i].beams_i_drul_[LEFT] == infos_[i-1].beams_i_drul_[RIGHT] && !subdivide)
+	den *= 4;
+      if (den < minden)
 	{
 	  minidx = i;
-	  minden = infos_[i].start_mom_.den ();
+	  minden = den;
 	}
     }
 
-  return minidx;
+  return minidx|(minden==1 && subdivide ? at_beat : 0);
 }
 
 int
@@ -56,13 +62,14 @@ Beaming_info_list::beam_extend_count (Direction d) const
 }
 
 void
-Beaming_info_list::beamify ()
+Beaming_info_list::beamify (Moment &beat_length,bool subdivide)
 {
   if (infos_.size () <= 1)
     return;
       
   Drul_array<Beaming_info_list> splits;
-  int m = min_denominator_index ();
+  int m = best_splitpoint_index (beat_length,subdivide);
+  bool split = subdivide && (m & at_beat);  m = m & ~at_beat;
   splits[LEFT].infos_ = infos_.slice (0,m);
   splits[RIGHT].infos_ = infos_.slice (m, infos_.size ());
 
@@ -70,12 +77,13 @@ Beaming_info_list::beamify ()
  
   do
     {
-      splits[d].beamify ();
+      splits[d].beamify (beat_length,subdivide);
     }
   while (flip (&d) != LEFT);
 
-  int middle_beams = splits[RIGHT].beam_extend_count (LEFT) <?
-    splits[LEFT].beam_extend_count (RIGHT);
+  int middle_beams = (split ? 1 :
+		      splits[RIGHT].beam_extend_count (LEFT) <?
+		      splits[LEFT].beam_extend_count (RIGHT));
 
   do
     {

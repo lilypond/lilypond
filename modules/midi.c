@@ -286,7 +286,9 @@ midi_parse_track (unsigned char **track, unsigned char *track_end)
 #endif
 
   debug_print ("%s", "\n");
-  assert (!strcmp (*track, "MTrk"));
+  if (!strcmp (*track, "MTrk"))
+    return midi_error ("parse_track(): MTrk expected");
+  
   *track += 4;
 
   track_len = get_number (track, *track + 4, 4);

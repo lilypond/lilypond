@@ -802,11 +802,12 @@ Beam::stem_beams (Grob*me,Item *here, Item *next, Item *prev,
 
 
   Direction dir = Directional_element_interface::get (me);
-  
+
   /* [Tremolo] beams on whole notes may not have direction set? */
  if (dir == CENTER)
     dir = Directional_element_interface::get (here);
-  
+
+
   /* half beams extending to the left. */
   if (prev)
     {

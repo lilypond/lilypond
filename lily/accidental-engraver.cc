@@ -1,5 +1,5 @@
 /*
-  local-key-engraver.cc -- implement Local_key_engraver
+  local-key-engraver.cc -- implement accidental_engraver
 
   (c)  1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
@@ -30,10 +30,10 @@
 */
 
 
-struct Local_key_engraver : Engraver {
+struct Accidental_engraver : Engraver {
   Item *key_item_p_;
 protected:
-  TRANSLATOR_DECLARATIONS(Local_key_engraver);
+  TRANSLATOR_DECLARATIONS(Accidental_engraver);
   virtual void process_music ();
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
@@ -58,21 +58,21 @@ public:
 
 };
 
-Local_key_engraver::Local_key_engraver ()
+Accidental_engraver::Accidental_engraver ()
 {
   key_item_p_ =0;
   last_keysig_ = SCM_EOL;
 }
 
 void
-Local_key_engraver::initialize ()
+Accidental_engraver::initialize ()
 {
   last_keysig_ = get_property ("keySignature");
   daddy_trans_l_->set_property ("localKeySignature",  last_keysig_);  
 }
 
 void
-Local_key_engraver::create_grobs ()
+Accidental_engraver::create_grobs ()
 {
   if (!key_item_p_ && mel_l_arr_.size ()) 
     {
@@ -211,13 +211,13 @@ Local_key_engraver::create_grobs ()
 }
 
 void
-Local_key_engraver::finalize ()
+Accidental_engraver::finalize ()
 {
 
 }
 
 void
-Local_key_engraver::stop_translation_timestep ()
+Accidental_engraver::stop_translation_timestep ()
 {
   if (key_item_p_)
     {
@@ -237,7 +237,7 @@ Local_key_engraver::stop_translation_timestep ()
 }
 
 void
-Local_key_engraver::acknowledge_grob (Grob_info info)
+Accidental_engraver::acknowledge_grob (Grob_info info)
 {
   Note_req * note_l =  dynamic_cast <Note_req *> (info.req_l_);
 
@@ -261,7 +261,7 @@ Local_key_engraver::acknowledge_grob (Grob_info info)
   ugh. repeated deep_copy generates lots of garbage.
  */
 void
-Local_key_engraver::process_music ()
+Accidental_engraver::process_music ()
 {
   SCM smp = get_property ("measurePosition");
   Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
@@ -287,7 +287,7 @@ Local_key_engraver::process_music ()
 
 
 
-ENTER_DESCRIPTION(Local_key_engraver,
+ENTER_DESCRIPTION(Accidental_engraver,
 /* descr */       "Make accidentals.  Catches note heads, ties and notices key-change
 events.  Due to interaction with ties (which don't come together
 with note heads), this needs to be in a context higher than Tie_engraver. FIXME",

@@ -60,10 +60,10 @@ class Time:
 	def dump (self):
 		return dump_skip (self.duration) + '\\time %d/%d ' % (self.num, self.den)
 
-key_sharps = ('c', 'g', 'd', 'a', 'e', 'b', 'fis')
-key_flats = ('BUG', 'f', 'bes', 'es', 'as', 'des', 'ges')
-
 class Key:
+	key_sharps = ('c', 'g', 'd', 'a', 'e', 'b', 'fis')
+	key_flats = ('BUG', 'f', 'bes', 'es', 'as', 'des', 'ges')
+
 	def __init__ (self, t, sharps, flats, minor):
 		self.duration = t
 		self.flats = flats

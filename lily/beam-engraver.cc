@@ -181,8 +181,9 @@ Beam_engraver::typeset_beam ()
 {
   if (finished_beam_p_)
     {
-      finished_beam_info_p_->beamify ();
-      
+      finished_beam_info_p_->beamify(*unsmob_moment (get_property ("beatLength")),
+				     (bool)gh_scm2bool(get_property("subdivideBeams")));
+
       Beam::set_beaming (finished_beam_p_, finished_beam_info_p_);
       typeset_grob (finished_beam_p_);
       delete finished_beam_info_p_;

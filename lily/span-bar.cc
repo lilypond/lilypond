@@ -177,17 +177,24 @@ void
 Span_bar::evaluate_glyph (Grob*me)
 {
   SCM elts = me->get_grob_property ("elements");
-  Grob * b = unsmob_grob (ly_car (elts));
-  SCM glsym =ly_symbol2scm ("glyph");
-  SCM gl =b ->get_grob_property (glsym);
+  SCM glyph_symbol = ly_symbol2scm ("glyph");
+  SCM gl = SCM_EOL;
+
+  while (gh_pair_p (elts))
+    {
+      gl =  unsmob_grob (gh_car (elts))->get_grob_property (glyph_symbol);
+      if (gh_string_p (gl))
+	break;
+      elts =gh_cdr (elts);
+    }
+
   if (!gh_string_p (gl))
     {
       me->suicide ();
-      return ; 
+      return;
     }
-
-  String type = ly_scm2string (gl);
   
+  String type = ly_scm2string (gl);
   if (type == "|:") 
     {
       type = ".|";
@@ -202,8 +209,8 @@ Span_bar::evaluate_glyph (Grob*me)
     }
 
   gl = ly_str02scm (type.ch_C ());
-  if (scm_equal_p (me->get_grob_property (glsym), gl) != SCM_BOOL_T)
-    me->set_grob_property (glsym, gl);
+  if (scm_equal_p (me->get_grob_property (glyph_symbol), gl) != SCM_BOOL_T)
+    me->set_grob_property (glyph_symbol, gl);
 }
 
 Interval
