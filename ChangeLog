@@ -1,3 +1,7 @@
+2002-04-15  Han-Wen  <hanwen@cs.uu.nl>
+
+	* mf/feta-din-code.mf: dynamic z sign.
+
 2002-04-13  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el: Prevent recoloring strings and comments.
