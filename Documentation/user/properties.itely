@@ -430,10 +430,12 @@ c1 c1 \property Staff.barSize = 20 c1 c1
 
   @item @code{clefStyle}@indexcode{clefStyle} @propertytype{string}
     Determines how clefs are typeset.  If set to @code{transparent},
-    the clefs are not printed at all, if set to
+    the clefs are not printed at all [FIXME], if set to
     @code{fullSizeChanges}, clef changes in the middle of a line are
     typeset with a full size clef.  By default, clef changes are
     typeset in smaller size.
+
+	
 
   @item @code{supportedClefTypes}@indexcode{supportedClefTypes} @propertytype{alist}
 

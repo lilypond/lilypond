@@ -15,11 +15,8 @@
 #include "smobs.hh"
 
 
-#define DECLARE_TYPE_NAME(Class)
-
 class Translator_group_identifier;
 class Music_identifier;
-class Articulation_req_identifier;
 class Output_def_identifier;
 class Request_identifier;
 class Score_identifier;

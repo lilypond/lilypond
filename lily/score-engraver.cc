@@ -181,12 +181,8 @@ Score_engraver::set_columns (Paper_column *new_command_l,
     {
       if (*current[i])
 	{
-	  if ((*current[i])->used_b())
-
-	    {
 	      scoreline_l_->add_column ((*current[i]));
-	    }
-	  else
+	  if (!(*current[i])->used_b())
 	    {
 	      /*
 		We're forgetting about this column. Dump it, and make SCM
@@ -197,7 +193,7 @@ Score_engraver::set_columns (Paper_column *new_command_l,
 		even prevent this.
 
 	      */
-	      scm_unprotect_object ((*current[i])->self_scm_);
+		(*current[i])->suicide ();
 	      *current[i]  =0;
 	    }
 	}
