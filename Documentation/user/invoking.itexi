@@ -22,8 +22,10 @@ sequentially.
 
 @item -f,--format=@var{format}
 Output format for sheet music. Choices are tex (for @TeX{}
-output), ps (for PostScript) and scm (for a Scheme
-dump).
+output), ps (for PostScript), scm (for a Scheme
+dump), and as (for ASCIIScript).
+
+@c TODO: TFMFONTS
 
 For processing both the @TeX{} and the PostScript output, you must
 have appropriate environment variables set.  For @TeX{}, you have to

@@ -50,8 +50,10 @@ patch_dir = build_root + '/patches'
 notify = 0
 
 build_command = '''
+set -x
 cd %b &&
 [ -d %n-%v ] && exit 1 || true;
+mkdir -p %n-%v
 (
 tar xzf %r/%t &&
 rm -f building &&
@@ -243,7 +245,7 @@ option_definitions = [
 	 ),
 	('', 'h', 'help', _ ("this help")),
         ('', 'k', 'keep', _ ("keep all output, and name the directory %s") % temp_dir),
-        ('EMAIL', 'n', 'notify', _ ("upon failure notify EMAIL[,EMAIL]"),
+        ('EMAIL', 'n', 'notify', _ ("upon failure notify EMAIL[,EMAIL]")),
 	('', 'r', 'remove-previous', _ ("remove previous build")),
 	('', 'V', 'verbose', _ ("verbose")),
 	('', 'v', 'version', _ ("print version number")),
@@ -445,11 +447,11 @@ if 1:
 
 	progress (_ ("building %s...") % latest)
 	os.chdir (build_root)
-	if build (latest) previous and remove_previous_p:
+	if build (latest) and previous and remove_previous_p:
 		system ('rm -rf %s' % os.path.join (build_root, previous))
 	else:
 		if notify:
-			system ('(date; uname -a) | mail -s "%s failed" %s' % (program_name, notify)
+			system ('(date; uname -a) | mail -s "%s failed" %s' % (program_name, notify))
 		sys.exit (1)
 		
 	os.chdir (original_dir)

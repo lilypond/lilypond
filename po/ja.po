@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 1.2.17\n"
-"POT-Creation-Date: 2001-03-21 16:06+0100\n"
+"POT-Creation-Date: 2001-04-02 13:40+0200\n"
 "PO-Revision-Date: 2000-03-29 20:50+0900\n"
 "Last-Translator: Daisuke Yamashita <yamad@mb.infoweb.ne.jp>\n"
 "Language-Team: Japanese <ja@li.org>\n"
@@ -13,145 +13,285 @@ msgstr ""
 "Content-Type: text/plain; charset=EUC-JP\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ly2dvi.py:86 main.cc:95 main.cc:105
-msgid "this help"
-msgstr "このヘルプ"
-
-#: ly2dvi.py:87
-msgid "change global setting KEY to VAL"
-msgstr ""
-
 #: ly2dvi.py:88
-#, fuzzy
-msgid "generate PostScript output"
-msgstr "制限を緩和"
-
-#: ly2dvi.py:89
-msgid "keep all output, and name the directory ly2dvi.dir"
+msgid "Generate .dvi with LaTeX for LilyPond"
 msgstr ""
 
-#: ly2dvi.py:90
-msgid "don't run LilyPond"
-msgstr ""
-
-#: ly2dvi.py:91 main.cc:115
-#, fuzzy
-msgid "verbose"
-msgstr "詳細な情報を表示します"
-
-#: ly2dvi.py:92 main.cc:104 main.cc:114
-msgid "print version number"
-msgstr "バージョン番号を表示"
-
-#: ly2dvi.py:93 main.cc:106 main.cc:116
-msgid "show warranty and copyright"
-msgstr "保証と著作権について表示する"
-
-#: ly2dvi.py:94
-msgid "dump all final output into DIR"
-msgstr ""
-
-#: ly2dvi.py:95 main.cc:109
-msgid "write Makefile dependencies for every input file"
-msgstr "全ての入力ファイルの Makefile 依存関係を書き込む"
-
-#: data-file.cc:118 input.cc:85 ly2dvi.py:123 midi-parser.cc:100 warn.cc:23
+#: data-file.cc:118 input.cc:85 ly2dvi.py:167 midi-parser.cc:100 mup2ly.py:93
+#: update-lily.py:113 warn.cc:23
 msgid "warning: "
 msgstr "警告: "
 
-#: input.cc:90 ly2dvi.py:128 ly2dvi.py:263 warn.cc:9 warn.cc:17
+#: input.cc:90 ly2dvi.py:172 mup2ly.py:98 mup2ly.py:186 update-lily.py:118
+#: update-lily.py:206 warn.cc:9 warn.cc:17
 msgid "error: "
 msgstr "エラー: "
 
-#: ly2dvi.py:130
+#: ly2dvi.py:174 mup2ly.py:100 update-lily.py:120
 #, fuzzy
 msgid "Exiting ... "
 msgstr "行 ..."
 
-#: ly2dvi.py:149
-#, fuzzy, c-format
-msgid "Reading %s..."
-msgstr "要求を捨てます: `%s'"
-
-#: lilypond-stream.cc:111 ly2dvi.py:153 mapped-file-storage.cc:87
-#: paper-stream.cc:40 scores.cc:48 simple-file-storage.cc:44 text-stream.cc:23
-#, fuzzy, c-format
-msgid "can't open file: `%s'"
-msgstr "ファイルを開けません: `%s'"
-
-#: ly2dvi.py:216
+#: ly2dvi.py:232 mup2ly.py:158 update-lily.py:178
 #, fuzzy, c-format
 msgid "Usage: %s [OPTION]... FILE"
 msgstr "使い方: %s [オプション]... [ファイル]"
 
-#: ly2dvi.py:218
-msgid "Generate .dvi with LaTeX for LilyPond"
-msgstr ""
-
-#: ly2dvi.py:220 main.cc:119 main.cc:146
+#: ly2dvi.py:236 main.cc:119 main.cc:150 mup2ly.py:162 update-lily.py:182
 msgid "Options:"
 msgstr "オプション:"
 
-#: ly2dvi.py:224
-msgid "all output is written in the CURRENT directory"
-msgstr ""
-
-#: ly2dvi.py:226 main.cc:123 main.cc:169
+#: ly2dvi.py:240 main.cc:123 main.cc:173 mup2ly.py:166 update-lily.py:186
 #, c-format
 msgid "Report bugs to %s"
 msgstr "バグレポートは %s へ"
 
-#: ly2dvi.py:260
+#: ly2dvi.py:256 mup2ly.py:183 update-lily.py:203
 #, fuzzy, c-format
 msgid "Invoking `%s'"
 msgstr "要求を捨てます: `%s'"
 
-#: ly2dvi.py:263
+#: ly2dvi.py:260 mup2ly.py:186 update-lily.py:206
 #, c-format
 msgid "command exited with value %d"
 msgstr ""
 
-#: ly2dvi.py:265
+#: ly2dvi.py:262 mup2ly.py:188 update-lily.py:208
 msgid "(ignored)"
 msgstr ""
 
-#: ly2dvi.py:301
+#: ly2dvi.py:272 update-lily.py:218
+#, fuzzy, c-format
+msgid "Cleaning %s..."
+msgstr "要求を捨てます: `%s'"
+
+#: ly2dvi.py:286 mup2ly.py:212 update-lily.py:232
 #, fuzzy, c-format
 msgid "no such setting: %s"
 msgstr "その様な楽器はありません: `%s'"
 
-#: ly2dvi.py:309
+#: ly2dvi.py:298 main.cc:113
+msgid "write Makefile dependencies for every input file"
+msgstr "全ての入力ファイルの Makefile 依存関係を書き込む"
+
+#: ly2dvi.py:299 main.cc:95 main.cc:109 mup2ly.py:1111 update-lily.py:246
+msgid "this help"
+msgstr "このヘルプ"
+
+#: ly2dvi.py:300 main.cc:111 main.cc:114
+msgid "DIR"
+msgstr "DIR"
+
+#: ly2dvi.py:300
+#, fuzzy
+msgid "add DIR to LilyPond's search path"
+msgstr "DIR を検索パスに追加"
+
+#: ly2dvi.py:301
 #, c-format
-msgid "Analyzing `%s'"
+msgid "keep all output, and name the directory %s.dir"
 msgstr ""
 
-#: ly2dvi.py:353
+#: ly2dvi.py:302
+msgid "don't run LilyPond"
+msgstr ""
+
+#: ly2dvi.py:303 main.cc:116
+msgid "produce MIDI output only"
+msgstr "MIDI 出力の生成のみ"
+
+#: ly2dvi.py:304 main.cc:98 main.cc:112 main.cc:117
+msgid "FILE"
+msgstr "FILE"
+
+#: ly2dvi.py:304
+#, fuzzy
+msgid "write ouput to FILE"
+msgstr "BASENAME[-x].拡張子 へ出力を書き込む"
+
+#: ly2dvi.py:306
+#, fuzzy
+msgid "generate PostScript output"
+msgstr "制限を緩和"
+
+#: ly2dvi.py:307
+msgid "KEY=VAL"
+msgstr ""
+
+#: ly2dvi.py:307
+msgid "change global setting KEY to VAL"
+msgstr ""
+
+#: ly2dvi.py:308 main.cc:120 mup2ly.py:1114 update-lily.py:250
+#, fuzzy
+msgid "verbose"
+msgstr "詳細な情報を表示します"
+
+#: ly2dvi.py:309 main.cc:104 main.cc:119 mup2ly.py:1115 update-lily.py:251
+msgid "print version number"
+msgstr "バージョン番号を表示"
+
+#: ly2dvi.py:310 main.cc:106 main.cc:121 mup2ly.py:1116 update-lily.py:253
+msgid "show warranty and copyright"
+msgstr "保証と著作権について表示する"
+
+#: ly2dvi.py:336
+#, fuzzy, c-format
+msgid "Analyzing %s..."
+msgstr "要求を捨てます: `%s'"
+
+#: ly2dvi.py:381
 #, c-format
 msgid "no lilypond output found for %s"
 msgstr ""
 
-#: ly2dvi.py:395
+#: ly2dvi.py:423
 #, fuzzy, c-format
 msgid "invalid value: %s"
 msgstr "無効な文字: `%c'"
 
-#: ly2dvi.py:602 scores.cc:44
+#: ly2dvi.py:497 ly2dvi.py:514
+#, fuzzy, c-format
+msgid "Running %s..."
+msgstr "要求を捨てます: `%s'"
+
+#: ly2dvi.py:654 scores.cc:44
 #, fuzzy, c-format
 msgid "dependencies output to %s..."
 msgstr "%s へ paper 出力..."
 
-#: ly2dvi.py:603
+#: ly2dvi.py:665
 #, fuzzy, c-format
 msgid "%s output to %s..."
 msgstr "%s への MIDI 出力"
 
+#: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:667
+#: midi-score-parser.cc:24 scores.cc:136 scores.cc:142
+#, fuzzy, c-format
+msgid "can't find file: `%s'"
+msgstr "ファイルが見つかりません: `%s'"
+
+#: ly2dvi.py:677
+msgid "no FILEs specified, can't invoke as filter"
+msgstr ""
+
+#: mup2ly.py:51
+msgid "Convert mup to ly"
+msgstr ""
+
+#: mup2ly.py:960
+#, fuzzy, c-format
+msgid "no such context: %s"
+msgstr "その様な楽器はありません: `%s'"
+
+#: mup2ly.py:1109
+msgid "debug"
+msgstr ""
+
+#: mup2ly.py:1110
+msgid "define macro NAME [optional expansion EXP]"
+msgstr ""
+
+#: main.cc:117 mup2ly.py:1112
+#, fuzzy
+msgid "write output to FILE"
+msgstr "BASENAME[-x].拡張子 へ出力を書き込む"
+
+#: mup2ly.py:1113
+msgid "only pre-process"
+msgstr ""
+
+#: mup2ly.py:1190
+#, fuzzy, c-format
+msgid "Processing %s..."
+msgstr "処理中..."
+
+#: mup2ly.py:1203
+#, fuzzy, c-format
+msgid "Writing %s..."
+msgstr "行 ..."
+
+#: update-lily.py:46
+msgid "Fetch and rebuild from latest source package"
+msgstr ""
+
+#: update-lily.py:238
+#, c-format
+msgid "unpack and build in DIR [%s]"
+msgstr ""
+
+#: update-lily.py:239
+msgid "execute COMMAND, subtitute:"
+msgstr ""
+
+#: update-lily.py:240
+msgid "%b: build root"
+msgstr ""
+
+#: update-lily.py:241
+#, c-format
+msgid "%n: package name"
+msgstr ""
+
+#: update-lily.py:242
+#, fuzzy
+msgid "%r: release directory"
+msgstr "見つからないか作れません: `%s'"
+
+#: update-lily.py:243
+msgid "%t: tarball"
+msgstr ""
+
+#: update-lily.py:244
+msgid "%v: package version"
+msgstr ""
+
+#: update-lily.py:247
+#, c-format
+msgid "keep all output, and name the directory %s"
+msgstr ""
+
+#: update-lily.py:248
+msgid "upon failure notify EMAIL[,EMAIL]"
+msgstr ""
+
+#: update-lily.py:249
+msgid "remove previous build"
+msgstr ""
+
+#: update-lily.py:252
+#, c-format
+msgid "fetch and build URL [%s]"
+msgstr ""
+
+#: update-lily.py:358
+#, fuzzy, c-format
+msgid "listing %s..."
+msgstr "行 ..."
+
+#: update-lily.py:418
+#, c-format
+msgid "latest is %s"
+msgstr ""
+
+#: update-lily.py:419
+#, c-format
+msgid "relax, %s is up to date"
+msgstr ""
+
+#: update-lily.py:427 update-lily.py:439
+#, fuzzy, c-format
+msgid "fetching %s..."
+msgstr "要求を捨てます: `%s'"
+
+#: update-lily.py:448
+#, fuzzy, c-format
+msgid "building %s..."
+msgstr "要求を捨てます: `%s'"
+
 #: data-file.cc:54
 msgid "EOF in a string"
 msgstr "文字列中に EOF があります"
-
-#: dstream.cc:186
-msgid "not enough fields in Dstream init"
-msgstr "Dstream 初期化時のフィールドが不十分"
 
 #: getopt-long.cc:145
 #, fuzzy, c-format
@@ -187,6 +327,12 @@ msgstr "位置が判りません"
 msgid "can't map file"
 msgstr "ファイルをマップできません"
 
+#: lilypond-stream.cc:111 mapped-file-storage.cc:87 paper-stream.cc:40
+#: scores.cc:48 simple-file-storage.cc:44 text-stream.cc:23
+#, fuzzy, c-format
+msgid "can't open file: `%s'"
+msgstr "ファイルを開けません: `%s'"
+
 #: simple-file-storage.cc:56
 #, c-format
 msgid "Huh?  Got %d, expected %d characters"
@@ -219,42 +365,42 @@ msgstr "呼び出された文字が見つかりません: `%s'"
 msgid "Error parsing AFM file: %s"
 msgstr ""
 
-#: all-font-metrics.cc:84
+#: all-font-metrics.cc:95
 #, c-format
 msgid "checksum mismatch for font file: `%s'"
 msgstr ""
 
-#: all-font-metrics.cc:86
+#: all-font-metrics.cc:97
 #, c-format
 msgid "does not match: `%s'"
 msgstr ""
 
-#: all-font-metrics.cc:91
+#: all-font-metrics.cc:102
 msgid ""
 " Rebuild all .afm files, and remove all .pk and .tfm files.  Rerun with -V "
 "to show font paths."
 msgstr ""
 
-#: all-font-metrics.cc:155
+#: all-font-metrics.cc:167
 #, fuzzy, c-format
 msgid "can't find font: `%s'"
 msgstr "フォントが見つかりません: `%s'"
 
-#: all-font-metrics.cc:156
+#: all-font-metrics.cc:168
 msgid "Loading default font"
 msgstr "デフォルトフォントをロードします"
 
-#: all-font-metrics.cc:171
+#: all-font-metrics.cc:183
 #, fuzzy, c-format
 msgid "can't find default font: `%s'"
 msgstr "デフォルトフォントが見つかりません: `%s'"
 
-#: all-font-metrics.cc:172 includable-lexer.cc:51 scores.cc:137
+#: all-font-metrics.cc:184 includable-lexer.cc:51 scores.cc:137
 #, c-format
 msgid "(search path: `%s')"
 msgstr "(検索パス: `%s')"
 
-#: all-font-metrics.cc:173 parser.yy:1681
+#: all-font-metrics.cc:185 parser.yy:1685
 msgid "Giving up"
 msgstr "諦めました"
 
@@ -335,7 +481,7 @@ msgstr "無効な引き算: コードの一部ではありません: %s"
 msgid "invalid inversion pitch: not part of chord: %s"
 msgstr "無効な転回ピッチ: コードの一部ではありません: %s"
 
-#: chord-tremolo-engraver.cc:141 percent-repeat-engraver.cc:162
+#: chord-tremolo-engraver.cc:141 percent-repeat-engraver.cc:193
 #, fuzzy
 msgid "unterminated chord tremolo"
 msgstr "終端のないハイフン"
@@ -349,35 +495,26 @@ msgstr "反復記号を表示するものがありません"
 msgid "Too many clashing notecolumns.  Ignoring them."
 msgstr "釣り合わない音符が多すぎます。それらを無視します。"
 
-#: debug.cc:26
-msgid "floating point exception"
-msgstr "浮動小数点例外"
-
-#: debug.cc:50
-#, fuzzy
-msgid "can't set mem-checking!"
-msgstr "メモリチェックを設定できません"
-
 #: dimensions.cc:13
 msgid "NaN"
 msgstr "NaN"
 
-#: dynamic-engraver.cc:198 span-dynamic-performer.cc:86
+#: dynamic-engraver.cc:197 span-dynamic-performer.cc:86
 #, fuzzy
 msgid "can't find start of (de)crescendo"
 msgstr "末尾への(デ)クレッシェンドが見つかりません"
 
-#: dynamic-engraver.cc:223
+#: dynamic-engraver.cc:222
 #, fuzzy
 msgid "already have a crescendo"
 msgstr "既に鈎があります"
 
-#: dynamic-engraver.cc:224
+#: dynamic-engraver.cc:223
 #, fuzzy
 msgid "already have a decrescendo"
 msgstr "既に鈎があります"
 
-#: dynamic-engraver.cc:318
+#: dynamic-engraver.cc:317
 #, fuzzy
 msgid "unterminated (de)crescendo"
 msgstr "終了していないクレッシェンド"
@@ -410,11 +547,11 @@ msgstr "装飾コンテキストがありません"
 msgid "Unattached grace notes.  Attaching to last musical column."
 msgstr "装飾音符がつけられませんでした。直前のカラムにつけます"
 
-#: hairpin.cc:71
+#: hairpin.cc:93
 msgid "decrescendo too small"
 msgstr ""
 
-#: hairpin.cc:72
+#: hairpin.cc:94
 #, fuzzy
 msgid "crescendo too small"
 msgstr "クレッシェンド"
@@ -427,13 +564,15 @@ msgstr "終端のないハイフン"
 msgid "Nothing to connect hyphen to on the left.  Ignoring hyphen request."
 msgstr "左側に繋げるハイフンがありません。ハイフンの要求を無視します"
 
-#: includable-lexer.cc:49 lily-guile.cc:139 midi-score-parser.cc:24
-#: scores.cc:136 scores.cc:142
-#, fuzzy, c-format
-msgid "can't find file: `%s'"
-msgstr "ファイルが見つかりません: `%s'"
+#: key-engraver.cc:99
+msgid "Conflicting key signatures found."
+msgstr ""
 
-#: key-engraver.cc:103 key-performer.cc:77
+#: key-engraver.cc:100
+msgid "This was the other key definition."
+msgstr ""
+
+#: key-performer.cc:77
 msgid "FIXME: key change merge"
 msgstr "FIXME: キー変更のマージ"
 
@@ -456,91 +595,72 @@ msgstr ""
 msgid "Calculating column positions..."
 msgstr "カラム位置を計算中..."
 
-#: lyric-phrasing-engraver.cc:269
+#: lyric-phrasing-engraver.cc:284
 msgid "lyrics found without any matching notehead"
 msgstr ""
 
-#: lyric-phrasing-engraver.cc:274
+#: lyric-phrasing-engraver.cc:289
 msgid "Huh? Melismatic note found to have associated lyrics."
 msgstr ""
 
-#: main.cc:104
+#. another bug in option parser: --output=foe is taken as an abbreviation
+#. for --output-format
+#.  {_i ("EXT"), "output-format", 'f',  _i ("use output format EXT (scm, ps, tex or as)")},
+#: main.cc:108
 msgid "EXT"
 msgstr "EXT"
 
-#: main.cc:104
+#: main.cc:108
 #, fuzzy
 msgid "use output format EXT (scm, ps, tex or as)"
 msgstr "出力フォーマット EXT を使う"
 
-#: main.cc:106
+#: main.cc:110
 #, fuzzy
 msgid "FIELD"
 msgstr "FILE"
 
-#: main.cc:106
+#: main.cc:110
 msgid "write header field to BASENAME.FIELD"
 msgstr ""
 
-#: main.cc:107 main.cc:110
-msgid "DIR"
-msgstr "DIR"
-
-#: main.cc:107
+#: main.cc:111
 msgid "add DIR to search path"
 msgstr "DIR を検索パスに追加"
 
-#: main.cc:98 main.cc:108
-msgid "FILE"
-msgstr "FILE"
-
-#: main.cc:108
+#: main.cc:112
 msgid "use FILE as init file"
 msgstr "FILE を初期化ファイルとして使用"
 
-#: main.cc:110
+#: main.cc:114
 msgid "prepend DIR to dependencies"
 msgstr ""
 
-#: main.cc:111
-msgid "produce MIDI output only"
-msgstr "MIDI 出力の生成のみ"
-
-#: main.cc:112
-#, fuzzy
-msgid "NAME"
-msgstr "BASENAME"
-
-#: main.cc:112
-#, fuzzy
-msgid "write output to NAME"
-msgstr "BASENAME[-x].拡張子 へ出力を書き込む"
-
-#: main.cc:113
-msgid "inhibit file output naming and exporting"
-msgstr "名前付けとエクスポートの出力ファイルを抑制する"
-
-#: main.cc:117
+#: main.cc:115
 msgid "EXPR"
 msgstr ""
 
-#: main.cc:117
+#: main.cc:115
 msgid "evalute EXPR as Scheme after .scm init is read"
 msgstr ""
+
+#: main.cc:118
+msgid "inhibit file output naming and exporting"
+msgstr "名前付けとエクスポートの出力ファイルを抑制する"
 
 #.
 #. No version number or newline here. It confuses help2man
 #.
-#: main.cc:134
+#: main.cc:138
 #, c-format
 msgid "Usage: %s [OPTION]... [FILE]..."
 msgstr "使い方: %s [オプション]... [ファイル]..."
 
-#: main.cc:136
+#: main.cc:140
 msgid "Typeset music and or play MIDI from FILE"
 msgstr "ファイルの楽曲を組版したり、MIDI 演奏したりする"
 
-#: main.cc:140
+#: main.cc:144
 msgid ""
 "LilyPond is a music typesetter.  It produces beautiful sheet music\n"
 "using a high level description file as input.  LilyPond is part of \n"
@@ -550,11 +670,11 @@ msgstr ""
 "美しい譜面を作成することができます。LilyPond は GNU "
 "プロジェクトの一部です。\n"
 
-#: main.cc:150
+#: main.cc:154
 msgid "This binary was compiled with the following options:"
 msgstr "このバイナリは以下のオプション付きでコンパイルされました"
 
-#: main.cc:55 main.cc:177
+#: main.cc:55 main.cc:181
 #, c-format
 msgid ""
 "This is free software.  It is covered by the GNU General Public License,\n"
@@ -570,17 +690,17 @@ msgstr ""
 "これを改変したり、複製を配布したりする事は歓迎されます。\n"
 "`--warranty' オプション付きで起動すると、より詳細な情報が得られます。\n"
 
-#: main.cc:62 main.cc:184 main.cc:196
+#: main.cc:62 main.cc:188 main.cc:200
 #, c-format
 msgid "Copyright (c) %s by"
 msgstr "Copyright (c) %s by"
 
-#: main.cc:194
+#: main.cc:198
 #, fuzzy
 msgid "GNU LilyPond -- The music typesetter"
 msgstr "GNU LilyPond -- The GNU Project music typesetter"
 
-#: main.cc:71 main.cc:202
+#: main.cc:71 main.cc:206
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License version 2\n"
@@ -627,16 +747,16 @@ msgstr ""
 "です(COPYING ファイルを参照)。そうでない場合は、Free Software Foundation,\n"
 "Inc., 675 Mass Ave, Cambridge, MA 02139, USA に手紙を書いてください。\n"
 
-#: midi-item.cc:312
+#: midi-item.cc:138
 #, c-format
 msgid "no such instrument: `%s'"
 msgstr "その様な楽器はありません: `%s'"
 
-#: midi-item.cc:402
+#: midi-item.cc:227
 msgid "silly duration"
 msgstr "馬鹿げた音長"
 
-#: midi-item.cc:415
+#: midi-item.cc:240
 msgid "silly pitch"
 msgstr "馬鹿げたピッチ"
 
@@ -645,23 +765,23 @@ msgstr "馬鹿げたピッチ"
 msgid "Transposition by %s makes accidental larger than two"
 msgstr "%s の変調によって、二つを超える派生音が作られました"
 
-#: music.cc:224
+#: music.cc:232
 msgid "ly_get_mus_property (): Not a Music"
 msgstr ""
 
-#: music.cc:238
+#: music.cc:246
 msgid "ly_set_mus_property (): Not a symbol"
 msgstr ""
 
-#: music.cc:250
+#: music.cc:258
 msgid "ly_set_mus_property ():  not of type Music"
 msgstr ""
 
-#: music.cc:264
+#: music.cc:272
 msgid "ly_make_music (): Not a string"
 msgstr ""
 
-#: music.cc:284
+#: music.cc:292
 msgid "ly_music_name (): Not a music expression"
 msgstr ""
 
@@ -698,7 +818,7 @@ msgstr "要求を捨てます: `%s'"
 msgid "paper output to %s..."
 msgstr "%s へ paper 出力..."
 
-#: lilypond-stream.cc:93 paper-outputter.cc:85 performance.cc:95
+#: lilypond-stream.cc:93 paper-outputter.cc:85 performance.cc:99
 msgid ", at "
 msgstr ", at "
 
@@ -740,9 +860,9 @@ msgstr "トランスレータそのものです"
 msgid "none of these in my family: `%s'"
 msgstr "ファミリの中にありません"
 
-#: percent-repeat-engraver.cc:108
+#: percent-repeat-engraver.cc:118
 #, fuzzy
-msgid "Don't know yet how to handle this percent repeat."
+msgid "Don't know how to handle a percent repeat of this length."
 msgstr "空のキーの扱い方が判りません"
 
 #: percent-repeat-iterator.cc:53
@@ -754,16 +874,16 @@ msgstr "反復記号を表示するものがありません"
 msgid "Track ... "
 msgstr "トラック ..."
 
-#: performance.cc:79
+#: performance.cc:83
 msgid "Creator: "
 msgstr "作曲者: "
 
-#: performance.cc:109
+#: performance.cc:113
 #, c-format
 msgid "from musical definition: %s"
 msgstr "音楽的定義より: %s"
 
-#: performance.cc:164
+#: performance.cc:168
 #, c-format
 msgid "MIDI output to %s..."
 msgstr "%s への MIDI 出力"
@@ -800,11 +920,11 @@ msgstr ""
 msgid "Wrong type for property: %s, type: %s, value found: %s, type: %s"
 msgstr "属性値へのタイプが間違っています"
 
-#: rest-collision.cc:190
+#: rest-collision.cc:194
 msgid "too many colliding rests"
 msgstr "休符の衝突が多すぎます"
 
-#: rest-collision.cc:194
+#: rest-collision.cc:198
 msgid "too many notes for rest collision"
 msgstr "休符の衝突に対して音符が多すぎます"
 
@@ -826,7 +946,7 @@ msgstr "エラーを発見/*, 楽譜を処理しません*/"
 msgid "elapsed time: %.2f seconds"
 msgstr "経過時間: %.2f 秒"
 
-#: score-engraver.cc:183
+#: score-engraver.cc:188
 #, c-format
 msgid "unbound spanner `%s'"
 msgstr "閉じていないスパナ `%s'"
@@ -915,11 +1035,11 @@ msgstr "%s: TFM ファイルは %u 個のパラメタがありますが、%u 以上は扱えません"
 
 #. How to shut up this warning, when no notes appeared because
 #. they were suicided by Thread_devnull_engraver?
-#: tie-engraver.cc:215 tie-performer.cc:173
+#: tie-engraver.cc:220 tie-performer.cc:173
 msgid "No ties were created!"
 msgstr "作られたタイがありません!"
 
-#: tie-engraver.cc:234
+#: tie-engraver.cc:240
 msgid "lonely tie"
 msgstr "一つだけのタイ"
 
@@ -1015,95 +1135,95 @@ msgstr ""
 msgid "First argument must be a procedure taking 1 argument"
 msgstr ""
 
-#: parser.yy:1236
+#: parser.yy:1233
 msgid "Expecting string as script definition"
 msgstr ""
 
-#: parser.yy:1246
+#: parser.yy:1243
 msgid "Can't specify direction for this request"
 msgstr "この要求に対する方向を指定することはできません"
 
-#: parser.yy:1371
+#: parser.yy:1368
 msgid "Expecting musical-pitch value"
 msgstr ""
 
-#: parser.yy:1382
+#: parser.yy:1379
 #, fuzzy
 msgid "Must have duration object"
 msgstr "音長を最小に設定します"
 
-#: parser.yy:1391 parser.yy:1399 parser.yy:1679
+#: parser.yy:1388 parser.yy:1396 parser.yy:1683
 msgid "Have to be in Lyric mode for lyrics"
 msgstr "歌詞は Lyric モード内に書いてください"
 
-#: parser.yy:1564 parser.yy:1593
+#: parser.yy:1549 parser.yy:1597
 #, c-format
 msgid "not a duration: %d"
 msgstr "音長ではありません: %d"
 
-#: parser.yy:1602
+#: parser.yy:1606
 msgid "Have to be in Note mode for notes"
 msgstr "音符は Note モード内に書いてください"
 
-#: parser.yy:1698
+#: parser.yy:1702
 msgid "Have to be in Chord mode for chords"
 msgstr "コードは Chord モード内に書いてください"
 
-#: parser.yy:1860 parser.yy:1878
+#: parser.yy:1864 parser.yy:1882
 msgid "need integer number arg"
 msgstr ""
 
-#: parser.yy:1864
+#: parser.yy:1868
 msgid "Must be positive integer"
 msgstr ""
 
-#: lexer.ll:166
+#: lexer.ll:167
 msgid "EOF found inside a comment"
 msgstr "コメント内に EOF が見つかりました"
 
-#: lexer.ll:180
+#: lexer.ll:181
 msgid "\\maininput disallowed outside init files"
 msgstr "初期化ファイルの外では \\maininput を記述できません"
 
-#: lexer.ll:204
+#: lexer.ll:205
 #, fuzzy, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr "未定義の識別子: `%s'"
 
 #. backup rule
-#: lexer.ll:209
+#: lexer.ll:210
 msgid "Missing end quote"
 msgstr "終了クオートがありません"
 
 #. backup rule
-#: lexer.ll:231 lexer.ll:235
+#: lexer.ll:232 lexer.ll:236
 msgid "white expected"
 msgstr "空白が必要です"
 
-#: lexer.ll:244
+#: lexer.ll:245
 msgid "Can't evaluate Scheme in safe mode"
 msgstr "安全モードでは Scheme の評価をできません"
 
-#: lexer.ll:336
+#: lexer.ll:330
 msgid "Brace found at end of lyric. Did you forget a space?"
 msgstr ""
 
-#: lexer.ll:440
+#: lexer.ll:434
 #, c-format
 msgid "invalid character: `%c'"
 msgstr "無効な文字: `%c'"
 
-#: lexer.ll:521
+#: lexer.ll:515
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr "未知のエスケープ文字列: `\\%s'"
 
-#: lexer.ll:603
+#: lexer.ll:597
 #, fuzzy, c-format
 msgid "incorrect lilypond version: %s (%s, %s)"
 msgstr "間違った mudela バージョン: %s (%s, %s)"
 
-#: lexer.ll:604
+#: lexer.ll:598
 msgid "Consider converting the input with the convert-ly script"
 msgstr ""
 
@@ -1318,6 +1438,28 @@ msgstr "MIDI トラックが必要です"
 #: midi-track-parser.cc:353
 msgid "invalid track length"
 msgstr "無効なトラック長です"
+
+#, fuzzy
+#~ msgid "NAME"
+#~ msgstr "BASENAME"
+
+#, fuzzy
+#~ msgid "write output to NAME"
+#~ msgstr "BASENAME[-x].拡張子 へ出力を書き込む"
+
+#, fuzzy
+#~ msgid "write ouput to NAME"
+#~ msgstr "BASENAME[-x].拡張子 へ出力を書き込む"
+
+#~ msgid "not enough fields in Dstream init"
+#~ msgstr "Dstream 初期化時のフィールドが不十分"
+
+#~ msgid "floating point exception"
+#~ msgstr "浮動小数点例外"
+
+#, fuzzy
+#~ msgid "can't set mem-checking!"
+#~ msgstr "メモリチェックを設定できません"
 
 #, fuzzy
 #~ msgid "Dependency file left in `%s'"

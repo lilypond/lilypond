@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-03-21 16:06+0100\n"
+"POT-Creation-Date: 2001-04-02 13:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: August S.Sigov <august@infran.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -14,143 +14,283 @@ msgstr ""
 "Content-Type: text/plain; charset=koi8-r\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: ly2dvi.py:86 main.cc:95 main.cc:105
-msgid "this help"
-msgstr "эта справка"
-
-#: ly2dvi.py:87
-msgid "change global setting KEY to VAL"
-msgstr ""
-
 #: ly2dvi.py:88
-msgid "generate PostScript output"
+msgid "Generate .dvi with LaTeX for LilyPond"
 msgstr ""
 
-#: ly2dvi.py:89
-msgid "keep all output, and name the directory ly2dvi.dir"
-msgstr ""
-
-#: ly2dvi.py:90
-msgid "don't run LilyPond"
-msgstr ""
-
-#: ly2dvi.py:91 main.cc:115
-#, fuzzy
-msgid "verbose"
-msgstr "быть болтливым"
-
-#: ly2dvi.py:92 main.cc:104 main.cc:114
-msgid "print version number"
-msgstr "выводить номер версии"
-
-#: ly2dvi.py:93 main.cc:106 main.cc:116
-msgid "show warranty and copyright"
-msgstr "показать гарантию и copyright"
-
-#: ly2dvi.py:94
-msgid "dump all final output into DIR"
-msgstr ""
-
-#: ly2dvi.py:95 main.cc:109
-msgid "write Makefile dependencies for every input file"
-msgstr "записывать зависимости Makefile для каждого входного файла"
-
-#: data-file.cc:118 input.cc:85 ly2dvi.py:123 midi-parser.cc:100 warn.cc:23
+#: data-file.cc:118 input.cc:85 ly2dvi.py:167 midi-parser.cc:100 mup2ly.py:93
+#: update-lily.py:113 warn.cc:23
 msgid "warning: "
 msgstr "предупреждаю: "
 
-#: input.cc:90 ly2dvi.py:128 ly2dvi.py:263 warn.cc:9 warn.cc:17
+#: input.cc:90 ly2dvi.py:172 mup2ly.py:98 mup2ly.py:186 update-lily.py:118
+#: update-lily.py:206 warn.cc:9 warn.cc:17
 msgid "error: "
 msgstr "ошибка: "
 
-#: ly2dvi.py:130
+#: ly2dvi.py:174 mup2ly.py:100 update-lily.py:120
 msgid "Exiting ... "
 msgstr ""
 
-#: ly2dvi.py:149
-#, fuzzy, c-format
-msgid "Reading %s..."
-msgstr "Выбрасываю музыку: `%s'"
-
-#: lilypond-stream.cc:111 ly2dvi.py:153 mapped-file-storage.cc:87
-#: paper-stream.cc:40 scores.cc:48 simple-file-storage.cc:44 text-stream.cc:23
-#, c-format
-msgid "can't open file: `%s'"
-msgstr "не могу открыть файл: `%s'"
-
-#: ly2dvi.py:216
+#: ly2dvi.py:232 mup2ly.py:158 update-lily.py:178
 #, fuzzy, c-format
 msgid "Usage: %s [OPTION]... FILE"
 msgstr "Использование: %s [ОПЦИЯ]... [ФАЙЛ]"
 
-#: ly2dvi.py:218
-msgid "Generate .dvi with LaTeX for LilyPond"
-msgstr ""
-
-#: ly2dvi.py:220 main.cc:119 main.cc:146
+#: ly2dvi.py:236 main.cc:119 main.cc:150 mup2ly.py:162 update-lily.py:182
 msgid "Options:"
 msgstr "Опции:"
 
-#: ly2dvi.py:224
-msgid "all output is written in the CURRENT directory"
-msgstr ""
-
-#: ly2dvi.py:226 main.cc:123 main.cc:169
+#: ly2dvi.py:240 main.cc:123 main.cc:173 mup2ly.py:166 update-lily.py:186
 #, c-format
 msgid "Report bugs to %s"
 msgstr "Сообщайте об ошибках по %s"
 
-#: ly2dvi.py:260
+#: ly2dvi.py:256 mup2ly.py:183 update-lily.py:203
 #, fuzzy, c-format
 msgid "Invoking `%s'"
 msgstr "Выбрасываю музыку: `%s'"
 
-#: ly2dvi.py:263
+#: ly2dvi.py:260 mup2ly.py:186 update-lily.py:206
 #, c-format
 msgid "command exited with value %d"
 msgstr ""
 
-#: ly2dvi.py:265
+#: ly2dvi.py:262 mup2ly.py:188 update-lily.py:208
 msgid "(ignored)"
 msgstr ""
 
-#: ly2dvi.py:301
+#: ly2dvi.py:272 update-lily.py:218
+#, fuzzy, c-format
+msgid "Cleaning %s..."
+msgstr "Выбрасываю музыку: `%s'"
+
+#: ly2dvi.py:286 mup2ly.py:212 update-lily.py:232
 #, fuzzy, c-format
 msgid "no such setting: %s"
 msgstr "нет такого инструмента: `%s'"
 
-#: ly2dvi.py:309
+#: ly2dvi.py:298 main.cc:113
+msgid "write Makefile dependencies for every input file"
+msgstr "записывать зависимости Makefile для каждого входного файла"
+
+#: ly2dvi.py:299 main.cc:95 main.cc:109 mup2ly.py:1111 update-lily.py:246
+msgid "this help"
+msgstr "эта справка"
+
+#: ly2dvi.py:300 main.cc:111 main.cc:114
+msgid "DIR"
+msgstr "КАТ"
+
+#: ly2dvi.py:300
+#, fuzzy
+msgid "add DIR to LilyPond's search path"
+msgstr "добавить КАТ к пути поиска"
+
+#: ly2dvi.py:301
 #, c-format
-msgid "Analyzing `%s'"
+msgid "keep all output, and name the directory %s.dir"
 msgstr ""
 
-#: ly2dvi.py:353
+#: ly2dvi.py:302
+msgid "don't run LilyPond"
+msgstr ""
+
+#: ly2dvi.py:303 main.cc:116
+msgid "produce MIDI output only"
+msgstr "производить вывод только MIDI"
+
+#: ly2dvi.py:304 main.cc:98 main.cc:112 main.cc:117
+msgid "FILE"
+msgstr "ФАЙЛ"
+
+#: ly2dvi.py:304
+#, fuzzy
+msgid "write ouput to FILE"
+msgstr "записывать вывод в ОСНОВА[-x].расширение"
+
+#: ly2dvi.py:306
+msgid "generate PostScript output"
+msgstr ""
+
+#: ly2dvi.py:307
+msgid "KEY=VAL"
+msgstr ""
+
+#: ly2dvi.py:307
+msgid "change global setting KEY to VAL"
+msgstr ""
+
+#: ly2dvi.py:308 main.cc:120 mup2ly.py:1114 update-lily.py:250
+#, fuzzy
+msgid "verbose"
+msgstr "быть болтливым"
+
+#: ly2dvi.py:309 main.cc:104 main.cc:119 mup2ly.py:1115 update-lily.py:251
+msgid "print version number"
+msgstr "выводить номер версии"
+
+#: ly2dvi.py:310 main.cc:106 main.cc:121 mup2ly.py:1116 update-lily.py:253
+msgid "show warranty and copyright"
+msgstr "показать гарантию и copyright"
+
+#: ly2dvi.py:336
+#, fuzzy, c-format
+msgid "Analyzing %s..."
+msgstr "Выбрасываю музыку: `%s'"
+
+#: ly2dvi.py:381
 #, c-format
 msgid "no lilypond output found for %s"
 msgstr ""
 
-#: ly2dvi.py:395
+#: ly2dvi.py:423
 #, fuzzy, c-format
 msgid "invalid value: %s"
 msgstr "неверный символ: `%c'"
 
-#: ly2dvi.py:602 scores.cc:44
+#: ly2dvi.py:497 ly2dvi.py:514
+#, fuzzy, c-format
+msgid "Running %s..."
+msgstr "Выбрасываю музыку: `%s'"
+
+#: ly2dvi.py:654 scores.cc:44
 #, fuzzy, c-format
 msgid "dependencies output to %s..."
 msgstr "\"бумажный\" вывод в %s..."
 
-#: ly2dvi.py:603
+#: ly2dvi.py:665
 #, fuzzy, c-format
 msgid "%s output to %s..."
 msgstr "вывод MIDI в %s..."
 
+#: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:667
+#: midi-score-parser.cc:24 scores.cc:136 scores.cc:142
+#, c-format
+msgid "can't find file: `%s'"
+msgstr "не могу найти файл: `%s'"
+
+#: ly2dvi.py:677
+msgid "no FILEs specified, can't invoke as filter"
+msgstr ""
+
+#: mup2ly.py:51
+msgid "Convert mup to ly"
+msgstr ""
+
+#: mup2ly.py:960
+#, fuzzy, c-format
+msgid "no such context: %s"
+msgstr "нет такого инструмента: `%s'"
+
+#: mup2ly.py:1109
+msgid "debug"
+msgstr ""
+
+#: mup2ly.py:1110
+msgid "define macro NAME [optional expansion EXP]"
+msgstr ""
+
+#: main.cc:117 mup2ly.py:1112
+#, fuzzy
+msgid "write output to FILE"
+msgstr "записывать вывод в ОСНОВА[-x].расширение"
+
+#: mup2ly.py:1113
+msgid "only pre-process"
+msgstr ""
+
+#: mup2ly.py:1190
+#, fuzzy, c-format
+msgid "Processing %s..."
+msgstr "Обрабатываю..."
+
+#: mup2ly.py:1203
+#, fuzzy, c-format
+msgid "Writing %s..."
+msgstr "Выбрасываю музыку: `%s'"
+
+#: update-lily.py:46
+msgid "Fetch and rebuild from latest source package"
+msgstr ""
+
+#: update-lily.py:238
+#, c-format
+msgid "unpack and build in DIR [%s]"
+msgstr ""
+
+#: update-lily.py:239
+msgid "execute COMMAND, subtitute:"
+msgstr ""
+
+#: update-lily.py:240
+msgid "%b: build root"
+msgstr ""
+
+#: update-lily.py:241
+#, c-format
+msgid "%n: package name"
+msgstr ""
+
+#: update-lily.py:242
+#, fuzzy
+msgid "%r: release directory"
+msgstr "не могу найти или создать: `%s'"
+
+#: update-lily.py:243
+msgid "%t: tarball"
+msgstr ""
+
+#: update-lily.py:244
+msgid "%v: package version"
+msgstr ""
+
+#: update-lily.py:247
+#, c-format
+msgid "keep all output, and name the directory %s"
+msgstr ""
+
+#: update-lily.py:248
+msgid "upon failure notify EMAIL[,EMAIL]"
+msgstr ""
+
+#: update-lily.py:249
+msgid "remove previous build"
+msgstr ""
+
+#: update-lily.py:252
+#, c-format
+msgid "fetch and build URL [%s]"
+msgstr ""
+
+#: update-lily.py:358
+#, fuzzy, c-format
+msgid "listing %s..."
+msgstr "Выбрасываю музыку: `%s'"
+
+#: update-lily.py:418
+#, c-format
+msgid "latest is %s"
+msgstr ""
+
+#: update-lily.py:419
+#, c-format
+msgid "relax, %s is up to date"
+msgstr ""
+
+#: update-lily.py:427 update-lily.py:439
+#, fuzzy, c-format
+msgid "fetching %s..."
+msgstr "Выбрасываю музыку: `%s'"
+
+#: update-lily.py:448
+#, fuzzy, c-format
+msgid "building %s..."
+msgstr "Выбрасываю музыку: `%s'"
+
 #: data-file.cc:54
 msgid "EOF in a string"
 msgstr "EOF в строке"
-
-#: dstream.cc:186
-msgid "not enough fields in Dstream init"
-msgstr "не достаточно полей в Dstream init"
 
 #: getopt-long.cc:145
 #, c-format
@@ -184,6 +324,12 @@ msgstr "положение неизвестно"
 msgid "can't map file"
 msgstr "не могу отобразить файл в память"
 
+#: lilypond-stream.cc:111 mapped-file-storage.cc:87 paper-stream.cc:40
+#: scores.cc:48 simple-file-storage.cc:44 text-stream.cc:23
+#, c-format
+msgid "can't open file: `%s'"
+msgstr "не могу открыть файл: `%s'"
+
 #: simple-file-storage.cc:56
 #, c-format
 msgid "Huh?  Got %d, expected %d characters"
@@ -216,42 +362,42 @@ msgstr "не могу найти символ под названием: `%s'"
 msgid "Error parsing AFM file: %s"
 msgstr "Ошибка при анализе файла AFM"
 
-#: all-font-metrics.cc:84
+#: all-font-metrics.cc:95
 #, c-format
 msgid "checksum mismatch for font file: `%s'"
 msgstr ""
 
-#: all-font-metrics.cc:86
+#: all-font-metrics.cc:97
 #, c-format
 msgid "does not match: `%s'"
 msgstr ""
 
-#: all-font-metrics.cc:91
+#: all-font-metrics.cc:102
 msgid ""
 " Rebuild all .afm files, and remove all .pk and .tfm files.  Rerun with -V "
 "to show font paths."
 msgstr ""
 
-#: all-font-metrics.cc:155
+#: all-font-metrics.cc:167
 #, c-format
 msgid "can't find font: `%s'"
 msgstr "не могу найти шрифт: `%s'"
 
-#: all-font-metrics.cc:156
+#: all-font-metrics.cc:168
 msgid "Loading default font"
 msgstr "Загружаю шрифт по умолчанию"
 
-#: all-font-metrics.cc:171
+#: all-font-metrics.cc:183
 #, c-format
 msgid "can't find default font: `%s'"
 msgstr "не могу найти шрифт по умолчанию: `%s'"
 
-#: all-font-metrics.cc:172 includable-lexer.cc:51 scores.cc:137
+#: all-font-metrics.cc:184 includable-lexer.cc:51 scores.cc:137
 #, c-format
 msgid "(search path: `%s')"
 msgstr "(путь поиска: `%s')"
 
-#: all-font-metrics.cc:173 parser.yy:1681
+#: all-font-metrics.cc:185 parser.yy:1685
 msgid "Giving up"
 msgstr "Сдаюсь"
 
@@ -326,7 +472,7 @@ msgstr "неверное вычитание: не часть аккорда: %s"
 msgid "invalid inversion pitch: not part of chord: %s"
 msgstr ""
 
-#: chord-tremolo-engraver.cc:141 percent-repeat-engraver.cc:162
+#: chord-tremolo-engraver.cc:141 percent-repeat-engraver.cc:193
 msgid "unterminated chord tremolo"
 msgstr "незаконченное тремоло аккорда"
 
@@ -339,31 +485,23 @@ msgstr "некому рисовать скобу повтора"
 msgid "Too many clashing notecolumns.  Ignoring them."
 msgstr "Слишком много пересекающихся столбцов нот. Игнорирую."
 
-#: debug.cc:26
-msgid "floating point exception"
-msgstr "исключение арифметики с плавающей запятой"
-
-#: debug.cc:50
-msgid "can't set mem-checking!"
-msgstr "не могу включить проверку памяти"
-
 #: dimensions.cc:13
 msgid "NaN"
 msgstr "NaN"
 
-#: dynamic-engraver.cc:198 span-dynamic-performer.cc:86
+#: dynamic-engraver.cc:197 span-dynamic-performer.cc:86
 msgid "can't find start of (de)crescendo"
 msgstr "не могу найти начало (де)крещендо"
 
-#: dynamic-engraver.cc:223
+#: dynamic-engraver.cc:222
 msgid "already have a crescendo"
 msgstr "крещендо уже есть"
 
-#: dynamic-engraver.cc:224
+#: dynamic-engraver.cc:223
 msgid "already have a decrescendo"
 msgstr "декрещендо уже есть"
 
-#: dynamic-engraver.cc:318
+#: dynamic-engraver.cc:317
 msgid "unterminated (de)crescendo"
 msgstr "незаконченное (де)крещендо"
 
@@ -395,11 +533,11 @@ msgstr "нет доступного Форшлаг-контекста"
 msgid "Unattached grace notes.  Attaching to last musical column."
 msgstr "Форшлаг без привязки. Привязываю к последнему музыкальному столбцу."
 
-#: hairpin.cc:71
+#: hairpin.cc:93
 msgid "decrescendo too small"
 msgstr ""
 
-#: hairpin.cc:72
+#: hairpin.cc:94
 #, fuzzy
 msgid "crescendo too small"
 msgstr "крещендо"
@@ -412,13 +550,15 @@ msgstr "перенос без окончания"
 msgid "Nothing to connect hyphen to on the left.  Ignoring hyphen request."
 msgstr "Не к чему присоединить перенос слева. Игнорирую запрос переноса."
 
-#: includable-lexer.cc:49 lily-guile.cc:139 midi-score-parser.cc:24
-#: scores.cc:136 scores.cc:142
-#, c-format
-msgid "can't find file: `%s'"
-msgstr "не могу найти файл: `%s'"
+#: key-engraver.cc:99
+msgid "Conflicting key signatures found."
+msgstr ""
 
-#: key-engraver.cc:103 key-performer.cc:77
+#: key-engraver.cc:100
+msgid "This was the other key definition."
+msgstr ""
+
+#: key-performer.cc:77
 msgid "FIXME: key change merge"
 msgstr "ИСПРАВЬМЕНЯ: слияние смены ключа"
 
@@ -441,91 +581,72 @@ msgstr ""
 msgid "Calculating column positions..."
 msgstr "Вычисляю позиции столбцов"
 
-#: lyric-phrasing-engraver.cc:269
+#: lyric-phrasing-engraver.cc:284
 msgid "lyrics found without any matching notehead"
 msgstr ""
 
-#: lyric-phrasing-engraver.cc:274
+#: lyric-phrasing-engraver.cc:289
 msgid "Huh? Melismatic note found to have associated lyrics."
 msgstr ""
 
-#: main.cc:104
+#. another bug in option parser: --output=foe is taken as an abbreviation
+#. for --output-format
+#.  {_i ("EXT"), "output-format", 'f',  _i ("use output format EXT (scm, ps, tex or as)")},
+#: main.cc:108
 msgid "EXT"
 msgstr "РАСШ"
 
-#: main.cc:104
+#: main.cc:108
 #, fuzzy
 msgid "use output format EXT (scm, ps, tex or as)"
 msgstr "использовать выходной формат РАСШ"
 
-#: main.cc:106
+#: main.cc:110
 #, fuzzy
 msgid "FIELD"
 msgstr "ФАЙЛ"
 
-#: main.cc:106
+#: main.cc:110
 msgid "write header field to BASENAME.FIELD"
 msgstr ""
 
-#: main.cc:107 main.cc:110
-msgid "DIR"
-msgstr "КАТ"
-
-#: main.cc:107
+#: main.cc:111
 msgid "add DIR to search path"
 msgstr "добавить КАТ к пути поиска"
 
-#: main.cc:98 main.cc:108
-msgid "FILE"
-msgstr "ФАЙЛ"
-
-#: main.cc:108
+#: main.cc:112
 msgid "use FILE as init file"
 msgstr "использовать ФАЙЛ как файл инициализации"
 
-#: main.cc:110
+#: main.cc:114
 msgid "prepend DIR to dependencies"
 msgstr ""
 
-#: main.cc:111
-msgid "produce MIDI output only"
-msgstr "производить вывод только MIDI"
-
-#: main.cc:112
-#, fuzzy
-msgid "NAME"
-msgstr "ОСНОВА"
-
-#: main.cc:112
-#, fuzzy
-msgid "write output to NAME"
-msgstr "записывать вывод в ОСНОВА[-x].расширение"
-
-#: main.cc:113
-msgid "inhibit file output naming and exporting"
-msgstr "скрыть именование и экспорт вывода в файл"
-
-#: main.cc:117
+#: main.cc:115
 msgid "EXPR"
 msgstr ""
 
-#: main.cc:117
+#: main.cc:115
 msgid "evalute EXPR as Scheme after .scm init is read"
 msgstr ""
+
+#: main.cc:118
+msgid "inhibit file output naming and exporting"
+msgstr "скрыть именование и экспорт вывода в файл"
 
 #.
 #. No version number or newline here. It confuses help2man
 #.
-#: main.cc:134
+#: main.cc:138
 #, c-format
 msgid "Usage: %s [OPTION]... [FILE]..."
 msgstr "Использование: %s [ОПЦИЯ]... [ФАЙЛ]..."
 
-#: main.cc:136
+#: main.cc:140
 msgid "Typeset music and or play MIDI from FILE"
 msgstr "Набирать музыку и/или проигрывать MIDI из ФАЙЛа"
 
-#: main.cc:140
+#: main.cc:144
 msgid ""
 "LilyPond is a music typesetter.  It produces beautiful sheet music\n"
 "using a high level description file as input.  LilyPond is part of \n"
@@ -535,11 +656,11 @@ msgstr ""
 "на бумаге, используя высокоуровневый файл описания на вводе. Lilypond\n"
 "является частью Проекта GNU.\n"
 
-#: main.cc:150
+#: main.cc:154
 msgid "This binary was compiled with the following options:"
 msgstr "Этот исполняемый файл был собран со следующими опциями:"
 
-#: main.cc:55 main.cc:177
+#: main.cc:55 main.cc:181
 #, c-format
 msgid ""
 "This is free software.  It is covered by the GNU General Public License,\n"
@@ -551,17 +672,17 @@ msgstr ""
 "при соблюдении некоторых условий. Вызывайте как `%s --warranty' для\n"
 "получения дополнительной информации.\n"
 
-#: main.cc:62 main.cc:184 main.cc:196
+#: main.cc:62 main.cc:188 main.cc:200
 #, c-format
 msgid "Copyright (c) %s by"
 msgstr "Все права защищены (c) %s by"
 
-#: main.cc:194
+#: main.cc:198
 #, fuzzy
 msgid "GNU LilyPond -- The music typesetter"
 msgstr "GNU LilyPond -- Наборщик музыки Проекта GNU"
 
-#: main.cc:71 main.cc:202
+#: main.cc:71 main.cc:206
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License version 2\n"
@@ -578,16 +699,16 @@ msgid ""
 "USA.\n"
 msgstr ""
 
-#: midi-item.cc:312
+#: midi-item.cc:138
 #, c-format
 msgid "no such instrument: `%s'"
 msgstr "нет такого инструмента: `%s'"
 
-#: midi-item.cc:402
+#: midi-item.cc:227
 msgid "silly duration"
 msgstr "глупая продолжительность"
 
-#: midi-item.cc:415
+#: midi-item.cc:240
 msgid "silly pitch"
 msgstr "глупый тон"
 
@@ -596,23 +717,23 @@ msgstr "глупый тон"
 msgid "Transposition by %s makes accidental larger than two"
 msgstr ""
 
-#: music.cc:224
+#: music.cc:232
 msgid "ly_get_mus_property (): Not a Music"
 msgstr ""
 
-#: music.cc:238
+#: music.cc:246
 msgid "ly_set_mus_property (): Not a symbol"
 msgstr ""
 
-#: music.cc:250
+#: music.cc:258
 msgid "ly_set_mus_property ():  not of type Music"
 msgstr ""
 
-#: music.cc:264
+#: music.cc:272
 msgid "ly_make_music (): Not a string"
 msgstr ""
 
-#: music.cc:284
+#: music.cc:292
 msgid "ly_music_name (): Not a music expression"
 msgstr ""
 
@@ -649,7 +770,7 @@ msgstr "Выбрасываю запрос: `%s'"
 msgid "paper output to %s..."
 msgstr "\"бумажный\" вывод в %s..."
 
-#: lilypond-stream.cc:93 paper-outputter.cc:85 performance.cc:95
+#: lilypond-stream.cc:93 paper-outputter.cc:85 performance.cc:99
 msgid ", at "
 msgstr ", в"
 
@@ -691,9 +812,9 @@ msgstr "Я единственный"
 msgid "none of these in my family: `%s'"
 msgstr "они мне не родственники"
 
-#: percent-repeat-engraver.cc:108
+#: percent-repeat-engraver.cc:118
 #, fuzzy
-msgid "Don't know yet how to handle this percent repeat."
+msgid "Don't know how to handle a percent repeat of this length."
 msgstr "Не знаю, что делать с пустыми ключами"
 
 #: percent-repeat-iterator.cc:53
@@ -705,16 +826,16 @@ msgstr "некому рисовать скобу повтора"
 msgid "Track ... "
 msgstr "Дорожка ..."
 
-#: performance.cc:79
+#: performance.cc:83
 msgid "Creator: "
 msgstr "Создатель: "
 
-#: performance.cc:109
+#: performance.cc:113
 #, c-format
 msgid "from musical definition: %s"
 msgstr "из музыкальной нотации %s"
 
-#: performance.cc:164
+#: performance.cc:168
 #, c-format
 msgid "MIDI output to %s..."
 msgstr "вывод MIDI в %s..."
@@ -751,11 +872,11 @@ msgstr ""
 msgid "Wrong type for property: %s, type: %s, value found: %s, type: %s"
 msgstr ""
 
-#: rest-collision.cc:190
+#: rest-collision.cc:194
 msgid "too many colliding rests"
 msgstr "слишком много налезающих пауз"
 
-#: rest-collision.cc:194
+#: rest-collision.cc:198
 msgid "too many notes for rest collision"
 msgstr ""
 
@@ -777,7 +898,7 @@ msgstr "Найдены ошибки/*, не обрабатываю ноты*/"
 msgid "elapsed time: %.2f seconds"
 msgstr "затраченное время: %.2f секунд"
 
-#: score-engraver.cc:183
+#: score-engraver.cc:188
 #, c-format
 msgid "unbound spanner `%s'"
 msgstr ""
@@ -866,11 +987,11 @@ msgstr ""
 
 #. How to shut up this warning, when no notes appeared because
 #. they were suicided by Thread_devnull_engraver?
-#: tie-engraver.cc:215 tie-performer.cc:173
+#: tie-engraver.cc:220 tie-performer.cc:173
 msgid "No ties were created!"
 msgstr ""
 
-#: tie-engraver.cc:234
+#: tie-engraver.cc:240
 msgid "lonely tie"
 msgstr ""
 
@@ -966,95 +1087,95 @@ msgstr "Второй аргумент должен быть символом"
 msgid "First argument must be a procedure taking 1 argument"
 msgstr ""
 
-#: parser.yy:1236
+#: parser.yy:1233
 msgid "Expecting string as script definition"
 msgstr ""
 
-#: parser.yy:1246
+#: parser.yy:1243
 msgid "Can't specify direction for this request"
 msgstr "Не могу указать направление для этого запроса"
 
-#: parser.yy:1371
+#: parser.yy:1368
 msgid "Expecting musical-pitch value"
 msgstr ""
 
-#: parser.yy:1382
+#: parser.yy:1379
 #, fuzzy
 msgid "Must have duration object"
 msgstr "установить наименьшую продолжительность"
 
-#: parser.yy:1391 parser.yy:1399 parser.yy:1679
+#: parser.yy:1388 parser.yy:1396 parser.yy:1683
 msgid "Have to be in Lyric mode for lyrics"
 msgstr "Должен быть в Лирическом режиме для лирики"
 
-#: parser.yy:1564 parser.yy:1593
+#: parser.yy:1549 parser.yy:1597
 #, c-format
 msgid "not a duration: %d"
 msgstr "не продолжительность: %d"
 
-#: parser.yy:1602
+#: parser.yy:1606
 msgid "Have to be in Note mode for notes"
 msgstr "Должен быть в Нотном режиме для нот"
 
-#: parser.yy:1698
+#: parser.yy:1702
 msgid "Have to be in Chord mode for chords"
 msgstr "Должен быть в Аккордном режиме для аккордов"
 
-#: parser.yy:1860 parser.yy:1878
+#: parser.yy:1864 parser.yy:1882
 msgid "need integer number arg"
 msgstr ""
 
-#: parser.yy:1864
+#: parser.yy:1868
 msgid "Must be positive integer"
 msgstr ""
 
-#: lexer.ll:166
+#: lexer.ll:167
 msgid "EOF found inside a comment"
 msgstr "Конец файла внутри комментария"
 
-#: lexer.ll:180
+#: lexer.ll:181
 msgid "\\maininput disallowed outside init files"
 msgstr ""
 
-#: lexer.ll:204
+#: lexer.ll:205
 #, fuzzy, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr "неизвестная метка/команда: `%s'"
 
 #. backup rule
-#: lexer.ll:209
+#: lexer.ll:210
 msgid "Missing end quote"
 msgstr "Отсутсвует заключительная кавычка"
 
 #. backup rule
-#: lexer.ll:231 lexer.ll:235
+#: lexer.ll:232 lexer.ll:236
 msgid "white expected"
 msgstr "в то время как ожидалось"
 
-#: lexer.ll:244
+#: lexer.ll:245
 msgid "Can't evaluate Scheme in safe mode"
 msgstr "Не могу выполнять код схемы в безопасном режиме"
 
-#: lexer.ll:336
+#: lexer.ll:330
 msgid "Brace found at end of lyric. Did you forget a space?"
 msgstr ""
 
-#: lexer.ll:440
+#: lexer.ll:434
 #, c-format
 msgid "invalid character: `%c'"
 msgstr "неверный символ: `%c'"
 
-#: lexer.ll:521
+#: lexer.ll:515
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr "неизвестная escape-последовательность: `\\%s'"
 
-#: lexer.ll:603
+#: lexer.ll:597
 #, fuzzy, c-format
 msgid "incorrect lilypond version: %s (%s, %s)"
 msgstr "неверная версия mudela: %s (%s, %s)"
 
-#: lexer.ll:604
+#: lexer.ll:598
 msgid "Consider converting the input with the convert-ly script"
 msgstr ""
 
@@ -1268,6 +1389,27 @@ msgstr "ожидалась MIDI дорожка"
 #: midi-track-parser.cc:353
 msgid "invalid track length"
 msgstr "неверная длина дорожки"
+
+#, fuzzy
+#~ msgid "NAME"
+#~ msgstr "ОСНОВА"
+
+#, fuzzy
+#~ msgid "write output to NAME"
+#~ msgstr "записывать вывод в ОСНОВА[-x].расширение"
+
+#, fuzzy
+#~ msgid "write ouput to NAME"
+#~ msgstr "записывать вывод в ОСНОВА[-x].расширение"
+
+#~ msgid "not enough fields in Dstream init"
+#~ msgstr "не достаточно полей в Dstream init"
+
+#~ msgid "floating point exception"
+#~ msgstr "исключение арифметики с плавающей запятой"
+
+#~ msgid "can't set mem-checking!"
+#~ msgstr "не могу включить проверку памяти"
 
 #, fuzzy
 #~ msgid "Dependency file left in `%s'"

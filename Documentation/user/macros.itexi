@@ -13,6 +13,59 @@
 @end ifnotinfo
 
 
+
+@iftex
+@macro separate
+
+@tex
+\\hbox to\\hsize{\\hfill$\\heartsuit$\\hfill}
+@end tex
+
+@end macro
+@end iftex
+
+@c \heartsf was supposed to be filled?
+
+@c center is broken?
+@ifnottex
+@macro braakseparate
+
+@center ***
+
+@end macro
+@end ifnottex
+
+@ifinfo
+@macro separate
+
+@quotation
+@quotation
+@quotation
+@quotation
+@quotation
+@quotation
+***
+@end quotation
+@end quotation
+@end quotation
+@end quotation
+@end quotation
+@end quotation
+@end macro
+@end ifinfo
+
+@ifhtml
+@macro separate
+@html
+<p></p><center>*<font size=+1>*</font>*</center><br>
+@end html
+@end macro
+@end ifhtml
+
+@c netscape 4.x doesn't handle html chars 4.0 :-(
+@c <p></p><center>&hearts;</center><br>
+@c <p></p><center><font size=-1>*</font><font size=0>*</font><font size=-1>*</font></center><br>
+
 @ignore
 
 @c Huh, do outline mode and texinfo really fight eachother?
