@@ -115,7 +115,7 @@ Translator_group::find_create_translator_l (String n, String id)
     return existing;
 
   Link_array<Translator_def> path
-    = unsmob_translator_def (definition_)->path_to_acceptable_translator (gh_str02scm (n.ch_C()), output_def_l ());
+    = unsmob_translator_def (definition_)->path_to_acceptable_translator (ly_str02scm ((char*)n.ch_C()), output_def_l ());
 
   if (path.size ())
     {
@@ -227,7 +227,8 @@ Translator_group::get_simple_translator (String type) const
 bool
 Translator_group::is_bottom_translator_b () const
 {
-  return unsmob_translator_def (definition_)->accepts_name_list_ == SCM_EOL;
+  return !gh_string_p (unsmob_translator_def (definition_)->default_child_context_name ());
+
 }
 
 Translator_group*
@@ -235,8 +236,8 @@ Translator_group::get_default_interpreter()
 {
   if (!is_bottom_translator_b ())
     {
-      SCM nm = unsmob_translator_def (definition_)->accepts_name_list_;
-      SCM st = output_def_l ()->find_translator_l (gh_car (nm));
+      SCM nm = unsmob_translator_def (definition_)->default_child_context_name ();
+      SCM st = output_def_l ()->find_translator_l (nm);
 
       Translator_def *t = unsmob_translator_def (st);
       if (!t)
@@ -280,6 +281,7 @@ Translator_group::do_print() const
 void
 Translator_group::do_add_processing ()
 {
+  unsmob_translator_def (definition_)->apply_property_operations (this);
   for (SCM s = simple_trans_list_; gh_pair_p (s) ; s = gh_cdr (s))
     {
       Translator * t = unsmob_translator (gh_car (s));

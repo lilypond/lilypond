@@ -14,16 +14,27 @@
 #include "smobs.hh"
 #include "input.hh"
 
+/*
+  The definition of a interpretation context as given in the
+  input. The lists are stored in order of definition.
+*/
 struct Translator_def : public Input
 {
+private:
+  /*
+    these lists store the definition, in opposite order of entry
+  */
+  
   SCM consists_name_list_;
   SCM end_consists_name_list_;
   SCM accepts_name_list_;
   SCM property_ops_;
+public:
   SCM type_name_;
   SCM translator_group_type_;
 
   SCM modify_definition (SCM, SCM, bool);
+  SCM default_child_context_name ();
   
   void set_acceptor (SCM accepts, bool add);
   void add_element (SCM name);
@@ -40,9 +51,10 @@ struct Translator_def : public Input
   static void apply_pushpop_property (Translator_group*, SCM syms, SCM eprop, SCM val);
 
   SCM clone_scm ()const;
-  DECLARE_SMOBS(Translator_def,foo);
-private:
+  void apply_property_operations (Translator_group*);
 
+private:
+  DECLARE_SMOBS(Translator_def,foo);
   Translator_def ();
   Translator_def (Translator_def const&);
 

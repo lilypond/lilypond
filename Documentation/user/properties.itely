@@ -102,7 +102,7 @@ c'8 \property Voice.flagStyle = "grace" c'8
 
 @cindex properties!Voice
 
-@table @samp  
+@table @samp
   @item @code{abbrev}@indexcode{abbrev} @propertytype{integer}
     Set length for tremolo to be used if no length is explicitly
     specified. 

@@ -12,6 +12,13 @@
 
 #include "lily-proto.hh"
 #include "lily-guile.hh"
+/*
+  properties:
+
+  elements -- list of elts (both rests and notes) participating in the
+    collision.
+
+*/
 
 class Rest_collision		// interface
 {

@@ -23,7 +23,13 @@
    events.  Due to interaction with ties (which don't come together
    with note heads), this needs to be in a context higher than Tie_engraver.
    (FIXME).
- */
+
+   FIXME: should not compute vertical positioning of accidentals, but
+   get them from the noteheads
+
+*/
+
+
 struct Local_key_engraver : Engraver {
   Item *key_item_p_;
 protected:
@@ -117,7 +123,15 @@ Local_key_engraver::process_acknowledged ()
 	      Side_position::add_support (key_item_p_,support_l);
 	    }
 	  
-	  if (!forget)
+	  /*
+	    We should not record the accidental if it is the first
+	    note and it is tied from the previous measure.
+
+	    Checking whether it is tied also works mostly, but will it
+	    always do the correct thing?
+
+	   */
+	  if (!forget && !tie_changes)
 	    {
 	      /*
 		not really really correct if there are more than one
@@ -127,19 +141,6 @@ Local_key_engraver::process_acknowledged ()
 							     gh_int2scm (n)),
 					  gh_int2scm (a)); 
 
-#if 0
-	      /*
-		TESTME!
-	       */
-	      if (!tied_l_arr_.find_l (support_l))
-		{
-		  local_key_.clear_internal_forceacc (note_l->pitch_);
-		}
-	      else if (tie_changes)
-		{
-		  local_key_.set_internal_forceacc (note_l->pitch_);
-		}
-#endif
 	    }
         }
 

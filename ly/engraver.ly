@@ -533,7 +533,7 @@ ScoreContext = \translator {
 	)
 	
 	basicDynamicLineSpannerProperties = #`(
-		(interfaces . (dynamic-interface axis-group-interface))
+		(interfaces . (dynamic-interface axis-group-interface side-position-interface))
 		(axes . ( 1))
 		(padding . 3)
 		(minimum-space . 6)
@@ -606,7 +606,7 @@ ScoreContext = \translator {
 		(name . "lyric syllable") 
 	)
 	basicMarkProperties = #`(
-	  (interfaces . (mark-interface))
+	  (interfaces . (mark-interface side-position-interface))
 	  (molecule-callback . ,Text_item::brew_molecule)	
 	  (breakable . #t)
 	  (visibility-lambda . ,end-of-line-invisible)
@@ -626,6 +626,7 @@ ScoreContext = \translator {
 	)
 	basicNoteHeadProperties = #`(
 		(interfaces . (note-head-interface rhythmic-head-interface))
+		(style . default)
 		(molecule-callback . ,Note_head::brew_molecule)
 		(name . "note head")
 	)
@@ -661,7 +662,7 @@ ScoreContext = \translator {
 	)
 	basicScriptProperties = #`(
 		(molecule-callback . ,Script::brew_molecule)
-		(interfaces . (script-interface))
+		(interfaces . (script-interface side-position-interface))
 		(name . "script")
 	)
 	basicScriptColumnProperties = #`(
@@ -734,7 +735,7 @@ ScoreContext = \translator {
 	basicTextScriptProperties = #`(
 		(molecule-callback . ,Text_item::brew_molecule)
 		(no-spacing-rods . #t)
-		(interfaces . (text-script-interface text-item-interface))
+		(interfaces . (text-script-interface text-item-interface side-position-interface))
 		(padding . 	3.0)
 		(name . "text script") 
 	)
@@ -800,7 +801,7 @@ ScoreContext = \translator {
 		(name . "separation spanner")
 	)
 	basicSustainPedalProperties = #`(
-		(interfaces . (sustain-pedal-interface))
+		(interfaces . (sustain-pedal-interface  side-position-interface))
 		(no-spacing-rods . #t)
 		(molecule-callback . ,Sustain_pedal::brew_molecule)
 		(self-alignment-X . 0)
@@ -813,7 +814,7 @@ ScoreContext = \translator {
 		(self-alignment-X . 0)
 		(name . "una chorda pedal")
 	)
-	
+
 	basicVoltaSpannerProperties = #`(
 		(molecule-callback . ,Volta_spanner::brew_molecule)
 		(interfaces . (volta-spanner-interface side-position-interface))

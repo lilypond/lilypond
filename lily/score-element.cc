@@ -59,10 +59,6 @@ Score_element::Score_element(SCM basicprops)
   mutable_property_alist_ = SCM_EOL;
 
   smobify_self ();
-  set_elt_property ("dependencies", SCM_EOL);
-
-  if (get_elt_property ("interfaces") == SCM_UNDEFINED)
-    set_elt_property ("interfaces", SCM_EOL);
 }
 
 
@@ -257,7 +253,7 @@ Score_element::get_molecule ()  const
   if (gh_procedure_p (proc)) 
     mol = gh_apply (proc, gh_list (this->self_scm (), SCM_UNDEFINED));
 
-
+    
   SCM origin =get_elt_property ("origin");
   if (!unsmob_input (origin))
     origin =ly_symbol2scm ("no-origin");
@@ -268,8 +264,17 @@ Score_element::get_molecule ()  const
 	mol = gh_cons (gh_list (origin, gh_car (mol), SCM_UNDEFINED), gh_cdr (mol));
     }
 
-  
-  return create_molecule (mol);
+
+  Molecule m (create_molecule (mol));
+
+  /*
+    This is almost the same as setting molecule-callback to #f, but
+    this retains the dimensions of this element, which means that you
+    can erase elements individually.  */
+  if (to_boolean (get_elt_property ("transparent")))
+    m = Molecule (m.extent_box (), SCM_EOL);
+
+  return m;
 }
 
 

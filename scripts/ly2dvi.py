@@ -1,11 +1,12 @@
 #!@PYTHON@
 
 
-# TODO: Rewrite this.  The control structure is too hairy.
-#
-
 # TODO:
-# Should use files in /tmp/ only.  This potentially messes with
+#
+# * Rewrite this.  The control structure is too hairy.
+# * (c) on page 1
+# * more helpful info on lily crashes
+# * Should use files in /tmp/ only.  This potentially messes with
 # usergenerated files in the CWD
 
 

@@ -73,6 +73,7 @@ public:
   void translate_axis (Real,Axis);
   
   Interval extent (Axis) const;
+  Box extent_box () const;
   /**
      codify THIS into a Scheme expression.
    */
