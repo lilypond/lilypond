@@ -19,8 +19,12 @@ NEWVER=$MJ.$MI.$PA$MP
 if [ -z $MP -o x$MP = xpre ]
 then
     LASTVER=$MJ.$MI.`expr $PA - 1`
+
+    if [ -f $releasedir//lilypond-$LASTVER""pre.tar.gz ] ; then
+	LASTVER="$LASTVER""pre"
+    fi
 else
-	LASTVER=$MJ.$MI.$PA
+    LASTVER=$MJ.$MI.$PA
 fi
 
 echo
@@ -29,19 +33,21 @@ echo
 }
 
 heredir=`pwd`
+releasedir=`pwd`/../releases
+patchdir=`pwd`/../patches
 make dist; 
 setversion
 LILYVER=$NEWVER
 
 tarball=lilypond-$LILYVER.tar.gz
 patch=patch-$LILYVER.gz
-    
-mv  $tarball ../releases
+
+mv  $tarball $releasedir/
 
 cd ../test
 $heredir/bin/make_patch $LASTVER $NEWVER lilypond
 gzip -f9 patch-$NEWVER
-mv $patch ../patches/
+mv $patch $patchdir//
 
 RPMS=`find ~/rpms/ -name lilypond-$NEWVER'*'rpm`
 rm *.rpm {lilypond,patch}-*.gz
@@ -50,8 +56,8 @@ if [ ! -z "$RPMS" ]; then
     ln $RPMS . 
 fi
     
-ln ../releases/$tarball .
-ln ../patches/$patch .    
+ln $releasedir//$tarball .
+ln $patchdir//$patch .    
 
 
 if [ ! -z "$RPMS" ]; then
