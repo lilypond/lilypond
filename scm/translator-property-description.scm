@@ -90,6 +90,9 @@ set, \addlyrics will assume that beams, slurs and ties signal
 melismata, and align lyrics accordingly.
 ")
 
+(translator-property-description 'autoReminders symbol? "If set to @samp{accidental} or @samp{cautionary},
+a (reminder) accidental automatically is inserted whenever an accidental is reverted - even after a bar.")
+
 (translator-property-description 'barAlways boolean? " If set to true a bar line is drawn after each note.
 ")
 (translator-property-description 'barCheckNoSynchronize boolean? "If set, don't reset measurePosition when finding a bbarcheck. This
@@ -308,6 +311,8 @@ is erased.
 .")
 (translator-property-description 'stemRightBeamCount integer? "idem, for the right side.")
 (translator-property-description 'stz string? "Abbreviated form for a stanza, see also Stanza property.")
+(translator-property-description 'subdivideBeams boolean? "If set, multiple beams will be subdivided at beat
+positions - by only drawing one beam over the beat.")
 (translator-property-description 'textNonEmpty boolean? " If set
 to true then text placed above or below the staff is not assumed to
 have zero width.  @code{\fatText} and @code{\emptyText} are predefined
