@@ -21,8 +21,8 @@ SUBDIRS = buildscripts python scripts \
 include VERSION
 package=`echo $PACKAGE_NAME | tr '[A-Z]' '[a-z]'`
 
-SCRIPTS = configure aclocal.m4 autogen.sh lexer-gcc-3.1.sh
-README_FILES = ChangeLog  COPYING DEDICATION ROADMAP THANKS 
+SCRIPTS = configure aclocal.m4 autogen.sh lexer-gcc-3.1.sh Doxyfile
+README_FILES = ChangeLog  COPYING DEDICATION ROADMAP THANKS HACKING
 README_TXT_FILES = AUTHORS.txt README.txt INSTALL.txt NEWS.txt
 IN_FILES := $(wildcard *.in)
 PATCH_FILES = emacsclient.patch server.el.patch darwin.patch
