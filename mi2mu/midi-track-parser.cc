@@ -51,6 +51,8 @@ Midi_track_parser::note_end (Mudela_column* col_l, int channel_i, int pitch_i, i
   // junk dynamics
   (void)aftertouch_i;
 
+  assert (col_l);
+
   for (PCursor<Mudela_note*> i (open_note_l_list_.top ()); i.ok (); i++) 
     {
       if ((i->pitch_i_ == pitch_i) && (i->channel_i_ == channel_i)) 
@@ -72,12 +74,13 @@ void
 Midi_track_parser::note_end_all (Mudela_column* col_l) 
 {
   // find 
-  for  (PCursor<Mudela_note*> i (open_note_l_list_.top ()); i.ok (); i++) 
+  assert (col_l);
+  for (PCursor<Mudela_note*> i (open_note_l_list_.top ()); i.ok (); i++) 
     {
       i->end_column_l_ = col_l;
       i.remove_p();
       // ugh
-      if  (!i.ok())
+      if (!i.ok())
 	break;
     }
 }
@@ -95,6 +98,9 @@ Midi_track_parser::parse (Mudela_column* col_l)
 
   if (!eot())
     return 0;
+
+  // vangnet
+  note_end_all (col_l);
 
   Mudela_staff* p = mudela_staff_p_;
   mudela_staff_p_ = 0;
@@ -265,7 +271,7 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
 	    {
 	      next_byte ();
 	      unsigned useconds_per_4_u = get_u (3);
-	      // $$ = new Mudela_tempo ( ($2 << 16) +  ($3 << 8) + $4);
+	      // $$ = new Mudela_tempo ( ($2 << 16) + ($3 << 8) + $4);
 	      // LOGOUT (DEBUG_ver) << $$->str() << endl;
 	      Mudela_tempo* p = new Mudela_tempo ( useconds_per_4_u );
 	      item_p = p;

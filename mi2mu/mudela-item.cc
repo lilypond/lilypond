@@ -175,6 +175,7 @@ Mudela_note::duration_mom ()
 {
 // ugh
 //    return Duration_convert::dur2_mom (duration ());
+  assert (end_column_l_);
   return end_column_l_->at_mom () - at_mom ();
 }
 

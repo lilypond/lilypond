@@ -254,10 +254,8 @@ sub  set_files
     if ($ARGV [0])  {
 	$infile = $ARGV[0];
     } 
-    if (( ! -f $infile) && (! $infile =~ /\\.ly$/s ) ){
+    if (!(-f $infile) && !($infile =~ /\.ly$/s)) {
 	$infile .= ".ly";
-	
-
     }
     if ($opt_edit && $infile ne "-") {
 	$opt_edit = 1;
