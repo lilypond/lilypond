@@ -966,8 +966,6 @@
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(adjust-if-on-staffline . #t)
 	(font-family . music)	   
-	(avoid-note-head . #f)
-	(up-to-staff . #f)
 	(meta . ((interfaces . (stem-interface  font-interface item-interface ))))
 	))
 

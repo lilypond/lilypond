@@ -130,11 +130,7 @@ Stem::set_stemend (Grob*me, Real se)
 Grob*
 Stem::support_head (Grob*me)
 {
-  SCM h = me->get_grob_property ("support-head");
-  Grob * nh = unsmob_grob (h);
-  if (nh)
-    return nh;
-  else if (head_count (me) == 1)
+  if (head_count (me) == 1)
     {
       /*
 	UGH.
@@ -242,6 +238,9 @@ Stem::add_head (Grob*me, Grob *n)
   n->set_grob_property ("stem", me->self_scm ());
   n->add_dependency (me);
 
+  /*
+    TODO: why not store Rest pointers? 
+  */
   if (Note_head::has_interface (n))
     {
       Pointer_group_interface::add_grob (me, ly_symbol2scm ("note-heads"), n);
@@ -277,19 +276,10 @@ Stem::get_default_dir (Grob*me)
 Real
 Stem::get_default_stem_end_position (Grob*me) 
 {
-  /* Tab notation feature: make stem end extend out of staff. */
-  SCM up_to_staff = me->get_grob_property ("up-to-staff");
-  if (to_boolean (up_to_staff))
-    {
-      int line_count = Staff_symbol_referencer::line_count (me);
-      Direction dir = get_direction (me);
-      return dir * (line_count + 3.5);
-    }
   Real ss = Staff_symbol_referencer::staff_space (me); 
 
   int durlog = duration_log (me);
     
-  bool grace_b = to_boolean (me->get_grob_property ("grace"));
   SCM s;
   Array<Real> a;
 
@@ -387,7 +377,7 @@ Stem::get_default_stem_end_position (Grob*me)
     TODO: change name  to extend-stems to staff/center/'()
   */
   bool no_extend_b = to_boolean (me->get_grob_property ("no-stem-extend"));
-  if (!grace_b && !no_extend_b && dir * st < 0) // junkme?
+  if (!no_extend_b && dir * st < 0) // junkme?
     st = 0.0;
 
   /*
@@ -708,31 +698,18 @@ Stem::brew_molecule (SCM smob)
   
   
      
-  Real y1;
-
-  /*
-    This is required to avoid stems passing in tablature chords...
-   */
-
-
   /*
     TODO: make  the stem start a direction ?
+
+    This is required to avoid stems passing in tablature chords...
   */
-  if (to_boolean (me->get_grob_property ("avoid-note-head")))
-    {
-      Grob * lh = last_head (me);
-      if (!lh)
-	return SCM_EOL;
-      y1 = Staff_symbol_referencer::get_position (lh);
-    }
-  else
-    {
-      Grob * lh = first_head (me);
-      if (!lh)
-	return SCM_EOL;
-      y1 = Staff_symbol_referencer::get_position (lh);
-    }
+  Grob *lh = to_boolean (me->get_grob_property ("avoid-note-head")) 
+    ? last_head (me) :  lh = first_head (me);
+
+  if (!lh)
+    return SCM_EOL;
   
+  Real y1 = Staff_symbol_referencer::get_position (lh);
   Real y2 = stem_end_position (me);
   
   Interval stem_y (y1 <? y2,y2 >? y1);
@@ -858,22 +835,6 @@ Stem::get_stem_info (Grob *me)
 void
 Stem::calc_stem_info (Grob *me)
 {
-  /* Tab notation feature: make stem end extend out of staff. */
-  SCM up_to_staff = me->get_grob_property ("up-to-staff");
-  if (to_boolean (up_to_staff))
-    {
-      int line_count = Staff_symbol_referencer::line_count (me);
-      Direction dir = get_direction (me);
-      Real ideal_y = dir * (line_count + 1.5);
-      Real shortest_y = ideal_y;
-      
-      me->set_grob_property ("stem-info",
-			     scm_list_n (gh_double2scm (ideal_y),
-					 gh_double2scm (shortest_y),
-					 SCM_UNDEFINED));
-      return;
-    }
-
   Direction my_dir = Directional_element_interface::get (me);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Grob *beam = get_beam (me);
@@ -939,11 +900,9 @@ Stem::calc_stem_info (Grob *me)
      Obviously not for grace beams.
      
      Also, not for knees.  Seems to be a good thing. */
-  SCM grace = me->get_grob_property ("grace");
-  bool grace_b = to_boolean (grace);
   bool no_extend_b = to_boolean (me->get_grob_property ("no-stem-extend"));
   bool knee_b = to_boolean (beam->get_grob_property ("knee"));
-  if (!grace_b && !no_extend_b && !knee_b)
+  if (!no_extend_b && !knee_b)
     {
       /* Highest beam of (UP) beam must never be lower than middle
 	 staffline */
@@ -998,7 +957,13 @@ Stem::beam_multiplicity (Grob *stem)
   these are too many props.
  */
 ADD_INTERFACE (Stem,"stem-interface",
-  "A stem",
-  "tremolo-flag french-beaming up-to-staff avoid-note-head adjust-if-on-staffline thickness stem-info beamed-lengths beamed-minimum-free-lengths beamed-extreme-minimum-free-lengths lengths beam stem-shorten duration-log beaming neutral-direction stem-end-position support-head note-heads direction length flag-style no-stem-extend stroke-style");
+	       "A stem",
+	       "tremolo-flag french-beaming "
+	       "avoid-note-head adjust-if-on-staffline thickness "
+	       "stem-info beamed-lengths beamed-minimum-free-lengths "
+	       "beamed-extreme-minimum-free-lengths lengths beam stem-shorten "
+	       "duration-log beaming neutral-direction stem-end-position "
+	       "note-heads direction length flag-style "
+	       "no-stem-extend stroke-style ");
 
 

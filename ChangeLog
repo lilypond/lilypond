@@ -1,3 +1,14 @@
+2003-09-30  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/slur.cc (get_attachment): do something sensible when
+	attaching to stem without heads (eg. a rest).
+
+	* lily/stem.cc: remove #'up-to-staff ; use #'stem-end for forcing
+	up to staff. Add #'rests.
+	remove #'support-head property
+	(brew_molecule): small cleanup.
+	(flag): remove #'grace property.
+
 2003-09-29  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* cygwin/postinstall-lilypond.sh: 
@@ -38,7 +49,7 @@
 	
 	* input/regression/bar-scripts.ly (onestaff): raggedright
 
-v/pri2003-09-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+2003-09-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/*.cc: remove #if 0'd code in couple of places.
 
