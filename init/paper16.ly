@@ -1,11 +1,9 @@
+% paper16.ly
 
 \include "table16.ly"
-\include "engraver.ly"
 
-Gourlay = 1.0
-Wordwrap = 0.0
 
-default_paper = \paper {
+paper_sixteen = \paper {
 	linewidth = 15.0 \cm;
 	rule_thickness = 0.4\pt;
 	bar_size = 16.0 \pt;
