@@ -4,52 +4,46 @@
 #   by Anthony Fok <foka@debian.org>
 #   This is free software; see the GNU General Public Licence
 #   version 2 or later for copying conditions.  There is NO warranty.
-#   Last modified:  Mon,  5 Jan 1998 18:38:11 -0700
+#   Last modified:  Wed, 22 Apr 1998 05:55:58 -0600
 
 set -e
 
 package=lilypond
 font_supplier=public
 font_typeface=lilypond
-std_TEXMF=/usr/lib/texmf
+std_TEXMFMAIN=/usr/lib/texmf
+std_VARTEXFONTS=/var/spool/texmf
 
 #DEBHELPER#
 
-if [ "`which kpsetool`" ]; then
-    TEXMF=`kpsetool -v '$TEXMF'`
-fi
-: ${TEXMF:=$std_TEXMF}
-
+TEXMFMAIN=`/usr/bin/kpsewhich -expand-var '$TEXMFMAIN'`
+: ${TEXMFMAIN:=$std_TEXMFMAIN}
+VARTEXFONTS=`/usr/bin/kpsewhich -expand-var '$VARTEXFONTS'`
+: ${VARTEXFONTS=$std_VARTEXFONTS}
 
 case "$1" in
     remove)
-        if [ "`kpsetool -w tex lilyponddefs.tex 2>/dev/null`" -a "`which texhash`" ]; then
-            texhash
-        fi
+	/usr/bin/mktexlsr
     ;;
 
     upgrade)
 	# Clear out the old TFM and PK files in case the fonts were modified
-        : ${MAKETEXDIR=$TEXMF/maketex}
-        test -r $MAKETEXDIR/maketex.site && . $MAKETEXDIR/maketex.site
-        : ${MT_DESTROOT=$TEXMF/fonts}
-        rm -rf $MT_DESTROOT/tfm/$font_supplier/$font_typeface
-        rm -rf $MT_DESTROOT/pk/*/$font_supplier/$font_typeface
+	rm -rf $VARTEXFONTS/tfm/$font_supplier/$font_typeface
+	rm -rf $VARTEXFONTS/pk/*/$font_supplier/$font_typeface
     ;;
 
     purge)
-        : ${MAKETEXDIR=$TEXMF/maketex}
-        test -r $MAKETEXDIR/maketex.site && . $MAKETEXDIR/maketex.site
-        : ${MT_DESTROOT=$TEXMF/fonts}
-        rm -rf $MT_DESTROOT/tfm/$font_supplier/$font_typeface
-        rm -rf $MT_DESTROOT/pk/*/$font_supplier/$font_typeface
+	# Clear out the old TFM and PK files in case the fonts were modified
+	rm -rf $VARTEXFONTS/tfm/$font_supplier/$font_typeface
+	rm -rf $VARTEXFONTS/pk/*/$font_supplier/$font_typeface
+	/usr/bin/mktexlsr
     ;;
 
     failed-upgrade|abort-install|abort-upgrade|disappear)
     ;;
 
     *)
-        echo "postrm called with unknown argument \`$1'" >&2
-        exit 0
+	echo "postrm called with unknown argument \`$1'" >&2
+	exit 0
     ;;
 esac
