@@ -23,6 +23,15 @@
 /* Guile 1.3.4 compatibility */
 #if GUILE_MINOR_VERSION < 4
 
+
+#ifndef SCM_CELL_TYPE
+#define SCM_CELL_TYPE(X) SCM_CAR (X)
+#endif
+
+#ifndef SCM_CELL_WORD_1
+#define SCM_CELL_WORD_1(X) SCM_CDR (X)
+#endif
+
 #define scm_bits_t SCM
 
 #define fix_guile_1_3_4_scm_puts(scm_data, port) scm_puts ((char*)scm_data, port)
