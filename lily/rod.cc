@@ -21,7 +21,7 @@ Rod::Rod (Single_malt_grouping_item *l, Single_malt_grouping_item *r)
   if (li.empty_b () || ri.empty_b ())
     distance_f_ = 0;
   else
-    distance_f_ = li[RIGHT] + ri[LEFT];
+    distance_f_ = li[RIGHT] - ri[LEFT];
 }
 	  
 Rod::Rod ()

@@ -26,6 +26,7 @@ Engraver::announce_element (Score_elem_info i)
   daddy_grav_l()->announce_element (i);
 }
 
+
 void
 Engraver::typeset_element (Score_elem*p)
 {

@@ -1,6 +1,6 @@
 MAJOR_VERSION=0
 MINOR_VERSION=1
-PATCH_LEVEL=55
+PATCH_LEVEL=56
 MY_PATCH_LEVEL=
 
 # now used as shell script in configure too

@@ -32,7 +32,8 @@ WHAT'S NEW SINCE VERSION 0.1?
 
 * Better MIDI importing
 
-* Easier to use due to better scripts and input format enhancements
+* Easier to use due to better shell scripts and input format
+enhancements
 
 * MusixTeX not needed anymore
 
@@ -45,16 +46,16 @@ customizable notenames.
 MIDI output lets you check if you have entered the correct notes.
 MIDI to Mudela conversion through the mi2mu program.
 
-Font size selectable (26pt, 20pt, 16pt staffsize) for each score.
+Font size selectable (from 26pt downto 11 pt) for each score.
 Multiple staffs in one score.  Each staff may have various different
 meters.  Multiple voices within one staff (up to four handled
 graciously); beams optionally shared between voices.  Multiple scores
 within one input file.  Each score is output to a different file.
 
-Beams, slurs, chords, super/subscripts (accents and text), 
-general n-plet (triplet, quadruplets, etc.), lyrics, transposition,
-dynamics (both absolute and hairpin style), clef changes, meter
-changes, cadenza-mode, key changes, repeat bars.
+Beams, slurs, chords, super/subscripts (accents and text), general
+n-plet (triplet, quadruplets, etc.), lyrics, transposition, dynamics
+(both absolute and hairpin style), clef changes, meter changes,
+cadenza-mode, key changes, repeat bars.
 
 Integration with LaTeX through Perl scripts.
 

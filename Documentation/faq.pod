@@ -223,6 +223,11 @@ or use spacing-notes to put markings at different horizontal positions
 	>
 
 
+Q: How do I get bar numbers?
+
+A: See F<init/engraver.ly>.  You have to uncomment some entries.  To
+do this  `portably' you should redefine some engravers in your own
+source files.  Check out F<init/rhythm.ly>.
 
 =head2 Development
 

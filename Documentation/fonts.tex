@@ -1,0 +1,130 @@
+\documentclass{article}
+\def\kdots{,\ldots,}
+\title{Not the Font-En-Tja font}
+\author{HWN \& JCN} 
+\begin{document}
+\maketitle
+
+
+\section{Introduction}
+
+Feta (not an abbreviation of Font-En-Tja) is a font of music symbols.
+All MetaFont			%ugh
+sources are original.  The symbols are modelled after
+various editions of music, notably
+\begin{itemize}
+\item B\"arenreiter
+\item Hofmeister
+\item Breitkopf
+\item Durand \& C'ie
+\end{itemize}
+
+The best references on Music engraving are Wanske\cite{wanske} and
+Ross\cite{ross} quite some of their insights were used.  Although it
+is a matter of taste, I'd say that B\"arenreiter has the finest
+typography of all.
+
+
+\section{Bezier curves for simple slurs}
+
+Objective:  slurs in music are curved objects designating that notes
+should fluently bound.  They are drawn as smooth curves, with their
+center thicker and the endings tapered.
+
+Long slurs are flat, whereas short slurs look like small circle arcs.
+Details are given in Wanske\cite{ross} and Ross\cite{wanske}.  The
+shape of a slur can be given as a Bezier curve with four control
+points.  We will assume that the slur connects two notes of the same
+pitch.  Different slurs can be created by rotating the derived shape.
+We will also assume that the slur has a vertical axis of symmetry
+through its center.  The left point will be the origin.     So we have
+the following equations for the control points $c_1\kdots c_4$.
+
+\begin{eqnarray*}
+c_1&=& (0,0)\\
+c_2&=& (i, h)\\
+c_3&=& (b-i, h)\\
+c_4&=& (b, 0)
+\end{eqnarray*}
+
+The quantity $b$ is given, it is the width of the slur.  The
+conditions on the shape of the slur for small and large $b$ transform
+to
+\begin{eqnarray*}
+ h \to h_{\infty} , &&\quad b \to \infty\\
+ h \approx r_{0} b, &&\quad b \to 0.
+\end{eqnarray*}
+To tackle  this, we  will  assume that $h   = F(b)$, for  some kind of
+$F(\cdot)$.  One function that satisfies the above conditions is
+$$
+F(b) = h_{\infty} \frac{2}{\pi} \arctan \left( \frac{\pi r_0}{2
+h_{\infty}} b \right).
+$$
+
+For satisfying results we choose $h_{\infty} = 2\cdot \texttt{interline}$
+and $r_0 = \frac 13$.
+
+The parameter $i$ determines the flatness of the curve.  Satisfying
+results have been obtained with $i = h$.
+
+The formula can be generalised to allow for corrections in the shape, 
+\begin{eqnarray*}
+c_1&=& (0,0)\\
+c_2&=& (i', h')\\
+c_3&=& (b-i', h')\\
+c_4&=& (b, 0)
+\end{eqnarray*}
+Where
+$$
+i' = h(b) (1 + i_{corr}), \quad h' = h(b) (1 + h_{corr}).
+$$
+
+The default values for these corrections are $0$.  A $h_{corr}$ that is
+negative, makes the curve flatter in the center.  A $h_{corr}$ that is
+positive make the curve higher.
+
+
+\section{Sizes}
+
+
+Traditional engraving uses a set of 9 standardised sizes for Staffs
+(running from 0 to 8).  
+
+We have tried to measure these (helped by a magnifying glass), and
+found the staffsizes in the following table.  One should note that
+these are estimates, so I think there could be a measuring error of ~
+.5 pt.  Moreover [Ross] states that not all engravers use exactly
+those sizes.
+
+\begin{table}
+\begin{tabular}{lll}
+Staffsize	&Numbers		&Name\\
+\hline\\
+26.2pt	&No. 0\\
+22.6pt	&No. 1		&Giant/English\\
+21.3pt	&No. 2		&Giant/English\\
+19.9pt	&No. 3		&Regular, Ordinary, Common\\
+19.1pt	&No. 4		&Peter\\
+17.1pt	&No. 5		&Large middle\\
+15.9pt	&No. 6		&Small middle\\
+13.7pt	&No. 7		&Cadenza\\
+11.1pt	&No. 8		&Pearl\\
+\end{tabular}
+\caption{Font and staff sizes}
+\end{table}
+
+
+This table is partially taken from [Ross].  Most music is set in No.3,
+but the papersizes usually are bigger than standard printer paper
+(such as A4).  If you plot these, you'll notice that the sizes (With
+exception of 26) almost (but not quite) form a arithmetic progression.
+
+Ross states that the dies (the stamps to make the symbols) come in
+12 different sizes.
+
+\bibliographystyle{plain}
+\bibliography{engraving}
+
+
+
+\end{document}

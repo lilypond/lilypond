@@ -1,7 +1,7 @@
 # Generated automatically by wild-perl 0.1
 # Documentation/Makefile.am.wild
 
-DOCFILES = introduction.doc mudela-course.doc mudela-man.doc
+DOCFILES = introduction.doc mudela-man.doc
 PODFILES = AUTHORS.pod CodingStyle.pod INSTALL.pod MANIFESTO.pod PATCHES.pod convert-mudela.pod faq.pod gnu-music.pod index.pod internals.pod language.pod lilypond.pod links.pod literature.pod ly2dvi.pod mi2mu.pod mudela-book.pod mutopia.pod other-packages.pod
 OUTPODFILES = $(PODFILES)
 TEXTFILES = $(OUTPODFILES:.pod=.txt)
@@ -12,7 +12,7 @@ DVIFILES = $(DOCFILES:.doc=.dvi)
 XPMS = lelie_icon.xpm lelie_logo.xpm lelieblond.xpm
 giffiles = $(XPMS:.xpm=.gif)
 
-EXTRA_DIST = Makefile.am.wild Rules.make $(XPMS) $(DOCFILES) $(PODFILES) vocabulary-data vocabulary-forms.el 
+EXTRA_DIST = Makefile.am.wild Rules.make $(XPMS) $(DOCFILES) $(PODFILES) vocabulary-data vocabulary-forms.el fonts.tex
 
 MAN1FILES = lilypond convert-mudela mi2mu mudela-book ly2dvi
 MAN1GROFF = $(addsuffix .1,$(MAN1FILES))

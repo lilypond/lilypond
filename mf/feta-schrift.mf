@@ -281,7 +281,8 @@ fet_endchar;
 %
 % Inspired by a computer-set version of Auf dem Strom by Baerenreiter. 
 %
-fet_beginchar("Turn","turn","turn")
+
+def draw_turn =
 	save thin, thick, ball_diam, darkness;
 	save wd, ht, thick_nibangle, ball_nib_thick;
 	save turndir;
@@ -291,7 +292,7 @@ fet_beginchar("Turn","turn","turn")
 	ht# = 18/17 interline#;
 	darkness = 1.20 stafflinethickness;
 
-	set_char_box(wd#/2, wd#/2, ht#/2, ht#/2);
+	set_char_box(wd#/2, wd#/2, ht#/2, ht#/2);	
 
 	thick_nibangle = 60;
 	thick = 3 darkness;
@@ -317,7 +318,6 @@ fet_beginchar("Turn","turn","turn")
 	swoosh :=  z1l{curl 0} .. z2l .. z3l{up} .. {left}z4l 
 	  -- z4r .. z3r{down} .. z2r{left} ;
 	fill swoosh .. (swoosh scaled -1) .. cycle;
-	penlabels(2,3,4);
 
 	x5r = x4;
 	y5r = y4l - ball_diam /2;
@@ -331,8 +331,21 @@ fet_beginchar("Turn","turn","turn")
 	fill ploop scaled -1;
 
 
+enddef;
+
+fet_beginchar("Reverse turn","reverseturn","reverseturn")
+	draw_turn;
+	currentpicture := currentpicture yscaled -1;
 	penlabels(5,6,7);
-	
+	penlabels(2,3,4);
+fet_endchar;
+
+
+fet_beginchar("Turn","turn","turn")
+	draw_turn;
+		
+	penlabels(5,6,7);
+	penlabels(2,3,4);
 fet_endchar;
 
 

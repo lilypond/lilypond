@@ -11,7 +11,7 @@ DVIFILES = $(DOCFILES:.doc=.dvi)
 XPMS = $(wildcard *.xpm)
 giffiles = $(XPMS:.xpm=.gif)
 
-EXTRA_DIST = Makefile.am.wild Rules.make $(XPMS) $(DOCFILES) $(PODFILES) vocabulary-data vocabulary-forms.el 
+EXTRA_DIST = Makefile.am.wild Rules.make $(XPMS) $(DOCFILES) $(PODFILES) vocabulary-data vocabulary-forms.el fonts.tex
 
 MAN1FILES = lilypond convert-mudela mi2mu mudela-book ly2dvi
 MAN1GROFF = $(addsuffix .1,$(MAN1FILES))

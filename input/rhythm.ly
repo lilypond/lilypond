@@ -64,8 +64,6 @@ yanother =
 	\type Score_engraver;
 
 	%\consists "Timing_engraver";
-	%\consists "Bar_column_engraver";
-	%\consists "Bar_number_engraver";
 
 	\consists "Span_score_bar_engraver";
 	\consists "Score_priority_engraver";
@@ -85,6 +83,8 @@ Rhythmic_staff = \translator
 	nolines  = "1";
 	  \consists "Pitch_squash_engraver";
 
+	\consists "Bar_column_engraver";
+	\consists "Bar_number_engraver";
 	  \consists "Bar_engraver";
 	  \consists "Meter_engraver";
 	  \consists "Staff_sym_engraver";
@@ -97,6 +97,8 @@ Rhythmic_staff = \translator
 	  \type "Engraver_group_engraver";
 	defaultclef=	violin;
 
+	\consists "Bar_column_engraver";
+	\consists "Bar_number_engraver";
 	\consists "Timing_engraver";
 	  \consists "Bar_engraver";
 	  \consists "Clef_engraver";

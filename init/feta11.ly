@@ -52,6 +52,7 @@
         "stopped"	"\\plusstop"	-1.51\pt	1.51\pt	-1.51\pt	1.51\pt	
         "upbow"	"\\upbow"	-1.79\pt	1.79\pt	0.00\pt	5.72\pt	
         "downbow"	"\\downbow"	-2.06\pt	2.06\pt	0.00\pt	3.67\pt	
+        "reverseturn"	"\\reverseturn"	-3.01\pt	3.01\pt	-1.46\pt	1.46\pt	
         "turn"	"\\turn"	-3.01\pt	3.01\pt	-1.46\pt	1.46\pt	
         "trill"	"\\trill"	-2.75\pt	2.75\pt	0.00\pt	6.19\pt	
         "upedalheel"	"\\upedalheel"	-1.38\pt	1.38\pt	-1.38\pt	1.83\pt	

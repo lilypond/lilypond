@@ -1,3 +1,6 @@
+input/abbrev.ly
+
+********
 \score{
 	\melodic{
 	        [c2 c]
@@ -5,7 +8,7 @@
 }
 lilypond: ../flower/include/varray.hh:141: struct Rhythmic_grouping *& Array<Rhythmic_grouping *>::elem(int) const: Assertion `i >=0&&i<size_' failed.
 Aborted (core dumped)
-
+*********
 \score{
 	\melodic{
 	        [c]

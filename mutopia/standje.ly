@@ -17,6 +17,7 @@ multiple \paper{}s in one \score
 
 $vocal_verse1 = \melodic{
 	\octave c';
+	
 	% ugh: treble/bass
 %	\clef treble;
 %	\clef violin;
@@ -137,6 +138,7 @@ $treble_intro = \melodic{
 	r8 <['as-. c-.> <c-. es-.> <'as-. c-.> <c-. es-.> <'as-. c-.]> |
 	r8 <['as-. c-.> <c-. d-.> <'as-. c-.> <c-. d-.> <'as-. c-.]> |
 	r8 <['g-. 'b-.> <'b-. d-.> <'g-. 'b-.> <'b-. d-.> <'g-. 'b-.]> |
+	\break;
 	
 }
 
@@ -235,7 +237,9 @@ $bass_eentje = \melodic{
 		
 global = \melodic{
 	\meter 3/4; 
-	\key bes es as; 
+	\key bes es as;
+	\skip 4  * 12;
+	\break;
 }
 
 lyrics = \melodic{
@@ -251,6 +255,7 @@ $lyric_staff = \type Lyrics = lyric<
 >
 		
 vocals = \melodic{
+	\global
 	\skip 4 * 12; 
 	\$vocal_verse1 
 	\skip 4 * 24; 
@@ -299,11 +304,8 @@ $grand_staff = \type Grandstaff<
 		\$grand_staff
 	>
 	\paper{
-		% how does this work?
-		% previously we had the clear 'ideal whole note space' setting?
-%		arithmetic_multiplier = 6.\pt;
 		% ugh: the *first* (intro) line may only have four measures...
-		gourlay_maxmeasures = 4.;
+		gourlay_maxmeasures = 7.;
 	}
 	\midi{
 		\tempo 4 = 54;

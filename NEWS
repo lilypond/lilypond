@@ -1,3 +1,12 @@
+pl 56
+	- more dutch vocabulary
+	- Barnumber FAQ added
+	- bf: abbrev over whole note.
+	- feta: reverse turn.
+	- bf: rod distance
+	- bf: local key clashing
+
+***********
 pl 55
 	- bezier check and ajust for slur height
 	- better slur height ajust
@@ -12,6 +21,7 @@ pl 55
 	- nicer trills
 	- adjustment slur extend
 
+**********
 pl 54
 	- bf dynamic_grav
 	- bf accidentals with key change

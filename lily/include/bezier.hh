@@ -11,15 +11,6 @@
 #include "real.hh"
 
 /**
- Handy (x,y) of reals for Bezier  
- */
-struct Point
-{
-  Real x;
-  Real y;
-};
-
-/**
   Simple bezier curve
  */
 class Bezier
@@ -29,9 +20,9 @@ public:
   virtual ~Bezier ();
 
   /**
-  Calculate bezier curve into Point (x,y) array.
+  Calculate bezier curve into Offset (x,y) array.
   */
-  void calc (Point control[4]);
+  void calc (Offset control[4]);
 
   /**
   Return y that goes with x by interpolation.
@@ -39,7 +30,7 @@ public:
   Real y (Real x);
 
   int steps_i_;
-  Point* curve_;
+  Offset* curve_;
 };
 
 /**

@@ -60,7 +60,7 @@ singlepart = \melodic{
     
     \score{
     \melodic { 
-    	\singlepart 
+%    	\singlepart 
 	\multipart 
     }
     \paper {

@@ -44,6 +44,12 @@ protected:
     Default: ignore the info
     */
   virtual void acknowledge_element (Score_elem_info) {}
+
+  /** Do things with stuff found in acknowledge_element. Ugh. Should
+     be looped with acknowledge_element.
+     
+   */
+  virtual void process_acknowledged () {}
   /**
     Announce element. Default: pass on to daddy. Utility
     */

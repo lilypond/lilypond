@@ -7,6 +7,7 @@
 */
 
 #include <math.h>
+#include "offset.hh"
 #include "bezier.hh"
 #include "dimen.hh"
 #include "paper-def.hh"
@@ -14,7 +15,7 @@
 Bezier::Bezier (int steps_i)
 {
   steps_i_ = steps_i;
-  curve_ = new Point [steps_i_ + 1];
+  curve_ = new Offset [steps_i_ + 1];
 }
 
 Bezier::~Bezier ()
@@ -24,21 +25,21 @@ Bezier::~Bezier ()
 
 //from GNU gs3.33: ega.c
 void
-Bezier::calc (Point control[4])
+Bezier::calc (Offset control[4])
 {       
   Real dt = 1.0 / steps_i_;
-  Real cx = 3.0 * (control[1].x - control[0].x);
-  Real bx = 3.0 * (control[2].x - control[1].x) - cx;
-  Real ax = control[3].x - (control[0].x + cx + bx);
-  Real cy = 3.0 * (control[1].y - control[0].y);
-  Real by = 3.0 * (control[2].y - control[1].y) - cy; 
-  Real ay = control[3].y - (control[0].y + cy + by);
+  Real cx = 3.0 * (control[1].x() - control[0].x());
+  Real bx = 3.0 * (control[2].x() - control[1].x()) - cx;
+  Real ax = control[3].x() - (control[0].x() + cx + bx);
+  Real cy = 3.0 * (control[1].y () - control[0].y ());
+  Real by = 3.0 * (control[2].y () - control[1].y ()) - cy; 
+  Real ay = control[3].y () - (control[0].y () + cy + by);
   Real t = 0.0;
   int i = 0;
   while ( t <= 1.0 )
     {    
-      curve_[i].x = ((ax * t + bx) * t + cx) * t + control[0].x;
-      curve_[i++].y = ((ay * t + by) * t + cy) * t + control[0].y;
+      curve_[i].x() = ((ax * t + bx) * t + cx) * t + control[0].x();
+      curve_[i++].y () = ((ay * t + by) * t + cy) * t + control[0].y ();
       t += dt;
     }
 }
@@ -46,17 +47,17 @@ Bezier::calc (Point control[4])
 Real
 Bezier::y (Real x)
 {
-  if (x <= curve_[0].x)
-    return curve_[0].y;
+  if (x <= curve_[0].x())
+    return curve_[0].y ();
   for (int i = 1; i < steps_i_; i++ )
     {
-      if (x < curve_[i].x)
+      if (x < curve_[i].x())
 	{
-	  Real lin = (x - curve_[i-1].x) / (curve_[i].x - curve_[i-1].x);
-	  return curve_[i-1].y + lin * (curve_[i].y - curve_[i-1].y);
+	  Real lin = (x - curve_[i-1].x()) / (curve_[i].x() - curve_[i-1].x());
+	  return curve_[i-1].y () + lin * (curve_[i].y () - curve_[i-1].y ());
         }
     }
-  return curve_[steps_i_-1].y;
+  return curve_[steps_i_-1].y ();
 }
 
 
@@ -105,15 +106,19 @@ Bezier_bow::calc (Real dx, Real dy, Real h, Real d)
   // ugh, ugly height hack, see lily-ps-defs.tex
   Real height = (indent + h) * d;
  
-  Point control[4] = {0, 0, indent, height, b - indent, height, b, 0 };
+  Offset control[4];
+  control[0] = Offset(0, 0);
+  control[1] = Offset(indent, height);
+  control[2] = Offset(b - indent, height);
+  control[3] = Offset( b, 0 );
  
   Real phi = dx ? atan (dy/dx) : sign (dy) * pi / 2.0;
   Real sphi = sin (phi);
   Real cphi = cos (phi);
   for (int i = 1; i < 4; i++)
     {
-      control[i].x = cphi * control[i].x - sphi * control[i].y;
-      control[i].y = sphi * control[i].x + cphi * control[i].y;
+      control[i].x() = cphi * control[i].x() - sphi * control[i].y ();
+      control[i].y () = sphi * control[i].x() + cphi * control[i].y ();
     }
   Bezier::calc (control);
 }

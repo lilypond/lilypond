@@ -1,8 +1,14 @@
-# Makefile.in generated automatically by automake 1.2 from Makefile.am
+# Makefile.in generated automatically by automake 1.2f from Makefile.am
 
-# Copyright (C) 1994, 1995, 1996, 1997 Free Software Foundation, Inc.
+# Copyright (C) 1994, 1995, 1996, 1997, 1998 Free Software Foundation, Inc.
 # This Makefile.in is free software; the Free Software Foundation
-# gives unlimited permission to copy, distribute and modify it.
+# gives unlimited permission to copy and/or distribute it,
+# with or without modifications, as long as this notice is preserved.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY, to the extent permitted by law; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
 
 # Generated automatically by wild-perl 0.1
 # project  LilyPond -- the musical typesetter # title	   makefile for lilypond
@@ -52,12 +58,12 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 transform = @program_transform_name@
 
-NORMAL_INSTALL = true
-PRE_INSTALL = true
-POST_INSTALL = true
-NORMAL_UNINSTALL = true
-PRE_UNINSTALL = true
-POST_UNINSTALL = true
+NORMAL_INSTALL = :
+PRE_INSTALL = :
+POST_INSTALL = :
+NORMAL_UNINSTALL = :
+PRE_UNINSTALL = :
+POST_UNINSTALL = :
 host_alias = @host_alias@
 host_triplet = @host@
 AGE = @AGE@
@@ -186,6 +192,10 @@ LEXLIB = @LEXLIB@
 CXXCOMPILE = $(CXX) $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CXXFLAGS)
 LTCXXCOMPILE = $(LIBTOOL) --mode=compile $(CXX) $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CXXFLAGS)
 CXXLINK = $(LIBTOOL) --mode=link $(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@
+CFLAGS = @CFLAGS@
+COMPILE = $(CC) $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS)
+LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS)
+LINK = $(LIBTOOL) --mode=link $(CC) $(CFLAGS) $(LDFLAGS) -o $@
 HEADERS =  $(noinst_HEADERS)
 
 DIST_COMMON =  Makefile.am Makefile.in lexer.cc parser.cc
@@ -200,7 +210,7 @@ OBJECTS = $(lilypond_OBJECTS)
 default: all
 
 .SUFFIXES:
-.SUFFIXES: .c .cc .h .ll .lo .o .yy
+.SUFFIXES: .S .c .cc .ll .lo .o .s .yy
 $(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
 	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps lily/Makefile
 
@@ -212,7 +222,7 @@ Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 mostlyclean-binPROGRAMS:
 
 clean-binPROGRAMS:
-	test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
+	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
 
 distclean-binPROGRAMS:
 
@@ -229,7 +239,7 @@ install-binPROGRAMS: $(bin_PROGRAMS)
 	done
 
 uninstall-binPROGRAMS:
-	$(NORMAL_UNINSTALL)
+	@$(NORMAL_UNINSTALL)
 	list='$(bin_PROGRAMS)'; for p in $$list; do \
 	  rm -f $(bindir)/`echo $$p|sed '$(transform)'`; \
 	done
@@ -237,24 +247,36 @@ uninstall-binPROGRAMS:
 .c.o:
 	$(COMPILE) -c $<
 
+.s.o:
+	$(COMPILE) -c $<
+
+.S.o:
+	$(COMPILE) -c $<
+
 mostlyclean-compile:
-	rm -f *.o core
+	-rm -f *.o core *.core
 
 clean-compile:
 
 distclean-compile:
-	rm -f *.tab.c
+	-rm -f *.tab.c
 
 maintainer-clean-compile:
 
 .c.lo:
 	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
 
+.s.lo:
+	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
+
+.S.lo:
+	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
+
 mostlyclean-libtool:
-	rm -f *.lo
+	-rm -f *.lo
 
 clean-libtool:
-	rm -rf .libs
+	-rm -rf .libs _libs
 
 distclean-libtool:
 
@@ -264,15 +286,12 @@ lilypond: $(lilypond_OBJECTS) $(lilypond_DEPENDENCIES)
 	@rm -f lilypond
 	$(CXXLINK) $(lilypond_LDFLAGS) $(lilypond_OBJECTS) $(lilypond_LDADD) $(LIBS)
 .yy.cc:
-	$(YACC) $(YFLAGS) $< && mv y.tab.c $@
+	$(YACC) $(YFLAGS) $< && mv y.tab.c $*.cc
 	if test -f y.tab.h; then \
 	if cmp -s y.tab.h $*.h; then rm -f y.tab.h; else mv y.tab.h $*.h; fi; \
 	else :; fi
-.yy.h:
-	$(YACC) $(YFLAGS) $< && mv y.tab.c $@
-	if test -f y.tab.h; then \
-	if cmp -s y.tab.h $*.h; then rm -f y.tab.h; else mv y.tab.h $*.h; fi; \
-	else :; fi
+parser.hh: parser.cc
+
 .ll.cc:
 	$(LEX) $(LFLAGS) $< && mv $(LEX_OUTPUT_ROOT).c $@
 .cc.o:
@@ -293,7 +312,7 @@ all-recursive install-data-recursive install-exec-recursive \
 installdirs-recursive install-recursive uninstall-recursive  \
 check-recursive installcheck-recursive info-recursive dvi-recursive:
 	@set fnord $(MAKEFLAGS); amf=$$2; \
-	for subdir in $(SUBDIRS); do \
+	list='$(SUBDIRS)'; for subdir in $$list; do \
 	  target=`echo $@ | sed s/-recursive//`; \
 	  echo "Making $$target in $$subdir"; \
 	  (cd $$subdir && $(MAKE) $$target) \
@@ -303,7 +322,9 @@ check-recursive installcheck-recursive info-recursive dvi-recursive:
 mostlyclean-recursive clean-recursive distclean-recursive \
 maintainer-clean-recursive:
 	@set fnord $(MAKEFLAGS); amf=$$2; \
-	rev=''; for subdir in $(SUBDIRS); do rev="$$rev $$subdir"; done; \
+	rev=''; list='$(SUBDIRS)'; for subdir in $$list; do \
+	  rev="$$subdir $$rev"; \
+	done; \
 	for subdir in $$rev; do \
 	  target=`echo $@ | sed s/-recursive//`; \
 	  echo "Making $$target in $$subdir"; \
@@ -317,24 +338,29 @@ tags-recursive:
 
 tags: TAGS
 
-ID: $(HEADERS) $(SOURCES)
-	here=`pwd` && cd $(srcdir) && mkid -f$$here/ID $(SOURCES) $(HEADERS)
+ID: $(HEADERS) $(SOURCES) $(LISP)
+	here=`pwd` && cd $(srcdir) \
+	  && mkid -f$$here/ID $(SOURCES) $(HEADERS) $(LISP)
 
-TAGS: tags-recursive $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES)
+TAGS: tags-recursive $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) $(LISP)
 	tags=; \
 	here=`pwd`; \
 	list='$(SUBDIRS)'; for subdir in $$list; do \
 	  test -f $$subdir/TAGS && tags="$$tags -i $$here/$$subdir/TAGS"; \
 	done; \
-	test -z "$(ETAGS_ARGS)$(SOURCES)$(HEADERS)$$tags" \
-	  || (cd $(srcdir) && etags $(ETAGS_ARGS) $$tags  $(SOURCES) $(HEADERS) -o $$here/TAGS)
+	list='$(SOURCES) $(HEADERS)'; \
+	unique=`for i in $$list; do echo $$i; done | \
+	  awk '    { files[$$0] = 1; } \
+	       END { for (i in files) print i; }'`; \
+	test -z "$(ETAGS_ARGS)$$unique$(LISP)$$tags" \
+	  || (cd $(srcdir) && etags $(ETAGS_ARGS) $$tags  $$unique $(LISP) -o $$here/TAGS)
 
 mostlyclean-tags:
 
 clean-tags:
 
 distclean-tags:
-	rm -f TAGS ID
+	-rm -f TAGS ID
 
 maintainer-clean-tags:
 
@@ -349,19 +375,18 @@ distdir: $(DISTFILES)
 	  || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
 	  || cp -p $$d/$$file $(distdir)/$$file; \
 	done
-	for subdir in $(SUBDIRS); do		\
-	  test -d $(distdir)/$$subdir		\
-	  || mkdir $(distdir)/$$subdir		\
-	  || exit 1;				\
-	  chmod 777 $(distdir)/$$subdir;	\
+	for subdir in $(SUBDIRS); do \
+	  test -d $(distdir)/$$subdir \
+	  || mkdir $(distdir)/$$subdir \
+	  || exit 1; \
+	  chmod 777 $(distdir)/$$subdir; \
 	  (cd $$subdir && $(MAKE) top_distdir=../$(top_distdir) distdir=../$(distdir)/$$subdir distdir) \
 	    || exit 1; \
 	done
-abbrev.o abbrev.lo: abbrev.cc include/abbrev.hh include/item.hh \
-	include/boxes.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh ../flower/include/interval.hh \
-	../flower/include/compare.hh include/offset.hh include/axes.hh \
-	../flower/include/string.hh \
+abbrev.o: abbrev.cc include/abbrev.hh include/item.hh include/boxes.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/interval.hh ../flower/include/compare.hh \
+	include/offset.hh include/axes.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh include/score-elem.hh \
@@ -384,8 +409,7 @@ abbrev.o abbrev.lo: abbrev.cc include/abbrev.hh include/item.hh \
 	../flower/include/assoc.hh include/lookup.hh include/atom.hh \
 	../flower/include/scalar.hh include/stem.hh include/molecule.hh \
 	include/dimen.hh
-abbreviation-beam-engraver.o abbreviation-beam-engraver.lo: \
-	abbreviation-beam-engraver.cc \
+abbreviation-beam-engraver.o: abbreviation-beam-engraver.cc \
 	../lib/include/duration-convert.hh ../lib/include/duration.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../lib/include/moment.hh ../flower/include/rational.hh \
@@ -416,8 +440,8 @@ abbreviation-beam-engraver.o abbreviation-beam-engraver.lo: \
 	include/directional-spanner.hh include/spanner.hh \
 	include/rod.hh include/musical-request.hh include/misc.hh \
 	include/grouping.hh
-abbreviation-beam.o abbreviation-beam.lo: abbreviation-beam.cc \
-	include/p-col.hh include/horizontal-group-item.hh \
+abbreviation-beam.o: abbreviation-beam.cc include/p-col.hh \
+	include/horizontal-group-item.hh \
 	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/score-elem.hh ../flower/include/parray.hh \
 	../flower/include/varray.hh \
@@ -450,7 +474,7 @@ abbreviation-beam.o abbreviation-beam.lo: abbreviation-beam.cc \
 	include/music-output-def.hh ../flower/include/dictionary.hh \
 	../flower/include/assoc.hh include/lookup.hh \
 	include/stem-info.hh
-atom.o atom.lo: atom.cc include/atom.hh ../flower/include/string.hh \
+atom.o: atom.cc include/atom.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
@@ -461,7 +485,7 @@ atom.o atom.lo: atom.cc include/atom.hh ../flower/include/string.hh \
 	../flower/include/scalar.hh include/dimen.hh \
 	../flower/include/varray.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh
-audio-column.o audio-column.lo: audio-column.cc include/audio-column.hh \
+audio-column.o: audio-column.cc include/audio-column.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/plist.hh \
 	../flower/include/list.hh ../flower/include/list.icc \
@@ -477,17 +501,16 @@ audio-column.o audio-column.lo: audio-column.cc include/audio-column.hh \
 	../flower/include/virtual-methods.hh include/performance.hh \
 	include/music-output.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh
-audio-element.o audio-element.lo: audio-element.cc \
-	include/audio-element.hh ../flower/include/virtual-methods.hh \
-	include/debug.hh ../flower/include/dstream.hh \
-	../flower/include/string.hh \
+audio-element.o: audio-element.cc include/audio-element.hh \
+	../flower/include/virtual-methods.hh include/debug.hh \
+	../flower/include/dstream.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
 	../lib/include/warn.hh
-audio-item.o audio-item.lo: audio-item.cc include/debug.hh \
+audio-item.o: audio-item.cc include/debug.hh \
 	../flower/include/dstream.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -506,7 +529,7 @@ audio-item.o audio-item.lo: audio-item.cc include/debug.hh \
 	../lib/include/input.hh include/music.hh include/minterval.hh \
 	../flower/include/interval.hh include/direction.hh \
 	include/audio-column.hh
-audio-staff.o audio-staff.lo: audio-staff.cc include/audio-staff.hh \
+audio-staff.o: audio-staff.cc include/audio-staff.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/plist.hh \
 	../flower/include/list.hh ../flower/include/list.icc \
@@ -523,10 +546,9 @@ audio-staff.o audio-staff.lo: audio-staff.cc include/audio-staff.hh \
 	../lib/include/moment.hh ../flower/include/rational.hh \
 	include/midi-stream.hh include/midi-walker.hh \
 	../flower/include/pqueue.hh ../flower/include/varray.hh
-axis-group-administration.o axis-group-administration.lo: \
-	axis-group-administration.cc ../flower/include/interval.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/compare.hh \
+axis-group-administration.o: axis-group-administration.cc \
+	../flower/include/interval.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/compare.hh \
 	include/axis-group-administration.hh \
 	../flower/include/parray.hh ../flower/include/varray.hh \
 	include/axes.hh ../flower/include/string.hh \
@@ -538,7 +560,7 @@ axis-group-administration.o axis-group-administration.lo: \
 	../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/offset.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh
-axis-group-element.o axis-group-element.lo: axis-group-element.cc \
+axis-group-element.o: axis-group-element.cc \
 	include/axis-group-element.hh include/score-elem.hh \
 	../flower/include/parray.hh ../flower/include/varray.hh \
 	../flower/include/virtual-methods.hh \
@@ -552,10 +574,9 @@ axis-group-element.o axis-group-element.lo: axis-group-element.cc \
 	include/lily-proto.hh ../lib/include/proto.hh \
 	../flower/include/interval.hh \
 	include/axis-group-administration.hh
-axis-group-item.o axis-group-item.lo: axis-group-item.cc \
-	include/axis-group-item.hh include/axis-group-element.hh \
-	include/score-elem.hh ../flower/include/parray.hh \
-	../flower/include/varray.hh \
+axis-group-item.o: axis-group-item.cc include/axis-group-item.hh \
+	include/axis-group-element.hh include/score-elem.hh \
+	../flower/include/parray.hh ../flower/include/varray.hh \
 	../flower/include/virtual-methods.hh \
 	../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/offset.hh \
@@ -575,7 +596,7 @@ axis-group-item.o axis-group-item.lo: axis-group-item.cc \
 	../flower/include/link.icc ../flower/include/pcursor.hh \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
 	../flower/include/plist.icc include/rod.hh
-axis-group-spanner.o axis-group-spanner.lo: axis-group-spanner.cc \
+axis-group-spanner.o: axis-group-spanner.cc \
 	include/axis-group-spanner.hh include/spanner.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -600,17 +621,16 @@ axis-group-spanner.o axis-group-spanner.lo: axis-group-spanner.cc \
 	../flower/include/link.hh ../flower/include/link.icc \
 	../flower/include/pcursor.hh ../flower/include/cursor.icc \
 	../flower/include/iterate.hh ../flower/include/plist.icc
-axis.o axis.lo: axis.cc include/axes.hh ../flower/include/string.hh \
+axis.o: axis.cc include/axes.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh
-bar-column-grav.o bar-column-grav.lo: bar-column-grav.cc \
-	include/bar-column-grav.hh include/engraver.hh \
-	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/varray.hh include/request.hh \
-	../flower/include/string.hh \
+bar-column-grav.o: bar-column-grav.cc include/bar-column-grav.hh \
+	include/engraver.hh include/lily-proto.hh \
+	../lib/include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/varray.hh \
+	include/request.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
@@ -632,7 +652,7 @@ bar-column-grav.o bar-column-grav.lo: bar-column-grav.cc \
 	include/horizontal-vertical-group-elem.hh \
 	include/vertical-group-elem.hh include/horizontal-group-elem.hh \
 	include/script.hh include/staff-side.hh include/bar.hh
-bar-column.o bar-column.lo: bar-column.cc include/bar.hh include/item.hh \
+bar-column.o: bar-column.cc include/bar.hh include/item.hh \
 	include/boxes.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/interval.hh \
 	../flower/include/compare.hh include/offset.hh include/axes.hh \
@@ -652,11 +672,11 @@ bar-column.o bar-column.lo: bar-column.cc include/bar.hh include/item.hh \
 	include/axis-group-administration.hh \
 	include/horizontal-vertical-group-elem.hh \
 	include/vertical-group-elem.hh include/horizontal-group-elem.hh
-bar-grav.o bar-grav.lo: bar-grav.cc include/bar-grav.hh \
-	include/engraver.hh include/lily-proto.hh \
-	../lib/include/proto.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh ../flower/include/varray.hh \
-	include/request.hh ../flower/include/string.hh \
+bar-grav.o: bar-grav.cc include/bar-grav.hh include/engraver.hh \
+	include/lily-proto.hh ../lib/include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/varray.hh include/request.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
@@ -679,12 +699,11 @@ bar-grav.o bar-grav.lo: bar-grav.cc include/bar-grav.hh \
 	../flower/include/link.icc ../flower/include/pcursor.hh \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
 	../flower/include/plist.icc include/translator-group.hh
-bar-number-grav.o bar-number-grav.lo: bar-number-grav.cc \
-	include/bar-number-grav.hh include/engraver.hh \
-	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/varray.hh include/request.hh \
-	../flower/include/string.hh \
+bar-number-grav.o: bar-number-grav.cc include/bar-number-grav.hh \
+	include/engraver.hh include/lily-proto.hh \
+	../lib/include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/varray.hh \
+	include/request.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
@@ -704,7 +723,7 @@ bar-number-grav.o bar-number-grav.lo: bar-number-grav.cc \
 	include/command-request.hh ../lib/include/duration.hh \
 	../lib/include/plet.hh include/bar.hh \
 	include/time-description.hh
-bar.o bar.lo: bar.cc include/bar.hh include/item.hh include/boxes.hh \
+bar.o: bar.cc include/bar.hh include/item.hh include/boxes.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/interval.hh ../flower/include/compare.hh \
 	include/offset.hh include/axes.hh ../flower/include/string.hh \
@@ -728,11 +747,10 @@ bar.o bar.lo: bar.cc include/bar.hh include/item.hh include/boxes.hh \
 	include/lookup.hh include/atom.hh ../flower/include/scalar.hh \
 	include/debug.hh ../flower/include/dstream.hh \
 	../lib/include/warn.hh
-beam-grav.o beam-grav.lo: beam-grav.cc \
-	../lib/include/duration-convert.hh ../lib/include/duration.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../lib/include/moment.hh ../flower/include/rational.hh \
-	../flower/include/compare.hh \
+beam-grav.o: beam-grav.cc ../lib/include/duration-convert.hh \
+	../lib/include/duration.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../lib/include/moment.hh \
+	../flower/include/rational.hh ../flower/include/compare.hh \
 	../flower/include/arithmetic-operator.hh ../lib/include/plet.hh \
 	../flower/include/string.hh ../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/varray.hh \
@@ -761,7 +779,7 @@ beam-grav.o beam-grav.lo: beam-grav.cc \
 	include/horizontal-group-item.hh \
 	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh
-beam-swallow-trans.o beam-swallow-trans.lo: beam-swallow-trans.cc \
+beam-swallow-trans.o: beam-swallow-trans.cc \
 	include/type-swallow-trans.hh include/translator.hh \
 	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
@@ -778,8 +796,7 @@ beam-swallow-trans.o beam-swallow-trans.lo: beam-swallow-trans.cc \
 	include/music.hh include/minterval.hh \
 	../flower/include/interval.hh include/direction.hh \
 	../lib/include/duration.hh ../lib/include/plet.hh
-beam.o beam.lo: beam.cc include/p-col.hh \
-	include/horizontal-group-item.hh \
+beam.o: beam.cc include/p-col.hh include/horizontal-group-item.hh \
 	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/score-elem.hh ../flower/include/parray.hh \
 	../flower/include/varray.hh \
@@ -812,14 +829,13 @@ beam.o beam.lo: beam.cc include/p-col.hh \
 	include/music-output-def.hh ../flower/include/dictionary.hh \
 	../flower/include/assoc.hh include/lookup.hh \
 	include/stem-info.hh include/main.hh
-bezier.o bezier.lo: bezier.cc include/bezier.hh include/lily-proto.hh \
-	../lib/include/proto.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh include/dimen.hh \
-	../flower/include/string.hh \
+bezier.o: bezier.cc include/offset.hh ../flower/include/real.hh \
+	include/axes.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
-	../flower/include/string-handle.hh \
+	../flower/include/fproto.hh ../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
-	include/paper-def.hh ../lib/include/moment.hh \
+	include/bezier.hh include/lily-proto.hh ../lib/include/proto.hh \
+	include/dimen.hh include/paper-def.hh ../lib/include/moment.hh \
 	../flower/include/rational.hh ../flower/include/varray.hh \
 	../flower/include/interval.hh include/music-output-def.hh \
 	../flower/include/virtual-methods.hh ../flower/include/plist.hh \
@@ -829,7 +845,7 @@ bezier.o bezier.lo: bezier.cc include/bezier.hh include/lily-proto.hh \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
 	../flower/include/plist.icc ../flower/include/dictionary.hh \
 	../flower/include/assoc.hh
-bow.o bow.lo: bow.cc include/bow.hh include/directional-spanner.hh \
+bow.o: bow.cc include/bow.hh include/directional-spanner.hh \
 	include/spanner.hh include/lily-proto.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh include/score-elem.hh \
@@ -852,16 +868,16 @@ bow.o bow.lo: bow.cc include/bow.hh include/directional-spanner.hh \
 	../flower/include/plist.icc ../flower/include/dictionary.hh \
 	../flower/include/assoc.hh include/molecule.hh include/boxes.hh \
 	include/lookup.hh include/atom.hh ../flower/include/scalar.hh
-boxes.o boxes.lo: boxes.cc include/boxes.hh ../flower/include/fproto.hh \
+boxes.o: boxes.cc include/boxes.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/interval.hh \
 	../flower/include/compare.hh include/offset.hh include/axes.hh \
 	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/varray.hh
-break-align-item.o break-align-item.lo: break-align-item.cc \
-	include/break-align-item.hh include/horizontal-align-item.hh \
-	include/item.hh include/boxes.hh ../flower/include/fproto.hh \
+break-align-item.o: break-align-item.cc include/break-align-item.hh \
+	include/horizontal-align-item.hh include/item.hh \
+	include/boxes.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/interval.hh \
 	../flower/include/compare.hh include/offset.hh include/axes.hh \
 	../flower/include/string.hh \
@@ -874,7 +890,7 @@ break-align-item.o break-align-item.lo: break-align-item.cc \
 	include/graphical-element.hh include/lily-proto.hh \
 	../lib/include/proto.hh include/drul-array.hh \
 	include/direction.hh
-break.o break.lo: break.cc include/score-column.hh include/lily-proto.hh \
+break.o: break.cc include/score-column.hh include/lily-proto.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/varray.hh \
 	../lib/include/moment.hh ../flower/include/rational.hh \
@@ -904,17 +920,17 @@ break.o break.lo: break.cc include/score-column.hh include/lily-proto.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh \
 	include/scoreline.hh include/spanner.hh include/p-score.hh \
 	include/music-output.hh ../flower/include/cpu-timer.hh
-change-iterator.o change-iterator.lo: change-iterator.cc \
-	include/change-iterator.hh include/music-iterator.hh \
-	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/plist.hh ../flower/include/list.hh \
-	../flower/include/list.icc ../flower/include/cursor.hh \
-	../flower/include/link.hh ../flower/include/link.icc \
-	../flower/include/compare.hh ../flower/include/pcursor.hh \
-	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc ../flower/include/varray.hh \
-	../lib/include/moment.hh ../flower/include/rational.hh \
+change-iterator.o: change-iterator.cc include/change-iterator.hh \
+	include/music-iterator.hh include/lily-proto.hh \
+	../lib/include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/plist.hh \
+	../flower/include/list.hh ../flower/include/list.icc \
+	../flower/include/cursor.hh ../flower/include/link.hh \
+	../flower/include/link.icc ../flower/include/compare.hh \
+	../flower/include/pcursor.hh ../flower/include/cursor.icc \
+	../flower/include/iterate.hh ../flower/include/plist.icc \
+	../flower/include/varray.hh ../lib/include/moment.hh \
+	../flower/include/rational.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/virtual-methods.hh \
 	include/translator-group.hh ../flower/include/string.hh \
@@ -926,19 +942,19 @@ change-iterator.o change-iterator.lo: change-iterator.cc \
 	include/music.hh include/minterval.hh \
 	../flower/include/interval.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh
-change-translator.o change-translator.lo: change-translator.cc \
-	include/change-translator.hh include/music.hh \
-	../flower/include/virtual-methods.hh ../lib/include/input.hh \
-	../lib/include/proto.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh include/minterval.hh \
-	../flower/include/interval.hh ../flower/include/compare.hh \
-	../lib/include/moment.hh ../flower/include/rational.hh \
+change-translator.o: change-translator.cc include/change-translator.hh \
+	include/music.hh ../flower/include/virtual-methods.hh \
+	../lib/include/input.hh ../lib/include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	include/minterval.hh ../flower/include/interval.hh \
+	../flower/include/compare.hh ../lib/include/moment.hh \
+	../flower/include/rational.hh \
 	../flower/include/arithmetic-operator.hh include/lily-proto.hh \
 	../flower/include/string.hh ../flower/include/string-handle.hh \
 	../flower/include/international.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh
-chord-iterator.o chord-iterator.lo: chord-iterator.cc \
-	include/translator-group.hh ../flower/include/string.hh \
+chord-iterator.o: chord-iterator.cc include/translator-group.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
@@ -959,7 +975,7 @@ chord-iterator.o chord-iterator.lo: chord-iterator.cc \
 	../flower/include/rational.hh include/music-list.hh \
 	include/music.hh include/minterval.hh \
 	../flower/include/interval.hh
-clef-grav.o clef-grav.lo: clef-grav.cc include/bar.hh include/item.hh \
+clef-grav.o: clef-grav.cc include/bar.hh include/item.hh \
 	include/boxes.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/interval.hh \
 	../flower/include/compare.hh include/offset.hh include/axes.hh \
@@ -984,8 +1000,8 @@ clef-grav.o clef-grav.lo: clef-grav.cc include/bar.hh include/item.hh \
 	../lib/include/warn.hh include/command-request.hh \
 	../lib/include/duration.hh ../lib/include/plet.hh \
 	include/time-description.hh
-clef-item.o clef-item.lo: clef-item.cc include/clef-item.hh \
-	include/item.hh include/boxes.hh ../flower/include/fproto.hh \
+clef-item.o: clef-item.cc include/clef-item.hh include/item.hh \
+	include/boxes.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/interval.hh \
 	../flower/include/compare.hh include/offset.hh include/axes.hh \
 	../flower/include/string.hh \
@@ -1011,7 +1027,7 @@ clef-item.o clef-item.lo: clef-item.cc include/clef-item.hh \
 	../lib/include/input.hh include/music.hh include/minterval.hh \
 	include/score-elem-info.hh include/staff-info.hh \
 	include/translator.hh
-col-info.o col-info.lo: col-info.cc include/p-col.hh \
+col-info.o: col-info.cc include/p-col.hh \
 	include/horizontal-group-item.hh \
 	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/score-elem.hh ../flower/include/parray.hh \
@@ -1037,21 +1053,21 @@ col-info.o col-info.lo: col-info.cc include/p-col.hh \
 	../flower/include/pointer.hh ../flower/include/assoc.hh \
 	include/debug.hh ../flower/include/dstream.hh \
 	../lib/include/warn.hh
-colhpos.o colhpos.lo: colhpos.cc include/colhpos.hh \
-	../flower/include/varray.hh include/lily-proto.hh \
-	../lib/include/proto.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh include/debug.hh \
-	../flower/include/dstream.hh ../flower/include/string.hh \
+colhpos.o: colhpos.cc include/colhpos.hh ../flower/include/varray.hh \
+	include/lily-proto.hh ../lib/include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	include/debug.hh ../flower/include/dstream.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	../lib/include/warn.hh ../flower/include/vector.hh \
 	include/line-spacer.hh ../flower/include/interval.hh
-collision-grav.o collision-grav.lo: collision-grav.cc \
-	include/note-column.hh include/item.hh include/boxes.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/interval.hh ../flower/include/compare.hh \
-	include/offset.hh include/axes.hh ../flower/include/string.hh \
+collision-grav.o: collision-grav.cc include/note-column.hh \
+	include/item.hh include/boxes.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/interval.hh \
+	../flower/include/compare.hh include/offset.hh include/axes.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh include/score-elem.hh \
@@ -1074,8 +1090,8 @@ collision-grav.o collision-grav.lo: collision-grav.cc \
 	include/staff-info.hh include/translator.hh \
 	../flower/include/dictionary.hh ../flower/include/assoc.hh \
 	include/collision.hh
-collision.o collision.lo: collision.cc include/debug.hh \
-	../flower/include/dstream.hh ../flower/include/string.hh \
+collision.o: collision.cc include/debug.hh ../flower/include/dstream.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
@@ -1104,9 +1120,8 @@ collision.o collision.lo: collision.cc include/debug.hh \
 	../flower/include/pcursor.hh ../flower/include/cursor.icc \
 	../flower/include/iterate.hh ../flower/include/plist.icc \
 	../flower/include/dictionary.hh ../flower/include/assoc.hh
-command-request.o command-request.lo: command-request.cc \
-	include/command-request.hh include/request.hh \
-	../flower/include/string.hh \
+command-request.o: command-request.cc include/command-request.hh \
+	include/request.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
@@ -1119,17 +1134,16 @@ command-request.o command-request.lo: command-request.cc \
 	../lib/include/duration.hh ../lib/include/plet.hh \
 	include/debug.hh ../flower/include/dstream.hh \
 	../lib/include/warn.hh include/musical-request.hh
-crescendo.o crescendo.lo: crescendo.cc include/molecule.hh \
-	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/plist.hh ../flower/include/list.hh \
-	../flower/include/list.icc ../flower/include/cursor.hh \
-	../flower/include/link.hh ../flower/include/link.icc \
-	../flower/include/compare.hh ../flower/include/pcursor.hh \
-	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc include/boxes.hh \
-	../flower/include/interval.hh include/offset.hh include/axes.hh \
-	../flower/include/string.hh \
+crescendo.o: crescendo.cc include/molecule.hh include/lily-proto.hh \
+	../lib/include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/plist.hh \
+	../flower/include/list.hh ../flower/include/list.icc \
+	../flower/include/cursor.hh ../flower/include/link.hh \
+	../flower/include/link.icc ../flower/include/compare.hh \
+	../flower/include/pcursor.hh ../flower/include/cursor.icc \
+	../flower/include/iterate.hh ../flower/include/plist.icc \
+	include/boxes.hh ../flower/include/interval.hh \
+	include/offset.hh include/axes.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh include/direction.hh \
@@ -1150,7 +1164,7 @@ crescendo.o crescendo.lo: crescendo.cc include/molecule.hh \
 	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/item.hh
-debug.o debug.lo: debug.cc include/debug.hh ../flower/include/dstream.hh \
+debug.o: debug.cc include/debug.hh ../flower/include/dstream.hh \
 	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -1160,7 +1174,7 @@ debug.o debug.lo: debug.cc include/debug.hh ../flower/include/dstream.hh \
 	../lib/include/warn.hh ../flower/include/flower-debug.hh \
 	../lib/include/moment.hh ../flower/include/rational.hh \
 	include/main.hh
-dimen.o dimen.lo: dimen.cc include/dimen.hh ../flower/include/real.hh \
+dimen.o: dimen.cc include/dimen.hh ../flower/include/real.hh \
 	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/string-handle.hh \
@@ -1168,7 +1182,7 @@ dimen.o dimen.lo: dimen.cc include/dimen.hh ../flower/include/real.hh \
 	include/debug.hh ../flower/include/dstream.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
 	../lib/include/warn.hh
-directional-spanner.o directional-spanner.lo: directional-spanner.cc \
+directional-spanner.o: directional-spanner.cc \
 	include/directional-spanner.hh include/spanner.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -1183,9 +1197,9 @@ directional-spanner.o directional-spanner.lo: directional-spanner.cc \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	../flower/include/interval.hh include/drul-array.hh \
 	include/direction.hh include/rod.hh
-dot-column-grav.o dot-column-grav.lo: dot-column-grav.cc
-dot-column.o dot-column.lo: dot-column.cc include/dots.hh \
-	include/item.hh include/boxes.hh ../flower/include/fproto.hh \
+dot-column-grav.o: dot-column-grav.cc
+dot-column.o: dot-column.cc include/dots.hh include/item.hh \
+	include/boxes.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/interval.hh \
 	../flower/include/compare.hh include/offset.hh include/axes.hh \
 	../flower/include/string.hh \
@@ -1202,7 +1216,7 @@ dot-column.o dot-column.lo: dot-column.cc include/dots.hh \
 	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/rhythmic-head.hh
-dots.o dots.lo: dots.cc include/dots.hh include/item.hh include/boxes.hh \
+dots.o: dots.cc include/dots.hh include/item.hh include/boxes.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/interval.hh ../flower/include/compare.hh \
 	include/offset.hh include/axes.hh ../flower/include/string.hh \
@@ -1224,7 +1238,7 @@ dots.o dots.lo: dots.cc include/dots.hh include/item.hh include/boxes.hh \
 	../flower/include/rational.hh include/music-output-def.hh \
 	../flower/include/dictionary.hh ../flower/include/assoc.hh \
 	include/lookup.hh include/atom.hh ../flower/include/scalar.hh
-dynamic-grav.o dynamic-grav.lo: dynamic-grav.cc include/debug.hh \
+dynamic-grav.o: dynamic-grav.cc include/debug.hh \
 	../flower/include/dstream.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -1263,18 +1277,17 @@ dynamic-grav.o dynamic-grav.lo: dynamic-grav.cc include/debug.hh \
 	include/horizontal-vertical-group-item.hh \
 	include/horizontal-vertical-group-elem.hh \
 	include/vertical-group-elem.hh
-engraver-group.o engraver-group.lo: engraver-group.cc \
-	../lib/include/proto.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh ../flower/include/plist.hh \
-	../flower/include/list.hh ../flower/include/list.icc \
-	../flower/include/cursor.hh ../flower/include/link.hh \
-	../flower/include/link.icc ../flower/include/compare.hh \
-	../flower/include/pcursor.hh ../flower/include/cursor.icc \
-	../flower/include/iterate.hh ../flower/include/plist.icc \
-	include/engraver-group.hh include/lily-proto.hh \
-	../flower/include/parray.hh ../flower/include/varray.hh \
-	include/score-elem-info.hh ../flower/include/scalar.hh \
-	../flower/include/string.hh \
+engraver-group.o: engraver-group.cc ../lib/include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/plist.hh ../flower/include/list.hh \
+	../flower/include/list.icc ../flower/include/cursor.hh \
+	../flower/include/link.hh ../flower/include/link.icc \
+	../flower/include/compare.hh ../flower/include/pcursor.hh \
+	../flower/include/cursor.icc ../flower/include/iterate.hh \
+	../flower/include/plist.icc include/engraver-group.hh \
+	include/lily-proto.hh ../flower/include/parray.hh \
+	../flower/include/varray.hh include/score-elem-info.hh \
+	../flower/include/scalar.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh include/engraver.hh \
@@ -1290,13 +1303,12 @@ engraver-group.o engraver-group.lo: engraver-group.cc \
 	include/p-score.hh include/colhpos.hh include/music-output.hh \
 	include/score-elem.hh ../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/offset.hh include/axes.hh
-engraver.o engraver.lo: engraver.cc include/music-list.hh \
-	include/music.hh ../flower/include/virtual-methods.hh \
-	../lib/include/input.hh ../lib/include/proto.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	include/minterval.hh ../flower/include/interval.hh \
-	../flower/include/compare.hh ../lib/include/moment.hh \
-	../flower/include/rational.hh \
+engraver.o: engraver.cc include/music-list.hh include/music.hh \
+	../flower/include/virtual-methods.hh ../lib/include/input.hh \
+	../lib/include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh include/minterval.hh \
+	../flower/include/interval.hh ../flower/include/compare.hh \
+	../lib/include/moment.hh ../flower/include/rational.hh \
 	../flower/include/arithmetic-operator.hh include/lily-proto.hh \
 	../flower/include/string.hh ../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/plist.hh \
@@ -1314,7 +1326,7 @@ engraver.o engraver.lo: engraver.cc include/music-list.hh \
 	../flower/include/parray.hh include/engraver-group.hh \
 	include/translator-group.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh
-general-script-def.o general-script-def.lo: general-script-def.cc \
+general-script-def.o: general-script-def.cc \
 	include/general-script-def.hh include/lily-proto.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../lib/include/input.hh \
@@ -1326,9 +1338,8 @@ general-script-def.o general-script-def.lo: general-script-def.cc \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	../lib/include/warn.hh include/atom.hh include/boxes.hh \
 	../flower/include/interval.hh include/offset.hh include/axes.hh
-global-translator.o global-translator.lo: global-translator.cc \
-	include/global-translator.hh include/translator-group.hh \
-	../flower/include/string.hh \
+global-translator.o: global-translator.cc include/global-translator.hh \
+	include/translator-group.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
@@ -1344,21 +1355,21 @@ global-translator.o global-translator.lo: global-translator.cc \
 	../flower/include/pcursor.hh ../flower/include/cursor.icc \
 	../flower/include/iterate.hh ../flower/include/plist.icc \
 	../flower/include/rational.hh ../flower/include/pqueue.hh
-gourlay-breaking.o gourlay-breaking.lo: gourlay-breaking.cc \
-	include/gourlay-breaking.hh include/break.hh \
-	../flower/include/varray.hh ../flower/include/interval.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/compare.hh include/lily-proto.hh \
-	../lib/include/proto.hh include/colhpos.hh \
-	include/spring-spacer.hh include/line-spacer.hh \
-	../flower/include/vector.hh ../flower/include/plist.hh \
-	../flower/include/list.hh ../flower/include/list.icc \
-	../flower/include/cursor.hh ../flower/include/link.hh \
-	../flower/include/link.icc ../flower/include/pcursor.hh \
-	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc include/col-info.hh \
-	../flower/include/pointer.hh ../flower/include/assoc.hh \
-	../lib/include/moment.hh ../flower/include/rational.hh \
+gourlay-breaking.o: gourlay-breaking.cc include/gourlay-breaking.hh \
+	include/break.hh ../flower/include/varray.hh \
+	../flower/include/interval.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/compare.hh \
+	include/lily-proto.hh ../lib/include/proto.hh \
+	include/colhpos.hh include/spring-spacer.hh \
+	include/line-spacer.hh ../flower/include/vector.hh \
+	../flower/include/plist.hh ../flower/include/list.hh \
+	../flower/include/list.icc ../flower/include/cursor.hh \
+	../flower/include/link.hh ../flower/include/link.icc \
+	../flower/include/pcursor.hh ../flower/include/cursor.icc \
+	../flower/include/iterate.hh ../flower/include/plist.icc \
+	include/col-info.hh ../flower/include/pointer.hh \
+	../flower/include/assoc.hh ../lib/include/moment.hh \
+	../flower/include/rational.hh \
 	../flower/include/arithmetic-operator.hh include/debug.hh \
 	../flower/include/dstream.hh ../flower/include/string.hh \
 	../flower/include/string-handle.hh \
@@ -1374,9 +1385,8 @@ gourlay-breaking.o gourlay-breaking.lo: gourlay-breaking.cc \
 	include/direction.hh include/rod.hh include/p-score.hh \
 	include/music-output.hh include/paper-def.hh \
 	include/music-output-def.hh ../flower/include/dictionary.hh
-graphical-element.o graphical-element.lo: graphical-element.cc \
-	include/graphical-element.hh include/offset.hh \
-	../flower/include/real.hh include/axes.hh \
+graphical-element.o: graphical-element.cc include/graphical-element.hh \
+	include/offset.hh ../flower/include/real.hh include/axes.hh \
 	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/string-handle.hh \
@@ -1389,8 +1399,8 @@ graphical-element.o graphical-element.lo: graphical-element.cc \
 	../flower/include/directed-graph.hh \
 	include/axis-group-administration.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh
-grouping.o grouping.lo: grouping.cc include/debug.hh \
-	../flower/include/dstream.hh ../flower/include/string.hh \
+grouping.o: grouping.cc include/debug.hh ../flower/include/dstream.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
@@ -1399,11 +1409,11 @@ grouping.o grouping.lo: grouping.cc include/debug.hh \
 	../lib/include/warn.hh include/grouping.hh include/minterval.hh \
 	../flower/include/interval.hh ../lib/include/moment.hh \
 	../flower/include/rational.hh ../flower/include/varray.hh
-head-grav.o head-grav.lo: head-grav.cc include/note-head.hh \
-	include/rhythmic-head.hh include/item.hh include/boxes.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/interval.hh ../flower/include/compare.hh \
-	include/offset.hh include/axes.hh ../flower/include/string.hh \
+head-grav.o: head-grav.cc include/note-head.hh include/rhythmic-head.hh \
+	include/item.hh include/boxes.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/interval.hh \
+	../flower/include/compare.hh include/offset.hh include/axes.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh include/score-elem.hh \
@@ -1427,7 +1437,7 @@ head-grav.o head-grav.lo: head-grav.cc include/note-head.hh \
 	../flower/include/iterate.hh ../flower/include/plist.icc \
 	include/musical-request.hh ../lib/include/duration.hh \
 	../lib/include/plet.hh include/dots.hh
-header.o header.lo: header.cc ../flower/include/string.hh \
+header.o: header.cc ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
@@ -1436,9 +1446,9 @@ header.o header.lo: header.cc ../flower/include/string.hh \
 	../flower/include/assoc-iter.hh ../flower/include/assoc.hh \
 	../flower/include/varray.hh ../flower/include/dictionary.hh \
 	include/header.hh
-horizontal-align-item.o horizontal-align-item.lo: \
-	horizontal-align-item.cc include/horizontal-align-item.hh \
-	include/item.hh include/boxes.hh ../flower/include/fproto.hh \
+horizontal-align-item.o: horizontal-align-item.cc \
+	include/horizontal-align-item.hh include/item.hh \
+	include/boxes.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/interval.hh \
 	../flower/include/compare.hh include/offset.hh include/axes.hh \
 	../flower/include/string.hh \
@@ -1452,10 +1462,10 @@ horizontal-align-item.o horizontal-align-item.lo: \
 	../lib/include/proto.hh include/drul-array.hh \
 	include/direction.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh
-horizontal-group-elem.o horizontal-group-elem.lo: \
-	horizontal-group-elem.cc include/horizontal-group-elem.hh \
-	include/axis-group-element.hh include/score-elem.hh \
-	../flower/include/parray.hh ../flower/include/varray.hh \
+horizontal-group-elem.o: horizontal-group-elem.cc \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
+	include/score-elem.hh ../flower/include/parray.hh \
+	../flower/include/varray.hh \
 	../flower/include/virtual-methods.hh \
 	../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/offset.hh \
@@ -1470,8 +1480,7 @@ horizontal-group-elem.o horizontal-group-elem.lo: \
 	include/boxes.hh include/drul-array.hh include/direction.hh \
 	include/debug.hh ../flower/include/dstream.hh \
 	../lib/include/warn.hh
-horizontal-group-item.o horizontal-group-item.lo: \
-	horizontal-group-item.cc include/p-col.hh \
+horizontal-group-item.o: horizontal-group-item.cc include/p-col.hh \
 	include/horizontal-group-item.hh \
 	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/score-elem.hh ../flower/include/parray.hh \
@@ -1494,8 +1503,7 @@ horizontal-group-item.o horizontal-group-item.lo: \
 	../flower/include/link.icc ../flower/include/pcursor.hh \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
 	../flower/include/plist.icc include/rod.hh
-horizontal-vertical-group-elem.o horizontal-vertical-group-elem.lo: \
-	horizontal-vertical-group-elem.cc \
+horizontal-vertical-group-elem.o: horizontal-vertical-group-elem.cc \
 	include/horizontal-vertical-group-elem.hh \
 	include/vertical-group-elem.hh include/axis-group-element.hh \
 	include/score-elem.hh ../flower/include/parray.hh \
@@ -1515,8 +1523,7 @@ horizontal-vertical-group-elem.o horizontal-vertical-group-elem.lo: \
 	include/boxes.hh include/drul-array.hh include/direction.hh \
 	include/debug.hh ../flower/include/dstream.hh \
 	../lib/include/warn.hh
-horizontal-vertical-group-item.o horizontal-vertical-group-item.lo: \
-	horizontal-vertical-group-item.cc \
+horizontal-vertical-group-item.o: horizontal-vertical-group-item.cc \
 	include/horizontal-vertical-group-item.hh \
 	include/axis-group-item.hh include/axis-group-element.hh \
 	include/score-elem.hh ../flower/include/parray.hh \
@@ -1542,7 +1549,7 @@ horizontal-vertical-group-item.o horizontal-vertical-group-item.lo: \
 	../flower/include/pcursor.hh ../flower/include/cursor.icc \
 	../flower/include/iterate.hh ../flower/include/plist.icc \
 	include/rod.hh
-idealspacing.o idealspacing.lo: idealspacing.cc include/idealspacing.hh \
+idealspacing.o: idealspacing.cc include/idealspacing.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	include/p-col.hh include/horizontal-group-item.hh \
@@ -1567,10 +1574,9 @@ idealspacing.o idealspacing.lo: idealspacing.cc include/idealspacing.hh \
 	../flower/include/plist.icc include/rod.hh include/p-score.hh \
 	include/colhpos.hh include/music-output.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh
-identifier.o identifier.lo: identifier.cc include/midi-def.hh \
-	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/string.hh \
+identifier.o: identifier.cc include/midi-def.hh include/lily-proto.hh \
+	../lib/include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
@@ -1595,8 +1601,8 @@ identifier.o identifier.lo: identifier.cc include/midi-def.hh \
 	include/direction.hh include/script-def.hh \
 	include/general-script-def.hh include/request.hh \
 	include/music.hh include/minterval.hh include/translator.hh
-includable-lexer.o includable-lexer.lo: includable-lexer.cc \
-	include/includable-lexer.hh ../flower/include/string.hh \
+includable-lexer.o: includable-lexer.cc include/includable-lexer.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
@@ -1608,7 +1614,7 @@ includable-lexer.o includable-lexer.lo: includable-lexer.cc \
 	../flower/include/link.hh ../flower/include/link.icc \
 	../flower/include/pcursor.hh ../flower/include/cursor.icc \
 	../flower/include/iterate.hh ../flower/include/plist.icc
-ineq-constrained-qp.o ineq-constrained-qp.lo: ineq-constrained-qp.cc \
+ineq-constrained-qp.o: ineq-constrained-qp.cc \
 	include/ineq-constrained-qp.hh ../flower/include/matrix.hh \
 	../flower/include/matrix-storage.hh ../flower/include/varray.hh \
 	../flower/include/real.hh ../flower/include/virtual-methods.hh \
@@ -1620,7 +1626,7 @@ ineq-constrained-qp.o ineq-constrained-qp.lo: ineq-constrained-qp.cc \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
 	../lib/include/warn.hh ../flower/include/choleski.hh
-item.o item.lo: item.cc include/p-score.hh include/colhpos.hh \
+item.o: item.cc include/p-score.hh include/colhpos.hh \
 	../flower/include/varray.hh include/lily-proto.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/parray.hh \
@@ -1645,11 +1651,11 @@ item.o item.lo: item.cc include/p-score.hh include/colhpos.hh \
 	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/rod.hh include/spanner.hh
-key-grav.o key-grav.lo: key-grav.cc include/key-grav.hh \
-	include/engraver.hh include/lily-proto.hh \
-	../lib/include/proto.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh ../flower/include/varray.hh \
-	include/request.hh ../flower/include/string.hh \
+key-grav.o: key-grav.cc include/key-grav.hh include/engraver.hh \
+	include/lily-proto.hh ../lib/include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/varray.hh include/request.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
@@ -1669,7 +1675,7 @@ key-grav.o key-grav.lo: key-grav.cc include/key-grav.hh \
 	../lib/include/plet.hh include/local-key-grav.hh \
 	include/musical-request.hh include/local-key-item.hh \
 	include/bar.hh include/time-description.hh
-key-item.o key-item.lo: key-item.cc include/key-item.hh include/item.hh \
+key-item.o: key-item.cc include/key-item.hh include/item.hh \
 	include/boxes.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/interval.hh \
 	../flower/include/compare.hh include/offset.hh include/axes.hh \
@@ -1698,12 +1704,11 @@ key-item.o key-item.lo: key-item.cc include/key-item.hh include/item.hh \
 	include/music.hh include/minterval.hh \
 	include/score-elem-info.hh include/staff-info.hh \
 	include/translator.hh
-key-performer.o key-performer.lo: key-performer.cc \
-	include/key-performer.hh include/lily-proto.hh \
-	../lib/include/proto.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh include/performer.hh \
-	../flower/include/varray.hh include/request.hh \
-	../flower/include/string.hh \
+key-performer.o: key-performer.cc include/key-performer.hh \
+	include/lily-proto.hh ../lib/include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	include/performer.hh ../flower/include/varray.hh \
+	include/request.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
@@ -1717,7 +1722,7 @@ key-performer.o key-performer.lo: key-performer.cc \
 	../flower/include/parray.hh include/command-request.hh \
 	../lib/include/duration.hh ../lib/include/plet.hh \
 	include/audio-item.hh include/audio-element.hh
-key.o key.lo: key.cc include/key.hh ../flower/include/varray.hh \
+key.o: key.cc include/key.hh ../flower/include/varray.hh \
 	../flower/include/scalar.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -1726,15 +1731,15 @@ key.o key.lo: key.cc include/key.hh ../flower/include/varray.hh \
 	include/debug.hh ../flower/include/dstream.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
 	../lib/include/warn.hh
-keyword.o keyword.lo: keyword.cc include/keyword.hh
-leastsquares.o leastsquares.lo: leastsquares.cc include/leastsquares.hh \
+keyword.o: keyword.cc include/keyword.hh
+leastsquares.o: leastsquares.cc include/leastsquares.hh \
 	../flower/include/varray.hh include/offset.hh \
 	../flower/include/real.hh include/axes.hh \
 	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh
-lexer.o lexer.lo: lexer.cc ../flower/include/string.hh \
+lexer.o: lexer.cc ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
@@ -1748,7 +1753,7 @@ lexer.o lexer.lo: lexer.cc ../flower/include/string.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh \
 	include/parseconstruct.hh include/main.hh include/identifier.hh \
 	../lib/include/input.hh ../flower/include/virtual-methods.hh
-lexerinit.o lexerinit.lo: lexerinit.cc ../lib/include/proto.hh \
+lexerinit.o: lexerinit.cc ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/plist.hh ../flower/include/list.hh \
 	../flower/include/list.icc ../flower/include/cursor.hh \
@@ -1766,9 +1771,9 @@ lexerinit.o lexerinit.lo: lexerinit.cc ../lib/include/proto.hh \
 	include/debug.hh ../flower/include/dstream.hh \
 	../lib/include/warn.hh include/main.hh \
 	../lib/include/source-file.hh ../lib/include/source.hh
-lily-version.o lily-version.lo: lily-version.cc ../flower/config.hh
-line-group-grav.o line-group-grav.lo: line-group-grav.cc \
-	include/staff-sym.hh include/spanner.hh include/lily-proto.hh \
+lily-version.o: lily-version.cc ../flower/config.hh
+line-group-grav.o: line-group-grav.cc include/staff-sym.hh \
+	include/spanner.hh include/lily-proto.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh include/score-elem.hh \
 	../flower/include/parray.hh ../flower/include/varray.hh \
@@ -1803,17 +1808,16 @@ line-group-grav.o line-group-grav.lo: line-group-grav.cc \
 	../flower/include/link.hh ../flower/include/link.icc \
 	../flower/include/pcursor.hh ../flower/include/cursor.icc \
 	../flower/include/iterate.hh ../flower/include/plist.icc
-line-spacer.o line-spacer.lo: line-spacer.cc include/line-spacer.hh \
+line-spacer.o: line-spacer.cc include/line-spacer.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/varray.hh ../flower/include/vector.hh \
 	../flower/include/interval.hh ../flower/include/compare.hh
-linear-programming.o linear-programming.lo: linear-programming.cc
-local-key-grav.o local-key-grav.lo: local-key-grav.cc \
-	include/musical-request.hh include/lily-proto.hh \
-	../lib/include/proto.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh include/request.hh \
-	../flower/include/string.hh \
+linear-programming.o: linear-programming.cc
+local-key-grav.o: local-key-grav.cc include/musical-request.hh \
+	include/lily-proto.hh ../lib/include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	include/request.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
@@ -1844,7 +1848,7 @@ local-key-grav.o local-key-grav.lo: local-key-grav.cc \
 	../flower/include/pcursor.hh ../flower/include/cursor.icc \
 	../flower/include/iterate.hh ../flower/include/plist.icc \
 	include/translator-group.hh
-local-key-item.o local-key-item.lo: local-key-item.cc include/dimen.hh \
+local-key-item.o: local-key-item.cc include/dimen.hh \
 	../flower/include/real.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/string-handle.hh \
@@ -1872,7 +1876,7 @@ local-key-item.o local-key-item.lo: local-key-item.cc include/dimen.hh \
 	../lib/include/duration.hh ../lib/include/plet.hh \
 	include/note-head.hh include/rhythmic-head.hh include/misc.hh \
 	include/grouping.hh
-lookup.o lookup.lo: lookup.cc include/lookup.hh include/atom.hh \
+lookup.o: lookup.cc include/lookup.hh include/atom.hh \
 	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -1894,7 +1898,7 @@ lookup.o lookup.lo: lookup.cc include/lookup.hh include/atom.hh \
 	../flower/include/link.icc ../flower/include/pcursor.hh \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
 	../flower/include/plist.icc include/main.hh
-lyric-grav.o lyric-grav.lo: lyric-grav.cc include/lyric-engraver.hh \
+lyric-grav.o: lyric-grav.cc include/lyric-engraver.hh \
 	include/engraver.hh include/lily-proto.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/varray.hh \
@@ -1923,12 +1927,11 @@ lyric-grav.o lyric-grav.lo: lyric-grav.cc include/lyric-engraver.hh \
 	../flower/include/link.icc ../flower/include/pcursor.hh \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
 	../flower/include/plist.icc include/lookup.hh include/atom.hh
-lyric-performer.o lyric-performer.lo: lyric-performer.cc \
-	include/lyric-performer.hh include/lily-proto.hh \
-	../lib/include/proto.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh include/performer.hh \
-	../flower/include/varray.hh include/request.hh \
-	../flower/include/string.hh \
+lyric-performer.o: lyric-performer.cc include/lyric-performer.hh \
+	include/lily-proto.hh ../lib/include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	include/performer.hh ../flower/include/varray.hh \
+	include/request.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
@@ -1943,15 +1946,15 @@ lyric-performer.o lyric-performer.lo: lyric-performer.cc \
 	include/general-script-def.hh include/musical-request.hh \
 	../lib/include/duration.hh ../lib/include/plet.hh \
 	include/audio-item.hh include/audio-element.hh
-main.o main.lo: main.cc ../lib/include/proto.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/plist.hh ../flower/include/list.hh \
-	../flower/include/list.icc ../flower/include/cursor.hh \
-	../flower/include/link.hh ../flower/include/link.icc \
-	../flower/include/compare.hh ../flower/include/pcursor.hh \
-	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc ../flower/include/lgetopt.hh \
-	include/misc.hh include/lily-proto.hh ../lib/include/moment.hh \
+main.o: main.cc ../lib/include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/plist.hh \
+	../flower/include/list.hh ../flower/include/list.icc \
+	../flower/include/cursor.hh ../flower/include/link.hh \
+	../flower/include/link.icc ../flower/include/compare.hh \
+	../flower/include/pcursor.hh ../flower/include/cursor.icc \
+	../flower/include/iterate.hh ../flower/include/plist.icc \
+	../flower/include/lgetopt.hh include/misc.hh \
+	include/lily-proto.hh ../lib/include/moment.hh \
 	../flower/include/rational.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/scalar.hh ../flower/include/string.hh \
@@ -1964,11 +1967,11 @@ main.o main.lo: main.cc ../lib/include/proto.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh \
 	include/my-lily-parser.hh ../lib/include/duration.hh \
 	../lib/include/plet.hh ../lib/include/input.hh
-meter-grav.o meter-grav.lo: meter-grav.cc include/meter-grav.hh \
-	include/engraver.hh include/lily-proto.hh \
-	../lib/include/proto.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh ../flower/include/varray.hh \
-	include/request.hh ../flower/include/string.hh \
+meter-grav.o: meter-grav.cc include/meter-grav.hh include/engraver.hh \
+	include/lily-proto.hh ../lib/include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/varray.hh include/request.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
@@ -1993,12 +1996,11 @@ meter-grav.o meter-grav.lo: meter-grav.cc include/meter-grav.hh \
 	../flower/include/pcursor.hh ../flower/include/cursor.icc \
 	../flower/include/iterate.hh ../flower/include/plist.icc \
 	include/translator-group.hh
-meter-performer.o meter-performer.lo: meter-performer.cc \
-	include/meter-performer.hh include/lily-proto.hh \
-	../lib/include/proto.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh include/performer.hh \
-	../flower/include/varray.hh include/request.hh \
-	../flower/include/string.hh \
+meter-performer.o: meter-performer.cc include/meter-performer.hh \
+	include/lily-proto.hh ../lib/include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	include/performer.hh ../flower/include/varray.hh \
+	include/request.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
@@ -2012,7 +2014,7 @@ meter-performer.o meter-performer.lo: meter-performer.cc \
 	../flower/include/parray.hh include/command-request.hh \
 	../lib/include/duration.hh ../lib/include/plet.hh \
 	include/audio-item.hh include/audio-element.hh
-meter.o meter.lo: meter.cc ../flower/include/scalar.hh \
+meter.o: meter.cc ../flower/include/scalar.hh \
 	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -2036,11 +2038,10 @@ meter.o meter.lo: meter.cc ../flower/include/scalar.hh \
 	../flower/include/rational.hh include/music-output-def.hh \
 	../flower/include/dictionary.hh ../flower/include/assoc.hh \
 	include/lookup.hh include/atom.hh
-midi-def.o midi-def.lo: midi-def.cc include/misc.hh \
-	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../lib/include/moment.hh ../flower/include/rational.hh \
-	../flower/include/compare.hh \
+midi-def.o: midi-def.cc include/misc.hh include/lily-proto.hh \
+	../lib/include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../lib/include/moment.hh \
+	../flower/include/rational.hh ../flower/include/compare.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/scalar.hh ../flower/include/string.hh \
 	../flower/include/string-handle.hh \
@@ -2064,7 +2065,7 @@ midi-def.o midi-def.lo: midi-def.cc include/misc.hh \
 	include/translator-group.hh include/global-translator.hh \
 	../flower/include/pqueue.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh
-midi-item.o midi-item.lo: midi-item.cc ../lib/include/proto.hh \
+midi-item.o: midi-item.cc ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/plist.hh ../flower/include/list.hh \
 	../flower/include/list.icc ../flower/include/cursor.hh \
@@ -2087,7 +2088,7 @@ midi-item.o midi-item.lo: midi-item.cc ../lib/include/proto.hh \
 	include/musical-request.hh include/midi-item.hh \
 	include/midi-stream.hh include/audio-item.hh \
 	include/audio-element.hh
-midi-stream.o midi-stream.lo: midi-stream.cc ../flower/include/string.hh \
+midi-stream.o: midi-stream.cc ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
@@ -2106,7 +2107,7 @@ midi-stream.o midi-stream.lo: midi-stream.cc ../flower/include/string.hh \
 	../flower/include/virtual-methods.hh include/midi-stream.hh \
 	include/debug.hh ../flower/include/dstream.hh \
 	../lib/include/warn.hh
-midi-walker.o midi-walker.lo: midi-walker.cc include/midi-walker.hh \
+midi-walker.o: midi-walker.cc include/midi-walker.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/plist.hh \
 	../flower/include/list.hh ../flower/include/list.icc \
@@ -2124,7 +2125,7 @@ midi-walker.o midi-walker.lo: midi-walker.cc include/midi-walker.hh \
 	../flower/include/virtual-methods.hh include/audio-staff.hh \
 	include/midi-item.hh include/midi-stream.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh
-misc.o misc.lo: misc.cc include/item.hh include/boxes.hh \
+misc.o: misc.cc include/item.hh include/boxes.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/interval.hh ../flower/include/compare.hh \
 	include/offset.hh include/axes.hh ../flower/include/string.hh \
@@ -2139,7 +2140,7 @@ misc.o misc.lo: misc.cc include/item.hh include/boxes.hh \
 	include/direction.hh include/misc.hh ../lib/include/moment.hh \
 	../flower/include/rational.hh ../flower/include/scalar.hh \
 	include/grouping.hh include/minterval.hh
-molecule.o molecule.lo: molecule.cc ../flower/include/interval.hh \
+molecule.o: molecule.cc ../flower/include/interval.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/compare.hh include/dimen.hh \
 	../flower/include/string.hh \
@@ -2156,7 +2157,7 @@ molecule.o molecule.lo: molecule.cc ../flower/include/interval.hh \
 	include/direction.hh include/atom.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh \
 	include/tex.hh ../flower/include/scalar.hh
-music-iterator.o music-iterator.lo: music-iterator.cc include/debug.hh \
+music-iterator.o: music-iterator.cc include/debug.hh \
 	../flower/include/dstream.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -2180,7 +2181,7 @@ music-iterator.o music-iterator.lo: music-iterator.cc include/debug.hh \
 	../flower/include/assoc.hh ../flower/include/parray.hh \
 	include/translation-property.hh include/change-iterator.hh \
 	include/change-translator.hh
-music-list.o music-list.lo: music-list.cc include/music.hh \
+music-list.o: music-list.cc include/music.hh \
 	../flower/include/virtual-methods.hh ../lib/include/input.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh include/minterval.hh \
@@ -2196,9 +2197,8 @@ music-list.o music-list.lo: music-list.cc include/music.hh \
 	../flower/include/link.icc ../flower/include/pcursor.hh \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
 	../flower/include/plist.icc
-music-output-def.o music-output-def.lo: music-output-def.cc \
-	include/debug.hh ../flower/include/dstream.hh \
-	../flower/include/string.hh \
+music-output-def.o: music-output-def.cc include/debug.hh \
+	../flower/include/dstream.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
@@ -2218,12 +2218,12 @@ music-output-def.o music-output-def.lo: music-output-def.cc \
 	../flower/include/rational.hh ../flower/include/pqueue.hh \
 	../flower/include/dictionary-iter.hh \
 	../flower/include/assoc-iter.hh
-music.o music.lo: music.cc include/music.hh \
-	../flower/include/virtual-methods.hh ../lib/include/input.hh \
-	../lib/include/proto.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh include/minterval.hh \
-	../flower/include/interval.hh ../flower/include/compare.hh \
-	../lib/include/moment.hh ../flower/include/rational.hh \
+music.o: music.cc include/music.hh ../flower/include/virtual-methods.hh \
+	../lib/include/input.hh ../lib/include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	include/minterval.hh ../flower/include/interval.hh \
+	../flower/include/compare.hh ../lib/include/moment.hh \
+	../flower/include/rational.hh \
 	../flower/include/arithmetic-operator.hh include/lily-proto.hh \
 	../flower/include/string.hh ../flower/include/string-handle.hh \
 	../flower/include/international.hh include/music-list.hh \
@@ -2234,11 +2234,10 @@ music.o music.lo: music.cc include/music.hh \
 	../flower/include/iterate.hh ../flower/include/plist.icc \
 	include/debug.hh ../flower/include/dstream.hh \
 	../lib/include/warn.hh
-musical-request.o musical-request.lo: musical-request.cc \
-	include/musical-request.hh include/lily-proto.hh \
-	../lib/include/proto.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh include/request.hh \
-	../flower/include/string.hh \
+musical-request.o: musical-request.cc include/musical-request.hh \
+	include/lily-proto.hh ../lib/include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	include/request.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
@@ -2257,9 +2256,8 @@ musical-request.o musical-request.lo: musical-request.cc \
 	../flower/include/link.hh ../flower/include/link.icc \
 	../flower/include/pcursor.hh ../flower/include/cursor.icc \
 	../flower/include/iterate.hh ../flower/include/plist.icc
-my-lily-lexer.o my-lily-lexer.lo: my-lily-lexer.cc \
-	include/notename-table.hh ../flower/include/pointer.hh \
-	../flower/include/string.hh \
+my-lily-lexer.o: my-lily-lexer.cc include/notename-table.hh \
+	../flower/include/pointer.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
@@ -2276,12 +2274,11 @@ my-lily-lexer.o my-lily-lexer.lo: my-lily-lexer.cc \
 	include/debug.hh ../flower/include/dstream.hh \
 	../lib/include/warn.hh ../lib/include/source-file.hh \
 	include/parseconstruct.hh
-my-lily-parser.o my-lily-parser.lo: my-lily-parser.cc \
-	include/my-lily-parser.hh include/lily-proto.hh \
-	../lib/include/proto.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh ../lib/include/duration.hh \
-	../lib/include/moment.hh ../flower/include/rational.hh \
-	../flower/include/compare.hh \
+my-lily-parser.o: my-lily-parser.cc include/my-lily-parser.hh \
+	include/lily-proto.hh ../lib/include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../lib/include/duration.hh ../lib/include/moment.hh \
+	../flower/include/rational.hh ../flower/include/compare.hh \
 	../flower/include/arithmetic-operator.hh ../lib/include/plet.hh \
 	../flower/include/string.hh ../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/varray.hh \
@@ -2299,7 +2296,7 @@ my-lily-parser.o my-lily-parser.lo: my-lily-parser.cc \
 	include/request.hh include/direction.hh \
 	include/command-request.hh parser.hh include/header.hh \
 	../flower/include/dictionary.hh ../flower/include/assoc.hh
-note-column.o note-column.lo: note-column.cc include/dot-column.hh \
+note-column.o: note-column.cc include/dot-column.hh \
 	include/horizontal-group-item.hh \
 	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/score-elem.hh ../flower/include/parray.hh \
@@ -2331,11 +2328,10 @@ note-column.o note-column.lo: note-column.cc include/dot-column.hh \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
 	../flower/include/plist.icc include/rest.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh
-note-head.o note-head.lo: note-head.cc include/misc.hh \
-	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../lib/include/moment.hh ../flower/include/rational.hh \
-	../flower/include/compare.hh \
+note-head.o: note-head.cc include/misc.hh include/lily-proto.hh \
+	../lib/include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../lib/include/moment.hh \
+	../flower/include/rational.hh ../flower/include/compare.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/scalar.hh ../flower/include/string.hh \
 	../flower/include/string-handle.hh \
@@ -2361,12 +2357,11 @@ note-head.o note-head.lo: note-head.cc include/misc.hh \
 	include/musical-request.hh include/request.hh \
 	../lib/include/input.hh include/music.hh \
 	../lib/include/duration.hh ../lib/include/plet.hh
-note-performer.o note-performer.lo: note-performer.cc \
-	include/note-performer.hh include/performer.hh \
-	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/varray.hh include/request.hh \
-	../flower/include/string.hh \
+note-performer.o: note-performer.cc include/note-performer.hh \
+	include/performer.hh include/lily-proto.hh \
+	../lib/include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/varray.hh \
+	include/request.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
@@ -2381,7 +2376,7 @@ note-performer.o note-performer.lo: note-performer.cc \
 	../lib/include/duration.hh ../lib/include/plet.hh \
 	include/audio-item.hh include/audio-element.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh
-note.o note.lo: note.cc include/my-lily-lexer.hh include/lily-proto.hh \
+note.o: note.cc include/my-lily-lexer.hh include/lily-proto.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/varray.hh \
 	../flower/include/string.hh \
@@ -2404,9 +2399,8 @@ note.o note.lo: note.cc include/my-lily-lexer.hh include/lily-proto.hh \
 	../flower/include/iterate.hh ../flower/include/plist.icc \
 	include/identifier.hh include/text-def.hh \
 	include/general-script-def.hh include/parseconstruct.hh
-notename-table.o notename-table.lo: notename-table.cc \
-	include/notename-table.hh ../flower/include/pointer.hh \
-	../flower/include/string.hh \
+notename-table.o: notename-table.cc include/notename-table.hh \
+	../flower/include/pointer.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
@@ -2420,16 +2414,16 @@ notename-table.o notename-table.lo: notename-table.cc \
 	include/music.hh include/minterval.hh \
 	../flower/include/interval.hh include/direction.hh \
 	../lib/include/duration.hh ../lib/include/plet.hh
-offset.o offset.lo: offset.cc ../flower/include/string.hh \
+offset.o: offset.cc ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	include/offset.hh include/axes.hh
-outputter.o outputter.lo: outputter.cc include/outputter.hh \
-	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	include/tex-stream.hh ../flower/include/string.hh \
+outputter.o: outputter.cc include/outputter.hh include/lily-proto.hh \
+	../lib/include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh include/tex-stream.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
@@ -2442,8 +2436,7 @@ outputter.o outputter.lo: outputter.cc include/outputter.hh \
 	../flower/include/interval.hh include/offset.hh include/axes.hh \
 	include/direction.hh ../flower/include/varray.hh \
 	include/dimen.hh include/tex.hh ../flower/include/scalar.hh
-p-col.o p-col.lo: p-col.cc include/p-col.hh \
-	include/horizontal-group-item.hh \
+p-col.o: p-col.cc include/p-col.hh include/horizontal-group-item.hh \
 	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/score-elem.hh ../flower/include/parray.hh \
 	../flower/include/varray.hh \
@@ -2467,7 +2460,7 @@ p-col.o p-col.lo: p-col.cc include/p-col.hh \
 	../flower/include/plist.icc include/rod.hh include/p-score.hh \
 	include/colhpos.hh include/music-output.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh
-p-score.o p-score.lo: p-score.cc include/main.hh include/lily-proto.hh \
+p-score.o: p-score.cc include/main.hh include/lily-proto.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh include/super-elem.hh \
 	include/score-elem.hh ../flower/include/parray.hh \
@@ -2501,7 +2494,7 @@ p-score.o p-score.lo: p-score.cc include/main.hh include/lily-proto.hh \
 	include/break.hh include/gourlay-breaking.hh \
 	include/outputter.hh ../flower/include/list.tcc \
 	../flower/include/cursor.tcc
-paper-def.o paper-def.lo: paper-def.cc ../flower/include/string.hh \
+paper-def.o: paper-def.cc ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
@@ -2530,7 +2523,7 @@ paper-def.o paper-def.lo: paper-def.cc ../flower/include/string.hh \
 	include/translator-group.hh include/global-translator.hh \
 	../flower/include/pqueue.hh include/p-score.hh \
 	include/colhpos.hh include/music-output.hh include/main.hh
-parser.o parser.lo: parser.cc ../flower/include/scalar.hh \
+parser.o: parser.cc ../flower/include/scalar.hh \
 	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -2565,7 +2558,7 @@ parser.o parser.lo: parser.cc ../flower/include/scalar.hh \
 	../flower/include/parray.hh include/score.hh \
 	include/music-list.hh include/header.hh \
 	../lib/include/duration-convert.hh include/change-translator.hh
-performance.o performance.lo: performance.cc include/debug.hh \
+performance.o: performance.cc include/debug.hh \
 	../flower/include/dstream.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -2587,8 +2580,7 @@ performance.o performance.lo: performance.cc include/debug.hh \
 	include/audio-element.hh include/performance.hh \
 	include/music-output.hh include/score.hh \
 	../lib/include/input.hh ../flower/include/parray.hh
-performer-group-performer.o performer-group-performer.lo: \
-	performer-group-performer.cc \
+performer-group-performer.o: performer-group-performer.cc \
 	include/performer-group-performer.hh include/lily-proto.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/parray.hh \
@@ -2612,36 +2604,34 @@ performer-group-performer.o performer-group-performer.lo: \
 	../flower/include/dictionary.hh ../flower/include/assoc.hh \
 	include/translator-group.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh
-performer.o performer.lo: performer.cc \
-	include/performer-group-performer.hh include/lily-proto.hh \
-	../lib/include/proto.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh ../flower/include/parray.hh \
-	../flower/include/varray.hh ../flower/include/plist.hh \
-	../flower/include/list.hh ../flower/include/list.icc \
-	../flower/include/cursor.hh ../flower/include/link.hh \
-	../flower/include/link.icc ../flower/include/compare.hh \
-	../flower/include/pcursor.hh ../flower/include/cursor.icc \
-	../flower/include/iterate.hh ../flower/include/plist.icc \
-	include/performer.hh include/request.hh \
-	../flower/include/string.hh \
-	../flower/include/arithmetic-operator.hh \
-	../flower/include/string-handle.hh \
-	../flower/include/international.hh ../lib/include/moment.hh \
-	../flower/include/rational.hh \
-	../flower/include/virtual-methods.hh ../lib/include/input.hh \
-	include/music.hh include/minterval.hh \
-	../flower/include/interval.hh include/direction.hh \
-	include/score-elem-info.hh ../flower/include/scalar.hh \
-	include/staff-info.hh include/translator.hh \
-	../flower/include/dictionary.hh ../flower/include/assoc.hh \
-	include/translator-group.hh include/debug.hh \
-	../flower/include/dstream.hh ../lib/include/warn.hh
-pitch-squash-grav.o pitch-squash-grav.lo: pitch-squash-grav.cc \
-	include/pitch-squash-grav.hh include/engraver.hh \
+performer.o: performer.cc include/performer-group-performer.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/varray.hh include/request.hh \
-	../flower/include/string.hh \
+	../flower/include/parray.hh ../flower/include/varray.hh \
+	../flower/include/plist.hh ../flower/include/list.hh \
+	../flower/include/list.icc ../flower/include/cursor.hh \
+	../flower/include/link.hh ../flower/include/link.icc \
+	../flower/include/compare.hh ../flower/include/pcursor.hh \
+	../flower/include/cursor.icc ../flower/include/iterate.hh \
+	../flower/include/plist.icc include/performer.hh \
+	include/request.hh ../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../lib/include/moment.hh \
+	../flower/include/rational.hh \
+	../flower/include/virtual-methods.hh ../lib/include/input.hh \
+	include/music.hh include/minterval.hh \
+	../flower/include/interval.hh include/direction.hh \
+	include/score-elem-info.hh ../flower/include/scalar.hh \
+	include/staff-info.hh include/translator.hh \
+	../flower/include/dictionary.hh ../flower/include/assoc.hh \
+	include/translator-group.hh include/debug.hh \
+	../flower/include/dstream.hh ../lib/include/warn.hh
+pitch-squash-grav.o: pitch-squash-grav.cc include/pitch-squash-grav.hh \
+	include/engraver.hh include/lily-proto.hh \
+	../lib/include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/varray.hh \
+	include/request.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
@@ -2657,11 +2647,10 @@ pitch-squash-grav.o pitch-squash-grav.lo: pitch-squash-grav.cc \
 	include/offset.hh include/axes.hh include/score-elem.hh \
 	../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/drul-array.hh
-plet-engraver.o plet-engraver.lo: plet-engraver.cc \
-	../lib/include/proto.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh include/musical-request.hh \
-	include/lily-proto.hh include/request.hh \
-	../flower/include/string.hh \
+plet-engraver.o: plet-engraver.cc ../lib/include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	include/musical-request.hh include/lily-proto.hh \
+	include/request.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
@@ -2692,7 +2681,7 @@ plet-engraver.o plet-engraver.lo: plet-engraver.cc \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/item.hh include/boxes.hh include/stem.hh \
 	include/molecule.hh
-plet-spanner.o plet-spanner.lo: plet-spanner.cc include/atom.hh \
+plet-spanner.o: plet-spanner.cc include/atom.hh \
 	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -2725,11 +2714,11 @@ plet-spanner.o plet-spanner.lo: plet-spanner.cc include/atom.hh \
 	include/directional-spanner.hh include/spanner.hh \
 	include/stem.hh include/text-def.hh \
 	include/general-script-def.hh ../lib/include/input.hh
-plet-swallow-engraver.o plet-swallow-engraver.lo: \
-	plet-swallow-engraver.cc include/musical-request.hh \
-	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	include/request.hh ../flower/include/string.hh \
+plet-swallow-engraver.o: plet-swallow-engraver.cc \
+	include/musical-request.hh include/lily-proto.hh \
+	../lib/include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh include/request.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
@@ -2744,11 +2733,11 @@ plet-swallow-engraver.o plet-swallow-engraver.lo: \
 	include/staff-info.hh include/translator.hh \
 	../flower/include/dictionary.hh ../flower/include/assoc.hh \
 	../flower/include/parray.hh
-priority-halign-grav.o priority-halign-grav.lo: priority-halign-grav.cc \
-	include/bar.hh include/item.hh include/boxes.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/interval.hh ../flower/include/compare.hh \
-	include/offset.hh include/axes.hh ../flower/include/string.hh \
+priority-halign-grav.o: priority-halign-grav.cc include/bar.hh \
+	include/item.hh include/boxes.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/interval.hh \
+	../flower/include/compare.hh include/offset.hh include/axes.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh include/score-elem.hh \
@@ -2767,17 +2756,17 @@ priority-halign-grav.o priority-halign-grav.lo: priority-halign-grav.cc \
 	include/staff-info.hh include/translator.hh \
 	../flower/include/dictionary.hh ../flower/include/assoc.hh \
 	include/score-priority-grav.hh
-property-iterator.o property-iterator.lo: property-iterator.cc \
-	include/property-iterator.hh include/music-iterator.hh \
-	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/plist.hh ../flower/include/list.hh \
-	../flower/include/list.icc ../flower/include/cursor.hh \
-	../flower/include/link.hh ../flower/include/link.icc \
-	../flower/include/compare.hh ../flower/include/pcursor.hh \
-	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc ../flower/include/varray.hh \
-	../lib/include/moment.hh ../flower/include/rational.hh \
+property-iterator.o: property-iterator.cc include/property-iterator.hh \
+	include/music-iterator.hh include/lily-proto.hh \
+	../lib/include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/plist.hh \
+	../flower/include/list.hh ../flower/include/list.icc \
+	../flower/include/cursor.hh ../flower/include/link.hh \
+	../flower/include/link.icc ../flower/include/compare.hh \
+	../flower/include/pcursor.hh ../flower/include/cursor.icc \
+	../flower/include/iterate.hh ../flower/include/plist.icc \
+	../flower/include/varray.hh ../lib/include/moment.hh \
+	../flower/include/rational.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/virtual-methods.hh \
 	include/translation-property.hh include/music.hh \
@@ -2788,7 +2777,7 @@ property-iterator.o property-iterator.lo: property-iterator.cc \
 	include/translator-group.hh include/translator.hh \
 	../flower/include/dictionary.hh ../flower/include/assoc.hh \
 	../flower/include/parray.hh
-ps-plet.o ps-plet.lo: ps-plet.cc include/main.hh include/lily-proto.hh \
+ps-plet.o: ps-plet.cc include/main.hh include/lily-proto.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh include/misc.hh \
 	../lib/include/moment.hh ../flower/include/rational.hh \
@@ -2812,7 +2801,7 @@ ps-plet.o ps-plet.lo: ps-plet.cc include/main.hh include/lily-proto.hh \
 	../flower/include/virtual-methods.hh \
 	../flower/include/dictionary.hh ../flower/include/assoc.hh \
 	../flower/include/string-convert.hh
-qlp.o qlp.lo: qlp.cc include/debug.hh ../flower/include/dstream.hh \
+qlp.o: qlp.cc include/debug.hh ../flower/include/dstream.hh \
 	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -2824,7 +2813,7 @@ qlp.o qlp.lo: qlp.cc include/debug.hh ../flower/include/dstream.hh \
 	../flower/include/matrix-storage.hh ../flower/include/varray.hh \
 	../flower/include/virtual-methods.hh \
 	../flower/include/vector.hh
-qlpsolve.o qlpsolve.lo: qlpsolve.cc include/ineq-constrained-qp.hh \
+qlpsolve.o: qlpsolve.cc include/ineq-constrained-qp.hh \
 	../flower/include/matrix.hh ../flower/include/matrix-storage.hh \
 	../flower/include/varray.hh ../flower/include/real.hh \
 	../flower/include/virtual-methods.hh \
@@ -2836,8 +2825,8 @@ qlpsolve.o qlpsolve.lo: qlpsolve.cc include/ineq-constrained-qp.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
 	../lib/include/warn.hh ../flower/include/choleski.hh
-request-iterator.o request-iterator.lo: request-iterator.cc \
-	include/translator-group.hh ../flower/include/string.hh \
+request-iterator.o: request-iterator.cc include/translator-group.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
@@ -2859,8 +2848,7 @@ request-iterator.o request-iterator.lo: request-iterator.cc \
 	include/music.hh include/minterval.hh \
 	../flower/include/interval.hh include/request.hh \
 	include/direction.hh
-request.o request.lo: request.cc include/request.hh \
-	../flower/include/string.hh \
+request.o: request.cc include/request.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
@@ -2871,9 +2859,8 @@ request.o request.lo: request.cc include/request.hh \
 	../flower/include/interval.hh include/lily-proto.hh \
 	include/direction.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh
-rest-collision-grav.o rest-collision-grav.lo: rest-collision-grav.cc \
-	include/debug.hh ../flower/include/dstream.hh \
-	../flower/include/string.hh \
+rest-collision-grav.o: rest-collision-grav.cc include/debug.hh \
+	../flower/include/dstream.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
@@ -2899,7 +2886,7 @@ rest-collision-grav.o rest-collision-grav.lo: rest-collision-grav.cc \
 	include/horizontal-vertical-group-elem.hh \
 	include/vertical-group-elem.hh include/horizontal-group-elem.hh \
 	include/note-column.hh include/script-column.hh
-rest-collision.o rest-collision.lo: rest-collision.cc include/debug.hh \
+rest-collision.o: rest-collision.cc include/debug.hh \
 	../flower/include/dstream.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -2931,11 +2918,11 @@ rest-collision.o rest-collision.lo: rest-collision.cc include/debug.hh \
 	include/collision.hh include/paper-def.hh \
 	include/music-output-def.hh ../flower/include/dictionary.hh \
 	../flower/include/assoc.hh
-rest-grav.o rest-grav.lo: rest-grav.cc include/rest-grav.hh \
-	include/engraver.hh include/lily-proto.hh \
-	../lib/include/proto.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh ../flower/include/varray.hh \
-	include/request.hh ../flower/include/string.hh \
+rest-grav.o: rest-grav.cc include/rest-grav.hh include/engraver.hh \
+	include/lily-proto.hh ../lib/include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/varray.hh include/request.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
@@ -2953,7 +2940,7 @@ rest-grav.o rest-grav.lo: rest-grav.cc include/rest-grav.hh \
 	../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/drul-array.hh \
 	include/rest.hh include/rhythmic-head.hh
-rest.o rest.lo: rest.cc include/molecule.hh include/lily-proto.hh \
+rest.o: rest.cc include/molecule.hh include/lily-proto.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/plist.hh \
 	../flower/include/list.hh ../flower/include/list.icc \
@@ -2979,7 +2966,7 @@ rest.o rest.lo: rest.cc include/molecule.hh include/lily-proto.hh \
 	include/dots.hh include/axis-group-element.hh \
 	include/axis-group-administration.hh include/p-score.hh \
 	include/colhpos.hh include/music-output.hh
-rhythmic-column-grav.o rhythmic-column-grav.lo: rhythmic-column-grav.cc \
+rhythmic-column-grav.o: rhythmic-column-grav.cc \
 	include/rhythmic-column-grav.hh include/engraver.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -3014,11 +3001,11 @@ rhythmic-column-grav.o rhythmic-column-grav.lo: rhythmic-column-grav.cc \
 	include/vertical-group-elem.hh include/horizontal-group-elem.hh \
 	include/script.hh include/staff-side.hh include/dot-column.hh \
 	include/horizontal-group-item.hh
-rhythmic-head.o rhythmic-head.lo: rhythmic-head.cc \
-	include/rhythmic-head.hh include/item.hh include/boxes.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/interval.hh ../flower/include/compare.hh \
-	include/offset.hh include/axes.hh ../flower/include/string.hh \
+rhythmic-head.o: rhythmic-head.cc include/rhythmic-head.hh \
+	include/item.hh include/boxes.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/interval.hh \
+	../flower/include/compare.hh include/offset.hh include/axes.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh include/score-elem.hh \
@@ -3042,7 +3029,7 @@ rhythmic-head.o rhythmic-head.lo: rhythmic-head.cc \
 	include/axis-group-element.hh \
 	include/axis-group-administration.hh include/p-score.hh \
 	include/colhpos.hh include/music-output.hh
-rod.o rod.lo: rod.cc include/rod.hh include/lily-proto.hh \
+rod.o: rod.cc include/rod.hh include/lily-proto.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh include/direction.hh \
 	include/drul-array.hh include/p-col.hh \
@@ -3067,11 +3054,11 @@ rod.o rod.lo: rod.cc include/rod.hh include/lily-proto.hh \
 	../flower/include/plist.icc include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh \
 	include/single-malt-grouping-item.hh
-score-bar.o score-bar.lo: score-bar.cc include/score-bar.hh \
-	include/bar.hh include/item.hh include/boxes.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/interval.hh ../flower/include/compare.hh \
-	include/offset.hh include/axes.hh ../flower/include/string.hh \
+score-bar.o: score-bar.cc include/score-bar.hh include/bar.hh \
+	include/item.hh include/boxes.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/interval.hh \
+	../flower/include/compare.hh include/offset.hh include/axes.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh include/score-elem.hh \
@@ -3081,7 +3068,7 @@ score-bar.o score-bar.lo: score-bar.cc include/score-bar.hh \
 	include/graphical-element.hh include/lily-proto.hh \
 	../lib/include/proto.hh include/drul-array.hh \
 	include/direction.hh
-score-column.o score-column.lo: score-column.cc include/debug.hh \
+score-column.o: score-column.cc include/debug.hh \
 	../flower/include/dstream.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -3107,9 +3094,8 @@ score-column.o score-column.lo: score-column.cc include/debug.hh \
 	../flower/include/plist.icc include/rod.hh \
 	include/score-column.hh ../lib/include/moment.hh \
 	../flower/include/rational.hh
-score-elem-info.o score-elem-info.lo: score-elem-info.cc \
-	include/score-elem-info.hh ../flower/include/scalar.hh \
-	../flower/include/string.hh \
+score-elem-info.o: score-elem-info.cc include/score-elem-info.hh \
+	../flower/include/scalar.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
@@ -3120,10 +3106,9 @@ score-elem-info.o score-elem-info.lo: score-elem-info.cc \
 	../flower/include/virtual-methods.hh ../lib/include/input.hh \
 	include/music.hh include/minterval.hh \
 	../flower/include/interval.hh include/direction.hh
-score-elem.o score-elem.lo: score-elem.cc include/outputter.hh \
-	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	include/p-score.hh include/colhpos.hh \
+score-elem.o: score-elem.cc include/outputter.hh include/lily-proto.hh \
+	../lib/include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh include/p-score.hh include/colhpos.hh \
 	../flower/include/varray.hh ../flower/include/parray.hh \
 	../flower/include/plist.hh ../flower/include/list.hh \
 	../flower/include/list.icc ../flower/include/cursor.hh \
@@ -3151,9 +3136,8 @@ score-elem.o score-elem.lo: score-elem.cc include/outputter.hh \
 	include/horizontal-group-item.hh \
 	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh
-score-grav.o score-grav.lo: score-grav.cc include/super-elem.hh \
-	include/score-elem.hh ../flower/include/parray.hh \
-	../flower/include/varray.hh \
+score-grav.o: score-grav.cc include/super-elem.hh include/score-elem.hh \
+	../flower/include/parray.hh ../flower/include/varray.hh \
 	../flower/include/virtual-methods.hh \
 	../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/offset.hh \
@@ -3189,18 +3173,18 @@ score-grav.o score-grav.lo: score-grav.cc include/super-elem.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/command-request.hh include/paper-def.hh \
 	include/music-output-def.hh
-score-performer.o score-performer.lo: score-performer.cc \
-	include/score-performer.hh include/performer-group-performer.hh \
-	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/parray.hh ../flower/include/varray.hh \
-	../flower/include/plist.hh ../flower/include/list.hh \
-	../flower/include/list.icc ../flower/include/cursor.hh \
-	../flower/include/link.hh ../flower/include/link.icc \
-	../flower/include/compare.hh ../flower/include/pcursor.hh \
-	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc include/performer.hh \
-	include/request.hh ../flower/include/string.hh \
+score-performer.o: score-performer.cc include/score-performer.hh \
+	include/performer-group-performer.hh include/lily-proto.hh \
+	../lib/include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/parray.hh \
+	../flower/include/varray.hh ../flower/include/plist.hh \
+	../flower/include/list.hh ../flower/include/list.icc \
+	../flower/include/cursor.hh ../flower/include/link.hh \
+	../flower/include/link.icc ../flower/include/compare.hh \
+	../flower/include/pcursor.hh ../flower/include/cursor.icc \
+	../flower/include/iterate.hh ../flower/include/plist.icc \
+	include/performer.hh include/request.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../lib/include/moment.hh \
@@ -3221,7 +3205,7 @@ score-performer.o score-performer.lo: score-performer.cc \
 	../lib/include/warn.hh include/score.hh \
 	../lib/include/source-file.hh ../lib/include/source.hh \
 	include/audio-staff.hh
-score-priority-grav.o score-priority-grav.lo: score-priority-grav.cc \
+score-priority-grav.o: score-priority-grav.cc \
 	include/horizontal-group-item.hh \
 	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/score-elem.hh ../flower/include/parray.hh \
@@ -3247,7 +3231,7 @@ score-priority-grav.o score-priority-grav.lo: score-priority-grav.cc \
 	../flower/include/dictionary.hh ../flower/include/assoc.hh \
 	../flower/include/assoc-iter.hh include/break-align-item.hh \
 	include/horizontal-align-item.hh
-score.o score.lo: score.cc include/score.hh ../flower/include/varray.hh \
+score.o: score.cc include/score.hh ../flower/include/varray.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/plist.hh ../flower/include/list.hh \
@@ -3273,12 +3257,11 @@ score.o score.lo: score.cc include/score.hh ../flower/include/varray.hh \
 	../flower/include/scalar.hh ../flower/include/pqueue.hh \
 	include/header.hh ../flower/include/cpu-timer.hh \
 	include/main.hh include/paper-def.hh
-scoreline.o scoreline.lo: scoreline.cc include/scoreline.hh \
-	include/colhpos.hh ../flower/include/varray.hh \
-	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	include/spanner.hh include/score-elem.hh \
-	../flower/include/parray.hh \
+scoreline.o: scoreline.cc include/scoreline.hh include/colhpos.hh \
+	../flower/include/varray.hh include/lily-proto.hh \
+	../lib/include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh include/spanner.hh \
+	include/score-elem.hh ../flower/include/parray.hh \
 	../flower/include/virtual-methods.hh \
 	../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/offset.hh include/axes.hh \
@@ -3301,7 +3284,7 @@ scoreline.o scoreline.lo: scoreline.cc include/scoreline.hh \
 	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/item.hh include/p-score.hh include/music-output.hh
-scores.o scores.lo: scores.cc include/main.hh include/lily-proto.hh \
+scores.o: scores.cc include/main.hh include/lily-proto.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh include/score.hh \
 	../flower/include/varray.hh ../flower/include/plist.hh \
@@ -3321,8 +3304,7 @@ scores.o scores.lo: scores.cc include/main.hh include/lily-proto.hh \
 	../flower/include/dictionary.hh ../flower/include/assoc.hh \
 	include/header.hh include/debug.hh ../flower/include/dstream.hh \
 	../lib/include/warn.hh
-script-column.o script-column.lo: script-column.cc \
-	include/script-column.hh \
+script-column.o: script-column.cc include/script-column.hh \
 	include/horizontal-vertical-group-item.hh \
 	include/axis-group-item.hh include/axis-group-element.hh \
 	include/score-elem.hh ../flower/include/parray.hh \
@@ -3352,7 +3334,7 @@ script-column.o script-column.lo: script-column.cc \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
 	../flower/include/plist.icc include/general-script-def.hh \
 	../lib/include/input.hh
-script-def.o script-def.lo: script-def.cc include/debug.hh \
+script-def.o: script-def.cc include/debug.hh \
 	../flower/include/dstream.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -3373,11 +3355,11 @@ script-def.o script-def.lo: script-def.cc include/debug.hh \
 	../flower/include/iterate.hh ../flower/include/plist.icc \
 	../flower/include/dictionary.hh ../flower/include/assoc.hh \
 	include/lookup.hh ../flower/include/scalar.hh
-script-grav.o script-grav.lo: script-grav.cc include/script-grav.hh \
-	include/engraver.hh include/lily-proto.hh \
-	../lib/include/proto.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh ../flower/include/varray.hh \
-	include/request.hh ../flower/include/string.hh \
+script-grav.o: script-grav.cc include/script-grav.hh include/engraver.hh \
+	include/lily-proto.hh ../lib/include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/varray.hh include/request.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
@@ -3402,8 +3384,7 @@ script-grav.o script-grav.lo: script-grav.cc include/script-grav.hh \
 	../flower/include/iterate.hh ../flower/include/plist.icc \
 	include/staff-sym.hh include/spanner.hh include/rod.hh \
 	include/general-script-def.hh
-script.o script.lo: script.cc include/script-def.hh \
-	../flower/include/string.hh \
+script.o: script.cc include/script-def.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
@@ -3429,8 +3410,8 @@ script.o script.lo: script.cc include/script-def.hh \
 	include/item.hh include/boxes.hh include/drul-array.hh \
 	include/stem.hh include/molecule.hh include/lookup.hh \
 	include/atom.hh ../flower/include/scalar.hh
-separating-group-spanner.o separating-group-spanner.lo: \
-	separating-group-spanner.cc include/separating-group-spanner.hh \
+separating-group-spanner.o: separating-group-spanner.cc \
+	include/separating-group-spanner.hh \
 	include/vertical-group-spanner.hh include/axis-group-spanner.hh \
 	include/spanner.hh include/lily-proto.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
@@ -3457,8 +3438,7 @@ separating-group-spanner.o separating-group-spanner.lo: \
 	../flower/include/link.hh ../flower/include/link.icc \
 	../flower/include/pcursor.hh ../flower/include/cursor.icc \
 	../flower/include/iterate.hh ../flower/include/plist.icc
-separating-line-group-grav.o separating-line-group-grav.lo: \
-	separating-line-group-grav.cc \
+separating-line-group-grav.o: separating-line-group-grav.cc \
 	include/separating-line-group-grav.hh \
 	include/line-group-grav.hh include/engraver.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
@@ -3493,8 +3473,7 @@ separating-line-group-grav.o separating-line-group-grav.lo: \
 	../flower/include/link.hh ../flower/include/link.icc \
 	../flower/include/pcursor.hh ../flower/include/cursor.icc \
 	../flower/include/iterate.hh ../flower/include/plist.icc
-single-malt-grouping-item.o single-malt-grouping-item.lo: \
-	single-malt-grouping-item.cc \
+single-malt-grouping-item.o: single-malt-grouping-item.cc \
 	include/single-malt-grouping-item.hh include/item.hh \
 	include/boxes.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/interval.hh \
@@ -3519,7 +3498,7 @@ single-malt-grouping-item.o single-malt-grouping-item.lo: \
 	../flower/include/iterate.hh ../flower/include/plist.icc \
 	include/rod.hh include/debug.hh ../flower/include/dstream.hh \
 	../lib/include/warn.hh
-slur-grav.o slur-grav.lo: slur-grav.cc ../lib/include/proto.hh \
+slur-grav.o: slur-grav.cc ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/plist.hh ../flower/include/list.hh \
 	../flower/include/list.icc ../flower/include/cursor.hh \
@@ -3555,7 +3534,7 @@ slur-grav.o slur-grav.lo: slur-grav.cc ../lib/include/proto.hh \
 	include/axis-group-administration.hh \
 	include/horizontal-vertical-group-elem.hh \
 	include/vertical-group-elem.hh include/horizontal-group-elem.hh
-slur.o slur.lo: slur.cc include/slur.hh include/directional-spanner.hh \
+slur.o: slur.cc include/slur.hh include/directional-spanner.hh \
 	include/spanner.hh include/lily-proto.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh include/score-elem.hh \
@@ -3588,11 +3567,11 @@ slur.o slur.lo: slur.cc include/slur.hh include/directional-spanner.hh \
 	include/horizontal-group-item.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh \
 	include/bezier.hh
-span-bar-grav.o span-bar-grav.lo: span-bar-grav.cc include/span-bar.hh \
-	include/bar.hh include/item.hh include/boxes.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/interval.hh ../flower/include/compare.hh \
-	include/offset.hh include/axes.hh ../flower/include/string.hh \
+span-bar-grav.o: span-bar-grav.cc include/span-bar.hh include/bar.hh \
+	include/item.hh include/boxes.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/interval.hh \
+	../flower/include/compare.hh include/offset.hh include/axes.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh include/score-elem.hh \
@@ -3610,8 +3589,8 @@ span-bar-grav.o span-bar-grav.lo: span-bar-grav.cc include/span-bar.hh \
 	../flower/include/dictionary.hh ../flower/include/assoc.hh \
 	include/vertical-align-spanner.hh include/spanner.hh \
 	include/rod.hh include/vertical-align-elem.hh
-span-bar.o span-bar.lo: span-bar.cc include/dimen.hh \
-	../flower/include/real.hh ../flower/include/string.hh \
+span-bar.o: span-bar.cc include/dimen.hh ../flower/include/real.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
@@ -3634,9 +3613,9 @@ span-bar.o span-bar.lo: span-bar.cc include/dimen.hh \
 	../flower/include/plist.icc ../flower/include/dictionary.hh \
 	../flower/include/assoc.hh include/molecule.hh \
 	include/vertical-align-elem.hh
-span-score-bar-grav.o span-score-bar-grav.lo: span-score-bar-grav.cc \
-	include/span-score-bar.hh include/span-bar.hh include/bar.hh \
-	include/item.hh include/boxes.hh ../flower/include/fproto.hh \
+span-score-bar-grav.o: span-score-bar-grav.cc include/span-score-bar.hh \
+	include/span-bar.hh include/bar.hh include/item.hh \
+	include/boxes.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/interval.hh \
 	../flower/include/compare.hh include/offset.hh include/axes.hh \
 	../flower/include/string.hh \
@@ -3656,9 +3635,9 @@ span-score-bar-grav.o span-score-bar-grav.lo: span-score-bar-grav.cc \
 	include/score-elem-info.hh ../flower/include/scalar.hh \
 	include/staff-info.hh include/translator.hh \
 	../flower/include/dictionary.hh ../flower/include/assoc.hh
-span-score-bar.o span-score-bar.lo: span-score-bar.cc \
-	include/span-score-bar.hh include/span-bar.hh include/bar.hh \
-	include/item.hh include/boxes.hh ../flower/include/fproto.hh \
+span-score-bar.o: span-score-bar.cc include/span-score-bar.hh \
+	include/span-bar.hh include/bar.hh include/item.hh \
+	include/boxes.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/interval.hh \
 	../flower/include/compare.hh include/offset.hh include/axes.hh \
 	../flower/include/string.hh \
@@ -3680,8 +3659,8 @@ span-score-bar.o span-score-bar.lo: span-score-bar.cc \
 	../flower/include/iterate.hh ../flower/include/plist.icc \
 	../flower/include/dictionary.hh ../flower/include/assoc.hh \
 	include/lookup.hh ../flower/include/scalar.hh
-spanner.o spanner.lo: spanner.cc include/debug.hh \
-	../flower/include/dstream.hh ../flower/include/string.hh \
+spanner.o: spanner.cc include/debug.hh ../flower/include/dstream.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
@@ -3704,20 +3683,20 @@ spanner.o spanner.lo: spanner.cc include/debug.hh \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
 	../flower/include/plist.icc include/p-score.hh \
 	include/colhpos.hh include/music-output.hh include/outputter.hh
-spring-spacer.o spring-spacer.lo: spring-spacer.cc \
-	include/spring-spacer.hh include/line-spacer.hh \
-	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/varray.hh ../flower/include/vector.hh \
-	../flower/include/interval.hh ../flower/include/compare.hh \
-	../flower/include/plist.hh ../flower/include/list.hh \
-	../flower/include/list.icc ../flower/include/cursor.hh \
-	../flower/include/link.hh ../flower/include/link.icc \
-	../flower/include/pcursor.hh ../flower/include/cursor.icc \
-	../flower/include/iterate.hh ../flower/include/plist.icc \
-	include/col-info.hh ../flower/include/pointer.hh \
-	../flower/include/assoc.hh include/colhpos.hh \
-	../lib/include/moment.hh ../flower/include/rational.hh \
+spring-spacer.o: spring-spacer.cc include/spring-spacer.hh \
+	include/line-spacer.hh include/lily-proto.hh \
+	../lib/include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/varray.hh \
+	../flower/include/vector.hh ../flower/include/interval.hh \
+	../flower/include/compare.hh ../flower/include/plist.hh \
+	../flower/include/list.hh ../flower/include/list.icc \
+	../flower/include/cursor.hh ../flower/include/link.hh \
+	../flower/include/link.icc ../flower/include/pcursor.hh \
+	../flower/include/cursor.icc ../flower/include/iterate.hh \
+	../flower/include/plist.icc include/col-info.hh \
+	../flower/include/pointer.hh ../flower/include/assoc.hh \
+	include/colhpos.hh ../lib/include/moment.hh \
+	../flower/include/rational.hh \
 	../flower/include/arithmetic-operator.hh include/p-col.hh \
 	include/horizontal-group-item.hh \
 	include/horizontal-group-elem.hh include/axis-group-element.hh \
@@ -3738,7 +3717,7 @@ spring-spacer.o spring-spacer.lo: spring-spacer.cc \
 	include/paper-def.hh include/music-output-def.hh \
 	../flower/include/dictionary.hh include/dimen.hh \
 	include/main.hh
-staff-info.o staff-info.lo: staff-info.cc ../lib/include/proto.hh \
+staff-info.o: staff-info.cc ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/plist.hh ../flower/include/list.hh \
 	../flower/include/list.icc ../flower/include/cursor.hh \
@@ -3762,18 +3741,18 @@ staff-info.o staff-info.lo: staff-info.cc ../lib/include/proto.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/item.hh include/boxes.hh include/drul-array.hh \
 	include/direction.hh include/rod.hh
-staff-performer.o staff-performer.lo: staff-performer.cc \
-	include/staff-performer.hh include/performer-group-performer.hh \
-	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/parray.hh ../flower/include/varray.hh \
-	../flower/include/plist.hh ../flower/include/list.hh \
-	../flower/include/list.icc ../flower/include/cursor.hh \
-	../flower/include/link.hh ../flower/include/link.icc \
-	../flower/include/compare.hh ../flower/include/pcursor.hh \
-	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc include/performer.hh \
-	include/request.hh ../flower/include/string.hh \
+staff-performer.o: staff-performer.cc include/staff-performer.hh \
+	include/performer-group-performer.hh include/lily-proto.hh \
+	../lib/include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/parray.hh \
+	../flower/include/varray.hh ../flower/include/plist.hh \
+	../flower/include/list.hh ../flower/include/list.icc \
+	../flower/include/cursor.hh ../flower/include/link.hh \
+	../flower/include/link.icc ../flower/include/compare.hh \
+	../flower/include/pcursor.hh ../flower/include/cursor.icc \
+	../flower/include/iterate.hh ../flower/include/plist.icc \
+	include/performer.hh include/request.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../lib/include/moment.hh \
@@ -3788,7 +3767,7 @@ staff-performer.o staff-performer.lo: staff-performer.cc \
 	../flower/include/dstream.hh ../lib/include/warn.hh \
 	include/audio-column.hh include/audio-item.hh \
 	include/audio-element.hh include/audio-staff.hh
-staff-side.o staff-side.lo: staff-side.cc ../flower/include/interval.hh \
+staff-side.o: staff-side.cc ../flower/include/interval.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/compare.hh include/paper-def.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
@@ -3810,12 +3789,11 @@ staff-side.o staff-side.lo: staff-side.cc ../flower/include/interval.hh \
 	include/direction.hh include/staff-sym.hh include/spanner.hh \
 	include/drul-array.hh include/rod.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh
-staff-sym-grav.o staff-sym-grav.lo: staff-sym-grav.cc \
-	include/staff-sym-grav.hh include/engraver.hh \
-	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/varray.hh include/request.hh \
-	../flower/include/string.hh \
+staff-sym-grav.o: staff-sym-grav.cc include/staff-sym-grav.hh \
+	include/engraver.hh include/lily-proto.hh \
+	../lib/include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/varray.hh \
+	include/request.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
@@ -3840,11 +3818,11 @@ staff-sym-grav.o staff-sym-grav.lo: staff-sym-grav.cc \
 	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/item.hh include/boxes.hh
-staff-sym.o staff-sym.lo: staff-sym.cc include/staff-sym.hh \
-	include/spanner.hh include/lily-proto.hh \
-	../lib/include/proto.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh include/score-elem.hh \
-	../flower/include/parray.hh ../flower/include/varray.hh \
+staff-sym.o: staff-sym.cc include/staff-sym.hh include/spanner.hh \
+	include/lily-proto.hh ../lib/include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	include/score-elem.hh ../flower/include/parray.hh \
+	../flower/include/varray.hh \
 	../flower/include/virtual-methods.hh \
 	../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/offset.hh include/axes.hh \
@@ -3866,11 +3844,11 @@ staff-sym.o staff-sym.lo: staff-sym.cc include/staff-sym.hh \
 	include/molecule.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh \
 	include/dimen.hh
-stem-grav.o stem-grav.lo: stem-grav.cc include/stem-grav.hh \
-	include/engraver.hh include/lily-proto.hh \
-	../lib/include/proto.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh ../flower/include/varray.hh \
-	include/request.hh ../flower/include/string.hh \
+stem-grav.o: stem-grav.cc include/stem-grav.hh include/engraver.hh \
+	include/lily-proto.hh ../lib/include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/varray.hh include/request.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
@@ -3895,7 +3873,7 @@ stem-grav.o stem-grav.lo: stem-grav.cc include/stem-grav.hh \
 	../lib/include/duration.hh ../lib/include/plet.hh \
 	../lib/include/duration-convert.hh include/misc.hh \
 	include/grouping.hh include/abbrev.hh
-stem-info.o stem-info.lo: stem-info.cc ../lib/include/proto.hh \
+stem-info.o: stem-info.cc ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	include/dimen.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
@@ -3922,7 +3900,7 @@ stem-info.o stem-info.lo: stem-info.cc ../lib/include/proto.hh \
 	include/paper-def.hh include/music-output-def.hh \
 	../flower/include/dictionary.hh ../flower/include/assoc.hh \
 	include/lookup.hh include/stem-info.hh
-stem.o stem.lo: stem.cc include/stem.hh include/item.hh include/boxes.hh \
+stem.o: stem.cc include/stem.hh include/item.hh include/boxes.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/interval.hh ../flower/include/compare.hh \
 	include/offset.hh include/axes.hh ../flower/include/string.hh \
@@ -3954,9 +3932,8 @@ stem.o stem.lo: stem.cc include/stem.hh include/item.hh include/boxes.hh \
 	include/minterval.hh include/beam.hh \
 	include/directional-spanner.hh include/spanner.hh \
 	include/rest.hh
-super-elem.o super-elem.lo: super-elem.cc include/super-elem.hh \
-	include/score-elem.hh ../flower/include/parray.hh \
-	../flower/include/varray.hh \
+super-elem.o: super-elem.cc include/super-elem.hh include/score-elem.hh \
+	../flower/include/parray.hh ../flower/include/varray.hh \
 	../flower/include/virtual-methods.hh \
 	../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/offset.hh \
@@ -3975,7 +3952,7 @@ super-elem.o super-elem.lo: super-elem.cc include/super-elem.hh \
 	../flower/include/pcursor.hh ../flower/include/cursor.icc \
 	../flower/include/iterate.hh ../flower/include/plist.icc \
 	include/music-output.hh include/outputter.hh
-swallow-grav.o swallow-grav.lo: swallow-grav.cc include/swallow-grav.hh \
+swallow-grav.o: swallow-grav.cc include/swallow-grav.hh \
 	include/engraver.hh include/lily-proto.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/varray.hh \
@@ -3991,7 +3968,7 @@ swallow-grav.o swallow-grav.lo: swallow-grav.cc include/swallow-grav.hh \
 	include/staff-info.hh include/translator.hh \
 	../flower/include/dictionary.hh ../flower/include/assoc.hh \
 	../flower/include/parray.hh
-swallow-perf.o swallow-perf.lo: swallow-perf.cc include/swallow-perf.hh \
+swallow-perf.o: swallow-perf.cc include/swallow-perf.hh \
 	include/performer.hh include/lily-proto.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/varray.hh \
@@ -4007,11 +3984,10 @@ swallow-perf.o swallow-perf.lo: swallow-perf.cc include/swallow-perf.hh \
 	include/staff-info.hh include/translator.hh \
 	../flower/include/dictionary.hh ../flower/include/assoc.hh \
 	../flower/include/parray.hh
-symtable.o symtable.lo: symtable.cc include/misc.hh \
-	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../lib/include/moment.hh ../flower/include/rational.hh \
-	../flower/include/compare.hh \
+symtable.o: symtable.cc include/misc.hh include/lily-proto.hh \
+	../lib/include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../lib/include/moment.hh \
+	../flower/include/rational.hh ../flower/include/compare.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/scalar.hh ../flower/include/string.hh \
 	../flower/include/string-handle.hh \
@@ -4023,7 +3999,7 @@ symtable.o symtable.lo: symtable.cc include/misc.hh \
 	include/axes.hh ../flower/include/assoc.hh \
 	../flower/include/assoc-iter.hh include/symtable.hh \
 	../flower/include/dictionary.hh
-template1.o template1.lo: template1.cc ../lib/include/proto.hh \
+template1.o: template1.cc ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	include/idealspacing.hh include/lily-proto.hh \
 	../flower/include/plist.hh ../flower/include/list.hh \
@@ -4053,19 +4029,18 @@ template1.o template1.lo: template1.cc ../lib/include/proto.hh \
 	../lib/include/duration.hh ../lib/include/plet.hh \
 	include/spanner.hh ../flower/include/pcursor.tcc \
 	../flower/include/plist.tcc
-template2.o template2.lo: template2.cc include/line-spacer.hh \
-	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/varray.hh ../flower/include/vector.hh \
-	../flower/include/interval.hh ../flower/include/compare.hh \
-	../flower/include/pcursor.tcc ../flower/include/pcursor.hh \
-	../flower/include/plist.hh ../flower/include/list.hh \
-	../flower/include/list.icc ../flower/include/cursor.hh \
-	../flower/include/link.hh ../flower/include/link.icc \
-	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc ../flower/include/plist.tcc
-template3.o template3.lo: template3.cc include/atom.hh \
-	../flower/include/string.hh \
+template2.o: template2.cc include/line-spacer.hh include/lily-proto.hh \
+	../lib/include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/varray.hh \
+	../flower/include/vector.hh ../flower/include/interval.hh \
+	../flower/include/compare.hh ../flower/include/pcursor.tcc \
+	../flower/include/pcursor.hh ../flower/include/plist.hh \
+	../flower/include/list.hh ../flower/include/list.icc \
+	../flower/include/cursor.hh ../flower/include/link.hh \
+	../flower/include/link.icc ../flower/include/cursor.icc \
+	../flower/include/iterate.hh ../flower/include/plist.icc \
+	../flower/include/plist.tcc
+template3.o: template3.cc include/atom.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
@@ -4080,7 +4055,7 @@ template3.o template3.lo: template3.cc include/atom.hh \
 	../flower/include/iterate.hh ../flower/include/plist.icc \
 	include/direction.hh ../flower/include/pcursor.tcc \
 	../flower/include/plist.tcc
-template4.o template4.lo: template4.cc ../lib/include/proto.hh \
+template4.o: template4.cc ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/pcursor.hh ../flower/include/plist.hh \
 	../flower/include/list.hh ../flower/include/list.icc \
@@ -4109,7 +4084,7 @@ template4.o template4.lo: template4.cc ../lib/include/proto.hh \
 	include/colhpos.hh include/music-output.hh \
 	../flower/include/cursor.tcc ../flower/include/list.tcc \
 	../flower/include/pcursor.tcc ../flower/include/plist.tcc
-template5.o template5.lo: template5.cc ../lib/include/proto.hh \
+template5.o: template5.cc ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
@@ -4118,7 +4093,7 @@ template5.o template5.lo: template5.cc ../lib/include/proto.hh \
 	../lib/include/moment.hh ../flower/include/rational.hh \
 	../flower/include/interval.tcc ../flower/include/interval.hh \
 	../flower/include/flower-debug.hh ../flower/include/dstream.hh
-template6.o template6.lo: template6.cc ../lib/include/proto.hh \
+template6.o: template6.cc ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/pcursor.tcc ../flower/include/pcursor.hh \
 	../flower/include/plist.hh ../flower/include/list.hh \
@@ -4135,7 +4110,7 @@ template6.o template6.lo: template6.cc ../lib/include/proto.hh \
 	../flower/include/scalar.hh ../flower/include/dictionary.hh \
 	../flower/include/assoc.hh ../flower/include/varray.hh \
 	../flower/include/parray.hh ../lib/include/input.hh
-template7.o template7.lo: template7.cc ../lib/include/proto.hh \
+template7.o: template7.cc ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/pcursor.tcc ../flower/include/pcursor.hh \
 	../flower/include/plist.hh ../flower/include/list.hh \
@@ -4152,7 +4127,7 @@ template7.o template7.lo: template7.cc ../lib/include/proto.hh \
 	../flower/include/string.hh ../flower/include/string-handle.hh \
 	../flower/include/international.hh include/music-iterator.hh \
 	../flower/include/varray.hh
-template8.o template8.lo: template8.cc ../lib/include/proto.hh \
+template8.o: template8.cc ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/plist.hh ../flower/include/list.hh \
 	../flower/include/list.icc ../flower/include/cursor.hh \
@@ -4168,8 +4143,7 @@ template8.o template8.lo: template8.cc ../lib/include/proto.hh \
 	../lib/include/moment.hh ../flower/include/rational.hh \
 	include/midi-item.hh ../flower/include/pcursor.tcc \
 	../flower/include/plist.tcc
-tex-beam.o tex-beam.lo: tex-beam.cc include/atom.hh \
-	../flower/include/string.hh \
+tex-beam.o: tex-beam.cc include/atom.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
@@ -4192,11 +4166,11 @@ tex-beam.o tex-beam.lo: tex-beam.cc include/atom.hh \
 	include/music-output-def.hh \
 	../flower/include/virtual-methods.hh \
 	../flower/include/string-convert.hh include/main.hh
-tex-slur.o tex-slur.lo: tex-slur.cc include/main.hh \
-	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	include/misc.hh ../lib/include/moment.hh \
-	../flower/include/rational.hh ../flower/include/compare.hh \
+tex-slur.o: tex-slur.cc include/main.hh include/lily-proto.hh \
+	../lib/include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh include/misc.hh \
+	../lib/include/moment.hh ../flower/include/rational.hh \
+	../flower/include/compare.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/scalar.hh ../flower/include/string.hh \
 	../flower/include/string-handle.hh \
@@ -4216,8 +4190,7 @@ tex-slur.o tex-slur.lo: tex-slur.cc include/main.hh \
 	../flower/include/virtual-methods.hh \
 	../flower/include/dictionary.hh ../flower/include/assoc.hh \
 	../flower/include/string-convert.hh
-tex-stream.o tex-stream.lo: tex-stream.cc include/tex.hh \
-	../flower/include/string.hh \
+tex-stream.o: tex-stream.cc include/tex.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
@@ -4227,7 +4200,7 @@ tex-stream.o tex-stream.lo: tex-stream.cc include/tex.hh \
 	include/main.hh include/lily-proto.hh ../lib/include/proto.hh \
 	include/tex-stream.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh
-tex.o tex.lo: tex.cc include/dimen.hh ../flower/include/real.hh \
+tex.o: tex.cc include/dimen.hh ../flower/include/real.hh \
 	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/string-handle.hh \
@@ -4236,8 +4209,8 @@ tex.o tex.lo: tex.cc include/dimen.hh ../flower/include/real.hh \
 	include/offset.hh include/axes.hh ../flower/include/scalar.hh \
 	include/atom.hh include/lily-proto.hh ../lib/include/proto.hh \
 	../flower/include/varray.hh
-text-def.o text-def.lo: text-def.cc include/debug.hh \
-	../flower/include/dstream.hh ../flower/include/string.hh \
+text-def.o: text-def.cc include/debug.hh ../flower/include/dstream.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
@@ -4258,7 +4231,7 @@ text-def.o text-def.lo: text-def.cc include/debug.hh \
 	../flower/include/assoc.hh include/molecule.hh \
 	include/text-def.hh include/general-script-def.hh \
 	../lib/include/input.hh include/dimen.hh
-text-item.o text-item.lo: text-item.cc include/musical-request.hh \
+text-item.o: text-item.cc include/musical-request.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	include/request.hh ../flower/include/string.hh \
@@ -4287,7 +4260,7 @@ text-item.o text-item.lo: text-item.cc include/musical-request.hh \
 	include/lookup.hh include/atom.hh ../flower/include/scalar.hh \
 	include/debug.hh ../flower/include/dstream.hh \
 	../lib/include/warn.hh
-text-spanner.o text-spanner.lo: text-spanner.cc include/molecule.hh \
+text-spanner.o: text-spanner.cc include/molecule.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/plist.hh ../flower/include/list.hh \
@@ -4314,11 +4287,11 @@ text-spanner.o text-spanner.lo: text-spanner.cc include/molecule.hh \
 	../lib/include/moment.hh ../flower/include/rational.hh \
 	include/music-output-def.hh ../flower/include/dictionary.hh \
 	../flower/include/assoc.hh include/atom.hh
-tie-grav.o tie-grav.lo: tie-grav.cc include/tie-grav.hh \
-	include/engraver.hh include/lily-proto.hh \
-	../lib/include/proto.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh ../flower/include/varray.hh \
-	include/request.hh ../flower/include/string.hh \
+tie-grav.o: tie-grav.cc include/tie-grav.hh include/engraver.hh \
+	include/lily-proto.hh ../lib/include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/varray.hh include/request.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
@@ -4342,7 +4315,7 @@ tie-grav.o tie-grav.lo: tie-grav.cc include/tie-grav.hh \
 	../flower/include/link.hh ../flower/include/link.icc \
 	../flower/include/pcursor.hh ../flower/include/cursor.icc \
 	../flower/include/iterate.hh ../flower/include/plist.icc
-tie.o tie.lo: tie.cc include/paper-def.hh include/lily-proto.hh \
+tie.o: tie.cc include/paper-def.hh include/lily-proto.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../lib/include/moment.hh \
 	../flower/include/rational.hh ../flower/include/compare.hh \
@@ -4370,9 +4343,9 @@ tie.o tie.lo: tie.cc include/paper-def.hh include/lily-proto.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/debug.hh ../flower/include/dstream.hh \
 	../lib/include/warn.hh
-time-description.o time-description.lo: time-description.cc \
-	include/time-description.hh ../lib/include/moment.hh \
-	../flower/include/rational.hh ../flower/include/compare.hh \
+time-description.o: time-description.cc include/time-description.hh \
+	../lib/include/moment.hh ../flower/include/rational.hh \
+	../flower/include/compare.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
@@ -4380,7 +4353,7 @@ time-description.o time-description.lo: time-description.cc \
 	../flower/include/dstream.hh ../flower/include/string.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../lib/include/warn.hh
-timing-grav.o timing-grav.lo: timing-grav.cc include/score-grav.hh \
+timing-grav.o: timing-grav.cc include/score-grav.hh \
 	include/engraver-group.hh include/lily-proto.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/parray.hh \
@@ -4407,9 +4380,8 @@ timing-grav.o timing-grav.lo: timing-grav.cc include/score-grav.hh \
 	include/timing-translator.hh include/time-description.hh \
 	include/grouping.hh include/command-request.hh \
 	../lib/include/duration.hh ../lib/include/plet.hh
-timing-translator.o timing-translator.lo: timing-translator.cc \
-	include/timing-translator.hh include/translator.hh \
-	../flower/include/string.hh \
+timing-translator.o: timing-translator.cc include/timing-translator.hh \
+	include/translator.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
@@ -4431,7 +4403,7 @@ timing-translator.o timing-translator.lo: timing-translator.cc \
 	../flower/include/pcursor.hh ../flower/include/cursor.icc \
 	../flower/include/iterate.hh ../flower/include/plist.icc \
 	include/global-translator.hh ../flower/include/pqueue.hh
-translation-property.o translation-property.lo: translation-property.cc \
+translation-property.o: translation-property.cc \
 	include/translation-property.hh include/music.hh \
 	../flower/include/virtual-methods.hh ../lib/include/input.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
@@ -4443,15 +4415,15 @@ translation-property.o translation-property.lo: translation-property.cc \
 	../flower/include/international.hh ../flower/include/scalar.hh \
 	include/debug.hh ../flower/include/dstream.hh \
 	../lib/include/warn.hh
-translator-ctors.o translator-ctors.lo: translator-ctors.cc \
-	../lib/include/proto.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh ../flower/include/plist.hh \
-	../flower/include/list.hh ../flower/include/list.icc \
-	../flower/include/cursor.hh ../flower/include/link.hh \
-	../flower/include/link.icc ../flower/include/compare.hh \
-	../flower/include/pcursor.hh ../flower/include/cursor.icc \
-	../flower/include/iterate.hh ../flower/include/plist.icc \
-	include/translator.hh ../flower/include/string.hh \
+translator-ctors.o: translator-ctors.cc ../lib/include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/plist.hh ../flower/include/list.hh \
+	../flower/include/list.icc ../flower/include/cursor.hh \
+	../flower/include/link.hh ../flower/include/link.icc \
+	../flower/include/compare.hh ../flower/include/pcursor.hh \
+	../flower/include/cursor.icc ../flower/include/iterate.hh \
+	../flower/include/plist.icc include/translator.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh include/lily-proto.hh \
@@ -4461,8 +4433,8 @@ translator-ctors.o translator-ctors.lo: translator-ctors.cc \
 	../flower/include/parray.hh ../lib/include/input.hh \
 	include/debug.hh ../flower/include/dstream.hh \
 	../lib/include/warn.hh
-translator-group.o translator-group.lo: translator-group.cc \
-	include/music-output-def.hh ../flower/include/string.hh \
+translator-group.o: translator-group.cc include/music-output-def.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
@@ -4480,7 +4452,7 @@ translator-group.o translator-group.lo: translator-group.cc \
 	../lib/include/input.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh \
 	../flower/include/rational.hh
-translator.o translator.lo: translator.cc include/translator.hh \
+translator.o: translator.cc include/translator.hh \
 	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -4500,7 +4472,7 @@ translator.o translator.lo: translator.cc include/translator.hh \
 	../flower/include/iterate.hh ../flower/include/plist.icc \
 	../flower/include/dictionary-iter.hh \
 	../flower/include/assoc-iter.hh ../flower/include/rational.hh
-type-swallow-trans.o type-swallow-trans.lo: type-swallow-trans.cc \
+type-swallow-trans.o: type-swallow-trans.cc \
 	include/type-swallow-trans.hh include/translator.hh \
 	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
@@ -4517,13 +4489,13 @@ type-swallow-trans.o type-swallow-trans.lo: type-swallow-trans.cc \
 	include/music.hh include/minterval.hh \
 	../flower/include/interval.hh include/direction.hh \
 	../lib/include/duration.hh ../lib/include/plet.hh
-version.o version.lo: version.cc include/main.hh include/lily-proto.hh \
+version.o: version.cc include/main.hh include/lily-proto.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh
-vertical-align-elem.o vertical-align-elem.lo: vertical-align-elem.cc \
+vertical-align-elem.o: vertical-align-elem.cc \
 	include/vertical-align-elem.hh include/score-elem.hh \
 	../flower/include/parray.hh ../flower/include/varray.hh \
 	../flower/include/virtual-methods.hh \
@@ -4536,8 +4508,8 @@ vertical-align-elem.o vertical-align-elem.lo: vertical-align-elem.cc \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
 	../flower/include/interval.hh
-vertical-align-grav.o vertical-align-grav.lo: vertical-align-grav.cc \
-	include/p-col.hh include/horizontal-group-item.hh \
+vertical-align-grav.o: vertical-align-grav.cc include/p-col.hh \
+	include/horizontal-group-item.hh \
 	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/score-elem.hh ../flower/include/parray.hh \
 	../flower/include/varray.hh \
@@ -4568,12 +4540,12 @@ vertical-align-grav.o vertical-align-grav.lo: vertical-align-grav.cc \
 	../flower/include/dictionary.hh ../flower/include/assoc.hh \
 	include/vertical-align-spanner.hh include/spanner.hh \
 	include/vertical-align-elem.hh include/vertical-group-elem.hh
-vertical-align-spanner.o vertical-align-spanner.lo: \
-	vertical-align-spanner.cc include/vertical-align-spanner.hh \
-	include/spanner.hh include/lily-proto.hh \
-	../lib/include/proto.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh include/score-elem.hh \
-	../flower/include/parray.hh ../flower/include/varray.hh \
+vertical-align-spanner.o: vertical-align-spanner.cc \
+	include/vertical-align-spanner.hh include/spanner.hh \
+	include/lily-proto.hh ../lib/include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	include/score-elem.hh ../flower/include/parray.hh \
+	../flower/include/varray.hh \
 	../flower/include/virtual-methods.hh \
 	../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/offset.hh include/axes.hh \
@@ -4584,7 +4556,7 @@ vertical-align-spanner.o vertical-align-spanner.lo: \
 	../flower/include/interval.hh include/drul-array.hh \
 	include/direction.hh include/rod.hh \
 	include/vertical-align-elem.hh
-vertical-group-elem.o vertical-group-elem.lo: vertical-group-elem.cc \
+vertical-group-elem.o: vertical-group-elem.cc \
 	include/vertical-group-elem.hh include/axis-group-element.hh \
 	include/score-elem.hh ../flower/include/parray.hh \
 	../flower/include/varray.hh \
@@ -4602,13 +4574,12 @@ vertical-group-elem.o vertical-group-elem.lo: vertical-group-elem.cc \
 	include/boxes.hh include/drul-array.hh include/direction.hh \
 	include/debug.hh ../flower/include/dstream.hh \
 	../lib/include/warn.hh
-vertical-group-spanner.o vertical-group-spanner.lo: \
-	vertical-group-spanner.cc include/vertical-group-spanner.hh \
-	include/axis-group-spanner.hh include/spanner.hh \
-	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	include/score-elem.hh ../flower/include/parray.hh \
-	../flower/include/varray.hh \
+vertical-group-spanner.o: vertical-group-spanner.cc \
+	include/vertical-group-spanner.hh include/axis-group-spanner.hh \
+	include/spanner.hh include/lily-proto.hh \
+	../lib/include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh include/score-elem.hh \
+	../flower/include/parray.hh ../flower/include/varray.hh \
 	../flower/include/virtual-methods.hh \
 	../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/offset.hh include/axes.hh \
@@ -4628,8 +4599,8 @@ vertical-group-spanner.o vertical-group-spanner.lo: \
 	../flower/include/link.hh ../flower/include/link.icc \
 	../flower/include/pcursor.hh ../flower/include/cursor.icc \
 	../flower/include/iterate.hh ../flower/include/plist.icc
-voice-iterator.o voice-iterator.lo: voice-iterator.cc \
-	include/translator-group.hh ../flower/include/string.hh \
+voice-iterator.o: voice-iterator.cc include/translator-group.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
@@ -4650,15 +4621,15 @@ voice-iterator.o voice-iterator.lo: voice-iterator.cc \
 	../flower/include/rational.hh include/music-list.hh \
 	include/music.hh include/minterval.hh \
 	../flower/include/interval.hh
-warn.o warn.lo: warn.cc ../lib/include/proto.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/plist.hh ../flower/include/list.hh \
-	../flower/include/list.icc ../flower/include/cursor.hh \
-	../flower/include/link.hh ../flower/include/link.icc \
-	../flower/include/compare.hh ../flower/include/pcursor.hh \
-	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc include/debug.hh \
-	../flower/include/dstream.hh ../flower/include/string.hh \
+warn.o: warn.cc ../lib/include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/plist.hh \
+	../flower/include/list.hh ../flower/include/list.icc \
+	../flower/include/cursor.hh ../flower/include/link.hh \
+	../flower/include/link.icc ../flower/include/compare.hh \
+	../flower/include/pcursor.hh ../flower/include/cursor.icc \
+	../flower/include/iterate.hh ../flower/include/plist.icc \
+	include/debug.hh ../flower/include/dstream.hh \
+	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh include/lily-proto.hh \
@@ -4669,12 +4640,11 @@ warn.o warn.lo: warn.cc ../lib/include/proto.hh \
 	include/time-description.hh ../lib/include/source-file.hh \
 	../lib/include/source.hh include/main.hh \
 	../lib/include/input.hh
-word-wrap.o word-wrap.lo: word-wrap.cc include/word-wrap.hh \
-	include/break.hh ../flower/include/varray.hh \
-	../flower/include/interval.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh ../flower/include/compare.hh \
-	include/lily-proto.hh ../lib/include/proto.hh \
-	include/colhpos.hh include/paper-def.hh \
+word-wrap.o: word-wrap.cc include/word-wrap.hh include/break.hh \
+	../flower/include/varray.hh ../flower/include/interval.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/compare.hh include/lily-proto.hh \
+	../lib/include/proto.hh include/colhpos.hh include/paper-def.hh \
 	../lib/include/moment.hh ../flower/include/rational.hh \
 	../flower/include/arithmetic-operator.hh \
 	include/music-output-def.hh ../flower/include/string.hh \
@@ -4731,19 +4701,19 @@ installdirs: installdirs-recursive
 
 
 mostlyclean-generic:
-	test -z "$(MOSTLYCLEANFILES)" || rm -f $(MOSTLYCLEANFILES)
+	-test -z "$(MOSTLYCLEANFILES)" || rm -f $(MOSTLYCLEANFILES)
 
 clean-generic:
-	test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
+	-test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
 
 distclean-generic:
-	rm -f Makefile $(DISTCLEANFILES)
-	rm -f config.cache config.log stamp-h stamp-h[0-9]*
-	test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
+	-rm -f Makefile $(DISTCLEANFILES)
+	-rm -f config.cache config.log stamp-h stamp-h[0-9]*
+	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
 
 maintainer-clean-generic:
-	test -z "$(MAINTAINERCLEANFILES)" || rm -f $(MAINTAINERCLEANFILES)
-	test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
+	-test -z "$(MAINTAINERCLEANFILES)" || rm -f $(MAINTAINERCLEANFILES)
+	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
 mostlyclean-am:  mostlyclean-binPROGRAMS mostlyclean-compile \
 		mostlyclean-libtool mostlyclean-tags \
 		mostlyclean-generic
@@ -4764,8 +4734,8 @@ mostlyclean:  mostlyclean-recursive mostlyclean-am
 clean:  clean-recursive clean-am
 
 distclean:  distclean-recursive distclean-am distclean-local
-	rm -f config.status
-	rm -f libtool
+	-rm -f config.status
+	-rm -f libtool
 
 maintainer-clean:  maintainer-clean-recursive maintainer-clean-am
 	@echo "This command is intended for maintainers to use;"

@@ -14,7 +14,25 @@ Staff = \translator {
 	  \consists "Staff_sym_engraver";
 	  \consists "Collision_engraver";
 	  \consists "Rest_collision_engraver";
-	\consists "Separating_line_group_engraver";
+
+%{
+	  Uncomment to get bar numbers on single staff systems:
+	  
+	  The Bar_number_engraver puts a number over a staff created
+	  at the same level of hierarchy.  This why you have to add it
+	  here separately if you want to have numbers on single staff
+	  systems: The Bar_number_engraver in Score_engraver will only
+	  put numbers on bars that are Score ("system") wide.  Such
+	  bars are only created when the toplevel system has multiple
+	  children-staffs.
+
+%}
+ %{
+
+	\consists "Bar_column_engraver";
+	\consists "Bar_number_engraver";
+%}
+	  	\consists "Separating_line_group_engraver";
 	  \consists "Line_group_engraver";
 	  
 	  \accepts "Voice";
@@ -99,9 +117,11 @@ Score = \translator {
 	\type Score_engraver;
 
 	\consists "Timing_engraver";
-	%\consists "Bar_column_engraver";
-	%\consists "Bar_number_engraver";
-
+	% uncomment to bar numbers on a whoole system.
+%{
+	\consists "Bar_column_engraver";
+	\consists "Bar_number_engraver";
+%}
 	\consists "Span_score_bar_engraver";
 	\consists "Score_priority_engraver";
 	\consists "Priority_horizontal_align_engraver";
