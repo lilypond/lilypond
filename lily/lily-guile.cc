@@ -134,24 +134,20 @@ ly_scm2string (SCM s)
 char *
 ly_scm2newstr (SCM str, size_t *lenp)
 {
-  char *new_str;
-  size_t len;
-
   SCM_ASSERT_TYPE (ly_c_string_p (str), str, SCM_ARG1, __FUNCTION__, "string");
 
-  len = SCM_STRING_LENGTH (str);
-  new_str = (char *) malloc ((len + 1) * sizeof (char));
-  
-  if (new_str == NULL)
-    return NULL;
+  size_t len = SCM_STRING_LENGTH (str);
+  if (char *new_str = (char *) malloc ((len + 1) * sizeof (char)))
+    {
+      memcpy (new_str, SCM_STRING_CHARS (str), len);
+      new_str[len] = '\0';
 
-  memcpy (new_str, SCM_STRING_CHARS (str), len);
-  new_str[len] = '\0';
-
-  if (lenp != NULL)
-      *lenp = len;
-
-  return new_str;
+      if (lenp)
+	*lenp = len;
+      
+      return new_str;
+    }
+  return 0;
 }
 
 SCM
@@ -776,9 +772,26 @@ alist_to_hashq (SCM alist)
 /*
   Debugging mem leaks:
  */
-LY_DEFINE (ly_protects, "ly:protects", 0, 0, 0, (),
+LY_DEFINE (ly_protects, "ly:protects",
+	   0, 0, 0, (),
 	  "Return hash of protected objects.")
 {
   return scm_protects;
 }
+#endif
+
+
+#ifdef HAVE_PANGO_FC_FONT_MAP_ADD_DECODER_FIND_FUNC
+
+#include "pangofc-afm-decoder.hh"
+
+LY_DEFINE (ly_pango_add_afm_decoder, "ly:pango-add-afm-decoder",
+	   1, 0, 0, (SCM font_family),
+	   "Add pango afm decoder for FONT-FAMILY.")
+{
+  SCM_ASSERT_TYPE (ly_c_string_p (font_family), font_family, SCM_ARG1, __FUNCTION__, "font_family");
+  pango_fc_afm_add_decoder (ly_scm2newstr (font_family, 0));
+  return SCM_UNSPECIFIED;
+}
+
 #endif

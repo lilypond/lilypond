@@ -1,3 +1,20 @@
+2004-06-17  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/framework-gnome.scm: Add pango decoders.
+
+	* lily/include/pangofc-afm-decoder.hh: 
+	* lily/pangofc-afm-decoder.cc: New file.
+
+	* lily/lily-guile.cc (ly:pango-add-afm-decoder): New function.
+
+	* configure.in: Check for pango.
+
+	* stepmake/aclocal.m4 (PKG_CHECK_MODULES): New function (from
+	autoconf).
+	(STEPMAKE_GTK2, STEPMAKE_PANGO): New function.
+
+	* config.make.in (USER_CFLAGS, USER_LDLAGS): Update.
+
 2004-06-17  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* Documentation/user/tutorial.itely (Integrating text and music):
@@ -18,7 +35,7 @@
 
 2004-06-15  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* buildscripts/guile-gnome.sh: Pick-up user-installe pango.
+	* buildscripts/guile-gnome.sh: Pick-up user-installed pango.
 
 2004-06-15  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 

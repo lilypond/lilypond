@@ -91,3 +91,6 @@
 #define GUILE_PATCH_LEVEL 0
 #endif
 #endif
+
+/* define if you have pango_fc_font_map_add_decoder_find_func */
+#define HAVE_PANGO_FC_FONT_MAP_ADD_DECODER_FIND_FUNC 0

@@ -3,6 +3,9 @@
 
 srcdir=`dirname $0`
 
+case $1 in
+    --noconf*) NOCONFIGURE=true;;
+esac
 
 if [ ! -f aclocal.m4 -o stepmake/aclocal.m4 -nt aclocal.m4 ]; then
     echo "stepmake/aclocal.m4 is newer. Copying file." 
