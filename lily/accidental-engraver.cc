@@ -60,8 +60,9 @@ protected:
   virtual void process_acknowledged_grobs ();
   virtual void finalize ();
 
+  virtual void derived_mark () const;
 public:
-  Protected_scm last_keysig_;	// ugh.
+  SCM last_keysig_;	// ugh.
   
   /* Urgh. Since the accidentals depend on lots of variables, we have
     to store all information before we can really create the
@@ -100,6 +101,12 @@ Accidental_engraver::Accidental_engraver ()
 {
   accidental_placement_ = 0;
   last_keysig_ = SCM_EOL;
+}
+
+void
+Accidental_engraver::derived_mark () const
+{
+  scm_gc_mark (last_keysig_);
 }
 
 void

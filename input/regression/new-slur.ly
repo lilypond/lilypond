@@ -6,6 +6,7 @@
 \version "2.3.7"
 \paper {
     raggedright = ##t
+%    #(define debug-slur-scoring #t)
 }
 
 %% help lilypond-book
@@ -53,6 +54,12 @@
     e4( dis4)
     e4( dis4) 
     g='16( b d fis)
-    \clef bass a=8[ e16(f] g[ a bes d,)] |
+    \clef bass a=8[ e16(f] g[ a bes d,)]  s4 | \break
+    
+    \clef treble
+    \relative c'' {
+	\slurDown f2( d4 f | g c a f | d c f2 | f1) |
+    }
+
 }
 

@@ -273,8 +273,9 @@ Context_def::instantiate (SCM ops)
 
   SCM trans_names = get_translator_names (ops); 
 
-  Translator *g = get_translator (translator_group_type_);
-  g = g->clone ();
+  Translator_group *g = dynamic_cast<Translator_group*>
+    (get_translator (translator_group_type_));
+  g = dynamic_cast<Translator_group*> (g->clone ());
 
   SCM trans_list = SCM_EOL;
   

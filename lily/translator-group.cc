@@ -134,3 +134,14 @@ recurse_over_translators (Context * c, Translator_method ptr, Direction dir)
       (tg->*ptr) ();
     }
 }
+
+Translator_group::Translator_group()
+{
+  simple_trans_list_ = SCM_EOL;
+}
+
+void
+Translator_group::derived_mark () const
+{
+  scm_gc_mark (simple_trans_list_); 
+}

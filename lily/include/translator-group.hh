@@ -27,8 +27,13 @@ public:
   virtual SCM get_simple_trans_list ();
   virtual bool try_music (Music* req);       
   virtual void initialize ();
-};
+  Translator_group ();
 
+protected:
+  SCM simple_trans_list_;
+  friend class Context_def;
+  virtual void derived_mark () const;
+};
 
 SCM names_to_translators (SCM namelist, Context*tg);
 void recurse_over_translators (Context * c, Translator_method ptr, Direction);

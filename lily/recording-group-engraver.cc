@@ -21,8 +21,16 @@ public:
   virtual void stop_translation_timestep ();
   virtual void finalize ();
   virtual void initialize ();
-  Protected_scm accumulator_;
+  virtual void derived_mark () const;
+  SCM accumulator_;
 };
+
+void
+Recording_group_engraver::derived_mark () const
+{
+  Engraver_group_engraver::derived_mark();
+  scm_gc_mark (accumulator_);
+}
 
 void
 Recording_group_engraver::initialize ()
@@ -33,6 +41,7 @@ Recording_group_engraver::initialize ()
 
 Recording_group_engraver::Recording_group_engraver ()
 {
+  accumulator_ = SCM_EOL;
 }
 
 void

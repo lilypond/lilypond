@@ -22,4 +22,6 @@
     (extra-object-collision . 50)
     (accidental-collision . 3)
     (extra-encompass-free-distance . 0.3)
+    (head-slur-distance-max-ratio . 3)
+    (head-slur-distance-factor . 10)
     ))

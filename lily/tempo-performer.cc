@@ -23,7 +23,7 @@ protected:
   virtual void create_audio_elements ();
 
 private:
-Music* tempo_req_;
+  Music* tempo_req_;
   Audio_tempo* audio_;
 };
 

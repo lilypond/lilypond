@@ -28,6 +28,7 @@ TRANSLATOR_DECLARATIONS (Ambitus_engraver);
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
   virtual void finalize ();
+  virtual void derived_mark () const;
 
 private:
   void create_ambitus ();
@@ -38,8 +39,14 @@ private:
   Pitch_interval pitch_interval_;
   bool is_typeset_;
   int start_c0_;
-  Protected_scm start_key_sig_;
+  SCM start_key_sig_;
 };
+
+void
+Ambitus_engraver::derived_mark () const
+{
+  scm_gc_mark (start_key_sig_);
+}
 
 void
 Ambitus_engraver::create_ambitus ()
@@ -72,6 +79,7 @@ Ambitus_engraver::Ambitus_engraver ()
   accidentals_[LEFT] = accidentals_[RIGHT] = 0;
   group_ = 0;
   is_typeset_ = false;
+  start_key_sig_ = SCM_EOL;
 }
 
 void

@@ -18,14 +18,14 @@
 class Break_align_engraver : public Engraver
 {
   Item *align_;
-  Protected_scm column_alist_;
+SCM column_alist_;
   Item *left_edge_;
 
   void add_to_group (SCM,Item*);
 protected:
-  virtual void finalize ();
   virtual void acknowledge_grob (Grob_info i);
   virtual void stop_translation_timestep ();
+  virtual void derived_mark () const;
   void add_column (SCM);
   
 public:
@@ -38,12 +38,6 @@ Break_align_engraver::add_column (SCM smob)
   Grob * e = unsmob_grob (smob);
   Break_align_interface::add_element (align_,e);
   
-}
-
-void
-Break_align_engraver::finalize ()
-{
-  column_alist_ = SCM_EOL;
 }
 
 void
@@ -66,6 +60,12 @@ Break_align_engraver::Break_align_engraver ()
   column_alist_ = SCM_EOL;
   left_edge_ = 0;
   align_ = 0;
+}
+
+void
+Break_align_engraver::derived_mark () const
+{
+  scm_gc_mark (column_alist_);
 }
 
 void

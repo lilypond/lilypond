@@ -36,12 +36,13 @@ class Tie_engraver : public Engraver
   Link_array<Grob> now_heads_;
   Link_array<Grob> heads_to_tie_;
   Link_array<Grob> ties_;
-  Protected_scm tie_start_definition_;
+  SCM tie_start_definition_;
   
   Spanner * tie_column_;
   
 protected:
   virtual void stop_translation_timestep ();
+  virtual void derived_mark () const;
   virtual void start_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music*);
@@ -58,6 +59,13 @@ Tie_engraver::Tie_engraver ()
   event_ = 0;
   last_event_  = 0;
   tie_column_ = 0;
+  tie_start_definition_ = SCM_EOL;
+}
+
+void
+Tie_engraver::derived_mark () const
+{
+  scm_gc_mark (tie_start_definition_);
 }
 
 

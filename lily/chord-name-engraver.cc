@@ -27,19 +27,27 @@ protected:
   virtual void process_music ();
   virtual bool try_music (Music *);
   virtual void finalize ();
+  virtual void derived_mark () const;
 private:
   void add_note (Music *);
   
   Item* chord_name_;
   Link_array<Music> notes_;
   
-  Protected_scm last_chord_;
+  SCM last_chord_;
 };
+
+
 
 void
 Chord_name_engraver::finalize ()
 {
-  last_chord_ = SCM_EOL; 
+}
+
+void
+Chord_name_engraver::derived_mark() const
+{
+  scm_gc_mark (last_chord_);
 }
 
 Chord_name_engraver::Chord_name_engraver ()

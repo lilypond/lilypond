@@ -26,7 +26,6 @@ Translator::init ()
 {
   must_be_last_ = false;
   self_scm_ = SCM_EOL;
-  simple_trans_list_ = SCM_BOOL_F;
   daddy_context_ =0;
   smobify_self ();
 }
@@ -125,7 +124,8 @@ SCM
 Translator::mark_smob (SCM sm)
 {
   Translator * me = (Translator*) SCM_CELL_WORD_1 (sm);
-  return me->simple_trans_list_;
+  me->derived_mark ();
+  return SCM_EOL;
 }
 
 SCM
@@ -166,3 +166,8 @@ Translator::must_be_last () const
   return must_be_last_;
 }
 
+void
+Translator::derived_mark () const
+{
+  
+}
