@@ -13,7 +13,7 @@ SUBDIRS = buildscripts scripts flower lily \
 	python po make intl \
 	debian $(builddir)/stepmake \
 	Documentation input \
-	mutopia ports
+	mutopia 
 #
 
 SCRIPTS = configure aclocal.m4
