@@ -8,6 +8,9 @@ SUBDIRS = include
 
 MODULE_LIBS=$(depth)/lib $(depth)/flower
 
+EXTRA_LIBES=-lguile		#ugh
+BLA_LIBES=-lguile		#ugh
+
 STEPMAKE_TEMPLATES= c++ executable 
 
 include $(depth)/make/stepmake.make 
