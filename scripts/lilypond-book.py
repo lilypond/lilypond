@@ -396,17 +396,12 @@ class Snippet (Chunk):
 		self.hash = 0
 		self.options = []
 		self.format = format
-
-	def start (self, s):
-		return self.match.start (s)
-
-	def end (self, s):
-		return self.match.end (s)
-
 	def substring (self, s):
 		return self.match.group (s)
 	def filter_code (self):
 		pass # todo
+	def __repr__(self):
+		return  `self.__class__`  +  " type =  " + self.type
 
 class Include_snippet (Snippet):
 	def replacement_text (self):
@@ -425,11 +420,11 @@ class Lilypond_snippet (Snippet):
 			
 
 	def ly (self):
-		if self.type == 'lilypond_block' or self.type == 'lilypond':
-			return self.substring ('code')
-		else:
+		if self.type == 'lilypond_file':
 			name = self.substring ('filename')
 			return open (find_file (name)).read ()
+		else:
+			return self.substring ('code')
 		
 	def full_ly (self):
 		s = self.ly ()
@@ -448,10 +443,8 @@ class Lilypond_snippet (Snippet):
 		raise 'to be done'
 
 	def write_ly (self):
-		if self.type == 'lilypond_block' or self.type == 'lilypond'\
-		       or self.type == 'lilypond_file':
-			outf = open (self.basename () + '.ly', 'w')
-			outf.write (self.full_ly ())
+		outf = open (self.basename () + '.ly', 'w')
+		outf.write (self.full_ly ())
 
 	def outdated_p (self):
 		base = self.basename ()
@@ -482,7 +475,6 @@ class Lilypond_snippet (Snippet):
 		return str
 			
 	def output_latex (self):
-
 		str = self.output_print_filename (LATEX)
 			
 		base = self.basename ()
@@ -533,7 +525,6 @@ class Lilypond_snippet (Snippet):
 			+ output[HTML][AFTER])
 		str += ('\n@end html\n')
 
-		
 		if  VERBATIM in self.options:
 			verb = verbatim_texinfo (self.substring ('code'))
 			str +=  (output[TEXINFO][VERBATIM] % vars ())
@@ -568,37 +559,38 @@ def find_toplevel_snippets (infile, types):
 	# Since every part of the string is traversed at most once for
 	# every type of snippet, this is linear.
 	
-	
         while 1:
                 first = None
                 endex = 1 << 30
                 for type in types:
-                        if not found[type] or found[type].start (0) < index:
+                        if not found[type] or found[type][0] < index:
                                 found[type] = None
                                 m = res[type].search (s[index:endex])
-                                if m:
-					cl = Snippet
-					if snippet_type_to_class.has_key (type):
-						cl = snippet_type_to_class[type]
-						
-                                        found[type] = cl (type, m, format)
-                        if found[type] \
-                               and (first == None \
-                                    or found[type].start (0) < found[first].start (0)):
+				if not m:
+					continue
+				
+				cl = Snippet
+				if snippet_type_to_class.has_key (type):
+					cl = snippet_type_to_class[type]
+				snip = cl (type, m, format)
+				start = index + m.start (0)
+				found[type] = (start, snip)
+
+                        if found[type] and (first == None 
+					    or found[type][0] < found[first][0]):
 				
                                 first = type
-                                endex = found[first].start (0)
+                                endex = found[first][0]
 
                 if not first:
 			snippets.append (Substring (s, index, len (s)))
 			break
-		
-		snip = found[first]
-		snippets.append (Substring (s, index, index + snip.start (0)))
-		snippets.append (snip)
-                index += snip.end (0)
 
-		
+		(start , snip) = found[first]
+		snippets.append (Substring (s, index, start))
+		snippets.append (snip)
+                index = start + len (snip.match.group (0))
+
         return snippets
 
 
@@ -796,8 +788,7 @@ def do_file (input_filename):
 	output_file.writelines ([s.replacement_text () for s in chunks])
 
 	## UGH. how do you do dynamic_cast/typecheck in Python?
-	map (process_include, filter (lambda x: x.__class__ == Snippet
-				      and x.type == 'include', chunks))
+#	map (process_include, filter (lambda x: x.__class__ == Include_snippet, chunks))
 
 def do_options ():
 	global format, output_name
