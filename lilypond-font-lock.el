@@ -195,19 +195,19 @@
 			(car x) (cdr x) LilyPond-mode-syntax-table)))
 	  '(( ?\( . "." ) ( ?\) . "." ) 
 	    ( ?\[ . "(]" ) ( ?\] . ")[" ) ;; all the other paren characters are now handled by          
-	    ( ?\{  .  ".2b" )             ;; lily-specific indenting/matching code in lilypond-indent.el 
-	    ( ?\}  .  ".4b" )              
+	    ( ?\{  .  ". 2b" )             ;; lily-specific indenting/matching code in lilypond-indent.el 
+	    ( ?\}  .  ". 4b" )              
 	    ( ?\< . "." )( ?\> . ".") 
-	    ( ?\$ . "." ) ( ?\% . "." ) ( ?\& . "." )
+	    ( ?\$ . "." ) ( ?\& . "." )
 	    ( ?\* . "." ) ( ?\+ . "." )
 	    ( ?\/ . "." )  ( ?\= . "." )
 	    ( ?\| . "." ) (?\\ . "\\" )
-	    ( ?\- . "." ) ( ?\_ . "." ) ( ?\^ . "." )
-	    ( ?\' . "w")	
-	    ( ?\" . "\"" )
-	    ( ?\%  .  ". 1b3b" )
-	    ( ?\n . ">")
-	    ( ?\r . ">")
+	    ( ?\- . "." ) ( ?\_ . "." ) ( ?\^ . "." ) ; accent positioners: puctuation characters
+	    ( ?\' . "w") ( ?\, . "w") ; transposing octaves, parts of words (notes)
+	    ( ?\" . "\"" ) ; string quote characters 
+	    ( ?\%  .  "< 1b3b" ) ; (block-)comment starter (or ender)
+	    ( ?\n . ">") ; newline: comment ender
+	    ( ?\r . ">") ; formfeed: comment ender
 	    ))
   )
 
