@@ -76,6 +76,42 @@ Ledger_line_spanner::brew_ledger_lines (Grob *staff,
   return stencil;
 }
 
+
+static void
+set_rods (Drul_array<Interval> const &current_extents,
+	  Drul_array<Interval> const &previous_extents,
+	  Item *current_column,
+	  Item *previous_column,
+	  Real min_length_fraction)
+{
+  Direction d = UP;
+  do
+    {
+      if (!current_extents[d].is_empty ()
+	  && !previous_extents[d].is_empty ())
+	{
+	  Real total_head_length = previous_extents[d].length ()
+	    + current_extents[d].length ();
+
+	  Rod rod;
+	  rod.distance_ = total_head_length
+	    * (3/2 * min_length_fraction)
+	    /*
+	      we go from right to left.
+	    */
+	    - previous_extents[d][LEFT]
+	    + current_extents[d][RIGHT];
+
+	  rod.item_drul_[LEFT] = current_column;
+	  rod.item_drul_[RIGHT] = previous_column;
+	  rod.add_to_cols ();
+	}
+
+    }
+  while (flip (&d) != DOWN);
+}
+
+
 MAKE_SCHEME_CALLBACK (Ledger_line_spanner, set_spacing_rods, 1);
 SCM
 Ledger_line_spanner::set_spacing_rods (SCM smob)
@@ -101,7 +137,7 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
 
   /*
     Run through heads using a loop. Since Legder_line_spanner can
-    contain a lot of noteheads, we don't use an STL map or set.
+    contain a lot of noteheads, superlinear performance is too slow.
   */
   int interspaces = Staff_symbol::line_count (staff) - 1;
   for (SCM hp = heads; scm_is_pair (hp); hp = scm_cdr (hp))
@@ -115,31 +151,10 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
       Item *column = h->get_column ();
       if (current_column != column)
 	{
-	  Direction d = UP;
-	  do
-	    {
-	      if (!current_extents[d].is_empty ()
-		  && !previous_extents[d].is_empty ())
-		{
-		  Real total_head_length = previous_extents[d].length ()
-		    + current_extents[d].length ();
-
-		  Rod rod;
-		  rod.distance_ = total_head_length
-		    * (3/2 * min_length_fraction)
-		    /*
-		      we go from right to left.
-		     */
-		    - previous_extents[d][LEFT]
-		    + current_extents[d][RIGHT];
-
-		  rod.item_drul_[LEFT] = current_column;
-		  rod.item_drul_[RIGHT] = previous_column;
-		  rod.add_to_cols ();
-		}
-	    }
-	  while (flip (&d) != DOWN);
-
+	  set_rods (current_extents, previous_extents,
+		    current_column, previous_column,
+		    min_length_fraction);
+	  
 	  previous_column = current_column;
 	  current_column = column;
 	  previous_extents = current_extents;
@@ -156,6 +171,13 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
 
       current_extents[vdir].unite (head_extent);
     }
+
+  if (previous_column && current_column)
+    set_rods (current_extents, previous_extents,
+	      current_column, previous_column,
+	      min_length_fraction);
+
+  
   
   return SCM_UNSPECIFIED;
 }
