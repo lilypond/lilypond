@@ -15,11 +15,11 @@ fagotto2 = \melodic{
 	\octave c;	
 % koor
 %	r1 | r1 | f4-.\ff r r2 | r1 |
-	r1*2 | f4-. r r2 | r1*3 |
-	f4-. r r2 | r1*3 |
+	R1 *2 | f4-. r r2 | R1 *3 |
+	f4-. r r2 | R1 *3 |
 	fis4-. r r2 | r1 |
 	g4-. r r2 | g4-. r r2 |
-	r1*5 |
+	R1 *5 |
 	r2 r4 'g4-. |
 }
 

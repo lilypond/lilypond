@@ -15,11 +15,11 @@ corno2 = \melodic{
 	\octave c';	
 % koor: corno-part.ly
 %	r1 | r1 | f'4-.\ff r r2 | r1 |
-	r1*2 | f'4-. r r2 | r1*3 |
-	f'4-. r r2 | r1*3 |
+	R1 *2 | f'4-. r r2 | R1 *3 |
+	f'4-. r r2 | R1 *3 |
 	es'4-. r r2 | r1 |
 	g4-. r r2 | g4-. r r2 |
-	r1*5 |
+	R1 *5 |
 	r2 r4 g4-. |
 }
 

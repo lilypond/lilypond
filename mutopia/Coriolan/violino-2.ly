@@ -17,7 +17,7 @@ violino2 = \melodic{
 	c1 ~ | c | <as'4-. b-. d-.> r r2 | r1 |
 	c1 ~ | c | <c''4-. es'-. fis-.> r r2 | r1 |
 	<c'4-. es-. 'g-.> r r2 | <b4-. d-. 'g-.> r r2 |
-	r1*3 |
+	R1 *3 |
 	r2 ['b8-.\p f-.] [f()es] |
 	[es8-. as-.] as4.-"cresc." g8-. g4 ~ |
 	[g8 fis-.] fis4 ~ fis g-.\f |

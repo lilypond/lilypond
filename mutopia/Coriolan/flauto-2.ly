@@ -15,11 +15,11 @@ flauto2 = \melodic{
 	\octave c'';	
 % koor
 %	r1 | r1 | as4-.\ff r r2 | r1 |
-	r1*2 | as4-. r r2 | r1*3 |
-	b4-. r r2 | r1*3 | 
+	R1 *2 | as4-. r r2 | R1 *3 |
+	b4-. r r2 | R1 *3 | 
 	c'4-. r r2 | r1 |
 	es'4-. r r2 | d4-. r r2 |
-	r1*4 |
+	R1 *4 |
 	r2 r2 | r2 r4 b4-. |
 }
 

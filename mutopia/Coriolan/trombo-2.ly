@@ -15,11 +15,11 @@ trombo2 = \melodic{
 	\octave c';	
 % koor
 %	r1 | r1 | c4-.\ff r r2 | r1 |
-	r1*2 | c4-. r r2 | r1*3 |
-	c4-. r r2 | r1*3 |
+	R1 *2 | c4-. r r2 | R1 *3 |
+	c4-. r r2 | R1 *3 |
 	c4-. r r2 | r1 |
 	'g4-. r r2 | 'g4-. r r2 |
-	r1*5 |
+	R1 *5 |
 	r2 r4 'g4-. |
 }
 
