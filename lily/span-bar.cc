@@ -36,7 +36,9 @@ Span_bar::set_align (Align_element *a)
 Interval
 Span_bar::do_width () const
 {
-  return lookup_l ()->bar (type_str_, 40 PT).dim_.x (); // ugh
+  Molecule m = lookup_l ()->bar (type_str_, 40 PT);
+  
+  return m.extent (X_AXIS);
 }
 
 void
@@ -80,7 +82,7 @@ Span_bar::evaluate_empty ()
     }
 }
 
-Atom
+Molecule
 Span_bar::get_bar_sym (Real dy) const
 {
   if (dy < paper ()->staffheight_f () / 2)
@@ -104,8 +106,7 @@ Span_bar::do_brew_molecule_p () const
       y_int.unite (y + spanning_l_arr_[i]->extent(Y_AXIS));
     }
 
-  Atom s = get_bar_sym (y_int.length ());
-  Molecule*output = new Molecule (Atom (s));
+  Molecule*output = new Molecule (get_bar_sym (y_int.length ()));
   output->translate_axis (y_int.center (), Y_AXIS);
   return output;
 }

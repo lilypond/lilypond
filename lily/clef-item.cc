@@ -13,11 +13,14 @@
 #include "paper-def.hh"
 #include "lookup.hh"
 #include "clef-engraver.hh"
-#include "text-item.hh"
+#include "g-text-item.hh"
+#include "p-score.hh"
 
 void
 Clef_item::do_pre_processing()
 {
+  dim_cache_[Y_AXIS].translate (paper()->internote_f () * y_position_i_);
+  
   bool b= (break_status_dir() != RIGHT);
   change_b_ = b;
 
@@ -39,12 +42,29 @@ Clef_item::Clef_item()
   octave_dir_ = CENTER;
   symbol_ = "treble";
   y_position_i_ = -2;
-  
-  // Ugh: This should be const, I guess.
-  octave_marker_td_p_.set_p (new Text_def());// UGH!
-  octave_marker_td_p_->text_str_ = "8";
-  octave_marker_td_p_->style_str_ = "italic";
 }
+
+void
+Clef_item::do_add_processing ()
+{
+  if (!break_status_dir_	// broken stuff takes care of their own texts
+      && octave_dir_)
+    {
+      G_text_item *g = new G_text_item;
+      pscore_l_->typeset_element (g);
+      
+      g->text_str_ = "8";
+      g->style_str_ = "italic";
+      g->dim_cache_[Y_AXIS].parent_l_ = &dim_cache_[Y_AXIS];
+      g->dim_cache_[X_AXIS].parent_l_ = &dim_cache_[X_AXIS];
+      add_dependency (g);	// just to be sure.
+
+      Real r = do_height ()[octave_dir_] + g->extent (Y_AXIS)[-octave_dir_];
+      g->dim_cache_[Y_AXIS].set_offset (r);
+    }
+
+}
+
 
 
 
@@ -55,26 +75,12 @@ Clef_item::do_brew_molecule_p() const
   String t = symbol_;
   if  (change_b_)
     t += "_change";
+  //  Atom s = lookup_l ()-> text ("roman", to_str (break_status_dir ()));
+    
   Atom s = lookup_l ()->clef (t);
   Molecule*output = new Molecule (Atom (s));
-  output->translate_axis (paper()->internote_f () * y_position_i_, Y_AXIS);
-  if (octave_dir_) {
-    Molecule octave_marker = Molecule(octave_marker_td_p_->get_atom(paper(),
-								CENTER));
-    Real offset = output->extent()[Y_AXIS][octave_dir_]
-		   - octave_marker.extent()[Y_AXIS][- octave_dir_];
-    if (octave_dir_ == DOWN)
-      offset += octave_marker.extent()[Y_AXIS][UP] * 0.35 ;
-    octave_marker.translate_axis (offset, Y_AXIS);
-    output->add_molecule (octave_marker);
-  }
   return output;
 }
 
-
-
-
-#include "pointer.tcc"
-template class P<Text_def>;	// ugh
 
 

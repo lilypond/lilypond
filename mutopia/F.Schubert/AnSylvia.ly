@@ -32,8 +32,8 @@ pianoRH=\notes \relative c''  {
 %4
 		 <[d a' b> <d a' b> <d g! b> <d g b>] 
 		 <[d g a> <d g a> <d fis a> <d fis a>] |
-		  \bar "|:";
 %5
+		 \repeat 2 {
 		 <[b_. d g( \pp > <b_. d g> <b_. d g> <)b_. d g>]
 		 <[b_. d g(> <b_. d g> <b_. d g> <)b_. d g>]
 		 |
@@ -131,7 +131,7 @@ pianoRH=\notes \relative c''  {
 %29
 		<[d a' b> <d a' b> <d g! b> <d g b>]
 		<[d g a> <d g a> < d fis! a> <d fis a>]
-		\bar ":|";
+		}
 %30
 		<b2 d2 g2> r2
 		\bar "|.";
@@ -144,7 +144,7 @@ pianoLH=\notes \relative c  {
 		)b4-. [d,8.( d16] )c'4-. [d,8. d16] |
 %4
 		d'4-. d,-. d'-. [d,8.( d16 ] 
-		\bar "|:";
+		\repeat 2 {
 %5
 		)g4-. d_. r4 [g8.( g16] |
 %6
@@ -195,7 +195,7 @@ pianoLH=\notes \relative c  {
 		)b4 [d,8.( d16] )c'4-. [d,8. d16] |
 %29
 		d'4-. d,-. d'-. [d,8.( d16 ]
-		\bar ":|";
+		}
 %30
 		)g2 r2 \bar "|.";
 
@@ -206,7 +206,7 @@ tune=\notes  \relative c''  {
 	       \property Voice.dynamicdir = "1"
 
 	       r1 | r1 |r1 | r1 |
-	       \bar "|:";
+		\repeat 2 {
 %5
 		b2. g4 |
 %6
@@ -255,7 +255,7 @@ tune=\notes  \relative c''  {
 		\! g2 r2 |
 %27
 		r1 | r1 | r1
-		 \bar ":|";
+		}
 		r1 \bar "|.";
 }
 

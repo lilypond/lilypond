@@ -73,7 +73,9 @@ Key_item::calculate_position(int p, int a) const
 }
 
 /*
-  TODO space the `natural' signs wider
+  TODO
+  - space the `natural' signs wider
+  - dehair this
  */
 Molecule*
 Key_item::do_brew_molecule_p() const
@@ -97,7 +99,7 @@ Key_item::do_brew_molecule_p() const
             {
               Molecule m =lookup_l ()->accidental (0,false);
               m.translate_axis (calculate_position(old_pitch_arr_[i], old_acc_arr_[i]) * inter, Y_AXIS);
-              output->add_at_edge (X_AXIS, RIGHT, m);	
+              output->add_at_edge (X_AXIS, RIGHT, m,0);	
             }
         }
 
@@ -109,14 +111,14 @@ Key_item::do_brew_molecule_p() const
       Interval x(0, inter);
       Interval y(0,0);
 
-      output->add_at_edge (X_AXIS, RIGHT, lookup_l()->fill (Box(x,y)));
+      output->add_at_edge (X_AXIS, RIGHT, lookup_l()->fill (Box(x,y)),0);
     }
  
   for (int i =0; i < pitch_arr_.size(); i++) 
     {
       Molecule m =lookup_l ()->accidental (acc_arr_[i],false);
       m.translate_axis (calculate_position(pitch_arr_[i], acc_arr_[i]) * inter, Y_AXIS);
-      output->add_at_edge (X_AXIS, RIGHT, m);	
+      output->add_at_edge (X_AXIS, RIGHT, m, 0);
     }
   if (pitch_arr_.size()) 
     {
@@ -124,7 +126,7 @@ Key_item::do_brew_molecule_p() const
 					  Interval (0, paper()->note_width ()),
 					  Interval (0,0))));
       
-      output->add_at_edge (X_AXIS, RIGHT, m);
+      output->add_at_edge (X_AXIS, RIGHT, m,0 );
     }
   return output;
 }

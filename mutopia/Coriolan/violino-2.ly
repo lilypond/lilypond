@@ -220,10 +220,10 @@ violino2 = \notes \relative c {
 	r8 as' des,4\sf ~ des()c |
 	r8 as' des,4\sf ~ des()c |
 	% looks lot like viola...
-	[f16 f as as]f4:16[d16 d g g]d4:|
+	[f16 f as as]f4:16[d16 d g g]d4: |
 	%225
-	[c16 c g' g]c,4:16[c16 c f f]c4:|
-	[b16 b f' f]b,4:16[c16 c f f]c4:|
+	[c16 c g' g]c,4:16[c16 c f f]c4: |
+	[b16 b f' f]b,4:16[c16 c f f]c4: |
 	[d16 d f f]d4:16[c16 c f f]c4:|
 	[d8 g,] g'4. as8 as4 ~ |
 	[as8 as] f4. f8 g4 | 

@@ -14,83 +14,81 @@ copyright =	 "public domain";
 
 \version "1.0.14";
 
-% urg, this all changed and was never fixed
-% howto get rid of these ridiculous dimensions????
-% to view the output, subsitute 0.0 with 0.0 in the .tex file...
-
-one = \type Voice=one \notes\relative c {
-	\property Voice . textstyle =  "italic"
+% upper = \type Staff \notes\relative c {
+upper = \type Staff=upper \notes\relative c {
+	\type Voice=i
+	\property Voice . textstyle = "italic"
 % rediculous dim...
-%	r16\p_"legato"\< [g''-1( c-3 )e-5] r [g,-1( c )e]
-	r16\p\< [g''-1( c-3 )e-5] r [g,-1( c )e]
-	r [g,( c )d] r [b-1( d-2 \!)g-5] |
-	r16\mf [a,( d-2 ) g-5] r [a,(\< d )f-4]
-	r [a,( d )e-3] r [c-1( e-2 \!)a-5] |
-	r16\f [b, e a-5] r [b, e-3 g-5] 
-	r [c,-1 e-3 f-4] r [g, d'-3 f-5] |
+%	r16\p_"legato"\< g''-1( c-3 )e-5 r g,-1( c )e 
+	r16\p\< g''-1( c-3 )e-5 r g,-1( c )e 
+	r g,( c )d r b-1( d-2 \!)g-5 |
+	r16\mf a,( d-2 ) g-5 r a,(\< d )f-4 
+	r a,( d )e-3 r c-1( e-2 \!)a-5 |
+	r16\f b, e a-5 r b, e-3 g-5 
+	r c,-1 e-3 f-4 r g, d'-3 f-5 |
 % all text is fat currently...
-%	r [g,-"poco a poco dim." d'-4 e] r [g, c-2 e]
-	r [g, d'-4 e] r [g, c-2 e]
-	r [a,-1 c-3 d-4] r [e, b'-3 d-5] |
-	r [e, b' c-4] r [e, a-2 c]
-	r [f,-1 a-3 bes-4] r [c, g'-3 bes-5] |
-	r [c, g' a-4] r [c, f-2 a] 
-	r [d, f-2 b-5] r [e, g-2 c-5] |
-	r\p [d, g c-5] r [d, g b-4]
-	r [c, g'-3 b-5] r [c, fis-2 a-4] |
-	r [b, d a'-5] r [b, d g-4]
-	r [a, c g'-5] r [a, c f!-4] |
+%	r g,-"poco a poco dim." d'-4 e r g, c-2 e 
+	r g, d'-4 e r g, c-2 e 
+	r a,-1 c-3 d-4 r e, b'-3 d-5 |
+	r e, b' c-4 r e, a-2 c 
+	r f,-1 a-3 bes-4 r c, g'-3 bes-5 |
+	r c, g' a-4 r c, f-2 a 
+	r d, f-2 b-5 r e, g-2 c-5 |
+	r\p d, g c-5 r d, g b-4 
+	r c, g'-3 b-5 r c, fis-2 a-4 |
+	r b, d a'-5 r b, d g-4 
+	r a, c g'-5 r a, c f!-4 |
 	% ugh arpeggio
-	\type Staff=treble <
-		{ \voiceone  f4 r }
-		{ \voicetwo  <g,4 d'> r }
+	<
+		{ \stemup f4 r }
+		\type Voice=ii { \stemdown <g,4 d'> r }
 	>
-	\onevoice 
-	% s
-	% ugh beam across staffs slur starts at lower staff
-	\translator Staff=bass\stemup
-	r16 [g,,-5( b-4 d ] 
-	[f-1 \translator Staff=treble\stemdown g16-1 b d] | \stemup )b
-	\translator Staff=bass\stemdown
-	[g-5( b-4 d-2] f-1 
-	\translator Staff=treble\stemup
-	[g16-1 b-2 d] )b
-	\translator Staff=bass\stemup
+	\stemboth 
+	\translator Staff=lower\stemup
+	r16 g,,-5( b-4 d  
+	[ f-1 \translator Staff=upper\stemdown g16-1 b d ] | 
+	\stemup )b
+	\translator Staff=lower\stemdown
+	[ g-5( b-4 d-2 ] f-1
+	\translator Staff=upper\stemup
+	[ g16-1 b-2 d ] )b
+	\translator Staff=lower\stemup
 	\clef "violin"; 
-	[g-4 b-2 d-1] 
+	[ g-4 b-2 d-1 ]
 	\stemup
 	% urg, below translator change affects previous beam too!?
 	% howto separate translator command from previous beam end?
-	\skip 4*0;
-        [\translator Staff=treble f-2 g-3 b-5 f-2] |
+	\translator Staff=upper f-2 g-3 b-5 f-2 |
 	\stemboth
-	[e-1\f c'-5( g-3 f-2] [e-1 c'-5 g-3 e-2] 
-	[)d c'-5( f,-3 e-2] [d-1 b'-5 f-3 d-2] |
-	[)c b'-5( e,-3 d-2] [c-1 a'-5 e-3 c-2] 
-	[)b-1 a'-5( d,-3 c-2] [b-1 g'-5 d-3 b-2] |
-%	[)a g'-5 c,-4 b] [a-"poco a poco dim." fis'-5 c-2 a-1]
-	[)a g'-5 c,-4 b] [a fis'-5 c-2 a-1]
-	[b-2 f' d-4 c] [b f' d-4 b-2] |
-	[g e' c-3 b] [a e'-5 c-3 a-1]
-	[fis-2 d' b-3 a] [g-1 d'-5 b-4 g-2] |
-	[e c'-5 a-4 g-3] [fis-2 c'-5 a-4 fis-2] 
-	[d c'-5 b-4 a] [b-4 g-2 d'-5 f,-1] |
-	[g-4 e-2 f-1 d'-5] [c-4 b a g]
-	[f'-5 d-3 es-4 c-2] [fis,-1 es'-4 d-3 c-2] |
-%	[b-1 d-5 b-3 g-1] [as-4-"cresc. e rall." f-2 g-3 d-1]
-	[b-1 d-5 b-3 g-1] [as-4 f-2 g-3 d-1]
-	[es-2 fis-3 a-4 c-5] 
-	\type Staff=treble < 
-		{ \voiceone  r [c8 b16] }
-		{ \voicetwo  [d,8 f-2] }
+	e-1\f c'-5( g-3 f-2  e-1 c'-5 g-3 e-2 
+	)d c'-5( f,-3 e-2  d-1 b'-5 f-3 d-2 |
+	)c b'-5( e,-3 d-2  c-1 a'-5 e-3 c-2 
+	)b-1 a'-5( d,-3 c-2  b-1 g'-5 d-3 b-2 |
+%	 )a g'-5 c,-4 b  a-"poco a poco dim." fis'-5 c-2 a-1 
+	)a g'-5 c,-4 b  a fis'-5 c-2 a-1 
+	b-2 f' d-4 c  b f' d-4 b-2 |
+	g e' c-3 b  a e'-5 c-3 a-1 
+	fis-2 d' b-3 a  g-1 d'-5 b-4 g-2 |
+	e c'-5 a-4 g-3  fis-2 c'-5 a-4 fis-2 
+	d c'-5 b-4 a  b-4 g-2 d'-5 f,-1 |
+	g-4 e-2 f-1 d'-5  c-4 b a g 
+	f'-5 d-3 es-4 c-2  fis,-1 es'-4 d-3 c-2 |
+%	 b-1 d-5 b-3 g-1  as-4-"cresc. e rall." f-2 g-3 d-1 
+	b-1 d-5 b-3 g-1  as-4 f-2 g-3 d-1 
+	es-2 fis-3 a-4 c-5 
+	< 
+		{ \stemup r c8 b16 }
+		\type Voice=ii { \stemdown  d,8 f-2 }
 	>
-	\onevoice  |
+	\stemboth |
 	<c1\mf g e>
 	\bar "|.";
 }
 
-two = \type Voice=three \notes\relative c{
-	\property Voice . textstyle =  "roman"
+% lower = \type Staff \notes\relative c{
+lower = \type Staff=lower \notes\relative c{
+	\type Voice=i
+	\property Voice . textstyle = "roman"
 	c4-5 e-3 g-\mordent^"(\\textsharp)" g,4 |
 	d'4-\mordent-5 f-3 a-\mordent^"(\\textsharp)" a,4 |
  	e'-5 e'-\mordent-1 a,-4 b-\upprall |
@@ -99,49 +97,48 @@ two = \type Voice=three \notes\relative c{
 	f4-1 e d-3-\prall c |
 	g'-\mordent^"(\\textsharp)" g, g'-\mordent g, |
 	g'-\mordent g, g'-\mordent g, |
-	g' r s s | s s s s \clef bass; |
-	\type Staff=bass <
-		{ \voicethree  g1 ~ g ~ g ~ g ~ g ~ g ~ g }
-		{ \voicefour  g,1 ~ g ~ g ~ g ~ g ~ g ~ g }
+	g' r s s | s s s s \clef "bass"; |
+	<
+		{ \stemup g1 ~ g ~ g ~ g ~ g ~ g ~ g }
+		\type Voice=ii { \stemdown g,1 ~ g ~ g ~ g ~ g ~ g ~ g }
 	>
 	<c,1 c,>
 	\bar "|.";
 }
 
-global  = \notes{
+global = \notes{
 	\time 4/4;
 }
 
-treble_staff = \type Staff = treble <
-	\global
-	\one
->
-
-bass_staff = \type Staff = bass <
-	\clef "bass";
-	\global
-	\two
->
-
-grand_staff = \type GrandStaff <
-	\treble_staff
-	\bass_staff
->
-
 \score{
-        % Moderato
-	\grand_staff
-%	\include "preludes-paper.ly";
+	% Moderato
+	\type GrandStaff <
+		\type Staff = upper <
+			\global
+			\upper
+		>
+		\type Staff = lower <
+			\global
+			\clef "bass";
+			\lower
+		>
+	>
 	\paper{
+		\include "preludes-paper.ly";
 		% no slur damping
 		slur_slope_damping = 10.0;
-	%	linewidth= 193.\mm;
-		linewidth= 180.\mm;
 		gourlay_maxmeasures = 4.0;
 		\translator{ 
-		  \GrandStaffContext
-		  minVerticalAlign = 3.0*\staffheight;
-		  maxVerticalAlign = 3.0*\staffheight;
+			\GrandStaffContext
+			minVerticalAlign = 3.0*\staffheight;
+			maxVerticalAlign = 3.0*\staffheight;
+		}
+		\translator{
+			\VoiceContext
+			\consists Auto_beam_engraver;
+			beamAuto = "1";
+			beamAutoEnd8 = "1/2";
+			beamAutoEnd16 = "1/4";
 		}
 	}
 	\midi{ \tempo 4 = 80; }

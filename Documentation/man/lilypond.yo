@@ -147,7 +147,7 @@ dit(GNU url(LilyPond)(http://www.cs.uu.nl/people/hanwen/lilypond/index.html))
 
 GNU LilyPond is
 updated very frequently, the latest version is always available at:
-lurl(ftp://pcnov095.win.tue.nl/pub/lilypond).  This FTP site is mirrored
+lurl(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond).  This FTP site is mirrored
 at a number of sites; consult the project web pages for information
 about mirrors.
 

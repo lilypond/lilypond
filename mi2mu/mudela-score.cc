@@ -144,7 +144,23 @@ Mudela_score::output (String filename_str)
   if  (mudela_staff_p_list_.size() > 1)
     mudela_stream << ">\n";
 
+#if 0
   mudela_stream << "\\paper{}\n";
+#else
+  /*
+    let's put some auto-beam stuff in place as long as it's optional
+  */
+  mudela_stream << "\\paper{\n";
+  mudela_stream << "\\translator{\n";
+  mudela_stream << "\\VoiceContext\n";
+  mudela_stream << "\\consists \"Auto_beam_engraver\";\n";
+  mudela_stream << "beamAuto = 1.;\n";
+  mudela_stream << "beamAutoEnd8 = \"2/4\";\n";
+  mudela_stream << "beamAutoEnd16 = \"1/4\";\n";
+  mudela_stream << "beamAutoEnd32 = \"1/4\";\n";
+  mudela_stream << "}\n";
+  mudela_stream << "}\n";
+#endif
 
   mudela_stream << "\\midi{\n";
   // let's not use silly 0 track

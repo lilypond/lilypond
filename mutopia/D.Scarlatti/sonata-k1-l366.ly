@@ -26,83 +26,93 @@ John
 %}
 
 \score {
-\header {title ="Domenico Scarlatti - Sonata K.1 L.366";}
-% staffOne is right hand, staffTwo left hand
+\header {title ="Domenico Scarlatti - Sonata K.1 L.366";
+          description="Allegro";}
+% vOne is right hand outside part, vTwo r.h. inside part,
+% vThree left hand outside, vFour l.h. inside.
 \notes {
-\type GrandStaff = staffAll <
 \type Staff = staffOne <
-\property Voice.pletvisibility = 0
+\property Staff.nolines=11
 \keysignature bes;
 \time 4/4;
-\clef treble;
+\clef alto;
 \type Voice = vOne <
 {
 % 1
-[d''16 e'' f'' g''] [a'' a' cis'' a'] d''4. e''8 |
+\stemup [d''16 e'' f'' g''] [a'' a' cis'' a'] d''4. e''8 |
 % 2
-[f''16 d'' g'' e''] [a'' f'' e'' d''] [cis''8 a''] a''4^\prall |
+[f''16 d'' g'' e''] [a'' f'' e'' d''] [cis''8 a''] a''4^\prall~
 % 3
-[a''16 g'' f'' e''] [d'' c'' bes' a'] [bes'8 bes'] [g' bes'] |
+[a''16 g'' f'' e''] [d'' c'' bes' a'] bes'8  \stemdown  bes' [g'
+bes'] |
 % 4
-[e'8 e'] [e' e'] f f'' f''4^\prall |
+[e'8 e'] [e' e'] f \stemup f'' f''4^\prall~
 % 5
-[f''16 e'' d'' c''] [bes' a' g' f'] [g'8 g'] [e' e'] |
+[f''16 e'' d'' c''] [bes' a' g' f'] g'8 \stemdown   g' [e' e'] |
 % 6
 [e'8 a] [a a] [d e] [f g] |
 % 7
 a16 s b s cis' s d' s e' s f' s g' s a' s |
 % 8
-b'16 s cis'' s d'' s e'' s [f'' d'' bes' g'] [e'' cis'' a' cis''] |
+b'16 s cis'' s d'' s e'' s [f'' d'' bes' g'] [e'' cis'' a' cis'']
+|
 % 9
-a''4 g''4^\prallmordent [f''16 d'' bes' g'] [e'' cis'' a' cis''] |
+\stemup a''4 g''4^\prallmordent \stemdown [f''16 d'' bes' g']
+[e'' cis'' a' cis''] |
 % 10
-[f''16 d'' g'' e''] [a'' f'' e'' d''] [cis'' a' d'' b'] [e'' g' f'
-e'] |
+\stemup [f''16 d'' g'' e''] [a'' f'' e'' d''] [cis'' a' d'' b']
+[e'' g' f' e'] |
 % 11
 [f'16 d' g' e'] [a' f' e' d'] [cis' a d' b] [e' cis' f' d'] |
 % 12
-[g'16 e' d' cis'] [f'8 g'^\prallmordent] [a'16 e' f' d'] [e' cis' d'
-b] |
+g'16 \stemdown [ e' d' cis'] \stemup f'8 [g'16^\prall f'32 g']
+[a'16 e' f' d'] \stemdown [e' cis' d' b] |
 % 13
-[cis'16 a b aes] cis'4 a,4^\prall^"\\textnatural" r |
+[cis'16 a b aes] \stemup cis'4 a,4^\prall^"\\textnatural"
+r^\fermata | \break
 % 14
 [a'16 b' cis'' d''] [e'' cis'' f'' d''] e''4. a'8 |
 % 15
-[b'16 g' cis'' a'] [d'' b' e'' cis''] [fis'' d'' g'' e''] [a'' c''
-bes' a'] |
+[b'16 g' cis'' a'] [d'' b' e'' cis''] [fis'' d'' g'' e''] [a''
+c'' bes' a'] |
 % 16
-[bes'16 g' c'' a'] [d'' bes' a' g'] [fis' d' g' e'] [a' c' bes a] |
+[bes'16 g' c'' a'] [d'' bes' a' g'] [fis' d' g' e'] [a' c' bes a]
+|
 % 17
-g16 s a s bes s c' s d' s e' s f' s g' s |
+\stemdown g16 s a s bes s c' s d' s e' s f' s g' s |
 % 18
-[a'16 f' d' bes] [g' e' c' e'] c''4 bes'4^\prallmordent |
+[a'16 f' d' bes] [g' e' c' e'] \stemup c''4 bes'4^\prall |
 % 19
 [c''8 f''] [bes' e''] [a'16 f' c'' a'] [f'' c'' a'' f''] |
 % 20
-[e''16 g'' c'' e''] [g'8 fis'] g'16 s g8 [g g,] |
+[e''16 g'' c'' e''] g'8  \stemdown fis' g'16 s g8 [g g,] |
 % 21
-[d8 d'] d'16 [d'' c'' b'] [c'' a' e'' c''] [a'' e'' c''' a''] |
+[d8 d'] d'16 \stemup [d'' c'' b'] [c'' a' e'' c''] [a'' e'' c'''
+a''] |
 % 22
-[gis''16 b'' e'' aes''] [b' d'' cis'' b'] [cis''8 a'] [a' a'] |
+[gis''16 b'' e'' aes''] [b' d'' cis'' b'] \stemdown [cis''8 a']
+[a' a'] |
 % 23
-f,8 a' [f' f'16 a'] [bes'8 g''] g''4^\prall |
+f,8 a' [f' f'16 a'] \stemup [bes'8 g''] g''4^\prall~ |
 % 24
-[g''16 f'' e'' d''] [c'' bes' a'] s f,8 f' [f' f'] |
+[g''16 f'' e'' d''] [c'' bes' a'] s \stemdown f,8 f' [f' f'] |
 % 25
-d,8 d' [f' d'16 f'] [g'8 e''] e''4^\prall |
+d,8 d' [f' d'16 f'] \stemup [g'8 e''] e''4^\prall~ |
 % 26
-[e''16 d'' cis'' b'] [a' g' f' e'] [f' d' g' e'] [a' f' bes' g'] |
+[e''16 d'' cis'' b'] [a' g' f' e'] [f' d' g' e'] [a' f' bes' g']
+|
 % 27
-[f'16 d' g' e'] [a' f' bes' g'] f' s g' s a' s bes' s |
+\stemdown [f'16 d' g' e'] [a' f' bes' g'] \stemup f' s g' s a' s
+bes' s |
 % 28
-[a'8 d''] [g' cis''] [f'16 d' bes g] [e' cis' a cis'] |
+[a'8 d''] [g' cis''] \stemdown [f'16 d' bes g] [e' cis' a cis'] |
 % 29
-[a'8 d''] [g' e''] [f'16 d' g' e'] [a' f' b' g'] |
+\stemup [a'8 d''] [g' e''] [f'16 d' g' e'] [a' f' b' g'] |
 % 30
-[cis''16 a' d'' e''] [f'' d'' e'' cis''] [d'' a' bes' g'] [a' f' g'
-e'] |
+[cis''16 a' d'' e''] [f'' d'' e'' cis''] [d'' a' bes' g']
+\stemdown  [a' f' g' e'] |
 % 31
-[f'16 d' e' cis'] d'4 d4^\prall r4 |
+[f'16 d' e' cis'] d'4 \stemup d4^\prall r4^\fermata |
 } {
 s1 s
 % 3
@@ -124,9 +134,9 @@ s2 s8 a' a' a' |
 % 25
 s8 f' d' s s2 |
 % 26
-s2 d''4 s |
+\stemup s2 d''4 s |
 % 27
-d'16 s e' s f' s g' s s2 |
+\stemdown d'16 s e' s f' s g' s s2 |
 % 28
 s8 f'' s e'' s2 |
 % 29
@@ -135,30 +145,28 @@ s8 f'' s cis''
 \type Voice = vTwo <
 {s1 s s s s
 %6
-s2 d'16 s s4. |
+\stemdown  s2 d'16 s s4. |
 s1 s s s s s s s s s s s s s s s s s s
 %26
-s2 d''4 s |
+\stemup s2 d''4 s |
 %27
-s2 d''4}
->>
-\type Staff = staffTwo <
-\property Voice.pletvisibility = 0
-\keysignature bes;
-\time 4/4;
-\clef treble;
+s2 d''4 s2
+s1
+%29
+s2 d''8}
+>
 \type Voice = vThree <
 {
 % 1
-s2 [d'16 e' f' g'] [a' a cis' a] |
+\stemdown s2 [d'16 e' f' g'] [a' a cis' a] |
 % 2
 [d'8 e'] [f' g'] [a' a'] [a' a'] |
 % 3
-[a'8 a'] [a' f'] g g'' g''4^\prall |
+[a'8 a'] [a' f'] g \stemup g'' g''4^\prall~
 % 4
-[g''16 f'' e'' d''] [c'' bes' a' g'] [a'8 a'] [f' a'] |
+[g''16 f'' e'' d''] [c'' bes' a' g'] a'8 \stemdown  a' [f' a'] |
 % 5
-[d'8 f'] [d' d'] e e'' e''4^\prall |
+[d'8 f'] [d' d'] e \stemup e'' e''4^\prall~
 % 6
 [e''16 d'' cis'' b'] [a' g' f' e'] [f' d' g' e'] [a' f' e' d'] |
 % 7
@@ -166,15 +174,16 @@ s2 [d'16 e' f' g'] [a' a cis' a] |
 % 8
 [d''16 b' e'' cis''] [f'' d'' g'' e''] a''4 g''4^\prallmordent |
 % 9
-[f''16 d'' bes' g'] [e'' cis'' a' cis''] a''4 g''4^\prallmordent |
+\stemdown [f''16 d'' bes' g'] [e'' cis'' a' cis''] \stemup a''4
+g''4^\prallmordent |
 % 10
-[d'8 e'] [f' g'] [a b] [cis' a] |
+\stemdown [d'8 e'] [f' g'] [a b] [cis' a] |
 % 11
 [d8 e] [f g] a16 s b s cis' s d' s |
 % 12
-e16 [g' f' e'] [d'8 bes] a,4 s8 f' |
+e16 \stemup [g' f' e'] \stemdown [d'8 bes] a,4 s8 \stemup f' |
 % 13
-[e'8 d'] [a16 e cis e] s2 |
+[e'8 d'] \stemdown [a16 e cis e] s2 |
 % 14
 s2 [a16 b cis' d'] [e' cis' f' d'] |
 % 15
@@ -182,35 +191,38 @@ g'16 s a' s b' s cis'' s [d'8 e'] [fis' d'] |
 % 16
 [g8 a8] [bes c'] [d e] [fis d] |
 % 17
-[bes16 g c' a] [d' bes e' c'] [f' d' g' e'] [a' f' bes' g'] |
+\stemup [bes16 g c' a] [d' bes e' c'] [f' d' g' e'] [a' f' bes'
+g'] |
 % 18
-c''4 bes'4^\prallmordent [a'16 f' d' bes] [g' e' c' e'] |
+c''4 bes'4^\prall \stemdown [a'16 f' d' bes] [g' e' c' e'] |
 % 19
 [a'16 f' d' bes] [g' e' c' e'] f' s f8 [f f,] |
 % 20
-[c8 c'] [c'16 c'' bes' a'] [bes' g' d'' bes'] [g'' d'' bes'' g''] |
+[c8 c'] c'16 \stemup [c'' bes' a'] [bes' g' d'' bes'] [g'' d''
+bes'' g''] |
 % 21
-[f''16 a'' d'' f''] [a'8 gis'] a'16 s a8 [a a,] |
+[f''16 a'' d'' f''] a'8 \stemdown gis' a'16 s a8 [a a,] |
 % 22
-[e8 e,] [e, e,] a, a'' a''4^\prall^"\\textflat" |
+[e8 e,] [e, e,] a, \stemup a'' a''4^\prall^"\\textflat"~ |
 % 23
-[a''16 g'' f'' e''] [d'' c'' bes'] s g,8 bes' [bes' bes'] |
+[a''16 g'' f'' e''] [d'' c'' bes'] s \stemdown g,8 bes' [bes'
+bes'] |
 % 24
-e,8 e' [g' e'16 g'] [a'8 f''] f''4^\prall |
+e,8 e' [g' e'16 g'] \stemup [a'8 f''] f''4^\prall~ |
 % 25
-[f''16 e'' d'' c''] [bes' a' g'] s e,8 g' [g' g'] |
+[f''16 e'' d'' c''] [bes' a' g'] s \stemdown e,8 g' [g' g'] |
 % 26
 a,8 a [e' a] d'16 s e' s f' s g' s |
 % 27
 s2 [d'16 d' e' e'] [f' f' g' g'] |
 % 28
-[f'16 d' bes g] [e' cis' a cis'] [a'8 d''] [g' e''] |
+[f'16 d' bes g] [e' cis' a cis'] \stemup [a'8 d''] [g' e''] |
 % 29
-[f'16 d' bes g] [e' cis' a cis'] [d8 e] [f g] |
+\stemdown [f'16 d' bes g] [e' cis' a cis'] [d8 e] [f g] |
 % 30
-[a8 g] [a a,] d4 s8 bes' |
+[a8 g] [a a,] d4 s8 \stemup bes' |
 % 31
-[a'8 g'] [f'16 a f a] s2 |
+[a'8 g'] f'16 \stemdown [a f a] s2 |
 } {
 s1 s
 % 3
@@ -222,21 +234,20 @@ f'8 d' f' s s2 |
 s1 s s s s s s s s s s s s s s s s
 % 23
 s2 s8 g' g' g' |
-% 24
+ii% 24
 s8 g' e' s s2 |
 % 25
 s2 s8 e' e' e' |
 % 26
 s8 e' a s s2 |
-% 27
-d''4 s s2 |
+s1
 % 28
 s2 s8 f'' s cis'' |
 } >
 \type Voice = vFour <
 {s1 s s s s s s s s
 %10
-d''16 s s4. a'16 s s4. |
+\stemdown d''16 s s4. a'16 s s4. |
 %11
 d'16 s s4. s2 |
 s1 s s
@@ -244,13 +255,14 @@ s1 s s
 s2 d''16 s s4. |
 %16
 g'16 s s4. d'16 s s4. |
-s1 s s s s s s s s s s s
+s1 s s s s s s s s s
+%27
+\stemup d''4 s2. |
+s1
 %29
-s2 d'16}
->>
+\stemdown s2 d'16}
+>
 >}
-\paper{indent=0.0; \translator {\ScoreContext \consists
+\paper{barsize=50.0; \translator {\StaffContext \consists
 Bar_number_engraver;}}
 }
-
-

@@ -93,6 +93,38 @@ Mudela_key::notename_str (int pitch_i)
       notename_str += "es";
   accidental_i--;
 
+  /*
+    By tradition, all scales now consist of a sequence of 7 notes each
+    with a distinct name, from amongst a b c d e f g.  But, minor scales
+    have a wide second interval at the top - the 'leading note' is
+    sharped. (Why? it just works that way! Anything else doesn't sound as
+    good and isn't as flexible at saying things. In medieval times,
+    scales only had 6 notes to avoid this problem - the hexachords.)
+    
+    So, the d minor scale is d e f g a b-flat c-sharp d - using d-flat
+    for the leading note would skip the name c and duplicate the name d.
+    Why isn't c-sharp put in the key signature? Tradition. (It's also
+    supposedly based on the Pythagorean theory of the cycle of fifths,
+    but that really only applies to major scales...)
+    
+    Anyway, g minor is g a b-flat c d e-flat f-sharp g, and all the other
+    flat minor keys end up with a natural leading note. And there you
+    have it.
+    
+    John Sankey <bf250@freenet.carleton.ca>
+
+   */
+
+  /* ok, bit ugly, but here we go */
+
+  if (minor_i_ && (accidentals_i_ == -1))
+    if (notename_str == "des")
+      notename_str = "cis";
+  
+  if (minor_i_ && (accidentals_i_ == -2))
+    if (notename_str == "ges")
+      notename_str = "fis";
+  
   String de_octavate_str = to_str (',',  (Mudela_note::c0_pitch_i_c_ + 11 - pitch_i) / 12);
   String octavate_str = to_str ('\'',  (pitch_i - Mudela_note::c0_pitch_i_c_) / 12);
   return notename_str +de_octavate_str  + octavate_str;

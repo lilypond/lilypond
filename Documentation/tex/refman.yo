@@ -165,7 +165,7 @@ keywords: code(\mm), code(\pt), code(\in), or code(\cm).  Dimensions
 are converted immediately to a real which gives the dimension in
 points, so they can be mixed with reals, but the result is no longer
 of type dimension.  The keywords that require a dimension
-(code(\shape) and code(\symboltables)) will not accept this.
+(code(\shape)).
 
 dit(pitch) 
 A pitch is a string which is the name of a pitch.  Example: code(a).
@@ -224,8 +224,8 @@ will only be able to refer to identifiers whose names begin with a
 letter and are entirely alphanumeric.  It is also impossible to refer
 to an identifier whose name is the same as the name of a keyword.  The
 following words are keywords:
-verb(absdynamic    grouping       mm              relative     symboltables
-accepts       header         musicalpitch    remove       table
+verb(absdynamic    grouping       mm              relative     
+accepts       header         musicalpitch    remove       
 alternative   in             name            repeat       tempo
 bar           include        notenames       scm          time
 cadenza       key            notes           scmfile      times
@@ -553,10 +553,8 @@ mudela()(
 Dynamic marks are specified by using an identifier after a note
 without a dash: code(c4 \ff).  Note that this syntax is inconsistent
 with the syntax for other types of ornaments.  The available dynamic
-marks are: code(\pppppp), code(\ppppp), code (\pppp), code(\ppp), code(\pp), 
-code(\p), code(\mp), code(\mf), code(\f), code(\ff), code(\fff),
-code(\ffff), code(\fffff), code(\ffffff), 
-code(\fp), code(sf), code(\sff), code(\sp), code(\spp), (\sfz) and code (\rfz).
+marks are: code(\ppp), code(\pp), code(\p), code(\mp), code(\mf),
+code(\f), code(\ff), code(\fff), code(\fp), code(sf), and code(\sfz).
 
 A crescendo mark is started with code(\cr) and terminated with
 code(\rc).  A decrescendo mark is started with code(\decr) and
@@ -931,7 +929,7 @@ note, etc.  The number of dots  after  the  note is given by
 var(dotcount). 
 
 dit(code(\font) var(string)) Internal keyword.  Used within
-code(\symboltables) to specify the font.
+code(\paper) to specify the font.
 
 dit(code(\grouping) var(durationseq)code(;))  Sets  the  metric structure of
 the measure.  Each argument specifies the duration of one metric unit.
@@ -1095,13 +1093,6 @@ var(kind) is set to 1 for a crescendo and -1 for a decrescendo.  The
 second parameter is set to 1 to start the mark and 2 to stop it.
 Users should use the abbreviations which are defined in the
 initialization file file(dynamic.ly).
-
-dit(code(\symboltables)) Internal keyword.  Used to create symbol
-tables.  See initialization files file(paper*.ly), file(feta*.ly), and
-file(table*.ly).  
-
-dit(code(\table)) Internal keyword.  Used within code(\symboltables)
-to specify the tables.  See initialization files. 
 
 dit(code(\tempo) var(duration) = var(perminute)code(;)) Used within
 code(\midi) or within music to specify the tempo.  For example, 
@@ -1459,9 +1450,6 @@ equal to -1.
 dit(code(\f)) Print forte symbol on the preceeding note.
 dit(code(\ff)) Print fortissimo symbol on the preceeding note. 
 dit(code(\fff)) Print fortississimo symbol on preceeding note. 
-dit(code(\ffff)) Print fortissississimo symbol on preceeding note.
-dit(code(\fffff)) Print fffff symbol on preceeding note.
-dit(code(\ffffff)) Print ffffff symbol on preceeding note.
 dit(code(\fp)) Print fortepiano symbol on preceeding note. 
 dit(code(\free)) Used for setting direction setting properties.  Is
 equal to 0.  
@@ -1487,16 +1475,11 @@ has the same key signature.  This sets the Staff.keyoctaviation property.
 dit(code(\p)) Print a piano symbol on preceeding note. 
 dit(code(\pp)) Print pianissimo symbol on preceeding note. 
 dit(code(\ppp)) Print pianississimo symbol on preceeding note. 
-dit(code(\pppp)) Print pianissississimo symbol on preceeding note.
-dit(code(\ppppp)) Print ppppp symbol on preceeding note.
-dir(code(\pppppp)) Print pppppp symbol on preceeding note.
 dit(code(\rc)) Terminate a crescendo. 
 dit(code(\rced)) Terminate a decrescendo
-dit(code(\rfz)) Print a rinforzato symbol on preceeding note.
 dit(code(\right)) Used for setting textalignment property.  Is set to 1.
-dit(code(\sf)) Print a subito-forte symbol on preceeding note. 
-dit(code(\sff)) Print a subito-fortissimo symbol on preceeding note.
-dit(code(\sfz)) Print a sforzato symbol on preceeding note. 
+dit(code(\sf)) Print a ?? symbol on preceeding note. 
+dit(code(\sfz)) Print a ?? symbol on preceeding note. 
 dit(code(\shiftoff)) Disable horizontal shifting of note heads that collide.  
 Sets the Voice.hshift property.
 dit(code(\shifton)) Enable note heads that collide with other note heads
@@ -1507,8 +1490,6 @@ dit(code(\slurdown)) Force slurs to be below notes. This sets the
 Voice.slurydirection property. 
 dit(code(\slurup)) Force slurs to be above notes.  This sets the
 Voice.slurydirection property.  
-dit(code(\sp)) Print a subito-piano symbol on preceeding note.
-dit(code(\spp)) Print a subito-forte symbol on preceeding note.
 dit(code(\specialkey)) Allow keys signatures do differ in different
 octaves.  This sets the Staff.keyoctaviation property.  
 dit(code(\stemboth)) Allow stems, beams, and slurs to point either
@@ -1585,7 +1566,7 @@ inside a code(\paper) block.
 
 description(
   dit(var(integer)) If an integer appears on the left side of an
-assignment then a code(\symboltables) keyword must appear on the right
+assignment then a code(\font) keyword must appear on the right
 side.  This defines a music font at a particular size.  See Voice
 property code(\fontsize).
 

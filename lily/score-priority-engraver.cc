@@ -16,6 +16,7 @@
 
 Score_priority_engraver::Score_priority_engraver()
 {
+  align_p_tab_.hash_func_ = int_hash;
 }
 
 void

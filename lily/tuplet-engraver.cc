@@ -38,7 +38,7 @@ Tuplet_engraver::do_process_requests ()
   for (int i= started_span_p_arr_.size ();
        i < compressed_music_arr_.size (); i++)
     {
-      Plet_spanner* glep = new Plet_spanner;
+      Tuplet_spanner* glep = new Tuplet_spanner;
       started_span_p_arr_.push (glep);
 
       Text_def *t = new Text_def;

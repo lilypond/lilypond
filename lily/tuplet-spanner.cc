@@ -1,5 +1,5 @@
 /*
-  plet-spanner.cc -- implement Plet_spanner
+  plet-spanner.cc -- implement Tuplet_spanner
 
   source file of the GNU LilyPond music typesetter
 
@@ -21,7 +21,7 @@
 #include "text-def.hh"
 #include "note-column.hh"
 
-Plet_spanner::Plet_spanner ()
+Tuplet_spanner::Tuplet_spanner ()
 {
   beam_l_ =0;
   bracket_visibility_b_ = true;
@@ -33,7 +33,7 @@ Plet_spanner::Plet_spanner ()
 }
 
 Molecule*
-Plet_spanner::do_brew_molecule_p () const
+Tuplet_spanner::do_brew_molecule_p () const
 {
   Molecule* mol_p = new Molecule;
 
@@ -64,7 +64,7 @@ Plet_spanner::do_brew_molecule_p () const
 }
   
 void
-Plet_spanner::do_add_processing ()
+Tuplet_spanner::do_add_processing ()
 {
   if (column_arr_.size ())
     {
@@ -74,7 +74,7 @@ Plet_spanner::do_add_processing ()
 }
   
 void
-Plet_spanner::do_post_processing ()
+Tuplet_spanner::do_post_processing ()
 {
   if (column_arr_.size())
     translate_axis (column_arr_[0]->extent (Y_AXIS)[dir_], Y_AXIS);
@@ -89,7 +89,7 @@ Plet_spanner::do_post_processing ()
 }
 
 void
-Plet_spanner::do_substitute_dependency (Score_element* o, Score_element* n)
+Tuplet_spanner::do_substitute_dependency (Score_element* o, Score_element* n)
 {
   if (Note_column *onc = dynamic_cast <Note_column *> (o))
     column_arr_.substitute (onc, dynamic_cast<Note_column*> (n));
@@ -99,9 +99,9 @@ Plet_spanner::do_substitute_dependency (Score_element* o, Score_element* n)
 	beam_l_ = dynamic_cast<Beam*> (n);
     }
 }
-  
+
 void
-Plet_spanner::set_default_dir ()
+Tuplet_spanner::set_default_dir ()
 {
   dir_ = UP;
   for (int i=0; i < column_arr_.size (); i ++) 
@@ -115,14 +115,14 @@ Plet_spanner::set_default_dir ()
 }
 
 void
-Plet_spanner::set_beam (Beam *b)
+Tuplet_spanner::set_beam (Beam *b)
 {
   beam_l_ = b;
   add_dependency (b);
 }
 
 void
-Plet_spanner::add_column (Note_column*n)
+Tuplet_spanner::add_column (Note_column*n)
 {
   column_arr_.push (n);
   add_dependency (n);

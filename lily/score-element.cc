@@ -376,6 +376,11 @@ Score_element::handle_prebroken_dependencies()
       substitute_dependency (old_arr[i], new_arr[i]);
 }
 
+void
+Score_element::handle_prebroken_dependents()
+{
+}
+
 
 void
 Score_element::junk_links ()

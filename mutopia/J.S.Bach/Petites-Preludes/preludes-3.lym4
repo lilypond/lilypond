@@ -20,8 +20,9 @@ copyright =	 "public domain";
 \version "1.0.14";
 
 
-one = \notes  \transpose c`` {
-	\textstyle "italic";
+upper = \type Staff \notes \transpose c'' {
+	\type Voice=i
+	\property Voice . textstyle = "italic"
 %#	s(^c@ ^es@ ^g@ ^\p(\<@ ^\!@ ^)\!@ ^\>@)
 	t(c,es,g,^\p(\<@,\!,^)\!@,\>)
 %#	s(c es g ^(@ ^@ ^)@)
@@ -47,12 +48,14 @@ one = \notes  \transpose c`` {
 
 
 %#	s(c fis a -"poco a poco cresc.")
-	t(c,fis,a,-"poco a poco cresc.")
+%# 	t(c,fis,a,-"poco a poco cresc.")
+	s(c fis a)
 	s(d g bes)
 	s(d fis c`)
 
 	s(cis g bes)
-	s(c es a !-"dim.")
+%#	s(c es a !-"dim.")
+	s(c es a !)
 	s(bes` e g)
 	s(a` c g)
 
@@ -66,24 +69,25 @@ one = \notes  \transpose c`` {
 	s(fis` a` c)
 	r16\p [g` a` c] [b` g` b` g`] r g` r g`
 %#	s(a` c fis -"poco cresc.")
-	t(a`,c,fis,-"poco cresc.")
+%# 	t(a`,c,fis,-"poco cresc.")
+	s(a` c fis)
 	s(c fis a)
 	s(b` d g)
-	s(b` d f -"dim.")
+%#	s(b` d f -"dim.")
+	s(b` d f)
 	s(g` c es)
 	s(fis` c es)
 	s(fis` c es)
-	r16 [g`(\< b` d] [b` g` b` d] [es c a` )\!fis] |
+	r16 [g`(\< b` d] [b` g` b` d] [es c a` \!fis] |
 	<
-		{\voiceone g2.-\fermata\mf}
-		{\voicetwo <b`2. d>}
+		{\stemup ) g2.-\fermata\mf}
+		\type Voice=ii {\stemdown <b`2. d>}
 	>
-	\onevoice
+	\stemboth
 	\bar "|.";
 }
 
-two = \notes{
-	\clef bass;
+lower = \type Staff \notes{
 	% c4 r [g8-.(\ped )es-.\*] |
 	c4 r [g8-.( )es-.] |
 	c4 r [g8-.( )es-.] |
@@ -145,35 +149,27 @@ two = \notes{
 }
 
 global  = \notes{
-	\meter 3/4;
+	\time 3/4;
 	\key es;
-}
-
-treble_staff = \type Staff = treble <
-	\global
-	\one
->
-
-bass_staff = \type Staff = bass <
-% bass = Staff <
-	\clef "bass";
-	\global
-	\two
->
-
-grand_staff = \type GrandStaff <
-	\treble_staff
-	\bass_staff
->
-
-a4 = \paper{
-	linewidth= 193.\mm;
 }
 
 \score{
 	% Semplice e non troppo legato
-	\grand_staff
-	\paper{ \a4 }
+	\type GrandStaff <
+		\type Staff = upper <
+			\global
+			\upper
+		>
+		\type Staff = lower <
+			\global
+			\clef "bass";
+			\lower
+		>
+	>
+	\paper{
+		\include "preludes-paper.ly";
+		gourlay_maxmeasures = 4.0;
+	}
 	\midi{ \tempo 4 = 100; }
 	\header{
 		opus = 	"BWV 999";

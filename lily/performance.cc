@@ -19,6 +19,7 @@
 #include "performance.hh"
 #include "score.hh"
 #include "file-results.hh"
+#include "lily-version.hh"
 
 Performance::Performance ()
 {
@@ -53,9 +54,10 @@ Performance::output_header_track (Midi_stream& midi_stream_r)
   // perhaps multiple text events?
   String str = String (_("Creator: "));
   if (no_timestamps_global_b)
-    str += "GNU LilyPond\n";
+    str += gnu_lilypond_str ();
   else
-      str += get_version_str() + "\n";
+    str += gnu_lilypond_version_str();
+  str += "\n";
 
   Midi_text creator (Midi_text::TEXT, str);
   midi_track.add (Moment (0), &creator);

@@ -16,12 +16,14 @@
 #include <libguile.h>
 
 SCM ly_symbol (String name);
+String symbol_to_string (SCM);
 SCM ly_set_scm (String name , SCM val);
 
 SCM ly_append (SCM a, SCM b);
 SCM ly_eval (SCM a);
 SCM ly_func_o (char const* name);
 SCM ly_quote_scm (SCM s);
+void ly_display_scm (SCM s);
 
 
 #include "array.hh"

@@ -10,20 +10,13 @@
 #ifndef BAR_NUMBER_GRAV_HH
 #define BAR_NUMBER_GRAV_HH
 
-#include "engraver.hh"
+#include "bar-script-engraver.hh"
 
-/**
-  catch bars, and put a number over them.
- */
-class Bar_number_engraver : public Engraver {
-  Script * script_p_;
+class Bar_number_engraver : public Bar_script_engraver {
 protected:
-
-  void acknowledge_element (Score_element_info);
-  void do_pre_move_processing();
+  void do_process_requests ();
 public:
   VIRTUAL_COPY_CONS(Translator);
   Bar_number_engraver();
-  
 };
 #endif // BAR_NUMBER_GRAV_HH

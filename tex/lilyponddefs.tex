@@ -154,8 +154,11 @@
 \input fetdefs
 
 
+\def\deprecated#1S{%%%%%%%%%
 
 \def\emptybar{}
+
+
 
 \def\defaultthinbar{\thinbar{\staffheight}}
 \def\defaultthickbar{\thickbar{\staffheight}}
@@ -171,10 +174,6 @@
 \def\startrepeat#1{\repeatstartbar}
 \def\repeatbarstartrepeat#1{\repeatstopstart}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% parametric symbols
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \def\doublebar#1{\hbox{\thinbar{#1}\hskip\smallspace\thinbar{#1}}}
 \def\thinbar#1{\dimen0=#1%
         \vrule height .5\dimen0 depth .5\dimen0 width 1.6\stafflinethickness} % TODO parametric.
@@ -184,6 +183,8 @@
 \def\startbar#1{\leftalign{\thickbar{#1}\kern\smallspace\thinbar{#1}}}
 \def\finishbar#1{\rightalign{\thinbar{#1}\kern\smallspace\thickbar{#1}}}
 \def\fatdoublebar#1{\hbox{\phantom{\repeatcolon\kern2\smallspace}\thickbar{#1}\kern\smallspace\thickbar{#1}}}
+}
+
 
 \def\extender#1{\vrule width#1 height .8\stafflinethickness}
 

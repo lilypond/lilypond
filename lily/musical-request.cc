@@ -305,34 +305,6 @@ Script_req::~Script_req ()
   delete scriptdef_p_;
 }
 
-
-Text_req::~Text_req ()
-{
-  delete tdef_p_;
-  tdef_p_ = 0;
-}
-
-Text_req::Text_req (Text_req const& src)
-{
-  tdef_p_ = new Text_def (*src.tdef_p_);
-  dir_ = src.dir_;
-}
-
-Text_req::Text_req (int dir_i, Text_def* tdef_p)
-{
-  dir_ = Direction (dir_i);
-  tdef_p_ = tdef_p;
-}
-
-void
-Text_req::do_print () const
-{
-#ifndef NPRINT
-  DOUT << " dir " << dir_;
-  tdef_p_->print ();
-#endif
-}
-
 void
 Skip_req::do_print () const
 {
@@ -368,9 +340,6 @@ Dynamic_req::loudness_static_str (Loudness l)
 {
   switch (l)
     {
-    case FFFFFF: return "ffffff";
-    case FFFFF : return "fffff";
-    case FFFF: return "ffff";
     case FFF: return "fff";
     case FF: return "ff";
     case F: return "f";
@@ -379,17 +348,9 @@ Dynamic_req::loudness_static_str (Loudness l)
     case P: return "p";
     case PP: return "pp";
     case PPP: return "ppp";
-    case PPPP: return "pppp";
-    case PPPPP: return "ppppp";
-    case PPPPPP: return "pppppp";    
-
     case FP: return "fp";
     case SF: return "sf";
-    case SFF: return "sff";
     case SFZ: return "sfz";
-    case SP: return "sp";
-    case SPP: return "spp";
-    case RFZ: return "rfz";
     }
   return "";
 }

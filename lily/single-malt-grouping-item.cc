@@ -33,7 +33,12 @@ Single_malt_grouping_item::my_width () const
   for (int i=0; i < item_l_arr_.size (); i++)
     {
       Item *il = item_l_arr_[i];
-      assert (pc == il->column_l ());
+      if (pc != il->column_l ())
+	{
+	  /* this shouldn't happen, but let's continue anyway. */
+	  warning (_("Single_malt_grouping_item: I've been drinking too much (fixme)"));
+	  continue;		/*UGH UGH*/ 
+	}
       w.unite  (il->extent (X_AXIS) + il->relative_coordinate (&pc->dim_cache_[X_AXIS], X_AXIS));
     }
 

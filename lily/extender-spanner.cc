@@ -14,7 +14,6 @@
 #include "p-col.hh"
 #include "paper-def.hh"
 #include "extender-spanner.hh"
-#include "text-item.hh"
 #include "text-def.hh"
 
 Extender_spanner::Extender_spanner ()
@@ -92,9 +91,8 @@ Extender_spanner::do_post_processing ()
   Direction d = LEFT;
   do
     {
-      Item* t = item_l_drul_[d] ? item_l_drul_[d] : item_l_drul_[(Direction)-d];
-
-      dy_f_drul_[d] += t->extent (Y_AXIS).length () / 2;
+      Item* t = item_l_drul_[d]
+	? item_l_drul_[d] : item_l_drul_[(Direction)-d];
       if (d == LEFT)
         dx_f_drul_[d] += t->extent (X_AXIS).length ();
       else

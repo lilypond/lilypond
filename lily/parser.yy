@@ -15,7 +15,6 @@
 #include "scalar.hh"
 #include "translation-property.hh"
 #include "script-def.hh"
-#include "symtable.hh"
 #include "lookup.hh"
 #include "misc.hh"
 #include "my-lily-lexer.hh"
@@ -47,7 +46,7 @@
 
 // mmm
 Mudela_version oldest_version ("1.0.14");
-Mudela_version version ("1.0.14");
+Mudela_version version ("1.0.15");
 
 
 // needed for bison.simple's malloc() and free()
@@ -94,8 +93,6 @@ Paper_def* current_paper = 0;
     Array<Musical_pitch> *pitch_arr;
     Array<String> * strvec;
     Array<int> *intvec;
-    Atom * symbol;
-    Box *box;
     Notename_table *chordmodifiertab;
     Duration *duration;
     General_script_def * script;
@@ -118,8 +115,6 @@ Paper_def* current_paper = 0;
     Scalar *scalar;
     Simultaneous_music *chord;
     String *string;
-    Symtable * symtable;
-    Symtables* symtables;
     Tempo_req *tempo;
     Text_def * textdef;
     Translator* trans;
@@ -189,8 +184,6 @@ yylex (YYSTYPE *s,  void * v_l)
 %token SHAPE
 %token SKIP
 %token SPANDYNAMIC
-%token SYMBOLTABLES
-%token TABLE
 %token TEMPO
 %token TIME_T
 %token TIMES
@@ -229,7 +222,6 @@ yylex (YYSTYPE *s,  void * v_l)
 
 %type <outputdef> output_def
 %type <scope> 	mudela_header mudela_header_body
-%type <box>	box
 %type <i>	open_request_parens close_request_parens
 %type <i>	sub_quotes sup_quotes
 %type <music>	simple_element  request_chord command_element Simple_music  Composite_music 
@@ -241,9 +233,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <id>	identifier_init simple_identifier_init block_identifier
 %type <duration> steno_duration notemode_duration
 %type <duration> entered_notemode_duration explicit_duration
-%type <interval>	dinterval
 %type <intvec>	intastint_list int_list
-%type <symtables>	symtables symtables_body
 
 %type <pitch>   explicit_musical_pitch steno_musical_pitch musical_pitch absolute_musical_pitch
 %type <pitch>   steno_tonic_pitch
@@ -271,14 +261,11 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <script>	script_definition script_body mudela_script gen_script_def
 %type <textdef> text_def finger
 %type <string>	script_abbreviation
-%type <symbol>	symboldef
-%type <symtable>	symtable symtable_body
 %type <trans>	translator_spec translator_spec_body
 %type <tempo> 	tempo_request
 %type <notenametab> notenames_body notenames_block chordmodifiers_block
 
-/* 5 extra for notemode_chord */
-%expect 15
+%expect 7
 
 
 %left '-' '+'
@@ -430,9 +417,6 @@ block_identifier:
 	| midi_block {
 		$$ = new Midi_def_identifier ($1, MIDI_IDENTIFIER);
 
-	}
-	| symtables {
-		$$ = new Symtables_identifier ($1, IDENTIFIER);
 	}
 	| translator_spec {
 		$$ = new Translator_identifier ($1, TRANS_IDENTIFIER);
@@ -606,8 +590,10 @@ paper_def_body:
 		THIS->lexer_p_->scope_l_arr_.push (p->scope_p_);
 		$$ = p;
 	}
-	| paper_def_body int '=' symtables		{ // ugh, what a syntax
-		Lookup * l = new Lookup (*$4);
+	| paper_def_body int '=' FONT STRING		{ // ugh, what a syntax
+		Lookup * l = new Lookup;
+		l->font_name_ = *$5;
+		delete $5;
 		$$->set_lookup ($2, l);
 	}
 	| paper_def_body assignment ';' {
@@ -1395,7 +1381,7 @@ simple_element:
 			THIS->parser_error (_ ("have to be in Chord mode for chords"));
 		$$ = $1;
 	}
-	| '@' notemode_chord {
+	| '@' notemode_chord '@' {
 		if (!THIS->lexer_p_->note_state_b ())
 			THIS->parser_error (_ ("have to be in Note mode for @chords"));
 		$$ = $2;
@@ -1403,12 +1389,12 @@ simple_element:
 	;
 
 chord:
-	steno_tonic_pitch notemode_duration chord_additions chord_subtractions chord_inversion {
+	steno_tonic_pitch duration_length chord_additions chord_subtractions chord_inversion {
                 $$ = THIS->get_chord (*$1, $3, $4, $5, *$2);
         };
 
 notemode_chord:
-	steno_musical_pitch notemode_duration chord_additions chord_subtractions notemode_chord_inversion {
+	steno_musical_pitch duration_length chord_additions chord_subtractions notemode_chord_inversion {
                 $$ = THIS->get_chord (*$1, $3, $4, $5, *$2);
         };
 
@@ -1416,12 +1402,9 @@ chord_additions:
 	{
 		$$ = new Array<Musical_pitch>;
 	} 
-	| '-' {
-		$$ = new Array<Musical_pitch>;
-	} 
-	| chord_additions chord_addsub {
+	| chord_additions '-' chord_addsub {
 		$$ = $1;
-		$$->push (*$2);
+		$$->push (*$3);
 	}
 	;
 
@@ -1449,19 +1432,19 @@ notemode_chord_inversion:
 	;
 
 chord_note:
-	UNSIGNED {
+	unsigned {
 		$$ = new Musical_pitch;
 		$$->notename_i_ = ($1 - 1) % 7;
 		$$->octave_i_ = $1 > 7 ? 1 : 0;
 		$$->accidental_i_ = 0;
         } 
-	| UNSIGNED '+' {
+	| unsigned '+' {
 		$$ = new Musical_pitch;
 		$$->notename_i_ = ($1 - 1) % 7;
 		$$->octave_i_ = $1 > 7 ? 1 : 0;
 		$$->accidental_i_ = 1;
 	}
-	| UNSIGNED '-' {
+	| unsigned '-' {
 		$$ = new Musical_pitch;
 		$$->notename_i_ = ($1 - 1) % 7;
 		$$->octave_i_ = $1 > 7 ? 1 : 0;
@@ -1473,12 +1456,9 @@ chord_subtractions:
 	{
 		$$ = new Array<Musical_pitch>;
 	}
-	| '^' {
-		$$ = new Array<Musical_pitch>;
-	}
-	| chord_subtractions chord_addsub {
+	| chord_subtractions '^' chord_addsub {
 		$$ = $1;
-		$$->push (*$2);
+		$$->push (*$3);
 	}
 	;
 
@@ -1540,70 +1520,8 @@ string:
 
 
 
-/*
-	symbol tables
-*/
-symtables:
-	SYMBOLTABLES '{' symtables_body '}'	{ $$ = $3; }
-	;
 
-symtables_body:
-	 		{
-		$$ = new Symtables;
-	}
-	| IDENTIFIER		{
-		$$ = $1->access_content_Symtables (true);
-	}
-	| symtables_body FONT STRING 		{
-		$$->font_name_ = *$3;
-		delete $3;
-	}
-	| symtables_body STRING '=' symtable		{
-		$$->add (*$2, $4);
-		delete $2;
-	}
-	;
 
-symtable:
-	TABLE '{' symtable_body '}' { $$ = $3; }
-	;
-
-symtable_body:
-				{ $$ = new Symtable; }
-	| symtable_body	STRING	symboldef {
-		$$->elem (*$2) = *$3;
-		delete $2;
-		delete $3;
-	}
-	;
-
-symboldef:
-	STRING unsigned box		{
-		// ignore #args
-		$$ = new Atom (*$1, *$3);
-		delete $1;
-		delete $3;
-	}
-	| STRING unsigned {
-		Box b (Interval (0,0), Interval (0,0));
-		// ignore #args
-		$$ = new Atom (*$1, b);
-		delete $1;
-	}
-	;
-
-box:
-	dinterval dinterval 	{
-		$$ = new Box (*$1, *$2);
-		delete $1;
-		delete $2;
-	}
-	;
-
-dinterval: real	real		{
-		$$ = new Interval ($1, $2);
-	}
-	;
 
 %%
 

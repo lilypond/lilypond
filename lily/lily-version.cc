@@ -1,21 +1,35 @@
-#include <stdio.h>
+/*
+  lily-version.cc -- implement version strings
+
+  source file of the GNU LilyPond music typesetter
+
+  (c)  1999 Jan Nieuwenhuizen <janneke@gnu.org>
+*/
 
 #include "config.hh"
 #include "version.hh"
+#include "lily-version.hh"
 
-#define VERSION_SZ  MAJOR_VERSION "." MINOR_VERSION "."  PATCH_LEVEL "." MY_PATCH_LEVEL
+#define VERSION MAJOR_VERSION "." MINOR_VERSION "."  PATCH_LEVEL "." MY_PATCH_LEVEL
 
-static char *s = "GNU LilyPond " VERSION_SZ ;
-
-
-char const *
-lily_version_number_sz()
+String
+version_str ()
 {
-  return VERSION_SZ;
+  String str = VERSION;
+  return str;
 }
 
-char const * 
-lily_version_sz()
+String 
+gnu_lilypond_str ()
 {
-  return s;
+  String str = "GNU LilyPond";
+  return str;
 }
+
+String 
+gnu_lilypond_version_str ()
+{
+  String str = gnu_lilypond_str () + " " + version_str ();
+  return str;
+}
+

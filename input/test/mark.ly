@@ -22,7 +22,9 @@ two = \notes\relative c{
 	\paper {
 		\translator { \OrchestralPartStaffContext 
 		        markScriptPadding = "4.0";
-%			markDirection = \down;
+			markHangOn  = "Bar";
+			markHangDepth = "1";
+%			markDirection = \diown;
 		}
 	}
 }

@@ -4,7 +4,10 @@
   source file of the GNU LilyPond music typesetter
   
   (c) 1999 Jan Nieuwenhuizen <janneke@gnu.org>
-  
+
+
+  revamped code from GNU Fontutils-0.6
+
  */
 
 #ifndef TFM_HH
@@ -13,6 +16,7 @@
 #include "string.hh"
 #include "array.hh"
 #include "lily-proto.hh"
+#include "font-metric.hh"
 
 /* The type.  */
 typedef long Fix;
@@ -121,7 +125,7 @@ struct Tfm_kern
   Real kern;
 };
 
-struct Tex_font_char_metric
+struct Tex_font_char_metric : Character_metric
 {
   bool exists_b_;
   Char_code code_;
@@ -132,14 +136,18 @@ struct Tex_font_char_metric
 
   String str () const;
   Tex_font_char_metric ();
+
+  Box dimensions () const; 
 };
 
 
-class Tex_font_metric
+class Tex_font_metric : public Font_metric
 {
 public:
+  Character_metric *get_char (int, bool) const;
+  
   Tex_font_metric ();
-  Tex_font_char_metric find_ascii (int ascii, bool warn=true) const;
+  Tex_font_char_metric const &find_ascii (int ascii, bool warn=true) const;
   String str () const;
 
   /// the reader
@@ -160,7 +168,7 @@ private:
   void read_char_metrics (Binary_source_file* input);
   Tex_font_char_metric read_char_metric (Binary_source_file* input, Char_code code);
   Tex_font_char_metric read_char (Binary_source_file* input);
-  void read_lig_kern_program (Binary_source_file* input, Array <Tfm_ligature>* ligature_arr_p, Array <Tfm_kern>* kern_arr_p);
+  void read_lig_kern_program (Binary_source_file* input, Array<Tfm_ligature>* ligature_arr_p, Array <Tfm_kern>* kern_arr_p);
 };
 
 

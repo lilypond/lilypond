@@ -36,7 +36,12 @@ real_to_fix (Real r)
 #endif
 
 
-
+Box
+Tex_font_char_metric::dimensions () const
+{
+  Real d = -depth_;
+  return Box (Interval (0, width_),Interval ( d <? height_, d >? height_));
+}
 
 Tex_font_char_metric::Tex_font_char_metric ()
 {
@@ -67,17 +72,26 @@ Tex_font_metric::Tex_font_metric ()
 {
 }
 
-Tex_font_char_metric
+static Tex_font_char_metric dummy_static_char_metric;
+
+Tex_font_char_metric const &
 Tex_font_metric::find_ascii (int ascii, bool warn) const
 {
-  if (warn && (ascii_to_metric_idx_[ascii] == -1))
+  if (ascii_to_metric_idx_[ascii] >= 0)
+    return char_metrics_[ascii_to_metric_idx_ [ascii]];
+  else if (warn)
+
     {
-      Tex_font_char_metric m;
       warning (_f ("can't find ascii character `%d'", ascii));
-      return m;
+
     }
-  
-  return char_metrics_[ascii_to_metric_idx_ [ascii]];
+  return dummy_static_char_metric;  
+}
+
+Character_metric*
+Tex_font_metric::get_char (int a, bool w) const
+{
+  return &find_ascii (a, w);
 }
 
 

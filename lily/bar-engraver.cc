@@ -31,7 +31,6 @@ Bar_engraver::do_try_music (Music*r_l)
 	return false;
       
       bar_req_l_ = b;
-
       return true;
     }
   
@@ -69,21 +68,7 @@ Bar_engraver::create_bar ()
 void
 Bar_engraver::request_bar (String type_str)
 {
-#if 0 // will dump core at announce_element (invalid daddy_grav_l_...)
   create_bar ();
-#else
-  if (!bar_p_)
-    {
-      bar_p_ = new Bar;
-      bar_p_->break_priority_i_  = 0;
-      // urg: "" != empty...
-      String default_type = get_property ("defaultBarType", 0);
-      if (default_type.length_i ())
-	{
-	  bar_p_->type_str_ = default_type;
-	}
-    }
-#endif
   if (((type_str == "|:") && (bar_p_->type_str_ == ":|"))
     || ((type_str == ":|") && (bar_p_->type_str_ == "|:")))
     bar_p_->type_str_ = ":|:";
@@ -118,6 +103,11 @@ Bar_engraver::do_process_requests()
     {
       create_bar ();    
       bar_p_->type_str_ = bar_req_l_->type_str_;
+    }
+  else if (!now_moment ())
+    {
+      create_bar ();
+      bar_p_->type_str_ = "";
     }
   else 
     {

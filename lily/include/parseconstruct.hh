@@ -12,7 +12,6 @@
 String * get_scriptdef (char c);
 Request* get_script_req (char);
 Request*get_script_req (int d , Script_def*def);
-Request*get_text_req (int d , Text_def*def);
 Request*get_grouping_req (Array<int> i_arr);
 
 #endif // PARSECONSTRUCT_HH

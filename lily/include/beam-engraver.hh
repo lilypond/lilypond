@@ -1,5 +1,5 @@
 /*   
-  cbeam-engraver.hh -- declare Beam_engraver
+  beam-engraver.hh -- declare Beam_engraver
   
   source file of the GNU LilyPond music typesetter
   
@@ -7,8 +7,8 @@
   
  */
 
-#ifndef CBEAM_ENGRAVER_HH
-#define CBEAM_ENGRAVER_HH
+#ifndef BEAM_ENGRAVER_HH
+#define BEAM_ENGRAVER_HH
 
 #include "engraver.hh"
 #include "drul-array.hh"
@@ -35,5 +35,5 @@ public:
   VIRTUAL_COPY_CONS (Translator);
 };
 
-#endif /* CBEAM_ENGRAVER_HH */
+#endif /* BEAM_ENGRAVER_HH */
 

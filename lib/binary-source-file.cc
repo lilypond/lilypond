@@ -61,3 +61,36 @@ Binary_source_file::line_i (char const* pos_ch_C) const
     return pos_ch_C - ch_C ();
 }
 
+U8
+Binary_source_file::get_U8 ()
+{
+  return *(U8*)forward_ch_C (1);
+}
+
+
+U16
+Binary_source_file::get_U16 ()
+{
+  U16 b;
+
+  b = get_U8 () << 8;
+  b |= get_U8 ();
+
+  return b;
+}
+
+
+U32
+Binary_source_file::get_U32()
+{
+  U32 b;
+  
+  b = get_U8 () << 24;
+  b |= get_U8 () << 16;
+  b |= get_U8 () << 8;
+  b |= get_U8 ();
+
+  return b;
+}
+
+

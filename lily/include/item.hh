@@ -13,6 +13,7 @@
 #include "string.hh"
 #include "score-element.hh"
 #include "drul-array.hh"
+#include "protected-scm.hh"
 
 /**
   A horizontally fixed size element of the score.
@@ -25,11 +26,26 @@
   
 */
 class Item : public virtual Score_element {
+  void do_break ();
+  void try_visibility_lambda ();
+
 public:
   Link_array<Spanner> attached_span_l_arr_;
   Drul_array<Item*> broken_to_drul_;
   Item *unbroken_original_l_;
 
+  /**
+     
+     visibility_lambda :: int -> (bool . bool)
+     
+     @in
+     break direction
+     
+     @out
+     (transparent, empty) cons
+     
+   */
+  Protected_scm visibility_lambda_;
   /// should be put in a breakable col.
   bool breakable_b_;
   Direction break_status_dir_;
@@ -56,6 +72,8 @@ protected:
   virtual void handle_prebroken_dependencies();
   virtual void do_print() const;
   virtual bool linked_b() const;
+
+  virtual void handle_prebroken_dependents ();
 
   void copy_breakable_items();
 };

@@ -22,14 +22,21 @@ copyright =	 "public domain";
 allemande_viola_global = \notes{
 	\time 4/4;
 	\key f;
-	\partial 16;
 	\clef alto;
-	\skip 1*11;
-	s2. s8.
-	\bar ":|:";
-	\skip 1*11;
-	s2. s4 s8
-	\bar ":|";
+	\repeat 2 {
+		\partial 16;
+		s16
+		s1*11 |
+		s2 s4 s8
+		\partial 16*15;
+		s16
+	} \repeat 2 {
+		% urg
+		s32 \partial 16; s32
+		s1*11
+		s16*15
+		\partial 16*15;
+	}
 }
 
 allemande_viola_scripts = \notes{
@@ -43,7 +50,19 @@ allemande_viola_staff = \type Staff <
 
 \score{
 	\$allemande_viola_staff
-	\include "scs-paper.ly";
+%	\include "scs-paper.ly";
+	\paper{
+	        linewidth = 180.\mm;
+		\translator{
+			\VoiceContext
+			% add experimental auto-beaming
+			\consists Auto_beam_engraver;
+			beamAuto = 1.;
+			beamAutoEnd8 = "1/4";
+			beamAutoEnd16 = "1/4";
+			beamAutoEnd32 = "1/4";
+		}
+	}
 	\midi{ \tempo 4 = 45; }
 	\header{ piece = "Allemande"; }
 }

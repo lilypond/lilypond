@@ -93,72 +93,37 @@ Repeat_engraver::acknowledge_element (Score_element_info i)
 void
 Repeat_engraver::do_removal_processing ()
 {
-  for (int i = 0; i < bar_p_arr_.size (); i++)
-    if (bar_p_arr_[i])
-      typeset_element (bar_p_arr_[i]);
   for (int i = 0; i < volta_p_arr_.size (); i++)
     if (volta_p_arr_[i])
       typeset_element (volta_p_arr_[i]);
 }
 
-#define URG
-
 void
 Repeat_engraver::do_process_requests ()
 {  
   Moment now = now_moment ();
-  Time_description const *time = get_staff_info().time_C_;
   Bar_engraver* bar_engraver_l = dynamic_cast <Bar_engraver*>
-    (paper ()->find_translator_l ("Bar_engraver"));
-  for (int i = bar_p_arr_.size (); i < repeated_music_arr_.size (); i++)
+    (daddy_grav_l ()->get_simple_translator ("Bar_engraver"));
+  for (int i = bar_b_arr_.size (); i < repeated_music_arr_.size (); i++)
     {
-#ifndef URG
-      //suck me plenty
-      // nou hw, ik heb 't geprobeerd, maar ik snap er geen ruk van:
-      // zodra ik het via gevonden bar-engraver doe, dumpt ze koor
-      // in create_bar::announce_element, of ze zet helemaal geen ":|".
-      // het lijkt erop alsof ik een heel andere bar-engraver vind
-      // dan die ik zoek, ofzo??
       if (bar_engraver_l && (now > Moment (0)))
-	bar_engraver_l->request_bar (":|");
-      else
-#endif
-	if (now > Moment (0))
-	{
-	  Bar* bar_p = new Bar;
-	  bar_p-> type_str_ = "|:";
-	  bar_p_arr_.push (bar_p);
-#ifndef URG
-	  announce_element (Score_element_info (bar_p,
-						repeated_music_arr_[i])); 
-#endif
-	}
+	bar_engraver_l->request_bar ("|:");
+      bar_b_arr_.push (true);
     }
-  for (int i = 0; i < bar_p_arr_.size (); i++)
+  for (int i = 0; i < bar_b_arr_.size (); i++)
     {
-      if (!bar_p_arr_[i] && (now >= stop_mom_arr_[i]))
+      if (!bar_b_arr_[i] && (now >= stop_mom_arr_[i]))
         {
-#ifndef URG
-	  //suck me plenty
 	  if (bar_engraver_l)
-	    bar_engraver_l->request_bar ("|:");
-	  else
-#endif
-	    {
-	      Bar* bar_p = new Bar;
-	      bar_p-> type_str_ = ":|";
-	      bar_p_arr_[i] = bar_p;
-#ifndef URG
-	      announce_element (Score_element_info (bar_p,
-						    repeated_music_arr_[i]));
-#endif
-	    }
+	    bar_engraver_l->request_bar (":|");
 	}
     }
   int bees = volta_p_arr_.size ();
   for (int i = volta_p_arr_.size (); i < alternative_music_arr_.size (); i++)
     {
       Volta_spanner* v = new Volta_spanner;
+      Scalar prop = get_property ("voltaVisibility", 0);
+      v->visible_b_ = prop.to_bool ();
       if (i == alternative_music_arr_.size () - 1)
         v->last_b_ = true;
       Text_def* t = new Text_def;
@@ -173,31 +138,21 @@ void
 Repeat_engraver::do_pre_move_processing ()
 {
   Moment now = now_moment ();
-  for (int i = bar_p_arr_.size (); i--; )
+  for (int i = bar_b_arr_.size (); i--; )
     {
-      if (bar_p_arr_[i])
-        {
-	  if (now > Moment (0))
-	    typeset_element (bar_p_arr_[i]);
-	  else
-	    delete bar_p_arr_[i];
-	  bar_p_arr_[i] = 0;
-	}
+      if (bar_b_arr_[i])
+	bar_b_arr_[i] = false;
       if (now >= stop_mom_arr_[i])
 	{
-	  bar_p_arr_.del (i);
+	  bar_b_arr_.del (i);
 	  stop_mom_arr_.del (i);
 	  repeated_music_arr_.del (i);
 	}
     }
-  Time_description const *time = get_staff_info().time_C_;
   for (int i = volta_p_arr_.size (); i--; )
     {
       if (volta_p_arr_[i] && (now >= alternative_stop_mom_arr_[i])
 	  && (volta_p_arr_[i]->column_arr_.size () >= 1))
-	  // if (volta_p_arr_[i] && (now > alternative_stop_mom_arr_[i])
-	  	  // && !time->whole_in_measure_
-	  	  // && (volta_p_arr_[i]->column_arr_.size () > 1))
         {
 	  typeset_element (volta_p_arr_[i]);
 	  volta_p_arr_[i] = 0;

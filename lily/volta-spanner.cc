@@ -12,17 +12,21 @@
 #include "lookup.hh"
 #include "molecule.hh"
 #include "note-column.hh"
-#include "p-col.hh" // urg
-#include "bar.hh"
 #include "p-col.hh"
+#include "bar.hh"
 #include "paper-def.hh"
 #include "volta-spanner.hh"
 #include "stem.hh"
 #include "text-def.hh"
+#include "pointer.tcc"
+
+template class P<Text_def>;		// UGH
+
 
 Volta_spanner::Volta_spanner ()
 {
   last_b_ = false;
+  visible_b_ = true;
   number_p_.set_p (new Text_def);
   number_p_->align_dir_ = LEFT;
   dot_p_.set_p (new Text_def);
@@ -37,9 +41,12 @@ Volta_spanner::do_brew_molecule_p () const
   if (!column_arr_.size ())
     return mol_p;
 
+  if (!visible_b_)
+    return mol_p;
+
   Real internote_f = paper ()->internote_f ();
   Real dx = internote_f;
-  Real w = extent (X_AXIS).length () - 2 * dx;
+  Real w = extent (X_AXIS).length () - dx;
   Atom volta (lookup_l ()->volta (w, last_b_));
   Real h = volta.dim_.y ().length ();
   Atom num (number_p_->get_atom (paper (), LEFT));
@@ -65,7 +72,7 @@ Volta_spanner::do_brew_molecule_p () const
   mol_p->add_atom (volta);
   mol_p->add_atom (num);
   mol_p->add_atom (dot);
-  mol_p->translate (Offset (dx, dy));
+  mol_p->translate (Offset (0, dy));
   return mol_p;
 }
   
@@ -75,12 +82,9 @@ Volta_spanner::do_add_processing ()
   if (column_arr_.size ())
     {
       set_bounds (LEFT, column_arr_[0]);
-      //      set_bounds (RIGHT, column_arr_.top ());  
-      // huh?
-      // array.top () == last element??
-      // list.top () == first element
-      set_bounds (RIGHT, column_arr_[column_arr_.size () - 1]);  
+      set_bounds (RIGHT, column_arr_.top ());  
     }
+
   number_p_->style_str_ = "number-1";
   dot_p_->text_str_ = ".";
   dot_p_->style_str_ = "bold";

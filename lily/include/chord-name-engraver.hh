@@ -30,6 +30,10 @@ public:
 private:
   Array<Musical_pitch> pitch_arr_;
   Link_array<Item> text_p_arr_;
+
+  String banter_str (Array<Musical_pitch> pitch_arr, int tonic_i, Musical_pitch inversion) const;
+  int find_tonic_i () const;
+  Array<Musical_pitch> rebuild_pitch_arr (int tonic_i) const;
 };
 
 #endif // CHORD_NAME_ENGRAVER_HH

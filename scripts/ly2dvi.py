@@ -14,7 +14,7 @@ Output: DVI file
 """
 
 name = 'ly2dvi'
-version = '0.0.10'
+version = '0.0.11'
 errorlog = ''
 
 import sys
@@ -231,7 +231,7 @@ class TeXOutput:
         else:
             pageheight = Props.get('pageheight')
             pagewidth = Props.get('pagewidth')
-                             
+                            	 
         horizontalMarginArg =  ( (pagewidth - linewidth)/2 )   
         verticalMarginArg =  ( (pageheight - textheight)/2  )
 
@@ -393,7 +393,7 @@ class Properties:
             'pageheight'   :  [845, this.__overrideTable['init']],
             'papersize'    :  ['a4paper', this.__overrideTable['init']],
             'textheight'   :  [0, this.__overrideTable['init']],
-            'linewidth'    :  [0, this.__overrideTable['init']],
+            'linewidth'    :  [500, this.__overrideTable['init']],
             'orientation'  :  ['portrait', this.__overrideTable['init']],
             'language'     :  ['%', this.__overrideTable['init']],
             'include'      :  [[], this.__overrideTable['init']],
@@ -674,7 +674,7 @@ class Properties:
 	    else:
 		sys.exit('ExitBadWidth', m.group(2))
 	else:		
-	    sys.exit('ExitBadWidth', size)
+    	    sys.stderr.write ('ly2dvi: warning: ignoring linewidth: ' + size + '\n')
 
     #
     # setOrientation

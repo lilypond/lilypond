@@ -36,6 +36,7 @@ public:
   void translate_axis (Real r,Axis a);
   /// how big is #this#?
   Box extent() const;
+  Interval extent (Axis)const;
   void print() const;
   bool check_infinity_b () const;
   bool empty() const;

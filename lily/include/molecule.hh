@@ -23,7 +23,7 @@ struct Molecule {
   Molecule() { }
   Molecule (Atom const &a);
 
-  void add_at_edge (Axis a, Direction d, const Molecule &m);
+  void add_at_edge (Axis a, Direction d, const Molecule &m, Real padding);
   
   void add_molecule (Molecule const &m);
   void translate (Offset);
@@ -31,7 +31,7 @@ struct Molecule {
   void add_atom (Atom const & a) ;
   /// how big is #this#? 
   Box extent() const;
-
+  Interval extent (Axis) const;
 
   Molecule (const Molecule&s);
   void print() const;

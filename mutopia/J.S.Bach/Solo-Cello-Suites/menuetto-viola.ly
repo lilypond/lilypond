@@ -25,19 +25,21 @@ menuetto_i_viola_global = \notes{
 	\time 3/4;
 	\key f;
 	\clef alto;
-	\skip 2.*8;
-	\bar ":|:";
-	\clef violin;
-	\skip 2.*1;
-	\slurdotted
-	\skip 2.*3;
-	\clef alto;
-	\skip 2.*11;
-	s2._"Fine"
-	\bar ":|";
+	\repeat 2 {
+		\skip 2.*8;
+		\clef violin;
+		\skip 2.*1;
+	} \repeat 2 {
+		\slurdotted
+		\skip 2.*3;
+		\clef alto;
+		\skip 2.*11;
+		s2._"Fine"
+	}
 }
 
 menuetto_i_viola_scripts = \notes{
+	\type Voice=i
 	s2.
 	s8^"~"^1_2_4 s8*5
 	s2.*5
@@ -60,7 +62,17 @@ menuetto_i_viola_staff = \type Staff <
 
 \score{
 	\$menuetto_i_viola_staff
-	\include "scs-paper.ly";
+	\paper{
+	        linewidth = 180.\mm;
+		\translator { \BarNumberingStaffContext }
+		\translator{
+			\VoiceContext
+			% add experimental auto-beaming
+			\consists Auto_beam_engraver;
+			beamAuto = 1.;
+			beamAutoEnd8 = "3/4";
+		}
+	}
 	\midi{ \tempo 4 = 110; }
 	\header{ piece = "Menuetto I"; }
 }
@@ -69,13 +81,14 @@ menuetto_ii_viola_global = \notes{
 	\time 3/4;
 	\key D;
 	\clef alto;
-	\skip 2.*8;
-	\bar ":|:";
-	\skip 2.*1;
-	\slurdotted
-	\skip 2.*14;
-	s2._"Menuetto I da Capo"
-	\bar ":|";
+	\repeat 2 {
+		\skip 2.*8;
+	} \repeat 2 {
+		\skip 2.*1;
+		\slurdotted
+		\skip 2.*14;
+		s2._"Menuetto I da Capo"
+	}
 }
 
 menuetto_ii_viola_staff = \type Staff <
@@ -86,7 +99,17 @@ menuetto_ii_viola_staff = \type Staff <
 
 \score{
 	\$menuetto_ii_viola_staff
-	\include "scs-paper.ly";
+	\paper{
+	        linewidth = 180.\mm;
+		\translator { \BarNumberingStaffContext }
+		\translator{
+			\VoiceContext
+			% add experimental auto-beaming
+			\consists Auto_beam_engraver;
+			beamAuto = 1.;
+			beamAutoEnd8 = "3/4";
+		}
+	}
 	\midi{ \tempo 4 = 130; }
 	\header{ piece = "Menuetto II"; }
 }

@@ -27,6 +27,7 @@ enum Score_element_status {
   ORPHAN=0,			// not yet added to pstaff
   VIRGIN,			// added to pstaff
   PREBROKEN,
+  PREBROKEN_SECOND,
   PRECALCING,
   PRECALCED,		// calcs before spacing done
   SPACING,
@@ -60,6 +61,7 @@ void
 Super_element::breakable_col_processing ()
 {
   calculate_dependencies (PREBROKEN, PREBROKEN, &Score_element::do_breakable_col_processing);
+  calculate_dependencies (PREBROKEN_SECOND, PREBROKEN_SECOND, &Score_element::handle_prebroken_dependents);
 }
 
 void

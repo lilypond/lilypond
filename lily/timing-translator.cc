@@ -93,7 +93,6 @@ Timing_translator::do_process_requests()
 	      time_.whole_in_measure_ = 0; // resync
 	      time_.error_b_ = true;
 	    }
-
 	}
       else if (Cadenza_req *cr = dynamic_cast <Cadenza_req *> (tr_l))
 	{

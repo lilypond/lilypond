@@ -8,15 +8,9 @@
 */
 
 #include "musical-request.hh"
-#include "text-item.hh"
-#include "paper-def.hh"
-#include "lookup.hh"
-#include "paper-def.hh"
 #include "main.hh"
 #include "dimensions.hh"
 #include "g-text-item.hh"
-
-
 #include "engraver.hh"
 #include "array.hh"
 #include "lily-proto.hh"
@@ -71,6 +65,8 @@ Lyric_engraver::do_process_requests()
       Scalar style = get_property ("textstyle", 0);
       if (style.length_i ())
 	item_p->style_str_ = style;
+      // urg, when/how can one get the height of this thing?
+      item_p->translate (Offset (0, - i * 12 PT));
       
       text_p_arr_.push (item_p);
       announce_element (Score_element_info (item_p, request_l));

@@ -31,7 +31,8 @@ protected:
 private:
   Link_array<Repeated_music> repeated_music_arr_;
   Link_array<Music> alternative_music_arr_;
-  Link_array<Bar> bar_p_arr_;
+  //  Link_array<Bar> bar_p_arr_;
+  Array<bool> bar_b_arr_;
   Link_array<Volta_spanner> volta_p_arr_;
   Array<Moment> stop_mom_arr_;
   Array<Moment> alternative_start_mom_arr_;

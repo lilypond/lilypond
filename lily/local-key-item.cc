@@ -74,7 +74,7 @@ Local_key_item::do_brew_molecule_p() const
 	      accidental_pitch_arr_[i].cautionary_b_));
 
       m.translate_axis (dy, Y_AXIS);
-      octave_mol_p->add_at_edge (X_AXIS, RIGHT, m);
+      octave_mol_p->add_at_edge (X_AXIS, RIGHT, m, 0);
     }
 
   if (octave_mol_p)
@@ -89,7 +89,7 @@ Local_key_item::do_brew_molecule_p() const
     {
       Box b(Interval (0, paper()->internote_f ()), Interval (0,0));
       Molecule m (lookup_l ()->fill (b));
-      output->add_at_edge (X_AXIS, RIGHT, m);
+      output->add_at_edge (X_AXIS, RIGHT, m, 0);
     }
 
   Interval x_int;

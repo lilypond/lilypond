@@ -1,5 +1,5 @@
 \header{
-filename =	 "gigue-cello.ly";
+filename =	 "gigue-viola.ly";
 title =	 "Solo Cello Suites";
 subtitle = "Suite II";
 % piece = "Gigue";
@@ -19,32 +19,49 @@ copyright =	 "public domain";
 
 \include "gigue-urtext.ly";
 
-gigue_cello_global = \notes{
+gigue_viola_global = \notes{
 	\time 3/8;
 	\key f;
-	\clef bass;
-	\partial 8;
-	\skip 4.*31;
-	s4
-	\bar ":|:";
-	\skip 4.*44;
-	s4
-	\bar ":|";
+	\clef alto;
+	\repeat 2 {
+		\partial 8;
+		s8
+		s4.*31
+		s4
+		\partial 4;
+	} \repeat 2 {
+		% urg
+		s16 \partial 8; s16
+		s4.*43
+		s4
+		\partial 4;
+	}
 }
 
-gigue_cello_scripts = \notes{
+gigue_viola_scripts = \notes{
 }
 
-gigue_cello_staff = \type Staff <
+gigue_viola_staff = \type Staff <
 	\notes \transpose c' \$gigue
-	\$gigue_cello_global
-	\$gigue_cello_scripts
+	\$gigue_viola_global
+	\$gigue_viola_scripts
 >
 
 \score{
-	\$gigue_cello_staff
-	\include "scs-paper.ly";
-%broken
+	\$gigue_viola_staff
+	% \paper { \include "scs-paper.ly"; }
+	\paper{
+	        linewidth = 180.\mm;
+		\translator { \BarNumberingStaffContext }
+		\translator{
+			\VoiceContext
+			% add experimental auto-beaming
+			\consists Auto_beam_engraver;
+			beamAuto = 1.;
+			beamAutoEnd8 = "3/4";
+			beamAutoEnd16 = "3/4";
+		}
+	}
 	\midi{ \tempo 4 = 60; }
 	\header{ piece = "Gigue"; }
 }

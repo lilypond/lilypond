@@ -294,9 +294,6 @@ also use
 Options to configure include:
 
 
---enable-guile
-     Link in GUILE (experimental)
-
 --enable-printing
      Enable debugging print routines (lilypond -D option)
 
@@ -342,12 +339,13 @@ Example: suppose I want to build with and   without  profil-
 ing.  Then I'd use the following for the normal build,
 
 
+
+
+
+
            configure --prefix=~ --disable-optimise --enable-checking
            make
            make install
-
-
-
 
 
 and for the profiling version, I specify a different config-
@@ -396,8 +394,6 @@ CAVEATS
 
 o    The -O2 option to gcc triggers a gcc bug on  DEC  Alpha
      in  dstream.cc.  You should turn off this flag for this
-
-
      file.
 
 
@@ -405,10 +401,6 @@ EXAMPLE
 
 
 This is what I type in my xterm:
-
-
-
-
 
 
           lilypond someinput.ly
@@ -457,9 +449,6 @@ make/out/lilypond.spec, it is  distributed  along  with  the
 sources.
 
 You can make the rpm by issuing
-
-
-
 
 
           rpm -tb lilypond-x.y.z.tar.gz

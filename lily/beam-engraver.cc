@@ -33,7 +33,7 @@ Beam_engraver::do_try_music (Music *m)
 
       if (d == STOP && !beam_p_)
 	{
-	  m->warning ("No Beam to end");
+	  m->warning (_ ("No Beam to end"));
 	  return false;
 	}
       reqs_drul_[d ] = c;
@@ -49,7 +49,7 @@ Beam_engraver::do_process_requests ()
   if (reqs_drul_[STOP])
     {
       if (!beam_p_)
-	reqs_drul_[STOP]->warning (_("No beam to stop"));
+	reqs_drul_[STOP]->warning (_("No beam to end"));
       finished_beam_p_ = beam_p_;
       finished_grouping_p_ = grouping_p_;
 
@@ -61,7 +61,7 @@ Beam_engraver::do_process_requests ()
     {
       if (beam_p_)
 	{
-	  reqs_drul_[START]->warning ("Already have a Beam");
+	  reqs_drul_[START]->warning (_ ("Already have a Beam"));
 	  return;
 	}
 
@@ -126,7 +126,7 @@ Beam_engraver::do_removal_processing ()
   typeset_beam ();
   if (beam_p_)
     {
-      warning ("Unfinished beam");
+      warning (_ ("Unfinished beam"));
       finished_beam_p_ = beam_p_;
       finished_grouping_p_ = grouping_p_;
       typeset_beam ();
@@ -146,9 +146,9 @@ Beam_engraver::acknowledge_element (Score_element_info info)
 	Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (info.req_l_);
 	if (!rhythmic_req)
 	  {
-	    String s=_("Stem must have Rhythmic structure.");
+	    String s = _ ("Stem must have Rhythmic structure.");
 	    if (info.req_l_)
-	      info.req_l_->warning(s);
+	      info.req_l_->warning (s);
 	    else
 	      ::warning (s);
 	  
@@ -159,7 +159,7 @@ Beam_engraver::acknowledge_element (Score_element_info info)
 	if (rhythmic_req->duration_.durlog_i_<= 2)
 	  {
 	    rhythmic_req->warning (_ ("stem doesn't fit in beam"));
-	    reqs_drul_[LEFT]->warning (_("beam was started here"));
+	    reqs_drul_[LEFT]->warning (_ ("beam was started here"));
 	    return;
 	  }
 
@@ -170,7 +170,7 @@ Beam_engraver::acknowledge_element (Score_element_info info)
 
 	if (!grouping_p_->child_fit_b (start))
 	  {
-	    String s (_("please fix me") + ": " 
+	    String s (_ ("please fix me") + ": " 
 		      + _f ("stem at %s doesn't fit in beam", now_moment ().str ()));
 
 	    if (info.req_l_)

@@ -10,31 +10,21 @@
 #ifndef MARK_ENGRAVER_HH
 #define MARK_ENGRAVER_HH
 
-#include "engraver.hh"
-
-class G_staff_side_item;
-class G_text_item;
+#include "bar-script-engraver.hh"
 
 /**
   */
-class Mark_engraver : public Engraver 
+class Mark_engraver : public Bar_script_engraver 
 {
 public:
   Mark_engraver ();
-
   VIRTUAL_COPY_CONS(Translator);
-  
-
 protected:
   virtual bool do_try_music (Music *req_l);
   virtual void do_process_requests ();
-  virtual void do_pre_move_processing ();
-  virtual void acknowledge_element (Score_element_info);
-
+  virtual void do_post_move_processing ();
 private:
   Mark_req * mark_req_l_;
-  G_staff_side_item* staff_side_p_;
-  G_text_item* text_p_;
 };
 
 #endif // MARK_ENGRAVER_HH

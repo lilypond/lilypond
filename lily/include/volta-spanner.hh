@@ -26,6 +26,7 @@ public:
   Link_array<Bar> column_arr_;
   Link_array<Note_column> note_column_arr_;
   bool last_b_;
+  bool visible_b_;
  
 protected:
   virtual Molecule* do_brew_molecule_p () const;

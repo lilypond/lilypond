@@ -9,7 +9,6 @@
 #include "crescendo.hh"
 #include "dynamic-engraver.hh"
 #include "musical-request.hh"
-#include "text-item.hh"
 #include "lookup.hh"
 #include "paper-def.hh"
 #include "score-column.hh"
@@ -96,7 +95,7 @@ Dynamic_engraver::do_process_requests()
 	  String loud = absd->loudness_str ();
 
 	  text_p_ = new G_text_item;
-	  text_p_->text_str_ =  paper ()->lookup_l (0)->dynamic (loud).str_;
+	  text_p_->text_str_ =  "dyn" + loud; // ugh
 	  Scalar prop = get_property ("dynamicStyle", 0);
 
 	  text_p_->style_str_ = prop.length_i () ? prop :  "dynamic";

@@ -64,6 +64,12 @@ Atom::extent () const
   return b;
 }
 
+Interval
+Atom::extent (Axis a) const
+{
+  return dim_[a] + off_[a];
+}
+
 
 
 Atom::Atom ()
