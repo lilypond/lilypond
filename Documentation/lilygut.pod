@@ -16,7 +16,7 @@ You should use doc++ to take a peek at the sources.
 
 LilyPond is a "5-pass" system:
 
-=over 5
+=over 4
 
 =item 1. Parsing:
 
@@ -44,9 +44,6 @@ are determined.
 =item 5. Output
 
 Very simple, just walk all Line_of_* and follow the links over there
-
-=back
-
 
 =back
 

@@ -26,7 +26,10 @@ DEBUGFLAG=-g
 
 # turn off -pipe if linker doesn't support it
 # 
-USER_CXXFLAGS=-pipe -Wall -W   -Wmissing-prototypes
+# USER_CXXFLAGS=-pipe -Wall -W   -Wmissing-prototypes
+# added two warnings that are treated by cygwin32's gcc 2.7.2 as errors.
+# huh, but still, no warnings even provoced with linux's gcc 2.7.2.1?
+USER_CXXFLAGS=-pipe -Wall -W -Wmissing-prototypes -Wmissing-declarations -Wconversion
 
 #
 # -lefence = ElectricFence.
