@@ -33,7 +33,6 @@ Simultaneous_music::to_relative_octave (Pitch p)
 
   return retval;
 }
-
 ADD_MUSIC (Simultaneous_music);
 
 Pitch
