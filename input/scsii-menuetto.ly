@@ -117,7 +117,7 @@ ii_menuetto = music {
 %%%24
 %%	{ d2.^{fine}  `a2. `d2.\stemup_{ }_{ }_{3 mins.}}	s4 :||
 %%	{ \textstyle "italic" d2.^"fine" `a2. \textstyle "roman" `d2._"3 mins."} | % :||
-	{ d2.^"fine" `a2. `d2._"3 mins."} \bar ":||"
+	{ d2.^"fine" `a2. `d2._"3 mins."} \bar ":|" % \bar ":||"
 %% \tighten		% use one line less
 	$
 }
