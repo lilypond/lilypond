@@ -131,7 +131,6 @@ classname::static_translator_description () const \
 
 
 
-extern Dictionary<Translator*> *global_translator_dict;
 void add_translator (Translator*trans);
 
 Translator*get_translator (String s);

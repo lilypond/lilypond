@@ -7,21 +7,18 @@
 */
 
 #include "translator.hh"
-#include "dictionary.hh"
+#include <map>
 #include "warn.hh"
 
 /*
   should delete these after exit.
- */
+*/
 
-/*
-  UGH. Dictionary is deprecated
- */
-Dictionary<Translator*> *global_translator_dict=0;
+std::map<String,Translator*> *global_translator_dict=0;
 
 LY_DEFINE(get_all_translators,"ly:get-all-translators", 0, 0, 0,  (),
 	  "Return an list of a all translator objects that may be instantiated "
-" during a lilypond run.")
+	  " during a lilypond run.")
 {
   SCM l = SCM_EOL;
   for (std::map<String,Translator*>::const_iterator (ci (global_translator_dict->begin()));
@@ -36,18 +33,19 @@ void
 add_translator (Translator *t)
 {
   if (!global_translator_dict)
-    global_translator_dict = new Dictionary<Translator*>;
+    global_translator_dict = new std::map<String,Translator*>;
 
- (*global_translator_dict)[classname (t)] = t;
+  (*global_translator_dict)[classname (t)] = t;
 }
 
 Translator*
 get_translator (String s)
 {
-  if (global_translator_dict->elem_b (s))
+  if (global_translator_dict->find (s) !=
+      global_translator_dict->end ())
     {
-	Translator* t = (*global_translator_dict)[s];
-	return t;
+      Translator* t = (*global_translator_dict)[s];
+      return t;
     }
 
   error (_f ("unknown translator: `%s'", s));
