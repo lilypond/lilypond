@@ -100,10 +100,10 @@ is then separated.
   (regexp-substitute/global #f re string 'pre to 'post))
 
 (define (re-sub-alist string alist)
-  (re-sub (caar alist) (cdar alist)
-	  (if (pair? (cdr alist))
-	      (re-sub-alist string (cdr alist))
-	      string)))
+  (if (null? alist)
+      string
+      (re-sub (caar alist) (cdar alist)
+	      (re-sub-alist string (cdr alist)))))
 
 (define xml-entities-alist
   '(("\"" . "&quot;")
