@@ -1891,7 +1891,7 @@ voice, which continues with upward stems:
 The easiest way to enter multiple voices is demonstrated
 here. Separate the components of the voice (single notes or entire
 sequences) with @code{\\} in a simultaneous music expression. The
-a@code{\\} separators split first voice, second voice, third voice, and
+@code{\\} separators split first voice, second voice, third voice, and
 so on.
 
 As far as relative mode is concerned, the previous note is the
