@@ -131,7 +131,7 @@ Folded_repeat_iterator::try_music_in_children (Music * m) const
   return 0;
 }
 void
-Folded_repeat_iterator::derived_mark ()const
+Folded_repeat_iterator::derived_mark () const
 {
   if (main_iter_)
     scm_gc_mark (main_iter_->self_scm ());

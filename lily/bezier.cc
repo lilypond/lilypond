@@ -84,7 +84,7 @@ Bezier::get_other_coordinate (Axis a,  Real x) const
 
 
 Offset
-Bezier::curve_point (Real t)const
+Bezier::curve_point (Real t) const
 {
   Real tj = 1;
   Real one_min_tj = (1-t)* (1-t)* (1-t);
@@ -110,7 +110,7 @@ Bezier::curve_point (Real t)const
 
 
 Polynomial
-Bezier::polynomial (Axis a)const
+Bezier::polynomial (Axis a) const
 {
   Polynomial p (0.0);
   for (int j = 0; j <= 3; j++)
@@ -140,7 +140,7 @@ filter_solutions (Array<Real> sol)
    find t such that derivative is proportional to DERIV
  */
 Array<Real>
-Bezier::solve_derivative (Offset deriv)const
+Bezier::solve_derivative (Offset deriv) const
 {
   Polynomial xp = polynomial (X_AXIS);
   Polynomial yp = polynomial (Y_AXIS);
@@ -170,7 +170,7 @@ Bezier::solve_point (Axis ax, Real coordinate) const
    Compute the bounding box dimensions in direction of A.
  */
 Interval
-Bezier::extent (Axis a)const
+Bezier::extent (Axis a) const
 {
   int o = (a+1)%NO_AXES;
   Offset d;

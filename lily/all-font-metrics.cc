@@ -14,7 +14,6 @@
 #include "afm.hh"
 #include "tfm.hh"
 #include "scm-hash.hh"
-#include "kpath.hh"
 #include "pango-font.hh"
 
 static char const *default_font_str0_ = "cmr10";
