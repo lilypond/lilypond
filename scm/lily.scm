@@ -23,7 +23,7 @@
 (define (line-column-location line col file)
   "Print an input location, including column number ."
   (string-append (number->string line) ":"
-		 (number->string col) " " file " ")
+		 (number->string col) " " file)
   )
 
 (define (line-location line col file)

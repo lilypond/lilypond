@@ -135,7 +135,7 @@ Multi_measure_rest::brew_molecule (SCM smob)
   
   Molecule s;
 
-  int measures = 1;
+  int measures = 0;
   SCM m (me->get_grob_property ("measure-count"));
   if (gh_number_p (m))
     {
@@ -144,7 +144,19 @@ Multi_measure_rest::brew_molecule (SCM smob)
   
 
   SCM limit = me->get_grob_property ("expand-limit");
-  if (measures <= gh_scm2int (limit))
+  if (measures <= 0)
+    return SCM_EOL;
+  if (measures == 1)
+    {
+      s = musfont->find_by_name (Rest::glyph_name (me, 0, ""));
+
+      /*
+	ugh.
+       */
+      if (Staff_symbol_referencer::position_f (me) == 0.0)
+	s.translate_axis (Staff_symbol_referencer::staff_space (me), Y_AXIS);
+    }
+  else if (measures <= gh_scm2int (limit))
     {
       /*
 	Build a rest from smaller parts. Distances inbetween are
