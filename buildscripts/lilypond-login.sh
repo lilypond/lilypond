@@ -12,11 +12,6 @@
 # strange shell, this C
 set datadir="@datadir@"
 
-if ( $?GS_FONTPATH ) then
-       setenv GS_FONTPATH "$datadir/fonts/afm:$datadir/fonts/type1:$GS_FONTPATH"
- else
-       setenv GS_FONTPATH "$datadir/fonts/afm:$datadir/fonts/type1"
- endif
  if ( $?GS_LIB ) then
        setenv GS_LIB "$datadir/ps:$GS_LIB"
  else
@@ -36,5 +31,11 @@ set noglob
 setenv TEXMF "{$datadir,"`kpsexpand  \$TEXMF`"}"
 unset noglob
 
+# Add all available TeX Type1 fonts (including Feta) to Ghostscript:
+if ( $?GS_FONTPATH ) then
+       setenv GS_FONTPATH `kpsewhich -expand-path=\$T1FONTS`:$GS_FONTPATH"
+ else
+       setenv GS_FONTPATH `kpsewhich -expand-path=\$T1FONTS`
+ endif
 
 

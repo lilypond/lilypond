@@ -9,9 +9,6 @@
 
 datadir=`echo "@datadir@" | sed 's!//!/!g'`
 
-# For direct ps output fonts
-GS_FONTPATH="$datadir/fonts/afm:$datadir/fonts/type1:"${GS_FONTPATH:=""}
-
 # For direct ps output: ps/lilyponddefs.ps
 GS_LIB="$datadir/ps:"${GS_LIB:=""}
 
@@ -27,6 +24,11 @@ TEXMF="{$datadir,"`kpsexpand  \\$TEXMF`"}"
 
 # LILYPONDPREFIX="$datadir"
 # export LILYPONDPREFIX
+
+# For direct ps output fonts. Add all available TeX Type1 fonts
+GS_FONTPATH=`kpsewhich -expand-path=\$T1FONTS`:${GS_FONTPATH:=""}
+
+
 
 export GS_LIB GS_FONTPATH TEXMF
 

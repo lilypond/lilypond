@@ -75,7 +75,7 @@ $(outdir)/lilypond.map:
 ##
 ## todo: this also depends on .tfm, FIXME.
 $(outdir)/%.afm  $(outdir)/%.tex $(outdir)/%.dep: $(outdir)/%.log 
-	$(PYTHON) $(buildscript-dir)/mf-to-table.py --package=$(topdir) --outdir=$(outdir) --dep $(outdir)/$(<F:.log=.dep)  --afm $(outdir)/$(<F:.log=.afm) --tex $(outdir)/$(<F:.log=.tex) --ly $(outdir)/$(<F:.log=.ly) $<
+	$(PYTHON) $(buildscript-dir)/mf-to-table.py --package=$(topdir) --outdir=$(outdir) --dep $(outdir)/$(<F:.log=.dep)  --afm $(outdir)/$(<F:.log=.afm) --tex $(outdir)/$(<F:.log=.tex) --ly $(outdir)/$(<F:.log=list.ly) $<
 
 local-clean:
 	rm -f mfplain.mem mfplain.log 

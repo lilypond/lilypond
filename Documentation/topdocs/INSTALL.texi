@@ -172,7 +172,7 @@ configure something like:
 @end example
 
 
-@item pktrace, [OPTIONAL], needed for generating PostScript Type1
+@item pktrace 1.0 or newer, [OPTIONAL], needed for generating PostScript Type1
 fonts. Get it from  @uref{http://www.cs.uu.nl/~hanwen/pktrace/}.  You
 will need to install some additional packages to get pktrace to work.
 

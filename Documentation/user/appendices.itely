@@ -208,5 +208,5 @@ The following symbols are available in the Feta font and may be
 accessed directly using text markup such as 
 @code{g^#'(music "scripts-segno")}, see @ref{Text markup}.
 
-@lilypondfile{feta16.ly}
+@lilypondfile{feta16list.ly}
 
