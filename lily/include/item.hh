@@ -8,7 +8,7 @@
 #ifndef ITEM_HH
 #define ITEM_HH
 
-#include "glob.hh"
+
 #include "boxes.hh"
 #include "string.hh"
 #include "score-elem.hh"
@@ -40,10 +40,13 @@ public:
     Real hpos_f() const;
     DECLARE_MY_RUNTIME_TYPEINFO;
     virtual Line_of_score * line_l() const;
+    
 protected:
     virtual void  do_breakable_col_processing();
     virtual void handle_prebroken_dependencies();
     virtual void do_print()const;
+
+    void copy_breakable_items();
 
 };
 
