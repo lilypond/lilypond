@@ -125,7 +125,8 @@ public:
   static SCM ly_set_grob_property (SCM, SCM,SCM);
   static SCM ly_get_grob_property (SCM, SCM);  
 
-  bool has_interface (SCM intf);
+  bool internal_has_interface (SCM intf);
+  static bool has_interface (Grob*me);  
 
   virtual void handle_broken_dependencies ();
   virtual void handle_prebroken_dependencies ();

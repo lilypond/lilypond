@@ -19,6 +19,7 @@ class Paper_column : public Item
 public:
   VIRTUAL_COPY_CONS (Grob);
 
+  static bool has_interface (Grob*);
   int  rank_i_;
   virtual void do_break_processing ();
   virtual Paper_column *column_l () const;

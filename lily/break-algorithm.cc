@@ -10,7 +10,7 @@
 #include "break-algorithm.hh"
 #include "paper-def.hh"
 #include "debug.hh"
-#include "line-of-score.hh"
+#include "system.hh"
 #include "paper-score.hh"
 #include "paper-column.hh"
 #include "cpu-timer.hh"

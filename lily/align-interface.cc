@@ -276,11 +276,6 @@ Align_interface::set_axis (Grob*me,Axis a)
   Axis_group_interface::set_axes (me, a,a);
 }
 
-bool
-Align_interface::has_interface (Grob*me)
-{
-  return me && me->has_interface (ly_symbol2scm ("align-interface"));
-}
 
 
 ADD_INTERFACE (Align_interface, "align-interface",
@@ -288,7 +283,10 @@ ADD_INTERFACE (Align_interface, "align-interface",
   "forced-distance stacking-dir align-dir threshold alignment-done center-element elements axes");
 
 
-
+struct Foobar
+{
+  bool has_interface (Grob*);
+};
 ADD_INTERFACE (Foobar, "aligned-interface",
   "read by align-interface",
   "minimum-space-pair extra-space");

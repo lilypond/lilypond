@@ -48,7 +48,7 @@ Stanza_number_engraver::process_music ()
       if (gh_string_p (s) || gh_pair_p (s))
 
 	/*
-	  if (i.grob_l_->has_interface (symbol ("lyric-syllable-interface")))
+	  if (i.grob_l_->internal_has_interface (symbol ("lyric-syllable-interface")))
 
 	  Tried catching lyric items to generate stanza numbers, but it
 	  spoils lyric spacing.

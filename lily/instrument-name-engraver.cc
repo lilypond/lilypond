@@ -92,7 +92,7 @@ Instrument_name_engraver::acknowledge_grob (Grob_info i)
     }
 
   if (dynamic_cast<Spanner*> (i.grob_l_)
-      && i.grob_l_->has_interface (ly_symbol2scm ("dynamic-interface")))
+      && i.grob_l_->internal_has_interface (ly_symbol2scm ("dynamic-interface")))
     return;
 
   /*

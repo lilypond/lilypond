@@ -15,6 +15,7 @@ public:
   Spanner* elt_l_;
   Hyphen_spanner (Spanner*);
   void set_textitem (Direction, Grob*);
+  bool has_interface (Grob*);
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
 };
 

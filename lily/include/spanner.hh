@@ -54,6 +54,7 @@ public:
   static int compare (Spanner * const &,Spanner * const &);
   virtual Grob* find_broken_piece (System*) const;
   virtual SCM do_derived_mark ();
+    static bool has_interface (Grob*);
 protected:
   void set_my_columns ();
 

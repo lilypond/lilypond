@@ -22,11 +22,6 @@
     lengthen stem if necessary
  */
 
-bool
-Stem_tremolo::has_interface (Grob *me)
-{
-  return me->has_interface (ly_symbol2scm ("stem-tremolo-interface"));
-}
 
 MAKE_SCHEME_CALLBACK (Stem_tremolo,dim_callback,2);
 

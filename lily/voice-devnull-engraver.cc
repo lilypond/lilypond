@@ -95,7 +95,7 @@ Voice_devnull_engraver::acknowledge_grob (Grob_info i)
 	  && (to_boolean (get_property ("unison"))
 	      || to_boolean (get_property ("unisilence")))))
     for (char const **p = junk_interfaces; *p; p++)
-      if (i.grob_l_->has_interface (ly_symbol2scm (*p)))
+      if (i.grob_l_->internal_has_interface (ly_symbol2scm (*p)))
 	{
 	  /* Ugh, we can suicide them, but they remain living */
 	  i.grob_l_->suicide ();

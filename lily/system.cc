@@ -9,7 +9,7 @@
 #include "input-smob.hh"
 #include "axis-group-interface.hh"
 #include "debug.hh"
-#include "line-of-score.hh"
+#include "system.hh"
 #include "main.hh"
 #include "paper-column.hh"
 #include "paper-def.hh"
@@ -546,4 +546,4 @@ grob has a Line_of_score as both X and Y reference point. The
 Paper_score contains one grob of this type. Control enters the
 Grob dependency calculation from this single Line_of_score
 object.",
-  "between-system-string spacing-procedure all-elements columns");
+  "between-system-string all-elements columns");

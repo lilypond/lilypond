@@ -24,4 +24,10 @@ public:
   DECLARE_SCHEME_CALLBACK (self_align_callback, (SCM element, SCM axis));
   
 };
+struct Break_aligned_interface
+{
+  static bool has_interface (Grob*);
+};
+
+
 #endif // BREAK_ALIGN_INTERFACE_HH

@@ -21,11 +21,6 @@
 #include "percent-repeat-item.hh"
 #include "lookup.hh"
 
-bool
-Multi_measure_rest::has_interface (Grob*me)
-{
-  return me->has_interface (ly_symbol2scm ("multi-measure-rest-interface"));
-}
 
 MAKE_SCHEME_CALLBACK (Multi_measure_rest,percent,1);
 SCM

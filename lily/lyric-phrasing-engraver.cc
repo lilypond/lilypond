@@ -196,7 +196,7 @@ Lyric_phrasing_engraver::acknowledge_grob (Grob_info i)
   }
 
   /* now try for a lyric */
-  if (h->has_interface (ly_symbol2scm ("lyric-syllable-interface"))) {
+  if (h->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface"))) {
 
     /* what's its LyricsVoice context name? */
     String voice_context_id;
@@ -225,7 +225,7 @@ Lyric_phrasing_engraver::acknowledge_grob (Grob_info i)
      then ignore it and let the Extender_engraver take care of it (i.e. finish at next
      lyric).
   */
-  if (h->has_interface (ly_symbol2scm ("lyric-extender-interface"))) {
+  if (h->internal_has_interface (ly_symbol2scm ("lyric-extender-interface"))) {
     String voice_context_id = get_context_id (i.origin_trans_l_->daddy_trans_l_, "LyricsVoice");
     record_extender (trim_suffix (voice_context_id), h);
     return;

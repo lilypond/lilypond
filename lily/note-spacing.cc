@@ -18,11 +18,6 @@
 #include "separation-item.hh"
 #include "staff-spacing.hh"
 
-bool
-Note_spacing::has_interface (Grob* g)
-{
-  return g && g->has_interface (ly_symbol2scm ("note-spacing-interface"));
-}
 
 void
 Note_spacing::get_spacing (Grob *me, Item* right_col,

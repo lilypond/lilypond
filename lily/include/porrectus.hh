@@ -22,6 +22,7 @@ public:
   static void set_right_head (Grob *, Item *);
   static Item *get_right_head (Grob *);
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM));
+  static bool has_interface (Grob*);
 
 private:
   static Molecule brew_vaticana_molecule (Item *, Real,

@@ -124,11 +124,6 @@ Dot_column::do_shifts (SCM l)
   return SCM_UNSPECIFIED;
 }
 
-bool
-Dot_column::has_interface (Grob*m)
-{
-  return m && m->has_interface (ly_symbol2scm ("dot-column-interface"));
-}
 
 
 void

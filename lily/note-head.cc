@@ -180,11 +180,6 @@ Note_head::head_extent (Grob *me, Axis a)
   return internal_brew_molecule (me, false).extent (a);
 }
 
-bool
-Note_head::has_interface (Grob*m)
-{
-  return m&& m->has_interface (ly_symbol2scm ("note-head-interface"));
-}
 
 
 MAKE_SCHEME_CALLBACK (Note_head,brew_ez_molecule,1);

@@ -54,7 +54,7 @@ void
 Hyphen_engraver::acknowledge_grob (Grob_info i)
 {
   // -> text-item
-  if (i.grob_l_->has_interface (ly_symbol2scm ("lyric-syllable-interface")))
+  if (i.grob_l_->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
     {
       current_lyric_l_ = i.grob_l_;
       if (hyphen_p_

@@ -160,7 +160,7 @@ compare_position (Grob *const  &a, Grob * const &b)
 
 
 
-
+#define has_interface ugly_hack
 ADD_INTERFACE (Staff_symbol_referencer,"staff-symbol-referencer-interface",
   "Object whose Y position is meaning with reference to a staff
 symbol. Objects that have this interface should include

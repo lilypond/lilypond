@@ -17,11 +17,6 @@
 #include "font-interface.hh"
 #include "lookup.hh"
 
-bool
-Arpeggio::has_interface (Grob* me)
-{
-  return me && me->has_interface (ly_symbol2scm ("arpeggio-interface"));
-}
 
 MAKE_SCHEME_CALLBACK (Arpeggio, brew_molecule, 1);
 SCM 

@@ -349,6 +349,7 @@ Beam::after_line_breaking (SCM smob)
   if (ly_car (s) != SCM_BOOL_F)
     return SCM_UNSPECIFIED;
 
+  // one wonders if such genericity is necessary  --hwn.
   SCM callbacks = me->get_grob_property ("position-callbacks");
   for (SCM i = callbacks; gh_pair_p (i); i = ly_cdr (i))
     gh_call1 (ly_car (i), smob);
@@ -1357,11 +1358,6 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
 }
 
 
-bool
-Beam::has_interface (Grob *me)
-{
-  return me->has_interface (ly_symbol2scm ("beam-interface"));
-}
 
 
 ADD_INTERFACE (Beam, "beam-interface",
@@ -1382,5 +1378,5 @@ the ideal slope, how close the result is to the ideal stems, etc.). We
 take the best scoring combination.
 
 ",
-  "beam-space concaveness-gap concaveness-threshold dir-function quant-score auto-knee-gap gap chord-tremolo beamed-stem-shorten shorten least-squares-dy direction damping flag-width-function neutral-direction positions thickness");
+  "position-callbacks beam-space concaveness-gap concaveness-threshold dir-function quant-score auto-knee-gap gap chord-tremolo beamed-stem-shorten shorten least-squares-dy direction damping flag-width-function neutral-direction positions thickness");
 

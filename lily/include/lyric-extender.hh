@@ -28,6 +28,7 @@
 class Lyric_extender
 {
 public:
+  static bool has_interface (Grob*);
   static void set_textitem (Spanner*, Direction, Grob*);
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
 };

@@ -11,7 +11,7 @@
 #include <ctype.h>
 
 #include "translator-group.hh"
-#include "key-item.hh"
+
 #include "bar-line.hh"
 #include "staff-symbol-referencer.hh"
 #include "debug.hh"

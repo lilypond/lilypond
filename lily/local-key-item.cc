@@ -244,11 +244,6 @@ Local_key_item::brew_molecule (SCM smob)
   return mol.smobbed_copy ();
 }
 
-bool
-Local_key_item::has_interface (Grob*m)
-{
-  return m && m->has_interface (ly_symbol2scm ("accidentals-interface"));
-}
 
 
 

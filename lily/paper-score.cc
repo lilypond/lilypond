@@ -11,7 +11,7 @@
 #include "font-metric.hh"
 #include "spanner.hh"
 #include "paper-def.hh"
-#include "line-of-score.hh"
+#include "system.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"
 #include "paper-column.hh"

@@ -52,11 +52,6 @@ Tie::set_interface (Grob*me)
   me->set_grob_property ("heads", gh_cons (SCM_EOL, SCM_EOL));
 }
 
-bool
-Tie::has_interface (Grob*me)
-{
-  return me->has_interface (ly_symbol2scm ("tie-interface"));
-}
 
 Grob*
 Tie::head (Grob*me, Direction d) 

@@ -16,7 +16,7 @@
 #include "molecule.hh"
 #include "paper-outputter.hh"
 #include "paper-column.hh"
-#include "line-of-score.hh"
+#include "system.hh"
 #include "group-interface.hh"
 
 void

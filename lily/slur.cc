@@ -681,11 +681,6 @@ Slur::get_curve (Grob*me)
 }
 
 
-bool
-Slur::has_interface (Grob*me)
-{
-  return me->has_interface (ly_symbol2scm ("slur-interface"));
-}
 
 
 ADD_INTERFACE (Slur,"slur-interface",

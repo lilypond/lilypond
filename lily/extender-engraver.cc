@@ -61,7 +61,7 @@ void
 Extender_engraver::acknowledge_grob (Grob_info i)
 {
   // -> text_item
-  if (i.grob_l_->has_interface (ly_symbol2scm ("lyric-syllable-interface")))
+  if (i.grob_l_->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
     {
       current_lyric_l_ = i.grob_l_;
       if (extender_p_

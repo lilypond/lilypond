@@ -12,11 +12,6 @@
 #include "debug.hh"
 #include "group-interface.hh"
 
-bool
-Separation_item::has_interface (Grob *g)
-{
-  return g->has_interface (ly_symbol2scm ("separation-item-interface"));
-}
 
 void
 Separation_item::add_item (Grob*s,Item* i)
