@@ -22,7 +22,7 @@ fi
 if [ -d /var/texfonts ]; then
     TEXDIRS="$TEXDIRS /var/texfonts"
 fi
-if [ -z $TEXDIR ]; then
+if [ -z "$TEXDIR" ]; then
     TEXDIRS=". /var"
 else
     TEXDIRS=". $TEXDIRS"
