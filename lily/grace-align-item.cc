@@ -19,7 +19,10 @@ Grace_align_item::Grace_align_item ()
   Align_interface (this).set_interface();
   Align_interface (this).set_axis (X_AXIS);
 }
-  
+
+/*
+  TODO: cfg-able
+ */
 void
 Grace_align_item::before_line_breaking ()
 {
