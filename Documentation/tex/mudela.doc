@@ -1,0 +1,1166 @@
+% -*-tex-*-
+
+% this document should be run through the mudela-book script after lilypond
+% has been installed.  The rules have been precooked into the
+% Documentation/Rules.make file; do 
+%
+%   make out/introduction.dvi
+%
+% or
+%
+%   mudela-book --outdir=out/ --outname=introduction.mudtex introduction.doc
+%   latex '\nonstopmode \input out/introduction.mudtex'
+
+% Hoi Tim, hier staan wat 'enge' commando's (die dingen met een '\'
+% zoals \documentclass en \def\mudela...).
+% Daar moet je je niets van aantrekken, ga gewoon naar Introduction
+% en begin te tiepen.
+
+\documentclass{report}
+\usepackage{a4wide}
+\title{Mudela}
+\author{Jan Nieuwenhuizen \& Han-Wen Nienhuys}
+\date{March 2, 1998}
+
+\def\file#1{\verb+#1+}
+
+% ugh: trick to get examples not generate par
+% these are for 16pt
+\def\mudelapaperlinewidth{-28.452756}%
+\def\mudelapaperindent{28.452756}%
+\def\mudelapaperrulethickness{0.400000}%
+\def\mudelapaperbarsize{16.000000}%
+\def\mudelapaperinterline{4.000000}%
+\def\mudelapapernotewidth{5.930000}%
+\def\mudelapaperwholewidth{8.640000}%
+\def\mudelapaperunitspace{22.000000}%
+\def\mudelapaperbasicspace{4.000000}%
+\def\mudelapapergeometric{0.000000}%
+\def\mudelapaperarithmetic_basicspace{2.000000}%
+\def\mudelapaperarithmetic_multiplier{4.800000}%
+\def\mudelapaperinterbeam{3.140000}%
+\def\mudelapapergourlay_energybound{100000.000000}%
+\def\mudelapapergourlay_maxmeasures{14.000000}%
+% huh?
+% \def\exampleheight{2\mudelapaperbarsize pt}
+\def\exampleheight{2cm}
+
+% ful of pars, needs the above
+\input lilyponddefs
+% generates par
+\musixsixteendefs
+\def\musixsixteendefs{}
+% generates par
+\turnOnPostScript%
+\def\turnOnPostScript{}
+% generates par
+\def\interscoreline{}
+% 
+
+\begin{document}
+\maketitle
+
+%\def\interexample{\hskip15mm$\Longrightarrow$\hskip15mm}
+%\def\interexample{\hbox to10mm{\hfill\hbox to0pt{\hss\vbox to\exampleheight{\vss$\Longrightarrow$\vss}\hss}\hfill}}
+\def\interexample{}
+\def\preexample{\par}
+\def\postexample{\par\medskip}
+
+\def\file#1{{\texttt{#1}}}
+\setcounter{secnumdepth}{-1}
+
+\chapter{A tutorial}
+
+\emph{\Large ***Under construction***}
+
+\section{Introduction}
+
+This chapter is a gentle introduction to using LilyPond to typeset
+simple music.
+
+LilyPond is a so called ``batch'' program.  This means, that you use a
+text editor (such as \texttt{emacs} or \texttt{vi}) to create an input
+file.  When you are done editing your input file, you save it, and you
+run LilyPond on the file.  If Lily finds any errors in your input file
+then she\footnote{ We're sure that if computer programs could have
+gender, LilyPond would be a female computer program.  So we will refer
+to the program as a she. This gender-bending is not to tease you, dear
+reader.  We do it in real life as well. In the past two years LilyPond
+has become sort of a baby daughter to us, keeping us awake at night,
+but also providing us lots of joy.  We hope you do not mind our little
+aberration from computer-manual tradition.
+% 
+% The name LilyPond is actually sort of a girl's name.  Can you guess which
+% one ?
+%
+} will complain.  If everything is well, than she'll generate a file, that
+you can process further to view or print.
+
+Using LilyPond to print or view some music is a procedure with four
+steps.  To get you started we'll run down the full procedure for you
+once.
+
+\begin{enumerate}
+\item
+Fire up your favourite editor (if you know none, try \texttt{joe silly.ly}),
+and key in the following text:
+\begin{verbatim}
+\score {
+        <
+        \type Staff = aStaff \melodic { g'2 e'4 }
+        \type Lyrics = yell \lyric { Air2 ball!4 }
+        >
+        \paper {}
+}
+\end{verbatim}
+
+Save your file as \file{silly.ly}.
+
+%The input files for LilyPond have the default extension \file{.ly}.
+
+\item
+Run LilyPond on your newly created file: enter \verb+lilypond silly+.
+LilyPond will then print all kinds of mumbo jumbo that can safely be
+ignored.  You might see something like this:
+\begin{verbatim}
+GNU LilyPond 0.1.55/FlowerLib 1.1.39
+Parsing ... [/home/hanwen/musix/spacer/init/lily-init.ly[/home/hanwen/
+
+        ... stuff left out here ...
+
+                                Documentation/silly.ly]
+Interpreting music ...[1] (time: 0.04 seconds)
+Preprocessing elements... 
+Calculating column positions ... [2]
+Approximated: 1 lines, (with an average of 4.0 columns)
+Time: 0.01 seconds
+warning: Can not solve this casting problem exactly; revert to Word_wrap
+[2]Time: 0.00 seconds
+
+Postprocessing elements...
+TeX output to silly.tex ...
+\end{verbatim}
+All has gone well; there were some warning but no errors.  The output
+is a TeX file, and it is called \file{silly.tex}.  \file{TeX} is
+usually spelled as \TeX.  It is batch program for typesetting text,
+developed by the great programmer and scientist Donald Knuth to
+typeset his famous The Art of Computer Programming bookseries.  As you
+can see \TeX\ can be adapted to do a lot more.  In fact, the document
+that you are reading now was also done with \TeX.
+\item
+  To do something useful with the output you have to run \TeX\ on it
+  first.  Run the command \verb+tex silly+.  The output should resemble this:
+\begin{verbatim}
+This is TeX, Version 3.14159 (C version 6.1)
+(silly.tex
+Babel <v3.6h> and hyphenation patterns for american, dutch, loaded.
+(/home/hanwen/lib/texmf/tex/lilypond/lilyponddefs.tex
+(/home/hanwen/lib/texmf/tex/lilypond/dyndefs.tex)
+(/home/hanwen/lib/texmf/tex/lilypond/fetdefs.tex
+(/home/hanwen/lib/texmf/tex/lilypond/feta20.tex)
+(/home/hanwen/lib/texmf/tex/lilypond/lily-ps-defs.tex))) [1] )
+Output written on silly.dvi (1 page, 3084 bytes).
+Transcript written on silly.log.
+\end{verbatim}
+  The human translation is ``everything went OK, the result is one
+  page long, and I put it in \file{silly.dvi}.''
+
+\item The \file{silly.dvi} file is a description of how a piece of
+text looks when it is printed.  You can view it, or print it.  If you
+are using a Unix system equipped with X-Windows, then you can issue
+the command \file{xdvi silly} to view the result.  If this is not the
+case, consult your local \TeX\ guru on printing and viewing DVI files.
+What is in your window should look like this:
+\begin{mudela}
+\score {
+        <
+        \type Staff = aStaff \melodic { g'2 e'4 }
+        \type Lyrics = yell \lyric { Air2 ball!4 }
+        >
+}
+\end{mudela}
+\end{enumerate}
+
+The remainder of this document is not about \TeX, and mostly not even
+about LilyPond.  What you entered into your text editor in step~1. and
+fed to LilyPond is a special kind of file composed of notenames,
+special words and punctation.  The remainder of this document explains
+how to combine these elements to express a piece of music in the
+language that LilyPond understands.  In other words, we try to explain
+how to use LilyPond, and not how LilyPond works.  For want of a better
+name we call this language Mudela (short for Music Description
+Language).
+
+This document does not cover all of Mudela.  Due to technical details,
+the precise working of Mudela is coupled to the innards of LilyPond.
+If you really want to know all the details, your best bet would be to
+get the sources to LilyPond and read the parser and scanner source.
+They are in \file{lilypond-x.y.z/lily/parser.y},
+\file{lilypond-x.y.z/lily/lexer.l}\footnote{Of course, it would be even
+better if you would improve LilyPond and send the resulting diffs to
+us.  But that would a really different ballpark (And we haven't
+started with the programming guide yet.)}
+
+In the following sections the basic elements of Mudela are presented.
+We don't want to bore you too much with details, so we will leave-out
+some red tape that's needed for a valid piece of Mudela: to be
+precise, we will write \verb+X Y Z+, when we really mean
+\begin{verbatim}
+\score {
+        \melodic { X Y Z }
+        \paper {}
+}
+\end{verbatim}
+Usually, we will also print the resulting fragment of music on the
+right just as it was produced by LilyPond.  
+
+For the remainder we will assume that you can carry out steps 1 to 4
+from the above instruction.  We will also assume that you know how
+music notation works.  If you are not familiar with the English terms
+for music notation, then you should consult XXXX [FIXME], it contains
+a glossary of musical terms.
+
+\section{Music copying versus music definition}
+
+If you have done music copying before, then using LilyPond may seem
+awkward to you in the beginning.  The purpose of LilyPond is informally
+explained by the term ``music typesetter.''
+
+This may give the impression that the program is like a drawing tool
+that lets you control precisely how the music is formatted.  This is
+not the case: not only does the program print musical symbols,
+LilyPond also tries to make esthetic decisions---to be precise, we
+programmed her to do what we find pretty.  You do not have complete
+control over what is happening.  On the other hand, good engraving is
+a very complex trade, so it is a Good Thing that you do not have to
+worry about what is happening.
+
+Secondly, LilyPond operates on musical definitions.  This really is
+something different from graphical definitions.  If you copy music by
+hand from a printed score, you don't have to know what the score
+means; you just copy the symbols.  With LilyPond such a thing is not
+possible: we expect you to enter the meaning of the score, not the
+score itself.  If put more concretely: you do not enter ``black
+notehead without flag, fourth staff line'', but ``a quarter note,
+pitch d$^2$''.  LilyPond will figure out from the musical info what
+kind of graphic presentation is needed.
+
+This has some drawbacks: most notably, it is difficult to enter sheet
+music that you cannot read.  On the other hand, any piece of music
+once entered can be played and transposed automatically.
+
+
+\section{When you know the notes to print\ldots}
+
+The basic building block of music is the note.  You can have LilyPond
+print a note by specifying its pitch and the duration.  The pitch of
+the central C, also known as c$^1$, is written as \verb+c'+.  A quarter
+note duration is written as \verb+4+.  So, to print quarter note with
+central C pitch, you enter the following
+\begin[fragment,verbatim,center]{mudela}
+c'4
+\end{mudela}
+The pitch \verb+c'+ actually consists of two parts: one for the note
+name, and one part for the octave.  The number of apostrophes
+specifies the octave to use, and the letter which note name to use.
+The note names simply are the letters \verb+a+ to \verb+g+.
+
+For example,
+\begin[fragment,verbatim]{mudela}
+  c'4 d'4 e'4 c'4 c''4 d''4 e''4 f''4 g''4 a''4 b''4 c'''4
+\end{mudela}
+
+The duration of a note is specified as a number: a whole note is
+denoted by 1, the half note by 2, the quarter by 4, and so on.  Here
+are some random notes to show how it works
+\begin[fragment,verbatim]{mudela}
+'c8 c8 c'16 c''32 d''64 b'64 c'''2 c1 c'4 d'4 e'4 f'4 g'4 a'4
+\end{mudela}
+
+This gives us already enough material to make simple songs:
+\begin[fragment,verbatim]{mudela}
+        c''4 d''4 e''4 c''4
+        e''4 f''4 g''2
+        g''8 a''8 g''8 f''8 e''4 c''4
+        c''4 g'4 c''2
+\end{mudela}
+
+There is only one part about pitches that we haven't told you:
+chromatically altered pitches.  The names ``a'' to ``g'' for typing
+pitches are convenient: they are short, pronounceable and they
+resemble the normal vocabulary for pitches.
+
+Enter flats and sharps.  In English there is no standard terse word
+for C sharp or C flat.  For this reason, we implemented a different,
+non-english convention for entering altered pitches, see
+table~\ref{notename-tab}: one makes a note sharp by adding the suffix
+``--is'' to the name, one makes the a note flat by adding the suffix
+``--es.''  For a double sharp you simply add another ``--is'' suffix,
+flats ditto.
+
+
+\begin{table}[h]
+  \begin{center}
+    \caption{Defaults note names}\label{notename-tab}
+    \begin{tabular}{ll}
+      english         &LilyPond\\
+      \hline\\
+      c double flat   &ceses\\
+      c flat          &ces\\
+      c natural       &c\\
+      c sharp         &cis\\
+      c double sharp  &cisis\\
+    \end{tabular}
+    
+  \end{center}
+\end{table}
+
+Variations on this convention are used in a number of germanic
+languages, notably Dutch, German, Swedish, and Norwegian.  To be
+precise, LilyPond actually defaults to dutch notenames, with aes,
+aeses, ees and eeses added for consistency.
+
+If you are not comfortable with these names, you can make your own
+names.  Included with the example initialisation files are note names
+for different languages, among others English (C sharp is abbreviated
+to cs), Italian, Swedish, Norwegian
+
+\section{Hairy rhythms}
+
+\section{Handy input}
+
+% \subsection{Durations}
+
+However, having only quarter notes may get a bit dull.
+Durations are entered as their reciproce values
+% a1 a2 a4 a a8 a a16 a a32 a a64 a a a a
+\begin[fragment,verbatim,center]{mudela}
+a1 a2 a4 a a8 a a16 a32 a64
+\end{mudela}
+note that you only have to specify
+the duration when it changes:
+Lily assumes a note has the same duration as the previous one.
+
+Now we can already write a little tune
+\begin[fragment,verbatim,center]{mudela}
+c d e c | c d e c | e f g2
+\end{mudela}
+As you'll probably have guessed,
+the vertical bar (pipe) \verb+|+ may be used to mark
+measures.
+
+In the scale shown above
+we left-out the last c note of the next octave.
+Postfixing the pitch with a quote \verb+'+
+produces a note by one octave higher
+\begin[fragment,verbatim,center]{mudela}
+c c' c''
+\end{mudela}
+
+Prefixing the pitch with a quote \verb+'+
+produces a note by one octave lower
+\begin[fragment,verbatim,center]{mudela}
+a 'a ''a
+\end{mudela}
+
+\section{Slurs and Ties}
+
+A tie connects two adjacent noteheads
+
+\begin[fragment,verbatim,center]{mudela}
+e' ~ e
+\end{mudela}
+
+Whereas a slur rather connects `chords', 
+and tries to avoid crossing stems
+
+\begin[fragment,verbatim,center]{mudela}
+e'( )e
+\end{mudela}
+
+And of course, such a (legato) slur can span several notes
+\begin[fragment,verbatim,center]{mudela}
+c( d e )f
+\end{mudela}
+
+\section{Beams and Plets}
+
+A beam is 
+\begin[fragment,verbatim,center]{mudela}
+[a8 a] [a16 a a a]
+\end{mudela}
+
+Here's a beamed triplet
+\begin[fragment,verbatim,center]{mudela}
+[/3 a8 a a]/1
+\end{mudela}
+
+a triplet without a beam
+\begin[fragment,verbatim,center]{mudela}
+\[/3 a4 a8\]
+\end{mudela}
+
+and a combination
+\begin[fragment,verbatim,center]{mudela}
+[/3 a8 a16 a] a8 \]
+\end{mudela}
+
+Abbreviations
+\begin[fragment,verbatim,center]{mudela}
+c1:16 [:16 e1 g]
+\end{mudela}
+
+\begin[fragment,verbatim,center]{mudela}
+c4:32 [:16 c8 d8]
+\end{mudela}
+
+\section{Notenames}
+
+Lily has predefined sets of notenames
+for various languages%
+\footnote{These are Dutch, English, German, Italian and Swedish.
+Simply include the language specific init file \file{<language.ly>}.}.
+The default set are the ones we like best are the Dutch notenames.
+
+A sharp is formed by adding \verb+is+
+\begin[fragment,verbatim,center]{mudela}
+cis dis eis fis gis ais bis
+\end{mudela}
+
+and a flat is formed by adding \verb+es+%
+%\footnote{Exceptions: \verb+es+ and \verb+as+.}
+\footnote{Exceptions: {\tt es} and {\tt as}.}
+\begin[fragment,verbatim,center]{mudela}
+ces des es fes ges as bes
+\end{mudela}
+
+With the obvious names for double sharps
+\begin[fragment,verbatim,center]{mudela}
+cisis disis eisis fisis gisis aisis bisis
+\end{mudela}
+
+and double flats
+\begin[fragment,verbatim,center]{mudela}
+ceses deses eses feses geses ases beses
+\end{mudela}
+See why we like-em?
+
+There are two special `notenames', the rest
+\begin[fragment,verbatim,center]{mudela}
+r16 [a a a]
+\end{mudela}
+
+and the space
+\begin[fragment,verbatim,center]{mudela}
+a2 s-"diminuendo" | a
+\end{mudela}
+
+
+\section{Commands}
+
+\begin[fragment,verbatim,center]{mudela}
+\clef "bass"; 'c
+\end{mudela}
+
+and a clef-change
+\begin[fragment,verbatim,center]{mudela}
+\clef "violin"; f' e' \clef "alto"; d' c'
+\end{mudela}
+
+\begin[fragment,verbatim,center]{mudela}
+\meter 3/4; c g g |
+\end{mudela}
+
+\begin[fragment,verbatim,center]{mudela}
+\key fis cis;
+'g 'a 'b cis d e fis g'
+\end{mudela}
+Note how Mudela allows you to 
+convey a musical message
+rather than forces you to produce a list of typesetting commands.
+If the music a \verb+cis+, you type a \verb+cis+.
+Depending on the key and context of the note
+Lily will determine what accidentals to typeset.
+
+A reminder accidental can be forced by
+using an exclamation mark \verb+!+
+on a pitch a reminder accidental
+\begin[fragment,verbatim,center]{mudela}
+cis d e cis | c! d e c |
+\end{mudela}
+
+\begin[fragment,verbatim,center]{mudela}
+\meter 2/4;
+\bar "|:"; c c \bar ":|:"; c c \bar ":|"; c c \bar "|."; 
+\end{mudela}
+
+\section{Chords and Voices}
+
+Here's a simple chord
+\begin[fragment,verbatim,center]{mudela}
+<c e g>
+\end{mudela}
+
+here are a few
+\begin[fragment,verbatim,center]{mudela}
+<
+        { c()d()c }
+        { e()f()e }
+        { g()a()g }
+>
+\end{mudela}
+
+and similarly voices
+\begin[fragment,verbatim,center]{mudela}
+<
+        { \voiceone c g c g }
+        { \voicetwo 'c2 'g2 }
+>
+\end{mudela}
+
+
+\section{A complete example}
+%\label{se:complete}
+
+A Mudela file needs some red tape
+
+\begin[verbatim,center]{mudela}
+\score{
+        \melodic {
+                \octave c';
+                c d e c |
+                c d e c |
+                e f g2 |
+        }
+}
+\end{mudela}
+
+\section{Lyrics}
+
+\begin[verbatim,center]{mudela}
+\score{
+        < 
+                \melodic{ 
+                        \octave c'; 
+                        c d e c | c d e c |
+                        e f g2 | e4 f g2
+                        \bar "|.";
+                }
+                \type Lyrics \lyric{ 
+                        Fr\`e-4 re Ja- que
+                        Fr\`e- re Ja- que
+                        Dor- mez vous?2
+                        Dor-4 mez vous?2
+                }
+        >
+}
+\end{mudela}
+
+\section{Variables}
+
+
+\section{Ly2dvi}
+Check-out this handy little script 
+that not only may save you quite some keystrokes,
+but produces titles and takes care of
+margins and (hopefully) papersizes.
+See \file{ly2dvi (1)}.
+
+\chapter{Input format reference}
+
+October 8, 1997
+
+This document describes the the GNU LilyPond input format, which is an
+effective language for defining music.  We call this language (rather
+arrogantly) The Musical Definition Language or Mudela, for
+short.\footnote{If anybody comes up with a better name, we'd gladly
+  take this. Gourlay already uses Musical Description Language,
+  G-Sharp Score Definition Language.  ISO standard 10743 defines a
+  Standard Music Description Language.  We're not being original here}
+
+The first aim of Mudela is to define a piece of music, being complete
+from both from a musical typesetting, as from a musical performing
+point of view.
+
+The Musical Definition Language (Mudela), has a logical structure,
+making use of identifiers, that allows for flexible input, and
+definition reuse. See \file{MANIFESTO} for reasons and design considerations.
+
+The below included for explanatory purposes only (i.e., for a complete
+and up-to-date definition, see \file{lily/parser.y} and
+\file{lily/lexer.l}):
+
+As a related note, you should take a look at the examples and the init
+files, as this document does not cover every aspect of mudela yet, and
+may be out of date.\footnote{Ok, I am being pessimistic here.  This
+  just is a disclaimer.  Docs usually are written after the program
+  itself.}  This document intends to give an idea of how it works, it
+is not a guide on how to use it.  
+
+
+\section{Basic elements}
+
+\subsection{Files}
+
+The de-facto extension of Mudela is \file{.ly}. Files may be included by
+entering \verb+\include+ at the start of a line:
+
+\begin{verbatim}
+\include "a_file.ly"
+\end{verbatim}
+
+
+\subsection{Comments}
+
+Line comments are introduced by a
+\verb+%+. 
+Block comments are delimited
+by 
+\verb+%{+ 
+and
+\verb+%}+. 
+They do not nest.
+
+\subsection{Versions}
+
+Occasionally, small changes in syntax across different versions of
+Mudela might give syntax errors. To warn you about possible
+incompatibilities, you can specify the Mudela version for which the
+inputfile was written,
+\begin{verbatim}
+\version "0.0.50";
+\end{verbatim}
+
+A perl-script which tries to convert to newer versions
+(\file{convert-mudela}) is included in the LilyPond distribution.
+
+\subsection{Words}
+
+Keywords are preceded by a backslash: \verb+\+. They contain
+alphabetic characters only.
+
+Identifiers in their normal form consist start with a backslash, a
+alpha character, followed by alpha-numerics. Identifiers can contain
+any characters (except whitespace, 
+ and \verb+%+), if you use this construct:
+
+\begin{verbatim}
+\$i'm_a_weird!!!identifier
+\end{verbatim}
+
+(which is the identifier with the name
+\verb+i'm_a_weird!!!identifier+).  \verb+$+ Takes any sequence of
+characters which are not whitespace, \verb+$+ and \verb+%+.
+\verb+$i'm_a_weird!!!string+
+\def\foobar{$} % silly fontlock mode 
+
+\subsection{Nesting characters}
+
+Mudela uses the brace (\verb+{+ and \verb+}+) for most hierarchical
+structures.  For chords the \verb+<+ and the \verb+>+ are used as
+nesting braces.
+
+\subsection{Constants}
+
+Please note that -.5 is not a Real.
+
+\begin{verbatim}
+"I am a string"
+-1.2e3          % a real
+12              % an int
+\end{verbatim}
+
+        
+\subsection{Identifiers}
+
+When assigning identifiers you use
+
+\begin{verbatim}
+string = ...
+\end{verbatim}
+
+If you reuse identifiers, then the previous contents will be thrown
+away after the right hand is evaluated, eg
+\begin{verbatim}
+bla = \melodic { \bla }
+\end{verbatim}
+is legal
+
+When using identifiers they have to be escaped:
+
+\begin{verbatim}
+oboe = \melodic { ... }
+\score{ \melodic { \oboe }}
+\end{verbatim}
+
+The left-hand part of the assignment is really a string, so 
+\begin{verbatim}
+"Foo bar 4 2 " = \melodic { .. }
+\end{verbatim}
+
+is also a valid assignment (but you would have trouble referencing to it)
+
+
+\subsection{Hierarchical structures}
+
+The general structure consists of declarations:
+\begin{verbatim}
+IDENTIFIER = \TYPE{
+        <type specific data>
+}
+\end{verbatim}
+and instantiations:
+
+\begin{verbatim}
+\TYPE{ <type specific data> }
+\end{verbatim}
+
+(Currently, \verb+\score+ is the only type that can be instantiated
+at top level. Currently declarations can only be done at top level)
+
+Most instantiations that use an IDENTIFIER are specified as follows:
+
+\begin{verbatim}
+\TYPE{ IDENTIFIER [...] }
+\end{verbatim}
+
+Some exceptions on this rule have been made to prevent inputting
+Mudela becoming tedious
+
+
+\subsection{Modes:}
+
+To simplify different aspects of music definition (entering the notes
+and manipulating them) Mudela has a number of different input "modes":
+
+\begin{description}
+
+
+\item[Normal mode]
+
+At the start of parsing, Mudela assumes normal mode.
+In Normal mode, a word is looked up in the following order:
+\begin{description}
+\item{\verb+word+}    string
+\item{\verb|"string"|} string
+\item{\verb|\word|} keyword, identifier
+\end{description}
+In normal mode, a word is assumed to start with an alphabetic
+character, followed by alpha-numeric characters.
+
+\item[Note mode] Note mode is introduced by the keyword
+  \verb+\melodic+.  In Note mode, a word is looked up in the following
+  order:
+\begin{description}
+\item{\verb+word+} notename, string
+\item{\verb|"string"|} string
+\item{\verb|\word|} keyword, identifier
+\end{description}
+
+In Note mode a word is considered to have alphabetic characters only,
+so the underscore (\_) is illegal.  If you accidently mistype a
+notename, the parser will assume that you are entering a string (and
+it will most likely complain that you should be in \verb|\lyrics| mode to
+do lyrics)
+
+
+\item[Lyric mode] Lyrics mode (and thus Simple mudela) is introduced
+  by the keyword \verb+\lyrics+.  Because of the various control
+  characters that can appear in lyrics, eg, ``foreign language''
+  accents, the inputting a string containing these has been made very
+  easy.
+
+In Lyrics mode, a word is looked up in the following order:
+\begin{description}
+\item{\verb+word+}    string (thus a lyric)
+\item{\verb|"string"|} string
+\item{\verb|\word|} keyword, identifier
+\end{description}
+
+In Lyric mode every sequence of non-digit and non-white characters
+starting with an alphabetic character or the \_ is considered a word.
+
+\begin{verbatim}
+a&@&@&TSI|{[    % a word
+1THtrhortho     % not a "word"
+Leise Fl\"u\ss{}teren meine Sapfe       % 4 words
+_ _ _ _         % 4 words: 4 spaces
+\end{verbatim}
+\end{description}
+
+These modes are of a lexical nature. Normal and Note mode largely
+resemble each other, save the possibility of entering Reals, 
+meaning of \verb+_+ and the resolution of words
+
+\subsection{Notes}
+
+You enter a note by giving the name and the reciprocal of the duration:
+
+\begin[fragment,verbatim]{mudela}
+a'4     % Dutch names
+\end{mudela}
+
+is a A-1 pitched crotchet. The ' signifies an octave change.  A-1 is 440
+Hz concert-pitch. \verb+c'+ is also known as the central c. More examples:
+
+\begin[fragment,verbatim]{mudela}
+        'a      % 110
+        a       % 220
+        A       % 110, uppercase octavates down
+        a'      % 440
+        a''     % 880
+        'as4.*2/3
+\end{mudela}
+
+The last one  is an A flat, (just below 110 Hz concert-pitch). The \verb+*2/3+
+signifies that this note is part of a triplet (3 in stead of 2). The
+duration is one and a half quarter note (\verb+4.+) times 2/3.
+
+Notenames are just a special kind of identifiers, and can be declared
+for any language appropriate (see \file{init/dutch.ly}).  The default language
+for notenames is defined to be Dutch. In Dutch, the notenames are
+a,b,c,d,e,f and g. Sharps are formed by adding the extension "is",
+flats by adding ``es''
+
+\begin{verbatim}
+% double sharp
+cisis disis eisis fisis gisis aisis bisis
+% sharps
+cis dis eis fis gis ais bis
+% naturals
+c d e f g a b 
+% flats
+ces des es fes ges as bes
+% double flats
+ceses deses eses feses geses ases beses
+\end{verbatim}
+
+Rests are named r or s
+\begin{verbatim}
+r       % print a rest
+s       % a "space" rest, nothing is printed.
+\end{verbatim}
+
+These notenames along with duration are enough material to construct
+simple melodies:
+
+\begin[verbatim,fragment]{mudela}
+\octave c';
+c4 c4 g4 g4 a4 a4 g2
+f4 f4 e4 e4 d4 d4 c2
+\end{mudela}
+
+Music is able to express more. generally speaking, the other
+'features' are either connected between notes (slurs, beams: spanning
+requests) or attached to notes (eg. accents). The former are
+implemented as START and STOP stop features and then attached to the note.
+
+\begin{description}
+\item{[ and ]}      start and stop a beam
+\item{( and )}      start and stop a slur
+\end{description}
+
+example: 
+\begin[verbatim,fragment]{mudela}
+  \octave c';
+  [c8 () d8 () e8  
+  e8(] [)g8 <c'8] e'8>              % NO nesting!
+  [2/3 c8 c8 c8]1/1       % a triplet
+\end{mudela}
+
+Please note that these two characters do \emph{not} necessarrily nest,
+they should be attached to the note.  For this reason, the construct
+\verb+[ <c4 c4>]+ will generate a parse error.
+  
+\subsection{Slurs and Ties}
+
+Ties connect the noteheads of adjacent notes. They are entered as follows:
+
+\begin[verbatim,fragment]{mudela}
+a'4 ~ a''4
+\end{mudela}
+
+Slurs connect whole chords, and try to avoid crossing stems. They are
+entered as follows:
+
+\begin[verbatim,fragment]{mudela}
+a'4(  )a''4
+\end{mudela}
+
+\subsection{Scripts}
+
+Symbols which can be put at either side (above or below) of a staff
+are entered as follows:
+\begin[verbatim,fragment]{mudela}
+        a-^     % marcato, direction: default
+        %a^-     % portato, direction: above note
+        a_.     % staccato, direction: below note
+        a^\fermata      % predefined identifier
+        c_"marcato"     % add a text
+        c^"marcato"
+        c-"marcato"
+\end{mudela}
+
+If you want to define your own scripts refer to \file{init/script.ly} for
+details.
+
+
+Dynamics can be put after the notename:
+\begin{verbatim}
+a4 \dynamic { 0 } % 0 = fff, 7 = ppp
+\end{verbatim}
+
+Mudela defines the following dynamic identifiers:
+
+\begin{verbatim}
+ppp pp p mp mf f ff fff sfz fz fp
+\end{verbatim}
+and the following abbreviations:
+\begin{verbatim}
+\<      %start crescendo
+\>      % start decrescendo
+\!      % end crescendo/decrescendo
+\end{verbatim}
+
+\subsection{Defaults}
+
+If omit the duration of a note, a default value is substituted. For
+this default value mudela uses the last duration explicitly entered.
+
+Thus the following inputs are  equivalent
+\begin{verbatim}
+c4 c4 c16 c16 c16 s16 c4 c16
+c4 c c16 c c c c4 c16
+\end{verbatim}
+
+If you are typing music which does not lie in the "small" and "large"
+octave, you can prevent having to type \verb+'+ all the time by using the
+\verb+\octave+ command: These two lines have the same pitch.
+\begin{verbatim}
+c'' d'' e'' c d e c d e
+\octave c''; c d e ''c ''d ''e \octave c; c d e
+\end{verbatim}
+
+By default the setting of \verb+\octave+ is 0.
+
+\subsection{Lyrics}
+
+Lyrics in Mudela resemble Simple mudela a lot, with notes substituted
+by text. 
+
+All syllables are entered separately, separated by whitespace 
+\begin{verbatim}
+Twin-4 kle4 twin-4 kle4 ... 
+\end{verbatim}
+
+Two syllables or words that compose a single
+duration entry are bound together using an underscore 
+\begin{verbatim}
+He_could4 not4
+\end{verbatim}
+
+\section{Composition: forming bigger structures}
+
+The previous examples tacitly assumed that a sequence of notes is
+printed in a left to right manner. This is not entirely correct, you
+will get the bigger picture in this section. 
+
+In mathematics you can form expressions by combining expressions,
+which are ultimately some kind of atom or terminal symbol.  The same
+goes for mudela: there are some basic building blocks, and by
+combining those you create complex music.
+
+You can combine music in three ways:
+\begin{itemize}
+\item If you enclose a sequence of music-elements in braces ( \verb+{+
+    and \verb+}+ ), then you form another kind of music called (Voice) with those pieces.
+  The duration of the Voice is the sum of the durations of its elements
+\begin{verbatim}
+{ c c g g a a g2 }      % twinkle twinkle
+{ { c c g g} { a a g2 } }
+\end{verbatim}
+\item You can stack music by enclosing a sequence of music elements
+  with \verb+<+ and \verb+>+. This is called a Chord.  The duration of a Chord is
+  the union of the durations of its elements Example:
+\begin{verbatim}
+<a4 {cis8 cis8} e'4>      % a-major chord
+\end{verbatim}
+\item 
+  You can form music by transposing music:
+\begin{verbatim}
+\transpose  
+                d       % from c to the d that's one octave down
+                { e4 f4 }       % the horizontal music
+\end{verbatim}
+\end{itemize}
+
+Of course you can also combine these three mechanisms.
+\begin{verbatim}
+{ c <c e> <c e g> <c e g \transpose d' dis > }  % 4 increasing chords
+\end{verbatim}
+
+The basic building block in Mudela is called Request. Examples of
+Requests are: Timing (such as Meter), Rhythmic, Melodic, Note (which is a combination of
+Rhythmic and Melodic), Musicscript (put an accent over a note or
+rest), etc.  For the actual up to date listing, you should consult the
+LilyPond source code: the Request types form a big class hierarchy.
+
+Normally you don't enter Requests directly, since that would be
+tedious.  Mudela has standard abbreviations for the most common
+combination of Requests. If you enter \verb+c4+, this is an
+abbreviation for:
+\begin{verbatim}
+Request_chord{
+  Note_req{
+    notename: 0 acc: 0 oct: -1
+    duration { 4}
+  }
+  Stem_req{
+    duration { 4}
+  }  
+}
+\end{verbatim}
+
+The \verb+Request_chord+ is a special kind of chord which only allows
+Requests as its elements.  The examples of the previous section were
+processed with \verb+{+ and \verb+}+ enclosing the input.
+
+\subsection{Durations}
+
+A duration always starts with the duration type (1,2,4 etc), and then
+any optional multipliers/dots.  Old fashioned durations can be entered
+as follows
+\begin{verbatim}
+'c\breve
+gis'\longa
+\end{verbatim}
+
+
+        
+\subsection{Meters/groupings}
+
+A meter has this form:
+\begin{verbatim}
+\meter 3/4 ;
+\end{verbatim}
+
+Rhythmic grouping is  a concept closely associated with this. For
+example, in a 5/8 meter, the counts are grouped 2+3. In mudela this is
+entered as
+\begin{verbatim}
+\grouping  8*2 8*3 ;
+\end{verbatim}
+You can start the piece with a partial measure, the command takes the
+same syntax as grouping: 
+\begin{verbatim}
+\partial 16*3 4;
+\end{verbatim}
+
+Make the piece start with a upstep [english translation?]
+lasting 1 3/4 quarter notes.
+
+These commands are also "voice elements", and constitute ``Music''
+(consisting of stuff with duration 0).
+
+
+\subsection{Voicegroups}
+
+
+[OUTDATED]
+
+If more than one "voice" is in a staff, then you have the option of
+putting the different voices into so called voicegroups: members of
+the same voicegroup share certain characteristics, among others:
+
+        - dynamics
+        - text
+        - beams and stems
+        - scripts
+
+For the actual list, see the init file \file{init/register.ly}
+
+Putting different musical lines in to the same voicegroup effectively
+makes LilyPond try to form chords of all those lines. Putting
+different musical lines in to different voicegroups effectively makes
+LilyPond try to set those lines as independently as possible. 
+
+[adsolete. Has to be fixed in lily]
+
+You can set the voicegroup of a voice with the command \verb+\group+, e.g.,
+
+\begin{verbatim}        
+        oboeI = \melodic { 
+                \group "oboes"; 
+                [e8 f8
+                \group "+solo";
+                [g16 a16 g16 fis16]
+                \group "-";
+                g8 f8
+        }
+        oboeII = \melodic { \group "oboes";
+                c8 d8]
+                e4
+                e8 d8
+        }
+        ///     ...
+
+        \staff { 
+                melodicregs \melodic{ oboeI }
+                \melodic { oboeII}
+}
+\end{verbatim}
+
+In this example, the two oboe voices share one staff and are initially
+in the voicegroup called "oboes". They will share beams, dynamics etc.
+After two quarter notes, oboeI "pushes" its group: a new voicegroup is
+created, called "oboes+solo". The \verb+\group "-"+ command makes the
+voice enter "oboes" again.
+
+Please do note that [] are voicegroup wide; the previous input is
+valid: the beam, started in oboeI, voicegroup "oboes" is also ended in
+voicegroup "oboes", albeit not in oboeI but oboeII
+
+This concept may seem contorted, but it allows you to set the separate
+oboe parts without changing the \verb+oboeI+ and \verb+oboeII+ (assuming that
+you edit the [] in the example.)
+
+The construct
+\begin{verbatim}
+< { .... } {......} >
+\end{verbatim}
+makes a chord (all horizontal parts are in the same voicegroup). The construct
+\begin{verbatim}
+\multi 2 < { ....} { .... } >
+\end{verbatim}
+creates horizontal parts which behave independently. You will have to
+set voicegroup features by hand (\verb+\stem+ and \verb+\hshift+. See examples)
+
+The construct
+\begin{verbatim}
+\multi 3 < { ....} { .... } >
+\end{verbatim}
+creates  a chord with each part in a different staff
+
+
+\subsection{Examples}
+
+Examples are included with the GNU LilyPond distribution. For the sake of
+maintenance no long examples are included in this document.
+
+
+\section{History}
+
+This language has a number of roots. First and foremost, GNU
+LilyPond's predecessor mpp was the inspiration of the Note-mode input.
+Secondly, the hierarchical structure looks a lot like Rayce's (Rayce
+is a raytracer that I've written as a hobby project. ), which in turn
+owes a lot to POVRay.
+
+Now, we know, musictypesetting and raytracing do not necessarily
+require the same input format, and we know that a lot more ways exist
+to convert music to ASCII, but we did give this language some
+thoughts. As always suggestions are appreciated.
+
+\end{document}
+
+
