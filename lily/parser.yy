@@ -437,7 +437,7 @@ toplevel_expression:
 		SCM outname = scm_makfrom0str (p.to_string ().to_str0());
 
 		for (int i=0; i < sc->defs_.size (); i++)
-			default_rendering (sc->music_, sc->defs_[i]->self_scm(),head, outname);
+			default_rendering (sc->music_, sc->defs_[i]->self_scm(), head, outname);
 
 		if (sc->defs_.is_empty ())
 		{

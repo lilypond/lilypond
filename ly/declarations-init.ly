@@ -49,11 +49,6 @@ melismaEnd = #(make-span-event 'ManualMelismaEvent STOP)
     pt = #(/  in 72.27)
     cm = #(* 10 mm)
 
-    texsetting = ""
-    pssetting = ""
-    scmsetting = "(lilyponddefs.ps) findlibfile {exch pop //systemdict /run get exec} { /undefinedfilename signalerror } ifelse\n"% UGH. 
-
-
     #(define font-defaults
       '((font-family . music)
 	(font-shape . upright)

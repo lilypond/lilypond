@@ -38,20 +38,9 @@ public:
   
   void dump_scheme (SCM);
 
-  void output_int_def (String k, int v);
-  void output_Real_def (String k, Real v);
-  void output_String_def (String k, String v);
-  void output_scope (SCM, String prefix);
-  void output_version ();
-  void output_font_def (int i, String str);
-  void output_font_switch (int i);
-  void output_header ();
-  void output_comment (String s);
-  void output_string (SCM s);
+  void output_metadata (SCM);
+  void output_music_output_def (Music_output_def* odef);
   void output_scheme (SCM scm);
-
-  void write_header_field_to_file (String filename, SCM, SCM);
-  void write_header_fields_to_file (SCM);
 };
 
 #endif // PAPER_OUTPUTTER_HH

@@ -429,8 +429,7 @@ note splitting (see @ref{Automatic note splitting}).
 
 In this manual: @ref{Automatic note splitting}.
 
-Internals: @internalsref{TieEvent}, @internalsref{NewTieEvent},
-@internalsref{Tie} @c
+Internals: @internalsref{TieEvent}, @internalsref{Tie}.
 
 Examples: if you want less ties created for a chord, see
 @inputfileref{input/test,tie-sparse.ly}.

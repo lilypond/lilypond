@@ -1,3 +1,19 @@
+2004-02-19  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/output-tex.scm (output-scopes): don't dump fraction exactly.
+
+	* lily/paper-score.cc (process): dump header only once.
+
+	* lily/paper-outputter.cc (Paper_outputter): move logic into
+	Scheme.
+
+	* scm/output-tex.scm (output-scopes): new function.
+	(output-paper-def): new function
+	(tex-string-def): new function
+	(symbol->tex-key): new function
+
+	* scripts/convert-ly.py (conv): add rule for | ~
+
 2004-02-19  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* input/regression/{many}.ly: refresh, trying to guess how

@@ -20,12 +20,6 @@
 #include "context.hh"
 #include "protected-scm.hh"
 
-/**
-
-The algorithm for accidentals should be documented, and made
-tweakable.
-
-*/
 
 struct Accidental_entry {
   bool done_;
@@ -259,23 +253,13 @@ Accidental_engraver::process_acknowledged_grobs ()
 	  bool different = num < 0;
 	  num = abs (num);
 
-	  /* see if there's a tie that "changes" the accidental */
-	  /* works because if there's a tie, the note to the left
-	     is of the same pitch as the actual note */
-
+	  /* See if there's a tie that makes the accidental disappear */
 	  Grob *tie_break_reminder = 0;
 	  bool tie_changes = false;
 	  for (int j = 0; j < ties_.size (); j++)
 	    if (support == Tie::head (ties_[j], RIGHT))
 	      {
 		tie_changes = different;
-
-		/* Enable accidentals for broken tie
-
-		We only want an accidental on a broken tie, 
-		if the tie changes the accidental.
-		   
-		Maybe check property noTieBreakForceAccidental? */
 		if (different)
 		  tie_break_reminder = ties_[j];
 		break;
@@ -327,11 +311,11 @@ Accidental_engraver::process_acknowledged_grobs ()
 
 	      a->set_grob_property ("accidentals", accs);
 	      accidentals_[i].accidental_ = a;
- /*
-	We add the accidentals to the support of the arpeggio, so it is put left of the
-	accidentals. 
-	
-      */
+
+	      /*
+		We add the accidentals to the support of the arpeggio,
+		so it is put left of the accidentals.
+	      */
 	      for (int i = 0;  i < left_objects_.size ();  i++)
 		Side_position_interface::add_support (left_objects_[i], a);
 	      for (int i = 0;  i < right_objects_.size ();  i++)
@@ -353,27 +337,13 @@ Accidental_engraver::process_acknowledged_grobs ()
 	  int a = pitch->get_alteration ();
 	  SCM on_s = gh_cons (scm_int2num (o), scm_int2num (n));
 
-	  /*
-	    TODO: Speed this up!
-	    
-	    Perhaps only check translators mentioned in the auto-accidentals?
-	    -rz
-
-	    TODO: profile this.
-	    
-	    I'd be surprised if the impact of this would be
-	    measurable.  Anyway, it seems localsig doesn't change
-	    every time-step, but a set_property() is done every
-	    time. We could save on that, probably.
-
-	    --hwn.
-	    
-	    
-	  */
-
 	  while (origin)
 	    {
+	      /*
+		huh? we set props all the way to the top? 
+	       */
 	      SCM localsig = origin->get_property ("localKeySignature");
+	      bool change = false;
 	      if (tie_changes)
 		{
 		  /*
@@ -382,6 +352,8 @@ Accidental_engraver::process_acknowledged_grobs ()
 		  */
 		  localsig = ly_assoc_front_x
 		    (localsig, on_s, gh_cons (SCM_BOOL_T, barnum));
+
+		  change = true;
 		}
 	      else
 		{
@@ -390,9 +362,13 @@ Accidental_engraver::process_acknowledged_grobs ()
 		    noteheads with the same notename.
 		  */
 		  localsig = ly_assoc_front_x
-		    (localsig, on_s, gh_cons (scm_int2num (a), barnum)); 
+		    (localsig, on_s, gh_cons (scm_int2num (a), barnum));
+
+		  change = true;
 		}
-	      origin->set_property ("localKeySignature",  localsig);
+
+	      if (change)
+		origin->set_property ("localKeySignature",  localsig);
 	      origin = origin->daddy_context_;
 	    }
 	}
