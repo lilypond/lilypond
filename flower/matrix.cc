@@ -201,9 +201,10 @@ Matrix::set_product(Matrix const &m1, Matrix const &m2)
 void
 Matrix::insert_row(Vector v, int k)
 {
+    int c = cols();
     assert(v.dim()==cols());
     dat->insert_row(k);
-    for (int j=0; j < cols(); j++)
+    for (int j=0; j < c; j++)
 	dat->elem(k,j)=v(j);
 }
 
@@ -212,7 +213,8 @@ void
 Matrix::swap_columns(int c1, int c2)
 {
     assert(c1>=0&& c1 < cols()&&c2 < cols() && c2 >=0);
-    for (int i=0; i< rows(); i++) {
+    int r = rows();
+    for (int i=0; i< r; i++) {
 	Real r=dat->elem(i,c1);
 	dat->elem(i,c1) = dat->elem(i,c2);
 	dat->elem(i,c2)=r;
@@ -223,7 +225,8 @@ void
 Matrix::swap_rows(int c1, int c2)
 {
     assert(c1>=0&& c1 < rows()&&c2 < rows() && c2 >=0);
-    for (int i=0; i< cols(); i++) {
+    int c = cols();
+    for (int i=0; i< c; i++) {
 	Real r=dat->elem(c1,i);
 	dat->elem(c1,i) = dat->elem(c2,i);
 	dat->elem(c2,i)=r;

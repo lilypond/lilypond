@@ -20,12 +20,11 @@
     \end{itemize}
   */
 
-struct PCol { 
+class PCol { 
+public:
     PointerList<Item const *> its;
     PointerList<Spanner const *> stoppers, starters;
     
-
-
     /** prebreak is put before end of line.
     if broken here, then (*this) column is discarded, and prebreak
     is put at end of line, owned by Col
@@ -42,8 +41,10 @@ struct PCol {
     /// if lines are broken then this column is in #line#
     Line_of_score const *line_l_;
 
-    /// if lines are broken then this column x-coord #hpos#
-    Real hpos;
+    /** if lines are broken then this column x-coord #hpos# if not
+      known, then hpos == -1.(ugh?)  */
+
+    Real hpos;			// should use ptr?
 
     PScore * pscore_l_;
 
@@ -68,13 +69,20 @@ struct PCol {
       signed compare on columns.
 
       @return < 0 if c1 < c2.
-    */static int compare(const PCol &c1, const PCol &c2);
-    
+    */
+    static int compare(const PCol &c1, const PCol &c2);
+    void set_rank(int);
 
     void OK() const;
     void set_breakable();
     void print()const;
 private:
+    
+    /**
+      The ranking: left is smaller than right 
+      -1 is uninitialised.
+     */
+    int rank_i_;
     PCol(PCol const&){}
 };
 
