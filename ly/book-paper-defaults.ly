@@ -1,3 +1,4 @@
+\version "2.3.2"
 \bookpaper {
     
 #(define-public (book-title paper scopes)
