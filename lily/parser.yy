@@ -44,7 +44,6 @@ TODO:
 
 * There are too many lexical modes?
 
-
 */
 
 #include <ctype.h>
@@ -1184,6 +1183,7 @@ scalar:
         | bare_int      { $$ = gh_int2scm ($1); }
         | embedded_scm  { $$ = $1; }
 	| full_markup {  $$ = $1; }
+	| DIGIT { $$ = $1; }
         ;
 
 

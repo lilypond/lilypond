@@ -54,10 +54,11 @@ web-doc: web-reqs
 pfa-fonts:
 	$(MAKE) MAKE_PFA_FILES=1 -C mf
 
-docdir = $(prefix)/share/doc/lilypond-$(TOPLEVEL_VERSION)
-install-html-doc: html-doc
-	$(INSTALL) -d $(docdir)/html 
-	tar -C $(docdir)/html -zxf $(outdir)/web.tar.gz
+
+web-doc-install: web-doc top-web
+	$(INSTALL) -m 755 -d $(local_package_docdir) 
+	tar -C $(local_package_docdir)/ -xzf $(outdir)/web.tar.gz
+
 
 # KPATHSEA=0: Hack for compiling without kpathsea -- not recommended
 my_tfm_path = $(TFM_PATH) /tmp /tmp /tmp /tmp /tmp /tmp 
@@ -90,10 +91,6 @@ lily/$(outdir)/lilypond:
 
 local-web: web-doc $(TOP_HTMLS:%.html=%) footify do-top-doc top-web
 
-
-web-doc-install: web-doc
-	$(INSTALL) -m 755 -d $(local_package_docdir) 
-	tar -C $(local_package_docdir)/ -xzf $(outdir)/web.tar.gz
 
 web-ext = gz html midi pdf png txt ly
 top-web:

@@ -1,5 +1,9 @@
 2003-03-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* stepmake/stepmake/omf-targets.make (omf-local-install): bugfixes
+
+	* lily/parser.yy (scalar): DIGIT is also a scalar.
+
 	* Documentation/user/music-glossary.tely: add @omf tags
 
 	* Documentation/user/lilypond.tely: add @omf tags
