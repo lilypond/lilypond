@@ -303,35 +303,82 @@ def draw_brevis(expr exact_center, reduction, small_width, small_height) =
 		-- z4l -- z4r -- z3r{left} .. z2r{up} -- cycle;
 enddef;
 
+%
+% width:        interval from left end to right end
+% height:       interval from bottom of lower beam to top of upper beam
+% exact_center: the coordinates of the vertical center point of the
+%               left edge.
+%
+def draw_full_brevis(expr exact_center, bwidth, bheight, blinethickness) =
+
+	save xoffs, yoffs, brevis_width, brevis_height, linethickness;
+	xoffs# = xpart exact_center;
+	yoffs# = ypart exact_center;
+	brevis_width# = bwidth; brevis_height# = bheight;
+	linethickness# = blinethickness;
+
+	save stem_width, beam_height, serif_size, serif_protrude, hole_height;
+	stem_width# = 1.4 linethickness#;
+	hole_height# = 3 linethickness#;
+	2 beam_height# + hole_height# = brevis_height#;
+	serif_size# = (hole_height# - linethickness#)/2;
+	serif_protrude# = 1.5 serif_size#;
+
+	define_pixels(xoffs, yoffs, brevis_width, brevis_height, linethickness);
+	define_pixels(stem_width, beam_height, serif_size, serif_protrude);
+
+	penpos1(stem_width, 0);
+	penpos2(stem_width, 0);
+	penpos3(beam_height, 90);
+	penpos4(beam_height, 90);
+	penpos5(stem_width, 180);
+	z1l = (xoffs, yoffs);
+	z2l = z1l + (0, -linethickness);
+	z3r = z2r + serif_size*(1,-1);
+	y4r = y3r;
+	x4l = x1l + brevis_width/2;
+	z5l = z3l + (-serif_size, -serif_protrude);
+	fill z1r -- z1l -- z5r{down} .. z5l{up} .. z3l{right}
+		-- z4l -- z4r -- z3r{left} .. z2r{up} -- cycle;
+
+	addto currentpicture also currentpicture
+		yscaled -1 shifted (0, 2*yoffs);
+
+	pickup pencircle scaled linethickness;
+	top y6 = yoffs + brevis_height/2;
+	bot y7 = yoffs - brevis_height/2;
+	lft x6 = lft x7 = xoffs;
+	draw z6 -- z7;
+
+	addto currentpicture also currentpicture
+		xscaled -1 shifted (2xoffs + brevis_width, 0);
+enddef;
+
 
 def draw_neo_mensural_c_clef(expr exact_center, reduction) = 
-	draw_brevis(exact_center, reduction, false, false);
-
-	save reduced_il, reduced_slt;
-	save stem_width;
-
+	save reduced_il, reduced_slt, stem_width;
 	reduced_il# = staff_space# * reduction;
 	reduced_slt# = stafflinethickness# * reduction;
 	stem_width# = 1.4 reduced_slt#;
+	define_pixels(reduced_il, reduced_slt, stem_width);
 
-	define_pixels(reduced_il);
-	define_pixels(reduced_slt);
-	define_pixels(stem_width);
+	draw_full_brevis(exact_center + (3reduced_slt#, 0),
+			 2reduced_il#, reduced_il#, reduced_slt#);
 
 	pickup pencircle xscaled stem_width yscaled blot_diameter;
-	z6 = exact_center + (stem_width/2, 0);
-	z7 = z6 + (0, -2reduced_il);
-	z8 = z6 + (-3reduced_slt, 0);
-	z9 - z8 = z7 - z6;
-	draw z6 .. z7;
-	draw z8 .. z9;
+	lft x8  = lft x9  = xoffs - 3reduced_slt;
+	lft x10 = lft x11 = lft x8  + 3reduced_slt;
+	rt  x12 = rt  x13 = lft x10 + 2reduced_il;
+	rt  x14 = rt  x15 = rt  x12 + 3reduced_slt;
+	top y9 - bot y8 = 4reduced_il;
+	top y9 + bot y8 = 2yoffs;
+	y12 = y14 = y10 = y8; y13 = y15 = y11 = y9;
+	draw z8 -- z9;
+	draw z10 -- z11;
+	draw z12 -- z13;
+	draw z14 -- z15;
 
-	addto currentpicture also currentpicture
-		yscaled -1 shifted (0, 2*(ypart exact_center));
-	addto currentpicture also currentpicture 
-		xscaled -1 shifted (2x4l,0);
-
-	set_char_box(3reduced_slt#, head_width# +3reduced_slt#,
+	set_char_box(0, 2reduced_il# + 6reduced_slt#,
 		     2reduced_il#, 2reduced_il#);
 enddef;
 
@@ -343,59 +390,49 @@ fet_beginchar("neo-mensural c clef", "neo_mensural_c", "neomenscclef")
 	draw_neo_mensural_c_clef((0,0), 1.0);
 fet_endchar;
 fet_beginchar("neo-mensural c clef", "neo_mensural_c_change", "cneomenscclef")
-	draw_neo_mensural_c_clef((1.3 staff_space#,0), .8);
+	draw_neo_mensural_c_clef((0,0), .8);
 fet_endchar;
 
 
 def draw_petrucci_c_clef(expr exact_center, flare_align, reduction) = 
 	% inspired by Josquin Desprez, "Stabat Mater", Libro tertio,
 	% 1519, printed by Petrucci, in: MGG, volume 7, Table 11.
-	draw_brevis(exact_center, reduction, true, true);
+	% Also by Petrucci's Canti C, Venedig 1503.  In: MGG, volume
+	% 9, p. 1681/1682.
 
-	save half_reduced_il, reduced_il, reduced_slt;
-	save stem_width, interline;
-	save left_depth, left_height;
-
-	half_reduced_il# = staff_space# * sqrt(reduction);
+	save reduced_il, reduced_slt;
 	reduced_il# = staff_space# * reduction;
 	reduced_slt# = stafflinethickness# * reduction;
-	stem_width# = 1.4 reduced_slt#;
-	interline# = staff_space#;
+	draw_full_brevis(exact_center + (0, 0.5staff_space#),
+			 reduced_il#, reduced_il#, reduced_slt#);
+	define_pixels(reduced_il);
+	addto currentpicture also currentpicture shifted (0, -reduced_il);
 
+	save half_reduced_il, left_depth, left_height;
+	half_reduced_il# = staff_space# * sqrt(reduction);
 	left_height# = half_reduced_il# * min(3.2, 3.2 + 0.2 + flare_align);
 	left_depth# = half_reduced_il# * min(3.2, 3.2 + 0.2 - flare_align);
 
 	define_pixels(half_reduced_il);
-	define_pixels(reduced_il);
-	define_pixels(reduced_slt);
-	define_pixels(stem_width);
-	define_pixels(interline);
 	define_pixels(left_depth, left_height);
 
-	addto currentpicture also currentpicture
-		yscaled -1 shifted (0, 2*(ypart exact_center) - interline);
+	save xoffs, yoffs;
+	xoffs# = xpart exact_center;
+	yoffs# = ypart exact_center;
+	define_pixels(xoffs, yoffs);
 
-	addto currentpicture also currentpicture 
-		xscaled -1 shifted (reduction*2x4l,0);
-
-	addto currentpicture also currentpicture
-		yscaled -1 shifted (0, 4*(ypart exact_center));
-
-	pickup pencircle xscaled stem_width yscaled blot_diameter;
-
-	xpart z6 = xpart z7 = xpart exact_center + stem_width/2;
-	ypart z6 = ypart exact_center + left_height;
-	ypart z7 = ypart exact_center - left_depth;
-	draw z6 .. z7;
-
-	xpart z8 = xpart z9 = reduction*2x4l - xpart exact_center - stem_width/2;
-	ypart z8 = min(ypart z6 - 0.2*half_reduced_il,
-		       xpart exact_center + 2.2half_reduced_il);
-	ypart z9 = max(ypart z7 + 0.2*half_reduced_il,
-		       xpart exact_center - 2.2half_reduced_il);
+	pickup pencircle xscaled 1.4 stafflinethickness yscaled blot_diameter;
+	lft x8 = lft x9 = xoffs;
+	top y8 = yoffs + left_height;
+	bot y9 = yoffs - left_depth;
 	draw z8 .. z9;
 
-	set_char_box(0, head_width#, left_depth#, left_height#);
+	rt x10 = rt x11 = xoffs + brevis_width;
+	y10 = min(y8 - 0.2*half_reduced_il, yoffs + 2.2half_reduced_il);
+	y11 = max(y9 + 0.2*half_reduced_il, yoffs - 2.2half_reduced_il);
+	draw z10 .. z11;
+
+	set_char_box(0, reduced_il#, left_depth#, left_height#);
 enddef;
 
 
@@ -406,7 +443,7 @@ fet_beginchar("petrucci c1 clef", "petrucci_c1", "petruccic1clef")
 	draw_petrucci_c_clef((0,0), +2, 1.0);
 fet_endchar;
 fet_beginchar("petrucci c1 clef", "petrucci_c1_change", "cpetruccic1clef")
-	draw_petrucci_c_clef((1.3 staff_space#,0), +2, .8);
+	draw_petrucci_c_clef((0,0), +2, .8);
 fet_endchar;
 
 fet_beginchar("petrucci c2 clef", "petrucci_c2", "petruccic2clef")
@@ -416,7 +453,7 @@ fet_beginchar("petrucci c2 clef", "petrucci_c2", "petruccic2clef")
 	draw_petrucci_c_clef((0,0), +1, 1.0);
 fet_endchar;
 fet_beginchar("petrucci c2 clef", "petrucci_c2_change", "cpetruccic2clef")
-	draw_petrucci_c_clef((1.3 staff_space#,0), +1, .8);
+	draw_petrucci_c_clef((0,0), +1, .8);
 fet_endchar;
 
 fet_beginchar("petrucci c3 clef", "petrucci_c3", "petruccic3clef")
@@ -426,7 +463,7 @@ fet_beginchar("petrucci c3 clef", "petrucci_c3", "petruccic3clef")
 	draw_petrucci_c_clef((0,0), 0, 1.0);
 fet_endchar;
 fet_beginchar("petrucci c3 clef", "petrucci_c3_change", "cpetruccic3clef")
-	draw_petrucci_c_clef((1.3 staff_space#,0), 0, .8);
+	draw_petrucci_c_clef((0,0), 0, .8);
 fet_endchar;
 
 fet_beginchar("petrucci c4 clef", "petrucci_c4", "petruccic4clef")
@@ -436,7 +473,7 @@ fet_beginchar("petrucci c4 clef", "petrucci_c4", "petruccic4clef")
 	draw_petrucci_c_clef((0,0), -1, 1.0);
 fet_endchar;
 fet_beginchar("petrucci c4 clef", "petrucci_c4_change", "cpetruccic4clef")
-	draw_petrucci_c_clef((1.3 staff_space#,0), -1, .8);
+	draw_petrucci_c_clef((0,0), -1, .8);
 fet_endchar;
 
 fet_beginchar("petrucci c5 clef", "petrucci_c5", "petruccic5clef")
@@ -446,7 +483,7 @@ fet_beginchar("petrucci c5 clef", "petrucci_c5", "petruccic5clef")
 	draw_petrucci_c_clef((0,0), -2, 1.0);
 fet_endchar;
 fet_beginchar("petrucci c5 clef", "petrucci_c5_change", "cpetruc5iceclef")
-	draw_petrucci_c_clef((1.3 staff_space#,0), -2, .8);
+	draw_petrucci_c_clef((0,0), -2, .8);
 fet_endchar;
 
 
@@ -455,17 +492,16 @@ def draw_mensural_c_clef(expr exact_center, reduction) =
 	% 9, table 94.
 	draw_petrucci_c_clef(exact_center, 0, reduction);
 
-	addto currentpicture also currentpicture
-		shifted (0, -interline);
+	addto currentpicture also currentpicture shifted (0, -staff_space);
 
 	save half_reduced_il;
 	save left_depth, left_height;
 
 	half_reduced_il# = staff_space# * sqrt(reduction);
 	left_height# = 3.2 * half_reduced_il#;
-	left_depth# = left_height# + interline#;
+	left_depth# = left_height# + staff_space#;
 
-	set_char_box(0, head_width#, left_depth#, left_height#);
+	set_char_box(0, reduced_il#, left_depth#, left_height#);
 enddef;
 
 
