@@ -10,7 +10,7 @@
 EndMudelaHeader
 %}
 
-\version "0.0.59";
+\version "0.0.60";
 
 
 cad = \melodic  {
@@ -59,7 +59,7 @@ cad = \melodic  {
 	\melodic{ \cad }
 	\paper {
 	
-		\unitspace 14.0\mm
-		\geometric 1.4}
-	\midi { \tempo 4:90 }
+		\unitspace 14.0\mm;
+		\geometric 1.4;}
+%	\midi { \tempo 4:90 }
 }

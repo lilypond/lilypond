@@ -4,6 +4,8 @@
 
     detect \lyrics and \melodic, and do substitution accordingly.
     count <> and {} ?
+
+Ugh . Perl sux. Anybody for Python?
     
 =cut    
 
@@ -21,13 +23,18 @@ $convert_mudela_version = "0.1.1";
 use Getopt::Long;
 
 
+sub version_compare
+{
+    local ($a,$b)=@_;
+    return &cmpver;
+}
+    
 
 sub  cmpver 
 { 	
-
 	my(@a)= split /\./,$a;
 	my(@b)= split /\./,$b;
-	
+
 	for $i (0,1,2) {
 	    return $a[$i] <=> $b[$i] if ($a[$i] != $b[$i]);
 	}
@@ -84,6 +91,14 @@ sub convert_0_0_58_to_0_0_58
 {
     die "Not smart enough to convert 0.0.58 to 0.0.59\n";
 }
+
+sub convert_0_0_59_to_0_0_60
+{
+    s/(\\unitspace [0-9.mcptin\\ ]+|\\geometric [0-9.]+|\\width [0-9.mcp\\tin]+)/$1;/g;
+    s/(\\output \"[^\"]+\")/$1;/;
+    s/(\\tempo  [0-9: ]+)/$1;/;
+}
+
 ###############################################################
 
 sub    last_conversion
@@ -121,7 +136,8 @@ my %minor_conversions = ("0.0.50" => \&no_conv,
 			 "0.0.56" => \&convert_0_0_55_to_0_0_56,
 			 "0.0.57" => \&convert_0_0_56_to_0_0_57,
 			 "0.0.58" => \&convert_0_0_57_to_0_0_58,
-			 "0.0.59" => \&convert_0_0_58_to_0_0_59
+			 "0.0.59" => \&convert_0_0_58_to_0_0_59,
+			 "0.0.60" => \&convert_0_0_59_to_0_0_60
 			 );
  
 
@@ -144,12 +160,12 @@ sub do_conversion
     my @applicable_conversion;
     my @mudela_levels;
     
-    die "This is too old  to convert " if $from < 50;
+#    die "This is too old  to convert " if $from < 50;
     my @v = versions;
-    foreach $a (@v) {
-	if ($a > $from && $a <= $to ){ 
-	    push @applicable_conversion, $minor_conversions{$a};
-	    push @mudela_levels, $a;
+    foreach $ver (@v) {
+	if (version_compare($ver, $from) > 0 && version_compare($ver,$to) <= 0 ){ 
+	    push @applicable_conversion, $minor_conversions{$ver};
+	    push @mudela_levels, $ver;
 	}
     }
     
@@ -225,7 +241,6 @@ sub do_one_arg
     
     ($to_version =  last_conversion) unless (defined($opt_to));
 
-
     die "can't open \`$infile\'" unless open INLY,$infile ;
     die "can't open \`$outfile\'" unless open OUTLY, ">$outfile";
     
@@ -242,6 +257,7 @@ sub do_one_arg
 ## "main"
 
 identify;
+
 
 GetOptions ("help", "output=s", "from=i", "to=i", "minor=i", "edit", "show-rules");
 
