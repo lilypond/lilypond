@@ -233,11 +233,15 @@ def set_setting (dict, key, val):
 		dict[key] = [val]
 
 
+def escape_path (x):
+	return re.sub ('([ \n\t\\\\])', r'\\\1',x)
+
 def run_lilypond (files, dep_prefix):
+	def make_include_option (x):
+		return '-I %s' %   escape_path (x)
 
 	opts = ''
-	opts = opts + ' ' + string.join (map (lambda x : '-I ' + x,
-					      include_path))
+	opts = opts + ' ' + string.join (map (make_include_option, include_path))
 	if pseudo_filter_p:
 		opts = opts + ' --output=lelie'
 	if paper_p:
@@ -254,7 +258,7 @@ def run_lilypond (files, dep_prefix):
 		if dep_prefix:
 			opts = opts + ' --dep-prefix=%s' % dep_prefix
 
-	fs = string.join (files)
+	fs = string.join (map (escape_path, files))
 
 	global verbose_p
 	if verbose_p:
@@ -806,7 +810,9 @@ if 1:
 		outbase = ly.strip_extension (outbase, i)
 
 	for i in files[:] + [output_name]:
-		if string.find (i, ' ') >= 0:
+		b = os.path.basename (i)
+		print b
+		if string.find (b, ' ') >= 0:
 			ly.error (_ ("filename should not contain spaces: `%s'") %
 			       i)
 			ly.exit (1)

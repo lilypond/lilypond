@@ -10,6 +10,9 @@
 @itemize
 
 @item
+Crescendos can now be drawn dotted or stippled.
+
+@item
 Quarter tones are now supported. They are entered by suffixing
 @code{ih} for a half-sharp and @code{eh} for a half-flat. Hence, the
 following is an ascending list of pitches:
