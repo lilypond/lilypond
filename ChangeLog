@@ -1,5 +1,11 @@
 2003-07-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/define-music-properties.scm (figure): use string for 'figure
+
+	* lily/parser.yy (bass_number): allow strings for bassfigure too. 
+
+	* input/regression/ : add raggedright = ##t where applicable. 
+	
 	* scm/bass-figure.scm (make-bass-figure-markup): add
 	alignBassFigureAccidentals property.
 

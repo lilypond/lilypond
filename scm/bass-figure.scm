@@ -31,11 +31,11 @@
 	 (acc  (ly:get-mus-property fig-music 'alteration))
 	 (acc-markup #f)
 	 (fig-markup
-	  (if (number? fig)
-	      (make-number-markup (number->string fig))
+	  (if (string? fig)
+	      (make-simple-markup fig)
 	      (make-simple-markup (if align-accs " " ""))
 	      )))
-      
+
       (if (number? acc)
 	  (make-line-markup (list fig-markup
 				  (alteration->text-accidental-markup acc)))

@@ -23,7 +23,7 @@ texidoc = "New markup syntax."
 		\musicglyph #"accidentals--1"
 		\combine "X" "+"   
 		\combine "o" "/"
-
+%		\char-number #"abc1234abc"
 		\box \column << { "string 1" } { "string 2" } >>
 		"$\\emptyset$"
 		\italic Norsk

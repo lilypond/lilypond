@@ -49,6 +49,8 @@ TODO:
 #include <ctype.h>
 #include <stdlib.h>
 
+
+
 #include "translator-def.hh"
 #include "lily-guile.hh"
 #include "misc.hh"
@@ -285,8 +287,8 @@ yylex (YYSTYPE *s,  void * v)
 %token FIGURE_SPACE
 
 %type <i>	exclamations questions dots optional_rest
-%type <i>  	bass_number bass_mod
-%type <scm> 	br_bass_figure bass_figure figure_list figure_spec
+%type <i>  	 bass_mod
+%type <scm> 	bass_number br_bass_figure bass_figure figure_list figure_spec
 %token <i>	DIGIT
 %token <scm>	NOTENAME_PITCH
 %token <scm>	TONICNAME_PITCH
@@ -1859,8 +1861,13 @@ tremolo_type:
 		BASS FIGURES
 *****************************************************************/
 bass_number:
-	DIGIT
-	| UNSIGNED 
+	DIGIT   {
+		$$ = scm_number_to_string (gh_int2scm ($1), gh_int2scm (10));
+	}
+	| UNSIGNED {
+		$$ = scm_number_to_string (gh_int2scm ($1), gh_int2scm (10));
+	}
+	| STRING { $$ =  $1 }
 	;
 
 bass_mod:
@@ -1879,7 +1886,7 @@ bass_figure:
 		Music *bfr = MY_MAKE_MUSIC("BassFigureEvent");
 		$$ = bfr->self_scm();
 
-		bfr->set_mus_property ("figure", gh_int2scm ($1));
+		bfr->set_mus_property ("figure", $1);
 
 		scm_gc_unprotect_object ($$);
 	}

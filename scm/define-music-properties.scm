@@ -85,7 +85,8 @@ starting grace notes.")
 translation property")
 (music-property-description 'what string? "What to change for auto-change. FIXME, naming")
 
-(music-property-description 'figure number? "number for figured bass")
+(music-property-description 'figure string? "a `figure' (which may be
+a string) for figured bass")
 (music-property-description 'alteration number? "alteration for figured bass")
 (music-property-description 'bracket-start boolean? "start a bracket
 here. TODO: use span requests?")
