@@ -35,12 +35,21 @@
   (Text_item::interpret_string paper
 			       props sym str))
 
+
 ;; TODO: use font recoding.
 ;;		      (make-line-markup
 ;;		       (map make-word-markup (string-tokenize str)))))
 
 (define-public empty-markup
   (make-simple-markup ""))
+
+
+(def-markup-command (postscript paper props str)
+  "This inserts @var{str} directly into the output as a PostScript command string."
+  (string?)
+  (ly:make-stencil
+   (list 'embedded-ps str)
+   '(0 . 0) '(0 . 0)  ))
 
 ;;(def-markup-command (fill-line paper props line-width markups)
 ;;  (number? markup-list?)
