@@ -23,6 +23,7 @@
 #include "voice-element.hh"
 #include "my-lily-parser.hh"
 #include "text-def.hh"
+#include "input-register.hh"
 
 #ifndef NDEBUG
 #define YYDEBUG 1
@@ -46,6 +47,7 @@
     Box *box;
     Duration *duration;
     Identifier *id;    
+    Input_register * iregs;
     Input_music *music;
     Input_score *score;
     Input_staff *staff;    
@@ -96,10 +98,12 @@ yylex(YYSTYPE *s,  void * v_l)
 %token CLEF
 %token CM_T
 %token DURATIONCOMMAND
-%token DYNAMIC
+%token ABSDYNAMIC
 %token END
 %token GEOMETRIC
 %token GROUPING
+%token GROUP
+%token INPUT_REGS
 %token IN_T
 %token LYRIC
 %token KEY
@@ -119,6 +123,7 @@ yylex(YYSTYPE *s,  void * v_l)
 %token SCORE
 %token SCRIPT
 %token SKIP
+%token SPANDYNAMIC
 %token STAFF
 %token START_T
 %token STEM
@@ -134,6 +139,7 @@ yylex(YYSTYPE *s,  void * v_l)
 
 %token <i>	DOTS
 %token <i>	INT
+%token <id>	REGS_IDENTIFIER
 %token <id>	IDENTIFIER
 %token <id>	MELODIC_REQUEST_IDENTIFIER 
 %token <id>	CHORD_IDENTIFIER
@@ -173,7 +179,8 @@ yylex(YYSTYPE *s,  void * v_l)
 %type <paper>	paper_block paper_body
 %type <real>	dim real
 %type <real>	unit
-%type <request>	post_request pre_request command_req pure_post_request
+%type <request>	post_request pre_request command_req 
+%type <request>	pure_post_request pure_post_request_choice
 %type <request>	script_req textscript_req dynamic_req 
 %type <score>	score_block score_body
 %type <script>	script_definition script_body mudela_script
@@ -184,7 +191,7 @@ yylex(YYSTYPE *s,  void * v_l)
 %type <symbol>	symboldef
 %type <symtable>	symtable symtable_body
 %type <textdef>	mudela_text
-
+%type <iregs>	input_regs input_regs_body
 
 %left PRIORITY
 
@@ -207,7 +214,7 @@ mudela:	/* empty */
 add_declaration: declaration	{
 		THIS->lexer_p_->add_identifier($1);
 		$1->init_b_ = THIS->init_parse_b_;
-		$1->defined_ch_C_ = THIS->define_spot_array_.pop();
+		$1->set_spot(THIS->pop_spot());
 	}
 	;
 
@@ -219,7 +226,7 @@ declarable_identifier:
 	| old_identifier { 
 		THIS->remember_spot();
 		$$ = new String($1->name); 
-		warning("redeclaration of `" + *$$ + "'", THIS->here_ch_C());
+		THIS->here_input().warning("redeclaration of `" + *$$ + "'");
 	}
 	;
 
@@ -235,6 +242,7 @@ old_identifier:
 	|	REAL_IDENTIFIER
 	|	SCORE_IDENTIFIER
 	|	REQUEST_IDENTIFIER
+	|	REGS_IDENTIFIER
 	;
 
 declaration:
@@ -279,8 +287,35 @@ declaration:
 		$$ = new Request_id(*$1, $3, MELODIC_REQUEST_IDENTIFIER);
 		delete $1;
 	}
+	| declarable_identifier '=' input_regs	{
+		$$ = new Input_regs_id(*$1, $3, REGS_IDENTIFIER);
+		delete $1;
+	}
 	;
 
+
+input_regs:
+	INPUT_REGS
+		{ THIS->remember_spot(); }
+	'{' input_regs_body '}'
+	{
+		$$ = $4;
+		$$->set_spot(THIS->pop_spot());
+	}
+	;
+
+input_regs_body:
+	REGS_IDENTIFIER 	{
+		$$ = $1->iregs(true);
+	}
+	|STRING	{ 
+		$$ = new Input_register;
+		$$->name_str_ = *$1;
+	}
+	| input_regs_body input_regs {
+		$$->add($2);
+	}
+	;
 
 /*
 	SCORE
@@ -289,7 +324,7 @@ score_block:
 	SCORE { THIS->remember_spot(); }
 	/*cont*/ '{' score_body '}' 	{
 		$$ = $4;
-		$$->defined_ch_C_ = THIS->define_spot_array_.pop();
+		$$->set_spot(THIS->pop_spot());
 		if (!$$->paper_p_ && ! $$->midi_p_)
 			$$->paper_p_ = THIS->default_paper();
 
@@ -377,24 +412,25 @@ staff_block:
 	STAFF 	{ THIS->remember_spot(); }
 /*cont*/	'{' staff_body '}' 	{
 		$$ = $4; 
-		$$-> defined_ch_C_ = THIS->define_spot_array_.pop();
+		$$-> set_spot(THIS->pop_spot());
 	}
 	| { THIS->remember_spot(); }
 /*cont*/	STAFF_IDENTIFIER	{ 
 		$$ = $2->staff(true); 
-		$$-> defined_ch_C_ = THIS->define_spot_array_.pop();
+		$$-> set_spot(THIS->pop_spot());
 	}
 	;
 
 
 
 staff_init:
-	/* empty */ {
-		$$ = new Input_staff( "melodic" );
+	REGS_IDENTIFIER {
+		$$ = new Input_staff;
+		$$->ireg_p_ = $1->iregs(true);
 	}
-	| STRING		{
-		$$ = new Input_staff(*$1);
-		delete $1;
+	| input_regs	{
+		$$ = new Input_staff;
+		$$->ireg_p_ = $1;
 	}
 	;
 
@@ -526,11 +562,11 @@ full_element:	pre_requests voice_elt post_requests {
 command_elt:
 /* empty */ 	{
 		$$ = new Voice_element;
-		$$-> defined_ch_C_ = THIS->here_ch_C();
+		$$-> set_spot( THIS->here_input());
 	}
 /* cont: */
 	command_req	{
-		$2-> defined_ch_C_ = $$->defined_ch_C_;
+		$2-> set_spot( THIS->here_input());
 		$$->add($2);
 
 	}
@@ -584,6 +620,11 @@ command_req:
 	| GROUPING '{' intastint_list '}' {
 		$$ = get_grouping_req(*$3); delete $3;
 	}
+	| GROUP STRING		{
+		$$ = new Group_change_req;
+		$$ -> command()->groupchange()->newgroup_str_ = *$2;
+		delete $2;
+	}
 	;
 
 post_requests:
@@ -591,7 +632,7 @@ post_requests:
 		assert(THIS->post_reqs.empty());
 	}
 	| post_requests post_request {
-		$2->defined_ch_C_ = THIS->here_ch_C();
+		$2->set_spot( THIS->here_input());
 		THIS->post_reqs.push($2);
 	}
 	| post_requests close_plet_parens INT '/' INT { 
@@ -607,7 +648,13 @@ post_request:
 	}
 	;
 
-pure_post_request:
+pure_post_request: 
+	pure_post_request_choice	{
+		$$ = $1;
+		$$->set_spot( THIS->here_input());
+	}
+	;
+pure_post_request_choice:
 	close_request_parens	{ 
 		$$ = THIS->get_parens_request($1); 
 	}
@@ -657,16 +704,21 @@ melodic_request:
 	;
 
 dynamic_req:
-	DYNAMIC '{' int '}'	{
+	ABSDYNAMIC '{' int '}'	{
 		Absolute_dynamic_req *ad_p = new Absolute_dynamic_req;
 		ad_p ->loudness_ = (Dynamic_req::Loudness)$3;
 		$$ =ad_p;
+	}
+	|SPANDYNAMIC '{' int int '}' {
+		Span_dynamic_req * sp_p = new Span_dynamic_req;
+		sp_p->spantype = $4;
+		sp_p-> dynamic_dir_i_  = $3;
+		$$ = sp_p;
 	}
 	;
 
 close_plet_parens:
 	']' {
-		//req_defined_ch_C = THIS->here_ch_C();
 		$$ = ']';
 	}
 	;
@@ -706,7 +758,6 @@ textscript_req:
 
 mudela_text:
 	STRING			{ 
-		//defined_ch_C = THIS->here_ch_C();
 		$$ = new Text_def;
 		$$->text_str_ = *$1; 
 		delete $1;
@@ -728,7 +779,7 @@ script_abbreviation:
 	| '>'		{ $$ = get_scriptdef('>'); }
 	| DOTS 		{
 		if ( $1 > 1 ) 
-		    warning( "too many staccato dots", THIS->here_ch_C() );
+		    THIS->here_input().warning( "too many staccato dots"  );
 		$$ = get_scriptdef('.');
 	}
 	;
@@ -751,13 +802,12 @@ script_dir:
 pre_requests:
 	| pre_requests pre_request {
 		THIS->pre_reqs.push($2);
-		$2->defined_ch_C_ = THIS->here_ch_C();
+		$2->set_spot( THIS->here_input());
 	}
 	;
 
 pre_request: 
 	open_request_parens	{ 
-		//defined_ch_C = THIS->here_ch_C();
 		$$ = THIS->get_parens_request($1); 
 	}
 	;
