@@ -1,5 +1,10 @@
 2003-07-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/user/introduction.itely (Introduction): historical
+	elucidations
+
+	* Documentation/user/music-glossary.tely (Top): linewidth fix.
+
 	* Documentation/topdocs/AUTHORS.texi (AUTHORS): cleanup.
 
 	* Documentation/index.texi (Top): cleanup.

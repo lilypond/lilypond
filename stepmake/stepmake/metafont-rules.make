@@ -29,14 +29,12 @@ $(outdir)/%.$(XPM_RESOLUTION)pk: $(outdir)/%.$(XPM_RESOLUTION)gf
 	gftopk $< $@
 
 
-ENCODINGFILE=$(wildcard $(outdir)/$(patsubst %.mf,%.enc,$<))
-ENCODINGOPTION=$(if $(ENCODINGFILE),--encoding=$(ENCODINGFILE),)
 $(outdir)/%.pfa: %.mf
-	$(MFTRACE) $(ENCODINGOPTION) -I $(outdir)/ --pfa --simplify --keep-trying $(basename $(@F))
+	$(MFTRACE) $(MFTRACE_FLAGS) -I $(outdir)/ --pfa --simplify --keep-trying $(basename $(@F))
 	mv $(basename $(@F)).pfa $(outdir)
 
 $(outdir)/%.pfb: %.mf
-	$(MFTRACE)  $(ENCODINGOPTION) -I $(outdir)/ --pfa --pfb --simplify --keep-trying  $(basename $(@F))
+	$(MFTRACE)  $(MFTRACE_FLAGS) -I $(outdir)/ --pfa --pfb --simplify --keep-trying  $(basename $(@F))
 	-mv $(basename $(@F)).pfa $(outdir)
 	mv $(basename $(@F)).pfb $(outdir)
 
