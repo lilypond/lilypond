@@ -396,32 +396,46 @@ def get_bbox (filename):
 	
 	return gr
 
-def make_preview (name):
-	## ly2dvi/lilypond-book discrepancy
-	preview_ps = name + '.preview.ps'
-	if not os.path.isfile (preview_ps):
-		preview_ps = name + '.eps'
-	bbox = get_bbox (preview_ps)
-	trans_ps = name + '.trans.ps'
-	png = name + '.png'
-	
-	margin = 0
-	fo = open (trans_ps, 'w')
-	fo.write ('%d %d translate\n' % (-bbox[0] + margin,
-					 -bbox[1] + margin))
-	fo.close ()
-	
-	x = (2* margin + bbox[2] - bbox[0]) \
-	    * __main__.preview_resolution / 72.0
-	y = (2* margin + bbox[3] - bbox[1]) \
-	    * __main__.preview_resolution / 72.0
-	if x == 0:
-		x = 1
-	if y == 0:
-		y = 1
 
-	cmd = r'''gs -g%dx%d -sDEVICE=pnggray  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=%s -r%d -dNOPAUSE %s %s -c quit ''' % \
-	      (x, y, png, __main__.preview_resolution, trans_ps, preview_ps)
+def make_ps_images (ps_name, resolution = 90):
+
+
+	## todo:
+	## have better algorithm for deciding when to crop page,
+	## and when to show full page
+	
+	single_page = re.search ('^%%Pages: 1', open (ps_name).read (1024))
+	cmd = ''
+
+	if single_page:
+		bbox = get_bbox (ps_name)
+		trans_ps = ps_name + '.trans.ps'
+		output_file = re.sub (r'\.e?ps', '.png', ps_name)
+	
+
+		margin = 0
+		fo = open (trans_ps, 'w')
+		fo.write ('%d %d translate\n' % (-bbox[0] + margin,
+						 -bbox[1] + margin))
+		fo.close ()
+
+		x = (2* margin + bbox[2] - bbox[0]) \
+		    * resolution / 72.0
+		y = (2* margin + bbox[3] - bbox[1]) \
+		    * resolution / 72.0
+		if x == 0:
+			x = 1
+		if y == 0:
+			y = 1
+
+		cmd = r'''gs -g%dx%d -sDEVICE=pnggray  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=%s -r%d -dNOPAUSE %s %s -c quit ''' % \
+		      (x, y, output_file, resolution, trans_ps, ps_name)
+	else:
+		output_file = re.sub (r'\.e?ps', '-page%d.png', ps_name)
+	
+
+		cmd = r'''gs -s  -sDEVICE=pnggray  -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -q -sOutputFile=%s -dNOPAUSE -r%d %s -c quit''' % (output_file,
+																      resolution, ps_name)
 	
 	status = system (cmd)
 	signal = 0xf & status
@@ -431,14 +445,3 @@ def make_preview (name):
 		os.unlink (png)
 		error (_ ("Removing output file"))
 		exit (1)
-
-def make_page_images (name, resolution = 90):
-
-	""" Generate images for
-	all pages in the PS file NAME. NAME should be the basename
-	(not including the extension.).
-	"""
-	
-	cmd = 'gs -sDEVICE=pnggray -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -sOutputFile="%s-page%%d.png" -r%d -dNOPAUSE %s -c quit'
-	cmd = cmd % (name, resolution, name + '.ps')
-	system (cmd)

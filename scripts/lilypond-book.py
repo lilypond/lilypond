@@ -378,9 +378,7 @@ output_dict= {
 		## inline music doesn't.
 		## possibly other center options?
 		'output-html': r'''
-<a href="%(fn)s.ly">
-<img align="center" valign="center" border="0" src="%(fn)s.png" alt="[picture of music]"></a>
-''',
+%(pageimages)s''',
 		},
 
 
@@ -461,9 +459,8 @@ output_dict= {
 \catcode`\@=0
 @end tex
 @html
-<p><a href="%(fn)s.ly">
-<img border=0 src="%(fn)s.png" alt="[picture of music]">
-</a><p>
+<p>%(htmlimages)s
+<p>
 @end html
 ''',
 		'output-texi-quoted': r'''@quotation
@@ -474,9 +471,8 @@ output_dict= {
 \catcode`\@=0
 @end tex
 @html
-<a href="%(fn)s.ly">
-<img border=0 src="%(fn)s.png" alt="[picture of music]">
-</a>
+<p>%(htmlimages)s
+<p>
 @end html
 @end quotation
 ''',
@@ -975,6 +971,12 @@ def chop_chunks (chunks, re_name, func, use_match=0):
 	return newchunks
 
 def determine_format (str):
+	"""
+
+	SIDE EFFECT! This sets FORMAT and PAPERGURU
+
+	"""
+	
 	global format
 	if format == '':
 		html = re.search ('(?i)<[dh]tml', str[:200])
@@ -1034,18 +1036,15 @@ def unique_file_name (body):
 
 def schedule_lilypond_block (chunk):
 	'''Take the body and options from CHUNK, figure out how the
-	real .ly should look, and what should be left MAIN_STR (meant
-	for the main file).  The .ly is written, and scheduled in
+	real .ly should look.  The .ly is written, and scheduled in
 	TODO.
 
-	Return: multiple chunks.
+	Return: a single chunk.
 
 	The chunk pertaining to the lilypond output
 	has the format (TYPE_STR, MAIN_STR, OPTIONS, TODO, BASE), 
 	where TODO has format [basename, extension, extension, ... ]
 	'''
-
-	return_chunks = []
 
 	(type, body, opts) = chunk
 	assert type == 'lilypond'
@@ -1088,8 +1087,27 @@ def schedule_lilypond_block (chunk):
 		todo.append ('eps')
 	if 'png' in needed_filetypes and f (pathbase, '.eps', '.png'):
 		todo.append ('png')
-	newbody = ''
 
+	return ('lilypond', body, opts, todo, basename)
+
+def format_lilypond_block (chunk):
+	"""
+	
+	Figure out  what should be left MAIN_STR (meant
+	for the main file) from a lilypond chunk: process
+	verbatim, and other options. Return: multiple chunks.
+
+	
+	"""
+
+	
+	return_chunks = []
+
+	(type, body, opts, todo, basename) = chunk
+	assert type == 'lilypond'
+
+
+	newbody = ''
 	filename_chunk = None 
 	if 'printfilename' in opts:
 		for o in opts:
@@ -1137,7 +1155,25 @@ def schedule_lilypond_block (chunk):
 			s = 'output-texi-noquote'
 	else: # format == 'html'
 		s = 'output-html'
-	newbody = newbody + get_output (s) % {'fn': basename }
+
+	def html_pages (basename):
+		files =  glob.glob ("%s-page*.png"%  basename)
+
+		template = '''<img align="center" valign="center"
+		border="0" src="%s" alt="[picture of music]">'''
+
+		str = ''
+		if not files:
+			files = [basename+'.png' ]
+		for  f in  files:
+			str += template % f
+
+		str = '<a href="%s.ly">%s</a>' % (basename, str)
+		return str
+
+	newbody = newbody + get_output (s) % {'fn': basename,
+					      'htmlimages': html_pages(basename)
+					      }
 
 	if filename_chunk:
 		return_chunks += [filename_chunk]
@@ -1146,6 +1182,16 @@ def schedule_lilypond_block (chunk):
 	
 	return return_chunks
 
+def format_lilypond_output_bodies (chunks):
+	newchunks = []
+	for c in chunks:
+
+		if c[0] == 'lilypond':
+			newchunks += format_lilypond_block (c)
+		else:
+			newchunks.append (c)
+
+	return newchunks
 
 
 
@@ -1153,15 +1199,14 @@ def process_lilypond_blocks (chunks):#ugh rename
 	newchunks = []
 	# Count sections/chapters.
 	for c in chunks:
-		cs = [c]
 		if c[0] == 'lilypond':
-			cs = schedule_lilypond_block (c)
+			c = schedule_lilypond_block (c)
 		elif c[0] == 'numcols':
 			paperguru.m_num_cols = c[2]
 		elif c[0] == 'multicols':
 			paperguru.m_multicols = c[2]
 			
-		newchunks += cs
+		newchunks.append (c)
 		
 	return newchunks
 
@@ -1275,6 +1320,7 @@ def compile_all_files (chunks):
 	for c in chunks:
 		if c[0] != 'lilypond':
 			continue
+
 		base  = c[4]
 		exts = c[3]
 		for e in exts:
@@ -1334,7 +1380,7 @@ def compile_all_files (chunks):
 		ly.system ("dvips -E -o %s.eps %s" % (file, file))
 	map (to_eps, eps)
 
-	map (ly.make_preview, png)
+	map (lambda x: ly.make_ps_images (x + '.eps'), png)
 	os.chdir (d)
 
 
@@ -1446,6 +1492,9 @@ def do_file (input_filename):
 	global format
 	if format == 'texi':
 		chunks = check_texidoc (chunks)
+
+	chunks = format_lilypond_output_bodies (chunks)
+
 
 	x = 0
 	chunks = completize_preamble (chunks)
@@ -1561,6 +1610,7 @@ if not files:
 	ly.exit (2)
 
 ly.setup_environment ()
+
 
 for input_filename in files:
 	do_file (input_filename)

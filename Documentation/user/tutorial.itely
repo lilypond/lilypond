@@ -37,8 +37,14 @@ sheet music, is produced. That file may be printed or viewed.
 This tutorial starts with a small introduction to the LilyPond music
 language.  After this first contact, we will show which commands to
 run to produce printed output, so you should then be able to create
-your first sheets of music.  The tutorial continues with more and more
-complex examples.
+your first sheets of music.  When starting out, it will be convenient
+to print out
+@ifhtml
+the
+@end ifhtml
+@ref{Cheat sheet}, which is a table listing all commands for
+convenient reference.
+
 
 
 @node First steps
@@ -227,7 +233,7 @@ in a LilyPond file.  In this section we explain what commands to run
 and how to view or print the output.  If you have not used LilyPond
 before, want to test your setup, or want to run an example file
 yourself, read this section.  The instructions that follow are for
-Unix-like systems.  Some additional instructions for MS Windows are given
+Unix-like systems.  Some additional instructions for Microsoft Windows are given
 at the end of this section.
 
 Begin by opening a terminal window and starting a text editor.
@@ -332,7 +338,7 @@ Various commands for formatting and printing music are detailed in
 
 @unnumberedsubsec Windows users
 
-Windows users can start the terminal by clicking on the LilyPond or
+On Windows,  the terminal is started by clicking on the LilyPond or
 Cygwin icon.  Any text editor (such as NotePad, Emacs or Vim) may be
 used to edit the LilyPond file.  When Cygwin's @code{XFree86} X11
 window system is installed along with @code{tetex-x11} and
@@ -616,9 +622,9 @@ a8-(-\( ais b  c-) cis2 b'2 a4 cis,  c-\)
 @end quotation
 @separate
 
-Beams are drawn automatically, but if you do not like the choices, you
-can enter beams by hand. Mark the first note to be beamed with
-@code{[} and the last one with @code{]}:
+Beams are drawn automatically, but if you do not like where they are
+put, they can be entered by hand. Mark the first note to be beamed
+with @code{[} and the last one with @code{]}:
 @quotation
 @lilypond[fragment,relative 1, verbatim]
 a8-[ ais-] d-[ es r d-]
@@ -628,15 +634,15 @@ a8-[ ais-] d-[ es r d-]
 
 To print more than one staff, each piece of music that makes up a staff
 is marked by adding @code{\context Staff} before it.  These
-@code{Staff}'s are then grouped inside @code{<} and @code{>}, as is
+@code{Staff}'s are then grouped inside @code{\simultaneous @{} and @code{@}}, as is
 demonstrated here:
 
 @quotation
 @lilypond[fragment,verbatim]
-<
+\simultaneous {
   \context Staff = staffA { \clef violin c'' }
   \context Staff = staffB { \clef bass c }
->
+}
 @end lilypond
 @end quotation
 
@@ -644,7 +650,8 @@ In this example, @code{staffA} and @code{staffB} are names that are
 given to the staves.  It does not matter what names you give, as long
 as each staff has a different name. If you give them the same name,
 they are assumed to belong on the same staff, and will be printed like
-that.
+that. @code{\simultaneous } indicates that both fragments happen at
+the same time, and must be printed stacked vertically.
 
 @separate
 
@@ -672,9 +679,9 @@ We can now typeset a melody with two staves:
 @end lilypond
 @end quotation
 
-Notice that the time signature is specified in one melody staff only
-(the top staff), but is printed on both.  LilyPond knows that the time
-signature should be the same for all staves.
+The time signature is specified in one melody staff only
+(the top staff), but is printed on both, since common practice
+dictates that all staves have the same time signature. 
 
 @separate
 
@@ -745,7 +752,8 @@ r4 <<c e g>>8-\>-( <<c e g>> <<c e g>>  <<c f a>>8-\!-)
 
 
 A pickup (or upstep) is entered with the keyword @code{\partial}. It
-is followed by a duration: @code{\partial 4} is a quarter note upstep.
+is followed by a duration: @code{\partial 4} is a quarter note upstep
+and @code{\partial 8} an eighth note.
 @lilypond[relative 1,verbatim,fragment]
   \partial 8
   f8 c2 d e
@@ -754,7 +762,7 @@ is followed by a duration: @code{\partial 4} is a quarter note upstep.
 Tuplets are made with the @code{\times} keyword.  It takes two
 arguments: a fraction and a piece of music.  The duration of the piece
 of music is multiplied by the fraction.  Triplets make notes occupy
-2/3 of their notated duration, so for a triplet, the fraction is 2/3.
+2/3 of their notated duration, so  a triplet has  2/3 as its fraction.
 @c
 @lilypond[relative 0,verbatim,fragment]
   \times 2/3 { f8 g a }
@@ -762,7 +770,7 @@ of music is multiplied by the fraction.  Triplets make notes occupy
 @end lilypond 
 
 
-
+TODO: grace notes
 
 Comments are pieces of the input that are ignored.  There are two
 types of comments. A line comments are introduced by @code{%}: after
@@ -805,6 +813,7 @@ them as lyrics, they must be marked with @code{ \context Lyrics}:
   \context Lyrics  \lyrics @{ I want to break free @}
 @end example
 The melody for this song is as follows
+
 @lilypond[fragment,relative=1]
    \partial 8
      c8
@@ -856,6 +865,8 @@ line}. It is entered as two  underscores, i.e.,
 }
 @end lilypond
 
+TODO: fix extender lines here.
+
 Similarly, hyphens between words can be entered as two dashes,
 resulting in a centered hyphen between two syllables.
 @example
@@ -866,7 +877,10 @@ resulting in a centered hyphen between two syllables.
   \addlyrics \notes \relative f' { \time 2/4
     f4 f c' c' }
     \context Lyrics \lyrics { Twin -- kle twin -- kle
- }}
+ }
+\paper { linewidth = 6.0 \cm }
+ }
+ 
 @end lilypond
 
 More options, like putting multiple lines of lyrics below a melody are
@@ -888,6 +902,8 @@ root of the chord), and a durations following that.
 @lilypond[verbatim]
   \chords { c2 f4. g8 } 
 @end lilypond
+
+@noindent
 The result of @code{\chords} is a list of chords, and is  equivalent
 to entering chords with @code{<<@dots{}>>}.
 
@@ -1040,9 +1056,9 @@ voices with @code{\\}:
   < { a4 g2 f4-~ f4 } \\
     { r4 g4 f2 f4 } >
 @end lilypond
- 
-More features of polyphonic typesetting are in the notation manual,
-@ref{Polyphony}.
+The notation @code{< .. >} is a shorthand for @code{\simultaneous @{
+.. @}}.  More features of polyphonic typesetting are in the notation
+manual, @ref{Polyphony}.
 
 @node Piano staffs
 @section Piano staffs
@@ -1380,472 +1396,13 @@ modifications we discussed in this section:
 @lilypondfile[verbatim]{brahms-tweaked.ly}
 
 
-@node An orchestral score
-@section An orchestral score
-
-@menu
-* The full score::              
-* Extracting an individual part::  
-@end menu
+@node An orchestral part
+@section An orchestral part
 
 
-Our next two examples demonstrate one way to create an orchestral
-score in LilyPond.  When typesetting a piece for several instruments,
-you will want to create a full score (for the conductor) along with
-several individual parts (for the players).
+TODO:
 
-  We will declare the music for each instrument individually, giving
-the music of each instrument its own name.  These pieces of music are
-then combined in different @code{\score} blocks to produce different
-combinations of instruments (for example, one @code{\score} block may
-only include the cello part; another @code{\score} block may be for
-all the strings, and yet another @code{\score} block may be for all
-parts together).
-
-This orchestral score example consists of three input files.  In the
-first file, @file{os-music.ly}, we define the music for all
-instruments.  This file will be used for producing the score and the
-separate parts, but the file does not produce any sheet music itself.
-Other files reference it by stating @code{\include "os-music.ly"}.
-
-@example
-% os-music.ly
-\header @{
-  title = "Zo, goed lieverd?"
-  subtitle = "How's, this babe?"
-  composer = "JCN"
-  opus = "1"
-  piece = "Laid back"
-@}
-global = @{
-  \time 2/4
-  \skip 2*4 \bar "|."
-@}
-Key = \notes \key as \major
-flautoI = \notes\relative c'' @{
-  f8 g f g f g f g
-  bes as bes as bes as bes as
-@}
-flautoII = \notes\relative c'' @{
-  as8 bes as bes R1 d4 ~ d
-@}
-tromboI = \notes\relative c'' @{
-  c4. c8 c8 c4. es4 r as, r
-@}
-tromboII = \notes\relative c'' @{
-  as4. as8 as8 as4. R1*1/2 as4 es'
-@}
-timpani = \notes\relative c, @{
-  \times 2/3 @{ f4 f f @}
-  \times 4/5 @{ as8 as as as as @}
-  R1
-@}
-corno = \notes\relative c' @{
-   bes4 d f, bes d f, bes d
-@}
-@end example
-
-We will not examine this example line by line, since you already know
-most of it.  We'll examine a few lines which contain new elements.
-
-
-@separate
-@example
-global = @{
-  \time 2/4
-  \skip 2*4 \bar "|."
-@}
-@end example
-
-This declares settings to be used globally.  The @code{\skip} command
-produces no output, but moves forward in time: in this case, the
-duration of a half note (@code{2}), and that four times (@code{*4}).
-This brings us to the end of the piece, and we can set the end bar.
-You can use @code{s} as a shortcut for @code{\skip} (the last line of
-this section would be @code{s2*4 \bar"|."}).
-
-@separate
-@example
-Key = \notes \key as \major
-@end example
-This declares the key signature of the piece and assign it to the
-identifier @var{Key}.  Later on we will use @code{\Key} for all staves
-except those for transposing instruments.
-
-@node The full score
-@subsection The full score
-
-
-The second file, @inputfileref{input/tutorial,os-score.ly}, reads the
-definitions of the first (@inputfileref{input/tutorial,os-music.ly}), and
-defines the @code{\score} block for the full conductor's score.
-
-@example
-\version "1.7.6"
-
-\include "os-music.ly"
-\include "paper13.ly"
-
-textFlat = \markup @{\smaller \musicglyph #"accidentals--1"@}
-\score @{
-  <
-    \global
-    \property Score.BarNumber \override #'padding = #3
-    \context StaffGroup = woodwind <
-      \context Staff = flauti <
-	\property Staff.midiInstrument = #"flute"
-	\property Staff.instrument = "2 Flauti"
-	\property Staff.instr = "Fl."
-        \Key
-	\context Voice=one @{ \voiceOne \flautoI @}
-	\context Voice=two @{ \voiceTwo \flautoII @}
-      >
-    >
-    \context StaffGroup = timpani <
-      \context Staff = timpani <
-	\property Staff.midiInstrument = #"timpani"
-	\property Staff.instrument = \markup @{ \column <<  "Timpani" "(C-G)" >> @}
-	\property Staff.instr = #"Timp."
-	\clef bass
-        \Key
-	\timpani
-      >
-    >
-    \context StaffGroup = brass <
-      \context Staff = trombe <
-  	\property Staff.midiInstrument = #"trumpet"
-	\property Staff.instrument = \markup @{ \column << "2 Trombe" "(C)" >> @}
-	\property Staff.instr = \markup@{ \column << "Tbe." "(C)">> @}
-        \Key
-	\context Voice=one \partcombine Voice
-	  \context Thread=one \tromboI
-	  \context Thread=two \tromboII
-      >
-      \context Staff = corni <
-        \property Staff.midiInstrument = #"french horn"
-	\property Staff.instrument
-	= \markup @{ \column << "Corno" @{ "(E"  \textFlat ")" @} >> @}
-	\property Staff.instr =
-	\markup @{ \column << "Cor." @{ "(E"  \textFlat ")" @} >> @}
-	\property Staff.transposing = #3
-	\notes \key bes \major
-	\context Voice=one \corno
-      >
-    >
-  >
-  \paper @{
-    indent = 15 * \staffspace
-    linewidth = 60 * \staffspace
-    textheight = 90 * \staffspace
-    \translator@{
-      \VoiceContext
-      \consists "Multi_measure_rest_engraver"
-    @}
-    \translator@{
-      \HaraKiriStaffContext
-      \remove "Multi_measure_rest_engraver"
-    @}
-  @}
-  \midi @{
-    \tempo 4 = 75
-  @}
-@}
-@end example
-
-@center @strong{Zo, goed lieverd?}
-@sp 1
-@center How's, this babe?
-@flushright
-Opus 1.
-@end flushright
-@flushleft
-@sc{Laid back}
-@end flushleft
-
-@lilypondfile{os-score.ly}
-
-@separate
-@example
-\include "os-music.ly"
-@end example
-First we need to include the music definitions we made in
-@file{os-music.ly}.
-
-@ignore
-
-[TODO: mention in a more relevant place]
-  
-@separate
-@example
-#(ly:set-point-and-click 'line-column)
-@end example
-
-This piece of Scheme code executes the function
-@code{ly:set-point-and-click} with the argument
-@code{line-column}.  Editing input files can be complicated if you are
-working with large files: if you are digitizing existing music, you have
-to synchronize the .ly file, the sheet music on your lap and the sheet
-music on the screen.  The point-and-click mechanism makes it easy to
-find the origin of an error in the LY file: when you view the file with
-Xdvi and click on a note, your editor will jump to the spot where that
-note was entered.  For more information, see @ref{Point and click}.
-@end ignore
-
-
-@separate
-@example
-#(define text-flat '((font-relative-size . -2)
-         (music "accidentals--1")))
-@end example
-
-To name the transposition of the french horn, we will need a piece of
-text with a flat sign.  LilyPond has a mechanism for font selection and
-kerning called Scheme markup text (See @ref{Text markup}).  The flat
-sign is taken from the music font, and its name is @code{accidentals--1}
-(The natural sign is called @code{accidentals-0}).  The default font is
-too big for text, so we select a relative size of @code{-2}.
-
-@separate
-@example
-  <
-    \global
-@end example
-All staves are simultaneous and use the same global settings.
-
-@separate
-@example
-    \property Score.BarNumber \override #'padding = #3
-@end example
-LilyPond prints bar numbers at the start of each line, but
-unfortunately they end up a bit too close to the staff in this
-example.  In LilyPond, a bar number is called @var{BarNumber}.
-BarNumber objects can be manipulated through their
-@var{side-position-interface}.  One of the properties of a
-@var{side-position-interface} that can be tweaked is @var{padding}:
-the amount of extra space that is put between this and other objects.
-We set the padding to three staff spaces.
-
-You can find information on all these kind of properties in LilyPond's
-automatically generated documentation in
-@ifnottex
-@ref{ (lilypond-internals)lilypond-internals, LilyPond Internals}
-or in @ref{Fine tuning a piece}.
-@end ifnottex
-@iftex
-the online documentation or in the previous section of the tutorial.
-@end iftex
-
-@c  REFERENCE MAO
-
-@separate
-@example
-    \context StaffGroup = woodwind <
-      \context Staff = flauti <
-@end example
-A new notation context: the @code{StaffGroup}.  @code{StaffGroup} can
-hold one or more @code{Staff}s, and will print a big bracket at the
-left of the score.  This starts a new staff group for the woodwind
-section (just the flutes in this case).  Immediately after that, we
-start the staff for the two flutes, who also play simultaneously.
-
-@separate
-@example
-        \property Staff.midiInstrument = #"flute"
-@end example
-Specify the instrument for MIDI output (see @ref{MIDI instrument
-names}).
-
-@separate
-@example
-        \property Staff.instrument = "2 Flauti"
-        \property Staff.instr = "Fl."
-@end example
-This defines the instrument names to be printed in the
-margin.  @code{instrument} specifies the name for the first line
-of the score, @code{instr} is used for the rest of the score.
-
-@separate
-@example
-        \Key
-@end example
-The flutes play in the default key.
-
-@separate
-@example
-        \context Voice=one @{ \voiceOne \flautoI @}
-        \context Voice=two @{ \voiceTwo \flautoII @}
-@end example
-Last come the actual flute parts.  Remember that we are still in
-simultaneous mode.  We name both voices differently, so that LilyPond
-will create two Voice contexts.  The flute parts are simple, so
-we specify manually which voice is which: @code{\voiceOne} forces the
-direction of stems, beams, slurs and ties up, @code{\voiceTwo} sets
-directions down.
-
-@separate
-@example
-      >
-    >
-@end example
-Close the flutes staff and woodwind staff group.
-
-@separate
-@example
-        \property Staff.instrument = #'(lines "Timpani" "(C-G)")
-@end example
-The timpani staff demonstrates a new piece of scheme markup, it sets two
-lines of text.
-
-@separate
-@example
-        \context Voice=one \partcombine Voice
-          \context Thread=one \tromboI
-          \context Thread=two \tromboII
-@end example
-You have seen the notation contexts Staff and Voice, but here is a new
-one: Thread.  One or more Threads can be part of a Voice.  Thread
-takes care of note heads and rests; Voice combine note heads onto a
-stem.
-
-For the trumpets we use the automatic part combiner (see @ref{Automatic
-part combining}) to combine the two simultaneous trumpet parts onto the
-trumpet staff.  Each trumpet gets its own Thread context, which must be
-named @code{one} and @code{two}).  The part combiner makes these two
-threads share a Voice when they are similar, and splits the threads up
-when they are different.
-
-@separate
-@example
-\property Staff.instrument = #`(lines "Corno"
-  (columns "(E" ,text-flat ")"))
-@end example
-The french horn (``Corno'') has the most complex scheme markup name, made
-up of two lines of text.  The second line has three elements (columns) --
-the @code{(E}, the flat sign @code{text-flat} that we defined previously,
-and a final @code{")"}.  We use a backquote instead of an
-ordinary quote at the beginning of the Scheme expression to be able to
-access the @code{text-flat} identifier, `unquoting' it with a ``@code{,}''.
-
-@separate
-@example
-        \property Staff.transposing = #3
-@end example
-The french horn is to be tuned in E-flat, so we tell the MIDI back-end to
-transpose this staff by three steps.
-
-Note how we can choose different tunings for the text input, sheet music
-output and, and MIDI output, using @code{\transpose} and the MIDI Staff
-property @var{transposing}.
-
-@separate
-@example
-        \notes \key bes \major
-@end example
-Since the horn is transposing, it is in a different key.
-
-@separate
-@example
-    indent = 15 * \staffspace
-    linewidth = 55 * \staffspace
-@end example
-We specify a big indent for the first line and a small linewidth for this
-tutorial.
-
-@separate
-
-Usually the default setup of notation contexts (Thread, Voice, Staff,
-Staffgroup, Score) is just fine.  But in this case we want a different
-type of Staff context.
-
-@example
-    \translator@{
-      \HaraKiriStaffContext
-    @}
-@end example
-
-In orchestral scores it often happens that one instrument only has
-rests during one line of the score.  @code{HaraKiriStaffContext} can
-be used as a regular @code{StaffContext} drop-in and will take care of
-the automatic removing of empty staves -- so if the strings are the
-only instruments playing for a line, LilyPond will only print the string
-parts for that line of the score.  This reduces the number of page turns
-(and the number of dead trees!) required in a score.
-
-@node Extracting an individual part
-@subsection Extracting an individual part
-
-The third file, @file{os-flute-2.ly} also reads the definitions of the
-first (@file{os-music.ly}), and defines the @code{\score} block for the
-second flute part.
-
-@example
-\include "os-music.ly"
-\include "paper16.ly"
-
-\score @{
-  \context Staff <
-    \property Score.skipBars = ##t
-    \property Staff.midiInstrument = #"flute"
-    \global
-    \Key
-    \flautoII
-  >
-  \header @{
-    instrument = "Flauto II"
-  @}
-  \paper @{
-    linewidth = 80 * \staffspace
-    textheight = 200 * \staffspace
-  @}
-  \midi @{
-    \tempo 4 = 75
-  @}
-@}
-@end example
-
-@center @strong{Zo, goed lieverd?}
-@sp 1
-@center How's, this babe?
-@center @emph{Flauto II}
-@flushright
-Opus 1.
-@end flushright
-@flushleft
-@sc{Laid back}
-@end flushleft
-@lilypondfile{os-flute-2.ly}
-
-
-Because we separated the music definitions from the @code{\score}
-instantiations, we can easily define a second score with the music of
-the second flute.  This is the part for the second flute player.  Of
-course, we would make separate parts for all individual instruments if
-we were preparing the score for an orchestra.
-
-@separate
-@example
-    \flautoII
-@end example
-In this individual part the second flute has a whole staff for itself,
-so we do not want to force stem or tie directions.
-
-@separate
-@example
-  \header @{
-    instrument = "Flauto II"
-  @}
-@end example
-The @code{\header} definitions were also read from @file{os-music.ly},
-but we need to set the instrument for this particular score.
-
-@separate
-@example
-    \property Score.skipBars = ##t
-@end example
-In the conductor's full score, all bars with rests are printed, but for
-the individual parts, we want to print one multimeasure rest instead of
-many consecutive empty bars.  LilyPond will do this if
-@code{Score.skipBars} is set to true (@code{##t}).
+\markup, mmrest, transposing, cue notes, identifiers?.
 
 
 @node Integrating text and music

@@ -1,3 +1,22 @@
+2003-06-29  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/introduction.itely (Computerized typography):
+	new section
+
+	* Documentation/user/tutorial.itely (An orchestral part): remove
+	pc example from tutorial.
+
+	* input/tutorial/lilbook.tex: use screech-boink
+
+	* scripts/lilypond-book.py (compile_all_files): split formatting
+	output body and scheduling lilypond compilation.
+	(format_lilypond_output_bodies): new function
+	(format_lilypond_block): new function
+	(html_pages): allow multi-page images in HTML
+
+	* python/lilylib.py (make_ps_images): rename function from
+	make_preview, merge with make_page_images
+
 2003-06-28  Graham Percival  <gperlist@shaw.ca>
 
 	* input/test/key-clefs.ly: moved to regression.

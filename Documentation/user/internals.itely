@@ -7,8 +7,8 @@
 @c before saving changes
 
 
-@node Advanced topics
-@chapter Advanced topics
+@node Technical manual
+@chapter Technical manual
 
 
 When LilyPond is run, it reads an input file which is parsed.  During
