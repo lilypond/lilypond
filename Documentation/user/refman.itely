@@ -46,6 +46,7 @@
 * Sound output::                   Sound output
 * midilist::                       midilist
 * Pre-defined Identifiers::        Pre-defined Identifiers
+* Point and click::                Quik edit using Point and Click
 * Interpretation contexts:(lilypond-internals)LilyPond interpretation contexts.
 * Engravers:(lilypond-internals)LilyPond engravers.
 * Backend:(lilypond-internals)LilyPond backend.
@@ -2799,4 +2800,7 @@ set different shift values.
 
 @end table
 
+@node Point and click
+@section Point and click
 
+[todo]
