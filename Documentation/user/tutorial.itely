@@ -54,9 +54,12 @@ c d e f g a b
 @noindent
 then the result looks like this:
 
-@lilypond[notime]
-\property Score.timing = ##f
-\transpose c c' { c d e f g a b }
+@c ?
+@c \transpose c c' { c d e f g a b }
+@c @lily pond[notime]
+@c \property Score.timing = ##f
+@lilypond[notime, relative=2]
+c d e f g a b
 @end lilypond
 
 We will continue with this format: First we show a snippet of input,
