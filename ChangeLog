@@ -1,3 +1,7 @@
+2003-06-16  Graham Percival  <gperlist@shaw.ca>
+
+	* input/test/g*: added texidoc index.
+
 2003-06-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/test/spanner-after-break-tweak.ly (texidoc): new file.
