@@ -762,7 +762,7 @@ have clickable links.
 @item
 Templates
 @ifhtml
-(available @uref{../../../input/template/out-www/collated-files.html,here})
+(available @uref{../../../../input/template/out-www/collated-files.html,here})
 @end ifhtml
 
 After you have gone through the tutorial, you should be able to write
@@ -785,7 +785,7 @@ included.
 @item
 The regression tests
 @ifhtml
-(available @uref{../../../input/regression/out-www/collated-files.html,here})
+(available @uref{../../../../input/regression/out-www/collated-files.html,here})
 @end ifhtml
 
 This collection of files tests each notation and engraving feature of
