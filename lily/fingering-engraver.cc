@@ -192,8 +192,8 @@ Fingering_engraver::make_script (Direction d, Music *r,Axis a,  int i)
   if (gh_number_p (s))
     priority = gh_scm2int (s);
   
-  /* Make sure they're in order of user input by adding index i. */
-  priority += d*i;
+  /* See script-engraver.cc */
+  priority += i;
 
   fingering->set_grob_property ("script-priority", gh_int2scm (priority));
 

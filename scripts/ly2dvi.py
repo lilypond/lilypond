@@ -509,8 +509,10 @@ def run_lilypond (files, dep_prefix):
 		       + _ ("Please submit a bug report to bug-lilypond@gnu.org") + "\n")
 
 	if status:
-		error ( "\n" \
-			+ _ ("LilyPond failed on the input file (exit status %d).") % exit_status + "\n")
+		sys.stderr.write ( "\n" \
+			+ _ ("LilyPond failed on an input file (exit status %d).") % exit_status + "\n")
+		sys.stderr.write (_("Trying to salvage the rest.") +'\n\n')
+		
 		
 
 def analyse_lilypond_output (filename, extra):
