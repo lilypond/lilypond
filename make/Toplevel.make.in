@@ -1,7 +1,13 @@
 # -*-Makefile-*-
+########################################################
+#
+# WARNING!WARNING!WARNING!WARNING!WARNING!WARNING!
+#	
+#	DO NOT EDIT!	
+#
 #
 # @configure_input@
-#
+########################################################
 # project  LilyPond -- the musical typesetter
 # title	   top level makefile for LilyPond  
 # file	   Makefile 
@@ -9,7 +15,6 @@
 # Copyright (c) 1997 by    
 #   	Jan Nieuwenhuizen <jan@digicash.com>
 #	Han-Wen Nienhuys <hanwen@stack.nl>
-#		...your sort order here, or how to comment-out a comment
 
 # subdir level:
 #
@@ -29,14 +34,14 @@ include ./$(depth)/make/Variables.make
 
 # descent order into subdirectories:
 #
-SUBDIRS = flower lib lily mi2mu \
+SUBDIRS = mf flower lib lily mi2mu \
 	Documentation bin init input tex make
 #
 
 # list of distribution files:
 #
 SCRIPTS = configure configure.in install-sh
-README_FILES = ANNOUNCE COPYING NEWS README TODO INSTALL.text
+README_FILES = ANNOUNCE COPYING NEWS README TODO INSTALL.text AUTHORS.text
 EXTRA_DISTFILES=  .dstreamrc .version $(README_FILES) $(SCRIPTS) $(SYMLINKS)
 
 # do not dist ./Makefile (is copied from make/Toplevel.make)

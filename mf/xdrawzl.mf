@@ -1,0 +1,25 @@
+%(c)
+
+min_bow:=  .4nhh;
+max_bow:= 1.75nhh;
+slope:= 10/100;
+
+code=-1;
+
+for i=1 upto numslurs:
+  beginchar(incr code, 0, 0, 0);
+    mw:=(minwidth+code*delwidth)*pt;
+    x3= -x1= .5mw; x2= y1= y3 = 0;
+    y2= max(min_bow, slope*mw);
+    y2:= min(y2, max_bow);
+    penpos1(.15thick,90); penpos2(thick,90); penpos3(.15thick,90);
+    penstroke (flex(z1e,z2e,z3e));
+    currentpen:= pencircle; draw (flex(z1,z2,z3));
+    p:=currentpicture;
+  endchar;
+
+  beginchar(code+54, 0, 0, 0);
+    currentpicture:=p reflectedabout (origin, right);
+  endchar;
+endfor
+end

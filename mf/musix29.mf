@@ -1,0 +1,28 @@
+
+font_identifier:="musix29";
+
+mode_setup;
+
+font_size 29pt#;
+
+nhh#:=7.2pt#;
+nhw#:=1.2*nhh#;
+gregwidth#:=0.5*sqrt(2)*nhw#;
+
+thin#:=1/50designsize;
+med#:=1/33designsize;
+thick#:=1/16designsize;
+
+thinwidth := 0.15pt;
+beamht#:=0.48nhh#;
+
+define_pixels(nhh,nhw,beamht,gregwidth);
+define_blacker_pixels(thin,med,thick);
+
+pair ne,se,sw,nw; %northeast,southeast,southwest,northwest
+ne = up+right; se = down+right; sw = down+left; nw = up+left;
+
+font_x_height nhh#;
+font_quad nhw#;
+
+input musixgen

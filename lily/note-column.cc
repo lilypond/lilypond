@@ -26,9 +26,9 @@ Note_column::add(Stem*stem_l)
 void
 Note_column::add(Notehead* n_l)
 {
-    if (head_l_arr_.size())
-	assert(n_l->rest_b_ == rest_b_);
-    else
+    if (head_l_arr_.size()){
+	if (n_l->rest_b_ != rest_b_) return; // ugly fix. Should think about integrating rests into colunms.
+    } else
 	rest_b_ = n_l->rest_b_;
     
     head_l_arr_.push(n_l);

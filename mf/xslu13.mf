@@ -1,0 +1,20 @@
+font_identifier:="xslu13";
+mode_setup;
+font_size 12.8pt#;
+thick#:=1pt#;
+internote#:=1.6pt#;
+define_pixels(internote);
+define_blacker_pixels(thick);
+
+minwidth:=8pt#;
+delwidth:=4pt#;
+
+maxwidth:=minwidth+15delwidth;
+fontdimen 5: maxwidth;
+
+picture p;
+
+def t= rotated 180 shifted (.5mw, mheight) enddef;
+def T= rotated 180 shifted (0,mheight) enddef;
+
+input xslgen;

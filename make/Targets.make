@@ -7,7 +7,8 @@
 #   	Jan Nieuwenhuizen <jan@digicash.com>
 #	Han-Wen Nienhuys <hanwen@stack.nl>
 
-.PHONY : all clean config default dist doc doc++ dummy exe help lib TAGS html
+.PHONY : all clean config default dist doc doc++ dummy exe help lib TAGS html\
+	check-flower-deps check-lily-deps check-doc-deps
 
 # target all:
 #
@@ -29,7 +30,8 @@ include ./$(depth)/make/out/Site.make
 # dependency list of executable:
 #
 EXECUTABLE = $(lily_bindir)/$(NAME)
-$(EXECUTABLE): $(build) $(OFILES) $(MODULE_LIBDEPS) 
+$(EXECUTABLE): $(build) $(OFILES)
+	$(MAKE) $(MODULE_LIBDEPS) 
 	$(INCREASE_BUILD)
 	$(MAKE) -S $(OFILES)  $(SILENT_LOG)
 ifdef STABLEOBS
@@ -46,7 +48,7 @@ $(build): $(depth)/.version
 # dependency list of library:
 #
 LIBRARY = $(outdir)/$(LIB_PREFIX)$(NAME).a
-$(LIBRARY): $(build) $(OFILES) $(MODULE_LIBDEPS)
+$(LIBRARY): $(build) $(OFILES)
 	$(INCREASE_BUILD)
 	$(MAKE) $(OFILES)  $(SILENT_LOG)
 	$(AR_COMMAND) $(OFILES)
@@ -126,7 +128,8 @@ dist:
 	chmod -Rf a+rX $(distdir)
 
 	(cd ./$(depth); tar cfz $(DIST_NAME).tar.gz $(DIST_NAME))
-	rm -rf $(distdir)/  # should be trapped
+# should be trapped
+	rm -rf $(distdir)/
 
 localdist: $(DISTFILES)
 	if [ -d out ]; then mkdir $(distdir)/$(localdir)/out; fi
@@ -140,7 +143,7 @@ moduledist:
 	-mkdir $(module-distdir)
 	$(MAKE) localmoduledist
 	(cd ./$(depth); tar cfz $(MODULE_DIST_NAME).tar.gz $(MODULE_DIST_NAME))
-	rm -rf $(module-distdir)/  # should be trapped
+	rm -rf $(module-distdir)/ 
 
 localmoduledist:
 	ln $(DISTFILES) $(module-distdir)/$(localdir)

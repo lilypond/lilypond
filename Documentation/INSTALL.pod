@@ -45,7 +45,7 @@ Flex (2.5.1 or better).
 
 =item *
 
-Bison.
+Bison. (Version 1.25 or better)
 
 =back
 
@@ -97,6 +97,8 @@ B<--help>. If you are not root, you will probably have to make it with
 
 	configure --prefix=/home/me_myself_and_I/
 
+In this case, you will have to set MFINPUTS, and TEINPUTS accordingly.
+
 If you want to install GNU LilyPond in F</usr/local>, and your TeX has
 no default hooks for local stuff (mine is broken too), you can do:
 
@@ -104,7 +106,7 @@ no default hooks for local stuff (mine is broken too), you can do:
 
 Since GNU LilyPond currently is beta, you are advised to also use
 
-	--enable-debug
+	--enable-debugging
 	--enable-checking
 
 other options include:
@@ -116,6 +118,7 @@ other options include:
 	--enable-tex-prefix
 	--enable-tex-dir
 
+All options are documented in the F<configure> help
 The option B<--enable-optimise> is recommended for Real Life usage.
 
 If you do
@@ -132,8 +135,32 @@ If you have done a successful C<make>, then a simple
 
 	make install
 
-should do the trick. Install the musixtex fonts in a directory which
-TeX and MF knows. Do not forget to rehash TeX (if applicable)
+should do the trick. 
+
+[todo]
+
+Install the musixtex fonts in a directory which TeX and MF knows (if
+you are root, look for a directory which contains the directories with
+AMS and CM source (*.mf) files. Create a subdir lilypond or musixtex
+and copy the fonts into that). Do not forget to rehash TeX (if
+applicable)
+
+Example: my fonts are in F</usr/local/lib/texfonts/musixtex/>, and I
+have a symlink pointing to that in
+F</usr/lib/texmf/texmf/fonts/source/public/>
+
+=head1 CAVEATS
+
+
+
+=over 5
+
+=item *
+
+The -O2 option to gcc triggers a gcc bug on DEC Alpha in dstream.cc. You
+should turn off this flag for this file.
+
+=back
 
 =head1 RUNNING
 

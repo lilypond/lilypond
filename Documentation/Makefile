@@ -49,13 +49,21 @@ include ./$(depth)/make/Rules.make
 
 localclean:
 	rm -f out/*
-	rm -f $(TEXTFILES) $(HTMLFILES) $(GROFFFILES) $(HTMLFILES)
+	rm -f $(TEXTFILES) $(HTMLFILES) $(GROFFFILES)
+
+MAN1FILES = lilypond convert-mudela
+MAN1GROFF = $(addprefix $(outdir)/, $(addsuffix .1,$(MAN1FILES)))
+
+bla:
+	echo $(MANGROFF)
+	echo $(MANFILES)
 
 localinstall: $(outdir)/lilypond.1 $(outdir)/mudela.5
 	$(INSTALL) -d $(mandir)/man5
 	$(INSTALL) -d $(mandir)/man1
-	$(INSTALL) -m 755 $(outdir)/lilypond.1 $(mandir)/man1
+	$(INSTALL) -m 755 $(MAN1GROFF) $(mandir)/man1
 	$(INSTALL) -m 755 $(outdir)/mudela.5 $(mandir)/man5
 
 localuninstall:
 	rm -f $(mandir)/man1/lilypond.1
+	rm -f $(mandir)/man1/convert-mudela.1

@@ -1,0 +1,194 @@
+%  this is musexgen.mf
+
+% Here are two types of pianobrackets available, they are absolute compatible,
+% so choose this one you prefer (search for '%!!!')
+
+path p;
+picture save_pic;
+
+pen thin_pen, med_pen;
+thin_pen:= pencircle scaled max(1,.2pt+blacker);
+med_pen:= pencircle scaled med;
+
+%%%%%%%
+message ("<big braces>");
+%%%%%%%
+
+firstbrace:=20;  % smallest brace is 2*20 pt (\simeq 14mm)
+lastbrace:=67;   % largest brace is 2*67 pt (\simeq 47mm)
+
+%%% from Stanislav Kneifl
+
+def drawpianobracket (expr height) =
+  u# := 1nhh#/5pt# * 1pt#;
+  v# := (height/40) * 1pt#;
+  define_pixels (u, v);
+%  beginchar (height-firstbrace, 1.25nhh#, 0, 0);
+  beginchar (height-firstbrace, 0, 0, 0);
+    z1 = origin;
+    z2 = (4.7u, 7v);
+    z3 = (3.6u, 16.5v);
+    z4 = (1.9u, 25v);
+    z5 = (2.28u, 32v);
+    z6 = (w, 40v);
+    penpos1 (max(1,0.1u), 125);
+    penpos2 (1.2u, 180);
+    penpos3 (3.2u, 195);
+    penpos4 (2.5u, 180);
+    penpos5 (1.14u, 180);
+    penpos6 (max(2,0.3u), 150);
+    penstroke z1e{dir 35}..z2e..z3e..z4e..z5e..{dir 60}z6e;
+    currenttransform := identity reflectedabout ((0,0),(1,0));
+    penstroke z1e{dir 35}..z2e..z3e..z4e..z5e..{dir 60}z6e;
+    currenttransform := identity;
+% inserted
+    currentpicture:=currentpicture shifted (round(-1.75nhh), 0);
+%
+  endchar;
+enddef;
+
+def bigbrace(expr v) =
+  beginchar (v-firstbrace, 0, 0, 0);
+  " brace vsize "&decimal round(2v*pt#)&"pt";
+    vwidth:=v*pt;
+    hwidth:=max(.1vwidth,3.25pt);
+    hwidth:=min(hwidth,6.5pt);
+    actwidth:=.035vwidth;
+    x1=.25nhw;  y1=vwidth;
+    x2l=-.8hwidth; y2=2/3vwidth;
+    x3r=.2hwidth; y3=1/3vwidth;
+    x4=-hwidth; y4=0;
+    penpos1(max(1,.25pt),-35);
+    penpos2(1.5med+actwidth,40);
+    penpos3(1.75med+actwidth,45);
+    penpos4(max(1,.2pt),-90);
+    penstroke z1e..z2e..z3e..{left+sw}z4e;
+    currentpen:= pencircle; draw z1..z2..z3..{left+sw}z4;
+    addto currentpicture also currentpicture reflectedabout (origin, right);
+    penlabels(1,2,3,4);
+    currentpicture:= currentpicture shifted (round(-.75nhh), 0);
+  endchar;
+enddef;
+
+%!!! comment the line 'bigbrace' and uncomment the line 'drawpianobracket'
+%    or leave it like it is !!!
+
+for v=firstbrace upto lastbrace :
+    bigbrace (v);
+%    drawpianobracket (v);
+endfor;
+
+%%%%%%%
+message ("<glissandi-elements>");
+%%%%%%%
+%  glissando{slide} (slope [degree])
+
+def glissando (expr theta)=
+  x1=-1; y1=0; z2=z1+(.5nhw,0); z3=z1+(nhw+1,0);
+  p:= z1{1.25up+right}..{1.25down+right}z2{1.25down+right}..{1.25up+right}z3;
+  pickup penrazor scaled (.075nhw+thick) rotated (theta+65);
+  draw p rotated theta;
+  labels (1,2,3);
+enddef;
+
+for slope=1 upto 8:
+
+  beginchar(56+slope-1, (cosd(10slope))*nhw#,(sind(10slope))*nhw#, 0);
+  " glissando element slope "&decimal (10slope)&" degree";
+    glissando (10slope);
+    save_pic:= currentpicture;
+  endchar;
+
+  beginchar(64+slope-1, (cosd(10slope))*nhw#, (sind(10slope))*nhw#, 0);
+  " glissando element slope "&decimal (-10slope)&" degree";
+    currentpicture:= save_pic reflectedabout (origin, right);
+  endchar;
+
+endfor;
+
+%%%%%%%
+message ("<guitar chords>");
+%%%%%%%
+def tabulatur (expr nd)=
+  hwidth:=1/5w;
+  x1=x2=y2=y3=0; x3=w; y1=-nd;
+  fill unitsquare xscaled (w+2thinwidth) yscaled (med+.2pt)
+       shifted(-thinwidth,0);
+  pickup thin_pen;
+  for v=1 upto 5 :
+    draw (z2--z3) shifted (0,v*-hwidth);
+  endfor;
+
+  for v=0 upto 5 :
+    draw (z1--z2) shifted (v*hwidth,0);
+  endfor;
+  labels (1,2,3);
+enddef;
+
+%beginchar(72, 15/4nhw#, 0, 0);" grid";
+%  tabulatur (54/10nhh);
+%endchar;
+
+%beginchar(73, 15/8nhw#, 0, 0); " dot";
+%  fill fullcircle scaled .675nhh shifted (w,-.45nhh);
+%endchar;
+
+%beginchar(74, 15/4nhw#, 0, 0); " bar";
+%  fill unitsquare xscaled w yscaled .3nhh shifted (0,-.6nhh);
+%endchar;
+
+shift:=.15nhh;
+def Circle (expr nh)=
+  x1l=.1w; x2=x4=.5w; x3l=.9w;
+  y1=y3=.5nh+shift; y2=.1nh+shift; y4=.9nh+shift;
+  penpos1(med, 0);
+  penpos2(thinwidth,90);
+  penpos3(med,180);
+  penpos4(thinwidth, 270);
+  penstroke z1e..z2e..z3e..z4e..cycle;
+  pickup pencircle; draw z1..z2..z3..z4..cycle;
+enddef;
+
+%beginchar(75, 3/4nhw#, 0, 0); " circle";
+%  Circle (.9nhh);
+%endchar;
+
+def Cross (expr nh)=
+  x1=x3=.2w; x2=x4=.8w;
+  y1=y4=.2nh+shift; y2=y3=nh-.2nh+shift;
+  pickup med_pen;
+  draw z1--z2; draw z3--z4;
+% labels (1,2,3,4);
+enddef;
+
+%beginchar(76, 3/4nhw#, 0, 0); " cross";
+%  Cross (.9nhh);
+%endchar;
+
+%beginchar(77, 3/4nhw#, 0, 0); " blank";
+%endchar;
+
+beginchar(72, 3nhw#, 0, 0);" small grid";
+  tabulatur (108/25nhh);
+endchar;
+
+beginchar(73, 3/2nhw#, 0, 0); " small dot";
+  fill fullcircle scaled .54nhh shifted (w,-.36nhh);
+endchar;
+
+beginchar(74, 3nhw#, 0, 0); " small bar";
+  fill unitsquare xscaled w yscaled .24nhh shifted (0,-.48nhh);
+endchar;
+
+beginchar(75, 3/5nhw#, 0, 0); " small circle";
+  Circle (.72nhh);
+endchar;
+
+beginchar(76, 3/5nhw#, 0, 0); " small cross";
+  Cross (.72nhh);
+endchar;
+
+% the next seems to be senseless, but it isn't
+
+beginchar(77, 3/5nhw#, 0, 0); " small blank";
+endchar;

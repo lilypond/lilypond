@@ -90,7 +90,7 @@ comes = \melodic  {
 	[G F16 Es] [F8 D] [As G] r A |
 	[B c] [F16 Es D C] [C8 c16 B] [c8  G]|
 	[As c16 B] [c8 d] [G8 c16 B] [c8 d] |
-	[F16 G] As4 [G16 F] E2 |
+	[F16 G] As4 [G16 F] E2. |
 	
 }
 

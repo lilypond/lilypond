@@ -1,0 +1,351 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  this is xgreggen.mf (c)
+%
+%  Version T.63 [October 96]
+%
+
+nhw#:=1.2*nhh#;
+
+thin#:=1/50designsize;
+med#:=1/33designsize;
+thick#:=1/16designsize;
+
+thinwidth := 0.125pt;
+beamht#:=0.48nhh#;
+%gregwidth#:=0.5*sqrt(2)*nhh#;
+gregwidth#:=0.6*nhh#;
+smallgreg:=0.5;
+
+define_pixels(nhh,nhw,beamht,gregwidth);
+define_blacker_pixels(thin,med,thick);
+
+pair ne,se,sw,nw; %northeast,southeast,southwest,northwest
+ne = up+right; se = down+right; sw = down+left; nw = up+left;
+
+font_x_height nhh#;
+font_quad nhw#;
+
+pair pone, ptwo;
+transform t;
+path p;
+
+hlthick=.2pt;
+lthick=.4pt;
+
+greglangle:=18; gregrlangle:=180+greglangle;
+greguangle:=26; gregruangle:=180+greguangle;
+orisuangle:=40; orisruangle:=180+orisuangle;
+
+diamwidth:=.96 gregwidth; greg_min_diam:=gregwidth-diamwidth;
+diamheight:=1.33 gregwidth;
+deminutae:=0.6; gregwidth_dem:=gregwidth*deminutae;
+aucta_fact:=0.33gregwidth;
+shave:=.3gregwidth;
+
+pen line_pen, med_pen, coda_pen, thin_pen;
+med_pen:= pencircle scaled med;
+line_pen:= pencircle scaled lthick;
+coda_pen:= pencircle xscaled 1.25thick yscaled max(1,.75med);
+thin_pen:= pencircle scaled max(1,.25pt);
+
+picture save_pic, elem_pic;
+
+%%%%%%%%%%%%%%%
+% basic def's %
+%%%%%%%%%%%%%%%
+
+def savepic = save_pic:= currentpicture enddef;
+def save_elempic = elem_pic:= currentpicture enddef;
+def callpic = currentpicture:= save_pic enddef;
+
+def mirror (expr pone, ptwo) =
+  currentpicture:=currentpicture reflectedabout(round(pone),round(ptwo))
+enddef;
+
+def add_mirror (expr pone, ptwo) =
+  addto currentpicture also currentpicture
+        reflectedabout (round(pone), round(ptwo))
+enddef;
+
+def call_mirror (expr pone, ptwo) = callpic; mirror (pone, ptwo) enddef;
+
+def add_shift (expr pone, ptwo) =
+  addto currentpicture also currentpicture shifted (pone, ptwo)
+enddef;
+
+def call_add_shift (expr pone, ptwo) =
+  callpic; add_shift (pone, ptwo)
+enddef;
+
+def add_elempic (expr pone, ptwo) =
+  addto currentpicture also elem_pic shifted (pone, ptwo)
+enddef;
+
+def call_add_save_elempic (expr pone, ptwo) =
+  callpic; add_elempic(pone, ptwo); savepic
+enddef;
+
+def shift_pic (expr pone, ptwo) =
+  currentpicture:=currentpicture shifted (round(pone),round(ptwo))
+enddef;
+
+def fill_circle (expr diameter, zshift) =
+  fill fullcircle scaled diameter shifted zshift
+enddef;
+
+def fill_square (expr xwidth, ywidth, zshift) =
+  fill unitsquare xscaled xwidth yscaled ywidth shifted zshift
+enddef;
+
+%
+
+% eobasicdefs ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+%%%%%%%
+message ("<noteheads>");
+%%%%%%%
+
+NHW=nhw+hlthick;
+
+beginchar(0, gregwidth#, .5nhh#, .5nhh#); "dummy square";
+endchar;
+ 
+beginchar(18, smallgreg*gregwidth#, .5nhh#, .5nhh#); "small dummy square";
+endchar;
+ 
+
+beginchar(1, 0, .5nhh#, .5nhh#); "filled diamond";
+ x1:=0.5greg_min_diam+hlthick; x3=gregwidth-x1; x2=x4=0.5gregwidth;
+ y1=y3=0; y2=-y4=0.5diamheight;
+ pickup pencircle scaled lthick;
+ fill z1--z2--z3--z4--cycle;
+ draw z1--z2--z3--z4--cycle;
+ penlabels (1,2,3,4);
+endchar;
+
+beginchar(2, 0, .5nhh#, .5nhh#); "filled diamond aucta";
+ x1:=0.5greg_min_diam+hlthick; x3=gregwidth-x1; x2=x4=0.5gregwidth;
+ y1=y3=0; y2=-y4=0.5diamheight;
+ x5=x1+hlthick; y5=1.5y4;
+ pickup pencircle scaled lthick;
+ fill z1--z2--z3{sw+down}..{left+0.3up}z5--z5{right}..z4--cycle;
+ draw z1--z2--z3{sw+down}..{left+0.3up}z5--z5{right}..z4--cycle;
+ penlabels (1,2,3,4,5);
+endchar;
+
+beginchar(3, 0, .5nhh#, .5nhh#); "apostropha";
+ x1:=0.5greg_min_diam+hlthick; x3=gregwidth-x1; x2=x4+0.1gregwidth=0.5gregwidth;
+ y1=y3=0; y2=0.5gregwidth+0.5greg_min_diam-hlthick;
+ y4=-y2-0.2gregwidth;
+ pickup pencircle scaled lthick;
+ fill z1--z2--z3{left+1.5down}..{left+0.6down}z4--z4{right+2up}..{left+0.1up}cycle;
+ draw z1--z2--z3{left+1.5down}..{left+0.6down}z4--z4{right+2up}..{left+0.1up}cycle;
+ penlabels (1,2,3,4);
+endchar;
+
+beginchar(4, 0, .5nhh#, .5nhh#); "filled diamond deminutae";
+ x1:=0.5greg_min_diam*deminutae+hlthick;
+ x3=gregwidth_dem-x1; x2=x4=0.5gregwidth_dem;
+ y1=y3=0; y2=-y4=0.5diamheight*deminutae;
+ pickup pencircle scaled lthick;
+ fill z1--z2--z3--z4--cycle;
+ draw z1--z2--z3--z4--cycle;
+ penlabels (1,2,3,4);
+endchar;
+
+beginchar(5, 0, .5nhh#, .5nhh#); "gregorian punctum";
+  x1=x4=hlthick; x2=x3=gregwidth+hlthick; y1=y2=-y3=-y4=.5gregwidth-hlthick;
+  pickup pencircle scaled lthick;
+  fill z1{dir greguangle}..z2--z3..{dir gregrlangle}z4--cycle;
+  draw z1{dir greguangle}..z2--z3..{dir gregrlangle}z4--cycle;
+  shift_pic(0,-hlthick);
+  savepic;
+ penlabels (1,2,3,4);
+endchar;
+
+beginchar(13, 0, .5nhh#, .5nhh#); "mirrored gregorian punctum";
+  callpic;
+  mirror(origin, right);
+endchar;
+
+beginchar(6, 0, .5nhh#, .5nhh#); "gregorian virga left";
+  callpic;
+  fill_square (lthick, 1.5nhh,(0, -1.5nhh));
+endchar;
+
+beginchar(7, 0, .5nhh#, .5nhh#); "gregorian virga right";
+  callpic;
+  fill_square (lthick, 1.5nhh,(gregwidth, -1.5nhh));
+endchar;
+
+beginchar(8, 0, .5nhh#, .5nhh#); "gregorian punctum aucta down";
+  x1=x4=hlthick; x2=x3=gregwidth+hlthick;
+  y1=y2+aucta_fact=-y3-aucta_fact=-y4=.5gregwidth-hlthick;
+  pickup pencircle scaled lthick;
+  fill z1{dir greguangle}..z2--z3..{dir gregrlangle}z4--cycle;
+  draw z1{dir greguangle}..z2--z3..{dir gregrlangle}z4--cycle;
+  shift_pic(0,-hlthick);
+  savepic;
+ penlabels (1,2,3,4);
+endchar;
+
+beginchar(9, 0, .5nhh#, .5nhh#); "gregorian punctum aucta up";
+callpic;
+mirror(origin,right);
+endchar;
+
+beginchar(10, 0, .5nhh#, .5nhh#); "oriscus";
+  x1=x4=hlthick; x2=x3=gregwidth+hlthick; y1=y2=-y3=-y4=.5gregwidth-hlthick;
+  pickup pencircle scaled lthick;
+  fill z1{dir orisuangle}..{dir orisuangle}z2--z3{dir orisruangle}..{dir orisruangle}z4--cycle;
+  draw z1{dir orisuangle}..{dir orisuangle}z2--z3{dir orisruangle}..{dir orisruangle}z4--cycle;
+ penlabels (1,2,3,4);
+endchar;
+
+beginchar(11, 0, .5nhh#, .5nhh#); "apostropha aucta";
+ x1:=0.5greg_min_diam+hlthick; x3=gregwidth-x1; x2=x4=0.5gregwidth;
+ y1=y3=0; y2=0.5gregwidth+0.5greg_min_diam-hlthick;
+ y4=-y2-0.2gregwidth; y5=y4; x5=x1;
+ pickup pencircle scaled lthick;
+ fill z1--z2--z3{left+1.5down}..{left+0.6down}z4..z5--z5{right}..{left+0.1up}cycle;
+ draw z1--z2--z3{left+1.5down}..{left+0.6down}z4..z5--z5{right}..{left+0.1up}cycle;
+ penlabels (1,2,3,4,5);
+endchar;
+
+beginchar(12, 0, .5nhh#, .5nhh#); "small gregorian punctum";
+  x1=x4=hlthick; x2=x3=smallgreg*gregwidth+hlthick;
+  y1=y2=-y3=-y4=.5smallgreg*gregwidth-hlthick;
+  pickup pencircle scaled lthick;
+  fill z1{dir greguangle}..z2--z3..{dir gregrlangle}z4--cycle;
+  draw z1{dir greguangle}..z2--z3..{dir gregrlangle}z4--cycle;
+  shift_pic(0,-hlthick);
+  savepic;
+endchar;
+
+beginchar(14, 0, .5nhh#, .5nhh#); "mirrored small gregorian punctum";
+  callpic;
+  mirror(origin, right);
+endchar;
+
+beginchar(15, gregwidth#, .5nhh#, .5nhh#); "podatus bottom";
+  fill_square(gregwidth+lthick, gregwidth, (0, -0.5gregwidth));
+endchar;
+
+beginchar(16, gregwidth#, .5nhh#, .5nhh#); "small podatus bottom";
+  fill_square(gregwidth+lthick, gregwidth-shave, (0, -0.5gregwidth));
+endchar;
+
+beginchar(17, 0, .5nhh#, .5nhh#); "gregorian punctum shaved bottom";
+  x1=x4=hlthick; x2=x3=gregwidth+hlthick; y1=y2=-y3+shave=-y4+shave=.5gregwidth-hlthick;
+  pickup pencircle scaled lthick;
+  fill z1{dir greguangle}..z2--z3..{dir gregrlangle}z4--cycle;
+  draw z1{dir greguangle}..z2--z3..{dir gregrlangle}z4--cycle;
+  shift_pic(0,-hlthick);
+  savepic;
+ penlabels (1,2,3,4);
+endchar;
+
+def square (expr mw)=
+  fill_square (sqrt(2)*.5mw, max(1,thin), origin) rotated -45;
+  fill_square (sqrt(2)*.5mw, .15nhw, (0,-.15nhw)) rotated 45;
+  save_elempic;
+  mirror (origin,up);
+  mirror (origin,left);
+  shift_pic (mw+.5,0);
+  add_elempic(0,0);
+%  mirror (origin,right);% I've seen this too, somewhere ...
+enddef;
+
+beginchar(118, 0, .5nhh#, .5nhh#); "deep porrectus";
+  x1=x4=0; x2=x3=3*gregwidth+lthick;
+  y1=-y4=.5gregwidth-lthick; y2=y1-2nhh; y3=y4-2nhh;
+  z5=z1+(0,0.3gregwidth);
+  fill z5..{right+0.4down}z2--z3{left+0.4up}..z4--cycle; shift_pic(0,hlthick);
+  fill_square (med, 1.5nhh,(0, -2nhh));
+ penlabels (1,2,3,4,5);
+endchar;
+
+beginchar(119, 0, .5nhh#, .5nhh#); "low porrectus";
+  x1=x4=0; x2=x3=3*gregwidth+lthick;
+  y1=-y4=.5gregwidth-lthick; y2=y1-1.5nhh; y3=y4-1.5nhh;
+  z5=z1+(0,0.2gregwidth);
+  fill z1..{right+0.4down}z2--z3{left+0.4up}..z4--cycle; shift_pic(0,hlthick);
+  fill_square (med, 1.5nhh,(0, -2nhh));
+ penlabels (1,2,3,4,5);
+endchar;
+
+beginchar(120, 0, .5nhh#, .5nhh#); "porrectus";
+  x1=x4=0; x2=x3=3*gregwidth+lthick;
+  y1=-y4=.5gregwidth-lthick; y2=y1-nhh; y3=y4-nhh;
+  z5=z1+(0,0.1gregwidth);
+  fill z5..{right}z2--z3{left}..z4--cycle; shift_pic(0,hlthick);
+  fill_square (med, 1.5nhh,(0, -1.5nhh));
+ penlabels (1,2,3,4,5);
+endchar;
+
+beginchar(121, 0, .5nhh#, .5nhh#); "soft porrectus";
+  x1=x4=0; x2=x3=3*gregwidth+lthick;
+  y1=-y4=.5gregwidth-lthick; y2=y1-0.5nhh; y3=y4-0.5nhh;
+  z5=z1+(0,0.1gregwidth);
+  fill z5..{right}z2--z3{left}..z4--cycle; shift_pic(0,hlthick);
+  fill_square (med, 1.5nhh,(0, -1.5nhh));
+ penlabels (1,2,3,4,5);
+endchar;
+
+def quilisma(expr ymidtop, ymidbot) =
+  ydiff:=0.15gregwidth;
+  qdecalage:=.2*gregwidth;
+  ydepth:=0.25gregwidth;
+  x1=x14=-qdecalage+hlthick;
+  x7=x8=gregwidth+hlthick;
+  y1+ydiff-0.5ydepth=ymidtop=y7-ydiff-0.5ydepth;
+  y14+ydiff-0.5ydepth=ymidbot=y8-ydiff-0.5ydepth;
+  3x3=2x1+x7; 3x5=x1+2x7;
+  3y3=2y1+y7; 3y5=y1+2y7;
+  2x2=x1+x3; 2x4=x3+x5; 2x6=x5+x7;
+  2y2=y1+y3-2ydepth; 2y4=y3+y5-2ydepth; 2y6=y5+y7-2ydepth;
+  3x12=2x14+x8; 3x10=x14+2x8;
+  3y12=2y14+y8; 3y10=y14+2y8;
+  2x13=x14+x12; 2x11=x12+x10; 2x9=x10+x8;
+  2y13=y14+y12-2ydepth; 2y11=y12+y10-2ydepth; 2y9=y10+y8-2ydepth;
+
+  pickup line_pen;
+
+ 
+  draw z1{down+0.1right}..z2..z3..z4..z5..z6..{up+0.1right}z7--z8{down}..z9..z10..z11..z12..z13..{up+0.1left}z14--cycle;
+  fill z1{down+0.1right}..z2..z3..z4..z5..z6..{up+0.1right}z7--z8{down}..z9..z10..z11..z12..z13..{up+0.1left}z14--cycle;
+  shift_pic(0,-hlthick);
+enddef;
+
+beginchar(125, 0, .5nhh#, .5nhh#); "quilisma";
+  quilisma(0.5gregwidth-hlthick, -0.5gregwidth+hlthick);
+endchar;
+
+beginchar(126, 0, .5nhh#, .5nhh#); "bottom quilisma";
+  quilisma(0.5gregwidth-hlthick-0.8shave, -0.5gregwidth+hlthick);
+endchar;
+
+%%%%%%%
+message ("<clefs>");
+%%%%%%%
+keygregwidth:=0.5*sqrt(2)*nhw;
+
+beginchar(98, 8/3nhw#, 3.25nhh#, 0); "gregorian C clef";
+  x1=x4=0; x2=x3=keygregwidth; y1=y2=-y3=-y4=.5keygregwidth-lthick;
+  fill z1{dir 15}..z2--z3{dir 165}..z4--cycle;
+  save_elempic;
+  pickup med_pen; draw bot rt z1..{down}(-.01nhw,-.5nhh);
+  shift_pic(nhw,2.5nhh);
+  add_mirror ((0,2nhh),(1,2nhh));
+  savepic;
+  shift_pic (0,-2nhh);
+endchar;
+
+beginchar(122, 8/3nhw#, 4.25nhh#, 0); "gregorian F clef";
+  callpic;
+  add_elempic (.1nhw+0.5med,2nhh);
+  fill_square (med, 1.5nhh, (.75nhw,.8nhh));
+  shift_pic (1/3nhw,-2nhh);
+endchar;
+
+end

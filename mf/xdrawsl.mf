@@ -1,0 +1,39 @@
+%(c)
+
+min_bow:=  .5nhh;
+max_bow:= 1.5nhh;
+slope:=17.5/100;
+
+code=-1;
+
+for iht=1 upto 8:
+  for iwd=0 upto 15:
+    beginchar(incr code, 0, 0, 0);
+      mw#:=(minwidth+iwd*delwidth)*pt#;
+      define_pixels(mw);
+      x1 = y1= 0; x3= mw; y3= 2y2'= iht*delheight; x2'= .5x3;
+      mheight:=y3;
+      z2-z2'= whatever*dir(angle(z3-z1)+90);
+      my_bow:=min(max_bow, slope*mw);
+      my_bow:=max(my_bow, min_bow);
+      z1'=(z1-(0,my_bow)) rotated angle(z3-z1);
+      (z1'-z2)=whatever*(z1-z2');
+      penpos1(.15thick,(angle(z3-z1)+90));
+      penpos2(thick,(angle(z3-z1)+90));
+      penpos3(.15thick,(angle(z3-z1)+90));
+      penstroke (flex(z1e,z2e,z3e));
+%{{{
+      currentpen:= pencircle;
+      draw (flex(z1,z2,z3));% draw z1--z3; draw z2'--z2--z1'--z1;
+%}}}
+      currentpicture:=currentpicture t;
+      p:=currentpicture;
+    endchar;
+
+    beginchar(code+128, 0, 0, 0);
+      currentpicture:=p T;
+    endchar;
+
+  endfor
+endfor
+end

@@ -30,8 +30,12 @@ Lyric_register::try_request(Request*r)
 void
 Lyric_register::process_requests()
 {
+    Lyric_item * last_item_l =0;
     for (int i=0; i < lreq_arr_.size(); i++) {
-	Item *lp = new Lyric_item(lreq_arr_[i],i);
+	Lyric_item *lp = new Lyric_item(lreq_arr_[i],i);
+	if (last_item_l)
+	    lp->add_support(last_item_l);
+	last_item_l = lp;
 	typeset_element(lp);
     }
     get_staff_info().walk_l_->allow_break();

@@ -1,0 +1,24 @@
+font_identifier:="xtie20";
+mode_setup;
+font_size 20pt#;
+thick#:=1pt#;
+stepwidth#:=4pt#;
+define_pixels(stepwidth);
+define_blacker_pixels(thick);
+picture pic;
+
+slope=.009;
+
+for i=1 upto 100:
+  beginchar((i-1),0,0,0);
+    x3=-x1=.5i*stepwidth; x2=y1=y3=0; y2=slope*i*stepwidth;
+    penpos1(thick,90); penpos2(thick,90); penpos3(thick,90);
+    penstroke z1e..z2e..z3e;
+    pic:= currentpicture;
+  endchar;
+
+  beginchar((128+i-1),0,0,0);
+    currentpicture:= pic reflectedabout(origin,right);
+  endchar;
+endfor
+end

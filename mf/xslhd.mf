@@ -1,0 +1,31 @@
+thick#:=1pt#;
+stepwidth#:=designsize/8;
+define_pixels(stepwidth);
+define_blacker_pixels(thick);
+picture save_pic;
+numheights:=16;
+numlengths:=8;%(12-96pt)
+
+code=-1;
+for j=1 upto numlengths:
+  slength#:=j*12pt#;
+  define_pixels(slength);
+
+  for i=1 upto numheights:
+    beginchar(incr code, slength#, 0, 0);
+      x1=y1=0;x2=slength;y2= i*stepwidth;
+      penpos1(thick,90);
+      penpos2(max(1,.15thick),min(2angle(z2-z1)+90,180));
+      fill z1r{dir(1)}..{dir(min(2angle(z2-z1),90)-1)}z2r--
+           z2l{dir(min(2angle(z2-z1)-180,-90))}..z1l{left}--cycle;
+      save_pic:=currentpicture;
+    endchar;
+
+    beginchar(128+code, slength#, 0, 0);
+      currentpicture:=save_pic reflectedabout((.5slength,0),(.5slength, 1));
+    endchar;
+  endfor
+
+endfor
+end
+

@@ -1,0 +1,33 @@
+#!/usr/bin/perl
+$reldir="~/musix/releases";
+
+sub  cmpver 
+{ 	
+
+	my(@a)= split /\./,$a;
+	my(@b)= split /\./,$b;
+	
+	for $i (0,1,2) {
+	    return $a[$i] <=> $b[$i] if ($a[$i] != $b[$i]);
+	}
+	return $a cmp $b;
+}
+
+my @versions;
+open LS, "ls -1 $reldir|";
+
+
+while (<LS>) {
+	
+    $_ =~ /lilypond-([^.]+\.[^.]+\.[^.]+).tar.gz/;
+    push @versions, $1;
+}
+
+
+@versions = sort cmpver @versions;
+my $last= (pop @versions);
+print $last;
+
+system "rm $reldir/zZ*";
+
+system  "> $reldir/zZ_LATEST_IS_$last";

@@ -3,13 +3,13 @@ Dstream			1
 
 File_path		1
 My_lily_lexer		1
-PCol			1
+PCol			0
 Score_column		1
 Ineq_constrained_qp 	1
 Spacing_problem 	1
 Colinfo			1
 Mixed_qp		1
-PScore			1
+PScore			0
 Idealspacing		1
 
 # yydebug

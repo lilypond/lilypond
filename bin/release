@@ -1,10 +1,14 @@
 #!/bin/sh
+
+# script to automate releases
+
 grep -q  '^TOP' .version
     res=$?
 if test ! -f .version  || test $res != 0; then
     echo not in topleveldir
     exit 1
 fi    
+
 function setversion() {
 eval `sed -n 's/^\([A-Z_]*\) *= *\(.*\)$/\1=\2/p' .version`
 MJ=$TOPLEVEL_MAJOR_VERSION
@@ -23,18 +27,28 @@ echo
 echo "Current  version ("`pwd`") is $NEWVER, Last version:  $LASTVER"
 echo
 }
-heredir=`pwd`
-    make dist; 
-    setversion
-    LILYVER=$NEWVER
-    cp lilypond-$LILYVER.tar.gz ../releases
-    $heredir/bin/make_patch $LASTVER $NEWVER lilypond
-    gzip -f9 patch-$NEWVER
-    mv {lilypond-,patch-}*.gz ../
-cd ..
-tar cf updeet {lily,patch-}*.gz
-tar tfv updeet
-mv patch-*gz patches/
-mv lilypond*tar.gz releases/
 
-#time make 
+heredir=`pwd`
+make dist; 
+setversion
+LILYVER=$NEWVER
+mv lilypond-$LILYVER.tar.gz ../releases
+
+cd ../test
+$heredir/bin/make_patch $LASTVER $NEWVER lilypond
+gzip -f9 patch-$NEWVER
+mv patch-$NEWVER.gz ../patches/
+
+RPMS=`find ~/rpms/ -name lilypond-$NEWVER'*'rpm`
+rm *.rpm {lilypond,patch}-*.gz
+
+if [ ! -z $RPMS ]; then
+    ln $RPMS . 
+fi
+ln ../releases/lilypond-$NEWVER.tar.gz .
+ln ../patches/patch-$NEWVER.gz .    
+
+RPMS=`echo *.rpm`
+tar cf updeet {lily,patch-}*.gz $RPMS
+tar tfv updeet
+

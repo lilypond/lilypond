@@ -1,0 +1,37 @@
+font_identifier:="xhslu16";
+mode_setup;
+font_size 16pt#;
+thick#:=1pt#;
+stepwidth#:=1/8designsize;% -> \internote
+define_pixels(stepwidth);
+define_blacker_pixels(thick);
+picture save_pic;
+numheights:=16;
+numlengths:=8;%(20-90pt)
+
+code=-1;
+for j=1 upto numlengths:
+  slength#:=(j+1)*10pt#;
+  define_pixels(slength);
+
+  for i=1 upto numheights:
+    beginchar(incr code, slength#, 0, 0);
+      x1=y1=0;x3=slength;y3=2y1'=-i*stepwidth;
+      x1'=.5x3;z3'-z1'=whatever*dir(angle(z3-z1)+90);
+      if x3>-y3:y3'=0;else:x3'=slength;fi
+      z2=.5[z3',z1'];
+      penpos1(thick,90);
+      penpos2(2/3thick,(angle(z3-z1)+90));
+      penpos3(.15thick,(angle(z3-z1)+90));
+      penstroke z1e..z2e..z3e;
+      pickup pencircle; draw z1..z2..z3;% draw z1--z3; draw z1'--z3';
+      save_pic:=currentpicture;
+    endchar;
+
+    beginchar(128+code, slength#, 0, 0);
+      currentpicture:=save_pic reflectedabout((.5slength,0),(.5slength, 1));
+    endchar;
+  endfor
+
+endfor
+end

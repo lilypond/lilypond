@@ -252,7 +252,7 @@ void
 PScore::process()
 {
     clean_cols();
-    
+    print();
     *mlog << "Preprocessing ... " <<flush;
     preprocess();
     *mlog << "\nCalculating column positions ... " <<flush;

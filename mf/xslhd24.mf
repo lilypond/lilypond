@@ -1,0 +1,4 @@
+font_identifier:="xslhd24";
+mode_setup;
+font_size 24pt#;
+input xslhd;

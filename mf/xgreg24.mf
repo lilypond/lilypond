@@ -1,0 +1,10 @@
+
+font_identifier:="xgreg24";
+
+mode_setup;
+
+font_size 24pt#;
+
+nhh#:=6pt#;
+
+input xgreggen

@@ -1,0 +1,10 @@
+
+font_identifier:="xgreg20";
+
+mode_setup;
+
+font_size 20pt#;
+nhh#:=5pt#;
+
+
+input xgreggen
