@@ -294,8 +294,6 @@ def draw_meta_flat (expr xcenter, w, crook_fatness) =
 	     + crook_thinness * (bot_crook_dir rotated 90);
 	x7 = .1 [x3r, x8];
 
-	penlabels (range 0 thru 11);
-
 	y10 = -1/10 staff_space;
 %	draw_staff (-2, 2, 0.5);
 %	draw_staff (-2, 2, 0.0);
@@ -325,14 +323,17 @@ enddef;
 fet_beginchar ("Flat", "-2")
 	set_char_box (1.2 stafflinethickness#, .8 staff_space#,
 		      0.6 staff_space#, 1.9 staff_space#);
+
 	draw_meta_flat (0, w, 0.31 staff_space);
+	penlabels (range 0 thru 11);
 fet_endchar;
 
 
 fet_beginchar ("Semi flat", "-1")
 	set_char_box (1.2 stafflinethickness#, .8 staff_space#,
 		      0.6 staff_space#, 1.9 staff_space#);
-	draw_meta_flat(0, w, 0.31 staff_space);
+
+	draw_meta_flat (0, w, 0.31 staff_space);
 	currentpicture := currentpicture xscaled -1 shifted (w - b, 0);
 fet_endchar;
 
@@ -403,7 +404,7 @@ fet_beginchar ("Double Sharp", "4")
 	z4 = z2 reflectedabout ((0, 0), (1, 1));
 	z5 = z1 reflectedabout ((0, 0), (1, 1));
 
-	labels (1, 2, 3, 4, 5);
+	% labels (1, 2, 3, 4, 5);
 
 	save pat;
 	path pat;
@@ -445,8 +446,6 @@ def draw_paren =
 	penpos2 (.1 staff_space + stafflinethickness, 0);
 	penpos3 (stafflinethickness, -35);
 
-	penlabels (1, 2, 3);
-
 	fill z2l{down}
 	     .. simple_serif (z3l, z3r, 90)
 	     .. z2r{up}
@@ -458,6 +457,7 @@ enddef;
 
 fet_beginchar ("Right Parenthesis", "rightparen")
 	draw_paren;
+	penlabels (1, 2, 3);
 fet_endchar;
 
 

@@ -92,7 +92,7 @@ fet_endchar;
 
 
 fet_beginchar ("breve rest", "-1");
-	set_char_box(0, breve_rest_x#, 0, breve_rest_y#);
+	set_char_box (0, breve_rest_x#, 0, breve_rest_y#);
 	draw_block ((0, 0), (breve_rest_x, floor (breve_rest_y)));
 fet_endchar;
 
@@ -105,7 +105,7 @@ fet_beginchar ("Quarter rest", "2");
 	alpha:=-50;
 
 	thick# := 1/4 staff_space#;
-	define_blacker_pixels(thick);
+	define_blacker_pixels (thick);
 
 	rthin := 1.25 linethickness;
 	rthick := 2 thick + rthin;
@@ -117,9 +117,9 @@ fet_beginchar ("Quarter rest", "2");
 	save xcenter;
 	xcenter = -0.1 staff_space;
 
-	set_char_box(0, 0.95 staff_space#,
-		     -yshift#,
-		     yshift# + height#);
+	set_char_box (0, 0.95 staff_space#,
+		      -yshift#,
+		      yshift# + height#);
 
 	save ne, nw, se, sw;
 	pair ne, nw, se, sw;
@@ -233,9 +233,10 @@ define_pixels (bulb_diam, thin, thick);
 % PAT is a compact way to pass the brush shape to the routine.
 %
 
-def draw_rest_bulb (expr ycenter, ycut, pat, stretch) =
+def draw_rest_bulb (expr ycenter, ycut, pat, stretch, show_labels) =
 begingroup;
 	save x, y, pt, res;
+
 	z1l = point 0 of pat;
 	z2l = point 1 of pat;
 	z2r = point 3 of pat;
@@ -271,13 +272,16 @@ begingroup;
 	      .. z3{right}
 	      .. {curl 0.2}z6;
 
-	labels (3, 4, 5, 6, 7, 8, 10);
+	if show_labels = 1:
+		labels (3, 4, 5, 6, 7, 8, 10);
+	fi;
+
 res
 endgroup;
 enddef;
 
 
-def draw_eighth_rest =
+def draw_eighth_rest (expr show_labels) =
 	save width;
 	save ycenter;
 	save pat, bulb;
@@ -299,15 +303,18 @@ def draw_eighth_rest =
 	z2 = z1 + whatever * dir (72);
 	z9 = z2 + 0.5 linethickness * dir (angle (z2 - z1) - 10);
 
+	if show_labels = 1:
+		penlabels (1, 2);
+		labels (9);
+	fi;
+
 	pat = z1l
 	      --- z2l
 	      .. z9
 	      .. z2r
 	      --- z1r
 	      .. cycle;
-	bulb = draw_rest_bulb (0.5 staff_space, y2r, pat, 1.0);
-%	remove_overlap (pat, bulb) () R;
-%	fill R1;
+	bulb = draw_rest_bulb (0.5 staff_space, y2r, pat, 1.0, show_labels);
 
 	fill simple_serif (z1l, z1r, 40)
 	     --- z2r
@@ -316,21 +323,18 @@ def draw_eighth_rest =
 	     --- z1l
 	     .. cycle;
 
-	penlabels (1, 2);
-	labels (9);
-
 	% draw_staff (-2, 2, 0.0);
 enddef;
 
 
 fet_beginchar ("Classical quarter rest", "2classical");
-	draw_eighth_rest;
+	draw_eighth_rest (0);
 	currentpicture := currentpicture xscaled -1 shifted (w, 0);
 fet_endchar;
 
 
 fet_beginchar ("8th rest", "3");
-	draw_eighth_rest;
+	draw_eighth_rest (1);
 fet_endchar;
 
 
@@ -358,17 +362,17 @@ fet_beginchar ("16th rest", "4");
 	y1 = -2 staff_space ;
 	y2 = h -  lower_brush;
 	x2r = width;
-	z2 = z1 + whatever*dir(74);
-       	z9 = z2 + 0.5 linethickness * dir (angle(z2 - z1)- 10);
+	z2 = z1 + whatever*dir (74);
+       	z9 = z2 + 0.5 linethickness * dir (angle (z2 - z1)- 10);
 	pat = z1l
 	      --- z2l
 	      .. z9
 	      .. z2r
 	      --- z1r
 	      .. cycle;
-	bulb_a = draw_rest_bulb (0.5 staff_space, y2r, pat, 0.98);
+	bulb_a = draw_rest_bulb (0.5 staff_space, y2r, pat, 0.98, 1);
 	bulb_b = draw_rest_bulb (-0.5 staff_space,
-				(-0.5 + 0.2) * staff_space, pat, 1.02);
+				(-0.5 + 0.2) * staff_space, pat, 1.02, 1);
 
 	fill simple_serif (z1l, z1r, 40)
 	     --- z2r
@@ -412,11 +416,11 @@ fet_beginchar ("32th rest", "5");
 	      .. z2r
 	      --- z1r
 	      .. cycle;
-	bulb_a = draw_rest_bulb( 1.5 staff_space, y2r, pat, 0.96);
-	bulb_b = draw_rest_bulb( 0.5 staff_space,
-				 (0.5 + 0.2) * staff_space, pat, 1.00);
-	bulb_c = draw_rest_bulb( -0.5 staff_space,
-				 (-0.5 + 0.21) * staff_space, pat, 1.04);
+	bulb_a = draw_rest_bulb ( 1.5 staff_space, y2r, pat, 0.96, 1);
+	bulb_b = draw_rest_bulb (0.5 staff_space,
+				 (0.5 + 0.2) * staff_space, pat, 1.00, 1);
+	bulb_c = draw_rest_bulb (-0.5 staff_space,
+				 (-0.5 + 0.21) * staff_space, pat, 1.04, 1);
 
 	fill simple_serif (z1l, z1r, 40)
 	     --- z2r
@@ -461,13 +465,13 @@ fet_beginchar ("64th rest", "6");
 	      .. z2r
 	      --- z1r
 	      .. cycle;
-	bulb_a = draw_rest_bulb (1.5 staff_space, y2r, pat, 0.94);
+	bulb_a = draw_rest_bulb (1.5 staff_space, y2r, pat, 0.94, 1);
 	bulb_b = draw_rest_bulb (0.5 staff_space,
-				 (0.5 + 0.20) * staff_space, pat, 0.98);
+				 (0.5 + 0.20) * staff_space, pat, 0.98, 1);
 	bulb_c = draw_rest_bulb (-0.5 staff_space,
-				 (-0.5 + 0.21) * staff_space, pat, 1.02);
+				 (-0.5 + 0.21) * staff_space, pat, 1.02, 1);
 	bulb_d = draw_rest_bulb (-1.5 staff_space,
-				 (-1.5 + 0.22) * staff_space, pat, 1.06);
+				 (-1.5 + 0.22) * staff_space, pat, 1.06, 1);
 
 	fill simple_serif (z1l, z1r, 40)
 	     --- z2r
@@ -513,15 +517,15 @@ fet_beginchar ("128th rest", "7");
 	      .. z2r
 	      --- z1r
 	      .. cycle;
-	bulb_a = draw_rest_bulb (2.5 staff_space, y2r, pat, 0.92);
+	bulb_a = draw_rest_bulb (2.5 staff_space, y2r, pat, 0.92, 1);
 	bulb_b = draw_rest_bulb (1.5 staff_space,
-				 (1.5 + 0.20) * staff_space, pat, 0.96);
+				 (1.5 + 0.20) * staff_space, pat, 0.96, 1);
 	bulb_c = draw_rest_bulb (0.5 staff_space,
-				 (0.5 + 0.21) * staff_space, pat, 1.0);
+				 (0.5 + 0.21) * staff_space, pat, 1.0, 1);
 	bulb_d = draw_rest_bulb (-0.5 staff_space,
-				 (-0.5 + 0.22) * staff_space, pat, 1.04);
+				 (-0.5 + 0.22) * staff_space, pat, 1.04, 1);
 	bulb_e = draw_rest_bulb (-1.5 staff_space,
-				 (-1.5 + 0.23) * staff_space, pat, 1.08);
+				 (-1.5 + 0.23) * staff_space, pat, 1.08, 1);
 
 	fill simple_serif (z1l, z1r, 40)
 	     --- z2r
