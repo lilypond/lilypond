@@ -18,8 +18,8 @@
  */
 class Dot_column : public Item
 {
-  static int compare (Dots * const&,Dots * const&);
-  void add_dots (Dots*);
+  static int compare (Item * const&,Item * const&);
+  void add_dots (Item*);
 public:
   VIRTUAL_COPY_CONS (Score_element);
   void add_head (Rhythmic_head*);

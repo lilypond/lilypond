@@ -73,7 +73,7 @@ Note_heads_engraver::do_process_music()
 
       if (note_req_l->duration_.dots_i_)
 	{
-	  Dots * d = new Dots (get_property ("basicDotsProperties"));
+	   Item * d = new Item (get_property ("basicDotsProperties"));
 
 	  Staff_symbol_referencer_interface sd (d);
 	  sd.set_interface ();

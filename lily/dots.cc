@@ -7,35 +7,33 @@
 */
 
 #include "dots.hh"
+#include "item.hh"
 #include "molecule.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
 #include "staff-symbol-referencer.hh"
 #include "directional-element-interface.hh"
 
-Dots::Dots (SCM s)
-  : Item (s)
-{
-}
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Dots,after_line_breaking);
 
-GLUE_SCORE_ELEMENT(Dots,after_line_breaking);
 SCM
-Dots::member_after_line_breaking ()
+Dots::after_line_breaking (SCM smob)
 {
-  SCM d= get_elt_property ("dot-count");
+  Item * p = dynamic_cast<Item*> (unsmob_element (smob));
+  
+  SCM d= p->get_elt_property ("dot-count");
   if (gh_number_p (d) && gh_scm2int (d))
     {
-      if (!Directional_element_interface (this).get ())
-	Directional_element_interface (this).set (UP);
+      if (!Directional_element_interface (p).get ())
+	Directional_element_interface (p).set (UP);
 
-      Staff_symbol_referencer_interface si (this);
-      int p = int (si.position_f ());
-      if (!(p % 2))
-	si.set_position (p  + Directional_element_interface (this).get ());
+      Staff_symbol_referencer_interface si (p);
+      int pos = int (si.position_f ());
+      if (!(pos % 2))
+	si.set_position (pos  + Directional_element_interface (p).get ());
     }
 
-    return SCM_UNDEFINED;
-
+  return SCM_UNDEFINED;
 }
 
 MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Dots,brew_molecule);

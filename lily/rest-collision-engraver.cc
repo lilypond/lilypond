@@ -8,11 +8,25 @@
 
 #include "debug.hh"
 #include "rest-collision.hh"
-#include "rest-collision-engraver.hh"
+#include "engraver.hh"
 #include "collision.hh"
 #include "note-column.hh"
 
 
+class Rest_collision_engraver : public Engraver
+{
+  Item* rest_collision_p_;
+
+  Link_array<Note_column> note_column_l_arr_;
+protected:
+  virtual void acknowledge_element (Score_element_info);
+  virtual void process_acknowledged ();
+  virtual void do_pre_move_processing();
+public:
+  VIRTUAL_COPY_CONS(Translator);
+  Rest_collision_engraver();
+  
+};
 
 ADD_THIS_TRANSLATOR(Rest_collision_engraver);
 
@@ -27,11 +41,11 @@ Rest_collision_engraver::process_acknowledged ()
   if (rest_collision_p_ || note_column_l_arr_.size () < 2)
     return;
 
-  rest_collision_p_ = new Rest_collision (get_property ("basicRestCollisionProperties"));
-  
+  rest_collision_p_ = new Item (get_property ("basicRestCollisionProperties"));
+  Rest_collision (rest_collision_p_).set_interface();
   announce_element (Score_element_info (rest_collision_p_, 0));
   for (int i=0; i< note_column_l_arr_.size (); i++)
-    rest_collision_p_->add_column (note_column_l_arr_[i]);
+    Rest_collision (rest_collision_p_).add_column (note_column_l_arr_[i]);
 }
 
 void

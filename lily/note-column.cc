@@ -8,12 +8,8 @@
 #include <math.h>		// ceil
 
 #include "axis-group-interface.hh"
-#include "dot-column.hh"
 #include "note-column.hh"
-#include "beam.hh"
-#include "note-head.hh"
 #include "stem.hh"
-#include "rest.hh"
 #include "debug.hh"
 #include "paper-def.hh"
 #include "group-interface.hh"
@@ -22,9 +18,7 @@
 bool
 Note_column::rest_b () const
 {
-  SCM r = get_elt_pointer ("rests");
-
-  return gh_pair_p (r);
+  return unsmob_element (get_elt_pointer ("rest"));
 }
 
 int
@@ -41,7 +35,6 @@ Note_column::shift_compare (Note_column *const &p1, Note_column*const&p2)
 Note_column::Note_column( SCM s)
   : Item (s)
 {
-  set_elt_pointer ("rests", SCM_EOL);
   set_elt_pointer ("note-heads", SCM_EOL);  
   Axis_group_interface (this).set_interface ();
   Axis_group_interface (this).set_axes (X_AXIS, Y_AXIS);
@@ -53,18 +46,17 @@ Note_column::stem_l () const
 {
   SCM s = get_elt_pointer ("stem");
   return dynamic_cast<Stem*> (unsmob_element (s));
-
 }
 
   
 Slice
-Note_column::head_positions_interval() const
+Note_column::head_positions_interval(Score_element *me)
 {
   Slice  iv;
 
   iv.set_empty ();
 
-  SCM h = get_elt_pointer ("note-heads");
+  SCM h = me->get_elt_pointer ("note-heads");
   for (; gh_pair_p (h); h = gh_cdr (h))
     {
       Score_element *se = unsmob_element (gh_car (h));
@@ -77,20 +69,27 @@ Note_column::head_positions_interval() const
 }
 
 Direction
-Note_column::dir () const
+Note_column::static_dir (Score_element*  me)
 {
-  if (stem_l ())
-    return stem_l ()->get_direction ();
-  else if (gh_pair_p (get_elt_pointer ("note-heads")))
-    return (Direction)sign (head_positions_interval().center ());
+  Score_element *stem = unsmob_element (me->get_elt_pointer ("stem"));
+  if (dynamic_cast<Stem*> (stem))
+    return dynamic_cast<Stem*> (stem)->get_direction ();
+  else if (gh_pair_p (me->get_elt_pointer ("note-heads")))
+    return (Direction)sign (head_positions_interval (me).center ());
 
   programming_error ("Note column without heads and stem!");
   return CENTER;
 }
 
 
+Direction
+Note_column::dir () const
+{
+  return static_dir ((Score_element*) this);
+}
+
 void
-Note_column::set_stem (Stem * stem_l)
+Note_column::set_stem (Score_element * stem_l)
 {
   set_elt_pointer ("stem", stem_l->self_scm_);
 
@@ -98,20 +97,17 @@ Note_column::set_stem (Stem * stem_l)
   Axis_group_interface (this).add_element (stem_l);
 }
 
-
-
 void
-Note_column::add_head (Rhythmic_head *h)
+Note_column::add_head (Score_element *h)
 {
-  if (Rest*r=dynamic_cast<Rest *> (h))
+  if (to_boolean (h->get_elt_property ("rest-interface")))
     {
-      Pointer_group_interface gi (this, "rests");
-      gi.add_element (h);
+      this->set_elt_pointer ("rest", h->self_scm_);
     }
-  if (Note_head *nh=dynamic_cast<Note_head *> (h))
+  else if (to_boolean (h->get_elt_property ("note-head-interface")))
     {
       Pointer_group_interface gi (this, "note-heads");
-      gi.add_element (nh);
+      gi.add_element (h);
     }
   Axis_group_interface (this).add_element (h);
 }
@@ -122,106 +118,28 @@ Note_column::add_head (Rhythmic_head *h)
 void
 Note_column::translate_rests (int dy_i)
 {
-  SCM s = get_elt_pointer ("rests");
-  for (; gh_pair_p (s); s = gh_cdr (s))
+  Score_element * r = unsmob_element (get_elt_pointer ("rest"));
+  if (r)
     {
-      Score_element * se = unsmob_element (gh_car (s));
-      Staff_symbol_referencer_interface si (se);
-
-      se->translate_axis (dy_i * si.staff_space ()/2.0, Y_AXIS);
+      Staff_symbol_referencer_interface si (r);
+      r->translate_axis (dy_i * si.staff_space ()/2.0, Y_AXIS);
     }
 }
 
 
 void
-Note_column::set_dotcol (Dot_column *d)
+Note_column::set_dotcol (Score_element *d)
 {
   Axis_group_interface (this).add_element (d);
 }
 
-/*
-  [TODO]
-  handle rest under beam (do_post: beams are calculated now)
-  what about combination of collisions and rest under beam.
-
-  Should lookup
-    
-    rest -> stem -> beam -> interpolate_y_position ()
-*/
-
-GLUE_SCORE_ELEMENT(Note_column,after_line_breaking);
-SCM
-Note_column::member_after_line_breaking ()
-{
-  if (!stem_l () || !rest_b ())
-    return SCM_UNDEFINED;
-
-  Beam * b = stem_l ()->beam_l ();
-  if (!b || !b->visible_stem_count ())
-    return SCM_UNDEFINED;
-  
-  /* ugh. Should be done by beam.
-     (what? should be done --jcn)
-    scary too?: height is calculated during post_processing
-   */
-  Real beam_dy = 0;
-  Real beam_y = 0;
-
-  SCM s = b->get_elt_property ("height");
-  if (gh_number_p (s))
-    beam_dy = gh_scm2double (s);
-  
-  s = b->get_elt_property ("y-position");
-  if (gh_number_p (s))
-    beam_y = gh_scm2double (s);
-
-  
-  Real x0 = b->first_visible_stem ()->relative_coordinate (0, X_AXIS);
-  Real dx = b->last_visible_stem ()->relative_coordinate (0, X_AXIS) - x0;
-  Real dydx = beam_dy && dx ? beam_dy/dx : 0;
-
-  Direction d = stem_l ()->get_direction ();
-  Real beamy = (stem_l ()->relative_coordinate (0, X_AXIS) - x0) * dydx + beam_y;
-
-  s = get_elt_pointer ("rests");
-  Score_element * se = unsmob_element (gh_car (s));
-  Staff_symbol_referencer_interface si (se);
-
-  Real staff_space = si.staff_space ();      
-  Real rest_dim = extent (Y_AXIS)[d]*2.0  /staff_space ;
-
-  Real minimum_dist
-    = paper_l ()->get_var ("restcollision_minimum_beamdist") ;
-  Real dist =
-    minimum_dist +  -d  * (beamy - rest_dim) >? 0;
-
-  int stafflines = si.line_count ();
-
-  // move discretely by half spaces.
-  int discrete_dist = int (ceil (dist ));
-
-  // move by whole spaces inside the staff.
-  if (discrete_dist < stafflines+1)
-    discrete_dist = int (ceil (discrete_dist / 2.0)* 2.0);
-
-  translate_rests (-d *  discrete_dist);
-
-  return SCM_UNDEFINED;
-}
 
 
 Interval
 Note_column::rest_dim () const
 {
-  Interval restdim;
-  SCM s = get_elt_pointer ("rests");
-  for (; gh_pair_p (s); s = gh_cdr (s))
-    {
-      Score_element * sc = unsmob_element ( gh_car (s));
-      restdim.unite (sc->extent (Y_AXIS));
-    }
-  
-  return restdim;
+  Score_element * r = unsmob_element (get_elt_pointer ("rest"));
+  return r->extent (Y_AXIS);
 }
 
 Note_head*

@@ -1,5 +1,35 @@
-1.3.64.uu1
+1.3.65.mb1
 ==========
+
+* Corrected text sizes in paper*.ly
+
+
+1.3.65.uu1
+==========
+
+* Dots, Collision, Rest_collision removed as separate Score_element type.
+
+* Stem and Note_column accept only one rest.
+
+* Use offset callback in Stem to resolve rest/beam collisions.
+
+* Put the value of new  local key signature (accidentals) back into a property.
+
+* Set molecule-callback for notename item.
+
+1.3.65.jcn2
+===========
+
+* Added some comments to new slur code.
+
+* Removed some ugly interstaff slur code, interstaff slurs at line-break
+  are still broken.
+
+* Slur bugfix: 16th beams are also beams.
+
+
+1.3.65
+======
 
 * Bugfix: translate volta spanner at start of line.
 
@@ -819,7 +849,7 @@ Side_position_interface, Score_element, Item and Spanner
   generic-property.scm.  Similar fixes for Stem, Tie, etc.
 
 * Added a Text_engraver to GraceContext.  Maybe it was removed on
-  purpose: scripst on grace notes seem broken, they appear on the
+  purpose: scripts on grace notes seem broken, they appear on the
   main note.
 
 * Bugfix: volume effect of (de)crescendi was sometimes wrong way round.
@@ -854,7 +884,7 @@ backend
 * Fixed dimensions (more x-y interchanges) of brace, bracket and
   volta-spanner.
 
-* Bit half-baken fix in to get similar vertical placement of orphaned vs.
+* Half-assed fix to get similar vertical placement of orphaned vs.
   line-spanned dynamic elements.
 
 * Added property bracketCollapseHeight: the minimal size of a staff bracket
@@ -1032,7 +1062,7 @@ into do_process_music.
 ===========
 
 * Lily now also performs crescendi and decrescendi in MIDI output:
-  Span_dynamic_performer (bit scrappy).
+  Span_dynamic_performer in a slightly crappy way.
 
 * Added preliminary support for crescendi/decrescendi other than `hairpins',
   eg: `cresc. poco `a poco -- -- --'

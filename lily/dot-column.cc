@@ -18,7 +18,7 @@
 
 // todo: dots and elements duplicate each other.
 void
-Dot_column::add_dots (Dots *d)
+Dot_column::add_dots (Item *d)
 {
   Pointer_group_interface gi (this, "dots");
   gi.add_element (d);
@@ -39,7 +39,7 @@ Dot_column::add_head (Rhythmic_head *r)
 
 
 int
-Dot_column::compare (Dots * const &d1, Dots * const &d2)
+Dot_column::compare (Item * const &d1, Item * const &d2)
 {
   Staff_symbol_referencer_interface s1(d1);
   Staff_symbol_referencer_interface s2(d2);  
@@ -79,7 +79,7 @@ GLUE_SCORE_ELEMENT(Dot_column,after_line_breaking);
 SCM
 Dot_column::member_after_line_breaking ()
 {
-  Link_array<Dots> dots = Pointer_group_interface__extract_elements (this, (Dots*)0 , "dots"); 
+  Link_array<Item> dots = Pointer_group_interface__extract_elements (this, (Item*)0 , "dots"); 
   dots.sort (Dot_column::compare);
   
   if (dots.size () < 2)

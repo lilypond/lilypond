@@ -456,7 +456,6 @@ ScoreContext = \translator {
 	)
 	basicCollisionProperties = #`(
 		(axes 0 1)
-		(before-line-breaking-callback . ,Collision::before_line_breaking)
 	)
 	basicCrescendoProperties = #`(
 		(molecule-callback . ,Crescendo::brew_molecule)
@@ -467,7 +466,8 @@ ScoreContext = \translator {
 	basicDotsProperties = #`(
 		(molecule-callback . ,Dots::brew_molecule)
 		(after-line-breaking-callback . ,Dots::after_line_breaking)
-		(dot-count . 1) 
+		(dot-count . 1)
+		(dots-interface . #t)
 	)
 	basicDynamicLineSpannerProperties = #`(
 		(dynamic-interface . #t)
@@ -531,9 +531,13 @@ ScoreContext = \translator {
 		(axes 0 1)
 	)
 	basicNoteHeadProperties = #`(
+		(note-head-interface . #t)
 		(molecule-callback . ,Note_head::brew_molecule)
 		(before-line-breaking-callback . ,Note_head::before_line_breaking)
 		(after-line-breaking-callback . ,Rhythmic_head::after_line_breaking)
+	)
+	basicNoteNameProperties = #`(
+		(molecule-callback . ,Text_item::brew_molecule)
 	)
 	basicOctavateEightProperties  = #`(
 		(self-alignment-X . 0)
@@ -550,13 +554,15 @@ ScoreContext = \translator {
 				
 	)
 	basicTextProperties = #`( )
-	basicRestProperties = #`( 
+	basicRestProperties = #`(
+		(rest-interface . #t)	
 		(molecule-callback . ,Rest::brew_molecule)
 		(after-line-breaking-callback . ,Rhythmic_head::after_line_breaking)
+		(minimum-beam-collision-distance . 1.5)
 	)
 	
 	basicRestCollisionProperties = #`(
-		(after-line-breaking-callback . ,Rest_collision::after_line_breaking)
+		(minimum-distance . 0.75)
 	)
 	basicScriptProperties	 = #`(
 		(molecule-callback . ,Script::brew_molecule)

@@ -11,41 +11,46 @@
 #include "note-head.hh"
 #include "paper-def.hh"
 #include "axis-group-interface.hh"
-
-
-Collision::Collision(SCM s )
-  : Item (s)
-{
-  Axis_group_interface (this).set_interface ();
-  Axis_group_interface (this).set_axes (X_AXIS, Y_AXIS);
-}
+#include "item.hh"
 
 void
 Collision::add_column (Note_column* ncol_l)
 {
-  Axis_group_interface (this).add_element (ncol_l);
-  add_dependency (ncol_l);
+  ncol_l->add_offset_callback (force_shift_callback, X_AXIS);
+  Axis_group_interface (elt_l_).add_element (ncol_l);
+  elt_l_->add_dependency (ncol_l);
 }
 
-GLUE_SCORE_ELEMENT(Collision,before_line_breaking);
-SCM
-Collision::member_before_line_breaking ()
+Real
+Collision::force_shift_callback (Score_element const * c, Axis a)
 {
-  do_shifts();
-      return SCM_UNDEFINED;
+  assert (a == X_AXIS);
+  
+  Score_element * me = c->parent_l (a);
+  /*
+    ugh. the way DONE is done is not clean
+   */
+  if (!unsmob_element (me->get_elt_pointer ("done")))
+    {
+      me->set_elt_pointer ("done", me->self_scm_);
+      do_shifts (me);
+    }
+  
+  return 0.0;
 }
 
 /*
   TODO: make callback of this.
  */
 void
-Collision::do_shifts()
+Collision::do_shifts(Score_element* me)
 {
-  SCM autos (automatic_shift ());
-  SCM hand (forced_shift ());
+  SCM autos (automatic_shift (me));
+  SCM hand (forced_shift (me));
+  
   Link_array<Score_element> done;
   
-  Real wid = paper_l ()->get_var ("collision_note_width");
+  Real wid = me->paper_l ()->get_var ("collision_note_width"); // elt prop
   for (; gh_pair_p (hand); hand =gh_cdr (hand))
     {
       Score_element * s = unsmob_element (gh_caar (hand));
@@ -70,13 +75,13 @@ Collision::do_shifts()
   This should be put into Scheme.  
   */
 SCM
-Collision::automatic_shift ()
+Collision::automatic_shift (Score_element *me)
 {
   Drul_array<Link_array<Note_column> > clash_groups;
   Drul_array<Array<int> > shifts;
   SCM  tups = SCM_EOL;
 
-  SCM s = get_elt_pointer ("elements");
+  SCM s = me->get_elt_pointer ("elements");
   for (; gh_pair_p (s); s = gh_cdr (s))
     {
       SCM car = gh_car (s);
@@ -124,7 +129,7 @@ Collision::automatic_shift ()
     {
       for (int i=0; i < clash_groups[d].size (); i++)
 	{
-	  Slice s(clash_groups[d][i]->head_positions_interval ());
+	  Slice s(Note_column::head_positions_interval (clash_groups[d][i]));
 	  s[LEFT] --;
 	  s[RIGHT]++;
 	  extents[d].push (s);
@@ -162,15 +167,15 @@ Collision::automatic_shift ()
       Note_head * nu_l= cu_l->first_head();
       Note_head * nd_l = cd_l->first_head();
       
-      int downpos = cd_l->head_positions_interval ()[BIGGER];
-      int uppos = cu_l->head_positions_interval ()[SMALLER];      
+      int downpos = Note_column::head_positions_interval (cd_l)[BIGGER];
+      int uppos = Note_column::head_positions_interval (cu_l)[SMALLER];      
       
       bool merge  =
 	downpos == uppos
 	&& nu_l->balltype_i () == nd_l->balltype_i ();
 
 
-      if (!to_boolean (get_elt_property ("merge-differently-dotted")))
+      if (!to_boolean (me->get_elt_property ("merge-differently-dotted")))
 	merge = merge && nu_l->dot_count () == nd_l->dot_count ();
 
       /*
@@ -199,11 +204,11 @@ Collision::automatic_shift ()
 
 
 SCM
-Collision::forced_shift ()
+Collision::forced_shift (Score_element *me)
 {
   SCM tups = SCM_EOL;
   
-  SCM s = get_elt_pointer ("elements");
+  SCM s = me->get_elt_pointer ("elements");
   for (; gh_pair_p (s); s = gh_cdr (s))
     {
       Score_element * se = unsmob_element (gh_car (s));
@@ -220,3 +225,7 @@ Collision::forced_shift ()
 
 
 
+Collision::Collision (Score_element* c)
+{
+  elt_l_ = c;
+}

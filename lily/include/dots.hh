@@ -10,7 +10,8 @@
 #ifndef DOTS_HH
 #define DOTS_HH
 
-#include "item.hh"
+#include "lily-proto.hh"
+#include "lily-guile.hh"
 
 
 /**
@@ -23,15 +24,11 @@
 
   
   */
-class Dots :  public Item
+class Dots			// interface
 {
 public:
-  SCM member_brew_molecule () const;
-  SCM member_after_line_breaking ();
   static SCM after_line_breaking (SCM);
   static SCM brew_molecule (SCM);
-
-  Dots (SCM);
 };
 
 #endif // DOTS_HH

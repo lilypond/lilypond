@@ -1,5 +1,5 @@
 /*   
-  afm2.cc --  implement Adobe_font_metric
+  afm.cc --  implement Adobe_font_metric
   
   source file of the Flower Library
   

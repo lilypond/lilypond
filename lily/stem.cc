@@ -205,20 +205,23 @@ Stem::add_head (Rhythmic_head *n)
   n->set_elt_pointer ("stem", this->self_scm_);
   n->add_dependency (this);
 
-  Pointer_group_interface gi (this);
   if (Note_head *nh = dynamic_cast<Note_head *> (n))
-    gi.name_ = "heads";
-  else
-    gi.name_ = "rests";
+    {
+      Pointer_group_interface gi (this);
+      gi.name_ = "heads";
 
-  gi.add_element (n);
+      gi.add_element (n);
+    }
+  else
+    {
+      n->set_elt_pointer ("rest", n->self_scm_);
+    }
 }
 
 Stem::Stem (SCM s)
   : Item (s)
 {
   set_elt_pointer ("heads", SCM_EOL);
-  set_elt_pointer ("rests", SCM_EOL);
 
   add_offset_callback ( &Stem::off_callback, X_AXIS);
 }

@@ -15,7 +15,7 @@
 class Rest_engraver : public Engraver
 {
   Rest_req *rest_req_l_;
-  Dots * dot_p_;
+  Item * dot_p_;
   Rest * rest_p_;
 protected:
   virtual bool do_try_music (Music *);

@@ -7,32 +7,52 @@
 */
 #include <math.h>		// ceil.
 
-#include "beam.hh"
 #include "debug.hh"
 #include "rest-collision.hh"
 #include "note-column.hh"
 #include "stem.hh"
 #include "note-head.hh"
-#include "collision.hh"
 #include "paper-def.hh"
 #include "rest.hh"
 #include "group-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "duration.hh"
 
-void
-Rest_collision::add_column (Note_column *nc_l)
+Real
+Rest_collision::force_shift_callback (Score_element const*them, Axis a)
 {
-  add_dependency (nc_l);
-  Pointer_group_interface gi (this);  
-  if (nc_l->rest_b ())
-    gi.name_ = "rests";
-  else
-    gi.name_ = "notes";
+  assert (a == Y_AXIS);
+
+  Score_element * rc = unsmob_element (them->get_elt_pointer ("rest-collision"));
+
+  if (rc)
+    {
+      /*
+	Done: destruct pointers, so we do the shift only once.
+      */
+      SCM elts = rc->get_elt_pointer ("elements");
+      rc->set_elt_pointer ("elements", SCM_EOL);
+
+      do_shift (rc, elts);
+    }
   
-  gi.add_element (nc_l);
+  return 0.0;
 }
 
+void
+Rest_collision::add_column (Note_column *p)
+{
+  elt_l_->add_dependency (p);
+  Pointer_group_interface gi (elt_l_);  
+  gi.add_element (p);
+
+  p->add_offset_callback (&Rest_collision::force_shift_callback, Y_AXIS);
+  p->set_elt_pointer ("rest-collision", elt_l_->self_scm_);
+}
+
+/*
+  these 3 have to go, because they're unnecessary complications.
+ */
 static Duration
 to_duration (int type, int dots)
 {
@@ -42,6 +62,11 @@ to_duration (int type, int dots)
   return d;
 }
 
+/*
+  UGH
+
+  elt_l_ should be "duration" independent
+ */
 static Moment
 rhythmic_head2mom (Rhythmic_head* r)
 {
@@ -52,23 +77,32 @@ rhythmic_head2mom (Rhythmic_head* r)
   ugh
  */
 static Rhythmic_head*
-col2rhythmic_head (Note_column* c)
+col2rhythmic_head (Score_element* c)
 {
-  SCM s = c->get_elt_pointer ("rests");
-  assert (gh_pair_p (s));
-  Score_element* e = unsmob_element (gh_car (s));
-  return dynamic_cast<Rhythmic_head*> (e);
+  return dynamic_cast<Rhythmic_head*> (unsmob_element (c->get_elt_pointer ("rest")));
 }
 
-GLUE_SCORE_ELEMENT(Rest_collision,after_line_breaking);
 
+/*
+  TODO: fixme, fucks up if called twice on the same set of rests.
+ */
 SCM
-Rest_collision::member_after_line_breaking ()
+Rest_collision::do_shift (Score_element *me, SCM elts)
 {
-  Link_array<Note_column> rest_l_arr =
-    Pointer_group_interface__extract_elements (this, (Note_column*) 0, "rests");
-  Link_array<Note_column> ncol_l_arr =
-    Pointer_group_interface__extract_elements (this, (Note_column*) 0, "notes");
+  /*
+    ugh. -> score  elt type
+   */
+  Link_array<Note_column> rests;
+  Link_array<Note_column> notes;
+
+  for (SCM s = elts; gh_pair_p (s); s = gh_cdr (s))
+    {
+      Score_element * e = unsmob_element (gh_car (s));
+      if (e && unsmob_element (e->get_elt_pointer ("rest")))
+	rests.push (dynamic_cast<Note_column*> (e));
+      else
+	notes.push (dynamic_cast<Note_column*> (e));
+    }
 
   
   /* 
@@ -81,21 +115,21 @@ Rest_collision::member_after_line_breaking ()
    */
 
   // no rests to collide
-  if (!rest_l_arr.size())
+  if (!rests.size())
     return SCM_UNDEFINED;
 
   // no partners to collide with
-  if (rest_l_arr.size() + ncol_l_arr.size () < 2)
+  if (rests.size() + notes.size () < 2)
     return SCM_UNDEFINED;
 
   // meisjes met meisjes
-  if (!ncol_l_arr.size()) 
+  if (!notes.size()) 
     {
-      Moment m = rhythmic_head2mom (col2rhythmic_head (rest_l_arr[0]));
+      Moment m = rhythmic_head2mom (col2rhythmic_head (rests[0]));
       int i = 1;
-      for (; i < rest_l_arr.size (); i++)
+      for (; i < rests.size (); i++)
 	{
-	  Moment me = rhythmic_head2mom (col2rhythmic_head (rest_l_arr[i]));
+	  Moment me = rhythmic_head2mom (col2rhythmic_head (rests[i]));
 	  if (me != m)
 	    break;
 	}
@@ -107,17 +141,17 @@ Rest_collision::member_after_line_breaking ()
 	(urg: all 3 of them, currently).
        */
       int display_count;
-      SCM s = get_elt_property ("maximum-rest-count");
-      if (i == rest_l_arr.size ()
-	  && gh_number_p (s) && gh_scm2int (s) < rest_l_arr.size ())
+      SCM s = me->get_elt_property ("maximum-rest-count");
+      if (i == rests.size ()
+	  && gh_number_p (s) && gh_scm2int (s) < rests.size ())
 	{
 	  display_count = gh_scm2int (s);
 	  for (; i > display_count; i--)
-	    col2rhythmic_head (rest_l_arr[i-1])
+	    col2rhythmic_head (rests[i-1])
 	      ->set_elt_property ("molecule-callback", SCM_BOOL_T);
 	}
       else
-	display_count = rest_l_arr.size ();
+	display_count = rests.size ();
       
       /*
 	UGH.  Should get dims from table.  Should have minimum dist.
@@ -125,47 +159,45 @@ Rest_collision::member_after_line_breaking ()
       int dy = display_count > 2 ? 6 : 4;
       if (display_count > 1)
 	{
-	  rest_l_arr[0]->translate_rests (dy);	
-	  rest_l_arr[1]->translate_rests (-dy);
+	  rests[0]->translate_rests (dy);	
+	  rests[1]->translate_rests (-dy);
 	}
     }
   // meisjes met jongetjes
   else 
     {
-      if (rest_l_arr.size () > 1)
+      if (rests.size () > 1)
 	{
 	  warning (_("too many colliding rests"));
 	}
-      if (ncol_l_arr.size () > 1)
+      if (notes.size () > 1)
 	{
 	  warning (_("too many notes for rest collision"));
 	}
-      Note_column * rcol = rest_l_arr[0];
+      Note_column * rcol = rests[0];
 
       // try to be opposite of noteheads. 
-      Direction dir = - ncol_l_arr[0]->dir();
+      Direction dir = - notes[0]->dir();
 
       Interval restdim = rcol->rest_dim ();
       if (restdim.empty_b ())
 	return SCM_UNDEFINED;
       
       // staff ref'd?
-      Real staff_space = paper_l()->get_var ("interline");
+      Real staff_space = me->paper_l()->get_var ("interline");
 
 	/* FIXME
-	  staff_space =  rcol->rest_l_arr[0]->staff_space ();
+	  staff_space =  rcol->rests[0]->staff_space ();
 	*/
-      Real half_staff_space_f = staff_space/2;
-      Real minimum_dist = paper_l ()->get_var ("restcollision_minimum_dist")
-	* half_staff_space_f;
+      Real minimum_dist = gh_scm2double (me->get_elt_property ("minimum-distance")) * staff_space;
       
       /*
 	assumption: ref points are the same. 
        */
       Interval notedim;
-      for (int i = 0; i < ncol_l_arr.size(); i++) 
+      for (int i = 0; i < notes.size(); i++) 
 	{
-	  notedim.unite (ncol_l_arr[i]->extent (Y_AXIS));
+	  notedim.unite (notes[i]->extent (Y_AXIS));
 	}
 
       Interval inter (notedim);
@@ -176,8 +208,8 @@ Rest_collision::member_after_line_breaking ()
 
 
       // FIXME
-      //int stafflines = 5; // rcol->rest_l_arr[0]->line_count;
-      int stafflines = Staff_symbol_referencer_interface (this).line_count ();
+      //int stafflines = 5; // rcol->rests[0]->line_count;
+      int stafflines = Staff_symbol_referencer_interface (me).line_count ();
       // hurg?
       stafflines = stafflines != 0 ? stafflines : 5;
       
@@ -193,13 +225,15 @@ Rest_collision::member_after_line_breaking ()
   return SCM_UNDEFINED;
 }
 
-
-Rest_collision::Rest_collision(SCM s)
-  : Item (s)
+void
+Rest_collision::set_interface ()
 {
-  set_elt_pointer ("rests", SCM_EOL);
-  set_elt_pointer ("notes", SCM_EOL);
-  set_extent_callback (0, X_AXIS);
-  set_extent_callback (0, Y_AXIS);
+  elt_l_->set_extent_callback (0, X_AXIS);
+  elt_l_->set_extent_callback (0, Y_AXIS);
+  elt_l_->set_elt_pointer ("elements", SCM_EOL);
 }
 
+Rest_collision::Rest_collision (Score_element* c)
+{
+  elt_l_ = c;
+}
