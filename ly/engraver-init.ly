@@ -607,6 +607,13 @@ TabStaffContext = \translator {
       \denies "Voice"
 
       \description "Context for generating tablature. [DOCME]"
+
+%{
+      TODO: this context should use a special staff_symbol engraver that
+      takes the line count out of the stringTunings property.
+
+%}
+      
       
       \accepts "TabVoice"
       
@@ -618,9 +625,9 @@ TabStaffContext = \translator {
       Stem \override #'avoid-note-head = ##t
       
       % No accidental in tablature !
-      \remove Accidental_engraver
-      \remove Key_engraver
-
+      \remove "Accidental_engraver"
+      \remove "Key_engraver"
+      \remove "String_number_engraver"
       % Special "TAB" clef
       clefGlyph = #"clefs-tab"
       clefPosition = #0
