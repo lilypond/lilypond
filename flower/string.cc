@@ -55,9 +55,9 @@ String::operator = (String const&source)
 }
 
 
-String::String (Byte const* byte_l, int length_i)
+String::String (Byte const* byte_l, int len_i)
 {   
-  strh_.set (byte_l, length_i);    
+  strh_.set (byte_l, len_i);
 }
 
 /**
@@ -195,8 +195,8 @@ int
 String::index_last_i (char const* string) const // UGK!
 {
   assert (false);		// broken
-  int length = strlen (string); // ugrh
-  if (!length_i () || !length) 
+  int len = strlen (string); // ugrh
+  if (!length_i () || !len) 
     return -1;
   
   int next_i = index_i (string);
@@ -207,7 +207,7 @@ String::index_last_i (char const* string) const // UGK!
   while (next_i >= 0) 
     {
       index_i += next_i;
-      next_i = right_str (length_i () - index_i - length).index_i (string );
+      next_i = right_str (length_i () - index_i - len).index_i (string );
     }
   return index_i;
 }
