@@ -23,6 +23,12 @@ public:
   Molecule bass_mol;
 };
 
+/**
+   elt_properties:
+   pitches: list of musical-pitch
+   inversion(optional): musical-pitch
+   bass(optional): musical-pitch
+ */
 class Chord_name : public Item
 {
 public:
@@ -32,14 +38,6 @@ public:
   Molecule pitch2molecule (Musical_pitch p) const;
   bool user_chord_name (Array<Musical_pitch> pitch_arr, Chord_mol* name_p) const;
   void banter (Array<Musical_pitch> pitch_arr, Chord_mol* name_p) const;
-
-  Chord_name (Chord const& c);
-
-  /*
-    ugh. Junkme, I must be elt property.
-   */
-  
-  Chord chord_;
 
 protected:
   virtual Molecule* do_brew_molecule_p () const;
