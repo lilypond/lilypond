@@ -16,9 +16,7 @@
 #include "stencil.hh"
 #include "warn.hh"
 
-
 #include "ly-smobs.icc"
-
 
 SCM
 Stencil::smobbed_copy () const

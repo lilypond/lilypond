@@ -1,5 +1,8 @@
 2004-03-12  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/part-combiner.scm (make-autochange-music): switch rests
+	before switched notes too.
+
 	* lily/figured-bass-engraver.cc (process_music): change calling
 	convention.
 
