@@ -3984,8 +3984,8 @@ with figures designating the chief @aref{interval}s and
     \key es \major
     es8 c d bes c as bes16 as g f | es4
   }
-  \context LyricsVoiceVoice \lyrics {
-    \property LyricsVoiceVoice . VerticalAlign \override #'threshold = #'(6 . 12)
+  \context LyricsVoice \lyrics {
+    \property LyricsVoice . VerticalAlign \override #'threshold = #'(6 . 12)
     << { "" "6" "" "4" "" "6" "" "" "6" "4" }
       { "" ""  "" "2" "" ""  "" "" ""  "2" } >>
   }

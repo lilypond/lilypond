@@ -2909,7 +2909,7 @@ mus = \drums  { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
             Stem \set #'transparent =  ##t
             Stem \set #'Y-extent-callback =  ##f
         } \mus
-        \context LyricsVoiceVoice \nam 
+        \context LyricsVoice \nam 
     >>
 }
 @end lilypond
@@ -3368,7 +3368,7 @@ The definition of lyrics mode is too complex.
 
 Lyrics are printed by interpreting them in a @internalsref{LyricsVoice} context:
 @example
- \context LyricsVoiceVoice \lyrics @dots{}
+ \context LyricsVoice \lyrics @dots{}
 @end example
 
 @cindex automatic syllable durations
@@ -3394,9 +3394,9 @@ For different or more complex orderings, the best way is to setup the
 hierarchy of staves and lyrics first, e.g.
 @example
 \context ChoirStaff \notes <<
-  \context LyricsVoiceVoice = sopranoLyrics @{ s1 @}
+  \context LyricsVoice = sopranoLyrics @{ s1 @}
   \context Voice = soprano @{ @emph{music} @}
-  \context LyricsVoiceVoice = tenor @{ s1 @}
+  \context LyricsVoice = tenor @{ s1 @}
   \context Voice = tenorLyrics @{ @emph{music} @}
 >>
 @end example
@@ -3503,9 +3503,9 @@ that identity followed by a dash.  In the preceding example, the
 @internalsref{Voice} identity is @code{duet}, so the identities of the
 @internalsref{LyricsVoice}s are marked @code{duet-1} and @code{duet-2}:
 @example
-  \context LyricsVoiceVoice = "duet-1" @{
+  \context LyricsVoice = "duet-1" @{
     Hi, my name is bert. @}
-  \context LyricsVoiceVoice = "duet-2" @{
+  \context LyricsVoice = "duet-2" @{
     Ooooo, ch\'e -- ri, je t'aime. @}
 @end example
 
