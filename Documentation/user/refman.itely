@@ -4315,6 +4315,14 @@ adding fermatas:
   R2.^\fermataMarkup
 @end lilypond
 
+If you want to have a text on the left end of a multi-measure rest,
+attach the text to a zero-length skip note, i.e.
+
+@example
+  s1*0^"Allegro"
+  R1*4 
+@end example
+
 
 @cindex whole rests for a full measure 
 

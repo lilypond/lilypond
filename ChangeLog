@@ -1,5 +1,8 @@
 2003-09-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/volta-engraver.cc (staff_eligible): new function.
+	(stop_translation_timestep): kill off spanners if not eligible.
+
 	* VERSION (PATCH_LEVEL): release 1.9.9
 
 	* input/regression/beam-quanting-32nd.ly (texidoc): new file
