@@ -6,7 +6,7 @@ copyright =	 "public domain";
 TestedFeatures =	 "This file tests various spacings";
 }
 
-\version "0.1.7";
+\version "0.1.8";
 
 multipart = \melodic{ 
     \multi 3 < 

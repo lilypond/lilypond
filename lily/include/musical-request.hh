@@ -37,6 +37,7 @@ public:
   virtual Dynamic_req* dynamic() { return 0; }
   virtual Absolute_dynamic_req * absdynamic() { return 0; }
   virtual Tie_req * tie() { return 0; }
+  virtual Plet_req* plet() { return 0; }
   virtual Span_dynamic_req * span_dynamic() { return 0; }
   virtual Abbreviation_req* abbrev() { return 0; }
   REQUESTMETHODS(Musical_req, musical);
@@ -174,12 +175,9 @@ public:
   
 };
 
-/** Start / stop a beam at this note.  if #nplet# is set, the staff
-will try to put an appropriate number over the beam */
+/** Start / stop a beam at this note */
 class Beam_req  : public Span_req  {
 public:
-  int nplet;
-
   /* *************** */
   REQUESTMETHODS(Beam_req,beam);
 
@@ -211,6 +209,16 @@ class Slur_req  : public Span_req  {
 public:
   REQUESTMETHODS(Slur_req,slur);
 
+};
+
+/// a plet (bracket with) number
+class Plet_req : public Span_req  {
+public:
+  int plet_i_;
+
+  REQUESTMETHODS(Plet_req,plet);
+
+  Plet_req ();
 };
 
 class Musical_script_req : public Musical_req,  public Script_req {

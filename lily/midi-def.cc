@@ -53,7 +53,7 @@ void
 Midi_def::set_tempo (Moment one_beat_mom, int beats_per_minute_i)
 {
   Moment beats_per_second = Moment (beats_per_minute_i) / Moment (60);
-  whole_in_seconds_mom_ = 1/(beats_per_second * one_beat_mom);
+  whole_in_seconds_mom_ = Moment(1)/Moment(beats_per_second * one_beat_mom);
 }
 
 void

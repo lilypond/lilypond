@@ -227,7 +227,7 @@ Lots of them.  See F<TODO> and F<BUGS>
 
 =over 4
 
-=item lilygut
+=item internals
 
 On technical details of LilyPond
 

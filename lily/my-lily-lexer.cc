@@ -48,7 +48,6 @@ static Keyword_ent the_key_tab[]={
   {"output", OUTPUT},
   {"partial", PARTIAL},
   {"paper", PAPER},
-  {"plet", PLET},
   {"property", PROPERTY},
   {"pt", PT_T},
   {"score", SCORE},

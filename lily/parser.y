@@ -12,7 +12,7 @@
 #include <iostream.h>
 
 // mmm
-#define MUDELA_VERSION "0.1.7"
+#define MUDELA_VERSION "0.1.8"
 
 #include "scalar.hh"
 #include "translation-property.hh"
@@ -113,6 +113,8 @@ yylex (YYSTYPE *s,  void * v_l)
 
 %token ALIAS
 %token BAR
+%token BEAMPLET
+%token MAEBTELP
 %token CADENZA
 %token CLEAR
 %token CLEF
@@ -141,6 +143,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token PAPER
 %token PARTIAL
 %token PLET
+%token TELP
 %token PT_T
 %token SCORE
 %token SCRIPT
@@ -189,9 +192,9 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <outputdef> output_def
 %type <header> 	mudela_header mudela_header_body
 %type <box>	box
-%type <c>	open_request_parens close_request_parens
+%type <i>	open_request_parens close_request_parens
 %type <c>	open_abbrev_parens
-%type <c>	open_plet_parens close_plet_parens
+%type <i>	open_plet_parens close_plet_parens
 %type <music>	simple_element music_elt full_element lyrics_elt command_elt
 %type <i>	abbrev_type
 %type <i>	int
@@ -217,7 +220,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <real>	dim real
 %type <real>	unit
 %type <request> abbrev_command_req
-%type <request>	post_request pre_request command_req verbose_command_req
+%type <request>	post_request command_req verbose_command_req
 %type <request>	script_req  dynamic_req
 %type <score>	score_block score_body
 %type <script>	script_definition script_body mudela_script gen_script_def
@@ -737,15 +740,19 @@ post_requests:
 		$2->set_spot (THIS->here_input ());
 		THIS->post_reqs.push ($2);
 	}
+	| post_requests close_request_parens	{
+		Array<Request*>& r = *THIS->get_parens_request ($2);
+		for (int i = 0; i < r.size (); i++ )
+			r[i]->set_spot (THIS->here_input ());
+		THIS->post_reqs.concat (r);
+		delete &r;
+	}
 	;
 
 
 post_request:
 	POST_REQUEST_IDENTIFIER	{
 		$$ = (Request*)$1->request ();
-	}
-	|close_request_parens	{
-		$$ = THIS->get_parens_request ($1);
 	}
 	| script_req
 	| dynamic_req
@@ -820,7 +827,17 @@ dynamic_req:
 
 close_plet_parens:
 	']' INT '/' INT {
-		$$ = ']';
+		$$ = MAEBTELP;
+		THIS->plet_.type_i_ = $4;
+		THIS->plet_.iso_i_ = $2;
+	}
+	| TELP {
+		$$ = TELP;
+		THIS->plet_.type_i_ = 1;
+		THIS->plet_.iso_i_ = 1;
+	}
+	| TELP INT '/' INT {
+		$$ = TELP;
 		THIS->plet_.type_i_ = $4;
 		THIS->plet_.iso_i_ = $2;
 	}
@@ -836,14 +853,13 @@ close_request_parens:
 	| ']'	{
 		$$ = ']';
 	}
-	| close_plet_parens {
-		$$ = ']';
-	}
 	| E_SMALLER {
 		$$ = '<';
 	}
 	| E_BIGGER {
 		$$ = '>';
+	}
+	| close_plet_parens {
 	}
 	;
 
@@ -861,7 +877,12 @@ open_abbrev_parens:
 
 open_plet_parens:
 	'[' INT '/' INT {
-		$$ = '[';
+		$$ = BEAMPLET;
+		THIS->plet_.type_i_ = $4;
+		THIS->plet_.iso_i_ = $2;
+	}
+	| PLET INT '/' INT {
+		$$ = PLET;
 		THIS->plet_.type_i_ = $4;
 		THIS->plet_.iso_i_ = $2;
 	}
@@ -956,24 +977,19 @@ script_dir:
 	;
 
 pre_requests:
-	| pre_requests pre_request {
-		THIS->pre_reqs.push ($2);
-		$2->set_spot (THIS->here_input ());
+	{
 	}
-	;
-
-pre_request:
-	open_request_parens	{
-		$$ = THIS->get_parens_request ($1);
+	| pre_requests open_request_parens {
+		Array<Request*>& r = *THIS->get_parens_request ($2);
+		for (int i = 0; i < r.size (); i++ )
+			r[i]->set_spot (THIS->here_input ());
+		THIS->pre_reqs.concat (r);
+		delete &r;
 	}
 	;
 
 voice_command:
-	PLET	 INT '/' INT {
-		THIS->plet_.type_i_ = $4;
-		THIS->plet_.iso_i_ = $2;
-	}
-	| DURATION STRING {
+	DURATION STRING {
 		THIS->set_duration_mode (*$2);
 		delete $2;
 	}

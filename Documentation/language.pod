@@ -15,11 +15,7 @@ take out an old version of lilypond]
 
 =head1 Decisions (Sat 1997-3-15, dommelpijpje no21)
 
-
-
-
 	\extract{ \from 2:3*4 \to 5 oboe }
-
 
 =head1 THOUGHTS
 

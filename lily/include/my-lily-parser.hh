@@ -66,7 +66,7 @@ public:
   void parser_error (String);
   void clear_notenames();
 
-  Request* get_parens_request (char c);
+  Array<Request*>* get_parens_request (int t);
     
   void set_debug();
   void set_yydebug (bool);

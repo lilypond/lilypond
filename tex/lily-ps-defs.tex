@@ -97,6 +97,26 @@ def
  /lily_distance {
         1 copy mul exch 1 copy mul add sqrt
  } bind def
+ /draw_plet
+        {
+                staffrulethickness setlinewidth
+                /dir exch def
+                /plet_dy exch def
+                /plet_dx exch def
+		staffheight 2 div /plet_gap exch def
+		staffheight 4 div dir mul /plet_h exch def
+%
+		plet_dy plet_dx lily_distance /plet_w exch def
+		plet_dy plet_dx atan rotate
+		0 0 moveto
+                0 plet_h lineto 
+		plet_w plet_gap sub 2 div plet_h lineto
+		plet_w plet_gap add 2 div plet_h moveto
+		plet_w plet_h lineto
+		plet_w 0 lineto
+		stroke
+        }
+        bind def
  staffheight 2 div
  /slurhtlimit exch def
  /slurratio 0.3333 def

@@ -55,18 +55,24 @@ content in Mudela)
 We're not sure on leaving out this feature. If you think this is a
 good idea, please let us know.
 
-Be warned we will I<not> allow you to leave out the C<#> if the note
-already has an accidental, or if the key has a C-sharp. We won't allow
 
-	c# c	% no way! 
+Q: Why do I have to type the accidentals to the note if I specified them?
 
-in stead of:
+A: Take this example
 
 	cis cis
-	#c #c
 
-Why, you might ask? Because independently of how it was written, you
-would say that you are playing and reading "two C-sharp" notes.
+Independently of how it was written and what the current key was, you
+would say that you are playing and reading "two C-sharp" notes.  We
+have tried to make the language somewhat context-free.  Of course
+sheet music is not context-free.  Unfortunately, sheet music is also 2
+dimensional, and ASCII is not.
+
+Technically it would be feasible to have the Interpreting phase do
+tricky things to add (or leave out) the accidentals, but we think that
+it is impractical: it hampers the readability and portability of your
+source, since you need LilyPond to fill in the details and actually
+make sense of it.
 
 
 Q: What is C<cis> anyway
@@ -225,7 +231,7 @@ Q: Can I join in on LilyPond development?  How do I do this?
 
 A: LilyPond development is open for anyone who wants to join.  We try
 to use a Bazaar style development model for LilyPond, see
-http://locke.ccil.org/~esr/writing/cathedral.html.  This means:
+http://locke.ccil.org/~esr/writings/cathedral.html.  This means:
 frequent releases, everyone can send in a patch or do suggestions and
 all development discussions are public.
 
@@ -257,20 +263,20 @@ or
 
 	diff -urN old-directory/ new-directory/ > patch 
 
-Alternatively, you can use bin/make-patch.py
+Alternatively, you can use F<bin/make-patch.py>.  Don't forget to put
+in your name and e-mail address.
 
 Q: How do I learn the C++ code?
 
 A: The entry point is in C<main()>. Good luck. :-)
 
-Seriously, read, reread and reread lilygut and CodingStyle, and
+Seriously, read, reread and reread internals and CodingStyle, and
 just start anywhere. 
 
 Anywhere? Well, most of the comment doco are in the header files, so
 your best bet would be C<less lily/include/*.hh>. Some of the most
 important data-structures are to be found in:
 
-	- p-col.hh
 	- *request.hh
 	- engraver.hh
 	- performer.hh
@@ -323,6 +329,7 @@ A: Your \score should include a \midi block, eg.
 			\output "myfile.mid";
 			\tempo 4=70;
 		}
+	}
 
 The B<-M> option was added to LilyPond because processing the \paper
 block is so slow.

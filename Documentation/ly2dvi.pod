@@ -1,0 +1,44 @@
+=head1 NAME
+
+ly2dvi - convert mudela to DVI
+
+=head1 SYNOPSIS
+
+	ly2dvi file[.ly]
+
+=head1 DESCRIPTION
+
+ly2dvi is a script that will setup LaTeX and TeX for you to ...
+
+=head1 OPTIONS
+
+=over 5
+
+=item B<--help>
+
+give help
+
+=item .....
+
+=back
+
+=head1 SOMETHING
+
+=head1 ENVIRONMENT
+
+=head1 FILES
+
+F</etc/papersize> contains ...
+
+=head1 SEE ALSO
+
+lilypond(1), 
+
+=head1 AUTHOR
+
+JAF
+
+=head1 BUGS
+
+Does not handle margins properly
+

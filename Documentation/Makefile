@@ -59,6 +59,8 @@ include $(depth)/make/Rules.make
 
 localclean:
 	rm -f $(TEXTFILES) $(HTMLFILES) $(GROFFFILES)
+	rm -f $(outdir)/*  # clean the make-website stuff
+	rm -f $(outdir)/docxx/*  # clean the make-website stuff	
 
 MAN1FILES = lilypond convert-mudela mi2mu mudela-book
 MAN1GROFF = $(addprefix $(outdir)/, $(addsuffix .1,$(MAN1FILES)))

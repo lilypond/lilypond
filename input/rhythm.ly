@@ -7,7 +7,7 @@ TestedFeatures =	 "multiple meters, beaming, unsynced bars, userdefd engravers";
 
 
 
-\version "0.1.7";
+\version "0.1.8";
 
 ritme = \melodic{ %\octave ;
 	\partial 8;

@@ -7,10 +7,7 @@ case  $# in
     WHAT=$1;;
 esac
 
-if [ X$LILYPOND_SOURCEDIR = X ];
-then
-    LILYPOND_SOURCEDIR=..
-fi
+# should use kpsepath 
 
 if [ -d /var/lib/texmf ]; then
     TEXDIR=/var/lib/texmf

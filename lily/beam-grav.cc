@@ -12,8 +12,6 @@
 #include "beam.hh"
 #include "musical-request.hh"
 #include "grouping.hh"
-#include "text-spanner.hh"
-#include "text-def.hh"
 #include "p-col.hh"
 
 Beam_engraver::Beam_engraver()
@@ -21,7 +19,6 @@ Beam_engraver::Beam_engraver()
   span_reqs_drul_[LEFT] = span_reqs_drul_[RIGHT] =0;
   beam_p_ =0;
   current_grouping_p_ =0;
-  plet_spanner_p_ =0;
 }
 
 bool
@@ -50,61 +47,39 @@ Beam_engraver::do_try_request(Request*r)
 void
 Beam_engraver::do_process_requests()
 {
-  if ( !beam_p_ && span_reqs_drul_[LEFT])
-    {
-      current_grouping_p_ = new Rhythmic_grouping;
-      beam_p_ = new Beam;
-      if (span_reqs_drul_[LEFT]->nplet)
-	{
-	  plet_spanner_p_ = new Text_spanner;
-	  Text_def *defp = new Text_def;
-	  plet_spanner_p_->set_support (beam_p_);
-	
-	  defp->align_i_ = 0;
-	  defp->text_str_ = span_reqs_drul_[LEFT]->nplet;
-	  defp->style_str_="italic";
-	  plet_spanner_p_->spec_p_  = defp;
-	  announce_element (Score_elem_info(plet_spanner_p_,0));
-	}
+  if (beam_p_ || !span_reqs_drul_[LEFT])
+    return;
 
-      Scalar prop = get_property ("beamslopedamping");
-      if (prop.isnum_b ()) 
-	{
-	  beam_p_->damping_i_ = prop;
-	}
+  current_grouping_p_ = new Rhythmic_grouping;
+  beam_p_ = new Beam;
 
-      prop = get_property ("beamquantisaton");
-      if (prop.isnum_b ()) 
-	{
-	  beam_p_->quantisation_ = (Beam::Quantise)(int)prop;
-	}
-     
-      announce_element (Score_elem_info (beam_p_, span_reqs_drul_[LEFT]));
-    }
+  Scalar prop = get_property ("beamslopedamping");
+  if (prop.isnum_b ()) 
+    beam_p_->damping_i_ = prop;
+
+  prop = get_property ("beamquantisaton");
+  if (prop.isnum_b ()) 
+    beam_p_->quantisation_ = (Beam::Quantise)(int)prop;
+ 
+  announce_element (Score_elem_info (beam_p_, span_reqs_drul_[LEFT]));
 }
 
 void
 Beam_engraver::do_pre_move_processing()
 {
-  if (beam_p_ && span_reqs_drul_[RIGHT]) 
-    {
-      Rhythmic_grouping const * rg_C = get_staff_info().rhythmic_C_;
-      rg_C->extend (current_grouping_p_->interval());
-      beam_p_->set_grouping (*rg_C, *current_grouping_p_);
-      typeset_element (beam_p_);
-      beam_p_ = 0;
+  if (!beam_p_ || !span_reqs_drul_[RIGHT]) 
+    return;
 
-      delete current_grouping_p_;
-      current_grouping_p_ = 0;
+  Rhythmic_grouping const * rg_C = get_staff_info().rhythmic_C_;
+  rg_C->extend (current_grouping_p_->interval());
+  beam_p_->set_grouping (*rg_C, *current_grouping_p_);
+  typeset_element (beam_p_);
+  beam_p_ = 0;
 
-      span_reqs_drul_[RIGHT] =
-	span_reqs_drul_[LEFT] = 0;
-      if (plet_spanner_p_)
-	{
-	  typeset_element (plet_spanner_p_);
-	  plet_spanner_p_ =0;
-	}
-    }
+  delete current_grouping_p_;
+  current_grouping_p_ = 0;
+
+  span_reqs_drul_[RIGHT] = span_reqs_drul_[LEFT] = 0;
 }
 
 void

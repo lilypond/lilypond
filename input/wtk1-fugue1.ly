@@ -11,7 +11,7 @@ copyright =	 "Public Domain";
 %{
 	
 %}
-\version "0.1.7";
+\version "0.1.8";
 
 
 global = 

@@ -14,7 +14,8 @@
 
 class Text_def : public General_script_def {
 protected:
-    virtual Atom get_atom (Paper_def* p, Direction dir_) const;
+// 	huh? move to public
+//    virtual Atom get_atom (Paper_def* p, Direction dir_) const;
     DECLARE_MY_RUNTIME_TYPEINFO;
     VIRTUAL_COPY_CONS(Text_def,General_script_def);
 public:
@@ -29,6 +30,7 @@ public:
     String style_str_;
     
     virtual void do_print() const;
+    virtual Atom get_atom (Paper_def* p, Direction dir_) const;
     virtual ~Text_def() {};
     virtual bool do_equal_b (const General_script_def*) const;
     Text_def();

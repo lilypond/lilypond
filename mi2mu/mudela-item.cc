@@ -197,11 +197,10 @@ Mudela_note::str ()
   //ugh
   String str;
   if (dur.plet_b ())
-	str += String ("\\plet ")
+	str += String ("\\[")
 	    + String_convert::i2dec_str (dur.plet_.iso_i_, 0, 0)
 	    + "/"
-	    + String_convert::i2dec_str (dur.plet_.type_i_, 0, 0)
-	    + "; ";
+	    + String_convert::i2dec_str (dur.plet_.type_i_, 0, 0);
 
   str += name_str;
 
@@ -210,7 +209,7 @@ Mudela_note::str ()
   str += Duration_convert::dur2_str (tmp);
 
   if (dur.plet_b ())
-	str += String (" \\plet 1/1;");
+	str += String (" \\]");
 
   /* 
     note of zero duration is nonsense, 

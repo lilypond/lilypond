@@ -8,7 +8,7 @@ of beams";
 	
 }
 
-\version "0.1.7";
+\version "0.1.8";
 
 beamintervals = \melodic{
 		\meter 7/4;

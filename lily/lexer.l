@@ -82,6 +82,8 @@ RESTNAME	[rs]
 NOTECOMMAND	\\{A}+
 LYRICS		({AA}|{TEX})[^0-9 \t\n\f]*
 ESCAPED		[nt\\'"]
+PLET		\\\[
+TELP		\\\]
 
 %%
 
@@ -283,6 +285,14 @@ ESCAPED		[nt\\'"]
 	char c = YYText ()[0];
 	DOUT << "misc char" <<c<<"\n";
 	return c;
+}
+
+<lyrics,notes>{PLET}	{
+	return yylval.i = PLET;
+}
+
+<lyrics,notes>{TELP}	{
+	return yylval.i = TELP;
 }
 
 <INITIAL,notes>.	{

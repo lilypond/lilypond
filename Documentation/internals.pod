@@ -1,6 +1,6 @@
 =head1 NAME
 
-LilyGuts - doco to the internals of GNU LilyPond
+LilyPond internals - doco to the internals of GNU LilyPond
 
 =head1 DESCRIPTION
 

@@ -20,7 +20,6 @@ class Beam_engraver : public Engraver
 {
   Drul_array<Beam_req *> span_reqs_drul_;
   Beam *beam_p_;
-  Text_spanner *plet_spanner_p_;
   Rhythmic_grouping *current_grouping_p_;
 
 public:

@@ -130,7 +130,18 @@ name.)
 
 =item Finale
 
-=item Score
+=item Score, http://www.ymusic.com/Score
+
+Werner Lemberg <sx0005@sx2.hrz.uni-dortmund.de>
+writes to me: I consider SCORE as the best program for
+typesetting classical music. [..]  the price is quite high (about US$
+1000) [..]  It has a graphical interface but to get all out of the
+program you have to learn a 400 page manual almost by heart because
+you'll change most features by inputting parameters (up to 20 for some
+items) on a command line. Expect three months to master SCORE :-)
+
+
+
 
 =item Personal Composer
 
@@ -152,10 +163,10 @@ Shareware.
 
 =item Amadeus, Jerker.Elsgard@abc.se
 
-Professional and expensive (DM 4000,--) engraving.  Designed as a
-batch program (like LilyPond).  It is aimed at publishers. Its history
-is more than fifteen years and Amadeus has been running under
-different Unix clones.  It uses MIDI-keyboard input
+Jerker Elsgard writes: professional and expensive (DM 4000,--)
+engraving.  Designed as a batch program (like LilyPond).  It is aimed
+at publishers. Its history is more than fifteen years and Amadeus has
+been running under different Unix clones.  It uses MIDI-keyboard input
 
 =back
 

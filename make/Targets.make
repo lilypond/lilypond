@@ -153,7 +153,10 @@ doosdist:
 
 
 localdist: $(DISTFILES)
-	if [ -d out ]; then mkdir $(distdir)/$(localdir)/out; fi
+	if [ -d out ]; then \
+		mkdir $(distdir)/$(localdir)/out; \
+		touch $(distdir)/$(localdir)/out/dummy.dep; \
+	fi
 	$(LN) $(DISTFILES) $(distdir)/$(localdir)
 ifdef SUBDIRS
 	set -e; for i in $(SUBDIRS); do mkdir $(distdir)/$(localdir)/$$i; \

@@ -12,7 +12,7 @@
 #include "text-def.hh"
 
 /** a spanner which puts texts on top of other spanners.  Use for
-  triplets, eentweetjes, ottava, etc.  */
+  triplets, volta, ottava, etc.  */
 class Text_spanner : public Spanner {
 public:
   Directional_spanner * support_span_l_;
