@@ -23,7 +23,7 @@ Separating_line_group_engraver::Separating_line_group_engraver ()
 void
 Separating_line_group_engraver::do_creation_processing ()
 {
-  sep_span_p_ = new Separating_group_spanner;
+  sep_span_p_ = new Separating_group_spanner (SCM_EOL);
   announce_element (Score_element_info (sep_span_p_, 0));
   sep_span_p_->set_bound (LEFT, get_staff_info ().command_pcol_l ());
 }
@@ -48,7 +48,10 @@ Separating_line_group_engraver::acknowledge_element (Score_element_info i)
 
       if (!p_ref_)
 	{
-	  p_ref_ = new Single_malt_grouping_item;
+	  p_ref_
+	    = new Single_malt_grouping_item
+	    (get_property ("basicSingleMaltGroupingItemProperties"));
+	  
 	  if (ib)
 	    p_ref_->set_elt_property ("breakable", SCM_BOOL_T);
 	  announce_element (Score_element_info (p_ref_, 0));

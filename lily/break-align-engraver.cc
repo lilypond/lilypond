@@ -84,25 +84,22 @@ Break_align_engraver::acknowledge_element (Score_element_info inf)
       if (item_l->empty_b (X_AXIS) || item_l->parent_l (X_AXIS))
 	return;
 
-      SCM bp=item_l->remove_elt_property ("breakable");
+      SCM bp=item_l->get_elt_property ("breakable");
       bool breakable = (to_boolean (bp));
       if (!breakable)
 	return ;
 
-      SCM align_name = item_l->remove_elt_property ("break-align-symbol");
+      SCM align_name = item_l->get_elt_property ("break-align-symbol");
       if (!gh_symbol_p (align_name))
 	return ;
 
       if (!align_l_)
 	{
-	  align_l_ = new Break_align_item;
-	  align_l_->set_elt_property ("breakable", SCM_BOOL_T);
+	  align_l_ = new Break_align_item (get_property ("basicBreakAlignProperties"));
 	  announce_element (Score_element_info (align_l_,0));
 
-
-	  Item * edge = new Item;
 	  SCM edge_sym = ly_symbol2scm ("Left_edge_item");
-	  edge->set_elt_property ("break-align-symbol", edge_sym);
+	  Item * edge = new Item (get_property ("leftEdgeBasicProperties"));
 
 	  /*
 	    If the element is empty, it will be ignored in the break
@@ -112,7 +109,7 @@ Break_align_engraver::acknowledge_element (Score_element_info inf)
 	  */
 	  edge->set_extent_callback (Score_element::point_dimension_callback,X_AXIS);
 	  
-	  align_l_->set_elt_property ("group-center-element", edge->self_scm_);
+	  align_l_->set_elt_pointer ("group-center-element", edge->self_scm_);
 
 	  announce_element (Score_element_info(edge, 0));
 	  column_alist_ = scm_assoc_set_x (column_alist_, edge_sym, edge->self_scm_);
@@ -129,7 +126,7 @@ Break_align_engraver::acknowledge_element (Score_element_info inf)
 	}
       else
 	{
-	  group = new Item;
+	  group = new Item (SCM_EOL);
 
 	  Axis_group_interface (group).set_interface ();
 	  Axis_group_interface (group).set_axes (X_AXIS,X_AXIS);
