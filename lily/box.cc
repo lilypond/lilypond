@@ -50,7 +50,7 @@ Box::operator[] (Axis a)
 }
 
 Interval
-Box::operator[] (Axis a)const
+Box::operator[] (Axis a) const
 {
   return interval_a_[a];
 }

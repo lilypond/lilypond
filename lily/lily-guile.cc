@@ -204,9 +204,6 @@ ly_init_ly_module (void *)
 #if KPATHSEA
   if (is_TeX_format_global)
     {
-      /*
-	TODO: load this dynamically
-      */
       initialize_kpathsea ();
     }
 #endif

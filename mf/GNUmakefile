@@ -54,11 +54,6 @@ MFTRACE_FLAGS=$(if $(ENCODING_FILE),--encoding $(ENCODING_FILE),) --no-afm
 # 2. are not included with teTeX
 #
 
-foe:
-	echo $(MFINPUTS)
-	echo $(TEXMF)
-	kpsewhich exbase.mf
-
 $(outdir)/%.cff.ps $(outdir)/%.cff $(outdir)/%.otf $(outdir)/%.svg: $(outdir)/%.pe
 	(cd $(outdir) && fontforge -script $(notdir $<))
 	$(PYTHON) $(buildscript-dir)/ps-embed-cff.py $(basename $<).cff `cat $(basename $<).fontname` $(basename $<).cff.ps

@@ -555,7 +555,7 @@ Grob::has_extent_callback (SCM cb, Axis a) const
 }
 
 bool
-Grob::has_offset_callback (SCM cb, Axis a)const
+Grob::has_offset_callback (SCM cb, Axis a) const
 {
   return scm_c_memq (cb, dim_cache_[a].offset_callbacks_) != SCM_BOOL_F;
 }
@@ -616,7 +616,7 @@ Grob::fixup_refpoint (SCM smob)
 }
 
 void
-Grob::warning (String s)const
+Grob::warning (String s) const
 {
   SCM cause = self_scm ();
   while (Grob *g = unsmob_grob (cause))
@@ -693,8 +693,6 @@ void
 Grob::discretionary_processing ()
 {
 }
-
-
 
 bool
 Grob::internal_has_interface (SCM k)
