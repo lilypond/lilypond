@@ -1,3 +1,17 @@
+pl 37
+	- --postscript
+	- don't crash non-fitting grouping (thx, John)
+	- attach unended spanners to a column (thanks John)
+	- bf: unended tie
+	- bf: tie direction
+	- bf: unended slur
+
+pl 36.jcn2
+	- feta: small numerals
+	
+********
+dec 9
+
 pl 36
 	- bf: notehead collisions
 	- bf: dot y-position

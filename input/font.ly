@@ -42,8 +42,10 @@ TestedFeatures =	 "This file tests the Feta music-font"
 		\meter 4/4;
 		\textstyle "finger";
 		c4^"1" d^"2" e^"3" f^"4" g^"5"
-		< bes4^"1" e_"2" c_"4" >
-		a'^"0"
+		
+		% Music for the Martians?
+		< bes4^"6" e_"7" c_"8" >
+		a'^"0"_"9"
 		
 		% ugh, \flageolet is like open, but maybe a perfect circle
 		a^\open

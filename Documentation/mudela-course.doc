@@ -7,6 +7,7 @@
 \usepackage{a4wide}
 \title{Mudela and LilyPond crash course}
 \author{Han-Wen Nienhuys}
+\date{October 20, 1997}
 \def\file#1{{\texttt{#1}}}
 
 \begin{document}
@@ -133,6 +134,8 @@ is used.  The improved version reads thus
 \end{mudela}
 
  
+
+FIXME rewrite starting here.
 
 \begin[verbatim]{mudela}
   \score {
