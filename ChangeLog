@@ -1,3 +1,10 @@
+2004-04-21  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* input/regression/newaddlyrics.ly: Remove lilypond-book kludge.
+
+	* scripts/lilypond-book.py: LY code that includes \header is
+	not assumed to be a fragment.
+
 2004-04-20  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/stem-tremolo.cc (print): If stem direction == CENTER, move
