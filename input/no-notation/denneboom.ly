@@ -1,4 +1,4 @@
-\version "2.3.10"
+\version "2.3.16"
 \header{
 filename = 	 "denneboom.ly"
 enteredby = 	 "jcn"
@@ -10,7 +10,7 @@ copyright = 	 "public domain"
 
 
 
-oden = \lyrics{ 
+oden = \lyricmode{ 
 	O |
 	den- ne- boom, o | 
 	den- ne- boom  Wat |
@@ -18,7 +18,7 @@ oden = \lyrics{
 	won- der- schoon 
 }
 
-ikheb = \lyrics{
+ikheb = \lyricmode{
 	Ik | 
 	heb u laatst in_'t |
 	bos zien staan  toen |
@@ -26,7 +26,7 @@ ikheb = \lyrics{
 	kaars- jes aan 
 }
 
-ugloeit = \lyrics{
+ugloeit = \lyricmode{
 	U |
 	gloeit in bar- re | 
 	win- ter- tijd, als |

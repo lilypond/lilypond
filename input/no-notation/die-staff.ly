@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.16"
 
 \header  {
 texidoc = "a staff should really die, if no one's referencing it."
@@ -6,17 +6,17 @@ texidoc = "a staff should really die, if no one's referencing it."
 \score {
  {
     \context Staff = q {
-      \notes { a' b' c' d' }
+       { a' b' c' d' }
     }
 
     \break
 
     \context PianoStaff <<
       \context Staff = i {
-        \notes { a' b' c' d' }
+         { a' b' c' d' }
       }
       \context Staff = ii {
-        \notes { \clef "bass" a b c d }
+         { \clef "bass" a b c d }
       }
     >>
   }

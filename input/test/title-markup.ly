@@ -1,4 +1,4 @@
-\version "2.3.8"
+\version "2.3.16"
 
 %{
    Markup titles also available for direct PostScript output:
@@ -64,8 +64,7 @@ spaceTest = \markup { "two space chars" }
 \header {
     texidoc = "Make titles using markup.  Only in direct PostScript output."
 
-    ##tagline = "my tagline for v \version"
-    copyright = "Copyright by /me"
+    ##tagline = "my tagline for v \version "2.3.16"Copyright by /me"
     
     %dedication = "För my dør Lily"
     % ugh: encoding char-size

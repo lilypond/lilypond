@@ -1,4 +1,4 @@
-\version "2.3.8"
+\version "2.3.16"
 \header { texidoc = "
 
 @cindex Preset Extent
@@ -12,7 +12,7 @@ they are spaced so widely.
 }
 
 \score {
-    \context Lyrics \lyrics {
+    \context Lyrics \lyricmode {
 	foo --
 	
 	\override LyricText  #'X-extent = #'(-10.0 . 10.0)

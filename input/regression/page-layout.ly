@@ -1,5 +1,5 @@
 
-\version "2.3.8"
+\version "2.3.16"
 
 \header{ texidoc = "This shows how different settings on \bookpaper
 modify the general page layout. Basically \bookpaper will set the

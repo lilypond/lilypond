@@ -1,4 +1,4 @@
-\version "2.3.10"
+\version "2.3.16"
 \header {
     title	= "Puer natus est nobis (excerptum)"
     subtitle	= "Antiphona ad introitum VII"
@@ -75,7 +75,7 @@ cantus = \context VaticanaVoice = "cantus"  {
   \divisioMaxima
 }
 
-verba = \context Lyrics = "verba" \lyrics {
+verba = \context Lyrics = "verba" \lyricmode {
   Pu -- er na -- tus est no -- bis,
   et fi -- li -- us da -- tus est no -- bis:
 }

@@ -35,7 +35,7 @@ problems:
 
 @itemize @bullet
 @item Include @code{\version} numbers in every file.  Note that all
-templates contain a @code{\version "x.y.z"} string.  We
+templates contain a @code{\version "2.3.16"} string.  We
 highly recommend that you always include the @code{\version}, no matter
 how small your file is.  Speaking from personal experience, it's
 quite frustrating to try to remember which version of LilyPond you were
@@ -72,7 +72,7 @@ add notes, and you're finished!
 
 @lilypond[verbatim,raggedright]
 
-\version "2.3.11"
+\version "2.3.16"
 melody = \relative c' {
    \clef treble
    \key c \major
@@ -99,7 +99,7 @@ line.
 
 @lilypond[verbatim,raggedright]
 
-\version "2.3.11"
+\version "2.3.16"
 melody = \relative c' {
    \clef treble
    \key c \major
@@ -108,7 +108,7 @@ melody = \relative c' {
    a4 b c d
 }
 
-text = \lyrics {
+text = \lyricmode {
    Aaa Bee Cee Dee
 }
 
@@ -132,7 +132,7 @@ Want to prepare a lead sheet with a melody and chords?  Look no farther!
 
 @lilypond[verbatim,raggedright]
 
-\version "2.3.11"
+\version "2.3.16"
 melody =  \relative c' {
    \clef treble
    \key c \major
@@ -142,7 +142,7 @@ melody =  \relative c' {
    a2 ~ a2 |
 }
 
-harmonies = \chords {
+harmonies = \chordmode {
    c4:m f:min7 g:maj c:aug d2:dim b:sus
 }
 
@@ -167,7 +167,7 @@ This template allows you to prepare a song with melody, words, and chords.
 
 @lilypond[verbatim,raggedright]
 
-\version "2.3.11"
+\version "2.3.16"
 melody =  \relative c' {
    \clef treble
    \key c \major
@@ -176,11 +176,11 @@ melody =  \relative c' {
    a b c d
 }
 
-text = \lyrics {
+text = \lyricmode {
    Aaa Bee Cee Dee
 }
 
-harmonies = \chords {
+harmonies = \chordmode {
    a2 c2
 }
 
@@ -210,7 +210,7 @@ Here's a simple piano staff.
 
 @lilypond[verbatim,raggedright]
 
-\version "2.3.11"
+\version "2.3.16"
 upper = \relative c'' {
    \clef treble
    \key c \major
@@ -246,7 +246,7 @@ piano accompaniment underneath.
 
 @lilypond[verbatim,raggedright]
 
-\version "2.3.11"
+\version "2.3.16"
 melody =  \relative c'' {
    \clef treble
    \key c \major
@@ -255,7 +255,7 @@ melody =  \relative c'' {
    a b c d
 }
 
-text = \lyrics {
+text = \lyricmode {
    Aaa Bee Cee Dee
 }
 
@@ -307,7 +307,7 @@ always the same for all parts.
 
 @lilypond[verbatim,raggedright]
 
-\version "2.3.11"
+\version "2.3.16"
 global = {
    \key c \major
    \time 4/4
@@ -316,28 +316,28 @@ global = {
 sopMusic = \relative c'' {
    c4 c c8[( b)] c4
 }
-sopWords = \lyrics {
+sopWords = \lyricmode {
    hi hi hi hi
 }
 
 altoMusic = \relative c' {
    e4 f d e 
 }
-altoWords =\lyrics {
+altoWords =\lyricmode {
    ha ha ha ha
 }
 
 tenorMusic = \relative c' {
    g4 a f g
 }
-tenorWords = \lyrics {
+tenorWords = \lyricmode {
    hu hu hu hu
 }
 
 bassMusic = \relative c {
    c4 c g c
 }
-bassWords = \lyrics {
+bassWords = \lyricmode {
    ho ho ho ho
 }
 
@@ -379,7 +379,7 @@ section for time and key signatures.
 
 @lilypond[verbatim,raggedright]
 
-\version "2.3.11"
+\version "2.3.16"
 global = {
    \time 4/4
    \key c \major
@@ -438,7 +438,7 @@ is within a @code{\transpose} section.
 
 @lilypond[verbatim,raggedright]
 
-\version "2.3.11"
+\version "2.3.16"
 \header {
         title = "Song"
         subtitle = "(tune)"
@@ -517,7 +517,7 @@ bari = \transpose c a' \relative c {
         c1 c \sl d4^"Solo" d d d \nsl
 }
 
-bariharmony = \transpose c' a \chords { \jzchords s1 s d2:maj e:m7 }
+bariharmony = \transpose c' a \chordmode { \jzchords s1 s d2:maj e:m7 }
 barisax = {
         \global
         \set Staff.instrument = #"Bari Sax"
@@ -532,7 +532,7 @@ tbone =  \relative c {
         c1 c c
 }
 
-tboneharmony = \chords { \jzchords }
+tboneharmony = \chordmode { \jzchords }
 trombone = {
         \global
         \set Staff.instrument = #"Trombone"
@@ -548,7 +548,7 @@ gtr =  \relative c'' {
         c1 \sl b4 b b b \nsl c1
 }
 
-gtrharmony = \chords { \jzchords
+gtrharmony = \chordmode { \jzchords
         s1 c2:min7+ d2:maj9
 }
 
@@ -631,14 +631,14 @@ bass = {
 
 				% ------ Drums ------
 
-up = \drums {
+up = \drummode {
     hh4 <hh sn>4 hh <hh sn> hh <hh sn>4
     hh4 <hh sn>4
     hh4 <hh sn>4
     hh4 <hh sn>4
 }
 
-down = \drums {
+down = \drummode {
     bd4 s bd s bd s bd s bd s bd s
 }
 
@@ -705,7 +705,7 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 
 @lilypond[verbatim,raggedright]
 
-\version "2.3.11"
+\version "2.3.16"
 \header {
    dedication = "dedication"
    title = "Title"

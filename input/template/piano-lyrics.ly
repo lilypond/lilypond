@@ -1,4 +1,4 @@
-\version "2.3.8"
+\version "2.3.16"
 
 \header {
   texidoc ="Lyrics between two staffs."
@@ -12,7 +12,7 @@ lower = \relative c {
   a2 c
 }
 
-text = \lyrics {
+text = \lyricmode {
   Aaa Bee Cee Dee
 }
 

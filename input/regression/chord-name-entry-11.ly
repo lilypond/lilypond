@@ -1,4 +1,4 @@
-\version "2.3.4" 
+\version "2.3.16" 
 
 \header {
 
@@ -8,7 +8,7 @@
 }
 
 \score {
-      \chords { c:13 c:13.11 c:m13 }
+      \chordmode { c:13 c:13.11 c:m13 }
       \paper { raggedright = ##t } 
 }
     

@@ -12,7 +12,7 @@
 >>
 
 %% Optional helper for automatic updating by convert-ly.  May be omitted.
-\version "2.3.10"
+\version "2.3.16"
     
 %% Optional helper for quick click and edit mode.  May be omitted
 #(ly:set-point-and-click 'line-column)

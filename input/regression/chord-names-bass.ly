@@ -1,4 +1,4 @@
-\version "2.3.4"
+\version "2.3.16"
 
 \header {
 
@@ -10,7 +10,7 @@ Above the staff: computed chord names. Below staff: entered chord name.
 }
 
 
-bladidbla = \chords { 
+bladidbla = \chordmode { 
     f4:maj7/e_":maj7/e" f:maj7/f_":maj7/f" f2:maj7/g_":maj7/g"
     f4:maj7/+e_":maj7/+e" f:maj7/+f_":maj7/+f" f2:maj7/+g_":maj7/+g"
  }

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.2.0"
+\version "2.3.16"
 \header {
 texidoc = "
 
@@ -18,7 +18,7 @@ Midi2ly tuplet test.
 
 
 \score { 
-  \context Voice \notes \relative c' {
+  \context Voice  \relative c' {
 
     a1 a2 a2. a4 a4. a8 a8. a16 a16. a32 a32. a64
 

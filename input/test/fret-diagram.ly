@@ -3,11 +3,11 @@
   texidoc = "Frets are supported as markup commands."
 }
 
-\version "2.3.8"
+\version "2.3.16"
 
 \score {
     <<
-       \new ChordNames \chords {d2. d d s fis fis fis s c c c}
+       \chords {d2. d d s fis fis fis s c c c}
        
      \context Voice=mel {
 % simple D chord

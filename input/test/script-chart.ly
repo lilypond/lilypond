@@ -1,4 +1,4 @@
-\version "2.3.8"
+\version "2.3.16"
 
 % this chart is used in the manual too.
 
@@ -32,7 +32,7 @@ This chart shows all articulations, or scripts, that feta font contains.
         c''\longfermata        c''\verylongfermata    c''\segno
         c''\coda               c''\varcoda
       }
-      \context Lyrics \lyrics {
+      \context Lyrics \lyricmode {
         accent__                marcato__               staccatissimo__
         staccato__              tenuto__                portato__
         upbow__                 downbow__               flageolet__

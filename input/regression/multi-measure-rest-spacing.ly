@@ -3,7 +3,7 @@
     texidoc = "By setting texts starting with a multi-measure rest, an 
 extra spacing column is created. This should not cause problems."
     }
-\version "2.3.4"
+\version "2.3.16"
 
 \score {
     <<

@@ -1,7 +1,7 @@
 #(ly:set-option 'old-relative)
-\version "2.2.0"
+\version "2.3.16"
 \score {
-    \notes\context PianoStaff <<
+    \context PianoStaff <<
     \context Staff = up
     \relative c'' <<
         {   \key d\major 

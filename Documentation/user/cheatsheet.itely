@@ -1,3 +1,4 @@
+\version "2.3.16"
 @c -*-texinfo-*-
 
 
@@ -224,7 +225,7 @@ f8 c2 d e
 \context Voice { \grace b16 c4 }
 @end lilypond
 
-@item @code{\lyrics @{ twinkle @}}
+@item @code{\lyricmode @{ twinkle @}}
 @tab entering lyrics
 @tab
 
@@ -234,7 +235,7 @@ f8 c2 d e
 @tab
 twinkle
 @lilypond[fragment]
-\new Lyrics \lyrics { twinkle }
+\new Lyrics \lyricmode { twinkle }
 @end lilypond
 
 @item @code{twin -- kle}
@@ -247,18 +248,18 @@ twinkle
 >> 
 @end lilypond
 
-@item @code{\chords @{ c:dim f:maj7 @}}
+@item @code{\chordmode @{ c:dim f:maj7 @}}
 @tab chords 
 @tab
 @lilypond[fragment,relative=2]
-\chords { c:dim f:maj7 }
+\chordmode { c:dim f:maj7 }
 @end lilypond
 
 @item @code{\context ChordNames}
 @tab printing chord names 
 @tab
 @lilypond[fragment,relative=2]
-\context ChordNames \chords { c:dim f:maj7 }
+\context ChordNames \chordmode { c:dim f:maj7 }
 @end lilypond
 
 @item @code{<<@{e f@} \\@{c d@}>>}

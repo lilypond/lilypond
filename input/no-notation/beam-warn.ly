@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.16"
 
 \header	{
 
@@ -7,5 +7,5 @@ texidoc = "The first duration following a beam-open request is checked if it is 
 }
 
 \score {
-  \notes { [c4 c] }
+   { [c4 c] }
 }

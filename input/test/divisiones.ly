@@ -9,7 +9,7 @@ Choices are @code{divisioMinima}, @code{divisioMaior},
 
 " }
 
-\version "2.3.8"
+\version "2.3.16"
 
 \include "gregorian-init.ly"
 
@@ -37,7 +37,7 @@ Choices are @code{divisioMinima}, @code{divisioMaior},
 	    \caesura
             g4( a) g
 	}
-	\lyricsto "" \new  Lyrics \lyrics {
+	\lyricsto "" \new  Lyrics \lyricmode {
 	    Blah blub, blah blam.
 	    Blah blub, blah blam.
 	    Blah blub, blah blam.

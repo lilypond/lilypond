@@ -6,7 +6,7 @@ ambitus must be moved manually to prevent collisions."
 
 }
 
-\version "2.3.8"
+\version "2.3.16"
 
 \paper {
     raggedright = ##t

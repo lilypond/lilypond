@@ -4,7 +4,7 @@
     dots: notes with dots should go to the right, if there could be
     confusion to which notes the dots belong."
 }
-\version "2.3.4"
+\version "2.3.16"
 \score { 
    \relative c'' { 
     << <a c>2\\ { <b d>4 <b d>4 }   >>

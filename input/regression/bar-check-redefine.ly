@@ -1,4 +1,4 @@
-\version "2.3.4"
+\version "2.3.16"
 \header {
     texidoc = "The meaning of @code{|} is stored in the
 identifier @code{pipeSymbol}."

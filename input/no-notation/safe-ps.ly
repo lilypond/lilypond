@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.16"
 
 \header{
     texidoc = "This should not survive lilypond --safe-mode
@@ -6,5 +6,5 @@
 }
 
 \score{
-    \notes c''-"\\embeddedps{ (/tmp/safe-ps.ps) (w) file (hallo) writestring }"
+     c''-"\\embeddedps{ (/tmp/safe-ps.ps) (w) file (hallo) writestring }"
 }

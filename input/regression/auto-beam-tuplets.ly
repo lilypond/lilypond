@@ -1,5 +1,5 @@
 
-\version "2.3.4"
+\version "2.3.16"
 
 \header {
 texidoc = "Tuplet-spanner should not put (visible) brackets on

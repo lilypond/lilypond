@@ -129,8 +129,8 @@ Beam::check_concave (SCM smob)
       concaveness /= positions.size () ;
 
       /*
-	Normalize. For  dy = 0, the slopes ends up as 0 anyway, so
-	the scaling of concaveness doesn't matter much.
+	Normalize. For dy = 0, the slope ends up as 0 anyway, so the
+	scaling of concaveness doesn't matter much.
        */
       if (dy)
 	concaveness /= dy; 

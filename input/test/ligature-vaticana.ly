@@ -1,4 +1,4 @@
-\version "2.3.8"
+\version "2.3.16"
 
 \header { texidoc	= "@cindex Ancient Vaticana
 Vaticana ligature uses four staff lines, special clef, and
@@ -17,7 +17,7 @@ cantus = \context VaticanaVoice = "cantus"  {
   \[ e\melisma \flexa d\melismaEnd \]
 }
 
-verba = \context Lyrics = "verba" \lyrics {
+verba = \context Lyrics = "verba" \lyricmode {
   Al- le- lu- ia.
 }
 

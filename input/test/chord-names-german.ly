@@ -1,4 +1,4 @@
-\version "2.3.8"
+\version "2.3.16"
 \header  {
     texidoc = "@cindex Chord Names German
 The english naming of chords (default) can be changed to german 
@@ -7,7 +7,7 @@ The english naming of chords (default) can be changed to german
 
 " }
 
-scm = \chords {
+scm = \chordmode {
     c1/c cis/cis
     % yeah, we get the idea. -hwn
     

@@ -1,4 +1,4 @@
-\version "2.3.4"
+\version "2.3.16"
 
 \header{
 texidoc="
@@ -12,7 +12,7 @@ lyrics do not collide with barlines.
 	 \context Staff {
 	        b1 \bar "|:" b1 \bar ":|"
 	}
-	\lyrics <<
+	\lyricmode <<
 	 	\context LyricsWithBars {
 %		        thisContextHasBarEngraver1  added
 		        ThisContextCertainlyHasBarEngraverAddedButThereHasBeenSomethingFunnyBefore1.  Here.

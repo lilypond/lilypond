@@ -6,7 +6,7 @@
 In this example, all instruments play sounding central C, the target is a instrument in F."
 
 }
-\version "2.3.4"
+\version "2.3.16"
 
 \paper { raggedright = ##t }
 

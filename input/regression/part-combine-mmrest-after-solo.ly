@@ -1,7 +1,7 @@
 
 \header { texidoc = " Multimeasure rests are printed after solos, both
     for solo1 and for solo2."  }
-\version "2.3.15"
+\version "2.3.16"
 
 \paper { raggedright = ##t }
   \new Staff 

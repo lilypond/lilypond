@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.3.2"
+\version "2.3.16"
 \header {
 texidoc = "@cindex Midi Volume Equaliser
 The full orchestra plays a notes, where groups stop one after
@@ -21,7 +21,7 @@ Override, see scm/midi.scm:
 
 %}
 
-flauti = \notes \relative c' {
+flauti =  \relative c' {
   \set Staff.midiInstrument = #"flute"
   \set Staff.instrument = #"2 Flauti"
   \set Staff.instr = #"Fl."
@@ -29,7 +29,7 @@ flauti = \notes \relative c' {
   c1\f R1*10
 }
 
-oboi = \notes \relative c' {
+oboi =  \relative c' {
   \set Staff.midiInstrument = #"oboe"
   \set Staff.instrument = #"2 Oboi"
   \set Staff.instr = #"Ob."
@@ -37,7 +37,7 @@ oboi = \notes \relative c' {
   R1*1 c1\f R1*9
 }
 
-clarinetti = \notes \relative c' {
+clarinetti =  \relative c' {
   \set Staff.midiInstrument = #"clarinet"
   \set Staff.instrument = #"Clarinetti"
   \set Staff.instr = #"Cl"
@@ -45,7 +45,7 @@ clarinetti = \notes \relative c' {
   R1*2 c1\f R1*8
 }
 
-fagotti = \notes \relative c' {
+fagotti =  \relative c' {
   \set Staff.midiInstrument = #"bassoon"
   \set Staff.instrument = #"2 Fagotti"
   \set Staff.instr = #"Fg."
@@ -54,7 +54,7 @@ fagotti = \notes \relative c' {
   R1*3 c1\f R1*7
 }
 
-corni = \notes \relative c' {
+corni =  \relative c' {
   \set Staff.midiInstrument = #"french horn"
   \set Staff.instrument = #"Corni"
   \set Staff.instr = #"Cor"
@@ -62,7 +62,7 @@ corni = \notes \relative c' {
   R1*4 c1\f R1*6
 }
 
-trombe = \notes \relative c' {
+trombe =  \relative c' {
   \set Staff.midiInstrument = #"trumpet"
   \set Staff.instrument = #"Trombe"
   \set Staff.instr = #"Tp."
@@ -71,7 +71,7 @@ trombe = \notes \relative c' {
   R1*5 c1\f R1*5
 }
 
-timpani = \notes \relative c' {
+timpani =  \relative c' {
   \set Staff.midiInstrument = #"timpani"
   \set Staff.instrument = #"Timpani"
   \set Staff.instr = #"Timp."
@@ -79,7 +79,7 @@ timpani = \notes \relative c' {
   R1*6 c1\f R1*4
 }
 
-violinoI = \notes \relative c' {
+violinoI =  \relative c' {
   \set Staff.midiInstrument = #"violin"
   \set Staff.instrument = #"Violino I "
   \set Staff.instr = #"Vl. I "
@@ -87,7 +87,7 @@ violinoI = \notes \relative c' {
   R1*7 c1\f R1*3
 }
 
-violinoII = \notes \relative c' {
+violinoII =  \relative c' {
   \set Staff.midiInstrument = #"violin"
   \set Staff.instrument = #"Violino II "
   \set Staff.instr = #"Vl. II "
@@ -95,7 +95,7 @@ violinoII = \notes \relative c' {
   R1*8 c1\f R1*2
 }
 
-viola = \notes \relative c' {
+viola =  \relative c' {
   \set Staff.midiInstrument = #"viola"
   \set Staff.instrument = #"Viola"
   \set Staff.instr = #"Vla."
@@ -104,7 +104,7 @@ viola = \notes \relative c' {
   R1*9 c1\f R1*1
 }
 
-violoncello = \notes \relative c' {
+violoncello =  \relative c' {
   \set Staff.midiInstrument = #"cello"
   %\set Staff.midiInstrument = #"contrabass"
   \set Staff.instrument = #"Violoncello"

@@ -1,9 +1,9 @@
-\version "2.3.4"
+\version "2.3.16"
 \header {
 texidoc = "
 Figured bass is created by the FiguredBass context which eats
 figured bass requests and  rest-requests.  You must enter these using
-the special @code{\figures @{ @}} mode, which allows you to type
+the special @code{\figuremode @{ @}} mode, which allows you to type
 numbers, like @code{<4 6+>}.
 
 You can also type letters by entering quoted strings, which is shown in the
@@ -13,7 +13,7 @@ last bass figure.
 
 \score {   <<
  \context FiguredBass {
-   \figures { 
+   \figuremode { 
 	<3 [5 7]>
 \once \override FiguredBass.BassFigure  #'direction = #-1
 	<3 [5 7]>

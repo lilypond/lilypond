@@ -1,5 +1,5 @@
 
-\version "2.3.8"
+\version "2.3.16"
 
 \header { texidoc = "
 
@@ -28,7 +28,7 @@ texts, so they should be switched off.
 		linewidth=140.\mm
 		\context {
 			\Voice
-			soloADue = ##f
+			printPartCombineTexts = ##f
 		}
 	}
 }

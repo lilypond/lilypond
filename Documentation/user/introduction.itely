@@ -1,3 +1,4 @@
+\version "2.3.16"
 @c -*-texinfo-*-
 @c This file is part of lilypond.tely
 
@@ -604,9 +605,9 @@ By adding chord names and lyrics we obtain a lead sheet.
 
 @lilypond[quote,raggedright]
 <<
-   \new ChordNames \chords  { c2 c f2 c }
+   \chords  { c2 c f2 c }
    \new Staff \relative c' { \time 2/4 c4 c g'4 g a4 a g2 }
-   \new Lyrics \lyrics  { twin4 kle twin kle lit tle star2 }
+   \new Lyrics \lyricmode  { twin4 kle twin kle lit tle star2 }
 >>
 @end lilypond
 

@@ -1,5 +1,5 @@
 
-\version "2.3.4"
+\version "2.3.16"
 
 \header { texidoc=" You can write stencil callbacks in Scheme, thus
 providing custom glyphs for notation elements.  A simple example is
