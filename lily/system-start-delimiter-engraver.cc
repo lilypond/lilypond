@@ -24,7 +24,7 @@ public:
 
 protected:
   Spanner * delim_;
-  virtual void acknowledge_element (Score_element_info);
+  virtual void acknowledge_grob (Grob_info);
   virtual void do_creation_processing ();
   virtual void do_removal_processing ();
 };
@@ -32,7 +32,7 @@ protected:
 ADD_THIS_TRANSLATOR(System_start_delimiter_engraver);
 
 void
-System_start_delimiter_engraver::acknowledge_element (Score_element_info inf)
+System_start_delimiter_engraver::acknowledge_grob (Grob_info inf)
 {
   if (Staff_symbol::has_interface (inf.elem_l_))
     {
@@ -44,8 +44,8 @@ System_start_delimiter_engraver::acknowledge_element (Score_element_info inf)
     }
   else if (System_start_delimiter::has_interface (inf.elem_l_))
     {
-      SCM gl = inf.elem_l_->get_elt_property ("glyph");
-      SCM my_gl = delim_->get_elt_property ("glyph");
+      SCM gl = inf.elem_l_->get_grob_property ("glyph");
+      SCM my_gl = delim_->get_grob_property ("glyph");
 
       /*
 	UGH UGH
@@ -70,13 +70,13 @@ System_start_delimiter_engraver::do_creation_processing()
   delim_->set_bound (LEFT, unsmob_element (get_property ("currentCommandColumn")));
 
 
-  announce_element (delim_,0);
+  announce_grob (delim_,0);
 }
 
 void
 System_start_delimiter_engraver::do_removal_processing ()
 {
   delim_->set_bound (RIGHT, unsmob_element (get_property ("currentCommandColumn")));
-  typeset_element (delim_);
+  typeset_grob (delim_);
 }
 

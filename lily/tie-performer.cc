@@ -50,17 +50,17 @@ private:
   Link_array<Audio_tie> tie_p_arr_;
   
 protected:
-  virtual void do_post_move_processing ();
-  virtual void do_pre_move_processing ();
-  virtual void acknowledge_element (Audio_element_info);
-  virtual bool do_try_music (Music*);
-  virtual void process_acknowledged ();
+  virtual void start_translation_timestep ();
+  virtual void stop_translation_timestep ();
+  virtual void acknowledge_grob (Audio_element_info);
+  virtual bool try_music (Music*);
+  virtual void create_grobs ();
 };
 
 ADD_THIS_TRANSLATOR (Tie_performer);
 
 bool
-Tie_performer::do_try_music (Music *m)
+Tie_performer::try_music (Music *m)
 {
   if (!req_l_)
     {
@@ -74,7 +74,7 @@ Tie_performer::do_try_music (Music *m)
 }
 
 void
-Tie_performer::acknowledge_element (Audio_element_info i)
+Tie_performer::acknowledge_grob (Audio_element_info i)
 {
   if (Audio_note *nh = dynamic_cast<Audio_note *> (i.elem_l_))
     {
@@ -86,7 +86,7 @@ Tie_performer::acknowledge_element (Audio_element_info i)
 }
 
 void
-Tie_performer::process_acknowledged ()
+Tie_performer::create_grobs ()
 {
   if (req_l_ && ! done_)
     {
@@ -149,7 +149,7 @@ Tie_performer::process_acknowledged ()
 }
 
 void
-Tie_performer::do_pre_move_processing ()
+Tie_performer::stop_translation_timestep ()
 {
   for (int i=0; i < now_notes_.size (); i++)
     {
@@ -166,7 +166,7 @@ Tie_performer::do_pre_move_processing ()
 }
 
 void
-Tie_performer::do_post_move_processing ()
+Tie_performer::start_translation_timestep ()
 {
   req_l_ =0;
   done_ = false;

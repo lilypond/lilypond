@@ -10,7 +10,7 @@
 #include "lookup.hh"
 #include "paper-column.hh"
 #include "main.hh"
-#include "score-element.hh"
+#include "grob.hh"
 #include "bar.hh"
 #include "string.hh"
 #include "molecule.hh"
@@ -26,10 +26,10 @@ MAKE_SCHEME_CALLBACK(Bar,brew_molecule,1);
 SCM 
 Bar::brew_molecule (SCM smob) 
 {
-  Score_element * me = unsmob_element (smob);
+  Grob * me = unsmob_element (smob);
 
-  SCM s = me->get_elt_property ("glyph");
-  SCM barsiz_proc = me->get_elt_property ("barsize-procedure");
+  SCM s = me->get_grob_property ("glyph");
+  SCM barsiz_proc = me->get_grob_property ("barsize-procedure");
   if (gh_string_p (s) && gh_procedure_p (barsiz_proc))
     {
       String str  =ly_scm2string (s);
@@ -45,12 +45,12 @@ Bar::brew_molecule (SCM smob)
 
 
 Molecule
-Bar::compound_barline (Score_element*me, String str, Real h)
+Bar::compound_barline (Grob*me, String str, Real h)
 {
-  Real kern = gh_scm2double (me->get_elt_property ("kern"));
-  Real thinkern = gh_scm2double (me->get_elt_property ("thin-kern"));
-  Real hair = gh_scm2double (me->get_elt_property ("hair-thickness"));
-  Real fatline = gh_scm2double (me->get_elt_property ("thick-thickness"));
+  Real kern = gh_scm2double (me->get_grob_property ("kern"));
+  Real thinkern = gh_scm2double (me->get_grob_property ("thin-kern"));
+  Real hair = gh_scm2double (me->get_grob_property ("hair-thickness"));
+  Real fatline = gh_scm2double (me->get_grob_property ("thick-thickness"));
 
   Real staffline = me->paper_l ()->get_var ("stafflinethickness");
 
@@ -118,7 +118,7 @@ Bar::compound_barline (Score_element*me, String str, Real h)
 
 
 Molecule
-Bar::simple_barline (Score_element*,Real w, Real h) 
+Bar::simple_barline (Grob*,Real w, Real h) 
 {
   return Lookup::filledbox (Box (Interval(0,w), Interval(-h/2, h/2)));
 }
@@ -128,28 +128,28 @@ MAKE_SCHEME_CALLBACK(Bar,before_line_breaking ,1);
 SCM
 Bar::before_line_breaking  (SCM smob)
 {
-  Score_element*me=unsmob_element (smob);
+  Grob*me=unsmob_element (smob);
   Item * item = dynamic_cast<Item*> (me);
   
-  SCM g = me->get_elt_property ("glyph");
+  SCM g = me->get_grob_property ("glyph");
   SCM orig = g;
   Direction bsd = item->break_status_dir ();
   if (gh_string_p (g) && bsd)
     {
-      SCM proc = me->get_elt_property ("break-glyph-function");
+      SCM proc = me->get_grob_property ("break-glyph-function");
       g = gh_call2 (proc, g, gh_int2scm (bsd));
     }
 
   
   if (!gh_string_p (g))
     {
-      me->set_elt_property ("molecule-callback", SCM_BOOL_T);
+      me->set_grob_property ("molecule-callback", SCM_BOOL_T);
       me->set_extent_callback (SCM_EOL, X_AXIS);
       // leave y_extent for spanbar? 
     }
 
   if (! gh_equal_p  (g, orig))
-    me->set_elt_property ("glyph", g);
+    me->set_grob_property ("glyph", g);
 
   
   /*
@@ -162,13 +162,13 @@ Bar::before_line_breaking  (SCM smob)
   */
   if (gh_string_p (g))
     {
-      Score_element * col = item->column_l ();
-      SCM dirlist = col->get_elt_property ("dir-list");
+      Grob * col = item->column_l ();
+      SCM dirlist = col->get_grob_property ("dir-list");
       SCM scmdir = gh_int2scm (-1); 
       if (scm_memq (scmdir, dirlist) == SCM_BOOL_F)
 	{
 	  dirlist = gh_cons (scmdir, dirlist);
-	  col->set_elt_property ("dir-list", dirlist);
+	  col->set_grob_property ("dir-list", dirlist);
 	}
     }
   
@@ -176,13 +176,13 @@ Bar::before_line_breaking  (SCM smob)
 }
   
 void
-Bar::set_interface (Score_element*me)
+Bar::set_interface (Grob*me)
 {
   me->set_interface (ly_symbol2scm ("bar-line-interface"));
 }
 
 bool
-Bar::has_interface (Score_element*m)
+Bar::has_interface (Grob*m)
 {
   return m && m->has_interface (ly_symbol2scm ("bar-line-interface"));
 }
@@ -192,9 +192,9 @@ MAKE_SCHEME_CALLBACK(Bar,get_staff_bar_size,1);
 SCM
 Bar::get_staff_bar_size (SCM smob) 
 {
-  Score_element*me = unsmob_element (smob);
+  Grob*me = unsmob_element (smob);
   Real ss = Staff_symbol_referencer::staff_space (me);
-  SCM size = me->get_elt_property ("bar-size");
+  SCM size = me->get_grob_property ("bar-size");
   if (gh_number_p (size))
     return gh_double2scm (gh_scm2double(size)*ss);
   else

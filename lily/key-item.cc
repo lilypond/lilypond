@@ -28,12 +28,12 @@ const int SHARP_TOP_PITCH=4; /*  ais and bis typeset in lower octave */
   the thinking to other parties.
  */
 int
-Key_item::calculate_position(Score_element *ki, SCM pair) 
+Key_item::calculate_position(Grob *ki, SCM pair) 
 {
   int p = gh_scm2int (gh_car (pair));
   int a = gh_scm2int (gh_cdr (pair));  
-  int c0p = gh_scm2int (ki->get_elt_property ("c0-position"));
-  if (to_boolean (ki->get_elt_property ("multi-octave")))
+  int c0p = gh_scm2int (ki->get_grob_property ("c0-position"));
+  if (to_boolean (ki->get_grob_property ("multi-octave")))
     {
       return p + c0p;
     }
@@ -76,12 +76,12 @@ MAKE_SCHEME_CALLBACK(Key_item,brew_molecule,1);
 SCM
 Key_item::brew_molecule (SCM smob)
 {
-  Score_element*me =unsmob_element (smob);
+  Grob*me =unsmob_element (smob);
 
 
   Real inter = Staff_symbol_referencer::staff_space (me)/2.0;
   
-  SCM newas = me->get_elt_property ("new-accidentals");  
+  SCM newas = me->get_grob_property ("new-accidentals");  
   Molecule mol;
   /*
     SCM lists are stacks, so we work from right to left, ending with
@@ -98,7 +98,7 @@ Key_item::brew_molecule (SCM smob)
   Item *it = dynamic_cast<Item*> (me) ;
   if (it->break_status_dir () != RIGHT)
     {
-      SCM old = me->get_elt_property ("old-accidentals");
+      SCM old = me->get_grob_property ("old-accidentals");
       /*
 	Add half a space between  cancellation and key sig.
 
@@ -138,13 +138,13 @@ Key_item::brew_molecule (SCM smob)
 
 
 bool
-Key_item::has_interface (Score_element*m)
+Key_item::has_interface (Grob*m)
 {
   return m && m->has_interface (ly_symbol2scm ("key-signature-interface"));
 }
 
 void
-Key_item::set_interface (Score_element*m)
+Key_item::set_interface (Grob*m)
 {
   m->set_interface (ly_symbol2scm ("key-signature-interface"));
 }

@@ -22,10 +22,10 @@ class Grace_position_engraver:public Engraver
   Paper_column *last_musical_col_l_;
 protected:
   VIRTUAL_COPY_CONS(Translator);
-  virtual void acknowledge_element (Score_element_info);
-  virtual void process_acknowledged ();
-  virtual void do_post_move_processing ();
-  virtual void do_pre_move_processing ();
+  virtual void acknowledge_grob (Grob_info);
+  virtual void create_grobs ();
+  virtual void start_translation_timestep ();
+  virtual void stop_translation_timestep ();
   Item*align_l_;
   Link_array<Item> support_;
 public:
@@ -40,7 +40,7 @@ Grace_position_engraver::Grace_position_engraver ()
 }
 
 void
-Grace_position_engraver::acknowledge_element (Score_element_info i)
+Grace_position_engraver::acknowledge_grob (Grob_info i)
 {
   Item *item = dynamic_cast<Item*> (i.elem_l_);
   if (item && Grace_align_item::has_interface (i.elem_l_))
@@ -49,12 +49,12 @@ Grace_position_engraver::acknowledge_element (Score_element_info i)
     }
   else if (item && Note_head::has_interface (i.elem_l_))
     {
-      if (!to_boolean (item->get_elt_property ("grace")))
+      if (!to_boolean (item->get_grob_property ("grace")))
 	support_.push (item);
     }
   else if (item && Local_key_item::has_interface (i.elem_l_))
     {
-      if (!to_boolean (item->get_elt_property ("grace")))
+      if (!to_boolean (item->get_grob_property ("grace")))
 	support_.push (item);
       else if (align_l_) 
 	item->add_dependency (align_l_);
@@ -62,7 +62,7 @@ Grace_position_engraver::acknowledge_element (Score_element_info i)
 }
 
 void
-Grace_position_engraver::process_acknowledged ()
+Grace_position_engraver::create_grobs ()
 {
   if (align_l_)
     {
@@ -73,7 +73,7 @@ Grace_position_engraver::process_acknowledged ()
 }
 
 void
-Grace_position_engraver::do_pre_move_processing ()
+Grace_position_engraver::stop_translation_timestep ()
 {
   if (align_l_ && !Side_position::supported_b (align_l_))
     {
@@ -87,7 +87,7 @@ Grace_position_engraver::do_pre_move_processing ()
      
   */
 
-      Score_element * elt = align_l_->parent_l (X_AXIS);
+      Grob * elt = align_l_->parent_l (X_AXIS);
       if (elt)
 	return;
 
@@ -101,7 +101,7 @@ Grace_position_engraver::do_pre_move_processing ()
 }
 
 void
-Grace_position_engraver::do_post_move_processing ()
+Grace_position_engraver::start_translation_timestep ()
 {
   support_.clear ();
   align_l_ =0;

@@ -21,9 +21,9 @@ protected:
   Link_array<Audio_note> notes_;
 
   VIRTUAL_COPY_CONS (Translator);
-  virtual void acknowledge_element (Audio_element_info);
-  virtual void process_acknowledged ();
-  virtual void do_post_move_processing ();
+  virtual void acknowledge_grob (Audio_element_info);
+  virtual void create_grobs ();
+  virtual void start_translation_timestep ();
   Global_translator* global_translator_l ();
 };
 
@@ -34,7 +34,7 @@ Grace_position_performer::Grace_position_performer ()
 }
 
 void
-Grace_position_performer::acknowledge_element (Audio_element_info i)
+Grace_position_performer::acknowledge_grob (Audio_element_info i)
 {
   if (Audio_note * n = dynamic_cast <Audio_note*> (i.elem_l_))
     {
@@ -46,7 +46,7 @@ Grace_position_performer::acknowledge_element (Audio_element_info i)
 }
 
 void
-Grace_position_performer::process_acknowledged ()
+Grace_position_performer::create_grobs ()
 {
   if (graces_.size ())
     {
@@ -116,7 +116,7 @@ Grace_position_performer::global_translator_l ()
 
 
 void
-Grace_position_performer::do_post_move_processing ()
+Grace_position_performer::start_translation_timestep ()
 {
   graces_.clear ();
   notes_.clear ();

@@ -1,17 +1,17 @@
 /*
-  score-element-info.cc -- implement Score_element_info
+  grob-info.cc -- implement Grob_info
 
   source file of the GNU LilyPond music typesetter
 
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "score-element-info.hh"
+#include "grob-info.hh"
 #include "request.hh"
 #include "translator.hh"
 #include "translator-group.hh"
 
-Score_element_info::Score_element_info (Score_element*s_l, Music *r_l)
+Grob_info::Grob_info (Grob*s_l, Music *r_l)
 {
   elem_l_ = s_l;
   req_l_ = r_l;
@@ -19,7 +19,7 @@ Score_element_info::Score_element_info (Score_element*s_l, Music *r_l)
 }
 
 
-Score_element_info::Score_element_info()
+Grob_info::Grob_info()
 {
   elem_l_ = 0;
   req_l_ = 0;
@@ -28,7 +28,7 @@ Score_element_info::Score_element_info()
 
 
 Link_array<Translator>
-Score_element_info::origin_trans_l_arr (Translator* end) const
+Grob_info::origin_trans_l_arr (Translator* end) const
 {
   Translator * t = origin_trans_l_;
   Link_array<Translator> r;

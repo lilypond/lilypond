@@ -33,8 +33,8 @@ protected:
   virtual void play_element (Audio_element* p);
   virtual void do_removal_processing ();
   virtual void do_creation_processing ();
-  virtual void process_acknowledged ();
-  virtual void do_pre_move_processing ();
+  virtual void create_grobs ();
+  virtual void stop_translation_timestep ();
 
 private:
   Audio_staff* audio_staff_p_;
@@ -75,7 +75,7 @@ Staff_performer::do_creation_processing ()
 }
 
 void
-Staff_performer::process_acknowledged ()
+Staff_performer::create_grobs ()
 {
   String str = new_instrument_str ();
   if (str.length_i ())
@@ -89,7 +89,7 @@ Staff_performer::process_acknowledged ()
 }
 
 void
-Staff_performer::do_pre_move_processing ()
+Staff_performer::stop_translation_timestep ()
 {
   if (name_p_)
     {
@@ -111,7 +111,7 @@ Staff_performer::do_pre_move_processing ()
       play_element (instrument_p_);
       instrument_p_ = 0;
     }
-  Performer_group_performer::do_pre_move_processing ();
+  Performer_group_performer::stop_translation_timestep ();
 }
 
 void

@@ -18,16 +18,16 @@
 #include "note-head.hh"
 
 bool
-Note_column::rest_b (Score_element*me) 
+Note_column::rest_b (Grob*me) 
 {
-  return unsmob_element (me->get_elt_property ("rest"));
+  return unsmob_element (me->get_grob_property ("rest"));
 }
 
 int
-Note_column::shift_compare (Score_element *const &p1, Score_element *const&p2)
+Note_column::shift_compare (Grob *const &p1, Grob *const&p2)
 {
-  SCM s1 = p1->get_elt_property ("horizontal-shift");
-  SCM s2 = p2->get_elt_property ("horizontal-shift");
+  SCM s1 = p1->get_grob_property ("horizontal-shift");
+  SCM s2 = p2->get_grob_property ("horizontal-shift");
 
   int h1 = (gh_number_p (s1))?  gh_scm2int (s1) :0;
   int h2 = (gh_number_p (s2)) ? gh_scm2int (s2):0;
@@ -35,9 +35,9 @@ Note_column::shift_compare (Score_element *const &p1, Score_element *const&p2)
 }
 
 void
-Note_column::set_interface (Score_element* me)
+Note_column::set_interface (Grob* me)
 {
-  me->set_elt_property ("note-heads", SCM_EOL);  
+  me->set_grob_property ("note-heads", SCM_EOL);  
   me->set_interface (ly_symbol2scm ("note-column-interface"));
   
   Axis_group_interface::set_interface (me);
@@ -45,23 +45,23 @@ Note_column::set_interface (Score_element* me)
 }
 
 Item *
-Note_column::stem_l (Score_element*me) 
+Note_column::stem_l (Grob*me) 
 {
-  SCM s = me->get_elt_property ("stem");
+  SCM s = me->get_grob_property ("stem");
   return  dynamic_cast<Item*>(unsmob_element (s));
 }
   
 Slice
-Note_column::head_positions_interval(Score_element *me)
+Note_column::head_positions_interval(Grob *me)
 {
   Slice  iv;
 
   iv.set_empty ();
 
-  SCM h = me->get_elt_property ("note-heads");
+  SCM h = me->get_grob_property ("note-heads");
   for (; gh_pair_p (h); h = gh_cdr (h))
     {
-      Score_element *se = unsmob_element (gh_car (h));
+      Grob *se = unsmob_element (gh_car (h));
       
       int j = int (Staff_symbol_referencer::position_f (se));
       iv.unite (Slice (j,j));
@@ -70,12 +70,12 @@ Note_column::head_positions_interval(Score_element *me)
 }
 
 Direction
-Note_column::dir (Score_element*  me)
+Note_column::dir (Grob*  me)
 {
-  Score_element *stem = unsmob_element (me->get_elt_property ("stem"));
+  Grob *stem = unsmob_element (me->get_grob_property ("stem"));
   if (stem && Stem::has_interface (stem))
     return Stem::get_direction (stem);
-  else if (gh_pair_p (me->get_elt_property ("note-heads")))
+  else if (gh_pair_p (me->get_grob_property ("note-heads")))
     return (Direction)sign (head_positions_interval (me).center ());
 
   programming_error ("Note column without heads and stem!");
@@ -84,19 +84,19 @@ Note_column::dir (Score_element*  me)
 
 
 void
-Note_column::set_stem (Score_element*me,Score_element * stem_l)
+Note_column::set_stem (Grob*me,Grob * stem_l)
 {
-  me->set_elt_property ("stem", stem_l->self_scm ());
+  me->set_grob_property ("stem", stem_l->self_scm ());
   me->add_dependency (stem_l);
   Axis_group_interface::add_element (me, stem_l);
 }
 
 void
-Note_column::add_head (Score_element*me,Score_element *h)
+Note_column::add_head (Grob*me,Grob *h)
 {
   if (Rest::has_interface (h))
     {
-      me->set_elt_property ("rest", h->self_scm ());
+      me->set_grob_property ("rest", h->self_scm ());
     }
   else if (Note_head::has_interface (h))
     {
@@ -109,9 +109,9 @@ Note_column::add_head (Score_element*me,Score_element *h)
   translate the rest symbols vertically by amount DY_I.
  */
 void
-Note_column::translate_rests (Score_element*me,int dy_i)
+Note_column::translate_rests (Grob*me,int dy_i)
 {
-  Score_element * r = unsmob_element (me->get_elt_property ("rest"));
+  Grob * r = unsmob_element (me->get_grob_property ("rest"));
   if (r)
     {
       r->translate_axis (dy_i * Staff_symbol_referencer::staff_space (r)/2.0, Y_AXIS);
@@ -120,7 +120,7 @@ Note_column::translate_rests (Score_element*me,int dy_i)
 
 
 void
-Note_column::set_dotcol (Score_element*me,Score_element *d)
+Note_column::set_dotcol (Grob*me,Grob *d)
 {
   Axis_group_interface::add_element (me, d);
 }
@@ -128,15 +128,15 @@ Note_column::set_dotcol (Score_element*me,Score_element *d)
 
 
 
-Score_element*
-Note_column::first_head (Score_element*me) 
+Grob*
+Note_column::first_head (Grob*me) 
 {
-  Score_element * st = stem_l (me);
+  Grob * st = stem_l (me);
   return st?  Stem::first_head (st): 0; 
 }
 
 bool
-Note_column::has_interface (Score_element*me)
+Note_column::has_interface (Grob*me)
 {
   return me && me->has_interface (ly_symbol2scm ("note-column-interface"));
 }

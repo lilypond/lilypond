@@ -18,14 +18,14 @@
 struct Axis_group_interface 
 {
   DECLARE_SCHEME_CALLBACK(group_extent_callback, (SCM smob, SCM axis));
-  static Interval relative_group_extent (Axis, Score_element * common, SCM list);
+  static Interval relative_group_extent (Axis, Grob * common, SCM list);
 
-  static void add_element (Score_element* me, Score_element*);
-  static void set_axes (Score_element*,Axis,Axis);
-  static bool axis_b (Score_element*,Axis);
-  static Link_array<Score_element> get_children (Score_element*);
-  static bool has_interface (Score_element*);
-  static void set_interface (Score_element*);
+  static void add_element (Grob* me, Grob*);
+  static void set_axes (Grob*,Axis,Axis);
+  static bool axis_b (Grob*,Axis);
+  static Link_array<Grob> get_children (Grob*);
+  static bool has_interface (Grob*);
+  static void set_interface (Grob*);
   
 };
 

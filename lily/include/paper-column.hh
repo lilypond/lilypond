@@ -17,7 +17,7 @@
 class Paper_column : public Item
 { 
 public:
-  VIRTUAL_COPY_CONS(Score_element);
+  VIRTUAL_COPY_CONS(Grob);
 
   /*
     Not (yet) in scm, because of messy effects when a column commits suicide.
@@ -31,13 +31,13 @@ public:
   Line_of_score *line_l_;
 
   /// which  one (left =0)
-  static int rank_i(Score_element*);
+  static int rank_i(Grob*);
 
   Paper_column (SCM);
   bool musical_b () const;
-  static Moment when_mom (Score_element*);
+  static Moment when_mom (Grob*);
 
-  static bool used_b (Score_element*) ;
+  static bool used_b (Grob*) ;
   void set_rank (int);
 };
      

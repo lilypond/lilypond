@@ -17,11 +17,11 @@
 class Tie_column
 {
 public:
-  static void set_interface (Score_element*me);
-  static bool has_interface (Score_element*);
-  static void add_tie (Score_element*me,Score_element*);
+  static void set_interface (Grob*me);
+  static bool has_interface (Grob*);
+  static void add_tie (Grob*me,Grob*);
   DECLARE_SCHEME_CALLBACK(after_line_breaking, (SCM ));
-  static void set_directions (Score_element*me);
+  static void set_directions (Grob*me);
 };
 
 #endif /* TIE_COLUMN_HH */

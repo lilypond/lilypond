@@ -27,7 +27,7 @@ fixup_refpoints (SCM s)
 {
   for (; gh_pair_p (s); s = gh_cdr (s))
     {
-      Score_element::fixup_refpoint (gh_car (s));
+      Grob::fixup_refpoint (gh_car (s));
     }
 }
 
@@ -44,11 +44,11 @@ Line_of_score::Line_of_score(SCM s)
 int
 Line_of_score::element_count () const
 {
-  return scm_ilength ( get_elt_property ("all-elements"));
+  return scm_ilength ( get_grob_property ("all-elements"));
 }
 
 void
-Line_of_score::typeset_element (Score_element * elem_p)
+Line_of_score::typeset_grob (Grob * elem_p)
 {
   elem_p->pscore_l_ = pscore_l_;
   Pointer_group_interface::add_element (this, "all-elements",elem_p);
@@ -58,7 +58,7 @@ Line_of_score::typeset_element (Score_element * elem_p)
 void
 Line_of_score::output_lines ()
 {
-  for (SCM s = get_elt_property ("all-elements");
+  for (SCM s = get_grob_property ("all-elements");
        gh_pair_p (s); s = gh_cdr (s))
     {
       unsmob_element (gh_car (s))->do_break_processing ();
@@ -69,8 +69,8 @@ Line_of_score::output_lines ()
   int count = 0;
   for (int i=0; i < broken_into_l_arr_.size (); i++)
     {
-      Score_element *se = broken_into_l_arr_[i];
-      SCM all = se->get_elt_property ("all-elements");
+      Grob *se = broken_into_l_arr_[i];
+      SCM all = se->get_grob_property ("all-elements");
       for (SCM s = all; gh_pair_p (s); s = gh_cdr (s))
 	{
 	  fixup_refpoint (gh_car (s));
@@ -82,10 +82,10 @@ Line_of_score::output_lines ()
   /*
     needed for doing items.
    */
-  fixup_refpoints (get_elt_property ("all-elements"));
+  fixup_refpoints (get_grob_property ("all-elements"));
 
   
-  for (SCM s = get_elt_property ("all-elements");
+  for (SCM s = get_grob_property ("all-elements");
        gh_pair_p (s); s = gh_cdr (s))
     {
       unsmob_element (gh_car (s))->handle_broken_dependencies ();
@@ -112,9 +112,9 @@ Line_of_score::output_lines ()
 
       if (i < broken_into_l_arr_.size () - 1)
 	{
-	  SCM lastcol =  gh_car (line_l->get_elt_property ("columns"));
-	  Score_element*  e = unsmob_element (lastcol);
-	  SCM inter = e->get_elt_property ("between-system-string");
+	  SCM lastcol =  gh_car (line_l->get_grob_property ("columns"));
+	  Grob*  e = unsmob_element (lastcol);
+	  SCM inter = e->get_grob_property ("between-system-string");
 	  if (gh_string_p (inter))
 	    {
 	      pscore_l_->outputter_l_->output_string (inter);	      
@@ -131,8 +131,8 @@ Line_of_score::break_into_pieces (Array<Column_x_positions> const &breaking)
     {
       Line_of_score *line_l = dynamic_cast <Line_of_score*> (clone());
       line_l->rank_i_ = i;
-      //      line_l->set_immutable_elt_property ("rank", gh_int2scm( i));
-      Link_array<Score_element> c (breaking[i].cols_);
+      //      line_l->set_immutable_grob_property ("rank", gh_int2scm( i));
+      Link_array<Grob> c (breaking[i].cols_);
       pscore_l_->typeset_line (line_l);
       
       line_l->set_bound(LEFT,c[0]);
@@ -227,15 +227,15 @@ Line_of_score::output_scheme (SCM s)
 void
 Line_of_score::add_column (Paper_column*p)
 {
-  Score_element *me = this;
-  SCM cs = me->get_elt_property ("columns");
-  Score_element * prev =  gh_pair_p (cs) ? unsmob_element (gh_car (cs)) : 0;
+  Grob *me = this;
+  SCM cs = me->get_grob_property ("columns");
+  Grob * prev =  gh_pair_p (cs) ? unsmob_element (gh_car (cs)) : 0;
 
   p->rank_i_ = prev ? Paper_column::rank_i (prev) + 1 : 0; 
 
 
 
-  me->set_elt_property ("columns",  gh_cons (p->self_scm (), cs));
+  me->set_grob_property ("columns",  gh_cons (p->self_scm (), cs));
 
   Axis_group_interface::add_element (me, p);
 }
@@ -248,29 +248,29 @@ Line_of_score::add_column (Paper_column*p)
 void
 Line_of_score::pre_processing ()
 {
-  for (SCM s = get_elt_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
     unsmob_element (gh_car (s))->discretionary_processing ();
 
   if(verbose_global_b)
     progress_indication ( _f("Element count %d ",  element_count ()));
 
   
-  for (SCM s = get_elt_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
     unsmob_element (gh_car (s))->handle_prebroken_dependencies ();
   
-  fixup_refpoints (get_elt_property ("all-elements"));
+  fixup_refpoints (get_grob_property ("all-elements"));
   
-  for (SCM s = get_elt_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
     {
-      Score_element* sc = unsmob_element (gh_car (s));
+      Grob* sc = unsmob_element (gh_car (s));
       sc->calculate_dependencies (PRECALCED, PRECALCING, ly_symbol2scm ("before-line-breaking-callback"));
     }
   
   progress_indication ("\n" + _ ("Calculating column positions...") + " " );
-  for (SCM s = get_elt_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
     {
-      Score_element * e = unsmob_element (gh_car (s));
-      SCM proc = e->get_elt_property ("spacing-procedure");
+      Grob * e = unsmob_element (gh_car (s));
+      SCM proc = e->get_grob_property ("spacing-procedure");
       if (gh_procedure_p (proc))
 	gh_call1 (proc, e->self_scm ());
     }
@@ -279,10 +279,10 @@ Line_of_score::pre_processing ()
 void
 Line_of_score::post_processing (bool last_line)
 {
-  for (SCM s = get_elt_property ("all-elements");
+  for (SCM s = get_grob_property ("all-elements");
        gh_pair_p (s); s = gh_cdr (s))
     {
-      Score_element* sc = unsmob_element (gh_car (s));
+      Grob* sc = unsmob_element (gh_car (s));
       sc->calculate_dependencies (POSTCALCED, POSTCALCING,
 				  ly_symbol2scm ("after-line-breaking-callback"));
     }
@@ -304,7 +304,7 @@ Line_of_score::post_processing (bool last_line)
     generate all molecules  to trigger all font loads.
 
     (ugh. This is not very memory efficient.)  */
-  for (SCM s = get_elt_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
     {
       unsmob_element (gh_car (s))->get_molecule ();
     }
@@ -326,9 +326,9 @@ Line_of_score::post_processing (bool last_line)
   /*
     all elements.
    */ 
-  for (SCM s = get_elt_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
     {
-      Score_element *sc = unsmob_element (gh_car (s));
+      Grob *sc = unsmob_element (gh_car (s));
       Molecule *m = sc->get_molecule ();
       if (!m)
 	continue;
@@ -336,7 +336,7 @@ Line_of_score::post_processing (bool last_line)
       Offset o (sc->relative_coordinate (this, X_AXIS),
 		sc->relative_coordinate (this, Y_AXIS));
 
-      SCM e = sc->get_elt_property ("extra-offset");
+      SCM e = sc->get_grob_property ("extra-offset");
       if (gh_pair_p (e))
 	{
 	  o[X_AXIS] += gh_scm2double (gh_car (e));
@@ -363,7 +363,7 @@ Line_of_score::broken_col_range (Item const*l, Item const*r) const
 
   l = l->column_l ();
   r = r->column_l ();
-  SCM s = get_elt_property ("columns");
+  SCM s = get_grob_property ("columns");
 
   while (gh_pair_p (s) && gh_car (s) != r->self_scm ())
     s = gh_cdr  (s);
@@ -388,11 +388,11 @@ Line_of_score::broken_col_range (Item const*l, Item const*r) const
    Return all columns, but filter out any unused columns , since they might
    disrupt the spacing problem.
  */
-Link_array<Score_element>
+Link_array<Grob>
 Line_of_score::column_l_arr ()const
 {
-  Link_array<Score_element> acs
-    = Pointer_group_interface__extract_elements (this, (Score_element*) 0, "columns");
+  Link_array<Grob> acs
+    = Pointer_group_interface__extract_elements (this, (Grob*) 0, "columns");
   bool bfound = false;
   for (int i= acs.size (); i -- ; )
     {

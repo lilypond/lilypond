@@ -22,8 +22,8 @@
   then.  */
 class Hyphen_engraver : public Engraver
 {
-  Score_element *last_lyric_l_;
-  Score_element *current_lyric_l_;
+  Grob *last_lyric_l_;
+  Grob *current_lyric_l_;
   Hyphen_req* req_l_;
   Spanner* hyphen_p_;
 public:
@@ -31,13 +31,13 @@ public:
   VIRTUAL_COPY_CONS (Translator);
 
 protected:
-  virtual void acknowledge_element (Score_element_info);
+  virtual void acknowledge_grob (Grob_info);
   virtual void do_removal_processing();
   void deprecated_process_music();
-  virtual bool do_try_music (Music*);
-  virtual void do_pre_move_processing();
-  virtual void do_post_move_processing ();
-  virtual void process_acknowledged ();
+  virtual bool try_music (Music*);
+  virtual void stop_translation_timestep();
+  virtual void start_translation_timestep ();
+  virtual void create_grobs ();
 private:
 
 };
@@ -53,7 +53,7 @@ Hyphen_engraver::Hyphen_engraver ()
 }
 
 void
-Hyphen_engraver::acknowledge_element (Score_element_info i)
+Hyphen_engraver::acknowledge_grob (Grob_info i)
 {
   // -> text-item
   if (i.elem_l_->has_interface (ly_symbol2scm ("lyric-syllable-interface")))
@@ -70,7 +70,7 @@ Hyphen_engraver::acknowledge_element (Score_element_info i)
 
 
 bool
-Hyphen_engraver::do_try_music (Music* r)
+Hyphen_engraver::try_music (Music* r)
 {
   if (Hyphen_req* p = dynamic_cast <Hyphen_req *> (r))
     {
@@ -94,7 +94,7 @@ Hyphen_engraver::do_removal_processing ()
 }
 
 void
-Hyphen_engraver::process_acknowledged ()
+Hyphen_engraver::create_grobs ()
 {
   deprecated_process_music ();
 }
@@ -113,17 +113,17 @@ Hyphen_engraver::deprecated_process_music ()
       hyphen_p_ = new Spanner (get_property ("LyricHyphen"));
 
       Hyphen_spanner (hyphen_p_).set_textitem  (LEFT, last_lyric_l_);
-      announce_element (hyphen_p_, req_l_);
+      announce_grob (hyphen_p_, req_l_);
     }
 }
 
 
 void
-Hyphen_engraver::do_pre_move_processing ()
+Hyphen_engraver::stop_translation_timestep ()
 {
   if (hyphen_p_)
     {
-      typeset_element (hyphen_p_);
+      typeset_grob (hyphen_p_);
       hyphen_p_ = 0;
     }
 
@@ -135,7 +135,7 @@ Hyphen_engraver::do_pre_move_processing ()
 }
 
 void
-Hyphen_engraver::do_post_move_processing ()
+Hyphen_engraver::start_translation_timestep ()
 {
   req_l_ = 0;
 }

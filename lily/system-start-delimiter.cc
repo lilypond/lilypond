@@ -14,22 +14,22 @@
 #include "molecule.hh"
 #include "font-interface.hh"
 #include "all-font-metrics.hh"
-#include "score-element.hh"
+#include "grob.hh"
 #include "lookup.hh"
 
 Molecule
-System_start_delimiter::staff_bracket (Score_element*me,Real height)  
+System_start_delimiter::staff_bracket (Grob*me,Real height)  
 {
-  Real arc_height = gh_scm2double (me->get_elt_property("arch-height")) ;
+  Real arc_height = gh_scm2double (me->get_grob_property("arch-height")) ;
   
   SCM at = gh_list (ly_symbol2scm ("bracket"),
-		    me->get_elt_property ("arch-angle"),
-		    me->get_elt_property ("arch-width"),
+		    me->get_grob_property ("arch-angle"),
+		    me->get_grob_property ("arch-width"),
 		    gh_double2scm (arc_height),
-		    me->get_elt_property ("bracket-width"),
+		    me->get_grob_property ("bracket-width"),
 		    gh_double2scm (height),
-		    me->get_elt_property ("arch-thick"),
-		    me->get_elt_property ("bracket-thick"),
+		    me->get_grob_property ("arch-thick"),
+		    me->get_grob_property ("bracket-thick"),
 		    SCM_UNDEFINED);
 
   Real h = height + 2 * arc_height;
@@ -40,22 +40,22 @@ System_start_delimiter::staff_bracket (Score_element*me,Real height)
 }
 
 void
-System_start_delimiter::set_interface (Score_element*me)
+System_start_delimiter::set_interface (Grob*me)
 {
   me->set_interface (ly_symbol2scm ("system-start-delimiter-interface"));
 }
 
 bool
-System_start_delimiter::has_interface (Score_element*me)
+System_start_delimiter::has_interface (Grob*me)
 {
   return  me->has_interface (ly_symbol2scm ("system-start-delimiter-interface"));
 }
 
 Molecule
-System_start_delimiter::simple_bar (Score_element*me,Real h) 
+System_start_delimiter::simple_bar (Grob*me,Real h) 
 {
   Real w = me->paper_l ()->get_var ("stafflinethickness") *
-    gh_scm2double (me->get_elt_property ("thickness"));
+    gh_scm2double (me->get_grob_property ("thickness"));
   return Lookup::filledbox (Box (Interval(0,w), Interval(-h/2, h/2)));
 }
 
@@ -69,11 +69,11 @@ System_start_delimiter::after_line_breaking (SCM smob)
 }
 
 void
-System_start_delimiter::try_collapse (Score_element*me)
+System_start_delimiter::try_collapse (Grob*me)
 {
-  SCM   gl = me->get_elt_property ("glyph");
+  SCM   gl = me->get_grob_property ("glyph");
   
-  if (scm_ilength (me->get_elt_property ("elements")) <=  1 && gl == ly_symbol2scm ("bar-line"))
+  if (scm_ilength (me->get_grob_property ("elements")) <=  1 && gl == ly_symbol2scm ("bar-line"))
     {
       me->suicide ();
     }
@@ -86,19 +86,19 @@ MAKE_SCHEME_CALLBACK(System_start_delimiter,brew_molecule,1);
 SCM
 System_start_delimiter::brew_molecule (SCM smob)
 {
-  Score_element * me = unsmob_element (smob);
+  Grob * me = unsmob_element (smob);
   Interval ext = ly_scm2interval (Axis_group_interface::group_extent_callback (me->self_scm(), gh_int2scm (Y_AXIS)));
   Real l = ext.length (); 
   Molecule m;
 
-  SCM s = me->get_elt_property ("collapse-height");
+  SCM s = me->get_grob_property ("collapse-height");
   if (gh_number_p (s) && l < gh_scm2double (s))
     {
       me->suicide();
       return SCM_EOL;
     }
 
-  s = me->get_elt_property ("glyph");
+  s = me->get_grob_property ("glyph");
   if (!gh_symbol_p(s))
     return SCM_EOL;
   
@@ -115,7 +115,7 @@ System_start_delimiter::brew_molecule (SCM smob)
 }
 
 Molecule
-System_start_delimiter::staff_brace (Score_element*me,Real y)  
+System_start_delimiter::staff_brace (Grob*me,Real y)  
 {
   int lo = 0;
   int hi = 255;

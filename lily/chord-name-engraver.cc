@@ -26,10 +26,10 @@ public:
   VIRTUAL_COPY_CONS (Translator);
 
 protected:
-  virtual void do_pre_move_processing ();
-  virtual void acknowledge_element (Score_element_info i);
+  virtual void stop_translation_timestep ();
+  virtual void acknowledge_grob (Grob_info i);
   void deprecated_process_music ();
-  virtual bool do_try_music (Music *);
+  virtual bool try_music (Music *);
 
 private:
   void add_note (Note_req *);
@@ -67,7 +67,7 @@ Chord_name_engraver::add_note (Note_req* n)
 }
 
 bool
-Chord_name_engraver::do_try_music (Music* m)
+Chord_name_engraver::try_music (Music* m)
 {
   if (Note_req* n = dynamic_cast<Note_req*> (m))
     {
@@ -77,7 +77,7 @@ Chord_name_engraver::do_try_music (Music* m)
   return false;
 }
 
-/* Uh, if we do acknowledge_element, shouldn't we postpone
+/* Uh, if we do acknowledge_grob, shouldn't we postpone
   deprecated_process_music until do_process_acknowlegded?
 
    Sigh, I can *never* remember how this works, can't we
@@ -86,9 +86,9 @@ Chord_name_engraver::do_try_music (Music* m)
      do_creation0
      
      post_move1
-     do_try_music2
-  deprecated_process_music3 (or is it acknowledge_element3 ?)
-     acknowledge_element4
+     try_music2
+  deprecated_process_music3 (or is it acknowledge_grob3 ?)
+     acknowledge_grob4
   
      do_pre_move9
      
@@ -96,7 +96,7 @@ Chord_name_engraver::do_try_music (Music* m)
 
   and what was the deal with this ``do'' prefix again? */
 void
-Chord_name_engraver::acknowledge_element (Score_element_info i)
+Chord_name_engraver::acknowledge_grob (Grob_info i)
 {
   if (Note_req* n = dynamic_cast<Note_req*> (i.req_l_))
     add_note (n);
@@ -121,21 +121,21 @@ Chord_name_engraver::deprecated_process_music ()
 #endif
       
       chord_name_p_ = new Item (get_property ("ChordName"));
-      chord_name_p_->set_elt_property ("chord", chord_);
-      announce_element (chord_name_p_, 0);
+      chord_name_p_->set_grob_property ("chord", chord_);
+      announce_grob (chord_name_p_, 0);
       SCM s = get_property ("drarnChords"); //FIXME!
       if (to_boolean (s) && last_chord_ != SCM_EOL &&
 	  gh_equal_p (chord_, last_chord_))
-	chord_name_p_->set_elt_property ("begin-of-line-visible", SCM_BOOL_T);
+	chord_name_p_->set_grob_property ("begin-of-line-visible", SCM_BOOL_T);
     }
 }
 
 void
-Chord_name_engraver::do_pre_move_processing ()
+Chord_name_engraver::stop_translation_timestep ()
 {
   if (chord_name_p_)
     {
-      typeset_element (chord_name_p_);
+      typeset_grob (chord_name_p_);
     }
   chord_name_p_ = 0;
 

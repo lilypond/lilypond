@@ -24,7 +24,7 @@
 #include "spanner.hh"
 
 void
-Tuplet_spanner::set_interface (Score_element*me)
+Tuplet_spanner::set_interface (Grob*me)
 {
   me->set_interface (ly_symbol2scm ("tuplet-bracket"));
 }
@@ -38,15 +38,15 @@ MAKE_SCHEME_CALLBACK(Tuplet_spanner,brew_molecule,1);
 SCM
 Tuplet_spanner::brew_molecule (SCM smob) 
 {
-  Score_element *me= unsmob_element (smob);
+  Grob *me= unsmob_element (smob);
   Molecule  mol;
 
   // Default behaviour: number always, bracket when no beam!
-  bool par_beam = to_boolean (me->get_elt_property ("parallel-beam"));
+  bool par_beam = to_boolean (me->get_grob_property ("parallel-beam"));
   bool bracket_visibility = !par_beam;
   bool number_visibility = true;
 
-  SCM bracket = me->get_elt_property ("tuplet-bracket-visibility");
+  SCM bracket = me->get_grob_property ("tuplet-bracket-visibility");
   if (gh_boolean_p (bracket))
     {
       bracket_visibility = gh_scm2bool (bracket);
@@ -54,7 +54,7 @@ Tuplet_spanner::brew_molecule (SCM smob)
   else if (bracket == ly_symbol2scm ("if-no-beam"))
     bracket_visibility = !par_beam;
 
-  SCM numb = me->get_elt_property ("tuplet-number-visibility");  
+  SCM numb = me->get_grob_property ("tuplet-number-visibility");  
   if (gh_boolean_p (numb))
     {
       number_visibility = gh_scm2bool (numb);
@@ -62,18 +62,18 @@ Tuplet_spanner::brew_molecule (SCM smob)
   else if (bracket == ly_symbol2scm ("if-no-beam"))
     number_visibility = !par_beam;
   
-  if (gh_pair_p (me->get_elt_property ("columns")))
+  if (gh_pair_p (me->get_grob_property ("columns")))
     {
-      Link_array<Score_element> column_arr=
-	Pointer_group_interface__extract_elements (me, (Score_element*)0, "columns");
+      Link_array<Grob> column_arr=
+	Pointer_group_interface__extract_elements (me, (Grob*)0, "columns");
 	
       Real ncw = column_arr.top ()->extent(column_arr.top (), X_AXIS).length ();
       Real w = dynamic_cast<Spanner*>(me)->spanner_length () + ncw;
 
       Real staff_space = 1.0;
       Direction dir = Directional_element_interface::get (me);
-      Real dy = gh_scm2double (me->get_elt_property ("delta-y"));
-      SCM number = me->get_elt_property ("text");
+      Real dy = gh_scm2double (me->get_grob_property ("delta-y"));
+      SCM number = me->get_grob_property ("text");
       if (gh_string_p (number) && number_visibility)
 	{
 	  SCM properties = Font_interface::font_alist_chain (me);
@@ -92,8 +92,8 @@ Tuplet_spanner::brew_molecule (SCM smob)
 	{
 	  Real  lt =  me->paper_l ()->get_var ("stafflinethickness");
 	  
-	  SCM thick = me->get_elt_property ("thick");
-	  SCM gap = me->get_elt_property ("number-gap");
+	  SCM thick = me->get_grob_property ("thick");
+	  SCM gap = me->get_grob_property ("number-gap");
 	  
 	  SCM at =gh_list(ly_symbol2scm ("tuplet"),
 			  gh_double2scm (1.0),
@@ -118,14 +118,14 @@ Tuplet_spanner::brew_molecule (SCM smob)
   use first -> last note for slope, and then correct for disturbing
   notes in between.  */
 void
-Tuplet_spanner::calc_position_and_height (Score_element*me,Real *offset, Real * dy) 
+Tuplet_spanner::calc_position_and_height (Grob*me,Real *offset, Real * dy) 
 {
-  Link_array<Score_element> column_arr=
-    Pointer_group_interface__extract_elements (me, (Score_element*)0, "columns");
+  Link_array<Grob> column_arr=
+    Pointer_group_interface__extract_elements (me, (Grob*)0, "columns");
 
 
-  Score_element * commony = me->common_refpoint (me->get_elt_property ("columns"), Y_AXIS);
-  Score_element * commonx = me->common_refpoint (me->get_elt_property ("columns"), X_AXIS);  
+  Grob * commony = me->common_refpoint (me->get_grob_property ("columns"), Y_AXIS);
+  Grob * commonx = me->common_refpoint (me->get_grob_property ("columns"), X_AXIS);  
   
   Direction d = Directional_element_interface::get (me);
 
@@ -176,10 +176,10 @@ Tuplet_spanner::calc_position_and_height (Score_element*me,Real *offset, Real * 
   use first -> last note for slope,
 */
 void
-Tuplet_spanner::calc_dy (Score_element*me,Real * dy)
+Tuplet_spanner::calc_dy (Grob*me,Real * dy)
 {
-  Link_array<Score_element> column_arr=
-    Pointer_group_interface__extract_elements (me, (Score_element*)0, "columns");
+  Link_array<Grob> column_arr=
+    Pointer_group_interface__extract_elements (me, (Grob*)0, "columns");
 
   /*
     ugh. refps.
@@ -193,7 +193,7 @@ MAKE_SCHEME_CALLBACK(Tuplet_spanner,after_line_breaking,1);
 SCM
 Tuplet_spanner::after_line_breaking (SCM smob)
 {
-  Score_element * me = unsmob_element (smob);
+  Grob * me = unsmob_element (smob);
   Link_array<Note_column> column_arr=
     Pointer_group_interface__extract_elements (me, (Note_column*)0, "columns");
   Spanner *sp = dynamic_cast<Spanner*> (me);
@@ -216,29 +216,29 @@ Tuplet_spanner::after_line_breaking (SCM smob)
 
   calc_position_and_height (me,&offset,&dy);
   
-  me->set_elt_property ("delta-y", gh_double2scm (dy));
+  me->set_grob_property ("delta-y", gh_double2scm (dy));
 
   me->translate_axis (offset, Y_AXIS);
   
-  if (scm_ilength (me->get_elt_property ("beams")) == 1)
+  if (scm_ilength (me->get_grob_property ("beams")) == 1)
     {
-      SCM bs = me->get_elt_property ("beams");
-      Score_element *b = unsmob_element (gh_car (bs));
+      SCM bs = me->get_grob_property ("beams");
+      Grob *b = unsmob_element (gh_car (bs));
       Spanner * beam_l = dynamic_cast<Spanner *> (b);
       if (!sp->broken_b () 
 	  && sp->get_bound (LEFT)->column_l () == beam_l->get_bound (LEFT)->column_l ()
 	  && sp->get_bound (RIGHT)->column_l () == beam_l->get_bound (RIGHT)->column_l ())
-	me->set_elt_property ("parallel-beam", SCM_BOOL_T);
+	me->set_grob_property ("parallel-beam", SCM_BOOL_T);
     }
   return SCM_UNSPECIFIED;
 }
 
 
 Direction
-Tuplet_spanner::get_default_dir (Score_element*me)
+Tuplet_spanner::get_default_dir (Grob*me)
 {
   Direction d = UP;
-  SCM dir_sym =me->get_elt_property ("dir-forced");
+  SCM dir_sym =me->get_grob_property ("dir-forced");
   if (isdir_b (dir_sym))
     {
       d= to_dir (dir_sym);
@@ -247,9 +247,9 @@ Tuplet_spanner::get_default_dir (Score_element*me)
     }
 
   d = UP ;
-  for (SCM s = me->get_elt_property ("columns"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = me->get_grob_property ("columns"); gh_pair_p (s); s = gh_cdr (s))
     {
-      Score_element * nc = unsmob_element (gh_car (s));
+      Grob * nc = unsmob_element (gh_car (s));
       if (Note_column::dir (nc) < 0) 
 	{
 	  d = DOWN;
@@ -261,14 +261,14 @@ Tuplet_spanner::get_default_dir (Score_element*me)
 }
 
 void
-Tuplet_spanner::add_beam (Score_element*me, Score_element *b)
+Tuplet_spanner::add_beam (Grob*me, Grob *b)
 {
   me->add_dependency (b);
   Pointer_group_interface::add_element (me, "beams",b);
 }
 
 void
-Tuplet_spanner::add_column (Score_element*me, Item*n)
+Tuplet_spanner::add_column (Grob*me, Item*n)
 {
   Pointer_group_interface::add_element (me, "columns",n);
   me->add_dependency (n);

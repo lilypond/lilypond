@@ -16,11 +16,11 @@
 class Stem_tremolo
 {
 public:
-  static void set_interface (Score_element*);
-  static bool has_interface (Score_element*);
+  static void set_interface (Grob*);
+  static bool has_interface (Grob*);
   DECLARE_SCHEME_CALLBACK(dim_callback, (SCM smob, SCM axis));
   DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
-  static void set_stem (Score_element*me, Score_element *st);
+  static void set_stem (Grob*me, Grob *st);
 };
 
 #endif /* ABBREV_HH */

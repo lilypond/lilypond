@@ -32,12 +32,12 @@ Performer::daddy_perf_l () const
 }
 
 void
-Performer::acknowledge_element (Audio_element_info)
+Performer::acknowledge_grob (Audio_element_info)
 {
 }
 
 void
-Performer::process_acknowledged ()
+Performer::create_grobs ()
 {
 }
 

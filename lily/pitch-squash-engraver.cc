@@ -14,17 +14,17 @@
 class Pitch_squash_engraver : public Engraver {
 public:
   VIRTUAL_COPY_CONS (Translator);
-  virtual void acknowledge_element (Score_element_info);
+  virtual void acknowledge_grob (Grob_info);
 };
 
 
 void
-Pitch_squash_engraver::acknowledge_element (Score_element_info i)
+Pitch_squash_engraver::acknowledge_grob (Grob_info i)
 {
   SCM newpos = get_property ("squashedPosition");
   if (Note_head::has_interface (i.elem_l_))
     {
-      i.elem_l_->set_elt_property ("staff-position", newpos);
+      i.elem_l_->set_grob_property ("staff-position", newpos);
     }
 }
 

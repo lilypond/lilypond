@@ -13,12 +13,12 @@
 
 class Local_key_item
 {
-  static Molecule parenthesize (Score_element*me, Molecule) ;
+  static Molecule parenthesize (Grob*me, Molecule) ;
 public:
   DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
-  static void add_pitch (Score_element*me, Pitch, bool cautionary, bool natural);
-  static bool has_interface (Score_element*);
-  static void set_interface (Score_element*);  
+  static void add_pitch (Grob*me, Pitch, bool cautionary, bool natural);
+  static bool has_interface (Grob*);
+  static void set_interface (Grob*);  
 };
 
 

@@ -35,7 +35,7 @@ ly_unique (SCM list)
 
 /* Hmm, rewrite this using ly_split_list? */
 SCM
-ly_delete1 (SCM s, SCM list)
+ly_remove_member (SCM s, SCM list)
 {
   SCM removed = SCM_EOL;
   for (SCM i = list; gh_pair_p (i); i = gh_cdr (i))
@@ -282,16 +282,16 @@ Chord::add_below_tonic (SCM pitch, SCM pitches)
 
 
 
-/*****
-      Parser stuff 
+/*
+  Parser stuff 
+  
+  Construct from parser output:
 
-      Construct from parser output:
-
-      PITCHES is the plain chord, it does not include bass or inversion
-
-      Part of Chord:: namespace for now, because we do lots of
-      chord-manipulating stuff. */
-
+  PITCHES is the plain chord, it does not include bass or inversion
+  
+  Part of Chord:: namespace for now, because we do lots of
+  chord-manipulating stuff.
+*/
 SCM
 Chord::tonic_add_sub_to_pitches (SCM tonic, SCM add, SCM sub)
 {

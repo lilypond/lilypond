@@ -18,18 +18,18 @@
 
 class Rhythmic_column_engraver :public Engraver
 {
-  Link_array<Score_element> rhead_l_arr_;
-  Link_array<Score_element> grace_slur_endings_;
-  Score_element * stem_l_;
-  Score_element *ncol_p_;
-  Score_element *dotcol_l_;
+  Link_array<Grob> rhead_l_arr_;
+  Link_array<Grob> grace_slur_endings_;
+  Grob * stem_l_;
+  Grob *ncol_p_;
+  Grob *dotcol_l_;
 
 protected:
   VIRTUAL_COPY_CONS(Translator);
-  virtual void acknowledge_element (Score_element_info);
-  virtual void process_acknowledged ();
-  virtual void do_pre_move_processing();
-  virtual void do_post_move_processing();
+  virtual void acknowledge_grob (Grob_info);
+  virtual void create_grobs ();
+  virtual void stop_translation_timestep();
+  virtual void start_translation_timestep();
 public:
   Rhythmic_column_engraver();
   
@@ -46,7 +46,7 @@ Rhythmic_column_engraver::Rhythmic_column_engraver()
 
 
 void
-Rhythmic_column_engraver::process_acknowledged ()
+Rhythmic_column_engraver::create_grobs ()
 {
   if (rhead_l_arr_.size ())
     {
@@ -54,7 +54,7 @@ Rhythmic_column_engraver::process_acknowledged ()
 	{
 	  ncol_p_ = new Item (get_property("NoteColumn"));
 	  Note_column::set_interface (ncol_p_);
-	  announce_element (ncol_p_, 0);
+	  announce_grob (ncol_p_, 0);
 	}
 
       for (int i=0; i < rhead_l_arr_.size (); i++)
@@ -92,11 +92,11 @@ Rhythmic_column_engraver::process_acknowledged ()
 }
 
 void
-Rhythmic_column_engraver::acknowledge_element (Score_element_info i)
+Rhythmic_column_engraver::acknowledge_grob (Grob_info i)
 {
   SCM wg = get_property ("weAreGraceContext");
   bool wegrace = to_boolean (wg);
-  if (wegrace != to_boolean (i.elem_l_->get_elt_property ("grace"))
+  if (wegrace != to_boolean (i.elem_l_->get_grob_property ("grace"))
     && !Slur::has_interface (i.elem_l_))
     return ;
   
@@ -119,23 +119,23 @@ Rhythmic_column_engraver::acknowledge_element (Score_element_info i)
 	end slurs starting on grace notes
        */
       
-      if (to_boolean (i.elem_l_->get_elt_property ("grace")))
+      if (to_boolean (i.elem_l_->get_grob_property ("grace")))
 	grace_slur_endings_.push (i.elem_l_);
    }
 }
 
 void
-Rhythmic_column_engraver::do_pre_move_processing()
+Rhythmic_column_engraver::stop_translation_timestep()
 {
   if (ncol_p_) 
     {
-      typeset_element (ncol_p_);
+      typeset_grob (ncol_p_);
       ncol_p_ =0;
     }
 }
 
 void
-Rhythmic_column_engraver::do_post_move_processing()
+Rhythmic_column_engraver::start_translation_timestep()
 {
   grace_slur_endings_.clear ();
   dotcol_l_ =0;

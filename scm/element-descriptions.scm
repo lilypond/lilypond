@@ -185,7 +185,7 @@
 		(height . 0.4)
 		(minimum-length .  0.5) 
 		(molecule-callback . ,Hyphen_spanner::brew_molecule)
-		(Y-extent-callback . ,Score_element::point_dimension_callback)
+		(Y-extent-callback . ,Grob::point_dimension_callback)
 		(meta . ,(element-description "LyricHyphen" lyric-hyphen-interface ))
 	))
 	
@@ -227,7 +227,7 @@
 		(molecule-callback . ,Lyric_extender::brew_molecule)
 		(height . 0.8) ; stafflinethickness;
 		(right-trim-amount . 0.5)
-		(Y-extent-callback . ,Score_element::point_dimension_callback)
+		(Y-extent-callback . ,Grob::point_dimension_callback)
 		(meta . ,(element-description "LyricExtender"  lyric-extender-interface))
 	))
 	
@@ -322,11 +322,13 @@
 	
 	(Rest . (
 		(after-line-breaking-callback . ,Rest::after_line_breaking)
+		(X-extent-callback . ,Rest::extent_callback)
+		(Y-extent-callback . ,Rest::extent_callback)		
 		(molecule-callback . ,Rest::brew_molecule)
 		(minimum-beam-collision-distance . 1.5)
 		(meta . ,(element-description  "Rest"
 			rhythmic-head-interface
-			rest-interface ))
+			rest-interface))
 	))
 	(RestCollision . (
 		(minimum-distance . 0.75)
@@ -472,7 +474,7 @@
 		;; sheets than 20
 		;;(font-point-size . 20)
 		;;(font-relative-size . #f)
-		(meta . ,(element-description "SystemStartDelimiter" system-start-delimiter font-interface))
+		(meta . ,(element-description "SystemStartDelimiter" system-start-delimiter-interface font-interface))
 		))
 
 	(TextScript . (

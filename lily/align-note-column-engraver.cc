@@ -23,14 +23,14 @@
 class Align_note_column_engraver: public Engraver
 {
   Item * align_item_p_;
-  Score_element * now_column_l_;
-  Score_element * accidental_l_;
+  Grob * now_column_l_;
+  Grob * accidental_l_;
 
-  virtual void process_acknowledged ();
-  virtual void do_post_move_processing ();
+  virtual void create_grobs ();
+  virtual void start_translation_timestep ();
   virtual void do_creation_processing ();
   virtual void do_removal_processing ();
-  virtual void acknowledge_element (Score_element_info);
+  virtual void acknowledge_grob (Grob_info);
 public:
   VIRTUAL_COPY_CONS(Translator);
   Align_note_column_engraver ();
@@ -52,18 +52,12 @@ Align_note_column_engraver::do_creation_processing ()
   Side_position::set_direction (align_item_p_, LEFT);
   
   // needed  for setting font size.
-  announce_element (align_item_p_, 0);
+  announce_grob (align_item_p_, 0);
 }
 
 void
 Align_note_column_engraver::do_removal_processing ()
 {
-  if (!align_item_p_)
-    {
-      programming_error ("Align_note_column_engraver:: urg\n");
-      return;
-    }
-  
   SCM al = get_property ("graceAlignPosition");
   if (isdir_b (al))
     {
@@ -71,12 +65,12 @@ Align_note_column_engraver::do_removal_processing ()
       Directional_element_interface::set (align_item_p_,d);
     }
   
-  typeset_element (align_item_p_);
+  typeset_grob (align_item_p_);
   align_item_p_ =0;
 }
 
 void
-Align_note_column_engraver::acknowledge_element (Score_element_info inf)
+Align_note_column_engraver::acknowledge_grob (Grob_info inf)
 {
   if (Note_column::has_interface(inf.elem_l_))
     {
@@ -88,7 +82,7 @@ Align_note_column_engraver::acknowledge_element (Score_element_info inf)
     }
 }
 void
-Align_note_column_engraver::process_acknowledged ()
+Align_note_column_engraver::create_grobs ()
 {
   if (now_column_l_ && accidental_l_)
     {
@@ -112,7 +106,7 @@ Align_note_column_engraver::process_acknowledged ()
 	  Real extra_space = gh_scm2double(grsp);
 	  SCM e = gh_cons (gh_double2scm (-extra_space),
 			   gh_double2scm (0.0));
-	  now_column_l_->set_elt_property ("extra-space", e);
+	  now_column_l_->set_grob_property ("extra-space", e);
 	}
     }
 
@@ -129,7 +123,7 @@ Align_note_column_engraver::process_acknowledged ()
 }
 
 void
-Align_note_column_engraver::do_post_move_processing ()
+Align_note_column_engraver::start_translation_timestep ()
 {
   now_column_l_ =0;
   accidental_l_ =0;

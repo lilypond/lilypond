@@ -59,7 +59,7 @@ Translator::is_alias_b (String s) const
 }
 
 bool
-Translator::do_try_music (Music *)
+Translator::try_music (Music *)
 {
   return false;
 }
@@ -87,7 +87,7 @@ Translator::do_add_processing ()
 void
 Translator::post_move_processing ()
 {
-  do_post_move_processing ();
+  start_translation_timestep ();
 }
 
 void
@@ -96,11 +96,6 @@ Translator::removal_processing ()
   do_removal_processing ();
 }
 
-bool
-Translator::try_music (Music * r)
-{
-  return do_try_music (r);
-}
 
 void
 Translator::announces ()
@@ -112,7 +107,7 @@ Translator::announces ()
 void
 Translator::pre_move_processing ()
 {
-  do_pre_move_processing ();
+  stop_translation_timestep ();
 }
 
 
@@ -136,12 +131,12 @@ Translator::get_property (SCM sym) const
 }
 
 void
-Translator:: do_pre_move_processing ()
+Translator:: stop_translation_timestep ()
 {
 }
 
 void
-Translator::do_post_move_processing ()
+Translator::start_translation_timestep ()
 {
 }
 

@@ -13,7 +13,7 @@
         % by executing a 0 0 moveto
         \def\embeddedps##1{%
                 \special{ps: @beginspecial @setspecial
-                        \lilypondpaperoutputscale\lilySpace
+                        \lilypondpaperoutputscale\lilySpace 
                         \lilypondpaperoutputscale\lilySpace scale 
                         ##1 @endspecial}%
         }

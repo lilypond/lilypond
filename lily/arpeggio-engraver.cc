@@ -24,16 +24,16 @@ public:
   Arpeggio_engraver ();
 
 protected:
-  virtual void acknowledge_element (Score_element_info);
-  virtual void process_acknowledged ();
-  virtual void do_pre_move_processing ();
-  virtual bool do_try_music (Music *);
+  virtual void acknowledge_grob (Grob_info);
+  virtual void create_grobs ();
+  virtual void stop_translation_timestep ();
+  virtual bool try_music (Music *);
 
 private:
   Item* arpeggio_; 
   Arpeggio_req *arpeggio_req_;
-  Link_array <Score_element> stems_;
-  Link_array<Score_element> supports_;
+  Link_array <Grob> stems_;
+  Link_array<Grob> supports_;
 };
 
 Arpeggio_engraver::Arpeggio_engraver ()
@@ -43,7 +43,7 @@ Arpeggio_engraver::Arpeggio_engraver ()
 }
 
 bool
-Arpeggio_engraver::do_try_music (Music* m)
+Arpeggio_engraver::try_music (Music* m)
 {
   if (!arpeggio_req_)
     {
@@ -57,7 +57,7 @@ Arpeggio_engraver::do_try_music (Music* m)
 }
 
 void
-Arpeggio_engraver::acknowledge_element (Score_element_info info)
+Arpeggio_engraver::acknowledge_grob (Grob_info info)
 {
   if (arpeggio_req_)
     {
@@ -78,7 +78,7 @@ Arpeggio_engraver::acknowledge_element (Score_element_info info)
 }
 
 void
-Arpeggio_engraver::process_acknowledged ()
+Arpeggio_engraver::create_grobs ()
 {
   if (!arpeggio_ && !stems_.empty ())
     {
@@ -93,16 +93,16 @@ Arpeggio_engraver::process_acknowledged ()
 	{
 	  Side_position::add_support (arpeggio_, supports_[i]);
 	}
-      announce_element (arpeggio_, arpeggio_req_);
+      announce_grob (arpeggio_, arpeggio_req_);
     }
 }
 
 void
-Arpeggio_engraver::do_pre_move_processing ()
+Arpeggio_engraver::stop_translation_timestep ()
 {
   if (arpeggio_)
     {
-      typeset_element (arpeggio_);
+      typeset_grob (arpeggio_);
       arpeggio_ = 0;
     }
   arpeggio_req_ = 0;

@@ -1,12 +1,25 @@
-1.3.108.jcn5
-============
+1.3.108.uu1
+===========
 
-* Fixed mark default font.
+* Bugfix: resurrected point-and-click. 
 
-1.3.108.jcn2
-============
+* Use scheme object props for storing type predicates and doc-strings
+Dump global lists of properties into auto-documentation.
 
-* Removed some hair from chord code.
+* Bugfix: extent callback for Rest, so  ledger lines don't disappear for
+rest-collisions.
+
+* Removed some hair from chord code
+
+* Rewrite of engraver pass scheme: try to make graphical objects in
+acknowledge_element()/process_acknowledged(), not in process_music()
+
+* Remove Translator::status_ and associated code. Removes the need for
+various XXXX functions as wrapper for do_XXX functions.
+
+* Search replace: Score_element -> Grob (Graphical object),
+{pre,post}_move_processing -> {stop,start}_translation_timestep,
+do_try_music -> try_music.
 
 1.3.107.jcn3
 ============

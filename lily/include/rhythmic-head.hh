@@ -16,14 +16,14 @@
 class Rhythmic_head
 {
 public:
-  static int balltype_i (Score_element*) ;
-  static void set_dots (Score_element*,Item *);
-  static Item * stem_l (Score_element*) ;
-  static Item * dots_l (Score_element*) ;
-  static int dot_count (Score_element*) ;
+  static int balltype_i (Grob*) ;
+  static void set_dots (Grob*,Item *);
+  static Item * stem_l (Grob*) ;
+  static Item * dots_l (Grob*) ;
+  static int dot_count (Grob*) ;
   DECLARE_SCHEME_CALLBACK(after_line_breaking, (SCM ));
-  static bool has_interface (Score_element*);
-  static void set_interface (Score_element*);
+  static bool has_interface (Grob*);
+  static void set_interface (Grob*);
 };
 
 #endif // RHYTHMIC_HEAD_HH

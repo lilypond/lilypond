@@ -20,9 +20,9 @@ public:
 
 protected:
 
-  virtual bool do_try_music (Music* req_l);
-  virtual void do_pre_move_processing ();
-  virtual void process_acknowledged ();
+  virtual bool try_music (Music* req_l);
+  virtual void stop_translation_timestep ();
+  virtual void create_grobs ();
 
 private:
   Tempo_req* tempo_req_l_;
@@ -43,7 +43,7 @@ Tempo_performer::~Tempo_performer ()
 
 
 void
-Tempo_performer::process_acknowledged ()
+Tempo_performer::create_grobs ()
 {
   if (tempo_req_l_)
     {
@@ -60,7 +60,7 @@ Tempo_performer::process_acknowledged ()
 }
 
 void
-Tempo_performer::do_pre_move_processing ()
+Tempo_performer::stop_translation_timestep ()
 {
   if (audio_p_)
     {
@@ -70,7 +70,7 @@ Tempo_performer::do_pre_move_processing ()
 }
 
 bool
-Tempo_performer::do_try_music (Music* req_l)
+Tempo_performer::try_music (Music* req_l)
 {
   if (tempo_req_l_)
     return false;

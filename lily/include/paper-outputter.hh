@@ -17,7 +17,7 @@
 #include "protected-scm.hh"
 
 /**
-  Abstract interface for a Score_element to output itself.
+  Abstract interface for a Grob to output itself.
  */
 class Paper_outputter
 {

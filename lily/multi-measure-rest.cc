@@ -21,13 +21,13 @@
 #include "text-item.hh"
 
 void
-Multi_measure_rest::set_interface (Score_element*me)
+Multi_measure_rest::set_interface (Grob*me)
 {
   me->set_interface (ly_symbol2scm ("multi-measure-rest-interface"));
 }
 
 bool
-Multi_measure_rest::has_interface (Score_element*me)
+Multi_measure_rest::has_interface (Grob*me)
 {
   return me->has_interface (ly_symbol2scm ("multi-measure-rest-interface"));
 }
@@ -40,7 +40,7 @@ MAKE_SCHEME_CALLBACK(Multi_measure_rest,brew_molecule,1);
 SCM
 Multi_measure_rest::brew_molecule (SCM smob) 
 {
-  Score_element *me = unsmob_element (smob);
+  Grob *me = unsmob_element (smob);
   Spanner * sp = dynamic_cast<Spanner*> (me);
 
   SCM alist_chain = Font_interface::font_alist_chain (me);
@@ -85,14 +85,14 @@ Multi_measure_rest::brew_molecule (SCM smob)
   Molecule s;
 
   int measures = 1;
-  SCM m (me->get_elt_property ("measure-count"));
+  SCM m (me->get_grob_property ("measure-count"));
   if (gh_number_p (m))
     {
       measures = gh_scm2int (m);
     }
   
 
-  SCM limit = me->get_elt_property ("expand-limit");
+  SCM limit = me->get_grob_property ("expand-limit");
   if (measures <= gh_scm2int (limit))
     {
       /*
@@ -120,7 +120,7 @@ Multi_measure_rest::brew_molecule (SCM smob)
 	    }
 
 	  Real pad = s.empty_b ()
-	    ? 0.0 : gh_scm2double (me->get_elt_property ("padding")) * staff_space;
+	    ? 0.0 : gh_scm2double (me->get_grob_property ("padding")) * staff_space;
 
 	  Molecule r (musfont->find_by_name ("rests-" + to_str (k)));
 	  if (k == 0)
@@ -157,7 +157,7 @@ Multi_measure_rest::brew_molecule (SCM smob)
   UGH. JUNKME elt prop "columns" isn't really needed. 
  */
 void
-Multi_measure_rest::add_column (Score_element*me,Item* c)
+Multi_measure_rest::add_column (Grob*me,Item* c)
 {
   Pointer_group_interface::add_element (me, "columns",c);
 
@@ -170,7 +170,7 @@ MAKE_SCHEME_CALLBACK (Multi_measure_rest, set_spacing_rods,1);
 SCM
 Multi_measure_rest::set_spacing_rods (SCM smob)
 {
-  Score_element*me = unsmob_element (smob);
+  Grob*me = unsmob_element (smob);
 
   Spanner*sp = dynamic_cast<Spanner*> (me);
   if (!(sp->get_bound (LEFT) && sp->get_bound (RIGHT)))
@@ -202,7 +202,7 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
 	  should do something more advanced.
 	 */
       rod.distance_f_ = l->extent (l, X_AXIS)[BIGGER] - r->extent (r, X_AXIS)[SMALLER]
-	+ gh_scm2double (me->get_elt_property ("minimum-width")) * staff_space;
+	+ gh_scm2double (me->get_grob_property ("minimum-width")) * staff_space;
   
       rod.add_to_cols ();
     }

@@ -1,5 +1,5 @@
 /*
-  score-element-info.hh -- declare Score_element_info
+  grob-info.hh -- declare Grob_info
 
   source file of the GNU LilyPond music typesetter
 
@@ -18,17 +18,17 @@
 
   TODO: Store this in element info! 
   */
-struct Score_element_info {
+struct Grob_info {
   Translator * origin_trans_l_;
   friend Engraver;
 public:
   Link_array<Translator> origin_trans_l_arr (Translator*) const; 
-  Score_element * elem_l_;
+  Grob * elem_l_;
   Music *req_l_;
 
 
-  Score_element_info (Score_element*, Music*);
-  Score_element_info();
+  Grob_info (Grob*, Music*);
+  Grob_info();
 };
 
 

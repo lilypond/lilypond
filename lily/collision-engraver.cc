@@ -17,12 +17,12 @@
   a collision object.  */
 class Collision_engraver : public Engraver {
   Item * col_p_;
-  Link_array<Score_element> note_column_l_arr_;
+  Link_array<Grob> note_column_l_arr_;
 
 protected:
-  virtual void acknowledge_element (Score_element_info);
-  virtual void process_acknowledged ();
-  virtual void do_pre_move_processing();
+  virtual void acknowledge_grob (Grob_info);
+  virtual void create_grobs ();
+  virtual void stop_translation_timestep();
 public:
   VIRTUAL_COPY_CONS(Translator);
   Collision_engraver();
@@ -30,7 +30,7 @@ public:
 
 
 void
-Collision_engraver::process_acknowledged ()
+Collision_engraver::create_grobs ()
 {
   if (col_p_ || note_column_l_arr_.size () < 2)
     return ;
@@ -40,7 +40,7 @@ Collision_engraver::process_acknowledged ()
       Axis_group_interface::set_interface (col_p_);
       Axis_group_interface::set_axes (col_p_, X_AXIS, Y_AXIS);
 
-      announce_element (col_p_,0);
+      announce_grob (col_p_,0);
     }
   
   for (int i=0; i< note_column_l_arr_.size (); i++)
@@ -48,7 +48,7 @@ Collision_engraver::process_acknowledged ()
 }
 
 void
-Collision_engraver::acknowledge_element (Score_element_info i)
+Collision_engraver::acknowledge_grob (Grob_info i)
 {
   if (Note_column::has_interface (i.elem_l_))
     {
@@ -61,11 +61,11 @@ Collision_engraver::acknowledge_element (Score_element_info i)
 }
 
 void
-Collision_engraver::do_pre_move_processing()
+Collision_engraver::stop_translation_timestep()
 {
   if (col_p_) 
     {
-      typeset_element (col_p_);
+      typeset_grob (col_p_);
       col_p_ =0;
     }
   note_column_l_arr_.clear ();

@@ -17,15 +17,15 @@
 class Instrument_name_engraver : public Engraver
 {
   Item *text_;
-  Score_element * delim_ ;
+  Grob * delim_ ;
 
   void create_text (SCM s);
 public:
   VIRTUAL_COPY_CONS(Translator);
   Instrument_name_engraver ();
 
-  virtual void acknowledge_element (Score_element_info);
-  virtual void do_pre_move_processing ();
+  virtual void acknowledge_grob (Grob_info);
+  virtual void stop_translation_timestep ();
 };
 
 ADD_THIS_TRANSLATOR(Instrument_name_engraver);
@@ -38,11 +38,11 @@ Instrument_name_engraver::Instrument_name_engraver ()
 
 
 void
-Instrument_name_engraver::do_pre_move_processing ()
+Instrument_name_engraver::stop_translation_timestep ()
 {
   if (text_)
     {
-      typeset_element (text_);
+      typeset_grob (text_);
       text_ = 0;
     }
 }
@@ -53,17 +53,17 @@ Instrument_name_engraver::create_text (SCM txt)
   if(!text_)
     {
       text_ = new Item (get_property ("InstrumentName"));
-      text_->set_elt_property ("text", txt);
+      text_->set_grob_property ("text", txt);
 
       if (delim_)
 	text_->set_parent (delim_, Y_AXIS);
 
-      announce_element (text_,0);
+      announce_grob (text_,0);
     }
 }
 
 void
-Instrument_name_engraver::acknowledge_element (Score_element_info i)
+Instrument_name_engraver::acknowledge_grob (Grob_info i)
 {
   SCM s = get_property ("instrument");
   

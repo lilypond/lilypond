@@ -73,7 +73,7 @@ struct Simple_spacer
   Simple_spacer ();
   
   void solve (Column_x_positions *) const;
-  void add_columns (Link_array<Score_element>);
+  void add_columns (Link_array<Grob>);
   void my_solve_linelen ();
   void my_solve_natural_len ();
   Real active_springs_stiffness () const;

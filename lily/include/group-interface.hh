@@ -17,7 +17,7 @@
 
 /**
    Look at Score element ELT as thing which has a list property called
-   NAME_. Normally the list would contain Score_elements, but
+   NAME_. Normally the list would contain Grobs, but
    sometimes it can be different things.
 
    todo: reename as list_interface?
@@ -26,24 +26,24 @@
 struct Group_interface
 {
 public:
-  static int count (Score_element*  , String);
-  static void add_thing (Score_element*, String nm, SCM);
+  static int count (Grob*  , String);
+  static void add_thing (Grob*, String nm, SCM);
 };
 
 struct Pointer_group_interface : public Group_interface {
 public:
-  static void add_element (Score_element*, String nm, Score_element*e);
+  static void add_element (Grob*, String nm, Grob*e);
 };
 /** 
   Put all score elements of ELT's property called NAME into an array,
   and return it.  */
 template<class T>
 Link_array<T>
-Pointer_group_interface__extract_elements (Score_element const *elt, T *, const char* name)
+Pointer_group_interface__extract_elements (Grob const *elt, T *, const char* name)
 {
   Link_array<T> arr;
 
-  for (SCM s = elt->get_elt_property (name); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = elt->get_grob_property (name); gh_pair_p (s); s = gh_cdr (s))
     {
       SCM e = gh_car (s);
       arr.push (dynamic_cast<T*> (unsmob_element (e)));

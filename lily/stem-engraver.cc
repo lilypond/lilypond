@@ -27,13 +27,13 @@ public:
   Stem_engraver();
   
 protected:
-  virtual void acknowledge_element (Score_element_info);
-  virtual void do_pre_move_processing ();
-  virtual bool do_try_music (Music*);
+  virtual void acknowledge_grob (Grob_info);
+  virtual void stop_translation_timestep ();
+  virtual bool try_music (Music*);
   
 private:
-  Score_element  *stem_p_;
-  Score_element *tremolo_p_;
+  Grob  *stem_p_;
+  Grob *tremolo_p_;
   Rhythmic_req *rhythmic_req_l_;
   Tremolo_req* tremolo_req_l_;
 };
@@ -50,9 +50,9 @@ Stem_engraver::Stem_engraver ()
 
 
 void
-Stem_engraver::acknowledge_element(Score_element_info i)
+Stem_engraver::acknowledge_grob(Grob_info i)
 {
-  Score_element* h = i.elem_l_;
+  Grob* h = i.elem_l_;
   if (Rhythmic_head::has_interface (h))
     {
       if (Rhythmic_head::stem_l (h))
@@ -67,7 +67,7 @@ Stem_engraver::acknowledge_element(Score_element_info i)
 	  Staff_symbol_referencer::set_interface(stem_p_);
 
 	  
-	  stem_p_->set_elt_property ("duration-log", gh_int2scm (duration_log));
+	  stem_p_->set_grob_property ("duration-log", gh_int2scm (duration_log));
 
 	  if (tremolo_req_l_)
 	    {
@@ -93,7 +93,7 @@ Stem_engraver::acknowledge_element(Score_element_info i)
 		  tremolo_p_ = new Item (get_property ("StemTremolo"));
 		  Stem_tremolo::set_interface (tremolo_p_);
 
-		  announce_element (tremolo_p_, tremolo_req_l_);
+		  announce_grob (tremolo_p_, tremolo_req_l_);
 		  /*
 		    The number of tremolo flags is the number of flags of
 		    the tremolo-type minus the number of flags of the note
@@ -103,11 +103,11 @@ Stem_engraver::acknowledge_element(Score_element_info i)
 		    - (duration_log > 2 ? duration_log - 2 : 0);
 		  if (tremolo_flags < 0)
 		    tremolo_flags = 0;
-		  tremolo_p_->set_elt_property ("tremolo-flags",
+		  tremolo_p_->set_grob_property ("tremolo-flags",
 						gh_int2scm (tremolo_flags));
 		}
 	    }
-	  announce_element (stem_p_, i.req_l_);
+	  announce_grob (stem_p_, i.req_l_);
 	}
 
       if (Stem::flag_i (stem_p_) != duration_log)
@@ -120,12 +120,12 @@ Stem_engraver::acknowledge_element(Score_element_info i)
 }
 
 void
-Stem_engraver::do_pre_move_processing()
+Stem_engraver::stop_translation_timestep()
 {
   if (tremolo_p_)
     {
       Stem_tremolo::set_stem (tremolo_p_, stem_p_);
-      typeset_element (tremolo_p_);
+      typeset_grob (tremolo_p_);
       tremolo_p_ = 0;
     }
 
@@ -151,13 +151,13 @@ Stem_engraver::do_pre_move_processing()
 	 aargh: I don't get it.  direction is being set (and then set
 	 to forced), if we have a Chord_tremolo.
        */
-      SCM dir = stem_p_->get_elt_property ("direction");
+      SCM dir = stem_p_->get_grob_property ("direction");
       if (gh_number_p (dir) && to_dir(dir))
 	{
-	  stem_p_->set_elt_property ("dir-forced", SCM_BOOL_T);	  
+	  stem_p_->set_grob_property ("dir-forced", SCM_BOOL_T);	  
 	}
 
-      typeset_element(stem_p_);
+      typeset_grob(stem_p_);
       stem_p_ = 0;
     }
 
@@ -166,7 +166,7 @@ Stem_engraver::do_pre_move_processing()
 }
 
 bool
-Stem_engraver::do_try_music (Music* r)
+Stem_engraver::try_music (Music* r)
 {
   if (Tremolo_req* a = dynamic_cast <Tremolo_req *> (r))
     {

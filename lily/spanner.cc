@@ -68,7 +68,7 @@ Spanner::do_break_processing ()
 	      span_p->set_bound (RIGHT, bound);
 
 	      assert (span_p->line_l ()); 
-	      span_p->line_l ()->typeset_element (span_p);
+	      span_p->line_l ()->typeset_grob (span_p);
 	      broken_into_l_arr_.push (span_p);
 	    }
 	}
@@ -126,7 +126,7 @@ Spanner::do_break_processing ()
 	    }
 	  else
 	    {
-	      bounds[LEFT]->line_l ()->typeset_element (span_p);
+	      bounds[LEFT]->line_l ()->typeset_grob (span_p);
 	      broken_into_l_arr_.push (span_p);
 	    }
 	}
@@ -169,7 +169,7 @@ Spanner::get_bound (Direction d) const
 }
 
 void
-Spanner::set_bound(Direction d, Score_element*s)
+Spanner::set_bound(Direction d, Grob*s)
 {
   Item * i = dynamic_cast<Item*> (s);
   if (!i)
@@ -204,14 +204,14 @@ Spanner::set_bound(Direction d, Score_element*s)
 
 
 Spanner::Spanner (SCM s)
-  : Score_element (s)
+  : Grob (s)
 {
   spanned_drul_[LEFT]=0;
   spanned_drul_[RIGHT]=0;
 }
 
 Spanner::Spanner (Spanner const &s)
-  : Score_element (s)
+  : Grob (s)
 {
   spanned_drul_[LEFT] = spanned_drul_[RIGHT] =0;
 }
@@ -240,7 +240,7 @@ Spanner::line_l() const
 }
 
 
-Score_element*
+Grob*
 Spanner::find_broken_piece (Line_of_score*l) const
 {
   int idx = binsearch_link_array (broken_into_l_arr_,  (Spanner*)l, Spanner::compare);
@@ -369,7 +369,7 @@ extend_spanner_over_elements (SCM value, SCM extremal_pair)
   a pointer to the staffsymbol in S
 */
 void
-extend_spanner_over_elements (Score_element*s)
+extend_spanner_over_elements (Grob*s)
 {
   Spanner*sp = dynamic_cast<Spanner*> (s);
 
@@ -379,8 +379,8 @@ extend_spanner_over_elements (Score_element*s)
   SCM pair = gh_cons (s1,s2);
   extend_spanner_over_elements (sp->mutable_property_alist_, pair);
 
-  Score_element *p1 =  unsmob_element (gh_car (pair));
-  Score_element* p2 = unsmob_element (gh_cdr (pair));
+  Grob *p1 =  unsmob_element (gh_car (pair));
+  Grob* p2 = unsmob_element (gh_cdr (pair));
   sp->set_bound (LEFT,p1);
   sp->set_bound (RIGHT, p2);
 

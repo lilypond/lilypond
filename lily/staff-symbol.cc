@@ -22,9 +22,9 @@ MAKE_SCHEME_CALLBACK(Staff_symbol,brew_molecule,1);
 SCM
 Staff_symbol::brew_molecule (SCM smob)
 {
-  Score_element *me = unsmob_element (smob);
+  Grob *me = unsmob_element (smob);
   Spanner* sp = dynamic_cast<Spanner*> (me);
-  Score_element * common
+  Grob * common
     = sp->get_bound (LEFT)->common_refpoint (sp->get_bound (RIGHT), X_AXIS);
   
   Real width =
@@ -52,15 +52,15 @@ Staff_symbol::brew_molecule (SCM smob)
 }
 
 int
-Staff_symbol::steps_i(Score_element*me) 
+Staff_symbol::steps_i(Grob*me) 
 {
   return line_count (me) * 2;
 }
 
 int
-Staff_symbol::line_count (Score_element*me) 
+Staff_symbol::line_count (Grob*me) 
 {
-  SCM c = me->get_elt_property ("line-count");
+  SCM c = me->get_grob_property ("line-count");
   if (gh_number_p (c))
     return gh_scm2int (c);
   else
@@ -68,18 +68,18 @@ Staff_symbol::line_count (Score_element*me)
 }
 
 Real
-Staff_symbol::staff_space (Score_element*me )
+Staff_symbol::staff_space (Grob*me )
 {
   Real ss = 1.0;
   
-  SCM s = me->get_elt_property ("staff-space");
+  SCM s = me->get_grob_property ("staff-space");
   if (gh_number_p (s))
     ss *= gh_scm2double (s);
   return ss;
 }
 
 bool
-Staff_symbol::has_interface (Score_element*m)
+Staff_symbol::has_interface (Grob*m)
 {
   return m && m->has_interface (ly_symbol2scm ("staff-symbol-interface"));
 }

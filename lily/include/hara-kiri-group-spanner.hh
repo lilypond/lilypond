@@ -20,11 +20,11 @@ public:
   DECLARE_SCHEME_CALLBACK(force_hara_kiri_callback, (SCM ,SCM));
   DECLARE_SCHEME_CALLBACK(y_extent, (SCM smob, SCM axis));
   DECLARE_SCHEME_CALLBACK(force_hara_kiri_in_parent_callback, (SCM ,SCM));
-  static void add_element (Score_element *me, Score_element *e);
-  static void set_interface (Score_element*me);
-  static bool has_interface (Score_element*);
-  static void consider_suicide (Score_element*me);
-  static void add_interesting_item (Score_element * me , Score_element* n);
+  static void add_element (Grob *me, Grob *e);
+  static void set_interface (Grob*me);
+  static bool has_interface (Grob*);
+  static void consider_suicide (Grob*me);
+  static void add_interesting_item (Grob * me , Grob* n);
 };
 
 

@@ -54,7 +54,7 @@ Array<Column_x_positions>
 Gourlay_breaking::do_solve () const
 {
   Array<Break_node> optimal_paths;
-  Link_array<Score_element> all =
+  Link_array<Grob> all =
     pscore_l_->line_l_->column_l_arr ();
   
   Array<int> breaks = find_break_indices ();
@@ -80,7 +80,7 @@ Gourlay_breaking::do_solve () const
 
       for (int start_idx = break_idx; start_idx--;)
 	{
-	  Link_array<Score_element> line = all.slice (breaks[start_idx], breaks[break_idx]+1);
+	  Link_array<Grob> line = all.slice (breaks[start_idx], breaks[break_idx]+1);
   
 	  line[0]     = dynamic_cast<Item*> (line[0])    ->find_prebroken_piece (RIGHT);
 	  line.top () = dynamic_cast<Item*> (line.top ())->find_prebroken_piece (LEFT);
@@ -177,10 +177,10 @@ Gourlay_breaking::combine_demerits (Column_x_positions const &prev,
 				    Column_x_positions const &this_one) const
 {
   Real break_penalties = 0.0;
-  Score_element * pc = this_one.cols_.top ();
+  Grob * pc = this_one.cols_.top ();
   if (pc->original_l_)
     {
-      SCM pen = pc->get_elt_property ("penalty");
+      SCM pen = pc->get_grob_property ("penalty");
       if (gh_number_p (pen))
 	{
 	  break_penalties += gh_scm2double (pen);

@@ -20,13 +20,13 @@ class Axis_group_engraver : public Engraver
 {
 protected:
   Spanner *staffline_p_;
-  Link_array<Score_element> elts_;
+  Link_array<Grob> elts_;
   virtual void do_creation_processing();
   virtual void do_removal_processing();
-  virtual void acknowledge_element (Score_element_info);
-  virtual void process_acknowledged ();
+  virtual void acknowledge_grob (Grob_info);
+  virtual void create_grobs ();
   virtual Spanner* get_spanner_p () const;
-  virtual void add_element (Score_element*) ;
+  virtual void add_element (Grob*) ;
 public:  
   VIRTUAL_COPY_CONS(Translator);
   Axis_group_engraver ();
@@ -46,11 +46,11 @@ Axis_group_engraver::do_creation_processing ()
   Axis_group_interface::set_interface (staffline_p_);
   Axis_group_interface::set_axes (staffline_p_, Y_AXIS, Y_AXIS);
 
-  Score_element *  it = unsmob_element (get_property ("currentCommandColumn"));
+  Grob *  it = unsmob_element (get_property ("currentCommandColumn"));
 
   staffline_p_->set_bound(LEFT,it);
 
-  announce_element (staffline_p_, 0);
+  announce_grob (staffline_p_, 0);
 }
 
 Spanner*
@@ -68,31 +68,31 @@ Axis_group_engraver::do_removal_processing ()
   if (gh_pair_p (dims) && gh_number_p (gh_car (dims))
       && gh_number_p (gh_cdr (dims)))
     {
-      staffline_p_->set_extent_callback (Score_element::preset_extent_proc, Y_AXIS);
-      staffline_p_->set_elt_property ("extent-Y", dims);
+      staffline_p_->set_extent_callback (Grob::preset_extent_proc, Y_AXIS);
+      staffline_p_->set_grob_property ("extent-Y", dims);
     }
 
   dims = get_property ((type + "MinimumVerticalExtent").ch_C());
   if (gh_pair_p (dims) && gh_number_p (gh_car (dims))
       && gh_number_p (gh_cdr (dims)))
-    staffline_p_->set_elt_property ("minimum-extent-Y", dims);
+    staffline_p_->set_grob_property ("minimum-extent-Y", dims);
 
   dims = get_property ((type + "ExtraVerticalExtent").ch_C());
   if (gh_pair_p (dims) && gh_number_p (gh_car (dims))
       && gh_number_p (gh_cdr (dims)))
-    staffline_p_->set_elt_property ("extra-extent-Y", dims);
+    staffline_p_->set_grob_property ("extra-extent-Y", dims);
 
-  Score_element *  it = unsmob_element (get_property ("currentCommandColumn"));
+  Grob *  it = unsmob_element (get_property ("currentCommandColumn"));
 
 
   staffline_p_->set_bound(RIGHT,it);
 
-  typeset_element (staffline_p_);
+  typeset_grob (staffline_p_);
   staffline_p_ = 0;
 }
 
 void
-Axis_group_engraver::acknowledge_element (Score_element_info i)
+Axis_group_engraver::acknowledge_grob (Grob_info i)
 {
   elts_.push (i.elem_l_);
 }
@@ -102,12 +102,12 @@ Axis_group_engraver::acknowledge_element (Score_element_info i)
   cyclic parent relationship if we have two Axis_group_engravers in
   the context.  */
 void
-Axis_group_engraver::process_acknowledged ()
+Axis_group_engraver::create_grobs ()
 {
   /* UGH UGH UGH */
   for (int i=0; i < elts_.size (); i++)
     {
-      Score_element *par = elts_[i]->parent_l (Y_AXIS);
+      Grob *par = elts_[i]->parent_l (Y_AXIS);
 
       if ((!par || !Axis_group_interface::has_interface (par))
 	  && ! elts_[i]->empty_b (Y_AXIS))
@@ -117,7 +117,7 @@ Axis_group_engraver::process_acknowledged ()
 }
 
 void
-Axis_group_engraver::add_element (Score_element*e)
+Axis_group_engraver::add_element (Grob*e)
 {
   Axis_group_interface::add_element (staffline_p_, e);
 }
@@ -132,14 +132,14 @@ class Hara_kiri_engraver : public Axis_group_engraver
 {
 protected:
   virtual Spanner*get_spanner_p ()const;
-  virtual void acknowledge_element (Score_element_info);
-  virtual void add_element (Score_element *e);
+  virtual void acknowledge_grob (Grob_info);
+  virtual void add_element (Grob *e);
 public:
   VIRTUAL_COPY_CONS(Translator);
 };
 
 void
-Hara_kiri_engraver::add_element (Score_element*e)
+Hara_kiri_engraver::add_element (Grob*e)
 {
   Hara_kiri_group_spanner::add_element (staffline_p_, e);
 }
@@ -154,9 +154,9 @@ Hara_kiri_engraver::get_spanner_p () const
 }
 
 void
-Hara_kiri_engraver::acknowledge_element (Score_element_info i)
+Hara_kiri_engraver::acknowledge_grob (Grob_info i)
 {
-  Axis_group_engraver::acknowledge_element (i);
+  Axis_group_engraver::acknowledge_grob (i);
   if (Rhythmic_head::has_interface (i.elem_l_)
       || i.elem_l_->has_interface (ly_symbol2scm ("lyric-syllable-interface")))
     {

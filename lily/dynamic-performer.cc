@@ -28,10 +28,10 @@ public:
   ~Dynamic_performer ();
 
 protected:
-  virtual bool do_try_music (Music* req_l);
+  virtual bool try_music (Music* req_l);
   void deprecated_process_music ();
-  virtual void do_pre_move_processing ();
-  virtual void process_acknowledged ();
+  virtual void stop_translation_timestep ();
+  virtual void create_grobs ();
 
 private:
   Music* script_req_l_;
@@ -120,13 +120,13 @@ Dynamic_performer::deprecated_process_music ()
 }
 
 void
-Dynamic_performer::process_acknowledged ()
+Dynamic_performer::create_grobs ()
 {
   deprecated_process_music ();
 }
 
 void
-Dynamic_performer::do_pre_move_processing ()
+Dynamic_performer::stop_translation_timestep ()
 {
   if (audio_p_)
     {
@@ -136,7 +136,7 @@ Dynamic_performer::do_pre_move_processing ()
 }
 
 bool
-Dynamic_performer::do_try_music (Music* r)
+Dynamic_performer::try_music (Music* r)
 {
   if (!script_req_l_)
     {

@@ -17,9 +17,9 @@
 #include "lookup.hh"
 
 Molecule
-Script::get_molecule(Score_element * me, Direction d)
+Script::get_molecule(Grob * me, Direction d)
 {
-  SCM s = me->get_elt_property ("molecule");
+  SCM s = me->get_grob_property ("molecule");
   assert (gh_pair_p (s));
 
   SCM key = gh_car  (s);
@@ -42,7 +42,7 @@ MAKE_SCHEME_CALLBACK(Script,after_line_breaking,1);
 SCM
 Script::after_line_breaking (SCM smob)
 {
-  Score_element * me = unsmob_element (smob);
+  Grob * me = unsmob_element (smob);
 
   Direction d = Side_position::get_direction (me);
   Side_position::set_direction (me,d);
@@ -55,10 +55,10 @@ MAKE_SCHEME_CALLBACK(Script,brew_molecule,1);
 SCM
 Script::brew_molecule (SCM smob)
 {
-  Score_element *me= unsmob_element (smob);
+  Grob *me= unsmob_element (smob);
 #if 0
    Direction dir = DOWN;
-   SCM d = me->get_elt_property ("direction");
+   SCM d = me->get_grob_property ("direction");
    if (isdir_b (d))
      dir = to_dir (d);
 #endif
@@ -67,13 +67,13 @@ Script::brew_molecule (SCM smob)
 }
 
 bool
-Script::has_interface (Score_element*me)
+Script::has_interface (Grob*me)
 {
   return me->has_interface (ly_symbol2scm ("script-interface"));
 }
 
 void
-Script::set_interface (Score_element*me)
+Script::set_interface (Grob*me)
 {
   return me->set_interface (ly_symbol2scm ("script-interface"));
 }

@@ -13,14 +13,14 @@
 #include "group-interface.hh"
 
 void
-Separation_item::set_interface (Score_element*s)
+Separation_item::set_interface (Grob*s)
 {
   s->set_extent_callback (SCM_EOL, X_AXIS);
   s->set_extent_callback (SCM_EOL, Y_AXIS);
 }
 
 void
-Separation_item::add_item (Score_element*s,Item* i)
+Separation_item::add_item (Grob*s,Item* i)
 {
   assert (i);
   Pointer_group_interface::add_element (s,"elements",i);
@@ -28,13 +28,13 @@ Separation_item::add_item (Score_element*s,Item* i)
 }
 
 Interval
-Separation_item::my_width (Score_element *me)
+Separation_item::my_width (Grob *me)
 {
   Item *item = dynamic_cast<Item*> (me);
   Paper_column * pc = item->column_l ();
   Interval w;
   
-  for (SCM s =  me->get_elt_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s =  me->get_grob_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
     {
       SCM elt = gh_car (s);
       if (!unsmob_element (elt))
@@ -48,7 +48,7 @@ Separation_item::my_width (Score_element *me)
 	  continue;		/*UGH UGH*/ 
 	}
 
-      if (to_boolean (il->get_elt_property ("no-spacing-rods")))
+      if (to_boolean (il->get_grob_property ("no-spacing-rods")))
 	{
 	  continue;
 	}

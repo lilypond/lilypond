@@ -23,13 +23,13 @@
  */
 
 void
-Stem_tremolo::set_interface (Score_element *me)
+Stem_tremolo::set_interface (Grob *me)
 {
   me->set_interface (ly_symbol2scm ("stem-tremolo"));
 }
 
 bool
-Stem_tremolo::has_interface (Score_element *me)
+Stem_tremolo::has_interface (Grob *me)
 {
   return me->has_interface (ly_symbol2scm ("stem-tremolo"));
 }
@@ -42,7 +42,7 @@ MAKE_SCHEME_CALLBACK(Stem_tremolo,dim_callback,2);
 SCM
 Stem_tremolo::dim_callback (SCM e, SCM )
 {
-  Score_element * se = unsmob_element (e);
+  Grob * se = unsmob_element (e);
   
   Real space = Staff_symbol_referencer::staff_space (se);
   return ly_interval2scm ( Interval (-space, space));
@@ -54,15 +54,15 @@ MAKE_SCHEME_CALLBACK(Stem_tremolo,brew_molecule,1);
 SCM
 Stem_tremolo::brew_molecule (SCM smob)
 {
-  Score_element *me= unsmob_element (smob);
-  Score_element * stem = unsmob_element (me->get_elt_property ("stem"));
-  Score_element * beam = Stem::beam_l (stem);
+  Grob *me= unsmob_element (smob);
+  Grob * stem = unsmob_element (me->get_grob_property ("stem"));
+  Grob * beam = Stem::beam_l (stem);
   
   Real dydx;
   if (beam)
     {
       Real dy = 0;
-      SCM s = beam->get_elt_property ("height");
+      SCM s = beam->get_grob_property ("height");
       if (gh_number_p (s))
 	dy = gh_scm2double (s);
       Real dx = Beam::last_visible_stem (beam)->relative_coordinate (0, X_AXIS)
@@ -74,8 +74,8 @@ Stem_tremolo::brew_molecule (SCM smob)
     dydx = 0.25;
 
   Real ss = Staff_symbol_referencer::staff_space (stem);
-  Real thick = gh_scm2double (me->get_elt_property ("beam-thickness"));
-  Real width = gh_scm2double (me->get_elt_property ("beam-width"));
+  Real thick = gh_scm2double (me->get_grob_property ("beam-thickness"));
+  Real width = gh_scm2double (me->get_grob_property ("beam-width"));
   width *= ss;
   thick *= ss;
   
@@ -83,7 +83,7 @@ Stem_tremolo::brew_molecule (SCM smob)
   a.translate (Offset (-width/2, width / 2 * dydx));
   
   int tremolo_flags;
-  SCM s = me->get_elt_property ("tremolo-flags");
+  SCM s = me->get_grob_property ("tremolo-flags");
   if (gh_number_p (s))
     tremolo_flags = gh_scm2int (s);
   else
@@ -91,7 +91,7 @@ Stem_tremolo::brew_molecule (SCM smob)
     tremolo_flags = 1;
 
   int mult = beam ? Beam::get_multiplicity (beam) : 0;
-  SCM space_proc = me->get_elt_property ("beam-space-function");
+  SCM space_proc = me->get_grob_property ("beam-space-function");
   SCM space = gh_call1 (space_proc, gh_int2scm (mult));
   Real interbeam_f = gh_scm2double (space) * ss;
 
@@ -127,7 +127,7 @@ Stem_tremolo::brew_molecule (SCM smob)
       Real whole_note_correction;
       if (Stem::invisible_b (stem ))
 	{
-	  Score_element *hed = Stem::support_head (stem );
+	  Grob *hed = Stem::support_head (stem );
 	  whole_note_correction = -Stem::get_direction (stem )
 	    *hed->extent (hed, X_AXIS).length () / 2;
 	}
@@ -143,8 +143,8 @@ Stem_tremolo::brew_molecule (SCM smob)
 
 
 void
-Stem_tremolo::set_stem (Score_element*me,Score_element *s)
+Stem_tremolo::set_stem (Grob*me,Grob *s)
 {
-  me->set_elt_property ("stem", s->self_scm ());
+  me->set_grob_property ("stem", s->self_scm ());
 }
 

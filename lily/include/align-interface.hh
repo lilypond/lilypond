@@ -16,13 +16,13 @@
 
 struct Align_interface {
   DECLARE_SCHEME_CALLBACK(alignment_callback, (SCM element, SCM axis));
-  static void do_side_processing (Score_element*,Axis a);
-  static void set_axis (Score_element*,Axis);
-  static Axis axis (Score_element*) ;
-  static void add_element (Score_element*,Score_element*);
-  static int get_count (Score_element*,Score_element*);
-  static void set_interface (Score_element*);
-  static bool has_interface (Score_element*);
+  static void do_side_processing (Grob*,Axis a);
+  static void set_axis (Grob*,Axis);
+  static Axis axis (Grob*) ;
+  static void add_element (Grob*,Grob*);
+  static int get_count (Grob*,Grob*);
+  static void set_interface (Grob*);
+  static bool has_interface (Grob*);
   DECLARE_SCHEME_CALLBACK(center_on_element, (SCM element, SCM axis));
 };
 

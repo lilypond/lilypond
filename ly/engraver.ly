@@ -125,7 +125,7 @@ VoiceContext = \translator {
 	\consists "Tie_engraver";
 	\consists "Tuplet_engraver";
 	\consists "Grace_position_engraver";
-	\consists "Skip_req_swallow_translator";
+%	\consists "Skip_req_swallow_translator";
 	\accepts Thread; % bug if you leave out this!
 	\accepts Grace;
 }

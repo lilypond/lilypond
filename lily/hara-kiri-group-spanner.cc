@@ -18,7 +18,7 @@ MAKE_SCHEME_CALLBACK(Hara_kiri_group_spanner,y_extent,2);
 SCM
 Hara_kiri_group_spanner::y_extent (SCM element_smob, SCM scm_axis)
 {
-  Score_element *me = unsmob_element (element_smob);
+  Grob *me = unsmob_element (element_smob);
   Axis a = (Axis) gh_scm2int (scm_axis);
 
   assert (a == Y_AXIS);
@@ -28,13 +28,13 @@ Hara_kiri_group_spanner::y_extent (SCM element_smob, SCM scm_axis)
 
 
 void
-Hara_kiri_group_spanner::consider_suicide(Score_element*me)
+Hara_kiri_group_spanner::consider_suicide(Grob*me)
 {
-  SCM worth = me->get_elt_property ("items-worth-living");
+  SCM worth = me->get_grob_property ("items-worth-living");
   if (gh_pair_p (worth))
     return ;
 
-  Link_array<Score_element> childs = Axis_group_interface::get_children (me);
+  Link_array<Grob> childs = Axis_group_interface::get_children (me);
   for (int i = 0; i < childs.size (); i++)
     childs[i]->suicide ();
 
@@ -55,7 +55,7 @@ MAKE_SCHEME_CALLBACK(Hara_kiri_group_spanner,force_hara_kiri_callback,2);
 SCM
 Hara_kiri_group_spanner::force_hara_kiri_callback (SCM element_smob, SCM axis)
 {
-  Score_element *me = unsmob_element (element_smob);
+  Grob *me = unsmob_element (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
   assert (a == Y_AXIS);
   consider_suicide (me);
@@ -67,7 +67,7 @@ MAKE_SCHEME_CALLBACK(Hara_kiri_group_spanner,force_hara_kiri_in_parent_callback,
 SCM
 Hara_kiri_group_spanner::force_hara_kiri_in_parent_callback (SCM element_smob, SCM axis)
 {
-  Score_element *daughter = unsmob_element (element_smob);
+  Grob *daughter = unsmob_element (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
   assert (a == Y_AXIS);
   force_hara_kiri_callback (daughter->parent_l (a)->self_scm (), axis);
@@ -75,7 +75,7 @@ Hara_kiri_group_spanner::force_hara_kiri_in_parent_callback (SCM element_smob, S
 }
 
 void
-Hara_kiri_group_spanner::add_element (Score_element * me, Score_element *e)
+Hara_kiri_group_spanner::add_element (Grob * me, Grob *e)
 {
   //  e->add_offset_callback (force_hara_kiri_in_parent_callback, Y_AXIS);
   Axis_group_interface::add_element (me, e);
@@ -83,20 +83,20 @@ Hara_kiri_group_spanner::add_element (Score_element * me, Score_element *e)
 
 
 void
-Hara_kiri_group_spanner::set_interface (Score_element*me)
+Hara_kiri_group_spanner::set_interface (Grob*me)
 {
   me->set_interface (ly_symbol2scm ("hara-kiri-group-interface"));
 }
 
 
 bool
-Hara_kiri_group_spanner::has_interface (Score_element*me)
+Hara_kiri_group_spanner::has_interface (Grob*me)
 {
   return me->has_interface (ly_symbol2scm ("hara-kiri-group-interface"));
 }
 
 void 
-Hara_kiri_group_spanner::add_interesting_item (Score_element* me,Score_element* n)
+Hara_kiri_group_spanner::add_interesting_item (Grob* me,Grob* n)
 {
   me->add_dependency (n);
   Pointer_group_interface::add_element (me, "items-worth-living",n);

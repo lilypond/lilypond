@@ -32,7 +32,7 @@ class Lyric_extender
 public:
   Spanner*elt_l_;
   Lyric_extender (Spanner*);
-  void set_textitem (Direction, Score_element*);
+  void set_textitem (Direction, Grob*);
   DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
 };
 

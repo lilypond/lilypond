@@ -16,6 +16,7 @@ corniStaff = \context VoiceCombineStaff = corni <
 	\property VoiceCombineStaff.midiInstrument = #"french horn"
 	\property VoiceCombineStaff.instrument = #"2 Corni\n(E\\textflat)"
 	\property VoiceCombineStaff.instr = #"Cor.\n(E\\textflat)"
+
 	% urg: can't; only My_midi_lexer:<non-static> () parses pitch?
 	%\property VoiceCombineStaff.transposing = "es"
 	\property VoiceCombineStaff.transposing = #3

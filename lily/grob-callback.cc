@@ -1,6 +1,6 @@
 #if 0
 /*   
-  score-element-callback.cc --  implement Callback smob.
+  grob-callback.cc --  implement Callback smob.
   
   source file of the GNU LilyPond music typesetter
   
@@ -8,7 +8,7 @@
   
  */
 
-#include "score-element-callback.hh"
+#include "grob-callback.hh"
 
 static SCM callback_tag;
 
@@ -41,7 +41,7 @@ void start_callback_smobs()
 
 
 SCM
-smobify_callback (Score_element_callback cb )
+smobify_callback (Grob_callback cb )
 {
   SCM z;
   

@@ -21,9 +21,9 @@
 class Script
 {
 public:
-  static Molecule get_molecule (Score_element*,Direction d);
-  static void set_interface (Score_element*);
-  static bool  has_interface (Score_element*);
+  static Molecule get_molecule (Grob*,Direction d);
+  static void set_interface (Grob*);
+  static bool  has_interface (Grob*);
   DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
   DECLARE_SCHEME_CALLBACK(after_line_breaking, (SCM ));
 };

@@ -1,5 +1,5 @@
 /*   
-  score-element-callback.cc --  implement Callback smob.
+  grob-callback.cc --  implement Callback smob.
   
   source file of the GNU LilyPond music typesetter
   

@@ -13,7 +13,7 @@ ADD_THIS_TRANSLATOR(Swallow_engraver);
 
 
 bool
-Swallow_engraver::do_try_music (Music*) 
+Swallow_engraver::try_music (Music*) 
 {
   return true;
 }

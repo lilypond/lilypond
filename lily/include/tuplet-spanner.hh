@@ -20,18 +20,18 @@ class Tuplet_spanner
 {
 public:
   DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
-  static void set_interface (Score_element*);  
-  static bool has_interface (Score_element*);
+  static void set_interface (Grob*);  
+  static bool has_interface (Grob*);
 
-  static void add_column (Score_element*me,Item*);
-  static void add_beam (Score_element*me,Score_element*);
+  static void add_column (Grob*me,Item*);
+  static void add_beam (Grob*me,Grob*);
 
-  static void calc_dy (Score_element*,Real *) ;
-  static void calc_position_and_height (Score_element*,Real*,Real *dy);
+  static void calc_dy (Grob*,Real *) ;
+  static void calc_position_and_height (Grob*,Real*,Real *dy);
   
   DECLARE_SCHEME_CALLBACK(after_line_breaking, (SCM ));
 
-  static Direction get_default_dir (Score_element*);
+  static Direction get_default_dir (Grob*);
 };
 
 #endif // Tuplet_spanner_HH

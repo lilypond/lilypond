@@ -11,21 +11,21 @@
 #include "engraver.hh"
 #include "debug.hh"
 #include "paper-score.hh"
-#include "score-element.hh"
+#include "grob.hh"
 
 
 ADD_THIS_TRANSLATOR(Engraver_group_engraver);
 
 void
-Engraver_group_engraver::announce_element (Score_element_info info)
+Engraver_group_engraver::announce_grob (Grob_info info)
 {
   announce_info_arr_.push (info);
-  Engraver::announce_element (info);
+  Engraver::announce_grob (info);
 }
 
 
 void
-Engraver_group_engraver::process_acknowledged ()
+Engraver_group_engraver::create_grobs ()
 {
 
   for (SCM p = simple_trans_list_; gh_pair_p (p); p = gh_cdr ( p))
@@ -33,22 +33,22 @@ Engraver_group_engraver::process_acknowledged ()
       Translator * t = unsmob_translator (gh_car (p));
       Engraver * eng = dynamic_cast<Engraver*> (t);
       if (eng)
-	eng->process_acknowledged ();
+	eng->create_grobs ();
     }
 }
 
 void
-Engraver_group_engraver::acknowledge_elements ()
+Engraver_group_engraver::acknowledge_grobs ()
 {
   for (int j =0; j < announce_info_arr_.size(); j++)
     {
-      Score_element_info info = announce_info_arr_[j];
+      Grob_info info = announce_info_arr_[j];
       for (SCM p = simple_trans_list_; gh_pair_p (p); p = gh_cdr (p))
 	{
 	  Translator * t = unsmob_translator (gh_car (p));
 	  Engraver * eng = dynamic_cast<Engraver*> (t);
 	  if (eng && eng!= info.origin_trans_l_)
-	    eng->acknowledge_element (info);
+	    eng->acknowledge_grob (info);
 	}
     }
 }
@@ -62,26 +62,40 @@ Engraver_group_engraver::do_announces()
       dynamic_cast<Engraver_group_engraver*> (t)->do_announces ();
     }
 
-  process_acknowledged ();
+  create_grobs ();
     
-  // debug
-  int i = 0;
-  while (announce_info_arr_.size () && i++ < 5)
+  while (announce_info_arr_.size ())
     {
-      acknowledge_elements ();
+      acknowledge_grobs ();
       announce_info_arr_.clear ();
-      process_acknowledged ();
-    }
-
-  if (announce_info_arr_.size ())
-    {
-      printf ("do_announces: elt: %s\n",
-	      announce_info_arr_[0].elem_l_->name ().ch_C ());
-      announce_info_arr_.clear ();
+      create_grobs ();
     }
 }
 
+#include <iostream.h>
 
+/*
+  order is : top to bottom (as opposed to do_announces)
+ */
+void
+Engraver_group_engraver::process_music ()
+{
+   for (SCM p = simple_trans_list_; gh_pair_p (p); p =gh_cdr ( p))
+    {
+      Translator * t = unsmob_translator (gh_car (p));
+      Engraver * eng = dynamic_cast<Engraver*> (t);
+
+      if (eng)
+	eng->process_music ();
+    }
+   for (SCM p = trans_group_list_; gh_pair_p (p); p =gh_cdr ( p))
+    {
+      Translator * t = unsmob_translator (gh_car (p));
+      Engraver*eng = dynamic_cast<Engraver*> (t);
+      if (eng)
+	eng->process_music ();
+    }
+}
 
 
 

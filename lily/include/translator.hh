@@ -38,17 +38,6 @@ public:
   Translator_group * daddy_trans_l_ ;
  
 
-  
-  /**
-    try to fit the request in this engraver
-
-    @return
-    false: not noted,  not taken.
-
-    true: request swallowed. Don't try to put the request elsewhere.
-
-    */
-  bool try_music (Music*);
   void pre_move_processing();
   void add_processing ();
   void announces();
@@ -76,9 +65,18 @@ public:
 public:
 
   virtual void do_add_processing ();
-  virtual bool do_try_music (Music *req_l);
-  virtual void do_pre_move_processing();
-  virtual void do_post_move_processing();
+    /**
+    try to fit the request in this engraver
+
+    @return
+    false: not noted,  not taken.
+
+    true: request swallowed. Don't try to put the request elsewhere.
+
+    */
+  virtual bool try_music (Music *req_l);
+  virtual void stop_translation_timestep();
+  virtual void start_translation_timestep();
   virtual void do_announces () ;
   virtual void do_creation_processing() ;
   virtual void do_removal_processing();

@@ -9,7 +9,7 @@
 #include "molecule.hh"
 #include "paper-def.hh"
 #include "arpeggio.hh"
-#include "score-element.hh"
+#include "grob.hh"
 #include "stem.hh"
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol.hh"
@@ -17,7 +17,7 @@
 #include "font-interface.hh"
 
 bool
-Arpeggio::has_interface (Score_element* me)
+Arpeggio::has_interface (Grob* me)
 {
   return me && me->has_interface (ly_symbol2scm ("arpeggio-interface"));
 }
@@ -26,12 +26,12 @@ MAKE_SCHEME_CALLBACK (Arpeggio, brew_molecule, 1);
 SCM 
 Arpeggio::brew_molecule (SCM smob) 
 {
-  Score_element *me = unsmob_element (smob);
+  Grob *me = unsmob_element (smob);
   
-  Score_element * common = me;
-  for (SCM s = me->get_elt_property ("stems"); gh_pair_p (s); s = gh_cdr (s))
+  Grob * common = me;
+  for (SCM s = me->get_grob_property ("stems"); gh_pair_p (s); s = gh_cdr (s))
     {
-      Score_element * stem =  unsmob_element (gh_car (s));
+      Grob * stem =  unsmob_element (gh_car (s));
       common =  common->common_refpoint (Staff_symbol_referencer::staff_symbol_l (stem),
 				 Y_AXIS);
     }
@@ -47,10 +47,10 @@ Arpeggio::brew_molecule (SCM smob)
   Interval heads;
   Real my_y = me->relative_coordinate (common, Y_AXIS);
       
-  for (SCM s = me->get_elt_property ("stems"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = me->get_grob_property ("stems"); gh_pair_p (s); s = gh_cdr (s))
     {
-      Score_element * stem = unsmob_element (gh_car (s));
-      Score_element * ss = Staff_symbol_referencer::staff_symbol_l (stem);
+      Grob * stem = unsmob_element (gh_car (s));
+      Grob * ss = Staff_symbol_referencer::staff_symbol_l (stem);
       Interval iv =Stem::head_positions (stem);
       iv *= Staff_symbol::staff_space (ss)/2.0;
       
@@ -90,7 +90,7 @@ MAKE_SCHEME_CALLBACK(Arpeggio, width_callback,2);
 SCM
 Arpeggio::width_callback (SCM smob, SCM axis)
 {
-  Score_element * me = unsmob_element (smob);
+  Grob * me = unsmob_element (smob);
   Axis a = (Axis)gh_scm2int (axis);
   assert (a == X_AXIS);
   Molecule arpeggio = Font_interface::get_default_font (me)->find_by_name ("scripts-arpeggio");

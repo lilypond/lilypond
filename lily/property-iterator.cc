@@ -20,7 +20,14 @@ Property_iterator::process (Moment m)
 {
   SCM sym = music_l_->get_mus_property ("symbol");
   if (gh_symbol_p(sym))
-    report_to_l ()->set_property (sym, music_l_->get_mus_property ("value"));
+    {
+      SCM val = music_l_->get_mus_property ("value");
+      bool ok= true;
+      if (val != SCM_EOL)
+	ok = type_check_assignment (val, sym, ly_symbol2scm ("translation-type?"));
+      if (ok)
+	report_to_l ()->set_property (sym, val);
+    }
   Simple_music_iterator::process (m);
 }
 

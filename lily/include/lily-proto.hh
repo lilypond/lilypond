@@ -144,7 +144,7 @@ class Scaled_font_metric;
 class Scheme_hash_table;
 class Scope;
 class Score;
-class Score_element;
+class Grob;
 class Score_engraver;
 class Score_performer;
 class Script_req;

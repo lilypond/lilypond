@@ -24,7 +24,7 @@ MAKE_SCHEME_CALLBACK(Breathing_sign,brew_molecule,1);
 SCM 
 Breathing_sign::brew_molecule (SCM smob)
 {
-  Score_element * me = unsmob_element (smob);
+  Grob * me = unsmob_element (smob);
   Real space = Staff_symbol_referencer::staff_space (me);
 
   // todo: cfg'able.
@@ -38,7 +38,7 @@ MAKE_SCHEME_CALLBACK(Breathing_sign,offset_callback,2);
 SCM
 Breathing_sign::offset_callback (SCM element_smob, SCM )
 {
-  Score_element *me = unsmob_element (element_smob);
+  Grob *me = unsmob_element (element_smob);
   
   Direction d = Directional_element_interface::get (me);
   if (!d)
@@ -53,7 +53,7 @@ Breathing_sign::offset_callback (SCM element_smob, SCM )
 }
 
 void
-Breathing_sign::set_interface (Score_element *b)
+Breathing_sign::set_interface (Grob *b)
 {
   Staff_symbol_referencer::set_interface  (b);
 

@@ -9,7 +9,7 @@
 
 #include "engraver.hh"
 #include "musical-request.hh"
-#include "score-element.hh"
+#include "grob.hh"
 #include "translator-group.hh"
 
 /**
@@ -19,13 +19,13 @@ class Melisma_engraver:public Engraver
 {
 public:
   VIRTUAL_COPY_CONS(Translator);
-  bool do_try_music (Music *);
+  bool try_music (Music *);
 };
 
 ADD_THIS_TRANSLATOR(Melisma_engraver);
 
 bool
-Melisma_engraver::do_try_music (Music *m ) 
+Melisma_engraver::try_music (Music *m ) 
 {
   if (dynamic_cast<Melisma_playing_req*>(m))
     {

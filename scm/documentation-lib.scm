@@ -13,6 +13,11 @@
 	  (uniqued-alist (cdr alist) (cons (car alist) acc)
   ))))
 
+
+(define (alist<? x y)
+  (string<? (symbol->string (car x))
+	    (symbol->string (car y))))
+
 (define (processing name)
   (display (string-append "\nProcessing " name " ... ") (current-error-port)))
 

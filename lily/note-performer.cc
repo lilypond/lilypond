@@ -21,10 +21,10 @@ public:
   VIRTUAL_COPY_CONS(Translator);
   
 protected:
-  virtual bool do_try_music (Music *req_l) ;
+  virtual bool try_music (Music *req_l) ;
 
-  virtual void do_pre_move_processing ();
-  virtual void process_acknowledged ();
+  virtual void stop_translation_timestep ();
+  virtual void create_grobs ();
   Global_translator* global_translator_l ();
 
 private:
@@ -36,7 +36,7 @@ private:
 ADD_THIS_TRANSLATOR (Note_performer);
 
 void 
-Note_performer::process_acknowledged ()
+Note_performer::create_grobs ()
 {
   if (note_req_l_arr_.size ())
     {
@@ -76,7 +76,7 @@ Note_performer::global_translator_l ()
 
 
 void
-Note_performer::do_pre_move_processing ()
+Note_performer::stop_translation_timestep ()
 {
 
   // why don't grace notes show up here?
@@ -116,7 +116,7 @@ Note_performer::do_pre_move_processing ()
 }
  
 bool
-Note_performer::do_try_music (Music* req_l)
+Note_performer::try_music (Music* req_l)
 {
   if (Note_req *nr = dynamic_cast <Note_req *> (req_l))
     {

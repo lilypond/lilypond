@@ -18,7 +18,7 @@
  */
 class Swallow_engraver : public Engraver {
 protected:
-  bool do_try_music (Music*) ;
+  bool try_music (Music*) ;
 public:
   VIRTUAL_COPY_CONS(Translator);
   

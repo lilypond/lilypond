@@ -19,9 +19,9 @@ public:
   ~Key_performer();
 
 protected:
-  virtual bool do_try_music (Music* req_l);
-  virtual void process_acknowledged ();
-  virtual void do_pre_move_processing ();
+  virtual bool try_music (Music* req_l);
+  virtual void create_grobs ();
+  virtual void stop_translation_timestep ();
 
 private:
   Key_change_req* key_req_l_;
@@ -41,7 +41,7 @@ Key_performer::~Key_performer ()
 }
 
 void
-Key_performer::process_acknowledged ()
+Key_performer::create_grobs ()
 {
   if (key_req_l_ &&
       gh_list_p (key_req_l_->get_mus_property ("pitch-alist")))
@@ -54,7 +54,7 @@ Key_performer::process_acknowledged ()
 }
 
 void
-Key_performer::do_pre_move_processing ()
+Key_performer::stop_translation_timestep ()
 {
   if (audio_p_)
     {
@@ -64,7 +64,7 @@ Key_performer::do_pre_move_processing ()
 }
 
 bool
-Key_performer::do_try_music (Music* req_l)
+Key_performer::try_music (Music* req_l)
 {
   if (Key_change_req *kc = dynamic_cast <Key_change_req *> (req_l))
     {

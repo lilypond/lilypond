@@ -19,9 +19,9 @@ public:
 
 protected:
 
-  virtual bool do_try_music (Music* req_l);
-  virtual void do_pre_move_processing ();
-  virtual void process_acknowledged ();
+  virtual bool try_music (Music* req_l);
+  virtual void stop_translation_timestep ();
+  virtual void create_grobs ();
 
 private:
   Link_array<Lyric_req> lreq_arr_;
@@ -37,7 +37,7 @@ Lyric_performer::Lyric_performer ()
 
 
 void
-Lyric_performer::process_acknowledged ()
+Lyric_performer::create_grobs ()
 {
   // FIXME: won't work with fancy lyrics
   if (lreq_arr_.size ()
@@ -53,7 +53,7 @@ Lyric_performer::process_acknowledged ()
 }
 
 void
-Lyric_performer::do_pre_move_processing ()
+Lyric_performer::stop_translation_timestep ()
 {
   if (audio_p_)
     {
@@ -64,7 +64,7 @@ Lyric_performer::do_pre_move_processing ()
 }
 
 bool
-Lyric_performer::do_try_music (Music* req_l)
+Lyric_performer::try_music (Music* req_l)
 {
   if (Lyric_req *lr = dynamic_cast <Lyric_req *> (req_l))
     {

@@ -26,8 +26,8 @@ public:
   VIRTUAL_COPY_CONS(Translator);
   Stanza_number_engraver ();
 
-  virtual void acknowledge_element (Score_element_info);
-  virtual void do_pre_move_processing ();
+  virtual void acknowledge_grob (Grob_info);
+  virtual void stop_translation_timestep ();
 };
 
 ADD_THIS_TRANSLATOR(Stanza_number_engraver);
@@ -39,7 +39,7 @@ Stanza_number_engraver::Stanza_number_engraver ()
 }
 
 void
-Stanza_number_engraver::acknowledge_element(Score_element_info i)
+Stanza_number_engraver::acknowledge_grob(Grob_info i)
 {
   SCM s = get_property ("stanza");
       
@@ -63,11 +63,11 @@ Stanza_number_engraver::acknowledge_element(Score_element_info i)
 
 
 void
-Stanza_number_engraver::do_pre_move_processing ()
+Stanza_number_engraver::stop_translation_timestep ()
 {
   if (text_)
     {
-      typeset_element (text_);
+      typeset_grob (text_);
       text_ = 0;
     }
 }
@@ -78,8 +78,8 @@ Stanza_number_engraver::create_text (SCM txt)
   if(!text_)
     {
       text_ = new Item (get_property ("StanzaNumber"));
-      text_->set_elt_property ("text", txt);
-      announce_element (text_,0);
+      text_->set_grob_property ("text", txt);
+      announce_grob (text_,0);
     }
 }
 

@@ -17,7 +17,7 @@
 
 
 void
-Tie_column::set_interface (Score_element*me)
+Tie_column::set_interface (Grob*me)
 {
   me->set_interface (ly_symbol2scm ("tie-column-interface"));
   me->set_extent_callback (SCM_EOL, X_AXIS);
@@ -25,7 +25,7 @@ Tie_column::set_interface (Score_element*me)
 }
 
 bool
-Tie_column::has_interface (Score_element*me)
+Tie_column::has_interface (Grob*me)
 {
   return  me->has_interface (ly_symbol2scm ("tie-column-interface"));
 }
@@ -36,7 +36,7 @@ Tie_column::has_interface (Score_element*me)
 */
 
 void
-Tie_column::add_tie (Score_element*me,Score_element *s)
+Tie_column::add_tie (Grob*me,Grob *s)
 {
   if (!  Pointer_group_interface ::count (me, "ties"))
     {
@@ -50,8 +50,8 @@ Tie_column::add_tie (Score_element*me,Score_element *s)
 
 
 int
-tie_compare (Score_element* const & s1,
-	     Score_element* const & s2)
+tie_compare (Grob* const & s1,
+	     Grob* const & s2)
 {
   return sign (Tie::position_f (s1) - Tie::position_f(s2));
 }
@@ -66,10 +66,10 @@ tie_compare (Score_element* const & s1,
   Ross forgets about the tie that is *on* the middle staff line. We
   assume it goes UP. (TODO: make me settable) */
 void
-Tie_column::set_directions (Score_element*me)
+Tie_column::set_directions (Grob*me)
 {
-  Link_array<Score_element> ties =
-    Pointer_group_interface__extract_elements (me, (Score_element*)0, "ties");
+  Link_array<Grob> ties =
+    Pointer_group_interface__extract_elements (me, (Grob*)0, "ties");
 
   for (int i = ties.size (); i--; )
     if (Directional_element_interface::get (ties[i]))
@@ -85,7 +85,7 @@ Tie_column::set_directions (Score_element*me)
     {
       for (int i = ties.size (); i--;)
 	{
-	  Score_element *  t = ties[i];
+	  Grob *  t = ties[i];
 	  Directional_element_interface::set (t, d);
 	}
       return;
@@ -93,7 +93,7 @@ Tie_column::set_directions (Score_element*me)
   
   if (ties.size () == 1)
     {
-      Score_element *  t = ties[0];      
+      Grob *  t = ties[0];      
       Directional_element_interface::set (t,Tie::get_default_dir (t));
       return;
     }
@@ -105,7 +105,7 @@ Tie_column::set_directions (Score_element*me)
   Directional_element_interface ::set(ties.pop (), UP);
   for (int i=ties.size(); i--; )
     {
-      Score_element *  t = ties[i];
+      Grob *  t = ties[i];
       Real p = Tie::position_f (t);
       Direction d = (Direction) sign (p);
       if (!d)
