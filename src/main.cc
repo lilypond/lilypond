@@ -29,6 +29,7 @@ help()
 void notice()
 {
     cout <<
+	"\n"
 	"LilyPond, a music typesetter.\n"
 	"Copyright (C) 1996 by\n"
 	"  Han-Wen Nienhuys <hanwen@stack.nl>\n"
@@ -77,11 +78,18 @@ main (int argc, char **argv)
 	    break;
 	}
     }
-    char *arg = oparser.get_next_arg();
 
-    if (!arg) arg = "";
-    parse_file(arg);
-
-    do_scores();
+    int p=0;
+    char *arg ;
+    while ( (arg= oparser.get_next_arg()) ) {
+	parse_file(arg);	
+	do_scores();
+	p++;
+    }
+    if (!p) {
+	parse_file("");	
+	do_scores();
+    }
+	
     exit (0);
 }
