@@ -98,7 +98,7 @@ parse_handler (void * data, SCM tag, SCM args)
 SCM
 protected_ly_parse_scm (Parse_start *ps)
 {
-  return scm_internal_catch (scm_misc_error_key, &catch_protected_parse_body,
+  return scm_internal_catch (ly_symbol2scm ("misc-error"), &catch_protected_parse_body,
 			     (void*)ps,
 			     &parse_handler, (void*)ps);
 
