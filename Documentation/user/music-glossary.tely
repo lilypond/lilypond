@@ -4190,8 +4190,6 @@ The @aref{interval} of a major second.  The interval between two
 tones on the piano keyboard with exactly one key between them -- including
 black and white keys -- is a whole tone.
 
-@loggingall
-
 @aitem{woodwind}@c
 ES: maderas,
 I: legni,
