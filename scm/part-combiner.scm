@@ -150,6 +150,13 @@ Voice-state objects
       (if (equal? (ly:get-mus-property ev 'name) 'NoteEvent)
 	  (assoc-remove! active 'tie)
 	  active) )
+
+    (define (analyse-absdyn-end active ev)
+      (if (equal? (ly:get-mus-property ev 'name) 'AbsoluteDynamicEvent)
+	  (assoc-remove!
+	   (assoc-remove! active 'cresc)
+	   'decr)
+	  active) )
     
     (define (active<? a b)
       (cond
@@ -187,15 +194,26 @@ Voice-state objects
 	    (run-analyzer analyzer (analyzer active (car evs)) (cdr evs))
 	    active
 	    ))
+      (define (run-analyzers analyzers active evs)
+	(if (pair? analyzers)
+	    (run-analyzers
+	     (cdr analyzers)
+	     (run-analyzer (car analyzers) active evs)
+	     evs)
+	    active
+	))
+
+      
 
       (sort
 
        ;; todo: use fold or somesuch.
-       (run-analyzer
-	analyse-span-event
-	(run-analyzer
-	 analyse-tie-start
-	 (run-analyzer analyse-tie-end active evs) evs) evs)
+       (run-analyzers
+	(list analyse-span-event
+	      ;; note: tie-start comes after tie-end.
+	      analyse-tie-end analyse-tie-start analyse-absdyn-end)
+
+	 active evs)
        
        active<?))
 
