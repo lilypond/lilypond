@@ -77,9 +77,9 @@ except:
 		return s
 
 
-layout_fields = ['title', 'subtitle', 'subsubtitle', 'footer', 'head',
-	  'composer', 'arranger', 'instrument', 'opus', 'piece', 'metre',
-	  'meter', 'poet']
+layout_fields = ['dedication', 'title', 'subtitle', 'subsubtitle',
+	  'footer', 'head', 'composer', 'arranger', 'instrument',
+	  'opus', 'piece', 'metre', 'meter', 'poet', 'texttranslator']
 
 
 # init to empty; values here take precedence over values in the file

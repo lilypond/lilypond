@@ -57,9 +57,9 @@ The printable documentation is left in @file{Documentation/user/out/}.
 
 @section Comments
 
-LilyPond is a long way from finished and polished, so we please send
-your criticism, comments, bugreports, patches, etc., to the mailing
-list.  and @emph{not} to us personally.
+LilyPond is a long way from finished and polished, so please send your
+criticism, comments, bugreports, patches, etc., to the mailing list,
+@emph{not} to us personally.
 
 We have the following mailing lists:
 

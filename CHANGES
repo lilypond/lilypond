@@ -1,3 +1,19 @@
+1.4.1.jcn1
+==========
+
+* Fix for index, small doco fixes.
+
+* Bugfix: use roman font (instead of feta) for unacorda pedal.
+
+* Don't use cyclic symlinks for web doc.
+
+* Don't create `empty pngs' with touch, make symlinks instead.
+
+* Added extra header titling fields to ly2dvi too.
+
+1.4.1
+=====
+
 1.4.0.jcn7
 ==========
 

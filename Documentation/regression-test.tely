@@ -143,6 +143,7 @@ and documenting bugfixes.
 
 @lilypondfile[printfilename]{tuplet-staffline-collision.ly}
 
+@lilypondfile[printfilename]{tuplet-nest.ly}
 
 
 @section Property details

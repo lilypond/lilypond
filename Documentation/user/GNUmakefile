@@ -53,30 +53,24 @@ info: $(INFO_FILES)
 # Generic rule using % twice not possible?
 # $(outdir)/%/%.html: $(outdir)/%.texi
 $(outdir)/lilypond/lilypond.html: $(outdir)/lilypond.texi
+	mkdir -p $(dir $@)
 	$(MAKEINFO) --output=$@ --html $<
 	-cp -f $(outdir)/*.png $(outdir)/lilypond
 	-cp -f $(outdir)/lilypond/index.html $@
 	$(deep-footify) $(shell find $(outdir)/$(*F)/*.html)
 
 $(outdir)/lilypond-internals/lilypond-internals.html: $(outdir)/lilypond-internals.texi
+	mkdir -p $(dir $@)
 	$(MAKEINFO) --output=$@ --html $<
 	-cp -f $(outdir)/*.png $(outdir)/lilypond-internals
 	-cp -f $(outdir)/lilypond-internals/index.html $@
 	$(deep-footify) $(shell find $(outdir)/$(*F)/*.html)
 
-
 ifeq ($(SPLITTING_MAKEINFO),yes)
 
 DEEP_HTML_FILES = $(outdir)/lilypond/lilypond.html $(outdir)/lilypond-internals/lilypond-internals.html
 
-local-WWW: rm-deep-symlinks
-
-rm-deep-symlinks:
-	cd $(outdir) && rm -f lilypond lilypond-internals; true
-
 else
-
-DEEP_HTML_FILES = $(outdir)/lilypond.html $(outdir)/lilypond-internals.html
 
 # Links referred to by Documentation index
 LILYPOND_LINKS=Reference-Manual.html Tutorial.html Ly2dvi.html Midi2ly.html
@@ -84,10 +78,10 @@ LILYPOND_LINKS=Reference-Manual.html Tutorial.html Ly2dvi.html Midi2ly.html
 local-WWW: deep-symlinks
 
 deep-symlinks:
-	cd $(outdir) && rm -f lilypond && ln -s . lilypond
-	cd $(outdir) && rm -f lilypond-internals && ln -s . lilypond-internals
-	cd $(outdir) && $(foreach i, $(LILYPOND_LINKS),\
+	mkdir -p $(outdir)/lilypond
+	cd $(outdir)/lilypond && $(foreach i, $(LILYPOND_LINKS),\
 		rm -f $(i) && ln -s lilypond.html $(i) &&) true
+
 endif
 
 

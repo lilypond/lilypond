@@ -703,6 +703,7 @@
 
 	(UnaCordaPedal . (
 		(molecule-callback . ,Text_item::brew_molecule)
+                (font-family . roman)
                 (font-shape . italic)
 		(no-spacing-rods . #t)
 		(self-alignment-X . 0)

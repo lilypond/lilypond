@@ -1,4 +1,4 @@
-i\input texinfo @c -*-texinfo-*-
+\input texinfo @c -*-texinfo-*-
 @setfilename index.info
 @settitle LilyPond homepage
 
@@ -20,21 +20,23 @@ can also print pop-songs.
 LilyPond input is @b{plain text}. So, you can use your favorite text
 editor to enter it, you can put it in mail or embed it in an article like
 this:
+@quotation
 @lilypond[fragment,verbatim, relative 1]
- \key c \minor r8 c16 b c8 g as c16 b c8 d | g,4 
-@end lilypond 
+\key c \minor r8 c16 b c8 g as c16 b c8 d | g,4 
+@end lilypond
+@end quotation
 Or you can use it to print music from other programs, using one of the
 numerous input filters.
 
 LilyPond output looks @b{beautiful}. The font and the layout algorithms
 were inspired by engraved music, so you can expect that same clear and
-elegant look from your LilyPond output.  And if you don't like the
-looks, you can tweak almost everything.
+elegant look from your LilyPond output.  And if anything is not to your
+liking, you can tweak almost everything.
 
 LilyPond is @b{free software}. It is part of the
 @uref{http://www.gnu.org/,GNU Project}. It is licensed under GNU General
 Public License, so you can use, modify and redistribute the program with
-almost no restrictions.  LilyPond is part of the
+almost no restrictions.
 
 @unnumberedsec Want to know more?
 

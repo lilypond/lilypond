@@ -3,12 +3,14 @@
 $(outdir)/%.gif: $(outdir)/%.ps
 	sh $(PS_TO_GIFS) $<
 	-mv $(name-stem)-page*.gif $(outdir)/
-	touch $@
+#	touch $@
+	ln -s $(outdir)/$(name-stem)-page1.gif $@
 
 $(outdir)/%.png: $(outdir)/%.ps
 	sh $(PS_TO_PNGS) $<
 	-mv $(name-stem)-page*.png $(outdir)/
-	touch $@
+#	touch $@
+	ln -s $(outdir)/$(name-stem)-page1.png $@
 
 $(outdir)/%.ly.txt: %.ly
 	ln -f $< $@

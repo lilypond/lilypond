@@ -114,7 +114,8 @@ s16_" "
 @end quotation
 @separate
 
-A sharp is made by adding ``@code{is}'', a flat by adding ``@code{es}'':
+A sharp (@texisharp{}) is made by adding ``@code{is}'', a flat
+(@texiflat{}) by adding ``@code{es}'':
 
 @quotation
 @example
@@ -361,12 +362,13 @@ Don't worry about all the quotes.
 @end lilypond
 @end quotation
 
+@c accidentals...
 There are some interesting points to note in this example.  Firstly,
-accidentals don't have to be marked explicitly: you just enter the
-pitch, and LilyPond determines whether or not to print an accidental.
-Secondly, bar lines and beams are drawn automatically.  Thirdly,
-LilyPond calculates line breaks for you; it doesn't matter where you
-make new lines in the source file.
+accidentals (sharps and flats) don't have to be marked explicitly: you
+just enter the note name, and LilyPond determines whether or not to
+print an accidental.  Secondly, bar lines and beams are drawn
+automatically.  Thirdly, LilyPond calculates line breaks for you; it
+doesn't matter where you make new lines in the source file.
 
 The example also indicates that a piece of music written in a high
 register needs lots of quotes.  This makes the input a bit unreadable,
@@ -441,7 +443,7 @@ A slur is drawn across many notes, and indicates bound articulation
 
 @quotation
 @lilypond[fragment,relative 1, verbatim]
-c8( cis d )e 
+d4( )c16( cis d e c cis d )e( )d4
 @end lilypond
 @end quotation
 @separate
