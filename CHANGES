@@ -1,3 +1,7 @@
+pl 9.jcn2
+	- 2.95 fixes
+	- input/test/different-time-signatures.ly (wasn't this in refman?)
+
 pl 9.jcn1
 	- included last Localisation.texi
 	- set-lily: de catalog too
