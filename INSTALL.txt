@@ -74,8 +74,7 @@ released.
    * Debian GNU/Linux
      (ftp://ftp.debian.org/debian/pool/main/l/lilypond/)
 
-   * Windows Stable (http://home.austin.rr.com/jbr/jeff/lilypond/)
-     Windows Testing (http://www.lilypond.org/gnu-windows/)
+   * Windows Testing (http://www.lilypond.org/gnu-windows/)
 
 
 Upgrading
@@ -93,10 +92,10 @@ Upgrading
      xdelta (ftp://ftp.xcf.berkeley.edu/pub/xdelta/).   This is much
      safer than using patches, and is the recommended way.
 
-     The following command produces `lilypond-1.4.1.tar.gz' from
-     `lilypond-1.4.0.tar.gz' identical (up to compression dates) to the
-     .1 on the FTP site.
-            xdelta patch lilypond-1.4.0-1.4.1.xd lilypond-1.4.0.tar.gz
+     The following command produces `lilypond-1.4.3.tar.gz' from
+     `lilypond-1.4.2.tar.gz' identical (up to compression dates) to the
+     .3 on the FTP site.
+            xdelta patch lilypond-1.4.2-1.4.3.xd lilypond-1.4.2.tar.gz
 
 Requirements
 ============
@@ -357,7 +356,7 @@ Debian GNU/Linux
    A Debian package is also available.  You may install it easily by
 running `apt-get' as root:
 
-     	apt-get install lilypond
+     	apt-get install lilypond lilypond-doc
 
    Debian's TeX installation is a bit short on memory, you may want to
 increase it like this:
@@ -385,7 +384,7 @@ environment variables if you do not want to or cannot modify
 
    * http://people.debian.org/~foka/lilypond/
      (http://people.debian.org/~foka/lilypond/) for latest
-     semi-unofficial build of LilyPond 1.3.121 for Debian 2.2 (potato)
+     semi-unofficial build of LilyPond 1.4.2 for Debian 2.2 (potato)
      users.  The official stable Debian 2.2 is stuck with the old
      LilyPond-1.3.24.  Since LilyPond-1.4 has been released, the older
      lilypond1.3 Debian package is now obsolete.
@@ -399,14 +398,17 @@ the .deb by doing, for example:
      	$ su - root
      	# dpkg --purge lilypond lilypond1.3
      	# exit
-     	$ tar xzf lilypond-1.4.1.tar.gz
-     	$ cd lilypond-1.4.1
-     	$ dch -p -v 1.4.1-0.local.1 "Local build."
-     	$ debuild
+     	$ tar xzf lilypond-1.4.3.tar.gz
+     	$ cd lilypond-1.4.3
+     	$ dch -p -v 1.4.3-0.local.1 "Local build."
+     	$ debuild -B
      	$ su - root
-     	# dpkg -i ../lilypond_1.4.1*.deb
+     	# dpkg -i ../lilypond_1.4.3*.deb
      	# exit
      	$
+
+   Use command `debuild' instead of `debuild -B' if you have a very
+fast machine and want to build the HTML, PS and DVI documentation too.
 
    For compilation on a Debian GNU/Linux system you need these packages,
 in addition to the those needed for running:

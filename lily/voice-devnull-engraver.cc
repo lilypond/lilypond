@@ -58,7 +58,7 @@ Voice_devnull_engraver::try_music (Music *m)
 	    }
 	}
       /* Ugh.  Should eat other requests, script etc. too. */  
-      else if (Tie_req *t = dynamic_cast<Tie_req*> (m))
+      else if (dynamic_cast<Tie_req*> (m))
 	return true;
     }
   return false;

@@ -14,11 +14,11 @@
 
 Distribution: SuSE Linux 7.0 (i386)
 Name: lilypond
-Version: 1.4.2
+Version: 1.4.3
 Release: 2
 Copyright:    GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.4.2.tar.gz
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.4.3.tar.gz
 # music notation software for.. ?
 Summary: A program for printing sheet music.
 URL: http://www.lilypond.org/

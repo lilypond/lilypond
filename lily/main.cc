@@ -332,20 +332,22 @@ main_prog (int, char**)
   gh_eval_str ((char *)init_scheme_code_string.ch_C());
   
   int p=0;
-  const char *arg ;
-  while ((arg = oparser_p_static->get_next_arg ()) || p == 0)
+  const char *arg  = oparser_p_static->get_next_arg ();
+
+  if (!arg)
+    usage ();
+  else
+    do 
     {
-      String infile;
-      
-      if (arg)
-	infile = arg;
-      else
-	infile = "-";
-	
-      // What/when was this supposed to do?
-      // It looks like it reset the outname_str_global for every new
-      // file, but only if user didn't specify a outname?  Huh?
-      // if (outname_str_global == "")
+      String infile (arg);
+      	
+      /* What/when was this supposed to do?
+       It looks like it reset the outname_str_global for every new
+       file, but only if user didn't specify a outname?  Huh?
+
+       // if (outname_str_global == "")
+
+      */
       {
 	Midi_def::reset_score_count ();
 	Paper_def::reset_score_count ();
@@ -381,8 +383,11 @@ main_prog (int, char**)
       output_name_global = save_output_name_global;
       
       p++;
-    }
+
+      oparser_p_static->get_next_arg ();      
+    } while ((arg  = oparser_p_static->get_next_arg ()));
   delete oparser_p_static;
+  oparser_p_static = 0;
   exit (exit_status_global);
 }
 

@@ -55,17 +55,39 @@
 % these names can't be changed: they're uses in mutopia headers
 \def\theheader
 {
-  \ifx\lilypondhead\undefined\else%
+  \ifx\lilypondhead\undefined\relax\else%
     \lilypondhead\fi
 }
 \def\thefooter
 {
-  \ifx\lilypondfooter\undefined\else%
+  \ifx\lilypondfooter\undefined\relax\else%
     \lilypondfooter\fi
 }
 \def\makelilypondtagline
 {
-  \ifx\lilypondtagline\undefined\else\lilypondtagline\fi
+  \ifx\undefined\lilypondtagline\relax\else\lilypondtagline\fi
 }
+\def\thecopyright
+{
+  \ifx\lilypondcopyright\undefined\thefooter\else%
+    \lilypondcopyright\fi
+}
+%
+% Moved header and footer definitions here from the ly2dvi script.
+% Separate page styles for first, last and ordinary (plain) pages.
+\makeatletter
+\renewcommand{\ps@plain}{
+  \renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\thefooter}}%
+  \renewcommand{\@evenfoot}{\@oddfoot}%
+  \renewcommand{\@evenhead}{\hbox to\textwidth{\textbf{\thepage}\hfill{\small\theheader}}}
+  \renewcommand{\@oddhead}{\hbox to
+  \textwidth{{\small\theheader}\hfill\textbf{\thepage}}}}
+\newcommand{\ps@firstpage}{
+  \renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\thecopyright}}%
+  \renewcommand{\@evenfoot}{\@oddfoot}}
+\newcommand{\ps@lastpage}{
+  \renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\makelilypondtagline}}%
+  \renewcommand{\@evenfoot}{\@oddfoot}}
+\makeatother
 \endinput
 
