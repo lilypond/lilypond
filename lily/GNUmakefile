@@ -8,14 +8,15 @@ MODULE_LIBS= $(depth)/flower  $(depth)/ttftool $(depth)/kpath-guile
 MODULE_INCLUDES= $(depth)/flower/include $(depth)/ttftool/include 
 MODULE_CXXFLAGS=
 
-ifeq ($(HAVE_LIBKPATHSEA_SO),no)
-MODULE_LDFLAGS= $(KPATHSEA_LIBS)
-endif
-
 HELP2MAN_EXECS = lilypond
 STEPMAKE_TEMPLATES= c++ executable po help2man
 
 include $(depth)/make/stepmake.make 
+
+ifeq ($(HAVE_LIBKPATHSEA_SO),no)
+MODULE_LDFLAGS+= $(KPATHSEA_LIBS)
+endif
+
 
 # for profiling, link guile statically:
 #

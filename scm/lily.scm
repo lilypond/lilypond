@@ -126,6 +126,7 @@ predicates. Print a message at LOCATION if any predicate failed."
     blank
     bracket
     char
+    circle
     dashed-line
     dashed-slur
     dot

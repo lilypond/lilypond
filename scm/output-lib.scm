@@ -114,14 +114,23 @@
 	((string? arg) (string-append "\"" arg "\""))
 	((symbol? arg) (string-append "\"" (symbol->string arg) "\""))))
 
-(define-public (func name . args)
-  (string-append
-   "(" name
-   (if (null? args)
-       ""
-       (apply string-append
-	      (map (lambda (x) (string-append " " (arg->string x))) args)))
-   ")\n"))
+(define-public (print-circled-text-callback grob)
+  (let*
+      ((text (ly:grob-property grob 'text))
+       (layout (ly:grob-layout grob))
+       (defs (ly:output-def-lookup layout 'text-font-defaults))
+       (props (ly:grob-alist-chain grob defs))
+       (circle (Text_interface::interpret_markup layout props 
+						 (make-circle-markup
+						  1.0 0.1)))
+       (text-stencil
+	(Text_interface::interpret_markup layout props text)))
+
+    (ly:stencil-align-to! text-stencil X CENTER)
+    (ly:stencil-align-to! text-stencil Y CENTER)
+    (ly:stencil-add text-stencil circle)
+  ))
+
 
 ;;(define (mm-to-pt x)
 ;;  (* (/ 72.27 25.40) x))
@@ -148,13 +157,6 @@
   (string-append (ly:number->string (car c)) " "
 		 (ly:number->string (cdr c))))
 
-(define (font i)
-  (string-append
-   "font"
-   (make-string 1 (integer->char (+ (char->integer #\A) i)))))
-
-(define (scm-scm action-name)
-  1)
 
 ;; silly, use alist? 
 (define-public (find-notehead-symbol duration style)

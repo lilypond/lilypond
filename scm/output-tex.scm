@@ -79,6 +79,9 @@
 (define (dot x y radius)
   (embedded-ps (list 'dot x y radius)))
 
+(define (circle radius thick)
+  (embedded-ps (list 'circle radius thick)))
+
 
 (define (embedded-ps string)
   (embedded-ps (list 'embedded-ps string)))

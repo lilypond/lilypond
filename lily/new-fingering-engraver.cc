@@ -51,6 +51,7 @@ protected:
   virtual void acknowledge_grob (Grob_info);
   void add_fingering (Grob *, Music *, Music *);
   void add_script (Grob *, Music *, Music *);
+  void add_string (Grob *, Music *, Music *);
   void position_scripts ();
 };
 
@@ -84,6 +85,10 @@ New_fingering_engraver::acknowledge_grob (Grob_info inf)
 	    {
 	      add_script (inf.grob_, m, note_ev);
 	    }
+	  else if (m->is_mus_type ("string-number-event"))
+	    {
+	      add_string (inf.grob_, m, note_ev);
+	    }
 	  else if (m->is_mus_type ("harmonic-event"))
 	    {
 	      inf.grob_->set_property ("style", ly_symbol2scm ("harmonic"));
@@ -104,8 +109,10 @@ New_fingering_engraver::acknowledge_grob (Grob_info inf)
 void
 New_fingering_engraver::add_script (Grob *head,
 				    Music *event,
-				    Music *)
+				    Music *note)
 {
+  (void) note;
+
   Finger_tuple ft;
 
   Grob *g = make_item ("Script", event->self_scm ());
@@ -148,6 +155,30 @@ New_fingering_engraver::add_fingering (Grob *head,
       */
       event->origin ()->warning (_ ("music for the martians."));
     }
+  SCM sstr = scm_number_to_string (scm_int2num (d), scm_int2num (10));
+  ft.script_->set_property ("text", sstr);
+
+  ft.finger_event_ = event;
+  ft.note_event_ = hevent;
+  ft.head_ = head;
+
+  fingerings_.push (ft);
+}
+
+
+void
+New_fingering_engraver::add_string (Grob *head,
+				    Music *event,
+				    Music *hevent)
+{
+  Finger_tuple ft;
+
+  ft.script_ = make_item ("StringNumber", event->self_scm ());
+
+  Side_position_interface::add_support (ft.script_, head);
+
+  int d = scm_to_int (event->get_property ("string-number"));
+
   SCM sstr = scm_number_to_string (scm_int2num (d), scm_int2num (10));
   ft.script_->set_property ("text", sstr);
 

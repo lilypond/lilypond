@@ -2,7 +2,7 @@ depth = ..
 
 NAME = kpath-guile
 MODULE_NAME = kpath-guile
-
+MODULE_LDFLAGS= = -lkpathsea
 SCRIPTS = 
 STEPMAKE_TEMPLATES = library c po
 

@@ -29,6 +29,15 @@ See user manual, \NAME\
 
 @itemize @bullet
 @item
+String numbers are now printed on chords as well,
+
+@lilypond[relative,relative=1,raggedright]
+<c\1 e\2 g\3>
+@end lilypond
+
+See also @inputfileref{input/regression,string-number.ly}.
+
+@item
 Notes with ledger lines will be kept at a distance, so they never
 disappear.
 

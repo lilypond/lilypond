@@ -65,13 +65,13 @@ LY_DEFINE (ly_grob_layout, "ly:grob-layout",
 }
 
 LY_DEFINE (ly_grob_alist_chain, "ly:grob-alist-chain",
-	   1, 1, 0, (SCM g, SCM global),
-	   "Get an alist chain for grob @var{g}, with @var{global} as the "
+	   1, 1, 0, (SCM grob, SCM global),
+	   "Get an alist chain for grob @var{grob}, with @var{global} as the "
 	   "global default. If unspecified, @code{font-defaults} "
 	   "from the layout block is taken. ")
 {
-  Grob *sc = unsmob_grob (g);
-  SCM_ASSERT_TYPE (sc, g, SCM_ARG1, __FUNCTION__, "grob");
+  Grob *sc = unsmob_grob (grob);
+  SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
 
   if (global == SCM_UNDEFINED)
     global
