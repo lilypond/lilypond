@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
        Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
@@ -78,7 +78,7 @@ My_lily_parser::parser_error (String s)
 {
   here_input().error (s);
   error_level_i_ = 1;
-  exit_status_i_ = 1;
+  exit_status_global = 1;
 }
 
 void

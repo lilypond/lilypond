@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 1.2.17\n"
-"POT-Creation-Date: 2000-12-17 15:35+0100\n"
+"POT-Creation-Date: 2001-02-24 12:58+0100\n"
 "PO-Revision-Date: 2000-03-29 20:50+0900\n"
 "Last-Translator: Daisuke Yamashita <yamad@mb.infoweb.ne.jp>\n"
 "Language-Team: Japanese <ja@li.org>\n"
@@ -64,7 +64,7 @@ msgid "can't map file"
 msgstr "ファイルをマップできません"
 
 #: mapped-file-storage.cc:87 midi-stream.cc:77 mudela-stream.cc:111
-#: paper-stream.cc:26 scores.cc:38 simple-file-storage.cc:44 text-stream.cc:23
+#: paper-stream.cc:40 scores.cc:48 simple-file-storage.cc:44 text-stream.cc:23
 #, fuzzy, c-format
 msgid "can't open file: `%s'"
 msgstr "ファイルを開けません: `%s'"
@@ -101,23 +101,28 @@ msgstr "呼び出された文字が見つかりません: `%s'"
 msgid "Error parsing AFM file: %s"
 msgstr ""
 
-#: all-font-metrics.cc:87
+#: all-font-metrics.cc:84
 #, c-format
 msgid "checksum mismatch for font file: `%s'"
 msgstr ""
 
-#: all-font-metrics.cc:92
+#: all-font-metrics.cc:86
+#, c-format
+msgid "does not match: `%s'"
+msgstr ""
+
+#: all-font-metrics.cc:91
 msgid ""
 " Rebuild all .afm files, and remove all .pk and .tfm files.  Rerun with -V "
 "to show font paths."
 msgstr ""
 
-#: all-font-metrics.cc:153
+#: all-font-metrics.cc:155
 #, fuzzy, c-format
 msgid "can't find font: `%s'"
 msgstr "フォントが見つかりません: `%s'"
 
-#: all-font-metrics.cc:154
+#: all-font-metrics.cc:156
 msgid "Loading default font"
 msgstr "デフォルトフォントをロードします"
 
@@ -126,19 +131,28 @@ msgstr "デフォルトフォントをロードします"
 msgid "can't find default font: `%s'"
 msgstr "デフォルトフォントが見つかりません: `%s'"
 
-#: all-font-metrics.cc:172 includable-lexer.cc:50 scores.cc:107
+#: all-font-metrics.cc:172 includable-lexer.cc:50 scores.cc:137
 #, c-format
 msgid "(search path: `%s')"
 msgstr "(検索パス: `%s')"
 
-#: all-font-metrics.cc:173 parser.yy:1642
+#: all-font-metrics.cc:173 parser.yy:1663
 msgid "Giving up"
 msgstr "諦めました"
 
 #: auto-change-iterator.cc:43 change-iterator.cc:59
-#: part-combine-music-iterator.cc:85
+#: part-combine-music-iterator.cc:97
 msgid "Can't switch translators, I'm there already"
 msgstr "トランスレータを切り替えられません。既にそうなっています"
+
+#: beam.cc:84
+#, fuzzy
+msgid "beam has less than two stems"
+msgstr "鈎が二つ未満の符尾とともに使われました"
+
+#: beam.cc:635
+msgid "weird beam vertical offset"
+msgstr "垂直方向の位置としておかしな鈎"
 
 #: beam-engraver.cc:91 beam-engraver.cc:124
 msgid "can't find start of beam"
@@ -149,34 +163,25 @@ msgstr ""
 msgid "already have a beam"
 msgstr "既に鈎があります"
 
-#: beam-engraver.cc:224
+#: beam-engraver.cc:222
 #, fuzzy
 msgid "unterminated beam"
 msgstr "終端のないハイフン"
 
-#: beam-engraver.cc:262 chord-tremolo-engraver.cc:178
+#: beam-engraver.cc:260 chord-tremolo-engraver.cc:195
 #, fuzzy
 msgid "stem must have Rhythmic structure"
 msgstr "符尾はリズム構造を持たねばなりません"
 
-#: beam-engraver.cc:274
+#: beam-engraver.cc:272
 #, fuzzy
 msgid "stem doesn't fit in beam"
 msgstr "符尾が鈎の中におさまりません"
 
-#: beam-engraver.cc:275
+#: beam-engraver.cc:273
 #, fuzzy
 msgid "beam was started here"
 msgstr "鈎はここから開始されました"
-
-#: beam.cc:83
-#, fuzzy
-msgid "beam has less than two stems"
-msgstr "鈎が二つ未満の符尾とともに使われました"
-
-#: beam.cc:506
-msgid "weird beam vertical offset"
-msgstr "垂直方向の位置としておかしな鈎"
 
 #: break-align-item.cc:131
 #, fuzzy, c-format
@@ -202,35 +207,29 @@ msgstr "トランスレータそのものです"
 msgid "none of these in my family"
 msgstr "ファミリの中にありません"
 
-#: chord-tremolo-engraver.cc:119
-#, fuzzy
-msgid "unterminated chord tremolo"
-msgstr "終端のないハイフン"
-
-#: chord-tremolo-iterator.cc:42
-#, fuzzy
-msgid "no one to print a tremolos"
-msgstr "反復記号を表示するものがありません"
-
-#: chord.cc:365
+#: chord.cc:369
 #, c-format
 msgid "invalid subtraction: not part of chord: %s"
 msgstr "無効な引き算: コードの一部ではありません: %s"
 
-#: chord.cc:394
+#: chord.cc:398
 #, c-format
 msgid "invalid inversion pitch: not part of chord: %s"
 msgstr "無効な転回ピッチ: コードの一部ではありません: %s"
 
+#: chord-tremolo-engraver.cc:141
+#, fuzzy
+msgid "unterminated chord tremolo"
+msgstr "終端のないハイフン"
+
+#: chord-tremolo-iterator.cc:48
+#, fuzzy
+msgid "no one to print a tremolos"
+msgstr "反復記号を表示するものがありません"
+
 #: collision.cc:116
 msgid "Too many clashing notecolumns.  Ignoring them."
 msgstr "釣り合わない音符が多すぎます。それらを無視します。"
-
-#: cross-staff.cc:24
-#, fuzzy
-msgid "not a forced distance; cross-staff spanners may be broken"
-msgstr ""
-"minVerticalAlign != maxVerticalAlign: 内部的な beams/slurs が壊れました"
 
 #: debug.cc:26
 msgid "floating point exception"
@@ -245,39 +244,39 @@ msgstr "メモリチェックを設定できません"
 msgid "NaN"
 msgstr "NaN"
 
-#: dynamic-engraver.cc:198 span-dynamic-performer.cc:86
+#: dynamic-engraver.cc:194 span-dynamic-performer.cc:86
 #, fuzzy
 msgid "can't find start of (de)crescendo"
 msgstr "末尾への(デ)クレッシェンドが見つかりません"
 
-#: dynamic-engraver.cc:220
+#: dynamic-engraver.cc:219
 #, fuzzy
 msgid "already have a crescendo"
 msgstr "既に鈎があります"
 
-#: dynamic-engraver.cc:221
+#: dynamic-engraver.cc:220
 #, fuzzy
 msgid "already have a decrescendo"
 msgstr "既に鈎があります"
 
-#: dynamic-engraver.cc:298
+#: dynamic-engraver.cc:303
 #, fuzzy
 msgid "unterminated (de)crescendo"
 msgstr "終了していないクレッシェンド"
 
-#: extender-engraver.cc:98
+#: extender-engraver.cc:97
 msgid "unterminated extender"
 msgstr "終端のないエクステンダ"
 
-#: extender-engraver.cc:110
+#: extender-engraver.cc:109
 msgid "Nothing to connect extender to on the left.  Ignoring extender request."
 msgstr "エクステンダが左側につながりません。エクステンダ要求を無視します。"
 
-#: folded-repeat-iterator.cc:70
+#: folded-repeat-iterator.cc:78
 msgid "no one to print a repeat brace"
 msgstr "反復記号を表示するものがありません"
 
-#: font-interface.cc:199
+#: font-interface.cc:220
 msgid "couldn't find any font satisfying "
 msgstr ""
 
@@ -310,13 +309,8 @@ msgstr "終端のないハイフン"
 msgid "Nothing to connect hyphen to on the left.  Ignoring hyphen request."
 msgstr "左側に繋げるハイフンがありません。ハイフンの要求を無視します"
 
-#: identifier.cc:49
-#, c-format
-msgid "wrong identifier type, expected: `%s'"
-msgstr "間違った識別子型、ここに来るべきものは: `%s'"
-
 #: includable-lexer.cc:48 lily-guile.cc:139 midi-score-parser.cc:24
-#: scores.cc:106 scores.cc:112
+#: scores.cc:136 scores.cc:142
 #, fuzzy, c-format
 msgid "can't find file: `%s'"
 msgstr "ファイルが見つかりません: `%s'"
@@ -352,102 +346,100 @@ msgstr ""
 msgid "Huh? Melismatic note found to have associated lyrics."
 msgstr ""
 
-#: main.cc:75
+#: main.cc:105
 msgid "EXT"
 msgstr "EXT"
 
-#: main.cc:75
+#: main.cc:105
 #, fuzzy
 msgid "use output format EXT (scm, ps, tex or as)"
 msgstr "出力フォーマット EXT を使う"
 
-#: main.cc:76 main.cc:95
+#: main.cc:95 main.cc:106
 msgid "this help"
 msgstr "このヘルプ"
 
-#: main.cc:77
+#: main.cc:107
 #, fuzzy
 msgid "FIELD"
 msgstr "FILE"
 
-#: main.cc:77
+#: main.cc:107
 msgid "write header field to BASENAME.FIELD"
 msgstr ""
 
-#: main.cc:78
+#: main.cc:108 main.cc:111
 msgid "DIR"
 msgstr "DIR"
 
-#: main.cc:78
+#: main.cc:108
 msgid "add DIR to search path"
 msgstr "DIR を検索パスに追加"
 
-#: main.cc:79 main.cc:98
+#: main.cc:98 main.cc:109
 msgid "FILE"
 msgstr "FILE"
 
-#: main.cc:79
+#: main.cc:109
 msgid "use FILE as init file"
 msgstr "FILE を初期化ファイルとして使用"
 
-#: main.cc:80
+#: main.cc:110
 msgid "write Makefile dependencies for every input file"
 msgstr "全ての入力ファイルの Makefile 依存関係を書き込む"
 
-#: main.cc:81
+#: main.cc:111
+msgid "prepend DIR to dependencies"
+msgstr ""
+
+#: main.cc:112
 msgid "produce MIDI output only"
 msgstr "MIDI 出力の生成のみ"
 
-#: main.cc:82
-msgid "BASENAME"
+#: main.cc:113
+#, fuzzy
+msgid "NAME"
 msgstr "BASENAME"
 
-#: main.cc:82
-msgid "write output to BASENAME[-x].extension"
+#: main.cc:113
+#, fuzzy
+msgid "write output to NAME"
 msgstr "BASENAME[-x].拡張子 へ出力を書き込む"
 
-#: main.cc:83
-msgid "show all changes in relative syntax"
-msgstr "関連する文法から全ての変更を表示"
-
-#: main.cc:84
+#: main.cc:114
 msgid "inhibit file output naming and exporting"
 msgstr "名前付けとエクスポートの出力ファイルを抑制する"
 
-#: main.cc:85 main.cc:103
+#: main.cc:103 main.cc:115
 msgid "don't timestamp the output"
 msgstr "出力にタイムスタンプをつけない"
 
-#: main.cc:86
-msgid "switch on experimental features"
-msgstr "実験的な機能を有効にする"
-
-#: main.cc:87 main.cc:104
+#: main.cc:104 main.cc:116
 msgid "print version number"
 msgstr "バージョン番号を表示"
 
-#: main.cc:88
+#: main.cc:117
 #, fuzzy
 msgid "verbose"
 msgstr "詳細な情報を表示します"
 
-#: main.cc:89 main.cc:106
+#: main.cc:106 main.cc:118
 msgid "show warranty and copyright"
 msgstr "保証と著作権について表示する"
 
 #.
 #. No version number or newline here. It confuses help2man
 #.
-#: main.cc:106
+#: main.cc:135
 #, c-format
 msgid "Usage: %s [OPTION]... [FILE]..."
 msgstr "使い方: %s [オプション]... [ファイル]..."
 
-#: main.cc:108
+#: main.cc:137
 msgid "Typeset music and or play MIDI from FILE"
 msgstr "ファイルの楽曲を組版したり、MIDI 演奏したりする"
 
-#: main.cc:112
+#: main.cc:141
 msgid ""
 "LilyPond is a music typesetter.  It produces beautiful sheet music\n"
 "using a high level description file as input.  LilyPond is part of \n"
@@ -457,20 +449,20 @@ msgstr ""
 "美しい譜面を作成することができます。LilyPond は GNU "
 "プロジェクトの一部です。\n"
 
-#: main.cc:118 main.cc:119
+#: main.cc:119 main.cc:147
 msgid "Options:"
 msgstr "オプション:"
 
-#: main.cc:122
+#: main.cc:151
 msgid "This binary was compiled with the following options:"
 msgstr "このバイナリは以下のオプション付きでコンパイルされました"
 
-#: main.cc:123 main.cc:141
+#: main.cc:123 main.cc:170
 #, c-format
 msgid "Report bugs to %s"
 msgstr "バグレポートは %s へ"
 
-#: main.cc:55 main.cc:149
+#: main.cc:55 main.cc:178
 #, c-format
 msgid ""
 "This is free software.  It is covered by the GNU General Public License,\n"
@@ -486,17 +478,17 @@ msgstr ""
 "これを改変したり、複製を配布したりする事は歓迎されます。\n"
 "`--warranty' オプション付きで起動すると、より詳細な情報が得られます。\n"
 
-#: main.cc:62 main.cc:156 main.cc:168
+#: main.cc:62 main.cc:185 main.cc:197
 #, c-format
 msgid "Copyright (c) %s by"
 msgstr "Copyright (c) %s by"
 
-#: main.cc:166
+#: main.cc:195
 #, fuzzy
 msgid "GNU LilyPond -- The music typesetter"
 msgstr "GNU LilyPond -- The GNU Project music typesetter"
 
-#: main.cc:71 main.cc:174
+#: main.cc:71 main.cc:203
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License version 2\n"
@@ -561,14 +553,14 @@ msgstr "馬鹿げた音長"
 msgid "silly pitch"
 msgstr "馬鹿げたピッチ"
 
-#: midi-stream.cc:29 paper-stream.cc:36
+#: midi-stream.cc:29 paper-stream.cc:50
 msgid "Error syncing file (disk full?)"
 msgstr "ファイルの同調エラー (ディスクが一杯?)"
 
-#: music-output-def.cc:72
-#, fuzzy, c-format
-msgid "can't find `%s' context"
-msgstr "`%s' コンテキストが見つかりません"
+#: musical-request.cc:29
+#, c-format
+msgid "Transposition by %s makes accidental larger than two"
+msgstr "%s の変調によって、二つを超える派生音が作られました"
 
 #: music.cc:222
 msgid "ly_get_mus_property (): Not a Music"
@@ -582,17 +574,17 @@ msgstr ""
 msgid "ly_set_mus_property ():  not of type Music"
 msgstr ""
 
-#: musical-request.cc:29
-#, c-format
-msgid "Transposition by %s makes accidental larger than two"
-msgstr "%s の変調によって、二つを超える派生音が作られました"
+#: music-output-def.cc:115
+#, fuzzy, c-format
+msgid "can't find `%s' context"
+msgstr "`%s' コンテキストが見つかりません"
 
-#: my-lily-lexer.cc:132
+#: my-lily-lexer.cc:137
 #, c-format
 msgid "Identifier name is a keyword: `%s'"
 msgstr "識別子名はキーワードです: `%s'"
 
-#: my-lily-lexer.cc:151
+#: my-lily-lexer.cc:157
 #, c-format
 msgid "error at EOF: %s"
 msgstr "EOF のところでエラー: %s"
@@ -610,16 +602,16 @@ msgstr "ブレースが一致しません"
 msgid "Junking request: `%s'"
 msgstr "要求を捨てます: `%s'"
 
-#: paper-def.cc:116
+#: paper-def.cc:109
 #, c-format
 msgid "paper output to %s..."
 msgstr "%s へ paper 出力..."
 
-#: mudela-stream.cc:93 paper-outputter.cc:93 performance.cc:97
+#: mudela-stream.cc:93 paper-outputter.cc:94 performance.cc:102
 msgid ", at "
 msgstr ", at "
 
-#: paper-outputter.cc:239
+#: paper-outputter.cc:240
 #, fuzzy, c-format
 msgid "writing header field %s to %s..."
 msgstr "依存関係ファイルの書き込み: `%s'..."
@@ -628,9 +620,14 @@ msgstr "依存関係ファイルの書き込み: `%s'..."
 msgid "Preprocessing elements..."
 msgstr "要素を前処理中..."
 
-#: paper-score.cc:105
+#: paper-score.cc:112
 msgid "Outputting Score, defined at: "
 msgstr "譜面を出力します。ここで定義: "
+
+#: paper-stream.cc:36
+#, fuzzy, c-format
+msgid "can't create directory: `%s'"
+msgstr "見つからないか作れません: `%s'"
 
 #.
 #. We could change the current translator's id, but that would make
@@ -638,30 +635,25 @@ msgstr "譜面を出力します。ここで定義: "
 #.
 #. last->translator_id_str_  = change_l ()->change_to_id_str_;
 #.
-#: part-combine-music-iterator.cc:104
+#: part-combine-music-iterator.cc:116
 #, fuzzy, c-format
 msgid "I'm one myself: `%s'"
 msgstr "トランスレータそのものです"
 
-#: part-combine-music-iterator.cc:107
+#: part-combine-music-iterator.cc:119
 #, fuzzy, c-format
 msgid "none of these in my family: `%s'"
 msgstr "ファミリの中にありません"
 
-#: performance.cc:50
+#: performance.cc:51
 msgid "Track ... "
 msgstr "トラック ..."
 
-#. perhaps multiple text events?
-#: performance.cc:77
+#: performance.cc:79
 msgid "Creator: "
 msgstr "作曲者: "
 
-#: performance.cc:92
-msgid "Automatically generated"
-msgstr "自動生成された"
-
-#: performance.cc:106
+#: performance.cc:111
 #, c-format
 msgid "from musical definition: %s"
 msgstr "音楽的定義より: %s"
@@ -671,7 +663,17 @@ msgstr "音楽的定義より: %s"
 msgid "MIDI output to %s..."
 msgstr "%s への MIDI 出力"
 
-#: piano-pedal-engraver.cc:144 piano-pedal-engraver.cc:156
+#: phrasing-slur-engraver.cc:119
+#, fuzzy
+msgid "unterminated phrasing slur"
+msgstr "終端されていないスラー"
+
+#: phrasing-slur-engraver.cc:134
+#, fuzzy
+msgid "can't find start of phrasing slur"
+msgstr "末尾への(デ)クレッシェンドが見つかりません"
+
+#: piano-pedal-engraver.cc:142 piano-pedal-engraver.cc:154
 #: piano-pedal-performer.cc:87
 #, fuzzy, c-format
 msgid "can't find start of piano pedal: %s"
@@ -681,15 +683,14 @@ msgstr "呼び出された文字が見つかりません: `%s'"
 msgid "Pitch arguments out of range"
 msgstr ""
 
-#. warning () ?
-#: property-engraver.cc:124
+#: property-engraver.cc:121
 #, c-format
 msgid ""
 "%s is deprecated.  Use\n"
 " \\property %s.%s \\override #'%s = #%s"
 msgstr ""
 
-#: property-engraver.cc:150
+#: property-engraver.cc:145
 #, fuzzy, c-format
 msgid "Wrong type for property: %s, type: %s, value found: %s, type: %s"
 msgstr "属性値へのタイプが間違っています"
@@ -702,39 +703,39 @@ msgstr "休符の衝突が多すぎます"
 msgid "too many notes for rest collision"
 msgstr "休符の衝突に対して音符が多すぎます"
 
+#: score.cc:78
+msgid "Interpreting music..."
+msgstr "楽曲の解釈中..."
+
+#: score.cc:92
+msgid "Need music in a score"
+msgstr "楽譜には楽曲が必要です"
+
+#. should we? hampers debugging.
+#: score.cc:105
+msgid "Errors found/*, not processing score*/"
+msgstr "エラーを発見/*, 楽譜を処理しません*/"
+
+#: score.cc:112
+#, c-format
+msgid "elapsed time: %.2f seconds"
+msgstr "経過時間: %.2f 秒"
+
 #: score-engraver.cc:177
 #, c-format
 msgid "unbound spanner `%s'"
 msgstr "閉じていないスパナ `%s'"
 
-#: score.cc:67
-msgid "Interpreting music..."
-msgstr "楽曲の解釈中..."
-
-#: score.cc:81
-msgid "Need music in a score"
-msgstr "楽譜には楽曲が必要です"
-
-#. should we? hampers debugging.
-#: score.cc:94
-msgid "Errors found/*, not processing score*/"
-msgstr "エラーを発見/*, 楽譜を処理しません*/"
-
-#: score.cc:101
-#, c-format
-msgid "elapsed time: %.2f seconds"
-msgstr "経過時間: %.2f 秒"
-
-#: scores.cc:34
+#: scores.cc:44
 #, fuzzy, c-format
-msgid "Writing dependency file: `%s'..."
-msgstr "依存関係ファイルの書き込み: `%s'..."
+msgid "dependencies output to %s..."
+msgstr "%s へ paper 出力..."
 
-#: scores.cc:79
+#: scores.cc:106
 msgid "Score contains errors; will not process it"
 msgstr "楽譜にエラーが含まれています -- 処理しません"
 
-#: scores.cc:122
+#: scores.cc:152
 #, fuzzy, c-format
 msgid "Now processing: `%s'"
 msgstr "未知のエスケープ文字列: `\\%s'"
@@ -750,15 +751,6 @@ msgstr "音節 `%s' の解釈方法が判りません"
 msgid "Separation_item:  I've been drinking too much"
 msgstr "Single_malt_grouping_item:  飲みすぎちゃった"
 
-#: slur-engraver.cc:128
-msgid "unterminated slur"
-msgstr "終端されていないスラー"
-
-#: slur-engraver.cc:143
-#, fuzzy
-msgid "can't find start of slur"
-msgstr "末尾への(デ)クレッシェンドが見つかりません"
-
 #: slur.cc:49
 msgid "Putting slur over rest.  Ignoring."
 msgstr "休符をまたいだスラーがあります。無視します。"
@@ -767,16 +759,29 @@ msgstr "休符をまたいだスラーがあります。無視します。"
 msgid "Slur over rest?"
 msgstr "スラーが休符をまたいでいる?"
 
+#: slur-engraver.cc:127
+msgid "unterminated slur"
+msgstr "終端されていないスラー"
+
+#: slur-engraver.cc:142
+#, fuzzy
+msgid "can't find start of slur"
+msgstr "末尾への(デ)クレッシェンドが見つかりません"
+
+#: stem.cc:116
+msgid "Weird stem size; check for narrow beams"
+msgstr "変な符尾のサイズ -- 細い鈎のチェックをして下さい"
+
 #: stem-engraver.cc:115
 #, c-format
 msgid "Adding note head to incompatible stem (type = %d)"
 msgstr "矛盾した符尾へ符頭を追加します (タイプ = %d)"
 
-#: stem.cc:117
-msgid "Weird stem size; check for narrow beams"
-msgstr "変な符尾のサイズ -- 細い鈎のチェックをして下さい"
+#: text-spanner.cc:117
+msgid "Text_spanner too small"
+msgstr ""
 
-#: text-spanner-engraver.cc:95
+#: text-spanner-engraver.cc:94
 #, fuzzy
 msgid "can't find start of text spanner"
 msgstr "末尾への(デ)クレッシェンドが見つかりません"
@@ -786,14 +791,15 @@ msgstr "末尾への(デ)クレッシェンドが見つかりません"
 msgid "already have a text spanner"
 msgstr "既に鈎があります"
 
-#: text-spanner-engraver.cc:167
+#: text-spanner-engraver.cc:169
 #, fuzzy
 msgid "unterminated text spanner"
 msgstr "終端のないエクステンダ"
 
-#: text-spanner.cc:115
-msgid "Text_spanner too small"
-msgstr ""
+#: tfm.cc:77
+#, fuzzy, c-format
+msgid "can't find ascii character: %d"
+msgstr "ascii 文字が見つかりません: `%d'"
 
 #: tfm-reader.cc:105
 #, c-format
@@ -804,11 +810,6 @@ msgstr "`%s' の TFM ヘッダに %u 語しかありません"
 #, c-format
 msgid "%s: TFM file has %u parameters, which is more than the %u I can handle"
 msgstr "%s: TFM ファイルは %u 個のパラメタがありますが、%u 以上は扱えません"
-
-#: tfm.cc:77
-#, fuzzy, c-format
-msgid "can't find ascii character: %d"
-msgstr "ascii 文字が見つかりません: `%d'"
 
 #: tie-engraver.cc:212 tie-performer.cc:173
 msgid "No ties were created!"
@@ -861,21 +862,19 @@ msgstr "`%2$s' に呼ばれた `%1$s' が見つからないか作れません"
 msgid "can't find or create: `%s'"
 msgstr "見つからないか作れません: `%s'"
 
-#. warning () ?
-#: translator-group.cc:405
+#: translator-group.cc:403
 #, c-format
 msgid ""
 "Can't find property type-check for `%s'.  Perhaps you made a typing error?"
 msgstr ""
 
-#. warning () ?
-#: translator-group.cc:420
+#: translator-group.cc:417
 #, c-format
-msgid "Failed typecheck for `%s', value `%s' must be of type `%s'"
+msgid "Type check for `%s' failed; value `%s' must be of type `%s'"
 msgstr ""
 
 #. programming_error?
-#: translator-group.cc:440
+#: translator-group.cc:436
 msgid "ly-get-trans-property: expecting a Translator_group argument"
 msgstr ""
 
@@ -896,107 +895,107 @@ msgstr ""
 msgid "Oldest supported input version: %s"
 msgstr "一番古い入力可能バージョン: %s"
 
-#: parser.yy:467
+#: parser.yy:471
 msgid "Wrong type for property value"
 msgstr "属性値へのタイプが間違っています"
 
-#: parser.yy:668
+#: parser.yy:666
 msgid "More alternatives than repeats.  Junking excess alternatives."
 msgstr "繰り返しよりも選択肢が多い。超過分を捨てます。"
 
-#: parser.yy:732
+#: parser.yy:730
 msgid "Second argument must be a symbol"
 msgstr ""
 
-#: parser.yy:737
+#: parser.yy:735
 msgid "First argument must be a procedure taking 1 argument"
 msgstr ""
 
-#: parser.yy:1217
+#: parser.yy:1211
 msgid "Expecting string as script definition"
 msgstr ""
 
-#: parser.yy:1227
+#: parser.yy:1221
 msgid "Can't specify direction for this request"
 msgstr "この要求に対する方向を指定することはできません"
 
-#: parser.yy:1348
+#: parser.yy:1353
 msgid "Expecting musical-pitch value"
 msgstr ""
 
-#: parser.yy:1359
+#: parser.yy:1364
 #, fuzzy
 msgid "Must have duration object"
 msgstr "音長を最小に設定します"
 
-#: parser.yy:1368 parser.yy:1376 parser.yy:1640
+#: parser.yy:1373 parser.yy:1381 parser.yy:1661
 msgid "Have to be in Lyric mode for lyrics"
 msgstr "歌詞は Lyric モード内に書いてください"
 
-#: parser.yy:1525 parser.yy:1554
+#: parser.yy:1546 parser.yy:1575
 #, c-format
 msgid "not a duration: %d"
 msgstr "音長ではありません: %d"
 
-#: parser.yy:1563
+#: parser.yy:1584
 msgid "Have to be in Note mode for notes"
 msgstr "音符は Note モード内に書いてください"
 
-#: parser.yy:1659
+#: parser.yy:1680
 msgid "Have to be in Chord mode for chords"
 msgstr "コードは Chord モード内に書いてください"
 
-#: parser.yy:1821 parser.yy:1839
+#: parser.yy:1842 parser.yy:1860
 msgid "need integer number arg"
 msgstr ""
 
-#: parser.yy:1825
+#: parser.yy:1846
 msgid "Must be positive integer"
 msgstr ""
 
-#: lexer.ll:164
+#: lexer.ll:165
 msgid "EOF found inside a comment"
 msgstr "コメント内に EOF が見つかりました"
 
-#: lexer.ll:178
+#: lexer.ll:179
 msgid "\\maininput disallowed outside init files"
 msgstr "初期化ファイルの外では \\maininput を記述できません"
 
-#: lexer.ll:202
+#: lexer.ll:203
 #, fuzzy, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr "未定義の識別子: `%s'"
 
 #. backup rule
-#: lexer.ll:207
+#: lexer.ll:208
 msgid "Missing end quote"
 msgstr "終了クオートがありません"
 
 #. backup rule
-#: lexer.ll:229 lexer.ll:233
+#: lexer.ll:230 lexer.ll:234
 msgid "white expected"
 msgstr "空白が必要です"
 
-#: lexer.ll:241
+#: lexer.ll:243
 msgid "Can't evaluate Scheme in safe mode"
 msgstr "安全モードでは Scheme の評価をできません"
 
-#: lexer.ll:433
+#: lexer.ll:439
 #, c-format
 msgid "invalid character: `%c'"
 msgstr "無効な文字: `%c'"
 
-#: lexer.ll:515
+#: lexer.ll:520
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr "未知のエスケープ文字列: `\\%s'"
 
-#: lexer.ll:597
+#: lexer.ll:602
 #, fuzzy, c-format
 msgid "incorrect lilypond version: %s (%s, %s)"
 msgstr "間違った mudela バージョン: %s (%s, %s)"
 
-#: lexer.ll:598
+#: lexer.ll:603
 msgid "Consider converting the input with the convert-ly script"
 msgstr ""
 
@@ -1206,6 +1205,27 @@ msgstr "% Automatically generated"
 #, c-format
 msgid "% from input file: "
 msgstr "% from input file: "
+
+#, fuzzy
+#~ msgid "not a forced distance; cross-staff spanners may be broken"
+#~ msgstr ""
+#~ "minVerticalAlign != maxVerticalAlign: 内部的な beams/slurs が壊れました"
+
+#~ msgid "wrong identifier type, expected: `%s'"
+#~ msgstr "間違った識別子型、ここに来るべきものは: `%s'"
+
+#~ msgid "show all changes in relative syntax"
+#~ msgstr "関連する文法から全ての変更を表示"
+
+#~ msgid "switch on experimental features"
+#~ msgstr "実験的な機能を有効にする"
+
+#~ msgid "Automatically generated"
+#~ msgstr "自動生成された"
+
+#, fuzzy
+#~ msgid "Writing dependency file: `%s'..."
+#~ msgstr "依存関係ファイルの書き込み: `%s'..."
 
 #, fuzzy
 #~ msgid "Wrong type for property"

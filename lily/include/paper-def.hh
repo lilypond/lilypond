@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1996--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -54,7 +54,7 @@ protected:
 public:    
   SCM font_descriptions ()const;
   virtual ~Paper_def ();
-  static int default_count_i_;
+  static int score_count_i_;
   
   /*
     JUNKME
@@ -68,8 +68,8 @@ public:
 
   Interval line_dimensions_int (int) const;
 
-  virtual int get_next_default_count () const;
-  static void reset_default_count();
+  virtual int get_next_score_count () const;
+  static void reset_score_count ();
   void output_settings (Paper_outputter*) const;
   Paper_outputter* paper_outputter_p () ;
 

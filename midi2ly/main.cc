@@ -59,7 +59,7 @@ version ()
     "midi2ly");
   cout << endl;
 
-  cout << _f ("Copyright (c) %s by", "1996--2000");
+  cout << _f ("Copyright (c) %s by", "1996--2001");
   cout << "Han-Wen Nienhuys <hanwen@cs.uu.nl>\n"
        << "Jan Nieuwenhuizen <janneke@gnu.org>\n";
 }
@@ -267,9 +267,9 @@ main (int argc_i, char* argv_sz_a[])
 
       if (!output_str.length_i ())
 	{
-	  String d, dir, base, ext;
-	  split_path (arg_sz, d, dir, base, ext);
-	  output_str = base + ext + ".ly";
+	  Path p = split_path (arg_sz);
+
+	  output_str = p.base + p.ext + ".ly";
 	}
 
       score_p->output (output_str);

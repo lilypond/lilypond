@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996--2000 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1996--2001 Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
 #include "performer.hh"

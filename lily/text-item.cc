@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
   
- (c) 1998--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+ (c) 1998--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
  */
 #include <math.h>
@@ -20,39 +20,17 @@
 
 
 /*
-    TEXT : STRING | (MARKUP SENTENCE)
-    MARKUP: PROPERTY | ABBREV
-    SENTENCE: TEXT | SENTENCE TEXT
-    PROPERTY: (key . value)
-    ABBREV: rows lines roman music bold italic named super sub text, or any font-style
- */
-
-/*
-  FIXME:
-
-  rewrite routines and syntax to be like
 
   TEXT: STRING
-      | (head-expression* TEXT*)
-      ;
+        | (MARKUP? TEXT+)
+        ;
 
-  head-expression is a list, containing a tag and a variable number of
-  arguments. If necessary, the number of arguments can be stored in a alist,
+  HEAD: MARKUP-ITEM | (MARKUP-ITEM+)
 
-  '(
-   (tag1 . argcount1)
-   (tag2 . argcount2)
-
-   ... etc
+  MARKUP-ITEM: PROPERTY | ABBREV | FONT-STYLE
+  PROPERTY: (key . value)
+  ABBREV: rows lines roman music bold italic named super sub text
    
-   )
-
-   or even entries like
-
-   (tag . (argcount function-to-handle-the-tag  ))
-
-   use baselineskip for setting (lines ...)
-
 */
 
 Molecule
@@ -65,7 +43,7 @@ Text_item::text2molecule (Grob *me, SCM text, SCM alist_chain)
       if (!gh_pair_p (gh_car (text)) && gh_string_p (gh_car (text)))
 	return string2molecule (me, gh_car (text), alist_chain);
       else
-	return markup_sentence2molecule (me, text, alist_chain);
+	return markup_text2molecule (me, text, alist_chain);
     }
   return Molecule ();
 }
@@ -134,61 +112,71 @@ Text_item::lookup_text (Grob *me, Font_metric*fm, SCM text)
 }
 
 Molecule
-Text_item::markup_sentence2molecule (Grob *me, SCM markup_sentence,
-				     SCM alist_chain)
+Text_item::markup_text2molecule (Grob *me, SCM markup_text,
+			       SCM alist_chain)
 {
   SCM sheet = me->paper_l ()->style_sheet_;
   SCM f = gh_cdr (scm_assoc (ly_symbol2scm ("markup-to-properties"), sheet));
   
-  SCM markup = gh_car (markup_sentence);
-  SCM sentence = gh_cdr (markup_sentence);
-  
+  SCM markup = gh_car (markup_text);
+  SCM text = gh_cdr (markup_text);
+
+#if 1
   SCM p = gh_cons  (gh_call2 (f, sheet, markup), alist_chain);
+#else
+  SCM pp = gh_call2 (f, sheet, markup);
+  gh_newline ();
+  scm_write (pp, scm_current_error_port ());
+  gh_newline ();
+  SCM p = gh_cons (pp, alist_chain);
+#endif
+
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
 
   Axis align = X_AXIS;
   SCM a = ly_assoc_chain (ly_symbol2scm ("align"), p);
   if (gh_pair_p (a) && gh_number_p (gh_cdr (a)))
     align = (Axis)gh_scm2int (gh_cdr (a));
 
-  Real staff_space = Staff_symbol_referencer::staff_space (me);
-  Real kern = 0;
+  Real baseline_skip = 0;
+  SCM b = ly_assoc_chain (ly_symbol2scm ("baseline-skip"), p);
+  if (gh_pair_p (b) && gh_number_p (gh_cdr (b)))
+    baseline_skip = gh_scm2double (gh_cdr (b)) * staff_space;
+  
+  Array<Real> kern (2);
+  kern[0] = 0; // zucht
+  kern[1] = 0;
   SCM k = ly_assoc_chain (ly_symbol2scm ("kern"), p);
   if (gh_pair_p (k) && gh_number_p (gh_cdr (k)))
-    kern = gh_scm2double (gh_cdr (k)) * staff_space;
+    kern[align] = gh_scm2double (gh_cdr (k)) * staff_space;
 			     
   Real raise = 0;
   SCM r = ly_assoc_chain (ly_symbol2scm ("raise"), p);
   if (gh_pair_p (r) && gh_number_p (gh_cdr (r)))
     raise = gh_scm2double (gh_cdr (r)) * staff_space;
 
-#if 0
-  Offset o (align == X_AXIS ? kern : 0,
-	    (align == Y_AXIS ? - kern : 0) + raise);
-#else
-  Offset o (0, (align == Y_AXIS ? - kern : 0) + raise);
-#endif
- 
+  Offset o (0, (align == Y_AXIS ? - kern[align] : 0) + raise);
+   
   Molecule mol;
-  while (gh_pair_p (sentence))
+  while (gh_pair_p (text))
     {
-      /* Ugh: this (kerning) only works if 'kern' is the first modifier of a
-	 markup.  I guess the only solution is to rewrite markup definition,
-	 see above. */
-      Molecule m = text2molecule (me, gh_car (sentence), p);
-      Real m_kern = 0;
+      Molecule m = text2molecule (me, gh_car (text), p);
       SCM m_p = SCM_EOL;
-      if (gh_pair_p (gh_car (sentence)))
-	m_p = gh_cons  (gh_call2 (f, sheet, gh_caar (sentence)), alist_chain);
+      if (gh_pair_p (gh_car (text)))
+	m_p = gh_cons  (gh_call2 (f, sheet, gh_caar (text)), alist_chain);
       SCM m_k = ly_assoc_chain (ly_symbol2scm ("kern"), m_p);
+      Real m_kern = kern[align];
       if (gh_pair_p (m_k) && gh_number_p (gh_cdr (m_k)))
 	m_kern = gh_scm2double (gh_cdr (m_k)) * staff_space;
 
       if (!m.empty_b ())
 	{
 	  m.translate (o);
+	  if (align == Y_AXIS && baseline_skip)
+	    m_kern += baseline_skip - m.extent (Y_AXIS)[UP];
 	  mol.add_at_edge (align, align == X_AXIS ? RIGHT : DOWN, m, m_kern);
 	}
-      sentence = gh_cdr (sentence);
+      text = gh_cdr (text);
     }
   return mol;
 }

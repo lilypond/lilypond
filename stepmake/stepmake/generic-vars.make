@@ -137,7 +137,7 @@ endif
 
 # substitute $(STRIP) in Site.make if you want stripping
 DO_STRIP=true
-LOOP=$(foreach i,  $(SUBDIRS), $(MAKE) PACKAGE=$(PACKAGE) -C $(i) $@ &&) true
+LOOP=$(foreach i,  $(SUBDIRS), $(MAKE) PACKAGE=$(PACKAGE) package=$(package) -C $(i) $@ &&) true
 
 # different redhat releases need different flags for etags. Just use defaults.
 ETAGS_FLAGS= # -CT

@@ -1,7 +1,7 @@
 /*
   beam.hh -- part of GNU LilyPond
 
-  (c) 1996--2000 Han-Wen Nienhuys
+  (c) 1996--2001 Han-Wen Nienhuys
 */
 
 #ifndef BEAM_HH
@@ -19,7 +19,6 @@ public:
   static Item* first_visible_stem (Grob*);
   static Item* last_visible_stem (Grob*);
   static bool has_interface (Grob*);
-  static void set_interface (Grob*);  
   DECLARE_SCHEME_CALLBACK(rest_collision_callback, (SCM element, SCM axis));
   Beam (SCM);
   static void add_stem (Grob*,Grob*);

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
     Jan Nieuwenhuizen <janneke@gnu.org>
 
 */
@@ -1066,15 +1066,3 @@ Beam::has_interface (Grob*me)
   return me->has_interface (ly_symbol2scm ("beam-interface"));
 }
 
-void
-Beam::set_interface (Grob*me)
-{
-#if 0
-  /*
-    why the init? No way to tell difference between default and user
-    override.  */
-  me->set_grob_property ("y" ,gh_double2scm (0));
-  me->set_grob_property ("dy", gh_double2scm (0));
-  me->set_interface (ly_symbol2scm("beam-interface"));
-#endif
-}

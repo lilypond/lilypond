@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1998--2000 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1998--2001 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "engraver.hh"
@@ -46,7 +46,7 @@ Chord_name_engraver::Chord_name_engraver ()
 {
   chord_name_p_ = 0;
   chord_ = gh_cons (SCM_EOL, gh_cons (SCM_EOL, SCM_EOL));
-  last_chord_ = SCM_EOL;
+  last_chord_ = chord_;
 }
 
 void
@@ -94,7 +94,7 @@ Chord_name_engraver::create_grobs ()
       chord_name_p_->set_grob_property ("chord", chord_);
       announce_grob (chord_name_p_, 0);
       SCM s = get_property ("chordChanges");
-      if (to_boolean (s) && last_chord_ != SCM_EOL
+      if (to_boolean (s) && gh_car (last_chord_) != SCM_EOL
 	  	  && gh_equal_p (chord_, last_chord_))
 	chord_name_p_->set_grob_property ("begin-of-line-visible", SCM_BOOL_T);
     }
@@ -109,7 +109,8 @@ Chord_name_engraver::stop_translation_timestep ()
     }
   chord_name_p_ = 0;
 
-  last_chord_ = chord_;
+  if (gh_car (chord_) != SCM_EOL)
+    last_chord_ = chord_;
   chord_ = gh_cons (SCM_EOL, gh_cons (SCM_EOL, SCM_EOL));
 }
 

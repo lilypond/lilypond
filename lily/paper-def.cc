@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include <math.h>
@@ -87,34 +87,33 @@ Paper_def::line_dimensions_int (int n) const
 
 
 
-int Paper_def::default_count_i_ = 0;
+int Paper_def::score_count_i_ = 0;
 
 int
-Paper_def::get_next_default_count () const
+Paper_def::get_next_score_count () const
 {
-  return default_count_i_ ++;
+  return score_count_i_ ++;
 }
 
 void
-Paper_def::reset_default_count()
+Paper_def::reset_score_count()
 {
-  default_count_i_ = 0;
+  score_count_i_ = 0;
 }
 
 
 Paper_outputter*
 Paper_def::paper_outputter_p () 
 {
-  String basename = base_output_str (); 
-  String outname = basename;
-  if (outname != "-")
-    outname += String (".") + output_global_ch;
+  String outname = outname_str (); 
   progress_indication (_f ("paper output to %s...",
 			   outname == "-" ? String ("<stdout>") : outname));
 
   target_str_global_array.push (outname);
   Paper_outputter * po = new Paper_outputter (outname);
-  po->basename_ = basename;
+  Path p = split_path (outname);
+  p.ext = "";
+  po->basename_ = p.str ();
   return po;
 }
 

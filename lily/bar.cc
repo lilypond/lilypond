@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 #include <math.h>
 
@@ -73,12 +73,12 @@ Bar::compound_barline (Grob*me, String str, Real h)
     {
       return thin;
     }
-  else if (str == "|.")
+  else if (str == "|." || (h == 0 && str == ":|"))
     {
       m.add_at_edge (X_AXIS, LEFT, thick, 0);      
       m.add_at_edge (X_AXIS, LEFT, thin, kern);
     }
-  else if (str == ".|")
+  else if (str == ".|" || (h == 0 && str == "|:"))
     {
       m.add_at_edge (X_AXIS, RIGHT, thick, 0);
       m.add_at_edge (X_AXIS, RIGHT, thin, kern);

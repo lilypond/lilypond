@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
@@ -41,12 +41,12 @@ Paper_outputter::Paper_outputter (String name)
    lilypond -f scm x.ly
    guile -s x.scm
   */
-  verbatim_scheme_b_ =  output_global_ch == String ("scm");
+  verbatim_scheme_b_ = output_format_global == "scm";
 
   if (verbatim_scheme_b_)
     {
 	*stream_p_ << ""
-	  ";;; Usage: guile -s x.scm > x.tex\n"
+	  ";;; Usage: guile -s x.scm > x.lytex\n"
 	  "(primitive-load-path 'standalone.scm)\n"
 	  ";(scm-tex-output)\n"
 	  "(scm-ps-output)\n"
@@ -74,7 +74,7 @@ Paper_outputter::output_header ()
       gh_define ("security-paranoia", SCM_BOOL_T);      
     }
 
-  SCM exp = gh_list (ly_symbol2scm ((String (output_global_ch) + "-scm").ch_C()),
+  SCM exp = gh_list (ly_symbol2scm ((output_format_global + "-scm").ch_C()),
 		     ly_quote_scm (ly_symbol2scm ("all-definitions")),
 		     SCM_UNDEFINED);
   exp = scm_eval2 (exp, SCM_EOL);
@@ -250,12 +250,12 @@ Paper_outputter::write_header_field_to_file (String filename, String key, String
 void
 Paper_outputter::write_header_fields_to_file (Scope * header)
 {
-  if (global_dumped_header_fieldnames.size ())
+  if (dump_header_fieldnames_global.size ())
     {
       SCM fields = header->to_alist ();
-      for (int i = 0; i < global_dumped_header_fieldnames.size (); i++)
+      for (int i = 0; i < dump_header_fieldnames_global.size (); i++)
 	{
-	  String key = global_dumped_header_fieldnames[i];
+	  String key = dump_header_fieldnames_global[i];
 	  SCM val = gh_assoc (ly_symbol2scm (key.ch_C ()), fields);
 	  String s;
 	  /* Only write header field to file if it exists */

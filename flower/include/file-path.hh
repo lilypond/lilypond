@@ -1,13 +1,14 @@
 /*
-  path.hh -- declare File_path
+  file-path.hh -- declare Path and File_path
 
   source file of the Flower Library
 
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#ifndef PATH_HH
-#define PATH_HH
+#ifndef FILE_PATH_HH
+#define FILE_PATH_HH
+
 #include "string.hh"
 #include "array.hh"
 
@@ -19,9 +20,18 @@
    Search a number of dirs for a file.
 
    TODO: add a unix style PATH interface 
-   Should use kpathsea?
-   
 */
+
+class Path
+{
+public:
+  String root;
+  String dir;
+  String base;
+  String ext;
+
+  String str () const;
+};
 
 class File_path : private Array<String>
 {
@@ -35,13 +45,6 @@ public:
   void parse_path (String);
 };
 
-/** split a path into its components.
+Path split_path (String path);
 
-  @params path
-
-  @return
-  String &drive, String &dirs, String &filebase, String &extension
- */
-void split_path (String path, String &drive, String &dirs, String &filebase, String &extension);
-
-#endif
+#endif /* FILE_PATH */

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1996--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "main.hh"
@@ -115,13 +115,7 @@ Paper_score::process ()
   if (paper_l_->scope_p_)
     outputter_l_->output_scope (paper_l_->scope_p_, "lilypondpaper");
 
-  SCM scm;
-  if (experimental_features_global_b)
-    {
-      SCM scm = gh_list (ly_symbol2scm ("experimental-on"), SCM_UNDEFINED);
-      outputter_l_->output_scheme (scm);
-    }
-  scm = gh_list (ly_symbol2scm ("header-end"), SCM_UNDEFINED);
+  SCM scm = gh_list (ly_symbol2scm ("header-end"), SCM_UNDEFINED);
   outputter_l_->output_scheme (scm);
 
   line_l_->output_lines ();

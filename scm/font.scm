@@ -3,7 +3,7 @@
 ;;;
 ;;; source file of the GNU LilyPond music typesetter
 ;;; 
-;;; (c) 2000 Jan Nieuwenhuizen <janneke@gnu.org>
+;;; (c) 2000--2001 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;
 
 (define style-to-font-alist
@@ -322,11 +322,22 @@ and warn if the selected font is not unique.
     ))
 
 (define (markup-to-properties sheet markup)
-  ;;(display "markup: `")
-  ;;(write markup)
-  ;;(display "'\n")
+  ;; (display "markup: `")
+  ;; (write markup)
+  ;; (display "'\n")
+  
   (if (pair? markup)
-      (list markup)
+      (if (and (symbol? (car markup)) (not (pair? (cdr markup))))
+	  (if (equal? '() (cdr markup))
+	      (markup-to-properties sheet (car markup))
+	      (list markup))
+	  
+	  (if (equal? '() (cdr markup))
+	      (markup-to-properties sheet (car markup))
+	      (append (markup-to-properties sheet (car markup))
+		      (markup-to-properties sheet (cdr markup)))))
+      
+      ;; markup is single abbreviation
       (let ((entry (assoc markup
 			  ;; assoc-chain?
 			  (append (cdr (assoc 'abbreviation-alist sheet))
@@ -334,6 +345,7 @@ and warn if the selected font is not unique.
 	(if entry
 	    (cdr entry)
 	    (list (cons markup #t))))))
+
 
 ; fixme, how's this supposed to work?
 ; and why don't we import font-setting from elt?

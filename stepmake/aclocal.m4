@@ -373,6 +373,7 @@ dnl    fi
 	ZIP="zip -r -9" #
 	program_suffix=.exe
 	# urg
+	# ROOTSEP=':'
         # DIRSEP='\\'
  	# PATHSEP=';'
 	#
@@ -395,10 +396,12 @@ dnl    fi
 	# this way, you may have buildscripts/out/lilypond-profile 
 	# 'automatically' sourced from /usr/etc/profile.d/ too.
 	#
+ 	ROOTSEP=':'
         DIRSEP='/'
  	PATHSEP=':'
 	INSTALL="\$(SHELL) \$(stepdir)/../bin/install-dot-exe.sh -c"
     else
+	ROOTSEP='/'
 	DIRSEP='/'
 	PATHSEP=':'
 	LN=ln

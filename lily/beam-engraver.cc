@@ -3,7 +3,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 1998--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1998--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
 #include "engraver-group-engraver.hh"
@@ -161,8 +161,6 @@ Beam_engraver::create_grobs ()
 
       prev_start_req_ = reqs_drul_[START];
       beam_p_ = new Spanner (get_property ("Beam"));
-      Beam::set_interface (beam_p_);
-      
       SCM smp = get_property ("measurePosition");
       Moment mp =  (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
 

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 #include "debug.hh"
 #include "dimensions.hh"
@@ -110,8 +110,13 @@ Dynamic_engraver::try_music (Music * m)
 	{
 	  accepted_spanreqs_drul_[LEFT] = 0;
 	  accepted_spanreqs_drul_[RIGHT] = 0;
-	  if (line_spanner_)
-	    line_spanner_->suicide ();
+	  /*
+	    Let's not kill the line spanner, since that would fuck up
+	    earlier, not-to-be-terminated stuff.
+
+	    It will disappear by itself when stop_translation_timestep
+	    () finds that there is nothing to support anymore.  */
+	  
 	  line_spanner_ = 0;
 	  if (cresc_p_)
 	    cresc_p_->suicide ();

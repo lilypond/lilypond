@@ -6,23 +6,6 @@ http://www.Arkkra.com/doc/star.ps
 
 \version "1.3.120";
 
-% TODO: 
-%
-%  * centre non-melismata lyrics (where there's only one verse!) under 
-%    notehead:
-%
-%      l       c    c    c    l
-%        ___
-%       |   |   |    |    |    |    |
-%      x|()x|  x|   x|   x|   x|( )x|
-%      Oh_____say  can  you   see
-%
-%  NOT!
-%
-%
-%  * slur/lyric clash
-%
-
 \header{
 	title="The Star Spangled Banner";
 	subtitle="The United States National Anthem";
@@ -139,12 +122,12 @@ text =  \lyrics {
 			\clef treble;
 			\property Staff.automaticMelismata = ##t
 			\context Voice = one \transpose c'' {
-				\stemUp
+				\voiceOne
 				\staffBVoiceB
 				\bar "|.";
 			} 
 			\context Voice = two \transpose c'' {
-				\stemDown
+				\voiceTwo
 				\staffBVoiceC
 			}
 		>
@@ -154,11 +137,11 @@ text =  \lyrics {
 			\clef bass;
 			\property Staff.VoltaBracket = \turnOff
 			\context Voice = three {
-				\stemUp
+				\voiceOne
 				\staffCVoiceB
 			} 
 			\context Voice = four {
-				\stemDown
+				\voiceTwo
 				\staffCVoiceC
 			} 
 		>
@@ -171,11 +154,6 @@ text =  \lyrics {
 			\GrandStaffContext
 			\accepts "Lyrics";
 		}
-% We have a Span_bar_engraver in GrandStaff; we only get grief if we add it here too.
-%		\translator {
-%			\LyricsContext
-%			\consists "Span_bar_engraver";
-%		}
 		\translator {
 			\LyricsVoiceContext
 			\consists "Bar_engraver";

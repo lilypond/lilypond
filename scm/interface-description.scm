@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 1998--2000  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;; (c) 1998--2001  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 
@@ -445,7 +445,7 @@ font-point-size font-relative-size)
   (lily-interface
    'text-interface
    "A scheme markup text"
-   '(text align lookup raise kern magnify)))
+   '(text align baseline-skip lookup raise kern magnify)))
 
 (define dot-column-interface
   (lily-interface
@@ -679,7 +679,8 @@ If you want to space your music wider, use something like:
 position 0."
    '(
     staff-space 
-    line-count 
+    line-count
+    invisible-staff
     )))
 
 (define stem-tremolo-interface

@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 1998--2000 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; (c) 1998--2001 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 ;;; Library funtions
@@ -73,10 +73,14 @@
 	   "clef.scm"
 	   "slur.scm"
 	   "font.scm"
+	   "music-functions.scm"
 	   "auto-beam.scm"
 	   "generic-property.scm"
 	   "basic-properties.scm"
 	   "chord-name.scm"
 	   "grob-description.scm"
-	   "script.scm" "midi.scm"
+	   "script.scm"
+	   "midi.scm"
 	   )))
+
+

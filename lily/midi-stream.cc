@@ -1,11 +1,13 @@
-//
-// midi-stream.cc
-//
-// source file of the GNU LilyPond music typesetter
-//
-// (c)  1997--2000 Jan Nieuwenhuizen <janneke@gnu.org>
+/*
+  midi-stream.cc -- implement Midi_stream
+
+  source file of the GNU LilyPond music typesetter
+
+  (c)  1997--2001 Jan Nieuwenhuizen <janneke@gnu.org>
+*/
 
 #include <fstream.h>
+#include "paper-stream.hh"
 #include "string.hh"
 #include "string-convert.hh"
 #include "main.hh"
@@ -14,22 +16,15 @@
 #include "midi-stream.hh"
 #include "debug.hh"
 
-Midi_stream::Midi_stream (String filename_str)
+Midi_stream::Midi_stream (String filename)
 {
-  filename_str_ = filename_str;
-  os_p_ = 0;
-  open ();
+  filename_str_ = filename;
+  os_p_ = open_file_stream (filename, ios::out|ios::bin);
 }
 
 Midi_stream::~Midi_stream ()
 {
-  *os_p_ << flush;		// ugh. Share with tex_stream.
-  if (!*os_p_)
-    {
-      warning (_ ("Error syncing file (disk full?)"));
-      exit_status_i_ = 1;
-    }
-  delete os_p_;
+  close_file_stream (os_p_);
 }
 
 Midi_stream&
@@ -69,10 +64,3 @@ Midi_stream::operator << (int i)
   return *this;
 }
 
-void
-Midi_stream::open ()
-{
-  os_p_ = new ofstream (filename_str_.ch_C (),ios::out|ios::bin);
-  if (!*os_p_)
-    error (_f ("can't open file: `%s'", filename_str_));
-}

@@ -3,7 +3,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 1998--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1998--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
 
@@ -75,15 +75,19 @@ Tuplet_engraver::create_grobs ()
 	continue;
 
       Spanner* glep = new Spanner (get_property ("TupletBracket"));
-      Tuplet_spanner::set_interface (glep);
+      Tuplet_bracket::set_interface (glep);
       if (i >= started_span_p_arr_.size ())
 	started_span_p_arr_.push (glep);
       else
 	started_span_p_arr_[i] = glep;
       
 
-      int d = gh_scm2int (time_scaled_music_arr_[i]->get_mus_property ("denominator"));
-      glep->set_grob_property ("text", ly_str02scm (to_str (d).ch_C()));
+      SCM proc = get_property ("tupletNumberFormatFunction");
+      if (gh_procedure_p( proc))
+	{
+	  SCM t = gh_apply (proc, gh_list (time_scaled_music_arr_[i]->self_scm (), SCM_UNDEFINED));
+	  glep->set_grob_property ("text", t);
+	}
       
       announce_grob (glep, time_scaled_music_arr_ [i]);
     }
@@ -102,13 +106,13 @@ Tuplet_engraver::acknowledge_grob (Grob_info i)
     {
       for (int j =0; j  <started_span_p_arr_.size (); j++)
 	if (started_span_p_arr_[j]) 
-	  Tuplet_spanner::add_column (started_span_p_arr_[j], dynamic_cast<Item*>(i.elem_l_));
+	  Tuplet_bracket::add_column (started_span_p_arr_[j], dynamic_cast<Item*>(i.elem_l_));
     }
   else if (Beam::has_interface (i.elem_l_))
     {
       for (int j = 0; j < started_span_p_arr_.size (); j++)
 	if (started_span_p_arr_[j]) 
-	  Tuplet_spanner::add_beam (started_span_p_arr_[j],i.elem_l_);
+	  Tuplet_bracket::add_beam (started_span_p_arr_[j],i.elem_l_);
     }
 }
 

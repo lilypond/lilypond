@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 1998--2000  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;; (c) 1998--2001  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 
@@ -47,6 +47,7 @@ In the case of alignment grobs, this should contain only one number.")
 (grob-property-description 'bar-size number? "size of a bar line.")
 (grob-property-description 'bars list? "list of barline pointers.")
 (grob-property-description 'barsize-procedure procedure? "Procedure that computes the size of a bar line.")
+(grob-property-description 'baseline-skip number? "Baseline skip to use for multiple lines of text.")
 (grob-property-description 'bass list? " musical-pitch, optional.")
 (grob-property-description 'beam ly-grob? "pointer to the beam, if applicable.")
 (grob-property-description 'beam-space-function procedure? "function returning space given multiplicity.")
@@ -165,6 +166,7 @@ FIXME: in Tie this is a pair of grob pointers, pointing to the two heads of the 
 (grob-property-description 'ideal-distances list? "(OBJ . (DIST . STRENGTH)) pairs.")
 (grob-property-description 'interfaces list? "list of symbols indicating the interfaces supported by this object. Is initialized from the @code{meta} field.")
 (grob-property-description 'inversion list? " musical-pitch, optional.")
+(grob-property-description 'invisible-staff boolean? "is staff invisible?")
 (grob-property-description 'items-worth-living list? "list of interesting items. If empty in a particular system, clear that system.")
 (grob-property-description 'kern number? "amount of extra white space to add.
 
@@ -252,18 +254,13 @@ one end of the stem.")
 Scheme markup text.  It is defined as follows:
 
 @example
-
-TEXT : STRING | (MARKUP SENTENCE)
-SENTENCE: TEXT | SENTENCE TEXT
-MARKUP: PROPERTY | ABBREV
-PROPERTY: (key . value)
-ABBREV: rows lines roman music bold italic named super sub text, or any font-style
+text: string | (head? text+)
+head: markup | (markup+)
+markup-item: property | abbrev | @var{fontstyle}
+property: (@var{key} . @var{value})
+abbrev: @code{rows lines roman music bold italic named super sub text}
 
 @end example
-
-So, TEXT is either a string, or a list of which the CAR is a MARKUP.
-MARKUP is either a CONS: an grob property '(key . value) or a symbol:
-a predefined abbreviation for a list of grob properties.
 
 
 The following abbreviations are currently defined:

@@ -2,7 +2,7 @@
   lyric-extender.cc -- implement Lyric_extender
   source file of the GNU LilyPond music typesetter
 
-  (c)  1998--2000 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c)  1998--2001 Jan Nieuwenhuizen <janneke@gnu.org>
   Han-Wen Nienhuys
 */
 

@@ -251,7 +251,7 @@ class TeXOutput:
 
         top= r"""
 %% Creator: %s
-%% Automatically generated from  %s, %s
+%% Generated automatically by: %s, from %s, at %s
 
 \documentclass[%s]{article}
 
@@ -276,7 +276,7 @@ class TeXOutput:
 \renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\thefooter}}%%
 %s
 \begin{document}
-""" % ( program_id(), Props.get('filename'), now, Props.get('papersize'),
+""" % ( program_id(), program_id(), Props.get('filename'), now, Props.get('papersize'),
         Props.get('language'), Props.get('linewidth'), textheightsetting, 
         Props.get('orientation'), Props.get('header'), Props.get('pagenumber'))
         
@@ -923,14 +923,10 @@ def getLilyopts():
     inc = ''	
     if len(Props.get('include')) > 0: 
         inc = string.join (map (lambda x: '-I "%s"' % x, Props.get('include')))
-    else:
-
-        if Props.get('dependencies'):
-            dep=' -M'
-        else:
-            dep=''
-	return inc + dep
-    return inc
+    dep=''
+    if Props.get('dependencies'):
+        dep=' --dependencies'
+    return inc + dep
 
 def writeLilylog(file,contents):
     if Props.get('keeplilypond'):
@@ -958,6 +954,14 @@ def getTeXFile(contents):
         sys.exit('ExitNoTeXName')
     else:
         return texfiles
+
+def getDepFiles (log):
+    files=[]
+    for line in string.split (log,'\n'):
+        m = re.search ("dependencies output to (.+)\.\.\.", line)
+        if m:
+            files.append (m.group (1))
+    return files
 
 def unc2dos(path):
     """
@@ -1008,7 +1012,8 @@ Options:
   -h,--help            this help text
   -k,--keeply2dvi      keep ly2dvi output files
   -l,--language=       give LaTeX language (babel)
-  -o,--output=         set output directory
+  -o,--outdir=         set output directory
+     --output=         set output directory
   -p,--papersize=      give LaTeX papersize (eg. a4)
   -s,--separate        run all files separately through LaTeX
 
@@ -1035,8 +1040,8 @@ def main():
                                        'include=', 'keeplilypond', 'landscape',
                                        'nonumber', 'Width=', 'dependencies',
                                        'help', 'keeply2dvi', 'language=',
-                                       'output=', 'version', 'papersize=', 'separate',
-                                       'postscript'])
+                                       'outdir=', 'output=', 'version',
+                                       'papersize=', 'separate', 'postscript'])
 
     for opt in options:
         o = opt[0]
@@ -1066,7 +1071,7 @@ def main():
 	    Props.setKeeply2dvi(1,'commandline')
         elif o == '--language' or o == '-l':
 	    Props.setLanguage(a,'commandline')
-        elif o == '--output' or o == '-o':
+        elif o == '--outdir' or o == '-o' or o == '--output':
 	    Props.setOutput(a,'commandline')
         elif o == '--papersize' or o == '-p':
 	    Props.setPaperZize(a,'commandline')
@@ -1117,6 +1122,7 @@ def main():
                 if stat:
                     sys.exit('ExitBadLily', cmd )
                 texFiles=getTeXFile(log)
+                depFiles=getDepFiles (log)
                 writeLilylog(file,log)
                 Props.addLilyOutputFiles(texFiles,'program')
                 texInputFiles = texInputFiles + texFiles
@@ -1143,6 +1149,19 @@ def main():
                 firstfile=0
         if not Props.get('separate'):
             outfile.end()
+
+        # --outdir mess
+        if Props.get ('output'):
+            outdir=Props.get ('output')
+            for i in depFiles:
+                text=open (i).read ()
+                # ugh, should use lilypond -o DIR/foo.tex
+                # or --dep-prefix to fix dependencies
+                text=re.sub ('\n([^:]*).tex', '\n' + outdir + '/\\1.dvi', text)
+                text=re.sub (' ([^:]*).tex', ' ' + outdir + '/\\1.dvi', text)
+                open (os.path.join (outdir, i), 'w').write (text)
+                os.remove (i)
+
     else:
         help()
         sys.exit('ExitBadArgs','No files specified')

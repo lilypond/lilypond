@@ -3,25 +3,39 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include <errno.h>
+#include <sys/types.h>
 #include <fstream.h>
+
+#include "config.h"
+#if HAVE_SYS_STAT_H 
+#include <sys/stat.h>
+#endif
 
 #include "main.hh"
 #include "paper-stream.hh"
+#include "file-path.hh"
 #include "debug.hh"
 
 const int MAXLINELEN = 200;
 
 ostream *
-open_file_stream (String filename)
+open_file_stream (String filename, int mode)
 {
   ostream *os;
-  if (filename.length_i () && (filename != "-"))
-    os = new ofstream (filename.ch_C ());
-  else
+  if ((filename == "-"))
     os = new ostream (cout._strbuf);
+  else
+    {
+      Path p = split_path (filename);
+      if (!p.dir.empty_b ())
+	if (mkdir (p.dir.ch_C (), 0777) == -1 && errno != EEXIST)
+	  error (_f ("can't create directory: `%s'", p.dir));
+      os = new ofstream (filename.ch_C (), mode);
+    }
   if (!*os)
     error (_f ("can't open file: `%s'", filename));
   return os;
@@ -34,9 +48,10 @@ close_file_stream (ostream *os)
   if (!*os)
     {
       warning (_ ("Error syncing file (disk full?)"));
-      exit_status_i_ = 1;
+      exit_status_global = 1;
     }
   delete os;
+  os = 0;
 }  
 
 Paper_stream::Paper_stream (String filename)

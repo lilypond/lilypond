@@ -14,8 +14,8 @@ $(outdir)/%.dvi: $(outdir)/%.latex
 	  latex \\nonstopmode \\input $(<F) )
 
 $(outdir)/%.ps: $(outdir)/%.dvi
-	dvips -ta4 -o $@ $<
+	cd $(outdir) && dvips -ta4 -o $(@F) $(<F)
 
 $(outdir)-$(PAPERSIZE)/%.ps: $(outdir)-$(PAPERSIZE)/%.dvi
-	dvips -t$(PAPERSIZE) -o $@ $<
+	cd $(outdir) && dvips -t$(PAPERSIZE) -o $(@F) $(<F)
 

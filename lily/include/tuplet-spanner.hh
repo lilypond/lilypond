@@ -1,11 +1,11 @@
 /*
   plet-spanner.hh -- part of GNU LilyPond
 
-  (c)  1997--2000 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c)  1997--2001 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#ifndef Tuplet_spanner_HH
-#define Tuplet_spanner_HH
+#ifndef Tuplet_bracket_HH
+#define Tuplet_bracket_HH
 
 #include "lily-guile.hh"
 
@@ -16,7 +16,7 @@
 
   todo: handle breaking elegantly.
 */
-class Tuplet_spanner
+class Tuplet_bracket
 {
 public:
   DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
@@ -34,5 +34,5 @@ public:
   static Direction get_default_dir (Grob*);
 };
 
-#endif // Tuplet_spanner_HH
+#endif // Tuplet_bracket_HH
 

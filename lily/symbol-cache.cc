@@ -5,7 +5,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 2000--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
 

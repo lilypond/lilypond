@@ -5,6 +5,7 @@
 #include "config.h"
 #include <stdio.h>
 #include <errno.h>
+
 #if HAVE_SYS_STAT_H 
 #include <sys/stat.h>
 #endif
@@ -12,52 +13,68 @@
 #include "file-path.hh"
 #include "flower-debug.hh"
 
+#ifndef PATHSEP
+#define PATHSEP ':'
+#endif
+
+#ifndef ROOTSEP
+#define ROOTSEP '/'
+#endif
+
 #ifndef DIRSEP
 #define DIRSEP '/'
 #endif
 
-#ifndef PATHSEP
-#define PATHSEP ':'
+#ifndef EXTSEP
+#define EXTSEP '.'
 #endif
+
+/* Join components to full path. */
+String
+Path::str () const
+{
+  String s;
+  if (!root.empty_b ())
+    s = root + to_str (ROOTSEP);
+  if (!dir.empty_b ())
+    s += dir + to_str (DIRSEP);
+  s += base;
+  if (!ext.empty_b ())
+    s += to_str (EXTSEP) + ext;
+  return s;
+}
 
 /**
    @param path the original full filename
    @return 4 components of the path. They can be empty
 */
-void
-split_path (String path,
-	    String &drive, String &dirs, String &filebase, String &extension)
+Path
+split_path (String path)
 {
-  // peel off components, one by one.
-  int di = path.index_i (':');
-  if (di >= 0)
+  Path p;
+  int i = path.index_i (ROOTSEP);
+  if (i >= 0)
     {
-      drive = path.left_str (di + 1);
-      path = path.right_str (path.length_i () - di -1);
+      p.root = path.left_str (i);
+      path = path.right_str (path.length_i () - i); // - 1);
     }
-  else
-    drive = "";
 
-  di = path.index_last_i (DIRSEP);
-  if (di >=0)
+  i = path.index_last_i (DIRSEP);
+  if (i >= 0)
     {
-      dirs = path.left_str (di + 1);
-      path = path.right_str (path.length_i ()-di -1);
+      p.dir = path.left_str (i);
+      path = path.right_str (path.length_i () - i - 1);
     }
-  else
-    dirs = "";
 
-  di = path.index_last_i ('.');
-  if (di >= 0)
+  i = path.index_last_i ('.');
+  if (i >= 0)
     {
-      filebase = path.left_str (di);
-      extension =path.right_str (path.length_i ()-di);
+      p.base = path.left_str (i);
+      p.ext = path.right_str (path.length_i () - i - 1);
     }
   else
-    {
-      extension = "";
-      filebase = path;
-    }
+    p.base = path;
+  return p;
 }
 
 void

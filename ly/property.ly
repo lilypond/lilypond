@@ -20,32 +20,43 @@ tieDown = \property Voice.Tie \override #'direction = #-1
 tieBoth = \property Voice.Tie \revert #'direction 
 
 cadenzaOn = \property Score.timing = ##f
-cadenzaOff = { \property Score.timing = ##t
-	\property Score.measurePosition = #(make-moment 0 1)
-	}
+cadenzaOff = {
+  \property Score.timing = ##t
+  \property Score.measurePosition = #(make-moment 0 1)
+}
 
 	
 oneVoice = { 	
-	\stemBoth
-	\tieBoth
-	\shiftOff
+  \stemBoth
+  \slurBoth
+  \tieBoth
+  \shiftOff
 }
 
-voiceOne = { \stemUp
-   \tieUp
+voiceOne = {
+  \stemUp
+  \slurUp
+  \tieUp
 }
-voiceTwo = { \stemDown
-   \tieDown
-   }
+
+voiceTwo = {
+  \stemDown
+  \slurDown
+  \tieDown
+}
    
 voiceThree = {
-	\stemUp
-	\shiftOn
+  \stemUp
+  \slurUp
+  \tieUp
+  \shiftOn
 }
 
 voiceFour = {
-	\stemDown
-	\shiftOn
+  \stemDown
+  \slurDown
+  \tieDown
+  \shiftOn
 }
 
 slurDotted = \property Voice.Slur \override #'dashed = #1

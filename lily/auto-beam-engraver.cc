@@ -3,7 +3,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 1999--2000 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1999--2001 Jan Nieuwenhuizen <janneke@gnu.org>
   
  */
 
@@ -219,8 +219,6 @@ Spanner*
 Auto_beam_engraver::create_beam_p ()
 {
   Spanner* beam_p = new Spanner (get_property ("Beam"));
-  Beam::set_interface (beam_p);
-
   for (int i = 0; i < stem_l_arr_p_->size (); i++)
     {
       /*

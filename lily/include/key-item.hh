@@ -1,7 +1,7 @@
 /*
   key-item.hh -- part of GNU LilyPond
 
-  (c) 1996--2000 Han-Wen Nienhuys
+  (c) 1996--2001 Han-Wen Nienhuys
 */
 
 #ifndef KEYITEM_HH

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--2000 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c)  1997--2001 Jan Nieuwenhuizen <janneke@gnu.org>
 
 */
 #include <math.h>
@@ -18,12 +18,6 @@ Midi_def::Midi_def()
   // ugh
   set_tempo (Moment (1, 4), 60);
 }
-
-Midi_def::~Midi_def()
-{
-}
-
-
 
 int
 Midi_def::get_tempo_i (Moment one_beat_mom)
@@ -44,16 +38,16 @@ Midi_def::set_tempo (Moment one_beat_mom, int beats_per_minute_i)
 }
 
 
-int Midi_def::default_count_i_=0;
+int Midi_def::score_count_i_=0;
 
 int
-Midi_def::get_next_default_count () const
+Midi_def::get_next_score_count () const
 {
-  return default_count_i_++;
+  return score_count_i_++;
 }
 
 void
-Midi_def::reset_default_count ()
+Midi_def::reset_score_count ()
 {
-  default_count_i_ = 0;
+  score_count_i_ = 0;
 }

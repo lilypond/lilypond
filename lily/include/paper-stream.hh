@@ -34,7 +34,8 @@ private:
 };
 
 class ostream;
-ostream *open_file_stream (String filename);
+#include <streambuf.h>
+ostream *open_file_stream (String filename, int mode=ios::out);
 void close_file_stream (ostream *os);
 
 

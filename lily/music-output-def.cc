@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "scm-hash.hh"
@@ -15,12 +15,13 @@
 #include "global-translator.hh"
 #include "translator-def.hh"
 #include "main.hh"
+#include "file-path.hh"
 #include "lily-guile.hh"
 
 #include "ly-smobs.icc"
 
 int
-Music_output_def::get_next_default_count () const
+Music_output_def::get_next_score_count () const
 {
   return 0;
 }
@@ -120,20 +121,6 @@ Music_output_def::get_global_translator_p ()
   return dynamic_cast <Global_translator *> (tg);
 }
 
-
-
-String
-Music_output_def::get_default_output () const
-{
-  if (safe_global_b || !scope_p_->elem_b ("output"))
-    return "";
-  SCM s =  scope_p_->scm_elem ("output");
-  
-  return gh_string_p (s) ? ly_scm2string (s) : String ("");
-}
-
-
-
 int
 Music_output_def::print_smob (SCM s, SCM p, scm_print_state *)
 {
@@ -145,17 +132,15 @@ Music_output_def::print_smob (SCM s, SCM p, scm_print_state *)
   ugh: should move into Music_output_def (complication: .midi and .tex
   need separate counts.)  */
 String
-Music_output_def::base_output_str () 
+Music_output_def::outname_str () 
 {
-  String str = get_default_output ();
-
-  if (str.empty_b ())
+  String out = output_name_global;
+  int def = get_next_score_count ();
+  if (def && out != "-")
     {
-      str = default_outname_base_global;
-      int def = get_next_default_count ();
-      if (def)
-	str += "-" + to_str (def);
+      Path p = split_path (out);
+      p.base += "-" + to_str (def);
+      out = p.str ();
     }
-  
-  return str;
+  return out;
 }

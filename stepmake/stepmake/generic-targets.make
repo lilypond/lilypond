@@ -1,7 +1,7 @@
 # title	   generic make targets
 # file	   make/Targets.make
 
-.PHONY : all clean config default dist doc exe help html lib TAGS\
+.PHONY : all clean config default diff dist doc exe help html lib TAGS\
 	 po
 
 all:	 default
@@ -42,14 +42,14 @@ config:
 generic-help:
 	@echo -e "\
 Makefile for $(PACKAGE_NAME) $(TOPLEVEL_VERSION)\n\
-Usage: $(MAKE) ["VARIABLE=value"]... [TARGET]\n\
+Usage: make ["VARIABLE=value"]... [TARGET]\n\
 \n\
 Targets:\n"
 
 help: generic-help local-help
 	@echo -e "\
   all         update everything\n\
-  clean       remove all genated stuff in $(oudir)\n\
+  clean       remove all genated stuff in $(outdir)\n\
   config      rerun configure\n\
   deb         build Debian package\n\
   default     same as the empty target\n\

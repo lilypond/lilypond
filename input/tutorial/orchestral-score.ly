@@ -1,4 +1,4 @@
-\version "1.3.120";
+\version "1.3.130";
 
 \include "paper16.ly";
 
@@ -122,10 +122,10 @@ contrabasso = \notes\relative c {
       >
       \context Staff = clarinets <
         \property Staff.midiInstrument = #"clarinet"
-	\property Staff.instrument = #`((kern . 0.5)
-	  (lines "2 Clarinetti" (rows "(B" ,text-flat ")")))
-	\property Staff.instr = #`((kern . 0.5)
-	  (lines "Cl."  (rows "(B" ,text-flat ")")))
+	\property Staff.instrument = #`(lines
+	  "2 Clarinetti" (rows "(B" ,text-flat ")"))
+	\property Staff.instr = #`(lines
+	  "Cl."  (rows "(B" ,text-flat ")"))
 	\property Staff.transposing = #-2
 	\notes \key f \major;
 	\context Voice=one \partcombine Voice
@@ -145,10 +145,10 @@ contrabasso = \notes\relative c {
     \context StaffGroup = brass <
       \context Staff = frenshHorns <
         \property Staff.midiInstrument = #"french horn"
-	\property Staff.instrument = #`((kern . 0.5)
-	  (lines "2 Corni" (rows "(E" ,text-flat ")")))
-	\property Staff.instr = #`((kern . 0.5)
-	  (lines "Cor."  (rows "(E" ,text-flat ")")))
+	\property Staff.instrument = #`(lines
+	  "2 Corni" (rows "(E" ,text-flat ")"))
+	\property Staff.instr = #`(lines
+	  "Cor."  (rows "(E" ,text-flat ")"))
 	\property Staff.transposing = #3
 	\notes \key c \major;
 	\context Voice=one \partcombine Voice
@@ -157,10 +157,10 @@ contrabasso = \notes\relative c {
       >
       \context Staff = trumpets <
   	\property Staff.midiInstrument = #"clarinet"
-	\property Staff.instrument = #`((kern . 0.5)
-	  (lines "2 Trombe" (rows "(C)")))
-	\property Staff.instr = #`((kern . 0.5)
-	  (lines "Tbe." (rows "(C)")))
+	\property Staff.instrument = #`(lines
+	  "2 Trombe" (rows "(C)"))
+	\property Staff.instr = #`(lines
+	  "Tbe." (rows "(C)"))
 	\context Voice=one \partcombine Voice
 	  \context Thread=one \tromboI
 	  \context Thread=two \tromboII
@@ -169,8 +169,8 @@ contrabasso = \notes\relative c {
     \context StaffGroup = timpani <
       \context Staff = timpani <
 	\property Staff.midiInstrument = #"timpani"
-	\property Staff.instrument = #'((kern . 0.5)
-	  (lines "2 Timpani" "(C-G)"))
+	\property Staff.instrument = #'(lines
+	  "2 Timpani" "(C-G)")
 	\property Staff.instr = #"Timp."
 	\clef bass;
 	\timpani
@@ -204,8 +204,8 @@ contrabasso = \notes\relative c {
 	\staffCombinePianoStaffProperties
         \context Staff=one <
 	  \property Staff.midiInstrument = #"cello"
-	  \property Staff.instrument = #'((kern . 0.5)
-	    (lines "Violoncello" (rows "    e") (rows "Contrabasso")))
+	  \property Staff.instrument = #'(lines
+	    "Violoncello" "    e" "Contrabasso")
 	  \property Staff.instr = "Vc."
 	  \clef bass;
 	>

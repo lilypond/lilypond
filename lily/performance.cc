@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--2000 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c)  1997--2001 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include <time.h>
@@ -20,6 +20,7 @@
 #include "performance.hh"
 #include "score.hh"
 #include "file-results.hh"
+#include "file-path.hh"
 #include "lily-version.hh"
 
 #include "killing-cons.tcc"
@@ -74,11 +75,13 @@ Performance::output_header_track (Midi_stream& midi_stream)
   Midi_track midi_track;
 
   // perhaps multiple text events?
+  String id_str;
   String str = String (_("Creator: "));
   if (no_timestamps_global_b)
-    str += gnu_lilypond_str ();
+    id_str = gnu_lilypond_str ();
   else
-    str += gnu_lilypond_version_str();
+    id_str = gnu_lilypond_version_str();
+  str += id_str;
   str += "\n";
 
   /*
@@ -89,7 +92,9 @@ Performance::output_header_track (Midi_stream& midi_stream)
   Midi_text creator (&creator_a);
   midi_track.add (Moment (0), &creator);
 
-  str = _("Automatically generated");
+  /* Better not translate this */
+  str = "Generated automatically by: ";
+  str += id_str;
   if (no_timestamps_global_b)
     str += ".\n";
   else
@@ -141,21 +146,21 @@ Performance::add_element (Audio_element *p)
 void
 Performance::process()
 {
-  String out = midi_l_->get_default_output ();
-  if (out.empty_b ())
+  String out = output_name_global;
+  if (out == "-")
+    out = "lelie.midi";
+  int def = midi_l_->get_next_score_count ();
+  if (def)
     {
-      
-      out = default_outname_base_global;
-      if (out == "-")
-        out = "lelie";
-      int def = midi_l_->get_next_default_count ();
-      if (def)
-	{
-	  out += "-" + to_str (def);
-	}
-
-      out += ".midi";
+      Path p = split_path (out);
+      p.base += "-" + to_str (def);
+      out = p.str ();
     }
+
+  /* Maybe a bit crude, but we had this before */
+  Path p = split_path (out);
+  p.ext = "midi";
+  out = p.str ();
   
   Midi_stream midi_stream (out);
   progress_indication ( _f ("MIDI output to %s...", out));
