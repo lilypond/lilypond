@@ -8,14 +8,20 @@
 
 /// a voice element wants something printed
 struct Request {
-    Voice_element*elt;		// indirection.
+    Voice_element*elt_l_;
     
     /****************/
 
     Request();
+    Request(Request const&);
     virtual ~Request(){}
 
     virtual void print()const ;
+    virtual Moment duration() const { return 0.0; }
+    virtual Request* clone() const =0;
+
+    /*  accessors for children */
+    virtual Barcheck_req *barcheck() { return 0; }
     virtual Note_req *note() {return 0;}
     virtual Script_req *script() {return 0;}
     virtual Stem_req *stem() {return 0;}
@@ -26,14 +32,17 @@ struct Request {
     virtual Slur_req *slur() { return 0 ; }
     virtual Rhythmic_req*rhythmic() { return 0; }
     virtual Melodic_req *melodic() { return 0; }
-    virtual Moment duration() const { return 0.0; }
-    virtual Request* clone() const =0;
 };
 
 /**
 see lilygut page
  */
 	
+struct Barcheck_req : Request {
+    virtual Barcheck_req *barcheck() { return this; }
+    void print ()const;
+    Request*clone() const;
+};
 
 /// a request with a duration
 struct Rhythmic_req : virtual Request {
@@ -107,6 +116,7 @@ struct Span_req : Request {
 	NOSPAN, START, STOP
     } spantype ;
 
+    virtual void print() const;
     Span_req*span() { return this; }
     Span_req();
     virtual Request*clone()const;
@@ -132,6 +142,7 @@ appropriate number over the beam
 
 /// a slur
 struct Slur_req : Span_req {
+
     virtual Request*clone()const;
     virtual Slur_req*slur() { return this; }
 };
@@ -148,6 +159,7 @@ struct Script_req : Request {
     Request *clone()const;
     Script_req(int d, Script_def*);
     ~Script_req();
+    Script_req(Script_req const&);
 };
 /** eg upbow, downbow. Why a request? These symbols may conflict with
 slurs and brackets, so this also a request */
@@ -162,7 +174,8 @@ struct Text_req : Request {
     virtual void print() const;
     Request *clone()const;
     Text_req(int d, Text_def*);
-    ~Text_req();  
+    ~Text_req();
+    Text_req(Text_req const&);
 };
 
 

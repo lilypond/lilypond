@@ -26,11 +26,18 @@ struct Time_description {
     /****************/
     void OK() const;
     Time_description(Rational, const Time_description*);
+    String str()const;
     void print() const;
     void setpartial(Rational p);
     Rational barleft();
     void set_meter(int,int);
+    static int compare (Time_description&, Time_description&);
 };
+
+#include "compare.hh"
+
+
+instantiate_compare(Time_description&,Time_description::compare);
 
 #endif // Time_description_HH
 

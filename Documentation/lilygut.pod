@@ -5,7 +5,8 @@ LilyGuts - doco to the internals of LilyPond
 =head1 DESCRIPTION
 
 This page documents some aspects of the internals of LilyPond. Some of
-this stuff comes from e-mail I wrote, some from e-mail others wrote, some are large comments taken away from the headers
+this stuff comes from e-mail I wrote, some from e-mail others wrote,
+some are large comments taken away from the headers
 
 =head1 OVERVIEW
 
@@ -67,48 +68,53 @@ Different staffs can produce different outputs; a melodious voice
 which is put into a percussion-Staff, will be typeset as the rythm of
 that voice.
 
-After C<Staff> made up her mind (Would C<Staff> be a smart
-name? How about C<struct Susan {}> :-), the resultant items and
+After C<Staff> made up her mind, the resultant items and
 spanners are put on the PScore, and pointers to these items are
 stored in the C<Voice_element>. This construction enables the
 beams/stems to look up the balls it has to connect to. 
 
 =over 5
 
-=item Note_req
+=item C<Barcheck_req>
+
+Checks during music processing if start of this voice element
+coincides with the start of a measure. Handy to check if you left out
+some voice elts.
+
+=item C<Note_req>
 
 Staff has to decide if the ball should be hanging left or right. This
 influences the horizontal dimensions of a column, and this  is why
 request processing should be done before horizontal spacing.
 
 Other voices' frivolities may cause the need for accidentals, so this
-is also for the Staff to decide. The Staff can decide on positioning
+is also for the  C<Staff> to decide. The  C<Staff> can decide on positioning
 based on ottava commands and the appropriate clef.
 
-=item Rest_req
+=item C<Rest_req>
 
 Why a request? It might be a good idea to not typeset the rest, if the
 paper is too crowded.
 
-=item Span_req
+=item C<Span_req>
 
 This type of request typically results in the creation of a C<Spanner>
 
-=item Beam_req
+=item C<Beam_req>
 
 Staff has to combine this request with the stem_request, since the
 number of flags that a stem wants to carry will determine the
 number of beams.
 
-=item  Dynamic
+=item  C<Dynamic>
 
-Each dynamic is bound to one note ( a crescendo spanning multiple
+Each dynamic is bound to one note (a crescendo spanning multiple
 notes is thought to be made of two "dynamics": a start and a stop).
 Dynamic changes can occur in a smaller time than the length of its
-note, therefore fore each Dynamic request carries a time, measured
+note, therefore fore each  C<Dynamic> request carries a time, measured
 from the start of its note.
 
-This subfield would come in handy, if mpp96 was adapted for midi
+This subfield would come in handy, if LilyPond  was adapted for midi
 support.
 
 =back
@@ -145,7 +151,7 @@ This table decribes the proper order for the different commands:
 
 =head1 BREAKING
 
-[Source files: command.hh, scommands.cc]
+[Source files: F<command.hh>, F<scommands.cc>]
 
 BREAKING, PREBREAK POSTBREAK, etc.
 
@@ -226,7 +232,7 @@ This is Columbus' egg: LilyPond attaches "springs" to each
 column-pair.  each spring has an equilibrium-position which is equal to
 the above mentioned distance, so
 
-        spring (col1, col2) and spring(col2,col3) try to push column 1
+spring (col1, col2) and spring (col2,col3) try to push column 1
 and 3 away (to a distance of 20pt) from each other, whereas the spring
 between col 1 and col 3 tries to pull those two together (to a
 distance of 14.1 pt). The net result of this pushing and pulling is an
@@ -282,7 +288,6 @@ signifies a "list of". (This is not complete)
 =head2 References
 
 [partly by Mark Basinski <basinski@arizona.edu>]
-
 
 Herbert Chlapik, 
 
