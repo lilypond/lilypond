@@ -525,15 +525,17 @@ tuplet brackets should be moved manually, which is demonstrated in
 @section Easier music entry
 @cindex Music entry
 
-When entering music it is easy to introduce errors. This section deals
-with tricks and features of the input language that were added solely
-to help entering music, and find and correct mistakes.
+This section deals with tricks and features of the input language
+that were added solely to help entering music, finding and correcting
+mistakes.
+
+There are also other tools make debugging easier, by linking the input file
+and the output shown on screen. See @ref{Point and click} for more
+information.
 
 It is also possible to use external programs, for example GUI
 interfaces, or MIDI transcription programs, to enter or edit
-music. Refer to the website for more information. Finally, there are
-tools make debugging easier, by linking the input file and the output
-shown on screen. See @ref{Point and click} for more information.
+music. Refer to the website for more information.
 
 
 @menu
