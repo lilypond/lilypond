@@ -6,76 +6,6 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr
 
-	* Generate TeX titles from MudelaHeader
-
-	* integrate midi-elts from mi2mu and lily
-
-	* virtualise PCols to make encapsulated spacing problems
- 
-	* Doc Mutopia (Music To The People) 
-
-	* context in spring-spacer.
-
-	* don't count bars which are not on first beat.
-
-	* generate stuff in out/default, out/sun5-irix etc iso out/ 
-	and out-sun5/
-
-	* derive lily_stream, Dstream, texstream from ostream?
-
-	* check libtool, automake
-
-	* have make dist produce tarball in out/ directory.
-
-	* write a faster Spring_spacer ( without matrices if possible )
-
-	* A decent scalar type
-
-	* relate energybound to linelen unitspace fontsize etc.
-
-	* naming of Voice_group/Voice
-
-	* benchmark band_matrices.
-
-	* versioning stuff (cvt mudela, mudela, etc.)
-
-	* get rid of gif files.
-
-	* dots into separate item.
-
-	* use String iso Text_def for lyrics.
-
-	* use position 0 for center of staff iso bottom.
-
-	* Klavarskribo?
-
-	* return status on exit
-
-	* lyrics in chords still fuck up.
-
-	* rewire acknowledge_element() logic with a process_acknowledged()
-	
-	* Global type registration.
-
-		My_class * p = create_object( My_class )
-		Type t = get_type ( *p );
-		if ( t <= get_type( q ))
-			..
-
-	* progress when creating MIDI elts.
-
-	* pushgroup/popgroup
-
-	* whole head on ledger line
-
-	* piano staff
-
-	* update 20 pt table
-
-	* decent TeX page layout
-
-	* a tutorial
-
 3RD PARTY BUGS:
 
 	* ICE: spring-spacer::calcideal()
@@ -96,18 +26,46 @@ grep for TODO and ugh/ugr
 
 	* (where are the) gcc compile warnings on linux
 
-LILY BUGS
-
-	\score { < 
-		\melodic { \id "Staff" ""; c'4 g'4 }
-		\lyric {   \id "Lyric" ""; hello4 bye4 < a chord > }
-		\lyric {   \id "Lyric" ""; bye4 hello4 }
-		\melodic { \id "Staff" ""; c'4 g'4 }
-	> }
-
 PROJECTS
 
+	* Spring_spacer:
+	- write a faster Spring_spacer ( without matrices if possible )
+	- relate energybound to linelen unitspace fontsize etc.
+	-used fixed fp
+
+	* \header
+	- Generate TeX titles from \header: 
+
+		title = XXX
+		-> \def\title{XXXX}
+	- revise lexer mode
+	- write perl script for handling it
+
 	* emacs-mode for mudela
+
+	* Makefile stuff:
+	- have make dist produce tarball in out/ directory.
+	- Use Automake
+	- shared lib on Solaris too.
+	- check libtool, automake
+
+	- generate stuff in out/default, out/sun5-irix etc iso out/ 
+	and out-sun5/
+
+	* chords
+	- guitar chords
+	- chord names
+	- basso continuo
+	- Syntax/parser
+	- MIDI output?
+	- typesetting
+
+	* integrate midi-elts from mi2mu and lily
+
+	* Debug logs:
+	- derive lily_stream, Dstream, texstream from ostream?
+	- indentable stream as baseclass for TeX stream, lily stream, Dstream.
+	- use dstream feature in mi2mu
 
 	* input converters
 	- NIFF?
@@ -139,6 +97,8 @@ PROJECTS
 	- quiet/ignore-version options
 	- logfile output
 
+	* piano staff
+
 	* elaborate Staff_side baseclass:
 	- scripts
 	- text
@@ -152,6 +112,12 @@ PROJECTS
 	- Common Music Notation
 	- PostScript output (esp. Beams, Slurs, etc)
 	- Move PScore, Items, Spanners etc. into libmutype.a
+
+ 
+	* Documentation
+	- Doc Mutopia (Music To The People) 
+	- Doc (C) stuff of sheet music
+	- a tutorial
 
 	* separate Score_elem settings in user-settable (properties
 	.. ) and non-user-settable part. Maybe use something like X-resources:
@@ -173,13 +139,18 @@ PROJECTS
 	- beams over bars
 
 
-	* Redo font support 
+	* Redo font  
 	- rename mf fonts to avoid conflicts with musixtex
 	- use own fonts/update musixtex fonts/find older (c)-less fonts
 	- hack up mf sources for decent spacing info (and then 
 	read AFM/TFM directly, for text too)
 	- use MF to generate rules.
 	- rewrite : make a metafont iso font
+
+	* Font support:
+	- update 20 pt table
+	- mixed fontsizes
+
 
 	* lines:
 	- Ledger lines, should be separate item: Ledger_lines, Ledger_lines
@@ -216,13 +187,15 @@ PROJECTS
 	- specify number of lines
 	- set linelength per line
 
+	* Rhythmic staff.
+
 SEVERELY LACKING:
 
 	* SPEED!
 
 	* multibar rests
 
-	* barnumbers, markers
+	* markers
 
 	* abbreviations c4=16
 
@@ -234,8 +207,6 @@ INPUTLANGUAGE
 	voices
 
 	* <c f a>4 ?
-
-	* should have \require{package.ly} to read req'd packages.
 
 	* Viola mode?
 
@@ -255,28 +226,23 @@ INPUTLANGUAGE
 
 	* configure pitch_byte
 
-	* figured bass?
-
 	* rest name configurable
 
 	* Raw request syntax
 
-PROJECTS
-
-	* Do RTTI i.s.o. static_name(), name() and request-junk.
 
 SMALLISH PROJECTS
 
+	* progress when creating MIDI elts.
+
 	* A range for context errors (eg. mark both { and }. )
+
+	* merge Atom and Symbol
 
 	* lyric in staff  (sharpsharp in staff, text below)
 
-	* fix Egler definitions ( see tex/eglerdefs.tex )
-
 	* replace Score_elem member access by get()/set() methods, to enable
 	future embedded code.
-
-	* --fast/--draft: leave out constraints
 
 	* write Dynamic_line (to group dynamics horizontally)
 
@@ -284,17 +250,11 @@ SMALLISH PROJECTS
 
 	* use Real for y positions.
 
-	* shared lib on Solaris too.
-
-	* cleanup lily-proto.hh and proto.hh
-
 	* half-sharps, half-flats
 
 	* adaptive accidental spacing.
 
 	* unix style paths for LILYINCLUDE env
-
-	* indentable stream as baseclass for TeX stream, lily stream, Dstream.
 
 	* handle EOF graciously in error messages.
 
@@ -302,12 +262,8 @@ SMALLISH PROJECTS
 
 	* centered whole rest
 
-	* use dstream feature in mi2mu
-
         * qtor, btor, mtor-> tor( QUIET_ver ), tor( DEBUG_ver ), etc.
 	- use tors feature in lily (?)
-
-	* declare symtab
 
 	* declare notenametab?
 
@@ -315,11 +271,19 @@ SMALLISH PROJECTS
 
 	* parshape
 
+	* Flower types:
+	- A decent scalar type
+	- String hash
+	- Pointer hash
+
+
 	* binsearch/hash for identifiers
 
 	* stafftypes: voice names/ instrument names.
 
-	* Decent TeX titledefs (\tempo, \metron, etc. )
+	* TeX stuff:	
+	- Decent TeX titledefs (\tempo, \metron, etc. )
+	- decent TeX page layout
 
 	* lily \tempo
 
@@ -327,39 +291,33 @@ SMALLISH PROJECTS
 
 	* textspanner: center position
 
-	* script-spacing
 
 	* Brackets
 	
-	* use (char *) iso. String for communication between lexer and
-	parser.
+	* Scricts:
+	- stack scripts in chords:
+	  % fingering:        footing:
+	    < a-4 c-2 g-1 >   < c-\ltoe e-\lheel >
+	- script-spacing
+	- slur parts as a script
+	- stackparameterised scripts for fingering and footing:
 
-	* configure idealspacing: arithmetic spacing
+            % toe to bheel   four to five
+	    %   ^_u            4_5  
+	    %     -                           
+	    %  --|x--         --|x--
+	    %  --|---         --|---
+	    %  --|---         --|---
+          (where "to" is a tiny bow)
 
 DOC
-	* Score_elem structure.
-
 	* all errors
 	
-	* config of TeX macros
-
-	* a test suite
-
 	* hacking-HOWTO
 
 FUTURE
 
 	* auxilliary file for caching info.
-
-	* Reg_configure_request
-
-	* slur parts as a script
-	
-	* mixed fontsizes
-
-	* put scripts on bars
-
-	* guitar chord
 
 	* Text_crescendo
 
@@ -370,8 +328,6 @@ FUTURE
 	* volta
 
 IDEAS
-
-	* derive PCol from Score_elem? More in Score_elems? Spacing?
 
 	* scoping in Lexer: do general id- assignments in mudela.
 
@@ -390,10 +346,6 @@ IDEAS
 
 	* y -dims in internote? Staff-space? X-dimensions?
 
-	* merge Atom and Symbol?
-
-	* merge common code of Item, Atom/Molecule
-
 	* Spacing_request for manually adjusting spacing
 
 	* caching breakpoints
@@ -404,23 +356,45 @@ IDEAS
 
 	* used fixedpoint arithmetic for min. energy.
 
-	* default convert mudela-file.ly -> mudela-file.tex
-	  - rename {standchen,scsii-menuetto,...}.tex
-
-	* stack scripts in chords:
-	  % fingering:        footing:
-	    < a-4 c-2 g-1 >   < c-\ltoe e-\lheel >
-
-	* stackparameterised scripts for fingering and footing:
-
-            % toe to bheel   four to five
-	    %   ^_u            4_5  
-	    %     -                           
-	    %  --|x--         --|x--
-	    %  --|---         --|---
-	    %  --|---         --|---
-          (where "to" is a tiny bow)
-
 	* move towards incremental algorithms.
 
 	* design meta-language like TeX and Metafont
+
+	* Global type registration.
+
+		My_class * p = create_object( My_class )
+		Type t = get_type ( *p );
+		if ( t <= get_type( q ))
+			..
+
+	
+	* virtualise PCols to make encapsulated spacing problems
+
+	* don't count bars which are not on first beat.
+
+	* naming of Voice_group/Voice
+
+	* benchmark band_matrices.
+
+	* versioning stuff (cvt mudela, mudela, etc.)
+
+	* a real convert-mudela
+
+	* dots into separate item.
+
+	* use String iso Text_def for lyrics.
+
+	* use position 0 for center of staff iso bottom.
+
+	* Klavarskribo?
+
+	* return status on exit
+
+	* lyrics in chords still fuck up.
+
+	* rewire acknowledge_element() logic with a process_acknowledged()
+	
+	* pushgroup/popgroup
+
+	* whole head on ledger line
+

@@ -12,5 +12,5 @@
 String
 axis_name_str (Axis a)
 {
-    return String (a + 'x');
+  return String (a + 'x');
 }

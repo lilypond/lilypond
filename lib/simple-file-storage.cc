@@ -29,10 +29,11 @@ Simple_file_storage::Simple_file_storage(String s)
 {
     data_p_ =0;
     FILE * f = fopen ( s.ch_C(), "r");
-    if ( !f ) {
+    if ( !f ) 
+      {
 	warning("can't open file\n");
 	return ;
-    }
+      }
 
     int ret = fseek( f, 0, SEEK_END);
     len_i_ = ftell(f);

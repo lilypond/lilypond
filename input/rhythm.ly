@@ -63,7 +63,5 @@ yanother =
 	>
 	
 	\paper{
-		unitspace =2.0\cm;
-		geometric =1.6;
 	}
 }

@@ -14,32 +14,34 @@
 
 int
 intlog2(int d) {
-    int i=0;
-    while (!(d&1)) {
+  int i=0;
+  while (!(d&1)) 
+    {
 	d/= 2;
 	i++;
     }
-    assert (!(d/2));
-    return i;
+  assert (!(d/2));
+  return i;
 }
 
 double
 log_2(double x) {
-    return log (x)  /log (2.0);
+  return log (x)  /log (2.0);
 }
 
 #if 1
 Interval
 itemlist_width (const Array<Item*> &its)
 {
-    Interval iv ;
-    iv.set_empty();
-     
-    for (int j =0; j < its.size(); j++){
+  Interval iv ;
+  iv.set_empty();
+   
+  for (int j =0; j < its.size(); j++)
+    {
 	iv.unite (its[j]->width());
 
     }
-    return iv;
+  return iv;
 }
 
 #endif

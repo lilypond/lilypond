@@ -12,7 +12,7 @@
 Span_bar*
 Span_score_bar_engraver::get_span_bar_p() const
 {
-    return new Span_score_bar;
+  return new Span_score_bar;
 }
 
 
@@ -22,7 +22,7 @@ IMPLEMENT_IS_TYPE_B1(Piano_bar_engraver, Span_score_bar_engraver);
 Span_bar*
 Piano_bar_engraver::get_span_bar_p() const
 {
-    return new Piano_brace;
+  return new Piano_brace;
 }
 
 ADD_THIS_ENGRAVER(Piano_bar_engraver);

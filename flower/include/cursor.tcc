@@ -8,21 +8,21 @@ template<class T>
  void
 Cursor<T>::backspace()
 {
-    Cursor<T> c (*this);
-    if ( c.ok())
+  Cursor<T> c (*this);
+  if ( c.ok())
 	c--;        
-    list_.remove (*this);
+  list_.remove (*this);
 }
 
 template<class T>
  void
 Cursor<T>::del()
 {
-    Cursor<T> c (*this);
-    if ( c.ok())
+  Cursor<T> c (*this);
+  if ( c.ok())
 	c++;
-    list_.remove (*this);    
-    *this = c;
+  list_.remove (*this);    
+  *this = c;
 }
 
 
@@ -30,46 +30,46 @@ template<class T>
 Cursor<T> 
 Cursor<T>::operator -=( int j)    
 {
-    while (j--)
+  while (j--)
 	(*this)--;
-    return *this;
+  return *this;
 }
 template<class T>
 Cursor<T> 
 Cursor<T>::operator +=( int j)    
 {
-    while (j++)
+  while (j++)
 	(*this)++;
-    return *this;
+  return *this;
 }
 
 template<class T>
 Cursor<T> 
 Cursor<T>::operator +( int i) const    
 {
-    Cursor<T> r = *this;
+  Cursor<T> r = *this;
 
-    if (i<0)
+  if (i<0)
 	return r -(-i);
 
-    while (i--)
+  while (i--)
 	r++;
 
-    return r;
+  return r;
 }
 
 template<class T>
 Cursor<T>
 Cursor<T>::operator -( int i) const
 {
-    Cursor<T> r = *this;
-    if (i<0)
+  Cursor<T> r = *this;
+  if (i<0)
 	return r +(-i);
 
-    while (i--)
+  while (i--)
 	r--;
-    
-    return r;
+  
+  return r;
 }
 /*
   warning:  can't use Cursor::operator == (Cursor),
@@ -79,31 +79,33 @@ template<class T>
 int
 Cursor<T>::operator-(Cursor<T> rhs) const
 {
-    assert (rhs.list == list);
-    int dif = 0;
+  assert (rhs.list == list);
+  int dif = 0;
 
-    // search from *this on further up (positive difference)
-    Cursor<T> c (*this);
-    while (c.ok() && c.pointer_ != rhs.pointer_) {
+  // search from *this on further up (positive difference)
+  Cursor<T> c (*this);
+  while (c.ok() && c.pointer_ != rhs.pointer_) 
+    {
 	c--;
 	dif++;
     }
-    
-    if (c.ok())
+  
+  if (c.ok())
 	goto gotcha;		// so, sue me.
 
-    // search in direction of bottom. (negative diff)
-    dif =0;
-    c=*this;    
-    while (c.ok() && c.pointer_ !=rhs.pointer_) {
+  // search in direction of bottom. (negative diff)
+  dif =0;
+  c=*this;    
+  while (c.ok() && c.pointer_ !=rhs.pointer_) 
+    {
 	dif --;
 	c++;
     }
-    assert (c.ok());
+  assert (c.ok());
 
 gotcha:
-    assert ((*this - dif).pointer_ == c.pointer_);
-    return dif;
+  assert ((*this - dif).pointer_ == c.pointer_);
+  return dif;
 }
 
 #endif

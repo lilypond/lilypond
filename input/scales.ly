@@ -1,12 +1,9 @@
-%{MudelaHeader
-
- filename: scales.ly
- title:
- description: 
- composers:
- entered-by: HWN
- copyright: public domain
-
+\header{
+filename	scales.ly
+enteredby	HWN
+copyright	public domain
+}
+%{
  Tested Features: scripts, beams, transposition, 
 EndMudelaHeader
 %}
@@ -89,7 +86,5 @@ c1
 \score{
 	\melodic {\blah}
 	\paper{
-		unitspace= 1.5 \cm;
-		geometric= 1.4;
 	}
 }

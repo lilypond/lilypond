@@ -26,5 +26,5 @@ yylex() {
 bool
 busy_parsing()
 {
-    return lexer;	
+  return lexer;	
 }

@@ -14,5 +14,5 @@ IMPLEMENT_IS_TYPE_B2(Horizontal_group_item, Horizontal_group_element, Axis_group
 void
 Horizontal_group_item::do_print() const
 { 
-    Axis_group_item::do_print(); 
+  Axis_group_item::do_print(); 
 }

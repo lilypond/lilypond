@@ -18,9 +18,9 @@
 template<class T>
 List<T>::List (List const&src)
 {
-    set_empty();
-    // probably el stupido
-    for (Cursor<T> c (src); c.ok(); c++)
+  set_empty();
+  // probably el stupido
+  for (Cursor<T> c (src); c.ok(); c++)
 	bottom().add (c);
 }
 
@@ -28,37 +28,39 @@ template<class T>
 void
 List<T>::OK() const
 {
-    int i = size_;
-    Link<T> *lp = top_;
-    while (i--) {
+  int i = size_;
+  Link<T> *lp = top_;
+  while (i--) 
+    {
 	assert (lp);
 	lp->OK();
 	lp = lp->next();
     }
-    assert (!lp);
-     i = size_;
-    lp = bottom_;
-    while (i--) {
+  assert (!lp);
+   i = size_;
+  lp = bottom_;
+  while (i--) 
+    {
 	assert (lp);
 	lp->OK();
 	lp = lp->previous();
     }
-    assert (!lp);
+  assert (!lp);
 }
 
 template<class T>
 void
 List<T>::junk_links()
 {
-    Cursor<T> c (*this);
-    while (c.ok())
+  Cursor<T> c (*this);
+  while (c.ok())
 	c.del();
 }
 
 template<class T>
 List<T>::~List()
 {
-    junk_links();
+  junk_links();
 }
 
 /** 
@@ -77,11 +79,12 @@ template<class T>
 void
 List<T>::add (T const & thing, Cursor<T> &after_me)
 {
-    if (!size_) {		// not much choice if list is empty
-        bottom_ = top_ = new Link<T>( thing);
+  if (!size_) {		// not much choice if list is empty
+      bottom_ = top_ = new Link<T>( thing);
 	if (!after_me.ok())
 	    after_me = bottom();
-    } else {			// add at aprioprate place
+    }
+  else {			// add at aprioprate place
 	if (!after_me.ok())
 	    after_me = bottom();
 	Link<T> *p =after_me.pointer();
@@ -90,19 +93,22 @@ List<T>::add (T const & thing, Cursor<T> &after_me)
 	    bottom_ = p->next();
     }
 
-    size_++;
+  size_++;
 }
 
 template<class T>
 void
 List<T>::insert (T const & thing, Cursor<T> &before_me)
 {
-    if (!size_) {
+  if (!size_) 
+    {
 	bottom_ = top_ = new Link<T>( thing);
 	if (!before_me.ok())
 	    before_me = top();
 	
-    } else {
+    }
+  else 
+    {
 	if (!before_me.ok())
 	    before_me = top();
 	
@@ -113,7 +119,7 @@ List<T>::insert (T const & thing, Cursor<T> &before_me)
 	    top_ = p->previous();
     }
 
-    size_++;
+  size_++;
 }
 
 
@@ -121,8 +127,9 @@ template<class T>
 void
 List<T>::concatenate (List<T> const&s)
 {
-    Cursor<T> b (bottom());
-    for (Cursor<T> c (s); c.ok(); c++) {
+  Cursor<T> b (bottom());
+  for (Cursor<T> c (s); c.ok(); c++) 
+    {
 	b.add (c);
 	b++;
     }

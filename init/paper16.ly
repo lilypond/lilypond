@@ -13,13 +13,18 @@ default_paper = \paper {
 	notewidth = 5.0\pt;
 	wholewidth = 4.8\pt;
 	unitspace = 22.\pt;
-	basicspace = 4.\pt;
+	%geometric = 1.414;
+	%basicspace = 4.\pt;
 
+	geometric = 0.;
+     	arithmetic_basicspace = 2.;
+        arithmetic_multiplier = 4.8\pt;
+   
 	%
 	interbeam = 2.667\pt;
-	geometric = 1.414;
-	gourlay_energybound = 50000.;
-	gourlay_maxmeasures = 6.;
+
+	gourlay_energybound = 100000.;
+	gourlay_maxmeasures = 14.;
 	castingalgorithm = \Gourlay;
 	\symboltables { \table_sixteen }
 	\requesttranslator { \orchestral_score_translator }

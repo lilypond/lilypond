@@ -28,6 +28,7 @@ public:
     Music * music_p_;
     Paper_score *pscore_p_;
     Audio_score* audio_score_p_;
+    Header * header_p_;
 
     int errorlevel_i_;
     

@@ -1,4 +1,3 @@
-
 /*
 	  duration-convert.hh -- declare 
 
@@ -51,6 +50,13 @@ struct Duration_convert {
     /// Return number of ticks in (ticks, division_1) representation
     static int dur2ticks_i( Duration dur );
 	
+    /// Return the type_i representation of note length i
+    static int i2_type(int i);
+
+    /// Return the note length corresponding to the type_i representation
+    /// Return 0 if longer than whole note.
+    static int type2_i(int type);
+
     /// Return Moment representation (fraction of whole note).
     static Moment dur2_mom( Duration dur );
 

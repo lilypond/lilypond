@@ -17,39 +17,40 @@
 String
 Molecule::TeX_string() const
 {
-    String s;
-    for (iter_top (ats,c); c.ok(); c++)
+  String s;
+  for (iter_top (ats,c); c.ok(); c++)
 	s+=c->TeX_string();
-    return s;
+  return s;
 }
 
 Box
 Molecule::extent() const
 {
-    Box b;
-    for (iter_top (ats,c); c.ok(); c++)
+  Box b;
+  for (iter_top (ats,c); c.ok(); c++)
 	b.unite (c->extent());
-    return b;
+  return b;
 }
 
 void
 Molecule::translate (Offset o)
 {
-    for (iter_top (ats,c); c.ok(); c++)
+  for (iter_top (ats,c); c.ok(); c++)
 	c->translate (o);
 }
 
 void
 Molecule::translate (Real x,Axis a)
 {
-    for (iter_top (ats,c); c.ok(); c++)
+  for (iter_top (ats,c); c.ok(); c++)
 	c->translate (x,a);
 }
 
 void
 Molecule::add (Molecule const &m)
 {
-    for (iter_top (m.ats,c); c.ok(); c++) {
+  for (iter_top (m.ats,c); c.ok(); c++) 
+    {
 	add (**c);
     }
 }
@@ -57,78 +58,82 @@ Molecule::add (Molecule const &m)
 void
 Molecule::add_right (Molecule const &m)
 {
-     if (!ats.size()) {
+   if (!ats.size()) 
+     {
 	add (m);
 	return;
     }
-     Real xof=extent().x ().right - m.extent ().x ().left;
+   Real xof=extent().x ().right - m.extent ().x ().left;
  
-     
-    Molecule toadd (m);
-    toadd.translate (Offset (xof, 0.0));
-    add (toadd);
+   
+  Molecule toadd (m);
+  toadd.translate (Offset (xof, 0.0));
+  add (toadd);
 }
 
 void
 Molecule::add_left (Molecule const &m)
 {
-    if (!ats.size()) {
+  if (!ats.size()) 
+    {
 	add (m);
 	return;
     }
   Real xof=extent().x ().left - m.extent ().x ().right;
    
-    Molecule toadd (m);
-    toadd.translate (Offset (xof, 0.0));
-    add (toadd);
+  Molecule toadd (m);
+  toadd.translate (Offset (xof, 0.0));
+  add (toadd);
 }
 
 
 void
 Molecule::add_top (Molecule const &m)
 {
-      if (!ats.size()) {
+    if (!ats.size()) 
+      {
 	add (m);
 	return;
     }
    Real yof=extent().y ().right - m.extent ().y ().left;
 
-    Molecule toadd (m);
-    toadd.translate (yof, Y_AXIS);
-    add (toadd);
+  Molecule toadd (m);
+  toadd.translate (yof, Y_AXIS);
+  add (toadd);
 }
 
 void
 Molecule::add_bottom (Molecule const &m)
 {
-    if (!ats.size()) {
+  if (!ats.size()) 
+    {
 	add (m);
 	return;
     }
-     Real yof=extent().y ().left- m.extent ().y ().right;
-    Molecule toadd (m);
-    toadd.translate (yof, Y_AXIS);
-    add (toadd);
+   Real yof=extent().y ().left- m.extent ().y ().right;
+  Molecule toadd (m);
+  toadd.translate (yof, Y_AXIS);
+  add (toadd);
 }
 
 void
 Molecule::operator = (Molecule const &)
 {
-    assert (false);
+  assert (false);
 }
 
 Molecule::Molecule (Molecule const &s)
 {
-    add (s);
+  add (s);
 }
 
 void
 Molecule::print() const
 {
 #ifndef NPRINT
-    if (! check_debug)
+  if (! check_debug)
 	return;
-    for (iter_top (ats,c); c.ok(); c++)
+  for (iter_top (ats,c); c.ok(); c++)
 	c->print();
 #endif
 }
@@ -136,5 +141,5 @@ Molecule::print() const
 void
 Molecule::add (Atom const &a)
 {
-    ats.bottom().add (new Atom (a)); 
+  ats.bottom().add (new Atom (a)); 
 }

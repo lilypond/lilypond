@@ -23,8 +23,12 @@ Duration_convert::dur2_str( Duration dur )
 {
 	if ( dur.ticks_i_ )
 		return String( "["  ) + String( dur.ticks_i_ ) + "]";
-
-	String str( dur.type_i_ );
+	
+	String str;
+	if (dur.durlog_i_ >= 0)
+	    str="breve";
+	else
+	    str= String( type2_i(dur.durlog_i_) );
 	str += String( '.', dur.dots_i_ );
 	if ( dur.plet_b())
 		str += String( "*" ) + String( dur.plet_.iso_i_ )
@@ -48,6 +52,27 @@ Duration_convert::dur2ticks_i( Duration dur )
 	return dur2_mom( dur ) * Moment( Duration::division_1_i_s );
 }
 
+
+int
+Duration_convert::i2_type(int i)
+{
+    int t=0;
+    while (!(i & 1)) {
+	i >>= 1;
+	t++;
+	    }
+    return t;
+}
+
+int
+Duration_convert::type2_i(int type)
+{
+    if (type<0)
+	return 0; 
+    else
+	return 1 << type;
+}
+
 Moment
 Duration_convert::dur2_mom( Duration dur )
 {
@@ -55,16 +80,20 @@ Duration_convert::dur2_mom( Duration dur )
 		return Moment( dur.ticks_i_, Duration::division_1_i_s );	
 
 	// or simply assert?
-	if ( !dur.type_i_ )
+	if ( dur.durlog_i_<-10 )
 		return Moment( 0 );
-
-	Moment mom = Moment( 1 , dur.type_i_ );
+	Moment mom;
+	if (dur.durlog_i_<0)
+	    mom = Moment( type2_i( -dur.durlog_i_ ), 1 );
+	else
+	    mom = Moment( 1 , type2_i( dur.durlog_i_ ) );
 
 	Moment delta = mom;
-	while ( dur.dots_i_-- ) {
+	while ( dur.dots_i_-- ) 
+	  {
 		delta /= 2.0;
 		mom += delta;
-	}
+	  }
 
 	return mom * plet_factor_mom( dur );    
 }
@@ -86,11 +115,12 @@ Duration_convert::i2_mom( int time_i, int division_1_i )
 Duration
 Duration_convert::mom2_dur( Moment mom )
 {
-    if (!mom) {
+    if (!mom) 
+      {
 	Duration dur;
 	dur.set_plet(0,1);
 	return dur;
-    }
+      }
 	
 
 	Duration dur = mom2standardised_dur( mom );
@@ -117,25 +147,28 @@ Duration_convert::mom2standardised_dur( Moment mom )
 	if ( !dur_array_s.size() )
 		set_array();
 	assert( dur_array_s.size() );
-	for ( int i = 0; i < dur_array_s.size() - 1; i++ ) {
+	for ( int i = 0; i < dur_array_s.size() - 1; i++ ) 
+	  {
   		Moment lower_mom = dur2_mom( dur_array_s[ i ] );
-		if ( mom <= lower_mom ) {
+		if ( mom <= lower_mom ) 
+		  {
 			// all arbitrary, but 3/4 will get rid of the noise...
 			// kinda ok
 			if ( i || ( mom / lower_mom > Moment( 3, 4 ) ) )
 				return dur_array_s[ i ];
-			else {
+			else 
+			  {
 			    Duration d;
-			    d.type_i_ = 0;
+			    d.durlog_i_ = -100;
 			    return d;
-			}
-		}
+			  }
+		  }
   		Moment upper_mom = dur2_mom( dur_array_s[ i + 1 ] );
 		if ( ( mom < upper_mom )
 			 && ( ( mom - lower_mom ) / lower_mom
 				< ( upper_mom - mom ) / upper_mom ) )
 			return dur_array_s[ i ];
-	}
+	  }
 	return dur_array_s[ dur_array_s.size() - 1 ];
 }
 
@@ -181,7 +214,7 @@ Duration_convert::ticks2_dur( int ticks_i )
 		
 // huh?
 #if 0
-	dur.type_i_ = 0;
+	dur.durlog_i_ = -100;
 	dur.dots_i_ = 0;
 	dur.set_ticks( ticks_i );
 	return dur;
@@ -200,9 +233,9 @@ Duration_convert::ticks2standardised_dur( int ticks_i )
 
 Duration_iterator::Duration_iterator()
 {
-	cursor_dur_.type_i_ = 128;
+	cursor_dur_.durlog_i_ = 7;
 	if ( Duration_convert::no_smaller_than_i_s )
-		cursor_dur_.type_i_ = Duration_convert::no_smaller_than_i_s;
+		cursor_dur_.durlog_i_ = Duration_convert::no_smaller_than_i_s;
 //	cursor_dur_.set_plet( 1, 1 );
 }
 
@@ -240,7 +273,7 @@ Duration_iterator::forward_dur()
 		16.	0.0938
 		8	0.1250
 		16..	0.1406
-		4:2/3	0.1667
+	4:2/3	0.1667
 		8.	0.1875
 		
 	*/
@@ -248,29 +281,33 @@ Duration_iterator::forward_dur()
 
 	Duration dur = cursor_dur_;
 
-	if ( !cursor_dur_.dots_i_ && !cursor_dur_.plet_b() ) {
-		cursor_dur_.type_i_ *= 2;
+	if ( !cursor_dur_.dots_i_ && !cursor_dur_.plet_b() ) 
+	  {
+		cursor_dur_.durlog_i_ += 1;
 		cursor_dur_.dots_i_ = 2;
-	}
-	else if ( cursor_dur_.dots_i_ == 2 ) {
+	  }
+	else if ( cursor_dur_.dots_i_ == 2 ) 
+	  {
 		assert( !cursor_dur_.plet_b() );
 		cursor_dur_.dots_i_ = 0;
-		cursor_dur_.type_i_ /= 4;
+		cursor_dur_.durlog_i_ -=2;
 		cursor_dur_.set_plet( 2, 3 );
-	}
+	  }
 	else if ( cursor_dur_.plet_b() 
 		&& ( cursor_dur_.plet_.iso_i_ == 2 )
-		&& ( cursor_dur_.plet_.type_i_ == 3 ) ) {
+		&& ( cursor_dur_.plet_.type_i_ == 3 ) ) 
+		  {
 		assert( !cursor_dur_.dots_i_ );
 		cursor_dur_.set_plet( 1, 1 );
-		cursor_dur_.type_i_ *= 2;
+		cursor_dur_.durlog_i_ += 1;
 		cursor_dur_.dots_i_ = 1;
-	}
-	else if ( cursor_dur_.dots_i_ == 1 ) {
+	  }
+	else if ( cursor_dur_.dots_i_ == 1 ) 
+	  {
 		assert( !cursor_dur_.plet_b() );
 		cursor_dur_.dots_i_ = 0;
-		cursor_dur_.type_i_ /= 2;
-	}
+		cursor_dur_.durlog_i_ -= 1;
+	  }
 		
 	if ( Duration_convert::no_triplets_b_s
 	     && cursor_dur_.plet_b() && ok() )
@@ -279,16 +316,16 @@ Duration_iterator::forward_dur()
 	     && ( cursor_dur_.dots_i_ == 2 ) && ok() )
 		forward_dur();
 	if ( Duration_convert::no_smaller_than_i_s
-	     && ( cursor_dur_.type_i_ > Duration_convert::no_smaller_than_i_s ) && ok() )
+	     && ( cursor_dur_.durlog_i_ > Duration_convert::no_smaller_than_i_s ) && ok() )
 		forward_dur();
 	if ( Duration_convert::no_smaller_than_i_s
 	     && cursor_dur_.dots_i_
-	     && ( cursor_dur_.type_i_ >= Duration_convert::no_smaller_than_i_s )
+	     && ( cursor_dur_.durlog_i_ >= Duration_convert::no_smaller_than_i_s )
 	     && ok() )
 		forward_dur();
 	if ( Duration_convert::no_smaller_than_i_s
 	     && ( cursor_dur_.dots_i_ == 2 )
-	     && ( cursor_dur_.type_i_ >= Duration_convert::no_smaller_than_i_s / 2 )
+	     && ( cursor_dur_.durlog_i_ >= Duration_convert::no_smaller_than_i_s / 2 )
 	     && ok() )
 		forward_dur();
 
@@ -298,6 +335,6 @@ Duration_iterator::forward_dur()
 bool
 Duration_iterator::ok()
 {
-	return ( cursor_dur_.type_i_ 
-		&& !( ( cursor_dur_.type_i_ == 1 ) && ( cursor_dur_.dots_i_ > 2 ) ) );
+	return ( cursor_dur_.durlog_i_ 
+		&& !( ( cursor_dur_.durlog_i_ == 0 ) && ( cursor_dur_.dots_i_ > 2 ) ) );
 }

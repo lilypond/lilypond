@@ -1,17 +1,16 @@
-%{MudelaHeader
+\header {
+filename	
+title	
+date	
+description	 
+opus	
+source	
+composers	
+enteredby	
+copyright	
+remarks	
+}
 
- filename:
- title:
- date:
- description: 
- opus:
- source:
- composers:
- entered-by:
- copyright:
- remarks:
- Tested Features:
-
-EndMudelaHeader
+%{
+Tested Features:
 %}
-\version "0.1.1";

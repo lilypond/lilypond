@@ -12,16 +12,16 @@
 void
 Vertical_align_element::add (Score_elem*el_l)
 {
-    assert (! contains_b (el_l));
-    elem_l_arr_.push (el_l);
-    add_dependency (el_l);
+  assert (! contains_b (el_l));
+  elem_l_arr_.push (el_l);
+  add_dependency (el_l);
 }
 
 void
 Vertical_align_element::do_substitute_dependency (Score_elem*o,Score_elem*n)
 {
-    int i;
-    while ((i = elem_l_arr_.find_i (o))>=0) 
+  int i;
+  while ((i = elem_l_arr_.find_i (o))>=0) 
 	if (n) 
 	    elem_l_arr_[i] = n;
 	else
@@ -37,8 +37,9 @@ Vertical_align_element::do_substitute_dependency (Score_elem*o,Score_elem*n)
 void
 Vertical_align_element::do_post_processing()
 {
-    Array<Interval> dims;
-    for (int i=0; i < elem_l_arr_.size(); i++) {
+  Array<Interval> dims;
+  for (int i=0; i < elem_l_arr_.size(); i++) 
+    {
 	Interval y = elem_l_arr_[i]->height() ;
 	if (y.empty_b())
 	    y = Interval (0,0);
@@ -46,8 +47,9 @@ Vertical_align_element::do_post_processing()
 	dims.push (y);
     }
 
-    Real where_f=0;
-    for ( int i=0 ;  i < elem_l_arr_.size(); i++) {
+  Real where_f=0;
+  for ( int i=0 ;  i < elem_l_arr_.size(); i++) 
+    {
 	elem_l_arr_[i]->translate (- dims[i][1] - where_f, Y_AXIS);
 	where_f += dims[i].length();
     }
@@ -56,13 +58,13 @@ Vertical_align_element::do_post_processing()
 bool
 Vertical_align_element::contains_b (Score_elem const *e)const
 {
-    return elem_l_arr_.find_l (e);
+  return elem_l_arr_.find_l (e);
 }
 
 Vertical_align_element::Vertical_align_element()
 {
-    transparent_b_ = true;
-    empty_b_ =true;
+  transparent_b_ = true;
+  empty_b_ =true;
 }
 
 

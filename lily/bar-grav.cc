@@ -14,37 +14,43 @@
 
 Bar_engraver::Bar_engraver()
 {
-    do_post_move_processing();
+  do_post_move_processing();
 }
 
 bool
 Bar_engraver::do_try_request (Request*r_l)
 {
-    Command_req* c_l = r_l->command();
-    if (!c_l|| !c_l->bar()) 
+  Command_req* c_l = r_l->command();
+  if (!c_l|| !c_l->bar()) 
 	return false;
-    Bar_req  * b= c_l->bar();
-    if (bar_req_l_ && bar_req_l_->equal_b (b))
+  Bar_req  * b= c_l->bar();
+  if (bar_req_l_ && bar_req_l_->equal_b (b))
 	return false;
-    
-    bar_req_l_ = b;
+  
+  bar_req_l_ = b;
 
-    return true;
+  return true;
 }
 
 void
 Bar_engraver::do_process_requests()
 {
-    if (bar_req_l_) {
+  if (bar_req_l_) 
+    {
 	bar_p_ = new Bar;
 	bar_p_->type_str_=bar_req_l_->type_str_;
-    } else if (!get_staff_info().time_C_->whole_in_measure_) {
+    }
+  else if (!get_staff_info().time_C_->whole_in_measure_) 
+    {
  	bar_p_ = new Bar;
     }
-    
-    if (bar_p_){
+  
+  if (bar_p_)
+    {
 	announce_element (Score_elem_info (bar_p_, bar_req_l_));
-    } else {
+    }
+  else 
+    {
 	Disallow_break_req r;
 	daddy_grav_l_->try_request (&r);
     }
@@ -54,7 +60,8 @@ Bar_engraver::do_process_requests()
 void 
 Bar_engraver::do_pre_move_processing()
 {
-      if (bar_p_) {
+    if (bar_p_) 
+      {
 	  typeset_element (bar_p_);
 	  bar_p_ =0;
       }
@@ -63,8 +70,8 @@ Bar_engraver::do_pre_move_processing()
 void
 Bar_engraver::do_post_move_processing()
 {
-    bar_req_l_ = 0;
-    bar_p_ =0;
+  bar_req_l_ = 0;
+  bar_p_ =0;
 }
 
 

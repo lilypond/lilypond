@@ -28,27 +28,27 @@ int exit_status_i_;
 void destill_inname (String &name_str_r);
 
 Long_option_init theopts[] = {
-    {1, "output", 'o'},
-    {0, "warranty", 'w'},
-    {0, "help", 'h'},
-    {0, "debug", 'd'},
-    {1, "init", 'i'},
-    {1, "include", 'I'},
-    {0, "midi", 'M'},
-    {0, "ignore-version", 'V'},
-    {0,0,0}
+  {1, "output", 'o'},
+  {0, "warranty", 'w'},
+  {0, "help", 'h'},
+  {0, "debug", 'd'},
+  {1, "init", 'i'},
+  {1, "include", 'I'},
+  {0, "midi", 'M'},
+  {0, "ignore-version", 'V'},
+  {0,0,0}
 };
 
 void
 usage()
 {
-    cout <<
-    	"Usage: lilypond [options] [mudela-file]\n"
+  cout <<
+  	"Usage: lilypond [options] [mudela-file]\n"
 	"Typeset and or produce midi output from mudela-file or stdin\n"
 	"\n"
 	"Options:\n"
 	"  -d, --debug            enable debugging output\n"
-        "  -I, --include=DIR      add DIR to search path\n"
+      "  -I, --include=DIR      add DIR to search path\n"
 	"  -i, --init=FILE        use FILE as init file\n"
 	"  -h, --help             this help\n"
 	"  -w, --warranty         show warranty and copyright\n"
@@ -71,14 +71,14 @@ usage()
 	"\n";
 	
 	;
-    
-    
+  
+  
 }
 
 void 
 notice()
 {
-    cout <<
+  cout <<
 	"\n"
 	"GNU LilyPond -- The GNU Project music typesetter.\n"
 	"Copyright 1996,97 by\n"
@@ -106,49 +106,54 @@ static File_path path;
 void
 do_one_file (String init_str, String file_str)
 {
-    if ( init_str != "" && "" == path.find (init_str) ) {
+  if ( init_str != "" && "" == path.find (init_str) ) 
+    {
 	error ( "Can not find `" + init_str +"\'");
 	return ;
     }
-    if ( file_str!= "" && path.find (file_str) == "" ) {
+  if ( file_str!= "" && path.find (file_str) == "" ) 
+    {
 	error ( "Can not find `" + file_str + "'");
 	return ;
     }
-    
-    Sources sources;
-    source_l_g = &sources; 
-    source_l_g->set_path (&path);
-    {
+  
+  Sources sources;
+  source_l_g = &sources; 
+  source_l_g->set_path (&path);
+  {
 	My_lily_parser parser (source_l_g);
 	parser.set_version_check (version_ignore_b_);
 	parser.parse_file (init_str, file_str);
     }
-    do_scores();
-    source_l_g = 0;
+  do_scores();
+  source_l_g = 0;
 }
 
 int
 main (int argc, char **argv)
 {    
-    debug_init();		// should be first
+  debug_init();		// should be first
 
 
-    // must override (come before) "/usr/local/share/lilypond"!
-    char const * env_l=getenv ("LILYINCLUDE");
-    if (env_l) {
+  // must override (come before) "/usr/local/share/lilypond"!
+  char const * env_l=getenv ("LILYINCLUDE");
+  if (env_l) 
+    {
 	path.add (env_l);
     }
-    path.add ("");
-    path.add (String (DIR_DATADIR) + "/init/" );
-    
-    path.push (DIR_DATADIR);
+  path.add ("");
+  path.add (String (DIR_DATADIR) + "/init/" );
+  
+  path.push (DIR_DATADIR);
 
-    Getopt_long oparser (argc, argv,theopts);
-    cout << get_version_str() << endl;
-    String init_str ("symbol.ly");
-    
-    while (Long_option_init const * opt = oparser()) {
-	switch ( opt->shortname){
+  Getopt_long oparser (argc, argv,theopts);
+  cout << get_version_str() << endl;
+  String init_str ("symbol.ly");
+  
+  while (Long_option_init const * opt = oparser()) 
+    {
+	switch ( opt->shortname)
+	  {
 	case 'o':
 	    set_default_output (oparser.optional_argument_ch_C_);
 	    break;
@@ -178,31 +183,33 @@ main (int argc, char **argv)
 	default:
 	    assert (false);
 	    break;
-	}
+	  }
     }
 
-    int p=0;
-    const char *arg ;
-    while ( (arg= oparser.get_next_arg())) {
+  int p=0;
+  const char *arg ;
+  while ( (arg= oparser.get_next_arg())) 
+    {
 	String f (arg);
 	destill_inname (f);
 	do_one_file (init_str,f);
 	p++;
     }
-    if (!p) {
+  if (!p) 
+    {
 	do_one_file (init_str, "");	
     }
 
-    return exit_status_i_;
+  return exit_status_i_;
 }
 
 /// make input file name: add default extension. "" is stdin.
 void
 destill_inname (String &name_str_r)
 {
-    if ( name_str_r.length_i())
-        {
-        if (name_str_r[ 0 ] != '-') 
+  if ( name_str_r.length_i())
+      {
+      if (name_str_r[ 0 ] != '-') 
 	    {
 	    String a,b,c,d;
 	    split_path (name_str_r,a,b,c,d);
@@ -211,7 +218,8 @@ destill_inname (String &name_str_r)
 	    if (d == "") 
 		d = ".ly";
 	    name_str_r = a+b+c+d;
-	    }
-	} else name_str_r = "";   
+	      }
+	  }
+	else name_str_r = "";   
 }
 

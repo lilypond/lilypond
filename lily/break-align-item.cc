@@ -12,8 +12,8 @@ void
 Break_align_item::do_pre_processing()
 {
 
-    align_i_ = break_status_i();
-    Horizontal_align_item::do_pre_processing();
+  align_i_ = break_status_i();
+  Horizontal_align_item::do_pre_processing();
 }
 
 IMPLEMENT_IS_TYPE_B1(Break_align_item, Horizontal_align_item);

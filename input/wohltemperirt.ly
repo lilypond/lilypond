@@ -1,13 +1,14 @@
+\header{
+filename		wohltemperirt.ly
+title		Fuga a 3
+description		Das Wohltemperirte Clavier I, Fuga II (c-minor)
+opus		BWV ?
+source		Henle's Urtext
+composer		Johann Sebastian Bach (1685-1750)
+enteredby		HWN and Werner Lemberg
+copyright		Public Domain"
+}
 %{
- filename: wohltemperirt.ly
- title: Fuga a 3
- description: Das Wohltemperirte Clavier I, Fuga II (c-minor) 
- Opus: BWV ?
- source: Henle's Urtext
- composer(s): Johann Sebastian Bach (1685-1750)
- entered-by: HWN and Werner Lemberg
- copyright: Public Domain 
-
  Tested Features: stem direction, multivoice, forced accidentals.
 %}
 
@@ -176,7 +177,7 @@ bassdux =
              >
 
     \paper{
-	gourlay_maxmeasures =4.;
+	gourlay_maxmeasures =5.;
 	
     }
     \midi {

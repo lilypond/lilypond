@@ -5,16 +5,16 @@
 #include "lookup.hh"
 
 Meter::Meter (Array<Scalar>a)
-    :args (a)
+  :args (a)
 {
-    breakable_b_ = true;
+  breakable_b_ = true;
 }
 
 Molecule*
 Meter::brew_molecule_p()const
 {
-    Symbol s = paper()->lookup_l ()->meter (args);
-    return new Molecule (Atom (s));
+  Symbol s = paper()->lookup_l ()->meter (args);
+  return new Molecule (Atom (s));
 }
 
 

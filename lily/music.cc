@@ -14,27 +14,27 @@
 MInterval
 Music::time_int() const
 {
-    return MInterval (0,0);
+  return MInterval (0,0);
 }
 
 void
 Music::print()const
 {
 #ifndef NPRINT
-    if ( ! check_debug)
+  if ( ! check_debug)
 	return ;
-    DOUT << name() << "{";
-    if  (type_str_!="" || id_str_!="")
+  DOUT << name() << "{";
+  if  (type_str_!="" || id_str_!="")
 	DOUT << "`" <<type_str_ << " = " << id_str_<<"\'";
-    do_print();
-    DOUT << "}\n";
+  do_print();
+  DOUT << "}\n";
 #endif
 }
 
 void
 Music::transpose (Melodic_req const*)
 {
-    
+  
 }
 
 void
@@ -52,10 +52,10 @@ IMPLEMENT_IS_TYPE_B(Music);
 
 
 
-    
+  
 Music::Music()
 {
-    parent_music_l_ =0;
+  parent_music_l_ =0;
 }
 
 IMPLEMENT_IS_TYPE_B1(Change_reg,Music)

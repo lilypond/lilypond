@@ -6,21 +6,21 @@
 void 
 Data_file::gobble_white()
 {
-    char c;
-    
-    while ((c=data_get()) == ' ' ||c == '\t')
+  char c;
+  
+  while ((c=data_get()) == ' ' ||c == '\t')
 	if (eof()) 
 	    break;
 
-    data_unget (c);
+  data_unget (c);
 }
 
 String
 Data_file::get_word() 
 {// should handle escape seq's
-    String s;
+  String s;
 
-    while (1) 
+  while (1) 
 	{
 	char 	c  = data_get();
 	
@@ -28,7 +28,7 @@ Data_file::get_word()
 	    {
 	    data_unget (c);
 	    break;
-	    }
+	      }
 	
 	
 	if (c == '\"')
@@ -46,9 +46,9 @@ Data_file::get_word()
 	    }	    
 	else
 	    s += c;		
-	}
-    
-    return s;	      
+	  }
+  
+  return s;	      
 }
 
 /**  get a char 
@@ -56,39 +56,41 @@ Data_file::get_word()
    */
 char
 Data_file::data_get() {
-    char c =  get(); 
-    if (!rawmode && c == '#') // gobble comment
+  char c =  get(); 
+  if (!rawmode && c == '#') // gobble comment
 	{	
 	while ((c = get()) != '\n' && !eof ()) 
 	    ;
 	    return '\n';
-	}    
+	  }
 
-    return c;
+  return c;
 }
 
 /// read line, gobble '\n'    
 String Data_file::get_line()     
 {
-    char c; 
-    String s;
+  char c; 
+  String s;
 
-    while ((c  = data_get()) != '\n' && !eof ())
+  while ((c  = data_get()) != '\n' && !eof ())
 	s += c;
-    return s;	
+  return s;	
 }
 
 /// gobble stuff before first entry on a line.    
 void
 Data_file::gobble_leading_white() 
 {
-    // eat blank lines.
-    while (!eof()) {
+  // eat blank lines.
+  while (!eof()) 
+    {
 	char c = data_get();		    
-	if (!isspace (c)) {
+	if (!isspace (c)) 
+	  {
 	    data_unget (c);
 	    break;
-	}
+	  }
     }
 }
 

@@ -22,7 +22,7 @@ IMPLEMENT_IS_TYPE_B1(Rest_column,Head_column);
 void
 Rest_column::translate_heads (int dy_i)
 {
-    for (int i=0; i < head_l_arr_.size(); i++)
+  for (int i=0; i < head_l_arr_.size(); i++)
 	head_l_arr_[i]->position_i_ += dy_i;
 }
 

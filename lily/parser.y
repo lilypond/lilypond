@@ -1,7 +1,7 @@
 %{ // -*-Fundamental-*-
 
 /*
-  parser.y -- lily parser
+  parser.y -- YACC parser for mudela
 
   source file of the GNU LilyPond music typesetter
 
@@ -34,6 +34,8 @@
 #include "input-translator.hh"
 #include "score.hh"
 #include "music-list.hh"
+#include "header.hh"
+#include "duration-convert.hh"
 
 #ifndef NDEBUG
 #define YYDEBUG 1
@@ -62,6 +64,7 @@
     Music *music;
     Music_list *musiclist;
     Score *score;
+    Header *header;
     Interval *interval;
     Lookup*lookup;
     Melodic_req * melreq;
@@ -111,13 +114,14 @@ yylex(YYSTYPE *s,  void * v_l)
 %token CONSISTS
 %token ACCEPTS
 %token CM_T
-%token DURATIONCOMMAND
+%token DURATION
 %token ABSDYNAMIC
 %token END
 %token GROUPING
 %token GROUP
 %token REQUESTTRANSLATOR
 %token HSHIFT
+%token HEADER
 %token IN_T
 %token ID
 %token LYRIC
@@ -129,7 +133,7 @@ yylex(YYSTYPE *s,  void * v_l)
 %token MM_T
 %token MULTI
 %token NOTENAMES
-%token OCTAVECOMMAND
+%token OCTAVE
 %token OUTPUT
 %token PAPER
 %token PARTIAL
@@ -157,6 +161,7 @@ yylex(YYSTYPE *s,  void * v_l)
 %type <i>	dots
 %token <i>	INT
 %token <melreq>	NOTENAME_ID
+%token <id>	DURATION_IDENTIFIER
 %token <id>	IDENTIFIER
 %token <id>	MELODIC_REQUEST_IDENTIFIER 
 %token <id>	MUSIC_IDENTIFIER
@@ -173,11 +178,13 @@ yylex(YYSTYPE *s,  void * v_l)
 %token <id>	REQUEST_IDENTIFIER
 %token <real>	REAL 
 %token <string>	DURATION RESTNAME
-%token <string>	STRING
+%token <string>	STRING 
+%token <string> FIELDNAME RECORDLINE
 %token <i> 	POST_QUOTES 
 %token <i> 	PRE_QUOTES
 
 
+%type <header> 	mudela_header mudela_header_body
 %type <box>	box
 %type <c>	open_request_parens close_request_parens
 %type <c>	open_plet_parens close_plet_parens
@@ -185,7 +192,8 @@ yylex(YYSTYPE *s,  void * v_l)
 %type <i>	int
 %type <i>	script_dir
 %type <id>	identifier_init
-%type <duration>	explicit_duration notemode_duration entered_notemode_duration
+%type <duration> explicit_steno_duration notemode_duration 
+%type <duration> entered_notemode_duration explicit_duration
 %type <interval>	dinterval
 %type <intvec>	intastint_list
 %type <lookup>	symtables symtables_body
@@ -201,7 +209,8 @@ yylex(YYSTYPE *s,  void * v_l)
 %type <paper>	paper_block paper_body
 %type <real>	dim real
 %type <real>	unit
-%type <request>	post_request pre_request command_req verbose_command_req abbrev_command_req
+%type <request>	post_request pre_request command_req verbose_command_req 
+%type <request> abbrev_command_req
 %type <request>	script_req  dynamic_req 
 %type <score>	score_block score_body
 %type <script>	script_definition script_body mudela_script gen_script_def
@@ -211,12 +220,15 @@ yylex(YYSTYPE *s,  void * v_l)
 %type <symtable>	symtable symtable_body
 %type <itrans>	input_translator_spec input_translator_spec_body
 %type <tempo> 	tempo_request
+%type <string>	header_record
 
 %left PRIORITY
 
 %%
 
 mudela:	/* empty */
+	| mudela mudela_header {
+	}
 	| mudela score_block {
 		add_score($2);		
 	}
@@ -253,6 +265,40 @@ notenames_body:
 		delete $2;
 	}
 	;
+
+mudela_header_body:
+		{
+		$$ = new Header;
+	}
+	| mudela_header_body FIELDNAME header_record {
+		(*$$)[*$2] = *$3;
+		delete $2;
+		delete $3;
+	}
+	;
+
+mudela_header:
+	HEADER 	{
+		THIS->lexer_p_->push_header_state();
+	}
+	
+	'{' mudela_header_body '}'	{
+		$$ = $4;
+		THIS->lexer_p_->pop_state();
+	}
+	;
+
+
+header_record:
+		{
+		$$ = new String;
+	}
+	| header_record RECORDLINE	{
+		*$$ += *$2;
+		delete $2;
+	}
+	;
+
 /*
 	DECLARATIONS
 */
@@ -311,6 +357,9 @@ identifier_init:
 	| input_translator_spec {
 		$$ = new Input_translator_id ( $1, INPUT_TRANS_IDENTIFIER);
 	}
+	| explicit_duration {
+		$$ = new Duration_id( $1, DURATION_IDENTIFIER);
+	}
 	;
 
 
@@ -354,7 +403,9 @@ input_translator_spec_body:
 	SCORE
 */
 score_block:
-	SCORE { THIS->remember_spot(); }
+	SCORE { THIS->remember_spot();
+		THIS->error_level_i_ =0;
+	}
 	/*cont*/ '{' score_body '}' 	{
 		$$ = $4;
 		$$->set_spot(THIS->pop_spot());
@@ -372,6 +423,9 @@ score_body:		{
 	}
 	| SCORE_IDENTIFIER {
 		$$ = $1->score();
+	}
+	| score_body mudela_header 	{
+		$$->header_p_ = $2;
 	}
 	| score_body Music	{
 		$$->music_p_ = $2;
@@ -695,6 +749,14 @@ melodic_request:
 	}
 	;
 
+explicit_duration:
+	DURATION '{' int int '}'	{
+		$$ = new Duration;
+		$$-> durlog_i_ = $3;
+		$$-> dots_i_ = $4;
+	}
+	;
+
 dynamic_req:
 	ABSDYNAMIC '{' int '}'	{
 		Absolute_dynamic_req *ad_p = new Absolute_dynamic_req;
@@ -847,15 +909,15 @@ voice_command:
 	PLET	 INT '/' INT {
 		THIS->default_duration_.set_plet($2,$4);
 	}
-	| DURATIONCOMMAND STRING {
+	| DURATION STRING {
 		THIS->set_duration_mode(*$2);
 		delete $2;
 	}
-	| DURATIONCOMMAND entered_notemode_duration {
+	| DURATION entered_notemode_duration {
 		THIS->set_default_duration($2);
 		delete $2;
 	}
-	| OCTAVECOMMAND { 
+	| OCTAVE { 
 		/*
 			This is weird, but default_octave_i_
 			is used in steno_note_req too
@@ -879,7 +941,7 @@ duration_length:
 	{
 		$$ = new Moment(0,1);
 	}
-	| duration_length explicit_duration		{	
+	| duration_length explicit_steno_duration		{	
 		*$$ += $2->length();
 	}
 	;
@@ -897,7 +959,7 @@ entered_notemode_duration:
 		$$ = new Duration(THIS->default_duration_);		
 		$$->dots_i_  = $1;
 	}
-	| explicit_duration	{
+	| explicit_steno_duration	{
 		THIS->set_last_duration($1);
 		$$ = $1;
 	}
@@ -911,22 +973,25 @@ notemode_duration:
 	}
 	;
 
-explicit_duration:
+explicit_steno_duration:
 	int		{
 		$$ = new Duration;
 		if ( !Duration::duration_type_b($1) )
 			THIS->parser_error("Not a duration");
 		else {
-			$$->type_i_ = $1;
+			$$->durlog_i_ = Duration_convert::i2_type($1);
 		     }
 	}
-	| explicit_duration '.' 	{
+	| DURATION_IDENTIFIER	{
+		$$ = $1->duration();
+	}
+	| explicit_steno_duration '.' 	{
 		$$->dots_i_ ++;
 	}
-	| explicit_duration '*' int  {
+	| explicit_steno_duration '*' int  {
 		$$->plet_.iso_i_ *= $3; 
 	}
-	| explicit_duration '/' int {
+	| explicit_steno_duration '/' int {
 		$$->plet_.type_i_ *= $3; 
 	}
 	;

@@ -13,15 +13,16 @@
 
 Span_score_bar::Span_score_bar()
 {
-    type_str_ = "|";
+  type_str_ = "|";
 }
 
 void
 Span_score_bar::do_pre_processing()
 {
-    Span_bar::do_pre_processing();
-    
-    if ( break_status_i() != 1) {
+  Span_bar::do_pre_processing();
+  
+  if ( break_status_i() != 1) 
+    {
 	empty_b_ = transparent_b_ = true;
     }
 }
@@ -30,16 +31,16 @@ Span_score_bar::do_pre_processing()
 Symbol
 Piano_brace::get_bar_sym (Real dy)const
 {
-    return paper()->lookup_l ()->vbrace (dy);
+  return paper()->lookup_l ()->vbrace (dy);
 }
 Interval
 Piano_brace::do_width()const
 {
-    return Interval (0,0);
+  return Interval (0,0);
 }
 
 
 IMPLEMENT_IS_TYPE_B1(Span_score_bar, Span_bar);
 IMPLEMENT_IS_TYPE_B1(Piano_brace, Span_score_bar);
 
-    
+  

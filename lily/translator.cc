@@ -10,7 +10,7 @@
 
 Translator::Translator()
 {
-    iterator_count_  = 0;
+  iterator_count_  = 0;
 }
 
 
@@ -19,7 +19,7 @@ IMPLEMENT_IS_TYPE_B(Translator);
 bool
 Translator::try_request (Request*)
 {
-    return false;
+  return false;
 }
 
 

@@ -32,14 +32,16 @@ Source_file::istream_l()
     if ( !name_str_.length_i())
     	return &cin;
     
-    if ( !istream_p_ ) {
+    if ( !istream_p_ ) 
+      {
 	if ( length_i() ) // can-t this be done without such a hack?
 	    istream_p_ = new istrstream( ch_C(), length_i() );
-        else {
+        else 
+          {
 	    istream_p_ = new istrstream( "", 0 );
 	    istream_p_->set(ios::eofbit);
-	}
-    }
+	  }
+      }
     return istream_p_;
 }
 
@@ -74,17 +76,19 @@ Source_file::error_str( char const* pos_ch_C )const
 	pos_ch_C --;
     char const* begin_ch_C = pos_ch_C;
     while ( begin_ch_C > data_ch_C )
-        if ( *--begin_ch_C == '\n' ) {
+        if ( *--begin_ch_C == '\n' ) 
+          {
 	    begin_ch_C++;
 	    break;
-	}
+	  }
 
     char const* end_ch_C = pos_ch_C;
     while ( end_ch_C < eof_C_ )
-        if ( *end_ch_C++ == '\n' ) {
+        if ( *end_ch_C++ == '\n' ) 
+          {
 	  end_ch_C--;
 	  break;
-	}
+	  }
   
 	//    String( char const* p, int length ) is missing!?
     String line_str( (Byte const*)begin_ch_C, end_ch_C - begin_ch_C );

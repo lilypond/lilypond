@@ -13,11 +13,13 @@ ostream * nulldev =0;
 
 // ugh
 struct _Dinit {
-    _Dinit() {
+  _Dinit() 
+    {
 	nulldev = new ofstream ("/dev/null");
 	monitor = new Dstream (&cout,".dstreamrc");
     }
-    ~_Dinit() {
+  ~_Dinit() 
+    {
 	delete nulldev;
 	delete monitor;
     }
@@ -31,14 +33,14 @@ struct _Dinit {
 void
 mynewhandler()
 {
-    assert (false);
+  assert (false);
 }
 
 void
 float_handler (int)
 {
-    cerr << "Floating point exception .. \n"<< flush;
-    assert (false);
+  cerr << "Floating point exception .. \n"<< flush;
+  assert (false);
 }
 
 /// just to make sure print_rat is linked in
@@ -47,13 +49,13 @@ static void (*rat_printer)(Moment const&);
 void
 debug_init()
 {
-    rat_printer = print_rat;	
+  rat_printer = print_rat;	
 #ifndef NDEBUG
-    set_new_handler (&mynewhandler);
+  set_new_handler (&mynewhandler);
 #endif
-    set_flower_debug (*monitor, check_debug);
-    
-    signal (SIGFPE, float_handler);
+  set_flower_debug (*monitor, check_debug);
+  
+  signal (SIGFPE, float_handler);
 }   
 
 bool check_debug=false;
@@ -61,8 +63,8 @@ bool check_debug=false;
 void
 set_debug (bool b)
 {
-    check_debug =b;
-    set_flower_debug (*monitor, check_debug);
+  check_debug =b;
+  set_flower_debug (*monitor, check_debug);
 }
 
 

@@ -74,9 +74,10 @@ table_sixteen=
      }
 
      "balls" = \table {
-	     "1"	"\wholeball"	0.0\pt	6.0\pt	-2.0\pt	2.0\pt
-	     "2"	"\halfball"	0.0\pt	5.0\pt	-2.0\pt	2.0\pt
-	     "4"	"\quartball"	0.0\pt	5.0\pt	-2.0\pt	2.0\pt
+	     "-1"	"\breveball"	0.0\pt	6.0\pt	-2.0\pt	2.0\pt
+	     "0"	"\wholeball"	0.0\pt	6.0\pt	-2.0\pt	2.0\pt
+	     "1"	"\halfball"	0.0\pt	5.0\pt	-2.0\pt	2.0\pt
+	     "2"	"\quartball"	0.0\pt	5.0\pt	-2.0\pt	2.0\pt
      }
 
      "slur" = \table {
@@ -110,19 +111,21 @@ table_sixteen=
      }
 
      "rests" = \table {
-	     "1o"	"\outsidewholerest"	0.0\pt  6.0\pt  0.0\pt  2.0\pt
-	     "1"	"\wholerest"		0.0\pt	6.0\pt	0.0\pt	2.0\pt
-	     "2"	"\halfrest"		0.0\pt	6.0\pt	-2.0\pt	0.0\pt
-	     "2o"	"\outsidehalfrest"		0.0\pt	6.0\pt	-2.0\pt	0.0\pt
-	     "4o"	"\quartrest"		-5.0\pt	2.0\pt	-5.0\pt	5.0\pt
-	     "8o"	"\eighthrest"		0.0\pt	5.0\pt	0.0\pt	8.0\pt
-	     "16o"	"\sixteenthrest"		0.0\pt	6.0\pt	0.0\pt	12.0\pt
-	     "4"	"\quartrest"		-5.0\pt	2.0\pt	-5.0\pt	5.0\pt
-	     "8"	"\eighthrest"		0.0\pt	5.0\pt	0.0\pt	8.0\pt
-	     "16"	"\sixteenthrest"		0.0\pt	6.0\pt	0.0\pt	12.0\pt
-	     "32"	"\thirtysecondrest"	0.0\pt	6.0\pt	0.0\pt	16.0\pt
-	     "64"	"\sixtyfourthrest"	0.0\pt	6.0\pt	0.0\pt	16.0\pt
-	     "128"	"\hundredtwentyeighthrest"	0.0\pt	6.0\pt	0.0\pt	16.0\pt
+	     "-1o"	"\breverest"		0.0\pt  6.0\pt  0.0\pt  4.0\pt
+	     "-1"	"\breverest"		0.0\pt	6.0\pt	0.0\pt	4.0\pt
+	     "0o"	"\outsidewholerest"	0.0\pt  6.0\pt  0.0\pt  2.0\pt
+	     "0"	"\wholerest"		0.0\pt	6.0\pt	0.0\pt	2.0\pt
+	     "1"	"\halfrest"		0.0\pt	6.0\pt	-2.0\pt	0.0\pt
+	     "1o"	"\outsidehalfrest"		0.0\pt	6.0\pt	-2.0\pt	0.0\pt
+	     "2o"	"\quartrest"		-5.0\pt	2.0\pt	-5.0\pt	5.0\pt
+	     "3o"	"\eighthrest"		0.0\pt	5.0\pt	0.0\pt	8.0\pt
+	     "4o"	"\sixteenthrest"		0.0\pt	6.0\pt	0.0\pt	12.0\pt
+	     "2"	"\quartrest"		-5.0\pt	2.0\pt	-5.0\pt	5.0\pt
+	     "3"	"\eighthrest"		0.0\pt	5.0\pt	0.0\pt	8.0\pt
+	     "4"	"\sixteenthrest"		0.0\pt	6.0\pt	0.0\pt	12.0\pt
+	     "5"	"\thirtysecondrest"	0.0\pt	6.0\pt	0.0\pt	16.0\pt
+	     "6"	"\sixtyfourthrest"	0.0\pt	6.0\pt	0.0\pt	16.0\pt
+	     "7"	"\hundredtwentyeighthrest"	0.0\pt	6.0\pt	0.0\pt	16.0\pt
      }
 
      "meters" = \table {

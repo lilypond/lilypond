@@ -1,22 +1,23 @@
-%{MudelaHeader
+\header{
 
- filename: toccata-fuga-E.ly
- title: toccata and fuga in E-major 
- opus: BWV 566
- toccata: 3 bar excerpt
- 2nd fuga: transposed subject --- 4 bar excerpt
+filename	toccata-fuga-E.ly
+title	toccata and fuga in E-major 
+opus	BWV 566
+	toccata		3 bar excerpt
+	2nd fuga	transposed subject --- 4 bar excerpt
 
- composers: Johann Sebastian Bach (1685-1750)
- entered-by: JCN
- copyright: public domain
+composers	Johann Sebastian Bach (1685-1750)
+enteredby	JCN
+copyright	public domain
 
+}
+
+%{
  Tested Features:
  purpose of this file is testing: 
      * real-life collisions
      * multi-voice input --- splitting?
      * organ staff...
-
-EndMudelaHeader
 %}
 
 

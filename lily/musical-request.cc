@@ -20,14 +20,14 @@ void
 Stem_req::do_print() const
 {
 #ifndef NPRINT
-    Rhythmic_req::do_print();
-    DOUT << "dir : " << dir_i_;
+  Rhythmic_req::do_print();
+  DOUT << "dir : " << dir_i_;
 #endif
 }
 
 Stem_req::Stem_req()
 {
-    dir_i_ = 0;
+  dir_i_ = 0;
 }
 
 /* ************** */
@@ -50,15 +50,15 @@ void
 Span_req::do_print() const    
 {
 #ifndef NPRINT
-    DOUT << spantype ;
+  DOUT << spantype ;
 #endif
 }
 
 Spacing_req::Spacing_req()
 {
-    next = 0;
-    distance = 0;
-    strength = 0;
+  next = 0;
+  distance = 0;
+  strength = 0;
 }
 
 IMPLEMENT_IS_TYPE_B1(Spacing_req,Request);
@@ -67,7 +67,7 @@ void
 Spacing_req::do_print()const
 {
 #ifndef NPRINT
-    DOUT << "next " << next << "dist " << distance << "strength\n";
+  DOUT << "next " << next << "dist " << distance << "strength\n";
 #endif
 }
 
@@ -77,34 +77,36 @@ IMPLEMENT_IS_TYPE_B2(Blank_req,Spacing_req,Rhythmic_req);
 void
 Blank_req::do_print()const
 {
-    Spacing_req::do_print();
+  Spacing_req::do_print();
 }
 /* *************** */
 
 Melodic_req::Melodic_req()
 {
-    notename_i_ = 0;
-    octave_i_ = 0;
-    accidental_i_ = 0;
+  notename_i_ = 0;
+  octave_i_ = 0;
+  accidental_i_ = 0;
 }
 
 void
 Melodic_req::transpose (Melodic_req const & delta)
 {
-    int old_pitch = pitch();
-    int delta_pitch = delta.pitch();
-    octave_i_ += delta.octave_i_;
-    notename_i_ += delta.notename_i_;
-    while  (notename_i_ >= 7) {
+  int old_pitch = pitch();
+  int delta_pitch = delta.pitch();
+  octave_i_ += delta.octave_i_;
+  notename_i_ += delta.notename_i_;
+  while  (notename_i_ >= 7) 
+    {
 	notename_i_ -= 7;
 	octave_i_ ++;
     }
 
-    int new_pitch = pitch();
-    int delta_acc = new_pitch - old_pitch - delta_pitch;
-    
-    accidental_i_ -= delta_acc;
-    if (abs (accidental_i_) > 2) {
+  int new_pitch = pitch();
+  int delta_acc = new_pitch - old_pitch - delta_pitch;
+  
+  accidental_i_ -= delta_acc;
+  if (abs (accidental_i_) > 2) 
+    {
 	delta.warning ("transposition makes accidental larger than 2");
     }
 }
@@ -114,31 +116,31 @@ IMPLEMENT_IS_TYPE_B1(Melodic_req,Musical_req);
 bool
 Melodic_req::do_equal_b (Request*r)const
 {
-    Melodic_req* m= r->musical()->melodic ();
-    return !compare (*m, *this);
+  Melodic_req* m= r->musical()->melodic ();
+  return !compare (*m, *this);
 }
 
 int
 Melodic_req::compare (Melodic_req const &m1 , Melodic_req const&m2)
 {
-    int o=  m1.octave_i_ - m2.octave_i_;
-    int n = m1.notename_i_ - m2.notename_i_;
-    int a = m1.accidental_i_ - m2.accidental_i_;
-    
-    if (o)
+  int o=  m1.octave_i_ - m2.octave_i_;
+  int n = m1.notename_i_ - m2.notename_i_;
+  int a = m1.accidental_i_ - m2.accidental_i_;
+  
+  if (o)
 	return o;
-    if ( n)
+  if ( n)
 	return n;
-    if (a)
+  if (a)
 	return a;
-    return 0;
+  return 0;
 }
 
 void
 Melodic_req::do_print() const
 {
 #ifndef NPRINT
-    DOUT << "notename: " << notename_i_ 
+  DOUT << "notename: " << notename_i_ 
 	 << " acc: " <<accidental_i_<<" oct: "<< octave_i_;
 #endif
 }
@@ -146,7 +148,7 @@ Melodic_req::do_print() const
 int
 Melodic_req::height() const
 {
-    return  notename_i_ + octave_i_*7;
+  return  notename_i_ + octave_i_*7;
 }
 
 /*
@@ -157,28 +159,28 @@ static Byte pitch_byte_a[  ] = { 0, 2, 4, 5, 7, 9, 11 };
 int
 Melodic_req::pitch() const
 {
-    return  pitch_byte_a[ notename_i_ % 7 ] + accidental_i_ + octave_i_ * 12;
+  return  pitch_byte_a[ notename_i_ % 7 ] + accidental_i_ + octave_i_ * 12;
 }
 
 /* *************** */
 int
 Rhythmic_req::compare (Rhythmic_req const &r1, Rhythmic_req const &r2)
 {
-    return (r1.duration() - r2.duration ());
+  return (r1.duration() - r2.duration ());
 }
 
 bool
 Rhythmic_req::do_equal_b (Request*r)const
 {
-    Rhythmic_req* rh = r->musical()->rhythmic ();
+  Rhythmic_req* rh = r->musical()->rhythmic ();
 
-    return !compare (*this, *rh);
+  return !compare (*this, *rh);
 }
 
 void
 Rhythmic_req::set_duration (Duration d)
 {
-    duration_ = d;
+  duration_ = d;
 }
 
 Rhythmic_req::Rhythmic_req()
@@ -192,22 +194,22 @@ void
 Rhythmic_req::do_print() const
 {
 #ifndef NPRINT
-    DOUT << "duration { " <<duration_.str() << "}";
+  DOUT << "duration { " <<duration_.str() << "}";
 #endif
 }
 
 
 Moment
 Rhythmic_req::duration() const {    
-    return duration_.length();
+  return duration_.length();
 }
 /* *************** */
 
 Lyric_req::Lyric_req (Text_def* def_p)
-    :Text_req (0, def_p)
+  :Text_req (0, def_p)
 {
-    def_p->align_i_ = 0;	// centre
-    dir_i_ = -1;		// lyrics below (invisible) staff
+  def_p->align_i_ = 0;	// centre
+  dir_i_ = -1;		// lyrics below (invisible) staff
 }
 
 
@@ -216,21 +218,21 @@ IMPLEMENT_IS_TYPE_B2(Lyric_req,Musical_req,Rhythmic_req);
 void
 Lyric_req::do_print() const
 {    
-    Rhythmic_req::do_print();
-    Text_req::do_print();
+  Rhythmic_req::do_print();
+  Text_req::do_print();
 }
 
 /* *************** */
 bool
 Note_req::do_equal_b (Request*r)const
 {
-    return Rhythmic_req::do_equal_b (r) && Melodic_req::do_equal_b (r);
+  return Rhythmic_req::do_equal_b (r) && Melodic_req::do_equal_b (r);
 }
 
 
 Note_req::Note_req()
 {
-    forceacc_b_ = false;
+  forceacc_b_ = false;
 }
 
 IMPLEMENT_IS_TYPE_B2(Note_req,Melodic_req,Rhythmic_req);
@@ -239,11 +241,12 @@ void
 Note_req::do_print() const
 {
 #ifndef NPRINT
-    Melodic_req::do_print();
-    if (forceacc_b_) {
+  Melodic_req::do_print();
+  if (forceacc_b_) 
+    {
 	DOUT << " force accidental\n";
     }
-    Rhythmic_req::do_print();
+  Rhythmic_req::do_print();
 #endif
 }
 /* *************** */
@@ -253,13 +256,13 @@ IMPLEMENT_IS_TYPE_B1(Rest_req,Rhythmic_req);
 void
 Rest_req::do_print() const
 {
-        Rhythmic_req::do_print();
+      Rhythmic_req::do_print();
 }
 
 /* *************** */
 Beam_req::Beam_req()
 {
-    nplet = 0;
+  nplet = 0;
 }
 
 IMPLEMENT_IS_TYPE_B1(Beam_req,Span_req);
@@ -276,20 +279,20 @@ Slur_req::do_print()const{}
 bool
 Span_req:: do_equal_b (Request*r)const
 {
-    Span_req * s = r->span();
-    return spantype - s->spantype;
+  Span_req * s = r->span();
+  return spantype - s->spantype;
 }
 
 Span_req::Span_req()
 {
-    spantype = NOSPAN;
+  spantype = NOSPAN;
 }
 
 /* *************** */
 Script_req::Script_req (Script_req const&s)
 {
-    dir_i_ = s.dir_i_;
-    scriptdef_p_ = s.scriptdef_p_ ? s.scriptdef_p_->clone() : 0;
+  dir_i_ = s.dir_i_;
+  scriptdef_p_ = s.scriptdef_p_ ? s.scriptdef_p_->clone() : 0;
 }
 
 /*
@@ -300,15 +303,15 @@ Script_req::Script_req (Script_req const&s)
 bool
 Script_req::do_equal_b (Request*r)const
 {
-    Script_req * s = r->script();
-    
-    return  scriptdef_p_->equal_b (*s->scriptdef_p_);
+  Script_req * s = r->script();
+  
+  return  scriptdef_p_->equal_b (*s->scriptdef_p_);
 }
 
 Script_req::Script_req()
 {
-    dir_i_ = 0;
-    scriptdef_p_ = 0;
+  dir_i_ = 0;
+  scriptdef_p_ = 0;
 }
 
 
@@ -318,15 +321,15 @@ void
 Script_req::do_print() const
 {
 #ifndef NPRINT
-    DOUT << " dir " << dir_i_ ;
-    scriptdef_p_->print();
+  DOUT << " dir " << dir_i_ ;
+  scriptdef_p_->print();
 #endif
 }
 
 void
 Musical_script_req::do_print() const
 {
-    Script_req::do_print();
+  Script_req::do_print();
 }
 
 
@@ -335,27 +338,27 @@ IMPLEMENT_IS_TYPE_B2(Musical_script_req,Musical_req, Script_req);
 
 Script_req::~Script_req()
 {
-    delete scriptdef_p_;
+  delete scriptdef_p_;
 }
 /* *************** */
 
 
 Text_req::~Text_req()
 {
-    delete tdef_p_;
-    tdef_p_ = 0;
+  delete tdef_p_;
+  tdef_p_ = 0;
 }
 
 Text_req::Text_req (Text_req const& src)
 {
-    tdef_p_ = new Text_def (*src.tdef_p_);
-    dir_i_ = src.dir_i_;
+  tdef_p_ = new Text_def (*src.tdef_p_);
+  dir_i_ = src.dir_i_;
 }
 
 Text_req::Text_req (int dir_i, Text_def* tdef_p)	
 {
-    dir_i_ = dir_i;
-    tdef_p_ = tdef_p;
+  dir_i_ = dir_i;
+  tdef_p_ = tdef_p;
 }
 
 
@@ -365,8 +368,8 @@ void
 Text_req::do_print() const
 {
 #ifndef NPRINT
-    DOUT << " dir " << dir_i_ ;
-    tdef_p_->print();
+  DOUT << " dir " << dir_i_ ;
+  tdef_p_->print();
 #endif
 }
 
@@ -380,7 +383,7 @@ Skip_req::do_print() const
 {
 #ifndef NPRINT
 
-    DOUT << "duration: " << duration();
+  DOUT << "duration: " << duration();
 #endif
 }
 
@@ -391,7 +394,7 @@ IMPLEMENT_IS_TYPE_B1(Dynamic_req,Musical_req);
 void
 Dynamic_req::do_print() const
 {
-    Musical_req::do_print();
+  Musical_req::do_print();
 }
 
 
@@ -401,37 +404,38 @@ void
 Absolute_dynamic_req::do_print() const
 {
 #ifndef NPRINT
-    Dynamic_req::do_print();
-    DOUT << " loudness " <<loudness_str (loudness_);
+  Dynamic_req::do_print();
+  DOUT << " loudness " <<loudness_str (loudness_);
 #endif
 }
 
 String
 Dynamic_req::loudness_str (Loudness l) 
 {
-    switch (l) {
-    case FFF: return "fff";
-    case FF: return "ff";
-    case F: return "f";
-    case MF: return "mf";
-    case MP: return "mp";
-    case P: return "p";
-    case PP: return "pp";
-    case PPP: return "ppp";
+  switch (l) 
+    {
+  case FFF: return "fff";
+  case FF: return "ff";
+  case F: return "f";
+  case MF: return "mf";
+  case MP: return "mp";
+  case P: return "p";
+  case PP: return "pp";
+  case PPP: return "ppp";
     }
-    assert (false);
-    return "";
+  assert (false);
+  return "";
 }
 
 Absolute_dynamic_req::Absolute_dynamic_req()
 {
-    loudness_ = MF;
+  loudness_ = MF;
 }
 
 
 Span_dynamic_req::Span_dynamic_req()
 {
-    dynamic_dir_i_  = 0;
+  dynamic_dir_i_  = 0;
 }
 
 
@@ -441,8 +445,8 @@ void
 Span_dynamic_req::do_print()const
 {
 #ifndef NPRINT
-    Span_req::do_print();
-    DOUT << "louder/louder: " <<dynamic_dir_i_;
+  Span_req::do_print();
+  DOUT << "louder/louder: " <<dynamic_dir_i_;
 #endif
 }
 

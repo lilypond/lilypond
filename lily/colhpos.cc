@@ -14,10 +14,10 @@
 
 Col_hpositions::Col_hpositions()
 {
-    energy_f_ = infinity_f;
-    ugh_b_ = false;
-    satisfies_constraints_b_ = false;
-    spacer_l_ =0;
+  energy_f_ = infinity_f;
+  ugh_b_ = false;
+  satisfies_constraints_b_ = false;
+  spacer_l_ =0;
 }
 
 Col_hpositions::~Col_hpositions()
@@ -28,17 +28,17 @@ Col_hpositions::~Col_hpositions()
 void
 Col_hpositions::add (PCol*c)
 {
-    cols.push (c);
+  cols.push (c);
 }
 
 void
 Col_hpositions::print() const
 {
 #ifndef NPRINT
-    DOUT << "energy : " << energy_f_ << '\n';
-    DOUT << "line of " << config.size() << " cols\n";
-    Vector v (config);
-    DOUT << v;
+  DOUT << "energy : " << energy_f_ << '\n';
+  DOUT << "line of " << config.size() << " cols\n";
+  Vector v (config);
+  DOUT << v;
 #endif
 }
 
@@ -46,29 +46,29 @@ void
 Col_hpositions::OK()const
 {
 #ifndef NDEBUG
-    assert (config.size() == cols.size ());
+  assert (config.size() == cols.size ());
 #endif
 }
 
 void
 Col_hpositions::stupid_solution()
 {
-    energy_f_ = infinity_f;
-    ugh_b_ = true;
-    config = spacer_l_->default_solution();
+  energy_f_ = infinity_f;
+  ugh_b_ = true;
+  config = spacer_l_->default_solution();
 }
 
 void
 Col_hpositions::solve_line() 
 {
-    spacer_l_->solve (this);
+  spacer_l_->solve (this);
 }
 
 
 void
 Col_hpositions::approximate_solve_line() 
 {
-    spacer_l_->lower_bound_solution (this);
+  spacer_l_->lower_bound_solution (this);
 }
 
 

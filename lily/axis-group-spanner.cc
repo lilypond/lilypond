@@ -17,51 +17,59 @@
 void
 Axis_group_spanner::do_break_processing_if_unbroken()
 {
-    Link_array<Score_elem> elems = axis_admin_.elem_l_arr_;
-    Line_of_score *my_line = line_l();
-    for (int i=0; i < elems.size(); i++) {
-	if (!elems[i]->line_l()) {
+  Link_array<Score_elem> elems = axis_admin_.elem_l_arr_;
+  Line_of_score *my_line = line_l();
+  for (int i=0; i < elems.size(); i++) 
+    {
+	if (!elems[i]->line_l()) 
+	  {
 	    Item * item_l = elems[i]->item();
 	    if  (item_l
 		 && item_l->breakable_b_ 
-		 && item_l->break_status_i() == 0) {
+		 && item_l->break_status_i() == 0) 
+		   {
 		// last two checks are paranoia
 		Item * broken_item_l = 
 		    item_l->find_prebroken_piece (my_line);
 		add_element (broken_item_l);
-	    }
+	      }
 	    remove_element (elems[i]);  
-	}
+	  }
     }
-    
+  
 }
 void
 Axis_group_spanner::do_break_processing()
 {
-    set_my_columns();
-    bool breaking_self_b = ! Spanner::line_l();
-    if (!breaking_self_b)  {
+  set_my_columns();
+  bool breaking_self_b = ! Spanner::line_l();
+  if (!breaking_self_b)  
+    {
 	do_break_processing_if_unbroken();
 	Spanner::do_break_processing();
 	return;
     }
 
-    break_into_pieces (true);
-    Link_array<Score_elem> loose_elems = axis_admin_.elem_l_arr_;
-    remove_all();
-    
-    for (int i=0; i < loose_elems.size(); i++) {
+  break_into_pieces (true);
+  Link_array<Score_elem> loose_elems = axis_admin_.elem_l_arr_;
+  remove_all();
+  
+  for (int i=0; i < loose_elems.size(); i++) 
+    {
 	Score_elem * elt = loose_elems[i];
 	Line_of_score *elt_line = elt->line_l();
 	
-	if ( ! elt_line){
+	if ( ! elt_line)
+	  {
 	    /* this piece doesn't know where it belongs.
 	       Find out if it was broken, and use the broken remains
 	       */
-	    if (elt->spanner()) {
+	    if (elt->spanner()) 
+	      {
 		Spanner * sp = elt->spanner();
 		
-		for (int j =0; j < broken_into_l_arr_.size(); j++) {
+		for (int j =0; j < broken_into_l_arr_.size(); j++) 
+		  {
 		    Axis_group_spanner * my_broken_l
 			 = (Axis_group_spanner*)broken_into_l_arr_[j];
 		    
@@ -72,13 +80,16 @@ Axis_group_spanner::do_break_processing()
 		    if (broken_span_l) 
 			my_broken_l->add_element (broken_span_l);
 		    
-		}
-	    } else if (elt->item() 
+		  }
+	      }
+	    else if (elt->item() 
 		       && elt->item()->breakable_b_ 
-		       && elt->item()->break_status_i () == 0) {
+		       && elt->item()->break_status_i () == 0) 
+		         {
 
 		// broken items
-		for (int j =0; j < 2; j++) {
+		for (int j =0; j < 2; j++) 
+		  {
 		    Item * my_item = elt->item()->broken_to_a_[j];
 		    Line_of_score * item_line_l = my_item->line_l() ;
 		    if ( ! item_line_l) 
@@ -88,26 +99,28 @@ Axis_group_spanner::do_break_processing()
 			= (Axis_group_spanner*)find_broken_piece (item_line_l);
 		    if (v)
 			v->add_element (my_item);
-		}
+		  }
 		    
-	    }
-	} else {
+	      }
+	  }
+	else 
+	  {
 	  /* this piece *does* know where it belongs.
 	     Put it in appropriate piece of this spanner
 	     */
 	    Axis_group_spanner * my_broken_l
 		= (Axis_group_spanner*)find_broken_piece (elt->line_l());
 	    my_broken_l->add_element (elt);
-	}
+	  }
     }
-    
-    Spanner::do_break_processing();
+  
+  Spanner::do_break_processing();
 }
 
 void
 Axis_group_spanner::do_print() const
 {
-    Axis_group_element::do_print();
+  Axis_group_element::do_print();
 }
 
 

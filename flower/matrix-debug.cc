@@ -14,19 +14,21 @@
 
 Matrix::operator String() const
 {
-    String s;
+  String s;
 #ifndef NPRINT
-    Matrix_storage const * stor_c_l = dat;
-    s=String ("matrix { (")  + dat->name() + ")\n";
-    for (int i=0; i< rows(); i++){
-	for (int j = 0; j < cols(); j++) {
+  Matrix_storage const * stor_c_l = dat;
+  s=String ("matrix { (")  + dat->name() + ")\n";
+  for (int i=0; i< rows(); i++)
+    {
+	for (int j = 0; j < cols(); j++) 
+	  {
 	    s+= String (stor_c_l->elem (i,j), "%6f ");
-	}
+	  }
 	s+="\n";
     }
-    s+="}\n";
+  s+="}\n";
 #endif
-    return s;
+  return s;
 }
 
 
@@ -34,21 +36,22 @@ void
 Matrix::print() const
 {
 #ifndef NPRINT
-    fdebug << *this;
+  fdebug << *this;
 #endif
 }
 
 Vector::operator String() const
 {
-    String s;
+  String s;
 #ifndef NPRINT
-    s="vector [";
-    for (int i=0; i < dim(); i++) {
+  s="vector [";
+  for (int i=0; i < dim(); i++) 
+    {
 	s += String (dat[i], "%6f") + String (' ');
     }
-    s+="]";
+  s+="]";
 #endif
-    return s;
+  return s;
 }
 
 
@@ -56,6 +59,6 @@ void
 Vector::print() const
 {
 #ifndef NDEBUG
-    fdebug << *this<<'\n';
+  fdebug << *this<<'\n';
 #endif
 }

@@ -1,18 +1,16 @@
-%{MudelaHeader
+\header{
+filename	scsii-menuetto.ly
+title		Solo Cello Suites, Suite II part V, Menuetto I
+description	Cello suite transcribed for Viola
+source		?
+opus		BWV 1008 no. 5
+composers	Johann Sebastian Bach (1685-1750)
+enteredby	JCN
+copyright	public domain
+}
 
- filename: scsii-menuetto.ly
- title: Solo Cello Suites, Suite II part V, Menuetto I
- description: Cello suite transcribed for Viola
- source: ?
- opus: BWV 1008 no. 5
- composers: Johann Sebastian Bach (1685-1750)
- entered-by: JCN
- copyright: public domain
-
+%{
  Tested Features:breaking algorithm, chords, multivoice, accents
-
-
-EndMudelaHeader
 %}
 
 \version "0.1.1";
@@ -107,9 +105,7 @@ IImenuetto = \melodic{
 		\id "Staff" "cello"; \IImenuetto 
 	}
 	\paper{
-		unitspace= 9.0\mm  ;% to get lily to use only three lines
-		geometric= 1.40;
-		linewidth= 195.0\mm;
+		linewidth= 150.0\mm;
 		\output "scsii-menuetto.out";
 	}
 	\midi{ 

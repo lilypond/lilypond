@@ -24,36 +24,36 @@ IMPLEMENT_IS_TYPE_B(Identifier);
 
 Identifier::~Identifier()
 {
-    if (!accessed_b_ && !init_b_)
+  if (!accessed_b_ && !init_b_)
 	warning ("Variable not used");
 }
 void
 Identifier::error (String expect)
 {
-    String e ("Wrong identifier type: ");
-    e += String (name()) + "(expected " + expect + ")";
-    ::error (e);
+  String e ("Wrong identifier type: ");
+  e += String (name()) + "(expected " + expect + ")";
+  ::error (e);
 }
 
 Identifier::Identifier ( int code)
 {
-    token_code_i_ = code; 
-    accessed_b_ = 0;
-    init_b_ = 0;
+  token_code_i_ = code; 
+  accessed_b_ = 0;
+  init_b_ = 0;
 }
 
 void
 Identifier::print()const
 {
-    DOUT << "identifier ";
-    do_print();
+  DOUT << "identifier ";
+  do_print();
 }
 
 /* ugh. */
 #define DEFAULT_PRINT(Class, Content_type, accessor) \
 void \
 Class::do_print() const { \
-    ((Class*)this)->accessor()->print(); \
+  ((Class*)this)->accessor()->print(); \
 } \
 class Class
 
@@ -68,24 +68,29 @@ DEFAULT_PRINT(Score_id, Score, score);
 DEFAULT_PRINT(Midi_def_id,Midi_def, mididef);
 DEFAULT_PRINT(Paper_def_id,Paper_def, paperdef);
 
+
+void
+Duration_id::do_print()const
+{}
+
 void
 Real_id::do_print() const
 {
-    DOUT << *data_p_<< "\n";
+  DOUT << *data_p_<< "\n";
 }
 
 void
 Int_id::do_print() const
 {
-    DOUT << *data_p_<< "\n";
+  DOUT << *data_p_<< "\n";
 }
 
 
 #define DEFAULT_ACCESSOR(Idclass, Class, accessor)\
 Class*\
 Idclass::accessor () {\
-    accessed_b_ = true;\
-    return new Class (*data_p_);\
+  accessed_b_ = true;\
+  return new Class (*data_p_);\
 }
 
 #define VIRTUAL_ACCESSOR(Idclass, Class, accessor)\
@@ -100,7 +105,7 @@ Idclass::accessor () {\
 	Idclass::~Idclass() { delete data_p_; }\
 	Idclass::Idclass (Class*st, int code):Identifier (code) { data_p_ = st; }\
 
-
+IMPLEMENT_ID_CLASS(Duration_id, Duration, duration);
 IMPLEMENT_ID_CLASS(Input_translator_id, Input_translator, input_translator);
 IMPLEMENT_ID_CLASS(Int_id, int, intid);
 IMPLEMENT_ID_CLASS(Real_id, Real, real);
@@ -115,9 +120,10 @@ IMPLEMENT_ID_CLASS(Paper_def_id, Paper_def, paperdef);
 
 Identifier::Identifier (Identifier const&)
 {
-    assert (false);
+  assert (false);
 }
 
+DEFAULT_ACCESSOR(Duration_id, Duration, duration);
 DEFAULT_ACCESSOR(Input_translator_id,Input_translator, input_translator);
 DEFAULT_ACCESSOR(Int_id, int, intid);
 DEFAULT_ACCESSOR(Real_id, Real, real);

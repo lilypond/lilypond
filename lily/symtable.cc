@@ -21,14 +21,16 @@ Symtables::Symtables()
 
 Symtables::Symtables (Symtables const &s)
 {
-    for (Assoc_iter<String, Symtable*>  i (s); i.ok(); i++) {
+  for (Assoc_iter<String, Symtable*>  i (s); i.ok(); i++) 
+    {
 	add (i.key(), new Symtable (*i.val ()));
     }
 }
 
 Symtables::~Symtables()
 {
-    for (Assoc_iter<String, Symtable*>  i (*this); i.ok(); i++) {
+  for (Assoc_iter<String, Symtable*>  i (*this); i.ok(); i++) 
+    {
 	delete i.val();
     }
 }
@@ -36,9 +38,10 @@ Symtables::~Symtables()
 Symbol 
 Symtable::lookup (String s) const
 {
-    if (elt_b (s))
+  if (elt_b (s))
 	return (*this)[s];
-    else {
+  else 
+    {
 	warning ("Symtable `" + id_str+ "\': unknown symbol `" +s+"'\n");
 	Symbol sy;	
 	return sy;
@@ -48,12 +51,13 @@ Symtable::lookup (String s) const
 Symtable* 
 Symtables::operator()(String s) 
 {
-    return Assoc<String, Symtable*>::operator[](s);
+  return Assoc<String, Symtable*>::operator[](s);
 } 
 void
 Symtables::print() const
 {
-    for (Assoc_iter<String, Symtable*>  i (*this); i.ok(); i++) {
+  for (Assoc_iter<String, Symtable*>  i (*this); i.ok(); i++) 
+    {
 	DOUT << "table \'" << i.key() << "\' {\n";
 	i.val()->print ();
 	DOUT << "}\n";
@@ -62,7 +66,8 @@ Symtables::print() const
 void
 Symtable::print() const
 {
-    for (Assoc_iter<String, Symbol>  i (*this); i.ok(); i++) {
+  for (Assoc_iter<String, Symbol>  i (*this); i.ok(); i++) 
+    {
 	DOUT << "\'" << i.key() << "\'->" << i.val ().str () << "\n";
     }
 }
@@ -70,6 +75,6 @@ Symtable::print() const
 void
 Symtables::add (String s, Symtable*p)
 {
-    p-> id_str = s;
-    Assoc<String, Symtable*>::add (s,p);
+  p-> id_str = s;
+  Assoc<String, Symtable*>::add (s,p);
 }

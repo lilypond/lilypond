@@ -15,9 +15,9 @@
 
 Bar::Bar()
 {
-    breakable_b_ = true;
-    type_str_ = "|";
-    spanned_i_ = 0;
+  breakable_b_ = true;
+  type_str_ = "|";
+  spanned_i_ = 0;
 }
 
 
@@ -27,17 +27,17 @@ IMPLEMENT_IS_TYPE_B1(Bar,Item);
 void
 Bar::do_print()const
 {
-    DOUT << type_str_;
+  DOUT << type_str_;
 }
 
 Molecule*
 Bar::brew_molecule_p()const
 {    
-    Paper_def *p = paper();
-    Symbol s = p->lookup_l()->bar (type_str_, 
+  Paper_def *p = paper();
+  Symbol s = p->lookup_l()->bar (type_str_, 
 				   p->get_var ("bar_size"));
-    Molecule*output = new Molecule (Atom (s));
-    return output;
+  Molecule*output = new Molecule (Atom (s));
+  return output;
 }
 
 /**
@@ -45,27 +45,28 @@ Bar::brew_molecule_p()const
   TODO: parametrise this (input-settable)
  */
 static char const *bar_breaks[][3] ={
-    {":|", ":|:", "|:"},
-    {"|", "|", ""},
-    {"", "|:", "|:"},
-    {"||.", "||.", ""},
-    {":|", ":|", ""},
-    {0,0,0}
+  {":|", ":|:", "|:"},
+  {"|", "|", ""},
+  {"", "|:", "|:"},
+  {"||.", "||.", ""},
+  {":|", ":|", ""},
+  {0,0,0}
 };
 
 void
 Bar::do_pre_processing()
 {
-    for (int i=0; bar_breaks[i][0]; i++) {
+  for (int i=0; bar_breaks[i][0]; i++) 
+    {
 	if (bar_breaks[i][1] == type_str_)
 	    type_str_ = bar_breaks[i][break_status_i()+1];
     }
   
-    /*
-      span_score_bar needs dims, so don't do
+  /*
+    span_score_bar needs dims, so don't do
+  
+    transparent_b_ = empty_b_ = (type_str_ == "");
     
-      transparent_b_ = empty_b_ = (type_str_ == "");
-      
-      */
+    */
 }
-    
+  

@@ -15,8 +15,8 @@
 
 Bar_number_grav::Bar_number_grav()
 {
-    number_i_ =1;
-    script_p_ =0;
+  number_i_ =1;
+  script_p_ =0;
 }
 
 static Command_script_req dummy;
@@ -24,8 +24,9 @@ static Command_script_req dummy;
 void
 Bar_number_grav::acknowledge_element (Score_elem_info i)
 {
-    if (i.origin_grav_l_arr_.size() == 1 &&
-	i.elem_l_->is_type_b (Bar::static_name()) && !script_p_) {
+  if (i.origin_grav_l_arr_.size() == 1 &&
+	i.elem_l_->is_type_b (Bar::static_name()) && !script_p_) 
+	  {
 
 	script_p_ = new Script;
 	Text_def *td_p =new Text_def;
@@ -41,7 +42,8 @@ Bar_number_grav::acknowledge_element (Score_elem_info i)
 void
 Bar_number_grav::do_pre_move_processing()
 {
-    if ( script_p_) {
+  if ( script_p_) 
+    {
 	typeset_element (script_p_);
 	script_p_ =0;
     }

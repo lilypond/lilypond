@@ -77,8 +77,9 @@ Staff_commands		0
 Stem			0
 Stem			0
 Stem_req		0
-Symtable		0
-Symtables		0
+Symtable		1
+Symtables		1
+
 Text_def		0
 Text_req		0
 Time_description	0

@@ -24,21 +24,21 @@ void
 Cadenza_req::do_print()const
 {
 #ifndef NPRINT
-    DOUT << on_b_;
+  DOUT << on_b_;
 #endif
 }
 
 bool
 Cadenza_req::do_equal_b (Request*r)const
 {
-    Cadenza_req*cad =  r->command()->timing ()->cadenza ();
-    
-    return cad->on_b_ == on_b_;
+  Cadenza_req*cad =  r->command()->timing ()->cadenza ();
+  
+  return cad->on_b_ == on_b_;
 }
 
 Cadenza_req::Cadenza_req (bool b)
 {
-    on_b_ =b;
+  on_b_ =b;
 }
 /* *************** */
 
@@ -46,8 +46,8 @@ Cadenza_req::Cadenza_req (bool b)
 bool
 Bar_req::do_equal_b (Request*r)const
 {
-    Bar_req * b = r->command()->bar ();
-    return type_str_ == b->type_str_;
+  Bar_req * b = r->command()->bar ();
+  return type_str_ == b->type_str_;
 }
 
 
@@ -56,25 +56,25 @@ IMPLEMENT_IS_TYPE_B1(Bar_req,Command_req);
 void
 Bar_req::do_print() const
 {
-    DOUT << type_str_;
+  DOUT << type_str_;
 }
 
 Bar_req::Bar_req (String s)
 {
-    type_str_ = s;
+  type_str_ = s;
 }
 
 Partial_measure_req::Partial_measure_req (Moment m)
 {
-    duration_ =m;
+  duration_ =m;
 }
 
 bool
 Partial_measure_req::do_equal_b (Request* r)const
 {
-    Partial_measure_req *p = r->command()->timing ()->partial ();
+  Partial_measure_req *p = r->command()->timing ()->partial ();
 
-    return p->duration_ == duration_;
+  return p->duration_ == duration_;
 }
 
 
@@ -105,7 +105,7 @@ Barcheck_req::do_print() const{}
 bool
 Barcheck_req::do_equal_b (Request*)const
 {
-    return true;
+  return true;
 }
 /* *************** */
 
@@ -115,13 +115,13 @@ void
 Clef_change_req::do_print() const
 {
 #ifndef NPRINT
-    DOUT << clef_str_ ;
+  DOUT << clef_str_ ;
 #endif
 }
 
 Clef_change_req::Clef_change_req (String s)
 {
-    clef_str_ = s;
+  clef_str_ = s;
 }
 /* *************** */
 
@@ -131,7 +131,7 @@ void
 Group_feature_req::do_print() const
 {
 #ifndef NPRINT
-    DOUT << type_str_ << "=" << value_str_;
+  DOUT << type_str_ << "=" << value_str_;
 #endif
 }
 
@@ -143,7 +143,7 @@ IMPLEMENT_IS_TYPE_B1(Partial_measure_req,Timing_req);
 void
 Partial_measure_req::do_print() const
 {
-    DOUT << duration_;
+  DOUT << duration_;
 }
 
 
@@ -153,52 +153,52 @@ void
 Meter_change_req::do_print() const
 {
 #ifndef NPRINT
-    DOUT << beats_i_ << "/" << one_beat_i_;
+  DOUT << beats_i_ << "/" << one_beat_i_;
 #endif
 }
 
 bool
 Meter_change_req::do_equal_b (Request * r)const
 {
-    Meter_change_req * m = r->command()->timing ()->meterchange ();
-    
-    return m->beats_i_ == beats_i_ 
+  Meter_change_req * m = r->command()->timing ()->meterchange ();
+  
+  return m->beats_i_ == beats_i_ 
 	&& one_beat_i_ == m->one_beat_i_;
 }
 
 Meter_change_req::Meter_change_req()
 {
-    beats_i_ = 0;
-    one_beat_i_ =0;
+  beats_i_ = 0;
+  one_beat_i_ =0;
 }
 
 void
 Meter_change_req::set (int b,int o)
 {
-    beats_i_=b;
-    one_beat_i_=o;
+  beats_i_=b;
+  one_beat_i_=o;
 }
 
 
 Tempo_req::Tempo_req()
 {
-    metronome_i_ = 60;
-    dur_. type_i_ = 4;
+  metronome_i_ = 60;
+  dur_. durlog_i_ = 2;
 }
 
 void
 Tempo_req::do_print()const
 {
-    DOUT << dur_.str() << " = " <<metronome_i_ ;
+  DOUT << dur_.str() << " = " <<metronome_i_ ;
 }
 IMPLEMENT_IS_TYPE_B1(Tempo_req, Timing_req);
 
 bool
 Tempo_req::do_equal_b (Request *r)const
 {
-    Tempo_req *t = r->command()->timing ()->tempo ();
-    
-    return t->dur_.length()== dur_.length () && metronome_i_ == t->metronome_i_;
+  Tempo_req *t = r->command()->timing ()->tempo ();
+  
+  return t->dur_.length()== dur_.length () && metronome_i_ == t->metronome_i_;
 }
 
 /* *************** */
@@ -209,7 +209,8 @@ IMPLEMENT_IS_TYPE_B1(Measure_grouping_req,Timing_req);
 void
 Measure_grouping_req::do_print() const
 {
-    for (int i=0; i < elt_length_arr_.size(); i++) {
+  for (int i=0; i < elt_length_arr_.size(); i++) 
+    {
 	DOUT << beat_i_arr_[i] <<"*" << elt_length_arr_[i]<<" ";
     }
 }
@@ -218,7 +219,7 @@ Measure_grouping_req::do_print() const
 bool 
 Measure_grouping_req::do_equal_b (Request*)const
 {
-    return false;		// todo
+  return false;		// todo
 }
 
 /* *************** */
@@ -226,8 +227,9 @@ Measure_grouping_req::do_equal_b (Request*)const
 void
 Key_change_req::transpose (Melodic_req const & d)const
 {
-    WARN << "don't know how to transpose a key. \n";
-    for (int i=0; i < melodic_p_arr_.size(); i++) {
+  WARN << "don't know how to transpose a key. \n";
+  for (int i=0; i < melodic_p_arr_.size(); i++) 
+    {
 	melodic_p_arr_[i]->transpose (d);
     }
 }
@@ -237,7 +239,8 @@ IMPLEMENT_IS_TYPE_B1(Key_change_req,Command_req);
 void
 Key_change_req::squash_octaves()
 {
-    for (int i=0; i < melodic_p_arr_.size(); i++) {
+  for (int i=0; i < melodic_p_arr_.size(); i++) 
+    {
 	melodic_p_arr_[i]->octave_i_ = 0;
     }
 }
@@ -246,7 +249,8 @@ void
 Key_change_req::do_print() const
 {
 #ifndef NPRINT
-    for (int i=0; i < melodic_p_arr_.size(); i++) {
+  for (int i=0; i < melodic_p_arr_.size(); i++) 
+    {
 	melodic_p_arr_[i]->print();
     }
 #endif
@@ -276,12 +280,13 @@ int
 Key_change_req::flats_i()
 {
 	int flats_i = 0;
-	for ( int i = 0; i < melodic_p_arr_.size(); i++) {
+	for ( int i = 0; i < melodic_p_arr_.size(); i++) 
+	  {
 		Melodic_req* mel_l = melodic_p_arr_[i]->melodic();
 		assert (mel_l);
 		if ( mel_l->accidental_i_ < 0)
 			flats_i -= mel_l->accidental_i_;
-	}
+	  }
 	return flats_i;
 }
 
@@ -295,12 +300,13 @@ int
 Key_change_req::sharps_i()
 {
 	int sharps_i = 0;
-	for ( int i = 0; i < melodic_p_arr_.size(); i++) {
+	for ( int i = 0; i < melodic_p_arr_.size(); i++) 
+	  {
 		Melodic_req* mel_l = melodic_p_arr_[i]->melodic();
 		assert (mel_l);
 		if ( mel_l->accidental_i_ > 0)
 			sharps_i+= mel_l->accidental_i_;
-	}
+	  }
 	return sharps_i;
 }
 
