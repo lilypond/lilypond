@@ -19,13 +19,14 @@
 
 class Instrument_name_engraver : public Engraver
 {
-  Item *text_;
-  Grob *delim_ ;
   
-  void create_text ();
 public:
   TRANSLATOR_DECLARATIONS(Instrument_name_engraver);
 
+protected:
+  Grob *text_;
+
+  virtual void create_text ();
   virtual void initialize ();
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
@@ -35,7 +36,6 @@ public:
 Instrument_name_engraver::Instrument_name_engraver ()
 {
   text_ = 0;
-  delim_ =0;
 }
 
 
@@ -57,31 +57,28 @@ Instrument_name_engraver::stop_translation_timestep ()
     }
 }
 
+
 void
 Instrument_name_engraver::create_text ()
 {
-   if (!text_)
-    {
-      SCM txt = get_property ("instrument");
+  if (text_)
+    return ;
   
-      if (now_mom () > Moment (0))
-	txt = get_property ("instr");
-      /*
-	UGH.
-      */
-      if (txt == SCM_EOL)
-	return ;
-      
-      text_ = make_item ("InstrumentName");
-      
-      if (text_->get_grob_property ("text") != txt)
-	text_->set_grob_property ("text", txt);
+  SCM txt = get_property ("instrument");
+  
+  if (now_mom () > Moment (0))
+    txt = get_property ("instr");
+  /*
+    UGH.
+  */
+  if (txt == SCM_EOL)
+    return ;
 
-      if (delim_)
-        text_->set_parent (delim_, Y_AXIS);
+  
+  text_ = make_item ("InstrumentName");
       
-      announce_grob (text_, SCM_EOL);
-    }
+  if (text_->get_grob_property ("text") != txt)
+    text_->set_grob_property ("text", txt);
 }
 
 void
@@ -136,4 +133,55 @@ ENTER_DESCRIPTION(Instrument_name_engraver,
 /* accepts */     "",
 /* acks  */      "bar-line-interface axis-group-interface",
 /* reads */       "instrument instr",
+/* write */       "");
+
+/****************************************************************/
+
+
+class Vocal_name_engraver : public Instrument_name_engraver
+{
+public:
+  TRANSLATOR_DECLARATIONS(Vocal_name_engraver);
+  virtual void create_text ();
+};
+
+
+Vocal_name_engraver::Vocal_name_engraver ()
+{
+}
+
+
+void
+Vocal_name_engraver::create_text ()
+{
+  if (text_)
+    return ;
+  
+  SCM txt = get_property ("vocalName");
+  
+  if (now_mom () > Moment (0))
+    txt = get_property ("vocNam");
+
+  /*
+    UGH.
+  */
+  if (txt == SCM_EOL)
+    return ;
+  
+  text_ = make_item ("VocalName");
+      
+  if (text_->get_grob_property ("text") != txt)
+    text_->set_grob_property ("text", txt);
+}
+
+
+
+ENTER_DESCRIPTION(Vocal_name_engraver,
+/* descr */       " Prints the name of the a lyric voice (specified by "
+" @code{Staff.vocalName} and @code{Staff.vocNam}) "
+"at the left of the staff. ",
+/* creats*/       "VocalName",
+/* accepts */     "",
+/* acks  */      "bar-line-interface axis-group-interface",
+/* reads */       "vocNam vocalName",
 /* write */       "");
