@@ -1,4 +1,4 @@
-ii/*
+/*
   lily-guile.hh encapsulate guile
 
   source file of the GNU LilyPond music typesetter
