@@ -3,9 +3,8 @@
 {
 
  texidoc = "It is possible to have different staff distances across
-piano systems, but it requires some advanced magic. Kids don't try this at home.
-
-"
+piano systems, but it requires some advanced magic. Kids don't try
+this at home.  "
 
 }
 

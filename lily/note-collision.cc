@@ -187,27 +187,51 @@ check_meshing_chords (Grob *me,
     {
       shift_amount = 0;
 
-      /* Wipe shortest head, or head with smallest amount of dots.
-	 Note: when merging different heads, dots on shortest
-	 disappear. */
-      
-      Grob *wipe_ball = nu;
+
+      /* If possible, don't wipe any heads. Else, wipe shortest head,
+	 or head with smallest amount of dots.  Note: when merging
+	 different heads, dots on the smaller one disappear. */
+      Grob *wipe_ball = 0;
+      Grob *dot_wipe_head = nu;
       
       if (upball_type == dnball_type)
 	{
 	  if (Rhythmic_head::dot_count (nd) < Rhythmic_head::dot_count (nu))
-	    wipe_ball = nd;
+	    {
+	      wipe_ball = nd;
+	      dot_wipe_head = nd;
+	    }
+	  else if (Rhythmic_head::dot_count (nd) > Rhythmic_head::dot_count (nu))
+	    {
+	      dot_wipe_head = nu;
+	      wipe_ball = nu;
+	    }
+	  else
+	    {
+	      dot_wipe_head = nu;
+	    }
 	}
       else if (dnball_type > upball_type)
-	wipe_ball = nd;
+	{
+	  wipe_ball = nd;
+	  dot_wipe_head = nd;
+	}
+      else if (dnball_type < upball_type)
+	{
+	  wipe_ball = nu;
+	  dot_wipe_head = nu;
+	}
 
-      if (wipe_ball->live ())
+      if (dot_wipe_head)
+	{
+	  if (Grob *d = unsmob_grob (dot_wipe_head->get_grob_property ("dot")))
+	    d->suicide ();
+	}
+      
+      if (wipe_ball && wipe_ball->live ())
 	{
 	  wipe_ball->set_grob_property ("transparent", SCM_BOOL_T);
 	  wipe_ball->set_grob_property ("stencil", SCM_EOL);
-
-	  if (Grob *d = unsmob_grob (wipe_ball->get_grob_property ("dot")))
-	    d->suicide ();
 	}
     }
   /* TODO: these numbers are magic; should devise a set of grob props
