@@ -44,13 +44,14 @@ The FTP site of RedHat Software.
 
 =back
 
-Beta releases will also be at
+At this moment we have about one development-patchlevel per week. 
+These development releases will also be at
 
 =over 4
 
-=item ftp://pcnov095.win.tue.nl/pub/lilypond
+=item ftp://pcnov095.win.tue.nl/pub/lilypond/development
 
-=item ftp://alpha.gnu.ai.mit.edu/gnu/lilypond/
+=item ftp://alpha.gnu.ai.mit.edu/gnu/lilypond/development
 
 =back
 
