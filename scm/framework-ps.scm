@@ -13,6 +13,21 @@
   (equal? (substring fontname 0 2) "cm"))
 
 
+(define (load-fonts bookpaper)
+  
+  (let*
+      ((fonts (ly:bookpaper-fonts bookpaper))
+       (font-names (uniq-list (sort (map ly:font-filename fonts) string<?)))
+       (pfas (map
+	      (lambda (x)
+		(ly:kpathsea-gulp-file (string-append x ".pfa")))
+	      
+	      (filter string? font-names)))
+       )
+
+    (string-join pfas "\n")))
+
+
 (define (define-fonts bookpaper)
 
   (define font-list (ly:bookpaper-fonts bookpaper))
@@ -28,8 +43,10 @@
        "/" command "{ /" command " findfont 1 scalefont } bind def\n")))
   
   (define (guess-ps-fontname basename)
+    
     "We do not have the FontName, try to guess is from basename."
     (cond
+     (#t basename)
      ((tex-font? basename)
       ;; FIXME: we need proper Fontmap for the bluesky CM*, EC* fonts.
       ;; Only the fonts that we trace in mf/ are in our own FontMap.
@@ -112,15 +129,6 @@
   (string-append
    "%!PS-Adobe-3.0\n"
    "%%Creator: creator time-stamp \n"
-   "%%Pages: " (number->string page-count) "\n"
-   "%%PageOrder: Ascend\n"
-   "%%DocumentPaperSizes: " (ly:output-def-lookup paper 'papersize) "\n"
-   ;;(string-append "GNU LilyPond (" (lilypond-version) "), ")
-   ;;	   (strftime "%c" (localtime (current-time))))
-   ;; FIXME: duplicated in every backend
-   (ps-string-def
-    "lilypond" 'tagline
-    (string-append "Engraved by LilyPond (version " (lilypond-version) ")"))
    ))
 
 (define (dump-page outputter page page-number page-count)
@@ -150,6 +158,10 @@
 	    (length pages)
 	    #f)
 
+   "%%Pages: " (number->string page-count) "\n"
+   "%%PageOrder: Ascend\n"
+   "%%DocumentPaperSizes: " (ly:output-def-lookup bookpaper 'papersize) "\n"
+    
     (output-variables bookpaper)
     (ly:gulp-file "music-drawing-routines.ps")
     (ly:gulp-file "lilyponddefs.ps")
@@ -165,40 +177,63 @@
   ))
 
 
-(define (dump-line outputter system)
-  (ly:outputter-dump-string
-   outputter
-    " start-system {\n set-ps-scale-to-lily-scale\n")
-  (ly:outputter-dump-stencil outputter (ly:page-line-stencil system))
-  (ly:outputter-dump-string
-   outputter
-  "} stop-system\n"))
 
   
 (define-public (output-classic-framework-ps outputter book scopes fields basename)
   (let*
       ((bookpaper  (ly:paper-book-book-paper book))
        (lines (ly:paper-book-lines book))
-       (pageno 0)
-       (page-count (length lines))
+       (y 0.0)
+       (scale (* 2.83464 (ly:output-def-lookup bookpaper 'outputscale)))
+       (total-y (apply + (map (lambda (z) (ly:paper-line-extent z Y))  lines)))
+       (x-ext '(-8 . 0))
+       (lineno 0)
        )
+    
+    (define (dump-line outputter system)
+      (let*
+	  ((stil  (ly:paper-line-stencil  system)))
+	   
+      (ly:outputter-dump-string
+       outputter
+       (string-append
+	" 0.0 "
+	(ly:number->string y)
+	" start-system {\n set-ps-scale-to-lily-scale\n"))
+      (set! y (+ y (ly:paper-line-extent system Y)))
+      (ly:outputter-dump-stencil outputter stil)
+      (ly:outputter-dump-string
+       outputter
+       "} stop-system\n")))
+
+    (define (to-pt x)
+      (inexact->exact (round (* scale x))))
+    (for-each (lambda (l)
+		(set! x-ext (interval-union x-ext (cons 0.0 (ly:paper-line-extent l X))))
+		)
+		lines)
   (for-each
    (lambda (x)
      (ly:outputter-dump-string outputter x))
    (list
-    (header bookpaper
-	    (length pages)
-	    #f)
-
+    "%!PS-Adobe-2.0 EPSF-2.0\n"
+    "%%Creator: LilyPond \n"
+    "%%BoundingBox: "
+    (ly:number->string (to-pt (car x-ext))) " "
+    (ly:number->string (to-pt 0)) " " 
+    (ly:number->string (to-pt (cdr x-ext))) " "
+    (ly:number->string (to-pt total-y)) "\n"
+    "%%EndComments\n"
     (output-variables bookpaper)
     (ly:gulp-file "music-drawing-routines.ps")
     (ly:gulp-file "lilyponddefs.ps")
+    (load-fonts bookpaper)
     (define-fonts bookpaper)
     ))
 
   (for-each
    (lambda (line)
-     (set! pageno (1+ pageno))
+     (set! lineno (1+ lineno))
      (dump-line outputter line)) ;   pageno page-count))
    lines)
   (ly:outputter-dump-string outputter "\n")

@@ -154,7 +154,7 @@ Paper_book::output (String outname)
       if (ly_c_module_p (header_))
 	scopes = scm_cons (header_, scopes);
   
-      String func_nm = output_format_global;
+      String func_nm = format;
       func_nm = "output-framework-" + func_nm;
 	
       SCM func = ly_scheme_function (func_nm.to_str0 ());
@@ -174,8 +174,6 @@ Paper_book::output (String outname)
 void
 Paper_book::classic_output (String outname)
 {
-  String format = "tex";
-  Paper_outputter *out = get_paper_outputter (outname + "." + format, format);
 
   /* Generate all stencils to trigger font loads.  */
   lines ();
@@ -189,19 +187,31 @@ Paper_book::classic_output (String outname)
   if (ly_c_module_p (score_lines_[0].header_))
     scopes = scm_cons (score_lines_[0].header_, scopes);
   //end ugh
-  
-  String func_nm = output_format_global;
-  func_nm = "output-classic-framework-" + func_nm;
-      
-  SCM func = ly_scheme_function (func_nm.to_str0 ());
-  scm_apply_0 (func, scm_list_n (out->self_scm (),
-				 self_scm (),
-				 scopes,
-				 dump_fields (),
-				 scm_makfrom0str (outname.to_str0 ()),
-				 SCM_UNDEFINED
-				 )) ;
 
+
+  Array<String> output_formats = split_string (output_format_global, ',');
+
+  for (int i = 0; i < output_formats.size (); i++)
+    {
+      String format = output_formats[i];
+      String func_nm = format;
+      func_nm = "output-classic-framework-" + func_nm;
+      
+      SCM func = ly_scheme_function (func_nm.to_str0 ());
+
+      Paper_outputter *out = get_paper_outputter (outname + "." + format, format);
+
+      scm_apply_0 (func, scm_list_n (out->self_scm (),
+				     self_scm (),
+				     scopes,
+				     dump_fields (),
+				     scm_makfrom0str (outname.to_str0 ()),
+				     SCM_UNDEFINED
+				     )) ;
+
+      scm_gc_unprotect_object (out->self_scm ());
+    }
+  
   progress_indication ("\n");
 }
 
@@ -428,11 +438,11 @@ c_ragged_page_breaks (SCM lines,
   Real book_height =0.;
   for (SCM s = lines ; ly_c_pair_p (s);  s = ly_cdr (s))
     {
-      book_height += unsmob_paper_line (s)->dim ()[Y_AXIS];
+      book_height += unsmob_paper_line (ly_car (s))->dim ()[Y_AXIS];
     }
 
   /*
-    UGH.
+    UGH. following stuff should go out of C++.
    */
   SCM scopes = SCM_EOL;
   if (ly_c_module_p (book->header_))

@@ -196,7 +196,7 @@ LY_DEFINE (ly_font_name,"ly:font-name",
 	   1, 0, 0,
 	   (SCM font),
 	   "Given the font metric @var{font}, "
-	   "return the corresponding file name.")
+	   "return the corresponding name.")
 {
   Font_metric *fm = unsmob_metrics (font);
       

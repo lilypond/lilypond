@@ -195,7 +195,7 @@ default_rendering (SCM music, SCM outdef,
 	    ugh, this is strange, Paper_book without a Book object.
 	   */
 	  Paper_book *paper_book = new Paper_book ();
-
+	  paper_book->header_ = header;
 	  paper_book->bookpaper_ = unsmob_output_def (scaled_bookdef);
 	  
 	  Score_lines sc;

@@ -795,9 +795,12 @@ def process_snippets (cmd, snippets):
 
 	if format == HTML or format == TEXINFO:
 		for i in names:
-			if os.path.exists (i + '.tex'):
+			if not os.path.exists (i + '.ps') and os.path.exists (i + '.tex'):
 				to_eps (i)
 				ly.make_ps_images (i + '.eps', resolution=110)
+			elif os.path.exists (i + '.ps'):
+				ly.make_ps_images (i + '.ps', resolution=110)
+
 
 LATEX_DOCUMENT = r'''
 %(preamble)s

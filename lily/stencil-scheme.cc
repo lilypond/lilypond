@@ -13,8 +13,7 @@
   TODO: naming add/combine.
  */
 /*
-  UMGH. junkme!
-  
+  UGH. Junk all mutators.
  */
 LY_DEFINE (ly_stencil_set_extent_x, "ly:stencil-set-extent!",
 	   3, 0, 0, (SCM stil, SCM axis, SCM np),

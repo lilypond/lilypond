@@ -456,15 +456,22 @@ def make_ps_images (ps_name, resolution = 90):
 	base = re.sub (r'\.e?ps', '', ps_name)
 	
 	header = open (ps_name).read (1024)
+
+	match = re.match (BOUNDING_BOX_RE, header)
+	bbox = []
+	if match:
+		bbox = map (string.atoi, match.groups ())
+
 	multi_page = re.search ('\n%%Pages: ', header)
 	cmd = ''
 
 	if multi_page == None:
-		bbox = get_bbox (ps_name)
+
+		if bbox == []:
+			bbox = get_bbox (ps_name)
+			
 		trans_ps = ps_name + '.trans.ps'
 		output_file = re.sub (r'\.e?ps', '.png', ps_name)
-	
-
 
 		# need to have margin, otherwise edges of letters will
 		# be cropped off.
@@ -508,3 +515,8 @@ def make_ps_images (ps_name, resolution = 90):
 		os.unlink (png)
 		error (_ ("Removing output file"))
 		exit (1)
+
+
+	cmd = r'''gs -s  -sDEVICE=pnggray  -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -q -sOutputFile=%s -dNOPAUSE -r%d %s -c quit''' % (output_file,
+																      resolution, ps_name)
+
