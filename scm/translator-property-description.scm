@@ -78,20 +78,41 @@ The head of the list:
 
 @end example")
 
+(translator-property-description 'autoAccidentals list? "List of
+different ways to typeset an accidental. All algorithms in the list
+are tried, and the one returning the most accidentals is used.
+Each algorithm-description is a name-value pair.
+The algorithms are:
+@table @samp
+@item measure-same-octave:
+This is the default algorithm. Accidentals are typeset if the note changes
+the accidental of that note in that octave. Accidentals lasts to the end of the measure 
+and then as many measures as specified in the value. I.e. 1 means to the end
+of next measure, -1 means to the end of previous measure (that is: no duration at all), etc.
+@item measure-any-octave:
+Accidentals are typeset if the note is different from 
+the previous note on the same pitch in any octave. The value has same meaning as in
+measure-same-octave.
+@end table
+")
+
+(translator-property-description 'autoCautionaries list? "List similar to
+autoAccidentals, but it controls cautionary accidentals rather than
+normal ones. Both lists are tried, and the one giving the most accidentals
+wins. In case of draw, a normal accidental is typeset.
+")
+
 (translator-property-description 'automaticPhrasing boolean? " If set,
 the @ref{Lyric_phrasing_engraver} will match note heads of context
 called Voice X to syllables from LyricsVoice called
 X-<something>. This feature is turned on by default. See the example
 file @file{lyrics-multi-stanza.ly}.
-
 ")
+
 (translator-property-description 'automaticMelismata boolean? " If
 set, \addlyrics will assume that beams, slurs and ties signal
 melismata, and align lyrics accordingly.
 ")
-
-(translator-property-description 'autoReminders symbol? "If set to @samp{accidental} or @samp{cautionary},
-a (reminder) accidental automatically is inserted whenever an accidental is reverted - even after a bar.")
 
 (translator-property-description 'barAlways boolean? " If set to true a bar line is drawn after each note.
 ")
@@ -178,7 +199,10 @@ procedure? "visibility-lambda function for explicit Key changes;
 \override of #'visibility-lambda will set the visibility for normal
 (ie. at the start of the line) key signatures.")
 
-
+(translator-property-description 'extraNatural boolean? "Whether to typeset an
+extra natural sign before accidentals changing from a non-natural to 
+another non-natural.
+")
 (translator-property-description 'followVoice boolean?
 				 "if set, note heads are tracked  across staff switches by a thin line")
 (translator-property-description 'fontSize integer?
@@ -186,13 +210,6 @@ procedure? "visibility-lambda function for explicit Key changes;
 in a context. This is done using the @code{Font_size_engraver}.")
 
 (translator-property-description 'forceClef boolean? "Show clef symbol, even if it hasn't changed. Only active for the first clef after the property is set, not for the full staff.")
-(translator-property-description 'forgetAccidentals boolean? "do
-not set localKeySignature when a note alterated differently from
-localKeySignature is found.
-
-Causes accidentals to be printed at every note instead of
-remembered for the duration of a measure.
-")
 (translator-property-description 'graceAccidentalSpace number? "amount space to alot for an accidental")
 (translator-property-description 'graceAlignPosition dir? "put the grace note before or after the main note?")
 (translator-property-description 'instr markup? "see @code{instrument}")
@@ -211,13 +228,13 @@ remembered for the duration of a measure.
 Alist that defines in what order  alterations should be printed.
 The format is (NAME . ALTER), where NAME is from 0 .. 6 and ALTER from  -1, 1.
 ")
-(translator-property-description 'keySignature list? "The current key signature. This is an alist containing (NAME . ALTER) or ((OCTAVE . NAME) . ALTER) pairs, where NAME is from 0.. 6 and ALTER from -2,-1,0,1,2 ")
+(translator-property-description 'keySignature list? "The current key signature. This is an alist containing (NAME . ALTER) or ((OCTAVE . NAME) . ALTER) or ((OCTAVE . NAME) . (ALTER . BARNUMBER)) pairs, where NAME is from 0.. 6 and ALTER from -2,-1,0,1,2. The optional barnumber contains the number of the measure of the accidental. FIXME: describe broken tie entries.")
 
 (translator-property-description 'lastKeySignature list? "Last key
 signature before a key signature change.")
 
 (translator-property-description 'localKeySignature list? "the key
-signature at this point in the measure.  The format is the same as for keySignature. "
+signature at this point in the measure.  The format is the same as for keySignature. Is reset at every bar line."
 ) 
 
 (translator-property-description 'measureLength moment? "Length of one
@@ -236,14 +253,6 @@ MIDI instrument to use ")
 (translator-property-description 'noAutoBeaming boolean? "If set to true then beams are not generated automatically.
 ")
 (translator-property-description 'noDirection boolean? "Don't set directions by a2-engraver when part-combining.")
-(translator-property-description 'noResetKey boolean? "Do not
-reset local key to the value of keySignature at the start of a measure,
-as determined by measurePosition.
-
-Do not reset the key at the start of a measure.  Accidentals will be
-printed only once and are in effect until overridden, possibly many
-measures later.
-")
 (translator-property-description 'oneBeat moment? "  How long does one beat in the current time signature last?")
 (translator-property-description 'pedalSustainStrings list? "List of   string to print for sustain-pedal. Format is
  (UP UPDOWN DOWN), where each of the three is the string to print when
