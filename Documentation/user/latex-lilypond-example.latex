@@ -1,11 +1,13 @@
-%
-% This is way too long and hairy
-%
-%
-
-
-
 \documentclass[a4paper, 12pt]{article}
+% keep \documentclass on 1st line for lilypond-book auto-detection
+
+%
+% This is way too long and hairy -- 
+%
+%
+
+
+
 
 %\def\preLilyPondExample{}
 %\def\postLilyPondExample{}

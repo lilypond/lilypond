@@ -896,6 +896,7 @@ def get_latex_textwidth (source):
 ext2format = {
 	'.html' : HTML,
 	'.itely' : TEXINFO,
+	'.latex' : LATEX,
 	'.lytex' : LATEX,
 	'.tely' : TEXINFO,
 	'.tex': LATEX,
