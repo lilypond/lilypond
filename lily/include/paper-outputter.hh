@@ -23,11 +23,13 @@
 class Paper_outputter
 {
   SCM output_module_;
-  SCM file_;
   String filename_;
+  SCM file_;
+
+  SCM file ();
 
 public:
-  DECLARE_SMOBS(Paper_outputter,);
+  DECLARE_SMOBS (Paper_outputter,);
 
 public:
   SCM dump_string (SCM);
@@ -37,7 +39,7 @@ public:
   void output_stencil (Stencil);
 };
 
-Paper_outputter* get_paper_outputter (String,String);
-DECLARE_UNSMOB(Paper_outputter, outputter);
+Paper_outputter *get_paper_outputter (String, String);
+DECLARE_UNSMOB (Paper_outputter, outputter);
 
 #endif /* PAPER_OUTPUTTER_HH */
