@@ -5,8 +5,7 @@
 
 $(outdir)/%.latex: %.doc
 	-chmod a+w $@
-	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES)\
-$(LILYPOND_BOOK_FLAGS) --verbose --dependencies --outdir=$(outdir) $<
+	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) $(LILYPOND_BOOK_FLAGS) --verbose --dependencies --outdir=$(outdir) $<
 	chmod -w $@
 
 # don't do ``cd $(outdir)'', and assume that $(outdir)/.. is the src dir.
@@ -14,14 +13,14 @@ $(LILYPOND_BOOK_FLAGS) --verbose --dependencies --outdir=$(outdir) $<
 $(outdir)/%.texi: %.tely
 	-chmod a+w $@
 	set|egrep '(TEX|LILY)'  # ugh, what's this?
-	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --dependencies --outdir=$(outdir) --format=texi --verbose $(LILYPOND_BOOK_FLAGS) $<
+	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --dependencies --outdir=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) --verbose $(LILYPOND_BOOK_FLAGS) $<
 	chmod -w $@
 
 $(outdir)/%.texi: $(outdir)/%.tely
 	-chmod a+w $@
 # debugging:
 #	set|egrep '(TEX|LILY)'
-	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --dependencies --outdir=$(outdir) --format=texi --verbose $(LILYPOND_BOOK_FLAGS) $<
+	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --dependencies --outdir=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) --verbose $(LILYPOND_BOOK_FLAGS) $<
 #
 # DON'T REMOVE SOURCE FILES, otherwise the .TEXI ALWAYS OUT OF DATE.
 #	rm -f $<
@@ -31,7 +30,7 @@ $(outdir)/%.texi: $(outdir)/%.tely
 # for plain info doco: don't run lily
 $(outdir)/%.nexi: %.tely
 	-chmod a+w $@
-	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --dependencies --outdir=$(outdir) --format=texi --no-lily $(LILYPOND_BOOK_FLAGS) $<
+	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --dependencies --outdir=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) --no-lily $(LILYPOND_BOOK_FLAGS) $<
 	mv $(@D)/$(*F).texi $@
 	chmod -w $@
 

@@ -1,7 +1,17 @@
 2002-10-15  Werner Lemberg  <wl@gnu.org>
 
-	* scripts/lilypond-book.py (schedule_lilypond_block): Don't compute
-	EPS and PNG for texinfo.
+	* scripts/lilypond-book.py (g_make_html): New global variable.
+	(schedule_lilypond_block): Don't compute EPS and PNG for `texi'
+	if `g_make_html' isn't set.
+	[main]: Add format `texi-html'.
+	(option_definitions): Updated.
+	* Documentation/user/lilypond-book.itely: Updated.
+
+	* make/lilypond-vars.make (LILYPOND_BOOK_FORMAT): New variable.
+	* make/ly-rules.make (%.texi, %.nexi): Use it.
+	* stepmake/stepmake/www-targets.make (web): Pass `tex-html' as
+	format to lilypond-book.
+	* GNUmakefile.in (web-doc): Ditto.
 
 2002-10-14  Werner Lemberg  <wl@gnu.org>
 

@@ -13,7 +13,7 @@ local-web:
 	$(MAKE) out=www local-WWW
 
 web:
-	$(MAKE) out=www WWW
+	$(MAKE) out=www LILYPOND_BOOK_FORMAT=texi-html WWW
 
 local-WWW-clean:
 	rm -f $(outdir)/*

@@ -169,6 +169,7 @@ g_force_music_fontsize = 0
 g_read_lys = 0
 g_do_pictures = 1
 g_do_music = 1
+g_make_html = 0
 
 format = ''
 g_run_lilypond = 1
@@ -329,7 +330,7 @@ html_linewidths = {
 	'letterpaper': {12: in2pt(6)}}
 
 option_definitions = [
-	('EXT', 'f', 'format', 'use output format EXT (texi [default], latex, html)'),
+	('EXT', 'f', 'format', 'use output format EXT (texi [default], texi-html, latex, html)'),
 	('DIM',  '', 'default-music-fontsize', 'default fontsize for music.  DIM is assumed to be in points'),
 	('DIM',  '', 'default-lilypond-fontsize', 'deprecated, use --default-music-fontsize'),
 	('OPT', '', 'extra-options' , 'pass OPT quoted to the lilypond command line'),
@@ -1039,7 +1040,7 @@ def schedule_lilypond_block (chunk):
 		update_file(file_body, os.path.join(g_outdir, basename) + '.ly')
 	needed_filetypes = ['tex']
 
-	if format == 'html':
+	if format == 'html' or g_make_html:
 		needed_filetypes.append ('eps')
 		needed_filetypes.append ('png')
 	if 'eps' in opts and not ('eps' in needed_filetypes):
@@ -1497,6 +1498,9 @@ for opt in options:
 		__main__.verbose_p = 1
 	elif o == '--format' or o == '-f':
 		__main__.format = a
+		if a == 'texi-html':
+			__main__.format = 'texi'
+			g_make_html = 1
 	elif o == '--outname' or o == '-o':
 		if len(files) > 1:
 			#HACK
