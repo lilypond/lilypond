@@ -13,6 +13,8 @@
 
 	* Documentation/user/refman.itely: add modulo-bar-number-visible.
 
+	* Documentation/user/music-glossary.tely: translate into Finnish.
+
 2002-12-10  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el: add shortcut for 2midi
