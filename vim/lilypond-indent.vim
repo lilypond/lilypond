@@ -12,7 +12,7 @@ endif
 let b:did_indent = 1
 
 setlocal indentexpr=GetLilyPondIndent()
-setlocal indentkeys+==},>>,!^F
+setlocal indentkeys=o,O,},>>,!^F
 
 " Only define the function once.
 if exists("*GetLilyPondIndent")
@@ -34,7 +34,7 @@ function GetLilyPondIndent()
   endif
 
   "Check if a block was ended: '}' or '>>' is the first non-blank character of the current line.
-  elseif getline(v:lnum) =~ '^\s*\(}\|>>\)'
+  if getline(v:lnum) =~ '^\s*\(}\|>>\)'
     let ind = ind - &sw
   endif
 
