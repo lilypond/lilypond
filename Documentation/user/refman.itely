@@ -3418,12 +3418,21 @@ command is rather kludgey, and slated for rewriting.
 @cindex page breaks
 @cindex breaking pages
 
-
 Page breaks are normally computed by @TeX{}, so they are not under
 direct control of LilyPond.  However, you can insert a commands into the
-@file{.tex} output to instruct @TeX{} where to break pages. For more
-details, see the example file @file{input/test/between-systems.ly}
+@file{.tex} output to instruct @TeX{} where to break pages, by inserting
+the command @code{\newpage}
+@cindex @code{\newpage}
 
+@example
+  \newpage
+@end example
+
+@c why do so difficult?
+@c maybe should explain contents of between-system.ly,
+@c but not now, we're talking about page breaks here.
+@c For more
+@c details, see the example file @file{input/test/between-systems.ly}
 
 
 @c .  {Output scaling}

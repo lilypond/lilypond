@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-05-09 16:11+0200\n"
+"POT-Creation-Date: 2001-05-18 15:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: August S.Sigov <august@infran.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -14,167 +14,163 @@ msgstr ""
 "Content-Type: text/plain; charset=koi8-r\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: ly2dvi.py:96
+#: ly2dvi.py:105
 msgid "Generate .dvi with LaTeX for LilyPond"
 msgstr ""
 
-#: data-file.cc:118 input.cc:85 ly2dvi.py:177 midi-parser.cc:100 mup2ly.py:93
+#: data-file.cc:118 input.cc:85 ly2dvi.py:190 midi-parser.cc:100 mup2ly.py:93
 #: update-lily.py:118 warn.cc:23
 msgid "warning: "
 msgstr "предупреждаю: "
 
-#: ly2dvi.py:182
-msgid "Report the error S.  Exit by raising an exception. Please"
-msgstr ""
-
-#: input.cc:90 ly2dvi.py:192 ly2dvi.py:790 mup2ly.py:98 mup2ly.py:188
+#: input.cc:90 ly2dvi.py:205 ly2dvi.py:830 mup2ly.py:98 mup2ly.py:188
 #: update-lily.py:123 update-lily.py:211 warn.cc:9 warn.cc:17
 msgid "error: "
 msgstr "ошибка: "
 
-#: ly2dvi.py:193 mup2ly.py:100 update-lily.py:125
+#: ly2dvi.py:206 mup2ly.py:100 update-lily.py:125
 msgid "Exiting ... "
 msgstr ""
 
-#: ly2dvi.py:251 mup2ly.py:158 update-lily.py:183
+#: ly2dvi.py:264 mup2ly.py:158 update-lily.py:183
 #, fuzzy, c-format
 msgid "Usage: %s [OPTION]... FILE"
 msgstr "Использование: %s [ОПЦИЯ]... [ФАЙЛ]"
 
-#: ly2dvi.py:255 main.cc:120 main.cc:148 mup2ly.py:162 update-lily.py:187
+#: ly2dvi.py:268 main.cc:120 main.cc:148 mup2ly.py:162 update-lily.py:187
 msgid "Options:"
 msgstr "Опции:"
 
-#: ly2dvi.py:259 main.cc:124 main.cc:171 mup2ly.py:168 update-lily.py:191
+#: ly2dvi.py:272 main.cc:124 main.cc:171 mup2ly.py:168 update-lily.py:191
 #, c-format
 msgid "Report bugs to %s"
 msgstr "Сообщайте об ошибках по %s"
 
-#: ly2dvi.py:286 mup2ly.py:185 update-lily.py:208
+#: ly2dvi.py:305 mup2ly.py:185 update-lily.py:208
 #, fuzzy, c-format
 msgid "Invoking `%s'"
 msgstr "Выбрасываю музыку: `%s'"
 
-#: ly2dvi.py:290 mup2ly.py:188 update-lily.py:211
+#: ly2dvi.py:309 mup2ly.py:188 update-lily.py:211
 #, c-format
 msgid "command exited with value %d"
 msgstr ""
 
-#: ly2dvi.py:292 mup2ly.py:190 update-lily.py:213
+#: ly2dvi.py:311 mup2ly.py:190 update-lily.py:213
 msgid "(ignored)"
 msgstr ""
 
-#: ly2dvi.py:302
+#: ly2dvi.py:321
 #, fuzzy, c-format
 msgid "Cleaning %s..."
 msgstr "Выбрасываю музыку: `%s'"
 
-#: ly2dvi.py:317 mup2ly.py:214 update-lily.py:237
+#: ly2dvi.py:336 mup2ly.py:214 update-lily.py:237
 #, fuzzy, c-format
 msgid "no such setting: %s"
 msgstr "нет такого инструмента: `%s'"
 
-#: ly2dvi.py:330 main.cc:112
+#: ly2dvi.py:349 main.cc:112
 msgid "write Makefile dependencies for every input file"
 msgstr "записывать зависимости Makefile для каждого входного файла"
 
-#: ly2dvi.py:331 main.cc:96 main.cc:108 mup2ly.py:1117 update-lily.py:251
+#: ly2dvi.py:350 main.cc:96 main.cc:108 mup2ly.py:1117 update-lily.py:251
 msgid "this help"
 msgstr "эта справка"
 
-#: ly2dvi.py:332 main.cc:110 main.cc:115
+#: ly2dvi.py:351 main.cc:110 main.cc:115
 msgid "DIR"
 msgstr "КАТ"
 
-#: ly2dvi.py:332
+#: ly2dvi.py:351
 #, fuzzy
 msgid "add DIR to LilyPond's search path"
 msgstr "добавить КАТ к пути поиска"
 
-#: ly2dvi.py:333
+#: ly2dvi.py:352
 #, c-format
 msgid "keep all output, and name the directory %s.dir"
 msgstr ""
 
-#: ly2dvi.py:334
+#: ly2dvi.py:353
 msgid "don't run LilyPond"
 msgstr ""
 
-#: ly2dvi.py:335 main.cc:113
+#: ly2dvi.py:354 main.cc:113
 msgid "produce MIDI output only"
 msgstr "производить вывод только MIDI"
 
-#: ly2dvi.py:336 main.cc:99 main.cc:111 main.cc:114
+#: ly2dvi.py:355 main.cc:99 main.cc:111 main.cc:114
 msgid "FILE"
 msgstr "ФАЙЛ"
 
-#: ly2dvi.py:336
+#: ly2dvi.py:355
 #, fuzzy
 msgid "write ouput to FILE"
 msgstr "записывать вывод в ОСНОВА[-x].расширение"
 
-#: ly2dvi.py:338
+#: ly2dvi.py:357
 msgid "generate PostScript output"
 msgstr ""
 
-#: ly2dvi.py:339
+#: ly2dvi.py:358
 msgid "KEY=VAL"
 msgstr ""
 
-#: ly2dvi.py:339
+#: ly2dvi.py:358
 msgid "change global setting KEY to VAL"
 msgstr ""
 
-#: ly2dvi.py:340 main.cc:118 mup2ly.py:1120 update-lily.py:255
+#: ly2dvi.py:359 main.cc:118 mup2ly.py:1120 update-lily.py:255
 #, fuzzy
 msgid "verbose"
 msgstr "быть болтливым"
 
-#: ly2dvi.py:341 main.cc:105 main.cc:117 mup2ly.py:1121 update-lily.py:256
+#: ly2dvi.py:360 main.cc:105 main.cc:117 mup2ly.py:1121 update-lily.py:256
 msgid "print version number"
 msgstr "выводить номер версии"
 
-#: ly2dvi.py:342 main.cc:107 main.cc:119 mup2ly.py:1122 update-lily.py:258
+#: ly2dvi.py:361 main.cc:107 main.cc:119 mup2ly.py:1122 update-lily.py:258
 msgid "show warranty and copyright"
 msgstr "показать гарантию и copyright"
 
-#: ly2dvi.py:364 ly2dvi.py:577 ly2dvi.py:602
+#: ly2dvi.py:383 ly2dvi.py:604 ly2dvi.py:629
 #, fuzzy, c-format
 msgid "Running %s..."
 msgstr "Выбрасываю музыку: `%s'"
 
-#: ly2dvi.py:377
+#: ly2dvi.py:396
 #, fuzzy, c-format
 msgid "Analyzing %s..."
 msgstr "Выбрасываю музыку: `%s'"
 
-#: ly2dvi.py:433
+#: ly2dvi.py:452
 #, c-format
 msgid "no lilypond output found for %s"
 msgstr ""
 
-#: ly2dvi.py:475
+#: ly2dvi.py:494
 #, fuzzy, c-format
 msgid "invalid value: %s"
 msgstr "неверный символ: `%c'"
 
-#: ly2dvi.py:770 scores.cc:44
+#: ly2dvi.py:807 scores.cc:44
 #, fuzzy, c-format
 msgid "dependencies output to `%s'..."
 msgstr "\"бумажный\" вывод в %s..."
 
-#: ly2dvi.py:780
+#: ly2dvi.py:817
 #, fuzzy, c-format
 msgid "%s output to `%s'..."
 msgstr "вывод MIDI в %s..."
 
-#: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:782
+#: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:819
 #: midi-score-parser.cc:24 scores.cc:136 scores.cc:142
 #, c-format
 msgid "can't find file: `%s'"
 msgstr "не могу найти файл: `%s'"
 
-#: ly2dvi.py:790
+#: ly2dvi.py:830
 msgid "no files specified on command line."
 msgstr ""
 
@@ -292,12 +288,7 @@ msgstr ""
 msgid "relax, %s is up to date"
 msgstr ""
 
-#: update-lily.py:435
-#, fuzzy, c-format
-msgid "Fetching `%'s..."
-msgstr "Выбрасываю музыку: `%s'"
-
-#: update-lily.py:448
+#: update-lily.py:435 update-lily.py:448
 #, fuzzy, c-format
 msgid "Fetching `%s'..."
 msgstr "Выбрасываю музыку: `%s'"
@@ -366,17 +357,17 @@ msgstr "ошибка программирования: "
 msgid " (Continuing; cross thumbs)"
 msgstr " (Продолжаю; скрестите пальцы)"
 
-#: afm.cc:53
+#: afm.cc:59
 #, c-format
 msgid "can't find character number: %d"
 msgstr "не могу найти символ с номером: %d"
 
-#: afm.cc:68
+#: afm.cc:74
 #, c-format
 msgid "can't find character called: `%s'"
 msgstr "не могу найти символ под названием: `%s'"
 
-#: afm.cc:118
+#: afm.cc:124
 #, fuzzy, c-format
 msgid "Error parsing AFM file: `%s'"
 msgstr "Ошибка при анализе файла AFM"
@@ -730,7 +721,7 @@ msgstr "глупая продолжительность"
 msgid "silly pitch"
 msgstr "глупый тон"
 
-#: musical-request.cc:29
+#: musical-request.cc:28
 #, c-format
 msgid "Transposition by %s makes accidental larger than two"
 msgstr ""
@@ -935,7 +926,7 @@ msgstr ""
 msgid "Now processing: `%s'"
 msgstr "неизвестная escape-последовательность: `\\%s'"
 
-#: script-engraver.cc:67
+#: script-engraver.cc:66
 #, c-format
 msgid "Don't know how to interpret articulation `%s'"
 msgstr ""
@@ -946,11 +937,11 @@ msgstr ""
 msgid "Separation_item:  I've been drinking too much"
 msgstr "Single_malt_grouping_item: я лишком много выпил"
 
-#: slur.cc:49
+#: slur.cc:48
 msgid "Putting slur over rest.  Ignoring."
 msgstr "Лига над паузой. Игнорирую."
 
-#: slur.cc:379
+#: slur.cc:383
 msgid "Slur over rest?"
 msgstr "Лига над паузой?"
 
@@ -1149,58 +1140,58 @@ msgstr "Должен быть в Аккордном режиме для аккордов"
 msgid "need integer number arg"
 msgstr ""
 
-#: lexer.ll:172
+#: lexer.ll:174
 msgid "EOF found inside a comment"
 msgstr "Конец файла внутри комментария"
 
-#: lexer.ll:186
+#: lexer.ll:188
 msgid "\\maininput disallowed outside init files"
 msgstr ""
 
-#: lexer.ll:210
+#: lexer.ll:212
 #, fuzzy, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr "неизвестная метка/команда: `%s'"
 
 #. backup rule
-#: lexer.ll:219
+#: lexer.ll:221
 msgid "Missing end quote"
 msgstr "Отсутсвует заключительная кавычка"
 
 #. backup rule
-#: lexer.ll:241 lexer.ll:245
+#: lexer.ll:243 lexer.ll:247
 msgid "white expected"
 msgstr "в то время как ожидалось"
 
-#: lexer.ll:254
+#: lexer.ll:256
 msgid "Can't evaluate Scheme in safe mode"
 msgstr "Не могу выполнять код схемы в безопасном режиме"
 
-#: lexer.ll:347
+#: lexer.ll:349
 msgid "Brace found at end of lyric. Did you forget a space?"
 msgstr ""
 
-#: lexer.ll:455
+#: lexer.ll:457
 #, c-format
 msgid "invalid character: `%c'"
 msgstr "неверный символ: `%c'"
 
-#: lexer.ll:536
+#: lexer.ll:538
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr "неизвестная escape-последовательность: `\\%s'"
 
-#: lexer.ll:615
+#: lexer.ll:617
 #, c-format
 msgid "Oldest supported input version: %s"
 msgstr ""
 
-#: lexer.ll:627
+#: lexer.ll:629
 #, fuzzy, c-format
 msgid "incorrect lilypond version: %s (%s, %s)"
 msgstr "неверная версия mudela: %s (%s, %s)"
 
-#: lexer.ll:628
+#: lexer.ll:630
 msgid "Consider converting the input with the convert-ly script"
 msgstr ""
 
@@ -1414,6 +1405,10 @@ msgstr "ожидалась MIDI дорожка"
 #: midi-track-parser.cc:353
 msgid "invalid track length"
 msgstr "неверная длина дорожки"
+
+#, fuzzy
+#~ msgid "Fetching `%'s..."
+#~ msgstr "Выбрасываю музыку: `%s'"
 
 #, fuzzy
 #~ msgid "Lily output to %s..."

@@ -16,7 +16,8 @@
 
 
 # Note: gettext work best if we use ' for docstrings and "
-# for gettextable strings
+#       for gettextable strings.
+#       --> DO NOT USE """ for docstrings.
 
 '''
 TODO:
@@ -191,7 +192,7 @@ def warning (s):
 def error (s):
 
 
-	"""Report the error S.  Exit by raising an exception. Please
+	'''Report the error S.  Exit by raising an exception. Please
 	do not abuse by trying to catch this error. If you donn't want
 	a stack trace, write to the output directly.
 
@@ -199,7 +200,7 @@ def error (s):
 
 	None
 	
-	"""
+	'''
 	
 	progress (_ ("error: ") + s)
 	raise _ ("Exiting ... ")

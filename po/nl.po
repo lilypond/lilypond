@@ -7,183 +7,178 @@
 # the TP robot wants them like this (I hope).
 # Of course, Han-Wen <hanwen@cs.uu.nl> also was FIRST AUTHOR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 1.3.59\n"
-"POT-Creation-Date: 2001-05-09 16:11+0200\n"
-"PO-Revision-Date: 2000-06-09 02:23+0200\n"
+"Project-Id-Version: lilypond 1.4.1\n"
+"POT-Creation-Date: 2001-05-18 15:48+0200\n"
+"PO-Revision-Date: 2001-05-09 23:29+0200\n"
 "Last-Translator: Jan Nieuwenhuizen <janneke@gnu.org>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Date: 1998-05-26 11:26:28+0200\n"
+"Date: 2001-05-09 23:29+0200\n"
 "From:  <janneke@gnu.org>\n"
 "Xgettext-Options: --c++ --default-domain=lilypond --join --output-dir=../po "
 "--add-comments --keyword=_\n"
 "Files: bow.cc int.cc\n"
 
-#: ly2dvi.py:96
+#: ly2dvi.py:105
 msgid "Generate .dvi with LaTeX for LilyPond"
 msgstr "Genereer .dvi met LaTeX voor LilyPond"
 
-#: data-file.cc:118 input.cc:85 ly2dvi.py:177 midi-parser.cc:100 mup2ly.py:93
+#: data-file.cc:118 input.cc:85 ly2dvi.py:190 midi-parser.cc:100 mup2ly.py:93
 #: update-lily.py:118 warn.cc:23
 msgid "warning: "
 msgstr "waarschuwing: "
 
-#: ly2dvi.py:182
-msgid "Report the error S.  Exit by raising an exception. Please"
-msgstr ""
-
-#: input.cc:90 ly2dvi.py:192 ly2dvi.py:790 mup2ly.py:98 mup2ly.py:188
+#: input.cc:90 ly2dvi.py:205 ly2dvi.py:830 mup2ly.py:98 mup2ly.py:188
 #: update-lily.py:123 update-lily.py:211 warn.cc:9 warn.cc:17
 msgid "error: "
 msgstr "fout: "
 
-#: ly2dvi.py:193 mup2ly.py:100 update-lily.py:125
+#: ly2dvi.py:206 mup2ly.py:100 update-lily.py:125
 msgid "Exiting ... "
 msgstr "Beëidigen ..."
 
-#: ly2dvi.py:251 mup2ly.py:158 update-lily.py:183
+#: ly2dvi.py:264 mup2ly.py:158 update-lily.py:183
 #, c-format
 msgid "Usage: %s [OPTION]... FILE"
 msgstr "Gebruik: %s [OPTIE]... BESTAND"
 
-#: ly2dvi.py:255 main.cc:120 main.cc:148 mup2ly.py:162 update-lily.py:187
+#: ly2dvi.py:268 main.cc:120 main.cc:148 mup2ly.py:162 update-lily.py:187
 msgid "Options:"
 msgstr "Opties:"
 
-#: ly2dvi.py:259 main.cc:124 main.cc:171 mup2ly.py:168 update-lily.py:191
+#: ly2dvi.py:272 main.cc:124 main.cc:171 mup2ly.py:168 update-lily.py:191
 #, c-format
 msgid "Report bugs to %s"
 msgstr ""
 "Meld luizen in het programma aan %s;\n"
 "meld onjuistheden in de vertaling aan <janneke@gnu.org> of <hanwen@cs.uu.nl>"
 
-#: ly2dvi.py:286 mup2ly.py:185 update-lily.py:208
+#: ly2dvi.py:305 mup2ly.py:185 update-lily.py:208
 #, c-format
 msgid "Invoking `%s'"
 msgstr "Uitvoeren `%s'"
 
-#: ly2dvi.py:290 mup2ly.py:188 update-lily.py:211
+#: ly2dvi.py:309 mup2ly.py:188 update-lily.py:211
 #, c-format
 msgid "command exited with value %d"
 msgstr "opdracht eindigde met waarde %d"
 
-#: ly2dvi.py:292 mup2ly.py:190 update-lily.py:213
+#: ly2dvi.py:311 mup2ly.py:190 update-lily.py:213
 msgid "(ignored)"
 msgstr "(genegeerd)"
 
-#: ly2dvi.py:302
+#: ly2dvi.py:321
 #, c-format
 msgid "Cleaning %s..."
 msgstr "Schoonmaken %s..."
 
-#: ly2dvi.py:317 mup2ly.py:214 update-lily.py:237
+#: ly2dvi.py:336 mup2ly.py:214 update-lily.py:237
 #, c-format
 msgid "no such setting: %s"
 msgstr "geen dergelijke instelling: %s"
 
-#: ly2dvi.py:330 main.cc:112
+#: ly2dvi.py:349 main.cc:112
 msgid "write Makefile dependencies for every input file"
 msgstr "schrijf Makefile afhankelijkheden voor elk invoerbestand"
 
-#: ly2dvi.py:331 main.cc:96 main.cc:108 mup2ly.py:1117 update-lily.py:251
+#: ly2dvi.py:350 main.cc:96 main.cc:108 mup2ly.py:1117 update-lily.py:251
 msgid "this help"
 msgstr "deze hulp"
 
-#: ly2dvi.py:332 main.cc:110 main.cc:115
+#: ly2dvi.py:351 main.cc:110 main.cc:115
 msgid "DIR"
 msgstr "DIR"
 
-#: ly2dvi.py:332
+#: ly2dvi.py:351
 msgid "add DIR to LilyPond's search path"
 msgstr "voeg DIR toe aan LilyPonds zoekpad"
 
-#: ly2dvi.py:333
+#: ly2dvi.py:352
 #, c-format
 msgid "keep all output, and name the directory %s.dir"
 msgstr "bewaar alle uitvoer, en noem de directory %s.dir"
 
-#: ly2dvi.py:334
+#: ly2dvi.py:353
 msgid "don't run LilyPond"
 msgstr "draai LilyPond niet"
 
-#: ly2dvi.py:335 main.cc:113
+#: ly2dvi.py:354 main.cc:113
 msgid "produce MIDI output only"
 msgstr "produceer alleen MIDI uitvoer"
 
-#: ly2dvi.py:336 main.cc:99 main.cc:111 main.cc:114
+#: ly2dvi.py:355 main.cc:99 main.cc:111 main.cc:114
 msgid "FILE"
 msgstr "BESTAND"
 
-#: ly2dvi.py:336
+#: ly2dvi.py:355
 msgid "write ouput to FILE"
 msgstr "schrijf uitvoer naar BESTAND"
 
-#: ly2dvi.py:338
+#: ly2dvi.py:357
 msgid "generate PostScript output"
 msgstr "genereer PostScipt uitvoer"
 
-#: ly2dvi.py:339
+#: ly2dvi.py:358
 msgid "KEY=VAL"
 msgstr "SEUTEL=WAARDE"
 
-#: ly2dvi.py:339
+#: ly2dvi.py:358
 msgid "change global setting KEY to VAL"
 msgstr "verander globale instelling SLEUTEL in WAARDE"
 
-#: ly2dvi.py:340 main.cc:118 mup2ly.py:1120 update-lily.py:255
+#: ly2dvi.py:359 main.cc:118 mup2ly.py:1120 update-lily.py:255
 msgid "verbose"
 msgstr "breedsprakig"
 
-#: ly2dvi.py:341 main.cc:105 main.cc:117 mup2ly.py:1121 update-lily.py:256
+#: ly2dvi.py:360 main.cc:105 main.cc:117 mup2ly.py:1121 update-lily.py:256
 msgid "print version number"
 msgstr "druk versienummer af"
 
-#: ly2dvi.py:342 main.cc:107 main.cc:119 mup2ly.py:1122 update-lily.py:258
+#: ly2dvi.py:361 main.cc:107 main.cc:119 mup2ly.py:1122 update-lily.py:258
 msgid "show warranty and copyright"
 msgstr "toon garantie en auteursrechten"
 
-#: ly2dvi.py:364 ly2dvi.py:577 ly2dvi.py:602
+#: ly2dvi.py:383 ly2dvi.py:604 ly2dvi.py:629
 #, c-format
 msgid "Running %s..."
 msgstr "Uitvoeren %s..."
 
-#: ly2dvi.py:377
+#: ly2dvi.py:396
 #, c-format
 msgid "Analyzing %s..."
 msgstr "Analyseer %s..."
 
-#: ly2dvi.py:433
+#: ly2dvi.py:452
 #, c-format
 msgid "no lilypond output found for %s"
 msgstr "geen lilypond uitvoer gevonden voor %s"
 
-#: ly2dvi.py:475
+#: ly2dvi.py:494
 #, c-format
 msgid "invalid value: %s"
 msgstr "ongeldige waarde: %s"
 
-#: ly2dvi.py:770 scores.cc:44
+#: ly2dvi.py:807 scores.cc:44
 #, c-format
 msgid "dependencies output to `%s'..."
 msgstr "afhankelijkheden uitvoer naar %s..."
 
-#: ly2dvi.py:780
+#: ly2dvi.py:817
 #, c-format
 msgid "%s output to `%s'..."
 msgstr "%s uitvoer naar `%s'..."
 
-#: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:782
+#: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:819
 #: midi-score-parser.cc:24 scores.cc:136 scores.cc:142
 #, c-format
 msgid "can't find file: `%s'"
 msgstr "kan bestand niet vinden: `%s'"
 
-#: ly2dvi.py:790
+#: ly2dvi.py:830
 msgid "no files specified on command line."
 msgstr "geen bestanden gespecificeerd op de commandoregel."
 
@@ -299,12 +294,7 @@ msgstr "meest recente is: %s"
 msgid "relax, %s is up to date"
 msgstr "ontspan, %s is bij de tijd"
 
-#: update-lily.py:435
-#, c-format
-msgid "Fetching `%'s..."
-msgstr "Grijpen van `%s'..."
-
-#: update-lily.py:448
+#: update-lily.py:435 update-lily.py:448
 #, c-format
 msgid "Fetching `%s'..."
 msgstr "Grijpen van `%s'..."
@@ -373,17 +363,17 @@ msgstr "programmeerfout: "
 msgid " (Continuing; cross thumbs)"
 msgstr " (Ga verder; duim maar)"
 
-#: afm.cc:53
+#: afm.cc:59
 #, c-format
 msgid "can't find character number: %d"
 msgstr "kan teken niet vinden met nummer: %d"
 
-#: afm.cc:68
+#: afm.cc:74
 #, c-format
 msgid "can't find character called: `%s'"
 msgstr "kan teken niet vinden genaamd: `%s'"
 
-#: afm.cc:118
+#: afm.cc:124
 #, c-format
 msgid "Error parsing AFM file: `%s'"
 msgstr "Fout bij ontleden AFM bestand: `%s'"
@@ -749,7 +739,7 @@ msgstr "rare duur"
 msgid "silly pitch"
 msgstr "rare toonhoogte"
 
-#: musical-request.cc:29
+#: musical-request.cc:28
 #, c-format
 msgid "Transposition by %s makes accidental larger than two"
 msgstr "Transponering van %s geeft tripel kruizen/mollen"
@@ -951,7 +941,7 @@ msgstr "Partituur bevat fouten; zal hem niet verwerken"
 msgid "Now processing: `%s'"
 msgstr "Nu wordt verwerkt: `%s'"
 
-#: script-engraver.cc:67
+#: script-engraver.cc:66
 #, c-format
 msgid "Don't know how to interpret articulation `%s'"
 msgstr "Weet niet hoe articulatie te vertolken `%s'"
@@ -961,11 +951,11 @@ msgstr "Weet niet hoe articulatie te vertolken `%s'"
 msgid "Separation_item:  I've been drinking too much"
 msgstr "Separation_item:  Ik heb te veel gedronken"
 
-#: slur.cc:49
+#: slur.cc:48
 msgid "Putting slur over rest.  Ignoring."
 msgstr "Zet bindingsboog over rust.  Negeer."
 
-#: slur.cc:379
+#: slur.cc:383
 msgid "Slur over rest?"
 msgstr "Boogje over rust?"
 
@@ -1162,58 +1152,58 @@ msgstr "Moet in Chord modus zijn voor accoorden"
 msgid "need integer number arg"
 msgstr "heb integer getal arg nogig"
 
-#: lexer.ll:172
+#: lexer.ll:174
 msgid "EOF found inside a comment"
 msgstr "EOF gevonden in een kommentaar"
 
-#: lexer.ll:186
+#: lexer.ll:188
 msgid "\\maininput disallowed outside init files"
 msgstr "\\maininput niet toegestaan buiten init bestanden"
 
-#: lexer.ll:210
+#: lexer.ll:212
 #, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr "verkeerde of ongedefiniëerde identifier: `%s'"
 
 #. backup rule
-#: lexer.ll:219
+#: lexer.ll:221
 msgid "Missing end quote"
 msgstr "Aanhalingsteken sluiten mist"
 
 #. backup rule
-#: lexer.ll:241 lexer.ll:245
+#: lexer.ll:243 lexer.ll:247
 msgid "white expected"
 msgstr "wit verwacht"
 
-#: lexer.ll:254
+#: lexer.ll:256
 msgid "Can't evaluate Scheme in safe mode"
 msgstr "Kan Scheme niet evalueren in veilige modus"
 
-#: lexer.ll:347
+#: lexer.ll:349
 msgid "Brace found at end of lyric. Did you forget a space?"
 msgstr "Accolade gevonden aan het eind van liedtektst.  Een spatie vergeten?"
 
-#: lexer.ll:455
+#: lexer.ll:457
 #, c-format
 msgid "invalid character: `%c'"
 msgstr "ongeldig teken: `%c'"
 
-#: lexer.ll:536
+#: lexer.ll:538
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr "onbekende ontsnapte string: `\\%s'"
 
-#: lexer.ll:615
+#: lexer.ll:617
 #, c-format
 msgid "Oldest supported input version: %s"
 msgstr "Oudst ondersteunde invoerversie: %s"
 
-#: lexer.ll:627
+#: lexer.ll:629
 #, c-format
 msgid "incorrect lilypond version: %s (%s, %s)"
 msgstr "verkeerde lilypond versie: %s (%s, %s)"
 
-#: lexer.ll:628
+#: lexer.ll:630
 msgid "Consider converting the input with the convert-ly script"
 msgstr "Overweeg de invoer te converteren met het convert-ly script"
 

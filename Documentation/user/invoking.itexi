@@ -9,7 +9,7 @@
 Usage:
 
 @example
-        lilypond @var{[OPTION]} ... @var{[file]}...
+        lilypond [@var{OPTION}@dots{} [@var{FILE}]@dots{}
 @end example
 
 @unnumberedsec Options

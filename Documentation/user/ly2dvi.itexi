@@ -11,8 +11,9 @@ wrapper around the output, and running La@TeX{} (and optionally
 
 @unnumberedsubsec Invoking ly2dvi
 
+@c ly2dvi needs at least one FILE, can't act as filter yet
 @example
-ly2dvi @var{[OPTIONS]} ... @var{[FILE]}...
+        ly2dvi [@var{OPTION}]@dots{} @var{FILE}@dots{}
 @end example
 
 @unnumberedsec Options
