@@ -45,7 +45,7 @@ String
 kpathsea_find_afm (char const * name)
 {
 #if (KPATHSEA && HAVE_KPSE_FIND_FILE)
-  char * name_ptr =  kpse_find_file (name, kpse_afm_format, true);
+  char * name_ptr =  kpse_find_file (name, kpse_afm_format, false);
 
   if (!name_ptr)
     {
@@ -75,7 +75,7 @@ kpathsea_find_tfm (char const *name)
 	   if (p)
 	     p = kpse_find_file (name, kpse_mf_format, true);
 
-	 but we assume that if there is a .PFA, there is also a .TFM,
+	     but we assume that if there is a .PFA, there is also a .TFM,
 	 and it's no use generating TFMs on the fly, because PFAs cannot
 	 be generated on the fly. */
       char *p = kpse_find_file (name, kpse_tfm_format, false);
