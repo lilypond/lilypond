@@ -3449,7 +3449,7 @@ beginning of a piece, e.g. nearby the initial clef or time signature of
 each staff.  The range is graphically specified by two noteheads, that
 represent the minimum and maximum pitch.  Some publishers use a textual
 notation: they put the range in words in front of the corresponding
-staff.  Lilypond currently only supports the graphical ambitus notation.
+staff.  LilyPond currently only supports the graphical ambitus notation.
 
 To apply, add the @internalsref{Ambitus_engraver} to the
 @internalsref{Voice} context, i.e.
@@ -3947,7 +3947,7 @@ for the score.
 @cindex mark
 @cindex @code{\mark}
 
-To print a  rehearsal mark, use the @code{\mark} command. 
+To print a  rehearsal mark, use the @code{\mark} command:
 @lilypond[fragment,verbatim]
 \relative c'' {
   c1 \mark "A"
@@ -3964,7 +3964,7 @@ The mark is incremented automatically if you use @code{\mark
 
 The @code{\mark} command can also be used to put signs like coda,
 segno and fermatas on a barline. Use @code{\markup} to
-to access the appropriate symbol.
+to access the appropriate symbol:
 
 @lilypond[fragment,verbatim,relative=1]
   c1 \mark \markup { \musicglyph #"scripts-ufermata" }
@@ -3973,13 +3973,13 @@ to access the appropriate symbol.
 
 In this case, during line breaks,
 marks must also be printed at the end of the line, and not at the
-beginning. Use the following to force that behavior
+beginning. Use the following to force that behavior:
 @example
 \property Score.RehearsalMark \override
   #'break-visibility = #begin-of-line-invisible
 @end example
 
-See @inputfileref{input/test,boxed-molecule.ly}.  for putting boxes
+See @inputfileref{input/test,boxed-molecule.ly} for putting boxes
 around the marks.
 
 @cindex fermatas
@@ -4009,7 +4009,7 @@ which is normally updated automatically for every measure.
 Bar numbers can be typeset at regular intervals instead of at the
 beginning of each line. This is illustrated in the following example,
 whose source is available as
-@inputfileref{input/test,bar-number-regular-interval.ly}
+@inputfileref{input/test,bar-number-regular-interval.ly}:
 
 @lilypondfile[notexidoc]{bar-number-regular-interval.ly}
 
@@ -4023,27 +4023,27 @@ whose source is available as
 @refbugs
 
 Bar numbers can collide with the @internalsref{StaffGroup} bracket, if
-there is one at the top. To solve this, In that case, the
+there is one at the top. To solve this, the
 @internalsref{padding} property of @internalsref{BarNumber} can be
 used to position the number correctly.
 
 @node Instrument names
 @subsection Instrument names
 
-In an orchestral score, instrument names are printed left of the
+In an orchestral score, instrument names are printed left side of the
 staffs.
 
 This can be achieved by setting @internalsref{Staff}.@code{instrument}
 and @internalsref{Staff}.@code{instr}. This will print a string before
 the start of the staff. For the first start, @code{instrument} is
-used, for the next ones @code{instr} is used.
+used, for the next ones @code{instr} is used:
 
 @lilypond[verbatim,singleline]
   \property Staff.instrument = "ploink " { c''4 }  
 @end lilypond
 
 You can also use markup texts to construct more complicated instrument
-names.
+names:
 
 @lilypond[fragment,verbatim,singleline]
   \notes \context Staff = treble {
@@ -4087,7 +4087,7 @@ between @var{from} and @var{to}.
 @code{\transpose} distinguishes between enharmonic pitches: both
 @code{\transpose c cis} or @code{\transpose c des} will transpose up
 half a tone.  The first version will print sharps and the second
-version will print flats.
+version will print flats:
 
 @lilypond[singleline, verbatim]
 mus =\notes { \key d \major cis d fis g }
@@ -4125,7 +4125,7 @@ meant for full bar rests and for entering parts: the rest can expand to
 fill a score with rests, or it can be printed as a single multimeasure
 rest. This expansion is controlled by the property
 @code{Score.skipBars}. If this is set to true, Lily will not expand
-empty measures, and the appropriate number is added automatically.
+empty measures, and the appropriate number is added automatically:
 
 @lilypond[fragment,verbatim]
  \time 4/4 r1 | R1 | R1*2
@@ -4145,7 +4145,7 @@ durations.  This can be done with augmentation dots or fractions:
  R1*13/8*12
 @end lilypond
 
-A @code{R} spanning a single measure is printed as either a whole rest
+An @code{R} spanning a single measure is printed as either a whole rest
 or a breve, centered in the measure regardless of the time signature.
 
 @cindex text on multi-measure rest
@@ -4156,7 +4156,7 @@ Texts can be added to multi-measure rests by using the
 @var{note}-@code{markup} syntax (see @ref{Text markup}).  In this case, the number is
 replaced. If you need both texts and the number, you must add the
 number by hand. A variable (@code{\fermataMarkup}) is provided for
-adding fermatas.
+adding fermatas:
 
 
 @lilypond[verbatim,fragment]
@@ -4225,7 +4225,7 @@ and @code{two}.
 
 The following example demonstrates the basic functionality of the part
 combiner: putting parts on one staff, and setting stem directions and
-polyphony.
+polyphony:
 
 @lilypond[verbatim,singleline,fragment]
   \context Staff <
@@ -4247,7 +4247,7 @@ first part (with context called @code{one}) always gets up stems, and
 `Solo II'.
 
 If you just want the merging parts, and not the textual markings, you
-may set the property @var{soloADue} to false.
+may set the property @var{soloADue} to false:
 
 @lilypond[verbatim,singleline,fragment]
   \context Staff <
@@ -4275,7 +4275,7 @@ combining stanzas.
 
 In @code{soloADue} mode, when the two voices play the same notes on and
 off, the part combiner may typeset @code{a2} more than once in a
-measure.
+measure:
 
 @lilypond[fragment,singleline]
   \context Staff <
@@ -4310,7 +4310,7 @@ For normal staffs, a specialized @internalsref{Staff} context is
 available, which does the same: staffs containing nothing (or only
 multi measure rests) are removed. The context definition is stored in
 @code{\RemoveEmptyStaffContext} variable. Observe how the second staff
-in this example disappears in the second line.
+in this example disappears in the second line:
 
 
 @lilypond[verbatim]
@@ -4334,7 +4334,7 @@ When you want to make a MIDI file from a score containing transposed
 and untransposed instruments, you have to instruct LilyPond the pitch
 offset (in semitones) for the transposed instruments. This is done
 using the @code{transposing} property. It does not affect printed
-output.
+output:
 
 @cindex @code{transposing}
 
@@ -4372,7 +4372,7 @@ To get a longa note head, you have to use mensural note heads. This
 is accomplished by setting the @code{style} property of the
 NoteHead object to @code{mensural}. There is also a note head style
 @code{baroque} which gives mensural note heads for @code{\longa} and
-@code{\breve} but standard note heads for shorter notes.
+@code{\breve} but standard note heads for shorter notes:
 
 @lilypond[fragment,singleline,verbatim]
  \property Voice.NoteHead \set #'style = #'mensural
@@ -4612,7 +4612,7 @@ used in different flavours of notational style.
 
 For typesetting custodes, just put a @internalsref{Custos_engraver} into the
 @internalsref{Staff} context when declaring the @code{\paper} block,
-as shown in the following example.
+as shown in the following example:
 
 @example
 \paper @{
@@ -4746,7 +4746,7 @@ contains definitions that you can apply by just inserting
 and @code{\finalis} at proper places in the input.  Some editions use
 @emph{virgula} or @emph{caesura} instead of divisio minima.
 Therefore, @code{gregorian-init.ly} also defines @code{\virgula} and
-@code{\caesura}.
+@code{\caesura}:
 
 
 @lilypondfile[notexidoc]{divisiones.ly}
@@ -4770,7 +4770,7 @@ in the manuscripts of Gregorian chant notation roughly since the 9th
 century as an allusion to the accent symbols of greek lyric poetry to
 denote ascending or descending sequences of notes.  Both, the shape and
 the exact meaning of ligatures changed tremendously during the following
-centuries: In early notation, ligatures where used for monophonic tunes
+centuries: In early notation, ligatures were used for monophonic tunes
 (Gregorian chant) and very soon denoted also the way of performance in
 the sense of articulation.  With upcoming multiphony, the need for a
 metric system arised, since multiple voices of a piece have to be
@@ -4790,7 +4790,7 @@ Syntactically, ligatures are simply enclosed by @code{\[} and
 @code{\]}.  Some ligature styles (such as Editio Vaticana) may need
 additional input syntax specific for this particular type of ligature.
 By default, the @internalsref{LigatureBracket} engraver just puts a
-square bracket above the ligature.
+square bracket above the ligature:
 
 @lilypond[singleline,verbatim]
 \score {
@@ -4845,7 +4845,7 @@ that the full musical information of the ligature is known internally.
 This is not only required for correct MIDI output, but also allows for
 automatic transcription of the ligatures.
 
-Example:
+For example,
 
 @example
 	\property Score.timing = ##f
@@ -6551,11 +6551,11 @@ LilyPond has limited support for figured bass:
 
 The support for figured bass consists of two parts: there is an input
 mode, introduced by @code{\figures}, where you can enter bass figures
-as numbers, and there is a context called @internalsref{FiguredBass}
-that takes care of making @internalsref{BassFigure} objects.
+as numbers, and there is a context called @internalsref{FiguredBass} that
+takes care of making @internalsref{BassFigure} objects.
 
 In figures input mode, a group of bass figures is delimited by
-@code{<} and @code{>}. The duration is entered after the @code{>}.
+@code{<} and @code{>}. The duration is entered after the @code{>}:
 @example
 	<4 6>
 @end example
@@ -6565,7 +6565,7 @@ In figures input mode, a group of bass figures is delimited by
 @end lilypond
 
 Accidentals are added when you append @code{-}, @code{!}  and @code{+}
-to the numbers.
+to the numbers:
 
 @example
   <4- 6+ 7!>
@@ -6576,7 +6576,7 @@ to the numbers.
 @end lilypond
 
 Spaces or dashes may be inserted by using @code{_}. Brackets are
-introduced with @code{[} and @code{]}.
+introduced with @code{[} and @code{]}:
 
 @example
 	< [4 6] 8 [_! 12]>
@@ -6655,7 +6655,7 @@ reasonable to specify a cluster as the envelope of a set of notes.
 
 A cluster is engraved as the envelope of a set of
 cluster-notes. Cluster notes are created by applying the function
-@code{notes-to-clusters} to a sequence of chords, eg.
+@code{notes-to-clusters} to a sequence of chords, e.g.
 @c
 @lilypond[relative 1,verbatim]
     \apply #notes-to-clusters {  <<c e >> <<b f'>>  }
@@ -6663,7 +6663,7 @@ cluster-notes. Cluster notes are created by applying the function
 
 The following example (from
 @inputfileref{input/regression,cluster.ly}) shows what the result
-looks like.
+looks like:
 
 @lilypondfile[notexidoc]{cluster.ly}
 
@@ -6752,7 +6752,7 @@ object, and set a layout property in that object.
 
 Do not confuse layout properties with translation
 properties. Translation properties always use a mixed caps style
-naming, and are manipulated using @code{\property}
+naming, and are manipulated using @code{\property}:
 @example
   \property Context.propertyName  = @var{value}
 @end example
@@ -6783,7 +6783,7 @@ layout property name:
 The definition of an object is a list of default object
 properties. For example, the definition of the Stem object (available
 in @file{scm/define-grobs.scm}), includes the following definitions
-for @internalsref{Stem}
+for @internalsref{Stem}:
 
 @example
         (thickness . 1.3)
@@ -6823,7 +6823,7 @@ changed from its original setting:
 @cindex @code{\once}
 
 For changing more objects, the same command, without @code{\once} can
-be used.
+be used:
 @example
 \property @var{context}.@var{objectname} \override @var{symbol} = @var{value}
 @end example
@@ -6831,7 +6831,7 @@ This command adds @code{@var{symbol} = @var{value}} to the definition
 of @var{objectname} in the context @var{context}, and this definition
 stays in place until it is removed.
 
-An existing definition may be removed by the following command
+An existing definition may be removed by the following command:
 @c
 @example
 \property @var{context}.@var{objectname} \revert @var{symbol}
@@ -6854,7 +6854,7 @@ c'4
 @end lilypond
 
 The following example gives exactly the same result as the previous
-one (assuming the system default for stem thickness is 1.3).
+one (assuming the system default for stem thickness is 1.3):
 @c
 @lilypond[verbatim,quote]
   c'4 \property Voice.Stem \set #'thickness = #4.0
@@ -6868,30 +6868,30 @@ effect. However, if the setting was set as a system default, this may
 remove the default value, and this may give surprising results,
 including crashes.  In other words, @code{\override} and
 @code{\revert} must be carefully balanced.  The following are examples
-of correct nesting of @code{\override}, @code{\set}, @code{\revert}.
+of correct nesting of @code{\override}, @code{\set}, @code{\revert}:
 
 @itemize @bullet
 @item
-A clumsy but correct form:
+a clumsy but correct form:
 @example
   \override \revert \override \revert \override \revert
 @end example
 
 @item
-Shorter version of the same:
+shorter version of the same:
 @example 
   \override \set \set  \revert
 @end example
 
 @item
-A short form, using only @code{\set}. This requires you to know the
+a short form, using only @code{\set}. This requires you to know the
 default value:
 @example
   \set \set \set \set @var{to default value}
 @end example
 
 @item
-If there is no default (i.e. by default, the object property is unset),
+if there is no default (i.e. by default, the object property is unset),
 then you can use
 @example
   \set \set \set \revert
@@ -6958,7 +6958,7 @@ LilyPond version.
 
 @c  [TODO: revise for new site.]
 
-Suppose we want to move the fingering indication in the fragment below
+Suppose we want to move the fingering indication in the fragment below:
 
 @lilypond[relative=2,verbatim]
 c-2
@@ -6967,7 +6967,7 @@ f
 @end lilypond
 
 If you visit the documentation of @code{Fingering} (in @ref{Fingering
-instructions}), you will notice that it says
+instructions}), you will notice that there is written:
 
 @quotation
 @seealso
@@ -6981,7 +6981,7 @@ In other words, the fingerings once entered, are internally stored as
 layout object is created for every @code{FingerEvent}.
 
 The Fingering object has a number of different functions, and each of
-those is captured in an interface.  when we look up
+those is captured in an interface,  when we look up
 @internalsref{Fingering} in the generated documentation.
 
 
@@ -7004,7 +7004,7 @@ it.  Finally, it denotes a fingering instruction, so it has
 @internalsref{finger-interface}.
 
 For the vertical placement, we have to look under
-@code{side-position-interface}.
+@code{side-position-interface}:
 @quotation
 @code{side-position-interface}
 
@@ -7025,13 +7025,13 @@ other. Default value: @code{0.6}
 
 By increasing the value of @code{padding}, we can move away the
 fingering.  The following command inserts 3 staff spaces of white
-between the note and the fingering
+between the note and the fingering:
 @example
 \once \property Voice.Fingering \set #'padding = #3
 @end example
 
 Inserting this command before the Fingering object is created,
-i.e. before @code{c2}, yields the following result.
+i.e. before @code{c2}, yields the following result:
 
 @lilypond[relative=2,fragment,verbatim]
 \once \property Voice.Fingering
@@ -7085,8 +7085,8 @@ where @var{proc} is a Scheme function, taking four arguments.
 When interpreted, the function @var{proc} is called for every layout object found
 in the context, with the following arguments:
 @itemize @bullet
-@item the layout object itself
-@item the context where the layout object was created
+@item the layout object itself,
+@item the context where the layout object was created, and
 @item the context where @code{\applyoutput} is processed.
 @end itemize
 
@@ -7131,7 +7131,7 @@ The most common thing to change about the appearance of fonts is their
 size. The font size of any context can be easily changed by setting
 the @code{fontSize} property for that context.  Its value is an
 integer: negative numbers make the font smaller, positive numbers
-larger. An example is given below.
+larger. An example is given below:
 @c
 @lilypond[fragment,relative=1,verbatim,quote]
   c4 c4 \property Voice.fontSize = #-1
@@ -7172,29 +7172,29 @@ Computer Modern font family.
 
 Font selection for the standard fonts, @TeX{}'s Computer Modern fonts,
 can also be adjusted with a more fine-grained mechanism.  By setting
-the object properties described below, you can select a different font.
-All three mechanisms work for every object that supports
-@code{font-interface}.
+the object properties described below, you can select a different font;
+all three mechanisms work for every object that supports
+@code{font-interface}:
 
 @table @code
 @item font-family
- A symbol indicating the general class of the typeface.  Supported are
+ is a symbol indicating the general class of the typeface.  Supported are
 @code{roman} (Computer Modern), @code{braces} (for piano staff
 braces), @code{music} (the standard music font, including ancient
 glyphs), @code{dynamic} (for dynamic signs) and @code{typewriter}.
   
 @item font-shape
-  A symbol indicating the shape of the font, there are typically several
+  is a symbol indicating the shape of the font, there are typically several
   font shapes available for each font family. Choices are @code{italic},
-  @code{caps} and @code{upright} 
+  @code{caps} and @code{upright}.
 
 @item font-series
-A  symbol indicating the series of the font. There are typically several
+is a  symbol indicating the series of the font. There are typically several
 font series for each font family and shape. Choices are @code{medium}
 and @code{bold}. 
 
 @item font-relative-size
-  A number indicating the size relative the standard size.  For example,
+  is a number indicating the size relative the standard size.  For example,
   with 20pt staff height, relative size -1  corresponds to 16pt staff
   height, and relative size +1 corresponds to 23 pt staff height.
 
@@ -7204,7 +7204,7 @@ different sizes, hence @code{font-relative-size} is preferred over
 
 
 @item font-design-size
-A number indicating  the design size of the font. 
+is a number indicating  the design size of the font. 
 
 This is a feature of the Computer Modern Font: each point size has a
 slightly different design. Smaller design sizes are relatively wider,
@@ -7255,7 +7255,7 @@ family, and the style sheet cannot be modified easily.
 
 LilyPond has an internal mechanism to typeset texts. You can access it
 with the keyword @code{\markup}. Within markup mode, you can enter texts
-similar to lyrics: simply enter them, surrounded by spaces. 
+similar to lyrics: simply enter them, surrounded by spaces:
 @cindex markup
 
 @lilypond[verbatim,fragment,relative=1]
@@ -7269,7 +7269,7 @@ similar to lyrics: simply enter them, surrounded by spaces.
 The markup in the example demonstrates font switching commands.  The
 command @code{\bold} and @code{\italic} only apply to the first
 following word; enclose a set of texts with braces to apply a command
-to more words.
+to more words:
 @example
   \markup @{ \bold @{ hi there @} @}
 @end example
@@ -7282,7 +7282,7 @@ For clarity, you can also do this for single arguments, e.g.
 
 @cindex font size, texts
 
-The following size commands set abolute sizes
+The following size commands set absolute sizes:
 
 @cindex @code{\teeny}
 @cindex @code{\tiny}
@@ -7312,18 +7312,18 @@ with the commands @code{\larger} and @code{\smaller}.
 The following font change commands are defined:
 @table @code
 @item \dynamic
-This changes to the font used for dynamic signs.  This font does not
+changes to the font used in dynamic signs.  This font does not
 contain all characters of the alphabet, so when producing ``piu f'',
 the ``piu'' should be done in a different font.
 
 
 @item \number
-This changes to the font used for time signatures. It only contains
+changes to the font used in time signatures. It only contains
 numbers and a few punctuation marks.
 @item \italic
-Changes @code{font-shape} to @code{italic}
+changes @code{font-shape} to @code{italic}.
 @item \bold
-Changes @code{font-series} to @code{bold}
+changes @code{font-series} to @code{bold}.
 @end table
 
 @cindex raising text
@@ -7335,7 +7335,7 @@ Changes @code{font-series} to @code{bold}
 @cindex @code{\super}
 
 Raising and lowering texts can be done with @code{\super} and
-@code{\sub}.
+@code{\sub}:
 
 @lilypond[verbatim,fragment,relative=1]
  c1^\markup { E "=" mc \super "2" }
@@ -7345,7 +7345,7 @@ Raising and lowering texts can be done with @code{\super} and
 
 If you want to give an explicit amount for lowering or raising, use
 @code{\raise}.  This command takes a Scheme valued first argument, and
-a markup object as second argument
+a markup object as second argument:
 @c
 @lilypond[verbatim,fragment,relative=1,quote]
  c1^\markup { C \small \raise #1.0 \bold { "9/7+" }}
@@ -7407,7 +7407,7 @@ This moves `B C' 2 spaces to the right, and 3 down.
 @item \magnify  #@var{mag}
 @cindex @code{\magnify}
 This sets the font magnification for the its argument. In the following
-example, the middle A will be 10% larger.
+example, the middle A will be 10% larger:
 @example
 A \magnify #1.1 @{ A @} A
 @end example
@@ -7427,7 +7427,7 @@ expressions, XML documents and music expressions.  The braces group
 notes into horizontal lines. Other types of lists also exist: you can
 stack expressions grouped with @code{<<}, and @code{>>} vertically with
 the command @code{\column}. Similarly, @code{\center} aligns texts by
-their center lines. 
+their center lines:
 
 @lilypond[verbatim,fragment,relative=1]
  c1^\markup { \column << a bbbb c >> }
@@ -7497,7 +7497,7 @@ are chosen whenever the page gets full.
 @cindex staffs per page
 
 
-The height of each system is determined automatically by lilypond, to
+The height of each system is determined automatically by LilyPond, to
 keep systems from bumping into each other, some minimum distances are
 set.  By changing these, you can put staves closer together, and thus
 put more  systems onto one page.
@@ -7518,7 +7518,7 @@ staff can be made larger at the bottom by setting it to @code{(-6
 . 4)}.
 
 The piano staves are handled a little differently: to make cross-staff
-beaming work correctly, it necessary that the distance between staves
+beaming work correctly, it is necessary that the distance between staves
 is fixed beforehand.  This is also done with a
 @internalsref{VerticalAlignment} object, created in
 @internalsref{PianoStaff}. In this object the distance between the
@@ -7547,8 +7547,8 @@ The spacing engine translates differences in durations into
 stretchable distances (``springs'') of differing lengths. Longer
 durations get more space, shorter durations get less.  The shortest
 durations get a fixed amount of space (which is controlled by
-@code{shortest-duration-space} in the @internalsref{SpacingSpanner}
-object). The longer the duration, the more space it gets: doubling a
+@code{shortest-duration-space} in the @internalsref{SpacingSpanner} object). 
+/The longer the duration, the more space it gets: doubling a
 duration adds a fixed amount (this amount is controlled by
 @code{spacing-increment}) of space to the note.
 
@@ -7604,7 +7604,7 @@ property in @internalsref{NoteSpacing}, which are generated for every
 (generated at @internalsref{Staff} context) contains the same property
 for controlling the stem/barline spacing. The following example
 shows these corrections, once with default settings, and once with
-exaggerated corrections.
+exaggerated corrections:
 
 @lilypond
     \score { \notes {
@@ -7623,8 +7623,8 @@ exaggerated corrections.
 @cindex SpacingSpanner, overriding properties
 
 Properties of the  @internalsref{SpacingSpanner} must be overridden
-from the @code{\paper} block, since the @internalsref{SpacingSpanner}
-is created before any @code{\property} statements are interpreted.
+from the @code{\paper} block, since the @internalsref{SpacingSpanner} is
+created before any @code{\property} statements are interpreted.
 @example
 \paper @{ \translator  @{
   \ScoreContext
@@ -7676,7 +7676,6 @@ set. These files should be imported at toplevel, i.e.
 The default font size settings for each staff heights are generated
 from the 20pt style sheet. For more details, see the file
 @file{scm/font.scm}.
-l
 
 
 @node Line breaking
@@ -7777,8 +7776,8 @@ The predefined command @code{\newpage} also does this.
 @cindex page size
 @cindex @code{papersize}
 
-To change the paper size, you must first set the
-@code{papersize} paper variable variable.  Set it to
+To change the paper size, you must first set the @code{papersize} paper 
+variable variable as in the example below.  Set it to
 the strings @code{a4}, @code{letter}, or @code{legal}.  After this
 specification, you must set the font as described above.  If you want
 the default font, then use the 20 point font.
@@ -7790,13 +7789,13 @@ the default font, then use the 20 point font.
 
 The file @code{paper16.ly}  will now include a file named @file{a4.ly}, which
 will set the paper variables @code{hsize} and @code{vsize} (used by
-Lilypond and @code{ly2dvi})
+@code{lilypond} and @code{ly2dvi}).
 
 
 @refcommands
 
 @cindex @code{\newpage}
-@code{\newpage}, 
+@code{\newpage}. 
 
 
 @seealso
@@ -7824,7 +7823,7 @@ Ties, dynamics and tempo changes are interpreted.  Dynamic marks,
 crescendi and decrescendi translate into MIDI volume levels.  Dynamic
 marks translate to a fixed fraction of the available MIDI volume
 range, crescendi and decrescendi make the volume vary linearly between
-their two extremities.  The fractions be adjusted by
+their two extremities.  The fractions can be adjusted by
 @code{dynamicAbsoluteVolumeFunction} in @internalsref{Voice} context.
 For each type of MIDI instrument, a volume range can be defined.  This
 gives a basic equalizer control, which can enhance the quality of
@@ -7853,8 +7852,8 @@ simpler.  The @code{\midi} block can contain:
 @cindex MIDI block
 
 @itemize @bullet
-  @item a @code{\tempo} definition
-  @item context definitions
+  @item a @code{\tempo} definition, and
+  @item context definitions.
 @end itemize
 
 Assignments in the @code{\midi} block are not allowed.
