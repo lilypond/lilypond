@@ -55,13 +55,21 @@ TeX
 The MusixTeX fonts (I included those found in MusixTeX T.73). Beware,
 the clef symbol seems to have changed its position in some versions,
 (notably Egler's, a.k.a. OpusTeX). The MusixTeX fonts are included in
-MusixTeX T.73, which can be had from any CTAN site, eg at
+MusixTeX (T73 or better), which can be had from any CTAN site, e.g. at
 
-	ftp://ftp.shsu.edu/tex-archive/macros/musixtex/taupin
-	ftp://ftp.tex.ac.uk/tex-archive/macros/musixtex/taupin
-	ftp://ftp.dante.de/tex-archive/macros/musixtex/taupin
+=over 4
 
-You only need the contents of the F<mf/> subdirectory of the package.
+=item ftp://ftp.shsu.edu/tex-archive/macros/musixtex/taupin
+
+=item 	ftp://ftp.tex.ac.uk/tex-archive/macros/musixtex/taupin
+
+=item ftp://ftp.dante.de/tex-archive/macros/musixtex/taupin
+
+=back
+
+You only need the contents of the F<mf/> subdirectory of the
+package. The primary site of the Taupin version is
+ftp://hprib.lps.u-psud.fr/pub/music_zips/musixtex.zip
 
 =head1 RECOMMENDED
 
@@ -77,7 +85,6 @@ with the perl's Plain Old Documentation.
 =item *
 
 (GNU) find
-
 
 =item *
 
@@ -198,8 +205,6 @@ Example: my fonts are in F</usr/local/lib/texfonts/musixtex/>, and I
 have a symlink pointing to that in
 F</usr/lib/texmf/texmf/fonts/source/public/>. After I copied the
 files, I ran "texhash"
-
-ftp://hprib.lps.u-psud.fr/pub/music_zips/musixtex.zip
 
 =head1 CAVEATS
 
