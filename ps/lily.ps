@@ -5,6 +5,11 @@
 % round cappings 
 1 setlinecap
 
+/euclidean_length  
+{ 
+	1 copy mul exch 1 copy mul add sqrt 
+} bind def 
+
 /draw_beam % width slope thick 
 { 
         2 div /beam_thick exch def 
@@ -18,40 +23,34 @@
         closepath fill 
 } bind def 
 
-/draw_decrescendo %  width height cons thick 
-{ 
-	setlinewidth 
-	/cresc_cont exch def 
-	/cresc_ht exch def 
-	/cresc_wd exch def 
+/draw_repeat_slash % width slope thick
+{
+  /beamthick exch def
+  /slope exch def
+  /width exch def
+  beamthick beamthick slope div euclidean_length
+    /xwid exch def 
+  0 0 moveto
+  xwid 0  rlineto
+  width slope width mul rlineto
+  xwid neg 0 rlineto
+%  width neg width angle sin mul neg rlineto
+  closepath fill
+} bind def
 
-	cresc_wd cresc_cont moveto 
-	0 cresc_ht lineto 
-	stroke 
-	cresc_wd cresc_cont neg moveto 
-	0 cresc_ht neg lineto 
-	stroke 
-} bind def 
-
-/draw_crescendo % width height cons thick 
-{ 
-	setlinewidth 
-	/cresc_cont exch def 
-	/cresc_ht exch def 
-	/cresc_wd exch def 
-
-	0 cresc_cont moveto 
-	cresc_wd cresc_ht lineto 
-	stroke 
-	0 cresc_cont neg moveto 
-	cresc_wd cresc_ht neg lineto 
-	stroke 
-} bind def 
-
-/lily_distance  
-{ 
-	1 copy mul exch 1 copy mul add sqrt 
-} bind def 
+/draw_hairpin % width start_h end_h thick
+{
+  setlinewidth
+  /end_h exch def 
+  /start_h exch def
+  /wid exch def
+  0 start_h moveto
+  wid end_h lineto
+  stroke
+  0 start_h neg moveto
+  wid end_h neg lineto
+  stroke
+} bind def
 
 /draw_tuplet % height gap dx dy thick dir 
 { 
@@ -101,6 +100,7 @@
 } bind def
 
 % simple, but does it work everywhere?
+% explain ? --hwn
 /draw_ez_ball % ch letter_col ball_col font
 {
 	% font

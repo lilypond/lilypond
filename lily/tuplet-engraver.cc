@@ -110,6 +110,16 @@ Tuplet_engraver::acknowledge_grob (Grob_info i)
     }
   else if (Beam::has_interface (i.elem_l_))
     {
+      /*
+	TODO:
+	
+	ugh, superfluous. Should look at
+
+	tuplet -> note-column -> stem -> beam
+
+	to find the beam(s) of a tuplet
+       */
+      
       for (int j = 0; j < started_span_p_arr_.size (); j++)
 	if (started_span_p_arr_[j]) 
 	  Tuplet_bracket::add_beam (started_span_p_arr_[j],i.elem_l_);

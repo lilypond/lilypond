@@ -9,7 +9,18 @@
 ; staffspace (distances)
 
 (define all-grob-descriptions
-  `((Arpeggio . (
+  `(
+    (Accidentals . (
+		(molecule-callback . ,Local_key_item::brew_molecule)
+		(X-offset-callbacks . (,Side_position_interface::aligned_side))
+		(after-line-breaking-callback . ,Local_key_item::after_line_breaking)
+		(direction . -1)
+		(left-padding . 0.2)
+		(right-padding . 0.4)
+		(meta . ,(grob-description "Accidentals"  accidentals-interface font-interface side-position-interface))
+	))
+
+    (Arpeggio . (
 	       (X-extent-callback . ,Arpeggio::width_callback)
 	       (Y-extent-callback . #f)	       
 	       (molecule-callback . ,Arpeggio::brew_molecule)
@@ -139,21 +150,6 @@
                (meta . ,(grob-description "Custos" custos-interface staff-symbol-referencer-interface break-aligned-interface) )
        ))
 	
-	(Hairpin . (
-		(molecule-callback . ,Hairpin::brew_molecule)
-		(thickness . 1.0)
-		(height . 0.6666)
-		(spacing-procedure . ,Spanner::set_spacing_rods)
-		(minimum-length . 2.0)
-		(if-text-padding . 1.0)
-		(width-correct . -1.0)
-		
-		(dash-thickness . 1.2)
-		(dash-length . 4.0)
-		(self-alignment-Y . 0)
-		(Y-offset-callbacks . (,Side_position_interface::aligned_on_self))
-		(meta . ,(grob-description "Hairpin" hairpin-interface dynamic-interface))
-	))
 
 	(DotColumn . (
 		(axes 0 )
@@ -167,6 +163,17 @@
 		(Y-offset-callbacks  . (,Dots::quantised_position_callback ,Staff_symbol_referencer::callback))
 		(meta . ,(grob-description "Dots"  font-interface dots-interface ))
 	))
+	(DoublePercentRepeat
+	 . ((molecule-callback . ,Percent_repeat_item_interface::double_percent)
+	    (breakable . #t)
+	    (slope . 1.0)
+	    (font-family . music)
+	    (width . 2.0)
+	    (thickness . 0.48)
+	    (break-align-symbol . Staff_bar)
+	    (visibility-lambda . ,begin-of-line-invisible)
+	    (meta . ,(grob-description "DoublePercentRepeat" font-interface percent-repeat-interface))
+	    ))
 	
 	(DynamicText . (
 		(Y-offset-callbacks . (,Side_position_interface::aligned_on_self))
@@ -220,14 +227,20 @@
 		(axes 1)
 		(meta . ,(grob-description "HaraKiriVerticalGroup" axis-group-interface hara-kiri-group-interface))
 	))
-
-	(LyricHyphen . (
+	(Hairpin . (
+		(molecule-callback . ,Hairpin::brew_molecule)
 		(thickness . 1.0)
-		(height . 0.4)
-		(minimum-length .  0.5) 
-		(molecule-callback . ,Hyphen_spanner::brew_molecule)
-		(Y-extent-callback . ,Grob::point_dimension_callback)
-		(meta . ,(grob-description "LyricHyphen" lyric-hyphen-interface ))
+		(height . 0.6666)
+		(spacing-procedure . ,Spanner::set_spacing_rods)
+		(minimum-length . 2.0)
+		(if-text-padding . 1.0)
+		(width-correct . -1.0)
+		
+		(dash-thickness . 1.2)
+		(dash-length . 4.0)
+		(self-alignment-Y . 0)
+		(Y-offset-callbacks . (,Side_position_interface::aligned_on_self))
+		(meta . ,(grob-description "Hairpin" hairpin-interface dynamic-interface))
 	))
 	
 	(InstrumentName . (
@@ -253,14 +266,14 @@
 	  (meta . ,(grob-description "KeySignature" key-signature-interface  font-interface  break-aligned-interface))
 	))
 	
-	(Accidentals . (
-		(molecule-callback . ,Local_key_item::brew_molecule)
-		(X-offset-callbacks . (,Side_position_interface::aligned_side))
-		(after-line-breaking-callback . ,Local_key_item::after_line_breaking)
-		(direction . -1)
-		(left-padding . 0.2)
-		(right-padding . 0.4)
-		(meta . ,(grob-description "Accidentals"  accidentals-interface font-interface side-position-interface))
+
+	(LyricHyphen . (
+		(thickness . 1.0)
+		(height . 0.4)
+		(minimum-length .  0.5) 
+		(molecule-callback . ,Hyphen_spanner::brew_molecule)
+		(Y-extent-callback . ,Grob::point_dimension_callback)
+		(meta . ,(grob-description "LyricHyphen" lyric-hyphen-interface ))
 	))
 	
 	(LineOfScore . (
@@ -415,15 +428,20 @@
 	(PercentRepeat . (
 		(spacing-procedure . ,Multi_measure_rest::set_spacing_rods)
 		(molecule-callback . ,Multi_measure_rest::percent)
-		(staff-position . 0)
-		(expand-limit . 10)
-		(padding . 2.0) ; staffspace
+		(slope . 1.0)
+		(thickness . 0.48)
 		(minimum-width . 12.5) ; staffspace
 		(font-family . music)
-		(meta . ,(grob-description "PercentRepeat" multi-measure-rest-interface  font-interface))
+		(meta . ,(grob-description "PercentRepeat" multi-measure-rest-interface  font-interface percent-repeat-interface))
 	))
 
 	
+	(RepeatSlash . (
+			(molecule-callback . , Percent_repeat_item_interface::beat_slash)
+			(thickness . 0.48)
+			(slope . 1.7)
+			(meta . ,(grob-description "RepeatSlash" percent-repeat-interface))
+			))
 	(Rest . (
 		(after-line-breaking-callback . ,Rest::after_line_breaking)
 		(X-extent-callback . ,Rest::extent_callback)

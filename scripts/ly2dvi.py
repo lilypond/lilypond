@@ -21,6 +21,8 @@ TODO:
   * dvi from lilypond .tex output?  This is hairy, because we create dvi
     from lilypond .tex *and* header output.
 
+  * windows compatibility: rm -rf, cp file... dir
+  
 '''
 
 
@@ -200,8 +202,9 @@ def setup_temp ():
 		os.mkdir (temp_dir, 0777)
 	except OSError:
 		pass
-		
-	
+	os.chdir (temp_dir)
+
+
 def system (cmd, ignore_error = 0):
 	if verbose_p:
 		progress (_ ("Invoking `%s\'") % cmd)
@@ -241,6 +244,7 @@ def set_setting (dict, key, val):
 option_definitions = [
 	('', 'h', 'help', _ ("this help")),
 	('KEY=VAL', 's', 'set', _ ("change global setting KEY to VAL")),
+	('DIR', 'I', 'include', _ ("add DIR to LilyPond\'s search path")),
 	('', 'P', 'postscript', _ ("generate PostScript output")),
 	('', 'k', 'keep', _ ("keep all output, and name the directory ly2dvi.dir")),
 	('', '', 'no-lily', _ ("don't run LilyPond")),
@@ -364,8 +368,10 @@ def global_latex_definition (tfiles, extra):
 
 	s = s + '\\usepackage{%s}\n' \
 		% string.join (extra['latexpackages'], ',')
-	
-	s = s + string.join (extra['latexheaders'], ' ')
+
+	if extra['latexheaders']:
+		s = s + '\\include{%s}\n' \
+			% string.join (extra['latexheaders'], '}\n\\include{')
 
 	textheight = ''
 	if extra['textheight']:
@@ -505,11 +511,15 @@ for opt in options:
 	elif o == '--warranty' or o == '-w':
 		warranty ()
 		sys.exit (0)
-		
-		
-include_path = map (os.path.abspath, include_path)
-files = map (os.path.abspath, files) 
-outdir = os.path.abspath (outdir)
+
+# On most platforms, this is equivalent to
+#`normpath(join(os.getcwd()), PATH)'.  *Added in Python version 1.5.2*
+def compat_abspath (path):
+	return os.path.normpath (os.path.join (os.getcwd (), path))
+
+include_path = map (compat_abspath, include_path)
+files = map (compat_abspath, files) 
+outdir = compat_abspath (outdir)
 
 def strip_ly_suffix (f):
 	(p, e) =os.path.splitext (f)

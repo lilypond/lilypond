@@ -7,6 +7,9 @@
 
 '''
 TODO:
+
+   WIP:lots of stuff
+   
 '''
 
 import os
@@ -66,7 +69,9 @@ NO WARRANTY.'''))
 	sys.stdout.write ('\n')
 
 def progress (s):
-	sys.stderr.write (s + '\n')
+        if s[-1] != '\n':
+                s = s + '\n'
+	sys.stderr.write (s)
 
 def warning (s):
 	sys.stderr.write (_ ("warning: ") + s)
@@ -199,7 +204,7 @@ def set_setting (dict, key, val):
 #
 
 def encodeint (i):
-	return chr ( i  + ord ('A'))
+	return chr (i  + ord ('A'))
 
 	
 actab = {-2: 'eses', -1: 'es', 0 : '', 1: 'is', 2:'isis'}
@@ -207,7 +212,7 @@ actab = {-2: 'eses', -1: 'es', 0 : '', 1: 'is', 2:'isis'}
 def pitch_to_lily_string (tup):
 	(o,n,a) = tup
 
-	nm = chr((n + 2) % 7 + ord ('a'))
+        nm = chr((n + 2) % 7 + ord ('a'))
 	nm = nm + actab[a]
 	if o > 0:
 		nm = nm + "'" * o
@@ -321,12 +326,14 @@ class Slur:
 			sys.stderr.write ("\nOrphaned slur")
 			
 class Voice:
-	def __init__ (self):
+	def __init__ (self, n):
+                self.number = n
 		self.entries = []
 		self.chords = []
 		self.staff = None
 		self.current_slurs = []
 		self.slurs = []
+                
 	def toggle_slur (self, id):
 		
 		for s in self.current_slurs:
@@ -340,36 +347,56 @@ class Voice:
 		self.slurs.append (s)
 		
 	def last_chord (self):
-		return self.chords[-1]
+                if len (self.chords):
+                        return self.chords[-1]
+                else:
+                        ch = Chord ()
+                        ch.basic_duration = 4
+                        return ch
+                
 	def add_chord (self, ch):
 		self.chords.append (ch)
 		self.entries.append (ch)
+                
 	def add_nonchord (self, nch):
 		self.entries.append (nch)
 
 	def idstring (self):
 		return 'staff%svoice%s ' % (encodeint (self.staff.number) , encodeint(self.number))
+        
 	def dump (self):
 		str = ''
-		ln = ''
+                if not self.entries:
+                        #return '\n'
+                        #ugh ugh
+                        return '\n%s = {}\n\n' % self.idstring ()
+                ln = '  '
+                one_two = ("One", "Two")
+                if self.staff.voices [1 - self.number].entries:
+                        ln = ln + '\\voice%s\n  ' % one_two[self.number]
 		for e in self.entries:
-			next = ' ' + e.dump ()
+			next = e.dump ()
 			if next[-1] == '\n':
-				str  = str + ln + next
-				ln = ''
+				str  = str + ln + next + ' '
+				ln = '  '
 				continue
 			
 			if len (ln) +len (next) > 72:
 				str = str+ ln + '\n'
-				ln = ''
-			ln = ln + next
+				ln = '  '
+			ln = ln + next + ' '
 			
 			
 		str = str  + ln
 		id = self.idstring ()
 			
-		str = '%s =  \\notes { \n %s }\n '% (id, str)
+		str = '''%s = \\notes {
+%s
+}
+
+'''% (id, str)
 		return str
+        
 	def calculate_graces (self):
 		lastgr = 0
 		lastc = None
@@ -380,6 +407,7 @@ class Voice:
 				lastc.chord_suffix = lastc.chord_suffix + ' } '
 			lastgr = c.grace
 			lastc = c
+                        
 	def calculate (self):
 		self.calculate_graces ()
 		for s in self.slurs:
@@ -400,43 +428,54 @@ clef_table = {
 	's':'soprano',
 	't':'treble',
 	'f':'frenchviolin',
-	} 
+	}
+
 class Staff:
-	def __init__ (self): 
-		self.voices = (Voice (), Voice())
+	def __init__ (self, n):
+                # ugh
+		self.voices = (Voice (0), Voice (1))
+                
+		# self.voice_idx = 0
 		self.clef = None
 		self.instrument = 0
-		self.voice_idx = 0
-		self.number = None
+		self.number = n
 		
 		i = 0
-		for v  in self.voices:
+		for v in self.voices:
 			v.staff = self
 			v.number = i
 			i = i+1
+                        
 	def set_clef (self, letter):
 		clstr = clef_table[letter]
 		self.voices[0].add_nonchord (Clef (clstr))
 		
-	def current_voice (self):
-		return self.voices[self.voice_idx]
-	def next_voice (self):
-		self.voice_idx = (self.voice_idx + 1)%len (self.voices)
+	#def current_voice (self):
+	#	return self.voices[self.voice_idx]
+        #
+	#def next_voice (self):
+	#	self.voice_idx = (self.voice_idx + 1)%len (self.voices)
 
 	def calculate (self):
 		for v in self.voices:
 			v.calculate ()
+                        
 	def idstring (self):
 		return 'staff%s' % encodeint (self.number)
+        
 	def dump (self):
 		str = ''
 
 		refs = ''
 		for v in self.voices:
 			str = str + v.dump()
-			refs = refs + '\\' + v.idstring ()+  ' '
+			refs = refs + '\n  \\' + v.idstring ()
 		
-		str = str + '\n\n%s = \\context Staff = %s \n  < \n %s >\n\n\n'% (self.idstring (), self.idstring (), refs)
+		str = str + '''
+%s = \context Staff = %s <%s
+>
+
+''' % (self.idstring (), self.idstring (), refs)
 		return str
 
 class Tuplet:
@@ -564,6 +603,7 @@ class Parser:
 	def __init__ (self, filename):
 		self.parse_function = self.parse_context_music
 		self.staffs = []
+                self.current_voices = []
 		self.forced_duration = None
 		self.last_name = 0
 		self.last_oct = 0		
@@ -573,68 +613,140 @@ class Parser:
 
 		self.parse (filename)
 		
-	def set_staffs (self, number):
-		self.staffs = map (lambda x: Staff (), range (0, number))
+	#def set_staffs (self, number):
+	#	self.staffs = map (lambda x: Staff (x), range (0, number))
 		
-		self.staff_idx = 0
+	#def current_staff (self):
+	#	return self.staffs[self.staff_idx]
 
-		i =0
-		for s in self.staffs:
-			s.number = i
-			i = i+1
-			
-	def current_staff (self):
-		return self.staffs[self.staff_idx]
-
-	def current_voice (self):
-		return self.current_staff ().current_voice ()
+	#def current_voice (self):
+	#	return self.current_staff ().current_voice ()
 	
-	def next_staff (self):
-		self.staff_idx = (self.staff_idx + 1)% len (self.staffs)
+	#def next_staff (self):
+	#	self.staff_idx = (self.staff_idx + 1)% len (self.staffs)
 		
+        def parse_compound_location (self, line):
+                colon = string.index (line, ':')
+                s = line[:colon]
+                debug (s)
+                line = line[colon + 1:]
+                debug (line)
+                self.current_voices = []
+                ##self.current_staffs = []
+                map (self.parse_location, string.split (s, '&'))
+                return line
+
+        def parse_location (self, line):
+		m = re.match ('^([-,0-9]+) *([-,0-9]*)', string.lstrip (line))
+                
+                def range_list_to_idxs (s):
+                        
+                        # duh
+                        def flatten (l):
+                                f = []
+                                for i in l:
+                                        for j in i:
+                                                f.append (j)
+                                return f
+                                        
+                        def range_to_list (s):
+                                if string.find (s, '-') >= 0:
+                                        debug ('s: ' + s)
+                                        l = map (string.lstrip,
+                                                 string.split (s, '-'))
+                                        r = range (string.atoi (l[0]) - 1,
+                                                   string.atoi (l[1]))
+                                else:
+                                        r = (string.atoi (s) - 1,)
+                                return r
+                        
+                        ranges = string.split (s, ',')
+                        l = flatten (map (range_to_list, ranges))
+                        l.sort ()
+                        return l
+                
+                staff_idxs = range_list_to_idxs (m.group (1))
+                if m.group (2):
+                        voice_idxs = range_list_to_idxs (m.group (2))
+                else:
+                        voice_idxs = [0]
+                for s in staff_idxs:
+                        while s > len (self.staffs) - 1:
+                                self.staffs.append (Staff (s))
+                        for v in voice_idxs:
+                                self.current_voices.append (self.staffs[s].voices[v])
+                        
 	def parse_note (self, line):
-		name = line[0]
+                # FIXME: 1?
+                oct = 1
+                name = (ord (line[0]) - ord ('a') + 5) % 7
+                # FIXME: does key play any role in this?
 		alteration = 0
-		line = line[1:]
+                line = string.lstrip (line[1:])
 		while line:
-			if line[0] == '#':
+                        if len (line) > 1 and line[:2] == '//':
+                                line = 0
+                                break
+			elif line[0] == '#':
 				alteration = alteration + 1
 			elif line[0] == '&':
 				alteration = alteration - 1
-			line = line[1:]
-			# shortcut
-			line = 0
+			elif line[0] == '+':
+                                oct = oct + 1 
+			elif line[0] == '-':
+                                oct = oct - 1
+                        else:
+                                skipping (_ ("%s") % line[0])
+			line = string.lstrip (line[1:])
 		return (oct, name, alteration)
-	
 			
 	def parse_chord (self, line):
-		line = string.strip (line)
+		line = string.lstrip (line)
 		ch = Chord ()
 		if not line:
-			ch = self.current_voice ().last_chord ()
+			ch = self.current_voices[0].last_chord ()
 		else:
-			m = re.match ('([0-9]+)([.]*)', line)
+			m = re.match ('^([0-9]+)([.]*)', line)
 			if m:
 				ch.basic_duration = string.atoi (m.group (1))
-				line = line[len (m.group (1))-1:]
+				line = line[len (m.group (1)):]
 				if m.group (2):
 					ch.basic_duration = len (m.group (2))
-					line = line[len (m.group (1))-1:]
-				line = string.strip (line)
-			m = re.match ('([0-9]+)([.]*)', line)
+					line = line[len (m.group (1)):]
+                        else:
+                                ch.basic_duration = self.current_voices[0].last_chord ().basic_duration
+                                
+                        line = string.lstrip (line)
+                        if len (line) > 1 and line[:2] == '//':
+                                line = 0
+                        #ugh
+                        if not line:
+                                duration = ch.basic_duration
+                                ch = self.current_voices[0].last_chord ()
+                                ch.basic_duration = duration
+                                
 			while line:
-				c = line[0]
-				if line[:1] == 'mr':
+                                if len (line) > 1 and line[:2] == '//':
+                                        line = 0
+                                        break
+                                elif line[:1] == 'mr':
 					ch.multimeasure = 1
-					line = 0
-				elif c in 'abcdefgrs':
-					pitch = parse_note (line)
-					ch.add_pitches (pitch)
-					line = 0
+                                        line = line[1:]
+                                elif line[:1] == 'ms':
+					ch.multimeasure = 1
+                                        line = line[1:]
+				elif line[0] in 'rs':
+                                        pass
+				elif line[0] in 'abcdefg':
+					pitch = self.parse_note (line)
+                                        debug ('PITCH: ' + `pitch`)
+					ch.pitches.append (pitch)
+                                        line = 0
+                                        break
 				else:
-					progress ( _("skipping: %s") % line)
-					line = 0
-		self.current_voice ().add_chord (ch)
+					skipping (_ ("%s") % line[0])
+                                line = string.lstrip (line[1:])
+		map (lambda x, ch=ch: x.add_chord (ch), self.current_voices)
 
 	def parse_voice (self, line):
 		chords = string.split (line, ';')
@@ -644,81 +756,80 @@ class Parser:
 		self.parse_function = self.parse_context_header
 					
 	def parse_context_header (self, line):
-		sys.stderr.write ('header: ' + line)
+		debug ('header: ' + line)
 
 	def init_context_footer (self, line):
 		self.parse_function = self.parse_context_footer
 
 	def parse_context_footer (self, line):
-		sys.stderr.write ('footer: ' + line)
+		debug ('footer: ' + line)
 
 	def init_context_header2 (self, line):
 		self.parse_function = self.parse_context_header2
 
 	def parse_context_header2 (self, line):
-		sys.stderr.write ('header2: ' + line)
+		debug ('header2: ' + line)
 
 	def init_context_footer2 (self, line):
 		self.parse_function = self.parse_context_footer2
 
 	def parse_context_footer2 (self, line):
-		sys.stderr.write ('footer2: ' + line)
+		debug ('footer2: ' + line)
 
 	def init_context_score (self, line):
 		self.parse_function = self.parse_context_score
 
 	def parse_context_score (self, line):
-		sys.stderr.write ('score: ' + line)
+		debug ('score: ' + line)
 
 	def init_context_staff (self, line):
 		self.parse_function = self.parse_context_staff
 
 	def parse_context_staff (self, line):
-		sys.stderr.write ('staff: ' + line)
+		debug ('staff: ' + line)
 
 	def init_context_voice (self, line):
 		self.parse_function = self.parse_context_voice
 
 	def parse_context_voice (self, line):
-		sys.stderr.write ('voice: ' + line)
+		debug ('voice: ' + line)
 
 	def init_context_grids (self, line):
 		self.parse_function = self.parse_context_line
 
 	def parse_context_grids (self, line):
-		sys.stderr.write ('grids: ' + line)
+		debug ('grids: ' + line)
 
 	def init_context_music (self, line):
 		self.parse_function = self.parse_context_music
 
 	def parse_context_music (self, line):
-		sys.stderr.write ('music: ' + line)
-		m = re.match ('^([0-9]+):([0-9]*) ', line)
-		if m:
-			self.staff_idx = string.atoi (m.group (1))
-			line = line[len (m.group (1)):]
-			if m.group (2):
-				self.current_staff ().voice_idx = string.atoi (m.group (2)) - 1
-				line = line[len (m.group (2))-1:]
-			else:
-				self.current_staff ().voice_idx = 0
-			self.parse_voice (line)
+		debug ('music: ' + line)
+                line = string.lstrip (line)
+                if line and line[0] in '0123456789':
+                        line = string.lstrip (self.parse_compound_location (line))
+                        self.parse_voice (line)
 		else:
-			progress ( _("skipping: %s") % line)
+			skipping (_ ("%s") % line)
 	
 	def parse (self, file):
 		# shortcut: set to official mup maximum (duh)
 		# self.set_staffs (40)
 		lines = open (file).readlines ()
 		for line in lines:
-			m = re.match ('^([a-z2]+)', line)
+                        debug ('LINE: ' + line)
+			m = re.match ('^([a-z]+2?)', line)
 			
 			if m:
 				word = m.group (1)
 				if word in contexts:
 					eval ('self.init_context_%s (line)' % word)
 					continue
+                                else:
+                                        warning (_ ("no such context: %s") % word)
+                                        skipping (line)
 			else:
+                                debug ('FUNC: ' + `self.parse_function`)
 				self.parse_function (line)
 				
 		for c in self.staffs:
@@ -730,13 +841,20 @@ class Parser:
 		refs = ''
 		for s in self.staffs:
 			str = str +  s.dump ()
-			refs = '\\' + s.idstring() + refs
+			refs = refs + '\n    \\' + s.idstring ()
 
-		str = str + "\n\n\\score { <\n %s\n > }" % refs 
+		str = str + '''
+
+\score {
+  <%s
+   >
+}
+''' % refs 
 		return str
 
 		
 option_definitions = [
+	('', 'd', 'debug', _ ("debug")),
 	('', 'h', 'help', _ ("this help")),
 	('FILE', 'o', 'output', _ ("write output to FILE")),
 	('', 'V', 'verbose', _ ("verbose")),
@@ -744,7 +862,13 @@ option_definitions = [
 	('', 'w', 'warranty', _ ("show warranty and copyright")),
 	]
 
-
+debug_p = 0
+def debug (s):
+        if debug_p:
+                progress ('DEBUG: ' + s)
+def skipping (s):
+        if debug_p:
+                progress ('SKIPPING: ' + s)
 
 (sh, long) = getopt_args (__main__.option_definitions)
 try:
@@ -757,13 +881,19 @@ except:
 for opt in options:
 	o = opt[0]
 	a = opt[1]
-	if o== '--help' or o == '-h':
+        if 0:
+                pass
+	elif o== '--debug' or o == '-d':
+                debug_p = 1
+	elif o== '--help' or o == '-h':
 		help ()
 		sys.exit (0)
-	if o == '--version' or o == '-v':
+	elif o== '--verbose' or o == '-V':
+                verbose_p = 1
+	elif o == '--version' or o == '-v':
 		identify ()
 		sys.exit (0)
-	if o == '--output' or o == '-o':
+	elif o == '--output' or o == '-o':
 		output = a
 	else:
 		print o
@@ -793,7 +923,7 @@ for f in files:
 	progress (_ ("Writing %s...") % output)
 
 	tag = '%% Lily was here -- automatically converted by %s from %s' % ( program_name, f)
-	ly = tag + e.dump ()
+	ly = tag + '\n' + e.dump ()
 
 	o = open (output, 'w')
 	o.write (ly)

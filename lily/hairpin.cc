@@ -76,16 +76,33 @@ Hairpin::brew_molecule (SCM smob)
   bool continued = broken[Direction (-grow_dir)];
   Real height = gh_scm2double (me->get_grob_property ("height"));
   Real thick = line * gh_scm2double (me->get_grob_property ("thickness"));
-  
-  const char* type = (grow_dir < 0) ? "decrescendo" :  "crescendo";
-  SCM hairpin = gh_list (ly_symbol2scm (type),
-		    gh_double2scm (thick),
-		    gh_double2scm (width),
-		    gh_double2scm (height),
-		    gh_double2scm (continued ? height/2 : 0.0),
-		    SCM_UNDEFINED);
 
-  Box b (Interval (0, width), Interval (-2*height, 2*height));
+  Real starth, endh;
+  if (grow_dir < 0)
+    {
+      starth = height;
+      endh = continued ? height/2 : 0.0;
+    }
+  else
+    {
+      starth = continued ? height/2 : 0.0;
+      endh = height;
+    }
+  
+  /*
+    TODO: junk this and, make a general
+
+    Lookup::line  (XY1, XY2).
+  */
+  SCM hairpin = gh_list (ly_symbol2scm ("hairpin"),
+			 gh_double2scm (thick),
+			 gh_double2scm (width),
+			 gh_double2scm (starth),
+			 gh_double2scm (endh),
+			 SCM_UNDEFINED);
+
+  Interval yext = 2* height  * Interval (-1,1);
+  Box b (Interval (0, width), yext);
   Molecule mol (b, hairpin);
   mol.translate_axis (broken_left + extra_off[LEFT], X_AXIS);
 

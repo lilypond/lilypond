@@ -57,6 +57,8 @@ and documenting bugfixes.
 
 @lilypondfile[printfilename]{dynamics-line.ly}
 
+@lilypondfile[printfilename]{dynamics-broken-hairpin.ly}
+
 @lilypondfile[printfilename]{arpeggio.ly}
 
 @lilypondfile[printfilename]{glissando.ly}
