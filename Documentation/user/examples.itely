@@ -297,6 +297,100 @@ lower = \relative c {
 
 @end lilypond
 
+
+@subsection Piano centered dynamics
+
+Many piano scores have the dynamics centered between the two
+staffs.  This requires a bit of tweaking to implement, but
+since the template is right here, you don't have to do the
+tweaking yourself.
+
+@lilypond[verbatim,raggedright]
+
+\version "2.3.16"
+upper = \relative c'' {
+  \clef treble
+  \key c \major
+  \time 4/4
+
+  a b c d
+}
+
+lower = \relative c {
+  \clef bass
+  \key c \major
+  \time 4/4
+
+  a2 c
+}
+
+dynamics =  {
+  s2\fff\> s4
+  s\!\pp
+}
+
+pedal =  {
+  s2\sustainDown s2\sustainUp
+}
+
+\score {
+  \context PianoStaff <<
+    \context Staff=upper \upper
+    \context Dynamics=dynamics \dynamics
+    \context Staff=lower <<
+      \clef bass
+      \lower
+    >>
+    \context Dynamics=pedal \pedal
+  >>
+  \paper {
+    \context {
+      \type "Engraver_group_engraver"
+      \name Dynamics
+      \alias Voice % So that \cresc works, for example.
+      \consists "Output_property_engraver"
+      
+      minimumVerticalExtent = #'(-1 . 1)
+      pedalSustainStrings = #'("Ped." "*Ped." "*")
+      pedalUnaCordaStrings = #'("una corda" "" "tre corde")
+      
+      \consists "Piano_pedal_engraver"
+      \consists "Script_engraver"
+      \consists "Dynamic_engraver"
+      \consists "Text_engraver"
+
+      \override TextScript #'font-size = #2
+      \override TextScript #'font-shape = #'italic
+      \override DynamicText #'extra-offset = #'(0 . 2.5)
+      \override Hairpin #'extra-offset = #'(0 . 2.5)
+
+      \consists "Skip_event_swallow_translator"
+
+      \consists "Axis_group_engraver"
+    }
+    \context {
+      \PianoStaff
+      \accepts Dynamics
+      \override VerticalAlignment #'forced-distance = #7
+    }
+  }
+  \midi {
+    \context {
+      \type "Performer_group_performer"
+      \name Dynamics
+      \consists "Piano_pedal_performer"
+      \consists "Span_dynamic_performer"
+      \consists "Dynamic_performer"
+    }
+    \context {
+      \PianoStaff
+      \accepts Dynamics
+    }
+  }
+}
+@end lilypond
+
+
 @node Small ensembles
 @section Small ensembles
 @subsection SATB vocal score
