@@ -321,7 +321,7 @@ postinstall () {
     docdir=$prefix/share/doc/$base-$ver
     
     #make conf=for-build docdir=$inst-doc/$docdir install-html-doc
-    make conf=for-build docdir=$inst-doc/$docdir web-install
+    make conf=for-build webdir=$inst-doc/$docdir web-install
 
 
     ## copy READMEs etc

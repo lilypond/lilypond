@@ -1,5 +1,12 @@
 2003-07-24  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* cygwin/mknetrel: Override $(webdir) (was: $(docdir)).
+
+	* stepmake/stepmake/generic-targets.make (www-targets-help):
+	* GNUmakefile.in (web-install): Install in $(webdir).
+
+	* input/test/smart-transpose.ly (texidoc): texidoc compile fix.
+
 	* cygwin/changelog: 
 	* cygwin/mknetrel: Update.
 
