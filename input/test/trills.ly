@@ -93,7 +93,7 @@ visible = \property Voice.NoteHead \revert #'transparent
       \new Staff \notes\relative c'' {
         % autobeamer has som problems here
 	d32[  \repeat unfold 3 { c d } c]
-	d8 ~  d32[\repeat unfold 3 { d32 c  } c]
+	d8 ~  d32[\repeat unfold 3 { c32 d  } c]
 	d32 c b c \repeat unfold 4 { d32 c }
 	b32 c d c \repeat unfold 4 { d32 c }
 	c32[( b a16 b  c)]
