@@ -1,3 +1,11 @@
+2003-06-10  Graham Percival  <gperlist@shaw.ca>
+
+   * input/test/beam-abbrev.ly input/test/default-neutral-dir.ly
+   input/test/beam-dir.ly input/test/beam-position.ly    
+   input/test/beam-suspect.ly input/test/beam-trend.ly    
+   input/test/beams.ly input/test/crescendo-text.ly : deleted
+   * input/test/beam-chord.ly: moved to input/regression/beam-chord.ly
+
 2003-06-10  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/test/chord-names-dpnj.ly (texidoc): bugfix.
