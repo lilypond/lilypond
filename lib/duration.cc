@@ -20,6 +20,16 @@
 // statics Duration
 int Duration::division_1_i_s = 384 * 4;
 
+
+Duration::Duration( int type_i, int dots_i = 0)
+{
+// this breaks mi2mu quite effectively
+//    assert(duration_type_b(type_i));
+	type_i_ = type_i;
+	dots_i_ = dots_i;
+	ticks_i_ = 0;
+}
+
 bool
 Duration::duration_type_b(int t)
 {
@@ -31,14 +41,6 @@ Duration::duration_type_b(int t)
 	bit_i += (rem == 1);
     }
     return bit_i == 1;
-}
-
-Duration::Duration( int type_i, int dots_i = 0)
-{
-    assert(duration_type_b(type_i));
-	type_i_ = type_i;
-	dots_i_ = dots_i;
-	ticks_i_ = 0;
 }
 
 Moment

@@ -27,6 +27,8 @@ Script_column::translate(Offset o)
 {
     for (int i=0; i < script_l_arr_.size(); i++) 
 	script_l_arr_[i]->translate(o);
+    for (int i=0; i < support_l_arr_.size(); i++)
+    	support_l_arr_[i]->translate(o);
 }
 
 

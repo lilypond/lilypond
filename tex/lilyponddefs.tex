@@ -13,12 +13,7 @@
 \def\vcenter#1{\vbox to 0pt{\vss #1\vss}}
 
 \def\mathdef#1#2{\def#1{\mathchar{#2}}}
-% \def\mathchar#1{\mathfnt\char#1}
-\def\mathchar#1{$#1$}
-\def\mathaccentraise#1#2{\dimen0=\noteheight
-        \rationalmultiply\dimen0*#2%
-        \raise\dimen0\hbox{#1}}
-\def\mathaccentdef#1#2#3{\def#1{\mathaccentraise{\mathchar{#2}}{#3}}}
+\def\mathchar#1{\mathfont\char#1}
 
 \def\topalign#1{\vbox to 0pt{#1\vss}}
 \def\botalign#1{\vbox to 0pt{\vss #1}}
@@ -54,6 +49,7 @@
         \font\musicdraw=musixsps
         \font\italicfont=cmti10
         \font\dynfont=cmbxti10 scaled \magstep1
+	\font\mathfont=cmsy10
         \balkhoog=20pt
         \notewidth=6pt
         \noteheight=5pt
@@ -75,6 +71,7 @@
         \font\musicfnt=musix16
         \font\dynfont=cmbxti12
         \font\musicdraw=musixsps
+	\font\mathfont=cmsy8
         \balkhoog=16pt
         \staffrulethickness=0.4pt
         \notewidth=5pt
@@ -99,7 +96,7 @@
 % \def\dyn{\italicfont}
 \def\dyn{\dynfont}
 \def\kdynf{\dynfont f\kern-.1ex}
-\def\kdynm{\dynfont f\kern-.15ex}
+\def\kdynm{\dynfont m\kern-.15ex}
 \def\kdynp{\dynfont p\kern-.15ex}
 
 \def\dynppp{\dynfont\dynp\kdynp p}
@@ -159,14 +156,13 @@
 \def\emptybar{}
 
 \def\thinbar{\vrule height\balkhoog}
-%? what-s wrong with rightalign?
 \def\thickbar{\vrule height\balkhoog width 2\smallspace}
 \def\maatstreep{\thinbar}
-% \def\finishbar{\rightalign{\thinbar\kern\smallspace\thickbar}}
-\def\finishbar{\hss\rightalign{\thinbar\kern\smallspace\thickbar}}
+%? what-s wrong with rightalign?
+\def\finishbar{\rightalign{\thinbar\kern\smallspace\thickbar}}
+%%% \def\finishbar{\hss\rightalign{\thinbar\kern\smallspace\thickbar}}
 % \def\repeatstopbar{\rightalign{\repeatcolon\hskip2\smallspace\thinbar\hskip\smallspace\thickbar}}
 \def\repeatstopbar{\hss\rightalign{\repeatcolon\hskip2\smallspace\thinbar\hskip\smallspace\thickbar}}
-% \def\repeatstopbar{\kern-3\smallspace\rightalign{\repeatcolon\kern2\smallspace\thinbar\kern\smallspace\thickbar}\kern3\smallspace}
 \def\repeatstartbar{\hbox{\thickbar\kern\smallspace\thinbar\kern2\smallspace\repeatcolon}}
 \def\repeatstopstart{\hbox{\repeatcolon\kern2\smallspace\thinbar\kern\smallspace\thickbar\kern\smallspace\thickbar\kern\smallspace\thinbar\kern2\smallspace\repeatcolon}}
 \def\doublebar{\hbox{\thinbar\hskip\smallspace\thinbar}}
@@ -248,10 +244,26 @@
 \mdef\downbow{22}
 \mdef\portato{26}
 
-% \mathdef\heel\cup % "225B
-% \mathdef\toe\wedge % "225E
-\mathaccentdef\heel\cup{-1/1}
-\mathaccentdef\toe\wedge{-1/1}
+\mathdef\cup{91} % \cup
+\mathdef\wedge{94} % \wedge
+\mathdef\striepke{0} % heu?
+
+%% custom characters --- this should go: add to (meta!) font
+\def\myheel{\kern-.5ex\vbox{\cup}\kern-.5ex}
+\def\mytoe{\kern-.5ex\vbox{\wedge}\kern-.5ex}
+\def\mystriepke{\kern-1.1ex\vbox{\hbox{\kern-.05em\striepke}}\kern-1.1ex}
+
+\def\heel{\vbox{\myheel}}
+\def\toe{\vbox{\mytoe}}
+\def\backorfront{\mystriepke}
+
+\def\bheel{\vbox{\myheel\mystriepke}}
+\def\btoe{\vbox{\mytoe\mystriepke}}
+\def\fheel{\vbox{\mystriepke\myheel}}
+\def\ftoe{\vbox{\mystriepke\mytoe}}
+\def\heeltoe{\vbox{\myheel\mytoe}}
+\def\toeheel{\vbox{\mytoe\myheel}}
+%%
 
 \def\stem#1#2{\vrule height#2 depth-#1}
 

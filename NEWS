@@ -1,8 +1,36 @@
+pl 58
+	- lexer cleanup
+	- national chars in lyrics
+	- \stem 2; bf
+	- long comments: %{ %} 
+	- *.ini mode bf
+	- bf: partial may be everywhere
+	- bf: meterchange not at start of measure
+	- some doc updates
+	- bf: stem too long if stem is down.
+
+pl 57.jcn3
+	- dank je schat, voor wtk-i
+	- mi2mu tries to handle rests
+        - "!date" Thu May  1 02:34:04 MET DST 1997
+	- maak je het niet te laat schat?
+	  XXXX HWN
+
+pl 57.jcn2
+	- small toccata-fuga-E.ly fixes
+	- \bar "||"; is now doublebar, "|." is finishbar
+	- collision hshift fix, with on-line assistance
+
 pl 57
 	- lots of TODO doco
 	- text alignment bugfix
 	- bugfix Voice_group_regs::get_register_p() now is actually called too
 	- bugfix init  of Text_item::pos_i_
+
+pl 56.jnc1
+ 	- toccata-fuga-in-E.ly, excerpts with real-life collisions
+ 	- \{l,r}{b,f}{toe,heel} --- using cmsy fonts...
+ 	- pedal.ly 
 
 pl 55.jcn1
 	- mi2mu man page
