@@ -1,3 +1,9 @@
+2003-04-22  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* ly/gregorian-init.ly, ly/script-init.ly, mf/parmesan-scripts.mf,
+	scm/script.scm, input/test/gregorian-scripts.ly: added scripts for
+	chant notation
+
 2003-04-21  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* buildscripts/mf-to-table.py: bugfix: "--" in glyph names:
