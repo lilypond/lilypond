@@ -103,7 +103,6 @@ spaceTest = \markup { "two space chars" }
 \score {
     \context Staff \notes \relative c' {
 	c2-\sizeTest c2-\spaceTest
-	\break c2-\latinTest c2
     }
 }
 
@@ -114,5 +113,6 @@ spaceTest = \markup { "two space chars" }
 \score {
     \context Staff \notes \relative c' {
 	\repeat unfold 10 { a b c d \break }
+	c1
     }
 }
