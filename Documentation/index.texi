@@ -37,8 +37,7 @@
 @itemize @bullet
 @item @uref{TODO.txt,The TODO list}
 @item @uref{CHANGES.txt,The Change log}
-@item @uref{internals.html,About internal structures}
-@item @uref{CodingStyle.html,The coding standards of the lilypond project}
+@item @uref{hacking.html, About internals and working on lilypond}
 @item @uref{../topdocs/out-www/AUTHORS.html,The Authors}
 @item @uref{../topdocs/out-www/PATCHES.html,Sending and applying Patches}
 @end itemize

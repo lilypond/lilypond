@@ -12,6 +12,7 @@
 
 unsigned int int_hash (int);
 unsigned long prime_list (int idx);
+template<class K, class V> struct Hash_table_iter;
 
 template<class K>
 unsigned int

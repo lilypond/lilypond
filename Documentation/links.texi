@@ -4,22 +4,9 @@
 
 @node Top, , Backlinks, (dir)
 @top
-@menu
-* links - Links to other related websites::links - Links to other related websites
-@end menu
-
 
 
 @node links - Links to other related websites, Description, , Top
-@menu
-* Description::                   Description
-* Www::                           Www
-* Ftp::                           Ftp
-* News::                          News
-* Mailing lists::                 Mailing lists
-* mail-yo::                       mail-yo
-* Backlinks::                     Backlinks
-@end menu
 @chapter links - Links to other related websites
 
 
@@ -33,12 +20,6 @@ of interest to LilyPond users.
 @section Www
 
 @unnumberedsubsec LilyPond
-
-@table @samp
-@item @uref{http://www.cs.uu.nl/people/hanwen/lilypond/}Han-Wen's site.
-@item @uref{http://sca.uwaterloo.ca/lilypond/}The canadian mirror
-(thanks, Eric!)
-@end table
 
 
 @table @samp
@@ -57,95 +38,6 @@ of interest to LilyPond users.
 	John Sankey has taken up the task of recording classical
 	music, and distributing the results at no cost.
 @end table
-
-@node Ftp, News, Www, links - Links to other related websites
-@section Ftp
-
-At this moment we have about one development-patchlevel per week.
-These development releases will be at
-
-@itemize @bullet
-@item @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development}
-
-@item @uref{ftp://sca.uwaterloo.ca/pub/lilypond}
-
-@item @uref{ftp://ftp.lilypond.org/pub/lilypond}
-@end itemize
-
-Debian releases are located at
-@uref{http://cgi.debian.org/www-master/debian.org/Packages/stable/tex/lilypond.html}
-and
-@uref{ftp://ftp.debian.org/debian/dists/unstable/main/binary-i386/tex/lilypond_*.deb}
-
-Precompiled i386 RedHat RPMS are available from
-@uref{http://linux.umbc.edu/software/lilypond/rpms/}.
-
-@node News, Mailing lists, Ftp, links - Links to other related websites
-@section News
-
-The following newsgroups all contain material relevant to LilyPond
-@itemize @bullet
-
-@item @uref{news://comp.music.research}
-
-@item @uref{news://rec.music.compose}
-
-@item @uref{news://gnu.announce}
-
-@item @uref{news://comp.os.linux.announce}
-@end itemize
-
-@node Mailing lists, mail-yo, News, links - Links to other related websites
-@section Mailing lists
-
-@node mail-yo, Backlinks, Mailing lists, links - Links to other related websites
-
-    
-For programs which are part of the GNU music project, the following
-mailing list have been setup:
-
-@table @samp
-@item info-gnu-music@@gnu.org
-    A moderated list for information on the GNU Music project, to
-    subscribe: send mail with subject "subscribe" to
-    info-gnu-music-request@@gnu.org.  
-
-    As this list is moderated, normal people should ask to
-    @email{drl@@gnu.org, David R. Linn} or
-    @email{hanwen@@cs.uu.nl, Han-Wen} to forward announces instead of
-    sending it to info-gnu-music@@gnu.org
-
-Since the GNU Music project currently only has LilyPond, this list is
-mainly for announcing new versions of LilyPond.
-
-@uref{http://www.mail-archive.com/info-gnu-music@@gnu.org}
-
-@item help-gnu-music@@gnu.org
-    For help with programs from the GNU music project. To subscribe: send
-    mail with subject "subscribe" to
-    @email{help-gnu-music-request@@gnu.org}
-
-	Since the GNU Music project currently only has LilyPond, this list is mainly about using and extending LilyPond.
-
- @uref{http://www.mail-archive.com/help-gnu-music@@gnu.org}
-
-@item bug-gnu-music@@gnu.org
-    If you have bugreports, you should send them to this list. If you want
-    to read all bugreports, you should subscribe to this list.  To
-    subscribe: send mail with subject "subscribe" to
-    @email{bug-gnu-music-request@@gnu.org}
- @uref{http://www.mail-archive.com/bug-gnu-music@@gnu.org}
-@item gnu-music-discuss@@gnu.org,
-    For discussions concerning the GNU Music project, to subscribe: send
-    mail with subject "subscribe" to
-    @email{gnu-music-discuss-request@@gnu.org}
-    This list is archived at
-    @uref{http://www.mail-archive.com/gnu-music-discuss@@gnu.org}
-@end table
-
-Announces of new versions will be sent to info-gnu-music and
-gnu-music-discuss.
-
 
 @node Backlinks, Top, mail-yo, links - Links to other related websites
 @section Backlinks
