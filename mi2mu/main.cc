@@ -76,18 +76,18 @@ int
 main( int argc_i, char* argv_sz_a[] )
 {
 	Long_option_init long_option_init_a[] = {
-		0, "be-blonde", 'b',
-		0, "debug", 'd',
-		0, "help", 'h',
-		0, "no-silly", 'n',
-		1, "output", 'o',
-		0, "no-plets", 'p',
-		0, "quiet", 'q',
-		1, "smallest", 's',
-		0, "verbose", 'v',
-		0, "warranty", 'w',
-		0, "no-double-dots", 'x',
-		0,0,0
+		{0, "be-blonde", 'b'},
+		{0, "debug", 'd'},
+		{0, "help", 'h'},
+		{0, "no-silly", 'n'},
+		{1, "output", 'o'},
+		{0, "no-plets", 'p'},
+		{0, "quiet", 'q'},
+		{1, "smallest", 's'},
+		{0, "verbose", 'v'},
+		{0, "warranty", 'w'},
+		{0, "no-double-dots", 'x'},
+		{0,0,0}
 	};
 	Getopt_long getopt_long( argc_i, argv_sz_a, long_option_init_a );
 
