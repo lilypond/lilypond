@@ -328,17 +328,13 @@ System::get_line ()
 {  
   static int const LAYER_COUNT = 3;
 
-  SCM stencils = SCM_EOL;
-  if (Stencil *me = get_stencil ())
-    stencils = scm_cons (me->smobbed_copy (), stencils);
+  SCM exprs = SCM_EOL;
+  SCM *tail = &exprs;
 
   /* Output stencils in three layers: 0, 1, 2.  Default layer: 1.
 
      Start with layer 3, since scm_cons prepends to list.  */
   SCM all = get_property ("all-elements");
-
-  SCM exprs = SCM_EOL;
-  SCM *tail = &exprs;
 
   for (int i = LAYER_COUNT; i--;)
     for (SCM s = all; ly_c_pair_p (s); s = ly_cdr (s))
@@ -368,7 +364,8 @@ System::get_line ()
 	
       }
 
-  
+  if (Stencil *me = get_stencil ())
+    exprs = scm_cons (me->expr (), exprs);
 
   Interval x (extent (this, X_AXIS));
   Interval y (extent (this, Y_AXIS));
