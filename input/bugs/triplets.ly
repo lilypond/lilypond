@@ -6,6 +6,11 @@ texidoc="Simple beams.  This broke somewhere < 1.3.110
   filename = "gammes_chromatiques.ly";
 }
 
+%{
+	    - At bar 3 of 2nd score, stems are too big (or the beams are
+          badly positionned)
+%}
+
 linebreak = \penalty -1000;
 
 $ex8 = \notes \relative c' {

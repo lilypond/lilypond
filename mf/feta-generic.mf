@@ -1,4 +1,4 @@
-% 
+i% 
 % feta-generic.mf --  implement generic stuff: include lots of files, but don't
 %  set dims.
 %
@@ -40,9 +40,9 @@ else:
 %	input feta-bolletjes;	
 %	input feta-banier;
 %	input feta-eindelijk;
-%	input feta-klef;
+	input feta-klef;
 %	input feta-toevallig;
-	input feta-schrift;
+%	input feta-schrift;
 %	input feta-haak;
 %	input feta-timesig;
 %	input feta-pendaal;
