@@ -23,33 +23,21 @@ public:
 };
 
 
-/*
-  HUH ?
-
-  how's this supposed to work?
- */
 bool
 Melisma_engraver::try_music (Music *m) 
 {
-  SCM plain (get_property ("melismaBusy"));
-  SCM slur (get_property ("slurMelismaBusy"));
-  SCM tie (get_property ("tieMelismaBusy"));
-  SCM beam (get_property ("beamMelismaBusy"));
-      
-  if ((to_boolean (plain))
-      || (to_boolean (slur))
-      || (to_boolean (tie))
-      || (to_boolean (beam)))
-    {
+  SCM melisma_properties = get_property ("melismaBusyProperties");
+  bool busy = false;
 
-      daddy_trans_->set_property ("melismaEngraverBusy",SCM_BOOL_T);
-      return true;
-    }
-  else
-    {
-      daddy_trans_->set_property ("melismaEngraverBusy",SCM_BOOL_F);
-      return false;
-    }
+  for (; gh_pair_p (melisma_properties);
+       melisma_properties = gh_cdr (melisma_properties))
+      busy = busy || to_boolean (get_property (gh_car (melisma_properties)));
+
+  /*
+    for the phrasing engraver we also need this.
+   */
+  daddy_trans_->set_property ("melismaEngraverBusy",gh_bool2scm (busy));
+  return busy;
 }
 
 Melisma_engraver::Melisma_engraver()
@@ -61,5 +49,5 @@ ENTER_DESCRIPTION(Melisma_engraver,
 /* creats*/       "",
 /* accepts */     "melisma-playing-event",
 /* acks  */      "",
-/* reads */       "melismaBusy slurMelismaBusy tieMelismaBusy beamMelismaBusy",
+/* reads */       "melismaBusy melismaBusyProperties slurMelismaBusy tieMelismaBusy beamMelismaBusy",
 /* write */       "melismaEngraverBusy");

@@ -316,6 +316,9 @@ the start of the music.
 (translator-property-description 'melismaBusy boolean? "Signifies
 whether a melisma is active. This can be used to signal melismas on
 top of those automatically detected. ")
+(translator-property-description 'melismaBusyProperties list?
+				 "List of  properties (symbols) to
+determine whether a melisma  is playing.")
 (translator-property-description 'melismaEngraverBusy boolean? "See melismaBusy. This is set automatically.")
 (translator-property-description 'metronomeMarkFormatter procedure?
 				 "How to produce a metronome markup.
