@@ -3787,7 +3787,7 @@ of each clef denotes the @code{c'} with respect to the clef.
 @c Supported clefs:
 @c @code{varbaritone}, @code{bass}, @code{F}, @code{subbass}
 @c
-@c @lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "F" c'}
+@c @lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "F" c'}
 @c
 @c @item modern style C clef (glyph: @code{clefs-C})
 @c
@@ -3795,7 +3795,7 @@ of each clef denotes the @code{c'} with respect to the clef.
 @c @code{soprano}, @code{mezzosoprano}, @code{alto}, @code{C},
 @c @code{tenor}, @code{baritone}
 @c
-@c @lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "C" c'}
+@c @lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "C" c'}
 
 @item modern style mensural C clef (glyph: @code{clefs-neo_mensural_c'})
 
@@ -3803,7 +3803,7 @@ Supported clefs:
 @code{neo_mensural_c1}, @code{neo_mensural_c2},
 @code{neo_mensural_c3}, @code{neo_mensural_c4}
 
-@lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "neo_mensural_c2" c'}
+@lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "neo_mensural_c2" c'}
 
 @item petrucci style mensural C clef (glyph: @code{clefs-petrucci_c1})
 
@@ -3811,7 +3811,7 @@ Supported clefs:
 @code{petrucci_c1}
 for 1st staffline
 
-@lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "petrucci_c1" c'}
+@lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "petrucci_c1" c'}
 
 @item petrucci style mensural C clef (glyph: @code{clefs-petrucci_c2})
 
@@ -3819,7 +3819,7 @@ Supported clefs:
 @code{petrucci_c2}
 for 2nd staffline
 
-@lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "petrucci_c2" c'}
+@lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "petrucci_c2" c'}
 
 @item petrucci style mensural C clef (glyph: @code{clefs-petrucci_c3})
 
@@ -3827,7 +3827,7 @@ Supported clefs:
 @code{petrucci_c3}
 for 3rd staffline
 
-@lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "petrucci_c3" c'}
+@lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "petrucci_c3" c'}
 
 @item petrucci style mensural C clef (glyph: @code{clefs-petrucci_c4})
 
@@ -3835,7 +3835,7 @@ Supported clefs:
 @code{petrucci_c4}
 for 4th staffline
 
-@lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "petrucci_c4" c'}
+@lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "petrucci_c4" c'}
 
 @item petrucci style mensural C clef (glyph: @code{clefs-petrucci_c5})
 
@@ -3843,21 +3843,21 @@ Supported clefs:
 @code{petrucci_c5}
 for 5th staffline
 
-@lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "petrucci_c5" c'}
+@lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "petrucci_c5" c'}
 
 @item petrucci style mensural F clef (glyph: @code{clefs-petrucci_f})
 
 Supported clefs:
 @code{petrucci_f}
 
-@lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "petrucci_f" c'}
+@lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "petrucci_f" c'}
 
 @item petrucci style mensural G clef (glyph: @code{clefs-petrucci_g})
 
 Supported clefs:
 @code{petrucci_g}
 
-@lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "petrucci_g" c'}
+@lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "petrucci_g" c'}
 
 @item historic style mensural C clef (glyph: @code{clefs-mensural_c'})
 
@@ -3865,70 +3865,70 @@ Supported clefs:
 @code{mensural_c1}, @code{mensural_c2}, @code{mensural_c3},
 @code{mensural_c4}
 
-@lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "mensural_c2" c'}
+@lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "mensural_c2" c'}
 
 @item historic style mensural F clef (glyph: @code{clefs-mensural_f})
 
 Supported clefs:
 @code{mensural_f}
 
-@lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "mensural_f" c'}
+@lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "mensural_f" c'}
 
 @item historic style mensural G clef (glyph: @code{clefs-mensural_g})
 
 Supported clefs:
 @code{mensural_g}
 
-@lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "mensural_g" c'}
+@lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "mensural_g" c'}
 
 @item Editio Vaticana style do clef (glyph: @code{clefs-vaticana_do})
 
 Supported clefs:
 @code{vaticana_do1}, @code{vaticana_do2}, @code{vaticana_do3}
 
-@lilypond[26pt]{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4 \property Staff.TimeSignature \set #'transparent = ##t \clef "vaticana_do2" c'}
+@lilypond{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4 \property Staff.TimeSignature \set #'transparent = ##t \clef "vaticana_do2" c'}
 
 @item Editio Vaticana style fa clef (glyph: @code{clefs-vaticana_fa})
 
 Supported clefs:
 @code{vaticana_fa1}, @code{vaticana_fa2}
 
-@lilypond[26pt]{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4 \property Staff.TimeSignature \set #'transparent = ##t \clef "vaticana_fa2" c'}
+@lilypond{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4 \property Staff.TimeSignature \set #'transparent = ##t \clef "vaticana_fa2" c'}
 
 @item Editio Medicaea style do clef (glyph: @code{clefs-medicaea_do})
 
 Supported clefs:
 @code{medicaea_do1}, @code{medicaea_do2}, @code{medicaea_do3}
 
-@lilypond[26pt]{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4 \property Staff.TimeSignature \set #'transparent = ##t \clef "medicaea_do2" c'}
+@lilypond{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4 \property Staff.TimeSignature \set #'transparent = ##t \clef "medicaea_do2" c'}
 
 @item Editio Medicaea style fa clef (glyph: @code{clefs-medicaea_fa})
 
 Supported clefs:
 @code{medicaea_fa1}, @code{medicaea_fa2}
 
-@lilypond[26pt]{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4 \property Staff.TimeSignature \set #'transparent = ##t \clef "medicaea_fa2" c'}
+@lilypond{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4 \property Staff.TimeSignature \set #'transparent = ##t \clef "medicaea_fa2" c'}
 
 @item historic style hufnagel do clef (glyph: @code{clefs-hufnagel_do})
 
 Supported clefs:
 @code{hufnagel_do1}, @code{hufnagel_do2}, @code{hufnagel_do3}
 
-@lilypond[26pt]{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4 \property Staff.TimeSignature \set #'transparent = ##t \clef "hufnagel_do2" c'}
+@lilypond{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4 \property Staff.TimeSignature \set #'transparent = ##t \clef "hufnagel_do2" c'}
 
 @item historic style hufnagel fa clef (glyph: @code{clefs-hufnagel_fa})
 
 Supported clefs:
 @code{hufnagel_fa1}, @code{hufnagel_fa2}
 
-@lilypond[26pt]{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4 \property Staff.TimeSignature \set #'transparent = ##t \clef "hufnagel_fa2" c'}
+@lilypond{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4 \property Staff.TimeSignature \set #'transparent = ##t \clef "hufnagel_fa2" c'}
 
 @item historic style hufnagel combined do/fa clef (glyph: @code{clefs-hufnagel_do_fa})
 
 Supported clefs:
 @code{hufnagel_do_fa}
 
-@lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "hufnagel_do_fa" c'}
+@lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "hufnagel_do_fa" c'}
 
 @c --- This should go somewhere else: ---
 @c @item modern style percussion clef (glyph: @code{clefs-percussion})
@@ -3936,14 +3936,14 @@ Supported clefs:
 @c Supported clefs:
 @c @code{percussion}
 @c
-@c @lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "percussion" c'}
+@c @lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "percussion" c'}
 @c
 @c @item modern style tab clef (glyph: @code{clefs-tab})
 @c
 @c Supported clefs:
 @c @code{tab}
 @c
-@c @lilypond[26pt]{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #6 \property Staff.TimeSignature \set #'transparent = ##t \clef "tab" c'}
+@c @lilypond{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #6 \property Staff.TimeSignature \set #'transparent = ##t \clef "tab" c'}
 
 @end table
 
@@ -4022,7 +4022,7 @@ block:
 
 Currently, the following styles are supported:
 
-@lilypond[26pt]
+@lilypond
 \score {
     \notes {
         \fatText

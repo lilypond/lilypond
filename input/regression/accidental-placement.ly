@@ -1,9 +1,12 @@
 \version "1.7.16"
+
 \header {
+
     texidoc ="Accidentals are placed as closely as possible.
 Accidentals in corresponding octaves are aligned.
 The top accidental should be nearest to the chord. The
-flats in a sixth shoudl be staggered.  "
+flats in a sixth should be staggered.  "
+    
 }
 
 
@@ -26,4 +29,5 @@ flats in a sixth shoudl be staggered.  "
 }
 \paper { raggedright = ##t}
      }
+
 %% new-chords-done %%
