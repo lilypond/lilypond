@@ -35,7 +35,8 @@ default_header = r"""
 """
 
 
-wiki_base = 'http://afavant.elte.hu/lywiki/'
+#wiki_base = 'http://afavant.elte.hu/lywiki/'
+wiki_base = None 
 
 
 default_footer = r"""<hr>Please take me <a href=@INDEX@>back to the index</a>
@@ -44,8 +45,7 @@ of @PACKAGE_NAME@
 
 built = r"""
 <div style="background-color: #e8ffe8; padding: 2; border: #c0ffc0 1px solid;">
-<a href="%(wiki_base)s%(wiki_page)s">Read </a> comments on this page, or
-<a href="%(wiki_base)s%(wiki_page)s?action=edit">add</a> one.
+%(wiki_string)s
 <p>
 <font size="-1">
 This page is for %(package_name)s-%(package_version)s (%(branch_str)s). <br>
@@ -254,6 +254,14 @@ def do_file (f):
 	wiki_page = re.sub (r'\.-', '', wiki_page) 
 	wiki_page = re.sub ('.html', '', wiki_page)
 
+	wiki_string = ''
+
+	if wiki_base:
+		wiki_string = (r'''<a href="%(wiki_base)s%(wiki_page)s">Read </a> comments on this page, or
+		<a href="%(wiki_base)s%(wiki_page)s?action=edit">add</a> one.''' % 
+			       { 'wiki_base': wiki_base,
+				 'wiki_page': wiki_page})
+		
 	subst = globals ()
 	subst.update (locals())
 	s = s % subst
