@@ -1,6 +1,6 @@
 /*
 
-  FILE   : string.hh -- implement String inline helpclasses,
+  FILE   : string.hh -- implement String inline helper classes,
    and declare stringclass.
  
  
@@ -16,31 +16,16 @@
 #include <string.h>
 #include <iostream.h>
 
-//#include "globals.hh"
+
 #include "stringutil.hh"
 
-// whugh
-#ifdef CENTRAL_OBJECT
-#include "sortable.hh"
-#define String__mpp  String : public Sortable
-#else
-#define String__mpp  String
-#endif
-
 /// the smart string class.
-class String__mpp
+class String
 {
 protected:
     String_handle data; // should derive String from String_handle?
 
 public:
-
-#ifdef CENTRAL_OBJECT // everything derived from Sortable object
-    virtual int operator ==( const Sortable& test ) const;
-    virtual int operator &&( const Object& test ) const;
-    virtual int operator >( const Sortable& test ) const;
-#endif
-
     /// init to ""
     String() {  }                  
     /** needed because other constructors are provided.*/
@@ -64,8 +49,9 @@ public:
     ///  return a "new"-ed copy of contents
     char *copy_array() const; //  return a "new"-ed copy of contents
 
+    const char *ptr() const;
     /// return the data. Don't use for writing the data.
-    virtual operator const char *() const; // virtual???
+    operator const char *() const { return ptr(); }
     
     String operator =( const String & source ) { data = source.data; return *this; }
 
@@ -126,6 +112,11 @@ public:
     
     /// the length of the string
     int len() const;
+
+    /// DO NOT MAKE THIS INTO AN OPERATOR
+    bool to_bool() const;
+    /** perl -like string to bool conversion
+     */
 };
 /** 
 
