@@ -12,19 +12,18 @@
 #include "real.hh"
 #include "drul-array.hh"
 
-/** a T interval.  this represents the closed interval [left,right].
-  No invariants. T must be a totally ordered ring (with division, anyway ..)
-  At instantiation, the function infinity () has to be defined explicitely.
-  
-  */
+/* A T interval.  This represents the closed interval [left,right].
+   No invariants.  T must be a totally ordered ring (with division, anyway ..)
+   At instantiation, the function infinity () has to be defined explicitely. */
 template<class T>
-struct Interval_t : public Drul_array<T> {
+struct Interval_t : public Drul_array<T>
+{
+  Drul_array<T>::elem;
 
-  /* ************** */
-    
-  static T infinity () ;
+  static T infinity ();
   static String T_to_string (T arg);
-  T center () const {
+  T center () const
+  {
     assert (!is_empty ());
     return (elem (LEFT) + elem (RIGHT)) / T (2);
   }
@@ -45,21 +44,26 @@ struct Interval_t : public Drul_array<T> {
     */
   void unite (Interval_t<T> h);
   void intersect (Interval_t<T> h);
-  void add_point (T p) {
+  void add_point (T p)
+  {
     elem(LEFT) = elem (LEFT) <? p;
     elem(RIGHT) = elem (RIGHT) >? p;
   }
   T length () const;
   T delta () const;
-  void set_empty () ;
+  void set_empty ();
   void set_full ();
 
   /*
     TODO: strip hungarian suffix.
    */
-  bool is_empty () const { return elem (LEFT) > elem (RIGHT); }
+  bool is_empty () const
+  {
+    return elem (LEFT) > elem (RIGHT);
+  }
   bool superset (Interval_t<T> const&) const;
-  Interval_t () {
+  Interval_t ()
+  {
     set_empty ();
   }
   Interval_t (T m, T M) : Drul_array<T> (m,M)
@@ -87,21 +91,22 @@ struct Interval_t : public Drul_array<T> {
     return *this;
   }
 
-  Real linear_combination (Real x) const {
-    Drul_array<Real> da (elem (LEFT),
-			 elem (RIGHT));
+  Real linear_combination (Real x) const
+  {
+    Drul_array<Real> da (elem (LEFT), elem (RIGHT));
     return ::linear_combination (da, x);
   }
-  String to_string () const;    
+  String to_string () const;
 
   bool contains (T r);
-  void negate () {
+  void negate ()
+  {
     T r = -elem (LEFT);
     T l = -elem (RIGHT);
     elem (LEFT) = l;
     elem (RIGHT) =r;
   }
-  
+
   void swap ()
   {
     T t = elem (LEFT);

@@ -14,14 +14,12 @@
 #include "grob-info.hh"
 #include "translator.hh"
 
-/**
-  Convert a music definition into a audio representation.
-  A baseclass
- */
+/* Convert a music definition into a audio representation.
+   A baseclass.  */
 class Performer : public virtual Translator
 {
 public:
-  VIRTUAL_COPY_CONS (Translator);
+  VIRTUAL_COPY_CONSTRUCTOR (Translator, Performer);
   friend class Performer_group_performer;  
   Performer_group_performer* get_daddy_performer () const;
 
@@ -34,5 +32,5 @@ protected:
 };
 
 
-#endif // PERFORMER_HH
+#endif /* PERFORMER_HH */
 

@@ -59,10 +59,11 @@ public:
   virtual SCM do_derived_mark () const;
   static bool has_interface (Grob*);
   virtual System *get_system () const;
+
 protected:
   void set_my_columns ();
 
-  VIRTUAL_COPY_CONS (Grob);
+  VIRTUAL_COPY_CONSTRUCTOR (Grob, Spanner);
   virtual void do_break_processing ();
 };
 

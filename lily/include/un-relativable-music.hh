@@ -1,5 +1,5 @@
 /*   
-  un-relativable-music.hh -- declare 
+  un-relativable-music.hh -- declare Un_relativable_music
   
   source file of the GNU LilyPond music typesetter
   
@@ -16,10 +16,10 @@ class Un_relativable_music: public Music_wrapper
 {
 public:
   Un_relativable_music ();
-  Pitch to_relative_octave (Pitch);
-  VIRTUAL_COPY_CONS(Music);
-};
+  VIRTUAL_COPY_CONSTRUCTOR (Music, Un_relativable_music);
 
+  Pitch to_relative_octave (Pitch);
+};
 
 #endif /* UN_RELATIVABLE_MUSIC_HH */
 

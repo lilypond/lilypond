@@ -242,7 +242,7 @@ binsearchs (Array<T> const &arr, T t, int (*compare) (T const&,T const&))
   int cmp;
   int result;
   lo = 0;
-  hi = maxkey;
+  hi = Array<T>::maxkey;
 
   /* binary search */
   do

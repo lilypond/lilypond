@@ -17,23 +17,23 @@
 class Paper_column : public Item
 { 
 public:
-  VIRTUAL_COPY_CONS (Grob);
+  int  rank_;
+  /// if lines are broken then this column is in #line#
+  System *system_;
+
+  Paper_column (SCM);
+  VIRTUAL_COPY_CONSTRUCTOR (Grob, Paper_column);
 
   static bool has_interface (Grob*);
-  int  rank_;
   virtual void do_break_processing ();
   virtual Paper_column *get_column () const;
   virtual System *get_system () const;
   
-  /// if lines are broken then this column is in #line#
-  System *system_;
-
   static int get_rank (Grob*);
 
-  DECLARE_SCHEME_CALLBACK(print, (SCM));
-  DECLARE_SCHEME_CALLBACK(before_line_breaking, (SCM));
+  DECLARE_SCHEME_CALLBACK (print, (SCM));
+  DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
   
-  Paper_column (SCM);
   static bool is_musical (Grob *);
   static Moment when_mom (Grob*);
 

@@ -23,8 +23,8 @@
 
 #define TRANSLATOR_DECLARATIONS(NAME)			\
 public:							\
-  NAME();\
-  VIRTUAL_COPY_CONS (Translator);				\
+  NAME ();						\
+  VIRTUAL_COPY_CONSTRUCTOR (Translator, NAME);		\
   static SCM static_description_;			\
   virtual SCM static_translator_description () const;	\
   virtual SCM translator_description () const;
@@ -49,9 +49,11 @@ public:
 
 public:
   DECLARE_SMOBS (Translator, dummy);
+
 protected:			// should be private.
   SCM simple_trans_list_;
   friend class Context_def;
+
 public:
   Score_context * get_score_context () const;
   Global_context * get_global_context () const;

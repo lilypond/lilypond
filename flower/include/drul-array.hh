@@ -26,7 +26,6 @@ struct Drul_array
     {
       assert (d==1 || d== -1);
       return array_[ (d+1)/2];
-
     }
   T &operator[] (Direction d)
   {
@@ -43,7 +42,8 @@ struct Drul_array
     return elem (d);
   }
   Drul_array ()
-    {}
+    {
+    }
   Drul_array (T t1, T t2)
     {
       array_[0] = t1;

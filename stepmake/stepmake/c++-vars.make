@@ -4,9 +4,10 @@ include $(stepdir)/compile-vars.make
 # added two warnings that are treated by cygwin32's gcc 2.7.2 as errors.
 # huh, but still, no warnings even provoced with linux's gcc 2.7.2.1?
 
-# -pipe makes it go faster, but is not supported on all platforms. 
+# -pipe makes it go faster, but is not supported on all platforms.
+# how much faster -- would this warrant configure check?
 # EXTRA_CXXFLAGS= -Wall -Winline -W -Wmissing-prototypes -Wmissing-declarations -Wconversion
-EXTRA_CXXFLAGS= -Wall  -W -Wmissing-prototypes -Wconversion
+EXTRA_CXXFLAGS= -W -Wall -Wconversion
 
 ALL_CXXFLAGS = $(CXXFLAGS) $(ICFLAGS) $(DEFINES) $(addprefix -I,$(INCLUDES)) $(USER_CFLAGS) $(EXTRA_CFLAGS) $(MODULE_CFLAGS) $($(PACKAGE)_CFLAGS) $($(PACKAGE)_CXXFLAGS) $(USER_CXXFLAGS) $(EXTRA_CXXFLAGS) $(MODULE_CXXFLAGS)
 

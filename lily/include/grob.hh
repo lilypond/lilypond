@@ -32,16 +32,16 @@ enum Grob_status {
 typedef void (Grob::*Grob_method_pointer) (void);
 
 
-/*
-   Basic output object.
-*/
-class Grob  {
+/* Basic G[raphical output] O[bject].  */
+class Grob
+{
 protected:
   SCM immutable_property_alist_;
   SCM mutable_property_alist_;
   friend class Spanner;
   
   void substitute_mutable_properties(SCM,SCM);
+
 public:
   Grob *original_;
 
@@ -64,6 +64,8 @@ public:
 
   Grob (SCM basic_props);
   Grob (Grob const&);
+  VIRTUAL_COPY_CONSTRUCTOR (Grob, Grob);
+ 
   String name () const;
   
   /*
@@ -88,8 +90,6 @@ public:
   void add_dependency (Grob*);    
   virtual System * get_system () const;
 
-  VIRTUAL_COPY_CONS (Grob);
- 
   /**
      Recursively track all dependencies of this Grob.  The
      status_ field is used as a mark-field.  It is marked with

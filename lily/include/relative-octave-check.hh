@@ -15,11 +15,11 @@
 class Relative_octave_check : public Music
 {
 public:
-  VIRTUAL_COPY_CONS(Music);
+  VIRTUAL_COPY_CONSTRUCTOR (Music, Relative_octave_check);
+
   virtual Pitch to_relative_octave (Pitch);
 };
 
-
-#endif /* RELATIVE_MUSIC_HH */
+#endif /* RELATIVE_OCTAVE_CHECK_HH */
 
 
