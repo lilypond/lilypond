@@ -1,5 +1,7 @@
 2003-05-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/mutopia/R.Schumann/romanze-op28-2.ly: syntax updates.
+
 	* Documentation/user/refman.itely (Metronome marks): update doco.
 
 	* input/regression/markup-note.ly: new file
