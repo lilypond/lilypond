@@ -63,6 +63,7 @@ Quote_iterator::derived_mark () const
 
 Quote_iterator::Quote_iterator ()
 {
+  transposed_musics_ = SCM_EOL;
   event_vector_ = SCM_EOL;
   event_idx_ = 0;
   end_idx_ = 0;
