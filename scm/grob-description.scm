@@ -538,6 +538,7 @@
 	(number-threshold . 1)
 	(padding . 1)
 	(thickness . 6.6)
+	(use-breve-rest . #f)
 	(font-family . number)
 	(padding . 1)
 	(meta . ((interfaces . (multi-measure-rest-interface rest-interface font-interface staff-symbol-referencer-interface spanner-interface))))

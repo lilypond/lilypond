@@ -163,19 +163,32 @@ Multi_measure_rest::symbol_molecule (Grob *me, Real space)
   Font_metric *musfont
     = Font_interface::get_font (me,style_chain);
 
+  SCM sml = me->get_grob_property ("use-breve-rest");
+
   if (measures == 1)
     {
-      Molecule s = musfont->find_by_name (Rest::glyph_name (me, 0, ""));
+      if (sml == SCM_BOOL_T)
+	{
+	  Molecule s = musfont->find_by_name (Rest::glyph_name (me, -1, ""));
 
-      /*
-	ugh.
-       */
-      if (Staff_symbol_referencer::get_position (me) == 0.0)
-	s.translate_axis (staff_space, Y_AXIS);
-
-      s.translate_axis ((space - s.extent (X_AXIS).length ())/2, X_AXIS);
+	  s.translate_axis ((space - s.extent (X_AXIS).length ())/2, X_AXIS);
       
-      return s ;
+	  return s ;
+	}
+      else
+	{
+	  Molecule s = musfont->find_by_name (Rest::glyph_name (me, 0, ""));
+
+	  /*
+	    ugh.
+	   */
+	  if (Staff_symbol_referencer::get_position (me) == 0.0)
+	    s.translate_axis (staff_space, Y_AXIS);
+
+	  s.translate_axis ((space - s.extent (X_AXIS).length ())/2, X_AXIS);
+      
+	  return s ;
+        }
     }
   else
     {
@@ -222,33 +235,57 @@ Multi_measure_rest::church_rest (Grob*me, Font_metric *musfont, int measures,
   int l = measures;
   int count = 0;
   Real symbols_width = 0.0;
+
+  SCM sml = me->get_grob_property ("use-breve-rest");
+
   while (l)
     {
-      int k;
-      if (l >= 4)
+      if (sml == SCM_BOOL_T)
 	{
-	  l-=4;
-	  k = -2;
-	}
-      else if (l>= 2)
-	{
-	  l -= 2;
-	  k = -1;
-	}
-      else
-	{
-	  k = 0;
-	  l --;
-	}
+	  int k;
+	  if (l >= 2)
+	    {
+	      l-=2;
+	      k = -2;
+	    }
+	  else
+	    {
+	      l -= 1;
+	      k = -1;
+	    }
 
-      Molecule r (musfont->find_by_name ("rests-" + to_string (k)));
-      if (k == 0)
-	{
-	  Real staff_space = Staff_symbol_referencer::staff_space (me);
-	  r.translate_axis (staff_space, Y_AXIS);
+	  Molecule r (musfont->find_by_name ("rests-" + to_string (k)));
+	  symbols_width += r.extent (X_AXIS).length ();
+	  mols = gh_cons (r.smobbed_copy (), mols);
 	}
-      symbols_width += r.extent (X_AXIS).length ();
-      mols = gh_cons (r.smobbed_copy (), mols);
+       else
+	{
+	  int k;
+	  if (l >= 4)
+	    {
+	      l-=4;
+	      k = -2;
+	    }
+	  else if (l>= 2)
+	    {
+	      l -= 2;
+	      k = -1;
+	    }
+	  else
+	    {
+	      k = 0;
+	      l --;
+	    }
+
+	  Molecule r (musfont->find_by_name ("rests-" + to_string (k)));
+	  if (k == 0)
+	    {
+	      Real staff_space = Staff_symbol_referencer::staff_space (me);
+	      r.translate_axis (staff_space, Y_AXIS);
+	    }
+	  symbols_width += r.extent (X_AXIS).length ();
+	  mols = gh_cons (r.smobbed_copy (), mols);
+	}
       count ++;
     }
 
@@ -333,4 +370,4 @@ numbers, fields from font-interface may be used.
 
 
 ",
-  "expand-limit measure-count number-threshold padding thickness");
+  "expand-limit measure-count number-threshold padding thickness use-breve-rest");

@@ -1436,10 +1436,10 @@ verbose_event:
 	;
 
 sup_quotes:
-	'\'' {
+	"'" {
 		$$ = 1;
 	}
-	| sup_quotes '\'' {
+	| sup_quotes "'" {
 		$$ ++;
 	}
 	;
