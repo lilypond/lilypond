@@ -1088,7 +1088,7 @@
 	(width-correct . 0.0)
 	(style . dashed-line)
 	(dash-fraction . 0.3)
-	(edge-height . (0 . 1.5))
+	(edge-height . (0 . 1.2))
 	(direction . 1)
 	(meta . ((interfaces . (text-spanner-interface side-position-interface font-interface spanner-interface))))		
 	))

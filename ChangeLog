@@ -1,5 +1,8 @@
 2004-01-13  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* Documentation/user/refman.itely (Ottava brackets): more doco for
+	ottava.
+
 	* lily/side-position-interface.cc (out_of_staff): also do
 	out_of_staff() correctly for d == DOWN.
 
