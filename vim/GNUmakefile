@@ -27,12 +27,21 @@ local-install:
 
 local-uninstall:
 	rm $(vimdir)/compiler/lilypond.vim
-	rm $(vimdir)/ftdetect/lilypond.vim
-	rm $(vimdir)/ftplugin/lilypond.vim
-	rm $(vimdir)/indent/lilypond.vim
-	rm $(vimdir)/syntax/lilypond.vim
+	rmdir -p $(vimdir)/compiler 
 
-EXTRA_DIST_FILES=filetype.vim
+	rm $(vimdir)/ftdetect/lilypond.vim
+	rmdir -p $(vimdir)/ftdetect 
+
+	rm $(vimdir)/ftplugin/lilypond.vim
+	rmdir -p $(vimdir)/ftplugin 
+
+	rm $(vimdir)/indent/lilypond.vim
+	rmdir -p $(vimdir)/indent 
+
+	rm $(vimdir)/syntax/lilypond.vim
+	rmdir -p $(vimdir)/syntax
+
+EXTRA_DIST_FILES=filetype.vim vimrc
 
 LILYPOND_WORDS = $(outdir)/lilypond-words $(outdir)/lilypond-words.vim
 LILYPOND_WORDS_DEPENDS =\
