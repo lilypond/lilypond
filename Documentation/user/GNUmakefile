@@ -18,7 +18,7 @@ PS_FILES = $(DVI_FILES:.dvi=.ps)  $(OUTDOC_FILES:.doc=.ps) $(OUTTEX_FILES:.tex=.
 
 PS_GZ_FILES= $(addsuffix .gz, $(PS_FILES))
 
-INFO_FILES = $(addprefix $(outdir)/, lilypond.info lilypond-internals.info)
+# INFO_FILES = $(addprefix $(outdir)/, lilypond.info lilypond-internals.info)
 
 STEPMAKE_TEMPLATES=tex texinfo documentation
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
@@ -32,11 +32,12 @@ ps: $(PS_FILES)
 # Cancel default info rule
 $(outdir)/%.info: $(outdir)/%.texi
 
+default: 
+
 # info is now built by default via texinfo-rules
 # we must build them by default, otherwise they get built during make install
 info: $(INFO_FILES)
 
-default: 
 
 DEEP_HTML_FILES = $(outdir)/lilypond/lilypond.html $(outdir)/lilypond-internals/lilypond-internals.html
 

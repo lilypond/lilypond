@@ -1,3 +1,6 @@
+
+#(define raisedflat '((raise . 0.4) (music (named "accidentals--1"))))
+
 flauti = \notes \relative c' {
   \property Staff.instrument	= #"2 Flauti"
   \property Staff.instr		= #"Fl."
@@ -16,8 +19,8 @@ oboi = \notes \relative c' {
 }
 
 clarinetti = \notes \relative c' {
-  \property Staff.instrument	= #"2 Clarinetti\n(B\\textflat)"
-  \property Staff.instr		= #"Cl.\n(B\\textflat)"
+  \property Staff.instrument	= #`(lines "2 Clarinetti" (rows "(B" ,raisedflat ")"))
+  \property Staff.instr		= #`(lines "Cl." (rows "(B" ,raisedflat ")"))
 
   c1 c
 }
@@ -29,21 +32,21 @@ fagotti = \notes \relative c' {
 }
 
 corni = \notes \relative c' {
-  \property Staff.instrument	= #"2 Corni\n(E\\textflat)"
-  \property Staff.instr		= #"Cor.\n(E\\textflat)"
+  \property Staff.instrument	= #`(lines "2 Corni" (rows "(E" ,raisedflat ")"))
+  \property Staff.instr		= #`(lines "Cor." (rows "(E" ,raisedflat ")"))
 
   c1 c
 }
 
 trombe = \notes \relative c' {
-  \property Staff.instrument	= #"2 Trombe\n(C)"
-  \property Staff.instr		= #"Tbe.\n(C)"
+  \property Staff.instrument	= #'(lines "2 Trombe" "(C)")
+  \property Staff.instr		= #'(lines "Tbe." "(C)")
 
   c1 c
 }
 
 timpani = \notes \relative c' {
-  \property Staff.instrument	= #"Timpani\n(C-G)"
+  \property Staff.instrument	= #'(lines "Timpani" "(C-G)")
   \property Staff.instr		= #"Timp."
 
   c1 c
@@ -69,8 +72,8 @@ viola = \notes \relative c' {
 }
 
 violoncello = \notes \relative c' {
-  \property Staff.instrument	= #"Violoncello\ne\nContrabasso"
-  \property Staff.instr		= #"Vc.\nCb."
+  \property Staff.instrument	= #'(lines "Violoncello" "e" "Contrabasso")
+  \property Staff.instr		= #'(lines "Vc." "Cb.")
   c1 c
 }
 
