@@ -36,7 +36,8 @@ Axis_group_element::elem_l_arr () const
   */
   Link_array<Score_element> r;
   for (int i=0; i < elem_l_arr_.size (); i++)
-    r.push (elem_l_arr_[i]->access_Score_element());
+    r.push (dynamic_cast<Score_element*>(elem_l_arr_[i]));
+      
   return r;
 }
 
@@ -49,7 +50,7 @@ Axis_group_element::get_children ()
     {
       Score_element* e = elems[i];
       childs.push (e) ;
-      Axis_group_element * axis_group= e->access_Axis_group_element ();
+      Axis_group_element * axis_group= dynamic_cast <Axis_group_element *> (e);
       if (axis_group)
       	childs.concat (axis_group->get_children ());      
     }
