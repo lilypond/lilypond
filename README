@@ -19,6 +19,8 @@ You will need GNU C++ v2.7 or better and GNU make.  If you actually
 want to use this, you'd better use the "speedy" compilation flags in
 the Makefile.
 
+why G++ >= 2.7? LilyPond & flower lib uses builtin bool and typeof.
+
 USING
 
 No, you shouldn't. Really. If you're still not discouraged; this is
