@@ -98,10 +98,18 @@ Beam_engraver::do_process_requests ()
       beam_info_p_ = new Beaming_info_list;
       
       
-
+      /* urg, must copy to Auto_beam_engraver too */
       Scalar prop = get_property ("beamslopedamping", 0);
       if (prop.isnum_b ()) 
 	beam_p_->set_elt_property (damping_scm_sym, gh_int2scm( prop));
+      
+      prop = get_property ("autoKneeGap", 0);
+      if (prop.isnum_b ()) 
+	beam_p_->set_elt_property (auto_knee_gap_scm_sym, gh_int2scm( prop));
+      
+      prop = get_property ("autoInterstaffKneeGap", 0);
+      if (prop.isnum_b ()) 
+	beam_p_->set_elt_property (auto_interstaff_knee_gap_scm_sym, gh_int2scm( prop));
       
       prop = get_property ("beamquantisation", 0);
       if (prop.isnum_b ()) 

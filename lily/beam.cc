@@ -120,12 +120,72 @@ Beam::center () const
 		 si.stem_l_->staff_line_leading_f ()/2);
 }
 
+/*
+  Simplistic auto-knees; only consider vertical gap between two
+  adjacent chords
+ */
+bool
+Beam::auto_knee (SCM gap, bool interstaff_b)
+{
+  bool knee = false;
+  int knee_y = 0;
+  Real internote_f = stems_[0]->staff_line_leading_f ()/2;
+  if (gap != SCM_BOOL_F)
+    {
+      int auto_gap_i = gh_scm2int (SCM_CDR (gap));
+      for (int i=1; i < stems_.size (); i++)
+        {
+	  bool is_b = (bool)(sinfo_[i].interstaff_f_ - sinfo_[i-1].interstaff_f_);
+	  int l_y = (int)(stems_[i-1]->chord_start_f () / internote_f)
+	    + (int)sinfo_[i-1].interstaff_f_;
+	  int r_y = (int)(stems_[i]->chord_start_f () / internote_f)
+	    + (int)sinfo_[i].interstaff_f_;
+	  int gap_i = r_y - l_y;
+
+	  /*
+	    Forced stem directions are ignored.  If you don't want auto-knees,
+	    don't set, or unset autoKneeGap/autoInterstaffKneeGap.
+	   */
+	  if ((abs (gap_i) >= auto_gap_i) && (!interstaff_b || is_b))
+	    {
+	      knee_y = (r_y + l_y) / 2;
+	      knee = true;
+	      break;
+	    }
+	}
+    }
+  if (knee)
+    {
+      for (int i=0; i < stems_.size (); i++)
+        {
+	  int y = (int)(stems_[i]->chord_start_f () / internote_f)
+	    + (int)sinfo_[i].interstaff_f_;
+	  stems_[i]->dir_ = y < knee_y ? UP : DOWN;
+	  stems_[i]->set_elt_property (dir_forced_scm_sym, SCM_BOOL_T);
+	}
+    }
+  return knee;
+}
+
+bool
+Beam::auto_knees ()
+{
+  if (auto_knee (get_elt_property (auto_interstaff_knee_gap_scm_sym), true))
+    return true;
+  
+  return auto_knee (get_elt_property (auto_knee_gap_scm_sym), false);
+}
+
+
 void
 Beam::do_pre_processing ()
 {
+  /*
+    urg: it seems that info on whether beam (voice) dir was forced
+         is being junked here?
+  */
   if (!dir_)
     dir_ = get_default_dir ();
-  
   
   set_direction (dir_);
 }
@@ -146,7 +206,25 @@ Beam::do_post_processing ()
     {
       warning (_ ("beam with less than two stems"));
       set_elt_property (transparent_scm_sym, SCM_BOOL_T);
-      return ;
+      return;
+    }
+  set_steminfo ();
+  if (auto_knees ())
+    {
+      /*
+	if auto-knee did its work, most probably stem directions
+	have changed, so we must recalculate all.
+       */
+      dir_ = get_default_dir ();
+      set_direction (dir_);
+
+      /* auto-knees used to only work for slope = 0
+	 anyway, should be able to set slope per beam
+         set_elt_property (damping_scm_sym, gh_int2scm(1000));
+      */
+
+      sinfo_.clear ();
+      set_steminfo ();
     }
   calculate_slope ();
   set_stemlens ();
@@ -323,6 +401,7 @@ Beam::set_steminfo ()
     return;
   
   assert (multiple_i_);
+
   int total_count_i = 0;
   int forced_count_i = 0;
   for (int i=0; i < stems_.size (); i++)
@@ -374,7 +453,6 @@ Beam::set_steminfo ()
 void
 Beam::calculate_slope ()
 {
-  set_steminfo ();
   if (!sinfo_.size ())
     slope_f_ = left_y_ = 0;
   else if (sinfo_[0].idealy_f_ == sinfo_.top ().idealy_f_)

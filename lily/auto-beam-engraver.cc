@@ -203,8 +203,16 @@ Auto_beam_engraver::create_beam_p ()
   /* urg, copied from Beam_engraver */
   Scalar prop = get_property ("beamslopedamping", 0);
   if (prop.isnum_b ()) 
-    beam_p->set_elt_property (damping_scm_sym, gh_int2scm( prop));
+    beam_p->set_elt_property (damping_scm_sym, gh_int2scm(prop));
 
+  prop = get_property ("autoKneeGap", 0);
+  if (prop.isnum_b ()) 
+    beam_p->set_elt_property (auto_knee_gap_scm_sym, gh_int2scm(prop));
+
+  prop = get_property ("autoInterstaffKneeGap", 0);
+  if (prop.isnum_b ()) 
+    beam_p->set_elt_property (auto_interstaff_knee_gap_scm_sym, gh_int2scm( prop));
+      
   prop = get_property ("beamquantisation", 0);
   if (prop.isnum_b ()) 
     beam_p->quantisation_ = (Beam::Quantisation)(int)prop;

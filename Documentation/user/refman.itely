@@ -1,0 +1,2976 @@
+
+
+@node Reference Manual, ,  , Top
+@menu
+* Overview::                      Overview
+* Top level::                     Top level
+* notenames::                     notenames
+* Lexical conventions::           Lexical conventions
+* Other languages::                      notelang
+* modes::                         modes
+* Types::                         Types
+* Music expressions::             Music expressions
+* Atomic music expressions::      Atomic music expressions
+* Note specification::                      notedesc
+* barlines::                      barlines
+* Manual beams::                  Manual beam
+* tremolo::                       tremolo
+* Compound music expressions::    Compound music expressions
+* relative::                      relative
+* Repeats::                   	  Repeats	
+* transpose::                     transpose
+* Ambiguities::                   Ambiguities
+* Notation conversion specifics:: Notation conversion specifics
+* autobeam::                      autobeam
+* lyricprint::                    lyricprint
+* Notation Contexts::             Notation Contexts
+* Properties::                    Changing formatting
+* Notation output definitions::   Notation output definitions
+* paper::                         paper
+* Paper variables::                     papervars
+* contextdefs::                   contextdefs
+* engravers::                     engravers
+* Sound output::                  Sound output
+* midilist::                      midilist
+* Pre-defined Identifiers::       Pre-defined Identifiers
+@end menu
+
+@chapter Reference Manual
+
+
+
+@node Overview, , , Reference Manual
+@section Overview
+
+This document@footnote{This document has been revised for
+LilyPond 1.2.} describes the the GNU LilyPond input format, which is
+a language for defining music.  We call this language @emph{Music
+Definition Language} or @emph{Mudela}, for short.@footnote{If anybody
+comes up with a better name, we'd gladly take this.  Gourlay already
+uses a ``Musical Description Language,'' ISO standard 10743 defines a
+``Standard Music Description Language.''  We're not being original
+here.}
+
+@emph{Mudela} is a language that allows you to
+
+@itemize @bullet
+  @item  create musical expressions by combining pitches, durations 
+  @item  output those musical expressions to various formats
+  @item  give those musical expressions and output definitions names, so
+       you can enter them in manageable chunks.
+@end itemize
+
+@emph{Mudela} aims to define a piece of music completely, both from
+typesetting and from a performance point of view.
+
+
+
+@node Top level, , , Reference Manual
+@section Top level
+
+@cindex top level
+
+This section describes what you may enter at top level.
+
+
+
+@cindex score definition
+
+The output is generated combining a music expression with an output
+definition.  A score block has the following syntax:
+
+@example
+  \score @{ @var{musicexpr} @var{outputdefs} @}
+@end example
+
+@var{outputdefs} are zero or more output definitions.  If no output
+definition is supplied, the default @code{\paper} block will be added.
+
+
+
+@cindex header
+
+@keyindex{header}
+
+The syntax is
+
+@example
+  \header @{ @var{key1} = @var{val1};
+                        @var{key2} = @var{val2}; @dots{} @}
+@end example
+
+A header describes the file's contents.  It can also appear in a
+@code{\score} block.  Tools like @code{ly2dvi}@indexcode{ly2dvi} can use this
+information for generating titles.  Key values that are used by
+@code{ly2dvi} are: title, subtitle, composer, opus, poet, instrument,
+metre, arranger, piece and tagline.
+
+It is customary to put the @code{\header} at the top of the file.
+
+
+@node notenames, , ,  Reference Manual
+
+Note name tables can be specified using
+
+@example
+   \notenames@keyindex{notenames}
+  @{ @var{assignmentlist} @}
+@end example
+
+@var{assignmentlist} is a list of definitions of the form
+
+@example
+  @var{name} = @var{pitch}
+@end example
+
+Chord modifiers can be set analogously, with
+@code{\chordmodifiers}@keyindex{chordmodifiers}.
+
+A @code{\paper} block at top level sets the default paper block.  A
+@code{\midi} block at top level works similarly.
+
+
+
+LilyPond contains a Scheme interpreter (the GUILE library) for
+internal use.  The following commands access the interpreter
+directly.
+
+@example
+  \scm @keyindex{scm} @var{scheme} ;
+@end example
+
+Evaluates the specified Scheme code.  The result is discarded.
+
+@example
+\scmfile@keyindex{scmfile} @var{filename};
+@end example
+
+Reads Scheme code from the specified file.  The result is discarded.
+
+
+
+Identifier assignments may appear at top level.  Semicolons are
+forbidden after top level assignments.
+
+
+
+@node Lexical conventions, , ,  Reference Manual
+@section Lexical conventions
+
+@cindex lexical conventions
+
+
+
+@cindex comment
+
+@indexcode{%}
+
+
+A one line comment is introduced by a `@code{%}' character. 
+Block comments are started by `@code{%@{}' and ended by `@code{%@}}'. 
+They cannot be nested.
+
+
+
+@cindex keyword
+
+Keywords start with a backslash, followed by a number of lower case
+alphabetic characters.  These are all the keywords.
+
+@example
+  \accepts
+  \addlyrics
+  \alternative
+  \bar
+  \breathe
+  \cadenza
+  \chordmodifiers
+  \chords
+  \clef
+  \cm
+  \consists
+  \consistsend
+  \context
+  \duration
+  \font
+  \grace
+  \header
+  \in
+  \key
+  \keysignature
+  \lyrics
+  \mark
+  \midi
+  \mm
+  \musicalpitch
+  \name
+  \notenames
+  \notes
+  \paper
+  \partial
+  \penalty
+  \property
+  \pt
+  \relative
+  \remove
+  \repeat
+  \repetitions
+  \scm
+  \scmfile
+  \score
+  \script
+  \sequential
+  \shape
+  \simultaneous
+  \skip
+  \spanrequest
+  \tempo
+  \textscript
+  \time
+  \times
+  \translator
+  \transpose
+  \type
+@end example
+
+
+
+
+@cindex integer
+
+Formed from an optional minus sign followed by digits.  Arithmetic
+operations cannot be done with integers, and integers cannot be mixed
+with reals.
+
+
+
+@cindex real
+ 
+
+Formed from an optional minus sign and a sequence of digits followed
+by a @emph{required} decimal point and an optional exponent such as
+@code{-1.2e3}.  Reals can be built up using the usual operations:
+`@code{+}@indexcode{+}', `@code{-}@indexcode{-}', `@code{*}@indexcode{*}', and
+`@code{/}@indexcode{/}', with parentheses for grouping.
+
+A real constant can be followed by one of the dimension
+keywords:
+@cindex dimensions
+ @code{\mm}@keyindex{mm},
+@code{\pt}@keyindex{pt}, @code{\in}@keyindex{in}, or
+@code{\cm}@keyindex{cm}, for millimeters, points, inches and
+centimeters, respectively.  This converts the number to a real that
+is the internal representation of dimensions.
+
+
+
+@cindex string
+ 
+
+Begins and ends with the `@code{"}' character.  To include a `@code{"}'
+character in a string write `@code{\"}'.  Various other backslash
+sequences have special interpretations as in the C language.  A
+string that contains no spaces can be written without the quotes. 
+See section XREF-modes [FIXME] for details on unquoted strings; their
+interpretation varies depending on the situation.  Strings can be
+concatenated with the `@code{+}' operator.
+
+
+The tokenizer accepts the following commands.  They can appear
+anywhere.
+
+@example
+  \maininput@keyindex{maininput}
+@end example
+
+This command is used in init files to signal that the user file must
+be read. This command cannot be used in a user file.
+
+@example
+  \include@keyindex{include} @var{file}
+@end example
+
+Include @var{file}.  The argument @var{file} may be a quoted string (an
+unquoted string will not work here!) or a string identifier.  The full
+filename including the @file{.ly} extension must be given,
+
+@example
+  \version@keyindex{version} @var{string} ;
+@end example
+
+Specify the version of LilyPond that a file was written for.  The
+argument is a version string in quotes, for example @code{"1.2.0"}. 
+This is used to detect invalid input, and to aid
+@code{convert-mudela}, a tool that automatically upgrades input files.
+
+
+
+@cindex other languages
+
+@node Other languages, , ,  Reference Manual
+
+Note name definitions have been provided in various languages. 
+Simply include the language specific init file.  For example:
+`@code{\include "english.ly"}'.  The available language files and the
+names they define are:
+
+@quotation
+
+@example 
+                        Note Names               sharp       flat
+nederlands.ly  c   d   e   f   g   a   bes b   -is         -es
+english.ly     c   d   e   f   g   a   bf  b   -s/-sharp   -f/-flat
+deutsch.ly     c   d   e   f   g   a   b   h   -is         -es
+norsk.ly       c   d   e   f   g   a   b   h   -iss/-is    -ess/-es
+svenska.ly     c   d   e   f   g   a   b   h   -iss        -ess
+italiano.ly    do  re  mi  fa  sol la  sid si  -d          -b
+catalan.ly     do  re  mi  fa  sol la  sid si  -d/-s       -b 
+@end example 
+
+@end quotation
+
+Pitch names can be redefined using the
+@code{\notenames}@keyindex{notenames} command, see
+subsection XREF-notenames [FIXME].
+
+
+
+@cindex lexical modes
+
+@cindex modes
+
+@node modes, , ,  Reference Manual
+
+To simplify entering notes, lyrics, and chords, @emph{Mudela} has three
+special input modes on top of the default mode.  In each mode, words
+are identified on the input.  If @code{"word"} is encountered, it is
+treated as a string.  If @code{\word} is encountered, it is treated as
+a keyword or as an identifier.  The behavior of the modes differs in
+two ways: Different modes treat unquoted words differently, and
+different modes have different rules for deciding what is a word.
+
+@table @samp
+  @item Normal mode.
+@cindex mode!normal
+ 
+    At the start of parsing, @emph{Mudela} is in Normal mode.  In Normal
+    mode, a word is an alphabetic character followed by alphanumeric
+    characters.  If @code{word} is encountered on the input it is
+    treated as a string.
+
+  @item Note mode.
+@cindex mode!note
+
+    Note mode is introduced by the keyword
+    @code{\notes}@keyindex{notes}.  In Note mode, words can only
+    contain alphabetic characters.  If @code{word} is encountered,
+    LilyPond first checks for a notename of @code{word}.  If no
+    notename is found, then @code{word} is treated as a string.
+
+    Since combinations of numbers and dots are used for indicating
+    durations, it is not possible to enter real numbers in this mode.
+
+  @item Chord mode.
+@cindex mode!chord
+
+    Chord mode is introduced by the keyword
+    @code{\chords}@keyindex{chords}.  It is similar to Note mode, but
+    words are also looked up in a chord modifier table (containing
+    @code{maj}, @code{dim}, etc).
+
+    Since combinations of numbers and dots are used for indicating
+    durations, you can not enter real numbers in this mode.  Dashes
+    and carets are used to indicate chord additions and subtractions,
+    so scripts can not be entered in Chord mode.
+
+  @item Lyrics mode. 
+@cindex mode!lyric
+
+    Lyrics mode is introduced by the keyword
+    @code{\lyrics}@keyindex{lyrics}.  This mode has rules that make it
+    easy to include punctuation and diacritical marks in words.  A
+    word in Lyrics mode begins with: an alphabetic character,
+    `@code{_}', `@code{?}', `@code{!}', `@code{:}', `@code{'}', the
+    control characters @code{^A} through @code{^F}, @code{^Q} through
+    @code{^W}, @code{^Y}, @code{^^}, any 8-bit character with ASCII code
+    over 127, or a two-character combination of a backslash followed
+    by one of `@code{`}', `@code{'}', `@code{"}', or
+    `@code{^}'.@footnote{The purpose of Lyrics mode is that you can
+    enter lyrics in TeX format or a standard encoding without
+    needing quotes.  The precise definition of this mode indeed is
+    ludicrous.  This will remain so until the authors of LilyPond
+    acquire a deeper understanding of character encoding, or someone
+    else steps up to fix this.}
+
+    Subsequent characters of a word can be any character that is not
+    a digit and not white space.  One important consequence of this
+    is that a word can end with `@code{@}}', which may be confusing if
+    you thought the closing brace was going to terminate Lyrics
+    mode.@footnote{LilyPond will issue a warning, though.}  Any
+    `@code{_}' characters which appear in an unquoted word are
+    converted to spaces.  This provides a mechanism for introducing
+    spaces into words without using quotes.  Quoted words can also be
+    used in Lyrics mode to specify words that cannot be written with
+    the above rules.  Here are some examples.  Not all of these words
+    are printable by TeX.
+
+
+    @quotation
+
+@example 
+Ah!             % a word
+2B_||_!2B       % not a word because it starts with a digit
+``Hello''       % not a word because it starts with `
+_ _ _ _         % 4 words, each one a space 
+@end example 
+
+    @end quotation
+
+    Since combinations of numbers and dots are used for indicating
+    durations, you can not enter real numbers in this mode.
+@end table
+
+It is possible to create words that break the rules by prefixing them
+with the dollar sign `@code{$}@indexcode{$}'.  Regardless of the context, a
+word beginning with `@code{$}' extends until the next white space
+character.  Such words can contain numbers (even in Note mode), or
+other forbidden characters.  The dollar sign can be used to create
+and access identifiers that could not otherwise be used.@footnote{Use
+of `@code{$}' hampers readability and portability to future LilyPond
+versions, thus the use of the dollar sign is discouraged.}
+
+
+
+@node Types, , ,  Reference Manual
+@section Types
+
+@cindex types and identifiers
+
+@emph{Mudela} has a limited set of types:
+
+@itemize @bullet
+  @item  integers
+  @item  reals
+  @item  strings
+  @item  music expressions
+  @item  durations of notes and rests (specified with
+       @code{\notenames}@keyindex{notenames})
+  @item  note name tables
+  @item  context definitions, part of output definitions.  See
+       section XREF-contextdefs [FIXME] for more information
+  @item  output definitions (like @code{\paper}@keyindex{paper} blocks
+       and @code{\midi}@keyindex{midi} blocks)
+  @item  score definitions (@code{\score}@keyindex{score} blocks)
+@end itemize
+
+Type is a syntactical property: @emph{Mudela} has no real type system,
+so there is no support for generic expressions, functions, or user
+defined types.  For the same reason, it is not possible to mix reals
+and integers in arithmetic expressions, and ``type
+errors''
+@cindex type error
+ (e.g., using a string identifier to
+initialize a @code{\paper}@keyindex{paper} block) will yield a ``parse
+error''.
+
+Identifiers allow objects to be assigned to names.  To assign an
+identifier, you use `@var{name}=@var{value}' and to refer to an
+identifier, you preceed its name with a backslash:
+`@code{\}@var{name}'.  Identifier assignments must appear at top level
+in the @emph{Mudela} file.  Semicolons are forbidden after assignments
+appearing at top level but they are obligatory after assignments
+appearing in the @code{\paper} block, see Section XREF-paper [FIXME].
+
+@var{value} is any of the types listed above.
+
+An identifier can be created with any string for its name, but you
+will only be able to refer to identifiers whose names begin with a
+letter, being entirely alphanumeric.  It is impossible to refer to an
+identifier whose name is the same as the name of a keyword.
+
+The right hand side of an identifier assignment is parsed completely
+before the assignment is done, so it is allowed to redefine an
+identifier in terms of its old value, e.g.
+
+@example
+  foo = \foo * 2.0
+@end example
+
+When an identifier is referenced, the information it points to is
+copied.  Therefore it only makes sense to put identifiers for
+translators, output definitions, and @code{\score}@keyindex{score}
+blocks as the first item in a block.  For this reason, if you
+reference a @code{\foo} variable in a @code{\foo} block, it must be the
+first item in the list following @code{\foo}.@footnote{@code{\paper@{\one
+\two@}} does not make sense, because the information of @code{\two}
+would overwrite the information of @code{\one}, thereby making the
+reference to the first identifier useless.}
+
+
+
+@node Music expressions, , ,  Reference Manual
+@section Music expressions
+
+@cindex music expressions
+
+Music in @emph{Mudela} is entered as a music expression.  Notes, rests,
+lyric syllables are music expressions (the atomic
+expressions)
+@cindex atomic music expressions
+, and you can combine
+music expressions to form new ones.  This example forms a compound
+expressions out of the quarter @code{c} note and a @code{d}
+note:
+
+@example 
+\sequential @{ c4 d4 @} 
+@end example 
+
+The meaning of this compound expression is to play the `@code{c}'
+first, and then the `@code{d}' (as opposed to playing them
+simultaneously, for instance).
+
+Atomic music expression are discussed in
+subsection XREF-atomicmusic [FIXME].  Compound music expressions are
+discussed in subsection XREF-compoundmusic [FIXME].
+
+
+
+@node Atomic music expressions, , ,  Reference Manual
+@section Atomic music expressions
+
+
+
+
+@cindex pitch
+
+@cindex duration
+ 
+
+The syntax for pitch specification is
+
+
+@example
+  \musicalpitch@keyindex{musicalpitch} @{ @var{octave} @var{note} @var{shift} @}
+@end example
+
+@var{octave} is specified by an integer, zero for the octave
+containing middle C.  @var{note} is a number from 0 to 7, with 0
+corresponding to C and 7 corresponding to B.  The shift is zero for a
+natural, negative to add flats, or positive to add sharps.
+
+In Note and Chord mode, pitches may be designated by names.  See
+section XREF-notelang [FIXME] for pitch names in different languages.
+
+The syntax for duration specification is
+
+@example
+ \duration@keyindex{duration}
+   @{ @var{length} @var{dotcount} @}
+@end example
+
+@var{length} is the negative logarithm (base 2) of the duration:
+1 is a half note, 2 is a quarter note, 3 is an eighth
+note, etc.  The number of dots after the note is given by
+@var{dotcount}.
+
+In Note, Chord, and Lyrics mode, durations may be designated by
+numbers and dots.  See Section XREF-notelang [FIXME] for details.
+
+
+@node Note specification, , ,  Reference Manual
+
+@cindex note specification
+
+@cindex pitches
+
+@cindex entering notes
+
+A note specification has the form
+
+@example
+  @var{pitch}[@var{octavespec}][!][?][@var{duration}]
+@end example
+
+The pitch of the note is specified by the note's name.
+
+
+The default names are the Dutch note names.  The notes are specified
+by the letters `@code{c}' through `@code{b}', where `@code{c}' is an
+octave below middle C and the letters span the octave above that C. 
+In Dutchcindex(notenames!Dutch), a sharp is formed by adding
+`@code{-is}' to the end of a pitch name.  A flat is formed by adding
+`@code{-es}'. Double sharps and double flats are obtained by adding
+`@code{-isis}' or `@code{-eses}'.  `@code{aes}' and `@code{ees}' are
+contracted to `@code{as}' and `@code{es}' in Dutch, but both forms will
+be accepted.
+
+LilyPond has predefined sets of notenames for various languages.  See
+section XREF-notelang [FIXME] for details.
+
+
+The optional octave specification takes the form of a series of
+single quote (`@code{'}@indexcode{'}') characters or a series of comma
+(`@code{,}@indexcode{,}') characters.  Each @code{'} raises the pitch by one
+octave; each @code{,} lowers the pitch by an octave.
+
+@mudela[fragment,verbatim,center]
+  c' d' e' f' g' a' b' c''
+@end mudela
+
+@mudela[fragment,verbatim,center]
+  cis' dis' eis' fis' gis' ais' bis'
+@end mudela
+
+@mudela[fragment,verbatim,center]
+  ces' des' es' fes' ges' as' bes'
+@end mudela
+
+@mudela[fragment,verbatim,center]
+  cisis' eisis' gisis' aisis' beses'
+@end mudela
+
+@mudela[fragment,verbatim,center]
+  ceses' eses' geses' ases' beses'
+@end mudela
+
+Whenever a C-sharp is desired,  you must specify a C-sharp.  LilyPond
+will determine what accidentals to typeset depending on the key and
+context.  A reminder accidental 
+@cindex reminder accidental
+ can be
+forced by adding an exclamation mark `@code{!}' after the pitch.  A
+cautionary accidental, 
+@cindex cautionary accidental
+ i.e., an
+accidental within parentheses can be obtained by adding the question
+mark `@code{?}@indexcode{?}' after the pitch.
+
+@mudela[fragment,verbatim,center]
+  cis' d' e' cis'  c'? d' e' c'!
+@end mudela
+
+
+@cindex duration
+
+Durations are entered as their reciprocal values.  For notes longer
+than a whole note, use identifiers.
+
+@quotation
+
+@example 
+c'\longa c'\breve  
+c'1 c'2 c'4 c'8 c'16 c'32 c'64 c'64 
+@end example 
+
+@end quotation
+
+@quotation
+
+@mudela[]
+\score {
+  \notes \relative c'' {
+    a\longa a\breve  
+    a1 a2 a4 a8 a16 a32 a64 a64 
+  }
+  \paper {
+    loose_column_distance = 2.5 * \interline;
+    linewidth = -1.0;
+    \translator {
+      \type "Score_engraver";
+      \name "Score";
+      \consists "Note_heads_engraver";
+      \consists "Stem_engraver";
+      \consists "Rhythmic_column_engraver";
+    }
+  }
+}
+@end mudela
+@end quotation
+
+@quotation
+
+@example 
+r\longa r\breve  
+r1 r2 r4 r8 r16 r32 r64 r64 
+@end example 
+
+@end quotation
+
+@quotation
+
+@mudela[]
+\score {
+  \notes \relative c'' {
+    r\longa r\breve  
+    r1 r2 r4 r8 r16 r32 r64 r64 
+  }
+  \paper {
+    loose_column_distance = 2.5 * \interline;
+    linewidth = -1.0;
+    \translator {
+      \type "Score_engraver";
+      \name "Score";
+      \consists "Rest_engraver";
+      \consists "Stem_engraver";
+      \consists "Rhythmic_column_engraver";
+    }
+  }
+}
+@end mudela
+@end quotation
+
+If the duration is omitted then it is set equal to the previous
+duration.  If there is no previous duration, a quarter note is
+assumed.  The duration can be followed by a dot (`@code{.}@indexcode{.}')
+to obtain dotted note lengths.
+
+@mudela[fragment,verbatim,center]
+  a'4. b'4.
+@end mudela
+
+You can alter the length of duration by writing
+`@code{*}@var{fraction}' after it.  This will not affect the
+appearance of note heads or rests.
+
+
+Rests are entered like notes, with note name `@code{r}@indexcode{r}',
+or `@code{R}@indexcode{R}'.  There is also a note name `@code{s}@indexcode{s}',
+which produces a space of the specified duration. 
+`@code{R}' is specifically meant for entering parts: the @code{R} rest
+can expand to fill a score with rests, or it can be printed as a
+single multimeasure rest.
+
+
+@cindex lyrics expressions
+
+Syllables are entered like notes, with pitches replaced by text.  For
+example, `@code{Twin-4 kle4 twin-4 kle4}' enters four syllables, each
+with quarter note duration.  Note that the hyphen has no special
+meaning for lyrics, and does not introduce special symbols.  See
+section XREF-modes [FIXME] for a description of what is interpreted as
+lyrics.
+
+Spaces can be introduced into a lyric either by using quotes
+(`@code{"}') or by using an underscore without quotes: `@code{He_could4
+not4}'.  All unquoted underscores are converted to spaces.  Printing
+lyrics is discussed in section XREF-lyricprint [FIXME].
+
+
+
+@cindex properties
+
+@example
+  \property@keyindex{property}
+    @var{contextname}.@var{propname} =  @var{value}
+@end example
+
+Sets the @var{propname} property of the context @var{contextname} to
+the specified @var{value}.  All three arguments are strings. 
+Depending on the context, it may be necessary to quote the strings or
+to leave space on both sides of the dot.
+
+
+
+@cindex translator switches
+
+@example
+  \translator@keyindex{translator}
+    @var{contexttype} = @var{name}
+@end example
+
+A music expression indicating that the context which is a direct
+child of the a context of type @var{contexttype} should be shifted to
+a context of type @var{contexttype} and the specified name.
+
+Usually this is used to switch staffs in Piano music, e.g.
+
+@example
+  \translator Staff = top @var{Music}
+@end example
+
+
+
+@cindex commands
+
+Commands are music expressions that have no duration.   
+
+
+@example
+
+  @code{\key}@keyindex{key} @var{pitch} @var{type} @code{;}
+@end example
+
+Change the key signature.  @var{type} should be
+@code{\major}@keyindex{major} or @code{\minor}@keyindex{minor} to get
+@var{pitch}-major or @var{pitch}-minor, respectively.  The second
+argument is optional; the default is major keys.  The @var{\context}
+argument can also be given as an integer, which tells the number of
+semitones that should be added to the pitch given in the subsequent
+@code{\key}@keyindex{key} commands to get the corresponding major key,
+e.g., @code{\minor}@keyindex{minor} is defined as 3.  The standard
+mode names @code{\ionian}@keyindex{ionian},
+@code{\locrian}@keyindex{locrian}, @code{\aeolian}@keyindex{aeolian},
+@code{\mixolydian}@keyindex{mixolydian}, @code{\lydian}@keyindex{lydian},
+@code{\phrygian}@keyindex{phrygian}, and @code{\dorian}@keyindex{dorian}
+are also defined.
+
+@example
+
+  @code{\keysignature}@keyindex{keysignature} @var{pitchseq} @code{;}
+@end example
+
+Specify an arbitrary key signature.  The pitches from @var{pitch} will
+be printed in the key signature in the order that they appear on the
+list.
+
+        
+@example
+  \mark@keyindex{mark} @var{unsigned};
+  \mark @var{string};
+@end example
+
+Prints a mark over or under (depending on the
+@code{markDirection}@indexcode{markDirection} property) the staff.  You must add
+@code{Mark_engraver}@indexcode{Mark_engraver} to either the Score or Staff context for
+this to work.
+
+@node barlines, , ,  Reference Manual
+
+@example
+  \bar@keyindex{bar} @var{bartype};
+@end example
+
+This is a request to print a special bar symbol. It replaces the 
+regular bar symbol with a special
+symbol.  The argument @var{bartype} is a string which specifies the
+kind of bar to print.  Options are @code{":|"}
+@cindex "|A@@@code{:|}
+,
+@code{"|:"}
+@cindex "|B@@@code{|:}
+, @code{":|:"}
+@cindex "|C@@@code{:|:}
+,
+@code{"||"}
+@cindex "|D@@@code{||}
+, @code{"|."}
+@cindex "|E@@@code{|.}
+,
+@code{".|"}
+@cindex "|F@@@code{.|}
+, and @code{".|."}
+@cindex "|G@@@code{.|.}
+. 
+These produce, respectively, a right repeat, a left repeat, a double
+repeat, a double bar, a start bar, an end bar, and a thick double
+bar.  If @var{bartype} is set to @code{"empty"} then nothing is
+printed, but a line break is allowed at that spot.
+
+You are encouraged to use @code{\repeat} for repetitions.
+See section XREF-sec-repeats [FIXME].
+
+ 
+
+@example
+  \cadenza@keyindex{cadenza} @var{togglevalue} @code{;}
+@end example
+
+Music expression that toggles the automatic generation of bar lines. 
+If @var{togglevalue} is 1, bar line generation is turned off.  If
+@var{togglevalue} is 0, a bar line is immediately printed and 
+automatic bar generation is turned on.
+
+@example
+
+  \time@keyindex{time} @var{numerator}@code{/}@var{denominator} @code{;}
+@end example
+
+Change the time signature.  The default time signature is 4/4. 
+The time signature is used to generate bar lines.
+
+@example
+
+  \tempo@keyindex{tempo} @var{duration} = @var{perminute} @code{;}
+@end example
+
+Used to specify the tempo.  For example, `@code{\tempo 4 = 76;}'
+requests output with 76 quarter notes per minute.
+
+@example
+
+  \partial@keyindex{partial} @var{duration} @code{;}
+@end example
+
+@cindex anacrusis
+
+@cindex upstep
+
+This creates an incomplete measure (anacrusis, upbeat) at the start of 
+the music, e.g., `@code{\partial 8*2;}' creates a starting measure 
+lasting two eighth notes.
+
+@example
+
+  @code{|}@indexcode{|}
+@cindex bar check
+
+@end example
+
+@cindex shorten measures
+
+@cindex upstep
+
+`@code{|}' is a barcheck.  Whenever a barcheck is encountered during
+interpretation, a warning message is issued if it doesn't fall at a
+measure boundary.  This can help you finding errors in the input. 
+The beginning of the measure will be relocated, so this can also
+be used to shorten measures.
+
+
+@example
+
+  \penalty@keyindex{penalty} @var{int} @code{;}
+@end example
+
+Discourage or encourage line breaks.  See identifiers
+@code{\break}@keyindex{break} and @code{\nobreak}@keyindex{nobreak} in
+section [on identifiers] [FIXME].
+
+@example
+
+  \clef@keyindex{clef} @var{clefname} @code{;}
+@end example
+
+Music expression that sets the current clef.  The argument is a
+string which specifies the name of the clef.  Several clef names are
+supported.  If `@code{_8}' or `@code{^8}' is added to the end of a clef
+name, then the clef lowered or raised an octave will be generated. 
+Here are the supported clef names with middle C shown in each
+clef:
+
+@quotation
+
+@mudela[]
+\score {
+  \notes {
+    \cadenza 1;
+    %\property Voice.textStyle = typewriter
+    \clef subbass;     c'4-"\kern -5mm subbass" 
+    \clef bass;        c'4^"\kern -2mm bass"
+    \clef baritone;    c'4_"\kern -5mm baritone"
+    \clef varbaritone; c'4^"\kern -6mm varbaritone"
+    \clef tenor;       c'4_"\kern -3mm tenor"
+    \clef "G_8";       c'4^"\kern -2mm G\\_8" 
+  }  
+  \paper {
+    linewidth = 4.5 \in;
+  }
+}
+@end mudela
+@end quotation
+
+@quotation
+
+@mudela[]
+\score {
+  \notes {
+    \cadenza 1;
+    \clef alto;         c'4_"\kern -2mm alto"
+    \clef mezzosoprano; c'4^"\kern -9mm mezzosoprano"
+    \clef soprano;      c'4_"\kern -6mm soprano"
+    \clef treble;       c'4^"\kern -4mm treble"
+    \clef french;       c'4_"\kern -4mm french"
+  }
+  \paper {
+    linewidth = 4.5 \in;
+  }
+}
+@end mudela
+@end quotation
+
+The three clef symbols can also be obtained using the names `@code{G}', 
+`@code{C}' or `@code{F}', optionally followed by an integer which 
+indicates at which note line the clef is located. An as example, the 
+@code{mezzosoprano} clef can also be given as `@code{C2}'.
+
+@example
+
+  \skip@keyindex{skip} @var{duration} @code{;}
+@end example
+
+Skips the amount of time specified by @var{duration}.  If no other
+music is played, a gap will be left for the skipped time with no
+notes printed.  It works in Note Mode or Lyrics Mode.  In Note mode,
+this has the same effect as the space rest `@code{s}'.
+
+
+@cindex beams
+
+@node Manual beams, , ,  Reference Manual
+
+A beam is specified by surrounding the beamed notes with brackets
+`@code{[}@indexcode{[}' and `@code{]}@indexcode{]}'.  
+
+@mudela[fragment,verbatim,center]
+  [a'8 a'] [a'16 a' a' a']
+@end mudela
+
+Some more elaborate constructions:
+
+@mudela[fragment,verbatim,center]
+  [a'16 <a' c''> c'' <a' c''>]
+  \times 2/3 { [e'8 f' g'] }
+@end mudela
+
+Beaming can be generated automatically; see section XREF-autobeam [FIXME].
+
+To place tremolo marks 
+@cindex tremolo beams
+ between two notes, begin
+with `@code{[:}@var{length}' and end with `@code{]}'.  Tremolo marks
+will appear instead of beams.  Putting more than two notes in such a
+construction will produce odd effects.  To create tremolo beams on a
+single note, simply attach `@code{:}@var{length}' to the note itself
+(see also section XREF-tremolo [FIXME]).
+  
+@mudela[fragment,verbatim,center]
+  [:16 e'1 g'] [:8 e'4 f']
+@end mudela
+  
+@mudela[fragment,verbatim,center]
+  c'4:32 [:16 c'8 d'8]
+@end mudela
+
+
+@cindex --@@@code{-}@code{-}
+
+@indexcode{__}
+
+@cindex extender
+
+@cindex hyphen
+
+The syntax for an extender mark is `@code{__}'.  This syntax can only
+be used within lyrics mode.  The syntax for a spanning hyphen (i.e.,
+a hyphen that will be printed between two lyric syllables) is
+`@code{-}@code{-}'.
+
+
+@cindex ties
+
+A tie connects two adjacent note heads of the same pitch.  When used
+with chords, it connects all of the note heads whose pitches match.
+Ties are indicated using the tilde symbol `@code{~}@indexcode{~}'.
+If you try to tie together chords which have no common pitches, a
+warning message will appear and no ties will be created.
+
+@mudela[fragment,verbatim,center]
+  e' ~ e' <c' e' g'> ~ <c' e' g'>
+@end mudela
+
+
+
+[TODO: explain Requests]
+
+
+@cindex articulations
+
+@cindex scripts
+
+@cindex ornaments
+
+A variety of symbols can appear above and below notes to indicate
+different characteristics of the performance.  These symbols can be
+added to a note with `@var{note}@code{-\}@var{name}'.  Numerous symbols
+are defined in @file{script.ly} and @file{script.scm}.  Symbols can be
+forced to appear above or below the note by writing
+`@var{note}@code{^\}@var{name}' and `@var{note}@code{_\}@var{name}'
+respectively.  Here is a chart showing symbols above notes, with the
+name of the corresponding symbol appearing underneath.
+
+@mudela[]
+
+  \score {
+    < \notes {
+        c''-\accent      c''-\marcato      c''-\staccatissimo c''-\fermata 
+        c''-\stopped     c''-\staccato     c''-\tenuto        c''-\upbow
+        c''-\downbow     c''^\lheel        c''-\rheel         c''^\ltoe
+        c''-\rtoe        c''-\turn         c''-\open          c''-\flageolet
+        c''-\reverseturn c''-\trill        c''-\prall         c''-\mordent
+        c''-\prallprall  c''-\prallmordent c''-\upprall       c''-\downprall
+        c''-\thumb       c''-\segno        c''-\coda
+      }
+      \context Lyrics \lyrics {  
+        accent__      marcato__      staccatissimo__ fermata
+        stopped__     staccato__     tenuto__        upbow
+        downbow__     lheel__        rheel__         ltoe
+        rtoe__        turn__         open__          flageolet
+        reverseturn__ trill__        prall__         mordent
+        prallprall__  prallmordent__ uprall__        downprall
+        thumb__       segno__        coda
+      }
+    >
+    \paper {
+      linewidth = 5.875\in;          
+      indent    = 0.0;
+    }
+  }
+
+@end mudela
+
+In addition, it is possible to place arbitrary strings of text or
+TeX above or below notes by using a string instead of an
+identifier: `@code{c^"text"}'.  Fingerings 
+@cindex fingering
+ can be
+placed by simply using digits.  All of these note ornaments appear in
+the printed output but have no effect on the MIDI rendering of the
+music.
+
+To save typing, fingering instructions (digits 0 to 9 are
+supported) and single characters shorthands exist for a few
+common symbols
+
+@mudela[]
+
+  \score {
+    \notes {
+      \property Voice.textStyle = typewriter
+      c''4-._"c-."      s4
+      c''4--_"c-{}-"    s4
+      c''4-+_"c-+"      s4
+      c''4-|_"c-|"      s4
+      c''4->_"c->"      s4
+      c''4-^_"c-\\^{ }" s4
+      c''4-1_"c-1"      s4
+      c''4-2_"c-2"      s4
+      c''4-3_"c-3"      s4
+      c''4-4_"c-4"      s4
+    }
+    \paper {
+      linewidth = 5.875 \in;
+      indent    = 0.0;
+    }
+  }
+
+@end mudela
+
+Dynamic marks are specified by using an identifier after a note:
+`@code{c4-\ff}' (the dash is optional for dynamics: `@code{c4 \ff})'.  
+The available dynamic marks are:
+@code{\ppp}@keyindex{ppp},
+@code{\pp}@keyindex{pp}, @code{\p}@keyindex{p}, @code{\mp}@keyindex{mp},
+@code{\mf}@keyindex{mf}, @code{\f}@keyindex{f}, @code{\ff}@keyindex{ff},
+@code{\fff}@keyindex{fff}, @code{\fff}@keyindex{ffff},
+@code{\fp}@keyindex{fp}, @code{\sf}@keyindex{sf},
+@code{\sff}@keyindex{sff}, @code{\sp}@keyindex{sp},
+@code{\spp}@keyindex{spp}, @code{\sfz}@keyindex{sfz}, and
+@code{\rfz}@keyindex{rfz}.
+
+
+@example
+
+  \textscript@keyindex{textscript} @var{text} @var{style}
+@end example
+
+Defines a text to be printed over or under a note.  @var{style} is a
+string that may be one of @code{roman}, @code{italic}, @code{typewriter}, 
+@code{bold}, @code{Large}, @code{large}, @code{dynamic} or @code{finger}.
+
+You can attach a general textscript request using this syntax:
+
+@quotation
+
+@example 
+c4-\textscript "6" "finger"
+c4-\textscript "foo" "normal" 
+@end example 
+
+@end quotation
+
+This is equivalent to `@code{c4-6 c4-"foo"}'.  
+
+
+@cindex scripts
+
+@example
+
+  \script@keyindex{script} @var{alias}
+@end example
+
+Prints a symbol above or below a note.  The argument is a string
+which points into the script-alias table defined in @file{script.scm}.
+The scheme definitions specify whether the symbol follows notes into
+the staff, dependence of symbol placement on staff direction, and a
+priority for placing several symbols over one note.  Usually the
+@code{\script}@keyindex{script} keyword is not used directly.  Various
+helpful identifier definitions appear in @file{script.ly}.
+
+
+@cindex slur
+
+Slurs connects chords and try to avoid crossing stems.  A slur is
+started with `@code{(}' and stopped with `@code{)}'.  The
+starting `@code{(}' appears to the right of the first note in
+the slur.  The terminal `@code{)}' appears to the left of the
+first note in the slur.  This makes it possible to put a note in
+slurs from both sides:
+
+@mudela[fragment,verbatim,center]
+  f'()g'()a' [a'8 b'(] a'4 g'2 )f'4
+@end mudela
+
+
+@cindex crescendo
+
+A crescendo mark is started with @code{\cr}@keyindex{cr} and terminated
+with @code{\rc}@keyindex{rc}.  A decrescendo mark is started with
+@code{\decr}@keyindex{decr} and terminated with
+@code{\rced}@keyindex{rced}.  There are also shorthands for these
+marks.  A crescendo can be started with @code{\<}@keyindex{<} and a
+decrescendo can be started with @code{\>}@keyindex{>}.  Either one can
+be terminated with @code{\!}@keyindex{"!}.  Note that @code{\!}
+must go before the last note of the dynamic mark whereas @code{\rc}
+and @code{\rced} go after the last note.  Because these marks are
+bound to notes, if you want to get several marks during one note, you
+must use spacer notes.
+
+@mudela[fragment,verbatim,center]
+  c'' \< \! c''   d'' \decr e'' \rced 
+  < f''1 { s4 \< \! s2 \> \! s4 } >
+@end mudela
+
+
+@example
+
+  \spanrequest@keyindex{spanrequest} @var{startstop} @var{type}
+@end example
+
+Define a spanning request. The @var{startstop} parameter is either -1
+(@code{\start}@keyindex{start}) or 1 (@code{\stop}@keyindex{stop}) and
+@var{type} is a string that describes what should be started.
+Supported types are @code{crescendo}, @code{decrescendo},
+@code{beam}, @code{slur}.  This is an internal command.  Users should
+use the shorthands which are defined in the initialization file
+@file{spanners.ly}.
+
+You can attach a (general) span request to a note using
+
+@mudela[fragment,verbatim,center]
+  c'4-\spanrequest \start "slur"
+  c'4-\spanrequest \stop "slur"
+@end mudela
+
+The slur syntax with parentheses is a shorthand for this.
+
+
+
+@cindex tremolo marks
+
+@node tremolo, , ,  Reference Manual
+
+Tremolo marks can be printed on a single note by adding
+`@code{:}[@var{length}]' after the note.  The length must be at
+least 8.  A @var{length} value of 8 gives one line across
+the note stem.  If the length is omitted, then the last value is
+used, or the value of the @code{abbrev}@indexcode{abbrev} property if there was
+no last value.
+
+@mudela[verbatim,fragment,center]
+  c'2:8 c':32
+@end mudela
+
+
+
+@node Compound music expressions, , ,  Reference Manual
+@section Compound music expressions
+
+@cindex compound music expressions
+
+Music expressions are compound data structures.  You can nest music
+expressions any way you like.  This simple example shows how three
+chords can be expressed in two different ways:
+
+@mudela[fragment,verbatim,center]
+  \notes \context Staff {
+    \cadenza 1;
+    <a c'> <b  d' > <c' e' >
+    <{a b  c'}{c' d' e'}>
+  }
+@end mudela
+
+@cindex context selection
+@keyindex{context}
+
+@example
+  \context
+    @var{contexttype} [= @var{contextname}] @var{musicexpr}
+@end example
+
+Interpret @var{musicexpr} within a context of type @var{contexttype}. 
+If the context does not exist, it will be created.  The new context
+can optionally be given a name.  See
+section XREF-contextselection [FIXME] and XREF-contextdefs [FIXME] for more
+information on interpretation contexts.
+
+
+
+@cindex input modes
+
+@cindex mode switch
+
+Mode switching keywords form compound music expressions: @code{\notes}
+@keyindex{notes} @var{musicexpr}, @code{\chords} @keyindex{chords}
+@var{musicexpr}, and @code{\lyrics} @keyindex{lyrics} @var{musicexpr}. 
+These expressions do not add anything to the meaning of their
+arguments.  They are just a way to indicate that the arguments should
+be parsed in indicated mode.  See section XREF-modes [FIXME] for more
+information on modes.
+
+More information on context selection can be found in
+section XREF-contextselection [FIXME].
+
+
+
+@cindex sequential music
+
+
+
+@example
+
+  \sequential@keyindex{sequential}
+    @code{@{} @var{musicexprlist} @code{@}}
+@end example
+
+This means that list should be played or written in sequence, i.e.,
+the second after the first, the third after the second.  The duration
+of sequential music is the the sum of the durations of the elements. 
+There is a shorthand, which leaves out the keyword:
+
+@example
+
+  @code{@{} @var{musicexprlist} @code{@}}
+@end example
+
+
+
+@cindex simultaneous music
+
+@indexcode{<}
+@indexcode{>}
+
+@example
+
+  \simultaneous@keyindex{simultaneous}
+    @code{@{} @var{musicexprlist} @code{@}}
+@end example
+
+It constructs a music expression where all of its arguments start at
+the same moment.  The duration is the maximum of the durations of the
+elements.  The following shorthand is a common idiom:
+
+@example
+
+  @code{<} @var{musicexprlist} @code{>}
+@end example
+
+If you try to use a chord as the first thing in your score, you might
+get multiple staffs instead of a chord.
+
+@mudela[verbatim,center]
+  \score {
+    \notes <c''4 e''>
+    \paper {
+      linewidth = -1.;
+    }
+  }
+@end mudela
+
+This happens because the chord is interpreted by a score context.
+Each time a note is encountered a default Voice context (along with a
+Staff context) is created.  The solution is to explicitly instantiate
+a Voice context:
+
+@mudela[verbatim,center]
+  \score {
+    \notes\context Voice <c''4 e''>
+    \paper {
+      linewidth = -1.;
+    }
+  }
+@end mudela
+
+
+
+@cindex relative pitch specification
+
+@node relative, , , Reference Manual
+
+It is easy to get confused by octave changing marks and accidentally
+putting a pitch in the wrong octave.  A much better way of entering a
+note's octave is `the relative octave' mode.
+
+@example
+
+  \relative@keyindex{relative} @var{startpitch} @var{musicexpr}
+@end example
+
+The octave of notes that appear in @var{musicexpr} are calculated as
+follows: If no octave changing marks are used, the basic interval
+between this and the last note is always taken to be a fourth or
+less.@footnote{The interval is determined without regarding
+accidentals.  A @code{fisis} following a @code{ceses} will be put above
+the @code{ceses}.}  The octave changing marks `@code{'}' and `@code{,}'
+can then be added to raise or lower the pitch by an extra octave. 
+Upon entering relative mode, an absolute starting pitch must be
+specified that will act as the predecessor of the first note of
+@var{musicexpr}.
+
+Entering scales is straightforward in relative mode.
+
+@mudela[fragment,verbatim,center]
+  \relative c' {
+    c d e f g a b c c,
+  }
+@end mudela
+
+And octave changing marks are used for intervals greater than a fourth.
+
+@mudela[fragment,verbatim,center]
+  \relative c'' {
+    c g c f, c' a, e'' }
+@end mudela
+
+If the preceding item is a chord, the first note of the chord is used
+to determine the first note of the next chord.  But other notes
+within the second chord are determined by looking at the immediately
+preceding note.
+
+@mudela[fragment,verbatim,center]
+  \relative c' {
+    c <c e g> 
+    <c' e g>
+    <c, e' g>
+  }
+@end mudela 
+
+The pitch after the @code{\relative} contains a notename.  To parse
+the pitch as a notename, you have to be in note mode, so there must
+be a surrounding @code{\notes}@keyindex{notes} keyword (which is not
+shown here).
+
+The relative conversion will not affect @code{\transpose} or
+@code{\relative} sections in its argument.  If you want to use
+relative within transposed music, you must place an additional
+@code{\relative} inside the @code{\transpose}.
+
+It is strongly recommended to use relative pitch mode: less work,
+less error-prone, and more readable.
+
+
+
+Chord names are a way to generate simultaneous music expressions that
+correspond with traditional chord names.  It can only be used in
+Chord mode (see section XREF-modes [FIXME]).
+
+@example
+
+  @var{tonic}[@var{duration}][@code{-}@var{modifiers}][@code{^}@var{subtractions}][@code{/}@var{inversion}].
+@end example
+
+@var{tonic} should be the tonic note of the chord, and @var{duration}
+is the chord duration in the usual notation.  There are two kinds of
+modifiers.  One type is @emph{chord additions}, which are obtained by
+listing intervals separated by dots.  An interval is written by its
+number with an optional `@code{+}' or `@code{-}' to indicate raising or
+lowering by half a step.  Chord additions has two effects: It adds
+the specified interval and all lower odd numbered intervals to the
+chord, and it may lower or raise the specified interval.  Intervals
+must be separated by a dot (`@code{.}').
+
+@quotation
+
+@mudela[fragment,verbatim]
+\transpose c'' {
+  \chords {
+    c1  c-3-       c-7     c-8
+    c-9 c-9-.5+.7+ c-3-.5- c-4.6.8
+  }
+}
+
+@end mudela
+@end quotation
+
+The second type of modifier that may appear after the `@code{-}' is a
+named modifier.  Named modifiers are listed in the file
+@file{chord-modifiers.ly}.  The available modifiers are `@code{m}' and
+`@code{min}' which lower the 3rd half a step, `@code{aug}@indexcode{aug}' which
+raises the 5th, `@code{dim}@indexcode{dim}' which lowers the 5th,
+`@code{maj}@indexcode{maj}' which adds a raised 7th, and `@code{sus}@indexcode{sus}'
+which replaces the 5th with a 4th.
+
+@quotation
+
+@mudela[fragment,verbatim]
+\transpose c'' {
+  \chords {
+    c1-m c-min7 c-maj c-aug c-dim c-sus
+  }
+}
+
+@end mudela
+@end quotation
+ 
+
+Chord subtractions are used to eliminate notes from a chord.  The
+notes to be subtracted are listed after a `@code{^}' character,
+separated by dots.
+
+@mudela[fragment,verbatim,center]
+  \transpose c'' {
+    \chords {
+      c1^3 c-7^5.3 c-8^7
+    }
+  }
+@end mudela 
+
+Chord inversions can be specified by appending `@code{/}@indexcode{/}' and
+the name of a single note to a chord.  This has the effect of
+lowering the specified note by an octave so it becomes the lowest
+note in the chord.  If the specified note is not in the chord, a
+warning will be printed.
+
+@mudela[fragment,verbatim,center]
+  \transpose c''' {
+    \chords {
+      c1 c/e c/g c-7/e
+    }
+  }
+
+@end mudela 
+
+Throughout these examples, chords have been shifted around the staff
+using @code{\transpose}.
+
+You should not combine @code{\relative} with named chords. 
+
+
+
+@cindex tuplets
+
+Tuplets are made out of a music expression by multiplying their
+duration with a fraction.
+
+@example
+
+  \times@keyindex{times} @var{fraction} @var{musicexpr}
+@end example
+
+The duration of @var{musicexpr} will be multiplied by the fraction. 
+In print, the fraction's denominator will be printed over the notes,
+optionally with a bracket.  The most common tuplet is the triplet in
+which 3 notes have the length of 2, so the notes are 2/3 of
+their written length:
+
+@mudela[fragment,verbatim,center]
+  g'4 \times 2/3 {c'4 c' c'} d'4 d'4
+@end mudela
+
+
+
+@cindex grace notes
+
+@example
+
+  \grace@keyindex{grace} @var{musicexpr}
+@end example
+
+A grace note expression has duration 0; the next real note is
+assumed to be the main note.
+
+You cannot have the grace note after the main note, in terms of
+duration, and main notes, but you can typeset the grace notes to the
+right of the main note using the property
+@code{graceAlignPosition}@indexcode{graceAlignPosition}.
+
+When grace music is interpreted, a score-within-a-score is set up:
+@var{musicexpr} has its own time bookkeeping, and you could (for
+example) have a separate time signature within grace notes.  While in
+this score-within-a-score, you can create notes, beams, slurs, etc.
+Unbeamed eighth notes and shorter by default have a slash through the
+stem.  This behavior can be controlled with the
+@code{stemStyle}@indexcode{stemStyle} property.
+
+@quotation
+
+@mudela[fragment,verbatim]
+\relative c'' {
+  \grace c8 c4 \grace { [c16 c16] } c4
+  \grace { \property Grace.stemStyle = "" c16 } c4
+}
+
+@end mudela
+@end quotation
+
+At present, nesting @code{\grace}@keyindex{grace} notes, e.g.
+
+@example
+
+  @code{\grace @{ \grace c32 c16 @} c4}
+@end example
+
+may result in run-time errors of LilyPond.  Since the meaning of such
+a construct is unclear, we don't consider this a loss.  Similarly,
+juxtaposing two @code{\grace} sections is syntactically valid, but
+makes no sense and may cause runtime errors.
+
+Ending a staff or score with grace notes may also generate a run-time
+error, since there will be no main note to attach the grace notes to.
+
+
+
+@cindex repeats
+
+@node Repeats, , , Reference Manual
+
+In order to specify repeats, use the @code{\repeat}@keyindex{repeat}
+keyword.  Since repeats look and sound differently when played or
+printed, there are a few different variants of repeats.
+
+@table @samp
+  @item unfolded  
+    Repeated music is fully written (played) out.  Useful for MIDI
+    output.
+
+  @item volta  
+    This is the normal notation: Repeats are not written out, but
+    alternative endings (voltas) are printed, left to right.
+
+  @item folded  
+    Alternative endings are written stacked, which is useful for
+    lyrics.
+@end table  
+
+The syntax for repeats is
+
+@example
+
+  \repeat @var{variant} @var{repeatcount} @var{repeatbody}
+@end example
+
+If you have alternative endings, you may add
+
+@example
+
+  \alternative@keyindex{alternative}
+    @code{@{} @var{alternative1}
+            @var{alternative2}
+            @var{alternative3} @dots{} @code{@}}
+@end example
+
+where each @var{alternative} is a Music expression.
+
+Normal notation repeats are used like this:
+
+@quotation
+
+@mudela[fragment,verbatim]
+  c'1
+  \repeat volta 2 { c'4 d' e' f' }
+  \repeat volta 2 { f' e' d' c' }
+
+@end mudela
+@end quotation
+
+With alternative endings:
+
+@quotation
+
+@mudela[fragment,verbatim]
+  c'1
+  \repeat volta 2 {c'4 d' e' f'} 
+  \alternative { {d'2 d'} {f' f} }
+
+@end mudela
+@end quotation
+
+Folded repeats look like this:@footnote{Folded repeats offer little
+more over simultaneous music.  However, it is to be expected that
+more functionality -- especially for the MIDI backend -- will be
+implemented.}
+
+@quotation
+
+@mudela[fragment,verbatim]
+  c'1
+  \repeat fold 2 {c'4 d' e' f'} 
+  \alternative { {d'2 d'} {f' f} }
+
+@end mudela
+@end quotation
+
+@quotation
+
+@mudela[fragment,verbatim]
+\context Staff {
+  \relative c' {
+    \partial 4;
+    \repeat volta 2 { e | c2 d2 | e2 f2 | }
+    \alternative { { g4 g g } { a | a a a a | b1 } }
+  }
+}
+
+@end mudela
+@end quotation
+
+If you don't give enough alternatives for all of the repeats, then
+the first alternative is assumed to be repeated often enough to equal
+the specified number of repeats.
+
+@quotation
+
+@mudela[fragment,verbatim]
+\context Staff {
+  \relative c' {
+    \repeat volta 3 { \partial 4; e | c2 d2 | e2 f2 | }
+    \alternative { { g4 g g }
+                   {\partial 1; e4 e e } 
+                   {\partial 1; a a a a | b1 } }
+  }
+}
+
+@end mudela
+@end quotation
+
+It is possible to nest @code{\repeat}.  This is not entirely
+supported: the notes will come be in the right places, but the repeat
+bars will not.
+
+
+
+@cindex transposition of pitches
+
+@node transpose, , , Reference Manual
+
+A music expression can be transposed with
+@code{\transpose}@keyindex{transpose}.  The syntax is
+
+@example
+
+  \transpose @var{pitch} @var{musicexpr}
+@end example
+
+This means that middle C in @var{musicexpr} is transposed to
+@var{pitch}.
+
+@code{\transpose} distinguishes between enharmonic pitches: both
+@code{\transpose cis'} or @code{\transpose des'} will transpose up half
+a tone.  The first version will print sharps and the second version
+will print flats.
+
+@quotation
+
+@mudela[fragment,verbatim]
+\context Staff {
+  \clef "F";
+  { \key e; c d e f }
+  \clef "G";
+  \transpose des'' { \key e; c d e f }
+  \transpose cis'' { \key e; c d e f }
+}
+
+@end mudela
+@end quotation
+
+If you want to use both @code{\transpose} and @code{\relative}, then
+you must use @code{\transpose} first.  @code{\relative} will have no
+effect music that appears inside a @code{\transpose}.
+
+
+
+@cindex automatic lyric durations
+
+If you have lyrics that are set to a melody, you can import the
+rhythm of that melody into the lyrics using @code{\addlyrics}.
+@keyindex{addlyrics} The syntax for this is
+
+@example
+
+  \addlyrics @var{musicexpr1 musicexpr2}
+@end example
+
+This means that both @var{musicexpr1} and @var{musicexpr2} are
+interpreted, but that every non-command atomic music expression
+(``every syllable'') in @var{musicexpr2} is interpreted using timing
+of @var{musicexpr1}.
+
+If the property @code{automaticMelismata}@indexcode{automaticMelismata} is set in the
+context of @var{musicexpr1}, no lyrics will be put on slurred or tied
+notes.
+
+@quotation
+
+@mudela[verbatim,fragment]
+\addlyrics
+\transpose c'' {
+  \property Voice.automaticMelismata = "1"
+  c8 () cis d8. e16 f2
+}
+\context Lyrics \lyrics {
+ do4 re mi fa }
+
+@end mudela
+@end quotation
+
+You should use a single rhythm melody, and single rhythm lyrics (a
+constant duration is the obvious choice).  If you do not, you will get
+undesired effects when using multiple stanzas:
+
+@quotation
+
+@mudela[verbatim,fragment]
+\addlyrics
+\transpose c'' {
+  c8 () cis d8. e16 f2
+}
+\context Lyrics \lyrics
+< { do4 re mi fa }
+  { do8 re mi fa } >
+
+@end mudela
+@end quotation
+
+It is valid (but probably not very useful) to use notes instead of
+lyrics for @var{musicexpr2}.
+
+
+
+
+@node Ambiguities, , ,  Reference Manual
+@section Ambiguities
+
+@cindex ambiguities
+
+The grammar contains a number of ambiguities.@footnote{The authors
+hope to resolve them at a later time.}
+
+@itemize @bullet
+  @item  The assignment
+
+         @example 
+foo = bar 
+@end example 
+
+       can be interpreted as making a string identifier @code{\foo}
+       containing @code{"bar"}, or a music identifier @code{\foo}
+       containing the syllable `bar'.
+
+  @item  The assignment
+
+         @example 
+foo = -6 
+@end example 
+
+       can be interpreted as making an integer identifier
+       containing -6, or a Request identifier containing the
+       fingering `6' (with neutral direction).
+
+  @item  If you do a nested repeat like
+
+       @quotation
+
+@example 
+\repeat @dots{}
+\repeat @dots{}
+\alternative 
+@end example 
+
+       @end quotation
+
+       then it is ambiguous to which @code{\repeat} the
+       @code{\alternative} belongs.  This is the classic if-then-else
+       dilemma.  It may be solved by using braces.
+
+  @item  (an as yet unidentified ambiguity :-)
+@end itemize
+
+
+
+@node Notation conversion specifics, , ,  Reference Manual
+@section Notation conversion specifics
+
+
+
+@cindex automatic beam generation
+
+@node autobeam, , ,  Reference Manual
+
+By default, LilyPond will generate beams automatically.  This feature
+can be disabled by setting the @code{Voice.noAutoBeaming}@indexcode{Voice.noAutoBeaming}
+property to 1.  It can be overridden for specific cases by
+specifying explicit beams as described in
+section XREF-manualbeam [FIXME].
+
+A large number of Voice properties are used to decide how to generate
+beams.  Their default values appear in @file{auto-beam-settings.ly}.
+In general, beams can begin anywhere, but their ending location is
+significant.  Beams can end on a beat, or at durations specified by
+the @code{Voice.beamAutoEnd}@indexcode{Voice.beamAutoEnd} property.  To end beams every
+quarter note, for example, you could set
+@code{Voice.beamAutoEnd}@indexcode{Voice.beamAutoEnd} equal to `@code{"1/4"}'.  To end beams
+at every three eighth notes you would set it to `@code{"3/8"}'.  The
+same syntax can be used to specify beam starting points using
+@code{Voice.beamAutoBegin}@indexcode{Voice.beamAutoBegin}.
+
+To allow different settings for different time signatures, these
+property names can start with `@code{time}@var{N}@code{_}@var{M}' to
+restrict the definition to `@var{N}@code{/}@var{M}' time.  For example,
+to specify beams ending only for 6/8 time you would use the
+property @code{Voice.time6_8beamAutoEnd}.  To allow different endings
+for notes of different durations, the duration can be tacked onto the
+end of the property.  To specify beam endings for beams that contain
+32nd notes, you would use @code{Voice.beamAutoEnd_32}.
+
+
+
+@cindex chord names
+
+@cindex chords
+
+@cindex printing!chord names
+
+For displaying printed chord names, use the @code{ChordNames}@indexcode{ChordNames}
+and @code{ChordNameVoice}@indexcode{ChordNameVoice} contexts.  The chords may be entered
+either using the notation described above, or directly using
+simultaneous music.
+
+@quotation
+
+@mudela[fragment,verbatim]
+<
+  \context ChordNames {
+    \chords{a b c} \notes{<d f g>  <e g b>}
+  }
+  \context Staff \notes {
+    a b c' d' e'
+  }
+>
+
+@end mudela
+@end quotation
+
+LilyPond examines chords specified as lists of notes to determine a
+name to give the chord.  By default, LilyPond will not try to
+identify chord inversions:
+
+@mudela[fragment,verbatim,center]
+  <
+    \context ChordNameVoice \notes {
+      <e'1 g' c''>
+    }
+    \context Thread \notes {
+      <e'1 g' c''>
+    }
+  >
+@end mudela
+
+If you want inversions to be recognized, you must set the property
+@code{ChordNames.chordInversion}@indexcode{ChordNames.chordInversion}:
+
+@mudela[fragment,verbatim,center]
+  <
+    \property Score.chordInversion = 1
+    \context ChordNameVoice \notes {
+      <e'1 g' c''>
+    }
+    \context Thread \notes {
+      <e'1 g' c''>
+    }
+  >
+@end mudela
+
+
+
+@cindex lyrics
+
+@cindex printing!lyrics
+
+@node lyricprint, , ,  Reference Manual
+
+Lyric syllables must be interpreted within a @code{Lyrics} context
+
+@cindex context!Lyrics
+ for printing them.
+
+Here is a full example: 
+
+@quotation
+
+@mudela[verbatim]
+\score {
+  <
+    \notes \transpose c'' {
+      c d e c | c d e c |
+      e f g2 | e4 f g2 \bar "|.";
+    }
+    \context Lyrics \lyrics { 
+      Va-4 der Ja- cob Va- der Ja- cob
+      Slaapt gij nog?2 Slaapt4 gij nog?2
+    }
+  >
+}
+
+@end mudela
+@end quotation
+
+You may want a continuous line after the syllables to show melismata. 
+To achieve this effect, add a `@code{__}' lyric as a separate word
+after the lyric to be extended.  This will create an extender, a line
+that extends over the entire duration of the lyric.  This line will
+run all the way to the start of the next lyric, so you may want to
+shorten it by using a blank lyric (using `@code{_}').
+
+@quotation
+
+@mudela[verbatim]
+\score {
+  <
+    \notes \relative c'' {
+      a4 () b () c () d | c () d () b () a | c () d () b () a
+    }
+    \context Lyrics \lyrics {
+      foo1 __ | bar2. __ _4 | baz1 __
+    }
+  >
+}
+
+@end mudela
+@end quotation
+
+     
+If you want to have hyphens centered between syllables (rather than
+attached to the end of the first syllable) you can use the special
+`@code{-}@code{-}' lyric as a separate word between syllables.  This
+will result in a hyphen which length varies depending on the space
+between syllables, and which will be centered between the syllables. 
+For example:
+
+@quotation
+
+@mudela[verbatim]
+\score {
+  <
+    \notes \transpose c'' {
+      c d e c | c d e c |
+      e f g2 | e4 f g2 \bar "|.";
+    }
+    \context Lyrics \lyrics {
+      Va4 -- der Ja -- cob | Va -- der Ja -- cob |
+      Slaapt gij nog?2 | Slaapt4 gij nog?2
+    }
+  >
+}
+
+@end mudela
+@end quotation
+
+
+
+@node Notation Contexts, , ,  Reference Manual
+@section Notation Contexts
+
+@cindex notation contexts
+
+Notation contexts are objects that only exist during a run of
+LilyPond.  During the interpretation phase of LilyPond, the Music
+expression contained in a @code{\score} block is interpreted in time
+order.  This is the order in which humans read, play, and write
+music.
+
+A context is an object that holds the reading state of the
+expression; it contains information like
+
+@itemize @bullet
+  @item  What notes are playing at this point?
+  @item  What symbols will be printed at this point?
+  @item  In what style will they printed?
+  @item  What is the current key signature, time signature, point within
+       the measure, etc.?
+@end itemize
+
+Contexts are grouped hierarchically: A @code{Voice} context is
+contained in a @code{Staff} context (because a staff can contain
+multiple voices at any point), a @code{Staff} context is contained in
+a @code{Score}, @code{StaffGroup}, or @code{ChoirStaff} context (because
+these can all contain multiple staffs).
+
+Contexts associated with sheet music output are called @emph{notation
+contexts}, those for sound output are called playing contexts.
+
+Contexts are created either manually or automatically.  Initially,
+the top level music expression is interpreted by the top level
+context (the @code{Score} context).  When a atomic music expression
+(i.e. a note, a rest, @code{\bar}, or @code{\time} commands), a nested
+set of contexts is created that can process these atomic expressions,
+as in this example:
+
+@example
+
+  @example 
+\score @{ \notes < c4 > @} 
+@end example 
+
+@end example
+
+The sequential music, `@code{@{ c4 @}}' is interpreted by @code{Score}
+context. When the note `@code{c4}' itself is interpreted, a set of
+contexts is needed that will accept notes.  The default for this is a
+@code{Voice} context, contained in a @code{Staff} context.  Creation of
+these contexts results in the staff being printed.
+
+
+@cindex context
+
+You can also create contexts manually, and you probably have to do so
+if you want to typeset complicated multiple part material.  If a
+`@code{\context} @var{name} @var{musicexpr}' expression is encountered
+during the interpretation phase, the @var{musicexpr} argument will be
+interpreted with a context of type @var{name}.  If you specify a name,
+the specific context with that name is searched.
+
+If a context of the specified type and name can not be found, a new
+one is created.  For example,
+
+@quotation
+
+@mudela[verbatim]
+\score {
+  \notes \relative c'' {
+    c4 <d4 \context Staff = "another" e4> f
+  }
+}
+
+@end mudela
+@end quotation
+
+In this example, the @code{c} and @code{d} are printed on the
+default staff.  For the @code{e}, a context Staff called
+`@code{another}' is specified; since that does not exist, a new
+context is created.  Within @code{another}, a (default) Voice context
+is created for the @code{e4}.  When all music referring to a
+context is finished, the context is ended as well.  So after the
+third quarter, @code{another} is removed.
+
+Almost all music expressions inherit their interpretation context
+from their parent.  In other words, suppose that the syntax for a
+music expression is
+
+@example
+
+  \keyword @var{musicexpr1} @var{musicexpr2} @dots{}
+@end example
+
+When the interpretation of this music expression starts, the context
+for @var{musicexpr1}, @var{musicexpr2}, etc. is that of the total
+expression.
+
+Lastly, you may wonder, why this:
+
+@quotation
+
+@example 
+\score @{
+  \notes \relative c'' @{
+    c4 d4 e4
+  @}
+@} 
+@end example 
+
+@end quotation
+
+doesn't result in this:
+
+@mudela[]
+
+  \score {
+    \notes \relative c'' {
+      <c4> <d4> <e4>
+    }
+  }
+
+@end mudela
+
+For the @code{c4}, a default @code{Staff} (with a contained
+@code{Voice}) context is created.  After the @code{c4} ends, no
+music refers to this default staff, so it would be ended, with the
+result shown.  To prevent this inconvenient behavior, the context to
+which the sequential music refers is adjusted during the
+interpretation.  So after the @code{c4} ends, the context of the
+sequential music is also the default @code{Voice} context. 
+The @code{d4} gets interpreted in the same context
+as @code{c4}.
+
+
+
+These are the contexts supplied with the package.  They are defined
+in the initialization file @file{ly/engraver.ly}.
+
+@table @samp
+  @item @code{Grace}@indexcode{Grace} 
+    The context for handling grace notes.  It is instantiated
+    automatically when you use @code{\grace}.  Basically, it is an
+    `embedded' miniature of the Score context.  Since this context
+    needs special interaction with the rest of LilyPond, you should
+    not explicitly instantiate it.
+
+  @item @code{LyricVoice}@indexcode{LyricVoice}  
+    Corresponds to a voice with lyrics.  Handles the printing of a
+    single line of lyrics.
+
+  @item @code{Thread}@indexcode{Thread}  
+    Handles note heads, and is contained in the Voice context.  You
+    have to instantiate this explicitly if you want to adjust the
+    style of individual note heads.
+
+  @item @code{Voice}@indexcode{Voice}  
+    Corresponds to a voice on a staff.  This context handles the
+    conversion of dynamic signs, stems, beams, super- and subscripts,
+    slurs, ties, and rests.
+
+    You have to instantiate this explicitly if you want to have
+    multiple voices on the same staff.
+
+  @item @code{ChordNamesVoice}@indexcode{ChordNamesVoice}  
+    A voice with chord names.  Handles printing of a line of chord
+    names.
+
+  @item @code{ChordNames}@indexcode{ChordNames}  
+    Typesets chord names.  Can contain @code{ChordNamesVoice}
+    contexts.
+
+  @item @code{Lyrics}@indexcode{Lyrics}  
+    Typesets lyrics.  It can contain @code{LyricVoice} contexts.
+
+  @item @code{Staff}@indexcode{Staff}  
+    Handles clefs, bar lines, keys, accidentals.  It can contain
+    @code{Voice} contexts.
+
+  @item @code{RhythmicStaff}@indexcode{RhythmicStaff}  
+    A context like @code{Staff} but for printing rhythms.  Pitches are
+    ignored; the notes are printed on one line.  It can contain
+    @code{Voice} contexts.
+
+  @item @code{GrandStaff}@indexcode{GrandStaff}  
+    Contains @code{Staff} or @code{RhythmicStaff} contexts.  It adds a
+    brace on the left side, grouping the staffs together.  The bar
+    lines of the contained staffs are connected vertically.  It can
+    contain @code{Staff} contexts.
+
+  @item @code{PianoStaff}@indexcode{PianoStaff}  
+    Just like @code{GrandStaff} but with @code{minVerticalAlign} set
+    equal to @code{maxVerticalAlign} so that interstaff beaming and
+    slurring can be used.
+
+  @item @code{StaffGroup}@indexcode{StaffGroup}  
+    Contains @code{Staff} or @code{RhythmicStaff} contexts.  Adds a
+    bracket on the left side, grouping the staffs together.  The bar
+    lines of the contained staffs are connected vertically.  It can
+    contain @code{Staff}, @code{RhythmicStaff}, @code{GrandStaff}, or
+    @code{Lyrics} contexts.
+
+  @item @code{ChoirStaff}@indexcode{ChoirStaff}  
+    Identical to @code{StaffGroup} except that the contained staffs
+    are not connected vertically.
+
+  @item @code{Score}@indexcode{Score}  
+    This is the top level notation context.  No other context can
+    contain a @code{Score} context.  This context handles the
+    administration of time signatures.  It also makes sure that items
+    such as clefs, time signatures, and key-signatures are aligned
+    across staffs.  It can contain @code{Lyrics}, @code{Staff},
+    @code{RhythmicStaff}, @code{GrandStaff}, @code{StaffGroup}, and
+    @code{ChoirStaff} contexts.
+
+    You cannot explicitly instantiate a Score context (since it is
+    not contained in any other context).  It is instantiated
+    automatically when an output definition (a @code{\score} or
+    @code{\paper} block) is processed.
+@end table
+
+
+
+Properties that are set in one context are inherited by all of the
+contained contexts.  This means that a property valid for the
+@code{Voice} context can be set in the @code{Score} context (for
+example) and thus take effect in all @code{Voice} contexts.
+
+Properties can be preset within the @code{\translator} block
+corresponding to the appropriate context.  In this case, the syntax
+is
+
+@example
+
+  @var{propname} @code{=} @var{value}
+@end example
+
+This assignment happens before interpretation starts, so a
+@code{\property} expression will override any predefined settings.
+
+The @code{\property} expression will create any property you specify.
+There is no guarantee that a property will be used.  So if you spell
+a property name wrong, there will be no error message.
+
+The property settings are used during the interpretation phase.  They
+are read by the LilyPond modules where interpretation contexts are
+built of.  These modules are called @emph{translators}.  Translators for
+notation are called @emph{engravers}, and translators for sound are
+called @emph{performers}.
+
+The precise result of a property is determined by the implementation
+of the translator that reads them.  Therefore, the result of a
+property can vary, since it is implementation and configuration
+dependent.
+
+In order to fully find out what properties are used, you must
+currently search the source code for calls to @code{get_property}. 
+The rest of the section is devoted to an (incomplete) overview of
+available properties.
+
+@mbinclude properties.itely
+
+@node Notation output definitions, , ,  Reference Manual
+@section Notation output definitions
+
+@cindex output
+
+@cindex notation output
+
+@cindex output definition
+
+@node paper, , ,  Reference Manual
+
+The most important output definition is the @code{\paper} block, for
+music notation.  The syntax is
+
+@example
+
+  @code{\paper @{} [@var{paperidentifier}] @var{items} @code{@}}
+@end example
+
+where each of the items is one of
+
+@itemize @bullet
+  @item  An assignment.  The assignment must be terminated by a
+       semicolon.  See section XREF-papervars [FIXME] for information on
+       paper variables.
+
+  @item  A context definition.  See section XREF-contextdefs [FIXME] for
+       more information on context definitions.
+
+  @item  A margin shape declaration.  The syntax is
+
+       @example
+
+         \shape @var{indent1}@code{,} @var{width1}@code{,}
+                      @var{indent2}@code{,} @var{width2} @dots{} @code{;}
+       @end example
+
+       @keyindex{shape}
+
+       Each pair of @var{indent} and @var{width} values is a dimension
+       specifying how far to indent and how wide to make the line. 
+       The indentation and width of successive lines are specified by
+       the successive pairs of dimensions.  The last pair of
+       dimensions will define the characeristics of all lines beyond
+       those explicitly specified.
+
+  @item  A font declaration.  Its syntax is
+
+       @example
+
+         @var{fontsize} @code{=} \font@keyindex{font} @var{fontname}
+       @end example
+
+       @var{fontsize} is an integer describing the font to be used. 
+       0 is the default font.  @var{fontname} is the basename of
+       a font (usually a member of the Feta family).
+@end itemize
+
+
+
+@cindex changing font size and paper size
+
+The Feta font provides musical symbols at six different sizes.  These
+fonts are 11 point, 13 point, 16 point, 20 point,
+23 point, and 26 point.  The point size of a font is the
+height of the five lines in a staff when displayed in the font.
+
+Definitions for these sizes are the files @file{paperSZ.ly}, where
+@code{SZ} is one of 11, 13, 16, 20, 23 and 26.  If you include
+any of these files, the identifiers @code{paper_eleven},
+@code{paper_thirteen}, @code{paper_sixteen}, @code{paper_twenty},
+@code{paper_twentythree}, and @code{paper_twentysix} are defined
+respectively.  The default @code{\paper} block is also set.
+
+To change the paper size, you must first set the
+@code{papersize}@indexcode{papersize} variable at top level.  Set it to the strings
+@code{a4}, @code{letter}, or @code{legal}.  After this specification,
+you must set the font as described above.  If you want the default
+font, then use the 20 point font.  The new paper size will not
+take effect if the font is not loaded and selected afterwards.  Paper
+size selection works by loading a file named after the paper size you
+select.
+
+
+
+@cindex paper variables
+
+@node Paper variables, , ,  Reference Manual
+
+There is a large number of paper variables that are used to control
+details of the layout.  These variables control the defaults for the
+entire score.  Usually, they do not have to be changed; they are by
+default set to values that depend on the font size in use.  The
+values are used by the graphic objects while formatting the score;
+they are therefore implementation dependent.  Most variables are
+accompanied by documentation in the initalization file
+@file{params.ly} or @file{paperSZ.ly}, where @code{SZ} is the staff
+height in points.
+
+Nevertheless, here are some variables you may want to use or change:
+
+@table @samp
+  @item @code{indent}@indexcode{indent}  
+    The indentation of the first line of music.
+
+  @item @code{interline}@indexcode{interline}  
+    The distance between two staff lines, calculated from the center
+    of the lines.  You should use either this or @code{rulethickness}
+    as a unit for distances you modify.
+  
+  @item @code{linewidth}@indexcode{linewidth}  
+    Sets the width of the lines.  If set to -1.0, a single
+    unjustified line is produced.
+
+  @item @code{output}@indexcode{output}  
+    Specifies an alternate name for the the output @file{s}.
+    A @file{.tex}, @file{.midi} or @file{.ps} extension will be 
+    added to the string you specify.
+
+  @item @code{rulethickness}@indexcode{rulethickness}  
+    Determines the thickness of staff and bar lines. 
+@end table
+
+
+@node contextdefs, , ,  Reference Manual
+
+@cindex context definition
+
+A notation contexts is defined by the following information
+
+@enumerate i
+  @item  A name.
+
+  @item  The LilyPond modules that do the actual conversion of music to
+       notation.  Each module is a so-called
+       @emph{engraver}
+@cindex engraver
+.
+
+  @item  How these modules should cooperate, i.e. which ``cooperation
+       module'' should be used.  This cooperation module is a special
+       type of engraver.
+
+  @item  What other contexts the context can contain,
+
+  @item  What properties are defined.
+@end enumerate
+
+A context definition has this syntax:
+
+@example
+
+  \translator @code{@{}
+                      @var{translatorinit} @var{translatormodifierlist}
+                    @code{@}}
+@end example
+
+@var{translatorinit} can be an identifier or of the form
+
+@example
+
+  \type @var{typename} @code{;}
+@end example
+
+@var{typename} is one of
+
+@table @samp
+  @item @code{Engraver_group_engraver}@indexcode{Engraver_group_engraver}  
+    The standard cooperation engraver.
+
+  @item @code{Score_engraver}@indexcode{Score_engraver}  
+    This is cooperation module that should be in the top level context.
+
+  @item @code{Grace_engraver_group}@indexcode{Grace_engraver_group}  
+    This is a special cooperation module (resembling
+    @code{Score_engraver}) that is used to created an embedded
+    `miniscore'.
+@end table 
+
+@var{translatormodifierlist} is a list of items where each item is
+one of
+
+@itemize @bullet
+  @item  @code{\consists} @var{engravername} @code{;}  
+    Add @var{engravername} to the list of modules in this context. 
+    Section XREF-engravers [FIXME] contains an overview of the engravers
+    available.  The order of engravers added with @code{\consists} is
+    significant.
+  
+  @item  @code{\consistsend} @var{engravername} @code{;}  
+    Analogous to @code{\consists}, but makes sure that
+    @var{engravername} is always added to the end of the list of
+    engravers.
+
+    Some engraver types need to be at the end of the list; this
+    insures they are put there, and stay there, if a user adds or
+    removes engravers.  This command is usually not needed for
+    end-users.
+    
+  @item  @code{\accepts} @var{contextname} @code{;}  
+    Add @var{contextname} to the list of  context this context can
+    contain.  The first listed context the context to create by
+    default.
+  
+  @item  @code{\remove} @var{engravername} @code{;}  
+    Remove a previously added (with @code{\consists}) engraver.
+  
+  @item  @code{\name} @var{contextname} @code{;}  
+    This sets name of the context, e.g. @code{Staff}, @code{Voice}.  If
+    the name is not specified, the translator won't do anything.
+
+  @item  @var{propname} @code{=} @var{value} @code{;}  
+    A property assignment.  It is allowed to use reals for
+    @var{value}.
+@end itemize
+
+In the @code{\paper} block, it is also possible to define translator
+identifiers.  Like other block identifiers, the identifier can only
+be used as the very first item of a translator.  In order to define
+such an identifier outside of @code{\score}, you must do
+
+@quotation
+
+@example 
+\paper @{
+  foo = \translator @{ @dots{} @}
+@}
+\score @{
+  \notes @{
+    @dots{}
+  @}
+  \paper @{
+    \translator @{ \foo @dots{} @}
+  @}
+@} 
+@end example 
+
+@end quotation
+
+
+@cindex paper types, engravers, and pre-defined translators
+
+Some pre-defined identifiers can simplify modification of
+translators.  The pre-defined identifiers are:
+
+@table @samp
+  @item @code{StaffContext}@indexcode{StaffContext}  
+    Default Staff context. 
+
+  @item @code{RhythmicStaffContext}@indexcode{RhythmicStaffContext}  
+    Default RhythmicStaff context. 
+
+  @item @code{VoiceContext}@indexcode{VoiceContext}  
+    Default Voice context.  
+
+  @item @code{ScoreContext}@indexcode{ScoreContext}  
+    Default Score context. 
+
+  @item @code{ScoreWithNumbers}@indexcode{ScoreWithNumbers}  
+    Score context with numbering at the Score level.
+
+  @item @code{BarNumberingStaffContext}@indexcode{BarNumberingStaffContext}  
+    Staff context with numbering at the Staff level.
+
+  @item @code{HaraKiriStaffContext}@indexcode{HaraKiriStaffContext}  
+    Staff context that does not print if it only contains rests. 
+    Useful for orchestral scores.@footnote{Harakiri, also called
+    Seppuku, is the ritual suicide of the Samourai.}
+
+  @item @code{OrchestralPartStaffContext}@indexcode{OrchestralPartStaffContext}
+
+  @item @code{OrchestralScoreContext}@indexcode{OrchestralScoreContext}
+@end table
+
+Using these pre-defined values, you can remove or add items to the
+translator:
+
+@quotation
+
+@example 
+\paper @{
+  \translator @{
+    \StaffContext
+    \remove Some_engraver;
+    \consists Different_engraver;
+  @}
+@} 
+@end example 
+
+@end quotation
+
+      
+
+@node engravers, , ,  Reference Manual
+
+The engravers for paper output are:
+
+[incomplete, FIXME]
+
+@table @samp
+  @item @code{Bar_engraver}@indexcode{Bar_engraver}  
+    Engraves bar lines.  Normally in @code{Staff} and
+    @code{RhythmicStaff}.
+
+  @item @code{Bar_number_engraver}@indexcode{Bar_number_engraver}  
+    Engrave bar numbers.  These numbers appear at the start of each
+    line.  Not normally in any translator.  Can be added to
+    @code{Score} for score-wide numbering or to @code{Staff} for
+    numbering on each staff.
+
+  @item @code{Beam_engraver}@indexcode{Beam_engraver}  
+    Handles beam requests by engraving beams.  Normally appears in
+    the @code{Voice} translator.  If omitted, then notes will be
+    printed with flags instead of beams.
+
+  @item @code{Beam_req_swallow_translator}
+    @indexcode{Beam_req_swallow_translator}  
+    Swallows beam requests.  In @code{LyricVoice}.  
+
+  @item @code{Chord_name_engraver}@indexcode{Chord_name_engraver}  
+    Engraves chord names.  Normally in @code{ChordNameVoice} .
+
+  @item @code{Chord_tremolo_engraver}@indexcode{Chord_tremolo_engraver}
+
+  @item @code{Clef_engraver}@indexcode{Clef_engraver}  
+    Engraves the clef symbol.  Normally in @code{Staff}.
+
+  @item @code{Collision_engraver}@indexcode{Collision_engraver}
+
+  @item @code{Dot_column_engraver}@indexcode{Dot_column_engraver}  
+    Engraves dots on dotted notes shifted to the right of the note. 
+    Normally in @code{Voice}.  If omitted, then dots appear on top of
+    the notes.
+
+  @item @code{Dynamic_engraver}@indexcode{Dynamic_engraver}  
+    Engraves dynamics symbols.  Normally in @code{Voice}.
+
+  @item @code{Font_size_engraver}@indexcode{Font_size_engraver}
+
+  @item @code{Key_engraver}@indexcode{Key_engraver}  
+    Engraves the key signature.  Normally in @code{Staff}.
+
+  @item @code{Local_key_engraver}@indexcode{Local_key_engraver}
+
+  @item @code{Lyric_engraver}@indexcode{Lyric_engraver}  
+    Engraves lyrics.  Normally in @code{LyricVoice}.
+
+  @item @code{Multi_measure_rest_engraver}
+    @indexcode{Multi_measure_rest_engraver}  
+    Engraves multi-measure rests that are produced with @code{R}. 
+    Normally in @code{Voice}.
+
+  @item @code{Piano_bar_engraver}@indexcode{Piano_bar_engraver}
+
+  @item @code{Pitch_squash_engraver}@indexcode{Pitch_squash_engraver}  
+    Treat all pitches as middle C.  Used in @code{RhythmicStaff}. 
+    Note that the notes move, but the locations of accidentals stay
+    the same.
+
+  @item @code{Priority_horizontal_align_engraver}
+    @indexcode{Priority_horizontal_align_engraver}
+
+  @item @code{Repeat_engraver}@indexcode{Repeat_engraver}  
+    Handles repeats?  In @code{Staff} and @code{RhythmicStaff}.
+
+  @item @code{Rest_collision_engraver}@indexcode{Rest_collision_engraver}  
+    Handles collisions of rests.  In @code{Staff}.
+
+  @item @code{Rest_engraver}@indexcode{Rest_engraver}  
+    Engraves rests.  Normally in @code{Voice}.
+
+  @item @code{Rhythmic_column_engraver}@indexcode{Rhythmic_column_engraver}
+
+  @item @code{Score_priority_engraver}@indexcode{Score_priority_engraver}
+
+  @item @code{Script_engraver}@indexcode{Script_engraver}  
+    Handles note ornaments generated by @code{\script}.  Normally in
+    @code{Voice}.
+
+  @item @code{Separating_line_group_engraver}
+    @indexcode{Separating_line_group_engraver}
+
+  @item @code{Skip_req_swallow_translator}
+    @indexcode{Skip_req_swallow_translator}
+
+  @item @code{Slur_engraver}@indexcode{Slur_engraver}  
+    Engraves slurs.  Normally in @code{Voice}.
+
+  @item @code{Span_bar_engraver}@indexcode{Span_bar_engraver}  
+    Engraves lines across multiple staffs.  Normally in
+    @code{Staffgroup} and @code{GrandStaff}.  Removing this from
+    @code{StaffGroup} gives the definition of @code{ChoirStaff}.
+
+  @item @code{Span_score_bar_engraver}@indexcode{Span_score_bar_engraver}
+
+  @item @code{Staff_group_bar_engraver}@indexcode{Staff_group_bar_engraver}
+
+  @item @code{Staff_margin_engraver}@indexcode{Staff_margin_engraver}  
+    Prints the name of the instrument (specified by
+    @code{Staff.instrument} and @code{Staff.instr}) at the left of the
+    staff.
+
+  @item @code{Staff_sym_engraver}@indexcode{Staff_sym_engraver}
+
+  @item @code{Stem_engraver}@indexcode{Stem_engraver}  
+    Engraves stems.  Normally in @code{Voice}.
+
+  @item @code{Ties_engraver}@indexcode{Ties_engraver}  
+    Engraves ties.  Normally in @code{Voice}.
+
+  @item @code{Time_signature_engraver}@indexcode{Time_signature_engraver}  
+    Engraves the time signature.  Normally in @code{Staff} and
+    @code{RhythmicStaff}.
+
+  @item @code{Timing_engraver}@indexcode{Timing_engraver}  
+    Responsible for synchronizing timing information from staffs. 
+    Normally in @code{Score}.  In order to create polyrhythmic music,
+    this engraver should be removed from @code{Score} and placed in
+    @code{Staff}.
+
+  @item @code{Tuplet_engraver}@indexcode{Tuplet_engraver}  
+    Engraves tuplet brackets?  In @code{Staff}.
+
+  @item @code{Vertical_align_engraver}@indexcode{Vertical_align_engraver} 
+@end table
+
+
+
+@node Sound output, , ,  Reference Manual
+@section Sound output
+
+
+
+The MIDI block is analogous to the paper block, but it is simpler.
+The @code{\midi} block can contain:
+@cindex MIDI block
+
+@itemize @bullet
+  @item  a @code{\tempo} definition
+  @item  context definitions
+@end itemize
+
+Assignments in the @code{\midi} block are not allowed.
+
+
+
+@cindex context definition
+
+Context definitions follow precisely the same syntax as within the
+\paper block.  Translation modules for sound are called performers.
+The contexts for MIDI output are defined in @file{ly/performer.ly}.
+
+
+
+@cindex MIDI instrument names
+
+@node midilist, , , Reference Manual
+
+The MIDI instrument name is set by the
+@code{Staff.midiInstrument}@indexcode{Staff.midiInstrument} property or,
+if that property is not set, the
+@code{Staff.instrument}@indexcode{Staff.instrument} property.  The
+instrument name should be chosen from the following list.  If the
+selected string does not exactly match, then LilyPond uses the default
+piano.
+
+
+@quotation
+
+@example 
+"acoustic grand"            "contrabass"           "lead 7 (fifths)"
+"bright acoustic"           "tremolo strings"      "lead 8 (bass+lead)"
+"electric grand"            "pizzicato strings"    "pad 1 (new age)"
+"honky-tonk"                "orchestral strings"   "pad 2 (warm)"
+"electric piano 1"          "timpani"              "pad 3 (polysynth)"
+"electric piano 2"          "string ensemble 1"    "pad 4 (choir)"
+"harpsichord"               "string ensemble 2"    "pad 5 (bowed)"
+"clav"                      "synthstrings 1"       "pad 6 (metallic)"
+"celesta"                   "synthstrings 2"       "pad 7 (halo)"
+"glockenspiel"              "choir aahs"           "pad 8 (sweep)"
+"music box"                 "voice oohs"           "fx 1 (rain)"
+"vibraphone"                "synth voice"          "fx 2 (soundtrack)"
+"marimba"                   "orchestra hit"        "fx 3 (crystal)"
+"xylophone"                 "trumpet"              "fx 4 (atmosphere)"
+"tubular bells"             "trombone"             "fx 5 (brightness)"
+"dulcimer"                  "tuba"                 "fx 6 (goblins)"
+"drawbar organ"             "muted trumpet"        "fx 7 (echoes)"
+"percussive organ"          "french horn"          "fx 8 (sci-fi)"
+"rock organ"                "brass section"        "sitar"
+"church organ"              "synthbrass 1"         "banjo"
+"reed organ"                "synthbrass 2"         "shamisen"
+"accordion"                 "soprano sax"          "koto"
+"harmonica"                 "alto sax"             "kalimba"
+"concertina"                "tenor sax"            "bagpipe"
+"acoustic guitar (nylon)"   "baritone sax"         "fiddle"
+"acoustic guitar (steel)"   "oboe"                 "shanai"
+"electric guitar (jazz)"    "english horn"         "tinkle bell"
+"electric guitar (clean)"   "bassoon"              "agogo"
+"electric guitar (muted)"   "clarinet"             "steel drums"
+"overdriven guitar"         "piccolo"              "woodblock"
+"distorted guitar"          "flute"                "taiko drum"
+"guitar harmonics"          "recorder"             "melodic tom"
+"acoustic bass"             "pan flute"            "synth drum"
+"electric bass (finger)"    "blown bottle"         "reverse cymbal"
+"electric bass (pick)"      "skakuhachi"           "guitar fret noise"
+"fretless bass"             "whistle"              "breath noise"
+"slap bass 1"               "ocarina"              "seashore"
+"slap bass 2"               "lead 1 (square)"      "bird tweet"
+"synth bass 1"              "lead 2 (sawtooth)"    "telephone ring"
+"synth bass 2"              "lead 3 (calliope)"    "helicopter"
+"violin"                    "lead 4 (chiff)"       "applause"
+"viola"                     "lead 5 (charang)"     "gunshot"
+"cello"                     "lead 6 (voice)" 
+@end example 
+
+@end quotation
+
+
+@cindex MIDI types and performers
+
+The types available for  MIDI translators are:
+
+@table @samp
+  @item @code{Performer_group_performer}@indexcode{Performer_group_performer}
+  @item @code{Score_performer}@indexcode{Score_performer}
+  @item @code{Staff_performer}@indexcode{Staff_performer}
+@end table
+
+The performers for MIDI translators are:
+
+@table @samp
+  @item @code{Key_performer}@indexcode{Key_performer}
+  @item @code{Time_signature_performer}@indexcode{Time_signature_performer}
+  @item @code{Note_performer}@indexcode{Note_performer}
+  @item @code{Lyric_performer}@indexcode{Lyric_performer}
+  @item @code{Swallow_performer}@indexcode{Swallow_performer}
+@end table
+
+
+
+@node Pre-defined Identifiers, , ,  Reference Manual
+
+@section Pre-defined Identifiers
+
+@cindex pre-defined identifiers
+
+
+Various identifiers are defined in the initialization files to
+provide shorthands for some settings.  Most of them are in
+@file{ly/declarations.ly}.
+
+@table @samp
+  @item @code{\break}@keyindex{break}  
+    Force a line break in music by using a large argument for the
+    keyword @code{\penalty}.
+
+  @item @code{\center}@keyindex{center}  
+    Used for setting direction  properties.  Equals 0.
+
+  @item @code{\down}@keyindex{down}  
+    Used for setting direction setting properties.  Is equal
+    to -1.
+
+  @item @code{\free}@keyindex{free}  
+    Used for setting direction setting properties.  Is equal
+    to 0.
+
+  @item @code{\left}@keyindex{left}  
+    Used for setting text alignment property.  Is equal to -1.
+
+  @item @code{\nobreak}@keyindex{nobreak}  
+    Prevent a line break in music by using a large negative argument
+    for the keyword @code{\penalty}.
+
+  @item @code{\none}@keyindex{none}  
+    Used for setting @code{Score.beamslopedamping} and
+    @code{Score.beamquantisation} properties.  Is equal to 0.
+
+  @item @code{\normal}@keyindex{normal}  
+    Used for setting @code{Score.beamslopedamping} and
+    @code{Score.beamquantisation} properties.  Is equal to 1.
+
+  @item @code{\normalkey}@keyindex{normalkey}  
+    Select normal key signatures where each octave has the same key
+    signature.  This sets the @code{Staff.keyoctaviation} property.
+
+  @item @code{\right}@keyindex{right}  
+    Used for setting text alignment property.  Is set to 1.
+
+  @item @code{\shiftoff}@keyindex{shiftoff}  
+    Disable horizontal shifting of note heads that collide.  Sets the
+    @code{Voice.horizontalNoteShift} property.
+
+  @item @code{\shifton}@keyindex{shifton}  
+    Enable note heads that collide with other note heads to be
+    shifted horiztonally.  Sets the @code{Voice.horizontalNoteShift}
+    property.
+
+  @item @code{\slurboth}@keyindex{slurboth}  
+    Allow slurs to be above or below notes.  This sets the
+    @code{Voice.slurVerticalDirection} property.
+
+  @item @code{\slurdown}@keyindex{slurdown}  
+    Force slurs to be below notes.  This sets the
+    @code{Voice.slurVerticalDirection} property.
+
+  @item @code{\slurup}@keyindex{slurup}  
+    Force slurs to be above notes.  This sets the
+    @code{Voice.slurVerticalDirection} property.
+
+  @item @code{\specialkey}@keyindex{specialkey}  
+    Allow key signatures do differ in different octaves.  This sets
+    the @code{Staff.keyoctaviation} property.
+
+  @item @code{\stemboth}@keyindex{stemboth}  
+    Allow stems, beams, and slurs to point either upwards or
+    downwards, decided automatically by LilyPond.  This sets the
+    @code{Voice.verticalDirection} property.
+
+  @item @code{\stemdown}@keyindex{stemdown}  
+    Force stems, beams, and slurs to point down.  This sets the
+    @code{Voice.verticalDirection} property.
+
+  @item @code{\stemup}@keyindex{stemup}  
+    Force stems, beams and slurs to point up.  This sets the
+    @code{Voice.verticalDirection} property.
+
+  @item @code{\traditional}@keyindex{traditional}  
+    Used for setting the @code{Score.beamquantisation} property.  Is
+    equal to 2.
+
+  @item @code{\up}@keyindex{up}  
+    Used for setting various direction properties.  Is equal
+    to 1.
+@end table

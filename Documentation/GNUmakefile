@@ -6,7 +6,7 @@ NAME = documentation
 SUBDIRS= user metadoc bibliography pictures topdocs ntweb
 STEPMAKE_TEMPLATES=documentation  texinfo
 
-README_TOP_FILES=NEWS DEDICATION TODO  AIMS
+README_TOP_FILES=NEWS DEDICATION TODO AIMS CHANGES
 INFO_FILES = $(wildcard $(outdir)/$(package).info*)
 EXTRA_DIST_FILES = COPYRIGHT 
 
@@ -24,3 +24,4 @@ local-WWW: copy-for-me
 
 copy-for-me:
 	$(foreach a, $(README_TOP_FILES),cp ../$(a) $(outdir)/$(a).txt && ) true
+

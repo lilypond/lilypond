@@ -43,16 +43,13 @@ simple pieces, tests and bugs.  MIDI, PNG, PostScript, and Source.
 LilyPond handling real music.  MIDI, view PNG, PostScript, and Source.
 @end itemize
 
-@unnumberedsec Documentation
+@unnumberedsec More information
     
 
 @itemize @bullet
-@item @uref{Documentation/tex/out-www/tutorial.html,Tutorial}
-@item @uref{Documentation/out-www/faq.html,FAQ}
+@item @uref{Documentation/out-www/index.html, Documentation}
 @item @uref{Documentation/out-www/mail.html,Mailing Lists}
-@item @uref{Documentation/out-www/index.html,All of the LilyPond documentation}
-@item @uref{./docxx/index.html,The DOC++ documentation of the C++ sources.}
-@item @uref{Documentation/topdocs/out-www/INSTALL.html,The installation instructions}
+@item @uref{./docxx/index.html,Source code documentation}
 @end itemize
 
 @unnumberedsec Sites

@@ -69,6 +69,8 @@ protected:
   Direction get_default_dir () const;
   void set_direction (Direction);
   void set_steminfo ();
+  bool auto_knee (SCM gap, bool interstaff_b);
+  bool auto_knees ();
   
   virtual void do_pre_processing ();
   virtual void do_post_processing ();

@@ -1,3 +1,22 @@
+12.jcn1
+	- auto-knees, input/test/auto-knee.ly
+
+pl 12.rrr2
+	- voltaSpannerDuration may be a rational
+	- .ly files corrected, Voice.dynamicDir to Voice.dynamicDirection
+
+pl 12.rrr1
+ 	- key (K:) with clef, bug fix for abc2ly
+ 	- voltaSpannerDuration code added to lilypond
+
+pl 12.hwn1
+	- junked wordwrap
+	- bf: use position (not pitch) for autochange
+	- mudela-book fixes: --dependencies, --dep-prefix
+	- mudela.tely more updates.  Now absorbed LilyPond manpage. 
+	- BUGS now in INSTALL.texi
+
+*******
 pl 11.uu1
 	- changed debug init code.
 
