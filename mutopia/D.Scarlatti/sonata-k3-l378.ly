@@ -249,7 +249,5 @@ LHtoL = { \tolower \stemdown }
      > > 
 
  
- \paper{
- barsize=50.0;
- }
+
 }

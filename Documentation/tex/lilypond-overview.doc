@@ -512,7 +512,7 @@ to be shifted horizontally.  An example of this is given in Figure~\ref{fig:coll
 \begin{figure}[h]
   \begin{center}
     \begin{mudela}
-      
+      c4
     \end{mudela}
     \caption{Collisions}
     \label{fig:collision}

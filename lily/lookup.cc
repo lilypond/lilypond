@@ -546,3 +546,12 @@ Lookup::volta (Real w, bool last_b) const
   return a;
 }
 
+
+Atom
+Lookup::special_ball (int j, String kind_of_ball) const
+{
+  if (j > 2)
+    j = 2;
+
+  return afm_find (String ("balls") + String ("-") + kind_of_ball);
+}

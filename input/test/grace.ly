@@ -18,9 +18,6 @@
 	>
 	\paper {
 		linewidth = 120.0\mm;
-		-2 = \font "feta13"
-		-1 = \font "feta16"
-
 	}
 }
 
