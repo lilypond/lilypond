@@ -2155,8 +2155,9 @@ longer be computed.
 
 Grace notes are ornaments that are written out, like accaciatura and
 appogiatura notes.
-@lilypond[relative=2,verbatim,fragment] c4 \grace c16 c4 \grace {
-[c16 d16] } c4
+@lilypond[relative=2,verbatim,fragment]
+c4 \grace c16 c4 \grace {
+c16[ d16] } c4
 @end lilypond
 
 From the point of view of typesetting, their characteristic is that

@@ -1,4 +1,3 @@
-#(ly:set-option 'old-relative)
 \version "1.9.0"
 
 \header {
@@ -10,7 +9,7 @@ harmonies = \chords {
 }
 
 melody = \notes \relative c' {
-  f4 [e8 c] d4 g | a2 ~ a2
+  f4 e8[ c] d4 g | a2 ~ a2
 }
 
 \score {

@@ -257,23 +257,23 @@ of the code is used.
 @item 11pt
 @lilypond[11pt, eps]
 \relative c' {
-  r16 [c d e][f d e c] [g'8 c][b-\prall c] |
-  [d16 g, a b][c a b g][d'8 g f-\prall g]
+  r16 c[ d e] f[ d e c] g'8[ c] b[\prall c] |
+  d16[ g, a b] c[ a b g] d'8[ g f\prall g]
 }
 @end lilypond
 
 @item 13pt
 @lilypond[13pt, eps]
 \relative c' {
-  r16 [c d e][f d e c] [g'8 c][b-\prall c] |
-  [d16 g, a b][c a b g][d'8 g f-\prall g]
+  r16 c[ d e] f[ d e c] g'8[ c] b[\prall c] |
+  d16[ g, a b] c[ a b g] d'8[ g f\prall g]
 }
 @end lilypond
 
 @item 16pt
 @lilypond[16pt, eps]
 \relative c' {
-  r16 [c d e][f d e c] [g'8 c][b-\prall c] |
+  r16 c[ d e] f[ d e c] g'8[ c] b[\prall c] |
 }
 @end lilypond
 
@@ -287,7 +287,7 @@ of the code is used.
 @item 26pt
 @lilypond[26pt, eps]
 \relative c' {
-  r16 [c d e][f d e c] [g'8 c][b-\prall c] |
+  r16 c[ d e] f[ d e c] g'8[ c] b[\prall c] |
 }
 @end lilypond
 
