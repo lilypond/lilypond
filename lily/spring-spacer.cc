@@ -8,6 +8,7 @@
 
 
 #include <math.h>
+#include <limits.h>
 #include "spring-spacer.hh"
 #include "p-col.hh"
 #include "debug.hh"
@@ -444,7 +445,7 @@ Spring_spacer::calc_idealspacing()
 	    }
 	    if ( d_iter.ok() && now >= d_iter.when()) {
 		Durations_iter d2 = d_iter;
-		Moment shortest = INFTY;
+		Moment shortest = (Real)INT_MAX; //ugh INFTY;
 		while (d2.ok() && d2.when() <= now) {
 		    shortest = shortest <? d2.duration();
 		    d2.next();

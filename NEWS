@@ -1,3 +1,7 @@
+pl 78.jcn1
+	- fix for multi-staff midi: wohltemperirt.ly, standchen.ly
+	- doze fixes
+	- bf: conflily, configure (text)
 
 pl 78
 	- bf: Midi_instrument 

@@ -31,5 +31,5 @@ if [ "x$LILYINCLUDE" = "x" ]; then
 	echo "export PATH=$PATH:$lelie/current/bin/out/"
 fi
 
-configure --prefix=$root --enable-debugging --enable-printing --enable-checking
+configure --prefix=/usr --enable-debugging --enable-printing --enable-checking
 

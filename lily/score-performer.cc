@@ -131,6 +131,11 @@ Score_performer::set_score(Score* score_l )
 void
 Score_performer::start()
 {
+    //<ugh>
+    int track_i = 1;
+    Performer_group_performer::set_track( track_i );
+    //</ugh>
+
     if ( midi_l_->outfile_str_ == "" )
 	midi_l_->outfile_str_ = default_out_fn + ".midi";
 }

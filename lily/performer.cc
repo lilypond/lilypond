@@ -65,6 +65,19 @@ Performer::set( Moment )
 {
 } 
 
+//<ugh>
+int
+Performer::get_track_i() const
+{
+    return daddy_perf_l_->get_track_i();
+}
+
+void
+Performer::set_track( int& )
+{
+}
+//</ugh>
+
 bool 
 Performer::do_try_request( Request* req_l )
 {
