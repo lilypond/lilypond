@@ -26,8 +26,10 @@ Melisma_engraver::do_try_music (Music *m )
 {
   if (dynamic_cast<Melisma_playing_req*>(m))
     {
-      Scalar s (get_property ("melismaBusy", 0));
-      return s.to_bool ();
+      Scalar plain (get_property ("melismaBusy", 0));
+      Scalar slur (get_property ("slurMelismaBusy", 0));
+      Scalar tie (get_property ("tieMelismaBusy", 0));
+      return plain.to_bool () || slur.to_bool () || tie.to_bool ();
     }
   return false;
 }

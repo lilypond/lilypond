@@ -1,3 +1,25 @@
+pl 65.hwn1
+	- refman updates
+	- added \simultaneous { } , \sequential { } syntax, for
+consistency.
+
+pl 65.jcn2
+	- bf: if tie then melisma
+
+pl 65.uu1
+	- bf: squashed 2 sr conflicts in parser.
+
+pl 64.jcn2
+	- stanchen almost without " " hacks
+	- if tie then melisma..?
+	- refman updates
+	- Abbreviation.beam -> Chord_tremolo
+	- bf: chord tremolo vs beam over rests
+	- bf: note width for noteless stem 
+
+
+
+********
 pl 64.jcn1
 	- resurrected abbreviation beam
 	- coriolan fixes

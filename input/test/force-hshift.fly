@@ -2,13 +2,16 @@
 \context Staff <
 	\context Voice = VA {
 		\property Voice.forceHorizontalShift = "0.1"
-		\stemup \shifton
+		% \stemup \shifton
+		\property Voice.verticalDirection=1 
+       		\property Voice.horizontalNoteShift=1
 		<g' d'>
 	}	
 
 	\context Voice = VB {
-		\stemdown
-		\shifton
+		%\stemdown \shifton
+		\property Voice.verticalDirection=-1 
+       		\property Voice.horizontalNoteShift=1
 		\property Voice.forceHorizontalShift = "-0.1"
 		<bes f'>
 	}

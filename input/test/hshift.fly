@@ -1,0 +1,8 @@
+
+\context Staff <
+	\context Voice =VA  {\stemup \property Voice.horizontalNoteShift = 0 g'' }
+	\context Voice =VB  {\stemup \property Voice.horizontalNoteShift = 1 e }
+	\context Voice =VC  {\stemup \property Voice.horizontalNoteShift = 2 c }
+	\context Voice =VD  {\stemup \property Voice.horizontalNoteShift = 3 a }
+	\context Voice =VE  {\stemup \property Voice.horizontalNoteShift = 4 f }
+>

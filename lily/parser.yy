@@ -136,6 +136,8 @@ yylex (YYSTYPE *s,  void * v_l)
 %token CLEF
 %token CM_T
 %token CONSISTS
+%token SEQUENTIAL
+%token SIMULTANEOUS
 %token CONSISTSEND
 %token DURATION
 %token EXTENDER
@@ -182,7 +184,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token VERSION
 
 /* escaped */
-%token E_EXCLAMATION E_SMALLER E_BIGGER E_CHAR
+%token E_EXCLAMATION E_SMALLER E_BIGGER E_CHAR CHORD_MINUS CHORD_CARET 
 
 %type <i>	exclamations questions
 %token <i>	DIGIT
@@ -729,13 +731,23 @@ Music_sequence: '{' Music_list '}'	{
 	}
 	;
 
-Sequential_music: '{' Music_list '}'		{
+Sequential_music:
+	SEQUENTIAL '{' Music_list '}'		{
+		$$ = new Sequential_music ($3);
+		$$->set_spot ($3->spot ());
+	}
+	| '{' Music_list '}'		{
 		$$ = new Sequential_music ($2);
 		$$->set_spot ($2->spot ());
 	}
 	;
 
-Simultaneous_music: '<' Music_list '>'	{
+Simultaneous_music:
+	SIMULTANEOUS '{' Music_list '}'{
+		$$ = new Simultaneous_music ($3);
+		$$->set_spot ($3->spot ());
+	}
+	| '<' Music_list '>'	{
 		$$ = new Simultaneous_music ($2);
 		$$->set_spot ($2->spot ());
 	}
@@ -931,7 +943,7 @@ abbrev_command_req:
 		else
 		  THIS->set_abbrev_beam ($3);
 
-		Abbreviation_beam_req* a = new Abbreviation_beam_req;
+		Chord_tremolo_req* a = new Chord_tremolo_req;
 		a->span_dir_ = START;
 		a->type_i_ = THIS->abbrev_beam_type_i_;
 		$$=a;
@@ -946,7 +958,7 @@ abbrev_command_req:
 		   }
 		else
 		  {
-		    Abbreviation_beam_req* a = new Abbreviation_beam_req;
+		    Chord_tremolo_req* a = new Chord_tremolo_req;
 		    a->span_dir_ = STOP;
 		    a->type_i_ = THIS->abbrev_beam_type_i_;
 		    THIS->set_abbrev_beam (0);
@@ -1443,7 +1455,7 @@ chord_additions:
 	{
 		$$ = new Array<Musical_pitch>;
 	} 
-	| '-' chord_notes {
+	| CHORD_MINUS chord_notes {
 		$$ = $2;
 	}
 	;
@@ -1462,7 +1474,7 @@ chord_subtractions:
 	{
 		$$ = new Array<Musical_pitch>;
 	} 
-	| '^' chord_notes {
+	| CHORD_CARET chord_notes {
 		$$ = $2;
 	}
 	;

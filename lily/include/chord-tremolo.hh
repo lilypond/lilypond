@@ -1,5 +1,5 @@
 /*
-  abbreviation-beam-engraver.hh -- declare Abbreviation_beam_engraver
+  chord-tremolo-engraver.hh -- declare Chord_tremolo_engraver
 
   source file of the GNU LilyPond music typesetter
 
@@ -7,19 +7,19 @@
 	   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#ifndef ABBREVIATION_BEAM_HH
-#define ABBREVIATION_BEAM_HH
+#ifndef Chord_tremolo_HH
+#define Chord_tremolo_HH
 
 #include "beam.hh"
 
 /** a beam connects multiple stems Beam adjusts the stems its owns to
   make sure that they reach the beam and that point in the correct
   direction */
-class Abbreviation_beam : public Beam {
+class Chord_tremolo : public Beam {
 public:
   
 
-  Abbreviation_beam();
+  Chord_tremolo();
 
   VIRTUAL_COPY_CONS(Score_element);
 
@@ -29,5 +29,5 @@ protected:
   virtual Molecule* do_brew_molecule_p() const;
 };
 
-#endif // ABBREVIATION_BEAM_HH
+#endif // Chord_tremolo_HH
 

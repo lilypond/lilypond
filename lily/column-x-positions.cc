@@ -6,7 +6,7 @@
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "colhpos.hh"
+#include "column-x-positions.hh"
 #include "real.hh"
 #include "debug.hh"
 #include "vector.hh"

@@ -62,7 +62,12 @@ includefile(html-disclaimer.yo-urg)
 )
 
 
-This document describes the the GNU LilyPond input format, which is a
+
+sect(Overview)
+
+
+This bind(document)footnote(This document was revised for LilyPond
+1.2.)  describes the the GNU LilyPond input format, which is a
 language for defining music.  We call this language (rather
 arrogantly) The Musical Definition Language or Mudela, for
 short.footnote(If anybody comes up with a better name, we'd gladly
@@ -70,58 +75,59 @@ take this. Gourlay already uses Musical Description Language, G-Sharp
 Score Definition Language.  ISO standard 10743 defines a Standard
 Music Description Language.  We're not being original here.)
 
-This document was revised for LilyPond 1.2. 
+Mudela is a language that allows you  to
+itemize(
+it() create musical expressions by combining pitches, durations to
+it() output those musical expressions to various formats
+it() give those musical expressions and output definitions names, so
+you can enter them in manageable chunks.
+)
 
-The first aim of Mudela is to define a piece of music, being complete
-from both from a musical typesetting, as from a musical performing
-point of view.
+Mudela aims to be a language that defines a piece of music completely
+both for typesetting and for a performance point of view.
 
-The Musical Definition Language (Mudela), has a logical structure,
-making use of identifiers, that allows for flexible input, and
-definition reuse. See the documentation file file(MANIFESTO), included
-with the LilyPond sources for reasons and design considerations.
+sect(General syntax)
 
+The percent sign introduces line comments.
 
-sect(Running LilyPond)
-
-
-When invoked with a filename that has no extension, LilyPond will try
-adding a file(.ly) extension first, then a file(.sly) and then a
-file(.ly) extension second.  If the filename ends with file(.fly),
-LilyPond processes the file as music using file(init.fly).  In this
-case, LilyPond does something like: COMMENT(
-
-)verb(\score {
-  \notes\relative c {
-    \input "yourfile.fly"
-  }
-  \paper{}
-  \midi{}
+The syntax for most constructions follows this pattern: A keyword that
+is the name of the construction, followed by a list of items, which is
+enclosed in braces, e.g. a paper block looks like this
+verb(\paper {
+  linewidth = 14.0 \cm;          % one item
+  indent = \linewidth / 12.0 ;   % another one.
 })
-If you invoke LilyPond with a file file(foo.)var(ext) that doesn't
-have the file(.ly) extension then LilyPond will look for a file called
-file(init.)var(ext) and process this file.  The file
-file(init.)var(ext) must contain the code(\maininput) keyword or LilyPond
-will not read the user specified file.
 
-When LilyPond processes file(filename.ly) it will produce
-file(filename.tex) as output.  If file(filename.ly) contains a second
-code(\paper) keyword, then LilyPond will produce file(filename-1.tex)
-as well.  Subsequent code(\paper) keywords will produces sequentially
-numbered file names.  Several files can be specified; they will each
-be processed independently.footnote(Not entirely true: the status of
-GUILE is kept).
+Keywords are prefixed by a backslash. Words without backslashes are
+strings, like ``linewidth'' in the above example.  When you do an
+assigment, the left hand side is a string, the name name of the
+identifier you wish to assign to.  When you refer to an identifier,
+you must put a backslash before the name, like in second item of the
+example.
 
+sect(Music expressions)
 
+Music in mudela is entered as a music expression.  Notes, rests, lyric
+syllables are music expressions (the atomic expressions), and you can
+combine music expressions to form new music expressions.  This example
+forms a compound expressions out of the quarter code(c)   note and a
+code(d) note:COMMENT(
 
-sect(Syntax)
+)verb(\sequential { c4 d4 })COMMENT(
 
+)The meaning of this compound expression is to play the code(c) first,
+and then the code(d) (as opposed to playing them simultaneously, for
+instance).
+
+We shall first review how to make atomic music expressions, and then
+how to make compound expressions.
+
+subsect(Atomic music expressions)
+
+subsect(Composition music expressions)
 
 
 subsect(Basic Mudela)
-
-Mudela is a declarative input format: in a file you can declare items
-with identifiers, and instruct LilyPond to typeset music 
 
 
 A Mudela file consists of keywords with arguments and identifier
@@ -160,8 +166,7 @@ dit(dimension) Consists of a real followed by one of the dimension
 keywords: code(\mm), code(\pt), code(\in), or code(\cm).  Dimensions
 are converted immediately to a real which gives the dimension in
 points, so they can be mixed with reals, but the result is no longer
-of type dimension.  The keywords that require a dimension
-(code(\shape)).
+of type dimension.  
 
 dit(pitch) 
 A pitch is a string which is the name of a pitch.  Example: code(a).
@@ -237,7 +242,7 @@ verb(foo = \paper{ linewidth = 6.0\in; }
   \paper{ \foo }
 })
 If code(\foo) is used here without the surrounding code(\paper) then
-an error will result.  Note however that the following is acceptible
+an error will result.  Note however that the following is acceptable
 verb(foo = \notes { ... }
 \score{ \foo })  
 It is not necessary to specify code(\notes).
@@ -245,7 +250,7 @@ It is not necessary to specify code(\notes).
 Identifiers can be set equal to integers, reals, strings, music,
 durations (specified with code(\duration)), note ornaments (specified
 with code(\script), dynamics commands, or code(:)), note name tables
-(specified with code(\notenames), translator definitions, the
+(specified with code(\notenames)), translator definitions, the
 code(\paper) block, the code(\midi) block or the code(\score) block.
 When identifiers are used for translators, the code(\paper),
 code(\midi), and code(\score) blocks, they may only be referred to as
@@ -622,13 +627,19 @@ Tremolo marks can be printed by a note by adding code(:)[var(length)]
 after the note.  The length must be at least 8.  A var(length) value
 of 8 gives one line across the note stem.  
 If the length is omitted,
-then the last value is used, or the value of the code(Abbrev)
-property if there was no last value.  
-
+then the last value is used, or the value of the code(abbrev)
+property if there was no last value.  To place tremolo marks in
+between two notes, begin with code([:)var(length) and end with code(]).
+The tremolo marks will appear instead of beams.  Putting more than two
+notes in such a construction will produce odd effects. 
+  
 mudela(fragment,verbatim,center)(
-c'2:8 c':32 c'
-))
-
+  c'2:8 c':32 [:16 e'1 g'] [:8 e'4 f']
+)
+  
+mudela(fragment,verbatim,center)(
+  c'4:32 [:16 c'8 d'8]
+)
 
 sect(Other Ways to Enter Pitches)
 
@@ -653,19 +664,32 @@ catalan.ly     do  re  mi  fa  sol la  sid si  -d/-s       -b)
 subsect(Relative Pitch Specification)
 label(relative)
 
-One very common error when entering music is to place notes in the wrong
-octave.  One way to avoid being confused by large numbers of octave changing
-marks is to use
-the code(\relative) keyword. 
-Music which appears within code(\relative) is
-interpreted differently.  The octave of a note is determined by making it as
-close to the previous note as possible.  The octave changing marks code(') and
-code(,) can then be added to raise or lower this note by octaves.  You have to
-specify a starting pitch because the first note of a list has no predecessor.  
+A very common mistake when entering music is to place a note in the wrong
+octave.  One can easily get confused by the large numbers of octave changing
+marks in the music.  For most music, a much friendlier way of specifying
+a note's octave is by using the Relative Pitch Specification mode, that is
+introduced by the code(\relative) keyword.  For real world music entry, 
+Relative mode is being used almost exclusively.
+
+The octave of notes that appear in code(\relative) mode is calculated
+differently: The octave of a note depends on the previous note.
+When no octave changing marks are used, the basic interval (without
+accidentals) between two notes is always taken to be equal to or smaller 
+than a quart.  The octave changing marks code(') and code(,) can then be 
+added to raise or lower that interval by octaves.  Upon entering 
+code(\relative) mode, an absolute starting pitch must be specified
+that will act as the predecessor of the first note of the following music.  
+
+Thus, entering scales is straightforward
 
 mudela(fragment,verbatim,center)(
-\relative c'' { c d b c, d b c' d 
-                b c,, d b }
+\relative c' { c d e f g a b c c, }
+)
+
+and octave changing marks are used for intervals greater than a quart.
+
+mudela(fragment,verbatim,center)(
+\relative c'' { c g c f, c' a,, e''' }
 )
 
 When the preceding item is a chord, the first note of the chord is used to
@@ -872,9 +896,9 @@ COMMENT(
 	\addlyrics
 		\transpose c'' { c4 d8. e16 f2 }
 		\context Lyrics \lyrics { do4 re mi fa }
-)
+)COMMENT(
 
-You should use a single rhythm melody, and single rhythm lyrics (a
+)You should use a single rhythm melody, and single rhythm lyrics (a
 constant duration is the obvious choice).  If you do not, you will get
 undesired effects when using multiple stanzas: COMMENT(
 
@@ -1070,12 +1094,6 @@ request identifier containing the fingering `6' (with neutral direction).
 
 Since this assignment is possible at top-level and within paper, these
 are two conflicts.
-it() A chord followed by
-code(-3)
-can be interpreted as a chord substraction, or as the fingering  `2' (with
-neutral direction)
-it() Similarly code(^2) is a conflict.
- chord_addition '^' ->? 
 it()
 If you do a nested repeat,
 verb (
@@ -1462,8 +1480,7 @@ context is ended as well.  So after the third quarter, the
 code(another) is removed.
 
 Almost all music expressions inherit their interpretation context from
-their parent. In other words, suppose that  the syntax for a music expression is
-code(code(\keyword) var(musicexpr1) var(musicexpr2) dots()).
+their parent. In other words, suppose that  the syntax for a music expression is code(\keyword) var(musicexpr1) var(musicexpr2) dots().
 When the interpretation of this music expression starts, 
 the context for var(musicexpr1), var(musicexpr2), etc. that of
 the total expression.
@@ -1631,6 +1648,9 @@ subsubsubsect(Voice properties)
 
 description(  
 
+dit(code(stemLength)) Set length of stems.  Unit is 
+code(interline)/2, so stemLength defaults to 7.
+
 dit(code(stemLeftBeamCount)) Specify the number of beams to draw on
 the left side of the next note.   Overrides automatic beaming.  The
 value is only used once, and then it is erased.
@@ -1703,11 +1723,12 @@ dit(code(slurDash)) Set to 0 for normal slurs, 1 for dotted slurs, and
 a larger value for dashed slurs.  Identifiers code(\slurnormal) and
 code(\slurdotted) are predefined to set the first two settings.
 
-dit(code(horizontalNoteShift)) Set to 1 to enable LilyPond to shift notes
+dit(code(horizontalNoteShift)) Enable LilyPond to shift notes
 horizontally if they collide with other notes.  This is useful when
 typesetting many voices on one staff.  The identifier code(\shift) is
-defined to enable this.  If there are several voices, every voice must
-have a distinct value of this property or no shifting will occur.
+defined to enable this.  Traditionally, the outer chords (the upmost
+and downmost voices), should have no horizontalNoteShift. Voice s 
+
 
 dit(code(forceHorizontalShift)) Force horizontal shift for collision
 resolution.  It overrides automatic collision resolution.
@@ -2309,7 +2330,6 @@ COMMENT( The names of these types seem somewhat confusing. )
 The engravers for paper output are:
 
 description(
-dit(code(Abbreviation_beam_engraver)) [FIXME. Broken as of 1.0.?]
 dit(code(Bar_engraver)) Engraves bar lines.  Normally in code(Staff) and
 code(RhythmicStaff).  
 dit(code(Bar_number_engraver)) Engrave bar numbers.  These numbers
@@ -2325,6 +2345,7 @@ dit(code(Beam_req_swallow_translator)) Swallows beam requests.  In
 code(LyricVoice).  
 dit(code(Chord_name_engraver)) Engraves chord names.  Normally in
 code(ChordNameVoice) 
+dit(code(Chord_tremolo_engraver))
 dit(code(Clef_engraver)) Engraves the clef symbol.  Normally in code(Staff).
 dit(code(Collision_engraver))
 dit(code(Dot_column_engraver)) Engraves dots on dotted notes shifted to the
@@ -2393,3 +2414,33 @@ dit(code(Swallow_performer))
 )
 
 )
+
+sect(Running LilyPond)
+
+
+When invoked with a filename that has no extension, LilyPond will try
+adding a file(.ly) extension first, then a file(.sly) and then a
+file(.ly) extension second.  If the filename ends with file(.fly),
+LilyPond processes the file as music using file(init.fly).  In this
+case, LilyPond does something like: COMMENT(
+
+)verb(\score {
+  \notes\relative c {
+    \input "yourfile.fly"
+  }
+  \paper{}
+  \midi{}
+})
+If you invoke LilyPond with a file file(foo.)var(ext) that doesn't
+have the file(.ly) extension then LilyPond will look for a file called
+file(init.)var(ext) and process this file.  The file
+file(init.)var(ext) must contain the code(\maininput) keyword or LilyPond
+will not read the user specified file.
+
+When LilyPond processes file(filename.ly) it will produce
+file(filename.tex) as output.  If file(filename.ly) contains a second
+code(\paper) keyword, then LilyPond will produce file(filename-1.tex)
+as well.  Subsequent code(\paper) keywords will produces sequentially
+numbered file names.  Several files can be specified; they will each
+be processed independently.footnote(Not entirely true: the status of
+GUILE is kept).

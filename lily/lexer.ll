@@ -327,6 +327,12 @@ HYPHEN		--
 	\" {
 		start_quote ();
 	}
+	-  {
+		return CHORD_MINUS;
+	}
+	\^  {
+		return CHORD_CARET;
+	}
 	. {
 		return yylval.c = YYText ()[0];
 	}

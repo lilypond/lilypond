@@ -34,7 +34,6 @@ vocalVerse = \notes\relative c''{
 	R2. |
 	g8. b16 es4. d8 |
 	c8. g16 es4. c8 |
-	% \times 2/3 { [ as\grace( bes ] )
 	\grace { as'16 bes } \times 2/3 { [ )as8( )g] as } c4. as8 |
 	g2. |
 	\grace { f16( g } \times 2/3 { [ )f8( )e] f } as4. f8 |
@@ -44,8 +43,7 @@ vocalVerse = \notes\relative c''{
 	c8. g16 e4. c8 |
  	\grace { a'16( b } \times 2/3 { [ )a!8( ) gis] a } c4. a8 |
 	g!2. |
-	% \times 2/3 { [ a\grace( b] )
-	\times 2/3 { [ d'8\f cis] d } f4. b,8 |
+	\times 2/3 { [ d'8\f( )cis] d } f4. b,8 |
 	c!2. |
 }
 
@@ -61,7 +59,7 @@ vocalThrough = \notes\relative c{
 	R2. |
 	\grace { a16( b } \times 2/3 { [ )a!8( ) gis] a } c4. a8 |
 	g!2. |
-	\times 2/3 { [ d'8\f cis] d } f4. b,8 |
+	\times 2/3 { [ d'8\f( )cis] d } f4. b,8 |
 	c!2. ~ |
 	c4 r c |
 	as2. |
@@ -70,42 +68,42 @@ vocalThrough = \notes\relative c{
 }
 
 lyricVerseOne = \lyrics{
-	Lei- " " se fleh- en mei- " " ne Lie- der 
-	Durch die Nacht " " zu dir; 
-	In " " den stil- len Hain " " her- nie- der
-	Lieb- chen, komm " " zu mir! 
+	Lei- se fleh- en mei- ne Lie- der 
+	Durch die Nacht zu dir; 
+	In den stil- len Hain her- nie- der
+	Lieb- chen, komm zu mir! 
 	
 	Fl\"us- ternd schlan- ke Wip- fel rau- schen
-	In " " des Mon- des Licht,
-	In " " des Mon- des Licht;
+	In des Mon- des Licht,
+	In des Mon- des Licht;
 
 	Des Ver- r\"a- ters feind- lich Lau- schen
-	F\"urch- " " te, Hol- de, nicht,
-	F\"urch- " " te, Hol- de, nicht.
+	F\"urch- te, Hol- de, nicht,
+	F\"urch- te, Hol- de, nicht.
 }
 	
 lyricVerseTwo = \lyrics{
-	H\"orst " " die Nach- ti- gal- " " len schla- gen? 
-	Ach! sie fleh- " " en dich, 
-	Mit " " der T\"o- ne s\"u- " " "\ss en" Kla- gen
-	Fleh- en sie " " f\"ur mich. 
+	H\"orst die Nach- ti- gal- len schla- gen? 
+	Ach! sie fleh- en dich, 
+	Mit der T\"o- ne s\"u- "\ss en" Kla- gen
+	Fleh- en sie f\"ur mich. 
 	
 	Sie- ver- "steh'n" des Bus- ens Seh- nen
-	Ken- " " nen Lieb- es- schmerz,
-	Ken- " " nen Lieb- es- schmerz.
+	Ken- nen Lieb- es- schmerz,
+	Ken- nen Lieb- es- schmerz.
 
 	R\"uh- ren mit den Sil- ber- t\"o- nen
-	Jed- " " es wei- che Herz,
-	Jed- " " es wei- che Herz.
+	Jed- es wei- che Herz,
+	Jed- es wei- che Herz.
 }
 
 lyricThrough = \lyrics{
 	La\ss auch dir die Brust be- we- gen 
 	Lieb- chen, h\"o- re mich! 
-	Be- bend harr' " " ich dir ent- ge- gen! 
+	Be- bend harr' ich dir ent- ge- gen! 
 	
-	Komm, " " be- gl\"uk- ke mich!
-	Komm, " " be- gl\"uk- ke mich, __ " "
+	Komm, be- gl\"uk- ke mich!
+	Komm, be- gl\"uk- ke mich, __ 
 	Be- gl\"uk- ke mich!
 }
 
@@ -326,6 +324,7 @@ vocals = \notes{
 	\clef treble;
  	% certainly no auto-beaming for vocals
  	\property Voice.beamAuto=0
+	\property Staff.automaticMelismas=1
 
 	\property Voice.dynamicDir = \up
 	\skip 4 * 12; 

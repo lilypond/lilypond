@@ -1,5 +1,5 @@
 /*
-  abbreviation-beam-engraver.cc -- implement Abbreviation_beam_engraver
+  abbreviation-beam-engraver.cc -- implement Chord_tremolo_engraver
 
   source file of the GNU LilyPond music typesetter
 
@@ -9,17 +9,17 @@
 
 #include "duration-convert.hh"
 #include "time-description.hh"
-#include "abbreviation-beam-engraver.hh"
+#include "chord-tremolo-engraver.hh"
 #include "stem.hh"
-#include "abbreviation-beam.hh"
+#include "chord-tremolo.hh"
 #include "musical-request.hh"
 #include "misc.hh"
 #include "warn.hh"
 #include "score-engraver.hh"
 
-ADD_THIS_TRANSLATOR (Abbreviation_beam_engraver);
+ADD_THIS_TRANSLATOR (Chord_tremolo_engraver);
 
-Abbreviation_beam_engraver::Abbreviation_beam_engraver ()
+Chord_tremolo_engraver::Chord_tremolo_engraver ()
 {
   reqs_drul_[LEFT] = reqs_drul_[RIGHT] = 0;
   abeam_p_ = 0;
@@ -28,9 +28,9 @@ Abbreviation_beam_engraver::Abbreviation_beam_engraver ()
 }
 
 bool
-Abbreviation_beam_engraver::do_try_music (Music* m)
+Chord_tremolo_engraver::do_try_music (Music* m)
 {
-  if (Abbreviation_beam_req* b = dynamic_cast <Abbreviation_beam_req *> (m))
+  if (Chord_tremolo_req* b = dynamic_cast <Chord_tremolo_req *> (m))
     {
       Direction d = b->span_dir_;
       if (reqs_drul_[d] && !reqs_drul_[d]->equal_b (b))
@@ -50,7 +50,7 @@ Abbreviation_beam_engraver::do_try_music (Music* m)
 }
 
 void
-Abbreviation_beam_engraver::do_process_requests ()
+Chord_tremolo_engraver::do_process_requests ()
 {
   if (reqs_drul_[STOP])
     {
@@ -86,25 +86,25 @@ Abbreviation_beam_engraver::do_process_requests ()
 
       prev_start_req_ = reqs_drul_[START];
 
-      abeam_p_ = new Abbreviation_beam;
+      abeam_p_ = new Chord_tremolo;
       announce_element (Score_element_info (abeam_p_, reqs_drul_[LEFT]));
   }
 }
 
 void
-Abbreviation_beam_engraver::do_post_move_processing ()
+Chord_tremolo_engraver::do_post_move_processing ()
 {
   reqs_drul_ [START] = 0;
 }
 
 void
-Abbreviation_beam_engraver::do_pre_move_processing ()
+Chord_tremolo_engraver::do_pre_move_processing ()
 {
   typeset_beam ();
 }
 
 void
-Abbreviation_beam_engraver::typeset_beam ()
+Chord_tremolo_engraver::typeset_beam ()
 {
   if (finished_abeam_p_)
     {
@@ -116,7 +116,7 @@ Abbreviation_beam_engraver::typeset_beam ()
 }
 
 void
-Abbreviation_beam_engraver::do_removal_processing ()
+Chord_tremolo_engraver::do_removal_processing ()
 {
   typeset_beam ();
   if (abeam_p_)
@@ -128,7 +128,7 @@ Abbreviation_beam_engraver::do_removal_processing ()
 }
 
 void
-Abbreviation_beam_engraver::acknowledge_element (Score_element_info i)
+Chord_tremolo_engraver::acknowledge_element (Score_element_info i)
 {
   if (abeam_p_)
     {

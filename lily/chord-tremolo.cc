@@ -1,5 +1,5 @@
 /*
-  abbreviation-beam.cc -- implement Abbreviation_beam
+  abbreviation-beam.cc -- implement Chord_tremolo
 
   source file of the GNU LilyPond music typesetter
 
@@ -10,7 +10,7 @@
 #include "paper-column.hh"
 #include "array.hh"
 #include "proto.hh"
-#include "abbreviation-beam.hh"
+#include "chord-tremolo.hh"
 #include "misc.hh"
 #include "debug.hh"
 
@@ -24,19 +24,19 @@
 
 
 
-Abbreviation_beam::Abbreviation_beam ()
+Chord_tremolo::Chord_tremolo ()
   : Beam ()
 {
 }
 
 Molecule*
-Abbreviation_beam::do_brew_molecule_p () const 
+Chord_tremolo::do_brew_molecule_p () const 
 {
   return Beam::do_brew_molecule_p ();
 }
 
 void
-Abbreviation_beam::do_print () const
+Chord_tremolo::do_print () const
 {
 #ifndef NPRINT
   Beam::do_print ();
@@ -48,7 +48,7 @@ Abbreviation_beam::do_print () const
   beams to go with one stem.
   */
 Molecule
-Abbreviation_beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
+Chord_tremolo::stem_beams (Stem *here, Stem *next, Stem *prev) const
 {
   /* 
    todo

@@ -1,4 +1,4 @@
-% -*-LaTeX-*-
+% -*-LaTeX-*-  vim:tw=72
 \documentclass{article}
 
 \title{LilyPond feature test}
@@ -49,12 +49,13 @@ tremolo must be parallel to the beam.  If the stem is invisible
 
 \mudelafile{stem-tremolo.ly}
 
-Abbreviation beams (official naming?) are a kind of repeat symbol.
-To avoid confusion, abbreviation beams do not touch the stems, but 
-leave a gap.  Abbreviation beams on half notes are not ambiguous,
-and should touch the stems.
-
-\mudelafile{abbreviation-beam.sly}
+Chord tremolos look like beams, but are a kind of repeat symbol.
+To avoid confusion, chord tremolo beams do not reach the stems, but 
+leave a gap.  Chord tremolo beams on half notes are not ambiguous,
+as half notes cannot appear in a regular beam, and should reach the 
+stems.
+  
+\mudelafile{chord-tremolo.sly}
 
 Beams, stems and noteheads often have communication troubles, since
 the two systems for y dimensions (1 unit = staffspace, 1 unit = 1
@@ -166,11 +167,12 @@ Folded.  This doesn't make sense without alternatives, but it works.
 Lyrics can be set to a melody automatically.  Excess lyrics will be
 dumped.  Lyrics will not be set over rests.  You can have melismata
 either by setting a property melismaBusy, or by setting
-automaticMelismas (which will set melismas during slurs).  If you want a
-different order than first Music, then Lyrics, you must precook a
-chord of staffs/lyrics and label those.  Of course \verb+\rhythm+
-ignores any other rhythms in the piece.  Hyphens and extenders do not
-assume anything about lyric lengths, so they continue to work.
+automaticMelismas (which will set melismas during slurs and ties).  If
+you want a different order than first Music, then Lyrics, you must
+precook a chord of staffs/lyrics and label those.  Of course
+\verb+\rhythm+ ignores any other rhythms in the piece.  Hyphens and
+extenders do not assume anything about lyric lengths, so they continue
+to work.
 
 \mudelafile{lyric-combine.ly}
 
@@ -182,12 +184,18 @@ inside the staff, and by half spaces outside.  Notice that the half
 and whole rests just outside the staff get ledger lines in different
 cases.
 
-\mudelafile{rest-collision.ly}
+% \m udelafile{rest-collision.ly}
 
 Normal collisions. We have support for four voice polyphony, where the
 middle voices are horizontally shifted in a limited number of cases.
 
 \mudelafile{collisions.ly}
+
+In some cases, collisions may be hairy to resolve, or the typesetter
+may have special whishes.  For those special cases, note shifts can be 
+set by hand.
+
+\mudelafile{note-shift.sly}
 
 The number of stafflines of a staff can be set with the property
 numberOfStaffLines.  Ledger lines both on note heads and rests are

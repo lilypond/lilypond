@@ -7,7 +7,7 @@
 */
 
 #include "gourlay-breaking.hh"
-#include "colhpos.hh"
+#include "column-x-positions.hh"
 #include "spring-spacer.hh"
 #include "debug.hh"
 #include "paper-column.hh"

@@ -1,5 +1,5 @@
 /*
-  abbreviation-beam-engraver.hh -- declare Abbreviation_beam_engraver
+  chord-tremolo-engraver.hh -- declare Chord_tremolo_engraver
 
   source file of the GNU LilyPond music typesetter
 
@@ -8,8 +8,8 @@
 */
 
 
-#ifndef ABBREVIATION_BEAM_ENGRAVER_HH
-#define ABBREVIATION_BEAM_ENGRAVER_HH
+#ifndef Chord_tremolo_ENGRAVER_HH
+#define Chord_tremolo_ENGRAVER_HH
 
 #include "engraver.hh"
 #include "drul-array.hh"
@@ -17,13 +17,13 @@
 /**
   Generate an abbreviation beam.  Eat stems.
  */
-class Abbreviation_beam_engraver : public Engraver
+class Chord_tremolo_engraver : public Engraver
 {
 public:
   VIRTUAL_COPY_CONS(Translator);
   
 
-  Abbreviation_beam_engraver();
+  Chord_tremolo_engraver();
 
 protected:
   virtual void do_removal_processing();
@@ -35,10 +35,10 @@ protected:
 
 private:
   void typeset_beam ();
-  Drul_array<Abbreviation_beam_req*> reqs_drul_;
-  Abbreviation_beam_req* prev_start_req_;
-  Abbreviation_beam* abeam_p_;
-  Abbreviation_beam* finished_abeam_p_;
+  Drul_array<Chord_tremolo_req*> reqs_drul_;
+  Chord_tremolo_req* prev_start_req_;
+  Chord_tremolo* abeam_p_;
+  Chord_tremolo* finished_abeam_p_;
 };
 
-#endif // ABBREVIATION_BEAM_ENGRAVER_HH
+#endif // Chord_tremolo_ENGRAVER_HH

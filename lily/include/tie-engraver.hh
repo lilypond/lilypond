@@ -44,6 +44,7 @@ class Tie_engraver : public Engraver
   Array<CHead_melodic_tuple> stopped_heads_;
   Link_array<Tie> tie_p_arr_;
   
+  void set_melisma (bool);
 protected:
   virtual void do_post_move_processing ();
   virtual void do_pre_move_processing ();

@@ -7,12 +7,12 @@ STEPMAKE_TEMPLATES=metafont metapost install install-out
 EXTRA_DIST_FILES += README
 
 FET_FILES = $(wildcard feta[0-9]*.mf)
+FONT_FILES = $(wildcard feta*[0-9].mf)
 
 LOG_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.log))
 TEXTABLES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.tex))
-XPM_FONTS = feta20
 AFM_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.afm)) 
-TFM_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.tfm)) 
+TFM_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.tfm)) 
 
 ALL_GEN_FILES= $(TEXTABLES) $(LOG_FILES) $(AFM_FILES) $(TFM_FILES)
 
