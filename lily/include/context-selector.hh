@@ -24,7 +24,8 @@ public:
   static void register_context (Context *context);
   static SCM identify_context (Context *context, int count);
   static SCM identify_context (Context *context);
-  static Context *retrieve_context (SCM key);
+  static Context *retrieve_context (SCM context_id);
+  static void store_context (SCM context_id, Context *context);
 };
 
 #endif /* CONTEXT_SELECTOR_HH */

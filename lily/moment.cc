@@ -251,7 +251,7 @@ operator << (std::ostream &os, Moment const &m)
 Moment
 robust_scm2moment (SCM m, Moment d)
 {
-  Moment * p = unsmob_moment (m);
+  Moment *p = unsmob_moment (m);
   if (!p)
     return d;
   else
@@ -262,6 +262,6 @@ robust_scm2moment (SCM m, Moment d)
 bool
 moment_less (SCM a, SCM b)
 {
-  return  *unsmob_moment (a) < *unsmob_moment (b);
+  return *unsmob_moment (a) < *unsmob_moment (b);
 }
 

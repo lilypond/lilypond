@@ -56,7 +56,8 @@
   (canvas-height #:init-keyword #:canvas-height #:accessor canvas-height))
 
 (define-method (initialize (go <gnome-outputter>))
-  (let* ((button (make <gtk-button> #:label "Exit"))
+  (let* ((save (make <gtk-button> #:label "Save"))
+	 (exit (make <gtk-button> #:label "Exit"))
 	 (next (make <gtk-button> #:label "Next"))
 	 (prev (make <gtk-button> #:label "Previous"))
 	 (vbox (make <gtk-vbox> #:homogeneous #f))
@@ -83,15 +84,17 @@
     ;;(set-child-packing vbox hbox #f #f 0 'end)
     ;;(set-child-packing hbox button #f #f 0 'end)
     
-    (set-size-request button (quotient (window-width go) 2) BUTTON-HEIGHT)
+    (set-size-request exit (quotient (window-width go) 2) BUTTON-HEIGHT)
 
     
     (add hbox next)
     (add hbox prev)
-    (add hbox button)
+    (add hbox save)
+    (add hbox exit)
 
     ;; signals
-    (connect button 'clicked (lambda (b) (save-tweaks go) (gtk-main-quit)))
+    (connect exit 'clicked (lambda (b) (gtk-main-quit)))
+    (connect save 'clicked (lambda (b) (save-tweaks go)))
     (connect next 'clicked (lambda (b) (dump-page go (1+ (page-number go)))))
     (connect prev 'clicked (lambda (b) (dump-page go (1- (page-number go)))))
     (connect (window go) 'key-press-event
@@ -221,7 +224,10 @@
 
 (define-method (tweak (go <gnome-outputter>) item offset)
   (let* ((grob (hashq-ref (item-grobs go) item #f))
-	 (origin (hashq-ref (grob-tweaks go) grob '(0 . 0))))
+	 (extra-offset (ly:grob-property grob 'extra-offset))
+	 (origin (hashq-ref (grob-tweaks go) grob
+			    (cons (car extra-offset)
+				  (- 0 (cdr extra-offset))))))
     (if grob
 	(hashq-set! (grob-tweaks go) grob (cons (+ (car origin) (car offset))
 						(+ (cdr origin) (cdr offset)))))
@@ -229,13 +235,16 @@
 
 (define-method (save-tweaks (go <gnome-outputter>))
   (let ;;((file (current-error-port)))
-      ((file (open-file (string-append (name go) ".twy") "w")))
-    (format file "%% TWEAKS %%\n")
+      ((file (open-file (string-append (name go) ".ly.t") "w")))
+    (format file ";;; TWEAKS \n")
+    (format file ";;(define grob-id-tweak-alist \n'(\n")
     (hash-fold
      (lambda (key value seed)
-       (format file "~S:~S\n"
-	       (if (ly:grob? key) (ly:grob-id key) "unidentified grob") value))
-     #f (grob-tweaks go))))
+       (format file "(~S extra-offset ~S)\n"
+	       (if (ly:grob? key) (ly:grob-id key) ";;unidentified grob")
+	       value))
+     #f (grob-tweaks go))
+    (format file ")\n;;)\n")))
 
 ;;;(define (item-event go grob item event)
 (define (item-event go item event)

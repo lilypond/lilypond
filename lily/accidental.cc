@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
   
   (c) 2001--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  ofog
 */
 #include "font-interface.hh"
 #include "item.hh"

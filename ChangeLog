@@ -1,3 +1,18 @@
+2004-11-10  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/lily-guile.cc (ly_to_string, ly_to_symbol): New function.
+
+	* lily/context-selector.cc (store_context): New function.
+
+	* lily/grob-selector.cc (register_grob)[TWEAK]: Apply tweak.
+	(store_grob): New function.
+	(identify_grob): Add Moment parameter.
+
+	* lily/lily-parser.cc (parse_file)[TWEAK]: Read .ly.t file if it
+	exists.
+
+	* scm/framework-gnome.scm (save-tweaks): Write as alist.
+
 2004-11-09  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/framework-gnome.scm (item-event): Print grob id.

@@ -36,6 +36,9 @@ SCM ly_write2scm (SCM s);
 SCM ly_deep_copy (SCM);
 SCM ly_truncate_list (int k, SCM lst);
 
+SCM ly_to_string (SCM scm);
+SCM ly_to_symbol (SCM scm);
+
 #if (__GNUC__ > 2)
 /* Unreliable with gcc-2.x
    FIXME: should add check for x86 as well?  */
@@ -89,6 +92,7 @@ extern SCM global_lily_module;
   value; \
 })
 
+String gulp_file_to_string (String fn, bool must_exist);
 
 String ly_scm2string (SCM s);
 String ly_symbol2string (SCM);

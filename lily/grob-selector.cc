@@ -15,6 +15,7 @@
 #include "warn.hh"
 
 Scheme_hash_table *Grob_selector::grobs_ = 0;
+Protected_scm Grob_selector::tweaks_ = SCM_EOL;
 
 void
 Grob_selector::register_grob (Context *context, Grob *grob)
@@ -22,7 +23,8 @@ Grob_selector::register_grob (Context *context, Grob *grob)
   if (!grobs_)
     grobs_ = new Scheme_hash_table ();
   int count = 0;
-  if (Grob *first = retrieve_grob (identify_grob (context, grob, 0)))
+  Moment m = context->now_mom ();
+  if (Grob *first = retrieve_grob (identify_grob (context, m, grob, 0)))
     {
       count = robust_scm2int (first->get_property ("max"), 0);
       count++;
@@ -31,35 +33,51 @@ Grob_selector::register_grob (Context *context, Grob *grob)
       grob->set_property ("count", s);
     }
   grob->set_property ("context", context->self_scm ());
-  grobs_->set (identify_grob (context, grob, count), grob->self_scm ());
+  SCM grob_id = identify_grob (context, m, grob, count);
+  store_grob (grob_id, grob);
+#ifdef TWEAK 
+  SCM tweak = ly_assoc_get (grob_id, tweaks_, SCM_BOOL_F);
+  if (tweak != SCM_BOOL_F)
+    grob->set_property (ly_symbol2string (scm_car (tweak)).to_str0 (),
+			scm_cadr (tweak));
+#endif  
 }
 
 SCM
-Grob_selector::identify_grob (Context *context, Grob *grob, int count)
+Grob_selector::identify_grob (Context *context, Moment m, Grob *grob, int count)
 {
-  return ly_symbol2scm ((ly_symbol2string (Context_selector::identify_context (context))
-			 + ","
-			 + grob->name ()
-#if 0	// "when" not defined yet?
-			 + ","
-			 + Paper_column::when_mom (((Item*)grob)->get_column ()).to_string (),
-#endif			 
-			 + ","
-			 + to_string (count)).to_str0 ());
+  return scm_list_4 (Context_selector::identify_context (context),
+		     scm_makfrom0str (m.to_string ().to_str0 ()),
+		     scm_makfrom0str (grob->name ().to_str0 ()),
+		     scm_int2num (count));
 }
 
 SCM
 Grob_selector::identify_grob (Grob *grob)
 {
+  Moment m;
   return identify_grob (unsmob_context (grob->get_property ("context")),
+			Paper_column::when_mom (((Item*) grob)->get_column ()),
 			grob,
 			robust_scm2int (grob->get_property ("count"), 0));
 }
 
-Grob *
-Grob_selector::retrieve_grob (SCM key)
+void
+Grob_selector::store_grob (SCM grob_id, Grob *grob)
 {
-  return unsmob_grob (grobs_->get (key));
+  grobs_->set (ly_to_symbol (grob_id), grob->self_scm ());
+}
+
+Grob *
+Grob_selector::retrieve_grob (SCM grob_id)
+{
+  return unsmob_grob (grobs_->get (ly_to_symbol (grob_id)));
+}
+
+void
+Grob_selector::set_tweaks (SCM tweaks)
+{
+  tweaks_ = tweaks;
 }
 
 LY_DEFINE (ly_grob_id, "ly:grob-id",

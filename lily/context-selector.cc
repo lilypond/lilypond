@@ -28,18 +28,16 @@ Context_selector::register_context (Context *context)
   }
   /* FIXME: must alway set count, for get_property () not to segfault.  */
   context->set_property ("count", scm_int2num (count));
-  contexts_->set (identify_context (context, count), context->self_scm ());
+  store_context (identify_context (context, count), context);
 }
 
 SCM
 Context_selector::identify_context (Context *context, int count)
 {
   /* TODO: start time, parent-context-at-start */
-  return ly_symbol2scm ((context->context_name ()
-			 + ","
-			 + context->id_string ()
-			 + ","
-			 + to_string (count)).to_str0 ());
+  return scm_list_3 (scm_makfrom0str (context->context_name ().to_str0 ()),
+		     scm_makfrom0str (context->id_string ().to_str0 ()),
+		     scm_int2num (count));
 }
 
 SCM
@@ -50,8 +48,14 @@ Context_selector::identify_context (Context *context)
 		      robust_scm2int (context->get_property ("count"), 0));
 }
 
-Context *
-Context_selector::retrieve_context (SCM key)
+void
+Context_selector::store_context (SCM context_id, Context *context)
 {
-  return unsmob_context (contexts_->get (key));
+  contexts_->set (ly_to_symbol (context_id), context->self_scm ());
+}
+
+Context *
+Context_selector::retrieve_context (SCM context_id)
+{
+  return unsmob_context (contexts_->get (ly_to_symbol (context_id)));
 }
