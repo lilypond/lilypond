@@ -1,0 +1,517 @@
+# Makefile.in generated automatically by automake 1.2 from Makefile.am
+
+# Copyright (C) 1994, 1995, 1996, 1997 Free Software Foundation, Inc.
+# This Makefile.in is free software; the Free Software Foundation
+# gives unlimited permission to copy, distribute and modify it.
+
+# Automatically generated from ./lib/Makefile.am.wild by bin/autowild
+# Do not edit
+# project  LilyPond -- the musical typesetter
+# title	   makefile for micro-lily-lib
+# file	   lib/Makefile 
+#
+# Copyright (c) 1997 by
+#   	Jan Nieuwenhuizen <jan@digicash.com>
+#	Han-Wen Nienhuys <hanwen@stack.nl>
+#
+
+
+SHELL = /bin/sh
+
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
+VPATH = @srcdir@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+
+bindir = @bindir@
+sbindir = @sbindir@
+libexecdir = @libexecdir@
+datadir = @datadir@
+sysconfdir = @sysconfdir@
+sharedstatedir = @sharedstatedir@
+localstatedir = @localstatedir@
+libdir = @libdir@
+infodir = @infodir@
+mandir = @mandir@
+includedir = @includedir@
+oldincludedir = /usr/include
+
+pkgdatadir = $(datadir)/@PACKAGE@
+pkglibdir = $(libdir)/@PACKAGE@
+pkgincludedir = $(includedir)/@PACKAGE@
+
+top_builddir = ..
+
+ACLOCAL = @ACLOCAL@
+AUTOCONF = @AUTOCONF@
+AUTOMAKE = @AUTOMAKE@
+AUTOHEADER = @AUTOHEADER@
+
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_DATA = @INSTALL_DATA@
+INSTALL_SCRIPT = @INSTALL_SCRIPT@
+transform = @program_transform_name@
+
+NORMAL_INSTALL = true
+PRE_INSTALL = true
+POST_INSTALL = true
+NORMAL_UNINSTALL = true
+PRE_UNINSTALL = true
+POST_UNINSTALL = true
+AUTOHEADER = @AUTOHEADER@
+BISON = @BISON@
+CC = @CC@
+COMPILEINFO = @COMPILEINFO@
+CPPFLAGS = @CPPFLAGS@
+CXX = @CXX@
+CXXFLAGS = @CXXFLAGS@
+DEFINES = @DEFINES@
+DIR_DATADIR = @DIR_DATADIR@
+EXTRA_LIBES = @EXTRA_LIBES@
+FIND = @FIND@
+FLEX = @FLEX@
+ICFLAGS = @ICFLAGS@
+ILDFLAGS = @ILDFLAGS@
+LEX = @LEX@
+LN = @LN@
+MAKE = @MAKE@
+MAKEINFO = @MAKEINFO@
+MFDIR = @MFDIR@
+PACKAGE = @PACKAGE@
+PERL = @PERL@
+POD2HTML = @POD2HTML@
+POD2MAN = @POD2MAN@
+PYTHON = @PYTHON@
+RANLIB = @RANLIB@
+TAR = @TAR@
+TEXDIR = @TEXDIR@
+TEXPREFIX = @TEXPREFIX@
+VERSION = @VERSION@
+YACC = @YACC@
+ZIP = @ZIP@
+
+SUBDIRS = include
+
+lib_LIBRARIES = liblily.a
+# lib_LIBRARIES = liblily.la
+
+EXTRA_DIST = Makefile.am.wild config.hh.in
+
+liblily_a_SOURCES = binary-source-file.cc duration-convert.cc duration.cc includable-lexer.cc input.cc mapped-file-storage.cc moment.cc plet.cc simple-file-storage.cc source-file.cc source.cc template.cc warn.cc windhoos-suck-suck-suck-thank-you-cygnus.cc
+
+INCLUDES = -Iinclude -I../flower/include
+mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
+CONFIG_HEADER = config.hh
+CONFIG_CLEAN_FILES = 
+LIBRARIES =  $(lib_LIBRARIES)
+
+
+DEFS = @DEFS@ -I. -I$(srcdir) -I.
+LDFLAGS = @LDFLAGS@
+LIBS = @LIBS@
+liblily_a_LIBADD = 
+liblily_a_OBJECTS =  binary-source-file.o duration-convert.o duration.o \
+includable-lexer.o input.o mapped-file-storage.o moment.o plet.o \
+simple-file-storage.o source-file.o source.o template.o warn.o \
+windhoos-suck-suck-suck-thank-you-cygnus.o
+AR = ar
+CXXCOMPILE = $(CXX) $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CXXFLAGS)
+CXXLINK = $(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@
+DIST_COMMON =  Makefile.am Makefile.in config.hh.in stamp-h.in
+
+
+DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
+
+GZIP = --best
+SOURCES = $(liblily_a_SOURCES)
+OBJECTS = $(liblily_a_OBJECTS)
+
+default: all
+
+.SUFFIXES:
+.SUFFIXES: .c .cc .o
+$(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps lib/Makefile
+
+Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
+	cd $(top_builddir) \
+	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
+
+
+config.hh: stamp-h
+stamp-h: $(srcdir)/config.hh.in $(top_builddir)/config.status
+	cd $(top_builddir) \
+	  && CONFIG_FILES= CONFIG_HEADERS=lib/config.hh:lib/config.hh.in \
+	     $(SHELL) ./config.status
+	@echo timestamp > stamp-h
+$(srcdir)/config.hh.in: $(srcdir)/stamp-h.in
+$(srcdir)/stamp-h.in: $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+	cd $(top_srcdir) && $(AUTOHEADER)
+	@echo timestamp > $(srcdir)/stamp-h.in
+
+mostlyclean-hdr:
+
+clean-hdr:
+
+distclean-hdr:
+	rm -f config.hh
+
+maintainer-clean-hdr:
+
+mostlyclean-libLIBRARIES:
+
+clean-libLIBRARIES:
+	test -z "$(lib_LIBRARIES)" || rm -f $(lib_LIBRARIES)
+
+distclean-libLIBRARIES:
+
+maintainer-clean-libLIBRARIES:
+
+install-libLIBRARIES: $(lib_LIBRARIES)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(libdir)
+	list='$(lib_LIBRARIES)'; for p in $$list; do \
+	  if test -f $$p; then \
+	    echo " $(INSTALL_DATA) $$p $(libdir)/$$p"; \
+	    $(INSTALL_DATA) $$p $(libdir)/$$p; \
+	  else :; fi; \
+	done
+	@$(POST_INSTALL)
+	@list='$(lib_LIBRARIES)'; for p in $$list; do \
+	  if test -f $$p; then \
+	    echo " $(RANLIB) $(libdir)/$$p"; \
+	    $(RANLIB) $(libdir)/$$p; \
+	  else :; fi; \
+	done
+
+uninstall-libLIBRARIES:
+	$(NORMAL_UNINSTALL)
+	list='$(lib_LIBRARIES)'; for p in $$list; do \
+	  rm -f $(libdir)/$$p; \
+	done
+
+.c.o:
+	$(COMPILE) -c $<
+
+mostlyclean-compile:
+	rm -f *.o core
+
+clean-compile:
+
+distclean-compile:
+	rm -f *.tab.c
+
+maintainer-clean-compile:
+
+liblily.a: $(liblily_a_OBJECTS) $(liblily_a_DEPENDENCIES)
+	rm -f liblily.a
+	$(AR) cru liblily.a $(liblily_a_OBJECTS) $(liblily_a_LIBADD)
+	$(RANLIB) liblily.a
+.cc.o:
+	$(CXXCOMPILE) -c $<
+
+# This directory's subdirectories are mostly independent; you can cd
+# into them and run `make' without going through this Makefile.
+# To change the values of `make' variables: instead of editing Makefiles,
+# (1) if the variable is set in `config.status', edit `config.status'
+#     (which will cause the Makefiles to be regenerated when you run `make');
+# (2) otherwise, pass the desired values on the `make' command line.
+
+@SET_MAKE@
+
+all-recursive install-data-recursive install-exec-recursive \
+installdirs-recursive install-recursive uninstall-recursive  \
+check-recursive installcheck-recursive info-recursive dvi-recursive:
+	@set fnord $(MAKEFLAGS); amf=$$2; \
+	for subdir in $(SUBDIRS); do \
+	  target=`echo $@ | sed s/-recursive//`; \
+	  echo "Making $$target in $$subdir"; \
+	  (cd $$subdir && $(MAKE) $$target) \
+	   || case "$$amf" in *=*) exit 1;; *k*) fail=yes;; *) exit 1;; esac; \
+	done && test -z "$$fail"
+
+mostlyclean-recursive clean-recursive distclean-recursive \
+maintainer-clean-recursive:
+	@set fnord $(MAKEFLAGS); amf=$$2; \
+	rev=''; for subdir in $(SUBDIRS); do rev="$$rev $$subdir"; done; \
+	for subdir in $$rev; do \
+	  target=`echo $@ | sed s/-recursive//`; \
+	  echo "Making $$target in $$subdir"; \
+	  (cd $$subdir && $(MAKE) $$target) \
+	   || case "$$amf" in *=*) exit 1;; *k*) fail=yes;; *) exit 1;; esac; \
+	done && test -z "$$fail"
+tags-recursive:
+	list='$(SUBDIRS)'; for subdir in $$list; do \
+	  (cd $$subdir && $(MAKE) tags); \
+	done
+
+tags: TAGS
+
+ID: $(HEADERS) $(SOURCES)
+	here=`pwd` && cd $(srcdir) && mkid -f$$here/ID $(SOURCES) $(HEADERS)
+
+TAGS: tags-recursive $(HEADERS) $(SOURCES) config.hh.in $(TAGS_DEPENDENCIES)
+	tags=; \
+	here=`pwd`; \
+	list='$(SUBDIRS)'; for subdir in $$list; do \
+	  test -f $$subdir/TAGS && tags="$$tags -i $$here/$$subdir/TAGS"; \
+	done; \
+	test -z "$(ETAGS_ARGS)config.hh.in$(SOURCES)$(HEADERS)$$tags" \
+	  || (cd $(srcdir) && etags $(ETAGS_ARGS) $$tags config.hh.in $(SOURCES) $(HEADERS) -o $$here/TAGS)
+
+mostlyclean-tags:
+
+clean-tags:
+
+distclean-tags:
+	rm -f TAGS ID
+
+maintainer-clean-tags:
+
+distdir = $(top_builddir)/$(PACKAGE)-$(VERSION)/$(subdir)
+
+subdir = lib
+
+distdir: $(DISTFILES)
+	@for file in $(DISTFILES); do \
+	  d=$(srcdir); \
+	  test -f $(distdir)/$$file \
+	  || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
+	  || cp -p $$d/$$file $(distdir)/$$file; \
+	done
+	for subdir in $(SUBDIRS); do		\
+	  test -d $(distdir)/$$subdir		\
+	  || mkdir $(distdir)/$$subdir		\
+	  || exit 1;				\
+	  chmod 777 $(distdir)/$$subdir;	\
+	  (cd $$subdir && $(MAKE) top_distdir=../$(top_distdir) distdir=../$(distdir)/$$subdir distdir) \
+	    || exit 1; \
+	done
+binary-source-file.o binary-source-file.lo: binary-source-file.cc \
+	include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/plist.hh \
+	../flower/include/list.hh ../flower/include/list.icc \
+	../flower/include/cursor.hh ../flower/include/link.hh \
+	../flower/include/link.icc ../flower/include/compare.hh \
+	../flower/include/pcursor.hh ../flower/include/cursor.icc \
+	../flower/include/iterate.hh ../flower/include/plist.icc \
+	../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh include/source-file.hh \
+	include/binary-source-file.hh \
+	../flower/include/string-convert.hh
+duration-convert.o duration-convert.lo: duration-convert.cc \
+	include/duration-convert.hh include/duration.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	include/moment.hh ../flower/include/rational.hh \
+	../flower/include/compare.hh \
+	../flower/include/arithmetic-operator.hh include/plet.hh \
+	../flower/include/string.hh ../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/varray.hh \
+	include/warn.hh
+duration.o duration.lo: duration.cc include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/plist.hh ../flower/include/list.hh \
+	../flower/include/list.icc ../flower/include/cursor.hh \
+	../flower/include/link.hh ../flower/include/link.icc \
+	../flower/include/compare.hh ../flower/include/pcursor.hh \
+	../flower/include/cursor.icc ../flower/include/iterate.hh \
+	../flower/include/plist.icc ../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh include/source-file.hh \
+	include/source.hh include/moment.hh \
+	../flower/include/rational.hh include/duration.hh \
+	include/plet.hh include/duration-convert.hh \
+	../flower/include/varray.hh
+includable-lexer.o includable-lexer.lo: includable-lexer.cc \
+	include/includable-lexer.hh ../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/compare.hh \
+	../flower/include/varray.hh include/proto.hh \
+	include/source-file.hh include/source.hh \
+	../flower/include/plist.hh ../flower/include/list.hh \
+	../flower/include/list.icc ../flower/include/cursor.hh \
+	../flower/include/link.hh ../flower/include/link.icc \
+	../flower/include/pcursor.hh ../flower/include/cursor.icc \
+	../flower/include/iterate.hh ../flower/include/plist.icc
+input.o input.lo: input.cc include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh include/input.hh \
+	../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/compare.hh \
+	include/source.hh ../flower/include/plist.hh \
+	../flower/include/list.hh ../flower/include/list.icc \
+	../flower/include/cursor.hh ../flower/include/link.hh \
+	../flower/include/link.icc ../flower/include/pcursor.hh \
+	../flower/include/cursor.icc ../flower/include/iterate.hh \
+	../flower/include/plist.icc include/source-file.hh
+mapped-file-storage.o mapped-file-storage.lo: mapped-file-storage.cc
+moment.o moment.lo: moment.cc ../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/compare.hh \
+	include/moment.hh ../flower/include/rational.hh
+plet.o plet.lo: plet.cc include/plet.hh include/moment.hh \
+	../flower/include/rational.hh ../flower/include/compare.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh
+simple-file-storage.o simple-file-storage.lo: simple-file-storage.cc \
+	include/simple-file-storage.hh include/file-storage.hh \
+	include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/varray.hh \
+	../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/compare.hh \
+	include/warn.hh
+source-file.o source-file.lo: source-file.cc ../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/compare.hh \
+	include/proto.hh ../flower/include/plist.hh \
+	../flower/include/list.hh ../flower/include/list.icc \
+	../flower/include/cursor.hh ../flower/include/link.hh \
+	../flower/include/link.icc ../flower/include/pcursor.hh \
+	../flower/include/cursor.icc ../flower/include/iterate.hh \
+	../flower/include/plist.icc include/warn.hh \
+	include/windhoos-suck-suck-suck-thank-you-cygnus.hh \
+	include/source-file.hh include/simple-file-storage.hh \
+	include/file-storage.hh
+source.o source.lo: source.cc include/binary-source-file.hh \
+	include/source-file.hh include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/compare.hh \
+	../flower/include/plist.hh ../flower/include/list.hh \
+	../flower/include/list.icc ../flower/include/cursor.hh \
+	../flower/include/link.hh ../flower/include/link.icc \
+	../flower/include/pcursor.hh ../flower/include/cursor.icc \
+	../flower/include/iterate.hh ../flower/include/plist.icc \
+	include/source.hh ../flower/include/path.hh \
+	../flower/include/varray.hh
+template.o template.lo: template.cc include/source-file.hh \
+	include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/compare.hh \
+	../flower/include/plist.tcc ../flower/include/plist.hh \
+	../flower/include/list.hh ../flower/include/list.icc \
+	../flower/include/cursor.hh ../flower/include/link.hh \
+	../flower/include/link.icc ../flower/include/pcursor.hh \
+	../flower/include/cursor.icc ../flower/include/iterate.hh \
+	../flower/include/plist.icc ../flower/include/pcursor.tcc \
+	../flower/include/cursor.tcc ../flower/include/list.tcc
+warn.o warn.lo: warn.cc include/warn.hh ../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/compare.hh
+windhoos-suck-suck-suck-thank-you-cygnus.o windhoos-suck-suck-suck-thank-you-cygnus.lo: \
+	windhoos-suck-suck-suck-thank-you-cygnus.cc
+
+info: info-recursive
+dvi: dvi-recursive
+check: all-am
+	$(MAKE) check-recursive
+installcheck: installcheck-recursive
+all-recursive-am: config.hh
+	$(MAKE) all-recursive
+
+all-am: Makefile $(LIBRARIES) config.hh
+
+install-exec-am: install-libLIBRARIES
+
+uninstall-am: uninstall-libLIBRARIES
+
+install-exec: install-exec-recursive install-exec-am
+	@$(NORMAL_INSTALL)
+
+install-data: install-data-recursive
+	@$(NORMAL_INSTALL)
+
+install: install-recursive install-exec-am
+	@:
+
+uninstall: uninstall-recursive uninstall-am
+
+all: all-recursive-am all-am
+
+install-strip:
+	$(MAKE) INSTALL_PROGRAM='$(INSTALL_PROGRAM) -s' INSTALL_SCRIPT='$(INSTALL_PROGRAM)' install
+installdirs: installdirs-recursive
+	$(mkinstalldirs)  $(libdir)
+
+
+mostlyclean-generic:
+	test -z "$(MOSTLYCLEANFILES)" || rm -f $(MOSTLYCLEANFILES)
+
+clean-generic:
+	test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
+
+distclean-generic:
+	rm -f Makefile $(DISTCLEANFILES)
+	rm -f config.cache config.log stamp-h stamp-h[0-9]*
+	test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
+
+maintainer-clean-generic:
+	test -z "$(MAINTAINERCLEANFILES)" || rm -f $(MAINTAINERCLEANFILES)
+	test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
+mostlyclean-am:  mostlyclean-hdr mostlyclean-libLIBRARIES \
+		mostlyclean-compile mostlyclean-tags \
+		mostlyclean-generic
+
+clean-am:  clean-hdr clean-libLIBRARIES clean-compile clean-tags \
+		clean-generic mostlyclean-am
+
+distclean-am:  distclean-hdr distclean-libLIBRARIES distclean-compile \
+		distclean-tags distclean-generic clean-am
+
+maintainer-clean-am:  maintainer-clean-hdr maintainer-clean-libLIBRARIES \
+		maintainer-clean-compile maintainer-clean-tags \
+		maintainer-clean-generic distclean-am
+
+mostlyclean:  mostlyclean-recursive mostlyclean-am
+
+clean:  clean-recursive clean-am
+
+distclean:  distclean-recursive distclean-am
+	rm -f config.status
+
+maintainer-clean:  maintainer-clean-recursive maintainer-clean-am
+	@echo "This command is intended for maintainers to use;"
+	@echo "it deletes files that may require special tools to rebuild."
+
+.PHONY: default mostlyclean-hdr distclean-hdr clean-hdr \
+maintainer-clean-hdr mostlyclean-libLIBRARIES distclean-libLIBRARIES \
+clean-libLIBRARIES maintainer-clean-libLIBRARIES uninstall-libLIBRARIES \
+install-libLIBRARIES mostlyclean-compile distclean-compile \
+clean-compile maintainer-clean-compile install-data-recursive \
+uninstall-data-recursive install-exec-recursive \
+uninstall-exec-recursive installdirs-recursive uninstalldirs-recursive \
+all-recursive check-recursive installcheck-recursive info-recursive \
+dvi-recursive mostlyclean-recursive distclean-recursive clean-recursive \
+maintainer-clean-recursive tags tags-recursive mostlyclean-tags \
+distclean-tags clean-tags maintainer-clean-tags distdir info dvi \
+installcheck all-recursive-am all-am install-exec-am uninstall-am \
+install-exec install-data install uninstall all installdirs \
+mostlyclean-generic distclean-generic clean-generic \
+maintainer-clean-generic clean mostlyclean distclean maintainer-clean
+
+
+MODULE_CXXFLAGS += -D_REENTRANT
+
+# Tell versions [3.59,3.63) of GNU make to not export all variables.
+# Otherwise a system limit (for SysV at least) may be exceeded.
+.NOEXPORT:

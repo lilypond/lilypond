@@ -1,7 +1,7 @@
 Begin3
 Titel: LilyPond
-Versie: 0.1.48
-Inschrijf datum: 12MAR98
+Versie: 
+Inschrijf datum: 19MAR98
 Beschrijving: LilyPond is de muziek typesetter van het GNU Project.  
 		Het programma genereert muziek in zichtbare of 
 		hoorbare vorm uit uit een muzikale definitie file: 
@@ -16,8 +16,8 @@ Auteur: hanwen@stack.nl (Han-Wen Nienhuys)
 	jan@digicash.com (Jan Nieuwenhuizen)
 Onderhouden door: hanwen@stack.nl (Han-Wen Nienhuys)
 Voornaamste plek: sunsite.unc.edu /pub/Linux/apps
-	395k lilypond-0.1.48.tar.gz 
+	395k lilypond-.tar.gz 
 Oorspronkelijke plek: pcnov095.win.tue.nl /pub/lilypond/
-	395k lilypond-0.1.48.tar.gz 
+	395k lilypond-.tar.gz 
 Copi"eer politie: GPL
 End

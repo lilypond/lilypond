@@ -1,0 +1,230 @@
+# Makefile.in generated automatically by automake 1.2 from Makefile.am
+
+# Copyright (C) 1994, 1995, 1996, 1997 Free Software Foundation, Inc.
+# This Makefile.in is free software; the Free Software Foundation
+# gives unlimited permission to copy, distribute and modify it.
+
+# Automatically generated from ./mf/Makefile.am.wild by bin/autowild
+# Do not edit
+# mf/Makefile.am.wild
+
+# subdir level:
+#
+
+
+SHELL = /bin/sh
+
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
+VPATH = @srcdir@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+
+bindir = @bindir@
+sbindir = @sbindir@
+libexecdir = @libexecdir@
+datadir = @datadir@
+sysconfdir = @sysconfdir@
+sharedstatedir = @sharedstatedir@
+localstatedir = @localstatedir@
+libdir = @libdir@
+infodir = @infodir@
+mandir = @mandir@
+includedir = @includedir@
+oldincludedir = /usr/include
+
+pkgdatadir = $(datadir)/@PACKAGE@
+pkglibdir = $(libdir)/@PACKAGE@
+pkgincludedir = $(includedir)/@PACKAGE@
+
+top_builddir = ..
+
+ACLOCAL = @ACLOCAL@
+AUTOCONF = @AUTOCONF@
+AUTOMAKE = @AUTOMAKE@
+AUTOHEADER = @AUTOHEADER@
+
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_DATA = @INSTALL_DATA@
+INSTALL_SCRIPT = @INSTALL_SCRIPT@
+transform = @program_transform_name@
+
+NORMAL_INSTALL = true
+PRE_INSTALL = true
+POST_INSTALL = true
+NORMAL_UNINSTALL = true
+PRE_UNINSTALL = true
+POST_UNINSTALL = true
+AUTOHEADER = @AUTOHEADER@
+BISON = @BISON@
+CC = @CC@
+COMPILEINFO = @COMPILEINFO@
+CPPFLAGS = @CPPFLAGS@
+CXX = @CXX@
+CXXFLAGS = @CXXFLAGS@
+DEFINES = @DEFINES@
+DIR_DATADIR = @DIR_DATADIR@
+EXTRA_LIBES = @EXTRA_LIBES@
+FIND = @FIND@
+FLEX = @FLEX@
+ICFLAGS = @ICFLAGS@
+ILDFLAGS = @ILDFLAGS@
+LEX = @LEX@
+LN = @LN@
+MAKE = @MAKE@
+MAKEINFO = @MAKEINFO@
+MFDIR = @MFDIR@
+PACKAGE = @PACKAGE@
+PERL = @PERL@
+POD2HTML = @POD2HTML@
+POD2MAN = @POD2MAN@
+PYTHON = @PYTHON@
+RANLIB = @RANLIB@
+TAR = @TAR@
+TEXDIR = @TEXDIR@
+TEXPREFIX = @TEXPREFIX@
+VERSION = @VERSION@
+YACC = @YACC@
+ZIP = @ZIP@
+
+depth = ..
+#
+#
+# include ./$(depth)/make/Include.make
+outdir = .
+#
+
+TEXFILES = dimen.tex dyn.tex
+MFFILES = feta-autometric.mf feta-banier.mf feta-beams16.mf feta-beams20.mf feta-beams26.mf feta-beugel.mf feta-beum.mf feta-black16.mf feta-bolletjes.mf feta-braces16.mf feta-braces20.mf feta-din10.mf feta-eindelijk.mf feta-generic.mf feta-ital-f.mf feta-ital-m.mf feta-ital-p.mf feta-ital-r.mf feta-ital-s.mf feta-ital-z.mf feta-klef.mf feta-macros.mf feta-nummer-generic.mf feta-nummer.mf feta-nummer10.mf feta-nummer12.mf feta-nummer3.mf feta-nummer4.mf feta-nummer5.mf feta-nummer6.mf feta-nummer7.mf feta-nummer8.mf feta-params.mf feta-puntje.mf feta-schrift.mf feta-sleur.mf feta-test16.mf feta-test20.mf feta-toevallig.mf feta-watzieik.mf feta11.mf feta13.mf feta16.mf feta19.mf feta20.mf feta23.mf feta26.mf grayimagen.mf
+MFDEPS = $(outdir)/mf.dep
+EXTRA_DIST = Makefile.am.wild Rules.make $(MFFILES) $(TEXFILES) TODO README
+
+FONT_FILES = feta-beams16.mf feta-beams20.mf feta-beams26.mf feta-black16.mf feta-braces16.mf feta-braces20.mf feta-din10.mf feta-nummer10.mf feta-nummer12.mf feta-nummer3.mf feta-nummer4.mf feta-nummer5.mf feta-nummer6.mf feta-nummer7.mf feta-nummer8.mf feta-test16.mf feta-test20.mf feta11.mf feta13.mf feta16.mf feta19.mf feta20.mf feta23.mf feta26.mf
+FET_FILES = feta11.mf feta13.mf feta16.mf feta19.mf feta20.mf feta23.mf feta26.mf
+
+lyout = $(depth)/init
+texout = $(depth)/tex
+
+FONT_FILES = feta-autometric.mf feta-banier.mf feta-beams16.mf feta-beams20.mf feta-beams26.mf feta-beugel.mf feta-beum.mf feta-black16.mf feta-bolletjes.mf feta-braces16.mf feta-braces20.mf feta-din10.mf feta-eindelijk.mf feta-generic.mf feta-ital-f.mf feta-ital-m.mf feta-ital-p.mf feta-ital-r.mf feta-ital-s.mf feta-ital-z.mf feta-klef.mf feta-macros.mf feta-nummer-generic.mf feta-nummer.mf feta-nummer10.mf feta-nummer12.mf feta-nummer3.mf feta-nummer4.mf feta-nummer5.mf feta-nummer6.mf feta-nummer7.mf feta-nummer8.mf feta-params.mf feta-puntje.mf feta-schrift.mf feta-sleur.mf feta-test16.mf feta-test20.mf feta-toevallig.mf feta-watzieik.mf feta11.mf feta13.mf feta16.mf feta19.mf feta20.mf feta23.mf feta26.mf grayimagen.mf
+
+FET_FILES = feta-autometric.mf feta-banier.mf feta-beams16.mf feta-beams20.mf feta-beams26.mf feta-beugel.mf feta-beum.mf feta-black16.mf feta-bolletjes.mf feta-braces16.mf feta-braces20.mf feta-din10.mf feta-eindelijk.mf feta-generic.mf feta-ital-f.mf feta-ital-m.mf feta-ital-p.mf feta-ital-r.mf feta-ital-s.mf feta-ital-z.mf feta-klef.mf feta-macros.mf feta-nummer-generic.mf feta-nummer.mf feta-nummer10.mf feta-nummer12.mf feta-nummer3.mf feta-nummer4.mf feta-nummer5.mf feta-nummer6.mf feta-nummer7.mf feta-nummer8.mf feta-params.mf feta-puntje.mf feta-schrift.mf feta-sleur.mf feta-test16.mf feta-test20.mf feta-toevallig.mf feta-watzieik.mf
+
+lyout = $(depth)/init
+texout = $(depth)/tex
+LYTABLES = $(addprefix $(lyout)/, $(FET_FILES:.mf=.ly))
+TEXTABLES = $(addprefix $(texout)/, $(FET_FILES:.mf=.tex))
+mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
+CONFIG_HEADER = ../lib/config.hh
+CONFIG_CLEAN_FILES = 
+DIST_COMMON =  README Makefile.am Makefile.in TODO
+
+
+DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
+
+GZIP = --best
+default: all
+
+.SUFFIXES:
+$(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps mf/Makefile
+
+Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
+	cd $(top_builddir) \
+	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
+
+tags: TAGS
+TAGS:
+
+
+distdir = $(top_builddir)/$(PACKAGE)-$(VERSION)/$(subdir)
+
+subdir = mf
+
+distdir: $(DISTFILES)
+	@for file in $(DISTFILES); do \
+	  d=$(srcdir); \
+	  test -f $(distdir)/$$file \
+	  || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
+	  || cp -p $$d/$$file $(distdir)/$$file; \
+	done
+info:
+dvi:
+check: all
+	$(MAKE)
+installcheck:
+install-exec: 
+	@$(NORMAL_INSTALL)
+
+install-data: 
+	@$(NORMAL_INSTALL)
+
+install: install-exec install-data all
+	@:
+
+uninstall: 
+
+all: Makefile
+
+install-strip:
+	$(MAKE) INSTALL_PROGRAM='$(INSTALL_PROGRAM) -s' INSTALL_SCRIPT='$(INSTALL_PROGRAM)' install
+installdirs:
+
+
+mostlyclean-generic:
+	test -z "$(MOSTLYCLEANFILES)" || rm -f $(MOSTLYCLEANFILES)
+
+clean-generic:
+	test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
+
+distclean-generic:
+	rm -f Makefile $(DISTCLEANFILES)
+	rm -f config.cache config.log stamp-h stamp-h[0-9]*
+	test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
+
+maintainer-clean-generic:
+	test -z "$(MAINTAINERCLEANFILES)" || rm -f $(MAINTAINERCLEANFILES)
+	test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
+mostlyclean:  mostlyclean-generic
+
+clean:  clean-generic mostlyclean
+
+distclean:  distclean-generic clean
+	rm -f config.status
+
+maintainer-clean:  maintainer-clean-generic distclean
+	@echo "This command is intended for maintainers to use;"
+	@echo "it deletes files that may require special tools to rebuild."
+
+.PHONY: default tags distdir info dvi installcheck install-exec \
+install-data install uninstall all installdirs mostlyclean-generic \
+distclean-generic clean-generic maintainer-clean-generic clean \
+mostlyclean distclean maintainer-clean
+
+
+default: all $(LYTABLES) $(TEXTABLES)
+
+localclean:
+	rm -f $(LYTABLES) $(TEXTABLES) 
+
+localrealclean: 
+	rm -f $(MFDEPS)
+
+localinstall:
+	$(INSTALL) -d $(MFDIR)/public/lilypond
+	$(INSTALL) -m 644 $(MFFILES) $(MFDIR)/public/lilypond/
+
+localuninstall:
+	for i in $(MFFILES) ; do rm -f $(MFDIR)/lilypond/$$i; done
+	-rmdir $(MFDIR)/public/lilypond/
+
+include Rules.make
+
+# dependencies:
+#
+include $(MFDEPS)
+#
+
+# Tell versions [3.59,3.63) of GNU make to not export all variables.
+# Otherwise a system limit (for SysV at least) may be exceeded.
+.NOEXPORT:
