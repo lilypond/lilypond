@@ -19,9 +19,6 @@ TODO: cleanup
 @node Insert music snippets into your texts using lilypond-book
 @chapter Insert music snippets into your texts using lilypond-book
 
-@cindex
-
-
 If you want to add pictures of music to a document, you can simply do
 it the way you would do with other types of pictures.  You write
 LilyPond code, process it separately to embedded PostScript or
