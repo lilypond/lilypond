@@ -18,9 +18,8 @@ import string
 env = Environment ()
 
 opts = Options (None, ARGUMENTS)
-##opts.Add (PackageOption ('prefix', 'Install prefix', '/usr/'))
-## `Path' means a directory rather than a path?
-opts.Add (PathOption ('prefix', 'Install prefix', '/usr/'))
+opts.Add ('prefix', 'Install prefix', '/usr/')
+opts.Add ('outdir', 'Output directory', 'out')
 opts.AddOptions (
 	BoolOption ('warnings', 'compile with -Wall and similiar',
 		   1),
@@ -29,9 +28,9 @@ opts.AddOptions (
 	BoolOption ('optimising', 'compile with optimising',
 		    1),
 	BoolOption ('shared', 'build shared libraries',
-		    1),
-	BoolOption ('static', 'build static libraries',
 		    0),
+	BoolOption ('static', 'build static libraries',
+		    1),
 	)
 
 Help (opts.GenerateHelpText (env))
@@ -96,38 +95,33 @@ for i in defines.keys ():
 config.close ()
 env = conf.Finish ()
 
-if os.path.exists ('parser'):
-	env.Append (LIBPATH = ['#/flower', '#/lily', '#/parser', '#/gui',],
-		    CPPPATH = ['#',])
-else:	
-	env.Append (LIBPATH = ['#/flower', '#/lily',],
-		    CPPPATH = ['#',])
-
 os.system (sys.executable \
 	   + ' ./stepmake/bin/make-version.py VERSION > version.hh')
 
 Export ('env')
 
+#this could happen after flower...
+env.ParseConfig ('guile-config compile')
 
-if 1:
-	#simple: build in ./flower
-	SConscript ('flower/SConscript')
-else:
-	# moellik: build in [/tmp/build/]flower[/out]
-	# werkt 'bijna', maar glob in flower/Sconscript snapt niet
-	# dat-i in flower SCRDRI moet globben
-	builddir = ''
-	outdir = 'out'
+builddir = ''
+outdir = env['outdir']
 
-	d = 'flower'
+if os.path.exists ('parser'):
+	env.Append (LIBPATH = ['#/flower', '#/lily', '#/parser', '#/gui',],
+		    CPPPATH = ['#',])
+else:	
+	env.Append (LIBPATH = ['#/flower/' + outdir,],
+		    CPPPATH = ['#',])
+
+
+#ugh: remove make config output
+if os.path.exists ('lily/out/config.h'):
+	os.unlink ('lily/out/config.h')
+
+subdirs = ('flower', 'lily',)
+#subdirs = ('flower', 'lily', 'parser', 'gui', 'main',)
+for d in subdirs:
 	alias = os.path.join (builddir, d, outdir)
 	env.BuildDir (alias, d)
 	SConscript (os.path.join (alias, 'SConscript'))
 
-env.ParseConfig ('guile-config compile')
-
-SConscript ('lily/SConscript')
-if os.path.exists ('parser'):
-	SConscript ('parser/SConscript')
-	SConscript ('gui/SConscript')
-	SConscript ('main/SConscript')
