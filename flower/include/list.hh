@@ -42,6 +42,7 @@ class List
     Cursor<T> top() const;
 
     void OK() const;		// check list
+    void junk_links();
     
  protected:
     friend class Cursor<T>;

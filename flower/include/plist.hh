@@ -30,6 +30,7 @@ class Link_list : public List<void *>
     }
     PCursor<T> find(T) const;
     void concatenate(Link_list<T> const &s) { List<void*>::concatenate(s); }
+
     Link_list() {}
 };
 

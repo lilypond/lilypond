@@ -27,10 +27,7 @@ void
 PCol::clean_breakable_items()
 {
     if (!line_l_) {
-	for(iter(its.top(), j); j.ok(); ) {
-	    j->unlink();
-	    j.del();
-	}
+	its.junk_links();
     }
     if (prebreak_p_) prebreak_p_->clean_breakable_items();
     if (postbreak_p_) postbreak_p_->clean_breakable_items();

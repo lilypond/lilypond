@@ -216,6 +216,14 @@ PScore::set_breaking(Array<Col_hpositions> const &breaking)
 	    typeset_broken_spanner(span_p);
 	}
     }
+    for (iter(elem_p_list_.top(),i ); i.ok() ;) {
+	Item *i_l =i->item();
+	if ( i_l && !i_l->pcol_l_->line_l_) {
+	    i_l->unlink();
+	    delete i.remove_p();
+	} else
+	    i++;
+    }
 
     for (iter_top(cols, i); i.ok(); i++)
 	i->clean_breakable_items();
