@@ -1,0 +1,11 @@
+#!/bin/sh
+echo '#ifndef FVERSION_HH'
+echo '#define FVERSION_HH'
+echo '#define FMAJOR_VERSION ' "$1"
+echo '#define FMINOR_VERSION ' "$2"
+echo '#define FPATCH_LEVEL ' "$3"
+echo '#define FMY_PATCH_LEVEL ' "$4"
+echo '#define FBUILD ' "$5"
+echo '#define FVERSIONSTR "'$1.$2.$3$4 \#$5'"'
+echo '#define FCOMPILER "'$6'"'
+echo '#endif'
