@@ -17,6 +17,14 @@ Version 2.1.13
 @end ignore
 
 @itemize @bullet
+@item The ergonomic syntax of @code{\markup} now has an equivalent in
+Scheme. The @code{markup*} macro creates such objects; the following
+two markup commands are equivalent:
+@example
+ f4^#(markup* #:raise 0.2 #:bold "hi")
+ f4^\markup @{ \raise #0.2 \bold hi  @}
+@end example
+
 @item Voice names, for vocal lines, have been added. They are similar
 to instrument names.   They can be set by defining @code{vocalName}
 and @code{vocNam}.

@@ -1066,5 +1066,5 @@ Rest can contain a list of beat groupings
 
    (analyse-time-step 0 0  0 '() '())
    (analyse-solo12 0 0 0)
-   (display result)
+;   (display result)
    (vector->list result))

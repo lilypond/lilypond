@@ -7,15 +7,20 @@
 
 Rotated text may be faked using inline TeX (or inline
 postscript). To see the result, this files must be processed with
-the lilypond.py script.
+the lilypond.py script, and a line must be uncommented.
 
 "
+
+    %% fixme.
     
 
     }
 \score {
 \new Staff \notes \relative c'' {
-    \property Staff.instrument	= #"\\rotatebox{90}{Chor}"
+    \property Staff.instrument	= #"rotatebox{90}{Chor}"
+
+%%  uncomment this for rotation
+%    \property Staff.instrument	= #"\\rotatebox{90}{Chor}"
 
     c4 c4 }
 
