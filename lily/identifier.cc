@@ -49,9 +49,3 @@ Real_id::do_print() const
     mtor << *((Real_id*)this)->real(false)<< "\n";
 }
 
-void
-Notetab_id::do_print() const
-{
-    mtor << "unknown" << "\n";
-}
-

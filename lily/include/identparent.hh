@@ -34,7 +34,6 @@ struct Identifier {
     IDACCESSOR(Music_general_chord, mchord)
     IDACCESSOR(Lookup,lookup)
     IDACCESSOR(Real,real)
-    IDACCESSOR(Notename_tab, notename_tab)
     IDACCESSOR(Request, request)
 	
 protected:

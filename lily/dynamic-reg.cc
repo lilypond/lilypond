@@ -7,7 +7,7 @@
 */
 
 #include "dynamic-reg.hh"
-#include "musicalrequest.hh"
+#include "musical-request.hh"
 #include "text-item.hh"
 #include "lookup.hh"
 #include "paper-def.hh"

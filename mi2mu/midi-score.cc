@@ -49,13 +49,15 @@ Midi_score::output_mudela( String filename_str )
 	lily_stream.indent();
 		lily_stream << "commands {";
 		lily_stream.indent();
-			midi_parser_l_g->midi_time_p_->output_mudela( lily_stream, true );
+			// not use silly 0 track
+			midi_track_p_list_.bottom()->midi_time_p_->output_mudela( lily_stream, true );
 			lily_stream.tnedni();
 		lily_stream << "}";
 		lily_stream.newline();
 		lily_stream << "midi {";
 			lily_stream.indent();
-			midi_parser_l_g->midi_tempo_p_->output_mudela( lily_stream, true );
+			// not use silly 0 track
+			midi_track_p_list_.bottom()->midi_tempo_p_->output_mudela( lily_stream, true );
 			lily_stream.tnedni();
 		lily_stream << "}";
 		lily_stream.tnedni();

@@ -5,8 +5,8 @@
 
 #include "colhpos.hh"
 #include "varray.hh"
-#include "pcol.hh"
-#include "pstaff.hh"
+#include "p-col.hh"
+#include "p-staff.hh"
 
 
 /** all stuff which goes onto paper. notes, signs, symbols in a score can be grouped in two ways:

@@ -61,7 +61,6 @@ struct Simple_music : Input_music {
     virtual Input_music *clone() const {
 	return new Simple_music(*this);
     }
-
 };
 
 /// Complex_music consists of multiple voices
@@ -76,7 +75,6 @@ struct Complex_music : Input_music {
     void concatenate(Complex_music*);
     virtual bool find_plet_start_bo(char c, Moment& moment_r);
     virtual void set_plet_backwards(Moment& now_moment_r, Moment until_moment, int num_i, int den_i);
- 
 };
 
 

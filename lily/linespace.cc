@@ -1,6 +1,6 @@
 #include <math.h>
 #include "linespace.hh"
-#include "pcol.hh"
+#include "p-col.hh"
 #include "debug.hh"
 #include "qlp.hh"
 #include "unionfind.hh"

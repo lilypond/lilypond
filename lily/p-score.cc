@@ -6,7 +6,7 @@
 #include "molecule.hh"
 #include "dimen.hh"
 #include "scoreline.hh"
-#include "pscore.hh"
+#include "p-score.hh"
 #include "tex-stream.hh"
 #include "item.hh"
 #include "break.hh"

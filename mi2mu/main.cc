@@ -11,9 +11,6 @@ Source* source_l_g = &source;
 
 Verbose level_ver = NORMAL_ver;
 
-// ugh
-bool no_triplets_bo_g = false;
-
 //ugh
 char const* defined_ch_c_l = 0;
 
@@ -64,10 +61,11 @@ void
 help()
 {
     btor <<
+	"--be-blonde, -b		use exact, blonde durations, e.g.: a[385]\n"
 	"--debug, -d		be really verbose\n"
 	"--help, -h		this help\n"
         "--include=DIR, -I DIR	add DIR to search path\n"
-        "--no-triplets, -n	assume no triplets\n"
+        "--no-silly, -n		assume no triplets and no smaller than 16\n"
 	"--output=FILE, -o FILE	set FILE as default output\n"
 	"--quiet, -q		be quiet\n"
 	"--verbose, -v		be verbose\n"
@@ -112,10 +110,11 @@ int
 main( int argc_i, char* argv_sz_a[] )
 {
 	Long_option_init long_option_init_a[] = {
+		0, "be-blonde", 'b',
 		0, "debug", 'd',
 		0, "help", 'h',
 //		1, "include", 'I',
-		0, "no-triplets", 'n',
+		0, "no-silly", 'n',
 		1, "output", 'o',
 		0, "quiet", 'q',
 		0, "verbose", 'v',
@@ -128,6 +127,9 @@ main( int argc_i, char* argv_sz_a[] )
 	String output_str;
 	while ( Long_option_init* long_option_init_p = getopt_long() )
 		switch ( long_option_init_p->shortname ) {
+			case 'b':
+				Duration_convert::be_blonde_b_s = true;
+				break;
 			case 'd':
 				level_ver = DEBUG_ver;
 				break;
@@ -139,7 +141,9 @@ main( int argc_i, char* argv_sz_a[] )
 //				path->push( getopt_long.optarg );
 //				break;
 			case 'n':
-				no_triplets_bo_g = true;
+				Duration_convert::no_double_dots_b_s = false;
+				Duration_convert::no_triplets_b_s = true;
+				Duration_convert::no_smaller_than_i_s = 16;
 				break;
 			case 'o':
 				output_str = getopt_long.optarg;

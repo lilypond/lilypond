@@ -13,8 +13,8 @@
 #include "parseconstruct.hh"
 #include "dimen.hh"
 #include "identifier.hh"
-#include "commandrequest.hh"
-#include "musicalrequest.hh"
+#include "command-request.hh"
+#include "musical-request.hh"
 #include "voice-element.hh"
 
 #ifndef NDEBUG
@@ -32,90 +32,127 @@ int fatal_error_i = 0;
 
 
 %union {
-    Request * request;
-    Real real;
-    Identifier *id;    
-   Voice *voice;    
-    Voice_element *el;	
-    String *string;
-    const char *consstr;
-    Paper_def *paper;
-    Midi_def* midi;
-    Input_music *music;
-    Music_general_chord *chord;
-    Music_voice *mvoice; 
-    int i;
-    char c;
-    int ii[10];
-	Moment *moment;
-
+    Array<Melodic_req*> *melreqvec;
     Array<String> * strvec;
     Array<int> *intvec;
-    Array<Melodic_req*> *melreqvec;
-    Input_staff *staff;    
-    Input_score *score;
-    Symtables * symtables;
-    Symtable * symtable;
-    Symbol * symbol;
-    Lookup*lookup;
-    Interval *interval;
     Box *box;
-    Notename_tab *notename_tab;
+    Identifier *id;    
+    Input_music *music;
+    Input_score *score;
+    Input_staff *staff;    
+    Interval *interval;
+    Lookup*lookup;
+    Melodic_req * melreq;
+    Midi_def* midi;
+    Moment *moment;
+    Music_general_chord *chord;
+    Music_voice *mvoice;
+    Note_req *notereq;
+    Paper_def *paper;
+    Real real;
+    Request * request;
     Script_def * script;
+    String *string;
+    Symbol * symbol;
+    Symtable * symtable;
+    Symtables * symtables;
     Text_def * textdef;
+    Voice *voice;    
+    Voice_element *el;	
+    char c;
+    const char *consstr;
+    int i;
+    int ii[10];
 }
 
-%token VOICE STAFF SCORE TITLE  BAR  OUTPUT MULTIVOICE DYNAMIC
-%token CM_T IN_T PT_T MM_T PAPER WIDTH METER UNITSPACE SKIP COMMANDS COMMAND
-%token GEOMETRIC START_T DURATIONCOMMAND OCTAVECOMMAND
-%token KEY CLEF  TABLE  VOICES STEM
-%token PARTIAL MUSIC GROUPING CADENZA
-%token END SYMBOLTABLES TEXID TABLE NOTENAMES SCRIPT TEXTSTYLE PLET
-%token  GOTO
-%token MIDI TEMPO
+%token BAR
+%token CADENZA
+%token CLEF
+%token CM_T
+%token COMMAND
+%token COMMANDS
+%token DURATIONCOMMAND
+%token DYNAMIC
+%token END
+%token GEOMETRIC
+%token GOTO
+%token GROUPING
+%token IN_T
+%token KEY
+%token MELODIC
+%token METER
+%token MIDI
+%token MM_T
+%token MULTIVOICE
+%token MUSIC
+%token OCTAVECOMMAND
+%token OUTPUT
+%token PAPER
+%token PARTIAL
+%token PLET
+%token PT_T
+%token SCORE
+%token SCRIPT
+%token SKIP
+%token STAFF
+%token START_T
+%token STEM
+%token SYMBOLTABLES
+%token TABLE
+%token TABLE
+%token TEMPO
+%token TEXID
+%token TEXTSTYLE
+%token TITLE
+%token UNITSPACE
+%token VOICE
+%token VOICES
+%token WIDTH
 
-%token <id>  IDENTIFIER REAL_IDENTIFIER REQUEST_IDENTIFIER 
-%token <string> PITCHMOD DURATION RESTNAME
-%token <ii> NOTENAME 
-%token <real> REAL 
-%token <string> STRING
+%token <i>	DOTS
+%token <i>	INT
+%token <id>	IDENTIFIER
+%token <id>	MELODIC_REQUEST_IDENTIFIER 
+%token <id>	POST_REQUEST_IDENTIFIER
+%token <id>	REAL_IDENTIFIER
+%token <id>	REQUEST_IDENTIFIER
+%token <real>	REAL 
+%token <string>	DURATION RESTNAME
+%token <string>	STRING
 
-%token <i> DOTS INT
-%type <real> unit
-%type <melreqvec> pitch_list 
-%type <c> open_request_parens close_request_parens close_plet_parens
-%type <id> declaration
-%type <string> declarable_identifier
-%type <paper> paper_block paper_body
-%type <midi> midi_block midi_body
-%type <real> dim real
-%type <ii>  default_duration explicit_duration notemode_duration mudela_duration
-%type <ii> notename
-%type <moment> duration_length
-%type <el> voice_elt full_element lyrics_elt command_elt
+%type <box>	box
+%type <c>	open_request_parens close_request_parens close_plet_parens
+%type <chord>	music_chord music_chord_body
+%type <el>	voice_elt full_element lyrics_elt command_elt
+%type <i>	int
+%type <i>	octave_quotes octave_quote
+%type <i>	script_dir
+%type <id>	declaration
+%type <ii>	default_duration explicit_duration notemode_duration
+%type <ii>	mudela_duration
+%type <interval>	dinterval
+%type <intvec>	intastint_list
+%type <lookup>	symtables symtables_body
+%type <melreq>	melodic_request
+%type <notereq>	steno_note_req
+%type <melreqvec>	pitch_list 
+%type <midi>	midi_block midi_body
+%type <moment>	duration_length
+%type <music>	music 
+%type <mvoice>	 music_voice_body music_voice 
 
-%type <score> score_block score_body
-%type <staff> staff_block staff_init staff_body
-%type <i> int
-%type <intvec> intastint_list
-%type <request> post_request pre_request command_req 
-%type <string> pitchmod
-%type <music> music 
-%type <chord> music_chord music_chord_body
-
-%type <mvoice>  music_voice_body music_voice 
-
-%type <interval> dinterval
-%type <box> box
-%type <symtable> symtable symtable_body
-%type <lookup> symtables symtables_body
-%type <symbol> symboldef
-%type <notename_tab> notename_tab notename_tab_body
-%type <i> script_dir
-%type <script> script_definition script_body mudela_script
-%type <request> script_req textscript_req dynamic_req basic_request
-%type <textdef> mudela_text
-
+%type <paper>	paper_block paper_body
+%type <real>	dim real
+%type <real>	unit
+%type <request>	post_request pre_request command_req pure_post_request
+%type <request>	script_req textscript_req dynamic_req 
+%type <score>	score_block score_body
+%type <script>	script_definition script_body mudela_script
+%type <staff>	staff_block staff_init staff_body
+%type <string>	declarable_identifier
+%type <symbol>	symboldef
+%type <symtable>	symtable symtable_body
+%type <textdef>	mudela_text
 
 %%
 
@@ -124,12 +161,8 @@ mudela:	/* empty */
 		add_score($2);		
 	}
 	| mudela add_declaration { }
-	| mudela mudela_command  {}
 	;
 
-mudela_command:
-	notename_tab			{ lexer->set($1); }
-	;
 
 /*
 	DECLARATIONS
@@ -140,7 +173,11 @@ add_declaration: declaration	{
 	;
 
 declarable_identifier:
-	STRING { $$ = $1; }
+	STRING { $$ = $1;
+	   if (lexer->lookup_identifier(*$1))
+		warning("redeclaration of `" + *$1 + "'",
+			lexer->here_ch_c_l());
+	}
 	| IDENTIFIER { $$ = new String($1->name); }
 	;
 
@@ -165,10 +202,6 @@ declaration:
 		$$ = new Lookup_id(*$1, $3, IDENTIFIER);
 		delete $1;
 	}
-	| declarable_identifier '=' notename_tab {
-		$$ = new Notetab_id(*$1, $3, IDENTIFIER);
-		delete $1;
-	}
 	| declarable_identifier '=' real	{
 		$$ = new Real_id(*$1, new Real($3), REAL_IDENTIFIER);
 		delete $1;
@@ -176,27 +209,16 @@ declaration:
 	| declarable_identifier error '}' {
 
 	}
-	| declarable_identifier '=' basic_request {
-		$$ = new Request_id(*$1, $3, REQUEST_IDENTIFIER);
+	| declarable_identifier '=' pure_post_request {
+		$$ = new Request_id(*$1, $3, POST_REQUEST_IDENTIFIER);
+		delete $1;
+	}
+	| declarable_identifier '=' melodic_request {
+		$$ = new Request_id(*$1, $3, MELODIC_REQUEST_IDENTIFIER);
 		delete $1;
 	}
 	;
 
-notename_tab:
-	NOTENAMES '{' notename_tab_body '}'	{ $$ = $3; }
-	;
-
-notename_tab_body:				{
-		$$ = new Notename_tab;
-	}
-	| IDENTIFIER				{
-		$$ = $1->notename_tab(true);
-	}
-	| notename_tab_body STRING int int			{
-		$$->set($3, $4, *$2);
-		delete $2;
-	}
-	;
 
 /*
 	SCORE
@@ -212,6 +234,11 @@ score_block:
 		/* handle error levels. */
 		$$->errorlevel_i_ = lexer->errorlevel_i_;
 		lexer->errorlevel_i_ = 0;
+
+		/* unbarf score without global music. */
+		if (!$$-> score_wide_music_p_) {
+			$$-> score_wide_music_p_ = new Music_voice; 
+		}
 	}
 	;
 
@@ -305,6 +332,9 @@ staff_init:
 		$$ = new Input_staff(*$1);
 		delete $1;
 	}
+	| MELODIC {
+		$$ = new Input_staff("melodic");
+	}
 	;
 
 staff_body:
@@ -379,12 +409,6 @@ music_chord_body:
 	}
 	;
 
-basic_request:
-	command_req
-	| pre_request
-	| post_request
-	;
-
 /*
 	VOICE ELEMENTS
 */
@@ -425,6 +449,10 @@ command_req:
 	| METER '{' int '*' int '}'	{
 		Meter_change_req *m = new Meter_change_req;
 		m->set($3,$5);
+		// sorry hw, i need meter at output of track,
+		// but don-t know where to get it... statics should go.
+		Midi_def::num_i_s = $3;
+		Midi_def::den_i_s = $5;
 		$$ = m;
 	}
 	| SKIP '{' duration_length '}' {
@@ -474,14 +502,57 @@ post_requests:
 	;
 
 post_request:
+	pure_post_request
+	| POST_REQUEST_IDENTIFIER	{
+		$$ = $1->request(false)->clone();
+	}
+	;
+
+pure_post_request:
 	close_request_parens	{ 
 		$$ = get_request($1); 
 	}
 	| script_req
 	| textscript_req
 	| dynamic_req
-	| REQUEST_IDENTIFIER	{
-		$$ = $1->request(false)->clone();
+	;
+
+
+octave_quote:
+	'\''	 	{ $$ = 1; }
+	| '`'		{ $$ = -1; }
+	;
+
+octave_quotes:
+	/**/ { $$ = 0; }
+	| octave_quotes octave_quote{ $$ += $2; }
+	;
+
+/*
+	URG!!
+*/
+steno_note_req:
+	MELODIC_REQUEST_IDENTIFIER	{
+		$$ = new Note_req;
+		* (Melodic_req *) $$ = *$1->request(false)->melodic();
+	}
+	| octave_quote steno_note_req	{  
+		$2-> octave_i_ += $1;
+		$$ = $2; //ugh!!
+	}
+	| '!' steno_note_req   		{
+		$$ = $2;
+		$2->forceacc_b_ = ! $2->forceacc_b_;
+	} 
+	;
+
+melodic_request:
+	MELODIC '{' int int int int '}'	{/* ugh */
+		$$ = new Melodic_req;
+		$$->octave_i_ = $3;
+		$$->notename_i_ = $4;
+		$$->accidental_i_ = $5;
+		$$->forceacc_b_ = $6;
 	}
 	;
 
@@ -599,9 +670,8 @@ voice_command:
 	| DURATIONCOMMAND '{' notemode_duration '}'	{
 		set_default_duration($3);
 	}
-	| OCTAVECOMMAND '{' pitchmod '}'	{
-		set_default_octave(*$3);
-		delete $3;
+	| OCTAVECOMMAND '{' octave_quotes '}'	{
+		set_default_octave($3);
 	}
 	| TEXTSTYLE STRING 	{
 		set_text_style(*$2);
@@ -660,34 +730,19 @@ explicit_duration:
 	;
 
 default_duration:
-	{
+	/* empty */	{
 		get_default_duration($$);
 	}
 	;
 
-pitchmod:		{ 
-		defined_ch_c_l = lexer->here_ch_c_l();
-		$$ = new String; 
-	}
-	| PITCHMOD	{ 
-		defined_ch_c_l = lexer->here_ch_c_l();
-		$$ = $1;
-	}
-	;
-
-notename:
-	NOTENAME
-	;
 
 voice_elt:
-	pitchmod notename notemode_duration 			{
-		$$ = get_note_element(*$1, $2, $3);
-		delete $1;
+	steno_note_req notemode_duration 		{
+		$$ = get_note_element($1, $2);
 	}
 	| RESTNAME notemode_duration		{
 		$$ = get_rest_element(*$1, $2);
 		delete $1;
-
 	}
 	;
 
@@ -702,11 +757,8 @@ lyrics_elt:
 pitch_list:			{
 		$$ = new Array<Melodic_req*>;
 	}
-	| pitch_list NOTENAME	{
-		Melodic_req *m_p = new Melodic_req;
-		m_p->notename_i_ = $2[0];
-		m_p->accidental_i_ = $2[1];
-		$$->push(m_p);
+	| pitch_list MELODIC_REQUEST_IDENTIFIER	{
+		$$->push($2->request(false)->clone()->melodic());
 	}
 	;
 
@@ -823,7 +875,7 @@ parse_file(String init, String s)
    *mlog << "Parsing ... ";
    lexer = new My_flex_lexer;
 
-#ifdef YYDEBUG
+#ifndef NPRINT
    yydebug = !monitor->silence("InitParser") && check_debug;
    lexer->set_debug( !monitor->silence("InitLexer") && check_debug);
 #endif
@@ -831,13 +883,20 @@ parse_file(String init, String s)
    lexer->new_input(init);
    yyparse();
 
-#ifdef YYDEBUG
+#ifndef NPRINT
+   if (!monitor->silence("InitDeclarations") && check_debug)
+	lexer->print_declarations();
+
    yydebug = !monitor->silence("Parser") && check_debug;
    lexer->set_debug( !monitor->silence("Lexer") && check_debug);
 #endif
 
    lexer->new_input(s);
    yyparse();
+#ifdef NPRINT
+   if (!monitor->silence("Declarations") && check_debug)
+	lexer->print_declarations();
+#endif
    delete lexer;
    lexer = 0;
 

@@ -14,12 +14,12 @@ before 0.1
 
 	* caching of Register_group_register hierarchies.
 
-	* midi esp.: use I32 iso int where 32 bits are needed (or assumed...)
-
 This is an assorted collection of stuff that will be done, might be
 done, or is an idea that I want to think about
 
 STUFF
+	* midi esp.: use I32 iso int where 32 bits are needed (or assumed...)
+
 	* generate all (.hh) files into out dirs
 
 	* sort out headers, see m2m
@@ -29,9 +29,6 @@ STUFF
 	* make install.
 	
 BUGS
-
-	* barf if no score_wde_music
-
 	* plet bugs: scales.ly
 
 	* key at clef change.
@@ -46,11 +43,11 @@ BUGS
 
 	* Group_feature at start of music. 
 
+	* parser error handling (can you say Segfault?)
+
 SEVERELY LACKING:
 
 	* grace notes
-
-	* dynamics (hairpins) 
 
 INPUTLANGUAGE
 
@@ -134,7 +131,9 @@ FUTURE
 
 	* implement better breaking algorithm
 
-	* Implement all requests
+	* Text_crescendo
+
+	* clean solution for staffsize in items.
 
 	* merge key{item} & localkey{item}?
 

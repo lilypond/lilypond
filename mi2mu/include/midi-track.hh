@@ -10,6 +10,7 @@
 class Midi_track {
 public:
 	Midi_track( int number_i, String copyright_str, String track_name_str, String instrument_str );
+	~Midi_track();
 
 	void add_event( Moment mom, Midi_event* midi_event_p );
 	Moment end_mom();
@@ -18,11 +19,15 @@ public:
 	Moment next_begin_mom( Moment now_mom );
 	Moment next_end_mom( Moment now_mom );
 	void process();
+	void set_tempo( int useconds_i );
+	void set_time( int num_i, int den_i, int clocks_i, int count_32_i );
 	Track_column* tcol_l( Moment mom );
 
 	String copyright_str_;
 	String instrument_str_;
 	String name_str_;
+	Midi_tempo* midi_tempo_p_;
+	Midi_time* midi_time_p_;
 
 private:
 	void add_begin_at( PointerList<Midi_voice*>& open_voices_r, Moment mom );

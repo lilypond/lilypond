@@ -7,7 +7,7 @@
 */
 
 
-#include "musicalrequest.hh"
+#include "musical-request.hh"
 #include "paper-def.hh"
 #include "text-item.hh"
 #include "stem.hh"

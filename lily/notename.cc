@@ -29,6 +29,8 @@ Notename_tab::set(int l, int s, String n)
     notetab[l * 5 + s +2] = n;
 }
 /* *************** */
+
+#if 0
 void
 My_flex_lexer::set(Notename_tab *n)
 {
@@ -45,3 +47,4 @@ My_flex_lexer::lookup_notename(int &large, int &small, String s)
     
     defaulttab->lookup(large, small, s);
 }
+#endif

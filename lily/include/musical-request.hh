@@ -1,5 +1,5 @@
 /*
-  musicalrequests.hh -- declare Musical requests
+  musical-request.hh -- declare Musical requests
 
   source file of the LilyPond music typesetter
 
@@ -18,10 +18,12 @@
   Base class only
  */
 struct Musical_req : virtual Request {
+    
     virtual Skip_req* skip() { return 0; }
     virtual Dynamic_req* dynamic() { return 0; }
     virtual Absolute_dynamic_req * absdynamic() { return 0; }
     virtual Subtle_req * subtle() { return 0; }
+    virtual Span_dynamic_req * span_dynamic() { return 0; }
     REQUESTMETHODS(Musical_req, musical);
 };
 
@@ -137,7 +139,7 @@ struct Stem_req : Rhythmic_req {
   Requests to start or stop something.
  This type of request typically results in the creation of a #Spanner#
 */
-struct Span_req : Musical_req {
+struct Span_req : virtual Musical_req {
     /// should the spanner start or stop, or is it unwanted?
     enum {
 	NOSPAN, START, STOP
@@ -149,8 +151,12 @@ struct Span_req : Musical_req {
   
 };
 
-/// request for backward plet generation
-struct Plet_req : Request {
+/** 
+ request for backward plet generation.
+
+ ugr. Place in hierarchy?
+ */
+struct Plet_req : virtual Request {
      char type_c_;
      int dur_i_;
      int type_i_;
@@ -158,8 +164,6 @@ struct Plet_req : Request {
  
      REQUESTMETHODS(Plet_req,plet);
 };
-/** 
-*/
 
 /** Start / stop a beam at this note.  if #nplet# is set, the staff will try to put an
 appropriate number over the beam
@@ -220,6 +224,13 @@ struct Absolute_dynamic_req : Dynamic_req {
     Loudness loudness_;
     Absolute_dynamic_req();
     REQUESTMETHODS(Absolute_dynamic_req, absdynamic);
+};
+
+struct Span_dynamic_req : Dynamic_req, Span_req {
+    /// Grow or shrink the volume: 1=cresc, -1 = decresc 
+    int dynamic_dir_i_;
+    Span_dynamic_req();
+    REQUESTMETHODS(Span_dynamic_req, span_dynamic);
 };
 
 #endif // MUSICALREQUESTS_HH

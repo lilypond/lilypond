@@ -23,15 +23,14 @@ void set_lexer();
 /// lexer with provisions for include files.
 struct My_flex_lexer : yyFlexLexer {
 
-    Array<Input_file*> include_stack;
-    Assoc<String, Identifier*> *the_id_tab;
-    Keyword_table * keytable;
-    Notename_tab * defaulttab;
+    Array<Input_file*> include_stack_;
+    Assoc<String, Identifier*> *identifier_assoc_p_;
+    Keyword_table * keytable_p_;
     int errorlevel_i_;
+
     /* *************** */
-    int ret_notename(int *p, String text, int octave_mod);    
+
     char const* here_ch_c_l();
-    void set(Notename_tab *n);
     int lookup_keyword(String);
     void lookup_notename(int &large, int &small, String s);
     void LexerError(const char *);

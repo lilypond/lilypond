@@ -1,8 +1,42 @@
+pl 41
+	- release
+pl 40.3
+	- all of the above
+	- hw's configure.in
+	- p-name.xx fixes
+
+pl 40.hwn1
+	- hairpin dynamics
+	- notename now as identifier. Parser/lexer cleanup
+	- ''!a now a!'' (NOT!?)
+
+pl 40.2
+	- mi2mu --blonde-durations, --no-silly options.
+	- mi2mu starts to look promising, see examples
+Examples
+	- pre1.midi.ly, fugue.midi.ly
+Internal
+	- Duration handles blonde midi-durations
+	- More settings for Duration_convert
+	- lily writes meter too (ugh, howto?)
+Bugfix
+	- mi2mu auto track number fix
+	- mi2mu / lily Midi_tempo fixed/added
+
+pl 40.1
+Bugfix
+	- lily midi output track 0 name
+	- mi2mu tempo fixed
+	- make out/make and out/make/Site.make in configure script!
+	- mi2mu double newline fix
+
+
+******
 pl 40
 	- release
 
 pl 39-5
-	- own versioning for mi2mu
+	- own versioning for mi2mu: 0.0.10
 	- some file renaming mi2mu
 pl 39-4
 	- all of the above

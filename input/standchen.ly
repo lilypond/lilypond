@@ -93,28 +93,28 @@ melodie = music { $ \clef\violin
 %#%	=f2. |
 	f2. |
 %%23
-	[ a8._\mf 'cis16 ] 'f4. 'e |
+	[ a8.\mf 'cis16 ] 'f4. 'e |
 %%24
 	[ 'd8. a16 ] fis4. d |
 %%25
 %#%	'cis\grace\stemup
-	[ b_\mf( ) ais b ]2/3 'd4. b |
+	[ b\mf( ) ais b ]2/3 'd4. b |
 %%26
 	{ a2. fis2. } |
 %#%\tighten\newline
 %%27
-	[ 'e_\f( )'dis 'e ]2/3 'g4. 'cis |
+	[ 'e\df( )'dis 'e ]2/3 'g4. 'cis |
 %%28
 	{ 'd2. fis2. } |
 %#%\volta1
 %%29
-	{ \music { bes2( [ 'd8.( ))g16 ] } \music{ g2_\mf [ bes8. bes16 ] } } |
+	{ \music { bes2( [ 'd8.( ))g16 ] } \music{ g2\mf [ bes8. bes16 ] } } |
 %%30
 	{ \music{ a4. [ a-. a-. a-. ] } \music{ fis4. [ fis-.( fis-. )fis-. ] } } |
 %%31  
 	{ \music{ a4. [ a-. a-. a-. ] } \music{ g4. [ cis-.( e-. )g-. ] } } |
 %%32
-	{ a2 fis2_\pp } { a4 fis4 } |
+	{ a2 fis2\pp } { a4 fis4 } |
 %%33
 %#%	{ b2(^ g2 } [v { 'd8.( b8. } { b16 ) ) g16 } ] |
 	{ \music{ b2( [ 'd8.( ) )g16 ] } \music{ g2 [ b8. b16 ] } } |
@@ -141,12 +141,12 @@ melodie = music { $ \clef\violin
 	'cis2 r4 |
 %%41
 %#%	{ > 'fis4. 'cis4._f } 'e [ 'e( ) 'd >! 'cis ]  |
-	{ 'fis4. 'cis4.\f } 'e  [ 'e( )'d 'cis ]2/3  |
+	{ 'fis4. 'cis4.\df } 'e  [ 'e( )'d 'cis ]2/3  |
 %%42
 	[ b8. 'cis16 ] 'd4^> b r |
 %%43
 %#%	[^ { b8._{ }_{ }_{ }_{ }_{ }_f g2. } 'cis16 ] 'd4^> b r |
-	[ b8.\f 'cis16 ] 'd4^> b r |
+	[ b8.\df 'cis16 ] 'd4^> b r |
 %%44
 %#%	[^ { > b8. fis2 } 'cis16 ] 'd4^> b >! r |
 	[ b8. 'cis16 ] 'd4^> b r |
@@ -157,7 +157,7 @@ melodie = music { $ \clef\violin
 %#%	{ =a2. fis2. } |
 	{ a2. fis2. } |
 %%47
-	[ 'e\f( )'dis 'e ]2/3  'g4.^> 'cis |
+	[ 'e\df( )'dis 'e ]2/3  'g4.^> 'cis |
 %%48
 %#%	{ fis2.(v ='d2.\stemup(^ }
 %	{ fis2. 'd2. } |
@@ -171,7 +171,7 @@ melodie = music { $ \clef\violin
 %%51
 	{ a2. cis2. } |
 %%52
-	{ fis2 d2 } { a4 fis4_\pp } |
+	{ fis2 d2 } { a4 fis4\pp } |
 %%53
 %#%	{ bes2 g2 } [ { 'd8.^>( bes8. } { ) bes16 g16 } ] |
 	{ bes2 g2 } { [ 'd8.^> bes8. } { bes16 g16 ] } |

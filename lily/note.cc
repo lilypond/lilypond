@@ -6,10 +6,10 @@
 #include "string.hh"
 #include "real.hh"
 #include "debug.hh"
-#include "musicalrequest.hh"
-#include "commandrequest.hh"
+#include "musical-request.hh"
+#include "command-request.hh"
 #include "voice.hh"
-#include "notename.hh"
+
 #include "identparent.hh"
 #include "varray.hh"
 #include "text-def.hh"
@@ -77,30 +77,11 @@ parse_octave (const char *a, int &j, int &oct)
     }
 }
 
-void 
-parse_pitch( const char *a, Melodic_req* mel_l)
-{
-    int j=0;
-
-    // octave
-    mel_l->octave_i_ = default_octave;
-    parse_octave(a,j,mel_l->octave_i_);
-
-    // accidental
-    mel_l->forceacc_b_ = false;
-    
-    if (a[j] == '!'){
-	mel_l->forceacc_b_ = true;
-	j++;
-    }
-}
-
 Voice_element *
-get_note_element(String pitch, int * notename, int * duration )
+get_note_element(Note_req *rq, int * duration )
 {
     Voice_element*v = new Voice_element;
     v->defined_ch_c_l_ = defined_ch_c_l;
-
     
     int dur = duration[0];
     int dots = duration[1];
@@ -114,12 +95,6 @@ get_note_element(String pitch, int * notename, int * duration )
     
     if ( !defined_ch_c_l )
         defined_ch_c_l = lexer->here_ch_c_l();
-
-    Note_req * rq = new Note_req;
-    rq->notename_i_ =notename[0];
-    rq->accidental_i_ = notename[1];
-    parse_pitch(pitch, rq);
-    rq->octave_i_ += notename[2];
 
     rq->balltype = dur;
     rq->dots = dots;

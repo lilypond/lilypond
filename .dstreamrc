@@ -1,4 +1,5 @@
 # class name		silence?
+Dstream			1
 
 My_flex_lexer		1
 yyFlexLexer		1
@@ -23,9 +24,9 @@ Lexer			1
 parse_duration		1
 parse_pitchmod		1
 Col_configuration	1
-Request			1
-Note_req		1
-Rhythmic_req		1
+Request			0
+Note_req		0
+Rhythmic_req		0
 Rest_req		1
 delete_identifiers	1
 Command			1
@@ -39,7 +40,7 @@ Input_cursor		1
 Commands_at		1
 Input_command		1
 Time_description	1
-Melodic_req		1
+Melodic_req		0
 Midi_walker		1
 Stem_req		1
 Group_change_req	1

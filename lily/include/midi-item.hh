@@ -94,6 +94,17 @@ struct Midi_tempo : Midi_item {
     int per_minute_4_i_;
 };
 
+struct Midi_time : Midi_item {
+    /* *************** */
+    Midi_time( int num_i, int den_i, int clocks_per_1_i );
+
+    virtual String str() const;
+
+    int num_i_;
+    int den_i_;
+    int clocks_per_1_i_;
+};
+
 struct Midi_track : Midi_chunk {
     /* *************** */
     int number_i_;

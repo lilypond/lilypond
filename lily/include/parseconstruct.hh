@@ -17,7 +17,7 @@ void set_duration_mode(String s);
 void get_default_duration(int *);
 void set_default_octave(String);
 void set_plet(int,int);
-Voice_element * get_note_element(String,int * ,int *);
+Voice_element * get_note_element(Note_req * ,int *);
 Voice_element* get_rest_element(String,int *);
 Voice_element* get_word_element(Text_def*, int*);
 void add_requests( Voice_element*v, Array<Request*>&req);

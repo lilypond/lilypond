@@ -1,80 +1,128 @@
-% Creator: This is m2m 0.0.36-2/FlowerLib 1.1.3-1 of Feb 27 1997 02:41:23
-% Automatically generated, at Thu Feb 27 02:54:33 1997
-% from input file: 
+% Creator: This is mi2mu 0.0.11.2 #14/FlowerLib 1.1.7 #1 of Mar 12 1997 02:05:36
+% Automatically generated, at Wed Mar 12 02:09:07 1997
+% from input file: pre1.midi
+% jcn: using option -n
 
 track0 = music { $
-	% \Time: 4/8, 96: 8 % \Tempo: 857143: 69 4 per minute 
-	% \Tempo: 882353: 67 4 per minute 
-	% \Tempo: 909091: 65 4 per minute 
-	% \Tempo: 937500: 64 4 per minute 
-	% \Tempo: 967742: 61 4 per minute 
-	% \Tempo: 1000000: 60 4 per minute 
-	% \Tempo: 1200000: 50 4 per minute 
-	% \Tempo: 1224490: 48 4 per minute 
-	% \Tempo: 833333: 72 4 per minute 
-	
+	% midi copyright:
+	% instrument:
+	{ } { } { } { } { } { } { } { } 
 $} % track0
 
 track1 = music { $
-	g16 c16 e16 g16 c16 e16 g16 c16 e16 g16 c16 
-	e16 a16 d16 f16 a16 d16 f16 a16 d16 f16 a16 
-	d16 f16 g16 d16 f16 g16 d16 f16 g16 d16 f16 
-	g16 d16 f16 g16 c16 e16 g16 c16 e16 g16 c16 
-	e16 g16 c16 e16 a16 e16 a16 a16 e16 a16 a16 
-	e16 a16 a16 e16 a16 fis16 a16 d16 fis16 a16 
-	d16 fis16 a16 d16 fis16 a16 d16 g16 d16 g16 
-	g16 d16 g16 g16 d16 g16 g16 d16 g16 e16 g16 
-	c16 e16 g16 c16 e16 g16 c16 e16 g16 c16 e16 
-	g16 c16 e16 g16 c16 e16 g16 c16 e16 g16 c16 
-	d16 fis16 c16 d16 fis16 c16 d16 fis16 c16 
-	d16 fis16 c16 d16 g16 b16 d16 g16 b16 d16 g16 
-	b16 d16 g16 b16 e16 g16 cis16 e16 g16 cis16 
-	e16 g16 cis16 e16 g16 cis16 d16 a16 d16 d16 
-	a16 d16 d16 a16 d16 d16 a16 d16 d16 f16 b16 
-	d16 f16 b16 d16 f16 b16 d16 f16 b16 c16 g16 
-	c16 c16 g16 c16 c16 g16 c16 c16 g16 c16 a16 
-	c16 f16 a16 c16 f16 a16 c16 f16 a16 c16 f16 
-	a16 c16 f16 a16 c16 f16 a16 c16 f16 a16 c16 
-	f16 g16 b16 f16 g16 b16 f16 g16 b16 f16 g16 
-	b16 f16 g16 c16 e16 g16 c16 e16 g16 c16 e16 
-	g16 c16 e16 ais16 c16 e16 ais16 c16 e16 ais16 
-	c16 e16 ais16 c16 e16 a16 c16 e16 a16 c16 e16 
-	a16 c16 e16 a16 c16 e16 a16 c16 dis16 a16 c16 
-	dis16 a16 c16 dis16 a16 c16 dis16 b16 c16 
-	d16 b16 c16 d16 b16 c16 d16 b16 c16 d16 g16 
-	b16 d16 g16 b16 d16 g16 b16 d16 g16 b16 d16 
-	g16 c16 e16 g16 c16 e16 g16 c16 e16 g16 c16 
-	e16 g16 c16 f16 g16 c16 f16 g16 c16 f16 g16 
-	c16 f16 g16 b16 f16 g16 b16 f16 g16 b16 f16 
-	g16 b16 f16 a16 c16 fis16 a16 c16 fis16 a16 
-	c16 fis16 a16 c16 fis16 g16 c16 g16 g16 c16 
-	g16 g16 c16 g16 g16 c16 g16 g16 c16 f16 g16 
-	c16 f16 g16 c16 f16 g16 c16 f16 g16 b16 f16 
-	g16 b16 f16 g16 b16 f16 g16 b16 f16 g16 ais16 
-	e16 g16 ais16 e16 g16 ais16 e16 g16 ais16 
-	e16 f16 a16 c16 f16 c16 a16 c16 a16 f16 a16 
-	f16 d16 f16 d16 g16 b16 d16 f16 d16 b16 d16 
-	b16 g16 b16 d16 f16 e64 f64 e32 d16 c1 
+	% midi copyright:
+	% instrument:
+	{ \music{ g16 'c16 'e16 g16 'c16 'e16 } } { \music{ 
+	g16 'c16 'e16 g16 'c16 'e16 } } { \music{ a16 'd16 
+	'f16 a16 'd16 'f16 } } { \music{ a16 'd16 'f16 a16 
+	'd16 'f16 } } { \music{ g16 'd16 'f16 g16 'd16 'f16 
+	} } { \music{ g16 'd16 'f16 g16 'd16 'f16 } } { 
+	\music{ g16 'c16 'e16 g16 'c16 'e16 } } { \music{ 
+	g16 'c16 'e16 g16 'c16 'e16 } } { \music{ a16 'e16 
+	'a16 a16 'e16 'a16 } } { \music{ a16 'e16 'a16 a16 
+	'e16 'a16 } } { \music{ fis16 a16 'd16 fis16 a16 
+	'd16 } } { \music{ fis16 a16 'd16 fis16 a16 'd16 } 
+	} { \music{ g16 'd16 'g16 g16 'd16 'g16 } } { 
+	\music{ g16 'd16 'g16 g16 'd16 'g16 } } { \music{ 
+	e16 g16 'c16 e16 g16 'c16 } } { \music{ e16 g16 
+	'c16 e16 g16 'c16 } } { \music{ e16 g16 'c16 e16 
+	g16 'c16 } } { \music{ e16 g16 'c16 e16 g16 'c16 } 
+	} { \music{ d16 fis16 'c16 d16 fis16 'c16 } } { 
+	\music{ d16 fis16 'c16 d16 fis16 'c16 } } { \music{ 
+	d16 g16 b16 d16 g16 b16 } } { \music{ d16 g16 b16 
+	d16 g16 b16 } } { \music{ e16 g16 'cis16 e16 g16 
+	'cis16 } } { \music{ e16 g16 'cis16 e16 g16 'cis16 }
+	 } { \music{ d16 a16 'd16 d16 a16 'd16 } } { \music{
+	 d16 a16 'd16 d16 a16 'd16 } } { \music{ d16 f16 
+	b16 d16 f16 b16 } } { \music{ d16 f16 b16 d16 f16 
+	b16 } } { \music{ c16 g16 'c16 c16 g16 'c16 } } { 
+	\music{ c16 g16 'c16 c16 g16 'c16 } } { \music{ 
+	`a16 c16 f16 `a16 c16 f16 } } { \music{ `a16 c16 
+	f16 `a16 c16 f16 } } { \music{ `a16 c16 f16 `a16 
+	c16 f16 } } { \music{ `a16 c16 f16 `a16 c16 f16 } } 
+	{ \music{ `g16 `b16 f16 `g16 `b16 f16 } } { \music{ 
+	`g16 `b16 f16 `g16 `b16 f16 } } { \music{ `g16 c16 
+	e16 `g16 c16 e16 } } { \music{ `g16 c16 e16 `g16 
+	c16 e16 } } { \music{ `ais16 c16 e16 `ais16 c16 e16 
+	} } { \music{ `ais16 c16 e16 `ais16 c16 e16 } } { 
+	\music{ `a16 c16 e16 `a16 c16 e16 } } { \music{ 
+	`a16 c16 e16 `a16 c16 e16 } } { \music{ `a16 c16 
+	dis16 `a16 c16 dis16 } } { \music{ `a16 c16 dis16 
+	`a16 c16 dis16 } } { \music{ `b16 c16 d16 `b16 c16 
+	d16 } } { \music{ `b16 c16 d16 `b16 c16 d16 } } { 
+	\music{ `g16 `b16 d16 `g16 `b16 d16 } } { \music{ 
+	`g16 `b16 d16 `g16 `b16 d16 } } { \music{ `g16 c16 
+	e16 `g16 c16 e16 } } { \music{ `g16 c16 e16 `g16 
+	c16 e16 } } { \music{ `g16 c16 f16 `g16 c16 f16 } } 
+	{ \music{ `g16 c16 f16 `g16 c16 f16 } } { \music{ 
+	`g16 `b16 f16 `g16 `b16 f16 } } { \music{ `g16 `b16 
+	f16 `g16 `b16 f16 } } { \music{ `a16 c16 fis16 `a16 
+	c16 fis16 } } { \music{ `a16 c16 fis16 `a16 c16 
+	fis16 } } { \music{ `g16 c16 g16 `g16 c16 g16 } } { 
+	\music{ `g16 c16 g16 `g16 c16 g16 } } { \music{ 
+	`g16 c16 f16 `g16 c16 f16 } } { \music{ `g16 c16 
+	f16 `g16 c16 f16 } } { \music{ `g16 `b16 f16 `g16 
+	`b16 f16 } } { \music{ `g16 `b16 f16 `g16 `b16 f16 }
+	 } { \music{ `g16 `ais16 e16 `g16 `ais16 e16 } } { 
+	\music{ `g16 `ais16 e16 `g16 `ais16 e16 } } { 
+	\music{ `f16 `a16 c16 f16 c16 `a16 c16 `a16 `f16 
+	`a16 `f16 `d16 `f16 `d16 } } { \music{ g16 b16 'd16 
+	'f16 'd16 b16 'd16 b16 g16 b16 d16 f16 e64 } } { 
+	\music{ f64 } } { } { \music{ e32 } } { \music{ d16 
+	} } { \music{ 'c1 } \music{ g1 } \music{ e1 } } 
 $} % track1
 
+% jcn: substituted some "2" durations to "4."
 track2 = music { $
-	c2 e4. c2 e4. c2 d4. c2 d4. b2 d4. b2 d4. c2 e4. 
-	c2 e4. c2 e4. c2 e4. c2 d4. c2 d4. b2 d4. b2 d4. 
-	b2 c4. b2 c4. a2 c4. a2 c4. d2 a4. d2 a4. g2 b4. 
-	g2 b4. g2 ais4. g2 ais4. f2 a4. f2 a4. f2 gis4. 
-	f2 gis4. e2 g4. e2 g4. e2 f4. e2 f4. d2 f4. d2 
-	f4. g2 d4. g2 d4. c2 e4. c2 e4. c2 g4. c2 g4. 
-	f2 f4. f2 f4. fis2 c2 fis2 c4. gis2 f4. gis2 
-	f4. g2 f4. g2 f4. g2 e2 g2 e4. g2 d4. g2 d2 g2 
-	d4. g2 d4. g2 dis4. g2 dis4. g2 e4. g2 e4. g2 
-	d4. g2 d4. g2 d4. g2 d4. c2 c4. c2 c4. c1 c1 b1 
-	c1 c1 
-$} % track2
+	% midi copyright:
+	% instrument:
+	{ \music{ e4. } } { \music{ e4. } } { \music{ d4. } 
+	} { \music{ d4. } } { \music{ d4. } } { \music{ d4. 
+	} } { \music{ e4. } } { \music{ e4. } } { \music{ 
+	e4. } } { \music{ e4. } } { \music{ d4. } } { 
+	\music{ d4. } } { \music{ d4. } } { \music{ d4. } } 
+	{ \music{ c4. } } { \music{ c4. } } { \music{ c4. } 
+	} { \music{ c4. } } { \music{ `a4. } } { \music{ 
+	`a4. } } { \music{ `b4. } } { \music{ `b4. } } { 
+	\music{ `ais4. } } { \music{ `ais4. } } { \music{ 
+	`a4. } } { \music{ `a4. } } { \music{ `gis4. } } { 
+	\music{ `gis4. } } { \music{ `g4. } } { \music{ 
+	`g4. } } { \music{ `f4. } } { \music{ `f4. } } { 
+	\music{ `f4. } } { \music{ `f4. } } { \music{ `d4. }
+	 } { \music{ `d4. } } { \music{ `e4. } } { \music{ 
+	`e4. } } { \music{ `g4. } } { \music{ `c4. } } { } { 
+	} { \music{ `g4. } } { } { \music{ ``f4. } } { 
+	\music{ `f4. } } { \music{ ``f4. } } { \music{ `f4. }
+	 } { \music{ ``fis4. } } { \music{ ``fis4. } \music{ 
+	`c4. } } { } { \music{ `c4. } } { \music{ ``gis4. } } 
+	{ \music{ ``gis4. } \music{ `f4. } } { } { \music{ 
+	`f4. } } { \music{ ``g4. } } { \music{ ``g4. } \music{
+	 `f4. } } { } { \music{ `f4. } } { \music{ ``g4. } } 
+	{ \music{ ``g4. } \music{ `e4. } } { } { \music{ ``g4. 
+	} \music{ `e4. } } { } { \music{ ``g4. } \music{ 
+	`d4. } } { } { \music{ ``g4. } \music{ `d4. } } { } { 
+	\music{ `d4. } } { \music{ ``g4. } } { \music{ ``g4. }
+	 \music{ `d4. } } { } { \music{ `dis4. } } { \music{
+	 ``g4. } } { \music{ `dis4. } } { \music{ ``g4. } } { 
+	\music{ `e4. } } { \music{ ``g4. } } { \music{ `e4. }
+	 } { \music{ ``g4. } } { \music{ `d4. } } { \music{ 
+	``g4. } } { \music{ `d4. } } { \music{ ``g4. } } { 
+	\music{ `d4. } } { \music{ ``g4. } } { \music{ `d4. }
+	 } { \music{ ``c4. } } { \music{ `c4. } } { \music{ 
+	``c4. } } { \music{ `c4. } } { \music{ ``c1 } } { 
+	\music{ `c1 } } { \music{ ``c1 } \music{ ``b1 } } { 
+	} { } { } { \music{ ``c1 } \music{ `c1 } } 
+$} % track4.
 
 score {
 	staff { melodic music { track0 } }
 	staff { melodic music { track1 } }
 	staff { melodic music { track2 } }
-	commands { meter { 4*4 } }
-	midi { tempo 4:60 }
+
+	commands {
+		meter { 4*4 } 
+	}
+	midi {
+		tempo 4:60 
+	}
 }

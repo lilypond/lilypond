@@ -6,7 +6,7 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
-#include "musicalrequest.hh"
+#include "musical-request.hh"
 #include "misc.hh"
 #include "debug.hh"
 #include "script-def.hh"
@@ -341,4 +341,19 @@ Dynamic_req::loudness_str(Loudness l)
 Absolute_dynamic_req::Absolute_dynamic_req()
 {
     loudness_ = MF;
+}
+
+
+Span_dynamic_req::Span_dynamic_req()
+{
+    dynamic_dir_i_  = 0;
+}
+
+void
+Span_dynamic_req::do_print()const
+{
+#ifndef NPRINT
+    Span_req::do_print();
+    mtor << "louder/louder: " <<dynamic_dir_i_;
+#endif
 }

@@ -11,8 +11,8 @@
 #include "debug.hh"
 #include "voice.hh"
 #include "voice-element.hh"
-#include "musicalrequest.hh"
-#include "commandrequest.hh"
+#include "musical-request.hh"
+#include "command-request.hh"
 
 
 void

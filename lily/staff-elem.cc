@@ -1,6 +1,6 @@
-#include "pscore.hh"
+#include "p-score.hh"
 #include "symbol.hh"
-#include "pstaff.hh"
+#include "p-staff.hh"
 #include "molecule.hh"
 #include "staff-elem.hh"
 #include "debug.hh"

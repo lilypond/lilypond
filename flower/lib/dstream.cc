@@ -1,5 +1,3 @@
-
-
 #include <fstream.h>
 #include "assoc.hh"
 #include "dstream.hh"
@@ -55,8 +53,7 @@ Dstream::identify_as(String name)
     local_silence = (*silent)[idx];
     if (classname != idx && !local_silence) {
 	classname=idx;
-	if (!(*silent)["Dstream"])
-	    *os << "[" << classname << ":]"; // messy.
+//	*os << "[" << classname << ":]"; // messy.
     }
     return *this;
 }

@@ -25,8 +25,7 @@ struct Slur : Directional_spanner {
     void add(Notehead*);
     void set_default_dir();
 
-    Spanner* do_break_at( PCol*, PCol*) const;
-    void process();
+    Spanner* do_break_at( PCol*, PCol*) const; 
 private:
     Molecule*brew_molecule_p()const;
     NAME_MEMBERS(Slur);

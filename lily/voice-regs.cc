@@ -7,8 +7,8 @@
 */
 #include "proto.hh"
 #include "plist.hh"
-#include "commandrequest.hh"
-#include "musicalrequest.hh"
+#include "command-request.hh"
+#include "musical-request.hh"
 #include "voice-regs.hh"
 #include "register.hh"
 #include "slur-reg.hh"

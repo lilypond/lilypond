@@ -8,7 +8,7 @@
 #include "tex-stream.hh"
 #include "score.hh"
 #include "score-column.hh"
-#include "pscore.hh"
+#include "p-score.hh"
 #include "staff.hh"
 #include "debug.hh"
 #include "paper-def.hh"

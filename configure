@@ -2,7 +2,7 @@
 #
 # project  LilyPond -- the musical typesetter
 # title	   (bash/sh/ksh) script to setup library and auto generated files
-# file	   configure
+# file	   configure-broken-system
 #
 # Copyright (c) 1997 by    
 #	Han-Wen Nienhuys <hanwen@stack.nl>
@@ -32,6 +32,7 @@ fi
 do_outdir() {
 	if [ \! -d $1/out ]
 	then
+		touch $1/.GENERATE
 		mkdir $1/out
 		echo 0 > $1/.build
 	fi
@@ -39,17 +40,8 @@ do_outdir() {
 
 echo using PREFIX=$PREFIX
 
-#ugh # dist ze dan!, nou stiekem wordt "out" later toch "loes" of "doze"
-# do_outdir flower/lib
-# now all make rules!
-
-echo Configuring Flower Library
-
-#ugh, now all make rules
-# the _real_ config stuff should be generated here, though.
-# echo '#define LIBDIR "'$PREFIX'/"'> lib/out/config.hh
-# touch flower/lib/out/flower-config.hh
-# touch make/out/Site.make
+do_outdir make
+touch make/out/Site.make
 
 $MAKE -C make -f Initial.make
 

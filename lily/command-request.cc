@@ -6,9 +6,9 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
-#include "commandrequest.hh"
+#include "command-request.hh"
 #include "debug.hh"
-#include "musicalrequest.hh"
+#include "musical-request.hh"
 
 
 void

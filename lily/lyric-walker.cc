@@ -6,9 +6,9 @@
   (c) 1997 Jan Nieuwenhuizen <jan@digicash.com>
 */
 
-#include "musicalrequest.hh"
+#include "musical-request.hh"
 #include "voice.hh"
-#include "pscore.hh"
+#include "p-score.hh"
 #include "lyric-staff.hh"
 #include "lyric-walker.hh"
 #include "debug.hh"

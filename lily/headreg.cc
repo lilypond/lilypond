@@ -8,7 +8,7 @@
 #include "headreg.hh"
 #include "paper-def.hh"
 #include "complex-walker.hh"
-#include "musicalrequest.hh"
+#include "musical-request.hh"
 
 Notehead_register::Notehead_register()
 {

@@ -1,54 +1,56 @@
-include Variables.make
+#
+# project  FlowerSoft C++ library
+# title	   top level makefile for FlowerLib
+# file	   flower/Makefile
+#
+# Copyright (c) 1997 by    
+#   	Jan Nieuwenhuizen <jan@digicash.com>
+#	Han-Wen Nienhuys <hanwen@stack.nl>
+#		...your sort order here, or how to comment-out a comment
 
-$(staticlib): $(obs) fversion.hh
-	$(AR) cr libflower.a $(obs)
+# subdir level:
+#
+depth = ..
+#
 
-include deps/*.dep
+# identify module:
+#
+NAME = flower
+MODULE_NAME = flower
+#
+# edit .version only
+include ./$(depth)/flower/.version
+include ./$(depth)/.version
+build = ./$(depth)/flower/lib/.build
+#
 
-flower-config.hh:
-	touch flower-config.hh
+# generic variables:
+#
+include ./$(depth)/make/Variables.make 
+#
 
-deps/*.dep:
-	touch deps/dummy.dep
+# descent order into subdirectories:
+#
+SUBDIRS = lib
+#
 
-depend: Sources.make
-	$(CXX) $(CXXFLAGS) -MM $(cc) > depend
+# list of distribution files:
+#
+SCRIPTS = # make_version make_patch genheader clearlily configure
+README_FILES = NEWS README TODO
+DISTFILES= Makefile .version $(README_FILES) $(SCRIPTS)
+#
 
+# generic targets and rules:
+#
+include ./$(depth)/make/Targets.make
+# include ./$(depth)/make/Rules.make
+#
 
-$(OBJECTDIR)/%.o: $(CCDIR)/%.cc
-	$(DODEP)\
-	$(CXX) -c $(CXXFLAGS) $(OUTPUT_OPTION) 
+# version:
+#
+flower-version: $(flower-version)
+$(flower-version): ./$(depth)/flower/.version ./$(bindir)/make_fversion $(build)
+	./$(bindir)/make_fversion "$(MAJOR_VERSION)" "$(MINOR_VERSION)" "$(PATCH_LEVEL)" "$(MY_PATCH_LEVEL)" "$(BUILD)" "$(CXX) $(CXXVER)" > $@
+#
 
-
-clean:
-	rm -f $(obs) $(staticlib) fversion.hh
-
-realclean: clean
-	rm -f depend
-
-fversion.hh: Variables.make make_version
-	make_version $(MAJVER) $(MINVER) $(PATCHLEVEL) "$(CXX) `$(CXXVER)`" > $@
-
-.PHONY: docxx
-docxx: $(hh) $(cc) $(templatecc) $(inl)
-	doc++ -p -d docxx $(hh) $(cc) $(templatecc) $(inl)
-
-dist:
-	-mkdir $(DDIR)
-	ln $(DFILES) $(DDIR)/
-	-for SUBDIR in $(SUBDIRS); \
-	do	mkdir $(DDIR)/$$SUBDIR; \
-		$(MAKE) SUBDIR=$$SUBDIR -C $$SUBDIR dist;\
-	done
-	tar cfz $(DNAME).tar.gz $(DNAME)/
-	rm -rf $(DDIR)/
-
-TAGS: $(ALLSOURCES)
-	etags -CT $(inl) $(cc) $(hh)
-
-
-
-test: stringtest
-
-stringtest: $(OBJECTDIR)/stringtest.o 
-	g++ -o $@ $< -L. -lflower

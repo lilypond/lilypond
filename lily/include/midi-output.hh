@@ -9,7 +9,7 @@
 
 #ifndef MIDIOUTPUT_HH
 #define MIDIOUTPUT_HH
-#include "pscore.hh"
+#include "p-score.hh"
 
 struct Midi_output {
     Midi_output(Score* score_l, Midi_def* );

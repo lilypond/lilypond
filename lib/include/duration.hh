@@ -24,11 +24,14 @@ struct Duration {
 	Duration const& operator =( Duration const& dur_c_r );
 
 	void set_plet( Plet* plet_l ); // handiger: newt zelf
+	void set_ticks( int ticks_i );
 
+	static int division_1_i_s;
 //	    int i_;	// balltype -> type!
 	int type_i_;
 	int dots_i_;
 	Plet* plet_p_;
+	int ticks_i_;
 };
 
 /// (plet)
@@ -54,11 +57,19 @@ struct Plet {
 	When Staff_column::when(), Moment Voice_element::mom().
 */
 struct Duration_convert {
-	/// Most used division in MIDI, all fine with me.
-	static int const division_1_c_i = 384;
+	static bool be_blonde_b_s;
+	static bool no_double_dots_b_s;
+	static bool no_triplets_b_s;
+	static int no_smaller_than_i_s;
 
-	/// Return (integer, division) representation.
-	static int dur2_i( Duration dur, int division_1_i = division_1_c_i );
+//	/// Most used division in MIDI, all fine with me.
+//	static int const division_1_c_i = 384;
+
+//	/// Return (integer, division) representation.
+//	static int dur2_i( Duration dur, int division_1_i = division_1_c_i );
+
+	/// Return number of ticks in (ticks, division_1) representation
+	static int dur2ticks_i( Duration dur );
 	
 	/// Return Moment representation (fraction of whole note).
 	static Moment dur2_mom( Duration dur );
@@ -66,11 +77,11 @@ struct Duration_convert {
 	/// Return Mudela string representation.
 	static String dur2_str( Duration dur );
 
-	/// Return Moment from (integer, division) representation.
-	static Moment i2_mom( int i, int division_1_i = division_1_c_i );
+//	/// Return Moment from (integer, division) representation.
+//	static Moment i2_mom( int i, int division_1_i = division_1_c_i );
 
-	/// Return Moment (fraction of whole) representation, best guess.
-	static Duration mom2_dur( Moment mom );
+//	/// Return Moment (fraction of whole) representation, best guess.
+//	static Duration mom2_dur( Moment mom );
 
 	/// Return plet factor (not a Moment: should use Rational?).
 	static Moment plet_factor_mom( Duration dur );
@@ -79,6 +90,12 @@ struct Duration_convert {
 	    mom2_dur( mom / sync_f ) will return the duration dur.		
 	*/ 
 	static Real sync_f( Duration dur, Moment mom );
+
+	/// Return exact duration, in midi-ticks if not-exact.
+	static Duration ticks2_dur( int ticks_i );
+
+	/// Return standardised duration, best guess if not exact.
+	static Duration ticks2standardised_dur( int ticks_i );
 };
 
 /// (iter_dur)

@@ -5,8 +5,8 @@
 #include "symbol.hh"
 #include "paper-def.hh"
 #include "molecule.hh"
-#include "pcol.hh"
-#include "pscore.hh"
+#include "p-col.hh"
+#include "p-score.hh"
 
 static String
 make_vbox(Interval i)

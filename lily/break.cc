@@ -6,7 +6,7 @@
 #include "linespace.hh"
 #include "debug.hh"
 #include "scoreline.hh"
-#include "pscore.hh"
+#include "p-score.hh"
 
 
 /*

@@ -8,7 +8,7 @@
 #include "lookup.hh"
 #include "paper-def.hh"
 #include "notehead.hh"
-#include "pcol.hh"
+#include "p-col.hh"
 #include "molecule.hh"
 #include "debug.hh"
 #include "boxes.hh"

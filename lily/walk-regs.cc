@@ -20,7 +20,7 @@
 #include "staff-column.hh"
 #include "voice-group-regs.hh"
 #include "voice-regs.hh"
-#include "commandrequest.hh"
+#include "command-request.hh"
 #include "score-walker.hh"
 
 Walker_registers::Walker_registers(Complex_walker *w)

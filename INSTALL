@@ -41,7 +41,8 @@ SUPPORT
     	* linux 2.0.28, g++ 2.7.2[.1]
 	* aix 4.1, g++ 2.7.2
 	* windows-nt 4.0, cygnus gnu-win32 beta17.1 (~=g++ 2.7.2)
-    	* linux 2.0.28 X to doze, gcc-go32 (~=g++ 2.7.2)
+    	* linux 2.0.28 X to doze, gcc-go32 (~=g++ 2.7.2), but segfaults 
+	  in 16 bit subsystem %-/
 
 Have fun!
 

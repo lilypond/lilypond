@@ -41,32 +41,33 @@ Lily_stream::operator <<( String str )
 			str = str.nomid_str( nl_i, 1 );
 		}
 
-		if ( ( i != str.length_i() - 1 ) && ( nl_i == -1 ) )
+		if ( ( i != str.length_i() - 1 ) && ( nl_i == -1 ) ) {
 			while ( i && ( isalnum( str[ i ] ) 
 				|| ( nobreak_str.index_i( str[ i ] ) != -1 ) ) )
 				i--;
 
-		if ( !i ) { // no room left
-			if ( column_i_ > 8 * indent_i_ ) {
-				newline();
-				if ( comment_mode_bo_ && ( str[ 0 ] != '%' ) )
-					str = '%' + str;
-				continue;
-			}
-			else { // cannot break neatly...
-				i = max_i;
+			if ( !i ) { // no room left
+				if ( column_i_ > 8 * indent_i_ ) {
+					newline();
+					if ( comment_mode_bo_ && ( str[ 0 ] != '%' ) )
+						str = '%' + str;
+					continue;
+				}
+				else { // cannot break neatly...
+					i = max_i;
+				}
 			}
 		}
-			
+				
 		String line = str.left_str( i + 1 ); 
 		str = str.mid_str( i + 1, INT_MAX );
 		*os_p_ << line;
+		column_i_ += line.length_i();
 		if ( nl_i != -1 )
 			 newline();
 		else
 			check_comment( line );
-		column_i_ += line.length_i();
-		if ( str.length_i() || ( column_i_ >= wrap_column_i_ ) ) {
+		if ( ( str.length_i() && ( nl_i == -1 ) ) || ( column_i_ >= wrap_column_i_ ) ) {
 			//brr.
 			if ( comment_mode_bo_ )
 				str = "%" + str;

@@ -8,7 +8,7 @@
 
 #include "meter-reg.hh"
 #include "meter.hh"
-#include "commandrequest.hh"
+#include "command-request.hh"
 
 Meter_register::Meter_register()
 

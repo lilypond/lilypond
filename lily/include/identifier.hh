@@ -12,7 +12,6 @@
 #include "symtable.hh"
 #include "input-staff.hh"
 #include "input-music.hh"
-#include "notename.hh"
 #include "lookup.hh"
 #include "script-def.hh"
 #include "request.hh"
@@ -38,7 +37,6 @@ make_id_class(Symtables_id, Symtables, symtables);
 make_id_class(Staff_id, Input_staff, staff);
 make_id_class(M_chord_id, Music_general_chord, mchord);
 make_id_class(M_voice_id, Music_voice, mvoice);
-make_id_class(Notetab_id, Notename_tab, notename_tab);
 make_id_class(Request_id, Request, request);
 
 #endif // IDENTIFIER_HH

@@ -1,5 +1,5 @@
 #include "break.hh"
-#include "pscore.hh"
+#include "p-score.hh"
 #include "debug.hh"
 
 /** el stupido. This should be done more accurately:

@@ -11,10 +11,10 @@
 #include "time-description.hh"
 #include "key-reg.hh"
 #include "key-item.hh"
-#include "commandrequest.hh"
+#include "command-request.hh"
 #include "staff-column.hh"
 #include "local-key-reg.hh"
-#include "musicalrequest.hh"
+#include "musical-request.hh"
 
 Key_register::Key_register()
 {

@@ -20,7 +20,7 @@
     \end{itemize}
   */
 
-struct PCol {
+struct PCol { 
     PointerList<const Item*> its;
     PointerList<const Spanner*> stoppers, starters;
     

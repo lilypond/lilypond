@@ -1,4 +1,4 @@
-#include "pstaff.hh"
+#include "p-staff.hh"
 #include "molecule.hh"
 
 PStaff::PStaff(PScore*ps)

@@ -18,6 +18,10 @@
 /** 
  */
 struct Midi_def {
+    // ugh!
+    static int den_i_s;
+    static int num_i_s;
+
     /// output file name
     String outfile_str_;
 

@@ -6,17 +6,17 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
-#include "musicalrequest.hh"
+#include "musical-request.hh"
 #include "staff-column.hh"
 #include "voice.hh"
-#include "pscore.hh"
+#include "p-score.hh"
 #include "complex-staff.hh"
 #include "debug.hh"
 #include "voice-group-regs.hh"
 #include "voice-regs.hh"
 #include "complex-walker.hh"
 //#include "misc.hh"
-#include "commandrequest.hh"
+#include "command-request.hh"
 #include "walk-regs.hh"
 
 void

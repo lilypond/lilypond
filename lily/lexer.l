@@ -4,7 +4,6 @@
 
 #include "string.hh"
 #include "string-convert.hh"
-#include "notename.hh"
 #include "lexer.hh"
 #include "varray.hh"
 #include "parser.hh"
@@ -13,6 +12,11 @@
 #include "parseconstruct.hh"
 #include "main.hh"
 #include "identparent.hh"
+
+#define start_quote()	\
+	yy_push_state(quote);\
+	yylval.string = new String
+
 
 %}
 
@@ -35,8 +39,8 @@ A		[a-zA-Z]
 AA		{A}|_
 N		[0-9]
 AN		{AA}|{N}
-PUNCT		[?!,.:;]
-ACCENT		[\\'"^]
+PUNCT		[?!,.:;']
+ACCENT		\\[`'"^]
 NATIONAL	[\241-\377]
 TEX		{AA}|-|{PUNCT}|{ACCENT}|{NATIONAL}
 
@@ -49,8 +53,6 @@ OPTSIGN		!?
 PITCHMOD	['`]*{OPTSIGN}
 RESTNAME	r|s|p
 NOTECOMMAND	\\{WORD}
-NOTENAME	[a-z]+
-UNOTENAME	[A-Z][a-z]*
 DOTS		\.+
 LYRICS		{TEX}+
 COMMENT		[%#].*\n
@@ -71,16 +73,18 @@ COMMENT		[%#].*\n
 	mtor << "rest:"<< yylval.string;
 	return RESTNAME;
 }
-<notes>{UNOTENAME}	{
-	int *p=yylval.ii;
-	return ret_notename(p, YYText(), -1);
-}
+<notes>{ALPHAWORD}	{
+	String str = YYText();
+	mtor << "word: " << str<< eol;
+	Identifier * id = lookup_identifier(str);
+	if (id) {		
+		yylval.id = id;
+		return id->token_code_i_;
+	}
 
-<notes>{NOTENAME}	{
-	int *p=yylval.ii;
-	return ret_notename(p, YYText(), 0);
+	yylval.string=new String( str );
+	return STRING;
 }
-
 <notes>{NOTECOMMAND}	{
 	String c = YYText() +1;
 	mtor << "\\word: " << YYText()+1<<eol;
@@ -97,12 +101,6 @@ COMMENT		[%#].*\n
 	return STRING;
 }
 
-<notes>{PITCHMOD}	{
-	const char *s = YYText();
-	mtor << "pitchmod:"<< YYText()<<eol;
-	yylval.string = new String (s);
-	return PITCHMOD;
-}
 <notes>{DOTS}		{
 	yylval.i = strlen(YYText());
 	return DOTS;
@@ -119,28 +117,29 @@ COMMENT		[%#].*\n
 <notes>\$	{
 	yy_pop_state();
 }
-<notes>\"[^"]*\" {
-	String s (YYText()+1);
-	s = s.left_str(s.length_i()-1);
-	yylval.string = new String(s);
-	return STRING;
+<notes>\" {
+	start_quote();
 }
 <notes>.	{
 	return yylval.c = YYText()[0];
 }
 
+
 \"		{
-	yy_push_state(quote);
+	start_quote();
 }
-<quote>[^"]*	{
-	yylval.string = new String (YYText());
+<quote>[^"]+	{
+	*yylval.string += YYText();
 }
 <quote>\"	{
-	mtor << "quoted string\n";
+	mtor << "quoted string: `" << *yylval.string << "'\n";
 	yy_pop_state();
 	return STRING;
 }
 
+<lyrics>\" {
+	start_quote();
+}
 <lyrics>{DOTS}		{
 	yylval.i = strlen(YYText());
 	return DOTS;
@@ -157,7 +156,9 @@ COMMENT		[%#].*\n
 		return l;
 
 /* let's try passing tex's typesetting macros like \ss \alpha \c */
-	String* str_p = new String(YYText());//huh?
+	String* str_p = new String(YYText());
+	yylval.string=str_p;
+	mtor << "\\word: `" << *str_p << "'\n";
 	return STRING;	
 
 /* and skip identifiers...
@@ -169,16 +170,12 @@ COMMENT		[%#].*\n
 	String *sp = new String( c);
 
 	yylval.string=sp;
+
 	return STRING;
 */
 }
-<lyrics>\"[^"]*\" {
-	String s (YYText()+1);
-	s = s.left_str(s.length_i()-1);
-	yylval.string = new String(s);
-	return STRING;
-}
 <lyrics>{LYRICS} {
+	/* ugr. This sux. */
 	String s (YYText()); 
 	int i = 0;
 	while ((i=s.index_i("_")) != -1) // change word binding "_" to " "
@@ -189,6 +186,7 @@ COMMENT		[%#].*\n
 		s = s.left_str(i+2) + " " + s.right_str(s.length_i()-i-2);
 		}
 	yylval.string = new String(s);
+	mtor << "lyric : `" << s << "'\n";
 	return STRING;
 }
 <lyrics>\|	{
