@@ -257,7 +257,8 @@
      . (
 	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(molecule-callback . ,Text_item::brew_molecule)
-	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
+	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
+			       ,Self_alignment_interface::centered_on_parent))
 	(self-alignment-X . 0)
 	(no-spacing-rods . #t)
 	(script-priority . 100)

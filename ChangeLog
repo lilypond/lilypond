@@ -1,3 +1,15 @@
+2002-05-03  Han-Wen  <hanwen@cs.uu.nl>
+
+	* mf/feta-klef.mf: more twiddling with G clef. Almost straight
+	downstroke again. Sigh.
+
+	* lily/dynamic-engraver.cc (acknowledge_grob): center dynamic
+	script on note head.
+
+2002-05-02  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/slur.cc (add_column): allow slur over rest. 
+
 2002-04-27  Han-Wen  <hanwen@cs.uu.nl>
 
 	* lily/beam.cc: move scoring constants out of code

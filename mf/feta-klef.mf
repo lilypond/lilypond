@@ -336,27 +336,28 @@ def draw_gclef (expr exact_center, reduction)=
 	z6 = center + whatever * downstroke_dir;
 	y6 = ypart center + 2 reduced_ss;
 
-	z7l - z6 = whatever *(z5- z6) ;
+	z7l - z6 = whatever * (z5 - z6) ;
 	y7l = 3.5 reduced_ss;
 
 	x9 = .7 [x10, x7r];
 	top y9l = 5 reduced_ss;
 
-	y11 = ypart center  - 20/14 reduced_ss;
-	y12 = ypart center  - 34/14 reduced_ss;
+	y11 = ypart center  - 47/28 reduced_ss;
+	y12 = ypart center  - 71/28 reduced_ss;
 	y13 = .48 [y12,y4r];
 	x11 - x13r  = 1.5 reduced_ss + 0.5 thinnib;
 	x12r = xpart (.45 [z13r , z11] + .75 reduced_ss * downstroke_dir) ;
 
-	z10=  center + whatever * dir (downstroke_angle + .5);
-	y10 = ypart center + 3.35  reduced_ss;
+%	z10=  center + whatever * dir (downstroke_angle - 1.5 );
+	x10 = x6 - 2 thinnib;
+	y10 = ypart center + 3.5  reduced_ss;
 	y10l  - y10r = 1.2 thickness;
 	z10r - z10l =
-		.9 thinnib* dir (downstroke_angle + 90) + whatever *downstroke_dir;
+		.7 thinnib* dir (downstroke_angle + 90) + whatever * downstroke_dir;
 
 	z10 = .5 [z10l, z10r];
 
-	z11 =  center + whatever * downstroke_dir + (.2 reduced_ss, 0);
+	z11 =  center + whatever * downstroke_dir +  ( .05 reduced_ss, 0);
 
 	penpos1(thinnib, inner_start_angle);
 	penpos2(thickness, 90);
@@ -364,7 +365,7 @@ def draw_gclef (expr exact_center, reduction)=
 	penpos4(thinnib, -90);
 
 
-	penpos9(1.4 thickness, -70);  
+	penpos9(1.45 thickness, -70);  
 	save lipje;
 	pair lipje;
 	lipje= .5 [z9l, z9r] +  .25 ((z9r- z9l)  rotated -90);
@@ -390,11 +391,12 @@ def draw_gclef (expr exact_center, reduction)=
 		z1r -- z1l 
 		.. tension 0.85 ..cycle;
 
- 	save p, staffline_time, q, down_staff_line_intersection;
-	path p,q;
+ 	save p, staffline_time, staff_line_path, down_staff_line_intersection;
+	path p, staff_line_path;
 	pair down_staff_line_intersection;
 	p := z4{left} .. z5{up} .. z7{up} ;
-	q := (-reduced_ss, 2 reduced_ss) ..  (2 reduced_ss,2 reduced_ss);
+
+	staff_line_path := (-reduced_ss, 2 reduced_ss) ..  (2 reduced_ss,2 reduced_ss);
 
 	draw p;
 
@@ -411,12 +413,14 @@ def draw_gclef (expr exact_center, reduction)=
 	penpos12(thinnib, bot_angle + 90);
 
 	p := z9 .. z10{down}
-		..  z11{dir (-87)}
+		.. z6
+		.. (.52 [z4, z3])
+		.. z11{down}
 		.. z12{dir(bot_angle)}
 		.. z13{up}
 	;
 	save down_intersection_t;	
-	down_intersection_t :=  xpart (p intersectiontimes  q) ;
+	down_intersection_t :=  xpart (p intersectiontimes  staff_line_path) ;
 	down_staff_line_intersection = point down_intersection_t of p;
 	z14 = down_staff_line_intersection;
 	penpos14(thinnib, angle (direction down_intersection_t of p) + 90);
@@ -427,7 +431,7 @@ def draw_gclef (expr exact_center, reduction)=
 
 	save loop_end_dir;
 	pair loop_end_dir;
-	loop_end_dir = direction (xpart (p intersectiontimes q)) of p;
+	loop_end_dir = direction (xpart (p intersectiontimes staff_line_path)) of p;
 	draw p;
 
 	penpos6(thinnib, angle (loop_end_dir) + 90);

@@ -160,7 +160,10 @@ Stem::head_count (Grob*me)
 Grob*
 Stem::first_head (Grob*me)
 {
-  return extremal_heads (me)[-get_direction (me)];
+  Direction d = get_direction (me);
+  if (!d)
+    return 0;
+  return extremal_heads (me)[-d];
 }
 
 /*
