@@ -1,3 +1,12 @@
+pl 12
+	- bf: don't redefine tex primitives like \textfont and  \mathfont
+	- nicer broken slurs (?)
+	- bf: error status upon parse error
+	- robustness in Lookup::*slur
+	- bf: mi2mu: warn if 0-length string in midi-file
+	- output id-footer
+********
+sep 1
 
 pl 11
 	- forms for Musical vocabulary 
