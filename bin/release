@@ -1,0 +1,36 @@
+#!/bin/sh
+
+
+function setversion() {
+eval `sed -n 's/^\([A-Z_]*\) *= *\(.*\)$/\1=\2/p' .version`
+MJ=$TOPLEVEL_MAJOR_VERSION
+MI=$TOPLEVEL_MINOR_VERSION
+PA=$TOPLEVEL_PATCH_LEVEL 
+MP=$TOPLEVEL_MY_PATCH_LEVEL
+NEWVER=$MJ.$MI.$PA$MP
+if [ -z $MP ]
+then
+    LASTVER=$MJ.$MI.`expr $PA - 1`
+else
+	LASTVER=$MJ.$MI.$PA
+fi
+
+echo
+echo "Current  version ("`pwd`") is $NEWVER, Last version:  $LASTVER"
+echo
+}
+heredir=`pwd`
+    make dist; 
+    setversion
+    LILYVER=$NEWVER
+    cp lilypond-$LILYVER.tar.gz ../releases
+    $heredir/bin/make_patch $LASTVER $NEWVER lilypond
+    gzip -f9 patch-$NEWVER
+    mv {lilypond-,patch-}*.gz ../
+cd ..
+tar cf updeet {lily,patch-}*.gz
+
+mv patch-*gz patches/
+mv lilypond*tar.gz releases/
+
+#time make 
