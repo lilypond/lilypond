@@ -168,7 +168,7 @@ Piano_pedal_engraver::try_music (Music *m)
 	{
 	  String nm = p->name_ + String ("Event");
 	  if (gh_equal_p (m->get_mus_property ("name") ,
-			  scm_makfrom0str (nm.to_str0())))
+			  gh_symbol2scm (nm.to_str0())))
 	    {
 	      Direction d = to_dir (m->get_mus_property ("span-direction"));
 	      p->req_l_drul_[d] = m;
@@ -469,7 +469,6 @@ Piano_pedal_engraver::typeset_all ()
       
       if (p->finished_bracket_)
 	{
-	  Grob * l = p->finished_bracket_->get_bound (LEFT);
 	  Grob * r = p->finished_bracket_->get_bound (RIGHT);      
 	  if (!r)
 	    {

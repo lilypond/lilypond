@@ -1060,11 +1060,14 @@ if 1:
 			r'pitch<\?',
 			r'dir\?',
 			'music-duration-compress',
+			'set-point-and-click!'
 			]
 
 		origre = r'\b(%s)' % string.join (changed, '|')
 		
 		str = re.sub (origre, r'ly:\1',str)
+		str = re.sub ('set-point-and-click!', 'set-point-and-click', str)
+		
 		return str
 	
 	conversions.append (((1,7,3), conv, 'ly- -> ly:'))

@@ -43,8 +43,8 @@ The following options are supported:
 @item -e,--evaluate=@var{expr}
 Evaluate the Scheme @var{expr} before parsing any @file{.ly} files.
 Multiple @code{-e} options may be given, they will be evaluated
-sequentially.  The function @code{ly-set-option} allows for access to
-some internal variables.  Use @code{-e '(ly-option-usage')} for more
+sequentially.  The function @code{ly:set-option} allows for access to
+some internal variables.  Use @code{-e '(ly:option-usage')} for more
 information.
 
 @item -f,--format=@var{format}

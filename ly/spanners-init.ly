@@ -1,11 +1,6 @@
 \version "1.7.3"
 
 
-#(define (make-span-event type spandir)
-  (let* ((m (make-music-by-name  type)))
-  (ly:set-mus-property! m 'span-direction spandir)
-  m
-  ))
 
 groupOpen = #(make-span-event 'NoteGroupingEvent START)
 groupClose = #(make-span-event 'NoteGroupingEvent STOP)
@@ -55,6 +50,7 @@ endcresc = \spanevent \stop "crescendo"
 
 % better name sustainstart/stop? 
 sustainUp = #(make-span-event 'SustainPedalEvent STOP)
+sustainDown = #(make-span-event 'SustainPedalEvent START)
 
 unaCorda = #(make-span-event 'UnaCordaEvent START)
 treCorde = #(make-span-event 'UnaCordaEvent STOP)

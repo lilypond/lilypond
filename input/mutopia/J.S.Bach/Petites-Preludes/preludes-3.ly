@@ -1,4 +1,4 @@
-#(set-point-and-click! 'line-column)
+#(ly:set-point-and-click 'line-column)
 
 opus= "BWV 999"
 piece = "3"
@@ -14,7 +14,7 @@ note, some have dotted half notes.
 This file was partly generated using m4.
 %}
 
-\version "1.5.72"
+\version "1.7.3"
 
 
 upper =   \notes \transpose c'' {

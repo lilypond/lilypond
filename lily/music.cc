@@ -40,12 +40,12 @@ Music::internal_is_music_type (SCM k)const
 }
 
 String
-Music::name ()const
+Music::name () const
 {
   SCM nm = get_mus_property ("name");
-  if (gh_string_p (nm))
+  if (gh_symbol_p (nm))
     {
-      return ly_scm2string (nm);
+      return ly_symbol2string (nm);
     }
   else
     {

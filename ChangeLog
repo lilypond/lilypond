@@ -1,3 +1,12 @@
+2002-10-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/music.cc (name): bugfix
+
+	* lily/piano-pedal-engraver.cc (try_music): fix pedals.
+
+	* lily/input-file-results.cc (code): set-point-and-click! ->
+	set-point-and-click
+	
 2002-10-13  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* Use uniform ly: prefix for exported scheme primitive functions.
