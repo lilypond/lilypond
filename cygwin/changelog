@@ -1,3 +1,12 @@
+lilypond (1.5.71-1) unstable; urgency=low
+
+  * Python module now named midi.dll.
+  * Fix detection of Cygwin build, which fixes installation of profile.d
+    scripts.
+  * Build fix.
+
+ -- Jan Nieuwenhuizen <janneke@gnu.org>  Fri,  9 Aug 2002 12:48:36 +0200
+
 lilypond (1.5.68.jcn1-1) unstable; urgency=low
 
   * First full mknetrel build.

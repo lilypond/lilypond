@@ -6,11 +6,10 @@ EXTRA_DIST_FILES = README changelog mknetrel $(wildcard *.sh *.hint)
 
 STEPMAKE_TEMPLATES = install install-out
 
-include $(depth)/make/stepmake.make 
+include $(depth)/make/stepmake.make
 
 # For cygwin builds only
-target=$(shell gcc -dumpmachine)
-ifeq ($(target),i686-pc-cygwin)
+ifneq ($(CYGWIN_BUILD),)
 
 POST_INSTALLS=$(wildcard post-*.sh)
 OUT_POST_INSTALLS=$(POST_INSTALLS:%=$(outdir)/%)

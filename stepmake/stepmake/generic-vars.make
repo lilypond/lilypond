@@ -109,4 +109,7 @@ OUTIN_FILES = $(addprefix $(outdir)/, $(IN_FILES:%.in=%))
 
 ALL_SOURCES = $(SOURCE_FILES)
 
-
+HOST_ARCH=$(shell $(CC) -dumpmachine)
+ifeq ($(HOST_ARCH),i686-pc-cygwin)
+CYGWIN_BUILD = yes
+endif
