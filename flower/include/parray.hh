@@ -12,8 +12,14 @@
 
 #include "varray.hh"
 
+/**
+  an array of pointers.
+
+  TODO
+  should init to 0.
+ */
 template<class T>
-class Pointer_array : public Array<T>
+class Link_array : public Array<T>
 {
 public:
     int find_i (T t) const{
@@ -31,4 +37,5 @@ public:
 	    return 0;
     }
 };
+
 #endif // PARRAY_HH
