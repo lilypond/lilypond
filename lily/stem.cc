@@ -112,7 +112,6 @@ Stem::chord_b() const
 }
 
 // if dir_i_ is set we return a fake value.
-
 int
 Stem::get_center_distance()
 {
@@ -173,12 +172,21 @@ Stem::set_default_extents()
 	stem_xoffset_f_ = 0;
 }
 
+/*
+  TODO
+  
+  move into note_column.cc
+
+  */
 void
 Stem::set_noteheads()
 {
     if(!head_l_arr_.size())
 	return;
     head_l_arr_.sort(Note_head::compare);
+    if (dir_i_ < 0) 
+	head_l_arr_.reverse();
+    
     head_l_arr_[0]->extremal_i_ = -1;
     head_l_arr_.top()->extremal_i_ = 1;
     int parity=1;
