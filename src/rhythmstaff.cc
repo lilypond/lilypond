@@ -1,4 +1,6 @@
 #include "molecule.hh"
+#include "score.hh"
+#include "request.hh"
 #include "notehead.hh"
 #include "stem.hh"
 #include "linestaff.hh"
@@ -17,7 +19,8 @@ Rhythmic_staff::set_output(PScore*ps)
 Item *
 Rhythmic_staff::get_TYPESET_item(Command *com)
 {
-    if (com->args[0] == "KEY" || com->args[0] == "CLEF")
+    if (com->args[0] == "KEY" || com->args[0] == "CLEF"||
+	com->args[0] == "CURRENTCLEF")
 	return 0;
     Item *i = Simple_staff::get_TYPESET_item(com);
     if (!i) return 0;

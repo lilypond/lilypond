@@ -1,9 +1,8 @@
 #ifndef VOICE_HH
 #define VOICE_HH
 
-
+#include "proto.hh"
 #include "plist.hh"
-#include "request.hh"
 
 /// class for  horizontal stuff.
 struct Voice {
@@ -35,9 +34,6 @@ struct Voice_element {
     const Voicegroup *group;
     const Voice *voice_;
     IPointerList<Request*> reqs;
-
-   PointerList<const Item *> granted_items;
-    PointerList<const Spanner *> granted_spanners;
 
     /****************/
     

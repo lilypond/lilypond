@@ -1,5 +1,6 @@
 #include "debug.hh"
 #include "voice.hh"
+#include "request.hh"
 
 Voice::Voice(Voice const&src)
 {
@@ -74,5 +75,5 @@ Voice_element::Voice_element(Voice_element const&src)
     voice_=src.voice_;
     IPointerList__copy(Request*, reqs, src.reqs, clone());
     group=src.group;
-    assert(!granted_items.size() && !granted_spanners.size());
+//    assert(!granted_items.size() && !granted_spanners.size());
 }

@@ -1,7 +1,7 @@
 
 #include "symbol.hh"
 #include "voice.hh"
-
+#include "request.hh"
 #include "staff.hh"
 #include "sccol.hh"
 #include "stcol.hh"
