@@ -1,6 +1,6 @@
 2004-02-14  Heikki Junes   <hjunes@cc.hut.fi>
 
-	* Documentation/user/refman.itely: small fixes.
+	* Documentation/user/{refman,internals}.itely: small fixes.
 
 2004-02-14  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
