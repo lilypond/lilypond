@@ -31,6 +31,7 @@ protected:
   virtual void create_audio_elements ();
   virtual int get_tempo () const;
   virtual void play_element (Audio_element * elem );
+  virtual void process_music ();
 };
 
 

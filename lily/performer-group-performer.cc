@@ -90,4 +90,31 @@ Performer_group_performer::do_announces ()
     }
 }
 
-Performer_group_performer::Performer_group_performer(){}
+Performer_group_performer::Performer_group_performer()
+{
+}
+
+/*
+  C & P from Engraver.
+
+  Should move into Translator ? 
+ */
+void
+Performer_group_performer::process_music ()
+{
+   for (SCM p = get_simple_trans_list (); gh_pair_p (p); p =ly_cdr (p))
+    {
+      Translator * t = unsmob_translator (ly_car (p));
+      Performer * eng = dynamic_cast<Performer*> (t);
+
+      if (eng)
+	eng->process_music ();
+    }
+   for (SCM p = trans_group_list_; gh_pair_p (p); p =ly_cdr (p))
+    {
+      Translator * t = unsmob_translator (ly_car (p));
+      Performer*eng = dynamic_cast<Performer*> (t);
+      if (eng)
+	eng->process_music ();
+    }
+}

@@ -231,6 +231,26 @@ Dot_column::do_shifts (Grob*me)
 {
   Link_array<Grob> dots =
     Pointer_group_interface__extract_grobs (me, (Grob*)0, "dots");
+
+  { /*
+      Trigger note collision resolution first, since that may kill off
+      dots when merging.
+     */
+    Grob * c = 0;
+    for (int i = dots.size (); i-- ; )
+      {
+	Grob * n = dots[i]->get_parent (Y_AXIS);
+	if (c)
+	  c = n->common_refpoint (c, X_AXIS);
+	else
+	  c = n;
+      }
+    for (int i = dots.size (); i-- ; )
+      {
+	Grob * n = dots[i]->get_parent (Y_AXIS);
+	n->relative_coordinate (c ,  X_AXIS);
+      }
+  }
   
   dots.sort (compare_position);
   for (int i = dots.size (); i--;)
