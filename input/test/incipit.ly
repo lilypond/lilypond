@@ -16,15 +16,17 @@ violin = \notes\relative c''{
   \specialkey \keysignature f' fis'' g' gis'';
   \time 2/2;
 
+  \key;
   a4. b8 c4 fis |
   gis~ gis8 fis16^\trill ()e b8 c \context Staff<{\voiceone a d}{\voicetwo es,4}>|
 }
 
 BC  = \notes\relative c{
-  \key D;
+  \key d;
   \time 2/2;
   \clef "bass";
 
+ \key;
   b2. cis4 | 
   d e fis g |
 }
