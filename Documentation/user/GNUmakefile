@@ -21,7 +21,6 @@ LOCALSTEPMAKE_TEMPLATES=lilypond mudela
 
 include $(depth)/make/stepmake.make 
 
-
 dvi: $(DVI_FILES)
 
 ps: $(PS_FILES)
