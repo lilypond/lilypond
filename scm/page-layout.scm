@@ -275,7 +275,7 @@ corresponding to DONE-LINES.
 CURRENT-BEST is the best result sofar, or #f."
 
     (let* ((this-page-num (if (null? best-paths)
-                              (ly:output-def-lookup bookpaper 'initialpagenumber)
+                              (ly:output-def-lookup bookpaper 'firstpagenumber)
                               (1+ (node-page-number (car best-paths)))))
            (prev-penalty (if (null? best-paths)
                              0.0
