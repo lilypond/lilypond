@@ -7,11 +7,16 @@
 #include "moment.hh"
 
 /// Hungarian postfix: req
+/**
+ a voice element wants something printed.
+see lilygut page
+ */
+
 struct Request {
     Voice_element*elt_l_;
     char const* defined_ch_c_l_m;
     
-    /****************/
+    /* *************** */
     Request();
     Request(Request const&);
     virtual ~Request(){}
@@ -47,11 +52,6 @@ struct Request {
 protected:
     virtual void do_print()const ;
 };
-/**
- a voice element wants something printed.
-see lilygut page
- */
-
 
 #define REQUESTMETHODS(T,accessor)	\
 virtual T * accessor() { return this;}\
@@ -83,7 +83,7 @@ struct Rhythmic_req : virtual Request {
     int balltype;
     int dots;
     Moment plet_factor;
-    /****************/
+    /* *************** */
     static int compare(const Rhythmic_req &, const Rhythmic_req &);
     Moment duration() const;
     Rhythmic_req();
@@ -95,7 +95,7 @@ struct Spacing_req :virtual Request {
     Moment next;
     Real distance;
     Real strength;
-    /****************/
+    /* *************** */
     Spacing_req();
     REQUESTMETHODS(Spacing_req, spacing);
 };
@@ -109,7 +109,7 @@ struct Blank_req : Spacing_req, Rhythmic_req {
 struct Text_req : virtual Request {
     int dir_i_;
     Text_def *tdef_p_;
-    /****************/
+    /* *************** */
     Text_req(int d, Text_def*);
     ~Text_req();
     Text_req(Text_req const&);
@@ -152,25 +152,29 @@ struct Note_req : Rhythmic_req, virtual Melodic_req {
 
 
 ///Put a rest on the staff.
-struct Rest_req : Rhythmic_req {
-
- REQUESTMETHODS(Rest_req,rest);
-};
 /**
 Why a request? It might be a good idea to not typeset the rest, if the paper is too crowded.
 */
 
+struct Rest_req : Rhythmic_req {
+
+ REQUESTMETHODS(Rest_req,rest);
+};
 /// attach a stem to the noteball
+/**
+  Rhythmic_req parent needed to  determine if it will fit inside a beam.
+  */
+
 struct Stem_req : Rhythmic_req {
     int dir_i_;
     Stem_req(int s, int dots);
     REQUESTMETHODS(Stem_req,stem);
 };
-/**
-  Rhythmic_req parent needed to  determine if it will fit inside a beam.
-  */
 
 /// requests to start or stop something.
+/**
+ This type of request typically results in the creation of a #Spanner#
+*/
 struct Span_req : Request {
     /// should the spanner start or stop, or is it unwanted?
     enum {
@@ -182,24 +186,21 @@ struct Span_req : Request {
     Span_req();
   
 };
-/**
- This type of request typically results in the creation of a #Spanner#
-*/
 
 
 ///Start / stop a beam at this note.
-struct Beam_req : Span_req {
-    int nplet;
-
-    /****************/
-     REQUESTMETHODS(Beam_req,beam);
-
-    Beam_req();
-};
 
 /**   if #nplet# is set, the staff will try to put an
 appropriate number over the beam
     */
+struct Beam_req : Span_req {
+    int nplet;
+
+    /* *************** */
+     REQUESTMETHODS(Beam_req,beam);
+
+    Beam_req();
+};
 
 /// a slur
 struct Slur_req : Span_req {
@@ -209,32 +210,32 @@ struct Slur_req : Span_req {
 
 
 ///Put a script above or below this ``note''    
+/** eg upbow, downbow. Why a request? These symbols may conflict with
+slurs and brackets, so this also a request */
 struct Script_req : Request {
     int dir_i_;
     Script_def *scriptdef_p_;
 
-    /****************/
+    /* *************** */
     static int compare(const Script_req &, const Script_req &);
     Script_req(int d, Script_def*);
     REQUESTMETHODS(Script_req,script);
     ~Script_req();
     Script_req(Script_req const&);
 };
-/** eg upbow, downbow. Why a request? These symbols may conflict with
-slurs and brackets, so this also a request */
 
 
 /// designate this spot with a name.
 struct Mark_req : Request {
     String mark_str_;
-    /****************/
+    /* *************** */
     Mark_req(String);
     REQUESTMETHODS(Mark_req,mark);
 };
 
 struct Staff_command_req : Request {
     Input_command * com_p_;
-    /****************/
+    /* *************** */
     Staff_command_req(Staff_command_req const&);
     ~Staff_command_req();
     Staff_command_req(Input_command*);
@@ -280,9 +281,6 @@ struct Subtle_req {
 };
 
 /// helper in the hierarchy
-struct Dynamic:Subtle_req {
-
-};
 /** Each dynamic is bound to one note ( a crescendo spanning multiple
     notes is thought to be made of two "dynamics": a start and a stop).
     Dynamic changes can occur in a smaller time than the length of its
@@ -295,6 +293,9 @@ struct Dynamic:Subtle_req {
     Dynamic should have been derived from request, but I don't want to
     fuss with virtual baseclasses.  */
 
+struct Dynamic:Subtle_req {
+
+};
 /// do a crescendo
 struct Cresc_req : Span_req, Dynamic {
     

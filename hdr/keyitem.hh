@@ -12,7 +12,7 @@
 
 struct Clef;
 
-/// 
+///   An item which places accidentals at the start of the line
 struct Keyitem : Item {
     const char * name() const;
     Array<int> pitch;
@@ -20,7 +20,7 @@ struct Keyitem : Item {
     int c_position;
 
     
-    /****************/
+    /* *************** */
     
     Keyitem(int cposition);
     void add(int pitch, int acc);
@@ -31,8 +31,5 @@ struct Keyitem : Item {
 
     Molecule* brew_molecule_p()const;
 };
-/**
-  An item which places accidentals at the start of the line
-  */
 
 #endif // KEYITEM_HH

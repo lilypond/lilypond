@@ -11,7 +11,7 @@ struct Atom {
     Offset off;
     Symbol sym;
 
-    /****************/
+    /* *************** */
     
     void translate(Offset o) {
 	off += o;
@@ -26,11 +26,13 @@ struct Atom {
     String TeXstring() const;
 };
 
-/// a group of #Atom#s
+
+/** a group of individually translated symbols. You can add molecules
+    to the top, to the right, etc.  */
 struct Molecule {
     IPointerList<Atom*> ats;	// change to List<Atom>? 
 
-    /****************/
+    /* *************** */
     
     Molecule() { }
     Molecule(Atom a) { add(a) ; }
@@ -52,6 +54,4 @@ struct Molecule {
 private:
     void operator=(const Molecule&);
 };
-/** a group of individually translated symbols. You can add molecules
-    to the top, to the right, etc.  */
 #endif

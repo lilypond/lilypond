@@ -33,7 +33,7 @@ struct My_flex_lexer : yyFlexLexer {
     Notename_tab * defaulttab;
     char const* data_ch_c_l_m;
     int errorlevel_i_;
-    /****************/
+    /* *************** */
     int ret_notename(int *p, String text, int octave_mod);    
     char const* here_ch_c_l();
     void set(Notename_tab *n);

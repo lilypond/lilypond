@@ -9,11 +9,10 @@
 class Source_file
 {
 public:
-    ///
-    Source_file( String &filename_str );
     /**
       RETURN path to opened file.
      */
+    Source_file( String &filename_str );
     ~Source_file();
     char const* ch_c_l();
     String error_str( char const* pos_ch_c_l );

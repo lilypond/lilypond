@@ -16,7 +16,7 @@
 struct Commands_at : public IPointerList<Input_command*> {
     Time_description tdescription_;
     
-    /****************/
+    /* *************** */
 
     Moment when();
     void parse(Staff_commands_at*);
@@ -30,7 +30,7 @@ struct Commands_at : public IPointerList<Input_command*> {
 
 struct Input_cursor : public PCursor<Commands_at*>
 {
-    /****************/
+    /* *************** */
     Input_cursor(PCursor<Commands_at*>);
     Moment when()const;
     void find_moment(Moment w);
@@ -42,7 +42,7 @@ struct Input_cursor : public PCursor<Commands_at*>
 struct Input_commands : public IPointerList<Commands_at*> {    
     Input_cursor ptr;
     
-    /****************/
+    /* *************** */
 
     void find_moment(Moment);
     void add(Input_command c,Assoc<String,Moment> &marks_assoc_r);

@@ -14,20 +14,19 @@ public:
     Vector lin;
     Real const_term;
 
-    ///
-    void assert_solution(Vector sol) const;
+
     /**
       use a KKT method to assert optimality of sol
       */
-    /// solve the problem using a projected gradient method
+     void assert_solution(Vector sol) const;
+  /// solve the problem using a projected gradient method
     Vector solve(Vector start) const;
     
+    /** return the number of variables in the problem */
     int dim() const{
 	return lin.dim();
     }
-    /** return the number of variables in the problem */
-    ///
-    void add_inequality_cons(Vector c, double r);
+
     /**
       add a constraint
 
@@ -38,14 +37,15 @@ public:
       c.dim() == dim();
 	
       */
-    ///
-    Ineq_constrained_qp(int novars);
+    void add_inequality_cons(Vector c, double r);
+    
     /** set up matrices to go with the problem. */
-
-    Real eval(Vector v);
+    Ineq_constrained_qp(int novars);
+    
     /**
     evaluate the quadratic function for input #v#
     */
+    Real eval(Vector v);
 
     void eliminate_var(int idx, Real value);
     void OK()const;
@@ -54,6 +54,15 @@ public:
 };
 
 /// Quadratic programming with mixed linear constraints
+/**
+  problem definition of a quadratic optimisation problem with linear
+  inequality and equality constraints
+
+
+    x^T QUAD x /2 + b^T x 
+*/
+
+
 class Mixed_qp :public Ineq_constrained_qp {
     Array<int> eq_cons;
     Array<Real> eq_consrhs;
@@ -65,8 +74,7 @@ public:
     Vector solve(Vector start) const;
     void add_fixed_var(int i , Real value);
     
-    ///
-    void add_equality_cons(Vector c, double r);
+
     /**
       add a constraint,
 
@@ -75,15 +83,6 @@ public:
       PRE
       c.dim()==dim();
      */
-
+    void add_equality_cons(Vector c, double r);
 };
-/**
-  problem definition of a quadratic optimisation problem with linear
-  inequality and equality constraints
-
-
-    x^T QUAD x /2 + b^T x 
-*/
-
-
 #endif

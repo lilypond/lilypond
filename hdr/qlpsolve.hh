@@ -2,6 +2,18 @@
 #include "matrix.hh"
 
 
+/**
+    This class represents the set of active (binding) constraints
+    which can be active while the QLP algorithm is in a feasible
+    point. The active constraints are numbered.
+    If the constraints are of the form
+
+      A^T*x >= b
+
+    then the binding constraints are those where the >= is equality.
+    
+  */
+
 class Active_constraints {
     friend class Inactive_iter;
     
@@ -18,23 +30,23 @@ public:
     Real rhs(int k) const { return opt->consrhs[k]; }
     
     /// drop constraint
-    void drop (int k);
     /** drop constraint k from the active set. k is the index of the
     constraint in #active#
     
     */
+    void drop (int k);
     
     ///     add constraint j
-    void add(int j);
     /**
     add constraint j to the active set j is the index of the
     constraint in #inactive#   
     */
+    void add(int j);
 
     /// exchange in and out.
     void exchange(int in, int out) { add(in); drop (out); }
     
-    /// 
+
     Vector find_active_optimum(Vector g);
 
     /// get lagrange multipliers.
@@ -48,19 +60,10 @@ public:
     void OK();
 };
 
+
 /**
-    This class represents the set of active (binding) constraints
-    which can be active while the QLP algorithm is in a feasible
-    point. The active constraints are numbered.
-    If the constraints are of the form
-
-      A^T*x >= b
-
-    then the binding constraints are those where the >= is equality.
-    
+    loop through the inactive constraints.
   */
-
-///
 class Inactive_iter {
     int j;
     Active_constraints const* ac;
@@ -73,6 +76,3 @@ public:
     Real rhs() const { return ac->rhs(constraint_id()); }
     bool ok() const { return j < ac->inactive.size(); }
 };
-/**
-    loop through the inactive constraints.
-  */

@@ -29,7 +29,7 @@ struct Time_description {
     /// idem
     int bars;
 
-    /****************/
+    /* *************** */
     void set_cadenza(bool);
     void OK() const;
     Time_description(Moment, const Time_description*);

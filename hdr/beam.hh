@@ -10,14 +10,16 @@
 #include "directionalspanner.hh"
 #include "plist.hh"
 
-/// a beam connects multiple stems 
+/** a beam connects multiple stems Beam adjusts the stems its owns to
+make sure that they reach the beam and that point in the correct
+direction */
 struct Beam:  public Directional_spanner {
     PointerList<Stem*> stems;
     Real slope;
     Real left_pos;
-    /// dir: -1 below heads, +1 above heads.
+   
 
-    /****************/
+    /* *************** */
     const char * name() const;
     
     virtual Interval width()const;    
@@ -41,8 +43,6 @@ private:
     void solve_slope();
     Molecule*brew_molecule_p()const;
 };
-/** Beam adjusts the stems its owns to make sure that they reach the
-  beam and that point in the correct direction */
 
 #endif // BEAM_HH
 

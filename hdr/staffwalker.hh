@@ -10,13 +10,17 @@
 
 #include "staff.hh"
 
+/**
+  manage run-time info when walking staffcolumns such as: key,
+  meter, pending beams & slurs
+  */
 struct Staff_walker : public PCursor<Staff_column*> {
     Staff * staff_l_;
     PScore * pscore_l_;
 
     int break_status;
     
-    /****************/
+    /* *************** */
 
     int priority() const;		// Command
     Moment when() const;    
@@ -26,9 +30,9 @@ struct Staff_walker : public PCursor<Staff_column*> {
     void process_command(Command *);
     void operator++(int);
 
-    /****************
+    /* ***************
       VIRTUAL
-     ****************/
+     *************** */
 
     /// every time ++ is called
     virtual void do_pre_move(){}
@@ -39,10 +43,6 @@ struct Staff_walker : public PCursor<Staff_column*> {
 private:
     Staff_walker(Staff_walker const&);
 };
-/**
-  manage run-time info when walking staffcolumns such as: key,
-  meter, pending beams & slurs
-  */
 
 #endif // STAFFWALKER_HH
 

@@ -8,13 +8,12 @@
 #define REST_HH
 #include "item.hh"
 
-/// ball at the end of the stem
 struct Rest : Item {
 
     int dots;
     int balltype;
 
-    /****************/
+    /* *************** */
 
 
     Rest(int dur,int dots);
@@ -22,12 +21,5 @@ struct Rest : Item {
     const char * name() const;
     Molecule* brew_molecule_p()const;
 };
-/**
-  takes care of:
-
-  * help lines  
-  * proper placing of dots 
-
-  */
 #endif 
 

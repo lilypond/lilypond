@@ -116,7 +116,7 @@ Ineq_constrained_qp::print() const
 #endif
 }
 
-/****************/
+/* *************** */
 
 /*
     eliminate appropriate variables, until we have a Ineq_constrained_qp

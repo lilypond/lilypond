@@ -11,27 +11,6 @@
 #include "staffelem.hh"
 
 /// a symbol which is attached between two columns.
-struct Spanner:Staff_elem {
-    PCol *left, *right;
-
-    
-    /****************/
-    
-    Spanner();
-    virtual Interval width()const;
-    void do_print()const;
-    const char* name()const;
-    Spanner *broken_at(PCol *c1,  PCol *c2) const;
-    virtual Spanner* spanner() { return this; }
-protected:
-    /// clone a piece of  this spanner.
-    virtual Spanner *do_break_at( PCol *c1,  PCol *c2) const=0; 
-    /**
- 
-    PRE
-    c1 >= start, c2  <= stop
-    */
-};
 /** A spanner is a symbol which spans across several columns, so its
   final appearance can only be calculated after the breaking problem
   is solved.
@@ -50,4 +29,25 @@ protected:
     length of stems of notes they encompass.
 
     */
+struct Spanner:Staff_elem {
+    PCol *left, *right;
+
+    
+    /* *************** */
+    
+    Spanner();
+    virtual Interval width()const;
+    void do_print()const;
+    const char* name()const;
+    Spanner *broken_at(PCol *c1,  PCol *c2) const;
+    virtual Spanner* spanner() { return this; }
+protected:
+    /// clone a piece of  this spanner.
+    /**
+ 
+    PRE
+    c1 >= start, c2  <= stop
+    */
+    virtual Spanner *do_break_at( PCol *c1,  PCol *c2) const=0; 
+};
 #endif

@@ -39,7 +39,7 @@ Atom::TeXstring() const
     return substitute_args(s, a);
 }
 
-/****************/
+/* *************** */
 
 String
 Molecule::TeXstring() const

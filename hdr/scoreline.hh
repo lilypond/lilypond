@@ -19,7 +19,7 @@ Line_of_score {
     IPointerList<Line_of_staff*> staffs;
     PScore * pscore_l_;	// needed to generate staffs
 
-    /****************/
+    /* *************** */
     void process() ;
     Line_of_score(Array<PCol *> sv,  PScore *);
 

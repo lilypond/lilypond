@@ -17,7 +17,7 @@ struct Clef_item : Item {
     bool change;
 
 
-    /****************/
+    /* *************** */
 
     Clef_item();
     void read(Clef);

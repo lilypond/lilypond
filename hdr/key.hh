@@ -13,7 +13,7 @@
 class Key {
     Array<int> accidentals;
 
-    /****************/
+    /* *************** */
 
 public:
     Array<int> read(Array<Scalar> );

@@ -3,7 +3,15 @@
 #include "string.hh"
 #include "moment.hh"
 
-/// symbols, dimensions and constants
+
+/** symbols, dimensions and constants
+
+  This struct takes care of all kinds of symbols, dimensions and
+ constants. Most of them are related to the point-size of the fonts,
+ so therefore, the lookup table for symbols is also in here.
+
+ see TODO
+ */
 struct Paperdef {
     Lookup *lookup_p_;
     String outfile;
@@ -16,7 +24,7 @@ struct Paperdef {
     /// ideal = geometric_ ^ log2(duration)
     Real geometric_;
     
-    /****************/
+    /* *************** */
     void reinit();
     Paperdef(Lookup*);
     void set(Lookup*);
@@ -30,9 +38,4 @@ struct Paperdef {
     void print() const;
     Real duration_to_dist(Moment);
 };
-/** This struct takes care of all kinds of symbols, dimensions and
- constants. Most of them are related to the point-size of the fonts,
- so therefore, the lookup table for symbols is also in here.
 
- see TODO
- */
