@@ -1,3 +1,12 @@
+\header{
+texidoc="
+Rests should not collide with beams, stems and noteheads.  Rests may
+be under beams.  Rests should be move by integral number of spaces
+inside the staff, and by half spaces outside.  Notice that the half
+and whole rests just outside the staff get ledger lines in different
+cases.
+";
+}
 
 scale = \notes \relative c' {
   c8 d e f g a b c c d e f g a b c

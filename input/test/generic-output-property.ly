@@ -1,3 +1,10 @@
+\header{
+texidoc="
+As a last resort, the placement of items can be adjusted manually, by
+setting the @code{extra-offset} of an output object.
+";
+}
+
 \score{
 	\notes\relative c''{
   	\outputproperty #(make-type-checker 'note-head-interface) 

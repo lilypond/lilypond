@@ -1,3 +1,10 @@
+\header{
+texidoc="
+Beams can be typeset over fixed distance aligned staffs, beam
+beautification doesn't really work, but knees do. Beams should be
+behave well, wherever the switching point is.
+";
+}
 \score{
 	\context PianoStaff <
 	\context Staff=one \notes\relative c'{

@@ -1,3 +1,9 @@
+\header{
+texidoc="
+Auto change piano staff switches  voices  between up and down staffs
+automatically; rests are switched along with the coming note.
+";
+}
 
 \score {
 	\notes \context PianoStaff <

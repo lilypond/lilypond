@@ -1,4 +1,9 @@
-
+\header{
+texidoc="
+The same goes for slurs. They behave decently when broken across
+linebreak.
+";
+}
 
 	
 \score{

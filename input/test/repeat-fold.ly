@@ -1,3 +1,8 @@
+\header{
+texidoc="
+Folded.  This doesn't make sense without alternatives, but it works.
+";
+}
 
 \score { \notes\context Staff\relative c'' {
 \repeat fold 3 { c^"3$\\times$ 0alt" d }

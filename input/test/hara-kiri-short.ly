@@ -1,3 +1,10 @@
+\header{
+texidoc="
+Hara kiri staffs kill themselves if they are empty.  This example really
+contains two staffs, but the second contains only spaces, and is
+therefore removed. 
+";
+}
 
 \version "1.3.110";
 zager = \context Staff = zager \notes \relative c'' {

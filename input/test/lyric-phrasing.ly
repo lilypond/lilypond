@@ -25,14 +25,14 @@ textIII =  \lyrics  { la -- da __ doo dah; dargh la dargh loo.  }
 \score {
 
     \notes < \context Staff = SA \context Voice = VA { s1 }
-      \context LyricVoice = "VA-1" { s1 }
-      \context LyricVoice = "VA-2" { s1 }
+      \context LyricsVoice = "VA-1" { s1 }
+      \context LyricsVoice = "VA-2" { s1 }
       
       \addlyrics
 	  \context Staff = SA \m
-	  < \context LyricVoice = "VA-1" \textI
-	    \context LyricVoice = "VA-2" \textII
-	    \context LyricVoice = "VA-3" \textIII
+	  < \context LyricsVoice = "VA-1" \textI
+	    \context LyricsVoice = "VA-2" \textII
+	    \context LyricsVoice = "VA-3" \textIII
 	  >
 	  
     >

@@ -1,3 +1,9 @@
+\header{
+texidoc="
+Simple glissando lines between notes are supported.
+";
+}
+
 \score{
     <
         \context Staff=one \notes\relative c''{

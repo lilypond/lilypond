@@ -1,3 +1,9 @@
+\header{
+texidoc="
+Adding a @code{Bar_engraver} to the LyricsVoice context makes sure that
+lyrics don't collide with barlines.
+";
+}
 
 \score {
 	\context StaffGroup <

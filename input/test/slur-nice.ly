@@ -1,4 +1,10 @@
-
+\header{
+texidoc="
+Slurs should look nice and symmetric.  The curvature may increase
+only to avoid noteheads, and as little as possible.  Slurs never
+run through noteheads or stems.
+";
+}
 \version "1.3.110";
 \score{
 	\notes\relative c''{

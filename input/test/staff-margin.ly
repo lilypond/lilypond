@@ -1,3 +1,10 @@
+\header{
+texidoc="
+Staff margins are also markings attached to barlines.  They should be
+left of the staff, and be centered vertically wrt the staff.  They may
+be on normal staffs, but also on compound staffs, like the PianoStaff
+";
+}
 
 	
 \version "1.3.110";

@@ -1,4 +1,17 @@
 \header{
+texidoc="
+Lyrics can be set to a melody automatically.  Excess lyrics will be
+dumped.  Lyrics will not be set over rests.  You can have melismata
+either by setting a property melismaBusy, or by setting
+automaticMelismas (which will set melismas during slurs and ties).  If
+you want a different order than first Music, then Lyrics, you must
+precook a chord of staffs/lyrics and label those.  Of course
+@code{\rhythm} ignores any other rhythms in the piece.  Hyphens and
+extenders do not assume anything about lyric lengths, so they continue
+to work.
+";
+
+
 filename =	 "twinkle-pop.ly";
 %title =	 "Ah, vous dirais-je, maman ";
 description =	 "twinkle twinkle in pop-song-settings";
