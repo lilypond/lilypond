@@ -147,6 +147,8 @@ and documenting bugfixes.
 
 @lilypondfile[printfilename]{repeat-line-break.ly}
 
+@lilypondfile[printfilename]{percent-repeat.ly}
+
 @lilypondfile[printfilename]{auto-change.ly}
 
 

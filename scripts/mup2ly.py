@@ -795,7 +795,7 @@ class Parser:
 		debug ('voice: ' + line)
 
 	def init_context_grids (self, line):
-		self.parse_function = self.parse_context_line
+		self.parse_function = self.parse_context_grids
 
 	def parse_context_grids (self, line):
 		debug ('grids: ' + line)
