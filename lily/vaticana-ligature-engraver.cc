@@ -23,7 +23,7 @@ private:
   Real finish_primitive (Item *first_primitive,
 			 Item *primitive,
 			 int context_info,
-			 String head,
+			 String glyph_name,
 			 int pitch_delta,
 			 Real flexa_width,
 			 Real join_thickness,
@@ -52,7 +52,7 @@ Real
 Vaticana_ligature_engraver::finish_primitive (Item *first_primitive,
 					      Item *primitive,
 					      int context_info,
-					      String head,
+					      String glyph_name,
 					      int pitch_delta,
 					      Real flexa_width,
 					      Real join_thickness,
@@ -60,14 +60,14 @@ Vaticana_ligature_engraver::finish_primitive (Item *first_primitive,
 {
   if (primitive)
     {
-      // determine width of previous head and x-shift
+      // determine width of previous head and x-offset
       Real head_width;
-      Real x_shift;
+      Real x_offset;
       bool is_stacked;
       is_stacked = context_info & PES_UPPER;
       if (context_info & FLEXA_LEFT)
 	is_stacked = false;
-      if (!String::compare (head, "vaticana_cephalicus") &&
+      if (!String::compare (glyph_name, "vaticana_cephalicus") &&
 	  !(context_info & PES_LOWER))
 	is_stacked = true;
       if (context_info & AUCTUM)
@@ -82,35 +82,35 @@ Vaticana_ligature_engraver::finish_primitive (Item *first_primitive,
 	   * and the other head are horizontally aligned.
 	   */
 	  head_width = 0.0;
-	  x_shift = join_thickness -
+	  x_offset = join_thickness -
 	    Font_interface::get_default_font (primitive)->
-	    find_by_name ("noteheads-" + head).extent (X_AXIS).length ();
+	    find_by_name ("noteheads-" + glyph_name).extent (X_AXIS).length ();
 	}
-      else if (!String::compare (head, "porrectus") ||
-	       !String::compare (head, ""))
+      else if (!String::compare (glyph_name, "porrectus") ||
+	       !String::compare (glyph_name, ""))
 	{
 	  /*
 	   * This head represents either half of a porrectus shape.
 	   * Hence, it is assigned half the width of this shape.
 	   */
 	  head_width = 0.5 * flexa_width;
-	  x_shift = 0.0;
+	  x_offset = 0.0;
 	}
       else // retrieve width from corresponding font
 	{
 	  head_width =
 	    Font_interface::get_default_font (primitive)->
-	    find_by_name ("noteheads-" + head).extent (X_AXIS).length ();
-	  x_shift = 0.0;
+	    find_by_name ("noteheads-" + glyph_name).extent (X_AXIS).length ();
+	  x_offset = 0.0;
 	}
 
       /*
-       * Save the head's final shape and x-shift.
+       * Save the head's final shape and x-offset.
        */
-      primitive->set_grob_property ("ligature-head",
-				    ly_symbol2scm (head.to_str0 ()));
-      primitive->set_grob_property ("x-shift",
-				    gh_double2scm (x_shift));
+      primitive->set_grob_property ("glyph-name",
+				    ly_symbol2scm (glyph_name.to_str0 ()));
+      primitive->set_grob_property ("x-offset",
+				    gh_double2scm (x_offset));
 
       /*
        * If the head is the 2nd head of a pes or flexa (but not a
@@ -186,14 +186,14 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
   int prev_context_info = 0;
   int prev_pitch = 0;
   int prev_pitch_delta = 0;
-  String prev_head = "";
+  String prev_glyph_name = "";
   Real prev_distance = 0.0;
   for (int i = 0; i < primitives.size(); i++) {
     Item *primitive = dynamic_cast<Item*> (primitives[i].grob_);
     Music *music_cause = primitives[i].music_cause ();
     int context_info = gh_scm2int (primitive->get_grob_property ("context-info"));
     int pitch = unsmob_pitch (music_cause->get_mus_property ("pitch"))->steps ();
-    String head;
+    String glyph_name;
     if (!first_primitive)
       first_primitive = primitive;
     int prefix_set = gh_scm2int (primitive->get_grob_property ("prefix-set"));
@@ -205,51 +205,51 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
      * the backend).
      */
     if (prefix_set & VIRGA)
-      head = "vaticana_virga";
+      glyph_name = "vaticana_virga";
     else if (prefix_set & QUILISMA)
-      head = "vaticana_quilisma";
+      glyph_name = "vaticana_quilisma";
     else if (prefix_set & ORISCUS)
-      head = "solesmes_oriscus";
+      glyph_name = "solesmes_oriscus";
     else if (prefix_set & STROPHA)
       if (prefix_set & AUCTUM)
-	head = "solesmes_stropha_aucta";
-      else head = "solesmes_stropha";
+	glyph_name = "solesmes_stropha_aucta";
+      else glyph_name = "solesmes_stropha";
     else if (prefix_set & SEMIVOCALIS)
       if (pitch > prev_pitch)
-	head = "vaticana_epiphonus";
-      else head = "vaticana_cephalicus";
+	glyph_name = "vaticana_epiphonus";
+      else glyph_name = "vaticana_cephalicus";
     else if (prefix_set & INCLINATUM)
       if (prefix_set & AUCTUM)
-	head = "solesmes_incl_auctum";
+	glyph_name = "solesmes_incl_auctum";
       else if (prefix_set & DEMINUTUM)
-	head = "solesmes_incl_parvum";
+	glyph_name = "solesmes_incl_parvum";
       else
-	head = "vaticana_inclinatum";
+	glyph_name = "vaticana_inclinatum";
     else if (prefix_set & (CAVUM | LINEA))
       if ((prefix_set & CAVUM) && (prefix_set & LINEA))
-	head = "vaticana_linea_punctum_cavum";
+	glyph_name = "vaticana_linea_punctum_cavum";
       else if (prefix_set & CAVUM)
-	head = "vaticana_punctum_cavum";
+	glyph_name = "vaticana_punctum_cavum";
       else
-	head = "vaticana_linea_punctum";
+	glyph_name = "vaticana_linea_punctum";
     else if (prefix_set & AUCTUM)
       if (prefix_set & ASCENDENS)
-	head = "solesmes_auct_asc";
+	glyph_name = "solesmes_auct_asc";
       else
-	head = "solesmes_auct_desc";
+	glyph_name = "solesmes_auct_desc";
     else if (prefix_set & DEMINUTUM)
-      head = "vaticana_plica";
+      glyph_name = "vaticana_plica";
     else if ((prefix_set & PES_OR_FLEXA) &&
 	     (context_info & PES_LOWER) &&
 	     (context_info & FLEXA_RIGHT))
-      head = ""; // second head of porrectus
+      glyph_name = ""; // second head of porrectus
     else if (context_info & PES_UPPER)
       if (pitch - prev_pitch > 1)
-	head = "vaticana_upes";
+	glyph_name = "vaticana_upes";
       else
-	head = "vaticana_vupes";
+	glyph_name = "vaticana_vupes";
     else
-      head = "vaticana_punctum";
+      glyph_name = "vaticana_punctum";
 
     /*
      * May need updating previous head, depending on the current head.
@@ -258,7 +258,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
       if ((context_info & PES_LOWER) &&
 	  (context_info & FLEXA_RIGHT)) // porrectus
 	{
-	  prev_head = "porrectus";
+	  prev_glyph_name = "porrectus";
 	  prev_primitive->set_grob_property ("porrectus-height",
 					     gh_int2scm (pitch - prev_pitch));
 	  prev_primitive->set_grob_property ("porrectus-width",
@@ -271,13 +271,13 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 	}
       else if (context_info & PES_UPPER)
 	{
-	  if (!String::compare (prev_head, "vaticana_punctum"))
-	    prev_head = "vaticana_lpes";
+	  if (!String::compare (prev_glyph_name, "vaticana_punctum"))
+	    prev_glyph_name = "vaticana_lpes";
 	}
       else // flexa
 	{
-	  if (!String::compare (prev_head, "vaticana_punctum"))
-	    prev_head = "vaticana_rvirga";
+	  if (!String::compare (prev_glyph_name, "vaticana_punctum"))
+	    prev_glyph_name = "vaticana_rvirga";
 	}
 
     /*
@@ -300,21 +300,21 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
      */
     prev_distance =
       finish_primitive (first_primitive, prev_primitive,
-			prev_context_info, prev_head, prev_pitch_delta,
+			prev_context_info, prev_glyph_name, prev_pitch_delta,
 			flexa_width, join_thickness, prev_distance);
 
     prev_primitive = primitive;
     prev_context_info = context_info;
     prev_pitch_delta = pitch - prev_pitch;
     prev_pitch = pitch;
-    prev_head = head;
+    prev_glyph_name = glyph_name;
   }
 
   /*
    * Finish head of last iteration for backend.
    */
   finish_primitive (first_primitive, prev_primitive,
-		    prev_context_info, prev_head, prev_pitch_delta,
+		    prev_context_info, prev_glyph_name, prev_pitch_delta,
 		    flexa_width, join_thickness, prev_distance);
 }
 

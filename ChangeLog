@@ -1,3 +1,14 @@
+	
+2002-01-08  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* lily/gregorian-ligature-engraver.cc: bugfix: added missing
+	interfaces for (abstract) grob GregorianLigature
+
+	* lily/vaticana-ligature-engraver.cc, lily/vaticana-ligature.cc:
+	renamed head* -> glyph_name*, x-shift* -> x-offset*
+
+	* scm/grob-property-description.scm: bugfix: added missing descriptions
+
 2003-01-07  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* input/test/chord-names-dpnj.ly: New file.
@@ -11,7 +22,7 @@
 	(double-plus-new-chord->markup): Fix sub->markup.
 
 
-2003-01-07  Juergen Reuter  <reuter@ipd.uka.de>
+g2003-01-07  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* lily/custos-engraver.cc: added TODO; editorial changes
 

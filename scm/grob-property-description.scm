@@ -377,6 +377,8 @@ as a real penalty.")
 (grob-property-description 'pitches list? "list of musical-pitch.")
 (grob-property-description 'quilisma boolean? "is this neume a quilisma?.")
 (grob-property-description 'positions pair? "cons of staff positions (LEFT . RIGHT")
+(grob-property-description 'porrectus-height number? "in staffspace.")
+(grob-property-description 'porrectus-width number? "in staffspace.")
 (grob-property-description 'raise number? "height for text to be raised (a negative value lowers the text.")
 (grob-property-description 'ratio number? "Slur parameter.  See height-limit.")
 (grob-property-description 'right-padding number? "space right of accs.")
@@ -551,6 +553,7 @@ no extent.
 (grob-property-description 'width number? "width of a grob measured in staff space.")
 (grob-property-description 'width-correct number? "width correction for (de)cresc. text spanners.")
 (grob-property-description 'x-gap number? "horizontal gap between notehead and tie.")
+(grob-property-description 'x-offset number? "extra horizontal offset for ligature heads.")
 (grob-property-description 'y-free number? "minimal vertical gap between slur and noteheads or stems.")
 (grob-property-description 'y-offset number? "extra vertical offset
 for ties away from the center line.")
@@ -604,7 +607,7 @@ staff in a row more often, when the heights of the notes vary.
 -- can be stored for debugging")
 (grob-property-description 'least-squares-dy number? 
  "ideal beam slope, without damping.")
-(grob-property-description 'ligature-primitive-callback procedure? "DOCME")
+(grob-property-description 'ligature-primitive-callback procedure? "callback that brews ligature head.")
 (grob-property-description 'stem-info pair? "caching of stem parameters")
 (grob-property-description 'note-columns pair? "list of NoteColumn grobs.")
 
@@ -612,9 +615,9 @@ staff in a row more often, when the heights of the notes vary.
 (grob-property-description 'grace-space-factor number? "space grace at this fraction of the increment.")
 (grob-property-description 'position-callbacks list? "list of
 functions set spanner positions.")
-(grob-property-description 'join-left number? "DOCME")
+(grob-property-description 'join-left number? "in ligature such as pes and flexa, the length of the vertical joining beam attached to the left side of the head")
 (grob-property-description 'delta-pitch number? "DOCME")
-(grob-property-description 'head-width number? "DOCME")
+(grob-property-description 'head-width number? "width of this ligature head")
 (grob-property-description 'primitive number? "DOCME")
 (grob-property-description 'minimum-beam-collision-distance number?
 "Minimum distance to beam for a rest collision.")
