@@ -51,6 +51,8 @@ String init_str_global;
 int default_count_global;
 File_path global_path;
 
+Array<String> global_score_header_fields;
+
 bool safe_global_b = false;
 bool experimental_features_global_b = false;
 bool dependency_global_b = false;
@@ -72,6 +74,7 @@ String distill_inname_str (String name_str, String& ext_r);
 Long_option_init theopts[] = {
   {_i ("EXT"), "output-format", 'f',  _i ("use output format EXT (scm, ps, tex or as)")},
   {0, "help", 'h',  _i ("this help")},
+  {_i ("FIELD"), "header", 'H',  _i ("write header field to BASENAME.FIELD")},
   {_i ("DIR"), "include", 'I',  _i ("add DIR to search path")},
   {_i ("FILE"), "init", 'i',  _i ("use FILE as init file")},
   {0, "dependencies", 'M',  _i ("write Makefile dependencies for every input file")},
@@ -234,19 +237,6 @@ setup_paths ()
       global_path.add (p);
 
 #if !KPATHSEA
-      /*
-      Although kpathsea seems nice, it is not universally available 
-      (GNU/Windows). 
-
-      Compiling kpathsea seems not possible without
-      (compiling) a matching tex installation.  Apart from the fact
-      that I cannot get kpathsea compiled for GNU/Windows, another
-      major problem is that TeX installations may be different on
-      different clients, so it wouldn't work anyway.  While ugly,
-      this code is simple and effective.
-        -- jcn
-      */
-
       /* Urg: GNU make's $(word) index starts at 1 */
       int i  = 1;
       while (global_path.try_add (p + to_str (".") + to_str (i)))
@@ -360,6 +350,9 @@ main (int argc, char **argv)
 	  break;
 	case 'Q':
 	  find_old_relative_b= true;
+	  break;
+	case 'H':
+	  global_score_header_fields.push (oparser_global_p->optional_argument_ch_C_);
 	  break;
 	case 'I':
 	  global_path.push (oparser_global_p->optional_argument_ch_C_);

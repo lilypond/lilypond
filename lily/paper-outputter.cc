@@ -159,6 +159,7 @@ Paper_outputter::dump_scheme (SCM s)
       free (c);
     }
 }
+
 void
 Paper_outputter::output_scope (Scope *scope, String prefix)
 {
@@ -233,10 +234,42 @@ Paper_outputter::output_int_def (String k, int v)
   output_scheme (scm);
 }
 
-
-
 void
 Paper_outputter::output_string (SCM str)
 {
   *stream_p_ <<  ly_scm2string (str);
+}
+
+void
+Paper_outputter::output_score_header_field (String filename, String key, String value)
+{
+  if (filename != "-")
+    filename += String (".") + key;
+  progress_indication (_f ("writing header field %s to %s...",
+			   key,
+			   filename == "-" ? String ("<stdout>") : filename));
+  
+  ostream* os = open_file_stream (filename);
+  *os << value;
+  close_file_stream (os);
+  progress_indication ("\n");
+}
+
+void
+Paper_outputter::output_score_header_fields (Paper_def *paper)
+{
+  if (global_score_header_fields.size ())
+    {
+      SCM fields = paper->scope_p_->to_alist ();
+      String base = paper->base_output_str ();
+      for (int i = 0; i < global_score_header_fields.size (); i++)
+	{
+	  String key = paper->global_score_header_fields[i];
+	  SCM val = gh_assoc (ly_str02scm (key), fields);
+	  String s
+	  if (val != SCM_BOOL_F)
+	    s = ly_scm2string (val);
+	  output_score_header_field (base, key, s);
+	}
+    }
 }
