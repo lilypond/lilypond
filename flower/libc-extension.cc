@@ -8,6 +8,8 @@
          Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
+#include <math.h>
+
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
@@ -35,6 +37,14 @@ strnupr (char* start, int n)
   return start;
 }
 
+/*
+  There are some strange problems with round() on early glibcs.
+ */
+double
+my_round (double x)
+{
+  return  floor (x -0.5)+ 1.0 ;
+}
 
 
 #if !HAVE_ISINF

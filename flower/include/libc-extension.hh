@@ -49,4 +49,6 @@ Byte *memrchr (Byte const * p, int n, char c);
 Byte *strrev (Byte* byte, int length_i);
 
 
+double my_round (double);
+
 #endif // LIBC_EXTENSION_HH
