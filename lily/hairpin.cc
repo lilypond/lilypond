@@ -119,9 +119,7 @@ Hairpin::brew_molecule (SCM smob)
    */
 
   Molecule mol;
-  mol  = Line_interface::line (me,
-				      Offset (0, starth),
-				      Offset (width, endh));
+  mol  = Line_interface::line (me, Offset (0, starth), Offset (width, endh));
   mol.add_molecule (Line_interface::line (me,
 						 Offset (0, -starth),
 						 Offset (width, -endh)));
