@@ -52,7 +52,8 @@ Mudela_version oldest_version ("1.1.52");
 void
 print_mudela_versions (ostream &os)
 {
-  os << "Oldest supported input version:   " << oldest_version.str () << endl;
+  os << _f ("Oldest supported input version: %s", oldest_version.str ()) 
+    << endl;
 }
 // needed for bison.simple's malloc() and free()
 #include <malloc.h>

@@ -1,3 +1,6 @@
+pl 80
+	- use mgsmerge iso tupdate
+
 pl 79
 	- empty sed script fix for aix
 
