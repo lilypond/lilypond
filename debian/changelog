@@ -1,3 +1,33 @@
+lilypond (2.2.2-2) unstable; urgency=low
+
+  * New upstream release.  (Closes: Bug#242861)
+    - Thanks to Pedro Kroeger for providing interim sid packages while
+      I was away for an extended period of time.
+  * Copied some ideas from Ferenc Wagner's LilyPond for woody (Thanks!):
+     - Split out shared data to lilypond-data package.  (Closes: Bug#233406)
+     - Make lilypond-data conflict with earlier lilypond versions.
+     - debian/control: Relaxed autotrace Build-Depends (>= 0.29).
+     - debian/control: Added imagemagick Build-Depends (>= 5.4.4.5).
+  * Added more details to lilypond package description.  (Closes: Bug#245370)
+  * gs-gpl 8.01 (and gs-afpl 8.14) dies when building LilyPond docs.
+    (Known -sDEVICE=bbox bug in gs 8.01 and newer, see gs-gpl Bug#250290.)
+    Added Build-Conflict-Indep: gs-gpl (>= 8.01) | gs-afpl (Closes: Bug#250622)
+  * Build-Depends: fontforge | pfaedit.
+  * debian/watch: Updated to new URL and new format.
+  * vim/GNUmakefile: Install $(vimdir)/*/lilypond.vim scripts with "-m 644".
+
+ -- Anthony Fok <foka@debian.org>  Fri, 18 Jun 2004 02:39:58 +0800
+
+lilypond (2.1.0-2) unstable; urgency=low
+ 
+  * A few HTML links in Documentation/user/{introduction,tutorial}.itely
+    went up one too few level in the directory tree, i.e. broken links.
+    Thanks to D. Raleigh Arnold for the bug report.  (Closes: Bug#208208)
+  * Build-Depends: imagemagick; lilypond uses "convert" nowadays.
+    Thanks to Daniel Schepler for the bug report.  (Closes: Bug#221062)
+
+ -- Anthony Fok <foka@debian.org>  Wed, 19 Nov 2003 10:12:16 +0800
+
 lilypond (2.1.0-1) unstable; urgency=low
 
   * New upstream release.

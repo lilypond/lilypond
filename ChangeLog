@@ -1,13 +1,18 @@
+2004-06-22  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* debian/: Apply Debian patch (Anthony Fok).
+
 2004-06-22  Heikki Junes   <hjunes@cc.hut.fi>
 
-        * Documentation/user/music-glossary.tely: fix titling; @top is already
-        an @unnumbered @chapter.
+	* Documentation/user/music-glossary.tely: fix titling; @top is already
+	an @unnumbered @chapter.
  
 2004-06-22  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
-	* debian/GNUmakefile (#OUTCONF_FILES): update file list.
+	* debian/GNUmakefile (EXTRA_DIST_FILES):
+	(CONF_FILES): update file list.
 
-	* lily/stencil.cc (interpret_stencil_expression): bugfix 
+	* lily/stencil.cc (interpret_stencil_expression): bugfix.
 
 2004-06-21  Jan Nieuwenhuizen  <janneke@gnu.org>
 

@@ -1,0 +1,24 @@
+#!/bin/sh
+#
+# postinst script for the Debian GNU/Linux lilypond-data package
+#   by Anthony Fok <foka@debian.org>
+#   Initial release:  Sun, 26 Oct 1997 03:23:00 -0700
+#     Last modified:  Thu, 17 Jun 2004 11:40:36 +0800
+
+set -e
+
+package=lilypond		# This is used for filenames!  Don't change it!
+pkg_name="GNU LilyPond"
+
+std_TEXMFMAIN=/usr/share/texmf	# Debian's standard $TEXMFMAIN
+
+TEXMFMAIN=`/usr/bin/kpsewhich -expand-var '$TEXMFMAIN'`
+: ${TEXMFMAIN:=$std_TEXMFMAIN}
+
+echo " Running /usr/bin/mktexlsr $TEXMFMAIN..."
+/usr/bin/mktexlsr $TEXMFMAIN
+
+#DEBHELPER#
+echo
+echo " $pkg_name configuration completed."
+echo " Please read /usr/share/doc/lilypond/README.Debian to get started."

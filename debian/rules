@@ -11,6 +11,7 @@ package = lilypond
 
 SHELL = /bin/sh
 r = debian/$(package)
+r_data = debian/$(package)-data
 r_doc = debian/$(package)-doc
 d = usr/share/doc/$(package)
 
@@ -32,9 +33,6 @@ export MAILADDRESS = lilypond@packages.debian.org
 
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
-
-# This is the debhelper compatibility version to use.
-export DH_COMPAT=4
 
 # This has to be exported to make some magic below work.
 export DH_OPTIONS
@@ -73,6 +71,10 @@ clean:
 
 	# Still not clean enough?  Let's use... BRUTE STRENGTH!  :-)
 	find . -type d -name 'out' -o -name 'out-www' | xargs rm -rf
+	rm -f lib/lilypond/python examples.html
+	rm -f debian/emacsen-startup
+	rm -f debian/lilypond1.7*.dirs debian/lilypond.dirs
+	rm -f debian/postinst debian/prerm debian/postrm
 
 	dh_clean
 
@@ -81,12 +83,12 @@ install: build
 	dh_testdir
 	dh_testroot
 	dh_clean -k
+	dh_installdirs
 
 	# Add here commands to install the package into debian/tmp.
-	dh_installdirs
-	$(MAKE) prefix=$(PWD)/$(r)/usr MAKE_PFA_FILES=1 install
-	# Ugh, remove hundred music-glossary copies
-#	find . -name 'music-glossary.info-*' | xargs rm -f
+	$(MAKE) install prefix=$(CURDIR)/debian/tmp/usr MAKE_PFA_FILES=1
+
+	dh_install --sourcedir=debian/tmp --list-missing
 
 #	# Change from an absolute symlink to a relative symlink (Lintian)
 #	if [ -L $(r)/usr/share/lilypond/cmtfm ]; then \
@@ -109,8 +111,29 @@ binary-indep: build-doc install
 #	cp -a `find Documentation -name '*.dvi' ! -name 'lily-[0-9]*.dvi'` \
 #		$(r_doc)/$(d)/
 	dh_installdocs
+	dh_installemacsen
+	dh_scrollkeeper
+
+	find input \( -name '*.*ly' -o -name '*.abc' -o -name '*.tex' -o -name 'TODO' \) ! -regex '.*/out-www/.*' \
+		-exec cp -a --parents '{}' $(r_data)/$(d)/examples ';'
 	dh_installchangelogs
-	dh_link
+
+	mv $(r_data)/usr/share/lilypond/$(VERSION)/dvips/lilypond.map \
+	   $(r_data)/etc/texmf/dvips/lilypond.map
+
+	dh_link	usr/share/lilypond/$(VERSION)/tex \
+			usr/share/texmf/tex/lilypond \
+		usr/share/lilypond/$(VERSION)/fonts/source \
+			usr/share/texmf/fonts/source/public/lilypond \
+		usr/share/lilypond/$(VERSION)/fonts/afm \
+			usr/share/texmf/fonts/afm/public/lilypond \
+		usr/share/lilypond/$(VERSION)/fonts/tfm \
+			usr/share/texmf/fonts/tfm/public/lilypond \
+		usr/share/lilypond/$(VERSION)/fonts/type1 \
+			usr/share/texmf/fonts/type1/public/lilypond \
+		etc/texmf/dvips/lilypond.map \
+			usr/share/lilypond/$(VERSION)/dvips/lilypond.map
+
 	dh_compress -X$(d)/html/
 	dh_fixperms
 	dh_installdeb
@@ -135,8 +158,6 @@ binary-arch: build install
 
 #	dh_installexamples input
 
-	find input \( -name '*.*ly' -o -name '*.abc' -o -name '*.tex' -o -name 'TODO' \) ! -regex '.*/out-www/.*' \
-		-exec cp -a --parents '{}' $(r)/$(d)/examples ';'
 #	for i in `find $(r)/$(d)/examples/ -type d -name out`; do \
 #		mv -fv $$i/* $$i/..; rmdir $$i; done
 
@@ -148,20 +169,6 @@ binary-arch: build install
 #	dh_undocumented
 	dh_installchangelogs ChangeLog
 
-	mv $(r)/usr/share/lilypond/$(VERSION)/dvips/lilypond.map \
-	   $(r)/etc/texmf/dvips/lilypond.map
-	dh_link	usr/share/lilypond/$(VERSION)/tex \
-			usr/share/texmf/tex/lilypond \
-		usr/share/lilypond/$(VERSION)/fonts/source \
-			usr/share/texmf/fonts/source/public/lilypond \
-		usr/share/lilypond/$(VERSION)/fonts/afm \
-			usr/share/texmf/fonts/afm/public/lilypond \
-		usr/share/lilypond/$(VERSION)/fonts/tfm \
-			usr/share/texmf/fonts/tfm/public/lilypond \
-		usr/share/lilypond/$(VERSION)/fonts/type1 \
-			usr/share/texmf/fonts/type1/public/lilypond \
-		etc/texmf/dvips/lilypond.map \
-			usr/share/lilypond/$(VERSION)/dvips/lilypond.map
 	dh_strip
 	dh_compress
 	dh_fixperms

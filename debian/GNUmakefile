@@ -7,7 +7,7 @@ at-dir = $(outdir)/
 at-ext =
 
 CONF_FILES = changelog control copyright emacsen-startup \
-	preinst  rules watch
+	preinst rules watch
 EXTRA_DIST_FILES = README.Debian $(CONF_FILES) \
 	control.foka control.potato \
 	lilypond.doc-base \
