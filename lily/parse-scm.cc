@@ -79,8 +79,15 @@ parse_handler (void * data, SCM tag, SCM args)
 
   ps->start_location.error (_("GUILE signaled an error for the expression begining here"));
 
-  gh_display (args);
-  gh_newline();
+  if (scm_ilength (args) > 2)
+    scm_display_error_message (gh_cadr (args), gh_caddr(args), scm_current_error_port());
+
+  /*
+    The following is a kludge; we should probably search for
+    [a-z][0-9] a note, and start before that.
+   */
+  ps->nchars = 1;
+    
   return SCM_EOL;
 }
 
