@@ -12,8 +12,8 @@ Usage:
 
     scons fonts           # build all font stuff (split this? )
 
-XXX    scons                 # without args builds all targets below ./
-XXX                          # maybe catch this one and only build lily?
+    scons config          # reconfigure
+
     scons /               # builds all possible targets
 
     scons install
@@ -37,16 +37,15 @@ prefix=os.path.join (os.environ['HOME'], 'usr', 'pkg', 'lilypond')
 
 
 # TODO:
+#   * TARBALL
+#   * add missing dirs
+
 #   * separate environments?
 #     - compile environment checks headers and libraries
 #     - doc environment checks doc stuff
-#   * - help for targets?
-#     - build symlink tree
+
 #   * commandline targets:
-#      - clean => -c
-#      - dist, tar => env.Tar
-#   * Documentation, scripts
-#   * env.Tar
+#      - clean => -c ?
 #   * more fine-grained config.h -- move lilypondprefix to version.hh?
 #     - config.h:   changes after system upgrades, affects all files
 #     - version.hh:  prefix, version etc?  affects few
@@ -59,12 +58,11 @@ import string
 
 subdirs = ['flower', 'lily', 'mf', 'scm', 'ly', 'Documentation',
 	   'Documentation/user', 'input']
-#subdirs = []
 
 usage = r'''Usage:
 scons [KEY=VALUE].. [TARGET]..
 
-where TARGET is lily|all|fonts|doc|tar|dist|release
+where TARGET is config|lily|all|fonts|doc|tar|dist|release
 '''
       
 env = Environment ()
@@ -73,11 +71,11 @@ env = Environment ()
 if not COMMAND_LINE_TARGETS:
 	env.Default ('lily')
 
-# Target 'all' builds everything
-#if 'all' in COMMAND_LINE_TARGETS:
-#	env.Default (
-
+# All builds everything (all directories)
 env.Alias ('all', ['lily', 'mf', 'input', 'Documentation'])
+
+
+## FIXME: opts in function
 
 # Put your favourite stuff in custom.py
 opts = Options ('custom.py', ARGUMENTS)
@@ -108,7 +106,6 @@ env = Environment (options = opts)
 
 opts.Update (env)
 #opts.Save ('config.cache', env)
-
 
 env.CacheDir (os.path.join (env['build'], '=build-cache'))
 
@@ -144,143 +141,7 @@ if env['warnings']:
 	env.Append (CXXFLAGS = '-Wall')
 	env.Append (CXXFLAGS = '-Wconversion')
 
-env['MFMODE'] = 'ljfour'
 
-
-conf = Configure (env)
-
-
-vre = re.compile ('^.*[^-.0-9]([0-9][0-9]*\.[0-9][.0-9]*).*$', re.DOTALL)
-def get_version (program):
-	command = '(%(program)s --version || %(program)s -V) 2>&1' % vars ()
-	pipe = os.popen (command)
-	output = pipe.read ()
-	if pipe.close ():
-		return None
-	v = re.sub (vre, '\\1', output)
-	return string.split (v, '.')
-
-def assert_version (lst, program, minimal, description, package):
-	global required
-	sys.stdout.write ('Checking %s version... ' % program)
-	actual = get_version (program)
-	if not actual:
-		print 'not found'
-		lst.append ((description, package, minimal, program,
-			     'not installed'))
-		return
-	sys.stdout.write (string.join (actual, '.'))
-	sys.stdout.write ('\n')
-	if actual < string.split (minimal, '.'):
-		lst.append ((description, package, minimal, program,
-			     string.join (actual, '.')))
-
-required = []
-assert_version (required, 'gcc', '2.8', 'GNU C compiler', 'gcc')
-assert_version (required, 'g++', '3.0.5', 'GNU C++ compiler', 'g++')
-assert_version (required, 'python', '2.1', 'Python (www.python.org)', 'python')
-assert_version (required, 'guile-config', '1.6', 'GUILE development',
-		'libguile-dev or guile-devel')
-# Do not use bison 1.50 and 1.75.
-assert_version (required, 'bison', '1.25', 'Bison -- parser generator',
-		'bison')
-assert_version (required, 'flex', '0.0', 'Flex -- lexer generator', 'flex')
-
-
-optional = []
-assert_version (optional, 'makeinfo', '4.7', 'Makeinfo tool', 'texinfo')
-assert_version (optional, 'guile', '1.6', 'GUILE scheme',
-		'libguile-dev or guile-devel')
-assert_version (optional, 'mftrace', '1.0.27', 'Metafont tracing Type1',
-		'mftrace')
-assert_version (optional, 'perl', '4.0',
-		'Perl practical efficient readonly language', 'perl')
-#assert_version (optional, 'foo', '2.0', 'Foomatic tester', 'bar')
-
-
-defines = {
-   'DIRSEP' : "'/'",
-   'PATHSEP' : "':'",
-   'TOPLEVEL_VERSION' : '"' + env['version'] + '"',
-   'PACKAGE': '"' + package.name + '"',
-   'DATADIR' : '"' + env['sharedir'] + '"',
-   'LILYPOND_DATADIR' : '"' + env['sharedir_package'] + '"',
-   'LOCAL_LILYPOND_DATADIR' : '"' + env['sharedir_package_version'] + '"',
-   'LOCALEDIR' : '"' + env['localedir'] + '"',
-}
-
-
-command = r"""python -c 'import sys; sys.stdout.write ("%s/include/python%s" % (sys.prefix, sys.version[:3]))'""" #"
-PYTHON_INCLUDE = os.popen (command).read ()
-env.Append (CPPPATH = PYTHON_INCLUDE)
-
-headers = ('sys/stat.h', 'assert.h', 'kpathsea/kpathsea.h', 'Python.h')
-for i in headers:
-	if conf.CheckCHeader (i):
-       		key = re.sub ('[./]', '_', 'HAVE_' + string.upper (i))
-                defines[key] = '1'
-
-ccheaders = ('sstream',)
-for i in ccheaders:
-	if conf.CheckCXXHeader (i):
-       		key = re.sub ('[./]', '_', 'HAVE_' + string.upper (i))
-                defines[key] = '1'
-
-functions = ('gettext', 'isinf', 'memmem', 'snprintf', 'vsnprintf')
-for i in functions:
-	if 0 or conf.CheckFunc (i):
-       		key = re.sub ('[./]', '_', 'HAVE_' + string.upper (i))
-                defines[key] = '1'
-
-key = 'HAVE_FLEXLEXER_YY_CURRENT_BUFFER'
-
-sys.stdout.write('Checking for yy_current_buffer ... ')
-sys.stdout.flush()
-res = conf.TryCompile ("""using namespace std;
-#include <FlexLexer.h>
-class yy_flex_lexer: public yyFlexLexer
-{
-  public:
-    yy_flex_lexer ()
-    {
-      yy_current_buffer = 0;
-    }
-};""", '.cc')
-if res:
-	defines[key] = '1'
-	sys.stdout.write('yes\n')
-else:
-	sys.stdout.write('no\n')
-
-
-if conf.CheckLib ('dl'):
-	pass
-
-if conf.CheckLib ('kpathsea'):
-	defines['KPATHSEA'] = '1'
-
-# huh? 
-if conf.CheckLib ('kpathsea', 'kpse_find_file'):
-	defines['HAVE_KPSE_FIND_FILE'] = '1'
-if conf.CheckLib ('kpathsea', 'kpse_find_tfm'):
-	defines['HAVE_KPSE_FIND_TFM'] = '1'
-
-#this could happen after flower...
-env.ParseConfig ('guile-config compile')
-
-#this could happen only for compiling pango-*
-if env['gui']:
-	env.ParseConfig ('pkg-config --cflags --libs gtk+-2.0')
-	env.ParseConfig ('pkg-config --cflags --libs pango')
-	if conf.CheckCHeader ('pango/pangofc-fontmap.h'):
-		defines['HAVE_PANGO_PANGOFC_FONTMAP_H'] = '1'
-
-	if conf.CheckLib ('pango-1.0',
-			  'pango_fc_font_map_add_decoder_find_func'):
-		defines['HAVE_PANGO_CVS'] = '1'
-		defines['HAVE_PANGO_FC_FONT_MAP_ADD_DECODER_FIND_FUNC'] = '1'
-
-env = conf.Finish ()
 
 ##Import ('env')
 here = os.getcwd ()
@@ -296,22 +157,184 @@ build = env['build']
 out = env['out']
 
 
-if not os.path.exists (outdir):
-	os.mkdir (outdir)
-
 def list_sort (lst):
 	sorted = lst
 	sorted.sort ()
 	return sorted
-	
-config = open (os.path.join (outdir, 'config.h'), 'w')
-for i in list_sort (defines.keys ()):
-	config.write ('#define %s %s\n' % (i, defines[i]))
-config.close ()
 
-os.system (sys.executable \
-	   + ' ./stepmake/bin/make-version.py VERSION > '\
-	   + os.path.join (outdir, 'version.hh'))
+env['MFMODE'] = 'ljfour'
+config_h = os.path.join (outdir, 'config.h')
+env.Alias ('config', config_h)
+
+def configure (env):
+	conf = Configure (env)
+
+	vre = re.compile ('^.*[^-.0-9]([0-9][0-9]*\.[0-9][.0-9]*).*$', re.DOTALL)
+	def get_version (program):
+		command = '(%(program)s --version || %(program)s -V) 2>&1' % vars ()
+		pipe = os.popen (command)
+		output = pipe.read ()
+		if pipe.close ():
+			return None
+		v = re.sub (vre, '\\1', output)
+		return string.split (v, '.')
+
+	def assert_version (lst, program, minimal, description, package):
+		global required
+		sys.stdout.write ('Checking %s version... ' % program)
+		actual = get_version (program)
+		if not actual:
+			print 'not found'
+			lst.append ((description, package, minimal, program,
+				     'not installed'))
+			return
+		sys.stdout.write (string.join (actual, '.'))
+		sys.stdout.write ('\n')
+		if actual < string.split (minimal, '.'):
+			lst.append ((description, package, minimal, program,
+				     string.join (actual, '.')))
+
+	required = []
+	assert_version (required, 'gcc', '2.8', 'GNU C compiler', 'gcc')
+	assert_version (required, 'g++', '3.0.5', 'GNU C++ compiler', 'g++')
+	assert_version (required, 'python', '2.1', 'Python (www.python.org)', 'python')
+	assert_version (required, 'guile-config', '1.6', 'GUILE development',
+			'libguile-dev or guile-devel')
+	# Do not use bison 1.50 and 1.75.
+	assert_version (required, 'bison', '1.25', 'Bison -- parser generator',
+			'bison')
+	assert_version (required, 'flex', '0.0', 'Flex -- lexer generator', 'flex')
+
+
+	optional = []
+	assert_version (optional, 'makeinfo', '4.7', 'Makeinfo tool', 'texinfo')
+	assert_version (optional, 'guile', '1.6', 'GUILE scheme',
+			'libguile-dev or guile-devel')
+	assert_version (optional, 'mftrace', '1.0.27', 'Metafont tracing Type1',
+			'mftrace')
+	assert_version (optional, 'perl', '4.0',
+			'Perl practical efficient readonly language', 'perl')
+	#assert_version (optional, 'foo', '2.0', 'Foomatic tester', 'bar')
+
+
+	defines = {
+	   'DIRSEP' : "'/'",
+	   'PATHSEP' : "':'",
+	   'TOPLEVEL_VERSION' : '"' + env['version'] + '"',
+	   'PACKAGE': '"' + package.name + '"',
+	   'DATADIR' : '"' + env['sharedir'] + '"',
+	   'LILYPOND_DATADIR' : '"' + env['sharedir_package'] + '"',
+	   'LOCAL_LILYPOND_DATADIR' : '"' + env['sharedir_package_version'] + '"',
+	   'LOCALEDIR' : '"' + env['localedir'] + '"',
+	}
+
+
+	command = r"""python -c 'import sys; sys.stdout.write ("%s/include/python%s" % (sys.prefix, sys.version[:3]))'""" #"
+	PYTHON_INCLUDE = os.popen (command).read ()
+	env.Append (CPPPATH = PYTHON_INCLUDE)
+
+	headers = ('sys/stat.h', 'assert.h', 'kpathsea/kpathsea.h', 'Python.h')
+	for i in headers:
+		if conf.CheckCHeader (i):
+			key = re.sub ('[./]', '_', 'HAVE_' + string.upper (i))
+			defines[key] = '1'
+
+	ccheaders = ('sstream',)
+	for i in ccheaders:
+		if conf.CheckCXXHeader (i):
+			key = re.sub ('[./]', '_', 'HAVE_' + string.upper (i))
+			defines[key] = '1'
+
+	functions = ('gettext', 'isinf', 'memmem', 'snprintf', 'vsnprintf')
+	for i in functions:
+		if 0 or conf.CheckFunc (i):
+			key = re.sub ('[./]', '_', 'HAVE_' + string.upper (i))
+			defines[key] = '1'
+
+	key = 'HAVE_FLEXLEXER_YY_CURRENT_BUFFER'
+
+	sys.stdout.write('Checking for yy_current_buffer ... ')
+	sys.stdout.flush()
+	res = conf.TryCompile ("""using namespace std;
+	#include <FlexLexer.h>
+	class yy_flex_lexer: public yyFlexLexer
+	{
+	  public:
+	    yy_flex_lexer ()
+	    {
+	      yy_current_buffer = 0;
+	    }
+	};""", '.cc')
+	if res:
+		defines[key] = '1'
+		sys.stdout.write('yes\n')
+	else:
+		sys.stdout.write('no\n')
+
+
+	if conf.CheckLib ('dl'):
+		pass
+
+	if conf.CheckLib ('kpathsea'):
+		defines['KPATHSEA'] = '1'
+
+	# huh? 
+	if conf.CheckLib ('kpathsea', 'kpse_find_file'):
+		defines['HAVE_KPSE_FIND_FILE'] = '1'
+	if conf.CheckLib ('kpathsea', 'kpse_find_tfm'):
+		defines['HAVE_KPSE_FIND_TFM'] = '1'
+
+	#this could happen after flower...
+	env.ParseConfig ('guile-config compile')
+
+	#this could happen only for compiling pango-*
+	if env['gui']:
+		env.ParseConfig ('pkg-config --cflags --libs gtk+-2.0')
+		env.ParseConfig ('pkg-config --cflags --libs pango')
+		if conf.CheckCHeader ('pango/pangofc-fontmap.h'):
+			defines['HAVE_PANGO_PANGOFC_FONTMAP_H'] = '1'
+
+		if conf.CheckLib ('pango-1.0',
+				  'pango_fc_font_map_add_decoder_find_func'):
+			defines['HAVE_PANGO_CVS'] = '1'
+			defines['HAVE_PANGO_FC_FONT_MAP_ADD_DECODER_FIND_FUNC'] = '1'
+
+	# ugh - needed at all?  make Builder/Command for config.h!
+	if not os.path.exists (outdir):
+		os.mkdir (outdir)
+
+	config = open (config_h, 'w')
+	for i in list_sort (defines.keys ()):
+		config.write ('#define %s %s\n' % (i, defines[i]))
+	config.close ()
+
+
+	os.system (sys.executable \
+		   + ' ./stepmake/bin/make-version.py VERSION > '\
+		   + os.path.join (outdir, 'version.hh'))
+
+	if required:
+		print
+		print '********************************'
+		print 'Please install required packages'
+		for i in required:
+			print '%s:	%s-%s or newer (found: %s %s)' % i
+		sys.exit (1)
+
+	if optional:
+		print
+		print '*************************************'
+		print 'Consider installing optional packages'
+		for i in optional:
+			print '%s:	%s-%s or newer (found: %s %s)' % i
+
+	return conf.Finish ()
+
+# Hmm.  Must configure when building lily, to get compiler and linker
+# flags set-up.
+if not os.path.exists (config_h) or 'config' in COMMAND_LINE_TARGETS\
+   or 'lily' in BUILD_TARGETS or 'all' in BUILD_TARGETS:
+	env = configure (env)
 
 if os.path.exists ('parser'):
 	env.Append (LIBPATH = ['#/flower', '#/lily', '#/parser', '#/gui',],
@@ -319,21 +342,6 @@ if os.path.exists ('parser'):
 else:	
 	env.Append (LIBPATH = ['#/flower/' + out,],
 		    CPPPATH = [outdir, '#',])
-
-if required:
-	print
-	print '********************************'
-	print 'Please install required packages'
-	for i in required:
-		print '%s:	%s-%s or newer (found: %s %s)' % i
-	sys.exit (1)
-
-if optional:
-	print
-	print '*************************************'
-	print 'Consider installing optional packages'
-	for i in optional:
-		print '%s:	%s-%s or newer (found: %s %s)' % i
 
 Export ('env')
 
@@ -372,13 +380,14 @@ env['TEXINFO_PAPERSIZE_OPTION'] = '-t @afourpaper'
 
 tarbase = package.name + '-' + env['version']
 tarname = tarbase + '.tar.gz'
-tarball = os.path.join (outdir, tarname)
-env['tarball'] = tarball
 
 if 0: # broken :-(
 	ballprefix = os.path.join (outdir, tarbase)
+	tarball = os.path.join (outdir, tarname)
 else:
 	ballprefix = os.path.join (os.getcwd (), tarbase)
+	tarball = os.path.join (os.getcwd (), tarname)
+env['tarball'] = tarball
 env['ballprefix'] = ballprefix
 
 SConscript ('buildscripts/builder.py')
@@ -459,12 +468,13 @@ if env['debugging']:
 	if not os.path.exists (prefix):
 		symlink_tree (prefix)
 
-ball = Builder (prefix = ballprefix + '/', action = 'ln $SOURCE $TARGET')
-et = env.Copy (BUILDERS = {'BALL': ball})
-ballize = map (et.BALL, all_sources)
-tar = env.Tar (tarball, map (lambda x: os.path.join (env['ballprefix'], x),
-			     all_sources))
-env.Alias ('tar', env['tarball'])
+#ball = Builder (prefix = ballprefix + '/', action = 'ln $SOURCE $TARGET')
+#et = env.Copy (BUILDERS = {'BALL': ball})
+#ballize = map (et.BALL, all_sources)
+#tar = env.Tar (tarball, map (lambda x: os.path.join (env['ballprefix'], x),
+#			     all_sources))
+tar = env['baller'] ('', all_sources, env)
+env.Alias ('tar', tar)
 
 distball = os.path.join (package.release_dir, tarname)
 env.Command (distball, tarball,
@@ -475,5 +485,4 @@ patchfile = os.path.join (outdir, tarbase + '.diff.gz')
 patch = env.PATCH (patchfile, tarball)
 env.Depends (patchfile, distball)
 env.Alias ('release', patch)
-
 

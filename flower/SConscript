@@ -21,10 +21,11 @@ if not env['static'] or env['shared']:
 	e.SharedLibrary (name, sources)
 
 all_sources = ['SConscript',] + sources + includes
+all_sources = ['SConscript', 'GNUmakefile']
 ballprefix = env['ballprefix'] + '/flower'
 ball = Builder (prefix = ballprefix + '/', action = 'ln $SOURCE $TARGET')
-#et = env.Copy (BUILDERS = {'BALL': ball})
-et = env.Copy ()
-#ballize = map (et.BALL, all_sources)
+et = env.Copy (BUILDERS = {'BALL': ball})
+#et = env.Copy ()
+ballize = map (et.BALL, all_sources)
 tar = env.Tar (env['tarball'],
 	       map (lambda x: os.path.join (ballprefix, x), all_sources))

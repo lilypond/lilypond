@@ -49,3 +49,6 @@ all_sources = ['SConscript',] + sources + includes
 # ballize = map (et.BALL, all_sources)
 # tar = env.Tar (env['tarball'],
 # 	       map (lambda x: os.path.join (ballprefix, x), all_sources))
+
+tar = env['baller'] ('lily', all_sources, env)
+#env.Alias ('tar', tar)
