@@ -11,7 +11,7 @@
 #include "script.hh"
 #include "note-head.hh"
 #include "stem.hh"
-
+#include "general-script-def.hh"
 
 IMPLEMENT_IS_TYPE_B1(Script_column,Horizontal_vertical_group_item);
 
@@ -53,7 +53,8 @@ Script_column::do_pre_processing()
   for (int i=0; i < script_l_arr_.size(); i++) 
     {
       Script*s_l = script_l_arr_[i];
-      placed_l_arr_a[idx (s_l->inside_staff_b_ , s_l->dir_) ].push (s_l);
+      placed_l_arr_a[idx (s_l->specs_l_->inside_b(),
+			  s_l->dir_) ].push (s_l);
     }
   
   for (int j =0; j <4; j++) 
