@@ -71,10 +71,16 @@ DEEP_HTML_FILES = $(outdir)/lilypond.html $(outdir)/lilypond-internals.html
 
 local-WWW: deep-symlinks
 
+
+
+# Links referred to by Documentation index
+LILYPOND_LINKS=Reference-Manual.html Features.html Ly2dvi.html Midi2ly.html
+
 deep-symlinks:
 	cd $(outdir) && rm -f lilypond && ln -s . lilypond
 	cd $(outdir) && rm -f lilypond-internals && ln -s . lilypond-internals
-
+	cd $(outdir) && $(foreach i, $(LILYPOND_LINKS),
+		rm -f $(i) && ln -s $(i) lilypond.html &&) && :
 endif
 
 
