@@ -11,4 +11,4 @@
     raggedright = ##t
 }
 
-{ c8 c-\noBeam c c }
+\relative  { c8 c-\noBeam c c }

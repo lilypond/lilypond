@@ -1,3 +1,13 @@
+2004-09-11  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* input/regression/phrasing-slur.ly (Module): remove (duplicate
+	with phrasing-slur-slur-avoid.ly)
+
+	* lily/slur-scoring.cc (struct Extra_collision_info): collect
+	parameters for extra offset.
+	(get_bezier): add slurs mid-points for curve determination
+	(score_extra_encompass): add slur end points for scoring.
+
 2004-09-11  Matthias Neeracher  <neeracher@mac.com>
 
 	* scm/framework-ps.scm (reencode-font): Handling font scaling

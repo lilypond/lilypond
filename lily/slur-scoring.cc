@@ -27,6 +27,28 @@
 #include "warn.hh"
 #include "paper-column.hh"
 
+/*
+  TODO:
+
+  - curve around flag for y coordinate
+
+  - this file is a big mess, clean it up
+
+  
+  - short-cut: try a smaller region first.
+
+  - handle non-visible stems better.
+
+  - try to prune number of scoring criteria
+
+  - take encompass-objects more into account when determining
+  slur shape
+
+  - calculate encompass scoring directly after determining slur shape.
+
+  - optimize.
+
+*/
 
 struct Slur_score
 {
@@ -58,7 +80,7 @@ struct Slur_score_parameters
   Real max_slope_factor_;
   Real extra_object_collision_;
   Real accidental_collision_;
-
+  Real free_slur_distance_;
   Real free_head_distance_;
   Real extra_encompass_free_distance_;
 
@@ -70,14 +92,7 @@ struct Slur_score_parameters
   Slur_score_parameters (Grob*);
 };
 
-/*
-  TODO:
 
-  - curve around flag for y coordinate
-  - better scoring.
-  - short-cut: try a smaller region first.
-  - handle non-visible stems better.
-*/
 struct Encompass_info
 {
   Real x_;
@@ -233,6 +248,8 @@ init_score_param (Grob *me,
     = get_detail (details, ly_symbol2scm ("head-slur-distance-factor"));
   score_param->head_slur_distance_max_ratio_
     = get_detail (details, ly_symbol2scm ("head-slur-distance-max-ratio"));
+  score_param->free_slur_distance_
+    = get_detail (details, ly_symbol2scm ("free-slur-distance"));
 }
 
 
@@ -982,6 +999,26 @@ score_encompass (Grob *me, Grob *common[],
     }
 }
 
+struct Extra_collision_info
+{
+  Real idx_;
+  Box extents_;
+  Real penalty_;
+
+  Extra_collision_info (Real idx, Interval x, Interval y, Real p)
+  {
+    idx_ = idx;
+    extents_[X_AXIS] = x;
+    extents_[Y_AXIS] = y;
+    penalty_ = p;    
+  }
+  Extra_collision_info ()
+  {
+    idx_ = 0.0;
+    penalty_ = 0.;
+  }
+};
+
 void
 score_extra_encompass (Grob *me, Grob *common[],
 		       Slur_score_parameters *score_param,
@@ -992,6 +1029,8 @@ score_extra_encompass (Grob *me, Grob *common[],
   (void) base_attach;
   (void) extremes;
 
+  Spanner *me_spanner = dynamic_cast<Spanner*> (me);
+  
   Link_array<Grob> encompasses
     = Pointer_group_interface__extract_grobs (me, (Grob *)0,
 					      "encompass-objects");
@@ -999,24 +1038,44 @@ score_extra_encompass (Grob *me, Grob *common[],
   Real lt =  me->get_paper ()->get_dimension (ly_symbol2scm ("linethickness"));
   Real thick = robust_scm2double (me->get_property ("thickness"), 1.0) * lt;
 
-  Array<Real> xidxs;
-  Array<Interval> yexts;
-  Array<Interval> xexts;
-
+  Array<Extra_collision_info> collision_infos;
   for (int i = encompasses.size (); i--; )
     {
       if (Slur::has_interface (encompasses[i]))
 	{
-	  Grob * small_slur = encompasses[i];
+	  Spanner * small_slur = dynamic_cast<Spanner*> (encompasses[i]);
 	  Bezier b = Slur::get_curve (small_slur);
 
-	  Offset z = b.curve_point (0.5);
-	  z += Offset (small_slur->relative_coordinate (common[X_AXIS], X_AXIS),
-		       small_slur->relative_coordinate (common[Y_AXIS], Y_AXIS));
+	  Offset relative (small_slur->relative_coordinate (common[X_AXIS], X_AXIS),
+			   small_slur->relative_coordinate (common[Y_AXIS], Y_AXIS));
 
-	  xexts.push (Interval (z[X_AXIS], z[X_AXIS]));
-	  xidxs.push (0.0);
-	  yexts.push (z[Y_AXIS] + thick * Interval (-0.5, 0.5));
+	  for (int k = 0; k < 3; k++)
+	  {
+	    Direction hdir =  Direction (k /2 - 1);
+
+	    /*
+	      Only take bound into account if small slur starts
+	      together with big slur.
+	     */
+	    if (hdir && small_slur->get_bound (hdir) != me_spanner->get_bound (hdir))
+	      continue;
+	      
+
+	    Offset z = b.curve_point ( k / 2.0);
+	    z += relative;
+
+	    Interval yext;
+	    yext.set_full();
+	    yext[dir] = z[Y_AXIS] + dir * thick * 1.0;
+
+	    Interval xext(-1, 1);
+	    xext = xext *(thick*2) + z[X_AXIS];
+	    Extra_collision_info info (k - 1.0, 
+				       xext,
+				       yext,
+				       score_param->extra_object_collision_);
+	    collision_infos.push (info);
+	  }
 	}
       else
 	{
@@ -1025,9 +1084,10 @@ score_extra_encompass (Grob *me, Grob *common[],
 	  Interval ye = g->extent (common[Y_AXIS], Y_AXIS);
 
 	  Real xp = 0.0;
-
+	  Real penalty = score_param->extra_object_collision_;
 	  if (Accidental_interface::has_interface (g))
 	    {
+	      penalty = score_param->accidental_collision_;
 	      /* Begin copy accidental.cc */
 	      bool parens = false;
 	      if (to_boolean (g->get_property ("cautionary")))
@@ -1059,16 +1119,15 @@ score_extra_encompass (Grob *me, Grob *common[],
 		}
 	    }
 
-	  xidxs.push (xp);
 	  ye.widen (thick * 0.5);
-	  yexts.push (ye);
-	  xexts.push (xe);
+	  Extra_collision_info info (xp, xe, ye,  penalty);
+	  collision_infos.push (info);
 	}
     }
   for (int i = 0; i < scores->size (); i++)
     {
       Real demerit = 0.0;
-      for (int j = 0; j < xidxs.size(); j++)
+      for (int j = 0; j < collision_infos.size(); j++)
 	{
 	  Drul_array<Offset> at = scores->elem (i).attachment_;
 	  Interval slur_wid (at[LEFT][X_AXIS], at[RIGHT][X_AXIS]);
@@ -1078,15 +1137,17 @@ score_extra_encompass (Grob *me, Grob *common[],
 	    Bezier::get_other_coordinate().
 	   */
 	  slur_wid.widen (- 0.5 * thick);
-	  Real x = xexts[j].linear_combination (xidxs[j]);
+	  Real x = collision_infos[j].extents_[X_AXIS]
+	    .linear_combination (collision_infos[j].idx_);
 	  Real y = 0.0;
+	  
 	  if (!slur_wid.contains (x))
 	    {	
 	      Direction contains_dir = CENTER;
 	      Direction d = LEFT;
 	      do
 		{
-		  if (xexts[j].contains (at[d][X_AXIS]))
+		  if (collision_infos[j].extents_[X_AXIS].contains (at[d][X_AXIS]))
 		    contains_dir = d; 
 		}
 	      while (flip (&d) != LEFT);
@@ -1101,15 +1162,11 @@ score_extra_encompass (Grob *me, Grob *common[],
 	      y = scores->elem (i).curve_.get_other_coordinate (X_AXIS, x);
 	    }
 
-	  Real collision_demerit = 
-	       (Accidental_interface::has_interface (encompasses[j]))
-	    ? score_param->accidental_collision_
-	    : score_param->extra_object_collision_;
-	  
-	  Real dist = yexts[j].distance (y);
+	  Real dist = collision_infos[j].extents_[Y_AXIS].distance (y);
 	  demerit +=
 	    fabs (0 >? (score_param->extra_encompass_free_distance_ - dist)) /
-	    score_param->extra_encompass_free_distance_  * collision_demerit;
+	    score_param->extra_encompass_free_distance_
+	    * collision_infos[j].penalty_;
 	}
 #if DEBUG_SLUR_QUANTING
       (*scores)[i].score_card_ += to_string ("X%.2f", demerit);
@@ -1270,7 +1327,7 @@ get_bezier (Grob *me,
     = Pointer_group_interface__extract_grobs (me, (Grob *)0, "note-columns");
   Direction dir = get_grob_direction (me);
 
-  Array<Offset> avoid;
+  Array<Offset> avoid;  
   for (int i = 0; i < encompasses.size(); i++)
     {
       if (extremes[LEFT].note_column_ == encompasses[i]
@@ -1283,6 +1340,22 @@ get_bezier (Grob *me,
       
       avoid.push (Offset (inf.x_,  y + dir * score_param->free_head_distance_));
     }
+
+  Link_array<Grob> extra_encompasses
+    = Pointer_group_interface__extract_grobs (me, (Grob *)0, "encompass-objects");
+  for (int i = 0;  i < extra_encompasses.size (); i++)
+    if (Slur::has_interface (extra_encompasses[i]))
+      {
+	Grob * small_slur = extra_encompasses[i];
+	Bezier b = Slur::get_curve (small_slur);
+
+	Offset z = b.curve_point (0.5);
+	z += Offset (small_slur->relative_coordinate (common[X_AXIS], X_AXIS),
+		     small_slur->relative_coordinate (common[Y_AXIS], Y_AXIS));
+
+	z[Y_AXIS] += dir * score_param->free_slur_distance_;
+	avoid.push (z);
+      }
   
   Offset dz = attachments[RIGHT]- attachments[LEFT];;
   Offset dz_unit = dz;

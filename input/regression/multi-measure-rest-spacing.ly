@@ -9,7 +9,7 @@ extra spacing column is created. This should not cause problems."
     <<
 	\set Score.skipBars = ##t
 	\context Staff = flute  \new Voice { 
-	    <<  { R1*40 }  { s1*0^"bla" }>> 
+	    <<  { R1*40 }  { s1*0_"bla" }>> 
 	}
     >>
     \paper {
