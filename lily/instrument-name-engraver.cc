@@ -65,14 +65,14 @@ Instrument_name_engraver::create_text (SCM txt)
 void
 Instrument_name_engraver::acknowledge_grob (Grob_info i)
 {
-  SCM s = get_property ("instrument");
-  
-  if (now_mom () > Moment (0))
-    s = get_property ("instr");
-
-  if (gh_string_p (s))
+  if (Bar::has_interface (i.elem_l_))
     {
-      if (Bar::has_interface (i.elem_l_))
+      SCM s = get_property ("instrument");
+  
+      if (now_mom () > Moment (0))
+	s = get_property ("instr");
+
+      if (gh_string_p (s))
 	{
 	  create_text (s);
 	}
