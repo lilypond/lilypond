@@ -45,6 +45,4 @@ extern int exit_status_global;
 extern File_path global_path;
 extern int score_count_global;
 
-extern Paper_book *paper_book;
-
 #endif /* MAIN_HH */

@@ -36,6 +36,7 @@ class Bar_req_collect_engraver;
 class Beaming_info_list;
 class Bezier;
 class Bezier_bow;
+class Book;
 class Break_algorithm;
 class Change_iterator;
 class Change_translator;

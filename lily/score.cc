@@ -35,32 +35,24 @@ Score::Score ()
 {
   header_ = SCM_EOL;
   music_ = SCM_EOL;
-
   smobify_self ();
 }
 
 Score::~Score ()
 {
-  
 }
-
-
-
 
 IMPLEMENT_SMOBS (Score);
 IMPLEMENT_DEFAULT_EQUAL_P (Score);
 
-
 SCM
 Score::mark_smob (SCM s)
 {
-  Score * sc = (Score*) SCM_CELL_WORD_1 (s);
-
+  Score *sc = (Score*) SCM_CELL_WORD_1 (s);
   if (sc->header_)
     scm_gc_mark (sc->header_);
   for (int i = sc->defs_.size (); i--;)
     scm_gc_mark (sc->defs_[i]->self_scm ());
-  
   return sc->music_;
 }
 
@@ -83,7 +75,10 @@ Score::Score (Score const &s)
   : Input (s)
 {
   music_ = SCM_EOL;
+
+  // FIXME: SCM_EOL?
   header_ = 0;
+
   smobify_self ();
 
   Music * m =unsmob_music (s.music_);
@@ -175,15 +170,43 @@ default_rendering (SCM music, SCM outdef, SCM header, SCM outname)
       Music_output *output = g->get_output ();
       if (systems != SCM_UNDEFINED)
 	{
+	  Paper_book *paper_book = new Paper_book ();
 	  Paper_score *ps = dynamic_cast<Paper_score*> (output);
-
 	  paper_book->papers_.push (ps->paper_);
 	  paper_book->scores_.push (systems);
 	  paper_book->global_headers_.push (global_input_file->header_);
 	  paper_book->headers_.push (header);
-	  if (output_format_global != PAGE_LAYOUT)
-	    paper_book->classic_output (ly_scm2string (outname));
+	  paper_book->classic_output (ly_scm2string (outname));
+	  scm_gc_unprotect_object (paper_book->self_scm ());
 	}
       delete output;
     }
+}
+
+SCM
+Score::book_rendering (String outname, Music_output_def *default_def,
+		       Paper_def **paper)
+{
+  SCM out = scm_makfrom0str (outname.to_str0 ());
+  SCM systems = SCM_EOL;
+  int outdef_count = defs_.size ();
+  for (int i = 0; !i || i < outdef_count; i++)
+    {
+      Music_output_def *def = outdef_count ? defs_[i] : default_def;
+      SCM context = ly_run_translator (music_, def->self_scm ());
+      if (Global_context *g = dynamic_cast<Global_context*>
+	  (unsmob_context (context)))
+	{
+	  SCM s = ly_format_output (context, out);
+	  if (s != SCM_UNDEFINED)
+	    {
+	      systems = s;
+	      /* Ugh. */
+	      Music_output *output = g->get_output ();
+	      if (Paper_score *ps = dynamic_cast<Paper_score*> (output))
+		*paper = ps->paper_;
+	    }
+	}
+    }
+  return systems;
 }

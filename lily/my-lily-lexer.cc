@@ -38,6 +38,7 @@ static Keyword_ent the_key_tab[] = {
   {"appoggiatura", APPOGGIATURA},
   {"autochange", AUTOCHANGE},
   {"bar", BAR},
+  {"book", BOOK},
   {"breathe", BREATHE},
   {"change", CHANGE},
   {"chords", CHORDS},
