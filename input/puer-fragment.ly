@@ -206,7 +206,7 @@ In /home/reuter/project/lilypond-1.7/share/lilypond/scm/slur.scm:
       \remove Bar_engraver
       \consists Custos_engraver
       clefGlyph = #"clefs-vaticana_do"
-      centralCPosition = #0
+      centralCPosition = #1
       clefPosition = #1
       clefOctavation = #0
       StaffSymbol \set #'line-count = #4

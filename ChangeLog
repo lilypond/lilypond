@@ -1,3 +1,11 @@
+2003-08-14  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* input/puer-fragment.ly: bugfix: central C position of do clef
+
+	* ly/gregorian-init.ly: workaround: add small padding space before
+	divisiones (the correct fix would be the spacing engine to handle
+	this)
+
 2003-08-13  Graham Percival  <gperlist@shaw.ca>
 
 	* input/test/bar-lines-lyric-only.ly, boxed-molecule.ly,
