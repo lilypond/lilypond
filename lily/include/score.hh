@@ -17,6 +17,7 @@
 #include "assoc.hh"
 #include "string.hh"
 #include "input.hh"
+#include "lily-proto.hh"
 
 /// the total music def of one movement
 struct Score {
@@ -26,6 +27,8 @@ struct Score {
     IPointerList<Staff*> staffs_;
     
     /// "runtime" fields for setting up spacing    
+    IPointerList<Request_column*> rcols_;
+    
     IPointerList<Score_column*> cols_;
     PScore *pscore_p_;
 

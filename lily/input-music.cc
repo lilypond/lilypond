@@ -8,7 +8,7 @@
 void
 Input_music::check_plet(Voice_element* velt_l)
 {
-    for (iter_top(velt_l->reqs,i); i.ok(); i++)
+    for (iter_top(velt_l->req_p_list_,i); i.ok(); i++)
 	if ( i->plet() ) {
 	    Moment start_moment = 0;
 	    if ( !find_plet_start_b( i->plet()->type_c_, start_moment ) ) {
@@ -42,7 +42,7 @@ Simple_music::length()const
 void
 Simple_music::translate_time(Moment t)
 {
-    voice_.start += t;
+    voice_.start_ += t;
 }
 
 Voice_list
@@ -50,12 +50,14 @@ Simple_music::convert()const
 {
     Voice_list l;
     Voice * v_p = new Voice(voice_);
-    PCursor<Voice_element*> i= v_p->elts.bottom();
-	// need-to-have, otherwise memory will be filled up with regs. 
+    PCursor<Voice_element*> i= v_p->elts_.bottom();
+    
     if (!i.ok() || i->duration_) {
 	v_p->add ( new Voice_element);
-	i=v_p->elts.bottom();
+	i=v_p->elts_.bottom();
     }
+    
+    // need-to-have, otherwise memory will be filled up with regs. 
     i->add(new Terminate_voice_req); 
     l.bottom().add(v_p);
     return l;
@@ -271,6 +273,6 @@ void
 Voice_list::translate_time(Moment x)
 {
     for (iter_top(*this,i); i.ok(); i++)
-	i->start += x;    
+	i->start_ += x;    
 }
 

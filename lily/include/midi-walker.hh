@@ -12,17 +12,27 @@
 #include "staff-walker.hh"
 #include "pcursor.hh"
 #include "pqueue.hh"
+struct Note_event : PQueue_ent<Moment,Melodic_req*>
+{
+    bool ignore_b_;
+    Note_event() { 
+	ignore_b_ = false;
+    }
+};
 
+int compare(Note_event const&, Note_event const&);
 
 /**
   a simple walker which collects midi stuff, and then outputs.
 
   Should derive from Staff_walker
   */
-class Midi_walker : public PCursor<Staff_column*> {
+class Midi_walker : public PCursor<Staff_column*> 
+{
     Midi_track *track_l_;
     
-    PQueue<Melodic_req*, Moment> stop_notes;
+    PQueue< Note_event > stop_notes;
+
     Moment last_moment_;
 
     /* *************** */

@@ -18,6 +18,8 @@
 #include "score-walker.hh"
 #include "midi-output.hh"
 #include "midi-def.hh"
+#include "pulk-voices.hh"
+#include "request-column.hh"
 
 extern String default_out_fn;
 
@@ -25,13 +27,33 @@ void
 Score::setup_music()
 {
     *mlog << "\nSetting up music ..." << flush;
-    if (last() == Moment(0)) {
+    
+    Pulk_voices pulk(staffs_); 
+
+    Moment l_mom = pulk.last_;
+    if (l_mom == Moment(0)) {
 	errorlevel_i_ |= 1;
 	input_.error("Need to have music in a score.");
     }
+    
+    while (pulk.ok()) {
+	Moment w= pulk.next_mom();
+	Request_column* rcol_p = new Request_column( staffs_ );
 
-    for (iter_top(staffs_,i); i.ok(); i++) {
-	i->setup_staffcols();
+	Score_column* c1 = new Score_column(w);
+	Score_column* c2 = new Score_column(w);
+	if (w == Moment(0) || w == l_mom) {
+	    c1->set_breakable();
+	}
+		
+	c1->musical_b_ = false;
+	c2->musical_b_ = true;
+	
+	cols_.bottom().add(c1);
+	cols_.bottom().add(c2);
+	rcol_p->set_score_cols(c1, c2);
+	rcols_.bottom().add(rcol_p);
+	pulk.get_aligned_request( rcol_p );
     }
 }
 
@@ -60,9 +82,6 @@ Score::paper()
 	return;
     
     pscore_p_ = new PScore(paper_p_);
-
-    find_col(0, false)->set_breakable(); // ugh
-    find_col(last(), false)->set_breakable();
     do_cols();
     
     for (iter_top(staffs_,i); i.ok(); i++) 
@@ -90,9 +109,18 @@ Score::paper()
 void
 Score::clean_cols()
 {
+#if 1
     for (iter_top(staffs_,i); i.ok(); i++)
 	i->clean_cols();
 
+    for (iter_top(rcols_,i); i.ok(); i++) {
+	if (!i->command_column_l_->used_b()) {
+	    i->command_column_l_ = 0;
+	}
+	if (!i->musical_column_l_->used_b())
+	    i->musical_column_l_ = 0;
+    }
+    
     for (iter_top(cols_,c); c.ok(); ) {
 	if (!c->pcol_l_->used_b()) {
 	    delete c.remove_p();
@@ -101,44 +129,7 @@ Score::clean_cols()
 	    c++;
 	}
     }
-}
-
-/** Create columns at time #w#.  This sux.  We should have
-  Score_column create the appropriate PCol.  Unfortunately, PCols
-  don't know about their position.
-
-  @return cursor pointing to the nonmusical (first) column */
-PCursor<Score_column*>
-Score::create_cols(Moment w, PCursor<Score_column*> &i)
-{
-    Score_column* c1 = new Score_column(w);
-    Score_column* c2 = new Score_column(w);
-    
-    c1->musical_b_ = false;
-    c2->musical_b_ = true;
-
-    if (i.ok()) {
-	i --;
-    }
-    if ( !i.ok() ) {
-	i = cols_.top();
-    }
-    for (; i.ok(); i++) {
-	if (i->when() > w)
-	    break;
-    }
-
-    if (!i.ok()) {
-	cols_.bottom().add(c1);
-	cols_.bottom().add(c2);
-	i = cols_.bottom();
-	i --;
-    } else {
-	i.insert(c1);
-	i.insert(c2);
-	i -= 2;
-    }
-    return i;
+#endif
 }
 
 PCursor<Score_column*>
@@ -152,9 +143,7 @@ Score::find_col(Moment w, bool mus)
 	if (i->when() > w)
 	    break;
     }
-    i = create_cols(w,i);
-    if (mus)
-	i++;
+    assert(false);
     return i;
 }
 

@@ -24,7 +24,7 @@ Key_item::read(Key_register const & key_reg_r)
     const Array<int> &idx_arr =key_reg_r.accidental_idx_arr_; 
     for (int i = 0 ; i< idx_arr.size(); i++) {
 	int note = idx_arr[i];
-	int acc = key_reg_r.key_.oct(0).acc(note);
+	int acc = ((Key &) key_reg_r.key_).oct(0).acc(note);
 
 	add(note, acc);
     }

@@ -29,9 +29,13 @@ Midi_walker::Midi_walker(Staff *st_l, Midi_track* track_l)
 void
 Midi_walker::do_stop_notes(Moment max_moment)
 {
-    while (stop_notes.size() && stop_notes.front_idx() <= max_moment) {
-	Moment stop_moment = stop_notes.front_idx();
-	Melodic_req * req_l = stop_notes.get();
+    while (stop_notes.size() && stop_notes.front().key <= max_moment) {
+	Note_event  ent=stop_notes.get();
+	if (ent.ignore_b_) 
+	    continue;
+	
+	Moment stop_moment = ent.key;
+	Melodic_req * req_l = ent.val;
 	
 	Midi_note note(req_l, track_l_->number_i_, false);
 	output_event(note, stop_moment);
@@ -43,21 +47,23 @@ Midi_walker::do_stop_notes(Moment max_moment)
 void 
 Midi_walker::do_start_note(Note_req*note_l)
 {
-    Moment stop=note_l->duration() + ptr()->when();
-    for(int i=0; i < stop_notes.size(); i++)
-	if (stop_notes.value_arr_[i]->melodic()->pitch() ==
+    Moment stop = note_l->duration() + ptr()->when();
+    for(int i=0; i < stop_notes.size(); i++) {
+	if (stop_notes[i].val->melodic()->pitch() ==
 	    note_l->pitch()) {
-	     if ( stop_notes.indices_arr_[i] < stop){
-	     	 
-		 stop_notes.del(i);
-		 return ;  // removing this gives a feature ( ${c2 c4}$ output correctly)
-	     }
-	     else
-		 return; // skip the stop note 
-	     break;// do the stop note	  	     
+	    if ( stop_notes[i].key < stop){
+		stop_notes[i].ignore_b_=true;
+	    }
+	    else
+		return; // skip the stop note 
 	}
+    }
+    Note_event e;
+    e.val = note_l;
+    e.key = stop;
     
-    stop_notes.enter(note_l,  stop);
+    stop_notes.insert(e);
+    
     Midi_note note(note_l, track_l_->number_i_, true);
     output_event(note, ptr()->when());
 }
@@ -94,7 +100,6 @@ Midi_walker::process_requests()
     }
 
     for ( int i = 0; i < ptr()->musicalreq_l_arr_.size(); i++ )  {
-
 	Rhythmic_req *n = ptr()->musicalreq_l_arr_[i]->rhythmic();
 	if ( !n)
 	    continue;
@@ -102,11 +107,17 @@ Midi_walker::process_requests()
 	if (!note_l)
 	    continue;
 	do_start_note(note_l);
-	
     }
 }
 
 Midi_walker::~Midi_walker()
 {
     do_stop_notes( last_moment_ + Moment(10,1)); // ugh
+}
+
+
+int
+compare(Note_event const&e1, Note_event const&e2)
+{
+    return sign(e1.key - e2.key);
 }

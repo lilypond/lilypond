@@ -19,8 +19,11 @@ NAME = make
 
 
 # list of distribution files:
-#
-EXTRA_DISTFILES = Configure_variables.make.in lilypond.spec.in Toplevel.make.in lilypond.lsm.in $(outdir)/lilypond.spec
+
+# two outdir files are distributed, since they make sense to have without running 
+# configure and make.
+EXTRA_DISTFILES = Configure_variables.make.in lilypond.spec.in Toplevel.make.in \
+	lilypond.lsm.in $(outdir)/lilypond.spec $(outdir)/lilypond.lsm
 #
 
 # generic variables:
@@ -37,6 +40,13 @@ include ./$(depth)/make/Rules.make
 
 spec: $(outdir)/lilypond.spec
 
-rpm-docs=$(addprefix Documentation/out/, $(notdir $(shell ls $(depth)/Documentation/$(outdir)/*.text)))
+rpmdocs=$(addprefix Documentation/out/, $(notdir $(shell ls $(depth)/Documentation/$(outdir)/*.text)))
+sed-version= sed 's!@TOPLEVEL_VERSION@!${TOPLEVEL_VERSION}!g'
+sed-date=sed 's!@DATE@!${date}!g'
+sed-docs=sed 's!@TEXT_DOCS@!${rpmdocs}!g'
+
 $(outdir)/lilypond.spec: lilypond.spec.in $(depth)/.version
-	cat $< | sed 's/@TOPLEVEL_VERSION@/${TOPLEVEL_VERSION}/g'|sed 's#@TEXT_DOCS@#$(rpm-docs)#g' > $@
+	cat $< | $(sed-version) | $(sed-docs) > $@
+
+$(outdir)/lilypond.lsm: lilypond.lsm.in $(depth)/.version
+	cat $< | $(sed-version) | $(sed-date) > $@

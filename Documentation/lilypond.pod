@@ -123,7 +123,10 @@ the GNU General Public License, which is in the file F<COPYING>
 
 =head1 AUTHORS
 
-=over 5
+Please consult the documentation file AUTHORS for more detailed
+information, and small contributions. 
+
+=over 4
 
 =item *
 
@@ -137,10 +140,6 @@ Jan Nieuwenhuizen <jan@digicash.com>,  http://www.digicash.com/~jan.
 
 Context errors, Lyrics, mi2mu, MIDI stuff, make structure, bits of
 FlowerLib, general comments, Mudela design.
-
-=item *
-
-Mats Bengtsson <matsb@s3.kth.se>, bugfixes, testing, general comments.
 
 =back
 

@@ -96,6 +96,7 @@ DUMMYDEPS=\
 ERROR_LOG = 2> /dev/null
 SILENT_LOG = >& /dev/null
 allexe = $(lily_bindir)/lilypond $(lily_bindir)/mi2mu
+date = $(shell date +%x)
 allhh := $(shell $(FIND) -name "*.hh" $(ERROR_LOG))
 allcc := $(shell $(FIND) -name "*.cc" $(ERROR_LOG))
 allobs := $(shell $(FIND) $(outdir) -name "*.o" $(ERROR_LOG))

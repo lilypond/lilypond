@@ -1,0 +1,31 @@
+=head1 NAME
+
+AUTHORS - who did what on LilyPond?
+
+=head1 DESCRIPTION
+
+This file lists authors of LilyPond, and what they wrote.  
+
+=over 4
+
+=item *
+
+Han-Wen Nienhuys <hanwen@stack.nl>
+
+Main author, all files files except mentioned below
+
+=item *
+
+Jan Nieuwenhuizen <jan@digicash.com>
+
+lily/midi-*, mi2mu/*, flower/string.cc, make/*.make, Documentation/mudela.pod
+lib/*source-file*, lib/duration.cc, lib/source, flower/*list*
+
+and corresponding header files.
+
+=item *
+
+Mats Bengtsson <matsb@s3.kth.se>, parts of clef-reg.cc, clef-item.cc
+testing, general comments.
+
+=back

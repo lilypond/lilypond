@@ -18,30 +18,27 @@
 #include "p-score.hh"
 #include "item.hh"
 #include "p-col.hh"
-#include "voice-element.hh"
-#include "pqueue.hh"
+#include "request-column.hh"
 
 void
 Staff_column::OK() const
 {
 #ifndef NDEBUG
-    assert (command_column_l_->when() == musical_column_l_->when());
+    
 #endif
 }
 
 Moment
 Staff_column::when() const
 {
-    return (command_column_l_)?
-	command_column_l_->when():
-	musical_column_l_->when();
+    return req_col_l_->when();
 }
 
 void
-Staff_column::add(Voice_element*ve,
-		  PQueue<Subtle_req *, Moment> &subtle_req_pq )
+Staff_column::add_reqs(Array<Request*> req_l_arr)
 {
-    for (iter_top(ve->reqs,j); j.ok(); j++) {
+    for (int i=0; i < req_l_arr.size(); i++) {
+	Request * j = req_l_arr[i];
 	if (j->command()) {
 	    Command_req * c_l = j->command();
 	    if (c_l->timing()) {
@@ -51,20 +48,15 @@ Staff_column::add(Voice_element*ve,
 		creationreq_l_arr_.push(c_l);
 	    else if (!c_l->barcheck() &&  !c_l->partial() &&
 		!c_l->measuregrouping())
-		setup_one_request(j);	// no need to bother children
+		setup_one_request(j);	
 	} else {
 	    if (j->rhythmic()) {
-		musical_column_l_->add_duration(j->rhythmic()->duration());
+		req_col_l_->musical_column_l_->add_duration(j->rhythmic()->duration());
 	    }
 	    if (j->musical()) {
 		Musical_req*m = j->musical();
 		if(m->skip())
 		    continue;
-		Subtle_req * s = m->subtle() ;
-		if (s&& s->subtime_) {
-		    subtle_req_pq.enter(s, s->subtime_ + when());
-		    continue ; 
-		}
 	    }
 	    setup_one_request(j);
 	}
@@ -73,8 +65,6 @@ Staff_column::add(Voice_element*ve,
 
 Staff_column::Staff_column()
 {
-    musical_column_l_ = 0;
-    command_column_l_ = 0;
     staff_l_ = 0;
 }
 
@@ -86,10 +76,9 @@ Staff_column::~Staff_column()
 }
 
 void
-Staff_column::set_cols(Score_column*c1, Score_column*c2)
+Staff_column::set_req_col(Request_column *col_l)
 {
-    command_column_l_ = c1;
-    musical_column_l_ = c2;
+    req_col_l_ = col_l;
 }
 
 void
@@ -105,8 +94,8 @@ void
 Staff_column::typeset_musical_item(Item*i)
 {
     assert(i);
-    Score_column * scorecolumn_l = musical_column_l_;
-    musical_column_l_->pcol_l_->pscore_l_->typeset_item(i, scorecolumn_l->pcol_l_,
+    Score_column * scorecolumn_l = req_col_l_->musical_column_l_;
+    scorecolumn_l->pcol_l_->pscore_l_->typeset_item(i, scorecolumn_l->pcol_l_,
 							staff_l_->pstaff_l_);
 }
 
@@ -147,8 +136,9 @@ Staff_column::typeset_breakable_items(Array<Item *> &pre_p_arr,
 				      Array<Item *> &nobreak_p_arr,
 				      Array<Item *> &post_p_arr)
 {
-    PCol * c= command_column_l_->pcol_l_;
-    PScore *ps_l=command_column_l_->pcol_l_->pscore_l_;
+    Score_column * scol_l= req_col_l_->command_column_l_;
+    PCol * c= scol_l->pcol_l_;
+    PScore *ps_l=scol_l->pcol_l_->pscore_l_;
     
     if (!c->breakable_b()) {	  
 	for  (int i =0; i < pre_p_arr.size(); i++)
@@ -179,4 +169,16 @@ Staff_column::typeset_breakable_items(Array<Item *> &pre_p_arr,
     pre_p_arr.set_size(0);
     post_p_arr.set_size(0);
     nobreak_p_arr.set_size(0);
+}
+
+Score_column*
+Staff_column::command_column_l()
+{
+    return req_col_l_->command_column_l_;
+}
+
+Score_column*
+Staff_column::musical_column_l()
+{
+    return req_col_l_->musical_column_l_;
 }

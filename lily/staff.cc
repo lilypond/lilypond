@@ -16,7 +16,6 @@
 #include "debug.hh"
 #include "musical-request.hh"
 #include "command-request.hh" // todo
-#include "pqueue.hh"
 
 
 void
@@ -35,6 +34,7 @@ Staff::paper() const
 void
 Staff::clean_cols()
 {
+#if 0 // TODO
     iter_top(cols_,i);
     for(; i.ok(); ){
 	if (!i->musical_column_l_->used_b())
@@ -47,83 +47,9 @@ Staff::clean_cols()
 	else
 	    i++;
     }
+#endif
 }
 
-Staff_column *
-Staff::get_col(Moment w, PCursor<Staff_column*> *last)
-{    
-    iter_top(cols_,i);
-    if (last && last->ok() && (*last)->when() <= w)
-	i = *last;
-    
-    for (; i.ok(); i++) {
-	if (i->when() == w) {
-	    if (last)
-		*last = i;
-	    return i;
-	} else if (i->when() > w)
-	    break;
-    }
-
-
-    PCursor<Score_column*> scorecolumns(score_l_->find_col(w, false));
-    Staff_column* staffcolumn_p = new Staff_column;
-    staffcolumn_p->staff_l_ = this;
-    Score_column* comcol_l  = scorecolumns++;
-    staffcolumn_p->set_cols(comcol_l, scorecolumns);
-    
-    if (!i.ok()) {
-	cols_.bottom().add(    staffcolumn_p);
-	i = cols_.bottom();
-    } else {
-	i.insert(staffcolumn_p);
-	i--;
-    }
-    if (last)
-	*last = i;
-    return i;
-}
-
-/** put all stuff grouped vertically in the Staff_cols.  Do the
-  preprarations for walking the cols. not virtual */
-void
-Staff::setup_staffcols()
-{
-    PQueue<Subtle_req *, Moment> subtle_req_pq;
-	PCursor<Staff_column*> last(cols_);
-    
-    for (iter_top(voice_list_,i); i.ok(); i++) {
-	Moment now = i->start;
-	iter_top(i->elts,j);
-	while( j.ok()) {
-	    
-	    Moment next = now;
-	    if (subtle_req_pq.size())
-		next = next <? subtle_req_pq.front_idx();
-
-	    Staff_column *s_l= get_col(next, &last);
-
-	    while (subtle_req_pq.size()
-		   && subtle_req_pq.front_idx() == s_l->when()) {
-		s_l->setup_one_request(subtle_req_pq.get()); // ugh!
-	    }
-	    if(next == now) {
-		s_l->add(j, subtle_req_pq); 
-		now += j->duration_;
-		j++;
-	    }
-	}
-	
-    }
-   last = cols_.top(); 
-    while (subtle_req_pq.size()) {
-	Moment front =subtle_req_pq.front_idx();
-	Staff_column *s_l = get_col(front, &last);
-	while(subtle_req_pq.size() && subtle_req_pq.front_idx() == front)
-	    s_l->setup_one_request(subtle_req_pq.get()); // ugh!
-    }
-	
-}
 
 void
 Staff::OK() const
@@ -171,4 +97,11 @@ Staff::Staff()
     score_l_ =0;
     pscore_l_ =0;
     pstaff_l_ =0;
+}
+
+void
+Staff::add_col(Staff_column*c_l)
+{
+    cols_.bottom().add(c_l);
+    c_l->staff_l_ = this;
 }

@@ -41,13 +41,13 @@ Staff_info::column_l()
 Score_column*
 Staff_info::musical_l()
 {
-    return column_l() -> musical_column_l_;
+    return column_l() -> musical_column_l();
 }
 
 Score_column*
 Staff_info::command_l()
 {
-    return column_l() -> command_column_l_;
+    return column_l() -> command_column_l();
 }
 PCol*
 Staff_info::command_pcol_l()

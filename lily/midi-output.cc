@@ -6,7 +6,6 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>, Jan Nieuwenhuizen <jan@digicash.com> 
 */
 
-// "" huh?
 #include "time.h"
 #include "main.hh"
 #include "source.hh"
@@ -25,7 +24,7 @@
 #include "midi-item.hh"
 #include "staff-column.hh"
 #include "musical-request.hh"
-
+#include "p-score.hh"
 
 Midi_output::Midi_output(Score* score_l, Midi_def* midi_l )
 {
@@ -101,6 +100,7 @@ Midi_output::header()
 
     // ugh, to please lily when reparsing mi2mu output.
     // lily currently barfs when no meter present.
+    /* are you sure? init is to 4/4 HWN */
     Midi_time midi_time( 4, 4, 18 );
     midi_track.add( Moment( 0.0 ), &midi_time );
 

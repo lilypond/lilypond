@@ -1,4 +1,8 @@
-pl 1.1.11.jcn1
+pl 1.1.13
+	- better test-bed
+	- Heap PQueue implementation
+
+pl 1.1.12
 	- No path search for "" and "-"
 
 pl 1.1.11

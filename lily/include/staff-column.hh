@@ -6,7 +6,8 @@
 
 #ifndef STAFFCOLUMN_HH
 #define STAFFCOLUMN_HH
-#include "proto.hh"
+
+#include "lily-proto.hh"
 #include "varray.hh"
 #include "moment.hh"
 
@@ -20,18 +21,18 @@ public:
     Array<Request*> musicalreq_l_arr_;
     Array<Request*> commandreq_l_arr_;
     Staff * staff_l_;
-
+    Request_column * req_col_l_;
     /// fields to collect timing data vertically.
     Array<Timing_req*> timing_req_l_arr_;
-    Score_column *musical_column_l_, *command_column_l_;
 
     /* *************** */
-    
-    Staff_column();
 
+    Staff_column();
+    Score_column* command_column_l();
+    Score_column* musical_column_l();
     Moment when() const;
-    void set_cols(Score_column *c1, Score_column *c2);
-    void add(Voice_element*ve, PQueue<Subtle_req *, Moment> &subtle_req_pq );
+    void set_req_col(Request_column *c1);
+    void add_reqs (Array<Request*> req_l_arr);
     void OK() const;
     ~Staff_column();
     void typeset_breakable_items(Array<Item *> &pre_p_arr,

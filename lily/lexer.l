@@ -68,7 +68,7 @@ COMMENT		%.*\n
 
 
 <notes,INITIAL,lyrics>
-include           {
+\\include           {
 	yy_push_state(incl);
 }
 <incl>{WHITE}*      { /* eat the whitespace */ }
@@ -283,10 +283,12 @@ My_lily_lexer::scan_escaped_word(String str)
 		yylval.id = id;
 		return id->token_code_i_;
 	}
+	mtor << "(string)";
 	String *sp = new String( str);
 	yylval.string=sp;
 	return STRING;
 }
+
 int
 My_lily_lexer::scan_bare_word(String str)
 {

@@ -1,4 +1,16 @@
+pl 53
+	- spurious accidental bug.
+	- simultaneity check.
+	- added AUTHORS.pod
+	- convert-mudela auto from guess
+	- include -> \include
+	- change order of opening parse/init file 
+	- Pulk_voice, Pulk_voices
+	- Request_column
+	- revised request-from-voice extraction. Now much faster
+
 ******
+april 17
 pl 52
 	- Buildroot RPM
 	- tex-prefix and tex-dir sep'd (here you are jan)

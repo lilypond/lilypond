@@ -27,6 +27,7 @@ Local_key_register::pre_move_processing()
 	key_item_p_ = 0;
     }
 }
+
 void
 Local_key_register::acknowledge_element(Staff_elem_info info)
 {    
@@ -48,12 +49,16 @@ Local_key_register::acknowledge_element(Staff_elem_info info)
 	    local_key_.oct(note_l_->octave_i_)
 		.set(note_l_->notename_i_, note_l_->accidental_i_);
 	}
-    } else if (info.elem_l_->name()==Key_item::static_name()) { 
+    } else if (info.req_l_->command()  && info.req_l_->command()->keychange()) { 
 	Key_register * key_reg_l =
 	    (Key_register*)info.origin_reg_l_arr_[0];
 	key_C_ = &key_reg_l->key_;
 	local_key_ = *key_C_;
-    }	
+    } else if (info.elem_l_->name() == Key_item::static_name()) {
+	Key_register * key_reg_l =
+	    (Key_register*)info.origin_reg_l_arr_[0];
+	key_C_ = &key_reg_l->key_;
+    }
 }
 
 void
@@ -61,11 +66,12 @@ Local_key_register::process_requests()
 {
     Time_description const * time_C_ = get_staff_info().time_C_;
     if (! time_C_->whole_in_measure_){
-	if (key_C_)  
+	if (key_C_)
 	    local_key_= *key_C_;
 	else if( time_C_->when_ >Moment(0))
 	    warning ("Help me! can't figure  current key");
     }
 }
+
 IMPLEMENT_STATIC_NAME(Local_key_register);
 ADD_THIS_REGISTER(Local_key_register);

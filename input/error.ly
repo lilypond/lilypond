@@ -1,4 +1,7 @@
-include "this-is-hopefully-a-nonexisting-file"
+\version "0.0.53";
+
+\include "this-is-hopefully-a-nonexisting-file"
+
 
 
 mwa = \melodic{
@@ -33,7 +36,7 @@ bla = \lyric{
 %IOT trap/Abort
 % als geen music in staff
 
-include "this-is-hopefully-a-nonexisting-file"
+\include "this-is-hopefully-a-nonexisting-file"
 \score{
 	\staff{ bla }
 	\staff{ mwa }

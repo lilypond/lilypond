@@ -190,12 +190,14 @@ Spacing_problem::solve() const
     return posns;
 }
 
-/*
+/**
     add one column to the problem.
 */    
 void
 Spacing_problem::add_column(PCol const *col, bool fixed, Real fixpos)
 {
+    if (!col->used_b() )
+	return;
     Colinfo c(col,(fixed)? &fixpos :  0);
     cols.push(c);
 }

@@ -37,6 +37,7 @@ public:
     virtual Moment duration() const;
     REQUESTMETHODS(Skip_req, skip);
 };
+
 /** a request with a duration.
   This request is used only a base class.
  */
@@ -74,6 +75,7 @@ public:
     int dir_i_;
     /// the characteristics of the text
     Text_def *tdef_p_;
+
     /* *************** */
     Text_req(int d, Text_def*);
     ~Text_req();
@@ -222,6 +224,7 @@ public:
  */
 class Subtle_req  : public virtual Musical_req  {
 public:
+    /// the time relative to Voice_element start.
     Moment subtime_;
     REQUESTMETHODS(Subtle_req, subtle);
 };

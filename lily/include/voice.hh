@@ -18,8 +18,8 @@ struct Voice {
     /** the elements, earliest first.
       Please use the member #add()# to add a new element
       */
-    IPointerList<Voice_element *> elts;
-    Moment start;
+    IPointerList<Voice_element *> elts_;
+    Moment start_;
 
     /* *************** */
     Voice();

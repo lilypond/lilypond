@@ -28,7 +28,7 @@ template<class T> struct PCursor;
 template<class T> struct Link;
 template<class T> struct Handle;
 template<class T> struct Interval_t;
-template<class T,class Q> struct PQueue;
+template<class T> struct PQueue;
 
 #include "real.hh"
 

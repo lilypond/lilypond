@@ -10,8 +10,9 @@ IMPORTANT
 
 	* slur direction
 
-	* problems with empty staff.->revise staff-column/score-walker.
+	* use own fonts/update musixtex fonts
 
+	* check return status in make_website
 
 This is an assorted collection of stuff that will be done, might be
 done, or is an idea that I want to think about
@@ -55,8 +56,6 @@ INPUTLANGUAGE
 
 	* figured bass?
 
-	* transposition
-
 	* rest name configurable
 
 	* Raw request syntax
@@ -69,6 +68,8 @@ SMALLISH PROJECTS
 
 	* bugreport to doc++ devel: struct not in class hier; public
 	virtual baseclasses
+
+	* cleanup lily-proto.hh and proto.hh
 
 	* half-sharps, half-flats
 	
@@ -148,6 +149,8 @@ DOC
 	* a test suite
 
 FUTURE
+
+	* tie a ~ b, move slur reg into voice-group.
 
 	* Reg_configure_request
 

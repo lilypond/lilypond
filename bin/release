@@ -33,7 +33,7 @@ heredir=`pwd`
     mv {lilypond-,patch-}*.gz ../
 cd ..
 tar cf updeet {lily,patch-}*.gz
-
+tar tfv updeet
 mv patch-*gz patches/
 mv lilypond*tar.gz releases/
 
