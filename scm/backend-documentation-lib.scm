@@ -47,8 +47,9 @@ Interfaces:
 
     ))
 
-(define iface->grob-table (make-vector 61 '()))
 
+(define iface->grob-table (make-vector 61 '()))
+;; extract ifaces, and put grob into the hash table.
 (map
  (lambda (x)
    (let*
@@ -86,6 +87,9 @@ Interfaces:
       )))
 
 (define (grob-doc description)
+  "Given a property alist DESCRIPTION, make a documentation
+node."
+  
   (let*
       (
        (metah (assoc 'meta description))

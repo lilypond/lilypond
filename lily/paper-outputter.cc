@@ -39,7 +39,10 @@ Paper_outputter::Paper_outputter (String name)
   
   file_ = scm_open_file (scm_makfrom0str (name.to_str0 ()),
 			    scm_makfrom0str ("w"));
-  
+
+  /*
+    ugh.
+   */
   SCM exp = scm_list_n (ly_symbol2scm ("find-dumper"),
 			scm_makfrom0str (output_format_global.to_str0 ()),
 			SCM_UNDEFINED);

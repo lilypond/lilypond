@@ -154,20 +154,16 @@ get_music_info (Moment m, Music_iterator* iter, SCM *pitches, SCM *durations)
       for (SCM i = iter->get_pending_events (m); gh_pair_p (i); i = ly_cdr (i))
 	{
 	  Music *m = unsmob_music (ly_car (i));
-	  if (m->is_mus_type ("melodic-event"))
-	    *pitches = gh_cons (m->get_mus_property ("pitch"), *pitches);
-	  if (m->is_mus_type ("rhythmic-event"))
-	    {
-	      SCM d = m->get_mus_property ("duration");
-	      if (d == SCM_EOL)
-		m->origin ()->warning ("Music has no duration\n");
-	      else
-		*durations = gh_cons (d, *durations);
-	    }
+	  SCM p = m->get_mus_property ("pitch");
+	  SCM d = m->get_mus_property ("duration");
+	  if (unsmob_pitch (p))
+	    *pitches = gh_cons (p, *pitches);
+	  if (unsmob_duration (d))
+	    *durations = gh_cons (d, *durations);
 	}
     }
 }
-  
+
 int
 Part_combine_music_iterator::get_state (Moment)
 {
@@ -234,10 +230,8 @@ Part_combine_music_iterator::get_state (Moment)
 
 	  if (first_pitches != SCM_EOL && second_pitches != SCM_EOL)
 	    {
-	      scm_sort_list_x (first_pitches,
-			       scm_primitive_eval (ly_symbol2scm ("Pitch::less_p")));
-	      scm_sort_list_x (second_pitches,
-			       scm_primitive_eval (ly_symbol2scm ("Pitch::less_p")));
+	      scm_sort_list_x (first_pitches, Pitch::less_p_proc);
+	      scm_sort_list_x (second_pitches, Pitch::less_p_proc);
 
 	      interval = gh_int2scm (unsmob_pitch (ly_car (first_pitches))->steps ()
 				     - unsmob_pitch (ly_car (scm_last_pair (second_pitches)))->steps ());
@@ -246,14 +240,14 @@ Part_combine_music_iterator::get_state (Moment)
 	  if (first_durations != SCM_EOL)
 	    {
 	      scm_sort_list_x (first_durations,
-			       scm_primitive_eval (ly_symbol2scm ("Duration::less_p")));
+			       Duration::less_p_proc);
 	      first_mom += unsmob_duration (ly_car (first_durations))->get_length ();
 	    }
 	  
 	  if (second_durations != SCM_EOL)
 	    {
 	      scm_sort_list_x (second_durations,
-			       scm_primitive_eval (ly_symbol2scm ("Duration::less_p")));
+			       Duration::less_p_proc);
 	      second_mom += unsmob_duration (ly_car (second_durations))->get_length ();
 	    }
 	  
