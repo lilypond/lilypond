@@ -15,11 +15,12 @@ copyright =	 "public domain";
 \include "fagotto-2.ly"
 
 $fagotti_staff = \context Staff = fagotti <
-	\property Staff.midiInstrument = "bassoon"
-	\property Staff.instrument = "2 Fagotti"
-	\property Staff.instr = "Fg."
+	\property Staff.midiInstrument = #"bassoon"
+	\property Staff.instrument = #"2 Fagotti"
+	\property Staff.instr = #"Fg."
 	\clef "bass";
-	\notes \context Voice=fagotti < 
+	%\notes \context Voice=fagotti < 
+	\notes \context Staff=fagotti < 
 		\global
 		\$fagotto1
 		\$fagotto2

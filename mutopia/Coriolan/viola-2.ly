@@ -33,9 +33,9 @@ viola2 = \notes \relative c {
 
 % $viola2_staff = \context Staff = viola_2 <
 $viola2_staff = \context Staff = violaii <
-	\property Staff.midiInstrument = "viola"
-	\property Staff.instrument = "Viola II"
-	\property Staff.instr = "Vla. II"
+	\property Staff.midiInstrument = #"viola"
+	\property Staff.instrument = #"Viola II"
+	\property Staff.instr = #"Vla. II"
 	\clef "alto";
 	% notes must go to Staff context: we want to switch Staff translators
 	%\notes \context Voice=one< 

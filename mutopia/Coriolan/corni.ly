@@ -15,13 +15,14 @@ copyright =	 "public domain";
 \include "corno-2.ly"
 
 $corni_staff = \context Staff = corni <
-	\property Staff.midiInstrument = "french horn"
-	\property Staff.instrument = "2 Corni (E\\textflat)"
-	\property Staff.instr = "Cor. (E\\textflat)"
+	\property Staff.midiInstrument = #"french horn"
+	\property Staff.instrument = #"2 Corni (E\\textflat)"
+	\property Staff.instr = #"Cor. (E\\textflat)"
 	% urg: can't; only My_midi_lexer:<non-static> () parses pitch?
 	%\property Staff.transposing = "es"
-	\property Staff.transposing = 3
-	\notes \context Voice=corni < 
+	\property Staff.transposing = #3
+	%\notes \context Voice=corni < 
+	\notes \context Staff=corni < 
 		\time 4/4;
 		\$corno1
 		\$corno2

@@ -44,7 +44,8 @@ contrabasso = \notes \relative c {
 	%60
 	)es4 r r r8 es(|
 	)as,4 r r r8 as(|
-	)g2\ff f | e c' |
+	)g2\ff f |
+	e c' |
 	f,4\p r r r8 f(|
 	%65
 	)bes4 r r r8 bes(|
@@ -53,34 +54,56 @@ contrabasso = \notes \relative c {
 	)f4-"cresc." r r r8 f(|
 	)bes4 r r r8 bes(|
 	%70
-	)as2\ff g | fis d' |
+	)as2\ff g |
+	fis d' |
 	g,4\p-"cresc." r r r8 g(|
 	)c4 r r r8 c(|
 	% )<b1\sf\> { s2 s4 \!s8}> |
 	)b1 |
 	%75
 	\skip 1*3; |
-	d4\pp r d r | d r d r | d r d-"cresc." r | 
-	d r d r | d r d r | d r d r | 
+	d4\pp r d r |
+	d r d r |
+	%80
+	d r d-"cresc." r |
+	d r d r |
+	d r d r |
+	d r d r |
 	\skip 1*8; |
-	c4 r r2 | c4 r r2 | c4 r r2 | c4 r r2 |
+	c4 r r2 |
+	c4 r r2 |
+	c4 r r2 |
+	%95
+	c4 r r2 |
 	\skip 1*6; |
-	g4\p r r2 | r2 r4 r8 fis\f |
-	g4 r r2 | r2 r4 r8 fis\f |
-	g4 r r2 | 
-	R1*3 | 
-	\skip 1*8; | g4\p r r2 |
+	g4\p r r2 |
+	r2 r4 r8 fis\f |
+	%105
+	g4 r r2 |
+	r2 r4 r8 fis\f |
+	g4 r r2 |
+	R1*3 |
+	% urg, aargh burp: skip 'same as cello' part
+	\skip 1*8; |
+
+	g4\p r r2 |
+	
 	% urg, this is *rest*, not skip: 
 	% need own staff for rests, mustn't collapse to one cello staff!
 	%120 - 1
 	R1*21 |
+
 	% play with cello
 	\skip 1*4; |
 	f'4\p r r2 |
 	R1*3 |
 	\skip 1*10; |
-	b,2\sf r | b2\sf r | R1*3 |
-	bes2\ff r | bes2\sf r | R1*2 | 
+	b,2\sf r |
+	b2\sf r |
+	R1*3 |
+	bes2\ff r |
+	bes2\sf r |
+	R1*2 |
 	r2 r4 bes\ff( |
 	)as2. bes4\sf(|
 	)as2. bes4\sf(|
@@ -90,7 +113,8 @@ contrabasso = \notes \relative c {
 	)b2. c4\sf(|
 	)b2. c4\sf(|
 	)b2. c4\sf(|
-	)b4 r r2 | R1 |
+	)b4 r r2 |
+	R1 |
 	c4\p r r r8 c(|
 	)f,4 r r r8 f(|
 	%180
@@ -103,7 +127,8 @@ contrabasso = \notes \relative c {
 	)b4 r r r8 b(|
 	)c4 r r r8 c(|
 	)f,4 r r r8 f(|
-	)e2\ff d' | cis a | 
+	)e2\ff d' |
+	cis a |
 	%190
 	d4\p r r r8 d(|
 	)g,4 r r r8 g(|
@@ -112,37 +137,54 @@ contrabasso = \notes \relative c {
 	)d4-"cresc." r r r8 d(|
 	%195
 	)g,4 r r r8 g( |
-	)d2\ff e' | dis b | 
+	)d2\ff e' |
+	dis b |
 	e4\p r r r8 e(|
 	% )a4\< r r r8 a(|
 	%200
-	% g1 | <f {s2 s4 \!s8}> | 
+	% g1 |
+	<f {s2 s4 \!s8}> |
 	)a4 r r r8 a(|
 	%200
-	)g1 | f | 
+	)g1 |
+	f |
 	\skip 1*18; |
 	%220
-	f4 r r2 | f'4 r r2 | f4 r r2 | f4 r r2 | 
+	f4 r r2 |
+	f'4 r r2 |
+	f4 r r2 |
+	f4 r r2 |
 	\skip 1*6; |
-	c,4\p r r2 | r2 r4 r8 b\f |
-	c4 r r2 | r2 r4 r8 b\f |
-	c4 r r2 | 
+	c,4\p r r2 |
+	r2 r4 r8 b\f |
+	c4 r r2 |
+	r2 r4 r8 b\f |
+	c4 r r2 |
 	R1*3 |
 	\skip 1*59; |
-	r2 r4 f, | c' r r2 |
-	r2 r4 f, | c' r r2 | R1 | 
-	f,4 r r2 | R1 |
-	c'4 r r2 | R1 |
-	f,4 r r2 | R1*3 | c'4\pp r r2 | R1 |
+	r2 r4 f, |
+	c' r r2 |
+	r2 r4 f, |
+	c' r r2 |
+	R1 |
+	f,4 r r2 |
+	R1 |
+	c'4 r r2 |
+	R1 |
+	f,4 r r2 |
+	R1*3 |
+	c'4\pp r r2 |
+	R1 |
 	c4 r r2 |
 	c4 r r2 |
 	c4 r r2 |
 }
 
 $contrabasso_staff = \context Staff = contrabasso <
-	\property Staff.midiInstrument = "contrabass"
-	\property Staff.instrument = "Contrabasso"
-	\property Staff.instr = "Cb."
+	\property Staff.midiInstrument = #"contrabass"
+	\property Staff.instrument = #"Contrabasso"
+	\property Staff.instr = #"Cb."
+	\property Staff.transposing = #-12
 	\clef "bass";
 	\notes \context Voice=one< 
 		\global

@@ -14,7 +14,9 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
     broken
 . * use ports iso. iostream. 
 . * hard constraints for  broken slurs to.
-. * mondrup
+. * Staff_margin_engraver placement is broken for Staff.instr(ument)
+. * Bracket/brace placement and stacking is broken
+. * Mondrup:
 
 - In some cases I don't get the large textsize within note examples I request.
 Consider for example the entry 'c clef', where \property Lyrics.textStyle = "large"

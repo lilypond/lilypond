@@ -273,9 +273,9 @@ violino1 = \notes \relative c {
 }
 
 $violino1_staff = \context Staff = violino1 <
-	\property Staff.midiInstrument = "violin"
-	\property Staff.instrument = "Violino I"
-	\property Staff.instr = "Vl. I"
+	\property Staff.midiInstrument = #"violin"
+	\property Staff.instrument = #"Violino I"
+	\property Staff.instr = #"Vl. I"
 	\notes< 
 		\global
 		\$violino1

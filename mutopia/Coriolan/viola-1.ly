@@ -291,9 +291,9 @@ viola1 = \notes \relative c {
 
 % $viola1_staff = \context Staff = viola1 <
 $viola1_staff = \context Staff = violai <
-	\property Staff.midiInstrument = "viola"
-	\property Staff.instrument = "Viola"
-	\property Staff.instr = "Vla."
+	\property Staff.midiInstrument = #"viola"
+	\property Staff.instrument = #"Viola"
+	\property Staff.instr = #"Vla."
 	\clef "alto";
 	\notes \context Voice=one < 
 		\global
