@@ -22,6 +22,7 @@ Global_context::Global_context (Music_output_def*o)
   output_def_ = o;
   definition_ = o->find_context_def (ly_symbol2scm ("Global"));
   unsmob_context_def (definition_)->apply_default_property_operations (this);
+  accepts_list_ = scm_list_1 (ly_symbol2scm ("Score"));
 }
 
 Music_output_def* 
@@ -147,10 +148,11 @@ Global_context::run_iterator_on_me (Music_iterator * iter)
 						->find_context_def (key));
 	  if (!t)
 	    error (_f ("can't find `%s' context", "Score"));
-	  
-	  add_context (t->instantiate (SCM_EOL));
 
-	  Score_context *sc = dynamic_cast<Score_context*> (t);
+	  Context *c = t->instantiate (SCM_EOL);
+	  add_context (c);
+
+	  Score_context *sc = dynamic_cast<Score_context*> (c);
 	  sc->prepare (w);
 	}
       
