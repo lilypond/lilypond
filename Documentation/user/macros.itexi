@@ -111,7 +111,7 @@
 @end macro
 
 @macro usermanref{NAME}
-@inforef{\NAME\,,lilypond}@c
+@inforef{\NAME\}@c
 @end macro
 
 @end ifinfo
