@@ -22,22 +22,6 @@ busy_parsing()
     return lexer;	
 }
 
-void
-kill_lexer()
-{
-	delete lexer;
-	lexer = 0;
-}
-
-void
-set_lexer()
-{
-    if (!lexer) {
-       lexer = new My_flex_lexer;
-       lexer->set_debug( !monitor.silence("Lexer") && check_debug);
-   }		
-}
-
 Input_file::Input_file(String s)
 {
     name = s;
