@@ -151,7 +151,7 @@ this and other documentation.
 * Tutorial::                       A tutorial introduction.
 * Notation manual::                All notation supported, and how to
                                    produce it.
-* Changing defaults::              Tuning output
+* Changing defaults::              Tuning output.
 * Invoking LilyPond::              Operation.
 * Converting from other formats::  Converting to lilypond source format.
 * lilypond-book manual::           Integrating text and music with lilypond-book.
