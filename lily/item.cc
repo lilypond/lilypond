@@ -47,7 +47,8 @@ Item::breakable_b (Grob*me)
 Paper_column *
 Item::column_l () const
 {
-  return dynamic_cast<Item*> (parent_l (X_AXIS))->column_l ();
+  Item *parent = dynamic_cast<Item*> (parent_l (X_AXIS));
+  return parent ? parent->column_l () : 0;
 }
 
 Line_of_score *

@@ -107,7 +107,7 @@ Align_interface::align_to_extents (Grob * me, Axis a)
 
   Link_array<Grob> elems;
   Link_array<Grob> all_grobs
-    = Pointer_group_interface__extract_elements (  me, (Grob*) 0, "elements");
+    = Pointer_group_interface__extract_elements (me, (Grob*) 0, "elements");
   for (int i=0; i < all_grobs.size(); i++) 
     {
       Interval y = all_grobs[i]->extent(me, a);
@@ -122,7 +122,6 @@ Align_interface::align_to_extents (Grob * me, Axis a)
 	      && gh_number_p (gh_cdr (min_dims)))
 	    {
 	      y.unite (ly_scm2interval (min_dims));
-	      
 	    }
 	  
 	  SCM extra_dims = e->remove_grob_property ("extra-space");
