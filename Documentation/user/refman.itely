@@ -163,7 +163,8 @@ octave; each @code{,} lowers the pitch by an octave.
 Normally accidentals are printed automatically, but you may also
 print them manually.  A reminder accidental
 @cindex reminder accidental
-@cindex @code{?} can be forced by adding an exclamation mark @code{!}
+@cindex @code{?}
+can be forced by adding an exclamation mark @code{!}
 after the pitch.  A cautionary accidental
 @cindex cautionary accidental
 @cindex parenthesized accidental

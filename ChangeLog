@@ -1,3 +1,13 @@
+2002-10-04  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/grob-description.scm (minimum-beam-collision-distance): 0.75
+	staff-space.  Previous 1.5 was probably meant as half-spaces.
+	(cautionary-style): parentheses (was: smaller).  This is what doco
+	says, and it seems more logical.
+
+	* Documentation/user/refman.itely (Chromatic alterations): Bugfix
+	for 2nd sentence.
+
 2002-10-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* make/lilypond.redhat.spec.in: various fixes for RedHat 8.0
