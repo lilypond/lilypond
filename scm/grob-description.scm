@@ -843,7 +843,7 @@
 	(Y-extent-callback . ,Stem_tremolo::height)
 	(X-extent-callback . #f)
 
-	(beam-width . 2.0) ; staff-space
+	(beam-width . 1.6) ; staff-space
 	(beam-thickness . 0.48) ; staff-space
 	(meta . ((interfaces . (stem-tremolo-interface item-interface ))))
 	))

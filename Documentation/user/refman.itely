@@ -3182,12 +3182,12 @@ a tone.  The first version will print sharps and the second version
 will print flats.
 
 @lilypond[singleline, verbatim]
-mus =\notes { \key e \major c d e f }
+mus =\notes { \key d \major cis d fis g }
 \score { \notes \context Staff {
   \clef "F" \mus
   \clef "G"
-  \transpose des'' \mus
-  \transpose cis'' \mus
+  \transpose g'' \mus
+  \transpose f'' \mus
 }}
 @end lilypond
 

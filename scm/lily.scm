@@ -15,7 +15,7 @@
 
 
 
-;(debug-enable 'backtrace)
+(debug-enable 'backtrace)
 
 
 (define point-and-click #f)

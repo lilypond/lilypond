@@ -136,6 +136,7 @@ Spacing_engraver::stop_translation_timestep ()
 	{
 	  starter = starter <? m;
 	  playing_durations_.insert (now_durations_[i]);
+
 	}
     }
   now_durations_.clear ();

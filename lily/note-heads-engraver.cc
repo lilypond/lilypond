@@ -136,8 +136,6 @@ Note_heads_engraver::stop_translation_timestep ()
 void
 Note_heads_engraver::start_translation_timestep ()
 {
-
-
 }
 
 

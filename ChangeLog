@@ -1,3 +1,29 @@
+2002-07-17  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/parser.yy (Repeated_music): shift duration log for tremolo
+	repeats, instead of klutzing around.
+
+	* lily/chord-tremolo-engraver.cc (acknowledge_grob): set X parent
+	of stem tremolo grobs.
+
+	* scm/music-functions.scm (shift-duration-log): new function, add
+	to duration log of all notes.
+
+	* lily/duration.cc: add compression factor arguments to
+	make-duration.
+	compression-factor, dot-count, duration-log: add scheme functions.
+
+	* lily/mark-engraver.cc (process_music): allow \mark to take a
+	number as argument as well.
+
+2002-07-16  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/rest.cc (after_line_breaking): only translate the whole
+	rest if we have more than 1 staff line
+
+	* lily/parser.yy (property_def): only allow #Scheme as \property
+	argument.
+
 2002-07-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* VERSION: release 1.5.68

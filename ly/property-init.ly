@@ -90,14 +90,14 @@ tieSolid = \property Voice.Tie \revert #'dashed
 
 	
 tiny  = 
-	\property Voice.fontSize= -2
+	\property Voice.fontSize= #-2
 
 small  = 
-	\property Voice.fontSize= -1
+	\property Voice.fontSize= #-1
 
 
 normalsize = {
-	\property Voice.fontSize= 0
+	\property Voice.fontSize= #0
 }
 
 normalkey = {

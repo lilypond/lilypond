@@ -301,7 +301,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <scm>	chord_note chord_inversion chord_bass
 %type <scm>	duration_length fraction
 
-%type <scm>  embedded_scm scalar
+%type <scm>  embedded_scm 
 %type <music>	Music Sequential_music Simultaneous_music 
 %type <music>	relative_music re_rhythmed_music part_combined_music
 %type <music>	property_def translator_change
@@ -745,9 +745,22 @@ Repeated_music:
 		SCM func = scm_primitive_eval (ly_symbol2scm ("repeat-name-to-ctor"));
 		SCM result = gh_call1 (func, $2);
 
+		if (gh_equal_p ($2, ly_str02scm ("tremolo")))
+		{
+		/*
+		we can not get durations and other stuff correct down the line, so we have to
+		add to the duration log here.
+
+		TODO: do dots.
+		*/
+			SCM func = scm_primitive_eval (ly_symbol2scm ("shift-duration-log"));
+			gh_call2 (func, r->self_scm (), gh_int2scm(-intlog2 ($3)));
+		}
+
 		set_music_properties (r, result);
 
 		r->set_spot (*$4->origin ());
+
 		$$ = r;
 	}
 	;
@@ -1025,7 +1038,7 @@ translator_change:
 	;
 
 property_def:
-	PROPERTY STRING '.' STRING '='  scalar {
+	PROPERTY STRING '.' STRING '='  embedded_scm {
 		
 		Music *t = set_property_music (scm_string_to_symbol ($4), $6);
 		Context_specced_music *csm = new Context_specced_music (SCM_EOL);
@@ -1103,13 +1116,6 @@ property_def:
 		csm-> set_mus_property ("context-type", $2);
 	}
 	;
-
-scalar:
-	string		{ $$ = $1; }
-	| bare_int	{ $$ = gh_int2scm ($1); }
-	| embedded_scm 	{ $$ = $1; }
-	;
-
 
 request_chord:
 	pre_requests {
@@ -1304,11 +1310,17 @@ verbose_command_req:
 		Mark_req * m = new Mark_req;
 		$$ = m;
 	}
-	| MARK scalar {
+	| MARK STRING {
 		Mark_req *m = new Mark_req;
 		m->set_mus_property ("label", $2);
 		$$ = m;
+	}
+	| MARK bare_unsigned {
+		String s(to_str ($2));
 
+		Mark_req *m = new Mark_req;
+		m->set_mus_property ("label", gh_int2scm ($2));
+		$$ = m;
 	}
 	| PENALTY SCM_T 	{
 		Break_req * b = new Break_req;

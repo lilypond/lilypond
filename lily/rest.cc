@@ -21,7 +21,7 @@ Rest::after_line_breaking (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   int bt = gh_scm2int (me->get_grob_property ("duration-log"));
-  if (bt == 0)
+  if (bt == 0 && Staff_symbol_referencer::line_count (me) > 1)
     {
       me->translate_axis (Staff_symbol_referencer::staff_space (me) , Y_AXIS);
     }
