@@ -192,11 +192,7 @@ bassdux = \context Voice=three \notes \relative c' {
 \score {
  
     \notes \context PianoStaff << 
-<<<<<<< wtk1-fugue2.ly
         \override Score.TimeSignature  #'style = #'C
-=======
-        \override Score.TimeSignature   #'style = #'C
->>>>>>> 1.15
 	\context Staff = treble <<
 	    \key c \minor
 	    \dux

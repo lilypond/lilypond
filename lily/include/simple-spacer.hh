@@ -18,7 +18,7 @@ struct Spring_description
 {
   Real ideal_;
   Real hooke_;
-  bool active_b_;
+  bool is_active_;
 
   Real block_force_;
 
@@ -50,10 +50,10 @@ struct Simple_spacer
   Real range_stiffness (int, int) const;
   void add_rod (int l, int r, Real dist);
   Real range_ideal_len (int l, int r)const;
-  Real active_blocking_force ()const;
+  Real is_activelocking_force ()const;
   Real configuration_length ()const;
   void set_active_states ();
-  bool active_b () const;
+  bool is_active () const;
 };
 
 #endif /* SIMPLE_SPACER_HH */

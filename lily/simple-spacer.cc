@@ -122,7 +122,7 @@ Simple_spacer::range_stiffness (int l, int r) const
   Real den =0.0;
   for (int i=l; i < r; i++)
     {
-      if (springs_[i].active_b_)
+      if (springs_[i].is_active_)
 	den += 1 / springs_[i].hooke_;
     }
 
@@ -130,11 +130,11 @@ Simple_spacer::range_stiffness (int l, int r) const
 }
 
 Real
-Simple_spacer::active_blocking_force () const
+Simple_spacer::is_activelocking_force () const
 {
   Real bf = - infinity_f; 
   for (int i=0; i < springs_.size (); i++)
-    if (springs_[i].active_b_)
+    if (springs_[i].is_active_)
       {
 	bf = bf >? springs_[i].block_force_;
       }
@@ -152,10 +152,10 @@ Simple_spacer::set_active_states ()
 {
   /* float comparison is safe, since force is only copied.  */
   for (int i=0 ; i <springs_.size (); i++)
-    if (springs_[i].active_b_
+    if (springs_[i].is_active_
 	&& springs_[i].block_force_ >= force_)
       {
-	springs_[i].active_b_ = false;
+	springs_[i].is_active_ = false;
 	active_count_ --; 
       }
 }   
@@ -171,7 +171,7 @@ Simple_spacer::configuration_length () const
 }
 
 bool
-Simple_spacer::active_b () const
+Simple_spacer::is_active () const
 {
   return active_count_; 
 }
@@ -179,9 +179,9 @@ Simple_spacer::active_b () const
 void
 Simple_spacer::my_solve_linelen ()
 {
-  while (active_b ())
+  while (is_active ())
     {
-      force_ = active_blocking_force ();
+      force_ = is_activelocking_force ();
       Real conf = configuration_length ();
 
       if (conf < line_len_)
@@ -198,9 +198,9 @@ Simple_spacer::my_solve_linelen ()
 void
 Simple_spacer::my_solve_natural_len ()
 {
-  while (active_b ())
+  while (is_active ())
     {
-      force_ = active_blocking_force () >? 0.0;
+      force_ = is_activelocking_force () >? 0.0;
 
       if (force_ < 1e-8) // ugh.,
 	break;
@@ -264,7 +264,7 @@ Simple_spacer::add_columns (Link_array<Grob> const &icols)
 
       if (isinf (desc.hooke_))
 	{
-	  desc.active_b_ = false;
+	  desc.is_active_ = false;
 	  springs_.push (desc);
 	}
       else
@@ -295,8 +295,6 @@ Simple_spacer::add_columns (Link_array<Grob> const &icols)
 	    }
 	}
     }
-
-
 }
 
 /*
@@ -317,21 +315,17 @@ Simple_spacer::add_columns (Link_array<Grob> const &icols)
 void
 Simple_spacer::solve (Column_x_positions *positions, bool ragged) 
 {
-  /*
-    TODO: should support natural length on only the last line.
-   */
-  ragged = ragged || (line_len_ < 0) ;
   if (ragged)
     my_solve_natural_len ();
   else
     my_solve_linelen ();
 
   positions->force_ = force_;
+  
   /*
     We used to have a penalty for compression, no matter what, but that
     fucked up wtk1-fugue2 (taking 3 full pages.)
   */
-  
   positions->config_.push (indent_);
   for (int i=0; i <springs_.size (); i++)
     {
@@ -346,16 +340,26 @@ Simple_spacer::solve (Column_x_positions *positions, bool ragged)
     For raggedright, we must have a measure of music density: this is
     to prevent lots of short lines (which all have force = 0).
     */
-  if (ragged && line_len_ > 0)
+  if (ragged)
     {
       Real len = positions->config_.top ();
-      positions->force_ = (line_len_ - len) *  active_springs_stiffness ();
+      if (line_len_ - len  >= 0)
+	positions->force_ = ((line_len_ - len) *  active_springs_stiffness ());
+      else
+	{
+	  positions->force_ = 0.0;
+	  /*
+	    Don't go past end-of-line in ragged right.
+	   */
+	  positions->satisfies_constraints_ = false;
+	}
     }
 
 
   positions->cols_ = spaced_cols_;
   positions->loose_cols_ = loose_cols_;
-  positions->satisfies_constraints_b_ = (line_len_ < 0) || active_b ();
+  positions->satisfies_constraints_ =
+    positions->satisfies_constraints_ && is_active ();
 
   /*
     Check if breaking constraints are met.
@@ -375,11 +379,8 @@ Simple_spacer::solve (Column_x_positions *positions, bool ragged)
       
     }
 
-  positions->satisfies_constraints_b_ =
-    positions->satisfies_constraints_b_ && break_satisfy;
-
-  if (ragged && force_ < 0)
-    positions->satisfies_constraints_b_ = false;
+  positions->satisfies_constraints_ =
+    positions->satisfies_constraints_ && break_satisfy;
 }
 
 /****************************************************************/
@@ -388,7 +389,7 @@ Spring_description::Spring_description ()
 {
   ideal_ =0.0;
   hooke_ =0.0;
-  active_b_ = true;
+  is_active_ = true;
   block_force_ = 0.0;
 }
 
@@ -402,7 +403,7 @@ Spring_description::sane_b () const
 Real
 Spring_description::length (Real f) const
 {
-  if (!active_b_)
+  if (!is_active_)
     f = block_force_;
   return ideal_ + f / hooke_ ;
 }

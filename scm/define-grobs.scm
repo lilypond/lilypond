@@ -769,7 +769,9 @@
 	(X-extent-callback . ,Rest::extent_callback)
 	(Y-extent-callback . ,Rest::extent_callback)		
 	(print-function . ,Rest::print)
-	(Y-offset-callbacks . (,Staff_symbol_referencer::callback)) 
+	(Y-offset-callbacks . (,Staff_symbol_referencer::callback
+			       ,Rest::polyphonic_offset_callback
+			       ))
 	(minimum-distance . 0.25)
 	(meta . (
 		 (interfaces . (font-interface

@@ -7,9 +7,8 @@
 */
 
 #include "warn.hh"
-#include "rest-collision.hh"
 #include "engraver.hh"
-#include "note-collision.hh"
+#include "rest-collision.hh"
 #include "note-column.hh"
 
 class Rest_collision_engraver : public Engraver
@@ -25,8 +24,6 @@ public:
   TRANSLATOR_DECLARATIONS(Rest_collision_engraver);  
 };
 
-
-
 Rest_collision_engraver::Rest_collision_engraver ()
 {
   rest_collision_ =0;
@@ -38,7 +35,9 @@ Rest_collision_engraver::process_acknowledged_grobs ()
 {
   if (rest_collision_
       || note_columns_.is_empty ()
-      || !rest_count_)
+      || !rest_count_ 
+      || (note_columns_.size () == rest_count_
+	  && rest_count_  < 2))
     return;
 
   rest_collision_ = make_item ("RestCollision");

@@ -140,7 +140,7 @@ Gourlay_breaking::do_solve () const
 	    we couldn't satisfy the constraints, this won't get better
 	    if we add more columns, so we get on with the next one
 	  */
-	  if (!cp.satisfies_constraints_b_)
+	  if (!cp.satisfies_constraints_)
 	    break ; 
 	}
 
@@ -197,7 +197,7 @@ Gourlay_breaking::do_solve () const
       Column_x_positions cp (optimal_paths[final_breaks[i]].line_config_);
       
       lines.push (cp);
-      if(!cp.satisfies_constraints_b_)
+      if(!cp.satisfies_constraints_)
 	warning ("Could not find line breaking that satisfies constraints.");
     }
   return lines;
@@ -247,7 +247,7 @@ Gourlay_breaking::combine_demerits (Column_x_positions const &prev,
   Real demerit = abs (this_one.force_) +  abs (prev.force_ - this_one.force_)
     + break_penalties;
   
-  if (!this_one.satisfies_constraints_b_)
+  if (!this_one.satisfies_constraints_)
      {
        /*
 	 If it doesn't satisfy constraints, we make this one

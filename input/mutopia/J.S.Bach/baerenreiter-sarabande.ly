@@ -121,14 +121,9 @@ sarabandeA =  \context Voice \notes \relative c {
   d'[ cis] |
   %%  d4 d,,2 |
   d4
-<<<<<<< baerenreiter-sarabande.ly
-  \override NoteHead  #'after-line-breaking-callback
-  = #(lambda (smob) (assert-system-count smob 6))
-=======
   \override NoteHead
     #'after-line-breaking-callback
  = #(lambda (smob) (assert-system-count smob 6))
->>>>>>> 1.30
   d,,2 |
 }
 

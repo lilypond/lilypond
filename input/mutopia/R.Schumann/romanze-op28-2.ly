@@ -33,17 +33,9 @@ global = \notes { \key fis \major \time 6/8
 righta = \notes \transpose c cis' {
  % \stemUp \slurUp \tieUp
  \stemUp
-<<<<<<< romanze-op28-2.ly
- \override Slur  #'attachment = #'(stem . stem)
-=======
  \override Slur   #'attachment = #'(stem . stem)
->>>>>>> 1.32
  \repeat volta 2 {
-<<<<<<< romanze-op28-2.ly
-  \override TextScript  #'extra-offset = #'(-8.0 . 2.5)
-=======
   \override TextScript   #'extra-offset = #'(-8.0 . 2.5)
->>>>>>> 1.32
   \m  a,16[^\p( \u c^\markup {
       \large "Einfach ("
       \note #"8" #1
@@ -115,13 +107,8 @@ rightb = \notes \transpose c cis' {
  c_3 g,_2 es, g, h,_4 g, d, g, c g,8 f,16 |
  c g, es, g, es c_3 as, c^2 d^3 c h, c |
  e des b,\< des g e_3 ces_4 d_2 f^3 d cis d |
-<<<<<<< romanze-op28-2.ly
- \override PhrasingSlur  #'extra-offset =  #'(0 . 3)
- \override PhrasingSlur  #'beautiful = #42
-=======
  \override PhrasingSlur   #'extra-offset = #'(0 . 3)
  \override PhrasingSlur   #'beautiful = #42
->>>>>>> 1.32
  g\( fes des fes b g_3 es_1\! ges_2 a^3 ges f_1 ges_2 |
  r ges_2 b des_1 ges b,_2 des ges,^1 b, \d des,^1 \stemDown \transpose c' c { b,[_1 as,] |
  g,8  b,16[ g, e, cis,]  d,\)_4 \< f, h, d_3 f_2  r16\! }
@@ -136,22 +123,14 @@ rightb = \notes \transpose c cis' {
   f,8.. f32^1 g8^2  a4.) |
   a4^1( c8^1_\accent~[c b)] g16^1([ b^2] |
    c4)^1 es8^1~es d^1 f^1~ |
-<<<<<<< romanze-op28-2.ly
   \override PianoStaff.Arpeggio  #'direction = #1
-=======
-  \override PianoStaff.Arpeggio   #'direction = #1
->>>>>>> 1.32
   f f8.. f32^1( as4.)^\fermata\arpeggio ~ |
   \revert PianoStaff.Arpeggio #'direction
   \stemUp \tieUp as r4 r8 |
  }
   s2. s
  \u s4. \grace {
-<<<<<<< romanze-op28-2.ly
-  \override Stem  #'stroke-style = #"grace"
-=======
   \override Stem   #'stroke-style = #"grace"
->>>>>>> 1.32
   f8(
   \revert Stem #'stroke-style }
   f4) e8 |
@@ -193,11 +172,7 @@ lefta = \notes \transpose c cis {
    c4) r8 f4-4( as8-5~ | as g-4  b)-5 as4-5( ces'8-4~ |
   ces' b des'-4  c'4)-5( <es'-4 es''>8 |
   \stemDown \tieDown  des'4.)_5~des'~ |
-<<<<<<< romanze-op28-2.ly
-  \override NoteColumn  #'horizontal-shift = #-1 des' s
-=======
   \override NoteColumn   #'horizontal-shift = #-1 des' s
->>>>>>> 1.32
  }
  >>
  \change Staff=down \stemUp \slurUp \tieUp \phrasingSlurUp
@@ -211,11 +186,7 @@ lefta = \notes \transpose c cis {
  s2.*2
  s8 r16 h\( c' d' es' as g8\arpeggio  fis(
  ges)\) f16-2( a-1 c'-3  f')-1 \grace {
-<<<<<<< romanze-op28-2.ly
-  \override Stem  #'stroke-style = #"grace"
-=======
   \override Stem   #'stroke-style = #"grace"
->>>>>>> 1.32
   \stemDown \slurUp  b,[( f] \stemUp 
   \revert Stem #'stroke-style }
   e')-1( d' c' b-1 a-2\prall g 
@@ -268,15 +239,6 @@ leftb = \notes \transpose c cis {
 \score { \notes
   \context PianoStaff <<
     \pianoCautionaries
-<<<<<<< romanze-op28-2.ly
-    \override PianoStaff.NoteCollision  #'merge-differently-dotted = ##t
-    \set PianoStaff.connectArpeggios =  ##t
-    \override PianoStaff.Arpeggio  #'print-function = \arpeggioBracket
-
-    \override PianoStaff.InstrumentName  #'font-size = #6
-    \override PianoStaff.InstrumentName  #'font-shape   = #'italic
-    \override PianoStaff.InstrumentName  #'font-magnification   = #3
-=======
     \override PianoStaff.NoteCollision   #'merge-differently-dotted = ##t
     \set PianoStaff.connectArpeggios = ##t
     \override PianoStaff.Arpeggio   #'print-function = \arpeggioBracket
@@ -284,41 +246,23 @@ leftb = \notes \transpose c cis {
     \override PianoStaff.InstrumentName   #'font-size = #6
     \override PianoStaff.InstrumentName   #'font-shape = #'italic
     \override PianoStaff.InstrumentName   #'font-magnification = #3
->>>>>>> 1.32
     
     \set PianoStaff.instrument = "2. "
     \context Staff = up {
-<<<<<<< romanze-op28-2.ly
-      \override Staff.DynamicLineSpanner  #'direction = #-1
-=======
       \override Staff.DynamicLineSpanner   #'direction = #-1
->>>>>>> 1.32
       \clef G <<\global \context Voice=upv \righta >>
     }
     \context Staff = mid {
-<<<<<<< romanze-op28-2.ly
-    \override Staff.InstrumentName  #'font-size = #0
-    \override Staff.InstrumentName  #'font-shape   = #'upright
-    \override Staff.InstrumentName  #'font-magnification   = #1
-    \override Staff.InstrumentName  #'extra-offset = #'(0 . 6)
-   % \set Staff.instrument = "\\begin{turn}{-90}{Rechte Hand}\\end{turn}"
-    \set Staff.instrument =  \markup { \column < Rechte Hand >  }
-=======
     \override Staff.InstrumentName   #'font-size = #0
     \override Staff.InstrumentName   #'font-shape = #'upright
     \override Staff.InstrumentName   #'font-magnification = #1
     \override Staff.InstrumentName   #'extra-offset = #'(0 . 6)
    % \set Staff.instrument = "\\begin{turn}{-90}{Rechte Hand}\\end{turn}"
     \set Staff.instrument = \markup { \column < Rechte Hand >  }
->>>>>>> 1.32
       \clef F <<\global \context Voice=midv \rightb>>
     }
       \context Staff = down {
-<<<<<<< romanze-op28-2.ly
-        \override Staff.DynamicLineSpanner  #'direction = #1
-=======
         \override Staff.DynamicLineSpanner   #'direction = #1
->>>>>>> 1.32
         \clef F
 	<< \global \context Voice=lva \lefta \context Voice=lvb \leftb >>
     }

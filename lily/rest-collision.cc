@@ -18,6 +18,7 @@
 #include "group-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "duration.hh"
+#include "directional-element-interface.hh"
 
 MAKE_SCHEME_CALLBACK (Rest_collision,force_shift_callback,2);
 SCM
@@ -39,6 +40,8 @@ Rest_collision::force_shift_callback (SCM element_smob, SCM axis)
   return gh_double2scm (0.0);
 }
 
+
+
 void
 Rest_collision::add_column (Grob*me,Grob *p)
 {
@@ -49,7 +52,7 @@ Rest_collision::add_column (Grob*me,Grob *p)
     only add callback for the rests, since we don't move anything
     else.
 
- (not?)
+    (not?)
   */
   p->add_offset_callback (Rest_collision::force_shift_callback_proc, Y_AXIS);
   p->set_grob_property ("rest-collision", me->self_scm ());
@@ -77,7 +80,6 @@ head_characteristic (Grob * col)
   TODO: look at horizontal-shift to determine ordering between rests
   for more than two voices.
 
-  TODO: look at previous note to determine vertical position?
   
  */
 SCM
@@ -92,7 +94,16 @@ Rest_collision::do_shift (Grob *me)
     {
       Grob * e = unsmob_grob (ly_car (s));
       if (unsmob_grob (e->get_grob_property ("rest")))
-	rests.push (e);
+	{
+	  /*
+	    Ignore rests under beam.
+	   */
+	  Grob* st = unsmob_grob (e->get_grob_property ("stem"));
+	  if (st && unsmob_grob (st->get_grob_property ("beam")))
+	    continue;
+	  
+	  rests.push (e);
+	}
       else
 	notes.push (e);
     }
@@ -103,125 +114,104 @@ Rest_collision::do_shift (Grob *me)
 
      [todo]
      * decide not to print rest if too crowded?
-
-     * ignore rests under beams.
    */
 
-  // no rests to collide
-  if (!rests.size ())
+  /*
+    no partners to collide with
+   */
+  if (rests.size () + notes.size () < 2)
     return SCM_UNSPECIFIED;
 
-  // no partners to collide with
-  if (rests.size () + notes.size () < 2)
-    {
-      if (rests.size () == 1
-	  && Note_column::dir (rests[0]))
-	{
-	  Note_column::translate_rests (rests[0],
-					4 * Note_column::dir (rests[0]));
-	}
-    }
-  // meisjes met meisjes
+
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
+  /*
+    only rests
+  */
   if (!notes.size ()) 
     {
-      SCM characteristic = head_characteristic (rests[0]);
-      int i = 1;
-      for (; i < rests.size (); i++)
-	{
-	  if (!gh_equal_p (head_characteristic (rests[i]), characteristic))
-	    break;
-	}
 
       /*
-	If all durations are the same, we'll check if there are more
-	rests than maximum-rest-count.
-	Otherwise (different durations), we'll try to display them all
- (urg: all 3 of them, currently).
+	This is incomplete: in case of an uneven number of rests, the
+	center one should be centered on the staff.
        */
-      int display_count;
-      SCM s = me->get_grob_property ("maximum-rest-count");
-      if (i == rests.size ()
-	  && gh_number_p (s) && gh_scm2int (s) < rests.size ())
+      Drul_array< Link_array <Grob > > ordered_rests;
+      for (int i= 0; i < rests.size (); i++)
 	{
-	  display_count = gh_scm2int (s);
-	  for (; i > display_count; i--)
+	  Grob * r = Note_column::get_rest (rests[i]);
+	  
+	  Direction d = get_grob_direction (r);
+	  if (d)
 	    {
-	      Grob* r = unsmob_grob (rests[i-1]->get_grob_property ("rest"));
-	      if (r)
-		{
-		  Grob * d = unsmob_grob (r->get_grob_property ("dot"));
-		  if (d)
-		    d->suicide();
-		  r->suicide ();
-		}
-	      rests[i-1]->suicide ();
+	      ordered_rests[d].push (rests[i]);
 	    }
+	  else
+	    rests[d]->warning (_("rest direction not set.  Cannot resolve collision."));
 	}
-      else
-	display_count = rests.size ();
+
+      Direction d =  LEFT;
+      do {
+	ordered_rests[d].sort (Note_column::shift_compare);
+      } while (flip (&d) != LEFT);
       
-      /*
-	Ugh. Should have minimum dist.
+      if (ordered_rests[UP].size () + ordered_rests[DOWN].size () < 2)
+	return SCM_UNSPECIFIED;
 
-	Ugh. What do we do if we have three different rests?
-	
-       */
-      int dy = display_count > 2 ? 6 : 4; // FIXME Should get dims from table.
-      if (display_count > 1)
+      Grob *common = common_refpoint_of_array (ordered_rests[DOWN], me, Y_AXIS);
+      common =  common_refpoint_of_array (ordered_rests[UP], common, Y_AXIS);
+
+      Real diff = 
+	(ordered_rests[DOWN].top ()->extent (common, Y_AXIS)[UP]
+	 - ordered_rests[UP].top ()->extent (common, Y_AXIS)[DOWN]) /staff_space;
+
+      if (diff > 0)
 	{
-	  Direction d0 = Note_column::dir (rests[0]);
-	  Direction d1 = Note_column::dir (rests[1]);	  
-
-	  if (!d0 && !d1)
-	    {
-	      d0= UP;
-	      d1 = DOWN;
-	    }
-	  else if (!d0)
-	    d0 = - d1;
-	  else if (!d1)
-	    d1 = -d0;
-		
-	  Note_column::translate_rests (rests[0],d0 *dy);	
-	  Note_column::translate_rests (rests[1], d1 *dy);
+	  int amount_down = (int) ceil (diff / 2); 
+	  diff -= amount_down;
+	  Note_column::translate_rests (ordered_rests[DOWN].top (),
+					-2 * amount_down);
+	  if (diff > 0)
+	    Note_column::translate_rests (ordered_rests[UP].top (),
+					  2 * int (ceil (diff)));
 	}
+
+      do {
+	for (int i = ordered_rests[d].size () -1; i-- > 0;)
+	  {
+	    Real last_y = ordered_rests[d][i+1]->extent (common, Y_AXIS)[d];
+	    Real y = ordered_rests[d][i]->extent (common, Y_AXIS)[-d];
+
+	    Real diff = d * ((last_y - y) /staff_space);
+	    if (diff > 0)
+	      Note_column::translate_rests (ordered_rests[d][i],d * (int) ceil (diff) * 2);
+	  }
+      } while (flip (&d) != LEFT);
     }
-  // meisjes met jongetjes
   else 
     {
+      /*
+	Rests and notes.
+       */
       if (rests.size () > 1)
 	{
 	  warning (_ ("too many colliding rests"));
 	}
       Grob * rcol = rests[0];
+      Grob *common = common_refpoint_of_array (notes, rcol, Y_AXIS);
+      
       Direction dir = Note_column::dir (rests[0]);
-
-      if (!dir)
-	{
-	  dir = - Note_column::dir (notes[0]);
-	}
-      Grob * r = unsmob_grob (rcol->get_grob_property ("rest"));
-      Interval restdim = r->extent (r, Y_AXIS);	// ??
-
+      
+      Interval restdim = rcol->extent (common, Y_AXIS);
       if (restdim.is_empty ())
 	return SCM_UNSPECIFIED;
       
-
       Real staff_space = Staff_symbol_referencer::staff_space (rcol);
-
       Real minimum_dist = robust_scm2double (me->get_grob_property ("minimum-distance"), 1.0) * staff_space;
-
-
-      Grob *common = common_refpoint_of_array (notes, rcol, Y_AXIS);
 
       Interval notedim;
       for (int i = 0; i < notes.size (); i++) 
 	{
 	  notedim.unite (notes[i]->extent (common, Y_AXIS));
 	}
-
-      Interval inter (notedim);
-      inter.intersect (restdim);
 
       Real dist =
 	minimum_dist +  dir * (notedim[dir] - restdim[-dir]) >? 0;
@@ -239,7 +229,7 @@ Rest_collision::do_shift (Grob *me)
       // move by whole spaces inside the staff.
       if (discrete_dist < stafflines+1)
 	discrete_dist = int (ceil (discrete_dist / 2.0)* 2.0);
-      
+
       Note_column::translate_rests (rcol,dir * discrete_dist);
     }
   return SCM_UNSPECIFIED;

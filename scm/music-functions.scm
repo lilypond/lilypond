@@ -215,7 +215,7 @@ i.e.  this is not an override"
    ))
 
 (define direction-polyphonic-grobs
-   '(Tie Slur Script TextScript Stem Dots DotColumn))
+   '(Tie Rest Slur Script TextScript Stem Dots DotColumn))
 
 (define-public (make-voice-props-set n)
   (make-sequential-music

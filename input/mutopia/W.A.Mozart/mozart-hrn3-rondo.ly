@@ -48,21 +48,13 @@ rondo = \notes 	\relative c'
 	R2.*7
 	\mark  "A"
 	c4.\p \grace {
-<<<<<<< mozart-hrn3-rondo.ly
-  \override Stem  #'stroke-style = #"grace"
-=======
   \override Stem   #'stroke-style = #"grace"
->>>>>>> 1.15
    e16( 
   \revert Stem #'stroke-style }
   d8[) c d]
 	c4 r8 r4 r8
 	e4. \grace {
-<<<<<<< mozart-hrn3-rondo.ly
-  \override Stem  #'stroke-style = #"grace"
-=======
   \override Stem   #'stroke-style = #"grace"
->>>>>>> 1.15
    g16( 
   \revert Stem #'stroke-style }
   f8[) e f]
@@ -180,11 +172,7 @@ rondo = \notes 	\relative c'
 	
 	<< d2.(\trill
 	  { s2 	\grace {
-<<<<<<< mozart-hrn3-rondo.ly
-  \override Stem  #'stroke-style = #"grace"
-=======
   \override Stem   #'stroke-style = #"grace"
->>>>>>> 1.15
      c16[ d] 
   \revert Stem #'stroke-style }
  } >>

@@ -45,11 +45,7 @@ romanze = \notes \relative c' {
 	 c[ ( e) g g]  g[( f e  d)]
 	c4(
 	\grace {
-<<<<<<< mozart-hrn3-romanze.ly
-  \override Stem  #'stroke-style = #"grace"
-=======
   \override Stem   #'stroke-style = #"grace"
->>>>>>> 1.15
    \longgrace e16 \endlonggrace 
   \revert Stem #'stroke-style }
 
@@ -57,11 +53,7 @@ romanze = \notes \relative c' {
 	\mark "C"
 
 	%% this is a trick to get the sfp-s to align. 
-<<<<<<< mozart-hrn3-romanze.ly
-	\override Hairpin  #'transparent = ##t
-=======
 	\override Hairpin   #'transparent = ##t
->>>>>>> 1.15
 	des1\sfp \> 
 	g,1\sfp\!  \> 
 	c\sfp \!   \> 

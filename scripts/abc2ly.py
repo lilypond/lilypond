@@ -151,10 +151,10 @@ def select_voice (name, rol):
 				      check_clef(value)
 			      elif keyword == "name":
 				      value = re.sub ('\\\\','\\\\\\\\', value)
-				      voices_append ("\\property Staff.instrument = %s\n" % value )
+				      voices_append ("\\set Staff.instrument = %s\n" % value )
 				      __main__.part_names = 1
 			      elif keyword == "sname" or keyword == "snm":
-				      voices_append ("\\property Staff.instr = %s\n" % value )
+				      voices_append ("\\set Staff.instr = %s\n" % value )
 
 	      else:
 		      break
@@ -183,7 +183,7 @@ def dump_default_bar (outf):
 	"""
 	Nowadays abc2ly outputs explicits barlines (?)
 	"""
- 	outf.write ("\n\\property Score.defaultBarType=\"empty\"\n")
+ 	outf.write ("\n\\set Score.defaultBarType=\"empty\"\n")
 
 
 def dump_slyrics (outf):
@@ -605,12 +605,12 @@ def try_parse_header_line (ln, state):
 			if a == 'C':
 				if not state.common_time:
 					state.common_time = 1
-					voices_append ("\\property Staff.TimeSignature \\override #\'style = #'C\n")
+					voices_append ("\\override Staff.TimeSignature #\'style = #'C\n")
 				a = '4/4'
 			if a == 'C|':
 				if not state.common_time:
 					state.common_time = 1
-					voices_append ("\\property Staff.TimeSignature \\override #\'style = #'C\n")
+					voices_append ("\\override Staff.TimeSignature #\'style = #'C\n")
 				a = '2/2'
 			if not length_specified:
 				set_default_len_from_time_sig (a)
