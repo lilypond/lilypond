@@ -3,7 +3,7 @@
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
-
+#include "note-column.hh"
 #include "musical-request.hh"
 #include "text-reg.hh"
 #include "text-item.hh"
@@ -28,7 +28,13 @@ Text_register::try_request(Request*req_l)
     text_req_l_ = req_l->text();
     return true;
 }
-
+void
+Text_register::acknowledge_element(Staff_elem_info i)
+{
+    if (text_p_ && i.elem_l_->name() == Note_column::static_name()) {
+	text_p_->add_support(i.elem_l_);
+    }
+}
 void
 Text_register::process_requests()
 {

@@ -42,7 +42,8 @@ output.
 
 =item B<-w,--warranty>,
 
-Show the warranty with which GNU LilyPond comes. (It comes with B<NO WARRANTY>!)
+Show the warranty with which GNU LilyPond comes. (It comes with B<NO
+WARRANTY>!)
 
 =item B<-o,--output=>F<FILE>,
 
@@ -62,6 +63,9 @@ add F<DIRECTORY> to the search path for input files.
 =back
 
 =head1 FEATURES
+
+This is an overview of the features that GNU LilyPond supports. For
+details on how to use them, you should consult mudela(5)
 
 =over 5
 
@@ -105,62 +109,6 @@ a different file.
 =item *
 
 clef changes, meter changes, cadenza-mode, key changes, repeat bars
-
-=back
-
-=head1 DESIGN CONSIDERATIONS
-
-GNU LilyPond was written with some considerations in mind:
-
-=over 5
-
-=item *
-
-Describing a well-defined language for defining music. We call
-this language (rather arrogantly) The Musical Definition Language
-(mudela for short). GNU LilyPond reads a mudela sourcefile and outputs a
-TeX file.  
-
-=item *
-
-We want to provide an easy-to-use interface for typesetting music in
-its broadest sense. This interface should be intuitive from a musical
-point of view. By broadest sense we mean: it is designed for music
-printed left to right in staffs, using notes to designate rythm and
-pitch.
-
-=item *
-
-GNU LilyPond uses MusiXTeX fonts and TeX for its output. This is not a key
-issue: in a future version, GNU LilyPond might bypass TeX, but at the moment
-TeX is very convenient for producing output.
-
-=item  *
-
-Generate high-quality output. Ideally it should be of a professional
-quality. We'd like to render Herbert Chlapiks words, "Fine music
-setting is not possible without a knowledgeable printer,"  untrue.
-
-=item *
-
-GNU LilyPond does not display notes directly, nor will it be rehacked to be
-used interactively. GNU LilyPond writes output to a file.  It will not be
-extended to play music, or to recognize music.
-
-=item *
-
-GNU LilyPond is intended to run on Unix platforms, but it should
-be portable to any platform which can run TeX and the GNU tools
-
-=item *
-
-GNU LilyPond is free. Commercial windows packages for setting music are
-abundant. Free musicprinting software is scarce.
-
-=item *
-
-GNU LilyPond is written in GNU C++. It will not be downgraded/ported to fit
-broken systems.
 
 =back
 
@@ -265,6 +213,7 @@ ftp://pcnov095.win.tue.nl/pub/lilypond.
 =over 5
 
 =item F<symbol.ini>
+
 The initialisation file with symbol tables etc. It
 includes files from the directory F<init/>.
 
@@ -276,12 +225,28 @@ B<LILYINCLUDE> an (one) additional directory for finding lilypond data.
 
 =head1 SEE ALSO
 
-mudela(5)
+=over 4
 
-There are some documentation files  in the subdirectory F<Documentation/>,
-among others: lilygut,  error, faq,
+=item lilygut(?)
 
-http://www.stack.nl/~hanwen/lilypond/index.html
+On technical details of LilyPond
+
+=item mudela(5)
+
+On the input format
+
+=item MANIFESTO
+
+Goals of the GNU LilyPond project.
+
+=item The GNU LilyPond FAQ list
+
+=back
+
+GNU LilyPond has her own webpage at
+http://www.stack.nl/~hanwen/lilypond/index.html. This webpage contains
+the MIDI, GIF and PS files for some standard music files. It also has
+the complete LilyPond documentation
 
 =head1  REMARKS
 

@@ -13,7 +13,7 @@ blah = \staff{  melodicregs
 			c d 
 		\clef "violin" ;
 		\octave  c' ;
-			c d
+		< \transpose { d { e f } } >
 		\octave  c'' ;
 			c d 
 		\duration  8 ;
@@ -22,11 +22,14 @@ blah = \staff{  melodicregs
 		\octave  c' ;
 		 |[ a  a a a a a a a \! a ]6/9 
 		\octave  c'' ; 
-		 [ 'c 'g d a e' b' f'' c''' g''' ]6/9
-		 [ g''' c''' f'' b' e' a d 'g 'c ]6/9
+		 ['c->-.-\fermata \< 'g->-.-\fermata d->-.-\fermata a->-.-\fermata
+		e'->-.-\fermata b'-. f''-. c'''->-.-\fermata \! g'''->-.-\fermata \> ]6/9
+		 [g'''->-.-\fermata c'''->-.-\fermata f''->-.-\fermata b'->-.-\fermata e'->-.-\fermata a->-.-\fermata d->-.-\fermata 'g->-.-\fermata \! 'c->-.-\fermata ]6/9
+		 \octave c;
+		['c->-.-\fermata \< 'g->-.-\fermata d->-.-\fermata a->-.-\fermata
+		e'->-.-\fermata b'-. f''-. c'''->-.-\fermata \! g'''->-.-\fermata \> ]6/9
+		 [g'''->-.-\fermata c'''->-.-\fermata f''->-.-\fermata b'->-.-\fermata e'->-.-\fermata a->-.-\fermata d->-.-\fermata 'g->-.-\fermata \! 'c->-.-\fermata ]6/9
 		\octave  c' ;
-		 [ 'c 'g d a e' b' f'' c''' g''' ]6/9
-		 [ g''' c''' f'' b' e' a d 'g 'c ]6/9
 		\octave  c' ;   
 		 [ c g d' ]2/3 
 		 [ d' g c ]2/3  

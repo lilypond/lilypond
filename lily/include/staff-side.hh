@@ -35,5 +35,6 @@ public:
     
 protected:
     int get_position_i()const;
+    int get_position_i(Interval)const;
 };
 #endif // STAFF_SIDE_HH

@@ -63,7 +63,7 @@ void
 Notehead_register::pre_move_processing()
 {
     if (note_p_) {
-	if (dir_i_ && note_p_->rest_b_ && note_p_->balltype <= 2) {
+	if (dir_i_ && note_p_->rest_b_ ) {
 	    note_p_->position +=4*dir_i_ ;
 	}
 	typeset_element(note_p_);

@@ -25,6 +25,7 @@ public:
     ~Dynamic_register();
     NAME_MEMBERS(Dynamic_register);
 protected:
+    virtual void acknowledge_element(Staff_elem_info);
     virtual bool try_request(Request *req_l);
     virtual void process_requests();
     virtual void pre_move_processing();

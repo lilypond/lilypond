@@ -1,99 +1,16 @@
 =head1 NAME
 
-Mudela -  LilyPond input format 0.1
+Mudela -  GNU LilyPond input format 0.1
 
 =head1 DESCRIPTION
 
-This document describes the the LilyPond input format, which is an
+This document describes the the GNU LilyPond input format, which is an
 effective language for definining music.  We call this language
 (rather arrogantly) The Musical Definition Language (S<Mudela 0.1>).
 
 The first aim of Mudela is to define a piece of music, 
 being complete from both from a musical typesetting, 
 as from a musical performing point of view.
-
-The design of Mudela has been (perfect past tense, hopefully)
-an ongoing process, 
-the most important criteria being:
-
-=over 4
-
-=item *
-
-define the (musical) message of the composer as unambiguously as possible,
-
-=item *
-
-be intuitive, and easily readable 
-(compared to, say, Musi*TeX input, or MIDI :-),
-
-=item *
-
-be writable in ASCII with a simple texteditor, yfte(TM).
-
-=back
-
-Other considerations were (and will be):
-
-=over 4
-
-=item *
-
-be able to edit the layout without danger of changing the original
-music (Urtext),
-
-=item *
-
-allow for adding different interpretations, again, 
-without danger of changing the original,
-
-=item *
-
-easy to create a conductor's score, 
-as well as the scores for all individual instruments,
-
-=item *
-
-provide simple musical manipulations, such as 
-S<(i) extracting> a slice of music from a previously defined piece, 
-S<(ii) extracting> only the rhythm from a piece of music, 
-S<(iii) transposing>, etc.,
-
-=item *
-
-easy to comprehend to both programmers and others.
-
-=back
-
-Musical pieces could be
-
-=over 5
-
-=item *
-
-Mahlerian orchestral scores,
-
-=item *
-
-piano pieces (Schubertian, Rachmaninovian),
-
-=item *
-
-pop songs (lyrics and chords),
-
-=item *
-
-gregorian chants,
-
-=item *
-
-Bach multivoice organ pieces,
-
-=item *
-
-short excerpts to be used in musicological publications.
-
-=back
 
 
 =head1 Overview
@@ -117,6 +34,15 @@ entering C<include> at the start of a line:
 =head2 Comments
 
 Line comments are introduced by a C<%>
+
+=head2 Versions
+
+Occasionally, small changes in syntax across different versions of
+Mudela might give syntax errors. To warn you about possible
+incompatibilities, you can specify the Mudela version for which the
+inputfile was written,
+
+	\version "0.0.50";
 
 =head2 Words
 
@@ -251,7 +177,9 @@ duration is one and a half quaver (C<4.>) times 2/3.
 
 Notenames are just a special kind of identifiers, and can be declared
 for any language appropriate (see F<dutch.ini>).  The default language
-for notenames is defined to be dutch,
+for notenames is defined to be dutch. In dutch, the notenames are
+a,b,c,d,e,f and g. Sharps are formed by adding the extension "is",
+flats by adding "es"
 
 	% double sharp
 	cisis disis eisis fisis gisis aisis bisis
@@ -336,7 +264,6 @@ the c- construct chooses the default up/down direction.
 
 
 
-
 =head2 Defaults
 
 If omit the duration of a, a default value is substituted. For this
@@ -392,7 +319,7 @@ duration entry are bound together using an underscore
 
 =head2  Music direction
 
-Mudela reads left to right, but LilyPond can stack voices and
+Mudela reads left to right, but you can still stack voices and
 Voice_elements which are produced in two directions: horizontal
 (voice like) and vertical (chord like)
 
@@ -418,6 +345,14 @@ And vice versa
 The duration of a chord equals the union of the durations of each of
 its elements.  The C<\multivoice> is a construct which is explained
 below.
+
+=head2 Transposition
+
+You can transpose horizontal music in the following way:
+
+	\transpose {	d	% from c to d that's one octave up.
+		{ e4 f4 }	% the horizontal music
+	}
 
 =head2 Rhythms
 
@@ -462,7 +397,7 @@ In concrete, a piece of Mudela has the following structure:
 
 =head2 Examples
 
-Examples are included with the LilyPond distribution. For the sake of
+Examples are included with the GNU LilyPond distribution. For the sake of
 maintenance no long examples are included in this document.
 
 
@@ -528,15 +463,11 @@ requests. Merging of requests is preferably done with other requests
 done by members of the same voicegroups (beams, brackets, stems)
 
 
-=head2 Other
-
-LilyPond first reads F<symbol.ini>, which contains declarations crucial
-to proper operation of LilyPond (symbol tables, note names).
 
 =head1 HISTORY
 
 
-This language has a number of roots. First and foremost, LilyPond's
+This language has a number of roots. First and foremost, GNU LilyPond's
 predecessor mpp was the inspiration of simple Mudela.  Secondly, the
 hierarchical structure looks a lot like Rayce's (Rayce is a raytracer
 that I've written as a hobby project. ), which in turn owes a lot to

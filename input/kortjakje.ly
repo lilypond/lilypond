@@ -25,8 +25,8 @@ melodie = \melodic {
 	g g|	f f|	e e| 	d d|	g g|	f f|	e e| 	d d|
  	%%% var 1
 	  c r8 c8		% r8 means an 8th rest.
-		  (|		% \start a slur
-				% NOTE: the slur\start should be directly after the note
+		  (|		% start a slur
+				% NOTE: the slurstart should be directly after the note
 			) 	% end a slur.
 			  g r8 g8 (|	) a r8 a8 (|	) g r4 
 	  f r8 f8 (|	) e4 r8 e8 (	|) d4 r8 d8 (|	) c4 r4 

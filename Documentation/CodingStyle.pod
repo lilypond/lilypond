@@ -1,10 +1,10 @@
 =head1 NAME
 
-CodingStyle - standards while programming for LilyPond
+CodingStyle - standards while programming for GNU LilyPond
 
 =head1 DESCRIPTION
 
-Please use these standards while doing programming for LilyPond
+Please use these standards while doing programming for GNU LilyPond
 
 Functions and methods do not return errorcodes, but use assert for
 checking status. 
@@ -115,8 +115,8 @@ Unfortunately most of the code isn't really documented that good.
 
 =head2 CLASSNAMES (2)
 
-A lot of classes in LilyPond start with 'P', this is to distinguish
-certain parts of LilyPond: the P stands for Printer, and the P-classes
+A lot of classes in GNU LilyPond start with 'P', this is to distinguish
+certain parts of GNU LilyPond: the P stands for Printer, and the P-classes
 are supposed to be more lowlevel than the others. Example:
 
 Staff uses PStaff, PScore and PCol to do the typesetting of

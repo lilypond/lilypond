@@ -5,10 +5,8 @@ before 0.1
 	* decent TeX page layout
 
 	* per-pstaff item-widths
-	
-	* remove unnecessary or confusing constructs from .ly
 
-	* key undo
+	* script priority
 
 This is an assorted collection of stuff that will be done, might be
 done, or is an idea that I want to think about
@@ -16,11 +14,11 @@ done, or is an idea that I want to think about
 PARSER
 	* Duration-> Musical_duration, typedef Rational Duration?
 
-MAKE-STUFF
-
-	* do platform stuff: configure, header(s), targets, build (out?)
-	
 BUGS
+
+	* hairpin width
+
+	* problems with empty staff.
 
 	* help-lines
 
@@ -32,7 +30,11 @@ BUGS
 
 	* lilypond - -> crash
 
+	* \stem -1 < chord >  rest 
+
 SEVERELY LACKING:
+
+	* SPEED!
 
 	* grace notes
 
@@ -69,6 +71,8 @@ SMALLISH PROJECTS
 
 	* half-sharps, half-flats
 	
+	* key undo
+
 	* unix style paths for LILYINCLUDE EN
 
 	* rpm package buildroot
@@ -117,7 +121,6 @@ SMALLISH PROJECTS
 	* C meter iso 4/4
 
 	* textspanner: center position
-
 	* script-spacing
 
 	* Brackets
@@ -133,7 +136,8 @@ SMALLISH PROJECTS
 
 	* add (good guess of) width to lyric items
 
-	* midi output: eat-up dynamic, key/meter/tempo changes, and write them neatly
+	* midi output: eat-up dynamic, key/meter/tempo changes, and
+write them neatly
 
 	* LilyPond .deb
 
@@ -165,6 +169,9 @@ FUTURE
 
 	* Junk Staff_column, and find the requests while walking the Voices.?
 
+	* MIDI repeat: make lily understand repeats
+
+
 	* better beamslope calculation:	QLP for beams?
 
 	* implement better breaking algorithm
@@ -181,6 +188,7 @@ FUTURE
 
 	* piano staff
 
+	* vertical spanner
 IDEAS
 
 	* integrate Register/Midi stuff
@@ -224,3 +232,5 @@ IDEAS
 	* #c <-> cis
 
 	* breath marks 
+
+	* used fixedpoint arithmetic for min. energy.

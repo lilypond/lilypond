@@ -26,9 +26,10 @@ Note_column_register::acknowledge_element(Staff_elem_info i)
     if (!acceptable_elem_b(i.elem_l_))
 	return;
 
-    if (!ncol_p_)
+    if (!ncol_p_){
 	ncol_p_ = new Note_column;
-
+	announce_element(Staff_elem_info(ncol_p_, 0));
+    }
     char const*nC = i.elem_l_->name();
 
     if (nC == Script::static_name())

@@ -1,10 +1,10 @@
 =head1 NAME
 
-INSTALL - installing LilyPond
+INSTALL - installing GNU LilyPond
 
 =head1 DESCRIPTION
 
-This page documents installation  and compilation of LilyPond
+This page documents installation  and compilation of GNU LilyPond
 
 =head1 IMPORTANT
 
@@ -22,7 +22,7 @@ For compilation you need.
 =over 5
 
 =item *
-Unix. LilyPond is known to run on Linux, AIX, Digital Unix and
+Unix. GNU LilyPond is known to run on Linux, AIX, Digital Unix and
 Solaris
 
 If you have the Cygnus WIN32 port of the GNU utils, it will
@@ -66,7 +66,7 @@ Documentation.
 
 =head1 CONFIGURING and COMPILING
 
-to install LilyPond, simply type:
+to install GNU LilyPond, simply type:
 
 	configure
 	make install
@@ -96,7 +96,7 @@ B<--help>. If you are not root, you will probably have to make it with
 
 	configure --prefix=/home/me_myself_and_I/
 
-Since LilyPond currently is beta, You are advised to also use
+Since GNU LilyPond currently is beta, You are advised to also use
 
 	--enable-debug
 	--enable-checking
@@ -120,7 +120,7 @@ F<bin/>.
 
 =head1 RUNNING
 
-LilyPond does use a lot of resources. For operation you need the following:
+GNU LilyPond does use a lot of resources. For operation you need the following:
 
 
 =over 5
@@ -154,14 +154,14 @@ Windows NT:
 you need the cygnus win32 gnu port development stuff; have a look
 at http://www.cygnus.com/gnu-win32.
 
-to make LilyPond under, brr, aargh, well, simply type:
+to make GNU LilyPond under, brr, aargh, well, simply type:
 
 	bash configure
 	make win32
 
 =head1 PLATFORMS
 
-LilyPond (pl 0.0.39) is known to compile on the following platforms:
+GNU LilyPond (pl 0.0.39) is known to compile on the following platforms:
 
 	* linux 2.0.28, g++ 2.7.2[.1]
 	* aix 4.1, g++ 2.7.2
