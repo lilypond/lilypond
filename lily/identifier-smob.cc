@@ -16,7 +16,7 @@ scm_t_bits package_tag;
 
 /* Print a textual represenation of the smob to a given port.  */
 static int
-print_box (SCM b, SCM port, scm_print_state *pstate)
+print_box (SCM b, SCM port, scm_print_state *)
 {
   SCM value = SCM_CELL_OBJECT_1 (b);
 
@@ -31,7 +31,7 @@ print_box (SCM b, SCM port, scm_print_state *pstate)
 
 /* This defines the primitve `make-box', which returns a new smob of
    type `box', initialized to `#f'.  */
-LY_DEFINE(package_identifier, "ly:export", 1,0,0, (SCM arg),
+LY_DEFINE (package_identifier, "ly:export", 1,0,0, (SCM arg),
 	  "Export a Scheme object to the parser, so it is treated as an identifier.")
 {
   /* This macro creates the new objects, stores the value `#f' into it
@@ -43,9 +43,9 @@ LY_DEFINE(package_identifier, "ly:export", 1,0,0, (SCM arg),
 /* This is the primitive `box-ref' which returns the object stored in
    the box.  */
 SCM
-unpack_identifier(SCM box)
+unpack_identifier (SCM box)
 {
-  if (SCM_IMP(box) || SCM_CELL_TYPE(box) != package_tag)
+  if (SCM_IMP (box) || SCM_CELL_TYPE (box) != package_tag)
     return SCM_UNDEFINED;
   
   return SCM_CELL_OBJECT_1 (box);
@@ -58,4 +58,4 @@ init_box_type (void)
   scm_set_smob_mark (package_tag, scm_markcdr);
   scm_set_smob_print (package_tag, print_box);
 }
-ADD_SCM_INIT_FUNC(package, init_box_type); 
+ADD_SCM_INIT_FUNC (package, init_box_type); 

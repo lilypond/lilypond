@@ -57,7 +57,7 @@ Text_item::interpret_markup (SCM paper, SCM props, SCM markup)
   return SCM_EOL;
 }
 
-MAKE_SCHEME_CALLBACK(Text_item,print,1);
+MAKE_SCHEME_CALLBACK (Text_item,print,1);
 SCM
 Text_item::print (SCM grob)
 {

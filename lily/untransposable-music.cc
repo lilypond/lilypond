@@ -25,9 +25,9 @@ Untransposable_music::to_relative_octave (Pitch p)
   return p;
 }
 
-ADD_MUSIC(Untransposable_music);
+ADD_MUSIC (Untransposable_music);
 
-Untransposable_music::Untransposable_music()
+Untransposable_music::Untransposable_music ()
 {
 
 }

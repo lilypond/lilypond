@@ -15,7 +15,7 @@ source file of the GNU LilyPond music typesetter
 class Unfolded_repeat_iterator : public Sequential_iterator
 {
 public:
-  DECLARE_SCHEME_CALLBACK(constructor, ());
+  DECLARE_SCHEME_CALLBACK (constructor, ());
 protected:
   virtual SCM get_music_list () const;
 };
@@ -55,14 +55,14 @@ Unfolded_repeat_iterator::get_music_list () const
 class Volta_repeat_iterator : public Sequential_iterator
 {
 public:
-  DECLARE_SCHEME_CALLBACK(constructor, ());
-  Volta_repeat_iterator();
+  DECLARE_SCHEME_CALLBACK (constructor, ());
+  Volta_repeat_iterator ();
 
   void add_repeat_command (SCM);
 protected:
   virtual SCM get_music_list () const;
   virtual void next_element (bool);
-  virtual void construct_children();
+  virtual void construct_children ();
   virtual void process (Moment);
 
   bool first_time_;
@@ -72,14 +72,14 @@ protected:
 };
 
 
-Volta_repeat_iterator::Volta_repeat_iterator()
+Volta_repeat_iterator::Volta_repeat_iterator ()
 {
   done_count_ = alt_count_ = rep_count_= 0;
   first_time_ = true;
 }
 
 SCM
-Volta_repeat_iterator::get_music_list()const
+Volta_repeat_iterator::get_music_list ()const
 {
   return gh_cons (get_music ()->get_property ("element"),
 		  get_music ()->get_property ("elements"));
@@ -88,7 +88,7 @@ Volta_repeat_iterator::get_music_list()const
 void
 Volta_repeat_iterator::construct_children ()
 {
-  Sequential_iterator::construct_children();
+  Sequential_iterator::construct_children ();
   
   SCM alts = get_music ()->get_property ("elements");
 
@@ -164,9 +164,9 @@ Volta_repeat_iterator::process (Moment m)
       add_repeat_command (ly_symbol2scm ("start-repeat"));
       first_time_ = false;
     }
-  Sequential_iterator::process(m);
+  Sequential_iterator::process (m);
 }
 
 
-IMPLEMENT_CTOR_CALLBACK(Volta_repeat_iterator);
-IMPLEMENT_CTOR_CALLBACK(Unfolded_repeat_iterator);
+IMPLEMENT_CTOR_CALLBACK (Volta_repeat_iterator);
+IMPLEMENT_CTOR_CALLBACK (Unfolded_repeat_iterator);

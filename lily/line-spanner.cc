@@ -37,7 +37,7 @@ zigzag_stencil (Grob *me,
 
   double w = robust_scm2double (me->get_property ("zigzag-width"), 1)*staff_space;
   double l = robust_scm2double ( me->get_property ("zigzag-length"), 1)* w;
-  double h = l>w/2 ? sqrt(l*l-w*w/4) : 0;
+  double h = l>w/2 ? sqrt (l*l-w*w/4) : 0;
   
   SCM list = scm_list_n (ly_symbol2scm ("zigzag-line"),
 		      gh_bool2scm (true),
@@ -56,7 +56,7 @@ zigzag_stencil (Grob *me,
   return Stencil (b, list);
 }
 
-MAKE_SCHEME_CALLBACK(Line_spanner, after_line_breaking, 1);
+MAKE_SCHEME_CALLBACK (Line_spanner, after_line_breaking, 1);
 SCM
 Line_spanner::after_line_breaking (SCM  g)
 {
@@ -78,8 +78,8 @@ Line_spanner::after_line_breaking (SCM  g)
     --hwn.
     
    */
-  if (sp->get_bound (LEFT)->break_status_dir()
-      && !sp->get_bound (RIGHT)->break_status_dir())
+  if (sp->get_bound (LEFT)->break_status_dir ()
+      && !sp->get_bound (RIGHT)->break_status_dir ())
     {
       /*
 	Can't do suicide, since this mucks up finding the trend.
@@ -139,7 +139,7 @@ Line_spanner::line_stencil (Grob *me,
       mol.translate (from);
       return mol;
     }
-  return Stencil();
+  return Stencil ();
 }
 
 /*
@@ -190,13 +190,13 @@ Line_spanner::print (SCM smob)
   Offset his_off;
   
 
-  if (bound[RIGHT]->break_status_dir())
+  if (bound[RIGHT]->break_status_dir ())
     {
       if (bound[LEFT]->break_status_dir ())
 	{
 	  programming_error ("line-spanner with two broken ends. Farewell sweet world.");
 
-	  me->suicide();
+	  me->suicide ();
 	  return SCM_EOL;
 	}
 
@@ -216,7 +216,7 @@ Line_spanner::print (SCM smob)
 	{
 	  programming_error ("no note heads for the line spanner on next line?"
 			     " Confused.");
-	  me->suicide();
+	  me->suicide ();
 	  return SCM_EOL;
 	}
             
@@ -245,7 +245,7 @@ Line_spanner::print (SCM smob)
       dz = (dz.length () - 2*gap) *dir;
       
   
-      Stencil l (line_stencil (me, Offset(0, 0), dz));
+      Stencil l (line_stencil (me, Offset (0, 0), dz));
 
       l.translate (dir * gap +  p1
 		   - Offset (me->relative_coordinate (commonx, X_AXIS),

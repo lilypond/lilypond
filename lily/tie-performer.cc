@@ -29,7 +29,7 @@ protected:
   virtual bool try_music (Music*);
   virtual void process_music ();
 public:
-  TRANSLATOR_DECLARATIONS(Tie_performer);
+  TRANSLATOR_DECLARATIONS (Tie_performer);
 };
 
 
@@ -108,7 +108,7 @@ Tie_performer::stop_translation_timestep ()
   now_heads_.clear ();
 }
 
-ENTER_DESCRIPTION(Tie_performer,
+ENTER_DESCRIPTION (Tie_performer,
 /* descr */       "Generate ties between noteheads of equal pitch.",
 /* creats*/       "",
 /* accepts */     "tie-event",

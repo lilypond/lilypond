@@ -10,7 +10,7 @@
 
 This chapter describes all the different types of notation supported
 by LilyPond. It is intended as a reference for users that are already
-somewhat familiar with using LilyPond.
+somewhat familiar with LilyPond.
 
 @menu
 * Note entry::                  
@@ -39,9 +39,8 @@ somewhat familiar with using LilyPond.
 @section Note entry
 @cindex Note entry
 
-The basic elements of any piece of music are the notes. This section
-is about basic notation elements notes, rests and related constructs,
-such as stems, tuplets and ties.
+This section is about basic notation elements notes, rests and
+related constructs, such as stems, tuplets and ties.
 
 @menu
 * Notes::                       
@@ -82,8 +81,8 @@ this manual.}
 @cindex entering notes
 
 The most common syntax for pitch entry is used in @code{\chords} and
-@code{\notes} mode.  In Note and Chord mode, pitches may be designated
-by names.  The notes are specified by the letters @code{a} through
+@code{\notes} mode.  In these modes, pitches may be designated by
+names.  The notes are specified by the letters @code{a} through
 @code{g}, while the octave is formed with notes ranging from @code{c}
 to @code{b}.  The pitch @code{c} is an octave below middle C and the
 letters span the octave above that C:
@@ -189,8 +188,16 @@ question mark `@code{?}' after the pitch:
 @end lilypond
 
 
+@seealso
+
 The automatic production of accidentals can be tuned in many
 ways. For more information, refer to @ref{Accidentals}.
+
+
+@refbugs
+
+There are no generally accepted standards for denoting three quarter
+flats, so LilyPond's symbol does not conform to any standard.
 
 @node Chords
 @subsection Chords
@@ -199,6 +206,9 @@ A chord is formed by a enclosing a set of pitches in @code{<} and
 @code{>}. A chord may be followed by  a duration, and a set of
 articulations, just like simple notes.
 
+@lilypond[relative]
+ <c e g>4 <c>8 <>8 
+@end lilypond
 
 @node Rests
 @subsection Rests
@@ -214,7 +224,7 @@ r1 r2 r4 r8
 @end lilypond
 
 Whole bar rests, centered in middle of the bar,
-must be done  with multi measure rests. They are discussed in
+must be done  with multi-measure rests. They are discussed in
 @ref{Multi measure rests}.
 
 
@@ -300,17 +310,19 @@ r1 r2 r4 r8 r16 r32 r64 r64
 @lilypond[noindent]
 \score {
   \notes \relative c'' {
-    a\breve  \autoBeamOff
+    a\breve*1/2  \autoBeamOff
     a1 a2 a4 a8 a16 a32 a64 a64 
-    r\longa r\breve  
+    r\longa*1/4 r\breve  *1/2
     r1 r2 r4 r8 r16 r32 r64 r64 
   }
   \paper {
+    raggedright = ##t
     \context {
       \StaffContext
         \remove "Clef_engraver"
         \override StaffSymbol #'transparent = ##t 
-        \override TimeSignature #'transparent = ##t 
+        \override TimeSignature #'transparent = ##t
+        \override BarLine #'transparent = ##t
         \consists "Pitch_squash_engraver"
     }
   }
@@ -799,7 +811,6 @@ The key signature indicates the scale in which a piece is played. It
 is denoted by a set of alterations (flats or sharps) at the start of
 the staff.
 
-@syntax
 
 Setting or changing the key signature is done with the @code{\key}
 command:
@@ -851,7 +862,6 @@ Internals: @internalsref{KeyChangeEvent}, and @internalsref{KeySignature}.
 The clef indicates which lines of the staff correspond to which
 pitches.
 
-@syntax
 
 The clef can be set or changed with the @code{\clef} command:
 @lilypond[fragment,verbatim]
@@ -972,7 +982,6 @@ Time signature indicates the metrum of a piece: a regular pattern of
 strong and weak beats. It is denoted by a fraction at the start of the
 staff.
 
-@syntax
 
 The time signature is set or changed by the @code{\time}
 command:
@@ -1082,7 +1091,6 @@ Bar lines delimit measures, but are also used to indicate repeats.
 Normally, they are inserted automatically.  Line breaks may only
 happen on bar lines.
 
-@syntax
 
  Special types
 of bar lines can be forced with the @code{\bar} command:
@@ -1746,7 +1754,6 @@ for the problematic notes.
 
 A slur indicates that notes are to be played bound or @emph{legato}.
 
-@syntax
 
 They are entered using parentheses:
 @lilypond[relative=1,fragment,verbatim]
@@ -2312,7 +2319,6 @@ and might produce crashes or other errors.
 A glissando is a smooth change in pitch. It is denoted by a line or a
 wavy line between two notes.
 
-@syntax
 
 A glissando line can be requested by attaching a @code{\glissando} to
 a note:
@@ -2491,7 +2497,6 @@ Make beat or measure repeats. These look like percent signs.
 @node Repeat syntax
 @subsection Repeat syntax
 
-@syntax
 
 LilyPond has one syntactic construct for specifying different types of
 repeats.  The syntax is
@@ -2733,7 +2738,6 @@ Examples: @inputfileref{input/regression,rhythmic-staff.ly}.
 @cindex percussion
 @cindex drums
 
-@syntax
 
 Percussion notes may be entered in @code{\drums} mode, which is
 similar to @code{notes}.  Each piece of percussion has a full name and
@@ -3075,7 +3079,6 @@ current voice from its current staff to the Staff called
 Pianos have pedals that alter the way sound are produced. Generally, a
 piano has three pedals, sustain, una corda, and sostenuto.
 
-@syntax
 
 Piano pedal instruction can be expressed by attaching
 @code{\sustainDown}, @code{\sustainUp}, @code{\unaCorda},
@@ -4324,7 +4327,6 @@ The key of a transposing instrument can also be specified.  This
 applies to many wind instruments, for example, clarinets (B-flat, A and
 E-flat), horn (F) and trumpet (B-flat, C, D and E-flat).
 
-@syntax
 
 The transposition is entered after the keyword @code{\transposition}:
 
@@ -4446,7 +4448,6 @@ places where the two parts differ, they are typeset as separate
 voices, and stem directions are set automatically.  Also, solo and
 @emph{a due} parts are identified and can be marked.
 
-@syntax
 
 The syntax for part combining is
 
@@ -4752,7 +4753,6 @@ Augmentum dots within ligatures are  not handled correctly.
 
 @cindex note heads
 
-@syntax
 
 For ancient notation, a note head style other than the @code{default}
 style may be chosen.  This is accomplished by setting the @code{style}
@@ -4797,7 +4797,6 @@ overview over all available note head styles.
 
 @cindex accidentals
 
-@syntax
 
 Use the @code{style} property of grob @internalsref{Accidental} to
 select ancient accidentals.   Supported styles are
@@ -4873,7 +4872,6 @@ Examples: @inputfileref{input/test,ancient-accidentals.ly}.
 
 @cindex rests
 
-@syntax
 
 Use the @code{style} property of grob @internalsref{Rest} to select
 ancient accidentals.   Supported styles are @code{classical},
@@ -4909,7 +4907,6 @@ In this manual: @ref{Rests} gives a general introduction into the use of rests.
 
 @cindex clefs
 
-@syntax
 
 LilyPond supports a variety of clefs, many of them ancient.
 
@@ -5129,7 +5126,6 @@ until a new mensural g clef will have been implemented.
 
 @cindex flags
 
-@syntax
 
 Use the @code{flag-style} property of grob @internalsref{Stem} to
 select ancient flags.  Besides the @code{default} flag style,
@@ -5172,7 +5168,6 @@ Gregorian Chant notation.
 
 @cindex time signatures
 
-@syntax
 
 There is limited support for mensural time signatures.   The
 glyphs are hard-wired to particular time fractions.  In other words,
@@ -5285,7 +5280,6 @@ of musical notation such as contemporary editions of Gregorian chant
 like the @emph{editio vaticana}.  There are different custos glyphs
 used in different flavors of notational style.
 
-@syntax
 
 For typesetting custodes, just put a @internalsref{Custos_engraver} into the
 @internalsref{Staff} context when declaring the @code{\paper} block,
@@ -5415,7 +5409,6 @@ can be characterized as short, medium and long pause, somewhat like
 a chant, but is also frequently used within a single
 antiphonal/responsorial chant to mark the end of each section.
 
-@syntax
 
 To use divisiones, include the file @code{gregorian-init.ly}.  It
 contains definitions that you can apply by just inserting
@@ -5479,7 +5472,6 @@ during the late 16th / early 17th century.  Still, ligatures have
 survived in contemporary editions of Gregorian chant such as the
 Editio Vaticana from 1905/08.
 
-@syntax
 
 Syntactically, ligatures are simply enclosed by @code{\[} and
 @code{\]}.  Some ligature styles (such as Editio Vaticana) may need
@@ -5519,7 +5511,6 @@ implementation is still experimental; it may output strange
 warnings or even crash in some cases or produce weird results on more
 complex ligatures.
 
-@syntax
 
 To engrave white mensural ligatures, in the paper block the
 @internalsref{Mensural_ligature_engraver} has to be put into the
@@ -6974,7 +6965,6 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 
 @end multitable
 
-@syntax
 
 Unlike most other neumes notation systems, the input language for
 neumes does not necessarily reflect directly the typographical
@@ -7265,7 +7255,6 @@ Trigonus: apply equal spacing, regardless of pitch.
 
 @c TODO: musicological blurb about FB
 
-@syntax
 
 LilyPond has limited support for figured bass:
 
@@ -7392,34 +7381,10 @@ support for contemporary notation in LilyPond is limited.
 
 @cindex cluster
 
-In musical terminology, a @emph{cluster} denotes a range of
-simultaneously sounding pitches that may change over time.  The set of
-available pitches to apply usually depends on the acoustic source.
-Thus, in piano music, a cluster typically consists of a continuous range
-of the semitones as provided by the piano's fixed set of a chromatic
-scale.  In choral music, each singer of the choir typically may sing an
-arbitrary pitch within the cluster's range that is not bound to any
-diatonic, chromatic or other scale.  In electronic music, a cluster
-(theoretically) may even cover a continuous range of pitches, thus
-resulting in colored noise, such as pink noise.
-
-Clusters can be denoted in the context of ordinary staff notation by
-engraving simple geometrical shapes that replace ordinary notation of
-notes.  Ordinary notes as musical events specify starting time and
-duration of pitches; however, the duration of a note is expressed by the
-shape of the note head rather than by the horizontal graphical extent of
-the note symbol.  In contrast, the shape of a cluster geometrically
-describes the development of a range of pitches (vertical extent) over
-time (horizontal extent).  Still, the geometrical shape of a cluster
-covers the area in which any single pitch contained in the cluster would
-be notated as an ordinary note.  From this point of view, it is
-reasonable to specify a cluster as the envelope of a set of notes.
-
-@syntax
-
-A cluster is engraved as the envelope of a set of
-cluster-notes. Cluster notes are created by applying the function
-@code{notes-to-clusters} to a sequence of chords, e.g.
+A cluster indicates a continuous range of pitches to be played.  They
+can be denoted as the envelope of a set of notes.  They are entered by
+applying the function @code{notes-to-clusters} to a sequence of
+chords, e.g.
 @c
 @lilypond[relative=1,verbatim]
     \apply #notes-to-clusters {  <c e > <b f'>  }

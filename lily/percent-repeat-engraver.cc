@@ -37,7 +37,7 @@ class Percent_repeat_engraver : public Engraver
 {
   void typeset_perc ();
 public:
-  TRANSLATOR_DECLARATIONS(Percent_repeat_engraver);
+  TRANSLATOR_DECLARATIONS (Percent_repeat_engraver);
 protected:
   Repeated_music * repeat_;
 
@@ -136,12 +136,12 @@ Percent_repeat_engraver::process_music ()
 	  perc_ = make_spanner ("PercentRepeat");
 	  SCM col =get_property ("currentCommandColumn");
 	  perc_->set_bound (LEFT, unsmob_grob (col));
-	  announce_grob(perc_, repeat_->self_scm());
+	  announce_grob (perc_, repeat_->self_scm ());
 	}
       else if (repeat_sign_type_ == DOUBLE_MEASURE)
 	{
 	  double_percent_ = make_item ("DoublePercentRepeat");
-	  announce_grob(double_percent_, repeat_->self_scm());
+	  announce_grob (double_percent_, repeat_->self_scm ());
 
       /*
 	forbid breaks on a % line. Should forbid all breaks, really.
@@ -213,7 +213,7 @@ Percent_repeat_engraver::stop_translation_timestep ()
 
 
 
-ENTER_DESCRIPTION(Percent_repeat_engraver,
+ENTER_DESCRIPTION (Percent_repeat_engraver,
 /* descr */       "Make whole bar and double bar repeats.",
 /* creats*/       "PercentRepeat DoublePercentRepeat",
 /* accepts */     "repeated-music",

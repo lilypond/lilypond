@@ -24,7 +24,7 @@ class Piano_pedal_performer : public Performer
   };
 
 public:
-  TRANSLATOR_DECLARATIONS(Piano_pedal_performer);
+  TRANSLATOR_DECLARATIONS (Piano_pedal_performer);
   ~Piano_pedal_performer ();
   
 protected:

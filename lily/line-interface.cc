@@ -96,7 +96,7 @@ Line_interface::line (Grob *me, Offset from, Offset to)
     }
 }
 
-ADD_INTERFACE(Line_interface, "line-interface",
+ADD_INTERFACE (Line_interface, "line-interface",
 	      "Generic line objects. Any object using lines supports this.  Normally,"
 	      "you get a straight line. If @code{dash-period} is defined, a dashed line is "
 	      "produced; the length of the dashes is tuned with " 

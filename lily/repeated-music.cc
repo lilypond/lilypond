@@ -168,10 +168,10 @@ Repeated_music::minimum_start (SCM m)
   Music * body = unsmob_music (me->get_property ("element"));
 
   if (body)
-    return body->start_mom ().smobbed_copy();
+    return body->start_mom ().smobbed_copy ();
   else
     {
-      return Music_sequence::minimum_start (me->get_property ("elements")).smobbed_copy();
+      return Music_sequence::minimum_start (me->get_property ("elements")).smobbed_copy ();
     }
 }
 

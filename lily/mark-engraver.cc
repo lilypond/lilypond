@@ -23,7 +23,7 @@
 class Mark_engraver : public Engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS(Mark_engraver);
+  TRANSLATOR_DECLARATIONS (Mark_engraver);
 protected:
   Item* text_;
   
@@ -83,7 +83,7 @@ Mark_engraver::create_items (Music *ev)
     return;
 
   text_ = make_item ("RehearsalMark");
-  announce_grob(text_, ev->self_scm());
+  announce_grob (text_, ev->self_scm ());
 }
 
 
@@ -144,7 +144,7 @@ Mark_engraver::process_music ()
     }
 }
 
-ENTER_DESCRIPTION(Mark_engraver,
+ENTER_DESCRIPTION (Mark_engraver,
 /* descr */       "",
 /* creats*/       "RehearsalMark",
 /* accepts */     "mark-event",

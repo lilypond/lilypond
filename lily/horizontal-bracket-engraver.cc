@@ -16,19 +16,19 @@ source file of the GNU LilyPond music typesetter
 class Horizontal_bracket_engraver : public Engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS(Horizontal_bracket_engraver);
+  TRANSLATOR_DECLARATIONS (Horizontal_bracket_engraver);
   Link_array<Spanner> bracket_stack_;
   Link_array<Music> events_;
   int pop_count_;
   int push_count_;
 
-  virtual  bool try_music(Music*);
+  virtual  bool try_music (Music*);
   virtual void stop_translation_timestep ();
   virtual  void process_music ();
   virtual  void acknowledge_grob (Grob_info);
 };
 
-ENTER_DESCRIPTION(Horizontal_bracket_engraver,
+ENTER_DESCRIPTION (Horizontal_bracket_engraver,
 		  "Create horizontal brackets over notes for musical analysis purposes.",
 		  "HorizontalBracket",
 		  "note-grouping-event",
@@ -36,7 +36,7 @@ ENTER_DESCRIPTION(Horizontal_bracket_engraver,
 		  "",
 		  "");
 
-Horizontal_bracket_engraver::Horizontal_bracket_engraver()
+Horizontal_bracket_engraver::Horizontal_bracket_engraver ()
 {
   pop_count_ = 0;
   push_count_ = 0;
@@ -53,8 +53,8 @@ Horizontal_bracket_engraver::try_music (Music *m)
       if (d == STOP)
 	{
 	  pop_count_ ++;
-	  if (pop_count_ > bracket_stack_.size())
-	    m->origin()->warning (_("Don't have that many brackets."));
+	  if (pop_count_ > bracket_stack_.size ())
+	    m->origin ()->warning (_("Don't have that many brackets."));
 	}
       else
 	{
@@ -63,7 +63,7 @@ Horizontal_bracket_engraver::try_music (Music *m)
 	}
       
       if (pop_count_ && push_count_)
-	m->origin()->warning (_("Conflicting note group events."));
+	m->origin ()->warning (_("Conflicting note group events."));
 
       return true;
     }
@@ -75,7 +75,7 @@ Horizontal_bracket_engraver::acknowledge_grob (Grob_info gi)
 {
   if (Note_column::has_interface (gi.grob_))
     {
-      for (int i = 0;  i < bracket_stack_.size(); i++)
+      for (int i = 0;  i < bracket_stack_.size (); i++)
 	{
 	  Side_position_interface::add_support (bracket_stack_[i], gi.grob_);
 	  Pointer_group_interface::add_grob (bracket_stack_[i],
@@ -93,8 +93,8 @@ Horizontal_bracket_engraver::process_music ()
     {
       Spanner * sp = make_spanner ("HorizontalBracket");
 
-      announce_grob (sp, events_[k]->self_scm());
-      for (int i = 0; i < bracket_stack_.size(); i++)
+      announce_grob (sp, events_[k]->self_scm ());
+      for (int i = 0; i < bracket_stack_.size (); i++)
 	{
 	  /*
 	    sp is the smallest, it should be added to the bigger brackets.
@@ -111,8 +111,8 @@ Horizontal_bracket_engraver::stop_translation_timestep ()
 {
   for (int i = pop_count_; i--;)
     {
-      if (bracket_stack_.size())
-	typeset_grob (bracket_stack_.pop());
+      if (bracket_stack_.size ())
+	typeset_grob (bracket_stack_.pop ());
     }
   pop_count_ = 0;
   push_count_ = 0;

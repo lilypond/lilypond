@@ -27,7 +27,7 @@ Measure_grouping::print (SCM grob)
   Real height = robust_scm2double (me->get_property ("height"), 1);
 
   Real t = Staff_symbol_referencer::line_thickness (me) * robust_scm2double (me->get_property ("thickness"), 1);
-  Grob *common = me->get_bound(LEFT)->common_refpoint (me->get_bound (RIGHT),
+  Grob *common = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT),
 						       X_AXIS);
 
   Interval rext = me->get_bound (RIGHT)->extent (common, X_AXIS);
@@ -55,7 +55,7 @@ Measure_grouping::print (SCM grob)
     }
 
   m.align_to (Y_AXIS, DOWN);
-  return m.smobbed_copy();
+  return m.smobbed_copy ();
 }
 
 ADD_INTERFACE (Measure_grouping,"measure-grouping-interface",

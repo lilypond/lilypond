@@ -47,7 +47,7 @@ Stem::set_beaming (Grob*me, int beam_count,  Direction d)
     }
 
   SCM l = index_get_cell (pair, d);
-  for( int i = 0; i<  beam_count; i++)
+  for (int i = 0; i<  beam_count; i++)
     {
       l = gh_cons (gh_int2scm (i), l);
     }
@@ -345,7 +345,7 @@ Stem::get_default_stem_end_position (Grob*me)
 	Crude hack: add extra space if tremolo flag is there.
 
 	We can't do this for the beam, since we get into a loop
-	(Stem_tremolo::raw_stencil() looks at the beam.)
+	(Stem_tremolo::raw_stencil () looks at the beam.)
 	
 	 --hwn 
       */
@@ -495,7 +495,7 @@ Stem::position_noteheads (Grob*me)
 	      Real reverse_overlap =0.5;
 	      heads[i]->translate_axis ((l-thick*reverse_overlap) * d, X_AXIS);
 
-	      if (is_invisible(me))
+	      if (is_invisible (me))
 		heads[i]->translate_axis (-thick*(2 - reverse_overlap) * d , X_AXIS);
 
 	      
@@ -608,7 +608,7 @@ Stem::flag (Grob*me)
         {
 	  /* Urrgh!  We have to detect wether this stem ends on a staff
 	     line or between two staff lines.  But we can not call
-	     stem_end_position(me) or get_default_stem_end_position(me),
+	     stem_end_position (me) or get_default_stem_end_position (me),
 	     since this encounters the flag and hence results in an
 	     infinite recursion.  However, in pure mensural notation,
 	     there are no multiple note heads attached to a single stem,
@@ -786,7 +786,7 @@ Stem::off_callback (SCM element_smob, SCM)
   
   if (Grob * f = first_head (me))
     {
-      Interval head_wid = Note_head::head_extent(f, X_AXIS);
+      Interval head_wid = Note_head::head_extent (f, X_AXIS);
       
       Real attach =0.0;
 
@@ -795,7 +795,7 @@ Stem::off_callback (SCM element_smob, SCM)
 	  attach = 0.0;
 	}
       else
-	attach = Note_head::stem_attachment_coordinate(f, X_AXIS);
+	attach = Note_head::stem_attachment_coordinate (f, X_AXIS);
 
       Direction d = get_direction (me);
 
@@ -995,7 +995,7 @@ ADD_INTERFACE (Stem,"stem-interface",
 
 /****************************************************************/
 
-Stem_info::Stem_info()
+Stem_info::Stem_info ()
 {
   ideal_y_ = shortest_y_ =0;
   dir_ = CENTER;

@@ -33,7 +33,7 @@ private:
 		    Real thickness);
 
 public:
-  TRANSLATOR_DECLARATIONS(Vaticana_ligature_engraver);
+  TRANSLATOR_DECLARATIONS (Vaticana_ligature_engraver);
 
 protected:
   virtual Spanner *create_ligature_spanner ();
@@ -277,7 +277,7 @@ Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
 	  else
 	    {
 	      prev_primitive->set_property ("add-join",
-						 gh_bool2scm(true));
+						 gh_bool2scm (true));
 
 	      /*
 	       * Create a small overlap of adjacent heads so that the join
@@ -339,7 +339,7 @@ check_for_prefix_loss (Item *primitive)
   if (prefix_set & ~PES_OR_FLEXA)
     {
       String prefs = Gregorian_ligature::prefixes_to_str (primitive);
-      primitive->warning (_f ("ignored prefix(es) `%s' of this head according "
+      primitive->warning (_f ("ignored prefix (es) `%s' of this head according "
 			      "to restrictions of the selected ligature style",
 			      prefs.to_str0 ()));
     }
@@ -358,7 +358,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
   int prev_context_info = 0;
   int prev_delta_pitch = 0;
   String prev_glyph_name = "";
-  for (int i = 0; i < primitives.size(); i++) {
+  for (int i = 0; i < primitives.size (); i++) {
     Item *primitive = dynamic_cast<Item*> (primitives[i].grob_);
 
     int delta_pitch;
@@ -397,7 +397,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
     if (prefix_set & VIRGA)
       {
 	glyph_name = "vaticana_punctum";
-	primitive->set_property ("add-stem", gh_bool2scm(true));
+	primitive->set_property ("add-stem", gh_bool2scm (true));
       }
     else if (prefix_set & QUILISMA)
       glyph_name = "vaticana_quilisma";
@@ -459,7 +459,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 	       * placed somewhere else.
 	       */
 	      prev_primitive->set_property ("add-cauda",
-						 gh_bool2scm(false));
+						 gh_bool2scm (false));
 	    }
 	  glyph_name = "vaticana_reverse_plica";
 	}
@@ -490,7 +490,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
      */
     if ((context_info & FLEXA_LEFT) && !(context_info & PES_UPPER))
       if (!String::compare (glyph_name, "vaticana_punctum"))
-	primitive->set_property ("add-cauda", gh_bool2scm(true));
+	primitive->set_property ("add-cauda", gh_bool2scm (true));
 
     /*
      * Execptional rule for porrectus:
@@ -565,15 +565,15 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
   align_heads (primitives, flexa_width, thickness);
 
 #if 0 // experimental code to collapse spacing after ligature
-  /* TODO: set to max(old/new spacing-increment), since other
+  /* TODO: set to max (old/new spacing-increment), since other
      voices/staves also may want to set this property. */
   Item *first_primitive = dynamic_cast<Item*> (primitives[0].grob_);
-  Paper_column *paper_column = first_primitive->get_column();
+  Paper_column *paper_column = first_primitive->get_column ();
   paper_column->warning (_f ("Vaticana_ligature_engraver: "
 			     "setting `spacing-increment = %f': ptr=%ul",
 			     ligature_width, paper_column));
   paper_column->
-    set_property("forced-spacing", gh_double2scm (ligature_width));
+    set_property ("forced-spacing", gh_double2scm (ligature_width));
 #endif
 }
 

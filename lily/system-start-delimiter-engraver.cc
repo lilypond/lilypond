@@ -18,7 +18,7 @@
 class System_start_delimiter_engraver : public Engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS(System_start_delimiter_engraver);
+  TRANSLATOR_DECLARATIONS (System_start_delimiter_engraver);
 
 protected:
   Spanner * delim_;
@@ -56,7 +56,7 @@ System_start_delimiter_engraver::acknowledge_grob (Grob_info inf)
        {
          inf.grob_->translate_axis ( -0.8, X_AXIS); // ugh
          inf.grob_->set_property ("arch-height",
-				       gh_double2scm (gh_scm2double(inf.grob_->get_property
+				       gh_double2scm (gh_scm2double (inf.grob_->get_property
                                        ("arch-height"))+0.5));
        }
     }
@@ -89,7 +89,7 @@ System_start_delimiter_engraver::finalize ()
     }
 }
 
-ENTER_DESCRIPTION(System_start_delimiter_engraver,
+ENTER_DESCRIPTION (System_start_delimiter_engraver,
 /* descr */       "Creates a system start delimiter (ie. SystemStart@{Bar,Brace,Bracket@} spanner",
 /* creats*/       "SystemStartBar SystemStartBrace SystemStartBracket",
 /* accepts */     "",

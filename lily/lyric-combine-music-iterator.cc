@@ -19,11 +19,11 @@ class Lyric_combine_music_iterator : public Music_iterator
 public:
   Lyric_combine_music_iterator ();
   Lyric_combine_music_iterator (Lyric_combine_music_iterator const&src);
-  DECLARE_SCHEME_CALLBACK(constructor, ());
+  DECLARE_SCHEME_CALLBACK (constructor, ());
 protected:
   virtual void construct_children ();
   virtual Moment pending_moment () const;
-  virtual void do_quit(); 
+  virtual void do_quit (); 
   virtual void process (Moment);
   virtual Music_iterator *try_music_in_children (Music *) const;
 
@@ -88,12 +88,12 @@ Lyric_combine_music_iterator::ok () const
 }
 
 void
-Lyric_combine_music_iterator::derived_mark()const
+Lyric_combine_music_iterator::derived_mark ()const
 {
   if (music_iter_)
-    scm_gc_mark (music_iter_->self_scm());
+    scm_gc_mark (music_iter_->self_scm ());
   if (lyric_iter_)
-    scm_gc_mark (lyric_iter_->self_scm());
+    scm_gc_mark (lyric_iter_->self_scm ());
 }
 
 void
@@ -127,7 +127,7 @@ Lyric_combine_music_iterator::get_busy_status () const
   Context * tr = music_iter_->get_outlet ();
 
   SCM grobs = tr->get_property ("busyGrobs");
-  Moment now = tr->now_mom();
+  Moment now = tr->now_mom ();
   for (; gh_pair_p (grobs); grobs = gh_cdr (grobs))
     {
       SCM grob = gh_cdar (grobs);
@@ -177,9 +177,9 @@ void
 Lyric_combine_music_iterator::do_quit ()
 {
   if (music_iter_)
-    music_iter_->quit();
+    music_iter_->quit ();
   if (lyric_iter_)
-    lyric_iter_->quit();
+    lyric_iter_->quit ();
 }
 
 Music_iterator*

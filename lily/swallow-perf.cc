@@ -11,7 +11,7 @@
 class Swallow_performer : public Performer
 {
 public:
-  TRANSLATOR_DECLARATIONS(Swallow_performer);
+  TRANSLATOR_DECLARATIONS (Swallow_performer);
 protected:
   virtual bool try_music (Music*);
 };
@@ -26,10 +26,10 @@ Swallow_performer::try_music (Music *m)
     return true; 
 }
 
-Swallow_performer::Swallow_performer()
+Swallow_performer::Swallow_performer ()
 {}
 
-ENTER_DESCRIPTION(Swallow_performer,
+ENTER_DESCRIPTION (Swallow_performer,
 /* descr */       "",
 /* creats*/       "",
 /* accepts */     "general-music",

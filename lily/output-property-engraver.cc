@@ -14,7 +14,7 @@
 
 class Output_property_engraver : public Engraver
 {
-TRANSLATOR_DECLARATIONS(Output_property_engraver);
+TRANSLATOR_DECLARATIONS (Output_property_engraver);
 protected:
   Link_array<Music> props_;
 
@@ -68,9 +68,9 @@ Output_property_engraver::acknowledge_grob (Grob_info inf)
 	  
 	  SCM proc = o->get_property ("procedure");
 	  scm_call_3 (proc,
-		      inf.grob_->self_scm(),
-		      d->self_scm(), 
-		      daddy_context_->self_scm());
+		      inf.grob_->self_scm (),
+		      d->self_scm (), 
+		      daddy_context_->self_scm ());
 	}
     }
 }
@@ -81,11 +81,11 @@ Output_property_engraver::stop_translation_timestep ()
   props_.clear ();
 }
 
-Output_property_engraver::Output_property_engraver()
+Output_property_engraver::Output_property_engraver ()
 {
 }
 
-ENTER_DESCRIPTION(Output_property_engraver,
+ENTER_DESCRIPTION (Output_property_engraver,
 /* descr */       "Interpret Music of Output_property type, and apply a function "
 " to any Graphic objects that satisfies the predicate.",
 /* creats*/       "",

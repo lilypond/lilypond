@@ -98,7 +98,7 @@ Score::Score (Score const &s)
 
 
 
-LY_DEFINE(ly_run_translator, "ly:run-translator", 
+LY_DEFINE (ly_run_translator, "ly:run-translator", 
 	  2, 0, 0,
 	  (SCM mus, SCM output_def),
 	  "Process @var{mus} according to @var{output_def}. A interpretation "
@@ -136,7 +136,7 @@ LY_DEFINE(ly_run_translator, "ly:run-translator",
     }
 
   trans->run_iterator_on_me (iter);
-  iter->quit();
+  iter->quit ();
   scm_remember_upto_here_1 (protected_iter);
   trans->finish ();
 
@@ -148,7 +148,7 @@ LY_DEFINE(ly_run_translator, "ly:run-translator",
 }
 
 
-LY_DEFINE(ly_render_output, "ly:render-output",
+LY_DEFINE (ly_render_output, "ly:render-output",
 	  3,0,0,
 	  (SCM context, SCM header, SCM out_filename),
 	  "Given a Score context in its final state, calculate the output, "
@@ -157,11 +157,11 @@ LY_DEFINE(ly_render_output, "ly:render-output",
 {
   Global_context * gt = dynamic_cast<Global_context *> (unsmob_context (context));
   
-  SCM_ASSERT_TYPE(gt, context, SCM_ARG1, __FUNCTION__,
+  SCM_ASSERT_TYPE (gt, context, SCM_ARG1, __FUNCTION__,
 		  "Global context");
-  SCM_ASSERT_TYPE(ly_module_p(header), header, SCM_ARG2, __FUNCTION__,
+  SCM_ASSERT_TYPE (ly_module_p (header), header, SCM_ARG2, __FUNCTION__,
 		  "module");
-  SCM_ASSERT_TYPE(gh_string_p (out_filename), out_filename, SCM_ARG3, __FUNCTION__,
+  SCM_ASSERT_TYPE (gh_string_p (out_filename), out_filename, SCM_ARG3, __FUNCTION__,
 		  "output filename");
 
   Music_output * output = gt->get_output ();

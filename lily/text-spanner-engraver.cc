@@ -14,7 +14,7 @@
 class Text_spanner_engraver : public Engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS(Text_spanner_engraver);  
+  TRANSLATOR_DECLARATIONS (Text_spanner_engraver);  
 protected:
   virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
@@ -76,7 +76,7 @@ Text_spanner_engraver::process_music ()
     {
       if (current_req_)
 	{
-	  req_drul_[START]->origin ()->warning(_ ("already have a text spanner"));
+	  req_drul_[START]->origin ()->warning (_ ("already have a text spanner"));
 	}
       else
 	{
@@ -85,7 +85,7 @@ Text_spanner_engraver::process_music ()
 
 	  
 	  Side_position_interface::set_axis (span_, Y_AXIS);
-	  announce_grob (span_, req_drul_[START]->self_scm());
+	  announce_grob (span_, req_drul_[START]->self_scm ());
 	  req_drul_[START] = 0;
 	}
     }
@@ -146,7 +146,7 @@ Text_spanner_engraver::finalize ()
     }
 }
 
-ENTER_DESCRIPTION(Text_spanner_engraver,
+ENTER_DESCRIPTION (Text_spanner_engraver,
 /* descr */       "Create text spanner from a Music.",
 /* creats*/       "TextSpanner",
 /* accepts */     "text-span-event",

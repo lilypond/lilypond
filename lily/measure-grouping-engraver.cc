@@ -15,7 +15,7 @@
 class Measure_grouping_engraver : public Engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS(Measure_grouping_engraver);
+  TRANSLATOR_DECLARATIONS (Measure_grouping_engraver);
 
 protected:
   Spanner * grouping_;
@@ -27,7 +27,7 @@ protected:
 };
 
 void
-Measure_grouping_engraver::finalize()
+Measure_grouping_engraver::finalize ()
 {
   if (grouping_)
     {
@@ -51,7 +51,7 @@ Measure_grouping_engraver::acknowledge_grob (Grob_info gi)
 void
 Measure_grouping_engraver::process_music ()
 {
-  Moment now = now_mom();
+  Moment now = now_mom ();
   if (grouping_ && now.main_part_ >= stop_grouping_mom_ && !now.grace_part_)
     {
       grouping_->set_bound (RIGHT,
@@ -78,7 +78,7 @@ Measure_grouping_engraver::process_music ()
 	   s = gh_cdr (s)
 	   )
 	{
-	  int grouplen = gh_scm2int (gh_car(s));
+	  int grouplen = gh_scm2int (gh_car (s));
 	  if (where == mp)
 	    {
 	      if (grouping_)
@@ -92,7 +92,7 @@ Measure_grouping_engraver::process_music ()
 	      announce_grob (grouping_, SCM_EOL);
 
 
-	      stop_grouping_mom_ = now.main_part_ + Rational(grouplen - 1) * bl ;
+	      stop_grouping_mom_ = now.main_part_ + Rational (grouplen - 1) * bl ;
 	      get_global_context ()->add_moment_to_process (Moment (stop_grouping_mom_));
 
 	      if (grouplen == 3)
@@ -105,12 +105,12 @@ Measure_grouping_engraver::process_music ()
 	}
     }
 }
-Measure_grouping_engraver::Measure_grouping_engraver()
+Measure_grouping_engraver::Measure_grouping_engraver ()
 {
   grouping_ = 0;
 }
 
-ENTER_DESCRIPTION(Measure_grouping_engraver,
+ENTER_DESCRIPTION (Measure_grouping_engraver,
 /* descr */       "Creates Measure_grouping objects using beatGrouping property",
 /* creats*/       "MeasureGrouping",
 /* accepts */     "",

@@ -21,7 +21,7 @@
 class Staff_performer : public Performer_group_performer 
 {
 public:
-  TRANSLATOR_DECLARATIONS(Staff_performer);
+  TRANSLATOR_DECLARATIONS (Staff_performer);
   ~Staff_performer ();
 
   String new_instrument_string ();

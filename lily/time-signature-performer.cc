@@ -14,7 +14,7 @@
 class Time_signature_performer : public Performer
 {
 public:
-  TRANSLATOR_DECLARATIONS(Time_signature_performer);
+  TRANSLATOR_DECLARATIONS (Time_signature_performer);
   ~Time_signature_performer ();
 
 protected:
@@ -67,4 +67,4 @@ Time_signature_performer::stop_translation_timestep ()
     }
 }
 
-ENTER_DESCRIPTION(Time_signature_performer,"","","","","","");
+ENTER_DESCRIPTION (Time_signature_performer,"","","","","","");

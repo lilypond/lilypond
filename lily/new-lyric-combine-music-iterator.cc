@@ -19,11 +19,11 @@ class New_lyric_combine_music_iterator : public Music_iterator
 public:
   New_lyric_combine_music_iterator ();
   New_lyric_combine_music_iterator (New_lyric_combine_music_iterator const&src);
-  DECLARE_SCHEME_CALLBACK(constructor, ());
+  DECLARE_SCHEME_CALLBACK (constructor, ());
 protected:
   virtual void construct_children ();
   virtual Moment pending_moment () const;
-  virtual void do_quit(); 
+  virtual void do_quit (); 
   virtual void process (Moment);
   virtual Music_iterator *try_music_in_children (Music *) const;
   virtual bool run_always ()const;
@@ -112,7 +112,7 @@ New_lyric_combine_music_iterator::ok () const
 }
 
 void
-New_lyric_combine_music_iterator::derived_mark()const
+New_lyric_combine_music_iterator::derived_mark ()const
 {
   if (lyric_iter_)
     scm_gc_mark (lyric_iter_->self_scm ());
@@ -219,7 +219,7 @@ void
 New_lyric_combine_music_iterator::do_quit ()
 {
   if (lyric_iter_)
-    lyric_iter_->quit();
+    lyric_iter_->quit ();
 }
 
 

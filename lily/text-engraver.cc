@@ -24,7 +24,7 @@ class Text_engraver : public Engraver
   Link_array<Music> reqs_;
   Link_array<Item> texts_;
 public:
-  TRANSLATOR_DECLARATIONS(Text_engraver);
+  TRANSLATOR_DECLARATIONS (Text_engraver);
 protected:
   virtual bool try_music (Music* m);
   virtual void stop_translation_timestep ();
@@ -131,7 +131,7 @@ Text_engraver::Text_engraver ()
 {
 }
 
-ENTER_DESCRIPTION(Text_engraver,
+ENTER_DESCRIPTION (Text_engraver,
 /* descr */       "Create text-scripts",
 /* creats*/       "TextScript",
 /* accepts */     "text-script-event",

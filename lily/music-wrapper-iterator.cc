@@ -16,16 +16,16 @@ Music_wrapper_iterator::Music_wrapper_iterator ()
 }
 
 void
-Music_wrapper_iterator::do_quit()
+Music_wrapper_iterator::do_quit ()
 {
-  child_iter_->quit();
+  child_iter_->quit ();
 }
 
 void
 Music_wrapper_iterator::derived_mark () const
 {
   if (child_iter_)
-    scm_gc_mark (child_iter_->self_scm());
+    scm_gc_mark (child_iter_->self_scm ());
 }
 
 void
@@ -39,7 +39,7 @@ Music_wrapper_iterator::derived_substitute (Context *f,Context *t)
 void
 Music_wrapper_iterator::construct_children ()
 {
-  Music * m =  dynamic_cast<Music_wrapper const*> (get_music ())-> element();  
+  Music * m =  dynamic_cast<Music_wrapper const*> (get_music ())-> element ();  
   child_iter_ = unsmob_iterator (get_iterator (m));
 }
 

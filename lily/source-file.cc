@@ -81,9 +81,9 @@ Source_file::Source_file (String filename, String data)
   name_ = filename;
   istream_ = 0;
   contents_str0_ = data.get_copy_str0();
-  length_ = data.length();
+  length_ = data.length ();
   pos_str0_ = to_str0 ();
-  init_port();
+  init_port ();
 }
 
 Source_file::Source_file (String filename_string)
@@ -99,7 +99,7 @@ Source_file::Source_file (String filename_string)
   
   pos_str0_ = to_str0 ();
 
-  init_port();
+  init_port ();
 
   for (int i = 0; i < length_; i++)
     if (contents_str0_[i] == '\n')
@@ -261,11 +261,11 @@ Source_file::get_line (char const* pos_str0) const
   if (!contains (pos_str0))
     return 0;
 
-  if (!newline_locations_.size())
+  if (!newline_locations_.size ())
     return 1;
   
   int lo=0;
-  int hi = newline_locations_.size();
+  int hi = newline_locations_.size ();
 
   if (newline_locations_[lo] > pos_str0)
     return 1;

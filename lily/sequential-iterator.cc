@@ -55,7 +55,7 @@ void
 Sequential_iterator::do_quit ()
 {
   if (iter_)
-    iter_->quit();
+    iter_->quit ();
 }
 
 
@@ -65,7 +65,7 @@ void
 Sequential_iterator::derived_mark ()const
 {
   if (iter_)
-    scm_gc_mark (iter_->self_scm());
+    scm_gc_mark (iter_->self_scm ());
   scm_gc_mark (list_);
   scm_gc_mark (cursor_);
 }
@@ -109,7 +109,7 @@ get_grace_fixups (SCM cursor)
 	  here.grace_part_ = s.grace_part_;
 	}
       
-      if (l.to_bool())
+      if (l.to_bool ())
 	{
 	  last = here;
 	  here += l;
@@ -201,7 +201,7 @@ Sequential_iterator::next_element (bool)
   
   cursor_ = ly_cdr (cursor_);
 
-  iter_->quit();
+  iter_->quit ();
   if (gh_pair_p (cursor_))
     iter_ = unsmob_iterator (get_iterator (unsmob_music (ly_car (cursor_))));
   else

@@ -36,7 +36,7 @@
 class Slash_repeat_engraver : public Engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS(Slash_repeat_engraver);
+  TRANSLATOR_DECLARATIONS (Slash_repeat_engraver);
 protected:
   Repeated_music * repeat_;
 
@@ -111,7 +111,7 @@ Slash_repeat_engraver::process_music ()
   if (repeat_ && now_mom () == next_moment_)
     {
       beat_slash_ = make_item ("RepeatSlash");
-      announce_grob(beat_slash_, repeat_->self_scm());
+      announce_grob (beat_slash_, repeat_->self_scm ());
       next_moment_ = next_moment_ + body_length_;
 
       get_global_context ()->add_moment_to_process (next_moment_);
@@ -141,7 +141,7 @@ Slash_repeat_engraver::stop_translation_timestep ()
 
 
 
-ENTER_DESCRIPTION(Slash_repeat_engraver,
+ENTER_DESCRIPTION (Slash_repeat_engraver,
 /* descr */       "Make beat repeats.",
 /* creats*/       "RepeatSlash",
 /* accepts */     "repeated-music",

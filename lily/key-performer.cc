@@ -16,7 +16,7 @@
 class Key_performer : public Performer
 {
 public:
-  TRANSLATOR_DECLARATIONS(Key_performer);
+  TRANSLATOR_DECLARATIONS (Key_performer);
   ~Key_performer ();
 
 protected:
@@ -98,7 +98,7 @@ Key_performer::try_music (Music* req)
   return false;
 }
 
-ENTER_DESCRIPTION(Key_performer,
+ENTER_DESCRIPTION (Key_performer,
 		  "","",
 		  "key-change-event",
 		  "","","");

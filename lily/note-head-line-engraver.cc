@@ -28,7 +28,7 @@
 class Note_head_line_engraver : public Engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS(Note_head_line_engraver);
+  TRANSLATOR_DECLARATIONS (Note_head_line_engraver);
 
 protected:
   virtual void acknowledge_grob (Grob_info);
@@ -92,7 +92,7 @@ Note_head_line_engraver::process_acknowledged_grobs ()
       line_->set_bound (LEFT, last_head_);
       line_->set_bound (RIGHT, head_);
       
-      announce_grob(line_, head_->self_scm ());
+      announce_grob (line_, head_->self_scm ());
 
       follow_ = false;
     }
@@ -114,7 +114,7 @@ Note_head_line_engraver::stop_translation_timestep ()
 
 
 
-ENTER_DESCRIPTION(Note_head_line_engraver,
+ENTER_DESCRIPTION (Note_head_line_engraver,
 /* descr */       "Engrave a line between two note heads, for example a glissando.  If "
 " followVoice is set, staff switches also generate a line.",
 /* creats*/       "Glissando VoiceFollower",

@@ -21,7 +21,7 @@ class Script_column_engraver : public Engraver
   Link_array<Item> scripts_;
 
 public:
-  TRANSLATOR_DECLARATIONS(Script_column_engraver);
+  TRANSLATOR_DECLARATIONS (Script_column_engraver);
 protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void process_acknowledged_grobs ();
@@ -65,7 +65,7 @@ Script_column_engraver::process_acknowledged_grobs ()
   if (!scol_ && scripts_.size () > 1)
     {
       scol_ = make_item ("ScriptColumn");
-      announce_grob(scol_, SCM_EOL);
+      announce_grob (scol_, SCM_EOL);
     }
 
   if (scol_)
@@ -77,7 +77,7 @@ Script_column_engraver::process_acknowledged_grobs ()
 
 }
 
-ENTER_DESCRIPTION(Script_column_engraver,
+ENTER_DESCRIPTION (Script_column_engraver,
 /* descr */       "",
 /* creats*/       "ScriptColumn",
 /* accepts */     "",

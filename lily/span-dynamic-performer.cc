@@ -28,7 +28,7 @@ struct Audio_dynamic_tuple
 class Span_dynamic_performer : public Performer
 {
 public:
-  TRANSLATOR_DECLARATIONS(Span_dynamic_performer);
+  TRANSLATOR_DECLARATIONS (Span_dynamic_performer);
 
 protected:
   virtual bool try_music (Music*);

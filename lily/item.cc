@@ -190,7 +190,7 @@ unsmob_item (SCM s )
 
 
 
-ADD_INTERFACE(Item,
+ADD_INTERFACE (Item,
 	      "item-interface",
 	      "\n"
 	      "\n"

@@ -19,7 +19,7 @@ class Hyphen_engraver : public Engraver
   Spanner* hyphen_;
   Spanner * finished_hyphen_;  
 public:
-  TRANSLATOR_DECLARATIONS(Hyphen_engraver);
+  TRANSLATOR_DECLARATIONS (Hyphen_engraver);
 
 protected:
   virtual void acknowledge_grob (Grob_info);
@@ -121,7 +121,7 @@ Hyphen_engraver::process_music ()
   if (ev_)
     {
       hyphen_ = make_spanner ("LyricHyphen");
-      announce_grob (hyphen_, ev_->self_scm());
+      announce_grob (hyphen_, ev_->self_scm ());
     }
 }
 
@@ -152,7 +152,7 @@ Hyphen_engraver::stop_translation_timestep ()
 
 
 
-ENTER_DESCRIPTION(Hyphen_engraver,
+ENTER_DESCRIPTION (Hyphen_engraver,
 /* descr */       "Create lyric hyphens",
 /* creats*/       "LyricHyphen",
 /* accepts */     "hyphen-event",

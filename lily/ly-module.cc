@@ -46,7 +46,7 @@ ly_clear_anonymous_modules ()
 	UGH.
       */
       
-      SCM_STRUCT_DATA(gh_car(s))[scm_module_index_obarray] = (long unsigned int) tab;
+      SCM_STRUCT_DATA (gh_car (s))[scm_module_index_obarray] = (long unsigned int) tab;
     }
 }
 
@@ -70,7 +70,7 @@ ly_copy_module_variables (SCM dest, SCM src)
 {
   SCM_VALIDATE_MODULE (1, src);
 
-  SCM obarr= SCM_MODULE_OBARRAY(src);
+  SCM obarr= SCM_MODULE_OBARRAY (src);
   scm_internal_hash_fold ((Hash_cl_func) &define_one_var, (void*) dest, SCM_EOL, obarr);
 }
 
@@ -85,7 +85,7 @@ ly_module_symbols (SCM mod)
 {
   SCM_VALIDATE_MODULE (1, mod);
   
-  SCM obarr= SCM_MODULE_OBARRAY(mod);
+  SCM obarr= SCM_MODULE_OBARRAY (mod);
   return scm_internal_hash_fold ((Hash_cl_func) &accumulate_symbol, NULL, SCM_EOL, obarr); 
 }
 
@@ -101,7 +101,7 @@ ly_module_to_alist (SCM mod)
   SCM_VALIDATE_MODULE (1, mod);
   
   
-  SCM obarr= SCM_MODULE_OBARRAY(mod);
+  SCM obarr= SCM_MODULE_OBARRAY (mod);
 
   return scm_internal_hash_fold ((Hash_cl_func) &entry_to_alist, NULL, SCM_EOL, obarr); 
 }

@@ -98,7 +98,7 @@ Score_engraver::finish ()
 void
 Score_engraver::initialize ()
 {
-  Font_metric *fm = all_fonts_global->find_afm("feta20");
+  Font_metric *fm = all_fonts_global->find_afm ("feta20");
   if (!fm)
     error (_f ("can't find `%s'", "feta20.afm")
 	   + "\n" +_ ("Fonts have not been installed properly.  Aborting"));
@@ -183,7 +183,7 @@ Score_engraver::typeset_all ()
 		/* don't warn for empty/suicided spanners,
 		   it makes real warningsinvisible.
 		   maybe should be junked earlier? */
-		if (!elem->live())
+		if (!elem->live ())
 		  ; // gdb hook
 		else
 		  elem->warning (_f ("unbound spanner `%s'", s->name ().to_str0 ()));
@@ -312,7 +312,7 @@ Score_engraver::acknowledge_grob (Grob_info gi)
 
 
 
-ENTER_DESCRIPTION(Score_engraver,
+ENTER_DESCRIPTION (Score_engraver,
 /* descr */       "Top level engraver. Takes care of generating columns and the complete  system (ie. System) "
 "\n\n "
 "This engraver decides whether a column is breakable. The default is "

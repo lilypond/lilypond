@@ -218,7 +218,7 @@ Slur::get_boundary_notecolumn_y (Grob *me, Direction dir)
 {
   SCM cols = me->get_property ("note-columns");
 
-  if(!gh_pair_p (cols))
+  if (!gh_pair_p (cols))
     {
       programming_error ("No note-columns in slur?");
       me->suicide ();
@@ -226,7 +226,7 @@ Slur::get_boundary_notecolumn_y (Grob *me, Direction dir)
     }
   
   if (dir == LEFT)
-    cols = scm_reverse(cols);
+    cols = scm_reverse (cols);
   
   Grob *col = unsmob_grob (ly_car (cols));
   Grob *common[] =
@@ -651,7 +651,7 @@ Slur::get_curve (Grob*me)
 
   SCM attach = me->get_property ("attachment");
   if (!gh_pair_p (attach))
-    attach = set_extremities(me);
+    attach = set_extremities (me);
 
   
   if (!get_grob_direction (me)

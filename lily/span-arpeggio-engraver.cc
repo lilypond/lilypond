@@ -24,7 +24,7 @@
 class Span_arpeggio_engraver : public Engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS(Span_arpeggio_engraver);
+  TRANSLATOR_DECLARATIONS (Span_arpeggio_engraver);
   
 protected:
   virtual void acknowledge_grob (Grob_info);
@@ -66,7 +66,7 @@ Span_arpeggio_engraver::process_acknowledged_grobs ()
       && to_boolean (get_property ("connectArpeggios")))
     {
       span_arpeggio_ = make_item ("Arpeggio");
-      announce_grob(span_arpeggio_, SCM_EOL);      
+      announce_grob (span_arpeggio_, SCM_EOL);      
     }
 }
 
@@ -103,7 +103,7 @@ Span_arpeggio_engraver::stop_translation_timestep ()
 
 
 
-ENTER_DESCRIPTION(Span_arpeggio_engraver,
+ENTER_DESCRIPTION (Span_arpeggio_engraver,
 /* descr */       "",
 /* creats*/       "Arpeggio",
 /* accepts */     "",

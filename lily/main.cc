@@ -198,7 +198,7 @@ usage ()
   printf ("\n\n");
   printf (_ ("Typeset music and/or produce MIDI from FILE.").to_str0 ());
   printf ("\n\n");
-  printf(_ ("LilyPond produces beautiful music notation.").to_str0 ());
+  printf (_ ("LilyPond produces beautiful music notation.").to_str0 ());
   printf ("\n");
   printf (_f ("For more information, see %s,", PROGRAM_URL).to_str0 ());
   printf ("\n\n");

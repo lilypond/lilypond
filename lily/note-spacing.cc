@@ -33,7 +33,7 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
 			   Real base_space, Real increment, Real *space, Real *fixed)
 {
 
-  Drul_array<SCM> props(me->get_property ("left-items"),
+  Drul_array<SCM> props (me->get_property ("left-items"),
 			me->get_property ("right-items"));
   Direction d = LEFT;
   Direction col_dir =  right_col->break_status_dir ();
@@ -44,7 +44,7 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
     {
       for (SCM  s = props[d]; gh_pair_p (s); s = gh_cdr (s))
 	{
-	  Item * it= dynamic_cast<Item*> (unsmob_grob (gh_car(s)));
+	  Item * it= dynamic_cast<Item*> (unsmob_grob (gh_car (s)));
 	  
 	  if (d == RIGHT && it->break_status_dir () != col_dir)
 	    {
@@ -80,7 +80,7 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
 		first note head will be.
 	       */
 	      if (g)
-		left_head_wid = g->extent(it_col, X_AXIS);
+		left_head_wid = g->extent (it_col, X_AXIS);
 	    }
 	  
 	  extents[d].unite (it->extent (it_col, X_AXIS));
@@ -164,7 +164,7 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
 Item *
 Note_spacing::left_column (Grob *me)
 {
-  if (!me->live())
+  if (!me->live ())
     return 0;
   
   return dynamic_cast<Item*> (me)->get_column ();
@@ -181,7 +181,7 @@ prune RIGHT-ITEMS.
 Item *
 Note_spacing::right_column (Grob*me)
 {
-  if (!me->live())
+  if (!me->live ())
     return 0;
   
   SCM right = me->get_property ("right-items");
@@ -222,7 +222,7 @@ Note_spacing::right_column (Grob*me)
     {
       /*
       int r = Paper_column::get_rank (dynamic_cast<Item*>(me)->get_column ());
-      programming_error (_f("Spacing wish column %d has no right item.", r));
+      programming_error (_f ("Spacing wish column %d has no right item.", r));
       */
 
       return 0;
@@ -244,14 +244,14 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 				   Real increment,
 				   Real * space, Real *fixed)  
 {
-  Drul_array<Direction> stem_dirs(CENTER,CENTER);
+  Drul_array<Direction> stem_dirs (CENTER,CENTER);
   Drul_array<Interval> stem_posns;
   Drul_array<Interval> head_posns;  
-  Drul_array<SCM> props(me->get_property ("left-items"),
+  Drul_array<SCM> props (me->get_property ("left-items"),
 			me->get_property ("right-items"));
 
-  Drul_array<Grob*> beams_drul(0,0);
-  Drul_array<Grob*> stems_drul(0,0);
+  Drul_array<Grob*> beams_drul (0,0);
+  Drul_array<Grob*> stems_drul (0,0);
   
   stem_dirs[LEFT] = stem_dirs[RIGHT] = CENTER;
   Interval intersect;
@@ -266,7 +266,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
     {
       for (SCM  s = props[d]; gh_pair_p (s); s = gh_cdr (s))
 	{
-	  Item * it= dynamic_cast<Item*> (unsmob_grob (gh_car(s)));
+	  Item * it= dynamic_cast<Item*> (unsmob_grob (gh_car (s)));
 
 	  if (d == RIGHT)
 	    acc_right = acc_right || Note_column::accidentals (it);
@@ -293,7 +293,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	      return ;
 	    }
 	  
-	  if(Stem::is_invisible (stem))
+	  if (Stem::is_invisible (stem))
 	    {
 	      correct_stem_dirs = false;
 	      continue;
@@ -325,7 +325,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	  Real chord_start = hp[sd];	  
 	  Real stem_end = Stem::stem_end_position (stem);
 	  
-	  stem_posns[d] = Interval(chord_start<?stem_end, chord_start>? stem_end);
+	  stem_posns[d] = Interval (chord_start<?stem_end, chord_start>? stem_end);
 	  head_posns[d].unite (hp);
 	}
     }
@@ -381,7 +381,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
       else
 	{
 	  intersect = stem_posns[LEFT];  
-	  intersect.intersect(stem_posns[RIGHT]);
+	  intersect.intersect (stem_posns[RIGHT]);
 	  correct_stem_dirs = correct_stem_dirs && !intersect.is_empty ();
 
 	  if (correct_stem_dirs)
@@ -443,7 +443,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 
   *space += correction;
 
-  /* there used to be a correction for bar_xextent() here, but
+  /* there used to be a correction for bar_xextent () here, but
      it's unclear what that was good for ?
   */
 

@@ -22,8 +22,8 @@
 
  source-file.hh includes cmath which undefines isinf and isnan
 */
-inline int my_isinf(Real r) { return isinf(r); }
-inline int my_isnan(Real r) { return isnan(r); }
+inline int my_isinf (Real r) { return isinf (r); }
+inline int my_isnan (Real r) { return isnan (r); }
 
 
 
@@ -102,7 +102,7 @@ gulp_file_to_string (String fn)
   return result;
 }
 
-LY_DEFINE(ly_gulp_file, "ly:gulp-file", 1,0, 0,
+LY_DEFINE (ly_gulp_file, "ly:gulp-file", 1,0, 0,
 	  (SCM name),
 	  "Read the file named @var{name}, and return its contents in a string. The "
 " file is looked up using the lilypond search path.")
@@ -126,7 +126,7 @@ ly_scm2string (SCM s)
 {
   assert (gh_string_p (s));
 
-  char *p = SCM_STRING_CHARS(s);
+  char *p = SCM_STRING_CHARS (s);
   String r (p);
   return r;
 }
@@ -149,7 +149,7 @@ index_set_cell (SCM s, Direction d, SCM v)
   return s;
 }
   
-LY_DEFINE(ly_warning,"ly:warn", 1, 0, 0,
+LY_DEFINE (ly_warning,"ly:warn", 1, 0, 0,
   (SCM str),"Scheme callable function to issue the warning @code{msg}.")
 {
   SCM_ASSERT_TYPE (gh_string_p (str), str, SCM_ARG1, __FUNCTION__, "string");
@@ -157,7 +157,7 @@ LY_DEFINE(ly_warning,"ly:warn", 1, 0, 0,
   return SCM_BOOL_T;
 }
 
-LY_DEFINE(ly_dir_p,  "ly:dir?", 1,0, 0,  (SCM s),
+LY_DEFINE (ly_dir_p,  "ly:dir?", 1,0, 0,  (SCM s),
 	  "type predicate. A direction is a -1, 0 or 1, where -1 represents "
 	  "left or down and 1 represents right or up. ")
 {
@@ -313,7 +313,7 @@ ly_scm2offset (SCM s)
 }
 
    
-LY_DEFINE(ly_number2string,  "ly:number->string", 1, 0,0,
+LY_DEFINE (ly_number2string,  "ly:number->string", 1, 0,0,
 	  (SCM s),
 	  " converts @var{num} to a string without generating many decimals. It "
 "leaves a space at the end.")
@@ -366,7 +366,7 @@ wave_sweep_goodbye (void *dummy1, void *dummy2, void *dummy3)
 
 
 #include "version.hh"
-LY_DEFINE(ly_version,  "ly:version", 0, 0, 0, (),
+LY_DEFINE (ly_version,  "ly:version", 0, 0, 0, (),
 	  "Return the current lilypond version as a list, e.g. @code{(1 3 127 uu1)}. ")
 {
   char const* vs =  "\'(" MAJOR_VERSION " " MINOR_VERSION " "  PATCH_LEVEL " " MY_PATCH_LEVEL ")" ;
@@ -374,7 +374,7 @@ LY_DEFINE(ly_version,  "ly:version", 0, 0, 0, (),
   return gh_eval_str ((char*)vs);
 }
 
-LY_DEFINE(ly_unit,  "ly:unit", 0, 0, 0, (),
+LY_DEFINE (ly_unit,  "ly:unit", 0, 0, 0, (),
 	  "Return the unit used for lengths as a string.")
 {
   return scm_makfrom0str (INTERNAL_UNIT);
@@ -382,7 +382,7 @@ LY_DEFINE(ly_unit,  "ly:unit", 0, 0, 0, (),
 
 
 
-LY_DEFINE(ly_dimension_p,  "ly:dimension?", 1, 0, 0, (SCM d),
+LY_DEFINE (ly_dimension_p,  "ly:dimension?", 1, 0, 0, (SCM d),
 	  "Return @var{d} is a number. Used to distinguish length "
 	  "variables from normal numbers.")
 {
@@ -464,9 +464,9 @@ SCM
 ly_assoc_cdr (SCM key, SCM alist)
 {
   if (gh_pair_p (alist)) {
-    SCM trykey = ly_caar(alist);
-    if(gh_pair_p(trykey) && to_boolean(scm_equal_p(key,ly_cdr(trykey))))
-      return ly_car(alist);
+    SCM trykey = ly_caar (alist);
+    if (gh_pair_p (trykey) && to_boolean (scm_equal_p (key,ly_cdr (trykey))))
+      return ly_car (alist);
     else
       return ly_assoc_cdr (key, ly_cdr (alist));
   }
@@ -679,12 +679,12 @@ taint (SCM *)
 SCM
 display_list (SCM s)
 {
-  SCM p = scm_current_output_port();
+  SCM p = scm_current_output_port ();
 
   scm_puts ("(", p);
-  for (; gh_pair_p(s); s =gh_cdr(s))
+  for (; gh_pair_p (s); s =gh_cdr (s))
     {
-      scm_display (gh_car(s), p);
+      scm_display (gh_car (s), p);
       scm_puts (" ", p);      
     }
   scm_puts (")", p);
@@ -713,12 +713,12 @@ int_list_to_slice (SCM l)
   PRE: length (L) > 0
  */
 SCM
-robust_list_ref(int i, SCM l)
+robust_list_ref (int i, SCM l)
 {
-  while (i-- > 0 && gh_pair_p (gh_cdr(l)))
+  while (i-- > 0 && gh_pair_p (gh_cdr (l)))
     l = gh_cdr (l);
 
-  return gh_car(l);
+  return gh_car (l);
 }
 
 
@@ -790,7 +790,7 @@ alist_to_hashq (SCM alist)
 /*
   Debugging mem leaks:
  */
-LY_DEFINE(ly_protects, "ly:protects", 0, 0, 0, (),
+LY_DEFINE (ly_protects, "ly:protects", 0, 0, 0, (),
 	  "Return hash of protected objects.")
 {
   return scm_protects;

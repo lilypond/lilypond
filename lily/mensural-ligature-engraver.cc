@@ -54,7 +54,7 @@ protected:
   virtual void build_ligature (Spanner *ligature, Array<Grob_info> primitives);
 
 public:
-  TRANSLATOR_DECLARATIONS(Mensural_ligature_engraver);
+  TRANSLATOR_DECLARATIONS (Mensural_ligature_engraver);
 
 private:
   int apply_transition (Array<Grob_info> primitives,
@@ -337,7 +337,7 @@ Mensural_ligature_engraver::transform_heads (Array<Grob_info> primitives)
  * these properties via the concrete Ligature grob (like
  * MensuralLigature) and then copy these properties as necessary to
  * each of the NoteHead grobs.  This is what
- * propagate_properties() does.
+ * propagate_properties () does.
  */
 void
 Mensural_ligature_engraver::propagate_properties (Spanner *ligature,

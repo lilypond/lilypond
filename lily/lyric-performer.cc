@@ -14,7 +14,7 @@
 
 class Lyric_performer : public Performer {
 public:
-  TRANSLATOR_DECLARATIONS(Lyric_performer);
+  TRANSLATOR_DECLARATIONS (Lyric_performer);
 protected:
 
   virtual bool try_music (Music* req);
@@ -73,4 +73,4 @@ Lyric_performer::try_music (Music* req)
   return false;
 }
 
-ENTER_DESCRIPTION(Lyric_performer,"","","lyric-event","","","");
+ENTER_DESCRIPTION (Lyric_performer,"","","lyric-event","","","");

@@ -63,7 +63,7 @@ Tuplet_bracket::parallel_beam (Grob *me, Link_array<Grob> const &cols, bool *equ
     ugh: code dup. 
   */
   Grob *s1 = Note_column::get_stem (cols[0]); 
-  Grob *s2 = Note_column::get_stem (cols.top());    
+  Grob *s2 = Note_column::get_stem (cols.top ());    
 
   Grob*b1 = s1 ? Stem::get_beam (s1) : 0;
   Grob*b2 = s2 ? Stem::get_beam (s2) : 0;
@@ -77,14 +77,14 @@ Tuplet_bracket::parallel_beam (Grob *me, Link_array<Grob> const &cols, bool *equ
   Link_array<Grob> beam_stems = Pointer_group_interface__extract_grobs
     (b1, (Grob*)0, "stems");
 
-  if (beam_stems.size() == 0)
+  if (beam_stems.size () == 0)
     {
       programming_error ("Beam under tuplet bracket has no stems!");
       *equally_long = 0;
       return 0;
     }
   
-  *equally_long = (beam_stems[0] == s1 && beam_stems.top() == s2);
+  *equally_long = (beam_stems[0] == s1 && beam_stems.top () == s2);
   return b1;
 }
 
@@ -154,13 +154,13 @@ Tuplet_bracket::print (SCM smob)
     Tuplet brackets are normally not broken, but we shouldn't crash if
     they are.
    */
-  commonx = commonx->common_refpoint (sp->get_bound(LEFT), X_AXIS);
-  commonx = commonx->common_refpoint (sp->get_bound(RIGHT), X_AXIS);  
+  commonx = commonx->common_refpoint (sp->get_bound (LEFT), X_AXIS);
+  commonx = commonx->common_refpoint (sp->get_bound (RIGHT), X_AXIS);  
   
   Direction dir = get_grob_direction (me);
 
   Grob * lgr = get_x_bound_grob (columns[0], dir);
-  Grob * rgr = get_x_bound_grob (columns.top(), dir);  
+  Grob * rgr = get_x_bound_grob (columns.top (), dir);  
   Real x0 = lgr->extent (commonx,X_AXIS)[LEFT];
   Real x1 = rgr->extent (commonx,X_AXIS)[RIGHT];
 
@@ -245,7 +245,7 @@ Tuplet_bracket::make_bracket (Grob *me,	// for line properties.
 			      Drul_array<Real> flare,
 			      Drul_array<Real> shorten)
 {
-  Drul_array<Offset> corners (Offset(0,0), dz);
+  Drul_array<Offset> corners (Offset (0,0), dz);
   
   Real length = dz.length ();
   Drul_array<Offset> gap_corners;
@@ -354,7 +354,7 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
 
   
   Grob * lgr = get_x_bound_grob (columns[0], dir);
-  Grob * rgr = get_x_bound_grob (columns.top(), dir);  
+  Grob * rgr = get_x_bound_grob (columns.top (), dir);  
   Real x0 = lgr->extent (commonx,X_AXIS)[LEFT];
   Real x1 = rgr->extent (commonx,X_AXIS)[RIGHT];
 
@@ -414,7 +414,7 @@ Tuplet_bracket::before_line_breaking (SCM smob)
     Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-columns");
 
 
-  for (int i = columns.size(); i--;)
+  for (int i = columns.size (); i--;)
     {
       Grob * s =Note_column::get_stem (columns[i]);
       Grob * b = s ? Stem::get_beam (s): 0;
@@ -441,7 +441,7 @@ Tuplet_bracket::after_line_breaking (SCM smob)
   if (dynamic_cast<Spanner*> (me)->is_broken ())
     {
       me->warning (_("Killing tuplet bracket across linebreak."));
-      me->suicide();
+      me->suicide ();
       return SCM_UNSPECIFIED;
     }
   
@@ -509,7 +509,7 @@ Tuplet_bracket::after_line_breaking (SCM smob)
 Direction
 Tuplet_bracket::get_default_dir (Grob*me)
 {
-  Drul_array<int> dirs(0,0);  
+  Drul_array<int> dirs (0,0);  
   for (SCM s = me->get_property ("note-columns"); gh_pair_p (s); s = ly_cdr (s))
     {
       Grob * nc = unsmob_grob (ly_car (s));

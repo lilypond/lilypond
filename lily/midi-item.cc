@@ -148,7 +148,7 @@ Midi_instrument::to_string () const
   SCM program = gh_call1 (proc, ly_symbol2scm (audio_->str_.to_str0 ()));
   found = (program != SCM_BOOL_F);
   if (found)
-    program_byte = gh_scm2int(program);
+    program_byte = gh_scm2int (program);
   else
       warning (_f ("no such MIDI instrument: `%s'", audio_->str_.to_str0 ()));
 
@@ -243,7 +243,7 @@ int
 Midi_note::get_fine_tuning () const
 {
   int ft = audio_->pitch_.quartertone_pitch ();
-  ft -= 2 * audio_->pitch_.semitone_pitch();
+  ft -= 2 * audio_->pitch_.semitone_pitch ();
   ft *= 50; // 1 quarter tone = 50 cents
   return ft;
 }

@@ -36,7 +36,7 @@ struct Spacings
   }
   void clear () {
     staff_spacing_ = 0;
-    note_spacings_.clear();
+    note_spacings_.clear ();
   }
 };
 
@@ -59,7 +59,7 @@ protected:
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();  
 public:
-  TRANSLATOR_DECLARATIONS(Separating_line_group_engraver);
+  TRANSLATOR_DECLARATIONS (Separating_line_group_engraver);
 };
 
 Separating_line_group_engraver::Separating_line_group_engraver ()
@@ -77,7 +77,7 @@ Separating_line_group_engraver::process_music ()
     {
       sep_span_ = make_spanner ("SeparatingGroupSpanner");
 
-      announce_grob(sep_span_, SCM_EOL);
+      announce_grob (sep_span_, SCM_EOL);
       sep_span_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
     }
 }
@@ -94,14 +94,14 @@ Separating_line_group_engraver::finalize ()
   typeset_grob (sep_span_);
   sep_span_ =0;
 
-  for  (int i= 0 ; i < last_spacings_.note_spacings_.size(); i++)
+  for  (int i= 0 ; i < last_spacings_.note_spacings_.size (); i++)
     {
       Pointer_group_interface::add_grob (last_spacings_.note_spacings_[i],
 					 ly_symbol2scm ("right-items" ),
 					 column);
     }
    
-  if(last_spacings_.staff_spacing_
+  if (last_spacings_.staff_spacing_
      && last_spacings_.staff_spacing_->get_column () == column)
     {
       last_spacings_.staff_spacing_->suicide ();
@@ -116,7 +116,7 @@ Separating_line_group_engraver::acknowledge_grob (Grob_info i)
     return;
   if (it->get_parent (X_AXIS)
       && it->get_parent (X_AXIS)
-      ->has_extent_callback(Axis_group_interface::group_extent_callback_proc, X_AXIS))
+      ->has_extent_callback (Axis_group_interface::group_extent_callback_proc, X_AXIS))
     return;
 
   
@@ -142,7 +142,7 @@ Separating_line_group_engraver::acknowledge_grob (Grob_info i)
 	  p_ref_->set_property ("breakable", SCM_BOOL_T);
 	  daddy_context_->set_property ("breakableSeparationItem", p_ref_->self_scm ());
 	}
-      announce_grob(p_ref_, SCM_EOL);
+      announce_grob (p_ref_, SCM_EOL);
 
       if (p_ref_ == break_item_)
 	{
@@ -150,7 +150,7 @@ Separating_line_group_engraver::acknowledge_grob (Grob_info i)
 	  current_spacings_.staff_spacing_ = it;
 	  it->set_property ("left-items", gh_cons (break_item_->self_scm (), SCM_EOL));
 	  
-	  announce_grob(it, SCM_EOL);
+	  announce_grob (it, SCM_EOL);
 
 	  if (int i = last_spacings_.note_spacings_.size ())
 	    {
@@ -164,7 +164,7 @@ Separating_line_group_engraver::acknowledge_grob (Grob_info i)
 	    {
 	      
 	      last_spacings_.staff_spacing_->set_property ("right-items",
-								gh_cons (break_item_->self_scm(), SCM_EOL));
+								gh_cons (break_item_->self_scm (), SCM_EOL));
 	    }
 	}
     }
@@ -223,7 +223,7 @@ Separating_line_group_engraver::stop_translation_timestep ()
 }
 
 
-ENTER_DESCRIPTION(Separating_line_group_engraver,
+ENTER_DESCRIPTION (Separating_line_group_engraver,
 /* descr */       "Generates objects for computing spacing parameters.",
 /* creats*/       "SeparationItem SeparatingGroupSpanner",
 /* accepts */     "",

@@ -15,7 +15,7 @@
 class Ottava_spanner_engraver : public Engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS(Ottava_spanner_engraver);  
+  TRANSLATOR_DECLARATIONS (Ottava_spanner_engraver);  
 protected:
   virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
@@ -114,11 +114,11 @@ Ottava_spanner_engraver::finalize ()
   typeset_all ();
   if (span_)
     finished_ = span_;
-  typeset_all();
+  typeset_all ();
   last_ottavation_ = SCM_EOL;
 }
 
-ENTER_DESCRIPTION(Ottava_spanner_engraver,
+ENTER_DESCRIPTION (Ottava_spanner_engraver,
 /* descr */       "Create a text spanner when the ottavation property changes..",
 /* creats*/       "OttavaBracket",
 /* accepts */     "",

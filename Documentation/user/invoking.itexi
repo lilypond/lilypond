@@ -230,6 +230,20 @@ they will each be processed independently.  @footnote{The status of
   GUILE is not reset across invocations, so be careful not to change any
   system defaults from within Scheme.}
 
+We strongly advise against making LilyPond formatting available
+through a webserver. That is, processing input from untrusted users,
+and returning the resulting PDF file. LilyPond is a big and complex
+program. It was not written with security in mind. Making it available
+to the outside world is a huge risk; consider the security
+implications of
+
+@verbatim
+  #(system "rm -rf /")
+  \score {
+    c4^#(ly:export (ly:gulp-file "/etc/passwd"))
+  }
+@end verbatim
+
 
 @section Command line options
 

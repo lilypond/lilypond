@@ -29,7 +29,7 @@ class Span_bar_engraver : public Engraver
   Link_array<Item> bars_;
 
 public:
-  TRANSLATOR_DECLARATIONS(Span_bar_engraver);
+  TRANSLATOR_DECLARATIONS (Span_bar_engraver);
 protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
@@ -88,7 +88,7 @@ Span_bar_engraver::stop_translation_timestep ()
 
 
 
-ENTER_DESCRIPTION(Span_bar_engraver,
+ENTER_DESCRIPTION (Span_bar_engraver,
 /* descr */       "This engraver makes cross-staff barlines: It catches all normal "
 "bar lines, and draws a single span-bar across them.",
 /* creats*/       "SpanBar",

@@ -11,7 +11,7 @@
 #include "context-def.hh"
 #include "global-context.hh"
 
-bool check_grob(Music *mus, SCM sym);
+bool check_grob (Music *mus, SCM sym);
 
 /**
    There is no real processing to a property: just lookup the
@@ -43,9 +43,9 @@ Property_unset_iterator::process (Moment m)
   Simple_music_iterator::process (m);
 }
 
-MAKE_SCHEME_CALLBACK(Property_iterator,once_finalization, 2);
+MAKE_SCHEME_CALLBACK (Property_iterator,once_finalization, 2);
 SCM
-Property_iterator::once_finalization(SCM translator, SCM music )
+Property_iterator::once_finalization (SCM translator, SCM music )
 {
   Music * m = unsmob_music (music);
   Context * tg
@@ -61,8 +61,8 @@ Property_iterator::do_quit ()
 {
   if (to_boolean (get_music ()->get_property  ("once")))
     {
-      SCM trans = get_outlet ()->self_scm();
-      SCM music = get_music()->self_scm();
+      SCM trans = get_outlet ()->self_scm ();
+      SCM music = get_music ()->self_scm ();
 
       Global_context * tg = get_outlet ()->get_global_context ();
       tg->add_finalization (scm_list_n (once_finalization_proc,
@@ -78,7 +78,7 @@ SCM list_p = 0;
   property is a list.
  */
 bool
-check_grob(Music *mus, SCM sym)
+check_grob (Music *mus, SCM sym)
 {
   if (!list_p)
     {
@@ -91,7 +91,7 @@ check_grob(Music *mus, SCM sym)
 
   if (!ok)
     {
-      mus->origin()->warning (_f("Not a grob name, `%s'." , ly_symbol2string (sym)));
+      mus->origin ()->warning (_f ("Not a grob name, `%s'." , ly_symbol2string (sym)));
     }
   return  ok;
 }
@@ -115,7 +115,7 @@ Push_property_iterator::process (Moment m)
   Simple_music_iterator::process (m);
 }
 
-MAKE_SCHEME_CALLBACK(Push_property_iterator,once_finalization, 2);
+MAKE_SCHEME_CALLBACK (Push_property_iterator,once_finalization, 2);
 SCM
 Push_property_iterator::once_finalization (SCM trans, SCM music)
 {
@@ -137,8 +137,8 @@ Push_property_iterator::do_quit ()
 {
   if (to_boolean (get_music ()->get_property  ("once")))
     {
-      SCM trans = get_outlet ()->self_scm();
-      SCM music = get_music ()->self_scm();
+      SCM trans = get_outlet ()->self_scm ();
+      SCM music = get_music ()->self_scm ();
 
       Global_context * tg=  get_outlet ()->get_global_context ();
       tg->add_finalization (scm_list_n (once_finalization_proc,

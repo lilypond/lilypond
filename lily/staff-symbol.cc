@@ -63,7 +63,7 @@ Staff_symbol::print (SCM smob)
     }
 
   Real t = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
-  t *= robust_scm2double ( me->get_property("thickness"), 1.0);
+  t *= robust_scm2double ( me->get_property ("thickness"), 1.0);
   
   int l = Staff_symbol::line_count (me);
   
@@ -117,7 +117,7 @@ Staff_symbol::get_ledger_line_thickness (Grob * me)
   SCM lt_pair = me->get_property ("ledger-line-thickness");
   Offset z = robust_scm2offset (lt_pair, Offset (1.0, 0.1));
   
-  return z[X_AXIS] * get_line_thickness(me) + z[Y_AXIS]* staff_space (me);
+  return z[X_AXIS] * get_line_thickness (me) + z[Y_AXIS]* staff_space (me);
 }
 
 

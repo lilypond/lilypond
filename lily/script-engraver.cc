@@ -32,7 +32,7 @@ class Script_engraver : public Engraver
 {
   Array<Script_tuple> scripts_;
 public:
-  TRANSLATOR_DECLARATIONS(Script_engraver);
+  TRANSLATOR_DECLARATIONS (Script_engraver);
 protected:
   virtual bool try_music (Music*);
   virtual void stop_translation_timestep ();
@@ -146,7 +146,7 @@ Script_engraver::process_music ()
 	p->set_property ("direction", force_dir);
       
       if (p)
-	announce_grob (p, l->self_scm());
+	announce_grob (p, l->self_scm ());
     }
 }
 
@@ -231,9 +231,9 @@ Script_engraver::stop_translation_timestep ()
 
 
 
-Script_engraver::Script_engraver(){}
+Script_engraver::Script_engraver (){}
 
-ENTER_DESCRIPTION(Script_engraver,
+ENTER_DESCRIPTION (Script_engraver,
 /* descr */       "Handles note scripted articulations.",
 /* creats*/       "Script",
 /* accepts */     "script-event articulation-event",

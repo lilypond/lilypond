@@ -159,7 +159,7 @@ Lookup::filled_box (Box b)
  * |                            |
  * |                            |
  * |<-------------------------->|
- *       Box extent(X_AXIS)
+ *       Box extent (X_AXIS)
  */
 Stencil
 Lookup::round_filled_box (Box b, Real blotdiameter)
@@ -202,12 +202,12 @@ Lookup::round_filled_box (Box b, Real blotdiameter)
  * touch each other will in general not work as expected for non-null
  * blotdiameter.
  *
- * (c) Given a polygon ((x0, y0), (x1, y1), ... , (x(n-1), y(n-1))),
+ * (c) Given a polygon ((x0, y0), (x1, y1), ... , (x (n-1), y (n-1))),
  * if there is a natural number k such that blotdiameter is greater
- * than the maximum of { | (x(k mod n), y(k mod n)) - (x((k+1) mod n),
- * y((k+1) mod n)) |, | (x(k mod n), y(k mod n)) - (x((k+2) mod n),
- * y((k+2) mod n)) |, | (x((k+1) mod n), y((k+1) mod n)) - (x((k+2)
- * mod n), y((k+2) mod n)) | }, then the outline of the rounded
+ * than the maximum of { | (x (k mod n), y (k mod n)) - (x ((k+1) mod n),
+ * y ((k+1) mod n)) |, | (x (k mod n), y (k mod n)) - (x ((k+2) mod n),
+ * y ((k+2) mod n)) |, | (x ((k+1) mod n), y ((k+1) mod n)) - (x ((k+2)
+ * mod n), y ((k+2) mod n)) | }, then the outline of the rounded
  * polygon will exceed the outline of the core polygon.  In other
  * words: Do not draw rounded polygons that have a leg smaller or
  * thinner than blotdiameter (or set blotdiameter to a sufficiently
@@ -218,7 +218,7 @@ Lookup::round_filled_box (Box b, Real blotdiameter)
  * to a core filled polygon.  For details of these two different
  * approaches, see the thread upon the ledger lines patch that started
  * on March 25, 2002 on the devel mailing list.  The below version of
- * round_filled_polygon() sticks to the moulding model, which the
+ * round_filled_polygon () sticks to the moulding model, which the
  * majority of the list participants finally voted for.  This,
  * however, results in the above limitations and a much increased
  * complexity of the algorithm, since it has to compute a shrinked
@@ -287,7 +287,7 @@ Lookup::round_filled_polygon (Array<Offset> points, Real blotdiameter)
       Offset p13n = 0.5 * (p10n + p12n);
       Offset p14n = 0.5 * (p10n - p12n);
       Offset p13;
-      Real d = p13n.length () * p14n.length (); // distance p3n to line(p1..p0)
+      Real d = p13n.length () * p14n.length (); // distance p3n to line (p1..p0)
       if (d < epsilon)
 	// special case: p0, p1, p2 are on a single line => build
 	// vector orthogonal to (p2-p0) of length 0.5 blotdiameter
@@ -385,7 +385,7 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick)
 		     ly_quote_scm (list),
 		     gh_double2scm (linethick),
 		     SCM_UNDEFINED));
-  Box b(curve.extent (X_AXIS),
+  Box b (curve.extent (X_AXIS),
 	curve.extent (Y_AXIS));
 
   b[X_AXIS].unite (back.extent (X_AXIS));
@@ -657,7 +657,7 @@ Lookup::repeat_slash (Real w, Real s, Real t)
   SCM slashnodot = scm_list_n (ly_symbol2scm ("repeat-slash"),
 			    wid, sl, thick, SCM_UNDEFINED);
 
-  Box b (Interval (0, w + sqrt (sqr(t/s) + sqr (t))),
+  Box b (Interval (0, w + sqrt (sqr (t/s) + sqr (t))),
 	 Interval (0, w * s));
 
   return Stencil (b, slashnodot); //  http://slashnodot.org
@@ -668,9 +668,9 @@ Stencil
 Lookup::bracket (Axis a, Interval iv, Real thick, Real protude, Real blot)
 {
   Box b;
-  Axis other = Axis((a+1)%2);
+  Axis other = Axis ((a+1)%2);
   b[a] = iv;
-  b[other] = Interval(-1, 1) * thick * 0.5;
+  b[other] = Interval (-1, 1) * thick * 0.5;
   
   Stencil m =  round_filled_box (b, blot);
 
@@ -694,7 +694,7 @@ Lookup::triangle (Interval iv, Real thick, Real protude)
 
   SCM s = scm_list_n (ly_symbol2scm ("symmetric-x-triangle"),
 		      gh_double2scm (thick),
-		      gh_double2scm (iv.length()), 
+		      gh_double2scm (iv.length ()), 
 		      gh_double2scm (protude), SCM_UNDEFINED);
 
   return Stencil (b, s);
@@ -704,17 +704,17 @@ Lookup::triangle (Interval iv, Real thick, Real protude)
 /*
   TODO: use rounded boxes.
  */
-LY_DEFINE(ly_bracket ,"ly:bracket",
+LY_DEFINE (ly_bracket ,"ly:bracket",
 	  4, 0, 0,
 	  (SCM a, SCM iv, SCM t, SCM p),
 	  "Make a bracket in direction @var{a}. The extent of the bracket is " 
 	  "given by @var{iv}. The wings protude by an amount of @var{p}, which "
 	  "may be negative. The thickness is given by @var{t}.")
 {
-  SCM_ASSERT_TYPE(is_axis (a), a, SCM_ARG1, __FUNCTION__, "axis") ;
-  SCM_ASSERT_TYPE(is_number_pair (iv), iv, SCM_ARG2, __FUNCTION__, "number pair") ;
-  SCM_ASSERT_TYPE(gh_number_p (t), a, SCM_ARG3, __FUNCTION__, "number") ;
-  SCM_ASSERT_TYPE(gh_number_p (p), a, SCM_ARG4, __FUNCTION__, "number") ;
+  SCM_ASSERT_TYPE (is_axis (a), a, SCM_ARG1, __FUNCTION__, "axis") ;
+  SCM_ASSERT_TYPE (is_number_pair (iv), iv, SCM_ARG2, __FUNCTION__, "number pair") ;
+  SCM_ASSERT_TYPE (gh_number_p (t), a, SCM_ARG3, __FUNCTION__, "number") ;
+  SCM_ASSERT_TYPE (gh_number_p (p), a, SCM_ARG4, __FUNCTION__, "number") ;
 
 
   return Lookup::bracket ((Axis)gh_scm2int (a), ly_scm2interval (iv),
@@ -725,7 +725,7 @@ LY_DEFINE(ly_bracket ,"ly:bracket",
 
 
 
-LY_DEFINE(ly_filled_box ,"ly:round-filled-box",
+LY_DEFINE (ly_filled_box ,"ly:round-filled-box",
 	  3, 0, 0,
 	  (SCM xext, SCM yext, SCM blot),
 	  "Make a @code{Stencil} "
@@ -733,9 +733,9 @@ LY_DEFINE(ly_filled_box ,"ly:round-filled-box",
 	  "@var{yext} and roundness @var{blot}."
 	  )
 {
-  SCM_ASSERT_TYPE(is_number_pair (xext), xext, SCM_ARG1, __FUNCTION__, "number pair") ;
-  SCM_ASSERT_TYPE(is_number_pair (yext), yext, SCM_ARG2, __FUNCTION__, "number pair") ;
-  SCM_ASSERT_TYPE(gh_number_p (blot), blot, SCM_ARG3, __FUNCTION__, "number") ;
+  SCM_ASSERT_TYPE (is_number_pair (xext), xext, SCM_ARG1, __FUNCTION__, "number pair") ;
+  SCM_ASSERT_TYPE (is_number_pair (yext), yext, SCM_ARG2, __FUNCTION__, "number pair") ;
+  SCM_ASSERT_TYPE (gh_number_p (blot), blot, SCM_ARG3, __FUNCTION__, "number") ;
 
   return Lookup::round_filled_box (Box (ly_scm2interval (xext), ly_scm2interval (yext)),
 				   gh_scm2double (blot)).smobbed_copy ();

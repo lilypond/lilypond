@@ -228,7 +228,7 @@ Tie::get_control_points (SCM smob)
   if (Note_head::has_interface (l) && Rhythmic_head::get_dots (l))
     {
       Grob* dots = Rhythmic_head::get_dots (l);
-      if(fabs (staff_space * Staff_symbol_referencer::get_position (dots) /2
+      if (fabs (staff_space * Staff_symbol_referencer::get_position (dots) /2
 	       - ypos) < 0.5)
 	{
 	  ypos += 0.5 * dir ;

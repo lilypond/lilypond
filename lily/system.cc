@@ -53,7 +53,7 @@ System::spanner_count () const
   for (SCM s = get_property ("all-elements");
        gh_pair_p (s); s = ly_cdr (s))
     {
-      if (dynamic_cast<Spanner*> (unsmob_grob (gh_car(s))))
+      if (dynamic_cast<Spanner*> (unsmob_grob (gh_car (s))))
 	k++;
     }
 
@@ -82,8 +82,8 @@ uniquify_list (SCM l)
   int len = scm_ilength (l);
   SCM  * arr = new SCM[len];
   int k = 0;
-  for (SCM s =l ; SCM_NNULLP (s); s = SCM_CDR(s))
-    arr[k++] = SCM_CAR(s);
+  for (SCM s =l ; SCM_NNULLP (s); s = SCM_CDR (s))
+    arr[k++] = SCM_CAR (s);
 
   assert (k == len);
   qsort (arr, len, sizeof (SCM), &scm_default_compare);
@@ -95,13 +95,13 @@ uniquify_list (SCM l)
       if (i && arr[i] == arr[i-1])
 	continue;
 
-      SCM_SETCAR(s, arr[i]);
+      SCM_SETCAR (s, arr[i]);
 
       if (i < len - 1)
-	s = SCM_CDR(s);
+	s = SCM_CDR (s);
     }
 
-  SCM_SETCDR(s, SCM_EOL);
+  SCM_SETCDR (s, SCM_EOL);
   delete[] arr;
   
   return l; 
@@ -133,8 +133,8 @@ System::output_lines ()
 	  Item * it = dynamic_cast<Item*> (g);
 	  if (it && Item::is_breakable (it))
 	    {
-	      it->find_prebroken_piece (LEFT)->suicide();
-	      it->find_prebroken_piece (RIGHT)->suicide();
+	      it->find_prebroken_piece (LEFT)->suicide ();
+	      it->find_prebroken_piece (RIGHT)->suicide ();
 	    }
 	  g->suicide ();
 	}
@@ -174,7 +174,7 @@ System::output_lines ()
     Because the this->get_property (all-elements) contains items
     in 3 versions, handle_broken_dependencies () will leave duplicated
     items in all-elements. Strictly speaking this is harmless, but it
-    leads to duplicated symbols in the output. uniquify_list() makes
+    leads to duplicated symbols in the output. uniquify_list () makes
     sure that no duplicates are in the list.
    */
   for (int i=0; i < broken_intos_.size (); i++)
@@ -277,8 +277,8 @@ set_loose_columns (System* which, Column_x_positions const *posns)
       */
       Grob * common = right->common_refpoint (left, X_AXIS);
       
-      Real rx =	right->extent(common, X_AXIS)[LEFT];
-      Real lx = left->extent(common, X_AXIS)[RIGHT];
+      Real rx =	right->extent (common, X_AXIS)[LEFT];
+      Real lx = left->extent (common, X_AXIS)[RIGHT];
       Real total_dx = rx - lx;
       Interval cval =col->extent (col, X_AXIS);
 
@@ -476,7 +476,7 @@ System::post_processing (bool last_line)
     This might seem inefficient, but Stencils are cached per grob
     anyway.
     */
-  this->get_stencil();
+  this->get_stencil ();
   for (SCM s = all; gh_pair_p (s); s = ly_cdr (s))
     {
       Grob * g = unsmob_grob (ly_car (s));
@@ -505,9 +505,9 @@ System::post_processing (bool last_line)
   /* Output elements in three layers, 0, 1, 2.
      The default layer is 1. */
   {
-    Stencil *m = this->get_stencil();
+    Stencil *m = this->get_stencil ();
     if (m)
-      output_stencil (m->get_expr (), Offset(0,0));
+      output_stencil (m->get_expr (), Offset (0,0));
   }
   
   for (int i = 0; i < 3; i++)

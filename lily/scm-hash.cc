@@ -19,7 +19,7 @@ copy_scm_hashes (SCM dest, SCM src)
 {
   int k = 0;
   for (int i = SCM_VECTOR_LENGTH (src); i--;)
-    for (SCM s = scm_vector_ref (src, SCM_MAKINUM (i)); ly_pair_p(s); s = ly_cdr (s))
+    for (SCM s = scm_vector_ref (src, SCM_MAKINUM (i)); ly_pair_p (s); s = ly_cdr (s))
       {
 	scm_hashq_set_x (dest, ly_caar (s), ly_cdar (s));
 	k++;
@@ -71,7 +71,7 @@ Scheme_hash_table::print_smob (SCM s, SCM p, scm_print_state*)
 {
   assert (unsmob (s));
   char str[1000];
-  sprintf (str, "#<Scheme_hash_table 0x%0lx ", SCM_UNPACK(s));
+  sprintf (str, "#<Scheme_hash_table 0x%0lx ", SCM_UNPACK (s));
   Scheme_hash_table *me = (Scheme_hash_table*) SCM_CELL_WORD_1 (s);
   scm_display (me->hash_tab_, p);      
   scm_puts ("> ",p);        
@@ -128,7 +128,7 @@ Scheme_hash_table::get (SCM k)const
   /*
     42 will stick out like a sore thumb, hopefully.
    */
-  return scm_hashq_ref (hash_tab_, k, SCM_MAKINUM(42));
+  return scm_hashq_ref (hash_tab_, k, SCM_MAKINUM (42));
 }
 
 void
@@ -150,7 +150,7 @@ Scheme_hash_table::to_alist () const
 {
   SCM l = SCM_EOL;
   for (int i = SCM_VECTOR_LENGTH (hash_tab_); i--;)
-    for (SCM s = scm_vector_ref (hash_tab_, gh_int2scm (i)); ly_pair_p(s); s = ly_cdr (s))
+    for (SCM s = scm_vector_ref (hash_tab_, gh_int2scm (i)); ly_pair_p (s); s = ly_cdr (s))
       {
 	l = scm_acons (ly_caar (s), ly_cdar (s), l);
       }

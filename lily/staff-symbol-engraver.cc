@@ -19,7 +19,7 @@
  */
 class Staff_symbol_engraver : public Engraver { 
 public:
-  TRANSLATOR_DECLARATIONS(Staff_symbol_engraver);
+  TRANSLATOR_DECLARATIONS (Staff_symbol_engraver);
   
 protected:
   Spanner *span_;
@@ -50,7 +50,7 @@ Staff_symbol_engraver::process_music ()
   
       span_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
 
-      announce_grob(span_, SCM_EOL);
+      announce_grob (span_, SCM_EOL);
     }
 }
 
@@ -77,7 +77,7 @@ Staff_symbol_engraver::acknowledge_grob (Grob_info s)
 
 
 
-ENTER_DESCRIPTION(Staff_symbol_engraver,
+ENTER_DESCRIPTION (Staff_symbol_engraver,
 /* descr */       "Create the constellation of five (default) "
 "staff lines.",
 /* creats*/       "StaffSymbol",
@@ -92,7 +92,7 @@ ENTER_DESCRIPTION(Staff_symbol_engraver,
 class Tab_staff_symbol_engraver : public Staff_symbol_engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS(Tab_staff_symbol_engraver);
+  TRANSLATOR_DECLARATIONS (Tab_staff_symbol_engraver);
 protected:
   virtual void process_music ();
 };
@@ -101,7 +101,7 @@ void
 Tab_staff_symbol_engraver::process_music ()
 {
   bool init = !span_;
-  Staff_symbol_engraver::process_music();
+  Staff_symbol_engraver::process_music ();
   if (init)
     {
       int k = scm_ilength (get_property ("stringTunings"));
@@ -110,11 +110,11 @@ Tab_staff_symbol_engraver::process_music ()
     }
 }
 
-Tab_staff_symbol_engraver::Tab_staff_symbol_engraver()
+Tab_staff_symbol_engraver::Tab_staff_symbol_engraver ()
 {
 }
 
-ENTER_DESCRIPTION(Tab_staff_symbol_engraver,
+ENTER_DESCRIPTION (Tab_staff_symbol_engraver,
 /* descr */       "Create a staff-symbol, but look at stringTunings for the number of lines."
 "staff lines.",
 /* creats*/       "StaffSymbol",

@@ -18,7 +18,7 @@ class Vertical_align_engraver : public Engraver
   Spanner * valign_;
   bool qualifies (Grob_info) const;  
 public:
-  TRANSLATOR_DECLARATIONS(Vertical_align_engraver);
+  TRANSLATOR_DECLARATIONS (Vertical_align_engraver);
 protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void process_music ();
@@ -71,7 +71,7 @@ Vertical_align_engraver::acknowledge_grob (Grob_info i)
 }
 
 
-ENTER_DESCRIPTION(Vertical_align_engraver,
+ENTER_DESCRIPTION (Vertical_align_engraver,
 /* descr */       "Catch Vertical axis groups and stack them.",
 /* creats*/       "VerticalAlignment",
 /* accepts */     "",

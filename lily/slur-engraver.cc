@@ -70,7 +70,7 @@ Slur_engraver::try_music (Music *ev)
 	  /*
 	    Swallow other events.
 	  */
-	  for (int j = new_slur_evs_.size(); j--;)
+	  for (int j = new_slur_evs_.size (); j--;)
 	    {
 	      Direction nd = to_dir (new_slur_evs_[j]->get_property ("span-direction"));
 	      

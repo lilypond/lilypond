@@ -286,10 +286,10 @@ Note_collision_interface::do_shifts (Grob* me)
   Real wid = 0.0;
   do
     {
-      if(cg[d].size())
+      if (cg[d].size ())
 	{
 	  Grob  *h = cg[d][0];
-	  wid = Note_column::first_head (h)->extent (h,X_AXIS).length() ;
+	  wid = Note_column::first_head (h)->extent (h,X_AXIS).length () ;
 	}
     }
   while (flip (&d) != UP);

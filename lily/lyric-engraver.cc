@@ -26,7 +26,7 @@ protected:
   virtual void process_music ();
   
 public:
-  TRANSLATOR_DECLARATIONS(Lyric_engraver);
+  TRANSLATOR_DECLARATIONS (Lyric_engraver);
 private:
   Music * event_;
   Item* text_;
@@ -61,7 +61,7 @@ Lyric_engraver::process_music ()
       text_=  make_item ("LyricText");
       
       text_->set_property ("text", event_->get_property ("text"));
-      announce_grob (text_, event_->self_scm());
+      announce_grob (text_, event_->self_scm ());
     }
 }
 
@@ -135,7 +135,7 @@ Lyric_engraver::stop_translation_timestep ()
 }
 
 
-ENTER_DESCRIPTION(Lyric_engraver,
+ENTER_DESCRIPTION (Lyric_engraver,
 /* descr */       "",
 /* creats*/       "",
 /* accepts */     "lyric-event",

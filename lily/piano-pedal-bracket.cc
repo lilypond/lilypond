@@ -14,12 +14,12 @@ source file of the GNU LilyPond music typesetter
 
 struct Piano_pedal_bracket
 {
-  DECLARE_SCHEME_CALLBACK(print,(SCM));
+  DECLARE_SCHEME_CALLBACK (print,(SCM));
   static bool has_interface (Grob*);
 };
 
 
-MAKE_SCHEME_CALLBACK(Piano_pedal_bracket,print,1);
+MAKE_SCHEME_CALLBACK (Piano_pedal_bracket,print,1);
 SCM
 Piano_pedal_bracket::print (SCM smob)
 {
@@ -35,7 +35,7 @@ Piano_pedal_bracket::print (SCM smob)
 
   Grob *common = me->get_bound (LEFT)
     ->common_refpoint (me->get_bound (RIGHT), X_AXIS);
-  Grob *textbit = unsmob_grob (me->get_property("pedal-text"));
+  Grob *textbit = unsmob_grob (me->get_property ("pedal-text"));
 
   if (textbit)
     common = common->common_refpoint (textbit, X_AXIS);

@@ -27,13 +27,13 @@ Virtual_font_metric::Virtual_font_metric (SCM name_list,
       SCM nm = gh_car (s);
 
       Font_metric *fm = def->find_font (nm, mag);
-      *tail =  scm_cons (fm->self_scm(),SCM_EOL);
+      *tail =  scm_cons (fm->self_scm (),SCM_EOL);
       tail = SCM_CDRLOC (*tail);
     }
 }
 
 void
-Virtual_font_metric::derived_mark()const
+Virtual_font_metric::derived_mark ()const
 {
   scm_gc_mark (font_list_);
 }
@@ -68,14 +68,14 @@ Box
 Virtual_font_metric::get_ascii_char (int)  const
 {
   programming_error ("Virtual font metric cannot be indexed by ASCII.");
-  return Box();
+  return Box ();
 }
 
 Stencil
 Virtual_font_metric::get_ascii_char_stencil (int )  const
 {
   programming_error ("Virtual font metric cannot be indexed by ASCII.");
-  return Stencil();
+  return Stencil ();
 }
 
 
@@ -112,7 +112,7 @@ Virtual_font_metric::get_indexed_char (int code)  const
     }
 
   
-  return Box();
+  return Box ();
 }
 
 
@@ -144,7 +144,7 @@ Virtual_font_metric::get_indexed_char_stencil (int code)  const
   for (SCM s = font_list_; gh_pair_p (s); s = gh_cdr (s))
     {
       Font_metric* fm = unsmob_metrics (gh_car (s));
-      if (code < total + fm->count())
+      if (code < total + fm->count ())
 	{
 	  m = fm->get_indexed_char_stencil (code - total); // ugh.
 	  break; 

@@ -29,7 +29,7 @@ public:
 
   SCM transposed_musics_;
   
-  DECLARE_SCHEME_CALLBACK(constructor, ()); 
+  DECLARE_SCHEME_CALLBACK (constructor, ()); 
 
 protected:
   virtual void derived_mark ();
@@ -72,7 +72,7 @@ binsearch_scm_vector (SCM vec, SCM key, bool (*is_less)(SCM a,SCM b))
   {
     int cmp = (lo + hi) / 2;
 
-      SCM when = gh_caar (SCM_VECTOR_REF(vec, cmp));
+      SCM when = gh_caar (SCM_VECTOR_REF (vec, cmp));
       bool result =  (*is_less) (key, when);
       if (result)
           hi = cmp;
@@ -178,7 +178,7 @@ Quote_iterator::process (Moment m)
 	      bool b = get_outlet ()->try_music (mus);
       
 	      if (!b)
-		mus->origin ()->warning (_f ("In quotation: junking event %s", mus->name()));
+		mus->origin ()->warning (_f ("In quotation: junking event %s", mus->name ()));
 	    }
 	  else
 	    programming_error ("need music in quote.");
