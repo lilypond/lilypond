@@ -1,18 +1,19 @@
 \version "2.5.10"
 
-% Edit this file using a Unicode aware editor, such as GVIM, GEDIT, Emacs
+%% Edit this file using a Unicode aware editor, such as GVIM, GEDIT, Emacs
 
 %{
 
-I installed some additional font packages to get this working.
+You may have to install additional fonts.
 
-taipeifonts 
-fonts-xorg-truetype 
-ttfonts-ja 
-fonts-arabic 
-ttfonts-zh_CN 
-fonts-ja 
-fonts-hebrew 
+Red Hat Fedora
+
+    taipeifonts fonts-xorg-truetype ttfonts-ja fonts-arabic \
+	 ttfonts-zh_CN fonts-ja fonts-hebrew 
+
+Debian GNU/Linux
+
+   apt-get install emacs-intl-fonts xfonts-intl-.*
 
 %} 
 
@@ -27,38 +28,25 @@ will render Japanese, Hebrew and Cyrillic.
   
 }
 
-
-japanese = \lyricsto "melody" \new Lyrics {  
-
+japanese = \lyricmode {  
   いろはにほへど ちりぬるを
   わがよたれぞ  つねならむ
   うゐのおくや  まけふこえて
   あさきゆめみじ ゑひもせず 
-
  }
 
 
-bulgarian = \lyricsto "melody" \new Lyrics {
-
-    Жълтата дюля беше щастлива, че пухът, който цъфна, замръзна като гьон.
-
+bulgarian = \lyricmode {
+  Жълтата дюля беше щастлива, че пухът, който цъфна, замръзна като гьон.
 }
 
-hebrew = \lyricsto "melody" \new Lyrics { 
-זה כיף סתם לשמוע איך תנצח קרפד עץ טוב בגן.
+hebrew = \lyricmode { 
+  זה כיף סתם לשמוע איך תנצח קרפד עץ טוב בגן.
 }
 
-% latin1 section start
-
- <<
-  \context Voice = "melody" \relative  { 
-     c2 d e f g f e 
-  } 
-  \hebrew
-  \bulgarian
-
-  %% no support for TTF  yet.
-  
-  \japanese
-  
->>
+\relative  { 
+  c2 d e f g f e 
+}
+\addlyrics { \hebrew }
+\addlyrics { \bulgarian }
+\addlyrics { \japanese }
