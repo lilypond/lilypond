@@ -1,3 +1,20 @@
+1.4.5.jcn1
+==========
+
+* Dvips bugs workarounds:
+  - Draw filledbox in tex for now.  Test ps code using
+
+     lilypond -e '(define ps-testing 1)'
+
+  - Extend stems only half way into beam.
+
+* Change order of includes in tex/lilyponddefs.tex so that feta font
+can be used a little easier, like:
+
+    title="TeX \fetachar\fetasharp"
+
+* Update stepmake/bin config.sub, config.guess.
+
 1.4.4.mb1
 ========
   
