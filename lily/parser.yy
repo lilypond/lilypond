@@ -1050,13 +1050,13 @@ basic music objects too, since the meaning is different.
 
 		  THIS->lexer_->pop_state ();
 	}
-	| CHORDS
-		{
+	| CHORDS {
 		SCM nn = THIS->lexer_->lookup_identifier ("chordmodifiers");
 		THIS->lexer_->chordmodifier_tab_ = alist_to_hashq (nn);
-		THIS->lexer_->push_chord_state (); }
-	Music
-		{
+		nn = THIS->lexer_->lookup_identifier ("pitchnames");
+		THIS->lexer_->push_chord_state (alist_to_hashq (nn));
+
+	} Music {
 		  Music * chm = MY_MAKE_MUSIC("UnrelativableMusic");
 		  chm->set_mus_property ("element", $3->self_scm ());
 		  scm_gc_unprotect_object ($3->self_scm());

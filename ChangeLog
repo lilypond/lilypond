@@ -1,5 +1,10 @@
 2004-02-05  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/test/improv.ly: update: do not use Thread switching. 
+
+	* lily/pitch-squash-engraver.cc (acknowledge_grob): only squash if
+	squashedPosition is a number  
+
 	* Documentation/user/refman.itely (Automatic note splitting):
 	remove Thread references.
 
