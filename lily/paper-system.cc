@@ -36,14 +36,14 @@ Paper_system::~Paper_system ()
 SCM
 Paper_system::mark_smob (SCM smob)
 {
-  Paper_system *system = (Paper_system*) scm_cdr (smob);
+  Paper_system *system = (Paper_system*) ly_cdr (smob);
   return system-> stencil_.expr ();
 }
 
 int
 Paper_system::print_smob (SCM smob, SCM port, scm_print_state*)
 {
-  Paper_system *p = (Paper_system*) scm_cdr (smob);
+  Paper_system *p = (Paper_system*) ly_cdr (smob);
   scm_puts ("#<", port);
   scm_puts (classname (p), port);
   scm_puts (" ", port);

@@ -54,7 +54,7 @@ int
 alteration_pos  (SCM what, int alter, int c0p)
 {
   if (scm_is_pair (what))
-    return scm_to_int (scm_car (what)) * 7 + scm_to_int (scm_cdr (what)) + c0p;
+    return scm_to_int (ly_car (what)) * 7 + scm_to_int (ly_cdr (what)) + c0p;
 
   int p = scm_to_int (what);
 
@@ -125,9 +125,9 @@ Key_signature_interface::print (SCM smob)
   */
 
   Font_metric *fm = Font_interface::get_default_font (me);
-  for (SCM s = newas; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = newas; scm_is_pair (s); s = ly_cdr (s))
     {
-      int alteration = scm_to_int (scm_cdar (s));
+      int alteration = scm_to_int (ly_cdar (s));
       String font_char =
 	Accidental_interface::get_fontcharname (style, alteration);
       Stencil acc (fm->find_by_name ("accidentals-" + font_char));
@@ -138,7 +138,7 @@ Key_signature_interface::print (SCM smob)
 	}
       else
 	{
-	  SCM what = scm_caar (s);
+	  SCM what = ly_caar (s);
 	  int pos = alteration_pos (what, alteration, c0p);
 	  acc.translate_axis (pos * inter, Y_AXIS);
 	  mol.add_at_edge (X_AXIS, LEFT, acc, 0, 0);
@@ -157,13 +157,13 @@ Key_signature_interface::print (SCM smob)
       
 
       int last_pos = -100;
-      for (; scm_is_pair (old); old = scm_cdr (old))
+      for (; scm_is_pair (old); old = ly_cdr (old))
         {
-	  SCM found = scm_assoc (scm_caar (old), newas);
+	  SCM found = scm_assoc (ly_caar (old), newas);
 	  if (found == SCM_BOOL_F
-	      || scm_cdr (found) != scm_cdar (old))
+	      || ly_cdr (found) != ly_cdar (old))
 	    {
-	      SCM what = scm_caar (old);
+	      SCM what = ly_caar (old);
 	      int alteration = 0;
 	      int pos = alteration_pos (what, alteration, c0p);
 

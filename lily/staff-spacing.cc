@@ -128,14 +128,14 @@ Staff_spacing::next_notes_correction (Grob *me, Grob * last_grob)
   Real max_corr =0.0;
 
   for (SCM s = me->get_property ("right-items");
-       scm_is_pair (s);  s = scm_cdr (s))
+       scm_is_pair (s);  s = ly_cdr (s))
     {
-      Grob * g = unsmob_grob (scm_car (s));
+      Grob * g = unsmob_grob (ly_car (s));
 
       max_corr = max_corr >?  next_note_correction (me, g,  bar_size);
       for (SCM t = g->get_property ("elements");
-	   scm_is_pair (t); t  = scm_cdr (t))
-	max_corr = max_corr >? next_note_correction (me, unsmob_grob (scm_car (t)), bar_size);
+	   scm_is_pair (t); t  = ly_cdr (t))
+	max_corr = max_corr >? next_note_correction (me, unsmob_grob (ly_car (t)), bar_size);
       
     }
   
@@ -152,9 +152,9 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
   Item * me_item  = dynamic_cast<Item*> (me);
     
   for (SCM s = me->get_property ("left-items");
-       scm_is_pair (s); s = scm_cdr (s))
+       scm_is_pair (s); s = ly_cdr (s))
     {
-      Grob * cand = unsmob_grob (scm_car (s));
+      Grob * cand = unsmob_grob (ly_car (s));
       if (cand && Separation_item::has_interface (cand))
 	separation_item = cand ;
     }
@@ -208,9 +208,9 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
       return; 
     }
 
-  space_def = scm_cdr (space_def);
-  Real distance = scm_to_double (scm_cdr (space_def));
-  SCM type = scm_car (space_def) ;
+  space_def = ly_cdr (space_def);
+  Real distance = scm_to_double (ly_cdr (space_def));
+  SCM type = ly_car (space_def) ;
 
   *fixed = last_ext[RIGHT];
   if (type == ly_symbol2scm ("fixed-space"))

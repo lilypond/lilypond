@@ -66,7 +66,7 @@ IMPLEMENT_DEFAULT_EQUAL_P (Lily_parser);
 SCM
 Lily_parser::mark_smob (SCM s)
 {
-  Lily_parser *parser = (Lily_parser*) scm_cdr (s);
+  Lily_parser *parser = (Lily_parser*) ly_cdr (s);
   return (parser->lexer_) ? parser->lexer_->self_scm () : SCM_EOL;
 }
 
@@ -74,7 +74,7 @@ int
 Lily_parser::print_smob (SCM s, SCM port, scm_print_state*)
 {
   scm_puts ("#<my_lily_parser ", port);
-  Lily_parser *parser = (Lily_parser*) scm_cdr (s);
+  Lily_parser *parser = (Lily_parser*) ly_cdr (s);
   (void) parser;
   scm_puts (" >", port);
   return 1;
@@ -125,7 +125,7 @@ Lily_parser::parse_string (String ly_code)
 
 
   SCM oldmod = scm_current_module ();
-  scm_set_current_module (scm_car (lexer_->scopes_));
+  scm_set_current_module (ly_car (lexer_->scopes_));
   
   // TODO: use $parser 
   lexer_->set_identifier (ly_symbol2scm ("parser"),

@@ -217,6 +217,8 @@
 
 	* lily/includable-lexer.cc (new_input): elucidate message.
 
+	* VERSION: 2.3.18 released.
+	
 2004-09-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* input/mutopia/E.Satie/petite-ouverture-a-danser.ly: 

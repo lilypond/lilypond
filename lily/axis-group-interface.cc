@@ -13,9 +13,9 @@
 void
 Axis_group_interface::add_element (Grob*me,Grob *e)
 {
-  for (SCM ax = me->get_property ("axes"); ax != SCM_EOL ; ax = scm_cdr (ax))
+  for (SCM ax = me->get_property ("axes"); ax != SCM_EOL ; ax = ly_cdr (ax))
     {
-      Axis a = (Axis) scm_to_int (scm_car (ax));
+      Axis a = (Axis) scm_to_int (ly_car (ax));
       
       if (!e->get_parent (a))
 	e->set_parent (me, a);
@@ -39,9 +39,9 @@ Interval
 Axis_group_interface::relative_group_extent (Axis a, Grob *common, SCM elts)
 {
   Interval r;
-  for (SCM s = elts; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = elts; scm_is_pair (s); s = ly_cdr (s))
     {
-      Grob * se = unsmob_grob (scm_car (s));
+      Grob * se = unsmob_grob (ly_car (s));
       Interval dims = se->extent (common, a);
       if (!dims.is_empty ())
 	r.unite (dims);
@@ -106,9 +106,9 @@ Axis_group_interface::get_children (Grob*me)
   if (!has_interface (me))
     return childs;
   
-  for (SCM ep = me->get_property ("elements"); scm_is_pair (ep); ep = scm_cdr (ep))
+  for (SCM ep = me->get_property ("elements"); scm_is_pair (ep); ep = ly_cdr (ep))
     {
-      Grob* e = unsmob_grob (scm_car (ep));
+      Grob* e = unsmob_grob (ly_car (ep));
       if (e)
 	childs.concat (Axis_group_interface::get_children (e));
     }

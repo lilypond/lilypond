@@ -92,14 +92,14 @@ Context_def::mark_smob (SCM smob)
 void
 Context_def::add_context_mod (SCM mod)
 {
-  SCM tag = scm_car (mod);
+  SCM tag = ly_car (mod);
   if (ly_symbol2scm ("description") == tag)
     {
-      description_ = scm_cadr (mod);
+      description_ = ly_cadr (mod);
       return;
     }
 
-  SCM sym = scm_cadr (mod);
+  SCM sym = ly_cadr (mod);
   if (scm_is_string (sym))
     sym = scm_string_to_symbol (sym);
   
@@ -143,10 +143,10 @@ Context_def::get_accepted (SCM user_mod) const
 {
   SCM mods = scm_reverse_x (scm_list_copy (accept_mods_), user_mod);
   SCM acc = SCM_EOL;
-  for (SCM s = mods; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = mods; scm_is_pair (s); s = ly_cdr (s))
     {
-      SCM tag = scm_caar (s);
-      SCM sym = scm_cadar (s);
+      SCM tag = ly_caar (s);
+      SCM sym = ly_cadar (s);
       if (tag == ly_symbol2scm ("accepts"))
 	acc = scm_cons (sym, acc);
       else if (tag == ly_symbol2scm ("denies"))
@@ -163,9 +163,9 @@ Context_def::path_to_acceptable_context (SCM type_sym, Output_def *odef) const
   SCM accepted = get_accepted (SCM_EOL);
 
   Link_array<Context_def> accepteds;
-  for (SCM s = accepted; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = accepted; scm_is_pair (s); s = ly_cdr (s))
     if (Context_def *t = unsmob_context_def (find_context_def (odef,
-							       scm_car (s))))
+							       ly_car (s))))
       accepteds.push (t);
 
   Link_array<Context_def> best_result;
@@ -208,10 +208,10 @@ Context_def::get_translator_names (SCM user_mod) const
 
   SCM mods = scm_reverse_x (scm_list_copy (translator_mods_), user_mod);
   
-  for (SCM s = mods; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = mods; scm_is_pair (s); s = ly_cdr (s))
     {
-      SCM tag = scm_caar (s);
-      SCM arg = scm_cadar (s);
+      SCM tag = ly_caar (s);
+      SCM arg = ly_cadar (s);
 
       if (scm_is_string (arg))
 	arg = scm_string_to_symbol (arg);
@@ -232,9 +232,9 @@ filter_performers (SCM ell)
 {
   for (SCM *tail = &ell; scm_is_pair (*tail); tail = SCM_CDRLOC (*tail))
     {
-      if (dynamic_cast<Performer*> (unsmob_translator (scm_car (*tail))))
+      if (dynamic_cast<Performer*> (unsmob_translator (ly_car (*tail))))
 	{
-	  *tail = scm_cdr (*tail);
+	  *tail = ly_cdr (*tail);
 	  if (!scm_is_pair (*tail))
 	    break ;
 	}
@@ -248,9 +248,9 @@ filter_engravers (SCM ell)
   SCM *tail = &ell;  
   for (; scm_is_pair (*tail) ; tail = SCM_CDRLOC (*tail))
     {
-      if (dynamic_cast<Engraver*> (unsmob_translator (scm_car (*tail))))
+      if (dynamic_cast<Engraver*> (unsmob_translator (ly_car (*tail))))
 	{
-	  *tail = scm_cdr (*tail);
+	  *tail = ly_cdr (*tail);
 	  if (!scm_is_pair (*tail))
 	    break ;
 	}
@@ -279,9 +279,9 @@ Context_def::instantiate (SCM ops)
 
   SCM trans_list = SCM_EOL;
   
-  for (SCM s = trans_names; scm_is_pair (s) ; s = scm_cdr (s))
+  for (SCM s = trans_names; scm_is_pair (s) ; s = ly_cdr (s))
     {
-      Translator *t = get_translator (scm_car (s));
+      Translator *t = get_translator (ly_car (s));
       if (!t)
 	warning (_f ("can't find: `%s'", s));
       else

@@ -318,10 +318,10 @@ Note_collision_interface::do_shifts (Grob* me)
   Real left_most = 1e6;
   
   Array<Real> amounts;
-  for (; scm_is_pair (hand); hand =scm_cdr (hand))
+  for (; scm_is_pair (hand); hand =ly_cdr (hand))
     {
-      Grob * s = unsmob_grob (scm_caar (hand));
-      Real amount = scm_to_double (scm_cdar (hand)) * wid;
+      Grob * s = unsmob_grob (ly_caar (hand));
+      Real amount = scm_to_double (ly_cdar (hand)) * wid;
 
       done.push (s);
       amounts.push (amount);
@@ -329,10 +329,10 @@ Note_collision_interface::do_shifts (Grob* me)
 	left_most = amount;
       
     }
-  for (; scm_is_pair (autos); autos =scm_cdr (autos))
+  for (; scm_is_pair (autos); autos =ly_cdr (autos))
     {
-      Grob * s = unsmob_grob (scm_caar (autos));
-      Real amount = scm_to_double (scm_cdar (autos)) *wid;
+      Grob * s = unsmob_grob (ly_caar (autos));
+      Real amount = scm_to_double (ly_cdar (autos)) *wid;
       
       if (!done.find (s))
 	{
@@ -355,9 +355,9 @@ Note_collision_interface::get_clash_groups (Grob *me)
   Drul_array<Link_array<Grob> > clash_groups;
  
   SCM s = me->get_property ("elements");
-  for (; scm_is_pair (s); s = scm_cdr (s))
+  for (; scm_is_pair (s); s = ly_cdr (s))
     {
-      SCM car = scm_car (s);
+      SCM car = ly_car (s);
 
       Grob * se = unsmob_grob (car);
       if (Note_column::has_interface (se))
@@ -481,9 +481,9 @@ Note_collision_interface::forced_shift (Grob *me)
   SCM tups = SCM_EOL;
   
   SCM s = me->get_property ("elements");
-  for (; scm_is_pair (s); s = scm_cdr (s))
+  for (; scm_is_pair (s); s = ly_cdr (s))
     {
-      Grob * se = unsmob_grob (scm_car (s));
+      Grob * se = unsmob_grob (ly_car (s));
 
       SCM force =  se->get_property ("force-hshift");
       if (scm_is_number (force))

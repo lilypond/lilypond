@@ -42,7 +42,7 @@ Stencil::print_smob (SCM, SCM port, scm_print_state *)
 SCM
 Stencil::mark_smob (SCM smob)
 {
-  Stencil *s = (Stencil*) scm_cdr (smob);
+  Stencil *s = (Stencil*) ly_cdr (smob);
   return s->expr_;
 }
 
@@ -201,25 +201,25 @@ interpret_stencil_expression (SCM expr,
       if (!scm_is_pair (expr))
         return;
 
-      SCM head = scm_car (expr);
+      SCM head = ly_car (expr);
      
       if (head == ly_symbol2scm ("translate-stencil"))
         {
-          o += ly_scm2offset (scm_cadr (expr));
-          expr = scm_caddr (expr);
+          o += ly_scm2offset (ly_cadr (expr));
+          expr = ly_caddr (expr);
         }
       else if (head == ly_symbol2scm ("combine-stencil"))
         {
-          for (SCM x = scm_cdr (expr); scm_is_pair (x); x = scm_cdr (x))
-	    interpret_stencil_expression (scm_car (x), func, func_arg, o);
+          for (SCM x = ly_cdr (expr); scm_is_pair (x); x = ly_cdr (x))
+	    interpret_stencil_expression (ly_car (x), func, func_arg, o);
           return;
         }
       else if (head == ly_symbol2scm ("grob-cause"))
 	{
-	  SCM grob = scm_cadr (expr);
+	  SCM grob = ly_cadr (expr);
 	  
 	  (*func) (func_arg, scm_list_2 (head, grob));
-	  interpret_stencil_expression (scm_caddr (expr), func, func_arg, o);
+	  interpret_stencil_expression (ly_caddr (expr), func, func_arg, o);
 	  (*func) (func_arg, scm_list_1 (ly_symbol2scm ("no-origin")));
 	  
 	  return ; 
@@ -247,18 +247,18 @@ find_font_function (void *fs, SCM x)
 {
   Font_list *me = (Font_list*) fs;
 
-  if (scm_car (x) == ly_symbol2scm ("placebox"))
+  if (ly_car (x) == ly_symbol2scm ("placebox"))
     {
-      SCM args = scm_cdr (x); 
-      SCM what = scm_caddr (args);
+      SCM args = ly_cdr (x); 
+      SCM what = ly_caddr (args);
 
       if (scm_is_pair (what))
         {
-          SCM head = scm_car (what);
+          SCM head = ly_car (what);
           if (ly_symbol2scm ("text") == head)
-            me->fonts_ = scm_cons (scm_cadr (what), me->fonts_);
+            me->fonts_ = scm_cons (ly_cadr (what), me->fonts_);
           else if (head == ly_symbol2scm ("char"))
-            me->fonts_ = scm_cons (scm_cadr (what), me->fonts_);
+            me->fonts_ = scm_cons (ly_cadr (what), me->fonts_);
         }
     }
 }

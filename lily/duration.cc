@@ -93,7 +93,7 @@ IMPLEMENT_SIMPLE_SMOBS (Duration);
 int
 Duration::print_smob (SCM s, SCM port, scm_print_state *)
 {
-  Duration  *r = (Duration *) scm_cdr (s);
+  Duration  *r = (Duration *) ly_cdr (s);
 
   scm_puts ("#<Duration ", port);
   scm_display (scm_makfrom0str (r->to_string ().to_str0 ()), port);
@@ -105,8 +105,8 @@ Duration::print_smob (SCM s, SCM port, scm_print_state *)
 SCM
 Duration::equal_p (SCM a , SCM b)
 {
-  Duration  *p = (Duration *) scm_cdr (a);
-  Duration  *q = (Duration *) scm_cdr (b);
+  Duration  *p = (Duration *) ly_cdr (a);
+  Duration  *q = (Duration *) ly_cdr (b);
 
   bool eq = p->dots_ == q->dots_
     && p->durlog_ == q->durlog_

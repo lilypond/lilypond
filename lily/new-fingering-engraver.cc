@@ -69,9 +69,9 @@ New_fingering_engraver::acknowledge_grob (Grob_info inf)
       
       SCM arts = note_ev->get_property ("articulations");
 
-      for (SCM s = arts; scm_is_pair (s); s = scm_cdr  (s))
+      for (SCM s = arts; scm_is_pair (s); s = ly_cdr  (s))
 	{
-	  Music * m = unsmob_music (scm_car (s));
+	  Music * m = unsmob_music (ly_car (s));
 
 	  if (!m)
 	    continue;

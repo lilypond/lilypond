@@ -117,9 +117,9 @@ LY_DEFINE(ly_make_book, "ly:make-book",
   if (ly_c_module_p (header))
     book->header_ = header;
   
-  for (SCM s = scores; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = scores; scm_is_pair (s); s = ly_cdr (s))
     {
-      Score *score = unsmob_score (scm_car (s));
+      Score *score = unsmob_score (ly_car (s));
       if (score)
 	book->scores_.push (score);
     }

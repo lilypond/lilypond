@@ -44,7 +44,7 @@ find_scaled_font (Output_def *mod,
     {
       SCM met = scm_assoc (scm_make_real (lookup_mag), sizes);
       if (scm_is_pair (met))
-	return unsmob_metrics (scm_cdr (met));
+	return unsmob_metrics (ly_cdr (met));
     }
   else
     sizes = SCM_EOL;
@@ -64,10 +64,10 @@ find_scaled_font (Output_def *mod,
 	 Virtual_font (Scaled (Font1), Scaled (Font2))  */
       SCM lst = SCM_EOL;
       SCM *t = &lst;
-      for (SCM s = vf->get_font_list (); scm_is_pair (s); s = scm_cdr (s))
+      for (SCM s = vf->get_font_list (); scm_is_pair (s); s = ly_cdr (s))
 	{
 	  Font_metric *scaled = find_scaled_font (mod,
-						  unsmob_metrics (scm_car (s)),
+						  unsmob_metrics (ly_car (s)),
 						  m, input_enc_name);
 	  *t = scm_cons (scaled->self_scm (), SCM_EOL);
 	  t = SCM_CDRLOC (*t);
@@ -118,12 +118,12 @@ LY_DEFINE (ly_bookpaper_fonts, "ly:bookpaper-fonts",
       SCM func = ly_scheme_function ("hash-table->alist");
 
       for (SCM s = scm_call_1 (func, font_table); scm_is_pair (s);
-	   s = scm_cdr (s))
+	   s = ly_cdr (s))
 	{
-	  SCM entry = scm_car (s);
-	  for (SCM t = scm_cdr (entry); scm_is_pair (t); t = scm_cdr (t))
+	  SCM entry = ly_car (s);
+	  for (SCM t = ly_cdr (entry); scm_is_pair (t); t = ly_cdr (t))
 	    {
-	      Font_metric *fm = unsmob_metrics (scm_cdar (t));
+	      Font_metric *fm = unsmob_metrics (ly_cdar (t));
 
 	      if (dynamic_cast<Modified_font_metric*> (fm))
 		ell = scm_cons (fm->self_scm (), ell);

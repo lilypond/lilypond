@@ -41,11 +41,11 @@ Unfolded_repeat_iterator::get_music_list () const
 
       if (alt_count)
 	{
-	  *tail = scm_cons (scm_car (alts), SCM_EOL);
+	  *tail = scm_cons (ly_car (alts), SCM_EOL);
 	  tail = SCM_CDRLOC (*tail);
 	  if (i >= rep_count - alt_count)
 	    
-	    alts = scm_cdr (alts);
+	    alts = ly_cdr (alts);
 	}      
     }
 

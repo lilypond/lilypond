@@ -36,7 +36,7 @@ LY_DEFINE (ly_translator_description, "ly:translator-description",
 int
 Translator::print_smob (SCM s, SCM port, scm_print_state *)
 {
-  Translator *me = (Translator*) scm_cdr (s);
+  Translator *me = (Translator*) ly_cdr (s);
   scm_puts ("#<Translator ", port);
   scm_puts (classname (me), port);
   scm_puts (" >", port);

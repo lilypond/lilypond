@@ -139,7 +139,7 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
   if (!scm_is_pair (result))
     return 0.0;
 
-  result = (a == X_AXIS) ? scm_car (result) : scm_cdr (result);
+  result = (a == X_AXIS) ? ly_car (result) : ly_cdr (result);
   
   return robust_scm2double (result,0);
 }

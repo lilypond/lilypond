@@ -82,7 +82,7 @@ Choices include @code{curved} and @code{straight}.")
      (beamed-minimum-free-lengths ,list? "list of normal minimum free stem lengths (chord to beams) given beam multiplicity.")
      (beamed-extreme-minimum-free-lengths ,list? "list of extreme minimum free stem lengths (chord to beams) given beam multiplicity.")
 
-     (beamed-stem-shorten ,list? " How much to shorten beamed stems,
+     (beamed-stem-shorten ,list? "How much to shorten beamed stems,
 when their direction is forced. It is a  list, since the value is different
 depending on the number flags/beams.")
      (beaming ,pair?

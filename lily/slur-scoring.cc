@@ -205,7 +205,7 @@ get_detail (SCM alist, SCM sym)
 {
   SCM entry = scm_assq (sym, alist);
   return robust_scm2double (scm_is_pair (entry)
-			    ? scm_cdr (entry)
+			    ? ly_cdr (entry)
 			    : SCM_EOL,
 			    0.0);
 }
@@ -1135,7 +1135,7 @@ score_extra_encompass (Grob *me, Grob *common[],
 		  && scm_ilength (accs) == 1)
 		{
 		  /* End copy accidental.cc */
-		  switch (scm_to_int (scm_car (accs)))
+		  switch (scm_to_int (ly_car (accs)))
 		    {
 		    case FLAT:
 		    case DOUBLE_FLAT:

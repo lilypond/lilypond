@@ -472,8 +472,8 @@ Tuplet_bracket::after_line_breaking (SCM smob)
     {
       SCM ps =  par_beam->get_property ("positions"); 
 
-      Real lp = scm_to_double (scm_car (ps));
-      Real rp = scm_to_double (scm_cdr (ps));
+      Real lp = scm_to_double (ly_car (ps));
+      Real rp = scm_to_double (ly_cdr (ps));
 
       /*
 	duh. magic.
@@ -514,9 +514,9 @@ Direction
 Tuplet_bracket::get_default_dir (Grob*me)
 {
   Drul_array<int> dirs (0,0);  
-  for (SCM s = me->get_property ("note-columns"); scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = me->get_property ("note-columns"); scm_is_pair (s); s = ly_cdr (s))
     {
-      Grob * nc = unsmob_grob (scm_car (s));
+      Grob * nc = unsmob_grob (ly_car (s));
       Direction d = Note_column::dir (nc);
       if (d)
 	dirs[d]++;

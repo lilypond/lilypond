@@ -82,9 +82,9 @@ Side_position_interface::general_side_position (Grob * me, Axis a, bool use_exte
       dim = st->extent (common, Y_AXIS);
     }
     
-  for (SCM s = support; s != SCM_EOL; s = scm_cdr (s))
+  for (SCM s = support; s != SCM_EOL; s = ly_cdr (s))
     {
-      Grob * e  = unsmob_grob (scm_car (s));
+      Grob * e  = unsmob_grob (ly_car (s));
       if (e)
 	if (use_extents)
 	  dim.unite (e->extent (common, a));
