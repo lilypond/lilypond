@@ -121,7 +121,6 @@ scrollkeeper-update
 %{_datadir}/emacs/site-lisp/site-start.d/lilypond*
 
 %{_bindir}/abc2ly
-%{_bindir}/as2text
 %{_bindir}/convert-ly
 %{_bindir}/etf2ly
 %{_bindir}/lilypond
@@ -145,7 +144,6 @@ scrollkeeper-update
 %endif
 
 %{_mandir}/man1/abc2ly.1.gz
-%{_mandir}/man1/as2text.1.gz
 %{_mandir}/man1/convert-ly.1.gz
 %{_mandir}/man1/etf2ly.1.gz
 %{_mandir}/man1/lilypond-bin.1.gz

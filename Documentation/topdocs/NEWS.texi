@@ -17,6 +17,8 @@ Version 2.1.9
 @end ignore
 
 @itemize @bullet
+@item Formatting of ottava brackets has been much improved.
+
 @item Objects in the output can now be documented: the following fragment
  boxes the note head, and adds the text ``heads or tails?'' three
 spaces below the box.
@@ -78,8 +80,6 @@ expected, but a @code{d'} is found.
 With this mechanism, @code{LyricVoice}s can be put melodies
 individually, allowing for different melismatic sections in every
 @code{LyricVoice}. See @file{input/regression/lyric-combine-new.ly}.
-
-@item Formatting of ottava brackets has been improved.
 
 @item Bar lines may now be dotted.
 

@@ -1,7 +1,6 @@
 depth = ..
 
 STEPMAKE_TEMPLATES=metafont install install-out
-LOCALSTEPMAKE_TEMPLATES=asciifont
 
 include $(depth)/make/stepmake.make 
 

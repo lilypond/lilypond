@@ -322,7 +322,6 @@ L1 is copied, L2 not.
     ("tex" . ("TeX output. The default output form." ,tex-output-expression))
     ("ps" . ("Direct postscript. Requires setting GS_LIB and GS_FONTPATH" ,ps-output-expression))
     ("scm" . ("Scheme dump: debug scheme molecule expressions" ,write))
-    ("as" . ("Asci-script. Postprocess with as2txt to get ascii art"  ,as-output-expression))
     ("sketch" . ("Bare bones Sketch output." ,sketch-output-expression))
     ("sodipodi" . ("Bare bones Sodipodi output." ,sodipodi-output-expression))
     ("pdftex" . ("PDFTeX output. Was last seen nonfunctioning." ,pdftex-output-expression))

@@ -1,5 +1,7 @@
 2004-01-18  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* mf/,scripts/,make/,ly/,scm/: remove AsciiScript remnants.
+
 	* lily/lily-guile.cc (robust_scm2double): new function. Use throughout.
 
 	* lily/line-interface.cc (line): remove thickness from calling interface.
@@ -55,7 +57,7 @@
 	* ps/music-drawing-routines.ps: take blot as 4th argument.
 
 	* lily/beam.cc (brew_molecule): fix beam offsets: overlap with the
-	stem do avoid small dents.
+	stem to avoid small dents.
 	
 
 2004-01-17  Han-Wen Nienhuys   <hanwen@xs4all.nl>
