@@ -1,5 +1,4 @@
 /*
-
   clef-engraver.cc -- implement Clef_engraver
 
   source file of the GNU LilyPond music typesetter
@@ -23,6 +22,7 @@
 #include "direction.hh"
 #include "side-position-interface.hh"
 #include "item.hh"
+#include "custos.hh"
 
 /// where is c-0 in the staff?
 class Clef_engraver : public  Engraver
@@ -50,7 +50,6 @@ private:
   void create_clef ();
   bool set_type (String);
 };
-
 
 Clef_engraver::Clef_engraver ()
 {
@@ -89,33 +88,29 @@ Clef_engraver::set_type (String s)
       SCM glyph = gh_cadr (found);
       SCM pos = gh_caddr (found);
 
-      daddy_trans_l_->set_property ("glyph", glyph);
-      daddy_trans_l_->set_property ("position", pos);
+      daddy_trans_l_->set_property ("clefGlyph", glyph);
+      daddy_trans_l_->set_property ("clefPosition", pos);
 
       found = scm_assoc (glyph, p);
       if (found == SCM_BOOL_F)
 	return false;
 
       int c0_position = gh_scm2int (pos) + gh_scm2int (gh_cdr (found));
-      daddy_trans_l_->set_property ("c0-position", gh_int2scm (c0_position));
+      daddy_trans_l_->set_property ("clefCentralCPosition", gh_int2scm (c0_position));
     }
 
-  int c0_position = gh_scm2int (get_property ("c0-position"));
+  int c0_position = gh_scm2int (get_property ("clefCentralCPosition"));
   c0_position -= (int)octave_dir_ * 7;
-  daddy_trans_l_->set_property ("c0-position", gh_int2scm (c0_position));
+  daddy_trans_l_->set_property ("clefCentralCPosition", gh_int2scm (c0_position));
 
 
   SCM basic = ly_symbol2scm ("Clef");
-  SCM c0 = ly_symbol2scm ("c0-position");
   SCM gl = ly_symbol2scm ("glyph");
 
   daddy_trans_l_->execute_single_pushpop_property (basic, gl, SCM_UNDEFINED);
-  daddy_trans_l_->execute_single_pushpop_property (basic, c0, SCM_UNDEFINED);  
   daddy_trans_l_->execute_single_pushpop_property (basic, gl,
-						   get_property ("glyph"));
-  daddy_trans_l_->execute_single_pushpop_property (basic, c0,
-						   get_property ("c0_position")
-						   );
+						   get_property ("clefGlyph"));
+
   return true;
 }
 
@@ -130,20 +125,28 @@ Clef_engraver::acknowledge_element (Score_element_info info)
   if (item)
     {
       if (Bar::has_interface (info.elem_l_)
-	  && gh_string_p (get_property ("glyph")))
+	  && gh_string_p (get_property ("clefGlyph")))
 	create_clef ();
       
 
       if (Note_head::has_interface (item)
-	  || Local_key_item::has_interface (item))
+	  || Local_key_item::has_interface (item)
+	  || Custos::has_interface (item)
+	  )
 	{
 	  int p = int (Staff_symbol_referencer::position_f (item))
-	    + gh_scm2int (get_property ("c0-position"));
+	    + gh_scm2int (get_property ("clefCentralCPosition"));
 	  Staff_symbol_referencer::set_position (item, p);
 	}
       else if (Key_item::has_interface (item))
 	{
-	  item->set_elt_property ("c0-position", get_property ("c0-position"));
+	  /*
+	    Key_item adapts its formatting to make sure that the
+	    accidentals stay in the upper half of the staff. It needs
+	    to know c0-pos for this.  (?)
+	  */
+
+	  item->set_elt_property ("c0-position", get_property ("clefCentralCPosition"));
 	}
     } 
 }
@@ -151,9 +154,9 @@ Clef_engraver::acknowledge_element (Score_element_info info)
 void
 Clef_engraver::do_creation_processing ()
 {
-  daddy_trans_l_->set_property ("position", gh_int2scm (0));
-  daddy_trans_l_->set_property ("glyph", SCM_EOL);
-  daddy_trans_l_->set_property ("c0-position", gh_int2scm (0));
+  daddy_trans_l_->set_property ("clefPosition", gh_int2scm (0));
+  daddy_trans_l_->set_property ("clefGlyph", SCM_EOL);
+  daddy_trans_l_->set_property ("clefCentralCPosition", gh_int2scm (0));
 
   SCM def = get_property ("defaultClef");
   if (gh_string_p (def))
@@ -189,7 +192,7 @@ Clef_engraver::create_clef ()
       clef_p_ = c;
     }
   Staff_symbol_referencer::set_position (clef_p_,
-					 gh_scm2int (get_property ("position")
+					 gh_scm2int (get_property ("clefPosition")
 						     ));
   if (octave_dir_)
     {
