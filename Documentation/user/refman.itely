@@ -1845,7 +1845,7 @@ Metronome settings can be entered as follows:
 @end example
 
 In the MIDI output, they are interpreted as a tempo change, and in the
-paper output, a metronome marking is printed
+paper output, a metronome marking is printed:
 @cindex @code{\tempo}
 @lilypond[fragment,verbatim]
   \tempo 8.=120 c''1
@@ -1868,7 +1868,7 @@ lines.  You can create such texts using text spanners: attach
 start and ending note of the spanner. 
 
 The string to be printed, as well as the style, is set through object
-properties.
+properties:
 
 @lilypond[fragment,relative,verbatim]
  \relative c' {  c1 
@@ -2493,16 +2493,16 @@ command can be
 
 @table @asis
 @item the symbol @code{start-repeat},
-  which prints a @code{|:} bar line.
-@item The symbol @code{end-repeat},
-  which prints a @code{:|} bar line
-@item The list @code{(volta @var{text})}
-  which prints a volta bracket saying @var{text}. The text can be specified as
+  which prints a @code{|:} bar line,
+@item the symbol @code{end-repeat},
+  which prints a @code{:|} bar line,
+@item the list @code{(volta @var{text})},
+  which prints a volta bracket saying @var{text}: The text can be specified as
 a text string or as a markup text, see @ref{Text markup}. Do not
 forget to change the font, as the default number font does not contain
-alphabetic characters.
-@item The list @code{(volta #f)}, which 
-  stops a running volta bracket
+alphabetic characters. Or,
+@item the list @code{(volta #f)}, which 
+  stops a running volta bracket:
 @end table
 
 @lilypond[verbatim, fragment]
@@ -2518,7 +2518,7 @@ alphabetic characters.
 
 @internalsref{VoltaBracket}, @internalsref{RepeatedMusic},
 @internalsref{VoltaRepeatedMusic},
-@internalsref{UnfoldedRepeatedMusic}
+@internalsref{UnfoldedRepeatedMusic},
 @internalsref{FoldedRepeatedMusic}.
 
 @node Tremolo repeats
@@ -2526,7 +2526,7 @@ alphabetic characters.
 @cindex tremolo beams
 
 To place tremolo marks between notes, use @code{\repeat} with tremolo
-style.  
+style:
 @lilypond[verbatim,center,singleline]
 \score { 
   \context Voice \notes\relative c' {
@@ -2541,7 +2541,7 @@ style.
 @seealso
 
 Tremolo beams are @internalsref{Beam} objects. Single stem tremolos
-are @internalsref{StemTremolo}.  The music expression is
+are @internalsref{StemTremolo}s.  The music expression is
 @internalsref{TremoloEvent}.
 
 
@@ -2559,7 +2559,7 @@ Tremolo marks can be printed on a single note by adding
 `@code{:}[@var{length}]' after the note.  The length must be at least 8.
 A @var{length} value of 8 gives one line across the note stem.  If the
 length is omitted, then then the last value (stored in
-@code{Voice.tremoloFlags}) is used.
+@code{Voice.tremoloFlags}) is used:
 
 @lilypond[verbatim,fragment,center]
   c'2:8 c':32 | c': c': |
@@ -2581,7 +2581,7 @@ Tremolos in this style do not carry over into the MIDI output.
 In the @code{percent} style, a note pattern can be repeated. It is
 printed once, and then the pattern is replaced with a special sign.
 Patterns of a one and two measures are replaced by percent-like signs,
-patterns that divide the measure length are replaced by slashes.
+patterns that divide the measure length are replaced by slashes:
 
 @lilypond[verbatim,singleline]
  \context Voice { \repeat  "percent" 4  { c'4 }
@@ -2635,7 +2635,7 @@ the definition of which can be read in @file{scm/drums.scm}.  Each
 piece of percussion has a full name and an abbreviated name, and both
 the full name or the abbreviation may be used in input files.
 
-To typeset the music on a staff apply the function @code{drums->paper}
+to typeset the music on a staff apply the function @code{drums->paper}
 to the percussion music. This function takes a list of percussion
 instrument names, notehead scripts and staff positions (that is:
 pitches relative to the C-clef) and transforms the input
@@ -2659,7 +2659,7 @@ In the above example the music was transformed using the list @code{'drums}.
 Currently the following lists are defined in @file{scm/drums.scm}:
 @table @code
 @item 'drums
-To typeset a typical drum kit on a five-line staff.
+to typeset a typical drum kit on a five-line staff:
 
 @lilypond[noindent]
 \include "drumpitch-init.ly"
@@ -2692,14 +2692,14 @@ mus = \notes  { cymc cyms cymr hh hhc hho hhho hhp cb hc
 @end lilypond
 
 The drum scheme supports six different toms.  When there fewer toms, simply
-select the toms that produce the desired result, i.e., to get toms on
+select the toms that produce the desired result, i.e. to get toms on
 the three middle lines you use @code{tommh}, @code{tomml} and
 @code{tomfh}.
 
 Because general MIDI does not contain rimshots the sidestick is used
 for this purpose instead.
 @item 'timbales
-To typeset timbales on a two line staff.
+to typeset timbales on a two line staff:
 
 @lilypond[singleline]
 \include "drumpitch-init.ly"
@@ -2731,7 +2731,7 @@ mus = \notes  { timh ssh timl ssl cb s16 }
 }
 @end lilypond
 @item 'congas
-To typeset congas on a two line staff.
+to typeset congas on a two line staff:
 
 @lilypond[singleline]
 \include "drumpitch-init.ly"
@@ -2762,7 +2762,7 @@ mus = \notes  { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
 }
 @end lilypond
 @item 'bongos
-To typeset bongos on a two line staff.
+to typeset bongos on a two line staff:
 
 @lilypond[singleline]
 \include "drumpitch-init.ly"
@@ -2793,7 +2793,7 @@ mus = \notes  { boh boho bohm ssh bol bolo bolm ssl s16 }
 }
 @end lilypond
 @item 'percussion
-To typeset all kinds of simple percussion on one line staves.
+to typeset all kinds of simple percussion on one line staves:
 @lilypond[singleline]
 \include "drumpitch-init.ly"
 nam = \lyrics { tri trio trim gui guis guil cb cl tamb cab mar hc }
@@ -2858,7 +2858,7 @@ the existing list:
 
 The file @file{drumpitch-init.ly} replaces the normal pitch names, so
 you have to reinclude @file{nederlands.ly} after the
-drum-pattern-definitions to enter normal notes.
+drum-pattern-definitions to enter normal notes:
 @c
 @lilypond[singleline,verbatim]
 \include "drumpitch-init.ly"
@@ -3020,7 +3020,7 @@ piano has three pedals, sustain, una corda, and sostenuto.
 Piano pedal instruction can be expressed by attaching
 @code{\sustainDown}, @code{\sustainUp}, @code{\unaCorda},
 @code{\treCorde}, @code{\sostenutoDown} and @code{\sostenutoUp} to a
-note or chord.
+note or chord:
 
 @lilypond[fragment,verbatim]
   c'4-\sustainDown c'4-\sustainUp
@@ -3061,9 +3061,9 @@ c''4-\sostenutoDown d''4 e''4 c'4 f'4 g'4 a'4-\sostenutoUp
 
 For fine-tuning of the appearance of a pedal bracket, the properties
 @code{edge-width}, @code{edge-height}, and @code{shorten-pair} of
-@code{PianoPedalBracket} objects (see the detailed documentation of
-@internalsref{PianoPedalBracket}) can be modified.  For example, the bracket
-may be extended to the end of the note head.
+@code{PianoPedalBracket} objects (, see the detailed documentation of
+@internalsref{PianoPedalBracket},) can be modified.  For example, the bracket
+may be extended to the end of the note head:
 
 @lilypond[fragment,verbatim]
 \property Staff.PianoPedalBracket \override
@@ -3080,7 +3080,7 @@ f'4 g'4 a'4-\sostenutoUp
 @cindex @code{\arpeggio}
 
 You can specify an arpeggio sign on a chord by attaching an
-@code{\arpeggio} to a chord.
+@code{\arpeggio} to a chord:
 
 
 @lilypond[fragment,relative,verbatim]
@@ -3089,7 +3089,7 @@ You can specify an arpeggio sign on a chord by attaching an
 
 When an arpeggio crosses staves, you attach an arpeggio to the chords
 in both staves, and set
-@internalsref{PianoStaff}.@code{connectArpeggios}.
+@internalsref{PianoStaff}.@code{connectArpeggios}:
 
 @lilypond[fragment,relative,verbatim]
   \context PianoStaff <
@@ -3101,7 +3101,7 @@ in both staves, and set
 
 The direction of the arpeggio is sometimes denoted by adding an
 arrowhead to the wiggly line.  This can be typeset by setting
-@code{arpeggio-direction}.
+@code{arpeggio-direction}:
 
 @lilypond[fragment,relative,verbatim]
   \context Voice {
@@ -3116,7 +3116,7 @@ A square bracket on the left indicates that the player should not
 arpeggiate the chord. To draw these brackets, set the
 @code{molecule-callback} property of @code{Arpeggio} or
 @code{PianoStaff.Arpeggio} objects to @code{\arpeggioBracket}, and use
-@code{\arpeggio} statements within the chords as before.
+@code{\arpeggio} statements within the chords as before:
 
 @lilypond[fragment,relative,verbatim]
     \property PianoStaff.Arpeggio \override
@@ -3129,7 +3129,7 @@ arpeggiate the chord. To draw these brackets, set the
 @cindex @code{\arpeggioBracket }
 @code{\arpeggioBracket}, 
 @cindex @code{\arpeggio}
-@code{\arpeggio}, 
+@code{\arpeggio}.
 
 @seealso
 
@@ -3175,7 +3175,7 @@ The associated object is @internalsref{VoiceFollower}.
 @cindex @code{\showStaffSwitch }
 @code{\showStaffSwitch}, 
 @cindex @code{\hideStaffSwitch }
-@code{\hideStaffSwitch}, 
+@code{\hideStaffSwitch}.
 
 
 @node Vocal music
@@ -3216,7 +3216,7 @@ combination of a backslash followed by one of @code{`}, @code{'},
 Subsequent characters of a word can be any character that is not a digit
 and not white space.  One important consequence of this is that a word
 can end with @code{@}}. The following example is usually a bug. The
-syllable includes a @code{@}}, and hence the opening brace is not balanced.
+syllable includes a @code{@}}, and hence the opening brace is not balanced:
 @example
   \lyrics @{ twinkle@}
 @end example
@@ -3275,8 +3275,7 @@ The definition of lyrics mode is too complex.
 @node The Lyrics context
 @subsection  The Lyrics context
 
-Lyrics are printed by interpreting them in @internalsref{Lyrics}
-context:
+Lyrics are printed by interpreting them in @internalsref{Lyrics} context:
 @example
  \context Lyrics \lyrics @dots{}
 @end example
@@ -3289,7 +3288,7 @@ This will place the lyrics according to the durations that were
 entered. The lyrics can also be aligned under a given melody
 automatically.  In this case, it is no longer necessary to enter the
 correct duration for each syllable.  This is achieved by combining the
-melody and the lyrics with the @code{\addlyrics} expression
+melody and the lyrics with the @code{\addlyrics} expression:
 @example
 \addlyrics
   \notes @dots{}
@@ -3354,7 +3353,7 @@ groups of syllables should be aligned around punctuation.  This can be
 done automatically when corresponding lyric lines and melodies are
 marked.
 
-To this end, give the @internalsref{Voice} context an identity,
+To this end, give the @internalsref{Voice} context an identity:
 @example
 \context Voice = duet @{
      \time 3/4
@@ -3364,7 +3363,7 @@ To this end, give the @internalsref{Voice} context an identity,
 Then set the @internalsref{LyricsVoice} contexts to names starting with
 that identity followed by a dash.  In the preceding example, the
 @internalsref{Voice} identity is @code{duet}, so the identities of the
-@internalsref{LyricsVoices} are marked @code{duet-1} and @code{duet-2}.
+@internalsref{LyricsVoices} are marked @code{duet-1} and @code{duet-2}:
 @example
   \context LyricsVoice = "duet-1" @{
     Hi, my name is bert. @}
@@ -3375,7 +3374,7 @@ The convention for naming @internalsref{LyricsVoice} and
 @internalsref{Voice} must also be used to get melismata correct in
 conjunction with rests.
 
-The complete example is shown here.
+The complete example is shown here:
 @lilypond[singleline,verbatim]
 \score {
 \addlyrics
@@ -3395,7 +3394,7 @@ The complete example is shown here.
 Stanza numbers, or the names of the singers can be added by setting
 @code{LyricsVoice.Stanza} (for the first system) and
 @code{LyricsVoice.stz} for the following systems.  Notice how dots are
-surrounded with spaces in @code{\lyrics} mode.
+surrounded with spaces in @code{\lyrics} mode:
 
 @example
     \property LyricsVoice . stanza = "Bert"
@@ -3517,7 +3516,7 @@ followed by a number, e.g. @code{c4\3} for a C quarter on the third
 string. By default, string 1 is the highest one, and the tuning
 defaults to the standard guitar tuning (with 6 strings).  The notes
 are printed as tablature, by using @internalsref{TabStaff} and
-@internalsref{TabVoice} contexts.
+@internalsref{TabVoice} contexts:
 
 @lilypond[fragment,verbatim]
 \notes \context TabStaff  {
@@ -3528,7 +3527,7 @@ are printed as tablature, by using @internalsref{TabStaff} and
 
 When no string is specified, the first string that does not give a
 fret number less than @code{minimumFret} is selected. The default
-value for @code{minimumFret} is 0.
+value for @code{minimumFret} is 0:
 
 
 @example
@@ -3578,8 +3577,8 @@ a Scheme list with one integer number for each string, the number
 being the pitch (measured in semitones relative to central C) of an
 open string.  The numbers specified for @code{stringTuning} are the
 numbers of semitones to subtract or add, starting the specified pitch
-by default middle C, in string order: thus the notes are e, a, d, and
-g.
+by default middle C, in string order. Thus, the notes are e, a, d, and
+g:
 
 @lilypond[fragment,verbatim]
   \context TabStaff <
@@ -3598,8 +3597,7 @@ It is possible to change the Scheme function to format the tablature
 note text. The default is @code{fret-number-tablature-format}, which
 uses the fret number. For instruments that do not use this notation,
 you can create a special tablature formatting function. This function
-takes three argument: the string number, the string tuning and the
-note pitch.
+takes three argument: string number, string tuning and note pitch.
 
 @refbugs
 
@@ -3615,7 +3613,7 @@ implemented yet.
 LilyPond has support for both printing chord names.  Chords may be
 entered in musical chord notation, i.e. @code{<< .. >>}, but they can
 also be entered by name. Internally, the chords are represented as a
-set of pitches, so they can be transposed.
+set of pitches, so they can be transposed:
 
 
 @lilypond[verbatim,singleline]
@@ -3651,7 +3649,7 @@ an inversion.
 Chord mode is a mode where you can input sets of pitches using common
 names.  It is introduced by the keyword @code{\chords}.
 In chords mode,  a  chord is entered by the root, which is entered
-like a common pitch, for example,
+like a common pitch:
 @lilypond[fragment,verbatim,quote, relative=1]
 \chords { es4.  d8 c2 }
 @end lilypond
@@ -3659,14 +3657,14 @@ like a common pitch, for example,
 @cindex chord mode
 
 Other chords may be entered by suffixing a colon, and introducing a
-modifier, and optionally, a number, for example
+modifier, and optionally, a number:
 @c
 @lilypond[fragment,verbatim,quote]
 \chords { e1:m e1:7 e1:m7  }
 @end lilypond
 The first number following the root is taken to be the `type' of the
 chord, thirds are added to the root until it reaches the specified
-number, for example.
+number:
 @lilypond[fragment,verbatim]
  \chords { c:3 c:5 c:6 c:7 c:8 c:9 c:10 c:11 }
 @end lilypond
@@ -3677,30 +3675,30 @@ number, for example.
 
 More complex chords may also be constructed  adding separate steps
 to a chord. Additions are added after the  number following
-the colon, and are separated by dots. For example
+the colon, and are separated by dots:
 @c
 @lilypond[verbatim,fragment,quote]
   \chords { c:5.6 c:3.7.8 c:3.6.13 }
 @end lilypond
 Chord steps can be  altered by suffixing a @code{-} or @code{+} sign
-to the number, for example,
+to the number:
 @lilypond[verbatim,fragment,quote]
   \chords { c:7+ c:5+.3-  c:3-.5-.7- }
 @end lilypond
 Removals are specified similarly, and are introduced by a caret.  They
-must come after the additions.
+must come after the additions:
 @lilypond[verbatim,fragment]
   \chords { c^3 c:7^5 c:9^3.5 }
 @end lilypond
 
 Modifiers can be used to change pitches. The following modifiers are
-supported
+supported:
 @table @code
 @item m
   is the minor chord. This modifier lowers the 3rd and (if present) the 7th step.
 @item dim
   is the   diminished chord. This modifier lowers the 3rd, 5th and (if present)
-  the 7th step 
+  the 7th step.
 @item aug
   is the augmented chord. This modifier raises the 5th step.
 @item maj
@@ -3710,7 +3708,7 @@ supported
 step. Append either @code{2} or @code{4} to add the 2nd or 4th step to
 the chord.
 @end table
-Modifiers can be mixed with additions. 
+Modifiers can be mixed with additions:
 @lilypond[verbatim,fragment]
   \chords { c:sus4 c:7sus4 c:dim7 c:m6 } 
 @end lilypond
@@ -3722,9 +3720,9 @@ Modifiers can be mixed with additions.
 @cindex @code{sus}
 @cindex @code{m}
 
-Since the unaltered 11 does sound well when combined with the
-unaltered 3, the 11 is removed in this case, unless it is added
-explicitly). For example,
+Since an unaltered 11 does not sound good when combined with an
+unaltered 13, the 11 is removed in this case (, unless it is added
+explicitly):
 @lilypond[fragment,verbatim]
   \chords { c:13 c:13.11 c:m13 }
 @end lilypond 
@@ -3733,7 +3731,7 @@ explicitly). For example,
 
 An inversion (putting one pitch of the chord on the bottom), as well
 as bass notes, can be specified by appending
-@code{/}@var{pitch} to the chord. 
+@code{/}@var{pitch} to the chord:
 @lilypond[fragment,verbatim,center]
    \chords { c1 c/g c/f }
 @end lilypond 
@@ -3757,7 +3755,7 @@ of the commands continue to work, for example, @code{r} and
 
 Each step can only be present in a chord once.  The following
 simply produces the augmented chord, since @code{5+} is interpreted
-last.
+last:
 @cindex clusters
 @lilypond[verbatim,fragment]
   \chords { c:5.5-.5+ }
@@ -3771,9 +3769,9 @@ last.
 @cindex chord names
 @cindex chords
 
-For displaying printed chord names, use the @internalsref{ChordNames}
-context.  The chords may be entered either using the notation
-described above, or directly using @code{<<} and @code{>>}.
+For displaying printed chord names, use the @internalsref{ChordNames} context.
+The chords may be entered either using the notation
+described above, or directly using @code{<<} and @code{>>}:
 
 @lilypond[verbatim,singleline]
 scheme = \notes {
@@ -3790,7 +3788,7 @@ scheme = \notes {
 You can make the chord changes stand out by setting
 @internalsref{ChordNames}.@code{chordChanges} to true.  This will only
 display chord names when there is a change in the chords scheme and at
-the start of a new line.
+the start of a new line:
 
 @lilypond[verbatim, linewidth=9cm]
 scheme = \chords {
@@ -3807,7 +3805,7 @@ scheme = \chords {
 @end lilypond
 
 The default chord name layout is a system for Jazz music, proposed by
-Klaus Ignatzek (See @ref{Literature}).  It can be tuned through the
+Klaus Ignatzek (see @ref{Literature}).  It can be tuned through the
 following properties:
 
 @table @code
@@ -3872,7 +3870,7 @@ chart}.  Turning on these styles is described in the input file
 @cindex @code{\germanChords }
 @code{\germanChords}, 
 @cindex @code{\semiGermanChords }
-@code{\semiGermanChords}, 
+@code{\semiGermanChords}.
 
 
 
