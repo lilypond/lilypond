@@ -1,5 +1,7 @@
 2004-02-05  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* Grand 2003 -> 2004 search replace. 
+
 	* lily/parser.yy (chord_body_element): add DRUM_PITCH to chords
 	(i.e. < > )
 

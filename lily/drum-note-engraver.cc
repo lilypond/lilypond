@@ -1,7 +1,7 @@
 /*
   drum-note-engraver.cc
   
-  (c)  1997--2003 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 #include <ctype.h>
 

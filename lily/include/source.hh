@@ -1,17 +1,16 @@
-//
-//  source.hh -- part of LilyPond
-//
-//  (c)  1997--2003 Jan Nieuwenhuizen <janneke@gnu.org>
+/*
+  source.hh -- part of LilyPond
+
+  (c) 1997--2004 Jan Nieuwenhuizen <janneke@gnu.org>
+*/
 
 #ifndef SOURCE_HH
 #define SOURCE_HH
 #include "cons.hh"
 #include "flower-proto.hh"
 
-/**
+/*
    a set of sourcefiles.
-
-   TODO: 
  */
 class Sources 
 {
@@ -28,8 +27,8 @@ public:
 
   const File_path * path_C_;
 private:
-  Cons<Source_file> *sourcefile_p_list_;
-  bool binary_b_ ;
+  Cons<Source_file> *sourcefile_list_;
+  bool is_binary_ ;
 };
 
 
