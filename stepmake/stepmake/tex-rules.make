@@ -13,8 +13,9 @@ $(outdir)/%.dvi: $(outdir)/%.latex
 	  (makeindex $(basename $(<F)) || true) && \
 	  latex \\nonstopmode \\input $(<F) )
 
+
 $(outdir)/%.ps: $(outdir)/%.dvi
-	cd $(outdir) && dvips -ta4 -o $(@F) $(<F)
+	cd $(outdir) && dvips -t $(DVIPS_PAPERSIZE) -o $(@F) $(<F)
 
 $(outdir)-$(PAPERSIZE)/%.ps: $(outdir)-$(PAPERSIZE)/%.dvi
 	cd $(outdir)-$(PAPERSIZE) && dvips -t$(PAPERSIZE) -o $(@F) $(<F)

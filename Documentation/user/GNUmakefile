@@ -28,6 +28,9 @@ STEPMAKE_TEMPLATES=tex texinfo omf documentation
 
 OMF_FILES += $(outdir)/lilypond-internals.html.omf
 
+TEXINFO_PAPERSIZE = @afourpaper
+DVIPS_PAPERSIZE = a4
+
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
 LILYPOND_BOOK_FLAGS=--extra-options '-e "(ly:set-option (quote internal-type-checking) \#t)"'
 

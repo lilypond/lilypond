@@ -1,3 +1,15 @@
+2003-07-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/GNUmakefile (DVIPS_PAPERSIZE): set A4 paper
+	for texinfo and dvips. This fixes problems with PDF output of the
+	wrong size.
+
+	* stepmake/stepmake/tex-rules.make ($(outdir)/%.ps): add
+	DVIPS_PAPERSIZE variable
+
+	* stepmake/stepmake/texinfo-rules.make ($(outdir)/%.dvi): add
+	TEXINFO_PAPERSIZE variable 
+
 2003-07-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* mf/feta-macros.mf: whoops: only draw lines for test situations.

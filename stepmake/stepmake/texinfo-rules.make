@@ -26,7 +26,7 @@ $(outdir)/%/%.html: $(outdir)/%.texi
 	$(deep-footify) $(sort $(wildcard $(outdir)/$(*F)/*.html))
 
 $(outdir)/%.dvi: $(outdir)/%.texi
-	cd $(outdir); texi2dvi --batch $(<F)
+	cd $(outdir); texi2dvi --batch -t $(TEXINFO_PAPERSIZE) $(<F)
 
 $(outdir)/%.txt: $(outdir)/%.texi
 	$(MAKEINFO) -I $(pwd) -I $(outdir) --no-split --no-headers --output $@ $<
