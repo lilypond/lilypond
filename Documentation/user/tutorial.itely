@@ -480,7 +480,7 @@ This example shows the key signature, accidentals and ties in action:
     \key g \minor
     \clef violin
     r4 r8 a8 gis4 b
-    g8 d4.~ d e'8
+    g8 d4.~ d e8
     fis4 fis8 fis8 eis4  a8 gis~
     gis2 r2
   @}
