@@ -112,7 +112,16 @@ interesting items (ie. note heads, lyric syllables and normal rests)"
     'A2_engraver
     (engraver-description
      "A2_engraver"
-     "Part combine engraver for orchestral scores."
+     "Part combine engraver for orchestral scores.
+
+The markings @emph{@`{a}2}, @emph{Solo} and @emph{Solo II}, are
+created by this engraver.  It also acts upon instructions of the part
+combiner.  Another thing that the this engraver, is forcing of stem,
+slur and tie directions, always when both threads are not identical;
+up for the musicexpr called @code{one}, down for the musicexpr called
+@code{two}.
+
+"
      '(TextScript)
      '(
       combineParts
@@ -688,8 +697,15 @@ bar lines, and draws a single span-bar across them."
     'Thread_devnull_engraver
     (engraver-description
      "Thread_devnull_engraver"
-     "Kill elements whenever we are Voice called `two' and
-either unison, unisilence or soloADue is set"
+     "Kill elements whenever we are Voice called `two' and either
+unison, unisilence or soloADue is set.@footnote{On unix systems, the
+file @file{/dev/null} is special device: anything written to it is
+discarded.}. This engraver works closely together with the part
+combiner.  When the part combiner notices that two threads are
+identical, it tells the @code{Thread_devnull_engraver} to discard
+everything in the second thread.
+"
+
      '()
      '()))
 

@@ -20,7 +20,6 @@ outputscale = \staffheight / 4.0;
 \translator { \VoiceContext}
 \translator { \StaffGroupContext }
 \translator { \ChordNamesContext }
-\translator { \ChordNamesVoiceContext}
 \translator { \GrandStaffContext}
 \translator { \LyricsContext }
 \translator { \ThreadContext}

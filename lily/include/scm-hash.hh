@@ -69,7 +69,7 @@ public:
      up.  */
   void set (SCM k, SCM v);
   SCM get (SCM k) const; 
-  
+  void remove (SCM k);
   Scheme_hash_table ();
   void operator = (Scheme_hash_table const &); 
   Scheme_hash_table (Scheme_hash_table const &);

@@ -25,6 +25,7 @@
 #include "moment.hh"
 
 static Keyword_ent the_key_tab[]={
+  {"alias", ALIAS},
   {"apply", APPLY},
   {"arpeggio", ARPEGGIO },
   {"autochange", AUTOCHANGE},
@@ -87,6 +88,7 @@ static Keyword_ent the_key_tab[]={
   {"translator", TRANSLATOR},
   {"transpose", TRANSPOSE},
   {"type", TYPE},
+  {"unset", UNSET},
   {0,0}
 };
 

@@ -31,6 +31,8 @@ SCM
 Translator_def::mark_smob (SCM smob)
 {
   Translator_def* me = (Translator_def*) SCM_CELL_WORD_1 (smob);
+
+  scm_gc_mark (me->type_aliases_);
   scm_gc_mark (me->consists_name_list_);
   scm_gc_mark (me->accepts_name_list_);
   scm_gc_mark (me->end_consists_name_list_);
@@ -53,6 +55,7 @@ ADD_SCM_INIT_FUNC (transdef, foo_init);
 
 Translator_def::Translator_def ()
 {
+  type_aliases_ = SCM_EOL;
   translator_group_type_ = SCM_EOL;
   accepts_name_list_ = SCM_EOL;   
   consists_name_list_ = SCM_EOL;
@@ -71,7 +74,7 @@ Translator_def::Translator_def (Translator_def const & s)
   end_consists_name_list_ = scm_list_copy (s.end_consists_name_list_);
   accepts_name_list_ = scm_list_copy (s.accepts_name_list_);
   property_ops_ = scm_list_copy (s.property_ops_);
-
+  type_aliases_ = s.type_aliases_;
   translator_group_type_ = s.translator_group_type_;
   type_name_ = s.type_name_;
 }
@@ -177,12 +180,21 @@ Translator_def::path_to_acceptable_translator (SCM type_str, Music_output_def* o
 
   Link_array<Translator_def> best_result;
   for (int i=0; i < accepted_arr.size (); i++)
-    if (scm_equal_p (accepted_arr[i]->type_name_, type_str) == SCM_BOOL_T)
-      {
-	best_result.push (accepted_arr[i]);
-	return best_result;
-      }
+    {
+      bool found =false;
+      if (scm_equal_p (accepted_arr[i]->type_name_, type_str) == SCM_BOOL_T)
+	found = true;
 
+      for (SCM s = accepted_arr[i]->type_aliases_; !found && gh_pair_p (s); s = gh_cdr (s))
+	found = found ||  (gh_equal_p (gh_car (s), type_str));
+
+      if (found)
+	{
+	  best_result.push (accepted_arr[i]);
+	  return best_result;
+	}
+    }
+      
   int best_depth= INT_MAX;
   for (int i=0; i < accepted_arr.size (); i++)
     {

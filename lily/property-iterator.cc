@@ -32,6 +32,18 @@ Property_iterator::process (Moment m)
 }
 
 void
+Property_unset_iterator::process (Moment m)
+{
+  SCM sym = music_l_->get_mus_property ("symbol");
+  if (gh_symbol_p (sym))
+    {
+      report_to_l ()->unset_property (sym);
+    }
+  Simple_music_iterator::process (m);
+}
+
+
+void
 Push_property_iterator::process (Moment m)
 {
   SCM syms = music_l_->get_mus_property ("symbols");
@@ -57,6 +69,8 @@ Pop_property_iterator::process (Moment m)
   Simple_music_iterator::process (m);
 }
 
+
 IMPLEMENT_CTOR_CALLBACK (Pop_property_iterator);
 IMPLEMENT_CTOR_CALLBACK (Push_property_iterator);
 IMPLEMENT_CTOR_CALLBACK (Property_iterator);
+IMPLEMENT_CTOR_CALLBACK(Property_unset_iterator);

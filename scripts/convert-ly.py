@@ -677,6 +677,14 @@ if 1:
 	
 	conversions.append (((1,3,122), conv, 'drarnChords -> chordChanges, \\musicalpitch -> \\pitch'))
 
+if 1:
+	def conv (str):
+		str = re.sub ('ly-([sg])et-elt-property', 'ly-\\1et-grob-property', str)
+		return str
+	
+	conversions.append (((1,3,136), conv, 'ly-X-elt-property -> ly-X-grob-property'))
+
+
 
 ############################
 	

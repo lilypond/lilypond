@@ -98,6 +98,11 @@ Scheme_hash_table::get (SCM k)const
   return (* (Scheme_hash_table*)this)[k]; 
 }
 
+void
+Scheme_hash_table::remove (SCM k)
+{
+  Scm_stl_map::erase (k);
+}
 
 Scheme_hash_table::~Scheme_hash_table ()
 {

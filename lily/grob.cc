@@ -868,8 +868,8 @@ init_functions ()
 {
   interfaces_sym = scm_permanent_object (ly_symbol2scm ("interfaces"));
 
-  scm_make_gsubr ("ly-get-elt-property", 2, 0, 0, (Scheme_function_unknown)ly_get_grob_property);
-  scm_make_gsubr ("ly-set-elt-property", 3, 0, 0, (Scheme_function_unknown)ly_set_grob_property);
+  scm_make_gsubr ("ly-get-grob-property", 2, 0, 0, (Scheme_function_unknown)ly_get_grob_property);
+  scm_make_gsubr ("ly-set-grob-property", 3, 0, 0, (Scheme_function_unknown)ly_set_grob_property);
   scm_make_gsubr ("ly-get-spanner-bound", 2 , 0, 0, (Scheme_function_unknown) spanner_get_bound);
 }
 

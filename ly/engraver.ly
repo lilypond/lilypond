@@ -68,8 +68,6 @@ ChoirStaffContext = \translator {
 	\accepts "RhythmicStaff";
 	\accepts "GrandStaff";
 	\accepts "PianoStaff";
-	\accepts "StaffGroup";
-	\accepts "ChoirStaff";
 	\accepts "Lyrics";
 	\accepts "ChordNames";
 }
@@ -247,8 +245,6 @@ StaffGroupContext= \translator {
 	\accepts "RhythmicStaff";
 	\accepts "GrandStaff";
 	\accepts "PianoStaff";
-	\accepts "StaffGroup";
-	\accepts "ChoirStaff";
 	
 	\accepts "Lyrics";
 	\accepts "ChordNames";
@@ -289,16 +285,6 @@ LyricsContext = \translator {
 	\accepts "LyricsVoice";
 }
 
-ChordNamesVoiceContext = \translator {
-	\type "Engraver_group_engraver";
-	\name ChordNamesVoice ;
-
-	\consists "Output_property_engraver";	
-	\consistsend "Axis_group_engraver";
-	\consists "Separating_line_group_engraver";
-	\consists "Chord_name_engraver";
-	\consists "Skip_req_swallow_translator";
-}
 
 ChordNamesContext = \translator {
 	\type "Engraver_group_engraver";
@@ -308,10 +294,12 @@ ChordNamesContext = \translator {
 
 	\consists "Property_engraver";	
 	\consists "Output_property_engraver";	
-	\accepts "ChordNamesVoice";
+	\consists "Separating_line_group_engraver";
+	\consists "Chord_name_engraver";
+	\consists "Skip_req_swallow_translator";
+	\consistsend "Axis_group_engraver";
 
 	VerticalAxisGroup \override #'invisible-staff = ##t
-	\consistsend "Axis_group_engraver";
 	}
 
 
