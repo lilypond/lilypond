@@ -14,6 +14,8 @@ Lyric_combine_music::Lyric_combine_music (Music * m, Music * l)
 {
   set_mus_property ("music", m->self_scm ());
   set_mus_property ("lyrics", l->self_scm ());  
+
+  set_mus_property ("type", ly_symbol2scm ("lyric-combine-music"));
 }
 
 

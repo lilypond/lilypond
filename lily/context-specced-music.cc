@@ -11,4 +11,5 @@
 Context_specced_music::Context_specced_music(Music *m)
   : Music_wrapper  (m)
 {
+  set_mus_property ("type", ly_symbol2scm ("context-specced-music"));
 }

@@ -24,4 +24,5 @@ Grace_music::length_mom () const
 Grace_music::Grace_music (Music *p)
   : Music_wrapper (p)
 {
+  set_mus_property ("type", ly_symbol2scm ("grace-music"));
 }

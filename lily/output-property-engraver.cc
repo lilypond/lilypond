@@ -7,7 +7,6 @@
   
  */
 
-#include "output-property.hh"
 #include "engraver.hh"
 #include "score-element.hh"
 
@@ -16,8 +15,20 @@ class Output_property_engraver : public Engraver
 public:
   VIRTUAL_COPY_CONS(Translator);
 protected:
+
+  /*
+    should do this with \once and \push ?
+
+
+      \property Voice.outputProperties \push #pred = #modifier
+
+      where both MODIFIER and PRED are functions taking a
+      score-element.
+      
+   */
+
   
-  Link_array<Output_property> props_;
+  Link_array<Music> props_;
 
   virtual void do_pre_move_processing ();
   virtual void acknowledge_element (Score_element_info);
@@ -28,9 +39,9 @@ protected:
 bool
 Output_property_engraver::do_try_music (Music* m)
 {
-  if (Output_property * o = dynamic_cast<Output_property*> (m))
+  if (m->get_mus_property ("type") ==  ly_symbol2scm ("output-property"))
     {
-      props_.push (o);
+      props_.push (m);
       return true;
     }
   return false;
@@ -41,7 +52,7 @@ Output_property_engraver::acknowledge_element (Score_element_info inf)
 {
   for (int i=props_.size (); i--; )
     {
-      Output_property * o = props_[i];
+      Music * o = props_[i];
       SCM pred = o->get_mus_property ("predicate");
       
       /*

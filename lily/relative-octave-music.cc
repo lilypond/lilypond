@@ -21,6 +21,7 @@ Relative_octave_music::Relative_octave_music(Music*p,Musical_pitch def)
   : Music_wrapper (p)
 {
   last_pitch_ = element ()->to_relative_octave (def);
+  set_mus_property ("type", ly_symbol2scm ("relative-octave-music"));  
 }
 
 

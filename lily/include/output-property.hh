@@ -11,8 +11,7 @@
 #define OUTPUT_PROPERTY_HH
 
 #include "music.hh"
-#include "protected-scm.hh"
-
+//#include "protected-scm.hh"
 
 /*
   
@@ -24,7 +23,10 @@ props:
 class Output_property : public Music
 {
 public:
-  Output_property(SCM, SCM, SCM);
+  VIRTUAL_COPY_CONS (Music);
+  Output_property (SCM, SCM, SCM);
 };
 
 #endif /* OUTPUT_PROPERTY_HH */
+
+#error

@@ -12,7 +12,7 @@
 #include <iostream.h>
 #include "translator-def.hh"
 #include "lily-guile.hh"
-#include "translation-property.hh"
+
 #include "lookup.hh"
 #include "misc.hh"
 #include "my-lily-lexer.hh"
@@ -29,7 +29,7 @@
 #include "context-specced-music.hh"
 #include "score.hh"
 #include "music-list.hh"
-#include "change-translator.hh"
+
 #include "file-results.hh"
 #include "input.hh"
 #include "scope.hh"
@@ -42,7 +42,7 @@
 #include "grace-music.hh"
 #include "auto-change-music.hh"
 #include "part-combine-music.hh"
-#include "output-property.hh"
+
 #include "chord.hh"
 
 bool
@@ -127,6 +127,7 @@ yylex (YYSTYPE *s,  void * v_l)
 
 /* tokens which are not keywords */
 %token AUTOCHANGE
+%token ARPEGGIO
 %token TEXTSCRIPT
 %token ACCEPTS
 %token ALTERNATIVE
@@ -691,10 +692,18 @@ Simple_music:
 		{
 			THIS->parser_error (_("First argument must be a procedure taking 1 argument"));
 		}
-	
-		$$ = new Output_property (pred,$3, $5);
+
+	  Music *m = new Music;
+	  m->set_mus_property ("predicate", pred);
+	  m->set_mus_property ("symbol", $3);
+	  m->set_mus_property ("value",  $5);
+	  m->set_mus_property ("type", ly_symbol2scm ("output-property"));
+
+		$$ = m;
 	}
-	| MUSIC_IDENTIFIER { $$ = unsmob_music ($1)->clone (); }
+	| MUSIC_IDENTIFIER {
+		$$ = unsmob_music ($1)->clone ();
+	}
 	| property_def
 	| translator_change
 	| Simple_music '*' bare_unsigned '/' bare_unsigned 	{
@@ -719,7 +728,8 @@ Composite_music:
 		$$ = csm;
 	}
 	| AUTOCHANGE STRING Music	{
-		Auto_change_music * chm = new Auto_change_music (ly_scm2string ($2), $3);
+		Auto_change_music * chm = new Auto_change_music ($3);
+		chm->set_mus_property ("what", $2); 
 
 		$$ = chm;
 		chm->set_spot (*$3->origin ());
@@ -804,9 +814,11 @@ part_combined_music:
 
 translator_change:
 	TRANSLATOR STRING '=' STRING  {
-		Change_translator * t = new Change_translator;
-		t-> change_to_type_str_ = ly_scm2string ($2);
-		t-> change_to_id_str_ = ly_scm2string ($4);
+		Music * t = new Music;
+		t->set_mus_property ("type",
+			ly_symbol2scm ("change-translator"));
+		t-> set_mus_property ("change-to-type", $2);
+		t-> set_mus_property ("change-to-id", $4);
 
 		$$ = t;
 		$$->set_spot (THIS->here_input ());
@@ -815,8 +827,9 @@ translator_change:
 
 property_def:
 	PROPERTY STRING '.' STRING '='  scalar {
-		Translation_property *t = new Translation_property;
+		Music *t = new Music;
 
+		t->set_mus_property ("type", ly_symbol2scm ("property-set"));
 		t->set_mus_property ("symbol", scm_string_to_symbol ($4));
 		t->set_mus_property ("value", $6);
 
@@ -827,8 +840,8 @@ property_def:
 		csm-> translator_type_str_ = ly_scm2string ($2);
 	}
 	| PROPERTY STRING '.' STRING PUSH embedded_scm '=' embedded_scm {
-		Push_translation_property *t = new Push_translation_property;
-
+		Music *t = new Music;
+		t->set_mus_property ("type", ly_symbol2scm ("property-push"));
 		t->set_mus_property ("symbols", scm_string_to_symbol ($4));
 		t->set_mus_property ("element-property", $6);
 		t->set_mus_property ("element-value", $8);
@@ -839,8 +852,8 @@ property_def:
 		csm-> translator_type_str_ = ly_scm2string ($2);
 	}
 	| PROPERTY STRING '.' STRING POP embedded_scm {
-		Pop_translation_property *t = new Pop_translation_property;
-
+		Music *t = new Music;
+		t->set_mus_property ("type", ly_symbol2scm ("property-pop"));
 		t->set_mus_property ("symbols", scm_string_to_symbol ($4));
 		t->set_mus_property ("element-property", $6);
 
@@ -883,8 +896,10 @@ command_element:
 		$1-> set_spot (THIS->here_input ());
 	}
 	| PARTIAL duration_length ';' 	{
-		Translation_property * p = new Translation_property;
+		Music * p = new Music;
 		p->set_mus_property ("symbol", ly_symbol2scm ( "measurePosition"));
+		p->set_mus_property ("type", ly_symbol2scm ("property-set"));
+
 		Moment m = - $2->length_mom ();
 		p->set_mus_property ("value", m.make_scm());
 		delete $2; // ugh
@@ -1065,6 +1080,11 @@ verbose_request:
 	| SCRIPT STRING 	{ 
 		Articulation_req * a = new Articulation_req;
 		a->articulation_str_ = ly_scm2string ($2);
+		a->set_spot (THIS->here_input ());
+		$$ = a;
+	}
+	| ARPEGGIO {
+		Arpeggio_req *a = new Arpeggio_req;
 		a->set_spot (THIS->here_input ());
 		$$ = a;
 	}

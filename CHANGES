@@ -1,3 +1,29 @@
+1.3.94.uu1
+==========
+
+* Use music property for setting type. This prevents accidental
+forgotten copies.
+
+1.3.94.jcn3
+===========
+
+* Added Arpeggio and Trill elements to feta font.
+
+* Yet another bugfix for output-property (Han-Wen)
+
+* Made some fixes to les-nereides.
+
+* Fixed output-property (Dankje).
+
+* Added backend framework for arpeggios.
+
+* Fixes for les-nereides.  Should we do asymmetric slurs...?
+
+* Don't print repeat bars at start of line.
+
+1.3.94
+======
+
 1.3.93.uu1
 ==========
 
