@@ -1,5 +1,8 @@
 2004-04-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scripts/abc2ly.py: ABC beams preserve support (courtesy Guy
+	Gascoigne-Piggford).  Also: TAB and whitespace fixes.
+
 	* lily/lexer.ll: Allow \encoding in NOTES mode.
 
 	* buildscripts/mf-to-table.py (write_fontlist): Use \lyrics

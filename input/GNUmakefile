@@ -1,8 +1,8 @@
 depth = ..
 
-SUBDIRS=test regression tutorial no-notation template mutopia 
+SUBDIRS = test regression tutorial no-notation template mutopia 
 
-examples= les-nereides puer-fragment wilhelmus
+examples = simple simple-song les-nereides puer-fragment wilhelmus paddy
 
 LOCALSTEPMAKE_TEMPLATES=ly mutopia
 EXTRA_DIST_FILES=paddy.abc
