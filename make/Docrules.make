@@ -20,25 +20,23 @@ $(outdir)/%.mudtex: %.doc
 $(outdir)/%$(DOTTEXT): $(outdir)/%.1
 	troff -man -Tascii $< | grotty -b -u -o > $@
 
-#$(depth)/%$(DOTTEXT): $(outdir)/%$(DOTTEXT)
-# urg
-# $(depth)/%$(DOTTEXT): out/%$(DOTTEXT)
-#	cp $< $@
-# huh?
-$(outdir)/%$(DOTTEXT): $(depth)/%
-	cp $< $@
-
 #  perl 5.003/4
 POD2HTML5004=$(POD2HTML) --noindex --infile $< --outfile=$@;  sh $(depth)/bin/add-URLs.sh $@
 
 POD2HTML5003=$(POD2HTML) $< ; mv $(notdir $@) $(outdir)/
 
-
+# we'll set pod2html5004 to default (hopefully), for now,
+# because almost everybody has that version.
+# 5004's pod2hmtl is broken, though; you should use pod2html of 5003
 do_pod2html=$(POD2HTML5004)
-
+# do_pod2html=$(POD2HTML5003)
 
 $(outdir)/%.html: %.pod $(depth)/VERSION
 	$(do_pod2html) 
+	add-html-footer $@
+
+$(outdir)/%.html: %.data $(depth)/VERSION
+	table-to-html $< $@
 	add-html-footer $@
 
 $(outdir)/%.5: %.pod

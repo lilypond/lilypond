@@ -1,3 +1,28 @@
+*********
+pl 64
+
+pl 63.jcn3
+	- beam stemlength stuff runtime
+	- dropped lq for beam-stemlengths, fixes [d d d] [d g d]
+	- ugly sed fix for commas in .ly.m4
+	- beam damp corrent fix
+	- scsii: small fixes
+	- preludes.ly; dropped silly preludes.tex
+
+pl 63.jcn2
+	- vocabulary on website
+	- data-to-html.py
+	- bf: beam damped-slope correct
+	- bf: make website
+	- some preludes-* fixes
+
+pl 63.jcn1
+	- "relative" sizes for titledefs
+	- bib2html/man2html urls in INSTALL.pod
+	- auto-generated feta stuff in doosdist
+	- bf's: make dist, docdeps
+	- bf's scsii
+
 pl 63
 	- non_fatal_error () (should use!)
 	- Mozart Horn concerto 3, horn part
