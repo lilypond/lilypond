@@ -106,12 +106,6 @@ examples: MIDI, PS, GIF and input.
 </a
 >
 
-=item *
-<a href=examples.html
->
-info on examples
-</a
->
 
 =item *
 <a href=TODO.txt
