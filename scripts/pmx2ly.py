@@ -209,7 +209,7 @@ class Clef:
 	def __init__ (self, cl):
 		self.type = cl
 	def dump(self):
-		return '\\clef %s;' % self.type
+		return '\\clef %s' % self.type
 
 clef_table = {
 	'b':'bass'  ,

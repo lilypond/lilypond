@@ -1,27 +1,24 @@
 
-\include "os-music.ly";
-\include "paper16.ly";
+\include "os-music.ly"
+\include "paper16.ly"
 
 \score {
   \context Staff <
+    \property Score.skipBars = ##t
     \property Staff.midiInstrument = #"flute"
     \global
     \Key
     \flautoII
   >
   \header {
-    instrument = "flute I";
+    instrument = "flute I"
   }
   \paper {
-    linewidth = 80 * \staffspace;
-    textheight = 40 * \staffspace;
-    \translator {
-      \OrchestralScoreContext
-      skipBars = ##t
-    }
+    linewidth = 80 * \staffspace
+    textheight = 40 * \staffspace
   }
   \midi {
-    \tempo 4 = 75;
+    \tempo 4 = 75
   }
 }
 

@@ -96,24 +96,24 @@ def check_clef(s):
 	      # about this we'll support that.
 	      s = s[4:]
 	      state.base_octave = -1
-	      voices_append("\\clef \"G_8\";\n")
+	      voices_append("\\clef \"G_8\"\n")
       elif re.match('^treble', s):
               s = s[6:]
               if re.match ('^-8', s):
                       s = s[2:]
                       state.base_octave = -2
-                      voices_append("\\clef \"G_8\";\n")
+                      voices_append("\\clef \"G_8\"\n")
               else:
                       state.base_octave = 0
-                      voices_append("\\clef treble;\n")
+                      voices_append("\\clef treble\n")
       elif re.match('^alto', s):
               s = s[4:]
               state.base_octave = -1
-              voices_append ("\\clef alto;\n" )
+              voices_append ("\\clef alto\n" )
       elif re.match('^bass',s ):
               s = s[4:]
               state.base_octave = -2
-              voices_append ("\\clef bass;\n" )
+              voices_append ("\\clef bass\n" )
       return s
 
 def select_voice (name, rol):
@@ -153,7 +153,7 @@ def dump_header (outf,hdr):
 	ks = hdr.keys ()
 	ks.sort ()
 	for k in ks:
-		outf.write ('\t%s = "%s";\n'% (k,hdr[k]))
+		outf.write ('\t%s = "%s"\n'% (k,hdr[k]))
  	outf.write ('}')
 
 def dump_lyrics (outf):
@@ -221,7 +221,7 @@ def dump_score (outf):
 	if part_names:
 		outf.write ("\t    \\translator \n\t    {\n")
 		outf.write ("\t\t\\StaffContext\n")
-		outf.write ("\t\t\\consists Staff_margin_engraver;\n")
+		outf.write ("\t\t\\consists Staff_margin_engraver\n")
 		outf.write ("\t    }\n")
 	outf.write ("\t}\n\t\\midi {}\n}\n")
 
@@ -548,7 +548,7 @@ def try_parse_header_line (ln, state):
 				set_default_len_from_time_sig (a)
 			else:
 				length_specified = 0
-			voices_append ('\\time %s;' % a)
+			voices_append ('\\time %s' % a)
 			state.next_bar = ''
 		if g == 'K': # KEY
 			a = check_clef(a)
@@ -564,11 +564,11 @@ def try_parse_header_line (ln, state):
 						key_info = m.group(1)
 						clef_info = m.group(2)
 					__main__.global_key  = compute_key (key_info)# ugh.
-					voices_append ('\\key %s;' % lily_key(key_info))
+					voices_append ('\\key %s' % lily_key(key_info))
 					check_clef(clef_info)
 				else:
 					__main__.global_key  = compute_key (a)# ugh.
-					voices_append ('\\key %s \\major;' % lily_key(a))
+					voices_append ('\\key %s \\major' % lily_key(a))
 		if g == 'N': # Notes
 			header ['footnotes'] = header['footnotes'] +  '\\\\\\\\' + a
 		if g == 'O': # Origin
@@ -599,9 +599,9 @@ def try_parse_header_line (ln, state):
 				state.next_bar = ''
 			select_voice (voice, rest)
 		if g == 'W':	# Words
-			lyrics_append(a);
+			lyrics_append(a)
 		if g == 'w':	# vocals
-			slyrics_append (a);
+			slyrics_append (a)
 
 		return ''
 	return ln
@@ -702,7 +702,7 @@ def parse_duration (str, parser_state):
 			str = str[1:]
 		while str[0] == '>':
 			str = str [1:]
-			current_dots = current_dots + 1;
+			current_dots = current_dots + 1
 			parser_state.next_den = parser_state.next_den * 2
 		
 		while str[0] == '<':
@@ -954,16 +954,16 @@ old_bar_dict = {
 '|' :  '|'
 }
 bar_dict = {
- '|]' : '\\bar "|.";',
- '||' : '\\bar "||";',
- '[|' : '\\bar "||";',
+ '|]' : '\\bar "|."',
+ '||' : '\\bar "||"',
+ '[|' : '\\bar "||"',
  ':|' : '}',
  '|:' : '\\repeat volta 2 {',
  '::' : '} \\repeat volta 2 {',
  '|1' : '} \\alternative{{',
  '|2' : '} {',
  ':|2' : '} {',
- '|' :  '\\bar "|";'
+ '|' :  '\\bar "|"'
   }
 
 
@@ -986,14 +986,14 @@ def try_parse_bar (str,state):
 		if str[:trylen] and bar_dict.has_key (str[:trylen]):
 			s = str[:trylen]
 			if using_old:
-				bs = "\\bar \"%s\";" % old_bar_dict[s]
+				bs = "\\bar \"%s\"" % old_bar_dict[s]
 			else:
 				bs = "%s" % bar_dict[s]
 			str = str[trylen:]
 			if s in alternative_opener:
 				if not in_repeat[current_voice_idx]:
 					using_old = 't'
-					bs = "\\bar \"%s\";" % old_bar_dict[s]
+					bs = "\\bar \"%s\"" % old_bar_dict[s]
 				else:
 					doing_alternative[current_voice_idx] = 't'
 
@@ -1006,7 +1006,7 @@ def try_parse_bar (str,state):
 					if doing_alternative[current_voice_idx]:
 						do_curly = 't'
 				if using_old:
-					bs = "\\bar \"%s\";" % old_bar_dict[s]
+					bs = "\\bar \"%s\"" % old_bar_dict[s]
 				else:
 					bs =  bar_dict[s]
 				doing_alternative[current_voice_idx] = ''
@@ -1014,7 +1014,7 @@ def try_parse_bar (str,state):
 			if s in repeat_opener:
 				in_repeat[current_voice_idx] = 't'
 				if using_old:
-					bs = "\\bar \"%s\";" % old_bar_dict[s]
+					bs = "\\bar \"%s\"" % old_bar_dict[s]
 				else:
 					bs =  bar_dict[s]
 			break
@@ -1083,7 +1083,7 @@ def try_parse_chord_delims (str, state):
 		str = str[1:]
 
 	
-	voices_append ("\\spanrequest \\stop \"slur\"" * end);
+	voices_append ("\\spanrequest \\stop \"slur\"" * end)
 	voices_append (ch)
 	return str
 

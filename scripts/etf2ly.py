@@ -283,7 +283,7 @@ articulation_dict ={
 	1: '.',
 	3: '>',
 	18: '"arp"' , # arpeggio
-};
+}
 
 class Articulation:
 	def __init__ (self, a,b, finale):
@@ -466,15 +466,15 @@ class Staff:
 			g = m.global_measure
 			e = ''
 			if g and last_key <> g.keysignature:
-				e = e + "\\key %s \\major; " % lily_notename (g.keysignature)
+				e = e + "\\key %s \\major " % lily_notename (g.keysignature)
 				last_key = g.keysignature
 			if g and last_time <> g.timesig :
-				e = e + "\\time %d/%d; " % g.timesig
+				e = e + "\\time %d/%d " % g.timesig
 				last_time = g.timesig
 
 			
 			if last_clef <> m.clef :
-				e = e + '\\clef "%s";' % lily_clef (m.clef)
+				e = e + '\\clef "%s"' % lily_clef (m.clef)
 				last_clef = m.clef
 			if e:
 				if gap <> (0,1):
