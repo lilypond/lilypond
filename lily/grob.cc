@@ -240,7 +240,6 @@ Grob::get_uncached_stencil () const
 	stil = Stencil (m->extent_box (), SCM_EOL).smobbed_copy ();
       else
 	{
-	  
 	  SCM expr = m->expr ();
 	  if (point_and_click_global)
 	    expr = scm_list_3 (ly_symbol2scm ("grob-cause"), self_scm (), expr);

@@ -1,33 +1,12 @@
 ##
 ## settings to run LilyPond
 
-
+# environment settings.
 export PATH:=$(builddir)/lily/$(outconfbase):$(builddir)/buildscripts/$(outconfbase):$(builddir)/scripts/$(outconfbase):$(PATH):
-
-# LilyPond is often run from within $(outdir), making a relative
-# PREFIX incorrect.
 export LILYPONDPREFIX:=$(build_lilypond_datadir)/$(TOPLEVEL_VERSION)
-
 export PYTHONPATH:=$(builddir)/python/$(outconfbase):$(PYTHONPATH)
 
-export GUILE_LOAD_PATH:=$(builddir):$(GUILE_LOAD_PATH)
 
-## arg, TEXINPUTS, TFMFONTS, MFINPUTS may still override and thus break this
-export TEXMF:={$(LILYPONDPREFIX),$(shell kpsexpand \$$TEXMF)}
-
-export MFINPUTS:=
-export TEXINPUTS:=
-export TFMFONTS:=
-export extra_mem_top=1000000
-export extra_mem_bottom=1000000
-export pool_size=500000
-
-
-ifdef DEB_BUILD
-export PKFONTS := $(topdir)/mf/out
-export MT_DESTROOT := $(topdir)/mf/out
-export DVIPSMAKEPK := mktexpk --destdir $(topdir)/mf/out
-endif
 
 
 the-script-dir=$(wildcard $(script-dir))
