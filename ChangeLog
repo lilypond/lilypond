@@ -1,5 +1,13 @@
+
+2002-04-13  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/note-spacing.cc (stem_dir_correction): set fixed space for
+	knee correction. Fixes tight spacing for knees.
+
 2002-04-12  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION: 1.5.52 released
+	
 	* lily/*.cc: add some undocced properties.
 	scm/grob-description.scm: idem.
 
@@ -35,6 +43,7 @@
 	* scripts/lilypond-book.py (LatexPaper.set_geo_option): Simplify
 	and correct the handling of geometry options.
 
+>>>>>>> 1.75
 2002-04-10  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/include/grob-interface.hh (ADD_INTERFACE): make

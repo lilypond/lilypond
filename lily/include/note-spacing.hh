@@ -18,7 +18,8 @@ public:
   static bool has_interface (Grob*);
 
   static void get_spacing (Grob *me, Item* , Real, Real, Real*, Real*);
-  static Real stem_dir_correction (Grob *me, Item * next_col, Real incr);  
+  static void stem_dir_correction (Grob *me, Item * next_col, Real incr,
+				   Real*, Real*);
   static Item * right_column (Grob*);
   static Item * left_column (Grob*);  
 };

@@ -113,7 +113,7 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
       *space += 0.5 * (( -extents[RIGHT][LEFT]) >? 0);
     }
 
-  *space += stem_dir_correction (me, right_col, increment);
+  stem_dir_correction (me, right_col, increment, space, fixed);
 }
 
 Item *
@@ -197,9 +197,10 @@ Note_spacing::right_column (Grob*me)
    TODO: have to check wether the stems are in the same staff.
 
 */
-Real
+void
 Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
-				   Real increment)  
+				   Real increment,
+				   Real * space, Real *fixed)  
 {
   Drul_array<Direction> stem_dirs(CENTER,CENTER);
   Drul_array<Interval> stem_posns;
@@ -247,13 +248,12 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 		  break;
 		}
 
-	      goto exit_func; 
+	      return ;
 	    }
 	  
 	  if(Stem::invisible_b (stem))
 	    {
-	      correct = false;
-	      goto exit_func ;
+	      return ;
 	    }
 
 	  beams_drul[d] = Stem::beam_l (stem);
@@ -262,8 +262,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	  Direction sd = Stem::get_direction (stem);
 	  if (stem_dirs[d] && stem_dirs[d] != sd)
 	    {
-	      correct = false;
-	      goto exit_func;
+	      return ; 
 	    }
 	  stem_dirs[d] = sd;
 
@@ -274,8 +273,8 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	  if (d == LEFT
 	      && Stem::duration_log (stem) > 2  && !Stem::beam_l (stem))
 	    {
-	      correct = false;
-	      goto exit_func;
+
+	      return;
 	    }
 	  
 
@@ -296,7 +295,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 
   */
   if (acc_right)
-    return 0.0;
+    return ;
 
   if (!bar_yextent.empty_b())
     {
@@ -313,6 +312,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	  */
 	  
 	  correction = increment* stem_dirs[LEFT];
+	  *fixed += increment* stem_dirs[LEFT];
 	}
       else
 	{
@@ -321,7 +321,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	  correct = correct && !intersect.empty_b ();
 
 	  if (!correct)
-	    return 0.0;
+	    return;
 	  
 	  correction = abs (intersect.length ());	  
 
@@ -364,7 +364,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
       Interval hp = head_posns[LEFT];
       hp.intersect  (head_posns[RIGHT]);
       if (!hp.empty_b())
-	return 0.0;
+	return ;
 
       Direction lowest =
 	(head_posns[LEFT][DOWN] > head_posns[RIGHT][UP]) ? RIGHT : LEFT;
@@ -378,9 +378,8 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 
   if (!bar_xextent.empty_b())
     correction += - bar_xextent[LEFT];
-  
- exit_func:
-  return correction;
+
+  *space += correction;
 }
  
 
