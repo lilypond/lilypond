@@ -243,7 +243,9 @@ Syntax: \\fraction MARKUP1 MARKUP2."
 
 
 (define-public (note-markup grob props . rest)
-  "Syntax: \\note #LOG #DOTS #DIR. "
+  "Syntax: \\note #LOG #DOTS #DIR.  By using fractional values
+for DIR, you can obtain longer or shorter stems."
+ 
   (let*
       (
        (log (car rest))
