@@ -32,6 +32,7 @@ struct Request {
     virtual Slur_req *slur() { return 0 ; }
     virtual Rhythmic_req*rhythmic() { return 0; }
     virtual Melodic_req *melodic() { return 0; }
+    virtual Mark_req * mark() { return 0; }
 };
 
 /**
@@ -107,6 +108,7 @@ struct Stem_req : Request {
     virtual Stem_req *stem() {return this;}
     Stem_req(int s) { stem_number = s; }
     Request*clone() const;
+    virtual void print() const;
 };
 
 /// requests to start or stop something.
@@ -178,6 +180,16 @@ struct Text_req : Request {
     Text_req(Text_req const&);
 };
 
+/// designate this spot with a name.
+struct Mark_req : Request {
+    String mark_str_;
+    /****************/
+    Mark_req(String);
+    Mark_req* mark() { return this; }
+    virtual void print() const;
+    Request *clone() const;
+};
+
 
 #if 0
 
@@ -214,12 +226,12 @@ Start/stop a bracket at this note. if #nplet# is set, the staff will
 try to put an appropriate number over the bracket
 */
 
-struct Subtle_request {
+struct Subtle_req {
     Moment subtime;
 };
 
 /// helper in the hierarchy
-struct Dynamic:Subtle_request {
+struct Dynamic:Subtle_req {
 
 };
 /** Each dynamic is bound to one note ( a crescendo spanning multiple
@@ -249,7 +261,7 @@ struct Absdynamic_req : Request, Dynamic {
     Loudness loudness;
 };
 
-struct Grace_req : Subtle_request {
+struct Grace_req : Subtle_req {
     
 };
 
@@ -264,5 +276,15 @@ struct Grace_note : Melodic_req {
 struct Grace_notes {
     
 };
+
+struct Spacing_req {
+    Moment next;
+    Real distance;
+};
+
+struct Glissando_req : Span_req {
+    
+};
+
 #endif
 #endif
