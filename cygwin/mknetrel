@@ -307,6 +307,10 @@ prebuild () {
 }
 
 preinstall () {
+    cd $build || exit 1
+    cp -v scripts/out-for-build/midi2ly.1 scripts/out
+    cp -v lily/out-for-build/lilypond.1 lily/out
+    
     addmakeflags MAKE_PFA_FILES=1 ' ' LDFLAGS="$cygwin_prefix/bin/libpython2.2.dll" ' ' 'target=i686-pc-cygwin'
 }
 
