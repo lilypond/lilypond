@@ -111,6 +111,24 @@ dump_fields ()
   return fields;
 }
 
+LY_DEFINE(ly_output_formats, "ly:output-formats",
+	  0, 0, 0, (),
+	  "Formats passed to --format as a list of strings, "
+	  "used for the output.")
+{
+  Array<String> output_formats = split_string (output_format_global, ',');
+
+  SCM l = SCM_EOL;
+  for (int i = 0; i < output_formats.size (); i ++)
+    {
+      l = scm_cons (scm_makfrom0str  (output_formats[i].to_str0 ()), l); 
+    }
+
+  return l; 
+}
+	  
+
+
 /*
   TODO: there is too much code dup, and the interface is not
   clear. FIXME.
@@ -124,14 +142,14 @@ Paper_book::output (String outname)
   /* Generate all stencils to trigger font loads.  */
   pages ();
 
-  Array<String> output_formats = split_string (output_format_global, ',');
-
-  for (int i = 0; i < output_formats.size (); i++)
+  
+  SCM formats = ly_output_formats();
+  for (SCM s = formats; ly_c_pair_p (s); s = ly_cdr (s)) 
     {
-      String format = output_formats[i];
-      Paper_outputter *out = get_paper_outputter (outname + "." + output_formats[i], format);
       
+      String format = ly_scm2string (ly_car (s));
       
+      Paper_outputter *out = get_paper_outputter (outname + "." + format, format);
 
   
       SCM scopes = SCM_EOL;

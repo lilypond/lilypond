@@ -369,10 +369,7 @@ L1 is copied, L2 not.
   (not (= l r)))
 
 (define-public (ly:load x)
-  (let* (
-	 (fn (%search-load-path x))
-
-	 )
+  (let* ((fn (%search-load-path x)))
     (if (ly:get-option 'verbose)
 	(format (current-error-port) "[~A]" fn))
     (primitive-load fn)))
@@ -380,11 +377,17 @@ L1 is copied, L2 not.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  output
-(use-modules
- (scm framework-gnome)
- (scm framework-tex)
- (scm framework-ps))
 
+
+;; only load modules necessary.
+(eval
+ (cons use-modules
+       (map (lambda (x)
+	      (list 'scm (string->symbol (string-append "framework-" x))))
+	    (ly:output-formats)))
+ (current-module))
+       
+   
 (define output-tex-module
   (make-module 1021 (list (resolve-interface '(scm output-tex)))))
 (define output-ps-module
