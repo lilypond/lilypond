@@ -1,6 +1,8 @@
 \version "1.7.18"
 % regression or delete.
 
+%delete; covered in refman -hwn.
+
 \score
 {
 \context Voice \notes \relative c'' {

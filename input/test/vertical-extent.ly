@@ -3,7 +3,7 @@
 
 \header { texidoc = "
 Vertical extents may be overriden by
-verticalExtent, verticalExtent, verticalExtent. These are
+minimumVerticalExtent, extraVerticalExtent, and  verticalExtent. These are
 normal property values, and are written into the grob when the
 associated context finishes, so using it in \property works.
 " }
