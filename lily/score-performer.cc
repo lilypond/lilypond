@@ -39,10 +39,6 @@ Score_performer::play (Audio_element * p)
     {
       audio_column_l_->add_audio_item (i);
     }
-  else if (Audio_staff*s=dynamic_cast<Audio_staff *> (p)) 
-    {
-      performance_p_->add_staff (s);
-    }
   performance_p_->add_element (p);
 }
 
@@ -51,7 +47,7 @@ Score_performer::prepare (Moment m)
 {
   Global_translator::prepare (m);
   audio_column_l_ = new Audio_column (m);
-  performance_p_->add_column (audio_column_l_);
+  play (audio_column_l_);
   post_move_processing ();
 }
 

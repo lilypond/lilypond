@@ -21,10 +21,7 @@ public:
   Performance ();
   ~Performance ();
 
-  void add_column (Audio_column*);
-  void add_staff (Audio_staff* l);
   void add_element (Audio_element*p);
-
     
   void output (Midi_stream& midi_stream_r);
   void output_header_track (Midi_stream& midi_stream_r);

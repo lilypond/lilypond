@@ -21,7 +21,7 @@ Audio_column::Audio_column (Moment at_mom)
 void
 Audio_column::add_audio_item (Audio_item* l)
 {
-  audio_item_l_list_.bottom().add (l);
+  audio_item_l_arr_.push (l);
   l->audio_column_l_ = this; 
 }
 
@@ -37,8 +37,8 @@ Audio_column::print() const
 #ifndef NPRINT
   DOUT << "Audio_column {";
   DOUT << "at: " << at_mom_ << ". Contains:";
-  for (PCursor<Audio_item*> i (audio_item_l_list_.top ()); i.ok (); i++)
-    DOUT << classname (i.ptr ()) << ", ";
+  for (int i =0; i < audio_item_l_arr_.size (); i++)
+    DOUT << classname (audio_item_l_arr_[i]) << ", ";
   DOUT << "\n}\n";
 #endif 
 }
