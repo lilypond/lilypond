@@ -110,12 +110,12 @@ Break_align_interface::do_alignment (Score_element *me)
 	}
       else
 	next_origin = ly_symbol2scm ("begin-of-note");
-      
+
+      SCM alist = me->get_elt_property ("space-alist");
       SCM e = scm_assoc (scm_listify (current_origin,
 				      next_origin,
-				      SCM_UNDEFINED),
-			 scm_eval2 (ly_symbol2scm ("space-alist"), SCM_EOL));
-      
+				      SCM_UNDEFINED), alist);
+          
       SCM extra_space;
       if (e != SCM_BOOL_F)
 	{

@@ -28,7 +28,6 @@ public:
   ~Dynamic_performer ();
 
 protected:
-  void do_print () const;
   virtual bool do_try_music (Music* req_l);
   virtual void do_process_music ();
   virtual void do_pre_move_processing ();
@@ -50,31 +49,24 @@ Dynamic_performer::~Dynamic_performer ()
 {
 }
 
-void
-Dynamic_performer::do_print () const
-{
-#ifndef NPRINT
-  if (text_script_req_l_)
-    text_script_req_l_->print ();
-#endif
-}
 
 void
 Dynamic_performer::do_process_music ()
 {
   if (text_script_req_l_)
     {
-      
-      SCM s = scm_eval2
-	(gh_list
-	 (ly_symbol2scm ("dynamic-absolute-volume"),
-	  ly_quote_scm (ly_str02scm (text_script_req_l_->text_str_.ch_C ())),
-	  SCM_UNDEFINED),
-	 SCM_EOL);
-      Real volume = gh_scm2double (scm_eval2 (ly_symbol2scm ("dynamic-default-volume"), SCM_EOL));
-      if (gh_number_p (s))
-	volume = gh_scm2double (s);
-      
+      SCM proc = get_property ("dynamicAbsoluteVolumeFunction");
+
+      SCM svolume  = SCM_EOL;
+      if (gh_procedure_p (proc))
+	{
+	  svolume = gh_call1 (proc, ly_str02scm (text_script_req_l_->text_str_.ch_C ())); 
+	}
+
+      Real volume = 0.5; 
+      if (gh_number_p (svolume))
+	volume = gh_scm2double (svolume);
+
       /*
 	properties override default equaliser setting
        */
@@ -94,7 +86,7 @@ Dynamic_performer::do_process_music ()
 	  /*
 	    urg, code duplication:: staff_performer
 	  */
-	  s = get_property ("midiInstrument");
+	  SCM s = get_property ("midiInstrument");
 	  
 	  if (!gh_string_p(s))
 	    s = get_property ("instrument");
@@ -103,9 +95,12 @@ Dynamic_performer::do_process_music ()
 	    s = ly_str02scm ("piano");
 	  
 	  
-	  s = scm_eval2 (gh_list (ly_symbol2scm ("instrument-equaliser"),
-				 s, SCM_UNDEFINED),
-			 SCM_EOL);
+	  SCM eq = get_property ("instrumentEqualizer");
+	  if (gh_procedure_p (eq))
+	    {
+	      s = gh_call1 (eq, s);
+	    }
+
 	  if (gh_pair_p (s))
 	    {
 	      Interval iv;

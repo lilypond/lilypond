@@ -34,7 +34,7 @@ public:
   
 protected:
   virtual Musical_pitch to_relative_octave (Musical_pitch);
-  virtual void do_print() const;
+
 
 };
 #endif

@@ -18,7 +18,7 @@ class Transposed_music : public Music_wrapper
 public:
   Musical_pitch transpose_to_pitch_;
 
-  void do_print () const;
+
   Transposed_music (Music*, Musical_pitch);
   
   VIRTUAL_COPY_CONS(Music);

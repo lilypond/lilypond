@@ -27,6 +27,9 @@ class Engraver_group_engraver : public Engraver,
 {
 protected:
   Array<Score_element_info> announce_info_arr_;
+
+  
+  
 public:
   VIRTUAL_COPY_CONS(Translator);
     

@@ -113,10 +113,6 @@ Tex_font_metric_reader::read_header ()
   info_.coding_scheme = header_length > 2
     ? get_bcpl_str () : "unspecified";
 
-  DEBUG_OUT << format_str ("TFM checksum = %u, design_size = %fpt, coding scheme = `%s'.\n",
-		      info_.checksum,
-		      info_.design_size,
-		      info_.coding_scheme.ch_C ());
 }
 
 /* Although TFM files are only usable by TeX if they have at least seven
@@ -154,10 +150,6 @@ Tex_font_metric_reader::read_params ()
   for (Char_code i = 2; i <= header_.param_word_count; i++)
     info_.parameters[i - 1] = get_U32_fix_scaled_f ();
 
-#ifdef PRINT
-  for (Char_code i = 1; i <= header_.param_word_count; i++)
-    DEBUG_OUT << format_str ("TFM parameter %d: %.3f", i, info_.parameters[i - 1]);
-#endif
 }
 
 /* Read every character in the TFM file, storing the result in the
@@ -246,13 +238,6 @@ Tex_font_metric_reader::read_char ()
      `char_info_word').  */
   tfm_char.exists_b_ = width_index != 0;
 
-#ifdef PRINT
-  DEBUG_OUT << format_str ("   width = %f, height = %f, ",
-		      tfm_char.width_, tfm_char.height_);
-  DEBUG_OUT << format_str ("depth = %f, ic = %f.\n",
-		      tfm_char.depth, tfm_char.italic_correction); 
-#endif
-
   if (tag == 1)
     {
       input_.seek_ch_C (header_.lig_kern_pos + remainder * 4);
@@ -283,9 +268,6 @@ Tex_font_metric_reader::read_lig_kern_program (Array <Tfm_ligature>* ligature_ar
       bool kern_step_b = input_.get_U8 () >= KERN_FLAG;
       U8 remainder = input_.get_U8 ();
 
-#ifdef PRINT
-      DEBUG_OUT << format_str ("   if next = %u (%c), ", next_char, next_char);
-#endif
 
       if (kern_step_b)
 	{
@@ -299,9 +281,6 @@ Tex_font_metric_reader::read_lig_kern_program (Array <Tfm_ligature>* ligature_ar
 
 	  kern_arr_p->push (kern_element);
 
-#ifdef PRINT
-	  DEBUG_OUT << format_str ("kern %f.\n", kern_element.kern);
-#endif
 	}
       else
 	{
@@ -310,11 +289,6 @@ Tex_font_metric_reader::read_lig_kern_program (Array <Tfm_ligature>* ligature_ar
 	  ligature_element.ligature = remainder;
 	  ligature_arr_p->push (ligature_element);
 
-#ifdef PRINT
-	  DEBUG_OUT format_str ("ligature %d (hex %x).\n",
-			   ligature_element.ligature,
-			   ligature_element.ligature);
-#endif
 	}
   } while (!end_b);
 }

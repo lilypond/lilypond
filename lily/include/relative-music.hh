@@ -17,7 +17,7 @@ class Relative_octave_music : public Music_wrapper
 public:
   Musical_pitch last_pitch_;
 
-  void do_print () const;
+
   Relative_octave_music (Music*, Musical_pitch);
   
   VIRTUAL_COPY_CONS(Music);

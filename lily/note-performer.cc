@@ -20,15 +20,7 @@ Note_performer::Note_performer ()
 {
 }
 
-void 
-Note_performer::do_print () const
-{
-#ifndef NPRINT
-  if (note_req_l_arr_.size()>0)
-    for(int i=0;i<note_req_l_arr_.size();i++)
-      note_req_l_arr_[i]->print ();
-#endif
-}
+
 
 void 
 Note_performer::do_process_music () 

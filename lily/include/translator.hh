@@ -37,7 +37,7 @@ public:
   
   Translator_group * daddy_trans_l_ ;
  
-  void print () const;
+
   
   /**
     try to fit the request in this engraver
@@ -96,7 +96,7 @@ protected:
 	*/
   virtual void do_add_processing ();
   virtual bool do_try_music (Music *req_l);
-  virtual void do_print () const;
+
   virtual void do_pre_move_processing();
   virtual void do_post_move_processing();
   virtual void do_process_music () ;

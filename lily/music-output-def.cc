@@ -56,10 +56,11 @@ SCM
 Music_output_def::find_translator_l (SCM name) const
 {
   String s = ly_scm2string (name);
+  
+  SCM val  =SCM_EOL;
   if (translator_p_dict_p_->elem_b (s))
     return translator_p_dict_p_->scm_elem (s);
-
-  return SCM_EOL;
+  return val;
 }
 
 
@@ -77,10 +78,7 @@ Music_output_def::get_global_translator_p ()
   return dynamic_cast <Global_translator *> (tg);
 }
 
-void
-Music_output_def::print () const
-{
-}
+
 
 String
 Music_output_def::get_default_output () const

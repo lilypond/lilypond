@@ -39,6 +39,19 @@ Staff_symbol_referencer::line_count (Score_element*me)
   return st  ?  Staff_symbol::line_count (st) : 0;
 }
 
+bool
+Staff_symbol_referencer::on_staffline (Score_element*me)
+{
+  return on_staffline (me, (int) position_f (me));
+}
+
+bool
+Staff_symbol_referencer::on_staffline (Score_element*me, int pos)
+{
+  int sz = line_count (me)-1;
+  return ((pos + sz) % 2) == 0;
+}
+
 Score_element*
 Staff_symbol_referencer::staff_symbol_l (Score_element*me) 
 {

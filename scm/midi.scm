@@ -23,7 +23,7 @@
 	)
       absolute-volume-alist))
 
-(define (dynamic-absolute-volume s)
+(define (default-dynamic-absolute-volume s)
   (let ((entry (assoc s absolute-volume-alist)))
     (if entry
 	(cdr entry))))
@@ -47,7 +47,7 @@
 	 )
        instrument-equaliser-alist))
 
-(define (instrument-equaliser s)
+(define (default-instrument-equaliser s)
   (let ((entry (assoc s instrument-equaliser-alist)))
     (if entry
 	(cdr entry))))

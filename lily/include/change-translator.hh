@@ -20,7 +20,6 @@ public:
   
 protected:
   VIRTUAL_COPY_CONS(Music);
-  void do_print () const;
 };
 
 

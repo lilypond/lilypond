@@ -67,7 +67,7 @@ praeludiumLeft = \notes \relative c {
       dis2 cis4 r8 cis }
     \context Voice = one { \stemup bis2 }
     \context Voice = three {
-    \property Voice.dynamicDirection  = \down
+    \property Voice.basicDynamicLineSpannerProperties \push #'direction  = #-1
     \stemup \shifton r4 gis ~ [gis8
       \<
 
@@ -98,23 +98,23 @@ fugaIIRight = \notes   \relative c''   {
 
   \context Staff \notes\relative c''<
        \context Voice=one {
-	  \property Voice.horizontalNoteShift=0
-	  \property Voice.verticalDirection=1 
+       \shiftoff
+       \stemup
 	  e4 
        }
        \context Voice=two {
-	  \property Voice.verticalDirection=1 
-	  \property Voice.horizontalNoteShift=1
+	  \shifton
+	  \stemup
 	  cis
        }
        \context Voice=three {
-	  \property Voice.horizontalNoteShift=2
-	  \property Voice.verticalDirection=1 
+	  \shiftonn
+	  \stemup
 	  ais
        }
        \context Voice=four {
-	  \property Voice.verticalDirection=-1 
-	  \property Voice.horizontalNoteShift=-1
+	  \shiftonnn
+	  \stemup
 	  fis
        }
   >

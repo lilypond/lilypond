@@ -53,7 +53,7 @@ ly_parse_scm (char const* s, int* n)
 
   /* Read expression from port */
   if (!SCM_EOF_OBJECT_P (form = scm_read (port)))
-    answer = scm_eval_3 (form, 1, SCM_EOL);
+    answer = scm_eval_3 (form, 1, SCM_EOL); // guh?
 
   /*
    After parsing
@@ -99,6 +99,7 @@ ly_symbol2scm(const char *s)
 {
   return gh_symbol2scm ((char *)s);
 }
+
 
 String
 ly_symbol2string (SCM s)
@@ -345,7 +346,7 @@ ly_number2string (SCM s)
 {
   assert (gh_number_p (s));
 
-  char str[100];			// ugh.
+  char str[400];			// ugh.
 
   if (scm_integer_p (s) == SCM_BOOL_F)
     {
@@ -399,11 +400,11 @@ undefd ()
 static void
 init_functions ()
 {
-  scm_make_gsubr ("ly-warn", 1, 0, 0, (SCM(*)())ly_warning);
-  scm_make_gsubr ("ly-gulp-file", 1,0, 0, (SCM(*)())ly_gulp_file);
-  scm_make_gsubr ("dir?", 1,0, 0, (SCM(*)())ly_isdir_p);
-  scm_make_gsubr ("undefd", 0,0, 0, (SCM(*)())undefd);  
-  scm_make_gsubr ("ly-number->string", 1, 0,0, (SCM(*)()) ly_number2string);
+  scm_make_gsubr ("ly-warn", 1, 0, 0, (Scheme_function_unknown)ly_warning);
+  scm_make_gsubr ("ly-gulp-file", 1,0, 0, (Scheme_function_unknown)ly_gulp_file);
+  scm_make_gsubr ("dir?", 1,0, 0, (Scheme_function_unknown)ly_isdir_p);
+  scm_make_gsubr ("undefd", 0,0, 0, (Scheme_function_unknown)undefd);  
+  scm_make_gsubr ("ly-number->string", 1, 0,0, (Scheme_function_unknown) ly_number2string);
 
 
 #ifdef TEST_GC 

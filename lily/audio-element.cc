@@ -18,17 +18,4 @@ Audio_element::~Audio_element()
 {
 }
 
-void
-Audio_element::print () const
-{
-#ifndef NPRINT
-  DEBUG_OUT << classname (this) << "{ ";
-  do_print ();
-  DEBUG_OUT << "}";
-#endif
-}
 
-void
-Audio_element::do_print ()const
-{
-}

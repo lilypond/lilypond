@@ -9,10 +9,7 @@
 #include "request.hh"
 #include "debug.hh"
 
-void
-Request::do_print() const
-{
-}
+
 
 bool
 Request::equal_b (Request const* r) const

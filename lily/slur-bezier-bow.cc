@@ -149,10 +149,6 @@ Slur_bezier_bow::minimise_enclosed_area (Paper_def* paper_l, Real beauty)
   Real length = curve_.control_[3][X_AXIS]; 
   Real beautiful = beauty * length * slur_height (length, h_inf_, r_0_);
 
-  DEBUG_OUT << to_str ("Beautiful: %f\n", beautiful);
-  DEBUG_OUT << to_str ("Length: %f\n", length);
-  //  DEBUG_OUT << to_str ("D-height: %f\n", default_height);
-  DEBUG_OUT << to_str ("FitFac: %f\n", fit_factor ());
 
   if (fit_factor () > 1.0)
     blow_fit ();
@@ -186,20 +182,11 @@ Slur_bezier_bow::minimise_enclosed_area (Paper_def* paper_l, Real beauty)
 		<? abs ((curve_.control_[3][X_AXIS]
 			 - curve_.control_[2][X_AXIS]) / da[1]));
 
-      DEBUG_OUT << to_str ("pct: %f\n", pct);
-      DEBUG_OUT << to_str ("u: %f\n", u);
-
-      DEBUG_OUT << to_str ("da: (%f, %f)\n", da[0], da[1]);
-      DEBUG_OUT << to_str ("da*u: (%f, %f)\n", da[0]*u*pct, da[1]*u*pct);
-      DEBUG_OUT << to_str ("cx: (%f, %f)\n", curve_.control_[1][X_AXIS],
-			   curve_.control_[2][X_AXIS]);
-
       curve_.control_[1][X_AXIS] -= da[0] * u * pct;
       curve_.control_[2][X_AXIS] -= da[1] * u * pct;
     }
 
   Real area = enclosed_area_f ();
-  DEBUG_OUT << to_str ("Exarea: %f\n", area);
 }
 
 

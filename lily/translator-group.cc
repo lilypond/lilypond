@@ -272,12 +272,7 @@ Translator_group::each (Method_pointer method)
   static_each (trans_group_list_, method);
 }
 
-void
-Translator_group::do_print() const
-{
-#ifndef NPRINT
-#endif
-}
+
 
 void
 Translator_group::do_add_processing ()
@@ -307,15 +302,14 @@ Translator_group::where_defined (SCM sym) const
 SCM
 Translator_group::get_property (SCM sym) const
 {
-  if (properties_dict ()->elem_b (sym))
-    {
-      return properties_dict ()->get (sym);
-    }
+  SCM val =SCM_UNDEFINED;
+  if (properties_dict ()->try_retrieve (sym, &val))
+    return val;
 
   if (daddy_trans_l_)
     return daddy_trans_l_->get_property (sym);
   
-  return SCM_UNDEFINED;
+  return val;
 }
 
 void

@@ -43,6 +43,8 @@ A2_engraver::A2_engraver ()
 void
 A2_engraver::do_process_music ()
 {
+  if (!to_boolean (get_property ("combineParts")))
+    return ;
   if (!text_p_)
     {
       SCM unison = get_property ("unison");
@@ -89,6 +91,9 @@ A2_engraver::do_process_music ()
 void
 A2_engraver::acknowledge_element (Score_element_info i)
 {
+  if (!to_boolean (get_property ("combineParts")))
+    return ;
+  
   if (text_p_)
     {
       if (Note_head::has_interface (i.elem_l_))

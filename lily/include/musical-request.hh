@@ -23,7 +23,7 @@
 class Rhythmic_req  : public virtual Request  {
 public:
   Duration duration_;
-  virtual void do_print () const;
+
 
   bool do_equal_b (Request const*) const;
   void compress (Moment);
@@ -42,7 +42,7 @@ struct Tremolo_req : public Request {
   VIRTUAL_COPY_CONS (Music);
   Tremolo_req ();
   int type_i_;
-  virtual void do_print () const;
+
 };
 
 
@@ -50,7 +50,7 @@ struct Tremolo_req : public Request {
   */
 class Lyric_req  : public  Rhythmic_req  {
 public:
-  virtual void do_print () const;
+
   String text_str_;
   VIRTUAL_COPY_CONS(Music);
 };
@@ -62,7 +62,7 @@ public:
   String articulation_str_;
 protected:
   virtual bool do_equal_b (Request const*) const;
-  virtual void do_print () const;
+
   VIRTUAL_COPY_CONS(Music);
 };
 
@@ -75,7 +75,7 @@ public:
 protected:
   VIRTUAL_COPY_CONS(Music);
   virtual bool do_equal_b (Request const*)const;
-  virtual void do_print () const;
+
 };
 
 
@@ -90,7 +90,7 @@ protected:
   /// transpose. #delta# is relative to central c.
   virtual void transpose (Musical_pitch delta);
   virtual bool do_equal_b (Request const*) const;
-  virtual void do_print () const;
+
   VIRTUAL_COPY_CONS(Music);
 };
 
@@ -122,7 +122,7 @@ public:
   bool cautionary_b_;
   Note_req();
 protected:
-  virtual void do_print () const;
+
   bool do_equal_b (Request const*) const;
   VIRTUAL_COPY_CONS(Music);
 };

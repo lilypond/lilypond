@@ -59,7 +59,7 @@ public:
   Music (Music const &m);
   Music();
 protected:
-  virtual void do_print() const;
+
   DECLARE_SMOBS(Music,);
   SCM immutable_property_alist_;
   SCM mutable_property_alist_;

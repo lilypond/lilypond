@@ -38,10 +38,17 @@ import re
 import string
 import os
 
-finale_clefs= ['treble', 'alto', 'tenor', 'bass', 'percussion', 'treble8vb', 'bass8vb', 'baritone']
+finale_clefs= ['treble', 'alto', 'tenor', 'bass', 'percussion', 'treble_8', 'bass_8', 'baritone']
 
 def lily_clef (fin):
-	return finale_clefs[fin]
+	try:
+		return finale_clefs[fin]
+	except IndexError:
+		sys.stderr.write ( '\nHuh? Found clef number %d\n' % fin)
+
+	return 'treble'
+	
+	
 
 def gulp_file(f):
 	return open (f).read ()
@@ -289,6 +296,7 @@ class Articulation:
 			a = articulation_dict[self.type]
 		except KeyError:
 			sys.stderr.write ("\nUnknown articulation no. %d on note no. %d" % (self.type, self.notenumber))
+			sys.stderr.write ("\nPlease add an entry to articulation_dict in the Python source")
 			a = '"art"'
 			
 		c.note_suffix = '-' + a + c.note_suffix
@@ -457,22 +465,25 @@ class Staff:
 			
 			g = m.global_measure
 			e = ''
-			if last_key <> g.keysignature:
+			if g and last_key <> g.keysignature:
 				e = e + "\\key %s \\major; " % lily_notename (g.keysignature)
 				last_key = g.keysignature
-			if last_time <> g.timesig :
+			if g and last_time <> g.timesig :
 				e = e + "\\time %d/%d; " % g.timesig
 				last_time = g.timesig
+
+			
 			if last_clef <> m.clef :
-				e = e + '\\clef %s;' % lily_clef (m.clef)
+				e = e + '\\clef "%s";' % lily_clef (m.clef)
 				last_clef = m.clef
 			if e:
 				if gap <> (0,1):
 					k = k +' ' + rat_to_lily_duration (gap) + '\n'
 				gap = (0,1)
 				k = k + e
-			
-			gap = rat_add (gap, g.length ())
+				
+			if g:
+				gap = rat_add (gap, g.length ())
 
 				
 		k = '%sglobal = \\notes  { %s }\n\n ' % (self.staffid (), k)
@@ -505,8 +516,12 @@ class Staff:
 						gap = (0,1)
 					laystr = laystr + fr.dump ()
 				else:
-					gap = rat_add (gap, m.global_measure.length ())
-
+					if m.global_measure :
+						gap = rat_add (gap, m.global_measure.length ())
+					else:
+						sys.stderr.write ( \
+							"No global measure for staff %d measure %d\n"
+							% (self.number, m.number))
 			if first_frame:
 				l = self.layerid (x)
 				laystr = '%s =  \\notes { { %s } }\n\n' % (l, laystr)
@@ -756,14 +771,13 @@ class Etf_file:
 			  = tuple (map (string.atoi, [no,prev,next,dur,pos,extended,follow]))
 
 			entryflag = string.atol (entryflag,16)
-			if no > len (self.entries):
-				sys.stderr.write ("\nHuh? Entry number to large,\nexpected %d got %d. Filling with void entries.\n" % (len(self.entries), no  ))
-				while len (self.entries) <> no:
-					c = ((len (self.entries), 0, 0, 0, 0, 0L, 0, 0), [])
-					self.entries.append (c)
+			if len (self.entries) <= no:
+				# missing entries seem to be quite common.
+				# we fill'em up with None.
+				self.entries = self.entries + [None] * (no - len (self.entries) + 1)
 					
 			current_entry = ((no, prev, next, dur, pos, entryflag, extended, follow), [])
-			self.entries.append (current_entry)
+			self.entries[no] = current_entry
 		return m
 
 	def try_Sx(self,l):
@@ -801,14 +815,13 @@ class Etf_file:
 		if m:
 			(frameno, startnote, endnote, foo, bar) = m.groups ()
 			(frameno, startnote, endnote)  = tuple (map (string.atoi, [frameno, startnote, endnote]))
-			if frameno > len (self.frames):
-				sys.stderr.write ("Frame no %d missing, filling up to %d\n" % (len(self.frames), frameno))
-				while frameno <> len (self.frames):
-					self.frames.append (Frame ((len (self.frames), 0,0) ))
+			if len (self.frames) <= frameno:
+				self.frames = self.frames + [None]  * (frameno - len(self.frames) + 1)
 			
-			self.frames.append (Frame ((frameno, startnote, endnote)))
+			self.frames[frameno] = Frame ((frameno, startnote, endnote))
 			
 		return m
+	
 	def try_MS (self, l):
 		m = MSre.match (l)
 		if m:
@@ -878,7 +891,7 @@ class Etf_file:
 				try:
 					m.global_measure = self.measures[mno]
 				except IndexError:
-					sys.stderr.write ("non-existent global measure %d" % mno)
+					sys.stderr.write ("Non-existent global measure %d" % mno)
 					continue
 				
 				frame_obj_list = [None]
@@ -899,10 +912,12 @@ class Etf_file:
 				mno = mno + 1
 
 		for c in self.chords[1:]:
-			c.calculate()
+			if c:
+				c.calculate()
 
 		for f in self.frames[1:]:
-			f.calculate ()
+			if f:
+				f.calculate ()
 			
 		for t in self.tuplets[1:]:
 			t.calculate (self.chords)
@@ -962,9 +977,14 @@ class Etf_file:
 	def unthread_entries (self):
 		self.chords = [None]
 		for e in self.entries[1:]:
-			self.chords.append (Chord (e))
-
+			ch = None
+			if e:		
+				ch = Chord (e)
+			self.chords.append (ch)
+				
 		for e in self.chords[1:]:
+			if not e:
+				continue
 			e.prev = self.chords[e.finale[0][1]]
 			e.next = self.chords[e.finale[0][2]]
 

@@ -60,10 +60,10 @@ Note_head::brew_molecule (SCM smob)
   
   Real inter_f = Staff_symbol_referencer::staff_space (me)/2;
   int sz = Staff_symbol_referencer::line_count (me)-1;
-  Real p = Staff_symbol_referencer::position_f (me);
+  int p = (int)Staff_symbol_referencer::position_f (me);
   int streepjes_i = abs (p) < sz 
     ? 0
-    : (abs((int)p) - sz) /2;
+    : (abs(p) - sz) /2;
 
   SCM style  = me->get_elt_property ("style");
   if (!gh_symbol_p (style))
@@ -89,13 +89,15 @@ Note_head::brew_molecule (SCM smob)
       
 
       ledger.set_empty (true);
-      int parity =  abs(int (p)) % 2;
-      
+      Real offs = (Staff_symbol_referencer::on_staffline (me))
+	? 0.0
+	: -dir * inter_f;
+
       for (int i=0; i < streepjes_i; i++)
 	{
 	  Molecule s (ledger);
-	  s.translate_axis (-dir * inter_f * (i*2 + parity),
-			   Y_AXIS);
+	  s.translate_axis (-dir * inter_f * i*2 + offs,
+			    Y_AXIS);
 	  out.add_molecule (s);
 	}
     }

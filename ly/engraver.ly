@@ -397,7 +397,10 @@ ScoreContext = \translator {
 	defaultClef = #"treble"
 	defaultBarType = #"|"
 	systemStartDelimiterGlyph = #'bar-line
-
+	explicitClefVisibility = #all-visible
+	explicitKeySignatureVisibility = #all-visible
+	
+	scriptDefinitions = #default-script-alist
        %
        % what order to print accs.  We could compute this, 
        % but computing is more work than putting it here.
@@ -432,6 +435,7 @@ ScoreContext = \translator {
 		(interfaces . (bar-interface staff-bar-interface))
 		(break-align-symbol . Staff_bar)
 		(glyph . "|")
+		(break-glyph-function . ,default-break-barline)
 		(barsize-procedure . ,Bar::get_staff_bar_size)
 		(molecule-callback . ,Bar::brew_molecule)	   
 		(visibility-lambda . ,all-visible)
@@ -462,6 +466,7 @@ ScoreContext = \translator {
 		(interfaces . (break-align-interface))
 		(stacking-dir . 1)
 		(axes 0)
+		(space-alist . ,default-break-align-space-alist) 
 		(name . "break alignment")		
 	)
 	basicBreakAlignGroupProperties = #`(
@@ -490,6 +495,7 @@ ScoreContext = \translator {
 		(molecule-callback . ,Chord_name::brew_molecule)
 		(interfaces . (chord-name-interface))
 		(after-line-breaking-callback . ,Chord_name::after_line_breaking)
+		(chord-name-function . ,default-chord-name-function)
 		(name . "chord name")  
 	)
 	basicCollisionProperties = #`(
@@ -784,13 +790,6 @@ ScoreContext = \translator {
 		(name  . "sostenuto pedal")
 				
 	)
-	basicStemTremoloProperties = #`(
-	   	(molecule-callback . ,Stem_tremolo::brew_molecule)
-		(beam-width . 2.0) ; staff-space
-		(beam-thickness . 0.42) ; staff-space
-		(beam-space-function . ,default-beam-space-function)
-		(name . "stem tremolo")
-	)
 	basicStemProperties = #`(
 		(interfaces . (stem-interface))
 		(before-line-breaking-callback . ,Stem::before_line_breaking)
@@ -808,6 +807,14 @@ ScoreContext = \translator {
 		; if stem is on middle line, choose this direction.
 		(default-neutral-direction . 1)
 		(name . "stem")
+	)
+
+	basicStemTremoloProperties = #`(
+	   	(molecule-callback . ,Stem_tremolo::brew_molecule)
+		(beam-width . 2.0) ; staff-space
+		(beam-thickness . 0.42) ; staff-space
+		(beam-space-function . ,default-beam-space-function)
+		(name . "stem tremolo")
 	)
    	basicSeparationItemProperties = #`(
 		(interfaces . (separation-item-interface))
@@ -832,8 +839,7 @@ ScoreContext = \translator {
 		(self-alignment-X . 0)
 		(name . "una chorda pedal")
 	)
-
-	basicVoltaSpannerProperties = #`(
+	basicVoltaBracketProperties = #`(
 		(molecule-callback . ,Volta_spanner::brew_molecule)
 		(interfaces . (volta-spanner-interface side-position-interface))
 		(direction . 1)

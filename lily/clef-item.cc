@@ -13,7 +13,7 @@
 #include "item.hh"
 
 /*
-FIXME: should use symbol.
+FIXME: should use symbol for #'style.
 
 */
 MAKE_SCHEME_CALLBACK(Clef,before_line_breaking);

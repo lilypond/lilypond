@@ -84,11 +84,13 @@ Key_engraver::create_key (bool def)
       announce_element (item_p_,keyreq_l_);
     }
 
-  if (!def)
-    item_p_->set_elt_property ("visibility-lambda",
-			       scm_eval2 (ly_symbol2scm  ("all-visible"),
-					  SCM_EOL));
 
+  if (!def)
+    {
+      SCM vis = get_property ("explicitKeySignatureVisibility"); 
+      if (gh_procedure_p (vis))
+	item_p_->set_elt_property ("visibility-lambda",vis);
+    }
 }      
 
 

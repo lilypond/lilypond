@@ -48,7 +48,7 @@ public:
 
   Tempo_req();
 protected:
-  virtual void do_print () const;
+
   VIRTUAL_COPY_CONS(Music);
   bool do_equal_b (Request const *) const;
 };
@@ -64,7 +64,7 @@ public:
 
   Time_signature_change_req();
 protected:
-  virtual void do_print () const;
+
   bool do_equal_b (Request const *) const;
   VIRTUAL_COPY_CONS(Music);
 };
@@ -111,7 +111,7 @@ public:
   String clef_str_;
   Clef_change_req (String);
 protected:
-  virtual void do_print () const;
+
   VIRTUAL_COPY_CONS(Music);
 };
 

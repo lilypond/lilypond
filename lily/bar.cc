@@ -133,22 +133,12 @@ Bar::before_line_breaking  (SCM smob)
   SCM g = me->get_elt_property ("glyph");
   SCM orig = g;
   Direction bsd = item->break_status_dir ();
-  if (gh_string_p (g))
+  if (gh_string_p (g) && bsd)
     {
-      if (bsd)
-	{
-	  SCM breakdir = gh_int2scm (bsd);
-	  g = scm_eval2 (gh_list (ly_symbol2scm ("break-barline"),
-				 g,
-				 breakdir,
-				 SCM_UNDEFINED),
-			 SCM_EOL);
-	}
+      SCM proc = me->get_elt_property ("break-glyph-function");
+      g = gh_call2 (proc, g, gh_int2scm (bsd));
     }
-  else
-    {
-      g = SCM_EOL;
-    }
+
   
   if (!gh_string_p (g))
     {

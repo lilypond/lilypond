@@ -1,31 +1,23 @@
 % property.ly
-% list of properties that lily recognises
-% and some shorthands (ugh)
-
-%{
-
-SEE THE REFERENCE MANUAL FOR EXPLANATIONS.
-
-%}
 
 \version "1.3.59";
-
-
-%{
-stemup =        \property Voice.verticalDirection = \up 
-stemboth= 	\property Voice.verticalDirection = \center
-stemdown = 	\property Voice.verticalDirection = \down
-%}
 
 stemup = \property Voice.basicStemProperties \push #'direction = #1
 stemdown = \property Voice.basicStemProperties \push #'direction = #-1 
 stemboth= \property basicStemProperties \pop #'direction
 
-slurup   = \property Voice.slurVerticalDirection = \up 
-slurboth = \property Voice.slurVerticalDirection = \center
-slurdown = \property Voice.slurVerticalDirection = \down
-shifton  = \property Voice.horizontalNoteShift = #1
-shiftoff = \property Voice.horizontalNoteShift = #0
+slurup   = \property Voice.basicSlurProperties \push #'direction = #1
+slurboth = \property basicSlurProperties \pop #'direction 
+slurdown = \property Voice.basicSlurProperties \push #'direction = #-1
+shifton  = \property Voice.basicNoteColumnProperties \push #'horizontal-shift = #1
+shiftonn  = \property Voice.basicNoteColumnProperties \push #'horizontal-shift = #2
+shiftonnn  = \property Voice.basicNoteColumnProperties \push #'horizontal-shift = #3
+shiftoff  = \property basicNoteColumnProperties \pop #'horizontal-shift 
+
+
+tieUp = \property Voice.basicTieProperties \push #'direction = #1
+tieDown = \property Voice.basicTieProperties \push #'direction = #-1
+tieBoth = \property basicTieProperties \pop #'direction 
 
 cadenzaOn = \property Score.timing = ##f
 cadenzaOff = { \property Score.timing = ##t
@@ -34,11 +26,17 @@ cadenzaOff = { \property Score.timing = ##t
 
 	
 onevoice = { 	
-	\stemboth \shiftoff	
+	\stemboth
+	\tieBoth
 }
 
-voiceone = \stemup
-voicetwo = \stemdown
+voiceone = { \stemup
+   \tieUp
+}
+voicetwo = { \stemdown
+   \tieDown
+   }
+   
 voicethree = {
 	\stemup
 	\shifton
@@ -53,31 +51,7 @@ voicefour = {
 
 % ugh2. 
 infinity=10000
-
-beamslopeproportional = 
-	\property Score.beamSlopedamping = 0
-
-beamslopedamped = 
-	\property Score.beamSlopedamping = 1
-
-
-beamslopezero = 
-	\property Score.beamSlopedamping = \infinity
-
-
-% this sucks, you'd want to pass an array, at least
-% (or embedded code: you still can't dictate the slope / stemlength)
-beamposfree = 
-	\property Score.beamQuantisation = 0
-
-
-beamposnormal = 
-	\property Score.beamQuantisation = 1
-
-
-beampostraditional = 
-	\property Score.beamQuantisation = 2
-
+%{
 
 slurnormal = 
 	\property Voice.slurDash = ##f
@@ -92,7 +66,9 @@ tupletoff =
 
 tupleton = 
 	\property Voice.tupletVisibility = 3
+%}
 
+	
 tiny  = 
 	\property Voice.fontSize= -2
 

@@ -20,6 +20,9 @@ public:
   SCM to_alist () const; 
   bool elem_b (String ) const;
   bool elem_b (SCM s) const;
+
+  bool try_retrieve (SCM key, SCM *val) const;
+  
   Identifier *elem (String) const;
   Identifier *elem (SCM) const;
 

@@ -11,9 +11,3 @@
 
 
 
-void
-Change_translator::do_print () const
-{
-  DEBUG_OUT << "change " << change_to_type_str_ << " to " << change_to_id_str_ ;
-}
-  

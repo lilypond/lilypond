@@ -11,11 +11,7 @@
 #include "music-wrapper.hh"
 
 
-void
-Music_wrapper::do_print () const
-{
-  element ()->print ();
-}
+
 
 void
 Music_wrapper::transpose (Musical_pitch p)

@@ -26,9 +26,7 @@ Dots::quantised_position_callback (Score_element * me, Axis a)
       if (!Directional_element_interface::get (me))
 	Directional_element_interface::set (me, UP);
 
-
-      int pos = int (Staff_symbol_referencer::position_f (me));
-      if (!(pos % 2))
+      if (Staff_symbol_referencer::on_staffline (me))
 	return Staff_symbol_referencer::staff_space (me) / 2.0 * Directional_element_interface::get (me);
     }
 

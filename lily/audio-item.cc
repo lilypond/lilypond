@@ -83,14 +83,5 @@ Audio_tie::set_note (Direction d, Audio_note* note_l)
   //  add_dependency (head_l);
 }
 
-void
-Audio_item::do_print () const
-{
-#ifndef NPRINT
-  if (audio_column_l_)
-    {
-      DEBUG_OUT << "at: "<< audio_column_l_->at_mom ();
-    }
-#endif
-}
+
 

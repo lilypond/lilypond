@@ -121,7 +121,7 @@ Score::process()
   if (!unsmob_music (music_))
     return;
 
-  print();
+
   for (int i=0; i < def_p_arr_.size (); i++)
     {
       if (no_paper_global_b 
@@ -133,17 +133,6 @@ Score::process()
 
 
 
-void
-Score::print() const
-{
-#ifndef NPRINT
-  DEBUG_OUT << "score {\n";
-  // music_p_ -> print ();
-  for (int i=0; i < def_p_arr_.size (); i++)
-    def_p_arr_[i]->print();
-  DEBUG_OUT << "}\n";
-#endif
-}
 
 void
 Score::add_output (Music_output_def *pap_p)

@@ -166,7 +166,7 @@ Side_position::quantised_position (Score_element *me, Axis )
       Real rad = Staff_symbol_referencer::staff_radius (me) *2 ;
       int ip = int  (rp);
 
-      if (abs (ip) < rad && (ip % 2) == 0)
+      if (abs (ip) < rad && Staff_symbol_referencer::on_staffline (me,ip))
 	{
 	  ip += d;
 	  rp += d;

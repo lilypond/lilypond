@@ -55,13 +55,6 @@ Musical_pitch::Musical_pitch (int n, int a, int o)
   octave_i_ = o;
 }
 
-void
-Musical_pitch::print () const
-{
-#ifndef NPRINT
-  DEBUG_OUT << str ();
-#endif
-}
 
 int
 Musical_pitch::compare (Musical_pitch const &m1, Musical_pitch const &m2)

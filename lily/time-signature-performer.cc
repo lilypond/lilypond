@@ -22,14 +22,6 @@ Time_signature_performer::~Time_signature_performer ()
 {
 }
 
-void 
-Time_signature_performer::do_print () const
-{
-#ifndef NPRINT
-  if (time_signature_req_l_)
-    time_signature_req_l_->print ();
-#endif
-}
 
 void
 Time_signature_performer::do_process_music ()
