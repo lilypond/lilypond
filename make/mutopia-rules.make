@@ -21,7 +21,7 @@ $(outdir)/%.ly.txt: %.abc
 	ln -f $< $@
 
 $(outdir)/%.ly: %.abc
-	$(PYTHON) $(ABC2LY) -o $@ $< 
+	$(PYTHON) $(ABC2LY) --strict -o $@ $< 
 
 $(outdir)/%.dvi: $(outdir)/%.ly
 	$(PYTHON) $(LY2DVI) --output=$@ --dependencies $< 
