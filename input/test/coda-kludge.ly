@@ -1,6 +1,6 @@
 \version "1.7.18"
 % TODO: rethink name and whole file -- possible delete or major
-% changes.  See repeat-manual.ly
+% changes.  See repeat-manual.ly  -gp
 \header{
 	texidoc="@cindex Coda Kludge"
 }
@@ -44,7 +44,7 @@ Hi,
 		}
 		\context Lyrics \lyrics{
 			intro1
-			\repeat fold 5 {}
+			\repeat fold 5 { }
 			\alternative {
 				{ chorus1 one verse1 }
 				{ chorus1 two verse1 }
