@@ -41,7 +41,8 @@ System_start_delimiter::staff_bracket (Real height) const
 
 System_start_delimiter::System_start_delimiter ()
 {
-  set_empty (Y_AXIS);
+  set_extent_callback (0, Y_AXIS);
+  Group_interface (this).set_interface();
 }
 
 Molecule
@@ -64,8 +65,8 @@ System_start_delimiter::do_brew_molecule ()const
     {
       System_start_delimiter * me = (System_start_delimiter*)this;
       me->set_elt_property ("transparent", SCM_BOOL_T);
-      me->set_empty (X_AXIS);
-      me->set_empty (Y_AXIS);
+      me->set_extent_callback (0, X_AXIS);
+      me->set_extent_callback (0, Y_AXIS);
       return m;
     }
 

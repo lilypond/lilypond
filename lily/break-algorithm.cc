@@ -16,15 +16,15 @@
 #include "cpu-timer.hh"
 #include "command-request.hh"
 #include "simple-spacer.hh"
-
-
-
+#include "group-interface.hh"
 
 
 Array<int>
 Break_algorithm::find_break_indices () const
 {
-  Link_array<Paper_column> all (pscore_l_->col_l_arr_);
+  Link_array<Paper_column> all = pscore_l_->line_l_->column_l_arr ();
+  
+					 
   Array<int> retval;
 
   for (int i=0; i < all.size (); i++)
@@ -42,7 +42,8 @@ Break_algorithm::find_break_indices () const
 Link_array<Paper_column>
 Break_algorithm::find_breaks () const
 {
-  Link_array<Paper_column> all (pscore_l_->col_l_arr_);
+  Link_array<Paper_column> all = pscore_l_->line_l_->column_l_arr ();
+    
   Link_array<Paper_column> retval;
 
   for (int i=0; i < all.size (); i++)
@@ -94,22 +95,6 @@ Break_algorithm::set_pscore (Paper_score*s)
 {
   pscore_l_ = s;
   linewidth_f_ = s->paper_l_->get_var("linewidth");
-  do_set_pscore ();
-}
-
-
-
-void
-Break_algorithm::problem_OK () const
-{
-  if (pscore_l_->col_l_arr_.empty ())
-    error (_("score does not have any columns"));
-  OK ();
-}
-
-void
-Break_algorithm::OK () const
-{
 }
 
 Array<Column_x_positions>
@@ -120,8 +105,3 @@ Break_algorithm::solve () const
   return h;
 }
 
-void
-Break_algorithm::do_set_pscore ()
-{
-
-}

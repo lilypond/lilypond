@@ -90,7 +90,9 @@ Polynomial::clean()
 	coefs_[i] = 0.0;
     }
 
-  while (degree () > 0 && fabs (coefs_.top ()) < FUDGE * fabs (coefs_.top (1)))
+  while (degree () > 0 &&
+	 (fabs (coefs_.top ()) < FUDGE * fabs (coefs_.top (1)))
+	 || !coefs_.top ())
     coefs_.pop ();
 }
 

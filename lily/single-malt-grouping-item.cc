@@ -17,8 +17,8 @@ Single_malt_grouping_item ::Single_malt_grouping_item()
   set_elt_property ("elements", SCM_EOL);
 
   // this is weird! , but needed!
-  set_empty (X_AXIS);
-  set_empty ( Y_AXIS);
+  set_extent_callback (0, X_AXIS);
+  set_extent_callback (0,  Y_AXIS);
 
 }
 

@@ -151,6 +151,10 @@ public:
 
   /// do calculations before determining horizontal spacing
   virtual void before_line_breaking ();
+  /// do calculations after determining horizontal spacing
+  virtual void after_line_breaking ();
+  virtual void output_processing ();
+  
 
   static Interval preset_extent (Dimension_cache const*);
   static Interval molecule_extent (Dimension_cache const*);
@@ -162,8 +166,6 @@ protected:
     be handled by GUILE gc.  */
   virtual ~Score_element ();
   
-  virtual void output_processing ();
-  
   /// do printing of derived info.
   virtual void do_print () const;
   /// generate the molecule    
@@ -171,14 +173,13 @@ protected:
   ///executed directly after the item is added to the Paper_score
   virtual void do_add_processing ();
 
-  /// do calculations after determining horizontal spacing
-  virtual void after_line_breaking ();
     
   static Interval dim_cache_callback (Dimension_cache const*);
+  
 public:
   static SCM ly_set_elt_property (SCM, SCM,SCM);
   static SCM ly_get_elt_property (SCM, SCM);  
-  
+
   virtual void handle_broken_dependencies ();
   virtual void handle_prebroken_dependencies ();
 
@@ -200,6 +201,7 @@ public:
   char const * name () const;
   /**
      Set empty in direction A.
+     JUNKME
    */
   void set_empty (Axis a);
   bool empty_b (Axis a) const;
@@ -221,6 +223,8 @@ public:
 
   bool has_offset_callback_b (Offset_cache_callback, Axis)const;
   void add_offset_callback (Offset_cache_callback, Axis);
+  void set_extent_callback (Dim_cache_callback , Axis);
+  
   /**
      Set the  parent refpoint of THIS to E
    */

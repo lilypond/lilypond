@@ -42,12 +42,12 @@ Hara_kiri_group_spanner::after_line_breaking ()
       if ( line_l () != s->line_l ())
 	programming_error ("Killing other children too");
       s->set_elt_property ("transparent", SCM_BOOL_T);
-      s->set_empty (X_AXIS);
-      s->set_empty (Y_AXIS);
+      s->set_extent_callback (0, X_AXIS);
+      s->set_extent_callback (0, Y_AXIS);
 
     }
-  set_empty (X_AXIS);
-  set_empty (Y_AXIS);  
+  set_extent_callback (0, X_AXIS);
+  set_extent_callback (0, Y_AXIS);  
 }
 
 

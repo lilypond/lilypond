@@ -6,7 +6,7 @@
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include <ctype.h>
+
 #include "clef-item.hh"
 #include "string.hh"
 #include "molecule.hh"
@@ -17,6 +17,7 @@
 #include "dimension-cache.hh"
 #include "side-position-interface.hh"
 #include "warn.hh"
+#include "line-of-score.hh"
 
 void
 Clef_item::before_line_breaking ()
@@ -46,7 +47,7 @@ Clef_item::before_line_breaking ()
   if (style == "transparent")	// UGH. JUNKME
     {
       set_elt_property ("transparent", SCM_BOOL_T);
-      set_empty (X_AXIS);
+      set_extent_callback (0, X_AXIS);
     }
 }
 
@@ -65,7 +66,7 @@ Clef_item::do_add_processing ()
 	  Side_position_interface spi (g);
 	  spi.set_axis (Y_AXIS);
 	  
-	  pscore_l_->typeset_element (g);
+	  pscore_l_->line_l_->typeset_element (g);
       
 	  spi.add_support (this);
 	  g->set_elt_property ("text", ly_str02scm ( "8"));

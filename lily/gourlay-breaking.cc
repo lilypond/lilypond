@@ -14,8 +14,7 @@
 #include "paper-score.hh"
 #include "paper-def.hh"
 #include "simple-spacer.hh"
-
-#include "killing-cons.tcc"
+#include "line-of-score.hh"
 
 /// How often to print operator pacification marks?
 const int HAPPY_DOTS_I = 3;
@@ -47,12 +46,17 @@ struct Break_node {
 
 /**
   This algorithms is adapted from the OSU Tech report on breaking lines.
+
+  this function is longish, but not very complicated.
+  
  */
 Array<Column_x_positions>
 Gourlay_breaking::do_solve () const
 {
   Array<Break_node> optimal_paths;
-  Link_array<Paper_column> all = pscore_l_->col_l_arr_ ;
+  Link_array<Paper_column> all =
+    pscore_l_->line_l_->column_l_arr ();
+  
   Array<int> breaks = find_break_indices ();
   
   optimal_paths.set_size (breaks.size ());
@@ -163,14 +167,8 @@ Gourlay_breaking::do_solve () const
 Gourlay_breaking::Gourlay_breaking ()
 {
   energy_bound_f_ = infinity_f;
-  max_measures_i_ = INT_MAX;
 }
 
-void
-Gourlay_breaking::do_set_pscore ()
-{
-  max_measures_i_ =int (rint (pscore_l_->paper_l_->get_var ("gourlay_maxmeasures")));
-}
 
 
 /*

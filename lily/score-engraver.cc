@@ -92,7 +92,7 @@ void
 Score_engraver::announce_element (Score_element_info info)
 {
   announce_info_arr_.push (info);
-  pscore_p_->typeset_element (info.elem_l_);
+  pscore_p_->line_l_->typeset_element (info.elem_l_);
 }
 
 /* All elements are propagated to the top upon announcement. If
@@ -185,8 +185,8 @@ Score_engraver::set_columns (Paper_column *new_command_l,
 	{
 	  if ((*current[i])->linked_b()) 
 	    {
-	      pscore_p_->add_column ((*current[i]));
 	      scoreline_l_->add_column ((*current[i]));
+	      
 	    }
 	  else
 	    {

@@ -144,7 +144,7 @@ Bar::before_line_breaking ()
   if (!gh_string_p (g))
     {
       set_elt_property ("transparent", SCM_BOOL_T);
-      set_empty (X_AXIS);      
+      set_extent_callback (0, X_AXIS);      
     }
   else
     set_elt_property ("glyph", g);

@@ -16,11 +16,6 @@
 #include "lily-guile.hh"
 #include "protected-scm.hh"
 
-// huh?
-#ifdef __powerpc__
-#include "protected-scm.hh"
-#endif
-
 /**
   Abstract interface for a Score_element to output itself.
  */
@@ -40,13 +35,8 @@ public:
   void output_font_def (int i, String str);
   void output_font_switch (int i);
   void output_header ();
-  void output_molecule (SCM expr, Offset, char const *);
   void output_comment (String s);
   void output_scheme (SCM scm);
-
-  void start_line (Real height);
-  void stop_line ();
-  void stop_last_line ();
 };
 
 #endif // PAPER_OUTPUTTER_HH

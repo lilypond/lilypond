@@ -260,10 +260,9 @@ Score_element::calculate_dependencies (int final, int busy,
 void
 Score_element::output_processing () 
 {
-  if (to_boolean  (get_elt_property ("transparent")))
+  if (to_boolean (get_elt_property ("transparent")))
     return;
 
-  
   Molecule m (do_brew_molecule ());
   Offset o (relative_coordinate (0, X_AXIS), relative_coordinate (0, Y_AXIS));
 
@@ -275,7 +274,7 @@ Score_element::output_processing ()
       o[Y_AXIS] += il * gh_scm2double (gh_cdr (s));      
     }
   
-  pscore_l_->outputter_l_->output_molecule (m.expr_, o, classname(this));
+  line_l ()->output_molecule (m.expr_, o);
 }
 
 /*
@@ -499,12 +498,6 @@ Score_element::common_refpoint (Score_element const* s, Axis a) const
   return  dim ? dim->element_l () : 0;
 }
 
-void
-Score_element::set_empty (Axis a)
-{
-  dim_cache_[a]->extent_callback_l_ =0;
-}
-
 bool
 Score_element::empty_b (Axis a)const
 {
@@ -523,7 +516,6 @@ Score_element::extent (Axis a) const
   SCM extra = get_elt_property (a == X_AXIS ? "extra-extent-X"
 				: "extra-extent-Y");
 
-
   /*
     signs ?
    */
@@ -541,7 +533,6 @@ Score_element::extent (Axis a) const
     {
       ext.unite (Interval (s * gh_scm2double (gh_car (extra)),
 			   s * gh_scm2double (gh_cdr (extra))));
-
     }
   
   return ext;
@@ -590,6 +581,13 @@ Score_element::has_offset_callback_b (Offset_cache_callback cb, Axis a)const
   return false;
 }
 
+void
+Score_element::set_extent_callback (Dim_cache_callback dc, Axis a)
+{
+  dim_cache_[a]->extent_callback_l_ = dc ;
+}
+
+				    
 void
 Score_element::set_parent (Score_element *g, Axis a)
 {

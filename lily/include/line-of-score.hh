@@ -7,6 +7,7 @@
 #ifndef SCORELINE_HH
 #define SCORELINE_HH
 
+#include "protected-scm.hh" 
 #include "column-x-positions.hh"
 #include "spanner.hh"
 
@@ -30,7 +31,8 @@ public:
   void output_all ();
 
   int rank_i_;
-  
+
+  Protected_scm output_;
   Line_of_score();
     
   /// is #c# contained in #*this#?
@@ -39,10 +41,18 @@ public:
   static int compare (Line_of_score* const &,Line_of_score* const &);
 
   void break_into_pieces (Array<Column_x_positions> const&);
-  void output_lines ();
-  void output_line (bool last_line);
-  void add_column (Paper_column*);
+
+  SCM output_lines ();
+
+
+  Link_array<Item> broken_col_range (Item const*, Item const*) const;
+  Link_array<Paper_column> column_l_arr () const;
   
+  void add_column (Paper_column*);
+  void typeset_element (Score_element*);
+  void output_molecule (SCM, Offset);
+  void output_scheme (SCM);
+  void pre_processing ();
 protected:
   VIRTUAL_COPY_CONS(Score_element);
 };
