@@ -14,10 +14,26 @@
 #include "tie.hh"
 #include "note-head.hh"
 #include "time-description.hh"
+#include "engraver-group.hh"
+
 
 Local_key_engraver::Local_key_engraver()
 {
   key_C_ = 0;
+}
+
+void
+Local_key_engraver::do_creation_processing ()
+{
+  Translator * result =
+    daddy_grav_l()->get_simple_translator (Key_engraver::static_name());
+
+  if (!result)
+    {
+      warning ("Out of tune! Can't find key engraver");
+    }
+  else
+    key_C_ = &((Key_engraver*)result->engraver_l ())->key_;
 }
 
 void
@@ -48,6 +64,7 @@ Local_key_engraver::do_pre_move_processing()
 		c0_i = *get_staff_info().c0_position_i_l_;	
 		
 	      key_item_p = new Local_key_item (c0_i);
+
 	    }
 	  key_item_p->add (note_l);
 	  key_item_p->add_support (support_l);
@@ -85,21 +102,11 @@ Local_key_engraver::acknowledge_element (Score_elem_info info)
 
       mel_l_arr_.push (note_l);
       support_l_arr_.push (item_l);
-	
     }
   else if (info.req_l_->command()
 	   && info.req_l_->command()->keychange ()) 
     {
-      Key_engraver * key_grav_l =
-	(Key_engraver*)info.origin_grav_l_arr_[0];
-      key_C_ = &key_grav_l->key_;
       local_key_ = *key_C_;
-    }
-  else if (elem_l->is_type_b (Key_item::static_name ())) 
-    {
-      Key_engraver * key_grav_l =
-	(Key_engraver*)info.origin_grav_l_arr_[0];
-      key_C_ = &key_grav_l->key_;
     }
   else if (elem_l->is_type_b (Tie::static_name ())) 
     {

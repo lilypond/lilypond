@@ -10,8 +10,6 @@
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
-# Automatically generated from ./lib/Makefile.am.wild by autowild
-# Do not edit
 # Generated automatically by wild-perl 0.1
 # project  LilyPond -- the musical typesetter
 # title	   makefile for micro-lily-lib
@@ -69,14 +67,15 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 host_alias = @host_alias@
 host_triplet = @host@
+AGE = @AGE@
 AUTOGENERATE = @AUTOGENERATE@
 BISON = @BISON@
 CC = @CC@
 COMPILEINFO = @COMPILEINFO@
 CPPFLAGS = @CPPFLAGS@
+CURRENT = @CURRENT@
 CXX = @CXX@
 CXXFLAGS = @CXXFLAGS@
-DEFINES = @DEFINES@
 DIR_DATADIR = @DIR_DATADIR@
 EXTRA_LIBES = @EXTRA_LIBES@
 FIND = @FIND@
@@ -84,6 +83,7 @@ FLEX = @FLEX@
 ICFLAGS = @ICFLAGS@
 ILDFLAGS = @ILDFLAGS@
 LD = @LD@
+LDFLAGS = @LDFLAGS@
 LEX = @LEX@
 LIBTOOL = @LIBTOOL@
 LN = @LN@
@@ -98,6 +98,7 @@ POD2HTML = @POD2HTML@
 POD2MAN = @POD2MAN@
 PYTHON = @PYTHON@
 RANLIB = @RANLIB@
+REVISION = @REVISION@
 TAR = @TAR@
 TEXDIR = @TEXDIR@
 TEXPREFIX = @TEXPREFIX@
@@ -112,17 +113,16 @@ lib_LTLIBRARIES = liblily.la
 
 liblily_la_SOURCES = binary-source-file.cc duration-convert.cc duration.cc includable-lexer.cc input.cc mapped-file-storage.cc moment.cc plet.cc simple-file-storage.cc source-file.cc source.cc template.cc warn.cc windhoos-suck-suck-suck-thank-you-cygnus.cc
 
-INCLUDES = -Iinclude -I../flower/include
+INCLUDES = -I$(top_srcdir)/lib/include -I$(top_srcdir)/flower/include
 
-EXTRA_DIST = Makefile.am.wild
+EXTRA_DIST = Makefile.am.wild GNUmakefile
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
-CONFIG_HEADER = config.hh
+CONFIG_HEADER = ../flower/config.hh
 CONFIG_CLEAN_FILES = 
 LTLIBRARIES =  $(lib_LTLIBRARIES)
 
 
-DEFS = @DEFS@ -I. -I$(srcdir) -I.
-LDFLAGS = @LDFLAGS@
+DEFS = @DEFS@ -I. -I$(srcdir) -I../flower
 LIBS = @LIBS@
 liblily_la_LDFLAGS = 
 liblily_la_LIBADD = 
@@ -308,147 +308,13 @@ distdir: $(DISTFILES)
 	  (cd $$subdir && $(MAKE) top_distdir=../$(top_distdir) distdir=../$(distdir)/$$subdir distdir) \
 	    || exit 1; \
 	done
-binary-source-file.lo binary-source-file.o: binary-source-file.cc \
-	include/proto.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh ../flower/include/plist.hh \
-	../flower/include/list.hh ../flower/include/list.icc \
-	../flower/include/cursor.hh ../flower/include/link.hh \
-	../flower/include/link.icc ../flower/include/compare.hh \
-	../flower/include/pcursor.hh ../flower/include/cursor.icc \
-	../flower/include/iterate.hh ../flower/include/plist.icc \
-	../flower/include/string.hh \
-	../flower/include/arithmetic-operator.hh \
-	../flower/include/string-handle.hh \
-	../flower/include/international.hh include/source-file.hh \
-	include/binary-source-file.hh \
-	../flower/include/string-convert.hh
-duration-convert.lo duration-convert.o: duration-convert.cc \
-	include/duration-convert.hh include/duration.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	include/moment.hh ../flower/include/rational.hh \
-	../flower/include/compare.hh \
-	../flower/include/arithmetic-operator.hh include/plet.hh \
-	../flower/include/string.hh ../flower/include/string-handle.hh \
-	../flower/include/international.hh ../flower/include/varray.hh \
-	include/warn.hh
-duration.lo duration.o: duration.cc include/proto.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/plist.hh ../flower/include/list.hh \
-	../flower/include/list.icc ../flower/include/cursor.hh \
-	../flower/include/link.hh ../flower/include/link.icc \
-	../flower/include/compare.hh ../flower/include/pcursor.hh \
-	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc ../flower/include/string.hh \
-	../flower/include/arithmetic-operator.hh \
-	../flower/include/string-handle.hh \
-	../flower/include/international.hh include/source-file.hh \
-	include/source.hh include/moment.hh \
-	../flower/include/rational.hh include/duration.hh \
-	include/plet.hh include/duration-convert.hh \
-	../flower/include/varray.hh
-includable-lexer.lo includable-lexer.o: includable-lexer.cc \
-	include/includable-lexer.hh ../flower/include/string.hh \
-	../flower/include/arithmetic-operator.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/string-handle.hh \
-	../flower/include/international.hh ../flower/include/compare.hh \
-	../flower/include/varray.hh include/proto.hh \
-	include/source-file.hh include/source.hh \
-	../flower/include/plist.hh ../flower/include/list.hh \
-	../flower/include/list.icc ../flower/include/cursor.hh \
-	../flower/include/link.hh ../flower/include/link.icc \
-	../flower/include/pcursor.hh ../flower/include/cursor.icc \
-	../flower/include/iterate.hh ../flower/include/plist.icc
-input.lo input.o: input.cc include/proto.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh include/input.hh \
-	../flower/include/string.hh \
-	../flower/include/arithmetic-operator.hh \
-	../flower/include/string-handle.hh \
-	../flower/include/international.hh ../flower/include/compare.hh \
-	include/source.hh ../flower/include/plist.hh \
-	../flower/include/list.hh ../flower/include/list.icc \
-	../flower/include/cursor.hh ../flower/include/link.hh \
-	../flower/include/link.icc ../flower/include/pcursor.hh \
-	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc include/source-file.hh
-mapped-file-storage.lo mapped-file-storage.o: mapped-file-storage.cc
-moment.lo moment.o: moment.cc ../flower/include/string.hh \
-	../flower/include/arithmetic-operator.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/string-handle.hh \
-	../flower/include/international.hh ../flower/include/compare.hh \
-	include/moment.hh ../flower/include/rational.hh
-plet.lo plet.o: plet.cc include/plet.hh include/moment.hh \
-	../flower/include/rational.hh ../flower/include/compare.hh \
-	../flower/include/arithmetic-operator.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh
-simple-file-storage.lo simple-file-storage.o: simple-file-storage.cc \
-	include/simple-file-storage.hh include/file-storage.hh \
-	include/proto.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh ../flower/include/varray.hh \
-	../flower/include/string.hh \
-	../flower/include/arithmetic-operator.hh \
-	../flower/include/string-handle.hh \
-	../flower/include/international.hh ../flower/include/compare.hh \
-	include/warn.hh
-source-file.lo source-file.o: source-file.cc ../flower/include/string.hh \
-	../flower/include/arithmetic-operator.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/string-handle.hh \
-	../flower/include/international.hh ../flower/include/compare.hh \
-	include/proto.hh ../flower/include/plist.hh \
-	../flower/include/list.hh ../flower/include/list.icc \
-	../flower/include/cursor.hh ../flower/include/link.hh \
-	../flower/include/link.icc ../flower/include/pcursor.hh \
-	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc include/warn.hh \
-	include/windhoos-suck-suck-suck-thank-you-cygnus.hh \
-	include/source-file.hh include/simple-file-storage.hh \
-	include/file-storage.hh
-source.lo source.o: source.cc include/binary-source-file.hh \
-	include/source-file.hh include/proto.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/string.hh \
-	../flower/include/arithmetic-operator.hh \
-	../flower/include/string-handle.hh \
-	../flower/include/international.hh ../flower/include/compare.hh \
-	../flower/include/plist.hh ../flower/include/list.hh \
-	../flower/include/list.icc ../flower/include/cursor.hh \
-	../flower/include/link.hh ../flower/include/link.icc \
-	../flower/include/pcursor.hh ../flower/include/cursor.icc \
-	../flower/include/iterate.hh ../flower/include/plist.icc \
-	include/source.hh ../flower/include/path.hh \
-	../flower/include/varray.hh
-template.lo template.o: template.cc include/source-file.hh \
-	include/proto.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh ../flower/include/string.hh \
-	../flower/include/arithmetic-operator.hh \
-	../flower/include/string-handle.hh \
-	../flower/include/international.hh ../flower/include/compare.hh \
-	../flower/include/plist.tcc ../flower/include/plist.hh \
-	../flower/include/list.hh ../flower/include/list.icc \
-	../flower/include/cursor.hh ../flower/include/link.hh \
-	../flower/include/link.icc ../flower/include/pcursor.hh \
-	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc ../flower/include/pcursor.tcc \
-	../flower/include/cursor.tcc ../flower/include/list.tcc
-warn.lo warn.o: warn.cc include/warn.hh ../flower/include/string.hh \
-	../flower/include/arithmetic-operator.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/string-handle.hh \
-	../flower/include/international.hh ../flower/include/compare.hh
-windhoos-suck-suck-suck-thank-you-cygnus.lo windhoos-suck-suck-suck-thank-you-cygnus.o: \
-	windhoos-suck-suck-suck-thank-you-cygnus.cc
 
 info: info-recursive
 dvi: dvi-recursive
 check: all-am
 	$(MAKE) check-recursive
 installcheck: installcheck-recursive
-all-recursive-am: config.hh
-	$(MAKE) all-recursive
-
-all-am: Makefile $(LTLIBRARIES) config.hh
+all-am: Makefile $(LTLIBRARIES)
 
 install-exec-am: install-libLTLIBRARIES
 
@@ -465,7 +331,7 @@ install: install-recursive install-exec-am
 
 uninstall: uninstall-recursive uninstall-am
 
-all: all-recursive-am all-am
+all: all-recursive all-am
 
 install-strip:
 	$(MAKE) INSTALL_PROGRAM='$(INSTALL_PROGRAM) -s' INSTALL_SCRIPT='$(INSTALL_PROGRAM)' install
@@ -527,17 +393,17 @@ all-recursive check-recursive installcheck-recursive info-recursive \
 dvi-recursive mostlyclean-recursive distclean-recursive clean-recursive \
 maintainer-clean-recursive tags tags-recursive mostlyclean-tags \
 distclean-tags clean-tags maintainer-clean-tags distdir info dvi \
-installcheck all-recursive-am all-am install-exec-am uninstall-am \
-install-exec install-data install uninstall all installdirs \
-mostlyclean-generic distclean-generic clean-generic \
-maintainer-clean-generic clean mostlyclean distclean maintainer-clean
+installcheck all-am install-exec-am uninstall-am install-exec \
+install-data install uninstall all installdirs mostlyclean-generic \
+distclean-generic clean-generic maintainer-clean-generic clean \
+mostlyclean distclean maintainer-clean
 
 MODULE_CXXFLAGS += -D_REENTRANT
 
 distclean-local:
 	-rm -rf .deps
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
-	$(PERL) $(top_srcdir)/bin/wild-perl --top-srcdir="$(real_topdir)" < $< > $@
+	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

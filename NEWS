@@ -1,7 +1,39 @@
+pl 53
+	- bf: c4 \< c4 \< 
+	- bfs of spacing stuff
+
+
+pl 52.jcn6
+	- make check target
+	- moved flower/test to flowertest
+	- dist fixes
+	- flower no longer independent package
+	- bf: GNUmakefile
+	- bf's: configure: debugging (default) /profiling
+	- bf: Rational iface (fixes MIDI output)
+	- bf: non --srcdir configure + build with GNU make (ugh)
+	- ugh: autowildflower
+	- bf's: invoking wild-perl
+	- bf: ugh: staff-side.cc: placement height
+	- bf's: gnu 2.7.2 link (huh?, everyone using 2.8?)
+	- make-patch: default diff against (copy of) srcdir
+	- bin/conflily configures in ../build
+	- GNUmakefiles that do:
+	  * auto-update of Makefile.am.wild
+	  * auto-switch to builddir
+	- bf's: configure --srcdir
+	- fixes for los-toros/twinkle/test-lyrics
+	- latex file for los-toros (ugh)
+	- staff-side: symbols closer...
+	- half fix of midi output? duh.
+	- oboe1 los-toros
+
+************
 pl 52
 	- split up elem-group stuff.
 	- per line widths
 	- miscellaneous fixes by WL.
+
 
 pl 51.jcn1
 	- bf's: dutch->nederlands

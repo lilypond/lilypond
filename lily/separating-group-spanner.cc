@@ -17,15 +17,25 @@ Separating_group_spanner::get_rods () const
 
   for (int i=0; i < spacing_unit_l_arr_.size () -1; i++)
     {
-      a.push (Rod (spacing_unit_l_arr_[i], spacing_unit_l_arr_[i+1]));    
-      if (spacing_unit_l_arr_[i]->breakable_b_)
+      a.push (Rod (spacing_unit_l_arr_[i], spacing_unit_l_arr_[i+1]));
+      bool lb =spacing_unit_l_arr_[i]->breakable_b_;
+      if (lb)
 	{
-	  a.push (Rod (spacing_unit_l_arr_[i]->find_prebroken_piece (RIGHT), spacing_unit_l_arr_[i+1]));
+	  a.push (Rod ((Single_malt_grouping_item*) spacing_unit_l_arr_[i]->find_prebroken_piece (RIGHT),
+		       spacing_unit_l_arr_[i+1]));
 	}
-      if (spacing_unit_l_arr_[i+1]->breakable_b_)
+      bool rb=spacing_unit_l_arr_[i+1]->breakable_b_;
+      if (rb)
 	{
-	  a.push (Rod (spacing_unit_l_arr_[i], spacing_unit_l_arr_[i+1]->find_prebroken_piece (LEFT)));
+	  a.push (Rod (spacing_unit_l_arr_[i],
+		     (Single_malt_grouping_item*)  spacing_unit_l_arr_[i+1]->find_prebroken_piece (LEFT)));
 	}
+      if (lb && rb)
+	{
+	  a.push (Rod ((Single_malt_grouping_item*)spacing_unit_l_arr_[i]->find_prebroken_piece (RIGHT),
+		     (Single_malt_grouping_item*)  spacing_unit_l_arr_[i+1]->find_prebroken_piece (LEFT)));
+	}
+	
     }
       
   return a;
@@ -45,7 +55,8 @@ Separating_group_spanner::do_substitute_dependency (Score_elem*o, Score_elem*n)
 {
   if (o->is_type_b (Single_malt_grouping_item::static_name ()))
     {
-      Single_malt_grouping_item*ns = n ? (Single_malt_grouping_item*)n->item () : 0;
+      Single_malt_grouping_item*ns = n ?
+	(Single_malt_grouping_item*)n->item () : 0;
       spacing_unit_l_arr_.substitute ((Single_malt_grouping_item*)o->item (), ns);
     }
 }

@@ -68,7 +68,12 @@ Staff_side::get_position_f () const
   Real inter_f = paper()-> internote_f ();
 
   Interval v= support_height();
-  y = v[dir_] + 2 * dir_ * inter_f;	// ugh
+  if (inside_staff_b_)
+    // ugh: i don't know why, but this is needed for inside-staff
+    y = v[dir_] + 2 * dir_ * inter_f;	// ugh
+  else
+    // get accents just above staff; (fermata etc.: ugh)
+    y = v[dir_] - 3 * dir_ * inter_f;
 
   return y;
 }

@@ -84,7 +84,8 @@ hegedraagjetekst = \lyric{
 
 texte = \lyric{ 
 	 
-	\textstyle "italic" ;
+%	\textstyle "italic" ;
+	\textstyle "roman" ;
  	Ah!4 vous dir- ai_- je ma man2
 	Ce4 qui cau- se mon tour- ment2
 	Pa-4 pa veut que je rai- sonne2
@@ -126,27 +127,51 @@ textiii = \lyric{
 	
 }
 
+$top_lyrics = \type Lyrics = top <
+	\global 
+	\tekst
+>
+
+$treble_staff = \type Staff = treble <
+	\global
+	\melody 
+>
+
+$bass_staff = \type Staff = bass <
+	\global
+	\accompany
+>
+
+$middle_lyrics = \type Lyrics = middle <
+	\global
+	\texte
+>
+
+$bottom_lyrics = \type Lyrics = bottom <
+	\global
+	\texti
+	\textii
+	\textiii
+>
+
+$grand_staff = \type Staff_group <
+	\$treble_staff
+	\$middle_lyrics
+	\$bass_staff
+>
+
 \score{
 	< 
-		\lyric \type Lyrics = top < 
-			\global \tekst >
-		\type Staff_group < 
-		\type Staff=treb < \global  
-			  \melody >
-		\lyric \type Lyrics  = "Middle" <  \global
-			\texte >
-		\type Staff=bass	< \global 
-			\accompany >
-		% ugh
-		>
-		\lyric \type Lyrics  = bottomlyrics < \global
-			\texti \textii \textiii >
-		
+		\$treble_staff
+		\$middle_lyrics
+		\$top_lyrics
+		\$grand_staff
+		\$bottom_lyrics
 	>
 	\paper{
 		% use a lot of space, to avoid clashing syllables
-		arithmetic_multiplier = 8.\pt;
-		gourlay_maxmeasures = 14.0;
+%		arithmetic_multiplier = 8.\pt;
+%		gourlay_maxmeasures = 14.0;
 	}
 	\midi{ 
 		\tempo 4 = 120 ;

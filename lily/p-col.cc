@@ -11,9 +11,9 @@
 #include "debug.hh"
 
 void
-Paper_column::add_rod (Paper_column * p, Real d, Direction dir)
+Paper_column::add_rod (Paper_column * p, Real d)
 {
-  assert( sign (p->rank_i ()  - rank_i ()) == dir);
+  Direction dir =  Direction (sign (p->rank_i ()  - rank_i ()));
   for (int i=0; i < minimal_dists_arr_drul_[dir].size (); i++)
     {
       Column_rod &rod = minimal_dists_arr_drul_[dir][i];
@@ -26,8 +26,7 @@ Paper_column::add_rod (Paper_column * p, Real d, Direction dir)
 
   Column_rod cr;
   cr.distance_f_ = d;
-  cr.other_l_ = p;
-  cr.dir_ = dir;
+	cr.other_l_ = p;
 
   minimal_dists_arr_drul_[dir].push (cr);
       
@@ -69,8 +68,13 @@ Paper_column::do_print() const
       DOUT <<'\n' << ((break_status_i_ == LEFT) ? "prebreak" : "postbreak");
       DOUT << '\n';
     }
-  // DOUT << "extent: " << width().str () << "\n";
 
+  DOUT << "Left: ";
+  for (int i=0; i < minimal_dists_arr_drul_[LEFT].size (); i++)
+    {
+      minimal_dists_arr_drul_[LEFT][i].print ();
+    }
+  DOUT << "Right: ";
   for (int i=0; i < minimal_dists_arr_drul_[RIGHT].size (); i++)
     {
       minimal_dists_arr_drul_[RIGHT][i].print ();

@@ -8,6 +8,10 @@ grep for TODO and ugh/ugr
 
 0.2:
 
+	* collisions for local_key.
+
+	* robustify Beam in case of no stems
+
 	* latex quirk?
 
 	* check for groff / troff/ nroff et

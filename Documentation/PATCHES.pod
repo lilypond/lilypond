@@ -42,15 +42,14 @@ In F<NEWS>, enter a summary of changes:
 	pl 0.1.48.jcn1
 		- added PATCHES.pod
 
-Then, type something like
+Then, from the top of Lily's source tree, type
 
-    make dist
-    mv out/lilypond-0.1.48.jcn1.tar.gz ../releases
+    make distclean  # if you don't use --srcdir configure
     make-patch
 
 which leaves your patch as F<./patch-0.1.48.jcn1>.
 
-or even simpler:
+If you didn't configure Lily using --srcdir, you can do:
 
     release
 

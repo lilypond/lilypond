@@ -4,7 +4,7 @@
 use Getopt::Long;
 GetOptions("top-srcdir:s");
 
-$my_topdir = $opt_top_srcdir ? $opt_top_srcdir : "\$(top_srcdir)";
+$my_topsrcdir = $opt_top_srcdir ? $opt_top_srcdir : "\$(top_srcdir)";
 
 @ignorestuff = ();
 
@@ -25,6 +25,7 @@ while (<>) {
 	    foreach $i (@ignorelist) {
 		print "# ignoring wildcards for \`$i\'\n";
 		push @ignorestuff, $i; # concat ? uh?
+		print "IGNORE_WILDCARDS=$ignore";
 	    }
 
 	    
@@ -43,5 +44,6 @@ while (<>) {
 
 
 print "\$(srcdir)/Makefile.am: \$(srcdir)/Makefile.am.wild\n" .
-    "\t\$(PERL) $my_topdir/bin/wild-perl --top-srcdir=\"\$(real_topdir)\" < \$< > \$@";
+#    "\t\$(PERL) $my_topsrcdir/bin/wild-perl --top-srcdir=\"\$(real_topsrcdir)\" < \$< > \$@";
+    "\t\$(PERL) $my_topsrcdir/bin/wild-perl < \$< > \$@";
 

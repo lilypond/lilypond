@@ -17,7 +17,7 @@ for i in $WILD_MAKEFILES; do
 	dir=$(dirname $i)
 	wild=$(basename $i)
 	make=$(basename $i .wild)
-	TOPDIR=`pwd`
+	TOPDIR=${LILYPOND_SOURCEDIR-`pwd`}
 	(cd $dir
 
 	$verbose -n "trying $dir/$make.. "

@@ -45,7 +45,7 @@ misc bugfixes, some Beam and Stem code.
 
 mf/ital-*.mf (these were taken from the CM fonts)
 
-=item * Alexandre Oliva <oliva@dcc.unicamp.br>, http://sunsite.unicamp.br/?
+=item * Alexandre Oliva <oliva@dcc.unicamp.br>, http://sunsite.unicamp.br/~oliva
 
 testing
 

@@ -10,8 +10,6 @@
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
-# Automatically generated from ./make/Makefile.am.wild by autowild
-# Do not edit
 # Generated automatically by wild-perl 0.1
 # project  LilyPond -- the musical typesetter
 # title	   zucht
@@ -69,14 +67,15 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 host_alias = @host_alias@
 host_triplet = @host@
+AGE = @AGE@
 AUTOGENERATE = @AUTOGENERATE@
 BISON = @BISON@
 CC = @CC@
 COMPILEINFO = @COMPILEINFO@
 CPPFLAGS = @CPPFLAGS@
+CURRENT = @CURRENT@
 CXX = @CXX@
 CXXFLAGS = @CXXFLAGS@
-DEFINES = @DEFINES@
 DIR_DATADIR = @DIR_DATADIR@
 EXTRA_LIBES = @EXTRA_LIBES@
 FIND = @FIND@
@@ -84,6 +83,7 @@ FLEX = @FLEX@
 ICFLAGS = @ICFLAGS@
 ILDFLAGS = @ILDFLAGS@
 LD = @LD@
+LDFLAGS = @LDFLAGS@
 LEX = @LEX@
 LIBTOOL = @LIBTOOL@
 LN = @LN@
@@ -98,6 +98,7 @@ POD2HTML = @POD2HTML@
 POD2MAN = @POD2MAN@
 PYTHON = @PYTHON@
 RANLIB = @RANLIB@
+REVISION = @REVISION@
 TAR = @TAR@
 TEXDIR = @TEXDIR@
 TEXPREFIX = @TEXPREFIX@
@@ -123,7 +124,7 @@ SED_DATE=sed 's!@DATE@!${date}!g'
 SED_EXAMPLES = sed 's!@EXAMPLE_LYS@!${rpmexamples} ${rpmmudocs}!g'
 SED_DOCS=sed 's!@TEXT_DOCS@!${rpmdocs}!g'
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
-CONFIG_HEADER = ../lib/config.hh
+CONFIG_HEADER = ../flower/config.hh
 CONFIG_CLEAN_FILES = 
 DIST_COMMON =  Makefile.am Makefile.in
 
@@ -220,7 +221,7 @@ lilypond.spec: lilypond.spec.in ../VERSION
 	cat $< | $(SED_VERSION) | $(SED_DATE) > $@
 
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
-	$(PERL) $(top_srcdir)/bin/wild-perl --top-srcdir="$(real_topdir)" < $< > $@
+	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

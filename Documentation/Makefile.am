@@ -1,5 +1,3 @@
-# Automatically generated from ./Documentation/Makefile.am.wild by autowild
-# Do not edit
 # Generated automatically by wild-perl 0.1
 # Documentation/Makefile.am.wild
 
@@ -40,4 +38,4 @@ clean-local:
 
 include $(top_srcdir)/Documentation/Rules.make
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
-	$(PERL) $(top_srcdir)/bin/wild-perl --top-srcdir="$(real_topdir)" < $< > $@
+	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@

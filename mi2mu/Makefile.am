@@ -1,5 +1,3 @@
-# Automatically generated from ./mi2mu/Makefile.am.wild by autowild
-# Do not edit
 # Generated automatically by wild-perl 0.1
 # project  LilyPond -- the musical typesetter
 # title	   makefile for mi2mu
@@ -21,10 +19,12 @@ mi2mu_SOURCES = main.cc mi2mu-version.cc midi-parser.cc midi-score-parser.cc mid
 # mi2mu_LDFLAGS = -L$(absolute_builddir)/lib/.libs -L$(absolute_builddir)/flower/.libs
 mi2mu_LDADD = $(top_builddir)/lib/liblily.la $(top_builddir)/flower/libflower.la @LEXLIB@
  
-
-INCLUDES = -I$(srcdir)/include -I$(srcdir)/../lib/include -I$(srcdir)/../flower/include
+INCLUDES =  -I$(top_srcdir)/mi2mu/include -I$(top_srcdir)/lib/include -I$(top_srcdir)/flower/include 
 
 EXTRA_DIST = Makefile.am.wild GNUmakefile VERSION TODO
+
+distclean-local:
+	-rm -rf .deps
 
 # override default target for all-am: to get an extra dependency
 all-am: Makefile $(PROGRAMS) wild-check
@@ -32,7 +32,5 @@ all-am: Makefile $(PROGRAMS) wild-check
 # dummy target for non-GNU makes; is overridden in GNUmakefile
 wild-check:
 
-distclean-local:
-	-rm -rf .deps
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
-	$(PERL) $(top_srcdir)/bin/wild-perl --top-srcdir="$(real_topdir)" < $< > $@
+	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@

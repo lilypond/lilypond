@@ -7,15 +7,40 @@
 
 # automake/wild-make should generate this file from Makefile.am.wild
 
+#ugh
+Makefile=$(wildcard Makefile)
+# are we configured here, or are we using --srcdir
+ifeq ($(Makefile),Makefile)
+
 include Makefile
+
+biltdir=.
+
+else
+
+#ugh
+#ugh
+biltdir=../../build/mi2mu
+
+make-in-build: wild-check
+	exec $(MAKE) -C $(biltdir)
+
+# include Makefile
+include $(biltdir)/Makefile
+
+clean: wild-check
+	exec $(MAKE) -C $(biltdir) $@
+
+dist: wild-check
+	exec $(MAKE) -C $(biltdir) $@
+
+distclean: wild-check
+	exec $(MAKE) -C $(biltdir) $@
+
+endif
 
 # Makefile.am.wild: mi2mu_SOURCES = $(wildcard *.cc)
 CURRENT_mi2mu_SOURCES = $(wildcard *.cc)
-
-# ugh: there is a dummy file 'wild-check' to satisfy the wild-check target
-# for non-GNU makes in Makefile(.test)
-# but we'll ignore that
-# .PHONY: wild-check
 
 wild-check: check-mi2mu-sources
 
@@ -23,7 +48,8 @@ check-mi2mu-sources:
 ifneq ($(mi2mu_SOURCES),$(CURRENT_mi2mu_SOURCES))
 	@echo \"$(mi2mu_SOURCES)\"
 	@echo \"$(CURRENT_mi2mu_SOURCES)\"
-	@echo  mi2mu_SOURCES changed: NOT yet rerunning make-wild.  Please type:
-	@echo "$(PERL) $(top_srcdir)/bin/wild-perl < Makefile.am.wild > Makefile.am"
+	@echo  mi2mu_SOURCES changed: rerunning make-wild.
+	@-rm -f Makefile.am
+	$(PERL) $(top_srcdir)/bin/wild-perl < Makefile.am.wild > Makefile.am
 endif
 

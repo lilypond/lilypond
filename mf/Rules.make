@@ -1,22 +1,22 @@
 
-$(outdir)/%.dvi: %.mf
+$(top_builddir)/mf/%.dvi: %.mf
 	mf $<
 	gftodvi  $(basename $<)
 #	mv $(basename $<).dvi $(outdir)
-	rm $(basename $<).*gf
+#	rm $(basename $<).*gf
 
-$(outdir)/%.log: %.mf
+$(top_builddir)/mf/%.log: %.mf
 	mf $<
 #	mv $(@F) $@
-	rm $(basename $< ).*gf
+#	rm $(basename $< ).*gf
 
-$(lyout)/%.ly $(texout)/%.tex: $(outdir)/%.log
-	$(PYTHON) $(depth)/bin/mf-to-table --ly $(lyout)/$(<F:.log=.ly) --tex $(texout)/$(<F:.log=.tex) $<
+$(lyout)/%.ly $(texout)/%.tex: $(top_builddir)/mf/%.log
+	$(PYTHON) $(top_builddir)/bin/mf-to-table --ly $(lyout)/$(<F:.log=.ly) --tex $(texout)/$(<F:.log=.tex) $<
 
 $(MFDEPS): $(FONT_FILES)
 # do something silly to avoid barfs if python not installed.
 	echo > $@
-	$(PYTHON) $(depth)/bin/mf-deps $^ >> $@
+	$(PYTHON) $(top_builddir)/bin/mf-deps $^ >> $@
 
 # silly workaround for stupid TeXs
 systempks:

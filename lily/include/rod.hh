@@ -16,7 +16,7 @@
 struct Column_rod {
   Paper_column *other_l_;
   Real distance_f_;
-  Direction dir_;
+
   Column_rod ();
   static int compare (const Column_rod &r1, const Column_rod &r2);
   void print () const;
@@ -28,7 +28,7 @@ struct Rod
   Real distance_f_;
   void add_to_cols ();
 
-  Rod (Item*,Item*);
+  Rod (Single_malt_grouping_item*,Single_malt_grouping_item*);
   Rod ();
 };
 

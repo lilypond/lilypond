@@ -10,8 +10,6 @@
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
-# Automatically generated from ./mutopia/Makefile.am.wild by autowild
-# Do not edit
 # Generated automatically by wild-perl 0.1
 # mutopia/Makefile.am.wild
 
@@ -62,14 +60,15 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 host_alias = @host_alias@
 host_triplet = @host@
+AGE = @AGE@
 AUTOGENERATE = @AUTOGENERATE@
 BISON = @BISON@
 CC = @CC@
 COMPILEINFO = @COMPILEINFO@
 CPPFLAGS = @CPPFLAGS@
+CURRENT = @CURRENT@
 CXX = @CXX@
 CXXFLAGS = @CXXFLAGS@
-DEFINES = @DEFINES@
 DIR_DATADIR = @DIR_DATADIR@
 EXTRA_LIBES = @EXTRA_LIBES@
 FIND = @FIND@
@@ -77,6 +76,7 @@ FLEX = @FLEX@
 ICFLAGS = @ICFLAGS@
 ILDFLAGS = @ILDFLAGS@
 LD = @LD@
+LDFLAGS = @LDFLAGS@
 LEX = @LEX@
 LIBTOOL = @LIBTOOL@
 LN = @LN@
@@ -91,6 +91,7 @@ POD2HTML = @POD2HTML@
 POD2MAN = @POD2MAN@
 PYTHON = @PYTHON@
 RANLIB = @RANLIB@
+REVISION = @REVISION@
 TAR = @TAR@
 TEXDIR = @TEXDIR@
 TEXPREFIX = @TEXPREFIX@
@@ -102,13 +103,13 @@ absolute_builddir = @absolute_builddir@
 SUBDIRS = J.S.Bach
 
 LYFILES = gallina.ly los-toros-oboe.ly standchen-16.ly standchen-20.ly standchen.ly standje.ly
-TEXFILES = gallina.tex standchen-16.tex standchen-20.tex
+TEXFILES = gallina.tex los-toros-oboe-20.tex standchen-16.tex standchen-20.tex
 M4FILES = dummy.m4
 EXTRA_DIST = Makefile.am.wild TODO $(LYFILES) $(TEXFILES) $(M4FILES)
 
 OUTFILES = $(M4FILES:%.m4=%)
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
-CONFIG_HEADER = ../lib/config.hh
+CONFIG_HEADER = ../flower/config.hh
 CONFIG_CLEAN_FILES = 
 DIST_COMMON =  Makefile.am Makefile.in TODO
 
@@ -285,7 +286,7 @@ maintainer-clean-generic clean mostlyclean distclean maintainer-clean
 
 default: all $(OUTFILES)
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
-	$(PERL) $(top_srcdir)/bin/wild-perl --top-srcdir="$(real_topdir)" < $< > $@
+	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
