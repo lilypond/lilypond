@@ -5,15 +5,15 @@
 #include "molecule.hh"
 #include "lookup.hh"
 
-Script::Script(Script_req* rq, Item*i , int staflen, Stem*st_p)
+Script::Script(Script_req* rq, Item*i , int staflen, Stem*st_l)
 {
-    dependencies.add(st_p);
+    dependencies.add(st_l);
     dependencies.add(i);
     
     staffsize =staflen;
-    specs = rq->scriptdef;
+    specs_l_ = rq->scriptdef;
     support= i;
-    stem_ = st_p;
+    stem_l_ = st_l;
     pos = 0;
     symdir=1;
     dir =rq->dir;
@@ -22,41 +22,50 @@ Script::Script(Script_req* rq, Item*i , int staflen, Stem*st_p)
 void
 Script::set_symdir()
 {
-    if (specs->invertsym)
+    if (specs_l_->invertsym)
 	symdir = (dir < 0) ? -1:1;
 }
 
 void
 Script::set_default_dir()
 {
-    if (specs->stemdir) {
-	if (!stem_)
+    if (specs_l_->stemdir) {
+	if (!stem_l_)
 	    dir = 1;
 	else
-	    dir = stem_->dir * specs->stemdir;
+	    dir = stem_l_->dir * specs_l_->stemdir;
     }
 }
 
 void
 Script::set_default_pos()
 {
-    assert(dir);
-    Real y;
     Real inter= paper()->internote();
-
-    int d = specs->staffdir;
+    Interval dy = symbol().dim.y;
+    
+    int d = specs_l_->staffdir;
     if (!d) {
 	Interval v= support->height();
-	pos = rint(v[dir]/inter) + dir* 2;
+	pos = rint((v[dir]  -dy[-dir])/inter) + dir* 2;
     } else {
-	y  = (d > 0) ? staffsize + 2: -2; // ug
+	Real y  = (d > 0) ? staffsize + 2: -2; // ug
 	y *=inter;
 	Interval v= support->height();
 
-	if (dir > 0) {
+	if (d > 0) {
 	    y = y >? v.max();
-	}else if (dir < 0) {
+	} else if (d < 0) {
 	    y = y <? v.min();
+	}
+
+	if (stem_l_) {
+	    Interval v= stem_l_->height();
+
+	    if (d > 0) {
+		y = y >? v.max();
+	    }else if (d < 0) {
+		y = y <? v.min();
+	    }
 	}
 	pos = int(rint(Real(y)/inter));
     }
@@ -65,7 +74,14 @@ Script::set_default_pos()
 Interval
 Script::width() const
 {
-    return paper()->lookup_->script(specs->symidx).dim.x;
+    return symbol().dim.x;
+}
+
+Symbol
+Script::symbol()const
+{
+    String preidx = (symdir < 0) ?"-" :"";
+    return paper()->lookup_p_->script(preidx+specs_l_->symidx);
 }
 
 void
@@ -80,16 +96,13 @@ Script::do_post_processing()
 {
     set_default_pos();
 }
+
 Molecule*
 Script::brew_molecule() const
 {
-    Paperdef *p =paper();
-
-    Real dy = p->internote();
-    String preidx = (symdir < 0) ?"-" :"";
-    Symbol ss =p->lookup_->script(preidx+specs->symidx);
-    Molecule*out = new Molecule(Atom(ss));
+    Real dy = paper()->internote();
+    
+    Molecule*out = new Molecule(Atom(symbol()));
     out->translate(Offset(0,dy * pos));
-    return
-	out;
+    return out;
 }
