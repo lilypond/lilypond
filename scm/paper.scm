@@ -76,7 +76,7 @@
     (module-define! m 'bottommargin (* 6 mm))
     (module-define! m 'headsep (* 4 mm))
     (module-define! m 'footsep (* 4 mm))
-    (module-define! m 'leftmargin (* 10 mm))
+    (module-define! m 'leftmargin #f)
     (module-define! m 'rightmargin (* 10 mm))))
 
 (define (internal-set-paper-size module name)

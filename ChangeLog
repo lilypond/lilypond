@@ -1,3 +1,9 @@
+2004-08-02  Pedro Kroger  <kroeger@pedrokroeger.net>
+
+	* scm/page-layout.scm (default-page-make-stencil): If leftmargin
+	isn't specified by the user in \bookpaper center the music in the
+	page.
+
 2004-08-02  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* Fix some problems after the renaming of my-lily -> lily

@@ -127,11 +127,18 @@
      ((topmargin  (ly:output-def-lookup paper 'topmargin))
       
       ;; TODO: naming vsize/hsize not analogous to TeX.
+
       
-      (leftmargin (ly:output-def-lookup paper 'leftmargin))
-      (rightmargin (ly:output-def-lookup paper 'rightmargin))
       (vsize (ly:output-def-lookup paper 'vsize))
       (hsize (ly:output-def-lookup paper 'hsize))
+      
+      (lmargin (ly:output-def-lookup paper 'leftmargin))
+      (leftmargin (if lmargin
+                      lmargin
+                      (/ (- hsize
+                            (ly:output-def-lookup paper 'linewidth)) 2)))
+ 
+      (rightmargin (ly:output-def-lookup paper 'rightmargin))
       (bottom-edge (- vsize
 		      (ly:output-def-lookup paper 'bottommargin)))
 		     
