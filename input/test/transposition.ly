@@ -47,14 +47,14 @@ vTwo =  \notes \transpose c d { \vOne }
 vThree =  \notes \relative c''{
         \clef"violin"
 %        \keysignature fis cis
-	\property Staff.keySignature = #'((0 . 1)(3 . 1))
+	\property Staff.keySignature = #'((0 . 2)(3 . 2))
         \time 2/4 
         d4 d |       
 %        \keysignature bes es fis
-	\property Staff.keySignature = #'((3 . 1)(2 . -1)(6 . -1))
+	\property Staff.keySignature = #'((3 . 2)(2 . -2)(6 . -2))
         fis4 fis |         
 %        \keysignature fis cis gis dis ais eis
-	\property Staff.keySignature = #'((2 . -1)(5 . -1)(1 . 1)(4 . 1)(0 . 1)(3 . 1))
+	\property Staff.keySignature = #'((2 . -2)(5 . -2)(1 . 2)(4 . 2)(0 . 2)(3 . 2))
         cis4 ais4 |
 }
 
