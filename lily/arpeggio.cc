@@ -67,7 +67,7 @@ Arpeggio::brew_molecule (SCM smob)
 
   SCM ad = me->get_grob_property ("arpeggio-direction");
   Direction dir = CENTER;
-  if (ly_dir_p (ad))
+  if (is_direction (ad))
     {
       dir = to_dir (ad);
     }

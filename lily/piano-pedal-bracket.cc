@@ -58,9 +58,9 @@ Piano_pedal_bracket::after_line_breaking (SCM smob)
       Item *b = me->get_bound (d);
       broken[d] = b->break_status_dir () != CENTER;
 
-      if (!broken[d] && (ly_number_pair_p (eh)))
+      if (!broken[d] && (is_number_pair (eh)))
 	height[d] += gh_scm2double (index_get_cell (eh, d));
-      if (ly_number_pair_p (sp))
+      if (is_number_pair (sp))
 	shorten[d] +=  gh_scm2double (index_get_cell (sp, d));
     }
   while (flip (&d) != LEFT);

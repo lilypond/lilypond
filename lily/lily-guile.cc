@@ -157,9 +157,9 @@ LY_DEFINE(ly_warning,"ly:warn", 1, 0, 0,
   return SCM_BOOL_T;
 }
 
-LY_DEFINE(ly_isdir,  "ly:dir?", 1,0, 0,  (SCM s),
-	  "type predicate. A direction is a -1, 0 or 1, where -1 represents left or "
-"down and 1 represents right or up. ")
+LY_DEFINE(ly_dir_p,  "ly:dir?", 1,0, 0,  (SCM s),
+	  "type predicate. A direction is a -1, 0 or 1, where -1 represents "
+	  "left or down and 1 represents right or up. ")
 {
   if (gh_number_p (s))
     {
@@ -170,7 +170,7 @@ LY_DEFINE(ly_isdir,  "ly:dir?", 1,0, 0,  (SCM s),
 }
 
 bool
-ly_number_pair_p (SCM p)
+is_number_pair (SCM p)
 {
   return gh_pair_p (p) && gh_number_p (ly_car (p)) && gh_number_p (ly_cdr (p));
 }
@@ -217,7 +217,7 @@ unsigned int ly_scm_hash (SCM s)
 
 
 bool
-ly_dir_p (SCM s)
+is_direction (SCM s)
 {
   if (gh_number_p (s))
     {
@@ -229,7 +229,7 @@ ly_dir_p (SCM s)
 
 
 bool
-ly_axis_p (SCM s)
+is_axis (SCM s)
 {
   if (gh_number_p (s))
     {

@@ -1,3 +1,16 @@
+2003-09-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* mf/GNUmakefile: always trace pfa fonts.
+
+	* configure.in: require mftrace. 
+
+	* lily/staff-performer.cc (new_instrument_string): don't look at
+	instrument property.
+
+	* lily/lily-guile.cc: renaming, ly_dir_p is the Scheme function,
+	is_direction is the C++ one. Similar for ly_axis_p and
+	ly_number_pair_p
+
 2003-09-21  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/beam.cc (brew_molecule): read gap-count to determine

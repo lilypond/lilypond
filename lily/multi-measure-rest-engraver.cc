@@ -115,7 +115,7 @@ Multi_measure_rest_engraver::process_music ()
 	      SCM t = e->get_mus_property ("text");
 	      SCM dir = e->get_mus_property ("direction");
 	      sp->set_grob_property ("text",t);
-	      if (ly_dir_p (dir))
+	      if (is_direction (dir))
 		sp->set_grob_property ("direction",dir);
 	      
 	      numbers_.push (sp);

@@ -79,7 +79,7 @@ Interval
 Separation_item::width (Grob *me)
 {
   SCM sw = me->get_grob_property ("X-extent");
-  if (ly_number_pair_p (sw))
+  if (is_number_pair (sw))
     {
       return ly_scm2interval (sw);
     }

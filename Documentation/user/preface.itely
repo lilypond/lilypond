@@ -15,7 +15,7 @@
 @unnumberedsec Preface to version 2.0
 
 
-Due to personal circumstances, I have been able to do a lot more on
+Due to personal circumstances, Han-Wen was able to do a lot more on
 LilyPond during the past months. A testament to that is the quick
 release of version 2.0, less than two months after 1.8. We have taken
 the opportunity to make a few radical changes to the syntax: note
@@ -24,10 +24,13 @@ post-fix exclusively. This makes entering scores easier: you never
 have to think about the order of the attributes.  With version 2.0, we
 have a new and improved platform for working on notation and
 typography features for coming versions,
+ 
+Due to other personal circumstances, Jan was not able to do more than
+packaging for Cygwin.  The good news is that we now have a nearly
+fool-proof installation for Windows.  He will be back in 2.1.
 
-@c 
 
-Han-Wen,
+Han-Wen and Jan
 
 Utrecht/Eindhoven, The Netherlands, September 2003.
 

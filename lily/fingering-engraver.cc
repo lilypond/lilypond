@@ -104,7 +104,7 @@ Fingering_engraver::make_script (Direction d, Music *r,Axis a,  int i)
   fingering->set_grob_property ("script-priority", gh_int2scm (priority));
 
 
-  if (!ly_dir_p (fingering->get_grob_property ("direction")))
+  if (!is_direction (fingering->get_grob_property ("direction")))
     {
       if (d)
 	fingering->set_grob_property ("direction", gh_int2scm (d));

@@ -317,7 +317,7 @@ Beam::brew_molecule (SCM grob)
 
   SCM posns = me->get_grob_property ("positions");
   Interval pos;
-  if (!ly_number_pair_p (posns))
+  if (!is_number_pair (posns))
     {
       programming_error ("No beam posns");
       pos = Interval (0,0);
@@ -326,7 +326,7 @@ Beam::brew_molecule (SCM grob)
     pos= ly_scm2interval (posns);
 
   Real dy = pos.delta ();
-  Real dydx = dy && dx ? dy/dx : 0;
+  Real dydx = (dy && dx) ? dy/dx : 0;
   
   Real thick = get_thickness (me);
   Real bdy = get_beam_translation (me);
@@ -334,7 +334,6 @@ Beam::brew_molecule (SCM grob)
   SCM last_beaming = SCM_EOL;;
   Real last_xposn = -1;
   Real last_width = -1 ;
-
 
   Real gap_length =0.0;
   SCM scm_gap = me->get_grob_property ("gap");

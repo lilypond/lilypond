@@ -97,7 +97,7 @@ Grob *make_script_from_event (SCM * descr, Translator_group*tg, Music * event,
   *descr = art;  
 
   SCM force_dir = event->get_mus_property ("direction");
-  if (ly_dir_p (force_dir) && to_dir (force_dir))
+  if (is_direction (force_dir) && to_dir (force_dir))
     p->set_grob_property ("direction", force_dir);
 
   copy_property (p, ly_symbol2scm ("script-molecule"), art);

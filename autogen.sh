@@ -1,7 +1,4 @@
 #!/bin/sh
-# WARNING WARNING WARNING
-# do not edit! this is autogen.sh, generated from /home/hanwen/usr/src/lilypond/stepmake/autogen.sh
-#!/bin/sh
 # Run this to generate configure and initial GNUmakefiles
 
 srcdir=`dirname $0`
@@ -45,7 +42,7 @@ if test -z "$*"; then
   echo
 fi
 
-for coin in `find $srcdir -name configure.in -print`
+for coin in $srcdir/configure.in #`find $srcdir -name configure.in -print`
 do 
   dr=`dirname $coin`
   echo processing $dr

@@ -202,9 +202,9 @@ void ly_display_scm (SCM s);
 void read_lily_scm_file (String);
 void ly_init_guile ();
 
-bool ly_dir_p (SCM s);
-bool ly_number_pair_p (SCM);
-bool ly_axis_p (SCM);
+bool is_direction (SCM s);
+bool is_number_pair (SCM);
+bool is_axis (SCM);
 
 /*
   these conversion functions also do a typecheck on the argument, and

@@ -145,7 +145,7 @@ Midi_instrument::to_string () const
   if (found)
     program_byte = gh_scm2int(program);
   else
-      warning (_f ("no such instrument: `%s'", audio_->str_.to_str0 ()));
+      warning (_f ("no such MIDI instrument: `%s'", audio_->str_.to_str0 ()));
 
   String str = ::to_string ((char) (0xc0 + channel_)); //YIKES! FIXME: Should be track. -rz
   str += ::to_string ((char)program_byte);

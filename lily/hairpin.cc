@@ -27,7 +27,7 @@ Hairpin::brew_molecule (SCM smob)
   Real line = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));  
   
   SCM s = me->get_grob_property ("grow-direction");
-  if (!ly_dir_p (s))
+  if (!is_direction (s))
     {
       me->suicide ();
       return SCM_EOL;
