@@ -1,27 +1,45 @@
-\version "2.1.26"
+\version "2.1.26" 
 
-\header{texidoc = "@cindex Staff Bracket
-In a music with piano accompaniment, staff brackets, like the one in 
-this example can be used. "
+\header{ texidoc="@cindex Nested Staff Groups
+Staffs can be nested in various combinations. Here, @code{StaffGroup}
+and @code{ChoirStaff} produce similar straight brackets, whereas 
+@code{GrandStaff} produces curly brackets. In @code{InnerStaffGroup} 
+and @code{InnerChoirStaff}, the brackets are shifted leftwards.
+
+"
 }
 
-\score
-{
-  \new StaffGroup \notes \relative c'' <<
-      \new Staff {  b1 }
-    \new PianoStaff <<
-      \new Staff \notes { b1 }
-      \new Staff \notes { b1 }
-    >> 
+\score { \notes
+<<
+  \new StaffGroup << 
+  \new Staff {c' d' e' f'}
+  \new InnerStaffGroup <<
+   \new Staff {c' d' e' f'}
+   \new GrandStaff <<
+     \new Staff {c' d' e' f'}
+     \new Staff {c' d' e' f'}
+   >>
+  \new Staff {c' d' e' f'}
+  >>
+  \new ChoirStaff <<
+   \new Staff {c' d' e' f'}
+    \new InnerStaffGroup <<
+     \new Staff {c' d' e' f'}
+    >>
+   \new Staff {c' d' e' f'}
+  >>
+  >>
+  \new ChoirStaff << 
+   \new Staff {c' d' e' f'}
+   \new InnerChoirStaff <<
+    \new Staff {c' d' e' f'}
+    \new Staff {c' d' e' f'}
+   >>
+   \new Staff {c' d' e' f'}
   >>
 
-  \paper {
-    \translator
-    {
-      \StaffContext
-      \consists Instrument_name_engraver
-    }
-    raggedright=##t
-  }
+>>
+
+ \paper { raggedright = ##t}
 }
 
