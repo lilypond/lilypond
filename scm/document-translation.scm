@@ -65,7 +65,7 @@
      (if  (null? grobs)
 	  ""
 	  (string-append
-	   "This engraver creates the following grobs: \n "
+	   "This engraver creates the following layout objects: \n "
 	   (human-listify (map ref-ify (uniq-list (sort grobs string<? ))))
 	   ".")
 	  )
@@ -97,8 +97,10 @@
 			       '())))
 		       context-description-alist))))
 	   (string-append
-	    name-str " is part of contexts: "
-	    (human-listify (map ref-ify (map symbol->string contexts)))))
+	    "@code{" name-str "} is part of contexts: "
+	    (human-listify (map ref-ify
+				(sort
+				(map symbol->string contexts) string<?)))))
 	 ""
 	 ))))
 
@@ -205,7 +207,7 @@
        desc
        "\n\n This context is also known as: \n\n"
        (human-listify aliases)
-       "\n\nThis context creates the following grobs: \n\n"
+       "\n\nThis context creates the following layout objects: \n\n"
        (human-listify (uniq-list (sort grob-refs string<? )))
        "."
        (if (pair? props)

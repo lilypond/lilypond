@@ -393,7 +393,6 @@
 	(script-priority . 100)
 	(font-encoding . number)
 	(font-size . -5) 		; don't overlap when next to heads.
-	(font-shape . upright)
 	(meta . ((interfaces . (finger-interface font-interface text-script-interface text-interface side-position-interface self-alignment-interface item-interface ))))
 	))
 

@@ -115,7 +115,7 @@ node."
       #:name namestr
       #:text
       (string-append
-       namestr " grobs are created by: "
+       namestr " objects are created by: "
        (human-listify (map ref-ify
 			   (map engraver-name engraver-names)))
        "\n\nStandard settings: \n\n"

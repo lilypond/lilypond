@@ -5,11 +5,16 @@
 ;;;; (c)  1998--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;;;		     Jan Nieuwenhuizen <janneke@gnu.org>
 
+
+;; TODO: should link back into user manual.
+
 (define-public music-descriptions
   `(
     (AbsoluteDynamicEvent
      . (
-   (description . "Creates a dynamic mark.  Syntax: @var{note}@code{\\x},
+   (description . "Creates a dynamic mark.
+
+Syntax: @var{note}@code{\\x},
 where x is one of \\ppp, \\pp, \\p, \\mp, \\mf, \\f, \\ff, \\fff.")
 	(internal-class-name . "Event")
 	(types . (general-music event dynamic-event absolute-dynamic-event))
@@ -26,7 +31,7 @@ where x is one of \\ppp, \\pp, \\p, \\mp, \\mf, \\f, \\ff, \\fff.")
 	(description . "
 Call the argument with all current grobs during interpreting phase.
 
-SYNTAX
+Syntax
 
 \applyoutput FUNC
 
@@ -40,7 +45,9 @@ arguments to func are 1. the grob, 2. the originating context,
 	))
     (ArpeggioEvent 
      . (
-	(description .	"Make an arpeggio on this note. Syntax:
+	(description .	"Make an arpeggio on this note.
+
+Syntax:
 @var{note}-@code{\\arpeggio}")
 	(internal-class-name .	"Event")
 	(types . (general-music arpeggio-event event))
@@ -50,7 +57,9 @@ arguments to func are 1. the grob, 2. the originating context,
     ;; separate non articulation scripts  
     (ArticulationEvent
      . (
-   (description .  "Adds an articulation marking to a note.  Syntax:
+   (description .  "Adds an articulation marking to a note.  
+
+Syntax:
 @var{note}@code{X}@code{Y}, where X is a direction (up @code{^}, down
 @code{_}, or LilyPond's choice (no direction specified)), and where Y
 is an articulation (such as @code{-.}, @code{->}, @code{\\tenuto},
@@ -84,21 +93,27 @@ is an articulation (such as @code{-.}, @code{->}, @code{\\tenuto},
 	))
     (BeamEvent
      . (
-   (description .  "Starts or stops a beam.  Syntax for manual control:
+   (description .  "Starts or stops a beam.  
+
+Syntax for manual control:
 c8-[ c c-] c8")
 	(internal-class-name . "Event")
 	(types . (general-music event beam-event span-event))
 	))
     (BreakEvent
      . (
-   (description .  "Creates a line break.  Syntax: \\break.")
+   (description .  "Creates a line break.  
+
+Syntax: \\break.")
 
 	(internal-class-name . "Event")
 	(types . (general-music break-event event))
 	))
     (BreathingSignEvent
      . (
-	(description .	"Creates a `breath mark' or `comma'.  Syntax:
+	(description .	"Creates a `breath mark' or `comma'.  
+
+Syntax:
 @var{note}\\breathe.")
 
 	(internal-class-name . "Event")
@@ -138,7 +153,9 @@ c8-[ c c-] c8")
     
     (CrescendoEvent
      . (
-	(description .	"Begins or ends a crescendo.  Syntax: @var{note}\\cr
+	(description .	"Begins or ends a crescendo.  
+
+Syntax: @var{note}\\cr
 ... @var{note}\\rc (you can also use \\<, \\!, \\cresc, and
 \\endcresc.  See the user manual for details.).")
 
@@ -209,7 +226,9 @@ c8-[ c c-] c8")
     
     (KeyChangeEvent
      . (
-	(description .	"Change the key signature. Syntax: @code{\\key } @var{name} @var{scale}.")
+	(description .	"Change the key signature. 
+
+Syntax: @code{\\key } @var{name} @var{scale}.")
 
 	(internal-class-name . "Key_change_ev")
 	(types . (general-music key-change-event event))
@@ -227,6 +246,8 @@ c8-[ c c-] c8")
     (LyricCombineMusic
      . (
 	(description .	"Align lyrics to the start of notes.
+
+
 Syntax @var{\\addlyrics }@var{music} @var{lyrics}.")
 
 	(internal-class-name . "Lyric_combine_music")
@@ -237,6 +258,8 @@ Syntax @var{\\addlyrics }@var{music} @var{lyrics}.")
     (NewLyricCombineMusic
      . (
 	(description .	"Align lyrics to the start of notes.
+
+
 Syntax @var{\\addlyrics }@var{music} @var{lyrics}.")
 	(internal-class-name . "Music")
 	(length . ,(ly:make-moment 0 1))
@@ -254,7 +277,9 @@ Syntax @var{\\addlyrics }@var{music} @var{lyrics}.")
 	))
     (MarkEvent
      . (
-	(description .	"Insert a rehearsal mark. Syntax: @code{\\mark} @var{marker},
+	(description .	"Insert a rehearsal mark. 
+
+Syntax: @code{\\mark} @var{marker},
 e.g. @code{\\mark \"A\"}.")
 
 	(internal-class-name . "Event")
@@ -270,6 +295,8 @@ e.g. @code{\\mark \"A\"}.")
      . (
 	(description .	"Start or stop a melisma.
 
+
+
 Syntax:@code{c4\\melisma d\\melismaEnd}.")
 	(internal-class-name . "Event")
 	(types . (general-music melisma-span-event event))
@@ -277,7 +304,9 @@ Syntax:@code{c4\\melisma d\\melismaEnd}.")
     
     (MultiMeasureRestEvent
      . (
-	(description . "Rests that may be compressed into Multi rests. Syntax
+	(description . "Rests that may be compressed into Multi rests. 
+
+Syntax
 @code{R2.*4} for 4 measures in 3/4 time. Note the capital R.")
 	(internal-class-name . "Event")
 	(types . (general-music event rhythmic-event multi-measure-rest-event))
@@ -285,7 +314,9 @@ Syntax:@code{c4\\melisma d\\melismaEnd}.")
     
     (MultiMeasureTextEvent
      . (
-	(description . "Texts on mm rests. Syntax
+	(description . "Texts on mm rests. 
+
+Syntax
 @code{R-\\markup @{ \\roman \"bla\" @}}. Note the explicit font switch.")
 	(internal-class-name . "Event")
 	(types . (general-music event multi-measure-text-event))
@@ -331,7 +362,9 @@ as separate voices.")
 	))
     (PhrasingSlurEvent
      . (
-	(description . "Start or end phrasing slur. Syntax NOTE \\(  and \\) NOTE")
+	(description . "Start or end phrasing slur. 
+
+Syntax NOTE \\(  and \\) NOTE")
 	(internal-class-name . "Event")
 	(types . (general-music span-event phrasing-slur-event))
 	))
@@ -339,6 +372,8 @@ as separate voices.")
     (PropertySet
      . (
 	(description .	"Set a context property.
+
+
 
 Syntax: @code{\\property @var{context}.@var{prop} = @var{scheme-val}}.")
 	(internal-class-name . "Music")
@@ -399,14 +434,18 @@ goes down).")
     
     (RestEvent
      . (
-	(description .	"A Rest. Syntax @code{r4} for a quarter rest. ")
+	(description .	"A Rest. 
+
+Syntax @code{r4} for a quarter rest. ")
 
 	(internal-class-name . "Event")
 	(types . (general-music event rhythmic-event rest-event))
 	)) 
     (SequentialMusic
      . (
-	(description .	"Music expressions concatenated. Syntax \\sequential @{..@} or simply @{..@} .")
+	(description .	"Music expressions concatenated. 
+
+Syntax \\sequential @{..@} or simply @{..@} .")
 
 	(internal-class-name . "Sequential_music")
 	(iterator-ctor . ,Sequential_music_iterator::constructor)
@@ -416,7 +455,9 @@ goes down).")
     (MultiMeasureRestMusicGroup
      . (
 	(description .	"Like sequential-music, but specifically intended
-to group start-mmrest, skip, stop-mmrest sequence. Syntax @code{R2.*5} for 5 measures in 3/4 time.")
+to group start-mmrest, skip, stop-mmrest sequence. 
+
+Syntax @code{R2.*5} for 5 measures in 3/4 time.")
 	(internal-class-name . "Sequential_music")
 	(iterator-ctor . ,Sequential_music_iterator::constructor)
 	(types . (general-music sequential-music))
@@ -458,7 +499,9 @@ SYNTAX
     
     (SlurEvent
      . (
-	(description . "Start or end slur. Syntax NOTE(	 and )NOTE")
+	(description . "Start or end slur. 
+
+Syntax NOTE(	 and )NOTE")
 	(internal-class-name . "Event")
 	(types . (general-music span-event slur-event))
 	))
@@ -477,7 +520,9 @@ previously added property from a graphical object definition
     (OutputPropertySetMusic
      . (
 	(description .	"Set grob properties in objects
-individually. Syntax @code{\\outputproperty @var{predicate} @var{prop}
+individually. 
+
+Syntax @code{\\outputproperty @var{predicate} @var{prop}
 = @var{val}}.")
 
 	(internal-class-name . "Music")
@@ -494,7 +539,9 @@ individually. Syntax @code{\\outputproperty @var{predicate} @var{prop}
     
     (ContextChange
      . (
-	(description .	"Change staffs in Piano staff. Syntax @code{\\translator Staff = @var{new-id}}.")
+	(description .	"Change staffs in Piano staff. 
+
+Syntax @code{\\translator Staff = @var{new-id}}.")
 	(internal-class-name . "Music")
 	(iterator-ctor . , Change_iterator::constructor)
 	(types . (general-music translator-change-instruction))
@@ -502,7 +549,9 @@ individually. Syntax @code{\\outputproperty @var{predicate} @var{prop}
     
     (TimeScaledMusic
      . (
-	(description .	"Multiply durations, as in tuplets. Syntax @code{\\times @var{fraction} @var{music}}, e.g.
+	(description .	"Multiply durations, as in tuplets. 
+
+Syntax @code{\\times @var{fraction} @var{music}}, e.g.
 @code{\\times 2/3 @{ ... @}} for triplets.
  ")
 	(internal-class-name . "Time_scaled_music")
@@ -563,6 +612,8 @@ For example, transposed music.")
 	(description .	"Filler that takes up duration, does not print anything, and also
 does not create staffs or voices implicitly.
 
+
+
 Syntax: @code{\\skip }@var{duration}.")
 	(internal-class-name . "Music")
 	(length . ,ly:music-duration-length)
@@ -573,6 +624,8 @@ Syntax: @code{\\skip }@var{duration}.")
     (SkipEvent
      . (
 	(description .	"Filler that takes up duration, but does not print anything.
+
+
 
 Syntax: @code{s}@var{duration}")
 
@@ -610,7 +663,9 @@ Syntax: @code{s}@var{duration}")
     
     (StringNumberEvent
      . (
-	(description .	"Specify on which string to play this note. Syntax: @code{\\@var{number}}.")
+	(description .	"Specify on which string to play this note. 
+
+Syntax: @code{\\@var{number}}.")
 
 	(internal-class-name . "Event")
 	(types . (general-music string-number-event event))
@@ -644,7 +699,9 @@ Syntax: @code{s}@var{duration}")
     
     (VoiceSeparator
      . (
-	(description .	"Separate polyphonic voices in simultaneous music. Syntax: @code{\\\\}")
+	(description .	"Separate polyphonic voices in simultaneous music. 
+
+Syntax: @code{\\\\}")
 
 	(internal-class-name . "Music")
 	(types . (separator general-music))
