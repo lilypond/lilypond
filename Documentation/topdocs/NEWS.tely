@@ -31,7 +31,7 @@ See user manual, \NAME\
 @item
 String numbers are now printed on chords as well,
 
-@lilypond[relative,relative=1,raggedright]
+@lilypond[relative,relative=1,raggedright,fragment]
 <c\1 e\2 g\3>
 @end lilypond
 
