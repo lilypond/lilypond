@@ -220,7 +220,7 @@ def command_name (cmd):
 	return re.match ('^[ \t]*([^ \t]*)', cmd).group (1)
 
 def error_log (name):
-	return os.path.join (__main__.temp_dir, '%s.errorlog' % name)
+	return tempfile.mktemp ('%s.errorlog' % name)
 
 def read_pipe (cmd, mode = 'r'):
 	redirect = ''

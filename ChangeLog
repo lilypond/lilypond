@@ -1,5 +1,10 @@
 2003-07-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* python/lilylib.py (error_log): use mktemp iso.  temp_dir. This
+	fixes a security hole.
+
+	* scripts/lilypond-book.py (original_dir): remove temp_dir
+
 	* scm/document-translation.scm: use @code tags.
 
 2003-07-20  Heikki Junes  <hjunes@cc.hut.fi>
