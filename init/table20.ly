@@ -49,7 +49,7 @@ table_twenty =
 
     "bars" = \table {
 	"empty"	"emptybar"	0
-	""	""	0		0.0\pt	0.0\pt	0.0\pt	16.0\pt
+	""	"emptybar"	0		0.0\pt	0.0\pt	0.0\pt	16.0\pt
 	"|"	"maatstreep"	1	0.0\pt	0.64\pt 	0.0\pt	20.0\pt
 	"||"	"doublebar"	1		0.0\pt	5.0\pt	0.0\pt	20.0\pt
 	"|."	"finishbar"	1		-5.0\pt	0.0\pt	0.0\pt	20.0\pt
@@ -60,25 +60,15 @@ table_twenty =
 	":|:"	"repeatbarstartrepeat"	0	0.0\pt 20.0\pt	0.0\pt	20.0\pt
     }
 
-    "meters" = \table {
-	"C"	"fourfourmeter"	0		0.0\pt	10.0\pt	-5.0\pt	5.0\pt
-	"C2"	"allabreve"	0		0.0\pt	10.0\pt	-5.0\pt	5.0\pt
-    }
-
     % dims ignored for this table
     "param" = \table {
 	"bracket"	"staffbracket"	1	0.0\pt	0.0\pt	20.0\pt	160.0\pt
 	"extender"	"extender"	1	0.0\pt	0.0\pt	1.0\pt	160.0\pt
 	"rule" "rulesym"	2
-	"brace"    "pianobrace"	1	0.0\pt	0.0\pt	40.0\pt	100.0\pt	 
+	"brace"    "pianobrace"	1	0.0\pt	0.0\pt	40.0\pt	140.0\pt	 
 	 "time_signature"	"generalmeter"	2	0.0\pt	10.0\pt	-5.0\pt	5.0\pt
 	 "stem"	"stem"	2
 	 "fill"	"hbox{}"	0
-     }
-
-     "beamslopes" = \table {
-	"slope"		"beamslope"	2  2.0\pt 64.0\pt 0.0\pt 0.0\pt	
-	"horizontal"	"rulesym"	2	
      }
      
 }

@@ -61,6 +61,11 @@ class Packager:
 		except KeyError:
 			m= '(address unknown)'
 		self.mail= m
+		try:
+			m= os.environ['WEBMASTER']
+		except KeyError:
+			m= self.mail
+		self.webmaster= m
 
 
 def full_version_tup(tup):

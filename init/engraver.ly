@@ -15,16 +15,16 @@ StaffContext=\translator {
 %}
 %	\type "Hara_kiri_line_group_engraver";
 
+	\consists "Repeat_engraver";
 	\consists "Bar_engraver";
 	\consists "Clef_engraver";
 	\consists "Key_engraver";
 	\consists "Local_key_engraver";
 	\consists "Time_signature_engraver";
-	\consists "Repeat_engraver";
 	\consists "Staff_symbol_engraver";
 	\consists "Collision_engraver";
 	\consists "Rest_collision_engraver";
-	\consists "Tuplet_engraver";
+
 %{
 	Uncomment to get bar numbers on single staff systems:
 	
@@ -77,8 +77,9 @@ RhythmicStaffContext=\translator{
 	\consists "Pitch_squash_engraver";
 	\consists "Separating_line_group_engraver";	
 	\name RhythmicStaff;
-	\consists "Bar_engraver";
+
 	\consists "Repeat_engraver";
+	\consists "Bar_engraver";
 	\consists "Time_signature_engraver";
 	\consists "Staff_symbol_engraver";
 	\accepts "Voice";
@@ -101,6 +102,7 @@ VoiceContext = \translator {
 	\consists "Font_size_engraver";
 	\consists "Slur_engraver";
 	\consists "Ties_engraver";
+	\consists "Tuplet_engraver";	
 	\consists "Note_heads_engraver" ;	
 	\consists "Skip_req_swallow_translator";
 };
@@ -206,9 +208,9 @@ HaraKiriStaffContext = \translator {
 	barColumnPriority = "0";
 	marginBreakPriority = "-4";
 
+	\consists "Repeat_engraver";
 	\consists "Bar_engraver";
 	\consists "Clef_engraver";
-	\consists "Repeat_engraver";
 	\consists "Key_engraver";
 	\consists "Time_signature_engraver";
 	\consists "Local_key_engraver";
@@ -243,6 +245,7 @@ OrchestralScoreContext= \translator {
 	defaultClef = treble;
 
 	\consists "Timing_engraver";
+
 	\consists "Bar_column_engraver";
 	\consists "Bar_number_engraver";
 	\consists "Mark_engraver";

@@ -6,10 +6,21 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr/urg
 
-
 BUGS:
-
 	* gallina barlines.
+
+	* fix height of / collisions with lyrics (chords), 
+	   see input/test/vertical-text.ly
+
+	* repeat/volta:
+	  - one volta spanner per score
+	  - repeat bars span staffs
+	  - placement alternative number
+	  - dimensions of volta bracket
+
+	* who is trying to print too (small/big) piano braces all the time?
+	    warning: piano brace too small (16.000pt)
+
 
 	* latex bla.tex broken (titles / \lilyfooter stuff?)
 
@@ -34,19 +45,17 @@ BUGS:
 	* space after bars?
 
 	* [/3 c8 c16 c c c]/1
-  
+
 	* fix singleStaffBracket
-  
+
   	* repeat bars: need distance after ":|" and before "|:"
 
 	* The time signature warnings still remain, will be fixed later.
 
-	Summary of minor spelling irregularities:
+ii	Summary of minor spelling irregularities:
 	-  capitalization/use of underscores in property names
 
-	* fix Score.skipBars
-
-	* repeat bars: need distance after ":|" and before "|:"
+	* fix SkipBars  -> skipBars
 
 	* \shape 1st dim skipped? 
 
@@ -67,6 +76,9 @@ BUGS:
 	portato= \script { "portato" 0 -1 0 1 0 }
 
 STUFF
+	* uniformise recent feta contributions.
+
+	* check out legal/(c) matters for scores.
 
 	* move option processing out of gh_enter
 
@@ -94,8 +106,6 @@ STUFF
 	* zip target for binary windows dist (JBR)
 
 	* revise documentation
-
-	* abbrev -> tremolo
 
 	* junking \skip req in lyrics
 
@@ -227,6 +237,7 @@ ydirection and hshift preset
 	* rename
 	  - plet -> tuplet
 	  - measure -> bar
+	  - abbrev -> tremolo
 	  - abbreviation-beam -> (measured/unmeasured) tremolo
 	  - partial -> anacrouse
 
@@ -418,7 +429,7 @@ PROJECTS
 	* add to MIDI output:
 	- tempo change
 	- ornaments (and trills?)
-	- repeat
+	- repeat/volta
 	- slurs
 	- accents
 	- dynamics
@@ -531,8 +542,6 @@ INPUTLANGUAGE
 
 	* relative mode for pitch entering
 
-	* bracket: volta 1,2
-
 	* configure pitch_byte
 
 	* rest name configurable
@@ -596,8 +605,6 @@ SMALLISH PROJECTS
 	* clean solution for staffsize in items.
 
 	* revise calcideal
-
-	* volta
 
 IDEAS
 

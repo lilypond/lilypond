@@ -39,6 +39,6 @@ endchar;
 enddef;
 
 
-for h :=  2 staffsize#  step 1 pt# until (6 * staffsize#):
+for h :=  2 staffsize#  step 1 pt# until (7 * staffsize#):
 	draw_brace(h, interline# );
 endfor
