@@ -317,11 +317,11 @@ def draw_paren =
 	.. simple_serif(z1r, z1l, 90) .. z2l{down} -- cycle;
 enddef;
   
-fet_beginchar("Right Parenthesis", ")", "rightparen")
+fet_beginchar("Right Parenthesis", "rightparen", "rightparen")
 	draw_paren;
 fet_endchar;
 
-fet_beginchar("Left Parenthesis", "(", "leftparen")
+fet_beginchar("Left Parenthesis", "leftparen", "leftparen")
 	draw_paren;
         currentpicture := currentpicture xscaled -1;
         set_char_box(charwd, charbp, chardp, charht);

@@ -1,4 +1,7 @@
+\header {
 
+    texidoc = "Tie code is not prepared  for staff changes."
+}
 
 
 \version "1.4.8"

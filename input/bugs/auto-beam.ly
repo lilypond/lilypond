@@ -1,6 +1,7 @@
 \version "1.3.148"
 
 \header {
+    
 texidoc="The Automatic beamer does not put @strong{unfinished} beams
 on the last notes of a score."
 }

@@ -1,4 +1,7 @@
 
+% 
+% Autoknee-ing triggers hara-kiri too early. 
+% 
 
 \score { \notes \transpose c'''
  \context PianoStaff <

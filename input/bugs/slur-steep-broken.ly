@@ -1,3 +1,6 @@
+
+% ??
+
 \version "1.3.148"
 
 \score{
@@ -7,7 +10,7 @@
     [) a'8. gis16 fis8. cis16] |
   }
   \paper{
-    linewidth = 3.0\cm
+    linewidth = 3.5\cm
     indent = .0
   }
 }
