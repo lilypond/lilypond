@@ -648,6 +648,14 @@ First time users should start here.
 @item
 @ifhtml
 The
+@endifhtml
+@emph{@ref{Example templates}}
+provides templates of LilyPond pieces.  Just cut and paste a
+template into a file, add notes, and you're done!
+
+@item
+@ifhtml
+The
 @end ifhtml
 @emph{@ref{Notation manual}}
 discusses topics grouped by notation construct.  Once you master the
@@ -753,18 +761,6 @@ are described in this document.  Each section of the
 notation manual has a @b{See also} subsection, which refers to the
 the generated documentation.  In the HTML document, these subsections
 have clickable links.
-
-@item
-Templates
-@ifhtml
-(available @uref{../../../../input/template/out-www/collated-files.html,here})
-@end ifhtml
-
-After you have gone through the tutorial, you should be able to write
-input files.  In practice, writing files from scratch turns out to be
-intimidating.  To give you a head start, we have collected a number of
-often-used formats in example files; simply copy the template and add
-notes in the appropriate places.
 
 @item
 Various input examples
