@@ -1,0 +1,132 @@
+<html>
+  <head>
+    <title>LilyPond @TOPLEVEL_VERSION@ Documentation</title>
+    <meta name="aesop" content="links">
+    <meta name="description"
+          content="Top-level index to the standard documentation for
+                   LilyPond @TOPLEVEL_VERSION@">
+    <style type="text/css">
+    .navigation td          { background-color: #e8ffe8;
+                          font-weight: bold;
+                          font-family: avantgarde, sans-serif;
+                          font-size: 110%; }
+      a.title { font-weight: bold; font-size: 110%; }
+      ul { margin-left: 1em; padding: 0pt; border: 0pt; }
+      ul li { margin-top: 0.2em; }
+      td.left-column { padding-right: 1em; }
+      td.right-column { padding-left: 1em; }
+    </style>
+  </head>
+  <body>
+	<div class="navigation">
+	<table align="center" width="100%" cellpadding="0" cellspacing="2">
+	<tr>
+	  <td align=center> LilyPond documentation</td>
+	</tr>
+	</table>
+        <hr>
+	</div>
+    <div align="center" class="titlepage">
+      <h1>LilyPond Documentation</h1>
+
+      <p>
+	<strong>Version @TOPLEVEL_VERSION@</strong>
+	<br>
+	<strong>@DATE@</strong>
+      </p>
+    </div>
+
+    <table align="center">
+      <tbody>
+        <tr>
+          <td class="left-column">
+	  <ul>
+	    <li>
+	    <a class="title" href="user/out-www/lilypond/Tutorial.html">Tutorial</a>
+	      <br>(start here)
+	  </ul>
+	  </td>
+	  <td class="right-column">
+	  <ul>
+	  
+            <li>
+	    <a class="title" href="NEWS.html">NEWS</a>
+	    <br>(changes since the last major release)
+	  </ul>
+	  </td>
+        </tr>
+        <tr>
+          <td valign="baseline" class="left-column">
+          &nbsp;
+	  <ul>
+	    <li>
+<a class="title" href="../user/out-www/lilypond/lilypond.html">User manual</a>
+(in <a class="title" href="../user/out-www/lilypond.pdf">PDF</a>, in
+<a class="title" href="../user/out-www/lilypond.html">one big page</a>)
+
+     <br>(everything about LilyPond)
+     
+	    <li><a class="title" href="../../input/template/out-www/collated-files.html">Templates</a>,
+
+     <br>(get started with typesetting)
+<li><a class="title"href="../../input/examples.html">Examples</a>
+
+     <br>(see some examples)
+	   
+<li><a class="title" href="../../input/test/out-www/collated-files.html">Tips and tricks</a>
+(in  <a class="title" href="../../input/test/out-www/collated-files.pdf">PDF</a>)
+
+     <br>(for advanced users)
+ <li><a class="title" href="../user/out-www/music-glossary.html">Glossary</a>
+
+     <br>(for non-English users)
+	  </ul>
+	  </td>
+	  <td valign="baseline" class="right-column">
+          &nbsp;
+	  <ul>
+	    <li>
+ <a  class="title" href="../user/out-www/lilypond-internals/lilypond-internals.html">Program reference</a>,
+
+     <br>(for LilyPond hackers)
+
+	    <li>
+     <a  class="title" href="../../input/regression/out-www/collated-files.html">Regression tests</a> (in <a  class="title" href="../../input/regression/out-www/regression.pdf">PDF</a>)
+
+     <br>(for developers)
+
+
+	    <li><a  class="title" href="../bibliography/out-www/index.html">Bibliography</a>.
+
+     <br>(background information)
+<li><a class="title"  href="DEDICATION.html">Dedication</a>.
+
+     <br>(for Jan and Han-Wen)
+
+	  </ul>
+	  </td>
+        </tr>
+        <tr>
+          <td valign="baseline" class="left-column">
+          &nbsp;
+          <ul>
+            <li> <a class="title"  href="http://lilypond.org/" class="title"
+                >lilypond.org</a>
+              <br>(the website)
+          </ul>
+          </td>
+          <td valign="baseline" class="right-column">
+          &nbsp;
+          <ul>
+            <li>
+	    	                 <a class="title" href="http://www.gnu.org/copyleft/gpl.html">License</a>
+				 <br> (the GPL) 
+          </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+
+  </body>
+</html>

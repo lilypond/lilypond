@@ -1,6 +1,11 @@
 2003-07-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
-	* Documentation/header.html.in (src): tweaks.
+	* stepmake/stepmake/texinfo-rules.make: remove footify everywhere.
+
+	* Documentation/index.html.in: python style doco index.
+
+	* Documentation/{footer,header}.html.in (src): remove, 
+	
 
 	* Documentation/pictures: remove all but lelie-logo.xpm.
 
