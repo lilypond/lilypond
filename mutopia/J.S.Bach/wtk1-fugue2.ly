@@ -14,19 +14,18 @@ copyright =	 "Public Domain";
 
 \version "0.1.9";
 
+keyCminor = \melodic \key bes es as;
                                     % should add \need{dutch.ini} for
                                     % correct parsing of note names
 
-global = 
-    \melodic {
+global = \melodic {
          \meter 4/4;                % should be \meter C
          \keyCminor 
 	 \skip 1*31;
 	 \bar "|."; |
-    }
+}
   
-dux =
-    \melodic {
+dux = \melodic {
         \clef "violin";
         \octave c';
 
@@ -72,11 +71,10 @@ dux =
 %% 30
         f4 r8 f [f es16 d] [es8 <f as]> |
         <B d> r <B d> r <G2 c> |
-    }
+}
 
 
-comes =
-    \melodic {
+comes = \melodic {
         \octave c'';
         \stemup
         r1 |
@@ -117,10 +115,9 @@ comes =
 %% 30
         [As c16 B] [c8 <d 'b! 'as!]> [G8 c16 B] [c8 d] |
         [F16 G] As4 [G16 F] E2 |
-    }
+}
 
-bassdux =
-    \melodic {
+bassdux = \melodic {
         \clef "bass";
         \octave c';
         r1 |
@@ -167,7 +164,7 @@ bassdux =
 
         
 \score {
-    \melodic \type Grandstaff < 
+	\type Grandstaff < 
 	\type Staff=treble  < 
                        \global 
                        \dux
