@@ -33,15 +33,14 @@ info: $(INFO_FILES)
 
 default: 
 
-local-WWW: $(HTML_FILES)   $(datafiles) $(PS_GZ_FILES) backdoc-WWW
-	$(SHELL) $(buildscript-dir)/install-info-html.sh $(outdir) lilypond lilypond-internals
+DEEP_HTML_FILES = $(outdir)/lilypond/lilypond.html $(outdir)/lilypond-internals/lilypond-internals.html
+
+local-WWW: $(HTML_FILES) $(datafiles) $(PS_GZ_FILES) $(DEEP_HTML_FILES)
+	$(SHELL) $(buildscript-dir)/install-info-html.sh --dir=$(outdir) lilypond lilypond-internals
 	$(MAKE) footify
+	-mkdir $(outdir)/lilypond 
 	ln -f $(outdir)/*.png $(outdir)/lilypond
 	$(MAKE) deep-footify
-
-deep-footify:
-	$(PYTHON) $(step-bindir)/add-html-footer.py --index=../../$(depth)/ --name $(PACKAGE_NAME) --version $(TOPLEVEL_VERSION) --header=$(depth)/Documentation/header.html.in --footer $(depth)/Documentation/footer.html.in $(sort $(wildcard $(outdir)/*/*.html))
-
 
 #	$(PYTHON) $(step-bindir)/ls-latex.py --title 'User documentation' \
 #	   $(DOC_FILES) $(TEX_FILES) $(TELY_FILES) \
@@ -55,8 +54,8 @@ $(outdir)/%.bib: %.bib
 localclean:
 	rm -f fonts.aux fonts.log feta*.tfm feta*.*pk 
 
-backdoc-WWW: $(outdir)/lilypond-internals.html
-	$(MAKE) footify
+backdoc-WWW: $(outdir)/lilypond-internals/lilypond-internals.html
+	$(SHELL) $(buildscript-dir)/install-info-html.sh --dir=$(outdir) lilypond lilypond-internals
 
 #ugh. lily/OUT/lilypond hardcoded.
 # when cross-compiling, we don't have lilypond
@@ -66,3 +65,19 @@ $(outdir)/lilypond-internals.texi:
 	else \
 		touch $@; \
 	fi
+
+# Generic rule not possible?
+# $(outdir)/%/%.html: $(outdir)/%.texi
+
+$(outdir)/lilypond/lilypond.html: $(outdir)/lilypond.texi
+	-$(MAKEINFO) --force --output=$@ --html $<
+# we want footers even if website builds (or is built) partly
+	$(deep-footify) $(sort $(wildcard $(outdir)/$(*F)/*.html))
+
+
+$(outdir)/lilypond-internals/lilypond-internals.html: $(outdir)/lilypond-internals.texi
+	-$(MAKEINFO) --force --output=$@ --html $<
+# we want footers even if website builds (or is built) partly
+	$(deep-footify) $(sort $(wildcard $(outdir)/$(*F)/*.html))
+
+

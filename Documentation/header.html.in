@@ -50,7 +50,7 @@ which substitutes some @AT_VARIABLES@ as well.
       <tr><td><font size=-1>
     	<a href="@TOP@Documentation/out-www/CHANGES.html">Change Log</a><br>
     	<a href="http://appel.lilypond.org/wiki/index.php3?LilyPondFaqs">FAQ</a><br>
-    	<a href="@TOP@Documentation/user/out-www/lilypond.html">User manual</a><br>
+    	<a href="@TOP@Documentation/user/out-www/lilypond/lilypond.html">User manual</a><br>
     	<a href="@TOP@Documentation/out-www/regression-test.html">Features</a><br>
 	<a href="http://appel.lilypond.org/wiki/index.php3?LilyPondToDo">To do</a><br>
 <br>
@@ -81,10 +81,9 @@ which substitutes some @AT_VARIABLES@ as well.
       <tr><td><font size=-1>
 	<a href="@TOP@short-examples.html">Short examples</a><br>
 	<a href="@TOP@long-examples.html">Longer examples</a><br>
-	<a href="http://sca.uwaterloo.ca/Mutopia/">Mutopia Project</a><br>
-	<a href="http://www.geocities.com/Vienna/Studio/1714/scarlattimus.html">Jonh Sankey</a><br>
-	<a href="http://www4.smart.net/~jcovey/scores/">Jeff Covey</a><br>
-	<a href="http://www.alqualonde.de/lilypond.html">Dirk Lattermann</a><br>
+	<a href="http://www.mutopiaproject.org/">Mutopia Project</a><br>
+
+	<a href="http://appel.lilypond.org/wiki/index.php?DownloadLilyPondScores">Other URLs</a><br>
 	<br>
       </td></tr>
       <tr><td bgcolor="#e8e8ff">
