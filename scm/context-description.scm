@@ -85,6 +85,8 @@
     automatically when an output definition (a @code{\score} or
     @code{\paper} block) is processed.
 ")
+
+    (TabStaff . "Context for generating tablature.")
     )
   )
 

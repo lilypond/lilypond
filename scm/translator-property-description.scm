@@ -332,6 +332,8 @@ Overrides automatic beaming.  The value is only used once, and then it
 is erased.
 .")
 (translator-property-description 'stemRightBeamCount integer? "idem, for the right side.")
+
+(translator-property-description 'stringTunings list? "DOCME.")
 (translator-property-description 'stz markup? "Abbreviated form for a stanza, see also Stanza property.")
 (translator-property-description 'subdivideBeams boolean? "If set, multiple beams will be subdivided at beat
 positions - by only drawing one beam over the beat.")
