@@ -707,7 +707,7 @@ Sammartini.  It was composed around 1740.
 
 @mudela[verbatim]
 
-\version "1.3.56";
+\version "1.3.60";
 \include "paper16.ly";
 
 viola = \notes \relative c' \context Voice = viola {
@@ -771,7 +771,7 @@ If it looks like incomprehensible gibberish to you@dots{} Then you are
 right.  The author has doctored this example to have as many quirks in
 one system as possible.
 @example 
-\version "1.3.56";
+\version "1.3.61";
 @end example 
 Lilypond and the Mudela language is still under development, therefore
 it is useful to indicate the Lilypond version of the file. Lilypond 

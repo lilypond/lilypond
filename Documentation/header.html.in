@@ -1,26 +1,101 @@
+<!--
 
-<! your header here >
-<! shamefully inspired by Franc,ois Pinard's TP pages >
+If this file ./Documentation/header.html.in is present,
+it is included automatically by add-html-footer.py,
+which substitutes some @AT_VARIABLES@ as well.
 
-<! ur* can't we generate this with @table from a .texi? >
+!-->
 
-<bgcolor="grey">
+<! Layout shamelessly inspired by Franc,ois Pinard's TP pages >
+
+<!--
 <table cellpadding=5 width="100%">
+  <tr align=left valign=bottom>
+   <td align=middle valign=middle colspan=3 width="100%" bgcolor="#e8ffe8">
+    <h1>
+    GNU LilyPond
+    </h1>
+    <h2>Welcome to the home of the GNU Music Typesetter</h2>
+   </td>
+  </tr>
+!-->
+
+<table cellpadding=5 width="100%">
+  <tr align=left valign=bottom>
+    <td align=center valign=middle width="15%" bgcolor="#e8ffe8">
+      <img align=center valign=middle
+        src="@TOP@Documentation/pictures/out-www/lelie-icon.png" alt="[icon]">
+     </td>
+    <td align=center valign=middle width="85%" bgcolor="#e8ffe8">
+      <h1>GNU LilyPond</h1>
+      <h2>Welcome to the home of the GNU Music Typesetter</h2>
+    </td>
+  </tr>
+
   <tr>
-    <td align=left valign=top width="15%" bgcolor="grey">
+    <td align=left valign=top width="15%" bgcolor="#e8ffe8">
     <table align=left>
-      <tr><td bgcolor="cyan"><b>General info</b></td></tr>
+      <tr><td bgcolor="#e8e8ff"><a href="@INDEX@"><b>Home</b></a></td></tr>
       <tr><td><font size=-1>
-          <a href="http://www.lilypond.org"><b>Entry page</b></a><br>
-          <a href="http://appel.dyndns.org/lilypond"><b>Hacking</b></a><br>
+        <a href="http://appel.dyndns.org/lilypond">Hacking</a><br>
+        <a href="http://www.gnu.org">GNU Project</a><br>
+        <a href="http://www2.iro.umontreal.ca/~pinard/po/registry.cgi?domain=lilypond">Translations</a><br>
+        <a href="http://www.lilypond.org">LilyPond dot org</a><br>
+	<br>
       </td></tr>
-      <tr><td bgcolor="cyan"><b>Download Source</b></td></tr>
+      <tr><td bgcolor="#e8e8ff">
+    	<a href="@TOP@Documentation/out-www/index.html"><b>Documentation</b></a>
+      </td></tr>
       <tr><td><font size=-1>
-          <a href="ftp://ftp.gnu.org/pub/gnu/lilypond"><b>Stable</b></a><br>
-          <a href="ftp://cs.uu.nl/pub/gnu/LilyPond/development"><b>Development</b></a><br>
+    	<a href="@TOP@Documentation/out-www/CHANGES.html">News</a><br>
+    	<a href="@TOP@Documentation/out-www/faq.html">FAQ</a><br>
+    	<a href="@TOP@Documentation/user/out-www/lilypond.html">User manual</a><br>
+    	<a href="@TOP@Documentation/out-www/regression-test.html">Features</a><br>
+    	<a href="http://appel.dyndns.org/lilypond/todo.html">Todo</a><br>
+	<br>
       </td></tr>
-  </table>
-  <! /tr >
-  <td align=left valign=top width="90%">
+      <tr><td bgcolor="#e8e8ff">
+	<a href="@INDEX@#download-source"><b>Download Source</b></a>
+      </td></tr>
+      <tr><td><font size=-1>
+        <a href="ftp://ftp.gnu.org/pub/gnu/lilypond">Stable</a><br>
+        <a href="ftp://ftp.cs.uu.nl/pub/gnu/LilyPond/development">Development</a><br>
+	<br>
+      </td></tr>
+      <tr><td bgcolor="#e8e8ff">
+	<a href="@INDEX@#download-binary"><b>Download Binary</b></a>
+      </td></tr>
+      <tr><td><font size=-1>
+	<a href="ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/RPMS/">RedHat i386</a><br>
+	<a href="ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/RPMS/ppc">LinuxPPC</a><br>
+	<a href="ftp://ftp.debian.org/debian/dists/unstable/main/binary-i386/tex">Debian i386</a><br>
+	<a href="ftp://ftp.debian.org/debian/dists/unstable/main/binary-powerpc/tex">Debian PowerPC</a><br>
+	<a href="http://home.austin.rr.com/jbr/jeff/lilypond/">Windows Stable</a><br>
+	<a href="http://appel.dyndns.org/lilypond/gnu-windows">Windows Testing</a><br>
+	<br>
+      </td></tr>
+      <tr><td bgcolor="#e8e8ff">
+	<a href="@INDEX@#music"><b>Music</b></a>
+      </td></tr>
+      <tr><td><font size=-1>
+	<a href="@TOP@short-examples.html">Short examples</a><br>
+	<a href="@TOP@long-examples.html">Longer examples</a><br>
+	<a href="http://sca.uwaterloo.ca/Mutopia/">Mutopia Project</a><br>
+	<a href="http://www.geocities.com/Vienna/Studio/1714/scarlattidwn.html">Jonh Sankey</a><br>
+	<a href="http://www4.smart.net/~jcovey/scores/">Jeff Covey</a><br>
+	<a href="http://www.alqualonde.de/lilypond.html">Dirk Lattermann</a><br>
+	<br>
+      </td></tr>
+      <tr><td bgcolor="#e8e8ff">
+        <a href="@INDEX@#mailing-lists"><b>Mailing Lists</b></a>
+      </td></tr>
+      <tr><td><font size=-1>
+	<a href="http://www.mail-archive.com/gnu-music-discuss@gnu.org">Discussion</a><br>
+	<a href="http://www.mail-archive.com/help-gnu-music@gnu.org">Help</a><br>
+	<a href="http://www.mail-archive.com/bug-gnu-music@gnu.org">Bugs</a><br>
+	<br>
+      </td></tr>
+    </table>
+  <td align=left valign=top width="85%">
 
 

@@ -11,10 +11,20 @@ include $(depth)/make/stepmake.make
 
 default: local-doc
 
-local-WWW: $(addprefix $(outdir)/, $(addsuffix .txt, $(TEXTS)))
+#urg default local-WWW target uses footify before its time; 
+# must add footify with txt-to-html target
+local-WWW:  $(addprefix $(outdir)/, $(addsuffix .txt, $(TEXTS))) $(OUT_HTMLFILES) txt-to-html
 
 copy-for-me:
-	$(foreach a, $(README_TOP_FILES),cp ../$(a) $(outdir)/$(a).txt && ) true
+	$(foreach a, $(README_TOP_FILES), cp ../$(a) $(outdir)/$(a).txt && ) true
 
 $(outdir)/%.txt: %
 	cp $< $@
+
+txt-to-html:
+	$(foreach a, $(TEXTS),\
+		echo "<html><body><xmp>" > $(outdir)/$(a).html;\
+		cat $(outdir)/$(a).txt >> $(outdir)/$(a).html;\
+		echo "</xmp></body></html>" >> $(outdir)/$(a).html\
+	&& ) true
+	$(footify) $(addprefix $(outdir)/, $(addsuffix .html, $(TEXTS)))
