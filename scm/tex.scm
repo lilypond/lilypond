@@ -151,18 +151,7 @@
 					; uncomment for some stats about lily memory	  
 					;		(display (gc-stats))
     (string-append
-     "%\n"
-     "\\EndLilyPondOutput\n"
-     "\\begingroup\n"
-     "\\ifx\\LilyPondDocument\\undefined\n"
-     "  \\def\\x{\\endgroup}%\n"
-     "\\else\n"
-     "  \\def\\x{%\n"
-     "    \\endgroup\n"
-     "    \\enddocument\n"
-     "  }\n"
-     "\\fi\n"
-     "\\x\n"
+     "\\lilypondend\n"
 					; Put GC stats here.
 		   )))
 
@@ -180,39 +169,14 @@
 		     ((equal? (ly:unit) "pt") (/ 72.0  72.27))
 		     (else (error "unknown unit" (ly:unit)))
 		     ))
-    " mul }%\n"
-   "\\special{\\string! "
-   
-   ;; URG: ly:gulp-file: now we can't use scm output without Lily
-   (regexp-substitute/global
-    #f "\n"
-    (ly:gulp-file "music-drawing-routines.ps") 'pre " %\n" 'post)
-   ;; (if (defined? 'ps-testing) "/testing true def%\n" "")
-   "}%\n"
-   "\\begingroup\n"
-   "\\catcode `\\@=11\n"
-   "\\expandafter\\ifx\\csname @nodocument\\endcsname \\relax\n"
-   "  \\def\\x{\\endgroup}%\n"
-   "\\else\n"
-   "  \\def\\x{%\n"
-   "    \\endgroup\n"
-   "    \\def\\LilyPondDocument{}\n"
-   "    \\documentclass{article}\n"
-   "    \\pagestyle{empty}\n"
-   ;; argh, we can't say \begin{document} because \begin is defined as
-   ;; \outer in texinfo
-   "    \\begingroup\n"
-   "    \\document\n"
-   "    \\ifdim\\lilypondpaperlinewidth\\lilypondpaperunit > 0pt\n"
-   "      \\hsize\\lilypondpaperlinewidth\\lilypondpaperunit\n"
-   "    \\fi\n"
-   "    \\parindent 0pt\n"
-   "  }\n"
+   " mul }%\n"
+   "\\ifx\\lilypondstart\\undefined\n"
+   "  \\input lilyponddefs\n"
    "\\fi\n"
-   "\\x\n"
-   "\\input lilyponddefs\n"
-   "\\outputscale=\\lilypondpaperoutputscale \\lilypondpaperunit\n"
-   "\\turnOnPostScript\n"))
+   "\\outputscale = \\lilypondpaperoutputscale\\lilypondpaperunit\n"
+   "\\lilypondstart\n"
+   "\\lilypondspecial\n"
+   "\\lilypondpostscript\n"))
 
 ;; Note: this string must match the string in ly2dvi.py!!!
 (define (header creator generate) 
@@ -247,9 +211,10 @@
    (ly:number->string x) " \\outputscale "))
 
 (define (placebox x y s) 
-  (string-append 
-   "\\placebox{"
-   (number->dim y) "}{" (number->dim x) "}{" s "}%\n"))
+  (string-append "\\lyitem{"
+		 (ly:number->string y) "}{"
+		 (ly:number->string x) "}{"
+		 s "}%\n"))
 
 (define (bezier-bow l thick)
   (embedded-ps (list 'bezier-bow  `(quote ,l) thick)))
@@ -260,29 +225,28 @@
 (define (start-system wd ht)
   (string-append "\\leavevmode\n"
 		 "\\scoreshift = " (number->dim (* ht 0.5)) "\n"
-		 "\\ifundefined{lilypondscoreshift}%\n"
-		 "\\else\n"
-		 "  \\advance\\scoreshift by -\\lilypondscoreshift\n"
-		 "\\fi\n"
-		 "\\hbox to " (number->dim wd) "{%\n"
-		 "\\lower\\scoreshift\n"
-		 "\\vbox to " (number->dim ht) "{\\hbox{%\n"))
+		 "\\lilypondifundefined{lilypondscoreshift}%\n"
+		 "  {}%\n"
+		 "  {\\advance\\scoreshift by -\\lilypondscoreshift}%\n"
+		 "\\lybox{"
+		 (ly:number->string wd) "}{"
+		 (ly:number->string ht) "}{%\n"))
 
 (define (stop-system) 
-  "}\\vss}\\hss}\\interscoreline\n")
+  "}%\n%\n\\interscoreline\n%\n")
 (define (stop-last-system)
-  "}\\vss}\\hss}")
+  "}%\n")
 
 (define (filledbox breapth width depth height)
   (if (and #f (defined? 'ps-testing))
       (embedded-ps
        (string-append (numbers->string (list breapth width depth height))
 		      " draw_box" ))
-      (string-append 
-       "\\kern" (number->dim (- breapth))
-       "\\vrule width " (number->dim (+ breapth width))
-       "depth " (number->dim depth)
-       "height " (number->dim height) " ")))
+      (string-append "\\lyvrule{"
+		     (ly:number->string (- breapth)) "}{"
+		     (ly:number->string (+ breapth width)) "}{"
+		     (ly:number->string depth) "}{"
+		     (ly:number->string height) "}")))
 
 (define (roundfilledbox x y width height blotdiam)
   (embedded-ps (list 'roundfilledbox  x y width height blotdiam)))

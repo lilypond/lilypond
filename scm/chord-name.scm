@@ -410,7 +410,7 @@
 ;; chord to be name-calculated.
 ;;
 ;; CHORD: (pitches (bass . inversion))
-(define (default-chord-name-function style chord)
+(define-public (default-chord-name-function style chord)
   (let* ((pitches (map c++-pitch->scm (car chord)))
 	 (modifiers (cdr chord))
 	 (bass-and-inversion (if (pair? modifiers)
@@ -422,7 +422,11 @@
 					 (pitch::transpose x diff))
 				       (cdr pitches))
 		    '())))
-    (chord::name->text style (car pitches) steps bass-and-inversion)))
+;    (display (chord::name->text style (car pitches) steps bass-and-inversion))
+    (chord::name->text style (car pitches) steps bass-and-inversion)
+
+
+    ))
 
 ;;;
 ;;; American style

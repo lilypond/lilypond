@@ -1,6 +1,6 @@
 dnl aclocal.m4   -*-shell-script-*-
 dnl WARNING WARNING WARNING
-dnl do not edit! this is aclocal.m4, generated from /users/hanwen/usr/src/lilypond/stepmake/aclocal.m4
+dnl do not edit! this is aclocal.m4, generated from /home/fred/lily/stepmake/aclocal.m4
 dnl aclocal.m4   -*-shell-script-*-
 dnl StepMake subroutines for configure.in
 
@@ -477,7 +477,9 @@ AC_DEFUN(STEPMAKE_INIT, [
 	AC_MSG_RESULT(Stepmake package!)
 
 	AC_MSG_CHECKING(builddir)
+
 	builddir="`pwd`"
+
 	if test "$srcdir" = "."; then
 	    srcdir_build=yes
 	else

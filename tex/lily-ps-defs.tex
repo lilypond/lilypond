@@ -9,30 +9,30 @@
 % Escape the colon with \string to avoid problems with French while using
 % the Babel package.
 
-\def\PSsetTeXdimen#1{
+\gdef\lilypondsetdimen#1{
   \expandafter\special{
     ! /#1 (\csname #1\endcsname) set_tex_dimen
   }
 }
 
-\def\lilySpace{ }
+\gdef\lilypondspace{ }
 
-\def\turnOnPostScript{
+\gdef\lilypondpostscript{
   % This sets CTM so that you get to the currentpoint
   % by executing a 0 0 moveto
   \def\embeddedps##1{
     \special{
       ps\string: @beginspecial @setspecial %
-                 \lilypondpaperoutputscale\lilySpace\scaletounit %
-                 \lilypondpaperoutputscale\lilySpace\scaletounit %
+                 \lilypondpaperoutputscale\lilypondspace\scaletounit %
+                 \lilypondpaperoutputscale\lilypondspace\scaletounit %
                  % FUCKING REDHAT XDVI -- ARG!
                  skeel ##1 @endspecial
     }
   }
-  \PSsetTeXdimen{lilypondpaperblotdiameter}
+  \lilypondsetdimen{lilypondpaperblotdiameter}
 }
 
-\def\turnOnExperimentalFeatures{}
+\gdef\lilypondexperimentalfeatures{}
 
 \endlinechar \lilypsdefsELC
 \endinput

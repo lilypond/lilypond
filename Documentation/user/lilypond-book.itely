@@ -361,6 +361,11 @@ Specify the document type to process: @code{html}, @code{latex} or
 @code{texi} (the default).  @command{lilypond-book} usually figures this
 out automatically.
 
+Note that the @code{texi} document type produces a DVI file; to
+convert a texinfo document to @code{html}, you should use the additional
+format @code{texi-html} instead of @code{texi} to convert lilypond
+fragments to PNG images.
+
 @item @option{--default-music-fontsize=@var{sz}pt}
 Set the fontsize to use for LilyPond if no fontsize is given
 as option.

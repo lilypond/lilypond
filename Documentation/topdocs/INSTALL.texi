@@ -721,9 +721,22 @@ CFLAGS='-I /usr/pkg/include' LDFLAGS='-L/usr/pkg/lib' ./configure
 
 @end itemize
 
-@unnumberedsubsec  Solaris:
+@unnumberedsubsec  Solaris
 
 @itemize @bullet
+@item Solaris7, ./configure
+
+@file{./configure} needs a POSIX compliant shell.  On Solaris7,
+@file{/bin/sh} is not yet POSIX compliant, but @file{/bin/ksh} or bash
+is.  Please run configure like:
+@example
+        /bin/ksh -c ./configure
+@end example
+or
+@example
+        bash -c ./configure
+@end example
+
 @item Sparc64/Solaris 2.6, GNU make-3.77
 
 GNU make-3.77 is buggy on this platform, upgrade to 3.78.1 or newer.

@@ -474,7 +474,9 @@ AC_DEFUN(STEPMAKE_INIT, [
 	AC_MSG_RESULT(Stepmake package!)
 
 	AC_MSG_CHECKING(builddir)
+
 	builddir="`pwd`"
+
 	if test "$srcdir" = "."; then
 	    srcdir_build=yes
 	else
