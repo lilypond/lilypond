@@ -10,7 +10,7 @@
 #include <math.h>
 
 #include "break-align-interface.hh"
-#include <libc-extension.hh>	// isinf
+#include "libc-extension.hh"	// isinf
 
 #include "self-alignment-interface.hh"
 #include "side-position-interface.hh"
@@ -21,8 +21,7 @@
 #include "paper-column.hh"
 #include "align-interface.hh"
 
-MAKE_SCHEME_CALLBACK (Break_align_interface,alignment_callback,2);
-
+MAKE_SCHEME_CALLBACK (Break_align_interface, alignment_callback, 2);
 SCM
 Break_align_interface::alignment_callback (SCM element_smob, SCM axis)
 {
@@ -36,18 +35,18 @@ Break_align_interface::alignment_callback (SCM element_smob, SCM axis)
       par->set_property ("positioning-done", SCM_BOOL_T);
       Break_align_interface::do_alignment (par);
     }
-    
+
   return scm_make_real (0);
 }
 
-MAKE_SCHEME_CALLBACK (Break_align_interface,self_align_callback,2);
+MAKE_SCHEME_CALLBACK (Break_align_interface, self_align_callback, 2);
 SCM
 Break_align_interface::self_align_callback (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
   Axis a = (Axis) scm_to_int (axis);
   assert (a == X_AXIS);
-  
+
   Item* item = dynamic_cast<Item*> (me);
   Direction bsd = item->break_status_dir ();
   if (bsd == LEFT)
@@ -58,7 +57,7 @@ Break_align_interface::self_align_callback (SCM element_smob, SCM axis)
   /*
     Force break alignment itself to be done first, in the case
    */
-  return Self_alignment_interface::aligned_on_self (element_smob, axis);  
+  return Self_alignment_interface::aligned_on_self (element_smob, axis);
 }
 
 
@@ -66,13 +65,13 @@ Break_align_interface::self_align_callback (SCM element_smob, SCM axis)
   This is tricky: we cannot modify 'elements, since callers are
   iterating the same list. Reordering the list in-place, or resetting
   'elements will skip elements in the loops of callers.
-  
+
   So we return the correct order as an array.
  */
 Link_array<Grob>
 Break_align_interface::ordered_elements (Grob *grob)
 {
-  Item *me  = dynamic_cast<Item*> (grob);
+  Item *me = dynamic_cast<Item*> (grob);
   SCM elts = me->get_property ("elements");
   SCM order_vec = me->get_property ("break-align-orders");
   if (!scm_is_vector (order_vec)
@@ -80,7 +79,7 @@ Break_align_interface::ordered_elements (Grob *grob)
     return  Pointer_group_interface__extract_grobs (me, (Grob*)0,
 						    "elements");
   SCM order = scm_vector_ref (order_vec,
-			      scm_int2num (me->break_status_dir() + 1));
+			      scm_int2num (me->break_status_dir () + 1));
 
 
   /*
@@ -90,14 +89,14 @@ Break_align_interface::ordered_elements (Grob *grob)
   for (; scm_is_pair (order); order = scm_cdr (order))
     {
       SCM sym = scm_car (order);
-      
+
       for (SCM s = elts; scm_is_pair (s); s = scm_cdr (s))
 	{
 	  Grob *g = unsmob_grob (scm_car (s));
 	  if (g && sym == g->get_property ("break-align-symbol"))
 	    {
 	      new_elts.push (g);
-	      elts = scm_delq (g->self_scm (), elts); 
+	      elts = scm_delq (g->self_scm (), elts);
 	    }
 	}
     }
@@ -105,7 +104,7 @@ Break_align_interface::ordered_elements (Grob *grob)
 }
 
 void
-Break_align_interface::add_element (Grob*me, Grob *toadd)
+Break_align_interface::add_element (Grob *me, Grob *toadd)
 {
   Axis_group_interface::add_element (me, toadd);
 }
@@ -115,23 +114,23 @@ Break_align_interface::do_alignment (Grob *grob)
 {
   Item * me = dynamic_cast<Item*> (grob);
 
-  
+
   Link_array<Grob> elems = ordered_elements (me);
   Array<Interval> extents;
 
-  int last_nonempty = -1; 
-  for (int i = 0; i < elems.size (); i++) 
+  int last_nonempty = -1;
+  for (int i = 0; i < elems.size (); i++)
     {
       Interval y = elems[i]->extent (elems[i], X_AXIS);
       extents.push (y);
       if (!y.is_empty ())
-	last_nonempty = i; 
+	last_nonempty = i;
     }
 
   int idx  = 0;
   while (idx < extents.size  () && extents[idx].is_empty ())
     idx++;
-  
+
   Array<Real> offsets;
   offsets.set_size (elems.size ());
   for (int i = 0; i < offsets.size ();i ++)
@@ -146,7 +145,7 @@ Break_align_interface::do_alignment (Grob *grob)
       while (next_idx < elems.size () &&
 	     extents[next_idx].is_empty () )
 	next_idx++;
-      
+
       Grob *l = elems[idx];
       Grob *r = 0;
 
@@ -168,7 +167,7 @@ Break_align_interface::do_alignment (Grob *grob)
 		&& elt->get_property ("break-align-symbol")
 		== ly_symbol2scm ( "left-edge"))
 	      edge_idx = idx;
-	    
+
 	    SCM l = elt->get_property ("space-alist");
 	    if (scm_is_pair (l))
 	      {
@@ -191,7 +190,7 @@ Break_align_interface::do_alignment (Grob *grob)
 
 	  rsym = elt->get_property ("break-align-symbol");
 	}
-	
+
       if (rsym  == ly_symbol2scm ("left-edge"))
 	edge_idx = next_idx;
 
@@ -209,7 +208,7 @@ Break_align_interface::do_alignment (Grob *grob)
 	  String orig_string ;
 	  if (unsmob_grob (l->get_property ("cause")))
 	    orig_string = unsmob_grob (l->get_property ("cause"))->name ();
-	  
+
 	  programming_error (_f ("No spacing entry from %s to `%s'",
 				orig_string.to_str0 (),
 				sym_string.to_str0 ()));
@@ -217,11 +216,11 @@ Break_align_interface::do_alignment (Grob *grob)
 
       Real distance = 1.0;
       SCM type = ly_symbol2scm ("extra-space");
-      
+
       if (entry_found)
 	{
 	  entry = scm_cdr (entry);
-	  
+
 	  distance = scm_to_double (scm_cdr (entry));
 	  type = scm_car (entry) ;
 	}
@@ -237,21 +236,21 @@ Break_align_interface::do_alignment (Grob *grob)
 	}
       else
 	{
-	  extra_right_space = distance;	  
+	  extra_right_space = distance;
 	}
-      
+
       idx = next_idx;
     }
 
   Real here = 0.0;
   Interval total_extent;
 
-  Real alignment_off = 0.0;  
+  Real alignment_off = 0.0;
   for (int i = 0 ; i < offsets.size (); i++)
     {
       here += offsets[i];
       if (i == edge_idx)
-	alignment_off = -here; 
+	alignment_off = -here;
       total_extent.unite (extents[i] + here);
     }
 
@@ -282,7 +281,7 @@ ADD_INTERFACE (Break_aligned_interface, "break-aligned-interface",
 	       "@item (minimum-space . @var{spc}))\n"
 	       "  Pad space until the distance is @var{spc}\n"
 	       "@item (fixed-space . @var{spc})\n"
-	       "  Set a fixed space\n" 
+	       "  Set a fixed space\n"
 	       "@item (semi-fixed-space . @var{spc})\n"
 	       "  Set a space. Half of it is fixed and half is stretchable. \n"
 	       "(does not work at start of line. fixme)\n"
