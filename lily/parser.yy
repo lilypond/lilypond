@@ -532,7 +532,7 @@ score_body:
 		$$->set_spot (THIS->here_input ());
 	}
 	| score_body lilypond_header 	{
-		scm_unprotect_object ( $1->self_scm ()); 
+		scm_unprotect_object ($2->self_scm ()); 
 		$$->header_p_ = $2;
 	}
 	| score_body output_def {
@@ -629,8 +629,6 @@ Music_list: /* empty */ {
 		SCM s = $$;
 		SCM c = gh_cons ($2->self_scm (), SCM_EOL);
 		scm_unprotect_object ($2->self_scm ()); /* UGH */
-
-	
 		if (gh_pair_p (gh_cdr (s)))
 			gh_set_cdr_x (gh_cdr (s), c); /* append */
 		else
