@@ -52,6 +52,7 @@ static Keyword_ent the_key_tab[]={
   {"lyrics", LYRICS},
   {"key", KEY},
   {"mark", MARK},
+  {"markup", MARKUP},
   {"once", ONCE},
   {"pitch", PITCH},
   {"time", TIME_T},

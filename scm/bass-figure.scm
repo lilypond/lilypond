@@ -5,8 +5,12 @@
 (define (brew-one-figure grob fig-music)
   "Brew a single column for a music figure"
   (let* (
-	 (mf (ly:get-font grob '( (font-family .  music)  )))
-	 (nf (ly:get-font grob '( (font-family .  number)  )))
+	 (mf (ly:get-font grob (cons  '((font-family . music))
+				      Font_interface::get_property_alist_chain
+				      )))
+	 (nf (ly:get-font grob
+			  (cons  '((font-family . number))
+				 Font_interface::get_property_alist_chain)))
 	 (mol (ly:make-molecule  '() '(0 . 0) '(0 . 1.0)))
 	 (fig  (ly:get-mus-property fig-music 'figure))
 	 (acc  (ly:get-mus-property fig-music 'alteration))

@@ -59,6 +59,7 @@ public:
 
   SCM lookup_identifier (String s);
   void push_note_state ();
+  void push_markup_state ();
   void push_figuredbass_state ();
   void push_chord_state ();
   void push_lyric_state ();

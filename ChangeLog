@@ -1,3 +1,24 @@
+2002-12-01  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/font-interface.cc (get-font): take alist chain i.s.o. alist
+	argument
+	
+	* scm/music-functions.scm (display-music): new function
+	(music-map): change arg order.
+
+	* input/regression/new-markup-syntax.scm: new file
+
+	* lily/parser.yy (markup): add \markup { .. } syntax.
+
+	* scm/new-markup.scm (override-markup): new function
+	(lookup-markup): new function
+	(music-markup): new function
+	(lookup-markup-command): use markup-signature to store argument
+	format for parser.
+
+	* lily/lexer.ll: preliminary \markup syntax. 
+	
+
 2002-11-30  Heikki Junes <hjunes@cc.hut.fi>
 
 	* make/lilypond.mandrake.spec.in: remove extra %changelog entries,
