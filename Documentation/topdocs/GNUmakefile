@@ -1,6 +1,5 @@
 depth = ../..
 
-BLURBS=BLURB COPERTINA FLAPTEKST
 
 STEPMAKE_TEMPLATES=documentation tex texinfo yolily-topdoc
 LOCALSTEPMAKE_TEMPLATES=lilypond mudela

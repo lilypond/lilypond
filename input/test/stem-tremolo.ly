@@ -20,7 +20,4 @@
 
 
 	}
-	\paper{
-		castingalgorithm = \Wordwrap;
-	}
 }

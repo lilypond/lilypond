@@ -7,7 +7,7 @@ This is the toplevel README to LilyPond
 using a high level description file as input.  LilyPond is part of the
 GNU Project.
 
-versioning
+Versioning
 ==========
 
    LilyPond uses a versioning scheme similar to the Linux kernel.  In a
@@ -16,7 +16,7 @@ For development versions 'y' is odd.  For using straightforward score
 production, please use the latest stable version.  Development versions
 may not produce good or nice scores.
 
-requirements
+Requirements
 ============
 
    For the compilation and running of LilyPond you need some additional
@@ -25,13 +25,13 @@ packages.  Please refer to the installation instructions.
    NOTE: If you downloaded a binary (.rpm or a W95/NT .zip file), then
 you don't have to compile LilyPond.
 
-installation
+Installation
 ============
 
    For your convenience, a formatted copy of the INSTALL instructions
 are in the toplevel directory, as INSTALL.txt
 
-documentation
+Documentation
 =============
 
    The real documentation is the directory Documentation/
@@ -51,7 +51,7 @@ documentation
           	make -C Documentation/
 
 
-comments
+Comments
 ========
 
    LilyPond is a long way from finished and polished.  We do appreciate
@@ -59,10 +59,10 @@ criticism, comments, bugreports, patches, etc.
 
      	   Please send your e-mail to one of the MAILING LISTS
 
-   and _not_ to us personally.  See `Documentation/links.yo' for more
+   and _not_ to us personally.  See `Documentation/mail.texi' for more
 info.
 
-windows 32
+Windows 32
 ==========
 
    If you have received this file as part of a DOS/Window32 distribution
@@ -73,25 +73,24 @@ package, since it might contain more documentation
    If you decide to build LilyPond from source, please read the
 INSTALL.txt document first, especially the Windows NT/95 section.
 
-caveats
+Caveats
 =======
 
-   * Please read the file BUGS for some ugly bugs.
-
-   * If you have installed a previous version, be sure to remove old
-font files, eg
+   If you have installed a previous version, be sure to remove old font
+files, eg.,
      rm `find /var/lib/texmf/fonts -name 'feta*'`
 
    a script to do this for you is in `buildscripts/clean-fonts.sh'
 
-bugs
+Bugs
 ====
 
    Send bug reports to <bug-gnu-music@gnu.org>.  For help and questions
-use  <help-gnu-music@gnu.org> and <gnu-music-discuss@gnu.org>.  Please
-consult the faq before mailing your problems.
+use <help-gnu-music@gnu.org> and <gnu-music-discuss@gnu.org>.  Please
+consult the FAQ and installation instructions before mailing your
+problems.
 
-cdrom distributions
+CDROM distributions
 ===================
 
    if you have received LilyPond on a cdrom, chances are that

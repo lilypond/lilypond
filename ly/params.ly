@@ -184,19 +184,10 @@ rulethickness = \staffline;
 gourlay_energybound = 100000.;
 %{
 Maximum number of measures per line to try when using Gourlay
-method. Decreasing this greatly reduces computation time.  
+method. 
 %}
 gourlay_maxmeasures = 10.;
 
-%{
-Gourlay is a better, TeX like algorithm for breaking lines.  Wordwrap is faster, but leaves
-really                      spaced                out                lines at the end
-%}
-
-Gourlay = 1.0;
-Wordwrap = 0.0;
-
-castingalgorithm = \Gourlay;
 
 %{ Ross. page 151 lists these values, but we think that thick lines
 and kernings are too thick.
@@ -282,8 +273,10 @@ stem_default_neutral_direction = 1.0;
 % in interline
 articulation_script_padding_default = 1.0;
 
-% 1.0 -> faster.
-simple_spacing_solver = 1.0;
+% Backward compatibility -- has no function; 
+Gourlay = 0.0;
+Wordwrap =0.0;
+
 \include "engraver.ly";
 
 

@@ -101,8 +101,19 @@ Repeat_engraver::queue_events ()
 	      becel.append (c);
 	      last_number = volta_number;
 	      volta_number ++;
+              Scalar l (get_property ("voltaSpannerDuration", 0));
+              if (l.length_i ()) // voltaSpannerDuration OK?
+              {
+ 
+                Moment vSD_mom = l.to_rat();
+                if ( vSD_mom < i->car_->length_mom() ) // terminate volta early ?
+                {
+                        vSD_mom += walk_mom;
+                   c->last_b_ = true;
+                   becel.append (new Bar_create_event (vSD_mom, "stop"));
+                }
+              }
 	    }
-	  // should think about voltaSpannerDuration
 	  walk_mom += i->car_->length_mom();
 
 	  if (i->next_)

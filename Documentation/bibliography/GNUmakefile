@@ -53,8 +53,8 @@ $(outdir)/%.tex: %.data $(depth)/VERSION
 
 
 local-WWW: $(HTML_FILES) $(OUTTEX_FILES:.tex=.ps.gz) $(OUTYO_FILES:.yo=.latex) $(OUTYO_FILES:.yo=.ps.gz) $(addprefix $(outdir)/, $(BIB_FILES:.bib=.html)) $(datafiles)
-	$(PYTHON) $(step-bindir)/ls-latex.py  --title 'LaTeX documents about design and implementation of LilyPond' \
-	  $(YO_FILES) $(OUTYO_FILES:.yo=.latex) $(BIB_FILES) $(DOC_FILES) $(TEX_FILES)\
+	$(PYTHON) $(step-bindir)/ls-latex.py  --title 'References on Music Notation' \
+	  $(YO_FILES) $(OUTYO_FILES:.yo=.latex) $(BIB_FILES) $(DOC_FILES) $(TEX_FILES) \
 	  | sed "s!$(outdir)/!!g" > $(outdir)/index.html
 
 $(outdir)/%.bib: %.bib

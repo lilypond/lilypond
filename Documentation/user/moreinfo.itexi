@@ -1,0 +1,35 @@
+@node More information, , , Top
+@section Resources
+
+A further source for information is the website, which can be found at
+@uref{http://www.lilypond.org/}.  The website contains on-line
+versions of the documentation
+
+GNU LilyPond is updated very frequently, the latest version is always
+available at: @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/}.  This FTP
+site is mirrored at a number of sites; consult the project web pages
+for information about mirrors.
+
+For programs which are part of the GNU music project, the following
+mailing list have been setup:
+
+@table @samp
+@item @email{info-gnu-music@@gnu.org} 
+    For information on the GNU Music project, to subscribe: send mail with
+    subject "subscribe" to @email{info-gnu-music-request@@gnu.org}
+@item @email{help-gnu-music@@gnu.org} 
+    For help with programs from the GNU music project.  To subscribe: send
+    mail with subject "subscribe" to @email{help-gnu-music-request@@gnu.org}
+@item @email{bug-gnu-music@@gnu.org}
+    If you have bugreports, you should send them to this list.  If you want
+    to read all bugreports, you should subscribe to this list.  To
+    subscribe: send mail with subject "subscribe" to
+    @email{bug-gnu-music-request@@gnu.org}
+@item @email{gnu-music-discuss@@gnu.org}
+    For discussions concerning the GNU Music project, to subscribe: send
+    mail with subject "subscribe" to
+    @email{gnu-music-discuss-request@@gnu.org}
+@end table
+
+Announces of new versions will be sent to info-gnu-music and
+gnu-music-discuss.

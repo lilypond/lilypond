@@ -7,12 +7,13 @@ import getopt
 import sys
 import __main__
 
-outdir = 'out'
+
 initfile = ''
 program_version = '@TOPLEVEL_VERSION@'
 
 cwd = os.getcwd ()
 include_path = [cwd]
+dep_prefix = ''
 
 # TODO: Figure out clean set of options.
 
@@ -52,7 +53,8 @@ options = [
   ('', 'M', 'dependencies', 'write dependencies'),
   ('', 'n', 'no-lily', 'don\'t run lilypond'),
   ('FILE', 'o', 'outname', 'prefix for filenames'),
-  ('', 'v', 'version', 'print version information' )
+  ('', 'v', 'version', 'print version information' ),
+  ('PREF', '',  'dep-prefix', 'prepend PREF before each -M dependency')
   ]
 
 format = ''
@@ -174,7 +176,7 @@ def bounding_box_dimensions(fname):
 		fd = open(fname)
 	except IOError:
 		error ("Error opening `%s'" % fname)
-	str = fd.read (-1)
+	str = fd.read ()
 	s = re.search('%%BoundingBox: ([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)', str)
 	if s:
 		return (int(s.group(3))-int(s.group(1)), 
@@ -183,15 +185,25 @@ def bounding_box_dimensions(fname):
 		return (0,0)
 
 
+
+read_files = []
 def find_file (name):
+	f = None
 	for a in include_path:
 		try:
 			nm = os.path.join (a, name)
 			f = open (nm)
-			return nm
+			__main__.read_files.append (nm)
+			break
 		except IOError:
 			pass
-	return ''
+
+
+	if f:
+		return f.read ()
+	else:
+		error ("File not found `%s'\n" % name)
+		return ''
 
 def error (str):
 	sys.stderr.write (str + "\n  Exiting ... \n\n")
@@ -273,7 +285,8 @@ def find_inclusion_chunks (regex, surround, str):
 
 		chunks.append (('input', str[: m.start (0)]))
 		chunks.append (('input', surround))
-		chunks = chunks + read_doc_file (m.group (1))
+		chunks = chunks +  read_doc_file (m.group (1))
+
 		chunks.append (('input', surround))
 
 		str = str [m.end (0):]
@@ -288,18 +301,7 @@ def find_input_chunks (str):
 def read_doc_file (filename):
 	"""Read the input file, substituting for \input, \include, \mudela{} and \mudelafile"""
 	str = ''
-	for ext in ['', '.tex', '.doc', '.tely']:
-		try:
-			f = open(filename+ ext)
-			str = f.read (-1)
-		except:
-			pass
-		
-
-	if not str:
-		error ("File not found `%s'\n" % filename)
-
-	retdeps =  [filename]
+	str = find_file(filename)
 
 	if __main__.format == '':
 		latex =  re.search ('\\\\document', str[:200])
@@ -317,8 +319,7 @@ def read_doc_file (filename):
 		newchunks = []
 		for c in chunks:
 			if c[0] == 'input':
-				ch = func (c[1])
-				newchunks = newchunks + ch
+				newchunks = newchunks + func (c[1])
 			else:
 				newchunks.append (c)
 		chunks = newchunks
@@ -371,6 +372,7 @@ def completize_preamble (str):
 def find_verbatim_chunks (str):
 	"""Chop STR into a list of tagged chunks, ie. tuples of form
 	(TYPE_STR, CONTENT_STR), where TYPE_STR is one of 'input' and 'verbatim'
+
 	"""
 
 	chunks = []
@@ -385,7 +387,7 @@ def find_verbatim_chunks (str):
 		
 			str = str [m.end(0):]
 		
-	return chunks	      
+	return chunks
 
 def find_verb_chunks (str):
 
@@ -419,14 +421,7 @@ def find_mudela_shorthands (b):
 
 	def mudela_file (match):
 		"Find \mudelafile, and substitute appropriate \begin / \end blocks."
-		d = [] #, d = retdeps
-		full_path = find_file (match.group (2))
-		if not full_path:
-			error("error: can't find file `%s'\n" % match.group(2))
-
-		d.append (full_path)
-		f = open (full_path)
-		str = f.read (-1)
+		str = find_file (match.group (2))
 		opts = match.group (1)
 		if opts:
 			opts = opts[1:-1]
@@ -596,6 +591,7 @@ def print_chunks (ch):
 def transform_input_file (in_filename, out_filename):
 	"""Read the input, and deliver a list of chunks
 	ready for writing.
+
 	"""
 
 	chunks = read_doc_file (in_filename)
@@ -804,16 +800,18 @@ Han-Wen Nienhuys <hanwen@cs.uu.nl>
 	sys.exit (0)
 
 
-def write_deps (fn, target,  deps):
+def write_deps (fn, target):
 	sys.stdout.write('writing `%s\'\n' % fn)
 
 	f = open (fn, 'w')
 	
-	target = target + '.latex'
-	f.write ('%s: %s\n'% (target, string.join (deps, ' ')))
+	f.write ('%s%s: ' % (dep_prefix, target))
+	for d in __main__.read_files:
+		f.write ('%s ' %  d)
+	f.write ('\n')
 	f.close ()
+	__main__.read_files = []
 
-		
 def identify():
 	sys.stdout.write ('mudela-book (GNU LilyPond) %s\n' % program_version)
 
@@ -825,72 +823,67 @@ NO WARRANTY.
 """)
 
 
-def main():
-	global outdir, initfile, defined_mudela_cmd, defined_mudela_cmd_re
-	outname = ''
-	try:
-		(sh, long) = getopt_args (__main__.options)
-		(options, files) = getopt.getopt(sys.argv[1:], sh, long)
-	except getopt.error, msg:
-		sys.stderr.write("error: %s" % msg)
-		sys.exit(1)
+outname = ''
+try:
+	(sh, long) = getopt_args (__main__.options)
+	(options, files) = getopt.getopt(sys.argv[1:], sh, long)
+except getopt.error, msg:
+	sys.stderr.write("error: %s" % msg)
+	sys.exit(1)
 
-	do_deps = 0
-	for opt in options:	
-		o = opt[0]
-		a = opt[1]
-		
-		if o == '--include' or o == '-I':
-			include_path.append (a)
-		elif o == '--version':
-			print_version ()
-			sys.exit  (0)
+do_deps = 0
+for opt in options:	
+	o = opt[0]
+	a = opt[1]
 
-		elif o == '--format' or o == '-o':
-			__main__.format = a
-		elif o == '--outname' or o == '-o':
-			if len(files) > 1:
-				#HACK
-				sys.stderr.write("Mudela-book is confused by --outname on multiple files")
-				sys.exit(1)
-			outname = a
-		elif o == '--outdir' or o == '-d':
-			outdir = a
-		elif o == '--help' or o == '-h':
-			help ()
-		elif o == '--no-lily' or o == '-n':
-			__main__.run_lilypond = 0
-		elif o == '--dependencies':
-			do_deps = 1
-		elif o == '--default-mudela-fontsize':
-			default_music_fontsize = string.atoi (a)
-		elif o == '--init':
-			initfile =  a
-	
-	identify()
+	if o == '--include' or o == '-I':
+		include_path.append (a)
+	elif o == '--version':
+		print_version ()
+		sys.exit  (0)
 
-	for input_filename in files:
-		file_settings = {}
-		if outname:
-			my_outname = outname
-		else:
-			my_outname = os.path.basename(os.path.splitext(input_filename)[0])
-		my_depname = my_outname + '.dep'		
+	elif o == '--format' or o == '-o':
+		__main__.format = a
+	elif o == '--outname' or o == '-o':
+		if len(files) > 1:
+			#HACK
+			sys.stderr.write("Mudela-book is confused by --outname on multiple files")
+			sys.exit(1)
+		outname = a
+	elif o == '--help' or o == '-h':
+		help ()
+	elif o == '--no-lily' or o == '-n':
+		__main__.run_lilypond = 0
+	elif o == '--dependencies':
+		do_deps = 1
+	elif o == '--default-mudela-fontsize':
+		default_music_fontsize = string.atoi (a)
+	elif o == '--init':
+		initfile =  a
+	elif o == '--dep-prefix':
+		dep_prefix = a
 
-		chunks = transform_input_file (input_filename, my_outname)
-		
-		foutn = my_outname + '.' + format
-		sys.stderr.write ("Writing `%s'\n" % foutn)
-		fout = open (foutn, 'w')
-		for c in chunks:
-			fout.write (c[1])
-		fout.close ()
+identify()
 
-		if do_deps:
-			# write_deps (my_depname, my_outname, deps)
-			sys.stderr.write ("--dependencies broken")
+for input_filename in files:
+	file_settings = {}
+	if outname:
+		my_outname = outname
+	else:
+		my_outname = os.path.basename(os.path.splitext(input_filename)[0])
+	my_depname = my_outname + '.dep'		
 
-main()
+	chunks = transform_input_file (input_filename, my_outname)
+
+	foutn = my_outname + '.' + format
+	sys.stderr.write ("Writing `%s'\n" % foutn)
+	fout = open (foutn, 'w')
+	for c in chunks:
+		fout.write (c[1])
+	fout.close ()
+
+	if do_deps:
+		write_deps (my_depname, foutn)
 
 
 

@@ -1,0 +1,24 @@
+@node Reporting Bugs, , , Top
+@section Bug reports
+
+There is an extensive list of todoes and bugs.  See the file
+@file{TODO} distributed with the sources.  If you have a problem you
+please try to find out
+
+@itemize @bullet
+@item If the bug has been fixed in a newer release.
+@item If the bug has been found earlier, consult @file{TODO} and @file{BUGS}.
+@end itemize
+
+If you have really found a bug, then we would appreciate it if you
+sent a bugreport.
+
+@itemize @bullet
+@item Send a copy of the input which causes the error.
+@item Send a description of the platform you use.
+@item Send a description of the LilyPond version you use 
+    (with compile/configure options please).
+@item Send a description of the bug itself.
+@item Send it to @email{bug-gnu-music@@gnu.org}; you don't have to be subscribed
+    to this mailinglist.
+@end itemize

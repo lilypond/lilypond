@@ -7,46 +7,47 @@
 
 @unnumberedsubsec Introduction
 
-@itemize @bullet
-@item @uref{DEDICATION.html,DEDICATION}
-@item @uref{faq.html,FAQs}
-@item @uref{../topdocs/out-www/README.html,The README}
-@item @uref{../topdocs/out-www/INSTALL.html,The installation instructions}
-@end itemize
-
-@unnumberedsubsec Why: Background Information
-
-@itemize @bullet
-@item  @uref{AIMS.txt,Why?}
-@item @uref{../pictures/out-www/lelieblond.png,The logo} large size
-@item @uref{../pictures/out-www/lelie_logo.png,The logo} medium size
-@end itemize
-
-@unnumberedsubsec Documentation: manuals
-
-@itemize @bullet
-@item @uref{../tex/out-www/index.html,User documentation}
-@item @uref{../metadoc/out-www/index.html,Hacker documentation}
-@item @uref{../out-www/programs.html,`Manual pages'}
-@item @uref{../bibliography/out-www/,Bibliography}
-@item @uref{../tex/out-www/glossary.html,Musical vocabulary}
-@end itemize
-
-@unnumberedsubsec The program
-
-@itemize @bullet
-@item @uref{TODO.txt,The TODO list}
-@item @uref{CHANGES.txt,The Change log}
+@itemize 
+@item @uref{../topdocs/out-www/README.html, README}
+@item @uref{../topdocs/out-www/INSTALL.html, Installation Instructions}
 @item @uref{../topdocs/out-www/AUTHORS.html,The Authors}
-@item @uref{../topdocs/out-www/PATCHES.html,Sending and applying Patches}
 @end itemize
+
+
+
+
+@unnumberedsubsec Documentation
+
+@itemize @bullet
+@item @uref{faq.html,FAQs}
+@item @uref{programs.html,`Manual pages'}
+@item @uref{../user/out-www/index.html,User documentation}
+@item @uref{../metadoc/out-www/index.html,Hacker documentation}
+@item @uref{../bibliography/out-www/,Bibliography}
+@end itemize
+
+
+@unnumberedsubsec Miscellaneous blurbs
+
+
+@itemize @bullet
+@item @uref{TODO.txt, TODO list}
+@item @uref{CHANGES.txt,Change log}
+@item @uref{DEDICATION.html,DEDICATION}
+@item @uref{AIMS.txt,Why?}
+@end itemize
+
 
 @unnumberedsubsec Links
 
 @itemize @bullet
-@item @uref{../tex/out-www/index.html,Papers, books and online-resources on music typesetting}
-@item @uref{../tex/out-www/index.html,Other packages for printing music}
-@item @uref{links.html,bf(download) LilyPond and other interesting links}
+@item @uref{links.html,@strong{download} LilyPond and other interesting links}
+@end itemize
+
+@unnumberedsubsec Logo:
+@itemize
+@item @uref{../pictures/out-www/lelieblond.png,  logo} in large size
+@item @uref{../pictures/out-www/lelie_logo.png, logo} in medium size
 @end itemize
 
 @bye

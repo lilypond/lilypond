@@ -16,7 +16,6 @@
 #include "paper-score.hh"
 #include "paper-column.hh"
 #include "scope.hh"
-#include "word-wrap.hh"
 #include "gourlay-breaking.hh"
 #include "paper-stream.hh"
 #include "paper-outputter.hh"
@@ -57,10 +56,9 @@ Paper_score::typeset_element (Score_element * elem_p)
   elem_p->pscore_l_ = this;
 
   // take over protection.
-  assert (elem_p->self_scm_ != SCM_EOL);
-  SCM_CDR(protected_scms_) = gh_cons (elem_p->self_scm_,
+  SCM_CDR(protected_scms_) = gh_cons (elem_p->element_property_alist_,
 				      SCM_CDR (protected_scms_));
-  scm_unprotect_object (elem_p->self_scm_);
+  scm_unprotect_object (elem_p->element_property_alist_);
   
   SCM p =  elem_p->remove_elt_property (break_helper_only_scm_sym);
   if (p != SCM_BOOL_F)
@@ -119,27 +117,12 @@ Paper_score::calc_breaking ()
 {
   Break_algorithm *algorithm_p=0;
   Array<Column_x_positions> sol;
-  bool try_wrap = !paper_l_->get_var ("castingalgorithm");
 
-  if (!try_wrap)
-    {
-      algorithm_p = new Gourlay_breaking ;
-      algorithm_p->set_pscore (this);
-      sol = algorithm_p->solve ();
-      delete algorithm_p;
-      if (! sol.size ())
-	{
-	  warning (_ ("Can't solve this casting problem exactly; reverting to Word_wrap"));
-	  try_wrap = true;
-	}
-    }
-  if  (try_wrap)
-    {
-      algorithm_p = new Word_wrap;
-      algorithm_p->set_pscore (this);
-      sol = algorithm_p->solve ();
-      delete algorithm_p;
-    }
+  algorithm_p = new Gourlay_breaking ;
+  algorithm_p->set_pscore (this);
+  sol = algorithm_p->solve ();
+  delete algorithm_p;
+
   return sol;
 }
 

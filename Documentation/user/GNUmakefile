@@ -9,7 +9,8 @@ DOC_FILES = $(wildcard *.doc)
 
 DVI_FILES = $(addprefix $(outdir)/,$(DOC_FILES:.doc=.dvi)  $(TELY_FILES:.tely=.dvi))
 
-EXTRA_DIST_FILES= $(DOC_FILES) $(DATA_FILES) 
+EXTRA_DIST_FILES= $(DOC_FILES) $(DATA_FILES)  $(wildcard *.itexi *.itely)
+
 HTML_FILES = $(addprefix $(outdir)/, $(TELY_FILES:.tely=.html))
 
 PS_FILES = $(DVI_FILES:.dvi=.ps)  $(OUTDOC_FILES:.doc=.ps) $(OUTTEX_FILES:.tex=.ps)
@@ -32,7 +33,7 @@ GENHTMLS = engraving colorado glossary computer-notation
 OUTGENHTMLS = $(addprefix $(outdir)/, $(GENHTMLS:%=%.html))
 
 local-WWW: $(HTML_FILES)   $(datafiles) $(PS_GZ_FILES)
-	$(PYTHON) $(step-bindir)/ls-latex.py --title 'User documentation about LilyPond' \
+	$(PYTHON) $(step-bindir)/ls-latex.py --title 'User documentation' \
 	   $(DOC_FILES) $(TEX_FILES) $(TELY_FILES) \
 	  | sed "s!$(outdir)/!!g" > $(outdir)/index.html
 	$(footify) $(outdir)/index.html
@@ -41,4 +42,4 @@ $(outdir)/%.bib: %.bib
 	ln -f $< $@
 
 localclean:
-	rm -f fonts.aux fonts.log feta*.tfm feta*.*pk
+	rm -f fonts.aux fonts.log feta*.tfm feta*.*pk 
