@@ -153,7 +153,6 @@ of a motive, printed twice. It is printed using both exact,
 mathematical spacing, and with some corrections. Can you spot which is
 which?
 
-@c I can only see the motive printed two times!!! /Mats
 
 @cindex optical spacing
 @lilypond[noindent]
@@ -318,10 +317,15 @@ which gives more detailed information on all features. If you're new
 to lilypond, then you should start reading the tutorial, and
 experiment for yourself.  If you already have some experience, then
 you can simply use the manual as reference: there is an extensive
-index.@footnote{If you are looking for something, and you can't find it
+index@footnote{If you are looking for something, and you can't find it
 by using the index, that is considered a bug.  In that case, please
-file a bug report}
+file a bug report}, but the document is also available in One Big Page,
+@c should have hyperlink?
+which is is available for text search using your browser's search
+facility.
 
+@cindex searchin manual
+@cindex using the manual
 @cindex bugreport
 @cindex index
 @cindex tutorial
