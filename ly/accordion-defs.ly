@@ -6,50 +6,52 @@
 % 16' = S
 %
 
-accDiscant = \script{ "accDiscant" 0 0 1 0 0 }
-accDiscantF = \script{ "accDiscantF" 0 0 1 0 0 }
-accDiscantE = \script{ "accDiscantE" 0 0 1 0 0 }
-accDiscantEh = \script{ "accDiscantEh" 0 0 1 0 0 }
-accDiscantFE = \script{ "accDiscantFE" 0 0 1 0 0 }
-accDiscantFEh = \script{ "accDiscantFEh" 0 0 1 0 0 }
-accDiscantEE = \script{ "accDiscantEE" 0 0 1 0 0 }
-accDiscantFEE = \script{ "accDiscantFEE" 0 0 1 0 0 }
-accDiscantEEE = \script{ "accDiscantEEE" 0 0 1 0 0 }
-accDiscantFEEE = \script{ "accDiscantFEEE" 0 0 1 0 0 }
-accDiscantS = \script{ "accDiscantS" 0 0 1 0 0 }
-accDiscantFS = \script{ "accDiscantFS" 0 0 1 0 0 }
-accDiscantES = \script{ "accDiscantES" 0 0 1 0 0 }
-accDiscantEhS = \script{ "accDiscantEhS" 0 0 1 0 0 }
-accDiscantFES = \script{ "accDiscantFES" 0 0 1 0 0 }
-accDiscantFEhS = \script{ "accDiscantFEhS" 0 0 1 0 0 }
-accDiscantEES = \script{ "accDiscantEES" 0 0 1 0 0 }
-accDiscantFEES = \script{ "accDiscantFEES" 0 0 1 0 0 }
-accDiscantEEES = \script{ "accDiscantEEES" 0 0 1 0 0 }
-accDiscantFEEES = \script{ "accDiscantFEEES" 0 0 1 0 0 }
-accDiscantSS = \script{ "accDiscantSS" 0 0 1 0 0 }
-accDiscantESS = \script{ "accDiscantESS" 0 0 1 0 0 }
-accDiscantEESS = \script{ "accDiscantEESS" 0 0 1 0 0 }
-accDiscantEEESS = \script{ "accDiscantEEESS" 0 0 1 0 0 }
+\scmfile "accordion-script.scm";
 
-accFreebass = \script{ "accFreebass" 0 0 1 0 0 }
-accFreebassF = \script{ "accFreebassF" 0 0 1 0 0 }
-accFreebassE = \script{ "accFreebassE" 0 0 1 0 0 }
-accFreebassFE = \script{ "accFreebassFE" 0 0 1 0 0 }
+accDiscant = \script "accDiscant"
+accDiscantF = \script "accDiscantF"
+accDiscantE = \script "accDiscantE"
+accDiscantEh = \script "accDiscantEh"
+accDiscantFE = \script "accDiscantFE"
+accDiscantFEh = \script "accDiscantFEh"
+accDiscantEE = \script "accDiscantEE"
+accDiscantFEE = \script "accDiscantFEE"
+accDiscantEEE = \script "accDiscantEEE"
+accDiscantFEEE = \script "accDiscantFEEE"
+accDiscantS = \script "accDiscantS"
+accDiscantFS = \script "accDiscantFS"
+accDiscantES = \script "accDiscantES"
+accDiscantEhS = \script "accDiscantEhS"
+accDiscantFES = \script "accDiscantFES"
+accDiscantFEhS = \script "accDiscantFEhS"
+accDiscantEES = \script "accDiscantEES"
+accDiscantFEES = \script "accDiscantFEES"
+accDiscantEEES = \script "accDiscantEEES"
+accDiscantFEEES = \script "accDiscantFEEES"
+accDiscantSS = \script "accDiscantSS"
+accDiscantESS = \script "accDiscantESS"
+accDiscantEESS = \script "accDiscantEESS"
+accDiscantEEESS = \script "accDiscantEEESS"
 
-accBayanbass = \script{ "accBayanbass" 0 0 1 0 0 }
-accBayanbassT = \script{ "accBayanbassT" 0 0 1 0 0 }
-accBayanbassE = \script{ "accBayanbassE" 0 0 1 0 0 }
-accBayanbassTE = \script{ "accBayanbassTE" 0 0 1 0 0 }
-accBayanbassEE = \script{ "accBayanbassEE" 0 0 1 0 0 }
-accBayanbassTEE = \script{ "accBayanbassTEE" 0 0 1 0 0 }
+accFreebase = \script "accFreebase"
+accFreebaseF = \script "accFreebaseF"
+accFreebaseE = \script "accFreebaseE"
+accFreebaseFE = \script "accFreebaseFE"
 
-accStdbass = \script{ "accStdbass" 0 0 1 0 0 }
-accStdbassTp = \script{ "accStdbassTp" 0 0 1 0 0 }
-accStdbassT = \script{ "accStdbassT" 0 0 1 0 0 }
-accStdbassBp = \script{ "accStdbassBp" 0 0 1 0 0 }
-accStdbassM = \script{ "accStdbassM" 0 0 1 0 0 }
+accBayanbase = \script "accBayanbase"
+accBayanbaseT = \script "accBayanbaseT"
+accBayanbaseE = \script "accBayanbaseE"
+accBayanbaseTE = \script "accBayanbaseTE"
+accBayanbaseEE = \script "accBayanbaseEE"
+accBayanbaseTEE = \script "accBayanbaseTEE"
 
-accSB = \script{ "accSB" 0 0 1 0 0 }
-accBB = \script{ "accBB" 0 0 1 0 0 }
-accOldEE = \script{ "accOldEE" 0 0 1 0 0 }
-accOldEES = \script{ "accOldEES" 0 0 1 0 0 }
+accStdbase = \script "accStdbase"
+accStdbaseTp = \script "accStdbaseTp"
+accStdbaseT = \script "accStdbaseT"
+accStdbaseBp = \script "accStdbaseBp"
+accStdbaseM = \script "accStdbaseM"
+
+accSB = \script "accSB"
+accBB = \script "accBB"
+accOldEE = \script "accOldEE"
+accOldEES = \script "accOldEES"

@@ -35,7 +35,7 @@ def draw_discant_reg(expr A, B, C, D, E, F) =
 	currentpicture := currentpicture shifted (0, r);
 enddef;
 
-def draw_freebass_reg(expr rFour, rEight) =
+def draw_freebase_reg(expr rFour, rEight) =
 	save r;
 	r#= accreg_lh#;
 	define_pixels(r);
@@ -49,7 +49,7 @@ def draw_freebass_reg(expr rFour, rEight) =
 	currentpicture := currentpicture shifted (0, r);
 enddef;
 
-def draw_stdbass_reg(expr A, B, C, D, E) =
+def draw_stdbase_reg(expr A, B, C, D, E) =
 	save r, sx;
 	r# = 2accreg_lh#;
 	define_pixels(r);
@@ -69,7 +69,7 @@ def draw_stdbass_reg(expr A, B, C, D, E) =
 	currentpicture := currentpicture shifted (0, r);
 enddef;
 
-def draw_bayanbass_reg_sign(expr nTwo, nEight) = 
+def draw_bayanbase_reg_sign(expr nTwo, nEight) = 
 	save lh;
 	lh = accreg_lh;
 %	set_char_box(accreg_lh#, accreg_lh#, 3accreg_lh#, 0);
@@ -182,64 +182,64 @@ fet_beginchar("accDiscantEEESS", "accDiscantEEESS", "accDiscantEEESS")
 	draw_discant_reg(0, 1, 1, 1, 0, 1);
 fet_endchar;
 
-fet_beginchar("accFreebass", "accFreebass", "accFreebass")
-	draw_freebass_reg(0, 0);
+fet_beginchar("accFreebase", "accFreebase", "accFreebase")
+	draw_freebase_reg(0, 0);
 fet_endchar;
 
-fet_beginchar("accFreebassF", "accFreebassF", "accFreebassF")
-	draw_freebass_reg(1, 0);
+fet_beginchar("accFreebaseF", "accFreebaseF", "accFreebaseF")
+	draw_freebase_reg(1, 0);
 fet_endchar;
 
-fet_beginchar("accFreebassE", "accFreebassE", "accFreebassE")
-	draw_freebass_reg(0, 1);
+fet_beginchar("accFreebaseE", "accFreebaseE", "accFreebaseE")
+	draw_freebase_reg(0, 1);
 fet_endchar;
 
-fet_beginchar("accFreebassFE", "accFreebassFE", "accFreebassFE")
-	draw_freebass_reg(1, 1);
+fet_beginchar("accFreebaseFE", "accFreebaseFE", "accFreebaseFE")
+	draw_freebase_reg(1, 1);
 fet_endchar;
 
-fet_beginchar("accStdbass", "accStdbass", "accStdbass")
-	draw_stdbass_reg(0, 0, 0, 0, 0);
+fet_beginchar("accStdbase", "accStdbase", "accStdbase")
+	draw_stdbase_reg(0, 0, 0, 0, 0);
 fet_endchar;
 
-fet_beginchar("accStdbassM", "accStdbassM", "accStdbassM")
-	draw_stdbass_reg(1, 1, 1, 1, 1);
+fet_beginchar("accStdbaseM", "accStdbaseM", "accStdbaseM")
+	draw_stdbase_reg(1, 1, 1, 1, 1);
 fet_endchar;
 
-fet_beginchar("accStdbassBp", "accStdbassBp", "accStdbassBp")
-	draw_stdbass_reg(1, 1, 0, 0, 1);
+fet_beginchar("accStdbaseBp", "accStdbaseBp", "accStdbaseBp")
+	draw_stdbase_reg(1, 1, 0, 0, 1);
 fet_endchar;
 
-fet_beginchar("accStdbassT", "accStdbassT", "accStdbassT")
-	draw_stdbass_reg(0, 1, 1, 1, 0);
+fet_beginchar("accStdbaseT", "accStdbaseT", "accStdbaseT")
+	draw_stdbase_reg(0, 1, 1, 1, 0);
 fet_endchar;
 
-fet_beginchar("accStdbassTp", "accStdbassTp", "accStdbassTp")
-	draw_stdbass_reg(0, 1, 1, 0, 0);
+fet_beginchar("accStdbaseTp", "accStdbaseTp", "accStdbaseTp")
+	draw_stdbase_reg(0, 1, 1, 0, 0);
 fet_endchar;
 
-fet_beginchar("accBayanbass", "accBayanbass", "accBayanbass")
-	draw_bayanbass_reg_sign(1, 0);
+fet_beginchar("accBayanbase", "accBayanbase", "accBayanbase")
+	draw_bayanbase_reg_sign(0, 0);
 fet_endchar;
 
-fet_beginchar("accBayanbassT", "accBayanbassT", "accBayanbassT")
-	draw_bayanbass_reg_sign(1, 0);
+fet_beginchar("accBayanbaseT", "accBayanbaseT", "accBayanbaseT")
+	draw_bayanbase_reg_sign(1, 0);
 fet_endchar;
 
-fet_beginchar("accBayanbassE", "accBayanbassE", "accBayanbassE")
-	draw_bayanbass_reg_sign(0, 1);
+fet_beginchar("accBayanbaseE", "accBayanbaseE", "accBayanbaseE")
+	draw_bayanbase_reg_sign(0, 1);
 fet_endchar;
 
-fet_beginchar("accBayanbassTE", "accBayanbassTE", "accBayanbassTE")
-	draw_bayanbass_reg_sign(1, 1);
+fet_beginchar("accBayanbaseTE", "accBayanbaseTE", "accBayanbaseTE")
+	draw_bayanbase_reg_sign(1, 1);
 fet_endchar;
 
-fet_beginchar("accBayanbassEE", "accBayanbassEE", "accBayanbassEE")
-	draw_bayanbass_reg_sign(0, 2);
+fet_beginchar("accBayanbaseEE", "accBayanbaseEE", "accBayanbaseEE")
+	draw_bayanbase_reg_sign(0, 2);
 fet_endchar;
 
-fet_beginchar("accBayanbassTEE", "accBayanbassTEE", "accBayanbassTEE")
-	draw_bayanbass_reg_sign(1, 2);
+fet_beginchar("accBayanbaseTEE", "accBayanbaseTEE", "accBayanbaseTEE")
+	draw_bayanbase_reg_sign(1, 2);
 fet_endchar;
 
 def def_B(expr w, h) = 
