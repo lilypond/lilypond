@@ -86,5 +86,7 @@ struct Horizontal_simple;
 struct Vertical_simple ;
 struct Music_voice;
 struct Music_general_chord;
-
+struct Input_score;
+struct Input_staff;
+struct Input_command;
 #endif // PROTO_HH
