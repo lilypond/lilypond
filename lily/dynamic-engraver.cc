@@ -123,8 +123,11 @@ Dynamic_engraver::do_process_music ()
 	  Side_position::set_axis (line_spanner_, Y_AXIS);
 	  Axis_group_interface::set_interface (line_spanner_);
 	  Axis_group_interface::set_axes (line_spanner_, Y_AXIS, Y_AXIS);
-	  announce_element (line_spanner_,
-			     text_req_l_ ? text_req_l_ : accepted_spanreqs_drul_[START]);
+
+	  Request * rq = accepted_spanreqs_drul_[START];
+	  if (text_req_l_) rq =  text_req_l_ ;
+	  announce_element (line_spanner_, rq);
+			 
 
 	}
     }

@@ -15,6 +15,7 @@
 #include "stem.hh"
 #include "rhythmic-head.hh"
 
+
 /**
    typeset directions that are  plain text.
  */
@@ -32,7 +33,6 @@ protected:
   virtual void acknowledge_element (Score_element_info);
 };
 
-
 bool
 Text_engraver::do_try_music (Music *m)
 {
@@ -47,7 +47,6 @@ Text_engraver::do_try_music (Music *m)
   return false;
 }
 
-
 void
 Text_engraver::acknowledge_element (Score_element_info inf)
 {
@@ -57,11 +56,19 @@ Text_engraver::acknowledge_element (Score_element_info inf)
 	{
 	  Score_element*t = texts_[i];
 	  Side_position::add_support (t,inf.elem_l_);
+
+	  /*
+	    ugh.
+	   */
 	  if (Side_position::get_axis( t) == X_AXIS
 	      && !t->parent_l (Y_AXIS))
 	    t->set_parent (inf.elem_l_, Y_AXIS);
+	  else if (Side_position::get_axis(t) == Y_AXIS
+	      && !t->parent_l (X_AXIS))
+	    t->set_parent (inf.elem_l_, X_AXIS);
 	}
     }
+  
   if (Stem::has_interface (inf.elem_l_))
     {
       for (int i=0; i < texts_.size (); i++)
@@ -78,16 +85,31 @@ Text_engraver::do_process_music ()
     {
       Text_script_req * r = reqs_[i];
 
-      /*
-	Urg:  Text_engraver loads TextScriptProperties
-       */
-      Item *text = new Item (get_property ("basicTextScriptProperties"));
-      
+      String basic =  "basicTextScriptProperties";
+
+				// separate engraver?
+      if (r->style_str_== "finger")
+	{
+	  basic = "basicFingeringProperties";
+	}
+      Item *text = new Item (get_property (basic.ch_C()));
+
 
       SCM axisprop = get_property ("scriptHorizontal");
+      Axis ax = to_boolean (axisprop) ? X_AXIS : Y_AXIS;
+      Side_position::set_axis (text, ax);
 
-      Side_position::set_axis (text, to_boolean (axisprop) ? X_AXIS : Y_AXIS);
+      if (r->style_str_ == "finger" && ax == Y_AXIS)
+	{
+	  /*
+	    nicely center the scripts.
+	   */ 
+	  text->add_offset_callback (Side_position::aligned_on_self, X_AXIS);
+	  text->add_offset_callback (Side_position::centered_on_parent, X_AXIS);
+	}
+      
 
+      
       /*
 	make sure they're in order by adding i to the priority field.
 	*/

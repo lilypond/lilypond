@@ -115,9 +115,8 @@ Side_position::aligned_on_self (Score_element *elm, Axis ax)
   s +=  (ax == X_AXIS) ? "X" : "Y";
 
   SCM align (elm->get_elt_property (s.ch_C()));
-  if (isdir_b (align))
+  if (gh_number_p (align))
     {
-      Direction d = to_dir (align);
       Interval ext(elm->extent (ax));
 
       if (ext.empty_b ())
@@ -125,11 +124,11 @@ Side_position::aligned_on_self (Score_element *elm, Axis ax)
 	  programming_error ("I'm empty. Can't align on self");
 	  return 0.0;
 	}
-      else if (d)
+      else
 	{
-	  return - ext[d];
+	  Real lambda = (0.5 + gh_scm2double (align) / 2.0);
+	  return - (lambda * ext[LEFT] + (1 - lambda) * ext[RIGHT]);
 	}
-      return - ext.center ();
     }
   else
     return 0.0;

@@ -35,10 +35,15 @@
 
 % stacked horizontal lines
 \ifundefined{mudelapaperinterscoreline}
-        \def\interscoreline{\vskip 16pt\myfilbreak}
-\else
-        \def\interscoreline{\vskip\mudelapaperinterscoreline pt\myfilbreak}
+        \def\mudelapaperinterscoreline{16}
 \fi
+\ifundefined{mudelapaperinterscorelinefill}
+        \def\mudelapaperinterscorelinefill{0}
+\fi
+
+\def\interscoreline{\vskip\mudelapaperinterscoreline pt plus %
+  \mudelapaperinterscorelinefill fill\myfilbreak}
+
 \def\placebox#1#2#3{%
         \botalign{\hbox{\raise #1\leftalign{\kern #2{}#3}}}}%
 
@@ -52,7 +57,7 @@
 \fi
 
 \def\EndLilyPondOutput{%
-  \csname bye\endcsname
+ \vskip 0pt plus 100fill\csname bye\endcsname
 }
 \def\postheader{}
 

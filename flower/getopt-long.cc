@@ -8,6 +8,8 @@
 #include <stdio.h>
 #include <iostream.h>
 #include <assert.h>
+#include <stdlib.h>
+
 #include "config.h"
 #include "getopt-long.hh"
 #include "international.hh"

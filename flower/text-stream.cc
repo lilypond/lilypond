@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <iostream.h>
 #include "text-stream.hh"
 

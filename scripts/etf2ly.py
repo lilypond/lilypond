@@ -353,19 +353,22 @@ class Measure:
 	def valid (self):
 		return self.valid
 	def calculate (self):
-		if len (self.finale) < 2:
-			sys.stderr.write ("Measure %d in staff %d  has incomplete information.\n" % (self.number, self.staff.number))
-			self.valid = 0
-			return 
-			
-		f0 = self.finale[0]
-		f1 = self.finale[1]
-		
-		self.clef = string.atoi (f0[0])
-		self.flags = string.atoi (f0[1])
-		fs = map (string.atoi, list (f0[2:]) + [f1[0]])
+		fs = []
 
-		self.frames = fs
+		
+		if len (self.finale) < 2:
+			fs = self.finale[0]
+			fs = map (string.atoi, list (fs))
+			self.clef = fs[1]
+			self.frames = [fs[0]]
+		else:
+			fs = self.finale[0:2]
+			
+			fs = map (string.atoi, list (fs))
+			self.clef = fs[0]
+			self.flags = fs[1]
+			self.frames = fs[2:]
+
 
 class Frame:
 	def __init__ (self, finale):
@@ -489,9 +492,13 @@ class Staff:
 			for m in self.measures[1:]:
 				if not m or not m.valid:
 					continue
+
+				fr = None
+				try:
+					fr = m.frames[x]
+				except IndexError:
+					pass
 				
-				
-				fr = m.frames[x]
 				if fr:
 					first_frame = fr
 					if gap <> (0,1):

@@ -3,6 +3,7 @@
 //
 // copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
 
+#include <string.h>
 #include <assert.h>
 #include "midi2ly-global.hh"
 #include "string-convert.hh"

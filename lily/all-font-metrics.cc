@@ -16,13 +16,11 @@
 #include "tfm.hh"
 #include "lily-guile.hh"
 #include "scm-hash.hh"
+#include "kpath.hh"
 
 
-#if HAVE_KPATHSEA_KPATHSEA_H
-extern "C" {
-#include <kpathsea/kpathsea.h>
-}
-#endif
+
+
 
 const char * default_font_sz_ = "cmr10";
 
@@ -53,15 +51,13 @@ All_font_metrics::find_afm (String name)
       if (path.empty_b())
 	path = search_path_.find (name  + ".afm");
 
-#if (KPATHSEA && HAVE_KPSE_FIND_FILE)
       if (path.empty_b ())
 	{
-	  char  * p = kpse_find_file (name.ch_C(), kpse_afm_format, true);
+	  char  * p = ly_find_afm (name.ch_C());
 	  if (p)
 	    path = p;
 	}
-#endif
-      
+
       if (path.empty_b())
 	return 0;
       
@@ -108,15 +104,13 @@ All_font_metrics::find_tfm (String name)
     {
       String path;
       
-//#if KPATHSEA && HAVE_KPSE_FIND_TFM  -- urg: a macro
-#if KPATHSEA && HAVE_KPSE_FIND_FILE
       if (path.empty_b())
 	{
-	  char * p = kpse_find_tfm (name.ch_C());
+	  char * p = ly_find_tfm (name.ch_C());
 	  if (p)
 	    path = p;
 	}
-#endif
+
       if (path.empty_b())
 	path = search_path_.find (name  + ".tfm");
       if (path.empty_b())

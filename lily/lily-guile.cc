@@ -395,21 +395,21 @@ undefd ()
   return SCM_UNDEFINED;
 }
 
+
 static void
 init_functions ()
 {
-  scm_make_gsubr ("ly-warn", 1, 0, 0, (SCM(*)(...))ly_warning);
-  scm_make_gsubr ("ly-gulp-file", 1,0, 0, (SCM(*)(...))ly_gulp_file);
-  scm_make_gsubr ("dir?", 1,0, 0, (SCM(*)(...))ly_isdir_p);
-  scm_make_gsubr ("undefd", 0,0, 0, (SCM(*)(...))undefd);  
-  scm_make_gsubr ("ly-number->string", 1, 0,0, (SCM(*)(...)) ly_number2string);
+  scm_make_gsubr ("ly-warn", 1, 0, 0, (SCM(*)())ly_warning);
+  scm_make_gsubr ("ly-gulp-file", 1,0, 0, (SCM(*)())ly_gulp_file);
+  scm_make_gsubr ("dir?", 1,0, 0, (SCM(*)())ly_isdir_p);
+  scm_make_gsubr ("undefd", 0,0, 0, (SCM(*)())undefd);  
+  scm_make_gsubr ("ly-number->string", 1, 0,0, (SCM(*)()) ly_number2string);
 
 
 #ifdef TEST_GC 
   scm_c_hook_add (&scm_before_mark_c_hook, greet_sweep, 0, 0);
   scm_c_hook_add (&scm_before_sweep_c_hook, wave_sweep_goodbye, 0, 0);
 #endif
-  
 }
 
 ADD_SCM_INIT_FUNC(funcs, init_functions);

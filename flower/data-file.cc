@@ -4,10 +4,13 @@
   source file of the Flower Library
   
   (c) '95, '96, '97 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+
+  DEPRECATED
   
   */
 #include <fstream.h>
 #include <ctype.h>
+#include <stdlib.h>
 
 #include "international.hh"
 #include "data-file.hh"

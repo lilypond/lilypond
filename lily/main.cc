@@ -27,16 +27,14 @@
 #include "paper-def.hh"
 #include "midi-def.hh"
 #include "global-ctor.hh"
+#include "kpath.hh"
+
 
 #if HAVE_GETTEXT
 #include <libintl.h>
 #endif
 
-#if KPATHSEA && HAVE_KPATHSEA_KPATHSEA_H
-extern "C" {
-#include <kpathsea/kpathsea.h>
-}
-#endif
+
 
 bool verbose_global_b = false;
 bool no_paper_global_b = false;
@@ -335,14 +333,8 @@ main (int argc, char **argv)
   putenv ("GUILE_INIT_SEGMENT_SIZE_1=4194304");
   putenv ("GUILE_MAX_SEGMENT_SIZE=8388608");
 
-#if KPATHSEA && HAVE_KPATHSEA_KPATHSEA_H
-  /*
-   initialize kpathsea
-   */
-  kpse_set_program_name(argv[0], NULL);
-  kpse_maketex_option("tfm", TRUE);
-#endif
-
+  ly_init_kpath (argv[0]);
+  
   oparser_global_p = new Getopt_long(argc, argv,theopts);
   while (Long_option_init const * opt = (*oparser_global_p)())
     {
@@ -407,7 +399,7 @@ main (int argc, char **argv)
 #ifdef WINNT
   gh_enter (argc, argv, main_prog);
 #else
-  gh_enter (argc, argv, (void(*)(...))main_prog);
+  gh_enter (argc, argv, (void(*)(int, char**))main_prog);
 #endif
 
   return 0;			// unreachable

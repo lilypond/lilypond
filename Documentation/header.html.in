@@ -38,7 +38,7 @@ which substitutes some @AT_VARIABLES@ as well.
       <tr><td bgcolor="#e8e8ff"><a href="@INDEX@"><b>Home</b></a></td></tr>
       <tr><td><font size=-1>
         <a href="http://www.cs.uu.nl/~hanwen/lilypond">Development</a><br>
-        <a href="http://appel.lilypond.org/lilypond">Hacking</a><br>
+        <a href="http://appel.lilypond.org/wiki/index.php3?LilyPond">WikiWikiWeb</a><br>
         <a href="http://www.gnu.org">GNU Project</a><br>
         <a href="http://www2.iro.umontreal.ca/~pinard/po/registry.cgi?domain=lilypond">Translations</a><br>
         <a href="http://www.lilypond.org">LilyPond dot org</a><br>
@@ -83,7 +83,7 @@ which substitutes some @AT_VARIABLES@ as well.
 	<a href="@TOP@short-examples.html">Short examples</a><br>
 	<a href="@TOP@long-examples.html">Longer examples</a><br>
 	<a href="http://sca.uwaterloo.ca/Mutopia/">Mutopia Project</a><br>
-	<a href="http://www.geocities.com/Vienna/Studio/1714/scarlattidwn.html">Jonh Sankey</a><br>
+	<a href="http://www.geocities.com/Vienna/Studio/1714/scarlattimus.html">Jonh Sankey</a><br>
 	<a href="http://www4.smart.net/~jcovey/scores/">Jeff Covey</a><br>
 	<a href="http://www.alqualonde.de/lilypond.html">Dirk Lattermann</a><br>
 	<br>

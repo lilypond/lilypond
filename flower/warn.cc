@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <stream.h>
 #include "warn.hh"
 

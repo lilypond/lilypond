@@ -86,7 +86,7 @@ fi
 
 %files
 # hairy to hook it in (possibly non-existing) emacs
-%doc mudela-mode.el
+%doc lilypond-mode.el
 
 %ifnos cygwin
 %{_prefix}/bin/abc2ly
