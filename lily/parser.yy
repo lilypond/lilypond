@@ -1334,10 +1334,8 @@ shorthand_command_req:
 	}
 	| '['		{
 		Music *b= MY_MAKE_MUSIC("BeamEvent");
-		b->set_mus_property ("span-direction", gh_int2scm (START))
-;
-		$$ =b;
-
+		b->set_mus_property ("span-direction", gh_int2scm (START));
+		$$ = b;
 
 		THIS->last_beam_start_ = b->self_scm ();
 	}
