@@ -160,8 +160,8 @@ Spring_spacer::check_constraints (Vector v) const
       if (!i) 
 	continue;
 	
-      Real mindist=cols[i-1].minright()
-	+cols[i].minleft();
+      Real mindist=cols[i-1].width_[RIGHT]
+	-cols[i].width_[LEFT];
 
       // ugh... compares
       Real dif =v (i) - v (i-1)- mindist;
@@ -196,7 +196,7 @@ Spring_spacer::try_initial_solution() const
 
 	  if (i > 0) 
 	    {
-	      Real r =initsol (i-1)  + cols[i-1].minright();
+	      Real r =initsol (i-1)  + cols[i-1].width_[RIGHT];
 	      if (initsol (i) < r) 
 		{
 		  warning ("overriding fixed position");
@@ -207,8 +207,8 @@ Spring_spacer::try_initial_solution() const
 	}
       else 
 	{
-	  Real mindist=cols[i-1].minright()
-	    +cols[i].minleft();
+	  Real mindist=cols[i-1].width_[RIGHT]
+	    - cols[i].width_[LEFT];
 	  if (mindist < 0.0)
 	    warning ("Excentric column");
 	  initsol (i)=initsol (i-1)+mindist;
@@ -277,8 +277,8 @@ Spring_spacer::make_constraints (Mixed_qp& lp) const
 	    
 	  c1(j)=1.0 ;
 	  c1(j-1)=-1.0 ;
-	  lp.add_inequality_cons (c1, cols[j-1].minright() +
-				  cols[j].minleft());
+	  lp.add_inequality_cons (c1, 
+				  cols[j-1].width_[RIGHT] - cols[j].width_[LEFT]);
 	}
     }
 }
@@ -529,7 +529,7 @@ Spring_spacer::calc_idealspacing()
     {
       if (!scol_l (i)->musical_b())
 	{
-	  Real symbol_distance =cols[i].minright() + 2 PT;
+	  Real symbol_distance =cols[i].width_[RIGHT] + 2 PT;
 	  Real durational_distance = 0;
 
 	  if (i+1 < cols.size())
@@ -542,7 +542,7 @@ Spring_spacer::calc_idealspacing()
 		*/
 	      if (delta_t)
 		durational_distance =  paper_l()->duration_to_dist (delta_t,k);
-	      symbol_distance += cols[i+1].minleft();
+	      symbol_distance += -cols[i+1].width_[LEFT];
 	    }
 	    
 	  ideal_arr_[i] = symbol_distance >? durational_distance;
@@ -576,7 +576,7 @@ Spring_spacer::calc_idealspacing()
 	     extra space if this is not needed */
 	  if (!scol_l (i+1)->musical_b())
 	    {
-	      Real minimum_dist =   cols[i+1].minleft() + 2 PT + cols[i].minright () ;
+	      Real minimum_dist =  - cols[i+1].width_[LEFT] + 2 PT + cols[i].width_[RIGHT];
 	      if (ideal_arr_[i+1] + minimum_dist < dist)
 		{
 		  ideal_arr_[i] = dist - ideal_arr_[i+1];
