@@ -1,5 +1,8 @@
 2002-09-20  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* tex/lilyponddefs.tex: Handle \scoreshift and \outputscale in one
+	go.  Fix comments.
+
 	* cygwin: Cygwin updates.
 
 2002-09-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>

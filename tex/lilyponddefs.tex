@@ -4,6 +4,7 @@
 %
 % This file defines various macros to accomodate lilypond output.
 %
+% Avoid \par while reading this file.
 \edef\lilyponddefsELC{\the\endlinechar}%
 \endlinechar -1\relax
 
@@ -115,25 +116,16 @@
   \csname nolilyfooter\texsuffix\endcsname
 \fi
 
+% It is very bad that lilyponddefs.tex gets included in every lilypond
+% output snippet.  This is necessary because these output snippets
+% often get encapsulated, eg by texinfo. This should be fixed by
+% putting the variable parts in this file into a macro so that loading
+% the file multiple times can be avoided.
 \ifx\outputscale\undefined
   \csname global\endcsname\csname newdimen\endcsname\outputscale
+  \csname global\endcsname\csname newdimen\endcsname\scoreshift
 \fi
 
-\ifundefined{scoreshift}
-\else
-  % It is very ugly to hide \newdimen with \endinput, but I see no
-  % alternative: Since it is defined as \outer in plain.tex, you can
-  % neither use it in macros nor skip in an \if... \fi construction.
-  %
-  % In general, it is very bad that lilyponddefs.tex is read in again
-  % and again...  This should be fixed by putting the variable parts in
-  % this file into a macro so that loading the file multiple times can be
-  % avoided.
-  \endlinechar \lilyponddefsELC
-  \expandafter\endinput
-\fi
-
-\newdimen\scoreshift
-
+% Restore newline functionality (disabled to avoid \par).
 \endlinechar \lilyponddefsELC
 \endinput
