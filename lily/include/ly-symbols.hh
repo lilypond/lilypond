@@ -57,6 +57,7 @@ DECLARE_LY_SYMBOL(text);
 DECLARE_LY_SYMBOL(transparent);
 DECLARE_LY_SYMBOL(tuplet);
 DECLARE_LY_SYMBOL(tuplet_thick);
+DECLARE_LY_SYMBOL(tuplet_visibility);
 DECLARE_LY_SYMBOL(visibility_lambda);
 DECLARE_LY_SYMBOL(volta);
 DECLARE_LY_SYMBOL(volta_thick);

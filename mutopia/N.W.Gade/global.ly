@@ -2,10 +2,11 @@
 globalNoKey=\notes {
 \time 3/4;
 \skip 2.*31;
-s2 s8 \bar "||"; \break
+s4 s4^\fermata s8^\fermata \bar "||"; \break
 s8 
 \time 2/4;
-\skip 2*225;
+\skip 2*224;
+s4 s4^\fermata
 \bar "|.";
 }
 

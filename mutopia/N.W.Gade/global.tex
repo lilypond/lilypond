@@ -19,7 +19,7 @@
 % Modified from lilypond/tex/headers.tex:
 \advance\topmargin-5mm
 \advance\headsep-4mm
-\addtolength{\textheight}{12mm}
+\addtolength{\textheight}{17mm}
 \advance\footskip-3mm
 
 \usepackage{fancyheadings}
@@ -33,6 +33,7 @@
 
 % Modified from lilypond/tex/titledefs.tex:
 \def\makelilytitle{%
+  \vspace*{-10mm}%
   \begin{center}
         \bfseries
         \ifx\mudelanull\thetitle\else\sethuge{\thetitle}\\ \fi
@@ -57,4 +58,5 @@
 %  {\flushleft\setLarge{\normalfont\scshape\thepiece}}
   {\flushleft\setLarge{\textbf\thepiece}}
   \leavevmode
+  \enlargethispage*{5mm}
 }

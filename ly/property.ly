@@ -132,15 +132,15 @@ slurdotted =
 %{
  for grace note hack, see input/test/grace.ly
 %}
-pletoff = {
-	\property Voice.pletvisibility = 0
+tupletoff = {
+	\property Voice.tupletVisibility = 0
 }
-pleton = {
-	\property Voice.pletvisibility = 3
+tupleton = {
+	\property Voice.tupletVisibility = 3
 }
 tiny  = {
 	\property Voice.fontSize= "-2"
-	\pletoff %urg
+	\tupletoff %urg
 }
 
 small  = {
@@ -149,7 +149,7 @@ small  = {
 
 normalsize = {
 	\property Voice.fontSize= "0"
-	\pleton %urg
+	\tupleton %urg
 }
 
 %{
@@ -164,20 +164,20 @@ grace = {
 	\tiny
 % it would be so cool not to have to specify these factors each time...
 % :-(
-	\property Voice.pletvisibility = 0
+	\property Voice.tupletVisibility = 0
 	\[1/16
 }
 
 graceat = \melodic {
 	\normalsize
-	\property Voice.pletvisibility = 0
+	\property Voice.tupletVisibility = 0
 	\] \[31/32
 }
 
 ecarg =  \melodic {
-	\property Voice.pletvisibility = 0
+	\property Voice.tupletVisibility = 0
 	\]
-	\property Voice.pletvisibility = 3
+	\property Voice.tupletVisibility = 3
 }
 %}
 

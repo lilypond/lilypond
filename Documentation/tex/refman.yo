@@ -1525,13 +1525,28 @@ and -2.
 dit(code(abbrev)) Set length for tremolo to be used if no length is
 explicitly specified.
 
-GONE dit(code(markScriptPadding)) Determines the extra space added between
+dit(code(tupletDirection)) Determines the direction of triplets and 
+other tuplets.  Set to code(\down) to force them below the staff,
+code(\up) to force them above, or code(\free) to let LilyPond decide.
+
+dit(code(tupletVisibility)) Determines whether tuplets of notes are
+labelled.  Setting to 0 shows nothing; setting to 1 shows a number;
+setting to 2 shows a number and a bracket if there is no beam; setting
+to 3 shows a number, and if there is no beam it adds a bracket;
+setting to 4 shows both a number and a bracket unconditionally. The 
+code(pletoff) and code(pleton) identifiers set the property to 0 and 3, 
+respectively. 
+
+dit(code(markScriptPadding)) Determines the extra space added between
 the mark and the closest staff line or note.
 
-GONE dit(code(markDirection)) Determines if marks should be printed above
+dit(code(markDirection)) Determines if marks should be printed above
 or below the staff. Set to code(\up) to print marks above the staff;
 set to code(\down) to print marks below the staff.
 
+dit(code(articulationScriptPadding)) Determines the extra space added 
+between articulation marks, such as staccato, tenuto, trill, up/down 
+bow or fermata, and the closest staff line or note.
 )
 
 subsubsubsect(Staff properties)

@@ -24,7 +24,7 @@ two = \notes\relative c{
 		        markScriptPadding = "4.0";
 			markHangOn  = "Bar";
 			markHangDepth = "1";
-%			markDirection = \diown;
+%			markDirection = \down;
 		}
 	}
 }

@@ -1,8 +1,27 @@
+pl 46.mb2
+	- Reintroduced the tupletVisibility property. Same values as
+	  the old version (pletvisibility), see the Reference Manual.
+	  Note: does not work correctly with automatic beams.
+	- Added a tupletDirection property.
+
+pl 46.uu1
+	- bf: {} in texts.
+
+pl 45.hwn2
+ 	- more doc updates.
+ 
+
+pl 46.mb1
+	- Added property articulationScriptPadding
+	- N.W.Gade: layout fixes
+
+*********
+
 pl 45.hwn1
 	- Audio broadcast & acknowledge.
 	- more advanced spacing for prefatory matter
 	- tuplet appearance tweaking
-
+	- bf: ChoirStaff 
 
 pl 45.uu1
 	- glossary fixes (thanks Dirk).

@@ -36,7 +36,7 @@ r \tiny g8 \f *1/2 \normalsize d'2 \> ( *7/8|
 [g,8. a16 g8. a16 \! g8. ) a16 ] |
 g4 r r |
 R2. |
-r4 r^\fermata r8^\fermata r |
+r4 r r8 r |
 R2*8 |
 d'8-. \pp r c-. r |
 d r c g |
@@ -200,7 +200,7 @@ c4 r8 g ( |
 ) e'4 r8 g,8 ( |
 ) c4 r |
 R2 |
-e4 \fz r^\fermata
+e4 \fz r
 }
 
 corIhelp=\notes\relative c''' {
@@ -208,10 +208,10 @@ corIhelp=\notes\relative c''' {
 \tiny
 
 s2.*32 |
-s2*33 |
+s2*33 | \stemup
 r4 r8 [g16^"oboe" \p ( a ] |
 [ ) g8-. fis16 ( g ][ ) fis8-. f16 ( g ] |
-[ ) f8-. e16 ( f ] ) e8-. s |
+[ ) f8-. e16 ( f ] ) e8-. s | \stemboth
 s2*66 |
 [f,,16^"Vlc." ( g f g][f g f8 ] |
 ) e4 r |
@@ -262,7 +262,7 @@ r r [g,16 ( \p d' e d ] |
 R2. |
 [g8. ( a16 g8. a16 g8. a16] |
 [g8._"dim." a16 ] g4. a8 |
-[g8. a16] ) g4^\fermata \pp r8^\fermata r |
+[g8. a16] ) g4 \pp r8 r |
 R2*8 |
 g8-. \pp r c,-. r |
 g'-. r c,-. r |
@@ -406,7 +406,7 @@ e4 r8 g ( |
 ) c,4 r8 g'8 ( |
 ) e4 r |
 R2 |
-c'4-. \fz r^\fermata
+c'4-. \fz r
 }
 
 trpI=\notes\relative c'' {
@@ -416,7 +416,7 @@ trpI=\notes\relative c'' {
 
 [d8. ( \f e16 ] ) d2 |
 R2.*30 |
-r4 r^\fermata r8 ^\fermata r |
+r4 r r8  r |
 R2*12 |
 g,2 \f ~ |
 g4 r |
@@ -514,7 +514,7 @@ d-. r |
 d-. r |
 g, r |
 R2 |
-g4 \fz r^\fermata
+g4 \fz r
 }
 
 trpIhelp=\notes\relative c'' {
@@ -522,23 +522,23 @@ trpIhelp=\notes\relative c'' {
 
 s2.*32 |
 s2*9 |
-r4 r8 c-.^"Clar. I" |
+r4^"Clar. I" r8 c-. |
 [bes-. a-. g-. f-. ] |
 [e-. d-. c-. ] r8 |
 s2*23 |
-r4 r8 g''8^"Cor. I" ( |
+r4^"Cor. I" r8 g''8 ( |
 ) g,4. g8 ( |
 [) d' d16 ( e ] )d8 s |
 s2*75 |
-r4 r8 c-.^"Clar. I" |
+r4^"Clar. I" r8 c-. |
 [bes-. a-. g-. f-. ] |
 [e-. d-. c-. ] s8 |
 s2*25
-r4 r8 a''^"Oboe" |
+r4^"Oboe" r8 a'' |
 a-. [ gis-. gis-. \< g-.] |
 [g-. fis-. \! fis-. f-. ] |
 s2*53 |
-r4 r8 [c'16^"Flauto" ( d] |
+r4^"Flauto" r8 [c'16 ( d] |
 ) c8 [b16 ( c ] ) b8 [bes16 ( c ] |
 )bes8 [a16 ( bes ] ) a8 [c16 ( d] |
 ) c8 [b16 ( c ] ) b8 [bes16 ( c ] |
@@ -550,22 +550,22 @@ trpIIhelp=\notes\relative c'' {
 
 s2.*32 |
 s2*9 |
-r4 r8 c-.^"Clar. I" |
+r4^"Clar. I" r8 c-. |
 [bes-. a-. g-. f-. ] |
 [e-. d-. c-. ] r8 |
 s2*23 |
-r4 r8 g''8^"Cor. I" ( |
+r4^"Cor. I" r8 g''8 ( |
 ) g,4. g8 ( |
 [) d' d16 ( e ] )d8 s |
 s2*75 |
-r4 r8 c-.^"Clar. I" |
+r4^"Clar. I" r8 c-. |
 [bes-. a-. g-. f-. ] |
 [e-. d-. c-. ] s8 |
 s2*28
-r4 g'8^"Trp. I" \f r |
+r4^"Trp. I" g'8 \f r |
 [d'-. d16 ( e ] ) d8 r |
 s2*51 |
-r4 r8 [c'16^"Flauto" ( d] |
+r4^"Flauto" r8 [c'16 ( d] |
 ) c8 [b16 ( c ] ) b8 [bes16 ( c ] |
 )bes8 [a16 ( bes ] ) a8 [c16 ( d] |
 ) c8 [b16 ( c ] ) b8 [bes16 ( c ] |
@@ -578,7 +578,7 @@ trpII=\notes\relative c' {
 \property Staff."midiInstrument" = "trumpet"
 
 R2.*31 |
-r4 r^\fermata r8 ^\fermata r |
+r4 r r8  r |
 R2*12 |
 g2 \f ~ |
 g4 r |
@@ -671,7 +671,7 @@ g-. r |
 g-. r |
 g r |
 R2 |
-g4 \fz r^\fermata
+g4 \fz r
 }
 
 timpani=\notes\relative c, {
@@ -698,7 +698,7 @@ c2.:32 |
 c2.:32 |
 c2.:32 |
 c4 r r |
-r r^\fermata r8^\fermata r |
+r r r8 r |
 R2*12 |
 f,2:32 \f ~ |
 f4 r |
@@ -709,7 +709,7 @@ R2 |
 f8 r r4 |
 R2*14 |
 \context Staff <{\voiceone \clef "treble";
-  r4^"Tri." r8 e''' |
+  r4^"Trg." r8 e''' |
   [e e e e ] | 
   [e e e g,, ] | % In reality: e e e e | e
   g r r4 |
@@ -769,7 +769,7 @@ R2*3 |
 c'4 \fz r |
 R2*10 |
 \context Staff <{\voiceone \clef "treble";
-  r4^"Tri." r8 e'' |
+  r4^"Trg." r8 e'' |
   [e e e e ] | 
   [e e e g,, ] | % In reality: e e e e | e4
   g4 r4 |
@@ -840,7 +840,7 @@ f2:32 ~ |
 f2:32 ~ |
 f8 r r4 |
 r2 |
-f4 \fz r^\fermata 
+f4 \fz r 
 }
 
 timphelp=\notes\relative c' {
@@ -850,7 +850,7 @@ timphelp=\notes\relative c' {
 [c8. ( d16] ) c2 |
 s2.*30 |
 s2*9 |
-r4 r8 \clef "treble"; c'-.^"Clar. I" |
+r4^"Clar. I" r8 \clef "treble"; c'-. |
 [bes-. a-. g-. f-. ] |
 [e-. d-. c-. ] r8 \clef "bass"; |
 s2*24 |
@@ -858,15 +858,15 @@ s2*24 |
 %[ ) g8-. fis16 ( g ][ ) fis8-. f16 ( g ] |
 %[ ) f8-. e16 ( f ] ) e8-. \clef "bass"; s |
 s2*77 |
-r4 r8 \clef "treble"; c'-.^"Clar. I" |
+r4^"Clar. I" r8 \clef "treble"; c'-. |
 [bes-. a-. g-. f-. ] |
 [e-. d-. c-. ] r8 \clef "bass"; |
 s2*28
-%r4 r8 \clef "treble"; a''^"Oboe" |
+%r4^"Oboe" r8 \clef "treble"; a'' |
 %a-. [ gis-. gis-. \< g-.] |
 %[g-. fis-. \! fis-. ] \clef "bass"; s8 |
 s2*57 |
-r4 r8 \clef "treble"; bes'^"Vi. I" ( |
+r4^"Vi. I" r8 \clef "treble"; bes' ( |
 ) bes'4. d,8 ( |
 ) d'4. c,8 ( |
 ) c'4. e,8 ( |

@@ -28,11 +28,7 @@ public:
 
   String  number_str_;
 
-  /*
-    junk us.
-   */
-  bool bracket_visibility_b_;
-  bool num_visibility_b_;
+  bool parallel_beam_b_;
   
 protected:
   Link_array<Beam> beam_l_arr_;

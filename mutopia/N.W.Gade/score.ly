@@ -19,32 +19,32 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
 
 \score{ <
   \context StaffGroup = wood <
-    \context Staff = flauto <
+    \context Voice = flauto <
       \property Staff.instrument = "Flauto"
       \property Staff.instr = "Fl."
       \global
       \marks
       \flauto
     >
-    \context Staff = oboe <
+    \context Voice = oboe <
       \property Staff.instrument = "Oboe"
       \property Staff.instr = "Ob."
       \global
       \oboe
     >
-    \context Staff = clarI <
+    \context Voice = clarI <
       \property Staff.instrument = "Clarinetto I"
       \property Staff.instr = "Cl. I"
       \globalNoKey
       \clarI
     >
-    \context Staff = clarII <
+    \context Voice = clarII <
       \property Staff.instrument = "Clarinetto II"
       \property Staff.instr = "Cl. II"
       \globalNoKey
       \clarII
     >
-    \context Staff = fagotto <
+    \context Voice = fagotto <
       \property Staff.instrument = "Fagotto"
       \property Staff.instr = "Fg."
       \global
@@ -53,55 +53,67 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
   >
   \context StaffGroup = brass <
     \context Staff = cor <
-      \globalNoKey
       \property Staff.instrument = "2 Corni in F"
       \property Staff.instr = "Cor."
-      \context Voice = corI { \stemup \corI }
-      \context Voice = corII { \stemdown \corII }
+      \context Voice = corI <
+	\globalNoKey
+	\stemup \property Voice.dynamicDir = \up 
+	\corI 
+      >
+      \context Voice = corII { 
+	\stemdown \property Voice.dynamicDir = \down 
+	\corII 
+      }
     >
     \context Staff = trp <
-      \globalNoKey
       \property Staff.instrument = "2 Trp. in B\\textflat  "
       \property Staff.instr = "Trp."
-      \context Voice = trpI { \stemup \trpI }
-      \context Voice = trpII { \stemdown \trpII }
+      \context Voice = trpI <
+	\globalNoKey
+	\stemup \property Voice.dynamicDir = \up 
+	\trpI
+      >
+      \context Voice = trpII { 
+	\stemdown \property Voice.dynamicDir = \down 
+	\trpII
+      }
     >
   >
-    \context StaffGroup = percussion <\context Staff = timpani <
+    \context StaffGroup = percussion <\context Voice = timpani <
       \property Staff.instrument = "Timp. \& Triang."
-      \property Staff.instr = "Timp. \& Triang."
+      \property Staff.instr = "Tmp \& Trg"
       \global
       \timpani
     >
   >
   \context StaffGroup = strings <
     \context GrandStaff = violins <
-      \context Staff = viI <
+      \context Voice = viI <
         \property Staff.instrument = "Violin I"
         \property Staff.instr = "Vi. I"
         \global
         \viI
       >
-      \context Staff = viII <
+      \context Voice = viII <
         \property Staff.instrument = "Violin II"
         \property Staff.instr = "Vi. II"
         \global
         \viII
       >
     >
-    \context Staff = vla <
+    \context Voice = vla <
       \property Staff.instrument = "Viola"
       \property Staff.instr = "Vla."
       \global
       \vla
     >
-    \context Staff = vlc <
+    \context Voice = vlc <
       \property Staff.instrument = "Violoncello"
       \property Staff.instr = "Vlc"
       \global
       \vlc
     >
-    \context Staff = cb <
+    \context Voice = cb <
       \property Staff.instrument = "Contrabasso"
       \property Staff.instr = "C.B."
       \global
@@ -116,6 +128,7 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
     \translator {
 	\OrchestralScoreContext
         minVerticalAlign = 2.5*\staffheight;
+        barNumberScriptPadding = "12.0";
     }
     \translator { \StaffContext
 	\consists "Staff_margin_engraver";
@@ -123,10 +136,6 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
 	textstyle = "italic";
 	textScriptPadding = 5.0;
         textEmptyDimension = 1;
-%        oldTieBehavior = 1;
-    }
-    \translator { \VoiceContext
-        oldTieBehavior = 1;
     }
   }
 }
