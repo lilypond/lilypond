@@ -5,7 +5,7 @@
 @menu
 * Reporting bugs::              
 * Website::                     
-* Invoking ly2dvi::           Titling LilyPond scores.
+* Invoking ly2dvi::             Titling LilyPond scores.
 @end menu
 
 @cindex Invoking LilyPond
@@ -231,6 +231,10 @@ website at @uref{http://www.lilypond.org/}.
 
 
 @c .  {Point and click}
+@menu
+* Point and click::             
+@end menu
+
 @node Point and click
 @subsection Point and click
 @cindex poind and click

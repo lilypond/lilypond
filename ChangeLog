@@ -1,5 +1,7 @@
 2003-04-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/test/slur-beautiful.ly: new file.
+
 	* Documentation/user/refman.itely: updates.
 
 	* input/regression/collisions.ly (threevoice): cleanup.
