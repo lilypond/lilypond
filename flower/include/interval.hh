@@ -52,6 +52,7 @@ struct Interval_t : public Drul_array<T> {
   T length () const;
   T delta () const;
   void set_empty () ;
+  void set_full ();
   bool empty_b () const { return elem (LEFT) > elem (RIGHT); }
   bool contains_b (Interval_t<T> const&) const;
   Interval_t () {

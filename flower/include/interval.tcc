@@ -61,6 +61,14 @@ Interval_t<T>::set_empty ()
 }
 
 template<class T>
+void
+Interval_t<T>::set_full ()
+{
+  elem (LEFT) = (T) -infinity ();
+  elem (RIGHT) = (T) infinity ();
+}
+
+template<class T>
 T
 Interval_t<T>::length () const 
 {
