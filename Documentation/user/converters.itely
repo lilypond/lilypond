@@ -4,18 +4,18 @@
 @chapter Converting from other formats
 
 @menu
-* Older LilyPond versions::     
-* Importing MIDI::              
-* Importing Finale ::        Upgrading from older   
-* Importing ABC::               
-* Importing PMX::               
-* Importing Musedata ::         
-* Importing MUP::               
+* Invoking convert-ly::            Older LilyPond versions.
+* Invoking midi2ly::               Importing MIDI.
+* Invoking etf2ly::                Importing Finale.
+* Invoking abc2ly::                Importing ABC.          
+* Invoking pmx2ly::                Importing PMX.
+* Invoking musedata2ly::           Importing Musedata.
+* Invoking mup2ly::                Importing MUP. 
 @end menu
 
 
-@node  Older LilyPond versions
-@section  Older LilyPond versions
+@node Invoking convert-ly
+@section Invoking convert-ly
 
 Convert-ly sequentially applies different conversions to upgrade a
 Lilypond input file.  It uses @code{\version} statements in the file to
@@ -61,8 +61,8 @@ The following options can be given:
 
 Not all language changes are handled. Only one output options can be specified.
 
-@node  Importing MIDI
-@section Importing MIDI
+@node Invoking midi2ly
+@section Invoking midi2ly
 
 @cindex MIDI
 
@@ -124,8 +124,8 @@ sets number
 @end table
 
 
-@node Importing Finale 
-@section Importing Finale
+@node Invoking etf2ly
+@section Invoking etf2ly
 
 @cindex ETF
 @cindex enigma
@@ -158,8 +158,8 @@ The list of articulation scripts is incomplete.  Empty measures confuse
 etf2ly.
 
 
-@node Importing ABC
-@section Importing ABC
+@node Invoking abc2ly
+@section Invoking abc2ly
 
 @cindex ABC
 
@@ -214,8 +214,8 @@ not.
 
 abc2ly ignores the ABC beaming.
 
-@node Importing PMX
-@section Importing PMX
+@node Invoking pmx2ly
+@section Invoking pmx2ly
 
 PMX is a MusiXTeX preprocessor written by Don Simons. More information
 on PMX is available from the following site:
@@ -247,8 +247,8 @@ version information
 @end table
 
 
-@node Importing Musedata 
-@section Importing Musedata
+@node Invoking musedata2ly
+@section Invoking musedata2ly
 
 @cindex Musedata
 @cindex CCARH
@@ -282,8 +282,8 @@ version information
 
 musedata2ly converts only a small subset musedata. 
 
-@node Importing MUP
-@section Importing MUP
+@node Invoking mup2ly
+@section Invoking mup2ly
 
 MUP (Music Publisher) is a shareware music notation program by Arkkra
 Enterprises.  It is also the name of the input format.  Mup2ly will

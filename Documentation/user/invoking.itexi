@@ -3,9 +3,9 @@
 @chapter Invoking LilyPond
 
 @menu
-* Reporting bugs::		
-* Website::			
-* Titling LilyPond scores::	
+* Reporting bugs::              
+* Website::                     
+* Invoking ly2dvi::           Titling LilyPond scores.
 @end menu
 
 @cindex Invoking LilyPond
@@ -18,7 +18,6 @@ Usage:
 @example
         lilypond [@var{option}]@dots{} @var{file}@dots{}
 @end example
-
 
 
 When invoked with a filename that has no extension, LilyPond will try
@@ -226,19 +225,18 @@ website contains updates to the manual. You can find the lilypond
 website at @uref{http://www.lilypond.org/}.
 
 
-@node Titling LilyPond scores
-@section Titling LilyPond scores
+@node Invoking ly2dvi
+@section Invoking ly2dvi
 
 Nicely titled output is created through a separate program:
 @file{ly2dvi} is a script that uses LilyPond and La@TeX{} to create a
 nicely titled piece of sheet music, in DVI format or PostScript.
 
-@subsection Invoking ly2dvi
-
-@c ly2dvi needs at least one FILE, can't act as filter yet
 @example
         ly2dvi [@var{option}]@dots{} @var{file}@dots{}
 @end example
+
+To have ly2dvi read from stdin, use a dash @code{-} for @var{file}.
 
 Ly2dvi supports the following options:
 

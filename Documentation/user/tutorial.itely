@@ -1738,9 +1738,8 @@ occasionally, details of the syntax are changed. This fragment
 indicates for which version the input file was written. When you
 compile this file, the version number will be checked, and you will
 get a warning when the file is too old.  This version number is also
-used by the @code{convert-ly} program (See @ref{Older 
-LilyPond versions}), which is used to update the file to the latest
-lily version.
+used by the @code{convert-ly} program (See @ref{Invoking convert-ly}),
+which is used to update the file to the latest lily version.
 
 
 @node A piano excerpt

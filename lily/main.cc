@@ -342,7 +342,7 @@ main_prog (void *, int, char **)
   
   ly_init_guile ();
 
-  printf ("\n");
+  progress_indication ("\n");
 
   call_constructors ();
   all_fonts_global = new All_font_metrics (global_path.string ());

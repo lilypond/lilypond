@@ -511,7 +511,7 @@ rewritten from scratch and supports LilyPond export as of version
 
 Another option is to enter the music using your favorite MIDI
 sequencer, and then import it using midi2ly. midi2ly is described in
-@ref{Importing MIDI}.
+@ref{Invoking midi2ly}.
 
 @c .  {Relative}
 @node Relative octaves
