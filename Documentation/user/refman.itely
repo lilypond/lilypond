@@ -2026,23 +2026,25 @@ definition}.
 Lyrics are printed by interpreting them in the @code{Lyrics}  context.
 
 @c Maybe more pedagogical to avoid \addlyrics in this first example? /MB
-
+@c Add tied and beamed melismata too.
 @lilypond[verbatim,singleline]
-\addlyrics \notes \relative c' {
-        \time 7/4
-        \property Staff.automaticMelismata = ##t
-        d'2 c4 b16 ( a g a b a b ) c a2
-        b2 c4 b8 ( a16 g ) a4 g2 }
-    \context Lyrics \lyrics { 
-       Join us now __ and
-       share the soft -- ware; }
+\addlyrics
+  \notes \relative c' {
+    \time 7/4
+    \property Staff.automaticMelismata = ##t
+    d'2 c4 b16 ( a g a b a b ) c a2
+    b2 c4 b8 ( a16 g ) a4 g2 }
+  \context Lyrics \lyrics { 
+    Join us now __ and
+    share the soft -- ware; }
 @end lilypond
 
 
 Notes and syllable durations are matched automatically. This is
 accomplished using @code{\addlyrics}, which is documented in
 @ref{Automatic syllable durations}. Setting @code{automaticMelismata} in
-the melody staff will cause slurs to be interpreted as melismata.
+the melody staff will cause tied, slurred or beamed notes to be
+interpreted as melismata.
 
 The Lyric syllables are @code{LyricsVoice.LyricSyllable} grobs.
 
