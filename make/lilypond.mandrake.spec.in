@@ -197,7 +197,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-, root, root)
 
 %{_docdir}/*
-%{_datadir}/omf/lilypond/@TOPLEVEL_VERSION@
+%{_datadir}/omf/lilypond/%{version}
 
 %changelog
 * Thu Aug 07 2003 Heikki Johannes Junes <hjunes@cc.hut.fi> 1.8.0-1mdk

@@ -1,3 +1,7 @@
+2003-08-22  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* make/lilypond.mandrake.spec.in: declare version only once.
+
 2003-08-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/simultaneous-music.cc (to_relative_octave): undo relative
