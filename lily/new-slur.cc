@@ -576,7 +576,11 @@ New_slur::score_encompass (Grob * me,  Grob *common[],
 	Real attr =
 	  EDGE_ATTRACTION_FACTOR
 	  * fabs (scores->elem (i).attachment_[d][Y_AXIS] - base_attach[d][Y_AXIS]);
-	if (extremes[d].stem_ && extremes[d].stem_dir_ == dir)
+
+	if (extremes[d].stem_
+	    && extremes[d].stem_dir_ == dir
+	    && !Stem::get_beaming (extremes[d].stem_, -d)
+	    )
 	  attr /= 5;
 	
 	demerit += attr;
