@@ -6,7 +6,6 @@
   (c) 1996--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "input-smob.hh"
 #include "axis-group-interface.hh"
 #include "warn.hh"
 #include "system.hh"
@@ -17,22 +16,11 @@
 #include "paper-score.hh"
 #include "string.hh"
 #include "warn.hh"
-#include "dimensions.hh"
 #include "stencil.hh"
 #include "all-font-metrics.hh"
 #include "spacing-interface.hh"
 #include "staff-symbol-referencer.hh"
-
-// todo: use map.
-void
-fixup_refpoints (SCM s)
-{
-  for (; gh_pair_p (s); s = ly_cdr (s))
-    {
-      Grob::fixup_refpoint (ly_car (s));
-    }
-}
-
+#include "paper-book.hh"
 
 System::System (SCM s)
   : Spanner (s)
@@ -118,13 +106,22 @@ System::typeset_grob (Grob * elem)
   scm_gc_unprotect_object (elem->self_scm ());
 }
 
-void
-System::output_lines ()
+// todo: use map.
+static void
+fixup_refpoints (SCM s)
 {
-  for (SCM s = get_property ("all-elements");
-       gh_pair_p (s); s = ly_cdr (s))
+  for (; gh_pair_p (s); s = ly_cdr (s))
     {
-      Grob * g = unsmob_grob (ly_car (s));
+      Grob::fixup_refpoint (ly_car (s));
+    }
+}
+
+SCM
+System::get_lines ()
+{
+  for (SCM s = get_property ("all-elements"); gh_pair_p (s); s = ly_cdr (s))
+    {
+      Grob *g = unsmob_grob (ly_car (s));
       if (g->internal_has_interface (ly_symbol2scm ("only-prebreak-interface")))
 	{
 	  /*
@@ -151,9 +148,7 @@ System::output_lines ()
       Grob *se = broken_intos_[i];
       SCM all = se->get_property ("all-elements");
       for (SCM s = all; gh_pair_p (s); s = ly_cdr (s))
-	{
-	  fixup_refpoint (ly_car (s));
-	}
+	fixup_refpoint (ly_car (s));
       count += scm_ilength (all);
     }
   
@@ -162,42 +157,41 @@ System::output_lines ()
    */
   fixup_refpoints (get_property ("all-elements"));
 
-  
-  for (SCM s = get_property ("all-elements");
-       gh_pair_p (s); s = ly_cdr (s))
-    {
-      unsmob_grob (ly_car (s))->handle_broken_dependencies ();
-    }
+  for (SCM s = get_property ("all-elements"); gh_pair_p (s); s = ly_cdr (s))
+    unsmob_grob (ly_car (s))->handle_broken_dependencies ();
   handle_broken_dependencies ();
 
-  /*
-    Because the this->get_property (all-elements) contains items
-    in 3 versions, handle_broken_dependencies () will leave duplicated
-    items in all-elements. Strictly speaking this is harmless, but it
-    leads to duplicated symbols in the output. uniquify_list () makes
-    sure that no duplicates are in the list.
-   */
-  for (int i=0; i < broken_intos_.size (); i++)
+#if 0  /* don't do this: strange side effects.  */
+  
+  /* Because the this->get_property (all-elements) contains items in 3
+     versions, handle_broken_dependencies () will leave duplicated
+     items in all-elements.  Strictly speaking this is harmless, but
+     it leads to duplicated symbols in the output.  uniquify_list ()
+     makes sure that no duplicates are in the list.  */
+  for (int i = 0; i < line_count; i++)
     {
-      /*
-	don't do this: strange side effects.
-       */
-      //    SCM al = broken_intos_[i]->get_property ("all-elements");
-      //      al  = uniquify_list (al); 
+      SCM all = broken_intos_[i]->get_property ("all-elements");
+      all = uniquify_list (all); 
     }
+#endif
   
   if (verbose_global_b)
     progress_indication (_f ("Element count %d.",  count + element_count ()));
 
+  int line_count = broken_intos_.size ();
+  SCM lines = scm_c_make_vector (line_count, SCM_UNDEFINED);
   
-  for (int i=0; i < broken_intos_.size (); i++)
+   for (int i = 0; i < line_count; i++)
     {
       System *system = dynamic_cast<System*> (broken_intos_[i]);
 
       if (verbose_global_b)
 	progress_indication ("[");
-      bool last = i+1 == broken_intos_.size ();
-      system->post_processing (last);
+      
+      // bool last = (i + 1 == line_count);
+
+      system->post_processing ();
+      scm_vector_set_x (lines, scm_int2num (i), system->get_line ());
 
       if (verbose_global_b)
 	{
@@ -205,7 +199,8 @@ System::output_lines ()
 	  progress_indication ("]");
 	}
 
-      if (i < broken_intos_.size () - 1)
+#ifndef PAGE_LAYOUT
+      if (i < line_count - 1)
 	{
 	  SCM lastcol =  ly_car (system->get_property ("columns"));
 	  Grob*  e = unsmob_grob (lastcol);
@@ -219,7 +214,9 @@ System::output_lines ()
 					     inter, SCM_UNDEFINED));	      
 	    }
 	}
+#endif			
     }
+   return lines;
 }
 
 
@@ -336,61 +333,6 @@ System::break_into_pieces (Array<Column_x_positions> const &breaking)
 }
 
 void
-System::output_stencil (SCM expr, Offset o)
-{
-  while (1)
-    {
-      if (!gh_pair_p (expr))
-	return;
-  
-      SCM head =ly_car (expr);
-      if (unsmob_input (head))
-	{
-	  Input * ip = unsmob_input (head);
-      
-	  pscore_->outputter_->output_scheme (scm_list_n (ly_symbol2scm ("define-origin"),
-							   scm_makfrom0str (ip->file_string ().to_str0 ()),
-							   gh_int2scm (ip->line_number ()),
-							   gh_int2scm (ip->column_number ()),
-							   SCM_UNDEFINED));
-	  expr = ly_cadr (expr);
-	}
-      else  if (head ==  ly_symbol2scm ("no-origin"))
-	{
-	  pscore_->outputter_->output_scheme (scm_list_n (head, SCM_UNDEFINED));
-	  expr = ly_cadr (expr);
-	}
-      else if (head == ly_symbol2scm ("translate-stencil"))
-	{
-	  o += ly_scm2offset (ly_cadr (expr));
-	  expr = ly_caddr (expr);
-	}
-      else if (head == ly_symbol2scm ("combine-stencil"))
-	{
-	  output_stencil (ly_cadr (expr), o);
-	  expr = ly_caddr (expr);
-	}
-      else
-	{
-	  pscore_->outputter_->
-	    output_scheme (scm_list_n (ly_symbol2scm ("placebox"),
-				    gh_double2scm (o[X_AXIS]),
-				    gh_double2scm (o[Y_AXIS]),
-				    expr,
-				    SCM_UNDEFINED));
-
-	  return;
-	}
-    }
-}
-
-void
-System::output_scheme (SCM s)
-{
-  pscore_->outputter_->output_scheme (s);
-}
-
-void
 System::add_column (Paper_column*p)
 {
   Grob *me = this;
@@ -435,122 +377,76 @@ System::pre_processing ()
     }
 }
 
-
-  const int LAYER_COUNT= 3;
-
-
-
 void
-System::post_processing (bool last_line)
+System::post_processing ()
 {
-  for (SCM s = get_property ("all-elements");
-       gh_pair_p (s); s = ly_cdr (s))
+  for (SCM s = get_property ("all-elements"); gh_pair_p (s); s = ly_cdr (s))
     {
-      Grob* sc = unsmob_grob (ly_car (s));
-      sc->calculate_dependencies (POSTCALCED, POSTCALCING,
-				  ly_symbol2scm ("after-line-breaking-callback"));
+      Grob *g = unsmob_grob (ly_car (s));
+      g->calculate_dependencies (POSTCALCED, POSTCALCING,
+          ly_symbol2scm ("after-line-breaking-callback"));
     }
 
-  Interval i (extent (this, Y_AXIS));
-  if (i.is_empty ())
-    programming_error ("Huh?  Empty System?");
+  Interval iv (extent (this, Y_AXIS));
+  if (iv.is_empty ())
+    programming_error ("System with zero extent.");
   else
-    translate_axis (- i[MAX], Y_AXIS);
+    translate_axis (-iv[MAX], Y_AXIS);
 
-  Real height = i.length ();
-  if (height > 50 CM)
-    {
-      programming_error ("Improbable system height");
-      height = 50 CM;
-    }
-
-  /*
-    generate all stencils  to trigger all font loads.
-  */
+  /* Generate all stencils to trigger font loads.
+     This might seem inefficient, but Stencils are cached per grob
+     anyway. */
   SCM all = get_property ("all-elements")  ;
   all = uniquify_list (all);
 
-  /*
-    trigger font loads first.
-
-    This might seem inefficient, but Stencils are cached per grob
-    anyway.
-    */
   this->get_stencil ();
   for (SCM s = all; gh_pair_p (s); s = ly_cdr (s))
     {
-      Grob * g = unsmob_grob (ly_car (s));
+      Grob *g = unsmob_grob (ly_car (s));
       g->get_stencil ();
-    }
-  
-  /*
-    font defs;
-   */
-  SCM font_names = ly_quote_scm (get_paper ()->font_descriptions ());  
-  output_scheme (scm_list_n (ly_symbol2scm ("define-fonts"),
-			     font_names,
-			     SCM_UNDEFINED));
-
-  /*
-    line preamble.
-   */
-  Interval j (extent (this, X_AXIS));
-  Real length = j[RIGHT];
-    
-  output_scheme (scm_list_n (ly_symbol2scm ("start-system"),
-			  gh_double2scm (length),
-			  gh_double2scm (height),
-			  SCM_UNDEFINED));
-  
-  /* Output elements in three layers, 0, 1, 2.
-     The default layer is 1. */
-  {
-    Stencil *m = this->get_stencil ();
-    if (m)
-      output_stencil (m->get_expr (), Offset (0,0));
-  }
-  
-  for (int i = 0; i < 3; i++)
-    for (SCM s = get_property ("all-elements"); gh_pair_p (s);
-	 s = ly_cdr (s))
-      {
-	Grob *sc = unsmob_grob (ly_car (s));
-	Stencil *m = sc->get_stencil ();
-	if (!m)
-	  continue;
-	
-	SCM s = sc->get_property ("layer");
-	int layer = gh_number_p (s) ? gh_scm2int (s) : 1;
-	if (layer != i)
-	  continue;
-	
-	Offset o (sc->relative_coordinate (this, X_AXIS),
-		  sc->relative_coordinate (this, Y_AXIS));
-	
-	SCM e = sc->get_property ("extra-offset");
-	if (gh_pair_p (e))
-	  {
-	    Offset z = ly_scm2offset (e);
-	    z *= Staff_symbol_referencer::staff_space (sc);
-	    
-	    o += z;
-	  }
-	
-	output_stencil (m->get_expr (), o);
-      }
-
-  
-  
-  if (last_line)
-    {
-      output_scheme (scm_list_n (ly_symbol2scm ("stop-last-system"), SCM_UNDEFINED));
-    }
-  else
-    {
-      output_scheme (scm_list_n (ly_symbol2scm ("stop-system"), SCM_UNDEFINED));
     }
 }
 
+/* Return line:
+   ((HEIGHT . WIDTH) LINE)
+   LINE: list of ((OFFSET-X . OFFSET-Y) . STENCIL)
+   Maybe make clas/smob?  */
+SCM
+System::get_line ()
+{  
+  static int const LAYER_COUNT = 3;
+  SCM line = SCM_EOL;
+  if (Stencil *me = get_stencil ())
+    line = scm_cons (scm_cons (ly_offset2scm (Offset (0, 0)),
+			       me->smobbed_copy ()), line);
+
+  /* Output stencils in three layers: 0, 1, 2.  The default layer is
+     1.  */
+  for (int i = 0; i < LAYER_COUNT; i++)
+    for (SCM s = get_property ("all-elements"); gh_pair_p (s); s = ly_cdr (s))
+      {
+	Grob *g = unsmob_grob (ly_car (s));
+	Stencil *stil = g->get_stencil ();
+
+	/* Skip empty stencils and grobs that are not in this layer.  */
+	if (!stil
+	    || robust_scm2int (g->get_property ("layer"), 1) != i)
+	  continue;
+	
+	Offset o (g->relative_coordinate (this, X_AXIS),
+		  g->relative_coordinate (this, Y_AXIS));
+	
+	Offset extra = robust_scm2offset (g->get_property ("extra-offset"),
+					  Offset (0, 0))
+	  * Staff_symbol_referencer::staff_space (g);
+	line = scm_cons (scm_cons (ly_offset2scm (o + extra),
+				   stil->smobbed_copy ()), line);
+      }
+
+  Interval x (extent (this, X_AXIS));
+  Interval y (extent (this, Y_AXIS));
+  return scm_cons (ly_offset2scm (Offset (x.length (), y.length ())), line);
+}
 
 Link_array<Item> 
 System::broken_col_range (Item const*l, Item const*r) const
@@ -605,12 +501,8 @@ System::columns ()const
     }
   return acs;
 }
-  
-
-
 
 ADD_INTERFACE (System,"system-interface",
 	       "This is the toplevel object: each object in a score "
-	       "ultimately has a System object as its X and Y parent. "
-	       ,
-	       "between-system-string all-elements columns");
+	       "ultimately has a System object as its X and Y parent. ",
+	       "between-system-string all-elements columns")

@@ -278,17 +278,33 @@ main_with_guile (void *, int, char **)
 
   init_scheme_code_string += ")";
   gh_eval_str ((char*) init_scheme_code_string.to_str0 ());
-  
+
+  /* We accept multiple independent music files on the command line to
+     reduce compile time when processing lots of small files.
+     Starting the GUILE engine is very time consuming.  */
   bool first = true;
   while (char const *arg = option_parser->get_next_arg ())
     {
+  
+#if 0
+      /* Code to debug memory leaks.  Cannot call from within .ly
+	 since then we get the protects from the parser state too.  */
+      static SCM proc;
+      if (!proc)
+	proc = scm_c_eval_string ("dump-gc-protects");
+      scm_gc ();
+      scm_call_0 (proc);
+#endif
+      
       do_one_file (arg);
       first = false;
     }
   delete option_parser;
   option_parser = 0;
 
-  /* No FILE arguments is now a usage error */
+  /* No FILE arguments is now a usage error to help newbies.  If you
+     want a filter, you're not a newbie and should know to use file
+     argument `-'.  */
   if (first)
     {
       usage ();

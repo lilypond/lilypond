@@ -99,6 +99,7 @@
      (module-map
      (lambda (sym var)
        (let ((val (variable-ref var))
+	     ;;(val (if (variable-bound? var) (variable-ref var) '""))
 	     (tex-key (symbol->string sym)))
 	 
 	 (if (memq sym fields)
@@ -351,5 +352,3 @@
 
 (define-public (tex-output-expression expr port)
   (display (eval expr this-module) port ))
-
-(define (make-title port) "")

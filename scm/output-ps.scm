@@ -44,11 +44,6 @@
 ;; alist containing fontname -> fontcommand assoc (both strings)
 (define font-name-alist '())
 
-;; WIP -- stencils from markup? values of output-scopes
-(define header-stencil #f)
-
-(define BASELINE-SKIP 3)
-
 ;; /lilypondpaperoutputscale 1.75729901757299 def
 ;;/lily-output-units 2.83464  def  %% milimeter
 ;;/output-scale lilypondpaperoutputscale lily-output-units mul def
@@ -323,18 +318,6 @@
 	(string-append "/" key " {" val "} bind def\n")
 	(string-append "/" key " (" val ") def\n"))))
 
-(define (make-title port)
-  (if header-stencil
-      (let ((x-ext (ly:stencil-get-extent header-stencil Y))
-	    (y-ext (ly:stencil-get-extent header-stencil X)))
-	(display (start-system
-		  (/ (interval-length x-ext) OUTPUT-SCALE)
-		  (/ (interval-length y-ext) OUTPUT-SCALE))
-		 port)
-	(output-stencil port (ly:stencil-get-expr header-stencil) '(0 . 0))
-	(display (stop-system) port)))
-  "")
-
 (define (no-origin) "")
 
 ;; FIXME: duplictates output-scopes, duplicated in other backends
@@ -356,12 +339,7 @@
 ;; FIXME: duplicated in other output backends
 ;; FIXME: silly interface name
 (define (output-scopes paper scopes fields basename)
-  (let* ((props (list (append
-		       `((linewidth . ,(ly:paper-get-number paper 'linewidth))
-			 (font-family . roman))
-		       (ly:paper-lookup paper 'font-defaults))))
-       (prefix "lilypond")
-       (stencils '()))
+  (let ((prefix "lilypond"))
 
     ;; FIXME: duplicates output-paper's scope-entry->string, mostly
     (define (scope-entry->string key var)
@@ -369,29 +347,14 @@
 	(if (memq key fields)
 	    (header-to-file basename key val))
 	(cond
-	 ;; define strings, for /make-lilypond-title to pick up
 	 ((string? val) (ps-string-def prefix key val))
 	 ((number? val) (ps-number-def prefix key val))
-	 ((markup? val) (set! stencils
-			      (append
-			       stencils
-			       (list
-				(interpret-markup paper props val))))
-	  "")
-	 (else ""))))
+	(else ""))))
     
     (define (output-scope scope)
       (apply string-append (module-map scope-entry->string scope)))
 
-    (let ((s (string-append (apply string-append (map output-scope scopes)))))
-      (set! header-stencil (stack-lines DOWN 0 BASELINE-SKIP stencils))
-
-      ;; match systems, which are also aligned to center
-      (ly:stencil-align-to! header-stencil Y CENTER)
-      
-      ;; trigger font load
-      (ly:stencil-get-expr header-stencil)
-      s)))
+    (string-append (apply string-append (map output-scope scopes)))))
 
 ;; hmm, looks like recursing call is always last statement, does guile
 ;; think so too?

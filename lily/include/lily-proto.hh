@@ -109,6 +109,7 @@ class Pitch;
 class My_lily_lexer;
 class Note_performer;
 class Output_property;
+class Paper_book;
 class Paper_column;
 class Paper_def;
 class Paper_outputter;
@@ -162,4 +163,5 @@ class Translator_group;
 class Transposed_music;
 class Type_swallow_translator;
 class yyFlexLexer;
-#endif // LILY_PROTO_HH;
+
+#endif /* LILY_PROTO_HH */

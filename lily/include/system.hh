@@ -23,15 +23,15 @@ class System : public Spanner
 {
 public:
   int rank_;
-  void post_processing (bool);
+  void post_processing ();
+  SCM get_line ();
+  SCM get_lines ();
 
   System (SCM);
   int element_count () const;
   int spanner_count () const;
 
-
   void break_into_pieces (Array<Column_x_positions> const&);
-  void output_lines ();
   static bool has_interface (Grob*);
   
   Link_array<Item> broken_col_range (Item const*, Item const*) const;
@@ -39,8 +39,6 @@ public:
   
   void add_column (Paper_column*);
   void typeset_grob (Grob*);
-  void output_stencil (SCM, Offset);
-  void output_scheme (SCM);
   void pre_processing ();
 
 protected:
