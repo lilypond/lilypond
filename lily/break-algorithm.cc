@@ -7,7 +7,6 @@
 */
 
 #include "break-algorithm.hh"
-
 #include "paper-column.hh"
 #include "output-def.hh"
 #include "system.hh"
@@ -16,7 +15,6 @@
 #include "cpu-timer.hh"
 #include "simple-spacer.hh"
 #include "group-interface.hh"
-
 
 Array<int>
 Break_algorithm::find_break_indices () const
@@ -35,7 +33,6 @@ Break_algorithm::find_break_indices () const
   return retval;
 }
 
-
 Link_array<Grob>
 Break_algorithm::find_breaks () const
 {
@@ -52,7 +49,6 @@ Break_algorithm::find_breaks () const
 
   return retval;
 }
-
 
 Simple_spacer_wrapper*
 Break_algorithm::generate_spacing_problem (Link_array<Grob> const &curline,
