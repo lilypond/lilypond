@@ -314,7 +314,7 @@ won't affect the appearance of the notes or rests produced.
 
 Durations can also be produced through GUILE extension mechanism. 
 @lilypond[verbatim,fragment]
- c'\duration #(make-duration 2 1)
+ c'\duration #(ly:make-duration 2 1)
 @end lilypond
 
 
@@ -437,7 +437,7 @@ should last.  With this, you can make lots of tuplets while typing
 @code{\times} only once, saving you lots of typing.
 
 @lilypond[fragment,  relative, singleline, verbatim]
-\property Voice.tupletSpannerDuration = #(make-moment 1 4)
+\property Voice.tupletSpannerDuration = #(ly:make-moment 1 4)
 \times 2/3 { c'8 c c c c c }
 @end lilypond
 
@@ -1229,7 +1229,7 @@ same effect as twiddling with @code{stemLeftBeamCount} and
 \property Voice.subdivideBeams = ##t
 [c16 c c c c c c c]
 [c32 c c c c c c c c c c c c c c c]
-\property Score.beatLength = #(make-moment 1 8)
+\property Score.beatLength = #(ly:make-moment 1 8)
 [c32 c c c c c c c c c c c c c c c]
 @end example
 @lilypond[noindent,noquote]
@@ -1239,7 +1239,7 @@ same effect as twiddling with @code{stemLeftBeamCount} and
         \property Voice.subdivideBeams = ##t
         [c16 c c c c c c c]
         [c32 c c c c c c c c c c c c c c c]
-        \property Score.beatLength = #(make-moment 1 8)
+        \property Score.beatLength = #(ly:make-moment 1 8)
         [c32 c c c c c c c c c c c c c c c]
     }
 }
@@ -1326,16 +1326,16 @@ For example, if you want automatic beams to end on every quarter note,
 you can use the following:
 @example
 \property Voice.autoBeamSettings \override
-    #'(end * * * *) = #(make-moment 1 4)
+    #'(end * * * *) = #(ly:make-moment 1 4)
 @end example
 Since the duration of a quarter note is 1/4 of a whole note, it is
-entered as @code{(make-moment 1 4)}.
+entered as @code{(ly:make-moment 1 4)}.
 
 The same syntax can be used to specify beam starting points. In this
 example, automatic beams can only end on a dotted quarter note. 
 @example
 \property Voice.autoBeamSettings \override
-    #'(end * * * *) = #(make-moment 3 8)
+    #'(end * * * *) = #(ly:make-moment 3 8)
 @end example
 In 4/4 time signature, this means that automatic beams could end only on
 3/8 and on the fourth beat of the measure (after 3/4, that is 2 times
@@ -1380,7 +1380,7 @@ durations, i.e., you'll have to specify manual beams to get:
 
 @lilypond[singleline,fragment,relative,noverbatim]
   \property Voice.autoBeamSettings
-  \override #'(end * * * *) = #(make-moment 3 8)
+  \override #'(end * * * *) = #(ly:make-moment 3 8)
   \time 12/8 c'8 c c c16 c c c c c [c c c c] c8 c c4
 @end lilypond
 It is not possible to specify beaming parameters that act differently in
@@ -2660,11 +2660,11 @@ list at the top of your file:
 
 @lilypond[singleline, verbatim]
 #(define mydrums `(
-        (bassdrum     default   #f        ,(make-pitch -1 2 0))
-        (snare        default   #f        ,(make-pitch 0 1 0))
-        (hihat        cross     #f        ,(make-pitch 0 5 0))
-        (pedalhihat   xcircle   "stopped" ,(make-pitch 0 5 0))
-        (lowtom	      diamond   #f        ,(make-pitch -1 6 0))
+        (bassdrum     default   #f        ,(ly:make-pitch -1 2 0))
+        (snare        default   #f        ,(ly:make-pitch 0 1 0))
+        (hihat        cross     #f        ,(ly:make-pitch 0 5 0))
+        (pedalhihat   xcircle   "stopped" ,(ly:make-pitch 0 5 0))
+        (lowtom	      diamond   #f        ,(ly:make-pitch -1 6 0))
 ))
 \include "drumpitch-init.ly"
 up = \notes { hh8 hh hh hh hhp4 hhp }
@@ -2684,8 +2684,8 @@ list:
 
 @example
 #(define mydrums (append `(
-   (bassdrum default #f ,(make-pitch -1 2 0))
-   (lowtom   diamond #f ,(make-pitch -1 6 0))
+   (bassdrum default #f ,(ly:make-pitch -1 2 0))
+   (lowtom   diamond #f ,(ly:make-pitch -1 6 0))
 ) drums ))
 @end example
 
@@ -4424,7 +4424,7 @@ In this example, the predicate checks the @code{text} object property, to
 shift only the `m.d.' text,  but not the fingering instruction "2".
 @lilypond[verbatim,singleline]
 #(define (make-text-checker text)
-   (lambda (grob) (equal? text (ly-get-grob-property grob 'text))))
+   (lambda (grob) (equal? text (ly:get-grob-property grob 'text))))
 
 \score {    
   \notes\relative c''' {
