@@ -18,7 +18,11 @@
   C style time_signatures, 2+3+2/8 time_signatures, alla breve.
   
  */
-class Time_signature: public Item {
+class Time_signature: public Item
+{
+  Molecule special_time_signature (String,int,int) const;
+  Molecule time_signature (int, int)const;
+  
 protected:
   virtual Molecule*do_brew_molecule_p() const;
 public:
