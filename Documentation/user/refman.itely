@@ -1417,14 +1417,21 @@ automatic beaming. This is done by setting @code{Voice.autoBeaming} to
 
 @refbugs
 
-It is not possible to specify beaming parameters for beams with mixed
-durations, that differ from the beaming parameters of all separate
-durations, i.e. you will have to specify manual beams to get:
+The rules for ending a beam depend on the shortest note in a beam.
+So, while it is possible to have different ending rules for eight
+beams and sixteenth beams, a beam that contains both eight and
+sixteenth notes will use the rules for the sixteenth beam.
+
+In the example below, the autobeamer makes eight beams and sixteenth
+end at 3 eights; the third beam can only be corrected by specifying
+manual beaming.
 
 @lilypond[singleline,fragment,relative,noverbatim,quote]
   \property Voice.autoBeamSettings
   \override #'(end * * * *) = #(ly:make-moment 3 8)
-  \time 12/8 c'8 c c c16 c c c c c c-[ c c c-] c8 c c4
+  % rather show case where it goes wrong
+  %\time 12/8 c'8 c c c16 c c c c c c-[ c c c-] c8-[ c-] c4
+  \time 12/8 c'8 c c c16 c c c c c c c c c c8 c c4
 @end lilypond
 It is not possible to specify beaming parameters that act differently in
 different parts of a measure. This means that it is not possible to use
