@@ -407,6 +407,7 @@ L1 is copied, L2 not.
     symmetric-x-triangle
     text
     tuplet
+    white-dot
     zigzag-line
     ))
 

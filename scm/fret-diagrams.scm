@@ -319,21 +319,22 @@
 Possible elements in @var{marking-list}:
 @table @asis
 @item (mute string-number)
-Place a small 'x' at the top of string @var{string-number
+Place a small 'x' at the top of string @var{string-number}
 
 @item (open string-number)
-Place a small 'o' at the top of string @var{string-number
+Place a small 'o' at the top of string @var{string-number}
 
 @item (barre start-string end-string fret-number)
 Place a barre indicator (much like a tie) from string @var{start-string}to string @var{end-string} at fret @var{fret-number}
 
 @item (place-fret string-number fret-number finger-value)
 Place a fret playing indication on string @var{string-number} at fret @var{fret-number} with an optional 
-fingering label @var{finger-value.  By default, the fret playing indicator is a solid dot.  This can be
-changed by setting the value of the variable @var(dot-color).  If the @var{finger} 
+fingering label @var{finger-value}.  By default, the fret playing indicator is a solid dot.  This can be
+changed by setting the value of the variable @var{dot-color}.  If the @var{finger} 
 part of the place-fret element is present, @var{finger-value} will be displayed according to the setting of the variable
 @var{finger-code}.  There is no limit to the number of fret indications per string.
-@end table"
+@end table
+"
    (make-fret-diagram paper props marking-list))
    
 (define (make-fret-diagram paper props marking-list)
@@ -443,8 +444,9 @@ defined by f: code.
 
 @item
 Note:  There is no limit to the number of fret indications per string.
-#end itemize"
+@end itemize
     
+"
 ;       (define new-props (acons 'size size '()))
 ;       (set! props (cons new-props props))
        (let ((definition-list (fret-parse-definition-string props definition-string)))
