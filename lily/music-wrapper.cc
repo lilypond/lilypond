@@ -45,9 +45,9 @@ Music_wrapper::Music_wrapper(Music*p)
 
 
 Moment
-Music_wrapper::duration () const
+Music_wrapper::length_mom () const
 {
-  return element_p_->duration ();
+  return element_p_->length_mom ();
 }
 
 

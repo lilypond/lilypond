@@ -47,9 +47,9 @@ Translator::do_try_music (Music *)
 			    
 
 Moment
-Translator::now_moment () const
+Translator::now_mom () const
 {
-  return daddy_trans_l_->now_moment ();
+  return daddy_trans_l_->now_mom ();
 }
 
 

@@ -50,7 +50,7 @@ Sequential_music_iterator::leave_element()
 {
   delete iter_p_;
   iter_p_ =0;
-  Moment elt_time = cursor_p_->ptr()->duration ();
+  Moment elt_time = cursor_p_->ptr()->length_mom ();
   here_mom_ += elt_time;
   cursor_p_->next();
 }

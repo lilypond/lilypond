@@ -136,7 +136,7 @@ Tonic_req::do_print () const
 int
 Rhythmic_req::compare (Rhythmic_req const &r1, Rhythmic_req const &r2)
 {
-  return (r1.duration () - r2.duration ());
+  return (r1.length_mom () - r2.length_mom ());
 }
 
 bool
@@ -160,9 +160,9 @@ Rhythmic_req::do_print () const
 
 
 Moment
-Rhythmic_req::duration () const
+Rhythmic_req::length_mom () const
 {
-  return duration_.length ();
+  return duration_.length_mom ();
 }
 
 void
@@ -322,7 +322,7 @@ void
 Skip_req::do_print () const
 {
 #ifndef NPRINT
-  DOUT << "duration: " << duration ();
+  DOUT << "duration: " << length_mom ();
 #endif
 }
 

@@ -31,7 +31,7 @@ struct Duration {
 
   static bool duration_type_b (int t);
   void set_ticks (int ticks_i );
-  Moment length () const ;	// zo naai mij
+  Moment length_mom () const ;
   static int division_1_i_s;
 
   /// Logarithm of the base duration.

@@ -106,7 +106,7 @@ Score_engraver::do_announces()
 	  {
 	    if (Rhythmic_req *rq = dynamic_cast <Rhythmic_req *> (announce_info_arr_[i].req_l_))
 	      {
-		musical_column_l_->add_duration (rq->duration());
+		musical_column_l_->add_duration (rq->length_mom ());
 	      }
 	  }
       Engraver_group_engraver::do_announces();

@@ -1,3 +1,6 @@
+pl 27.jcn2
+	- grand renaming: Duration vs Moment / Rational
+
 pl 27.jcn1
 	- complete redo of chord and chord name code
 	- small fixes

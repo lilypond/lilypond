@@ -72,10 +72,10 @@ Repeated_music_iterator::next_moment () const
   else if (alternative_iter_p_)
     return alternative_iter_p_->next_moment () + here_mom_;
   // huh?
-//  return repeated_music_l ()->repeat_p_->duration () 
+//  return repeated_music_l ()->repeat_p_->length_mom () 
 //    * Moment (repeated_music_l ()->repeats_i_)
-//   + repeated_music_l ()->alternative_p_->duration () + here_mom_;
-  return repeated_music_l ()->alternative_p_->duration () + here_mom_;
+//   + repeated_music_l ()->alternative_p_->length_mom () + here_mom_;
+  return repeated_music_l ()->alternative_p_->length_mom () + here_mom_;
 }
 
 bool
@@ -112,7 +112,7 @@ Repeated_music_iterator::start_next_element ()
       repeat_iter_p_ = 0;
       alternative_iter_p_ = dynamic_cast<Music_list_iterator*>
 	(get_iterator_p ((Music*)repeated_music_l ()->alternative_p_));  
-      here_mom_ += repeated_music_l ()->repeat_p_->duration ();
+      here_mom_ += repeated_music_l ()->repeat_p_->length_mom ();
     }
   else if (alternative_iter_p_)
     {
@@ -128,7 +128,7 @@ Repeated_music_iterator::start_next_element ()
 	  unfold_i_--;
 	  repeat_iter_p_ = get_iterator_p (repeated_music_l ()->repeat_p_);
 	  // urg, assume same length alternatives for now...
-//	  here_mom_ += repeated_music_l ()->alternative_p_->music_p_list_p_->top ()->duration ();
+//	  here_mom_ += repeated_music_l ()->alternative_p_->music_p_list_p_->top ()->length_mom ();
 	  /*
 	    URG
 	    this is *wrong* but at least it doesn't dump core
@@ -137,7 +137,7 @@ Repeated_music_iterator::start_next_element ()
 
 	    how to intercept this...
 	   */
-	  here_mom_ += repeated_music_l ()->alternative_p_->duration ();
+	  here_mom_ += repeated_music_l ()->alternative_p_->length_mom ();
 	}
     }
 }

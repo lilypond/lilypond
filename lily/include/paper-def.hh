@@ -86,7 +86,7 @@ public:
   /** convert a duration to an idealspacing
     influence using the geometric_ and  paratime_signatures.
     */
-  Real duration_to_dist (Moment, Real) const;
+  Real length_mom_to_dist (Moment, Real) const;
   Real geometric_spacing (Moment) const;
   Real arithmetic_constant (Moment minimal_mom) const;
   Real arithmetic_spacing (Moment mom,Real constant) const;

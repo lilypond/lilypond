@@ -13,11 +13,11 @@
 #include "main.hh"
 
 Moment
-Simultaneous_music::duration () const
+Simultaneous_music::length_mom () const
 {
   Moment dur = 0;
   for (iter (music_p_list_p_->top(), i); i.ok (); i++)
-    dur = dur >? i->duration ();
+    dur = dur >? i->length_mom ();
 
   return dur;
 }
@@ -41,12 +41,12 @@ Sequential_music::Sequential_music(Music_list *p)
 }
 
 Moment
-Sequential_music::duration () const
+Sequential_music::length_mom () const
 {
   Moment last=0;
   for (iter (music_p_list_p_->top(), i); i.ok (); i++) 
     {
-      last += i->duration ();
+      last += i->length_mom ();
     }
   return  last;
 }

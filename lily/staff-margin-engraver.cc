@@ -49,7 +49,7 @@ Staff_margin_engraver::acknowledge_element (Score_element_info i)
 
   String long_str = get_property ("instrument", 0);
   String str = get_property ("instr", 0);
-  if (now_moment () > Moment (0) && str.length_i ())
+  if (now_mom () > Moment (0) && str.length_i ())
     long_str = str;
 
   if (long_str.empty_b ())

@@ -31,7 +31,7 @@ Midi_def::~Midi_def()
 }
 
 Real
-Midi_def::duration_to_seconds_f (Moment mom)
+Midi_def::length_mom_to_seconds_f (Moment mom)
 {
   if (!mom)
     return 0;

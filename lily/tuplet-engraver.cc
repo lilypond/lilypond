@@ -25,7 +25,7 @@ Tuplet_engraver::do_try_music (Music *r)
       if (!dynamic_cast<Request_chord*> (el))
 	{
 	  compressed_music_arr_.push (c);
-	  stop_moments_.push (now_moment () + c->duration ());
+	  stop_moments_.push (now_mom () + c->length_mom ());
 	}
       return true;
     }
@@ -66,7 +66,7 @@ Tuplet_engraver::acknowledge_element (Score_element_info i)
 void
 Tuplet_engraver::do_post_move_processing ()
 {
-  Moment now = now_moment ();
+  Moment now = now_mom ();
   for (int i= started_span_p_arr_.size (); i--; )
     {
       if (now >= stop_moments_[i])

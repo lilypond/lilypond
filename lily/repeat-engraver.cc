@@ -36,14 +36,14 @@ Repeat_engraver::do_try_music (Music* m)
         return true;
  
       Music_sequence* alt = r->alternative_p_;
-      Moment stop_mom = now_moment () + r->repeat_p_->duration ();
+      Moment stop_mom = now_mom () + r->repeat_p_->length_mom ();
       for (PCursor<Music*> i (alt->music_p_list_p_->top ()); i.ok () && (i != alt->music_p_list_p_->bottom ()); i++)
 	{
-	  stop_mom += i->duration ();
+	  stop_mom += i->length_mom ();
 	  if (dynamic_cast<Simultaneous_music *> (alt))
 	    break;
 	}
-      Moment alt_mom = now_moment () + r->repeat_p_->duration ();
+      Moment alt_mom = now_mom () + r->repeat_p_->length_mom ();
       /*
         TODO: 
 	  figure out what we don't want.
@@ -63,9 +63,9 @@ Repeat_engraver::do_try_music (Music* m)
         {
 	  alternative_music_arr_.push (i.ptr ());
 	  alternative_start_mom_arr_.push (alt_mom);
-	  alternative_stop_mom_arr_.push (alt_mom + i->duration ());
+	  alternative_stop_mom_arr_.push (alt_mom + i->length_mom ());
 	  if (!dynamic_cast<Simultaneous_music *> (alt))
-	    alt_mom += i->duration ();
+	    alt_mom += i->length_mom ();
 	}
       return true;
     }
@@ -75,7 +75,7 @@ Repeat_engraver::do_try_music (Music* m)
 void
 Repeat_engraver::acknowledge_element (Score_element_info i)
 {
-  Moment now = now_moment ();
+  Moment now = now_mom ();
   if (Note_column *c = dynamic_cast<Note_column *> (i.elem_l_))
     {
       for (int i = 0; i < volta_p_arr_.size (); i++)
@@ -101,7 +101,7 @@ Repeat_engraver::do_removal_processing ()
 void
 Repeat_engraver::do_process_requests ()
 {  
-  Moment now = now_moment ();
+  Moment now = now_mom ();
   Bar_engraver* bar_engraver_l = dynamic_cast <Bar_engraver*>
     (daddy_grav_l ()->get_simple_translator ("Bar_engraver"));
   for (int i = bar_b_arr_.size (); i < repeated_music_arr_.size (); i++)
@@ -137,7 +137,7 @@ Repeat_engraver::do_process_requests ()
 void 
 Repeat_engraver::do_pre_move_processing ()
 {
-  Moment now = now_moment ();
+  Moment now = now_mom ();
   for (int i = bar_b_arr_.size (); i--; )
     {
       if (bar_b_arr_[i])
@@ -170,7 +170,7 @@ Repeat_engraver::do_post_move_processing ()
 {
 #if 0
   Time_description const *time = get_staff_info().time_C_;
-  Moment now = now_moment ();
+  Moment now = now_mom ();
   for (int i = volta_p_arr_.size (); i--; )
     {
       if ((now > alternative_stop_mom_arr_[i])

@@ -28,7 +28,7 @@ Bar_number_engraver::do_process_requests ()
   Timing_translator *timer = dynamic_cast<Timing_translator*>(tr);
   Time_description *time = &timer->time_;
 
-  if (!time->whole_in_measure_ && !time->cadenza_b_ && now_moment () > Moment (0))
+  if (!time->whole_in_measure_ && !time->cadenza_b_ && now_mom () > Moment (0))
     {
       create_items (0);
 	

@@ -11,7 +11,7 @@
 #define METERGRAV_HH
 #include "engraver.hh"
 #include "time-description.hh"
-#include "grouping.hh"
+#include "rhythmic-grouping.hh"
 
 /**
   generate time_signatures. 

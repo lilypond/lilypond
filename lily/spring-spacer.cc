@@ -599,7 +599,7 @@ Spring_spacer::calc_idealspacing()
 	  if (delta_t)
 	    {
 	      Real k=  paper_l()->arithmetic_constant (context_shortest_arr[i]);
-	      durational_distance =  paper_l()->duration_to_dist (delta_t,k);
+	      durational_distance =  paper_l()->length_mom_to_dist (delta_t,k);
 	    }
 	  symbol_distance += -cols_[i+1].width_[LEFT];
  
@@ -632,7 +632,7 @@ Spring_spacer::calc_idealspacing()
 	    }
 	  Moment delta_t = scol_l (i+1)->when() - scol_l (i)->when ();
 	  Real k=  paper_l()->arithmetic_constant(context_shortest);
-	  Real dist = paper_l()->duration_to_dist (shortest_playing_len, k);
+	  Real dist = paper_l()->length_mom_to_dist (shortest_playing_len, k);
 	  dist *= (double)(delta_t / shortest_playing_len);
 
 	  /*

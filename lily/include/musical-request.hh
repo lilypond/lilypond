@@ -37,7 +37,7 @@ public:
     
   bool do_equal_b (Request*) const;
   void compress (Moment);
-  virtual Moment duration() const;
+  virtual Moment length_mom () const;
   static int compare (Rhythmic_req const&,Rhythmic_req const&);
   REQUESTMETHODS(Rhythmic_req);
 };

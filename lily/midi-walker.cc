@@ -45,7 +45,7 @@ Midi_walker::~Midi_walker()
 void 
 Midi_walker::do_start_note (Midi_note* note_p)
 {
-  Moment stop_mom = note_p->duration() + ptr ()->audio_column_l_->at_mom ();
+  Moment stop_mom = note_p->length_mom () + ptr ()->audio_column_l_->at_mom ();
   for (int i=0; i < stop_note_queue.size(); i++) 
     {
       if (stop_note_queue[i].val->pitch_i() == note_p->pitch_i ()) 

@@ -27,7 +27,7 @@ Music::do_print() const
 }
 
 Moment
-Music::duration () const
+Music::length_mom () const
 {
   return 0;
 }

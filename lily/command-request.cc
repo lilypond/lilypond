@@ -74,7 +74,7 @@ Bar_req::Bar_req (String s)
 
 Partial_measure_req::Partial_measure_req (Moment m)
 {
-  duration_ =m;
+  length_mom_ =m;
 }
 
 bool
@@ -82,7 +82,7 @@ Partial_measure_req::do_equal_b (Request* r) const
 {
   Partial_measure_req *p = dynamic_cast <Partial_measure_req *> (r);
 
-  return p&& p->duration_ == duration_;
+  return p&& p->length_mom_ == length_mom_;
 }
 
 
@@ -133,7 +133,7 @@ Clef_change_req::Clef_change_req (String s)
 void
 Partial_measure_req::do_print() const
 {
-  DOUT << duration_;
+  DOUT << length_mom_;
 }
 
 
@@ -181,7 +181,7 @@ Tempo_req::do_equal_b (Request *r) const
 {
   Tempo_req *t = dynamic_cast <Tempo_req *> (r);
 
-  return t&& t->dur_.length()== dur_.length () && metronome_i_ == t->metronome_i_;
+  return t&& t->dur_.length_mom ()== dur_.length_mom () && metronome_i_ == t->metronome_i_;
 }
 
 

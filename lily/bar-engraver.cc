@@ -104,7 +104,7 @@ Bar_engraver::do_process_requests()
       create_bar ();    
       bar_p_->type_str_ = bar_req_l_->type_str_;
     }
-  else if (!now_moment ())
+  else if (!now_mom ())
     {
       create_bar ();
       bar_p_->type_str_ = "";

@@ -55,7 +55,7 @@ public:
   
   Simultaneous_music(Music_list *);
   virtual Musical_pitch to_relative_octave (Musical_pitch);
-  virtual Moment duration () const;
+  virtual Moment length_mom () const;
 };
 
 
@@ -84,6 +84,6 @@ public:
 
   virtual Musical_pitch to_relative_octave (Musical_pitch);
   Sequential_music(Music_list*);
-  virtual Moment duration () const;
+  virtual Moment length_mom () const;
 };
 #endif // Music_sequence_HH

@@ -74,7 +74,7 @@ Timing_translator::do_process_requests()
 	}
       else if (Partial_measure_req *pm = dynamic_cast <Partial_measure_req *> (tr_l))
 	{
-	  Moment m = pm->duration_;
+	  Moment m = pm->length_mom_;
 	  String error = time_.try_set_partial_str (m);
 	  if (error.length_i ())
 	    {
@@ -131,13 +131,13 @@ ADD_THIS_TRANSLATOR(Timing_translator);
 void
 Timing_translator::do_creation_processing()
 {
-  time_.when_ = now_moment ();
+  time_.when_ = now_mom ();
 }
 
 void
 Timing_translator::do_post_move_processing()
 {
-  time_.add (now_moment ()  - time_.when_);
+  time_.add (now_mom ()  - time_.when_);
 }
 
 void

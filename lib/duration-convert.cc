@@ -105,14 +105,14 @@ Duration_convert::mom2_dur (Moment mom)
 
   Duration dur = mom2standardised_dur (mom);
   //	if (!dur.mom () || (dur.mom () == mom))
-  if (!dur.length () || (dur.length () == mom))
+  if (!dur.length_mom () || (dur.length_mom () == mom))
     return dur;
   assert (midi_as_plet_b_s);
 
   //	dur.set_plet (type_mom, Duration::division_1_i_s / 4); 
 
   //	Moment as_plet_mom = mom / dur.mom ();
-  Moment as_plet_mom = mom / dur.length ();
+  Moment as_plet_mom = mom / dur.length_mom ();
   as_plet_mom *= dur.plet_.mom ();
   long num = as_plet_mom.num ();
   long den = as_plet_mom.den ();
@@ -185,7 +185,7 @@ Duration_convert::ticks2_dur (int ticks_i)
 
   Duration dur = mom2standardised_dur (mom);
 
-  if (dur.length () == mom)
+  if (dur.length_mom () == mom)
     return dur;
 		
   return mom2_dur (mom);

@@ -112,7 +112,7 @@ struct Midi_note : public Midi_item {
   
   Midi_note (Audio_item* audio_item_l); 
 
-  Moment duration () const;
+  Moment length_mom () const;
   int pitch_i () const;
   virtual String str () const;
 

@@ -61,7 +61,7 @@ public:
     */
   Music_output_def *output_def_l () const;
   Scalar get_property (String, Translator_group **) const;
-  virtual Moment now_moment () const;  
+  virtual Moment now_mom () const;  
 
 protected:
    enum { 

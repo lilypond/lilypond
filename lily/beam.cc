@@ -32,7 +32,7 @@
 #include "stem.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
-#include "grouping.hh"
+#include "rhythmic-grouping.hh"
 
 Beam::Beam ()
 {

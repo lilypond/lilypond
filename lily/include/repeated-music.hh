@@ -29,7 +29,7 @@ public:
   
   virtual void do_print () const;
   virtual void transpose (Musical_pitch p);
-  virtual Moment duration () const;
+  virtual Moment length_mom () const;
   virtual Musical_pitch to_relative_octave (Musical_pitch p);
   VIRTUAL_COPY_CONS(Music);
 };

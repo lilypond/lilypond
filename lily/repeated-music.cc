@@ -51,13 +51,13 @@ Repeated_music::transpose (Musical_pitch p)
 }
 
 Moment
-Repeated_music::duration () const
+Repeated_music::length_mom () const
 {
   Moment m;
   if (repeat_p_)
-    m += repeat_p_->duration ();
+    m += repeat_p_->length_mom ();
   if (alternative_p_)
-    m += alternative_p_->duration ();
+    m += alternative_p_->length_mom ();
   return m;
 }
 

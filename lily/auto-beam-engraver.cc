@@ -11,7 +11,7 @@
 #include "musical-request.hh"
 #include "bar.hh"
 #include "beam.hh"
-#include "grouping.hh"
+#include "rhythmic-grouping.hh"
 #include "rest.hh"
 #include "stem.hh"
 #include "debug.hh"
@@ -83,7 +83,7 @@ Auto_beam_engraver::consider_end_and_begin ()
 void
 Auto_beam_engraver::begin_beam ()
 {
-  DOUT << String ("starting autobeam at: ") + now_moment ().str () + "\n";
+  DOUT << String ("starting autobeam at: ") + now_mom ().str () + "\n";
   beam_p_ = new Beam;
   grouping_p_ = new Rhythmic_grouping;
 
@@ -112,7 +112,7 @@ Auto_beam_engraver::begin_beam ()
 void
 Auto_beam_engraver::end_beam ()
 {
-  DOUT << String ("ending autobeam at: ") + now_moment ().str () + "\n";
+  DOUT << String ("ending autobeam at: ") + now_mom ().str () + "\n";
   if (beam_p_->stems_.size () < 2)
     {
       DOUT << "junking autombeam: less than two stems\n";
@@ -241,12 +241,12 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
 	      consider_end_and_begin ();
 	    }
 	  mult_i_ = m;
-	  grouping_p_->add_child (start, rhythmic_req->duration ());
+	  grouping_p_->add_child (start, rhythmic_req->length_mom ());
 	  stem_l->flag_i_ = rhythmic_req->duration_.durlog_i_;
 	  beam_p_->add_stem (stem_l);
-	  Moment now = now_moment ();
+	  Moment now = now_mom ();
 	  last_add_mom_ = now;
-	  extend_mom_ = extend_mom_ >? now + rhythmic_req->duration ();
+	  extend_mom_ = extend_mom_ >? now + rhythmic_req->length_mom ();
 	}
     }
 }
@@ -276,7 +276,7 @@ Auto_beam_engraver::process_acknowledged ()
 {
   if (beam_p_)
     {
-      Moment now = now_moment ();
+      Moment now = now_mom ();
       if ((extend_mom_ < now)
 	  || ((extend_mom_ == now) && (last_add_mom_ != now )))
 	{

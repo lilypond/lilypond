@@ -690,7 +690,7 @@ midi_body: /* empty */ 		{
 		$$-> assign_translator ($2);
 	}
 	| midi_body tempo_request ';' {
-		$$->set_tempo ($2->dur_.length (), $2->metronome_i_);
+		$$->set_tempo ($2->dur_.length_mom (), $2->metronome_i_);
 		delete $2;
 	}
 	| midi_body error {
@@ -946,7 +946,7 @@ verbose_command_req:
 		$$ = new Cadenza_req ($2);
 	}
 	| PARTIAL duration_length 	{
-		$$ = new Partial_measure_req ($2->length ());
+		$$ = new Partial_measure_req ($2->length_mom ());
 		delete $2;
 	}
 	| CLEF STRING {

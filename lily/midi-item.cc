@@ -403,9 +403,9 @@ Midi_note::Midi_note (Audio_item* audio_item_l)
 }
 
 Moment
-Midi_note::duration () const
+Midi_note::length_mom () const
 {
-  Moment m = dynamic_cast <Rhythmic_req *> (audio_item_l_->req_l_)->duration ();
+  Moment m = dynamic_cast <Rhythmic_req *> (audio_item_l_->req_l_)->length_mom ();
   if (m < Moment (1, 1000))
     {
       warning (_ ("silly duration"));
