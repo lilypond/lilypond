@@ -43,11 +43,16 @@
 #include "item.hh"
 #include "spanner.hh"
 #include "warn.hh"
-#include "text-item.hh"  // debug output.
-#include "font-interface.hh"  // debug output.
 
 
 #define DEBUG_QUANTING 0
+
+
+#if DEBUG_QUANTING
+#include "text-item.hh"  // debug output.
+#include "font-interface.hh"  // debug output.
+#endif
+
 
 const int INTER_QUANT_PENALTY = 1000; 
 const int SECONDARY_BEAM_DEMERIT  = 15;
@@ -528,13 +533,13 @@ Beam::quanting (SCM smob)
 				  gh_double2scm (qscores[best_idx].yr))
 			 );
 
-  if (DEBUG_QUANTING)
-  {
-	  // debug quanting
-	  me->set_grob_property ("quant-score",
-				 gh_double2scm (qscores[best_idx].demerits));
-	  me->set_grob_property ("best-idx", gh_int2scm (best_idx));
-  }
+#if DEBUG_QUANTING
+
+  // debug quanting
+  me->set_grob_property ("quant-score",
+			 gh_double2scm (qscores[best_idx].demerits));
+  me->set_grob_property ("best-idx", gh_int2scm (best_idx));
+#endif
 
   return SCM_UNSPECIFIED;
 }
@@ -1236,7 +1241,7 @@ Beam::brew_molecule (SCM smob)
 		      ->get_bound (LEFT)->relative_coordinate (0, X_AXIS),
 		      X_AXIS);
 
-  if (DEBUG_QUANTING)
+#if (DEBUG_QUANTING)
     {
       /*
 	This code prints the demerits for each beam. Perhaps this
@@ -1258,7 +1263,8 @@ Beam::brew_molecule (SCM smob)
       Molecule tm = Text_item::text2molecule (me, ly_str02scm (str.ch_C ()), properties);
       mol.add_at_edge (Y_AXIS, UP, tm, 5.0);
     }
-  
+#endif
+    
   return mol.smobbed_copy ();
 }
 

@@ -291,6 +291,8 @@ files, you should add  the following to the top of your LaTeX
         prepend @code{PREF} before each @code{-M} dependency
 @item -n, --no-lily
         don't run lilypond, but do generate the @code{.ly} files
+@item --no-music
+        strip all  lilypond blocks from the file.
 @item --no-pictures
         don't generate pictures when processing texinfo.
 @item --read-lys
@@ -313,12 +315,6 @@ files, you should add  the following to the top of your LaTeX
 @item --help
         Print a short help message
 @end table
-
-
-
-@command{lilypond-book} is written in python 1.5, so you have to install
-@uref{http://www.python.org,python}.
-
 
 
 @section Bugs

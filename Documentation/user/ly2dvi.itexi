@@ -36,6 +36,8 @@ files. The temporary directory is created in the current directory as @code{ly2d
     Generate output to @var{FILE}.  The extension of @var{FILE} is ignored.
 @item -P,--postscript
     Also generate PostScript output, using dvips.
+@item --preview
+    Also generate a picture of the first system of the score.
 @item -s,--set=@var{KEY}=@var{VAL}
     Add @var{KEY}= @var{VAL} to the settings, overriding those specified
 in the files. Possible keys: @code{language}, @code{latexheaders},

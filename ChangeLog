@@ -1,3 +1,12 @@
+2002-05-15  Han-Wen  <hanwen@cs.uu.nl>
+
+	* scripts/lilypond-book.py: add --no-music option: strip all blocks.
+	(completize_preamble): don't barf if no preamble present.
+	(do_file): allow extensions on --output
+
+	* scripts/ly2dvi.py (make_preview): make automatic preview of
+	first system. Small cleanups.
+
 2002-05-13  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/parser.yy (My_lily_parser): uncomment code. (Causes

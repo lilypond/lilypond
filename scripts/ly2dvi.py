@@ -233,6 +233,7 @@ def system (cmd, ignore_error = 0):
 	
 	if verbose_p:
 		progress (_ ("Invoking `%s\'") % cmd)
+
 	st = os.system (cmd)
 	if st:
 		name = re.match ('[ \t]*([^ \t]*)', cmd).group (1)
@@ -287,6 +288,7 @@ temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
 errorport = sys.stderr
 keep_temp_dir_p = 0
 verbose_p = 0
+preview_p = 0
 
 try:
 	import gettext
@@ -318,6 +320,7 @@ option_definitions = [
 	(_ ("FILE"), 'o', 'output', _ ("write ouput to FILE")),
 	(_ ("FILE"), 'f', 'find-pfa', _ ("find pfa fonts used in FILE")),
 	# why capital P?
+	('', '', 'preview', _("Make a picture of the first system.")),
 	('', 'P', 'postscript', _ ("generate PostScript output")),
 	(_ ("KEY=VAL"), 's', 'set', _ ("change global setting KEY to VAL")),
 	('', 'V', 'verbose', _ ("verbose")),
@@ -354,12 +357,9 @@ lily_p = 1
 paper_p = 1
 
 output_name = ''
-targets = {
-	'DVI' : 0,
-	'LATEX' : 0,
-	'MIDI' : 0,
-	'TEX' : 0,
-	}
+
+## docme: what does this do?
+targets = [ 'DVI', 'LATEX', 'MIDI', 'TEX']
 
 track_dependencies_p = 0
 dependency_files = []
@@ -419,6 +419,14 @@ def print_environment ():
 	for (k,v) in os.environ.items ():
 		sys.stderr.write ("%s=\"%s\"\n" % (k,v)) 
 
+def quiet_system (cmd, name):
+	if not verbose_p:
+		progress ( _("Running %s...") % name)
+		cmd = cmd + ' 1> /dev/null 2> /dev/null'
+
+	return system (cmd)
+
+
 def run_lilypond (files, outbase, dep_prefix):
 	opts = ''
 #	opts = opts + '--output=%s.tex' % outbase
@@ -446,7 +454,7 @@ def run_lilypond (files, outbase, dep_prefix):
 		# for better debugging!
 		print_environment ()
 	print opts, fs	
-	system ('lilypond %s %s ' % (opts, fs))
+	system ('lilypond %s %s ' % (opts, fs), 'lilypond')
 
 def analyse_lilypond_output (filename, extra):
 	
@@ -538,12 +546,8 @@ ly_paper_to_latexpaper =  {
 }
 
 #TODO: should set textheight (enlarge) depending on papersize. 
-
-def global_latex_definition (tfiles, extra):
-	'''construct preamble from EXTRA, dump Latex stuff for each
-lily output file in TFILES after that, and return the Latex file constructed.  '''
-
-
+def global_latex_preamble (extra):
+	'''construct preamble from EXTRA,'''
 	s = ""
 	s = s + '% generation tag\n'
 
@@ -606,7 +610,16 @@ lily output file in TFILES after that, and return the Latex file constructed.  '
 	else:
 		s = s + '\\pagestyle{empty}\n'
 
-	s = s + '\\begin{document}\n'
+
+	return s
+
+	
+def global_latex_definition (tfiles, extra):
+	'''construct preamble from EXTRA, dump Latex stuff for each
+lily output file in TFILES after that, and return the Latex file constructed.  '''
+
+	
+	s = global_latex_preamble (extra) + '\\begin{document}\n'
 	s = s + '\\thispagestyle{firstpage}\n'
 
 	first = 1
@@ -639,12 +652,26 @@ None
 	f.close ()
 
 	cmd = 'latex \\\\nonstopmode \\\\input %s' % latex_fn
+	quiet_system (cmd, 'LaTeX')
 
-	if not verbose_p:
-		progress ( _("Running %s...") % 'LaTeX')
-		cmd = cmd + ' 1> /dev/null 2> /dev/null'
+	if preview_p:
+		# make a preview by rendering only the 1st line.
+		preview_fn = outbase + '.preview.tex'
+		f = open(preview_fn, 'w')
+		f.write (r'''
+%s
+\input lilyponddefs
+\pagestyle{empty}
+\begin{document}
+\def\interscoreline{\endinput}
+\input %s
+\end{document}
+''' % (global_latex_preamble (extra), outbase))
 
-	system (cmd)
+		f.close()
+		cmd = 'latex \\\\nonstopmode \\\\input %s' % preview_fn
+		quiet_system (cmd, "LaTeX for preview")
+	
 
 def run_dvips (outbase, extra):
 
@@ -664,12 +691,51 @@ None.
 		opts = opts + ' -tlandscape'
 
 	cmd = 'dvips %s -o%s %s' % (opts, outbase + '.ps', outbase + '.dvi')
+	quiet_system (cmd, 'dvips')
+
+	if preview_p:
+		cmd = 'dvips -E -o%s %s' % ( outbase + '.preview.ps', outbase + '.preview.dvi')		
+		quiet_system (cmd, 'dvips for preview')
+
+def get_bbox (filename):
+	# cut & paste 
+	system ('gs -sDEVICE=bbox -q  -sOutputFile=- -dNOPAUSE %s -c quit > %s.bbox 2>&1 ' % (filename, filename))
+
+	box = open (filename + '.bbox').read()
+	m = re.match ('^%%BoundingBox: ([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)', box)
+	gr = []
+	if m:
+		gr = map (string.atoi, m.groups ())
 	
-	if not verbose_p:
-		progress ( _("Running %s...") % 'dvips')
-		cmd = cmd + ' 1> /dev/null 2> /dev/null'
-		
-	system (cmd)
+	return gr
+
+#
+# cut & paste from lilypond-book.
+#
+def make_preview (name, extra):
+	bbox = get_bbox (name + '.preview.ps')
+	margin = 0
+	fo = open (name + '.trans.eps' , 'w')
+	fo.write ('%d %d translate\n' % (-bbox[0]+margin, -bbox[1]+margin))
+	fo.close ()
+	
+	res = 90
+
+	x = (2* margin + bbox[2] - bbox[0]) * res / 72.
+	y = (2* margin + bbox[3] - bbox[1]) * res / 72.
+
+	cmd = r'''gs -g%dx%d -sDEVICE=pgm  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=- -r%d -dNOPAUSE %s %s -c quit | pnmtopng > %s'''
+	
+	cmd = cmd % (x, y, res, name + '.trans.eps', name + '.preview.ps',name + '.png')
+	quiet_system (cmd, 'gs')
+
+	try:
+		status = system (cmd)
+	except:
+		os.unlink (name + '.png')
+		error ("Removing output file")
+
+
 
 def generate_dependency_file (depfile, outname):
 	df = open (depfile, 'w')
@@ -743,14 +809,18 @@ for opt in options:
 	elif o == '--include' or o == '-I':
 		include_path.append (a)
 	elif o == '--postscript' or o == '-P':
-		targets['PS'] = 0
+		targets.append ('PS')
 	elif o == '--keep' or o == '-k':
 		keep_temp_dir_p = 1
 	elif o == '--no-lily':
 		lily_p = 0
+	elif o == '--preview':
+		preview_p = 1
+		targets.append ('PNG')
+		
 	elif o == '--no-paper' or o == '-m':
-		targets = {}
-		targets['MIDI'] = 0
+
+		targets = ['MIDI'] 
 		paper_p = 0
 	elif o == '--output' or o == '-o':
 		output_name = a
@@ -837,7 +907,7 @@ if files and files[0] != '-':
 		dep_prefix = 0
 
 	reldir = os.path.dirname (output_name)
-	if outdir != '.' and (track_dependencies_p or targets.keys ()):
+	if outdir != '.' and (track_dependencies_p or targets):
 		mkdir_p (outdir, 0777)
 
 	setup_environment ()
@@ -860,32 +930,40 @@ if files and files[0] != '-':
  			#   - init.ly setup failure
  			#   - parse error in .ly
  			#   - unexpected: assert/core dump
-			targets = {}
+			targets = []
 			traceback.print_exc ()
 
-	if targets.has_key ('DVI') or targets.has_key ('PS'):
+	if 'PNG' in targets and 'PS' not in targets:
+		targets.append ('PS')
+	if 'PS' in targets and 'DVI' not in targets:
+		targets.append('DVI')
+
+	if 'DVI' in targets:
 		try:
 			run_latex (files, outbase, extra_init)
 			# unless: add --tex, or --latex?
-			del targets['TEX']
-			del targets['LATEX']
+			targets.remove ('TEX')
+			targets.remove('LATEX')
 		except:
 			# TODO: friendly message about TeX/LaTeX setup,
 			# trying to run tex/latex by hand
-			if targets.has_key ('DVI'):
-				del targets['DVI']
-			if targets.has_key ('PS'):
-				del targets['PS']
+			if 'DVI' in targets:
+				targets.remove ('DVI')
+			if 'PS' in targets:
+				targets.remove ('PS')
 			traceback.print_exc ()
 
-	if targets.has_key ('PS'):
+	if 'PS' in targets:
 		try:
 			run_dvips (outbase, extra_init)
 		except: 
-			if targets.has_key ('PS'):
-				del targets['PS']
+			if 'PS' in targets:
+				targets.remove ('PS')
 			traceback.print_exc ()
 
+	if 'PNG' in  targets:
+		make_preview (outbase, extra_init)
+		
 	# add DEP to targets?
 	if track_dependencies_p:
 		depfile = os.path.join (outdir, outbase + '.dep')
@@ -894,7 +972,7 @@ if files and files[0] != '-':
 			progress (_ ("dependencies output to `%s'...") % depfile)
 
 	# Hmm, if this were a function, we could call it the except: clauses
-	for i in targets.keys ():
+	for i in targets:
 		ext = string.lower (i)
 		cp_to_dir ('.*\.%s$' % ext, outdir)
 		outname = outbase + '.' + string.lower (i)

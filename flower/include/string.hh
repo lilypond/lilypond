@@ -10,7 +10,13 @@
 #ifndef STRING_HH
 #define STRING_HH
 
+
+#if ( __GNUC__ > 2 )
 #include <iostream.h> /* gcc 3.0 */
+#else
+class ostream;
+#endif
+
 #include "arithmetic-operator.hh"
 #include "flower-proto.hh"
 #include "string-handle.hh"
