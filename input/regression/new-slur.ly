@@ -36,7 +36,7 @@
     <c g>_( f <g b>)
     <g b>_( g  <b d>)
     <g b>_( \stemDown g \stemNeutral  <b d>)
-    c,^( c'' c) 
+    c,='^( c'' c) 
     c,,^( c'')
     c,,^( c')
     | b='2( a4) s4

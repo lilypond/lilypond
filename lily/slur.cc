@@ -17,7 +17,7 @@
 #include "group-interface.hh"
 #include "lily-guile.hh"
 #include "lookup.hh"
-#include "main.hh"
+#include "main.hh"		// DEBUG_SLUR_SCORING
 #include "note-column.hh"
 #include "output-def.hh"
 #include "rod.hh"
@@ -29,6 +29,7 @@
 #include "stencil.hh"
 #include "text-item.hh"
 #include "warn.hh"
+#include "slur-scoring.hh"
 
 MAKE_SCHEME_CALLBACK (Slur, height, 2);
 SCM
@@ -77,7 +78,7 @@ Slur::print (SCM smob)
     a = Lookup::slur (one, get_grob_direction (me) * base_thick * ss / 10.0,
 		      thick);
 
-#if DEBUG_SLUR_QUANTING
+#if DEBUG_SLUR_SCORING
   SCM quant_score = me->get_property ("quant-score");
 
   if (to_boolean (me->get_paper ()
@@ -200,8 +201,47 @@ Slur::outside_slur_callback (SCM grob, SCM axis)
   return scm_make_real (offset);
 }
 
+static Direction
+get_default_dir (Grob*me)
+{
+  Link_array<Grob> encompasses
+    = Pointer_group_interface__extract_grobs (me, (Grob*) 0, "note-columns");
+
+  Direction d = DOWN;
+  for (int i= 0; i < encompasses.size (); i ++)
+    {
+      if (Note_column::dir (encompasses[i]) < 0)
+	{
+	  d = UP;
+	  break;
+	}
+    }
+  return d;
+}
+
+
+MAKE_SCHEME_CALLBACK (Slur, after_line_breaking,1);
+SCM
+Slur::after_line_breaking (SCM smob)
+{
+  Spanner *me = dynamic_cast<Spanner*> (unsmob_grob (smob));
+  if (!scm_ilength (me->get_property ("note-columns")))
+    {
+      me->suicide ();
+      return SCM_UNSPECIFIED;
+    }
+
+  if (!get_grob_direction (me))
+    set_grob_direction (me, get_default_dir (me));
+
+  if (scm_ilength (me->get_property ("control-points")) < 4)
+    set_slur_control_points (me);
+
+  return SCM_UNSPECIFIED;
+}
 
 ADD_INTERFACE (Slur, "slur-interface",
 	       "A slur",
 	       "quant-score excentricity encompass-objects control-points dashed slur-details direction height-limit note-columns ratio thickness");
+
 

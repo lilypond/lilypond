@@ -22,5 +22,14 @@ sign (int i)
 
 
 
+inline Real
+linear_interpolate (Real x, Real x1, Real x2,  Real y1, Real  y2)
+{
+  return (x2 - x) / (x2 - x1) * y1 +
+    (x - x1) / (x2 - x1) * y2 ;
+}
+
+
+
 #endif
 

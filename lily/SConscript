@@ -11,7 +11,10 @@ includes = src_glob ('include/*.hh')
 e = env.Copy ()
 
 e.Append (
-	CPPPATH = ['#/lily/include', '#/flower/include', outdir],
+	CPPPATH = [
+	  '#/lily/include',
+	  '#/flower/include',
+	  outdir],
 	LEXFLAGS = ['-Cfe', '-p', '-p'],
 	LIBS = ['flower'],
 	)

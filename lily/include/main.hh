@@ -51,4 +51,10 @@ extern Array<String> failed_files;
 extern int exit_status_global;
 extern File_path global_path;
 
+/*
+  Debugging options
+ */
+
+#define DEBUG_SLUR_SCORING 1
+
 #endif /* MAIN_HH */

@@ -13,8 +13,6 @@
 #include "lily-proto.hh"
 #include "lily-guile.hh"
 
-#define DEBUG_SLUR_QUANTING 1
-
 class Slur
 {
 public:

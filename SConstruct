@@ -385,13 +385,12 @@ def configure (target, source, env):
 	if env['fast']:
 		# Using CCFLAGS = -I<system-dir> rather than CPPPATH = [
 		# <system-dir>] speeds up SCons
-		print 'cpp', env['CPPPATH']
 		env['CCFLAGS'] += map (lambda x: '-I' + x,
 				       env['CPPPATH'][len (cpppath):])
 		env['CPPPATH'] = cpppath
 
 	if required:
-F		print
+		print
 		print '********************************'
 		print 'Please install required packages'
 		for i in required:
@@ -733,36 +732,43 @@ if env['fast']\
 	subdirs = ['lily', 'lily/include', 'flower', 'flower/include', 'mf']
 else:
 	subdirs = flatten (cvs_dirs ('.'), [])
-readme_files = ['AUTHORS', 'README', 'INSTALL', 'NEWS']
-foo = map (lambda x: env.TXT (x + '.txt',
-			      os.path.join ('Documentation/topdocs', x)),
-	   readme_files)
-txt_files = map (lambda x: x + '.txt', readme_files)
+
 src_files = reduce (lambda x, y: x + y, map (cvs_files, subdirs))
-tar_base = package.name + '-' + version
-tar_name = tar_base + '.tar.gz'
-ball_prefix = os.path.join (outdir, tar_base)
-tar_ball = os.path.join (outdir, tar_name)
+readme_files = ['AUTHORS', 'README', 'INSTALL', 'NEWS']
+txt_files = map (lambda x: x + '.txt', readme_files)
 
-dist_files = src_files + txt_files
-ball_files = map (lambda x: os.path.join (ball_prefix, x), dist_files)
-map (lambda x: env.Depends (tar_ball, x), ball_files)
-map (lambda x: env.Command (os.path.join (ball_prefix, x), x,
-			    'ln $SOURCE $TARGET'), dist_files)
-tar = env.Command (tar_ball, src_files,
-		   ['rm -f $$(find $TARGET.dir -name .sconsign)',
-		    'tar czf $TARGET -C $TARGET.dir %s' % tar_base,])
-env.Alias ('tar', tar)
 
-dist_ball = os.path.join (package.release_dir, tar_name)
-env.Command (dist_ball, tar_ball,
-	     'if [ -e $SOURCE -a -e $TARGET ]; then rm $TARGET; fi;' \
-	     + 'ln $SOURCE $TARGET')
-env.Depends ('dist', dist_ball)
-patch_name = os.path.join (outdir, tar_base + '.diff.gz')
-patch = env.PATCH (patch_name, tar_ball)
-env.Depends (patch_name, dist_ball)
-env.Alias ('release', patch)
+#
+# speeds up build by +- 5% 
+# 
+if 0:
+	foo = map (lambda x: env.TXT (x + '.txt',
+				      os.path.join ('Documentation/topdocs', x)),
+		   readme_files)
+	tar_base = package.name + '-' + version
+	tar_name = tar_base + '.tar.gz'
+	ball_prefix = os.path.join (outdir, tar_base)
+	tar_ball = os.path.join (outdir, tar_name)
+
+	dist_files = src_files + txt_files
+	ball_files = map (lambda x: os.path.join (ball_prefix, x), dist_files)
+	map (lambda x: env.Depends (tar_ball, x), ball_files)
+	map (lambda x: env.Command (os.path.join (ball_prefix, x), x,
+				    'ln $SOURCE $TARGET'), dist_files)
+	tar = env.Command (tar_ball, src_files,
+			   ['rm -f $$(find $TARGET.dir -name .sconsign)',
+			    'tar czf $TARGET -C $TARGET.dir %s' % tar_base,])
+	env.Alias ('tar', tar)
+
+	dist_ball = os.path.join (package.release_dir, tar_name)
+	env.Command (dist_ball, tar_ball,
+		     'if [ -e $SOURCE -a -e $TARGET ]; then rm $TARGET; fi;' \
+		     + 'ln $SOURCE $TARGET')
+	env.Depends ('dist', dist_ball)
+	patch_name = os.path.join (outdir, tar_base + '.diff.gz')
+	patch = env.PATCH (patch_name, tar_ball)
+	env.Depends (patch_name, dist_ball)
+	env.Alias ('release', patch)
 
 #### web
 web_base = os.path.join (outdir, 'web')

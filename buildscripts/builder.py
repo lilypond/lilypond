@@ -222,10 +222,13 @@ pfa = Builder (action = a,
 env.Append (BUILDERS = {'PFA': pfa})
 
 # Specific builders
-env['DIFF_PY'] = '$srcdir/stepmake/bin/package-diff.py'
-a = '$PYTHON $DIFF_PY $__verbose --outdir=${TARGET.dir}'
-patch = Builder (action = a, suffix = '.diff', src_suffix = '.tar.gz')
-env.Append (BUILDERS = {'PATCH': patch})
+
+# experiment: switch off for speed.
+if 0:
+	env['DIFF_PY'] = '$srcdir/stepmake/bin/package-diff.py'
+	a = '$PYTHON $DIFF_PY $__verbose --outdir=${TARGET.dir}'
+	patch = Builder (action = a, suffix = '.diff', src_suffix = '.tar.gz')
+	env.Append (BUILDERS = {'PATCH': patch})
 
 atvars = [
 'BASH',
