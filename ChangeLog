@@ -1,3 +1,13 @@
+2002-07-10  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* config.hh.in: Add HAVE_SSTREAM.
+	
+	* configure.in: Add check for sstream header.
+
+2002-07-09  Mats Bengtsson  <matsb@s3.kth.se>
+ 
+ 	* flower/source-file.cc: Fix compatibility with older g++.
+ 
 2002-07-09  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* input/twinkle.ly: Bugfix: no automaticMelismata.

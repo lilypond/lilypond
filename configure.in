@@ -35,8 +35,7 @@ STEPMAKE_MAKEINFO(REQUIRED)
 STEPMAKE_PYTHON_DEVEL(REQUIRED)
 
 
-# AC_HAVE_HEADERS(limits.h malloc.h string.h unistd.h values.h)
-AC_HAVE_HEADERS(assert.h sys/stat.h)
+AC_HAVE_HEADERS(assert.h sys/stat.h sstream)
 AC_HEADER_STAT
 
 AC_FUNC_MEMCMP

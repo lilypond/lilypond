@@ -9,7 +9,12 @@
 
 
 #include <assert.h>
+#if HAVE_SSTREAM
 #include <sstream>
+#else
+#include <strstream.h>
+#define istringstream(x) istrstream(x, length_i ()) 
+#endif
 
 #include "string.hh"
 #include "flower-proto.hh"
@@ -45,7 +50,7 @@ Source_file::istream_l ()
   if (!istream_p_)
     {
       if (length_i ()) // can-t this be done without such a hack?
-	istream_p_ = new std::stringstream (ch_C ());
+	istream_p_ = new std::istringstream (ch_C ());
       else
 	{
 	  istream_p_ = new std::istringstream ("");
