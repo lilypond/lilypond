@@ -211,7 +211,13 @@ in LilyPond-include-path."
 (defun LilyPond-compile-file (command name)
   ;; We maybe should know what we run here (Lily, ly2dvi, tex)
   ;; and adjust our error-matching regex ?
-  (compile-internal command "No more errors" name ))
+  (compile-internal
+   (if (eq LilyPond-command-current 'LilyPond-command-master)
+       command
+     ;; use temporary directory for Commands on Buffer/Region
+     ;; hm.. the directory is set twice, first to default-dir
+     (concat "cd " (LilyPond-temp-directory) "; " command))
+   "No more errors" name))
 
 ;; do we still need this, now that we're using compile-internal?
 (defun LilyPond-save-buffer ()
@@ -522,9 +528,8 @@ Must be the car of an entry in `LilyPond-command-alist'."
 ;; FIXME, this is broken
 (defun LilyPond-region-file (begin end)
   (let (
-	;; (dir "/tmp/")
-	;; urg
-	(dir "./")
+	;; (dir "./")
+ 	(dir (LilyPond-temp-directory))
 	(base LilyPond-region-file-prefix)
 	(ext LilyPond-file-extension))
     (concat dir base ext)))
@@ -655,6 +660,13 @@ command."
   (interactive)
   (and transient-mark-mode
        (if (string-match "XEmacs\\|Lucid" emacs-version) (mark) mark-active)))
+
+(defun LilyPond-temp-directory ()
+  "Temporary file directory for Commands on Region."
+  (interactive)
+  (if (string-match "XEmacs\\|Lucid" emacs-version)
+      (concat (temp-directory) "/")
+    temporary-file-directory))
 
 ;;; Keymap
 
@@ -1116,8 +1128,10 @@ LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
   (easy-menu-add LilyPond-mode-menu)
   (easy-menu-add LilyPond-command-menu)
 
-  ;; Use Command on Region even for deactivated regions.
-  (setq mark-even-if-inactive t)
+  ;; Use Command on Region even for inactive mark (region).
+  (if (string-match "XEmacs\\|Lucid" emacs-version)
+      (setq zmacs-regions nil)
+    (setq mark-even-if-inactive t))
 
   ;; run the mode hook. LilyPond-mode-hook use is deprecated
   (run-hooks 'LilyPond-mode-hook))
