@@ -173,8 +173,6 @@ $(outdir)/lilypond-internals/lilypond-internals.xml: $(outdir)/lilypond-internal
 	mkdir -p $(dir $@)
 	$(MAKEINFO) --output=$(outdir)/lilypond-internals --docbook $<
 
-ifeq ($(SPLITTING_MAKEINFO),yes)
-
 $(outdir)/lilypond.dvi: $(OUT_EPS_IMAGES) $(OUT_PNG_IMAGES)
 
 $(outdir)/%.png: %.png
@@ -186,20 +184,6 @@ $(outdir)/%.eps: %.png
 DEEP_HTML_FILES =\
  $(outdir)/lilypond/index.html\
  $(outdir)/lilypond-internals/index.html
-
-else
-
-# Links referred to by Documentation index
-LILYPOND_LINKS=Reference-Manual.html Tutorial.html Ly2dvi.html Midi2ly.html
-
-local-WWW: deep-symlinks
-
-deep-symlinks:
-	mkdir -p $(outdir)/lilypond
-	cd $(outdir)/lilypond && $(foreach i, $(LILYPOND_LINKS),\
-		rm -f $(i) && ln -s lilypond.html $(i) &&) true
-
-endif
 
 local-WWW: $(HTML_FILES) $(DEEP_HTML_FILES)\
  $(datafiles) $(PDF_FILES) $(PS_GZ_FILES) info info-dir
