@@ -71,7 +71,7 @@ struct Complex_music : Input_music {
     /* *************** */
     virtual void transpose(Melodic_req const&) const ;
     virtual void set_default_group(String g);
-    void add(Input_music*);
+    void add(Input_music*inmusic_p);
     Complex_music();
     Complex_music(Complex_music const &);
     virtual void print() const ;
