@@ -649,8 +649,8 @@ b r b r |
 b r b r |
 a r r4 |
 R2 |
-g!4 \p \< ( a |
-\! b!2 ~ |
+g4 \p \< ( a |
+\! b2 ~ |
 b4 \> a ~ |
 a \! ) fis8 r |
 g4 \p \< ( a |

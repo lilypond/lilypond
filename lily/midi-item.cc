@@ -437,13 +437,10 @@ Midi_note_off::Midi_note_off (Midi_note* n)
   channel_i_ = n->channel_i_;
 
   // Anybody who hears any difference, or knows how this works?
-  
-  // 0x64 is supposed to be neutral, but let's try
-  //aftertouch_byte_ = 0x64;
+  //  0 should definitely be avoided, notes stick on some sound cards.
+  // 64 is supposed to be neutral
+  aftertouch_byte_ = 64;
 
-  static int i = 0;
-  aftertouch_byte_ = i;
-  i += 0x10;
 }
 
 String

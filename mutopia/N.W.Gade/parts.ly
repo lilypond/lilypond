@@ -19,15 +19,15 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
 \include "strings.ly"
 
 my_paper = \paper {
-  textheight = 275.0 \mm;
+  textheight = 265.0 \mm;
   \translator {
     \OrchestralPartStaffContext
   }
   \translator { 
     \ScoreContext
     skipBars = 1;
-    markScriptPadding = "6.0";
-    barNumberScriptPadding = "11.0";
+    barNumberScriptPadding = "12.0";
+    markScriptPadding = "20.0";
     dynamicPadding = 3.0;
     textScriptPadding = 5.0;
     textStyle = "italic";
@@ -85,7 +85,7 @@ my_paper = \paper {
     \clarI
   >
   \header{
-    instrument = "Clarinetto I in B\\flat";
+    instrument = "Clarinetto I in B\\textflat";
   }
   \paper{
     \my_paper
@@ -103,7 +103,7 @@ my_paper = \paper {
     \clarII
   >
   \header{
-    instrument = "Clarinetto II in B\\flat";
+    instrument = "Clarinetto II in B\\textflat";
   }
   \paper{
     \my_paper
@@ -184,7 +184,7 @@ my_paper = \paper {
     \context Voice = help \trpIhelp
   >
   \header{
-    instrument = "Tromba I in B\\flat";
+    instrument = "Tromba I in B\\textflat";
   }
   \paper{
     \my_paper
@@ -205,7 +205,7 @@ my_paper = \paper {
     \context Voice = help \trpIIhelp
   >
   \header{
-    instrument = "Tromba II in B\\flat";
+    instrument = "Tromba II in B\\textflat";
   }
   \paper{
     \my_paper

@@ -1,8 +1,8 @@
-\def\fetdef#1#2{%
-  \def#1{\hbox{\fetchar{#2}}}}
-\font\fetasixteen = feta16
-\def\fetchar#1{{\fetasixteen\char#1}}
-\input{feta20}         %%% Add lilypond-xxx/mf/out/ to TEXINPUTS
+%\def\fetdef#1#2{%
+%  \def#1{\hbox{\fetchar{#2}}}}
+%\font\fetasixteen = feta16
+%\def\fetchar#1{{\fetasixteen\char#1}}
+%\input{feta20}         %%% Add lilypond-xxx/mf/out/ to TEXINPUTS
 
 \newcommand{\okt}{$8^{va}$}
 
@@ -18,7 +18,7 @@
 \advance\topmargin-5mm
 \advance\headsep-4mm
 \addtolength{\textheight}{17mm}
-\advance\footskip-3mm
+\advance\footskip-5mm
 
 \usepackage{fancyheadings}
 \lhead{\textbf{\large\theinstrument}}
@@ -52,7 +52,7 @@
         \end{flushright}%
   \end{minipage}\par
   \parskip\saveparskip
-  {\flushleft{\Large\textbf\thepiece}\par}%
+  {\flushleft{\Large\textbf\thepiece}\\}%
 %  \leavevmode%
-  \enlargethispage*{5mm}%
+%  \enlargethispage*{7mm}%
 }

@@ -7,7 +7,6 @@
 */
 #include "debug.hh"
 #include "crescendo.hh"
-#include "dynamic-engraver.hh"
 #include "musical-request.hh"
 #include "lookup.hh"
 #include "paper-def.hh"
@@ -134,7 +133,7 @@ Dynamic_engraver::do_process_requests()
 	      staff_side_p_->dir_ = Direction (int (prop));
 	    }
 
-	  prop = get_property ("dynamicDir", 0);
+	  prop = get_property ("dynamicDirection", 0);
 	  if (prop.isnum_b ())
 	    {
 	      staff_side_p_->dir_ = (Direction) (int) prop;
@@ -179,7 +178,7 @@ Dynamic_engraver::do_process_requests()
 		    {
 		      to_end_ss_span_p_->dir_ = Direction (int (prop));
 		    }
-		  prop = get_property ("dynamicDir", 0);
+		  prop = get_property ("dynamicDirection", 0);
 		  if (prop.isdir_b ())
 		    {
 		      to_end_ss_span_p_->dir_ = (Direction) (int) prop;

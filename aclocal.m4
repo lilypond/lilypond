@@ -2,6 +2,8 @@ dnl WARNING WARNING WARNING WARNING
 dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
 dnl WARNING WARNING WARNING WARNING
 dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
+dnl WARNING WARNING WARNING WARNING
+dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
 dnl aclocal.m4   -*-shell-script-*-
 dnl StepMake subroutines for configure.in
 
@@ -173,7 +175,14 @@ AC_DEFUN(AC_STEPMAKE_GUILE, [
       AC_DEFINE(HAVE_LIBGUILE)], , $GUILE_LDFLAGS dnl
     )
     if test "$ac_cv_lib_guile_gh_scm2doubles" != yes ; then
-	AC_STEPMAKE_WARN(You should install guile 1.3 or newer)
+      GUILE_LDFLAGS="`echo $GUILE_LDFLAGS | sed -e 's/-lreadline//g'`"
+      AC_CHECK_LIB(guile, gh_doubles2scm,
+        [LIBS="`echo $GUILE_LDFLAGS | sed -e 's/-L[[/-_a-zA-Z0-9]]\+ //g'` $LIBS"
+      	AC_DEFINE(HAVE_LIBGUILE)], , $GUILE_LDFLAGS dnl
+      )
+      if test "$ac_cv_lib_guile_gh_doubles2scm" != yes ; then
+      	AC_STEPMAKE_WARN(You should install guile 1.3 or newer)
+      fi
     fi
 ])
 

@@ -232,7 +232,7 @@ hyphen_height = 0.2*\font_normal;
 hyphen_minimum_length = 0.25*\font_normal;
 
 % Multi-measure rests
-mmrest_x_minimum = 2.0*\staffheight;
+mmrest_x_minimum = 1.4*\staffheight;
 
 
 % chop off this much when next to pp / ff sign.
@@ -253,7 +253,7 @@ stemSpacingCorrection = 0.5*\interline;
 %{
  relative strength of space following breakable columns (eg. prefatory matter)
  %}
-breakable_column_space_strength = 8.0; 
+breakable_column_space_strength = 2.0; 
 
 % space after inline clefs and such get this much stretched
 decrease_nonmus_spacing_factor = 1.0 ;
