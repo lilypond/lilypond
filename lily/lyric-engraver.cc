@@ -74,7 +74,7 @@ get_voice_to_lyrics (Context *lyrics)
     return c;
 
   SCM voice_name = lyrics->get_property ("associatedVoice");
-  String nm = lyrics->id_string_;
+  String nm = lyrics->id_string ();
 
   if (ly_c_string_p (voice_name))
     nm = ly_scm2string (voice_name);

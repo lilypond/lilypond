@@ -27,7 +27,7 @@ Change_iterator::error (String reason)
    */
   String warn2= "Change_iterator::process (): " 
     + get_outlet ()->context_name () + " = `"
-    + get_outlet ()->id_string_ + "': ";
+    + get_outlet ()->id_string () + "': ";
   warning (warn2);
   get_music ()->origin ()->warning (warn1);
 }
@@ -55,7 +55,7 @@ Change_iterator::process (Moment m)
       current = current->get_parent_context ();
     }
 
-  if (current && current->id_string_ == to_id)
+  if (current && current->id_string () == to_id)
     {
       String msg;
       msg += _ ("Can't switch translators, I'm there already");
@@ -88,7 +88,7 @@ Change_iterator::process (Moment m)
 	  We could change the current translator's id, but that would make 
 	  errors hard to catch
 	  
-	   last->translator_id_string_  = get_change ()->change_to_id_string_;
+	   last->translator_id_string ()  = get_change ()->change_to_id_string ();
 	*/
 	error (_ ("I'm one myself"));
       }
