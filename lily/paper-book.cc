@@ -81,12 +81,17 @@ Page::text_height ()
 
 /****************************************************************/
 
-
-Paper_book *paper_book;		// huh? global var? --hwn
+/* Current global paper book.  Gives default_rendering access from
+   input-file-results.  */
+Paper_book *paper_book;
 
 Paper_book::Paper_book ()
 {
   smobify_self ();
+}
+
+Paper_book::~Paper_book ()
+{
 }
 
 void
@@ -122,37 +127,33 @@ Paper_book::get_scopes (int i)
 Stencil*
 Paper_book::get_title (int i)
 {
-  SCM make_title = scm_primitive_eval (ly_symbol2scm ("make-title"));
+  SCM user_title = scm_primitive_eval (ly_symbol2scm ("user-title"));
+  SCM book_title = scm_primitive_eval (ly_symbol2scm ("book-title"));
+  SCM score_title = scm_primitive_eval (ly_symbol2scm ("score-title"));
   SCM field = (i == 0 ? ly_symbol2scm ("bookTitle")
 	       : ly_symbol2scm ("scoreTitle"));
 
-  SCM s = ly_modules_lookup (get_scopes (i), field); 
+  Stencil *title = 0;
+  SCM scopes = get_scopes (i);
+  SCM s = ly_modules_lookup (scopes, field);
   if (s != SCM_UNDEFINED && scm_variable_bound_p (s) == SCM_BOOL_T)
-    {
-      Stencil *title = unsmob_stencil (gh_call2 (make_title,
-						 papers_[0]->self_scm (),
-						 scm_variable_ref (s)));
-      
-      title->align_to (Y_AXIS, UP);
-      return title;
-    }
+    title = unsmob_stencil (scm_call_2 (user_title,
+					papers_[0]->self_scm (),
+					scm_variable_ref (s)));
+  else
+    title = unsmob_stencil (scm_call_2 (i == 0 ? book_title : score_title,
+					papers_[0]->self_scm (),
+					scopes));
+  if (title)
+    title->align_to (Y_AXIS, UP);
   
-  return 0;
+  return title;
 }
 
-/*
-  WIP
-
-  FIXME: titling is broken.
-  
-  TODO:
-     * ->SCM?
-     * decent page breaking algorithm
-     * header / footer (generate per Page, with page#)
-     * override: # pages, or pageBreakLines= #'(3 3 4), ?
-     * what about between-system-breaking, can we junk that?
-     
-*/
+/* TODO:
+   - decent page breaking algorithm; fill-up page
+   - header / footer (generate per Page, with page#, tagline/copyright)
+   - override: # pages, or pageBreakLines= #'(3 3 4), ?  */
 Link_array<Page>*
 Paper_book::get_pages ()
 {
@@ -279,9 +280,5 @@ Paper_book::print_smob (SCM smob, SCM port, scm_print_state*)
   //scm_puts (b->, port);
   scm_puts (">", port);
   return 1;
-}
-
-Paper_book::~Paper_book ()
-{
 }
 

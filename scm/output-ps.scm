@@ -3,16 +3,12 @@
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
 ;;;; (c)  1998--2004 Jan Nieuwenhuizen <janneke@gnu.org>
-;;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;;                 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 ;;;; Note: currently misused as testbed for titles with markup, see
 ;;;;       input/test/title-markup.ly
 ;;;; 
 ;;;; TODO:
-;;;;   * move makeTitle (input/test/title-markup.ly) out of user space, but
-;;;;   * allow customisation of makeTitle markup.
-;;;;   * makePieceTitle markup
-;;;;   * page layout?
 ;;;;   * special characters, encoding.
 ;;;;     + implement encoding switch (switches?  input/output??),
 ;;;;     + move encoding definitions to ENCODING.ps files, or
@@ -317,13 +313,15 @@
 
     ;; FIXME: duplicates output-paper's scope-entry->string, mostly
     (define (scope-entry->string key var)
-      (let ((val (variable-ref var)))
-	(if (memq key fields)
-	    (header-to-file basename key val))
-	(cond
-	 ((string? val) (ps-string-def prefix key val))
-	 ((number? val) (ps-number-def prefix key val))
-	(else ""))))
+      (if (variable-bound? var)
+	  (let ((val (variable-ref var)))
+	    (if (memq key fields)
+		(header-to-file basename key val))
+	    (cond
+	     ((string? val) (ps-string-def prefix key val))
+	     ((number? val) (ps-number-def prefix key val))
+	     (else "")))
+	  ""))
     
     (define (output-scope scope)
       (apply string-append (module-map scope-entry->string scope)))
@@ -378,8 +376,8 @@
   (string-append
    "\n" (ly:number->string height)
    " start-system\n"
-   ;;(draw-line 2 0 (* OUTPUT-SCALE height) 100 0)
-   (draw-line 2 0 0 50 (- 0 (* OUTPUT-SCALE height)))
+   ;; Show height of system
+   (draw-line 1 0 0 (- 0 10) (- 0 (* OUTPUT-SCALE height)))
    "{\n"
    "set-ps-scale-to-lily-scale\n"))
 

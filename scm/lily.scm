@@ -394,22 +394,11 @@ L1 is copied, L2 not.
 	(caddr d)
 	(scm-error "Could not find dumper for format ~s" format))))
 
-
-(define-public (make-title paper markup)
-  (if (markup? markup)
-      (let ((BASELINE-SKIP 2)
-	     (props (list (append `((linewidth . ,(ly:paper-get-number
-						  paper 'linewidth))
-				    (font-family . roman))
-				  (ly:paper-lookup paper 'font-defaults)))))
-	(stack-lines DOWN 0 BASELINE-SKIP
-		     (list (interpret-markup paper props markup))))))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; other files.
 
 (map ly:load
-					; load-from-path
+     ;; load-from-path
      '("define-music-types.scm"
        "output-lib.scm"
        "c++.scm"
@@ -440,6 +429,7 @@ L1 is copied, L2 not.
        "define-grobs.scm"
        "define-grob-interfaces.scm"
 
+       "page-layout.scm"
        "paper.scm"
        ))
 
