@@ -1,5 +1,7 @@
 2002-07-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* po/fr.po: update from TP.
+
 	* buildscripts/lilypond-profile.sh: update support for
 	LILYPONDPREFIX
 
