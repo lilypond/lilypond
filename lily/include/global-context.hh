@@ -20,7 +20,7 @@ class Global_context : public virtual Context
   
   friend class Music_output_def;
 public:
-  Global_context (Music_output_def*);
+  Global_context (Music_output_def*, Moment final);
   int get_moments_left () const;
   Moment sneaky_insert_extra_moment (Moment);
   void add_moment_to_process (Moment);
@@ -37,10 +37,11 @@ public:
   virtual Music_output_def* get_output_def () const; 
   virtual Moment now_mom () const;
 
+  Moment previous_moment () const;
+protected:
   Moment final_mom_;
   Moment prev_mom_;
   Moment now_mom_;
-protected:
 };
 
 

@@ -10,8 +10,7 @@
 #include "context.hh"
 #include "sequential-iterator.hh"
 #include "music-list.hh"
-
-Grace_fixup *get_grace_fixups (SCM cursor);
+#include "grace-fixup.hh"
 
 /*
   
@@ -38,7 +37,6 @@ Grace_fixup *get_grace_fixups (SCM cursor);
 Sequential_iterator::Sequential_iterator ()
 {
   here_mom_ = Moment (0);
-  list_ = SCM_EOL;
   cursor_ = SCM_EOL; 
   grace_fixups_ = 0;
   iter_ = 0;
@@ -61,23 +59,24 @@ Sequential_iterator::do_quit ()
 
 
 void
-Sequential_iterator::derived_mark ()const
+Sequential_iterator::derived_mark () const
 {
   if (iter_)
     scm_gc_mark (iter_->self_scm ());
-  scm_gc_mark (list_);
   scm_gc_mark (cursor_);
 }
 
 
 void
-Sequential_iterator::derived_substitute (Context *f,Context *t)
+Sequential_iterator::derived_substitute (Context *f, Context *t)
 {
   if (iter_)
-    iter_->substitute_outlet (f,t);
-  
+    iter_->substitute_outlet (f, t);
 }
 
+/*
+  TODO: this should be made lazily.
+ */
 Grace_fixup *
 create_grace_fixup_list (SCM cursor)
 {
@@ -121,13 +120,12 @@ create_grace_fixup_list (SCM cursor)
 void
 Sequential_iterator::construct_children ()
 {
-  list_ = get_music_list ();
-  cursor_ = list_; 
+  cursor_ = get_music_list ();
 
   iter_ = 0;
   if (gh_pair_p (cursor_))
     {
-      Music *m  =unsmob_music (ly_car (cursor_));
+      Music *m = unsmob_music (ly_car (cursor_));
       iter_ = unsmob_iterator (get_iterator (m));
     }
   
@@ -136,6 +134,7 @@ Sequential_iterator::construct_children ()
       next_element (true);
     }
 
+  last_mom_ = Moment (-1);
   here_mom_ = get_music ()->start_mom ();
   grace_fixups_ = create_grace_fixup_list (cursor_);
 
@@ -161,7 +160,8 @@ Sequential_iterator::next_element (bool)
       && get_grace_fixup ())
     {
       Grace_fixup *gf = get_grace_fixup ();
-      
+
+      last_mom_ = here_mom_;
       here_mom_ += gf->length_;
       here_mom_.grace_part_ += gf->grace_start_;
 
@@ -169,6 +169,7 @@ Sequential_iterator::next_element (bool)
     }
   else if (len.grace_part_ && !len.main_part_)
     {
+      last_mom_ = here_mom_;
       here_mom_.grace_part_ =0;
     }
   else
@@ -180,6 +181,7 @@ Sequential_iterator::next_element (bool)
 	in that chunk should be in len.grace_part_
 
       */
+      last_mom_ = here_mom_;;
       here_mom_ += len;
     }
   
@@ -211,8 +213,6 @@ Sequential_iterator::descend_to_child ()
   if (c == me_report)
     set_translator (child_report);
 }
-
-
 
 void
 Sequential_iterator::process (Moment until)
@@ -298,7 +298,6 @@ Sequential_iterator::next_grace_fixup ()
   delete grace_fixups_;
   grace_fixups_ = n;
 }
-
 
 Grace_fixup*
 Sequential_iterator::get_grace_fixup () const

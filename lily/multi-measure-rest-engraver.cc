@@ -17,7 +17,6 @@
 
 /**
    The name says it all: make multi measure rests 
-
 */
 class Multi_measure_rest_engraver : public Engraver
 {
@@ -39,7 +38,7 @@ private:
   Moment stop_moment_;
   
   bool bar_seen_;
-  
+  Item *last_command_item_ ;
   Spanner *last_rest_;
   Spanner *mmrest_;
 
@@ -49,6 +48,7 @@ private:
 
 Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
 {
+  last_command_item_ = 0;
   bar_seen_ = false;
   start_measure_ = 0;
   mmrest_ = 0;
@@ -151,23 +151,33 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
       Grob *cmc = unsmob_grob (get_property ("breakableSeparationItem"));
       if (!cmc)
 	cmc = unsmob_grob (get_property ("currentCommandColumn"));
-      
-      Item *it = dynamic_cast<Item*> (cmc);
-      
-      if (mmrest_)
-	{
-	  add_bound_item (mmrest_, it);
-	  for (int i = 0; i < numbers_.size (); i++)
-	    add_bound_item (numbers_[i], it);
-	}
-      
+
+      /*
+	Ugh, this is a kludge - need this for multi-measure-rest-grace.ly
+       */
+      last_command_item_ = dynamic_cast<Item*> (cmc);
+    }
+
+  if (last_command_item_ &&  (mmrest_ || last_rest_))
+    {
+          
       if (last_rest_)
 	{
-	  add_bound_item (last_rest_,it);
+	  add_bound_item (last_rest_, last_command_item_);
 	  for (int i = 0; i < last_numbers_.size (); i++)
-	    add_bound_item (last_numbers_[i], it);
-	}      
+	    add_bound_item (last_numbers_[i], last_command_item_);
+	}
+
+      if (mmrest_)
+	{
+	  add_bound_item (mmrest_, last_command_item_);
+	  for (int i = 0; i < numbers_.size (); i++)
+	    add_bound_item (numbers_[i], last_command_item_);
+
+	  last_command_item_ = 0;
+	}
     }
+  
   
   SCM smp = get_property ("measurePosition");
   Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);

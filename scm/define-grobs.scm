@@ -791,7 +791,7 @@
 
 	;; This value is sensitive: if too large, staccato dots will move a
 	;; space a away.
-	(padding . 0.25)
+	(padding . 0.20)
 	(staff-padding . 0.25)
 	;; (script-priority . 0) priorities for scripts, see script.scm
 	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent))

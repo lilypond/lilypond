@@ -96,8 +96,8 @@ Timing_translator::start_translation_timestep ()
 {
   Global_context *global =get_global_context ();
 
-  Moment now = global->now_mom_;
-  Moment dt = now  - global->prev_mom_;
+  Moment now = global->now_mom ();
+  Moment dt = now  - global->previous_moment ();
   if (dt < Moment (0))
     {
       programming_error ("Moving backwards in time");
