@@ -20,7 +20,7 @@
       note-names-alist))
 
 (define (pitch->note-name pitch)
-  (cons (car pitch) (cadr pitch)))
+  (cons (cadr pitch) (caddr pitch)))
   
 (define (user-pitch-name pitch)
   (let ((entry (assoc (pitch->note-name pitch) note-names-alist)))
@@ -32,17 +32,17 @@
       (append 
       '(
 	; C iso C.no3.no5
-	(((0 . 0)) . ("" . ""))
+	(((0 . 0)) . (#f . #f))
 	; C iso C.no5
-	(((0 . 0) (2 . 0)) . ("" . ""))
+	(((0 . 0) (2 . 0)) . (#f . #f))
 	; Cm iso Cm.no5
-	(((0 . 0) (2 . -1)) . ("m" . ""))
+	(((0 . 0) (2 . -1)) . ("m" . #f))
 	; Cdim iso Cm5-
-	(((0 . 0) (2 . -1) (4 . -1)) . ("dim" . ""))
+	(((0 . 0) (2 . -1) (4 . -1)) . ("dim" . #f))
 	; Co iso Cm5-7-
 	; urg
         ; (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . ("" . ("feta-1" . ".")))
-        (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . ("" . ("script" . "o")))
+        (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . (#f . ("script" . "o")))
 	; Cdim9
 	(((0 . 0) (2 . -1) (4 . -1) (6 . -2) (1 . -1)) . ("dim" . ("script" . "9")))
 	(((0 . 0) (2 . -1) (4 . -1) (6 . -2) (1 . -1) (3 . -1)) . ("dim" . ("script" . "11")))

@@ -31,11 +31,14 @@ Chord_name::ly_word2molecule (SCM scm) const
   String style;
   if (gh_pair_p (scm))
     {
-      style = ly_scm2string (gh_car (scm));
+      SCM s = gh_car (scm);
+      if (gh_string_p (s))
+	style = ly_scm2string (s);
       scm = gh_cdr (scm);
     }
-  String text = ly_scm2string (scm);
-  return lookup_l ()->text (style, text, paper_l ());
+  if (gh_string_p (scm))
+    return lookup_l ()->text (style, ly_scm2string (scm), paper_l ());
+  return Molecule ();
 }
 
 /*
@@ -51,12 +54,16 @@ Chord_name::ly_text2molecule (SCM scm) const
     {
       while (gh_cdr (scm) != SCM_EOL)
         {
-	  mol.add_at_edge (X_AXIS, RIGHT, ly_word2molecule (gh_car (scm)), 0);
+	  Molecule m = ly_word2molecule (gh_car (scm));
+	  if (!m.empty_b ())
+	    mol.add_at_edge (X_AXIS, RIGHT, m, 0);
 	  scm = gh_cdr (scm);
 	}
       scm = gh_car (scm);
     }  
-  mol.add_at_edge (X_AXIS, RIGHT, ly_word2molecule (scm), 0);
+  Molecule m = ly_word2molecule (scm);
+  if (!m.empty_b ())
+    mol.add_at_edge (X_AXIS, RIGHT, m, 0);
   return mol;
 }
 
@@ -78,9 +85,17 @@ Chord_name::pitch2molecule (Musical_pitch p) const
     We want the smaller size, even if we're big ourselves.
    */
   if (p.accidental_i_)
-    mol.add_at_edge (X_AXIS, RIGHT, 
+    {
+      Molecule acc = paper_l ()->lookup_l (-3)->afm_find
+	(String ("accidentals-") + to_str (p.accidental_i_));
+      // urg, howto get a good superscript_y?
+      Real super_y = lookup_l ()->text ("", "x", paper_l ()).extent
+	()[Y_AXIS].length () / 2;
+      super_y += -acc.extent ()[Y_AXIS][MIN];
+      acc.translate_axis (super_y, Y_AXIS);
+      mol.add_at_edge (X_AXIS, RIGHT, acc, 0.0);
+    }
 		     
-		     paper_l ()->lookup_l (-2)->afm_find (String ("accidentals-") + to_str (p.accidental_i_)), 0.0);
   return mol;
 }
 
@@ -282,7 +297,8 @@ Chord_name::do_brew_molecule () const
     }
 
   // urg, howto get a good superscript_y?
-  Real super_y = lookup_l ()->text ("", "x", paper_l ()).dim_.y ().length ()/2;
+  Real super_y = lookup_l ()->text ("", "x", paper_l ()).extent
+    ()[Y_AXIS].length () / 2;
   if (!name.addition_mol.empty_b ())
     name.addition_mol.translate (Offset (0, super_y));
 

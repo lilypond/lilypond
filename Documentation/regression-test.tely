@@ -101,6 +101,14 @@ not be on staff lines.
 
 @mudelafile{staccato-pos.ly}
 
+@section Chord names
+
+Chord names are generated from a list pitches, and are customisable
+from guile.  For some unlogical names, guile customisation is used
+by default.
+
+@mudelafile{chord-names.ly}
+
 @section Grace notes
 
 Grace notes are typeset as an encapsulated piece of music. You can
