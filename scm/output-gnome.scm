@@ -113,25 +113,30 @@ lilypond -fgnome input/simple-song.ly
 
 (define (utf8 i)
   (cond
-   ((< i #x80) (make-string 1 (integer->char i)))
-   ((< i #x800) (list->string
-		 (map integer->char
-		      (list (+ #xc0 (quotient i #x40))
-			    (+ #x80 (modulo i #x40))))))
+   ((< i #x80) (list (integer->char i)))
+   ((< i #x800) (map integer->char
+		     (list (+ #xc0 (quotient i #x40))
+			   (+ #x80 (modulo i #x40)))))
    ((< i #x10000)
     (let ((x (quotient i #x1000))
 	  (y (modulo i #x1000)))
-      (list->string
-       (map integer->char
-	    (list (+ #xe0 x)
-		  (+ #x80 (quotient y #x40))
-		  (+ #x80 (modulo y #x40)))))))
+      (map integer->char
+	   (list (+ #xe0 x)
+		 (+ #x80 (quotient y #x40))
+		 (+ #x80 (modulo y #x40))))))
    (else FIXME)))
   
 (define (custom-utf8 i)
   (if (< i 80)
       (utf8 i)
       (utf8 (+ #xee00 i))))
+
+(define (string->utf8-string string)
+  (list->string
+   (apply append (map utf8 (map char->integer (string->list string))))))
+
+(define (char->utf8-string char)
+  (list->string (utf8 (char->integer char))))
 
 (define (draw-rectangle x1 y1 x2 y2 color width-units)
   (make <gnome-canvas-rect>
@@ -239,7 +244,9 @@ lilypond -fgnome input/simple-song.ly
     ;;#:scale-set #t
     
     #:fill-color "black"
-    #:text string))
+    #:text (if (string? string)
+	       (string->utf8-string string)
+	       (char->utf8-string (car string)))))
 
 (define (filledbox a b c d)
   (round-filled-box a b c d 0.001))

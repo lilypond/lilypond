@@ -1,5 +1,9 @@
 2004-11-10  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scm/output-gnome.scm (string->utf8-string, char->utf8-string):
+	New function.
+	(text): Use them.
+
 	* scm/framework-gnome.scm (item-event): Add support from TLA.  Support
 	animated/opaque grob dragging tweaks.
 
