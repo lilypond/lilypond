@@ -1,5 +1,8 @@
 2004-06-17  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* Documentation/topdocs/NEWS.texi (Top): Mention GNOME backend for
+	developers.
+
 	* lily/paper-outputter.cc (file): New method.
 	(dump_string): Use it.
 
