@@ -207,8 +207,8 @@
 
 (define (placebox x y s) 
   (string-append "\\lyitem{"
-		 (ly-number->string y) "}{"
-		 (ly-number->string x) "}{"
+		 (ly:number->string y) "}{"
+		 (ly:number->string x) "}{"
 		 s "}%\n"))
 
 (define (bezier-bow l thick)
@@ -224,8 +224,8 @@
 		 "  {}%\n"
 		 "  {\\advance\\scoreshift by -\\lilypondscoreshift}%\n"
 		 "\\lybox{"
-		 (ly-number->string wd) "}{"
-		 (ly-number->string ht) "{%\n"))
+		 (ly:number->string wd) "}{"
+		 (ly:number->string ht) "{%\n"))
 
 (define (stop-system) 
   "}%\n%\n\\interscoreline\n%\n")
@@ -234,10 +234,10 @@
 
 (define (filledbox breapth width depth height) 
   (string-append "\\lyvrule{"
-		 (ly-number->string (- breapth)) "}{"
-		 (ly-number->string (+ breapth width)) "}{"
-		 (ly-number->string depth) "}{"
-		 (ly-number->string height) "}"))
+		 (ly:number->string (- breapth)) "}{"
+		 (ly:number->string (+ breapth width)) "}{"
+		 (ly:number->string depth) "}{"
+		 (ly:number->string height) "}"))
 
 (define (roundfilledbox x y width height blotdiam)
   (embedded-pdf (list 'roundfilledbox  x y width height blotdiam)))
