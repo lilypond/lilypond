@@ -145,9 +145,9 @@ Spacing_spanner::default_bar_spacing (Score_column *lc, Score_column *rc, Moment
   Real durational_distance = 0;
   Moment delta_t =  rc->when_mom () - lc->when_mom () ;
 
-	      /*
+  /*
 		ugh should use shortest_playing distance
-	      */
+  */
   if (delta_t)
     {
       Real k=  paper_l()->arithmetic_constant (shortest);
