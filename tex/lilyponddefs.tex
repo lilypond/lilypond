@@ -39,7 +39,16 @@
 \def\interscoreline{\vskip 16pt}
 \def\placebox#1#2#3{%
         \botalign{\hbox{\raise #1\leftalign{\kern #2{}#3}}}}%
-\input lily-ps-defs
+
+% Are we using PDFTeX?  If so, use pdf definitions to translate
+% \embeddedps commands to embedded PDF.
+\ifx\pdfoutput\undefined  
+  \input lily-ps-defs
+\else
+  \pdfoutput=1
+  \input lily-pdf-defs
+\fi
+
 \def\EndLilyPondOutput{%
   \csname bye\endcsname
 }

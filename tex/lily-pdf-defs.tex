@@ -1,0 +1,283 @@
+% A Native PDF version of lily-ps-defs.tex, in which the language
+% features of the PS code are handled by TeX.  This takes the place of
+% lilyponddefs.ps, lily.ps, and lily-ps-defs.tex for PDFTeX.
+%
+% Note that this file will probably require changes if the lily.ps
+% file changes, which is annoying in the long run.  It might be best
+% if sometime the intelligence embodied in lily.ps could be moved up
+% to the GUILE level, so that the \embeddedps commands could consist
+% simply of moveto, lineto, curveto, fill, and stroke commands, with
+% numeric arguments.  Such a setup would allow this file to be simpler
+% and probably cause the resulting PostScript code to be faster as
+% well.
+
+% Redefine @ and _ so we can use them in definition names here.
+\catcode`\@=11
+\catcode`\_=11
+
+% Define a helper procedure for PDF coding.  This file really
+% shouldn't be read if \pdfliteral is undefined, but the alternate
+% definition is nice for testing.
+
+\ifx\pdfliteral\undefined
+  \def\LYPDF#1{\message{[ignored pdfliteral: #1]}}
+\else
+  \let\LYPDF=\pdfliteral
+\fi
+
+% Strip 'pt' off of dimensions.  Borrowed from latex.
+\begingroup
+  \catcode`P=12
+  \catcode`T=12
+  \lowercase{
+     \def\x{\def\lypdf@rempt##1.##2PT{##1\ifnum##2>\z@.##2\fi}}}
+  \expandafter\endgroup\x
+\def\lypdf@strippt{\expandafter\lypdf@rempt\the}
+
+\def\LYDIM#1{\expandafter\lypdf@strippt\dimen#1\space}
+
+\def\lypdf@correctfactor{65536}
+\def\lypdf@divcorrect#1{\multiply\dimen#1 \lypdf@correctfactor\relax}
+
+%% Stack handling.  The design for this is borrowed from supp-pdf.tex
+
+\newcount\nofLYPDFargs
+\def\@@LYPDF{@@LYPDF}
+
+% Add an argument to the `stack'
+\def\setLYPDFarg#1{
+  \advance\nofLYPDFargs by 1
+  \expandafter\def
+    \csname\@@LYPDF\the\nofLYPDFargs\endcsname
+    {#1}
+}
+
+% Get the values for stack variables.  The a form includes a closing
+% \space and is thus useful for embedding in \LYPDF macros.
+\def\gLYPDFa#1
+  {\csname\@@LYPDF#1\endcsname\space}
+\def\gLYPDFan#1
+  {\csname\@@LYPDF#1\endcsname}
+
+% Reset the stack back to normal.
+\def\resetLYPDFstack{\nofLYPDFargs=0}
+
+% A translator for \embeddedps commands.  This simply stacks up the
+% arguments and then passes the last arg to the appropriate lypdf@name
+% macro.
+
+\def\embeddedps#1{  
+  \lypdf@handleArgs#1 \\}
+
+%% Handle the argument list.  Note: when working with arrays, just
+%% keep tacking things onto a string until we get a close bracket.
+%% The various LYPDFarray... variables are used for that.
+\newif\ifLYPDFarray
+\def\LYPDFarraystart{[}
+\def\LYPDFarrayend{]}
+\def\LYPDFarraystring{}
+
+\def\lypdf@{lypdf@}
+\def\lypdf@handleArgs#1 #2\\{
+  \ifx\\#2\\% 
+    \csname\lypdf@#1\endcsname
+    \resetLYPDFstack
+  \else
+    \edef\argstring{#1}
+    \ifLYPDFarray%
+      \edef\LYPDFarraystring{\LYPDFarraystring\space\argstring}
+      \ifx\argstring\LYPDFarrayend%
+        \LYPDFarrayfalse
+        \setLYPDFarg{\LYPDFarraystring}
+      \fi
+    \else
+      \ifx\argstring\LYPDFarraystart%
+	\LYPDFarraytrue
+	\edef\LYPDFarraystring{[}
+      \else
+        \setLYPDFarg{#1}
+      \fi
+    \fi
+    \lypdf@handleArgs#2\\
+  \fi}
+
+% Here turning on PostScript sets up the bracket stuff.  This should
+% probably be called by a more generic header macro.
+\def\turnOnPostScript{\lypdf@load_bracket_dimens}%
+\def\turnOnExperimentalFeatures{}%
+
+%% TODO: lily-ps-defs sets a linecap of 1.  I'm not yet sure how to do that 
+%% for the Page Description level in PDFTeX.
+
+%% What follows are the definitions for the embeddedps commands.
+%% Notes that in general, \dimen0 and \dimen1 are the x and y
+%% positions of the cursor (used for rlineto handling), and dimen2-9
+%% are used for local dimension handling in the various commands.
+
+\def\lypdf@resetstring{\edef\lypdf@curstring{}}
+
+\def\lypdf@moveto#1#2{
+  \dimen0=#1pt
+  \dimen1=#2pt
+  \edef\lypdf@curstring{\lypdf@curstring\space\LYDIM0 \LYDIM1 m}
+}
+
+\def\lypdf@rmoveto#1#2{
+  \advance\dimen0 by #1 pt
+  \advance\dimen1 by #2 pt
+  \edef\lypdf@curstring{\lypdf@curstring\space\LYDIM0 \LYDIM1 m}
+}
+
+\def\lypdf@rlineto#1#2{
+  \advance\dimen0 by #1 pt
+  \advance\dimen1 by #2 pt
+  \edef\lypdf@curstring{\lypdf@curstring\space\LYDIM0 \LYDIM1 l}
+}
+
+\def\lypdf@draw_beam{% takes width, slope, thick
+  \dimen2=\gLYPDFa3 pt\divide\dimen2 by 2
+  \dimen3=\gLYPDFa1 pt\dimen3=\gLYPDFa2 \dimen3
+  \lypdf@resetstring
+  \lypdf@moveto{0}{-\LYDIM2}
+  \lypdf@rlineto{\gLYPDFa1}{\LYDIM3}
+  \lypdf@rlineto{0}{\gLYPDFa3}
+  \LYPDF{\lypdf@curstring\space 0 \LYDIM2 l b}
+}
+       
+\def\lypdf@draw_decrescendo{% takes width, ht, cont, thick
+  \LYPDF{\gLYPDFa4 w
+    	 \gLYPDFa1 \gLYPDFa3 m 0 \gLYPDFa2 l S 
+	 \gLYPDFa1 -\gLYPDFa3 m 0 -\gLYPDFa2 l S}
+}
+\def\lypdf@draw_crescendo{% takes width, ht, cont, thick
+  \LYPDF{\gLYPDFa4 w
+	 0 \gLYPDFa3 m \gLYPDFa1 \gLYPDFa2 l S -\gLYPDFa3 m 
+	 \gLYPDFa1 -\gLYPDFa2 l S}
+}
+
+\def\lypdf@draw_tuplet{% takes height, gap, dx, dy, thickness, dir
+  \dimen2=\gLYPDFa1 pt\multiply\dimen2 by \gLYPDFa6 \relax   
+				   	% height*dir
+  \dimen3=\gLYPDFa2 pt			% tuplet_gapx
+  \dimen0=\gLYPDFa3 pt
+  \dimen4=\gLYPDFa4 \dimen3 \divide\dimen4 by \dimen0
+      \lypdf@divcorrect4		% tuplet_gapy
+  \dimen5=\gLYPDFa3 pt \advance\dimen5 by-\dimen3
+      \divide\dimen5 by 2		% (dx-gx)/2
+  \dimen6=\gLYPDFa4 pt \advance\dimen6 by-\dimen4
+      \divide\dimen6 by 2         	% (dx-gx)/2
+
+  \lypdf@resetstring
+  \lypdf@moveto{0}{0}
+  \lypdf@rlineto{0}{\LYDIM2}
+  \lypdf@rlineto{\LYDIM5}{\LYDIM6}
+  \lypdf@rmoveto{\LYDIM3}{\LYDIM4}
+  \lypdf@rlineto{\LYDIM5}{\LYDIM6}
+  \lypdf@rlineto{0}{-\LYDIM2}
+  \LYPDF{\gLYPDFa5 w 1 j 1 J \lypdf@curstring}
+}
+
+\def\lypdf@draw_volta{% takes height, width, thickness, v_start, v_end
+  \dimen2=\gLYPDFa1 pt			% volta height
+  \ifnum\gLYPDFa4 =0
+    \edef\vstartstr{0 0 m 0 \LYDIM2 l\space}
+  \else
+    \edef\vstartstr{0 \LYDIM2 m\space}
+  \fi
+  \ifnum\gLYPDFa5 =0
+    \edef\vendstr{\gLYPDFa2 0 l\space}
+  \else
+    \edef\vendstr{}
+  \fi
+  \LYPDF{\gLYPDFa3 w 1 J 1 j \vstartstr \gLYPDFa2 \LYDIM2 l \vendstr S}
+}
+
+\def\lypdf@draw_bezier_sandwich{% sixteen coords, thickness
+  \LYPDF{\gLYPDFa17 w
+	 \gLYPDFa15 \gLYPDFa16 m
+	 \gLYPDFa9 \gLYPDFa10 \gLYPDFa11 \gLYPDFa12 \gLYPDFa13 \gLYPDFa14 c
+	 \gLYPDFa7 \gLYPDFa8 l
+	 \gLYPDFa1 \gLYPDFa2 \gLYPDFa3 \gLYPDFa4 \gLYPDFa5 \gLYPDFa6 c
+	 b}}
+
+\def\lypdf@draw_dashed_slur{%
+  \LYPDF{1 J 1 j \gLYPDFa10 \gLYPDFa11 d \gLYPDFa9 w
+	 \gLYPDFa1 \gLYPDFa2 m
+	 \gLYPDFa3 \gLYPDFa4 \gLYPDFa5 \gLYPDFa6 \gLYPDFa7 \gLYPDFa8 c
+	 S}}
+
+%% Definitions for the various dimensions used by the brackets.
+\newdimen\lypdf@interline     
+\newdimen\lypdf@bracket_b     
+\newdimen\lypdf@bracket_w     
+\newdimen\lypdf@bracket_v     
+\newdimen\lypdf@bracket_u     
+\newdimen\lypdf@bracket_t     
+
+\def\lypdf@load_bracket_dimens{
+  \lypdf@interline=\mudelapaperinterline pt
+  \lypdf@bracket_b=0.3333\lypdf@interline
+  \lypdf@bracket_w=2\lypdf@interline
+  \lypdf@bracket_v=1.5\lypdf@interline
+  \lypdf@bracket_u=\lypdf@bracket_v
+  \lypdf@bracket_t=\mudelapaperstaffline pt
+  \lypdf@bracket_t=2\lypdf@bracket_t
+  \relax
+}
+
+%alpha=50.  We calculate the sin and cos directly because TeX can't.
+\def\lypdf@bracket_sin{0.76604}%
+\def\lypdf@bracket_cos{0.64279}%
+
+\def\lypdf@draw_half_bracket{% dimen2 is the bracket height
+  \dimen3=\dimen2\advance\dimen3 by -\lypdf@bracket_t  % h - t
+
+  % Here, dimen0 and dimen1 are the end points of the bracket
+  \dimen0=\lypdf@bracket_b\relax\advance\dimen0 by \lypdf@bracket_v
+  \dimen1=\dimen3\advance\dimen1 by \lypdf@bracket_u
+
+  % bottom of half bracket and inner side
+  \edef\lypdf@halfbrack{0 0 m \lypdf@strippt\lypdf@bracket_b\space 0 l 
+	\lypdf@strippt\lypdf@bracket_b\space \LYDIM3 l}
+
+  % inner curve -- first control point is just 0.4*v to the right
+  \dimen4=\lypdf@bracket_b\advance\dimen4 by 0.4\lypdf@bracket_v
+  %  ... second point is calc'd using alpha
+  \dimen5=-0.25\lypdf@bracket_v\relax
+  \dimen6=\dimen0\advance\dimen6 by \lypdf@bracket_cos\dimen5\relax
+  \dimen7=\dimen1\advance\dimen7 by \lypdf@bracket_sin\dimen5\relax
+  % draw the curve
+  \edef\lypdf@halfbrack
+    {\lypdf@halfbrack\space\LYDIM4 \LYDIM3 \LYDIM6 \LYDIM7 \LYDIM0 \LYDIM1 c}
+
+  % outer curve -- second control point is just .5*v to the right
+  % (plus 1 pt)
+  \dimen4=0.5\lypdf@bracket_v\advance\dimen4 by 1pt
+  % ... first point is calc'd using alpha  
+  \dimen5=-0.15\lypdf@bracket_v\relax
+  \dimen6=\dimen0\advance\dimen6 by \lypdf@bracket_cos\dimen5\relax
+  \dimen7=\dimen1\advance\dimen7 by \lypdf@bracket_sin\dimen5\relax
+  % draw the curve, close, stroke, fill
+  \edef\lypdf@halfbrack
+    {\lypdf@halfbrack\space\LYDIM6 \LYDIM7 \LYDIM4 \LYDIM2 0 \LYDIM2 c b} 
+}
+
+\def\lypdf@draw_bracket{% height
+  \dimen2=\gLYPDFa1 pt \divide\dimen2 by 2
+                \advance\dimen2 by \lypdf@bracket_b\relax
+  % calculate the half bracket
+  \lypdf@draw_half_bracket
+  % set up graphics state, gsave, and flip the coord system 
+  % then draw both half brackets.
+  \LYPDF{\lypdf@strippt\lypdf@bracket_t\space w 
+	1 J 1 j q 1 0 0 -1 0 0 cm
+  	\lypdf@halfbrack\space Q \lypdf@halfbrack}
+  }
+
+
+%% Clean up after ourselves.
+
+\catcode`\@=12
+\catcode`\_=8
+
+\endinput

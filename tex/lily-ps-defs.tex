@@ -40,3 +40,26 @@
    \expandafter\special{! \includelilyps }
 }
 
+
+\def\turnOnPostScript{%
+        % This sets CTM so that you get to the currentpoint
+        % by executing a 0 0 moveto
+        \def\embeddedps##1{%
+                \special{ps: @beginspecial @setspecial ##1 @endspecial}       
+        }
+        %
+
+        \special{! 
+/stafflinethickness \mudelapaperstaffline\space def
+/interline \mudelapaperinterline\space def
+interline 3 div /bracket_b exch def
+interline 2 mul /bracket_w exch def
+stafflinethickness 2 mul /bracket_t exch def
+interline 1.5 mul /bracket_v exch def
+bracket_v /bracket_u exch def
+50 /bracket_alpha exch def
+1 setlinecap}
+}
+
+\def\turnOnExperimentalFeatures{}
+
