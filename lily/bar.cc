@@ -18,9 +18,9 @@
 #include "debug.hh"
 #include "all-font-metrics.hh"
 
-Bar::Bar ()
+Bar::Bar (SCM s)
+  : Item (s)
 {
-  set_elt_property ("breakable", SCM_BOOL_T);
 }
 
 
@@ -124,6 +124,7 @@ void
 Bar::before_line_breaking ()
 {
   SCM g = get_elt_property ("glyph");
+  SCM orig = g;
   Direction bsd = break_status_dir ();
   if (gh_string_p (g))
     {
@@ -146,7 +147,7 @@ Bar::before_line_breaking ()
       set_elt_property ("transparent", SCM_BOOL_T);
       set_extent_callback (0, X_AXIS);      
     }
-  else
+  else if (! gh_equal_p  (g, orig))
     set_elt_property ("glyph", g);
 }
   

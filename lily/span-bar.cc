@@ -18,7 +18,7 @@
 void
 Span_bar::add_bar (Score_element*b)
 {
-  Group_interface gi (this);
+  Pointer_group_interface gi (this);
   gi.add_element (b);
 
   add_dependency (b);
@@ -26,7 +26,7 @@ Span_bar::add_bar (Score_element*b)
 
 
 Interval
-Span_bar::width_callback (Score_element const *se, Axis a)
+Span_bar::width_callback (Score_element const *se, Axis )
 {
   Span_bar*  s= dynamic_cast<Span_bar*> ((Score_element*)se);
   String gl = ly_scm2string (s->get_elt_property ("glyph"));
@@ -58,7 +58,7 @@ Span_bar::after_line_breaking ()
 void
 Span_bar::evaluate_empty ()
 { 
-  if (!gh_pair_p (get_elt_property ("elements")))
+  if (!gh_pair_p (get_elt_pointer ("elements")))
     {
       set_elt_property ("transparent", SCM_BOOL_T);
       set_extent_callback (0, X_AXIS);
@@ -74,6 +74,7 @@ Span_bar::evaluate_empty ()
     }
   else {
     String type_str = ly_scm2string (gl);
+    String orig = type_str;
     if (type_str == "|:") 
       {
 	type_str= ".|";
@@ -86,8 +87,8 @@ Span_bar::evaluate_empty ()
       {
 	type_str= ".|.";
       }
-
-    set_elt_property ("glyph", ly_str02scm (type_str.ch_C()));
+    if (orig != type_str)
+      set_elt_property ("glyph", ly_str02scm (type_str.ch_C()));
   }
 }
 
@@ -110,9 +111,10 @@ Span_bar::get_bar_size () const
   return iv.length ();
 }
 
-Span_bar::Span_bar ()
+Span_bar::Span_bar (SCM s)
+  : Bar (s)
 {
-  group (this).set_interface ();
+  Pointer_group_interface(this).set_interface ();
   set_extent_callback (width_callback, X_AXIS);
   
   // dim_cache_[Y_AXIS]->set_extent_callback (Axis_group_interface::group_extent_callback);

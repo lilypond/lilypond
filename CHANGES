@@ -1,11 +1,34 @@
-1.3.53.uu1
-==========
+1.3.54.hwn2
+===========
+
+* Experimental property collapse for most score-elements.  (notable
+exceptions: Scripts, pedals). Change all Score_element constructors to
+take a basic-property list. The suffix of a property list may be
+shared by several score-elements, for instance all default G-clefs in
+a score share the following settings
+  
+	   (breakable . #t)
+	   (break-align-symbol . Clef_item)
+	   (visibility-lambda . ,begin-of-line-visible) 
+
+This should reduce memory usage further. 
+
+* Magically fixed the disappearing Lyrics problem.
+
+* Removed used_b_ field from Score_element.  
+
+* Massive search-replace patch: store pointers and properties
+separately, in preparation of property collapse.
+
+
+1.3.54
+======
 
 * Bugfix: don't crash on tuplet spanners that don't contain any notes.
 
-* Small cleanup of Dimension_cache: removed a few redundant
-fields. Slightly lower memory usage. Dimension_cache is now a `dumb'
-struct again.
+* Cleanup of Dimension_cache: removed a few redundant
+fields. Slightly lower memory usage (32 bytes per
+score-element). Dimension_cache is now a `dumb' struct again.
 
 * Add array index to priority field of text scripts to ensure that
 order is unique, and sensible.
