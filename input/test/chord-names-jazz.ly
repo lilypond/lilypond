@@ -1,7 +1,15 @@
 \version "1.7.10"
 \header {
-texidoc = "Jazz notation for chord names." 
+texidoc = "Jazz notation for chord names.
+
+FIXME.
+
+"
+
 }
+\score { \notes { c4^"fixme"}}
+
+%{
 
 %% This should only be necessary if your kpathsea setup is broken
 %
@@ -63,3 +71,4 @@ scheme = \chords {
   >
 }
 %% new-chords-done %%
+%}

@@ -6,6 +6,8 @@
 
 
 
+\score { \notes { c4^"fixme"}}
+
 %% This should only be necessary if your kpathsea setup is broken
 %
 % Make sure the correct msamxx.tfm is where lily can find it

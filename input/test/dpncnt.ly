@@ -5,6 +5,8 @@ TODO: FIXME.
 "
 }
 
+\score { \notes { c4^"fixme"}}
+
 %{
 
 efull = \chordnames {
