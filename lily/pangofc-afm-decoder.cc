@@ -44,6 +44,12 @@
 #define dprintf(args...)
 #endif
 
+#ifndef PANGO_FC_AFM_DECODER_TEST
+#define PUA_OFFSET 0xe00
+#else
+#define PUA_OFFSET 0
+#endif
+
 struct _PangoFcAfmDecoderPrivate
 {
   GString encoding[256];
@@ -135,7 +141,7 @@ pango_fc_afm_get_glyph (PangoFcDecoder *decoder, PangoFcFont *fcfont,
      Use direct privat usage area (PUA) mapping as shortcut for
      actual AFM reading.  The Feta charsets are encoded without any
      gaps, and mappend onto PUA.  */
-  return wc - 0xe000;
+  return wc - PUA_OFFSET;
 #endif  
 }
 
@@ -257,7 +263,7 @@ main (int argc, char **argv)
 
   int text_item = gnome_canvas_text_get_type ();
   GnomeCanvasGroup *root = gnome_canvas_root (canvas);
-  char const *g_clef_utf8 = "\302\220";
+  char const *g_clef_utf8 = "p";
 
   gnome_canvas_text (45.0, 122.5, "LilyPond-feta-nummer 16", "3");
   gnome_canvas_text (45.0, 142.5, "LilyPond-feta-nummer, r 16", "4");

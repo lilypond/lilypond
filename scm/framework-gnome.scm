@@ -19,6 +19,7 @@
  (gnome gw canvas))
 
 
+;;; This is in 2.7.96 -- JUNKME.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Wrappers from guile-gnome TLA
 ;;; guile-gnome-devel@gnu.org--2004
@@ -44,24 +45,6 @@
 	   (vector-ref vector 5))
 	  (else
 	   (gruntime-error "Event not of the proper type: ~A" event))))))
-
-; (if (not (defined? 'gdk-event-motion:x-root))
-;     (define (gdk-event-motion:x-root event)
-;       (let ((vector (gdk-event->vector event)))
-; 	(case (gdk-event:type event)
-; 	  ((motion-notify)
-; 	   (vector-ref vector 9))
-; 	  (else
-; 	   (gruntime-error "Event not of the proper type: ~A" event))))))
-
-; (if (not (defined? 'gdk-event-motion:y-root))
-;     (define (gdk-event-motion:y-root event)
-;       (let ((vector (gdk-event->vector event)))
-; 	(case (gdk-event:type event)
-; 	  ((motion-notify)
-; 	   (vector-ref vector 10))
-; 	  (else
-; 	   (gruntime-error "Event not of the proper type: ~A" event))))))
 
 (if (not (defined? 'gdk-event-button:modifiers))
     (define (gdk-event-button:modifiers event)
