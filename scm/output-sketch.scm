@@ -227,7 +227,8 @@
 ;; what the heck is this interface ?
 (define (dashed-slur thick dash l)
   (string-append 
-   (apply string-append (map ly:number-pair->string l)) 
+   (string-join (map ly:number-pair->string l) " ")
+   " "
    (ly:number->string thick) 
    " [ "
    (ly:number->string dash)
