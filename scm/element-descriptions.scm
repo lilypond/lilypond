@@ -4,6 +4,7 @@
 (define all-element-descriptions
   `((Arpeggio . (
 	       (X-extent-callback . ,Arpeggio::width_callback)
+	       (Y-extent-callback . #f)	       
 	       (molecule-callback . ,Arpeggio::brew_molecule)
 	       (Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	       (X-offset-callbacks . (,Side_position::aligned_side))
@@ -286,6 +287,15 @@
 			rhythmic-head-interface font-interface 
 			note-head-interface ))
 	))
+	(NoteHeadLine . (
+			 (type . line)
+			 (gap . 0.5)
+			 (X-extent-callback . #f)
+			 (Y-extent-callback . #f)			 
+			 (molecule-callback . ,Line_spanner::brew_molecule)
+			 (meta . ,(element-description "NoteHeadLine"
+						       line-spanner-interface))
+			 ))
 
 	(NoteName . (
 		(molecule-callback . ,Text_item::brew_molecule)
@@ -357,7 +367,6 @@
 		(meta . ,(element-description "SpacingSpanner"  spacing-spanner-interface))
 	))
 	(SpanBar . (
-
 		(break-align-symbol . Staff_bar)
 		(barsize-procedure . ,Span_bar::get_bar_size) 
 		(molecule-callback . ,Bar::brew_molecule)
@@ -455,6 +464,7 @@
 		(meta . ,(element-description "SustainPedal" sustain-pedal-interface side-position-interface font-interface))
 	))
 
+	; should split in 3
 	(SystemStartDelimiter . (
 		(molecule-callback . ,System_start_delimiter::brew_molecule)
 		(after-line-breaking-callback . ,System_start_delimiter::after_line_breaking)

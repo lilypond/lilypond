@@ -472,20 +472,29 @@ font-point-size font-relative-size)
 
     )))
 
+(define line-spanner-interface
+  (lily-interface
+   'line-spanner-interface
+   "Generic line drawn between two objects, eg. for use with glissandi.
+gap is relative to the total length of the line.   "
+
+   '(gap 
+    dash-period 
+    dash-length 
+    line-thickness 
+    type 
+    )
+   ))
+
 (define lyric-hyphen-interface
   (lily-interface
    'lyric-hyphen-interface
    "A centred hyphen is a simple line between lyrics used to divide
 syllables.   The length of the hyphen line should stretch based on the
   size of the gap between syllables."
-   '(
-    
-    thickness 
-    height 
 
-    minimum-length 
-    word-space 
-    )))
+   '( thickness height minimum-length word-space )
+   ))
 
 (define key-signature-interface
   (lily-interface
@@ -534,32 +543,21 @@ numbers, fields from font-interface may be used.
 padding is the space between number and rest. Measured in staffspace.
  
 "
-   '(
-    
-    columns  
-    expand-limit  
-    minimum-width 
-    padding  
-    )))
+   '(    columns expand-limit minimum-width padding )
+
+   ))
 
 (define paper-column-interface
   (lily-interface
    'paper-column-interface
    ""
-   '(
-    column-space-strength 
-    before-musical-spacing-factor 
-    stem-spacing-correction 
-    before-grace-spacing-factor 
-    when 
-    bounded-by-me 
-    dir-list  
-    shortest-playing-duration  
-    shortest-starter-duration  
-    contains-grace  
-    extra-space  
-    stretch-distance 
-    )))
+
+   '(column-space-strength before-musical-spacing-factor
+stem-spacing-correction before-grace-spacing-factor when bounded-by-me
+dir-list shortest-playing-duration shortest-starter-duration
+contains-grace extra-space stretch-distance ))
+
+  )
 
 (define spaceable-element-interface
   (lily-interface
