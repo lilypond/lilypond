@@ -12,18 +12,23 @@
 struct Notehead : public Item
 {
     int position;
+
+    /// needed for the help-lines
     int staff_size;
     int dots;
     int balltype;
 
     /****************/
+    
     void preprocess();
 
     Notehead(int staff_size);
     /**
       position of top line (5 linestaff: 8)
       */
+    
     void print()const;
+
 private:
     void brew_molecole();
 };
