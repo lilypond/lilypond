@@ -1,3 +1,43 @@
+1.3.120
+=======
+
+* Removed texi->dvi cancellation and removed --clean option from texi2dvi
+command line; this fixes generation of dvi files in Documentation/user.
+Strange bug in texi2dvi.
+
+* Fixed bibtex url (reported David Raleigh Arnold), added support for
+bibtex2html, which is in Debian.
+
+* Added direntries to toplevel texi documents, for info files
+(reported Thomas Klausner).
+
+* Removed some empty files.
+
+* Make a Stem::height callback, to prevent early brew_molecule
+call. This fixes input/bugs/triplet.ly.
+
+* Manual fix for generated -interfaces documentation.
+
+* Small changes for texinfo-4.0a prerelease.
+
+* Added a --force option for makeinfo .txt generation.
+
+* Changed debian ftp urls according to new package pools layout.
+
+* Debian update, including menu/node fixes to development.texi (Anthony Fok).
+
+* Bugfix: lilypond-book (Tom Cato Amundsen).
+
+* Increase the size of dynamics, adding new sizes of feta-din (Mats Bengtsson).
+
+* \clef "none"; no clef, but whitespace (Mark Hindley).
+
+* Website fix: don't mv but cp .pngs do deep-html dirs.
+
+* Bugfix: chords examples (James Hammons).
+
+* Warning fix.
+
 1.3.119
 =======
 

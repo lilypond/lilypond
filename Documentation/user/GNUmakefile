@@ -42,28 +42,31 @@ default:
 info: $(INFO_FILES)
 
 
-# The next version of makeinfo should split html files into their own
-# directory.  For now available only as patches from
-# http://appel.lilypond.org/software
-SPLITTING_MAKEINFO = $(shell makeinfo --version | grep '4.0.jcn[2,3]')
+# The new pretest version of makeinfo, 4.0a splits html files into their own
+# directory.  Available from
+# ftp://texinfo.org/texinfo/pretests/texinfo-4.0a.tar.gz
+SPLITTING_MAKEINFO = $(shell makeinfo --version | egrep '4.0((.jcn[2,3])|a)')
 
 
 # Generic rule using % twice not possible?
 # $(outdir)/%/%.html: $(outdir)/%.texi
 $(outdir)/lilypond/lilypond.html: $(outdir)/lilypond.texi
 	-$(MAKEINFO) --force --output=$@ --html $<
-	-mv -f $(outdir)/*.png $(outdir)/lilypond
-	$(deep-footify) $(sort $(wildcard $(outdir)/$(*F)/*.html))
+	-cp -f $(outdir)/*.png $(outdir)/lilypond
+	-cp -f $(outdir)/lilypond/index.html $@
+	$(deep-footify) $(shell find $(outdir)/$(*F)/*.html)
 
 $(outdir)/lilypond-internals/lilypond-internals.html: $(outdir)/lilypond-internals.texi
 	-$(MAKEINFO) --force --output=$@ --html $<
-	-mv -f $(outdir)/*.png $(outdir)/lilypond-internals
-	$(deep-footify) $(sort $(wildcard $(outdir)/$(*F)/*.html))
+	-cp -f $(outdir)/*.png $(outdir)/lilypond-internals
+	-cp -f $(outdir)/lilypond-internals/index.html $@
+	$(deep-footify) $(shell find $(outdir)/$(*F)/*.html)
 
 $(outdir)/features/features.html: $(outdir)/features.texi
 	-$(MAKEINFO) --force --output=$@ --html $<
-	-mv -f $(outdir)/*.png $(outdir)/features
-	$(deep-footify) $(sort $(wildcard $(outdir)/$(*F)/*.html))
+	-cp -f $(outdir)/*.png $(outdir)/features
+	-cp -f $(outdir)/features/index.html $@
+	$(deep-footify) $(shell find $(outdir)/$(*F)/*.html)
 
 ifneq ($(SPLITTING_MAKEINFO),)
 
@@ -77,7 +80,7 @@ endif
 
 
 local-WWW: $(HTML_FILES) $(datafiles) $(PS_GZ_FILES) $(DEEP_HTML_FILES)
-	$(SHELL) $(buildscript-dir)/install-info-html.sh --dir=$(outdir) lilypond lilypond-internals
+	$(SHELL) $(buildscript-dir)/install-info-html.sh --dir=$(outdir) lilypond lilypond-internals features
 	$(MAKE) footify
 	$(MAKE) deep-footify
 
@@ -94,6 +97,7 @@ $(outdir)/%.bib: %.bib
 
 localclean:
 	rm -f fonts.aux fonts.log feta*.tfm feta*.*pk 
+	rm -rf $(outdir)/lilypond $(outdir)/lilypond-internals $(outdir)/features
 
 backdoc-WWW: $(outdir)/lilypond-internals/lilypond-internals.html
 	$(SHELL) $(buildscript-dir)/install-info-html.sh --dir=$(outdir) lilypond lilypond-internals

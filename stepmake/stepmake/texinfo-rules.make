@@ -16,13 +16,13 @@ $(outdir)/%/%.html: $(outdir)/%.texi
 # we want footers even if website builds (or is built) partly
 	$(deep-footify) $(sort $(wildcard $(outdir)/$(*F)/*.html))
 
-$(outdir)/%.dvi:	$(outdir)/%.texi
-# --clean only in >= 3.12s
-# cd $(outdir); texi2dvi --clean ../$< 
-	cd $(outdir); texi2dvi ../$< 
+$(outdir)/%.dvi: $(outdir)/%.texi
+# ugh, --clean removes .. from TEXINPUTS?
+#	cd $(outdir); texi2dvi --batch --clean ../$< 
+	cd $(outdir); texi2dvi --batch ../$< 
 
 $(outdir)/%.txt: $(outdir)/%.texi
-	$(MAKEINFO) -I../ -I $(outdir) --no-split --no-headers --output $@ $<
+	$(MAKEINFO) --force -I../ -I $(outdir) --no-split --no-headers --output $@ $<
 
 $(outdir)/%.texi: %.texi
 	rm -f $@
