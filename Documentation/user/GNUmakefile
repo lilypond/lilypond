@@ -8,7 +8,7 @@ LATEX_FILES =$(wildcard *.latex)
 # todo: add latex.
 DVI_FILES = $(addprefix $(outdir)/, $(TELY_FILES:.tely=.dvi))
 
-EXTRA_DIST_FILES= $(LATEX_FILES)    $(wildcard *.itexi *.itely)
+EXTRA_DIST_FILES= $(LATEX_FILES)
 
 HTML_FILES = $(addprefix $(outdir)/, $(TELY_FILES:.tely=.html))
 
