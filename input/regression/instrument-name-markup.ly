@@ -10,7 +10,7 @@ including alterations. "
 \version "2.1.22"
 
 
-textFlat = \markup {\smaller \semiflat}
+textFlat = \markup {\smaller \flat}
 
 \score {
   \notes \new Staff {

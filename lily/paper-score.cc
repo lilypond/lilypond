@@ -81,7 +81,8 @@ Paper_score::process (String outname)
   progress_indication (_ ("Preprocessing graphical objects...") + " ");
 
   /*
-    Be sure to set breakability on first & last column.
+    Check out why we need this - removing gives assertion failures
+    down the road.
    */
   { /* doubly, also done in Score_engraver */
     Link_array<Grob> pc (system_->columns ());
@@ -89,30 +90,33 @@ Paper_score::process (String outname)
     pc[0]->set_grob_property ("breakable", SCM_BOOL_T);
     pc.top ()->set_grob_property ("breakable", SCM_BOOL_T);
   }
+
   system_->pre_processing ();
  
   Array<Column_x_positions> breaking = calc_breaking ();
   system_->break_into_pieces (breaking);
   
   outputter_ = paper_->get_paper_outputter (outname);
-  outputter_->output_header ();
-  outputter_->output_version ();
 
   progress_indication ("\n");
 
-  if (global_input_file->header_)
-    {
-      outputter_->output_scope (global_input_file->header_, "lilypond");
-      outputter_->write_header_fields_to_file (global_input_file->header_);
-    }
-  
+  SCM scopes = SCM_EOL;
+
+  /*
+    Last one first.
+   */
   if (header_)
     {
-      outputter_->output_scope (header_, "lilypond");
-      outputter_->write_header_fields_to_file (header_);
+      scopes = scm_cons (header_, scopes);
     }
 
-  outputter_->output_scope (paper_->scope_, "lilypondpaper");
+  if (global_input_file->header_ && global_input_file->header_ != header_)
+    {
+      scopes = scm_cons (global_input_file->header_, scopes);
+    }
+  
+  outputter_->output_metadata (scopes);
+  outputter_->output_music_output_def (paper_);
 
   SCM scm = scm_list_n (ly_symbol2scm ("header-end"), SCM_UNDEFINED);
   outputter_->output_scheme (scm);
