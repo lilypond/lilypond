@@ -1,7 +1,12 @@
-1.5.5.jcn1
+1.5.5.jcn2
 ==========
 
-* Updated input/bugs.
+* input/bugs:
+  - Autogenerate bugs document from all .ly's.
+  - Add texidoc to lots of examples.
+  - Junk or move fixed examples to regression test.
+  - Move examples that crash lilypond to input/no-notation.
+  - Update examples.
 
 1.5.5
 =====

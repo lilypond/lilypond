@@ -12,10 +12,10 @@
 
 @section Introduction
 
-This document tries give a brief overview of LilyPond features.  When
-the text correspond with the shown notation, we consider LilyPond
-Officially BugFree (tm).  This document is intended for finding bugs,
-and documenting bugfixes.
+This document presents a brief overview of LilyPond features.  When the
+text correspond with the shown notation, we consider LilyPond Officially
+BugFree (tm).  This document is intended for finding bugs, and
+documenting bugfixes.
 
 @section Notes and rests
 

@@ -1,0 +1,7 @@
+This directory holds a collection of examples that show all simple
+notation bugs known to exist in LilyPond.
+
+Bugs that make lilypond crash, or don't generate notation should go in
+
+   input/no-notation
+
