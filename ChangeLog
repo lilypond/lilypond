@@ -1,5 +1,7 @@
 2004-04-11  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/font.scm (add-cmr-fonts): caps is eccc, ecsc is slanted caps.
+
 	* scm/output-ps.scm (text): split string into spaces, use moveto
 	for setting space. 
 	
