@@ -41,16 +41,12 @@ Rhythmic_head::set_dots (Grob*me,Item *dot)
   me->set_grob_property ("dot", dot->self_scm ());
 }
 
-
-
 int
 Rhythmic_head::duration_log (Grob*me) 
 {
   SCM s = me->get_grob_property ("duration-log");
   return gh_number_p (s) ? gh_scm2int (s) : 0;
 }
-
-
 
 ADD_INTERFACE (Rhythmic_head,"rhythmic-head-interface",
   "Note head or rest",

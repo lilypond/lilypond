@@ -171,7 +171,7 @@ line).")
      (dashed ,number? " number representing the length of the dashes.")
      
      (neutral-direction ,ly:dir? "Where to go if we're on the neutral
-position of the staff (see also grob-property neutral-position).")
+position of the staff.")
 
      ;; todo: why is this tunable?
      (neutral-position ,number? "Position (in half staff spaces) where

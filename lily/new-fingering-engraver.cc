@@ -90,6 +90,9 @@ New_fingering_engraver::acknowledge_grob (Grob_info inf)
 	  else if (m->is_mus_type ("harmonic-event"))
 	    {
 	      inf.grob_->set_grob_property ("style", ly_symbol2scm ("harmonic"));
+	      Grob * d = unsmob_grob (inf.grob_->get_grob_property ("dot"));
+	      if (d)
+		d->suicide ();  
 	    }
 	}
 

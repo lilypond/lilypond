@@ -32,7 +32,7 @@
   
   We copy the reqs into scratch note reqs, to make sure that we get
   all durations exactly right.
- */
+*/
 
 class Completion_heads_engraver : public Engraver
 {

@@ -64,7 +64,6 @@ Note_heads_engraver::process_music ()
       Duration dur = *unsmob_duration (req->get_mus_property ("duration"));
 
       note->set_grob_property ("duration-log", gh_int2scm (dur.duration_log ()));
-
       if (dur.dot_count ())
 	{
 	  Item * d = make_item ("Dots");

@@ -427,8 +427,10 @@ Accidental_engraver::acknowledge_grob (Grob_info info)
   Music * note =  info.music_cause ();
 
   if (note
-      && note->is_mus_type("note-event")
-      && Rhythmic_head::has_interface (info.grob_))
+      && note->is_mus_type ("note-event")
+      && Rhythmic_head::has_interface (info.grob_)
+      && !gh_equal_p (info.grob_->get_grob_property ("style"), ly_symbol2scm ("harmonic"))
+      )
     {
       Accidental_entry entry ;
       entry.head_ = info.grob_;

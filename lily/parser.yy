@@ -1181,19 +1181,19 @@ music_property_def:
 			$3, $5, SCM_UNDEFINED));
 		$$= context_spec_music (gh_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
 	}
-	| SET context_prop_spec '=' scalar {
-		$$ = property_op_to_music (scm_list_n (
-			ly_symbol2scm ("assign"),
-			gh_cadr ($2),
-			$4, SCM_UNDEFINED));
-		$$= context_spec_music (gh_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
-	}
 	| REVERT context_prop_spec embedded_scm {
 		$$ = property_op_to_music (scm_list_n (
 			ly_symbol2scm ("pop"),
 			gh_cadr ($2),
 			$3, SCM_UNDEFINED));
 
+		$$= context_spec_music (gh_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
+	}
+	| SET context_prop_spec '=' scalar {
+		$$ = property_op_to_music (scm_list_n (
+			ly_symbol2scm ("assign"),
+			gh_cadr ($2),
+			$4, SCM_UNDEFINED));
 		$$= context_spec_music (gh_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
 	}
 	| UNSET context_prop_spec {

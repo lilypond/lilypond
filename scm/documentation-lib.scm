@@ -206,9 +206,9 @@ with init values from ALIST (1st optional argument)
 		    "(" typename ")"
 		    (if handle
 			(string-append
-			 ":\n\n @code{"
+			 ":\n\n"
 			 (scm->texi (cdr handle))
-			 "}\n\n")
+			 "\n\n")
 			"")
 				    
 

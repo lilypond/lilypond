@@ -1,4 +1,4 @@
-\version "2.1.22"
+\version "2.1.23"
 
 \header { texidoc = "@cindex Staff Size
 
@@ -14,7 +14,7 @@ must be set."
       }
       \new Staff \with {
 	  fontSize = #-1
-	  StaffSymbol \set #'staff-space = #(magstep -1)
+	  \override StaffSymbol #'staff-space = #(magstep -1)
       } {
 	  \clef bass
 	  c8 c c c  c c c c

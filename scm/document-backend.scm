@@ -6,28 +6,6 @@
 ;;; Jan Nieuwenhuizen <janneke@gnu.org>
 
 
-;;; This file generates documentation for the backend of lilypond.
-
-;; alist of property descriptions
-
-;;
-"
-TODO:
-
-
-Grob bla
-
-Created by:
-
-  * preset properties + explanation
-
-Interfaces:
-
-  * properties available.
-
-"
-
-
 (define (interface-doc-string interface grob-description)
   (let*
       ((name (car interface))
@@ -210,9 +188,9 @@ node."
     (make <texi-node>
       #:name "User backend properties"
       #:desc "All tunable properties in a big list"
-      #:text (backend-properties-doc-string all-internal-grob-properties))
+      #:text (backend-properties-doc-string all-user-grob-properties))
     (make <texi-node>
       #:name "Internal backend properties"
       #:desc "All internal layout properties in a big list"
-      #:text (backend-properties-doc-string all-user-grob-properties))
+      #:text (backend-properties-doc-string all-internal-grob-properties))
   )))

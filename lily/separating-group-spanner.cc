@@ -117,6 +117,6 @@ Separating_group_spanner::add_spacing_unit (Grob* me ,Item*i)
 
 
 ADD_INTERFACE (Separating_group_spanner,"separation-spanner-interface",
-  "A spanner that calculates spacing constraints (\"rods\") "
- "using the @code{separation-item-interface} grobs in @code{elements}.",
-  "elements padding");
+	       "A spanner that calculates spacing constraints (\"rods\") "
+	       "using the @code{separation-item-interface} grobs in @code{elements}.",
+	       "elements padding");
