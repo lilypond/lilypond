@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 #ifndef ITEM_HH
 #define ITEM_HH
@@ -47,7 +47,6 @@ public:
   /// I am really to be broken?
   bool breakable_b () const;
   bool broken_b () const;
-  bool broken_original_b () const;
   
   Direction break_status_dir () const;
   

@@ -1,6 +1,6 @@
 % -*- Fundamental -*-
 
-accreg_dot_size# := .5interline#;
+accreg_dot_size# := .5staff_space#;
 
 % FIXME
 % 'strange turning path' in accSB and others:
@@ -11,7 +11,7 @@ accreg_linethickness# := 1.3stafflinethickness#;
 % This dimention is the same on all registersymbols.
 % The different symbols should calculate their other
 % dimensions from this and accreg_dot_size
-accreg_lh# := 1.0interline#;
+accreg_lh# := 1.0staff_space#;
 
 define_pixels(accreg_dot_size, accreg_linethickness, accreg_lh);
 pen accreg_pen;
@@ -133,10 +133,10 @@ enddef;
 def def_some_vars =
 	save hs, mb, mt, thin, thick, height, width, cOne, cTwo;
 	width = .8staffsize;
-	height = 2.4interline;
-	thin = 0.05interline;
-	thick = 0.2interline;
-	hs = 0.4interline;
+	height = 2.4staff_space;
+	thin = 0.05staff_space;
+	thick = 0.2staff_space;
+	hs = 0.4staff_space;
 	mb = .53;
 	mt = .47;	
 	cOne = 0.65;
@@ -144,7 +144,7 @@ def def_some_vars =
 enddef;
 
 fet_beginchar("accSB", "accSB", "accSB")
-	set_char_box(.4staffsize#, .4staffsize#, 0, 2.4interline#);
+	set_char_box(.4staffsize#, .4staffsize#, 0, 2.4staff_space#);
 	def_some_vars;
 	def_B(.35width, .7height);
 
@@ -169,11 +169,11 @@ fet_beginchar("accSB", "accSB", "accSB")
 	currentpicture := currentpicture shifted (-.40width, -.85height);
 	draw (-.5width, 0)--(.5width, 0)--(.5width, -height)
 		--(-.5width, -height)--(-.5width, 0);
-	currentpicture := currentpicture shifted (0, 2.4interline);
+	currentpicture := currentpicture shifted (0, 2.4staff_space);
 fet_endchar;
 
 fet_beginchar("accBB", "accBB", "accBB")
-	set_char_box(.4staffsize#, .4staffsize#, 0, 2.4interline#);
+	set_char_box(.4staffsize#, .4staffsize#, 0, 2.4staff_space#);
 	def_some_vars;
 	def_B(.35width, .7height);
 
@@ -192,17 +192,17 @@ fet_beginchar("accBB", "accBB", "accBB")
 	currentpicture := currentpicture shifted(-.40width, -.85height);
 	draw (-.5width, 0)--(.5width, 0)--(.5width, -height)
 		--(-.5width, -height)--(-.5width, 0);
-	currentpicture := currentpicture shifted (0, 2.4interline);
+	currentpicture := currentpicture shifted (0, 2.4staff_space);
 fet_endchar;
 
 
 fet_beginchar("accOldEE", "accOldEE", "accOldEE")
-	set_char_box(interline#, interline#, 0, 2interline#);
+	set_char_box(staff_space#, staff_space#, 0, 2staff_space#);
 	show w;
 	show h;
-	r = interline;
-	lr = .3interline;
-	ir = .6interline;
+	r = staff_space;
+	lr = .3staff_space;
+	ir = .6staff_space;
 	pickup accreg_pen;
 	draw fullcircle scaled 2r;
 	pickup penrazor;
@@ -221,9 +221,9 @@ fet_beginchar("accOldEE", "accOldEE", "accOldEE")
 fet_endchar;
 
 fet_beginchar("accOldEES", "accOldEES", "accOldEES")
-	set_char_box(interline#, interline#, 0, 2interline#);
+	set_char_box(staff_space#, staff_space#, 0, 2staff_space#);
 	save r, shy;
-	r = interline;
+	r = staff_space;
 	shy = .3;
 	pickup accreg_pen;
 	draw fullcircle scaled 2r;

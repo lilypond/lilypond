@@ -14,6 +14,7 @@
 struct Offset;
 
 Offset complex_multiply (Offset, Offset);
+Offset complex_divide (Offset, Offset);
 Offset complex_exp (Offset);
 
 

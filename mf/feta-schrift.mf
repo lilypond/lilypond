@@ -19,7 +19,7 @@ def draw_fermata =
 	% suggest ca 80 degrees iso half-circle
   alpha := 10;
 
-  radius# = 1.25 interline#;
+  radius# = 1.25 staff_space#;
   crook_thinness# = 1.5stafflinethickness#;
   crook_fatness# = 4 stafflinethickness#;
 
@@ -67,7 +67,7 @@ fet_endchar;
 fet_beginchar("Thumb", "thumb", "thumb")
         save thin, height, width, thick;
         height# = 5/4 width#;
-        height# = interline#;
+        height# = staff_space#;
         thin = 1.2 stafflinethickness;
         thick =  2 thin;
         set_char_box(width#/2, width#/2, height#/2, height#/2);
@@ -92,7 +92,7 @@ fet_endchar;
 %
 % `\accent' is TeX reserved.
 fet_beginchar("> accent", "sforzato", "sforzatoaccent")
-	set_char_box(.9 interline#, .9 interline#, .5 interline#, .5 interline#);
+	set_char_box(.9 staff_space#, .9 staff_space#, .5 staff_space#, .5 staff_space#);
 	save thickness, diminish;
 
 	thickness = 3/2 stafflinethickness;
@@ -135,7 +135,7 @@ fet_endchar;
 
 def draw_staccatissimo =
 	save radius, height;
-	height# = .8 interline#;
+	height# = .8 staff_space#;
 	radius# = 2 stafflinethickness#;
 	define_pixels(radius, height);
 
@@ -161,7 +161,7 @@ fet_beginchar("portato/single tenuto", "tenuto", "tenuto")
 	thick# = 1.4 stafflinethickness#;
 	define_pixels(thick);
 
-	set_char_box(.6 interline#, .6 interline#, thick#/2,thick#/2);
+	set_char_box(.6 staff_space#, .6 staff_space#, thick#/2,thick#/2);
 	pickup pencircle scaled thick;
 	lft x1 = -b;
 	rt x2 = w;
@@ -172,7 +172,7 @@ fet_endchar;
 
 def draw_marcato = 
 	save fat_factor, thinness;
-	set_char_box(interline#/2, interline#/2, 0, 1.1 interline#);
+	set_char_box(staff_space#/2, staff_space#/2, 0, 1.1 staff_space#);
 
 	fat_factor = .3;
 	thinness =  stafflinethickness;
@@ -215,7 +215,7 @@ fet_endchar;
 fet_beginchar("open (unstopped)", "open", "ouvert")
 	save thin, height, width, thick;
 	height# = 5/4 width#;
-	height# = interline#;
+	height# = staff_space#;
 	thin = 1.2 stafflinethickness;
 	thick =  1.4 thin;
 	set_char_box(width#/2, width#/2, height#/2, height#/2);
@@ -234,7 +234,7 @@ fet_endchar;
 fet_beginchar("plus (stopped)", "stopped", "plusstop")
 	save thick, size;
 	thick = 2 stafflinethickness;
-	size# = 1.1 interline#;
+	size# = 1.1 staff_space#;
 
 	set_char_box(size#/2, size#/2, size#/2, size#/2);
 	pickup pencircle scaled thick;
@@ -254,7 +254,7 @@ fet_beginchar("Upbow", "upbow", "upbow")
 	save ht, wd, thick;
 
 	thick = 1.4 stafflinethickness;
-	wd# = 1.3 interline#;
+	wd# = 1.3 staff_space#;
 	ht# = 1.6 wd#; 
 
 	
@@ -276,10 +276,10 @@ fet_beginchar("Downbow", "downbow", "downbow")
 	save wd;
 	define_pixels(wd)
 
-	wd# = 1.5 interline#;
+	wd# = 1.5 staff_space#;
 	stemthick = 1.2 stafflinethickness;
 
-	set_char_box(wd#/2, wd#/2, 0, 4/3 interline#);
+	set_char_box(wd#/2, wd#/2, 0, 4/3 staff_space#);
 
 	beamheight = 4/10 h;
 
@@ -317,8 +317,8 @@ def draw_turn =
 	save turndir;
 	pair turndir;
 
-	wd# = 35/16 interline#;
-	ht# = 18/17 interline#;
+	wd# = 35/16 staff_space#;
+	ht# = 18/17 staff_space#;
 	darkness = 1.20 stafflinethickness;
 
 	set_char_box(wd#/2, wd#/2, ht#/2, ht#/2);	
@@ -399,7 +399,7 @@ fet_beginchar("Trill (`tr')","trill","trill")
 
 	ascender_extra# = 1/2 ex#;
 	ascender# = ascender_extra# + ex#;
-	ex# = 1.5 interline#;
+	ex# = 1.5 staff_space#;
 	kerning# = .75 ex#;
 	start_nib_angle = 20;
 	bulb_size = 0.47;
@@ -415,7 +415,7 @@ fet_beginchar("Trill (`tr')","trill","trill")
 	slant = .2;
 
 	local_copy(transform)(currenttransform);
-	currenttransform := currenttransform slanted slant shifted (- interline, 0)  ;
+	currenttransform := currenttransform slanted slant shifted (- staff_space, 0)  ;
 
 	y1 = ascender;
 	x1l = 0;
@@ -481,7 +481,7 @@ fet_beginchar("Trill (`tr')","trill","trill")
 		--- z9r{up} 
 		..  z8r{left} ..  z7r{z5-z7} -- cycle;
 	fill r_p;
-	set_char_box(interline# , interline#, 0,ascender#);
+	set_char_box(staff_space# , staff_space#, 0,ascender#);
 
 
 	penpos11(1/4 r_fatness, -20);
@@ -500,10 +500,10 @@ fet_endchar;
 def draw_heel =
 	save radius, thickness, wall;
 
-	radius# := .5 interline#;
+	radius# := .5 staff_space#;
 
 	define_pixels(radius);
-	set_char_box(radius#, radius#, radius#, 2/3 interline#);
+	set_char_box(radius#, radius#, radius#, 2/3 staff_space#);
 
 	thickness := 1.5 stafflinethickness;	
 	pickup pencircle scaled thickness;
@@ -536,7 +536,7 @@ def draw_toe =
 	save ht,wd;
 
 	thickness := 1.5 stafflinethickness;
-	ht# := 1.5 interline#;
+	ht# := 1.5 staff_space#;
 	wd# := 1/3 ht#;
 	define_pixels(ht,wd);
 
@@ -587,10 +587,10 @@ fet_beginchar("Flageolet", "flageolet", "flageolet")
 fet_endchar;
 
 fet_beginchar("Repeatsign", "repeatsign", "repeatsign")
-	set_char_box(interline#, interline#, interline#, interline#);
+	set_char_box(staff_space#, staff_space#, staff_space#, staff_space#);
 
 	save dot_diam;
-	2 dot_diam# = interline# - stafflinethickness#;
+	2 dot_diam# = staff_space# - stafflinethickness#;
 	define_pixels(dot_diam);
 
 	penpos1(dot_diam,0);
@@ -601,8 +601,8 @@ fet_beginchar("Repeatsign", "repeatsign", "repeatsign")
         penlabels (1,2);
 
 	pickup pencircle scaled dot_diam;
-        draw (-interline/2, interline/2);
-        draw (interline/2, -interline/2);
+        draw (-staff_space/2, staff_space/2);
+        draw (staff_space/2, -staff_space/2);
 fet_endchar;
 
 fet_beginchar("Segno", "segno", "segno")
@@ -611,8 +611,8 @@ fet_beginchar("Segno", "segno", "segno")
 	save turndir;
 	pair turndir;
 
-	ht# = 3 interline#;
-	wd# = 2 interline#;
+	ht# = 3 staff_space#;
+	wd# = 2 staff_space#;
 	darkness = 1.20 stafflinethickness;
 
 	set_char_box(wd#/2, wd#/2, ht#/2, ht#/2);	
@@ -669,8 +669,8 @@ fet_beginchar("Coda", "coda", "coda")
 	save thin, thick, codawidth, codaheight;
 	thin# = 1.2 stafflinethickness#;
 	thick# = 3.5 stafflinethickness#;
-	codawidth# = 2/3 interline#;
-	codaheight# = 1 interline#;
+	codawidth# = 2/3 staff_space#;
+	codaheight# = 1 staff_space#;
 	define_pixels(thin, thick, codawidth, codaheight);
 
 	set_char_box(codawidth#+thick#, codawidth#+thick#,

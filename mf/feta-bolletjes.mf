@@ -18,7 +18,7 @@ numeric black_notehead_width;
 
 fet_begingroup("noteheads");
 
-noteheight#:=interline#+ (1 + overdone_heads) *stafflinethickness#;
+noteheight#:=staff_space#+ (1 + overdone_heads) *stafflinethickness#;
 define_pixels(noteheight);
 
 
@@ -30,7 +30,7 @@ define_pixels(noteheight);
 %
 %
 %
-brevis_wid# := 2 interline#;
+brevis_wid# := 2 staff_space#;
 
 def draw_brevis(expr brevwid) =
 	save beamheight, head_width;
@@ -84,7 +84,7 @@ def draw_longa (expr wid) =
 	x7r = head_width;
 	y7 = y5;
 %	z7 = z5;
-	z6 - z7 = (stem_width/2, -interline);
+	z6 - z7 = (stem_width/2, -staff_space);
 	theta = angle(z6-z7)+ 90;
 	penpos7(stem_width, theta);
 	penpos6(1.2 stem_width, theta);
@@ -149,15 +149,15 @@ def draw_mensural_open_head (expr wid)=
 enddef;
 
 fet_beginchar("Mensural open head","0mensural","mensuralminimhead")
-	draw_mensural_open_head (interline#);
+	draw_mensural_open_head (staff_space#);
 fet_endchar;
 
 fet_beginchar("Mensural open head","1mensural","mensuralsemiminimhead")
-	draw_mensural_open_head (interline#);
+	draw_mensural_open_head (staff_space#);
 fet_endchar;
 
 fet_beginchar("Mensural black head","2mensural","fusahead")
-	draw_mensural_black_head (interline#);
+	draw_mensural_black_head (staff_space#);
 fet_endchar;
 
 

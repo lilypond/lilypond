@@ -1,7 +1,7 @@
 fet_begingroup("dots");
 
 save dot_diam;
-2 dot_diam# = interline# - stafflinethickness#;
+2 dot_diam# = staff_space# - stafflinethickness#;
 define_pixels(dot_diam);
 
 fet_beginchar("duration dot","dot", "dot")
@@ -12,9 +12,9 @@ fet_endchar;
 
 fet_beginchar("repeat dots", "repeatcolon", "repeatcolon")
 	pickup pencircle scaled dot_diam;
-	draw (dot_diam/2, interline/2);
+	draw (dot_diam/2, staff_space/2);
 	addto currentpicture also currentpicture yscaled -1;
-	set_char_box(0, dot_diam#, interline#/2, interline#/2);
+	set_char_box(0, dot_diam#, staff_space#/2, staff_space#/2);
 fet_endchar;
 
 

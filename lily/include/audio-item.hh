@@ -1,12 +1,13 @@
 /*
   audio-item.hh -- declare Audio_items
 
-  (c) 1996,  1997--1999 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1996,  1997--2000 Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
 #ifndef AUDIO_ITEM_HH
 #define AUDIO_ITEM_HH
 
+ #include <typeinfo>
 #include "lily-proto.hh"
 #include "string.hh"
 #include "audio-element.hh"

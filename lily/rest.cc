@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "molecule.hh"
@@ -31,7 +31,7 @@ Rest::do_post_processing ()
       /*
 	UGH. 
        */
-      staff_symbol_referencer_interface (d)
+      staff_symbol_referencer (d)
 	.set_position ((balltype_i () == 7) ? 4 : 3);
     }
 }

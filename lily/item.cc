@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "dimension-cache.hh"
@@ -157,11 +157,6 @@ Item::find_broken_piece (Direction d) const
 
 
 
-bool
-Item::broken_original_b () const
-{
-  return broken_to_drul_[LEFT] || broken_to_drul_[RIGHT];
-}
 
 #if 0
 int

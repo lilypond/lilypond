@@ -1,6 +1,6 @@
 
 \score {\notes \context Voice = VA \relative c'' {
-	\grace b8 c4
+	\grace b8 c4-\fermata
 	\grace { [c32 cis32] } gis4
 	\grace { [cis32 dis32] } e4
 	\grace { [c32 d] }\times 2/3 { [c8 c c] }

@@ -112,6 +112,9 @@ can have accidentals, but they are (currently) spaced at a fixed
 distance.  Grace notes (of course) come before the accidentals of the
 main note.  Grace notes can also be positioned after the main note.
 
+Grace notes without beams should have a slash, if @code{flagStyle} is
+not set.  Main note scripts don't end up on the grace note.
+
 @mudelafile{grace.ly}
 
 

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
        Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
@@ -30,7 +30,6 @@ My_lily_parser::My_lily_parser (Sources * source_l)
   lexer_p_ = 0;
   abbrev_beam_type_i_ = 0;
   default_duration_.durlog_i_ = 2;
-  default_pitch_ = Musical_pitch (5*7, 0);
   error_level_i_ = 0;
 
   fatal_error_i_ = 0;
@@ -42,8 +41,6 @@ My_lily_parser::~My_lily_parser()
   delete lexer_p_;
   delete default_header_p_;
 }
-
-
 
 void
 My_lily_parser::set_version_check (bool ig)
@@ -110,56 +107,8 @@ My_lily_parser::set_abbrev_beam (int type_i)
   abbrev_beam_type_i_ = type_i;
 }
 
-void
-My_lily_parser::set_last_pitch (Musical_pitch const* p)
-{
-  default_pitch_ = *p;
-}
 
-// junk me
-Simultaneous_music*
-My_lily_parser::get_word_element (String s, Duration * duration_p)
-{
-  Simultaneous_music* velt_p = new Request_chord;
 
-  Lyric_req* lreq_p = new Lyric_req;
-  lreq_p ->text_str_ = s;
-  lreq_p->duration_ = *duration_p;
-  lreq_p->set_spot (here_input());
-
-  velt_p->add_music (lreq_p);
-
-  delete  duration_p;
-  return velt_p;
-}
-
-// junk me
-Simultaneous_music *
-My_lily_parser::get_rest_element (String s,  Duration * duration_p)
-{
-  Simultaneous_music* velt_p = new Request_chord;
-  velt_p->set_spot (here_input());
-
-  if (s=="s")
-    { /* Space */
-      Skip_req * skip_p = new Skip_req;
-      skip_p->duration_ = *duration_p;
-
-      skip_p->set_spot (here_input());
-      velt_p->add_music (skip_p);
-    }
-  else
-    {
-      Rest_req * rest_req_p = new Rest_req;
-      rest_req_p->duration_ = *duration_p;
-      rest_req_p->set_spot (here_input());
-
-      velt_p->add_music (rest_req_p);
-    }
-
-  delete duration_p;
-  return velt_p;
-}
 
 // junk me
 Simultaneous_music *

@@ -15,7 +15,7 @@ def draw_brace( expr height_sharp, width_sharp) =
  
 	define_pixels (height, width);
 	thin = 2 stafflinethickness;
-	thick = .5 interline;
+	thick = .5 staff_space;
 	
 	z2 = .5 [z1, z3];
 	y3 = y1 + height/2;
@@ -40,5 +40,5 @@ enddef;
 
 
 for h :=  2 staffsize#  step 1 pt# until (7 * staffsize#):
-	draw_brace(h, interline# );
+	draw_brace(h, staff_space# );
 endfor

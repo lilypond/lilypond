@@ -1,7 +1,7 @@
 /*
   key.hh -- declare Key, Octave_key
 
-  (c) 1996--1999 Han-Wen Nienhuys
+  (c) 1996--2000 Han-Wen Nienhuys
 */
 
 #ifndef KEY_HH

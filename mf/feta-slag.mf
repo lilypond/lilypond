@@ -10,13 +10,13 @@
 % this file is included by feta-scripts.mf
 
 tfat := 1/2;
-%twidth# := 0.5interline#;
-%theight# := 0.55interline#;
+%twidth# := 0.5staff_space#;
+%theight# := 0.55staff_space#;
 % tthin# := stafflinethickness#;
 tthin# := 1.6stafflinethickness#;
 
-twidth# := 2/3interline#;
-theight# := 1/2interline#;
+twidth# := 2/3staff_space#;
+theight# := 1/2staff_space#;
 
 % uhg/ uhuh?
 % toverlap# := tfat*twidth#+tthin#;

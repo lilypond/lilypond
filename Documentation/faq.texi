@@ -106,9 +106,9 @@ in subdirectories under @file{~/usr/src/}.
 
 @subsubsection Is there an emacs mode?
 
-Yes.  It is included with the source archive as mudela-mode.el.  If
-you have an rpm it is in @file{/usr/doc/lilypond-X/}.  You have to install it
-yourself.
+Yes.  It is included with the source archive as @file{lilypond-mode.el}.
+If you have an RPM it is in @file{/usr/doc/lilypond-X/}.  You have to
+install it yourself.
 
 @subsubsection How do I create the @file{.tfm} files?
 

@@ -3,13 +3,14 @@
 
   source file of the LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
 #ifndef STRINGHANDLE_HH
 #define STRINGHANDLE_HH
-#include "fproto.hh"
+
+#include "flower-proto.hh"
 
 
 /**

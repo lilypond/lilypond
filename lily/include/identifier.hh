@@ -1,7 +1,7 @@
 /*
   identifier.hh -- part of GNU LilyPond
 
-  (c) 1996--1999 Han-Wen Nienhuys
+  (c) 1996--2000 Han-Wen Nienhuys
 */
 
 #ifndef IDENTIFIER_HH
@@ -19,7 +19,6 @@ class Notename_table_identifier;
 class Translator_group_identifier;
 class Music_identifier;
 class Articulation_req_identifier;
-class Symtables_identifier;
 class Midi_def_identifier;
 class Paper_def_identifier;
 class Real_identifier;
@@ -36,7 +35,9 @@ virtual Class *  access_content_ ## Class (bool) const { error (#Class  + String
 
 
 /**
-   A declarable data structure in mudela. 
+   A declarable data structure in mudela.
+
+   TODO: use SCM and SMOBS for union datatype.
    */
 struct Identifier : public Input {
   bool init_b_;
@@ -54,7 +55,6 @@ struct Identifier : public Input {
   IDACCESSOR(Translator_group)
   IDACCESSOR(Notename_table)
   IDACCESSOR(Music)
-  IDACCESSOR(Symtables)
   IDACCESSOR(Midi_def)
   IDACCESSOR(Paper_def)
   IDACCESSOR(Real)
@@ -90,7 +90,6 @@ DECLARE_ID_CLASS(Notename_table);
 DECLARE_ID_CLASS(Real);
 DECLARE_ID_CLASS(String);
 DECLARE_ID_CLASS(General_script_def);
-DECLARE_ID_CLASS(Symtables);
 DECLARE_ID_CLASS(Music);
 DECLARE_ID_CLASS(int);
 DECLARE_ID_CLASS(Score);

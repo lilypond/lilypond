@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
@@ -38,7 +38,7 @@ Paper_outputter::output_header ()
 {
   if (safe_global_b)
     {
-      //      ly_set_x ("security-paranoia", SCM_BOOL_T);
+
       gh_define ("security-paranoia", SCM_BOOL_T);      
     }
   String s = String ("(eval (") + output_global_ch + "-scm 'all-definitions))";

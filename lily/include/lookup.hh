@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
@@ -12,7 +12,7 @@
 
 #include "lily-guile.hh"
 #include "molecule.hh"
-#include "fproto.hh"
+#include "flower-proto.hh"
 #include "direction.hh"
 #include "box.hh"
 

@@ -266,7 +266,7 @@ Chord_name::do_brew_molecule_p () const
     {
       name.inversion_mol = lookup_l ()->text ("", "/", paper_l ());
       Musical_pitch p;
-      scm_to (s, &p);
+      p = scm_to (s, &p);
       Molecule mol = pitch2molecule (p);
       name.inversion_mol.add_at_edge (X_AXIS, RIGHT, mol, 0);
     }
@@ -276,7 +276,7 @@ Chord_name::do_brew_molecule_p () const
     {
       name.bass_mol = lookup_l ()->text ("", "/", paper_l ());
       Musical_pitch p;
-      scm_to (s, &p);
+      p = scm_to (s, &p);
       Molecule mol = pitch2molecule (p);
       name.bass_mol.add_at_edge (X_AXIS, RIGHT, mol, 0);
     }

@@ -1,19 +1,19 @@
 /*
   slur.hh -- declare Slur
 
-  (c) 1996--1999 Han-Wen Nienhuys
+  (c) 1996--2000 Han-Wen Nienhuys
 */
 
 #ifndef SLUR_HH
 #define SLUR_HH
 
-#include "bow.hh"
+#include "spanner.hh"
 #include "rod.hh"
 
 /**
   A #Bow# which tries to drape itself around the stems too.
  */
-class Slur : public Bow
+class Slur : public Spanner
 {
   int cross_staff_count () const;
   Offset encompass_offset (Note_column const* )const;
@@ -23,8 +23,13 @@ public:
 
   void add_column (Note_column*);
 
+
 protected:
+  virtual Molecule* do_brew_molecule_p () const;
   virtual Array<Offset> get_encompass_offset_arr () const;
+  Bezier get_curve () const;
+  Drul_array<Real> dy_f_drul_;
+  Drul_array<Real> dx_f_drul_;
 
   virtual Direction get_default_dir () const;
   virtual void do_post_processing ();

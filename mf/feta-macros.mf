@@ -20,7 +20,7 @@ enddef;
 def draw_staff(expr first, last, offset)=
 	pickup pencircle scaled stafflinethickness;
 	for i:= first step 1 until last:
-		draw (- interline, (i + offset) * interline) .. (4 interline,( i+ offset)* interline);
+		draw (- staff_space, (i + offset) * staff_space) .. (4 staff_space,( i+ offset)* staff_space);
 	endfor
 	enddef;
 

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c)  1997--2000 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "beam.hh"
@@ -70,13 +70,8 @@ Tuplet_spanner::do_brew_molecule_p () const
 
 
       Real staff_space = paper_l ()->get_var ("interline");
-      
-
       Direction dir = directional_element (this).get ();
-      Real dy = column_arr.top ()->extent (Y_AXIS) [dir]
-	    - column_arr[0]->extent (Y_AXIS) [dir];
-      
-
+      Real dy = gh_scm2double (get_elt_property ("delta-y"));
       SCM number = get_elt_property ("text");
       if (gh_string_p (number))
 	{
@@ -119,24 +114,63 @@ Tuplet_spanner::do_add_processing ()
       set_bounds (RIGHT, column_arr.top ());  
     }
 }
-  
+
+/*
+  use first -> last note for slope, and then correct for disturbing
+  notes in between.  */
 void
-Tuplet_spanner::do_post_processing ()
+Tuplet_spanner::calc_position_and_height (Real *offset, Real * dy) const
 {
   Link_array<Note_column> column_arr=
     Group_interface__extract_elements (this, (Note_column*)0, "columns");
-      
+
+  
+  Direction d = directional_element (this).get ();
+  *dy = column_arr.top ()->extent (Y_AXIS) [d]
+    - column_arr[0]->extent (Y_AXIS) [d];
+
+  *offset = - d * infinity_f;
+  
+  Real x0 = column_arr[0]->hpos_f ();
+  Real x1 = column_arr.top ()->hpos_f ();
+  for (int i = 0; i < column_arr.size ();  i++)
+    {
+      Real notey = column_arr[i]->extent (Y_AXIS)[d];
+      Real x = column_arr[i]->hpos_f () - x0;
+      Real tuplety =  *dy * x / (x1 -x0);
+
+      if (notey * d > (*offset + tuplety) * d)
+	*offset = notey - tuplety; 
+    }
+}
+
+void
+Tuplet_spanner::do_post_processing ()
+{
+
+  Link_array<Note_column> column_arr=
+    Group_interface__extract_elements (this, (Note_column*)0, "columns");
+
+  if (!column_arr.size ())
+    {
+      set_elt_property ("transparent", SCM_BOOL_T);
+      set_empty (X_AXIS);
+      set_empty (Y_AXIS);
+    }
 
   Direction d =   directional_element (this).get ();
   if (!d)
     {
       d = UP;
       directional_element (this).set (d);
-    }
-  
-  if (column_arr.size())
-    translate_axis (column_arr[0]->extent (Y_AXIS)[d], Y_AXIS);
 
+    }
+  Real dy, offset;
+
+  calc_position_and_height (&offset, &dy);
+  set_elt_property ("delta-y", gh_double2scm (dy));
+
+  translate_axis (offset, Y_AXIS);
   
   if (scm_ilength (get_elt_property ("beams")) == 1)
     {
@@ -158,7 +192,7 @@ Tuplet_spanner::get_default_dir () const
   SCM dir_sym =get_elt_property ("dir-forced");
   if (gh_number_p (dir_sym))
     {
-      d= (Direction) gh_scm2int (dir_sym);
+      d= to_dir (dir_sym);
       if (d != CENTER)
 	return d;
     }

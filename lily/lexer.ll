@@ -25,6 +25,7 @@
 #include <stdio.h>
 #include <ctype.h>
 
+#include "notename-table.hh"
 #include "lily-guile.hh"
 #include "string.hh"
 #include "string-convert.hh"
@@ -467,20 +468,18 @@ My_lily_lexer::pop_state ()
 int
 My_lily_lexer::scan_escaped_word (String str)
 {
-	DEBUG_OUT << "\\word: `" << str<<"'\n";
 	int l = lookup_keyword (str);
 	if (l != -1) {
-		DEBUG_OUT << "(keyword)\n";
 		return l;
 	}
 	Identifier * id = lookup_identifier (str);
 	if (id) {
-		DEBUG_OUT << "(identifier)\n";
 		yylval.id = id;
 		return id->token_code_i_;
 	}
 	if ((YYSTATE != notes) && (YYSTATE != chords)) {
-		if (notename_b (str)) {
+		if (note_tab_p_->elem_b (str))
+		{
 			yylval.pitch = new Musical_pitch (lookup_notename (str));
 			yylval.pitch->set_spot (Input (source_file_l (), 
 			  here_ch_C ()));
@@ -491,7 +490,7 @@ My_lily_lexer::scan_escaped_word (String str)
 		print_declarations (true);
 	String msg (_f ("unknown escaped string: `\\%s'", str));	
 	LexerError (msg.ch_C ());
-	DEBUG_OUT << "(string)";
+
 	yylval.scm = ly_str02scm(str.ch_C());
 
 	return STRING;
@@ -500,16 +499,14 @@ My_lily_lexer::scan_escaped_word (String str)
 int
 My_lily_lexer::scan_bare_word (String str)
 {
-	DEBUG_OUT << "word: `" << str<< "'\n";	
 	if ((YYSTATE == notes) || (YYSTATE == chords)) {
-		if (notename_b (str)) {
-		    DEBUG_OUT << "(notename)\n";
+		if (note_tab_p_->elem_b (str)) {
 		    yylval.pitch = new Musical_pitch (lookup_notename (str));
 		    yylval.pitch->set_spot (Input (source_file_l (), 
 		      here_ch_C ()));
                     return (YYSTATE == notes) ? NOTENAME_PITCH : TONICNAME_PITCH;
-		} else if (chordmodifier_b (str)) {
-		    DEBUG_OUT << "(chordmodifier)\n";
+		} else if (chordmodifier_tab_p_->elem_b (str))
+		{
 		    yylval.pitch = new Musical_pitch (lookup_chordmodifier (str));
 		    yylval.pitch->set_spot (Input (source_file_l (), 
 		      here_ch_C ()));

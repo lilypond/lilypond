@@ -2,7 +2,7 @@
 
  string.cc - implement String
  
- (c)  1997--1999 Han-Wen Nienhuys & Jan Nieuwenhuizen
+ (c)  1997--2000 Han-Wen Nienhuys & Jan Nieuwenhuizen
 
  */
 

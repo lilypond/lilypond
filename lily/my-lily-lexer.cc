@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include <strstream.h>
@@ -114,8 +114,8 @@ My_lily_lexer::start_main_input ()
 
 
   new_input (main_input_str_, source_global_l);
-  if (safe_global_b)
-    allow_includes_b_ = false;
+  allow_includes_b_ = allow_includes_b_ &&  !(safe_global_b);
+  
   
   print_declarations(true);
 }
@@ -189,11 +189,6 @@ My_lily_lexer::lookup_chordmodifier (String s)
   return chordmodifier_tab_p_->get_pitch (s);
 }
 
-bool
-My_lily_lexer::notename_b (String s) const
-{
-  return note_tab_p_->elem_b (s);
-}
 
 void
 My_lily_lexer::set_notename_table (Notename_table *p)
@@ -202,11 +197,7 @@ My_lily_lexer::set_notename_table (Notename_table *p)
   note_tab_p_ = p;
 }
 
-bool
-My_lily_lexer::chordmodifier_b (String s) const
-{
-  return chordmodifier_tab_p_->elem_b (s);
-}
+
 
 void
 My_lily_lexer::set_chordmodifier_table (Notename_table *p)

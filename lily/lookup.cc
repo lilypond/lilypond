@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
   Jan Nieuwenhuizen <janneke@gnu.org>
 
@@ -29,12 +29,6 @@
 #include "atom.hh"
 #include "lily-guile.hh"
 
-SCM
-ly_offset2scm (Offset o)
-{
-  return gh_list (gh_double2scm (o[X_AXIS]), gh_double2scm(o[Y_AXIS]),
-		  SCM_UNDEFINED);
-}
 
 Lookup::Lookup ()
 {
@@ -94,7 +88,7 @@ Lookup::afm_find (String s, bool warn) const
       if (!me->afm_l_)
 	{
 	  warning (_f ("Can't find font: `%s'", font_name_));
-	  warning (_f ("(search path: `%s')", global_path.str ().ch_C()));
+	  warning (_f ("(search path `%s')", global_path.str ().ch_C()));
 	  error (_ ("Aborting"));
 	}
     }

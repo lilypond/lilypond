@@ -65,7 +65,7 @@
 	)
   )	
 
-(define staff-symbol-properties
+(define generic-staff-symbol-properties
   (cons "Staff_symbol" (list
 			(list 'numberOfStaffLines number? 'line-count)
 			(list 'staffSpace number? 'staff-space)
@@ -149,6 +149,7 @@
    generic-timesig-properties
    generic-clef-properties
    generic-collision-properties
+   generic-staff-symbol-properties
    generic-All-properties      
    )
   )

@@ -36,7 +36,7 @@ All_font_metrics::find_afm (String name)
       progress_indication ("[" + path);
       Adobe_font_metric * afm_p = read_afm_file (path);
 
-      afm_p->name_str_ = name;
+      afm_p->name_ = ly_symbol2scm (name.ch_C ());
       progress_indication ("]");
 
       afm_p_dict_[sname] = afm_p->self_scm_;
@@ -80,7 +80,7 @@ All_font_metrics::find_tfm (String name)
 	return 0;
       progress_indication ("[" + path);
       Tex_font_metric	* tfm_p = Tex_font_metric_reader::read_file (path);
-      tfm_p->name_str_ = name;
+      tfm_p->name_ = ly_symbol2scm (name.ch_C( ));
       progress_indication ("]");
 
       tfm_p_dict_[sname] = tfm_p->self_scm_;
@@ -139,14 +139,7 @@ All_font_metrics::font_descriptions () const
   return list;
 }
 
-Font_metric *
-unsmob_metrics( SCM s)
-{
-  if (SMOB_IS_TYPE_B(Font_metric, s))
-    return SMOB_TO_TYPE(Font_metric, s);
-  else
-    return 0;
-}
+
 
 #include "ly-smobs.icc"
 IMPLEMENT_SMOBS(Font_metric);

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1998--1999 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1998--2000 Jan Nieuwenhuizen <janneke@gnu.org>
 
   Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
@@ -19,6 +19,7 @@
 #include "file-path.hh"
 #include "debug.hh"
 #include "direction.hh"
+#include "offset.hh"
 
 SCM
 ly_str02scm (char const*c)
@@ -279,11 +280,13 @@ to_scm (int i)
   return gh_int2scm (i);
 }
 
-void
-scm_to (SCM s, int* i)
+/*
+  UGR. junkme.
+ */
+int
+scm_to (SCM s, int* )
 {
-  // urg
-  *i = gh_number_p (s) ? gh_scm2int (s) : 0;
+  return gh_number_p (s) ? gh_scm2int (s) : 0;
 }
 
 SCM
@@ -292,13 +295,12 @@ to_scm (Real r)
   return gh_double2scm (r);
 }
 
-void
-scm_to (SCM s, Real* r)
+Real
+scm_to (SCM s, Real* )
 {
-  // urg
-  *r = gh_number_p (s) ? gh_scm2double (s) : 0;
+  return gh_number_p (s) ? gh_scm2double (s) : 0;
 }
-  
+
 bool
 to_boolean (SCM s)
 {
@@ -327,4 +329,11 @@ appendable_list_append (SCM l, SCM elt)
   
   gh_set_cdr_x (gh_car (l), newcons);      
   gh_set_car_x (l, newcons);
+}
+
+
+SCM
+ly_offset2scm (Offset o)
+{
+  return gh_cons (gh_double2scm (o[X_AXIS]), gh_double2scm(o[Y_AXIS]));
 }

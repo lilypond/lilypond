@@ -3,14 +3,14 @@
 
   source file of the flowerlib
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
 #ifndef LIBC_EXTENSION_HH
 #define LIBC_EXTENSION_HH
 
-#include "fproto.hh"
+#include "flower-proto.hh"
 #include "config.h"
 #include <cstddef>
 #include <stdarg.h>

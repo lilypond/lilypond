@@ -27,13 +27,13 @@ fet_begingroup("accidentals");
 % this fact
 %
 fet_beginchar("Sharp" , "1", "sharp");
-	set_char_box(0, 1.1 interline#, 1.5 interline#, 
-		1.5 interline#);
+	set_char_box(0, 1.1 staff_space#, 1.5 staff_space#, 
+		1.5 staff_space#);
 
 	save interbeam, interstem, beamheight, beamwidth, 
 		stemwidth;
 
-	interbeam := 1.05 interline;
+	interbeam := 1.05 staff_space;
 	interstem := 7/16 ;
 	beamheight := 4 stafflinethickness;
 	beamwidth := w;
@@ -70,8 +70,8 @@ fet_beginchar("Sharp" , "1", "sharp");
 
 	pickup pencircle scaled stemwidth;
 	x3 = x4 = xpart center;
-	bot y3 = -1.5 interline + ypart center;
-	top y4 = 1.5 interline + ypart center;
+	bot y3 = -1.5 staff_space + ypart center;
+	top y4 = 1.5 staff_space + ypart center;
 
 	path stem;
 	stem := z3 .. z4;
@@ -83,7 +83,7 @@ fet_beginchar("Sharp" , "1", "sharp");
 	fet_endchar;
 
 fet_beginchar( "Natural", "0", "natural")
-	set_char_box(0, 8/12 interline#, 1.5 interline#, 1.5 interline#);
+	set_char_box(0, 8/12 staff_space#, 1.5 staff_space#, 1.5 staff_space#);
 
 	save interbeam, interstem, beamheight, beamwidth, 
 		stemwidth;
@@ -98,7 +98,7 @@ fet_beginchar( "Natural", "0", "natural")
 
 
 	pickup penrazor scaled beamheight rotated 90;
-	top y2 = interline - 3/2 stafflinethickness ;
+	top y2 = staff_space - 3/2 stafflinethickness ;
 	slope =  stafflinethickness / interstem;
 	
 	draw z1 .. z2;
@@ -108,7 +108,7 @@ fet_beginchar( "Natural", "0", "natural")
 	pickup pencircle scaled stemwidth;
 	xpart z3 = xpart z1;
 	xpart z4 = xpart z2;
-	top y3 = 1.5 interline;
+	top y3 = 1.5 staff_space;
 	top y4 = beamtop;
 
 	draw (xpart z1, -y4) .. z3;
@@ -139,8 +139,8 @@ def draw_meta_flat(expr xcenter, w, crook_fatness) =
 	bottom_stem_thick = 1.2 stafflinethickness;
 
 
-	z1 = (0, 2 interline) + center;
-	z2 = (0, - 1/2 interline)+  center;
+	z1 = (0, 2 staff_space) + center;
+	z2 = (0, - 1/2 staff_space)+  center;
 
 	penpos1(top_stem_thick, 0);
 	penpos2(bottom_stem_thick, 0); 
@@ -148,22 +148,22 @@ def draw_meta_flat(expr xcenter, w, crook_fatness) =
 	fill simple_serif(z1r, z1l, 30) -- z2l -- z2r -- cycle;
 
 
-	y3l = (interline - stafflinethickness)/2 + ypart center;
+	y3l = (staff_space - stafflinethickness)/2 + ypart center;
 	z3l = whatever [z2r,z1r];
 
 	z3r = .26 [z2r, z1r];
 
 
-	z4 = (3/8 interline, interline/2) + center;
+	z4 = (3/8 staff_space, staff_space/2) + center;
 	penpos4(whatever, 53);
 	y4l - y4r = 2 crook_thinness ;
 %	y4l - y4r = 6/20[crook_thinness, crook_fatness] ;
 
-	y5r = 1/4 interline + ypart center;
+	y5r = 1/4 staff_space + ypart center;
 	x5l = w + xpart center;
 	penpos5(crook_fatness, -175);
 
-	z8 = (0, - interline/2 - stafflinethickness/2) + center;
+	z8 = (0, - staff_space/2 - stafflinethickness/2) + center;
 
 	z9 = (x5,0);
 
@@ -183,7 +183,7 @@ def draw_meta_flat(expr xcenter, w, crook_fatness) =
 	x8r =  xpart center - bottom_stem_thick/2;
 	penlabels(range 0 thru 10);
 
-	z10 = (bottom_stem_thick/2, -1/5 interline) + center;
+	z10 = (bottom_stem_thick/2, -1/5 staff_space) + center;
 
 	unfill z3r{up} .. z4r{right} .. tension .9 
 		.. z6r ---
@@ -204,8 +204,8 @@ enddef;
 % unfortunately, 600dpi is not enough to show the brush of the stem.
 %
 fet_beginchar("Flat", "-1", "flat")
-	set_char_box(1.2 stafflinethickness#, .8 interline#, .5 interline#, 2 interline#);
-	draw_meta_flat(0, w, 1/3 interline);
+	set_char_box(1.2 stafflinethickness#, .8 staff_space#, .5 staff_space#, 2 staff_space#);
+	draw_meta_flat(0, w, 1/3 staff_space);
 	fet_endchar;
 
 
@@ -214,18 +214,18 @@ fet_beginchar("Double flat", "-2", "flatflat")
 	left_wid = .7;
 	right_wid = .8;
 	overlap = .05;
-	set_char_box(1.2 stafflinethickness#, (left_wid + right_wid -overlap) *interline#, .5 interline#, 2 interline#);
-	draw_meta_flat(0, left_wid*  interline, 1/3 interline);
-	draw_meta_flat((left_wid - overlap) *interline,  
-		right_wid *interline, 1/3 interline);
+	set_char_box(1.2 stafflinethickness#, (left_wid + right_wid -overlap) *staff_space#, .5 staff_space#, 2 staff_space#);
+	draw_meta_flat(0, left_wid*  staff_space, 1/3 staff_space);
+	draw_meta_flat((left_wid - overlap) *staff_space,  
+		right_wid *staff_space, 1/3 staff_space);
 	fet_endchar;
 
 fet_beginchar("Double sharp", "2", "sharpsharp")
-	set_char_box(0, interline#, .5 interline#, .5 interline#);
+	set_char_box(0, staff_space#, .5 staff_space#, .5 staff_space#);
 	save klaverblad, klaversteel;
 
-	klaversteel = 1/15 interline;
-	klaverblad = .35 interline;
+	klaversteel = 1/15 staff_space;
+	klaverblad = .35 staff_space;
 
 	z1 = (klaversteel, 0);
 	z2 = (w/2 - klaverblad / 10, h - klaverblad);
@@ -234,7 +234,7 @@ fet_beginchar("Double sharp", "2", "sharpsharp")
 	z5 = z1 reflectedabout((0,0), (1,1));
 
 	labels(1,2,3,4,5);
-	pickup pencircle scaled 1/20 interline;
+	pickup pencircle scaled 1/20 staff_space;
 	filldraw  
 		z1{dir 45} .. {right}z2 -- z3 -- 
 		z4{down} .. {dir 225}z5 .. cycle;
@@ -253,10 +253,10 @@ fet_endchar;
 
 def draw_paren =
   	save leftindent;
-	leftindent# := .2 interline#;
+	leftindent# := .2 staff_space#;
 	define_pixels(leftindent);
-  	set_char_box(0, .5 interline#+stafflinethickness#,
-	  interline#, interline#);
+  	set_char_box(0, .5 staff_space#+stafflinethickness#,
+	  staff_space#, staff_space#);
 	z1 = (leftindent,h);
 	z2 = (w-stafflinethickness,0);
 	z3 = (leftindent,-d);

@@ -57,7 +57,7 @@ version ()
     "midi2ly");
   cout << endl;
 
-  cout << _f ("Copyright (c) %s by", "1996--1999");
+  cout << _f ("Copyright (c) %s by", "1996--2000");
   cout << "Han-Wen Nienhuys <hanwen@cs.uu.nl>\n"
        << "Jan Nieuwenhuizen <janneke@gnu.org>\n";
 }

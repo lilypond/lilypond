@@ -1159,11 +1159,9 @@ explicit_musical_pitch:
 musical_pitch:
 	steno_musical_pitch {
 		$$ = $1;
-		THIS->set_last_pitch ($1);
 	}
 	| explicit_musical_pitch {
 		$$ = $1;
-		THIS->set_last_pitch ($1);
 	}
 	;
 
@@ -1391,7 +1389,29 @@ simple_element:
 		$$ = v;
 	}
 	| RESTNAME optional_notemode_duration		{
-		$$ = THIS->get_rest_element (ly_scm2string ($1), $2);
+  Simultaneous_music* velt_p = new Request_chord;
+  velt_p->set_spot (THIS->here_input());
+
+  if (ly_scm2string ($1) =="s")
+    { /* Space */
+      Skip_req * skip_p = new Skip_req;
+      skip_p->duration_ = *$2;
+
+      skip_p->set_spot (THIS->here_input());
+      velt_p->add_music (skip_p);
+    }
+  else
+    {
+      Rest_req * rest_req_p = new Rest_req;
+      rest_req_p->duration_ = *$2;
+      rest_req_p->set_spot (THIS->here_input());
+
+      velt_p->add_music (rest_req_p);
+    }
+
+  delete $2;
+  $$ = velt_p;
+
 
 	}
 	| MEASURES optional_notemode_duration  	{
@@ -1417,7 +1437,17 @@ simple_element:
 	| STRING optional_notemode_duration 	{
 		if (!THIS->lexer_p_->lyric_state_b ())
 			THIS->parser_error (_ ("Have to be in Lyric mode for lyrics"));
-		$$ = THIS->get_word_element (ly_scm2string ($1), $2);
+		  Simultaneous_music* velt_p = new Request_chord;
+
+		  Lyric_req* lreq_p = new Lyric_req;
+		  lreq_p ->text_str_ = ly_scm2string ($1);
+		  lreq_p->duration_ = *$2;
+		  lreq_p->set_spot (THIS->here_input());
+
+		  velt_p->add_music (lreq_p);
+
+		  delete  $2;
+		$$= velt_p;
 
 	}
 	| chord {

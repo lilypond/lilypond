@@ -9,11 +9,7 @@
 
 #include <fstream.h>
 #include <signal.h>
-
-// libg++ 2.8.0
-// #include <std/new.h>
 #include <stdlib.h>
-
 
 #include "debug.hh"
 #include "dstream.hh"

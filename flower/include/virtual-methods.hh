@@ -3,13 +3,14 @@
 
   source file of the Flower Library
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
 #ifndef VIRTUAL_METHODS_HH
 #define VIRTUAL_METHODS_HH
 
+ #include <typeinfo>
 #include "stdlib.h"		// size_t
 
 #define classname(class_ptr)   demangle_classname(typeid(*(class_ptr)))

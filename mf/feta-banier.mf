@@ -99,12 +99,12 @@ fet_beginchar("8th Flag (up)", "u3", "eighthflag")
 		hip_depth_ratio, hip_width,
 		foot_depth, foot_width_ratio;
 
-	flare# = 1.0 interline#;
+	flare# = 1.0 staff_space#;
 	hip_depth_ratio = .72; 
 	foot_width_ratio = .8;
 	hip_width# = upflag_width# - hip_thickness#/2;
 
-	foot_depth# =  3 interline#;
+	foot_depth# =  3 staff_space#;
 
 	set_char_box(stemthickness# /2, hip_width# 
 		+ stemthickness#/2 + right_upflag_space#, 
@@ -117,7 +117,7 @@ fet_beginchar("8th Flag (up)", "u3", "eighthflag")
 		hip_depth_ratio, foot_width_ratio, hip_thickness, foot_thickness);
 
 	pickup pencircle scaled stemthickness;
-	draw (0, 0) .. (0,-2 interline);
+	draw (0, 0) .. (0,-2 staff_space);
 fet_endchar;
 
 fet_beginchar("16th Flag (up)", "u4", "sixteenthflag")
@@ -125,10 +125,10 @@ fet_beginchar("16th Flag (up)", "u4", "sixteenthflag")
 		hip_depth_ratio, hip_width,
 		foot_depth, foot_width_ratio;
 	save flagspace, total_depth, flag_count;
-	total_depth# = 3.5 interline#;
+	total_depth# = 3.5 staff_space#;
 	flag_count = 2;
-	flare# = .85 interline#;
-	flagspace# = .85 interline#;	
+	flare# = .85 staff_space#;
+	flagspace# = .85 staff_space#;	
 	hip_depth_ratio = .72 ;
 	hip_width# = upflag_width# - hip_thickness#/2;
 	flagspace# + foot_depth# = total_depth#;
@@ -150,7 +150,7 @@ fet_beginchar("16th Flag (up)", "u4", "sixteenthflag")
 		.97, 1.00, 1.25, hip_thickness, foot_thickness);  
 
 	pickup pencircle scaled stemthickness;
-	draw (0, 0) .. (0,-2 interline);
+	draw (0, 0) .. (0,-2 staff_space);
 fet_endchar;
 
 
@@ -160,9 +160,9 @@ fet_beginchar("32nd Flag (up)", "u5", "thirtysecondflag")
 		foot_depth, foot_width_ratio;
 	save flagspace, total_depth, flag_count;
 	flag_count = 3;
-	total_depth#=4.25 interline#;
-	flare# = .85 interline#;
-	flagspace# = .87 interline#;	
+	total_depth#=4.25 staff_space#;
+	flare# = .85 staff_space#;
+	flagspace# = .87 staff_space#;	
 	hip_depth_ratio = .72 ;
 	hip_width# = upflag_width# - hip_thickness#/2;
 	(flag_count-1) * flagspace# + foot_depth# = total_depth#;
@@ -188,7 +188,7 @@ fet_beginchar("32nd Flag (up)", "u5", "thirtysecondflag")
 		.95, 1.05, 1.25, hip_thickness, foot_thickness);  
 
 	pickup pencircle scaled stemthickness;
-	draw (0, 0) .. (0,-2 interline);
+	draw (0, 0) .. (0,-2 staff_space);
 fet_endchar;
 
 fet_beginchar("64th Flag (up)", "u6", "sixtyfourthflag")
@@ -198,11 +198,11 @@ fet_beginchar("64th Flag (up)", "u6", "sixtyfourthflag")
 	save flagspace, total_depth, flag_count;
 	
 	flag_count = 4;
-	flare# = .85 interline#;
-	flagspace# = .9 interline#;	
+	flare# = .85 staff_space#;
+	flagspace# = .9 staff_space#;	
 	hip_depth_ratio = .72 ;
 	hip_width# = upflag_width# - hip_thickness#/2;
-	total_depth# = 5.25 interline#;
+	total_depth# = 5.25 staff_space#;
 	(flag_count-1) * flagspace# + foot_depth# = total_depth#;
 
 	foot_width_ratio = .8;
@@ -227,7 +227,7 @@ fet_beginchar("64th Flag (up)", "u6", "sixtyfourthflag")
 	add_flag(flagspace, flare,
 		.95, 1.05, 1.25, hip_thickness, foot_thickness);  
 	pickup pencircle scaled stemthickness;
-	draw (0, 0) .. (0,-2 interline);
+	draw (0, 0) .. (0,-2 staff_space);
 fet_endchar;
 
 fet_beginchar("grace dash (up)", "ugrace", "gracedash")
@@ -235,11 +235,11 @@ fet_beginchar("grace dash (up)", "ugrace", "gracedash")
 		hip_depth_ratio, hip_width,
 		foot_depth;
 
-	flare# = 1.0 interline#;
+	flare# = 1.0 staff_space#;
 	hip_depth_ratio = .72; 
 	hip_width# = upflag_width# - hip_thickness#/2;
 
-	foot_depth# =  3 interline#;
+	foot_depth# =  3 staff_space#;
 
 	define_pixels(flare, hip_width, hip_thickness,
 		foot_depth, foot_thickness);
@@ -260,11 +260,11 @@ fet_beginchar("8th (down)", "d3", "deighthflag")
 	save flagspace, total_depth, flag_count;
 	
 	flag_count = 1;
-	flare# = .99 interline#;
-	flagspace# = .9 interline#;	
+	flare# = .99 staff_space#;
+	flagspace# = .9 staff_space#;	
 	hip_depth_ratio = .72 ;
 	hip_width# = downflag_width# - hip_thickness#/2;
-	total_depth# = 2.85 interline#;
+	total_depth# = 2.85 staff_space#;
 	(flag_count-1) * flagspace# + foot_depth# = total_depth#;
 
 	foot_width_ratio = .8;
@@ -283,7 +283,7 @@ fet_beginchar("8th (down)", "d3", "deighthflag")
 
 
 	pickup pencircle scaled stemthickness;
-	draw (0, 0) .. (0,-2 interline);
+	draw (0, 0) .. (0,-2 staff_space);
 	y_mirror_char;
 fet_endchar;
 
@@ -294,11 +294,11 @@ fet_beginchar("16th (down)", "d4", "dsixteenthflag")
 	save flagspace, total_depth, flag_count;
 	
 	flag_count = 2;
-	flare# = .8 interline#;
-	flagspace# = .9 interline#;	
+	flare# = .8 staff_space#;
+	flagspace# = .9 staff_space#;	
 	hip_depth_ratio = .85 ;
 	hip_width# = downflag_width# - hip_thickness#/2;
-	total_depth# = 3.0 interline#;
+	total_depth# = 3.0 staff_space#;
 	(flag_count-1) * flagspace# + foot_depth# = total_depth#;
 
 	foot_width_ratio = .95;
@@ -320,7 +320,7 @@ fet_beginchar("16th (down)", "d4", "dsixteenthflag")
 	
 
 	pickup pencircle scaled stemthickness;
-	draw (0, 0) .. (0,-2 interline);
+	draw (0, 0) .. (0,-2 staff_space);
 	y_mirror_char;
 fet_endchar;
 
@@ -331,11 +331,11 @@ fet_beginchar("32nd (down)", "d5", "dthirtysecondflag")
 	save flagspace, total_depth, flag_count;
 	
 	flag_count = 3;
-	flare# = .84 interline#;
-	flagspace# = .9 interline#;	
+	flare# = .84 staff_space#;
+	flagspace# = .9 staff_space#;	
 	hip_depth_ratio = .85 ;
 	hip_width# = downflag_width# - hip_thickness#/2;
-	total_depth# = 3.85 interline#;
+	total_depth# = 3.85 staff_space#;
 	(flag_count-1) * flagspace# + foot_depth# = total_depth#;
 
 	foot_width_ratio = .95;
@@ -360,7 +360,7 @@ fet_beginchar("32nd (down)", "d5", "dthirtysecondflag")
 	
 
 	pickup pencircle scaled stemthickness;
-	draw (0, 0) .. (0,-2 interline);
+	draw (0, 0) .. (0,-2 staff_space);
 	y_mirror_char;
 fet_endchar;
 fet_beginchar("64th (down)", "d6", "dsixtyfourthflag")
@@ -370,11 +370,11 @@ fet_beginchar("64th (down)", "d6", "dsixtyfourthflag")
 	save flagspace, total_depth, flag_count;
 	
 	flag_count = 4;
-	flare# = .8 interline#;
-	flagspace# = .9 interline#;	
+	flare# = .8 staff_space#;
+	flagspace# = .9 staff_space#;	
 	hip_depth_ratio = .85 ;
 	hip_width# = downflag_width# - hip_thickness#/2;
-	total_depth# = 4.35 interline#;
+	total_depth# = 4.35 staff_space#;
 	(flag_count-1) * flagspace# + foot_depth# = total_depth#;
 
 	foot_width_ratio = .98;
@@ -401,7 +401,7 @@ fet_beginchar("64th (down)", "d6", "dsixtyfourthflag")
 	
 
 	pickup pencircle scaled stemthickness;
-	draw (0, 0) .. (0,-2 interline);
+	draw (0, 0) .. (0,-2 staff_space);
 	y_mirror_char;
 fet_endchar;
 
@@ -411,11 +411,11 @@ fet_beginchar("grace dash (down)", "dgrace", "dgracedash")
 	save flagspace, total_depth, flag_count;
 	
 	flag_count = 1;
-	flare# = .99 interline#;
-	flagspace# = .9 interline#;	
+	flare# = .99 staff_space#;
+	flagspace# = .9 staff_space#;	
 	hip_depth_ratio = .72 ;
 	hip_width# = downflag_width# - hip_thickness#/2;
-	total_depth# = 2.85 interline#;
+	total_depth# = 2.85 staff_space#;
 	(flag_count-1) * flagspace# + foot_depth# = total_depth#;
 
 	foot_width_ratio = .8;

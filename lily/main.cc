@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include <stdlib.h>
@@ -145,7 +145,7 @@ version ()
     "lilypond");
   cout << endl;
 
-  cout << _f ("Copyright (c) %s by", "1996--1999");
+  cout << _f ("Copyright (c) %s by", "1996--2000");
   cout << "Han-Wen Nienhuys <hanwen@cs.uu.nl>\n"
        << "Jan Nieuwenhuizen <janneke@gnu.org>\n";
 }
@@ -157,7 +157,7 @@ notice ()
   // GNU GNU?
   cout << _ ("GNU LilyPond -- The GNU Project music typesetter");
   cout << '\n';
-  cout << _f ("Copyright (c) %s by", "1996--1999");
+  cout << _f ("Copyright (c) %s by", "1996--2000");
   cout << '\n';
   cout << "  Han-Wen Nienhuys <hanwen@cs.uu.nl>\n";
   cout << "  Jan Nieuwenhuizen <janneke@gnu.org>\n";

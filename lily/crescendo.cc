@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "molecule.hh"
@@ -33,7 +33,8 @@ Crescendo::do_brew_molecule_p () const
 
   if (!isdir_b (dir) || !gh_pair_p (dyns))
     {
-      set_elt_property ("transparent", SCM_BOOL_T);
+Crescendo * me = (Crescendo*)this;
+      me->set_elt_property ("transparent", SCM_BOOL_T);
       return new Molecule;
     }
   

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "dots.hh"
@@ -108,6 +108,6 @@ Dot_column::do_post_processing ()
 
   for (int i=0; i  <dots.size (); pos += 2, i++)
     {
-      staff_symbol_referencer_interface (dots[i]).set_position(pos);
+      staff_symbol_referencer (dots[i]).set_position(pos);
     }
 }

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -23,20 +23,8 @@
   */
 class Bow : public Spanner
 {
-public:
-  Bow ();
-  Offset center () const;  
-
 protected:
-  virtual Molecule* do_brew_molecule_p () const;
-
-  virtual Array<Offset> get_encompass_offset_arr () const;
-
-  Interval curve_extent (Axis) const;
-  Bezier get_curve () const;
-  
-  Drul_array<Real> dy_f_drul_;
-  Drul_array<Real> dx_f_drul_;
 };
+#error
 
 #endif // BOW_HH

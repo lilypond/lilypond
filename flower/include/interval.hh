@@ -8,7 +8,7 @@
 #define INTERVAL_HH
 
 #include <assert.h> 
-#include "fproto.hh"
+#include "flower-proto.hh"
 #include "real.hh"
 #include "drul-array.hh"
 
@@ -156,7 +156,7 @@ Interval_t<T> operator *(Interval_t<T> i,T a){
   return a*i;
 }
 
-// again? see fproto.hh
+// again? see flower-proto.hh
 typedef Interval_t<Real> Interval;
 typedef Interval_t<int> Slice;	// weird name
 

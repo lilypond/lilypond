@@ -3,7 +3,7 @@
   
   source file of the LilyPond music typesetter
 
-  (c)  1997--1999 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c)  1997--2000 Jan Nieuwenhuizen <janneke@gnu.org>
 
 */
 
@@ -12,7 +12,7 @@
 #ifndef DURATION_HH
 #define DURATION_HH
 
-#include "fproto.hh"
+#include "flower-proto.hh"
 #include "rational.hh"
 #include "plet.hh"
 

@@ -15,7 +15,7 @@ def draw_bracket( expr height_sharp, width_sharp) =
  
 	define_pixels (height, width);
 	thin = 2 stafflinethickness;
-	thick = .5 interline;
+	thick = .5 staff_space;
 	
 	pickup pencircle scaled thin;
 	lft x1 = 0;
@@ -30,7 +30,7 @@ def draw_bracket( expr height_sharp, width_sharp) =
 	bot y4 = y1 - thick + thin/2;
 
 	alpha = 50;
-	z5 = z1 + (width, 3/4interline);
+	z5 = z1 + (width, 3/4staff_space);
 
 	% need silly z6?
 	% strange turning path when invoked via MakeTeXTFM...?
@@ -69,6 +69,6 @@ enddef;
 
 % for h :=  staffsize# step 1 pt# until (1.1 * staffsize#):
 for h :=  staffsize# step 1 pt# until (7 * staffsize#):
-	draw_bracket(h, 2interline# );
+	draw_bracket(h, 2staff_space# );
 endfor
 

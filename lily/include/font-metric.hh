@@ -20,10 +20,12 @@ struct Character_metric
   virtual ~Character_metric ();
 };
 
+
+
 struct Font_metric
 {
   Font_metric ();
-  String name_str_;
+  SCM name_;
   virtual SCM description () const;
   virtual Character_metric const *get_char (int ascii, bool warn) const; 
   virtual ~Font_metric ();
@@ -44,6 +46,8 @@ struct Scaled_font_metric : public Font_metric
   virtual SCM description () const;
   virtual Box text_dimension (String) const;
 };
+
+Font_metric * unsmob_metrics (SCM s);
 
 
 #endif /* FONT_METRIC_HH */
