@@ -142,7 +142,7 @@
 		 (ly:number->string (+ depth height))
 		 " re f "))
 
-(define (roundfilledbox breadth width depth height blotdiam)
+(define (round-filled-box breadth width depth height blotdiam)
   (let* ((rad (/ blotdiam 2))
  	 (h (- height rad))
  	 (d (- depth rad))
@@ -173,7 +173,7 @@
  		 "f "))
 
 
-(define (roundfilledbox breadth width depth height blot) 
+(define (round-filled-box breadth width depth height blot) 
   (filledbox breadth width depth height))
 
 (define (font-def i s) "")

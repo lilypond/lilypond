@@ -10,13 +10,19 @@
 */
 
 /*
-  Two shift/reduce problems:
+  Four shift/reduce problems:
 
 1.	foo = bar.
 
 	"bar" -> String -> Lyric -> Music -> music-assignment
 
 	"bar" -> String -> string-assignment
+
+
+Similar problem for
+
+ * \markup identifier.
+ * \markup { }
 
 
 2.  \repeat
@@ -291,7 +297,8 @@ yylex (YYSTYPE *s,  void * v)
 
 %type <i>	exclamations questions dots optional_rest
 %type <i>  	 bass_mod
-%type <scm> 	grace_head 
+%type <scm> 	grace_head
+%type <scm>  	lyric_element
 %type <scm> 	bass_number br_bass_figure bass_figure figure_list figure_spec
 %token <i>	DIGIT
 %token <scm>	NOTENAME_PITCH
@@ -2054,8 +2061,11 @@ simple_element:
 		scm_gc_protect_object (mus);
 		$$ = unsmob_music (mus);
 	}
-	| STRING optional_notemode_duration 	{
+	
+	| lyric_element optional_notemode_duration 	{
 		Input i = THIS->pop_spot ();
+		if (!THIS->lexer_->lyric_state_b ())
+			THIS->parser_error (_ ("Have to be in Lyric mode for lyrics"));
 
 		Music * lreq = MY_MAKE_MUSIC("LyricEvent");
                 lreq->set_mus_property ("text", $1);
@@ -2073,6 +2083,11 @@ simple_element:
                         THIS->parser_error (_ ("Have to be in Chord mode for chords"));
                 $$ = unsmob_music ($1);
 	}
+	;
+
+lyric_element:
+	full_markup { $$ = $1 }
+	| STRING {  $$ = $1 ; }
 	;
 
 new_chord:

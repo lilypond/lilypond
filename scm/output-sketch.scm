@@ -63,7 +63,7 @@
 ; ((eq? keyword 'placebox)
 ;  (dispatch (+ x (cadr expr)) (+ y (caddr expr) (cadddr expr))))
 ; ((eq? keyword 'repeat-slash wid slope thick)
-; ((eq? keyword 'roundfilledbox x y dx dy w h b)
+; ((eq? keyword 'round-filled-box x y dx dy w h b)
 ; ((eq? keyword 'select-font name-mag-pair)
 ; ((eq? keyword 'start-system width height)
 ; ((eq? keyword 'stem x y z w) (filledbox x y z w))
@@ -180,7 +180,7 @@
   "")
 
 
-(define (roundfilledbox x y dx dy w h b)
+(define (round-filled-box x y dx dy w h b)
   (sketch-filled-rectangle w 0 0 h x y))
 
 (define (polygon points blotdiameter) "") ;; TODO

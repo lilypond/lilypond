@@ -1,5 +1,7 @@
 % Toplevel initialisation file. 
 
+
+
 #(define-public point-and-click #f)
 #(define-public midi-debug #f)
 
@@ -8,6 +10,7 @@
 \version "1.9.1"
 
 \include "declarations-init.ly"
+
 
 #(ly:set-option 'new-relative)
 #(ly:set-point-and-click #f)

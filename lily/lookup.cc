@@ -166,7 +166,7 @@ Lookup::filledbox (Box b)
  *       Box extent(X_AXIS)
  */
 Molecule
-Lookup::roundfilledbox (Box b, Real blotdiameter)
+Lookup::round_filled_box (Box b, Real blotdiameter)
 {
   if (b.x ().length () < blotdiameter)
     {
@@ -179,7 +179,7 @@ Lookup::roundfilledbox (Box b, Real blotdiameter)
       blotdiameter = b.y ().length ();
     }
 
-  SCM at = (scm_list_n (ly_symbol2scm ("roundfilledbox"),
+  SCM at = (scm_list_n (ly_symbol2scm ("round-filled-box"),
 			gh_double2scm (-b[X_AXIS][LEFT]),
 			gh_double2scm (b[X_AXIS][RIGHT]),
 			gh_double2scm (-b[Y_AXIS][DOWN]),
@@ -190,24 +190,6 @@ Lookup::roundfilledbox (Box b, Real blotdiameter)
   return Molecule (b,at);
 }
 
-LY_DEFINE(ly_round_filled_box, "ly:round-filled-box",
-	  2, 0,0,
-	  (SCM b, SCM blot),
-	  "Make a box with rounded corners. B is a pair of number-pairs, and BLOT a number")
-{
-  SCM_ASSERT_TYPE(gh_number_p (blot), blot, SCM_ARG2, __FUNCTION__, "number") ;
-  SCM_ASSERT_TYPE(gh_pair_p (b), b, SCM_ARG4, __FUNCTION__, "pair") ;
-
-  SCM_ASSERT_TYPE(ly_number_pair_p (gh_car (b)), gh_car (b), SCM_ARG1, __FUNCTION__, "number-pair") ;
-  SCM_ASSERT_TYPE(ly_number_pair_p (gh_cdr (b)), gh_cdr (b), SCM_ARG1, __FUNCTION__, "number-pair") ;
-
-  Interval x (ly_scm2interval (gh_car (b)));
-  Interval y (ly_scm2interval (gh_cdr (b)));
-  
-  return Lookup::roundfilledbox (Box (x,y),
-				 gh_scm2double (blot)).smobbed_copy();
-  
-}
 	  
 
 /*
@@ -770,4 +752,19 @@ LY_DEFINE(ly_bracket ,"ly:bracket",
 			  gh_scm2double (t),
 			  gh_scm2double (p)).smobbed_copy ();
 }
-  
+
+
+
+LY_DEFINE(ly_filled_box ,"ly:round-filled-box",
+	  3, 0, 0,
+	  (SCM xext, SCM yext, SCM blot),
+	  "Make a filled-box of dimensions @var{xext}, @var{yext} and roundness @var{blot}.")
+{
+  SCM_ASSERT_TYPE(ly_number_pair_p (xext), xext, SCM_ARG1, __FUNCTION__, "number pair") ;
+  SCM_ASSERT_TYPE(ly_number_pair_p (yext), yext, SCM_ARG2, __FUNCTION__, "number pair") ;
+  SCM_ASSERT_TYPE(gh_number_p (blot), blot, SCM_ARG3, __FUNCTION__, "number") ;
+
+  return Lookup::round_filled_box (Box (ly_scm2interval (xext), ly_scm2interval (yext)),
+				   gh_scm2double (blot)).smobbed_copy ();
+}
+

@@ -1,5 +1,22 @@
 2003-08-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/my-lily-lexer.cc (My_lily_lexer): don't crash
+	on unquoted strings before \notenames.
+
+	* lily/parser.yy (lyric_element): allow markup as lyric text. This
+	increases the number of s/r reductions to 4.
+
+	* scm/new-markup.scm (fraction-markup): \fraction command.
+
+	* lily/lexer.ll: allow any string without \ { }  # and " in \markup
+	mode
+
+	* lily/lookup.cc (round_filled_box): rename function.
+	(LY_DEFINE): round-filled-box: change signature.
+
+	* Documentation/user/refman.itely: revise section explaining grace
+	notes.
+
 	* lily/translator-scheme.cc (LY_DEFINE): add !
 
 	* input/*/*.ly (vmus): use \new everywhere.

@@ -73,6 +73,10 @@ for the reader.
   )
 
 (define-public (line-markup grob props . rest)
+  "A horizontal line of markups. Syntax:
+\\line << MARKUPS >>
+"
+  
   (stack-molecule-line
    (cdr (chain-assoc 'word-space props))
    (map (lambda (x) (interpret-markup grob props x)) (car rest)))
@@ -191,8 +195,32 @@ for the reader.
 			       grob
 			       props
 			       (cadr rest))
-			      (car rest) Y)
-  )
+			      (car rest) Y))
+
+(define-public (fraction-markup grob props . rest)
+  "Syntax: \\fraction MARKUP1 MARKUP2."
+
+  (let*
+      ((m1 (interpret-markup grob props (car rest)))
+       (m2 (interpret-markup grob props (cadr rest))))
+
+    (ly:molecule-align-to! m1 X CENTER)
+    (ly:molecule-align-to! m2 X CENTER)
+    
+    (let*
+	((x1 (ly:molecule-get-extent m1 X))
+	 (x2 (ly:molecule-get-extent m2 X))
+	 (line (ly:round-filled-box (interval-union x1 x2) '(-0.05 . 0.05) 0.0))
+
+	 ;; should stack mols separately, to maintain LINE on baseline
+	 (stack (stack-lines -1 0.2 0.6 (list m1 line m2))))
+
+      (ly:molecule-align-to! stack Y CENTER)
+      (ly:molecule-align-to! stack X LEFT)
+      ;; should have EX dimension
+      ;; empirical anyway
+      (ly:molecule-translate-axis stack 0.75 Y) 
+      )))
 
 
 (define-public (note-markup grob props . rest)
@@ -213,10 +241,10 @@ for the reader.
 		    0))
        (attachy (* dir 0.28))
        (stemgl (if (> log 0)
-		   (ly:round-filled-box (cons
+		   (ly:round-filled-box
 				     (cons attachx (+ attachx  stemth))
 				     (cons (min stemy attachy)
-					   (max stemy attachy)))
+					   (max stemy attachy))
 				    (/ stemth 3)
 				    ) #f))
        (dot (ly:find-glyph-by-name font "dots-dot"))
@@ -544,6 +572,7 @@ for the reader.
    (cons hbracket-markup  (list markup?))
    (cons bracket-markup  (list markup?))
    (cons note-markup (list integer? integer? ly:dir?))
+   (cons fraction-markup (list markup? markup?))
    
    (cons column-markup (list markup-list?))
    (cons dir-column-markup (list markup-list?))

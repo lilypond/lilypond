@@ -93,7 +93,13 @@ static Keyword_ent the_key_tab[]={
 
 My_lily_lexer::My_lily_lexer ()
 {
+  //  yy_flex_debug = 1;
+  
   keytable_ = new Keyword_table (the_key_tab);
+
+  chordmodifier_tab_ = scm_make_vector (gh_int2scm (1), SCM_EOL);
+  pitchname_tab_ = scm_make_vector (gh_int2scm (1), SCM_EOL);
+  
   scopes_ = SCM_EOL;
   
   add_scope(ly_make_anonymous_module());
