@@ -3742,7 +3742,7 @@ is the same as
 
 @example
 \context Voice = blah @{ music @}
-\lyricsto "blah" \lyricsmode \new lyrics @{ LYRICS @}
+\lyricsto "blah" \new lyrics  \lyricmode @{ LYRICS @}
 @end example
 
 

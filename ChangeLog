@@ -1,3 +1,9 @@
+2005-01-05  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* Documentation/user/notation.itely (Setting simple songs):
+	Correct several errors in the equivalent formulation of
+	\addlyrics. 
+
 2004-12-26  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/user/changing-defaults.itely: Fix internalsrefs
