@@ -25,6 +25,7 @@ protected:
   Part_combine_music_iterator (Part_combine_music_iterator const &);
   virtual void construct_children ();
   virtual Moment pending_moment () const;
+  virtual void do_quit(); 
   virtual void process (Moment);
   virtual SCM get_pending_events (Moment)const;
   virtual Music_iterator *try_music_in_children (Music *) const;

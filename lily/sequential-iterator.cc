@@ -49,6 +49,13 @@ Sequential_iterator::get_music_list () const
   return SCM_EOL;
 }
 
+void
+Sequential_iterator::do_quit ()
+{
+  if (iter_) iter_->quit();
+}
+
+
 Sequential_iterator::Sequential_iterator (Sequential_iterator const &src)
   : Music_iterator (src)
 {
@@ -138,7 +145,7 @@ Sequential_iterator::construct_children ()
   if (gh_pair_p (cursor_))
     {
       Music *m  =unsmob_music (ly_car (cursor_));
-      iter_ = unsmob_iterator ( get_iterator (m));
+      iter_ = unsmob_iterator (get_iterator (m));
     }
   
   while (iter_ && !iter_->ok ())
@@ -195,6 +202,7 @@ Sequential_iterator::next_element (bool side_effect)
   
   cursor_ = ly_cdr (cursor_);
 
+  iter_->quit();
   if (gh_pair_p (cursor_))
     iter_ = unsmob_iterator (get_iterator (unsmob_music (ly_car (cursor_))));
   else

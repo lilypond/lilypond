@@ -22,6 +22,7 @@ public:
 protected:
   virtual void derived_mark () const;
   virtual Moment pending_moment () const;
+  virtual void do_quit(); 
   virtual void construct_children () ;
   virtual bool ok () const;
   virtual void process (Moment) ;

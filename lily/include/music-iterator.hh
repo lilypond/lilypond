@@ -90,19 +90,22 @@ public:
    */
   static SCM get_static_get_iterator (Music * mus);
   void init_translator (Music  *, Translator_group *); 
+void quit ();
 
+  
   virtual Moment pending_moment () const;
   virtual bool ok () const;
   virtual SCM get_pending_events (Moment until)const;
   virtual void process (Moment until);
   virtual void skip (Moment until);
   virtual void derived_mark ()const;
+  virtual void construct_children ();
   
   /**
     Construct sub-iterators, and set the translator to 
     report to.
    */
-  virtual void construct_children ();
+
   DECLARE_SCHEME_CALLBACK(constructor, ());
   
   /**
@@ -113,6 +116,8 @@ public:
   virtual Music_iterator* try_music_in_children (Music *) const;
 
   Music * get_music () const;
+protected:
+  virtual void do_quit();
 private:
   Interpretation_context_handle handle_;
   Music  * music_;

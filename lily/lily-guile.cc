@@ -98,7 +98,7 @@ gulp_file_to_string (String fn)
   int n;
   char * str = gulp_file (s, &n);
   String result (str);
-  delete str;
+  delete[] str;
   
   if (verbose_global_b)
     progress_indication ("]");

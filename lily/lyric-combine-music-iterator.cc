@@ -31,9 +31,9 @@ Lyric_combine_music_iterator::Lyric_combine_music_iterator ()
       melisma_playing_req = new Melisma_playing_req;
       melisma_stop_req = new Melisma_req;
       melisma_start_req = new Melisma_req;      
+      melisma_start_req->set_span_dir (START);
+      melisma_stop_req->set_span_dir (STOP);
     }
-  melisma_start_req->set_span_dir (START);
-  melisma_stop_req->set_span_dir (STOP);
   
   music_iter_ =0;
   lyric_iter_ =0;
@@ -68,9 +68,6 @@ Lyric_combine_music_iterator::construct_children ()
   
   music_iter_ = unsmob_iterator (get_iterator (m->get_music ()));
   lyric_iter_ = unsmob_iterator (get_iterator (m->get_lyrics ()));
-
-  scm_gc_unprotect_object (music_iter_->self_scm());
-  scm_gc_unprotect_object (lyric_iter_->self_scm());
 }
 
 bool
@@ -127,8 +124,13 @@ Lyric_combine_music_iterator::process (Moment m)
     }
   
 }
-
-
+void
+Lyric_combine_music_iterator::do_quit ()
+{
+  if (music_iter_) music_iter_->quit();
+  if (lyric_iter_) lyric_iter_->quit();
+  
+}
 Lyric_combine_music_iterator::Lyric_combine_music_iterator (Lyric_combine_music_iterator const & src)
     : Music_iterator (src)
 {
@@ -136,9 +138,9 @@ Lyric_combine_music_iterator::Lyric_combine_music_iterator (Lyric_combine_music_
   music_iter_ = src.music_iter_ ? src.music_iter_->clone () : 0;  
 
   if (lyric_iter_)
-    scm_gc_unprotect_object (music_iter_->self_scm());
-  if (music_iter_)
     scm_gc_unprotect_object (lyric_iter_->self_scm());
+  if (music_iter_)
+    scm_gc_unprotect_object (music_iter_->self_scm());
 }
 
 Music_iterator*

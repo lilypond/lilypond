@@ -27,6 +27,7 @@ public:
   virtual void derived_mark () const;
   virtual void construct_children ();
   virtual Moment pending_moment () const;
+  virtual void do_quit(); 
   virtual bool ok () const;
 
 protected:

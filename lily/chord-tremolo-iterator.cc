@@ -41,6 +41,13 @@ Chord_tremolo_iterator::Chord_tremolo_iterator (Chord_tremolo_iterator const &sr
 }
 
 void
+Chord_tremolo_iterator::do_quit()
+{
+  if (child_iter_)
+    child_iter_->quit();
+}
+
+void
 Chord_tremolo_iterator::derived_mark () const
 {
   if (child_iter_)

@@ -90,9 +90,10 @@ Simultaneous_music_iterator::construct_children ()
 	  *tail = scm_cons (scm_iter, *tail);
 	  tail = SCM_CDRLOC (*tail);
 	}
+      else
+	mi->set_translator (0);
     }
 }
-
 
 void
 Simultaneous_music_iterator::process (Moment until)
@@ -166,6 +167,12 @@ Simultaneous_music_iterator::try_music_in_children (Music *m) const
   return b;
 }
 
+void
+Simultaneous_music_iterator::do_quit ()
+{
+  for (SCM s = children_list_; gh_pair_p (s); s = gh_cdr(s))
+    unsmob_iterator (gh_car (s))->quit();
+}
 
 
 IMPLEMENT_CTOR_CALLBACK (Simultaneous_music_iterator);

@@ -24,6 +24,12 @@ Music_wrapper_iterator::Music_wrapper_iterator (Music_wrapper_iterator const &sr
 }
 
 void
+Music_wrapper_iterator::do_quit()
+{
+  child_iter_->quit();
+}
+
+void
 Music_wrapper_iterator::derived_mark()const
 {
   if (child_iter_)

@@ -205,7 +205,18 @@ SCM
 Music_iterator::mark_smob (SCM smob)
 {
   Music_iterator * mus = (Music_iterator *)SCM_CELL_WORD_1 (smob);
+
   mus->derived_mark ();
+  /*
+    Careful with GC, although we intend the following as pointers
+    only, we _must_ mark them.
+   */
+  if (mus->report_to())
+    scm_gc_mark (mus->report_to()->self_scm());
+  if (mus->music_)
+    scm_gc_mark (mus->music_->self_scm());
+  
+
   return SCM_EOL;
 }
 
@@ -218,5 +229,17 @@ Music_iterator::print_smob (SCM , SCM port, scm_print_state*)
 
 void
 Music_iterator::derived_mark()const
+{
+}
+
+void
+Music_iterator::quit ()
+{
+  handle_.quit ();
+  do_quit ();
+}
+
+void
+Music_iterator::do_quit()
 {
 }

@@ -23,6 +23,7 @@ public:
 protected:
   virtual void construct_children ();
   virtual Moment pending_moment () const;
+  virtual void do_quit(); 
   virtual void process (Moment);
   virtual Music_iterator *try_music_in_children (Music *) const;
   

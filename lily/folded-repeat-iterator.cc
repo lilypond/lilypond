@@ -30,6 +30,12 @@ Folded_repeat_iterator::ok () const
 {
   return main_iter_ || alternative_iter_;
 }
+void
+Folded_repeat_iterator::do_quit()
+{
+  if (main_iter_)main_iter_->quit();
+  if (alternative_iter_)alternative_iter_->quit();
+}
 
 Folded_repeat_iterator::Folded_repeat_iterator (Folded_repeat_iterator const &src)
   : Music_iterator (src)
@@ -93,6 +99,7 @@ Folded_repeat_iterator::process (Moment m)
       alternative_iter_->process (m - main_length_mom_);
       if (!alternative_iter_->ok ())
 	{
+	  alternative_iter_->quit();
 	  alternative_iter_ =0;
 	}
     }
@@ -103,6 +110,7 @@ Folded_repeat_iterator::leave_body ()
 {
   Repeated_music *  mus = dynamic_cast<Repeated_music *> (get_music ());
 
+  main_iter_->quit ();
   main_iter_ = 0;
   main_length_mom_ +=  mus->body ()->length_mom ();
 }

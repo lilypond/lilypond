@@ -29,6 +29,7 @@ public:
   virtual void process (Moment);
   virtual bool ok ()const;
   virtual Moment pending_moment ()const;
+
   virtual void skip (Moment);
 };
 

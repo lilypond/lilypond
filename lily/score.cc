@@ -107,6 +107,7 @@ Score::run_translator (Music_output_def *odef)
 
   trans->start ();
   trans->run_iterator_on_me (iter);
+  iter->quit();
   scm_remember_upto_here_1 (protected_iter);
   trans->finish ();
 

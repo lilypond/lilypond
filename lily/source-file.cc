@@ -159,7 +159,7 @@ Source_file::~Source_file ()
 {
   delete istream_;
   istream_ = 0;
-  delete contents_str0_;
+  delete[] contents_str0_;
 }
 
 Slice

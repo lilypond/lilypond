@@ -31,6 +31,12 @@ Part_combine_music_iterator::derived_mark () const
     scm_gc_mark(second_iter_->self_scm());
 }
 
+void
+Part_combine_music_iterator::do_quit ()
+{
+  if (first_iter_) first_iter_->quit();
+  if (second_iter_) second_iter_->quit();
+}
 
 Part_combine_music_iterator::Part_combine_music_iterator (Part_combine_music_iterator const &src)
   : Music_iterator (src)
@@ -342,7 +348,7 @@ Part_combine_music_iterator::process (Moment m)
 
       **** Tried this, but won't work:
 
-      Consider thread switching: threads "one", "two" and "both".
+s      Consider thread switching: threads "one", "two" and "both".
       User can't pre-set the (most important) stem direction at
       thread level!
    */

@@ -19,6 +19,11 @@ Percent_repeat_iterator::Percent_repeat_iterator ()
   
 }
 
+void
+Percent_repeat_iterator::do_quit()
+{
+  if (child_iter_) child_iter_->quit();
+}
 Percent_repeat_iterator::Percent_repeat_iterator (Percent_repeat_iterator const & p)
   : Music_iterator (p)
 {

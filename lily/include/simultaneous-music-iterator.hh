@@ -27,6 +27,7 @@ public:
 
   virtual void construct_children ();
   virtual Moment pending_moment () const;
+  virtual void do_quit(); 
   virtual bool ok () const;
   virtual SCM get_pending_events (Moment)const;
   virtual void skip (Moment);
