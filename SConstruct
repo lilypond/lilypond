@@ -285,10 +285,18 @@ if optional:
 #env['tarball'] = os.path.join (outdir,
 #			       package.name + '-' + env['version'] + '.tar.gz')
 
-env['tarball'] = os.path.join ('~/tmp',
+env['tarball'] = os.path.join (os.environ['HOME'], 'tmp',
 			       package.name + '-' + env['version'] + '.tar.gz')
 
+# huh?
+if 'tar' in COMMAND_LINE_TARGETS:
+	#env.Default (env['tarball'])
+	#env.Default (tar)
+	env.Default (env['tarball'])
+	#Default (tar)
+
 Export ('env')
+
 
 #subdirs = ['mf',]
 #subdirs = ['flower', 'lily', 'parser', 'gui', 'main',]
@@ -310,6 +318,4 @@ readmes = ['AUTHORS.txt', 'ChangeLog', 'NEWS.txt']
 env.Append (TARFLAGS = '-z --owner=0 --group=0')
 env.Append (GZIPFLAGS = '-9')
 all_sources = ['SConstruct',] + readmes + subdirs
-x = env.Tar (env['tarball'], all_sources)
-
-
+tar = env.Tar (env['tarball'], all_sources)
