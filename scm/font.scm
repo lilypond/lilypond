@@ -116,7 +116,8 @@
      (bold . (font-series . "bold"))
      (italic . (font-shape . "italic"))
      (named . (lookup . name))
-     (text . (lookup . value)))
+     (text . (lookup . value))
+     (super . (font-size . -1)))
    (map (lambda (x) (cons (car x) (cons 'font-style (car x))))
 	style-to-font-alist)))
   

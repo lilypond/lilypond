@@ -48,7 +48,7 @@ of a certain tune (Jazz, Real Book, for example), like
 		indent = 0.0\mm;
 		linewidth = 100.0\mm;
 		\translator{
-			\ChordNameContext
+			\ChordNamesContext
 			barAuto = "1";
 			\consists Bar_engraver;
 			\consists "Repeat_engraver";
@@ -56,4 +56,4 @@ of a certain tune (Jazz, Real Book, for example), like
 	}
 }
 
-\version "1.3.93";
+\version "1.3.96";

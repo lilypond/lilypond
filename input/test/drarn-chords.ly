@@ -1,4 +1,4 @@
-\version "1.3.93";
+\version "1.3.96";
 
 %{
 Would this be acceptable/good enough/convenient for entry?
@@ -31,7 +31,7 @@ scales = \notes \transpose c'' \chords{
 	\paper{
 %		\paper_as_nine
 		\translator {
-			\ChordNameContext
+			\ChordNamesContext
 			}
 	}
 }

@@ -1,7 +1,7 @@
 
 
 
-\version "1.3.93";
+\version "1.3.96";
 
 rh=\property Thread.NoteHead \push #'style = #'default
 lh=\property Thread.NoteHead \push #'style = #'diamond

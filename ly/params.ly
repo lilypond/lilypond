@@ -127,8 +127,8 @@ compression_energy_factor = 0.6;
 \translator { \StaffContext }
 \translator { \VoiceContext}
 \translator { \StaffGroupContext }
-\translator { \ChordNameContext }
-\translator { \ChordNameVoiceContext}
+\translator { \ChordNamesContext }
+\translator { \ChordNamesVoiceContext}
 \translator { \GrandStaffContext}
 \translator { \LyricsContext }
 \translator { \ThreadContext}

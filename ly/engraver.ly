@@ -1,5 +1,5 @@
 
-\version "1.3.93"
+\version "1.3.96"
 	%
 % setup for Request->Element conversion. Guru-only
 %
@@ -266,23 +266,23 @@ LyricsContext = \translator {
 	\accepts "LyricVoice";
 }
 
-ChordNameVoiceContext = \translator {
+ChordNamesVoiceContext = \translator {
 	\type "Engraver_group_engraver";
-	\name ChordNameVoice ;
+	\name ChordNamesVoice ;
 
 	\consists "Output_property_engraver";	
 	\consistsend "Axis_group_engraver";
 	\consists "Separating_line_group_engraver";
 	\consists "Chord_name_engraver";
 }
-ChordNameContext = \translator {
+ChordNamesContext = \translator {
 	\type "Engraver_group_engraver";
 	\name ChordNames;
 
 	Generic_property_list = #generic-chord-staff-properties
 	\consists "Property_engraver";	
 	\consists "Output_property_engraver";	
-	\accepts "ChordNameVoice";
+	\accepts "ChordNamesVoice";
 	\consistsend "Axis_group_engraver";
 	}
 
@@ -524,12 +524,16 @@ ScoreContext = \translator {
 	   (name . "Clef")
 	)
 
-	ChordName = #`(
+	ChordNames = #`(
 		(molecule-callback . ,Chord_name::brew_molecule)
 		(interfaces . (chord-name-interface))
 		(after-line-breaking-callback . ,Chord_name::after_line_breaking)
 		(chord-name-function . ,default-chord-name-function)
-		(name . "ChordName")  
+		(properties-to-font-name . ,properties-to-font-name)
+		(style-to-font-name . ,style-to-font-name)
+		(markup-to-properties . ,markup-to-properties)
+		(font-family . roman)
+		(name . "ChordNames")  
 	)
 
 	NoteCollision = #`(

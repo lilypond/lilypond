@@ -1,5 +1,5 @@
 
-\version "1.3.93";
+\version "1.3.96";
 
 onestaff = \context Staff = foo\notes  {
 	\property Staff.instr = instr

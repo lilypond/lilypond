@@ -1,4 +1,4 @@
-\version "1.3.80";
+\version "1.3.96";
 % bagpipe music.
 
 \header
@@ -12,20 +12,20 @@
   \translator {
   	\GraceContext
 
-	basicNoteHeadProperties \push #'font-size = #-2
-	basicNoteHeadProperties \push #'font-size = #-2	
-        basicStemProperties \push #'flag-style = ##f
+	NoteHead \push #'font-size = #-2
+	NoteHead \push #'font-size = #-2	
+        Stem \push #'flag-style = ##f
     % The following determines the length of stems without beams
     % default is between 2.8 and 4.0 depending on the number of flags
-         basicStemProperties \push #'length = #6	
-        basicStemProperties \push #'font-size = #-2
-	basicGraceAlignItemProperties \push #'horizontal-space = #1
-	basicStemProperties \push #'flag-style = #""
+         Stem \push #'length = #6	
+        Stem \push #'font-size = #-2
+	GraceAlignItem \push #'horizontal-space = #1
+	Stem \push #'flag-style = #""
  
   }
   \translator { \StaffContext
-  	basicTimeSignatureProperties \push #'style = #"C4/4"
-  	basicTimeSignatureProperties \push #'visibility-function = #begin-of-line-visible
+  	TimeSignature \push #'style = #"C4/4"
+  	TimeSignature \push #'visibility-function = #begin-of-line-visible
   }	
 }
 
@@ -72,7 +72,7 @@ gcdg = \notes{ \grace { [g'32 c d]}}
 \score {
   \notes { \time 6/8; \partial 4;
   \property Voice.tieVerticalDirection = \up
-  \slurup
+  \slurUp
 f4 |
 \gg f4 e8 \thrd d4. |
 \eg a4.()a4 d8 |
