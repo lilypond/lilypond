@@ -1,9 +1,9 @@
 COMMENT(-*-text-*-)
 
-DEFINEMACRO(var)(1)(whenlatex(latexcommand({\normalfont\scshape )ARG1+latexcommand(}))\
+redef(var)(1)(whenlatex(latexcommand({\normalfont\scshape )ARG1+latexcommand(}))\
     whenhtml(sc(ARG1)))
 
-
+def(mycode)(1)(tt(ARG1))
 
 COMMENT( This document contains Mudela fragments.  You need at least
 Yodl-1.30.18 to convert this to tex or html.
@@ -60,7 +60,7 @@ article(Mudela, the Music-Definition Language)
 latexcommand(\def\interexample{})
 latexcommand(\def\preexample{\par})
 latexcommand(\def\postexample{\par\medskip})
-latexcommand(\def\file#1{{code(#1)}})
+latexcommand(\def\file#1{{mycode(#1)}})
 
 whenhtml(
 nsubsect(Disclaimer)
@@ -145,12 +145,13 @@ verb(
 
 This data is what we consider the musical em(definition).  Mudela
 has a special entry mode where you can conveniently abbreviate this to
-`code(d''4.)'.  There are some features that also make the quotes and
-numbers in `code(d''4.)'  superfluous in some cases.
+`mycode(d''4.)'.  There are some features that also make the quotes and
+numbers in `mycode(d''4.)'  superfluous in some cases.
 
-For those who are curious, the numbers in `code(\musicalpitch { 1 2 0
-})' example mean octave, notename, and accidental respectively.  The
-numbers in `code(\duration { 2 1 })' are the (negative) logarithm of the
+For those who are curious, the numbers in
+`mycode(\musicalpitch { 1 2 0 })'
+example mean octave, notename, and accidental respectively.  The
+numbers in `mycode(\duration { 2 1 })' are the (negative) logarithm of the
 duration (2 is a quarter note, 3 is an eighth note, etc.) and the number
 of augmention dots respectively.
 
@@ -158,9 +159,9 @@ sect(When you know the notes to nop(print)ellipsis())
 
 The basic building block of music is the note.  You can have LilyPond
 print a note by specifying its pitch and duration.  The pitch of the
-central C is written as code(c').  This is in line with musicological
+central C is written as mycode(c').  This is in line with musicological
 notation; there this pitch is transcribed as nop(c)sups(1) or c'.  A
-quarter-note duration is written as code(4).  So, to print a quarter
+quarter-note duration is written as mycode(4).  So, to print a quarter
 note whose pitch is central C, you enter the following:
 mudela(fragment,verbatim,center)( c'4 )
 
@@ -178,18 +179,18 @@ mudela(fragment,verbatim)(
 
 subsect(Basic pitches)
 
-The pitch code(c') actually consists of two parts: one part for the
+The pitch mycode(c') actually consists of two parts: one part for the
 note name, and one for the octave.  The letter specifies which note
-name to use: note names simply are the letters code(a) to code(g).
+name to use: note names simply are the letters mycode(a) to mycode(g).
 The number of apostrophes specifies the octave to use: the central C
-is denoted by code(c').footnote(By convention, the A above central C
+is denoted by mycode(c').footnote(By convention, the A above central C
 at concert pitch is the tone that is used to tune instruments.  Its
 frequency is about 440 Hz.)  The C which is an eighth higher (the C in
-the ``two-line octave'') is denoted by code(c''): every octave adds a
-quote.  A note name without quotes designates the pitch below code(c')
+the ``two-line octave'') is denoted by mycode(c''): every octave adds a
+quote.  A note name without quotes designates the pitch below mycode(c')
 (the C in the ``small octave''). If you want to go down even further,
 commas should be added, e.g., the C in the ``contra octave'' is
-expressed as code(c,,).footnote(The comma is meant to represent a
+expressed as mycode(c,,).footnote(The comma is meant to represent a
 sunken apostrophe.)
 
 
@@ -203,7 +204,7 @@ mudela(center,fragment,verbatim)(
   c'4 d'4 e'4 f'4 g'4 a'4 b'4 c''4
 )
 
-A rest can be entered as a note with the special name code(r), e.g.,
+A rest can be entered as a note with the special name mycode(r), e.g.,
 mudela(fragment,verbatim,center)(r4)
 
 This already gives us enough material to make simple songs. In
@@ -256,18 +257,18 @@ latexcommand(\end{table})
 Variations on this convention are used in a number of germanic
 languages, notably Dutch, German, Swedish, and Norwegian.  To be
 precise, LilyPond actually defaults to Dutch notenames, with
-code(aes), code(aeses), code(ees) and code(eeses) added for
+mycode(aes), mycode(aeses), mycode(ees) and mycode(eeses) added for
 consistency.
 
 Throughout this document we will continue to use the Dutch names.  To make
 (Dutch) pronunciation easier, the a-flat and e-flat are contracted to
-code(as) and code(es).  Similarly, the a double flat and e double flat are
-contracted to code(ases) and code(eses).
+mycode(as) and mycode(es).  Similarly, the a double flat and e double flat are
+contracted to mycode(ases) and mycode(eses).
 
 If you are not comfortable with these names, you can make your own.
 Note names for different languages are included with the example
 initialisation files, amongst others English (C sharp is abbreviated
-to code(cs)), Italian, Swedish and Norwegian.  If you want to use
+to mycode(cs)), Italian, Swedish and Norwegian.  If you want to use
 these names, you should look at bind(Section)ref(subsect:include) for
 information on how to use include files.
 
@@ -278,9 +279,9 @@ In the previous section some basic elements of Mudela were presented.
 We didn't want to bore you too much with repetitive details, so we
 left out some red tape that's needed for a  of Mudela in a form that is accepted
 by LilyPond.  To
-be precise, we wrote code(X Y Z), when we really meant
+be precise, we wrote mycode(X Y Z), when we really meant
 verb(\score {
-   \melodic { X Y Z }
+   \notes { X Y Z }
    \paper {}
 })
 We will continue to leave out the red tape this, until the time is right to explain what 
@@ -290,7 +291,7 @@ it means.
 Because LilyPond uses a language, it  is a so called em(batch)
 program.
 This means, that you use a
-text editor (such as code(emacs) or code(vi)) to create an input
+text editor (such as mycode(emacs) or mycode(vi)) to create an input
 file.  When you are done editing your input file, you save it, and you
 run LilyPond on the file.  If LilyPond finds any errors in your input file
 then nop(she)footnote(We're sure that if computer programs could have
@@ -312,11 +313,11 @@ To get you started we'll run down the full procedure for you.
 enumerate(
 it()
 Fire up your favourite editor (if you don't
-know any editors, try code(joe silly.ly)),
+know any editors, try mycode(joe silly.ly)),
 and key in the example from bind(Figure)ref(fig:twinkle1), with red tape:
 verb(
 \score {
-        \melodic {
+        \notes {
           c''4 c''4 g''4 g''4
           a''4 a''4 g''2
         }
@@ -328,7 +329,7 @@ Save your file as file(twinkle.ly).footnote(The default extension for Mudela
 files is file(.ly).)
 
 it()
-Run LilyPond on your newly created file: enter code(lilypond twinkle).
+Run LilyPond on your newly created file: enter mycode(lilypond twinkle).
 LilyPond will then print all kinds of mumbo jumbo that can safely be
 ignored.  You might see something like this:
 verb(
@@ -363,7 +364,7 @@ produced with TeX().) COMMENT(ugh.)
 
 it()
   To do something useful with the output you have to run TeX() on it
-  first.  Run the command code(tex twinkle).  The output should resemble this:
+  first.  Run the command mycode(tex twinkle).  The output should resemble this:
 verb(
 This is TeX, Version 3.14159 (C version 6.1)
 (twinkle.tex
@@ -387,7 +388,7 @@ case, consult your local TeX() guru on printing and viewing DVI files.
 What is in your window should approximately look like this:
 mudela()(
 \score {
-        \melodic {
+        \notes {
           c''4 c''4 g''4 g''4
           a''4 a''4 g''2
         }
@@ -397,7 +398,7 @@ mudela()(
 
 it()
 If you want to print file(twinkle.dvi), you should invoke the command
-code(dvips twinkle).  Running this command should generate a
+mycode(dvips twinkle).  Running this command should generate a
 PostScript file called file(twinkle.ps).  This file can be printed on
 any PostScript compatible printer.  You should not use any other
 tools: the output from LilyPond contains fragments of PostScript which
@@ -442,9 +443,9 @@ expressed conveniently.  Of course we did not leave out chords.
 In Mudela you can form a chord of several notes by enclosing them in
 pointed parentheses, bind(i.e.)bind(langle())bind(and)rangle().  ASCII
 doesn't really have these delimiters, so Mudela uses the larger-than
-(code(>)) and smaller-than (code(<)) signs instead.  For example, a
+(mycode(>)) and smaller-than (mycode(<)) signs instead.  For example, a
 D-major nop(chord)footnote(Recall what was said in the previous
-section about flats and sharps: the word code(fis) means an f sharp.)
+section about flats and sharps: the word mycode(fis) means an f sharp.)
 can be described by the following fragment:
 mudela(fragment,verbatim,center)(
   <d'8  fis'8 a'8 d''8>
@@ -507,7 +508,7 @@ verb(
   c''4   % shouldn't this be a different pitch?
 )
 
-Block comments are enclosed in code(%{) and code(%}).
+Block comments are enclosed in mycode(%{) and mycode(%}).
 
 verb(
   c''4
@@ -539,7 +540,7 @@ articulation marks such as staccato and tenuto.  They are shown in the
 following example:
 
 mudela()(
-\score{ \melodic {
+\score{ \notes {
 	\property Voice.textstyle = typewriter
         c''4-._"c''4-." s4
         c''4--_"c''4--"  s4
@@ -561,7 +562,7 @@ note.''  This is not in line with our goal to em(define) music with
 Mudela.  We hope that this will be fixed in a future version of the
 language.  In the meantime you can abuse this: the super- and
 subscripts can be forced into up or down position respectively by entering an
-a caret (code(^)) or an underscore, code(_) instead of the dash:
+a caret (mycode(^)) or an underscore, mycode(_) instead of the dash:
 mudela(fragment,verbatim,center)(
   c'4-^ c'4^^ c'''4-^ c'''4_^
 )
@@ -627,8 +628,8 @@ beam can be derived from the structure of the time signature and the durations
 of the notes. It is merely a device that helps you understand the
 rhythms notated. Unfortunately, LilyPond is not smart enough to insert
 beams into your music on her own. You will have to instruct her by
-marking the starting and stopping point of the beam with `code([)' and
-`code(])' respectively, e.g.
+marking the starting and stopping point of the beam with `mycode([)' and
+`mycode(])' respectively, e.g.
 
 mudela(fragment,verbatim,center)(
   [g'8 g'8]
@@ -637,7 +638,7 @@ mudela(fragment,verbatim,center)(
 LilyPond has code that guesses what the pattern should look like, so
 that you don't have to specify the beaming for complicated
 patterns.footnote(Unfortunately the algorithm used is not foolproof yet:
-  code([c8. c32 c32]) will produce incorrect results.)
+  mycode([c8. c32 c32]) will produce incorrect results.)
 
 Again, it is your responsibility to make sure that you end every beam
 that you start.
@@ -653,7 +654,7 @@ The input convention for the tilde is somewhat peculiar when used in
 conjunction with chords.  Internally, the extra information that is
 represented by the tilde has to be attached to a note (or to a rest,
 for that matter).  For this reason, you can't put the tilde between
-two chords (as in code( <c' g'> ~ <c' g'>)).  The tilde sign must be
+two chords (as in mycode( <c' g'> ~ <c' g'>)).  The tilde sign must be
 directly after a note of the chords.  It does not matter which
 one. The following example demonstrates this:
 mudela(fragment,verbatim,center)(
@@ -683,17 +684,17 @@ center(
 em(keyword)s are words that have a special meaning to the parser of
 Mudela.  Because the parser must be able to distinguish the keywords
 from note names, they have to be preceded by a so-called escape
-character, the backslash, `code(\)'.  To separate the arguments from
+character, the backslash, `mycode(\)'.  To separate the arguments from
 any notes that might follow the arguments, you have to end your
 command with a semicolon.  An added benefit of this construction is
 that the commands stand out between your notes, because of the
 backslashes.
 
-So the general form actually is `code(\keyword argument argument ... ;)'
+So the general form actually is `mycode(\keyword argument argument ... ;)'
 Let us review these commands:
 
 description(
-dit(code(\clef) var(clefname)) This command sets the current clef for notation,
+dit(mymycode(\clef) var(clefname)) This command sets the current clef for notation,
   i.e., a clef symbol is printed and the notes following this command
   are shifted vertically.  The argument is a string, the name of the
   new clef. The default clef is the treble clef.
@@ -702,25 +703,25 @@ dit(code(\clef) var(clefname)) This command sets the current clef for notation,
     \clef "treble"; c'4
     \clef "alto"; c'4    
   )
-dit(code(\key) var(pitch)) This command changes the current key signature.  The
+dit(mymycode(\key) var(pitch)) This command changes the current key signature.  The
   key signature is printed at the start of every line.  The argument
   is the name of the corresponding major key.  The key of C-minor can 
-  thus be specified as `code(\key es)'.
+  thus be specified as `mycode(\key es)'.
   
-dit(code(\keysignature) var(pitchlist))
+dit(mymycode(\keysignature) var(pitchlist))
 
 This command changes the current key signature.  Unlike the
-`code(\key)' command, this command can produce arbitrary key
+`mycode(\key)' command, this command can produce arbitrary key
 signatures, which can be useful for unconventional keys or modes.  The
 key signature is given in the form of a list of notes.  The notes will
 be printed in the key signature in the order that they appear on the list.
 For example, the key
-of C-minor can be specified as `code(\keysignature bes es as)'.  The
-command `code(\keysignature fis es bis)' provides a more exotic
+of C-minor can be specified as `mycode(\keysignature bes es as)'.  The
+command `mycode(\keysignature fis es bis)' provides a more exotic
 example.
 
 
-dit(code(\time) var(numerator)code(/)var(denominator))
+dit(mymycode(\time) var(numerator)mycode(/)var(denominator))
   This command changes the current time signature.  LilyPond uses the
   time signature to
   calculate where to place the bars that start a measure.  These bars
@@ -736,17 +737,17 @@ song actually has a 2/4 time signature, so a metrically more correct
   )
 
 
-dit(code(\cadenza) var(togglevalue)) When typesetting music without a
+dit(mymycode(\cadenza) var(togglevalue)) When typesetting music without a
 regular meter (such as an ad libitum cadenza), no bar lines should be
 printed.  In LilyPond you can achieve this by issuing the command
-`code(\cadenza 1)': it turns off the automatically
+`mycode(\cadenza 1)': it turns off the automatically
 generated bar lines.
 
-You switch them on again with `code(\cadenza 0)', and then a bar line
+You switch them on again with `mycode(\cadenza 0)', and then a bar line
 is printed.  LilyPond will act as if you are again at the start of a
 measure.
 
-dit(code(\bar) var(bartype))
+dit(mymycode(\bar) var(bartype))
   This command lets you print special bar
   lines and repeat symbols.  You can also use it to allow line breaks
   when entering cadenzas.  The argument var(bartype) is a string that
@@ -756,22 +757,22 @@ mudela(fragment,verbatim)(
     \bar "|:"; c'4 \bar ":|:";    c'4  \bar ":|";  c'4 \bar "||";
     c'4 \bar "empty"; c'4 \bar "|.";
 )
-  The command `code(\bar "empty")' does not create any visible bar
+  The command `mycode(\bar "empty")' does not create any visible bar
   line, but it does tells LilyPond to allow a linebreak
-  at that position.  The `code(\bar)' command prints the specified
-  symbol immediately.  If you give a `code(\bar)' command at the end
+  at that position.  The `mycode(\bar)' command prints the specified
+  symbol immediately.  If you give a `mycode(\bar)' command at the end
   of a measure then
   the specified symbol replaces the automatic bar line; otherwise
   the specified symbol appears in the middle of the measure.   The
-    code(\bar) command does not affect metric structure.
+    mycode(\bar) command does not affect metric structure.
 
 
   
-dit(code(\partial) var(duration)) some music starts with a measure that
-isn't fully filled, a so-called upstep.  The code(\partial) command
+dit(mymycode(\partial) var(duration)) some music starts with a measure that
+isn't fully filled, a so-called upstep.  The mycode(\partial) command
 allows you to make
 upsteps. The argument is a duration similar to the duration of a note.
-The `code(\partial)' command cannot be used to generate partial
+The `mycode(\partial)' command cannot be used to generate partial
 measures in the middle of the music.  
 Example:
   mudela(fragment,verbatim)(
@@ -780,7 +781,7 @@ Example:
     [d'8 dis'] e' c''4 e'8 c''4 
   )
 
-  dit(code(\grouping) var(durationslist)) sets the metric structure of the measure.
+  dit(mymycode(\grouping) var(durationslist)) sets the metric structure of the measure.
     Its effect can best be shown by an example:
     mudela(fragment,verbatim)(
         \time 5/16;
@@ -793,7 +794,7 @@ Example:
     )
 
 In practice, you won't be needing this command very often: the
-grouping is switched automatically when you issue a code(\time)
+grouping is switched automatically when you issue a mycode(\time)
 command.  It is set to a combination of groups
 of 2 and 3 beats, with as many groups of
 3 as possible (in other words: 4/4 is divided in two times two beats
@@ -841,7 +842,7 @@ does not represent notes stacked together, but staffs stacked
 together.
 
 If a piece of music is to be interpreted as a staff, then this can be
-expressed with the code(\type) construct.  The following input says
+expressed with the mycode(\type) construct.  The following input says
 ``the quarter note with pitch e should be put on a staff.''
 
 verb(
@@ -865,13 +866,13 @@ verb(
 This looks reasonable, but the effect of this input is not what you
 might expect (try it!).  When interpreting this chord LilyPond will
 start with the first entry.  She'll look for a (nameless) staff.  Such a
-staff is not found, so it is created.  On this staff the code(e) note
-is put.  When the second code(\type) entry is read, LilyPond will
+staff is not found, so it is created.  On this staff the mycode(e) note
+is put.  When the second mycode(\type) entry is read, LilyPond will
 start looking for a nameless staff.   The  staff that contains  the
-code(e) is found, and the code(g) is put there as well.
+mycode(e) is found, and the mycode(g) is put there as well.
 
-The correct solution is to label both code(\type) constructs with
-different names, for example code(trebleStaff) and code(bassStaff).
+The correct solution is to label both mycode(\type) constructs with
+different names, for example mycode(trebleStaff) and mycode(bassStaff).
 This makes LilyPond distinguish between them, and create two staffs:
 
 mudela(verbatim,fragment)(
@@ -885,7 +886,7 @@ different.  This is almost right, except for the brace at the left and
 the clef of the second staff.  The bass clef will be taken care of in
 the next section. If you want a brace, then you have to tell LilyPond
 that the chord you just formed is to be interpreted as a so-called
-grand staff.  This is also done with the code(\type) command.
+grand staff.  This is also done with the mycode(\type) command.
 mudela(verbatim,fragment)(
   \type GrandStaff <
      \type Staff = treblestaff  e'4 
@@ -930,7 +931,7 @@ red tape in bind(Section)ref(tutorial:introduction).
 
 If we want to put whole voices onto a staff, then we have to
 substitute sequential music for the single notes in the example from
-the previous section.  A code(\clef) command in the second piece of
+the previous section.  A mycode(\clef) command in the second piece of
 sequential
 music  will also set the clef in
 the bass staff.
@@ -979,7 +980,7 @@ To explain what a staff really is,   we'll try to print music without
 these components.  If these components aren't printed, it is still
 possible to print music:
 mudela()(\score{
-\melodic \relative c' {  \time 2/4; g'4 c,4 a'4 f4 e c d2 }
+\notes \relative c' {  \time 2/4; g'4 c,4 a'4 f4 e c d2 }
 \paper { 
   linewidth = -1.;
   Staff = \translator {
@@ -1003,7 +1004,7 @@ time signature:
 
 mudela()(
 \score {
-  \melodic \relative c' {  \time 2/4; g'4 c,4 a'4 f4 e c d2 }
+  \notes \relative c' {  \time 2/4; g'4 c,4 a'4 f4 e c d2 }
   \paper{
   linewidth = -1.;
     Staff = \translator {
@@ -1021,7 +1022,7 @@ it is difficult to find them quickly.   Bar lines  help you in finding
 the location within the measure of the notes:
 mudela()(
 \score {
-  \melodic \relative c' {  \time 2/4; g'4 c,4 a'4 f4 e c d2 }
+  \notes \relative c' {  \time 2/4; g'4 c,4 a'4 f4 e c d2 }
   \paper{
   linewidth = -1.;
     Staff = \translator {
@@ -1039,7 +1040,7 @@ We can remedy part of the difficulties with reading pitches by adding a staff
 symbol:
 
 mudela()(\score{
-  \melodic\relative c' { \time 2/4; g'4 c,4
+  \notes\relative c' { \time 2/4; g'4 c,4
 a'4 f4 e c d2 } \paper {
   linewidth = -1.;
   Staff = \translator {
@@ -1060,7 +1061,7 @@ This makes the output decidedly easier to read, but you still don't
 know what the pitches of the notes above are.  So this is still not
 enough.  But suppose you see the following notation:
 mudela()(\score {
-  \melodic \relative c' {\clef alto;  \time 2/4; g'4 c,4 a'4 f4 e c d2 }
+  \notes \relative c' {\clef alto;  \time 2/4; g'4 c,4 a'4 f4 e c d2 }
 \paper {
   linewidth = -1.;
   Staff = \translator {
@@ -1099,56 +1100,56 @@ A bf(notation context) is  a conversion from music to notation.
 The example focused mainly on on staffs, but a staff is not the only
 type of notation context.  Notation contexts may be nested: you can
 print polyphonic music by putting multiple `Voice' contexts in one
-`Staff' context.  The arguments of the code(\type) command (Staff,
+`Staff' context.  The arguments of the mycode(\type) command (Staff,
 GrandStaff) were in fact all names of different contexts.
 The notions of ``current clef'' and ``current position within the
 measure'' are all properties of notation contexts.  Commands like
-code(\clef) and code(\cadenza) change these properties.  
+mycode(\clef) and mycode(\cadenza) change these properties.  
 
 
 The following is a list of the contexts that are supported by
 LilyPond:
 description(
 
-dit(Voice) The code(Voice) context is a context that corresponds to a
+dit(Voice) The mycode(Voice) context is a context that corresponds to a
   voice on a staff.  This context handles the conversion of noteheads,
   dynamic signs, stems, beams, super- and subscripts, slurs, ties and rests
 
-dit(Staff) The code(Staff) context handles clefs, bar lines, keys,
-  accidentals.  A code(Staff) context can contain multiple code(Voice)
+dit(Staff) The mycode(Staff) context handles clefs, bar lines, keys,
+  accidentals.  A mycode(Staff) context can contain multiple mycode(Voice)
   contexts.
 
-dit(RhythmicStaff) The code(RhythmicStaff) context is like the staff,
+dit(RhythmicStaff) The mycode(RhythmicStaff) context is like the staff,
   but much simpler: the notes are printed on one line, and pitches are
-  ignored.  code(RhythmicStaff) can contain code(Voice) contexts.
+  ignored.  mycode(RhythmicStaff) can contain mycode(Voice) contexts.
 
-dit(GrandStaff) A code(GrandStaff) context contains code(Staff)
+dit(GrandStaff) A mycode(GrandStaff) context contains mycode(Staff)
   contexts, and it adds a brace to the output at the
   nop(left.)footnote(This is a major deficiency in the current
   implementation.    Currently stems,
   slurs and beams cannot be printed across two staffs.
 In reality, a grand staff is  a hybrid of one big staff and two stacked staffs.)
   
-  A code(GrandStaff) context can contain multiple
-  code(Staff)s. Typically, it will contain two code(Staff)s, one
+  A mycode(GrandStaff) context can contain multiple
+  mycode(Staff)s. Typically, it will contain two mycode(Staff)s, one
   treble staff, and one bass staff. The bar lines of the contained
   staffs are connected vertically.
 
-dit(StaffGroup) A code(StaffGroup) context contains code(Staff) or
-  code(Lyrics) contexts, and prints a bracket at the left.  The bar
+dit(StaffGroup) A mycode(StaffGroup) context contains mycode(Staff) or
+  mycode(Lyrics) contexts, and prints a bracket at the left.  The bar
   lines in the participating staffs are connected.
 
-dit(Lyrics) As its name suggests, The code(Lyrics) context deals with
+dit(Lyrics) As its name suggests, The mycode(Lyrics) context deals with
   typesetting lyrics.  This topic will be covered in
   bind(Section)ref(tutorial:lyrics).
   
-dit(Score) The code(Score) context is the toplevel context: no context can
-  contain a code(Score) context.  The code(Score) context handles the
+dit(Score) The mycode(Score) context is the toplevel context: no context can
+  contain a mycode(Score) context.  The mycode(Score) context handles the
   administration of time signatures.  It also makes sure that items
   such as clefs, time signatures, and key-signatures are aligned across staffs.
   
-  The code(Score) can contain code(Staff), code(StaffGroup), code(Lyrics), code(GrandStaff) and
-  code(RhythmicStaff) contexts.
+  The mycode(Score) can contain mycode(Staff), mycode(StaffGroup), mycode(Lyrics), mycode(GrandStaff) and
+  mycode(RhythmicStaff) contexts.
 
 COMMENT(do ChoireStaff)
 )
@@ -1174,8 +1175,8 @@ In the last section we explained that a notation context can have
 properties that influence the conversion from music to notation.  A
 simple example of such a property is the clef: the type of clef partially
 determines the vertical position of note heads in a staff.  Some of
-these properties can be modified by commands such as code(\clef) and
-code(\time).   But there is more:  notation contexts  also have
+these properties can be modified by commands such as mycode(\clef) and
+mycode(\time).   But there is more:  notation contexts  also have
 properties are settable in a generic fashion.  We will demonstrate
 this feature by printing multiple voices on a staff.
 
@@ -1218,11 +1219,11 @@ Surely the direction of a single stem is a property of the stem as a
 graphical object.  But the fact that all of the stems in a voice point
 in the same direction is not directly graphical.  Since this is a
 property shared by all the stems in the voice, it is logical to
-consider this property to be a property of the context code(Voice).
-And this is how it's done in LilyPond: the context code(Voice) has an
+consider this property to be a property of the context mycode(Voice).
+And this is how it's done in LilyPond: the context mycode(Voice) has an
 attribute whose value is the direction to use
 for stems.  You can change it to `up'
-by issuing the following phrase:footnote(The name code(ydirection) is
+by issuing the following phrase:footnote(The name mycode(ydirection) is
 no mistake.  The property also controls the up/down directions of
 super-/subscripts, slurs, ties, etc.)
 
@@ -1231,9 +1232,9 @@ verb(
 )
 
 This command should be read as ``change the property called
-code(ydirection) within the current code(Voice) context to the value
-code(-1).''  For the property code(ydirection) the value code(1) means
-`up', and code(-1) means `down'.   The proper way to code the
+mycode(ydirection) within the current mycode(Voice) context to the value
+mycode(-1).''  For the property mycode(ydirection) the value mycode(1) means
+`up', and mycode(-1) means `down'.   The proper way to code the
 polyphonic example is given in bind(Figure)ref(tutorial:multi-voice-fig).
 
 latexcommand(\begin{figure}[h])
@@ -1253,7 +1254,7 @@ latexcommand(\end{figure})
 
 Other properties can also be set, and they can be within different
 contexts.  In general, you can set a property by specifying
-code(\property) var(contexttype)code(.)var(propertyname) code(=)
+mycode(\property) var(contexttype)mycode(.)var(propertyname) mycode(=)
 var(value).  Both var(ContextType), var(PropertyName) and var(Value)
 should be strings.
 
@@ -1269,8 +1270,8 @@ simply changing the directions of the stems for each voice, obviously.
 Traditionally, some chords are shifted horizontally to print if this many
 voices have to be printed.
 LilyPond can also do this, and the property that controls the
-horizontal shifting is called code(hshift).  The notes in a
-code(Voice) context that has code(hshift) set to a true value (i.e.,
+horizontal shifting is called mycode(hshift).  The notes in a
+mycode(Voice) context that has mycode(hshift) set to a true value (i.e.,
 non-zero or non-empty), will be shifted horizontally in the case of a
 collision.  The following example demonstrates the effect.
 
@@ -1303,13 +1304,13 @@ Lyrics consist of syllables, which are strings together with
 durations.  Previously we only entered note names, so for entering
 lyrics we have to instruct LilyPond that what we enter are not note
 names but words---or rather: strings.  This instruction is the keyword
-code(\lyric).  After entering this keyword you can enter a musical
-construct---sequential music, simultaneous music, code(\type)
+mycode(\lyric).  After entering this keyword you can enter a musical
+construct---sequential music, simultaneous music, mycode(\type)
 entries, etc.--- but with syllables in stead of pitches.  For example:
 verb( \lyric { 'got8 me on my knees4, Le-8 lie! })
 
-The effect of code(\lyric) can be compared with the effect of the
-doublequote character, code("), for it also changes the lexical
+The effect of mycode(\lyric) can be compared with the effect of the
+doublequote character, mycode("), for it also changes the lexical
 meaning of spaces and characters.  This mode is another example of a
 handy input feature of the language.
 
@@ -1317,9 +1318,9 @@ Next comes the conversion to notation.  LilyPond can't (yet) figure
 out that lyrics need different treatment than notes.  As a result, the
 default conversion will try to put the text you entered as note heads
 onto a staff, and this will fail.  This default must be overriden with
-a code(\type) keyword.  Printing syllables of text in a line is done
-by a context called code(Lyrics).  You can select this context with
-the code(\type) keyword.  Here is a simple example:
+a mycode(\type) keyword.  Printing syllables of text in a line is done
+by a context called mycode(Lyrics).  You can select this context with
+the mycode(\type) keyword.  Here is a simple example:
 
 mudela(fragment,verbatim)(
 	\type Lyrics \lyric { 'got8 me on my knees,4 Le-8 lie! })
@@ -1336,8 +1337,8 @@ mudela(fragment,verbatim)(
 The strings that makes up each syllable in the lyrics block are passed
 along to TeX() verbatim, so if you are proficient with TeX() you can
 do various nifty things.  Just keep in mind that a syllable either
-starts with a letter (a character in the range `code(a)' to `code(z)'
-or `code(A)' to `code(Z)'), or it is a string enclosed quotes. It ends
+starts with a letter (a character in the range `mycode(a)' to `mycode(z)'
+or `mycode(A)' to `mycode(Z)'), or it is a string enclosed quotes. It ends
 with either a number for the duration, or a space.  A last feature
 that should be mentioned is the space-lyric: if you want to enter
 a single ``syllable'' that consists of multiple words, i.e., words
@@ -1373,13 +1374,13 @@ Now the time has come to unravel the red tape that we have hidden from
 you in the introduction.  Mudela has a hierarchical structure for we
 have seen that sequential and simultaneous music can be nested.
 Mudela also has other `blocks' that can be nested.  The general syntax
-for a block is code(\keyword { ... }).
+for a block is mycode(\keyword { ... }).
 
 When you run LilyPond, what happens is that you define music, and
 specify one (or more) conversions to apply to that music, for example
 a conversion to notation.  This is done by putting the definition of
 the music and the definition of the conversion together in a
-code(\score) block, e.g.,
+mycode(\score) block, e.g.,
 verb(
 \score {
         % ... music ...
@@ -1390,26 +1391,26 @@ This is almost  the context that should be around all
 of the previous examples.  The precise context reads thus:
 verb(
 \score {
-        \melodic { ... }
+        \notes { ... }
         \paper {}
 })
 On the ellipsis, you entered what shown as the example input.
 You can see that in the
-above example, the code(\melodic { ... }) forms the music, the
-code(\paper {}) is a conversion to paper (notation, that is).  The
-code(\paper) definition is copied from a default definition
+above example, the mycode(\notes { ... }) forms the music, the
+mycode(\paper {}) is a conversion to paper (notation, that is).  The
+mycode(\paper) definition is copied from a default definition
 (which is in the initialisation file file(paper16.ly)).
 The paper part also contains
 the definition of the contexts.
 
-The keyword code(\melodic) is analogous to the code(\lyric) keyword.  It
+The keyword mycode(\notes) is analogous to the mycode(\lyric) keyword.  It
 will switch the tokenizer into a mode that interprets plain words as
 note names.  If it can't recognize the words as a note name, it will
 assume that they are strings.  That is the reason why you can write
-code(\clef bass) in stead of code(\clef "bass"); most of the strings
-in code(\melodic) mode can be written without quotes.
+mycode(\clef bass) in stead of mycode(\clef "bass"); most of the strings
+in mycode(\notes) mode can be written without quotes.
 
-The braces that you see after the code(\melodic) keyword are the
+The braces that you see after the mycode(\notes) keyword are the
 braces that are around sequential music.  Because of these braces, the
 sequences of notes in our simple examples were sequential (and not
 simultaneous).  As a result the notes were printed from left to right,
@@ -1421,15 +1422,15 @@ sect(Identifiers)
 Now that we are comfortable with the toplevel entries in a mudela
 file, we can investigate some more of the recreations on toplevel, in
 particular em(identifiers).  Generally you can define an identifier by
-entering code(identifierName = ... )
+entering mycode(identifierName = ... )
 where there can be a variety of things on the ellipsis.
 
 Here is a (partial) list of what you can abbreviate with identifiers
 at top-level.
 itemize(
-it()The code(\score) block
-it()The code(\paper) block
-it()The code(\midi) block (to be explained in
+it()The mycode(\score) block
+it()The mycode(\paper) block
+it()The mycode(\midi) block (to be explained in
   bind(Section)ref(tutorial:sound))
 it()Music (sequential music, simultaneous music etc.)
 it()Durations
@@ -1440,12 +1441,12 @@ it()Reals
 )
 
 When you refer
-to the abbreviated entity, you must precede code(identifierName)
-with a backslash, i.e., code(\identifierName).  For example:
+to the abbreviated entity, you must precede mycode(identifierName)
+with a backslash, i.e., mycode(\identifierName).  For example:
 mudela(verbatim)(
-  czerny = \melodic { [c16 g e g] }
+  czerny = \notes { [c16 g e g] }
   \score {
-    \melodic \type GrandStaff <
+    \notes \type GrandStaff <
       { c''2 g''2 }
       { \clef bass; \czerny \czerny \czerny \czerny}
     >
@@ -1459,8 +1460,8 @@ mudela(verbatim)(
 
 
 Another interesting feature of this example are the assignments within
-the paper block.  Some blocks, such as code(\paper), have a scope of
-their own.  In the case of the code(\paper) block, these variables
+the paper block.  Some blocks, such as mycode(\paper), have a scope of
+their own.  In the case of the mycode(\paper) block, these variables
 influence the characteristics of the output.  As is shown, you can
 tune quantities like the stemlength, and enter simple expressions.
 The purpose of the negative linewidth is to prevent the music from
@@ -1470,19 +1471,19 @@ listed here.  Moreover, since most of the values are predefined to
 sensible defaults, there usually is no need to tune these values.
 
 Recall the properties of a context, that could be set with
-code(\property).  It is a very general mechanism to tune the output of
+mycode(\property).  It is a very general mechanism to tune the output of
 the music, that is neatly separated from the real music.
 Unfortunately, it is not convenient to type or read, and the precise
 effect of a setting property isn't always apparent from its
 definition.  To remedy this, we can use an identifier to capture the
-meaning of a code(\property).
+meaning of a mycode(\property).
 
 mudela(verbatim)(
 stemup = \property Voice.ydirection = "1"
 stemdown = \property Voice.ydirection = "-1"
 shift = \property Voice.hshift = "1"
 \score {
-  \type "Staff" \melodic <
+  \type "Staff" \notes <
     \type "Voice" =  "one"  {
       \stemup
       r4 as'4 () as'4 g'4 }
@@ -1499,7 +1500,7 @@ shift = \property Voice.hshift = "1"
 }
 )
 
-Several abbreviations like code(\stemup) are defined in the
+Several abbreviations like mycode(\stemup) are defined in the
 standard initialisation file file(property.ly).  Setting or changing
 context properties can have a similar effect as the commands that were
 discussed in bind(Section)ref(sec:commands).  Don't be fooled by the
@@ -1508,9 +1509,9 @@ and a real command.  Real commands are hardcoded into the language
 and they have to be terminated by semicolons.
 
 You can also use identifiers to break up the heavy nesting that can occur
-in the code(\score) block.  Another useful application is
+in the mycode(\score) block.  Another useful application is
 parametrisation of the music: if you use identifiers in the
-code(\score) block, you can make variations of the music by simply
+mycode(\score) block, you can make variations of the music by simply
 redefining those identifiers.  One particular application of this is
 part extraction: by using identifiers and redefining them, one can
 print extracted parts and a full orchestral score from the same
@@ -1534,7 +1535,7 @@ The only information that you need to enter is the
 this the only thing that can be tuned at this
 time.  This is a limitation: the tempo of music can vary throughout
 the music.) for the performance.  The syntax for the tempo is
-code(\tempo )var(duration) = var(beatsperminute);), for example:
+mycode(\tempo )var(duration) = var(beatsperminute);), for example:
 verb(
 \score {
    ...music...
@@ -1565,7 +1566,7 @@ This characterization almost automatically explains what the definition of a
 context should look like:
 itemize(
 it()It should be part of the ``notation output definition,'' i.e., the
-  code(\paper) block
+  mycode(\paper) block
 it()
   It should contain a specification of what other contexts may be contained
   in the context we're defining.
@@ -1595,29 +1596,29 @@ verb(
 
   This is encoded by the 
 
-The code(\translator) keyword opens the block for translation (or
-context) definition.  The code(\type) keyword explains to Lily that
+The mycode(\translator) keyword opens the block for translation (or
+context) definition.  The mycode(\type) keyword explains to Lily that
 the context should be formed by taking an (empty) instance of
-code(Engraver_group_engraver).  The code(Engraver_group_engraver) is a
-C++ class from the source code to Lily.  The code(\accepts) entries
+mycode(Engraver_group_engraver).  The mycode(Engraver_group_engraver) is a
+C++ class from the source code to Lily.  The mycode(\accepts) entries
 explain what kind of contexts this context could contain.  If we were
 to define a context for a staff, the definition would typically
-contain code(\accepts "Voice";).
+contain mycode(\accepts "Voice";).
 
-The code(\consists) entries specify which notation constructs should
+The mycode(\consists) entries specify which notation constructs should
 be handled. This needs a little explanation: LilyPond contains the
 code for quite a large number of basic building blocks for notation
 generation, and each building block handles only one notation
 construct.  The name of such a building block is `engraver'.  You can
 specify which notation construct a context should handle by specifying
-which engravers should be part of the context.  The code(\consists
-"Foobar") entry really means ``add an instance of code(Foobar) to the
+which engravers should be part of the context.  The mycode(\consists
+"Foobar") entry really means ``add an instance of mycode(Foobar) to the
 translation group.''
 
 
 For example if this context should print time signatures, the definition
-should include `code(\consists "Time_signature_engraver";)'.  Again
-code(Time_signature_engraver) is a class from the source code of LilyPond.
+should include `mycode(\consists "Time_signature_engraver";)'.  Again
+mycode(Time_signature_engraver) is a class from the source code of LilyPond.
 
 
 
@@ -1629,14 +1630,14 @@ solution is not very complicated: normally all timing information
 (time signature, rhythmic grouping) is synchronised across each staff.  In
 LilyPond this is expressed by having only one registration for timing
 information for all staffs.  To be precise, there is only one
-code(Timing_engraver), and it is located in the top level context, the
-code(Score) context.
+mycode(Timing_engraver), and it is located in the top level context, the
+mycode(Score) context.
 
-All staffs use the information in the global code(Timing_engraver)
+All staffs use the information in the global mycode(Timing_engraver)
 for generating bar lines and time signatures.  In polymetric music, this timing
 information can be different for every staff, so we should redefine
-the code(Staff) context to include and the code(Score) context to exclude the
-code(Timing_engraver).  
+the mycode(Staff) context to include and the mycode(Score) context to exclude the
+mycode(Timing_engraver).  
 
 mudela(verbatim)(
 polymetricpaper = \paper {
@@ -1667,7 +1668,7 @@ polymetricpaper = \paper {
   }
 }
 \score {
-  \melodic <
+  \notes <
     \type Staff = one { \time 2/4; c'4 c'4 c'4 c'4 c'4 c'4 }
     \type Staff = two { \time 3/4; c'4 c'4 c'4 c'4 c'4 c'4 }
   >
@@ -1677,7 +1678,7 @@ polymetricpaper = \paper {
 }
 )
 
-As you can see, we used the identifier code(polymetricpaper) to break
+As you can see, we used the identifier mycode(polymetricpaper) to break
 up the large score block.  More of these context definitions appear in
 the standard initialisation file file(engraver.ly).
 
@@ -1692,8 +1693,8 @@ mechanism will unveiled.
 
 By naming other contexts that you create, you can reference other contexts
 than the current context from within the music.  For example, from within the music that you
-enter for staff code(One), one could enter a small piece of music,
-and send it to staff code(Two), e.g.,
+enter for staff mycode(One), one could enter a small piece of music,
+and send it to staff mycode(Two), e.g.,
 mudela(fragment,verbatim)(
   <
     \type Staff = one { c''4 \type Staff = two { c4 c4 } c''4 }
@@ -1719,15 +1720,15 @@ bars of bind(J.)bind(S.)Bach's lovely Cello suite bind(no.)I to
 demonstrate this.  The example makes heavy use of space rests: a space
 rest takes up time, like a rest does, but it doesn't print anything.
 It can be used as a placeholder, to attach articulation marks to.  It
-is entered as a note with the name code(s).
+is entered as a note with the name mycode(s).
 
 mudela(verbatim)(
-  bach =  \melodic { [c16 g e' d'] [e' g e' g] }
+  bach =  \notes { [c16 g e' d'] [e' g e' g] }
   
-  staffStuff = \melodic { \clef bass; \time 4/4; s1 \bar "|."; }
+  staffStuff = \notes { \clef bass; \time 4/4; s1 \bar "|."; }
   
-  slursOne = \melodic { s16( s s s s16 s s )s }
-  slursTwo = \melodic { s16-. s s() s s16() s  s ()s }
+  slursOne = \notes { s16( s s s s16 s s )s }
+  slursTwo = \notes { s16-. s s() s s16() s  s ()s }
 
   \score{
     { < \type Voice = celloVoice { \bach \bach }
@@ -1745,8 +1746,8 @@ mudela(verbatim)(
 )
 
  The slurs that you define should be put on the music that is defined
-by the code(\bach) identifier.  By labeling a code(Voice) context, and
-directing both the articulation and the notes to that same code(Voice)
+by the mycode(\bach) identifier.  By labeling a mycode(Voice) context, and
+directing both the articulation and the notes to that same mycode(Voice)
 context, the articulation is put over the right notes.
 
 
@@ -1757,16 +1758,16 @@ COMMENT(In this section, we will complete the grammar for Music that was
 sketched earlier. )
 One of the things that you can do with music is
 em(transposing) it.  If you want to transpose a piece of music, then
-you should prefix the keyword code(\transpose) along with the pitch
+you should prefix the keyword mycode(\transpose) along with the pitch
 (relative to the central C) for the transposition.footnote(the
-code(\type Staff) is to make sure that no separate staffs are created
-for the code(\scale) and code(\transpose cis' \scale) part.)
+mycode(\type Staff) is to make sure that no separate staffs are created
+for the mycode(\scale) and mycode(\transpose cis' \scale) part.)
 
 
 mudela(verbatim)(
-scale = \melodic \relative c' { [c8 d e f] }
+scale = \notes \relative c' { [c8 d e f] }
 \score {
-  \melodic {
+  \notes {
     \type Staff { \scale \transpose cis'  \scale }
     }
   \paper { linewidth = -1.0; }
@@ -1776,25 +1777,25 @@ scale = \melodic \relative c' { [c8 d e f] }
 sect(Staff switching)
 
 We have seen that contexts can be nested.  This means that they form a
-tree.  It is possible to edit this tree: for example, a code(Voice)
-context can be taken out of a code(Staff) context, and put into
+tree.  It is possible to edit this tree: for example, a mycode(Voice)
+context can be taken out of a mycode(Staff) context, and put into
 another.  This has the effect of the voice switching staffs (something
 that often happens in keyboard music).  The syntax for this operation
-with these particular contexts is code(\translator Staff = newStaffName).
+with these particular contexts is mycode(\translator Staff = newStaffName).
 
 The effect is analogous to the first example in section
-ref(tutorial:urtext), but with the code(\translator) construction it
+ref(tutorial:urtext), but with the mycode(\translator) construction it
 is possible to split the real music and the commands that determine in
 which staff the music is printed.  For example:
 
 mudela(verbatim)(
 
 % real music
-aVoice = \type Voice = voiceA \melodic { c''4 c4 c4 c''4 }
-bVoice = \type Voice = voiceB \melodic { g,4 g,4 g,4 g,4  }    
+aVoice = \type Voice = voiceA \notes { c''4 c4 c4 c''4 }
+bVoice = \type Voice = voiceB \notes { g,4 g,4 g,4 g,4  }    
 
 % staff switching stuff
-switch = \type Voice = voiceA \melodic { s4 \translator Staff = staffB s4
+switch = \type Voice = voiceA \notes { s4 \translator Staff = staffB s4
     		   s4 \translator Staff = staffA s4 }
 
 \score {
@@ -1821,8 +1822,8 @@ mudela(fragment)(
 )
 
 To support this notion, Mudela allows you to modify the duration of a
-note by multiplication or division.  A code(c'4) note that would be in  a
-triplet is written as code(c'4*2/3).  If you sequence a few of these
+note by multiplication or division.  A mycode(c'4) note that would be in  a
+triplet is written as mycode(c'4*2/3).  If you sequence a few of these
 notes, you get a triplet.footnote(We added a normal staff in the example to
 show the difference.)
 mudela(fragment,verbatim)(
@@ -1831,10 +1832,10 @@ mudela(fragment,verbatim)(
 
 LilyPond knows that these notes are no normal eighth notes, but the
 reader doesn't yet.  To help the reader a beam or a bracket with a `3'
-should be printed.  The special beam command `code([2/3)' and the
-matching close beam `code(]1/1)' will take care of that, and
-they also abbreviate the code(*2/3) part.  If you want brackets in
-stead of beams, you can use `code(\[2/3])' and `code(\]1/1)'.
+should be printed.  The special beam command `mycode([2/3)' and the
+matching close beam `mycode(]1/1)' will take care of that, and
+they also abbreviate the mycode(*2/3) part.  If you want brackets in
+stead of beams, you can use `mycode(\[2/3])' and `mycode(\]1/1)'.
 mudela(fragment,verbatim)(
 < \type Staff = staffA {
     [2/3 c'8 c'8 c'8 ]1/1
@@ -1854,8 +1855,8 @@ mudela(fragment,verbatim)(
     [c''8 c''8 c''8 c''8 c''8 c''8 c''8] } >
 )
 
-For your convenience, code([2/3) can be further abbreviated to code([/3), and
-you can abbreviate code(]1/1) on the closing beam marker to code(]/1).
+For your convenience, mycode([2/3) can be further abbreviated to mycode([/3), and
+you can abbreviate mycode(]1/1) on the closing beam marker to mycode(]/1).
 
 mudela(fragment,verbatim)(
 < \type Staff = staffA {
@@ -1865,10 +1866,10 @@ mudela(fragment,verbatim)(
 )
 
 
-bf(Important) the construct with code([/3) and
-code([/1) is a hack that sets a mode in the parser.  This means that
-verb(id = \melodic { c8 c8 c8 }
-notATriplet =\melodic { [2/3 \id ]1/1 })
+bf(Important) the construct with mycode([/3) and
+mycode([/1) is a hack that sets a mode in the parser.  This means that
+verb(id = \notes { c8 c8 c8 }
+notATriplet =\notes { [2/3 \id ]1/1 })
 does not produce a triplet.  It will hopefully
 soon be replaced by a construction that mixes more elegantly with the
 grammar for Music.
@@ -1882,7 +1883,7 @@ need for quotes can be reduced: most of the pitch intervals in
 conventional music are small.  Therefore, it makes sense to leave out
 the quotes when the interval is small.  We have built a mode that does
 exactly this.  It is called the relative mode for octaves.  You can
-switch it on by entering code(\relative).  Then LilyPond will
+switch it on by entering mycode(\relative).  Then LilyPond will
 interpret every note as if they mean the note with the same name
 closest to the previous.  You have to specify the first pitch because
 the first note of a list obviously has no predecessor.  So, you can
@@ -1904,7 +1905,7 @@ verb(
   }
 )
 
-LilyPond converts any music with code(\relative) prepended to absolute
+LilyPond converts any music with mycode(\relative) prepended to absolute
 music immediately when it is read. Internally it is stored it in
 absolute pitches.  Since the tutorial mainly deals with how to specify
 musical information, and not how to enter it conveniently, the
@@ -1930,14 +1931,14 @@ subsect(Identifiers)
 Briefly introduced before, identifiers are your biggest help in structurising
 a large piece of music.  As an example, we'll consider a string quartet.  
 In short, it will look like this: verb(
-    global = \melodic{ }
-    violinoOne = \melodic \relative c { .. }
-    violinoTwo = \melodic \relative c { .. }
-    viola = \melodic \relative c { .. }
-    violoncello = \melodic \relative c { .. }
+    global = \notes{ }
+    violinoOne = \notes \relative c { .. }
+    violinoTwo = \notes \relative c { .. }
+    viola = \notes \relative c { .. }
+    violoncello = \notes \relative c { .. }
 )
 
-The code(\global) part contains everything that is global, i.e., the
+The mycode(\global) part contains everything that is global, i.e., the
 same, for each instrument.  This may include time signature, key, repeat
 signs, different bar types, time signature- and key changes, rehearsal
 marks, etc.
@@ -1959,7 +1960,7 @@ For each instrument, you'll have something vaguely resembling verb(
 subsect(Including Mudela files)
 ref(subsect:include)
 
-You can include other Mudela files  with the command code(\include):
+You can include other Mudela files  with the command mycode(\include):
 verb(
 \include "paper13.ly"
 \score {
@@ -1982,7 +1983,7 @@ closing titles.  LilyPond does not have any real support for setting
 text: that is a job best left to TeX().  But you can pass messages to
 TeX() from the input file.   You can  write TeX() macros to handle
 these messages.
-To do this, you add a code(\header) block
+To do this, you add a mycode(\header) block
 to your input file.  The format is quite simple,
 
 verb(
@@ -1994,15 +1995,15 @@ verb(
 })
 
 When  the results of the music typesetting are output, the contents of
-code(\header) are also up into the TeX() file.  Tools like
-code(ly2dvi) can use this information to generate pretty titling for
-your input file. Consult the manual page of code(ly2dvi) for more
+mycode(\header) are also up into the TeX() file.  Tools like
+mycode(ly2dvi) can use this information to generate pretty titling for
+your input file. Consult the manual page of mycode(ly2dvi) for more
 details.
 
 
-The code(\header) block should be at toplevel in mudela, and
+The mycode(\header) block should be at toplevel in mudela, and
 preferably at the top of the file.  If you have an input file  with
-multiple code(\score) blocks, you should add a header to every score,
+multiple mycode(\score) blocks, you should add a header to every score,
 describing the different sub parts of the music piece, eg.
 
 
@@ -2022,7 +2023,7 @@ verb(\header {
     }
 )
 
-If you want you can also put the code(\header) block at the top of the
+If you want you can also put the mycode(\header) block at the top of the
 input file; it will then be put into every output file automatically.
 This will make it clear what the file contains as soon as you open it.
 
