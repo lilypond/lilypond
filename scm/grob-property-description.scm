@@ -130,7 +130,6 @@ mean centre distance weighted per note
 (grob-property-description 'dot ly-grob? "reference to Dots object.")
 (grob-property-description 'dot-count integer? "number of dots.")
 (grob-property-description 'duration-log integer? "2-log of the notehead duration, i.e. 0=whole note, 1 = half note, etc.")
-
 (grob-property-description 'edge-height pair? "a cons that specifies the heights of the vertical edges '(LEFT-height . RIGHT-height).")
 (grob-property-description 'edge-width pair? "a cons that specifies the widths of the slanted edges '(LEFT-width . RIGHT-width).")
 (grob-property-description 'edge-text pair? "a cons that specifies the texts to be set at the edges '(LEFT-text . RIGHT-text).")

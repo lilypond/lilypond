@@ -14,6 +14,52 @@
 When translating the input to notation, there are number of distinct
 phases.  We list them here:
 
+
+@c todo: moved from refman. 
+
+The purpose of LilyPond is explained informally by the term `music
+typesetter'.  This is not a fully correct name: not only does the
+program print musical symbols, it also makes aesthetic decisions.
+Symbols and their placements are @emph{generated} from a high-level
+musical description.  In other words, LilyPond would be best described
+by `music compiler' or `music to notation compiler'.
+
+LilyPond is linked to GUILE, GNU's Scheme library for extension
+programming. The Scheme library provides the glue that holds together
+the low-level routines and separate modules which are written in C++.
+
+When lilypond is run to typeset sheet music, the following happens:
+@itemize @bullet
+@item GUILE Initialization: various scheme files are read
+@item parsing: first standard @code{ly} initialization  files are read, and
+then the user @file{ly} file is read.
+@item interpretation: the music in the file is processed ``in playing
+order'', i.e. the order that  you  use to read sheet music, or the
+order in which notes are played. The result of this step is a typesetting
+specification.
+
+@item typesetting:
+The typesetting specification is solved: positions and formatting is
+calculated.
+
+@item the visible results ("virtual ink") are written to the output file.
+@end itemize
+
+During these stages different types of data play the the main role:
+during parsing, @strong{Music} objects are created.  During the
+interpretation, @strong{contexts} are constructed, and with these contexts
+a network of @strong{graphical objects} (``grobs'') is created. These
+grobs contain unknown variables, and the network forms a set of
+equations. After solving the equations and filling in these variables,
+the printed output (in the form of @strong{molecules}) is written to an
+output file.
+
+These threemanship of tasks (parsing, translating, typesetting) and
+data-structures (music, context, graphical objects) permeates the entire
+design of the program.
+
+
+
 @table @b
 
 @item Parsing:

@@ -171,11 +171,11 @@ Tuplet_bracket::brew_molecule (SCM smob)
       Drul_array<Real> height, width, shorten;
       do {
 	width[d] =  height[d] = shorten[d] = 0.0;
-	if ( gh_pair_p (ew) )
+	if ( ly_number_pair_p (ew) )
 	  width[d] +=  gh_scm2double (index_cell (ew, d)) * d;
-	if ( gh_pair_p (eh) )
+	if ( ly_number_pair_p (eh) )
 	  height[d] += gh_scm2double (index_cell (eh, d));
-	if ( gh_pair_p (sp) )
+	if ( ly_number_pair_p (sp) )
 	  shorten[d] +=  gh_scm2double (index_cell (sp, d));
       }
       while (flip (&d) != LEFT);
@@ -187,9 +187,8 @@ Tuplet_bracket::brew_molecule (SCM smob)
 				     width[LEFT], width[RIGHT],
 				     shorten[LEFT], shorten[RIGHT]);
       mol.add_molecule (brack);
-      mol.translate_axis (dir * max(height[LEFT], height[RIGHT]), Y_AXIS);
     }
-
+  
   mol.translate_axis (ly, Y_AXIS);
   mol.translate_axis (x0  - sp->get_bound (LEFT)->relative_coordinate (commonx,X_AXIS),X_AXIS);
   return mol.smobbed_copy ();
@@ -197,12 +196,19 @@ Tuplet_bracket::brew_molecule (SCM smob)
 
 /*
   should move to lookup?
+
+  argh. this interface is confusing : we have a shorten as well as a
+  widen.
+
+  arg. should use drul_arrays here.
  */
 Molecule
 Tuplet_bracket::make_bracket (Axis protusion_axis,
 			      Real dx, Real dy, Real thick, Real left_height,
-			      Real right_height, Real gap, Real left_widen,
-			      Real right_widen, Real left_shorten, Real right_shorten)
+			      Real right_height,
+			      Real gap,
+			      Real left_widen, Real right_widen,
+			      Real left_shorten, Real right_shorten)
 {
   Real len = Offset (dx,dy).length ();
   Real gapx = dx * (gap /  len);

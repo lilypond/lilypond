@@ -1,3 +1,15 @@
+2002-06-10  Han-Wen  <hanwen@cs.uu.nl>
+
+	* ly/script-init.ly (pralldown): add some scripts.
+
+	* Documentation/user/refman.itely: many edits.
+
+2002-06-09  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/tuplet-bracket.cc (brew_molecule): don't translate in Y
+	direction, this breaks staffline avoidance of the bracket when
+	they're horizontal.
+
 2002-06-08  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
 
 	* scripts/midi2ly.py: Fix handling of -o

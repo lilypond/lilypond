@@ -2745,9 +2745,8 @@ Under Unix, you can view the results as follows.
 $ cd input/tutorial
 $ lilypond-book --outdir=out/ lilbook.tex
 lilypond-book (GNU LilyPond) 1.3.146
-Reading `/home/hanwen/usr/src/lilypond-1.3.146/input/tutorial/lilbook.tex'
-Reading
-`/home/hanwen/usr/src/lilypond-1.3.146/input/tutorial/sammartini.ly'
+Reading `input/tutorial/lilbook.tex'
+Reading `input/tutorial/sammartini.ly'
 @var{lots of stuff deleted}
 Writing `out/lilbook.latex'
 $ cd out

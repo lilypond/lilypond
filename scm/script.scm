@@ -10,6 +10,12 @@
 ;; TODO: generate Grob types for this, by prepending appropriate props
 ;; on top of Script (?)  
 
+
+;; TODO: don't use 2 level indiriection, simply set
+
+;; thumb = \script #'((feta . ( . .. ) (follow-staff .  #f))
+
+
 (set! default-script-alist
       (append 
       '(("thumb" . ((feta . ("thumb"  . "thumb")) #f 0 1 0))
