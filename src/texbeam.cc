@@ -19,8 +19,8 @@ Lookup::beam_element(int sidx, int widx, Real slope)
     Symbol bs=(*symtables_)("beamslopes")->lookup("slope");
     
     Array<String> args;
-    args.add(sidx);
-    args.add(widx);
+    args.push(sidx);
+    args.push(widx);
     bs.tex = substitute_args(bs.tex,args);
     int w = 2 << widx;
     Real width = convert_dimen(w,"pt");
@@ -52,8 +52,8 @@ Lookup::rule_symbol(Real height, Real width)
 {
     Symbol bs=(*symtables_)("beamslopes")->lookup("horizontal");    
     Array<String> args;
-    args.add(print_dimen(height));
-    args.add(print_dimen(width));
+    args.push(print_dimen(height));
+    args.push(print_dimen(width));
     bs.tex = substitute_args(bs.tex,args);
     bs.dim.x = Interval(0,width);
     bs.dim.y = Interval(0,height);

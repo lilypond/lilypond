@@ -1,5 +1,5 @@
 BUGS
-	* first clef
+	* first clef isn't printed
 
 SEVERELY LACKING:
 
@@ -7,9 +7,7 @@ SEVERELY LACKING:
 
 INPUTLANGUAGE
 
-	* lexer condition stack
-
-	* lose the $ and @?
+	* lose the $ and @ ?
 
 	* figured bass?
 
@@ -23,7 +21,7 @@ SMALLISH PROJECTS
 
 	* make spanner for staffsym
 	
-	* Lyric_req : Text_req, Rhythmic_req
+	* Lyric_req: Text_req, Rhythmic_req
 	
 	* Lookup::tex_glissando, Lookup::tex_bracket,
 	Lookup::tex_cresc, Lookup::tex_decresc (use texbeam.cc as an
@@ -35,7 +33,7 @@ SMALLISH PROJECTS
 	
 	* C meter iso 4/4
 
-	* textspanner: dir of beam.
+	* textspanner: center position
 
 	* script-spacing
 
@@ -43,13 +41,19 @@ SMALLISH PROJECTS
 
 	* space rest.
 
-	* use (char *) iso. String for communication between lexer and parser.
+	* use (char *) iso. String for communication between lexer and
+	parser.
 
 	* As vs. as  notename.
 
 	* configure idealspacing: arithmetic spacing
 
-	* fix symbols in parser.o: `Warning: size of symbol'
+	* fix linking: `Warning: size of symbol'
+
+BIGGISH PROJECT
+
+	* merge musical & non-musical column. Scrap Commands in favour
+	of Requests, and do multiparralel meters
 
 DOC
 
@@ -58,11 +62,10 @@ DOC
 	* all errors
 
 FUTURE
-	* Command_req
-	
-	* scrap stem_request?
 
-	* put requests on barcommands 
+	* syntax: grouping 2*4 3*8.
+
+	* put scripts on barcommands 
 
 	* glissando
 
@@ -80,13 +83,17 @@ FUTURE
 
 	* QLP for beams?
 
-	* stacked slurs.
-
 	* revise calcideal
 
 	* eentje/tweetje
 
 IDEAS
+
+	* voice terminate req.
+
+	* keep input in mem, store char* to define spots
+
+	* enter Requests directly
 
 	* itemcolumns
 

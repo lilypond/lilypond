@@ -20,8 +20,9 @@
 
 Array<Request*> pre_reqs, post_reqs;
 sstack<String> define_spots;
-
+extern bool want_beam;
 Paperdef*default_paper();
+
 %}
 
 
@@ -63,13 +64,12 @@ Paperdef*default_paper();
 %token VOICE STAFF SCORE TITLE  BAR NOTENAME OUTPUT
 %token CM IN PT MM PAPER WIDTH METER UNITSPACE SKIP COMMANDS COMMAND
 %token GEOMETRIC START_T DURATIONCOMMAND OCTAVECOMMAND
-o%token KEY CLEF MULTI TABLE CHORD VOICES
-%token PARTIAL RHYTHMIC MELODIC MUSIC LYRIC GROUPING CADENZA
+%token KEY CLEF MULTI TABLE CHORD VOICES
+%token PARTIAL MUSIC GROUPING CADENZA
 %token END SYMBOLTABLES TEXID TABLE NOTENAMES SCRIPT TEXTSTYLE PLET
 %token MARK GOTO
 
 %token <id>  IDENTIFIER
-%token <string> NEWIDENTIFIER 
 %token <string> PITCHMOD DURATION RESTNAME
 %token <ii> NOTENAME 
 %token <real> REAL
@@ -135,7 +135,7 @@ add_declaration: declaration	{
 	;
 
 declarable_identifier:
-	NEWIDENTIFIER { $$ = $1; }
+	STRING { $$ = $1; }
 	| IDENTIFIER { $$ = new String($1->name); }
 	;
 
@@ -212,10 +212,10 @@ score_commands_block:
 
 score_commands_body:			{ $$ = new Array<Input_command*>; }
 	| score_commands_body score_command		{
-		$$->add($2);
+		$$->push($2);
 	}
 	| score_commands_body position_command		{
-		$$->add($2);
+		$$->push($2);
 	}
 	;
 
@@ -226,10 +226,10 @@ staff_commands_block: COMMANDS '{' staff_commands_body '}'	{
 staff_commands_body:
 	/* empty */			{ $$ = new Array<Input_command*>; }
 	| staff_commands_body staff_command	{
-		$$->add($2);
+		$$->push($2);
 	}
 	| staff_commands_body position_command	{
-		$$->add($2);
+		$$->push($2);
 	}
 	;
 
@@ -324,14 +324,9 @@ staff_block:
 
 staff_init:
 	IDENTIFIER		{ $$ = $1->staff(true); }
-	| RHYTHMIC		{
-		$$ = new Input_staff("rhythmic");
-	}
-	| MELODIC		{
-		$$ = new Input_staff( "melodic");
-	}
-	| LYRIC			{
-		$$ = new Input_staff( "lyric");
+	| STRING		{
+		$$ = new Input_staff(*$1);
+		delete $1;
 	}
 	;
 
@@ -415,7 +410,7 @@ post_requests:
 		assert(post_reqs.empty());
 	}
 	| post_requests post_request {
-		post_reqs.add($2);
+		post_reqs.push($2);
 	}
 	;
 
@@ -424,14 +419,15 @@ post_request:
 	| script_req
 	| textscript_req
 	;
+
 close_request_parens:
 	'('	{ $$='('; }
-	|']'	{ $$ = ']' }
+	|']'	{ $$=']'; }
 	;
 
 open_request_parens:
-	')'	{$$=')'}
-	|'['	{$$='['}
+	')'	{ $$=')'; }
+	|'['	{ $$='['; }
 	;
 
 script_definition:
@@ -481,7 +477,7 @@ script_dir:
 
 pre_requests:
 	| pre_requests pre_request {
-		pre_reqs.add($2);
+		pre_reqs.push($2);
 	}
 	;
 
@@ -554,8 +550,8 @@ pitch_list:			{
 		$$ = new Array<int>;
 	}
 	| pitch_list NOTENAME	{
-		$$->add($2[0]);
-		$$->add($2[1]);		
+		$$->push($2[0]);
+		$$->push($2[1]);		
 	}
 	;
 
@@ -573,7 +569,7 @@ int_list:
 		$$ = new Array<int>;
 	}
 	| int_list int		{
-		$$->add($2);
+		$$->push($2);
 	}
 	;
 
@@ -657,22 +653,26 @@ void
 parse_file(String s)
 {
    *mlog << "Parsing ... ";
+   lexer = new My_flex_lexer;
 
 #ifdef YYDEBUG
    yydebug = !monitor.silence("InitParser") && check_debug;
+   lexer->set_debug( !monitor.silence("InitLexer") && check_debug);
 #endif
 
-   set_lexer();
    lexer->new_input("symbol.ini");
    yyparse();
 
 #ifdef YYDEBUG
    yydebug = !monitor.silence("Parser") && check_debug;
+   lexer->set_debug( !monitor.silence("Lexer") && check_debug);
 #endif
 
    lexer->new_input(s);
    yyparse();
-   kill_lexer();
+   delete lexer;
+   lexer = 0;
+
    assert(define_spots.empty());
 }
 
