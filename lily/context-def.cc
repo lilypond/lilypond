@@ -307,7 +307,25 @@ Context_def::instantiate (SCM ops)
   Translator * g = get_translator (translator_group_type_);
   g = g->clone ();
   
-  g->simple_trans_list_ = names_to_translators (trans_names, tg);
+  g->simple_trans_list_ =  SCM_EOL;
+
+  for (SCM s = trans_names; is_pair (s) ; s = ly_cdr (s))
+    {
+      Translator * t = get_translator (ly_car (s));
+      if (!t)
+	warning (_f ("can't find: `%s'", s));
+      else
+	{
+	  Translator * tr = t->clone ();
+	  SCM str = tr->self_scm ();
+	  g->simple_trans_list_ = scm_cons (str, g->simple_trans_list_);
+	  tr->daddy_context_ = tg;
+	  scm_gc_unprotect_object (str);
+	}
+    }
+
+
+  
   tg->implementation_ = g->self_scm ();
   if (dynamic_cast<Engraver*> (g))
     g->simple_trans_list_ = filter_performers (g->simple_trans_list_);

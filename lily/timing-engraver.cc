@@ -49,7 +49,7 @@ Timing_engraver::initialize ()
     which = (now.main_part_ || now.main_part_ == last_moment_.main_part_)
       ? SCM_EOL : scm_makfrom0str ("|");
 
-  daddy_context_->set_property ("whichBar", which);
+  get_parent_context ()->set_property ("whichBar", which);
 }
 
 
@@ -88,14 +88,14 @@ Timing_engraver::start_translation_timestep ()
 	}
     }
 
-  daddy_context_->set_property ("whichBar", which);
+  get_parent_context ()->set_property ("whichBar", which);
 }
 
 void
 Timing_engraver::stop_translation_timestep ()
 {
   Timing_translator::stop_translation_timestep ();
-  daddy_context_->set_property ("whichBar", SCM_EOL);
+  get_parent_context ()->set_property ("whichBar", SCM_EOL);
   last_moment_ = now_mom ();
 }
 

@@ -88,7 +88,7 @@ Stem_engraver::acknowledge_grob (Grob_info i)
 		else
 		  requested_type = 8; 
 	      else
-		daddy_context_->set_property ("tremoloFlags", scm_int2num (requested_type));
+		get_parent_context ()->set_property ("tremoloFlags", scm_int2num (requested_type));
 
 	      int tremolo_flags = intlog2 (requested_type) - 2
 		- (duration_log > 2 ? duration_log - 2 : 0);
@@ -152,13 +152,13 @@ Stem_engraver::stop_translation_timestep ()
       if (is_number (prop))
 	{
 	  Stem::set_beaming (stem_,ly_scm2int (prop),LEFT);
-	  daddy_context_->unset_property (ly_symbol2scm ("stemLeftBeamCount"));
+	  get_parent_context ()->unset_property (ly_symbol2scm ("stemLeftBeamCount"));
 	}
       prop = get_property ("stemRightBeamCount");
       if (is_number (prop))
 	{
 	  Stem::set_beaming (stem_,ly_scm2int (prop), RIGHT);
-	  daddy_context_->unset_property (ly_symbol2scm ("stemRightBeamCount"));
+	  get_parent_context ()->unset_property (ly_symbol2scm ("stemRightBeamCount"));
 	}
 
       typeset_grob (stem_);

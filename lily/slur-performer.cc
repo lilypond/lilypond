@@ -60,7 +60,7 @@ Slur_performer::process_music ()
 void
 Slur_performer::set_melisma (bool ml)
 {
-  daddy_context_->set_property ("slurMelismaBusy", ml ? SCM_BOOL_T :SCM_BOOL_F);
+  get_parent_context ()->set_property ("slurMelismaBusy", ml ? SCM_BOOL_T :SCM_BOOL_F);
 }
 
 void

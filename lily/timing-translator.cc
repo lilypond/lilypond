@@ -49,18 +49,18 @@ Timing_translator::initialize ()
   /*
     move this to engraver-init.ly? 
    */
-  daddy_context_->add_alias (ly_symbol2scm ("Timing"));
-  daddy_context_->set_property ("timing" , SCM_BOOL_T);  
-  daddy_context_->set_property ("currentBarNumber" , scm_int2num (1));
+  get_parent_context ()->add_alias (ly_symbol2scm ("Timing"));
+  get_parent_context ()->set_property ("timing" , SCM_BOOL_T);  
+  get_parent_context ()->set_property ("currentBarNumber" , scm_int2num (1));
 
-  daddy_context_->set_property ("timeSignatureFraction",
+  get_parent_context ()->set_property ("timeSignatureFraction",
 				scm_cons (scm_int2num (4), scm_int2num (4)));
   /*
     Do not init measurePosition; this should be done from global
     context.
    */
-  daddy_context_->set_property ("measureLength", Moment (Rational (1)).smobbed_copy ());
-  daddy_context_->set_property ("beatLength", Moment (Rational (1,4)).smobbed_copy ());
+  get_parent_context ()->set_property ("measureLength", Moment (Rational (1)).smobbed_copy ());
+  get_parent_context ()->set_property ("beatLength", Moment (Rational (1,4)).smobbed_copy ());
 }
 
 Rational
@@ -125,7 +125,7 @@ Timing_translator::start_translation_timestep ()
   else
     {
       measposp = now;
-      daddy_context_->set_property ("measurePosition",
+      get_parent_context ()->set_property ("measurePosition",
 				    measposp.smobbed_copy ());
     }
   
@@ -148,8 +148,8 @@ Timing_translator::start_translation_timestep ()
       b ++;
     }
 
-  daddy_context_->set_property ("currentBarNumber", scm_int2num (b));
-  daddy_context_->set_property ("measurePosition", measposp.smobbed_copy ());
+  get_parent_context ()->set_property ("currentBarNumber", scm_int2num (b));
+  get_parent_context ()->set_property ("measurePosition", measposp.smobbed_copy ());
 }
 
 ENTER_DESCRIPTION (Timing_translator,

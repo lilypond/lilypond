@@ -239,7 +239,7 @@ Dynamic_engraver::process_music ()
 	    {
 	      cresc_  = make_spanner ("TextSpanner");
 	      cresc_->set_property ("style", s);
-	      daddy_context_->set_property ((start_type
+	      get_parent_context ()->set_property ((start_type
 					    + "Spanner").to_str0 (), SCM_EOL);
 	      s = get_property ((start_type + "Text").to_str0 ());
 	      /*
@@ -249,7 +249,7 @@ Dynamic_engraver::process_music ()
 		{
 		  cresc_->set_property ("edge-text",
 					     scm_cons (s, scm_makfrom0str ("")));
-		  daddy_context_->set_property ((start_type + "Text").to_str0 (),
+		  get_parent_context ()->set_property ((start_type + "Text").to_str0 (),
 						SCM_EOL);
 		}
 	    }

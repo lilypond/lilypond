@@ -73,11 +73,11 @@ get_voice_to_lyrics (Context *lyrics)
   if  (Context *c = unsmob_context (avc))
     return c;
 
-  SCM voice = lyrics->get_property ("associatedVoice");
+  SCM voice_name = lyrics->get_property ("associatedVoice");
   String nm = lyrics->id_string_;
 
-  if (is_string (voice))
-    nm = ly_scm2string (voice);
+  if (is_string (voice_name))
+    nm = ly_scm2string (voice_name);
   else
     {
       int idx = nm.index_last ('-');
@@ -85,12 +85,26 @@ get_voice_to_lyrics (Context *lyrics)
 	nm = nm.left_string (idx);
     }
 
-  Context *c =  lyrics->find_context_below (ly_symbol2scm ("Voice"), nm);
+  Context *parent = lyrics;
+  Context *voice = 0; 
+  while (parent && !voice)
+    {
+      voice = find_context_below (parent, ly_symbol2scm ("Voice"), nm);
+      parent = parent->get_parent_context ();
+    }
 
-  if (c)
-    return c;
+  if (voice)
+    return voice;
 
-  return lyrics->find_context_below (ly_symbol2scm ("Voice"), "");
+  parent = lyrics;
+  voice = 0; 
+  while (parent && !voice)
+    {
+      voice = find_context_below (parent, ly_symbol2scm ("Voice"), "");
+      parent = parent->get_parent_context ();
+    }
+
+  return voice;
 }
 
 Grob *
@@ -114,7 +128,7 @@ Lyric_engraver::stop_translation_timestep ()
 {
   if (text_)
     {
-      Context * voice = get_voice_to_lyrics (daddy_context_);
+      Context * voice = get_voice_to_lyrics (get_parent_context ());
 
       if (voice)
 	{

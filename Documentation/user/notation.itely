@@ -3466,6 +3466,36 @@ be tuned with the property @code{melismaBusyProperties}. See
 @internalsref{Melisma_translator} in the program reference for more
 information.
 
+Lyrics can also be entered without @code{\lyricsto}. In this case the
+durations of each syllable must be entered explicitly, for example,
+
+@verbatim
+  play2 the4 game2.
+  sink2 or4 swim2.  
+@end verbatim
+
+Alignment to a melody can be specified with the @code{associatedVoice}
+property,
+
+@verbatim
+  \set associatedVoice = #"melody"
+@end verbatim 
+
+Here is an example demonstrating manual lyric durations,
+
+@lilypond[relative=1,verbatim,fragment]
+<< \context Voice = melody {
+     c2 e4 g2.
+  } 
+  \new Lyrics \lyrics {
+    \set associatedVoice = #"melody"
+    play2 the4 game2.
+  }  >>
+@end lilypond
+
+
+
+
 When multiple stanzas are put on the same melody, it can happen that
 two stanzas have melismata in different locations. This can be
 remedied by switching off melismata for one

@@ -52,7 +52,7 @@ Change_iterator::process (Moment m)
   while (current && !current->is_alias (to_type))
     {
       last = current;
-      current = current->daddy_context_;
+      current = current->get_parent_context ();
     }
 
   if (current && current->id_string_ == to_id)
@@ -68,8 +68,8 @@ Change_iterator::process (Moment m)
 	Context * where = get_outlet ();
 	while (!dest && where)
 	  {
-	    dest = where->find_context_below (to_type, to_id);
-	    where = where->daddy_context_;
+	    dest = find_context_below (where, to_type, to_id);
+	    where = where->get_parent_context ();
 	  }
 	
 	if (dest)

@@ -144,7 +144,7 @@ New_lyric_combine_music_iterator::construct_children ()
   
   if (lyric_iter_)
     lyrics_context_ = find_context_below (lyric_iter_->get_outlet (),
-					  "Lyrics", "");
+					  ly_symbol2scm ("Lyrics"), "");
 
   /*
     We do not create a Lyrics context, because the user might
@@ -163,11 +163,11 @@ New_lyric_combine_music_iterator::find_voice ()
       if (is_string (voice_name))
 	{
 	  Context *t = get_outlet ();
-	  while (t && t->daddy_context_)
-	    t = t->daddy_context_;
+	  while (t && t->get_parent_context ())
+	    t = t->get_parent_context ();
 
 	  String name = ly_scm2string (voice_name);
-	  Context *voice = find_context_below (t, "Voice", name);
+	  Context *voice = find_context_below (t, ly_symbol2scm ("Voice"), name);
 	  if (!voice)
 	    get_music ()->origin ()->warning (_f ("cannot find Voice: %s",
 						  name.to_str0 ()) + "\n");
@@ -195,7 +195,7 @@ New_lyric_combine_music_iterator::process (Moment )
   if (!music_context_)
     return ;
   
-  if (!music_context_->daddy_context_)
+  if (!music_context_->get_parent_context ())
     {
       /*
 	The melody has died.

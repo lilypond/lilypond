@@ -21,14 +21,21 @@ class Context
   DECLARE_SMOBS (Context, dummy);
 
   void terminate ();
-public:
+
+protected:
+  Context * daddy_context_;
   SCM definition_;
   SCM properties_scm_;
   SCM context_list_;
   SCM accepts_list_;
   SCM aliases_;
 
-  Context * daddy_context_;
+  friend class Context_def;
+public:
+  SCM children_contexts () const { return context_list_; }
+  SCM default_child_context_name () const;
+
+  Context * get_parent_context () const;
   
   Context ();
   void execute_pushpop_property (SCM prop, SCM sym, SCM val);
@@ -55,9 +62,8 @@ public:
   
   virtual Music_output_def *get_output_def () const;
   virtual Moment now_mom () const;
-  Context *find_context_below (SCM context_name, String id);
   Context *find_create_context (SCM context_name,
-					    String id, SCM ops);
+				String id, SCM ops);
   Link_array<Context> path_to_acceptable_context (SCM alias,
 						  Music_output_def*) const;
   virtual Context *get_default_interpreter ();
@@ -78,7 +84,7 @@ void apply_property_operations (Context*tg, SCM pre_init_ops);
 void execute_pushpop_property (Context * trg, SCM prop, SCM eltprop, SCM val);
 SCM updated_grob_properties (Context* tg, SCM sym);
 Context * find_context_below (Context * where,
-		    String type, String id);
+			      SCM type_sym, String id);
 bool melisma_busy (Context*);
 
 Context *get_voice_to_lyrics (Context *lyrics);

@@ -95,22 +95,6 @@ Context::Context ()
   scm_gc_unprotect_object (properties_scm_);
 }
 
-Context *
-Context::find_context_below (SCM n, String id)
-{
-  if ((is_alias (n) && (id_string_ == id || id.is_empty ())))
-    return this;
-
-  Context* r = 0;
-  for (SCM p = context_list_; !r && is_pair (p); p = ly_cdr (p))
-    {
-      Context *  t = unsmob_context (ly_car (p));
-      
-      r = dynamic_cast<Context*> (t)->find_context_below (n, id);
-    }
-
-  return r;
-}
 
 
 Context*
@@ -125,7 +109,7 @@ Context::find_create_context (SCM n, String id,
     return get_score_context ()->find_create_context (n, id, operations);
     
   
-  Context * existing = find_context_below (n,id);
+  Context * existing = find_context_below (this, n,id);
   if (existing)
     return existing;
 
@@ -189,10 +173,10 @@ Context::find_create_context (SCM n, String id,
   none.
 */
 SCM
-default_child_context_name (Context const *tg)
+Context::default_child_context_name () const
 {
-  return is_pair (tg->accepts_list_)
-    ? ly_car (scm_last_pair (tg->accepts_list_))
+  return is_pair (accepts_list_)
+    ? ly_car (scm_last_pair (accepts_list_))
     : SCM_EOL;
 }
 
@@ -200,7 +184,7 @@ default_child_context_name (Context const *tg)
 bool
 Context::is_bottom_context () const
 {
-  return !is_symbol (default_child_context_name (this));
+  return !is_symbol (default_child_context_name ());
 }
 
 Context*
@@ -208,7 +192,7 @@ Context::get_default_interpreter ()
 {
   if (!is_bottom_context ())
     {
-      SCM nm = default_child_context_name (this);
+      SCM nm = default_child_context_name ();
       SCM st = get_output_def ()->find_context_def (nm);
 
       Context_def *t = unsmob_context_def (st);
@@ -315,7 +299,7 @@ Context::remove_context (Context*trans)
  */
 Context *
 find_context_below (Context * where,
-		    String type, String id)
+		    SCM type, String id)
 {
   if (where->is_alias (ly_symbol2scm (type.to_str0 ())))
     {
@@ -324,7 +308,7 @@ find_context_below (Context * where,
     }
   
   Context * found = 0;
-  for (SCM s = where->context_list_;
+  for (SCM s = where->children_contexts ();
        !found && is_pair (s); s = ly_cdr (s))
     {
       Context * tr = unsmob_context (ly_car (s));
@@ -451,4 +435,10 @@ Context::get_global_context () const
 
   programming_error ("No Global context!");
   return 0;
+}
+
+Context*
+Context::get_parent_context () const
+{
+  return daddy_context_;
 }

@@ -64,13 +64,13 @@ Output_property_engraver::acknowledge_grob (Grob_info inf)
 	    dynamic_cast<Context *> (inf.origin_trans_);
 
 	  if (!d)
-	    d = dynamic_cast<Context *> (inf.origin_trans_->daddy_context_);
+	    d = dynamic_cast<Context *> (inf.origin_trans_->get_parent_context ());
 	  
 	  SCM proc = o->get_property ("procedure");
 	  scm_call_3 (proc,
 		      inf.grob_->self_scm (),
 		      d->self_scm (), 
-		      daddy_context_->self_scm ());
+		      get_parent_context ()->self_scm ());
 	}
     }
 }

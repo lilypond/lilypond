@@ -28,12 +28,12 @@ Grob_info::music_cause ()
 Link_array<Context>
 Grob_info::origin_contexts (Translator* end) const
 {
-  Context * t = origin_trans_->daddy_context_;
+  Context * t = origin_trans_->get_parent_context ();
   Link_array<Context> r;
   do {
     r.push (t);
-    t = t->daddy_context_;
-  } while (t && t != end->daddy_context_);
+    t = t->get_parent_context ();
+  } while (t && t != end->get_parent_context ());
   
   return r;
 }

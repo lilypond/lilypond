@@ -315,15 +315,16 @@
 
 (define (text font s)
   (let*
-      ((mapping #f)
-       (input-enc-name (assoc-get 'input-name (ly:font-encoding-alist font) ))
-       )
+      ((mapping #f)       ;; (assoc-get  'char-mapping (ly:font-encoding-alist font))))
 
-    ;; TODO: we'd better do this for PS only
-    ;; LaTeX gets in the way, and we need to remap
-    ;; nonprintable chars.
-    
-    ;; (assoc-get  'char-mapping (ly:font-encoding-alist font))))
+
+       ;; TODO: we'd better do this for PS only
+       ;; LaTeX gets in the way, and we need to remap
+       ;; nonprintable chars.
+       
+
+       (input-enc-name #f) ;; (assoc-get 'input-name (ly:font-encoding-alist font) ))
+       )
 
     (string-append "\\hbox{\\" (font-command font)
 		   (if (string? input-enc-name)

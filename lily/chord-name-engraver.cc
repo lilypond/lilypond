@@ -102,7 +102,7 @@ Chord_name_engraver::process_music ()
 
   SCM name_proc = get_property ("chordNameFunction");
   SCM markup = scm_call_4 (name_proc, pitches, bass, inversion,
-			   daddy_context_->self_scm ());
+			   get_parent_context ()->self_scm ());
 
   /*
     Ugh. 

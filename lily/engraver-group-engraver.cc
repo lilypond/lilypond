@@ -101,7 +101,7 @@ void
 Engraver_group_engraver::initialize ()
 {
   SCM tab = scm_make_vector (scm_int2num (61), SCM_BOOL_F);
-  daddy_context_->set_property ("acknowledgeHashTable", tab);
+  get_parent_context ()->set_property ("acknowledgeHashTable", tab);
 
   Translator_group::initialize ();
 }
@@ -168,7 +168,7 @@ recurse_down_engravers (Context * c, Engraver_method ptr, bool context_first)
       (tg->*ptr) ();
     }
 
-  for (SCM s = c->context_list_ ; is_pair (s);
+  for (SCM s = c->children_contexts () ; is_pair (s);
        s =ly_cdr (s))
     {
       recurse_down_engravers (unsmob_context (ly_car (s)), ptr, context_first);

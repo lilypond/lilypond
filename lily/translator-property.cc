@@ -158,8 +158,8 @@ updated_grob_properties (Context * tg, SCM sym)
     return SCM_EOL;
   
   SCM daddy_props
-    = (tg->daddy_context_)
-    ? updated_grob_properties (tg->daddy_context_, sym)
+    = (tg->get_parent_context ())
+    ? updated_grob_properties (tg->get_parent_context (), sym)
     : SCM_EOL;
   
   SCM props  = tg->internal_get_property (sym);
