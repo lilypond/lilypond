@@ -65,7 +65,9 @@ LoadTableFromFile("LILC", "feta%(design_size)d.otf-table")
 LoadTableFromFile("LILY", "feta%(design_size)d.otf-gtable")
 
 Generate("%(name)s%(design_size)d.otf");
-Generate("%(name)s%(design_size)d.cff");''' % vars()
+Generate("%(name)s%(design_size)d.cff");
+Generate("%(name)s%(design_size)d.svg");
+''' % vars()
 
 	path = os.path.join (outdir, name + '%d' % design_size +  '.pe')
 	open (path, 'w').write (script)

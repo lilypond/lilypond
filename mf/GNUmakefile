@@ -24,6 +24,7 @@ PE_SCRIPTS = $(addsuffix .pe, $(addprefix $(outdir)/bigcheese, $(STAFF_SIZES))) 
 OTF_TABLES = $(addsuffix .otf-table, $(addprefix $(outdir)/feta, $(STAFF_SIZES))) \
  $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
 FETA_FONTS = $(FETA_MF_FILES:.mf=)
+SVG_FILES = $(OTF_FILES:%.otf=%.svg)
 
 $(outdir)/aybabtu.otf-table: $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
 	cat $^ > $@
@@ -54,7 +55,7 @@ foe:
 	echo $(TEXMF)
 	kpsewhich exbase.mf
 
-$(outdir)/%.otf: $(outdir)/%.pe
+$(outdir)/%.otf $(outdir)/%.svg: $(outdir)/%.pe
 	(cd $(outdir) && fontforge -script $(notdir $<)) 
 
 $(outdir)/%.otf-table: $(outdir)/%.lisp
@@ -105,6 +106,9 @@ INSTALLATION_OUT_FILES6=$(outdir)/lilypond.map
 
 INSTALLATION_OUT_DIR7=$(local_lilypond_datadir)/ps/
 INSTALLATION_OUT_FILES7=$(ENC_FILES)
+
+INSTALLATION_OUT_DIR8=$(local_lilypond_datadir)/svg
+INSTALLATION_OUT_FILES8=$(OTF_FILES)
 
 
 export MFINPUTS:=.:$(MFINPUTS)
