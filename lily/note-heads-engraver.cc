@@ -139,5 +139,5 @@ ENTER_DESCRIPTION(Note_heads_engraver,
 /* descr */       "Generate one or more noteheads from Music of type Note_req.",
 /* creats*/       "NoteHead Dots",
 /* acks  */       "",
-/* reads */       "",
+/* reads */       "easyPlay centralCPosition",
 /* write */       "");

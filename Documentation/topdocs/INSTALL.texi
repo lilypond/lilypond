@@ -171,12 +171,10 @@ configure something like:
 
 
 @item pktrace, [OPTIONAL], needed for generating PostScript Type1
-fonts. Get it from
- @uref{http://www.cs.uu.nl/~hanwen/public/software/pktrace-0.1.tar.gz}
+fonts. Get it from  @uref{http://www.cs.uu.nl/~hanwen/pktrace/}
 
 @item autotrace-0.27a, [OPTIONAL], needed for generating PostScript Type1
-fonts. You must apply the patch included pktrace-0.1 first.
-@uref{http://autotrace.sourceforge.net}.
+fonts. @uref{http://autotrace.sourceforge.net}.
  
 @item MetaPost [OPTIONAL] needed for generating PostScript Type3 fonts. Please
 note that tetex-0.4pl8 (included with Red Hat 5.x) does not include

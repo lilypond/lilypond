@@ -119,11 +119,11 @@
 
 
 
-
 (use-modules (scm tex)
 	     (scm ps)
 	     (scm pysk)
 	     (scm ascii-script)
+	     (scm sketch)
 	     )
 
 (define output-alist
@@ -133,9 +133,8 @@
     ("scm" . ,write)
     ("as" . ,as-output-expression)
     ("pysk" . ,pysk-output-expression)
+    ("sketch" . ,sketch-output-expression)
 ))
-
-
 
 
 (define (find-dumper format )
@@ -155,7 +154,6 @@
 	   "sketch.scm"
 	   "pdf.scm"
 	   "pdftex.scm"
-	   "ascii-script.scm"
       	   "c++.scm"
 	   "grob-property-description.scm"
 	   "translator-property-description.scm"
@@ -179,3 +177,4 @@
 
 
 
+1

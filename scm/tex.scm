@@ -6,16 +6,12 @@
 ;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 
-(define-module (scm tex)
-  :export (tex-output-expression)
-  :no-backtrace
-  )
-
+(define-module (scm tex) )
+(debug-enable 'backtrace)
 (use-modules (scm ps)
 	     (ice-9 regex)
 	     (ice-9 string-fun)
 	     (ice-9 format)
-	     (guile-user)
 	     (guile)
 	     )
 
@@ -87,7 +83,7 @@
   (embedded-ps (list 'bracket  arch_angle arch_width arch_height height arch_thick thick)))
 
 (define (dashed-slur thick dash l)
-  (embedded-ps (list 'dashed-slur   thick dash l)))
+  (embedded-ps (list 'dashed-slur thick dash `(quote ,l))))
 
 (define (hairpin thick w sh eh)
   (embedded-ps (list 'hairpin thick w sh eh))
@@ -128,7 +124,6 @@
   (display "\n" (current-error-port))
   ""
   )
-
 
 (define (embedded-ps expr)
   (let
@@ -194,7 +189,7 @@
 ;;
 ;; need to do something to make this really safe.
 ;;
-(define (output-tex-string s)
+(define-public (output-tex-string s)
   (if security-paranoia
       (if use-regex
 	  (regexp-substitute/global #f "\\\\" s 'pre "$\\backslash$" 'post)
@@ -267,6 +262,16 @@
 					; no-origin not yet supported by Xdvi
 (define (no-origin) "")
 
-(define (tex-output-expression expr port)
-  (display (eval expr this-module) port )
+(define my-eval-in-module eval)
+
+(if (or (equal? (minor-version) "4")
+	(equal? (minor-version) "3.4"))
+    (begin
+      (set! my-eval-in-module eval-in-module)
+
+    ))
+
+(define-public (tex-output-expression expr port)
+  (display (my-eval-in-module expr this-module) port )
   )
+

@@ -397,7 +397,7 @@ Grob::handle_broken_grobs (SCM src, SCM criterion)
 	  return SCM_UNDEFINED;
 	}
     }
-  else if (SCM_CONSP (src))
+  else if (ly_pair_p (src)) // SCM_CONSP (src))  // huh?
     {
       SCM oldcar =ly_car (src);
       /*

@@ -8,19 +8,16 @@
 
 
 (define-module (scm pysk)
-  :export (pysk-output-expression)
-  :no-backtrace
   )
 
 (use-modules (scm ps)
 	     (ice-9 regex)
 	     (ice-9 string-fun)
-	     (guile-user)
 	     (guile)
 	     )
 
 (define this-module (current-module))
-(define (pysk-output-expression expr port)
+(define-public (pysk-output-expression expr port)
   (display (pythonify expr) port )
   )
 

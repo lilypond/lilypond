@@ -302,5 +302,5 @@ ENTER_DESCRIPTION(Completion_heads_engraver,
 break long notes and automatically tie them into the next measure.",
 /* creats*/       "NoteHead Dots",
 /* acks  */       "",
-/* reads */       "",
+/* reads */       "easyPlay centralCPosition measurePosition measureLength",
 /* write */       "");

@@ -8,20 +8,27 @@
 
 
 (define-module (scm ps)
-  :export (ps-output-expression)
-  :no-backtrace
   )
 
 (define this-module (current-module))
 
-(define (ps-output-expression expr port)
-  (display (eval expr this-module) port)
-  )
+(debug-enable 'backtrace)
+
+(if (or (equal? (minor-version) "4")
+	(equal? (minor-version) "3.4"))
+    (define-public (ps-output-expression expr port)
+      (display (eval-in-module expr this-module) port )
+      )
+
+    (define-public (ps-output-expression expr port)
+      (display (eval expr this-module) port )
+      )
+    )
 
  
 (use-modules
  (guile)
- (guile-user))
+)
 
 
 

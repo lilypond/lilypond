@@ -1,7 +1,7 @@
 #!@PYTHON@
 
 # info mostly taken from looking at files. See also
-# http://www.cs.uu.nl/~hanwen/lily-devel/etf.html
+# http://lilypond.org/wiki/?EnigmaTransportFormat
 
 # This supports
 #
@@ -24,7 +24,7 @@
 #  * dynamics
 #  * empty measures (eg. twopt03.etf from freenote)
 #
-# 
+
 
 program_name = 'etf2ly'
 version = '@TOPLEVEL_VERSION@'
