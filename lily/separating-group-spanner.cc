@@ -17,17 +17,19 @@ static Rod
 make_rod (Single_malt_grouping_item *l, Single_malt_grouping_item *r)
 {
   Rod rod;
-  rod.item_l_drul_[LEFT] =l;
-  rod.item_l_drul_[RIGHT]=r;
 
   Interval li (l->my_width ());
   Interval ri (r->my_width ());
-  
+
+  rod.item_l_drul_[LEFT] =l;
+  rod.item_l_drul_[RIGHT]=r;
+
   if (li.empty_b () || ri.empty_b ())
     rod.distance_f_ = 0;
   else
     rod.distance_f_ = li[RIGHT] - ri[LEFT];
 
+  rod.columnize ();
   return rod;
 }
   
@@ -75,7 +77,23 @@ Separating_group_spanner::get_rods () const
 	  a.push (rod);
 	}
     }
-      
+
+  /*
+    We've done our job, so we get lost. 
+   */
+  for (SCM s = get_elt_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
+    {
+      Item * it =dynamic_cast<Item*>(unsmob_element (gh_car (s)));
+      if (it && it->broken_b ())
+	{
+	  it->find_prebroken_piece (LEFT) ->suicide ();
+	  it->find_prebroken_piece (RIGHT)->suicide ();
+	}
+      it->suicide ();
+    }
+  
+  ((Separating_group_spanner *)this)->suicide ();
+  
   return a;
 }
 

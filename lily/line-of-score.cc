@@ -17,6 +17,8 @@
 #include "string.hh"
 #include "warn.hh"
 #include "dimensions.hh"
+#include "molecule.hh"
+#include "all-font-metrics.hh"
 
 Line_of_score::Line_of_score()
 {
@@ -30,7 +32,6 @@ Line_of_score::Line_of_score()
 /*
   Ugh.  this is grossly hairy.
  */
-
 void
 Line_of_score::typeset_element (Score_element * elem_p)
 {
@@ -39,7 +40,7 @@ Line_of_score::typeset_element (Score_element * elem_p)
   scm_unprotect_object (elem_p->self_scm_);
 }
 
-SCM
+void
 Line_of_score::output_lines ()
 {
   for (SCM s = get_elt_property ("all-elements");
@@ -49,8 +50,8 @@ Line_of_score::output_lines ()
     }
 
   /*
-    fixups must be done in broken line_of_scores, because new elements are put over there. 
-   */
+    fixups must be done in broken line_of_scores, because new elements
+    are put over there.  */
   for (int i=0; i < broken_into_l_arr_.size (); i++)
     {
       Score_element *se = broken_into_l_arr_[i];
@@ -87,14 +88,6 @@ Line_of_score::output_lines ()
       progress_indication (to_str (i));
       progress_indication ("]");
     }
-
-  SCM list = SCM_EOL; 
-  for (int i=broken_into_l_arr_.size (); i--;)
-    {
-      Line_of_score * l =  dynamic_cast<Line_of_score*> (broken_into_l_arr_[i]);
-      list = gh_cons (gh_cdr (l->output_), list);
-    }
-  return list;
 }
 
 // const?
@@ -146,18 +139,19 @@ enter:
     }
   else
     {
-      output_scheme (gh_list (ly_symbol2scm ("placebox"),
-			      gh_double2scm (o[X_AXIS]),
-			      gh_double2scm (o[Y_AXIS]),
-			      expr,
-			      SCM_UNDEFINED));
+      pscore_l_->outputter_l_->
+	output_scheme (gh_list (ly_symbol2scm ("placebox"),
+				gh_double2scm (o[X_AXIS]),
+				gh_double2scm (o[Y_AXIS]),
+				expr,
+				SCM_UNDEFINED));
     }
 }
 
 void
 Line_of_score::output_scheme (SCM s)
 {
-  gh_set_cdr_x (output_, gh_cons (s, gh_cdr (output_)));
+  pscore_l_->outputter_l_->output_scheme (s);
 }
 
 void
@@ -177,17 +171,26 @@ Line_of_score::add_column (Paper_column*p)
 Link_array<Paper_column>
 Line_of_score::column_l_arr ()const
 {
-  return Group_interface__extract_elements (this,
-					    (Paper_column*) 0, "columns");
+  Link_array<Paper_column> acs
+    = Group_interface__extract_elements (this, (Paper_column*) 0, "columns");
+  bool bfound = false;
+  for (int i= acs.size (); i -- ; )
+    {
+      bool brb = acs[i]->breakable_b();
+      bfound = bfound || brb;
 
+      /*
+	the last column should be breakable. Weed out any columns that
+	seem empty. We need to retain breakable columns, in case
+	someone forced a breakpoint.
+      */
+      if (!bfound
+	  || (acs[i]->get_elt_property ("elements") == SCM_EOL
+	      && !brb))
+	acs.del (i);
+    }
+  return acs;
 }
-
-int
-Line_of_score::compare (Line_of_score* const &p1,Line_of_score* const &p2)
-{
-  return p1->rank_i_ - p2->rank_i_;
-}
-
 
 void
 fixup_refpoints (SCM s)
@@ -251,20 +254,53 @@ Line_of_score::post_processing ()
       height = 50 CM;
     }
 
-  output_ = gh_cons (SCM_EOL, SCM_EOL);
-  output_scheme (gh_list (ly_symbol2scm ("stop-line"), SCM_UNDEFINED));
+  /*
+    generate all molecules  to trigger all font loads.
+
+    (ugh. This is not very memory efficient.)  */
   for (SCM s = get_elt_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
-    unsmob_element (gh_car (s))->output_processing ();
+    unsmob_element (gh_car (s))->get_molecule ();
+  
+  /*
+    font defs;
+   */
+  SCM font_names = ly_quote_scm (all_fonts_global_p->font_descriptions ());  
+  output_scheme (gh_list (ly_symbol2scm ("define-fonts"),
+					font_names,
+					SCM_UNDEFINED));
+
+  /*
+    line preamble.
+   */
   output_scheme (gh_list (ly_symbol2scm ("start-line"),
 			  gh_double2scm (height),
 			  SCM_UNDEFINED));
+  
+  Real il = paper_l ()->get_var ("interline");
+
+  /*
+    all elements.
+   */ 
+  for (SCM s = get_elt_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
+    {
+      Score_element * sc =  unsmob_element (gh_car (s));
+      Molecule m = sc->get_molecule ();
+      
+      Offset o (sc->relative_coordinate (this, X_AXIS),
+		sc->relative_coordinate (this, Y_AXIS));
+
+      SCM e = sc->get_elt_property ("extra-offset");
+      if (gh_pair_p (e))
+	{
+	  o[X_AXIS] += il * gh_scm2double (gh_car (e));
+	  o[Y_AXIS] += il * gh_scm2double (gh_cdr (e));      
+	}
+
+      output_molecule (m.get_expr (), o);
+    }
+  output_scheme (gh_list (ly_symbol2scm ("stop-line"), SCM_UNDEFINED));
 }
 
-void
-Line_of_score::output_all () 
-{
-  calculate_dependencies (BREWED, BREWING, &Score_element::output_processing);
-}
 
 Link_array<Item> 
 Line_of_score::broken_col_range (Item const*l, Item const*r) const

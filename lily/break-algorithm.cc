@@ -63,7 +63,6 @@ Break_algorithm::generate_spacing_problem (Link_array<Paper_column> curline, Int
 {
   Simple_spacer * sp =  new Simple_spacer;
   Paper_def * d = pscore_l_->paper_l_;
-  sp->compression_energy_factor_f_ = d->get_var ("compression_energy_factor");
   sp->default_space_f_ = d->get_var ("loose_column_distance");
 
   sp->indent_f_ = line[LEFT];

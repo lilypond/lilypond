@@ -1,11 +1,23 @@
 \header {
   title =       "Trip";
-  enteredby =   "JCN";
   copyright =   "public domain";
 }
 
 
-% todo: clef ch .
+%{
+
+This file tests as much features of lily as possible. If there are any
+basic faults in , this file will not run correctly.
+
+TODO:
+
+* add tuplets
+
+* repeats.
+
+* tremolo
+
+%}
 
 praeludiumRight =  \notes {
    \key e;
@@ -41,12 +53,14 @@ praeludiumLeft = \notes \relative c {
   \context Staff <
     \context Voice = two { r4 }
     \context Voice = one { \stemup s4 dis' cis cis ~ |
-      [cis8
-         (
+    % BUG -> (insane springs.)
+    \times 4/5
+      {  [cis8 ( cis
+
       a \translator Staff = treble  \stemdown \shifton d
          )
 
-      cis]
+      cis] }
       \translator Staff = bass 
       \shiftoff
       [bis gis] cis4 |

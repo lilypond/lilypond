@@ -26,7 +26,7 @@ add_translator (Translator *t)
   if (!global_translator_dict_p)
     global_translator_dict_p = new Dictionary<Translator*>;
 
-  global_translator_dict_p->elem (classname (t)) = t;
+  (*global_translator_dict_p)[classname (t)] = t;
 }
 
 Translator*

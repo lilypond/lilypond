@@ -11,25 +11,30 @@
 #include "column-x-positions.hh"
 #include "spanner.hh"
 
-/// the columns of a score that form one line. FIXME: multiple inheritance
+/**
+   The columns of a score that form one line.  The toplevel element.
+   Any element has a Line_of_score as both X and Y reference
+   point. The Paper_score contains one element of this type. Control
+   enters the Score_element dependency calculation from this single
+   Line_of_score object.
+   
+   
+  properties:
+
+    all-elements -- list of all score elements in this line. Needed
+      for protecting elements from GC.
+
+    columns -- list of all paper columns
+
+  */
 class Line_of_score : public Spanner
 {
 public:
-/*
-  imported the following  from Super_element
-  
-  The toplevel element. The Paper_score contains this element, and any
-  element shoud be a dependency for the super element.
 
-  It is the entry point for the "constraint solver"/ dependency
-  tracker.  Every XXXX_processing () call traverses the entire
-  dependency graph, and calls the appropriate
-  Score_element::do_XXX_processing function on each Score_element it encounters.
-  */
   
   void post_processing();
-  void output_all ();
 
+  /// -> SCM
   int rank_i_;
 
   Protected_scm output_;
@@ -38,12 +43,9 @@ public:
   /// is #c# contained in #*this#?
   bool contains_b (Paper_column const *c) const;
     
-  static int compare (Line_of_score* const &,Line_of_score* const &);
 
   void break_into_pieces (Array<Column_x_positions> const&);
-
-  SCM output_lines ();
-
+  void output_lines ();
 
   Link_array<Item> broken_col_range (Item const*, Item const*) const;
   Link_array<Paper_column> column_l_arr () const;

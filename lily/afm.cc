@@ -48,7 +48,9 @@ Adobe_font_metric::find_ascii_metric (int a , bool warn) const
 AFM_CharMetricInfo const *
 Adobe_font_metric::find_char_metric (String nm, bool warn) const
 {
-  if (!name_to_metric_dict_.elem_b (nm))
+  map<String,int>::const_iterator ai = name_to_metric_dict_.find (nm);
+  
+  if (ai == name_to_metric_dict_.end ())
     {
       if (warn)
 	{
@@ -57,7 +59,7 @@ Adobe_font_metric::find_char_metric (String nm, bool warn) const
       return 0;
     }
   else
-    return font_inf_->cmi + name_to_metric_dict_ [nm];
+    return font_inf_->cmi + (*ai).second;
 }
 
 

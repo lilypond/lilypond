@@ -6,11 +6,6 @@
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-/*
-  ugh. Rewrite not finished yet. Still must copy atom lists.
- */
-
-
 #include <math.h>
 
 #include "font-metric.hh"
@@ -18,16 +13,8 @@
 #include "interval.hh"
 #include "string.hh"
 #include "molecule.hh"
-
 #include "debug.hh"
 #include "killing-cons.tcc"
-
-
-Box
-Molecule::extent() const
-{
-  return dim_;
-}
 
 Interval
 Molecule::extent(Axis a) const
@@ -38,7 +25,7 @@ Molecule::extent(Axis a) const
 Molecule::Molecule (Box b, SCM func)
 {
   expr_ = func;
-  dim_ = b ;
+  dim_ = b;
 }
 
 Molecule::Molecule()
@@ -113,12 +100,11 @@ Molecule::align_to (Axis a, Direction d)
   translate_axis (-r, a);
 }
 
-
 void
 Molecule::add_at_edge (Axis a, Direction d, Molecule const &m, Real padding)
 {
   Real my_extent= empty_b () ? 0.0 : dim_[a][d];
-  Interval i (m.extent ()[a]);
+  Interval i (m.extent (a));
   if (i.empty_b ())
     programming_error ("Molecule::add_at_edge: adding empty molecule.");
   
@@ -135,10 +121,15 @@ Molecule::empty_b () const
   return expr_ == SCM_EOL;
 }
 
-
 SCM
 fontify_atom(Font_metric * met, SCM f)
 {
   return  gh_list (ly_symbol2scm ("fontify"),
 		   ly_quote_scm (met->description ()), f, SCM_UNDEFINED);
+}
+
+SCM
+Molecule::get_expr () const
+{
+  return expr_;
 }

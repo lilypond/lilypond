@@ -22,14 +22,7 @@ Spring::Spring ()
 void
 Spring::add_to_cols ()
 {
-  Direction d = LEFT;
-  do
-    {
-      item_l_drul_[-d]->column_l ()->add_spring
-	(item_l_drul_[d]->column_l (),
-	 distance_f_, strength_f_);
-    }
-  while ((flip (&d))!=LEFT);
+  item_l_drul_[LEFT]->column_l ()->add_spring (item_l_drul_[RIGHT]->column_l (), distance_f_, strength_f_);
 }
 
 
@@ -47,12 +40,3 @@ Column_spring::compare (Column_spring const & r1, Column_spring const &r2)
   return r1.other_l_->rank_i() - r2.other_l_->rank_i();
 }
 
-void
-Column_spring::print () const
-{
-#ifndef NPRINT
-  DEBUG_OUT << "Column_spring { rank = "
-       << other_l_->rank_i () << ", dist = " << distance_f_ << "}\n";   
-
-#endif
-}

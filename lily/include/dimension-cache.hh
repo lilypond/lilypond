@@ -62,7 +62,7 @@ public:
    */
   Real relative_coordinate (Dimension_cache *d) const;
   Dimension_cache*common_refpoint (Dimension_cache const* s) const;
-  Dimension_cache*common_refpoint (Link_array<Dimension_cache> caches) const;
+
   void set_empty (bool);
   void translate (Real);
 

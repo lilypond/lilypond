@@ -26,7 +26,7 @@ Grace_align_item::Grace_align_item ()
 void
 Grace_align_item::before_line_breaking ()
 {
-  Real nhw = // lookup_l ()->notehead (2, "").dim_[X_AXIS].length();
+  Real nhw = // lookup_l ()->notehead (2, "")..extent (X_AXIS).length();
     paper_l ()->get_var ("quartwidth");
   
   set_elt_property ("threshold",

@@ -447,7 +447,7 @@ Stem::dim_callback (Dimension_cache const* c)
     ;	// TODO!
   else
     {
-      r = s->flag ().dim_.x ();
+      r = s->flag ().extent (X_AXIS);
     }
   return r;
 }

@@ -7,8 +7,6 @@
 
   TODO:
   - add support for different stretch/shrink constants?
-  - Use force as a minimizing function, and use it to discourage mixes of
-  wide and tight lines.
   
 */
 
@@ -27,7 +25,6 @@ Simple_spacer::Simple_spacer ()
   force_f_ = 0.;
   indent_f_ =0.0;
   default_space_f_ = 20 PT;
-  compression_energy_factor_f_ = 3.0;
 }
 
 void
@@ -172,9 +169,9 @@ Simple_spacer::add_columns (Link_array<Paper_column> cols)
     {
       Paper_column * c = cols [i];
       Column_spring *to_next = 0;
-      for (int j =0; !to_next && j < c->spring_arr_drul_[RIGHT].size( ); j++)
+      for (int j =0; !to_next && j < c->springs_.size( ); j++)
 	{
-	  Column_spring &sp = c->spring_arr_drul_[RIGHT] [j];
+	  Column_spring &sp = c->springs_ [j];
 	  if (sp.other_l_ != cols[i+1])
 	    continue;
 
@@ -195,8 +192,9 @@ Simple_spacer::add_columns (Link_array<Paper_column> cols)
 
       if (!desc.sane_b ())
 	{
-	  programming_error ("Insane spring.");
-	  continue;
+	  programming_error ("Insane spring found. Setting to unit spring.");
+	  desc.hooke_f_ = 1.0;
+	  desc.ideal_f_ = 1.0;
 	}
       
       desc.block_force_f_ = - desc.hooke_f_ * desc.ideal_f_; // block at distance 0
@@ -205,7 +203,7 @@ Simple_spacer::add_columns (Link_array<Paper_column> cols)
   
   for (int i=0; i < cols.size () - 1; i++)
     {
-      Array<Column_rod> * rods = &cols [i]->minimal_dists_arr_drul_[RIGHT];
+      Array<Column_rod> * rods = &cols [i]->minimal_dists_;
       for (int j =0; j < rods->size( ); j++)
 	{
 	  int oi = cols.find_i (rods->elem (j).other_l_ );
@@ -216,6 +214,9 @@ Simple_spacer::add_columns (Link_array<Paper_column> cols)
 	}
     }
 
+  /*
+    TODO: should support natural length on only the last line.
+   */
   if (line_len_f_ < 0)
     my_solve_natural_len ();
   else
@@ -225,7 +226,6 @@ Simple_spacer::add_columns (Link_array<Paper_column> cols)
 void
 Simple_spacer::solve (Column_x_positions *positions) const
 {
-  positions->energy_f_  = energy_f ();  // abs (force_f_);
   positions->force_f_ = force_f_;
   
   positions->config_.push (indent_f_);
@@ -247,13 +247,6 @@ Spring_description::Spring_description( )
   block_force_f_ = 0.0;
 }
 
-Real
-Spring_description::energy_f (Real force) const
-{
-  Real stretch = (force >? block_force_f_) / hooke_f_;
-  Real e = 0.5 * stretch * stretch * hooke_f_;
-  return e;
-}
 
 bool
 Spring_description::sane_b () const
@@ -262,18 +255,3 @@ Spring_description::sane_b () const
 }
 
 
-Real
-Simple_spacer::energy_f () const
-{
-  Real e =0.;
-
-  for (int i=0; i <springs_.size (); i++)
-    {
-      e += springs_[i].energy_f (force_f_);
-    }
-
-  if (force_f_ < 0)
-    e *= compression_energy_factor_f_;
-
-  return e;
-}

@@ -34,9 +34,6 @@ protected:
   /// helper: solve for the columns in #curline#.
   void solve_line (Column_x_positions*) const;
 
-  /// helper: approximate the energyv
-  void approximate_solve_line (Column_x_positions*) const;
-
   /// does curline fit on the paper?    
   bool feasible (Link_array<Paper_column>) const;
     

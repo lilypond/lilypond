@@ -75,11 +75,17 @@ public:
     Score_element::calcalute_dependencies ()
 
     0 means ORPHAN,
-    -1 means deleted
-    
    */
-  int status_i_;
+  char status_i_;
+  /**
+     Set this if anyone points to me, or if I point to anyone.
 
+     JUNKME.
+   */
+  bool used_b_;
+  
+  char const * name () const;
+  
   Paper_score *pscore_l_;
 
   Score_element ();
@@ -154,8 +160,9 @@ public:
   virtual void before_line_breaking ();
   /// do calculations after determining horizontal spacing
   virtual void after_line_breaking ();
-  virtual void output_processing ();
-  
+
+  Molecule get_molecule () const;
+  void suicide ();
 
   static Interval preset_extent (Dimension_cache const*);
   static Interval molecule_extent (Dimension_cache const*);
@@ -192,15 +199,6 @@ public:
 public:
   Dimension_cache *dim_cache_[NO_AXES];
 
-  /**
-     Set this if anyone points to me, or if I point to anyone.
-
-     JUNKME.
-   */
-  bool used_b_;
-  
-  char const * name () const;
-
   bool empty_b (Axis a) const;
   Interval extent (Axis) const;
  
@@ -215,8 +213,7 @@ public:
     Find the group-element which has both #this# and #s#
    */
   Score_element*common_refpoint (Score_element const* s, Axis a) const;
-  Score_element*common_refpoint (Link_array<Score_element> elems, Axis a) const;
-
+  Score_element*common_refpoint (SCM elt_list, Axis a) const;
 
   bool has_offset_callback_b (Offset_cache_callback, Axis)const;
   void add_offset_callback (Offset_cache_callback, Axis);

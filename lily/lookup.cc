@@ -127,9 +127,7 @@ Lookup::dashed_slur (Bezier b, Real thick, Real dash)
 Molecule
 Lookup::blank (Box b) 
 {
-  Molecule m;
-  m.dim_ = b;
-  return m;
+  return Molecule (b, SCM_EOL);
 }
 
 

@@ -42,9 +42,12 @@
 class Molecule {
   /// can't alloc on heap.
   void * operator new (size_t s); 
-public:
   Box dim_;
   SCM expr_;
+
+public:
+
+  SCM get_expr () const;
   
   Molecule (Box, SCM s);
   Molecule();
@@ -66,16 +69,9 @@ public:
    */
   void align_to (Axis a, Direction d);
   void translate_axis (Real,Axis);
-
   
-  
-  /// how big is #this#? 
-  Box extent() const;
   Interval extent (Axis) const;
   bool empty_b() const;
-
-
-  /*******/
 };
 
 SCM fontify_atom (Font_metric*, SCM atom);

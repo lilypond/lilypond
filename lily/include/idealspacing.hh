@@ -21,9 +21,6 @@ struct Idealspacing {
   /// the two columns
   Drul_array<int> cols_drul_;
     
-  Real energy_f (Real x) const;
-  void print() const;
-  void OK() const ;
   Idealspacing();
 };
 

@@ -24,7 +24,7 @@ struct Spring_description
 
   Real length (Real force) const;
   Spring_description ();
-  Real energy_f (Real) const;
+
   bool sane_b () const;
 };
 
@@ -68,7 +68,7 @@ struct Simple_spacer
   Real indent_f_;
   Real line_len_f_;
   Real default_space_f_;
-  Real compression_energy_factor_f_;
+
 
   Simple_spacer ();
   
@@ -83,8 +83,6 @@ struct Simple_spacer
   Real active_blocking_force ()const;
   Real configuration_length ()const;
   void set_active_states ();
-  Real energy_f () const;
-
   bool active_b () const;
 };
 

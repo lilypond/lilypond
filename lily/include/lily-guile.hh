@@ -27,6 +27,9 @@ String ly_symbol2string (SCM);
 SCM ly_offset2scm (Offset);
 Offset ly_scm2offset (SCM);
 
+Interval ly_scm2interval (SCM);
+SCM ly_interval2scm (Interval);
+
 SCM ly_parse_scm (char const* s, int* n);
 SCM ly_quote_scm (SCM s);
 SCM ly_type (SCM);

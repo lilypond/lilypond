@@ -91,7 +91,7 @@ Stem_tremolo::do_brew_molecule () const
       mol.add_molecule (b);
     }
   if (tremolo_flags)
-    mol.translate_axis (-mol.extent ()[Y_AXIS].center (), Y_AXIS);
+    mol.translate_axis (-mol.extent (Y_AXIS).center (), Y_AXIS);
 
   Real half_space = Staff_symbol_referencer_interface (stem).staff_space ()
     / 2;
@@ -109,7 +109,7 @@ Stem_tremolo::do_brew_molecule () const
 	Beams should intersect one beamthickness below stem end
       */
       Real dy = stem->stem_end_position () * half_space;
-      dy -= mol.extent ()[Y_AXIS].length () / 2 *  stem->get_direction ();
+      dy -= mol.extent (Y_AXIS).length () / 2 *  stem->get_direction ();
 
       /*
 	uhg.  Should use relative coords and placement

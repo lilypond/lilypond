@@ -12,7 +12,6 @@
 
 Column_x_positions::Column_x_positions()
 {
-  energy_f_ = infinity_f;
   satisfies_constraints_b_ = false;
   force_f_ = 0;
 }

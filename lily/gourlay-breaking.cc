@@ -62,7 +62,6 @@ Gourlay_breaking::do_solve () const
   optimal_paths.set_size (breaks.size ());
 
   Break_node first_node ;
-  first_node.line_config_.energy_f_ = 0;  
   
   optimal_paths[0] = first_node; 
   int break_idx=1;
@@ -166,7 +165,6 @@ Gourlay_breaking::do_solve () const
 
 Gourlay_breaking::Gourlay_breaking ()
 {
-  energy_bound_f_ = infinity_f;
 }
 
 

@@ -29,13 +29,13 @@ Note_head::ledger_line (Interval xwid) const
   Molecule *e = &endings[LEFT];
   endings[RIGHT] = *e;
   
-  Real thick = e->dim_[Y_AXIS].length();
-  Real len = e->dim_[X_AXIS].length () - thick;
+  Real thick = e->extent (Y_AXIS).length();
+  Real len = e->extent (X_AXIS).length () - thick;
 
   Molecule total;
   Direction d = LEFT;
   do {
-    endings[d].translate_axis (xwid[d] - endings[d].dim_[X_AXIS][d], X_AXIS);
+    endings[d].translate_axis (xwid[d] - endings[d].extent (X_AXIS)[d], X_AXIS);
     total.add_molecule (endings[d]);    
   } while ((flip(&d)) != LEFT);
 
@@ -96,17 +96,16 @@ Note_head::do_brew_molecule() const
 						  ly_quote_scm(style),
 						  SCM_UNDEFINED))));
 
-  Box ledgerless = out.dim_;
-
   if (streepjes_i) 
     {
       Direction dir = (Direction)sign (p);
-      Interval hd = out.dim_[X_AXIS];
+      Interval hd = out.extent (X_AXIS);
       Real hw = hd.length ()/4;
-      
       Molecule ledger (ledger_line  (Interval (hd[LEFT] - hw,
 					       hd[RIGHT] + hw)));
       
+
+      ledger.set_empty (true);
       int parity =  abs(int (p)) % 2;
       
       for (int i=0; i < streepjes_i; i++)
@@ -117,8 +116,6 @@ Note_head::do_brew_molecule() const
 	  out.add_molecule (s);
 	}
     }
-
-  out.dim_ = ledgerless;
   return out;
 }
 
