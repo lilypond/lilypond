@@ -1,5 +1,7 @@
 2004-03-15  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/paper-book.cc (stencil2line): Bugfix: put stencil in line.
+
 	* lily/system.cc (get_line): Return Paper_line.  Change all users.
 
 	* lily/include/paper-line.hh:
