@@ -296,8 +296,9 @@
       ;; FIXME: still used by lilypond.py for --preview
       "}%\n%\n\\interscoreline\n%\n"))
 
+;; WTF is this in every backend?
 (define (horizontal-line x1 x2 th)
-  (filledbox (- x1)  (- x2 x1) (* .5 th)  (* .5 th )))
+  (filledbox (- x1) (- x2 x1) (* .5 th) (* .5 th)))
 
 (define (filledbox breapth width depth height)
   (if (and #f (defined? 'ps-testing))

@@ -72,7 +72,12 @@
 
 ;; Global vars
 
-(define output-scale 1)
+;;; Global vars
+(define page-count 0)
+(define page-number 0)
+
+;;(define output-scale 2.83464566929134)
+(define output-scale (* 2 2.83464566929134))
 (define system-y 0)
 ;; huh?
 (define urg-line-thickness 0)
@@ -86,12 +91,7 @@
    ((equal? (ly:unit) "pt") (/ 72.0  72.27))
    (else (error "unknown unit" (ly:unit)))))
 
-;; alist containing fontname -> fontcommand assoc (both strings)
-;;(define font-name-alist '())
-
 ;; Helper functions
-
-
 (define (tagify tag string . attribute-alist)
   (string-append
    "<" tag
@@ -233,27 +233,22 @@
 	    `(d . ,(string-append (svg-bezier first #f)
 				  (svg-bezier second first-c0))))))
   
-(define (char i)
-  (if #t
-      ;;(tagify "tspan" (format #f "&#xe0~2,'0x;" i))
-      (tagify "tspan" (ascii->upm-string i))
-      (begin
-	(format #t "can't display char: ~x\n" i)
-	" ")))
+(define (char font i)
+  (tagify "tspan"
+	  (dispatch `(fontify ,font ,(ascii->upm-string i)))))
 
+(define (nchar font i)
+  (format (current-error-port) "can't display char: ~x\n" i)
+  " ")
 
 (define (comment s)
   (string-append "<!-- " s " -->\n"))
 
-(define (define-fonts internal-external-name-mag-pairs)
-  (comment (format #f "Fonts used: ~S" internal-external-name-mag-pairs)))
+(define (define-fonts paper font-list)
+  (comment (format #f "Fonts used: ~S" font-list)))
 
 (define (end-output)
   "</g></svg>")
-
-;;TODO
-;(define (horizontal-line x1 x2 th)
-;  (draw-line th x1  0 x2 0))
 
 (define (filledbox breapth width depth height)
   (round-filled-box breapth width depth height line-thickness))
@@ -267,6 +262,9 @@
     ("cmr8" . ,(string-append
 		  font-cruft
 		  "font-family:cmr;font-style:normal;font-size:8;"))
+    ("ecrm10" . ,(string-append
+		  font-cruft
+		  "font-family:ecmr;font-style:normal;font-size:10;"))
     ("feta13" . ,(string-append
 		  font-cruft
 		  "font-family:LilyPond-Feta;font-style:-Feta;font-size:13;"))
@@ -280,25 +278,36 @@
 		      font-cruft
 		      "font-family:LilyPond-Parmesan;font-style:-Parmesan;font-size:20;"))))
 
-(define (get-font name-mag-pair)
-  ;; name-mag-pair: (quote ("feta20" . 0.569055118110236))"feta20"(quote ("feta20" . 0.569055118110236))
-  (let ((f (assoc (caadr name-mag-pair) font-alist)))
-    (if (pair? f)
-	(cdr f)
-	(begin
-	  (format #t "font not found: ~s\n" (caadr name-mag-pair))
-	  (cdr (assoc "feta20" font-alist))))))
+(define (get-font font)
+  (let* ((name (ly:font-filename font))
+	 (magnify (ly:font-magnification font)))
+    ;; name-mag-pair: (quote ("feta20" . 0.569055118110236))"feta20"(quote ("feta20" . 0.569055118110236))
+    (let ((font-string (assoc-get name font-alist)))
+      (if (not font-string)
+	  (begin
+	    (format #t "font not found: ~S\n" font)
+	    (cdr (assoc "feta20" font-alist)))
+	  font-string))))
 
 (define (header-end)
   (comment "header-end"))
 
-(define (header creator generate)
+(define (header creator time-stamp paper page-count- classic?)
   (string-append
    xml-header
    (comment creator)
-   (comment generate)
+   (comment time-stamp)
    svg-header))
   
+;; FIXME: duplicated in other output backends
+;; FIXME: silly interface name
+(define (output-scopes paper scopes fields basename)
+  (format (current-error-port) "TODO: FIX ps/tex/interface\n"))
+
+;; FIXME: duplictates output-scopes, duplicated in other backends
+;; FIXME: silly interface name
+(define (output-paper-def pd)
+  (format (current-error-port) "TODO: FIX ps/tex/interface\n"))
 
 (define (lily-def key val)
   (cond
@@ -317,7 +326,10 @@
 
 
 (define (placebox x y expr)
-  (tagify "g" (dispatch expr)
+  (tagify "g"
+	  ;; FIXME -- JCN
+	  ;;(dispatch expr)
+	  expr
 	  `(transform .
 		      ,(string-append
 			"translate("
@@ -341,29 +353,46 @@
 
   
 ;; TODO: use height, set scaling?
-(define (start-system width height)
+(define (start-system origin dim)
+;;(define (start-system width height)
   (let ((y system-y))
-    ;;"<g transform='translate(50,-250)'>
-    (set! system-y (+ system-y height))
-    ;;(format #f "<g transform='translate(0,~1,'~f)'>" y)))
+    (set! system-y (+ system-y (cdr dim)))
     (string-append
      "\n"
      (comment "start-system")
      (format #f "<g transform='translate(0.0,~f)'>\n" (* output-scale y)))))
 
-(define (stop-system)
+(define (stop-system last?)
   (string-append
    "\n"
    (comment "stop-system")
    "</g>\n"))
 
-(define stop-last-system stop-system)
+(define (fontify font expr)
+  (string-append
+;;   (tagify "text" (dispatch expr) (cons 'style (get-font font)))))
+   (tagify "text" expr (cons 'style (get-font font)))))
 
-(define (text s)
+(define (utext font s)
+  (tagify "tspan"
+	  (apply string-appendb
+		 (map (lambda (x) (ascii->upm-string (char->integer x)))
+		      (string->list s)))))
+
+(define (text font s)
+  ;;  (fontify font
   ;; to unicode or not?
-  (if #t
-      (tagify "tspan" s)
-      (tagify "tspan"
-	      (apply string-appendb
-		     (map (lambda (x) (ascii->upm-string (char->integer x)))
-			  (string->list s))))))
+  (tagify "tspan" (dispatch `(fontify ,font ,s))))
+
+(define (start-page)
+  (set! page-number (+ page-number 1))
+  (comment "start-page"))
+
+(define (stop-page last?)
+  (comment "stop-page"))
+
+;; WTF is this in every backend?
+(define (horizontal-line x1 x2 th)
+;;  (draw-line th x1 0 x2 0))
+  (filledbox (- x1) (- x2 x1) (* .5 th) (* .5 th)))
+
