@@ -15,7 +15,7 @@ input feta-macros;
 
 %blot_diameter# = .4pt#;
 
-fet_beginfont("feta-nummer", design_size);
+fet_beginfont("feta-nummer", design_size, "fetaNumber");
 mode_setup;
 
 height#:=designsize;
@@ -23,7 +23,6 @@ space# := design_size/2;
 
 font_x_height height#;
 font_normal_space space#;
-font_coding_scheme "feta number";
 
 
 %

@@ -137,7 +137,7 @@ read_afm_file (String nm)
   rewind (f);
     
   AFM_Font_info *fi;
-  int ok = AFM_parseFile (f, &fi, ~1);
+  int ok = AFM_parseFile (f, &fi, ~0);
 
   if (ok)
     {

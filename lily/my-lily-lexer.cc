@@ -177,10 +177,7 @@ My_lily_lexer::set_identifier (SCM name, SCM s)
   
   if (lookup_keyword (ly_scm2string (name)) >= 0)
     {
-      size_t sz;
-      char * str = gh_scm2newstr (name, &sz) ;
-      warning (_f ("Identifier name is a keyword: `%s'", str));
-      free  (str);
+      warning (_f ("Identifier name is a keyword: `%s'", SCM_STRING_CHARS (name)));
     }
 
   SCM sym = scm_string_to_symbol (name);

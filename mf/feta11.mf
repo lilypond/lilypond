@@ -3,14 +3,12 @@
 
 
 input feta-autometric;
-fet_beginfont("feta", 11);
-staffsize#:=11.22pt#;
+
+design_size:= 11.22;
 test:=0;
 
 
 input feta-generic;
-
-fet_endfont("feta");
 
 end.
 

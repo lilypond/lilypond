@@ -125,7 +125,7 @@ Tex_font_metric::coding_scheme () const
 int
 Tex_font_metric::name_to_index (String s) const
 {
-  SCM sym = scm_makfrom0str (s.to_str0 ());
+  SCM sym = ly_symbol2scm (s.to_str0 ());
 
   SCM idx = scm_hash_ref (encoding_table_, sym, SCM_BOOL_F);
   if (gh_char_p (idx))

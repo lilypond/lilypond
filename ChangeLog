@@ -1,3 +1,25 @@
+2004-04-07  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/output-tex.scm (text): remove debugging code.
+
+	* lily/scaled-font-metric.cc (ly_font_encoding): return vector
+
+	* buildscripts/mf-to-table.py (parse_logfile): read EncodingScheme
+	from infile.
+
+	* mf/feta-generic.mf: move fet_beginfont into generic code.
+	use fetaMusic (without space) as encoding
+
+	* mf/feta-autometric.mf: take encoding argument
+
+	* lily/afm.cc (read_afm_file): bugfix, read global info too. 
+
+	* lily/my-lily-lexer.cc (set_identifier): remove gh_scm2newstr
+	use.
+
+	* scm/encoding.scm (read-encoding-file): use symbol for glyph
+	name.
+
 2004-04-07  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* input/test/title-markup.ly: Set inputencoding.

@@ -1,16 +1,14 @@
 % parmesan20.mf
 % part of LilyPond's pretty-but-neat music font
 
-staffsize#:=20pt#;
+design_size := 20;
 
 input feta-autometric;
-fet_beginfont("parmesan", 20);
 
 test := 0;
 
 input parmesan-generic;
 
-fet_endfont("parmesan");
 
 end.
 

@@ -93,7 +93,6 @@ def parse_logfile (fn):
 				tags.append ('Regular')
 			name = tags[1:]
 			global_info['DesignSize'] = string.atof (tags[4])
-			
 			global_info['FontName'] = string.join (name,'-')
 			global_info['FullName'] = string.join (name,' ')
 			global_info['FamilyName'] = string.join (name[1:-1],
@@ -105,7 +104,7 @@ def parse_logfile (fn):
 			global_info['FontBBox'] = '0 0 1000 1000'
 			global_info['Ascender'] = '0'
 			global_info['Descender'] = '0'
-			global_info['EncodingScheme'] = 'FontSpecific'
+			global_info['EncodingScheme'] = tags[5]
 	
 	return (global_info, charmetrics, deps)
 

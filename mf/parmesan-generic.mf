@@ -15,13 +15,15 @@ fi
 
 mode_setup;
 %
+staffsize# := design_size * pt#;
 
 input feta-macros;
 input feta-params;
 
-font_x_height  staff_space#;
-font_coding_scheme "parmesan music";
 
+font_x_height  staff_space#;
+
+fet_beginfont("parmesan", design_size, "parmesanMusic")
 if test = 0: 
 	input parmesan-rests;
 	input parmesan-heads;
@@ -31,7 +33,8 @@ if test = 0:
 	input parmesan-flags;
 	input parmesan-timesig;
 	input parmesan-scripts;
-
 else:
 
 fi
+fet_endfont;
+

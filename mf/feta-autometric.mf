@@ -17,16 +17,16 @@ message "Do not worry about the @ signs in the output, they are not errors. ";
 message "******************************************************";
 
 % font or database?
-def fet_beginfont(expr name,size) =
+def fet_beginfont(expr name,size,encod) =
 	font_identifier:=name&decimal size;
 	font_size size;
-	message "@{font@:GNU@:LilyPond@:"&name&"@:"&decimal size&"@}";
+	font_coding_scheme encod;
+	message "@{font@:GNU@:LilyPond@:"&name&"@:"&decimal size&"@:"&encod&"@}";
 	message "";
 	enddef;
 
-def fet_endfont(expr name) =
-	message "@{tnof@:"&name&"@}";
-	message "";
+def fet_endfont =
+	message "@{tnof@}";
 	enddef;
 
 % group or table?

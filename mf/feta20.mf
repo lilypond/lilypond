@@ -1,17 +1,15 @@
 % feta20.mf
 % part of LilyPond's pretty-but-neat music font
 
-staffsize#:=20pt#;
+design_size := 20;
 
 input feta-autometric;
-fet_beginfont("feta", 20);
 
 
 % use feta-test for debugging.
 test := 0;
 input feta-generic;
 
-fet_endfont("feta");
 
 end.
 
