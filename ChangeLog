@@ -1,5 +1,8 @@
 2004-10-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/parser.yy (Prefix_composite_music): change no-transposition
+	for mode_changing_head to figures too.
+
 	* lily/phrasing-slur-engraver.cc (acknowledge_grob): do something
 	with normal slurs too.
 
@@ -52,6 +55,8 @@
 
 	* scm/titling.scm (default-score-title): remove caps for piece.
 
+	* VERSION: 2.3.21 released.
+	
 	* lily/include/slur-scoring.hh (struct Slur_score_state): new file
 
 	* lily/include/slur-configuration.hh (class Slur_configuration):
