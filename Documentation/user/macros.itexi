@@ -17,7 +17,9 @@
 @macro rglos {NAME}
 @ifhtml
 @c ugh: @ref assumes that external refs are split documents too
-@uref{../music-glossary.html#\NAME\,\NAME\}@c
+@html
+<a style="text-decoration: none; color: inherit;" href="../music-glossary.html#\NAME\">\NAME\</a>@c
+@end html
 @end ifhtml
 @ifnothtml
 \NAME\@c

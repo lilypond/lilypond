@@ -7,6 +7,7 @@ This chapter details the technicalities of running LilyPond.
  
 @menu
 * Invoking the lilypond binary::  
+* Error messages::              
 * Reporting bugs::              
 * Point and click::             
 * Invoking ly2dvi::             Titling LilyPond scores.
@@ -200,7 +201,66 @@ This selects the language for the warning messages.
 @cindex LANG
 @cindex LILYPONDPREFIX
 
+@node Error messages
+@section Error messages
 
+@cindex error messages
+Different error messages can appear while compiling a file:
+
+@table @emph
+@cindex warning
+
+@item Warning
+  Something looks suspect. If you are requesting something out of the
+ordinary then you will understand the message, and can ignore it.
+However, warnings usually indicate that something is wrong with the
+input file.
+
+@item Error
+Something is definitely wrong.  The current processing step (parsing,
+interpreting, or formatting) will be finished, but the next step will
+be skipped.
+
+@cindex error
+@cindex fatal error
+@item Fatal error
+Something is definitely wrong, and LilyPond cannot continue. This
+happens rarely. The most usual cause is misinstalled fonts.
+
+@cindex call trace
+@cindex Scheme error
+@item Scheme error
+Errors that occur while executing Scheme code are caught by the Scheme
+interpreter. When they occur, a call trace of the offending function
+is printed.
+
+@cindex Programming error
+@item Programming error
+There was some internal inconsistency. These error messages are
+intended to help the programmers and debuggers. Usually, they can be
+ignored. Sometimes, they come in such big quantities that they obscure
+other output. In this case, a bug-report should be filed.
+
+@end table
+
+@cindex errors, message format
+If warnings and errors can
+be linked to some part of the input file, then error messages have the
+following form
+
+@example
+  @var{filename}:@var{lineno}:@var{columnno}: @var{message}
+  @var{offending input line}
+@end example 
+
+A line-break is inserted in offending line to indicate the column
+where the error was found. For example, 
+
+@example
+test.ly:2:19: error: not a duration: 5:
+  \notes @{ c'4 e'5 
+                   g' @}
+@end example
 
 
 @node Reporting bugs

@@ -1,3 +1,9 @@
+2003-07-29  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/macros.itexi: don't color glossary links.
+
+	* Documentation/user/invoking.itexi (Error messages): new section
+
 2003-07-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/regression/font-name.ly: add file.
