@@ -1,7 +1,8 @@
 ritme = staff {rhythmic
 	music {$
 	c8
-	c2 c2
+	[a8 a8. a8 a16 a16 a16] c4.
+		
 	%[c8( )'a8 c8 c8]
 	c2 c2
 	
@@ -11,9 +12,9 @@ ritme = staff {rhythmic
 	[c16 c8.]
 	[c16 c16 c8]
 	[c16 c8 c16]
+%	[c16 r8 c16]
 
-	c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2
-
+	 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2
 
 	$}
 }
@@ -22,7 +23,7 @@ melody=
 staff { melodic
 	music{$
 c8
-	r1
+	r4 r4 r4 r4
 	'cis2..	r8
 	r4 r8 r16 r32 r32 
 
@@ -47,10 +48,10 @@ c8
 
 	commands {
 %	skip 0:0.125
-	skip 3:0 % BUG!!
+	skip 3:0%BUG
 	key $ fis cis gis $
 	skip 2:0
-	key $ $
+	key $ $%BUG
 	skip 5:0
 	clef bass
 }
