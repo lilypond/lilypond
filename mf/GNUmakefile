@@ -44,8 +44,13 @@ foe:
 	echo $(TEXMF)
 	kpsewhich exbase.mf
 
-$(outdir)/feta20.otf: merge.pe
-	(cd $(outdir) ; fontforge -s merge.pe ) 
+
+$(outdir)/feta20.otf-table:
+	cat $(outdir)/feta20.lisp $(outdir)/parmesan20.lisp > $@
+
+$(outdir)/feta20.otf: merge.pe $(outdir)/feta20.otf-table
+# FIXME: srcdir build. 
+	(cd $(outdir) ; fontforge -script ../merge.pe ) 
 
 
 ## use separate package sauter-fonts-mftraced.

@@ -20,8 +20,10 @@ class All_font_metrics
 {
   Scheme_hash_table *afm_p_dict_;
   Scheme_hash_table *tfm_p_dict_;
+  Scheme_hash_table *otf_p_dict_;
   File_path search_path_;
 
+  All_font_metrics (All_font_metrics const&);
 public:
   All_font_metrics (String search_path);
   ~All_font_metrics ();
@@ -29,6 +31,7 @@ public:
   Adobe_font_metric *find_afm (String name);
   Tex_font_metric *find_tfm (String);
   Font_metric *find_font (String name);  
+  Open_type_font *find_otf (String name);  
   SCM font_descriptions () const;
 };
 
