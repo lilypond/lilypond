@@ -16,7 +16,6 @@
 #include "register-group.hh"
 #include "debug.hh"
 
-
 bool
 Request_register::try_request(Request*)
 {

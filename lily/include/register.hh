@@ -7,7 +7,7 @@
 #ifndef REGISTER_HH
 #define REGISTER_HH
 
-#include "proto.hh"
+#include "lily-proto.hh"
 #include "varray.hh"
 #include "request.hh"
 #include "staff-elem-info.hh"
@@ -24,6 +24,7 @@ class Request_register {
      */
     Request_register(const Request_register&){}
 protected:
+    
 
     /// utility
     virtual Paper_def * paper() const;

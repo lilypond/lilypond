@@ -32,6 +32,11 @@ Staff_sym_register::post_move_processing()
     }
 }
 
+void
+Staff_sym_register::process_requests()
+{
+    announce_element(Staff_elem_info(span_p_, 0));
+}
 
 void
 Staff_sym_register::pre_move_processing()
