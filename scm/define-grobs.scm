@@ -849,7 +849,7 @@
 	(padding . 1.0)
 	(X-offset-callbacks . (,Side_position_interface::aligned_side))
 	(direction . ,LEFT) 
-	(meta . ((interfaces . (side-position-interface text-interface font-interface item-interface ))))		
+	(meta . ((interfaces . (side-position-interface stanza-number-interface text-interface font-interface item-interface ))))		
 	))
 
     (StaffSpacing

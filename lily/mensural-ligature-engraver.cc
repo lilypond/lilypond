@@ -403,13 +403,6 @@ Mensural_ligature_engraver::fold_up_primitives (Array<Grob_info> primitives)
 
       if (i > 0)
 	{
-#if 0
-	  Rod r;
-	  r.distance_ = distance;
-	  r.item_l_drul_[LEFT] = first;
-	  r.item_l_drul_[RIGHT] = current;
-	  r.add_to_cols ();
-#endif
 	  current->translate_axis (distance, X_AXIS);
 	}
 
