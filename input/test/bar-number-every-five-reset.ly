@@ -1,7 +1,9 @@
 \version "1.7.18"
+% renamed file to bar-number-every-five-reset.ly from bar-number-every-5-reset.ly
+% so that bar-number-every-fifth.ly will appear before this file.
 
 \header {
-    texidoc = "
+    texidoc = "@cindex Bar Number Every Fifth Reset
 If you would like the bar numbers to appear at regular intervals, but
 not starting from measure zero, you can use the context function,
 @code{set-bar-number-visibility}, to automatically set
