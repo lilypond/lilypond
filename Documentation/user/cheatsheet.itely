@@ -150,7 +150,7 @@ a8-[ b-]
 
 
 @item @code{< \context Staff ... >}
-@tab more staffs
+@tab more staves
 @tab
 @lilypond[fragment]
 < \context Staff = SA { c'1 }
@@ -267,7 +267,7 @@ a-\> a a-\!
 @tab polyphony
 @tab
 @lilypond[fragment,relative 1]
- < c \\ g' >
+\context Staff < c \\ g' >
 @end lilypond
 
 

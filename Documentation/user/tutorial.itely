@@ -57,7 +57,7 @@ should then be able to create and print your first sheets of music.
 * Listening to output::         
 * Titling::                     
 * Single staff polyphony::      
-* Piano staffs::                
+* Piano staves::                
 * Setting variables::           
 * Fine tuning layout::          
 * Organizing larger pieces::    
@@ -1288,14 +1288,14 @@ Again, these expressions can be nested arbitrarily:
 More features of polyphonic typesetting are in the notation manual
 in @ref{Polyphony}.
 
-@node Piano staffs
-@section Piano staffs
+@node Piano staves
+@section Piano staves
 
 @cindex staff switch, manual
 @cindex cross staff voice, manual
 @cindex @code{\translator}
 
-Piano music is always typeset in two staffs connected by a brace.
+Piano music is always typeset in two staves connected by a brace.
 Printing such a staff is done similar to the polyphonic example in
 @ref{Combining music into compound expressions}:
 @example
