@@ -1,6 +1,12 @@
+2005-03-14  Werner Lemberg  <wl@gnu.org>
+
+	* mf/feta-klef.mf (draw_gclef): Replace `simple_serif' for
+	top of the glyph with smooth curve.
+
 2005-03-14  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
-	* Documentation/user/global.itely (Page layout): remove printpagenumber.
+	* Documentation/user/global.itely (Page layout): remove
+	printpagenumber.
 
 2005-03-13  Jürgen Reuter  <reuter@ipd.uka.de>
 
