@@ -387,7 +387,7 @@ Accidental_placement::position_accidentals (Grob * me)
       Real offset =
 	-skyline_meshing_distance (apes[i]->right_skyline_, left_skyline);
       if (isinf (offset))
-	offset = (i < apes.size ()) ? apes[i+1]->offset_ : 0.0;
+	offset = (i < apes.size () - 1) ? apes[i+1]->offset_ : 0.0;
       else
 	offset -= padding;
 
