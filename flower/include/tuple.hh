@@ -9,6 +9,7 @@
 
 #ifndef TUPLET_HH
 #define TUPLET_HH
+#error
 
 
 template<class T, class U>

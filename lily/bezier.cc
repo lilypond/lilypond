@@ -31,8 +31,6 @@ binomial_coefficient (Real over , int under)
 void
 flip (Array<Offset>* arr_p, Axis a)
 {
-  // huh?
-  //  for (int i = c.size (); i--;)
   for (int i = 0; i < arr_p->size (); i++)
     (*arr_p)[i][a] = - (*arr_p)[i][a];
 }

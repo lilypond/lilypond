@@ -10,14 +10,7 @@
 #include "clef-item.hh"
 #include "string.hh"
 #include "molecule.hh"
-#include "paper-def.hh"
-#include "lookup.hh"
 #include "text-item.hh"
-#include "paper-score.hh"
-#include "dimension-cache.hh"
-#include "side-position-interface.hh"
-#include "warn.hh"
-#include "line-of-score.hh"
 
 void
 Clef_item::before_line_breaking ()

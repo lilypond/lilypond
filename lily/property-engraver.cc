@@ -12,10 +12,14 @@
 #include "protected-scm.hh"
 #include "dictionary.hh"
 #include "score-element.hh"
+#include "scm-hash.hh"
 
 class Property_engraver : public Engraver
 {
-  Dictionary<Protected_scm> prop_dict_;
+  /*
+    UGH. Junk Dictionary
+  */
+  Scheme_hash_table prop_dict_;	// junkme
   void apply_properties (SCM, Score_element*);
 
 protected:
@@ -29,24 +33,29 @@ void
 Property_engraver::do_creation_processing ()
 {
   SCM plist = get_property ("Generic_property_list");
-  for (; SCM_NIMP (plist); plist = gh_cdr (plist))
+  for (; gh_pair_p (plist); plist = gh_cdr (plist))
     {
       SCM elt_props = gh_car (plist);
-      prop_dict_[ly_scm2string (gh_car (elt_props))] = gh_cdr (elt_props);
+      prop_dict_.set (gh_car (elt_props), gh_cdr (elt_props));
     }
 }
 
 void
 Property_engraver::acknowledge_element (Score_element_info i)
 {
-  if (prop_dict_.elem_b (i.elem_l_->name()))
-    {
-      SCM p = prop_dict_[i.elem_l_->name()];
-      apply_properties (p,i.elem_l_);
+  SCM ifs = i.elem_l_->get_elt_property ("interfaces");
+  SCM props;
+  for (; gh_pair_p (ifs); ifs = gh_cdr (ifs))
+    {      
+      if (prop_dict_.try_retrieve (gh_car (ifs), &props))
+	{
+	  apply_properties (props,i.elem_l_);
+	}
     }
-  if (prop_dict_.elem_b ("all"))
+
+  if (prop_dict_.try_retrieve (ly_symbol2scm ("all"), &props))
     {
-      apply_properties (prop_dict_["all"], i.elem_l_);
+      apply_properties (props, i.elem_l_);
     }
 }
 
@@ -80,7 +89,8 @@ Property_engraver::apply_properties (SCM p, Score_element *e)
 	       == SCM_BOOL_T)	// defined and  right type: do it
 	e->set_elt_property (ly_symbol2string (elt_prop_sym), val);
       else
- /*
+
+	/*
 	    we don't print a warning if VAL == #f, because we would
 	    get lots of warnings when we restore stuff to default, eg.
 
@@ -89,20 +99,20 @@ Property_engraver::apply_properties (SCM p, Score_element *e)
 	    should not cause "type error: slurDash expects number not
 	    boolean"
 
-	  */
+	*/
 	if (val != SCM_BOOL_F)
-	{			// not the right type: error message.
-	  SCM errport = scm_current_error_port ();
-	  warning (_("Wrong type for property"));
-	  scm_display (prop_sym, errport);
-	  scm_puts (", type predicate: ", errport);
-	  scm_display (type_p, errport);
-	  scm_puts (", value found: ", errport);
-	  scm_display (val, errport);
-	  scm_puts (" type: ", errport);
-	  scm_display (ly_type (val), errport);
-	  scm_puts ("\n", errport);
-	}
+	  {			// not the right type: error message.
+	    SCM errport = scm_current_error_port ();
+	    warning (_("Wrong type for property"));
+	    scm_display (prop_sym, errport);
+	    scm_puts (", type predicate: ", errport);
+	    scm_display (type_p, errport);
+	    scm_puts (", value found: ", errport);
+	    scm_display (val, errport);
+	    scm_puts (" type: ", errport);
+	    scm_display (ly_type (val), errport);
+	    scm_puts ("\n", errport);
+	  }
     }
 }
 

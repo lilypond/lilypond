@@ -368,7 +368,7 @@ number respectively. Setting it to false will prevent printing of the
 associated element. Setting the property to 'if-no-beam will make it
 print only if there is no beam associated with this tuplet bracket.
 
-[fixme examples]
+@mudelafile[verbatim]{tuplet.ly}
 
   @item @code{tupletInvisible}@indexcode{tupletInvisible} @propertytype{boolean}
 

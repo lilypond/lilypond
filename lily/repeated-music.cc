@@ -29,7 +29,7 @@ Repeated_music::Repeated_music (Repeated_music const &s)
   repeats_i_ = s.repeats_i_;
   fold_b_ = s.fold_b_;
   volta_fold_b_ = s.volta_fold_b_;
-  
+  type_ = s.type_;
   repeat_body_p_ = s.repeat_body_p_ ? s.repeat_body_p_->clone () : 0;
   alternatives_p_ = s.alternatives_p_
     ? dynamic_cast<Music_sequence*> (s.alternatives_p_->clone ()):0;

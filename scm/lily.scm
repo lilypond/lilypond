@@ -7,7 +7,7 @@
 
 ;
 ; This file contains various routines in Scheme that are easier to 
-; do here than in C++.  At present it is a unorganised mess. Sorry. 
+; do here than in C++.  At present it is an unorganised mess. Sorry. 
 ;
 
 
@@ -90,9 +90,6 @@
 (define (end-of-line-invisible d) (if (= d -1) '(#t . #t) '(#f . #f)))
 
 
-;; Score_span_bars are only visible at start of line
-;; i.e. if break_dir == RIGHT == 1
-(define Span_bar_engraver-visibility begin-of-line-invisible)
 (define mark-visibility end-of-line-invisible)
 
 ;; Spacing constants for prefatory matter.
@@ -937,31 +934,7 @@
 
 (define (scm-as-output)
   (eval (as-scm 'all-definitions)))
-				
-; Russ McManus, <mcmanus@IDT.NET>  
-; 
-; I use the following, which should definitely be provided somewhere
-; in guile, but isn't, AFAIK:
-; 
-; 
-
-(define (hash-table-for-each fn ht)
-  (do ((i 0 (+ 1 i)))
-      ((= i (vector-length ht)))
-    (do ((alist (vector-ref ht i) (cdr alist)))
-	((null? alist) #t)
-      (fn (car (car alist)) (cdr (car alist))))))
-
-(define (hash-table-map fn ht)
-  (do ((i 0 (+ 1 i))
-       (ret-ls '()))
-      ((= i (vector-length ht)) (reverse ret-ls))
-    (do ((alist (vector-ref ht i) (cdr alist)))
-	((null? alist) #t)
-      (set! ret-ls (cons (fn (car (car alist)) (cdr (car alist))) ret-ls)))))
-
-
-
+	
 (define (index-cell cell dir)
   (if (equal? dir 1)
       (cdr cell)
@@ -992,14 +965,3 @@
      )
    )
      
-
-(define (slur-ugly ind ht)
-  (if (and
-;       (< ht 4.0)
-       (< ht (* 4 ind))
-       (> ht (* 0.4 ind))
-       (> ht (+ (* 2 ind) -4))
-       (< ht (+ (* -2 ind) 8)))
-      #f
-      (cons ind  ht)
-  ))

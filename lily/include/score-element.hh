@@ -140,6 +140,7 @@ public:
    */
   void calculate_dependencies (int final, int busy, Score_element_method_pointer funcptr);
 
+
   static SCM handle_broken_smobs (SCM, SCM criterion);
   void recurse_into_smobs (SCM s, void (Score_element::*meth_ptr)());
 
@@ -199,11 +200,7 @@ public:
   bool used_b_;
   
   char const * name () const;
-  /**
-     Set empty in direction A.
-     JUNKME
-   */
-  void set_empty (Axis a);
+
   bool empty_b (Axis a) const;
   Interval extent (Axis) const;
  

@@ -13,13 +13,11 @@
     * less hairy code
     * move paper vars to scm
 
-
     remove *-hs variables.
-    
 */
 
 
-#include <math.h>		// tanh.
+#include <math.h> // tanh.
 #include "directional-element-interface.hh"
 #include "beaming.hh"
 #include "dimensions.hh"

@@ -62,13 +62,9 @@ Span_bar_engraver::acknowledge_element (Score_element_info i)
 	  spanbar_p_->set_parent (bar_l_arr_[0], Y_AXIS);
 	  spanbar_p_->set_parent (bar_l_arr_[0], X_AXIS);
 
-	  /*
-	    UGH. UGH UUHGK GUHG G
-	   */
-	  String visnam =  String(name()) + "-visibility";
-
-	  spanbar_p_->set_elt_property ("visibility-lambda",
-					scm_eval (ly_symbol2scm (visnam.ch_C())));
+	  SCM v = bar_l_arr_[0]->get_elt_property ("visibility-lambda");
+	  if (gh_procedure_p (v))
+	    spanbar_p_->set_elt_property ("visibility-lambda",v);
 
 	  spanbar_p_->set_parent (bar_l_arr_[0], X_AXIS);
 	  announce_element (Score_element_info (spanbar_p_,0));

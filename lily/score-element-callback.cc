@@ -1,0 +1,58 @@
+/*   
+  score-element-callback.cc --  implement Callback smob.
+  
+  source file of the GNU LilyPond music typesetter
+  
+  (c) 2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  
+ */
+
+#include "score-element-callback.hh"
+
+
+static long callback_tag;
+
+static
+SCM mark_smob (SCM)
+{
+  return SCM_EOL;
+}
+
+static int
+print_smob (SCM, SCM port, scm_print_state *)
+{
+  scm_puts ("#<Callback>", port);
+  return 1;
+}
+
+static
+scm_sizet free_smob (SCM)
+{
+  return 0;
+}
+
+static scm_smobfuns callback_funs = {
+  mark_smob, free_smob,
+  print_smob, 0,
+};
+
+static
+void start_callback_smobs()
+{
+  callback_tag = scm_newsmob (&callback_funs);
+}
+
+
+SCM
+smobify_callback (Score_element_callback cb )
+{
+  SCM z;
+  
+  SCM_NEWCELL(z);
+  SCM_SETCDR(z, cb);
+  SCM_SETCAR(z, callback_tag);
+
+  return z;
+}
+  
+ADD_SCM_INIT_FUNC(callback, start_callback_smobs);

@@ -223,14 +223,6 @@ Slur::Slur ()
 
   set_elt_property ("note-columns", SCM_EOL);
   set_elt_property ("control-points", SCM_EOL);
-
-#if 0
-  /*
-    I still don't understand the merits of this Group_interface.
-   */
-  Group_interface c (this, "control-points");
-  c.set_interface ();
-#endif
 }
 
 void
@@ -240,8 +232,7 @@ Slur::add_column (Note_column*n)
     warning (_ ("Putting slur over rest.  Ignoring."));
   else
     {
-      Group_interface gi (this, "note-columns");
-      gi.add_element (n);
+      Group_interface (this, "note-columns").add_element (n);
       add_dependency (n);
     }
 }

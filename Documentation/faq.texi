@@ -313,12 +313,12 @@ tagline="Typeset by GNU LilyPond"
 Theoretically, yes but it is easier to do with TeX:
 
 @example
-\def\foo{\hbox{\vrule width 15.0cm height 0.5pt depth 0.0pt}
+\def\foo@{\hbox@{\vrule width 15.0cm height 0.5pt depth 0.0pt@}
 \nointerlineskip
-\vskip 5pt\nointerlineskip}
-\def\musicline{\vbox {
+\vskip 5pt\nointerlineskip@}
+\def\musicline@{\vbox @{
      \foo\foo\foo\foo\foo
-}\par}
+@}\par@}
 
 \musicline
 \musicline
