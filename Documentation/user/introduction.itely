@@ -279,7 +279,7 @@ fragment.
     (if (and (memq 'note-head-interface interfaces)
              (memq pos '(-2 -3 -5)))
         (begin
-          (ly:grob-set-property! grob 'print-function brew-new-markup-stencil)
+          (ly:grob-set-property! grob 'print-function Text_interface::print)
           (ly:grob-set-property! grob 'font-family 'roman)
           (ly:grob-set-property!
            grob 'text

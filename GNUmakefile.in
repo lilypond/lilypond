@@ -73,7 +73,6 @@ footifymail = MAILADDRESS=bug-lilypond@gnu.org
 
 local-WWW-post:
 # need UTF8 setting in case this is hosted on a website. 
-	echo -e 'AddDefaultCharset utf-8\nAddCharset utf-8 .html\nAddCharset utf-8 .en\nAddCharset utf-8 .nl\nAddCharset utf-8 .txt\n' > $(builddir)/.htaccess 
 	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(builddir)/examples.html ./
 	cd $(builddir) && $(FIND) . -name '*.html' -print | $(footifymail) xargs $(footify)
 	cd $(builddir) && find . -name \*.html~ -print | xargs rm -f
@@ -82,7 +81,7 @@ local-WWW-post:
 		> $(outdir)/weblist
 	echo '<META HTTP-EQUIV="refresh" content="0;URL=Documentation/out-www/index.html">' > $(builddir)/index.html
 	echo '<html><body>Redirecting to the documentation index...</body></html>' >> $(builddir)/index.html
-	cd $(builddir) && ls .htaccess *.html >> $(outdir)/weblist
+	cd $(builddir) && ls *.html >> $(outdir)/weblist
 	cat $(outdir)/weblist | (cd $(builddir); GZIP=-9v tar -czf $(outdir)/web.tar.gz  -T -)
 
 share-prefix = $(builddir)/share
