@@ -1,4 +1,3 @@
-#(ly:set-option 'old-relative)
 \version "2.4.0"
 \header { texidoc = "
 A voicelet (a very short voice to get polyphonic chords correct)

@@ -1,13 +1,9 @@
-#(ly:set-option 'old-relative)
 \version "2.4.0"
 \header{
 texidoc="
 In addition to normal collision rules, there is support for polyphony, 
 where the collosion are avoided by shifting middle voices horizontally.
 "
-filename = 	 "collisions.ly"
-enteredby = 	 "HWN,JCN"
-copyright = 	 "public domain"
 }
 
 
