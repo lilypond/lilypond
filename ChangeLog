@@ -1,3 +1,8 @@
+2002-10-15  Werner Lemberg  <wl@gnu.org>
+
+	* scripts/lilypond-book.py (schedule_lilypond_block): Don't compute
+	EPS and PNG for texinfo.
+
 2002-10-14  Werner Lemberg  <wl@gnu.org>
 
 	Further improve TeX output.  The produced files are about 40%

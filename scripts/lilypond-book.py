@@ -1039,7 +1039,7 @@ def schedule_lilypond_block (chunk):
 		update_file(file_body, os.path.join(g_outdir, basename) + '.ly')
 	needed_filetypes = ['tex']
 
-	if format == 'html' or format == 'texi':
+	if format == 'html':
 		needed_filetypes.append ('eps')
 		needed_filetypes.append ('png')
 	if 'eps' in opts and not ('eps' in needed_filetypes):
