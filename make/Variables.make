@@ -156,6 +156,11 @@ LDFLAGS = $(ILDFLAGS) $(USER_LDFLAGS) $(EXTRA_LDFLAGS) $(MODULE_LDFLAGS) -L$(dep
 LOADLIBES = $(EXTRA_LIBES) $(MODULE_LIBES) -lg++ # need lg++ for win32, really!
 #
 
+# macro compiler:
+#
+M4 = m4
+# 
+
 # librarian:
 #
 AR = ar
