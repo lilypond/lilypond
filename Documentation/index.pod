@@ -98,6 +98,9 @@ The lilypond logo (medium size, format: .gif)
 
 =head2 Documentation: manpages, manuals
 
+
+=over 4
+
 =item *
 <a href=tex_manuals.html
 >
