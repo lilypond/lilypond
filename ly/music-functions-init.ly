@@ -72,6 +72,20 @@ keepWithTag =
 	(memq tag tags))))
    music))
 
+
+
+quoteDuring =
+#(def-music-function
+  (location what dir music) (string? ly:dir? ly:music?)
+  (let*
+   ((quote-music (make-music 'NewQuoteMusic
+		  	     'quoted-music-name what
+		             'element music
+	                     'origin location)
+	      ))
+
+   quote-music))
+
 %{
 
 TODO:

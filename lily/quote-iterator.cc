@@ -70,35 +70,8 @@ Quote_iterator::Quote_iterator ()
   end_idx_ = 0;
 }
 
-bool
-moment_less (SCM a, SCM b)
-{
-  return  *unsmob_moment (a) < *unsmob_moment (b);
-}
-
-
 int
-binsearch_scm_vector (SCM vec, SCM key, bool (*is_less)(SCM a,SCM b))
-{
-  int lo = 0;
-  int hi = SCM_VECTOR_LENGTH (vec);
-
-  /* binary search */
-  do
-  {
-    int cmp = (lo + hi) / 2;
-
-      SCM when = scm_caar (SCM_VECTOR_REF (vec, cmp));
-      bool result =  (*is_less) (key, when);
-      if (result)
-          hi = cmp;
-      else
-          lo = cmp;
-    }
-  while (hi - lo > 1);
-
-  return lo;
-}
+binsearch_scm_vector (SCM vec, SCM key, bool (*is_less)(SCM a,SCM b));
 
 
 void

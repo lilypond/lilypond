@@ -66,5 +66,7 @@ Moment robust_scm2moment (SCM, Moment);
 std::ostream & operator << (std::ostream &, Moment const &);
 #endif
 
+bool moment_less (SCM a, SCM b);
+
 #endif /* MOMENT_HH */
 

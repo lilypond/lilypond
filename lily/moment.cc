@@ -257,3 +257,11 @@ robust_scm2moment (SCM m, Moment d)
   else
     return *p;
 }
+
+
+bool
+moment_less (SCM a, SCM b)
+{
+  return  *unsmob_moment (a) < *unsmob_moment (b);
+}
+

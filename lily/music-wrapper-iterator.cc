@@ -12,7 +12,7 @@
 
 Music_wrapper_iterator::Music_wrapper_iterator ()
 {
-  child_iter_ =0;
+  child_iter_ = 0;
 }
 
 void
@@ -31,7 +31,6 @@ Music_wrapper_iterator::derived_mark () const
 void
 Music_wrapper_iterator::derived_substitute (Context *f,Context *t) 
 {
-  
   if (child_iter_)
     child_iter_->substitute_outlet (f,t);
 }
