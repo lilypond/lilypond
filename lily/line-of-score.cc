@@ -123,6 +123,66 @@ Line_of_score::output_lines ()
     }
 }
 
+/*
+  Find the loose columns in POSNS, and drape them around the columns
+  specified in BETWEEN-COLS.  */
+void
+set_loose_columns (Line_of_score* which, Column_x_positions const *posns)
+{
+  for (int i = 0; i<posns->loose_cols_.size (); i++)
+    {
+      int divide_over = 1;
+      Item *loose = dynamic_cast<Item*> (posns->loose_cols_[i]);
+      Paper_column* col = dynamic_cast<Paper_column*> (loose);
+      
+      if (col->line_l_)
+	continue;
+
+      
+      Item * left = 0;
+      Item * right = 0;
+      while (1)
+	{
+	  
+	  SCM between = loose->get_grob_property ("between-cols");
+	  if (!gh_pair_p (between))
+	    break;
+
+	  if (!left)
+	    {
+	      left = dynamic_cast<Item*> (unsmob_grob (gh_car (between)));
+	      left = left->column_l ();
+	    }
+	  divide_over ++;	
+	  loose = dynamic_cast<Item*> (unsmob_grob (gh_cdr (between)));
+	  loose = loose->column_l ();
+	}
+
+      right = loose;
+
+      Real rx = right->relative_coordinate (right->parent_l (X_AXIS), X_AXIS);
+      Real lx = left->relative_coordinate (left->parent_l (X_AXIS), X_AXIS);
+
+      int j = 1;
+      loose = col;
+      while (1)
+	{
+	  SCM between = loose->get_grob_property ("between-cols");
+	  if (!gh_pair_p (between))
+	    break;
+
+	  Paper_column *thiscol = dynamic_cast<Paper_column*> (loose);
+
+	  thiscol->line_l_ = which;
+	  thiscol->translate_axis (lx + j*(rx - lx)/divide_over, X_AXIS);
+
+	  j ++;	
+	  loose = dynamic_cast<Item*> (unsmob_grob (gh_cdr (between)));
+	}
+      
+    }
+}
+
 // const?
 void
 Line_of_score::break_into_pieces (Array<Column_x_positions> const &breaking)
@@ -142,7 +202,7 @@ Line_of_score::break_into_pieces (Array<Column_x_positions> const &breaking)
 	  c[j]->translate_axis (breaking[i].config_[j],X_AXIS);
 	  dynamic_cast<Paper_column*> (c[j])->line_l_ = line_l;
 	}
-      
+      set_loose_columns (line_l, &breaking[i]);
       broken_into_l_arr_.push (line_l);
     }
 }

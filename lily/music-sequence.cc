@@ -86,8 +86,6 @@ Music_sequence::cumulative_length () const
   last_len.grace_part_ = Rational (0);
   cumulative += last_len;
 
-  cumulative += - first_start ();
-  
   return  cumulative;
 }
 
@@ -105,12 +103,10 @@ Music_sequence::maximum_length () const
   for (SCM s = music_list (); gh_pair_p (s);  s = gh_cdr (s))
     {
       Music * m = unsmob_music (gh_car (s));
-      Moment l = m->length_mom () + m->start_mom ();
+      Moment l = m->length_mom ();
       dur = dur >? l;
     }
 
-  dur -= minimum_start ();
-  
   return dur;
 }
 int
@@ -175,14 +171,9 @@ Music_sequence::first_start () const
     {
       Music * mus = unsmob_music (gh_car (s));
       Moment l = mus->length_mom ();
-
-      if (l.main_part_)
-	return mus->start_mom ();
-      else if (l.grace_part_)
-	{
-	  m.grace_part_ = - l.grace_part_; 
-	  return m;
-	}
+      Moment s = mus->start_mom ();
+      if (l.to_bool () || s.to_bool ())
+	return s;
     }
   return m;
 }

@@ -25,7 +25,7 @@ sequentially.
 
 @item -f,--format=@var{format}
 Output format for sheet music. Choices are @code{tex} (for @TeX{}
-output), @code{ps} (for PostScript), @code{scm} (for a Scheme
+output), @code{pdftex} for PDF@TeX input, @code{ps} (for PostScript), @code{scm} (for a Scheme
 dump), and @code{as} (for ASCII-art).
 
 @c TODO: TFMFONTS

@@ -70,10 +70,10 @@ which substitutes some @AT_VARIABLES@ as well.
       </td></tr>
       <tr><td><font size="-1">
 	<a href="@TOP@Documentation/out-www/index.html#mailing-lists">About the lists</a><br>
-	<a href="http://mail.gnu.org/mailman/listinfo/gnu-music-discuss/">Discussion</a><br>
-        <a href="http://mail.gnu.org/mailman/listinfo/help-gnu-music/">Help</a><br>
-        <a href="http://mail.gnu.org/mailman/listinfo/bug-gnu-music/">Bugs</a><br>
-        <a href="http://mail.gnu.org/mailman/listinfo/info-gnu-music/">Announcements</a><br>
+	<a href="http://mail.gnu.org/mailman/listinfo/lilypond-user/">Using LilyPond</a><br>
+        <a href="http://mail.gnu.org/mailman/listinfo/lilypond-devel/">Developing LilyPond</a><br>
+        <a href="http://mail.gnu.org/mailman/listinfo/bug-lilypond/">Reporting bugs</a><br>
+        <a href="http://mail.gnu.org/mailman/listinfo/info-lilypond/">Announcements</a><br>
 	<br>
       </font></td></tr>
     <tr><td bgcolor="#e8e8ff"><b>Sites</b></td></tr>

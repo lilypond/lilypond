@@ -43,6 +43,8 @@ void
 Spaceable_grob::add_spring (Grob*me, Grob * p, Real d, Real strength)
 {
   SCM mins = me->get_grob_property ("ideal-distances");
+  
+  
   SCM newdist= gh_double2scm (d);
   for (SCM s = mins; gh_pair_p (s); s = gh_cdr (s))
     {
@@ -58,7 +60,6 @@ Spaceable_grob::add_spring (Grob*me, Grob * p, Real d, Real strength)
   mins = gh_cons (gh_cons (p->self_scm (), gh_cons (newdist, newstrength)), mins);
   me->set_grob_property ("ideal-distances", mins);
 }
-
 
 
 void

@@ -17,7 +17,7 @@ class New_spacing_spanner
 {
 public:
   static void set_interface (Grob*);
-  static void do_measure (Grob*,Link_array<Grob> const &) ;
+  static void do_measure (Grob*,Link_array<Grob> *) ;
   static void stretch_to_regularity (Grob*, Array<Spring> *, Link_array<Grob> const &);
   static void breakable_column_spacing (Item* l, Item *r);
   DECLARE_SCHEME_CALLBACK (set_springs, (SCM ));

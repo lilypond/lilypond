@@ -39,7 +39,7 @@ New_spacing_spanner::set_interface (Grob*me)
   
  */
 void
-New_spacing_spanner::do_measure (Grob*me, Link_array<Grob> const & cols) 
+New_spacing_spanner::do_measure (Grob*me, Link_array<Grob> *cols) 
 {
   Moment shortest;
   Moment mean_shortest;
@@ -50,12 +50,18 @@ New_spacing_spanner::do_measure (Grob*me, Link_array<Grob> const & cols)
   Moment base_shortest_duration = *unsmob_moment (me->get_grob_property ("maximum-duration-for-spacing"));
   shortest.set_infinite (1);
 
-  int n = 0;
-  for (int i =0 ; i < cols.size (); i++)  
+  for (int i = cols->size(); i--;)
     {
-      if (Paper_column::musical_b (cols[i]))
+      if (gh_pair_p (cols->elem(i)->get_grob_property ("between-cols")))
+	cols->del (i);
+    }
+  
+  int n = 0;
+  for (int i =0 ; i < cols->size (); i++)  
+    {
+      if (Paper_column::musical_b (cols->elem (i)))
 	{
-	  Moment *when = unsmob_moment (cols[i]->get_grob_property  ("when"));
+	  Moment *when = unsmob_moment (cols->elem (i)->get_grob_property  ("when"));
 
 	  /*
 	    ignore grace notes for shortest notes.
@@ -63,7 +69,7 @@ New_spacing_spanner::do_measure (Grob*me, Link_array<Grob> const & cols)
 	  if (when && when->grace_part_)
 	    continue;
 	  
-	  SCM  st = cols[i]->get_grob_property ("shortest-starter-duration");
+	  SCM  st = cols->elem (i)->get_grob_property ("shortest-starter-duration");
 	  Moment this_shortest = *unsmob_moment (st);
 	  shortest = shortest <? this_shortest;
 	  if (!mean_shortest.main_part_.infty_b ())
@@ -77,37 +83,14 @@ New_spacing_spanner::do_measure (Grob*me, Link_array<Grob> const & cols)
   Array<Spring> springs;
 
   Item * first_col = 0;
-  for (int i= 0; i < cols.size () - 1; i++)
+  for (int i= 0; i < cols->size () - 1; i++)
     {
-      Item * l = dynamic_cast<Item*> (cols[i]);
+      Item * l = dynamic_cast<Item*> (cols->elem (i));
 
       if (!first_col && Paper_column::musical_b (l))
 	first_col = l;
 
-      SCM between = cols[i]->get_grob_property ("between-cols"); 
-      if (gh_pair_p (between)
-	  && i > 0
-	  && i < cols.size ()-1
-	  && (gh_cdr (between) != cols[i+1]->self_scm ()
-	   || gh_car (between) != cols[i-1]->self_scm ()) 
-	  )
-	continue ;
-      
-      int j = i+1;
-      for (; j < cols.size () - 1; j++)
-	{
-	  if  (Paper_column::musical_b (cols[j]))
-	    break;
-
-	  SCM between = cols[j]->get_grob_property ("between-cols");
-	  if (!gh_pair_p (between))
-	    continue;
-
-	  if (gh_car (between) == cols[i]->self_scm () )
-	    break ;
-	}
-
-      Item * r =  dynamic_cast<Item*> (cols[j]);
+      Item * r =  dynamic_cast<Item*> (cols->elem (i+1));
       Paper_column * lc = dynamic_cast<Paper_column*> (l);
       Paper_column *rc = dynamic_cast<Paper_column*> (r);
 
@@ -370,7 +353,7 @@ New_spacing_spanner::get_duration_space (Grob*me, Moment d, Moment shortest)
 
 Real
 New_spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
-			       Moment shortest) 
+				   Moment shortest) 
 {
   Moment shortest_playing_len = 0;
   SCM s = lc->get_grob_property ("shortest-playing-duration");
@@ -391,15 +374,32 @@ New_spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
       shortest = 1;
     }
   Moment delta_t = Paper_column::when_mom (rc) - Paper_column::when_mom (lc);
-  Real dist = get_duration_space (me, shortest_playing_len, shortest);
+  Real dist = 0.0;
 
+  if (delta_t.main_part_)
+    {
+      dist = get_duration_space (me, shortest_playing_len, shortest);
+      dist *= (double) (delta_t.main_part_ / shortest_playing_len.main_part_);
+    }
+  else if (delta_t.grace_part_)
+    {
+      dist = get_duration_space (me, shortest, shortest);
 
+      Real grace_fact = 1.0;
+      SCM gf = me->get_grob_property ("grace-space-factor");
+      if (gh_number_p (gf))
+	grace_fact = gh_scm2double (gf);
+
+      dist *= grace_fact; 
+    }
+
+#if 0
   /*
-    ugh: 0.1 is an arbitrary distance.
+    TODO: figure out how to space grace notes.
    */
-  dist *= (double) (delta_t.main_part_ / shortest_playing_len.main_part_)
-    + 0.1 * (double) (delta_t.grace_part_ / shortest_playing_len.main_part_);
 
+  dist *= 
+    +  grace_fact * (double) (delta_t.grace_part_ / shortest_playing_len.main_part_);
 
 
   Moment *lm = unsmob_moment (lc->get_grob_property ("when"));
@@ -412,7 +412,7 @@ New_spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
       else if (!rm->grace_part_ && lm->grace_part_)
 	dist *= 0.7;
     }
-
+#endif
   
   return dist;
 }
@@ -483,7 +483,7 @@ New_spacing_spanner::set_springs (SCM smob)
       if (Item::breakable_b (sc))
         {
 	  Link_array<Grob> measure (all.slice (j, i+1));	  
-          do_measure (me, measure);
+          do_measure (me, &measure);
 	  j = i;
         }
     }

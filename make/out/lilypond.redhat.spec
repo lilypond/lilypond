@@ -1,13 +1,13 @@
 %define info yes
 
 Name: lilypond
-Version: 1.5.6
+Version: 1.5.7
 Release: 1
 License: GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.5.6.tar.gz
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.5.7.tar.gz
 Summary: Create and print music notation 
-URL: http://www.cs.uu.nl/~hanwen/lilypond
+URL: http://www.lilypond.org/
 BuildRoot: /tmp/lilypond-install
 # add lots of Buildreq: flex, bison, tetex, tetex-devel, tetex-latex, texinfo
 # better prereqs: tetex-latex, python, (mpost?) etc.
