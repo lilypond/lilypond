@@ -22,7 +22,7 @@ $(outdir)/%.h: %.y
 	rm -f $(*F).tab.c # if this happens in the wrong order it triggers recompile of the .cc file 
 
 $(outdir)/%.c: %.l
-	$(FLEX) -Cfe -p -p -t $< > $@
+	$(FLEX) -Cfe -p -p -o$@ $<
 # could be faster:
-#	$(FLEX) -8 -Cf -t $< > $@
+#	$(FLEX) -8 -Cf -o$@ $< 
 

@@ -13,12 +13,12 @@ can be printed automatically. This is enabled if the property
 \notes \relative c'
 \context PianoStaff <<
     \property PianoStaff.followVoice = ##t
-    \context Staff \context Voice {
+    \context Staff = one \context Voice {
       c1
       \translator Staff=two
       b2 a
     }
-    \new Staff {\clef bass \skip 1*2 }
+    \context Staff = two {\clef bass \skip 1*2 }
   >>\paper{ 
 linewidth =-1.
 }}

@@ -141,14 +141,15 @@ Beam::quanting (SCM smob)
     stem_y != 0.0, when we're cross staff.
     
    */
-  bool french = to_boolean (me->get_grob_property ("french-beaming"));
   for (int i= 0; i < stems.size(); i++)
     {
       Grob*s = stems[i];
       stem_infos.push (Stem::get_stem_info (s));
       dirs_found[stem_infos.top ().dir_] = true;
 
-      bool f = french && i > 0&& (i < stems.size  () -1);
+      bool f = to_boolean (s->get_grob_property ("french-beaming"))
+	 && s != lvs && s != fvs;
+
       base_lengths.push (calc_stem_y (me, s, common, xl, xr,
 				      Interval (0,0), f));
       stem_xposns.push (s->relative_coordinate (common[X_AXIS], X_AXIS));
@@ -272,7 +273,7 @@ Beam::score_stem_lengths (Link_array<Grob> const &stems,
 
       Real x = stem_xs[i];
       Real dx = xr-xl;
-      Real beam_y = yr *(x - xl)/dx + yl * ( xr - x)/dx;
+      Real beam_y = dx ? yr *(x - xl)/dx + yl * ( xr - x)/dx : (yr + yl)/2;
       Real current_y = beam_y + base_stem_ys[i];
       Real length_pen = STEM_LENGTH_DEMERIT_FACTOR;
       
@@ -298,8 +299,7 @@ Beam::score_stem_lengths (Link_array<Grob> const &stems,
   Direction d = DOWN;
   do
     { 
-      if(count[d])
-	score[d] /= count[d];
+      score[d] /= (count[d] >? 1);
     }
   while (flip (&d) != DOWN);
 

@@ -1558,11 +1558,15 @@ Please hand-edit, using
 as a substitution text.""" % (m.group (1), m.group (2)) )
 		raise FatalConversionError ()
 
-	if re.search ("ly:(make-pitch|pitch-alteration)", str):
+	if re.search ("ly:(make-pitch|pitch-alteration)", str) \
+	       or re.search ("keySignature", str):
 		sys.stderr.write (
 """The alteration field of Scheme pitches was multiplied by 2
-to support quarter tone accidentals. Please edit ly:make-pitch and
-ly:pitch-alteration calls by hand""")
+to support quarter tone accidentals. You have to edit the following constructs by hand:
+
+* calls of  ly:make-pitch and ly:pitch-alteration
+* keySignature settings made with \property
+""")
 		raise FatalConversionError ()
 	
 	return str

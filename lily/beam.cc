@@ -799,7 +799,7 @@ Beam::least_squares (SCM smob)
   int count = visible_stem_count (me);
   Interval pos (0, 0);
   
-  if (count <= 1)
+  if (count < 1)
     {
       me->set_grob_property ("positions", ly_interval2scm (pos));
       return SCM_UNSPECIFIED;
@@ -832,6 +832,7 @@ Beam::least_squares (SCM smob)
     }
   Real dx = last_visible_stem (me)->relative_coordinate (commonx, X_AXIS) - x0;
 
+  
   Real y =0;  
   Real dydx = 0;
   Real dy = 0;
@@ -860,9 +861,18 @@ Beam::least_squares (SCM smob)
 	  pos = ideal;
 	}
 
+      /*
+	For broken beams this doesn't work well. In this case, the
+	 slope esp. of the first part of a broken beam should predict
+	 where the second part goes.
+       */
+
       y = pos[LEFT];
       dy = pos[RIGHT]- y;
       dydx = dy/dx;
+
+
+
     }
   else
     {
@@ -877,6 +887,7 @@ Beam::least_squares (SCM smob)
 			       + s->relative_coordinate (commony, Y_AXIS)
 			       - my_y));
 	}
+      
       minimise_least_squares (&dydx, &y, ideals);
 
       dy = dydx * dx;
@@ -1225,7 +1236,7 @@ Beam::set_stem_lengths (Grob *me)
   Link_array<Grob> stems=
     Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
 
-  if (stems.size () <= 1)
+  if (!stems.size ())
     return;
   
   Grob *common[2];
@@ -1239,10 +1250,10 @@ Beam::set_stem_lengths (Grob *me)
   Real thick =0.0;
   if (gh_number_p (me->get_grob_property ("gap"))
       &&gh_scm2double (me->get_grob_property ("gap")))
-  {
-    gap = true;
-    thick = get_thickness(me);
-  }
+    {
+      gap = true;
+      thick = get_thickness(me);
+    }
       
   // ugh -> use commonx
   Grob * fvs = first_visible_stem (me);
@@ -1257,11 +1268,10 @@ Beam::set_stem_lengths (Grob *me)
       if (Stem::invisible_b (s))
 	continue;
 
-      
       bool french = to_boolean (s->get_grob_property ("french-beaming"));
       Real stem_y = calc_stem_y (me, s, common,
 				 xl, xr,
-				 pos, french && i > 0&& (i < stems.size  () -1));
+				 pos, french && s != lvs && s!= fvs);
 
       /*
 	Make the stems go up to the end of the beam. This doesn't matter
@@ -1269,7 +1279,7 @@ Beam::set_stem_lengths (Grob *me)
        */
       if (gap)
 	stem_y += thick * 0.5 * Directional_element_interface::get(s);
-      
+
       Stem::set_stemend (s, 2* stem_y / staff_space);
     }
 }
