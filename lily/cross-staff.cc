@@ -3,7 +3,7 @@
 #include "align-interface.hh"
 #include "spanner.hh"
 #include "warn.hh"
-
+#include "paper-def.hh"
 /*
   JUNKME
  */
@@ -21,9 +21,11 @@ calc_interstaff_dist (Item  *item, Spanner  *span)
 	  || !scm_equal_p (gh_car (threshold), gh_cdr (threshold)))
 	warning (_ ("minVerticalAlign != maxVerticalAlign: cross staff spanners may be broken"));
 
-      interstaff = 0.0;
+
+      
+      interstaff = item->paper_l ()->get_var ("staffspace");
       if (gh_pair_p (threshold))
-	interstaff =  gh_scm2double (gh_car (threshold));
+	interstaff =  gh_scm2double (gh_car (threshold)) * interstaff;
 
       Score_element  * span_refpoint = span;
       while (span_refpoint->parent_l  (Y_AXIS) != common)

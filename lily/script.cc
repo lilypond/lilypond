@@ -28,7 +28,7 @@ Script::get_molecule(Score_element * me, Direction d)
     }
   else if (key == ly_symbol2scm ("accordion"))
     {
-      return me->lookup_l ()->accordion (gh_cdr (s), me->paper_l()->get_var("interline"));
+      return me->lookup_l ()->accordion (gh_cdr (s), me->paper_l()->get_var("staffspace"));
     }
   else
     assert (false);

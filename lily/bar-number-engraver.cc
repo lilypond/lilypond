@@ -115,26 +115,6 @@ Bar_number_engraver::create_items ()
   text_p_ = new Item (b);
   Side_position::set_axis(text_p_,Y_AXIS);
 
-  SCM prop = get_property ("barNumberDirection");
-  if (!isdir_b (prop))
-    {
-      prop = gh_int2scm (UP);
-    }
-  text_p_->set_elt_property ("direction", prop);
-
-  SCM padding = get_property ("barNumberScriptPadding");
-  if (gh_number_p(padding))
-    {
-      text_p_->set_elt_property ("padding", padding);
-    }
-  else
-    {
-      text_p_
-	->set_elt_property ("padding",
-			    gh_double2scm(paper_l ()->get_var ("interline")));
-    }
-
-
   announce_element (text_p_, 0);
 }
 

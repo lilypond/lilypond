@@ -24,21 +24,23 @@ Sequential_music_iterator::Sequential_music_iterator (Sequential_music_iterator 
 {
   cursor_ = src.cursor_;
   here_mom_ = src.here_mom_;
-  iter_p_ = src.iter_p_->clone ();
+  if (src.iter_p_)
+    iter_p_ = src.iter_p_->clone ();
+  else
+    iter_p_ = 0;
 }
 
 Sequential_music_iterator::~Sequential_music_iterator()
 {
   if (iter_p_)
     {
-      /*      if (iter_p_->ok () )
+#if 0
+      if (iter_p_->ok () )
 	music_l_->origin ()->warning (_ ("Must stop before this music ends"));
-      */
+#endif
       delete iter_p_;
-      iter_p_ = 0;
     }
 }
-
 
 void
 Sequential_music_iterator::construct_children()
@@ -47,39 +49,28 @@ Sequential_music_iterator::construct_children()
   
   while (gh_pair_p (cursor_ ))
     {
-      start_next_element();
-      if (!iter_p_->ok()) 
+      iter_p_ =  get_iterator_p (unsmob_music (gh_car (cursor_)));
+      
+      if (iter_p_->ok()) 
 	{
-	  leave_element();
+	  descend_to_child ();
+	  return;
 	}
-      else 
-	{
-	  set_sequential_music_translator();
-	  break;
-	}
+
+      delete iter_p_ ;
+      iter_p_ =0;
+      cursor_ = gh_cdr (cursor_);
     }
 }
-
-void 
-Sequential_music_iterator::leave_element()
-{
-  delete iter_p_;
-  iter_p_ =0;
-  Moment elt_time = unsmob_music (gh_car (cursor_))->length_mom ();
-  here_mom_ += elt_time;
-  cursor_ =gh_cdr (cursor_);
-}
+ /*
+  move to context of child iterator if it is deeper down in the
+  hierarchy.
+  */
 
 void
-Sequential_music_iterator::start_next_element()
+Sequential_music_iterator::descend_to_child ()
 {
-  assert (!iter_p_);
-  iter_p_ = get_iterator_p (unsmob_music (gh_car (cursor_)));
-}
-
-void
-Sequential_music_iterator::set_sequential_music_translator()
-{
+       
   Translator_group  * child_report = child_report = iter_p_->report_to_l ();
   if (dynamic_cast<Grace_iterator*> (iter_p_))
     child_report = child_report->daddy_trans_l_;
@@ -88,8 +79,9 @@ Sequential_music_iterator::set_sequential_music_translator()
     set_translator (child_report);
 }
 
+
 /*
-  [todo: translate]
+  
   
   Hier staat in feite: haal alle muziek op (startend op tijd HERE) tot
   je iets met lengte L > 0 tegenkomt.  Aangezien de preconditie is dat
@@ -114,6 +106,9 @@ SCM
 Sequential_music_iterator::get_music (Moment until)const
 {
   SCM s = SCM_EOL;
+  if (until <  pending_moment ())
+    return s;
+
   SCM curs = cursor_;
   Music_iterator * iter = iter_p_->clone ();
   while (1)
@@ -138,36 +133,71 @@ Sequential_music_iterator::get_music (Moment until)const
     }
   return s;
 }
- 
+/*
+  Skip events till UNTIL. We don't do any other side effects (such as
+  moving descending to child iterator contexts, because they might
+  depend on \context specs and \translator changes being executed
+    
+ */
+void
+Sequential_music_iterator::skip (Moment until)
+{
+  SCM curs = cursor_;
+  while (1)
+    {
+      Moment l =iter_p_->music_length_mom ();
+      if (l >= until - here_mom_)
+	iter_p_->skip (until - here_mom_);
+
+      if (iter_p_->ok ())
+	return ; 
+      
+      here_mom_ = here_mom_ + l;
+      delete iter_p_;
+      iter_p_ =0;
+
+      curs = gh_cdr (curs);
+
+      if (!gh_pair_p (curs))
+	return ;
+      else
+	iter_p_ = get_iterator_p (unsmob_music (gh_car (curs)));
+    }
+}
+
 void
 Sequential_music_iterator::process (Moment until)
 {
-  if (ok ())
+  while (1)
     {
-      while (1) 
-	{
-	  Moment local_until = until - here_mom_;
-	  while (iter_p_->ok ()) 
-	    {
-	      Moment here = iter_p_->pending_moment ();
-	      if (here != local_until)
-		return ;
-	      
-	      iter_p_->process (local_until);
-	    }
+      iter_p_->process (until - here_mom_);
+
+      /*
+	if the iter is still OK, there must be events left that have
+	
+	  TIME > LEFT
 	  
-	  if (!iter_p_->ok ()) 
-	    {
-	      set_sequential_music_translator ();
-	      leave_element ();
-	      
-	      if (gh_pair_p (cursor_))
-		start_next_element ();
-	      else 
-		return ;
-	    }
-	}
+      */
+      if (iter_p_->ok ())
+	return ;
+
+      here_mom_ += iter_p_->music_length_mom ();
+
+      descend_to_child ();
+      delete iter_p_;
+      iter_p_ =0;
+
+      cursor_ = gh_cdr (cursor_);
+
+      if (!gh_pair_p (cursor_))
+	return ;
+      else
+	{
+	  delete iter_p_;
+	  iter_p_ = get_iterator_p (unsmob_music (gh_car (cursor_)));
+	}      
     }
+
 }
 
 Moment

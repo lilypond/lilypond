@@ -43,10 +43,9 @@ StaffContext=\translator {
 
 	  
 	\accepts "Voice";
-};
+}
 
-\translator{\StaffContext }
-\translator {
+ChoirStaffContext = \translator {
 	\type "Engraver_group_engraver";
 	\name ChoirStaff;
 	alignmentReference = \center;
@@ -69,13 +68,11 @@ RhythmicStaffContext=\translator{
 	\consists "Output_property_engraver";	
 
 	Generic_property_list = #generic-staff-properties
-	
- 	barSize =   4.0 * \staffspace ; % JUNKME
 
 	\consists "Pitch_squash_engraver";
 	\consists "Separating_line_group_engraver";	
 	\name RhythmicStaff;
-
+	basicBarProperties \push #'bar-size = #4
 	basicVoltaSpannerProperties \push #'minimum-space =  #15  % urg, in \pt
 	basicVoltaSpannerProperties \push #'padding =  #5  % urg, in \pt
 	basicStaffSymbolProperties \push #'line-count = #1	
@@ -86,8 +83,8 @@ RhythmicStaffContext=\translator{
 	\consists "Staff_symbol_engraver";
 	\consistsend "Axis_group_engraver";
 	\accepts "Voice";
-};
-\translator{\RhythmicStaffContext}
+}
+
 
 VoiceContext = \translator {
 	\type "Engraver_group_engraver";
@@ -133,7 +130,7 @@ VoiceContext = \translator {
 	\consists "Skip_req_swallow_translator";
 	\accepts Thread; % bug if you leave out this!
 	\accepts Grace;
-};
+}
 
 GraceContext=\translator {
 	\type "Grace_engraver_group";
@@ -174,11 +171,8 @@ GraceContext=\translator {
 	basicBeamProperties \push #'beam-space-function = #(lambda (x) 0.5)
 	
 	weAreGraceContext = ##t   
-	graceAccidentalSpace= 1.5 * \staffspace; % JUNKME
-};
-
-\translator{\GraceContext}
-\translator {\VoiceContext}
+	graceAccidentalSpace= 1.5 ; % in staff space
+}
 
 ThreadContext = \translator{
 	\type Engraver_group_engraver;
@@ -188,9 +182,8 @@ ThreadContext = \translator{
 	Generic_property_list = #generic-thread-properties
 	\consists "Property_engraver";
 	\name Thread;
-};
+}
 
-\translator{\ThreadContext}
 GrandStaffContext=\translator{
 	\type "Engraver_group_engraver";
 	\name GrandStaff;
@@ -201,23 +194,19 @@ GrandStaffContext=\translator{
 	\consists "Property_engraver";	
 	Generic_property_list = #generic-grand-staff-properties
 	\accepts "Staff";
-};
-\translator{\GrandStaffContext}
+}
 
 PianoStaffContext = \translator{\GrandStaffContext
 	alignmentReference = \center;
 
 	\consists "Vertical_align_engraver";
 
-	% JUNKME
-	minVerticalAlign = 3.0*\staffheight;
-	maxVerticalAlign = 3.0*\staffheight;
+	basicVerticalAlignmentProperties \push #'threshold = #'(12 . 12) 
 
 %	\consistsend "Axis_group_engraver";
 	\name "PianoStaff";
-	
-};
-\translator{\PianoStaffContext}
+}
+
 StaffGroupContext= \translator {
 	\type "Engraver_group_engraver";
 	\consists "Span_bar_engraver";
@@ -237,9 +226,8 @@ StaffGroupContext= \translator {
 	
 	\accepts "Lyrics";
 	\accepts "ChordNames";
-};
+}
 
-\translator { \StaffGroupContext }
 
 % UGH! JUNKME
 LyricsVoiceContext= \translator{
@@ -255,8 +243,14 @@ LyricsVoiceContext= \translator{
 	\consists "Stanza_number_engraver";
 	phrasingPunctuation = #".,;:!?\""
 	
-};
-\translator{ \LyricsVoiceContext }
+}
+NoteNamesContext = \translator {
+	\type "Engraver_group_engraver";
+	\name NoteNames;
+	\consistsend "Axis_group_engraver";
+	\consists "Note_name_engraver";
+	\consists "Separating_line_group_engraver";
+}
 
 LyricsContext = \translator {
 	\type "Engraver_group_engraver";
@@ -267,8 +261,7 @@ LyricsContext = \translator {
 	\consistsend "Axis_group_engraver";
 	
 	\accepts "LyricVoice";
-};
-\translator { \LyricsContext }
+}
 
 ChordNameVoiceContext = \translator {
 	\type "Engraver_group_engraver";
@@ -278,9 +271,7 @@ ChordNameVoiceContext = \translator {
 	\consistsend "Axis_group_engraver";
 	\consists "Separating_line_group_engraver";
 	\consists "Chord_name_engraver";
-};
-\translator {\ChordNameVoiceContext}
-
+}
 ChordNameContext = \translator {
 	\type "Engraver_group_engraver";
 	\name ChordNames;
@@ -290,8 +281,7 @@ ChordNameContext = \translator {
 	\consists "Output_property_engraver";	
 	\accepts "ChordNameVoice";
 	\consistsend "Axis_group_engraver";
-	};
-\translator { \ChordNameContext }
+	}
 
 
 ScoreWithNumbers = \translator {
@@ -299,20 +289,20 @@ ScoreWithNumbers = \translator {
 
 	% uncomment to bar numbers on a whole system.
 	\consists "Bar_number_engraver";
-};
+}
 
 StupidScore = \translator {
  	\type "Score_engraver";
 	\name Score;
 	\consists "Note_heads_engraver";
-};
+}
 
 
 
 BarNumberingStaffContext = \translator {
 	\StaffContext
 	\consists "Mark_engraver";
-};
+}
 
 HaraKiriStaffContext = \translator {
 	\StaffContext
@@ -320,7 +310,7 @@ HaraKiriStaffContext = \translator {
 	\consistsend "Hara_kiri_engraver";	  
 	\consists "Instrument_name_engraver";
 	\accepts "Voice";
-};
+}
 %{
   The HaraKiriStaffContexts doesn't override \name,
   so it is still named `Staff'.
@@ -331,7 +321,7 @@ HaraKiriStaffContext = \translator {
 OrchestralPartStaffContext = \translator {
 	\StaffContext
 	\consists "Mark_engraver";
-};
+}
 
 ScoreContext = \translator {
 	\type Score_engraver;
@@ -366,6 +356,7 @@ ScoreContext = \translator {
 	aDueText = #"\\`a2"
 	soloADue = ##t
 	splitInterval = #'(0 . 1)
+	changeMoment = #`(,(make-moment 0 0) . ,(make-moment 1 512))
 
 	defaultClef = #"treble"
 
@@ -456,6 +447,8 @@ ScoreContext = \translator {
 		(breakable . #t)
 		(visibility-lambda . ,begin-of-line-visible)
 		(name . "barnumber")
+		(padding . 1.0)
+		(direction . 1)
 	)
 
 	basicBeamProperties = #basic-beam-properties
@@ -503,6 +496,11 @@ ScoreContext = \translator {
 	basicCrescendoProperties = #`(
 		(molecule-callback . ,Crescendo::brew_molecule)
 		(interfaces . (crescendo-interface dynamic-interface))
+		(thickness . 1.0)
+		(shorten-for-letter  .  4.0)
+		(height . 0.6666)
+		(dash-thickness . 1.2)
+		(dash-length . 4.0)
 		(name . "crescendo")
 	)
 	basicDotColumnProperties = #`(
@@ -678,6 +676,8 @@ ScoreContext = \translator {
 		(after-line-breaking-callback . ,Slur::after_line_breaking)
 
 		(de-uglify-parameters . ( 1.5  0.8  -2.0))
+		(details . ((height-limit . 2.0) (ratio . 0.333) (force-blowfit . 0.5) (beautiful . 0.5)))
+		(y-free . 0.75)
 		(name . "slur")
 	)
 	basicSpacingSpannerProperties =#`(
@@ -745,7 +745,10 @@ ScoreContext = \translator {
 		(interfaces . (tie-interface))
 		(molecule-callback . ,Tie::brew_molecule)
 		(spacing-procedure . ,Tie::set_spacing_rods)
+		(staffline-clearance . 0.24)
+		(details . ((ratio . 0.333) (height-limit . 1.0)))
 		(thickness . 1.2)
+		(x-gap . 0.2)
 		(minimum-length  . 2.5)
 		(name . "tie")
 	)
@@ -829,24 +832,19 @@ ScoreContext = \translator {
 		(minimum-space . 25)
 		(name . "volta brace")
 	)	
+	basicVerticalAlignmentProperties = #`(
+		(axes 1)
+		(interfaces . (align-interface axis-group-interface))
+		(name . "vertical alignment")
+	)
 	basicVerticalAxisGroupProperties = #`(
 		(axes 1)
 		(interfaces . (axis-group-interface))
 		(name . "Y-axis group")
 	)
-};
-
-\translator { \ScoreContext }
+}
 
 OrchestralScoreContext= \translator {
 	\ScoreContext
-
-};
-
-\translator {
-	\type "Engraver_group_engraver";
-	\name NoteNames;
-	\consistsend "Axis_group_engraver";
-	\consists "Note_name_engraver";
-	\consists "Separating_line_group_engraver";
 }
+

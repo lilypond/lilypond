@@ -39,7 +39,11 @@
 
    damping -- damping factor (real).
 
-   
+   outer-stem-length-limit -- catch suspect beam slopes, set slope to zero if
+     outer stem is lengthened more than this (in staffspace)
+
+   slope-limit -- set slope to zero if slope is running away steeper than this.
+
 */
 class Beam
 {

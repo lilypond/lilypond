@@ -42,7 +42,8 @@
     (before-line-breaking-callback . ,Beam::before_line_breaking)
     (after-line-breaking-callback . ,Beam::after_line_breaking)
     (default-neutral-direction . 1)
-    
+    (outer-stem-length-limit . 0.2)
+    (slope-limit . 0.2)
     (beam-flag-width-function . ,default-beam-flag-width-function)
     (beam-space-function . ,default-beam-space-function)
     (damping . 1)

@@ -9,28 +9,7 @@ copyright =	 "public domain";
 
 \version "1.3.59";
 
-\include "global.ly"
-\include "viola-1.ly"
-\include "viola-2.ly"
-
-violiGroup = \context PianoStaff = violi_group \notes <
-	\context StaffCombineStaff=one {
-		\clef "alto"; 
-		\key es \major;
-		\skip 1*314; 
-		\bar "|."; 
-	}
-	\context StaffCombineStaff=two {
-		\clef "alto"; 
-		\key es \major;
-		\skip 1*314; 
-		\bar "|."; 
-	}
-
-	\context StaffCombineStaff=one \partcombine StaffCombineStaff
-		\context StaffCombineVoice=one \violaI
-		\context StaffCombineVoice=two \violaII
->
+\include "violi.ly"
 
 \score{
 	\violiGroup

@@ -12,6 +12,7 @@
 #include "score-element.hh"
 #include "group-interface.hh"
 #include "axis-group-interface.hh"
+#include "paper-def.hh"
 
 /*
   This callback is set in the children of the align element. It does
@@ -98,8 +99,9 @@ Align_interface::do_side_processing (Score_element * me, Axis a)
   SCM thr = me->get_elt_property ("threshold");
   if (gh_pair_p (thr))
     {
-      threshold[SMALLER] = gh_scm2double (gh_car (thr));
-      threshold[BIGGER] = gh_scm2double (gh_cdr (thr));      
+      Real ss = me->paper_l ()-> get_var ("staffspace");
+      threshold[SMALLER] = ss *gh_scm2double (gh_car (thr));
+      threshold[BIGGER] = ss * gh_scm2double (gh_cdr (thr));      
     }
 
   Real where_f=0;

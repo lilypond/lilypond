@@ -79,8 +79,8 @@
   (mapcar (function
 	   (lambda (x) (modify-syntax-entry
 			(car x) (cdr x) lily-mode-syntax-table)))
-	  '(( ?\( . "." ) ( ?\) . "." )
-	    ( ?\[ . "." ) ( ?\] . "." )
+	  '(( ?\( . "()" ) ( ?\) . ")(" )   ; need matching parens for inline lisp
+ 	    ( ?\[ . "." ) ( ?\] . "." )
 	    ( ?\{ . "(}" ) ( ?\} . "){" )
 	    ( ?\< . "(>" )( ?\> . ")>") 
 	    ( ?\$ . "." ) ( ?\% . "." ) ( ?\& . "." )

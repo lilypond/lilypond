@@ -18,7 +18,6 @@ contrabasso = \notes \relative c {
 	c'1\ff ~ |
 	c |
 	f,4-. r r2 |
-	\property Staff.instr = #"Vc.\nCb."
 	r1 |
 	c'1\ff ~ |
 	c |
@@ -30,8 +29,8 @@ contrabasso = \notes \relative c {
 	c4 r4 r2 |
 	c4 r4 r2 |
 	r1 |
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property StaffCombineVoice.crescendoText = "cresc."
+	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
 	c'4.\< c8 bes4. bes8 |
 
 	%20
@@ -46,8 +45,8 @@ contrabasso = \notes \relative c {
 
 	% copied 14 from cello
 
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property StaffCombineVoice.crescendoText = "cresc."
+	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
 	bes'4.\< bes8 as4. as8 |
 	g4 \!g4-.\f r2 |
 	R1
@@ -82,8 +81,8 @@ contrabasso = \notes \relative c {
 	)as,4 r r r8 as(|
 	)g4 r r r8 g(|
 	)d'4 r r r8 d(|
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property StaffCombineVoice.crescendoText = "cresc."
+	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
 	)es4\< r r r8 es(|
 	)as,4 r r r8 as(|
 	)g4 r r r8 g(|
@@ -98,15 +97,15 @@ contrabasso = \notes \relative c {
 	)bes4 r r r8 bes(|
 	)as4 r r r8 as(|
 	)e4 r r r8 e(|
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property StaffCombineVoice.crescendoText = "cresc."
+	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
 	)f4\< r r r8 f(|
 	)bes4 r r r8 bes(|
 	%70
 	\!)as2\ff g |
 	fis d' |
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property StaffCombineVoice.crescendoText = "cresc."
+	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
 	g,4\p\< r r r8 g(|
 	)c4 r r r8 c(|
 	% )<b1\sf\> { s2 s4 \!s8}> |
@@ -119,8 +118,8 @@ contrabasso = \notes \relative c {
 	d4\pp r d r |
 	d r d r |
 	%80
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property StaffCombineVoice.crescendoText = "cresc."
+	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
 	d r d\< r |
 	d r d r |
 	d r d r |
@@ -196,6 +195,7 @@ contrabasso = \notes \relative c {
 	f |
 	b,2\sf r |
 	b2\sf r |
+	%160
 	R1*3 |
 	bes2\ff r |
 	bes2\sf r |
@@ -216,8 +216,8 @@ contrabasso = \notes \relative c {
 	%180
 	)e4 r r r8 e(|
 	)b'4 r r r8 b(|
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property StaffCombineVoice.crescendoText = "cresc."
+	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
 	)c4\< r r r8 c(|
 	)f,4 r r r8 f(|
 	)e4 r r r8 e'(|
@@ -232,8 +232,8 @@ contrabasso = \notes \relative c {
 	)g,4 r r r8 g(|
 	)f4 r r r8 f(|
 	)cis'4 r r r8 cis(|
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property StaffCombineVoice.crescendoText = "cresc."
+	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
 	)d4\< r r r8 d(|
 
 	%195
@@ -242,40 +242,40 @@ contrabasso = \notes \relative c {
 	dis b |
 	es4\p r r r8 es(|
 	)a,4 r r r8 a(|
+	)g1 |
 
 	%200
-	)g1 |
 	f |
 	% copied 18 from cello
-	[f8(g f g][f g f)g] |
-	es!4\fp r e r |
+	es'!4\fp r e r |
 	f r g r |
-	
-	%205
 	as r g r |
 	f r fis r |
+
+	%205
 	g r g r |
 	g r g r |
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property StaffCombineVoice.crescendoText = "cresc."
+	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
 	g r g\< r |
+	g r g r |
 	
 	%210
 	g r g r |
 	g r g r |
-	g r g r |
 	\!f2.\ff()es4 |
 	d( c d )c |
+	f2.\ff()es4 |
 
 	%215
-	f2.\ff()es4 |
 	d( c d )c |
 	bes2.\ff()as4 |
 	g( f g )f |
 	bes2.\ff()as4 |
+	g( f g )f |
 
 	%220
-	f'4 r r2 |
+	f4 r r2 |
 	f'4 r r2 |
 	f4 r r2 |
 	f4 r r2 |
@@ -288,7 +288,7 @@ contrabasso = \notes \relative c {
 
 	%230
 	f4 r8 f g4 r8 g |
-	c,4\p r r2 |
+	c4\p r r2 |
 	r2 r4 r8 b\f |
 	c4 r r2 |
 	r2 r4 r8 b\f |
@@ -297,7 +297,7 @@ contrabasso = \notes \relative c {
 	R1*3 |
 
 	%copied 59 from cello
-	[c,8\f e g as][bes, d fis g]|
+	[c8\f e g as][bes, d fis g]|
 
 	%240
 	[as, c e f!][g, bes d es]|
@@ -315,8 +315,8 @@ contrabasso = \notes \relative c {
 	%250
 	)es4 r r r8 es(|
 	)b4 r r r8 b(|
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property StaffCombineVoice.crescendoText = "cresc."
+	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
 	)c4\< r r r8 c(|
 	)f4 r r r8 f,(|
 	)es1 |
@@ -329,8 +329,8 @@ contrabasso = \notes \relative c {
 	bes\f |
 
 	%260
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property StaffCombineVoice.crescendoText = "cresc."
+	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
 	as4.\p\< as'8 g4. g8 |
 	f4. f8 es4. es8 |
 	as4. as8 g4. g8 |
@@ -373,8 +373,8 @@ contrabasso = \notes \relative c {
 	f,4-. g-. r2 |
 
 	%290
-	\property Voice.decrescendoText = "dim."
-	\property Voice.decrescendoSpanner = "dashed-line"
+	\property StaffCombineVoice.decrescendoText = "dim."
+	\property StaffCombineVoice.decrescendoSpanner = "dashed-line"
 	as4\> r b r |
 	R1 |
 	\!c4\p r r2|
@@ -387,30 +387,23 @@ contrabasso = \notes \relative c {
 	r2 r4 f, |
 	c' r r2 |
 	r2 r4 f, |
+
+	%300
 	c' r r2 |
 	R1 |
 	f,4 r r2 |
 	R1 |
 	c'4 r r2 |
+
+	%305
 	R1 |
 	f,4 r r2 |
 	R1*3 |
+
+	%310
 	c'4\pp r r2 |
 	R1 |
 	c4 r r2 |
 	c4 r r2 |
 	c4 r r2 |
 }
-
-%%%contrabassoStaff = \context Staff = contrabasso <
-%%%	\property Staff.midiInstrument = #"contrabass"
-%%%	\property Staff.instrument = #"Contrabasso"
-%%%	\property Staff.instr = #"Cb."
-%%%	\property Staff.transposing = #-12
-%%%	\clef "bass";
-%%%	\notes \context Voice=one< 
-%%%		\global
-%%%		\contrabasso
-%%%	>
-%%%>
-

@@ -66,7 +66,7 @@ Break_align_item::do_alignment (Score_element *me)
       me->add_offset_callback (Align_interface::center_on_element, X_AXIS);
     }
 
-  Real interline= me->paper_l ()->get_var ("interline");	
+  Real interline= me->paper_l ()->get_var ("staffspace");	
   Link_array<Score_element> elems;
   Link_array<Score_element> all_elems
     = Pointer_group_interface__extract_elements (me, (Score_element*)0,

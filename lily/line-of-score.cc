@@ -322,7 +322,7 @@ Line_of_score::post_processing (bool last_line)
 			  gh_double2scm (height),
 			  SCM_UNDEFINED));
   
-  Real il = paper_l ()->get_var ("interline");
+  Real il = paper_l ()->get_var ("staffspace");
 
   /*
     all elements.

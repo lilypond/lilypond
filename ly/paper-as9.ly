@@ -5,8 +5,11 @@
 paper_as_nine = \paper {
 	staffheight = 9.\char;
 
-	font_large = 4.;
-	font_Large = 4.;	
+%	font_large = 4.;
+%	font_Large = 4.;	
+%	font_normal = 4.;
+	font_large = 1.;
+	font_Large = 1.;	
 	font_normal = 4.;
 	font_script = 1.;
 

@@ -237,7 +237,7 @@ Options:
 
 (define (get-font name)
   ;; urg
-  (if (equal? name "as-dummy")
+  (if (equal? (substring name 0 (min (string-length name) 8)) "as-dummy")
       (get-font "default")
       (let ((entry (assoc name fonts)))
 	   (if entry
@@ -334,7 +334,7 @@ Options:
 
 (define (load-font name mag)
   ;; urg: don't load dummy font
-  (if (not (equal? name "as-dummy"))
+  (if (not (equal? (substring name 0 (min (string-length name) 8)) "as-dummy"))
       (let ((text (af-gulp-file (string-append name ".af"))))
 	   (if (< 0 (string-length text))
 	       (let* ((char-list (cdr 
@@ -375,7 +375,8 @@ Options:
       (begin
        (set! fonts (cons (cons "default" (generate-default-font)) fonts))
        (display "\n" (current-error-port))
-       (if (defined? 'mudelapaperlinewidth)
+       (if (and (defined? 'mudelapaperlinewidth)
+		(> (string->number mudelapaperlinewidth) 0))
 	   (set! canvas-width 
 		 (inexact->exact (string->number mudelapaperlinewidth))))))
   (set! canvas-height height)

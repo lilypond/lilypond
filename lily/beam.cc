@@ -403,10 +403,11 @@ Beam::suspect_slope_b (Score_element*me, Real y, Real dy)
   /*
     steep slope running against lengthened stem is suspect
   */
+  Real ss = me->paper_l ()->get_var ("staffspace");
   Real first_ideal = Stem::calc_stem_info (first_visible_stem (me)).idealy_f_;
   Real last_ideal = Stem::calc_stem_info (last_visible_stem (me)).idealy_f_;
-  Real lengthened = me->paper_l ()->get_var ("beam_lengthened");
-  Real steep = me->paper_l ()->get_var ("beam_steep_slope");
+  Real lengthened = gh_scm2double (me->get_elt_property ("outer-stem-length-limit")) * ss;
+  Real steep = gh_scm2double (me->get_elt_property ("slope-limit"));
 
   // ugh -> use commonx
   Real dx = last_visible_stem (me)->relative_coordinate (0, X_AXIS) - first_visible_stem (me)->relative_coordinate (0, X_AXIS);

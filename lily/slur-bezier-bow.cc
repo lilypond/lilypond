@@ -144,12 +144,10 @@ Slur_bezier_bow::area_x_gradients_array (Real area)
   algorithm, instead of this homebrew.
 */
 void
-Slur_bezier_bow::minimise_enclosed_area (Paper_def* paper_l)
+Slur_bezier_bow::minimise_enclosed_area (Paper_def* paper_l, Real beauty)
 {
   Real length = curve_.control_[3][X_AXIS]; 
-
-  Real sb = paper_l->get_var ("slur_beautiful");
-  Real beautiful = sb * length * slur_height (length, h_inf_, r_0_);
+  Real beautiful = beauty * length * slur_height (length, h_inf_, r_0_);
 
   DEBUG_OUT << to_str ("Beautiful: %f\n", beautiful);
   DEBUG_OUT << to_str ("Length: %f\n", length);

@@ -18,6 +18,8 @@ public:
   VIRTUAL_COPY_CONS (Music_iterator);
   Part_combine_music_iterator ();
 
+  enum State { UNKNOWN, UNRELATED=1, SOLO1=2, SOLO2=4, UNIRHYTHM=8, UNISON=16, UNISILENCE=32, SPLIT_INTERVAL=64 };
+ 
 protected:
   virtual ~Part_combine_music_iterator ();
 
@@ -30,11 +32,14 @@ protected:
 
 private:
   void change_to (Music_iterator*, String, String);
+  int get_state (Moment m);
 
   Music_iterator * first_iter_p_;
   Music_iterator * second_iter_p_;
   Moment first_until_;
   Moment second_until_;
+  int state_;
+  String suffix_;
 };
 
 #endif /* PART_COMBINE_MUSIC_ITERATOR_HH */
