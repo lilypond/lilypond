@@ -103,6 +103,7 @@ Mark_req::do_equal_b (Request const * r) const
 }
 
 ADD_MUSIC(Bass_figure_req);
+ADD_MUSIC (Arpeggio_req);
 ADD_MUSIC (Articulation_req);
 ADD_MUSIC (Break_req);
 ADD_MUSIC (Breathing_sign_req);
