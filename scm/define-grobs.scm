@@ -17,7 +17,6 @@
     (Accidental
      . (
 	(print-function . ,Accidental_interface::print)
-	(font-family . music)
 	(cautionary-style . parentheses)
 	(after-line-breaking-callback . ,Accidental_interface::after_line_breaking)		(meta . ((interfaces . (item-interface accidental-interface font-interface))))
 	))
@@ -351,21 +350,20 @@
 	(meta . ((interfaces . (font-interface staff-symbol-referencer-interface dots-interface item-interface ))))
 	))
 
-    (DoublePercentRepeat .
-			 (
-			  (print-function . ,Percent_repeat_item_interface::double_percent)
-			  (breakable . #t)
-			  (slope . 1.0)
-			  (font-encoding . fetaMusic)
-			  (width . 2.0)
-			  (thickness . 0.48)
-			  (break-align-symbol . staff-bar)
-			  (break-visibility . ,begin-of-line-invisible)
-			  (meta . ((interfaces . (font-interface
-						  break-aligned-interface
-						  percent-repeat-interface item-interface ))))
-			 ))
-
+    (DoublePercentRepeat
+     . (
+	(print-function . ,Percent_repeat_item_interface::double_percent)
+	(breakable . #t)
+	(slope . 1.0)
+	(font-encoding . fetaMusic)
+	(width . 2.0)
+	(thickness . 0.48)
+	(break-align-symbol . staff-bar)
+	(break-visibility . ,begin-of-line-invisible)
+	(meta . ((interfaces . (font-interface
+				break-aligned-interface
+				percent-repeat-interface item-interface ))))
+	))
     (DynamicText
      . (
 	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
@@ -624,7 +622,6 @@
 	(thick-thickness . 6.6)
 	(hair-thickness . 2.0)
 	(padding . 1)
-	(font-encoding . fetaMusic)
 	(meta . ((interfaces . (multi-measure-rest-interface multi-measure-interface rest-interface font-interface staff-symbol-referencer-interface))))
 	))
     

@@ -15,18 +15,23 @@ scm = \chords {
     b/b bis/bis bes/bes
     % beses/beses
 } 
-\score {
- <<
-    \context ChordNames { \scm }
+
+
+\paper {
+    raggedright = ##t 
+    \context {\ChordNames \consists Instrument_name_engraver }
+}
+
+<<
+    \new ChordNames {
+	\set instrument = #"default"
+	\scm
+    }
     \new ChordNames {
 	\set instrument = #"german"
 	\germanChords \scm }
     \new ChordNames {
 	\set instrument = #"semi-german"
 	\semiGermanChords \scm }
-    \context Voice {  \scm } >>
-\paper {
-    raggedright = ##t 
-    \context {\ChordNames \consists Instrument_name_engraver }}
-
-}
+    \context Voice { \scm }
+>>

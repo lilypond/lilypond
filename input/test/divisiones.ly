@@ -1,10 +1,12 @@
 % possible rename to ancient- or gregorian- ?
 \header {
     texidoc = "@cindex Divisiones
+
 Divisiones are gregorian variants of breathing signs.
 Choices are @code{divisioMinima}, @code{divisioMaior},
 @code{divisioMaxima} and @code{finalis}, @code{virgula} and
 @code{caesura}.
+
 " }
 
 \version "2.3.8"
@@ -19,35 +21,27 @@ Choices are @code{divisioMinima}, @code{divisioMaior},
 	    \override TextScript  #'padding = #3
 	    \override Staff.BarLine  #'transparent = ##t
 	    \override Stem  #'transparent = ##t
-            g4( a) g e( f) e
-            ^\markup { "divisio minima" }
+            g4( a) g^\markup { "divisio minima" }
 	    \divisioMinima
-            g4( a) g e( f) e
-            ^\markup { "divisio maior" }
+            g4( a) g^\markup { "divisio maior" }
 	    \divisioMaior
-            g4( a) g e( f) e
-            ^\markup { "divisio maxima" }
+            g4( a) g^\markup { "divisio maxima" }
 	    \divisioMaxima
-            g4( a) g e( f) e
-            ^\markup { "finalis" }
+            g4( a) g^\markup { "  finalis" }
 	    \finalis
-            g4( a) g e( f) e
-
+            g4( a) g
             ^\markup { "virgula" }
 	    \virgula
-            g4( a) g e( f) e
+            g4( a) g
             ^\markup { "caesura" }
 	    \caesura
-            g4( a) g e( f) e
+            g4( a) g
 	}
 	\lyricsto "" \new  Lyrics \lyrics {
 	    Blah blub, blah blam.
 	    Blah blub, blah blam.
 	    Blah blub, blah blam.
-	    Blah blub, blah blam.
-	    Blah blub, blah blam.
-	    Blah blub, blah blam.
-	    Blah blub, blah blam.
+	    Blah blub.
 	}
     >>
 }

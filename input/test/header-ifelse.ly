@@ -2,23 +2,20 @@
 
 
 #(if (not (defined? 'pieceTagLine))
-  (define pieceTagLine (string-append "Jeremie " (lilypond-version) " was here")))
+  (define pieceTagLine (string-append "Title has version " (lilypond-version))))
 
 \header{
-
-    tagline = \pieceTagLine
+    title = \pieceTagLine
     texidoc = "
 
-High level functionality (eg. conditional defines),
-can be accomplished with GUILE.
+High level functionality (eg. conditional defines), can be
+accomplished with GUILE.
 
-This example puts the current version in the tagline via Scheme,
-however, the tagline is not printed to the collated webpage snippets.
+This example puts the current version in the title via Scheme.
 
 " 
 }
 
-\score{ { c'4 }
 \paper {raggedright=##t}
-}
+{ c'4 }
 

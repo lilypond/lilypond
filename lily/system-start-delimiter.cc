@@ -8,6 +8,7 @@
  */
 #include <math.h>
 
+#include "spanner.hh"
 #include "axis-group-interface.hh"
 #include "system-start-delimiter.hh"
 #include "output-def.hh"
@@ -106,16 +107,35 @@ MAKE_SCHEME_CALLBACK (System_start_delimiter,print,1);
 SCM
 System_start_delimiter::print (SCM smob)
 {
-  Grob * me = unsmob_grob (smob);
-
+  Spanner * me = unsmob_spanner (smob);
+  if (!me)
+    return SCM_EOL;
+  
   SCM s = me->get_property ("glyph");
   if (!ly_c_string_p (s))
     return SCM_EOL;
   SCM gsym = scm_string_to_symbol (s) ;
   
   Real staff_space = Staff_symbol_referencer::staff_space (me);
-  Interval ext = ly_scm2interval (Axis_group_interface::group_extent_callback
- (me->self_scm (), scm_int2num (Y_AXIS)));
+
+  SCM elts = me->get_property ("elements");
+  Grob * common = common_refpoint_of_list (elts, me, Y_AXIS);
+
+  Interval ext;
+  for (SCM s = elts; ly_c_pair_p (s); s = ly_cdr (s))
+    {
+      Spanner * sp = unsmob_spanner (ly_car (s));
+      if (sp &&
+	  sp->get_bound (LEFT) == me->get_bound (LEFT))
+	{
+	  Interval dims = sp->extent (common, Y_AXIS);
+	  if (!dims.is_empty ())
+	    ext.unite (dims);
+	}
+    }
+
+  ext -= me->relative_coordinate (common, Y_AXIS);
+  
   Real l = ext.length () / staff_space;
   
   if (ext.is_empty ()

@@ -1,4 +1,3 @@
-
 \header {
     texidoc = "Use \\score block as markup command."
 }
@@ -26,10 +25,8 @@ tuning = \markup {
 \relative {
     \time 4/8
     \times 2/3 { c'8 d e } \times 2/3 {c d e}
-    \time 4/8
-
-				% todo: tempo change example.
-    
-    g8 a8 g8 a \break
+    \times 2/3 { c8 d e } \times 2/3 {c d e}
+    g8 a8 g8 a 
+    g8 a8 g8 a 
 }
 
