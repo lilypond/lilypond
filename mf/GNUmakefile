@@ -183,6 +183,7 @@ $(outdir)/lilypond.map: $(AFM_FILES)
 	for i in $(STAFF_SIZES); \
 		do echo "emmentaler$$i emmentaler-$$i <emmentaler$$i.cff.ps" ; done \
 	>> $@
+	echo "aybabtu aybabtu <aybabtu.cff.ps" >> $@
 
 
 local-clean:

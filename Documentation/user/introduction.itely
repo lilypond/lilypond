@@ -224,11 +224,11 @@ with accents and arpeggios.  In the first chord, the graphical objects
 have all directions down (or left).  The second chord has all
 directions up (right).
 
-@lilypond[quote,raggedright,relative=1]
+@lilypond[quote,raggedright]
 \new Score \with {
    \override SpacingSpanner #'spacing-increment = #3
    \override TimeSignature #'transparent = ##t
-} {
+} \relative {
    \stemDown <e g b>4_>-\arpeggio
    \override Arpeggio #'direction = #RIGHT
    \stemUp <e g b>4^>-\arpeggio

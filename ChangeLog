@@ -1,5 +1,7 @@
 2005-02-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* mf/GNUmakefile ($(outdir)/lilypond.map): add aybabtu to .map file.
+
 	* lily/note-column.cc (translate_rests): call flush_extent_cache()
 	of parents when translating rests. Fixes: c-chord-rest.ly 
 
