@@ -116,7 +116,7 @@ Ligature_engraver::override_stencil_callback ()
   SCM target_callback = ly_symbol2scm ("print-function");
   SCM source_callback = ly_symbol2scm ("ligature-primitive-callback");
   SCM noteHeadProperties = updated_grob_properties (context (), ly_symbol2scm ("NoteHead"));
-  SCM value = ly_cdr (scm_sloppy_assq (source_callback, noteHeadProperties));
+  SCM value = scm_cdr (scm_sloppy_assq (source_callback, noteHeadProperties));
   execute_pushpop_property (context (), ly_symbol2scm ("NoteHead"),
 			    target_callback, value);
 }

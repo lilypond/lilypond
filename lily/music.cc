@@ -114,11 +114,11 @@ void
 print_alist (SCM a, SCM port)
 {
   /* SCM_EOL  -> catch malformed lists.  */
-  for (SCM s = a; scm_is_pair (s); s = ly_cdr (s))
+  for (SCM s = a; scm_is_pair (s); s = scm_cdr (s))
     {
-      scm_display (ly_caar (s), port);
+      scm_display (scm_caar (s), port);
       scm_puts (" = ", port);
-      scm_write (ly_cdar (s), port);
+      scm_write (scm_cdar (s), port);
       scm_puts ("\n", port);
     }
 }
@@ -169,10 +169,10 @@ Music::compress (Moment factor)
 void
 Music::transpose (Pitch delta)
 {
-  for (SCM s = this->get_property_alist (true); scm_is_pair (s); s = ly_cdr (s))
+  for (SCM s = this->get_property_alist (true); scm_is_pair (s); s = scm_cdr (s))
     {
-      SCM entry = ly_car (s);
-      SCM val = ly_cdr (entry);
+      SCM entry = scm_car (s);
+      SCM val = scm_cdr (entry);
 
       if (Pitch * p = unsmob_pitch (val))
 	{
@@ -204,10 +204,10 @@ Music::internal_get_property (SCM sym) const
 {
   SCM s = scm_sloppy_assq (sym, mutable_property_alist_);
   if (s != SCM_BOOL_F)
-    return ly_cdr (s);
+    return scm_cdr (s);
 
   s = scm_sloppy_assq (sym, immutable_property_alist_);
-  return (s == SCM_BOOL_F) ? SCM_EOL : ly_cdr (s);
+  return (s == SCM_BOOL_F) ? SCM_EOL : scm_cdr (s);
 }
 
 void
@@ -340,9 +340,9 @@ LY_DEFINE (ly_music_list_p,"ly:music-list?",
   if (scm_list_p (lst) == SCM_BOOL_T)
     while (scm_is_pair (lst))
       {
-	if (!unsmob_music (ly_car (lst)))
+	if (!unsmob_music (scm_car (lst)))
 	  return SCM_BOOL_F;
-	lst = ly_cdr (lst);
+	lst = scm_cdr (lst);
       }
 
   return SCM_BOOL_T;
@@ -359,8 +359,8 @@ LY_DEFINE (ly_deep_mus_copy, "ly:music-deep-copy",
       scm_gc_unprotect_object (copy);
     }
   else if (scm_is_pair (m))
-    copy = scm_cons (ly_deep_mus_copy (ly_car (m)),
-		    ly_deep_mus_copy (ly_cdr (m)));
+    copy = scm_cons (ly_deep_mus_copy (scm_car (m)),
+		    ly_deep_mus_copy (scm_cdr (m)));
   return copy;
 }
 

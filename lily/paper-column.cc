@@ -149,11 +149,11 @@ Paper_column::before_line_breaking (SCM grob)
 
   while (scm_is_pair (*ptrptr))
     {
-      Grob * g = unsmob_grob (ly_car (*ptrptr));
+      Grob * g = unsmob_grob (scm_car (*ptrptr));
 
       if (!g || !g->is_live ())
 	{
-	  *ptrptr = ly_cdr (*ptrptr);
+	  *ptrptr = scm_cdr (*ptrptr);
 	}
       else
 	{

@@ -314,8 +314,8 @@ Score::set_music (SCM music, SCM parser)
 {
   /* URG? */
   SCM check_funcs = ly_scheme_function ("toplevel-music-functions");
-  for (; scm_is_pair (check_funcs); check_funcs = ly_cdr (check_funcs))
-    music = scm_call_2 (ly_car (check_funcs), music, parser);
+  for (; scm_is_pair (check_funcs); check_funcs = scm_cdr (check_funcs))
+    music = scm_call_2 (scm_car (check_funcs), music, parser);
 
   if (unsmob_music (music_))
     {

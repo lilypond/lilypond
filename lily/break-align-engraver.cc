@@ -43,10 +43,10 @@ Break_align_engraver::add_column (SCM smob)
 void
 Break_align_engraver::stop_translation_timestep ()
 {
-  for (SCM p = column_alist_; scm_is_pair (p); p = ly_cdr (p))
+  for (SCM p = column_alist_; scm_is_pair (p); p = scm_cdr (p))
     {
-      SCM pair = ly_car (p);
-      add_column (ly_cdr (pair));
+      SCM pair = scm_car (p);
+      add_column (scm_cdr (pair));
     }
   column_alist_ = SCM_EOL;
 
@@ -115,7 +115,7 @@ Break_align_engraver::add_to_group (SCM align_name, Item*item)
 
   if (s != SCM_BOOL_F)
     {
-      Grob *e =  unsmob_grob (ly_cdr (s));
+      Grob *e =  unsmob_grob (scm_cdr (s));
       group = dynamic_cast<Item*> (e);
     }
   else

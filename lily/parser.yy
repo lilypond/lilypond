@@ -119,8 +119,8 @@ is_duration (int t)
 void
 set_music_properties (Music *p, SCM a)
 {
-  for (SCM k = a; scm_is_pair (k); k = ly_cdr (k))
- 	p->internal_set_property (ly_caar (k), ly_cdar (k));
+  for (SCM k = a; scm_is_pair (k); k = scm_cdr (k))
+ 	p->internal_set_property (scm_caar (k), scm_cdar (k));
 }
 
 SCM
@@ -150,7 +150,7 @@ bool
 ly_input_procedure_p (SCM x)
 {
 	return ly_c_procedure_p (x)
-		|| (scm_is_pair (x) && ly_c_procedure_p (ly_car (x)));
+		|| (scm_is_pair (x) && ly_c_procedure_p (scm_car (x)));
 }
 
 Music*
@@ -611,12 +611,12 @@ context_def_spec_body:
 	| context_def_spec_body GROBDESCRIPTIONS embedded_scm {
 		Context_def*td = unsmob_context_def ($$);
 
-		for (SCM p = $3; scm_is_pair (p); p = ly_cdr (p)) {
-			SCM tag = ly_caar (p);
+		for (SCM p = $3; scm_is_pair (p); p = scm_cdr (p)) {
+			SCM tag = scm_caar (p);
 
 			/* TODO: should make new tag "grob-definition" ? */
 			td->add_context_mod (scm_list_3 (ly_symbol2scm ("assign"),
-							tag, scm_cons (ly_cdar (p), SCM_EOL)));
+							tag, scm_cons (scm_cdar (p), SCM_EOL)));
 		}
 	}
 	| context_def_spec_body context_mod {
@@ -816,8 +816,8 @@ Music_list:
  		SCM c = scm_cons ($2->self_scm (), SCM_EOL);
 		scm_gc_unprotect_object ($2->self_scm ()); /* UGH */
 
-		if (scm_is_pair (ly_cdr (s)))
-			scm_set_cdr_x (ly_cdr (s), c); /* append */
+		if (scm_is_pair (scm_cdr (s)))
+			scm_set_cdr_x (scm_cdr (s), c); /* append */
 		else
 			scm_set_car_x (s, c); /* set first cons */
 		scm_set_cdr_x (s, c);  /* remember last cell */
@@ -833,8 +833,8 @@ Music_list:
  		SCM c = scm_cons (m->self_scm (), SCM_EOL);
 		scm_gc_unprotect_object (m->self_scm ()); /* UGH */
 
-		if (scm_is_pair (ly_cdr (s)))
-			scm_set_cdr_x (ly_cdr (s), c); /* append */
+		if (scm_is_pair (scm_cdr (s)))
+			scm_set_cdr_x (scm_cdr (s), c); /* append */
 		else
 			scm_set_car_x (s, c); /* set first cons */
 		scm_set_cdr_x (s, c);  /* remember last cell */
@@ -861,9 +861,9 @@ Repeated_music:
 	{
 		Music *beg = $4;
 		int times = $3;
-		SCM alts = scm_is_pair ($5) ? ly_car ($5) : SCM_EOL;
+		SCM alts = scm_is_pair ($5) ? scm_car ($5) : SCM_EOL;
 		if (times < scm_ilength (alts)) {
-		  unsmob_music (ly_car (alts))
+		  unsmob_music (scm_car (alts))
 		    ->origin ()->warning (
 		    _ ("More alternatives than repeats.  Junking excess alternatives."));
 		  alts = ly_truncate_list (times, alts);
@@ -918,12 +918,12 @@ Repeated_music:
 Sequential_music:
 	SEQUENTIAL '{' Music_list '}'		{
 		$$ = MY_MAKE_MUSIC ("SequentialMusic");
-		$$->set_property ("elements", ly_car ($3));
+		$$->set_property ("elements", scm_car ($3));
 		$$->set_spot (THIS->here_input ());
 	}
 	| '{' Music_list '}'		{
 		$$ = MY_MAKE_MUSIC ("SequentialMusic");
-		$$->set_property ("elements", ly_car ($2));
+		$$->set_property ("elements", scm_car ($2));
 		$$->set_spot (THIS->here_input ());
 	}
 	;
@@ -931,13 +931,13 @@ Sequential_music:
 Simultaneous_music:
 	SIMULTANEOUS '{' Music_list '}'{
 		$$ = MY_MAKE_MUSIC ("SimultaneousMusic");
-		$$->set_property ("elements", ly_car ($3));
+		$$->set_property ("elements", scm_car ($3));
 		$$->set_spot (THIS->here_input ());
 
 	}
 	| simul_open Music_list simul_close	{
 		$$ = MY_MAKE_MUSIC ("SimultaneousMusic");
-		$$->set_property ("elements", ly_car ($2));
+		$$->set_property ("elements", scm_car ($2));
 		$$->set_spot (THIS->here_input ());
 	}
 	;
@@ -1025,17 +1025,17 @@ Generic_prefix_music_scm:
 
 Generic_prefix_music:
 	Generic_prefix_music_scm {
-		SCM func = ly_car ($1);
-		Input *loc = unsmob_input (ly_cadr ($1));
-		SCM args = ly_cddr ($1);
+		SCM func = scm_car ($1);
+		Input *loc = unsmob_input (scm_cadr ($1));
+		SCM args = scm_cddr ($1);
 		SCM sig = scm_object_property (func, ly_symbol2scm ("music-function-signature"));
 		int k = 0;
 		bool ok  = true; 
 		for (SCM s = sig, t = args;
 			ok && scm_is_pair (s) && scm_is_pair (t);
-			s = ly_cdr (s), t = ly_cdr (t)) {
+			s = scm_cdr (s), t = scm_cdr (t)) {
 			k++;
-			if (scm_call_1 (ly_car (s), ly_car (t)) != SCM_BOOL_T)
+			if (scm_call_1 (scm_car (s), scm_car (t)) != SCM_BOOL_T)
 			{
 				loc->error (_f ("Argument %d failed typecheck", k));
 				THIS->error_level_ = 1;
@@ -1044,7 +1044,7 @@ Generic_prefix_music:
 		}
 		SCM m = SCM_EOL;
 		if (ok)
-			m = scm_apply_0 (func, ly_cdr ($1));
+			m = scm_apply_0 (func, scm_cdr ($1));
 		if (unsmob_music (m))
 			{
 			$$ = unsmob_music (m);
@@ -1084,7 +1084,7 @@ Prefix_composite_music:
 		fraction Music 	
 
 	{
-		int n = scm_to_int (ly_car ($3)); int d = scm_to_int (ly_cdr ($3));
+		int n = scm_to_int (scm_car ($3)); int d = scm_to_int (scm_cdr ($3));
 		Music *mp = $4;
 
 		$$= MY_MAKE_MUSIC ("TimeScaledMusic");
@@ -1247,9 +1247,9 @@ re_rhythmed_music:
 		Music *all = MY_MAKE_MUSIC ("SimultaneousMusic");
 
 		SCM lst = SCM_EOL;
-		for (SCM s = $2; scm_is_pair (s); s = ly_cdr (s))
+		for (SCM s = $2; scm_is_pair (s); s = scm_cdr (s))
 		{
-			Music *music = unsmob_music (ly_car (s));
+			Music *music = unsmob_music (scm_car (s));
 			Music *com = make_lyric_combine_music (name, music);
 			Music *csm = context_spec_music (context,
 				get_next_unique_context (), com, SCM_EOL);
@@ -1343,30 +1343,30 @@ music_property_def:
 	OVERRIDE context_prop_spec embedded_scm '=' scalar {
 		$$ = property_op_to_music (scm_list_4 (
 			ly_symbol2scm ("poppush"),
-			ly_cadr ($2),
+			scm_cadr ($2),
 			$3, $5));
-		$$= context_spec_music (ly_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
+		$$= context_spec_music (scm_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
 	}
 	| REVERT context_prop_spec embedded_scm {
 		$$ = property_op_to_music (scm_list_3 (
 			ly_symbol2scm ("pop"),
-			ly_cadr ($2),
+			scm_cadr ($2),
 			$3));
 
-		$$= context_spec_music (ly_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
+		$$= context_spec_music (scm_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
 	}
 	| SET context_prop_spec '=' scalar {
 		$$ = property_op_to_music (scm_list_3 (
 			ly_symbol2scm ("assign"),
-			ly_cadr ($2),
+			scm_cadr ($2),
 			$4));
-		$$= context_spec_music (ly_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
+		$$= context_spec_music (scm_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
 	}
 	| UNSET context_prop_spec {
 		$$ = property_op_to_music (scm_list_2 (
 			ly_symbol2scm ("unset"),
-			ly_cadr ($2)));
-		$$= context_spec_music (ly_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
+			scm_cadr ($2)));
+		$$= context_spec_music (scm_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
 	}
 	| ONCE music_property_def {
 		SCM e = $2->get_property ("element");
@@ -1462,8 +1462,8 @@ note_chord_element:
 		SCM es = $1->get_property ("elements");
 		SCM postevs = scm_reverse_x ($3, SCM_EOL);
 
-		for (SCM s = es; scm_is_pair (s); s = ly_cdr (s))
-		  unsmob_music (ly_car (s))->set_property ("duration", dur);
+		for (SCM s = es; scm_is_pair (s); s = scm_cdr (s))
+		  unsmob_music (scm_car (s))->set_property ("duration", dur);
 		es = ly_append2 (es, postevs);
 
 		$1-> set_property ("elements", es);
@@ -1653,7 +1653,7 @@ command_element:
 	| TIME_T fraction  {
 		SCM proc= ly_scheme_function ("make-time-signature-set");
 
-		SCM result = scm_apply_2   (proc, ly_car ($2), ly_cdr ($2), SCM_EOL);
+		SCM result = scm_apply_2   (proc, scm_car ($2), scm_cdr ($2), SCM_EOL);
 		scm_gc_protect_object (result);
 		$$ = unsmob_music (result);
 	}
@@ -2010,7 +2010,7 @@ multiplied_duration:
 		$$ = unsmob_duration ($$)->compressed ( $3) .smobbed_copy ();
 	}
 	| multiplied_duration '*' FRACTION {
-		Rational  m (scm_to_int (ly_car ($3)), scm_to_int (ly_cdr ($3)));
+		Rational  m (scm_to_int (scm_car ($3)), scm_to_int (scm_cdr ($3)));
 
 		$$ = unsmob_duration ($$)->compressed (m).smobbed_copy ();
 	}
@@ -2182,9 +2182,9 @@ simple_element:
 		Music *m = unsmob_music ($1);
 		Input i = THIS->pop_spot ();
 		m->set_spot (i);
-		for (SCM s = m->get_property ("elements"); scm_is_pair (s); s = ly_cdr (s))
+		for (SCM s = m->get_property ("elements"); scm_is_pair (s); s = scm_cdr (s))
 		{
-			unsmob_music (ly_car (s))->set_property ("duration", $2);
+			unsmob_music (scm_car (s))->set_property ("duration", $2);
 		}
 		$$ = m;
 	}	
@@ -2591,9 +2591,9 @@ Music *
 property_op_to_music (SCM op)
 {
 	Music *m = 0;
-	SCM tag = ly_car (op);
-	SCM symbol = ly_cadr (op);
-	SCM args = ly_cddr (op);
+	SCM tag = scm_car (op);
+	SCM symbol = scm_cadr (op);
+	SCM args = scm_cddr (op);
 	SCM grob_val = SCM_UNDEFINED;
 	SCM grob_sym = SCM_UNDEFINED;
 	SCM val = SCM_UNDEFINED;
@@ -2601,7 +2601,7 @@ property_op_to_music (SCM op)
 	if (tag == ly_symbol2scm ("assign"))
 		{
 		m = MY_MAKE_MUSIC ("PropertySet");
-		val = ly_car (args);
+		val = scm_car (args);
 		}
 	else if (tag == ly_symbol2scm ("unset"))
 		m = MY_MAKE_MUSIC ("PropertyUnset");
@@ -2609,12 +2609,12 @@ property_op_to_music (SCM op)
 		 || tag == ly_symbol2scm ("push"))
 		{
 		m = MY_MAKE_MUSIC ("OverrideProperty");
-		grob_sym = ly_car (args);
-		grob_val = ly_cadr (args);
+		grob_sym = scm_car (args);
+		grob_val = scm_cadr (args);
 		}
 	else if (tag == ly_symbol2scm ("pop")) {
 		m = MY_MAKE_MUSIC ("RevertProperty");
-		grob_sym = ly_car (args);
+		grob_sym = scm_car (args);
 		}
 
 	m->set_property ("symbol", symbol);

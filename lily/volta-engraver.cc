@@ -88,7 +88,7 @@ Volta_engraver::staff_eligible ()
       programming_error ("Huh? Volta engraver can't find staffs?");
       return false;
     }
-  else if (ly_car (scm_last_pair (staffs)) != staff_)
+  else if (scm_car (scm_last_pair (staffs)) != staff_)
     {
       return false;
     }
@@ -109,19 +109,19 @@ Volta_engraver::process_music ()
   start_string_ = SCM_EOL;
   while (scm_is_pair (cs))
     {
-      SCM c = ly_car (cs);
+      SCM c = scm_car (cs);
 
       if (scm_is_pair (c)
-	  && ly_car (c) == ly_symbol2scm ("volta")
-	  && scm_is_pair (ly_cdr (c)))
+	  && scm_car (c) == ly_symbol2scm ("volta")
+	  && scm_is_pair (scm_cdr (c)))
 	{
-	  if (ly_cadr (c) ==  SCM_BOOL_F)
+	  if (scm_cadr (c) ==  SCM_BOOL_F)
 	    end = true;
 	  else
-	    start_string_ = ly_cadr (c);
+	    start_string_ = scm_cadr (c);
 	}
       
-      cs = ly_cdr (cs);
+      cs = scm_cdr (cs);
     }
 
   if (volta_span_)

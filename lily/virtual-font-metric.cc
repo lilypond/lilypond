@@ -26,18 +26,18 @@ Virtual_font_metric::Virtual_font_metric (SCM font_list)
   SCM name_list = SCM_EOL;
   SCM *name_tail = &name_list;
   
-  for (SCM s = font_list; scm_is_pair (s); s = ly_cdr (s))
+  for (SCM s = font_list; scm_is_pair (s); s = scm_cdr (s))
     {
-      if (Font_metric *fm = unsmob_metrics (ly_car (s)))
+      if (Font_metric *fm = unsmob_metrics (scm_car (s)))
 	{
-	  *tail =  scm_cons (ly_car (s),SCM_EOL);
+	  *tail =  scm_cons (scm_car (s),SCM_EOL);
 	  tail = SCM_CDRLOC (*tail);
 
 	  if (!scm_is_number (mag))
 	    /* Ugh.  */
-	    mag = ly_cdr (fm->description_);
+	    mag = scm_cdr (fm->description_);
 
-	  *name_tail = scm_cons (ly_car (fm->description_), SCM_EOL);
+	  *name_tail = scm_cons (scm_car (fm->description_), SCM_EOL);
 	  name_tail = SCM_CDRLOC (*name_tail);
 	}
     }
@@ -48,7 +48,7 @@ Virtual_font_metric::Virtual_font_metric (SCM font_list)
 Real 
 Virtual_font_metric::design_size () const
 {
-  return unsmob_metrics (ly_car (font_list_))-> design_size ();
+  return unsmob_metrics (scm_car (font_list_))-> design_size ();
 }
 
 void
@@ -61,8 +61,8 @@ int
 Virtual_font_metric::count () const
 {
   int k = 0;
-  for (SCM s = font_list_; scm_is_pair (s); s = ly_cdr (s))
-      k += unsmob_metrics (ly_car (s))->count ();
+  for (SCM s = font_list_; scm_is_pair (s); s = scm_cdr (s))
+      k += unsmob_metrics (scm_car (s))->count ();
   return k;
 }
 
@@ -70,9 +70,9 @@ Stencil
 Virtual_font_metric::find_by_name (String glyph) const
 {
   Stencil m;  
-  for (SCM s = font_list_; m.is_empty () && scm_is_pair (s); s = ly_cdr (s))
+  for (SCM s = font_list_; m.is_empty () && scm_is_pair (s); s = scm_cdr (s))
     {
-      m = unsmob_metrics (ly_car (s))->find_by_name (glyph);
+      m = unsmob_metrics (scm_car (s))->find_by_name (glyph);
     }
 
   return m;
@@ -96,9 +96,9 @@ Offset
 Virtual_font_metric::get_indexed_wxwy (int code)  const
 {
   int total = 0;
-  for (SCM s = font_list_; scm_is_pair (s); s = ly_cdr (s))
+  for (SCM s = font_list_; scm_is_pair (s); s = scm_cdr (s))
     {
-      Font_metric *fm = unsmob_metrics (ly_car (s));
+      Font_metric *fm = unsmob_metrics (scm_car (s));
       if (code < total + fm->count ())
 	return fm->get_indexed_wxwy (code - total);
       total += fm->count ();
@@ -110,9 +110,9 @@ Box
 Virtual_font_metric::get_indexed_char (int code)  const
 {
   int total = 0;
-  for (SCM s = font_list_; scm_is_pair (s); s = ly_cdr (s))
+  for (SCM s = font_list_; scm_is_pair (s); s = scm_cdr (s))
     {
-      Font_metric *fm = unsmob_metrics (ly_car (s));
+      Font_metric *fm = unsmob_metrics (scm_car (s));
       if (code < total + fm->count ())
 	return fm->get_indexed_char (code - total);
       total += fm->count ();
@@ -125,9 +125,9 @@ Virtual_font_metric::name_to_index (String glyph) const
 {
   Stencil m;
   int total = 0; 
-  for (SCM s = font_list_; m.is_empty () && scm_is_pair (s); s = ly_cdr (s))
+  for (SCM s = font_list_; m.is_empty () && scm_is_pair (s); s = scm_cdr (s))
     {
-      Font_metric *m =unsmob_metrics (ly_car (s));
+      Font_metric *m =unsmob_metrics (scm_car (s));
       int k = m->name_to_index (glyph);
       if (k >= 0)
 	return total + k;
@@ -143,9 +143,9 @@ Virtual_font_metric::get_indexed_char_stencil (int code)  const
   Stencil  m ;  
   int total = 0;
   
-  for (SCM s = font_list_; scm_is_pair (s); s = ly_cdr (s))
+  for (SCM s = font_list_; scm_is_pair (s); s = scm_cdr (s))
     {
-      Font_metric *fm = unsmob_metrics (ly_car (s));
+      Font_metric *fm = unsmob_metrics (scm_car (s));
       if (code < total + fm->count ())
 	{
 	  /* Ugh.  */
@@ -176,6 +176,6 @@ LY_DEFINE (ly_make_virtual_font, "ly:make-virtual-font", 0, 0, 1,
 String
 Virtual_font_metric::coding_scheme () const
 {
-  Font_metric *fm = unsmob_metrics (ly_car (font_list_));
+  Font_metric *fm = unsmob_metrics (scm_car (font_list_));
   return fm->coding_scheme ();
 }

@@ -73,11 +73,11 @@ Measure_grouping_engraver::process_music ()
 	
       Rational where (0);
       for (SCM s = grouping; scm_is_pair (s);
-	   where += Rational (scm_to_int (ly_car (s))) * bl,
-	   s = ly_cdr (s)
+	   where += Rational (scm_to_int (scm_car (s))) * bl,
+	   s = scm_cdr (s)
 	   )
 	{
-	  int grouplen = scm_to_int (ly_car (s));
+	  int grouplen = scm_to_int (scm_car (s));
 	  if (where == mp)
 	    {
 	      if (grouping_)

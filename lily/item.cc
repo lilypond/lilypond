@@ -157,8 +157,8 @@ Item::handle_prebroken_dependencies ()
     {
       SCM args = scm_list_n (scm_int2num (break_status_dir ()), SCM_UNDEFINED);
       SCM result = scm_apply_0 (vis, args);
-      bool trans = ly_scm2bool (ly_car (result));
-      bool empty = ly_scm2bool (ly_cdr (result));
+      bool trans = ly_scm2bool (scm_car (result));
+      bool empty = ly_scm2bool (scm_cdr (result));
       
       if (empty && trans)
 	suicide ();

@@ -90,9 +90,9 @@ Drum_notes_engraver::process_music ()
       
       if (scm_is_pair (defn))
 	{
-	  SCM pos = ly_caddr (defn);
-	  SCM style =ly_car (defn);
-	  SCM script = ly_cadr (defn);
+	  SCM pos = scm_caddr (defn);
+	  SCM style =scm_car (defn);
+	  SCM script = scm_cadr (defn);
 	  
 	  if (scm_integer_p (pos) == SCM_BOOL_T)
 	    note->set_property ("staff-position", pos);

@@ -45,9 +45,9 @@ Quote_iterator::accept_music_type (Music *mus) const
 {
   SCM accept = get_outlet()->get_property ("quotedEventTypes");
   for (SCM s =  mus->get_property ("types");
-       scm_is_pair (s);  s = ly_cdr (s))
+       scm_is_pair (s);  s = scm_cdr (s))
     {
-      if (scm_memq (ly_car (s), accept) != SCM_BOOL_F)
+      if (scm_memq (scm_car (s), accept) != SCM_BOOL_F)
 	return true;
     }
 
@@ -87,7 +87,7 @@ binsearch_scm_vector (SCM vec, SCM key, bool (*is_less)(SCM a,SCM b))
   {
     int cmp = (lo + hi) / 2;
 
-      SCM when = ly_caar (SCM_VECTOR_REF (vec, cmp));
+      SCM when = scm_caar (SCM_VECTOR_REF (vec, cmp));
       bool result =  (*is_less) (key, when);
       if (result)
           hi = cmp;
@@ -137,7 +137,7 @@ Moment
 Quote_iterator::pending_moment () const
 {
   SCM entry = SCM_VECTOR_REF (event_vector_, event_idx_);
-  return *unsmob_moment (ly_caar (entry)) - start_moment_;
+  return *unsmob_moment (scm_caar (entry)) - start_moment_;
 }
 
 void
@@ -150,7 +150,7 @@ Quote_iterator::process (Moment m)
     {
       entry = SCM_VECTOR_REF (event_vector_, event_idx_);
 
-      Moment em = *unsmob_moment (ly_caar (entry));
+      Moment em = *unsmob_moment (scm_caar (entry));
 
       if (em > m)
 	return ;
@@ -163,18 +163,18 @@ Quote_iterator::process (Moment m)
 
   if (scm_is_pair (entry))
     {
-      Pitch * quote_pitch = unsmob_pitch (ly_cdar (entry));
+      Pitch * quote_pitch = unsmob_pitch (scm_cdar (entry));
 
       /*
 	The pitch that sounds like central C
        */
       Pitch * me_pitch = unsmob_pitch (get_outlet ()->get_property ("instrumentTransposition"));
       
-      for (SCM s = ly_cdr (entry); scm_is_pair (s); s = ly_cdr (s))
+      for (SCM s = scm_cdr (entry); scm_is_pair (s); s = scm_cdr (s))
 	{
-	  SCM ev_acc = ly_car (s);
+	  SCM ev_acc = scm_car (s);
 
-	  Music * mus = unsmob_music (ly_car (ev_acc));
+	  Music * mus = unsmob_music (scm_car (ev_acc));
 	  if (!mus)
 	    programming_error ("need music in quote.");
 	  else if (accept_music_type (mus))

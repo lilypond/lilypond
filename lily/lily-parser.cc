@@ -125,7 +125,7 @@ Lily_parser::parse_string (String ly_code)
 
 
   SCM oldmod = scm_current_module ();
-  scm_set_current_module (ly_car (lexer_->scopes_));
+  scm_set_current_module (scm_car (lexer_->scopes_));
   
   // TODO: use $parser 
   lexer_->set_identifier (ly_symbol2scm ("parser"),

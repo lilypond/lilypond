@@ -44,7 +44,7 @@ inline int my_isnan (Real r) { return isnan (r); }
 SCM
 ly_last (SCM list)
 {
-  return ly_car (scm_last_pair (list));
+  return scm_car (scm_last_pair (list));
 }
 
 
@@ -156,7 +156,7 @@ index_get_cell (SCM s, Direction d)
 {
   
   assert (d);
-  return (d == LEFT) ? ly_car (s) : ly_cdr (s);
+  return (d == LEFT) ? scm_car (s) : scm_cdr (s);
 }
 
 SCM
@@ -213,7 +213,7 @@ bool
 is_number_pair (SCM p)
 {
   return scm_is_pair (p)
-    && scm_is_number (ly_car (p)) && scm_is_number (ly_cdr (p));
+    && scm_is_number (scm_car (p)) && scm_is_number (scm_cdr (p));
 }
 
 typedef void (*Void_fptr) ();
@@ -276,7 +276,7 @@ LY_DEFINE(ly_assoc_get, "ly:assoc-get",
     default_value = SCM_BOOL_F;
   
   if (scm_is_pair (handle))
-    return ly_cdr (handle);
+    return scm_cdr (handle);
   else
     return default_value;
 }
@@ -301,14 +301,14 @@ to_dir (SCM s)
 Interval
 ly_scm2interval (SCM p)
 {
-  return Interval (scm_to_double (ly_car (p)), scm_to_double (ly_cdr (p)));
+  return Interval (scm_to_double (scm_car (p)), scm_to_double (scm_cdr (p)));
 }
 
 Drul_array<Real>
 ly_scm2realdrul (SCM p)
 {
-  return Drul_array<Real> (scm_to_double (ly_car (p)),
-			   scm_to_double (ly_cdr (p)));
+  return Drul_array<Real> (scm_to_double (scm_car (p)),
+			   scm_to_double (scm_cdr (p)));
 }
 
 SCM
@@ -339,7 +339,7 @@ appendable_list_append (SCM l, SCM elt)
 {
   SCM newcons = scm_cons (elt, SCM_EOL);
   
-  scm_set_cdr_x (ly_car (l), newcons);      
+  scm_set_cdr_x (scm_car (l), newcons);      
   scm_set_car_x (l, newcons);
 }
 
@@ -352,8 +352,8 @@ ly_offset2scm (Offset o)
 Offset
 ly_scm2offset (SCM s)
 {
-  return Offset (scm_to_double (ly_car (s)),
-		 scm_to_double (ly_cdr (s)));
+  return Offset (scm_to_double (scm_car (s)),
+		 scm_to_double (scm_cdr (s)));
 }
 
 LY_DEFINE (ly_number2string, "ly:number->string",
@@ -411,7 +411,7 @@ SCM
 ly_deep_copy (SCM src)
 {
   if (scm_is_pair (src))
-    return scm_cons (ly_deep_copy (ly_car (src)), ly_deep_copy (ly_cdr (src)));
+    return scm_cons (ly_deep_copy (scm_car (src)), ly_deep_copy (scm_cdr (src)));
   else if (ly_c_vector_p (src))
     {
       int len = SCM_VECTOR_LENGTH (src);
@@ -433,11 +433,11 @@ ly_assoc_chain (SCM key, SCM achain)
 {
   if (scm_is_pair (achain))
     {
-      SCM handle = scm_assoc (key, ly_car (achain));
+      SCM handle = scm_assoc (key, scm_car (achain));
       if (scm_is_pair (handle))
 	return handle;
       else
-	return ly_assoc_chain (key, ly_cdr (achain));
+	return ly_assoc_chain (key, scm_cdr (achain));
     }
   else
     return SCM_BOOL_F;
@@ -467,11 +467,11 @@ ly_assoc_cdr (SCM key, SCM alist)
 {
   if (scm_is_pair (alist))
     {
-      SCM trykey = ly_caar (alist);
-      if (scm_is_pair (trykey) && to_boolean (scm_equal_p (key, ly_cdr (trykey))))
-	return ly_car (alist);
+      SCM trykey = scm_caar (alist);
+      if (scm_is_pair (trykey) && to_boolean (scm_equal_p (key, scm_cdr (trykey))))
+	return scm_car (alist);
       else
-	return ly_assoc_cdr (key, ly_cdr (alist));
+	return ly_assoc_cdr (key, scm_cdr (alist));
     }
   return SCM_BOOL_F;
 }
@@ -519,7 +519,7 @@ ly_truncate_list (int k, SCM lst)
     {
       SCM s = lst;
       k--;
-      for (; scm_is_pair (s) && k--; s = ly_cdr (s))
+      for (; scm_is_pair (s) && k--; s = scm_cdr (s))
 	;
 
       if (scm_is_pair (s))
@@ -618,11 +618,11 @@ SCM
 ly_unique (SCM list)
 {
   SCM unique = SCM_EOL;
-  for (SCM i = list; scm_is_pair (i); i = ly_cdr (i))
+  for (SCM i = list; scm_is_pair (i); i = scm_cdr (i))
     {
-      if (!scm_is_pair (ly_cdr (i))
-	  || !ly_c_equal_p (ly_car (i), ly_cadr (i)))
-	unique = scm_cons (ly_car (i), unique);
+      if (!scm_is_pair (scm_cdr (i))
+	  || !ly_c_equal_p (scm_car (i), scm_cadr (i)))
+	unique = scm_cons (scm_car (i), unique);
     }
   return scm_reverse_x (unique, SCM_EOL);
 }
@@ -645,8 +645,8 @@ ly_list_qsort_uniq_x (SCM lst)
   int len = scm_ilength (lst);
   SCM *arr = new SCM[len];
   int k = 0;
-  for (SCM s = lst; SCM_NNULLP (s); s = ly_cdr (s))
-    arr[k++] = ly_car (s);
+  for (SCM s = lst; SCM_NNULLP (s); s = scm_cdr (s))
+    arr[k++] = scm_car (s);
 
   assert (k == len);
   qsort (arr, len, sizeof (SCM), &scm_default_compare);
@@ -682,8 +682,8 @@ ly_split_list (SCM s, SCM list)
   SCM after = list;
   for (; scm_is_pair (after);)
     {
-      SCM i = ly_car (after);
-      after = ly_cdr (after);
+      SCM i = scm_car (after);
+      after = scm_cdr (after);
       if (ly_c_equal_p (i, s))
 	break;
       before = scm_cons (i, before);
@@ -710,9 +710,9 @@ display_list (SCM s)
   SCM p = scm_current_output_port ();
 
   scm_puts ("(", p);
-  for (; scm_is_pair (s); s =ly_cdr (s))
+  for (; scm_is_pair (s); s =scm_cdr (s))
     {
-      scm_display (ly_car (s), p);
+      scm_display (scm_car (s), p);
       scm_puts (" ", p);      
     }
   scm_puts (")", p);
@@ -724,9 +724,9 @@ int_list_to_slice (SCM l)
 {
   Slice s;
   s.set_empty ();
-  for (; scm_is_pair (l); l = ly_cdr (l))
-    if (scm_is_number (ly_car (l)))
-      s.add_point (scm_to_int (ly_car (l))); 
+  for (; scm_is_pair (l); l = scm_cdr (l))
+    if (scm_is_number (scm_car (l)))
+      s.add_point (scm_to_int (scm_car (l))); 
   return s;
 }
 
@@ -737,9 +737,9 @@ int_list_to_slice (SCM l)
 SCM
 robust_list_ref (int i, SCM l)
 {
-  while (i-- > 0 && scm_is_pair (ly_cdr (l)))
-    l = ly_cdr (l);
-  return ly_car (l);
+  while (i-- > 0 && scm_is_pair (scm_cdr (l)))
+    l = scm_cdr (l);
+  return scm_car (l);
 }
 
 Real
@@ -793,10 +793,10 @@ alist_to_hashq (SCM alist)
     return scm_c_make_hash_table (0);
 	  
   SCM tab = scm_c_make_hash_table (i);
-  for (SCM s = alist; scm_is_pair (s); s = ly_cdr (s))
+  for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
     {
-      SCM pt = ly_cdar (s);
-      scm_hashq_set_x (tab, ly_caar (s), pt);
+      SCM pt = scm_cdar (s);
+      scm_hashq_set_x (tab, scm_caar (s), pt);
     }
   return tab; 
 }

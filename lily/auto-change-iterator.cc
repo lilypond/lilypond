@@ -96,13 +96,13 @@ Auto_change_iterator::process (Moment m)
   Moment now = get_outlet ()->now_mom ();
   Moment *splitm = 0;
   
-  for (; scm_is_pair (split_list_); split_list_ = ly_cdr (split_list_))
+  for (; scm_is_pair (split_list_); split_list_ = scm_cdr (split_list_))
     {
-      splitm = unsmob_moment (ly_caar (split_list_));
+      splitm = unsmob_moment (scm_caar (split_list_));
       if ((*splitm + start_moment_) > now)
 	break ;
 
-      SCM tag = ly_cdar (split_list_);
+      SCM tag = scm_cdar (split_list_);
       Direction d = to_dir  (tag);
       
       if (d && d != where_dir_)

@@ -31,12 +31,12 @@ Spaceable_grob::add_rod (Grob *me , Grob * p, Real d)
   
   SCM mins = get_minimum_distances (me);
   SCM newdist = scm_make_real (d);
-  for (SCM s = mins; scm_is_pair (s); s = ly_cdr (s))
+  for (SCM s = mins; scm_is_pair (s); s = scm_cdr (s))
     {
-      SCM dist = ly_car (s);
-      if (ly_car (dist) == p->self_scm ())
+      SCM dist = scm_car (s);
+      if (scm_car (dist) == p->self_scm ())
 	{
-	  scm_set_cdr_x (dist, scm_max (ly_cdr (dist),
+	  scm_set_cdr_x (dist, scm_max (scm_cdr (dist),
 				       newdist));
 	  return ;
 	}
@@ -70,9 +70,9 @@ Spaceable_grob::add_spring (Grob*me, Grob * p, Real d, Real strength)
     
 #ifndef NDEBUG
   SCM mins = me->get_property ("ideal-distances");
-  for (SCM s = mins; scm_is_pair (s); s = ly_cdr (s))
+  for (SCM s = mins; scm_is_pair (s); s = scm_cdr (s))
     {
-      Spring_smob * sp = unsmob_spring(ly_car (s));
+      Spring_smob * sp = unsmob_spring(scm_car (s));
       if (sp->other_ == p)
 	{
 	  programming_error ("already have that spring");
