@@ -116,7 +116,6 @@ VoiceContext = \translator {
 	\consists "Melisma_engraver";
 	\consists "Text_engraver";
 	\consists "A2_engraver";
-	devNullVoice = #'unisolo
 	\consists "Voice_devnull_engraver";
 
 	\consists "Script_engraver";
@@ -182,7 +181,6 @@ ThreadContext = \translator{
 	\type Engraver_group_engraver;
 	\name Thread;
 	
-	devNullThread = #'unisolo
 	\consists "Thread_devnull_engraver";
 	\consists "Note_heads_engraver";
 	\consists "Note_head_line_engraver";

@@ -7,6 +7,8 @@
 
 \version "1.3.120";
 
+instrument = "Orchestra"
+
 \include "header.ly"
 \include "global.ly"
 
@@ -71,6 +73,6 @@ archiGroup =  \context StaffGroup = archi_group <
 		copyright = "public domain";
 	}
 	\include "coriolan-paper.ly"
-%	\include "coriolan-midi.ly"
+	\include "coriolan-midi.ly"
 }
 

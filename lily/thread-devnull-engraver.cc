@@ -33,7 +33,7 @@ Thread_devnull_engraver::acknowledge_grob (Grob_info i)
 #endif
 
   if (gh_equal_p (s, ly_symbol2scm ("allways"))
-      || (gh_equal_p (s, ly_symbol2scm ("unisolo"))
+      || (s = SCM_EOL
 	  && daddy_trans_l_->id_str_.left_str (3) == "two"
 	  && (to_boolean (get_property ("unison"))
 	      || to_boolean (get_property ("unisilence")))

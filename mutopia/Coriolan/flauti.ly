@@ -4,13 +4,13 @@
 \include "flauto-1.ly"
 \include "flauto-2.ly"
 
-flautiStaff =  \notes \context VoiceCombineStaff = flauti <
-	\property VoiceCombineStaff.midiInstrument = #"flute"
-	\property VoiceCombineStaff.instrument = #"2 Flauti"
-	\property VoiceCombineStaff.instr = #"Fl."
+flautiStaff =  \notes \context Staff = flauti <
+	\property Staff.midiInstrument = #"flute"
+	\property Staff.instrument = #"2 Flauti"
+	\property Staff.instr = #"Fl."
 	\global
-	\context VoiceCombineVoice=one \partcombine VoiceCombineVoice
-		\context VoiceCombineThread=one \flautoI
-		\context VoiceCombineThread=two \flautoII
+	\context Voice=one \partcombine Voice
+		\context Thread=one \flautoI
+		\context Thread=two \flautoII
 >
 

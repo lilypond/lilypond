@@ -123,8 +123,8 @@ flautoII =  \notes \relative c {
 	bes\f~|
 	bes\p|
 	c1\f~|
-	\property VoiceCombineVoice.crescendoText = #"cresc."
-	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
+	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoSpanner = #'dashed-line
 	c\p\<~|
 	c~|
 	c~|
@@ -158,8 +158,8 @@ flautoII =  \notes \relative c {
 	R1|
 	c4-. g'-. r2|
 	as4-. e-. r2|
-	\property VoiceCombineVoice.decrescendoText = #"dim."
-	\property VoiceCombineVoice.decrescendoSpanner = #'dashed-line
+	\property Voice.decrescendoText = #"dim."
+	\property Voice.decrescendoSpanner = #'dashed-line
 	f4\> r f r|
 	R1|
 	\!es4\p r r2|

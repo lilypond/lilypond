@@ -10,7 +10,9 @@ LOCALSTEPMAKE_TEMPLATES=mutopia
 include $(depth)/make/stepmake.make
 
 tarball=solo-cello-suite-ii
+mutopia-examples=scsii-cello scsii-viola
+mutopia-letter=$(mutopia-examples:%=out-letter/%.ps.gz)
 
 mutopia:
-	$(MAKE) examples="scsii-cello scsii-viola" PAPERSIZE=letter local-WWW out-letter/scsii-cello.ps.gz out-letter/scsii-viola.ps.gz
+	$(MAKE) examples="$(mutopia-examples)" PAPERSIZE=letter local-WWW $(mutopia-letter)
 

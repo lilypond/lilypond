@@ -118,8 +118,8 @@ arpeggios that cross staffs.
 (translator-property-description 'decrescendoText string? "Text to print at start of non-hairpin decrecscendo, ie: @samp{dim.}")
 (translator-property-description 'devNullThread symbol? "User control of Thread_devnull_engraver: one of
 @table @samp
-@item unisolo
-Behave in normal way: remove one set of grobs when threads are in unisolo.
+@item (), or unset
+Behave in normal way: remove one set of grobs when in unisolo.
 @item allways:
 Remove any grob that comes along.
 @item never:
@@ -128,7 +128,7 @@ Do nothing.
 ")
 (translator-property-description 'devNullVoice symbol? "User control of Voice_devnull_engraver: one of
 @table @samp
-@item unisolo
+@item (), or unset
 Behave in normal way: remove spanners when in unisolo.
 @item allways:
 Remove any spanners that come along.

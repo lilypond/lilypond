@@ -16,8 +16,8 @@ tromboII =  \notes \relative c {
 	R1*6|
 	r4 c-.\f r2|
 	R1*2|
-	\property VoiceCombineVoice.crescendoText = #"cresc."
-	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
+	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoSpanner = #'dashed-line
 	r2 c4\p\< r|
 	r2 c4 r|
 	r2 c4 r|
@@ -108,8 +108,8 @@ tromboII =  \notes \relative c {
 	c4 r r2|
 	R1*18|
 	c1\f~|
-	\property VoiceCombineVoice.crescendoText = #"cresc."
-	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
+	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoSpanner = #'dashed-line
 	c\p\< ~|
 	c~|
 	c~|
@@ -141,8 +141,8 @@ tromboII =  \notes \relative c {
 	R1|
 	c,4-. c-. r2|
 	c4-. c-. r2|
-	\property VoiceCombineVoice.decrescendoText = #"dim."
-	\property VoiceCombineVoice.decrescendoSpanner = #'dashed-line
+	\property Voice.decrescendoText = #"dim."
+	\property Voice.decrescendoSpanner = #'dashed-line
 	c4\> r g r|
 	R1|
 	\!g4\p r r2|

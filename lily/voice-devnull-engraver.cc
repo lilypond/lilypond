@@ -43,8 +43,8 @@ Voice_devnull_engraver::try_music (Music *m)
 #endif
 
   if (gh_equal_p (s, ly_symbol2scm ("allways"))
-      || (gh_equal_p (s, ly_symbol2scm ("unisolo"))
-	  &&daddy_trans_l_->id_str_.left_str (3) == "two"
+      || (s == SCM_EOL
+	  && daddy_trans_l_->id_str_.left_str (3) == "two"
 	  && (to_boolean (get_property ("unison"))
 	      || to_boolean (get_property ("unisilence")))))
     {

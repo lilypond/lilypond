@@ -5,30 +5,17 @@
 % #(set! point-and-click #t)
 #(define text-flat '((font-relative-size . -2) (music "accidentals--1")))
 
-staffCombineStaffProperties = {
-	\property Staff.devNullThread = #'unisolo
-	\property Staff.soloADue = ##t
-	\property Staff.soloText = #""
-	\property Staff.soloIIText = #""
+staffCombinePianoStaffProperties = {
+	\property PianoStaff.devNullThread = #'()
+	\property PianoStaff.soloADue = ##t
+	\property PianoStaff.soloText = #""
+	\property PianoStaff.soloIIText = #""
 	% This is non-conventional, but currently it is
 	% the only way to tell the difference.
-	\property Staff.aDueText = #"\\`a2"
-	\property Staff.splitInterval = #'(1 . 0)
-	\property Staff.changeMoment = #`(,(make-moment 1 1) . ,(make-moment 1 1))
+	\property PianoStaff.aDueText = #"\\`a2"
+	\property PianoStaff.splitInterval = #'(1 . 0)
+	\property PianoStaff.changeMoment = #`(,(make-moment 1 1) . ,(make-moment 1 1))
 }
-
-staffCombineVoiceProperties = {
-	\property Voice.devNullThread = #'unisolo
-	\property Voice.soloADue = ##t
-	\property Voice.soloText = #""
-	\property Voice.soloIIText = #""
-	% This is non-conventional, but currently it is
-	% the only way to tell the difference.
-	\property Voice.aDueText = #"\\`a2"
-	\property Voice.splitInterval = #'(1 . 0)
-	\property Voice.changeMoment = #`(,(make-moment 1 1) . ,(make-moment 1 1))
-}
-
 
 % Coriolan 218-222
 flautoI = \notes\relative c'' {
@@ -213,9 +200,9 @@ contrabasso = \notes\relative c {
 	  \context Thread=one \violaI
 	  \context Thread=two \violaII
       >
-      \context GrandStaff=bass <
+      \context PianoStaff=bass <
+	\staffCombinePianoStaffProperties
         \context Staff=one <
-	  %\staffCombineStaffProperties
 	  \property Staff.midiInstrument = #"cello"
 	  \property Staff.instrument = #'((kern . 0.5)
 	    (lines "Violoncello" (rows "    e") (rows "Contrabasso")))
@@ -223,7 +210,6 @@ contrabasso = \notes\relative c {
 	  \clef bass;
 	>
 	\context Staff=two <
-	  %\staffCombineStaffProperties
 	  \property Staff.midiInstrument = #"contrabass"
 	  \property Staff.instrument = "Contrabasso"
 	  \property Staff.instr = "C.B."
@@ -231,8 +217,8 @@ contrabasso = \notes\relative c {
 	  \skip 1*4; % sustain clef
 	>
 	\context Staff=one \partcombine Staff
-	  \context Voice=one { \staffCombineVoiceProperties \violoncello }
-	  \context Voice=two { \staffCombineVoiceProperties \contrabasso }
+	  \context Voice=one \violoncello
+	  \context Voice=two \contrabasso
       >
     >
   >
@@ -251,9 +237,11 @@ contrabasso = \notes\relative c {
       % The staff combine (bassi part) needs a
       % thread_devnull_engraver here.
       % Instead of maintaining two separate hierarchies,
-      % we switch add it, but switch it off immideately.
-      % The staff combine parts switch it on.
-      devNullThread = #'never
+      % we switch add it, but switch it off immediately.
+      % --> move to Score level to be able to override
+      % The staff combine part switches it on.
+      
+      %% devNullThread = #'never
       \consists "Thread_devnull_engraver";
     }
     \translator{
@@ -262,16 +250,16 @@ contrabasso = \notes\relative c {
     }
     \translator {
       \OrchestralScoreContext
-      skipBars = ##t
+      % skipBars = ##t
 
       soloText = #"I."
       soloIIText = #"II."
+      devNullThread = #'never
 
       % Hmm
       currentBarNumber = #218
       BarNumber \override #'padding = #3
       RestCollision \override #'maximum-rest-count = #1
-      marginScriptHorizontalAlignment = #1
       TimeSignature \override #'style = #'C
     }
   }
