@@ -171,10 +171,10 @@
   (ly:outputter-dump-string
    putter
    (string-append "\\leavevmode\n\\lybox{0}{0}{0}{"
-		  (ly:number->string (ly:paper-line-extent line Y))
+		  (ly:number->string (ly:paper-system-extent line Y))
 		  "}{"))
 
-  (ly:outputter-dump-stencil putter (ly:paper-line-stencil line))
+  (ly:outputter-dump-stencil putter (ly:paper-system-stencil line))
   (ly:outputter-dump-string
    putter
    (if last?

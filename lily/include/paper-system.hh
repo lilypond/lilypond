@@ -1,5 +1,5 @@
 /*
-  paper-line.hh -- declare Paper_line
+  paper-system.hh -- declare Paper_system
 
   source file of the GNU LilyPond music typesetter
 
@@ -13,9 +13,17 @@
 #include "offset.hh"
 #include "stencil.hh"
 
-class Paper_line
+/*
+  A formatted "system" (A block of titling also is a Paper_system)
+
+  To save memory, we don't keep around the System grobs, but put the
+  formatted content of the grob is put into a Paper_system. Page-breaking handles
+  Paper_system objects.
+  
+ */
+class Paper_system
 {
-  DECLARE_SMOBS (Paper_line, );
+  DECLARE_SMOBS (Paper_system, );
   Stencil stencil_;
   bool is_title_;
   
@@ -23,7 +31,7 @@ public:
   Real penalty_;
   int number_;
 
-  Paper_line (Stencil, bool);
+  Paper_system (Stencil, bool);
 
   Offset dim () const;
   Stencil to_stencil () const;
@@ -32,6 +40,6 @@ public:
   Real penalty () const;
 };
 
-DECLARE_UNSMOB (Paper_line, paper_line);
+DECLARE_UNSMOB (Paper_system, paper_line);
 
 #endif /* PAPER_LINE_HH */

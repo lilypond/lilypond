@@ -20,7 +20,7 @@
   (let*
       ((systems (ly:score-embedded-format score paper))
        (1st (vector-ref systems 0))
-       (stencil (ly:paper-line-stencil 1st)) )
+       (stencil (ly:paper-system-stencil 1st)) )
 
     (ly:stencil-align-to! stencil Y CENTER)
     (display (ly:stencil-extent stencil X))

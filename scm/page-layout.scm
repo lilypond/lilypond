@@ -33,55 +33,62 @@
 ;; TODO: take <optimally-broken-page-node> iso. page-number
 ;; for all of these functions ?
 
-(define-public (TAGLINE-or-tagline-from-header paper scopes)
-  (let* ((props (page-properties paper))
-	 (tagline-var (ly:modules-lookup scopes 'tagline))
-	 (tagline (if (markup? tagline-var) tagline-var TAGLINE)))
+(define-public (plain-header paper scopes page-number last?)
+  "Standard header for a part: page number --outside--  and instrument--centered."
 
-    (cond ((string? tagline)
-	   (if (not (equal? tagline ""))
-	       (interpret-markup paper props
-				 (markup #:fill-line (tagline "")))))
-	  ((markup? tagline) (interpret-markup paper props tagline)))))
+  (let* ((props (page-properties paper) )
+	 (pnum (markup #:bold (number->string page-number)))
+	 (instr (ly:modules-lookup scopes 'instrument))
+	 (line (list "" (if (markup? instr) instr "") pnum)))
 
-(define-public (copyright-from-header paper scopes)
-  (let ((props (page-properties paper))
-	(copyright (ly:modules-lookup scopes 'copyright)))
+    (if (even? page-number)
+	(set! line (reverse line)))
 
-    (cond ((string? copyright)
-	   (if (not (equal? copyright ""))
-	       (interpret-markup paper props
-				 (markup #:fill-line (copyright "")))))
-	  ((markup? copyright) (interpret-markup paper props copyright)))))
-
-
-
-;; TODO: add instrument name.
-(define-public (plain-header paper scopes page-number)
-  (let ((props (page-properties paper) ))
-    (interpret-markup paper props
-		      (markup #:fill-line
-			      ("" #:bold (number->string page-number))))))
-
-; TODO: insert tagline and/or copyright
-(define-public (plain-footer paper scopes page-number)
-  (let ((props (page-properties paper)))
-
-
-    ;; page number already in header.
-    '()
-    
+    (if (< 1 page-number)
+	(interpret-markup
+	 paper props (make-fill-line-markup line))
+	'())
     ))
-  
 
-(define (page-headfoot paper scopes number sym sepsym dir)
+
+;; TODO: add publisher ID on non-first page.
+(define-public (plain-footer paper scopes page-number last?)
+  "Standard footer. Empty, save for first (copyright) and last (tagline) page."
+  
+  (let*
+      ((props (page-properties paper))
+       (copyright (ly:modules-lookup scopes 'copyright))
+       (tagline-var (ly:modules-lookup scopes 'tagline))
+       (tagline (if (markup? tagline-var) tagline-var TAGLINE))
+       (stencil #f))
+
+    (if last?
+	(set! stencil
+	      (ly:stencil-combine-at-edge
+	       stencil Y DOWN (interpret-markup paper props tagline)
+	       0.0
+	       )))
+
+    (if (and (= 1 page-number)
+	     (markup? copyright))
+
+	(set! stencil
+	      (ly:stencil-combine-at-edge
+	       stencil Y DOWN (interpret-markup paper props copyright)
+	       0.0
+	       )))
+
+    stencil))
+  
+(define (page-headfoot paper scopes number sym sepsym dir last?)
+  "Create a stencil including separating space."
   (let*
       ((header-proc (ly:output-def-lookup paper sym))
        (sep (ly:output-def-lookup paper sepsym))
        (stencil (ly:make-stencil "" '(0 . 0) '(0 . 0)))
        (head-stencil
 	(if (procedure? header-proc)
-	    (header-proc paper scopes number)
+	    (header-proc paper scopes number last?)
 	    #f)))
 
     (if (and (number? sep) (ly:stencil? head-stencil))
@@ -93,13 +100,13 @@
     head-stencil))
 
 (define-public (default-page-music-height paper scopes number last?)
+  "Printable area for music and titles; matches default-page-make-stencil." 
   (let*
       ((h (- (ly:output-def-lookup paper 'vsize)
 	     (ly:output-def-lookup paper 'top-margin)
 	     (ly:output-def-lookup paper 'bottom-margin)))
-       (head (page-headfoot paper scopes number 'make-header 'head-sep UP))
-       (foot (page-headfoot paper scopes number 'make-footer 'foot-sep DOWN))
-       )
+       (head (page-headfoot paper scopes number 'make-header 'head-sep UP last?))
+       (foot (page-headfoot paper scopes number 'make-footer 'foot-sep DOWN last?)))
     (- h (if (ly:stencil? head)
 	     (interval-length (ly:stencil-extent head Y))
 	     0)
@@ -110,29 +117,29 @@
 
 
 (define-public (default-page-make-stencil lines paper scopes number last? )
+  "Construct a stencil representing the page from LINES.  "
   (let*
-     (
-      (top-margin  (ly:output-def-lookup paper 'top-margin))
+     ((top-margin  (ly:output-def-lookup paper 'top-margin))
 
-      ;; TODO: naming   vsize/hsize not analogous to TeX.
+      ;; TODO: naming vsize/hsize not analogous to TeX.
       
       (hsize (ly:output-def-lookup paper 'hsize))
-      (left-margin (- hsize
-		      (/ (ly:output-def-lookup paper 'linewidth) 2)))
+      (left-margin (/ (- hsize
+			 (ly:output-def-lookup paper 'linewidth)) 2))
       (vsize (ly:output-def-lookup paper 'vsize))
       (bottom-edge (- vsize
 		      (ly:output-def-lookup paper 'bottom-margin)))
 		     
-      (head (page-headfoot paper scopes number 'make-header 'head-sep UP))
-      (foot (page-headfoot paper scopes number 'make-footer 'foot-sep DOWN))
-      (line-stencils (map ly:paper-line-stencil lines))
+      (head (page-headfoot paper scopes number 'make-header 'head-sep UP last?))
+      (foot (page-headfoot paper scopes number 'make-footer 'foot-sep DOWN last?))
+      (line-stencils (map ly:paper-system-stencil lines))
       (height-proc (ly:output-def-lookup paper 'page-music-height))
       (music-height (height-proc paper scopes number last?))
       (spc-left (-  music-height
 		   (apply + (map (lambda (x)
 				   (interval-length (ly:stencil-extent x Y)))
 			line-stencils))))
-      (stretchable-lines (remove ly:paper-line-title? (cdr lines)))
+      (stretchable-lines (remove ly:paper-system-title? (cdr lines)))
       (stretch (if (null? stretchable-lines)
 		   0.0
 		   (/ spc-left (length stretchable-lines))))
@@ -149,13 +156,13 @@
      (lambda (l)
        (set! page-stencil
 	     (ly:stencil-combine-at-edge
-	      page-stencil Y DOWN (ly:paper-line-stencil l)
+	      page-stencil Y DOWN (ly:paper-system-stencil l)
 	      (if was-title
 		  0.0
 		  stretch)
 	      ))
 
-       (set! was-title (ly:paper-line-title? l)))
+       (set! was-title (ly:paper-system-title? l)))
      lines)
 
     (if (ly:stencil? foot)
@@ -165,9 +172,10 @@
 	       (ly:stencil-translate
 		foot
 		(cons 0
-		      (+ bottom-edge (- (car (ly:stencil-extent foot Y)))))
+		      (+ (- bottom-edge) (- (car (ly:stencil-extent foot Y)))))
 		))))
-    page-stencil    
+
+    (ly:stencil-translate page-stencil (cons left-margin 0))
   ))
   
 
@@ -181,19 +189,13 @@
 ; TODO:
 ;
 ; - density scoring
-;
+; - separate function for word-wrap style breaking?
+; - raggedbottom? raggedlastbottom? 
 
-;; TODO: first-diff and last-diff are slightly arbitrary interface
-;; For the future, we might want to invoke a function from PAPER-BOOK to
-;; determine available height given
 (define-public (ly:optimal-page-breaks
 		lines paper-book)
   "Return pages as a list starting with 1st page. Each page is a list
-of lines.
-
-TEXT-HEIGHT is the height of the printable area, FIRST-DIFF and
-LAST-DIFF are decrements for the 1st and last page. PAPER-BOOK is
-unused, at the moment."
+of lines. "
 
   (define (make-node prev lines page-num penalty)
     (make <optimally-broken-page-node>
@@ -206,7 +208,7 @@ unused, at the moment."
   (define bookpaper (ly:paper-book-book-paper paper-book))
   (define scopes (ly:paper-book-scopes paper-book))
   (define (line-height line)
-    (ly:paper-line-extent line Y))
+    (ly:paper-system-extent line Y))
 
   ;; FIXME: may need some tweaking: square, cubic
   (define (height-penalty available used)
@@ -225,7 +227,7 @@ unused, at the moment."
 
   (define (page-height page-number last?)
     (let
-	((p (ly:output-def-lookup bookpaper 'page-height-function)))
+	((p (ly:output-def-lookup bookpaper 'page-music-height)))
 
       (if (procedure? p)
 	  (p bookpaper scopes page-number last?)
@@ -262,7 +264,7 @@ CURRENT-BEST is the best result sofar, or #f."
 	   (page-height (page-height this-page-num last?))
 	   (space-used (cumulative-height current-lines))
 	   (this-page-penalty (height-penalty  page-height space-used))
-	   (user-penalty (ly:paper-line-break-penalty (car current-lines)))
+	   (user-penalty (ly:paper-system-break-penalty (car current-lines)))
 	   (total-penalty (combine-penalties
 			   user-penalty this-page-penalty prev-penalty))
 	   (better? (or
@@ -309,7 +311,7 @@ DONE."
 		      (cdr todo)))))
 
   (define (line-number node)
-    (ly:paper-line-number (car (node-lines node))))
+    (ly:paper-system-number (car (node-lines node))))
 
   (let* ((best-break-node (walk-lines '() '() lines))
 	 (break-nodes (get-path best-break-node '()))
@@ -331,3 +333,5 @@ DONE."
 	    (node-page-number node)
 	    (eq? node best-break-node)))
 	 break-nodes)))
+
+

@@ -111,7 +111,7 @@ class Output_property;
 class Paper_book;
 class Paper_column;
 class Output_def;
-class Paper_line;
+class Paper_system;
 class Paper_outputter;
 class Paper_score;
 class Paper_stream;

@@ -88,18 +88,15 @@
      ly:output-def-clone
      ly:output-def-scope
      ly:output-description
-     ly:page-header-lines-footer-stencil
-     ly:page-paper-lines
-     ly:page?
      ly:paper-book?
      ly:paper-def?
      ly:paper-get-font
      ly:paper-get-number
-     ly:paper-line-break-penalty
-     ly:paper-line-extent
-     ly:paper-line-number
-     ly:paper-line-stencil
-     ly:paper-line?
+     ly:paper-system-break-penalty
+     ly:paper-system-extent
+     ly:paper-system-number
+     ly:paper-system-stencil
+     ly:paper-system?
      ly:output-def-lookup
      ly:parse-string
      ly:parser-parse-string

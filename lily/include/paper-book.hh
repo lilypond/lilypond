@@ -24,7 +24,9 @@ struct Score_lines
 
 /*
   
-  DOCME.
+This class is rather empty. It collects systems (Paper_system), and
+exports them to the output backend, either as systems or as completely
+formatted pages.
   
 */
 class Paper_book
@@ -33,8 +35,6 @@ class Paper_book
 
   SCM lines_;
   SCM pages_;
-  SCM copyright_;
-  SCM tagline_;
 public:
   SCM header_;
   Array<Score_lines> score_lines_;
