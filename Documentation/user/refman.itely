@@ -946,7 +946,8 @@ G clef on 2nd line
 @end table
 
 By adding @code{_8} or @code{^8} to the clef name, the clef is
-transposed one octave down or up, respectively. Argument @var{clefname} 
+transposed one octave down or up, respectively, and @code{_15} and
+@code{^15} transposes by two octaves.  The argument @var{clefname}
 must be enclosed in quotes when it contains underscores or digits. For
 example,
 

@@ -101,12 +101,18 @@ Clef_engraver::create_clef ()
 	{
 	  Item * g = new Item (get_property ("OctavateEight"));
 
+	  int abs_oct = gh_scm2int (oct) ;
+	  int dir = sign (abs_oct);
+	  abs_oct = abs (abs_oct)  + 1;
+	    
+	  g->set_grob_property ("text",
+				scm_number_to_string (gh_int2scm (abs_oct),
+						      SCM_MAKINUM (10)));
 	  Side_position_interface::add_support (g,clef_);      
 
 	  g->set_parent (clef_, Y_AXIS);
 	  g->set_parent (clef_, X_AXIS);
-
-	  g->set_grob_property ("direction", scm_int2num (sign (gh_scm2int (oct))));
+	  g->set_grob_property ("direction", scm_int2num (dir));
 	  octavate_ = g;
 	  announce_grob(octavate_, SCM_EOL);
 	}

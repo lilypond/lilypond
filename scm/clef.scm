@@ -88,7 +88,7 @@
   )
 )
 
-(define-public (make-clef-set cl)
+(define-public (make-clef-set clef-name)
   "Generate the clef setting commands for a clef with name CL."
   (define (make-prop-set props)
     (let*
@@ -103,20 +103,20 @@
   (let ((e '())
 	(c0 0)
 	(oct 0)
-	(l (string-length cl))
-	)
+	(match (string-match "^(.*)([_^])([0-9]+)$" clef-name)))
 
-    ;; ugh. cleanme
-    (if (equal? "8" (substring cl (- l 1) l))
+    (if match
 	(begin
-	(if (equal? "^" (substring cl (- l 2) (- l 1)))
-	    (set! oct -7)
-	    (set! oct 7))
-	
-	(set! cl (substring cl 0 (- l 2)))))
+	  (set! clef-name (match:substring match 1))
+	  (set! oct
+		(*
+		 (if (equal? (match:substring match 2) "^")
+		     -1 1)
+		 (- (string->number (match:substring match 3)) 1))
+	  )))
+    
 
-
-    (set! e  (assoc cl supported-clefs))
+    (set! e  (assoc clef-name supported-clefs))
     
     (if (pair? e)
 	(let* 
@@ -144,7 +144,7 @@
 	  (context-spec-music seq 'Staff))
 	(begin
 	  (ly:warn (format "Unknown clef type `~a'
-See scm/lily.scm for supported clefs" cl))
+See scm/lily.scm for supported clefs" clef-name))
 	  (make-music-by-name 'Music)
 	  
 	)
