@@ -61,7 +61,7 @@ showln -sf $sources/lilypond $prefix/share/lilypond
 
 
 BUILDDIR=`pwd`
-LOCALES="it nl"
+LOCALES="de it nl"
 for i in $LOCALES; do
 	dir=$BUILDDIR/share/locale/$i/LC_MESSAGES
 	if test ! -x $dir ; then
