@@ -20,7 +20,6 @@
 
 Encompass_info::Encompass_info ()
 {
-  assert (0);
 }
 
 Encompass_info::Encompass_info (Note_column const* note_column, Direction dir, Slur const* slur_l)
@@ -37,36 +36,11 @@ Encompass_info::Encompass_info (Note_column const* note_column, Direction dir, S
   
   o_[X_AXIS] = stem_l->hpos_f ();
 
-#if 0
-  /* 
-    Let's not do this; yields ugly assymetric slurs.
-
-    set o_[X_AXIS] to middle of notehead or on the exact position of stem,
-    according to slur direction
-
-    
-     stem_l->dir == dir
-                      ________
-           |   |     /        \
-          x|  x|       |x  |x
-        \________/     |   |
-
-   */
-
-  dx_f_drul_[d] = -d * spanned_drul_[d]->extent (X_AXIS).length ();
-
-  if (stem_l->dir_ != dir)
-    o_[X_AXIS] -= 0.5 * stem_l->dir_ * note_column->extent (X_AXIS).length ();
-
-#else
-
   /*
-    Instead; simply set x to middle of notehead
+    Simply set x to middle of notehead
    */
 
   o_[X_AXIS] -= 0.5 * stem_l->dir_ * note_column->extent (X_AXIS).length ();
-
-#endif
 
   if (stem_l->dir_ == dir)
     {
