@@ -1,3 +1,16 @@
+%{MudelaHeader
+
+ filename: scales.ly
+ title:
+ description: 
+ composers:
+ entered-by: HWN
+ copyright: public domain
+
+ Tested Features: scripts, beams, transposition, 
+EndMudelaHeader
+%}
+
 %
 % scales with accents.
 %
