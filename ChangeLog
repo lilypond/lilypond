@@ -1,3 +1,8 @@
+2002-05-03  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
+
+	* lily/chord-tremolo-engraver.cc (try_music): Handle chord
+	tremolos of dotted duration.
+
 2002-05-04  Han-Wen  <hanwen@cs.uu.nl>
 
 	* input/mozart-hrn*.ly: many corrections. 
