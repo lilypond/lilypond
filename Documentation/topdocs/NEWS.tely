@@ -1,4 +1,17 @@
 \input texinfo @c -*-texinfo-*-
+
+@ifhtml
+@macro inputfileref{DIR,NAME}
+@uref{../../../../\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
+@end macro
+@end ifhtml
+
+@ifnothtml
+@macro inputfileref{DIR,NAME}
+@file{\DIR\/\NAME\}@c
+@end macro
+@end ifnothtml
+
 @setfilename NEWS.info
 @settitle NEWS
 
@@ -23,8 +36,7 @@ Thanks to Steve Doonan for funding development of this feature.
 Individual objects may be assigned colors, for example,
 
 @lilypond[fragment,relative=1,verbatim,raggedright] 
-	\override Beam #'color = #cyan
-	\override NoteHead #'color = #darkyellow
+	\override NoteHead #'color = #red
 	c4
 @end lilypond 
 
@@ -37,18 +49,15 @@ to GhostScript 8.x.
 
 @item
 Separator slashes may be inserted between systems in a score. For an
-example,   see
-@file{input/regression/system-separator.ly}:
-
-@lilypondfile{system-separator.ly}
+example, see @inputfileref{input/regression/system-separator.ly}:
 
 @item
 Locations of errors in the input are now calculated more precisely.
 
 @item
 LilyPond now uses Pango and FontConfig for selecting and rendering
-internationalized text in non-@TeX{} backends. A font may be selected
-by using a FontConfig name,
+UTF-8 input in non-@TeX{} backends. A font may be selected by using a
+FontConfig name,
 
 @example
 \override TextScript #'font-name = #"Serif"
@@ -65,9 +74,6 @@ or using the classic font selection mechanism
 
 Any Type1 and TrueType font recognized by FontConfig is available in
 LilyPond as well.
-
-@noindent
-Input strings encoded in UTF-8 are then rendered through Pango.
 
 @item
 Metrics of blocks of text can be retrieved from (La)@TeX{} directly,

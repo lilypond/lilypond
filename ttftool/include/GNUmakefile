@@ -2,7 +2,7 @@
 
 depth = ../..
 
-STEPMAKE_TEMPLATES=c++
+STEPMAKE_TEMPLATES=c
 
 include $(depth)/make/stepmake.make
 
