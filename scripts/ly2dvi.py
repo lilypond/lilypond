@@ -21,6 +21,8 @@ TODO:
   * dvi from lilypond .tex output?  This is hairy, because we create dvi
     from lilypond .tex *and* header output.
 
+  * windows compatibility: rm -rf, cp file... dir
+  
 '''
 
 
@@ -61,20 +63,14 @@ extra_init = {
 extra_fields = extra_init.keys ()
 
 fields = layout_fields + extra_fields
-original_dir = os.getcwd ()
+program_name = 'ly2dvi'
+help_summary = _("Generate .dvi with LaTeX for LilyPond")
+
 include_path = ['.']
-temp_dir = ''
-keep_temp_dir = 0
 no_lily = 0
 outdir = '.'
 track_dependencies_p = 0
-
 dependency_files = []
-
-
-program_version = '@TOPLEVEL_VERSION@'
-if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
-	program_version = '1.3.134'
 
 # generate ps ?
 postscript_p = 0
@@ -82,39 +78,39 @@ postscript_p = 0
 # be verbose?
 verbose_p = 0
 
-option_definitions = [
-	('', 'h', 'help', _ ("this help")),
-	('KEY=VAL', 's', 'set', _ ("change global setting KEY to VAL")),
-	('', 'P', 'postscript', _ ("generate PostScript output")),
-	('', 'k', 'keep', _ ("keep all output, and name the directory ly2dvi.dir")),
-	('', '', 'no-lily', _ ("don't run LilyPond")),
-	('', 'V', 'verbose', _ ("verbose")),
-	('', 'v', 'version', _ ("print version number")),
-	('', 'w', 'warranty', _ ("show warranty and copyright")),
-	('DIR', '', 'outdir', _ ("dump all final output into DIR")),
-	('', 'd', 'dependencies', _ ("write Makefile dependencies for every input file")),
-	]
+
+# lily_py.py -- options and stuff
+# 
+# source file of the GNU LilyPond music typesetter
+
+# BEGIN Library for these?
+# cut-n-paste from ly2dvi
+
+program_version = '@TOPLEVEL_VERSION@'
+if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
+	program_version = '1.3.142'
+
+
+original_dir = os.getcwd ()
+temp_dir = '%s.dir' % program_name
+keep_temp_dir_p = 0
+verbose_p = 0
 
 def identify ():
-	sys.stdout.write ('ly2dvi (GNU LilyPond) %s\n' % program_version)
+	sys.stdout.write ('%s (GNU LilyPond) %s\n' % (program_name, program_version))
 
 def warranty ():
 	identify ()
 	sys.stdout.write ('\n')
-	sys.stdout.write (_ ('Copyright (c) %s by' % ' 1998-2001'))
+	sys.stdout.write (_ ('Copyright (c) %s by' % ' 2001'))
 	sys.stdout.write ('\n')
 	sys.stdout.write ('  Han-Wen Nienhuys')
+	sys.stdout.write ('  Jan Nieuwenhuizen')
 	sys.stdout.write ('\n')
 	sys.stdout.write (_ (r'''
 Distributed under terms of the GNU General Public License. It comes with
 NO WARRANTY.'''))
 	sys.stdout.write ('\n')
-
-
-
-def star_progress (s):
-	'''Progress messages that stand out between lilypond stuff'''
-	progress ('*** ' + s)
 
 def progress (s):
 	sys.stderr.write (s + '\n')
@@ -128,34 +124,6 @@ def error (s):
 	sys.stderr.write (_ ("error: ") + s)
 	sys.stderr.write ('\n')
 	raise _ ("Exiting ... ")
-
-
-def find_file (name):
-	'''
-	Search the include path for NAME. If found, return the (CONTENTS, PATH) of the file.
-	'''
-	
-	f = None
-	nm = ''
-	for a in include_path:
-		try:
-			nm = os.path.join (a, name)
-			f = open (nm)
-			__main__.read_files.append (nm)
-			break
-		except IOError:
-			pass
-	if f:
-		sys.stderr.write (_ ("Reading %s...") % nm)
-		sys.stderr.write ('\n');
-		return (f.read (), nm)
-	else:
-		error (_ ("can't open file: `%s'" % name))
-		sys.stderr.write ('\n');
-		return ('', '')
-
-
-
 
 def getopt_args (opts):
 	'''Construct arguments (LONG, SHORT) for getopt from  list of options.'''
@@ -213,16 +181,14 @@ def options_help_str (opts):
 	return str
 
 def help ():
-	sys.stdout.write (_ ("Usage: %s [OPTION]... FILE") % 'ly2dvi')
+	sys.stdout.write (_ ("Usage: %s [OPTION]... FILE") % program_name)
 	sys.stdout.write ('\n\n')
-	sys.stdout.write (_ ("Generate .dvi with LaTeX for LilyPond"))
+	sys.stdout.write (help_summary)
 	sys.stdout.write ('\n\n')
 	sys.stdout.write (_ ("Options:"))
 	sys.stdout.write ('\n')
 	sys.stdout.write (options_help_str (option_definitions))
 	sys.stdout.write ('\n\n')
-	warning (_ ("all output is written in the CURRENT directory"))
-	sys.stdout.write ('\n')
 	sys.stdout.write (_ ("Report bugs to %s") % 'bug-gnu-music@gnu.org')
 	sys.stdout.write ('\n')
 	sys.exit (0)
@@ -230,31 +196,15 @@ def help ():
 
 def setup_temp ():
 	global temp_dir
-	temp_dir = 'ly2dvi.dir'
-	if not keep_temp_dir:
-		temp_dir = tempfile.mktemp ('ly2dvi')
-		
+	if not keep_temp_dir_p:
+		temp_dir = tempfile.mktemp (program_name)
 	try:
 		os.mkdir (temp_dir, 0777)
 	except OSError:
 		pass
-		
-
-	# try not to gen/search MF stuff in temp dir
-	fp = ''
-	try:
-		fp = ':' + os.environ['TFMFONTS']
-	except KeyError:
-		fp = '://:'
-
-		
-	os.environ['TFMFONTS'] =  original_dir + fp
-
 	os.chdir (temp_dir)
-	if verbose_p:
-		progress (_ ('Temp directory is `%s\'\n') % temp_dir) 
 
-	
+
 def system (cmd, ignore_error = 0):
 	if verbose_p:
 		progress (_ ("Invoking `%s\'") % cmd)
@@ -268,24 +218,12 @@ def system (cmd, ignore_error = 0):
 
 	return st
 
+
 def cleanup_temp ():
-	if not keep_temp_dir:
+	if not keep_temp_dir_p:
 		if verbose_p:
 			progress (_ ('Cleaning up `%s\'') % temp_dir)
 		system ('rm -rf %s' % temp_dir)
-	
-
-def run_lilypond (files):
-	opts = ''
-	opts = opts + ' ' + string.join (map (lambda x : '-I ' + x, include_path))
-	opts = opts + ' ' + string.join (map (lambda x : '-H ' + x, fields))
-
-	if track_dependencies_p:
-		opts = opts + " --dependencies "
-
-	fs = string.join (files)
-	
-	system ('lilypond  %s %s ' % (opts, fs))
 
 
 def set_setting (dict, key, val):
@@ -300,7 +238,34 @@ def set_setting (dict, key, val):
 	except KeyError:
 		warning (_ ("no such setting: %s") % `key`)
 		dict[key] = [val]
+
+# END Library
+
+option_definitions = [
+	('', 'h', 'help', _ ("this help")),
+	('KEY=VAL', 's', 'set', _ ("change global setting KEY to VAL")),
+	('DIR', 'I', 'include', _ ("add DIR to LilyPond\'s search path")),
+	('', 'P', 'postscript', _ ("generate PostScript output")),
+	('', 'k', 'keep', _ ("keep all output, and name the directory ly2dvi.dir")),
+	('', '', 'no-lily', _ ("don't run LilyPond")),
+	('', 'V', 'verbose', _ ("verbose")),
+	('', 'v', 'version', _ ("print version number")),
+	('', 'w', 'warranty', _ ("show warranty and copyright")),
+	('DIR', '', 'outdir', _ ("dump all final output into DIR")),
+	('', 'd', 'dependencies', _ ("write Makefile dependencies for every input file")),
+	]
+
+def run_lilypond (files):
+	opts = ''
+	opts = opts + ' ' + string.join (map (lambda x : '-I ' + x, include_path))
+	opts = opts + ' ' + string.join (map (lambda x : '-H ' + x, fields))
+
+	if track_dependencies_p:
+		opts = opts + " --dependencies "
+
+	fs = string.join (files)
 	
+	system ('lilypond  %s %s ' % (opts, fs))
 
 def analyse_lilypond_output (filename, extra):
 	'''Grep FILENAME for interesting stuff, and
@@ -403,8 +368,10 @@ def global_latex_definition (tfiles, extra):
 
 	s = s + '\\usepackage{%s}\n' \
 		% string.join (extra['latexpackages'], ',')
-	
-	s = s + string.join (extra['latexheaders'], ' ')
+
+	if extra['latexheaders']:
+		s = s + '\\include{%s}\n' \
+			% string.join (extra['latexheaders'], '}\n\\include{')
 
 	textheight = ''
 	if extra['textheight']:
@@ -526,7 +493,7 @@ for opt in options:
 	elif o == '--postscript' or o == '-P':
 		postscript_p = 1
 	elif o == '--keep' or o == '-k':
-		keep_temp_dir = 1
+		keep_temp_dir_p = 1
 	elif o == '--no-lily':
 		no_lily = 1
 	elif o == '--outdir':
@@ -544,11 +511,15 @@ for opt in options:
 	elif o == '--warranty' or o == '-w':
 		warranty ()
 		sys.exit (0)
-		
-		
-include_path = map (os.path.abspath, include_path)
-files = map (os.path.abspath, files) 
-outdir = os.path.abspath (outdir)
+
+# On most platforms, this is equivalent to
+#`normpath(join(os.getcwd()), PATH)'.  *Added in Python version 1.5.2*
+def compat_abspath (path):
+	return os.path.normpath (os.path.join (os.getcwd (), path))
+
+include_path = map (compat_abspath, include_path)
+files = map (compat_abspath, files) 
+outdir = compat_abspath (outdir)
 
 def strip_ly_suffix (f):
 	(p, e) =os.path.splitext (f)

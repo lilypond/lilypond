@@ -407,7 +407,9 @@ class Parser:
 			str = str[1:]
 		else:
 			ch = Chord ()
-			self.current_voice().add_chord (ch)			
+			self.current_voice().add_chord (ch)
+
+		# what about 's'?
 		if str[0] <> 'r':
 			name = (ord (str[0]) - ord('a') + 5) % 7
 
