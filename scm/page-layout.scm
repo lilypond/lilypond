@@ -79,7 +79,13 @@
        
        (vsize (ly:output-def-lookup layout 'vsize))
        (hsize (ly:output-def-lookup layout 'hsize))
-       
+
+       (system-separator-markup (ly:output-def-lookup layout 'systemSeparatorMarkup))
+       (system-separator-stencil (if (markup? system-separator-markup)
+				     (interpret-markup layout
+						       (page-properties layout)
+						       system-separator-markup)
+				     #f))
        (lmargin (ly:output-def-lookup layout 'leftmargin))
        (leftmargin (if lmargin
 		       lmargin
@@ -97,24 +103,41 @@
 			(interval-length (ly:stencil-extent head Y))
 			0.0))
 
-       (line-stencils (map ly:paper-system-stencil lines))
        (height-proc (ly:output-def-lookup layout 'page-music-height))
 
        (page-stencil (ly:make-stencil '()
 				      (cons leftmargin hsize)
 				      (cons (- topmargin) 0)))
-       (was-title #t)
+       (last-system #f)
+       (last-y 0.0)
+       (add-to-page (lambda (stencil y)
+		      (set! page-stencil
+			    (ly:stencil-add page-stencil
+					    (ly:stencil-translate-axis stencil
+					     (- 0 head-height y topmargin) Y)
+					    ))))
        (add-system (lambda (stencil-position)
-		     (set! page-stencil
-			   (ly:stencil-add
-			    (ly:stencil-translate-axis
-			     (car stencil-position)
-			     (- 0
-				head-height
-				(cadr stencil-position)
-				topmargin)
-			     Y)
-			    page-stencil)))))
+		     (let*
+			 ((system (car stencil-position))
+			  (stencil (ly:paper-system-stencil system))
+			  (y (cadr stencil-position))
+			  (is-title (ly:paper-system-title?
+				     (car stencil-position))))
+
+		    
+		       (add-to-page stencil y)
+		       (if (and (ly:stencil? system-separator-stencil)
+				last-system
+				(not (ly:paper-system-title? system))
+				(not (ly:paper-system-title? last-system)))
+			   (add-to-page system-separator-stencil
+					(average (- last-y
+						    (car (ly:paper-system-staff-extents last-system)))
+						 (- y
+						    (cdr (ly:paper-system-staff-extents system))))))
+		       (set! last-system system)
+		       (set! last-y y)
+		       ))))
 
     (if #f
 	(display (list
@@ -123,7 +146,7 @@
     (set! page-stencil (ly:stencil-combine-at-edge
 			page-stencil Y DOWN head 0. 0.))
 
-    (map add-system (zip line-stencils offsets))
+    (map add-system (zip lines offsets))
     (if (ly:stencil? foot)
 	(set! page-stencil
 	      (ly:stencil-add

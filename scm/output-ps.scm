@@ -163,9 +163,7 @@
    (ly:numbers->string (list letter-col ball-col))
    ;; FIXME: barf
    " /Helvetica-Bold "
-   " draw_ez_ball")
-  
-  "")
+   " draw_ez_ball"))
 
 ;; FIXME: use draw_round_box
 (define (filledbox breapth width depth height)
