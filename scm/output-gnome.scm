@@ -149,6 +149,36 @@ lilypond -fgnome input/simple-song.ly
 	  "LilyPondBraces"
 	  family)))
 
+(define (pango-font-name font)
+  (debugf "FONT-NAME:~S:~S\n" (ly:font-name font) (ly:font-design-size font))
+  (debugf "FONT-FAMILY:~S:~S\n" (font-family font) (otf-name-mangling font (font-family font)))
+  (otf-name-mangling font (font-family font)))
+
+(define (pango-font-size font)
+  (let* ((designsize (ly:font-design-size font))
+	 (magnification (* (ly:font-magnification font)))
+	 
+	 ;;font-name: "GNU-LilyPond-feta-20"
+	 ;;font-file-name: "feta20"
+	 ;;pango-font-name: "lilypond-feta, regular 32"
+	 ;;OPS:2.61
+	 ;;scaling:29.7046771653543
+	 ;;magnification:0.569055118110236
+	 ;;design:20.0
+	 
+	 ;; ugh, experimental sizing
+	 ;; where does factor ops come from?
+	 ;; Hmm, design size: 26/20 
+	 (ops 2.60)
+	 
+	 (scaling (* ops magnification designsize)))
+    (debugf "OPS:~S\n" ops)
+    (debugf "scaling:~S\n" scaling)
+    (debugf "magnification:~S\n" magnification)
+    (debugf "design:~S\n" designsize)
+    
+    scaling))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Wrappers from guile-gnome TLA
 ;;; guile-gnome-devel@gnu.org--2004
@@ -306,23 +336,26 @@ lilypond -fgnome input/simple-song.ly
 ;; FIXME: the framework-gnome backend needs to see every item that
 ;; gets created.  All items created here must should be put in a group
 ;; that gets returned.
-(define (FIXME-glyph-string postscript-font-name named-glyphs)
+(define (glyph-string font postscript-font-name x-y-named-glyphs)
   (for-each
    (lambda (x)
+
+     ;; UGR, glyph names not found
+     (stderr "GLYPH:~S\n" (caddr x))
+     (stderr "ID:~S\n" (ly:font-glyph-name-to-charcode font (caddr x)))
      (placebox (car x) (cadr x)
 	       (make <gnome-canvas-text>
 		 #:parent (canvas-root)
 		 #:x 0.0 #:y 0.0
 		 #:anchor 'west
-		 ;; FIXME: 
-		 #:font postscript-font-name
+		 ;;#:font postscript-font-name
+		 #:font (pango-font-name font)
 		 #:size-points 12
 		 #:size-set #t
 		 #:text
-		 ;; FIXME: need FONT to get to charcode
 		 (integer->utf8-string
-		  (ly:font-glyph-name-to-charcode font caddr x)))))
-   text-snippets))
+		  (ly:font-glyph-name-to-charcode font (caddr x))))))
+   x-y-named-glyphs))
 
 (define (grob-cause grob)
   grob)
@@ -374,36 +407,6 @@ lilypond -fgnome input/simple-song.ly
       #:join-style 'round)))
 
 (define (text font s)
-
-  (define (pango-font-name font)
-    (debugf "FONT-NAME:~S:~S\n" (ly:font-name font) (ly:font-design-size font))
-    (debugf "FONT-FAMILY:~S:~S\n" (font-family font) (otf-name-mangling font (font-family font)))
-    (otf-name-mangling font (font-family font)))
-
-  (define (pango-font-size font)
-    (let* ((designsize (ly:font-design-size font))
-	   (magnification (* (ly:font-magnification font)))
-	   
-	   ;;font-name: "GNU-LilyPond-feta-20"
-	   ;;font-file-name: "feta20"
-	   ;;pango-font-name: "lilypond-feta, regular 32"
-	   ;;OPS:2.61
-	   ;;scaling:29.7046771653543
-	   ;;magnification:0.569055118110236
-	   ;;design:20.0
-	   
-	   ;; ugh, experimental sizing
-	   ;; where does factor ops come from?
-	   ;; Hmm, design size: 26/20 
-	   (ops 2.60)
-	   
-	   (scaling (* ops magnification designsize)))
-      (debugf "OPS:~S\n" ops)
-      (debugf "scaling:~S\n" scaling)
-      (debugf "magnification:~S\n" magnification)
-      (debugf "design:~S\n" designsize)
-      
-      scaling))
 
   (make <gnome-canvas-text>
     #:parent (canvas-root)

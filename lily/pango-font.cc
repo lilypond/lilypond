@@ -21,10 +21,10 @@
 Pango_font::Pango_font (PangoFT2FontMap *fontmap,
 			int resolution,
 			Direction dir,
-			PangoFontDescription * description)
+			PangoFontDescription *description)
 {
   subfonts_ = SCM_EOL;
-  PangoDirection pango_dir = (dir==RIGHT)
+  PangoDirection pango_dir = (dir == RIGHT)
     ? PANGO_DIRECTION_LTR
     : PANGO_DIRECTION_RTL;
   context_ = pango_ft2_font_map_create_context (fontmap);  
@@ -35,7 +35,6 @@ Pango_font::Pango_font (PangoFT2FontMap *fontmap,
   pango_context_set_base_dir (context_, pango_dir);
   pango_context_set_font_description (context_, description);
 }
-
 
 Pango_font::~Pango_font ()
 {
@@ -56,36 +55,49 @@ Pango_font::derived_mark () const
 {
   scm_gc_mark (subfonts_);
 }
+
 Stencil
 Pango_font::text_stencil (String str) const
 {
-  GList * items = pango_itemize (context_,
-				 str.to_str0 (),
-				 0, str.length (), attribute_list_,
-				 NULL);
+  GList *items = pango_itemize (context_,
+				str.to_str0 (),
+				0, str.length (), attribute_list_,
+				NULL);
 
   const int GLYPH_NAME_LEN = 256;
   char glyph_name[GLYPH_NAME_LEN];
   
-  GList * ptr = items;
+  GList *ptr = items;
   Stencil dest;  
   while (ptr)
     {
+
+      // FIXME: factor this out
       PangoItem *item = (PangoItem*) ptr->data;
       PangoAnalysis *pa = &(item->analysis);
-      PangoGlyphString *pgs = pango_glyph_string_new();
+      PangoGlyphString *pgs = pango_glyph_string_new ();
 
       pango_shape (str.to_str0 (), str.length (), pa, pgs);
 
       PangoRectangle logical_rect;
       pango_glyph_string_extents (pgs, pa->font, NULL, &logical_rect);
       
-      PangoFcFont * fcfont = G_TYPE_CHECK_INSTANCE_CAST(pa->font,
-							PANGO_TYPE_FC_FONT,
-							PangoFcFont);
+      PangoFcFont *fcfont = G_TYPE_CHECK_INSTANCE_CAST(pa->font,
+						       PANGO_TYPE_FC_FONT,
+						       PangoFcFont);
       FT_Face ftface = pango_fc_font_lock_face (fcfont);
       Box b (Interval (0, logical_rect.width),
 	     Interval (0, logical_rect.height));
+
+      if (!face_)
+	{
+	  /* FIXME.  This obvious shortcut apparently does not work.
+	     It seems there are different faces per text string and a
+	     map of face_ and charcode mapping is needed.  */
+	  Pango_font *barf = (Pango_font*) this;
+	  barf->face_ = ftface;
+	  barf->index_to_charcode_map_ = make_index_to_charcode_map (face_);
+	}
 
       b.translate (Offset (- logical_rect.x, -logical_rect.y));
       
@@ -105,7 +117,7 @@ Pango_font::text_stencil (String str) const
 					scm_from_double (ggeo.y_offset * scale_),
 					scm_makfrom0str (glyph_name)),
 			    SCM_EOL);
-	  tail = SCM_CDRLOC(*tail);
+	  tail = SCM_CDRLOC (*tail);
 	}
 
       FcPattern *fcpat = fcfont->font_pattern;
@@ -114,7 +126,8 @@ Pango_font::text_stencil (String str) const
       char const *ps_name = FT_Get_Postscript_Name (ftface);
       ((Pango_font *) this)->register_font_file (filename, ps_name);
       
-      SCM expr = scm_list_3 (ly_symbol2scm ("glyph-string"),
+      SCM expr = scm_list_4 (ly_symbol2scm ("glyph-string"),
+			     self_scm (),
 			     scm_makfrom0str (ps_name),
 			     ly_quote_scm (glyph_exprs));
 
@@ -141,13 +154,29 @@ Pango_font::font_file_name () const
   return SCM_BOOL_F;
 }
 
-LY_DEFINE(ly_pango_font_p, "ly:pango-font?",
-	  1,0,0,
-	  (SCM f),
-	  "Is @var{f} a pango font?")
+int
+Pango_font::name_to_index (String nm) const
+{
+  char *nm_str = (char*) nm.to_str0 ();
+  if (int idx = FT_Get_Name_Index (face_, nm_str))
+    return idx;
+  return -1;
+}
 
+unsigned
+Pango_font::index_to_charcode (int i) const
+{
+  return ((Pango_font*) this)->index_to_charcode_map_[i];
+}
+
+LY_DEFINE (ly_pango_font_p, "ly:pango-font?",
+	   1, 0, 0,
+	   (SCM f),
+	   "Is @var{f} a pango font?")
 {
   return scm_from_bool (dynamic_cast<Pango_font*> (unsmob_metrics (f)));
 }
 
+
 #endif
+

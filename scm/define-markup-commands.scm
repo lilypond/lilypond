@@ -26,7 +26,7 @@
 	  (ly:warn "No systems found in \\score markup. Did you forget \\layout?")
 	  empty-markup)
 	(begin
-	  (let* ((stencil (ly:paper-system-stencil  (vector-ref systems 0)))) 
+	  (let* ((stencil (ly:paper-system-stencil (vector-ref systems 0)))) 
 
 	    (ly:stencil-align-to! stencil Y CENTER)
 	    stencil)))))
@@ -77,14 +77,14 @@ For the postscript backend, use the following
 @verbatim
 gsave /ecrm10 findfont 
  10.0 output-scale div 
- scalefont setfont  90 rotate (hello) show grestore 
+ scalefont setfont 90 rotate (hello) show grestore 
 @end verbatim
 "
   ;; FIXME
   
   (ly:make-stencil
    (list 'embedded-ps str)
-   '(0 . 0) '(0 . 0)  ))
+   '(0 . 0) '(0 . 0)))
 
 ;;(def-markup-command (fill-line layout props line-width markups)
 ;;  (number? markup-list?)
@@ -103,7 +103,7 @@ gsave /ecrm10 findfont
 	  (map (lambda (stc)
 		 (if (ly:stencil-empty? stc)
 		     point-stencil
-		     stc))  orig-stencils))
+		     stc)) orig-stencils))
 	 (text-width (apply +
 			    (map (lambda (stc)
 				   (if (ly:stencil-empty? stc)

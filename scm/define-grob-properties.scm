@@ -52,7 +52,7 @@ called first.  The functions take a grob and axis argument. ")
 arrow on the arpeggio squiggly line.")
   
      (auto-knee-gap ,ly:dimension? "If a gap is found between note heads
-where a  horizontal beam fits that is larger than this number,  make a kneed beam.")
+where a horizontal beam fits that is larger than this number, make a kneed beam.")
      (axes ,list? "list of axis numbers.
 In the case of alignment grobs, this should contain only one number.")
 
@@ -81,7 +81,7 @@ Choices include @code{curved} and @code{straight}.")
      (beamed-extreme-minimum-free-lengths ,list? "list of extreme minimum free stem lengths (chord to beams) given beam multiplicity.")
 
      (beamed-stem-shorten ,list? "How much to shorten beamed stems,
-when their direction is forced. It is a  list, since the value is different
+when their direction is forced. It is a list, since the value is different
 depending on the number flags/beams.")
      (beaming ,pair?
 	      "Pair of number lists. Each number list specifies which
@@ -157,11 +157,11 @@ line).")
 direction of a beam. Choices include: 
 
 @table @code
-@item  beam-dir-majority
+@item beam-dir-majority
 number count of up or down notes
 @item beam-dir-mean
 mean center distance of all notes
-@item  beam-dir-median.
+@item beam-dir-median.
 mean center distance weighted per note
 @end table
 
@@ -616,7 +616,7 @@ functions set spanner positions.")
      (interfaces ,list? "list of symbols indicating the interfaces supported by this object. Is initialized from the @code{meta} field.")
      (shorten ,ly:dimension? "The amount of space that a
 stem. Internally used to distribute beam shortening over stems. ")
-     (slur  ,ly:grob? "A pointer to a slur object")
+     (slur ,ly:grob? "A pointer to a slur object")
      (use-breve-rest ,boolean? "Use breve rests for measures longer
 than a whole rest.")
      

@@ -15,7 +15,7 @@
 #include "smobs.hh"
 #include "lily-proto.hh"
 
-struct Font_metric
+class Font_metric
 {
 public:
   SCM description_;
@@ -53,13 +53,11 @@ protected:
 
 int get_encoded_index (Font_metric *m, String input_coding, int code);
 
-struct Simple_font_metric : public Font_metric
+class Simple_font_metric : public Font_metric
 {
 public:
-  
 };
-  
 
-DECLARE_UNSMOB(Font_metric, metrics);
+DECLARE_UNSMOB (Font_metric, metrics);
 
 #endif /* FONT_METRIC_HH */

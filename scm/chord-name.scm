@@ -56,7 +56,7 @@
       (make-normal-size-super-markup
        (accidental->markup (cdr n-a)))))))
 
-(define-public (note-name->german-markup  pitch)
+(define-public (note-name->german-markup pitch)
   (let* ((name (ly:pitch-notename pitch))
 	 (alt (ly:pitch-alteration pitch))
 	 (n-a (if (member (cons name alt) `((6 . ,FLAT) (6 . ,DOUBLE-FLAT)))
@@ -65,13 +65,13 @@
     (make-line-markup
      (list
       (string-append
-       (list-ref '("c" "d" "e" "f" "g" "a" "h" "b")  (car n-a))
+       (list-ref '("c" "d" "e" "f" "g" "a" "h" "b") (car n-a))
        (if (or (equal? (car n-a) 2) (equal? (car n-a) 5))
-	   (list-ref '( "ses"  "s" "" "is" "isis") (+ 2 (/ (cdr n-a) 2)))
+	   (list-ref '( "ses" "s" "" "is" "isis") (+ 2 (/ (cdr n-a) 2)))
 	   (list-ref '("eses" "es" "" "is" "isis") (+ 2 (/ (cdr n-a) 2)))))))))
 
 ;; fixme we should standardize on omit-root (or the other one.)
-;; perhaps the  default should also be reversed --hwn
+;; perhaps the default should also be reversed --hwn
 (define-public (sequential-music-to-chord-exceptions seq . rest)
   "Transform sequential music SEQ of type <<c d e>>-\\markup{ foobar }
 to (cons CDE-PITCHES FOOBAR-MARKUP), or to (cons DE-PITCHES
