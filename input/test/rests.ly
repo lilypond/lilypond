@@ -3,6 +3,10 @@
     texidoc = "rests in various styles."
 }
 
+% FIXME: Currently, this file produces "warning: flag `d-3' not found"
+% errors (and similar for "d7") from Stem::flag().  This is should not
+% happen, since there are no notes/stems in this example.
+
 \score { 
     \context Staff \notes\relative c {
 	\property Staff.Rest \set #'style = #'mensural
@@ -28,7 +32,7 @@
     \paper {
 	\translator {
 	    \StaffContext
-	    %%%% The following looks good, but produces
+	    %%%% FIXME: The following looks good, but produces
 	    %%%% lots of warnings:
 	    % \remove Bar_engraver
 	}
