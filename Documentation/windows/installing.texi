@@ -17,23 +17,34 @@ follow the instructions carefully.  If it doesn't work for you, please
 send a bugreport, following the guidelines in the section on
 bugreports below.
 
+@section QuickInstall
+
+Click @uref{http://cygwin.com/setup.exe, Install Lily now}, run the
+installer (@file{setup.exe}), and in the Package View dialogue, select
+LilyPond, found in the Publishing section.
+
+If you have any problems, please read the rest of this page.
 
 @section Windows binary setup 
 
+The binary LilyPond setup for Windows is in fact a
+@uref{http://cygwin.com, Cygwin} installation, including the LilyPond
+package for Cygwin.
+
 If you run Windows NT, 2000 or XP, please become administrator first
-(currently, installing as an ordinary user will not work).  Download and
-run @uref{http://www.lilypond.org/gnu-windows/setup.exe, setup.exe}.
-You will be asked some questions. If you are unsure just click "Next".
-Do not change the default install directory @file{c:/cygwin}.
+(currently, installing as an ordinary user will not work).  Download
+and run @uref{http://cygwin.com/setup.exe, setup.exe}.  You will be
+asked some questions.  If you are unsure just click "Next".  Do not
+change the default install directory @file{c:/cygwin}.
+
+In the Package View dialogue window, click on the Publishing section
+to view the available publishing software for Cygwin.  Make sure that
+LilyPond is selected.  If this is a new or first installation, click
+on @emph{Skip} to select.
 
 This installs LilyPond, and Cygwin, GUILE, Python, teTeX (MikTeX is not
 supported).  If you already have some of that software under
 @file{c:/cygwin}, then don't worry: nothing will be installed twice.
-
-If you want to install any of this software by hand, do this
-@strong{before} you run @file{setup.exe}, otherwise your LilyPond setup
-may not work.
-
 
 @subsection Additional software
 
@@ -52,8 +63,7 @@ You can use GSView-2.6.  This old package has two advantages.  It has
 gsview and ghostscript bundeled, and it doesn't popup @emph{Register
 Now|Cancel} windows all the time.
 
-Click @uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum/gsv26w32.exe,here} to
-install GSView-2.6 (GhostView for Windows), or visit
+Install @uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum/gsv26w32.exe, GSView-2.6} (GhostView for Windows), or visit
 @uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum,ftp.cs.wisc.edu}.
 
 @c check/update versions
@@ -61,15 +71,13 @@ You can also use the newer versions GSView-3.6 and GhostScript-6.50,
 which can also display PDFs.  You get annoying @emph{Register
 Now|Cancel} popups, though.
 
-Click @uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum/gsv36w32.exe,here} for
-GSview and 
-Click @uref{ftp://mirror.cs.wisc.edu/pub/mirrors/ghost/AFPL/gs650/gs650w32.exe
-,here} for GhostScript.
-@uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum,ftp.cs.wisc.edu}.
-or visit the
-@uref{http://www.cs.wisc.edu/~ghost/,Ghostscript, Ghostview and GSview site}.
+Install
+@uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum/gsv36w32.exe,GSview-3.6}
+and
+@uref{ftp://mirror.cs.wisc.edu/pub/mirrors/ghost/AFPL/gs650/gs650w32.exe,
+GhostScript-6.50}, or visit the @uref{http://www.cs.wisc.edu/~ghost/,
+Ghostview and GSview site}.
 @end table
-
 
 @section Testing LilyPond
 
@@ -86,7 +94,8 @@ You should see something similar to
 
 @quotation
 @example
-Usage: lilypond [OPTION]... [FILE]...
+GNU LilyPond 1.6.0
+Usage: lilypond [OPTION]... FILE...
 
 Typeset music and or play MIDI from FILE
 
@@ -114,13 +123,18 @@ Enter the following into the file
 
 @end example
 @end quotation
-Close the file and save it. Run the following command. It should say
-@code{PS output to `foo.ps', DVI output to `foo.dvi'}.
+Close the editor and save the file.  Then run the following command.
 @quotation
 @example
-
-ly2dvi -P foo
-
+ly2dvi -p foo
+@end example
+@end quotation
+At the end, it should say
+@quotation
+@example
+DVI output to `foo.dvi'...
+PS output to `foo.ps'...
+PDF output to `foo.pdf'...
 @end example
 @end quotation
 If you install the Cygwin's XFree86 X11 window system, tetex-x11 and
@@ -130,24 +144,26 @@ such as @code{GSView} from @uref{http://www.cs.wisc.edu/~ghost},
 viewing the PS file can be done with:
 @quotation
 @example
-
 gsview32 foo.ps
-
 @end example
 @end quotation
 
 If this works, then you can head to the
-@uref{../../user/out-www/lilypond/Tutorial.html,Tutorial} to start using
-LilyPond.
-
-
+@uref{../../user/out-www/lilypond/Tutorial.html,Tutorial}
+@ignore
+Hmm, this only works for 1.5.73-1 installs.
+Cygwin does not yet have an html documentation index, such as dwww.
+(@uref{file:///c/cygwin/usr/doc/lilypond-1.5.73-1/html/Documentation/user/out-www/Tutorial.html,
+local copy})
+@end ignore
+to start using LilyPond.
 
 @section Removing LilyPond
 
 Start @file{setup.exe}, click Next, select "Install from Local
-Directory". Then click next until you reach "Select packages to
-install". Click "View". Now, for every package, click on the recycle
-icon until it says "Uninstall". Then, click Next.
+Directory".  Then click next until you reach "Select packages to
+install".  Click "View".  Now, for every package, click on the recycle
+icon until it says "Uninstall".  Then, click Next.
 
 (If you find this too tedious, you can also simply remove
 @file{c:/cygwin}. This also removes the @file{/home/} directories under
@@ -160,8 +176,70 @@ For problems and solutions see
 @uref{http://lilypond.org/wiki?TroubleshootingWindows,Troubleshooting
 Windows}
 
+If you have a problem running LilyPond, you should first make sure
+that you are running the latest version.  Chances are, that your
+problem was already reported and fixed in a newer release.  Click
+@uref{http://cygwin.com/setup.exe, Update Lily now} to check if
+new software is available.
+
+If you subscribe to the @uref{http://cygwin.com/ml/cygwin-announce/,
+cygwin-announce (archives)} mailing list, see
+@uref{http://sources.redhat.com/cygwin/lists.html, Cygwin mailing
+lists}, bottom of page.  You'll be notified of new and updated
+software for Cygwin, including LilyPond.
+
+Chances are, that a problem you experience has been noted by others.
+Cygwin specific problems will be reported to the
+@uref{http://cygwin.com/ml/cygwin, cygwin-user (archives)} mailing
+list (@uref{http://sources.redhat.com/cygwin/lists.html, Cygwin mailing
+lists}, bottom of page).
+
+LilyPond specific problems, also concering Cygwin/Windows, are
+reported and discussed on the
+@uref{http://mail.gnu.org/pipermail/lilypond-user, lilypond-user
+(archives)} mailing list.
+
+@section Requirements and DLLs
+
+TeTeX and LilyPond depend on a number of library packages, but as it
+seems, they sometimes do not get selected automagically.
+
+@itemize @samp
+@item teTeX
+  requires: ash cygwin ed grep jpeg libkpathsea3 libncurses6 libpng12 tiff
+  sed termcap zlib
+  
+@item LilyPond
+  requires: bash libguile14 libiconv2 libintl2 libkpathsea3 python
+  tetex-bin, tetex-tiny or tetex-base
+@end itemize
+
+@multitable @columnfractions .40 .40
+@item DLL              @tab Package
+@item cygguile-14.dll  @tab libguile14 
+@item cygintl-2.dll    @tab libintl2
+@item cygiconv-2.dll   @tab libiconv2
+@item cygltdl-3.dll    @tab libltdl3
+@item cygpcre.dll      @tab pcre
+@item cygpng12.dll     @tab libpng12
+@item cygtiff3.dll     @tab tiff
+@end multitable
+
+Also, the more general info on missing DLLs may be helpful:
+@example
+    @uref{http://cygwin.com/faq/faq_4.html#SEC32}
+    @uref{http://cygwin.com/ml/cygwin/2002-01/msg01619.html}
+@end example
 
 @section Bugreports
+
+So you have checked by running @uref{http://cygwin.com/setup.exe,
+Update Lily now} that you run the latest version, and
+@uref{http://lilypond.org/wiki?TroubleshootingWindows,Troubleshooting
+Windows} nor @uref{http://cygwin.com/ml/cygwin, cygwin-user
+(archives)} or @uref{http://mail.gnu.org/pipermail/lilypond-user,
+lilypond-user (archives)} mentions your problem.  It looks like you
+found a bug.
 
 We can only help you with a problem if you give a full, detailed
 bugreport. A bugreport includes
@@ -170,8 +248,24 @@ bugreport. A bugreport includes
 @item A @emph{precise} description of the problem.  
 @item A full description of your platform (machine type, operating
 system)
-@item All version numbers of relevant software you run.  Specifically, we
-want to see the output of the  following commands: 
+@item All version numbers of relevant software you run.
+      The best way to this is to run
+      @quotation
+      @example
+      sh -x /usr/bin/bug-lilypond-cygwin >& bug.txt
+      @end example
+      @end quotation
+      and include the file @file{bug.txt}.  (If you are running
+      lilypond 1.5.73 or earlier, download
+      @uref{http://lilypond.org/cygwin/bug-lilypond-cygwin,
+      bug-lilypond-cygwin here}.
+@end itemize
+
+If you have trouble using bug-lilypond-cygwin, you must gather this
+information by hand.  Specifically, we want to see the output of the
+following commands:
+@itemize @bullet
+@item Version info
 @quotation
 @example
   python --version
@@ -187,39 +281,3 @@ want to see the output of the  following commands:
 @end example
 @end quotation
 @end itemize
-
-You can also check out
-@uref{http://lilypond.org/wiki/?TroubleshootingWindows} for more
-instructions on how to make a bug report.
-
-
-@ignore
-
-[TODO:
-
-
-* emacs-mode installation, figure out and describe proper
-emacs-on-cygwin setup.
-]
-
-
-Let's take this step by step.
-
-It should not be critical which MikTeX version you use.
-Let's first verify that your MikTeX works as it should.
-Open a DOS window. Run the commands
->> latex sample2e
- Should produce some lines of output
->> yap sample2e
- Should display a three page document.
-
-Next step; verify that the geometry package is in place. 
-Save the attached file to the directory where you run 
-your DOS window. Run the commands
->> latex geometrytest
->> yap geometrytest
-This one you should get a single page document with some text
-in each corner.
-]
-
-@end ignore

@@ -20,10 +20,9 @@ Please source this script, ie do:
 EOF
 fi
 
-docdir=@prefix@/share/doc/lilypond-@TOPLEVEL_VERSION@
-if [ ! -d $docdir ]; then
-    docdir=@prefix@/doc/lilypond-@TOPLEVEL_VERSION@
-fi
+docdir=@prefix@/share/doc/lilypond-@TOPLEVEL_VERSION@-1
+[ ! -d $docdir ] && docdir=@prefix@/doc/lilypond-@TOPLEVEL_VERSION@-1
+[ ! -d $docdir ] && docdir=$(echo /usr/doc/lilypond-[0-9]*)
 
 echo
 echo Availability of executables
