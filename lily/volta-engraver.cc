@@ -59,7 +59,8 @@ Volta_engraver::process_music ()
     {
       SCM c = gh_car (cs);
 
-      if (gh_pair_p (c) && gh_car (c) == ly_symbol2scm ("volta"))
+      if (gh_pair_p (c) && gh_car (c) == ly_symbol2scm ("volta")
+	  && gh_pair_p (gh_cdr (c)))
 	{
 	  if (gh_cadr (c) ==  SCM_BOOL_F)
 	    end = true;
