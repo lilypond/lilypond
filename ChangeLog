@@ -1,3 +1,7 @@
+2004-11-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/bar-line.cc (get_staff_bar_size): add line thickness.
+
 2004-11-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* input/example-[1-3].ly: simplify.
