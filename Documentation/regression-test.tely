@@ -31,6 +31,8 @@ documenting bugfixes.
 
 @lilypondfile[printfilename]{easy-notation.ly}
 
+@lilypondfile[printfilename]{drums.ly}
+
 @section Rests
 
 @lilypondfile[printfilename]{rest-ledger.ly}

@@ -1,3 +1,13 @@
+2002-06-12  Han-Wen  <hanwen@cs.uu.nl>
+
+	* scm/grob-description.scm (all-grob-descriptions): add
+	font-family to RehearsalMark
+
+	* scm/drums.scm: move over definitions from drum-pitch-init.ly
+
+	* lily/volta-bracket.cc (brew_molecule): bugfix, don't do anything
+	if glyph not set.
+
 2002-06-12  Heikki Junes  <heikki.junes@hut.fi>
 
 	* lilypond-mode.el: Propose saving before applying a command:

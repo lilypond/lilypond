@@ -461,6 +461,7 @@
 
 	(direction . 1)
 	(breakable . #t)
+	(font-family . roman)
 	(visibility-lambda . ,end-of-line-invisible)
 	(padding . 0.8)
 	(meta . ((interfaces . (text-interface side-position-interface font-interface mark-interface self-alignment-interface))))
