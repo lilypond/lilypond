@@ -104,5 +104,4 @@ Articulation_req::do_equal_b (Request const* r) const
     && get_direction () == a->get_direction ();
 }
 
-
-
+ADD_MUSIC(String_number_req);

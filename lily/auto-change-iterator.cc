@@ -101,6 +101,8 @@ Auto_change_iterator::pending_pitch (Moment m) const
       m = iter->pending_moment ();
     }
 
+  scm_gc_unprotect_object (iter->self_scm());
+
   return ps;
 }
 

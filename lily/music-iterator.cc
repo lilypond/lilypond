@@ -37,9 +37,6 @@ Music_iterator::~Music_iterator ()
 {
 }
 
-
-
-
 Translator_group* 
 Music_iterator::report_to () const
 {

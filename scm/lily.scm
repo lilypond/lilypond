@@ -11,16 +11,15 @@
 
 ;;(write standalone (current-error-port))
 
-; (set-debug-cell-accesses! #t)
 
 ;;; General settings
-
-
 ;; debugging evaluator is slower.
 
-(debug-enable 'debug)
-(debug-enable 'backtrace)
-(read-enable 'positions)
+;(debug-enable 'debug)
+;(debug-enable 'backtrace)
+;(read-enable 'positions)
+;(set-debug-cell-accesses! #f)
+
 
 
 (define point-and-click #f)

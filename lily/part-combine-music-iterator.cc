@@ -31,11 +31,12 @@ Part_combine_music_iterator::derived_mark () const
     scm_gc_mark(second_iter_->self_scm());
 }
 
+
 Part_combine_music_iterator::Part_combine_music_iterator (Part_combine_music_iterator const &src)
   : Music_iterator (src)
 {
-  second_iter_ = src.second_iter_ ? src.second_iter_->clone () : 0;
   first_iter_ = src.first_iter_ ? src.first_iter_->clone () : 0;
+  second_iter_ = src.second_iter_ ? src.second_iter_->clone () : 0;
 
   first_until_ = src.first_until_;
   second_until_ = src.second_until_;
@@ -184,10 +185,11 @@ Part_combine_music_iterator::get_state (Moment)
       Moment second_mom = second_until_;
       Moment diff_until = diff_mom + now;
 
+
       bool first = true;
       Music_iterator *first_iter = first_iter_->clone ();
       Music_iterator *second_iter = second_iter_->clone ();
-
+      
       Moment last_pending (-1);
       Moment pending = now;
       while (now < diff_until
@@ -319,9 +321,10 @@ Part_combine_music_iterator::get_state (Moment)
 	    second_iter->skip (pending);
 	  now = pending;
 	}
-      scm_gc_unprotect_object ( first_iter->self_scm());
-      scm_gc_unprotect_object( second_iter->self_scm());
+      scm_gc_unprotect_object (first_iter->self_scm ());
+      scm_gc_unprotect_object (second_iter->self_scm ());
     }
+
   return state;
 }
 

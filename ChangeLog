@@ -1,3 +1,12 @@
+2002-09-09  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/musical-request.cc: do ADD_MUSIC for String_number_req.
+
+	* lily/include/lily-guile.hh (scm_remember_upto_here_1): add glue
+
+	* lily/sequential-iterator.cc (get_pending_events): don't delete
+	music-iterator.
+	
 2002-09-08  Rune Zedeler  <rune@zedeler.dk>
 
 	* scm/music-property-description.scm: describe string-number (whoops)
@@ -5,6 +14,9 @@
 	* Documentation/user/refman.itely: Tablature and bar number updates
 	
 2002-09-08  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/lyric-combine-music-iterator.cc
+	(Lyric_combine_music_iterator): small bugfix
 
 	* lily/include/simultaneous-music-iterator.hh (class
 	Simultaneous_music_iterator): use SCM list for list of iterators.

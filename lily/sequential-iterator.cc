@@ -252,8 +252,8 @@ Sequential_iterator::get_pending_events (Moment until)const
       else
 	me->next_element (false);
     }
-  delete me;
-  
+
+  scm_gc_unprotect_object (me->self_scm());
   return s;
 }
 

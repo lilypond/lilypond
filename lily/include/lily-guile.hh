@@ -58,7 +58,7 @@ inline SCM scm_c_make_vector  (int k, SCM val) {
 }
 #define scm_c_define_gsubr scm_make_gsubr
 #define scm_c_eval_string(str) gh_eval_str ((char*)str)
-
+#define scm_remember_upto_here_1(s) scm_remember (&s)
 #define scm_gc_protect_object scm_protect_object
 #define scm_gc_unprotect_object scm_unprotect_object
 #define scm_list_n scm_listify

@@ -23,12 +23,8 @@ public:
 
 protected:
   virtual void process (Moment);  
-
-
   Array<Pitch> pending_pitch (Moment)const;
 private:
-
-  
   Direction where_dir_;
   void change_to (Music_iterator* , String, String);
 };
