@@ -321,7 +321,7 @@ ly_scm2interval (SCM p)
 }
 
 SCM
-ly_interval2scm (Interval i)
+ly_interval2scm (Drul_array<Real> i)
 {
   return gh_cons (gh_double2scm (i[LEFT]),
 		  gh_double2scm (i[RIGHT]));

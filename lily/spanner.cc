@@ -304,8 +304,15 @@ Spanner::do_derived_mark ()
   return SCM_EOL;
 }
 
+
+/*
+  Set left or right bound to IT.
+
+  Warning: caller should ensure that subsequent calls put in ITems
+  that are left-to-right ordered.
+ */
 void
-add_bound_item (Spanner* sp, Item*it)
+add_bound_item (Spanner* sp, Grob*it)
 {
   if (!sp->get_bound (LEFT))
     sp->set_bound (LEFT, it);

@@ -45,7 +45,6 @@ Text_spanner::brew_molecule (SCM smob)
       setup_pedal_bracket(spanner);
     }
 
-
   /* Ugh, must be same as Hairpin::brew_molecule.  */
   Real padding = gh_scm2double (me->get_grob_property ("if-text-padding"));
   Real broken_left =  spanner->get_broken_left_end_align ();
@@ -68,10 +67,10 @@ Text_spanner::brew_molecule (SCM smob)
 	  Real r = 0.0;
 	  if (!e.empty_b ())
 	    r = e[-d] + padding;
+
 	  /* Text spanners such as ottava, should span from outer limits of
 	     noteheads, iso (de)cresc. spanners that span the inner space */
 	  if (me->get_grob_property ("outer") != SCM_EOL)
-	    // r *= -1; // huh?
 	    {
 	      width -= d * r;
 	    }
@@ -184,6 +183,7 @@ Text_spanner::brew_molecule (SCM smob)
 
 
 
+
 /* 
    Piano pedal brackets are a special case of a text spanner.
    Pedal up-down (restart) indicated by the angled right and left edges 
@@ -217,24 +217,25 @@ Text_spanner::setup_pedal_bracket(Spanner *me)
   if (gh_number_p (pa) )
     padding = gh_scm2double (pa);
 
-  do {
-    Item *b = me->get_bound (d);
+  do
+    {
+      Item *b = me->get_bound (d);
 
-    e = b->extent (b, X_AXIS);
-    if (!e.empty_b ())
-      r[d] = d * (e[-d] + padding);
+      e = b->extent (b, X_AXIS);
+      if (!e.empty_b ())
+	r[d] = d * (e[-d] + padding);
 
-    broken[d] = b->break_status_dir () != CENTER;
-    width[d]  =  0;
-    height[d] =  0;
-    shorten[d] = 0;
-    if ( gh_pair_p (ew) )
-      width[d] +=  gh_scm2double (index_cell (ew, d)) * d;
-    if ( !broken[d] && (gh_pair_p (eh) ) )
-      height[d] += gh_scm2double (index_cell (eh, d));
-    if ( gh_pair_p (sp) )
-      shorten[d] +=  gh_scm2double (index_cell (sp, d));
-  }
+      broken[d] = b->break_status_dir () != CENTER;
+      width[d]  =  0;
+      height[d] =  0;
+      shorten[d] = 0;
+      if ( gh_pair_p (ew) )
+	width[d] +=  gh_scm2double (index_cell (ew, d)) * d;
+      if ( !broken[d] && (gh_pair_p (eh) ) )
+	height[d] += gh_scm2double (index_cell (eh, d));
+      if ( gh_pair_p (sp) )
+	shorten[d] +=  gh_scm2double (index_cell (sp, d));
+    }
   while (flip (&d) != LEFT);
   
   Real extra_short = 0;
@@ -260,36 +261,35 @@ Text_spanner::setup_pedal_bracket(Spanner *me)
 
   shorten[LEFT] += extra_short ;
   
-  if (broken[LEFT]) {
-    shorten[LEFT]  -=  me->get_broken_left_end_align () ;
-    shorten[RIGHT]  +=  abs(width[RIGHT])  +  thick  -  r[RIGHT];
-  }
+  if (broken[LEFT])
+    {
+      shorten[LEFT]  -=  me->get_broken_left_end_align () ;
+      shorten[RIGHT]  +=  abs(width[RIGHT])  +  thick  -  r[RIGHT];
+    }
 
-  else {
-    // Shorten a ____/ on the right so that it will touch an adjoining \___
-    shorten[RIGHT]  +=  abs(width[LEFT])  +  abs(width[RIGHT])  +  thick;
-    // Also shorten so that it ends just before the spanned note.
-    shorten[RIGHT]  -=  (r[LEFT]  +  r[RIGHT]);
-  }
+  else
+    {
+      // Shorten a ____/ on the right so that it will touch an adjoining \___
+      shorten[RIGHT]  +=  abs(width[LEFT])  +  abs(width[RIGHT])  +  thick;
+      // Also shorten so that it ends just before the spanned note.
+      shorten[RIGHT]  -=  (r[LEFT]  +  r[RIGHT]);
+    }
 
-  me->set_grob_property ("edge-height", gh_cons ( gh_double2scm ( height[LEFT] ) , 
-						  gh_double2scm ( height[RIGHT]) ) );
-  me->set_grob_property ("edge-width",  gh_cons ( gh_double2scm ( width[LEFT]  ), 
-						  gh_double2scm ( width[RIGHT] ) ));
-  me->set_grob_property ("shorten-pair", gh_cons ( gh_double2scm ( shorten[LEFT] ), 
-						   gh_double2scm ( shorten[RIGHT] ) ));
+  me->set_grob_property ("edge-height", ly_interval2scm (height));
+  me->set_grob_property ("edge-width",  ly_interval2scm(width));
+  me->set_grob_property ("shorten-pair", ly_interval2scm (shorten));
 }
 
 
 struct Pianopedal
 {
-    static bool has_interface (Grob*);
+  static bool has_interface (Grob*);
 };
 ADD_INTERFACE (Pianopedal,"piano-pedal-interface",
-  "",
-  "pedal-type edge-width edge-height shorten-pair text-start left-widen right-widen");
+	       "",
+	       "pedal-type edge-width edge-height shorten-pair text-start left-widen right-widen");
 
 ADD_INTERFACE (Text_spanner,"text-spanner-interface",
-  "generic text spanner",
-  "dash-period if-text-padding dash-length edge-height edge-width edge-text shorten-pair type");
+	       "generic text spanner",
+	       "dash-period if-text-padding dash-length edge-height edge-width edge-text shorten-pair type");
 

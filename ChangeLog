@@ -1,5 +1,7 @@
 2002-05-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/piano-pedal-engraver.cc: cleanups.
+
 	* lily/accidental.cc (after_line_breaking): add break tie
 	reminders.
 

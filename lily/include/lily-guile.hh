@@ -21,6 +21,7 @@
 #include <guile/gh.h>
 
 #include "config.h"
+#include "drul-array.hh"
 
 /* Guile 1.3.4 compatibility */
 #if GUILE_MINOR_VERSION < 4
@@ -141,7 +142,7 @@ Offset ly_scm2offset (SCM);
 SCM ly_assoc_chain (SCM key, SCM achain);
 SCM ly_assoc_cdr (SCM key, SCM alist);
 Interval ly_scm2interval (SCM);
-SCM ly_interval2scm (Interval);
+SCM ly_interval2scm (Drul_array<Real>);
 
 
 SCM ly_parse_scm (char const* s, int* n);
