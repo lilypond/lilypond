@@ -18,8 +18,8 @@ Parser			1
 InitDeclarations	1
 Declarations		1
 # FlexLexer debug
-InitLexer		0
-Lexer			0
+InitLexer		1
+Lexer			1
 
 parse_duration		1
 parse_pitchmod		1
