@@ -34,7 +34,9 @@ fet_beginchar("Sharp" , "1", "sharp");
 	2 horizontal_protrusion  + interstem * beamwidth + stemwidth
 		= beamwidth;
 	
-	z2 - z1 = (beamwidth - roundness, beamheight/2);
+% wanske: whole beamheight; or ca 18 degrees
+%	z2 - z1 = (beamwidth - roundness, beamheight/2);
+	z2 - z1 = (beamwidth - roundness, beamheight);
 	z1 + z2 = 2*center;
 	beamslope = (y2-y1)/(x2-x1);
 

@@ -1,4 +1,5 @@
-% generated automatically by  mf-to-table.py version 0.3
+% generated automatically by mf-to-table.py version 0.3
+% on Mon Oct  6 20:23:06 1997
 % Do not edit
 
 % input from out/font-en-tja16.log
@@ -33,8 +34,8 @@
         "-2" "\longaball" -0.00\pt 8.00\pt -2.00\pt 2.00\pt 
         }
     "foobars"  = \table {
-        "ufermata" "\ufermata" -6.20\pt 6.20\pt -0.00\pt 6.80\pt 
-        "dfermata" "\dfermata" -6.20\pt 6.20\pt -6.80\pt 0.00\pt 
+        "ufermata" "\ufermata" -6.30\pt 6.30\pt -0.00\pt 6.80\pt 
+        "dfermata" "\dfermata" -6.30\pt 6.30\pt -6.80\pt 0.00\pt 
         "accent" "\accent" -3.60\pt 3.60\pt -2.00\pt 2.00\pt 
         "staccato" "\staccato" -0.50\pt 0.50\pt -0.50\pt 0.50\pt 
         "ustaccatissimo" "\ustaccatissimo" -0.80\pt 0.80\pt -0.20\pt 4.00\pt 

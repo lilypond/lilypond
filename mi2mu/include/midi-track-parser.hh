@@ -20,7 +20,7 @@ class Midi_track_parser : public Midi_parser
 {
 public:
 
-  Midi_track_parser (Midi_parser_info* info_l);
+  Midi_track_parser (Midi_parser_info* info_l, int i);
   ~Midi_track_parser ();
 
   Moment at_mom ();

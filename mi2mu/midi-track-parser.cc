@@ -15,12 +15,12 @@
 #include "mudela-score.hh"
 #include "mudela-staff.hh"
 
-Midi_track_parser::Midi_track_parser (Midi_parser_info* info_l)
+Midi_track_parser::Midi_track_parser (Midi_parser_info* info_l, int i)
 {
   info_l_ = info_l;
   at_mom_ = 0;
   track_info_p_ = 0;
-  mudela_staff_p_ = new Mudela_staff (0, "", "", "");
+  mudela_staff_p_ = new Mudela_staff (i, "", "", "");
   parse_header ();
   parse_delta_time ();
 }

@@ -2,10 +2,10 @@ fet_begingroup("foobars")
 
 
 def draw_fermata =
-	save radius, crook_thinness, crook_fatness, dot_diam;
+	save alpha, radius, crook_thinness, crook_fatness, dot_diam;
 	
 	radius# = 1.5 interline#;
-	crook_thinness# = stafflinethickness#;
+	crook_thinness# = 1.5stafflinethickness#;
 	crook_fatness# = 4 stafflinethickness#;
 
 	radius# + crook_fatness#/2 = h#;
@@ -23,8 +23,15 @@ def draw_fermata =
 	z2 = (0, radius);
 	z3 = (radius,0);
 	
-	fill z1l{down} .. {up}z1r .. z2r .. z3r{down} .. {up}z3l
-		.. z2l .. cycle;
+%	fill z1l{down} .. {up}z1r .. z2r .. z3r{down} .. {up}z3l
+%		.. z2l .. cycle;
+	% wanske, baerenreiter suggest ca 80 degrees iso half-circle
+	% ugh?
+	alpha := 10;
+%	penstroke z1e{dir (90-alpha)}..z2e..{dir (alpha-90)}z3e;
+	% isn't this ugly to get rounded edges?
+	fill z1l{dir (-alpha-90)}..{dir (90-alpha)}z1r..z2r..
+		z3r{dir (alpha-90)}..{dir (90+alpha)}z3l..z2l..cycle;
 
 	pickup pencircle scaled dot_diam;
 	x4 =0;
@@ -46,6 +53,7 @@ fet_beginchar("fermata down", "dfermata", "dfermata")
 
 
 % FIXME: rounded endings
+%        and thickness at point of join==thickness at end, like ">"
 %
 fet_beginchar("> accent", "accent", "accent")
 	set_char_box(.9 interline#, .9 interline#, .5 interline#, .5 interline#);

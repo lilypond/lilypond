@@ -90,7 +90,7 @@ Midi_score_parser::parse_score ()
 
   Link_array<Midi_track_parser> tracks;
   for (int i = 0; i < info_l_->tracks_i_; i++)
-    tracks.push (new Midi_track_parser (info_l_));
+    tracks.push (new Midi_track_parser (info_l_, i));
 
   LOGOUT (NORMAL_ver) << "Parsing...\n";
   while (tracks.size ())
