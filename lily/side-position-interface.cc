@@ -107,6 +107,9 @@ Side_position_interface::general_side_position (Grob * me, Axis a, bool use_exte
   if (fabs (total_off) > 100 CM)
     programming_error ("Huh ? Improbable staff side dim.");
 
+
+  
+  
   return gh_double2scm (total_off);
 }
 
@@ -193,6 +196,23 @@ Side_position_interface::aligned_side (SCM element_smob, SCM axis)
 	}
       o += - iv[-d];
     }
+
+  Grob * st = Staff_symbol_referencer::get_staff_symbol (me);
+  if (st && a == Y_AXIS
+      && gh_number_p (me->get_grob_property ("staff-padding")))
+    {
+      Real padding=
+      Staff_symbol_referencer::staff_space (me)
+      * gh_scm2double (me->get_grob_property ("staff-padding"));
+  
+      Grob *common = me->common_refpoint (st, Y_AXIS);
+      
+      Interval staff_size = st->extent (common, Y_AXIS);
+      Interval me_ext = me->extent (common, a);
+      Real diff =  d*staff_size[d] + padding - d*(o + iv[-d]);
+      o += (d*  (diff >? 0));
+    }
+      
   return gh_double2scm (o);
 }
 
@@ -205,28 +225,7 @@ MAKE_SCHEME_CALLBACK (Side_position_interface,out_of_staff,2);
 SCM
 Side_position_interface::out_of_staff (SCM element_smob, SCM axis)
 {
-  Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) gh_scm2int (axis);
-
-  Grob * st = Staff_symbol_referencer::get_staff_symbol (me);
-
-  if (!st)
-    return gh_int2scm (0);
-
-  SCM scm_padding = me->get_grob_property ("staff-padding");
-  if (!gh_number_p (scm_padding))
-    return gh_int2scm (0);
-  
-  Real padding=
-    Staff_symbol_referencer::staff_space (me)
-    * gh_scm2double (scm_padding);
-  
-  Grob *common = me->common_refpoint (st, Y_AXIS);
-  Direction d = Side_position_interface::get_direction (me);
-  Interval staff_size = st->extent (common, Y_AXIS);
-  Interval me_ext = me->extent (common, a);
-  Real diff =  d*staff_size[d] + padding - d*me_ext[-d];
-  return gh_double2scm (d*  (diff >? 0));
+  return gh_double2scm (0);
 }
 
 void

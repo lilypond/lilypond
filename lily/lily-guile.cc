@@ -253,6 +253,13 @@ ly_scm2interval (SCM p)
 		    gh_scm2double (ly_cdr (p)));
 }
 
+Drul_array<Real>
+ly_scm2realdrul (SCM p)
+{
+  return  Drul_array<Real> (gh_scm2double (ly_car (p)),
+			    gh_scm2double (ly_cdr (p)));
+}
+
 SCM
 ly_interval2scm (Drul_array<Real> i)
 {

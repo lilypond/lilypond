@@ -88,7 +88,9 @@ struct Interval_t : public Drul_array<T> {
   }
 
   Real linear_combination (Real x) const {
-    return ((1.0 - x) * Real (elem (LEFT))  + (x + 1.0) * Real (elem (RIGHT))) * 0.5;
+    Drul_array<Real> da (elem (LEFT),
+			 elem (RIGHT));
+    return ::linear_combination (da, x);
   }
   String to_string () const;    
 

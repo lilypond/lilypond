@@ -3,8 +3,7 @@
 {
 
     texidoc = "The @code{Measure_grouping_engraver} adds triangles and
-brackets above beats when you set beatGrouping.  This shows a fragment
-of Steve Martland's Dance Works. "
+brackets above beats when you set beatGrouping.  "
 
 }
 
@@ -22,7 +21,7 @@ of Steve Martland's Dance Works. "
 	     \time 2/4
 	     c,8 g'4 g8~
 	     #(set-time-signature 5 8 '(3 2)) 
-	     g8 a4 g a->
+	     g8 a4 g a4.->
 	 }
 	 \paper  {
 	     raggedright = ##t

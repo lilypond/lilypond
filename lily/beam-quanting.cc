@@ -274,15 +274,14 @@ Beam::quanting (SCM smob)
   if (debug_beam_quanting_flag
       && gh_pair_p (inspect_quants))
     {
-      Real il = gh_scm2double (gh_car (inspect_quants));
-      Real ir = gh_scm2double (gh_cdr (inspect_quants));
+      Drul_array<Real> ins = ly_scm2interval (inspect_quants);
 
       int i = 0;
 
       Real mindist = 1e6;
       for (; i < qscores.size(); i ++)
 	{
-	  Real d =fabs (qscores[i].yl-il) + fabs (qscores[i].yr - ir);
+	  Real d =fabs (qscores[i].yl- ins[LEFT]) + fabs (qscores[i].yr - ins[RIGHT]);
 	  if (d < mindist)
 	    {
 	      best_idx = i;
@@ -295,8 +294,8 @@ Beam::quanting (SCM smob)
 #endif
   
   me->set_grob_property ("positions",
-			 gh_cons (gh_double2scm (qscores[best_idx].yl),
-				  gh_double2scm (qscores[best_idx].yr)));
+			 ly_interval2scm (Drul_array<Real> (qscores[best_idx].yl,
+					  qscores[best_idx].yr)));
 #if DEBUG_QUANTING
   if (debug_beam_quanting_flag)
     {

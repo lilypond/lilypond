@@ -67,7 +67,7 @@ private:
   static void set_stem_shorten (Grob*);
   static Real calc_stem_y (Grob*, Grob* s, Grob**c,
 			   Real, Real,
-			   Interval pos, bool french);
+			   Drul_array<Real> pos, bool french);
   static void set_stem_lengths (Grob*);
   static int forced_stem_count (Grob*);
 };

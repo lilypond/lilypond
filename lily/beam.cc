@@ -10,8 +10,6 @@
 /*
 TODO:
 
-  * Use Number_pair i.s.o Interval to represent (yl, yr).
-  
   - Determine auto knees based on positions if it's set by the user.
 
   - the code is littered with * and / staff_space calls for
@@ -45,8 +43,6 @@ Notes:
 #include "item.hh"
 #include "spanner.hh"
 #include "warn.hh"
-
-
 
 bool debug_beam_quanting_flag;
 
@@ -332,24 +328,24 @@ Beam::brew_molecule (SCM grob)
     }
 
   SCM posns = me->get_grob_property ("positions");
-  Interval pos;
+  Drul_array<Real> pos;
   if (!is_number_pair (posns))
     {
       programming_error ("No beam posns");
       pos = Interval (0,0);
     }
   else
-    pos= ly_scm2interval (posns);
+    pos= ly_scm2realdrul (posns);
 
-
-  pos *= Staff_symbol_referencer::staff_space (me); 
-  Real dy = pos.delta ();
+  scale_drul (  &pos,  Staff_symbol_referencer::staff_space (me));
+  
+  Real dy = pos[RIGHT] - pos[LEFT];
   Real dydx = (dy && dx) ? dy/dx : 0;
   
   Real thick = get_thickness (me);
   Real bdy = get_beam_translation (me);
 
-  SCM last_beaming = SCM_EOL;;
+  SCM last_beaming = SCM_EOL;
   Real last_xposn = -1;
   Real last_stem_width = -1 ;
 
@@ -932,7 +928,7 @@ Beam::least_squares (SCM smob)
   /*
     "position" is relative to the staff.
    */
-  pos *= 1/ Staff_symbol_referencer::staff_space (me); 
+  scale_drul (&pos,  1/ Staff_symbol_referencer::staff_space (me)); 
   
   me->set_grob_property ("positions", ly_interval2scm (pos));
  
@@ -982,11 +978,11 @@ Beam::shift_region_to_valid (SCM grob)
   
   Real dx = lvs->relative_coordinate (commonx, X_AXIS) - x0;
 
-  Interval pos = ly_scm2interval ( me->get_grob_property ("positions"));
+  Drul_array<Real> pos = ly_scm2interval ( me->get_grob_property ("positions"));
 
-  pos  *= Staff_symbol_referencer::staff_space (me);
+  scale_drul (&pos,  Staff_symbol_referencer::staff_space (me));
   
-  Real dy = pos.delta();
+  Real dy = pos[RIGHT] - pos[LEFT];
   Real y = pos[LEFT];
   Real dydx =dy/dx;
 
@@ -1038,8 +1034,8 @@ Beam::shift_region_to_valid (SCM grob)
 	y = feasible_left_point.center ();
     }
   
-  pos = Interval (y, (y+dy));
-  pos *= 1/ Staff_symbol_referencer::staff_space (me);
+  pos = Drul_array<Real> (y, (y+dy));
+  scale_drul (&pos, 1/ Staff_symbol_referencer::staff_space (me));
   
   me->set_grob_property ("positions", ly_interval2scm (pos));
   return SCM_UNSPECIFIED;
@@ -1162,11 +1158,11 @@ Beam::check_concave (SCM smob)
   /* TODO: some sort of damping iso -> plain horizontal */
   if (concaveness1 || concaveness2 > r2)
     {
-      Interval pos = ly_scm2interval (me->get_grob_property ("positions"));
-      Real r = pos.linear_combination (0);
+      Drul_array<Real> pos = ly_scm2interval (me->get_grob_property ("positions"));
+      Real r = linear_combination (pos, 0);
 
       r /= Staff_symbol_referencer::staff_space (me);
-      me->set_grob_property ("positions", ly_interval2scm (Interval (r, r)));
+      me->set_grob_property ("positions", ly_interval2scm (Drul_array<Real> (r, r)));
       me->set_grob_property ("least-squares-dy", gh_double2scm (0));
     }
 
@@ -1190,10 +1186,10 @@ Beam::slope_damping (SCM smob)
 
   if (damping)
     {
-      Interval pos = ly_scm2interval (me->get_grob_property ("positions"));
-      pos *= Staff_symbol_referencer::staff_space (me);
+      Drul_array<Real>  pos = ly_scm2interval (me->get_grob_property ("positions"));
+      scale_drul (&pos,  Staff_symbol_referencer::staff_space (me));
       
-      Real dy = pos.delta ();
+      Real dy = pos[RIGHT] - pos[LEFT];
 
       Grob *fvs  = first_visible_stem (me);
       Grob *lvs  = last_visible_stem (me);
@@ -1210,7 +1206,7 @@ Beam::slope_damping (SCM smob)
       pos[LEFT] += (dy - damped_dy) / 2;
       pos[RIGHT] -= (dy - damped_dy) / 2;
 
-      pos *= 1/ Staff_symbol_referencer::staff_space (me);
+      scale_drul (&pos, 1/Staff_symbol_referencer::staff_space (me));
       
       me->set_grob_property ("positions", ly_interval2scm (pos));
     }
@@ -1241,13 +1237,13 @@ where_are_the_whole_beams(SCM beaming)
 Real
 Beam::calc_stem_y (Grob *me, Grob* s, Grob ** common,
 		   Real xl, Real xr,
-		   Interval pos, bool french) 
+		   Drul_array<Real> pos, bool french) 
 {
   Real beam_translation = get_beam_translation (me);
 
     
   Real r = s->relative_coordinate (common[X_AXIS], X_AXIS) - xl;
-  Real dy = pos.delta ();
+  Real dy = pos[RIGHT] - pos[LEFT];
   Real dx = xr - xl;
   Real stem_y_beam0 = (dy && dx
 		       ? r / dx
@@ -1294,9 +1290,9 @@ Beam::set_stem_lengths (Grob *me)
   for (int a = 2; a--;)
     common[a] = common_refpoint_of_array (stems, me, Axis(a));
   
-  Interval pos = ly_scm2interval (me->get_grob_property ("positions"));
+  Drul_array<Real> pos = ly_scm2realdrul (me->get_grob_property ("positions"));
   Real staff_space = Staff_symbol_referencer::staff_space (me);
-  pos  *= staff_space;
+  scale_drul (&pos,  staff_space);
 
   bool gap = false;
   Real thick =0.0;
@@ -1473,16 +1469,16 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
       || !Beam::visible_stem_count (beam))
     return gh_double2scm (0.0);
 
-  Interval pos (0, 0);
+  Drul_array<Real> pos (0, 0);
   SCM s = beam->get_grob_property ("positions");
   if (gh_pair_p (s) && gh_number_p (ly_car (s)))
     pos = ly_scm2interval (s);
   Real staff_space = Staff_symbol_referencer::staff_space (rest);
 
-  pos  *= staff_space;
+  scale_drul (&pos, staff_space);
   
 
-  Real dy = pos.delta ();
+  Real dy = pos[RIGHT] - pos[LEFT];
   
   // ugh -> use commonx
   Real x0 = first_visible_stem (beam)->relative_coordinate (0, X_AXIS);
