@@ -41,8 +41,10 @@
 \ifundefined{documentclass}
   \input lilypond-plaintex
 
-%% make plain work ok Out Of The Box 
+%% make plain work ok Out Of The Box
+  \ifnum0<\lilypondpaperlinewidth
   \hsize=\lilypondpaperlinewidth\lilypondpaperunit
+  \fi
 \else
   \input lilypond-latex
 \fi
