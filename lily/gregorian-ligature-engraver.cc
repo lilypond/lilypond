@@ -76,8 +76,7 @@ void fix_prefix_set (int *current_set, int min_set, int max_set, Grob *primitive
   fix_prefix ("ascendens", ASCENDENS, current_set, min_set, max_set, primitive);
   fix_prefix ("oriscus", ORISCUS, current_set, min_set, max_set, primitive);
   fix_prefix ("quilisma", QUILISMA, current_set, min_set, max_set, primitive);
-  fix_prefix ("deminutus", DEMINUTUM, current_set, min_set, max_set, primitive);
-  fix_prefix ("semivocalis", SEMIVOCALIS, current_set, min_set, max_set, primitive);
+  fix_prefix ("deminutum", DEMINUTUM, current_set, min_set, max_set, primitive);
   fix_prefix ("cavum", CAVUM, current_set, min_set, max_set, primitive);
   fix_prefix ("linea", LINEA, current_set, min_set, max_set, primitive);
   fix_prefix ("pes_or_flexa", LINEA, current_set, min_set, max_set, primitive);
@@ -101,13 +100,12 @@ void check_and_fix_all_prefixes (Array<Grob_info> primitives)
       (ORISCUS * to_boolean (primitive->get_grob_property ("oriscus"))) |
       (QUILISMA * to_boolean (primitive->get_grob_property ("quilisma"))) |
       (DEMINUTUM * to_boolean (primitive->get_grob_property ("deminutum"))) |
-      (SEMIVOCALIS * to_boolean (primitive->get_grob_property ("semivocalis"))) |
       (CAVUM * to_boolean (primitive->get_grob_property ("cavum"))) |
       (LINEA * to_boolean (primitive->get_grob_property ("linea"))) |
       (PES_OR_FLEXA * to_boolean (primitive->get_grob_property ("pes-or-flexa")));
 
     /* check: ascendens and descendens exclude each other; same with
-       auctum and diminutum */
+       auctum and deminutum */
     if (prefix_set & DESCENDENS)
       {
 	fix_prefix_set (&prefix_set,
@@ -156,22 +154,22 @@ void check_and_fix_all_prefixes (Array<Grob_info> primitives)
 			primitive);
       }
 
-    /* check: semivocalis must occur in combination with and only with
-       pes or flexa */
-    if (prefix_set & SEMIVOCALIS)
-      {
-	fix_prefix_set (&prefix_set,
-			SEMIVOCALIS | PES_OR_FLEXA,
-			SEMIVOCALIS | PES_OR_FLEXA,
-			primitive);
-      }
 
-    /* check: inclinatum may be prefixed with auctum or diminutum only */
+    /* check: inclinatum may be prefixed with auctum or deminutum only */
     if (prefix_set & INCLINATUM)
       {
 	fix_prefix_set (&prefix_set,
 			INCLINATUM,
 			INCLINATUM | AUCTUM | DEMINUTUM,
+			primitive);
+      }
+    /* check: semivocalis (deminutum but not inclinatum) must occur in
+       combination with and only with pes or flexa */
+    else if (prefix_set & DEMINUTUM)
+      {
+	fix_prefix_set (&prefix_set,
+			DEMINUTUM | PES_OR_FLEXA,
+			DEMINUTUM | PES_OR_FLEXA,
 			primitive);
       }
 

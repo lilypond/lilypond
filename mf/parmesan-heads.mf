@@ -287,7 +287,7 @@ def punctum_char (expr verbose_name, internal_name, ly_name,
 		a_w := 1.09;
 
 		save a, beta, ht, wd;
-		ht# = noteheight#;  %% * mag;
+		ht# = noteheight# * mag;
 		2beta# = ht# * b_h;
 		a# = beta# * a_b;
 		wd# = 2a# / a_w;
@@ -532,20 +532,25 @@ punctum_char("Ed. Vat. var pes upper punctum", "vaticana_vupes",
 	     false, false, false, false, true,
 	     false, false, false, true, 1.0);
 
-% small punctum as used in epiphonus/cephalicus
+% small punctum as used in epiphonus
 punctum_char("Ed. Vat. plica", "vaticana_plica", "vatplicahead",
-	     false, false, false, false, true,
-	     false, false, false, false, 0.5);
+	     false, false, false, false, false,
+	     false, false, false, false, 0.7);
 
 % excentric punctum as used in epiphonus
 punctum_char("Ed. Vat. epiphonus", "vaticana_epiphonus", "vatepiphonushead",
 	     false, false, false, false, false,
 	     false, true, true, false, 1.0);
 
+% small punctum as used in cephalicus
+punctum_char("Ed. Vat. rev. plica", "vaticana_reverse_plica", "vatrplicahead",
+	     false, false, false, false, false,
+	     false, true, false, false, 0.7);
+
 % excentric punctum as used in cephalicus
 punctum_char("Ed. Vat. cephalicus", "vaticana_cephalicus",
 	     "vatcephalicushead",
-	     false, false, false, false, false,
+	     true, false, false, false, false,
 	     false, false, true, false, 1.0);
 
 % quilisma
@@ -617,7 +622,7 @@ fet_beginchar("Solesmes oriscus", "solesmes_oriscus",
 	a_w := 1.09;
 
 	save a, beta, ht, wd;
-	ht# = noteheight#; %%  * mag;
+	ht# = noteheight#;
 	2beta# = ht# * b_h;
 	a# = beta# * a_b;
 	wd# = 2a# / a_w;
