@@ -31,8 +31,6 @@ Bar_req::Bar_req (String s)
   type_str_ = s;
 }
 
-
-
 bool
 Barcheck_req::do_equal_b (Request const *r) const
 {

@@ -86,11 +86,9 @@ Span_bar::evaluate_empty ()
       {
 	type_str= ".|.";
       }
-  }
 
-  /*
-    uhh. should do something with type_str ?!!
-  */
+    set_elt_property ("glyph", ly_str02scm (type_str.ch_C()));
+  }
 }
 
 Interval
