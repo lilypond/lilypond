@@ -19,12 +19,10 @@
   */
 class Staff_side : virtual Score_elem {
   Link_array<Score_elem> support_l_arr_;
-  int staff_size_i_;
+
   Interval support_height() const;
-  Staff_symbol* staff_sym_l_;
   Real get_position_f() const;
 
-  void read_staff_sym();
 public:
 
   /**

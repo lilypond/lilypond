@@ -269,7 +269,7 @@ def draw_gclef (expr exact_center, reduction)=
 
 	penpos7(thickness, 135);
 	penpos8(1.5 thinnib, - 70 + angle downstroke_dir);
-	penpos9(1.5 thickness, -80);
+	penpos9(1.4 thickness, -80);  % ugh
 	penpos10(whatever, downstroke_angle + 10);
 	penpos11(thinnib, downstroke_angle + 90);
 	penpos12(thinnib, -90);
@@ -278,10 +278,11 @@ def draw_gclef (expr exact_center, reduction)=
 	
 	filldraw z2l{right}   .. z3l.. z4l{left} .. z5l{up}  .. z7l{up} 
 		%.. z8l	
+		.. tension 1.2 
 		.. z9l & z9l ..
 		{downstroke_dir}z10l --- z11l -- z11r --- z10r{- downstroke_dir} 
 		.. tension .8 
-		.. z9r & z9r  
+		.. z9r & z9r{dir (downstroke_angle+ 40)} % ugh
 		%.. z8r
 		.. z7r{down} .. z5r{down} .. z4r{right}
 		.. z3r .. z2r{left} .. 

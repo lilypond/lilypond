@@ -17,7 +17,6 @@ table_sixteen=
 		"finger"	"\setfinger{%}"	0.0\pt	0.0\pt	0.0\pt	4.0\pt
      }
      "dynamics" = \table {
-
 	"mf" "\dynmf"
 	"fff" "\dynfff"
 	"ff" "\dynff"
@@ -29,7 +28,6 @@ table_sixteen=
 	"fp" "\dynfp"
 	"sf" "\dynsf"
 	"sfz" "\dynsfz"
-
 	}
      "align" = \table {
 		"-1"	"\leftalign{%}"
@@ -68,7 +66,7 @@ table_sixteen=
 	"stem"	"\stem{%}{%}"
 	"fill"	"\hbox{}"
 	% ugh. 8pt
-	"crescendosym"	"\crescendosym{%}"	0.0\pt	0.0\pt	-3.0\pt	3.0\pt
+	"crescendosym"	"\crescendosym{%}"	0.0\pt	0.0\pt	-2.0\pt	2.0\pt
 	"decrescendosym"	"\decrescendosym{%}"	0.0\pt	0.0\pt	-3.0\pt	3.0\pt
      }
 

@@ -4,6 +4,7 @@
 % source file of the Feta (Font-En-Tja) music font
 % 
 % (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+%	Jan Nieuwenhuizen <jan@digicash.com>
 % 
 
 
@@ -65,7 +66,7 @@ fet_beginchar("> accent", "sforzato", "sforzatoaccent")
 	set_char_box(.9 interline#, .9 interline#, .5 interline#, .5 interline#);
 	save thickness, diminish;
 
-	thickness = 2 stafflinethickness;
+	thickness = 3/2 stafflinethickness;
 	pickup pencircle scaled thickness;
 
 	% prevent blobs at crossing lines
@@ -499,7 +500,26 @@ fet_beginchar("organ-toe", "pedaltoe", "pedaltoe")
 	labels(1,2,3);
 fet_endchar;
 
+fet_beginchar("Flageolet", "flageolet", "flageolet")
+	save height,width,thickness;
+	height#=4/15 staffsize#;
+	width#=height#;
+	thickness#=blot_diameter#;
+	define_pixels(height,width,thickness);
+	set_char_box(width#/2,width#/2,height#/2,height#/2);
+	
+	pickup pencircle scaled thickness;
+	x1= .5 [x2, x4];
+	x1 = 0;
+	top y1=height/2;
+	rt x4  - lft x2 =width; 
+	y2 = 0;
+	y4=y2;
+	x3=x1;
+	bot y3=-height/2;
 
-
+	penlabels(1,2,3,4);
+	draw z1..z2..z3..z4..cycle;
+fet_endchar;
 
 fet_endgroup("scripts");

@@ -1,3 +1,20 @@
+pl 38
+	- bf: \> \! \ff (crescendo overlap)
+	- misc feta-fixes, flageolet sign.
+	- midi tempo fixes.
+pl 37.jcn3
+	- max beam slope "compile time parameterised" and set to 0.6
+	  (oh, how we need runtime generated beams!)
+	- beam's left y-pos quantisation
+	- beam slopes' y-span quantisation
+	- stem.ly
+
+pl 37.jcn2
+	- feta: fixed sizes small numerals + flageolet
+
+
+*******
+dec 12
 pl 37
 	- --postscript
 	- don't crash non-fitting grouping (thx, John)

@@ -1,5 +1,5 @@
 % Creator: mf-to-table.py version 0.4
-% Automatically generated on Fri Dec 12 11:29:20 1997
+% Automatically generated on Wed Dec 24 16:38:34 1997
 % Do not edit
 % input from out/feta16.log
 % name=\symboltables {
@@ -9,11 +9,11 @@
         "0o"	"\\outsidewholerest"	-2.50\pt	8.50\pt	-2.50\pt	0.40\pt	
         "1o"	"\\outsidehalfrest"	-2.50\pt	8.50\pt	-0.40\pt	2.50\pt	
         "2"	"\\quartrest"	-0.00\pt	4.32\pt	3.00\pt	14.40\pt	
-        "3"	"\\eighthrest"	-0.00\pt	5.33\pt	4.00\pt	11.27\pt	
-        "4"	"\\sixteenthrest"	-0.00\pt	6.18\pt	-0.00\pt	11.27\pt	
-        "5"	"\\thirtysecondrest"	-0.00\pt	6.98\pt	-0.00\pt	15.27\pt	
-        "6"	"\\sixtyfourthrest"	-0.00\pt	7.49\pt	-0.00\pt	19.27\pt	
-        "7"	"\\hundredtwentyeighthrest"	-0.00\pt	8.34\pt	-0.00\pt	23.27\pt	
+        "3"	"\\eighthrest"	-0.00\pt	5.33\pt	4.00\pt	11.37\pt	
+        "4"	"\\sixteenthrest"	-0.00\pt	6.21\pt	-0.00\pt	11.37\pt	
+        "5"	"\\thirtysecondrest"	-0.00\pt	7.00\pt	-0.00\pt	15.37\pt	
+        "6"	"\\sixtyfourthrest"	-0.00\pt	7.51\pt	-0.00\pt	19.37\pt	
+        "7"	"\\hundredtwentyeighthrest"	-0.00\pt	8.36\pt	-0.00\pt	23.37\pt	
         }
     "accidentals"	 = \table {
         "1"	"\\sharp"	-0.00\pt	4.40\pt	-6.00\pt	6.00\pt	
@@ -56,6 +56,7 @@
         "trill"	"\\trill"	-0.00\pt	8.00\pt	-0.00\pt	9.00\pt	
         "pedalheel"	"\\pedalheel"	-2.00\pt	2.00\pt	-2.00\pt	2.67\pt	
         "pedaltoe"	"\\pedaltoe"	-2.00\pt	2.00\pt	-0.00\pt	6.00\pt	
+        "flageolet"	"\\flageolet"	-2.13\pt	2.13\pt	-2.13\pt	2.13\pt	
         }
     "flags"	 = \table {
         "u3"	"\\eighthflag"	-0.20\pt	4.94\pt	-12.26\pt	0.20\pt	

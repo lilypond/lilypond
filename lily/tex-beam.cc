@@ -54,15 +54,17 @@ Lookup::rule_symbol (Real height, Real width) const
 Atom
 Lookup::beam (Real &slope, Real width) const
 {
+  const Real MAX_SLOPE = 0.6;
+  const Real SLOPES = 20.0;
   int sidx = 0;
-  if (abs (slope) > 1.0)
+  if (abs (slope) > MAX_SLOPE)
     {
-      WARN << _("beam steeper than 1.0 (") << slope << ")\n";
-      slope = sign (slope);
+      WARN << _("beam too steep (") << slope << ")\n";
+      slope = sign (slope) * MAX_SLOPE;
     }
 
-  sidx = int (rint (slope *  20.0));
-  slope = sidx / 20.0;
+  sidx = int (rint (slope / MAX_SLOPE *  SLOPES));
+  slope = MAX_SLOPE * sidx / SLOPES;
 
   Interval xdims = (*symtables_p_)("beamslopes")->lookup ("slope").dim_[X_AXIS];
   Real min_wid = xdims[LEFT];

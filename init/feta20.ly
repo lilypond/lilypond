@@ -1,19 +1,19 @@
 % Creator: mf-to-table.py version 0.4
-% Automatically generated on Fri Dec 12 11:29:22 1997
+% Automatically generated on Wed Dec 24 16:38:42 1997
 % Do not edit
 % input from out/feta20.log
 % name=\symboltables {
     "rests"	 = \table {
-        "0"	"\\wholerest"	-0.00\pt	7.50\pt	-3.13\pt	0.00\pt	
-        "1"	"\\halfrest"	-0.00\pt	7.50\pt	-0.00\pt	3.13\pt	
-        "0o"	"\\outsidewholerest"	-3.13\pt	10.62\pt	-3.13\pt	0.50\pt	
-        "1o"	"\\outsidehalfrest"	-3.13\pt	10.62\pt	-0.50\pt	3.13\pt	
+        "0"	"\\wholerest"	-0.00\pt	7.50\pt	-3.12\pt	0.00\pt	
+        "1"	"\\halfrest"	-0.00\pt	7.50\pt	-0.00\pt	3.12\pt	
+        "0o"	"\\outsidewholerest"	-3.12\pt	10.62\pt	-3.12\pt	0.50\pt	
+        "1o"	"\\outsidehalfrest"	-3.12\pt	10.62\pt	-0.50\pt	3.12\pt	
         "2"	"\\quartrest"	-0.00\pt	5.40\pt	3.75\pt	18.00\pt	
-        "3"	"\\eighthrest"	-0.00\pt	6.67\pt	5.00\pt	14.08\pt	
-        "4"	"\\sixteenthrest"	-0.00\pt	7.72\pt	-0.00\pt	14.08\pt	
-        "5"	"\\thirtysecondrest"	-0.00\pt	8.72\pt	-0.00\pt	19.08\pt	
-        "6"	"\\sixtyfourthrest"	-0.00\pt	9.36\pt	-0.00\pt	24.08\pt	
-        "7"	"\\hundredtwentyeighthrest"	-0.00\pt	10.42\pt	-0.00\pt	29.08\pt	
+        "3"	"\\eighthrest"	-0.00\pt	6.67\pt	5.00\pt	14.21\pt	
+        "4"	"\\sixteenthrest"	-0.00\pt	7.76\pt	-0.00\pt	14.21\pt	
+        "5"	"\\thirtysecondrest"	-0.00\pt	8.75\pt	-0.00\pt	19.21\pt	
+        "6"	"\\sixtyfourthrest"	-0.00\pt	9.38\pt	-0.00\pt	24.21\pt	
+        "7"	"\\hundredtwentyeighthrest"	-0.00\pt	10.45\pt	-0.00\pt	29.21\pt	
         }
     "accidentals"	 = \table {
         "1"	"\\sharp"	-0.00\pt	5.50\pt	-7.50\pt	7.50\pt	
@@ -23,7 +23,7 @@
         "2"	"\\sharpsharp"	-0.00\pt	5.00\pt	-2.50\pt	2.50\pt	
         }
     "dots"	 = \table {
-        "dot"	"\\dot"	-0.00\pt	2.25\pt	-1.13\pt	1.13\pt	
+        "dot"	"\\dot"	-0.00\pt	2.25\pt	-1.12\pt	1.12\pt	
         "repeatcolon"	"\\repeatcolon"	-0.00\pt	2.25\pt	-2.50\pt	2.50\pt	
         }
     "balls"	 = \table {
@@ -56,6 +56,7 @@
         "trill"	"\\trill"	-0.00\pt	10.00\pt	-0.00\pt	11.25\pt	
         "pedalheel"	"\\pedalheel"	-2.50\pt	2.50\pt	-2.50\pt	3.33\pt	
         "pedaltoe"	"\\pedaltoe"	-2.50\pt	2.50\pt	-0.00\pt	7.50\pt	
+        "flageolet"	"\\flageolet"	-2.67\pt	2.67\pt	-2.67\pt	2.67\pt	
         }
     "flags"	 = \table {
         "u3"	"\\eighthflag"	-0.25\pt	6.17\pt	-15.33\pt	0.25\pt	

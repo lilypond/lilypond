@@ -26,8 +26,8 @@ TestedFeatures =	 "This file tests the Feta music-font"
 		a\fp a4.\sf a4.\sfz | % a\fz a\rf
 		[c8 c] [a' a']
 		[c a'] [a' c] |
-		[c d e f] [as' ges' f' e']
-		[cis' dis' c' des'] [cisis' disis' ceses' deses'] |
+		[c \< d e f] [as' ges' f' e']
+		[cis' dis' c' des'] [cisis' disis' \! ceses' deses'] |
 		\clef "bass";
 		  r1 r2 r4 r8 r16 r32 r64 r128 r128 |
 		\multi 2 < { \stemup r2 r2} {\stemdown c c }>
@@ -43,12 +43,11 @@ TestedFeatures =	 "This file tests the Feta music-font"
 		\textstyle "finger";
 		c4^"1" d^"2" e^"3" f^"4" g^"5"
 		
-		% Music for the Martians?
+		% Music to the Martians!
 		< bes4^"6" e_"7" c_"8" >
-		a'^"0"_"9"
+		a^"0"_"9"
 		
-		% ugh, \flageolet is like open, but maybe a perfect circle
-		a^\open
+		a'^\flageolet
 		\textstyle "roman";
 %{		% default abbreviations
 		c4 c4: c4:32 c4: c4 c2.
@@ -70,7 +69,9 @@ TestedFeatures =	 "This file tests the Feta music-font"
 		[:16 e1 g]
 %}
 		\meter 1/2; a2 |
-		\meter 3/2; a1. |
+		\meter 3/2; < a1.
+		{ s4 \ppp \< s4 \! s4 \fff  s4 \> s4 \! s4\ppp} >
+		|
 		\meter 2/4; a2 |
 		\meter 5/4; a1.. |
 		\meter 6/8; a2. |

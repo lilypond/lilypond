@@ -1,30 +1,9 @@
 % feta-nummer8.mf
 % part of LilyPond's pretty-but-neat music font
 
-input autometric;
+size:=8;
 
-fet_beginfont("feta-nummer", 8);
-
-mode_setup;
-
-test:=0;
-input feta-macros;
-input feta-params;
-
-height#:=designsize;
-
-fatten:=1;
-widen:=1;
-flaren:=1;
-tense=0.85;
-thick#:=7/30height#*fatten;
-thin#:=thick#/4*fatten;
-hair#:=blot_diameter#;
-kuulleke#:=1/8thick#;
-
-input feta-nummer;
-
-fet_endfont("feta-nummer");
+input feta-nummer-generic.mf;
 
 end.
 

@@ -4,9 +4,7 @@
 fet_begingroup("nummer")
 code := 47;
 
-define_pixels(height,thick,thick,thin,hair);
-foot_top#:=thick#;
-foot_width#:=9/4thick#/fatten;
+define_pixels(height,thick,thick,thin,hair,flare);
 define_pixels(foot_top,foot_width);
 define_pixels(kuulleke);
 
@@ -62,7 +60,7 @@ def draw_six =
 	penpos5(7/8thick,180);
 	z5r=(0,y1);
 	penpos6(hair,90);
-	z6r=(w-9/8thick*flaren,h);
+	z6r=(w-flare,h);
 	penpos7(7/8thick,180);
 	z7r=(0,h/2);
 	penpos10(7/8thick,180);
@@ -73,7 +71,7 @@ def draw_six =
 		..tension t..z4r{left}
 		..tension t..z7r{up}..tension t..z6r{right}
 		..z6l{left}..tension t..z7l{down}..z10l{up}..cycle;
-	draw_flare(z6r,0,-90,hair,thick*flaren);
+	draw_flare(z6r,0,-90,hair,flare);
 	unfill z2l{right}..tension t..z3l{down}..tension t
 		..z4l{left}..tension t..z10l{up}..tension t..cycle;
 	enddef;
@@ -85,14 +83,15 @@ fet_beginchar("Numeral 0", "0", "zero")
 	message "h:"&decimal h;
 	penpos1(thin,90);
 	z1r=(w/2,h);
-	penpos2(thick,0);
-	z2r=(w,h/2);
+	penpos2(thick,180);
+	z2r=(0,h/2);
 	penpos3(thin,-90);
 	z3r=(w/2,0);
-	penpos4(thick,180);
-	z4r=(0,h/2);
+	penpos4(thick,0);
+	z4r=(w,h/2);
 	fill z1r..z2r..z3r..z4r..cycle;
 	save t; t=1/tense;
+	penlabels(1,2,3,4);
 	unfill z1l..tension t..z2l..tension t..z3l
 		..tension t..z4l..tension t..cycle;
 fet_endchar;
@@ -142,26 +141,24 @@ fet_beginchar("Numeral 2", "2", "two")
 	z1=(0,0)+(1/2sqrt(2)*hair)*dir(45);
 	penpos3(hair,90+gamma);
 	z3=(w,thick)+(1/2sqrt(2)*hair)*dir(-135);
-	penpos2(thick/fatten,90+alpha);
+	penpos2(thick,90+alpha);
 	x2-x1=x3-x2; y2=11/16thick/widen;
-	penlabels(1,2,3);
 	fill z1r{dir(beta)}..{dir(alpha)}z2r..{dir(gamma)}z3r
 		..z3l{dir(180+gamma)}..{dir(180+alpha)}z2l
 		..{dir(180+beta)}z1l..cycle;
 
-	penpos4(thin,90);
-	z4r=(thick,2/5h);
-	penpos5(thick,0);
-	z5r=(w-thin/2,.72h);
-	penpos6(thin,90);
-	z6r=(1/2hair+thick*flaren,h);
-	penlabels(4,5,6);
+	penpos4(thick,0);
+	z4r=(w-thin/2,.72h);
+	penpos5(thin,90);
+	z5r=(1/2hair+flare,h);
+	penlabels(1,2,3,4);
+	penlabels(5,6);
 	save t; t=tense;
-	fill z1l{dir(beta)}..z4l{dir(theta)}..z5r{up}
-		..tension t..z6r{left}..z6l{right}
-		..z5l{down}..z4r{dir(180+theta)}
+	fill z1l{dir(beta)}..tension t..z4r{up}
+		..tension t..z5r{left}..z5l{right}
+		..z4l{down}..tension t
 		..{dir(180+beta)}z1r..cycle;
-	draw_flare(z6r,180,90,thin,thick*flaren);
+	draw_flare(z5r,180,90,thin,flare);
 fet_endchar;
 
 fet_beginchar("Numeral 3", "3", "three")
@@ -172,16 +169,15 @@ fet_beginchar("Numeral 3", "3", "three")
 	z1l=(17/16thick,h);
 	penpos2(7/8thick,180);
 	z2l=(w-thick/8,3/4h+thick/16);
-	penpos3(hair,90);
+	penpos3(thin,90);
 	z3=(w/2,h/2+1/8thick);
-	penpos4(hair,90);
-	z4=(5/8thick,y3);
+	penpos4(thin,90);
+	z4=(5/8thick+1/2thin,y3);
 	penpos5(thick,0);
 	z5r=(w,1/4h+thick/16);
 	penpos6(hair,-90);
 	z6r=(9/8thick,0);
-	penpos7(thin+hair,90);
-%	z7=(x2,y3);
+	penpos7(3/2thin,90);
 	z7=(x5,y3);
 	penlabels(1,2,3,4,5,6,7);
 	save alpha; alpha=25;
@@ -192,8 +188,8 @@ fet_beginchar("Numeral 3", "3", "three")
 		..tension t..z3l{left}..z4l{left}
 		..z4r{right}..z3r{right}..tension t..z2r{up}
 		..tension t..z1r{left}..cycle;
-	draw_flare(z1l,180,90,hair,thick*flaren);
-	draw_flare(z6r,180,-90,hair,9/8thick*flaren);
+	draw_flare(z1l,180,90,hair,7/8flare);
+	draw_flare(z6r,180,-90,hair,flare);
 fet_endchar;
 
 fet_beginchar("Numeral 4", "4", "four")
@@ -224,7 +220,7 @@ fet_beginchar("Numeral 4", "4", "four")
 
 	save alpha; alpha=beta;
 	calc_kuulleke(thick,alpha);
-	z1r=(w-3/4thick,height-(thin+1/2hair)/cosd(alpha));
+	z1r=(w-3/4thick,height-(3/2thin)/cosd(alpha));
 
 	penpos5(thick,0);
 	z5=(x1,foot_top);
@@ -271,7 +267,7 @@ fet_beginchar("Numeral 5", "5", "five")
 		..tension t..z11r{left}
 		..z11l{right}..tension t..z10l{up}..tension t
 		..z9l{left}..z8l{dir(180+beta+10)}..cycle;
-	draw_flare(z11r,180,-90,hair,9/8thick*flaren);
+	draw_flare(z11r,180,-90,hair,flare);
 fet_endchar;
 
 fet_beginchar("Numeral 6", "6", "six")
@@ -315,7 +311,7 @@ fi
 	z1=(3/2thin,h-(thick+thin)/2);
 	penpos3(thin,90+beta);
 	z3=(w,h)+(1/2sqrt(2)*thin)*dir(-135);
-	penpos2(thick/fatten,90+alpha);
+	penpos2(thick,90+alpha);
 	x2=1/2[x1,x3]-1/4thick; y2=h-15/16thick+thin*widen;
 
 	penpos4(thin,0);
@@ -357,7 +353,6 @@ fet_beginchar("Numeral 8", "8", "eight")
 	penpos9(hair,90+180+beta);
 	z9=(2/3w,h/2);
 	penlabels(1,2,3,4,5,6,7,8,9);
-%	save t; t=0.85;
 	save t; t=tense;
 	fill z2r{dir(180+beta)}..z3r{down}..z4r{right}
 		..z5r{dir(90+alpha)}..z6r{dir(90+alpha)}

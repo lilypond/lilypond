@@ -16,7 +16,7 @@
 
 Staff_side::Staff_side()
 {
-   y_=0;
+  y_=0;
   sym_int_ = Interval (0,0);
   dir_ = CENTER;
   inside_staff_b_ = false;
@@ -59,7 +59,7 @@ Staff_side::get_position_f() const
   if (!dir_)
     {
       warning (_("Staff_side::get_position_i(): "
-	       "somebody forgot to set my vertical direction, returning -20"));
+		 "somebody forgot to set my vertical direction, returning -20"));
       return -20;
     }
 

@@ -11,8 +11,9 @@ define_pixels(beamheight);
 pen beam_pen;
 beam_pen:=penrazor scaled beamheight rotated 90;
 
-elem_tan:=0.05;
+max_slope:=0.6;
 slopes:=20;
+elem_tan:=max_slope/slopes;
 lengths:=6;
 elem_factor := 2;
 elem_initial_len:=2;

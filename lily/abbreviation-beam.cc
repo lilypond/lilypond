@@ -51,7 +51,7 @@ Abbreviation_beam::brew_molecule_p () const
 
       Molecule sb = stem_beams (i, next, prev);
       Real  x = i->hpos_f ()-x0;
-      sb.translate (Offset (x, (x * slope  + left_pos)* inter_f));
+      sb.translate (Offset (x, (x * slope_f  + left_y)* inter_f));
       mol_p->add (sb);
     }
   mol_p->translate_axis (x0 - spanned_drul_[LEFT]->absolute_coordinate (X_AXIS), X_AXIS);

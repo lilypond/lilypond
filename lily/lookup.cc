@@ -191,6 +191,7 @@ Lookup::hairpin (Real &wid, bool decresc) const
     }
   
   ret.dim_.x() = Interval (0,wid);
+  // ret.translate_axis (-ret.dim_[Y_AXIS][DOWN], Y_AXIS);
   return ret;
 }
 
