@@ -371,8 +371,8 @@ Slur::set_extremities ()
   if (!encompass_arr.size ())
     {
       set_elt_property ("transparent", SCM_BOOL_T);
-      set_empty (X_AXIS);
-      set_empty (Y_AXIS);
+      set_extent_callback (0, X_AXIS);
+      set_extent_callback (0, Y_AXIS);
       return;
     }
 
@@ -546,6 +546,7 @@ Slur::get_encompass_offset_arr () const
     Group_interface__extract_elements (this, (Note_column*)0, "note-columns");
   
   Array<Offset> offset_arr;
+
 #if 0
   /*
     check non-disturbed slur
@@ -603,9 +604,9 @@ Slur::get_rods () const
 {
   Array<Rod> a;
   Rod r;
+  
   r.item_l_drul_[LEFT] = get_bound (LEFT);
   r.item_l_drul_[RIGHT] = get_bound (RIGHT);
-  
   r.distance_f_ = paper_l ()->get_var ("slur_x_minimum");
 
   a.push (r);
@@ -683,6 +684,14 @@ Slur::get_curve () const
 {
   Bezier b;
   int i = 0;
+
+  if (!directional_element (this).get ())
+    ((Slur*)this)->set_extremities ();
+  
+  if (!gh_pair_p (get_elt_property ("control-points")))
+    ((Slur*)this)->set_control_points ();
+  
+  
   for (SCM s= get_elt_property ("control-points"); s != SCM_EOL; s = gh_cdr (s))
     {
       b.control_[i] = ly_scm2offset (gh_car (s));
