@@ -122,7 +122,6 @@
      ly:round-filled-box
      ly:run-translator
      ly:set-option
-     ly:score-bookify
      ly:set-point-and-click
      ly:spanner-broken-into
      ly:spanner-get-bound

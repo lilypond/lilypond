@@ -94,21 +94,22 @@
 
 ;; parser stuff.
 (define-public (print-music-as-book parser music)
-  (let* (
-	 (head  (ly:parser-lookup parser '$globalheader))
-	 (book (ly:score-bookify score head)))
+  (let* ((head  (ly:parser-lookup parser '$globalheader))
+	 (book (ly:make-book (ly:parser-lookup parser $defaultbookpaper)
+			     head score)))
     (ly:parser-print-book parser book)))
 
 (define-public (print-score-as-book parser score)
   (let*
       ((head  (ly:parser-lookup parser '$globalheader))
-       (book (ly:score-bookify score head)))
-    
+       (book (ly:make-book (ly:parser-lookup parser $defaultbookpaper)
+			   head score)))
     (ly:parser-print-book parser book)))
 
 (define-public (print-score parser score)
   (let* ((head  (ly:parser-lookup parser '$globalheader))
-	(book (ly:score-bookify score head)))
+	 (book (ly:make-book (ly:parser-lookup parser $defaultbookpaper)
+			     head score)))
     (ly:parser-print-score parser book)))
 		
 (define-public (collect-scores-for-book  parser score)

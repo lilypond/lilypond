@@ -1,5 +1,8 @@
 2004-06-20  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/my-lily-parser.cc (parse_string): init parser variable when
+	lexer_ is set, ie. in parse_string and parse_file.
+
 	* lily/book.cc (LY_DEFINE): new function. ly:make-book. Supercedes
 	ly:score-bookify.
 
