@@ -130,8 +130,6 @@ def user_error (s, e=1):
 	sys.exit (e)
 	
 def error (s):
-
-
 	'''Report the error S.  Exit by raising an exception. Please
 	do not abuse by trying to catch this error. If you do not want
 	a stack trace, write to the output directly.
@@ -322,6 +320,7 @@ errorport = sys.stderr
 keep_temp_dir_p = 0
 verbose_p = 0
 preview_p = 0
+preview_resolution = 90
 
 help_summary = _ ("Generate .dvi with LaTeX for LilyPond")
 
@@ -336,6 +335,7 @@ option_definitions = [
 	(_ ("FILE"), 'f', 'find-pfa', _ ("find pfa fonts used in FILE")),
 	# why capital P?
 	('', '', 'preview', _("Make a picture of the first system.")),
+	('', '', 'preview-resolution', _("Set the resolution of the preview.")),
 	('', 'P', 'postscript', _ ("generate PostScript output")),
 	(_ ("KEY=VAL"), 's', 'set', _ ("change global setting KEY to VAL")),
 	('', 'V', 'verbose', _ ("verbose")),
@@ -734,10 +734,8 @@ def make_preview (name, extra):
 	fo.write ('%d %d translate\n' % (-bbox[0]+margin, -bbox[1]+margin))
 	fo.close ()
 	
-	res = 90
-
-	x = (2* margin + bbox[2] - bbox[0]) * res / 72.
-	y = (2* margin + bbox[3] - bbox[1]) * res / 72.
+	x = (2* margin + bbox[2] - bbox[0]) * preview_resolution / 72.
+	y = (2* margin + bbox[3] - bbox[1]) * preview_resolution / 72.
 
 	cmd = r'''gs -g%dx%d -sDEVICE=pgm  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=- -r%d -dNOPAUSE %s %s -c quit | pnmtopng > %s'''
 	
@@ -832,9 +830,9 @@ for opt in options:
 	elif o == '--preview':
 		preview_p = 1
 		targets.append ('PNG')
-		
+	elif o == '--preview-resolution':
+		preview_resolution = string.atoi (a)
 	elif o == '--no-paper' or o == '-m':
-
 		targets = ['MIDI'] 
 		paper_p = 0
 	elif o == '--output' or o == '-o':
