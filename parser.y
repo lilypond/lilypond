@@ -7,6 +7,7 @@
 #include "score.hh"
 #include "main.hh"
 #include "keyword.hh"
+#include "scommands.hh"
 #include "debug.hh"
 #include "parseconstruct.hh"
 #include "dimen.hh"
@@ -22,7 +23,7 @@
     Real real;
     Command *command;
     Identifier *id;    
-
+    Score_commands *scommands;
     Voice *voice;    
     Voice_element *el;	
     Staff *staff;    
@@ -34,7 +35,7 @@
 }
 
 %token VOICE STAFF SCORE TITLE RHYTHMSTAFF BAR NOTENAME OUTPUT
-%token CM IN PT MM PAPER WIDTH METER
+%token CM IN PT MM PAPER WIDTH METER UNITSPACE SKIP COMMANDS
 
 %type <consstr> unit
 %token <id> IDENTIFIER
@@ -50,7 +51,7 @@
 %type <score> score_block score_body
 %type <staff> staff_block  rhythmstaff_block rhythmstaff_body
 %type <i> int
-
+%type <scommands> score_commands_block score_commands_body
 
 %%
 
@@ -66,9 +67,16 @@ score_block: SCORE '{' score_body '}' 	{ $$ = $3; }
 
 score_body:		{ $$ = new Score; } 
 	| score_body staff_block	{ $$->add($2); }
-	| score_body score_command	{ $$->add($2); }
-	| score_body paper_block	{ delete $$->paper;
-		$$->paper = $2;
+	| score_body score_commands_block 	{ $$->set($2); }
+	| score_body paper_block		{ $$->set($2);	}
+	;
+score_commands_block:
+	COMMANDS '{' score_commands_body '}' { $$ =$3;}
+	;
+
+score_commands_body:			{ $$ = new Score_commands; }
+	| score_commands_body score_command		{
+		$$->parser_add($2);
 	}
 	;
 
@@ -82,6 +90,7 @@ paper_body:
 	| paper_body OUTPUT STRING	{ $$->outfile = *$3;
 		delete $3;
 	}
+	| paper_body UNITSPACE dim	{ $$->whole_width = $3; }
 	;
 
 dim:
@@ -142,13 +151,17 @@ voice_elt:
 	;
 
 score_command:
-	BAR REAL			{
-		$$ = get_bar_command($2);
+	SKIP int ':' REAL		{
+		$$ = get_skip_command($2, $4);
 	}
-	| METER REAL int int		{
-		$$ = get_meter_command($2, $3, $4);
+	| METER  int int		{
+		$$ = get_meterchange_command($2, $3);
 	}
+/*	| PARTIALMEASURE REAL		{
+		$$ = get_partial_command($2);
+	}*/
 	;
+	
 
 int:
 	REAL			{

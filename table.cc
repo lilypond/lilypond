@@ -17,6 +17,9 @@ static Keyword_ent  the_key_tab[]={
     "paper", PAPER,
     "width", WIDTH,
     "meter", METER,
+    "unitspace", UNITSPACE,
+    "skip", SKIP,
+    "commands", COMMANDS,
     0,0
 } ;
 
