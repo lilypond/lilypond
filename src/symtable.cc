@@ -1,5 +1,4 @@
 #include "misc.hh"
-#include "textdb.hh"
 #include "dimen.hh"
 #include "debug.hh"
 #include "real.hh"
@@ -7,6 +6,7 @@
 #include "assoc.hh"
 #include "associter.hh"
 #include "symtable.hh"
+
 Symtables::Symtables()
 {
 }
