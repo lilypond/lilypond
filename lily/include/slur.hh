@@ -28,7 +28,7 @@ private:
   static Real get_boundary_notecolumn_y (Grob *me, Direction dir);
   static Offset broken_trend_offset (Grob *me, Direction dir);
   static Offset get_attachment (Grob *me,Direction dir, Grob **common);
-  static void de_uglyfy (Grob *me,Slur_bezier_bow* bb, Real default_height);
+  static void de_uglify (Grob *me,Slur_bezier_bow* bb, Real default_height);
   static SCM set_extremities (Grob *me);
   static void set_control_points (Grob *me);
   static void check_slope (Grob *me);

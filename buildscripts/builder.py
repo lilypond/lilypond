@@ -90,8 +90,8 @@ def add_ps_target (target, source, env):
 
 a = ('LILYPONDPREFIX=%(LILYPONDPREFIX)s '\
      + '%(PYTHON)s %(LILYPOND_PY)s%(verbose)s'\
-     + ' --include=$$(dirname $TARGET)'\
-     + ' --output=$$(dirname $TARGET)'\
+     + ' --include=${TARGET.dir}'\
+     + ' --output=${TARGET.base}'\
      + ' $SOURCE') % vars ()
 lilypond = Builder (action = a, suffix = '.pdf', src_suffix = '.ly')
 ##		    emitter = add_ps_target)
@@ -101,7 +101,7 @@ verbose = verbose_opt (env, ' --verbose')
 a = ('LILYPONDPREFIX=%(LILYPONDPREFIX)s '\
      + '%(PYTHON)s %(ABC2LY_PY)s%(verbose)s'\
      + ' --include=$$(dirname $TARGET)'\
-     + ' --output=$$(dirname $TARGET)'\
+     + ' --output=$$(dirname $TARGET)/$$(basename $TARGET .ly)'\
      + ' $SOURCE') % vars ()
 abc2ly = Builder (action = a, suffix = '.ly', src_suffix = '.abc')
 env.Append (BUILDERS = {'Abc2ly': abc2ly})

@@ -25,15 +25,12 @@ pdfs = pdfs + map (e.LilyPond, lys)
 
 LILYPOND_BIN = env['LILYPOND_BIN']
 
-#e.Depends (pdfs, LILYPOND_BIN)
-# e.Depends (pdfs, 'lilypond-internals.texi')
-
 mfbuild = os.path.join (env['absbuild'], 'mf', env['out'])
 e.Depends ('doc', mfbuild)
 e.Depends ('doc', LILYPOND_BIN)
-#e.Depends (doc, 'lilypond-internals.texi')
 
 e.Alias ('doc', pdfs)
+#e.Alias ('doc', 'example-1.pdf')
 
 #testing
 all_sources = ['SConscript',] + sources + abc_sources
