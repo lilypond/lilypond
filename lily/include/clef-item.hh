@@ -13,6 +13,15 @@
 #include "staff-symbol-referencer.hh"
 /**
   Set a clef in a staff.
+
+  properties:
+
+  nondefault: not set because of existence of a bar
+
+  octave_dir: should we print an octave symbol (8), and where? (up=1, down=-1)?
+
+  change: is this a change clef (smaller size)?
+  
  */
 class Clef_item : public Item, public Staff_symbol_referencer {
 protected:
@@ -20,18 +29,9 @@ protected:
   virtual Molecule* do_brew_molecule_p() const;
   virtual void do_add_processing ();
 public:
-    
+  
   String symbol_;
   int y_position_i_;
-
-  /// is this a change clef (smaller size)?
-  bool change_b_;
-    
-  /// set because of existence of a bar
-  bool default_b_;
-
-  /// should we print an octave symbol (8), and where? (up=1, down=-1)?
-  Direction octave_dir_;
 
   VIRTUAL_COPY_CONS(Score_element);
   Clef_item();
