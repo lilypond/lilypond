@@ -92,7 +92,7 @@ Music_list::do_relative_octave (Musical_pitch last, bool ret_first)
 Music_list::Music_list (Music_list const &s)
   : Cons_list<Music> (s)
 {
-  init_list ();
+  Cons_list<Music>::init ();
   clone_killing_cons_list (*this, s.head_);
 }
 

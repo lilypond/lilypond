@@ -7,22 +7,19 @@
 #define MUDELA_VOICE_HH
 
 #include "mi2mu-proto.hh"
-#include "plist.hh"
+#include "cons.hh"
 
 /// (mudela_voice)
-class Mudela_voice {
+class Mudela_voice
+{
 public:
-    Mudela_voice (Mudela_staff* mudela_staff_l);
-
-    void add_item (Mudela_item* mudela_item_l);
-    Moment begin_mom();
-    Moment end_mom();
-
-    void output (Mudela_stream& mudela_stream_r);
+  Mudela_voice (Mudela_staff* mudela_staff_l);
+  void add_item (Mudela_item* mudela_item_l);
+  void output (Mudela_stream& mudela_stream_r);
 
 private:
-    Mudela_staff* mudela_staff_l_;
-    Link_list<Mudela_item*> mudela_item_l_list_;
+  Mudela_staff* mudela_staff_l_;
+  Cons_list<Mudela_item> mudela_item_l_list_;
 };
 
 #endif // MUDELA_VOICE_HH

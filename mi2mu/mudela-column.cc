@@ -14,7 +14,7 @@ Mudela_column::Mudela_column (Mudela_score* mudela_score_l, Moment mom)
 void 
 Mudela_column::add_item (Mudela_item* mudela_item_l)
 {
-  mudela_item_l_list_.bottom().add (mudela_item_l);
+   mudela_item_l_list_.append (new Cons<Mudela_item> (mudela_item_l, 0));
 }
 
 Moment

@@ -47,3 +47,24 @@ Rod::add_to_cols ()
   item_l_drul_[LEFT]->column_l ()->add_rod
     (item_l_drul_[RIGHT]->column_l (), distance_f_);
 }
+
+void
+Column_spring::print () const
+{
+#ifndef NDEBUG
+  DOUT << "Column_spring { rank = "
+       << other_l_->rank_i () << ", dist = " << distance_f_ << "}\n";   
+#endif
+}
+
+Column_spring::Column_spring ()
+{
+  distance_f_ = 0;
+  other_l_ = 0;
+}
+  
+int
+Column_spring::compare (const Column_spring &r1, const Column_spring &r2)
+{
+  return r1.other_l_->rank_i() - r2.other_l_->rank_i();
+}

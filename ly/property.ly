@@ -76,6 +76,10 @@ voltaVisibility         0/1     on/off
 voltaSpannerDuration    Rat.    Coda kludge: set length of volta-spanner,
                                 typically set to one measure: "1"
 
+[Staff]
+clefStyle       "fullSizeChanges" Clef changes typeset in full size
+clefStyle       "transparent"     No clef typeset
+
 [Staff?]
 instrument		ascii	midi instrument table lookup
 
@@ -274,3 +278,9 @@ specialkey = {
 	\property Staff.keyoctaviation = 0
 }
 
+% End the incipit and print a ``normal line start''.
+endincipit = \notes{
+    \partial 16; s16  % Hack to handle e.g. \bar ".|"; \endincipit
+    \property Staff.clefStyle = "fullSizeChanges" 
+    \nobreak \bar "";
+}
