@@ -9,7 +9,10 @@ Architecture: any
 Depends: ${shlibs:Depends}, tetex-bin (>= 0.9.990310-1)
 Recommends: python-base (>= 1.5.2-4), tetex-base (>= 0.9.990311-1), tetex-extra (>= 0.9.990311-1)
 Conflicts: musixtex-fonts, tetex-base (<< 0.9)
-Description: A program for printing sheet music.@BLURB@
+Description: A program for printing sheet music. LilyPond is a music typesetter.  It produces beautiful sheet music
+using a high level description file as input.  LilyPond is part of 
+the GNU Project.
+
  .
   URLs: http://www.cs.uu.nl/~hanwen/lilypond/
         http://www.xs4all.nl/~jantien/lilypond/

@@ -3,8 +3,6 @@
 depth = ..
 
 NAME = debian
-BLURBS = BLURB
-AT_FILES = $(BLURBS) # 
 at-dir = $(outdir)/
 at-ext =
 
