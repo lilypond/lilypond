@@ -67,7 +67,7 @@ public:
   Translator *get_simple_translator (String) const;
   Translator_group *find_existing_translator_l (String n, String id);
   Translator_group *find_create_translator_l (String n, String id);
-  Link_array<Translator_group> path_to_acceptable_translator (String alias) const;
+  Link_array<Translator_group> path_to_acceptable_translator (String alias, Music_output_def*) const;
 
   Translator_group*get_default_interpreter();
   virtual ~Translator_group ();
