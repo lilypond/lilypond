@@ -115,6 +115,8 @@ than the names being similar :-)"
 
 @include convert-mudela.itexi
 
+@c @include out/lilypond-internals.texi 
+
 @node Index, , , Top
 @unnumbered Index
 

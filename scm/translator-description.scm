@@ -63,18 +63,18 @@ is erased.
       (translator-property-description
        'CONTEXTNAMEVerticalExtent number-pair? "hard coded vertical extent.
 The format is a pair of dimensions, for example, this sets the sizes
-of a staff to 10 (5+5) staffspaces high.  <p>
+of a staff to 10 (5+5) staffspaces high.
 
-<code>
+@example
 \property Staff.StaffVerticalExtent = #(-5.0 . 5.0)
-</code>
+@end example
 
  [fixme, naming]")
       (translator-property-description
        'CONTEXTNAMEMinimumVerticalExtent number-pair?
        "minimum vertical extent, same format as CONTEXTNAMEVerticalExtent [fixme, naming]")
       (translator-property-description
-       'CONTEXTNAExtraVerticalExtent number-pair?
+       'CONTEXTNAMExtraVerticalExtent number-pair?
        "extra vertical extent, same format
 CONTEXTNAMEMinimumVerticalExtent [fixme, naming]") )))
 
@@ -103,16 +103,17 @@ interesting items (ie. note heads, lyric syllables and normal rests)"
       (translator-property-description 'forgetAccidentals boolean? "do
 not set localKeySignature when a note alterated differently from
 localKeySignature is found.
-<p>
+
 Causes accidentals to be printed at every note instead of
 remembered for the duration of a measure.
 ")
       (translator-property-description 'noResetKey boolean? "Do not
 reset local key to the value of keySignature at the start of a measure,
-as determined by measurePosition.<p>
-    Do not reset the key at the start of a measure.  Accidentals will
-    be printed only once and are in effect until overridden, possibly
-    many measures later.
+as determined by measurePosition.
+
+Do not reset the key at the start of a measure.  Accidentals will be
+printed only once and are in effect until overridden, possibly many
+measures later.
 ")
       
       )))
@@ -128,7 +129,7 @@ as determined by measurePosition.<p>
       (translator-property-description 'repeatCommands list?
 				       "This property is read to find any command of the form (volta . X), where X is a string or #f")
       (translator-property-description 'voltaSpannerDuration moment?
-				       "maximum duration of the volta bracket.<p>
+				       "maximum duration of the volta bracket.
 
     Set to a duration to control the size of the brackets printed by
 @code{\alternative}.  It specifies the number of whole notes duration
@@ -166,19 +167,15 @@ given in an @code{\alternative}.
      '(TextScript)
      (list
       (translator-property-description 'combineParts boolean? "try to combine parts?")
+      (translator-property-description 'soloADue  boolean? "set Solo/A due texts?")
+      (translator-property-description 'soloText  string? "text for begin of solo")
+      (translator-property-description 'soloIIText  string? "text for begin of solo for voice ``two''")
+      (translator-property-description 'aDueText string? "text for begin of a due")
+      (translator-property-description 'split-interval number-pair? "always split into two voices for contained intervals")
       (translator-property-description 'unison  boolean? "set if unisono is detected  ")
-      (translator-property-description 'solo  boolean? "")
-      (translator-property-description 'soloADue  boolean? "")
-      (translator-property-description 'soloText  string? "")
-      (translator-property-description 'soloIIText  string? "")
-      (translator-property-description 'aDueText string? "")
-      (translator-property-description 'combineParts  boolean? "")
-      (translator-property-description 'unisilence  boolean? "")
-      (translator-property-description 'unison  boolean? "")
-      (translator-property-description 'unirhythm  boolean? "")
-      (translator-property-description 'solo  boolean? "")
-      (translator-property-description 'split-interval number-pair? "")
-      (translator-property-description 'soloADue boolean? "")
+      (translator-property-description 'solo  boolean? "set if solo is detected")
+      (translator-property-description 'unisilence  boolean? "set if unisilence is detected")
+      (translator-property-description 'unirhythm  boolean? "set if unirhythm is detected")
       )))
 
    (cons
@@ -214,14 +211,36 @@ Uses beatLength, measureLength and measurePosition to decide when to start and s
      (list
       (translator-property-description 'noAutoBeaming boolean? "  If set to true then beams are not generated automatically.
 ")
-      (translator-property-description 'beamAutoEnd moment? "
-     Specifies when automatically generated beams can end.  See
-    section XREF-autobeam [FIXME].")
-     (translator-property-description 'beamAutoBegin moment? "
-     Specifies when automatically generated beams can start.  See
-    section XREF-autobeam [FIXME].")
+      (translator-property-description 'autoBeamSettings list? "
+Specifies when automatically generated beams should begin and end.  The elements have the format:
 
-      )))
+@example
+
+   function shortest-duration-in-beam time-signature
+
+where
+
+    function = begin or end
+    shortest-duration-in-beam = numerator denominator; eg: 1 16
+    time-signature = numerator denominator, eg: 4 4
+
+unspecified or wildcard entries for duration or time-signature
+are given by * *
+
+The user can override beam begin or end time by pushing a wildcard entries
+'(begin * * * *) or '(end * * * *) resp., eg:
+
+    \property Voice.autoBeamSettings \push #'(end * * * *) = #(make-moment 1 4)
+
+The head of the list:
+    '(
+     ((end * * 3 2) . ,(make-moment 1 2))
+     ((end 1 16 3 2) . ,(make-moment 1 4))
+     ((end 1 32 3 2) . ,(make-moment 1 8))
+     ...
+    )
+
+@end example"))))
 
    (cons
     'Bar_engraver
@@ -232,9 +251,9 @@ Uses beatLength, measureLength and measurePosition to decide when to start and s
      (list
       (translator-property-description 'whichBar string? "This property is read to determine what type of barline to create.
 Example:
-<xmp>
+@example
 \\property Staff.whichBar = \"|:\"
-</xmp>
+@end example
 will create a start-repeat bar in this staff only 
 ")
       (translator-property-description 'staffsFound list? "list of all staff-symbols found.")
@@ -277,7 +296,7 @@ put on top of all staffs, and appears only at  left side of the staff."
 prefatory matter (clefs, key signatures) appears, eg. this puts the
 key signatures after the bar lines:
 
-<xmp>
+@example
 	\\property Score.breakAlignOrder = #'(
 	  Span_bar
 	  Breathing_sign
@@ -286,7 +305,7 @@ key signatures after the bar lines:
 	  Key_item
 	  Time_signature
 	)
-</xmp>
+@end example
 ")
       )))
 
@@ -307,7 +326,7 @@ key signatures after the bar lines:
      "Chord_name_engraver"
      "Catch Note_req's, Tonic_reqs, Inversion_reqs, Bass_req
 and generate the appropriate chordname."
-     '(ChordNames)
+     '(ChordName)
      (list
       (translator-property-description 'chordInversion boolean? " Determines whether LilyPond should look for chord inversions when
     translating from notes to chord names.  Set to 1 to find
@@ -411,7 +430,7 @@ If omitted, then dots appear on top of the notes.
     property is used to label subsequent lines.  If the
     @code{midiInstrument} property is not set, then @code{instrument}
     is used to determine the instrument for MIDI output.")
-      (translator-property-description 'instr string? "see <code>instrument</code>")
+      (translator-property-description 'instr string? "see @code{instrument}")
       )))
 
    (cons
@@ -559,15 +578,17 @@ squashing.")
      "Property_engraver"
 "This is a engraver that converts \property settings into
 back-end element-property settings. Example: Voice.stemLength will set
-#'length in all Stem objects<p>
+#'length in all Stem objects.
+
 Due to CPU and memory requirements, the use of this engraver is deprecated."
      '()
      (list
       (translator-property-description 'Generic_property_list list? "description of the conversion.
-<p>
-    Defines names and types for generic properties. These are properties
-    than can be plugged into the backend directly. See the init file
-    @file{generic-property.scm} for details.  For internal use only, deprecated.
+
+Defines names and types for generic properties. These are properties
+than can be plugged into the backend directly. See the init file
+@file{generic-property.scm} for details.  For internal use only,
+deprecated.
 ")
       )))
 
@@ -664,8 +685,8 @@ Description of scripts to use.  (fixme)
      '(Slur)
 
      (list
-      (translator-property-description 'slurBeginAttachment symbol? "")
-      (translator-property-description 'slurEndAttachment symbol? "")      
+      (translator-property-description 'slurBeginAttachment symbol? "translates to the car of Slur.element-property 'attachment.")
+      (translator-property-description 'slurEndAttachment symbol? "translates to the cdr of Slur.element-property 'attachment.")
       (translator-property-description 'slurMelismaBusy boolean? "Signal a slur if automaticMelismata is set")
       )))
 
@@ -699,7 +720,7 @@ arpeggios that cross staffs.
     (engraver-description
      "Span_bar_engraver"
      "This engraver makes cross-staff barlines: It catches all normal
-bar lines, and draws a single span-bar across them. <p>"
+bar lines, and draws a single span-bar across them."
 
      '(SpanBar)
      (list
@@ -797,7 +818,7 @@ either unison, unisilence or soloADue is set"
     'Time_signature_engraver
     (engraver-description
      "Time_signature_engraver"
-     "Create a TimeSignature whenever <code>timeSignatureFraction</code> changes"
+     "Create a TimeSignature whenever @code{timeSignatureFraction} changes"
      '(TimeSignature)
      (list
       )))
@@ -838,12 +859,15 @@ defaultBarType, barAlways, barNonAuto and measurePosition.
     notes and rests expand into their full length, printing the appropriate
     number of empty bars so that synchronization with other voices is
     preserved.
-<code>
-@mudela[fragment,verbatim,center]
+
+@c my @vebatim patch would help...
+@example
+@@mudela[fragment,verbatim,center]
 r1 r1*3 R1*3\property Score.skipBars=1 r1*3 R1*3
 
-@end mudela
-</code>
+@@end mudela
+@end example
+
 ")
       (translator-property-description 'timing boolean? " Keep administration of measure length, position, bar number, etc?
 Switch off for cadenzas.")
@@ -870,14 +894,15 @@ every barline.
 Normally a tuplet bracket is as wide as the
 @code{\times} expression that gave rise to it. By setting this
 property, you can make brackets last shorter. Example
-<xmp>
-@mudela[verbatim,fragment]
-\context Voice \times 2/3 {
+
+@example
+@@mudela[verbatim,fragment]
+\context Voice \times 2/3 @{
   \property Voice.tupletSpannerDuration = #(make-moment 1 4)
   [c8 c c] [c c c]
-}
-@end mudela
-</xmp>
+@}
+@@end mudela
+@end example
 ")
       (translator-property-description 'tupletInvisible boolean? "
     If set to true, tuplet bracket creation is switched off

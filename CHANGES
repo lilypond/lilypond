@@ -1,4 +1,18 @@
---- ../lilypond-1.3.103/CHANGES	Thu Nov  2 15:25:16 2000
+--- ../lilypond-1.3.103.jcn2/CHANGES	Fri Nov  3 14:39:30 2000
+++ b/CHANGES	Sat Nov  4 15:09:38 2000
+@@ -1,3 +1,12 @@
+1.3.103.jcn3
+============
+
+* Generate texinfo iso html documentation.
+
+* Added x-references for elements->engravers and engravers->contexts.
+
+* Fixed number font listing in style sheet.
+
+ 1.3.103.jcn2
+ ============
+ --- ../lilypond-1.3.103/CHANGES	Thu Nov  2 15:25:16 2000
 ++ b/CHANGES	Sat Nov  4 10:40:02 2000
 @@ -1,3 +1,22 @@
 1.3.103.lec1

@@ -46,5 +46,7 @@ localclean:
 	rm -f fonts.aux fonts.log feta*.tfm feta*.*pk 
 
 #ugh. out/ hardcoded.
-backdoc:
-	(cd $(outdir); $(topdir)/lily/out/lilypond $(depth)/../ly/generate-documentation)
+backdoc: $(outdir)/lilypond-internals.html
+
+$(outdir)/lilypond-internals.texi:
+	(cd $(outdir); $(topdir)/lily/out/lilypond ../$(srcdir)/../ly/generate-documentation)

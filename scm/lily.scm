@@ -1,16 +1,18 @@
-; lily.scm -- implement Scheme output routines for TeX and PostScript
-;
-;  source file of the GNU LilyPond music typesetter
-; 
-; (c) 1998 Jan Nieuwenhuizen <janneke@gnu.org>
+;;; lily.scm -- implement Scheme output routines for TeX and PostScript
+;;;
+;;;  source file of the GNU LilyPond music typesetter
+;;; 
+;;; (c) 1998--2000 Jan Nieuwenhuizen <janneke@gnu.org>
+;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
-;
-; This file contains various routines in Scheme that are easier to 
-; do here than in C++.  At present it is an unorganised mess. Sorry. 
-;
 
-; We should repartition the entire scm side of lily in a
-; more sane way, using namesspaces/modules?
+;;;
+;;; This file contains various routines in Scheme that are easier to 
+;;; do here than in C++.  At present it is an unorganised mess. Sorry. 
+
+
+;;; We should repartition the entire scm side of lily in a
+;;; more sane way, using namesspaces/modules?
 
 (debug-enable 'backtrace)
 
@@ -756,6 +758,7 @@
 
 (begin
   (eval-string (ly-gulp-file "interface.scm"))
+  (eval-string (ly-gulp-file "beam.scm"))
   (eval-string (ly-gulp-file "slur.scm"))
   (eval-string (ly-gulp-file "font.scm"))
   (eval-string (ly-gulp-file "auto-beam.scm"))  

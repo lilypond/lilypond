@@ -1,7 +1,12 @@
 
 ; should include default value?
 
-;;; ::::::: should generate documentation for score elements from here.
+
+;;; FIXME: naming.
+;;; Score elements are called `objects' now and then, which gets
+;;; rather confusing, we now have `elements', `items', `spanners'
+;;; and `objects'.
+
 
 (define (elt-property-description symbol type? description)
   (list symbol type? description))
@@ -45,18 +50,18 @@
    "All elements support this"
    (list
     (elt-property-description 'X-offset-callbacks list? "list of functions, each taking an element and axis argument. The function determine the position relative to this element's parent. The last one in the list is called first")
-    (elt-property-description 'Y-offset-callbacks list? "see <code> X-offset-callbacks</code>")
+    (elt-property-description 'Y-offset-callbacks list? "see @code{X-offset-callbacks}")
     (elt-property-description 'X-extent-callback procedure? "procedure taking an element and axis argument, returning a number-pair. The return value is the extent of the element.")
-    (elt-property-description 'Y-extent-callback procedure? "see <code> X-extent-callback </code>")
+    (elt-property-description 'Y-extent-callback procedure? "see @code{X-extent-callback}")
     (elt-property-description 'font-relative-size integer? "")
     (elt-property-description 'extra-offset number-pair? "pair of reals (a cons) forcing an extra offset   before outputting")
-    (elt-property-description 'interfaces  list? "list of symbols indicating the interfaces supported by this object. Is initialized from the <code>meta</code> field.")
+    (elt-property-description 'interfaces  list? "list of symbols indicating the interfaces supported by this object. Is initialized from the @code{meta} field.")
     (elt-property-description 'dependencies list? "list of score-element pointers that indicate who to compute first for certain global passes")
     (elt-property-description 'no-spacing-rods boolean? "read from elements: boolean that makes Separation_item ignore this item (MOVE ME TO ITEM)")
     (elt-property-description 'extra-extent-X number-pair? "enlarge in X dimension by this much, measured in staff space")
-    (elt-property-description 'extra-extent-Y number-pair? "see <code>extra-extent-Y</code>")
+    (elt-property-description 'extra-extent-Y number-pair? "see @code{extra-extent-Y}")
     (elt-property-description 'minimum-extent-X number-pair? "minimum size in X dimension, measured in staff space")
-    (elt-property-description 'minimum-extent-Y number-pair? "see <code>minimum-extent-Y</code>")
+    (elt-property-description 'minimum-extent-Y number-pair? "see @code{minimum-extent-Y}")
     (elt-property-description 'origin ly-input-location? "location in input file of the definition")
     (elt-property-description 'transparent boolean? "This is almost the
 same as setting molecule-callback to #f, but this retains the
@@ -86,21 +91,21 @@ Caching of computed values is permissible, and generally useful, though.
 direction to choose if we're in the middle of the staff ")
     (elt-property-description 'thickness number? "weight of beams, in staffspace")
     (elt-property-description 'space-function procedure? "function of type multiplicity -> real (in staffspace)")
-    (elt-property-description 'beamed-stem-shorten number? "")
-    (elt-property-description 'height-quants number? "")
-    (elt-property-description 'vertical-position-quant-function procedure? "")
-    (elt-property-description 'dir-function procedure? "")
+    (elt-property-description 'beamed-stem-shorten number? "shorten beamed stems in forced direction")
+    (elt-property-description 'height-quants procedure? "function of type (beam staff-line-thickness) -> list of quants.  Default value: default-beam-dy-quants.
+")
+    (elt-property-description 'vertical-position-quant-function procedure? "
+function of type (beam multiplicity dy staff-line-thickness) -> real.  Default value: default-beam-y-quants, also available: beam-traditional-y-quants.
+")
+    (elt-property-description 'dir-function procedure? "function of type (count total)->direction.  Default value: beam-dir-majority, also available: beam-dir-mean, beam-dir-median.")
     (elt-property-description 'damping number? "damping factor.")
     (elt-property-description 'outer-stem-length-limit number? "catch
 suspect beam slopes, set slope to zero if outer stem is lengthened
 more than this (in staffspace)")
     (elt-property-description 'slope-limit number? "set slope to zero if slope is running away steeper than this.")
     )
-))
+   ))
 
-
-
-;;;;;;;;;;;;;;;;;;;;
 
 (define clef-interface
   (lily-interface
@@ -129,7 +134,7 @@ more than this (in staffspace)")
     (elt-property-description 'horizontal-shift integer? "integer that identifies ranking of note-column for horizontal shifting.")
     (elt-property-description 'force-hshift number? "amount of collision_note_width that overides automatic collision settings.")
     (elt-property-description 'merge-differently-dotted boolean? "merge black noteheads with differing dot count in collisions.
-<p>
+
 Merge noteheads in collisions, even if they have a different number of
 dots. This normal notation for polyphonic guitar music.
 
@@ -198,10 +203,11 @@ one end of the stem")
     (elt-property-description 'minimum-space number? "minimum distance that the victim should move (after padding)")
     (elt-property-description 'padding number? "add this much extra space between victim and support")
     (elt-property-description 'self-alignment-X number? "real number: -1 =
-left aligned, 0 = center, 1 right-aligned in X direction. <p> Set to
-an element pointer, if you want that element to be the center.  In
-this case, the center element should have this object as a reference
-point.
+left aligned, 0 = center, 1 right-aligned in X direction.
+
+ Set to an element pointer, if you want that element to be the center.
+In this case, the center element should have this object as a
+reference point.
 ")
     (elt-property-description 'self-alignment-Y number? "like self-alignment-X but for Y axis")
     
@@ -222,12 +228,12 @@ point.
   (lily-interface
    'line-of-score-interface
    "Super element, parent of all:
-<p>
-   The columns of a score that form one line.  The toplevel element.
-   Any element has a Line_of_score as both X and Y reference
-   point. The Paper_score contains one element of this type. Control
-   enters the Score_element dependency calculation from this single
-   Line_of_score object."
+
+The columns of a score that form one line.  The toplevel element.  Any
+element has a Line_of_score as both X and Y reference point. The
+Paper_score contains one element of this type. Control enters the
+Score_element dependency calculation from this single Line_of_score
+object."
    (list
     (elt-property-description 'between-system-string string? "string
  to dump between two systems. Useful for forcing pagebreaks")
@@ -294,7 +300,7 @@ Setting it to false will prevent printing of the
 bracket. Setting the property to #'if-no-beam will make it
 print only if there is no beam associated with this tuplet bracket.")
     (elt-property-description 'tuplet-number-visibility boolean-or-symbol? "
-Like <code>tuplet-bracket-visibility</code>, but for the number.")
+Like @code{tuplet-bracket-visibility}, but for the number.")
     (elt-property-description 'parallel-beam boolean? "internal: true if there is a beam just as wide as the bracket ")
     (elt-property-description 'thick number? "thickness, in stafflinethickness")
     )
@@ -460,34 +466,47 @@ hufnagel, vaticana and medicaea [TODO: should use symbol] ")
    (list
     (elt-property-description 'text (lambda (x) (or (string? x) (list? x))) "
 Scheme markup text.  It is defined as follows:
-<p>
 
-TEXT : STRING | (MARKUP SENTENCE)<br>
-MARKUP: PROPERTY | ABBREV<br>
-SENTENCE: TEXT | SENTENCE TEXT<br>
-PROPERTY: (key . value)<br>
+@example
+
+TEXT : STRING | (MARKUP SENTENCE)
+MARKUP: PROPERTY | ABBREV
+SENTENCE: TEXT | SENTENCE TEXT
+PROPERTY: (key . value)
 ABBREV: rows lines roman music bold italic named super sub text, or any font-style
-<p>
+
+@end example
 
 So, TEXT is either a string, or a list of which the CAR is a MARKUP.
 MARKUP is either a CONS: an element property '(key . value) or a symbol:
 a predefined abbreviation for a list of element properties.
-<p>
+
 
 The following abbreviations are currently defined:
-<dl>
-<dt>rows<dd> horizontal mode: set all text on one line (default)
-<dt>lines<dd> vertical mode: set every text on new line
-<dt>roman<dd> select roman font
-<dt>music<dd> select feta font
-<dt>bold<dd> select bold series
-<dt>italic<dd> select italic shape
-<dt>named<dd> lookup by character name
-<dt>text<dd> plain text lookup (by character value)
-<dt>super<dd> superscript
-<dt>sub<dd> subscript
-<dt> any font-style<dd> finger volta timesig mmrest mark script large Large dynamic
-</dl>
+@table @samp
+@item rows
+horizontal mode: set all text on one line (default)
+@item lines
+ vertical mode: set every text on new line
+@item roman
+ select roman font
+@item music
+ select feta font
+@item bold
+ select bold series
+@item italic
+ select italic shape
+@item named
+ lookup by character name
+@item text
+ plain text lookup (by character value)
+@item super
+ superscript
+@item sub
+ subscript
+@item any font-style
+ finger volta timesig mmrest mark script large Large dynamic
+@end table
 " )
     ;; Should move this somewhere else?  
     (elt-property-description 'align number? "the alignment of the text, 0 is horizontal, 1 is vertical")
@@ -522,7 +541,7 @@ The following abbreviations are currently defined:
 (define separation-spanner-interface
   (lily-interface
    'separation-spanner-interface
-   "Spanner that containing <code>separation-item-interface</code> elements to calculate rods"
+   "Spanner that containing @code{separation-item-interface} elements to calculate rods"
    '()
   ))
 (define text-script-interface
@@ -665,7 +684,7 @@ conflicts."
     (elt-property-description 'minimum-distance number? "minimum distance between notes and rests.")
     (elt-property-description 'elements list? "list of elements (NoteColumn,
 generally) participating in the collision. The
-<code>rest-collision</code> property in <code>elements</code> is set
+@code{rest-collision} property in @code{elements} is set
 to a pointer to the collision")
     )))
 
@@ -680,7 +699,7 @@ to a pointer to the collision")
 (define script-column-interface
   (lily-interface
    'script-column-interface
-   "An interface that sorts scripts according to their <code>script-priority</code>"
+   "An interface that sorts scripts according to their @code{script-priority}"
    (list )))
 
 
@@ -706,17 +725,18 @@ arithmetic_basicspace is set to a value so that the shortest note
 takes about two noteheads of space (ie, is followed by a notehead of
 space):
 
+@example
    2*quartwidth = arithmetic_multiplier * ( C + log2 (SHORTEST) ))
 
-   { using: C = arithmetic_basicspace - log2 (mininum (SHORTEST, 1/8)) }
-   { assuming: SHORTEST <= 1/8 }
+   @{ using: C = arithmetic_basicspace - log2 (mininum (SHORTEST, 1/8)) @}
+   @{ assuming: SHORTEST <= 1/8 @}
 
                = arithmetic_multiplier *
 	       ( arithmetic_basicspace - log2 (SHORTEST) + log2 (SHORTEST) )
 
                = arithmetic_multiplier * arithmetic_basicspace
 
-   { choose: arithmetic_multiplier = 1.0*quartwidth (why?)}
+   @{ choose: arithmetic_multiplier = 1.0*quartwidth (why?) @}
 
                = quartwidth * arithmetic_basicspace
 
@@ -724,10 +744,12 @@ space):
 
    arithmetic_basicspace = 2/1 = 2
 
+
 If you want to space your music wider, use something like:
 
    arithmetic_basicspace = 4.;
 
+@end example
 ")
     (elt-property-description 'arithmetic-multiplier number? "see arithmetic-basicspace")    
     
@@ -758,7 +780,7 @@ position 0."
   (lily-interface
    'separation-item-interface
    "Item that computes widths to generate spacing rods.
-<p>
+
 Calc dimensions for the Separating_group_spanner; this has to be
    an item to get dependencies correct.  It can't be an element_group
    since these usually are in a different X_group

@@ -57,9 +57,10 @@
     ((1 medium upright number feta-nummer 11) . "feta-nummer11")
     ((0 medium upright number feta-nummer 10) . "feta-nummer10")
     ((-1 medium upright number feta-nummer 8) . "feta-nummer8")
-    ((-2 medium upright number feta-nummer 6) . "feta-nummer6")
-    ((-3 medium upright number feta-nummer 5) . "feta-nummer5")
-    ((-4 medium upright number feta-nummer 4) . "feta-nummer4")
+    ((-2 medium upright number feta-nummer 7) . "feta-nummer7")
+    ((-3 medium upright number feta-nummer 6) . "feta-nummer6")
+    ((-4 medium upright number feta-nummer 5) . "feta-nummer5")
+    ((-5 medium upright number feta-nummer 4) . "feta-nummer4")
 
     ((4 medium upright roman cmr 20) . "cmr20")
     ((3 medium upright roman cmr 16) . "cmr16")

@@ -91,7 +91,7 @@
 		(after-line-breaking-callback . ,Chord_name::after_line_breaking)
 		(chord-name-function . ,default-chord-name-function)
 		(font-family . roman)
-		(meta . ,(element-description "ChordNames"  font-interface text-interface chord-name-interface))
+		(meta . ,(element-description "ChordName"  font-interface text-interface chord-name-interface))
 	))
 
        (Custos . (
