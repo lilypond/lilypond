@@ -1,9 +1,14 @@
+pl 26
+	- docxx 3.0
 
 pl 25
 	- merge sstack and Array
+
 pl 24
 	- small fix in vector print
+
 pl 23
 	- win32 patches (JN)
+
 pl 22
 	- Array::add -> Array::push
