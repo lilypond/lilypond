@@ -2211,8 +2211,8 @@ msgid "More alternatives than repeats.  Junking excess alternatives."
 msgstr "Enemm‰n vaihtoehtoja kuin kertauksia.  Heitet‰‰n pois liialliset vaihtoehdot."
 
 #: parser.yy:861 parser.yy:868
-msgid "pplycontext takes function argument"
-msgstr "\applycontext vaati funktioargumentin"
+msgid "\\applycontext takes function argument"
+msgstr "\\applycontext vaati funktioargumentin"
 
 #: parser.yy:877
 msgid "Second argument must be a symbol"
@@ -2223,8 +2223,8 @@ msgid "First argument must be a procedure taking one argument"
 msgstr "Ensimm‰isen argumentin on oltava aliohjelma, joka sa yhden argumentin"
 
 #: parser.yy:1009
-msgid "pply takes function argument"
-msgstr "\apply vaatii funktioargumentin"
+msgid "\\apply takes function argument"
+msgstr "\\apply vaatii funktioargumentin"
 
 #: parser.yy:1501
 msgid "Expecting string as script definition"

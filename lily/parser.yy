@@ -1670,6 +1670,12 @@ open_event:
 		$$ = $1;
 		dynamic_cast<Music *> ($$)->set_mus_property ("span-direction", gh_int2scm (STOP))
 ;
+		static int warn_count ;
+		if (warn_count < 10)
+			{
+			$$->origin ()->warning (_("Prefix articulations are deprecated. Use postfix notation instead."));
+			warn_count ++;
+			}
 	}
 	;
 
