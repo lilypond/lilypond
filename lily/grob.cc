@@ -377,18 +377,30 @@ Grob::add_dependency (Grob*e)
       It is rather tightly coded, since it takes a lot of time; it is
       one of the top functions in the profile.
 
+      We don't pass break_criterion as a parameter, since it is
+      `constant', but takes up stack space.
+
 */
+
+
+static SCM break_criterion; 
+void
+set_break_subsititution (SCM criterion)
+{
+  break_criterion = criterion;
+}
+
 SCM
-Grob::handle_broken_grobs (SCM src, SCM criterion)
+do_break_substitution (SCM src)
 {
  again:
   Grob *sc = unsmob_grob (src);
   if (sc)
     {
-      if (SCM_INUMP (criterion))
+      if (SCM_INUMP (break_criterion))
 	{
 	  Item * i = dynamic_cast<Item*> (sc);
-	  Direction d = to_dir (criterion);
+	  Direction d = to_dir (break_criterion);
 	  if (i && i->break_status_dir () != d)
 	    {
 	      Item *br = i->find_prebroken_piece (d);
@@ -398,7 +410,7 @@ Grob::handle_broken_grobs (SCM src, SCM criterion)
       else
 	{
 	  System * line
-	    = dynamic_cast<System*> (unsmob_grob (criterion));
+	    = dynamic_cast<System*> (unsmob_grob (break_criterion));
 	  if (sc->line_l () != line)
 	    {
 	      sc = sc->find_broken_piece (line);
@@ -435,7 +447,7 @@ Grob::handle_broken_grobs (SCM src, SCM criterion)
       /*
 	UGH! breaks on circular lists.
       */
-      SCM newcar = handle_broken_grobs (oldcar, criterion);
+      SCM newcar = do_break_substitution (oldcar);
       SCM oldcdr = ly_cdr (src);
       
       if (newcar == SCM_UNDEFINED
@@ -444,7 +456,7 @@ Grob::handle_broken_grobs (SCM src, SCM criterion)
 	  /*
 	    This is tail-recursion, ie. 
 	    
-	    return handle_broken_grobs (cdr, criterion);
+	    return do_break_substution (cdr, break_criterion);
 
 	    We don't want to rely on the compiler to do this.  Without
 	    tail-recursion, this easily crashes with a stack overflow.  */
@@ -452,7 +464,7 @@ Grob::handle_broken_grobs (SCM src, SCM criterion)
 	  goto again;
 	}
 
-      SCM newcdr = handle_broken_grobs (oldcdr, criterion);
+      SCM newcdr = do_break_substitution (oldcdr);
       return scm_cons (newcar, newcdr);
     }
   else
@@ -474,9 +486,11 @@ Grob::handle_broken_dependencies ()
 	{
 	  Grob * sc = s->broken_into_l_arr_[i];
 	  System * l = sc->line_l ();
+
+	  set_break_subsititution (l ? l->self_scm () : SCM_UNDEFINED);
 	  sc->mutable_property_alist_ =
-	    handle_broken_grobs (mutable_property_alist_,
-				 l ? l->self_scm () : SCM_UNDEFINED);
+	    do_break_substitution (mutable_property_alist_);
+
 	}
     }
 
@@ -485,14 +499,13 @@ Grob::handle_broken_dependencies ()
 
   if (line && common_refpoint (line, X_AXIS) && common_refpoint (line, Y_AXIS))
     {
-      mutable_property_alist_
-	= handle_broken_grobs (mutable_property_alist_,
-			       line ? line->self_scm () : SCM_UNDEFINED);
+      set_break_subsititution (line ? line->self_scm () : SCM_UNDEFINED);
+      mutable_property_alist_ = do_break_substitution (mutable_property_alist_);
     }
   else if (dynamic_cast <System*> (this))
     {
-      mutable_property_alist_ = handle_broken_grobs (mutable_property_alist_,
-					    SCM_UNDEFINED);
+      set_break_subsititution (SCM_UNDEFINED);
+      mutable_property_alist_ = do_break_substitution (mutable_property_alist_);
     }
   else
     {
@@ -540,6 +553,9 @@ Grob::find_broken_piece (System*) const
   return 0;
 }
 
+/*
+  translate in one direction
+*/
 void
 Grob::translate_axis (Real y, Axis a)
 {
@@ -551,6 +567,13 @@ Grob::translate_axis (Real y, Axis a)
     }
 }  
 
+
+/*
+  Find the offset relative to D.  If   D equals THIS, then it is 0.
+  Otherwise, it recursively defd as
+  
+  OFFSET_ + PARENT_L_->relative_coordinate (D)
+*/
 Real
 Grob::relative_coordinate (Grob const*refp, Axis a) const
 {
@@ -568,6 +591,11 @@ Grob::relative_coordinate (Grob const*refp, Axis a) const
     return get_offset (a) + dim_cache_[a].parent_l_->relative_coordinate (refp, a);
 }
 
+
+  
+/*
+  Invoke callbacks to get offset relative to parent.
+*/
 Real
 Grob::get_offset (Axis a) const
 {
@@ -656,6 +684,9 @@ Grob::extent (Grob * refp, Axis a) const
   return ext;
 }
 
+/*
+  Find the group-element which has both #this# and #s#
+*/
 Grob * 
 Grob::common_refpoint (Grob const* s, Axis a) const
 {
