@@ -12,14 +12,24 @@ ritenuto = \textscript #'(italic  "rit.")
 
 %% burp
 %% the very idea of a style sheet, is that it's easy to override
-#(define (set-style! sheet name style)
-  (set-cdr! (assoc 'mark-letter (cdr (assoc 'style-alist sheet))) style))
+%#(define (set-style! sheet name style)
+%  (set-cdr! (assoc 'mark-letter (cdr (assoc 'style-alist sheet))) style))
+%
+%#(define my-sheet (make-font-list 'paper20))
+%#(set-style! my-sheet 'mark-letter '((font-family . roman)
+%                                     (font-series . bold)
+%                                     (font-shape . upright)
+%                                     (font-relative-size . 3)))
 
-#(define my-sheet (make-style-sheet 'paper20))
-#(set-style! my-sheet 'mark-letter '((font-family . roman)
-                                     (font-series . bold)
-                                     (font-shape . upright)
-                                     (font-relative-size . 3)))
+#(define (set-style! xstyle-alist name style)
+  (set-cdr! (assoc name xstyle-alist)) style)
+
+#(set-style! style-alist 'mark-letter '((font-family . roman)
+                                        (font-series . bold)
+                                        (font-shape . upright)
+                                        (font-relative-size . 3)))
+  
+  
   
 cresc = \notes {
     #(ly:export (make-event-chord (list (make-span-event 'CrescendoEvent START)))) 
@@ -45,7 +55,7 @@ stopGraceMusic= \sequential {
 }
 
 \paper{
-    \stylesheet #my-sheet
+    #(define fonts my-sheet)
     \translator {
         \ScoreContext
         skipBars = ##t

@@ -5,14 +5,14 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
            Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 /*
   Two shift/reduce problems:
-    -
-    -
+    - empty music-list
+    - empty pre-events
  */
 
 /*
@@ -650,7 +650,7 @@ The representation of a  list is the
 
  to have  efficient append.
 */
-Music_list: /* empty */ {
+Music_list: /* empty */ { /* SR conflict */
 		$$ = scm_cons (SCM_EOL, SCM_EOL);
 	}
 	| Music_list Music {
@@ -1309,7 +1309,7 @@ verbose_command_req:
 	;
 
 post_events:
-	{
+	/* empty */ {
 		$$ = new Link_array<Music>;
 	}
 	| post_events post_event {
@@ -1589,7 +1589,7 @@ script_dir:
 	;
 
 pre_events:
-	{
+	/* empty */ { /* SR conflict */
 		$$ = new Link_array<Music>;
 	}
 	| pre_events open_event {

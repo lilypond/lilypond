@@ -1,3 +1,13 @@
+2002-10-14  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/user/internals.itely:
+	* Documentation/user/refman.itely: Run texinfo-all-menus-update.
+
+	* lily/parser.yy: Identify shift/reduce problems.
+
+	* input/mutopia/W.A.Mozart/mozart-hrn3-defs.ly: Rename
+	make-style-sheet.  Too specific for convert-ly?
+
 2002-10-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* po/cs.po: added czech translation, courtesy Tomas Kopecek.
