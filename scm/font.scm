@@ -75,8 +75,8 @@
     ((-1 medium upright sans 9) . "cmss9" )
     ((-2 medium upright sans 8) . "cmss8" )
     ((-3 medium upright sans 7) . "cmss7" )
-    ((-3 medium upright sans 6) . "cmss6" )
-    ((-4 medium upright sans 5) . "cmss5" )
+    ((-4 medium upright sans 6) . "cmss6" )
+    ((-5 medium upright sans 5) . "cmss5" )
     
     ((3 medium italic roman 12) . "cmti12")
     ((2 medium italic roman 12) . "cmti12")

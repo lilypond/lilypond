@@ -9,6 +9,11 @@
 
 2003-09-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* mf/GNUmakefile ($(outdir)/%.pfa): break apart one-big-rule for
+	sauter PFAs.
+
+	* configure.in: remove VERSION stuff once again.
+
 	* scm/font.scm (paper20-style-sheet-alist): add cmss entries.
 
 	* scm/define-grobs.scm (all-grob-descriptions): use sans family
