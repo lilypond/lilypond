@@ -1,6 +1,17 @@
 %{ // -*-Fundamental-*-
+
+/*
+  parser.y -- lily parser
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+           Jan Nieuwenhuizen <jan@digicash.com>
+*/
+
 #include <iostream.h>
 
+// mmm
 #define MUDELA_VERSION "0.0.61"
 
 #include "script-def.hh"
@@ -47,7 +58,7 @@
     Chord * chord;
     Duration *duration;
     Identifier *id;    
-    Input_translator * iregs;
+    Input_translator* itrans;
     Music *music;
     Music_list *musiclist;
     Score *score;
@@ -106,7 +117,7 @@ yylex(YYSTYPE *s,  void * v_l)
 %token GEOMETRIC
 %token GROUPING
 %token GROUP
-%token REQUESTENGRAVER
+%token REQUESTTRANSLATOR
 %token HSHIFT
 %token IN_T
 %token ID
@@ -114,9 +125,9 @@ yylex(YYSTYPE *s,  void * v_l)
 %token LYRIC
 %token KEY
 %token MELODIC
+%token MIDI
 %token MELODIC_REQUEST
 %token METER
-%token MIDI
 %token MM_T
 %token MULTI
 %token NOTE
@@ -161,6 +172,7 @@ yylex(YYSTYPE *s,  void * v_l)
 %token <id>	REAL_IDENTIFIER
 %token <id>	INT_IDENTIFIER
 %token <id>	SCORE_IDENTIFIER
+%token <id>	MIDI_IDENTIFIER
 %token <id>	PAPER_IDENTIFIER
 %token <id>	REQUEST_IDENTIFIER
 %token <real>	REAL 
@@ -203,7 +215,7 @@ yylex(YYSTYPE *s,  void * v_l)
 %type <id>	old_identifier
 %type <symbol>	symboldef
 %type <symtable>	symtable symtable_body
-%type <iregs>	input_translator_spec input_translator_spec_body
+%type <itrans>	input_translator_spec input_translator_spec_body
 
 %left PRIORITY
 
@@ -288,6 +300,10 @@ declaration:
 		$$ = new Paper_def_id(*$1, $3, PAPER_IDENTIFIER);
 		delete $1;
 	}
+	| declarable_identifier '=' midi_block {
+		$$ = new Midi_def_id(*$1, $3, MIDI_IDENTIFIER);
+		delete $1;
+	}
 	| declarable_identifier '=' script_definition {
 		$$ = new Script_id(*$1, $3, SCRIPT_IDENTIFIER);
 		delete $1;
@@ -321,7 +337,7 @@ declaration:
 
 
 input_translator_spec:
-	REQUESTENGRAVER '{' input_translator_spec_body '}'
+	REQUESTTRANSLATOR '{' input_translator_spec_body '}'
 		{ $$ = $3; }
 	;
 
@@ -350,6 +366,7 @@ input_translator_spec_body:
 		$$->add($3);
 	}
 	;
+
 /*
 	SCORE
 */
@@ -405,7 +422,7 @@ paper_block:
 
 paper_body:
 	/* empty */		 	{
-		$$ = THIS->default_paper();
+		$$ = THIS->default_paper(); // paper / video / engrave
 	}
 	| paper_body OUTPUT STRING ';'	{ $$->outfile_str_ = *$3;
 		delete $3;
@@ -434,8 +451,8 @@ midi_block:
 	'{' midi_body '}' 	{ $$ = $3; }
 	;
 
-midi_body: { 
-		$$ = new Midi_def; 
+midi_body: /* empty */		 	{
+		$$ = THIS->default_midi(); // midi / audio / perform
 	}
 	| midi_body OUTPUT STRING ';'	{ 
 		$$->outfile_str_ = *$3; 
@@ -444,13 +461,13 @@ midi_body: {
 	| midi_body TEMPO notemode_duration ':' int ';' {
 		$$->set_tempo( $3->length(), $5 );
 	}
+	| midi_body input_translator_spec	{
+		$$->set( $2 );
+	}
 	| midi_body error {
 
 	}
 	;
-
-
-
 
 /*
 	MUSIC
@@ -1066,5 +1083,12 @@ My_lily_parser::default_paper()
 {
 	Identifier *id = lexer_p_->lookup_identifier( "default_paper" );
 	return id ? id->paperdef(true) : new Paper_def ;
+}
+
+Midi_def*
+My_lily_parser::default_midi()
+{
+	Identifier *id = lexer_p_->lookup_identifier( "default_midi" );
+	return id ? id->mididef(true) : new Midi_def ;
 }
 

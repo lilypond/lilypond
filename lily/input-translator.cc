@@ -13,6 +13,7 @@
 #include "parray.hh"
 #include "input-translator.hh"
 #include "engraver-group.hh"
+#include "performer-group-performer.hh"
 
 bool
 Input_translator::is_name_b(String n)
@@ -33,7 +34,7 @@ Input_translator::print() const
 	mtor << consists_str_arr_[i] << ',';
     if (contains_itrans_p_list_.size())
 	mtor << "\nContains " ;
-    for (iter(contains_itrans_p_list_.top(), i); i.ok(); i++) 
+    for (PCursor<Input_translator*> i(contains_itrans_p_list_.top()); i.ok(); i++) 
 	i->print();
     mtor << "}\n";
 #endif 
@@ -48,7 +49,8 @@ Input_translator::recursive_find(String nm)
 	return this;
 
     Input_translator * r =0;
-    iter(contains_itrans_p_list_.top(), i);
+    // what bout for() ?
+    PCursor<Input_translator*> i(contains_itrans_p_list_.top());
     for (; !r &&i.ok(); i++) {
 	if (i->recursive_find(nm))
 	    r = i.ptr();
@@ -60,7 +62,7 @@ Input_translator::recursive_find(String nm)
 Input_translator *
 Input_translator::find_itrans_l(String nm)
 {
-    for (iter(contains_itrans_p_list_.top(), i); i.ok(); i++)
+    for (PCursor<Input_translator*> i(contains_itrans_p_list_.top()); i.ok(); i++) 
 	if (i->is_name_b( nm))
 	    return i;
 
@@ -83,22 +85,20 @@ Input_translator::get_group_engraver_p()
     return grav_p;
 }
 
-#if 0
 Performer_group_performer*
 Input_translator::get_group_performer_p()
 {    
     assert (base_str_ == "Performer");
-    Performer_group_performer * grav_p = (Performer_group_performer*)
+    Performer_group_performer * perf_p = (Performer_group_performer*)
 	get_performer_p(type_str_);
 
     for (int i=0; i < consists_str_arr_.size(); i++) {
-	grav_p->add( get_performer_p( consists_str_arr_[i]) );
+	perf_p->add( get_performer_p( consists_str_arr_[i]) );
     }
-    grav_p->itrans_l_ = this;
-    grav_p->id_str_ = default_id_str_;
-    return grav_p;
+    perf_p->itrans_l_ = this;
+    perf_p->id_str_ = default_id_str_;
+    return perf_p;
 }
-#endif    
 
 bool
 Input_translator::accept_req_b()

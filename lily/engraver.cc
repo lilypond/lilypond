@@ -130,8 +130,7 @@ IMPLEMENT_STATIC_NAME(Engraver);
 IMPLEMENT_IS_TYPE_B(Engraver);
 
 void
-Engraver::do_print()const
+Engraver::do_print() const
 {
 }
-
 

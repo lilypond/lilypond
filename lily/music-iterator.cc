@@ -167,9 +167,9 @@ Chord_iterator::Chord_iterator(Chord const *chord_C)
 void
 Chord_iterator::construct_children()
 {
-    int j =0;
-    for(iter(chord_C_->music_p_list_.top(), i); i.ok(); j++, i++) {
-	
+    int j = 0;
+    for(PCursor<Music*> i(chord_C_->music_p_list_.top());  //, int j = 0; 
+    	i.ok(); j++, i++) {
 	Music_iterator * mi =  get_iterator_p( i.ptr());
 	set_translator(mi->report_to_l()->ancestor_l( chord_C_->multi_level_i_ ));
 	if ( mi->ok() )
@@ -182,16 +182,16 @@ void
 Chord_iterator::do_print() const
 {
 #ifndef NPRINT
-     for (iter(children_p_list_.top(), i); i.ok(); i++ ) {
+    for (PCursor<Music_iterator*> i(children_p_list_.top()); i.ok(); i++) {
 	i->print();
-     }
+    }
 #endif
 }
 
 void
 Chord_iterator::process_and_next(Moment until)
 {
-    for (iter(children_p_list_.top(), i); i.ok(); ) {
+    for (PCursor<Music_iterator*> i(children_p_list_.top()); i.ok(); ) {
 	if  (i->next_moment() == until) {
 	    i->process_and_next(until);
 	}
@@ -212,7 +212,7 @@ Moment
 Chord_iterator::next_moment()const
 {
     Moment next_ = INFTY;
-    for (iter(children_p_list_.top(), i); i.ok(); i++) 
+    for (PCursor<Music_iterator*> i(children_p_list_.top()); i.ok(); i++)
 	next_ = next_ <? i->next_moment() ;
     return next_;
 }

@@ -10,6 +10,7 @@
 #ifndef ENGRAVERGROUP_HH
 #define ENGRAVERGROUP_HH
 
+#include "lily-proto.hh"
 #include "parray.hh"
 #include "plist.hh"
 #include "score-elem-info.hh"

@@ -34,6 +34,7 @@ struct Identifier : public Input {
     IDACCESSOR(Input_translator, itrans)	
     IDACCESSOR(General_script_def, script)
     IDACCESSOR(Symtables, symtables)
+    IDACCESSOR(Midi_def, mididef)
     IDACCESSOR(Paper_def, paperdef)
     IDACCESSOR(Lookup,lookup)
     IDACCESSOR(Real,real)
@@ -68,4 +69,5 @@ declare_id_class(Score_id, Score, score);
 declare_id_class(Request_id, Request, request);
 declare_id_class(Input_trans_id, Input_translator, itrans);
 declare_id_class(Paper_def_id,Paper_def, paperdef);
+declare_id_class(Midi_def_id,Midi_def, mididef);
 #endif // IDENTIFIER_
