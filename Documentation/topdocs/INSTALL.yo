@@ -35,6 +35,8 @@ it() GNU C++ version 2.7 or newer (2.8 and egcs are also fine).
 it() Python 1.5 (Strictly speaking, you shouldn't need Python for 
    compiling and installing, but you'll need it to regenerate the font
    tables, e.g.). 
+
+it() GUILE 1.3 (no, GUILE 1.2 won't work)
 )
 
 sect(RUNNING)
