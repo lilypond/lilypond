@@ -5,7 +5,7 @@ Copyright: GPL
 Group: Applications/Publishing
 Source0: alpha.gnu.org:/gnu/lilypond/development/lilypond-@TOPLEVEL_VERSION@.tar.gz
 Summary: A program for typesetting music.
-URL: http://www.stack.nl/~hanwen/lilypond
+URL: http://www.cs.ruu.nl/~hanwen/lilypond
 Packager: Han-Wen Nienhuys <hanwen@stack.nl>
 Icon: lelie_icon.gif
 Buildroot: /tmp/lilypond-install
