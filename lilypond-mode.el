@@ -25,7 +25,7 @@
 (require 'easymenu)
 (require 'compile)
 
-(defconst LilyPond-version "1.5.51"
+(defconst LilyPond-version "1.5.52"
   "`LilyPond-mode' version number.")
 
 (defconst LilyPond-help-address "bug-lilypond@gnu.org"
@@ -653,6 +653,10 @@ LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
 
   (make-local-variable 'font-lock-defaults)
   (setq font-lock-defaults '(LilyPond-font-lock-keywords))
+
+  ; string and comments are fontified explicitly
+  (make-local-variable 'font-lock-keywords-only)
+  (setq font-lock-keywords-only t)
 
   (make-local-variable 'paragraph-separate)
   (setq paragraph-separate "^[ \t]*$")
