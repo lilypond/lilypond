@@ -56,7 +56,18 @@ import __main__
 ## https://sourceforge.net/tracker/?func=detail&aid=604803&group_id=5470&atid=105470
 ##
 
-if float (sys.version[0:3]) <= 2.1 or sys.version[0:5] == '2.2.1':
+
+##
+##
+##
+
+
+
+
+if float (sys.version[0:3]) <= 2.1: 
+## or sys.version[0:5] == '2.2.1':
+## still broken on python 2.2.1  / RH8.
+	
 	try:
 		import pre
 		re = pre

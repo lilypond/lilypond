@@ -1,4 +1,4 @@
-# -*- rpm-spec-mode -*-
+# -*-rpm-spec-mode-*-
 
 %define info yes
 
@@ -10,7 +10,8 @@ Group: Applications/Publishing
 Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-@TOPLEVEL_VERSION@.tar.gz
 Summary: Create and print music notation 
 URL: http://www.lilypond.org/
-BuildRoot: /tmp/lilypond-install
+BuildRoot: %{_tmppath}/%{name}-%{version}-root
+
 
 Buildrequires: t1utils bison flex mftrace texinfo
 Requires: tetex  tetex-latex libstdc++ python 
@@ -20,13 +21,13 @@ LilyPond lets you create music notation.  It produces
 beautiful sheet music from  a high-level description file.
 
 %package documentation
-Summary: Prebuilt website containing all LilyPond documentation.
+Summary:  All LilyPond documentation, in HTML
 Group: Applications/Publishing
 # BuildArchitectures: noarch
 
 %description documentation
-
-The documentation and example files of LilyPond.
+Documentation and example files of LilyPond. An index is available at
+%{_docdir}/web/Documentation/out-www/index.html
 
 %prep
 %setup
@@ -34,7 +35,7 @@ The documentation and example files of LilyPond.
 %build
 
 # DO NOT use % { configure } , it hardcodes all paths, runs libtool,
-# so we can't do make prefix=/tmp/ install.
+# so we can't do make prefixix=/tmp/ install.
 
 # In fact, do not take out the spaces between % and { in the above comment,
 # because RPM will gladly do a substitution anyway.
@@ -56,21 +57,22 @@ rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/tmp/lilypond-rpm-doc
 
 strip lily/out/lilypond 
-make prefix="$RPM_BUILD_ROOT%{_prefix}" MAKE_PFA_FILES=1 install
+make prefix="$RPM_BUILD_ROOT%{_prefix}" infodir="$RPM_BUILD_ROOT%{_infodir}" MAKE_PFA_FILES=1 mandir="$RPM_BUILD_ROOT%{_mandir}" install
 
-%if info=="yes"
-gzip -9fn $RPM_BUILD_ROOT%{_prefix}/info/*
+%if %{info}
+rm -f $RPM_BUILD_ROOT/%{_infodir}/dir
+gzip -9fn $RPM_BUILD_ROOT%{_infodir}/*
 %endif
 
-mkdir -p $RPM_BUILD_ROOT/usr/share/emacs/site-lisp/site-start.d
-install -m 644 lilypond-mode.el lilypond-font-lock.el lilypond-indent.el $RPM_BUILD_ROOT/usr/share/emacs/site-lisp/
-install -m 644 lilypond-init.el $RPM_BUILD_ROOT/usr/share/emacs/site-lisp/site-start.d
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/emacs/site-lisp/site-start.d
+install -m 644 lilypond-mode.el lilypond-font-lock.el lilypond-indent.el $RPM_BUILD_ROOT/%{_datadir}/emacs/site-lisp/
+install -m 644 lilypond-init.el $RPM_BUILD_ROOT/%{_datadir}/emacs/site-lisp/site-start.d
 
-gzip -9fn $RPM_BUILD_ROOT%{_prefix}/man/man1/*
+gzip -9fn $RPM_BUILD_ROOT%{_mandir}/man1/*
 
-mkdir -p $RPM_BUILD_ROOT%{_prefix}/../etc/profile.d
-cp buildscripts/out/lilypond-profile $RPM_BUILD_ROOT%{_prefix}/../etc/profile.d/lilypond.sh
-cp buildscripts/out/lilypond-login $RPM_BUILD_ROOT%{_prefix}/../etc/profile.d/lilypond.csh
+mkdir -p $RPM_BUILD_ROOT/etc/profile.d
+cp buildscripts/out/lilypond-profile $RPM_BUILD_ROOT/etc/profile.d/lilypond.sh
+cp buildscripts/out/lilypond-login $RPM_BUILD_ROOT/etc/profile.d/lilypond.csh
 
 
 # again, make sure that main package installs even if doco fails
@@ -83,64 +85,62 @@ tar -C web -xzf out/web.tar.gz
 touch /tmp/.lilypond-install
 rm `find /var/lib/texmf -name 'feta*pk' -or -name 'feta*tfm' -or -name 'parmesan*pk' -or -name 'parmesan*tfm' -print` /tmp/.lilypond-install
 
-%if info=="yes"
-/sbin/install-info %{_prefix}/info/lilypond.info.gz %{_prefix}/info/dir 
+%if %{info}
+/sbin/install-info %{_infodir}/lilypond.info.gz %{_infodir}/dir 
 %endif
 
-
-/usr/X11R6/bin/mkfontdir  /usr/share/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
-chkfontpath --add=/usr/share/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
+/usr/X11R6/bin/mkfontdir %{_datadir}/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
+chkfontpath --add=%{_datadir}/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
 
 echo 'Please logout first before using LilyPond.'
 
 %preun
 
-%if info=="yes"
+%if %{info}
 if [ $1 = 0 ]; then
-    /sbin/install-info --delete %{_prefix}/info/lilypond.info.gz %{_prefix}/info/dir 
+    /sbin/install-info --delete %{_infodir}/lilypond.info.gz %{_infodir}/dir 
 fi
 %endif
 
-rm -f /usr/share/lilypond/@TOPLEVEL_VERSION@/fonts/type1/fonts.dir
-chkfontpath --remove=/usr/share/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
+rm -f %{_datadir}/lilypond/@TOPLEVEL_VERSION@/fonts/type1/fonts.dir
+chkfontpath --remove=%{_datadir}/share/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
 
 %files
 %defattr(-, root, root)
 %{_datadir}/emacs/site-lisp/lilypond-*
 %{_datadir}/emacs/site-lisp/site-start.d/lilypond-*
 
-%{_prefix}/bin/abc2ly
-%{_prefix}/bin/as2text
-%{_prefix}/bin/convert-ly
-%{_prefix}/bin/etf2ly
-%{_prefix}/bin/lilypond
-%{_prefix}/bin/ly2dvi
-%{_prefix}/bin/midi2ly
-%{_prefix}/bin/lilypond-book
-%{_prefix}/bin/mup2ly
-%{_prefix}/bin/musedata2ly
-%{_prefix}/bin/pmx2ly
+%{_bindir}/abc2ly
+%{_bindir}/as2text
+%{_bindir}/convert-ly
+%{_bindir}/etf2ly
+%{_bindir}/lilypond
+%{_bindir}/ly2dvi
+%{_bindir}/midi2ly
+%{_bindir}/lilypond-book
+%{_bindir}/mup2ly
+%{_bindir}/musedata2ly
+%{_bindir}/pmx2ly
 
-%if info=="yes"
-%{_prefix}/info/lilypond.info.gz
-%{_prefix}/info/lilypond-internals.info.gz
+%if %{info}
+%{_infodir}/*
 %endif
 
-%{_prefix}/man/man1/abc2ly.1.gz
-%{_prefix}/man/man1/as2text.1.gz
-%{_prefix}/man/man1/convert-ly.1.gz
-%{_prefix}/man/man1/etf2ly.1.gz
-%{_prefix}/man/man1/lilypond.1.gz
-%{_prefix}/man/man1/ly2dvi.1.gz
-%{_prefix}/man/man1/midi2ly.1.gz
-%{_prefix}/man/man1/lilypond-book.1.gz
-%{_prefix}/man/man1/musedata2ly.1.gz
-%{_prefix}/man/man1/mup2ly.1.gz
-%{_prefix}/man/man1/pmx2ly.1.gz
+%{_mandir}/man1/abc2ly.1.gz
+%{_mandir}/man1/as2text.1.gz
+%{_mandir}/man1/convert-ly.1.gz
+%{_mandir}/man1/etf2ly.1.gz
+%{_mandir}/man1/lilypond.1.gz
+%{_mandir}/man1/ly2dvi.1.gz
+%{_mandir}/man1/midi2ly.1.gz
+%{_mandir}/man1/lilypond-book.1.gz
+%{_mandir}/man1/musedata2ly.1.gz
+%{_mandir}/man1/mup2ly.1.gz
+%{_mandir}/man1/pmx2ly.1.gz
 
-%{_prefix}/share/lilypond/@TOPLEVEL_VERSION@/
-%{_prefix}/share/locale/*/LC_MESSAGES/lilypond.mo
-%{_prefix}/../etc/profile.d/lilypond.*
+%{_datadir}/lilypond/@TOPLEVEL_VERSION@/
+%{_datadir}/locale/*/LC_MESSAGES/lilypond.mo
+/etc/profile.d/lilypond.*
 
 %files documentation
 
