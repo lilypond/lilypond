@@ -26,24 +26,25 @@ StaffContext=\translator {
 
 	%  name, glyph id, c0 position
 	supportedClefTypes = #'(
-	  ("treble" . ("G" -2))
-	  ("violin" . ("G" -2))
-	  ("G" . ("G" -2))
-	  ("G2" . ("G" -2))
-	  ("french" . ("G" -4 ))
-	  ("soprano" . ("C" -4 ))
-	  ("mezzosoprano" . ("C" -2 ))
-	  ("alto" . ("C" 0 ))
-	  ("tenor" . ("C" 2 ))
-	  ("baritone" . ("C" 4 ))
-	  ("varbaritone"  . ("F" 0))
-	  ("bass" . ("F" 2 ))
-	  ("F" . ( "F" 2))
-	  ("subbass" . ("F" 4))
+	  ("treble" . ("clefs-G" -2))
+	  ("violin" . ("clefs-G" -2))
+	  ("G" . ("clefs-G" -2))
+	  ("G2" . ("clefs-G" -2))
+	  ("french" . ("clefs-G" -4 ))
+	  ("soprano" . ("clefs-C" -4 ))
+	  ("mezzosoprano" . ("clefs-C" -2 ))
+	  ("alto" . ("clefs-C" 0 ))
+	  ("tenor" . ("clefs-C" 2 ))
+	  ("baritone" . ("clefs-C" 4 ))
+	  ("varbaritone"  . ("clefs-F" 0))
+	  ("bass" . ("clefs-F" 2 ))
+	  ("F" . ( "clefs-F" 2))
+	  ("subbass" . ("clefs-F" 4))
 	)
-	clefPitches = #'(("G" . -4)
-	  ("C" . 0)
-	  ("F" . 4))
+	% where is c0 in this clef?
+	clefPitches = #'(("clefs-G" . -4)
+	  ("clefs-C" . 0)
+	  ("clefs-F" . 4))
 	  
 	\consists "Clef_engraver";
 	\consists "Key_engraver";
@@ -381,99 +382,173 @@ ScoreContext = \translator {
 
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	% default settings, mainly for breakable items
+	% in alphabetical order
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	basicBarNumberProperties = #`(
-	  (breakable . #t)
-	  (visibility-lambda . ,begin-of-line-visible)
-	)
-	basicMarkProperties = #'(
-	  (breakable . #t)
-	  (visibility-lambda . end-of-line-invisible)
-	)
-	leftEdgeBasicProperties = #'(
-	  (break-align-symbol . Left_edge_item)
-	  (breakable . #t)
+	basicBarlineProperties = #`(
+		(break-align-symbol . Staff_bar)
+		(molecule-callback . ,Bar::scheme_molecule)	   
+		(visibility-lambda . ,begin-of-line-invisible)
+		(breakable . #t)
 	)
 
-	staffSymbolBasicProperties = #'(
-	 (staff-space . 1.0 )
-	 (line-count . 5 )
-	 )
-	 basicTimeSignatureProperties = #`(
-	  (break-align-symbol . Time_signature)
-	  (visibility-lambda . ,all-visible)
-	  (breakable . #t)
-	 )
-	 basicBarlineProperties = #`(
-	   (break-align-symbol . Staff_bar)
-	   (visibility-lambda . ,begin-of-line-invisible)
-	   (breakable . #t)
-	   )
-	basicSystemStartDelimiterProperties = #'(
-	  (collapse-height . 1.0)
+	basicBarNumberProperties = #`(
+		(molecule-callback . ,Text_item::scheme_molecule)
+		(breakable . #t)
+		(visibility-lambda . ,begin-of-line-visible)
 	)
-	 basicKeyProperties = #`(
-	  (break-align-symbol . Key_item)
-	  (visibility-lambda . ,begin-of-line-visible)
-	  (breakable . #t)
-	  )	 
+
+	basicBeamProperties = #`(
+		(molecule-callback . ,Beam::scheme_molecule)
+		(beam-thickness . 0.42) ; interline!
+	)
+
+	basicBreakAlignProperties = #`(
+		(breakable . #t)
+	)
+
+	
+	basicBreathingSignProperties = #`(
+		(break-align-symbol . Breathing_sign)
+		(breakable . #t )
+		(molecule-callback . ,Breathing_sign::scheme_molecule)
+		(visibility-lambda . ,begin-of-line-invisible)
+	)
 	 basicClefItemProperties = #`(
+   	   (molecule-callback . ,Score_element::scheme_molecule)
 	   (breakable . #t)
 	   (break-align-symbol . Clef_item)
 	   (visibility-lambda . ,begin-of-line-visible) 
 	 )
-
-	basicBeamProperties = #`(
-		(beam-thickness . 0.42) ; interline!
+	basicSlurProperties = #`(
+		(molecule-callback . ,Slur::scheme_molecule)
 	)
-	basicStemTremoloProperties = #'(
-		(beam-width . 4.0) ; interline!
+	basicChordNameProperties = #`(
+		(molecule-callback . ,Chord_name::scheme_molecule)
 	)
-
-   	basicBreathingSignProperties = #'(
-		(break-align-symbol . Breathing_sign)
-		(breakable . #t )
-		(visibility-lambda . ,begin-of-line-invisible)
+	basicCollisionProperties = #`(
+		(axes 0 1)
 	)
-	basicOctavateEightProperties  = #'(
-		(self-alignment-X . 0)
-		(text . "8")
-		(style . "italic")
+	basicCrescendoProperties = #`(
+		(molecule-callback . ,Crescendo::scheme_molecule)
+	)
+	basicDotsProperties = #`(
+		(molecule-callback . ,Dots::scheme_molecule)
 	)
 	basicDynamicLineSpannerProperties = #`(
-		(transparent . #t)
+
 	)
 	basicDynamicTextProperties	 = # `(
 		(style . "dynamic")
+		(molecule-callback . ,Text_item::scheme_molecule)
 		(script-priority . 100)
 		(self-alignment-Y . 0)
+	)
+	leftEdgeBasicProperties = #`(
+	  (break-align-symbol . Left_edge_item)
+	  (breakable . #t)
+	)
+	basicHyphenSpannerProperties = #`(
+		(molecule-callback . ,Hyphen_spanner::scheme_molecule)
+	)
+	basicKeyProperties = #`(
+  	  (molecule-callback . ,Key_item::scheme_molecule)
+	  (break-align-symbol . Key_item)
+	  (visibility-lambda . ,begin-of-line-visible)
+	  (breakable . #t)
+	  )	
+	basicLocalKeyProperties = #`(
+		(molecule-callback . ,Local_key_item::scheme_molecule)
+		(left-padding . 0.2)
+		(right-padding . 0.4)
+	)
+	basicLyricExtenderProperties = #`(
+		(molecule-callback . ,Lyric_extender::scheme_molecule)
 	)
 	basicLyricTextProperties = #`(
 		(non-rhythmic . #t)
 	)
-	basicRestCollisionProperties = #`(
-		(transparent .  #t)
+	basicMarkProperties = #`(
+	  (molecule-callback . ,Text_item::scheme_molecule)	
+	  (breakable . #t)
+	  (visibility-lambda . ,end-of-line-invisible)
 	)
-	basicCollisionProperties = #`(
-		(transparent .  #t)
+	basicNoteColumnProperties = #`(
 		(axes 0 1)
 	)
-	basicSingleMaltGroupingItemProperties = #'(
-		(transparent . #t)
+	basicNoteHeadProperties = #`(
+		(molecule-callback . ,Note_head::scheme_molecule)
 	)
-	basicBreakAlignProperties = #'(
+
+	basicOctavateEightProperties  = #`(
+		(self-alignment-X . 0)
+		(text . "8")
+		(molecule-callback . ,Text_item::scheme_molecule)
+		(style . "italic")
+	)
+	basicTextProperties = #`( )
+	basicRestProperties = #`( 
+		(molecule-callback . ,Rest::scheme_molecule)
+	)
+	
+	basicRestCollisionProperties = #`(
+	)
+	basicScriptProperties	 = #`(
+		(molecule-callback . ,Script::scheme_molecule)
+	)
+		
+	basicSlurProperties = #`(
+		(molecule-callback . ,Slur::scheme_molecule)
+	)
+
+	basicSystemStartDelimiterProperties = #`(
+		(molecule-callback . ,System_start_delimiter::scheme_molecule)
+		(collapse-height . 1.0)
+	)
+	basicStemProperties = #`(
+		(molecule-callback . ,Stem::scheme_molecule)
+	)
+	staffSymbolBasicProperties = #`(
+	   (molecule-callback . ,Staff_symbol::scheme_molecule)
+	   (staff-space . 1.0 )
+	   (line-count . 5 )
+	 )
+	basicTimeSignatureProperties = #`(
+		(molecule-callback . ,Time_signature::scheme_molecule)
+		(break-align-symbol . Time_signature)
+		(visibility-lambda . ,all-visible)
 		(breakable . #t)
+	)
+	basicTieProperties = #`(
+		(molecule-callback . ,Tie::scheme_molecule)
+	)
+	basicTieColumnProperties = #`(
+		
+	)
+	basicTupletSpannerProperties = #`(
+		(molecule-callback . ,Tuplet_spanner::scheme_molecule)
+	)	
+	basicStemTremoloProperties = #`(
+	   	(molecule-callback . ,Stem_tremolo::scheme_molecule)
+		(beam-width . 4.0) ; interline!
+		(beam-thickness . 0.42) ; interline!		
+	)
+
+   	basicSingleMaltGroupingItemProperties = #`(
+
 	)
 	basicInstrumentNameProperties = #`(
 		(breakable . #t)
+		(molecule-callback . Text_item::scheme_molecule)		
 		(break-align-symbol . Instrument_name)
 		(visibility-lambda . ,begin-of-line-visible)
 	)
-	basicLocalKeyProperties = #`(
-	  (left-padding . 0.2)
-	  (right-padding . 0.4)
+	basicVerticalAxisGroupProperties = #`(
+		(axes 1)
 	)
-
+	basicVoltaSpannerProperties = #`(
+		(molecule-callback . ,Volta_spanner::scheme_molecule)
+	)
+	
 	\accepts "Staff";
 	\accepts "StaffGroup";
 	\accepts "RhythmicStaff";	
