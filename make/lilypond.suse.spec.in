@@ -226,7 +226,7 @@ touch var/adm/SuSEconfig/run-texhash
 %{_prefix}/bin/abc2ly
 %{_prefix}/bin/convert-ly
 %{_prefix}/bin/etf2ly
-%{_prefix}/bin/lilypond-bin
+%{_prefix}/bin/lilypond-latex
 %{_prefix}/bin/lilypond
 %{_prefix}/bin/midi2ly
 %{_prefix}/bin/lilypond-book
@@ -244,7 +244,7 @@ touch var/adm/SuSEconfig/run-texhash
 %{_prefix}/man/man1/abc2ly.1.gz
 %{_prefix}/man/man1/convert-ly.1.gz
 %{_prefix}/man/man1/etf2ly.1.gz
-%{_prefix}/man/man1/lilypond-bin.1.gz
+%{_prefix}/man/man1/lilypond-latex.1.gz
 %{_prefix}/man/man1/lilypond.1.gz
 %{_prefix}/man/man1/midi2ly.1.gz
 %{_prefix}/man/man1/lilypond-book.1.gz

@@ -77,22 +77,12 @@
        plain " " coding-vector " /" command " reencode-font\n"
        "/" command "{ /" command " findfont 1 scalefont } bind def\n")))
 
-  (define (guess-ps-fontname basename)
-
-    "We do not have the FontName, try to guess is from basename."
-    (cond
-     (#t basename)
-     ((tex-font? basename)
-      ;; FIXME: we need proper Fontmap for the bluesky CM*, EC* fonts.
-      ;; Only the fonts that we trace in mf/ are in our own FontMap.
-      (string-append basename ".pfb"))
-     (else (string-append basename ".pfa"))))
-
+ 
   (define (font-load-command font)
     (let* ((specced-font-name (ly:font-name font))
 	   (fontname (if specced-font-name
 			 specced-font-name
-			 (guess-ps-fontname (ly:font-filename font))))
+			 (ly:font-filename font)))
 	
 	   (coding-alist (ly:font-encoding-alist font))
 	   (input-encoding (assoc-get 'input-name coding-alist))
@@ -220,8 +210,7 @@
 			  (map ly:paper-system-stencil
 			       (append titles (list non-title)))))
 	 (xext (ly:stencil-extent dump-me X))
-	 (yext (ly:stencil-extent dump-me Y))
-	 )
+	 (yext (ly:stencil-extent dump-me Y)))
     
   (for-each
    (lambda (x)
