@@ -15,9 +15,10 @@
 
 class Rest_collision_engraver : public Engraver {
     Rest_collision* rest_collision_p_;
-    Array< Collision *> collision_l_arr_;
+
+    void make_collision();
 protected:
-    virtual void acknowledge_element(Score_elem_info);
+    virtual void acknowledge_element (Score_elem_info);
     virtual void do_print() const;
     virtual void do_pre_move_processing();
 public:
