@@ -201,3 +201,22 @@ LY_DEFINE (ly_output_formats, "ly:output-formats",
 
   return lst;
 }
+
+LY_DEFINE(ly_wchar_to_utf_8, "ly:wide-char->utf-8",
+	  1, 0, 0, (SCM wc),
+	  "Encode the Unicode codepoint @var{wc} as UTF-8")
+{
+  char buf[100];
+
+  SCM_ASSERT_TYPE(scm_is_integer (wc), wc, SCM_ARG1, __FUNCTION__, "integer");
+  wchar_t wide_char = (wchar_t) scm_to_int (wc);
+
+  mbstate_t state;
+  memset (&state, '\0', sizeof (state));
+  memset (buf, '\0', sizeof (buf));
+
+  wcrtomb (buf, wide_char, &state);
+  
+  return scm_makfrom0str (buf);
+}
+	  

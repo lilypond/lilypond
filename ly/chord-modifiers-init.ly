@@ -2,14 +2,36 @@
 
 chordmodifiers = #default-chord-modifier-list
 
-whiteTriangleMarkup = \markup { \override #'(font-encoding . TeX-math) \char #77 } 
 
-blackTriangleMarkup = \markup { \override #'(font-encoding . TeX-math) \char #78 }
+whiteTriangleMarkup = \markup {
+  %%  394 capital delta
+  %% #(ly:export (ly:wide-char->utf-8 #x0394))
+
+  %% up pointing triangle
+  %% #(ly:export (ly:wide-char->utf-8 #x25B3))
+  
+  FIXME
+
+  %% \override #'(font-encoding . TeX-math) \char #77
+
+} 
+
+blackTriangleMarkup = \markup {
+
+  %% black up pointing triangle
+  %% #(ly:export (ly:wide-char->utf-8 #x25B2))
+  FIXME
+  
+  %% \override #'(font-encoding . TeX-math) \char #78 }
+}
 
 ignatzekExceptionMusic = {
 	<c e gis>1-\markup { "+" }
 	<c es ges>-\markup { \super "o" } % should be $\circ$ ?
-	<c es ges bes>-\markup { \super \combine "o" "/" }
+	<c es ges bes>-\markup {
+	  %%  f8 o with slash.
+	  #(ly:export (ly:wide-char->utf-8 #x00f8))
+	}
 	<c es ges beses>-\markup { \super  "o7" }
 }
 

@@ -1,5 +1,12 @@
 2005-02-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/framework-ps.scm (output-preview-framework): bugfix.
+
+	* ly/chord-modifiers-init.ly (ignatzekExceptionMusic): use unicode
+	o/ for chord modifier..
+
+	* lily/general-scheme.cc (LY_DEFINE): new function ly:wide-char->utf-8.
+
 	* lily/drum-note-performer.cc:  remove unused (thanks Michael
 	Welsh Duggan). 
 
