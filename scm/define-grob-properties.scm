@@ -135,6 +135,8 @@ measure of the closeness of the inner stems. It is used for damping
 the slope of the beam.")
      (collapse-height ,ly:dimension? "Minimum height of system start delimiter.  If equal or smaller, the bracket is removed.")
 
+     (color ,color? "The color of this grob.")
+
      (context ,ly:context? "Originating context of the grob")
      
      ;;DOCME

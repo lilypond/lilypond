@@ -262,3 +262,27 @@ centered, X==1 is at the right, X == -1 is at the left."
   "Shift an item to the right, but only at the start of the line."
   (if (and (ly:item? g)  (equal? (ly:item-break-dir g) RIGHT))
       (ly:grob-translate-axis! g 3.5 X)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Color
+
+(define-public color? list?)
+
+; predefined colors
+(define-public black       '(0.0 0.0 0.0))
+(define-public white       '(1.0 1.0 1.0))
+(define-public red         '(1.0 0.0 0.0))
+(define-public green       '(0.0 1.0 0.0))
+(define-public blue        '(0.0 0.0 1.0))
+(define-public cyan        '(1.0 1.0 0.0))
+(define-public magenta     '(1.0 0.0 1.0))
+(define-public yellow      '(0.0 1.0 1.0))
+
+(define-public grey        '(0.5 0.5 0.5))
+(define-public darkred     '(0.5 0.0 0.0))
+(define-public darkgreen   '(0.0 0.5 0.0))
+(define-public darkblue    '(0.0 0.0 0.5))
+(define-public darkcyan    '(0.5 0.5 0.0))
+(define-public darkmagenta '(0.5 0.0 0.5))
+(define-public darkyellow  '(0.0 0.5 0.5))

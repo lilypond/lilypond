@@ -368,12 +368,10 @@ System::get_line ()
   SCM exprs = SCM_EOL;
   SCM *tail = &exprs;
 
-  /* Output stencils in three layers: 0, 1, 2.  Default layer: 1.
-
-     Start with layer 3, since scm_cons prepends to list.  */
+  /* Output stencils in three layers: 0, 1, 2.  Default layer: 1. */
   SCM all = get_property ("all-elements");
   
-  for (int i = LAYER_COUNT; i--;)
+  for (int i = 0; i < LAYER_COUNT; i++)
     for (SCM s = all; scm_is_pair (s); s = scm_cdr (s))
       {
 	Grob *g = unsmob_grob (scm_car (s));
@@ -396,7 +394,16 @@ System::get_line ()
 
 	Stencil st = *stil;
 	st.translate (o + extra);
-	*tail = scm_cons (st.expr (), SCM_EOL);
+
+	/* color support... see interpret_stencil_expression() for more... */
+	SCM color = g->get_property ("color");
+	if (color != SCM_EOL)
+	  { 
+		SCM tmp = scm_list_3 (ly_symbol2scm ("color"), color, st.expr ());
+		*tail = scm_cons (tmp, SCM_EOL);
+	  }
+	else
+		*tail = scm_cons (st.expr (), SCM_EOL);
 	tail = SCM_CDRLOC(*tail);
       }
 

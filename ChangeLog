@@ -1,3 +1,21 @@
+2005-02-18  Erlend Aasland  <erlenda@gmail.com>
+
+	* input/regression/color.ly: new file
+
+	* lily/stencil.cc (interpret_stencil_expression):
+	when a color expression is encountered: save current color,
+	process the rest of the expression, and restore previous color.
+
+	* lily/system.cc (get_line): check all grobs for color property and
+	prepare the stencil scheme expressions for further processing.
+	Fix layer-loop.
+
+	* scm/define-grob-properties.scm: introduce the color property.
+
+	* scm/output-lib.scm: color helper functions.
+
+	* scm/output-ps.scm: introduce setcolor/resetcolor.
+
 2005-02-07  Erik Sandberg  <ersa9195@student.uu.se>
 
 	* ly/*.ly, input/regression/*.ly: Added missing \version
