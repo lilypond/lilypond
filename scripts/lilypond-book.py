@@ -188,7 +188,9 @@ class LatexPaper:
 		elif name[-5:] == 'paper':
 			self.m_papersize = name
 		else:
-			self._set_dimen('m_geo_'+name, value)
+                       	pass 
+			# what is _set_dimen ?? /MB
+                       	#self._set_dimen('m_geo_'+name, value)
 	def __setattr__(self, name, value):
 		if type(value) == type("") and \
 		   dimension_conversion_dict.has_key (value[-2:]):
