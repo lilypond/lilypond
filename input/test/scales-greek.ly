@@ -2,9 +2,11 @@
 
 \header {
 	crossRefNumber = "1"
-	tagline = "Lily was here 1.3.98 -- automatically converted from ABC"
-	title = "Scales"
+	tagline = "Automatically converted from ABC"
+texidoc = "Show different scales."
+	
 }
+
 voicedefault = \notes {
 \property Score.defaultBarType="empty"
 

@@ -2,8 +2,6 @@
 % TODO: split ancient-font into seperate files; possibly in
 % different locations.
 \header {
-    title	= "ancient font test"
-    date	= "2002"
 texidoc = "@cindex Ancient Font
 Here is a display of many (all?) symbols that are
 included in Lilypond's support of ancient notation.
