@@ -79,6 +79,7 @@ TODO:
 #include "music-sequence.hh"
 #include "input-smob.hh"
 #include "event.hh"
+#include "text-item.hh"
 
 bool
 regular_identifier_b (SCM id)
@@ -95,6 +96,15 @@ regular_identifier_b (SCM id)
   return v;
 }
 
+SCM
+make_simple_markup (SCM a)
+{
+	static SCM simple;
+	if (!simple)
+	simple = scm_c_eval_string ("simple-markup");
+
+	return scm_list_n (simple, a, SCM_UNDEFINED);
+}
 
 
 bool
@@ -1638,10 +1648,7 @@ gen_text_def:
 		$$ = t;	
 	}
 	| string {
-		Music *t = MY_MAKE_MUSIC("TextScriptEvent");
-		t->set_mus_property ("text", $1);
-		t->set_spot (THIS->here_input ());
-		$$ = t;
+ 		$$ = make_simple_markup ($1);
 	}
 	| DIGIT {
 		Music * t = MY_MAKE_MUSIC("FingerEvent");
@@ -2172,11 +2179,7 @@ full_markup:
 	
 markup:
 	STRING {
-		static SCM simple;
-		if (!simple)
-			simple = scm_c_eval_string ("simple-markup");
-
-		$$ = scm_list_n (simple, $1, SCM_UNDEFINED);
+		$$ = make_simple_markup ($1);
 	}
 	| MARKUP_HEAD_MARKUP0 markup {
 		$$ = scm_list_n ($1, $2, SCM_UNDEFINED);
@@ -2311,7 +2314,7 @@ My_lily_lexer::try_special_identifiers (SCM * destination, SCM sid)
 
 		*destination = p->self_scm();
 		return MUSIC_OUTPUT_DEF_IDENTIFIER;
-	} else if (markup_p (sid)) {
+	} else if (new_markup_p (sid)) {
 		*destination = sid;
 		return MARKUP_IDENTIFIER;
 	}

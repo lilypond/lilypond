@@ -9,8 +9,9 @@ c4
 \property Voice .NoteHead \set #'font-magnification = #0.8
 
 
+c4-"normal"
   % why doesn't this  work?
-  c4-#'((font-series . bold) ((font-magnification . 2.0) ("foobar")))
+  c4-\markup \bold \magnify #2.0 "foobar"
 
   \property Voice .NoteHead \set #'font-magnification = #1.2
   \property Voice.TextScript \set #'font-magnification = #2.0
@@ -21,5 +22,4 @@ c4
 
 }
 
-%% new-chords-done %%
 %% new-chords-done %%

@@ -30,4 +30,8 @@ private:
   static Molecule lookup_text (Grob *me, Font_metric*, SCM text);
 };
 
+bool new_markup_p (SCM) ;
+SCM new_markup_brewer ();
+
+
 #endif /* TEXT_ITEM */

@@ -119,8 +119,10 @@ Font_interface::get_font (Grob *me, SCM chain)
       name = gh_call2 (proc, fonts, chain);
     }
   
-  SCM mag = me->get_grob_property ("font-magnification");
-  Real rmag = gh_number_p (mag) ? gh_scm2double (mag) : 1.0;
+  SCM mag = ly_assoc_chain (ly_symbol2scm ("font-magnification"), chain);
+  
+  Real rmag = gh_pair_p (mag) && gh_number_p (gh_cdr (mag))
+    ? gh_scm2double (gh_cdr (mag)) : 1.0;
   
   Font_metric *fm = me->get_paper ()->find_font (name, rmag);
   return fm;

@@ -15,6 +15,7 @@
 #include "align-interface.hh"
 #include "axis-group-interface.hh"
 #include "translator-group.hh"
+#include "text-item.hh"
 
 class Instrument_name_engraver : public Engraver
 {
@@ -66,7 +67,10 @@ Instrument_name_engraver::create_text (SCM txt)
       
       if (text_->get_grob_property ("text") != txt)
 	text_->set_grob_property ("text", txt);
-     
+
+      if (new_markup_p (txt))
+	text_->set_grob_property ("molecule-callback", new_markup_brewer());
+      
       if (delim_)
         text_->set_parent (delim_, Y_AXIS);
       

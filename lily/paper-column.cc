@@ -22,22 +22,21 @@
 
 
 ADD_INTERFACE (Paper_column, "paper-column-interface",
-  "  Paper_columns form the top-most item parent. (The Paper_columns X
-  parent is System, which is a spanner.)
-
-  Paper_columns form the units for the spacing engine. They are
-  numbered, the first (leftmost) is column 0. Numbering happens before
-  line-breaking, and columns are not renumbered after line breaking.
-
-  Since many columns go unused, you should only use the rank field to
-  get ordering information.  Two adjacent columns may have
-  non-adjacent numbers.
-
-  Don't be confused by right-items: each spacing wish can also contain
-  a number of items, with which a spacing constraint may be kept. It's
-  a little baroque, but it might come in handy later on?
-
-",
+  "  Paper_columns form the top-most item parent. (The Paper_columns X\n"
+"  parent is System, which is a spanner.)\n"
+"\n"
+"  Paper_columns form the units for the spacing engine. They are\n"
+"  numbered, the first (leftmost) is column 0. Numbering happens before\n"
+"  line-breaking, and columns are not renumbered after line breaking.\n"
+"\n"
+"  Since many columns go unused, you should only use the rank field to\n"
+"  get ordering information.  Two adjacent columns may have\n"
+"  non-adjacent numbers.\n"
+"\n"
+"  Don't be confused by right-items: each spacing wish can also contain\n"
+"  a number of items, with which a spacing constraint may be kept. It's\n"
+"  a little baroque, but it might come in handy later on?\n"
+"\n",
   "between-cols between-system-string when bounded-by-me shortest-playing-duration shortest-starter-duration");
 
 

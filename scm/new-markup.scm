@@ -1,6 +1,3 @@
-
-
-
 (define-public (simple-markup grob props . rest)
   (Text_item::text_to_molecule grob props (car rest))
   )
@@ -25,6 +22,13 @@
   
   ))
 
+(define-public (magnify-markup grob props . rest  )
+  (interpret-markup grob
+		    (cons (cons `(font-magnification . ,(car rest))
+				(car props)) (cdr props))
+		    (cadr rest))
+  )
+
 (define-public bold-markup
   (font-markup 'font-series 'bold))
 (define-public dynamic-markup
@@ -32,6 +36,8 @@
 (define-public italic-markup
   (font-markup 'font-shape 'italic))
 
+
+;; TODO: baseline-skip should come from the font.
 (define-public (column-markup grob props . rest)
   (stack-lines
    -1 0.0 (cdr (chain-assoc 'baseline-skip props))
@@ -86,7 +92,7 @@
 	   (cons dynamic-markup 'markup0)
 	   (cons char-markup 'scm0)
 	   (cons hspace-markup 'scm0)
-	   
+	   (cons magnify-markup 'scm0-markup1)
 	   ))
 
 

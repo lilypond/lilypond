@@ -19,6 +19,7 @@
 #include "staff-symbol-referencer.hh"
 #include "item.hh"
 #include "group-interface.hh"
+#include "text-item.hh"
 
 /**
   put stuff over or next to  bars.  Examples: bar numbers, marginal notes,
@@ -127,6 +128,11 @@ Mark_engraver::process_music ()
        */
       
       SCM m = mark_req_->get_mus_property ("label");
+      if (new_markup_p (m))
+	{
+	  text_->set_grob_property ("text",m);
+	  text_->set_grob_property ("molecule-callback", new_markup_brewer ());
+	}
       if (gh_pair_p (m)) // markup text
 	text_->set_grob_property ("text",m);
       else 
