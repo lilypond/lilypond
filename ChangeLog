@@ -19,7 +19,7 @@
 2004-02-22  Heikki Junes <hjunes@cc.hut.fi>
 
 	* elisp/lilypond-mode.el (get-buffer-size): define new function,
-	for Emacs >= 18 (Laurent Martelli).
+	for Emacs >= 20 (Laurent Martelli).
 
 2004-02-21  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
