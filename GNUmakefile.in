@@ -22,7 +22,7 @@ README_FILES = ChangeLog  COPYING DEDICATION ROADMAP THANKS
 README_TXT_FILES = AUTHORS.txt README.txt INSTALL.txt NEWS.txt
 IN_FILES := $(wildcard *.in)
 PATCH_FILES = emacsclient.patch server.el.patch darwin.patch
-VIM_FILES = vimrc lilypond.vim
+VIM_FILES = vim/filetype.vim vim/compiler/lilypond.vim vim/ftplugin/lilypond.vimvim/indent/lilypond.vim vim/syntax/lilypond.vim
 EXTRA_DIST_FILES = VERSION .cvsignore $(README_FILES) $(SCRIPTS) $(IN_FILES) \
   $(PATCH_FILES) $(VIM_FILES)
 NON_ESSENTIAL_DIST_FILES = $(README_TXT_FILES)
