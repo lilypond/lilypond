@@ -3713,11 +3713,11 @@ arpeggios in one @internalsref{PianoStaff} at the same point in time.
 
 Whenever a voice switches to another staff, a line connecting the notes
 can be printed automatically.  This is switched on by setting
-@code{PianoStaff.followVoice} to true
+@code{followVoice} to true
 
 @lilypond[quote,raggedright,fragment,relative=1,verbatim]
 \context PianoStaff <<
-  \set PianoStaff.followVoice = ##t
+  \set followVoice = ##t
   \context Staff \context Voice {
     c1
     \change Staff=two
