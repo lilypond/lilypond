@@ -56,7 +56,7 @@ Slur::add_column (Grob*me, Grob*n)
 }
 
 void
-Slur::de_uglyfy (Grob*me, Slur_bezier_bow* bb, Real default_height)
+Slur::de_uglify (Grob*me, Slur_bezier_bow* bb, Real default_height)
 {
   Real length = bb->curve_.control_[3][X_AXIS] ; 
   Real ff = bb->fit_factor ();
@@ -619,7 +619,7 @@ Slur::set_control_points (Grob*me)
 	Slurs that fit beautifully are not ugly
       */
       if (area > beautiful)
-	de_uglyfy (me, &bb, default_height);
+	de_uglify (me, &bb, default_height);
     }
 
   Bezier b = bb.get_bezier ();

@@ -185,7 +185,6 @@ command = r"""python -c 'import sys; sys.stdout.write ("%s/include/python%s" % (
 PYTHON_INCLUDE = os.popen (command).read ()
 env.Append (CPPPATH = PYTHON_INCLUDE)
 
-
 headers = ('sys/stat.h', 'assert.h', 'kpathsea/kpathsea.h', 'Python.h')
 for i in headers:
 	if conf.CheckCHeader (i):
@@ -352,7 +351,15 @@ env['MAKEINFO_PATH'] = ['.', '#/Documentation/user',
 
 ## TEXINFO_PAPERSIZE_OPTION= $(if $(findstring $(PAPERSIZE),a4),,-t @afourpaper)
 env['TEXINFO_PAPERSIZE_OPTION'] = '-t @afourpaper'
+#FIXME: ./python isn't sconsed yet, add scrdir/python for lilylib.py ...
+env.Append (PYTHONPATH = [os.path.join (outdir, 'usr/lib/python'),
+			  os.path.join (srcdir, 'buildscripts'),
+			  os.path.join (srcdir, 'python')])
+# huh, aha?
+env.Append (ENV = { 'PYTHONPATH' : string.join (env['PYTHONPATH'],
+						os.pathsep) } )
 
+# GS_FONTPATH, GS_LIB?
 SConscript ('buildscripts/builder.py')
 
 #subdirs = ['mf',]

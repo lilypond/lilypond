@@ -59,6 +59,9 @@ translate (Array<Offset>* array, Offset o)
   Formula of the bezier 3-spline
 
   sum_{j=0}^3 (3 over j) z_j (1-t)^ (3-j)  t^j
+
+
+  A is the axis of X coordinate.
  */
 
 Real
