@@ -1,3 +1,27 @@
+1.3.76
+======
+
+* Lyric_phrasing_engraver now adjusts for melisma.  (Glenn Prideaux).
+
+* Mudela-book fix for Windows95 (Mark Hindley)
+
+* Debian update (Anthony Fok)
+
+* Added beam melisma for when automaticMelismata and noAutoBeaming are both
+  #t (primarily for hymns).  Courtesy Glenn Prideaux.
+
+* Bugfix: .pfa dependency on $(outdir)/mfplain.mem
+
+1.3.75.mb1
+==========
+
+* stepmake/stepmake/metapost-rules.make: Put all generated files
+  in mf/out/.
+
+* Added paper variable interscoreline to determine the score line
+  spacing, see input/test/vertical-extent.ly.
+  Cleaned up the lilyponddefs.tex inclusion scheme.
+
 1.3.75
 ======
 
