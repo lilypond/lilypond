@@ -1,5 +1,16 @@
 2004-04-10  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scm/output-ps.scm (define-fonts): Do not crash when encoding==#f
+	(ugh?).
+
+	* scm/output-tex.scm (output-scopes): Check if variable is bound.
+
+	* scm/define-markup-commands.scm (fill-line): Use
+	make-simple-markup (WAS: unexisting make-word-markup).
+
+	* lily/text-item.cc (interpret_markup): Bugfix, transpose
+	ENCODING, MARKUP parameters for interpret_string.
+
 	* lily/input-file-results.cc (do_one_file): Remove Paper_book hack.
 
 	* lily/score.cc (book_rendering): New method.

@@ -89,7 +89,8 @@ Book::process (String outname, Music_output_def *default_def, SCM header)
 	    paper_book->papers_.push (paper);
 	  paper_book->scores_.push (systems);
 	  paper_book->global_headers_.push (global_input_file->header_);
-	  paper_book->headers_.push (scores_[i]->header_);
+	  //paper_book->headers_.push (scores_[i]->header_);
+	  paper_book->headers_.push (header);
 	}
     }
   paper_book->output (outname);
