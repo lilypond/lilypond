@@ -16,14 +16,14 @@
   "Stack vertically with a baseline-skip."
   (if (null? mols)
       '()
-      (if (pair? mols)
+      (if (null? (cdr mols))
+	  (car mols)
 	  (ly:combine-molecule-at-edge (car mols) Y dir 
-				       (stack-lines Y dir padding (cdr mols))
-				       padding baseline 
+				       (stack-lines dir padding baseline (cdr mols))
+				       padding baseline
 				       )
 	  )
   ))
-
 
 (define-public (fontify-text font-metric text)
   "Set TEXT with font FONT-METRIC, returning a molecule."
@@ -44,8 +44,6 @@
     (set! mol (ly:combine-molecule-at-edge mol (other-axis  axis) -1 rb padding))
     mol
   ))
-
-
 
 (define-public (box-molecule xext yext)
   "Make a filled box."

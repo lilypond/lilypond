@@ -1,3 +1,19 @@
+2002-12-07  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/text-engraver.cc (process_acknowledged_grobs): use new
+	markup  for new markup texts.
+
+	* lily/mark-engraver.cc (process_music): idem
+	
+	* lily/instrument-name-engraver.cc (create_text): idem
+
+	* scm/new-markup.scm (magnify-markup): new function.
+
+	* scm/molecule.scm (stack-lines): bugfix.
+
+	* lily/font-interface.cc (get_font): take font-magnification from
+	alist chain.
+
 2002-12-06  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/molecule-scheme.cc: move scheme functions to separate file.

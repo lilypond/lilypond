@@ -251,3 +251,22 @@ Text_item::brew_molecule (SCM smob)
 ADD_INTERFACE (Text_item,"text-interface",
   "A scheme markup text",
   "text axis baseline-skip extent lookup raise kern word-space");
+
+
+bool
+new_markup_p (SCM x)
+{
+	return gh_pair_p (x)
+		&& SCM_BOOL_F != scm_object_property (gh_car (x), ly_symbol2scm ("markup-signature"));
+}
+
+SCM
+new_markup_brewer ()
+{
+  static SCM proc ;
+
+  if (!proc)
+    proc = scm_c_eval_string ("brew-new-markup-molecule");
+
+  return proc;
+}

@@ -14,6 +14,7 @@
 #include "event.hh"
 #include "stem.hh"
 #include "rhythmic-head.hh"
+#include "text-item.hh"
 
 
 /**
@@ -111,8 +112,14 @@ Text_engraver::process_acknowledged_grobs ()
       Direction dir = to_dir (r->get_mus_property ("direction"));
       if (dir)
 	Side_position_interface::set_direction (text, dir);
+
+
+      SCM mark = r->get_mus_property ("text");
+
+      if (new_markup_p (mark))
+	text->set_grob_property ("molecule-callback", new_markup_brewer());
       
-      text->set_grob_property ("text", r->get_mus_property ("text"));
+      text->set_grob_property ("text", mark);
       announce_grob (text, r->self_scm ());
       texts_.push (text);
     }
