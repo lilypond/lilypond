@@ -1,7 +1,7 @@
 #ifndef MOLECULE_HH
 #define MOLECULE_HH
 
-#include "list.hh"
+#include "plist.hh"
 #include "boxes.hh"
 #include "item.hh"
 #include "symbol.hh"

@@ -7,7 +7,7 @@
 #include "proto.hh"
 #include "command.hh"
 #include "vray.hh"
-#include "list.hh"
+#include "plist.hh"
 
 struct Score_commands : public PointerList<Command*> {
     void process_add(Command);
