@@ -262,7 +262,6 @@ void
 Rhythmic_grouping::add_child (Moment start, Moment len)
 {
   Moment stop = start+len;
-
   assert (child_fit_b (start));
   children.push (new Rhythmic_grouping (MInterval (start, stop)));
 }
