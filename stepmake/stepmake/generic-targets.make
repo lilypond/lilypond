@@ -95,7 +95,7 @@ TAGS:
 
 	$(LOOP)
 
-$(outdir)/version.hh: $(config_make)
+$(outdir)/version.hh: $(config_make) $(depth)/VERSION
 	$(PYTHON) $(step-bindir)/make-version.py PACKAGE_NAME=$(PACKAGE_NAME) \
 		MAJOR_VERSION=$(MAJOR_VERSION) \
 		MINOR_VERSION=$(MINOR_VERSION) \

@@ -1,3 +1,7 @@
+2003-09-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/test/text-spanner.ly: fixes.
+
 2003-09-19  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* buildscripts/lilypond.words.py: add drum names as note names to
