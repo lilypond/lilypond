@@ -8,7 +8,6 @@
 
 #include "debug.hh"
 #include "rest-collision.hh"
-#include "rest-column.hh"
 #include "note-column.hh"
 #include "stem.hh"
 #include "note-head.hh"
@@ -152,5 +151,5 @@ Rest_collision::do_substitute_dependency (Score_elem*o,Score_elem*n)
 Rest_collision::Rest_collision()
 {
   transparent_b_ = true;
-  empty_b_ = true;
+  set_empty (true);
 }

@@ -79,7 +79,6 @@ Abbreviation_beam_engraver::do_removal_processing ()
     }
 }
 
-
 void
 Abbreviation_beam_engraver::acknowledge_element (Score_elem_info i)
 {
@@ -94,5 +93,9 @@ Abbreviation_beam_engraver::acknowledge_element (Score_elem_info i)
     s->beams_left_i_ = s->flag_i_;
   else
     s->beams_right_i_ = s->flag_i_;
+
+  if (s->type_i () != 1) // no abbrev gaps on half note
+    s->beam_gap_i_ = s->flag_i_ - ((s->type_i () >? 2) - 2);
+  
   abeam_p_->add (s);
 } 

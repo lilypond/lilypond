@@ -25,7 +25,7 @@ Stem_info::Stem_info (Stem const *s)
 {
   x = s->hpos_f();
   dir_ = s->dir_;
-  beams_i_ = intlog2(s->flag_i_) - 2;
+  beams_i_ =  0 >? (abs (s->flag_i_) - 2);
 
   /*
     [todo] 

@@ -33,7 +33,7 @@ public:
   SCORE_ELEM_CLONE(Beam);
 
 protected:
-  Interval do_width() const;    
+  virtual Interval do_width() const;    
   Offset center() const;
   void set_default_dir();
   virtual void do_pre_processing();
