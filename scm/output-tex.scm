@@ -181,7 +181,7 @@
 	     (music-origin (if (ly:music? cause)
 			       (ly:music-property cause 'origin)))
 	     (location (if (ly:input-location? music-origin)
-			   (ly:input-location music-origin))))
+			   (ly:input-file-line-column music-origin))))
 	(if (pair? location)
 	     ;;; \\string ? 
 	    (string-append "\\special{src:"
