@@ -703,13 +703,13 @@ command."
   "Insert notes with fewer key strokes by using a simple keyboard piano."
   (interactive)
   (progn 
-    (message "Invoke C-c q from keyboard. If you still see this message,") (sit-for 5 0)
-    (message "then you have not installed LilyPond Quick Insert Mode.") (sit-for 5 0)
-    (message "Download lyqi from http://nicolas.sceaux.free.fr/lilypond/lyqi.html") (sit-for 5 0)
-    (message "See installation instructions from lyqi's README -file.") (sit-for 5 0)
+    (message "Invoke (C-c q) from keyboard. If you still see this message,") (sit-for 5 0)
+    (message "then you have not installed LilyPond Quick Insert Mode (lyqi).") (sit-for 5 0)
+    (message "Download lyqi from http://nicolas.sceaux.free.fr/lilypond/lyqi.html,") (sit-for 5 0)
+    (message "see installation instructions from lyqi's README -file.") (sit-for 5 0)
     (message "You need also eieio (Enhanced Integration of Emacs Interpreted Objects).") (sit-for 5 0)
-    (message "Download eieio from lyqi from http://cedet.sourceforge.net/eieio.shtml") (sit-for 5 0)
-    (message "See installation instructions from eieio's INSTALL -file.") (sit-for 5 0)
+    (message "Download eieio from http://cedet.sourceforge.net/eieio.shtml,") (sit-for 5 0)
+    (message "see installation instructions from eieio's INSTALL -file.") (sit-for 5 0)
     (message "")
     ))    
 
