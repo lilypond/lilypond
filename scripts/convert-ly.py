@@ -2172,7 +2172,9 @@ def conv (str):
 	return str
 
 conversions.append (((2, 3, 12), conv,
-		     '''\\newpage -> \\pageBreak'''))
+		     '''\\newpage -> \\pageBreak, junk \\script{up,down,both},
+soloADue -> printPartCombineTexts, #notes-to-clusters -> \\makeClusters
+'''))
 
 
 def conv_mode_experiment (str):

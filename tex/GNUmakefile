@@ -1,8 +1,7 @@
 depth = ..
 
 TEX_FILES = $(wildcard *.tex)  
-
-EXTRA_DIST_FILES = $(TEX_FILES) latin1.enc
+EXTRA_DIST_FILES = $(TEX_FILES)
 STEPMAKE_TEMPLATES=install
 
 INSTALLATION_DIR=$(local_lilypond_datadir)/tex/
