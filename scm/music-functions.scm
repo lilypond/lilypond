@@ -1,3 +1,5 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tuplets.
 
 (define-public (denominator-tuplet-formatter mus)
   (number->string (ly-get-mus-property mus 'denominator)))
@@ -7,6 +9,7 @@
 		 ":"
 		 (number->string (ly-get-mus-property mus 'denominator))
 		 ))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
@@ -47,6 +50,39 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; repeats.
+
+(define-public (repeat-name-to-ctor name)
+  (let*
+      ((supported-reps
+	`(("volta" . ((iterator-ctor . ,Volta_repeat_iterator::constructor)
+		      (start-moment-function .  ,Repeated_music::first_start)
+		      (length . ,Repeated_music::volta_music_length)))
+	  
+	    ("unfold" . ((iterator-ctor . ,Unfolded_repeat_iterator::constructor)
+			 (start-moment-function .  ,Repeated_music::first_start)			 
+			 (length . ,Repeated_music::unfolded_music_length)))
+	    ("fold" . ((iterator-ctor  . ,Folded_repeat_iterator::constructor)
+		       (start-moment-function .  ,Repeated_music::minimum_start)			 
+		       (length . ,Repeated_music::folded_music_length)))
+	    ("percent" . ((iterator-ctor . ,Percent_repeat_iterator::constructor)
+			  (start-moment-function .  ,Repeated_music::first_start)
+			  (length . ,Repeated_music::unfolded_music_length)))
+	    ("tremolo" . ((iterator-ctor . ,Chord_tremolo_iterator::constructor)
+			  (start-moment-function .  ,Repeated_music::first_start)
+
+			  ;; the length of the repeat is handled by shifting the note logs
+			  (length . ,Repeated_music::folded_music_length)))))
+	  
+       (handle (assoc name supported-reps)))
+
+    (if (pair? handle)
+	(cdr handle)
+	(begin
+	  (ly-warn
+	   (string-append "Unknown repeat type `" name "'\nSee scm/c++.scm for supported repeats"))
+	  '(type . 'repeated-music)))))
+
 (define-public (unfold-repeats music)
 "
 This function replaces all repeats  with unfold repeats. It was 
@@ -118,11 +154,8 @@ Fingering_engraver."
     music))
 
 
-;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;
-
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; property setting music objs.
 (define-public (make-grob-property-set grob gprop val)
   "Make a M-exp that sets GPROP to VAL in GROBS. Does a pop first, i.e.
 this is not an override 
@@ -196,6 +229,13 @@ this is not an override
     m
     ))
 
+(define-public (set-mus-properties! m alist)
+  (if (pair? alist)
+      (begin
+	(ly-set-mus-property! m (caar alist) (cdar alist))
+	(set-mus-properties! m (cdr alist)))
+  ))
+
 (define-public (music-separator? m)
   "Is M a separator."
   (let* ((n (ly-get-mus-property m 'name )))
@@ -215,6 +255,13 @@ this is not an override
       ))
 
 (define (split-list l sep?)
+  "
+
+(display (split-list '(a b c / d e f / g) (lambda (x) (equal? x '/))) )
+=>
+ ...
+
+"
   (if (null? l)
       '()
       (let* ((c (split-one sep? l '())))
@@ -222,10 +269,6 @@ this is not an override
 	)
       )
   )
-
-;; test code
-; (display (split-list '(a b c / d e f / g) (lambda (x) (equal? x '/))) )
-
 
 ;;; splitting chords into voices.
 
@@ -284,8 +327,16 @@ this is not an override
 
 ;;;
 
-;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;
+; Make a function that checks score element for being of a specific type. 
+(define-public (make-type-checker symbol)
+  (lambda (elt)
+    ;;(display  symbol)
+    ;;(eq? #t (ly-get-grob-property elt symbol))
+    (not (eq? #f (memq symbol (ly-get-grob-property elt 'interfaces))))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; warn for bare chords at start.
 
 (define (has-request-chord elts)
   (reduce (lambda (x y) (or x y)) (map (lambda (x) (equal? (ly-music-name x)
@@ -329,7 +380,10 @@ this is not an override
      )
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; switch it on here, so parsing and init isn't checked (too slow!)
+
+;; automatic music transformations.
 
 (define (switch-on-debugging m)
   (set-debug-cell-accesses! 15000)
@@ -342,3 +396,4 @@ this is not an override
 
 ; switch-on-debugging
 	))
+

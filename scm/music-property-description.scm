@@ -6,7 +6,7 @@
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 
-(define all-music-properties '())
+(define-public all-music-properties '())
 
 (define (music-property-description symbol type? description)
  (if (not (equal? #f (object-property symbol 'music-doc)))

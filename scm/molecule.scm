@@ -1,5 +1,5 @@
 
-(define (stack-molecules axis dir padding mols)
+(define-public (stack-molecules axis dir padding mols)
   "Stack molecules MOLS in direction AXIS,DIR, using PADDING."
   (if (null? mols)
       '()
@@ -14,17 +14,14 @@
 
 
 
-(define (fontify-text font-metric text)
+(define-public (fontify-text font-metric text)
   "Set TEXT with font FONT-METRIC, returning a molecule."
   (let* ((b  (ly-text-dimension font-metric text)))
     (ly-make-molecule
      (ly-fontify-atom font-metric `(text ,text)) (car b) (cdr b))
     ))
 
-(define (other-axis a)
-  (remainder (+ a 1) 2))
-  
-(define (bracketify-molecule mol axis thick protusion padding)
+(define-public (bracketify-molecule mol axis thick protusion padding)
   "Add brackets around MOL, producing a new molecule."
 
   (let* (
@@ -39,7 +36,7 @@
 
 
 
-(define (box-molecule xext yext)
+(define-public (box-molecule xext yext)
   "Make a filled box."
   
   (ly-make-molecule
@@ -48,13 +45,7 @@
       xext yext)		       
 )
 
-(define (widen-interval iv amount)
-   (cons (- (car iv) amount)
-         (+ (cdr iv) amount))
-)
-
-
-(define (box-grob-molecule grob)
+(define-public (box-grob-molecule grob)
   "Make a box of exactly the extents of the grob.  The box precisely
 encloses the contents.
 "

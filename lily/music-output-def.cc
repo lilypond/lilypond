@@ -59,12 +59,12 @@ Music_output_def::Music_output_def (Music_output_def const &s)
   scaled_fonts_ = scm_list_copy (s.scaled_fonts_);  
 
   scope_= ly_make_anonymous_module ();
-  ly_copy_module_variables (scope_, s.scope_);
+  if (ly_module_p (s.scope_))
+    ly_copy_module_variables (scope_, s.scope_);
 }
 
 
 IMPLEMENT_SMOBS (Music_output_def);
-
 IMPLEMENT_DEFAULT_EQUAL_P (Music_output_def);
 
 SCM

@@ -10,6 +10,8 @@ source file of the GNU LilyPond music typesetter
 #include "string.hh"
 #include "lily-guile.hh"
 #include "ly-modules.hh"
+#include "protected-scm.hh"
+
 #define FUNC_NAME __FUNCTION__
 
 static int module_count;
@@ -20,18 +22,35 @@ ly_init_anonymous_module (void * data)
   scm_c_use_module ("lily");  
 }
 
+Protected_scm anon_modules;
+
 SCM
 ly_make_anonymous_module ()
 {
   String s = "*anonymous-ly-" + to_string (module_count++) +  "*";
   SCM mod = scm_c_define_module (s.to_str0(), ly_init_anonymous_module, 0);
+
+  anon_modules = scm_cons (mod, anon_modules);
   return mod;
 }
 
 void
+ly_clear_anonymous_modules ()
+{
+  SCM s = anon_modules;
+  anon_modules = SCM_EOL;
+
+  for (; gh_pair_p (s) ; s = gh_cdr (s))
+    {
+      scm_vector_fill_x (SCM_MODULE_OBARRAY(gh_car(s)), SCM_EOL);
+    }
+}
+
+#define FUNC_NAME __FUNCTION__
+
+void
 ly_copy_module_variables (SCM dest, SCM src)
 {
- #define FUNC_NAME __FUNCTION__
   SCM_VALIDATE_MODULE (1, src);
 
   SCM obarr= SCM_MODULE_OBARRAY(src);

@@ -18,6 +18,7 @@ void init_type_ ## CL ()\
 {\
   scm_c_define_gsubr (FUNCNAME, 1, 0, 0, (Scheme_function_unknown) CL::smob_p);\
   ly_add_function_documentation (FUNCNAME, "(SCM x)", "Check if @var{x} is a " #CL " object");\
+  scm_c_export (FUNCNAME, NULL);\
 }\
 ADD_SCM_INIT_FUNC (init_type_ ## CL, init_type_ ## CL)
 

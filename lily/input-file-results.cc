@@ -146,7 +146,10 @@ Input_file_results::~Input_file_results ()
     header_ = SCM_EOL;
 
   global_input_file =0;
+
+  ly_clear_anonymous_modules();
 }
+
 
 
 Input_file_results* global_input_file;

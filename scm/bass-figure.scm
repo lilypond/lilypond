@@ -29,9 +29,6 @@
 	)
     mol))
 
-
-
-
 (define (brew-bass-figure grob)
   "Make a molecule for a Figured Bass grob"
   (let* (
@@ -44,8 +41,6 @@
 		     (ly-get-grob-property grob 'thickness))
 		    )
 	 )
-
-
 
     (define (brew-complete-figure grob figs mol)
       "recursive function: take some stuff from FIGS, and add it to MOL." 

@@ -103,6 +103,7 @@ My_lily_lexer::My_lily_lexer ()
   scopes_ = SCM_EOL;
   
   add_scope(ly_make_anonymous_module());
+  errorlevel_ =0; 
 
   main_input_b_ = false;
 }

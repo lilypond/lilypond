@@ -176,12 +176,8 @@
    "\\special{\\string! "
    
    ;; URG: ly-gulp-file: now we can't use scm output without Lily
-   (if use-regex
-       ;; fixed in 1.3.4 for powerpc -- broken on Windows
-       (regexp-substitute/global #f "\n"
+   (regexp-substitute/global #f "\n"
 				 (ly-gulp-file "music-drawing-routines.ps") 'pre " %\n" 'post)
-       (ly-gulp-file "music-drawing-routines.ps"))
-;   (if (defined? 'ps-testing) "/testing true def%\n" "")
    "}"
    "\\input lilyponddefs \\outputscale=\\lilypondpaperoutputscale \\lilypondpaperunit"
    "\\turnOnPostScript"))
@@ -200,22 +196,21 @@
 ;;
 (define-public (output-tex-string s)
   (if security-paranoia
-      (if use-regex
-	  (regexp-substitute/global #f "\\\\" s 'pre "$\\backslash$" 'post)
-	  (begin (display "warning: not paranoid") (newline) s))
+      (regexp-substitute/global #f "\\\\" s 'pre "$\\backslash$" 'post)
       s))
 
 (define (lily-def key val)
   (let ((tex-key
-	 (if use-regex
-	     ;; fixed in 1.3.4 for powerpc -- broken on Windows
-	     (regexp-substitute/global
-	      #f "_" (output-tex-string key) 'pre "X" 'post)
-	     (output-tex-string key)))
+	 (regexp-substitute/global
+	      #f "_" (output-tex-string key) 'pre "X" 'post))
+	 
 	(tex-val (output-tex-string val)))
     (if (equal? (sans-surrounding-whitespace tex-val) "")
 	(string-append "\\let\\" tex-key "\\undefined\n")
-	(string-append "\\def\\" tex-key "{" tex-val "}\n"))))
+	(string-append "\\def\\" tex-key "{" tex-val "}\n"))
+    )
+  )
+
 
 (define (number->dim x)
   (string-append

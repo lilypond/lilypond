@@ -1,7 +1,7 @@
 
 ;; todo: move this to engraver-init.ly 
 
-(define context-description-alist
+(define-public context-description-alist
   '(
     (Grace . "
    DEPRECATED; this is a 1.4 construct.

@@ -22,6 +22,8 @@
 
 
 ;; TODO
+
+;; Ugh : naming chord::... ; this is scheme not C++
 ;;
 ;; * easier tweakability:
 ;;    - split chord::names-alists up into logical bits,
@@ -36,7 +38,7 @@
 ;;
 ;; * doc strings
 
-(define chord::names-alist-banter '())
+(define-public chord::names-alist-banter '())
 (set! chord::names-alist-banter
       (append 
 	'(
@@ -159,7 +161,7 @@
   (+ (* (car pitch) 7) (cadr pitch)))
 
 (define (chord::text? text)
-  (not (or (not text) (empty? text) (unspecified? text))))
+  (not (or (not text) (null? text) (unspecified? text))))
 
 ;; FIXME: remove need for me, use text-append throughout
 (define (chord::text-cleanup dirty)
@@ -184,7 +186,7 @@
       l
       (if (not (chord::text? l))
 	  r
-	  (if (empty? (cdr r))
+	  (if (null? (cdr r))
 	      (list 'columns l (car r))
 	      (text-append (list 'columns l (car r)) (cdr r))))))
 	   
@@ -233,7 +235,7 @@
 				   (!= 0 a)))))
 		      steps))
 	(highest (let ((h (car (last-pair steps))))
-		   (if (and (not (empty? h))
+		   (if (and (not (null? h))
 			    (or (> 4 (cadr h))
 				(!= 0 (caddr h))))
 		       (list (list h))
@@ -333,7 +335,7 @@
       (list (pitch-octave p) (pitch-notename p) (pitch-alteration p))
       #f))
 
-(define (chord::name-banter tonic exception-part unmatched-steps
+(define-public (chord::name-banter tonic exception-part unmatched-steps
 			    bass-and-inversion steps)
    (let ((additions (chord::additions unmatched-steps))
 	 (subtractions (chord::subtractions unmatched-steps)))
@@ -702,12 +704,12 @@ Compose text of all additions
   * list all steps that are below an chromatically altered step
   "
   (text-append
-   (if (not (empty? subtractions)) "add" '())
+   (if (not (null? subtractions)) "add" '())
    (let ((radds (reverse additions)))
      (reverse (chord::additions>5->text-jazz-helper
 	       radds
 	       subtractions
-	       (if (or (empty? subtractions) (empty? radds))
+	       (if (or (null? subtractions) (null? radds))
 		   #f (car radds)))))))
 
 (define (chord::additions>5->text-jazz-helper additions subtractions list-step)
@@ -749,7 +751,7 @@ If we encounter a chromatically altered step, turn on list-step
 (define (chord::get-create-step steps n)
   (let* ((i (if (< n 0) (+ n 7) n))
 	 (found (filter-list (lambda (x) (= i (cadr x))) steps)))
-    (if (empty? found)
+    (if (null? found)
 	(if (!= i 6)
 	    (list 0 i 0)
 	    (list 0 6 -1))
