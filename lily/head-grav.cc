@@ -1,5 +1,5 @@
 /*
-  headreg.cc -- part of GNU LilyPond
+  head-grav.cc -- part of GNU LilyPond
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */

@@ -38,7 +38,7 @@ EXTRA_DISTFILES = VERSION
 # list of custom libraries:
 #
 MODULE_LIBDEPS= check-flower-deps check-lib-deps 
-MODULE_LIBES= -llily -lflower  -lmcheck
+MODULE_LIBES= -llily -lflower
 
 #
 

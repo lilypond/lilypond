@@ -10,10 +10,3 @@
 #include "string.hh"
 #include "moment.hh"
 
-void
-printm (Moment const &m)
-{
-    cout << String (m) << flush;
-}
-    
-

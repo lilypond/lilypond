@@ -19,7 +19,7 @@ one = \melodic{
 	\stemup; 
 	)cis4-2 fis-5 ~ [fis8 fis-4] e4-3 ~ | 
 	e16\< \stemboth ['a16( cis 'a] [d-2 e fis d-1]
-	[g-3 fis g a-4] [a-3 b a \!g] |
+	[g-3 fis g a-4] [g-3 b a \!g] |
 	\stemup
 	)fis4-"2\\_3" [e8-2 a-5] <fis4-4 d-2> <gis-5 e-3> |
 	<a4-5( e> <fis-4 d-2> <[)g!16-5 d> fis-2 g-3 a-4] 
@@ -49,7 +49,7 @@ one = \melodic{
 	['d8. 'e16~] ['e 'd8 'cis16] |
 	\stemup
 	r16 ['d-1\< 'fis 'd] ['g 'a 'b 'g-1] [c-3 'b c d] [c e d-4 \!c] |
-	'b4-5 'a ~ ['a8 'g-5 ~] ['g16 'fis8-4 'e'16-3] |
+	'b4-5 'a ~ ['a8 'g-5 ~] ['g16 'fis8-4 'e16-3] |
 	['fis8-4 'e-5~] ['e 'd-5~] 'd4 'cis-4 |
 	'd2\p-"rall." ~ ['d16 ''a-2( ''b-3 'cis-4] )'d4-5 |
 	\bar "|.";
@@ -60,7 +60,7 @@ two = \melodic{
 	\textstyle "finger";
 % ugh: koor
 %	\translator Staff=bass \octave c; \stemup
-	\stemup;
+%	\stemup;
 	fis4-1( e8-2 a4 a4 gis8-2 | 
 	) a8
 	\translator Staff=treble \octave c''; \stemdown
@@ -81,7 +81,7 @@ two = \melodic{
 	\stemboth
 	r16 [''b-1\< 'd-2 ''b~] <'g4-5 'e-3 ''b>
 	r16 ['cis-1 'e-2 \!'cis~] |
-	<'a4-5 'f-3 'cis> r16 ['d-1 'fis-2 'd~] <'b4-5 'g-3 'd>
+	<'a4-5 'fis-3 'cis> r16 ['d-1 'fis-2 'd~] <'b4-5 'g-3 'd>
 	r16 ['fis-1 'a 'fis~] |
 	\stemdown
 	'fis4 'e 'd 'cis |
@@ -93,24 +93,19 @@ two = \melodic{
 	\translator Staff=treble \octave c''; \stemdown
 	'd8.-1 ~ ['d8 'c] 'd4 [''a8 ''g] |
 	\translator Staff=bass \octave c; \stemup
-	[fis'8 c'-1] b4-1 <a
+	[fis'8 c'-1] b4-1 \stemdown <a
 	\translator Staff=treble \octave c''; \stemdown
 	''a4.-2>
 	\stemdown
 	'a8~ |
-	['a 'g-3~] ['g16 'e 'fis8~] ['fis16 'd8.~] ['d8. cis!16] |
+	['a 'g-3~] ['g16 'e 'fis8~] ['fis16 'd8.~] ['d8. 'cis!16] |
 	\translator Staff=bass \octave c; \stemup
 %	<[d'8-2 a-1> <a~ g]> <a4 [fis16-2> e-1 fis-2 d-1]
-	\multi 2 <
-		{ 
-			[d'8-2 a~] a4 
-		}
-		{ 
-			\property Voice.hshift = 1 
-			[a8-1 g] [fis16-2 e-1 fis-2 d-1]
-			\property Voice.hshift = 0
-		}
+	<
+		{ \voiceone; [d'8-2 a~] a4 }
+		{ \voicethree; [a8-1 g] [fis16-2 e-1 fis-2 d-1] }
 	>
+	\voiceone;
 	[g-1 fis-2 g-1 a-2] [g-1 b-3 a-2 g-1 ~] |
 	[g g-1 fis-2 e-1] fis4-2 ~ fis2
 	\bar "|.";
@@ -118,7 +113,7 @@ two = \melodic{
 
 three = \melodic{
 	\octave c;
-	\stemdown;
+%	\stemdown;
 	d4-3 c-4 'b e-3 |
 	a16 ['a-5\mf( cis-3 'a-5] [d-2 e-1 fis-2 d-4]
 	[g-1 fis-3 g a] [g b a g] |
@@ -153,11 +148,11 @@ three = \melodic{
 four = \melodic{
 	\skip 4*36;
 	\octave c';
-	\stemup;
-	\property Voice.hshift = 1 
+%	\stemup;
+%	\property Voice.hshift = 1 
 	a2 fis |
 	d
-	\property Voice.hshift = 0 
+%	\property Voice.hshift = 0 
 	\skip 4*11;
 	\translator Staff=bass \octave c; \stemup
 	a4 ~ [a16 d-2 g8-1] [fis e-1] |
@@ -168,66 +163,43 @@ four = \melodic{
 	'd2 'd2
 }
 
-rh = \melodic{
-	\multi 2 <
-		\one
-		\four
-	>
-	\bar "|.";
-}
-
-
-lh = \melodic{
-	\clef "bass";
-	\multi 2 < 
-		\two
-		\three
-	>
-	\bar "|.";
-}
-
-
 global  = \melodic{
 	\meter 4/4;
 	\key fis cis;
 }
 
+treble_staff = \type Staff = treble <
+	\global
+	{ \voiceone \one }
+	{ \voicefour \four }
+>
+
+bass_staff = \type Staff = bass <
+% bass = Staff <
+	\clef "bass";
+	\global
+%	{ \voiceone \two }
+	{ \type Voice = bone \skip 1*0; \property Voice.ydirection = \up \two }
+	{ \voicetwo \three }
+>
+
+grand_staff = \type Grandstaff <
+	\treble_staff
+	\bass_staff
+>
+
+widea4 = \paper{
+	\paper_twenty
+	linewidth= 195.\mm;
+%	arithmetic_basicspace = 2.;
+%	arithmetic_multiplier = 6.\pt;
+	arithmetic_basicspace = 3.;
+	arithmetic_multiplier = 6.\pt;
+}
+
 \score{
-	% Allegretto
-	% it would be nice to shut-off fingering...
-	\melodic \type Grandstaff < 
-		\type Staff=treble  < 
-			\global 
-% huh? try these iso directly!
-%			\lh
-			\multi 2 <
-				\one
-				\four
-			>
-		>
-		\type Staff=bass  < 
-			\global 
-%			\rh
-% or try \two having here, iso above!
-%			\two
-			{ 
-				\clef "bass";
-				\multi 2 < 
-					\two
-					\three
-				>
-			}
-		>
-	>
-	\paper{
-		\paper_twenty
-		linewidth= 195.\mm;
-%		arithmetic_basicspace = 2.;
-%		arithmetic_multiplier = 6.\pt;
-		arithmetic_basicspace = 3.;
-		arithmetic_multiplier = 6.\pt;
-	}
-	\midi{
-		\tempo 4 = 110;
-	}
+        % Allegretto
+	\grand_staff	
+	\paper{ \widea4 }
+	\midi{ \tempo 4 = 70; }
 }

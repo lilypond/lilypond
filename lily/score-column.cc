@@ -47,8 +47,7 @@ Score_column::add_duration (Moment d)
   if (!d)
     {
       warning (_("Ignoring zero duration added to column at ")
-	       + String (when_)
-	       );
+	       + when_.str ());
       return;
     }
   

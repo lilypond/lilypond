@@ -1,45 +1,49 @@
 % fetdefs.tex
 % encapsulating tex backend for auto-generated feta definitions
 
-\def\fetsixteendefs{
-        \font\feta=feta16
-        \font\vetfont=feta-beams16
-        \font\fetanummer=feta-nummer8
-        \font\dynfont=feta-din10 scaled \magstep1
-        \font\bracefont=feta-braces16
-        \font\fingerfont=feta-nummer4
+\def\fetsixteendefs{%
+  \font\feta = feta16
+  \font\vetfont = feta-beams16
+  \font\fetanummer = feta-nummer8
+  \font\dynfont = feta-din10 scaled \magstep 1
+  \font\bracefont = feta-braces16
+  \font\fingerfont = feta-nummer4
 }
-\def\fettwentydefs{
-        \font\feta=feta20
-        \font\vetfont=feta-beams20
-        \font\fetanummer=feta-nummer10
-        \font\dynfont=feta-din10 scaled \magstep2
-        \font\bracefont=feta-braces20
-        \font\fingerfont=feta-nummer5
+
+\def\fettwentydefs{%
+  \font\feta = feta20
+  \font\vetfont = feta-beams20
+  \font\fetanummer = feta-nummer10
+  \font\dynfont = feta-din10 scaled \magstep 2
+  \font\bracefont = feta-braces20
+  \font\fingerfont = feta-nummer5
 }
-\def\fettwentysixdefs{
-        \font\feta=feta26
-        \font\vetfont=feta-beams26
-        \font\fetanummer=feta-nummer12
-        \font\dynfont=feta-din10 scaled \magstep3
-        \font\bracefont=feta-braces16
-        \font\fingerfont=feta-nummer7
+
+\def\fettwentysixdefs{%
+  \font\feta = feta26
+  \font\vetfont = feta-beams26
+  \font\fetanummer = feta-nummer12
+  \font\dynfont = feta-din10 scaled \magstep 3
+  \font\bracefont = feta-braces16
+  \font\fingerfont = feta-nummer7
 }
-\def\fetthirteendefs{
-      \font\feta=feta13
-        \font\vetfont=feta-beams26
-        \font\fetanummer=feta-nummer5
-        \font\dynfont=feta-din10 scaled \magstep0
-        \font\bracefont=feta-braces16
-        \font\fingerfont=feta-nummer3
+
+\def\fetthirteendefs{%
+  \font\feta = feta13
+  \font\vetfont = feta-beams26
+  \font\fetanummer = feta-nummer5
+  \font\dynfont = feta-din10 scaled \magstep 0
+  \font\bracefont = feta-braces16
+  \font\fingerfont = feta-nummer3
 }
-\def\fetelevendefs{
-        \font\feta=feta11
-        \font\vetfont=feta-beams26
-        \font\fetanummer=feta-nummer5
-        \font\dynfont=feta-din10 %scaled \magstep-1
-        \font\bracefont=feta-braces16
-        \font\fingerfont=feta-nummer3
+
+\def\fetelevendefs{%
+  \font\feta = feta11
+  \font\vetfont = feta-beams26
+  \font\fetanummer = feta-nummer5
+  \font\dynfont = feta-din10        % scaled \magstep-1
+  \font\bracefont = feta-braces16
+  \font\fingerfont = feta-nummer3
 }
 
 
@@ -48,9 +52,9 @@
 \def\twentysixfonts{\fettwentysixdefs\cmrtwenty}
 \def\elevenfonts{\fetelevendefs\cmreleven}
 \def\thirteenfonts{\fetthirteendefs\cmrthirteen}
-\def\fetdef#1#2{\def#1{%
-        \hbox{\fetchar{#2}}}}
 
+\def\fetdef#1#2{%
+  \def#1{\hbox{\fetchar{#2}}}}
 \def\fetchar#1{\feta\char#1}
 
 %\input feta16
@@ -59,12 +63,36 @@
 % stacked numbers; overrules def in lilyponddefs
 % widest num should be .40 balkheight
 % oeps: \meter 12/8;
+%
+% \allabreve, \threetwometer etc. have zero as the second parameter.
+
 \def\generalmeter#1#2{%
-        \vbox to 0pt{\vss%
-        \hbox to0.45\staffheight{\hss\fetanummer #1\hss}%
-        \nointerlineskip%
-        \hbox to0.45\staffheight{\hss\fetanummer #2\hss}%
-        \vss}}
+  \ifnum #2 = 0\relax
+    \ifcase #1
+    \or\or
+      % 2
+      \allabreve
+    \or
+      % 3
+      \threetwometer    % tempus perfectum cum prolatione imperfecta
+    \or
+      % 4
+      \fourfourmeter    % tempus imperfectum cum prolatione imperfecta
+    \or\or
+      % 6
+      \sixfourmeter     % tempus imperfectum cum prolatione perfecta
+    \or\or\or
+      % 9
+      \ninefourmeter    % tempus perfectum cum prolatione perfecta
+    \fi
+  \else
+    \vbox to 0pt{%
+      \vss
+      \hbox to 0.45\staffheight{\hss\fetanummer #1\hss}%
+      \nointerlineskip
+      \hbox to 0.45\staffheight{\hss\fetanummer #2\hss}%
+      \vss}%
+  \fi}
 
 \def\pianobrace#1{{\bracefont\char #1}}
 
@@ -79,10 +107,9 @@
 %
 % \input lily-mf-defs
 
-\def\EndLilyPondOutput{
-        \embedclose
-        \csname bye\endcsname
+\def\EndLilyPondOutput{%
+  \embedclose
+  \csname bye\endcsname
 }
 
-
-
+\endinput

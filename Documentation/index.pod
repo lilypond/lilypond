@@ -159,6 +159,13 @@ The manual page
 >
 
 =item *
+<a href=ly2dvi.html
+>
+Easy titling for LilyPond
+</a
+>
+
+=item *
 <a href=convert-mudela.html
 >
 The mudela convertor: convert-mudela

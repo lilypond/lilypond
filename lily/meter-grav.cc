@@ -20,9 +20,16 @@ Meter_engraver::Meter_engraver()
 void
 Meter_engraver::do_process_requests()
 {
-  Timing_engraver * timing_grav_l= (Timing_engraver*)
-    daddy_grav_l()->get_simple_translator (Timing_engraver::static_name())
-    ->engraver_l ();
+  Translator * result =
+    daddy_grav_l()->get_simple_translator (Timing_engraver::static_name());
+
+  if (!result)
+    {
+      warning ("Lost in time: can't find Timing_translator");
+      return ;
+    }
+  
+  Timing_engraver * timing_grav_l= (Timing_engraver*) result->engraver_l ();
   
   Meter_change_req *req = timing_grav_l->meter_req_l();
   if (req)

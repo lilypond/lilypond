@@ -74,7 +74,12 @@ def remove_automatic(dirnames):
 def makepatch(fv, tv, patfile_nm):
     import tempfile
     prev_cwd = os.getcwd();
-    os.chdir ('/tmp')
+    try:
+	os.mkdir ('/tmp/make-patch');
+    except:
+	pass
+	
+    os.chdir ('/tmp/make-patch');
     untar(released_tarball(fv))
     untar(released_tarball(tv))
     remove_automatic([dirname(fv), dirname(tv)])
@@ -93,7 +98,7 @@ def makepatch(fv, tv, patfile_nm):
     sys.stderr.write('diffing to %s... ' % patfile_nm)
     os.system('diff -urN ../%s . >> %s' % (dirname(fv), patfile_nm))
     #os.system('gzip -9f %s' % patfile_nm)
-    os.chdir('/tmp')
+    os.chdir('/tmp/make-patch')
 
     sys.stderr.write('cleaning ... ')
     os.system('rm -fr %s %s' % (dirname(tv), dirname(fv)))

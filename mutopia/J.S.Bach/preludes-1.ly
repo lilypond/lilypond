@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 \include "paper20.ly"
 
-rh = \melodic{
+one = \melodic{
 	\octave c'';
 	\textstyle "italic";
 	r16\p_"legato"\< ['g-1( c-3 )e-5] r ['g-1( c )e]
@@ -29,16 +29,16 @@ rh = \melodic{
 	r [''b 'd 'a-5] r [''b 'd 'g-4]
 	r [''a 'c 'g-5] r [''a 'c 'f!-4] |
 	% ugh, arpeggio
-	\multi 2 <
-		{ \stemup; 'f4 r s }
-		{ \stemdown; <''g4 'd> r s }
+	<
+		{ \voiceone; 'f4 r s }
+		{ \voicetwo; <''g4 'd> r s }
 	>
-	\stemboth;
+	\onevoice;
 	% ugh beam across staffs, slur starts at lower staff
 	r16 [''g-1( ''b 'd] |
-	\stemup;
+	\voiceone;
 	)''b s4 ['g16-1( 'b-2 d] )'b s s s [f-2 g-3 b-5 f-2] |
-	\stemboth;
+	\onevoice;
 	[e-1\f c'-5( g-3 f-2] [e-1 c'-5 g-3 e-2] 
 	[)d c'-5( f-3 e-2] [d-1 b-5 f-3 d-2] |
 	[)c b-5( e-3 d-2] [c-1 a-5 e-3 c-2] 
@@ -53,18 +53,17 @@ rh = \melodic{
 	[f-5 d-3 es-4 c-2] ['fis-1 es-4 d-3 c-2] |
 	['b-1 d-5 'b-3 'g-1] ['as-4-"cresc. e rall." 'f-2 'g-3 'd-1]
 	['es-2 'fis-3 'a-4 c-5] 
-	\multi 2 < 
-		{ \stemup; r [c8 'b16] }
-		{ \stemdown; ['d8 'f-2] }
+	< 
+		{ \voiceone; r [c8 'b16] }
+		{ \voicetwo; ['d8 'f-2] }
 	>
-	\stemboth; |
+	\onevoice; |
 	<c1\mf 'g 'e>
 	\bar "|.";
 }
 
-lh = \melodic{
+two = \melodic{
 	\octave c;
-	\clef bass;
 	\textstyle "roman";
 	c4-5 e-3 [g32-1 fis-2 g8.-1] 'g4 |
 	d-5 f-3 [a32-1 gis a8.] 'a4 |
@@ -83,9 +82,9 @@ lh = \melodic{
 	g r r16 ['g-5( 'b-4 d] )f-1 s s s |
 	s [g-5( b-4 d'-2] )f'-1 s s s s \clef violin; [g'-4 b'-2 d''-1] 
 	s s s s \clef bass; |
-	\multi 2 <
-		{ \stemup; g1 ~ g ~ g ~ g ~ g ~ g ~ g }
-		{ \stemdown; 'g1 ~ 'g ~ 'g ~ 'g ~ 'g ~ 'g ~ 'g }
+	<
+		{ \voiceone; g1 ~ g ~ g ~ g ~ g ~ g ~ g }
+		{ \voicetwo; 'g1 ~ 'g ~ 'g ~ 'g ~ 'g ~ 'g ~ 'g }
 	>
 	<c1 'c>
 	\bar "|.";
@@ -95,24 +94,31 @@ global  = \melodic{
 	\meter 4/4;
 }
 
+treble_staff = \type Staff = treble <
+	\global
+	\one
+>
+
+bass_staff = \type Staff = bass <
+% bass = Staff <
+	\clef "bass";
+	\global
+	\two
+>
+
+grand_staff = \type Grandstaff <
+	\treble_staff
+	\bass_staff
+>
+
+a4 = \paper{
+	\paper_twenty
+	linewidth= 195.\mm;
+}
+
 \score{
-	% Moderato
-	% it would be nice to shut-off fingering...
-	\melodic \type Grandstaff < 
-		<
-			\global 
-			\rh
-		>
-		<
-			\global 
-			\lh
-		>
-	>
-	\paper{
-		\paper_twenty
-		linewidth= 195.\mm;
-	}
-	\midi{
-		\tempo 4 = 70;
-	}
+        % Moderato
+	\grand_staff
+	\paper{ \a4 }
+	\midi{ \tempo 4 = 80; }
 }

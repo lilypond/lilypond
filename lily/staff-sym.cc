@@ -13,9 +13,9 @@
 #include "dimen.hh"
 
 
-Staff_symbol::Staff_symbol (int l)
+Staff_symbol::Staff_symbol ()
 {
-  no_lines_i_ = l;
+  no_lines_i_ = 5;
   interline_f_ =  0 PT;
 }
 

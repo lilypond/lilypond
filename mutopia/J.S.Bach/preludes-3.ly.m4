@@ -12,7 +12,7 @@ define(comma, r16 [$1$4 $2 $3] [$2 $1 $2 $6$1] r $1$7 r $5$1 |)
 define(s, `comma(translit($*,` ', `,'))')
 define(t, r16 [$1$4 $2 $3] [$2 $1 $2 $6$1] r $1$7 r $5$1 |)
 
-rh = \melodic{
+one = \melodic{
 	\octave c';
 	\textstyle "italic";
 %#	s(`c' `es' `g' `\p(\<' `\!' `)\!' `\>')
@@ -75,7 +75,7 @@ rh = \melodic{
 	\bar "|.";
 }
 
-lh = \melodic{
+two = \melodic{
 	\octave c;
 	\clef bass;
 	% c4 r [g8-.(\ped )es-.\*] |
@@ -143,23 +143,31 @@ global  = \melodic{
 	\key bes es as;
 }
 
+treble_staff = \type Staff = treble <
+	\global
+	\one
+>
+
+bass_staff = \type Staff = bass <
+% bass = Staff <
+	\clef "bass";
+	\global
+	\two
+>
+
+grand_staff = \type Grandstaff <
+	\treble_staff
+	\bass_staff
+>
+
+a4 = \paper{
+	\paper_twenty
+	linewidth= 195.\mm;
+}
+
 \score{
 	% Semplice e non troppo legato
-	\melodic \type Grandstaff < 
-		<
-			\global 
-			\rh
-		>
-		<
-			\global
-			\lh
-		>
-	>
-	\paper{
-		\paper_twenty
-		linewidth= 195.\mm;
-	}
-	\midi{
-		\tempo 4 = 90;
-	}
+	\grand_staff
+	\paper{ \a4 }
+	\midi{ \tempo 4 = 100; }
 }

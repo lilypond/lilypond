@@ -19,12 +19,23 @@ os.chdir(lilydirs.topdir)
 os.system('make dist')
 cur_ver = lilydirs.version_tuple()
 print tarball(cur_ver)
-os.rename('out/' + tarball(cur_ver), released_tarball(cur_ver))
-os.chdir('../test')
+try:
+    os.rename('out/' + tarball(cur_ver), released_tarball(cur_ver))
+except posix.error:
+    os.system('cp out/' + tarball(cur_ver)  + ' ' + released_tarball(cur_ver))
+    os.unlink('out/' + tarball (cur_ver))
+    
+os.chdir(lilydirs.groupdir + '/test')
 os.system('pwd')
 os.system('rm ../test/*gz')
-os.link(released_tarball(cur_ver), tarball(cur_ver))
 
+#huh?
+#os.symlink(released_tarball(cur_ver), tarball(cur_ver))
+
+try:
+    os.link(released_tarball(cur_ver), tarball(cur_ver))
+except posix.error:
+    os.system('cp ' + released_tarball(cur_ver) + ' '+  tarball(cur_ver))
 
 # not a module, but a script (JCN)
 # makepatch.main()

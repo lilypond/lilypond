@@ -11,6 +11,7 @@
 #include "debug.hh"
 #include "translator-group.hh"
 #include "dictionary-iter.hh"
+#include "rational.hh"
 
 Translator::~Translator ()
 {

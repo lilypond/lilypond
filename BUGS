@@ -1,6 +1,31 @@
 Document Really Ugly Bugs (coredumps, assert fails, etc)
 
 
+\score{
+	\melodic{
+	[a8 a-2] /bla
+	}
+}
+koor.ly: 4: error: parse error, expecting `DIGIT' or `UNSIGNED':
+        [a8 a-2] /bla
+                     
+koor.ly: 5: error: Have to be in Lyric mode for lyrics:
+        }
+         
+lilypond: parser.y:765: int yyparse(void *): Assertion `((My_lily_parser *) my_lily_parser_l)->post_reqs.empty ()' failed.
+Aborted (core dumped)
+
+
+[gcc 2.8.x/libstdc++ 2.8.x/libg++ 2.8.0]
+
+The latest gcc release causes lily to crash just after Interpreting
+music:
+
+stacktrace looks something like:
+
+      __DTOR_END__ ()
+      __malloc ()
+
 [GNU libc]
 
 The GNU extension memmem() is known to be buggy on linux libc 5.0.9

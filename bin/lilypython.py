@@ -110,8 +110,13 @@ class Lilydirs:
 	    print 'Please set LILYPOND_SOURCEDIR to the toplevel source, eg LILYPOND_SOURCEDIR=/home/foobar/lilypond-1.2.3/'
 	    sys.exit(1)
 	    
-	self.release_dir = self.topdir + '../releases/'
-	self.patch_dir = self.topdir + '../patches/'
+	try:
+	    self.groupdir = os.environ['LILYPOND_GROUPDIR'] + '/'
+	except KeyError:
+	    self.groupdir = self.topdir + '../'
+ 
+	self.release_dir = self.groupdir + '/releases/'
+	self.patch_dir = self.groupdir + '/patches/'
 
     def version_tuple(self):
         f = open (self.topdir + 'VERSION')

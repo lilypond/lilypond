@@ -17,9 +17,9 @@ Time_description::str() const
 	s+=String (" (cadenza) ");
   s+= "at ";
   s+=when_;
-  s+="\nmeter " + String (whole_per_measure_/one_beat_) +":" +
-	String (Rational (Rational (1)/one_beat_));
-  s+= "\nposition "+String (bars_i_) + ":"+ whole_in_measure_ +"\n}\n";
+  s+="\nmeter " + (whole_per_measure_/one_beat_).str () +":" +
+	 (Rational (Rational (1)/one_beat_)).str ();
+  s+= "\nposition "+String (bars_i_) + ":"+ whole_in_measure_.str () +"\n}\n";
   return s;
 }
 

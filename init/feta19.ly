@@ -4,38 +4,38 @@
 % input from out/feta19.log
 % name=\symboltables {
     "rests"	 = \table {
-        "0"	"\\wholerest"	-0.00\pt	7.12\pt	-2.97\pt	0.00\pt	
-        "1"	"\\halfrest"	-0.00\pt	7.12\pt	-0.00\pt	2.97\pt	
+        "0"	"\\wholerest"	0.00\pt	7.12\pt	-2.97\pt	0.00\pt	
+        "1"	"\\halfrest"	0.00\pt	7.12\pt	0.00\pt	2.97\pt	
         "0o"	"\\outsidewholerest"	-2.97\pt	10.09\pt	-2.97\pt	0.48\pt	
         "1o"	"\\outsidehalfrest"	-2.97\pt	10.09\pt	-0.48\pt	2.97\pt	
-        "2"	"\\quartrest"	-0.00\pt	5.13\pt	3.56\pt	17.10\pt	
-        "3"	"\\eighthrest"	-0.00\pt	6.33\pt	4.75\pt	13.50\pt	
-        "4"	"\\sixteenthrest"	-0.00\pt	7.37\pt	-0.00\pt	13.50\pt	
-        "5"	"\\thirtysecondrest"	-0.00\pt	8.32\pt	-0.00\pt	18.25\pt	
-        "6"	"\\sixtyfourthrest"	-0.00\pt	8.92\pt	-0.00\pt	23.00\pt	
-        "7"	"\\hundredtwentyeighthrest"	-0.00\pt	9.93\pt	-0.00\pt	27.75\pt	
+        "2"	"\\quartrest"	0.00\pt	5.13\pt	3.56\pt	17.10\pt	
+        "3"	"\\eighthrest"	0.00\pt	6.33\pt	4.75\pt	13.50\pt	
+        "4"	"\\sixteenthrest"	0.00\pt	7.37\pt	0.00\pt	13.50\pt	
+        "5"	"\\thirtysecondrest"	0.00\pt	8.32\pt	0.00\pt	18.25\pt	
+        "6"	"\\sixtyfourthrest"	0.00\pt	8.92\pt	0.00\pt	23.00\pt	
+        "7"	"\\hundredtwentyeighthrest"	0.00\pt	9.93\pt	0.00\pt	27.75\pt	
         }
     "accidentals"	 = \table {
-        "1"	"\\sharp"	-0.00\pt	5.23\pt	-7.12\pt	7.12\pt	
-        "0"	"\\natural"	-0.00\pt	3.17\pt	-7.12\pt	7.12\pt	
+        "1"	"\\sharp"	0.00\pt	5.23\pt	-7.12\pt	7.12\pt	
+        "0"	"\\natural"	0.00\pt	3.17\pt	-7.12\pt	7.12\pt	
         "-1"	"\\flat"	-0.57\pt	3.80\pt	-2.38\pt	9.50\pt	
         "-2"	"\\flatflat"	-0.57\pt	6.89\pt	-2.38\pt	9.50\pt	
-        "2"	"\\sharpsharp"	-0.00\pt	4.75\pt	-2.38\pt	2.38\pt	
+        "2"	"\\sharpsharp"	0.00\pt	4.75\pt	-2.38\pt	2.38\pt	
         }
     "dots"	 = \table {
-        "dot"	"\\dot"	-0.00\pt	2.14\pt	-1.07\pt	1.07\pt	
-        "repeatcolon"	"\\repeatcolon"	-0.00\pt	2.14\pt	-2.38\pt	2.38\pt	
+        "dot"	"\\dot"	0.00\pt	2.14\pt	-1.07\pt	1.07\pt	
+        "repeatcolon"	"\\repeatcolon"	0.00\pt	2.14\pt	-2.38\pt	2.38\pt	
         }
     "balls"	 = \table {
-        "-1"	"\\brevisball"	-0.00\pt	9.50\pt	-2.61\pt	2.61\pt	
+        "-1"	"\\brevisball"	0.00\pt	9.50\pt	-2.61\pt	2.61\pt	
         "-1l"	"\\brevisledger"	-2.38\pt	11.88\pt	-0.48\pt	0.48\pt	
-        "-2"	"\\longaball"	-0.00\pt	9.50\pt	-2.61\pt	2.61\pt	
+        "-2"	"\\longaball"	0.00\pt	9.50\pt	-2.61\pt	2.61\pt	
         "-2l"	"\\longaledger"	-2.38\pt	11.88\pt	-0.48\pt	0.48\pt	
-        "0"	"\\wholeball"	-0.00\pt	9.41\pt	-2.61\pt	2.61\pt	
+        "0"	"\\wholeball"	0.00\pt	9.41\pt	-2.61\pt	2.61\pt	
         "0l"	"\\wholeledger"	-2.35\pt	11.76\pt	-0.48\pt	0.48\pt	
-        "1"	"\\halfball"	-0.00\pt	6.54\pt	-2.61\pt	2.61\pt	
+        "1"	"\\halfball"	0.00\pt	6.54\pt	-2.61\pt	2.61\pt	
         "1l"	"\\halfledger"	-1.64\pt	8.18\pt	-0.48\pt	0.48\pt	
-        "2"	"\\quartball"	-0.00\pt	6.27\pt	-2.61\pt	2.61\pt	
+        "2"	"\\quartball"	0.00\pt	6.27\pt	-2.61\pt	2.61\pt	
         "2l"	"\\quartledger"	-1.57\pt	7.84\pt	-0.48\pt	0.48\pt	
         }
     "scripts"	 = \table {
@@ -46,17 +46,17 @@
         "ustaccatissimo"	"\\ustaccatissimo"	-0.95\pt	0.95\pt	-0.20\pt	4.75\pt	
         "dstaccatissimo"	"\\dstaccatissimo"	-0.95\pt	0.95\pt	-4.75\pt	0.20\pt	
         "tenuto"	"\\tenuto"	-4.27\pt	4.27\pt	-0.29\pt	0.29\pt	
-        "umarcato"	"\\umarcato"	-2.38\pt	2.38\pt	-0.00\pt	5.23\pt	
+        "umarcato"	"\\umarcato"	-2.38\pt	2.38\pt	0.00\pt	5.23\pt	
         "dmarcato"	"\\dmarcato"	-2.38\pt	2.38\pt	-5.23\pt	0.00\pt	
         "open"	"\\ouvert"	-1.90\pt	1.90\pt	-2.38\pt	2.38\pt	
         "stopped"	"\\plusstop"	-2.61\pt	2.61\pt	-2.61\pt	2.61\pt	
-        "upbow"	"\\upbow"	-3.09\pt	3.09\pt	-0.00\pt	9.88\pt	
-        "downbow"	"\\downbow"	-3.56\pt	3.56\pt	-0.00\pt	6.33\pt	
+        "upbow"	"\\upbow"	-3.09\pt	3.09\pt	0.00\pt	9.88\pt	
+        "downbow"	"\\downbow"	-3.56\pt	3.56\pt	0.00\pt	6.33\pt	
         "turn"	"\\turn"	-5.20\pt	5.20\pt	-2.51\pt	2.51\pt	
-        "trill"	"\\trill"	-4.75\pt	4.75\pt	-0.00\pt	10.69\pt	
+        "trill"	"\\trill"	-4.75\pt	4.75\pt	0.00\pt	10.69\pt	
         "upedalheel"	"\\upedalheel"	-2.38\pt	2.38\pt	-2.38\pt	3.17\pt	
         "dpedalheel"	"\\dpedalheel"	-2.38\pt	2.38\pt	-3.17\pt	2.38\pt	
-        "upedaltoe"	"\\upedaltoe"	-2.38\pt	2.38\pt	-0.00\pt	7.12\pt	
+        "upedaltoe"	"\\upedaltoe"	-2.38\pt	2.38\pt	0.00\pt	7.12\pt	
         "dpedaltoe"	"\\dpedaltoe"	-2.38\pt	2.38\pt	-7.12\pt	0.00\pt	
         "flageolet"	"\\flageolet"	-2.53\pt	2.53\pt	-2.53\pt	2.53\pt	
         }

@@ -32,8 +32,7 @@ work in Windows NT/95, but we don't promise to support it.
 
 =item *
 
-GNU C++ v2.7 or better, with libg++ installed.  If you use gcc 2.8 or
-egcs then you should install a matching libg++  (ie. 2.8) version.
+GNU C++ v2.7 or better.
 
 =item *
 
@@ -358,7 +357,7 @@ to edit the definitions in F<tex/eglerdefs.tex>.
 
 =head1 AUTHORS
 
-Han-Wen Nienhuys <hanwen@stack.nl>
+Han-Wen Nienhuys <hanwen@cs.ruu.nl>
 
 Jan Nieuwenhuizen <jan@digicash.com>
 

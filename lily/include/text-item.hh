@@ -17,14 +17,13 @@
 class Text_item : public Item ,public Staff_side
 {
 public:
-public:
 
     /// do I have width?
     bool fat_b_;
     
     /* ***************/
 
-    Text_item (General_script_def* ,Direction dir=0);
+    Text_item (General_script_def* ,Direction dir=CENTER);
     virtual ~Text_item ();
     DECLARE_MY_RUNTIME_TYPEINFO;
 

@@ -25,7 +25,7 @@ ostream *mlog (&cerr);
 void
 error_t (String const & s, Moment const & r)
 {
-  String t_mom = String (trunc (r)) + String (r - Moment (trunc (r)));
+  String t_mom = r.truncated ().str () +  (r - r.truncated ()).str ();
   String e=s+ " (t = " +  t_mom + ")";
   error (e);
 }
@@ -33,6 +33,6 @@ error_t (String const & s, Moment const & r)
 void
 error_t (String const & s, Time_description const &t_tdes)
 {
-  String e=s+ " (at t=" + String (t_tdes.bars_i_) + ": " + String (t_tdes.whole_in_measure_) + ")\n";
+  String e=s+ " (at t=" +  String(t_tdes.bars_i_) + ": " +  (t_tdes.whole_in_measure_).str () + ")\n";
   error (e);
 }

@@ -52,7 +52,9 @@ yanother =
 	\type Staff_group <
 		\ritme
 		\another
-		\yanother
+		\type Rhythmic_staff {
+			\yanother
+		}
 	>
 	
 	\paper{
@@ -77,6 +79,19 @@ yanother =
 	\accepts "Grandstaff";
 }
 
+Rhythmic_staff = \translator
+{
+	  \type "Engraver_group_engraver";
+	nolines  = "1";
+	  \consists "Pitch_squash_engraver";
+
+	  \consists "Bar_engraver";
+	  \consists "Meter_engraver";
+	  \consists "Staff_sym_engraver";
+	  \consists "Line_group_engraver";
+	  \consists "Timing_engraver";
+	  \accepts "Voice";
+}
 	%% add Timing_engraver to the staff
 	Staff = \translator {
 	  \type "Engraver_group_engraver";

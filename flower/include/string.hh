@@ -13,8 +13,8 @@
 
 #include <string.h>
 #include <iostream.h>
-#include <Rational.h>
-
+#include "arithmetic-operator.hh"
+#include "fproto.hh"
 #include "string-handle.hh"
 
 /*
@@ -76,7 +76,6 @@ public:
   /** init to empty string. This is needed because other
     constructors are provided.*/
   String  ();
-  String (Rational);
 
   /// String s = "abc";
   String (char const* source); 
@@ -206,13 +205,7 @@ inline bool operator!=(char const* s1,String s2) {
   return String (s2) !=s1;
 }
 
-
-inline String
-operator  + (String s1, String  s2)
-{
-  s1 += s2;
-  return s1;
-}
+IMPLEMENT_ARITHMETIC_OPERATOR (String, +);
 
 inline ostream &
 operator << (ostream& os, String d)

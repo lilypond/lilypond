@@ -120,7 +120,7 @@ Interval_t<T>::str() const
 	return "[empty]";
   String s ("[");
  
-  return s + String (left) + String ("," ) + String (right ) + String ("]" );
+  return s + T_to_str (left) + String ("," ) + T_to_str (right ) + String ("]" );
 }
 
 template<class T>

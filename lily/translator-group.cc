@@ -11,6 +11,7 @@
 #include "translator.hh"
 #include "debug.hh"
 #include "pcursor.hh"
+#include "rational.hh"
 
 Translator_group::Translator_group (Translator_group const&s)
   : Translator(s)

@@ -35,14 +35,17 @@ default: do-doc
 #
 XPMS=$(wildcard *.xpm)
 giffiles=$(XPMS:.xpm=.gif)
-
-gifs: $(addprefix $(outdir)/, $(giffiles))
+outgiffiles=$(addprefix $(outdir)/, $(giffiles))
 
 
 EXTRA_DISTFILES = $(XPMS)  $(DOCFILES)  vocabulary-data vocabulary-forms.el 
 
+
 # don't do DVI files. They can only be made if lily is installed
 do-doc: $(TEXTFILES)
+
+gifs: $(outgiffiles)
+
 
 html: $(HTMLFILES)
 
@@ -62,7 +65,7 @@ localclean:
 
 
 
-MAN1FILES = lilypond convert-mudela mi2mu mudela-book
+MAN1FILES = lilypond convert-mudela mi2mu mudela-book ly2dvi
 MAN1GROFF = $(addprefix $(outdir)/, $(addsuffix .1,$(MAN1FILES)))
 
 localinstall: $(outdir)/lilypond.1

@@ -1,5 +1,5 @@
 /*
-  scalar.cc -- implement 
+  scalar.cc -- implement Scalar
 
   source file of the Flower Library
 
@@ -9,11 +9,11 @@
 #include <assert.h>
 #include <stdio.h>
 #include "scalar.hh"
+#include "rational.hh"
 
 Scalar::Scalar (Rational r)
-  :String (r)
 {
-
+  (*this) = r.str ();
 }
 
 Scalar::operator Rational ()

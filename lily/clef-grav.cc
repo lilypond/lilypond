@@ -22,33 +22,36 @@ Clef_engraver::Clef_engraver()
   c0_position_i_ =0;
 }
 
+/*
+  Ugh.  Should have support for Dictionaries in mudela.
+ */
 bool
 Clef_engraver::set_type (String s)
 {
-  clef_type_str_  = s;
+  clef_type_str_ = s;
   if (clef_type_str_ == "violin")
-    {
-      c0_position_i_= -6;
-    }
+    c0_position_i_= -6;
+  else if (clef_type_str_ == "french")
+    c0_position_i_= -8;
   else if (clef_type_str_ == "soprano")
-    {
-      c0_position_i_= -4;
-    }
+    c0_position_i_= -4;
+  else if (clef_type_str_ == "mezzosoprano")
+    c0_position_i_ = -2;
   else if (clef_type_str_ == "alto")
-    {
-      c0_position_i_= 0;
-    }
+    c0_position_i_= 0;
   else if (clef_type_str_ == "tenor")
-    {
-      c0_position_i_= 2;
-    }
+    c0_position_i_= 2;
+  else if (clef_type_str_ == "baritone")
+    c0_position_i_ = 4;
+  else if (clef_type_str_ == "varbaritone")
+    c0_position_i_ = 4;
   else if (clef_type_str_ == "bass")
-    {
-      c0_position_i_= 6;
-    }
+    c0_position_i_= 6;
+  else if (clef_type_str_ == "subbass")
+    c0_position_i_ = 8;
   else
     return false;
-
+  
   return true;
 }
 

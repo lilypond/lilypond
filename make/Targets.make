@@ -129,7 +129,8 @@ doc:
 dist:
 	-mkdir $(distdir)
 	$(MAKE) localdist
-	chmod -Rf a+rX $(distdir)
+	chmod -R a+r $(distdir)
+	chmod  a+x `find $(distdir) -type d -print`
 
 	(cd ./$(depth)/$(outdir); $(TAR) cf - $(DIST_NAME) | gzip -9 > $(DIST_NAME).tar.gz)
 

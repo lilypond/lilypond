@@ -8,7 +8,7 @@
 #  Original LaTeX file made by Mats Bengtsson, 17/8 1997
 #
 
-VERSION="0.6.jaf2"
+VERSION="0.7"
 NAME=ly2dvi.sh
 IDENTIFICATION="$NAME $VERSION" 
 NOW=`date`
@@ -16,7 +16,18 @@ echo "$IDENTIFICATION" 1>&2
 
 # TODO
 
-# should detect crashing lilypond
+# 0.7
+#	- Improved Lilypond error checking
+#	- Output orientation (landscape...). Overrides mudela file
+#	  variable orientation="landscape";
+#	- Paper width and heigth put into variables (only A4!)
+#	- Adjusted top margin to default.....
+#
+#TODO
+#	- Include more papersizes.
+#	- Manual page.......
+#	- should detect crashing lilypond
+
 
 # NEWS
     
@@ -122,7 +133,8 @@ Usage: $0 [options] file[s]
 
 Options:
   -D, --debug           set debug mode
-  -o, --output          set output directory
+  -O, --orientation=    set orientation (landscape or portrait (default))
+  -o, --output=         set output directory
   -h, --help            this help text
   -k, --keep            keep LaTeX file
   -l, --language=       give LaTeX language (babel)
@@ -133,6 +145,8 @@ Options:
 EOF
 }
 
+PWIDTH=600;				# Width of A4 paper!
+PHEIGTH=830;                            # Heigth of A4 paper!
 #
 # RC-files ?
 #
@@ -176,7 +190,7 @@ SEPFILE=N
 #
 # "x:" x takes argument
 #
-switches="Do:hkl:p:s\?"
+switches="DO:hkl:o:p:s\?"
 options=""
 #
 # ugh, "\-" is a hack to support long options
@@ -193,6 +207,9 @@ do
         set -x
       fi
       debug_echo=echo
+      ;;
+    O  )
+      ORI=$OPTARG
       ;;
     h  )
       help;
@@ -241,9 +258,12 @@ do
         p*|-p*)
           PSZ=`echo $OPTARG | sed -e s/"^.*="//`
           ;;
-	o*|-o*)
-	      OUTPUTDIR=$OPTARG
-	      ;;
+	or*|-or*)
+	  ORI=`echo $OPTARG | sed -e s/"^.*="//`
+	  ;;
+	ou*|-ou*)
+	  OUTPUTDIR=`echo $OPTARG | sed -e s/"^.*="//`
+	  ;;
         s*|-s*)
       	  SEPFILE=Y
           ;;
@@ -292,29 +312,50 @@ else
 fi
 #
 # Find:
-#   paper size (PSZ, overridden by command line option -p)
-#   language   (LNG, overridden by command line option -l)
+#   paper size        (PSZ, overridden by command line option -p)
+#   paper orientation (ORI, overridden by command line option -o)
+#   language          (LNG, overridden by command line option -l)
 #   textwidth
 #
 eval `sed -n \\
   -e 's/\\\\def\\\\mudelapapersize{\([^}]*\).*$/fPSZ=\1;/p' \\
+  -e 's/\\\\def\\\\mudelaorientation{\([^}]*\).*$/fORI=\1;/p' \\
   -e 's/\\\\def\\\\mudelalanguage{\([^}]*\).*$/fLNG=\1;/p' \\
   -e 's/\\\\def\\\\mudelapaperlinewidth{\([^}]*\).*$/TWN=\1;/p' \\
     $File`
-if [ "$PSZ" = "" ]
+if [ -z "$PSZ" ]
 then
   PSZ=$fPSZ
 fi
-if [ "$PSZ" != "" ]
+if [ ! -z "$PSZ" ]
 then
-  PAPER="["$PSZ"]"
+  PAPEROPT=$PSZ
 fi
 #
-if [ "$LNG" = "" ]
+if [ -z "$ORI" ]
+then
+  ORI=$fORI
+fi
+if [ ! -z "$ORI" ]
+then
+  if [ -z "$PAPEROPT" ]
+  then
+    PAPEROPT=$ORI
+  else
+    PAPEROPT=$PAPEROPT,$ORI
+  fi
+fi
+#
+if [ ! -z "$PAPEROPT" ]
+then
+  PAPER="["$PAPEROPT"]"
+fi
+#
+if [ -z "$LNG" ]
 then
   LNG=$fLNG
 fi
-if [ "$LNG" != "" ]
+if [ ! -z "$LNG" ]
 then
   LLNG="\usepackage["$LNG"]{babel}"
 else
@@ -324,7 +365,7 @@ fi
 #
 # Find textwidth
 #
-if [ "$TWN" != "" ]
+if [ ! -z "$TWN" ]
 then
   TW=$TWN
   case $TW in
@@ -341,7 +382,11 @@ then
   $debug_echo "Text width = "$TW
 fi
 TWp=`echo $TW | sed -e 's/\..*$//'`
-PWp=600;				# Width of A4 paper!
+PWp=$PWIDTH
+if [ "$ORI" = "landscape" ]
+then
+  PWp=$PHEIGTH
+fi
 MARG=`expr $PWp - $TWp`
 MARG=`expr $MARG / 2`"pt"
 #
@@ -362,7 +407,8 @@ $LLNG
 %\addtolength{\oddsidemargin}{-1cm}
 %\addtolength{\topmargin}{-1cm}
 \setlength{\textwidth}{$TW}
-\geometry{width=$TW, left=$MARG, top=1cm}
+%\geometry{width=$TW, left=$MARG, top=1cm}
+\geometry{width=$TW, left=$MARG}
 \input lilyponddefs
 \input titledefs
 \begin{document}
@@ -392,7 +438,7 @@ EOF
 #
 endFile(){
 cat << EOF >> $LF
-\vfill\hfill{\small\LilyIdString}
+\vfill\hfill{(\LilyIdString)}
 \end{document}
 EOF
 #
@@ -499,8 +545,13 @@ do
     lilypond $IF 2>&1  | tee /tmp/lilylog.$$
     OF=`egrep '^TeX output to ' /tmp/lilylog.$$ | \\
         sed -e 's/TeX output to//' -e 's/\.\.\.//'`
-    rm /tmp/lilylog.$$
     $debug_echo "==> "$OF
+    STATUS=`grep -i error /tmp/lilylog.$$`
+    rm /tmp/lilylog.$$
+    if [ ! -z "$STATUS" ]
+    then
+      exit 10
+    fi
   fi
   #
   # "Spin through" all the files

@@ -26,7 +26,7 @@ paper_eleven = \paper {
 	% interbeam = interline - (beam_thickness + staffline_thickness) / 2
 	% interbeam = 3.6;
 	% ugh: interline *in fact* is rule_thickness + "interline"?
-	interbeam = 3.9;
+	interbeam = 3.0\pt;
 
 	gourlay_energybound = 100000.;
 	gourlay_maxmeasures = 12.;

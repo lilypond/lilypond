@@ -7,7 +7,7 @@
                 "We try to imitate the Griepenkerl/Keller edition which "
                 "gives the best approximation to Bach's original layout.";
   composer =    "Johann Sebastian Bach (1685-1750)";
-  enteredby =   "JCN, WL";
+  enteredby =   "JCN";
   copyright =   "public domain";
 }
 
@@ -19,16 +19,16 @@
    * organ staff...
 %}
 
-
 \version "0.1.9";
+
+noShift = { \property Voice.hshift = 0 }
+Shift = { \property Voice.hshift = 1 }
+
 
 praeludium_commands = \melodic {
   \meter 4/4;
   \key fis cis gis dis;             % E-major
 }
-
-doshift = \property Voice.hshift = 1
-noshift = \property Voice.hshift = 0
 
 praeludium_right = \melodic {
   \$praeludium_commands
@@ -38,16 +38,13 @@ praeludium_right = \melodic {
   % 13 -- how to type -- where to split -- this more neatly?
   \multi 2 <
     { \stemup r4 dis'4 e'4. e'8 ~ |
-      \doshift e'4 [d'8 fis'8]
-       \noshift gis'4 ~ [gis'8 fis'16 e'16] |
+      \Shift e'4 [d'8 fis'8] \noShift gis'4 ~ [gis'8 fis'16 e'16] |
       fis'4 ~ [fis'8 e'16 dis'16] e'4 r8 e'8 }
-    { \stemup  r4 bis4 cis'4 cis'4 |
-      \noshift a'4 ~ [a'16 gis'16 a'16 b'16]
-       \doshift dis'4 cis'4 ~ |
+    { \stemup \Shift r4 bis4 cis'4 \noShift cis'4 |
+      a'4 ~ [a'16 gis'16 a'16 b'16] \Shift dis'4 cis'4 ~ |
       [cis'8 dis'16 ais16] bis4 cis'4 r8 b8 }
-    { \stemup \property Voice.hshift = 2 s4 gis4 }
-    { \stemdown \property Voice.hshift = 2 r4 fis4
-       \noshift gis4 gis4 |
+    { \stemup \Shift s4 gis4 }
+    { \stemdown \Shift r4 fis4 \noShift gis4 gis4 |
       a4. cis'8 gis2 |
       fis4 gis4 gis4 r8 e8 }
   > |
@@ -65,11 +62,10 @@ praeludium_left = \melodic {
       [cis'8 a8 d'8 cis'8] [bis8 gis8] cis'4 |
       dis'2 cis'4 r8 cis'8 }
     { \stemup bis2 }
-    { \stemup \doshift r4 gis4 ~
-       [gis 8 gis8] ~ \stemdown \noshift gis4 |
+    { \stemup \Shift r4 gis4 ~ [gis 8 gis8] ~ \stemdown \noShift gis4 |
       a4. fis8 gis4. a8 ~ |
       a4 gis4 gis4 r8 gis8 }
-    { \stemup \property Voice.hshift = 2 s4 fis4 e}
+    { \stemup \Shift s4 fis4 e}
     { \stemdown s4 dis4 cis4 }
   > |
   % 16
@@ -112,9 +108,9 @@ fuga2_right = \melodic {
       |
    %}
    \multi 2 <
-     { \stemup \noshift e'4 }
-     { \stemup \doshift cis'4 }
-     { \stemup \property Voice.hshift = 2 ais4 }
+     { \stemup \noShift e'4 }
+     { \stemup \Shift cis'4 }
+     { \stemup \Shift ais4 }
      { \stemdown fis4 }
    > |
   % 16
@@ -122,7 +118,7 @@ fuga2_right = \melodic {
     { \stemup dis'2 dis'4 |
       cis'2 cis'4 |
       b4. [cis'8 dis'8 e'8] }
-    { \stemup \doshift [b8 fis8] b2 ~ |
+    { \stemup \Shift [b8 fis8] b2 ~ |
       [b8 a!16 gis16] a2 ~ |
       a4 gis2 }
     { \stemdown fis2. ~ |

@@ -31,9 +31,7 @@ PREREQUISITES
             utils, it will even work in Windows NT/95, but we
             don't promise to support it.
 
-       o    GNU C++ v2.7 or better, with libg++ installed.  If
-            you use gcc 2.8 or egcs then you should install a
-            matching libg++  (ie. 2.8) version.
+       o    GNU C++ v2.7 or better.
 
        o    GNU make.
 
@@ -61,7 +59,9 @@ RECOMMENDED
 
 
 
-6/Mar/98                 LilyPond 0.1.47                        1
+
+
+11/Mar/98                LilyPond 0.1.48                        1
 
 
 
@@ -127,7 +127,7 @@ CONFIGURING and COMPILING
 
 
 
-6/Mar/98                 LilyPond 0.1.47                        2
+11/Mar/98                LilyPond 0.1.48                        2
 
 
 
@@ -193,7 +193,7 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
 
 
 
-6/Mar/98                 LilyPond 0.1.47                        3
+11/Mar/98                LilyPond 0.1.48                        3
 
 
 
@@ -259,7 +259,7 @@ EXAMPLE
 
 
 
-6/Mar/98                 LilyPond 0.1.47                        4
+11/Mar/98                LilyPond 0.1.48                        4
 
 
 
@@ -325,7 +325,7 @@ MUSIXTEX
 
 
 
-6/Mar/98                 LilyPond 0.1.47                        5
+11/Mar/98                LilyPond 0.1.48                        5
 
 
 
@@ -370,7 +370,7 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
        tex/eglerdefs.tex.
 
 AUTHORS
-       Han-Wen Nienhuys <hanwen@stack.nl>
+       Han-Wen Nienhuys <hanwen@cs.ruu.nl>
 
        Jan Nieuwenhuizen <jan@digicash.com>
 
@@ -391,6 +391,6 @@ AUTHORS
 
 
 
-6/Mar/98                 LilyPond 0.1.47                        6
+11/Mar/98                LilyPond 0.1.48                        6
 
 

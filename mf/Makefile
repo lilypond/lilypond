@@ -65,3 +65,13 @@ $(MFDEPS): $(FONT_FILES)
 include $(MFDEPS)
 #
 
+# silly workaround for stupid TeXs
+systempks:
+# irix 5.3
+#	MakeTeXPK feta16 300 300 magstep\(0.0\)
+	set -e ; for a in $(FONT_FILES); do \
+	MakeTeXPK `basename $$a .mf` 300 300 magstep\(0.0\) ; \
+	mf "\mode=ljfour; input `basename $$a .mf`"  ;\
+	mv -f `find . -name '*.tfm' -print -o -name '*gf' -print`  out/ ; \
+	done
+

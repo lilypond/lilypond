@@ -50,7 +50,17 @@ struct String_convert;
 struct String;
 struct Matrix_storage;
 struct Vector ;
+struct MyRational;
+
+
+#if PARANOIA
+#ifndef Rational
+#define Rational MyRational
+#endif
+#else
 struct Rational;
+#endif
+
 struct Text_stream;
 struct Data_file;
 struct Text_db;

@@ -38,23 +38,53 @@ void
 Clef_item::read (String t)
 {
   symbol_= t;
-  if (t == "violin") {
-    y_position_i_ = -2;
-  }
-  else if (t == "soprano") {
-    symbol_="alto";
-    y_position_i_ = -4;
-  }
-  else if (t == "alto") {
-    y_position_i_ = 0;
-  }
-  else if (t == "tenor") {
-    symbol_="alto";
-    y_position_i_ = 2;
-  }
-  else if (t == "bass") {
-    y_position_i_ = 2;
-  }
+  if (t == "violin") 
+    {
+      y_position_i_ = -2;
+    }
+  else if (t == "french") 
+    {
+      symbol_="violin";
+      y_position_i_ = -4;
+    }
+  else if (t == "soprano") 
+    {
+      symbol_="alto";
+      y_position_i_ = -4;
+    }
+  else if (t == "mezzosoprano")
+    {
+      symbol_ = "alto";
+      y_position_i_ = -2;
+    }
+  else if (t == "alto") 
+    {
+      y_position_i_ = 0;
+    }
+  else if (t == "tenor") 
+    {
+      symbol_="alto";
+      y_position_i_ = 2;
+    }
+  else if (t == "baritone")
+    {
+      symbol_ = "alto";
+      y_position_i_ = 4;
+    }
+  else if (t == "varbaritone")
+    {
+      symbol_ = "bass";
+      y_position_i_ = 0;
+    }
+  else if (t == "bass") 
+    {
+      y_position_i_ = 2;
+    }
+  else if (t == "subbass")
+    {
+      symbol_ = "bass";
+      y_position_i_ = 4;
+    }
 }
 
 void

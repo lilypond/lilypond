@@ -28,12 +28,16 @@ $(outdir)/%: %.py
 	sed 's!@PYTHON@!$(PYTHON)!' < $< > $@
 	chmod 755 $@
 
-EXECUTABLES=convert-mudela mudela-book
+EXECUTABLES=convert-mudela mudela-book ly2dvi
 
 localinstall: all
 	$(INSTALL) -d $(bindir)
-	$(INSTALL) -m 755 $(outdir)/convert-mudela $(bindir)
-	$(INSTALL) -m 755 $(outdir)/mudela-book $(bindir)
+	cd $(outdir); \
+		for a in $(EXECUTABLES); \
+		do $(INSTALL) -m 755 $$a $(bindir); \
+		done
 
 localuninstall:
-	rm -f $(bindir)/convert-mudela $(bindir)/mudela-book
+	for a in $(EXECUTABLES); \
+		do rm -f $(bindir)/convert-mudela $(bindir)/mudela-book; \
+		done

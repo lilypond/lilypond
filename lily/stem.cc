@@ -139,7 +139,7 @@ Stem::get_center_distance (Direction d)
 Direction
 Stem::get_default_dir ()
 {
-  return (get_center_distance (UP) >=
+  return (get_center_distance (UP) >
 	  get_center_distance (DOWN)) 
     ? DOWN 
     : UP;

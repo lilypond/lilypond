@@ -23,7 +23,7 @@ Stem_info::Stem_info ()
 
 Stem_info::Stem_info (Stem const *s)
 {
-  x = s->hpos_f();
+  x = s->hpos_f ();
   dir_ = s->dir_;
   beams_i_ =  0 >? (abs (s->flag_i_) - 2);
 
@@ -44,22 +44,21 @@ Stem_info::Stem_info (Stem const *s)
        
     */
 
-  Real notehead_y = s->paper()->interline_f ();
-  // huh? why do i need the / 2
-  //    Real interbeam_f = s->paper()->interbeam_f ();
-  Real interbeam_f = s->paper()->interbeam_f () / 2;
+  Real internote_f = s->paper ()->internote_f ();
+  Real interline_f = 2 * internote_f;
+  Real notehead_y = interline_f;
+  // huh? why do i seem to need the / 2 ?
+  Real interbeam_f = s->paper ()->interbeam_f ();
+  // Real interbeam_f = s->paper ()->interbeam_f () / 2;
+  // perhaps bo dim (y) = internote?
          
-  /* well eh, huh?
-     idealy_f_  = dir_ * s->stem_begin_f() + beams_i_ * interbeam_f; 
-     if (beams_i_ < 3)
+   idealy_f_  = dir_ * s->stem_begin_f () + beams_i_ * interbeam_f; 
+   if (beams_i_ < 3)
      idealy_f_ += 2 * interline_f;
-     else
+   else
      idealy_f_ += 1.5 * interline_f;
-     */
-
-  idealy_f_  = dir_ * s->stem_end_f();
-
-  miny_f_ = dir_ * s->stem_begin_f() + notehead_y + beams_i_ * interbeam_f;
+   idealy_f_ /= internote_f;
+  miny_f_ = dir_ * s->stem_begin_f () + 2 + beams_i_ * interbeam_f / internote_f;
 
   idealy_f_ =  miny_f_ >? idealy_f_;
   //    assert (miny_f_ <= idealy_f_);

@@ -4,41 +4,169 @@ ly2dvi - convert mudela to DVI
 
 =head1 SYNOPSIS
 
-	ly2dvi file[.ly]
+	ly2dvi [options] inputfile[.ly] [....]
 
 =head1 DESCRIPTION
 
-ly2dvi is a script that will setup LaTeX and TeX for you to ...
+ly2dvi is a shell script which creates input file for LaTeX,
+based on information from the output file(s) from lilypond.
+The script handles multiple files. If a mudela file name is
+specified lilypond is run to make an output (TeX) file.
+
+One or more LaTeX files are created, based on information found
+in the output (TeX) file(s), and latex is finally run to create
+one or more DVI files.
 
 =head1 OPTIONS
 
 =over 5
 
-=item B<--help>
+=item B<-D,--debug>
 
-give help
+Set debug mode. There are two levels - in level one some debug
+info is written, in level two the command C<set -x> is run, which
+echoes every command in the ly2dvi script.
 
-=item .....
+=item B<-O,--orientation=>
+
+Set orientation - portrait is the default.
+(C<-O> landscape produces C<\usepackage[landscape]{article}>)
+
+=item B<-o,--output=>
+
+Set output directory.
+
+=item B<-h,--help>
+
+Print help.
+
+=item B<-k,--keep>
+
+Keep the LaTeX file after the run.
+
+=item B<-l,--language>
+
+Specify LaTeX language.
+(C<-l norsk> produces C<\usepackage[norsk]{babel}>).
+
+=item B<-p,--papersize=>
+
+Specify papersize.
+(C<-p a4paper> produces C<\usepackage[a4paper]{article}>)
+
+=item B<-s,--separate>
+
+Normally all output files are included into one LaTeX file.
+With this switch all files are run separately, to produce one
+DVI file for each.
 
 =back
 
-=head1 SOMETHING
+=head1 FEATURES
+
+ly2dvi responds to several parameters specified in the mudela
+file. They are overridden by corresponding command line options.
+
+=over 5
+
+=item B<papersize>
+
+Specify papersize.
+
+=item B<orientation>
+
+Set orientation.
+
+=item B<language>
+
+Specify LaTeX language
+
+=item B<paperlinewidth>
+
+Specify the width (pt, mm or cm) of the printed lines.
+
+=back
 
 =head1 ENVIRONMENT
 
+=over 5
+
+=item B<LILYINCLUDE>
+
+Additional directories for the input file(s).
+
+=item B<TMP>
+
+Temporary directory. Default is /tmp
+
+=back
+
 =head1 FILES
 
-F</etc/papersize> contains ...
+F<titledefs.tex> is inspected for definitions used to extract
+additional text definitions from the mudela file. In the current
+version the following are defined:
+
+=over 5
+
+=item B<title>
+
+The title of the music. Centered on top of the first page.
+
+=item B<subtitle>
+
+Subtitle, centered below the title.
+
+=item B<composer>
+
+Name of the composer, rightflushed below the subtitle.
+
+=item B<arranger>
+
+Name of the arranger, rightflushed below the composer.
+
+=item B<instrument>
+
+Name of the instrument, leftflushed at same level as the composer.
+
+=back
 
 =head1 SEE ALSO
 
-lilypond(1), 
+lilypond(1), TeX, LaTeX
 
 =head1 AUTHOR
 
-JAF
+Jan Arne Fagertun <Jan.A.Fagertun@energy.sintef.no>,
+http://www.termo.unit.no/mtf/people/janaf/
 
 =head1 BUGS
 
-Does not handle margins properly
+If you have found a bug, you should send a bugreport.
+
+=over 4
+
+=item *
+Send a copy of the input which causes the error.
+
+=item *
+Send a description of the platform you use.
+
+=item *
+Send a description of the LilyPond and ly2dvi version you use.
+
+=item *
+Send a description of the bug itself.
+
+=item *
+Send it to bug-gnu-music@gnu.org (you don't have to subscribe
+to this mailinglist).
+
+=back
+
+=head1 REMARKS
+
+Only one papersize is supported, A4. Information on other sizes
+(LaTeX names, horizontal and vertical sizes) should be mailed to
+the author or to the mailing list.
 

@@ -167,7 +167,9 @@ input feta-ital-r;
 input feta-ital-s;
 input feta-ital-z;
 
-font_slant slant; font_x_height x_height#;
+font_slant slant;
+font_x_height x_height#;
+font_quad 18u#;             % to have a working em unit
 
 fet_endfont("feta-din");
 end.

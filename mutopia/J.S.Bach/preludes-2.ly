@@ -8,73 +8,72 @@ copyright =	 "public domain";
 
 \include "paper20.ly"
 
-rh = \melodic{
+one = \melodic{
 	\octave c'';
 	\textstyle "italic";
 	r8\mf ['c-1( 'e-2 'g-4] ['e-2 'c-1 'bes-5 'g-3] |
 	[)'a-4\< 'c-1( 'f-2 'a-4] ['f 'c c-5 'a-3] |
 	[)'b-4 'g-1( 'b-2 d-4] ['b-2 'g f-5 \!d-3] |
-	\multi 2 <
-		{\stemup; )e2-4\f r4 e-5 }
-		{\stemdown; <c2 'g> r4 <c 'g> }
+	<
+		{\voiceone; )e2-4\f r4 e-5 }
+		{\voicetwo; <c2 'g> r4 <c 'g> }
 	>
-	\stemboth; |
-	\multi 2 < 
-		 { \stemup; d2-4 r4 d-4 }
-		 { \stemdown; <c2 'a> r4 <c 'a> }
+	\onevoice; |
+	< 
+		 { \voiceone; d2-4 r4 d-4 }
+		 { \voicetwo; <c2 'a> r4 <c 'a> }
 	>
-	\stemboth; |
-	\multi 2 < 
-		 { \stemup; d8 }
-		 { \stemdown; <'b8 'g> }
+	\onevoice; |
+	< 
+		 { \voiceone; d8 }
+		 { \voicetwo; <'b8 'g> }
 	>
-	\stemboth;
+	\onevoice;
 	['g8-1\mf( 'b-2 d-4] 
-	\multi 2 <
-		{ \stemup; )'b4 e-5 }
-		{ \stemdown; 'g4 'b }
+	<
+		{ \voiceone; )'b4 e-5 }
+		{ \voicetwo; 'g4 'b }
 	>
-	\stemboth; |
-	\multi 2 <
-		{ \stemup; c2 r4 < {c-5 ~ c8} {'a4 ~ 'a8} > }
-		{ \stemdown; c2 r4 'e4 ~ 'e8 }
+	\onevoice; |
+	<
+		{ \voiceone; c2 r4 < {c-5 ~ c8} {'a4 ~ 'a8} > }
+		{ \voicetwo; c2 r4 'e4 ~ 'e8 }
 	>
-	\stemboth;
+	\onevoice;
 	['d-1\p( 'fis-2 'a-4] ['fis-2 'd-1 c-5 'a-3] |
 	[)'b-4\< 'g-1( 'b-2 d-4] [ 'b-2 'g-1 f!-5 d-3] |
 	[)e-4 'g-1( c-2 e-4] [c-2 'g g-5 e-3] |
 	[)fis-4 'a-1( c-2 fis-4] [c 'a a-5 \!fis-3] |
-	\multi 2 <
-		{ \stemup; )g2-5\f }
-		{ \stemdown; <d2 'b> }
+	<
+		{ \voiceone; )g2-5\f }
+		{ \voicetwo; <d2 'b> }
 	>
-	\stemboth;
+	\onevoice;
 	r4 b4-2( |
 	[c8-1 e-2 g c'] [g-2 e-1 bes-4 g-2] |
 	[)a16->-3 g-2 f-1 e-3] [d c 'b!-3 'a-2] 
 	['b-3\< 'g-1 'a 'b] [c-1 d e \!f] |
 	g4-5\ff
-	\multi 2 <
-		{ \stemup; c2-5 'b4-4 }
-		{ \stemdown; 'g2-2 'd4-1 }
+	<
+		{ \voiceone; c2-5 'b4-4 }
+		{ \voicetwo; 'g2-2 'd4-1 }
 	>
-	\stemboth;
-	\multi 2 <
-		{ \stemup;  c1^5 }
-		{ \stemdown; 'e1_1}
+	\onevoice;
+	<
+		{ \voiceone;  c1^5 }
+		{ \voicetwo; 'e1_1}
 	>
-	\stemboth;
+	\onevoice;
 	\bar "|.";
 }
 
-lh = \melodic{
+two = \melodic{
 	\octave c;
-	\clef bass;
-	\multi 2 <
-		{ \stemup; c1 ~ c ~ c }
-		{ \stemdown; 'c1 ~ 'c ~ 'c }
+	<
+		{ \voiceone; c1 ~ c ~ c }
+		{ \voicetwo; 'c1 ~ 'c ~ 'c }
 	>
-	\stemboth; |
+	\onevoice; |
 	r8 [c-5( e-3 g-1] [e-3 c-5 c' e-4] |
 	[)fis-3 d-5( fis-3 a-1] [fis-3 d-5 d' fis-4] |
 	)g2-3 r4 g-2( |
@@ -100,24 +99,32 @@ global  = \melodic{
 	\meter 4/4;
 }
 
-\score{
-	% Moderato
-	% it would be nice to shut-off fingering...
-	\melodic \type Grandstaff < 
-		<
-			\global 
-			\rh
-		>
-		<
-			\global 
-			\lh
-		>
-	>
-	\paper{
-		\paper_twenty
-		linewidth= 195.\mm;
-	}
-	\midi{
-		\tempo 4 = 90;
-	}
+treble_staff = \type Staff = treble <
+	\global
+	\one
+>
+
+bass_staff = \type Staff = bass <
+% bass = Staff <
+	\clef "bass";
+	\global
+	\two
+>
+
+grand_staff = \type Grandstaff <
+	\treble_staff
+	\bass_staff
+>
+
+a4 = \paper{
+	\paper_twenty
+	linewidth= 195.\mm;
 }
+
+\score{
+        % Moderato
+	\grand_staff
+	\paper{ \a4 }
+	\midi{ \tempo 4 = 100; }
+}
+

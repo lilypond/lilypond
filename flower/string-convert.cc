@@ -4,12 +4,13 @@
 
 --*/
 
-
+#include <stdio.h>
 #include <assert.h>
 #include <limits.h>
 #include "libc-extension.hh"
 #include "string.hh"
 #include "string-convert.hh"
+#include "rational.hh"
 
 /**
    a safe length for stringconversion buffers
@@ -240,18 +241,7 @@ String_convert::char_str (char c, int n)
 String
 String_convert::rational_str (Rational r)
 {
-  char * n = Itoa (r.numerator()); // LEAK????
-  
-  String s = n;
-  if (r.denominator() != 1) 
-    {
-      char * d = Itoa (r.denominator());
-      s +=  String ('/') + String (d);
-      //delete d;
-    }
-  /*    delete n;
-   */
-  return s;
+	return r.str ();
 }
 
 String

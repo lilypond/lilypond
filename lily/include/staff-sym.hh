@@ -17,12 +17,13 @@
   */
 class Staff_symbol : public Spanner
 {
+public:
   /// this many lines.
   int no_lines_i_;
   Real interline_f_;
-public:
+
   DECLARE_MY_RUNTIME_TYPEINFO;
-  Staff_symbol (int lines);
+  Staff_symbol ();
   Real inter_note_f() const;
   int steps_i() const;
 protected:

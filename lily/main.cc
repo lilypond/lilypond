@@ -6,6 +6,7 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
+#include <stdlib.h>
 #include <iostream.h>
 #include <assert.h>
 #include "proto.hh"

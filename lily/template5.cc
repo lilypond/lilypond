@@ -20,11 +20,25 @@ template INTERVAL__INSTANTIATE(int);
 Rational
 Interval_t<Rational>::infinity()
 {
-  return Rational (INT_MAX);
+  Rational infty;
+  infty.set_infinite (1);
+  return infty;
+}
+
+String
+Interval_t<Rational>::T_to_str (Rational a)
+{
+  return a.str ();
 }
 
 int
 Interval_t<int>::infinity()
 {
   return INT_MAX;
+}
+
+String
+Interval_t<int>::T_to_str (int i)
+{
+  return String (i);
 }

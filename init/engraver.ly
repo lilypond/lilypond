@@ -14,11 +14,22 @@ Staff = \translator {
 	  \consists "Staff_sym_engraver";
 	  \consists "Collision_engraver";
 	  \consists "Rest_collision_engraver";
-
 	  \consists "Line_group_engraver";
 	  \accepts "Voice";
 }
 
+Rhythmic_staff = \translator
+{
+	  \type "Engraver_group_engraver";
+	nolines  = "1";
+	  \consists "Pitch_squash_engraver";
+
+	  \consists "Bar_engraver";
+	  \consists "Meter_engraver";
+	  \consists "Staff_sym_engraver";
+	  \consists "Line_group_engraver";
+	  \accepts "Voice";
+}
 Voice = \translator {
 	\type "Engraver_group_engraver";
 	\consists "Dynamic_engraver";
@@ -58,6 +69,7 @@ Staff_group = \translator {
 	\consists "Vertical_align_engraver";
 	\consists "Line_group_engraver";
 	\accepts "Staff";
+	\accepts "Rhythmic_staff";
 	\accepts "Grandstaff";
 	\accepts "Lyrics";
 }
@@ -94,6 +106,7 @@ Score = \translator {
 
 	\accepts "Staff_group";
 	\accepts "Staff";
+	\accepts "Rhythmic_staff";	
 	\accepts "Lyrics";
 	\accepts "Grandstaff";
 }
