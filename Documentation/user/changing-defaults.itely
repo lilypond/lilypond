@@ -1819,7 +1819,8 @@ duration adds a fixed amount (this amount is controlled by
 For example, the following piece contains lots of half, quarter, and
 8th notes, the eighth note is followed by 1 note head width (NHW). 
 The quarter note is followed by 2 NHW, the half by 3 NHW, etc.
-@lilypond[fragment,verbatim,relative=1] c2 c4. c8 c4. c8 c4. c8 c8
+@lilypond[fragment,verbatim,relative=1]
+c2 c4. c8 c4. c8 c4. c8 c8
 c8 c4 c4 c4
 @end lilypond
 
