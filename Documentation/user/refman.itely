@@ -1,4 +1,9 @@
-
+@c TODO: 
+@c - Reinsert subsection commands that were lost in the
+@c   ancient conversion from YODL!  /MB
+@c - Restructure! Separate internal commands from user level commands. /MB
+@c - Add some words about Guile.  /MB
+@c - Fix indexing (keyindex) so it doesn't add line breaks  /MB
 
 @node Reference Manual, ,  , Top
 @menu
@@ -96,7 +101,7 @@ The syntax is
 
 @example
   \header @{ @var{key1} = @var{val1};
-                        @var{key2} = @var{val2}; @dots{} @}
+             @var{key2} = @var{val2}; @dots{} @}
 @end example
 
 A header describes the file's contents.  It can also appear in a
@@ -319,8 +324,8 @@ english.ly     c   d   e   f   g   a   bf  b   -s/-sharp   -f/-flat
 deutsch.ly     c   d   e   f   g   a   b   h   -is         -es
 norsk.ly       c   d   e   f   g   a   b   h   -iss/-is    -ess/-es
 svenska.ly     c   d   e   f   g   a   b   h   -iss        -ess
-italiano.ly    do  re  mi  fa  sol la  sid si  -d          -b
-catalan.ly     do  re  mi  fa  sol la  sid si  -d/-s       -b 
+italiano.ly    do  re  mi  fa  sol la  sib si  -d          -b
+catalan.ly     do  re  mi  fa  sol la  sib si  -d/-s       -b 
 @end example 
 
 Pitch names can be redefined using the
@@ -401,8 +406,8 @@ different modes have different rules for deciding what is a word.
     is that a word can end with `@code{@}}', which may be confusing if
     you thought the closing brace was going to terminate Lyrics
     mode.@footnote{LilyPond will issue a warning, though.}  Any
-    `@code{_}' characters which appear in an unquoted word are
-    converted to spaces.  This provides a mechanism for introducing
+    `@code{_}' character which appears in an unquoted word is
+    converted to a space.  This provides a mechanism for introducing
     spaces into words without using quotes.  Quoted words can also be
     used in Lyrics mode to specify words that cannot be written with
     the above rules.  Here are some examples.  Not all of these words
@@ -924,7 +929,7 @@ lasting two eighth notes.
 
 @cindex upstep
 
-`@code{|}' is a barcheck.  Whenever a barcheck is encountered during
+`@code{|}' is a bar check.  Whenever a bar check is encountered during
 interpretation, a warning message is issued if it doesn't fall at a
 measure boundary.  This can help you finding errors in the input. 
 The beginning of the measure will be relocated, so this can also
@@ -1833,7 +1838,7 @@ notes.
 @mudela[verbatim,fragment]
 \addlyrics
 \transpose c'' {
-  \property Voice.automaticMelismata = "1"
+  \property Voice.automaticMelismata = ##t
   c8 () cis d8. e16 f2
 }
 \context Lyrics \lyrics {
@@ -1999,7 +2004,7 @@ If you want inversions to be recognized, you must set the property
 
 @mudela[fragment,verbatim,center]
   <
-    \property Score.chordInversion = 1
+    \property Score.chordInversion = ##t
     \context ChordNameVoice \notes {
       <e'1 g' c''>
     }

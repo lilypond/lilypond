@@ -2,8 +2,10 @@
 @section Bug reports
 
 There is an extensive list of todoes and bugs.  See the file
-@file{TODO} distributed with the sources.  If you have a problem you
-please try to find out
+@file{TODO} distributed with the sources.  If you have a problem,
+would you please try to find out
+
+@c ********* The TODO file is no more in the distr.  /MB
 
 @itemize @bullet
 @item If the bug has been fixed in a newer release.

@@ -38,7 +38,8 @@ full fledged, yet simple example. It is a convoluted version
 of the famous menuet in J. S. Bach's @emph{Klavierbuechlein}.
 
 @mudela[verbatim]
-% lines preceded by a percent are comments.
+% lines preceded by a percent are comments which
+% are ignored by Lilypond.
 \include "paper16.ly"
 \score {
     \notes                        
@@ -85,7 +86,9 @@ will analyse the input, line by line.
 Let's try to redo this
 @example
 
-        % lines preceded by a percent are comments.
+	% lines preceded by a percent are comments which
+	% are ignored by Lilypond.
+
  
 @end example 
 The percent sign, `@code{%}', introduces a line comment.  If you want to
@@ -178,8 +181,8 @@ typesetting conventions.
  
 @end example 
   This command tells LilyPond that the following piece of music must
-be played twice; @code{"volta"} volta brackets should be used for
-alternatives---if there were any.
+be played twice; @code{"volta"} means that volta brackets should be used
+for alternatives---if there were any.
 @example 
 
         @{
@@ -210,8 +213,8 @@ duration (You may enter it anyway, e.g. @code{a4 b4})
         d4 g, g |
  
 @end example 
- Three more notes.  The `@code{|}' character is a `barcheck'.  When
-processing the music, LilyPond will verify that barchecks are found at
+ Three more notes.  The `@code{|}' character is a `bar check'.  When
+processing the music, LilyPond will verify that bar checks are found at
 the start of a measure.  This can help you track down errors.
 
  So far, no notes were chromatically altered.  Here is the first one
@@ -233,8 +236,8 @@ In this case, a beam over 4 eighths is added.
 @end example 
   The next line shows how to make a slur:
 the beginning and ending note of the slur is marked with an opening and
-closing parenthesis respectively.  In the line shown above this is
-done for two slurs.  Slur markers (parentheses) are between
+closing parenthesis respectively.  In the line shown above, this is
+done for two slurs.  Slur markers (parentheses) are put between
 the notes.
 @example 
 
@@ -242,7 +245,7 @@ the notes.
  
 @end example 
 Automatic beaming can be overridden by inserting beam marks
-(brackets).  Brackets are put around notes you want beamed.
+(brackets).  Brackets are put around the notes you want beamed.
 @example 
 
         g2.  |
@@ -263,8 +266,8 @@ a repeat bar.
  
 @end example 
  This line shows that Lily will print an accidental if that is
-needed: the first C sharp will be printed with an accidental, the
-second one without.
+needed: the first C sharp of the bar will be printed with an accidental,
+the second one without.
 @example 
 
         a8-. b-. cis-. d-. e-. fis-.
@@ -272,7 +275,7 @@ second one without.
 @end example 
 You can enter articulation signs either in a verbose form using a
 shorthand.  Here we demonstrate the shorthand: it is formed by a dash
-and the the character for the articulation to use, e.g. `@code{-.}' for
+and the character for the articulation to use, e.g. `@code{-.}' for
 staccato as shown above.
 @example 
 
@@ -347,6 +350,7 @@ of this song.}.
 \include "paper16.ly"
 melody = \notes \relative c' @{
         \partial 8;
+	\key c \minor;
         g8 |
         c4 c8 d [es () d] c4 | f4 f8 g [es() d] c g |
         c4 c8 d [es () d] c4 | d4 es8 d c4.
@@ -370,13 +374,13 @@ accompaniment =\chords @{
 
           \addlyrics
             \context Staff = mel @{        
-              \property Staff.noAutoBeaming = "1"
-              \property Staff.automaticMelismata = "1"
+              \property Staff.noAutoBeaming = ##t
+              \property Staff.automaticMelismata = ##t
               \melody 
             @}
             \context Lyrics \text
         @}
-        \midi  @{ @}
+        \midi  @{ \tempo 4=72;@}
         \paper @{ linewidth = 10.0\cm; @}
 @} 
 @end example 
@@ -421,13 +425,13 @@ accompaniment =\chords {
 
           \addlyrics
             \context Staff = mel {
-              \property Staff.noAutoBeaming = "1"
-              \property Staff.automaticMelismata = "1"
+              \property Staff.noAutoBeaming = ##t
+              \property Staff.automaticMelismata = ##t
               \melody 
             }
             \context Lyrics \text
         }
-        \midi  { }
+        \midi  { \tempo 4=72;}
         \paper { linewidth = 10.0\cm; }
 }
 @end mudela
@@ -451,7 +455,7 @@ the @code{\header} block contains assignments.  An assignment starts
 with a string.  (which is unquoted, in this case). Then comes the
 equal sign `@code{=}'.  After the equal sign comes the expression you
 want to store.  In this case, you want to put in strings.  The
-information has to be quoted here, because it contains spaces. The
+information has to be quoted here, because it contains spaces. Each
 assignment is finished with a semicolon.
 @example 
 
@@ -475,7 +479,7 @@ construct the music within the score block.
 
 The piece starts with an anacrusis of one eighth.
 @example
-	\key c \minor
+	\key c \minor;
 @end example
 The key is C minor: we have three flats.
 
@@ -587,18 +591,18 @@ Normally, the notes that you enter are transformed into note heads.
 The note heads alone make no sense, they need surrounding information:
 a key signature, a clef, staff lines, etc.  They need @emph{context}.  In
 LilyPond, these symbols are created by objects called `interpretation
-context'.  Interpretation contexts only exist during a run of
+contexts'.  Interpretation contexts only exist during a run of
 LilyPond.  Interpretation contexts that are for printing music (as
-opposed to playing music) are called `notation context'.
+opposed to playing music) are called `notation contexts'.
 
-By default, LilyPond will create a Staff contexts for you.  If you
-would remove the @code{%} sign in the previous line, you can see that
+By default, LilyPond will create a Staff context for you.  If you
+removed the @code{%} sign in the previous line, you would see that
 mechanism in action.
 
-We don't want default contexts here, because we want names, not note
-heads.  An interpretation context can also created upon explicit
+We don't want default contexts here, because we want chord names, not
+note heads.  An interpretation context can also created upon explicit
 request. The keyword for such a request is @code{\context}.  It takes
-two arguments.  The first is the name of a interpretation context.
+two arguments.  The first is the name of an interpretation context.
 The name is a string, it can be quoted with double quotes).  The
 second argument is the music that should be interpreted in this
 context.  For the previous line, we could have written @code{\context
@@ -621,14 +625,14 @@ silly.)
  
 @end example 
 This is the argument of @code{\addlyrics}.  We instantiate a
-@code{Staff} context explicitly: should you chose to remove comment
+@code{Staff} context explicitly: should you chose to remove the comment
 before the ``note heads'' version of the accompaniment, the
 accompaniment will be on a nameless staff.  The melody has to be on a
 different staff as the accompaniment.  This is accomplished by giving
 the melody staff a different name.
 @example 
 
-        \property Staff.noAutoBeaming = "1"
+        \property Staff.noAutoBeaming = ##t
  
 @end example 
 An interpretation context has variables that tune its behaviour.  One
@@ -637,7 +641,7 @@ true) LilyPond will not try to put automatic beaming on the current
 staff.
 @example 
 
-        \property Staff.automaticMelismata = "1"
+        \property Staff.automaticMelismata = ##t
  
 @end example 
 Similarly, we  don't want to print a  syllable when there is
@@ -670,14 +674,16 @@ Lyrics.
 This ends @code{\simultaneous}.
 @example 
 
-        \midi  @{ @}
+        \midi  @{ \tempo 4=72;@}
  
 @end example 
 This makes the music go to a MIDI file.  MIDI is great for
 checking music you enter.  You listen to the MIDI file: if you hear
 something unexpected, it's probably a typing error.  @code{\midi} is an
 `output definition', a declaration that specifies how to output music
-analogous to @code{\paper @{ @}}.
+analogous to @code{\paper @{ @}}. You can specify the tempo using the
+@code{\tempo} command, in this case the tempo of quarter notes is set
+to 72 beats per minute.
 @example 
 
         \paper @{ linewidth = 10.0\cm; @}
@@ -695,12 +701,13 @@ End the score block.
 @node Piano music, , , Tutorial
 @section Piano music
 
-Our third subject is a piece piano music.  The fragment in the input
+Our third subject is a piece of piano music.  The fragment in the input
 file is a piano reduction of the G major Sinfonia by Giovanni Battista
 Sammartini.  It was composed around 1740. 
 
 @mudela[verbatim]
 
+\version "1.3.56";
 \include "paper16.ly";
 
 viola = \notes \relative c' \context Voice = viola {
@@ -736,7 +743,7 @@ hoomPahHoomPah = { [\hoomPah \hoomPah] }
 
 bassvoices = \notes \relative c' {
         c4 g8. b,16
-        \hoomPahHoomPah \hoomPahHoomPah \hoomPahHoomPah \hoomPahHoomPah
+        \repeat unfold 4 {\hoomPahHoomPah}
         \stemdown [c8 c'8] r4
         <g d'> r4
         < {\stemup r2 <e4 c'> <c8 g'> }
@@ -746,7 +753,7 @@ bassvoices = \notes \relative c' {
 \score {
         \context PianoStaff \notes <
                 \context Staff = top < \time 2/2;
-                        \context Voice = viola \viola
+                        \viola
                         \oboes
                 >
                 \context Staff = bottom < \time 2/2; \clef bass;
@@ -764,15 +771,21 @@ If it looks like incomprehensible gibberish to you@dots{} Then you are
 right.  The author has doctored this example to have as many quirks in
 one system as possible.
 @example 
+\version "1.3.56";
+@end example 
+Lilypond and the Mudela language is still under development, therefore
+it is useful to indicate the Lilypond version of the file. Lilypond 
+will check the version number and warn you when the syntax has
+changed. Also, the @code{convert-mudela} program will be able to 
+update most of the syntax changes automatically.
+@example 
 viola = \notes \relative c'  \context Voice = viola @{ 
 @end example 
 In this example, you can see multiple parts on a staff.  Each part is
 associated with one notation context.  This notation context handles
 stems and dynamics (among others).  The name of this context is
 @code{Voice}.  For each part we have to make sure that there is
-precisely one Voice context@footnote{If @code{\context} would not
-have been specified explicitly, three @code{Voice} contexts would be
-created: one for each note  in the first chord.}.
+precisely one Voice context.
 @example 
 <c4-\f g' c> 
 @end example 
@@ -861,7 +874,7 @@ it from the other context.  Stems go down in this voice.
 When a grace section is processed, a @code{Grace} context is
 created. This context acts like a miniature score of its own.  It has
 its own time bookkeeping, and you can make notes, beams, slurs
-etc. Here fiddle with a property and make a beam.  The argument of
+etc. Here we fiddle with a property and make a beam.  The argument of
 @code{\grace} is sequential music.
 @example 
 \property Grace.verticalDirection = \down
@@ -924,11 +937,11 @@ hoomPahHoomPah = @{ [\hoomPah \hoomPah] @}
 Put two of these fragments in sequence, and beam them.@example 
 bassvoices = \notes \relative c' @{
 c4 g8. b,16
-\hoomPahHoomPah \hoomPahHoomPah \hoomPahHoomPah
-\hoomPahHoomPah 
+\repeat unfold 4 {\hoomPahHoomPah} 
 @end example 
 Entering the bass part is easy: the hoomPahHoomPah variable is
-referenced four times.
+repeated four times; @code{unfold} means that all four repetitions
+should be written out.
 @example 
 \context Voice = reallyLow  @{\stemdown g2 ~ | g4 c8 @} > 
 @end example 
@@ -946,7 +959,7 @@ The bottom staff must have a different clef.
 indent = 0.0; 
 @end example 
 To make some more room on the line, the first (in this case the only)
-line is not indented.  The line still looks is very cramped, but that is due
+line is not indented.  The line still looks very cramped, but that is due
 to the format of this tutorial.
 
 This example shows a lot of features, but the organisation isn't

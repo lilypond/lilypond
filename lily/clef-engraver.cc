@@ -50,7 +50,8 @@ public:
    
   Clef_engraver();
 
-  SCM basic_properties_;
+  bool  first_b_;
+  
   Protected_scm current_settings_;
 };
 
@@ -58,8 +59,8 @@ public:
 Clef_engraver::Clef_engraver()
 {
   current_settings_ = SCM_EOL;
-  basic_properties_ = SCM_EOL;
-  
+
+  first_b_ = true;
   clef_glyph_ = SCM_EOL;
   clef_p_ = 0;
   clef_req_l_ = 0;
@@ -108,7 +109,8 @@ Clef_engraver::set_type (String s)
 
   c0_position_i_ -= (int) octave_dir_ * 7;
 
-  current_settings_ = gh_cons (gh_cons (ly_symbol2scm ("glyph"), clef_glyph_), basic_properties_);
+  SCM basic = get_property ("basicClefItemProperties");
+  current_settings_ = gh_cons (gh_cons (ly_symbol2scm ("glyph"), clef_glyph_), basic);
   current_settings_ =
     gh_cons (gh_cons (ly_symbol2scm ("c0-position"),
 		      gh_int2scm (c0_position_i_)),
@@ -116,7 +118,6 @@ Clef_engraver::set_type (String s)
   
   return true;
 }
-
 
 /** 
   Generate a clef at the start of a measure. (when you see a Bar,
@@ -129,14 +130,11 @@ Clef_engraver::acknowledge_element (Score_element_info info)
       && gh_string_p (clef_glyph_))
     create_clef();
 
-  /* ugh; should make Clef_referenced baseclass */
   Item * it_l =dynamic_cast <Item *> (info.elem_l_);
   if (it_l)
     {
       if (dynamic_cast<Note_head*>(it_l)
-	  || dynamic_cast<Local_key_item*> (it_l)
-	  )
-	  
+	  || dynamic_cast<Local_key_item*> (it_l))
 	{
 	  Staff_symbol_referencer_interface si (it_l);
 	  si.set_position (int (si.position_f ()) + c0_position_i_);
@@ -151,14 +149,10 @@ Clef_engraver::acknowledge_element (Score_element_info info)
 void
 Clef_engraver::do_creation_processing()
 {
-  basic_properties_ = get_property ("basicClefItemProperties");
-  
   SCM def = get_property ("defaultClef");
   if (gh_string_p (def))
     {
       set_type (ly_scm2string (def));
-      create_clef ();
-      clef_p_->set_elt_property ("non-default", SCM_BOOL_T);
     }
 }
 
@@ -214,7 +208,7 @@ Clef_engraver::create_clef()
 void
 Clef_engraver::do_process_music()
 {
-  if (clef_req_l_)
+  if (clef_req_l_ || first_b_)
     {
       create_clef();
       clef_p_->set_elt_property ("non-default", SCM_BOOL_T);
@@ -248,6 +242,8 @@ Clef_engraver::do_pre_move_processing()
 
       octavate_p_ = 0;
     }
+
+  first_b_ = 0;
 }
 
 void

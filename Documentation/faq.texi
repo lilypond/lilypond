@@ -407,7 +407,23 @@ No.  We have evaluated the standard GNU combination for compiling
 programs (autoconf, automake, libtool) and found to be inadequate for
 our needs.
 
-@subsubsection gdb crashes when I debug!
+@subsubsection How do I inspect @code{String}s and @code{SCM} values in GDB?
+
+Use the following command definitions, which can be put in 
+the file ~/.gdbinit.
+
+@example
+define printstr
+    print $arg0->strh_.data->data_byte_p_
+end
+
+define printscm
+    call gh_display($arg0)
+    call gh_newline()
+end
+@end example
+
+@subsubsection GDB crashes when I debug!
 
 Upgrade/downgrade to 4.17.
 
