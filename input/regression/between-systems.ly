@@ -16,8 +16,7 @@ of course.
 \score {
 \notes \relative c' { c1
 
-	\context Score \outputproperty #(make-type-checker 'paper-column-interface)
-		#'between-system-string = #"(pagebreak)\n\n"
+	\context Score \applyoutput #(outputproperty-compatibility (make-type-checker 'paper-column-interface) 'between-system-string "(pagebreak)\n\n")
 	\break
 
 c1 }

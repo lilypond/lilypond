@@ -18,14 +18,14 @@ involves some scheme code. " }
     c2.
     <<
 \property Staff.AccidentalPlacement = \turnOff
-\context Staff \outputproperty #(make-acc-position-checker 9)
-                               #'extra-offset = #'(-1 . 0)
-\context Staff \outputproperty #(make-acc-position-checker 5)
-                               #'extra-offset = #'(-2 . 0)
-\context Staff \outputproperty #(make-acc-position-checker 3)
-                               #'extra-offset = #'(-3 . 0)
-\context Staff \outputproperty #(make-acc-position-checker 2)
-                               #'extra-offset = #'(-4 . 0)
+\context Staff \applyoutput #(outputproperty-compatibility (make-acc-position-checker 9)
+                               'extra-offset  '(-1 . 0))
+\context Staff \applyoutput #(outputproperty-compatibility (make-acc-position-checker 5)
+                               'extra-offset  '(-2 . 0))
+\context Staff \applyoutput #(outputproperty-compatibility (make-acc-position-checker 3)
+                               'extra-offset  '(-3 . 0))
+\context Staff \applyoutput #(outputproperty-compatibility (make-acc-position-checker 2)
+                               'extra-offset  '(-4 . 0))
       d!4
       eis
       gis

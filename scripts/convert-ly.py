@@ -1543,8 +1543,20 @@ def conv (str):
 		return '(ly:make-pitch %s %s %s)' % (m.group(1), m.group (2), alt)
 	
 	str =re.sub ("\\(ly:make-pitch *([0-9-]+) *([0-9-]+) *([0-9-]+) *\\)", sub_alteration, str) 
+
+	m= re.search ("\\\\outputproperty #([^#]+)[\t\n ]*#'([^ ]+)", str)
+	if m:
+		sys.stderr.write (\
+			r"""\outputproperty found, 
+Please hand-edit, using
+
+  \applyoutput #(outputproperty-compatibility %s '%s <GROB PROPERTY VALUE>)
+
+as a substitution text.""" % (m.group (1), m.group (2)) )
+		raise FatalConversionError
+	
 	return str
-conversions.append (((1,9,7), conv, 'use symbolic constants for alterations.'))
+conversions.append (((1,9,7), conv, 'use symbolic constants for alterations, remove \\outputproperty'))
 
 
 
