@@ -166,4 +166,7 @@ postinstall () {
 
     #cd $inst-doc/$packagedocdir &&
     #ln -s $(find html/Documentation -name '*.ps.gz') .
+
+    install -d -m755 $inst-doc/$infodir/lilypond
+    cd $inst-doc/$infodir/lilypond && ln -sf ../../doc/$base-$ver/Documentation/user/out-www/*png .
 }

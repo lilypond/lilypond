@@ -30,12 +30,14 @@
   "Set the default staff size, where SZ is thought to be in PT."
   (let* ((old-mod (current-module))
 	 (pap (eval '$defaultpaper old-mod))
-
+	 (is-paper? (module-defined? old-mod '$defaultpaper))
+	
 
 	 ;; Huh? Why is it necessary to clone object? 
 	 (new-paper (ly:output-def-clone pap))
 	 (new-scope (ly:output-def-scope new-paper)))
-    
+    (if (not is-paper?)
+	(ly:warn "Not in toplevel scope"))
     (set-current-module new-scope)
     (paper-set-staff-size (* sz (eval 'pt new-scope)))
     (set-current-module old-mod)
