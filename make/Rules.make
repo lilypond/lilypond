@@ -38,6 +38,10 @@ $(outdir)/%.cc: %.ll
 $(outdir)/%: %.m4
 	$(M4) $< > $@
 
+# urg
+$(outdir)/%.ly: %.lym4
+	$(M4) $< | sed "s/\`/,/g" > $@
+
 # outdirs:
 #
 # ?$(outdir)/%.dep:
