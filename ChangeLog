@@ -1,3 +1,7 @@
+2003-08-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* python/lilylib.py (system): remove errorlog files.
+	
 2003-08-28  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond.words: add \new and new graces. Add dynamics to menus
@@ -5,6 +9,16 @@
 	notes becomes postfixed `-' marks will be removed.
 
 2003-08-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/molecule.cc (align_to): idem.
+
+	* lily/molecule-scheme.cc: ly_align_to_x takes continuous dir argument.
+	
+
+	* ly/grace-init.ly (stopAcciaccaturaMusic): correct misspelling of
+	accacciatura everywhere.
+
+	* VERSION (PACKAGE_NAME): released 1.9.2
 
 	* GNUmakefile.in (EXTRA_DIST_FILES): dist lilypond.vim too.
 

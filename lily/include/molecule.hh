@@ -62,16 +62,7 @@ public:
 		    Real minimum);
   void add_molecule (Molecule const &m);
   void translate (Offset);
-  
-  /**
-     align D direction in axis A.
-
-     If D == CENTER, then move the dimension (A).center () to (0,0)
-
-     Else, move so dimension (A)[D] == 0.0
-     
-   */
-  void align_to (Axis a, Direction d);
+  void align_to (Axis a, Real x);
   void translate_axis (Real,Axis);
   
   Interval extent (Axis) const;

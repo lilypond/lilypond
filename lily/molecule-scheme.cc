@@ -211,13 +211,17 @@ LY_DEFINE(ly_fontify_atom,"ly:fontify-atom", 2, 0, 0,
   return fontify_atom (unsmob_metrics (met), f);
 }
 LY_DEFINE(ly_align_to_x,"ly:molecule-align-to!", 3, 0, 0,  (SCM mol, SCM axis, SCM dir),
-	  "Align @var{mol} using its own extents.")
+
+	  "Align @var{mol} using its own extents. @var{dir} is a number -1, 1 are "
+	  " left and right respectively. Other values are interpolated (so 0 means "
+	  " the center. ")
 {
   SCM_ASSERT_TYPE(unsmob_molecule (mol), mol, SCM_ARG1, __FUNCTION__, "molecule");
   SCM_ASSERT_TYPE(ly_axis_p (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
-  SCM_ASSERT_TYPE(ly_dir_p (dir), dir, SCM_ARG3, __FUNCTION__, "dir");
+  SCM_ASSERT_TYPE(gh_number_p (dir), dir, SCM_ARG3, __FUNCTION__, "number");
 
-  unsmob_molecule (mol)->align_to ((Axis)gh_scm2int (axis), Direction (gh_scm2int (dir)));
+  unsmob_molecule (mol)->align_to ((Axis)gh_scm2int (axis),
+				   gh_scm2double (dir));
 
   return SCM_UNDEFINED;
 }

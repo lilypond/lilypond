@@ -105,14 +105,13 @@ Molecule::set_empty (bool e)
 
 
 void
-Molecule::align_to (Axis a, Direction d)
+Molecule::align_to (Axis a, Real x)
 {
   if (empty_b())
     return ;
 
   Interval i (extent (a));
-  Real r = (d == CENTER) ? i.center () : i[d];
-  translate_axis (-r, a);
+  translate_axis (-i.linear_combination (x), a);
 }
 
 /*
