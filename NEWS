@@ -1,4 +1,16 @@
+pl 36
+	- bf: notehead collisions
+	- bf: dot y-position
+	- use Item::break_priority_i_ for horizontal alignment of breakables.
+	(it still sucks)
+	- junk some derivation checks, junk Normal_*_bar
+	- FlowerLib fixes.
+	- twinkle fixes.
+	- feta: flag/clefspacing
 
+
+*******
+dec 5
 pl 35
 	- naming: lily-init iso symbol.ly
 	- mf braces

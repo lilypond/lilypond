@@ -182,6 +182,45 @@ Q: How do I change the TeX layout?
 
 A: See F<lilyponddefs.tex>, it has some comments.
 
+
+
+=head2 Development
+
+Q: Could you implement feature XXXX? It is really easy, just extend
+the syntax to allow YYYY!
+
+A: If it is reasonable, I'll add XXXX to the TODO list. In general
+finding a cute syntax (such as YYYY) isn't very hard. The complicated
+issue how to adapt the internals to do XXXX. The parser is really a
+simple front end to the complicated internals. 
+
+Q: Can I join in on LilyPond development?  How do I do this?
+
+A: LilyPond development is open for anyone who wants to join.  We try
+to use a Bazaar style development model for LilyPond, see
+http://locke.ccil.org/~esr/writing/cathedral.html.  This means:
+frequent releases, everyone can send in a patch or do suggestions and
+all development discussions are public.
+
+To be precise, discussions take place on the gnu-music-discuss mailing
+list, which is open for subscription to everyone.
+
+
+Q: I want to implement XXXX!  Should I do this?
+
+A: There might be better ways of doing XXXX, so it's a good thing to
+ask about this before you start hacking.  If you want to keep in touch
+with current developments, you should subscribe to the mailing list
+(see the "links" section of the documentation).
+
+
+Q: I want to implement XXXX!  How should I do this?
+
+A: Your best bet of getting me to include code, is to present it as a
+"fait accompli", ie., to send me a patch.
+
+
+
 Q: How do I learn the C++ code?
 
 A: The entry point is in C<main()>. Good luck. :-)
@@ -209,28 +248,6 @@ important data-structures are to be found in:
 Q: Why GPL?
 
 A: Yes.
-
-Q: Could you implement feature XXXX? It is really easy, just extend
-the syntax to allow YYYY!
-
-A: If it is reasonable, I'll add XXXX to the TODO list. In general
-finding a cute syntax (such as YYYY) isn't very hard. The complicated
-issue how to adapt the internals to do XXXX. The parser is really a
-simple front end to the complicated internals. 
-
-
-Q: I want to implement XXXX!  Should I do this?
-
-A: There might be better ways of doing XXXX, so it's a good thing to
-ask about this before you start hacking.  If you want to keep in touch
-with current developments, you should subscribe to the mailing list
-(see the "links" section of the documentation).
-
-
-Q: I want to implement XXXX!  How should I do this?
-
-A: Your best bet of getting me to include code, is to present it as a
-"fait accompli", ie., to send me a patch.
 
 
 Q: Why do I need g++ >= 2.7?
