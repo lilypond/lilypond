@@ -74,7 +74,7 @@ Grob::internal_set_grob_property (SCM s, SCM v)
 
   if (internal_type_checking_global_b)
     {
-      if (type_check_assignment (s, v, ly_symbol2scm ("backend-type?")))
+      if (!type_check_assignment (s, v, ly_symbol2scm ("backend-type?")))
 	abort ();
       check_interfaces_for_property (this, s);
     }
