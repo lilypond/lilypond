@@ -20,9 +20,10 @@ class Staff {
     /// synchronous horizontal stuff
     IPointerList<Voice*> voice_list_;
     Staff_column *get_col(Moment, PCursor<Staff_column*> * last= 0);
-
+    
 public:
-
+    Input_register * ireg_p_;
+    
     /// runtime field
     IPointerList<Staff_column*> cols_;
 
