@@ -2433,6 +2433,8 @@ The default layout responds to the following settings in the
 @cindex \bookpaper
 
 @table @code
+@item firstpagenumber
+ The value of the page number of the first page. Default is 1.
 @item hsize
  The width of the page
 @item vsize
@@ -2475,19 +2477,6 @@ value has to be multiplied in the example above.
         @}
 @end example
 
-
-@refbugs
-
-The option rightmargin is defined but doesn't set the right margin
-yet. The value for the right margin has to be defined adjusting the
-values of the leftmargin and linewidth.
-
-The default page header puts the page number and the @code{instrument}
-field from the @code{\header} block on a line.
-
-
-
-
 @cindex copyright
 @cindex tagline
 
@@ -2509,8 +2498,6 @@ The following settings influence the header and footer layout.
   this boolean controls whether a pagenumber is printed. 
 @end table
 
-
-
 The page layout itself is done by two functions:
 @code{page-music-height} and @code{page-make-stencil}. The former
 tells the line-breaking algorithm how much space can be spent on a
@@ -2520,6 +2507,15 @@ page, the latter creates the actual page given the system to put on it.
 @seealso
 
 Examples: @inputfileref{input/test/,page-breaks.ly}
+
+@refbugs
+
+The option rightmargin is defined but doesn't set the right margin
+yet. The value for the right margin has to be defined adjusting the
+values of the leftmargin and linewidth.
+
+The default page header puts the page number and the @code{instrument}
+field from the @code{\header} block on a line.
 
 
 

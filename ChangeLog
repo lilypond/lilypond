@@ -27,13 +27,18 @@
 
 2004-08-22  Pedro Kroger  <kroeger@pedrokroeger.net>
 
+	* Documentation/user/changing-defaults.itely (Page layout):
+	description of firstpagenumber. Moved @refbugs about rightmargin
+	to the end of the section (it was looking like the documentation
+	after the refbugs was part of the bug comment).
+
 	* scm/framework-ps.scm (output-framework): set the first
-	postscript page number to initialpagenumber
+	postscript page number to firstpagenumber
 
 	* scm/page-layout.scm (ly:optimal-page-breaks): print the first
-	page number according to initialpagenumber
+	page number according to firstpagenumber
 
-	* scm/paper.scm (set-paper-dimensions): added initialpagenumber
+	* scm/paper.scm (set-paper-dimensions): added firstpagenumber
 	parameter
 
 2004-08-22  Han-Wen Nienhuys   <hanwen@xs4all.nl>
