@@ -422,38 +422,6 @@ c1 c1 \property Staff.barSize = 20 c1 c1
     typeset with a full size clef.  By default, clef changes are
     typeset in smaller size.
 
-	
-
-  @item @code{supportedClefTypes}@indexcode{supportedClefTypes} @propertytype{alist}
-
-	Clef settings supported. The value is an association list clef
-descriptions indexed by clef name (alto, baritone, etc.).  A clef
-description is a list with the glyph name, and the staff position
-where it should go. For internal use.
-
-  @item @code{clefPitches}@indexcode{clefPitches} @propertytype{alist}
-    Settings for the position of the central C, relative to this clef
-    symbol.  For internal use.
-   
-  @item @code{defaultClef}@indexcode{defaultClef} @propertytype{string}
-	Clef setting to use when this context is created.  If unset,
-no clef is printed upon creation.
-
-  @item @code{marginDirection}@indexcode{marginDirection} @propertytype{direction}
-    Set to @code{\left} or @code{\right} to specify location of
-    marginal scripts.
-
-  @item @code{marginScriptPadding}@indexcode{marginScriptPadding}  
-    Specify extra space for marginal scripts.
-
-  @item @code{forgetAccidentals}@indexcode{forgetAccidentals} @propertytype{boolean}
-    Causes accidentals to be printed at every note instead of
-    remembered for the duration of a measure.
-
-  @item @code{noResetKey}@indexcode{noResetKey} @propertytype{boolean}
-    Do not reset the key at the start of a measure.  Accidentals will
-    be printed only once and are in effect until overridden, possibly
-    many measures later.
 
   @item @code{staffSpace}@indexcode{staffLineLeading}   @propertytype{number}	
     Specifies the distance (in points) between lines of the staff.
@@ -467,7 +435,7 @@ no clef is printed upon creation.
 
   @item @code{noVoltaBraces}@indexcode{noVoltaBraces} @propertytype{boolean}
     Set to true to suppress the printing of brackets over alternate
-    endings specified by the command @code{\alternative}.
+    endings specified by the command @code{\alternative}. [BROKEN]
 
  
   @item @code{barAlways}@indexcode{barAlways} @propertytype{boolean}
@@ -565,13 +533,7 @@ no clef is printed upon creation.
 @end mudela
 
   @item @code{voltaSpannerDuration}@indexcode{voltaSpannerDuration} @propertytype{moment}
-    Set to an integer to control the size of the brackets printed by
-    @code{\alternative}.  The integer specifies the number of whole
-    notes duration to use for the brackets.  It is rounded to the
-    nearest measure.  This can be used to shrink the length of
-    brackets in the situation where one alternative is very large. 
-    It may have odd effects if the specified duration is longer than
-    the music given in an @code{\alternative}.
+
 @end table
    
 @subsubheading GrandStaff properties
