@@ -30,6 +30,10 @@ Clef_engraver::set_type (String s)
     {
       c0_position_i_= -6;
     }
+  else if (clef_type_str_ == "soprano")
+    {
+      c0_position_i_= -4;
+    }
   else if (clef_type_str_ == "alto")
     {
       c0_position_i_= 0;

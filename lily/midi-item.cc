@@ -119,7 +119,7 @@ Midi_header::Midi_header (int format_i, int tracks_i, int clocks_per_4_i)
 char const* const instrument_name_sz_a_[ ] = {
 
   /* default is usually piano */
-  /* 0 */ "piano",
+  /* 0 "piano", */
 
 	  /* (1-8 piano) */
 	  /* 1 */ "acoustic grand",
@@ -535,7 +535,8 @@ Midi_track::Midi_track ()
 void 
 Midi_track::add (Moment delta_time_mom, Midi_item* mitem_p)
 {
-  assert (delta_time_mom >= 0);
+  assert (delta_time_mom >= Moment (0));
+
   event_p_list_.bottom ().add (new Midi_event (delta_time_mom, mitem_p));
 }
 

@@ -38,17 +38,25 @@ void
 Clef_item::read (String t)
 {
   symbol_= t;
-  if (t == "violin")
+  if (t == "violin") {
     y_position_i_ = -2;
-  if (t == "alto")
+  }
+  else if (t == "soprano") {
+    symbol_="alto";
+    y_position_i_ = -4;
+  }
+  else if (t == "alto") {
     y_position_i_ = 0;
-  if (t == "tenor") {
+  }
+  else if (t == "tenor") {
     symbol_="alto";
     y_position_i_ = 2;
   }
-  if (t == "bass")
+  else if (t == "bass") {
     y_position_i_ = 2;
+  }
 }
+
 void
 Clef_item::read (Clef_engraver const &k)
 {
