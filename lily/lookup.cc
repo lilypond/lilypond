@@ -132,6 +132,8 @@ Lookup::notehead (int j, String type) const
 {
   if (j > 2)
     j = 2;
+  if (type == "harmonic" || type == "cross")
+    j = 2;
 
   return afm_find (String ("noteheads-") + to_str (j) + type);
 }

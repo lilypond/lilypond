@@ -102,9 +102,9 @@ mudela(verbatim)(% lines preceded by a percent are comments.
 \include "paper16.ly"
 \score {
     \notes                        
-    \relative c'' {                
-            \key g;
+    \relative c'' \sequential{                
             \time 3/4;                
+            \key g;
 
         \repeat "volta" 2 {
             d4 g,8 a b c d4 g, g |
@@ -245,7 +245,7 @@ note is code(d'').  The code(4) designates the duration of the note
         a b
 )COMMENT(
 
-)These are notes with pitch code(a') and code(b').  Because their
+)These are notes with pitch code(a) and code(b).  Because their
 duration is the same as the code(g), there is no need to enter the
 duration (You may enter it anyway, eg. code(a4 b4)) COMMENT(
 
@@ -256,13 +256,8 @@ duration (You may enter it anyway, eg. code(a4 b4)) COMMENT(
 ) Three more notes.  The `code(|)' character is a `barcheck'.  When
 processing the music, LilyPond will verify that barchecks are found at
 the start of a measure.  This can help you track down errors.
-COMMENT(
 
-)verb(
-        e'4 
-) COMMENT(
-
-) So far, no notes were chromatically altered.  Here is the first one
+ So far, no notes were chromatically altered.  Here is the first one
 that is: code(fis). Mudela by default uses Dutch note names, and
 ``Fis'' is the Dutch note name for ``F sharp''.  However, there is no
 sharp sign in the output. The program keeps track of key signatures,
@@ -511,14 +506,14 @@ assignment is finished with a semicolon.COMMENT(
 
 )The structure of the file will be the same as the previous one, a
 code(\score) block with music in it.  To keep things readable, we will
-give the different parts of music names, and use names to construct
-music within the score block.
+give names to the different parts of music, and use the names to
+construct the music within the score block.
 
 verb(
         \partial 8;
 )
 
-The piece starts an anacrusis of one eighth.  COMMENT(
+The piece starts with an anacrusis of one eighth.  COMMENT(
 
 )verb(
         c4 c8 d [es () d] c4 | f4 f8 g [es() d] c g |
@@ -824,7 +819,7 @@ chord.  code(\f) places a forte symbol  under the chord.COMMENT(
 controls the directions of stems, articulations marks and other
 symbols.
   If code(verticalDirection) is set to code(\down)
-(identifier for the integer -1) the stems go down
+(identifier for the integer -1) the stems go down,
 code(\up) (identifier for the integer 1) makes the stems go up.COMMENT(
 
 )verb(        g'8. b,16)COMMENT(
@@ -837,7 +832,7 @@ note of the previous chord (the central C).
 verb(s1 s2. r4)COMMENT(
 
 )code(s) is a `spacer' rest.  It does not print anything,  but it does
-have duration of a rest.   COMMENT(
+have the duration of a rest.   COMMENT(
 
 )verb(oboes = \notes \relative c'' \context Voice = oboe {)COMMENT(
 

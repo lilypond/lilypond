@@ -9,6 +9,20 @@ setenv GS_FONTPATH "@datadir@/afm"
 setenv LILYPONDPREFIX "@datadir@"
 
 # include an empty path component for the system wide includes.
-setenv MFINPUTS "@datadir@/mf:$MFINPUTS::"
-setenv TEXINPUTS "@datadir@/tex:$TEXINPUTS::"
-setenv GUILE_LOAD_PATH "@datadir@/scm:$GUILE_LOAD_PATH"
+if ($?MFINPUTS) then
+        setenv MFINPUTS "/usr/share/lilypond/mf:${MFINPUTS}::"
+else
+        setenv MFINPUTS "/usr/share/lilypond/mf::"
+endif
+if ($?TEXINPUTS) then
+        setenv TEXINPUTS "/usr/share/lilypond/tex:${TEXINPUTS}::"
+else
+        setenv TEXINPUTS "/usr/share/lilypond/tex::"
+endif
+if ($?GUILE_LOAD_PATH) then
+        setenv GUILE_LOAD_PATH "/usr/share/lilypond/scm:${GUILE_LOAD_PATH}"
+else
+        setenv GUILE_LOAD_PATH "/usr/share/lilypond/scm"
+endif
+
+

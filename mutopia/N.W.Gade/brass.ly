@@ -548,7 +548,9 @@ r4^"Flauto" r8 [c'16 ( d] |
 trpIIhelp=\notes\relative c'' {
 \tiny
 
-s2.*32 |
+[c8.^"Oboe" ( d16] ) c2 |
+[c8. ( d16] ) c2 |
+s2.*30 |
 s2*9 |
 r4^"Clar. I" r8 c-. |
 [bes-. a-. g-. f-. ] |

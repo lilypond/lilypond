@@ -66,12 +66,16 @@
   {\center{\large\theinstrument}\par}
   {\flushleft{\large\normalfont\scshape\thepiece}}
 %  \leavevmode
+  \global\let\theopus\relax%
+  \global\let\thepiece\relax%
 }
 \def\makelilypiecetitle
 {
   \bigskip
   {\flushright{\theopus}\par}
   {\flushleft{\large\normalfont\scshape\thepiece}}
+  \global\let\theopus\relax%
+  \global\let\thepiece\relax%
 }
 \endinput
 

@@ -15,7 +15,7 @@ SUBDIRS = scripts buildscripts  flower lib lily mf midi2ly po debian \
 
 SCRIPTS = configure aclocal.m4
 README_FILES = BUGS DEDICATION ANNOUNCE-0.1 ANNOUNCE-1.0 ANNOUNCE-1.2 \
- COPYING NEWS-0.1 NEWS-1.0 NEWS-0.0 NEWS-1.1  NEWS  TODO AIMS
+ COPYING NEWS-0.1 NEWS-1.0 NEWS-0.0 NEWS-1.1  NEWS TODO AIMS  ChangeLog
 README_TXT_FILES = README.txt AUTHORS.txt INSTALL.txt PATCHES.txt
 IN_FILES := $(wildcard *.in)
 EXTRA_DIST_FILES = dstreamrc mudela-mode.el vimrc VERSION $(README_FILES)  $(SCRIPTS) $(IN_FILES) TASKS

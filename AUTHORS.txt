@@ -3,63 +3,63 @@
 
 Contents
 
-This  file  lists  authors  of  GNU  LilyPond, and what they
+This file lists authors of GNU LilyPond, and what they
 wrote.  This list is alphabetically ordered.
 
-o    Tom Cato Amundsen <tomcato@xoommail.com>,  cembalo-par-
+o    Tom Cato Amundsen <tomcato@xoommail.com>, cembalo-par-
      tita in mudela, accordion symbols, some mudela-book.py
 
-o    Mats            Bengtsson            <matsb@s3.kth.se>,
-     http://www.s3.kth.se/~matsb/ lots  of  testing,  fixes,
+o    Mats Bengtsson <matsb@s3.kth.se>,
+     http://www.s3.kth.se/~matsb/ lots of testing, fixes,
      general comments and contributions.
 
 o    Eric Bullinger <eric@aut.ee.ethz.ch>, accidental trans-
      position.
 
-o    Jan  Arne  Fagertun  <Jan.A.Fagertun@energy.sintef.no>,
+o    Jan Arne Fagertun <Jan.A.Fagertun@energy.sintef.no>,
      TeX titling and lytodvi.sh
 
 o    Anthony Fok <foka@debian.org>, debian package: debian/*
 
-o    Bjoern  Jacke  <bjoern.jacke@gmx.de>  german   glossary
+o    Bjoern Jacke <bjoern.jacke@gmx.de> german glossary
      stuff.
 
 o    Neil Jerram <nj104@cus.cam.ac.uk>.  parts of Documenta-
      tion/Vocab*
 
-o    Donald    Ervin    Knuth,     http://www-cs-staff.stan-
-     ford.edu/~knuth/  mf/ital-*.mf  (these  were taken from
+o    Donald Ervin Knuth,  http://www-cs-staff.stan-
+     ford.edu/~knuth/ mf/ital-*.mf (these were taken from
      the CM fonts)
 
-o    Michael  Krause   <m.krause@tu-harburg.de>,   breathing
+o    Michael Krause <m.krause@tu-harburg.de>, breathing
      signs
 
-o    Werner  Lemberg <xlwy01@uxp1.hrz.uni-dortmund.de>, misc
+o    Werner Lemberg <xlwy01@uxp1.hrz.uni-dortmund.de>, misc
      bugfixes, some Beam and Stem code.
 
-o    David R. Linn <drl@vuse.vanderbilt.edu>,  Mailing  list
+o    David R. Linn <drl@vuse.vanderbilt.edu>, Mailing list
      maintenance.
 
-o    Adrian  Mariano  <>  Reference  manual, tutorial fixes,
+o    Adrian Mariano <> Reference manual, tutorial fixes,
      glossary.
 
-o    Han-Wen           Nienhuys           <hanwen@cs.uu.nl>,
-     http://www.cs.uu.nl/~hanwen/   Main  author  (initials:
+o    Han-Wen Nienhuys <hanwen@cs.uu.nl>,
+     http://www.cs.uu.nl/~hanwen/ Main author (initials:
      HWN).
 
-o    Jan          Nieuwenhuizen           <janneke@gnu.org>,
-     http://www.xs4all.nl/~jantien/  Main  author (initials:
+o    Jan Nieuwenhuizen <janneke@gnu.org>,
+     http://www.xs4all.nl/~jantien/ Main author (initials:
      JCN).
 
-o    Alexandre  Oliva  <oliva@dcc.unicamp.br>,   http://sun-
+o    Alexandre Oliva <oliva@dcc.unicamp.br>, http://sun-
      site.unicamp.br/~oliva/ testing
 
-o    Franc,ois  Pinard  <pinard@iro.umontreal.ca>,  parts of
-     Documentation/Vocab*,   started    internationalization
+o    Franc,ois Pinard <pinard@iro.umontreal.ca>, parts of
+     Documentation/Vocab*, started internationalization
 
      stuff
 
-o    Glen  Prideaux  <glenprideaux@iname.com>, minor bug fix
+o    Glen Prideaux <glenprideaux@iname.com>, minor bug fix
      to script used to generate doc++ documentation
 
 o    Jeffrey B. Reed <daboys@austin.rr.com>, Windows-NT sup-
@@ -67,5 +67,5 @@ o    Jeffrey B. Reed <daboys@austin.rr.com>, Windows-NT sup-
 
 o    Shay Rojanski Some mudela source.
 
-Your  name  could  be here! If you want to fix something, do
+Your name could be here! If you want to fix something, do
 it, and send us a patch!

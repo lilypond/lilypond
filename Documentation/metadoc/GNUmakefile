@@ -31,7 +31,7 @@ include $(depth)/make/stepmake.make
 
 
 
-dvi: $(OUT_BIB_FILES) $(DVI_FILES)
+dvi: $(DVI_FILES)
 
 ps: $(PS_FILES)
 
@@ -52,7 +52,7 @@ $(outdir)/%.tex: %.data $(depth)/VERSION
 
 
 
-local-WWW: $(HTML_FILES) $(OUTTEX_FILES:.tex=.ps.gz) $(OUTYO_FILES:.yo=.latex) $(OUTYO_FILES:.yo=.ps.gz) $(addprefix $(outdir)/, $(BIB_FILES:.bib=.html)) $(datafiles)
+local-WWW: $(HTML_FILES) $(OUTTEX_FILES:.doc=.ps.gz) $(OUTYO_FILES:.yo=.latex) $(OUTYO_FILES:.yo=.ps.gz) $(addprefix $(outdir)/, $(BIB_FILES:.bib=.html)) $(datafiles) ps
 	$(PYTHON) $(step-bindir)/ls-latex.py --package=$(topdir) --title 'LaTeX documents about design and implementation of LilyPond' \
 	  $(YO_FILES) $(OUTYO_FILES:.yo=.latex) $(BIB_FILES) $(DOC_FILES) $(TEX_FILES)\
 	  | sed "s!$(outdir)/!!g" > $(outdir)/index.html

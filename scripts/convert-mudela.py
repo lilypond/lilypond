@@ -419,6 +419,16 @@ if 1:
 	conversions.append ((1,2,0), conv,
 			    'automaticMelismas -> automaticMelismata')
 
+if 1:
+	def conv(lines):
+		newlines =[]
+		for x in lines:
+			x =  re.sub ('dynamicDir', 'dynamicDirection', x)
+			newlines.append (x)
+		return newlines
+
+	conversions.append ((1,2,1), conv,
+			    'dynamicDir -> dynamicDirection')
 
 ############################
 	

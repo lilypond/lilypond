@@ -1,0 +1,26 @@
+pl 0.uu1
+	- refman updates by Werner & Mats
+	- now use ChangeLog for changes.
+	
+pl 0.jcn2
+	- po fixes
+
+pl 0.jcn1
+	- gcc-2.95 nitpicks
+	- added pointers to mailing lists in toplevel docs
+
+0.mb2
+	- configure: more robust detection of Guile
+	- Midi_note_off: revert to fixed note-off velocity. Fixes
+	  problem with notes that never stop.
+	- Decreased breakable_column_space_strength
+	- Added a few TODO
+	- bf: "harmonic" and "cross" note heads also for half and 
+	  whole notes.
+	- linewidth and textheight set independent of the font size.
+	- bf, titledefs.tex: opus and piece are not repeated for 
+	  every piece unless they are explicitly set again.
+
+0.mb1
+  	- Changed dynamicDir to dynamicDirection.
+  	- refman and tutorial corrections.
