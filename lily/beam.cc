@@ -836,6 +836,29 @@ Beam::position_beam (Grob *me)
 }
 
 
+void
+set_minimum_dy (Grob *me, Real * dy)
+{
+  if (*dy)
+    {
+      /*
+	If dy is smaller than the smallest quant, we
+	get absurd direction-sign penalties. 
+      */
+	  
+      Real ss = Staff_symbol_referencer::staff_space (me);
+      Real thickness = Beam::get_thickness (me) / ss ;
+      Real slt = Staff_symbol_referencer::line_thickness (me) / ss;
+      Real sit = (thickness - slt) / 2;
+      Real inter = 0.5;
+      Real hang = 1.0 - (thickness - slt) / 2;
+	  
+      *dy = sign (*dy) * (fabs (*dy)
+			>?
+			(sit <? inter <? hang));
+    }
+}
+
 /*
   Compute  a first approximation to the beam slope.
  */
@@ -935,6 +958,8 @@ Beam::least_squares (SCM smob)
       minimise_least_squares (&slope, &y, ideals);
 
       dy = slope * dx;
+
+      set_minimum_dy (me,&dy);
       me->set_property ("least-squares-dy", scm_make_real (dy));
       pos = Interval (y, (y+dy));
     }
@@ -954,10 +979,10 @@ Beam::least_squares (SCM smob)
   We can't combine with previous function, since check concave and
   slope damping comes first.
 
-TODO: we should use the concaveness to control the amount of damping
-applied.
+  TODO: we should use the concaveness to control the amount of damping
+  applied.
   
- */
+*/
 MAKE_SCHEME_CALLBACK (Beam, shift_region_to_valid, 1);
 SCM
 Beam::shift_region_to_valid (SCM grob)
@@ -1091,6 +1116,9 @@ Beam::slope_damping (SCM smob)
       slope = 0.6 * tanh (slope) / (damping + concaveness);
 
       Real damped_dy = slope * dx;
+
+      set_minimum_dy (me, &damped_dy);
+      
       pos[LEFT] += (dy - damped_dy) / 2;
       pos[RIGHT] -= (dy - damped_dy) / 2;
 
