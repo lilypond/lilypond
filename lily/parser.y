@@ -429,6 +429,8 @@ score_body:		{
 		$$->header_p_ = $2;
 	}
 	| score_body Music	{
+		if ($$->music_p_)
+			$2->warning ("More than one music block");	
 		$$->music_p_ = $2;
 	}
 	| score_body output_def {
@@ -542,6 +544,7 @@ Voice:
 Voice_body:
 	/**/		{
 		$$ = new Voice;
+		$$->set_spot (THIS->here_input ());
 	}
 	| Voice_body Music		{
 		$$->add ($2);
@@ -587,6 +590,7 @@ translator_change:
 		t-> change_to_id_str_ = *$4;
 
 		$$ = t;
+		$$->set_spot (THIS->here_input ());
 		delete $2;
 		delete $4;
 	}
@@ -599,6 +603,7 @@ property_def:
 		t-> var_str_ = *$4;
 		t-> value_ = *$6;
 		$$ = t;
+		$$->set_spot (THIS->here_input ());
 		delete $2;
 		delete $4;
 		delete $6;
@@ -623,6 +628,7 @@ Chord_body:
 	/**/	{
 		$$ = new Chord;
 		$$-> multi_level_i_ = 1;
+		$$->set_spot (THIS->here_input ());
 	}
 	| Chord_body Music {
 		$$->add ($2);
@@ -633,6 +639,7 @@ transposed_music:
 	TRANSPOSE steno_melodic_req Music {
 		$$ = $3;
 		$$ -> transpose ($2);
+
 		delete $2;
 	}
 	;
@@ -963,7 +970,8 @@ pre_request:
 
 voice_command:
 	PLET	 INT '/' INT {
-		THIS->default_duration_.set_plet ($2,$4);
+		THIS->plet_.type_i_ = $4;
+		THIS->plet_.iso_i_ = $2;
 	}
 	| DURATION STRING {
 		THIS->set_duration_mode (*$2);

@@ -1,3 +1,49 @@
+pl 41
+	- warn for score with multiple Music blocks
+	- bf: \plet (MB)
+	- \textsharp in 16pt
+	- malloc frobnifying
+	- more fontsizes: 26pt, 11pt, 13pt
+	- \textstyle "bold"
+	- .rpm: remove old fonts
+
+pl 40.jcn2
+	- bf: typo scores.cc
+	- bfs: non-default base constructor calls
+	- bfs: virtual destructors
+	- standje.ly: the real standchen (first bit)
+	- gcc 2.8 compile
+	- nicer scsii-menuetto
+
+pl 40.jcn1
+	- bf: breaking of :| bar
+	- bf: lyric substitution of _ -> ' ' flower/libc-ext:memmem
+	- no slope=0 beams between stafflines
+	- bf: tex without lily-ps-defs
+	- bf: embedded mf shift: added '%' to \embeddedps
+	- doos compile
+
+******
+jan 12
+pl 40
+	- some doco fixes
+	- debian diffs (AF)
+
+pl 39.jcn2
+	- bf: bit smarter atan() for feta-sleur (thanks wendy)
+	- bf: y quantise of multiple down beams (typo)
+	- minor doc fixes
+	- bf: distribute mfdeps and moved from mf/out/mfdeps to mf/mf.dep
+	- some changes to ANNOUNCE
+	- fixes for simple slur/tie placement
+	- embedded MF fonts identified by parameters -> reusable runtime fonts
+	- clean-embeds.sh
+	- runtime MF beams: feta-beum.mf
+	- bf: enable switching PS off
+	- updated runtime MF feta-sleur.mf with new PS slur algorithm
+
+******
+jan 5 1998
 pl 39
 	- 0.2 ANNOUNCE sketch
 	- unix style paths for LILYINCLUDE env
