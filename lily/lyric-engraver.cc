@@ -42,12 +42,13 @@ Lyric_engraver::do_process_requests()
     {
       text_p_=  new Text_item;
       text_p_->text_str_ = req_l_->text_str_;
-
       text_p_->text_str_ += " ";	// ugh.
 
       Scalar style = get_property ("textStyle", 0);
       if (style.length_i ())
 	text_p_->style_str_ = style;
+
+      text_p_->set_elt_property (non_rhythmic_scm_sym, SCM_BOOL_T);
       
       announce_element (Score_element_info (text_p_, req_l_));
     }

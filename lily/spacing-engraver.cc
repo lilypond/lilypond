@@ -55,6 +55,9 @@ Spacing_engraver::acknowledge_element (Score_element_info i)
   if (i.elem_l_->get_elt_property (grace_scm_sym) != SCM_BOOL_F)
     return;
 
+  if (i.elem_l_->get_elt_property (non_rhythmic_scm_sym) != SCM_BOOL_F)
+    return;
+  
   if (Rhythmic_req * r = dynamic_cast<Rhythmic_req*>(i.req_l_))
     {
       Rhythmic_tuple t(i, now_mom () + r->length_mom ());
