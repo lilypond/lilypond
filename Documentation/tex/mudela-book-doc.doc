@@ -1,155 +1,218 @@
-\documentclass[a4paper, 12pt, oneside]{article}
+\documentclass[a4paper, 12pt]{article}
 
 \usepackage{t1enc,isolatin1}
 \usepackage{graphics}
+%\usepackage[dvips]{graphicx}
+\usepackage[rflt]{floatflt}
 %\usepackage{showframe}
-\sloppy
-\def\postMudelaExample{}
+%\sloppy
+\def\postMudelaExample{\setlength{\parindent}{1em}}
+\title{Mudela-book tutorial}
 \begin{document}
+\maketitle
 %\printparam
 
-Mudela-book is a script that process your \LaTeX ~file and
-with great help from GNU LilyPond
-translates blocks of mudela code it finds inside \verb|mudela|
-environment to tex or eps graphics. It then creates a new
-file that can be sent through \LaTeX~ to create a document with
-lines of music integrated with text.
+Mudela-book is a script that process your \LaTeX~file and with great
+help from GNU LilyPond it translates blocks of mudela code it finds
+inside \verb|mudela| environments to tex or eps graphics. It then
+creates a new file that can be sendt through \LaTeX~to create a .dvi
+file with lines of music integrated with text. 
 
-So what does this look like? Well, here is a really
-simple example:
+Mudela-book will do its best to try to align the music to the left and
+right margins. Currently the most used papersizes and one- and
+twocolumn mode is supported, but if you use the geometry-package from
+\LaTeX~or change the margins things will break.
 
-\begin{mudela}[fragment, verbatim]
-    \relative c'{c4 d e f | g2 g}
-\end{mudela}
+This document assumes you have basic knowledge of GNU LilyPond and
+\LaTeX. If the authors not-so-good english irritates you, please
+send a patch.
 
-As you can see the mudela code is put inside a environment
-called \verb|mudela|, shouldn't be too difficult to remember.
-If you have never heard about \LaTeX, Mudela or that stuff 
-about environment, you should probably read some other manuals
-before this.
+So what does this look like? Well, here is an example:
 
-The code above produces this music:
-
-\begin{mudela}[fragment]
-    \relative c' {c4 d e f | g2 g }
-\end{mudela}
-
-The parameter \verb|fragment| means that mudela-book will insert
-some red tape for you. There are one thing to remember. Currently
-\verb|fragment|s don't know about margins and line width, so if 
-you type more than a few bars and want a line break, you can not
-use \verb|fragment|. The \verb|verbatim| parameter is used to
-make mudela-book print the mudela source instead of the
-music. The parameter will probably not be visible in later versions
-of mudela-book.
-
-There are some conventions to follow to make the music respect 
-margins. You have to use \verb|\default_paper| as your paper, 
-to make mudela-book adjust the music to reach from the 
-left to the right margin.
-
-The following code
 \begin{mudela}[verbatim]
 \score{
-    \notes\relative c'{c d e f | g2 g | a4 a a a | g1 |
-         f4 f f f | e2 e | d4 d d d | c1}
-    \paper{}
+  \notes\relative c'{
+    \time 5/8;
+    [e16( g b c a g][e a b d] | )e2 d,8 |
+    [e16( g b c a g][e a b d] | )b2 [a16( f] |
+    [e a b d] )e4 c8 | [es16( bes a as g es][d c b! )g] |
+    [f( a b d b a][f a b d] | )e2
+  }
 }
 \end{mudela}
-gives this music:
+
+\noindent produces this music:
+
 \begin{mudela}
 \score{
-    \notes\relative c'{c d e f | g2 g | a4 a a a | g1 |
-         f4 f f f | e2 e | d4 d d d | c1}
-    \paper{}
+  \notes\relative c'{
+    \time 5/8;
+    [e16( g b c a g][e a b d] | )e2 d,8 |
+    [e16( g b c a g][e a b d] | )b2 [a16( f] |
+    [e a b d] )e4 c8 | [es16( bes a as g es][d c b! )g] |
+    [f( a b d b a][f a b d] | )e2
+  }
 }
 \end{mudela}
 
-On my Debian 2.0 with LilyPond 1.0.17, teTex 0.9,
-a4 paper and default line widht, the music is printet with
-7 bars on the first line and 1 bars on the second.
+If you are lucky, the above example show a nice feature of LilyPond
+and \LaTeX. Since LilyPond can output the music as \TeX~graphics,
+\LaTeX~can insert pagebreaks between the lines of music.
 
-This does not look to well, but you can fix it by setting
-the \verb|linewidth| variable to, let's say 8 cm. The paper
-definition
+Notice that there is no \verb|\paper| statement in the example
+above. Mudela-book will insert some code for you that defines the
+linewidth and the font to use. If you don't want to change the default, 
+there is no need to put an empty \verb|\paper{}| inside the \verb|\score|.
+In the example above, something like
+this might be inserted before your code:
 \begin{verbatim}
-\paper{
-linewidth=8.\cm;}
+\include "paper16.ly"
+\paper{ \paper_sixteen
+    linewidth = 390.\pt;
+    castingalgorithm = \Gourlay;
+}
 \end{verbatim}
-makes this score:
+The actual values for linewidth will differ depending on papersize and
+number of columns. Also, if you use a different fontsize for the
+music, another file than \verb|paper16.ly| will be included.
 
-\begin{mudela}
+If you want to make the music not so wide, you can insert a
+\verb|\paper| statement that set the linewidth:
+
+\begin{mudela}[verbatim]
 \score{
-    \notes\relative c'{c d e f | g2 g | a4 a a a | g1 |
-         f4 f f f | e2 e | d4 d d d | c1}
-    \paper{
-           linewidth=8.\cm;}
+  \notes\relative c'{
+    \time 5/8;
+    [e16( g b c a g][e a b d] | )e2 d,8 |
+    [e16( g b c a g][e a b d] | )b2 [a16( f] |
+    [e a b d] )e4 c8 | [es16( bes a as g es][d c b! )g] |
+    [f( a b d b a][f a b d] | )e2
+  }
+  \paper{linewidth = 10.\cm;}
 }
 \end{mudela}
 
-The \verb|linewidth| variable is a LilyPond paper variable.
-It is not spesific to mudela-book. See LilyPond tutorial and
-reference manual for other variables.
+\noindent produces this music:
 
-You can also,
-\begin{mudela}[fragment, floating]
-  \relative c'{c c g' g | a a g2}
-\end{mudela} 
-, include music in the middle of your text. Just give the option
-\verb|floating| to \verb|\begin{mudela}|
-
-Oh, you think the notes are to big to be in the middle of all those
-small characters, that something like this,
-\begin{mudela}[fragment, floating, 11pt]
-  \relative c'{c c g' g | a a g2}
-\end{mudela}
-, is better? If you have a lot of small music examples like this
-in the middle of your text, you might get a nicer look by using
-``double'' line spacing. Put the \verb|\linespread{1.6}| command
-into the preamble of your document. Then the line spacing will not
-be increased between the lines where you have music printed with the
-smalles font size.
-
-
-To change font size is easy, just give the fontsize as a parameter to
-\verb|\begin{mudela}|. The last piece of music was created with this
-code:
-\begin{mudela}[fragment, floating, 11pt, verbatim]
-  \relative c'{c c g' g | a a g2}
+\begin{mudela}
+% dette er en kommentar
+\score{
+  \notes\relative c'{
+    \time 5/8;
+    [e16( g b c a g][e a b d] | )e2 d,8 |
+    [e16( g b c a g][e a b d] | )b2 [a16( f] |
+    [e a b d] )e4 c8 | [es16( bes a as g es][d c b! )g] |
+    [f( a b d b a][f a b d] | )e2
+  }
+  \paper{linewidth = 10.\cm;}
+}
 \end{mudela}
 
-You can use the following font sizes:
+Very often, if you mix music and text, the music is often only a 
+few notes or at most a few bars. This music should be as short as
+possible and not stretched to be aligned to the right margin.
+
+If you only write voice-contents in the mudela block, mudela-book 
+will set the \verb|linewidth| variable to -1, so Lilypond
+will make the music as short as possible but without breaking the
+line. Here is a well know harmonic progression:
+\begin{mudela}
+% dette er en kommentar
+  <c' e' g'> <b d' g'> <c'2 e' g'>
+\end{mudela}
+\noindent that is made by this code:
+\begin{mudela}[verbatim]
+  <c' e' g'> <b d' g'> <c'2 e' g'>
+\end{mudela}
+
+If you want to place music examples in the text,
+\begin{mudela}[eps]
+  <c' e' g'> <b d' g'> <c'2 e' g'>
+\end{mudela}
+, you can use the \verb|eps| option. This will create the music as
+eps graphics and include it into the document with the 
+\verb|\includegraphics| command.
+
+The code used look like this:
+\begin{mudela}[eps, verbatim]
+  <c' e' g'> <b d' g'> <c'2 e' g'>
+\end{mudela}
+
+You can also use the \verb|eps| option if the block is a complete
+mudela source. This 5 cm long empty line, 
+\begin{mudela}[eps]
+\score{
+  \notes{s}
+  \paper{ linewidth = 5.\cm;}
+}
+\end{mudela}
+was created with this code:
+\begin{mudela}[eps, verbatim]
+\score{
+  \notes{s}
+  \paper{ linewidth = 5.\cm;}
+}
+\end{mudela}
+To avoid that \LaTeX~places the music on a line of its one, there should
+be no empty lines between the normal text and the mudela
+environment. 
+
+There is an even shorter way to write small musical fragments. This
+triad, \mudela{<c' e' g'>}, was created with this code:
+\verb|\mudela{<c' e' g'>}|
+
+Mudela-book let you define your own commands, see the file 
+\verb|mudela-book-defs.py|. In a later version, it will be possible to
+have your own file that defines new commands. To print small rhythms
+like this, \mudelaRhythm{c4 r8 [c16 c] c4 c}, the default 
+\verb|mudela-book-defs.py| also defines a command \verb|mudelaRhythm|. 
+The last music was created like this:
+\verb|\mudelaRhytm{c4 r8 [c16 c] c4 c}|. This feature is higly
+experimental, so Things Will Change.
+
+The last example show that we need options to change the
+% LONG line just to test multiple mudela on one line
+fontsize of the music. 11pt, \mudela[11pt]{<c' e' g'>} or 13pt, \mudela[13pt]{<c' e' g'>} is probably a better fontsize
+if you include music in the middle of the text. The code looks like this:
+\verb|\mudela[11pt]{<c' e' g'>}|
+
+or
+\begin{mudela}[13pt, verbatim]
+<c' e' g'>
+\end{mudela}
+
+The following options set the fontsize:
 \begin{itemize}
-\item 11 pt
-\begin{mudela}[11pt, fragment, floating]
+\item \verb|11pt|
+\begin{mudela}[11pt, eps]
   \relative c'{
     r16 [c d e][f d e c] [g'8 c][b-\prall c] |
     [d16 g, a b][c a b g][d'8 g f-\prall g]
   }
 \end{mudela}
-\item 13 pt
-\begin{mudela}[13pt, fragment, floating]
+\item \verb|13pt|
+\begin{mudela}[13pt, eps]
   \relative c'{
     r16 [c d e][f d e c] [g'8 c][b-\prall c] |
     [d16 g, a b][c a b g][d'8 g f-\prall g]
   }
 \end{mudela}
-\item 16 pt
-\begin{mudela}[16pt, fragment, floating]
+\item \verb|16pt|
+\begin{mudela}[16pt, eps]
   \relative c'{
     r16 [c d e][f d e c] [g'8 c][b-\prall c] |
     [d16 g, a b][c a b g][d'8 g f-\prall g]
   }
 \end{mudela}
-\item 20 pt
-\begin{mudela}[20pt, fragment, floating]
+\item \verb|20pt|
+\begin{mudela}[20pt, eps]
   \relative c'{
     r16 [c d e][f d e c] [g'8 c][b-\prall c] |
     [d16 g, a b][c a b g][d'8 g f-\prall g]
   }
 \end{mudela}
-\item 26 pt
-\begin{mudela}[26pt, fragment, floating]
+\item \verb|26pt|
+\begin{mudela}[26pt, eps]
   \relative c'{
     r16 [c d e][f d e c] [g'8 c][b-\prall c] |
     [d16 g, a b][c a b g][d'8 g f-\prall g]
@@ -157,31 +220,110 @@ You can use the following font sizes:
 \end{mudela}
 \end{itemize}
 
-As\marginpar{
+This was all options to \verb|\begin{mudela}|. The rest of the
+document will show some ways you can use mudela in
+\LaTeX~documents. It will also act as a simple test-suite for
+mudela-book. You \marginpar{
 marginpar!
-\begin{mudela}[11pt, fragment, floating]
-	\relative c''{\key es; r8 [g g g] es2}
+\begin{mudela}[eps, 11pt]
+ \relative c'' {\key c \minor; r4 [g8 g g] es2}
 \end{mudela}
-}
-you can see, \verb|floating| mudela don't know about margins.
-Remember that to place the music anywhere\footnote{
+}can place \verb|eps| mudela in footnotes\footnote{
 footnote!
-\begin{mudela}[11pt, fragment, floating]
-	\relative c''{\key es; r8 [g g g] es2}
+\begin{mudela}[eps, 11pt]
+ \relative c'' {\key c \minor;r4 [g8 g g] es2}
 \end{mudela}
 }
- else than at the left margin you must use the option \verb|floating|.
+and marginspars just as any other included eps graphics. 
 
-\twocolumn[\Large The following is written in two columns \normalsize]
-Sinse the version number is quite low, 0.4.0 last I checked, you
-should be careful not to mix braces that belongs to mudela-book and
-\LaTeX ~on the same line. The following code will probably break:
+\begin{floatingfigure}[r]{7cm}
+\begin{mudela}
+\score{
+  \notes\relative c'{ 
+	\time 12/8;  
+	r4-\fermata [b16-.( )b-.] [f'8-- dis16-.( )dis-. gis8--]
+	[f16-.( )f-. dis8-- gis16-.( )gis-.] cis4.-\fermata |
+	
+	r4.-\fermata [cis,16 cis g'8 f16 f b][g16 g f8 b16 b] dis4.-\fermata
+  }
+  \paper{linewidth = 7.\cm;}
+}
+\end{mudela}
+\end{floatingfigure}
 
-\verb|\footnote{\be|\verb|gin{mudela}|
+To the right you can see some bars from the trumpet fanfara from the
+beginning of the fantastic street opera ``Houdini the Great'', by the
+danish composer Andy Pape.  The music is put inside a
+\verb|floatingfigure| environment, and the music will be aligned by
+the right marging if you set floatingfigure width and mudela linewidth
+to the same value. The code looks like this:
+
+\verb|\begin{floatingfigure}{7cm}|
+\begin{mudela}[verbatim]
+\score{
+  \notes\relative c'{ 
+    \time 12/8;  
+    r4.-\fermata [b16-.( )b-.] [f'8-- dis16-.( )dis-. gis8--]
+    [f16-.( )f-. dis8-- gis16-.( )gis-.] cis8.-\fermata |
+	
+    r4.-\fermata [cis,16 cis g'8 f16 f b]
+    [g16 g f8 b16 b] dis4.-\fermata
+  }
+  \paper{linewidth = 7.\cm;}
+}
+\end{mudela}
+\verb|\end{floatingfigure}|
+
+\twocolumn[\large The following is written in two columns just to show
+what mudela-book can do..\normalsize]
+
+Tabulars is also nice. Here you have a chance to learn the norwegian
+names of some triads:
+\vspace{1em}
+
+\begin{tabular}{|l|l|}
+\hline
+
+dur &
+\begin{mudela}[eps]
+<c' e' g'>
+\end{mudela} 
+\\
+\hline moll &
+\begin{mudela}[eps]
+<c' ees' g'>
+\end{mudela}
+\\
+\hline forminsket &
+\begin{mudela}[eps]
+<c' es' ges'>
+\end{mudela}
+\\
+\hline forstørret &
+\begin{mudela}[eps]
+<c' e' gis'>
+\end{mudela}
+\\
+\hline 
+\end{tabular}
+
+\vspace{1em}
+If you have a lot of small music examples
+like this in the middle of your text, you might get a nicer look by
+using ``double'' line spacing. Put the \verb|\linespread{1.6}| command
+into the preamble of your document. Then the line spacing will not be
+increased between the lines where you have music printed with the
+smallest font size.
+
+Sinse the version number is quite low, you should be careful not to
+mix braces that belongs to mudela-book and \LaTeX~on the same
+line. The following code will probably break:
+
+\verb|\footnote{\begin{mudela}|
 
 \verb|\relative c''{ \key es; r8 [g g g] es2} |
 
-\verb|\e|\verb|nd{mudela}}|
+\verb|\end{mudela}}|
 
 Mudela-book does know about \verb|\onecolumn| and \verb|\twocolumn|. 
 So the music will be adjusted to the new linewith:
@@ -189,7 +331,6 @@ So the music will be adjusted to the new linewith:
 \score{
     \notes\relative c'{c d e f | g2 g | a4 a a a | g1 |
          f4 f f f | e2 e | d4 d d d | c1}
-    \paper{}
 }
 \end{mudela}
 produces
@@ -197,16 +338,12 @@ produces
 \score{
     \notes\relative c'{c d e f | g2 g | a4 a a a | g1 |
          f4 f f f | e2 e | d4 d d d | c1}
-    \paper{}
 }
 \end{mudela}
 
-As in one column mode, \verb|fragment|s don't know about 
-the line width:
-\begin{mudela}[fragment]
-  \relative c'{[c8 e][d f][e g][f a] | [g b][a c][b d] c4 |
-	[e8 c][d b][c a][b g] | [a f][g e][f d] c4 }
-\end{mudela}
 Verbatim environments will also ignore the page margins. That is
-a feature of \LaTeX.
+a feature of \LaTeX. (But you usually put things inside a verbatim
+environment when you don't want \LaTeX~to do any linebreaking)
+
 \end{document}
+

@@ -1,3 +1,11 @@
+pl8.tca1
+        - changes to mudela-book. Junked fragment and floating options,
+          added eps option. Options should not stay as long that you get
+          comfortable with them. ;)
+        - Also possible to define your own commands with
+          a syntax like \mudela{c d e}
+        - updated mudela-book-doc.doc
+**************
 pl 8
 
 pl7.jcn3
