@@ -70,4 +70,6 @@ public:
     }
 
 };
+/** mindblowingly stupid Associative array implementation
+ */
 #endif

@@ -9,7 +9,9 @@
 #define WARN warnout << "warning: "<<__FUNCTION__ << ": "
 extern ostream &warnout ;
 extern ostream *mlog;  
-extern dstream mtor; // monitor
+extern Dstream monitor; // monitor
+
+#define mtor monitor.identify_as(__PRETTY_FUNCTION__)
 
 void error(String s);
 void warning(String s);

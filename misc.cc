@@ -21,7 +21,8 @@ double log2(double x) {
  
 const Real PHI = (1+sqrt(5))/2;
 const double ENGRAVERS_SPACE = PHI;
-const double WHOLE_SPACE = 10.0;
+const double WHOLE_SPACE = 5.0; // should be settable from input
+
 
   
 Real
@@ -30,3 +31,7 @@ duration_to_idealspace(Mtime d)
     // see  Roelofs, p. 57
     return WHOLE_SPACE * pow(ENGRAVERS_SPACE, log2(d));
 }
+
+
+
+

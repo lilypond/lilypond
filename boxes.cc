@@ -20,3 +20,8 @@ Box::Box()
 {
     
 }
+Box::Box(Interval ix, Interval iy)
+{
+    x=ix;
+    y = iy;
+}

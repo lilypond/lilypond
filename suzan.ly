@@ -10,5 +10,5 @@ score{
 	rhythmstaff {
 		voice { $ c4  c4 c4 c4 $ }
 	}
-	bar 2
+%	bar 2
 }

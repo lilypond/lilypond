@@ -1,4 +1,5 @@
 #include "line.hh"
+#include "symbol.hh"
 #include "cols.hh"
 #include "pscore.hh"
 
@@ -6,7 +7,7 @@ String
 Line_of_staff::TeXstring() const
 {
     String s("%line_of_staff\n\\vbox to ");
-    s += String(height * VERT_TO_PT) +"pt{";
+    s += String(maxheight() * VERT_TO_PT) +"pt{";
 
     //make some room
     s += vstrut(base* VERT_TO_PT);
@@ -92,3 +93,31 @@ Line_of_staff::Line_of_staff(Line_of_score * sc, PStaff*st)
 	    brokenspans.bottom().add(sp->broken_at(brokenstop, brokenstart));
     }
 }
+
+
+Real
+Line_of_staff::maxheight() const
+{
+    Interval y;
+    y = pstaff_->stafsym->height(scor->score->linewidth);
+    PCursor<const PCol *> cc(scor->cols);
+    
+    // all items in the current line & staff.
+    for (; cc.ok(); cc++) {
+
+		
+	for (PCursor<const Item *> ic(cc->its); ic.ok(); ic++) {
+	    if (ic->pstaff_ == pstaff_) {
+		y.unite(ic->height());
+	}
+	    
+	// spanners.
+	for (PCursor<const Spanner *> sc(cc->starters); sc.ok(); sc++)
+	    if (sc->pstaff_ == pstaff_)
+		assert(false);		
+	}
+    }
+    return y.max;
+}
+
+

@@ -1,37 +1,31 @@
 MAJVER=1
 MINVER=0
-PATCHLEVEL=1
+PATCHLEVEL=2
 
 PACKAGENAME=flower
 VERSION=$(MAJVER).$(MINVER).$(PATCHLEVEL)
 DNAME=$(PACKAGENAME)-$(VERSION)
-CXXFLAGS+=-g -Wall
+#DEFINES=-DNDEBUG
+CXXFLAGS+=$(DEFINES) -g -Wall -W -pedantic
 
-cc=lgetopt.cc 	 string.cc dataf.cc textdb.cc unionfind.cc 
-
-templatecc=cursor.cc list.cc 
-inl=findcurs.inl link.inl list.inl
-hh=cursor.hh cursor.inl lgetopt.hh link.hh list.hh \
-	string.hh stringutil.hh vray.hh textdb.hh textstr.hh  assoc.hh\
-	findcurs.hh unionfind.hh compare.hh handle.hh
-
-
+include Sources.make
 
 obs=$(cc:.cc=.o)
 staticlib=libflower.a
 $(staticlib): $(obs)
-	ar cr libflower.a $(obs)
+	$(AR) cr libflower.a $(obs)
 
 include depend
 
-depend: Makefile
+depend: Sources.make
 	$(CXX) -MM $(cc) > depend
 
 
 clean:
-	rm depend $(obs) $(staticlib)
-
-DFILES=$(hh) $(cc) $(inl) $(templatecc) Makefile
+	rm -f $(obs) $(staticlib)
+realclean: clean
+	rm -f depend
+DFILES=$(hh) $(cc) $(inl) $(templatecc) Makefile Sources.make TODO
 DDIR=$(DNAME)
 
 dist:
@@ -39,5 +33,6 @@ dist:
 	ln $(DFILES) $(DDIR)/
 	tar cfz $(DNAME).tar.gz $(DDIR)/*
 	rm -rf $(DDIR)/
+TAGS:
+	etags -CT $(inl) $(cc) $(hh)
 
-	

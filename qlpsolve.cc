@@ -12,7 +12,7 @@ Active_constraints::status() const
 	s += String(active[i]) + " ";
     }
 
-    s+="|";
+    s+="| ";
     for (int i=0; i< inactive.sz(); i++) {
 	s += String(inactive[i]) + " ";
     }
@@ -66,12 +66,24 @@ Active_constraints::add(int k)
     // update of matrices
     Vector Ha = H*a;
     Real aHa = a*Ha;
+    if (ABS(aHa) > EPS) {
+	/*
+	  a != 0, so if Ha = O(EPS), then
+	  Ha * aH / aHa = O(EPS^2/EPS)
 
-    H -= Matrix(Ha , Ha)/(aHa);
+	  if H*a == 0, the constraints are dependent.
+	  */
+	H -= Matrix(Ha , Ha)/(aHa);
+    
 
-    Vector addrow(Ha/(aHa));
-    A -= Matrix(A*a, addrow);
-    A.insert_row(addrow,A.rows());        
+	/*
+	  sorry, don't know how to justify this. ..
+	  */
+	Vector addrow(Ha/(aHa));
+	A -= Matrix(A*a, addrow);
+	A.insert_row(addrow,A.rows());
+    }else
+	WARN << "degenerate constraints";
 }
 
 void
@@ -86,9 +98,14 @@ Active_constraints::drop(int k)
     active.pop();
 
     Vector a(A.row(q));
-    H += Matrix(a,a)/(a*opt->quad*a);
-    A -= A*opt->quad*Matrix(a,a)/(a*opt->quad*a);
-
+    if (a.norm() > EPS) {
+	/*
+	 
+	 */
+	H += Matrix(a,a)/(a*opt->quad*a);
+	A -= A*opt->quad*Matrix(a,a)/(a*opt->quad*a);
+    }else
+	WARN << "degenerate constraints";
     Vector rem_row(A.row(q));
     assert(rem_row.norm() < EPS);    
     A.delete_row(q);
@@ -121,11 +138,13 @@ int
 min_elt_index(Vector v)
 {
     Real m=INFTY; int idx=-1;
-    for (int i = 0; i < v.dim(); i++)
+    for (int i = 0; i < v.dim(); i++){
 	if (v(i) < m) {
 	    idx = i;
 	    m = v(i);
 	}
+	assert(v(i) <= INFTY);
+    }
     return idx;
 }
 
@@ -149,10 +168,10 @@ Ineq_constrained_qp::solve(Vector start) const
     while (iterations++ < MAXITER) {
 	Vector direction= - act.find_active_optimum(gradient);
        	
-	//	mtor << "gradient "<< gradient<< "\ndirection " << direction<<"\n";
+	mtor << "gradient "<< gradient<< "\ndirection " << direction<<"\n";
 	
 	if (direction.norm() > EPS) {
-	    //  mtor << act.status() << '\n';
+	    mtor << act.status() << '\n';
 	    
 	    Real minalf = INFTY;
 
@@ -183,12 +202,13 @@ Ineq_constrained_qp::solve(Vector start) const
 	    x += deltax;	    
 	    gradient += optimal_step * (quad * deltax);
 	    
-	    //mtor << "step = " << optimal_step<< " (|dx| = " <<
-	    //deltax.norm() << ")\n";	    
+	    mtor << "step = " << optimal_step<< " (|dx| = " <<
+		deltax.norm() << ")\n";	    
 	   
 	    if (minalf < unbounded_alfa) {
 		/* bumped into an edge. try again, in smaller space. */
 		act.add(minidx.idx());
+		mtor << "adding cons "<< minidx.idx()<<'\n';
 		continue;
 	    }
 	    /*ASSERT: we are at optimal solution for this "plane"*/
@@ -201,7 +221,9 @@ Ineq_constrained_qp::solve(Vector start) const
 	
 	if (m>=0 && lagrange_mult(m) > 0) {
 	    break;		// optimal sol.
-	} else if (m<0 && gradient.norm() < EPS) {
+	} else if (m<0) {
+	    assert(gradient.norm() < EPS) ;
+	    
 	    break;
 	}
 	
@@ -211,7 +233,7 @@ Ineq_constrained_qp::solve(Vector start) const
     if (iterations >= MAXITER)
 	WARN<<"didn't converge!\n";
     
-    //    mtor <<  ": found " << x<<" in " << iterations <<" iterations\n";
+    mtor <<  ": found " << x<<" in " << iterations <<" iterations\n";
     assert_solution(x);
     return x;
 } 
@@ -221,10 +243,12 @@ Ineq_constrained_qp::solve(Vector start) const
 
     Section 13.3
 
-    This is a "projected gradient" algorithm. Starting
-    from a point x the next point is found in a direction determined by
-    projecting the gradient onto the active constraints.  */
-    
-/*
-    thoroughly hacked to barely living tiny pieces by HW
+    This is a "projected gradient" algorithm. Starting from a point x
+    the next point is found in a direction determined by projecting
+    the gradient onto the active constraints.  (well, not really the
+    gradient. The optimal solution obeying the active constraints is
+    tried. This is why H = Q^-1 in initialisation) )
+
+
     */
+    

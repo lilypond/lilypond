@@ -1,10 +1,11 @@
 #include "misc.hh"
 #include "debug.hh"
 #include "real.hh"
-#include "tex.hh"
+#include "symbol.hh"
 #include "assoc.hh"
 #include "symtable.hh"
 #include "const.hh"
+
 
 Symtable* 
 Symtables::operator()(String s) 
@@ -22,21 +23,14 @@ void
 Symtables::read()
 {
      Text_db symini(fname);
-     while (1) {
-	 if (symini.eof())
-	     break;
+     while (!symini.eof()) {
 	 Text_record  r(  symini++);
-	 if (!r.sz())
-	     continue;
-
 	 assert (r[0] == "table");
 	 
 	 String tabnam = r[1];
 	 Symtable * sp = new Symtable;
-	 while (1) {
+	 while (!symini.eof()){
 	     r = symini++;
-	     if (!r.sz())
-		 continue;
 	     if (r[0] == "end")
 		 break;
 	     
@@ -61,7 +55,7 @@ Symtables the_sym_tables("symbol.ini");
 const Symbol*
 Symbol::find_ball(int i)
 {
-    int j = intlog2(i);
+    int j = intlog2(i)+1;
     if (j > 4) j = 4;
     Symtable * st = the_sym_tables("balls");
     return &(*st)[String(j)];
@@ -71,7 +65,7 @@ Symbol::find_ball(int i)
 const Symbol*
 Symbol::find_rest(int i)
 {
-    int j = intlog2(i);
+    int j = intlog2(i)+1;
     return &(*the_sym_tables("rests"))[String(j)];
 }
 const Symbol*
@@ -86,7 +80,11 @@ struct Linestaf_symbol : Stretchable_symbol {
     int lines;
     String operator ()(Real w);
     Linestaf_symbol(int n) { lines = n;}
+    Interval height(Real) const { return Interval(0,lines*1/CM_TO_PT); }
 };
+
+
+
 // should be done in TeX
 String
 Linestaf_symbol::operator()(Real w)

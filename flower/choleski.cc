@@ -1,4 +1,5 @@
 #include "choleski.hh"
+const Real EPS = 1e-7;		// so sue me. Hard coded
 
 Vector
 Choleski_decomposition::solve(Vector rhs)const
@@ -38,7 +39,8 @@ Choleski_decomposition::Choleski_decomposition(Matrix P)
     : L(P.dim()), D(P.dim())
 {
     int n = P.dim();
-    assert((P-P.transposed()).norm() < EPS);
+    assert((P-P.transposed()).norm()/P.norm() < EPS);
+
     L.unit();
     for (int k= 0; k < n; k++) {
 	for (int j = 0; j < k; j++){
@@ -56,7 +58,7 @@ Choleski_decomposition::Choleski_decomposition(Matrix P)
     }
 
 #ifdef NDEBUG
-    assert((original()-P).norm() < EPS);
+    assert((original()-P).norm() / P.norm() < EPS);
 #endif
 }
      
@@ -84,7 +86,7 @@ Choleski_decomposition::inverse() const
 #ifdef NDEBUG
     Matrix I1(n), I2(original());
     I1.unit();
-    assert((I1-original()*invm).norm() < EPS);
+    assert((I1-original()*invm).norm()/original.norm() < EPS);
 #endif
     
     return invm;

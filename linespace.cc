@@ -118,7 +118,7 @@ Spacing_problem::find_initial_solution() const
 }
 // generate the matrices
 void
-Spacing_problem::make_matrices(Matrix &quad, Vector &lin) const
+Spacing_problem::make_matrices(Matrix &quad, Vector &lin, Real &c) const
 {
     quad.fill(0);
     lin.fill(0);
@@ -134,6 +134,8 @@ Spacing_problem::make_matrices(Matrix &quad, Vector &lin) const
 
 	lin(r) -= i->space*i->hooke;
 	lin(l) += i->space*i->hooke;
+
+	c += sqr(i->space);
     }
 }
 
@@ -141,29 +143,20 @@ Spacing_problem::make_matrices(Matrix &quad, Vector &lin) const
 void
 Spacing_problem::make_constraints(Optimisation_problem& lp) const
 {    
-    for (int j=0; j < cols.sz(); j++) {
+    int dim=cols.sz();
+    for (int j=0; j < dim; j++) {
 	Colinfo *c=&(cols[j]);
-	int dim=cols.sz();
-		
 	if (c->fixed) {
-	    lp.add_fixed_var(j,c->fixpos);
-	    continue;
-	}else {
-
+	    lp.add_fixed_var(j,c->fixpos);	    
+	}
+	if (j > 0){
 	    Vector c1(dim);
-	    Vector c2(dim);
 	    
 	       
 	    c1(j)=1.0 ;
 	    c1(j-1)=-1.0 ;
 	    lp.add_inequality_cons(c1, cols[j-1].minright() +
 				   cols[j].minleft());
-
-	    c2(j)=-1.0 ;
-	    c2(j+1)=1.0;
-	    lp.add_inequality_cons(c2,
-				   cols[j+1].minleft() +
-				   cols[j].minright());
 	}
     }
 }
@@ -173,16 +166,16 @@ Spacing_problem::solve() const
 {
     OK();
     assert(check_feasible());
-    //    print();
+    print();
     
     /* optimalisatiefunctie */        
     Optimisation_problem lp(cols.sz());
-    make_matrices(lp.quad,lp.lin);
+    make_matrices(lp.quad,lp.lin, lp.const_term);
     make_constraints(lp);    
     Vector start=find_initial_solution();    
     Vector sol(lp.solve(start));
     if (!check_constraints(sol)) {
-	error( "solution doesn't solve. Sorry");	
+	WARN << "solution doesn't satisfy constraints.\n" ;
     }
 	
 

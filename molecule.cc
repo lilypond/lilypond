@@ -1,6 +1,15 @@
 #include "glob.hh"
 #include "string.hh"
 #include "molecule.hh"
+#include "symbol.hh"
+
+Box
+Atom::extent() const
+{
+    Box b( sym->dim);
+    b.translate(off);
+    return b;
+}
 
 String
 Atom::TeXstring() const

@@ -31,7 +31,7 @@ struct Spanner {
 /// a fixed size element of the score
 struct Item {
     virtual Interval width() const;    
-
+    virtual Interval height() const;
     const PCol * col;
     Output *output;
     

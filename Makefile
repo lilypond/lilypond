@@ -1,6 +1,6 @@
 MAJVER=0
 MINVER=0
-PATCHLEVEL=1
+PATCHLEVEL=2
 
 # 
 #
@@ -19,8 +19,10 @@ VERSION=$(MAJVER).$(MINVER).$(PATCHLEVEL)
 PACKAGENAME=lilypond
 DNAME=$(PACKAGENAME)-$(VERSION)
 othersrc=lexer.l parser.y
-OFILES=Makefile Sources.make symbol.ini suzan.ly depend lilyponddefs.tex test.tex make_version
-DFILES=$(hdr) $(mycc) $(othersrc) $(OFILES)
+SCRIPTS=make_version make_patch
+IFILES= symbol.ini suzan.ly  lilyponddefs.tex test.tex .dstreamrc
+OFILES=Makefile Sources.make depend 
+DFILES=$(hdr) $(mycc) $(othersrc) $(OFILES) $(IFILES) $(SCRIPTS)
 
 #compiling
 LOADLIBES=-L$(FLOWERDIR) -lflower
@@ -34,8 +36,11 @@ exe=$(PACKAGENAME)
 $(exe): $(obs)
 	$(CXX) -o $(exe) $(obs) $(LOADLIBES)
 clean:
-	rm -f $(exe) *.o $(DOCDIR)/* TAGS
+	rm -f $(exe) *.o $(DOCDIR)/* core
 
+realclean: clean
+	rm -f TAGS depend
+	
 all: kompijl doc
 
 # doc++ documentation of classes

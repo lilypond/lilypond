@@ -9,9 +9,8 @@ Mixed_qp::add_equality_cons(Vector v, double r)
 void
 Mixed_qp::add_fixed_var(int i, Real r)
 {
-    
-   eq_cons.add(i);
-   eq_consrhs.add(r);
+    eq_cons.add(i);
+    eq_consrhs.add(r);
 }
    void
 Ineq_constrained_qp::add_inequality_cons(Vector c, double r)
@@ -38,7 +37,7 @@ Ineq_constrained_qp::OK()const
 Real
 Ineq_constrained_qp::eval (Vector v)
 {
-    return v * quad * v + lin * v ;
+    return v * quad * v + lin * v + const_term;
 }
 /*
     eliminate appropriate variables, until we have a Ineq_constrained_qp
@@ -50,7 +49,7 @@ Ineq_constrained_qp::eval (Vector v)
 Vector
 Mixed_qp::solve(Vector start) const 
 {
-
+    print();
     Ineq_constrained_qp pure(*this);
     
     for  (int i= eq_cons.sz()-1; i>=0; i--) {

@@ -1,5 +1,7 @@
 #include "linestaff.hh"
-#include "tex.hh"
+#include "symbol.hh"
+
+
 
 Linestaff::Linestaff(int l)
 {

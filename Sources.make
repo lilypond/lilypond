@@ -6,7 +6,7 @@ hdr=matrix.hh    qlp.hh       smat.hh      vsmat.hh\
 	 tstream.hh dstream.hh mtime.hh rhythmstaf.hh\
 	parseconstruct.hh real.hh debug.hh globvars.hh keyword.hh\
 	misc.hh score.hh notename.hh lexer.hh symtable.hh\
-	choleski.hh
+	choleski.hh symbol.hh
 
 mycc=smat.cc matrix.cc choleski.cc  qlp.cc qlpsolve.cc \
 	 break.cc linespace.cc molecule.cc line.cc\
