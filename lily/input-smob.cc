@@ -41,8 +41,8 @@ ly_input_p (SCM x)
   return unsmob_input (x) ? SCM_BOOL_T : SCM_BOOL_F ;
 }
 
-static
-void start_input_smobs ()
+static void
+start_input_smobs ()
 {
   input_tag = scm_make_smob_type ("input", 0);
   scm_set_smob_mark (input_tag, mark_smob);
@@ -52,7 +52,7 @@ void start_input_smobs ()
 
   scm_c_define_gsubr ("ly-input-location?", 1, 0, 0,
 		      (Scheme_function_unknown)ly_input_p);
- }
+}
 
 SCM
 make_input (Input ip)

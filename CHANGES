@@ -1,5 +1,8 @@
-1.5.14.jcn1
+1.5.14.jcn2
 ===========
+
+* Ugly hack in add-html-footer for disabling tutorial and refman links
+in sidebar.
 
 * Guile > 1.4 compilation fixes.
 
