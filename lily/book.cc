@@ -21,6 +21,8 @@
 #include "stencil.hh"
 #include "warn.hh"
 
+#include "ly-smobs.icc"
+
 Book::Book ()
   : Input ()
 {
@@ -34,7 +36,6 @@ Book::~Book ()
 {
 }
 
-#include "ly-smobs.icc"
 IMPLEMENT_SMOBS (Book);
 IMPLEMENT_DEFAULT_EQUAL_P (Book);
 
@@ -82,11 +83,7 @@ Book::process (String outname, Output_def *default_def)
       
       /* If the score is empty, generate no output.  Should we
 	 do titling?  */
-      if (systems != SCM_EOL
-	  /* FIXME: can systems be SCM_UNDEFINED at all?
-	     it seesm to be initialise with SCM_EOL and only gets assigned
-	     non-SCM_UNDEFINED values -- jcn  */
-	  && systems != SCM_UNDEFINED)
+      if (ly_c_pair_p (systems))
 	{
 	  Score_lines sc;
 	  sc.lines_ = systems;
@@ -98,24 +95,3 @@ Book::process (String outname, Output_def *default_def)
   return paper_book;
 }
 
-#if 0
-/* FIXME: WIP, this is a hack.  Return first page as stencil.  */
-SCM
-Book::to_stencil (Output_def *default_def)
-{
-  Paper_book *paper_book = process ("<markup>", default_def);
-
-  SCM pages = paper_book->pages ();
-  scm_gc_unprotect_object (paper_book->self_scm ());
-
-  if (ly_c_pair_p (pages))
-    {
-      progress_indication (_f ("paper output to `%s'...", "<markup>"));
-      return ly_car (pages);
-    }
-
-  scm_gc_unprotect_object (paper_book->bookpaper_->self_scm ());
-  
-  return SCM_EOL;
-}
-#endif
