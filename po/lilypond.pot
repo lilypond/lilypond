@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-16 17:53+0200\n"
+"POT-Creation-Date: 2004-07-17 12:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -127,6 +127,8 @@ msgid ""
 "\n"
 msgstr ""
 
+#. Bug in option parser: --output=foe is taken as an abbreviation
+#. for --output-format.
 #. Bug in option parser: --output=foe is taken as an abbreviation
 #. for --output-format.
 #. Bug in option parser: --output=foe is taken as an abbreviation
@@ -738,6 +740,7 @@ msgstr ""
 #. FIXME: broken sentence
 #. FIXME: broken sentence
 #. FIXME: broken sentence
+#. FIXME: broken sentence
 #: all-font-metrics.cc:100 lily/all-font-metrics.cc:95
 #, c-format
 msgid "checksum mismatch for font file: `%s'"
@@ -843,6 +846,12 @@ msgstr ""
 #. errors hard to catch
 #.
 #. last->translator_id_string_  = get_change ()->change_to_id_string_;
+#.
+#.
+#. We could change the current translator's id, but that would make
+#. errors hard to catch
+#.
+#. last->translator_id_string ()  = get_change ()->change_to_id_string ();
 #.
 #.
 #. We could change the current translator's id, but that would make
@@ -1235,6 +1244,7 @@ msgstr ""
 #. No version number or newline here.  It confuses help2man.
 #. No version number or newline here.  It confuses help2man.
 #. No version number or newline here.  It confuses help2man.
+#. No version number or newline here.  It confuses help2man.
 #: main.cc:196 lily/main.cc:181
 #, c-format
 msgid "Usage: %s [OPTIONS]... FILE..."
@@ -1332,6 +1342,9 @@ msgstr ""
 msgid "Braces don't match"
 msgstr ""
 
+#.
+#. music for the softenon children?
+#.
 #.
 #. music for the softenon children?
 #.
@@ -1556,6 +1569,7 @@ msgstr ""
 #. this shouldn't happen, but let's continue anyway.
 #. this shouldn't happen, but let's continue anyway.
 #. this shouldn't happen, but let's continue anyway.
+#. this shouldn't happen, but let's continue anyway.
 #: separation-item.cc:53 separation-item.cc:97 lily/separation-item.cc:53
 #: lily/separation-item.cc:97
 msgid "Separation_item:  I've been drinking too much"
@@ -1570,6 +1584,8 @@ msgstr ""
 msgid "unterminated slur"
 msgstr ""
 
+#. How to shut up this warning, when Voice_devnull_engraver has
+#. eaten start event?
 #. How to shut up this warning, when Voice_devnull_engraver has
 #. eaten start event?
 #. How to shut up this warning, when Voice_devnull_engraver has
@@ -1605,16 +1621,16 @@ msgstr ""
 msgid "#<spring smob d= %f>"
 msgstr ""
 
-#: stem.cc:119 lily/stem.cc:114
+#: stem.cc:119 lily/stem.cc:114 lily/stem.cc:126
 msgid "Weird stem size; check for narrow beams"
 msgstr ""
 
-#: stem.cc:648 lily/stem.cc:577
+#: stem.cc:648 lily/stem.cc:577 lily/stem.cc:589
 #, c-format
 msgid "flag `%s' not found"
 msgstr ""
 
-#: stem.cc:661 lily/stem.cc:588
+#: stem.cc:661 lily/stem.cc:588 lily/stem.cc:600
 #, c-format
 msgid "flag stroke `%s' not found"
 msgstr ""
@@ -1679,6 +1695,8 @@ msgstr ""
 #. more of a programming error.
 #. Not using ngettext's plural feature here, as this message is
 #. more of a programming error.
+#. Not using ngettext's plural feature here, as this message is
+#. more of a programming error.
 #: tfm-reader.cc:108 lily/tfm-reader.cc:108
 #, c-format
 msgid "TFM header of `%s' has only %u word (s)"
@@ -1713,11 +1731,18 @@ msgstr ""
 #. (Here really with a warning!)
 #. If there is no such symbol, we default to the numbered style.
 #. (Here really with a warning!)
+#. If there is no such symbol, we default to the numbered style.
+#. (Here really with a warning!)
 #: time-signature.cc:95 lily/time-signature.cc:95
 #, c-format
 msgid "time signature symbol `%s' not found; reverting to numbered style"
 msgstr ""
 
+#.
+#. Todo: should make typecheck?
+#.
+#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+#.
 #.
 #. Todo: should make typecheck?
 #.
@@ -1957,7 +1982,8 @@ msgstr ""
 msgid "Use help as  SYMBOL to get online help."
 msgstr ""
 
-#: lily/scm-option.cc:133 lily/scm-option.cc:161
+#: lily/scm-option.cc:133 lily/scm-option.cc:161 lily/scm-option.cc:136
+#: lily/scm-option.cc:164
 #, c-format
 msgid "No such internal option: %s"
 msgstr ""

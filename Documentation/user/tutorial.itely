@@ -23,7 +23,7 @@ picture in the HTML version of this manual, you will see the exact
 LilyPond input that was used to generate that image.
 Try it on this image
 
-@lilypond[quote,raggedright,relative=2]
+@lilypond[fragment,quote,raggedright,relative=2]
 c-\markup { \bold \huge { Click here.  } }
 @end lilypond
 @end ifhtml
@@ -76,7 +76,7 @@ c d e f g a b
 @noindent
 the result looks like this
 
-@lilypond[quote,notime,relative=1]
+@lilypond[fragment,quote,notime,relative=1]
 c d e f g a b
 @end lilypond
 
@@ -89,7 +89,7 @@ a1 a2 a4 a16 a32
 @end example
 
 @c FIXME: have NOTIME also remove Score.timing?
-@lilypond[quote,notime,relative=1]
+@lilypond[fragment,quote,notime,relative=1]
 \set Score.timing = ##f
 \set Staff.autoBeaming = ##f
 { a1 a2 a4 a16 a32 s16_" " }
@@ -103,7 +103,7 @@ defaults to a quarter
 a a8 a a2 a
 @end example
 
-@lilypond[quote,notime,relative=1]
+@lilypond[fragment,quote,notime,relative=1]
 \set Score.timing = ##f
 { a a8 a a2 a s16_" " }
 @end lilypond
@@ -116,7 +116,7 @@ Rests are entered just like notes, but with the name @samp{r}
 r2 r4 r8 r16
 @end example
 
-@lilypond[quote,notime]
+@lilypond[fragment,quote,notime]
 \set Score.timing = ##f
 r2 r4 r8 r16 s16_" "
 @end lilypond
@@ -127,7 +127,7 @@ Add a dot @samp{.} after the duration to get a @rglos{dotted note}
 a2. a4 a8. a16
 @end example
 
-@lilypond[quote,notime,relative=1]
+@lilypond[fragment,quote,notime,relative=1]
 \set Score.timing = ##f
 { a2. a4 a8. a16 s16_" " }
 @end lilypond
@@ -142,7 +142,7 @@ The @rglos{meter} (or @rglos{time signature}) can be set with the
 @end example
 
 @c A clef here may lead to confusion, remove it.
-@lilypond[quote]
+@lilypond[fragment,quote]
 \override Staff.Clef #'transparent = ##t 
 \time 3/4
 s4_" "
@@ -164,7 +164,7 @@ The @rglos{clef} can be set using the @code{\clef} command
 \clef tenor
 @end example
 
-@lilypond[quote,notime]
+@lilypond[fragment,quote,notime]
 \set Score.timing = ##f
 \clef violin
 s4_" "
@@ -213,7 +213,7 @@ and the music will be converted to printable output.
 Remember to enclose the notes and commands in curly braces
 @code{@{@tie{}@dots{}@tie{}@}} to convert it to printable output.
 
-@lilypond[quote,noindent,linewidth=55\staffspace]
+@lilypond[fragment,quote,noindent,linewidth=55\staffspace]
 {
   \time 3/4
   \clef bass
@@ -342,7 +342,7 @@ like German and Dutch.}
 cis1 ees fisis aeses
 @end example
 
-@lilypond[quote,notime]
+@lilypond[fragment,quote,notime]
 \set Score.timing = ##f
 \transpose c c' { cis1 ees fisis aeses s16_" " }
 @end lilypond
@@ -358,7 +358,7 @@ g1
 g
 @end example
 
-@lilypond[quote,notime,fragment]
+@lilypond[fragment,quote,notime,fragment]
 \key d \major
 g'1
 \key c \minor
@@ -488,7 +488,7 @@ ugr: removing the ignore block, leaving the comment line below
 @end ignore
 
 
-@lilypond[quote,noindent,linewidth=50\staffspace]
+@lilypond[fragment,quote,noindent,linewidth=50\staffspace]
 \transpose c c' {
   \time 4/4
   \key g \minor
@@ -609,14 +609,14 @@ In input files, music is represent by so-called @emph{music
 expression}.  We have already seen in the previous examples; 
 a single note is a music expression
 
-@lilypond[quote,verbatim,relative=3]
+@lilypond[fragment,quote,verbatim,relative=3]
 a4
 @end lilypond
 
 Enclosing group of notes in braces creates a new music
 expression
 
-@lilypond[quote,verbatim,relative=3]
+@lilypond[fragment,quote,verbatim,relative=3]
 { a4 g4 }
 @end lilypond
 
@@ -626,7 +626,7 @@ expression, which can be grouped with other expressions sequentially.
 Here, the expression from the previous example is combined with two
 notes
 
-@lilypond[quote,verbatim,relative=3]
+@lilypond[fragment,quote,verbatim,relative=3]
 { { a4 g } f g } 
 @end lilypond
 
@@ -638,7 +638,7 @@ music expression is formed by enclosing expressions in @code{<<} and
 @code{>>}.  In the following example, three sequences (all containing
 two notes) are combined simultaneously
 
-@lilypond[quote,verbatim,relative=3]
+@lilypond[fragment,quote,verbatim,relative=3]
 <<
    { a4 g }
    { f e }
@@ -673,7 +673,7 @@ arbitrarily deep@footnote{The reason for getting three staves in the
 previous example but just a single staff in the current one will be
 explained later.}
 
-@lilypond[quote,verbatim,relative=2] 
+@lilypond[fragment,quote,verbatim,relative=2] 
 {
   c <<c e>>
   << { e f } { c <<b d>> } >>
@@ -746,7 +746,7 @@ We can now typeset a melody with two staves
 
 @c TODO: (c) status of this Paul McCartney (?) song (let's all stand together)
 
-@lilypond[quote,verbatim,raggedright]
+@lilypond[fragment,quote,verbatim,raggedright]
 <<
   \new Staff {
     \time 3/4
@@ -778,7 +778,7 @@ For more information on context see the description in
 Common accents can be added to a note using a dash (@samp{-}) and a
 single character
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[fragment,quote,verbatim,relative=2]
 c-.  c-- c-> c-^ c-+ c-_
 @end lilypond
 
@@ -786,7 +786,7 @@ c-.  c-- c-> c-^ c-+ c-_
 Similarly, fingering indications can be added to a note using a dash
 (@samp{-}) and the digit to be printed
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[fragment,quote,verbatim,relative=2]
 c-3 e-5 b-2 a-1
 @end lilypond
 
@@ -794,7 +794,7 @@ c-3 e-5 b-2 a-1
 Dynamic signs are made by adding the markings (with a backslash) to
 the note
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[fragment,quote,verbatim,relative=2]
 c\ff c\mf
 @end lilypond
 
@@ -806,7 +806,7 @@ Crescendi and decrescendi are started with the commands @code{\<} and
 @code{\>}.  An ending dynamic, for example @code{\f}, will finish the
 crescendo, or the command @code{\!} can be used
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[fragment,quote,verbatim,relative=2]
 c2\< c2\ff\> c2 c2\!
 @end lilypond
 
@@ -818,7 +818,7 @@ A slur is a curve drawn across many notes, and indicates legato
 articulation.  The starting note and ending note are marked with
 @samp{(} and @samp{)}, respectively
 
-@lilypond[quote,fragment,relative=2,verbatim]
+@lilypond[fragment,quote,fragment,relative=2,verbatim]
 d4( c16)( cis d e c cis d e)( d4)
 @end lilypond
 
@@ -1037,7 +1037,7 @@ line}.  It is entered as two underscores, i.e.,
 @{ I want to break free __ @}
 @end example 
 
-@lilypond[quote,raggedright]
+@lilypond[fragment,quote,raggedright]
 <<
   \relative {
     r4 c \times 2/3 { f g g }
@@ -1054,7 +1054,7 @@ resulting in a centered hyphen between two syllables
 Twin -- kle twin -- kle
 @end example
 
-@lilypond[quote,raggedright]
+@lilypond[fragment,quote,raggedright]
 <<
   \relative {
      \time 2/4
@@ -1095,7 +1095,7 @@ to explicitly specify a @code{Lyrics} context,
 
 The melody for this song is as follows
 
-@lilypond[quote,fragment,relative=2]
+@lilypond[fragment,quote,fragment,relative=2]
 r4 c \times 2/3 { f4 g g }
 \times 2/3 { g4( a2) }
 @end lilypond
@@ -1686,7 +1686,7 @@ example,
 If there is no @code{\score} block in the fragment,
 @code{lilypond-book} will supply one
 
-@lilypond[quote]
+@lilypond[fragment,quote]
 c'4
 @end lilypond
 
@@ -1697,7 +1697,7 @@ length.
 
 Options are put in brackets.
 
-@lilypond[quote,staffsize=26,verbatim]
+@lilypond[fragment,quote,staffsize=26,verbatim]
 c'4 f16
 @end lilypond
 

@@ -107,7 +107,7 @@ Half-flats and half-sharps are formed by adding @code{-eh} and
 @cindex quarter tones
 @cindex semi-flats, semi-sharps
 
-@lilypond[quote,verbatim,relative=3]
+@lilypond[fragment,quote,verbatim,relative=3]
 ceses4
 ceseh
 ces
@@ -206,7 +206,7 @@ A chord is formed by a enclosing a set of pitches in @code{<} and
 @code{>}. A chord may be followed by  a duration, and a set of
 articulations, just like simple notes.
 
-@lilypond[quote,relative=1]
+@lilypond[fragment,quote,relative=1]
 <c e g>4 <c>8 <>8 
 @end lilypond
 
@@ -219,7 +219,7 @@ articulations, just like simple notes.
 
 Rests are entered like notes, with the note name @code{r}
 
-@lilypond[quote,raggedright,verbatim]
+@lilypond[fragment,quote,raggedright,verbatim]
 r1 r2 r4 r8
 @end lilypond
 
@@ -235,7 +235,7 @@ leave these rests alone
 
 @cindex @code{\rest}
  
-@lilypond[quote,raggedright,verbatim]
+@lilypond[fragment,quote,raggedright,verbatim]
 a'4\rest d'4\rest
 @end lilypond
 
@@ -254,7 +254,7 @@ Program reference: @internalsref{RestEvent}, and @internalsref{Rest}.
 An invisible rest (also called a `skip') can be entered like a note
 with note name `@code{s}' or with @code{\skip @var{duration}}
 
-@lilypond[quote,raggedright,verbatim]
+@lilypond[fragment,quote,raggedright,verbatim]
 a2 s4 a4 \skip 1 a4 
 @end lilypond
 
@@ -1417,7 +1417,7 @@ all 16th or shorter beams at beat positions, as defined by the
 @code{beatLength} property.
 
 
-@lilypond[quote,relative=2,verbatim,noindent]
+@lilypond[fragment,quote,relative=2,verbatim,noindent]
 c16[ c c c c c c c]
 \set subdivideBeams = ##t
 c16[ c c c c c c c]
@@ -4338,7 +4338,7 @@ and @internalsref{Staff}.@code{instr}. This will print a string before
 the start of the staff. For the first start, @code{instrument} is
 used, for the next ones @code{instr} is used.
 
-@lilypond[quote,verbatim,raggedright,relative=1]
+@lilypond[quote,verbatim,raggedright,relative=1,fragmen]
 \set Staff.instrument = "Ploink "
 \set Staff.instr = "Plk "
 c1
