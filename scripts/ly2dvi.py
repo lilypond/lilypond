@@ -323,6 +323,9 @@ verbose_p = 0
 preview_p = 0
 preview_resolution = 90
 pseudo_filter_p = 0
+latex_cmd = 'latex'
+tex_extension = '.tex'
+pdftex_p = 0
 
 help_summary = _ ("Generate .dvi with LaTeX for LilyPond")
 
@@ -344,6 +347,7 @@ option_definitions = [
 	('', 'V', 'verbose', _ ("verbose")),
 	('', 'v', 'version', _ ("print version number")),
 	('', 'w', 'warranty', _ ("show warranty and copyright")),
+	('', '', 'pdftex', _("Use pdflatex to generate a PDF output")),
 	]
 
 layout_fields = ['dedication', 'title', 'subtitle', 'subsubtitle',
@@ -468,7 +472,10 @@ def run_lilypond (files, dep_prefix):
 						      fields))
 	else:
 		opts = opts + ' --no-paper'
-		
+
+	if pdftex_p:
+		opts = opts + ' -f pdftex'		
+
 	if track_dependencies_p:
 		opts = opts + " --dependencies"
 		if dep_prefix:
@@ -506,7 +513,7 @@ def analyse_lilypond_output (filename, extra):
 	# urg
 	'''Grep FILENAME for interesting stuff, and
 	put relevant info into EXTRA.'''
-	filename = filename+'.tex'
+	filename = filename+tex_extension
 	progress (_ ("Analyzing %s...") % filename)
 	s = open (filename).read ()
 
@@ -535,7 +542,7 @@ def find_tex_files_for_base (base, extra):
 		if os.path.exists (base + '.' + f):
 			extra[f].append (open (base + '.' + f).read ())
 	
-	return (base  +'.tex',headerfiles)
+	return (base+tex_extension,headerfiles)
 	 
 
 def find_tex_files (files, extra):
@@ -554,7 +561,7 @@ def find_tex_files (files, extra):
 			if x:
 				fname = fname + '-%d' % x
 
-			if os.path.exists (fname + '.tex'):
+			if os.path.exists (fname + tex_extension):
 				tfiles.append (find_tex_files_for_base (fname, extra))
 				analyse_lilypond_output (fname, extra)
 			else:
@@ -697,7 +704,7 @@ None
 	f.write (s)
 	f.close ()
 
-	cmd = 'latex \\\\nonstopmode \\\\input %s' % latex_fn
+	cmd = latex_cmd + ' \\\\nonstopmode \\\\input %s' % latex_fn
 	status = quiet_system (cmd, 'LaTeX', ignore_error = 1)
 
 	signal = 0xf & status
@@ -729,8 +736,8 @@ The error log is as follows:
 ''' % (global_latex_preamble (extra), outbase))
 
 		f.close()
-		cmd = 'latex \\\\nonstopmode \\\\input %s' % preview_fn
-		quiet_system (cmd, "LaTeX for preview")
+		cmd = '%s \\\\nonstopmode \\\\input %s' % (latex_cmd, preview_fn)
+		quiet_system (cmd, '%s for preview' % latex_cmd)
 	
 
 def run_dvips (outbase, extra):
@@ -902,6 +909,12 @@ for opt in options:
 	elif o == '--version' or o == '-v':
 		identify ()
 		sys.exit (0)
+	elif o == '--pdftex':
+		latex_cmd = 'pdflatex'
+		targets.remove('DVI')
+		targets.append('PDFTEX')
+		pdftex_p = 1
+		tex_extension = '.pdftex'
 	elif o == '--warranty' or o == '-w':
 		status = system ('lilypond -w', ignore_error = 1)
 		if status:
@@ -953,7 +966,7 @@ if files:
 	else:
 		(outdir, outbase) = os.path.split (abspath (output_name))
 
-	for i in ('.dvi', '.latex', '.ly', '.ps', '.tex'):
+	for i in ('.dvi', '.latex', '.ly', '.ps', '.tex', '.pdftex'):
 		output_name = strip_extension (output_name, i)
 		outbase = strip_extension (outbase, i)
 
@@ -1028,7 +1041,28 @@ if files:
 
 	if 'PNG' in  targets:
 		make_preview (outbase, extra_init)
-		
+
+	if 'PDFTEX' in targets:
+		try:
+			run_latex (files, outbase, extra_init)
+			# unless: add --tex, or --latex?
+			targets.remove ('TEX')
+			targets.remove ('LATEX')
+			targets.remove ('PDFTEX')
+			if 'PDF' not in targets:
+				targets.append('PDF')
+		except:
+			# TODO: friendly message about TeX/LaTeX setup,
+			# trying to run tex/latex by hand
+			if 'PDFTEX' in targets:
+				targets.remove ('PDFTEX')
+			if 'PDF' in targets:
+				targets.remove ('PDF')
+			if 'PS' in targets:
+				targets.remove ('PS')
+			traceback.print_exc ()
+			sys.exit(1)
+
 	# add DEP to targets?
 	if track_dependencies_p:
 		depfile = os.path.join (outdir, outbase + '.dep')
