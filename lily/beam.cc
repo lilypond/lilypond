@@ -893,6 +893,10 @@ Beam::least_squares (SCM smob)
 /*
   We can't combine with previous function, since check concave and
   slope damping comes first.
+
+TODO: we should use the concaveness to control the amount of damping
+applied.
+  
  */
 MAKE_SCHEME_CALLBACK (Beam, shift_region_to_valid, 1);
 SCM
