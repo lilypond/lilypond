@@ -617,6 +617,7 @@
 	(breakable . #t)
 	(X-extent-callback . #f)
 	(Y-extent-callback . #f)			 
+	(after-line-breaking-callback . ,Line_spanner::after_line_breaking)
 	(molecule-callback . ,Line_spanner::brew_molecule)
 	(meta . ((interfaces . (line-spanner-interface spanner-interface))))
 	))
@@ -629,6 +630,7 @@
 	(X-extent-callback . #f)
 	(Y-extent-callback . #f)			 
 	(molecule-callback . ,Line_spanner::brew_molecule)
+	(after-line-breaking-callback . ,Line_spanner::after_line_breaking)
 	(meta . ((interfaces . (line-spanner-interface spanner-interface))))
 	))
 

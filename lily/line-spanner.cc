@@ -15,6 +15,7 @@
 #include "staff-symbol-referencer.hh"
 #include "font-interface.hh"
 #include "warn.hh"
+#include "align-interface.hh"
 
 #include <math.h>
 
@@ -84,6 +85,39 @@ zigzag_atom (Grob* me, Real thick, Real dx, Real dy)
   return list;
 }
 
+MAKE_SCHEME_CALLBACK(Line_spanner, after_line_breaking, 1);
+SCM
+Line_spanner::after_line_breaking (SCM  g)
+{
+  Grob *me  = unsmob_grob (g);
+  Spanner*sp = dynamic_cast<Spanner*> (me);
+
+  /*
+    We remove the line at the start of the line.  For piano voice
+    indicators, it makes no sense to have them at the start of the
+    line.
+
+    I'm not sure what the official rules for glissandi are, but
+    usually the 2nd note of the glissando is "exact", so when playing
+    from the start of the line, there is no need to glide.
+
+    From a typographical p.o.v. this makes sense, since the amount of
+    space left of a note at the start of a line is very small.
+
+    --hwn.
+    
+   */
+  if (sp->get_bound (LEFT)->break_status_dir()
+      && !sp->get_bound (RIGHT)->break_status_dir())
+    {
+      /*
+	Can't do suicide, since this mucks up finding the trend.
+       */
+      me->set_grob_property ("molecule-callback", SCM_EOL);
+      
+    }
+  return SCM_EOL;
+}
 
 
 Molecule
@@ -139,51 +173,25 @@ Line_spanner::line_molecule (Grob* me, Real thick, Real dx, Real dy)
   return mol;
 }
 
-Offset
-Line_spanner::get_broken_offset (Grob *me, Direction dir)
+/*
+  Find a common Y parent, which --if found-- should be the
+  fixed-distance alignment.
+ */
+Grob *
+line_spanner_common_parent (Grob *me)
 {
-  Spanner *spanner = dynamic_cast<Spanner*> (me);
-  Item* bound = spanner->get_bound (dir);
-  
-  if (!bound->break_status_dir ())
+  Grob * common = find_fixed_alignment_parent (me);
+  if (!common)
     {
-      Grob *common[] = {
-	bound->common_refpoint (Staff_symbol_referencer::get_staff_symbol (me),
-				X_AXIS),
-	bound->common_refpoint (Staff_symbol_referencer::get_staff_symbol (me),
-				Y_AXIS)
-      };
-  
-      return Offset (abs (bound->extent (common[X_AXIS], X_AXIS)[-dir]),
-		      bound->extent (common[Y_AXIS], Y_AXIS).center ());
+      common = Staff_symbol_referencer::get_staff_symbol (me);
+      if (common)
+	common = common->get_parent (Y_AXIS);
+      else
+	common = me->get_parent (Y_AXIS);
     }
-  return Offset ();
+
+  return common;
 }
-
-/* A broken line-spaner should maintain the same vertical trend
-   the unbroken line-spanner would have had.
-   From slur */
-Offset
-Line_spanner::broken_trend_offset (Grob *me, Direction dir)
-{
-  Offset o;
-  
-  if (Spanner *mother =  dynamic_cast<Spanner*> (me->original_))
-    {
-      int k = broken_spanner_index (dynamic_cast<Spanner*> (me));
-      Grob *neighbour = mother->broken_intos_[k + dir];      
-      Offset neighbour_o = get_broken_offset (neighbour, dir);
-      Offset me_o = get_broken_offset (me, -dir);
-
-      // Hmm, why not return me_o[X], but recalc in brew_mol?
-      o = Offset (0,
-		  (neighbour_o[Y_AXIS]*me_o[X_AXIS]
-		   - me_o[Y_AXIS]*neighbour_o[X_AXIS]) * dir /
-		  (me_o[X_AXIS] + neighbour_o[X_AXIS]));
-    }
-  return o;
-}
-
 
 /*
   Warning: this thing is a cross-staff object, so it should have empty Y-dimensions.
@@ -194,28 +202,16 @@ Line_spanner::broken_trend_offset (Grob *me, Direction dir)
 
 */
 
+
 MAKE_SCHEME_CALLBACK (Line_spanner, brew_molecule, 1);
 SCM
 Line_spanner::brew_molecule (SCM smob) 
 {
-  Grob *me= unsmob_grob (smob);
+  Spanner *me = dynamic_cast<Spanner*> (unsmob_grob (smob));
 
-  Spanner *spanner = dynamic_cast<Spanner*> (me);
-  Drul_array<Item*>  bound (spanner->get_bound (LEFT),
-			    spanner->get_bound (RIGHT));
+  Drul_array<Item*>  bound (me->get_bound (LEFT),
+			    me->get_bound (RIGHT));
   
-  Grob *common[] = { me, me };
-  for (int a = X_AXIS;  a < NO_AXES; a++)
-    {
-      common[a] = me->common_refpoint (bound[RIGHT], Axis (a));
-      common[a] = common[a]->common_refpoint (bound[LEFT], Axis (a));
-      
-      if (!common[a])
-	{
-	  programming_error ("No common point!");
-	  return SCM_EOL;
-	}
-    }
   
   Real gap = gh_scm2double (me->get_grob_property ("gap"));
 
@@ -223,35 +219,88 @@ Line_spanner::brew_molecule (SCM smob)
   Offset dxy ;
   Offset my_off;
   Offset his_off;
-
-
   
-  if (bound[LEFT]->break_status_dir () || bound[RIGHT]->break_status_dir ())
-    /* across line break */
+  Real thick = me->get_paper ()->get_var ("linethickness");  
+
+  SCM s = me->get_grob_property ("thickness");
+  if (gh_number_p (s))
+    thick *= gh_scm2double (s);
+
+  if (bound[RIGHT]->break_status_dir())
     {
-      Direction broken = bound[LEFT]->break_status_dir () ? LEFT : RIGHT;
-
-      dxy[X_AXIS] = bound[RIGHT]->extent (common[X_AXIS], X_AXIS)[LEFT]
-      	- bound[LEFT]->extent (common[X_AXIS], X_AXIS)[RIGHT];
-      
-      dxy += broken_trend_offset (me, broken);
-      dxy[X_AXIS] -= 1 * gap;
-
-      my_off = Offset (0,
-		       me->relative_coordinate (common[Y_AXIS], Y_AXIS));
-
-      his_off = Offset (0, 
-			bound[-broken]->relative_coordinate (common[Y_AXIS],
-							     Y_AXIS));
-
-      if (broken == LEFT)
+      if (bound[LEFT]->break_status_dir ())
 	{
-	  my_off[Y_AXIS] += dxy[Y_AXIS];
+	  programming_error ("line-spanner with two broken ends. Farewell sweet world.");
+
+	  me->suicide();
+	  return SCM_EOL;
 	}
+
+      /*
+	This is hairy. For the normal case, we simply find common
+	parents, and draw a line between the bounds. When two note
+	heads are on different lines, there is no common parent
+	anymore. We have to find the piano-staff object.
+      */
+      
+      int k = broken_spanner_index (me);
+      Spanner * parent_sp = dynamic_cast<Spanner*> (me->original_);
+      Spanner * next_sp  = parent_sp->broken_intos_ [k+1];
+      Item * next_bound = next_sp->get_bound (RIGHT);
+
+      if (next_bound->break_status_dir())
+	{
+	  programming_error ("no note heads for the line spanner on next line?"
+			     " Confused.");
+	  me->suicide();
+	  return SCM_EOL;
+	}
+            
+      Grob *commonx = bound[LEFT]->common_refpoint (bound[RIGHT], X_AXIS);
+      commonx = me->common_refpoint (commonx, X_AXIS);
+      
+      Grob * next_common_y = line_spanner_common_parent (next_bound);
+      Grob * this_common_y = line_spanner_common_parent (bound[LEFT]);
+
+      Grob * all_common_y = me->common_refpoint (this_common_y, Y_AXIS);
+      
+      Interval next_ext  = next_bound->extent (next_common_y, Y_AXIS);
+      Interval this_ext  = bound[LEFT]->extent (this_common_y, Y_AXIS);
+
+      Real yoff = this_common_y->relative_coordinate (all_common_y, Y_AXIS);
+      
+      Offset p1 (bound[LEFT]->extent (commonx, X_AXIS)[RIGHT],
+		 this_ext.center ()  + yoff); 
+      Offset p2 (bound[RIGHT]->extent (commonx, X_AXIS)[LEFT],
+		 next_ext.center () + yoff);
+      
+      Offset dz (p2 -p1);
+      Real len = dz.length ();
+
+      Offset dir  = dz *(1/ len);
+      dz = (dz.length () - 2*gap) *dir;
+      
+  
+      Molecule l (line_molecule (me, thick, dz[X_AXIS],
+				 dz[Y_AXIS]));
+
+      l.translate (dir * gap +  p1
+		   - Offset (me->relative_coordinate (commonx, X_AXIS),
+			     me->relative_coordinate (all_common_y, Y_AXIS)));
+
+      return l.smobbed_copy (); 
     }
   else
     {
-      Real off = gap + ((bound[LEFT]->extent (bound[LEFT], X_AXIS).length ()*3)/4); // distance from center to start of line
+      Grob *common[] = { me, me };
+      for (int a = X_AXIS;  a < NO_AXES; a++)
+	{
+	  common[a] = me->common_refpoint (bound[RIGHT], Axis (a));
+	  common[a] = common[a]->common_refpoint (bound[LEFT], Axis (a));
+	}
+
+      // distance from center to start of line      
+      Real off = gap + ((bound[LEFT]->extent (bound[LEFT], X_AXIS).length ()*3)/4);
 
       for (int a = X_AXIS; a < NO_AXES; a++)
 	{
@@ -267,22 +316,14 @@ Line_spanner::brew_molecule (SCM smob)
 
       ofxy = dxy * (off/dxy.length ());
       dxy -= 2*ofxy;
-    }
-
-  Real thick = me->get_paper ()->get_var ("linethickness");  
-
-  SCM s = me->get_grob_property ("thickness");
-  if (gh_number_p (s))
-    thick *= gh_scm2double (s);
-
   
-  Molecule line = line_molecule (me, thick, dxy[X_AXIS], dxy[Y_AXIS]);
-  line.translate_axis (bound[LEFT]->extent (bound[LEFT],
-					    X_AXIS).length ()/2, X_AXIS); 
-  line.translate (ofxy - my_off + his_off);
-  return line.smobbed_copy ();
+      Molecule line = line_molecule (me, thick, dxy[X_AXIS], dxy[Y_AXIS]);
+      line.translate_axis (bound[LEFT]->extent (bound[LEFT],
+						X_AXIS).length ()/2, X_AXIS); 
+      line.translate (ofxy - my_off + his_off);
+      return line.smobbed_copy ();
+    }
 }
-
 
 
 ADD_INTERFACE (Line_spanner, "line-spanner-interface",

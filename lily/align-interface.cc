@@ -262,6 +262,27 @@ Align_interface::set_axis (Grob*me,Axis a)
 }
 
 
+/*
+  Find Y-axis parent of G that has a #'forced-distance property. This
+  has the effect of finding the piano-staff given an object in that
+  piano staff.
+ */
+Grob *
+find_fixed_alignment_parent  (Grob *g)
+{
+  while (g)
+    {
+      if (gh_number_p (g->get_grob_property ("forced-distance")))
+	return g;
+
+      g = g->get_parent (Y_AXIS);
+    }
+
+  return 0;
+}
+
+
+
 
 ADD_INTERFACE (Align_interface, "align-interface",
   " Order grobs top to bottom/left to right/right to left etc.",
@@ -272,3 +293,4 @@ struct Foobar
 {
   bool has_interface (Grob*);
 };
+
