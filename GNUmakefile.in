@@ -34,7 +34,7 @@ footify:
 	$(footify-all-command)
 
 fonts:
-	$(MAKE) -C $(depth)/mf out
+	$(MAKE) -C $(depth)/mf
 
 doc: lily fonts
 	$(MAKE) -C Documentation

@@ -192,6 +192,8 @@ and documenting bugfixes.
 
 @lilypondfile[printfilename]{slur-cross-staff.ly}
 
+@lilypondfile[printfilename]{percent-repeat.ly}
+
 @lilypondfile[printfilename]{auto-change.ly}
 
 @lilypondfile[printfilename]{follow-thread.ly}
