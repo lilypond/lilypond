@@ -300,7 +300,7 @@ r\longa r\breve r1 r2 r4 r8 r16 r32 r64 r128 r128
 @end mudela		
 
 @item @code{stemLength}@indexcode{stemLength}  
-    Set length of stems.  Unit is `@code{interline}/2', so
+    Set length of stems.  Unit is `@code{staffspace}/2', so
     @code{stemLength} defaults to 7.
 @mudela[verbatim]
 g''4 \property Voice.stemLength = #14  g4 \property Voice.stemLength = #3 g4  g,,4  

@@ -7,19 +7,19 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.3.59";
+\version "1.3.88";
 
 \include "fagotto-1.ly"
 \include "fagotto-2.ly"
 
-fagottiStaff = \context Staff = fagotti <
-	\property Staff.midiInstrument = #"bassoon"
-	\property Staff.instrument = #"2 Fagotti"
-	\property Staff.instr = #"Fg."
+fagottiStaff = \context VoiceCombineStaff = fagotti <
+	\property VoiceCombineStaff.midiInstrument = #"bassoon"
+	\property VoiceCombineStaff.instrument = #"2 Fagotti"
+	\property VoiceCombineStaff.instr = #"Fg."
 	\clef "bass";
 	\global
-	\context Voice=one \partcombine Voice
-		\context Thread=one \fagottoI
-		\context Thread=two \fagottoII
+	\context VoiceCombineVoice=one \partcombine VoiceCombineVoice
+		\context VoiceCombineThread=one \fagottoI
+		\context VoiceCombineThread=two \fagottoII
 >
 

@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.3.59";
+\version "1.3.88";
 
 cornoII = \notes \relative c {
 	R1*2 |
@@ -16,7 +16,7 @@ cornoII = \notes \relative c {
 	d4-. r r2 |
 	R1*3 |
 	c4-. r r2 |
-	r1 |
+	R1 |
 	e,4-. r r2 |
 	e4-. r r2 |
 	R1*5 |
@@ -26,8 +26,8 @@ cornoII = \notes \relative c {
 	R1*2 |
 	% `a 2
 	% urg, yes this is a-deux, but lily doesn't know about I. / a2 yet.
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	r8 f'\p\< f2 e4 |
 	r8 f f2 e4 |
 	f4. e8 f4. e8 |
@@ -129,8 +129,8 @@ cornoII = \notes \relative c {
 	e~|
 	e~|
 	e~|
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	e\<~|
 	e~|
 	e~|
@@ -142,8 +142,8 @@ cornoII = \notes \relative c {
 	%a deux|
 	r4 r8 e,\p e4. e8|
 	r4 r8 e e4. e8|
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	r4 r8 e\< e4. e8|
 	r4 r8 e e4. e8|
 	r4 r8 e e4. e8|
@@ -189,8 +189,8 @@ cornoII = \notes \relative c {
 	e~|
 	e~|
 	e~|
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	e\<~|
 	e~|
 	e|

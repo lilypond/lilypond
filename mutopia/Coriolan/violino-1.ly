@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.3.59";
+\version "1.3.88";
 
 violinoI = \notes \relative c {
 	c'1\ff ~ |
@@ -424,7 +424,9 @@ violinoI = \notes \relative c {
 	R1 |
 	
 	\property Voice.decrescendoText = "sempre pi\\`u piano"
-	\property Voice.decrescendoSpanner = ""
+	% urg, "" is assumed to be hairpin...
+	%\property Voice.decrescendoSpanner = ""
+	\property Voice.decrescendoSpanner = "dashed-line"
 	c1^"arco"\> ~ |
 	c2 b2 |
 	c1 ~ |

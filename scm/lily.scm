@@ -723,7 +723,7 @@
 (define (sign x)
   (if (= x 0)
       1
-      (inexact->exact (/ x (abs x)))))
+      (if (< x 0) -1 1)))
 
 ;;;; AsciiScript as
 (define (as-scm action-name)

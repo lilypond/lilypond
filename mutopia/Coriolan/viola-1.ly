@@ -7,23 +7,23 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.3.59";
+\version "1.3.88";
 
 violaI = \notes \relative c {
 	c'1\ff ~ |
 	c |
 	f,4-. r r2 |
-	r1 |
+	R1 |
 	% copied 3 bars from three back...
 	%5
 	c'1 ~ |
 	c |
 	f,4-. r r2 |
-	r1 |
+	R1 |
 	c'1 ~ |
 	c |
 	fis,4-. r r2 |
-	r1 |
+	R1 |
 	g'4-. r r2 |
 	g4-. r r2 |
 	% copied from violino-1...
@@ -32,8 +32,8 @@ violaI = \notes \relative c {
 	[c,8-. es-.] [es()d] [d-. g-.] g4-"ten." |
 	[c,8-. es-.] [es()d] [d-. as'-.] [as()g] |
 	[g8-. c-.] [c()b] [b-. f'-.] [f()es] |
-	\property StaffCombineVoice.crescendoText = "cresc."
-	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	es4.\< es8 d4. d8 |
 	%20
 	c4. c8 \!b4\f r4 |
@@ -43,15 +43,15 @@ violaI = \notes \relative c {
 	r4 [des8\p()c][c-. ges'-.][ges()f] |
 	%25
 	[f-. bes-.][bes()a][a-. es'-.][es()des] |
-	\property StaffCombineVoice.crescendoText = "cresc."
-	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	des4.\< des8 c4. c8 |
 	bes4 \!bes4-.\f r2 |
 	R1
 	% same rhythm as violins...
 	r8 c-.\p c4. c8-. c4~ |
-	\property StaffCombineVoice.crescendoText = "cresc."
-	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	[c8\< c-.]c2.~ |
 	%30
 	[c8 c-.]c2.~ |
@@ -84,8 +84,8 @@ violaI = \notes \relative c {
 	)g4 r r r8 g(|
 	%55
 	)d4 r r r8 d(|
-	\property StaffCombineVoice.crescendoText = "cresc."
-	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	)es4 r\< r  r8 es(|
 	)as4 r r r8 as(|
 	)g4 r r r8 g(|
@@ -100,15 +100,15 @@ violaI = \notes \relative c {
 	)bes4 r r r8 bes(|
 	)as4 r r r8 as(|
 	)e4 r r r8 e(|
-	\property StaffCombineVoice.crescendoText = "cresc."
-	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	)f4\< r r r8 f(|
 	)bes4 r r r8 bes |
 	%70
 	\!c2:\ff bes: |
 	a: fis: |
-	\property StaffCombineVoice.crescendoText = "cresc."
-	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	g4\p\< r r r8 g(|
 	)c,4 r r r8 c |
 	[\!f8\sf(\>as f as][f g d)\!g] |
@@ -119,8 +119,8 @@ violaI = \notes \relative c {
 	[d,-.\pp d'-.] es4. es8-. d4 ~ |
 	[d8 d-.] es4. es8-. d4 ~ |
 	%80
-	\property StaffCombineVoice.crescendoText = "cresc."
-	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	[d8\< d-.] es4. es8-. d4 ~ |
 	[d8 d-.] es4. es8-. d4 ~ |
 	[d8 d-.] es4. es8-. d4 ~ |
@@ -187,8 +187,8 @@ violaI = \notes \relative c {
 	[e g b c][des c g e]|
 	[f as c des][c des as f]|
 	[g bes d es][d es bes g]|
-	\property StaffCombineVoice.crescendoText = "cresc."
-	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	[as\< c d es][f es c as]|
 	%131
 	[g bes d es][f es bes g]|
@@ -211,8 +211,8 @@ violaI = \notes \relative c {
 	[g,: bes: c: des:][f,: bes: c: des:]|
 	[e,: g: bes: des:][c,: e: g: c:]|
 	%shared with cello from here on
-	\property StaffCombineVoice.crescendoText = "cresc."
-	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	[f,8\p\< as c des][es, g b c]|
 	[des, f a bes][c, es g as]|
 	% uhuh, still 'same as cello';
@@ -268,8 +268,8 @@ violaI = \notes \relative c {
 	%180
 	)e4 r r r8 e8(|
 	)b'4 r r r8 b8(|
-	\property StaffCombineVoice.crescendoText = "cresc."
-	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	)c4 r\< r r8 c,8(|
 	% copied
 	)f4 r r r8 f8(|
@@ -284,8 +284,8 @@ violaI = \notes \relative c {
 	d,4\p r r r8 d8(|
 	)g4 r r r8 g8(|
 	)f4 r r r8 f8(|
-	\property StaffCombineVoice.crescendoText = "cresc."
-	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	)cis4\< r r r8 cis8(|
 	)d4 r r r8 d8(|
 	%195
@@ -306,8 +306,8 @@ violaI = \notes \relative c {
 	r[c\p(as)c]r[c(a)c] |
 	[b-. g'-.] as4. as8-. g4 ~ |
 	[g8 g-.] as4. as8-. g4 ~ |
-	\property StaffCombineVoice.crescendoText = "cresc."
-	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	[g8 g-.\<] as4. as8-. g4 ~ |
 	[g8 g-.] as4. as8-. g4 ~ |
 	%210
@@ -350,8 +350,8 @@ violaI = \notes \relative c {
 	%240
 	f,4 r r2 |
 	R1*11 |
-	\property StaffCombineVoice.crescendoText = "cresc."
-	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	c'4\p\< r r r8 c8(|
 	)f4 r r r8 f,8(|
 	)es1 |
@@ -364,8 +364,8 @@ violaI = \notes \relative c {
 	e'2:16\f e: |
 	
 	%260
-	\property StaffCombineVoice.crescendoText = "cresc."
-	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	[as,8\p\< f']f4. es8 es4 ~ |
 	[es8 as]as4. g8 g4 ~ |
 	[g8 f]f4. es8 es4 ~ |
@@ -400,8 +400,8 @@ violaI = \notes \relative c {
 	es4-. e-. r2 |
 	f4-. g-. r2 |
 	%290
-	\property StaffCombineVoice.decrescendoText = "dim."
-	\property StaffCombineVoice.decrescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.decrescendoText = "dim."
+	\property VoiceCombineVoice.decrescendoSpanner = "dashed-line"
 	as4\> r g r |
 	R1 |
 	\!c4\p r r2 |

@@ -5,11 +5,9 @@ description =	 "";
 composer =	 "Ludwig van Beethoven (1770-1827)";
 enteredby =	 "JCN";
 copyright =	 "public domain";
-
-
 }
 
-\version "1.3.59";
+\version "1.3.88";
 
 timpani = \notes \relative c {
 	R1*2 |
@@ -18,7 +16,7 @@ timpani = \notes \relative c {
 	c4-. r r2 |
 	R1*3 |
 	c4-. r r2 |
-	r1 |
+	R1 |
 	g4-. r r2 |
 	g4-. r r2 |
 	R1*5 |

@@ -23,7 +23,7 @@
 ;;    'head 'along-side-stem 'stem 'loose-end
 ;;
 
-(define slur-extremity-rules
+(define default-slur-extremity-rules
   (list
 
    ;; (cons (lambda (slur dir) (begin (display "before sanity check") (newline))#f) #f)
@@ -77,24 +77,42 @@
 
 ;; This list defines the offsets for each type of attachment.
 ;; The format of each element is
-;; (attachment stem-dir * attachment-dir slur-dir)
+;; (stem-dir * dir . slur-dir * dir)
 ;; Different attachments have different default points:
 ;;
 ;; head: Default position is centered in X, on outer side of head Y
 ;; along-side-stem: Default position is on stem X, on outer side of head Y
 ;; stem: Default position is on stem X, at stem end Y
-(define slur-extremity-offset-alist
+(define default-slur-extremity-offset-alist
   '(
-    ((head 1 1) . (-0.25 . 0.2))
+    ((head 1 1) . (-0.25 . 0.25))
     ((head 1 -1) . (-0.25 . -0.25))
     ((head -1 1) . (-0.25 . 0.25))
-    ((head -1 -1) . (-0.85 . -0.2))
+    ((head -1 -1) . (-0.85 . -0.25))
 
     ((stem 1 1) . (0 . 0.5))
     ((stem -1 -1) . (0 . -0.5))
 
-    ((loose-end -1 1) . (-4 . 0))
-    ((loose-end -1 -1) . (-4 . 0))
     ((loose-end 1 1) . (-0.4 . 0))
     ((loose-end 1 -1) . (-0.4 . 0))
+    ((loose-end -1 -1) . (-4 . 0))
+    ((loose-end -1 1) . (-4 . 0))
     ))
+
+
+(define default-basic-slur-properties
+  `(
+   (interfaces . (slur-interface))
+   (molecule-callback . ,Slur::brew_molecule)
+   (thickness . 1.2)		
+   (spacing-procedure . ,Slur::set_spacing_rods)		
+   (minimum-length . 1.5)
+   (after-line-breaking-callback . ,Slur::after_line_breaking)
+   (extremity-rules . ,default-slur-extremity-rules)
+   (extremity-offset-alist . ,default-slur-extremity-offset-alist)
+   (de-uglify-parameters . ( 1.5  0.8  -2.0))
+   (details . ((height-limit . 2.0) (ratio . 0.333) (force-blowfit . 0.5) (beautiful . 0.5)))
+   (y-free . 0.75)
+   (name . "slur")
+   )
+  )

@@ -13,6 +13,7 @@ trombo-2.ly
 timpani.ly
 violino-1.ly
 violino-2.ly
-viola.ly
+viola-1.ly
+viola-2.ly
 violoncello.ly
 contrabasso.ly

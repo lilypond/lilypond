@@ -6,7 +6,9 @@ depth=../..
 
 LATEX_FILES =$(wildcard *.latex)
 
-DVI_FILES = $(addprefix $(outdir)/,$(LATEX_FILES:.latex=.dvi)   $(TELY_FILES:.tely=.dvi))
+
+# todo: add latex.
+DVI_FILES = $(addprefix $(outdir)/, $(TELY_FILES:.tely=.dvi))
 
 EXTRA_DIST_FILES= $(LATEX_FILES)    $(wildcard *.itexi *.itely)
 

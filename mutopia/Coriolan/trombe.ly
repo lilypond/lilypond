@@ -7,18 +7,21 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.3.59";
+\version "1.3.88";
 
 \include "trombo-1.ly"
 \include "trombo-2.ly"
 
-trombeStaff = \context Staff = trombe <
-	\property Staff.midiInstrument = #"trumpet"
-	\property Staff.instrument = #"2 Trombe\n(C)"
-	\property Staff.instr = #"Tbe.\n(C)"
-	\time 4/4;
-	\context Voice=one \partcombine Voice
-		\context Thread=one \tromboI
-		\context Thread=two \tromboII
+trombeStaff = \context VoiceCombineStaff = trombe <
+	\context VoiceCombineStaff=trombe {
+		\property VoiceCombineStaff.midiInstrument = #"trumpet"
+		\property VoiceCombineStaff.instrument = #"2 Trombe\n(C)"
+		\property VoiceCombineStaff.instr = #"Tbe.\n(C)"
+		\skip 1*314; 
+		\bar "|."; 
+	}
+	\context VoiceCombineVoice=one \partcombine VoiceCombineVoice
+		\context VoiceCombineThread=one \tromboI
+		\context VoiceCombineThread=two \tromboII
 >
 

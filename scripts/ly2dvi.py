@@ -397,7 +397,7 @@ class Properties:
         # Requester     Description
         # ---------     -----------
         # init          Initial default values
-        # file          The values found in the lilypond generated TeX files
+        # file          The values found in the LilyPond generated TeX files
         # environment   Envrionment variables LILYINCLUDE, LILYPONDPREFIX
         # rcfile        $LILYPONDPREFIX/.lilyrc
         # rcfile        $HOME/.lilyrc
@@ -880,7 +880,7 @@ class Properties:
     #
     def setRoot(this,path, requester):	
         """
-        Set lilypond root directory
+        Set LilyPond root directory
         """
 
         os.environ['LILYPONDPREFIX'] = path
@@ -960,7 +960,7 @@ def unc2dos(path):
     
 
 def program_id ():
-    return 'ly2dvi (GNU lilypond) ' + version;
+    return 'ly2dvi (GNU LilyPond) ' + version;
 
 
 def mailaddress():
@@ -980,20 +980,20 @@ def help ():
     sys.stdout.write (
 """Usage: %s [OPTION]... [FILE]...
 
-Generate dvi file from mudela or lilypond output
+Generate dvi file from LilyPond source/output
 
 Options:
   -D,--debug           increase verbosity
   -F,--headers=        name of additional LaTeX headers file
   -H,--Height=         set paper height (points) (see manual page)
   -I,--include=DIR     add DIR to LilyPond\'s search path
-  -K,--keeplilypond    keep lilypond output files
+  -K,--keeplilypond    keep LilyPond output files
   -L,--landscape       set landscape orientation
   -N,--nonumber        switch off page numbering
-  -O,--orientation=    set orientation (obsolete - use -L instead)
-  -P,--postscript      generate postscript file
+  -O,--orientation=    set orientation (obsolete -- use -L instead)
+  -P,--postscript      generate PostScript file
   -W,--Width=          set paper width (points) (see manual page)
-  -M,--dependencies    tell lilypond make a dependencies file
+  -M,--dependencies    tell LilyPond to make a dependencies file
   -h,--help            this help text
   -k,--keeply2dvi      keep ly2dvi output files
   -l,--language=       give LaTeX language (babel)
@@ -1001,7 +1001,7 @@ Options:
   -p,--papersize=      give LaTeX papersize (eg. a4)
   -s,--separate        run all files separately through LaTeX
 
-files may be (a mix of) input to or output from lilypond(1)
+files may be (a mix of) input to or output from LilyPond(1)
 """ % name)
 
 
@@ -1011,7 +1011,7 @@ files may be (a mix of) input to or output from lilypond(1)
 #
 
 def main():
-    """Generate dvi files from lilypond source/output"""
+    """Generate dvi files from LilyPond source/output"""
 
     infile = Input()
     outfile = TeXOutput()
@@ -1026,6 +1026,7 @@ def main():
                                        'help', 'keeply2dvi', 'language=',
                                        'output=', 'version', 'papersize=', 'separate',
                                        'postscript'])
+
     for opt in options:
         o = opt[0]
         a = opt[1]
@@ -1065,6 +1066,9 @@ def main():
 	elif o == '--version':
 	    print_version ()
 	    return 0
+	else:
+	    print o
+	    raise getopt.error
 	    
     identify()
     Props.read_titledefs ()
@@ -1144,8 +1148,8 @@ ExitTable = {
     'ExitBadWidth'         : ['Invalid Width specification', 6 ],
     'ExitBadOrient'        : ['Invalid Orientation specification', 7 ],
     'ExitNoWrite'          : ['Permission denied', 8 ],
-    'ExitNoTeXName'        : ['hmm, I could not find an output file name', 9 ],
-    'ExitBadLily'          : ['Lilypond failed', 10 ],
+    'ExitNoTeXName'        : ['Hmm, I could not find an output file name', 9 ],
+    'ExitBadLily'          : ['LilyPond failed', 10 ],
     'ExitBadLatex'         : ['Latex failed', 11 ],
     'ExitBadPostscript'    : ['Postscript failed', 12 ],
     'ExitUnknown'          : ['Unknown Exit Code', 20 ],
