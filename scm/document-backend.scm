@@ -181,12 +181,6 @@ node."
        )
     texi))
 
-(define (all-backend-properties-doc)
-    (make <texi-node>
-      #:name "All backend properties"
-      #:desc "All grob properties in a big list"
-      #:text (backend-properties-doc-string all-backend-properties)))
-
   
 ;(dump-node (grob-doc (cdadr all-grob-descriptions))  (current-output-port) 0 )
 (define (backend-doc-node)
@@ -197,6 +191,12 @@ node."
     (list
      (all-grobs-doc)
      (all-interfaces-doc)
-     (all-backend-properties-doc)
-     )
-  ))
+    (make <texi-node>
+      #:name "User backend properties"
+      #:desc "All tunable properties in a big list"
+      #:text (backend-properties-doc-string all-internal-grob-properties))
+    (make <texi-node>
+      #:name "Internal backend properties"
+      #:desc "All internal layout properties in a big list"
+      #:text (backend-properties-doc-string all-user-grob-properties))
+  )))

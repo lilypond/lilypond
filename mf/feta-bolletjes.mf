@@ -180,8 +180,8 @@ fet_endchar;
 	
 fet_beginchar("Quart notehead", "2", "quarthead")
 
-	% used to have 32. With 30, they are slightly bolder.
-	draw_outside_ellipse (1.42 - puff_up_factor / 3.0, 30, 0.707, 0);
+	% used to have 32. With 31, they are slightly bolder.
+	draw_outside_ellipse (1.49 - puff_up_factor / 3.0, 31, 0.707, 0);
 	black_notehead_width# := charwd;
 fet_endchar;
 
