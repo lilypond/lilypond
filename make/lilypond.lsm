@@ -1,22 +1,22 @@
 Begin3
 Title: LilyPond
-Version: 0.0.78
-Entered-date: 07/30/97
-Description: 
-GNU LilyPond is a program which converts music definition files into
-visual or auditive output: it can typeset formatted sheet music to a
-TeX file and and (mechanical) performances to MIDI files. Features
-include multiple staffs, meters, clefs, keys, lyrics, versatile
-input-language, cadenzas beams, slurs, triplets.
-
+Version: 0.1.0
+Entered-date: 08/01/97
+Description:	GNU LilyPond is a program which converts music
+		definition files into visual or auditive output: it can
+		typeset formatted sheet music to a TeX file and and
+		(mechanical) performances to MIDI files. Features
+		include multiple staffs, meters, clefs, keys, lyrics,
+		versatile input-language, cadenzas beams, slurs,
+		triplets.
 Keywords: music typesetting midi notation
 Author: hanwen@stack.nl (Han-Wen Nienhuys)
 	jan@digicash.com (Jan Nieuwenhuizen)
 Maintained-by: hanwen@stack.nl (Han-Wen Nienhuys)
 Primary-site: sunsite.unc.edu /pub/Linux/apps
-	340k lilypond-0.0.78.tar.gz 
+	340k lilypond-0.1.0.tar.gz 
 Original-site: pcnov095.win.tue.nl /pub/lilypond/
-	340k lilypond-0.0.78.tar.gz 
-Platform: Unix/win32, GNU C++
+	340k lilypond-0.1.0.tar.gz 
+Platform: Unix/windoze32, GNU C++
 Copying-policy: GPL
 End
