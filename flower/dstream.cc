@@ -5,7 +5,6 @@
 
   (c) 1996, 1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-
 #include <fstream.h>
 #include "dstream.hh"
 #include "dictionary-iter.hh"

@@ -93,7 +93,6 @@ Long_option_init theopts[] = {
 void
 identify (ostream* os)
 {
-  //*os << gnu_lilypond_version_str () << endl;
   *os << gnu_lilypond_version_str ();
 }
 
@@ -155,16 +154,16 @@ version ()
   cout << endl;
 
   cout << _f ("Copyright (c) %s by", "1996--2000");
-  cout << "Han-Wen Nienhuys <hanwen@cs.uu.nl>\n"
-       << "Jan Nieuwenhuizen <janneke@gnu.org>\n";
+  cout << '\n';
+  cout << "  Han-Wen Nienhuys <hanwen@cs.uu.nl>\n";
+  cout << "  Jan Nieuwenhuizen <janneke@gnu.org>\n";
 }
 
 void
 notice ()
 {
   cout << '\n';
-  // GNU GNU?
-  cout << _ ("GNU LilyPond -- The GNU Project music typesetter");
+  cout << _ ("GNU LilyPond -- The music typesetter");
   cout << '\n';
   cout << _f ("Copyright (c) %s by", "1996--2000");
   cout << '\n';

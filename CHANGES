@@ -1,3 +1,8 @@
+1.3.117.jcn1
+============
+
+* Resurrected direct postscript output, ie. lilypond --output-format=ps.
+
 1.3.116.jcn4
 ============
 
