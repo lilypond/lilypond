@@ -1,3 +1,15 @@
+pl 26
+	- Documentation/lelie_logo.png
+	- 8-bit chars for input (see ltest.tex) (MB)
+	- quotes around string now optional
+Bugfixes:
+	- unmatched ] (MB)
+Internal:
+	- print/name methods of Staff_elem
+	- added Request_register
+	- Voice_group_registers, Voice_registers, *_register
+	- Complex_staff
+
 pl 25
 	- other clefs added, keys typeset properly (MB)
 

@@ -12,56 +12,57 @@
 
 horn =
 staff {
-	melodic
+%	melodic
+	complex
 	music{ 	$
 	\octave { ' }
 	\duration { 8}
 
 % 1
-	d2( [)d e cis `b]		|	
-	`a4 [`b cis] [cis `b] `b4	|
-	fis2( [)fis g e d]		|
+	d2(( [)d e cis `b]		|	
+	`a4 [`b cis] [cis `b] )`b4	|
+	fis2(( [)fis g e d]		|
 	cis4 [d e(] [)e fis d cis]	|
 	`b4 [cis d(] [)d e cis `b]	|
-	cis2 r2^"c\'edez"		|
+	)cis2 r2^"c\'edez"		|
 	r4 fis2 fis4			|
-	fis2^"en mesure" ()[fis e a fis]|
-	fis4-- e4-- d4-- e4--		|
+	fis2^"en mesure" (()[fis e a fis]|
+	fis4-- e4-- d4-- )e4--		|
 	`b2()[`b^"un peu retenu" `a( d cis]|
 % 11
 	)`b [`fis^"en \'elargissant"-- `a-- `b--] cis4-- `b4--|
 	`fis2 r2			|
-	cis4^"1er mouvement" d4^"tr\`es lontain" ()[d cis d e]
+	cis4^"1er mouvement"( d4^"tr\`es lontain" ()[d cis d e]
 	\octave {  }
-	|	a4 gis2.	|
-	a4 b4()[b a b 'cis]	|
-	fis4 e4 cis2		|
-	e4 fis4 () [fis e fis gis]	|
-	cis4 `b4()`b8 r8 r4^"tr\`es soutenu"	|
+	|	a4 )gis2.	|
+	a4 (b4()[b a b 'cis]	|
+	fis4 e4 )cis2		|
+	e4( fis4 () [fis e fis gis]	|
+	cis4 `b4())`b8 r8 r4^"tr\`es soutenu"	|
 
 	\command { \meter 2 *4 } r4 r4	|
 	\command { \meter 4 *4 }
-	'cis4_"\dyn ppp" 'd4 () ['d 'cis 'd 'e] |
-	a4 gis2.	|
-	a4 b4()[b a b 'cis]	|
-	fis4 e4 cis2	|
-	e4_"\dyn pp" fis4()[fis e fis gis]	|
-	cis4_"\dyn mf" `b4()`b8 r8 r4^"un peu plus lent"	|
+	'cis4_"\dyn ppp"( 'd4 () ['d 'cis 'd 'e] |
+	a4 )gis2.	|
+	a4 (b4()[b a b 'cis]	|
+	fis4 e4 )cis2	|
+	e4_"\dyn pp"( fis4()[fis e fis gis]	|
+	cis4_"\dyn mf" `b4())`b8 r8 r4^"un peu plus lent"	|
 	r1	|
 	r2 r4 r4 %^\fermata
 %% cut 'n paste.
 	\octave { ' }
-	| d2^"Reprenez le mouvement"( [)d e cis `b]	|
-	`a4 [`b cis] [cis `b] `b4	|
-	fis2( [)fis g e d]	|
+	| d2^"Reprenez le mouvement"( ([)d e cis `b]	|
+	`a4 [`b cis] [cis `b] )`b4	|
+	fis2(( [)fis g e d]	|
 	cis4 [d e(] [)e fis d cis]	|
 	`b4 [cis d(] [)d e cis `b]	|
-	cis2 r2^"c\'edez"	|
+	)cis2 r2^"c\'edez"	|
 	r4 fis2 fis4	|
-	fis2^"en mesure"()[fis e a fis]	|
+	fis2(^"en mesure"()[fis e a fis]	|
 	fis4-- e4-- d4-- e4--	|
 	`b2() [`b `a-. d-. cis-.]	|
-	`b-. [`fis^"large" `a `b] cis4 `b4	`fis2 r2	|
+	)`b-. [`fis^"large" `a `b] cis4 `b4	`fis2 r2	|
 
 	%% mark B
 	r1^"1er mouvement"	
@@ -80,18 +81,18 @@ staff {
 	\command { \meter 4 *4 }
 
 	\octave { ' }
-	|d2( [)d e cis `b]	|
-	`a4 [`b cis] [cis `b] `b4	|
-	fis2( [)fis g e d]	|
+	|d2(( [)d e cis `b]	|
+	`a4 [`b cis] [cis `b] )`b4	|
+	fis2( ([)fis g e d]	|
 	cis4 [d e(] [)e fis d cis]	|
 	`b4 [cis d(] [)d e cis `b]	|
-	cis2 r2^"c\'edez"	|
+	)cis2 r2^"c\'edez"	|
 	r4 fis2 fis4	|
-	fis2()[fis e a fis]	|
+	fis2(()[fis e a fis]	|
 	fis4-- e4-- d4-- e4--	
 	\octave{ }	
 	| b2()[b a 'd 'cis]	|
-	b [fis a b ] 'cis4 b4	|
+	)b [fis a b ] 'cis4 b4	|
 	fis2 r2	|
 	r1-\fermata	
 		$}
