@@ -375,15 +375,11 @@ def print_environment ():
 		sys.stderr.write ("%s=\"%s\"\n" % (k, v)) 
 
 def get_bbox (filename):
-	####system ('gs -sDEVICE=bbox -q  -sOutputFile=- -dNOPAUSE %s -c quit > %s.bbox 2>&1 ' % (filename, filename))
-	#### FIXME: 2>&1 ? --jcn
 	bbox = filename + '.bbox'
 	## -sOutputFile does not work with bbox?
-	##cmd = 'gs -sDEVICE=bbox -q -sOutputFile=%s -dNOPAUSE %s -c quit' % \
-	##      (bbox, filename)
 	cmd = 'gs -sDEVICE=bbox -q -dNOPAUSE %s -c quit 2>%s' % \
 	      (filename, bbox)
-	system (cmd)
+	system (cmd, progress_p = 1)
 	box = open (bbox).read ()
 	m = re.match ('^%%BoundingBox: ([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)',
 		      box)
@@ -399,7 +395,6 @@ def make_preview (name):
 	if not os.path.isfile (preview_ps):
 		preview_ps = name + '.eps'
 	bbox = get_bbox (preview_ps)
-	print 'bbox:' + `bbox`
 	trans_ps = name + '.trans.ps'
 	png = name + '.png'
 	

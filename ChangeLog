@@ -1,3 +1,8 @@
+2003-01-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* python/lilylib.py (make_preview): don't suppress progress for
+	bbox extraction.
+
 2003-01-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* Documentation/user/appendices.itely (scheme): update for new syntax.
