@@ -31,8 +31,10 @@
 
   alignment-done -- boolean to administrate whether we've done the alignment already (to ensure that the process is done only once)
 
-  group-center-element -- element which will be at the center of the group
-    after aligning (when using Align_interface::center_on_element)
+  center-element -- element which will be at the center of the group
+    after aligning (when using
+    Align_interface::center_on_element). The center element should
+    have this object as a reference point.
 
   elements -- to be aligned elements 
 

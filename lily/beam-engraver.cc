@@ -66,29 +66,38 @@ Beam_engraver::do_try_music (Music *m)
 {
   if (Span_req * c = dynamic_cast<Span_req*>(m))
     {
-      if (c->span_type_str_ != "beam")
-	return false;
+      if (c->span_type_str_ == "abort")
+	{
+	  reqs_drul_[START] = 0;
+	  reqs_drul_[STOP] = 0;
+	  if (beam_p_)
+	    beam_p_->suicide ();
+	  beam_p_ = 0;
+	}
+      else if (c->span_type_str_ == "beam")
+	{
       
-      Direction d =c->span_dir_;
+	  Direction d =c->span_dir_;
 
-      if (d == STOP && !beam_p_)
-	{
-	  m->origin ()->warning  (_ ("can't find start of beam"));
-	  return false;
-	}
-
-      if(d == STOP)
-	{
-	  SCM m = get_property ("automaticMelismata");
-	  SCM b = get_property("noAutoBeaming");
-	  if (to_boolean (m) && to_boolean(b))
+	  if (d == STOP && !beam_p_)
 	    {
-	      set_melisma (false);
+	      m->origin ()->warning  (_ ("can't find start of beam"));
+	      return false;
 	    }
-	}
 
-      reqs_drul_[d ] = c;
-      return true;
+	  if(d == STOP)
+	    {
+	      SCM m = get_property ("automaticMelismata");
+	      SCM b = get_property("noAutoBeaming");
+	      if (to_boolean (m) && to_boolean(b))
+		{
+		  set_melisma (false);
+		}
+	    }
+
+	  reqs_drul_[d ] = c;
+	  return true;
+	}
     }
   return false;
 }

@@ -35,10 +35,10 @@ protected:
 
 private:
   Moment here_mom_;
-
   SCM cursor_;
   Music_iterator * iter_p_;
 
+  void next_element ();
   void descend_to_child ();
 };
 

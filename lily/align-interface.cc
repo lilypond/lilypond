@@ -30,19 +30,6 @@ Align_interface::alignment_callback (Score_element *sc, Axis ax)
 }
 
 
-Real
-Align_interface::center_on_element (Score_element *me, Axis a)
-{
-  Score_element *cent = unsmob_element (me->get_elt_property ("group-center-element"));
-
-  if (cent)
-    {
-      Real r = cent->relative_coordinate (me,  a);
-      return -r;
-    }
-  return 0;
-}
-
 /*
   Hairy function to put elements where they should be. Can be tweaked
   from the outside by setting minimum-space and extra-space in its

@@ -8,7 +8,7 @@
 @title LilyPond Regression test
 @end ignore
 
-@node Top, , ,
+@node Top, , , (dir)
 
 @section Introduction
 
@@ -16,6 +16,12 @@ This document tries give a brief overview of LilyPond features.  When
 the text correspond with the shown notation, we consider LilyPond
 Officially BugFree (tm).  This document is intended for finding bugs,
 and documenting bugfixes.
+
+[TODO: revise and completize this. ]
+
+[TODO: should generate out of header fields using ly2dvi?]
+
+
 
 @section Notes and rests
 
@@ -246,7 +252,10 @@ bracket should be equal
 
 @mudelafile{repeat-line-break.ly}
 
+Auto change piano staff switches  voices  between up and down staffs
+automatically; rests are switched along with the coming note.
 
+@mudelafile{auto-change.ly}
 
 @section Lyrics
 
@@ -327,13 +336,19 @@ textNonEmpty is used to respect the horizontal size of text.
 
 @mudelafile{non-empty-text.ly}
 
+
+
+
+@section PianoStaff
+
+
+
 @section Global stuff
 
 Breaks can be encouraged and discouraged using @code{\break} and
 @code{\nobreak}.  They are abbrevs for @code{\penalty} commands.
 
 @mudelafile{break.ly}
-
 
 Markings that are attached to (invisible) barlines are 
 delicate: the are attached to the rest of the score without the score

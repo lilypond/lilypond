@@ -32,7 +32,7 @@ Simple_music_iterator::ok ()const
 Moment
 Simple_music_iterator::pending_moment ()const
 {
-  if (music_l_)
+  if (last_processed_mom_ < Moment (0))
     return Moment (0);
   else
     return music_length_mom ();
@@ -48,17 +48,9 @@ Simple_music_iterator::skip (Moment m)
 void
 Simple_music_iterator::process (Moment m)
 {
-#if 0
   /*
-    try_music () causes trouble for base classes
-   */
-  if (music_l_)
-    {
-      bool b = try_music (music_l_);
-      if (!b)
-	music_l_->origin ()->warning (_f ("Junking music: `%s'",
-					  classname (music_l_)));
-    }
-#endif
+  don't do try_music (), since it would make the function useless for
+  base classes */
+
   skip (m);
 }

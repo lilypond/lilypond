@@ -12,12 +12,34 @@
 
 #include "lily-proto.hh"
 #include "lily-guile.hh"
+
+
+
 /*
+  Move rests in note-columns so that they do not collide.
+  
   properties:
 
+  read-only
+
+  maximum-rest-count -- kill off rests so we don't more than this
+    number left.
+
+  minimum-distance -- minimum distance between notes and rests.
+
+  read/write
+  
   elements -- list of elts (both rests and notes) participating in the
     collision.
 
+
+  sets in elements:
+
+    rest-collision -- pointer to self.
+
+    
+  
+    
 */
 
 class Rest_collision		// interface

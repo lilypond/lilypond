@@ -17,7 +17,11 @@
 
 /**
    The name says it all: make multi measure rests 
- */
+
+FIXME? The MM rest engraver must be able to see bar lines, so it won't
+work at Voice level. Not a problem in practice, but aesthetically pleasing? 
+
+*/
 class Multi_measure_rest_engraver : public Engraver
 {
 public:

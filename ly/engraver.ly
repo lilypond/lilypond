@@ -16,7 +16,8 @@ StaffContext=\translator {
 % with empty ones.
 
 
-	\consists "Repeat_engraver";
+%	\consists "Repeat_engraver";
+	\consists "Volta_engraver";
 	\consists "Separating_line_group_engraver";	
 
 
@@ -78,7 +79,8 @@ RhythmicStaffContext=\translator{
 	basicVoltaSpannerProperties \push #'padding =  #5  % urg, in \pt
 	basicStaffSymbolProperties \push #'line-count = #1	
 
-	\consists "Repeat_engraver";
+%	\consists "Repeat_engraver";
+	\consists "Volta_engraver";
 	\consists "Bar_engraver";
 	\consists "Time_signature_engraver";
 	\consists "Staff_symbol_engraver";
@@ -331,13 +333,13 @@ ScoreContext = \translator {
 	\name Score;
 	
 
+	\consists "Repeat_acknowledge_engraver";
 	\consists "Timing_engraver";
 	\consists "Output_property_engraver";	
 	\consists "System_start_delimiter_engraver";
 	\consists "Mark_engraver";	
 	\consists "Break_align_engraver";
 	\consists "Spacing_engraver";
-
 	\consists "Vertical_align_engraver";
 
 	\consists "Lyric_phrasing_engraver";

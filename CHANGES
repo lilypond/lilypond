@@ -1,5 +1,39 @@
-1.3.90.jcn1
+1.3.91.uu1
+==========
+
+* RPM .spec fixes.
+
+* italiano.ly
+
+* mudela-book updates by Tom Cato Amundsen.
+
+* Allow lyric hara kiri as well.
+
+* Bugfix: left/right mixup  in Side_position_interface::aligned_on_self ()
+
+* rest collision of differing rests.
+
+* Cleanup of Sequential_music_iterator, Simple_music_iterator.
+
+* Unfolded_repeat_iterator now signals repeats using \property
+  repeatCommands. You could override this, eg.
+
+	\property Score.repeatCommands = #'((volta "X") start-repeat)
+
+  will print a |: and a volta bracket saying X. See also
+  input/test/manual-volta.ly
+  
+* Volta_engraver, Repeat_acknowledge_engraver: new engravers that are
+controlled by repeatCommands; much cleaner than the Repeat_engraver.
+
+* Junked Repeat_engraver.
+
+1.3.91.jcn1
 ===========
+* Abort all running spanners when part-combiner combines voices.
+
+1.3.91
+======
 
 * Use S_ISDIR () and check for stat.h.
 

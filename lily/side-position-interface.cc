@@ -108,16 +108,16 @@ Side_position::side_position (Score_element *cme, Axis axis)
   callback that centers the element on itself
  */
 Real
-Side_position::aligned_on_self (Score_element *elm, Axis ax)
+Side_position::aligned_on_self (Score_element *me, Axis ax)
 {
   String s ("self-alignment-");
 
   s +=  (ax == X_AXIS) ? "X" : "Y";
 
-  SCM align (elm->get_elt_property (s.ch_C()));
+  SCM align (me->get_elt_property (s.ch_C()));
   if (gh_number_p (align))
     {
-      Interval ext(elm->extent (ax));
+      Interval ext(me->extent (ax));
 
       if (ext.empty_b ())
 	{
@@ -126,11 +126,14 @@ Side_position::aligned_on_self (Score_element *elm, Axis ax)
 	}
       else
 	{
-	  Real lambda = (0.5 + gh_scm2double (align) / 2.0);
+	  Real lambda = (0.5 - gh_scm2double (align) / 2.0);
 	  return - (lambda * ext[LEFT] + (1 - lambda) * ext[RIGHT]);
 	}
     }
-  else
+  else if (unsmob_element (align))
+    {
+      return - unsmob_element (align)->relative_coordinate (me,  ax);
+    }
     return 0.0;
 }
 

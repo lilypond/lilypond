@@ -9,7 +9,6 @@
 
 #include "bar.hh"
 #include "score-engraver.hh"
-#include "bar-engraver.hh"
 #include "musical-request.hh"
 #include "multi-measure-rest.hh"
 #include "command-request.hh"
@@ -17,6 +16,30 @@
 #include "engraver-group-engraver.hh"
 #include "warn.hh"
 #include "item.hh"
+#include "engraver.hh"
+
+/**
+  generate bars. Either user ("|:"), or default (new measure)
+  */
+class Bar_engraver : public Engraver
+{
+public:
+  Bar_engraver();
+  VIRTUAL_COPY_CONS(Translator);
+  void request_bar (String type_str);
+    
+protected:
+  virtual void do_creation_processing ();
+  virtual void do_removal_processing ();
+  virtual void do_process_music();
+  virtual void do_pre_move_processing();
+
+private:
+  void typeset_bar ();
+  void create_bar ();
+
+  Item * bar_p_;
+};
 
 Bar_engraver::Bar_engraver()
 {
@@ -30,6 +53,11 @@ Bar_engraver::create_bar ()
   if (!bar_p_)
     {
       bar_p_ = new Item (get_property ("basicBarProperties"));
+
+      SCM gl = get_property ("whichBar");
+      if (scm_equal_p (gl, bar_p_->get_elt_property ("glyph")) != SCM_BOOL_T)
+	  bar_p_->set_elt_property ("glyph", gl);
+      
       announce_element (bar_p_, 0);
     }
 }
@@ -64,9 +92,6 @@ Bar_engraver::typeset_bar ()
 {
   if (bar_p_) 
     {
-      SCM gl = get_property ("whichBar");
-      if (scm_equal_p (gl, bar_p_->get_elt_property ("glyph")) != SCM_BOOL_T)
-	  bar_p_->set_elt_property ("glyph", gl);
       typeset_element (bar_p_);
       bar_p_ =0;
     }
@@ -97,6 +122,3 @@ Bar_engraver::do_pre_move_processing()
 }
 
 ADD_THIS_TRANSLATOR(Bar_engraver);
-
-
-

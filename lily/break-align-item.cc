@@ -1,5 +1,5 @@
 /*
-  break-align-item.cc -- implement Break_align_item
+  break-align-item.cc -- implement Break_align_interface
 
   source file of the GNU LilyPond music typesetter
 
@@ -21,10 +21,10 @@
 #include "group-interface.hh"
 #include "align-interface.hh"
 
-MAKE_SCHEME_CALLBACK(Break_align_item,before_line_breaking);
+MAKE_SCHEME_CALLBACK(Break_align_interface,before_line_breaking);
 
 SCM
-Break_align_item::before_line_breaking (SCM smob)
+Break_align_interface::before_line_breaking (SCM smob)
 {
   Score_element* me = unsmob_element (smob);
   do_alignment (me);
@@ -32,39 +32,46 @@ Break_align_item::before_line_breaking (SCM smob)
 }
 
 Real
-Break_align_item::alignment_callback (Score_element*c, Axis a)
+Break_align_interface::alignment_callback (Score_element*c, Axis a)
 {
   assert (a == X_AXIS);
   Score_element *par = c->parent_l (a);
   if (par && !to_boolean (par->get_elt_property ("break-alignment-done")))\
     {
       par->set_elt_property ("break-alignment-done", SCM_BOOL_T);
-      Break_align_item::do_alignment (par);
+      Break_align_interface::do_alignment (par);
     }
     
   return 0.0;
 }
 
+Real
+Break_align_interface::self_align_callback (Score_element *me, Axis a)
+{
+  assert (a == X_AXIS);
+  
+  Item* item = dynamic_cast<Item*> (me);
+  Direction bsd = item->break_status_dir();
+  if (bsd == LEFT)
+    {
+      me->set_elt_property ("self-alignment-X", gh_int2scm (RIGHT));
+    }
+
+  return Side_position::aligned_on_self (me, a);  
+}
+
 void
-Break_align_item::add_element (Score_element*me, Score_element *toadd)
+Break_align_interface::add_element (Score_element*me, Score_element *toadd)
 {
   toadd->add_offset_callback (alignment_callback, X_AXIS);
   Axis_group_interface::add_element (me, toadd);
 }
 
 void
-Break_align_item::do_alignment (Score_element *me)
+Break_align_interface::do_alignment (Score_element *me)
 {
   Item * item = dynamic_cast<Item*> (me);
   Item *column = item->column_l ();
-  if (item->break_status_dir() == LEFT)
-    {
-      me->set_elt_property ("self-alignment-X", gh_int2scm (RIGHT));
-    }
-  else
-    {
-      me->add_offset_callback (Align_interface::center_on_element, X_AXIS);
-    }
 
   Real interline= me->paper_l ()->get_var ("staffspace");	
   Link_array<Score_element> elems;
@@ -206,10 +213,10 @@ Break_align_item::do_alignment (Score_element *me)
 
 
 void
-Break_align_item::set_interface (Score_element*me)
+Break_align_interface::set_interface (Score_element*me)
 {
   Align_interface::set_interface (me); 
   Align_interface::set_axis (me,X_AXIS);
 
-  me->add_offset_callback (Side_position::aligned_on_self, X_AXIS);
+  me->add_offset_callback (Break_align_interface::self_align_callback, X_AXIS);
 }
