@@ -22,8 +22,8 @@ oboes = \notes \relative c'' \context Voice = oboes {
     >
 
     \grace <<c, e>>8-( <<b d>>8.-)-\trill <<c e>>16 | 
-    [<<d  f>>-( << f a>>8.-)] <<b, d>>8 r [<<d f>>16-( <<f a>>8.-)] <<b, d>>8 r  |
-    [<<c e>>16-(  << e g>>8.-)] <<c e,>>8
+    [<<d  f>>-( <<f a>>8.-)] <<b, d>>8 r [<<d f>>16-( <<f a>>8.-)] <<b, d>>8 r  |
+    [<<c e>>16-(  <<e g>>8.-)] <<c e,>>8
 }
 
 hoomPah = \repeat unfold 8 \notes
