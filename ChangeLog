@@ -1,3 +1,9 @@
+2002-10-21  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Merge from stable:
+
+	    cvs update -jlilypond_1_6_5 -jlilypond_1_6_6
+
 2002-10-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/generate-documentation.scm (string-append): add macro
@@ -9,7 +15,8 @@
 	* lily/multi-measure-rest-engraver.cc: make separate
 	MultiMeasureRestNumber grob. Introduce restNumberThreshold.
 
-	* lily/multi-measure-rest.cc: remove text handling. Remove number-threshold.
+	* lily/multi-measure-rest.cc: remove text handling. Remove
+	number-threshold.
 
 2002-10-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
@@ -247,25 +254,84 @@
 	(schedule_lilypond_block): Implement `noquote' option for LaTeX
 	mode.
 
-2002-10-04  Jan Nieuwenhuizen  <janneke@gnu.org>
+2002-10-21  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* scm/grob-description.scm (minimum-beam-collision-distance): 0.75
-	staff-space.  Previous 1.5 was probably meant as half-spaces.
-	(cautionary-style): parentheses (was: smaller).  This is what doco
-	says, and it seems more logical.
+	* Documentation/topdocs/INSTALL.texi: Add note about using ksh for
+	as workaround for /bin/sh problems on Solaris7.
 
-	* Documentation/user/refman.itely (Chromatic alterations): Bugfix
-	for 2nd sentence.
+2002-10-19  Werner Lemberg  <wl@gnu.org>
 
-2002-10-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+	* GNUmakefile.in (web-doc): Fix typos.
+	* tex/lilyponddefs.tex (\lilypondspecial): Don't scan
+	`music-drawing-routines.ps' but emit \special{header=...} once.
+	* scm/tex.scm (header-end): Updated.
 
-	* make/lilypond.redhat.spec.in: various fixes for RedHat 8.0
+2002-10-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
-2002-10-03  Jan Nieuwenhuizen  <janneke@gnu.org>
+	* lily/stem-engraver.cc (acknowledge_grob): don't crash on
+	undefined tremolo. 
 
-	* lily/beam.cc (rest_collision_callback): Fixed: partial rewrite.
+2002-10-15  Werner Lemberg  <wl@gnu.org>
+
+	* scripts/lilypond-book.py (g_make_html): New global variable.
+	(schedule_lilypond_block): Don't compute EPS and PNG for `texi'
+	if `g_make_html' isn't set.
+	[main]: Add format `texi-html'.
+	(option_definitions): Updated.
+	* Documentation/user/lilypond-book.itely: Updated.
+
+	* make/lilypond-vars.make (LILYPOND_BOOK_FORMAT): New variable.
+	* make/ly-rules.make (%.texi, %.nexi): Use it.
+	* stepmake/stepmake/www-targets.make (web): Pass `tex-html' as
+	format to lilypond-book.
+	* GNUmakefile.in (web-doc): Ditto.
+
+2002-10-14  Werner Lemberg  <wl@gnu.org>
+
+	Further improve TeX output.  The produced files are about 40%
+	smaller.  `lilyponddefs.tex' is now read only once.
+
+	* tex/lilyponddefs.tex: Remove footer stuff.
+	(\ifundefined): Renamed to...
+	(\lilypondundefined): This.  Use LaTeX's definition to
+	make it nestable and make it global.
+	(\lilypondstart, \lilypondend): New macro to initialize LilyPond
+	output.
+	(\lilypondspecial): New macro to read `music-drawing-routines.ps'.
+	(\fetasixteen, \fetafont, \fetachar, \botalign, \leftalign): Make
+	them global.
+	(\placebox): Renamed to...
+	(\lyitem): This.
+	Make it global and call \outputscale by itself.
+	(\lybox, \lyvrule): New macros to reduce input data.
+	(\lilypondfirst, \lilypondsecond, \lilypondloop, \lilyponditerate):
+	New auxiliary macros.
+	(\SkipLilydefs, \EndLilyPondOutput): Removed.
+	* tex/lily-pdf-defs.tex, tex/lily-ps-defs.tex (\lilySpace): Renamed
+	to...
+	(\lilypondspace): This and made it global.
+	(\turnOnPostScript): Renamed to...
+	(\lilypondpostscript): This and made it global.
+	(\turnOnExperimentalFeatures): Renamed to...
+	(\lilypondexperimentalfeatures): This and made it global.
+	* tex/lily-ps-defs.tex (\PSsetTeXdimen): Renamed to...
+	(\lilypondsetdimen): This and made it global.
+	* tex/lilypond-latex.tex, tex/lilypond-plaintex.tex: Removed.
+	* tex/GNUmakefile (TEX_FILES): Add `music-drawing-routines.ps'
+	(all, $(outdir)/music-drawing-routines.ps): New rules.
+	* buildscripts/mf-to-table.py (write_tex_defs): Use \gdef.
+	* scm/pdftex.scm, scm/tex.scm (end-output, header-end, placebox,
+	start-system, stop-system, stop-last-system, filledbox): Updated to
+	use the changed macros from lilyponddefs.tex.
+	* scripts/lilypond-book.ly (output_dict) <latex, texi>: Ditto.
+
+2002-10-07  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/windows/installing.texi: Update.
 
 2002-09-30  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* VERSION: 1.6.5 released
 
 	* scripts/lilypond-book.py (make_pixmap): don't produce empty pages.
 

@@ -44,6 +44,7 @@ CONVERT_LY = $(script-dir)/convert-ly.py
 LILYPOND = $(builddir)/lily/$(outconfbase)/lilypond
 LILYPOND_BOOK = $(script-dir)/lilypond-book.py
 LILYPOND_BOOK_INCLUDES = -I $(pwd) -I $(outdir) -I$(input-dir) -I $(input-dir)/tricks/ -I $(input-dir)/regression/ -I $(input-dir)/test/ -I $(input-dir)/tutorial/ -I $(builddir)/mf/$(outconfbase)/  -I $(builddir)/mf/out/
+LILYPOND_BOOK_FORMAT = texi
 LY2DVI = $(script-dir)/ly2dvi.py
 LYS_TO_TELY = $(buildscript-dir)/lys-to-tely.py
 
@@ -57,6 +58,7 @@ CONVERT_LY = $(shell $(SHELL) -c 'type -p convert-ly')
 LILYPOND = $(shell $(SHELL) -c 'type -p lilypond')
 LILYPOND_BOOK = $(shell $(SHELL) -c 'type -p lilypond-book')
 LILYPOND_BOOK_INCLUDES = -I. -I.. -I$(outdir)
+LILYPOND_BOOK_FORMAT = texi
 LY2DVI = $(shell $(SHELL) -c 'type -p ly2dvi')
 LYS_TO_TELY = $(shell $(SHELL) -c 'type -p lys-to-tely')
 

@@ -2,130 +2,203 @@
 %
 % Include file for LilyPond.
 %
-% This file defines various macros to accomodate lilypond output.
+% This file defines various macros to acommodate lilypond output.
+%
+% It should run with plain TeX, LaTeX, pdftex, and texinfo.
+%
+% To avoid interferences, lilyponddefs.tex should be loaded within a group.
+% To load it only once, most of the definitions must be global.
+%
+% The overall structure of a file created by LilyPond is as follows:
+%
+%   <lilypond parameter definitions>
+%   \ifx\lilypondstart \undefined
+%     \input lilyponddefs
+%   \fi
+%   \lilypondstart
+%   <font setup and note output>
+%   \lilypondend
+%
+% No footers and headers are provided for the stand-alone run (i.e., for
+% directly saying `latex <LilyPond output>'.
+%
 %
 % Avoid \par while reading this file.
 \edef\lilyponddefsELC{\the\endlinechar}%
 \endlinechar -1\relax
 
-% TeXbook ex 7.7
-\def\ifundefined#1{
+% the next three macros are taken from LaTeX
+\long\gdef\lilypondfirst#1#2{#1}
+
+\long\gdef\lilypondsecond#1#2{#2}
+
+\gdef\lilypondifundefined#1{
   \expandafter\ifx\csname#1\endcsname\relax
+    \expandafter\lilypondfirst
+  \else
+    \expandafter\lilypondsecond
+  \fi
 }
 
-% If we must make titles, do so, before we're skipped.
+\gdef\lilypondstart{
+  \begingroup
+  \catcode `\@=11\relax
+  % \@nodocument is defined as \relax after `\begin{document}'
+  \lilypondifundefined{@nodocument}
+    {
+      % either plain TeX or texinfo or not at the beginning of LaTeX input
+      \def\x{\endgroup}
+    }
+    {
+      % provide a proper LaTeX preamble (for A4 paper format)
+      \def\x{
+        \endgroup
+        \def\lilyponddocument{}
+        \documentclass[a4paper]{article}
+        \pagestyle{empty}
+        % \begin is defined as \outer in texinfo, thus we use \csname
+        \csname begin\endcsname{document}
+        % center staves horizontally on page
+        \ifdim\lilypondpaperlinewidth\lilypondpaperunit > 0pt
+          \hsize\lilypondpaperlinewidth\lilypondpaperunit
+          % we abuse \scoreshift temporarily
+          \scoreshift \paperwidth
+          \advance\scoreshift -\the\hsize
+          \scoreshift 0.5\scoreshift
+          \advance\scoreshift -1in
+          \oddsidemargin \scoreshift
+          \evensidemargin \scoreshift
+        \fi
+        \parindent 0pt
+      }
+    }
 
-\ifx\mustmakelilypondtitle\undefined
-\else
-  \makelilypondtitle
-\fi
+  \x
 
-\ifx\mustmakelilypondpiecetitle\undefined
-\else
-  \makelilypondpiecetitle
-\fi
+  \lilypondifundefined{mustmakelilypondtitle}
+    {}
+    {\makelilypondtitle}
 
-% skip if included already
+  \lilypondifundefined{mustmakelilypondpiecetitle}
+    {}
+    {\makelilypondpiecetitle}
+}
 
-\def\SkipLilydefs{
-  \endlinechar \lilyponddefsELC
-  \endinput}
-\ifundefined{EndLilyPondOutput}
-  \def\EndLilyPondOutput{\csname bye\endcsname}
-  \def\SkipLilydefs{}
-\fi
-\SkipLilydefs
+\gdef\lilypondend{
+  \lilypondifundefined{lilypondbook}
+    {\lilypondifundefined{lilypondpaperlastpagefill}
+      {\vskip 0pt plus \lilypondpaperinterscorelinefill00 fill}
+      {}
+    }
+    {}
 
-% need to do some stuff to turn page numbering off
+  \begingroup
+  \lilypondifundefined{lilyponddocument}
+    {
+      \def\x{\endgroup}
+    }
+    {
+      \def\x{
+        \endgroup
+        \csname end\endcsname{document}
+      }
+    }
 
-\ifundefined{documentclass}
-  \input lilypond-plaintex
-\else
-  \input lilypond-latex
-\fi
+  \x
+}
 
-% The feta characters
+% this is an inversed \loop ... \repeat macro
+\def\lilypondloop#1\lilypondrepeat{
+  \def\lilypondbody{#1}
+  \lilyponditerate
+}
+
+\def\lilyponditerate{
+  % \if ...
+    \lilypondbody
+    \let\lilypondnext \relax
+  \else
+    \let\lilypondnext \lilyponditerate
+  \fi
+  \lilypondnext
+}
+
+\newread\lilypondinput
+
+% the following macro is executed only once
+\gdef\lilypondspecial{
+  \special{header=music-drawing-routines.ps}
+  \gdef\lilypondspecial{}
+}
+
+% the feta characters
 \input feta20
 
-\font\fetasixteen = feta16
-\def\fetafont{\fetasixteen}
-\def\fetachar#1{\hbox{\fetasixteen#1}}
+\global\font\fetasixteen = feta16
+\gdef\fetafont{\fetasixteen}
+\gdef\fetachar#1{\hbox{\fetasixteen#1}}
 
-\def\botalign#1{
+\gdef\botalign#1{
   \vbox to 0pt{\vss #1}
 }
-\def\leftalign#1{
+\gdef\leftalign#1{
   \hbox to 0pt{#1\hss}
 }
 
-% Attempt to keep lilypiecetitle together with the piece:
+\gdef\lyitem#1#2#3{
+  \botalign{
+    \hbox{\raise #1\outputscale
+          \leftalign{\kern #2\outputscale #3}}
+  }
+}
 
+\gdef\lybox#1#2#3{
+  \hbox to #1\outputscale {
+    \lower\scoreshift \vbox to #2\outputscale {
+      \hbox{#3}
+      \vss
+    }
+    \hss
+  }
+}
+
+\gdef\lyvrule#1#2#3#4{
+  \kern #1\outputscale
+  \vrule width #2\outputscale depth #3\outputscale height #4\outputscale
+}
+
+% Attempt to keep lilypiecetitle together with the piece:
 %
 % TODO: figure this out.
-%
+\gdef\myfilbreak{}%\par\vfil\penalty200\vfilneg}
 
-\def\myfilbreak{}%\par\vfil\penalty200\vfilneg}
+\lilypondifundefined{lilypondpaperinterscorelinefill}
+  {\gdef\lilypondpaperinterscorelinefill{0}}
+  {\gdef\lilypondpaperinterscorelinefill{1}}
 
-
-\ifundefined{lilypondpaperinterscorelinefill}
-  \def\lilypondpaperinterscorelinefill{0}
-\else
-  \def\lilypondpaperinterscorelinefill{1}
-\fi
-
-\def\interscoreline{
+\gdef\interscoreline{
   \vskip \lilypondpaperinterscoreline \lilypondpaperunit
     plus \lilypondpaperinterscorelinefill fill
 }
 
-\def\placebox#1#2#3{
-  \botalign{
-    \hbox{\raise #1\leftalign{\kern #2{}#3}}
-  }
-}
-
 % Are we using PDFTeX?  If so, use pdf definitions.
-% MiKTeX checks \pdfoutput the wrong way; this makes our
-% check more complicated.
-\ifx\pdfoutput\undefined  
-  \input lily-ps-defs
-\else
-  \ifx\pdfoutput\relax
-    \input lily-ps-defs
-  \else
-    \pdfoutput = 1
-    \input lily-pdf-defs
-  \fi
-\fi
+% MiKTeX checks \pdfoutput the wrong way, thus we use \csname.
+\lilypondifundefined{lilypondpostscript}
+  {
+    \lilypondifundefined{pdfoutput}
+      {\input lily-ps-defs }
+      {
+        \pdfoutput = 1
+        \input lily-pdf-defs
+      }
+  }
+  {}
 
-\def\EndLilyPondOutput{
-  \ifundefined{lilypondpaperlastpagefill}
-    \vskip 0pt plus \lilypondpaperinterscorelinefill00 fill
-  \fi
-  \csname bye\endcsname
-}
-
-% Need to do some stuff to turn page numbering off;
-% they seriously mess up your fragments.
-
-\ifx\csname nolilyfooter\endcsname\relax
-  \message{[footer defined]}
-  \csname lilyfooter\texsuffix\endcsname
-\else
-  \message{[footer empty]}
-  \csname nolilyfooter\texsuffix\endcsname
-\fi
-
-% It is very bad that lilyponddefs.tex gets included in every lilypond
-% output snippet.  This is necessary because these output snippets
-% often get encapsulated, eg by texinfo. This should be fixed by
-% putting the variable parts in this file into a macro so that loading
-% the file multiple times can be avoided.
-\ifx\outputscale\undefined
-  \csname global\endcsname\csname newdimen\endcsname\outputscale
-  \csname global\endcsname\csname newdimen\endcsname\scoreshift
-\fi
+\newdimen\outputscale
+\newdimen\scoreshift
 
 % Restore newline functionality (disabled to avoid \par).
 \endlinechar \lilyponddefsELC
 \endinput
+
+% EOF

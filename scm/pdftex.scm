@@ -114,7 +114,7 @@
   (begin
 					; uncomment for some stats about lily memory	  
 					;		(display (gc-stats))
-    (string-append "%\n\\EndLilyPondOutput\n"
+    (string-append "%\n\\lilypondend\n"
 					; Put GC stats here.
 		   )))
 
@@ -165,9 +165,11 @@
 		    (else (error "unknown unit" (ly:unit)))
 		    ))
    "}%\n"
-   "\\input lilyponddefs\n"
+   "\\ifx\\lilypondstart\\undefined\n"
+   "  \\input lilyponddefs\n"
+   "\\fi\n"
    "\\outputscale=\\lilypondpaperoutputscale \\lilypondpaperunit\n"
-   "\\turnOnPostScript\n"
+   "\\lilypondpostscript\n"
    "\\pdfcompresslevel=0"))
 
 ;; Note: this string must match the string in ly2dvi.py!!!
@@ -204,9 +206,10 @@
    (ly:number->string x) " \\outputscale "))
 
 (define (placebox x y s) 
-  (string-append 
-   "\\placebox{"
-   (number->dim y) "}{" (number->dim x) "}{" s "}%\n"))
+  (string-append "\\lyitem{"
+		 (ly-number->string y) "}{"
+		 (ly-number->string x) "}{"
+		 s "}%\n"))
 
 (define (bezier-bow l thick)
   (embedded-pdf (list 'bezier-bow  `(quote ,l) thick)))
@@ -217,24 +220,24 @@
 (define (start-system wd ht)
   (string-append "\\leavevmode\n"
 		 "\\scoreshift = " (number->dim (* ht 0.5)) "\n"
-		 "\\ifundefined{lilypondscoreshift}%\n"
-		 "\\else\n"
-		 "  \\advance\\scoreshift by -\\lilypondscoreshift\n"
-		 "\\fi\n"
-		 "\\hbox to " (number->dim wd) "{%\n"
-		 "\\lower\\scoreshift\n"
-		 "\\vbox to " (number->dim ht) "{\\hbox{%\n"))
+		 "\\lilypondifundefined{lilypondscoreshift}%\n"
+		 "  {}%\n"
+		 "  {\\advance\\scoreshift by -\\lilypondscoreshift}%\n"
+		 "\\lybox{"
+		 (ly-number->string wd) "}{"
+		 (ly-number->string ht) "{%\n"))
 
 (define (stop-system) 
-  "}\\vss}\\hss}\\interscoreline\n")
+  "}%\n%\n\\interscoreline\n%\n")
 (define (stop-last-system)
-  "}\\vss}\\hss}")
+  "}%\n")
+
 (define (filledbox breapth width depth height) 
-  (string-append 
-   "\\kern" (number->dim (- breapth))
-   "\\vrule width " (number->dim (+ breapth width))
-   "depth " (number->dim depth)
-   "height " (number->dim height) " "))
+  (string-append "\\lyvrule{"
+		 (ly-number->string (- breapth)) "}{"
+		 (ly-number->string (+ breapth width)) "}{"
+		 (ly-number->string depth) "}{"
+		 (ly-number->string height) "}"))
 
 (define (roundfilledbox x y width height blotdiam)
   (embedded-pdf (list 'roundfilledbox  x y width height blotdiam)))

@@ -132,7 +132,7 @@ def write_tex_defs (file, global_info, charmetrics):
 	##nm = global_info['FontFamily']
 	nm = font_family
 	for m in charmetrics:
-		file.write (r'''\def\%s%s{\char%d}%%%s''' % (nm, m['tex'], m['code'],'\n'))
+		file.write (r'''\gdef\%s%s{\char%d}%%%s''' % (nm, m['tex'], m['code'],'\n'))
 	file.write ('\\endinput\n')
 
 def write_ps_encoding (file, global_info, charmetrics):

@@ -68,6 +68,17 @@ and are essentially bug-free.  If you're not a developer, you probably
 want to visit the @uref{http://lilypond.org/stable, latest stable
 website}.
 
+@c development:
+@ignore
+LilyPond has a development version and a stable version.  This webpage
+is for the @b{development} version.  The development releases contain
+experimental and often buggy code, so you should use this only if you
+need any special new features.  The stable releases don't change much,
+and are essentially bug-free.  If you're not a developer, you probably
+want to visit the @uref{http://lilypond.org/stable, latest stable
+website}.
+@end ignore
+
 @unnumberedsec Want to know more?
 
 If you want to know more, visit the

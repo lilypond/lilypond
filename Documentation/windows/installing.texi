@@ -145,8 +145,17 @@ PDF output to `foo.pdf'...
 @end example
 
 If you install the Cygwin's XFree86 X11 window system, tetex-x11 and
-ghostscript-x11 packages too, you can view the @code{dvi} output doing
-@code{xdvi test.dvi}.  If you have installed a PostScript/PDF viewer,
+ghostscript-x11 packages too, you can view the @code{dvi} output
+@c copied from tutorial, where xdvi command has been explained above
+@c doing @code{xdvi test.dvi}.
+doing:
+
+@example
+startx
+xdvi test.dvi
+@end example
+
+If you have installed a PostScript/PDF viewer,
 such as @code{GSView} from @uref{http://www.cs.wisc.edu/~ghost},
 viewing the PS file can be done with:
 
