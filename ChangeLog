@@ -1,5 +1,8 @@
 2004-11-10  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scm/framework-gnome.scm (item-event): Support non-animated mouse
+	dragging tweaks.
+
 	* lily/lily-guile.cc (ly_to_string, ly_to_symbol): New function.
 
 	* lily/context-selector.cc (store_context): New function.
