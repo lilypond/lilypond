@@ -7,7 +7,7 @@ Clef::Clef()
 }
 
 void
-Clef::read(svec<String> args)
+Clef::read(svec<Scalar>args)
 {
     clef_type = args[0];
     if (clef_type == "violin") {

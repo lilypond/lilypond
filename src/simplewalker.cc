@@ -22,7 +22,7 @@ Simple_walker::do_INTERPRET_command(Command*com)
     if (com->args[0] == "BAR") {
 	local_key_.reset(key_);
     } else if (com->args[0] == "KEY") {
-	svec<String> s(com->args);
+	svec<Scalar>s(com->args);
 	s.del(0);
 	if (com->when) {
 	    assert(!oldkey_undo);
@@ -32,7 +32,7 @@ Simple_walker::do_INTERPRET_command(Command*com)
 	typesetkey = key_.read(s);
 	local_key_.reset(key_);	
     } else if (com->args[0] == "CLEF") {
-	svec<String> s(com->args);
+	svec<Scalar>s(com->args);
 	s.del(0);
 	clef_.read(s);
     } else {
