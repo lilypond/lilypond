@@ -1566,7 +1566,7 @@ The macros are:
 @item \pianoCautionaries
       @cindex @code{\pianoCautionaries}
       As @code{\pianoAccidentals} but with the extra accidentals
-      typeset as cationaries.
+      typeset as cautionaries.
 
 @item \noResetKey
       @cindex @code{\noResetKey}
