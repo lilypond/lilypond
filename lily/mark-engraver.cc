@@ -139,9 +139,8 @@ Mark_engraver::process_music ()
 	text_p_->set_grob_property ("text",m);
       else 
 	{
-	  if (!gh_string_p (m)) 
+	  if (!gh_string_p (m) && !gh_number_p (m)) 
 	    m =  get_property ("rehearsalMark");
-	  ;
 	  
 	  if (gh_number_p (m))
 	    {

@@ -153,8 +153,10 @@ is the  first to satisfy CRIT "
 			  (start-moment-function .  ,Repeated_music::first_start)
 			  (length . ,Repeated_music::unfolded_music_length)))
 	    ("tremolo" . ((iterator-ctor . ,Chord_tremolo_iterator::constructor)
-			  (start-moment-function .  ,Repeated_music::first_start)			  
-			  (length . ,Repeated_music::unfolded_music_length)))))
+			  (start-moment-function .  ,Repeated_music::first_start)
+
+			  ;; the length of the repeat is handled by shifting the note logs
+			  (length . ,Repeated_music::folded_music_length)))))
 	  
        (handle (assoc name supported-reps)))
 

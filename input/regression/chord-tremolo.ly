@@ -18,12 +18,11 @@ stems.
 	\repeat "tremolo" 8 { d16 e }
 	\repeat "tremolo" 4 { d e }
 	\repeat "tremolo" 2 { d e }
-	\repeat "tremolo" 1 { d e }
-	\repeat "tremolo" 1 { d e }
+	c4
 	\break
 	\repeat "tremolo" 4 { f'8 e }
-	\repeat "tremolo" 2 { f e }    
-	\repeat "tremolo" 1 { f e }
+	\repeat "tremolo" 2 { f e }
+	c4
 	c4 c4 c4 c4
 	c4 c4 c4 c4
 	c4 c4 c4 c4

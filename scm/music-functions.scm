@@ -7,7 +7,45 @@
 		 ":"
 		 (number->string (ly-get-mus-property mus 'denominator))
 		 ))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+(define (shift-duration-log music shift )
+  "Recurse through music, adding SHIFT to duration-log to any note
+encountered. This scales the music up by a factor 2^k."
+  (let* ((es (ly-get-mus-property music 'elements))
+         (e (ly-get-mus-property music 'element))
+         (n  (ly-music-name music))
+	 (f  (lambda (x)  (shift-duration-log x shift)))
+	 )
+    (if (or (equal? n "Note_req")
+	    (equal? n "Rest_req"))
+	(let* (
+	      (d (ly-get-mus-property music 'duration))
+	      (cp (duration-factor d))
+	      (nd (make-duration (+ shift (duration-log d))
+				 (duration-dot-count d)
+				 (car cp)
+				 (cdr cp)))
+	  
+	      )
+	  (ly-set-mus-property music 'duration nd)
+	))
+
+    (if (pair? es)
+        (ly-set-mus-property
+         music 'elements
+         (map f es)))
+
+    (if (music? e)
+        (ly-set-mus-property
+         music 'element
+         (f e)))
+
+    music))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (unfold-repeats music)
 "
 This function replaces all repeats  with unfold repeats. It was 
@@ -18,6 +56,9 @@ written by Rune Zedeler. "
 
     (if (equal? n "Repeated_music")
         (begin
+	  (if (equal? (ly-get-mus-property 'type music) 'tremolo)
+	      (shift-duration-log music (- (intlog2 (ly-get-mus-property 'repeat-count music))))
+	      )
           (ly-set-mus-property
            music 'length Repeated_music::unfolded_music_length)
 	  (ly-set-mus-property

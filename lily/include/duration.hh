@@ -26,8 +26,7 @@ public:
 
   Duration compressed (Rational) const;
   Rational length_mom () const ;
-
-
+  Rational factor () const { return factor_; }
   int duration_log ()const;
   int dot_count () const;
 
@@ -36,7 +35,7 @@ public:
   SCM smobbed_copy () const;
   DECLARE_SCHEME_CALLBACK (less_p, (SCM a, SCM b));
   DECLARE_SIMPLE_SMOBS (Duration,);
-  
+
 private:
     /// Logarithm of the base duration.
   int durlog_i_;

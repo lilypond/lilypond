@@ -37,9 +37,14 @@ public:
 struct Tremolo_req : public Request {
   VIRTUAL_COPY_CONS (Music);
   Tremolo_req ();
+};
 
-  void set_type (int);
-  int get_type () const;
+struct Chord_tremolo_notify_req : public Request
+{
+
+  Rational factor_;
+  VIRTUAL_COPY_CONS(Chord_tremolo_notify_req);
+  Chord_tremolo_notify_req();
 };
 
 

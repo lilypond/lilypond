@@ -220,7 +220,7 @@ LY_DEFINE(ly_get_mus_property,
 	  "Get the property @var{sym} of music expression @var{mus}.")
 {
   Music * sc = unsmob_music (mus);
-  SCM_ASSERT_TYPE(sc, mus, SCM_ARG1, __FUNCTION__, "grob");
+  SCM_ASSERT_TYPE(sc, mus, SCM_ARG1, __FUNCTION__, "music");
   SCM_ASSERT_TYPE(gh_symbol_p(sym), sym, SCM_ARG2, __FUNCTION__, "symbol");  
 
   return sc->internal_get_mus_property (sym);

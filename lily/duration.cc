@@ -1,6 +1,6 @@
 /*
-  duration.cc -- implement Duration, Plet, 
-
+  duration.cc -- implement Duration
+  
   source file of the LilyPond music typesetter
 
   (c)  1997--2002 Jan Nieuwenhuizen <janneke@gnu.org>
@@ -10,6 +10,7 @@
 
 #include <assert.h>
 
+#include "misc.hh"
 #include "lily-proto.hh"
 #include "string.hh"
 #include "moment.hh"
@@ -133,15 +134,16 @@ Duration::less_p (SCM p1, SCM p2)
     return SCM_BOOL_F;
 }
 
-
 LY_DEFINE(make_duration,
-	  "make-duration", 2, 0, 0, (SCM length, SCM dotcount),
+	  "make-duration", 2, 2, 0, (SCM length, SCM dotcount,
+				     SCM num, SCM den),
 	  "
 @var{length} is the negative logarithm (base 2) of the duration:
 1 is a half note, 2 is a quarter note, 3 is an eighth
 note, etc.  The number of dots after the note is given by
 @var{dotcount}.
 
+The duration factor is optionally given by @var{num} and @var{den}.
 
 A duration is a musical duration, i.e. a length of time described by a
 power of two (whole, half, quarter, etc.) and a number of augmentation
@@ -151,9 +153,77 @@ dots.
 {
   SCM_ASSERT_TYPE(gh_number_p(length), length, SCM_ARG1, __FUNCTION__, "integer");
   SCM_ASSERT_TYPE(gh_number_p(dotcount), dotcount, SCM_ARG2, __FUNCTION__, "integer");
+
+  bool compress = false;
+  if (num != SCM_UNDEFINED)
+    {
+      SCM_ASSERT_TYPE(gh_number_p(num), length, SCM_ARG3, __FUNCTION__, "integer");
+      compress = true;
+    }
+  else
+    num = gh_int2scm (1);
+  
+  if (den != SCM_UNDEFINED)
+    SCM_ASSERT_TYPE(gh_number_p(den), length, SCM_ARG4, __FUNCTION__, "integer");
+  else
+    den = gh_int2scm (1);
   
   Duration p (gh_scm2int (length), gh_scm2int (dotcount));
+  if (compress)
+    p = p.compressed (Rational (gh_scm2int (num), gh_scm2int (den)));
+
   return p.smobbed_copy ();
+}
+
+
+
+LY_DEFINE(duration_log,
+	  "duration-log", 1, 0, 0, (SCM dur),
+	  "
+Extract the duration log from @var{dur}"
+)
+{
+  SCM_ASSERT_TYPE(unsmob_duration(dur), dur, SCM_ARG1, __FUNCTION__, "duration");
+
+  return gh_int2scm (unsmob_duration (dur)->duration_log ());
+}
+
+
+LY_DEFINE(dot_count_log,
+	  "duration-dot-count", 1, 0, 0, (SCM dur),
+	  "
+Extract the dot count from @var{dur}"
+)
+{
+  SCM_ASSERT_TYPE(unsmob_duration(dur), dur, SCM_ARG1, __FUNCTION__, "duration");
+
+  return gh_int2scm (unsmob_duration (dur)->dot_count ());
+}
+
+
+LY_DEFINE(ly_intlog2,
+	  "intlog2", 1, 0, 0, (SCM d),
+	  "
+Extract the dot count from @var{dur}"
+)
+{
+  SCM_ASSERT_TYPE(gh_number_p (d), d, SCM_ARG1, __FUNCTION__, "integer");
+
+  int l = intlog2 (gh_scm2int (d));
+
+  return gh_int2scm (l);
+}
+
+LY_DEFINE(compression_factor,
+	  "duration-factor", 1, 0, 0, (SCM dur),
+	  "
+Extract the compression factor from @var{dur}. Return as a pair."
+)
+{
+  SCM_ASSERT_TYPE(unsmob_duration(dur), dur, SCM_ARG1, __FUNCTION__, "duration");
+  Rational r =unsmob_duration (dur)->factor ();
+
+  return gh_cons(gh_int2scm (r.num()),gh_int2scm (r.den ())); 
 }
 
 SCM

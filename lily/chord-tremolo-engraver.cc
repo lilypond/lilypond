@@ -48,12 +48,9 @@ protected:
   /// moment (global time) where beam started.
   Moment start_mom_;
   Moment stop_mom_;
-
+  int flags_i_ ;
   /// location  within measure where beam started.
   Moment beam_start_location_;
-
-  int note_head_i_;
-  int dots_i_;
 
   bool sequential_body_b_;
   Spanner * beam_p_;
@@ -72,8 +69,7 @@ Chord_tremolo_engraver::Chord_tremolo_engraver ()
 {
   beam_p_  = finished_beam_p_ = 0;
   repeat_ =0;
-  note_head_i_ = 0;
-  dots_i_ = 0;
+  flags_i_ = 0;
   stem_tremolo_ = 0;
   sequential_body_b_ = false;
 }
@@ -92,10 +88,10 @@ Chord_tremolo_engraver::try_music (Music * m)
       stop_mom_ = start_mom_ + l;
       sequential_body_b_ = dynamic_cast<Sequential_music*> (rp->body ());
 
-      // ugh. should generate triplet beams.
-      note_head_i_ = int (ceil (double(l.den ()) / l.num ()));
-      dots_i_ = intlog2 (1+l.num ()) -1 ; // 1->0, 3->1, 7->2
-      note_head_i_ = note_head_i_ <? 4; 
+      Rational total_dur = l.main_part_;
+      Rational note_dur = (total_dur / Rational (repeat_->repeat_count ()));
+       flags_i_ = intlog2 ((total_dur / note_dur).num ());
+      
       return true;
     }
 
@@ -112,7 +108,6 @@ Chord_tremolo_engraver::process_music ()
 	  beam_p_ = new Spanner (get_property ("Beam"));
 	  beam_p_->set_grob_property ("chord-tremolo", SCM_BOOL_T);
 
-
 	  SCM smp = get_property ("measurePosition");
 	  Moment mp
 	    = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
@@ -121,13 +116,13 @@ Chord_tremolo_engraver::process_music ()
 	}
       else if (!sequential_body_b_ && !stem_tremolo_)
 	{
-	  int flags = intlog2 (note_head_i_ * repeat_->repeat_count ()) -2;
-	  if (flags)
+
+	  if (flags_i_)
 	    {
 	      stem_tremolo_ = new Item (get_property ("StemTremolo"));
 	      announce_grob(stem_tremolo_, repeat_->self_scm());
 	      stem_tremolo_->set_grob_property ("flag-count",
-						gh_int2scm (flags));
+						gh_int2scm (flags_i_));
 
 	    }
 	}
@@ -158,59 +153,36 @@ Chord_tremolo_engraver::typeset_beam ()
 void
 Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
 {
-  if (beam_p_)
+  if (beam_p_ && Stem::has_interface (info.grob_l_))
     {
-      if (Stem::has_interface (info.grob_l_))
-	{
-	  Grob * s = info.grob_l_;
-	  int f = Stem::duration_log (s);
-	  f = (f > 2) ? f - 2 : 1;
-	  Stem::set_beaming (s, f, LEFT);
-	  Stem::set_beaming (s, f, RIGHT);
+      Grob * s = info.grob_l_;
+      Stem::set_beaming (s, flags_i_, LEFT);
+      Stem::set_beaming (s, flags_i_, RIGHT);
 	  
- 	  SCM d = s->get_grob_property ("direction");
-	  if (Stem::duration_log (s) != 1)
-	    {
-	      int gap_i =Stem::duration_log (s) - ((Stem::duration_log (s) >? 2) - 2);
-	      beam_p_->set_grob_property ("gap", gh_int2scm (gap_i));
-	    }
-	  s->set_grob_property ("direction", d);
+      SCM d = s->get_grob_property ("direction");
+      if (Stem::duration_log (s) != 1)
+	{
+	  beam_p_->set_grob_property ("gap", gh_double2scm (0.8));
+	}
+      s->set_grob_property ("direction", d);
 
-	  if (dynamic_cast <Rhythmic_req *> (info.music_cause ()))
-	    {
-	      Beam::add_stem (beam_p_, s);
-	    }
+      if (dynamic_cast <Rhythmic_req *> (info.music_cause ()))
+	{
+	  Beam::add_stem (beam_p_, s);
+	}
+      else
+	{
+	  String s = _ ("stem must have Rhythmic structure");
+	  if (info.music_cause ())
+	    info.music_cause ()->origin ()->warning (s);
 	  else
-	    {
-	      String s = _ ("stem must have Rhythmic structure");
-	      if (info.music_cause ())
-		info.music_cause ()->origin ()->warning (s);
-	      else
-		::warning (s);
-	    }
+	    ::warning (s);
 	}
     }
   else if (stem_tremolo_ && Stem::has_interface (info.grob_l_))
     {
        Stem_tremolo::set_stem (stem_tremolo_, info.grob_l_);
-
-       info.grob_l_->set_grob_property ("duration-log", gh_int2scm (intlog2 (note_head_i_)));
-    }
-
-  
-  if (repeat_ && Note_head::has_interface (info.grob_l_))
-    {
-      info.grob_l_->set_grob_property ("duration-log", gh_int2scm (intlog2 (note_head_i_)));
-      if (dots_i_ > 0) 
-	{
-          Item * d = new Item (get_property ("Dots"));
-          Rhythmic_head::set_dots (info.grob_l_, d);
-          
-	  d->set_grob_property ("dot-count", gh_int2scm (dots_i_));
-
-          d->set_parent (info.grob_l_, Y_AXIS);
-          announce_grob (d, SCM_EOL);
-	}
+       stem_tremolo_->set_parent (info.grob_l_,X_AXIS);
     }
 }
 
