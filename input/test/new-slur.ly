@@ -1,11 +1,18 @@
-
+\paper {
+    raggedright = ##t
+}
 
 \relative {
 
     \override Slur #'after-line-breaking-callback = #New_slur::after_line_breaking
-   \override Slur #'print-function = #New_slur::print     
+    \override Slur #'print-function = #New_slur::print     
     \override Slur #'height = ##f
-    <c g> ( f <g b>)
+
+    f'=''16( e)
+%    d( c)
+%    c'=''2(~c8 d16 c b8 a)
+    
+%{    <c g> ( f <g b>)
      f
     <c g>^( f <g b>)
     f
@@ -14,5 +21,6 @@
     <g b>_( \stemDown g \stemBoth  <b d>)
     c,^( c'' c) 
     c,,^( c'')
-    c,,^( c')
+    c,,^( c') 
+%}
 }
