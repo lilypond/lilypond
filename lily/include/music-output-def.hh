@@ -23,9 +23,8 @@ class Music_output_def
 {
 public:
   Scheme_hash_table * translator_tab_;
-  Scheme_hash_table * variable_tab_;  
 
-
+  SCM scope_;
   SCM scaled_fonts_;
   SCM style_sheet_;
   
@@ -39,8 +38,13 @@ public:
   void assign_translator (SCM transdef);
   SCM find_translator (SCM name) const;
   String outname_string () ;
+  SCM get_scmvar (String id)const;
+  SCM lookup_variable  (SCM sym) const;
+  void set_variable  (SCM, SCM sym);
   
   DECLARE_SMOBS (Music_output_def,);
+
+  
 };
 
 DECLARE_UNSMOB(Music_output_def,music_output_def);

@@ -274,7 +274,7 @@ yylex (YYSTYPE *s,  void * v)
 %token <scm>   REAL
 
 %type <outputdef> output_def
-%type <scmhash> 	lilypond_header lilypond_header_body
+%type <scm> 	lilypond_header lilypond_header_body
 %type <request>	open_request_parens close_request_parens open_request close_request
 %type <request> request_with_dir request_that_take_dir verbose_request
 %type <i>	sub_quotes sup_quotes
@@ -350,8 +350,6 @@ toplevel_expression:
 		THIS->lexer_->chordmodifier_tab_  = $1;
 	}
 	| lilypond_header {
-		if (THIS->input_file_->header_)
-			scm_gc_unprotect_object (THIS->input_file_->header_->self_scm ());
 		THIS->input_file_->header_ = $1;
 	}
 	| score_block {
@@ -401,18 +399,17 @@ notenames_body:
 
 lilypond_header_body:
 	{
-		$$ = new Scheme_hash_table;
-		THIS->lexer_-> scopes_.push ($$);
+		$$ = ly_make_anonymous_module (); 
+		THIS->lexer_->add_scope ($$);
 	}
 	| lilypond_header_body assignment  { 
-
+		
 	}
 	;
 
 lilypond_header:
 	HEADER '{' lilypond_header_body '}'	{
-		$$ = $3;
-		THIS->lexer_->scopes_.pop ();
+		$$ = THIS->lexer_-> remove_scope();
 	}
 	;
 
@@ -588,7 +585,6 @@ score_body:
 		$$->set_spot (THIS->here_input ());
 	}
 	| score_body lilypond_header 	{
-		scm_gc_unprotect_object ($2->self_scm ()); 
 		$$->header_ = $2;
 	}
 	| score_body output_def {
@@ -606,23 +602,23 @@ score_body:
 output_def:
 	music_output_def_body '}' {
 		$$ = $1;
-		THIS-> lexer_-> scopes_.pop ();
+		THIS-> lexer_-> remove_scope ();
 	}
 	;
 
 music_output_def_body:
 	MIDI '{'    {
-	   Music_output_def *id = unsmob_music_output_def (THIS->lexer_->lookup_identifier ("$defaultmidi"));
+		Music_output_def *id = unsmob_music_output_def (THIS->lexer_->lookup_identifier ("$defaultmidi"));
 
-		
-	 Midi_def* p =0;
-	if (id)
-		p = dynamic_cast<Midi_def*> (id->clone ());
-	else
-		p = new Midi_def;
 
-	 $$ = p;
-	 THIS->lexer_->scopes_.push (p->variable_tab_);
+		Midi_def* p =0;
+		if (id)
+			p = dynamic_cast<Midi_def*> (id->clone ());
+		else
+			p = new Midi_def;
+
+		$$ = p;
+		THIS->lexer_->add_scope (p->scope_);
 	}
 	| PAPER '{' 	{
 		Music_output_def *id = unsmob_music_output_def (THIS->lexer_->lookup_identifier ("$defaultpaper"));
@@ -631,20 +627,20 @@ music_output_def_body:
 			p = dynamic_cast<Paper_def*> (id->clone ());
 		else
 			p = new Paper_def;
-		THIS-> lexer_-> scopes_.push (p->variable_tab_);
+		THIS-> lexer_->add_scope (p->scope_);
 		$$ = p;
 	}
 	| PAPER '{' MUSIC_OUTPUT_DEF_IDENTIFIER 	{
 		Music_output_def *p = unsmob_music_output_def ($3);
 		p = p->clone ();
-		THIS->lexer_->scopes_.push (p->variable_tab_);
+		THIS->lexer_->add_scope (p->scope_);
 		$$ = p;
 	}
 	| MIDI '{' MUSIC_OUTPUT_DEF_IDENTIFIER 	{
 		Music_output_def *p = unsmob_music_output_def ($3);
 		p = p->clone ();
 
-		THIS->lexer_->scopes_.push (p->variable_tab_);
+		THIS->lexer_->add_scope (p->scope_);
 		$$ = p;
 	}
 	| music_output_def_body assignment  {
@@ -1959,7 +1955,7 @@ simple_element:
  		$$ = velt;
 	}
 	| MULTI_MEASURE_REST optional_notemode_duration  	{
-		Input i = THIS->pop_spot ();
+		THIS->pop_spot ();
 
 		Skip_req * sk = new Skip_req;
 		sk->set_mus_property ("duration", $2);

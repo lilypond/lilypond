@@ -28,10 +28,10 @@ void set_lexer ();
 /// lexer for Lilypond
 class My_lily_lexer : public Includable_lexer 
 {
+  Protected_scm scopes_;
 public:
   String main_input_string_;
   void * lexval;
-  Scheme_hash_table * toplevel_variable_tab_;
   bool main_input_b_;
 
   /*
@@ -39,8 +39,6 @@ public:
    */
   Protected_scm chordmodifier_tab_;
   Protected_scm pitchname_tab_;
-  
-  Link_array<Scheme_hash_table> scopes_;
   Keyword_table * keytable_;
   int errorlevel_;
 
@@ -50,6 +48,9 @@ public:
 
   Input here_input () const;
 
+  void add_scope (SCM);
+  SCM remove_scope ();
+  
   void start_main_input ();
 
   SCM lookup_identifier (String s);

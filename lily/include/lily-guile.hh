@@ -225,6 +225,12 @@ SCM index_set_cell (SCM cell, Direction d, SCM val);
 SCM ly_snoc (SCM s, SCM list);
 SCM ly_split_list (SCM s, SCM list);
 SCM ly_unique (SCM list);
+
+
+SCM ly_make_anonymous_module ();
+void ly_copy_module_variable (SCM dest, SCM src);
+SCM ly_module_to_alist (SCM mod);
+
 /*
   snarfing.
  */

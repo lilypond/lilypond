@@ -47,44 +47,14 @@ Paper_def::get_var (String s) const
   return get_realvar (ly_symbol2scm (s.to_str0 ()));
 }
 
-SCM
-Paper_def::get_scmvar (String s) const
-{
-  return variable_tab_->get (ly_symbol2scm (s.to_str0 ()));
-}
-
-
-SCM
-Paper_def::get_scmvar_scm (SCM sym) const
-{
-  return  gh_double2scm (get_realvar (sym));
-}
-
 Real
 Paper_def::get_realvar (SCM s) const
 {
-  SCM val ;
-  if (!variable_tab_->try_retrieve (s, &val))
-    {
-      programming_error ("unknown paper variable: " +  ly_symbol2string (s));
-      return 0.0;
-    }
-
-  Real sc = 1.0;
-  SCM ssc;
-  if (variable_tab_->try_retrieve (ly_symbol2scm ("outputscale"), &ssc))
-    {
-      sc = gh_scm2double (ssc);
-    }
-  if (gh_number_p (val))
-    {
-      return gh_scm2double (val) / sc;
-    }
-  else
-    {
-      programming_error ("not a real variable");
-      return 0.0;
-    }
+  SCM val = lookup_variable (s);
+  SCM scale = lookup_variable (ly_symbol2scm ("outputscale"));
+  
+  Real sc = gh_scm2double (scale);
+  return gh_scm2double (val) / sc;
 }
 
 /*
@@ -158,11 +128,8 @@ Paper_def::find_font (SCM fn, Real m)
     }
   else
     {
-      SCM ssc;
-      if (variable_tab_->try_retrieve (ly_symbol2scm ("outputscale"), &ssc))
-	{
-	  m /= gh_scm2double (ssc);
-	}
+      SCM var =  scm_module_lookup (scope_, ly_symbol2scm ("outputscale"));
+      m /= gh_scm2double (scm_variable_ref (var));
 
       f = all_fonts_global->find_font (ly_scm2string (fn));
       SCM val = Scaled_font_metric::make_scaled_font_metric (f, m);
