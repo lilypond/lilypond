@@ -26,6 +26,13 @@
  )
 
 (ly:add-interface
+ 'rhythmic-grob-interface
+ "Any object with a rhythmic basis. Used to determine which grobs 
+are interesting enough to maintain a hara-kiri staff."
+ '()
+ )
+
+(ly:add-interface
  'ligature-interface
  "A ligature"
  '()
@@ -35,7 +42,6 @@
  'ligature-bracket-interface
  "A bracket indicating a ligature in the original edition"
  '(width thickness height ligature-primitive-callback))
-
 
 (ly:add-interface
  'mark-interface

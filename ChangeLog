@@ -1,5 +1,14 @@
 2003-03-06  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* ly/engraver-init.ly: use Hara kiri by default for 
+	ChordNames, FiguredBass and Lyrics(Voice) context. 
+
+	* lily/axis-group-engraver.cc (acknowledge_grob): use
+	rhythmic-grob-interface for selecting items not to hara-kiri'd 
+
+	* scm/new-markup.scm (markup-function-list): add bracket,
+	vbracket.
+
 	* ly/engraver-init.ly (ChordNamesContext): set
 	minimumVerticalExtent
 

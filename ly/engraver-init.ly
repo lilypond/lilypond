@@ -239,6 +239,7 @@ InnerStaffGroupContext= \translator {
 	\accepts "Lyrics"
 	\accepts "ChordNames"
 }
+
 StaffGroupContext = \translator {
 	\InnerStaffGroupContext
 	\name StaffGroup
@@ -252,7 +253,7 @@ StaffGroupContext = \translator {
 % UGH! JUNKME
 LyricsVoiceContext= \translator{
 	\type "Engraver_group_engraver"
-	\consistsend "Axis_group_engraver"
+	\consistsend "Hara_kiri_engraver"
 	minimumVerticalExtent = #'(-1.2 . 1.2)
 	extraVerticalExtent = ##f
 	verticalExtent = ##f 
@@ -287,7 +288,7 @@ LyricsContext = \translator {
 	%% To get folded repeats right.
 	\consists Vertical_align_engraver 
 
-	\consistsend "Axis_group_engraver"
+	\consistsend "Hara_kiri_engraver"
 	minimumVerticalExtent = ##f
 	extraVerticalExtent = ##f
 	verticalExtent = ##f 
@@ -305,21 +306,11 @@ ChordNamesContext = \translator {
 	\consists "Separating_line_group_engraver"
 	\consists "New_chord_name_engraver"
 	\consists "Skip_req_swallow_translator"
-	\consistsend "Axis_group_engraver"
+	\consistsend "Hara_kiri_engraver"
 	minimumVerticalExtent = #'(0 . 2.5)
 	extraVerticalExtent = ##f
 	verticalExtent = ##f 
 }
-
-
-
-StupidScore = \translator {
- 	\type "Score_engraver"
-	\name Score
-	\consists "Note_heads_engraver"
-}
-
-
 
 
 HaraKiriStaffContext = \translator {
@@ -483,9 +474,8 @@ FiguredBassContext = \translator {
 	\consists "Figured_bass_engraver"
 	\consists "Rest_swallow_translator"
 	\consists "Note_swallow_translator"
-	\consistsend "Axis_group_engraver"
+	\consistsend "Hara_kiri_engraver"
 }
-
 
 TabVoiceContext =   \translator {
       \VoiceContext
@@ -527,7 +517,5 @@ TabStaffContext = \translator {
       % Special "TAB" clef
       clefGlyph = #"clefs-tab"
       clefPosition = #0
-      
-
 }
    

@@ -447,9 +447,9 @@ class Note:
 			s = s + "," * -commas
 
 		## FIXME: compile fix --jcn
-		if (dump_dur and explicit_durations_p) \
+		if dump_dur and (explicit_durations_p \
 		   or Duration.compare (self.duration,
-					reference_note.duration):
+					reference_note.duration)):
 			s = s + self.duration.dump ()
 
 		reference_note = self
