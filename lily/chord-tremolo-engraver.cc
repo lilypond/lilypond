@@ -55,7 +55,7 @@ Chord_tremolo_engraver::do_process_requests ()
   if (reqs_drul_[STOP])
     {
       if (!abeam_p_)
-	reqs_drul_[STOP]->warning (_("no tremolo beam to end"));
+	reqs_drul_[STOP]->warning (_ ("no tremolo beam to end"));
       prev_start_req_ = 0;
       finished_abeam_p_ = abeam_p_;
       abeam_p_ = 0;
@@ -80,7 +80,7 @@ Chord_tremolo_engraver::do_process_requests ()
     {
       if (abeam_p_)
 	{
-	  reqs_drul_[START]->warning (_ ("already have a tremolo beam"));
+	  reqs_drul_[START]->warning (_ ("Already have a tremolo beam"));
 	  return;
 	}
 

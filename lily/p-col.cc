@@ -45,7 +45,7 @@ Paper_column::add_spring (Paper_column * p, Real d, Real s)
   
   if (!dir)
     {
-      warning ("Must set spring between differing columns.");
+      warning (_ ("Must set spring between differing columns"));
       return;
     }
   

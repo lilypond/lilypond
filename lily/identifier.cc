@@ -43,9 +43,7 @@ Identifier::~Identifier()
 void
 Identifier::error (String expect) const
 {
-  String e (_("Wrong identifier type: "));
-  e += _f ("%s expected", expect);
-  ::error (e);
+  ::error (_f ("wrong identifier type, expected: `%s'", expect));
 }
 
 String

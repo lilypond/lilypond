@@ -19,11 +19,11 @@ Change_iterator::error (String reason)
   String to_type = t->change_to_type_str_;
   String to_id =  t->change_to_id_str_;
 
-  String warn1 = _f ("can't change `%s\' to `%s\'", to_type, to_id) 
+  String warn1 = _f ("Can't change `%s' to `%s'", to_type, to_id) 
     + ": " + reason;
   String warn2= "Change_iterator::do_process_and_next (): " 
     + report_to_l ()->type_str_ + " = `"
-    + report_to_l ()->id_str_ + "\': ";
+    + report_to_l ()->id_str_ + "': ";
   warning (warn2);
   t->warning (warn1);
 }
@@ -54,7 +54,7 @@ Change_iterator::do_process_and_next (Moment m)
   if (current && current->id_str_ == to_id)
     {
       String msg;
-      msg += "Cannot switch  translators, I'm there already.";
+      msg += _ ("Can't switch translators, I'm there already");
     }
   
   if (current) 
@@ -73,10 +73,10 @@ Change_iterator::do_process_and_next (Moment m)
 	  
 	   last->translator_id_str_  = change_l ()->change_to_id_str_;
 	*/
-	error ("I'm one myself");
+	error (_ ("I'm one myself"));
       }
   else
-    error ("None of these in my family.");
+    error (_ ("none of these in my family"));
   Music_iterator::do_process_and_next (m);
 }
 

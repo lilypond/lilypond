@@ -23,7 +23,7 @@ void
 Stem::set_direction (Direction d)
 {
   if  (!dir_)
-    warning ("Stem direction set already!");
+    warning (_ ("stem direction set already!"));
 
   dir_ = d;
 
@@ -103,7 +103,7 @@ Stem::set_stemend (Real se)
 {
   // todo: margins
   if (dir_ && dir_ * head_positions()[dir_] >= se*dir_)
-    warning (_ ("weird stem size; check for narrow beams"));
+    warning (_ ("Weird stem size; check for narrow beams"));
 
   
   yextent_drul_[dir_]  =  se;

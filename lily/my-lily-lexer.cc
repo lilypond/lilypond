@@ -134,13 +134,13 @@ My_lily_lexer::set_identifier (String name_str, Identifier* i, bool )
     {
 #if 0
       if (unique_b)
-	old->warning(_f ("redeclaration of `\\%s\'", name_str));
+	old->warning(_f ("redeclaration of `\\%s'", name_str));
 #endif
       delete old;
     }
   if (lookup_keyword (name_str) >= 0)
     {
-      warning (  _f ("Identifier name is a keyword (`%s')", name_str));
+      warning (  _f ("Identifier name is a keyword: `%s'", name_str));
     }
   
   scope_l_arr_.top ()->elem (name_str) = i;

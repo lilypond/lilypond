@@ -88,7 +88,7 @@ Line_of_score::output_all (bool last_line)
 {
   Interval i(extent(Y_AXIS));
   if (i.empty_b())
-    warning ("Huh? Empty Line_of_score?");
+    warning (_ ("Huh?  Empty Line_of_score?"));
   else
     translate_axis (- i[MAX], Y_AXIS);
   

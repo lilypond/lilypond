@@ -36,7 +36,7 @@ get_translator_l (String s)
 	return t;
     }
 
-  error (_f ("unknown translator `%s\'", s));
+  error (_f ("unknown translator: `%s'", s));
   return 0;
 }
 

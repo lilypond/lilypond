@@ -106,7 +106,7 @@ Dynamic_engraver::do_process_requests()
 	{
 	  if (text_p_)
 	    {
-	      dynamic_req_l_arr_[i]->warning (_("Got a dynamic already.  Continuing dazed and confused"));
+	      dynamic_req_l_arr_[i]->warning (_("Got a dynamic already.  Continuing dazed and confused."));
 	      continue;
 	    }
 	  
@@ -159,7 +159,7 @@ Dynamic_engraver::do_process_requests()
 	    {
 	      if (!cresc_p_)
 		{
-		  span_l->warning (_ ("can't find (de)crescendo to end"));
+		  span_l->warning (_ ("Can't find (de)crescendo to end"));
 		}
 	      else
 		{

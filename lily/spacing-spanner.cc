@@ -215,7 +215,7 @@ Spacing_spanner::note_spacing (Score_column *lc, Score_column *rc, Moment shorte
   Moment shortest_playing_len = lc->shortest_playing_mom_;
   if (! shortest_playing_len)
     {
-      programming_error ("can't find a ruling note at " + lc->when_mom ().str ());
+      programming_error ("Can't find a ruling note at " + lc->when_mom ().str ());
       shortest_playing_len = 1;
     }
   

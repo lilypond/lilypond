@@ -1,3 +1,11 @@
+pl 8.jcn1
+	- Documentation/Localisation.texi: still some issues
+	- Uniformised locale strings
+	- marked some errors/warnings without _/_f markings
+	- added programming_warning (): not to be localised warnings
+	  (none identified as yet)
+	- Update of po/nl.po
+
 pl 7.hwn1
 	- website fixes.
 	- spacer cleanups

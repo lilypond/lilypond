@@ -116,7 +116,7 @@ Mudela_score::output (String filename_str)
   Mudela_stream mudela_stream (filename_str);
   for (Cons<Mudela_staff>* i = mudela_staff_p_list_.head_; i; i = i->next_)
     {
-      LOGOUT (NORMAL_ver) << _ ("track ") << track_i++ << ": " << flush;
+      LOGOUT (NORMAL_ver) << _f ("track %d:", track_i++) << flush;
       i->car_->output (mudela_stream);
       mudela_stream << '\n';
       LOGOUT (NORMAL_ver) << endl;

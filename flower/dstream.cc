@@ -155,7 +155,7 @@ Dstream::Dstream (ostream *r, char const * cfg_nm)
     Text_record  r (cfg++);
     if (r.size() != 2)
       {
-	r.message (_ ("Not enough fields in Dstream init."));
+	r.message (_ ("not enough fields in Dstream init"));
 	continue;
       }
     (*silent_dict_p_)[r[0]] = (bool)(int)(Scalar (r[1]));

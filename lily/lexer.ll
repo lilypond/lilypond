@@ -133,7 +133,7 @@ HYPHEN		--
 <version>\"[^"]*\";?   { /* got the include file name */
 	String s (YYText ()+1);
 	s = s.left_str (s.index_last_i ('"'));
-	DOUT << "#version `" << s << "\'\n";
+	DOUT << "#version `" << s << "'\n";
 	if (!valid_version_b (s))
 		return INVALID;
 	yy_pop_state ();
@@ -166,7 +166,7 @@ HYPHEN		--
 		main_input_b_ = true;
 	}
 	else
-		error ("\\maininput disallowed outside init files.");
+		error (_ ("\\maininput disallowed outside init files"));
 }
 
 <INITIAL,chords,lyrics,notes>\\include           {
@@ -175,7 +175,7 @@ HYPHEN		--
 <incl>\"[^"]*\";?   { /* got the include file name */
 	String s (YYText ()+1);
 	s = s.left_str (s.index_last_i ('"'));
-	DOUT << "#include `" << s << "\'\n";
+	DOUT << "#include `" << s << "'\n";
 	new_input (s,source_global_l);
 	yy_pop_state ();
 }
@@ -189,19 +189,19 @@ HYPHEN		--
 	if (id) 
 	  {
 	    String* s_l = id->access_content_String (false);
-	    DOUT << "#include `" << *s_l << "\'\n";
+	    DOUT << "#include `" << *s_l << "'\n";
 	    new_input (*s_l, source_global_l);
 
 	    yy_pop_state ();
 	  }
 	else
 	  {
-	    String msg (_f ("undefined identifier: `%s\'", s ));	
+	    String msg (_f ("undefined identifier: `%s'", s ));	
 	    LexerError (msg.ch_C ());
 	  }
 }
 <incl>\"[^"]*   { // backup rule
-	cerr << _ ("missing end quote") << endl;
+	cerr << _ ("Missing end quote") << endl;
 	exit (1);
 }
 <chords,notes>{RESTNAME} 	{
@@ -398,7 +398,7 @@ HYPHEN		--
 }
 
 <*>.		{
-	String msg = _f ("invalid character: `%c\'", YYText ()[0]);
+	String msg = _f ("invalid character: `%c'", YYText ()[0]);
 	LexerError (msg.ch_C ());
 	return YYText ()[0];
 }
@@ -454,7 +454,7 @@ My_lily_lexer::scan_escaped_word (String str)
 	}
 	if (check_debug)
 		print_declarations (true);
-	String msg (_f ("unknown escaped string: `\\%s\'", str));	
+	String msg (_f ("unknown escaped string: `\\%s'", str));	
 	LexerError (msg.ch_C ());
 	DOUT << "(string)";
 	String *sp = new String (str);

@@ -61,11 +61,11 @@ Rest_collision::do_pre_processing()
     {
       if (rest_l_arr_.size () > 1)
 	{
-	  warning (_("Too many colliding rests."));
+	  warning (_("too many colliding rests"));
 	}
       if (ncol_l_arr_.size () > 1)
 	{
-	  warning (_("Too many notes for rest collision."));
+	  warning (_("too many notes for rest collision"));
 	}
       Note_column * rcol = rest_l_arr_[0];
 

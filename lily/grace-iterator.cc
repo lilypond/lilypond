@@ -40,7 +40,7 @@ Grace_iterator::do_process_and_next (Moment m)
     }
   else
     {
-      warning (_("No Grace context available!")); 
+      warning (_("no Grace context available")); 
     }
   Music_iterator::do_process_and_next (m);
 }

@@ -72,9 +72,9 @@ Word_wrap::do_solve () const
 	    {
 	      if (!minimum.cols_.size ())
 		{
-		  warning (_ ("ugh, this measure is too long") 
-		    + ", " + _f ("breakpoint: %d", break_idx) 
-		    + "(" + _ ("generating stupido solution") + ")");
+		  warning (_f ("Ugh, this measure is too long, breakpoint: %d",
+		    break_idx));
+		  warning (_ ("Generating stupido solution"));
 		  current.stupid_solution ();
 		  current.energy_f_ = - 1; // make sure we break out.
 		}

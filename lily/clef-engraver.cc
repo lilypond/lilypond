@@ -175,7 +175,7 @@ Clef_engraver::do_try_music (Music * r_l)
     {
       clef_req_l_ = cl;
       if (!set_type (cl->clef_str_))
-	cl->error (_ ("unknown clef type "));
+	cl->error (_ ("unknown clef type"));
 
       return true;
     }

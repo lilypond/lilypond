@@ -99,7 +99,7 @@ Musical_pitch::str () const
     {
       int o = octave_i_ + 1;
       while (o--)
-	s += to_str ('\'');
+	s += "'";
     }
   else if (octave_i_ <0)
     {

@@ -46,8 +46,8 @@ Script_engraver::do_process_requests()
       
       if (list == SCM_BOOL_F)
 	{
-	  l->warning(_f("don't know how to interpret articulation `%s'\n",
-			l->articulation_str_.ch_C()));
+	  l->warning (_f ("Don't know how to interpret articulation `%s'",
+			l->articulation_str_.ch_C ()));
 	  continue;
 	}
       Script *p =new Script;

@@ -38,7 +38,7 @@ Spanner::break_into_pieces ()
 
   if  (left == right)
     {
-      warning (_ ("left spanpoint is right spanpoint\n"));
+      warning (_ ("Left spanpoint is right spanpoint"));
       return;
     }
   
@@ -108,7 +108,7 @@ Spanner::set_bounds(Direction d, Item*i)
   
   if  (spanned_drul_[Direction(-d)] == spanned_drul_[d]
        && i)
-    warning (_f ("Spanner `%s\' with equal left and right spanpoints", classname (this)));
+    warning (_f ("Spanner `%s' has equal left and right spanpoints", classname (this)));
 }
 
 void
@@ -140,7 +140,7 @@ Spanner::do_width() const
   Real r = spanned_drul_[RIGHT]->relative_coordinate (0, X_AXIS);
 
   if (r< l)
-    warning ("Spanner with negative length");
+    warning (_ ("spanner with negative length"));
 	
   return Interval (0, r-l);
 }

@@ -296,7 +296,7 @@ Spring_spacer::solve (Column_x_positions*positions) const
       positions->satisfies_constraints_b_ = check_constraints (solution_vec);
       if (!positions->satisfies_constraints_b_)
 	{
-	  warning (_("solution doesn't satisfy constraints"));
+	  warning (_("Solution doesn't satisfy constraints"));
 	}
       
       positions->energy_f_ = calculate_energy_f (solution_vec);
@@ -397,12 +397,12 @@ Spring_spacer::connect (int i, int j, Real d, Real h)
 {
   if (d > 100 CM)
     {
-      programming_error( _f("Improbable distance: %f point, setting to 10 mm", d));
+      programming_error( _f ("Improbable distance: %f point, setting to 10 mm", d));
       d = 1 CM;
     }
   if(d < 0)
     {
-      programming_error (_("Negative distance. Setting to 10 mm"));
+      programming_error (_ ("Negative distance, setting to 10 mm"));
       d = 10 MM;
     }
       

@@ -70,10 +70,10 @@ Request_chord_iterator::do_process_and_next (Moment mom)
 	    {
 	      bool gotcha = try_music (req_l);
 	      if (!gotcha)
-		req_l->warning (_f ("junking request: `%s\'", classname( req_l)));
+		req_l->warning (_f ("Junking request: `%s'", classname( req_l)));
 	    }
 	  else
-	    i->car_->warning (_f ("Huh?  Not a Request: `%s\'",
+	    i->car_->warning (_f ("Huh?  Not a Request: `%s'",
 				   classname (i->car_)));
 	}
       first_b_ = false;

@@ -1,64 +1,31 @@
 TODO
-	* mail .po files to gnu translation project
-	* convince xgettext my name is <janneke@gnu.org> iso 
-	  <fred@botervlieg.flower> :-)
-	* create user-friendly input format for multiple languages?
 
-ISSUES -- please read this before doing too much real translating...
+FIX OR STANDARDISE TARGETS
 
-	* please don't run make po/po-update with gnu gettext < 0.10.35
-	* encapsulate locale strings in _( ) or _f ( )
-	* fix/standardise messages
-	  - it's silly to translate wrong strings
-	  - no leading/trailing punctuation in strings: e.g.
-	    _ ("foo found") iso _ ("foo found.), _ ("foo found.\n), ...
-	  - no leading/trailing whitespace in strings
+* at toplevel, do:
 
-	  - Think about translation issues.  
-	    In a lot of cases,it's better to translate a whole message
-	    the english grammar mustn't be imposed on the transator.
-	    So, iso
-	      _ ("stem at") + moment.str () + _("doen't fit in beam")
-	    have
-	      _f ("stem at %s doen't fit in beam", moment.str ())
-	    ?
+    make po
+    make -C po po-update  (or do `make po-update' at toplevel)
 
-	    Otoh:
-	      en: can't open: `foo.ly'
-	      nl: kan `foo.ly' niet openen     (1)
-		  kan niet openen: `foo.ly'*   (2)
-		  niet te openen: `foo.ly'*    (3)
+* if there are no errors (a list of changes may be displayed, that's ok), do
 
-	    The first nl message, although gramatically and stylish correct,
-	    is not friendly for parsing by humans (even if they speak dutch).
-	    I guess we'd prefer something like (2) or (3)...
+    cp po/out/*.po po
 
-	  - don't modularise too much; a lot of words cannot be translated
-	    without context.
-	    it's probably safe to treat most occurences of words like
-	      stem, beam, crescendo as separately translatable words.
+* and edit your favorite po/LANG.po.  Especially, look for `,fuzzy' entries,
+  empty entries.  At the bottom of the file you may find a list of obsolete
+  translations.
 
-	* don't! translate/gettextify:
-	  - debug strings
-	  - output (ps) strings
+* because i never install LilyPond, I (check-out buildscripts/set-lily.sh)
+  made these links:
 
+    ln -s $LILYPOND_SOURCEDIR/po/out/nl.mo 
+        $PREFIX/usr/share/locale/nl/LC_MESSAGES/lilypond.mo
+    ln -s $LILYPOND_SOURCEDIR/po/out/it.mo 
+        $PREFIX/usr/share/locale/it/LC_MESSAGES/lilypond.mo
 
-SOLVED/HOWTO
-	* because i never install LilyPond, i made these links:
+  $PREFIX is the --prefix you passed to configure.
 
-	    ln -s $LILYPOND_SOURCEDIR/po/out/nl.mo 
-	        /usr/share/locale/nl/LC_MESSAGES/lilypond.mo
-	    ln -s $LILYPOND_SOURCEDIR/po/out/it.mo 
-	        /usr/share/locale/it/LC_MESSAGES/lilypond.mo
+  then simply type, e.g.
 
-	  then simply type, e.g.
-
-	    LANG=nl lilypond -h
-
-	* (howto?) avoid keep translating for moving target
-	  - make po-update
-	  - mv po/out/*.po po (manually!)
-	  - edit po/*.po
-	  - make -C po
-	  - make show-po-update LANGUAGE=xx
+      LANG=nl lilypond -h
 

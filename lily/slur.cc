@@ -35,7 +35,7 @@ void
 Slur::add_column (Note_column*n)
 {
   if (!n->head_l_arr_.size ())
-    warning (_ ("Putting slur over rest. Ignoring"));
+    warning (_ ("Putting slur over rest.  Ignoring."));
   else
     {
       encompass_arr_.push (n);

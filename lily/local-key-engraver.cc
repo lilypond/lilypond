@@ -39,7 +39,8 @@ Local_key_engraver::do_creation_processing ()
 
   if (!key_grav_l_)
     {
-      warning (_ ("out of tune") + "! " + _ ("can't find") + " Key_engraver");
+      warning (_ ("out of tune:"));
+      warning (_f ("Can't find: `%s'", "Key_engraver"));
     }
   else
     {

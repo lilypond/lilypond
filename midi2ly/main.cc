@@ -95,12 +95,12 @@ Long_option_init long_option_init_a[] =
   {_i ("FILE"), "output", 'o', _i ("set FILE as default output")},
   {0, "no-tuplets", 'p', _i ("assume no tuplets")},
   {0, "quiet", 'q', _i ("be quiet")},
-  {_i ("DUR"), "smallest", 's', _i ("Set smallest duration (?)")},
+  {_i ("DUR"), "smallest", 's', _i ("set smallest duration")},
   {0, "no-timestamps", 'T', _i ("don't timestamp the output")},
+  {0, "version", 'V', _i ("print version number")},
   {0, "verbose", 'v', _i ("be verbose")},
   {0, "warranty", 'w', _i ("show warranty and copyright")},
   {0, "no-double-dots", 'x', _i ("assume no double dotted notes")},
-  {0, "version", 'V', _i ("print version number")},
   {0,0,0, 0}
 };
 
@@ -109,14 +109,14 @@ usage()
 {
   cout << _f ("Usage: %s [OPTION]... [FILE]", "midi2ly");
   cout << '\n';
-  cout << _ ("Translate midi-file to mudela");
+  cout << _ ("Translate MIDI-file to mudela");
   cout << '\n';
   cout << '\n';
   cout << _ ("Options:");
   cout << '\n';
   cout << Long_option_init::table_str (long_option_init_a) << endl;
 
-  cout << _("Report bugs to") << " bug-gnu-music@gnu.org" << endl;
+  cout << _f ("Report bugs to %s", "bug-gnu-music@gnu.org") << endl;
 }
 
 int

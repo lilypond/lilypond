@@ -75,11 +75,11 @@ void
 Translator_group::add_last_element (String s)
 {
   if (!get_translator_l (s))
-    error ("Program has no such type");
+    error (_ ("Program has no such type"));
 
   for (int i=consists_end_str_arr_.size (); i--; )
     if (consists_end_str_arr_[i] == s)
-      warning (_f("Already contains a `%s\'", s));
+      warning (_f ("Already contains: `%s'", s));
       
   consists_end_str_arr_.push (s);
 }
@@ -88,13 +88,13 @@ void
 Translator_group::set_element (String s, bool add)
 {
   if (!get_translator_l (s))
-    error ("Program has no such type");
+    error (_ ("Program has no such type"));
 
   if (add)
     {
       for (int i=consists_str_arr_.size (); i--; )
 	if (consists_str_arr_[i] == s)
-	  warning (_f("Already contains a `%s\'", s));
+	  warning (_f("Already contains: `%s'", s));
       
       consists_str_arr_.push (s);
     }
@@ -204,7 +204,7 @@ Translator_group::find_create_translator_l (String n, String id)
     ret = daddy_trans_l_->find_create_translator_l (n,id);
   else
     {
-      warning (_f ("can't find or create `%s\' called `%s\'", n, id));
+      warning (_f ("Can't find or create `%s' called `%s'", n, id));
       ret =0;
     }
   return ret;
@@ -338,7 +338,7 @@ Translator_group::get_default_interpreter()
       Translator*t = output_def_l ()->find_translator_l (accepts_str_arr_[0]);
       if (!t)
 	{
-	  warning (_f ("can't find or create `%s\'", accepts_str_arr_[0]));
+	  warning (_f ("Can't find or create: `%s'", accepts_str_arr_[0]));
 	  t = this;
 	}
       Translator_group * g= dynamic_cast <Translator_group*>(t->clone ());
@@ -434,7 +434,7 @@ Translator_group::do_add_processing ()
       String s = consists_str_arr_[i];
       Translator * t = output_def_l ()->find_translator_l (s);
       if (!t)
-	warning (_f ("can't find `%s\'", s));
+	warning (_f ("Can't find: `%s'", s));
       else
 	add_translator (t->clone ());
     }
@@ -443,7 +443,7 @@ Translator_group::do_add_processing ()
        String s = consists_end_str_arr_[i];
        Translator * t = output_def_l ()->find_translator_l (s);
        if (!t)
-	 warning (_f ("can't find `%s\'", s));
+	 warning (_f ("Can't find: `%s'", s));
        else
 	 add_translator (t->clone ());
     }

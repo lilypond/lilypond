@@ -69,7 +69,7 @@ Hyphen_engraver::do_process_requests ()
     {
       if (!last_lyric_l_)
 	{
-	  req_l_->warning ("Nothing to connect hyphen to on the left. Ignoring hyphen request");
+	  req_l_->warning (_ ("Nothing to connect hyphen to on the left.  Ignoring hyphen request."));
 	  return;
 	}
       

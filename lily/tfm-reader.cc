@@ -143,8 +143,7 @@ Tex_font_metric_reader::read_params ()
      than we can deal with.  */
   if (tfm_.header_.param_word_count > TFM_MAX_FONTDIMENS)
     {
-      warning (_f ("%s: TFM file has %u parameters, which is more than the
-%u I can handle",
+      warning (_f ("%s: TFM file has %u parameters, which is more than the %u I can handle",
 		   input_.name_str ().ch_C (),
 		   tfm_.header_.param_word_count,
 		   TFM_MAX_FONTDIMENS));

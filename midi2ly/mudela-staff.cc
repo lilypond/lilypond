@@ -174,8 +174,8 @@ Mudela_staff::output (Mudela_stream& mudela_stream_r)
       c++;      
     }
 
-  mudela_stream_r << _ ("% midi copyright:") << copyright_str_ << '\n';
-  mudela_stream_r << _ ("% instrument:") << instrument_str_ << '\n';
+  mudela_stream_r << _ ("% MIDI copyright:") << copyright_str_ << '\n';
+  mudela_stream_r << _ ("% MIDI instrument:") << instrument_str_ << '\n';
   mudela_stream_r << id_str () << " = ";
   mudela_stream_r << "<\n " << trackbody << " >\n";
 

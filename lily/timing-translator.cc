@@ -80,7 +80,7 @@ Timing_translator::do_process_requests()
 	{
 	  if (time_.whole_in_measure_)
 	    {
-	      tr_l ->warning (_f ("barcheck failed by: %s", 
+	      tr_l ->warning (_f ("barcheck failed at: %s", 
 	        time_.whole_in_measure_.str ()));
 
 	      time_.whole_in_measure_ = 0; // resync

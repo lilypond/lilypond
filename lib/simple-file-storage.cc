@@ -41,7 +41,7 @@ Simple_file_storage::load_file (String s)
 
   if (!f)
     {
-      warning (_f ("can't open file: `%s\'", s));
+      warning (_f ("Can't open file: `%s'", s));
       return ;
     }
 
@@ -53,7 +53,7 @@ Simple_file_storage::load_file (String s)
   ret = fread (data_p_, sizeof (char), len_i_, f);
 
   if  (ret!=len_i_)
-    warning (_f ("Huh? got %d, expected %d characters", ret, len_i_));
+    warning (_f ("Huh?  Got %d, expected %d characters", ret, len_i_));
 
   fclose (f);
 }
