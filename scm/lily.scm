@@ -515,3 +515,30 @@ L1 is copied, L2 not.
 
     ))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
+
+(define-public (lilypond-main files)
+  "Entry point for Lilypond"
+  (let*
+      ((failed '())
+       (handler (lambda (key arg)
+		  (set! failed (cons arg failed))))
+       )
+
+    (for-each
+     (lambda (fn)
+	(catch 'ly-file-failed
+	      (lambda () (ly:parse-file fn))
+	      handler))
+       
+	files)
+
+    (if (pair? failed)
+	(begin
+	  (display (string-append "\n *** Failed files: " (string-join failed) "\n" ))
+	  (exit 1))
+	(exit 0))
+
+    ))
+
+

@@ -113,11 +113,10 @@ ly_modules_lookup (SCM modules, SCM sym)
 }
 
 
-SCM export_function;
-
 void
 ly_export (SCM module, SCM namelist)
 {
+  static SCM export_function;
   if (!export_function)
     export_function = scm_permanent_object (scm_c_lookup ("module-export!"));
   
