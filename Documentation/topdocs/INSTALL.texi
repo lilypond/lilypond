@@ -320,19 +320,20 @@ and for the profiling version, I specify a different configuration.
 
 @section Emacs mode
 
-An Emacs mode for entering music and running LilyPond is included with
+An Emacs mode for entering music and running LilyPond is contained in
 the source archive as @file{lilypond-mode.el},
 @file{lilypond-indent.el} and @file{lilypond-font-lock.el}. 
-You should install these files somewhere in your @var{load-path}. Add, e.g.,
-@file{~/site-lisp/} to @var{load-path} by appending the following line to your
-@file{~/.emacs} or @file{~/.emacs.el}:
+You should install these files to a directory included in your 
+@var{load-path}. As a user, you may want add your source path or
+@file{~/site-lisp/} to your @var{load-path}. Append the following line 
+(modified) to your @file{~/.emacs} or @file{~/.emacs.el}:
 @quotation
 @example
 (setq load-path (append (list (expand-file-name "~/site-lisp")) load-path))
 @end example
 @end quotation
-Place then @file{lilypond-init.el} to @var{load-path}@file{/site-start.d/}
-or append it also to your @file{~/.emacs} or @file{~/.emacs.el}.
+File @file{lilypond-init.el} should be placed to 
+@var{load-path}@file{/site-start.d/} or appended to your @file{~/.emacs}.
 If you have installed a precompiled LilyPond package, these files can be
 found in @file{/usr/share/doc/lilypond-x.y.z/}. 
 
@@ -342,9 +343,9 @@ file.
 
 @section Vim mode
 
-A Vim mode for entering music and running LilyPond is included with 
+A Vim mode for entering music and running LilyPond is contained in
 the source archive. Append the content of @file{vimrc} to @file{~/.vimrc}
-to get shortcuts. Add files @file{lilypond.vim} and @file{lilypond.words} 
+to get shortcuts. Install files @file{lilypond.vim} and @file{lilypond.words} 
 to @file{~/.vim/} to get syntax-highlighting and auto-completion,
 correspondingly.
 
