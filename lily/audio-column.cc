@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--2000 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c)  1997--2001 Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
 #include "audio-column.hh"

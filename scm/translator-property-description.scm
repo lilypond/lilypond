@@ -289,6 +289,9 @@ pair of numbers,  signifying the time signature. For example #'(4 . 4) is a 4/4t
 Switch off for cadenzas.")
 (translator-property-description 'transposing integer? "Transpose the MIDI output.  Set this property to the number of half-steps to transpose by.")
 (translator-property-description 'tremoloFlags integer? "Number of tremolo flags to add if none is specified.")
+(translator-property-description 'tupletNumberFormatFunction procedure?
+				 "Function taking a music as input, producing a string. This function is called to determine the text to print on a tuplet bracket.")
+
 (translator-property-description 'tupletInvisible boolean? "
     If set to true, tuplet bracket creation is switched off
 entirely. This has the same effect as setting both

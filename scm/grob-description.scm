@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 1998--2000  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;; (c) 1998--2001  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 ; distances are given in stafflinethickness (thicknesses) and
@@ -284,6 +284,9 @@
 	
 	(RehearsalMark . (
 		(molecule-callback . ,Text_item::brew_molecule)
+		(X-offset-callbacks . (,Side_position::aligned_on_self))
+		(self-alignment-X . 0)
+
 		(direction . 1)
 		(breakable . #t)
 		(font-family . number)
@@ -636,8 +639,8 @@
 		(number-gap . 2.0)   
 		(delta-y . 0)
 		(thick . 1.0)
-		(after-line-breaking-callback . ,Tuplet_spanner::after_line_breaking)
-		(molecule-callback . ,Tuplet_spanner::brew_molecule)
+		(after-line-breaking-callback . ,Tuplet_bracket::after_line_breaking)
+		(molecule-callback . ,Tuplet_bracket::brew_molecule)
 		(font-family . roman)
 		(font-shape . italic)
 		(font-relative-size . -1)

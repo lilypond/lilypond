@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -34,6 +34,11 @@ public:
   VIRTUAL_COPY_CONS(Translator);
   Bar_number_engraver();
 };
+
+
+/*
+  TODO: more advanced formatting via SCM function, perhaps barnumbers
+  every 5 measures?  */
 
 void
 Bar_number_engraver::create_grobs ()

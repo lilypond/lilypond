@@ -416,6 +416,8 @@ ScoreContext = \translator {
 	pedalUnaChordaStrings = #'("una chorda" "" "tre chorde")
 	pedalSostenutoStrings = #'()  % FIXME
 
+	tupletNumberFormatFunction = #denominator-tuplet-formatter
+	
        keyAccidentalOrder = #'(
          (6 . -1) (2  . -1) (5 . -1 ) (1  . -1) (4  . -1) (0  . -1) (3  . -1)
 	 (3  . 1) (0 . 1) (4 . 1) (1 . 1) (5 . 1) (2 . 1) (6 . 1)

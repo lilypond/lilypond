@@ -3,7 +3,7 @@
   
   source file of the Flower Library
   
-  (c) 2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 2000--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
 #include "afm.hh"

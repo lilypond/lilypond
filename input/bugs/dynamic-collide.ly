@@ -1,3 +1,4 @@
+
 % dynamics should not collide with staff
 % dynamics (of two voices) should not collide with eachother
 
@@ -6,27 +7,13 @@ texidoc="Template for part-combining orchestral scores";
 }
 
 
-End = { \skip 1*8; }
+End = { \skip 1; }
 violoncello = \notes\relative c'' {
-  c1\ff d e \break
-  c1\ff d e \break
-  
-  \property Voice.crescendoText = #"cresc."
-  \property Voice.crescendoSpanner = #'dashed-line
-  g4\p\< r r r8 g(|
-  )c,4 r r r8 c|
-  [\!f8\sf(\>as f as][f g d)\!g]|
+  c1\ff 
 }
 
 contrabasso = \notes\relative c'' {
-  c1\pp d e
-  c2\pp c d1 e
-  
-  \property Voice.crescendoText = #"cresc."
-  \property Voice.crescendoSpanner = #'dashed-line
-  g4\p\< r r r8 g(|
-  )c,4 r r r8 c|
-  [\!f8\sf(\>as f as][f g d)\!g]| 
+  c1\pp 
 }
 
 flautiStaff =  \notes \context Staff = flauti <
@@ -52,17 +39,9 @@ staffCombineProperties = {
 \score {
   <
   \flautiStaff
-
-  \context PianoStaff = bassi_group \notes <
-    \context Staff=oneBassi \End
-    \context Staff=twoBassi \End
-
-    \context Staff=oneBassi \partcombine Staff
-      \context Voice=oneBassi { \staffCombineProperties \violoncello }
-      \context Voice=twoBassi { \staffCombineProperties \contrabasso }
  >
 
- >
+
   \paper {
     % \paperSixteen
     linewidth = 80 * \staffspace;
@@ -75,11 +54,6 @@ staffCombineProperties = {
       \VoiceContext
       \remove "Rest_engraver";    
 
-      % The staff combine (bassi part) needs a
-      % thread_devnull_engraver here.
-      % Instead of maintaining two separate hierarchies,
-      % we switch add it, but switch it off immideately.
-      % The staff combine parts switch it on.
       devNullThread = #'never
       \consists "Thread_devnull_engraver";
 
@@ -91,17 +65,6 @@ staffCombineProperties = {
       \HaraKiriStaffContext
       \consists "Mark_engraver";
     }
-    \translator {
-      \OrchestralScoreContext
-      skipBars = ##t
-      % Hmm
-      currentBarNumber = #218
-      BarNumber \override #'padding = #3
-      RestCollision \override #'maximum-rest-count = #1
-      marginScriptHorizontalAlignment = #1
-      TimeSignature \override #'style = #'C
-    }
-    \translator { \HaraKiriStaffContext }
   }
 }
 

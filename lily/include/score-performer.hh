@@ -1,7 +1,7 @@
 /*
   score-performer.hh -- declare Score_performer
 
-  (c) 1996--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1996--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
                  Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
