@@ -274,6 +274,13 @@ yylex (YYSTYPE *s,  void * v)
 %token <i>	UNSIGNED
 %token <scm>   REAL
 
+%token MARKUP
+%token <scm> MARKUP_HEAD_MARKUP0 MARKUP_HEAD_SCM0_MARKUP1 MARKUP_HEAD_MARKUP0_MARKUP1
+%token <scm> MARKUP_HEAD_SCM0 MARKUP_HEAD_SCM0_MARKUP1 MARKUP_HEAD_SCM0_SCM1_MARKUP2 MARKUP_HEAD_SCM0_SCM1 
+
+%token <scm> MARKUP_IDENTIFIER MARKUP_HEAD_LIST0
+%type <scm> markup markup_line markup_list  markup_list_body full_markup 
+
 %type <outputdef> output_def
 %type <scm> 	lilypond_header lilypond_header_body
 %type <music>	open_event_parens close_event_parens open_event close_event
@@ -451,6 +458,9 @@ identifier_init:
 	score_block {
 		$$ = $1->self_scm ();
 		scm_gc_unprotect_object ($$);
+	}
+	| full_markup {
+		$$ = $1;
 	}
 	| output_def {
 		$$ = $1->self_scm ();
@@ -1617,6 +1627,12 @@ gen_text_def:
 		t->set_spot (THIS->here_input ());
 		$$ = t;
 	}
+	| full_markup {
+		Music *t = MY_MAKE_MUSIC("TextScriptEvent");
+		t->set_mus_property ("text", $1);
+		t->set_spot (THIS->here_input ());
+		$$ = t;	
+	}
 	| string {
 		Music *t = MY_MAKE_MUSIC("TextScriptEvent");
 		t->set_mus_property ("text", $1);
@@ -2140,6 +2156,70 @@ questions:
 	;
 
 
+
+full_markup:
+	MARKUP 
+		{ THIS->lexer_->push_markup_state (); }
+	markup
+		{ $$ = $3;
+		  THIS->lexer_->pop_state ();
+		}
+	;
+	
+markup:
+	STRING {
+		static SCM simple;
+		if (!simple)
+			simple = scm_c_eval_string ("simple-markup");
+
+		$$ = scm_list_n (simple, $1, SCM_UNDEFINED);
+	}
+	| MARKUP_HEAD_MARKUP0 markup {
+		$$ = scm_list_n ($1, $2, SCM_UNDEFINED);
+	}
+	| MARKUP_HEAD_SCM0_MARKUP1 SCM_T markup {
+		$$  = scm_list_n ($1, $2, $3, SCM_UNDEFINED); 
+	}
+	| markup_line {
+		$$ = $1;
+	}
+	| MARKUP_HEAD_LIST0 markup_list {
+		$$ = scm_list_n ($1,$2, SCM_UNDEFINED);
+	}
+	| MARKUP_HEAD_SCM0 embedded_scm {
+		$$ = scm_list_n ($1, $2, SCM_UNDEFINED);
+	}
+	| MARKUP_HEAD_SCM0_SCM1_MARKUP2 embedded_scm embedded_scm markup {
+		$$ = scm_list_n ($1, $2, $3, $4, SCM_UNDEFINED);
+	}
+	| MARKUP_IDENTIFIER {
+		$$ = $1;
+	}
+	
+	;
+
+markup_list:
+	'<' markup_list_body '>' { $$ = scm_reverse_x ($2, SCM_EOL); }
+	;
+
+markup_line:
+	'{' markup_list_body '}' {
+		static SCM line ;
+		if (!line)
+			line = scm_c_eval_string ("line-markup");
+	
+		$$ = scm_list_n (line, scm_reverse_x ($2, SCM_EOL), SCM_UNDEFINED);
+	}
+	;
+
+markup_list_body:
+	/**/ {  $$ = SCM_EOL; }
+	| markup_list_body markup {
+		$$ = gh_cons ($2, $1) ;
+	}
+	;
+
+
 %%
 
 void
@@ -2184,6 +2264,13 @@ My_lily_parser::beam_check (SCM dur)
 }
 
 
+
+bool
+markup_p (SCM x)
+{
+	return gh_pair_p (x)
+		&& SCM_BOOL_F != scm_object_property (gh_car (x), ly_symbol2scm ("markup-signature"));
+}
 /*
 It is a little strange, to have this function in this file, but
 otherwise, we have to import music classes into the lexer.
@@ -2220,36 +2307,10 @@ My_lily_lexer::try_special_identifiers (SCM * destination, SCM sid)
 
 		*destination = p->self_scm();
 		return MUSIC_OUTPUT_DEF_IDENTIFIER;
+	} else if (markup_p (sid)) {
+		*destination = sid;
+		return MARKUP_IDENTIFIER;
 	}
+
 	return -1;	
 }
-#if 0
-
-markup:
-	STRING {
-		$$ = scm_list_n (scm_c_eval_string ("simple-markup"), $1, SCM_UNDEFINED);
-	}
-	| MARKUP_HEAD0 markup
-	| MARKUP_HEAD1 SCM_T markup
-	| MARKUP_HEAD2 markup
-	| MARKUP_LIST_HEAD 
-	| MARKUP_LIST_HEAD 
-	| markup_list {
-		$$ = $1 
-	;
-
-markup_list:
-	'<' markup_list_body '>' { $$ = scm_reverse_x ($1, SCM_EOL); }
-	;
-
-markup_line:
-	'{' markup_list_body '}' { $$ = .. scm_reverse_x ($1, SCM_EOL); }
-	
-	;
-markup_list_body:
-	/**/ {  $$ = SCM_EOL; }
-	markup_list_body markup {
-		$$ = gh_cons ($2, $1) ;
-	}
-	;
-#endif

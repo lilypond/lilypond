@@ -53,6 +53,8 @@ void strip_trailing_white (String&);
 void strip_leading_white (String&);
 String lyric_fudge (String s);
 
+SCM
+lookup_markup_command (String s);
 
 bool
 valid_version_b (String s);
@@ -78,6 +80,7 @@ SCM scan_fraction (String);
 SCM (* scm_parse_error_handler) (void *);
 
 
+
 %}
 
 %option c++
@@ -97,7 +100,7 @@ SCM (* scm_parse_error_handler) (void *);
 %x figures
 %x quote
 %x longcomment
-
+%x markup 
 
 A		[a-zA-Z]
 AA		{A}|_
@@ -251,7 +254,7 @@ HYPHEN		--
 	exit (1);
 }
 
-<INITIAL,chords,lyrics,notes,figures>#	{ //embedded scm
+<INITIAL,markup,chords,lyrics,notes,figures>#	{ //embedded scm
 	//char const* s = YYText () + 1;
 	char const* s = here_str0 ();
 	int n = 0;
@@ -434,7 +437,63 @@ HYPHEN		--
 }
 
 
+<markup>{
+	\" {
+		start_quote ();
+	}
+	{NOTECOMMAND} {
+		String str (YYText() + 1);
+		SCM s = lookup_markup_command (str);
 
+		if (gh_pair_p (s)) {
+			yylval.scm = gh_car(s);
+			SCM tag = gh_cdr(s);
+			if (tag == ly_symbol2scm("markup0"))
+				return MARKUP_HEAD_MARKUP0;
+			else if (tag == ly_symbol2scm ("markup0-markup1"))
+				return MARKUP_HEAD_MARKUP0_MARKUP1;
+			else if (tag == ly_symbol2scm ("markup-list0"))
+				return MARKUP_HEAD_LIST0;
+			else if (tag == ly_symbol2scm ("scm0"))
+				return MARKUP_HEAD_SCM0;
+			else if (tag == ly_symbol2scm ("scm0-scm1"))
+				return MARKUP_HEAD_SCM0_SCM1;
+			else if (tag == ly_symbol2scm ("scm0-markup1"))
+				return MARKUP_HEAD_SCM0_MARKUP1;
+			else if (tag == ly_symbol2scm ("scm0-scm1-markup2"))
+				return MARKUP_HEAD_SCM0_SCM1_MARKUP2;
+			else {
+				ly_display_scm (s);
+				assert(false);
+			}
+		} else
+			return scan_escaped_word (str);
+	}
+	{WORD} {
+		/* ugr. This sux. */
+		String s (YYText ()); 
+		if (s == "__")
+			return yylval.i = EXTENDER;
+		if (s == "--")
+			return yylval.i = HYPHEN;
+		s = lyric_fudge (s);
+
+		char c = s[s.length () - 1];
+		if (c == '{' ||  c == '}') // brace open is for not confusing dumb tools.
+			here_input ().warning (
+				_ ("Brace found at end of lyric.  Did you forget a space?"));
+		yylval.scm = scm_makfrom0str (s.to_str0 ());
+
+
+		return STRING;
+	}
+	{WHITE} {
+
+	}
+	. {
+		return YYText ()[0];
+	}
+}
 
 <<EOF>> {
 
@@ -537,6 +596,12 @@ void
 My_lily_lexer::push_lyric_state ()
 {
 	yy_push_state (lyrics);
+}
+
+void
+My_lily_lexer::push_markup_state ()
+{
+	yy_push_state (markup);
 }
 
 void
@@ -734,4 +799,14 @@ avoid_silly_flex_induced_gcc_warnings ()
 	yy_pop_state ();
 	yy_top_state ();
 	avoid_silly_flex_induced_gcc_warnings ();
+}
+
+SCM
+lookup_markup_command (String s)
+{
+	static SCM proc ;
+	if (!proc)
+		proc = scm_c_eval_string ("lookup-markup-command");
+
+	return scm_call_1 (proc, scm_makfrom0str (s.to_str0 ()));
 }

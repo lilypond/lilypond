@@ -12,21 +12,27 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define-public (music-map music function)
+(define-public (music-map function music)
   "Apply @var{function} to @var{music} and all of the music it contains. "
   (let* ((es (ly:get-mus-property music 'elements))
          (e (ly:get-mus-property music 'element))
 	 )
 
     (ly:set-mus-property! music 'elements 
-	(map (lambda (y) (music-map y function)) es))
+	(map (lambda (y) (music-map  function y)) es))
 	(if (ly:music? e)
-	    (ly:set-mus-property! music 'element (music-map e function)))
+	    (ly:set-mus-property! music 'element (music-map function  e)))
 	(function music)
 	))
 
+(define-public (display-one-music music)
+  (display music)
+  music
+  )
 
-
+(define-public (display-music arg)
+  (music-map display-one-music arg))
+  
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
@@ -38,13 +44,12 @@
          (e (ly:get-mus-property music 'element))
          (n  (ly:music-name music))
 	 (f  (lambda (x)  (shift-duration-log x shift dot)))
+	 (d (ly:get-mus-property music 'duration))
 	 )
 
     ;; FIXME: broken by the great music rename.
-    (if (or (equal? n "Note_req")
-	    (equal? n "Rest_req"))
+    (if (ly:duration? d)
 	(let* (
-	       (d (ly:get-mus-property music 'duration))
 	       (cp (ly:duration-factor d))
 	       (nd (ly:make-duration (+ shift (ly:duration-log d))
 				  (+ dot (duration-dot-count d))
