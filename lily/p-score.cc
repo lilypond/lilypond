@@ -62,6 +62,12 @@ PScore::typeset_unbroken_spanner(Spanner*span_p)
 {
     spanners.bottom().add(span_p);
     span_p->pscore_l_=this;
+
+    if (     span_p->left_col_l_) 
+	span_p->left_col_l_->used_b_ = true;
+    if ( span_p->right_col_l_)
+	span_p->right_col_l_->used_b_ = true;
+    
     // do not init start/stop fields. These are for broken spans only.
     span_p->add_processing();
 }
@@ -164,6 +170,9 @@ PScore::print() const
     mtor << "\n elements: ";
     for (iter_top(elem_p_list_,cc); cc.ok(); cc++)	
 	cc->print();
+    mtor << "\n unbroken spanners: ";
+    for (iter(spanners.top(), i); i.ok(); i++)
+	i->print();
     mtor << "\ncolumns: ";
      for (iter_top(cols,cc); cc.ok(); cc++)
 	cc->print();
