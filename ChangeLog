@@ -1,10 +1,12 @@
 2004-06-14  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/book.cc: remove Book::to_stencil().
+
 	* scripts/convert-ly.py (conv): remove \notes.
 	apply to input examples.
 	
 	* lily/paper-outputter.cc (output_stencil): don't use
-	smobify_self() but self_scm() (ouch).
+	smobify_self() but self_scm()
 
 	* lily/include/ly-smobs.icc (IMPLEMENT_SMOBS): don't return SCM
 	from smobify_self().

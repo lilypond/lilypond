@@ -189,85 +189,101 @@ Stencil::add_at_edge (Axis a, Direction d, Stencil const &s, Real padding,
 
 /****************************************************************/
 
-LY_DEFINE (ly_interpret_stencil, "ly:interpret-stencil",
-	   4, 0, 0, (SCM expr, SCM func, SCM arg1, SCM offset),
-	   "Parse EXPR, feed bits to FUNC with first arg ARG1")
+
+void
+interpret_stencil_expression (SCM expr,
+                        void (*func) (void*, SCM),
+                        void *func_arg,
+                        Offset o)
 {
-  Offset o = ly_scm2offset (offset);
   while (1)
     {
       if (!ly_c_pair_p (expr))
-	return SCM_UNDEFINED;
+        return;
   
-      SCM head = ly_car (expr);
+      SCM head =ly_car (expr);
       if (unsmob_input (head))
-	{
-	  Input *ip = unsmob_input (head);
-	  scm_call_2 (func, arg1,
-		      scm_list_4 (ly_symbol2scm ("define-origin"),
-				  scm_makfrom0str (ip->file_string ()
-						   .to_str0 ()),
-				  scm_int2num (ip->line_number ()),
-				  scm_int2num (ip->column_number ())));
-	  expr = ly_cadr (expr);
-	}
+        {
+          Input *ip = unsmob_input (head);
+          (*func)(func_arg,
+                  scm_list_4 (ly_symbol2scm ("define-origin"),
+                              scm_makfrom0str (ip->file_string ()
+                                               .to_str0 ()),
+                              scm_int2num (ip->line_number ()),
+                              scm_int2num (ip->column_number ())));
+          
+          expr = ly_cadr (expr);
+        }
       else  if (head ==  ly_symbol2scm ("no-origin"))
-	{
-	  scm_call_2 (func, arg1, scm_list_1 (head));
-	  expr = ly_cadr (expr);
-	}
+        {
+          (*func) (func_arg, scm_list_1 (head));
+          expr = ly_cadr (expr);
+        }
       else if (head == ly_symbol2scm ("translate-stencil"))
-	{
-	  o += ly_scm2offset (ly_cadr (expr));
-	  expr = ly_caddr (expr);
-	}
+        {
+          o += ly_scm2offset (ly_cadr (expr));
+          expr = ly_caddr (expr);
+        }
       else if (head == ly_symbol2scm ("combine-stencil"))
-	{
-	  for (SCM x = ly_cdr (expr); ly_c_pair_p (x); x = ly_cdr (x))
-	    ly_interpret_stencil (ly_car (x), func, arg1, ly_offset2scm (o));
-	  return SCM_UNDEFINED;
-	}
+        {
+          for (SCM x = ly_cdr (expr); ly_c_pair_p (x); x = ly_cdr (x))
+            {
+              interpret_stencil_expression (ly_car (x), func, func_arg, o);
+            }
+          return ;
+        }
       else
-	{
-	  scm_call_2 (func, arg1,
-		      scm_list_4 (ly_symbol2scm ("placebox"),
-				  scm_make_real (o[X_AXIS]),
-				  scm_make_real (o[Y_AXIS]),
-				  expr));
-	  return SCM_UNDEFINED;
-	}
+        {
+          (*func) (func_arg, 
+                   scm_list_4 (ly_symbol2scm ("placebox"),
+                               scm_make_real (o[X_AXIS]),
+                               scm_make_real (o[Y_AXIS]),
+                               expr));
+          return;
+        }
     }
 }
 
-LY_DEFINE (ly_find_font_function, "ly:find-font-function",
-	   2, 0, 0, (SCM fs, SCM x),
-	   "Make font list.")
+
+struct Font_list
 {
+  SCM fonts_;
+};
+
+static void
+find_font_function (void * fs, SCM x)
+{
+  Font_list * me = (Font_list*)fs;
+  
   if (ly_car (x) == ly_symbol2scm ("placebox"))
     {
       SCM args = ly_cdr (x); 
       SCM what = ly_caddr (args);
 
       if (ly_c_pair_p (what))
-	{
-	  SCM head = ly_car (what);
-	  if (ly_symbol2scm ("text")  == head)
-	    fs = scm_cons (ly_cadr (what), fs);
-	  else  if (head == ly_symbol2scm ("char"))
-	    fs = scm_cons (ly_cadr (what), fs);
-	}
+        {
+          SCM head = ly_car (what);
+          if (ly_symbol2scm ("text")  == head)
+            me->fonts_ = scm_cons (ly_cadr (what), me->fonts_);
+          else  if (head == ly_symbol2scm ("char"))
+            me->fonts_ = scm_cons (ly_cadr (what), me->fonts_);
+        }
     }
-  return SCM_UNDEFINED;
 }
 
 SCM
 find_expression_fonts (SCM expr)
 {
-  SCM fonts = SCM_EOL;
-  ly_interpret_stencil (expr, ly_scheme_function ("ly:find-font-function"),
-			fonts, ly_offset2scm (Offset (0, 0)));
-  return fonts;
+  Font_list fl;
+  
+  fl.fonts_ = SCM_EOL;
+  
+  interpret_stencil_expression (expr, &find_font_function, 
+                          (void*) &fl, Offset (0,0));
+
+  return fl.fonts_;
 }
+
 
 LY_DEFINE (ly_stencil_fonts, "ly:stencil-fonts",
 	   1, 0, 0, (SCM s),
@@ -276,4 +292,35 @@ LY_DEFINE (ly_stencil_fonts, "ly:stencil-fonts",
   Stencil *stil = unsmob_stencil (s);
   SCM_ASSERT_TYPE (stil, s, SCM_ARG1, __FUNCTION__, "Stencil");
   return find_expression_fonts (stil->expr ());
+}
+
+struct Stencil_interpret_arguments {
+  SCM func;
+  SCM arg1;
+};
+
+void stencil_interpret_in_scm (void* p, SCM expr)
+{
+  Stencil_interpret_arguments * ap = (Stencil_interpret_arguments*) p;
+  scm_call_2 (ap->func, ap->arg1, expr);
+}
+
+
+
+LY_DEFINE (ly_interpret_stencil_expression, "ly:interpret-stencil-expression",
+           4, 0, 0, (SCM expr, SCM func, SCM arg1, SCM offset),
+           "Parse EXPR, feed bits to FUNC with first arg ARG1")
+{
+  SCM_ASSERT_TYPE(ly_c_procedure_p(func), func, SCM_ARG1, __FUNCTION__,
+		  "procedure");
+  
+  Stencil_interpret_arguments a ;
+  a.func = func;
+  a.arg1 = arg1;
+  Offset o = ly_scm2offset (offset);
+
+  interpret_stencil_expression (expr, stencil_interpret_in_scm,
+				(void*) &a, o);
+
+  return SCM_UNSPECIFIED;
 }
