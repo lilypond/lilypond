@@ -5,14 +5,10 @@
 #include "string.hh"
 #include "source-file.hh"
 
-/*
-  Pass string to scm parser, evaluate one expression.
-  Return result value and #chars read.
-
-  Thanks to Gary Houston <ghouston@freewire.co.uk>
-
-  Need guile-1.3.4 (>1.3 anyway) for ftell on str ports -- jcn
-*/
+/* Pass string to scm parser, evaluate one expression.
+   Return result value and #chars read.
+   
+   Thanks to Gary Houston <ghouston@freewire.co.uk>  */
 SCM
 internal_ly_parse_scm (Parse_start * ps, bool safe)
 {
@@ -35,8 +31,6 @@ internal_ly_parse_scm (Parse_start * ps, bool safe)
 	  static SCM safe_module;
 	  if (!safe_module)
 	    safe_module = scm_primitive_eval (ly_symbol2scm ("safe-module"));
-
-	  
 	  answer = scm_eval (form, safe_module);
 	}
       else

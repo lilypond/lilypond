@@ -36,23 +36,31 @@ Paper_outputter::Paper_outputter (String name)
   file_ = scm_open_file (scm_makfrom0str (name.to_str0 ()),
 			 scm_makfrom0str ("w"));
 
-  static SCM find_dumper;
-  if (!find_dumper)
-    find_dumper = scm_c_eval_string ("find-dumper");
-
-  output_func_
-    = scm_call_1 (find_dumper,
-		  scm_makfrom0str (output_format_global.to_str0 ()));
-
-  String creator = gnu_lilypond_version_string ();
-  creator += " (http://lilypond.org)";
-  time_t t (time (0));
-  String time_stamp = ctime (&t);
-  time_stamp = time_stamp.left_string (time_stamp.length () - 1)
-    + " " + *tzname;
-  output_scheme (scm_list_3 (ly_symbol2scm ("header"),
-			     scm_makfrom0str (creator.to_str0 ()),
-			     scm_makfrom0str (time_stamp.to_str0 ())));
+  if (output_format_global == PAGE_LAYOUT)
+    {
+      output_func_ = SCM_UNDEFINED;
+      output_module_
+	= scm_call_1 (scm_primitive_eval (ly_symbol2scm ("get-output-module")),
+		      scm_makfrom0str (output_format_global.to_str0 ()));
+      if (safe_global_b)
+	{
+	  SCM safe_module = scm_primitive_eval (ly_symbol2scm ("safe-module"));
+	  SCM m = scm_set_current_module (safe_module);
+	  scm_c_use_module (("output-" + output_format_global).to_str0 ());
+	  output_module_ = scm_set_current_module (m);
+	}
+    }
+  else
+    {
+      static SCM find_dumper;
+      if (!find_dumper)
+	find_dumper = scm_c_eval_string ("find-dumper");
+      
+      output_func_
+	= scm_call_1 (find_dumper,
+		      scm_makfrom0str (output_format_global.to_str0 ()));
+      output_module_ = SCM_UNDEFINED;
+    }
 }
 
 Paper_outputter::~Paper_outputter ()
@@ -64,11 +72,14 @@ Paper_outputter::~Paper_outputter ()
 void
 Paper_outputter::output_scheme (SCM scm)
 {
-  gh_call2 (output_func_, scm, file_);
+  if (output_format_global == PAGE_LAYOUT)
+    scm_display (scm_eval (scm, output_module_), file_);
+  else
+    gh_call2 (output_func_, scm, file_);
 }
 
 void
-Paper_outputter::output_metadata (SCM scopes, Paper_def *paper)
+Paper_outputter::output_metadata (Paper_def *paper, SCM scopes)
 {
   SCM fields = SCM_EOL;
   for (int i = dump_header_fieldnames_global.size (); i--; )
@@ -86,9 +97,22 @@ Paper_outputter::output_metadata (SCM scopes, Paper_def *paper)
 }
 
 void
-Paper_outputter::output_header (Paper_def *paper)
+Paper_outputter::output_header (Paper_def *paper, SCM scopes, int page_count)
 {
+  String creator = gnu_lilypond_version_string ();
+  creator += " (http://lilypond.org)";
+  time_t t (time (0));
+  String time_stamp = ctime (&t);
+  time_stamp = time_stamp.left_string (time_stamp.length () - 1)
+    + " " + *tzname;
+  output_scheme (scm_list_4 (ly_symbol2scm ("header"),
+			     scm_makfrom0str (creator.to_str0 ()),
+			     scm_makfrom0str (time_stamp.to_str0 ()),
+			     scm_int2num (page_count)));
+
+  output_metadata (paper, scopes);
   output_music_output_def (paper);
+
   output_scheme (scm_list_1 (ly_symbol2scm ("header-end")));
   output_scheme (scm_list_2 (ly_symbol2scm ("define-fonts"),
 			     ly_quote_scm (paper->font_descriptions ())));
