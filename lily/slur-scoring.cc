@@ -578,7 +578,7 @@ get_y_attachment_range (Spanner*me,
 	       >? (dir * base_attachment[-d][Y_AXIS]));
 	}
       else
-	end_ys[d] = extremes[d].neighbor_y_ + score_param->region_size_ * dir;
+	end_ys[d] = base_attachment[d][Y_AXIS] + score_param->region_size_ * dir;
     }
   while (flip (&d) != LEFT);
 
