@@ -33,14 +33,9 @@ public:
   Real height_;
   
   // HMMM all this size stuff to paper/paper-outputter?
-  Real hsize_;
   Real vsize_;
-  Real left_margin_;
   Real top_margin_;
   Real bottom_margin_;
-  Real foot_sep_;
-  Real head_sep_;
-  Real text_width_;
 
   Page (Paper_def*, int);
 

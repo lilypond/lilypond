@@ -79,8 +79,8 @@ Score::Score (Score const &s)
 
   smobify_self ();
 
-  Music * m =unsmob_music (s.music_);
-  music_ =  m?m->clone ()->self_scm () : SCM_EOL;
+  Music *m =unsmob_music (s.music_);
+  music_ = m ? m->clone ()->self_scm () : SCM_EOL;
   scm_gc_unprotect_object (music_);
   
   for (int i = 0; i < s.defs_.size (); i++)
@@ -106,9 +106,7 @@ LY_DEFINE (ly_run_translator, "ly:run-translator",
   
   Cpu_timer timer;
   
-  Global_context * trans = new Global_context (odef,
-					       music->get_length ()
-					       );
+  Global_context * trans = new Global_context (odef, music->get_length ());
   
   if (!trans)
     {
@@ -123,10 +121,11 @@ LY_DEFINE (ly_run_translator, "ly:run-translator",
 
   iter->construct_children ();
 
-  if (! iter->ok ())
+  if (!iter->ok ())
     {
       warning (_ ("Need music in a score"));
-      return SCM_BOOL_F;	// todo: should throw exception.
+      /* todo: should throw exception. */
+      return SCM_BOOL_F;
     }
 
   trans->run_iterator_on_me (iter);
@@ -136,7 +135,6 @@ LY_DEFINE (ly_run_translator, "ly:run-translator",
 
   if (verbose_global_b)
     progress_indication (_f ("elapsed time: %.2f seconds",  timer.read ()));
-
   
   return scm_gc_unprotect_object (trans->self_scm ());
 }

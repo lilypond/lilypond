@@ -20,29 +20,20 @@ Real Page::MIN_COVERAGE_ = 0.66;
 
 Page::Page (Paper_def *paper, int number)
 {
-  paper_ = paper;
-  number_ = number;
-
   copyright_ = SCM_EOL;
   footer_ = SCM_EOL;
   header_ = SCM_EOL;
   lines_ = SCM_EOL;
   tagline_ = SCM_EOL;
   
+  paper_ = paper;
+  number_ = number;
+
   height_ = 0;
   line_count_ = 0;
   
   page_count_++;
 
-  hsize_ = paper->get_dimension (ly_symbol2scm ("hsize"));
-  vsize_ = paper->get_dimension (ly_symbol2scm ("vsize"));
-  top_margin_ = paper->get_dimension (ly_symbol2scm ("top-margin"));
-  bottom_margin_ = paper->get_dimension (ly_symbol2scm ("bottom-margin"));
-  head_sep_ = paper->get_dimension (ly_symbol2scm ("head-sep"));
-  foot_sep_ = paper->get_dimension (ly_symbol2scm ("foot-sep"));
-  text_width_ = paper->get_dimension (ly_symbol2scm ("linewidth"));
-  left_margin_ = (hsize_ - text_width_) / 2;
-  
   SCM make_header = ly_scheme_function ("make-header");
   SCM make_footer = ly_scheme_function ("make-footer");
 
@@ -73,11 +64,11 @@ SCM
 Page::mark_smob (SCM smob)
 {
   Page *p = (Page*) SCM_CELL_WORD_1 (smob);
-  scm_gc_mark (p->lines_);
   scm_gc_mark (p->header_);
   scm_gc_mark (p->footer_);
   scm_gc_mark (p->copyright_);
   scm_gc_mark (p->tagline_);
+  //scm_gc_mark (p->lines_);
   return p->lines_;
 }
 
@@ -116,6 +107,13 @@ Page::to_stencil () const
   return scm_call_1 (proc, self_scm ());
 }
 
+Real
+Page::left_margin () const
+{
+  return (paper_->get_dimension (ly_symbol2scm ("hsize"))
+	  - paper_->get_dimension (ly_symbol2scm ("linewidth"))) / 2;
+}
+
 LY_DEFINE (ly_page_header_lines_footer_stencil, "ly:page-header-lines-footer-stencil",
 	   1, 0, 0, (SCM page),
 	   "Simple header, lines, footer stencil from PAGE.")
@@ -124,7 +122,9 @@ LY_DEFINE (ly_page_header_lines_footer_stencil, "ly:page-header-lines-footer-ste
   SCM_ASSERT_TYPE (p, page, SCM_ARG1, __FUNCTION__, "page");
   
   Stencil stencil;
-  Offset o (p->left_margin_, p->top_margin_);
+  Offset o (p->paper_->get_dimension (ly_symbol2scm ("left-margin")),
+	    p->paper_->get_dimension (ly_symbol2scm ("top-margin")));
+
   Real vfill = (p->line_count_ > 1
 		? (p->text_height () - p->height_) / (p->line_count_ - 1)
 		: 0);
@@ -139,7 +139,7 @@ LY_DEFINE (ly_page_header_lines_footer_stencil, "ly:page-header-lines-footer-ste
   if (Stencil *s = unsmob_stencil (p->header_))
     {
       stack_stencils (stencil, s, &o);
-      o[Y_AXIS] += p->head_sep_;
+      o[Y_AXIS] += p->paper_->get_dimension (ly_symbol2scm ("head-sep"));
     }
 
   for (SCM s = p->lines_; s != SCM_EOL; s = ly_cdr (s))
@@ -156,7 +156,8 @@ LY_DEFINE (ly_page_header_lines_footer_stencil, "ly:page-header-lines-footer-ste
 	o[Y_AXIS] += vfill;
     }
 
-  o[Y_AXIS] = p->vsize_ - p->bottom_margin_;
+  o[Y_AXIS] = p->paper_->get_dimension (ly_symbol2scm ("vsize"))
+    - p->paper_->get_dimension (ly_symbol2scm ("bottom-margin"));
   if (unsmob_stencil (p->copyright_))
     o[Y_AXIS] -= unsmob_stencil (p->copyright_)->extent (Y_AXIS).length ();
   if (unsmob_stencil (p->tagline_))
@@ -177,11 +178,16 @@ LY_DEFINE (ly_page_header_lines_footer_stencil, "ly:page-header-lines-footer-ste
 Real
 Page::text_height () const
 {
-  Real h = vsize_ - top_margin_ - bottom_margin_;
+  Real h = paper_->get_dimension (ly_symbol2scm ("vsize"))
+    - paper_->get_dimension (ly_symbol2scm ("top-margin"))
+    - paper_->get_dimension (ly_symbol2scm ("bottom-margin"));
   if (unsmob_stencil (header_))
-    h -= unsmob_stencil (header_)->extent (Y_AXIS).length () + head_sep_;
-  if (unsmob_stencil (copyright_) || unsmob_stencil (tagline_) || unsmob_stencil (footer_))
-    h -= foot_sep_;
+    h -= unsmob_stencil (header_)->extent (Y_AXIS).length ()
+      + paper_->get_dimension (ly_symbol2scm ("head-sep"));
+  if (unsmob_stencil (copyright_)
+      || unsmob_stencil (tagline_)
+      || unsmob_stencil (footer_))
+    h -= paper_->get_dimension (ly_symbol2scm ("foot-sep"));
   if (unsmob_stencil (copyright_))
     h -= unsmob_stencil (copyright_)->extent (Y_AXIS).length ();
   if (unsmob_stencil (tagline_))

@@ -24,7 +24,7 @@ public:
   Link_array<Score> scores_;
     
   Book ();
-  Book (Book const&);
+
   void process (String outname, Music_output_def*, SCM header);
   SCM to_stencil (Music_output_def*, SCM header);
 };

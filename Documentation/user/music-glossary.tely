@@ -1,4 +1,4 @@
-\input texinfo  @c -*-texinfo-*-
+                   \input texinfo  @c -*-texinfo-*-
 @settitle Music Glossary
 @setfilename music-glosssary.info
 
@@ -52,14 +52,14 @@ Copyright @copyright{} 1999--2004 by the authors
 
 @ifnottex
 @node Top
-@top
+@top Music Glossary
 @chapter Music Glossary
 @menu
 @end menu
 @end ifnottex
 
 @ifnottex
-@table @code
+@table @samp
 @item Adrian Mariano
 Italian glossary,
 @item Bjoern Jacke
@@ -159,9 +159,9 @@ they look too intrusive (says Han-Wen).
 This is an example reference, that points you to the @aref{accent}
 entry.
 
-@c All `@table @strong' replaced by `@table @samp @c @strong'
+@c All `@table @strong' replaced by `@table @samp'
 @c @strong{note xxx} breaks for info with makeinfo CVS <= 2004-04-26
-@table @samp @c @strong
+@table @samp
 
 @aitem{A}
 ES: la,
@@ -4193,7 +4193,7 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 
 @page
 
-@table @samp @c @strong
+@table @samp
 @item DURATION NAMES, NOTES AND RESTS
 @end table
 
@@ -4256,7 +4256,7 @@ sextio@-fj@"arde@-del @tab kuudeskymmenesnelj@"asosa- @tab
 
 @page
 
-@table @samp @c @strong
+@table @samp
 @item PITCH NAMES
 @end table
 
@@ -4322,7 +4322,7 @@ ais @tab ais @tab ais
 
 @
 
-@table @samp @c @strong
+@table @samp
 
 @item ---------------------
 

@@ -166,10 +166,10 @@ Virtual_font_metric::get_font_list () const
 
 LY_DEFINE (ly_make_virtual_font, "ly:make-virtual-font", 0, 0, 1,
 	   (SCM args),
-	   "Make a virtual font metric from @var{args}, a list of font objects.")
+	   "Make a virtual font metric from @var{args}, "
+	   "a list of font objects.")
 {
-  Virtual_font_metric *fm = new  Virtual_font_metric (args);
-
+  Virtual_font_metric *fm = new Virtual_font_metric (args);
   return scm_gc_unprotect_object (fm->self_scm ());
 }
 
