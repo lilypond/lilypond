@@ -9,15 +9,15 @@
 	\notes\relative c''{
 		\stemUp
 		a-"text"
-		b-\textscript #"texta"
-		c-\textscript #'(bold "textb")
+		b-#"texta"
+		c-#'(bold "textb")
 
-		d-\textscript #'(lines "one" "two" "three")
-		e-\textscript #'(lines (bold "one") 
+		d-#'(lines "one" "two" "three")
+		e-#'(lines (bold "one") 
 		  (rows "and" "there" "is" ((font-family . number) "2"))
 		  (italic "three"))
-		f-\textscript #'(finger "3")
-		g-\textscript #'(music (named "noteheads-2" "flags-u3"))
+		f-#'(finger "3")
+		g-#'(music (named "noteheads-2" "flags-u3"))
 		
 		b-#'(rows "a" ((kern . 3) ((raise . 2) "b")) "c")
 		c-#'(rows "1" ((kern . -3) ((raise . -2) "2")) "3")

@@ -199,7 +199,8 @@
 	(mark . ((font-family . number) (font-relative-size . 1)))
 	(script . ((font-family . roman) (font-relative-size . -1)))
 	(large . ((font-family . roman) (font-relative-size . 1)))
-	(Large . ((font-series . bold) (font-family . roman) (font-relative-size . 2)))
+	(Large . ((font-series . bold) (font-shape . upright) 
+		  (font-family . roman) (font-relative-size . 2)))
 	(dynamic . ((font-family . dynamic) (font-relative-size . 0)))
 	))
     (properties-to-font .
