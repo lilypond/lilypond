@@ -1,65 +1,52 @@
-# Makefile
-# top level makefile of LilyPond
+#
+# project  LilyPond -- the musical typesetter
+# title	   top level makefile for LilyPond  
+# file	   Makefile 
+#
+# Copyright (c) 1997 by    
+#   	Jan Nieuwenhuizen <jan@digicash.com>
+#	Han-Wen Nienhuys <hanwen@stack.nl>
+#		...your sort order here, or how to comment-out a comment
 
-include Variables.make 
+# subdir level:
+#
+depth = .
+#
 
-.SUFFIXES:
-.SUFFIXES: .cc .o .hh .y .l .pod .txt .1 .dep
+# identify module:
+#
+NAME = lilypond
 
+# edit in .version only!
+MAJOR_VERSION = $(TOPLEVEL_MAJOR_VERSION)
+MINOR_VERSION = $(TOPLEVEL_MINOR_VERSION)
+PATCH_LEVEL = $(TOPLEVEL_PATCH_LEVEL)
+# use to send patches, always empty for released version:
+MY_PATCH_LEVEL = $(TOPLEVEL_MY_PATCH_LEVEL)
+build = ./$(depth)/lily/.build
+#
 
-$(exe): $(obs)
-	$(STRIPDEBUG) $(STABLEOBS)
-	$(LINKER) -o $@ $^ $(LOADLIBES)
+# generic variables:
+#
+include ./$(depth)/make/Variables.make 
+#
 
-$(m2m):	$(m2mobs)
-	$(LINKER) -o $@ $^ $(LOADLIBES)
+# descent order into subdirectories:
+#
+SUBDIRS = flower lib lily m2m \
+	Documentation bin init input make tex
+#
 
-.PHONY: clean docxx
+# list of distribution files:
+#
+SYMLINKS = configure
+README_FILES = ANNOUNCE COPYING INSTALL NEWS README TODO
+DISTFILES= Makefile .version $(README_FILES) $(SYMLINKS)
+#
 
-clean:
-	rm -f $(allexe) $(DOCDIR)/* core $(allobs) 
-	for SUBDIR in $(SUBDIRS); \
-	do \
-		$(MAKE) SUBDIR=$$SUBDIR -C $$SUBDIR clean;\
-	done
+# generic targets and rules:
+#
+include ./$(depth)/make/Targets.make
+include ./$(depth)/make/Rules.make
+#
 
-distclean: clean
-	rm -f  version.hh $(gencc) .GENERATE *~ $(ALLDEPS) 
-
-all: $(exe) $(m2m) doc
-
-# value of $(OSTYPE) on windhoos; "make $OSTYPE" if you use bash :-)
-win32: 
-	$(MAKE) -C . CXX=g++ 
-
-doc:
-	$(MAKE) -C Documentation doc
-
-# doc++ documentation of classes
-docxx: $(progdocs)	
-	doc++ -kp -d $(DOCDIR) $^
-
-
-include $(DEPDIR)/*.dep
-
-$(OBJECTDIR)/%.o: $(CCDIR)/%.cc
-	$(DODEP)\
-	$(CXX) -c $(CXXFLAGS) $(OUTPUT_OPTION) 
-
-$(OBJECTDIR)/version.o: $(obs) $(HEADERDIR)/version.hh
-
-include Generate.make
-
-dist:
-	-mkdir $(DDIR)
-	ln $(DFILES) $(DDIR)/
-	for SUBDIR in $(SUBDIRS); \
-	do	mkdir $(DDIR)/$$SUBDIR; \
-		$(MAKE) SUBDIR=$$SUBDIR -C $$SUBDIR dist;\
-	done
-	tar cfz $(DNAME).tar.gz $(DNAME)/
-	rm -rf $(DDIR)/
-
-TAGS:
-	$(MAKE) -C $(HEADERDIR) TAGS
-	$(MAKE) -C $(CCDIR) TAGS

@@ -1,9 +1,0 @@
-#!/bin/sh
-echo '#ifndef VERSION_HH'
-echo '#define VERSION_HH'
-echo '#define MAJORVERSION ' $1
-echo '#define MINORVERSION ' $2
-echo '#define PATCHLEVEL ' $3
-echo '#define VERSIONSTR "'$1.$2.$3'"'
-echo '#define COMPILER "'$4'"'
-echo '#endif'

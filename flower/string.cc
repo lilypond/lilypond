@@ -1,62 +1,25 @@
 /*
-  PROJECT: FlowerSoft C++ library
-  FILE   : string.cc
 
-  Rehacked by HWN 3/nov/95
-  removed String &
-  introduced class String_handle
-  */
+ string.cc - implement String
+ 
+ (c) 1997 Han-Wen Nienhuys & Jan Nieuwenhuizen
 
-#include <string.h>
+ */
+
 #include <stdlib.h>
 #include <stdio.h>
-#include <ctype.h>
+
 #include <assert.h>
+#include <string.h>
 
 #include "string.hh"
+#include "libc-extension.hh"
+#include "string-convert.hh"
 
 #ifdef STRING_DEBUG
 void* mymemmove( void* dest, void const* src, size_t n );
 #define memmove mymemmove
 #endif
-
-static char* 
-strlwr( char* s )
-{
-    char* p = s;
-
-    while( *p ) {
-        *p = tolower( *p );    /* a macro on some compilers */
-        p++;
-    }
-    return s;
-}
-
-static char* 
-strupr( char* s )
-{
-    char* p = s;
-
-    while( *p ) {
-        *p = toupper( *p );    /* a macro on some compilers */
-        p++;
-    }
-    return s;
-}
-
-String::String(Rational r)
-{
-    char * n = Itoa(r.numerator()); // LEAK????
-    
-    *this = n;
-    if (r.denominator() != 1) {
-	char * d = Itoa(r.denominator());
-	*this +=  String( '/' ) + String(d);
-	//delete d;
-    }
-/*    delete n;
-    */
-}
 
 // return array, alloced with new.
 Byte*
@@ -64,24 +27,59 @@ String::copy_byte_p() const
 {
     Byte const* src = strh_.byte_c_l();
     Byte* dest = new Byte[strh_.length_i() + 1];
-    memmove( dest, src, strh_.length_i() + 1 );
+    memcpy( dest, src, strh_.length_i() + 1 );
     return dest;    
 }
-
 void
 String::print_on(ostream& os) const
 {
-    if ( length_i() == strlen( ch_c_l() ) )
+    if (strh_.null_terminated_b())
         os << ch_c_l();
     else
 	for ( int i = 0; i < length_i(); i++ )
 	    os << (Byte)(*this)[ i ];
+}
+
+/*
+  copying, constructing.
+ */
+String&
+String::operator = (String const&source )
+{
+    strh_ = source.strh_;
+    return *this;
+}
+
+
+String::String(Rational r)
+{
+    *this = String_convert::rational_str(r);
+}
+
+String::String (double f, char const* fmt)
+{
+    *this= String_convert::double_str(f,fmt);
+}
+
+String::String( char c,  int n )
+{
+    *this = String_convert::char_str (c,n);
+}
+
+/**
+  @see
+  String_convert::int_str
+ */
+String::String(int i, const char * format )
+{
+    *this = String_convert::int_str(i,format);
 }
 
 String::String (bool b)
 {
     *this = (char const* ) (b ? "true" : "false");
 }
+
 String::String( char const* source )
 {   
     assert(source);    
@@ -90,50 +88,31 @@ String::String( char const* source )
 
 String::String( Byte const* byte_l, int length_i )
 {   
-//    assert( !length_i || byte_l );// ugh.  Storing null pointers? 
     strh_.set( byte_l, length_i );    
 }
-
+
+void
+String::append(String s)
+{
+    strh_.append( s.byte_c_l(), s.length_i() );
+}
 void
 String::operator +=(String s)
 {
-    strh_.append( s.byte_c_l(), s.length_i() );
+    append(s);
+}
+
+void
+String::prepend(String s)
+{
+    s += *this;
+    *this = s;
 }
 
 int
 String::length_i() const
 {
     return strh_.length_i();
-}
-
-// will go away, fixed anyway
-String::String( char c,  int n )
-{
-    n = n >= 0 ? n : 0;
-    char* ch_p = new char[ n ];
-    memset( ch_p, c, n );
-    strh_.set( (Byte*)ch_p, n );
-    delete ch_p;
-}
-
-String::String(int i)
-{
-    char digits[ 81 ];             // who the fuck is 80???
-    digits[ 0 ] = '\0';
-    sprintf(digits, "%d", i );     // assume radix 10
-    strh_ = digits;
-}
-
-String::String( const int i, const int n, char const c )
-{
-    char fill_ch = c;
-    if ( fill_ch)
-        fill_ch = '0';
-
-    String v( i );
-    
-    String str = String( fill_ch, n - v.length_i() ) + String( v );
-    strh_.set( str.byte_c_l(), str.length_i() );
 }
 
 Byte const*
@@ -160,7 +139,9 @@ String::ch_l()
     return strh_.ch_l();
 }
 
-// signed comparison,  analogous to memcmp;
+/**
+  Do a signed comparison,  analogous to memcmp;
+ */
 int
 String::compare_i(String const& s1, String const& s2 ) 
 {
@@ -177,96 +158,99 @@ String::compare_i(String const& s1, String const& s2 )
     return result ? result : i1-i2;
 }
 
-
+
 int
 String::index_last_i( char const c ) const
 {
-	// not binary safe
-	assert( length_i() == strlen( ch_c_l() ) );
-	if ( !length_i() ) 
-		return -1;
-
-	char const* me = strh_.ch_c_l();
-	char const* p = strrchr(me, c );
-	if ( p )
-		return p - me;
+    if ( !length_i() ) 
 	return -1;
+
+    char const* me = strh_.ch_c_l();
+    char const* p = memrchr(me, length_i(), c );
+    if ( p )
+	return p - me;
+    return -1;
 }
 
 int
-String::index_last_i( char const* string ) const
+String::index_last_i( char const* string ) const // UGK!
 {
-	// not binary safe
-	assert( length_i() == strlen( ch_c_l() ) );
-
-	int length = strlen( string );
-	if ( !length_i() || !length ) 
-		return -1;
-
-	int next_i = index_i( string );
-	if ( next_i == -1 )
-		return -1;
-		
-	int index_i = 0;
-	while( next_i >= 0 ) {
-		index_i += next_i;
-		next_i = right_str( length_i() - index_i - length ).index_i( string );
-	}
-	return index_i;
+    assert(false);		// broken
+    int length = strlen( string ); // ugrh
+    if ( !length_i() || !length ) 
+	return -1;
+    
+    int next_i = index_i( string );
+    if ( next_i == -1 )
+	return -1;
+    
+    int index_i = 0;
+    while( next_i >= 0 ) {
+	index_i += next_i;
+	next_i = right_str( length_i() - index_i - length ).index_i( string );
+    }
+    return index_i;
 }
 
-// find c
-// return -1 if not found. 
+/** find  a character.
 
-// ? should return length_i()?, as in string.left_str(index_i(delimiter))
+  @return
+  the index of the leftmost character #c# (0 <= return < length_i()),
+  or   -1 if not found. 
+
+  ? should return length_i()?, as in string.left_str(index_i(delimiter))
+*/
 int
 String::index_i(char c ) const
 {
-	// not binary safe
-	assert( length_i() == strlen( ch_c_l() ) );
-	if ( !length_i() )
-		return -1;
-
-	char const* me = strh_.ch_c_l();
-	char const* p = strchr( me, c );
-	if ( p )
-		return p - me;
-	return -1;
+    char const* me = strh_.ch_c_l();
+    char const* p = (char const *) memchr( me,c,  length_i());
+    if ( p )
+	return p - me;
+    return -1;
 }
 
-// find searchfor. (what if this == "" && searchfor == "") ???
+/**
+  find the substring.
+
+  @return
+  index of leftmost occurrence of #searchfor#
+ */
 int
-String::index_i( char const* searchfor ) const
+String::index_i( String searchfor ) const
 {
-	// not binary safe
-	assert( length_i() == strlen( ch_c_l() ) );
-	if ( !length_i() || !searchfor )
-		return -1;
-		
-	char const* me = strh_.ch_c_l();
-	char const* p = strstr(me, searchfor);
-	if ( p )
-		return p - me;
+    char const* me = strh_.ch_c_l();
+    char const* p = (char const *) memmem(me, length_i(), searchfor.ch_c_l(), 
+					  searchfor.length_i());
+    
+    if ( p )
+	return p - me;
+    else
 	return -1;
 }
 
-// find chars of a set.
+/** find chars of a set.
+
+  @return
+  the index of the leftmost occurance of an element of #set#
+  */
 int
-String::index_any_i( char const* string ) const
+String::index_any_i( String set ) const
 {
-	// not binary safe
-	assert( length_i() == strlen( ch_c_l() ) );
-
-	if ( !length_i() || !string )
-		return -1;
-		
-	char const* s = (char const* )strh_.ch_c_l();
-	char const* p = strpbrk( s, string );
-	if ( p )
-		return p - s;
+    int n = length_i();
+    if ( !n )
 	return -1;
-}
 
+    const void * me_l = (const void*) strh_.ch_c_l();
+    for (int i=0; i  < set.length_i(); i++) {
+	char * found=(char*) memchr(me_l, set[i], n  );
+	if (found) {
+	    return found - me_l;
+	}
+    }
+    return -1;
+}
+
 String
 String::left_str( int n ) const
 {
@@ -282,8 +266,6 @@ String::left_str( int n ) const
     return retval;
 }
 
-
-// n rightmst chars
 String
 String::right_str( int n ) const
 {
@@ -291,7 +273,7 @@ String::right_str( int n ) const
 	return *this;
     
     if ( n < 1)
-        String(); 
+        return "";
     
     return String( strh_.byte_c_l() + length_i() - n, n ); 
 }
@@ -300,106 +282,62 @@ String::right_str( int n ) const
 String
 String::nomid_str( int index_i, int n ) const
 {
-	if ( index_i < 0 )
-		return String();
-	if ( index_i >= length_i() )
-		return *this;
+    if ( index_i < 0 ) {
+	n += index_i;
+	index_i = 0;
+    }
+    if ( n <= 0)
+	return *this;
     
-	return String( String( left_str( index_i ) ) + right_str( length_i() - index_i - n ));
+    return
+	left_str( index_i )   +
+	right_str( length_i() - index_i - n ) ;
 }
 
-
+/*
+  proposal: change to "cut()"
+ */
 String
 String::mid_str( int index_i, int n ) const
 {
-	if ( !length_i() || ( index_i < 0 ) || ( index_i >= length_i() ) || ( n < 1 ) )
-		return String();
+    if ( !length_i() || ( index_i < 0 ) || ( index_i >= length_i() ) || ( n < 1 ) )
+	return String();
 
-	if ( ( n > length_i() ) ||  ( index_i + n > length_i() ) )
-		n = length_i() - index_i;
+    if ( ( n > length_i() ) ||  ( index_i + n > length_i() ) )
+	n = length_i() - index_i;
 
-	return String( byte_c_l() + index_i, n );
+    return String( byte_c_l() + index_i, n );
 }
-
-
-// return uppercase
+
 String
 String::upper_str() const
 {
-    // not binary safe
-    assert( length_i() == strlen( ch_c_l() ) );
     String str = *this;
-    char *s = str.strh_.byte_l();
-    strupr( s );
+    str.to_upper();
     return str;
+}
+void
+String::to_upper()
+{
+    char *s = (char*)strh_.byte_l();
+    strnupr( s ,length_i());
+}
+
+void
+String::to_lower()
+{
+    char* s = strh_.ch_l();
+    strnlwr(s,length_i());    
 }
 
 
-// return lowercase
 String 
 String::lower_str() const
 {
-    // not binary safe
-    assert( length_i() == strlen( ch_c_l() ) );
     String str = *this;
-    char* s = str.strh_.ch_l();
-    strlwr(s);
+    str.to_lower();
     return str;
 }
-
-String::String (double f, char const* fmt)
-{
-    /* worst case would be printing HUGE (or 1/HUGE), which is approx
-       2e318, this number would have approx 318 zero's in its string.
-
-      1024 is a safe length for the buffer
-      */
-
-    char buf[1024]; 
-    if (!fmt)
-	sprintf(buf, "%f", f);
-    else
-	sprintf(buf, fmt,f);
-    *this = buf;
-}
-
-int
-String::value_i() const
-{
-	return String_convert::dec2_i( *this );
-}
-
-double
-String::value_f() const
-{
-	return String_convert::dec2_f( *this );
-}
-
-
-#if 0
-String 
-quoteString( String msg, String quote)
-{
-     return msg + " `" + quote  + "' ";
-}
-#endif // 0
-
-Byte*
-strrev( Byte* byte_l, int length_i )
-{
-  Byte byte;
-  Byte* left_byte_l = byte_l;
-  Byte* right_byte_l = byte_l + length_i;
-
-  while ( right_byte_l > left_byte_l ) {
-    byte = *left_byte_l;
-    *left_byte_l++ = *right_byte_l;
-    *right_byte_l-- = byte;
-  }
-  return byte_l;
-}
-
-
 String 
 String::reversed_str() const
 {
@@ -407,3 +345,17 @@ String::reversed_str() const
     strrev( str.byte_l(), str.length_i() );
     return str;    
 }
+
+int
+String::value_i() const
+{
+    return String_convert::dec2_i( *this );
+}
+
+double
+String::value_f() const
+{
+    return String_convert::dec2_f( *this );
+}
+
+

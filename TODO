@@ -17,6 +17,13 @@ before 0.1
 This is an assorted collection of stuff that will be done, might be
 done, or is an idea that I want to think about
 
+STUFF
+	* generate all (.hh) files into out dirs
+
+	* sort out headers, see m2m
+
+	* do platform stuff: configure, header(s), targets, build (out?)
+
 BUGS
 
 	* plet bugs: scales.ly

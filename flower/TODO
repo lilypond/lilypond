@@ -1,4 +1,8 @@
-	* disable: const pointer->bool->string
+	* shared lib.
+
+	* integrate Make mechanisms of flower & lily
+
+	* disable this auto conv: const pointer -> bool -> string
 
 	* PointerVec ?
 
@@ -7,12 +11,6 @@
 	* efficient copy cons for List
 
 	* extend Interval
-
-	* change String::pos
-
-		s[s.pos('%')] == '%'
-
-	would be nice
 
 	* use template handle in handle.hh for strings.
 

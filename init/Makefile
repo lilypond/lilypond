@@ -1,8 +1,20 @@
-DFILES=dutch.ini table_sixteen.ini table_twenty.ini\
-	english.ini script.ini symbol.ini bare.ini swedish.ini
+# init/Makefile
 
-default:
-	echo huh?
+# subdir level:
+#
+depth = ..
+#
 
-dist:
-	ln Makefile $(DFILES) $(DDIR)/$(INITDIR)
+build = ./$(depth)/lily/.build
+
+# generic stuff/Makefile
+#
+include ./$(depth)/make/Stuff.make
+#
+
+# list of distribution files:
+# 
+INIFILES = $(shell ls *.ini)
+DISTFILES = Makefile $(INIFILES)
+#
+

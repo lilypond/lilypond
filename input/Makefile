@@ -1,15 +1,21 @@
-default: ;
+# input/Makefile
 
-DISTFILES=Makefile  kortjakje.ly maartje.ly\
-	cadenza.ly scales.ly standchen.ly twinkle.ly\
-	wohltemperirt.ly\
-	error.ly midi.ly plet.ly\
-	martien.ly mlalt.ly mlvio1.ly mlvio2.ly mlcello.ly\
-	coriolan-alto.ly rhythm.ly \
-	standchen.tex  scsii-menuetto.tex scsii-menuetto.ly\
-	martien.tex\
-	pre1.midi.ly fugue1.midi.ly
+# subdir level:
+#
+depth = ..
+#
 
+build = ./$(depth)/lily/.build
 
-dist:
-	ln $(DISTFILES) $(DDIR)/$(SUBDIR)
+# generic stuff/Makefile
+#
+include ./$(depth)/make/Stuff.make
+#
+
+# list of distribution files:
+# 
+LYFILES = $(shell ls *.ly)
+TEXFILES = $(shell ls *.tex)
+DISTFILES = Makefile $(LYFILES) $(TEXFILES)
+#
+

@@ -16,14 +16,13 @@ in emacs:
 
 	(add-hook 'c-mode-hook
 		  '(lambda ()(setq c-basic-offset 4)))
+
+
 	(add-hook 'c++-mode-hook
 		  '(lambda() (c-set-style "Stroustrup")
 		     )
 		  )
-=head2 FILES
 
-The class C<This_is_a_class> is declared in F<this-is-a-class.hh> and
-implemented in F<this-is-a-class.cc>.
 
 =head2 CLASSES and TYPES:
 
@@ -35,7 +34,7 @@ implemented in F<this-is-a-class.cc>.
 	Class::member()
 	Type Class::member_type_
 
-the C<type> is a Hungarian notation postfix for C<Type>. See below
+the C<type> is a Hungarian notation postfix for $C<Type>$. See below
 
 
 =head2 COMMENTS
@@ -89,7 +88,7 @@ symbols. Staff is  the "brains" for PStaff
 NB: in PCursor (which is part of the library) P stands for PointerCursor
 
 
-=head2 MEMBERS (2)
+=head2 MEMBERS(2)
 
 Standard methods:
 
@@ -121,9 +120,9 @@ Notation>.
 =head2 Hungarian
 
 The Hungarian Notation was conceived by or at least got its name from,
-the hungarian programmer x.  It is a naming convention with the aim to
-make code more readable (for fellow programmers) and more accessible
-for programmers that are new to a project.
+the hungarian programmer Charles Simonyi.  It is a naming convention 
+with the aim to make code more readable (for fellow programmers), and 
+more accessible for programmers that are new to a project.
 
 The essence of the Hungarian Notation is that every identifier has a
 part which identifies its type (for functions this is the result
@@ -210,9 +209,9 @@ with the parts of the names separated by underscores.
 =over 5
 
 =item C<byte>
-unsigned cher. (The postfix _by is ambiguous)
+unsigned char. (The postfix _by is ambiguous)
 
-=item C<b>
+=item C<bo>
 bool
 
 =item C<bi>
@@ -257,7 +256,7 @@ These are precede the prefixes:
 =item C<a>
 array
 
-=item C<arr>
+=item C<array>
 user built array.
 
 =item C<c>
@@ -283,19 +282,19 @@ Variable loop: an integer
 Temporary variable: an unsigned integer
 
 =item C<test_ch>
-Variable Test: a character
+Variable test: a character
 
 =item C<first_name_str>
 Variable first_name: a String class object
 
-=item C<first_name_ch_a>
-Variable first_name: a C<char> array
+=item C<last_name_ch_a>
+Variable last_name: a C<char> array
 
-=item C<loop_i_p>
-Variable Loop: an C<Int*> that you must delete
+=item C<foo_i_p>
+Variable foo: an C<Int*> that you must delete
 
-=item C<loop_i_l>
-Variable Loop: an C<Int*> that you must not delete
+=item C<bar_i_l>
+Variable bar: an C<Int*> that you must not delete
 
 =back
 

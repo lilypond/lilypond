@@ -1,3 +1,40 @@
+pl 39-1
+	- doze target (for 16 bit dos xcompiler: gcc-go32)
+Internal
+	- make/User.make; C..FLAGS sorted out
+Bugfix
+	- make clean...
+
+pl 39
+	- new make structure, featuring:
+	    * top-level/sub-level build
+	    * auto custom-library dependencies/build
+	    * top-level/sub-level dist
+	    * minimal(? can even smaller) specific Makefiles
+	    * which makes for simple lib/exe module split (make/Template.make)
+	    * integrated flowerlib
+	    * all stuff into subbirs (make/Stuff.make)
+	    * all headers into <module>/include dirs (make/Include.make)
+	    * all output into <module>/out (executables into bin/)
+	    * more make features, like make config, make help
+	    * small lily lib
+	    * lilypond-x.x.x/.version for toplevel lily version
+	    * lilypond-x.x.x/<module>/.version for <module> version (eg: flower)
+	    * versioning using additional optional MY_PATCH_LEVEL 
+		for easy make_patch
+
+	- bin/cptogen
+
+Internal
+	- generic m2m header: m2m.hh
+
+Bugfix
+	- small fixes, make, dist, configure
+
+pl 38-5
+	- all of the below, e.g. new filenames and new makefile 
+	  structure patches merged
+
 pl 38
 
 Internal
@@ -6,6 +43,19 @@ Internal
 	- untied all registers from complexwalker. Now registers are
 intrinsically hierarchical. All walker communication is done via a
 "top level" register.
+
+pl 37-3
+	- m2m handles voices
+	- instrument, track_name, copyright/left stuff for m2m/ly
+
+Internal
+	- Midi_voice
+
+pl 37-1
+	- text, key, tempo event in midi output/ly input
+
+Internal
+	- simple makefile structure, allows for multiple projects
 
 ******
 pl 37
