@@ -195,7 +195,7 @@ ly_options = {
 	'noindent' : r'''
     indent = 0.0\mm''',
 	'notime' : r'''
-    \translator {
+    \context {
         \StaffContext
         \remove Time_signature_engraver
     }''',
