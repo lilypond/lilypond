@@ -176,11 +176,6 @@
     (inexact->exact (round (* 1000 (ly:font-magnification font)))))))
 
 (define (define-fonts paper font-list)
-
-  (define (fontname->designsize fontname)
-    (let ((i (string-index fontname char-numeric?)))
-      (string->number (substring fontname i))))
-  
   (define (define-font command fontname scaling)
     (string-append
      "/" command " { /" fontname " findfont "

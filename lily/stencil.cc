@@ -115,7 +115,9 @@ Stencil
 Stencil::moved_to_edge (Axis a, Direction d, Stencil const &s, Real padding,
 			Real minimum) const
 {
-  Real my_extent= is_empty () ? 0.0 : dim_[a][d];
+  Interval my_extent=  dim_[a];
+
+
   Interval i (s.extent (a));
   Real his_extent;
   if (i.is_empty ())
@@ -126,7 +128,8 @@ Stencil::moved_to_edge (Axis a, Direction d, Stencil const &s, Real padding,
   else
     his_extent = i[-d];
 
-  Real offset = (my_extent -  his_extent) + d * padding;
+  Real offset = (my_extent.  is_empty () ? 0.0 : my_extent[d] - his_extent)
+    + d * padding;
 
   Stencil toadd (s);
   toadd.translate_axis (offset,a);
@@ -142,7 +145,7 @@ Stencil::moved_to_edge (Axis a, Direction d, Stencil const &s, Real padding,
 /*  See scheme Function.  */
 void
 Stencil::add_at_edge (Axis a, Direction d, Stencil const &s, Real padding,
-		       Real minimum)
+		      Real minimum)
 {
   add_stencil (moved_to_edge (a,d,s,padding, minimum));
 }
