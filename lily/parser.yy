@@ -136,6 +136,30 @@ set_music_properties (Music *p, SCM a)
 }
 
 
+SCM
+make_chord_step (int step, int alter)
+{
+	if (step == 7)
+		alter--;
+
+	/* ugh: fucks up above 13 */
+	Pitch m(step > 7 ? 1 : 0,(step - 1) % 7, alter);
+	return m.smobbed_copy ();
+}
+
+
+SCM
+make_chord (SCM pitch, SCM dur, SCM modification_list)
+{
+	static SCM chord_ctor;
+	if (!chord_ctor)
+		chord_ctor= scm_c_eval_string ("construct-chord");
+	SCM ch=  scm_call_3 (chord_ctor, pitch, dur, modification_list);
+	scm_gc_protect_object (ch);
+	return ch;
+}
+
+
 
 Music* 
 set_property_music (SCM sym, SCM value)
@@ -188,7 +212,7 @@ yylex (YYSTYPE *s,  void * v)
 %token ALTERNATIVE
 %token BAR
 %token BREATHE
-%token CHORDMODIFIERS
+%token CHORDMODIFIERS  
 %token CHORDS
 %token CLEF
 %token CONSISTS
@@ -264,8 +288,8 @@ yylex (YYSTYPE *s,  void * v)
 %token <scm>    FRACTION
 %token <id>	IDENTIFIER
 %token <scm>	CHORDNAMES CHORDNAMES_IDENTIFIER
-%type <scm>	chordnames_block chordnames_list chord_scm
 
+%token <scm> CHORD_MODIFIER
 
 %token <scm>	SCORE_IDENTIFIER
 %token <scm>	MUSIC_OUTPUT_DEF_IDENTIFIER
@@ -313,10 +337,12 @@ yylex (YYSTYPE *s,  void * v)
 %type <scm>   steno_pitch pitch absolute_pitch pitch_also_in_chords
 %type <scm>   explicit_pitch steno_tonic_pitch
 
-%type <scm>	chord_additions chord_subtractions chord_notes chord_step
-%type <music>	chord
-%type <scm>	chord_note chord_inversion chord_bass
+/* %type <scm>	chord_additions chord_subtractions chord_notes chord_step */ 
+/* %type <music>	chord */
+/* %type <scm>	chord_note chord_inversion chord_bass */
 %type <scm>	duration_length fraction
+
+%type <scm> new_chord step_number chord_items chord_item chord_separator step_numbers
 
 %type <scm>  embedded_scm scalar
 %type <music>	Music Sequential_music Simultaneous_music 
@@ -402,10 +428,7 @@ notenames_body:
 	  SCM tab = scm_make_vector (gh_int2scm (i), SCM_EOL);
 	  for (SCM s = $1; gh_pair_p (s); s = ly_cdr (s)) {
 		SCM pt = ly_cdar (s);
-		if (!unsmob_pitch (pt))
-			THIS->parser_error ("Need pitch object.");
-		else
-			scm_hashq_set_x (tab, ly_caar (s), pt);
+		scm_hashq_set_x (tab, ly_caar (s), pt);
 	  }
 	  $$ = tab;
 	}
@@ -497,38 +520,7 @@ identifier_init:
 	| embedded_scm	{
 		$$ = $1;
 	}
-	| chordnames_block {
-		$$ = $1;
-	}	
 	;
-
-chordnames_block:
-	CHORDNAMES '{'
-		{ THIS->lexer_->push_chord_state (); }
-		chordnames_list
-		{ THIS->lexer_->pop_state (); }
-	'}'
-	{
-		$$ = $4;
-	}
-	;
-
-chordnames_list:
-	/* empty */ {
-		$$ = SCM_EOL;
-	}
-	| CHORDNAMES_IDENTIFIER chordnames_list	{
-		$$ = scm_append (scm_list_2 ($1, $2));
-	}
-	| chord_scm '=' full_markup chordnames_list {
-		$$ = scm_cons (scm_cons ($1, $3), $4);
-	};
-
-chord_scm:
-	steno_tonic_pitch optional_notemode_duration chord_additions chord_subtractions chord_inversion chord_bass {
-		$$ = Chord::tonic_add_sub_to_pitches ($1, $3, $4);
-		/* junk bass and inversion for now */
-	};
 
 translator_spec_block:
 	TRANSLATOR '{' translator_spec_body '}'
@@ -1990,98 +1982,79 @@ simple_element:
 
 		$$= velt;
 	}
-	| chord {
+	| new_chord {
 		THIS->pop_spot ();
 
-		if (!THIS->lexer_->chord_state_b ())
-			THIS->parser_error (_ ("Have to be in Chord mode for chords"));
+                if (!THIS->lexer_->chord_state_b ())
+                        THIS->parser_error (_ ("Have to be in Chord mode for chords"));
+                $$ = unsmob_music ($1);
+	}
+	;
+
+new_chord:
+	steno_tonic_pitch optional_notemode_duration   {
+		$$ = make_chord ($1, $2, SCM_EOL)
+	}
+	| steno_tonic_pitch optional_notemode_duration chord_separator chord_items {
+		SCM its = scm_reverse_x ($4, SCM_EOL);
+		$$ = make_chord ($1, $2, gh_cons ($3, its));
+	}
+	;
+
+chord_items:
+	chord_item {
+		$$ = gh_cons ($1, SCM_EOL);		
+	}
+	| chord_items chord_item {
+		$$ = gh_cons ($2, $$);
+	}
+	;
+
+chord_separator:
+	CHORD_COLON {
+		$$ = ly_symbol2scm ("chord-colon");
+	}
+	| CHORD_CARET {
+		$$ = ly_symbol2scm ("chord-caret"); 
+	}
+	| CHORD_SLASH {
+		$$ = ly_symbol2scm ("chord-slash"); 
+	}
+	| CHORD_BASS {
+		$$ = ly_symbol2scm ("chord-bass"); 
+	}
+	;
+
+chord_item:
+	chord_separator {
+		$$ = $1;
+	}
+	| step_numbers {
+		$$ = scm_reverse_x ($1, SCM_EOL);
+	}
+	| CHORD_MODIFIER  {
 		$$ = $1;
 	}
 	;
 
-
-chord:
-	steno_tonic_pitch optional_notemode_duration chord_additions chord_subtractions chord_inversion chord_bass {
-                $$ = Chord::get_chord ($1, $3, $4, $5, $6, $2);
-		$$->set_spot (THIS->here_input ());
-        };
-
-chord_additions: 
-	{
-		$$ = SCM_EOL;
-	} 
-	| CHORD_COLON chord_notes {
-		$$ = $2;
+step_numbers:
+	step_number { $$ = gh_cons ($1, SCM_EOL); } 
+	| step_numbers '.' step_number {
+		$$ = gh_cons ($3, $$);
 	}
 	;
 
-chord_notes:
-	chord_step {
-		$$ = $1;
-	}
-	| chord_notes '.' chord_step {
-		$$ = gh_append2 ($$, $3);
-	}
-	;
-
-chord_subtractions: 
-	{
-		$$ = SCM_EOL;
-	} 
-	| CHORD_CARET chord_notes {
-		$$ = $2;
-	}
-	;
-
-
-chord_inversion:
-	{
-		$$ = SCM_EOL;
-	}
-	| CHORD_SLASH steno_tonic_pitch {
-		$$ = $2;
-	}
-	;
-
-chord_bass:
-	{
-		$$ = SCM_EOL;
-	}
-	| CHORD_BASS steno_tonic_pitch {
-		$$ = $2;
-	}
-	;
-
-chord_step:
-	chord_note {
-		$$ = scm_cons ($1, SCM_EOL);
-	}
-	| CHORDMODIFIER_PITCH {
-		$$ = scm_cons (unsmob_pitch ($1)->smobbed_copy (), SCM_EOL);
-	}
-	| CHORDMODIFIER_PITCH chord_note { /* Ugh. */
-		$$ = scm_list_n (unsmob_pitch ($1)->smobbed_copy (),
-			$2, SCM_UNDEFINED);
-	}
-	;
-
-chord_note:
+step_number:
 	bare_unsigned {
-		Pitch m($1 > 7 ? 1 : 0, ($1 - 1) % 7, 0);
-
-		$$ = m.smobbed_copy ();
+		$$ = make_chord_step ($1, 0);
         } 
 	| bare_unsigned '+' {
-		Pitch m(  $1 > 7 ? 1 : 0,($1 - 1) % 7, 1);
-
-		$$ = m.smobbed_copy ();
+		$$ = make_chord_step ($1, 1);
 	}
 	| bare_unsigned CHORD_MINUS {
-		Pitch m(  $1 > 7 ? 1 : 0,($1 - 1) % 7, -1);
-
-		$$ = m.smobbed_copy ();
+		$$ = make_chord_step ($1,-1);
 	}
-        ;
+        ;	
 
 /*
 	UTILITIES

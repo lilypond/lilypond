@@ -99,34 +99,57 @@
 ;; the split is a procedural process, with lots of set!. 
 ;;
 
+
+;; todo: naming is confusing: steps  (0 based) vs. steps (1 based).
+(define (pitch-step p)
+  "Musicological notation for an interval. Eg. C to D is 2."
+  (+ 1 (ly:pitch-steps p)))
+
+(define (get-step x ps)
+  "Does PS have the X step? Return that step if it does."
+  (if (null? ps)
+      #f
+      (if (= (- x 1) (ly:pitch-steps (car ps)))
+	  (car ps) 
+	  (get-step x (cdr ps)))
+      ))
+
+(define (replace-step p ps)
+  "Copy PS, but replace the step of P in PS."
+  (if (null? ps)
+      '()
+      (let*
+	  (
+	   (t (replace-step p (cdr ps)))
+	   )
+
+	(if (= (ly:pitch-steps p) (ly:pitch-steps (car ps)))
+	    (cons p t)
+	    (cons (car ps) t)
+	    ))
+      ))
+
+
+(define (remove-step x ps)
+  "Copy PS, but leave out the Xth step."
+  (if (null? ps)
+      '()
+      (let*
+	  (
+	   (t (remove-step x (cdr ps)))
+	   )
+
+	(if (= (- x 1) (ly:pitch-steps (car ps)))
+	    t
+	    (cons (car ps) t)
+	    ))
+      ))
+
+
 (define-public (ignatzek-chord-names
 		in-pitches bass inversion
 		context)
   
-  (define (get-step x ps)
-    "Does PS have the X step? Return that step if it does."
-    (if (null? ps)
-	#f
-	(if (= (- x 1) (ly:pitch-steps (car ps)))
-	    (car ps) 
-	    (get-step x (cdr ps)))
-	))
-
-
-  (define (remove-step x ps)
-    "Copy PS, but leave out the Xth step."
-    (if (null? ps)
-	'()
-	(let*
-	    (
-	     (t (remove-step x (cdr ps)))
-	     )
-
-	  (if (= (- x 1) (ly:pitch-steps (car ps)))
-	      t
-	      (cons (car ps) t)
-	      ))
-	))
 
   (define (remove-uptil-step x ps)
     "Copy PS, but leave out everything below the Xth step."
@@ -138,10 +161,6 @@
 	)
     )
 
-  (define (pitch-step p)
-    "Musicological notation for an interval. Eg. C to D is 2."
-    (+ 1 (ly:pitch-steps p)))
-  
 
   (define (is-natural-alteration? p)
     (= (natural-chord-alteration p)  (ly:pitch-alteration p))
