@@ -1,6 +1,8 @@
 \version "1.7.18"
 % TODO: delete me?  I think this is covered in the "tremolo
 % subdivision" section in refman.
+\header {texidoc="DELETE ME
+"}
 \score { 
   \context Voice \notes\relative c {
     c'1:16 

@@ -1,7 +1,11 @@
 \version "1.7.18"
+%Hmm. what's this supposed to test?
 %  I don't know what this is supposed to do.  delete it?
+% looks like a regression test, and a test that we don't
+% need, anyway.
 \header {
-texidoc = "Hmm. what's this supposed to test?"
+texidoc = "DELETE ME.
+"
 }
 \score{
 	\notes	\transpose c' c'{

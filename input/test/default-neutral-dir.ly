@@ -1,8 +1,11 @@
 \version "1.7.18"
-\header { texidoc = "
-The direction of a perfectly centred beams can be
-controlled through @code{Voice.Beam}'s grob-property
-directly@code{neutral-direction}
+% delete this; it's covered by beam-neutral-direction.ly
+
+% old texidoc:
+%The direction of a perfectly centred beams can be
+%controlled through @code{Voice.Beam}'s grob-property
+%directly@code{neutral-direction}
+\header { texidoc = "DELETE ME.
 "}
 
 \paper { raggedright = ##t}

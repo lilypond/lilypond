@@ -1,6 +1,7 @@
 \version "1.7.18"
 % delete; covered by cresendi.ly
-
+\header {texidoc="DELETE ME
+"}
 fragment = \notes {
   \context Voice {
     \property Voice.crescendoText = "cresc."

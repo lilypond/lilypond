@@ -3,6 +3,8 @@
 % TODO: what's this?
 %
 % I don't know what this example is supposed to do.  delete it?
+\header { texidoc="DELETE ME
+"}
 
 global =  \notes {
 	\key a \minor
