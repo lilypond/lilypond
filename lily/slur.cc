@@ -11,6 +11,7 @@
   [TODO]
     * begin and end should be treated as a/acknowledge Scripts.
     * broken slur should have uniform trend
+    * smart changing of endings and offsets to avoid ugly beziers.
  */
 
 #include "directional-element-interface.hh"
@@ -32,11 +33,7 @@
 Slur::Slur (SCM s)
   : Spanner (s)
 {
-  /*
-    silly value for testing
-   */
-  set_elt_property ("attachment", gh_cons (ly_symbol2scm ("alongside-stem"),
-					   ly_symbol2scm ("alongside-stem")));
+  set_elt_property ("attachment", gh_cons (SCM_BOOL_F, SCM_BOOL_F));
   set_elt_pointer ("note-columns", SCM_EOL);
   set_elt_property ("control-points", SCM_EOL);
 }
@@ -210,19 +207,23 @@ Slur::set_extremities ()
   Direction dir = LEFT;
   do 
     {
-      // for (SCM s = get_elt_property ("slur-extremity-rules"); s != SCM_EOL; s = gh_cdr (s))
-      for (SCM s = scm_eval (ly_symbol2scm ("slur-extremity-rules"));
-	   s != SCM_EOL; s = gh_cdr (s))
+      if (!gh_symbol_p (index_cell (get_elt_property ("attachment"), dir)))
 	{
-	  SCM r = scm_eval (scm_listify (gh_caar (s),
-					 this->self_scm_,
-					 gh_int2scm ((int)dir),
-					 SCM_UNDEFINED));
-	  if (r != SCM_BOOL_F)
+	  
+	  // for (SCM s = get_elt_property ("slur-extremity-rules"); s != SCM_EOL; s = gh_cdr (s))
+	  for (SCM s = scm_eval (ly_symbol2scm ("slur-extremity-rules"));
+	       s != SCM_EOL; s = gh_cdr (s))
 	    {
-	      index_set_cell (get_elt_property ("attachment"), dir,
-			      gh_cdar (s));
-	      break;
+	      SCM r = scm_eval (scm_listify (gh_caar (s),
+					     this->self_scm_,
+					     gh_int2scm ((int)dir),
+					     SCM_UNDEFINED));
+	      if (r != SCM_BOOL_F)
+		{
+		  index_set_cell (get_elt_property ("attachment"), dir,
+				  gh_cdar (s));
+		  break;
+		}
 	    }
 	}
     }
@@ -245,14 +246,33 @@ Slur::get_attachment (Direction dir) const
 	  if (str == "head")
 	    {
 	      o = Offset (0, st->chord_start_f ());
+	      /*
+		Default position is centered in X, on outer side of head Y
+	       */
+	      o += Offset (0.5 * n->extent (X_AXIS).length (),
+			   0.5 * ss * directional_element (this).get ());
 	    }
 	  else if (str == "alongside-stem")
 	    {
 	      o = Offset (0, st->chord_start_f ());
+	      /*
+		Default position is on stem X, on outer side of head Y
+	       */
+	      o += Offset (n->extent (X_AXIS).length ()
+			   * (1 + st->get_direction ()),
+			   0.5 * ss * directional_element (this).get ());
 	    }
 	  else if (str == "stem")
 	    {
 	      o = Offset (0, st->stem_end_position () * hs);
+	      /*
+		Default position is on stem X, at stem end Y
+	       */
+	      o += Offset (0.5 *
+			   (n->extent (X_AXIS).length ()
+			    - st->extent (X_AXIS).length ())
+			    * (1 + st->get_direction ()),
+			    0);
 	    }
 	  else if (str == "loose-end")
 	    {
@@ -263,8 +283,6 @@ Slur::get_attachment (Direction dir) const
 		}
 	    }
 
-	  o += Offset (0.5 * st->get_direction ()
-		       * n->extent (X_AXIS).length (), 0);
 	  
 	  SCM l = scm_assoc
 	    (scm_listify (a,
