@@ -112,10 +112,8 @@ version information
 @refbugs
 
 Known: articulation scripts are buggy.  Empty measures confuse etf2ly.
-Report bugs to @email{bug-gnu-music@@gnu.org}.
 
 Written by @email{Han-Wen Nienhuys,hanwen@@cs.uu.nl}.
-
 
 Report bugs to @email{bug-gnu-music@@gnu.org}.
 
@@ -175,7 +173,7 @@ not.
 abc2ly ignores the ABC beaming.
 
 Written by @email{Han-Wen Nienhuys,hanwen@@cs.uu.nl}.
-
+@c How about Laura?   /MB
 
 Report bugs to @email{bug-gnu-music@@gnu.org}.
 
@@ -280,7 +278,7 @@ write output to @var{FILE}
 @item  -v,--version
 version information
 @item  -w,--warranty
-print warranty and copyright.  Mup2ly comes with absolutlely @strong{NO WARRANTY}.
+print warranty and copyright.  Mup2ly comes with absolutely @strong{NO WARRANTY}.
 @end table
 
 
