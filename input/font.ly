@@ -75,6 +75,8 @@ TestedFeatures =	 "This file tests the Feta music-font"
 		\meter 7/8; a2.. |
 		\meter 9/8; a1... |
 		\meter 12/8; a1. |
+		\meter 12/4;
+		r1. r2. r4. r8. r16. r32. r64. r64. |
 		}
 	\paper{ 
 	    % don't change this.

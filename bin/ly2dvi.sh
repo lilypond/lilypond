@@ -8,11 +8,15 @@
 #  Original LaTeX file made by Mats Bengtsson, 17/8 1997
 #
 
-VERSION="0.3"
+VERSION="0.3.hwn1"
+IDENTIFICATION="lytodvi.sh $VERSION" 
+NOW=`date`
+echo "$IDENTIFICATION" 1>&2
 
-echo "lytodvi.sh $VERSION" 1>&2
-    
 # NEWS
+# 0.3.hwn1
+# 	- add "Creator: " line to output
+#
 # 0.3
 #	- multiple input files to make score from several files
 #	  (extra files assumed to be Lilypond output)
@@ -287,7 +291,7 @@ EOF
   fi
 fi
 #
-# Find textwidth
+# Find textwidth 
 #
 if [ "$IF" != "" ]
 then
@@ -400,6 +404,9 @@ fi
 # Write LaTeX file
 #
 cat << EOF > $LF
+% Creator: $IDENTIFICATION
+% Automatically generated from  $IF, $NOW
+
 \documentclass$PAPER{article}
 \nonstopmode
 $LLNG

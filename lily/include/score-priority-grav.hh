@@ -7,26 +7,25 @@
 */
 
 
-#ifndef SCORE_ALIGN_GRAV_HH
-#define SCORE_ALIGN_GRAV_HH
+#ifndef SCOREF_ALIGN_GRAV_HH
+#define SCOREF_ALIGN_GRAV_HH
 
 #include "engraver.hh"
+#include "assoc.hh"
 
 /**
   Group  a number of items across staffs
  */
-class Type_align_engraver: public Engraver
+class Score_priority_engraver : public Engraver
 {
-  Horizontal_group_item  * align_p_;
+  Assoc<int, Horizontal_group_item  *> align_p_assoc_;
 public:
-  TRANSLATOR_CLONE(Type_align_engraver);
-    
-  const char* type_ch_C_;
-  int priority_i_;
-  Type_align_engraver();
+  TRANSLATOR_CLONE(Score_priority_engraver);
+  Score_priority_engraver ();
   DECLARE_MY_RUNTIME_TYPEINFO;
 protected:
   virtual void acknowledge_element (Score_elem_info);
   virtual void do_pre_move_processing();
 };
+
 #endif // SCORE_ALIGN_GRAV_HH

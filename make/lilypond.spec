@@ -1,9 +1,9 @@
 Name: lilypond
-Version: 0.1.35
+Version: 0.1.36
 Release: 1
 Copyright: GPL
 Group: Applications/Publishing
-Source0: alpha.gnu.org:/gnu/lilypond/development/lilypond-0.1.35.tar.gz
+Source0: alpha.gnu.org:/gnu/lilypond/development/lilypond-0.1.36.tar.gz
 Summary: A program for typesetting music.
 URL: http://www.stack.nl/~hanwen/lilypond
 Packager: Han-Wen Nienhuys <hanwen@stack.nl>

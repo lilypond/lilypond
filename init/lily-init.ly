@@ -1,7 +1,5 @@
-% symbol.ly
-%
-% FIXME other name
-  
+% Toplevel initialisation file. 
+	
 \version "0.1.7";
   
 breve = \duration { -1 0 }

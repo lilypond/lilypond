@@ -17,6 +17,8 @@
 class Bar_engraver : public Engraver {
   Bar_req * bar_req_l_;
   Bar * bar_p_;
+
+  void create_bar ();
 public:
   TRANSLATOR_CLONE(Bar_engraver);
   Bar_engraver();

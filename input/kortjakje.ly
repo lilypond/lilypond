@@ -3,7 +3,7 @@
 filename =	 "kortjakje.ly";
 title =	 "Ah,  vous dirais-je, maman (variations)";
 description =	 "bare bones version. (written down from memory :-)";
-composers =	 "Mozart, KV 265";
+composer =	 "Mozart, KV 265";
 enteredby =	 "HWN";
 copyright =	 "public domain";
 }

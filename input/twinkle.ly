@@ -1,12 +1,12 @@
 \header{
 filename =	 "twinkle.ly";
-title =	 "twinkle twinkle little star";
+title =	 "Twinkle Twinkle Little Star";
 description =	 "traditional song in various languages."
   "Ah, vous dirais-je, maman" 
   "Altijd is Kortjakje ziek"
   "Twinkle twinkle little star";
 
-composers =	 "Traditional";
+composer =	 "Traditional";
 enteredby =	 "HWN & JCN";
 copyright =	 "public domain";
 }
@@ -55,11 +55,15 @@ global = \melodic {
 
 tekst = \lyric{ 
  	Al-4 tijd is Kort- jak- je ziek,2
-	midden4 in_de week maar 's_zon- dags niet.2
+%	midden4 in_de week maar 's_zon- dags niet.2
+% ugly hack: insertion of  empty syllables creates columns on extra 
+% moments.  The net result is more spacing.
+%
+	midden8 _8 in_de8 _8 week4 maar 's_zon- dags niet.2
 	's_Zon-4 dags gaat ze naar de kerk,2
 	met4 een boek vol zil- ver werk.2
 	Al-4 tijd is Kort- jak- je ziek,2
-	midden4 in_de week maar 's_zon- dags niet.2
+	midden8 _8  in_de8 _8 week4 maar 's_zon- dags niet.2
 }
 
 %{
@@ -125,19 +129,23 @@ textiii = \lyric{
 	< 
 		\lyric \type Lyrics = top < 
 			\global \tekst >
-
-		\type Staff=treb < \global 
+		\type Staff_group < 
+		\type Staff=treb < \global  
 			  \melody >
 		\lyric \type Lyrics  = "Middle" <  \global
 			\texte >
 		\type Staff=bass	< \global 
 			\accompany >
 		% ugh
+		>
 		\lyric \type Lyrics  = bottomlyrics < \global
 			\texti \textii \textiii >
 		
 	>
 	\paper{
+		% use a lot of space, to avoid clashing syllables
+		arithmetic_multiplier = 8.\pt;
+		gourlay_maxmeasures = 14.0;
 	}
 	\midi{ 
 		\tempo 4 = 120 ;

@@ -29,9 +29,10 @@ Association of the United States Inc., 1993.
 Ted Ross. ``Teach yourself the art of music engraving and processing''
 (3rd edition). Hansen House, Miami Beach, FLorida.
 
-[This is about engraving, i.e. the real thing with metal plates, but
-it also contains directions on good typesetting. It includes some good
-spacing tables HWN]
+[This is about engraving, i.e. the real thing with metal plates.  It
+contains directions on good typesetting, but the sections reproduction
+technicalities and history are interesting.  Especially the section on
+Music Typewriters is amusing HWN]
 
 Gardner Read. ``Modern Rhythmic Notation.'' Indiana University Press,
 1978.
@@ -61,8 +62,8 @@ D. Roush. ``Music Formatting Guidelines,'' Technical Report
 OSU-CISRC-3/88-TR10, Department of Computer and Information Science,
 The Ohio State University, 1988.
 
-[Rules on formatting music formulated for use in computers. Mainly distilled
-from  [Ross] HWN]
+[Rules on formatting music formulated for use in computers. Mainly
+distilled from [Ross] HWN]
 
 
 =head2 Notation with computers

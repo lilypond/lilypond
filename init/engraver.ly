@@ -58,6 +58,7 @@ Staff_group = \translator {
 	\consists "Line_group_engraver";
 	\accepts "Staff";
 	\accepts "Grandstaff";
+	\accepts "Lyrics";
 }
 
 Lyric_voice = 
@@ -84,11 +85,8 @@ Score = \translator {
 	\consists "Bar_number_engraver";
 
 	\consists "Span_score_bar_engraver";
-	\consists "Normal_bar_align_engraver";
-	\consists "Clef_align_engraver";
-	\consists "Key_align_engraver";
-	\consists "Meter_align_engraver";
-	\consists "Score_horizontal_align_engraver";
+	\consists "Score_priority_engraver";
+	\consists "Priority_horizontal_align_engraver";
 	\consists "Vertical_align_engraver";
 
 

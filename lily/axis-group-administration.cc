@@ -7,6 +7,7 @@
 */
 #include "interval.hh"
 #include "axis-group-administration.hh"
+#include "axis-group-element.hh"
 #include "graphical-element.hh"
 #include "debug.hh"
 
@@ -35,6 +36,8 @@ void
 Axis_group_administration::add_element (Graphical_element*e,
 					Axis_group_element*g, Axis a1, Axis a2)
 {
+  // don't add self to self.
+  assert (e != g);
   Axis_group_element *& g1 = e->axis_group_l_a_[a1];
   Axis_group_element *& g2 = e->axis_group_l_a_[a2];
   

@@ -23,8 +23,10 @@ Rest::do_add_processing ()
     position_i_ += 2;
 
   Rhythmic_head::do_add_processing ();
-  if (dots_l_)
-      dots_l_->position_i_ = position_i_;
+  if (dots_l_ && balltype_i_ > 1)
+    {
+      dots_l_->position_i_ = position_i_ + 4;
+    }
 }
 
 Rest::Rest ()

@@ -227,7 +227,7 @@ Stem::set_noteheads ()
 	  parity = !parity;
 	}
       else
-	parity = 0;
+	parity = 1;
       lastpos = head_l_arr_[i]->position_i_;
     }
 }

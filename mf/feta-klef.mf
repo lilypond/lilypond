@@ -6,7 +6,19 @@
 % (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>,
 % Jan Nieuwenhuizen <jan@digicash.com>
 
+
+
+
 fet_begingroup("clefs");
+
+%
+% [Ross] says that clefs take 1 interline space on the left and right
+%
+def set_horizontal_spacing =
+	save left_space ,right_space;
+	left_space# = reduced_il#;
+	right_space# = reduced_il#;
+enddef;
 
 def draw_staff(expr first, last)=
 	pickup pencircle scaled stafflinethickness;
@@ -18,13 +30,18 @@ def draw_staff(expr first, last)=
 % [Wanske] says the bulbs should be positioned about 1/4 right of the
 % "arrow"
 def draw_c_clef (expr reduction) = 
-	save hair, norm, reduced_il;
+	save hair, norm, reduced_il, right_edge;
 	reduced_il#=interline#*reduction;
 	norm#:=2/3reduced_il#;
 	hair#:=1/6norm#;
-	define_pixels (hair,norm,reduced_il);
-	set_char_box (0, 15/4norm#+2hair#, 
+
+	set_horizontal_spacing;
+	right_edge# = 15/4norm#+2hair#;
+
+	set_char_box (left_space#, right_edge# + right_space#, 
 		2 reduced_il#, 2 reduced_il#);
+	define_pixels (hair,norm,reduced_il, right_edge);
+
 	draw_block ((0,-d), (3/4norm+1/2hair,h));
 	draw_block ((3/4norm+2hair,-d), 
 		(3/4norm+7/2hair,h));
@@ -34,9 +51,9 @@ def draw_c_clef (expr reduction) =
 	penpos1(hair,-90);
 	z1l=(xoff+norm+hair,h);
 	penpos2(norm-3/2hair,180);
-	z2l=(w,h/2);
+	z2l=(right_edge,h/2);
 	penpos3(hair,90);
-	z3=(((w-xoff)/2)+xoff,2hair);
+	z3=(((right_edge -xoff)/2)+xoff,2hair);
 
 	penpos4(hair,0);
 	z4=(xoff+1/2norm+1/2hair,reduced_il-hair);
@@ -90,24 +107,29 @@ fet_endchar;
 % the dots, but her picture shows that the extreme is ~ 0.2 ss lower
 
 def draw_bass_klef(expr exact_center, reduction) = 
-	save reduced_il, left_tilt, left_thick;
+	save reduced_il, left_tilt, left_thick, ball_to_right;
 	reduced_il# = interline# * reduction;
-	left_tilt = 5;
-	define_pixels(reduced_il);
-	left_thick = .25  reduced_il;
 	
-	set_char_box(
-		- xpart exact_center+ .2 reduced_il#, 
-		xpart exact_center + 2.7 reduced_il#, 
+	set_horizontal_spacing;
+	ball_to_right# = 2.1 reduced_il#;
+	set_char_box(left_space# +
+		- xpart exact_center,
+		right_space# +
+		xpart exact_center + ball_to_right#, 
 		- ypart exact_center + 2.5 reduced_il#, 
 		ypart exact_center +reduced_il#);
+
+	define_pixels(reduced_il, ball_to_right);
+	left_tilt = 5;
+	left_thick = .25  reduced_il;
+
 	x1r - x1l = left_thick;
 	z1l = (hround_pixels(xpart exact_center), 
 		vround_pixels(ypart exact_center));
 
 	y2 = reduced_il;
 
-	x3l - x1l =  2.1 reduced_il;
+	x3l - x1l =  ball_to_right;
 	x2 = .5 [x1,x3];
 	x3l - x3r = .48 reduced_il;
 	y3l = -0.05 interline;
@@ -189,7 +211,12 @@ def draw_gclef (expr exact_center, reduction)=
 
 	thinnib = thinness - hair;
 	thinpen = thinness;
-	set_char_box(-xpart exact_center + 1.1 * breapth_factor* reduced_il#, 
+	set_horizontal_spacing;
+	
+	set_char_box(
+		left_space# +
+		-xpart exact_center + 1.1 * breapth_factor* reduced_il#, 
+		right_space# +
 		xpart exact_center + .66 breapth_factor* reduced_il#,
 		-ypart exact_center + 3 * reduced_il#,
 		ypart exact_center + 5 * reduced_il#);

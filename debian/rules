@@ -46,7 +46,7 @@ binary-arch: build
 	ln -fs ../../../doc/lilypond debian/tmp/usr/lib/texmf/doc/lilypond
 	dh_installdocs BUGS TODO NEWS DEDICATION ANNOUNCE README \
 		Documentation/out/*.text Documentation/*.doc \
-		Documentation/lelie_logo.xpm bin/lytodvi.sh
+		Documentation/lelie_logo.xpm bin/ly2dvi.sh
 	dh_installexamples input/*.ly input/*.tex
 #	dh_installmenu
 #	dh_installcron

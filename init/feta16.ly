@@ -1,5 +1,5 @@
-% generated automatically by mf-to-table.py version 0.4
-% on Fri Dec  5 11:52:40 1997
+% Creator: mf-to-table.py version 0.4
+% Automatically generated on Mon Dec  8 17:19:17 1997
 % Do not edit
 % input from out/feta16.log
 % name=\symboltables {
@@ -58,21 +58,21 @@
         "pedaltoe"	"\\pedaltoe"	-2.00\pt	2.00\pt	-0.00\pt	6.00\pt	
         }
     "flags"	 = \table {
-        "u3"	"\\eighthflag"	-0.20\pt	4.10\pt	-12.26\pt	0.20\pt	
-        "u4"	"\\sixteenthflag"	-0.20\pt	4.10\pt	-14.26\pt	0.20\pt	
-        "u5"	"\\thirtysecondflag"	-0.20\pt	4.10\pt	-17.26\pt	0.20\pt	
-        "u6"	"\\sixtyfourthflag"	-0.20\pt	4.10\pt	-21.26\pt	0.20\pt	
-        "d3"	"\\deighthflag"	-0.20\pt	4.54\pt	-0.20\pt	11.66\pt	
-        "d4"	"\\dsixteenthflag"	-0.20\pt	4.54\pt	-0.20\pt	12.26\pt	
-        "d5"	"\\dthirtysecondflag"	-0.20\pt	4.54\pt	-0.20\pt	15.66\pt	
-        "d6"	"\\dsixtyfourthflag"	-0.20\pt	4.54\pt	-0.20\pt	17.66\pt	
+        "u3"	"\\eighthflag"	-0.20\pt	4.94\pt	-12.26\pt	0.20\pt	
+        "u4"	"\\sixteenthflag"	-0.20\pt	4.94\pt	-14.26\pt	0.20\pt	
+        "u5"	"\\thirtysecondflag"	-0.20\pt	4.94\pt	-17.26\pt	0.20\pt	
+        "u6"	"\\sixtyfourthflag"	-0.20\pt	4.94\pt	-21.26\pt	0.20\pt	
+        "d3"	"\\deighthflag"	-0.20\pt	5.46\pt	-0.20\pt	11.66\pt	
+        "d4"	"\\dsixteenthflag"	-0.20\pt	5.46\pt	-0.20\pt	12.26\pt	
+        "d5"	"\\dthirtysecondflag"	-0.20\pt	5.46\pt	-0.20\pt	15.66\pt	
+        "d6"	"\\dsixtyfourthflag"	-0.20\pt	5.46\pt	-0.20\pt	17.66\pt	
         }
     "clefs"	 = \table {
-        "alto"	"\\altoclef"	-0.00\pt	10.89\pt	-8.00\pt	8.00\pt	
-        "alto_change"	"\\caltoclef"	-0.00\pt	8.71\pt	-6.40\pt	6.40\pt	
-        "bass"	"\\bassclef"	1.20\pt	12.80\pt	-10.00\pt	4.00\pt	
-        "bass_change"	"\\cbassclef"	0.96\pt	10.24\pt	-8.00\pt	3.20\pt	
-        "violin"	"\\violinclef"	-0.11\pt	10.95\pt	-12.00\pt	20.00\pt	
-        "violin_change"	"\\cviolinclef"	-0.33\pt	8.52\pt	-9.60\pt	16.00\pt	
+        "alto"	"\\altoclef"	-4.00\pt	14.89\pt	-8.00\pt	8.00\pt	
+        "alto_change"	"\\caltoclef"	-3.20\pt	11.91\pt	-6.40\pt	6.40\pt	
+        "bass"	"\\bassclef"	-2.00\pt	14.40\pt	-10.00\pt	4.00\pt	
+        "bass_change"	"\\cbassclef"	-1.60\pt	11.52\pt	-8.00\pt	3.20\pt	
+        "violin"	"\\violinclef"	-4.11\pt	14.95\pt	-12.00\pt	20.00\pt	
+        "violin_change"	"\\cviolinclef"	-3.53\pt	11.72\pt	-9.60\pt	16.00\pt	
         }
     %  } % $name

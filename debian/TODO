@@ -1,2 +1,2 @@
-* Move lytodvi.sh to a proper place.  It is currently placed in
+* Move ly2dvi.sh to a proper place.  It is currently placed in
   /usr/doc/lilypond.  (1997-11-25)
