@@ -10,20 +10,17 @@ local-web:
 footify:
 	$(footify) $(sort $(wildcard $(outdir)/*.html out/*.html out-www/*.html))
 
-# what to do here?
-ifeq (a,b) 
+INFO_INSTALL_FILES = $(wildcard $(addsuffix *, $(INFO_FILES)))
 
-$(outdir)/$(package).info: $(outdir)/topinfo.texinfo $(OUTTEXINFO_FILES)
-	$(MAKEINFO) --force -o $@ $(outdir)/topinfo.texinfo
+INFOINSTALL=$(MAKE) INSTALLATION_OUT_DIR=$(infodir) depth=$(depth) INSTALLATION_OUT_FILES="$(INFO_INSTALL_FILES)" -f $(stepdir)/install-out.sub.make
 
+localinstall: install-info
+localuninstall: uninstall-info
 
-INFOINSTALL=$(MAKE) INSTALLATION_OUT_DIR=$(infodir) depth=$(depth) INSTALLATION_OUT_FILES="$(INFO_FILES)" -f $(stepdir)/install-out.sub.make $@
-
-localinstall: # $(INFO_FILES)
+install-info: $(INFO_FILES)
 	-$(INSTALL) -d $(infodir)
-	$(INFOINSTALL)
-localuninstall:
-	$(INFOINSTALL)
+	$(INFOINSTALL) localinstall
 
-endif
-
+uninstall-info:
+	$(INFOINSTALL) localuninstall
+	-rmdir $(infodir)

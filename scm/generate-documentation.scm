@@ -34,12 +34,13 @@
     (texi-file-head
      
      ;; we can't use (dir) and top if we're included by lilypond.tely
-     "LilyPond internals" name
+     "LilyPond internals" name "(lilypond.info)"
      '(("LilyPond interpretation contexts" . "Hierarchy and grouping of Engravers")
        ("LilyPond engravers" . "Engravers create Elements")
        ("LilyPond backend" . "Detailed description of all Elements")))
      
-     doc)
+    doc
+    "\n@bye")
     out))
 
 (newline (current-error-port))

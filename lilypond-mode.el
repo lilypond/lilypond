@@ -442,6 +442,6 @@ command."
   (interactive)
   (message "Using `LilyPond-mode' version %s" LilyPond-version))
 
-(provide 'LilyPond-mode)
-;;; LilyPond-mode.el ends here
+(provide 'lilypond-mode)
+;;; lilypond-mode.el ends here
 

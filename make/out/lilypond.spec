@@ -1,9 +1,11 @@
+%define info yes
+
 Name: lilypond
-Version: 1.3.103
+Version: 1.3.104
 Release: 1
 License: GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.3.103.tar.gz
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.3.104.tar.gz
 Summary: A program for printing sheet music.
 URL: http://www.cs.uu.nl/~hanwen/lilypond
 # Icon: lilypond-icon.gif
@@ -56,7 +58,9 @@ mkdir -p $RPM_BUILD_ROOT/tmp/lilypond-rpm-doc
 
 strip lily/out/lilypond midi2ly/out/midi2ly
 make prefix="$RPM_BUILD_ROOT%{_prefix}" install
-# gzip -9fn $RPM_BUILD_ROOT%{_prefix}/info/* || true
+%if info=="yes"
+gzip -9fn $RPM_BUILD_ROOT%{_prefix}/info/* || true
+%endif
 
 mkdir -p $RPM_BUILD_ROOT%{_prefix}/../etc/profile.d
 cp buildscripts/out/lilypond-profile $RPM_BUILD_ROOT%{_prefix}/../etc/profile.d/lilypond.sh
@@ -83,12 +87,16 @@ echo '!<symlink>c:\\texmf\\fonts\\tfm\\public\\cm' > $RPM_BUILD_ROOT%{_prefix}/s
 
 touch /tmp/.lilypond-install
 rm `find /var/lib/texmf -name 'feta*pk -print' -or -name 'feta*tfm -print'` /tmp/.lilypond-install
-# /sbin/install-info %{_prefix}/info/lilypond.info.gz %{_prefix}/info/dir || true
+%if info=="yes"
+/sbin/install-info %{_prefix}/info/lilypond.info.gz %{_prefix}/info/dir || true
+%endif
 
 %preun
+%if info=="yes"
 if [ $1 = 0 ]; then
- true #   /sbin/install-info --delete %{_prefix}/info/lilypond.info.gz %{_prefix}/info/dir || true
+    /sbin/install-info --delete %{_prefix}/info/lilypond.info.gz %{_prefix}/info/dir || true
 fi
+%endif
 
 
 %files
@@ -109,6 +117,11 @@ fi
 %{_prefix}/bin/pmx2ly
 %else
 %{_prefix}/bin
+%endif
+
+%if info=="yes"
+%{_prefix}/info/lilypond.info.gz
+%{_prefix}/info/lilypond-internals.info.gz
 %endif
 
 %{_prefix}/man/man1/abc2ly.1.gz

@@ -81,12 +81,12 @@
    (section 1 name)
    (texi-menu items-alist)))
 
-(define (texi-file-head name file-name items-alist)
+(define (texi-file-head name file-name top items-alist)
   (string-append
    "\input texinfo @c -*-texinfo-*-\n"
    "@settitle " name
    "\n@setfilename " file-name ".info"
-   (node "Top")
+   (node "Top") top
    "\n@top"
    (section 1 name)
    (texi-menu items-alist)))

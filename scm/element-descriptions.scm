@@ -215,7 +215,7 @@
 		(direction . -1)
 		(left-padding . 0.2)
 		(right-padding . 0.4)
-		(meta . ,(element-description "Accidentals"  accidentals-interface font-interface ))
+		(meta . ,(element-description "Accidentals"  accidentals-interface font-interface side-position-interface))
 	))
 	
 	(LineOfScore . (

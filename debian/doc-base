@@ -1,5 +1,5 @@
 Document: lilypond
-Title: LilyPond, the GNU Project music typesetter
+Title: GNU LilyPond, the music typesetter
 Author: Various
 Abstract: This documentation describes LilyPond (the GNU Project music
  typesetter), its language Mudela, and the Mutopia project, a.k.a.
@@ -8,4 +8,4 @@ Section: Apps/Music
 
 Format: info
 Index: /usr/share/info/lilypond.info.gz
-Files: /usr/share/info/lilypond.info*
+Files: /usr/share/info/lilypond.info* /usr/share/info/lilypond-internals.info*
