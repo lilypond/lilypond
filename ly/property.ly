@@ -75,7 +75,8 @@ specialkey = {
 % End the incipit and print a ``normal line start''.
 endincipit = \notes{
     \partial 16; s16  % Hack to handle e.g. \bar ".|"; \endincipit
-    \property Staff.clefStyle = #"fullSizeChanges" 
+    \context Staff \outputproperty #(make-type-checker 'clef-interface) #'full-size-change = ##t
+    \context Staff \outputproperty #(make-type-checker 'clef-interface) #'non-default = ##t
     \bar "";
 }
 

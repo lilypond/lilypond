@@ -119,7 +119,7 @@ violoncello = \notes \relative c' {
 	}
 
   \paper {
-  	\paper_sixteen
+  	\paperSixteen
   	indent=100.0\mm;
   	linewidth=150.0\mm;
     \translator {

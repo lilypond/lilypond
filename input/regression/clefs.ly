@@ -26,12 +26,17 @@ way, so this is fragile as well.
          \clef "G^8";c'1^"{sup 8?}" c'1 \bar "||";
          \clef "bass";c'1^"{bass}" \bar "||";
          \clef "subbass";c'1^"{subbass}" \bar "||";
-	\property Staff.clefStyle="transparent"
-         \clef "treble"; c'1^"clefStyle=\"transparent\"" \bar "||";
-	\property Staff.clefStyle="fullSizeChanges"
-         \clef "treble"; c'1^"clefStyle=\"fullSizeChanges\"" \bar "|.";
+	 \property Staff.Clef \override #'transparent = ##t
+         \clef "treble"; c'1^"transparent=\#t" \bar "||";
+	 \property Staff.Clef \override #'transparent = ##f
+	 \context Staff \outputproperty #(make-type-checker 'clef-interface) #'full-size-change = ##t
+         \clef "french"; c'1^"full-size-change = \#t" \bar "|.";
          }
          \paper{
+	   \translator{
+	     \StaffContext
+%	     Clef \override #'full-size-change = ##t
+	   }
          }
 }
 

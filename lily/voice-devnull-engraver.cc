@@ -42,8 +42,8 @@ Voice_devnull_engraver::try_music (Music *m)
     return;
 #endif
 
-  if (s == ly_symbol2scm ("allways")
-    || (s == SCM_EOL
+  if (gh_equal_p (s, ly_symbol2scm ("allways"))
+      || (s == SCM_EOL
 	  && daddy_trans_l_->id_str_.left_str (3) == "two"
 	  && (to_boolean (get_property ("unison"))
 	      || to_boolean (get_property ("unisilence")))))
@@ -52,7 +52,8 @@ Voice_devnull_engraver::try_music (Music *m)
 	{
 	  if (Span_req *s = dynamic_cast <Span_req *> (m))
 	    {
-	      if (s->get_mus_property ("span-type") == ly_symbol2scm (*p))
+	      if (scm_equal_p (s->get_mus_property ("span-type"),
+			       ly_str02scm ( *p)) == SCM_BOOL_T)
 		{
 		  return true;
 		}
@@ -90,12 +91,11 @@ Voice_devnull_engraver::acknowledge_grob (Grob_info i)
 	  && daddy_trans_l_->id_str_.left_str (3) == "two"
 	  && (to_boolean (get_property ("unison"))
 	      || to_boolean (get_property ("unisilence")))))
-    
-      for (char const **p = junk_interfaces; *p; p++)
-	if (i.elem_l_->has_interface (ly_symbol2scm (*p)))
-	  {
-	    i.elem_l_->suicide ();
-	    return;
-	  }
+    for (char const **p = junk_interfaces; *p; p++)
+      if (i.elem_l_->has_interface (ly_symbol2scm (*p)))
+	{
+	  i.elem_l_->suicide ();
+	  return;
+	}
 }
  

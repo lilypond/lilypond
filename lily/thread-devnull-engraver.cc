@@ -38,5 +38,5 @@ Thread_devnull_engraver::acknowledge_grob (Grob_info i)
 	  && (to_boolean (get_property ("unison"))
 	      || to_boolean (get_property ("unisilence")))
 	  && to_boolean (get_property ("soloADue"))))
-      i.elem_l_->suicide ();
+    i.elem_l_->suicide ();
 }

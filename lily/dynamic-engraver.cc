@@ -315,7 +315,6 @@ Dynamic_engraver::typeset_all ()
   
   if (script_p_)
     {
-      Side_position::add_staff_support (script_p_);
       typeset_grob (script_p_);
       script_p_ = 0;
     }

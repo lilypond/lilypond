@@ -1,7 +1,5 @@
 
 @node GNU Free Documentation License
-@c @appendixsec GNU Free Documentation License
-@c Hmm, only have one section in appendix: move up to chapter level
 @appendix GNU Free Documentation License
 
 @cindex FDL, GNU Free Documentation License
