@@ -10,6 +10,7 @@
 #define SEQUENTIAL_ITERATOR_HH
 
 #include "music-iterator.hh"
+#include "protected-scm.hh"
 
 /*
 
@@ -71,6 +72,7 @@ protected:
 protected:
   Moment here_mom_;
   Music_iterator * iter_p_;
+  Protected_scm  list_;
   SCM cursor_;
   
   virtual void next_element (bool side_effect);

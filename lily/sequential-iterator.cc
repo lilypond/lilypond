@@ -68,6 +68,7 @@ Sequential_iterator::Sequential_iterator (Sequential_iterator const &src)
 {
   grace_fixups_ = copy_grace_fixups (src.grace_fixups_);
   cursor_ = src.cursor_;
+  list_ = src.cursor_;
   here_mom_ = src.here_mom_;
   if (src.iter_p_)
     iter_p_ = src.iter_p_->clone ();
@@ -139,7 +140,8 @@ copy_grace_fixups (Grace_fixup* src)
 void
 Sequential_iterator::construct_children ()
 {
-  cursor_ = get_music_list ();
+  list_ = get_music_list ();
+  cursor_ = list_; 
 
   iter_p_ = gh_pair_p (cursor_) ?  get_iterator_p (unsmob_music (ly_car (cursor_))) : 0;
   while (iter_p_ && !iter_p_->ok ())

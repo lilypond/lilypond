@@ -9,11 +9,15 @@
 */
 
 /*
-  
+TODO:
+
+
   * Junk stem_info.
 
   * Use Number_pair i.s.o Interval to represent (yl, yr).
 
+  * cross staff 
+  
 Notes:
 
  - Stems run to the Y-center of the beam.
@@ -302,9 +306,6 @@ Beam::brew_molecule (SCM grob)
   SCM last_beaming = SCM_EOL;;
   Real last_xposn = -1;
   Real last_width = -1 ;
-  
-
-  * Determine auto knees based on positions if it's set by the user.
   
   Molecule the_beam;
   Real lt = me->paper_l ()->get_var ("linethickness");
@@ -1355,11 +1356,6 @@ where_are_the_whole_beams(SCM beaming)
 /*
   Calculate the Y position of the stem-end, given the Y-left, Y-right
   in POS, and for stem S.
-
-  If CORRECT, correct for beam_count of beam in case of knees.
-
-
-  TODO: junk CORRECT from this.
  */
 Real
 Beam::calc_stem_y (Grob *me, Grob* s, Interval pos, bool french) 
