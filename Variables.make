@@ -3,9 +3,9 @@
 # version info
 MAJVER=0
 MINVER=0
-PATCHLEVEL=30
+PATCHLEVEL=31
 
-include Site.make
+
 
 ####
 #### USER CONFIGURABLE
@@ -107,4 +107,6 @@ SUBDIRS=Documentation $(OBJECTDIR) $(CCDIR) $(HEADERDIR) $(INITDIR) $(DEPDIR) \
 depfile=deps/$(subst .o,.dep,$(notdir $@)) 
 DODEP=rm -f $(depfile); DEPENDENCIES_OUTPUT="$(depfile) $(OBJECTDIR)/$(notdir $@)"
 
-STRIPDEBUG=strip --strip-debug
+STRIPDEBUG=true # replace to do stripping of certain objects
+
+include Site.make

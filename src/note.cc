@@ -289,7 +289,6 @@ Request*
 get_script_req(int d , Script_def*def)
 {
     Script_req* script_req_p = new Script_req(d, def);
-//    script_req_p->defined_ch_c_l_m = req_defined_ch_c_l;
     // all terminal symbols, rather set directly here:
     script_req_p->defined_ch_c_l_m = lexer->here_ch_c_l();
     return script_req_p;
