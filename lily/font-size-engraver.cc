@@ -19,11 +19,11 @@ Font_size_engraver::Font_size_engraver ()
 void
 Font_size_engraver::do_process_requests ()
 {
-  Scalar s (get_property ("fontSize", 0));
+  SCM s (get_property ("fontSize", 0));
   
-  if (s.length_i ()  && s.isnum_b ())
+  if (SCM_NUMBERP(s))
     {
-      size_i_ = int (s);
+      size_i_ = gh_scm2int (s);
     }
 }
 

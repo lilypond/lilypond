@@ -83,8 +83,8 @@ Text_engraver::do_process_requests ()
 
 
 
-      Scalar axisprop = get_property ("scriptHorizontal",0);
-      if (axisprop.to_bool ())
+      SCM axisprop = get_property ("scriptHorizontal",0);
+      if (gh_boolean_p (axisprop) && gh_scm2bool (axisprop))
 	{
 	  ss->axis_ = X_AXIS;
 	  text->set_parent (ss, Y_AXIS);
@@ -100,21 +100,21 @@ Text_engraver::do_process_requests ()
       
       if (r->style_str_.empty_b ())
 	{
-	  Scalar p (get_property ("textStyle", 0));
-	  if (p.length_i ())
-	    text->style_str_ = p;
+	  SCM p (get_property ("textStyle", 0));
+	  if (gh_string_p (p))
+	    text->style_str_ = ly_scm2string(p);
 	}
       else
 	text->style_str_ = r->style_str_;
       
-      Scalar padding = get_property ("textScriptPadding", 0);
-      if (padding.length_i() && padding.isnum_b ())
+      SCM padding = get_property ("textScriptPadding", 0);
+      if (SCM_NUMBERP(padding))
 	{
-	  ss->set_elt_property (padding_scm_sym, gh_double2scm(Real(padding)));
+	  ss->set_elt_property (padding_scm_sym, padding);
 	}
 
-      Scalar empty = get_property ("textEmptyDimension", 0);
-      if (empty.to_bool ())
+      SCM empty = get_property ("textEmptyDimension", 0);
+      if (gh_boolean_p (empty) && gh_scm2bool (empty))
 	{
 	  text->set_empty (true, X_AXIS);
 	}

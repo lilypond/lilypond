@@ -34,16 +34,16 @@ Staff_symbol_engraver::do_creation_processing()
 void
 Staff_symbol_engraver::do_removal_processing()
 {
-  Scalar l (get_property ("numberOfStaffLines", 0));
-  if (l.isnum_b ())
+  SCM l (get_property ("numberOfStaffLines", 0));
+  if (SCM_NUMBERP(l))
     {
-      span_p_->no_lines_i_ = l;
+      span_p_->no_lines_i_ = gh_scm2int (l);
     }
 
-  Scalar sz (get_property ("staffLineLeading", 0));
-  if (!sz.empty_b () && sz.isnum_b ())
+  SCM sz (get_property ("staffLineLeading", 0));
+  if (SCM_NUMBERP(sz))
     {
-      span_p_->staff_line_leading_f_ = Real(sz);
+      span_p_->staff_line_leading_f_ = gh_scm2double (sz);
     }
   else
     {

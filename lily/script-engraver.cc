@@ -70,31 +70,32 @@ Script_engraver::do_process_requests()
       else
 	  ss->dir_ = (Direction)force_dir;
 
-      Scalar dir_prop (get_property ("articulationScriptVerticalDirection", 0));
-      if (dir_prop.isnum_b () && (int) dir_prop != CENTER)
-	ss->dir_ = (Direction)(int)dir_prop;
+      SCM dir_prop (get_property ("articulationScriptVerticalDirection", 0));
+      if (SCM_NUMBERP(dir_prop))
+	ss->dir_ = to_dir (dir_prop);
 
       if (l->dir_)
 	ss->dir_ = l->dir_;
 
-      Real padding = 0.0;
-      Scalar paddingprop = get_property ("articulationScriptPadding", 0);
-      if (paddingprop.length_i() && paddingprop.isnum_b ())
+      SCM paddingprop = get_property ("articulationScriptPadding", 0);
+      if (SCM_NUMBERP(paddingprop))
 	{
-	  padding = (Real)paddingprop;
+	  ss->set_elt_property (padding_scm_sym, paddingprop);
 	}
 
-      Scalar axisprop = get_property ("scriptHorizontal",0);
-      if (axisprop.to_bool ())
+      SCM axisprop = get_property ("scriptHorizontal",0);
+      if (gh_boolean_p (axisprop) && gh_scm2bool (axisprop))
 	ss->axis_ = X_AXIS;
 
-      if (follow_staff && !axisprop.to_bool ())
+      if (follow_staff && !gh_boolean_p (axisprop) && gh_scm2bool (axisprop))
 	ss->set_elt_property (no_staff_support_scm_sym, SCM_BOOL_T);
 
       p->set_staff_side (ss);
       ss->set_elt_property (script_priority_scm_sym, priority);
-      if (padding)
-	ss->set_elt_property (padding_scm_sym, gh_double2scm(padding));
+      if (SCM_NUMBERP (paddingprop))
+	ss->set_elt_property (padding_scm_sym, paddingprop);
+  
+  
       script_p_arr_.push (p);
       staff_side_p_arr_.push (ss);
       
@@ -151,8 +152,6 @@ Script_engraver::do_post_move_processing()
 {
   script_req_l_arr_.clear();
 }
-
-
 
 ADD_THIS_TRANSLATOR(Script_engraver);
 

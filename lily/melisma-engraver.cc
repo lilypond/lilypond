@@ -27,10 +27,12 @@ Melisma_engraver::do_try_music (Music *m )
 {
   if (dynamic_cast<Melisma_playing_req*>(m))
     {
-      Scalar plain (get_property ("melismaBusy", 0));
-      Scalar slur (get_property ("slurMelismaBusy", 0));
-      Scalar tie (get_property ("tieMelismaBusy", 0));
-      return plain.to_bool () || slur.to_bool () || tie.to_bool ();
+      SCM plain (get_property ("melismaBusy", 0));
+      SCM slur (get_property ("slurMelismaBusy", 0));
+      SCM tie (get_property ("tieMelismaBusy", 0));
+      return (gh_boolean_p (plain) && gh_scm2bool (plain))
+	|| (gh_boolean_p (slur) && gh_scm2bool (slur))
+	|| (gh_boolean_p (tie) && gh_scm2bool (tie));
     }
   return false;
 }
