@@ -900,6 +900,7 @@ AC_DEFUN(STEPMAKE_PYTHON, [
     if test -n "$pv"; then
 	STEPMAKE_ADD_ENTRY($1, $pv)
     fi
+    AC_PATH_PROG(PYTHON, $PYTHON)
     AC_SUBST(PYTHON)
 ])
 
