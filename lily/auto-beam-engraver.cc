@@ -78,7 +78,7 @@ private:
 void
 Auto_beam_engraver::process_music ()
 {
-  if (gh_string_p (get_property ("whichBar")))
+  if (ly_string_p (get_property ("whichBar")))
     {
       consider_end (shortest_mom_);
       junk_beam ();
@@ -188,23 +188,23 @@ Auto_beam_engraver::test_moment (Direction dir, Moment test_mom)
     }
 
   /* second guess: property generic time exception */
-  SCM m = scm_assoc (gh_append3 (function, wild, time), settings);
+  SCM m = scm_assoc (ly_append3 (function, wild, time), settings);
   
   if (m != SCM_BOOL_F && unsmob_moment (ly_cdr (m)))
     moment = * unsmob_moment (ly_cdr (m));
 
   /* third guess: property time exception, specific for duration type */
-  m = scm_assoc (gh_append3 (function, type, time), settings);
+  m = scm_assoc (ly_append3 (function, type, time), settings);
   if (m != SCM_BOOL_F && unsmob_moment (ly_cdr (m)))
     moment = * unsmob_moment (ly_cdr (m));
 
   /* fourth guess [user override]: property plain generic */
-  m = scm_assoc (gh_append3 (function, wild, wild), settings);
+  m = scm_assoc (ly_append3 (function, wild, wild), settings);
   if (m != SCM_BOOL_F && unsmob_moment (ly_cdr (m)))
     moment = * unsmob_moment (ly_cdr (m));
 
   /* fifth guess [user override]: property plain, specific for duration type */
-  m = scm_assoc (gh_append3 (function, type, wild), settings);
+  m = scm_assoc (ly_append3 (function, type, wild), settings);
   if (m != SCM_BOOL_F && unsmob_moment (ly_cdr (m)))
     moment = * unsmob_moment (ly_cdr (m));
   
@@ -304,7 +304,7 @@ Auto_beam_engraver::begin_beam ()
   
   beam_start_moment_ = now_mom ();
   beam_start_location_ = *unsmob_moment (get_property ("measurePosition"));
-  subdivide_beams_ = gh_scm2bool (get_property ("subdivideBeams"));
+  subdivide_beams_ = ly_scm2bool (get_property ("subdivideBeams"));
   beat_length_ = *unsmob_moment (get_property ("beatLength"));
 }
 

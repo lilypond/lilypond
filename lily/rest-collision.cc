@@ -25,7 +25,7 @@ SCM
 Rest_collision::force_shift_callback (SCM element_smob, SCM axis)
 {
   Grob *them = unsmob_grob (element_smob);
-  Axis a = (Axis) gh_scm2int (axis);
+  Axis a = (Axis) ly_scm2int (axis);
   assert (a == Y_AXIS);
 
   Grob * rc = unsmob_grob (them->get_property ("rest-collision"));
@@ -37,7 +37,7 @@ Rest_collision::force_shift_callback (SCM element_smob, SCM axis)
       do_shift (rc);
     }
   
-  return gh_double2scm (0.0);
+  return scm_make_real (0.0);
 }
 
 
@@ -70,8 +70,8 @@ head_characteristic (Grob * col)
   if (!s)
     return SCM_BOOL_F;
   else
-    return gh_cons (s->get_property ("duration-log"),
-		    gh_int2scm (Rhythmic_head::dot_count (s)));
+    return scm_cons (s->get_property ("duration-log"),
+		    scm_int2num (Rhythmic_head::dot_count (s)));
 }
 
 /*
@@ -87,7 +87,7 @@ Rest_collision::do_shift (Grob *me)
   Link_array<Grob> rests;
   Link_array<Grob> notes;
 
-  for (SCM s = elts; gh_pair_p (s); s = ly_cdr (s))
+  for (SCM s = elts; ly_pair_p (s); s = ly_cdr (s))
     {
       Grob * e = unsmob_grob (ly_car (s));
       if (unsmob_grob (e->get_property ("rest")))

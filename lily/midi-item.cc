@@ -145,10 +145,10 @@ Midi_instrument::to_string () const
     UGH. don't use eval.
    */
   SCM proc = ly_scheme_function ("midi-program");
-  SCM program = gh_call1 (proc, ly_symbol2scm (audio_->str_.to_str0 ()));
+  SCM program = scm_call_1 (proc, ly_symbol2scm (audio_->str_.to_str0 ()));
   found = (program != SCM_BOOL_F);
   if (found)
-    program_byte = gh_scm2int (program);
+    program_byte = ly_scm2int (program);
   else
       warning (_f ("no such MIDI instrument: `%s'", audio_->str_.to_str0 ()));
 

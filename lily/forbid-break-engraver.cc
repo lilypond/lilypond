@@ -21,18 +21,18 @@ Forbid_line_break_engraver::start_translation_timestep ()
   SCM busy = get_property ("busyGrobs");
 
   Moment now = now_mom ();
-  while (gh_pair_p (busy) && unsmob_moment (gh_caar (busy))->main_part_ == now.main_part_)
-    busy = gh_cdr (busy);
+  while (ly_pair_p (busy) && unsmob_moment (ly_caar (busy))->main_part_ == now.main_part_)
+    busy = ly_cdr (busy);
 
   
-  while (gh_pair_p (busy))
+  while (ly_pair_p (busy))
     {
-      Grob *g = unsmob_grob (gh_cdar (busy));
+      Grob *g = unsmob_grob (ly_cdar (busy));
       if (Rhythmic_head::has_interface (g))
 	{
 	  get_score_engraver ()->forbid_breaks ();
 	}
-      busy = gh_cdr (busy);
+      busy = ly_cdr (busy);
     }
 }
 

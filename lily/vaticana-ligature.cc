@@ -78,7 +78,7 @@ vaticana_brew_flexa (Grob *me,
   SCM flexa_height_scm = me->get_property ("flexa-height");
   if (flexa_height_scm != SCM_EOL)
     {
-      interval = gh_scm2int (flexa_height_scm);
+      interval = ly_scm2int (flexa_height_scm);
     }
   else
     {
@@ -240,7 +240,7 @@ vaticana_brew_primitive (Grob *me, bool ledger_take_space)
   SCM delta_pitch_scm = me->get_property ("delta-pitch");
   int delta_pitch;
   if (delta_pitch_scm != SCM_EOL)
-    delta_pitch = gh_scm2int (delta_pitch_scm);
+    delta_pitch = ly_scm2int (delta_pitch_scm);
   else
     delta_pitch = 0;
 

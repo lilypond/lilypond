@@ -211,7 +211,7 @@ Mensural_ligature_engraver::apply_transition (Array<Grob_info> primitives,
 	    programming_error ("last_primitive undefined");
 	    break;
 	  }
-	last_primitive->set_property ("primitive", gh_int2scm (output));
+	last_primitive->set_property ("primitive", scm_int2num (output));
 	break;
       case MLP_BB:
       case MLP_LB:
@@ -226,8 +226,8 @@ Mensural_ligature_engraver::apply_transition (Array<Grob_info> primitives,
 	    programming_error ("primitive undefined");
 	    break;
 	  }
-	last_primitive->set_property ("primitive", gh_int2scm (output));
-	primitive->set_property ("primitive", gh_int2scm (MLP_NONE));
+	last_primitive->set_property ("primitive", scm_int2num (output));
+	primitive->set_property ("primitive", scm_int2num (MLP_NONE));
 	break;
       case MLP_SS:
 	// delayed primitive with two note heads
@@ -241,8 +241,8 @@ Mensural_ligature_engraver::apply_transition (Array<Grob_info> primitives,
 	    programming_error ("last_primitive undefined");
 	    break;
 	  }
-	last_last_primitive->set_property ("primitive", gh_int2scm (output));
-	last_primitive->set_property ("primitive", gh_int2scm (MLP_NONE));
+	last_last_primitive->set_property ("primitive", scm_int2num (output));
+	last_primitive->set_property ("primitive", scm_int2num (MLP_NONE));
 	break;
       default:
 	programming_error (_f ("unexpected case fall-through"));
@@ -357,27 +357,27 @@ Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
   for (int i = 0; i < primitives.size (); i++)
     {
       Item *primitive = dynamic_cast<Item*> (primitives[i].grob_);
-      int output = gh_scm2int (primitive->get_property ("primitive"));
+      int output = ly_scm2int (primitive->get_property ("primitive"));
       primitive->set_property ("thickness",
-				    gh_double2scm (thickness));
+				    scm_make_real (thickness));
       switch (output) {
 	case MLP_NONE:
 	  primitive->set_property ("head-width",
-					gh_double2scm (half_flexa_width));
+					scm_make_real (half_flexa_width));
 	  break;
 	case MLP_sc:
 	case MLP_ss:
 	case MLP_cs:
 	  primitive->set_property ("head-width",
-					gh_double2scm (head_width));
+					scm_make_real (head_width));
 	  break;
 	case MLP_BB:
 	case MLP_LB:
 	case MLP_SS:
 	  primitive->set_property ("head-width",
-					gh_double2scm (half_flexa_width));
+					scm_make_real (half_flexa_width));
 	  primitive->set_property ("flexa-width",
-					gh_double2scm (flexa_width));
+					scm_make_real (flexa_width));
 	  break;
 	default:
 	  programming_error (_f ("unexpected case fall-through"));
@@ -407,8 +407,8 @@ Mensural_ligature_engraver::fold_up_primitives (Array<Grob_info> primitives)
 	}
 
       distance +=
-	gh_scm2double (current->get_property ("head-width")) -
-	gh_scm2double (current->get_property ("thickness"));
+	ly_scm2double (current->get_property ("head-width")) -
+	ly_scm2double (current->get_property ("thickness"));
     }
 }
 
@@ -423,12 +423,12 @@ Mensural_ligature_engraver::join_primitives (Array<Grob_info> primitives)
       if (i > 0)
         {
 	  Item *primitive = dynamic_cast<Item*> (info.grob_);
-	  int output = gh_scm2int (primitive->get_property ("primitive"));
+	  int output = ly_scm2int (primitive->get_property ("primitive"));
 	  if (output & MLP_ANY)
 	    {
 	      int delta_pitch = (pitch.steps () - last_pitch.steps ());
 	      primitive->set_property ("join-left-amount",
-					    gh_int2scm (delta_pitch));
+					    scm_int2num (delta_pitch));
 	    }
 	}
       last_pitch = pitch;

@@ -60,17 +60,17 @@ Accidental_interface::accurate_boxes (Grob *a,Grob**common)
   if (to_boolean (a->get_property ("cautionary")))
     {
       SCM cstyle = a->get_property ("cautionary-style");
-      parens = gh_equal_p (cstyle, ly_symbol2scm ("parentheses"));
+      parens = ly_equal_p (cstyle, ly_symbol2scm ("parentheses"));
 
     }
 
   SCM accs = a->get_property ("accidentals");
   SCM scm_style = a->get_property ("style");
-  if (!gh_symbol_p (scm_style)
+  if (!ly_symbol_p (scm_style)
       && !parens
       && scm_ilength (accs) == 1)
     {
-      if (gh_scm2int (gh_car (accs)) == FLAT)
+      if (ly_scm2int (ly_car (accs)) == FLAT)
 	{
 	  Box stem = b;
 	  Box bulb = b;
@@ -175,13 +175,13 @@ Accidental_interface::print (SCM smob)
   if (caut)
     {
       SCM cstyle = me->get_property ("cautionary-style");
-      parens = gh_equal_p (cstyle, ly_symbol2scm ("parentheses"));
-      smaller = gh_equal_p (cstyle, ly_symbol2scm ("smaller"));
+      parens = ly_equal_p (cstyle, ly_symbol2scm ("parentheses"));
+      smaller = ly_equal_p (cstyle, ly_symbol2scm ("smaller"));
     }
 
   SCM scm_style = me->get_property ("style");
   String style;
-  if (gh_symbol_p (scm_style))
+  if (ly_symbol_p (scm_style))
     {
       style = ly_symbol2string (scm_style);
     }
@@ -197,7 +197,7 @@ Accidental_interface::print (SCM smob)
   if (smaller)
     {
       SCM ac = Font_interface::text_font_alist_chain (me);
-      ac = gh_cons (gh_cons (gh_cons
+      ac = scm_cons (scm_cons (scm_cons
 			     (ly_symbol2scm ("font-size"),
 			      scm_int2num (-2)), SCM_EOL),
 		    ac);
@@ -208,9 +208,9 @@ Accidental_interface::print (SCM smob)
 
   Stencil mol;
   for (SCM s = me->get_property ("accidentals");
-       gh_pair_p (s); s = gh_cdr (s))
+       ly_pair_p (s); s = ly_cdr (s))
     {
-      int alteration = gh_scm2int (gh_car (s));
+      int alteration = ly_scm2int (ly_car (s));
       String font_char = get_fontcharname (style, alteration);
       Stencil acc (fm->find_by_name ("accidentals-" + font_char));
 

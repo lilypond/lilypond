@@ -28,7 +28,7 @@ Context::is_removable () const
 void
 Context::check_removal ()
 {
-  for (SCM p = context_list_; gh_pair_p (p); p = gh_cdr (p))
+  for (SCM p = context_list_; ly_pair_p (p); p = ly_cdr (p))
     {
       Context *trg =  unsmob_context (ly_car (p));
 
@@ -56,8 +56,8 @@ void
 Context::add_context (Context*t)
 {
   SCM ts = t->self_scm ();
-  context_list_ = gh_append2 (context_list_,
-			      gh_cons (ts, SCM_EOL));
+  context_list_ = ly_append2 (context_list_,
+			      scm_cons (ts, SCM_EOL));
   
   t->daddy_context_ = this;
   if (!t->init_)
@@ -102,7 +102,7 @@ Context::find_context_below (SCM n, String id)
     return this;
 
   Context* r = 0;
-  for (SCM p = context_list_; !r && gh_pair_p (p); p = ly_cdr (p))
+  for (SCM p = context_list_; !r && ly_pair_p (p); p = ly_cdr (p))
     {
       Context *  t = unsmob_context (ly_car (p));
       
@@ -191,7 +191,7 @@ Context::find_create_context (SCM n, String id,
 SCM
 default_child_context_name (Context const *tg)
 {
-  return gh_pair_p (tg->accepts_list_)
+  return ly_pair_p (tg->accepts_list_)
     ? ly_car (scm_last_pair (tg->accepts_list_))
     : SCM_EOL;
 }
@@ -200,7 +200,7 @@ default_child_context_name (Context const *tg)
 bool
 Context::is_bottom_context () const
 {
-  return !gh_symbol_p (default_child_context_name (this));
+  return !ly_symbol_p (default_child_context_name (this));
 }
 
 Context*
@@ -261,7 +261,7 @@ bool
 Context::is_alias (SCM sym) const
 {
   if (sym == ly_symbol2scm ("Bottom")
-      && !gh_pair_p (accepts_list_))
+      && !ly_pair_p (accepts_list_))
     return true;
   if (sym == unsmob_context_def (definition_)->get_context_name ())
     return true;
@@ -325,9 +325,9 @@ find_context_below (Context * where,
   
   Context * found = 0;
   for (SCM s = where->context_list_;
-       !found && gh_pair_p (s); s = gh_cdr (s))
+       !found && ly_pair_p (s); s = ly_cdr (s))
     {
-      Context * tr = unsmob_context (gh_car (s));
+      Context * tr = unsmob_context (ly_car (s));
 
       found = find_context_below (tr, type, id);
     }

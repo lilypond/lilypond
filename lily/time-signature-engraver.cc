@@ -44,9 +44,9 @@ Time_signature_engraver::process_music ()
   SCM fr= get_property ("timeSignatureFraction");
   if (!time_signature_
       && last_time_fraction_ != fr
-      && gh_pair_p (fr))
+      && ly_pair_p (fr))
     {
-      int den = gh_scm2int (gh_cdr (fr));
+      int den = ly_scm2int (ly_cdr (fr));
       if (den != (1 << intlog2 (den)))
 	{
 	  /*
@@ -56,7 +56,7 @@ Time_signature_engraver::process_music ()
 	   */
 	  warning (_f ("Found strange time signature %d/%d.",
 		      den,
-		      gh_scm2int (gh_car (fr))
+		      ly_scm2int (ly_car (fr))
 		      ));
 	}
   

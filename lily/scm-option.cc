@@ -114,7 +114,7 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
     }
   else if (var == ly_symbol2scm ("testing-level"))
     {
-     testing_level_global = gh_scm2int (val); 
+     testing_level_global = ly_scm2int (val); 
     }
   else if (var == ly_symbol2scm ("parse-protect" ))
     {
@@ -161,15 +161,15 @@ LY_DEFINE (ly_get_option, "ly:get-option", 1, 0, 0, (SCM var),
 {
   if (var == ly_symbol2scm ("old-relative-used"))
     {
-      return gh_bool2scm (lily_1_8_compatibility_used);
+      return ly_bool2scm (lily_1_8_compatibility_used);
     }
   if (var == ly_symbol2scm ("old-relative"))
     {
-      return gh_bool2scm (lily_1_8_relative);
+      return ly_bool2scm (lily_1_8_relative);
     }
   if (var == ly_symbol2scm ("verbose"))
     {
-      return gh_bool2scm (verbose_global_b);
+      return ly_bool2scm (verbose_global_b);
     }  
   else
     {

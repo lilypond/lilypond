@@ -96,7 +96,7 @@ My_lily_lexer::My_lily_lexer ()
 {
   keytable_ = new Keyword_table (the_key_tab);
 
-  chordmodifier_tab_ = scm_make_vector (gh_int2scm (1), SCM_EOL);
+  chordmodifier_tab_ = scm_make_vector (scm_int2num (1), SCM_EOL);
   pitchname_tab_stack_ = SCM_EOL; 
   
   scopes_ = SCM_EOL;
@@ -112,14 +112,14 @@ My_lily_lexer::add_scope (SCM module)
 {
   ly_reexport_module (scm_current_module ());
   scm_set_current_module (module);
-  for (SCM s = scopes_; gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = scopes_; ly_pair_p (s); s = ly_cdr (s))
     {
       /* UGH. how to do this more neatly? */      
       SCM expr
 	= scm_list_3 (ly_symbol2scm ("module-use!"),
 		      module,
 		      scm_list_2 (ly_symbol2scm ("module-public-interface"),
-				  gh_car (s)));
+				  ly_car (s)));
       scm_primitive_eval (expr);
     }
   scopes_ = scm_cons (module, scopes_);
@@ -128,9 +128,9 @@ My_lily_lexer::add_scope (SCM module)
 SCM
 My_lily_lexer::remove_scope ()
 {
-  SCM sc = gh_car (scopes_);
-  scopes_ = gh_cdr (scopes_);
-  scm_set_current_module (gh_car (scopes_));
+  SCM sc = ly_car (scopes_);
+  scopes_ = ly_cdr (scopes_);
+  scm_set_current_module (ly_car (scopes_));
 
   return sc;
 }
@@ -146,9 +146,9 @@ SCM
 My_lily_lexer::lookup_identifier (String s)
 {
   SCM sym = ly_symbol2scm (s.to_str0());
-  for (SCM s = scopes_; gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = scopes_; ly_pair_p (s); s = ly_cdr (s))
     {
-      SCM var = ly_module_lookup (gh_car (s), sym);
+      SCM var = ly_module_lookup (ly_car (s), sym);
       if (var != SCM_BOOL_F)
 	return scm_variable_ref (var);
     }
@@ -165,7 +165,7 @@ My_lily_lexer::start_main_input ()
   /* Do not allow \include in --safe-mode */
   allow_includes_b_ = allow_includes_b_ && ! safe_global_b;
 
-  scm_module_define (gh_car (scopes_),
+  scm_module_define (ly_car (scopes_),
 		     ly_symbol2scm ("input-file-name"),
 		     scm_makfrom0str (main_input_name_.to_str0 ()));
 }

@@ -29,7 +29,7 @@ LY_DEFINE (ly_stencil_set_extent_x, "ly:stencil-set-extent!",
 		   "number pair");
 
   Interval iv = ly_scm2interval (np);
-  s->dim_[Axis (gh_scm2int (axis))] = iv;
+  s->dim_[Axis (ly_scm2int (axis))] = iv;
 
   return SCM_UNDEFINED;
 }
@@ -40,12 +40,12 @@ LY_DEFINE (ly_translate_stencil_axis, "ly:stencil-translate-axis",
 {
   Stencil *s = unsmob_stencil (stil);
   SCM_ASSERT_TYPE (s, stil, SCM_ARG1, __FUNCTION__, "stencil");
-  SCM_ASSERT_TYPE (gh_number_p (amount), amount, SCM_ARG2, __FUNCTION__, "number pair");
+  SCM_ASSERT_TYPE (ly_number_p (amount), amount, SCM_ARG2, __FUNCTION__, "number pair");
   SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
 
   SCM new_s = s->smobbed_copy ();
   Stencil *q = unsmob_stencil (new_s);
-  q->translate_axis (gh_scm2double (amount), Axis (gh_scm2int (axis)));
+  q->translate_axis (ly_scm2double (amount), Axis (ly_scm2int (axis)));
   return new_s;
 
 }
@@ -84,7 +84,7 @@ LY_DEFINE (ly_stencil_get_extent, "ly:stencil-extent",
   SCM_ASSERT_TYPE (s, stil, SCM_ARG1, __FUNCTION__, "stencil");
   SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
 
-  return ly_interval2scm (s->extent (Axis (gh_scm2int (axis))));
+  return ly_interval2scm (s->extent (Axis (ly_scm2int (axis))));
 }
 
 LY_DEFINE (ly_stencil_moved_to_edge, "ly:stencil-moved-to-edge",
@@ -106,22 +106,22 @@ LY_DEFINE (ly_stencil_moved_to_edge, "ly:stencil-moved-to-edge",
   Real p = 0.0;
   if (padding != SCM_UNDEFINED)
     {
-      SCM_ASSERT_TYPE (gh_number_p (padding), padding, SCM_ARG5, __FUNCTION__, "number");
-      p = gh_scm2double (padding);
+      SCM_ASSERT_TYPE (ly_number_p (padding), padding, SCM_ARG5, __FUNCTION__, "number");
+      p = ly_scm2double (padding);
     }
   Real m = 0.0;
   if (minimum != SCM_UNDEFINED)
     {
-      SCM_ASSERT_TYPE (gh_number_p (minimum), minimum, SCM_ARG6, __FUNCTION__, "number");
-      m = gh_scm2double (minimum);
+      SCM_ASSERT_TYPE (ly_number_p (minimum), minimum, SCM_ARG6, __FUNCTION__, "number");
+      m = ly_scm2double (minimum);
     }
 
   if (s1)
     first_stencil = *s1;
 
   if (s2)
-    return first_stencil.moved_to_edge (Axis (gh_scm2int (axis)),
-					Direction (gh_scm2int (direction)),
+    return first_stencil.moved_to_edge (Axis (ly_scm2int (axis)),
+					Direction (ly_scm2int (direction)),
 					*s2, p, m).smobbed_copy ();
   else
     return Stencil().smobbed_copy ();
@@ -151,21 +151,21 @@ LY_DEFINE (ly_stencil_combine_at_edge, "ly:stencil-combine-at-edge",
   Real p = 0.0;
   if (padding != SCM_UNDEFINED)
     {
-      SCM_ASSERT_TYPE (gh_number_p (padding), padding, SCM_ARG5, __FUNCTION__, "number");
-      p = gh_scm2double (padding);
+      SCM_ASSERT_TYPE (ly_number_p (padding), padding, SCM_ARG5, __FUNCTION__, "number");
+      p = ly_scm2double (padding);
     }
   Real m = 0.0;
   if (minimum != SCM_UNDEFINED)
     {
-      SCM_ASSERT_TYPE (gh_number_p (minimum), minimum, SCM_ARG6, __FUNCTION__, "number");
-      m = gh_scm2double (minimum);
+      SCM_ASSERT_TYPE (ly_number_p (minimum), minimum, SCM_ARG6, __FUNCTION__, "number");
+      m = ly_scm2double (minimum);
     }
 
   if (s1)
     result = *s1;
   if (s2)
-    result.add_at_edge (Axis (gh_scm2int (axis)),
-			Direction (gh_scm2int (direction)), *s2, p, m);
+    result.add_at_edge (Axis (ly_scm2int (axis)),
+			Direction (ly_scm2int (direction)), *s2, p, m);
 
   return result.smobbed_copy ();
 }
@@ -181,12 +181,12 @@ LY_DEFINE (ly_stencil_add , "ly:stencil-add",
 
   while (!SCM_NULLP (args))
     {
-      Stencil *s = unsmob_stencil (gh_car (args));
+      Stencil *s = unsmob_stencil (ly_car (args));
       if (!s)
-	SCM_ASSERT_TYPE (s, gh_car (args), SCM_ARGn, __FUNCTION__, "Stencil");
+	SCM_ASSERT_TYPE (s, ly_car (args), SCM_ARGn, __FUNCTION__, "Stencil");
 
       result.add_stencil (*s);
-      args = gh_cdr (args);
+      args = ly_cdr (args);
     }
 
   return result.smobbed_copy ();
@@ -238,9 +238,9 @@ LY_DEFINE (ly_align_to_x, "ly:stencil-align-to!",
 {
   SCM_ASSERT_TYPE (unsmob_stencil (stil), stil, SCM_ARG1, __FUNCTION__, "stencil");
   SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
-  SCM_ASSERT_TYPE (gh_number_p (dir), dir, SCM_ARG3, __FUNCTION__, "number");
+  SCM_ASSERT_TYPE (ly_number_p (dir), dir, SCM_ARG3, __FUNCTION__, "number");
 
-  unsmob_stencil (stil)->align_to ((Axis)gh_scm2int (axis),
-				   gh_scm2double (dir));
+  unsmob_stencil (stil)->align_to ((Axis)ly_scm2int (axis),
+				   ly_scm2double (dir));
   return SCM_UNDEFINED;
 }

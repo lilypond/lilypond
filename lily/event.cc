@@ -63,10 +63,10 @@ Event::to_relative_octave (Pitch last)
       new_pit = new_pit.to_relative_octave (last);
 
       SCM check = get_property ("absolute-octave");
-      if (gh_number_p (check) &&
-	  new_pit.get_octave () != gh_scm2int (check))
+      if (ly_number_p (check) &&
+	  new_pit.get_octave () != ly_scm2int (check))
 	{
-	  Pitch expected_pit (gh_scm2int (check),
+	  Pitch expected_pit (ly_scm2int (check),
 			      new_pit.get_notename (),
 			      new_pit.get_alteration ());
 	  origin ()->warning (_f ("octave check failed; expected %s, found: %s",
@@ -142,32 +142,32 @@ LY_DEFINE (ly_transpose_key_alist, "ly:transpose-key-alist",
   SCM newlist = SCM_EOL;
   Pitch *p = unsmob_pitch (pit);
   
-  for (SCM s = l; gh_pair_p (s); s = ly_cdr (s))
+  for (SCM s = l; ly_pair_p (s); s = ly_cdr (s))
     {
       SCM key = ly_caar (s);
       SCM alter = ly_cdar (s);
-      if (gh_pair_p (key))
+      if (ly_pair_p (key))
 	{
-	  Pitch orig (gh_scm2int (ly_car (key)),
-		      gh_scm2int (ly_cdr (key)),
-		      gh_scm2int (alter));
+	  Pitch orig (ly_scm2int (ly_car (key)),
+		      ly_scm2int (ly_cdr (key)),
+		      ly_scm2int (alter));
 
 	  orig =orig.transposed (*p);
 
-	  SCM key = gh_cons (scm_int2num (orig.get_octave ()),
+	  SCM key = scm_cons (scm_int2num (orig.get_octave ()),
 			     scm_int2num (orig.get_notename ()));
 
-	  newlist = gh_cons (gh_cons (key, scm_int2num (orig.get_alteration ())),
+	  newlist = scm_cons (scm_cons (key, scm_int2num (orig.get_alteration ())),
 			     newlist);
 	}
-      else if (gh_number_p (key))
+      else if (ly_number_p (key))
 	{
-	  Pitch orig (0, gh_scm2int (key), gh_scm2int (alter));
+	  Pitch orig (0, ly_scm2int (key), ly_scm2int (alter));
 	  orig = orig.transposed (*p);
 
 	  key =scm_int2num (orig.get_notename ());
 	  alter = scm_int2num (orig.get_alteration ());
-	  newlist = gh_cons (gh_cons (key, alter), newlist);
+	  newlist = scm_cons (scm_cons (key, alter), newlist);
 	}
     }
   return scm_reverse_x (newlist, SCM_EOL);
@@ -188,14 +188,14 @@ bool
 alist_equal_p (SCM a, SCM b)
 {
   for (SCM s = a;
-       gh_pair_p (s); s = ly_cdr (s))
+       ly_pair_p (s); s = ly_cdr (s))
     {
       SCM key = ly_caar (s);
       SCM val = ly_cdar (s);
       SCM l = scm_assoc (key, b);
 
       if (l == SCM_BOOL_F
-	  || !gh_equal_p ( ly_cdr (l), val))
+	  || !ly_equal_p ( ly_cdr (l), val))
 
 	return false;
     }

@@ -30,22 +30,22 @@ Unfolded_repeat_iterator::get_music_list () const
   SCM body = get_music ()->get_property ("element");
   SCM alts = get_music ()->get_property ("elements");
   int alt_count = scm_ilength (alts);
-  int rep_count = gh_scm2int (get_music ()->get_property ("repeat-count"));
+  int rep_count = ly_scm2int (get_music ()->get_property ("repeat-count"));
 
   for (int i = 0; i < rep_count; i++)
     {
       if (unsmob_music (body))
-	*tail = gh_cons (body, SCM_EOL) ;
+	*tail = scm_cons (body, SCM_EOL) ;
 
       tail = SCM_CDRLOC (*tail);
 
       if (alt_count)
 	{
-	  *tail = gh_cons (gh_car (alts), SCM_EOL);
+	  *tail = scm_cons (ly_car (alts), SCM_EOL);
 	  tail = SCM_CDRLOC (*tail);
 	  if (i >= rep_count - alt_count)
 	    
-	    alts = gh_cdr (alts);
+	    alts = ly_cdr (alts);
 	}      
     }
 
@@ -81,7 +81,7 @@ Volta_repeat_iterator::Volta_repeat_iterator ()
 SCM
 Volta_repeat_iterator::get_music_list ()const
 {
-  return gh_cons (get_music ()->get_property ("element"),
+  return scm_cons (get_music ()->get_property ("element"),
 		  get_music ()->get_property ("elements"));
 }
 
@@ -93,7 +93,7 @@ Volta_repeat_iterator::construct_children ()
   SCM alts = get_music ()->get_property ("elements");
 
   alt_count_ = scm_ilength (alts);
-  rep_count_ = gh_scm2int (get_music ()->get_property ("repeat-count"));
+  rep_count_ = ly_scm2int (get_music ()->get_property ("repeat-count"));
   done_count_ = 0;
 }
 
@@ -109,9 +109,9 @@ Volta_repeat_iterator::add_repeat_command (SCM what)
 
   Context * where = get_outlet ()->where_defined (reps);
   if (where
-      && current_reps == SCM_EOL || gh_pair_p (current_reps))
+      && current_reps == SCM_EOL || ly_pair_p (current_reps))
     {
-      current_reps = gh_cons (what, current_reps);
+      current_reps = scm_cons (what, current_reps);
       where->internal_set_property (reps, current_reps);
     }
 }

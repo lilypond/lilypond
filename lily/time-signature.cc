@@ -34,14 +34,14 @@ Time_signature::print (SCM smob)
   SCM frac = me->get_property ("fraction");
   int n = 4;
   int d = 4;
-  if (gh_pair_p (frac))
+  if (ly_pair_p (frac))
     {
-      n = gh_scm2int (ly_car (frac));
-      d = gh_scm2int (ly_cdr (frac));
+      n = ly_scm2int (ly_car (frac));
+      d = ly_scm2int (ly_cdr (frac));
     }
 
   Stencil m;
-  if (gh_symbol_p (st))
+  if (ly_symbol_p (st))
     {
       String style (ly_scm2string (scm_symbol_to_string (st)));
       if (style[0]=='1')
@@ -101,7 +101,7 @@ Stencil
 Time_signature::numbered_time_signature (Grob*me,int num, int den)
 {
   SCM chain = me->get_property_alist_chain (Font_interface::text_font_alist_chain (me));
-  chain = scm_cons (scm_list_1 (gh_cons (ly_symbol2scm ("font-encoding"),
+  chain = scm_cons (scm_list_1 (scm_cons (ly_symbol2scm ("font-encoding"),
 					 ly_symbol2scm ("number"))),
 		    chain);
 				

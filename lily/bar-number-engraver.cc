@@ -45,7 +45,7 @@ Bar_number_engraver::process_music ()
 
   SCM wb = get_property ("whichBar");
   
-  if (gh_string_p (wb))
+  if (ly_string_p (wb))
     {
       SCM smp = get_property ("measurePosition");
       
@@ -54,13 +54,13 @@ Bar_number_engraver::process_music ()
 	{
 	  SCM bn = get_property ("currentBarNumber");
 	  SCM proc = get_property ("barNumberVisibility");
-	  if (gh_number_p (bn) && gh_procedure_p (proc)
-	      && to_boolean (gh_call1(proc, bn)))
+	  if (ly_number_p (bn) && ly_procedure_p (proc)
+	      && to_boolean (scm_call_1(proc, bn)))
 	    {
 	      create_items ();
 	      // guh.
 	      text_->set_property
-		("text", scm_makfrom0str (to_string (gh_scm2int (bn)).to_str0 ()));
+		("text", scm_makfrom0str (to_string (ly_scm2int (bn)).to_str0 ()));
 	    }
 	}
     }

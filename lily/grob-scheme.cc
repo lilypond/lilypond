@@ -21,7 +21,7 @@ LY_DEFINE (ly_grob_set_property,"ly:grob-set-property!", 3, 0, 0,
 {
   Grob * sc = unsmob_grob (grob);
   SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE (gh_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (ly_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
 
   if (!type_check_assignment (sym, val, ly_symbol2scm ("backend-type?")))
     error ("typecheck failed");
@@ -40,7 +40,7 @@ LY_DEFINE (ly_get_property, "ly:grob-property",
 {
   Grob *sc = unsmob_grob (grob);
   SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE (gh_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (ly_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
 
   return sc->internal_get_property (sym);
 }
@@ -99,7 +99,7 @@ LY_DEFINE (ly_get_extent, "ly:grob-extent", 3, 0, 0,
 
   SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
 
-  return ly_interval2scm ( sc->extent (ref, Axis (gh_scm2int (axis))));
+  return ly_interval2scm ( sc->extent (ref, Axis (ly_scm2int (axis))));
 }
 
 LY_DEFINE (ly_get_parent, "ly:grob-parent", 2, 0, 0, (SCM grob, SCM axis),
@@ -110,7 +110,7 @@ LY_DEFINE (ly_get_parent, "ly:grob-parent", 2, 0, 0, (SCM grob, SCM axis),
   SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
   SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
 
-  Grob *par = sc->get_parent (Axis (gh_scm2int (axis)));
+  Grob *par = sc->get_parent (Axis (ly_scm2int (axis)));
   return par ? par->self_scm () : SCM_EOL;
 }
 
@@ -148,7 +148,7 @@ LY_DEFINE (get_broken_into, "ly:spanner-broken-into",
 
   SCM s = SCM_EOL;
   for (int i = me->broken_intos_.size (); i--;)
-    s = gh_cons (me->broken_intos_[i]->self_scm (), s);
+    s = scm_cons (me->broken_intos_[i]->self_scm (), s);
   return s;
 }
 
@@ -169,10 +169,10 @@ LY_DEFINE (ly_grob_translate_axis_x, "ly:grob-translate-axis!",
 {
   Grob *me = unsmob_grob (g);
   SCM_ASSERT_TYPE (me, g, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE (gh_number_p (d), d, SCM_ARG2, __FUNCTION__, "dimension");
+  SCM_ASSERT_TYPE (ly_number_p (d), d, SCM_ARG2, __FUNCTION__, "dimension");
   SCM_ASSERT_TYPE (is_axis (a), a, SCM_ARG3, __FUNCTION__, "axis");
 
-  me->translate_axis (gh_scm2double (d), Axis (gh_scm2int (a)));
+  me->translate_axis (ly_scm2double (d), Axis (ly_scm2int (a)));
   return SCM_UNDEFINED;
 }
 
@@ -183,7 +183,7 @@ LY_DEFINE (ly_spanner_p, "ly:spanner?",
   Grob *me = unsmob_grob (g);
   bool b = dynamic_cast<Spanner*> (me);
 
-  return gh_bool2scm (b);
+  return ly_bool2scm (b);
 }
 
 LY_DEFINE (ly_item_p, "ly:item?",
@@ -192,7 +192,7 @@ LY_DEFINE (ly_item_p, "ly:item?",
 {
   Grob *me = unsmob_grob (g);
   bool b = dynamic_cast<Item*> (me);
-  return gh_bool2scm (b);
+  return ly_bool2scm (b);
 }
 
 LY_DEFINE (ly_item_break_dir, "ly:item-break-dir",
@@ -202,5 +202,5 @@ LY_DEFINE (ly_item_break_dir, "ly:item-break-dir",
 {
   Item *me = dynamic_cast<Item*> (unsmob_grob (it));
   SCM_ASSERT_TYPE (me, it, SCM_ARG1, __FUNCTION__, "Item");
-  return gh_int2scm (me->break_status_dir ());
+  return scm_int2num (me->break_status_dir ());
 }

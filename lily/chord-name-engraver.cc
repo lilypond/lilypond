@@ -80,19 +80,19 @@ Chord_name_engraver::process_music ()
       else if (n->get_property ("bass") == SCM_BOOL_T)
 	bass = p;
       else
-	pitches = gh_cons (p, pitches);
+	pitches = scm_cons (p, pitches);
     }
 
   if (inversion_event)
     {
       SCM oct = inversion_event->get_property ("octavation");
-      if (gh_number_p (oct))
+      if (ly_number_p (oct))
 	{
 	  Pitch *p = unsmob_pitch (inversion_event->get_property ("pitch"));
-	  int octavation =  gh_scm2int (oct);
+	  int octavation =  ly_scm2int (oct);
 	  Pitch orig = p->transposed (Pitch (-octavation, 0,0));
 	  
-	  pitches= gh_cons (orig.smobbed_copy (), pitches);
+	  pitches= scm_cons (orig.smobbed_copy (), pitches);
 	}
       else
 	programming_error ("Inversion does not have original pitch.");
@@ -107,14 +107,14 @@ Chord_name_engraver::process_music ()
   /*
     Ugh. 
    */
-  SCM chord_as_scm = gh_cons (pitches, gh_cons (bass, inversion));
+  SCM chord_as_scm = scm_cons (pitches, scm_cons (bass, inversion));
   
   chord_name_ = make_item ("ChordName");
   chord_name_->set_property ("text", markup);
   announce_grob (chord_name_, notes_[0]->self_scm ());
   SCM s = get_property ("chordChanges");
-  if (to_boolean (s) && gh_pair_p (last_chord_) 
-      && gh_equal_p (chord_as_scm, last_chord_))
+  if (to_boolean (s) && ly_pair_p (last_chord_) 
+      && ly_equal_p (chord_as_scm, last_chord_))
     chord_name_->set_property ("begin-of-line-visible", SCM_BOOL_T);
 
   last_chord_ = chord_as_scm;

@@ -42,8 +42,8 @@ LY_DEFINE (ly_context_pushpop_property, "ly:context-pushpop-property",
 {
   Context *tg = unsmob_context (context);
   SCM_ASSERT_TYPE (tg, context, SCM_ARG1, __FUNCTION__, "context");
-  SCM_ASSERT_TYPE (gh_symbol_p (grob), grob, SCM_ARG2, __FUNCTION__, "symbol");
-  SCM_ASSERT_TYPE (gh_symbol_p (eltprop), eltprop, SCM_ARG3, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (ly_symbol_p (grob), grob, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (ly_symbol_p (eltprop), eltprop, SCM_ARG3, __FUNCTION__, "symbol");
 
   execute_pushpop_property (tg, grob, eltprop, val);
 
@@ -57,7 +57,7 @@ LY_DEFINE (ly_context_property, "ly:context-property",
   Context *t = unsmob_context (c);
   Context * tr= (t);
   SCM_ASSERT_TYPE (tr, c, SCM_ARG1, __FUNCTION__, "Translator group");
-  SCM_ASSERT_TYPE (gh_symbol_p (name), name, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (ly_symbol_p (name), name, SCM_ARG2, __FUNCTION__, "symbol");
 
   return tr->internal_get_property (name);
 }
@@ -69,7 +69,7 @@ LY_DEFINE (ly_context_set_property, "ly:context-set-property!",
 {
   Context *tr = unsmob_context (context);
   SCM_ASSERT_TYPE (tr, context, SCM_ARG1, __FUNCTION__, "Context");
-  SCM_ASSERT_TYPE (gh_symbol_p (name), name, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (ly_symbol_p (name), name, SCM_ARG2, __FUNCTION__, "symbol");
 
   tr->internal_set_property (name, val);
 
@@ -83,7 +83,7 @@ LY_DEFINE (ly_context_property_where_defined, "ly:context-property-where-defined
 {
   Context *tr = unsmob_context (context);
   SCM_ASSERT_TYPE (tr, context, SCM_ARG1, __FUNCTION__, "Context");
-  SCM_ASSERT_TYPE (gh_symbol_p (name), name, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (ly_symbol_p (name), name, SCM_ARG2, __FUNCTION__, "symbol");
 
   tr = tr->where_defined (name);
   if (tr)
@@ -98,7 +98,7 @@ LY_DEFINE (ly_unset_context_property, "ly:context-unset-property", 2, 0, 0,
 {
   Context *tr = unsmob_context (context);
   SCM_ASSERT_TYPE (tr, context, SCM_ARG1, __FUNCTION__, "Context");
-  SCM_ASSERT_TYPE (gh_symbol_p (name), name, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (ly_symbol_p (name), name, SCM_ARG2, __FUNCTION__, "symbol");
 
   tr->unset_property (name);
   return SCM_UNSPECIFIED;
@@ -126,7 +126,7 @@ LY_DEFINE (ly_context_find, "ly:context-find",
 {
   Context *tr = unsmob_context (context);
   SCM_ASSERT_TYPE (tr, context, SCM_ARG1, __FUNCTION__, "context");
-  SCM_ASSERT_TYPE (gh_symbol_p (name), name, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (ly_symbol_p (name), name, SCM_ARG2, __FUNCTION__, "symbol");
   
   while (tr)
     {

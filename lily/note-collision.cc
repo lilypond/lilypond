@@ -26,7 +26,7 @@ SCM
 Note_collision_interface::force_shift_callback (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) gh_scm2int (axis);
+  Axis a = (Axis) ly_scm2int (axis);
   assert (a == X_AXIS);
   
    me = me->get_parent (a);
@@ -37,7 +37,7 @@ Note_collision_interface::force_shift_callback (SCM element_smob, SCM axis)
       do_shifts (me);
     }
   
-  return gh_double2scm (0.0);
+  return scm_make_real (0.0);
 }
 
 
@@ -74,7 +74,7 @@ check_meshing_chords (Grob *me,
 
 
   /* Do not merge notes typeset in different style. */
-  if ( !gh_equal_p (nu->get_property ("style"),
+  if ( !ly_equal_p (nu->get_property ("style"),
 		     nd->get_property ("style") ) )
     merge_possible = false;
   
@@ -302,18 +302,18 @@ Note_collision_interface::do_shifts (Grob* me)
   while (flip (&d) != UP);
   
   Link_array<Grob> done;
-  for (; gh_pair_p (hand); hand =ly_cdr (hand))
+  for (; ly_pair_p (hand); hand =ly_cdr (hand))
     {
       Grob * s = unsmob_grob (ly_caar (hand));
-      Real amount = gh_scm2double (ly_cdar (hand));
+      Real amount = ly_scm2double (ly_cdar (hand));
       
       s->translate_axis (amount *wid, X_AXIS);
       done.push (s);
     }
-  for (; gh_pair_p (autos); autos =ly_cdr (autos))
+  for (; ly_pair_p (autos); autos =ly_cdr (autos))
     {
       Grob * s = unsmob_grob (ly_caar (autos));
-      Real amount = gh_scm2double (ly_cdar (autos));
+      Real amount = ly_scm2double (ly_cdar (autos));
       
       if (!done.find (s))
 	s->translate_axis (amount * wid, X_AXIS);
@@ -326,7 +326,7 @@ Note_collision_interface::get_clash_groups (Grob *me)
   Drul_array<Link_array<Grob> > clash_groups;
  
   SCM s = me->get_property ("elements");
-  for (; gh_pair_p (s); s = ly_cdr (s))
+  for (; ly_pair_p (s); s = ly_cdr (s))
     {
       SCM car = ly_car (s);
 
@@ -371,8 +371,8 @@ Note_collision_interface::automatic_shift (Grob *me,
 	  SCM sh
 	    = clashes[i]->get_property ("horizontal-shift");
 
-	  if (gh_number_p (sh))
-	    shift.push (gh_scm2int (sh));
+	  if (ly_number_p (sh))
+	    shift.push (ly_scm2int (sh));
 	  else
 	    shift.push (0);
 	}
@@ -437,8 +437,8 @@ Note_collision_interface::automatic_shift (Grob *me,
   do
     {
       for (int i=0; i < clash_groups[d].size (); i++)
-	tups = gh_cons (gh_cons (clash_groups[d][i]->self_scm (),
-				 gh_double2scm (offsets[d][i])),
+	tups = scm_cons (scm_cons (clash_groups[d][i]->self_scm (),
+				 scm_make_real (offsets[d][i])),
 			tups);
     }
   while (flip (&d) != UP);
@@ -452,14 +452,14 @@ Note_collision_interface::forced_shift (Grob *me)
   SCM tups = SCM_EOL;
   
   SCM s = me->get_property ("elements");
-  for (; gh_pair_p (s); s = ly_cdr (s))
+  for (; ly_pair_p (s); s = ly_cdr (s))
     {
       Grob * se = unsmob_grob (ly_car (s));
 
       SCM force =  se->get_property ("force-hshift");
-      if (gh_number_p (force))
+      if (ly_number_p (force))
 	{
-	  tups = gh_cons (gh_cons (se->self_scm (), force),
+	  tups = scm_cons (scm_cons (se->self_scm (), force),
 			  tups);
 	}
     }

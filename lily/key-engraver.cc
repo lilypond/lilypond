@@ -79,7 +79,7 @@ Key_engraver::create_key (bool def)
   if (!def)
     {
       SCM vis = get_property ("explicitKeySignatureVisibility"); 
-      if (gh_procedure_p (vis))
+      if (ly_procedure_p (vis))
 	item_->set_property ("break-visibility",vis);
     }
 }      
@@ -117,7 +117,7 @@ Key_engraver::acknowledge_grob (Grob_info info)
 	}
     }
   else if (Bar_line::has_interface (info.grob_)
-	   && gh_pair_p (get_property ("keySignature")))
+	   && ly_pair_p (get_property ("keySignature")))
     {
       create_key (true);
     }
@@ -148,24 +148,24 @@ void
 Key_engraver::read_ev (Music const * r)
 {
   SCM p = r->get_property ("pitch-alist");
-  if (!gh_pair_p (p))
+  if (!ly_pair_p (p))
     return;
 
   SCM n = scm_list_copy (p);
   SCM accs = SCM_EOL;
   for (SCM s = get_property ("keyAccidentalOrder");
-       gh_pair_p (s); s = ly_cdr (s))
+       ly_pair_p (s); s = ly_cdr (s))
     {
-      if (gh_pair_p (scm_member (ly_car (s), n)))
+      if (ly_pair_p (scm_member (ly_car (s), n)))
 	{
-	  accs = gh_cons (ly_car (s), accs);
+	  accs = scm_cons (ly_car (s), accs);
 	  n = scm_delete_x (ly_car (s), n);
 	}
     }
   
-  for (SCM s = n ; gh_pair_p (s); s = ly_cdr (s))
-    if (gh_scm2int (ly_cdar (s)))
-      accs = gh_cons (ly_car (s), accs);
+  for (SCM s = n ; ly_pair_p (s); s = ly_cdr (s))
+    if (ly_scm2int (ly_cdar (s)))
+      accs = scm_cons (ly_car (s), accs);
 
   daddy_context_->set_property ("keySignature", accs);
   daddy_context_->set_property ("tonic" ,

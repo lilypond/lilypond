@@ -50,7 +50,7 @@ Tie::set_head (Grob*me,Direction d, Grob * h)
 void
 Tie::set_interface (Grob*me)
 {
-  me->set_property ("head-pair", gh_cons (SCM_EOL, SCM_EOL));
+  me->set_property ("head-pair", scm_cons (SCM_EOL, SCM_EOL));
 }
 
 
@@ -59,7 +59,7 @@ Tie::head (Grob*me, Direction d)
 {
   SCM c = me->get_property ("head-pair");
 
-  if (gh_pair_p (c))
+  if (ly_pair_p (c))
     return unsmob_grob (index_get_cell (c, d));
   else
     return 0;
@@ -206,8 +206,8 @@ Tie::get_control_points (SCM smob)
   SCM lim // groetjes aan de chirurgendochter.
     = scm_assq (ly_symbol2scm ("height-limit"),details);
   
-  Real h_inf = gh_scm2double (ly_cdr (lim)) *  staff_space;
-  Real r_0 = gh_scm2double (ly_cdr (scm_assq (ly_symbol2scm ("ratio"),details)));
+  Real h_inf = ly_scm2double (ly_cdr (lim)) *  staff_space;
+  Real r_0 = ly_scm2double (ly_cdr (scm_assq (ly_symbol2scm ("ratio"),details)));
 
   Bezier b  = slur_shape (width, h_inf, r_0);
   
@@ -220,7 +220,7 @@ Tie::get_control_points (SCM smob)
   */
 
   Real ypos = Tie::get_position (me) * staff_space/2
-    + dir * gh_scm2double (me->get_property ("y-offset"));;
+    + dir * ly_scm2double (me->get_property ("y-offset"));;
 
   /*
     Make sure we don't start on a dots
@@ -268,7 +268,7 @@ Tie::get_control_points (SCM smob)
       Real diff = ry - y;
       Real newy = y;
 
-      Real clear = staff_space * gh_scm2double (me->get_property ("staffline-clearance"));
+      Real clear = staff_space * ly_scm2double (me->get_property ("staffline-clearance"));
 
       if (fabs (y) <=
 	  Staff_symbol_referencer::staff_radius (me) * staff_space + clear
@@ -314,7 +314,7 @@ Tie::get_control_points (SCM smob)
 
   SCM controls = SCM_EOL;
   for (int i= 4; i--;)
-    controls = gh_cons (ly_offset2scm (b.control_[i]), controls);
+    controls = scm_cons (ly_offset2scm (b.control_[i]), controls);
   return controls;
 }
 
@@ -326,13 +326,13 @@ Tie::print (SCM smob)
   Grob*me = unsmob_grob (smob);
 
   SCM cp = me->get_property ("control-points");
-  if (!gh_pair_p (cp))		// list is more accurate
+  if (!ly_pair_p (cp))		// list is more accurate
     {
       cp = get_control_points (smob);
       me->set_property ("control-points", cp);
     }
 
-  if (!gh_pair_p (cp))
+  if (!ly_pair_p (cp))
     return Stencil ().smobbed_copy ();
   
   Real thick

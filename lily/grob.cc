@@ -65,7 +65,7 @@ Grob::Grob (SCM basicprops)
 #endif
   
   SCM meta = get_property ("meta");
-  if (gh_pair_p (meta))
+  if (ly_pair_p (meta))
     {
       SCM ifs = scm_assoc (ly_symbol2scm ("interfaces"), meta);
 
@@ -74,7 +74,7 @@ Grob::Grob (SCM basicprops)
        */
       bool itc = internal_type_checking_global_b;
       internal_type_checking_global_b = false;
-      internal_set_property (ly_symbol2scm ("interfaces"), gh_cdr (ifs));
+      internal_set_property (ly_symbol2scm ("interfaces"), ly_cdr (ifs));
       internal_type_checking_global_b = itc;
     }
   
@@ -112,8 +112,8 @@ Grob::Grob (SCM basicprops)
       if (is_number_pair (xt))
 	cb = xt;
       else if (cb != SCM_BOOL_F
-	  && !gh_procedure_p (cb) && !gh_pair_p (cb)
-	  && gh_procedure_p (get_property ("print-function")))
+	  && !ly_procedure_p (cb) && !ly_pair_p (cb)
+	  && ly_procedure_p (get_property ("print-function")))
 	cb = stencil_extent_proc;
     
       dim_cache_[a].dimension_ = cb;
@@ -157,7 +157,7 @@ SCM
 Grob::stencil_extent (SCM element_smob, SCM scm_axis)
 {
   Grob *s = unsmob_grob (element_smob);
-  Axis a = (Axis) gh_scm2int (scm_axis);
+  Axis a = (Axis) ly_scm2int (scm_axis);
 
   Stencil *m = s->get_stencil ();
   Interval e ;
@@ -186,7 +186,7 @@ Grob::calculate_dependencies (int final, int busy, SCM funcname)
   
   status_= busy;
 
-  for (SCM d = get_property ("dependencies"); gh_pair_p (d);
+  for (SCM d = get_property ("dependencies"); ly_pair_p (d);
        d = ly_cdr (d))
     {
       unsmob_grob (ly_car (d))
@@ -195,8 +195,8 @@ Grob::calculate_dependencies (int final, int busy, SCM funcname)
 
   
   SCM proc = internal_get_property (funcname);
-  if (gh_procedure_p (proc))
-    gh_call1 (proc, this->self_scm ());
+  if (ly_procedure_p (proc))
+    scm_call_1 (proc, this->self_scm ());
  
   status_= final;
 }
@@ -230,8 +230,8 @@ Grob::get_uncached_stencil ()const
   SCM proc = get_property ("print-function");
 
   SCM  mol = SCM_EOL;
-  if (gh_procedure_p (proc)) 
-    mol = gh_apply (proc, scm_list_n (this->self_scm (), SCM_UNDEFINED));
+  if (ly_procedure_p (proc)) 
+    mol = scm_apply_0 (proc, scm_list_n (this->self_scm (), SCM_UNDEFINED));
   
   Stencil *m = unsmob_stencil (mol);
   
@@ -310,11 +310,11 @@ Grob::handle_broken_dependencies ()
 	because some Spanners have enormously long lists in their
 	properties.
        */
-      for (SCM s = mutable_property_alist_; gh_pair_p (s);
-	   s = gh_cdr (s))
+      for (SCM s = mutable_property_alist_; ly_pair_p (s);
+	   s = ly_cdr (s))
 	{
-	  sp->substitute_one_mutable_property (gh_caar (s),
-					      gh_cdar (s));
+	  sp->substitute_one_mutable_property (ly_caar (s),
+					      ly_cdar (s));
 	}
     }
 
@@ -396,7 +396,7 @@ Grob::handle_prebroken_dependencies ()
   if (original_)
     {
       Item * it = dynamic_cast<Item*> (this);
-      substitute_mutable_properties (gh_int2scm (it->break_status_dir ()),
+      substitute_mutable_properties (scm_int2num (it->break_status_dir ()),
 			       original_->mutable_property_alist_);
     }
 }
@@ -457,10 +457,10 @@ Grob::get_offset (Axis a) const
   while (dim_cache_[a].offsets_left_)
     {
       int l = --me->dim_cache_[a].offsets_left_;
-      SCM cb = scm_list_ref (dim_cache_[a].offset_callbacks_,  gh_int2scm (l));
-      SCM retval = gh_call2 (cb, self_scm (), gh_int2scm (a));
+      SCM cb = scm_list_ref (dim_cache_[a].offset_callbacks_,  scm_int2num (l));
+      SCM retval = scm_call_2 (cb, self_scm (), scm_int2num (a));
 
-      Real r =  gh_scm2double (retval);
+      Real r =  ly_scm2double (retval);
       if (isinf (r) || isnan (r))
 	{
 	  programming_error (INFINITY_MSG);
@@ -475,8 +475,8 @@ Grob::get_offset (Axis a) const
 bool
 Grob::is_empty (Axis a)const
 {
-  return ! (gh_pair_p (dim_cache_[a].dimension_) ||
-	    gh_procedure_p (dim_cache_[a].dimension_));
+  return ! (ly_pair_p (dim_cache_[a].dimension_) ||
+	    ly_procedure_p (dim_cache_[a].dimension_));
 }
 
 Interval
@@ -487,19 +487,19 @@ Grob::extent (Grob * refp, Axis a) const
   
   Dimension_cache * d = (Dimension_cache *)&dim_cache_[a];
   Interval ext ;   
-  if (gh_pair_p (d->dimension_))
+  if (ly_pair_p (d->dimension_))
     ;
-  else if (gh_procedure_p (d->dimension_))
+  else if (ly_procedure_p (d->dimension_))
     {
       /*
 	FIXME: add doco on types, and should typecheck maybe? 
        */
-      d->dimension_= gh_call2 (d->dimension_, self_scm (), gh_int2scm (a));
+      d->dimension_= scm_call_2 (d->dimension_, self_scm (), scm_int2num (a));
     }
   else
     return ext;
 
-  if (!gh_pair_p (d->dimension_))
+  if (!ly_pair_p (d->dimension_))
     return ext;
   
   ext = ly_scm2interval (d->dimension_);
@@ -511,19 +511,19 @@ Grob::extent (Grob * refp, Axis a) const
   /*
     signs ?
    */
-  if (gh_pair_p (extra))
+  if (ly_pair_p (extra))
     {
-      ext[BIGGER] +=  gh_scm2double (ly_cdr (extra));
-      ext[SMALLER] +=   gh_scm2double (ly_car (extra));
+      ext[BIGGER] +=  ly_scm2double (ly_cdr (extra));
+      ext[SMALLER] +=   ly_scm2double (ly_car (extra));
     }
   
   extra = get_property (a == X_AXIS
 				? "minimum-X-extent"
 				: "minimum-Y-extent");
-  if (gh_pair_p (extra))
+  if (ly_pair_p (extra))
     {
-      ext.unite (Interval (gh_scm2double (ly_car (extra)),
-			   gh_scm2double (ly_cdr (extra))));
+      ext.unite (Interval (ly_scm2double (ly_car (extra)),
+			   ly_scm2double (ly_cdr (extra))));
     }
 
   ext.translate (x);
@@ -553,7 +553,7 @@ Grob::common_refpoint (Grob const* s, Axis a) const
 Grob *
 common_refpoint_of_list (SCM elist, Grob *common, Axis a) 
 {
-  for (; gh_pair_p (elist); elist = ly_cdr (elist))
+  for (; ly_pair_p (elist); elist = ly_cdr (elist))
     {
       Grob * s = unsmob_grob (ly_car (elist));
       if (!s)
@@ -592,8 +592,8 @@ Grob::name () const
 {
   SCM meta = get_property ("meta");
   SCM nm = scm_assoc (ly_symbol2scm ("name"), meta);
-  nm = (gh_pair_p (nm)) ? ly_cdr (nm) : SCM_EOL;
-  return  gh_symbol_p (nm) ? ly_symbol2string (nm) :  classname (this);  
+  nm = (ly_pair_p (nm)) ? ly_cdr (nm) : SCM_EOL;
+  return  ly_symbol_p (nm) ? ly_symbol2string (nm) :  classname (this);  
 }
 
 void
@@ -601,7 +601,7 @@ Grob::add_offset_callback (SCM cb, Axis a)
 {
   if (!has_offset_callback (cb, a))
   {
-    dim_cache_[a].offset_callbacks_ = gh_cons (cb, dim_cache_[a].offset_callbacks_);
+    dim_cache_[a].offset_callbacks_ = scm_cons (cb, dim_cache_[a].offset_callbacks_);
     dim_cache_[a].offsets_left_ ++;
   }
 }
@@ -773,9 +773,9 @@ ly_scm2grobs (SCM l)
 {
   Link_array<Grob> arr;
 
-  for (SCM s = l; gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = l; ly_pair_p (s); s = ly_cdr (s))
     {
-      SCM e = gh_car (s);
+      SCM e = ly_car (s);
       arr.push (unsmob_grob (e));
     }
 
@@ -789,7 +789,7 @@ ly_grobs2scm (Link_array<Grob> a)
 {
   SCM s = SCM_EOL;
   for (int i = a.size (); i; i--)
-    s = gh_cons (a[i-1]->self_scm (), s);
+    s = scm_cons (a[i-1]->self_scm (), s);
 
   return s;
 }

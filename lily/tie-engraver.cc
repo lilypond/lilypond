@@ -94,7 +94,7 @@ Tie_engraver::acknowledge_grob (Grob_info i)
 	    maybe should check positions too.
 	   */
 	  if (right_mus && left_mus
-	      && gh_equal_p (right_mus->get_property ("pitch"),
+	      && ly_equal_p (right_mus->get_property ("pitch"),
 			     left_mus->get_property ("pitch")))
 	    {
 	      Grob * p = make_spanner ("Tie");
@@ -124,7 +124,7 @@ void
 Tie_engraver::start_translation_timestep ()
 {
   daddy_context_->set_property ("tieMelismaBusy",
-			      gh_bool2scm (heads_to_tie_.size ()));
+			      ly_bool2scm (heads_to_tie_.size ()));
       
 }
 

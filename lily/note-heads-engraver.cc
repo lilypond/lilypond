@@ -63,7 +63,7 @@ Note_heads_engraver::process_music ()
       
       Duration dur = *unsmob_duration (req->get_property ("duration"));
 
-      note->set_property ("duration-log", gh_int2scm (dur.duration_log ()));
+      note->set_property ("duration-log", scm_int2num (dur.duration_log ()));
       if (dur.dot_count ())
 	{
 	  Item * d = make_item ("Dots");
@@ -71,7 +71,7 @@ Note_heads_engraver::process_music ()
 	  
 	  if (dur.dot_count ()
 	      != robust_scm2int (d->get_property ("dot-count"), 0))
-	    d->set_property ("dot-count", gh_int2scm (dur.dot_count ()));
+	    d->set_property ("dot-count", scm_int2num (dur.dot_count ()));
 
 	  d->set_parent (note, Y_AXIS);
 	  announce_grob (d, SCM_EOL);
@@ -82,10 +82,10 @@ Note_heads_engraver::process_music ()
 
       int pos = pit ? pit->steps () : 0;
       SCM c0 = get_property ("middleCPosition");
-      if (gh_number_p (c0))
-	pos += gh_scm2int (c0);
+      if (ly_number_p (c0))
+	pos += ly_scm2int (c0);
 
-      note->set_property ("staff-position",   gh_int2scm (pos));
+      note->set_property ("staff-position",   scm_int2num (pos));
       announce_grob (note,req->self_scm ());
       notes_.push (note);
     }

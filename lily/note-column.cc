@@ -35,8 +35,8 @@ Note_column::shift_compare (Grob *const &p1, Grob *const&p2)
   SCM s1 = p1->get_property ("horizontal-shift");
   SCM s2 = p2->get_property ("horizontal-shift");
 
-  int h1 = (gh_number_p (s1))?  gh_scm2int (s1) :0;
-  int h2 = (gh_number_p (s2)) ? gh_scm2int (s2):0;
+  int h1 = (ly_number_p (s1))?  ly_scm2int (s1) :0;
+  int h2 = (ly_number_p (s2)) ? ly_scm2int (s2):0;
   return h1 - h2;
 }
 
@@ -55,7 +55,7 @@ Note_column::head_positions_interval (Grob *me)
   iv.set_empty ();
 
   SCM h = me->get_property ("note-heads");
-  for (; gh_pair_p (h); h = ly_cdr (h))
+  for (; ly_pair_p (h); h = ly_cdr (h))
     {
       Grob *se = unsmob_grob (ly_car (h));
       
@@ -71,7 +71,7 @@ Note_column::dir (Grob*  me)
   Grob *stem = unsmob_grob (me->get_property ("stem"));
   if (stem && Stem::has_interface (stem))
     return Stem::get_direction (stem);
-  else if (gh_pair_p (me->get_property ("note-heads")))
+  else if (ly_pair_p (me->get_property ("note-heads")))
     return (Direction)sign (head_positions_interval (me).center ());
 
   programming_error ("Note column without heads and stem!");
@@ -100,7 +100,7 @@ Note_column::add_head (Grob*me,Grob *h)
   bool both = false;
   if (Rest::has_interface (h))
     {
-      if (gh_pair_p (me->get_property ("note-heads")))
+      if (ly_pair_p (me->get_property ("note-heads")))
 	both = true;
       else
 	me->set_property ("rest", h->self_scm ());
@@ -126,7 +126,7 @@ void
 Note_column::translate_rests (Grob*me, int dy)
 {
   Grob * r = unsmob_grob (me->get_property ("rest"));
-  if (r && !gh_number_p (r->get_property ("staff-position")))
+  if (r && !ly_number_p (r->get_property ("staff-position")))
     {
       r->translate_axis (dy * Staff_symbol_referencer::staff_space (r)/2.0, Y_AXIS);
     }
@@ -158,9 +158,9 @@ Note_column::accidentals (Grob *me)
 {
   SCM heads = me->get_property ("note-heads");
   Grob * acc = 0;
-  for (;gh_pair_p (heads); heads =gh_cdr (heads))
+  for (;ly_pair_p (heads); heads =ly_cdr (heads))
     {
-      Grob * h = unsmob_grob (gh_car (heads));
+      Grob * h = unsmob_grob (ly_car (heads));
       acc = h ? unsmob_grob (h->get_property ("accidental-grob")) : 0;
       if (acc)
 	break;

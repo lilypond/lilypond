@@ -106,7 +106,7 @@ Tab_staff_symbol_engraver::process_music ()
     {
       int k = scm_ilength (get_property ("stringTunings"));
       if (k>=0)
-	span_->set_property ("line-count", gh_int2scm (k));
+	span_->set_property ("line-count", scm_int2num (k));
     }
 }
 

@@ -176,9 +176,9 @@ Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
     {
       Item *primitive = dynamic_cast<Item*> (primitives[i].grob_);
       int prefix_set =
-	gh_scm2int (primitive->get_property ("prefix-set"));
+	ly_scm2int (primitive->get_property ("prefix-set"));
       int context_info =
-	gh_scm2int (primitive->get_property ("context-info"));
+	ly_scm2int (primitive->get_property ("context-info"));
 
       /*
        * Get glyph_name, delta_pitch and context_info for this head.
@@ -200,7 +200,7 @@ Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
 	  SCM delta_pitch_scm = prev_primitive->get_property ("delta-pitch");
 	  if (delta_pitch_scm != SCM_EOL)
 	    {
-	      delta_pitch = gh_scm2int (delta_pitch_scm);
+	      delta_pitch = ly_scm2int (delta_pitch_scm);
 	    }
 	  else
 	    {
@@ -258,7 +258,7 @@ Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
        * Save the head's final x-offset.
        */
       primitive->set_property ("x-offset",
-				    gh_double2scm (x_offset));
+				    scm_make_real (x_offset));
 
       /*
        * If the head is the 2nd head of a pes or flexa (but not a
@@ -277,7 +277,7 @@ Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
 	  else
 	    {
 	      prev_primitive->set_property ("add-join",
-						 gh_bool2scm (true));
+						 ly_bool2scm (true));
 
 	      /*
 	       * Create a small overlap of adjacent heads so that the join
@@ -335,7 +335,7 @@ void
 check_for_prefix_loss (Item *primitive)
 {
   int prefix_set =
-    gh_scm2int (primitive->get_property ("prefix-set"));
+    ly_scm2int (primitive->get_property ("prefix-set"));
   if (prefix_set & ~PES_OR_FLEXA)
     {
       String prefs = Gregorian_ligature::prefixes_to_str (primitive);
@@ -365,7 +365,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
     SCM delta_pitch_scm = primitive->get_property ("delta-pitch");
     if (delta_pitch_scm != SCM_EOL)
       {
-	delta_pitch = gh_scm2int (delta_pitch_scm);
+	delta_pitch = ly_scm2int (delta_pitch_scm);
       }
     else
       {
@@ -377,14 +377,14 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 
     /* retrieve & complete prefix_set and context_info */
     int prefix_set =
-      gh_scm2int (primitive->get_property ("prefix-set"));
+      ly_scm2int (primitive->get_property ("prefix-set"));
     int context_info =
-      gh_scm2int (primitive->get_property ("context-info"));
+      ly_scm2int (primitive->get_property ("context-info"));
     if (is_stacked_head (prefix_set, context_info))
       {
 	context_info |= STACKED_HEAD;
 	primitive->set_property ("context-info",
-				      gh_int2scm (context_info));
+				      scm_int2num (context_info));
       }
 
     /*
@@ -397,7 +397,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
     if (prefix_set & VIRGA)
       {
 	glyph_name = "vaticana_punctum";
-	primitive->set_property ("add-stem", gh_bool2scm (true));
+	primitive->set_property ("add-stem", ly_bool2scm (true));
       }
     else if (prefix_set & QUILISMA)
       glyph_name = "vaticana_quilisma";
@@ -459,7 +459,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 	       * placed somewhere else.
 	       */
 	      prev_primitive->set_property ("add-cauda",
-						 gh_bool2scm (false));
+						 ly_bool2scm (false));
 	    }
 	  glyph_name = "vaticana_reverse_plica";
 	}
@@ -490,7 +490,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
      */
     if ((context_info & FLEXA_LEFT) && !(context_info & PES_UPPER))
       if (!String::compare (glyph_name, "vaticana_punctum"))
-	primitive->set_property ("add-cauda", gh_bool2scm (true));
+	primitive->set_property ("add-cauda", ly_bool2scm (true));
 
     /*
      * Execptional rule for porrectus:
@@ -504,16 +504,16 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 	check_for_prefix_loss (prev_primitive);
 	prev_glyph_name = "flexa";
 	prev_primitive->set_property ("flexa-height",
-					   gh_int2scm (prev_delta_pitch));
+					   scm_int2num (prev_delta_pitch));
 	prev_primitive->set_property ("flexa-width",
-					   gh_double2scm (flexa_width));
+					   scm_make_real (flexa_width));
 	bool add_cauda = !(prev_prefix_set && PES_OR_FLEXA);
 	prev_primitive->set_property ("add-cauda",
-					   gh_bool2scm (add_cauda));
+					   ly_bool2scm (add_cauda));
 	check_for_prefix_loss (primitive);
 	glyph_name = "";
 	primitive->set_property ("flexa-width",
-				      gh_double2scm (flexa_width));
+				      scm_make_real (flexa_width));
       }
 
     /*
@@ -546,7 +546,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
      * ligature grob's value for thickness to each ligature head (even
      * if not all of them need to know).
      */
-    primitive->set_property ("thickness", gh_double2scm (thickness));
+    primitive->set_property ("thickness", scm_make_real (thickness));
 
     prev_primitive = primitive;
     prev_prefix_set = prefix_set;
@@ -573,7 +573,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 			     "setting `spacing-increment = %f': ptr=%ul",
 			     ligature_width, paper_column));
   paper_column->
-    set_property ("forced-spacing", gh_double2scm (ligature_width));
+    set_property ("forced-spacing", scm_make_real (ligature_width));
 #endif
 }
 

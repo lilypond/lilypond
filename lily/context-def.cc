@@ -96,15 +96,15 @@ Context_def::Context_def (Context_def const & s)
 void
 Context_def::add_context_mod (SCM mod)
 {
-  SCM tag  = gh_car (mod);
+  SCM tag  = ly_car (mod);
   if (ly_symbol2scm ("description")  == tag)
     {
-      description_ = gh_cadr (mod);
+      description_ = ly_cadr (mod);
       return ;
     }
 
-  SCM sym = gh_cadr (mod);
-  if (gh_string_p (sym))
+  SCM sym = ly_cadr (mod);
+  if (ly_string_p (sym))
     sym = scm_string_to_symbol (sym);
   
   if (ly_symbol2scm ("consists") == tag
@@ -114,12 +114,12 @@ Context_def::add_context_mod (SCM mod)
       if (!get_translator (sym))
 	error (_f ("Program has no such type: `%s'", ly_symbol2string (sym).to_str0 ()));
       else
-	translator_mods_ = gh_cons (scm_list_2 (tag, sym), translator_mods_ );
+	translator_mods_ = scm_cons (scm_list_2 (tag, sym), translator_mods_ );
     }
   else if (ly_symbol2scm ("accepts") == tag
 	   || ly_symbol2scm ("denies") == tag)
     {
-      accept_mods_ = gh_cons (scm_list_2 (tag, sym), accept_mods_); 
+      accept_mods_ = scm_cons (scm_list_2 (tag, sym), accept_mods_); 
     }
   else if (ly_symbol2scm ("poppush") == tag
 	   || ly_symbol2scm ("pop") == tag
@@ -127,11 +127,11 @@ Context_def::add_context_mod (SCM mod)
 	   || ly_symbol2scm ("assign") == tag
 	   || ly_symbol2scm ("unset") == tag)
     {
-      property_ops_ = gh_cons (mod, property_ops_);
+      property_ops_ = scm_cons (mod, property_ops_);
     }
   else if (ly_symbol2scm ("alias") == tag)
     {
-      context_aliases_ = gh_cons (sym, context_aliases_);
+      context_aliases_ = scm_cons (sym, context_aliases_);
     }
   else if (ly_symbol2scm ("translator-type")  == tag)
     {
@@ -161,12 +161,12 @@ Context_def::get_accepted (SCM user_mod) const
   SCM mods = scm_reverse_x (scm_list_copy (accept_mods_),
 			    user_mod);
   SCM acc = SCM_EOL;
-  for (SCM s = mods; gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = mods; ly_pair_p (s); s = ly_cdr (s))
     {
-      SCM tag = gh_caar (s);
-      SCM sym = gh_cadar (s);
+      SCM tag = ly_caar (s);
+      SCM sym = ly_cadar (s);
       if (tag == ly_symbol2scm ("accepts"))
-	acc = gh_cons (sym, acc);
+	acc = scm_cons (sym, acc);
       else if (tag == ly_symbol2scm ("denies"))
 	acc = scm_delete_x (sym, acc);
     }
@@ -177,12 +177,12 @@ Context_def::get_accepted (SCM user_mod) const
 Link_array<Context_def>
 Context_def::path_to_acceptable_context (SCM type_sym, Music_output_def* odef) const
 {
-  assert (gh_symbol_p (type_sym));
+  assert (ly_symbol_p (type_sym));
   
   SCM accepted = get_accepted (SCM_EOL);
 
   Link_array<Context_def> accepteds;
-  for (SCM s = accepted; gh_pair_p (s); s = ly_cdr (s))
+  for (SCM s = accepted; ly_pair_p (s); s = ly_cdr (s))
     {
       Context_def *t = unsmob_context_def (odef->find_context_def (ly_car (s)));
       if (!t)
@@ -196,7 +196,7 @@ Context_def::path_to_acceptable_context (SCM type_sym, Music_output_def* odef) c
       /*
 	don't check aliases, because \context Staff should not create RhythmicStaff.
       */
-      if (gh_equal_p (accepteds[i]->get_context_name (), type_sym))
+      if (ly_equal_p (accepteds[i]->get_context_name (), type_sym))
 	{
 	  best_result.push (accepteds[i]);
 	  return best_result;
@@ -239,18 +239,18 @@ Context_def::get_translator_names (SCM user_mod) const
   SCM mods = scm_reverse_x (scm_list_copy (translator_mods_),
 			    user_mod);
   
-  for (SCM s = mods; gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = mods; ly_pair_p (s); s = ly_cdr (s))
     {
-      SCM tag = gh_caar (s);
-      SCM arg = gh_cadar (s);
+      SCM tag = ly_caar (s);
+      SCM arg = ly_cadar (s);
 
-      if (gh_string_p (arg))
+      if (ly_string_p (arg))
 	arg = scm_string_to_symbol (arg);
       
       if (ly_symbol2scm ("consists") == tag)
-	l1 = gh_cons (arg, l1);
+	l1 = scm_cons (arg, l1);
       else if (ly_symbol2scm ("consists-end") == tag)
-	l2 = gh_cons (arg, l2);
+	l2 = scm_cons (arg, l2);
       else if (ly_symbol2scm ("remove") == tag)
 	{
 	  l1 = scm_delete_x (arg, l1);
@@ -265,11 +265,11 @@ Context_def::get_translator_names (SCM user_mod) const
 SCM
 filter_performers (SCM l)
 {
-  for (SCM *tail = &l; gh_pair_p (*tail); tail = SCM_CDRLOC (*tail))
+  for (SCM *tail = &l; ly_pair_p (*tail); tail = SCM_CDRLOC (*tail))
     {
-      if (dynamic_cast<Performer*> (unsmob_translator (gh_car (*tail))))
+      if (dynamic_cast<Performer*> (unsmob_translator (ly_car (*tail))))
 	{
-	  *tail = gh_cdr (*tail);
+	  *tail = ly_cdr (*tail);
 	}
     }
   return l;
@@ -279,11 +279,11 @@ filter_performers (SCM l)
 SCM
 filter_engravers (SCM l)
 {
-  for (SCM *tail = &l; gh_pair_p (*tail) ; tail = SCM_CDRLOC (*tail))
+  for (SCM *tail = &l; ly_pair_p (*tail) ; tail = SCM_CDRLOC (*tail))
     {
-      if (dynamic_cast<Engraver*> (unsmob_translator (gh_car (*tail))))
+      if (dynamic_cast<Engraver*> (unsmob_translator (ly_car (*tail))))
 	{
-	  *tail = gh_cdr (*tail);
+	  *tail = ly_cdr (*tail);
 	}
     }
   return l;
@@ -356,16 +356,16 @@ Context_def::to_alist () const
 {
   SCM l = SCM_EOL;
 
-  l = gh_cons (gh_cons (ly_symbol2scm ("consists"),
+  l = scm_cons (scm_cons (ly_symbol2scm ("consists"),
 			get_translator_names (SCM_EOL)), l);
-  l = gh_cons (gh_cons (ly_symbol2scm ("description"),  description_), l);
-  l = gh_cons (gh_cons (ly_symbol2scm ("aliases"),  context_aliases_), l);
-  l = gh_cons (gh_cons (ly_symbol2scm ("accepts"),  get_accepted (SCM_EOL)), l);
-  l = gh_cons (gh_cons (ly_symbol2scm ("property-ops"),  property_ops_), l);
-  l = gh_cons (gh_cons (ly_symbol2scm ("context-name"),  context_name_), l);
+  l = scm_cons (scm_cons (ly_symbol2scm ("description"),  description_), l);
+  l = scm_cons (scm_cons (ly_symbol2scm ("aliases"),  context_aliases_), l);
+  l = scm_cons (scm_cons (ly_symbol2scm ("accepts"),  get_accepted (SCM_EOL)), l);
+  l = scm_cons (scm_cons (ly_symbol2scm ("property-ops"),  property_ops_), l);
+  l = scm_cons (scm_cons (ly_symbol2scm ("context-name"),  context_name_), l);
 
-  if (gh_symbol_p (translator_group_type_))
-    l = gh_cons (gh_cons (ly_symbol2scm ("group-type"),  translator_group_type_), l);    
+  if (ly_symbol_p (translator_group_type_))
+    l = scm_cons (scm_cons (ly_symbol2scm ("group-type"),  translator_group_type_), l);    
 
   return l;  
 }

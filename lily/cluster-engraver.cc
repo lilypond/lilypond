@@ -82,7 +82,7 @@ Cluster_spanner_engraver::process_music ()
     {
       SCM c0scm = get_property ("middleCPosition");
 
-      int c0 =  gh_number_p (c0scm) ? gh_scm2int (c0scm) : 0;
+      int c0 =  ly_number_p (c0scm) ? ly_scm2int (c0scm) : 0;
       int pmax = INT_MIN;
       int pmin = INT_MAX;
       
@@ -98,8 +98,8 @@ Cluster_spanner_engraver::process_music ()
       
       beacon_ = make_item ("ClusterSpannerBeacon");
       beacon_->set_property ("positions",
-				  scm_cons (gh_int2scm (pmin),
-					    gh_int2scm (pmax)));
+				  scm_cons (scm_int2num (pmin),
+					    scm_int2num (pmax)));
       announce_grob (beacon_, cluster_notes_[0]->self_scm ());
     }
 

@@ -97,7 +97,7 @@ Custos_engraver::acknowledge_grob (Grob_info info)
 void
 Custos_engraver::process_acknowledged_grobs ()
 {
-  if (gh_string_p (get_property ("whichBar")))
+  if (ly_string_p (get_property ("whichBar")))
     custos_permitted = true;
   
   if (custos_permitted)
@@ -108,12 +108,12 @@ Custos_engraver::process_acknowledged_grobs ()
 
 	  int p = pitches_[i].steps ();
 	  SCM c0 = get_property ("middleCPosition");
-	  if (gh_number_p (c0))
-	    p += gh_scm2int (c0);
+	  if (ly_number_p (c0))
+	    p += ly_scm2int (c0);
 
 	  
 	  c->set_property ("staff-position",
-				gh_int2scm (p));
+				scm_int2num (p));
 	  
 	}
 

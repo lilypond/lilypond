@@ -48,7 +48,7 @@ internal_ly_parse_scm (Parse_start * ps, bool safe)
      Shouldn't scm_read () do this for us?  */
   scm_fill_input (port);
   SCM to = scm_ftell (port);
-  ps->nchars = gh_scm2int (to) - gh_scm2int (from);
+  ps->nchars = ly_scm2int (to) - ly_scm2int (from);
 
   /* Don't close the port here; if we re-enter this function via a
      continuation, then the next time we enter it, we'll get an error.
@@ -82,7 +82,7 @@ parse_handler (void * data, SCM tag, SCM args)
   ps->start_location_.error (_("GUILE signaled an error for the expression beginning here"));
 
   if (scm_ilength (args) > 2)
-    scm_display_error_message (gh_cadr (args), gh_caddr (args), scm_current_error_port ());
+    scm_display_error_message (ly_cadr (args), ly_caddr (args), scm_current_error_port ());
 
   /*
     The following is a kludge; we should probably search for

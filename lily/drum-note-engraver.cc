@@ -67,7 +67,7 @@ Drum_notes_engraver::process_music ()
       
       Duration dur = *unsmob_duration (ev->get_property ("duration"));
 
-      note->set_property ("duration-log", gh_int2scm (dur.duration_log ()));
+      note->set_property ("duration-log", scm_int2num (dur.duration_log ()));
 
       if (dur.dot_count ())
 	{
@@ -76,7 +76,7 @@ Drum_notes_engraver::process_music ()
 	  
 	  if (dur.dot_count ()
 	      != robust_scm2int (d->get_property ("dot-count"), 0))
-	    d->set_property ("dot-count", gh_int2scm (dur.dot_count ()));
+	    d->set_property ("dot-count", scm_int2num (dur.dot_count ()));
 
 	  d->set_parent (note, Y_AXIS);
 	  announce_grob (d, SCM_EOL);
@@ -90,18 +90,18 @@ Drum_notes_engraver::process_music ()
       if (scm_hash_table_p (tab) == SCM_BOOL_T)
 	defn = scm_hashq_ref (tab, drum_type, SCM_EOL);
       
-      if (gh_pair_p (defn))
+      if (ly_pair_p (defn))
 	{
-	  SCM pos = gh_caddr (defn);
-	  SCM style =gh_car (defn);
-	  SCM script = gh_cadr (defn);
+	  SCM pos = ly_caddr (defn);
+	  SCM style =ly_car (defn);
+	  SCM script = ly_cadr (defn);
 	  
 	  if (scm_integer_p (pos) == SCM_BOOL_T)
 	    note->set_property ("staff-position", pos);
-	  if (gh_symbol_p (style))
+	  if (ly_symbol_p (style))
 	    note->set_property ("style", style);
 
-	  if (gh_string_p (script))
+	  if (ly_string_p (script))
 	    {
 	      Item *p  = make_item ("Script");
 	      SCM desc  = SCM_EOL;

@@ -42,7 +42,7 @@ Repeated_music::to_relative_octave (Pitch p)
 	{
 	  lily_1_8_compatibility_used = true; 
 
-	  for (SCM s = alternatives (); gh_pair_p (s);  s = ly_cdr (s))
+	  for (SCM s = alternatives (); ly_pair_p (s);  s = ly_cdr (s))
 	    unsmob_music (ly_car (s))->to_relative_octave (p);
 	}     
 
@@ -68,7 +68,7 @@ Repeated_music::alternatives_get_length (bool fold) const
   int done =0;
 
   SCM p = alternatives ();
-  while (gh_pair_p (p) && done < repeat_count ())
+  while (ly_pair_p (p) && done < repeat_count ())
     {
       m = m + unsmob_music (ly_car (p))->get_length ();
       done ++;
@@ -90,7 +90,7 @@ Repeated_music::alternatives_volta_get_length () const
 
   Moment m;
   SCM p = alternatives ();
-  while (gh_pair_p (p))
+  while (ly_pair_p (p))
     {
       m = m + unsmob_music (ly_car (p))->get_length ();
       p = ly_cdr (p);
@@ -116,7 +116,7 @@ Repeated_music::body_get_length () const
 int
 Repeated_music::repeat_count () const
 {
-  return gh_scm2int (get_property ("repeat-count"));
+  return ly_scm2int (get_property ("repeat-count"));
 }
 
 

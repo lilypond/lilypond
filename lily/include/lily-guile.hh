@@ -10,14 +10,6 @@
 #define LILY_GUILE_HH
 
 
-/*
-  TODO: the  GH interface is deprecated as of GUILE 1.6
-
-  Remove all gh_XXX functions.
- */
-#include <guile/gh.h>
-
-
 /* GUILE only includes version in headers (libguile/version.h) as of
    1.5.x.  For some strange reason, they call it SCM.*VERSION.
 
@@ -43,9 +35,6 @@
 
 #define scm_t_bits scm_bits_t
 
-#define fix_guile_1_4_gh_scm2newstr(str, lenp) gh_scm2newstr (str, (int*)lenp)
-#define gh_scm2newstr(str, lenp) fix_guile_1_4_gh_scm2newstr (str, lenp)
-
 #define fix_guile_1_4_scm_primitive_eval(form) scm_eval_3 (form, 1, SCM_EOL)
 #define scm_primitive_eval(form) fix_guile_1_4_scm_primitive_eval (form)
 
@@ -58,7 +47,6 @@ inline SCM scm_c_make_vector  (int k, SCM val) {
   return scm_make_vector (SCM_MAKINUM (k), val);
 }
 #define scm_c_define_gsubr scm_make_gsubr
-#define scm_c_eval_string(str) gh_eval_str ((char*)str)
 #define scm_remember_upto_here_1(s) scm_remember (&s)
 #define scm_gc_protect_object scm_protect_object
 #define scm_gc_unprotect_object scm_unprotect_object
@@ -127,7 +115,7 @@ SCM ly_truncate_list (int k, SCM l );
 
 
 /*
-  Using this trick we cache the value of gh_symbol2scm ("fooo") where
+  Using this trick we cache the value of scm_str2symbol ("fooo") where
   "fooo" is a constant string. This is done at the cost of one static
   variable per ly_symbol2scm() use, and one boolean evaluation for
   every call.
@@ -139,12 +127,12 @@ SCM ly_truncate_list (int k, SCM l );
  SCM value = cached;  /* We store this one locally, since G++ -O2 fucks up else */   \
  if ( __builtin_constant_p ((x)))\
  {  if (!cached)\
-     value = cached =  scm_gc_protect_object (gh_symbol2scm((x)));\
+     value = cached =  scm_gc_protect_object (scm_str2symbol((x)));\
  } else\
-  value = gh_symbol2scm ((char*) (x)); \
+  value = scm_str2symbol ((char*) (x)); \
   value; })
 #else
-inline SCM ly_symbol2scm(char const* x) { return gh_symbol2scm((x)); }
+inline SCM ly_symbol2scm(char const* x) { return scm_str2symbol((x)); }
 #endif 
 
 extern SCM global_lily_module;
@@ -153,9 +141,9 @@ extern SCM global_lily_module;
  SCM value = cached;  /* We store this one locally, since G++ -O2 fucks up else */   \
  if ( __builtin_constant_p ((x)))\
  {  if (!cached)\
-     value = cached =  scm_gc_protect_object (scm_eval(gh_symbol2scm (x), global_lily_module));\
+     value = cached =  scm_gc_protect_object (scm_eval(scm_str2symbol (x), global_lily_module));\
  } else\
-  value = scm_eval(gh_symbol2scm (x), global_lily_module);\
+  value = scm_eval(scm_str2symbol (x), global_lily_module);\
   value; })
 
 
@@ -170,6 +158,7 @@ Interval ly_scm2interval (SCM);
 Drul_array<Real> ly_scm2realdrul (SCM);
 Slice int_list_to_slice (SCM l);
 SCM ly_interval2scm (Drul_array<Real>);
+char *ly_scm2newstr (SCM str, size_t *lenp);
 
 Real robust_scm2double (SCM, double);
 int robust_scm2int (SCM, int);
@@ -195,20 +184,46 @@ inline SCM ly_cddr (SCM x) { return SCM_CDDR (x); }
 inline SCM ly_caddr (SCM x) { return SCM_CADDR (x); }
 inline SCM ly_cdadr (SCM x) { return SCM_CDADR (x); }
 inline SCM ly_caadr (SCM x) { return SCM_CAADR (x); }
+inline SCM ly_cadar (SCM x) { return SCM_CADAR (x); }
 /* inserts at front, removing dublicates */
 inline SCM ly_assoc_front_x(SCM alist, SCM key, SCM val)
 {
   return scm_acons(key, val, scm_assoc_remove_x (alist, key));
 }
-#ifdef PARANOID
-#define gh_pair_p ly_pair_p
-bool ly_pair_p (SCM x);
-#else
 inline bool ly_pair_p (SCM x) { return SCM_NFALSEP (scm_pair_p (x)); }
-#endif
 inline bool ly_symbol_p (SCM x) { return SCM_SYMBOLP (x); }
+inline bool ly_boolean_p (SCM x) { return SCM_BOOLP (x); }
+inline bool ly_char_p (SCM x) { return SCM_CHARP (x); }
 inline bool ly_number_p (SCM x) { return SCM_NUMBERP (x); }
+inline bool ly_string_p (SCM x) { return SCM_STRINGP (x); }
+inline bool ly_vector_p (SCM x) { return SCM_VECTORP (x); }
+inline bool ly_list_p (SCM x) { return SCM_NFALSEP (scm_list_p (x)); }
 inline bool ly_procedure_p (SCM x) { return SCM_NFALSEP (scm_procedure_p (x)); }
+inline bool ly_eq_p (SCM x, SCM y) { return SCM_EQ_P (x, y); }
+inline bool ly_equal_p (SCM x, SCM y) { 
+  return SCM_NFALSEP (scm_equal_p (x, y)); 
+}
+
+inline bool ly_scm2bool (SCM x) { return SCM_NFALSEP (x); }
+inline char ly_scm2char (SCM x) { return SCM_CHAR(x); }
+inline int ly_scm2int (SCM x) { return scm_num2int (x, 0, "ly_scm2int"); }
+inline double ly_scm2double (SCM x) { return scm_num2dbl (x, "ly_scm2double"); }
+inline unsigned long ly_length (SCM x) { 
+  return scm_num2ulong (scm_length (x), 0, "ly_length");
+}
+inline unsigned long ly_vector_length (SCM x) { return SCM_VECTOR_LENGTH (x); }
+
+inline SCM ly_bool2scm (bool x) { return SCM_BOOL (x); }
+
+inline SCM ly_append2 (SCM x1, SCM x2) { 
+  return scm_append (scm_listify (x1, x2, SCM_UNDEFINED)); 
+}
+inline SCM ly_append3 (SCM x1, SCM x2, SCM x3) { 
+  return scm_append (scm_listify (x1, x2, x3, SCM_UNDEFINED)); 
+}
+inline SCM ly_append4 (SCM x1, SCM x2, SCM x3, SCM x4) { 
+  return scm_append (scm_listify (x1, x2, x3, x4, SCM_UNDEFINED)); 
+}
 
 /*
   display and print newline.
@@ -284,8 +299,9 @@ SCM TYPE :: FUNC ## _proc;\
 void								\
 TYPE ## _ ## FUNC ## _init_functions ()					\
 {								\
-  TYPE :: FUNC ## _proc = gh_new_procedure ## ARGCOUNT  ## _0 (#TYPE "::" #FUNC, \
- ((Scheme_function_ ## ARGCOUNT)TYPE :: FUNC)); 				\
+  TYPE :: FUNC ## _proc = scm_c_define_gsubr (#TYPE "::" #FUNC, \
+					      (ARGCOUNT), 0, 0, \
+			  (Scheme_function_unknown)TYPE :: FUNC); \
   scm_c_export (#TYPE "::" #FUNC, NULL);\
 }								\
 								\

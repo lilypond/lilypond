@@ -155,7 +155,7 @@ Slur_engraver::process_music ()
 
 	  if (Direction updown = to_dir (slur_ev->get_property ("direction")))
 	    {
-	      slur->set_property ("direction", gh_int2scm (updown));
+	      slur->set_property ("direction", scm_int2num (updown));
 	    }
 	  
 	  start_slurs.push (slur);

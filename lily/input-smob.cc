@@ -85,7 +85,7 @@ LY_DEFINE (ly_input_message, "ly:input-message", 2, 0, 0, (SCM sip, SCM msg),
 {
   Input *ip = unsmob_input (sip);
   SCM_ASSERT_TYPE (ip, sip, SCM_ARG1, __FUNCTION__, "input location");
-  SCM_ASSERT_TYPE (gh_string_p (msg), msg, SCM_ARG2, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (ly_string_p (msg), msg, SCM_ARG2, __FUNCTION__, "string");
 
   String m = ly_scm2string (msg);
   ip->message (m);

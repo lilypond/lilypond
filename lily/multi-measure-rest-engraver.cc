@@ -108,7 +108,7 @@ Multi_measure_rest_engraver::process_music ()
 	    Grob *last =0;
 	    for (int i=0; i <numbers_.size (); i++)
 	      {
-		if (gh_int2scm (d) == numbers_[i]->get_property ("direction"))
+		if (scm_int2num (d) == numbers_[i]->get_property ("direction"))
 		  {
 		    if (last)
 		      Side_position_interface::add_support (numbers_[i], last);
@@ -133,10 +133,10 @@ Multi_measure_rest_engraver::process_music ()
       
       announce_grob (mmrest_, rest_ev_->self_scm ());
       start_measure_
-	= gh_scm2int (get_property ("currentBarNumber"));
+	= ly_scm2int (get_property ("currentBarNumber"));
     }
 
-  bar_seen_ = gh_string_p (get_property ("whichBar"));
+  bar_seen_ = ly_string_p (get_property ("whichBar"));
 }
 
 void
@@ -239,14 +239,14 @@ Multi_measure_rest_engraver::start_translation_timestep ()
       last_rest_ = mmrest_;
       last_numbers_ = numbers_;
       
-      int cur = gh_scm2int (get_property ("currentBarNumber"));
+      int cur = ly_scm2int (get_property ("currentBarNumber"));
       int num = cur - start_measure_;
 
       /*
 	We can't plug a markup directly into the grob, since the
 	measure-count determines the formatting of the mmrest.
       */
-      last_rest_->set_property ("measure-count", gh_int2scm (num));
+      last_rest_->set_property ("measure-count", scm_int2num (num));
 
       SCM sml = get_property ("measureLength");
       Rational ml = (unsmob_moment (sml)) ? unsmob_moment (sml)->main_part_ : Rational (1);
@@ -263,15 +263,15 @@ Multi_measure_rest_engraver::start_translation_timestep ()
 	{
 	  SCM thres = get_property ("restNumberThreshold");
 	  int t = 1;
-	  if (gh_number_p (thres))
-	    t = gh_scm2int (thres);
+	  if (ly_number_p (thres))
+	    t = ly_scm2int (thres);
       
 	  if (num <= t)
 	    last->suicide ();
 	  else 
 	    {
 	      SCM text
-		= scm_number_to_string (gh_int2scm (num), SCM_MAKINUM (10));
+		= scm_number_to_string (scm_int2num (num), SCM_MAKINUM (10));
 	      last->set_property ("text", text);
 	    }
 	}

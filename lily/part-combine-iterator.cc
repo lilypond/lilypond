@@ -327,14 +327,14 @@ Part_combine_iterator::construct_children ()
   one_.set_translator (one);
 
   set_translator (one);
-  first_iter_ = unsmob_iterator (get_iterator (unsmob_music (gh_car (lst))));
+  first_iter_ = unsmob_iterator (get_iterator (unsmob_music (ly_car (lst))));
 
 
   Context *two = tr->find_create_context (ly_symbol2scm ("Voice"),
 						      "two", props);
   two_.set_translator (two);
   set_translator (two);
-  second_iter_ = unsmob_iterator (get_iterator (unsmob_music (gh_cadr (lst))));
+  second_iter_ = unsmob_iterator (get_iterator (unsmob_music (ly_cadr (lst))));
 
 
   set_translator (tr);
@@ -356,10 +356,10 @@ Part_combine_iterator::construct_children ()
     {
       SCM sym = ly_symbol2scm (*p);
       execute_pushpop_property (one, sym,
-				     ly_symbol2scm ("direction"), gh_int2scm (1));
+				     ly_symbol2scm ("direction"), scm_int2num (1));
 
       execute_pushpop_property (two, sym,
-				ly_symbol2scm ("direction"), gh_int2scm (-1));
+				ly_symbol2scm ("direction"), scm_int2num (-1));
     }
 
 }
@@ -370,13 +370,13 @@ Part_combine_iterator::process (Moment m)
   Moment now = get_outlet ()->now_mom ();
   Moment *splitm = 0;
   
-  for (; gh_pair_p (split_list_); split_list_ = gh_cdr (split_list_))
+  for (; ly_pair_p (split_list_); split_list_ = ly_cdr (split_list_))
     {
-      splitm = unsmob_moment (gh_caar (split_list_));
+      splitm = unsmob_moment (ly_caar (split_list_));
       if (splitm && *splitm + start_moment_ > now)
 	break ;
 
-      SCM tag = gh_cdar (split_list_);
+      SCM tag = ly_cdar (split_list_);
       
       if (tag == ly_symbol2scm ("chords"))
 	chords_together ();
@@ -392,10 +392,10 @@ Part_combine_iterator::process (Moment m)
 	solo1 ();
       else if (tag == ly_symbol2scm ("solo2"))
 	solo2 ();
-      else if (gh_symbol_p (tag))
+      else if (ly_symbol_p (tag))
 	{
 	  String s =  "Unknown split directive: "
-	    + (gh_symbol_p (tag) ? ly_symbol2string (tag) : String ("not a symbol")); 
+	    + (ly_symbol_p (tag) ? ly_symbol2string (tag) : String ("not a symbol")); 
 	  programming_error (s);
 	}
     }

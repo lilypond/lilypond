@@ -63,8 +63,8 @@ Paper_def::get_dimension (SCM s) const
   SCM val = lookup_variable (s);
   SCM scale = lookup_variable (ly_symbol2scm ("outputscale"));
   
-  Real sc = gh_scm2double (scale);
-  return gh_scm2double (val) / sc;
+  Real sc = ly_scm2double (scale);
+  return ly_scm2double (val) / sc;
 }
 
 /*
@@ -106,8 +106,8 @@ Paper_def::find_scaled_font (Font_metric *f, Real m)
   SCM sizes = scm_hashq_ref (scaled_fonts_, f->self_scm (), SCM_BOOL_F);
   if (sizes != SCM_BOOL_F)
     {
-      SCM met = scm_assoc (gh_double2scm (m), sizes);
-      if (gh_pair_p (met))
+      SCM met = scm_assoc (scm_make_real (m), sizes);
+      if (ly_pair_p (met))
 	return unsmob_metrics (ly_cdr (met));
     }
   else
@@ -136,10 +136,10 @@ Paper_def::find_scaled_font (Font_metric *f, Real m)
        */
       SCM l = SCM_EOL;
       SCM *t =  &l;
-      for (SCM s = vf->get_font_list (); gh_pair_p (s); s = gh_cdr (s))
+      for (SCM s = vf->get_font_list (); ly_pair_p (s); s = ly_cdr (s))
 	{
 	  Font_metric*scaled
-	    = find_scaled_font (unsmob_metrics (gh_car (s)), m);
+	    = find_scaled_font (unsmob_metrics (ly_car (s)), m);
 	  *t = scm_cons (scaled->self_scm (), SCM_EOL);
 	  t = SCM_CDRLOC(*t);
 	}
@@ -152,12 +152,12 @@ Paper_def::find_scaled_font (Font_metric *f, Real m)
       SCM scale_var = ly_module_lookup (scope_, ly_symbol2scm ("outputscale"));
       SCM coding_var = ly_module_lookup (scope_, ly_symbol2scm ("inputcoding"));
 
-      m /= gh_scm2double (scm_variable_ref (scale_var));
+      m /= ly_scm2double (scm_variable_ref (scale_var));
       val = Modified_font_metric::make_scaled_font_metric (scm_variable_ref (coding_var),
 							   f, m);
     }
 
-  sizes = scm_acons (gh_double2scm (m), val, sizes);
+  sizes = scm_acons (scm_make_real (m), val, sizes);
   scm_gc_unprotect_object (val);
 
   scm_hashq_set_x (scaled_fonts_, f->self_scm (), sizes);
@@ -176,15 +176,15 @@ Paper_def::font_descriptions () const
   SCM func = ly_scheme_function ("hash-table->alist");
 
   SCM l = SCM_EOL;
-  for (SCM s = scm_call_1 (func, scaled_fonts_); gh_pair_p (s); s = ly_cdr (s))
+  for (SCM s = scm_call_1 (func, scaled_fonts_); ly_pair_p (s); s = ly_cdr (s))
     {
-      SCM entry = gh_car (s);
-      for (SCM t = gh_cdr (entry); gh_pair_p (t); t  = gh_cdr (t))
+      SCM entry = ly_car (s);
+      for (SCM t = ly_cdr (entry); ly_pair_p (t); t  = ly_cdr (t))
 	{
-	  Font_metric *fm= unsmob_metrics (gh_cdar (t));
+	  Font_metric *fm= unsmob_metrics (ly_cdar (t));
 
 	  if (dynamic_cast<Modified_font_metric*> (fm))
-	    l = gh_cons (fm->self_scm (), l);
+	    l = scm_cons (fm->self_scm (), l);
 	}
     }
   return l;
@@ -204,5 +204,5 @@ LY_DEFINE (ly_paper_def_p, "ly:paper-def?",
   Paper_def *op = dynamic_cast<Paper_def*> (unsmob_music_output_def (def));
 
   bool pap = op;
-  return gh_bool2scm (pap);
+  return ly_bool2scm (pap);
 }

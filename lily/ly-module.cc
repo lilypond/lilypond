@@ -40,11 +40,11 @@ ly_clear_anonymous_modules ()
   SCM s = anon_modules;
   anon_modules = SCM_EOL;
   
-  for (; gh_pair_p (s) ; s = gh_cdr (s))
+  for (; ly_pair_p (s) ; s = ly_cdr (s))
     {
       SCM tab= scm_c_make_hash_table (2);
       /* UGH. */
-      SCM_STRUCT_DATA (gh_car (s))[scm_module_index_obarray]
+      SCM_STRUCT_DATA (ly_car (s))[scm_module_index_obarray]
 	= (long unsigned int) tab;
     }
 }
@@ -121,7 +121,7 @@ ly_module_lookup (SCM module, SCM sym)
 SCM
 ly_modules_lookup (SCM modules, SCM sym)
 {
-  for (SCM s = gh_car (modules); SCM_MODULEP (s); s = ly_cdr (s))
+  for (SCM s = ly_car (modules); SCM_MODULEP (s); s = ly_cdr (s))
     {
       SCM v = scm_sym2var (sym, scm_module_lookup_closure (s), SCM_UNDEFINED);
       if (v != SCM_UNDEFINED)

@@ -114,7 +114,7 @@ Tuplet_bracket::print (SCM smob)
     SCM lp = me->get_property ("left-position");
     SCM rp = me->get_property ("right-position");  
 
-    if (!gh_number_p (rp) || !gh_number_p (lp))
+    if (!ly_number_p (rp) || !ly_number_p (lp))
       after_line_breaking (smob);
   }
   
@@ -133,17 +133,17 @@ Tuplet_bracket::print (SCM smob)
     Fixme: the type of this prop is sucky.
    */
   SCM bracket = me->get_property ("bracket-visibility");
-  if (gh_boolean_p (bracket))
+  if (ly_boolean_p (bracket))
     {
-      bracket_visibility = gh_scm2bool (bracket);
+      bracket_visibility = ly_scm2bool (bracket);
     }
   else if (bracket == ly_symbol2scm ("if-no-beam"))
     bracket_visibility = !par_beam;
 
   SCM numb = me->get_property ("number-visibility");  
-  if (gh_boolean_p (numb))
+  if (ly_boolean_p (numb))
     {
-      number_visibility = gh_scm2bool (numb);
+      number_visibility = ly_scm2bool (numb);
     }
   else if (numb == ly_symbol2scm ("if-no-beam"))
     number_visibility = !par_beam;
@@ -170,7 +170,7 @@ Tuplet_bracket::print (SCM smob)
 
   Paper_def *pap = me->get_paper ();
   Stencil num;
- if (gh_string_p (number) && number_visibility)
+ if (ly_string_p (number) && number_visibility)
     {
       SCM properties = Font_interface::text_font_alist_chain (me);
       SCM snum = Text_item::interpret_markup (pap->self_scm (), properties, number);
@@ -213,11 +213,11 @@ Tuplet_bracket::print (SCM smob)
       do {
 	flare[d] =  height[d] = shorten[d] = 0.0;
 	if (is_number_pair (fl))
-	  flare[d] +=  ss * gh_scm2double (index_get_cell (fl, d));
+	  flare[d] +=  ss * ly_scm2double (index_get_cell (fl, d));
 	if (is_number_pair (eh))
-	  height[d] +=  - dir * ss *gh_scm2double (index_get_cell (eh, d));
+	  height[d] +=  - dir * ss *ly_scm2double (index_get_cell (eh, d));
 	if (is_number_pair (sp))
-	  shorten[d] +=  ss *gh_scm2double (index_get_cell (sp, d));
+	  shorten[d] +=  ss *ly_scm2double (index_get_cell (sp, d));
       }
       while (flip (&d) != LEFT);
       
@@ -383,7 +383,7 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
     }
 
   // padding
-  *offset +=  gh_scm2double (me->get_property ("padding")) *dir;
+  *offset +=  ly_scm2double (me->get_property ("padding")) *dir;
 
   
   /*
@@ -473,13 +473,13 @@ Tuplet_bracket::after_line_breaking (SCM smob)
     {
       SCM ps =  par_beam->get_property ("positions"); 
 
-      Real lp = gh_scm2double (gh_car (ps));
-      Real rp = gh_scm2double (gh_cdr (ps));
+      Real lp = ly_scm2double (ly_car (ps));
+      Real rp = ly_scm2double (ly_cdr (ps));
 
       /*
 	duh. magic.
        */
-      offset = lp + dir * (0.5 + gh_scm2double (me->get_property ("padding")));
+      offset = lp + dir * (0.5 + ly_scm2double (me->get_property ("padding")));
       dy = rp- lp;
     }
   
@@ -487,18 +487,18 @@ Tuplet_bracket::after_line_breaking (SCM smob)
   SCM lp =  me->get_property ("left-position");
   SCM rp = me->get_property ("right-position");  
   
-  if (gh_number_p (lp) && !gh_number_p (rp))
+  if (ly_number_p (lp) && !ly_number_p (rp))
     {
-      rp = gh_double2scm (gh_scm2double (lp) + dy);
+      rp = scm_make_real (ly_scm2double (lp) + dy);
     }
-  else if (gh_number_p (rp) && !gh_number_p (lp))
+  else if (ly_number_p (rp) && !ly_number_p (lp))
     {
-      lp = gh_double2scm (gh_scm2double (rp) - dy);
+      lp = scm_make_real (ly_scm2double (rp) - dy);
     }
-  else if (!gh_number_p (rp) && !gh_number_p (lp))
+  else if (!ly_number_p (rp) && !ly_number_p (lp))
     {
-      lp = gh_double2scm (offset);
-      rp = gh_double2scm (offset +dy);
+      lp = scm_make_real (offset);
+      rp = scm_make_real (offset +dy);
     }
 
   me->set_property ("left-position", lp);
@@ -515,7 +515,7 @@ Direction
 Tuplet_bracket::get_default_dir (Grob*me)
 {
   Drul_array<int> dirs (0,0);  
-  for (SCM s = me->get_property ("note-columns"); gh_pair_p (s); s = ly_cdr (s))
+  for (SCM s = me->get_property ("note-columns"); ly_pair_p (s); s = ly_cdr (s))
     {
       Grob * nc = unsmob_grob (ly_car (s));
       Direction d = Note_column::dir (nc);

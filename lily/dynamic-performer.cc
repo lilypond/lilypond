@@ -46,10 +46,10 @@ Dynamic_performer::create_audio_elements ()
       SCM proc = get_property ("dynamicAbsoluteVolumeFunction");
 
       SCM svolume  = SCM_EOL;
-      if (gh_procedure_p (proc))
+      if (ly_procedure_p (proc))
 	{
 	  // urg
-	  svolume = gh_call1 (proc, script_req_->get_property ("text"));
+	  svolume = scm_call_1 (proc, script_req_->get_property ("text"));
 	}
 
       Real volume = robust_scm2double (svolume, 0.5); 
@@ -59,13 +59,13 @@ Dynamic_performer::create_audio_elements ()
        */
       SCM min = get_property ("midiMinimumVolume");
       SCM max = get_property ("midiMaximumVolume");
-      if (gh_number_p (min) || gh_number_p (max))
+      if (ly_number_p (min) || ly_number_p (max))
 	{
 	  Interval iv (0, 1);
-	  if (gh_number_p (min))
-	    iv[MIN] = gh_scm2double (min);
-	  if (gh_number_p (max))
-	    iv[MAX] = gh_scm2double (max);
+	  if (ly_number_p (min))
+	    iv[MIN] = ly_scm2double (min);
+	  if (ly_number_p (max))
+	    iv[MAX] = ly_scm2double (max);
 	  volume = iv[MIN] + iv.length () * volume;
 	}
       else
@@ -75,17 +75,17 @@ Dynamic_performer::create_audio_elements ()
 	  */
 	  SCM s = get_property ("midiInstrument");
 	  
-	  if (!gh_string_p (s))
+	  if (!ly_string_p (s))
 	    s = get_property ("instrument");
 	  
-	  if (!gh_string_p (s))
+	  if (!ly_string_p (s))
 	    s = scm_makfrom0str ("piano");
 	  
 	  
 	  SCM eq = get_property ("instrumentEqualizer");
-	  if (gh_procedure_p (eq))
+	  if (ly_procedure_p (eq))
 	    {
-	      s = gh_call1 (eq, s);
+	      s = scm_call_1 (eq, s);
 	    }
 
 	  if (is_number_pair (s))

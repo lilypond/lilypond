@@ -40,12 +40,12 @@ zigzag_stencil (Grob *me,
   double h = l>w/2 ? sqrt (l*l-w*w/4) : 0;
   
   SCM list = scm_list_n (ly_symbol2scm ("zigzag-line"),
-		      gh_bool2scm (true),
-		      gh_double2scm (w),
-		      gh_double2scm (h),
-		      gh_double2scm (thick),
-		      gh_double2scm (dx),
-		      gh_double2scm (dy),
+		      ly_bool2scm (true),
+		      scm_make_real (w),
+		      scm_make_real (h),
+		      scm_make_real (thick),
+		      scm_make_real (dx),
+		      scm_make_real (dy),
 		      SCM_UNDEFINED);
   Box b;
   b.add_point (Offset (0,0));
@@ -98,7 +98,7 @@ Line_spanner::line_stencil (Grob *me,
 {
   Offset dz = to -from ; 
   SCM type = me->get_property ("style");
-  if (gh_symbol_p (type)
+  if (ly_symbol_p (type)
       && (type == ly_symbol2scm ("line")
 	  || type == ly_symbol2scm ("dashed-line")
 	  || type == ly_symbol2scm ("dotted-line")
@@ -109,16 +109,16 @@ Line_spanner::line_stencil (Grob *me,
 	? zigzag_stencil (me, from, to)
 	: Line_interface::line (me, from, to);
     }
-  else if (gh_symbol_p (type)
+  else if (ly_symbol_p (type)
 	   && type == ly_symbol2scm ("trill"))
     {
       SCM alist_chain = Font_interface::text_font_alist_chain (me);
-      SCM style_alist = scm_list_n (gh_cons (ly_symbol2scm ("font-encoding"),
+      SCM style_alist = scm_list_n (scm_cons (ly_symbol2scm ("font-encoding"),
 					     ly_symbol2scm ("music")),
 				    SCM_UNDEFINED);
       
       Font_metric *fm = select_font (me->get_paper (),
-				     gh_cons (style_alist,
+				     scm_cons (style_alist,
 					      alist_chain));
       Stencil m = fm->find_by_name ("scripts-trill-element");
       Stencil mol;

@@ -22,9 +22,9 @@ LY_DEFINE (get_all_translators,"ly:get-all-translators", 0, 0, 0,  (),
 {
   SCM l = global_translator_dict ?  global_translator_dict->to_alist () : SCM_EOL;
 
-  for (SCM s =l; gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s =l; ly_pair_p (s); s = ly_cdr (s))
     {
-      gh_set_car_x (s, gh_cdar (s));
+      scm_set_car_x (s, ly_cdar (s));
     }
 
   return l;

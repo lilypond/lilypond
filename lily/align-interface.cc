@@ -19,13 +19,13 @@ SCM
 Align_interface::alignment_callback (SCM element_smob, SCM axis)
 {
   Grob * me = unsmob_grob (element_smob);
-  Axis ax = (Axis)gh_scm2int (axis);
+  Axis ax = (Axis)ly_scm2int (axis);
   Grob * par = me->get_parent (ax);
   if (par && !to_boolean (par->get_property ("positioning-done")))
     {
       Align_interface::align_elements_to_extents (par, ax);
     }
-  return gh_double2scm (0.0);
+  return scm_make_real (0.0);
 }
 
 MAKE_SCHEME_CALLBACK (Align_interface,fixed_distance_alignment_callback,2);
@@ -33,13 +33,13 @@ SCM
 Align_interface::fixed_distance_alignment_callback (SCM element_smob, SCM axis)
 {
   Grob * me = unsmob_grob (element_smob);
-  Axis ax = (Axis)gh_scm2int (axis);
+  Axis ax = (Axis)ly_scm2int (axis);
   Grob * par = me->get_parent (ax);
   if (par && !to_boolean (par->get_property ("positioning-done")))
     {
       Align_interface::align_to_fixed_distance (par, ax);
     }
-  return gh_double2scm (0.0);
+  return scm_make_real (0.0);
 }
 
 /*
@@ -52,7 +52,7 @@ Align_interface::align_to_fixed_distance (Grob *me , Axis a)
   
   SCM d =   me->get_property ("stacking-dir");
   
-  Direction stacking_dir = gh_number_p (d) ? to_dir (d) : CENTER;
+  Direction stacking_dir = ly_number_p (d) ? to_dir (d) : CENTER;
   if (!stacking_dir)
     stacking_dir = DOWN;
 
@@ -124,7 +124,7 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
   
   SCM d =   me->get_property ("stacking-dir");
   
-  Direction stacking_dir = gh_number_p (d) ? to_dir (d) : CENTER;
+  Direction stacking_dir = ly_number_p (d) ? to_dir (d) : CENTER;
   if (!stacking_dir)
     stacking_dir = DOWN;
   
@@ -216,8 +216,8 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
 	FIXME: uncommenting freaks out the Y-alignment of
 	line-of-score.
        */
-      if (gh_number_p (align))
-	center_offset = total.linear_combination (gh_scm2double (align));
+      if (ly_number_p (align))
+	center_offset = total.linear_combination (ly_scm2double (align));
 
       for (int j = 0 ;  j < all_grobs.size (); j++)
 	all_grobs[j]->translate_axis (all_translates[j] - center_offset, a);
@@ -226,7 +226,7 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
 Axis
 Align_interface::axis (Grob*me)
 {
-  return  Axis (gh_scm2int (ly_car (me->get_property ("axes"))));
+  return  Axis (ly_scm2int (ly_car (me->get_property ("axes"))));
 }
 
 void
@@ -253,7 +253,7 @@ find_fixed_alignment_parent  (Grob *g)
 {
   while (g)
     {
-      if (gh_number_p (g->get_property ("forced-distance")))
+      if (ly_number_p (g->get_property ("forced-distance")))
 	return g;
 
       g = g->get_parent (Y_AXIS);

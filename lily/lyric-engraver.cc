@@ -76,7 +76,7 @@ get_voice_to_lyrics (Context *lyrics)
   SCM voice = lyrics->get_property ("associatedVoice");
   String nm = lyrics->id_string_;
 
-  if (gh_string_p (voice))
+  if (ly_string_p (voice))
     nm = ly_scm2string (voice);
   else
     {
@@ -97,9 +97,9 @@ Grob *
 get_current_note_head (Context * voice)
 {
   for (SCM s = voice->get_property ("busyGrobs");
-       gh_pair_p (s); s = gh_cdr (s))
+       ly_pair_p (s); s = ly_cdr (s))
     {
-      Item*g = dynamic_cast<Item*> (unsmob_grob (gh_cdar (s)));
+      Item*g = dynamic_cast<Item*> (unsmob_grob (ly_cdar (s)));
 	  
       if (g && !g->get_column ()
 	  && Note_head::has_interface (g))
@@ -124,7 +124,7 @@ Lyric_engraver::stop_translation_timestep ()
 	    {
 	      text_->set_parent (head, X_AXIS);
 	      if (melisma_busy (voice))
-		text_->set_property ("self-alignment-X", gh_int2scm (LEFT)); 
+		text_->set_property ("self-alignment-X", scm_int2num (LEFT)); 
 	    }
 	}
       

@@ -138,7 +138,7 @@ Phrasing_slur_engraver::process_acknowledged_grobs ()
 
 	  if (Direction updown = to_dir (phrasing_slur_ev->get_property ("direction")))
 	    {
-	      phrasing_slur->set_property ("direction", gh_int2scm (updown));
+	      phrasing_slur->set_property ("direction", scm_int2num (updown));
 	    }
 
 	  start_phrasing_slurs.push (phrasing_slur);

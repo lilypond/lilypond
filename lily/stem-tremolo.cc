@@ -42,7 +42,7 @@ MAKE_SCHEME_CALLBACK (Stem_tremolo, height, 2);
 SCM
 Stem_tremolo::height (SCM smob, SCM ax)
 {
-  Axis a = (Axis)gh_scm2int (ax);
+  Axis a = (Axis)ly_scm2int (ax);
   Grob * me = unsmob_grob (smob);
   assert (a == Y_AXIS);
 
@@ -68,7 +68,7 @@ Stem_tremolo::raw_stencil (Grob *me)
       SCM s = beam->get_property ("positions");
       if (is_number_pair (s))
 	{
-	  dy = -gh_scm2double (gh_car (s)) +gh_scm2double (gh_cdr (s));
+	  dy = -ly_scm2double (ly_car (s)) +ly_scm2double (ly_cdr (s));
 	}
       
       Real dx = Beam::last_visible_stem (beam)->relative_coordinate (0, X_AXIS)
@@ -92,8 +92,8 @@ Stem_tremolo::raw_stencil (Grob *me)
   
   int tremolo_flags = 0;
   SCM s = me->get_property ("flag-count");
-  if (gh_number_p (s))
-    tremolo_flags = gh_scm2int (s);
+  if (ly_number_p (s))
+    tremolo_flags = ly_scm2int (s);
 
   if (!tremolo_flags)
     {
@@ -150,9 +150,9 @@ Stem_tremolo::print (SCM grob)
 
   Real beamthickness = 0.0;
   SCM sbt = (beam) ? beam->get_property ("thickness") : SCM_EOL ;
-  if (gh_number_p (sbt))
+  if (ly_number_p (sbt))
     {
-      beamthickness = gh_scm2double (sbt) * ss;
+      beamthickness = ly_scm2double (sbt) * ss;
     }
 
   Real end_y

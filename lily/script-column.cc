@@ -15,7 +15,7 @@ void
 Script_column::add_staff_sided (Grob *me, Item *i)
 {
   SCM p = i->get_property ("script-priority");
-  if (!gh_number_p (p))
+  if (!ly_number_p (p))
     return;
 
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("scripts"),i);
@@ -33,7 +33,7 @@ LY_DEFINE (grob_script_priority_less, "ly:grob-script-priority-less",
   SCM p1 = i1->get_property ("script-priority");
   SCM p2 = i2->get_property ("script-priority");
 
-  return gh_scm2int (p1) < gh_scm2int (p2) ? SCM_BOOL_T : SCM_BOOL_F;
+  return ly_scm2int (p1) < ly_scm2int (p2) ? SCM_BOOL_T : SCM_BOOL_F;
 }
 
 MAKE_SCHEME_CALLBACK (Script_column, before_line_breaking, 1);
@@ -44,9 +44,9 @@ Script_column::before_line_breaking (SCM smob)
   Drul_array<SCM> scripts (SCM_EOL, SCM_EOL);
   Link_array<Grob> staff_sided;
   
-  for (SCM s = me->get_property ("scripts"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = me->get_property ("scripts"); ly_pair_p (s); s = ly_cdr (s))
     {
-      Grob *sc = unsmob_grob (gh_car (s));
+      Grob *sc = unsmob_grob (ly_car (s));
 
       if (!sc->has_offset_callback (Side_position_interface::aligned_side_proc,
 				    X_AXIS))
@@ -61,7 +61,7 @@ Script_column::before_line_breaking (SCM smob)
 	{
 	  programming_error ( "No direction for script?");
 	  d = DOWN;
-	  g->set_property ("direction", gh_int2scm (d));
+	  g->set_property ("direction", scm_int2num (d));
 	}
       
       scripts[d] = scm_cons (g->self_scm (), scripts[d]);
@@ -74,9 +74,9 @@ Script_column::before_line_breaking (SCM smob)
       ss = scm_stable_sort_x (ss, grob_script_priority_less_proc);
       
       Grob * last = 0;
-      for (SCM s = ss; gh_pair_p (s); s = gh_cdr (s))
+      for (SCM s = ss; ly_pair_p (s); s = ly_cdr (s))
 	{
-	  Grob *g = unsmob_grob (gh_car (s));
+	  Grob *g = unsmob_grob (ly_car (s));
 	  if (last)
 	    Side_position_interface::add_support (g,last);
 	  

@@ -45,7 +45,7 @@ Output_property_engraver::acknowledge_grob (Grob_info inf)
 
 
 
-      if (gh_procedure_p (pred))
+      if (ly_procedure_p (pred))
 	{
 	  /*
 	    should typecheck pred. 

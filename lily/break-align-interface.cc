@@ -28,7 +28,7 @@ SCM
 Break_align_interface::alignment_callback (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) gh_scm2int (axis);
+  Axis a = (Axis) ly_scm2int (axis);
 
   assert (a == X_AXIS);
   Grob *par = me->get_parent (a);
@@ -38,7 +38,7 @@ Break_align_interface::alignment_callback (SCM element_smob, SCM axis)
       Break_align_interface::do_alignment (par);
     }
     
-  return gh_double2scm (0);
+  return scm_make_real (0);
 }
 
 MAKE_SCHEME_CALLBACK (Break_align_interface,self_align_callback,2);
@@ -46,7 +46,7 @@ SCM
 Break_align_interface::self_align_callback (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) gh_scm2int (axis);
+  Axis a = (Axis) ly_scm2int (axis);
   assert (a == X_AXIS);
   
   Item* item = dynamic_cast<Item*> (me);
@@ -76,25 +76,25 @@ Break_align_interface::ordered_elements (Grob *grob)
   Item *me  = dynamic_cast<Item*> (grob);
   SCM elts = me->get_property ("elements");
   SCM order_vec = me->get_property ("break-align-orders");
-  if (!gh_vector_p (order_vec)
-      || gh_vector_length (order_vec) < 3)
+  if (!ly_vector_p (order_vec)
+      || ly_vector_length (order_vec) < 3)
     return  Pointer_group_interface__extract_grobs (me, (Grob*)0,
 						    "elements");
   SCM order = scm_vector_ref (order_vec,
-			      gh_int2scm (me->break_status_dir() + 1));
+			      scm_int2num (me->break_status_dir() + 1));
 
 
   /*
     Copy in order specified in BREAK-ALIGN-ORDER.
   */
   Link_array<Grob> new_elts;
-  for (; gh_pair_p (order); order = ly_cdr (order))
+  for (; ly_pair_p (order); order = ly_cdr (order))
     {
-      SCM sym = gh_car (order);
+      SCM sym = ly_car (order);
       
-      for (SCM s =elts; gh_pair_p (s); s = gh_cdr (s))
+      for (SCM s =elts; ly_pair_p (s); s = ly_cdr (s))
 	{
-	  Grob *g = unsmob_grob (gh_car (s));
+	  Grob *g = unsmob_grob (ly_car (s));
 	  if (g && sym == g->get_property ("break-align-symbol"))
 	    {
 	      new_elts.push (g);
@@ -161,9 +161,9 @@ Break_align_interface::do_alignment (Grob *grob)
 	Find the first grob with a space-alist entry.
        */
       for (SCM s = l->get_property ("elements");
-	   gh_pair_p (s) ; s = gh_cdr (s))
+	   ly_pair_p (s) ; s = ly_cdr (s))
 	  {
-	    Grob *elt = unsmob_grob (gh_car (s));
+	    Grob *elt = unsmob_grob (ly_car (s));
 
 	    if (edge_idx < 0
 		&& elt->get_property ("break-align-symbol")
@@ -171,7 +171,7 @@ Break_align_interface::do_alignment (Grob *grob)
 	      edge_idx = idx;
 	    
 	    SCM l =elt->get_property ("space-alist");
-	    if (gh_pair_p (l))
+	    if (ly_pair_p (l))
 	      {
 		alist= l;
 		break;
@@ -186,9 +186,9 @@ Break_align_interface::do_alignment (Grob *grob)
 	reason.
       */
       for (SCM s = r ? r->get_property ("elements") : SCM_EOL;
-	   !gh_symbol_p (rsym) && gh_pair_p (s); s = gh_cdr (s))
+	   !ly_symbol_p (rsym) && ly_pair_p (s); s = ly_cdr (s))
 	{
-	  Grob * elt =unsmob_grob (gh_car (s));
+	  Grob * elt =unsmob_grob (ly_car (s));
 
 	  rsym = elt->get_property ("break-align-symbol");
 	}
@@ -197,14 +197,14 @@ Break_align_interface::do_alignment (Grob *grob)
 	edge_idx = next_idx;
 
       SCM entry = SCM_EOL;
-      if (gh_symbol_p (rsym))
+      if (ly_symbol_p (rsym))
 	entry = scm_assq (rsym, alist);
 
-      bool entry_found = gh_pair_p (entry);
+      bool entry_found = ly_pair_p (entry);
       if (!entry_found)
 	{
 	  String sym_string;
-	  if (gh_symbol_p (rsym))
+	  if (ly_symbol_p (rsym))
 	    sym_string = ly_symbol2string (rsym);
 
 	  String orig_string ;
@@ -221,10 +221,10 @@ Break_align_interface::do_alignment (Grob *grob)
       
       if (entry_found)
 	{
-	  entry = gh_cdr (entry);
+	  entry = ly_cdr (entry);
 	  
-	  distance = gh_scm2double (gh_cdr (entry));
-	  type = gh_car (entry) ;
+	  distance = ly_scm2double (ly_cdr (entry));
+	  type = ly_car (entry) ;
 	}
 
       if (r)

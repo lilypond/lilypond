@@ -28,7 +28,7 @@ Separating_group_spanner::find_rods (Item * r, SCM next, Real padding)
     return; 
 
 
-  for (; gh_pair_p (next); next = ly_cdr (next))
+  for (; ly_pair_p (next); next = ly_cdr (next))
     {
       Item *l = dynamic_cast<Item*> (unsmob_grob (ly_car ( next)));
       Item *lb = l->find_prebroken_piece (RIGHT);
@@ -83,7 +83,7 @@ Separating_group_spanner::set_spacing_rods (SCM smob)
    */
   Real padding = robust_scm2double (me->get_property ("padding"), 0.1);
   
-  for (SCM s = me->get_property ("elements"); gh_pair_p (s) && gh_pair_p (ly_cdr (s)); s = ly_cdr (s))
+  for (SCM s = me->get_property ("elements"); ly_pair_p (s) && ly_pair_p (ly_cdr (s)); s = ly_cdr (s))
     {
       /*
 	Order of elements is reversed!

@@ -15,7 +15,7 @@ Axis_group_interface::add_element (Grob*me,Grob *e)
 {
   for (SCM ax = me->get_property ("axes"); ax != SCM_EOL ; ax = ly_cdr (ax))
     {
-      Axis a = (Axis) gh_scm2int (ly_car (ax));
+      Axis a = (Axis) ly_scm2int (ly_car (ax));
       
       if (!e->get_parent (a))
 	e->set_parent (me, a);
@@ -41,7 +41,7 @@ Interval
 Axis_group_interface::relative_group_extent (Axis a, Grob *common, SCM elts)
 {
   Interval r;
-  for (SCM s = elts; gh_pair_p (s); s = ly_cdr (s))
+  for (SCM s = elts; ly_pair_p (s); s = ly_cdr (s))
     {
       Grob * se = unsmob_grob (ly_car (s));
       Interval dims = se->extent (common, a);
@@ -56,7 +56,7 @@ SCM
 Axis_group_interface::group_extent_callback (SCM element_smob, SCM scm_axis)
 {
   Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) gh_scm2int (scm_axis);
+  Axis a = (Axis) ly_scm2int (scm_axis);
 
   SCM elts = me->get_property ("elements");
   Grob * common = common_refpoint_of_list (elts, me, a);
@@ -75,13 +75,13 @@ Axis_group_interface::set_axes (Grob*me,Axis a1, Axis a2)
 
   SCM axes = me->get_property ("axes");
   
-  if (!gh_pair_p (axes)
+  if (!ly_pair_p (axes)
       || scm_c_memq (sa1, axes) == SCM_BOOL_F
       || scm_c_memq (sa2, axes) == SCM_BOOL_F)
     {
-      SCM ax = gh_cons (sa1, SCM_EOL);
+      SCM ax = scm_cons (sa1, SCM_EOL);
       if (a1 != a2)
-	ax= gh_cons (sa2, ax);
+	ax= scm_cons (sa2, ax);
       me->set_property ("axes", ax);
     }
 
@@ -108,7 +108,7 @@ Axis_group_interface::get_children (Grob*me)
   if (!has_interface (me))
     return childs;
   
-  for (SCM ep = me->get_property ("elements"); gh_pair_p (ep); ep = ly_cdr (ep))
+  for (SCM ep = me->get_property ("elements"); ly_pair_p (ep); ep = ly_cdr (ep))
     {
       Grob* e = unsmob_grob (ly_car (ep));
       if (e)

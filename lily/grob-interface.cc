@@ -29,11 +29,11 @@ void add_interface (const char * symbol,
 LY_DEFINE (ly_add_interface, "ly:add-interface", 3,0,0, (SCM a, SCM b, SCM c),
 	  "Add an interface description.")
 {
-  SCM_ASSERT_TYPE (gh_symbol_p (a), a, SCM_ARG1, __FUNCTION__, "symbol");
-  SCM_ASSERT_TYPE (gh_string_p (b), b, SCM_ARG2, __FUNCTION__, "string");  
-  SCM_ASSERT_TYPE (gh_list_p (c), c, SCM_ARG3, __FUNCTION__, "list of syms");    
-  if (!gh_vector_p (all_ifaces))
-    all_ifaces = scm_make_vector (gh_int2scm (40), SCM_EOL);
+  SCM_ASSERT_TYPE (ly_symbol_p (a), a, SCM_ARG1, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (ly_string_p (b), b, SCM_ARG2, __FUNCTION__, "string");  
+  SCM_ASSERT_TYPE (ly_list_p (c), c, SCM_ARG3, __FUNCTION__, "list of syms");    
+  if (!ly_vector_p (all_ifaces))
+    all_ifaces = scm_make_vector (scm_int2num (40), SCM_EOL);
 
   SCM entry = scm_list_n (a, b, c, SCM_UNDEFINED);
 
@@ -65,18 +65,18 @@ check_interfaces_for_property (Grob const *me, SCM sym)
   SCM ifs = me->get_property ("interfaces");
 
   bool found = false;
-  for (; !found && gh_pair_p (ifs); ifs =gh_cdr (ifs))
+  for (; !found && ly_pair_p (ifs); ifs =ly_cdr (ifs))
     {
-      SCM iface = scm_hashq_ref (all_ifaces , gh_car (ifs), SCM_BOOL_F);
+      SCM iface = scm_hashq_ref (all_ifaces , ly_car (ifs), SCM_BOOL_F);
       if (iface == SCM_BOOL_F)
 	{
 	  String msg = to_string (_f ("Unknown interface `%s'",
-				      ly_symbol2string (gh_car (ifs)).to_str0 ()));
+				      ly_symbol2string (ly_car (ifs)).to_str0 ()));
 	  programming_error (msg);
 	  continue;
 	}
 
-      found= found || (scm_c_memq (sym, gh_caddr (iface)) != SCM_BOOL_F);
+      found= found || (scm_c_memq (sym, ly_caddr (iface)) != SCM_BOOL_F);
     }
 
   if (!found)

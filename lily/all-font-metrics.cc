@@ -70,8 +70,8 @@ All_font_metrics::find_afm (String name)
       val = read_afm_file (filename);
       unsmob_metrics (val)->filename_ = filename;
       
-      unsmob_metrics (val)->description_ = gh_cons (name_string,
-						    gh_double2scm (1.0));
+      unsmob_metrics (val)->description_ = scm_cons (name_string, 
+						     scm_make_real (1.0));
 
       if (verbose_global_b)
 	progress_indication ("]");
@@ -148,8 +148,8 @@ All_font_metrics::find_tfm (String name)
 	progress_indication ("]");
 
       unsmob_metrics (val)->filename_ = filename;
-      unsmob_metrics (val)->description_ = gh_cons (name_string,
-						    gh_double2scm (1.0));
+      unsmob_metrics (val)->description_ = scm_cons (name_string,
+						     scm_make_real (1.0));
       tfm_p_dict_->set (sname, val);
       scm_gc_unprotect_object (val);
     }
@@ -212,7 +212,7 @@ LY_DEFINE (ly_font_load, "ly:font-load", 1, 0, 0,
 	   (SCM name),
 	   "Load the font @var{name}. ")
 {
-  SCM_ASSERT_TYPE (gh_string_p (name), name, SCM_ARG1, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (ly_string_p (name), name, SCM_ARG1, __FUNCTION__, "string");
 
   Font_metric * fm = all_fonts_global->find_font (ly_scm2string (name));
 

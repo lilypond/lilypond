@@ -86,7 +86,7 @@
 	  Real distance;
 	  if (incr_scm != SCM_EOL)
 	    {
-	      distance = gh_scm2double (incr_scm);
+	      distance = ly_scm2double (incr_scm);
 	    }
 	  else
 	    {
@@ -127,7 +127,7 @@ Coherent_ligature_engraver::get_set_column (Item *item, Paper_column *column)
       // also for all associated grobs (NoteSpacing, SeparationItem).
       Grob *sl = Staff_symbol_referencer::get_staff_symbol (item);
       for (SCM tail = parent->get_property ("elements");
-	   gh_pair_p (tail);
+	   ly_pair_p (tail);
 	   tail = ly_cdr (tail))
 	{
 	  Item *sibling = unsmob_item (ly_car (tail));
@@ -140,7 +140,7 @@ Coherent_ligature_engraver::get_set_column (Item *item, Paper_column *column)
 					   "setting `spacing-increment = "
 					   "0.01': ptr=%ul", parent));
 	      sibling_parent->set_property ("forced-spacing",
-					      gh_double2scm (0.01));
+					      scm_make_real (0.01));
 #endif
 	      sibling->set_parent (column, X_AXIS);
 	    }
@@ -184,12 +184,12 @@ compute_delta_pitches (Array<Grob_info> primitives)
       {
 	delta_pitch = pitch - prev_pitch;
 	prev_primitive->set_property ("delta-pitch",
-					   gh_int2scm (delta_pitch));
+					   scm_int2num (delta_pitch));
       }
     prev_pitch = pitch;
     prev_primitive = primitive;
   }
-  primitive->set_property ("delta-pitch", gh_int2scm (0));
+  primitive->set_property ("delta-pitch", scm_int2num (0));
 }
 
 void

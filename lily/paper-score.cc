@@ -45,7 +45,7 @@ Paper_score::typeset_line (System *system)
   if (!system_)
     system_ = system;
 
-  systems_ = gh_cons (system->self_scm (), systems_);
+  systems_ = scm_cons (system->self_scm (), systems_);
   system->pscore_ = this;
 
   scm_gc_unprotect_object (system->self_scm ());

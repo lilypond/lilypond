@@ -42,9 +42,9 @@ Pointer_group_interface__extract_grobs (Grob const *elt, T *, const char* name)
 {
   Link_array<T> arr;
 
-  for (SCM s = elt->get_property (name); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = elt->get_property (name); ly_pair_p (s); s = ly_cdr (s))
     {
-      SCM e = gh_car (s);
+      SCM e = ly_car (s);
       arr.push (dynamic_cast<T*> (unsmob_grob (e)));
     }
 

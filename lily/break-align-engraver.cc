@@ -48,7 +48,7 @@ Break_align_engraver::finalize ()
 void
 Break_align_engraver::stop_translation_timestep ()
 {
-  for (SCM p = column_alist_; gh_pair_p (p); p = ly_cdr (p))
+  for (SCM p = column_alist_; ly_pair_p (p); p = ly_cdr (p))
     {
       SCM pair = ly_car (p);
       add_column (ly_cdr (pair));
@@ -92,7 +92,7 @@ Break_align_engraver::acknowledge_grob (Grob_info inf)
 	return ;
 
       SCM align_name = item->get_property ("break-align-symbol");
-      if (!gh_symbol_p (align_name))
+      if (!ly_symbol_p (align_name))
 	return ;
 
       if (!align_)

@@ -276,7 +276,7 @@ main_with_guile (void *, int, char **)
   all_fonts_global = new All_font_metrics (global_path.to_string ());
 
   init_scheme_code_string += ")";
-  gh_eval_str ((char*) init_scheme_code_string.to_str0 ());
+  scm_c_eval_string ((char*) init_scheme_code_string.to_str0 ());
 
   /* We accept multiple independent music files on the command line to
      reduce compile time when processing lots of small files.

@@ -29,7 +29,7 @@ Balloon_interface::print (SCM smob)
   SCM cb = me->get_property ("balloon-original-callback");
   SCM scm_mol  =  SCM_EOL;
 
-  if (gh_procedure_p (cb))
+  if (ly_procedure_p (cb))
     {
       scm_mol = scm_call_1 (cb, smob);
     }
@@ -60,7 +60,7 @@ Balloon_interface::print (SCM smob)
 
   SCM bt = me->get_property ("balloon-text");
   SCM chain = Font_interface::text_font_alist_chain (me);
-  chain = gh_cons (me->get_property ("balloon-text-props"), chain);
+  chain = scm_cons (me->get_property ("balloon-text-props"), chain);
 
 
   SCM text = Text_item::interpret_markup (me->get_paper ()->self_scm (), chain, bt);
