@@ -792,12 +792,12 @@ AC_DEFUN(STEPMAKE_KPATHSEA, [
     fi
 
     save_CFLAGS="$CFLAGS"
-    CFLAGS="-shared $CFLAGS"
+    CFLAGS=$(echo "-shared $CFLAGS" | sed -e 's/ -g//')
     AC_MSG_CHECKING([for shared libkpathsea])
     AC_TRY_LINK([#include <kpathsea/kpathsea.h>],
                  [kpse_var_expand ("\$TEXMF");],
                  [have_libkpathsea_so=maybe;
-		  shared_size=`wc -c conftest | sed 's/ .*//g'`]
+		  shared_size=`wc -c conftest | sed -e 's/ .*//g'`],
                  [have_libkpathsea_so=no])
 
     if test "$have_libkpathsea_so" = "maybe"; then
