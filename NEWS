@@ -1,3 +1,8 @@
+pl 37.mb1
+	- Added property restStyle. 
+	- mensural 4th, 8th and 16th rests.
+
+*************
 
 	- diamond heads (probably really ugly).
 	- cross head.

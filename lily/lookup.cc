@@ -305,9 +305,9 @@ Lookup::flag (int j, Direction d) const
 }
 
 Molecule
-Lookup::rest (int j, bool o) const
+Lookup::rest (int j, bool o, String style) const
 {
-  return afm_find (String ("rests-") + to_str (j) + (o ? "o" : ""));
+  return afm_find (String ("rests-") + to_str (j) + (o ? "o" : "") + style);
 }
 
 Molecule

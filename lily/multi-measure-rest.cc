@@ -47,12 +47,12 @@ Multi_measure_rest::do_brew_molecule_p () const
   Molecule s;
   if (measures_i_ == 1 || measures_i_ == 2 || measures_i_ == 4) 
     {
-      s = (lookup_l ()->rest (- intlog2(measures_i_), 0));
+      s = (lookup_l ()->rest (- intlog2(measures_i_), 0, ""));
       s.translate_axis (-s.extent ()[X_AXIS].length () / 2, X_AXIS);
     }
   else 
     {
-      s = (lookup_l ()->rest (-4, 0));
+      s = (lookup_l ()->rest (-4, 0, ""));
     }
   mol_p->add_molecule (s);
   Real interline_f = staff_line_leading_f ();
