@@ -37,9 +37,12 @@ include $(depth)/make/stepmake.make
 doc: 
 	$(MAKE) -C Documentation
 
-web-install: 
+install-WWW:
 	-$(INSTALL) -m 755 -d $(webdir) 
 	tar -C $(webdir)/ -xzf $(outdir)/web.tar.gz
+
+web-install:
+	$(MAKE) out=www install-WWW
 
 local-install:
 	$(INSTALL) -d $(local_lilypond_datadir)
