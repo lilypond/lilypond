@@ -971,13 +971,13 @@ Rest can contain a list of beat groupings
 			      (map (lambda (x) (ly:get-mus-property x 'pitch)) notes2) ly:pitch<?))
 		   )
 		(cond
-		 ((= (length notes1) 0) (put 'solo2))
-		 ((= (length notes2) 0) (put 'solo1))
 		 ((> (length notes1) 1) (put 'apart))
 		 ((> (length notes2) 1) (put 'apart))
 		 (else
-		  (if (< chord-threshold (ly:pitch-steps
-			  (ly:pitch-diff (car pitches1) (car pitches2))))
+		  (if
+		   (and (= (length pitches1) (length pitches2))
+		    (< chord-threshold (ly:pitch-steps
+					(ly:pitch-diff (car pitches1) (car pitches2)))))
 			(put 'apart)
 
 
