@@ -1,6 +1,18 @@
 %{
 
-#include "mi2mu.hh"
+#include "mi2mu-proto.hh"
+#include "proto.hh"
+#include "plist.hh"
+#include "warn.hh"
+#include "mi2mu-global.hh"
+//#include "midi-parser.hh"
+#include "my-midi-parser.hh"
+#include "my-midi-lexer.hh"
+#include "duration-convert.hh"
+#include "string-convert.hh"
+#include "mudela-item.hh"
+#include "mudela-score.hh"
+#include "mudela-staff.hh"
 
 #ifndef NDEBUG
 #define YYDEBUG 1
@@ -13,9 +25,9 @@
     char c;
     int i;
     String* str_p;
-    Midi_event* midi_event_p;	// Voice_element* ?
-    Midi_score* midi_score_p; 	// Input_score* ?
-    Midi_track* midi_track_p;	// Input_music* ?
+    Mudela_item* mudela_item_p;	// Voice_element* ? jup, just about :-)
+    Mudela_score* mudela_score_p; // Input_score* ?
+    Mudela_staff* mudela_staff_p; // Input_music* ?
 }
 
 %token HEADER TRACK
@@ -33,39 +45,39 @@
 %token<str_p> DATA
 
 %type <i> varint
-%type <midi_score_p> header midi_score
-%type <midi_track_p> track
-%type <midi_event_p> event
-%type <midi_event_p> the_event meta_event the_meta_event text_event midi_event sysex_event
-%type <midi_event_p> running_status data_entry all_notes_off
-%type <midi_event_p> note_off note_on
-%type <midi_event_p> polyphonic_aftertouch controlmode_change program_change
-%type <midi_event_p> channel_aftertouch pitchwheel_range
+%type <mudela_score_p> header mudela_score
+%type <mudela_staff_p> track
+%type <mudela_item_p> item
+%type <mudela_item_p> the_item meta_item the_meta_item text_item mudela_item sysex_item
+%type <mudela_item_p> running_status data_entry all_notes_off
+%type <mudela_item_p> note_off note_on
+%type <mudela_item_p> polyphonic_aftertouch controlmode_change program_change
+%type <mudela_item_p> channel_aftertouch pitchwheel_range
 
 %%
 
 midi:	/* empty */
-	| midi midi_score {
-		midi_parser_l_g->add_score( $2 );		
+	| midi mudela_score {
+		midi_parser_l_g->add_score ($2);		
 	}
 	;
 
-midi_score:
+mudela_score:
 	header {
 	}
-	| midi_score track {
-		$$->add_track( $2 );
+	| mudela_score track {
+		$$->add_staff ($2);
 		// ugh
-		$2->set_tempo( midi_parser_l_g->midi_tempo_p_->useconds_per_4_i() );
-		$2->set_time( midi_parser_l_g->midi_time_p_->num_i(), 
-			midi_parser_l_g->midi_time_p_->den_i(), 
-			midi_parser_l_g->midi_time_p_->clocks_1_i(), 
-			8 );
-		if ( midi_parser_l_g->copyright_str_.length_i() )
+		$2->set_tempo (midi_parser_l_g->mudela_tempo_p_->useconds_per_4_i());
+		$2->set_meter (midi_parser_l_g->mudela_meter_p_->num_i(), 
+			midi_parser_l_g->mudela_meter_p_->den_i(), 
+			midi_parser_l_g->mudela_meter_p_->clocks_1_i(), 
+			8);
+		if  (midi_parser_l_g->copyright_str_.length_i())
 			$2->copyright_str_ = midi_parser_l_g->copyright_str_;
-		if ( midi_parser_l_g->track_name_str_.length_i() )
+		if  (midi_parser_l_g->track_name_str_.length_i())
 			$2->name_str_ = midi_parser_l_g->track_name_str_;
-		if ( midi_parser_l_g->instrument_str_.length_i() )
+		if  (midi_parser_l_g->instrument_str_.length_i())
 			$2->instrument_str_ = midi_parser_l_g->instrument_str_;
 		midi_parser_l_g->reset();
 	}
@@ -73,60 +85,64 @@ midi_score:
 
 header:	
 	HEADER INT32 INT16 INT16 INT16 {
-		$$ = new Midi_score( $3, $4, $5 );
-		midi_parser_l_g->set_division_4( $5 );
+		// ugh, already constructed; 
+		// need to have score in My_midi_parser...
+//		$$ = new Mudela_score ($3, $4, $5);
+		$$ = midi_parser_l_g->mudela_score_p_;
+		$$->format_i_ = $3;
+		$$->tracks_i_ = $4;
+		$$->tempo_i_ =  $5;
+		midi_parser_l_g->set_division_4 ($5);
 	}
 	;
 
 track: 
 	TRACK INT32 {
-		tor( NORMAL_ver ) << "\ntrack " << midi_parser_l_g->track_i_ << ": " << flush;
-		$$ = new Midi_track( midi_parser_l_g->track_i_++,
+		LOGOUT (NORMAL_ver) << "\ntrack " << midi_parser_l_g->track_i_ << ": " << flush;
+		$$ = new Mudela_staff (midi_parser_l_g->track_i_++,
 			// silly, cause not set yet!
 			midi_parser_l_g->copyright_str_,
 			midi_parser_l_g->track_name_str_,
-			midi_parser_l_g->instrument_str_ );
+			midi_parser_l_g->instrument_str_);
+		//ugh, need to know now!
+		midi_parser_l_g->mudela_staff_l_ = $$;
 	}
-	| track event {
-		$$->add_event( midi_parser_l_g->mom(), $2 );
+	| track item {
+		if  ($2) {
+			$2->mudela_column_l_ = midi_parser_l_g->mudela_column_l_;
+			$$->add_item ($2);
+		}
 	}
 	;
 
-event:	
-	varint the_event {
+item:	
+	varint the_item {
 		$$ = $2;
-		if ( $2 ) {
-			String str = $2->mudela_str( false );
-			if ( str.length_i() )
-				tor( DEBUG_ver ) << str << " " << flush;
+		if  ($2) {
+			String str = $2->str();
+			if  (str.length_i())
+				LOGOUT (DEBUG_ver) << str << " " << flush;
 		}
 	}
 	;
 	
 varint:
 	VARINT {
-		midi_parser_l_g->forward( $1 );
-		if ( $1 ) {
-			int bars_i = (int)( midi_parser_l_g->mom() / midi_parser_l_g->midi_time_p_->bar_mom() );
-			if ( bars_i > midi_parser_l_g->bar_i_ ) {
-				tor( NORMAL_ver ) << '[' << midi_parser_l_g->bar_i_ << ']' << flush; 
-			midi_parser_l_g->bar_i_ = bars_i;	
-			}
-		}
+		midi_parser_l_g->forward ($1);
 	}
 	;
 
-the_event: 
-	meta_event { 
+the_item: 
+	meta_item { 
 	}
-	| midi_event {
+	| mudela_item {
 	}
-	| sysex_event {
+	| sysex_item {
 	}
 	;
 
-meta_event:
-	META_EVENT the_meta_event {
+meta_item:
+	META_EVENT the_meta_item {
 		$$ = $2;
 	}
 	|
@@ -135,81 +151,81 @@ meta_event:
 	}
 	;
 
-the_meta_event:
+the_meta_item:
 	SEQUENCE INT16 {
 	}
-	| text_event DATA {
-		Midi_text::Type type = (Midi_text::Type)$1;
+	| text_item DATA {
+		Mudela_text::Type type = (Mudela_text::Type)$1;
 		$$ = 0;
-		switch ( type )
+		switch  (type)
 			{
-			case Midi_text::COPYRIGHT:
+			case Mudela_text::COPYRIGHT:
 			        midi_parser_l_g->copyright_str_ = *$2;
 				break;
-			case Midi_text::TRACK_NAME:
+			case Mudela_text::TRACK_NAME:
 			        midi_parser_l_g->track_name_str_ = *$2;
 				break;
-			case Midi_text::INSTRUMENT_NAME:
+			case Mudela_text::INSTRUMENT_NAME:
 			        midi_parser_l_g->instrument_str_ = *$2;
 				break;
 			default:
-				$$ = new Midi_text( type, *$2 );
+				$$ = new Mudela_text (type, *$2);
 				break;
 			}
-		tor( DEBUG_ver ) << *$2 << endl;
+		LOGOUT (DEBUG_ver) << *$2 << endl;
 		delete $2;
 	}
 	| END_OF_TRACK {
 		$$ = 0;
 	}
 	| TEMPO U8 U8 U8 { 
-		$$ = new Midi_tempo( ( $2 << 16 ) + ( $3 << 8 ) + $4 );
-		tor( DEBUG_ver ) << $$->mudela_str( false ) << endl;
-		midi_parser_l_g->set_tempo( ( $2 << 16 ) + ( $3 << 8 ) + $4 );
+		$$ = new Mudela_tempo ( ($2 << 16) +  ($3 << 8) + $4);
+		LOGOUT (DEBUG_ver) << $$->str() << endl;
+		midi_parser_l_g->set_tempo ( ($2 << 16) +  ($3 << 8) + $4);
 	}
 	| SMPTE_OFFSET U8 U8 U8 U8 U8 { 
 		$$ = 0;
 	}
 	| TIME U8 U8 U8 U8 { 
-		$$ = new Midi_time( $2, $3, $4, $5 );
-		tor( DEBUG_ver ) << $$->mudela_str( true ) << endl;
-		midi_parser_l_g->set_time( $2, $3, $4, $5 );
+		$$ = new Mudela_meter ($2, $3, $4, $5);
+		LOGOUT (DEBUG_ver) << $$->str() << endl;
+		midi_parser_l_g->set_meter ($2, $3, $4, $5);
 	}
 	| KEY I8 I8 { 
-		$$ = new Midi_key( $2, $3 );
-		midi_parser_l_g->set_key( $2, $3  );
+		$$ = new Mudela_key ($2, $3);
+		midi_parser_l_g->set_key ($2, $3 );
 	}
 	| SSME DATA {
-		$$ = new Midi_text( (Midi_text::Type)0, *$2 );
+		$$ = new Mudela_text ((Mudela_text::Type)0, *$2);
 		delete $2;
 	}
 	;
 
-text_event: 
+text_item: 
 	YYTEXT {
-		tor( DEBUG_ver ) << "\n% Text: ";
+		LOGOUT (DEBUG_ver) << "\n% Text: ";
 	}
 	| YYCOPYRIGHT {
-		tor( DEBUG_ver ) << "\n% Copyright: ";
+		LOGOUT (DEBUG_ver) << "\n% Copyright: ";
 	}
 	| YYTRACK_NAME {
-		tor( DEBUG_ver ) << "\n% Track  name: ";
+		LOGOUT (DEBUG_ver) << "\n% Track  name: ";
 	}
 	| YYINSTRUMENT_NAME {
-		tor( DEBUG_ver ) << "\n% Instrument  name: ";
+		LOGOUT (DEBUG_ver) << "\n% Instrument  name: ";
 	}
 	| YYLYRIC {
-		tor( DEBUG_ver ) << "\n% Lyric: ";
+		LOGOUT (DEBUG_ver) << "\n% Lyric: ";
 	}
 	| YYMARKER {
-		tor( DEBUG_ver ) << "\n% Marker: ";
+		LOGOUT (DEBUG_ver) << "\n% Marker: ";
 	}
 	| YYCUE_POINT {
-		tor( DEBUG_ver ) << "\n% Cue point: ";
+		LOGOUT (DEBUG_ver) << "\n% Cue point: ";
 	}
 	;
 
-midi_event: 
+mudela_item: 
 	running_status {
 	}
 	| data_entry {
@@ -233,7 +249,7 @@ midi_event:
 	;
 
 running_status:
-	RUNNING_STATUS midi_event {
+	RUNNING_STATUS mudela_item {
 		$$ = $2;
 	}
 	;
@@ -246,6 +262,7 @@ data_entry:
 
 all_notes_off:
 	ALL_NOTES_OFF U8 U8 {
+		midi_parser_l_g->note_end_all();
 		$$ = 0;
 	}
 	;
@@ -254,7 +271,8 @@ note_off:
 	NOTE_OFF U8 U8 {
 		int i = $1;
 		i = i & ~0x80;
-		$$ = midi_parser_l_g->note_end_midi_event_p( $1 & ~0x80, $2, $3 );
+		midi_parser_l_g->note_end ($1 & ~0x80, $2, $3);
+		$$ = 0;
 	}
 	;
 
@@ -263,14 +281,14 @@ note_on:
 		int i = $1;
 		i = i & ~0x90;
 		$$ = 0;
-                if ( $3 )
-			midi_parser_l_g->note_begin( $1 & ~0x90, $2, $3 );
+                if  ($3)
+			midi_parser_l_g->note_begin ($1 & ~0x90, $2, $3);
 		/*
 		  sss: some broken devices encode NOTE_OFF as 
 		       NOTE_ON with zero volume
 		 */
 		else 
-			$$ = midi_parser_l_g->note_end_midi_event_p( $1 & ~0x90, $2, $3 );
+			midi_parser_l_g->note_end ($1 & ~0x90, $2, $3);
 	}
 	;
 
@@ -304,7 +322,7 @@ pitchwheel_range:
 	}
 	;
 
-sysex_event:
+sysex_item:
 	SYSEX_EVENT1 DATA {
 		$$ = 0;
 	}

@@ -2,6 +2,7 @@
 // version.cc -- implement inexpensive versioning
 //
 // copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
+
 #include <stdio.h>
 #include "version.hh"
 
