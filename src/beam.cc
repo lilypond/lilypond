@@ -34,6 +34,7 @@ Stem_info::Stem_info(const Stem*s)
 }
 
 /****************/
+
 Offset
 Beam::center()const
 {
@@ -42,9 +43,9 @@ Beam::center()const
 	Beam*me_p = (Beam*)this;
 	me_p->do_post_processing();
     }
-    Real w=width().length()/2;
-    return Offset(w,
-                  (left_pos + w* slope)*paper()->interline());
+
+    Real w=(paper()->note_width() + width().length())/2.0;
+    return Offset(w, (left_pos + w* slope)*paper()->interline());
 }
 
 
