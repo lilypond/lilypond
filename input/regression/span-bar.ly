@@ -3,7 +3,7 @@
   texidoc = "Span bars are drawn only between staff bar lines. By setting 
 bar lines to transparent, they are shown only between systems.
 
-Setting @code{SpanBar} transparent does the removes the barlines
+Setting @code{SpanBar} transparent  removes the barlines
 between systems.
  
 "

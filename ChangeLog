@@ -1,5 +1,7 @@
 2004-05-31  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/regression/tuplet-nest.ly: bugfix.
+
 	* lily/tie-performer.cc (stop_translation_timestep): reset
 	ties_created_. Fixes: midi-tie.ly, midi-lyrics-barcheck.ly
 
