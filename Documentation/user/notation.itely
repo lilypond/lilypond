@@ -3557,7 +3557,7 @@ This results in the following output:
 @lilypond[raggedright]
 \score {
   \context ChoirStaff 
-  \notes \relative c'' <<
+  \notes \relative c' <<
     \new staff {
       as'' c e2 cis,2
     }

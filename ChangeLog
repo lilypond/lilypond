@@ -1,4 +1,10 @@
+2004-03-29  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* Documentation/user/GNUmakefile: add rule for .nexi
+
 2004-03-28  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* Documentation/user/music-glossary.tely: move glossary direntry
 
 	* stepmake/stepmake/texinfo-vars.make (INFOINSTALL): 
 	only do mkdir/install-info if INFO_INSTALL_FILES != "".

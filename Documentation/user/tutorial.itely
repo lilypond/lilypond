@@ -1340,7 +1340,7 @@ Entering such parts is done by entering each voice as a sequence (with
 @code{@{ .. @}}), and combining those simultaneously, separating the
 voices with @code{\\}:
 
-@lilypond[verbatim,relative=1]
+@lilypond[verbatim,relative=2]
   << { a4 g2 f4~ f4 } \\
      { r4 g4 f2  f4 } >>
 @end lilypond
@@ -1349,7 +1349,7 @@ For polyphonic music typesetting, spacer rests can also be convenient: these
 are rests that do not print.  It is useful for filling up voices that
 temporarily do not play. Here is the same example with a spacer rest
 instead of a normal rest
-@lilypond[relative=1]
+@lilypond[relative=2]
  << { a4 g2 f4~ f4 } \\
     { s4 g4 f2  f4 } >>
 @end lilypond
