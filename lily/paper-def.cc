@@ -19,7 +19,6 @@
 #include "identifier.hh"
 #include "main.hh"
 #include "scope.hh"
-#include "dictionary-iter.hh"
 #include "file-results.hh" // urg? header_global_p
 #include "paper-outputter.hh"
 #include "paper-stream.hh"
