@@ -248,8 +248,8 @@ Sequential_iterator::process (Moment until)
       else
 	{
 	  Moment w = until - here_mom_ + iter_->music_start_mom ();
-	  if (w >= Moment (0)) 
-	    iter_->process (w);
+	  //	  if (w >= Moment (0)) 
+	  iter_->process (w);
 	}
       
       /*
