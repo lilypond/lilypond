@@ -25,9 +25,10 @@ Line_of_staff::TeXstring() const
     // the staff itself: eg lines, accolades
     s += "\\hbox{";
     {
-	Symbol sym = pstaff_->get_stafsym(scor->score->paper_->linewidth);
+	Symbol sym = pstaff_->get_stafsym(line_of_score_->pscore_-> // ugh
+					  paper_->linewidth);
 	s+=sym.tex;
-	PCursor<const PCol *> cc(scor->cols);
+	PCursor<const PCol *> cc(line_of_score_->cols);
 	Real lastpos=cc->hpos;
 
 	// all items in the current line & staff.
@@ -57,22 +58,21 @@ Line_of_staff::TeXstring() const
 
 Line_of_staff::Line_of_staff(Line_of_score * sc, PStaff*st)
 {
-    scor=sc;
+    line_of_score_=sc;
     pstaff_=st;
-#if 0
+
+    
     const PCol *linestart = sc->cols.top();
     const PCol *linestop = sc->cols.bottom();
 
+    
     for (PCursor<const Spanner*> sp(pstaff_->spans); sp.ok(); sp++) {
 	const PCol *brokenstart = &MAX(*linestart, *sp->left);
 	const PCol *brokenstop = &MIN(*linestop, *sp->right);
-//	if (*brokenstop  < *brokenstart)
-	brokenspans.bottom().add(sp->broken_at(0,0));
-    }
-#endif
-    for (PCursor<const Spanner*> sp(pstaff_->spans); sp.ok(); sp++) {
-
-	brokenspans.bottom().add(sp->broken_at(0,0));
+	if ( *brokenstart < *brokenstop) {
+	    line_of_score_->pscore_-> // higghl
+		add_broken(sp->broken_at(brokenstart,brokenstop));
+	}
     }
 }
 
@@ -82,10 +82,11 @@ Line_of_staff::height() const
 {
     Interval y;
     {
-	Symbol s = pstaff_->stafsym->eval(scor->score->paper_->linewidth);
+	Symbol s = pstaff_->stafsym->eval(line_of_score_->pscore_->
+					  paper_->linewidth);
 	y = s.dim.y;
     }
-    PCursor<const PCol *> cc(scor->cols);
+    PCursor<const PCol *> cc(line_of_score_->cols);
     
     // all items in the current line & staff.
     for (; cc.ok(); cc++) {
