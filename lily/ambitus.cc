@@ -25,7 +25,7 @@ Ambitus::print (SCM smob)
   Stencil stencil;
 
   // join heads
-  Link_array<Grob> heads (Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-heads"));
+  Link_array<Grob> heads (extract_grob_array (me, ly_symbol2scm ("note-heads")));
   if (to_boolean (me->get_property ("join-heads"))
       && heads.size() > 1)
     {

@@ -312,7 +312,7 @@ Accidental_placement::position_accidentals (Grob * me)
       if (Note_collision_interface::has_interface (c))
 	{
 	  Link_array<Grob> gs =
-	    Pointer_group_interface__extract_grobs (c, (Grob*)0, "elements");
+	    extract_grob_array (c, ly_symbol2scm ("elements"));
       
 	  note_cols.concat (gs);
 	}
@@ -320,10 +320,7 @@ Accidental_placement::position_accidentals (Grob * me)
   
   for (int i = note_cols.size () ; i--;)
     {
-      heads.concat (Pointer_group_interface__extract_grobs (note_cols[i],
-							    (Grob*)0,
-							    "note-heads"));
-      
+      heads.concat (extract_grob_array (note_cols[i], ly_symbol2scm ("note-heads")));
     }
   heads.default_sort ();
   heads.uniq ();

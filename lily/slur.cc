@@ -203,7 +203,7 @@ static Direction
 get_default_dir (Grob*me)
 {
   Link_array<Grob> encompasses
-    = Pointer_group_interface__extract_grobs (me, (Grob*) 0, "note-columns");
+    = extract_grob_array (me, ly_symbol2scm ("note-columns"));
 
   Direction d = DOWN;
   for (int i = 0; i < encompasses.size (); i ++)

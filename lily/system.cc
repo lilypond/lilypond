@@ -461,7 +461,7 @@ Link_array<Grob>
 System::columns () const
 {
   Link_array<Grob> acs
-    = Pointer_group_interface__extract_grobs (this, (Grob*) 0, "columns");
+    = extract_grob_array (this, ly_symbol2scm ("columns"));
   bool found = false;
   for (int i = acs.size (); i--;)
     {

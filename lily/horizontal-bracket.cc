@@ -36,7 +36,7 @@ Horizontal_bracket::print (SCM smob)
 {
   Grob * me = unsmob_grob (smob);
   Spanner *sp = dynamic_cast<Spanner*> (me);
-  Link_array<Grob> gs = Pointer_group_interface__extract_grobs (me, (Grob*)0, "columns");
+  Link_array<Grob> gs = extract_grob_array (me, ly_symbol2scm ("columns"));
 
   if (!gs.size ())
     {

@@ -32,21 +32,8 @@ public:
   static void add_grob (Grob*, SCM nm, Grob*e);
 };
 
-template<class T>
-Link_array<T>
-Pointer_group_interface__extract_grobs (Grob const *elt, T *, const char* name)
-{
-  Link_array<T> arr;
-
-  for (SCM s = elt->get_property (name); scm_is_pair (s); s = scm_cdr (s))
-    {
-      SCM e = scm_car (s);
-      arr.push (dynamic_cast<T*> (unsmob_grob (e)));
-    }
-
-  arr.reverse ();
-  return arr;
-}
+Link_array<Grob> extract_grob_array (Grob const *elt, SCM symbol);
+Link_array<Item> extract_item_array (Grob const *elt, SCM symbol);
 
 
 

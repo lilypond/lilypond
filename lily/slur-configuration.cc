@@ -115,7 +115,7 @@ Slur_configuration::generate_curve (Slur_score_state const &state,
     }
 
   Link_array<Grob> extra_encompasses
-    = Pointer_group_interface__extract_grobs (state.slur_, (Grob *)0, "encompass-objects");
+    = extract_grob_array (state.slur_, ly_symbol2scm ("encompass-objects"));
   for (int i = 0;  i < extra_encompasses.size (); i++)
     if (Slur::has_interface (extra_encompasses[i]))
       {

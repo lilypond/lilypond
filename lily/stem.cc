@@ -393,7 +393,7 @@ Stem::position_noteheads (Grob *me)
     return;
 
   Link_array<Grob> heads =
-    Pointer_group_interface__extract_grobs (me, (Grob*) 0, "note-heads");
+    extract_grob_array (me, ly_symbol2scm ("note-heads"));
 
   heads.sort (compare_position);
   Direction dir = get_direction (me);

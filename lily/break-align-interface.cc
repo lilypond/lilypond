@@ -76,8 +76,7 @@ Break_align_interface::ordered_elements (Grob *grob)
   SCM order_vec = me->get_property ("break-align-orders");
   if (!scm_is_vector (order_vec)
       || scm_c_vector_length (order_vec) < 3)
-    return  Pointer_group_interface__extract_grobs (me, (Grob*)0,
-						    "elements");
+    return  extract_grob_array (me, ly_symbol2scm ("elements"));
   SCM order = scm_vector_ref (order_vec,
 			      scm_int2num (me->break_status_dir () + 1));
 

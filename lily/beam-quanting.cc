@@ -138,7 +138,7 @@ Beam::quanting (SCM smob)
     precompute for every stem 2 factors.
    */
   Link_array<Grob> stems =
-    Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
+    extract_grob_array (me, ly_symbol2scm ("stems"));
   Array<Stem_info> stem_infos;
   Array<Real> base_lengths;
   Array<Real> stem_xposns;  

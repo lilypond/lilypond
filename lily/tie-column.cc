@@ -74,7 +74,7 @@ void
 Tie_column::werner_directions (Grob *me)
 {
   Link_array<Grob> ties =
-    Pointer_group_interface__extract_grobs (me, (Grob*)0, "ties");
+    extract_grob_array (me, ly_symbol2scm ("ties"));
 
   if (!ties.size ())
     return ;

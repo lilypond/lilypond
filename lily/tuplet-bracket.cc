@@ -79,9 +79,7 @@ Tuplet_bracket::parallel_beam (Grob *me, Link_array<Grob> const &cols, bool *equ
   if (! (b1 && (b1 == b2) && !sp->is_broken ()))
       return 0;
 
-  Link_array<Grob> beam_stems = Pointer_group_interface__extract_grobs
-    (b1, (Grob*)0, "stems");
-
+  Link_array<Grob> beam_stems = extract_grob_array (b1, ly_symbol2scm ("stems"));
   if (beam_stems.size () == 0)
     {
       programming_error ("Beam under tuplet bracket has no stems!");
@@ -108,12 +106,10 @@ Tuplet_bracket::print (SCM smob)
   Grob *me = unsmob_grob (smob);
   Stencil  mol;
   Link_array<Grob> columns =
-    Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-columns");
+    extract_grob_array (me, ly_symbol2scm ("note-columns"));
 
   if (!columns.size ())
     return mol.smobbed_copy ();
-
-  
 
   {
     SCM lp = me->get_property ("left-position");
@@ -307,7 +303,7 @@ void
 Tuplet_bracket::calc_position_and_height (Grob*me, Real *offset, Real * dy) 
 {
   Link_array<Grob> columns =
-    Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-columns");
+    extract_grob_array (me, ly_symbol2scm ("note-columns"));
 
   SCM cols = me->get_property ("note-columns");
   Grob * commony = common_refpoint_of_list (cols, me, Y_AXIS);
@@ -419,7 +415,7 @@ Tuplet_bracket::before_line_breaking (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Link_array<Grob> columns =
-    Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-columns");
+    extract_grob_array (me, ly_symbol2scm ("note-columns"));
 
 
   for (int i = columns.size (); i--;)
@@ -439,7 +435,7 @@ Tuplet_bracket::after_line_breaking (SCM smob)
 {
   Grob * me = unsmob_grob (smob);
   Link_array<Grob> columns =
-    Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-columns");
+    extract_grob_array (me, ly_symbol2scm ("note-columns"));
 
   if (!columns.size ())
     {

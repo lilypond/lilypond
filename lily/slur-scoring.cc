@@ -277,7 +277,7 @@ Slur_score_state::fill (Grob *me)
 {
   slur_ = dynamic_cast<Spanner*> (me);
   columns_ 
-    = Pointer_group_interface__extract_grobs (me, (Grob *) 0, "note-columns");
+    = extract_grob_array (me, ly_symbol2scm ("note-columns"));
   
   if (columns_.is_empty ())
     {
@@ -705,8 +705,7 @@ Array<Extra_collision_info>
 Slur_score_state::get_extra_encompass_infos () const
 {
   Link_array<Grob> encompasses
-    = Pointer_group_interface__extract_grobs (slur_, (Grob *)0,
-					      "encompass-objects");
+    = extract_grob_array (slur_, ly_symbol2scm ("encompass-objects"));
   Array<Extra_collision_info> collision_infos;
   for (int i = encompasses.size (); i--; )
     {
