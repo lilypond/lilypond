@@ -1,3 +1,7 @@
+2002-12-06  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
+
+	* stepmake/stepmake/c++-rules.make: Compile fix (bison 1.28)
+
 2002-12-05  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el: Propose reverting buffer before a command if
