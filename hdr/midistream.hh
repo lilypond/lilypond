@@ -13,10 +13,10 @@
 struct Midi_stream {
     ostream* os_p_;
     String filename_str_;
-    int tempo_i_;
+    int clocks_per_4_i_;
     int tracks_i_;
     
-    Midi_stream( String filename_str, int tracks_i, int tempo_i );
+    Midi_stream( String filename_str, int tracks_i, int clocks_per_4_i_ );
     ~Midi_stream();
 
     Midi_stream& operator <<( String str );

@@ -15,5 +15,7 @@ struct Midi_output {
     Midi_stream*    midi_stream_l_;
     Midi_output(Score* score_l, Midi_def* );
     void do_staff(Staff*st_l, int count);
+
+    Midi_def* midi_l_;
 };
 #endif // MIDIOUTPUT_HH

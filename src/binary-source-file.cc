@@ -1,0 +1,58 @@
+//
+// binary-source-file.cc
+//
+
+#include <limits.h>		// INT_MAX
+#include <assert.h>
+
+#include "proto.hh"
+#include "plist.hh"
+#include "string.hh"
+#include "debug.hh"
+#include "sourcefile.hh"
+#include "binary-source-file.hh"
+
+Binary_source_file::Binary_source_file( String& filename_str )
+	: Source_file( filename_str )
+{
+}
+
+Binary_source_file::~Binary_source_file()
+{
+}
+
+String
+Binary_source_file::error_str( char const* pos_ch_c_l )
+{
+    assert( this );
+    if ( !in_b( pos_ch_c_l ) )
+	return "";
+
+    char const* begin_ch_c_l = pos_ch_c_l - 8 >? ch_c_l();
+    char const* end_ch_c_l = pos_ch_c_l + 7 <? ch_c_l() + length_off();
+
+    String pre_str( (Byte const*)begin_ch_c_l, pos_ch_c_l - begin_ch_c_l );
+    pre_str = StringConversion::bin2hex_str( pre_str );
+    for ( int i = 2; i < pre_str.length_i(); i += 3 )
+	pre_str = pre_str.left( i ) + " " + pre_str.mid( i + 1, INT_MAX );
+    String post_str( (Byte const*)pos_ch_c_l, end_ch_c_l - pos_ch_c_l );
+    post_str = StringConversion::bin2hex_str( post_str );
+    for ( int i = 2; i < post_str.length_i(); i += 3 )
+	post_str = post_str.left( i ) + " " + post_str.mid( i + 1, INT_MAX );
+
+    String str = pre_str
+	+ String( '\n' )
+    	+ String( ' ', pre_str.length_i() + 1 ) 
+    	+ post_str;
+    return str;
+}
+
+int
+Binary_source_file::line_i( char const* pos_ch_c_l )
+{
+    if ( !in_b( pos_ch_c_l ) )
+    	return 0;
+
+    return pos_ch_c_l - ch_c_l();
+}
+

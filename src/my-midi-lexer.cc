@@ -19,7 +19,7 @@ My_midi_lexer* midi_lexer_l_g;
 My_midi_lexer::My_midi_lexer( String filename_str )
 {
 	input_file_p_ = new Input_file( filename_str );
-       switch_streams( input_file_p_->is );
+	switch_streams( input_file_p_->is );
 	midi_lexer_l_g = this;
 	errorlevel_i_ = 0;
 }
@@ -56,17 +56,20 @@ My_midi_lexer::here_ch_c_l()
     return input_file_p_->sourcefile_l_->ch_c_l() + yyin->tellg();
 }
 
-#if 0 // ?? huh
-int
-My_midi_lexer::yylex()
-{
-	return 0;
-}
-#endif
-
 int
 My_midi_lexer::varint2int_i( String str )
 {
+        int var_i = 0;
+
+	for ( int i = 0; i < str.length_i(); i++ ) {
+		Byte byte = str[ i ];
+		var_i <<= 7;
+		var_i += byte & 0x7f;
+		if ( ! ( byte & 0x80 ) )
+			return var_i;
+	}
+	cout << "\nvarint2int:" << StringConversion::bin2hex_str( str ) << endl;
+	assert( 0 ); // illegal varint
 	return 0;
 }
 

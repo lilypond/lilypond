@@ -34,7 +34,9 @@ hdr=bar.hh barreg.hh beam.hh boxes.hh break.hh clefreg.hh clefitem.hh\
 	tstream.hh voice.hh\
 	voiceregs.hh voicegroupregs.hh walkregs.hh
 
-mycc=bar.cc barreg.cc beam.cc boxes.cc break.cc calcideal.cc clefreg.cc\
+mycc=bar.cc barreg.cc beam.cc \
+	binary-source-file.cc\
+	boxes.cc break.cc calcideal.cc clefreg.cc\
 	clefitem.cc colhpos.cc  commandrequest.cc\
 	complexstaff.cc complexwalker.cc \
 	debug.cc dimen.cc\
@@ -84,6 +86,7 @@ stablecc=request.cc bar.cc boxes.cc break.cc  \
 # m2m headers
 #
 mym2mhh=\
+ binary-source-file.hh\
  midi-event.hh\
  midi-main.hh\
  midi-score.hh\
@@ -96,6 +99,7 @@ mym2mhh=\
 # m2m source
 #
 mym2mcc=\
+ binary-source-file.cc\
  midi-event.cc\
  midi-main.cc\
  midi-score.cc\

@@ -13,15 +13,18 @@ public:
     /**
       @return path to opened file.
      */
-    Source_file( String &filename_str );
-    ~Source_file();
+    // jcn: ugh! filename gets changed!, why?
+    Source_file( String& filename_str );
+    virtual ~Source_file();
+
     char const* ch_c_l();
-    String error_str( char const* pos_ch_c_l );
+    virtual String error_str( char const* pos_ch_c_l );
     istream* istream_l();
     bool in_b( char const* pos_ch_c_l );
-    int line_i( char const* pos_ch_c_l );
+    off_t length_off();
+    virtual int line_i( char const* pos_ch_c_l );
     String name_str();
-    String file_line_no_str(const char *ch_c_l );
+    String file_line_no_str( char const* ch_c_l );
 
 private:
     void close();
