@@ -53,7 +53,7 @@ Copyright @copyright{} 1999--2004 by the authors
 @ifnottex
 @node Top
 @top Music Glossary
-@chapter Music Glossary
+@c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 @menu
 @end menu
 @end ifnottex
