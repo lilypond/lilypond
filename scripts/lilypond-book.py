@@ -77,7 +77,7 @@ help_summary = _ ("""Process LilyPond snippets in hybrid HTML, LaTeX or texinfo 
 
 """)
 
-copyright = ('Jan Nieuwenhuizen <janneke@gnu.org>>',
+copyright = ('Jan Nieuwenhuizen <janneke@gnu.org>',
 	     'Han-Wen Nienhuys <hanwen@cs.uu.nl>')
 
 option_definitions = [
@@ -106,7 +106,7 @@ output_name = 0
 latex_filter_cmd = 'latex "\\nonstopmode \input /dev/stdin"'
 filter_cmd = 0
 process_cmd = lilypond_binary
-default_ly_options = { }
+default_ly_options = {}
 
 AFTER = 'after'
 BEFORE = 'before'
@@ -117,9 +117,9 @@ NOTES = 'body'
 OUTPUT = 'output'
 PAPER = 'paper'
 PREAMBLE = 'preamble'
+PRINTFILENAME = 'printfilename'
 TEXINFO = 'texinfo'
 VERBATIM = 'verbatim'
-PRINTFILENAME = 'printfilename'
 
 # Recognize special sequences in the input 
 #
@@ -293,9 +293,11 @@ def classic_lilypond_book_compatibility (o):
 	return None
 
 def compose_ly (code, options):
-	options += default_ly_options.keys ()
-	vars ().update (default_ly_options)
-
+	#Hmm
+	for i in default_ly_options.keys ():
+		if i not in options:
+			options.append (i)
+	
 	m = re.search (r'''\\score''', code)
 	if not m and (not options \
 		      or not 'nofragment' in options \
@@ -309,8 +311,9 @@ def compose_ly (code, options):
 	# defaults
 	relative = 0
 	staffsize = 16
-	
 	override = {}
+	override.update (default_ly_options)
+
 	option_string = string.join (options, ',')
 	notes_options = []
 	paper_options = []
@@ -328,7 +331,8 @@ def compose_ly (code, options):
 			override[key] = value
 		else:
 			key = i
-			override[i] = None
+			if i not in override:
+				override[i] = None
 
 		if key in ly_options[NOTES].keys ():
 			notes_options.append (ly_options[NOTES][key])
@@ -419,8 +423,8 @@ class Snippet (Chunk):
 	def filter_code (self):
 		pass # todo
 
-	def __repr__(self):
-		return  `self.__class__`  +  " type =  " + self.type
+	def __repr__ (self):
+		return `self.__class__`  +  " type =  " + self.type
 
 class Include_snippet (Snippet):
 	def processed_filename (self):
@@ -554,7 +558,7 @@ snippet_type_to_class = {
 	'lilypond_file' : Lilypond_snippet,
 	'lilypond_block' : Lilypond_snippet,
 	'lilypond' : Lilypond_snippet,
-	'include' : Include_snippet
+	'include' : Include_snippet,
 	}
 
 def find_toplevel_snippets (s, types):
@@ -687,7 +691,6 @@ def get_latex_textwidth (source):
 
 	return textwidth
 
-
 ext2format = {
 	'.html' : HTML,
 	'.itely' : TEXINFO,
@@ -705,7 +708,6 @@ format2ext = {
 	TEXINFO: '.texi',
 	LATEX: '.tex',
 	}
-
 	
 def do_file (input_filename):
 	#ugh
@@ -738,24 +740,28 @@ def do_file (input_filename):
 		'include',
 		'lilypond', )
 	
-	output_file = None
-	if output_name == '-' or not output_name:
-		output_file = sys.stdout
-		output_filename = '-'
+	if input_filename == '-':
+		input_base = 'stdin'
 	else:
-		if not os.path.isdir (output_name):
-			os.mkdir (output_name, 0777)
-		if input_filename == '-':
-			input_base = 'stdin'
-		else:
-			input_base = os.path.splitext (input_filename)[0]
-			input_base = os.path.basename (input_base)
-			
-		output_filename = output_name + '/' + input_base \
-				  + format2ext[format]
-		output_file = open (output_filename, 'w')
-		os.chdir (output_name)
+		input_base = os.path.basename \
+			     (os.path.splitext (input_filename)[0])
 
+	# only default to stdout when filtering 
+	if output_name == '-' or (not output_name and filter_cmd):
+		output_filename = '-'
+		output_file = sys.stdout
+	else:
+		if not output_name:
+			output_filename = input_base + format2ext[format]
+		else:
+			if not os.path.isdir (output_name):
+				os.mkdir (output_name, 0777)
+			output_filename = (output_name
+					   + '/' + input_base
+					   + format2ext[format])
+		output_file = open (output_filename, 'w')
+		if output_name:
+			os.chdir (output_name)
 
 	source = in_handle.read ()
 	chunks = find_toplevel_snippets (source, snippet_types)
@@ -769,8 +775,8 @@ def do_file (input_filename):
 			default_ly_options[LINEWIDTH] = '''%.0f\\pt''' \
 							% textwidth
 		elif format == TEXINFO:
-			for (k,v) in texi_linewidths.items ():
-				s = chunks[0].replacement_text()
+			for (k, v) in texi_linewidths.items ():
+				s = chunks[0].replacement_text ()
 				if re.search (k, s):
 					default_ly_options[LINEWIDTH] = v
 					break
