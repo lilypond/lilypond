@@ -25,6 +25,7 @@ class Axis_group_element : public virtual Score_element,
 protected:
   virtual void do_print() const;
   virtual Link_array<Score_element> get_extra_dependencies() const;
+  void purge_extra ();
 
   virtual void do_substitute_element_pointer (Score_element*,Score_element*);
   virtual Link_array<Score_element> elem_l_arr() const;
