@@ -20,7 +20,7 @@ import os
 import sys
 import __main__
 import getopt
-from string import *
+import  string
 import re
 import time
 
@@ -81,10 +81,10 @@ def gulp_file(f):
 	return s
 
 def str_to_tuple (s):
-	return tuple (map (atoi, split (s,'.')))
+	return tuple (map (string.atoi, string.split (s,'.')))
 
 def tup_to_str (t):
-	return join (map (lambda x: '%s' % x, list (t)), '.')
+	return string.join (map (lambda x: '%s' % x, list (t)), '.')
 
 def version_cmp (t1, t2):
 	for x in [0,1,2]:
@@ -438,6 +438,24 @@ if 1:
 
 	conversions.append ((1,3,38), conv, '\musicalpitch { a b c } -> #\'(a b c)')
 
+if 1:
+	def conv (str):
+		def replace (match):
+			return '\\key %s;' % string.lower (match.group (1))
+		
+		str = re.sub ("\\\\key ([^;]+);",  replace, str)
+		return str
+	
+	conversions.append ((1,3,39), conv, '\\key A ;  ->\\key a;')
+
+if 1:
+	def conv (str):
+		if re.search ('\\[:',str):
+			sys.stderr.write ('\nNot smart enough to convert to new tremolo format')
+		return str
+
+	conversions.append ((1,3,41), conv,
+			    '[:16 c4 d4 ] -> \repeat "tremolo" 2 { c16 d16 }')
 
 ############################
 	
@@ -452,7 +470,6 @@ def latest_version ():
 	return conversions[-1][0]
 
 def do_conversion (infile, from_version, outfile, to_version):
-	
 	conv_list = get_conversions (from_version, to_version)
 
 	sys.stderr.write ('Applying conversions: ')

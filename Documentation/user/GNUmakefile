@@ -9,8 +9,8 @@ DOC_FILES = $(wildcard *.doc)
 
 DVI_FILES = $(addprefix $(outdir)/,$(DOC_FILES:.doc=.dvi)  $(TELY_FILES:.tely=.dvi))
 
-EXTRA_DIST_FILES= $(DOC_FILES) $(DATA_FILES)  $(wildcard *.itexi *.itely)
-
+EXTRA_DIST_FILES= $(DOC_FILES) $(DATA_FILES)  $(wildcard *.itexi *.itely) 
+ 
 HTML_FILES = $(addprefix $(outdir)/, $(TELY_FILES:.tely=.html))
 
 PS_FILES = $(DVI_FILES:.dvi=.ps)  $(OUTDOC_FILES:.doc=.ps) $(OUTTEX_FILES:.tex=.ps)
@@ -27,9 +27,6 @@ ps: $(PS_FILES)
 
 # urg
 default:
-
-GENHTMLS = engraving colorado glossary computer-notation
-OUTGENHTMLS = $(addprefix $(outdir)/, $(GENHTMLS:%=%.html))
 
 local-WWW: $(HTML_FILES)   $(datafiles) $(PS_GZ_FILES)
 	$(PYTHON) $(step-bindir)/ls-latex.py --title 'User documentation' \
