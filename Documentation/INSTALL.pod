@@ -25,7 +25,7 @@ For compilation you need.
 =item *
 
 A GNU system: GNU LilyPond is known to run on these GNU systems:
-Linux, AIX, Digital Unix and Solaris.
+Linux, FreeBSD, AIX, Digital Unix and Solaris.
 
 If you have the Cygnus WINDOWS32 port of the GNU utils, it will even
 work in Windows NT/95, but we don't promise to support it.
@@ -62,7 +62,9 @@ TeX
 
 =item *
 
-A PostScript printer and/or viewer (such as Ghostscript). 
+A PostScript printer and/or viewer (such as Ghostscript) is strongly
+recommended.  Xdvi will show all embedded PostScript too if you have
+Ghostscript installed.
 
 =back
 
@@ -226,7 +228,11 @@ If you have done a successful C<make>, then a simple
 
 	make install
 
-should do the trick. 
+should do the trick.
+
+If you are doing an upgrade, please remember to remove obsolete .pk
+and .tfm files of the fonts.  A script has been provided to do the
+work, see F<bin/clean-fonts.sh>.
 
 =head1 CAVEATS
 
@@ -308,8 +314,8 @@ is unpacked correctly, in particular the empty out directories
 Previous versions (before 0.1.39) used fonts from the TeX macro
 package "MusixTeX".  You can still use these, but they are not
 supported.  Since LilyPond's Feta font is much prettier, you'd be
-stupid to use them, but anyway, here are the installation instructions
-for those deprecated fonts.
+seriously misguided if you used them, but anyway, here are the 
+installation instructions for those deprecated fonts.
 
 
 [obsolete] I use the MusixTeX fonts those found in MusixTeX

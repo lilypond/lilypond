@@ -12,7 +12,8 @@ include ./$(depth)/make/Include.make
 # 
 TEXFILES = $(wildcard *.tex)
 MFFILES = $(wildcard *.mf)
-EXTRA_DISTFILES = $(MFFILES) $(TEXFILES) TODO README
+MFDEPS = mf.dep
+EXTRA_DISTFILES = $(MFFILES) $(TEXFILES) $(MFDEPS) TODO README
 #
 
 FONT_FILES = $(wildcard *[0-9].mf)
@@ -27,7 +28,7 @@ TEXTABLES = $(addprefix $(texout)/, $(FET_FILES:.mf=.tex))
 all: $(LYTABLES) $(TEXTABLES)
 
 localclean:
-	rm -f $(LYTABLES) $(TEXTABLES) $(outdir)/mfdeps
+	rm -f $(LYTABLES) $(TEXTABLES) $(MFDEPS)
 
 $(outdir)/%.dvi: %.mf
 	mf $<
@@ -41,7 +42,7 @@ $(outdir)/%.log: %.mf
 	rm $(basename $< ).*gf
 
 $(lyout)/%.ly $(texout)/%.tex: $(outdir)/%.log
-	$(depth)/bin/$(outdir)/mf-to-table --ly $(lyout)/$(<F:.log=.ly) --tex $(texout)/$(<F:.log=.tex) $<
+	$(PYTHON) $(depth)/bin/mf-to-table.py --ly $(lyout)/$(<F:.log=.ly) --tex $(texout)/$(<F:.log=.tex) $<
 
 localinstall:
 	$(INSTALL) -d $(MFDIR)/public/lilypond
@@ -51,16 +52,13 @@ localuninstall:
 	for i in $(MFFILES) ; do rm -f $(MFDIR)/lilypond/$$i; done
 	-rmdir $(MFDIR)/public/lilypond/
 
-$(outdir)/mfdeps: $(FONT_FILES)
+$(MFDEPS): $(FONT_FILES)
 # do something silly to avoid barfs if python not installed.
 	echo > $@
-	$(depth)/bin/$(outdir)/mf-deps  $^ >> $@
+	$(PYTHON) $(depth)/bin/mf-deps.py  $^ >> $@
 
 # dependencies:
 #
-include $(outdir)/mfdeps
+include $(MFDEPS)
 #
-
-
-
 
