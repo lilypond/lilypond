@@ -27,7 +27,7 @@ profile_b=no
 AC_LANG_CPLUSPLUS
 
 AC_ARG_ENABLE(printing,
-    [  enable-printing         turn on debug printing],
+    [  enable-printing         turn on debug printing. Default: off],
     [printing_b=$enableval])
 
 	
