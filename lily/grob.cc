@@ -237,23 +237,8 @@ Grob::get_uncached_stencil ()const
 	mol = Stencil (m->extent_box (), SCM_EOL).smobbed_copy ();
     else
       {
-	SCM origin = ly_symbol2scm ("no-origin");
-      
-	if (store_locations_global_b)
-	  {
-	    SCM cause = get_property ("cause");
-	    if (Music*m = unsmob_music (cause))
-	      {
-		SCM music_origin = m->get_property ("origin");
-		if (unsmob_input (music_origin))
-		  origin = music_origin;
-	      }
-	  }
-
-	// ugr.
-	mol = Stencil (m->extent_box (),
-		       scm_list_n (origin, m->expr (), SCM_UNDEFINED)
-		       ). smobbed_copy ();
+	SCM expr = scm_list_3 (ly_symbol2scm ("grob-cause"), self_scm(), m->expr ());
+	mol = Stencil (m->extent_box (),expr). smobbed_copy ();
       }
     }  
 

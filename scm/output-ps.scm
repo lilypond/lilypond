@@ -140,8 +140,6 @@
 
 
 
-(define (define-origin file line col) "")
-
 (define (dot x y radius)
   (string-append
    " "
@@ -185,9 +183,6 @@
 	 prefix)
 	(string-append "/" key " {" val "} bind def\n")
 	(string-append "/" key " (" val ") def\n"))))
-
-(define (no-origin) "")
-
 
 
 (define (placebox x y s) 
@@ -268,3 +263,7 @@
     (ly:number->string dx) " "
     (ly:number->string dy)
     " draw_zigzag_line"))
+
+
+(define (grob-cause grob)
+  "")
