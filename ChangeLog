@@ -1,5 +1,8 @@
 2005-04-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/framework-ps.scm (ps-font-command): use string-hash for
+	hashing, to ensure that 11 and 18 are processed in Emmentaler-{11,18}
+
 	* lily/main.cc (setup_paths): either add mf/out to search path or 
 	fonts/{otf,type1,etc}
 	
