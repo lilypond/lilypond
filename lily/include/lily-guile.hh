@@ -79,8 +79,6 @@ inline char ly_scm2char (SCM x) { return SCM_CHAR(x); }
 inline unsigned long ly_length (SCM x) {
   return scm_num2ulong (scm_length (x), 0, "ly_length");
 }
-inline unsigned long ly_vector_length (SCM x) { return SCM_VECTOR_LENGTH (x); }
-
 inline SCM ly_bool2scm (bool x) { return SCM_BOOL (x); }
 
 inline SCM ly_append2 (SCM x1, SCM x2) {

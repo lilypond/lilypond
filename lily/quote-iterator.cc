@@ -138,7 +138,7 @@ bool
 Quote_iterator::quote_ok () const
 {
   return (event_idx_ >= 0
-	  && ly_c_vector_p (event_vector_)
+	  && scm_is_vector (event_vector_)
 	  && event_idx_ <= end_idx_
 
 	  /*
@@ -181,7 +181,7 @@ Quote_iterator::process (Moment m)
   if (Music_wrapper_iterator::ok())
     Music_wrapper_iterator::process (m);
 
-  if (!ly_c_vector_p (event_vector_))
+  if (!scm_is_vector (event_vector_))
     return ;
   
   if (event_idx_ < 0)
