@@ -168,7 +168,7 @@ Global_context::apply_finalizations ()
   set_property ("finalizations" , SCM_EOL); 
   for (SCM s = lst ; gh_pair_p (s); s = gh_cdr (s))
     {
-      scm_primitive_eval (gh_car (s));
+      scm_primitive_eval (gh_car (s)); // TODO: make safe.
     }
 }
 

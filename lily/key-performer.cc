@@ -45,9 +45,7 @@ Key_performer::create_audio_elements ()
   if (key_req_) 
     {
       SCM pitchlist = key_req_->get_property ("pitch-alist");
-      static SCM proc;
-      if (!proc)
-	proc = scm_primitive_eval (ly_symbol2scm ("alterations-in-key"));
+      SCM proc = ly_scheme_function ("alterations-in-key");
       
       SCM acc = gh_call1 (proc, pitchlist);
       
@@ -63,7 +61,7 @@ Key_performer::create_audio_elements ()
 
       /* MIDI keys are too limited for lilypond scales.
 	 We check for minor scale and assume major otherwise.  */
-      SCM minor = scm_primitive_eval (ly_symbol2scm ("minor"));
+      SCM minor = scm_c_eval_string ("minor");
       audio_ = new Audio_key (gh_scm2int (acc),
 			      SCM_BOOL_T != scm_equal_p (minor, c_pitchlist));
 

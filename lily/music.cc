@@ -342,13 +342,11 @@ LY_DEFINE (ly_music_transpose, "ly:music-transpose",
   return sc->self_scm ();
 }
 
-SCM make_music_proc;
 
 Music*
 make_music_by_name (SCM sym)
 {
-  if (!make_music_proc)
-    make_music_proc = scm_primitive_eval (ly_symbol2scm ("make-music"));
+  SCM make_music_proc = ly_scheme_function ("make-music");
 	
   SCM rv = scm_call_1 (make_music_proc, sym);
 

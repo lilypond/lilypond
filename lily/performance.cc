@@ -62,8 +62,19 @@ Performance::output (Midi_stream& midi_stream)
        */
       if (channel == 9)
 	 channel++;
+
+
+      /*
+	Huh? Why does each staff also have a separate channel? We
+	should map channels to voices, not staves. --hwn.
+	*/
       if (s->channel_ < 0)
-	 s->channel_ = channel;
+	{
+	  s->channel_ = channel <? 15;
+	  if (channel > 15)
+	    warning ("MIDI channel wrapped around. Mapping to channel 15.");
+	}
+      
       s->output (midi_stream, channel++);
       if (verbose_global_b)
 	progress_indication ("]");
