@@ -2,12 +2,13 @@
    path.cc - manipulation of paths and filenames.
 */
 
-
+#include "config.h"
 #include <stdio.h>
 #include <errno.h>
+#if HAVE_SYS_STAT_H 
 #include <sys/stat.h>
+#endif
 
-#include "config.h"
 #include "file-path.hh"
 #include "flower-debug.hh"
 
@@ -102,6 +103,7 @@ File_path::find (String nm) const
 
       DEBUG_OUT << path << "? ";
 
+#if 0
       /*
 	Check if directory. TODO: encapsulate for autoconf
        */
@@ -111,6 +113,15 @@ File_path::find (String nm) const
       
       if (!(sbuf.st_mode & __S_IFREG))
 	continue;
+#endif
+#if !STAT_MACROS_BROKEN
+      struct stat sbuf;
+      if (stat (path.ch_C (), &sbuf) == ENOENT)
+	continue;
+      
+      if (S_ISDIR (sbuf.st_mode))
+	continue;
+#endif
 
       FILE *f = fopen (path.ch_C(), "r"); // ugh!
       if (f)
@@ -125,7 +136,7 @@ File_path::find (String nm) const
 }
 
 /**
-   Add an directory, return false if failed
+   Add a directory, return false if failed
  */
 bool
 File_path::try_add (String s)

@@ -44,4 +44,10 @@
 #define PATHSEP '@PATHSEP@'
 
 /* define if you have assert */
-#define HAVE_ASSERT_H 1
+#define HAVE_ASSERT_H 0
+
+/* define if you have sys/stat.h */
+#define HAVE_SYS_STAT_H 0
+
+/* define if you have sys/stat.h */
+#define STAT_MACROS_BROKEN 0
