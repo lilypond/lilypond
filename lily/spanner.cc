@@ -35,7 +35,7 @@ Spanner::Spanner()
 
 
 Interval
-Spanner::width()const
+Spanner::do_width()const
 {
     Real r = right_col_l_->hpos;
     Real l = left_col_l_->hpos;
