@@ -292,16 +292,25 @@ instead:
 @node Markup command definition
 @appendixsubsec Markup command definition
 
-New markup commands can be defined thanks to the @code{def-markup-command} scheme macro.
+New markup commands can be defined
+with  the @code{def-markup-command} scheme macro.
 @lisp
 (def-markup-command (@var{command-name} @var{paper} @var{props} @var{arg1} @var{arg2} ...)
             (@var{arg1-type?} @var{arg2-type?} ...)
   ..command body..)
+@end lisp
 
-    @var{argi}: i@var{th} command argument
-    @var{argi-type?}: a type predicate for the i@var{th} argument
-    @var{paper}: the `paper' definition
-    @var{props}: a list of alists, containing all active properties. 
+The arguments signify
+
+@table @var
+@item argi
+@var{i}th command argument
+@item argi-type?
+a type predicate for the i@var{th} argument
+@item paper
+the `paper' definition
+@item props
+a list of alists, containing all active properties. 
 @end lisp
 
 As a simple example, we show how to add a @code{\smallcaps} command,
@@ -334,7 +343,7 @@ the @code{argument} as a markup, i.e.
 
 @noindent
 This interpretation should add @code{'(font-shape . caps)} to the active
-properties, so we substitute the the following for the @dots{} in the
+properties, so we substitute the  following for the @dots{} in the
 above example:
 
 @example
@@ -345,38 +354,8 @@ above example:
 The variable @code{props} is a list of alists, and we prepend to it by
 consing a list with the extra setting.
 
-However, suppose that we are using a font that does not have a
-small-caps variant. In that case, we have to fake the small caps font,
-by setting a string in upcase, with the first letter a little larger:
 
-@example
-#(def-markup-command (smallcaps paper props str) (string?)
-   "Print the string argument in small caps. Syntax: \\smallcaps #\"string\""
-   (interpret-markup paper props
-    (make-line-markup
-     (map (lambda (s)
-            (if (= (string-length s) 0)
-                s
-                (markup #:large (string-upcase (substring s 0 1))
-                        #:translate (cons -0.6 0)
-                        #:tiny (string-upcase (substring s 1)))))
-          (string-split str #\Space)))))
-@end example
-
-The @code{smallcaps} command first splits its string argument into
-tokens separated by spaces (@code{(string-split str #\Space)}); for
-each token, a markup is built with the first letter made large and
-upcased (@code{#:large (string-upcase (substring s 0 1))}), and a
-second markup built with the following letters made tiny and upcased
-(@code{#:tiny (string-upcase (substring s 1))}). As LilyPond
-introduces a space between markups on a line, the second markup is
-translated to the left (@code{#:translate (cons -0.6 0) ...}). Then,
-the markups built for each token are put in a line
-(@code{(make-line-markup ...)}). Finally, the resulting markup is
-passed to the @code{interpret-markup} function, with the @code{paper}
-and @code{props} arguments.
-
-Finally, suppose that we are typesetting a recitative in an opera, and
+Suppose that we are typesetting a recitative in an opera, and
 we would like to define a command that will show character names in a
 custom manner. Names should be printed with small caps and translated a
 bit to the left and top.  We will define a @code{\character} command
@@ -437,6 +416,38 @@ The final result is as follows:
 }
 @end lilypond
 
+We have used the @code{caps} font shape, but suppose that our font
+that does not have a small-caps variant. In that case, we have to fake
+the small caps font, by setting a string in upcase, with the first
+letter a little larger:
+
+@example
+#(def-markup-command (smallcaps paper props str) (string?)
+   "Print the string argument in small caps. Syntax: \\smallcaps #\"string\""
+   (interpret-markup paper props
+    (make-line-markup
+     (map (lambda (s)
+            (if (= (string-length s) 0)
+                s
+                (markup #:large (string-upcase (substring s 0 1))
+                        #:translate (cons -0.6 0)
+                        #:tiny (string-upcase (substring s 1)))))
+          (string-split str #\Space)))))
+@end example
+
+The @code{smallcaps} command first splits its string argument into
+tokens separated by spaces (@code{(string-split str #\Space)}); for
+each token, a markup is built with the first letter made large and
+upcased (@code{#:large (string-upcase (substring s 0 1))}), and a
+second markup built with the following letters made tiny and upcased
+(@code{#:tiny (string-upcase (substring s 1))}). As LilyPond
+introduces a space between markups on a line, the second markup is
+translated to the left (@code{#:translate (cons -0.6 0) ...}). Then,
+the markups built for each token are put in a line by
+@code{(make-line-markup ...)}. Finally, the resulting markup is passed
+to the @code{interpret-markup} function, with the @code{paper} and
+@code{props} arguments.
+
 
 
 @node Contexts for programmers
@@ -470,8 +481,8 @@ current bar number on the standard output during the compile:
 
 
 
-@node Applyoutput
-@appendixsubsec Applyoutput
+@node Running a function on all layout objects
+@appendixsubsec Running a function on all layout objects
 
 The most versatile way of tuning an object is @code{\applyoutput}. Its
 syntax is
@@ -497,14 +508,15 @@ object property @code{cause}.  For example, for a note head, this is a
 @internalsref{NoteHead} event, and for a @internalsref{Stem} object,
 this is a @internalsref{NoteHead} object.
 
-Here is a simple example of @code{\applyoutput}; it blanks note-heads on the
-center-line:
+Here is a function to use for @code{\applyoutput}; it blanks
+note-heads on the center-line:
+
 @example
 (define (blanker grob grob-origin context)
   (if (and (memq (ly:grob-property grob 'interfaces)
                  note-head-interface)
            (eq? (ly:grob-property grob 'staff-position) 0))
 
-           (ly:grob-set-property! grob 'transparent #t)))
+           (set! (ly:grob-property grob 'transparent) #t)))
 @end example
 

@@ -6834,13 +6834,7 @@ decision of when to typeset a curved flexa shape is purely taken from
 the musical input.  The idea of this approach is to separate the
 musical aspects of the input from the notation style of the output.
 This way, the same input can be reused to typeset the same music in a
-different style of Gregorian chant notation such as Hufnagel (also
-known as German gothic neumes) or Medicaea (kind of a very simple
-forerunner of the Editio Vaticana).  As soon as Hufnagel ligature
-engraver and Medicaea ligature engraver will have been implemented, it
-will be as simple as replacing the ligature engraver in the
-@internalsref{Voice} context to get the desired notation style from
-the same input.
+different style of Gregorian chant notation.
 
 The following table shows the code fragments that produce the
 ligatures in the above neumes table.  The letter in the first column
@@ -7101,9 +7095,43 @@ Two adjacent heads can be tied together with the @code{\pes} and
 @code{\flexa} infix commands for a rising and falling line of melody,
 respectively.
 
-@refbugs
 
-Trigonus: apply equal spacing, regardless of pitch.
+
+@node Vaticana style contexts
+@subsection Vaticana style contexts
+
+@cindex VaticanaVoiceContext
+@cindex VaticanaStaffContext
+
+The predefined @code{VaticanaVoiceContext} and
+@code{VaticanaStaffContext} can be used to easily engrave a piece of
+Gregorian Chant in the style of the Editio Vaticana.  These contexts
+initialize all relevant context properties and grob properties to
+proper values.  With these contexts, you can immediately go ahead
+entering the chant, as the following short excerpt demonstrates:
+
+@lilypond[raggedright,verbatim,noindent]
+\include "gregorian-init.ly"
+\score {
+<<
+  \context VaticanaVoice = "cantus" {
+    \override Score.BarNumber   #'transparent = ##t
+    \notes {
+      \[ c'\melisma c' \flexa a \]
+      \[ a \flexa \deminutum g\melismaEnd \]
+      f \divisioMinima
+      \[ f\melisma \pes a c' c' \pes d'\melismaEnd \]
+      c' \divisioMinima \break
+      \[ c'\melisma c' \flexa a \]
+      \[ a \flexa \deminutum g\melismaEnd \] f \divisioMinima
+    }
+  }
+  \lyricsto "cantus" \new Lyrics \lyrics {
+    San- ctus, San- ctus, San- ctus
+  } >>
+  
+}
+@end lilypond
 
 @node Figured bass
 @subsection Figured bass
@@ -7182,40 +7210,6 @@ and @internalsref{FiguredBass} context.
 
 Slash notation for alterations is not supported.
 
-
-@node Vaticana style contexts
-@subsection Vaticana style contexts
-
-@cindex VaticanaVoiceContext
-@cindex VaticanaStaffContext
-
-The predefined @code{VaticanaVoiceContext} and
-@code{VaticanaStaffContext} can be used to easily engrave a piece of
-Gregorian Chant in the style of the Editio Vaticana.  These contexts
-initialize all relevant context properties and grob properties to
-proper values.  With these contexts, you can immediately go ahead
-entering the chant, as the following short excerpt demonstrates:
-
-@lilypond[raggedright,verbatim,noindent]
-\include "gregorian-init.ly"
-\score {
-<<
-  \context VaticanaVoice = "cantus" {
-    \override Score.BarNumber   #'transparent = ##t
-    \notes {
-      \[ c'\melisma c' \flexa a \] \[ a \flexa \deminutum g\melismaEnd \] f \divisioMinima
-      \[ f\melisma \pes a c' c' \pes d'\melismaEnd \] c' \divisioMinima \break
-      \[ c'\melisma c' \flexa a \] \[ a \flexa \deminutum g\melismaEnd \] f \divisioMinima
-    }
-  }
-  \lyricsto "cantus" \new Lyrics \lyrics {
-    San- ctus, San- ctus, San- ctus
-  } >>
-  
-}
-@end lilypond
-
-
 @node Contemporary notation
 @section Contemporary notation
 
@@ -7253,11 +7247,9 @@ looks like:
 
 @lilypondfile[]{cluster.ly}
 
-By default, @internalsref{Cluster_spanner_engraver} is in the
-@internalsref{Voice} context.  This allows putting ordinary notes and
-clusters together in the same staff, even simultaneously.  In such a
-case no attempt is made to automatically avoid collisions between
-ordinary notes and clusters.
+Ordinary notes and clusters can be put together in the same staff,
+even simultaneously.  In such a case no attempt is made to
+automatically avoid collisions between ordinary notes and clusters.
 
 @seealso
 
@@ -7312,6 +7304,7 @@ The following are supported
         r
     }
     \context Lyrics \lyrics {
+    \override LyricText #'font = #'typewriter
       "shortfermata" "fermata"  "longfermata" "verylongfermata"
     } >>
 }
@@ -7366,19 +7359,18 @@ Examples: @inputfileref{input/regression,balloon.ly}.
 @cindex easy notation
 @cindex Hal Leonard
 
-The `easy play' note head includes a note name inside the head.  It is
-used in music aimed at beginners:
+The `easy play' note head includes a  name inside the head.  It is
+used in music for beginners:
 
 @lilypond[raggedright,verbatim,staffsize=26]
-\score {
-  \notes { c'2 e'4 f' | g'1 }
-  \paper { \context { \EasyNotation } } 
-}
+    \setEasyHeads
+    c'2 e'4 f' | g'1
 @end lilypond
 
-The @code{EasyNotation} variable overrides a @internalsref{Score} @c
-context.  To make the letters readable, it has to be printed in a
-large font size.  To print with a larger font, see @ref{Font Size}.
+The command @code{\setEasyHeads} overrides settings for the
+@internalsref{NoteHead} object.  To make the letters readable, it has
+to be printed in a large font size.  To print with a larger font, see
+@ref{Font Size}.
 
 @cindex Xdvi
 @cindex ghostscript
@@ -7387,13 +7379,17 @@ If you view the result with Xdvi, then staff lines may show through
 the letters.  Printing the PostScript file obtained does produce the
 correct result.
 
+@refcommands
+
+@cindex \setEasyHeads
+@code{\setEasyHeads}
 
 @node Sound
 @section Sound
 @cindex Sound
 
 Entered music can also be converted to MIDI output.  The performance
-is good enough for proof-hearing the music for errors.
+is intented for proof-hearing the music for errors.
 
 Ties, dynamics and tempo changes are interpreted.  Dynamic marks,
 crescendi and decrescendi translate into MIDI volume levels.  Dynamic
@@ -7413,7 +7409,7 @@ slurring, etc., are not translated to MIDI.
 
 The MIDI output allocates a channel for each Staff, and one for global
 settings.  Hence, the MIDI file should not have more than 15 staves
-(or 14 if you do not use drums).
+(or 14 if you do not use drums). Other staves will remain silent.
 
 
 @menu
@@ -7435,8 +7431,6 @@ simpler.  The @code{\midi} block can contain:
   @item a @code{\tempo} definition, and
   @item context definitions.
 @end itemize
-
-Assignments in the @code{\midi} block are not allowed.
 
 A number followed by a period is interpreted as a real number, so
 for setting the tempo for dotted notes, an extra space should be

@@ -31,6 +31,11 @@ tieBoth = \revert Tie #'direction
 tieDotted = \override Tie  #'dashed = #1
 tieSolid = \revert Tie #'dashed
 
+setEasyHeads = \sequential {
+	\override NoteHead #'print-function = #Note_head::brew_ez_stencil
+	\override NoteHead #'Y-extent-callback = #'()
+	\override NoteHead #'X-extent-callback = #'()
+}
 
 dynamicUp = {
   \override DynamicText  #'direction = #1
