@@ -21,6 +21,7 @@
 <!--- @@WEB-TITLE@@=Reference Manual --->
 @end html
 
+
 This document describes GNU LilyPond and its input format. The last
 revision of this document was made for LilyPond 1.7.10.  It assumes
 that you already know a little bit about LilyPond input (how to

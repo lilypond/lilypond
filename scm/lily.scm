@@ -1,4 +1,4 @@
-;;;; lily.scm -- implement Scheme output routines for TeX and PostScript
+;;; lily.scm -- implement Scheme output routines for TeX and PostScript
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 

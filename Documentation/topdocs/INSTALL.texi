@@ -150,10 +150,10 @@ distribution supports g++ 3.x and flex.  At the time of writing (Fri
 Jul 5 2002), @strong{no} distribution that we know of ships a flex
 that generates gcc-3.1.x compliant C++ code.
 
-@item Python (version 1.5 or newer).
+@item Python (version 2.1 or newer).
 Check out @uref{http://www.python.org, the python website}.
 
-@item GUILE (version 1.4 or newer).
+@item GUILE (version 1.6 or newer).
 Check out
 @uref{http://www.gnu.org/software/guile/guile.html,the GUILE webpage}.
 

@@ -452,6 +452,10 @@ ScoreContext = \translator {
 	stringTunings   = #guitar-tunings
 	tablatureFormat = #fret-number-tablature-format
 
+	%%
+	bassFigureFormatFunction = #make-bass-figure-markup
+
+
 	\grobdescriptions #all-grob-descriptions
 }
 

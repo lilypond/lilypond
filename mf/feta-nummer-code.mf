@@ -175,7 +175,7 @@ save dot_diam;
 dot_diam# = 7/8flare#;
 define_pixels(dot_diam);
 
-code := 32;
+code := 31; % , 32
 fet_beginchar("Space", "space", "space")
 	set_char_box(0, space#,  0,height#);
 fet_endchar;
