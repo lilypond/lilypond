@@ -1,9 +1,15 @@
 \version "1.7.18"
-
+% rename to invis-notes.ly
+% check if other documents call this "blank notes", though.  I think
+% invisible notes sounds better, but whatever it is, it should be
+% consistent.
 \header {
-    
-    texidoc = " print lesson sheets that contain blank lines and just portions of blank lines."
-
+    texidoc = "@cindex Invisible Notes
+@cindex Blank Notes
+You can suppress printing of Lilypond output.  This example shows you how to
+print invisible (or blank) notes.  This can be very useful when you want to
+do wierd tricks with Lilypond (especially with slurs, since you can't attach
+a slur to a rest or spacer rest)."
 }
 
 blanknotes = { \property Voice.NoteHead

@@ -1,6 +1,7 @@
 \version "1.7.18"
 \header {
-    texidoc = "Different types of bar lines demonstrated."
+    texidoc = "@cindex Bar Lines
+Different types of bar lines demonstrated."
 }
 
 

@@ -1,5 +1,7 @@
 \header {
-texidoc = "Beams are less steep than the notes they encompass. "
+% this example doesn't look very useful.  delete it?
+texidoc = "@cindex Beam Damp
+Beams are less steep than the notes they encompass. "
 }
 
 \version "1.7.18"

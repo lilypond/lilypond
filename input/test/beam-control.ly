@@ -1,6 +1,7 @@
 \version "1.7.18"
 \header{
-    texidoc="Controlling beam positions."
+    texidoc="@cindex Beam Control
+Controlling beam positions."
 }
 \score { 
     \context Voice \notes\relative c {

@@ -1,9 +1,8 @@
 \version "1.7.18"
 
 \header{
-texidoc="
-Beams over rests.
-"
+texidoc="@cindex Beam Over Rests
+Beams over rests."
 }
 
 \score{

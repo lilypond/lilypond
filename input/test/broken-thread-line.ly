@@ -1,9 +1,10 @@
 \version "1.7.18"
-
-
-
-% followVoice: connect note heads with line when thread switches staff 
-
+% TODO: check if this is the best filename.  Look for other
+% followvoice examples in input/test
+\header{
+	texidoc = "@cindex Piano followVoice
+followVoice: connect note heads with line when thread switches staff."
+}
 \score{
     \context PianoStaff <
         \context Staff=one \notes\relative c''{
