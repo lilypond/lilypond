@@ -53,7 +53,6 @@ Fingering_engraver::try_music (Music *m)
 void
 Fingering_engraver::acknowledge_grob (Grob_info inf)
 {
-  
   if (Stem::has_interface (inf.grob_))
     {
       for (int i=0; i < fingerings_.size (); i++)
