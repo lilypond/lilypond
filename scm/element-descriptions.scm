@@ -251,6 +251,8 @@
 		(style-to-font-name . ,style-to-font-name)
 		(markup-to-properties . ,markup-to-properties)
 		(font-family . roman)
+		(font-shape . upright)
+		(font-relative-size . 0)
                 
 		(meta . ,(element-description "LyricText" lyric-syllable-interface text-interface))
 	))
@@ -302,11 +304,12 @@
                 (style-to-font-name . ,style-to-font-name)
                 (markup-to-properties . ,markup-to-properties)
 		(font-family . roman)
+		(font-shape . upright)
 		(font-relative-size . 0)
 		(meta . ,(element-description  "NoteName"
-			note-name-interface
-			general-element-interface))
-	))
+					       note-name-interface
+					       general-element-interface))
+		))
 
 	(OctavateEight . (
 		(self-alignment-X . 0)
@@ -499,6 +502,8 @@
                (style-to-font-name . ,style-to-font-name)
                (markup-to-properties . ,markup-to-properties)
                (font-family . roman)
+               (font-shape . italic)
+               (font-relative-size . 0)
 		(meta . ,(element-description "TextScript" text-script-interface text-interface side-position-interface ))
 	))
 	(TextSpanner . (
@@ -549,12 +554,12 @@
                 (properties-to-font-name . ,properties-to-font-name)
                 (style-to-font-name . ,style-to-font-name)
                 (markup-to-properties . ,markup-to-properties)
-                (font-shape . italic)
+                (font-style . tuplet)
 		(meta .  ,(element-description "TupletBracket" text-interface
 			   tuplet-bracket-interface))
 	))
 
-	(UnaChordaPdeal . (
+	(UnaChordaPedal . (
 		(molecule-callback . ,Text_item::brew_molecule)
                 (font-shape . italic)
                 (properties-to-font-name . ,properties-to-font-name)
