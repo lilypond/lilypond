@@ -25,7 +25,7 @@ public:
     Link_array<Item> support_l_arr_;
     DECLARE_MY_RUNTIME_TYPEINFO;
    
-    void add(Script *);
+    virtual void add(Script *);
     void add_support(Item*);
 };
 
