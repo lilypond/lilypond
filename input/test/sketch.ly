@@ -3,8 +3,9 @@ texidoc="sketch output supported features"
 }
 \score {
   \notes\relative c''' {
-
-  \time 3/4    a4( a a a )a
+% doesn't work yet  
+%    \time 3/4
+    a4( a a a )a
     \stemDown
     a,8( b c )d
     \stemUp
