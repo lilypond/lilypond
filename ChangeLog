@@ -1,3 +1,7 @@
+2005-04-06  Jan Nieuwenhuizen  <jan.nieuwenhuizen@aspiratie.nl>
+
+	* stepmake/bin/add-html-footer.py (i18n): Bugfix.
+
 2005-04-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scripts/lilypond-book.py (Lilypond_snippet.__init__): 
