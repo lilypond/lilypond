@@ -1030,9 +1030,6 @@ This command is equivalent to setting @code{clefGlyph},
 when any of these properties are changed.  The following example shows
 possibilities when setting properties manually.
 
-@ignore
-should to be fixed very quickly  -gp
-
 @lilypond[quote,raggedright,verbatim]
 {
   \set Staff.clefGlyph = #"clefs.F"
@@ -1053,8 +1050,6 @@ should to be fixed very quickly  -gp
   c'4
 }
 @end lilypond
-
-@end ignore
 
 @seealso
 
@@ -2193,6 +2188,18 @@ layout output, a metronome marking is printed
 @seealso
 
 Program reference: @internalsref{MetronomeChangeEvent}.
+
+@refbugs
+
+Collisions are not checked.  If you have notes above the top line of
+the staff (or notes with articulations, slurs, text, etc), then the
+metronome marking may be printed on top of musical symbols.  If this
+occurs, increase the padding of the metronome mark to place it 
+further away from the staff.
+
+@example
+\Score \override MetronomeMark #'padding = #2.5
+@end example
 
 
 @node Text scripts
@@ -4147,10 +4154,6 @@ Program reference: @internalsref{LyricCombineMusic},
 
 @inputfileref{input/@/regression,lyric@/-combine@/-new@/.ly}.
 @c TODO: make separate section for melismata
-
-@c  I can't find these examples in 2.0 or 2.2; remove. -gp
-@c @inputfileref{input/@/test,lyrics@/-melisma@/-variants@/.ly}.
-@c @inputfileref{input/@/test,lyrics@/-melisma@/-faster@/.ly}.
 
 @refbugs
 

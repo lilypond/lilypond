@@ -97,7 +97,7 @@ specified.
 
 @ignore
 Copy and paste from CVS, last updated
-Dec 22, 2004
+Feb 14, 2005
 
 http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lily-bugs/bugs/convert-ly.txt?rev=HEAD&content-type=text/plain
 @end ignore
@@ -122,6 +122,10 @@ here for reference.
  Doesn't do \addlyrics => \lyricsto, this breaks some scores with multiple stanzas.
 2.2->2.4:
  \turnOff (used in \set Staff.VoltaBracket = \turnOff) is not properly converted.
+2.4.2->2.5.9
+ \markup{ \center-align <{ ... }> } should be converted to:
+ \markup{ \center-align {\line { ... }} }
+ but now, \line is missing.
 @end verbatim
 
 
