@@ -103,7 +103,7 @@ Symbol
 Lookup::dots(int j)
 {
     if (j>3)
-	error("max 3 dots");
+	error("max 3 dots");	// todo
     return (*symtables_)("dots")->lookup(j);
 }
 
