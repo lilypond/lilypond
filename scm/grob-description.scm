@@ -78,9 +78,13 @@
 	(font-family . roman)
 	(font-relative-size . -1)
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
+	(self-alignment-X . 1)
+	(extra-offset . (1.3 . 0))
 	(meta .
 	      ((interfaces . (side-position-interface
 			      text-interface
+			      self-alignment-interface
 			      font-interface break-aligned-interface))))
 
 	     ))

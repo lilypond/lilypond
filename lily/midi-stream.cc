@@ -37,7 +37,7 @@ Midi_stream::operator << (String str)
 {
   Byte * b = str.byte_l();
   for (int sz = str.length_i (); sz--;)
-    *os_p_ << *b;
+    *os_p_ << *b ++;
   return *this;
 }
 
@@ -59,10 +59,12 @@ Midi_stream::operator << (Midi_item const& midi_c_r)
     	i = str.index_i ("0a");
       }
     }
-
-  Byte * b = str.byte_l();
-  for (int sz = str.length_i (); sz--;)
-    *os_p_ << *b;
+  else
+    {
+      Byte * b = str.byte_l();
+      for (int sz = str.length_i (); sz--;)
+	*os_p_ << *b++;
+    }
   
   return *this;
 }
