@@ -11,6 +11,12 @@
 
 2003-09-27  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* cygwin/mknetrel: Use EXTRABUILDARGS, EXTRAINSTALLARGS instead of
+	addmakeflags.  Build and install doc and web also when building on
+	Cygwin.
+
+	* mf/GNUmakefile: Bugfix.
+
 	* GNUmakefile.in (web-install): Bugfix: set out prefix Similar to
 	target web.
 
