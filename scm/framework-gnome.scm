@@ -18,48 +18,6 @@
  (gnome gtk gdk-event)
  (gnome gw canvas))
 
-
-;;; This is in 2.7.96 -- JUNKME.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Wrappers from guile-gnome TLA
-;;; guile-gnome-devel@gnu.org--2004
-;;; http://arch.gna.org/guile-gnome/archive-2004
-;;;
-;;; janneke@gnu.org--2004-gnome
-;;; http://lilypond.org/~janneke/{arch}/2004-gnome
-;;;
-(if (not (defined? 'gdk-event-motion:x))
-    (define (gdk-event-motion:x event)
-      (let ((vector (gdk-event->vector event)))
-	(case (gdk-event:type event)
-	  ((motion-notify)
-	   (vector-ref vector 4))
-	  (else
-	   (gruntime-error "Event not of the proper type: ~A" event))))))
-
-(if (not (defined? 'gdk-event-motion:y))
-    (define (gdk-event-motion:y event)
-      (let ((vector (gdk-event->vector event)))
-	(case (gdk-event:type event)
-	  ((motion-notify)
-	   (vector-ref vector 5))
-	  (else
-	   (gruntime-error "Event not of the proper type: ~A" event))))))
-
-(if (not (defined? 'gdk-event-button:modifiers))
-    (define (gdk-event-button:modifiers event)
-      (let ((vector (gdk-event->vector event)))
-	(case (gdk-event:type event)
-	  ((button-press button-release)
-	   ;; We have to do some hackery here, because there are bitmasks
-	   ;; used by XKB that we don't know about.
-	   (gflags->symbol-list
-	    (make <gdk-modifier-type>
-	      #:value (logand #x1fff (vector-ref vector 6)))))
-	  (else
-	   (gruntime-error "Event not of the proper type: ~A" event))))))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 (define-public (output-framework outputter book scopes fields basename)
   (gnome-main book basename))
 

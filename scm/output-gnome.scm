@@ -16,24 +16,23 @@
 ;;;    - allow GnomeCanvas or `toplevel' GtkWindow to be created
 ;;;      outside of LilyPond
 ;;;    - lilylib.
-;;;  * Release schedule and packaging of dependencies.  This hack
-;;;    depends on several CVS and TLA development sources.  In the works.
+;;;  * Release schedule and packaging of dependencies.
+;;;    - g-wrap-1.9.3 is already in incoming.
+;;;    - guile-gnome-platform-2.8.0 will probably be packaged early 2005.
 
 ;;; You need:
 ;;;
-;;;   * Rotty's g-wrap >= 1.9.3 (or TLA)
-;;;   * guile-gnome-platform >= 2.7.95 (or TLA)
+;;;   * Rotty's g-wrap >= 1.9.3
+;;;   * guile-gnome-platform >= 2.7.97
 ;;;   * pango >= 1.6.0
 ;;;
 ;;; See also: guile-gtk-general@gnu.org
 
 ;;; Try it
 ;;;
-;;;   [* Get cvs and tla]
-;;;
 ;;;   * Install gnome/gtk and libffi development stuff
 ;;;
-;;;   * Install pango, g-wrap and guile-gnome from CVS or arch: 
+;;;   * Install [pango, g-wrap and] guile-gnome from source,
 ;;;     see buildscripts/guile-gnome.sh
 ;;;  
 ;;;   * Build LilyPond with gui support: configure --enable-gui
@@ -87,42 +86,6 @@ lilypond -fgnome input/simple-song.ly
  (gnome gtk)
  (gnome gw canvas))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Wrappers from guile-gnome TLA
-;;; guile-gnome-devel@gnu.org--2004
-;;; http://arch.gna.org/guile-gnome/archive-2004
-;;;
-;;; janneke@gnu.org--2004-gnome
-;;; http://lilypond.org/~janneke/{arch}/2004-gnome
-;;;
-(if (not (defined? '<gnome-canvas-path-def>))
-    (begin
-      (define-class <gnome-canvas-path-def> (<gobject>)
-	(closure #:init-value (gnome-canvas-path-def-new)
-		 #:init-keyword #:path-def
-		 #:getter get-def #:setter set-def))
-      
-      (define-method (moveto (this <gnome-canvas-path-def>) x y)
-	(gnome-canvas-path-def-moveto (get-def this) x y))
-      (define-method (curveto (this <gnome-canvas-path-def>) x1 y1 x2 y2 x3 y3)
-	(gnome-canvas-path-def-curveto (get-def this)  x1 y1 x2 y2 x3 y3))
-      (define-method (lineto (this <gnome-canvas-path-def>) x y)
-	(gnome-canvas-path-def-lineto (get-def this) x y))
-      (define-method (closepath (this <gnome-canvas-path-def>))
-	(gnome-canvas-path-def-closepath (get-def this)))
-      (define-method (reset (this <gnome-canvas-path-def>))
-	(gnome-canvas-path-def-reset (get-def this)))
-      
-      (define -set-path-def set-path-def)
-      (define -get-path-def get-path-def)
-      
-      (define-method (set-path-def (this <gnome-canvas-shape>)
-				   (def <gnome-canvas-path-def>))
-	(-set-path-def this (get-def def)))
-      
-      (define-method (get-path-def (this <gnome-canvas-shape>))
-	(make <gnome-canvas-path-def> #:path-def (-get-path-def this)))))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; globals
 
@@ -163,16 +126,16 @@ lilypond -fgnome input/simple-song.ly
    (else (begin (stderr "programming-error: utf-8 too big:~x\n" i)
 		(list (integer->char 32))))))
   
-(define (integer->utf8-string font integer)
+(define (integer->utf8-string integer)
   (list->string (utf8 integer)))
 
-(define (char->utf8-string font char)
-  (list->string (utf8 (char->unicode-index font char))))
+(define (char->utf8-string char)
+  (list->string (utf8 (char->integer char))))
   
-(define (string->utf8-string font string)
+(define (string->utf8-string string)
   (apply
    string-append
-   (map (lambda (x) (char->utf8-string font x)) (string->list string))))
+   (map (lambda (x) (char->utf8-string x)) (string->list string))))
 
 (define (music-font? font)
   (let ((encoding (ly:font-encoding font))
@@ -180,6 +143,49 @@ lilypond -fgnome input/simple-song.ly
     (or (memq encoding '(fetaMusic fetaBraces))
 	(string=? (substring family 0 (min (string-length family) 9))
 		  "bigcheese"))))
+
+(define-public (otf-name-mangling font family)
+  ;; Hmm, family is bigcheese20/26?
+  (if (string=? (substring family 0 (min (string-length family) 9))
+		"bigcheese")
+      (string-append "LilyPond " (substring family 9))
+      family))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Wrappers from guile-gnome TLA
+;;; guile-gnome-devel@gnu.org--2004
+;;; http://arch.gna.org/guile-gnome/archive-2004
+;;;
+;;; janneke@gnu.org--2004-gnome
+;;; http://lilypond.org/~janneke/{arch}/2004-gnome
+;;;
+(if (not (defined? '<gnome-canvas-path-def>))
+    (begin
+      (define-class <gnome-canvas-path-def> (<gobject>)
+	(closure #:init-value (gnome-canvas-path-def-new)
+		 #:init-keyword #:path-def
+		 #:getter get-def #:setter set-def))
+      
+      (define-method (moveto (this <gnome-canvas-path-def>) x y)
+	(gnome-canvas-path-def-moveto (get-def this) x y))
+      (define-method (curveto (this <gnome-canvas-path-def>) x1 y1 x2 y2 x3 y3)
+	(gnome-canvas-path-def-curveto (get-def this)  x1 y1 x2 y2 x3 y3))
+      (define-method (lineto (this <gnome-canvas-path-def>) x y)
+	(gnome-canvas-path-def-lineto (get-def this) x y))
+      (define-method (closepath (this <gnome-canvas-path-def>))
+	(gnome-canvas-path-def-closepath (get-def this)))
+      (define-method (reset (this <gnome-canvas-path-def>))
+	(gnome-canvas-path-def-reset (get-def this)))
+      
+      (define -set-path-def set-path-def)
+      (define -get-path-def get-path-def)
+      
+      (define-method (set-path-def (this <gnome-canvas-shape>)
+				   (def <gnome-canvas-path-def>))
+	(-set-path-def this (get-def def)))
+      
+      (define-method (get-path-def (this <gnome-canvas-shape>))
+	(make <gnome-canvas-path-def> #:path-def (-get-path-def this)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; stencil outputters
@@ -357,7 +363,8 @@ lilypond -fgnome input/simple-song.ly
 (define (text font s)
 
   (define (pango-font-name font)
-    (stderr "FONT-NAME:~S:~S\n" (ly:font-name font) (ly:font-design-size font))
+    (debugf "FONT-NAME:~S:~S\n" (ly:font-name font) (ly:font-design-size font))
+    (debugf "FONT-FAMILY:~S:~S\n" (font-family font) (otf-name-mangling font (font-family font)))
     (otf-name-mangling font (font-family font)))
 
   (define (pango-font-size font)
@@ -395,5 +402,5 @@ lilypond -fgnome input/simple-song.ly
     #:size-points (pango-font-size font)
     #:size-set #t
     #:text (if (integer? s)
-	       (integer->utf8-string font s)
-	       (string->utf8-string font s))))
+	       (integer->utf8-string s)
+	       (string->utf8-string s))))
