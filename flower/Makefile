@@ -17,16 +17,17 @@ depth = ..
 #
 NAME = flower
 MODULE_NAME = flower
-include out/Flower-flags.make
 #
-# edit .version only
-include ./$(depth)/.version
-include ./$(depth)/flower/.version
+# edit VERSION only
+include ./$(depth)/VERSION
+include ./$(depth)/flower/VERSION
 
 # generic variables:
 #
 include ./$(depth)/make/Variables.make
 include ./$(depth)/make/Files.make 
+
+include $(flowerout)/Flower-flags.make
 
 
 #
@@ -39,7 +40,7 @@ SUBDIRS = include test
 #
 SCRIPTS = 
 README_FILES = NEWS README TODO
-EXTRA_DISTFILES= configure config.hh.in configure.in .version $(README_FILES) $(SCRIPTS) Flower-flags.make.in
+EXTRA_DISTFILES= configure config.hh.in configure.in VERSION $(README_FILES) $(SCRIPTS) Flower-flags.make.in
 #
 
 
