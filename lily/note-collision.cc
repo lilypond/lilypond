@@ -302,21 +302,37 @@ Note_collision_interface::do_shifts (Grob* me)
   while (flip (&d) != UP);
   
   Link_array<Grob> done;
+  Real left_most = 1e6;
+  
+  Array<Real> amounts;
   for (; ly_c_pair_p (hand); hand =ly_cdr (hand))
     {
       Grob * s = unsmob_grob (ly_caar (hand));
-      Real amount = ly_scm2double (ly_cdar (hand));
-      
-      s->translate_axis (amount *wid, X_AXIS);
+      Real amount = ly_scm2double (ly_cdar (hand)) * wid;
+
       done.push (s);
+      amounts.push (amount);
+      if (amount < left_most)
+	left_most = amount;
+      
     }
   for (; ly_c_pair_p (autos); autos =ly_cdr (autos))
     {
       Grob * s = unsmob_grob (ly_caar (autos));
-      Real amount = ly_scm2double (ly_cdar (autos));
+      Real amount = ly_scm2double (ly_cdar (autos)) *wid;
       
       if (!done.find (s))
-	s->translate_axis (amount * wid, X_AXIS);
+	{
+	  done.push (s);
+	  amounts.push (amount);
+	  if (amount < left_most)
+	    left_most = amount;
+	}
+    }
+
+  for (int i = 0; i < amounts.size(); i++)
+    {
+      done[i]->translate_axis (amounts[i] - left_most, X_AXIS);
     }
 }
 

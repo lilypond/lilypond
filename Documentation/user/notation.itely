@@ -3753,6 +3753,9 @@ ambitus.
 @node Tablatures
 @section Tablatures
 
+@cindex tablature
+@cindex guitar tablature
+
 Tablature notation is used for notating music for plucked string
 instruments.  It notates pitches not by using note heads, but by
 indicating on which string and fret a note must be played.  LilyPond
@@ -3782,6 +3785,7 @@ are printed as tablature, by using @internalsref{TabStaff} and
 @end lilypond
 
 @cindex minimumFret
+@cindex fret
 
 When no string is specified, the first string that does not give a
 fret number less than @code{minimumFret} is selected. The default
