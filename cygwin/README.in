@@ -13,15 +13,15 @@ When it all works, head straight to the tutorial:
 
 
 Runtime requirements:
-  cygwin-1.5.0 or newer
-  libguile12
+  cygwin-1.5.2 or newer
+  libguile12-1.6.4-12 or newer
   bash
   ghostscript
   libiconv2
   libintl2
-  libkpathsea3
+  libkpathsea3-2.0.2-12 or newer
   python
-  tetex-bin
+  tetex-bin-2.0.2-12 or newer
   tetex-tiny or tetex-base
 
 Suggested:
@@ -35,19 +35,19 @@ Suggested:
   http://www.cs.wisc.edu/~ghost
 
 Build requirements:
-  cygwin-1.5.0 or newer
+  cygwin-1.5.2 or newer
   binutils-20011102 or newer
   gcc-2.95.3-5 or newer
   bison-1.35 or newer
   guile-devel-1.6.4-11 or newer
   fileutils
   flex-2.5.4 or newer
-  libguile12-1.6.0-1 or newer
-  libkpathsea3-2.0.2-11 or newer
+  libguile12-1.6.4-12 or newer
+  libkpathsea3-2.0.2-12 or newer
   python-2.2 or newer
   sed-3.02 or newer
   sh-utils
-  tetex-devel-2.0.2-11 or newer
+  tetex-devel-2.0.2-12 or newer
   texinfo-4.2 or newer
 
 Website/documentation build requirements (lilypond-doc package):

@@ -22,7 +22,8 @@ fi
 
 docdir=@prefix@/share/doc/lilypond-@TOPLEVEL_VERSION@-1
 [ ! -d $docdir ] && docdir=@prefix@/doc/lilypond-@TOPLEVEL_VERSION@-1
-[ ! -d $docdir ] && docdir=$(echo /usr/doc/lilypond-[0-9]*)
+[ ! -d $docdir ] && docdir=$(echo @prefix@/share/doc/lilypond-[.-0-9]*)
+[ ! -d $docdir ] && docdir=$(echo @prefix@/doc/lilypond-[.-0-9]*)
 
 echo
 echo Availability of executables
@@ -30,19 +31,19 @@ echo ===========================
 type -p tex
 type -p latex
 type -p kpsewhich
-type -p lilypond
+type -p lilypond-bin
 type -p python
-type -p ly2dvi
+type -p lilypond
 
 type -p tex.exe
 type -p latex.exe
 type -p kpsewhich.exe
-type -p lilypond.exe
+type -p lilypond-bin.exe
 type -p python.exe
 
-lilypond --version
+lilypond-bin --version
 python -V
-ly2dvi --version
+lilypond --version
 
 
 echo
@@ -58,16 +59,16 @@ kpsewhich feta20.pk
 cp $docdir/input/example-1.ly .
 cp $docdir/input/example-2.ly .
 lilypond example-1.ly
-tex \\nonstopmode \\input example-1.tex
+latex \\nonstopmode \\input example-1.tex
 dvips -o example-1.ps example-1.dvi
 ls -l
-ly2dvi --verbose example-2
+lilypond --verbose example-2
 ls -l
 
 echo
 echo Environment settings
 echo ====================
-# If python is ok and ly2dvi runs, this all is not really necessary.
+# If python is ok and lilypond runs, this all is not really necessary.
 echo HOME="<$HOME>"
 echo SHELL="<$SHELL>"
 echo LILYPONDPREFIX="<$LILYPONDPREFIX>"
