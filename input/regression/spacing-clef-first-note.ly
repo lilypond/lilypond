@@ -6,14 +6,14 @@ than clef changes halfway the line."
 
 }
 
-\score  {\notes {
+\score  {\notes  {
     < \context Staff = SA {
-	c2
+	c'2
 	\clef bass e16 f a
 	\clef treble b
 	}
       \context Staff = SB  {
-	  c4 c4 c4 
+	  c'4 c'4 c'4 
       }>
     }
     \paper { raggedright = ##t

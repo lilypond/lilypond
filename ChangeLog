@@ -1,5 +1,7 @@
 2003-06-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/slur.cc: remove slur over rest warnings.
+
 	* lily/note-spacing.cc (get_spacing): include left part of right
 	object in fixed space. This fixes stretched space before
 	accidentals.
