@@ -1,3 +1,11 @@
+2003-05-23  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* Documentation/user/refman.itely: added solesmes neumes table;
+	bugfix: make section "More Stanzas" a subsection of "Vocal Music";
+	bugfix: "Ornaments" -> "Articulations"
+
+	* ly/gregorian-init.ly: junked "aucta" and "semivocalis"
+
 2003-05-22  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-indent.el: Add a message about trying to match \] or \).

@@ -23,13 +23,12 @@
 * Beaming::                     
 * Accidentals::                 
 * Expressive marks::            
-* Ornaments::                   
+* Articulations::                   
 * Fingering instructions::      
 * Repeats::                     
 * Rhythmic music::              
 * Piano music::                 
 * Vocal music::                 
-* More stanzas::                
 * Tablatures::                  
 * Chord names::                 
 * Writing parts::               
@@ -3037,10 +3036,14 @@ See also the sections on @ref{Slurs} and @ref{Breath marks}.
 
 [TODO: Write subsection upon usage of ChoirStaff.]
 
+@menu
+* More stanzas::
+* Ambitus::
+@end menu
 
 
 @node More stanzas
-@section More stanzas
+@subsection More stanzas
 
 
 @cindex phrasing
@@ -3131,10 +3134,6 @@ making or a music identifier @code{\foo} containing the syllable
   foo = \lyrics bar
 @end example
 
-
-@menu
-* Ambitus::                     
-@end menu
 
 @node Ambitus
 @subsection Ambitus
@@ -4524,7 +4523,8 @@ ligatures with certain limitations.  Support for Editio Vaticana will be
 added in the future.
 
 @menu
-* White mensural ligatures::    
+* White mensural ligatures::
+* Gregorian square neumes ligatures::
 @end menu
 
 @node White mensural ligatures
@@ -4590,6 +4590,1291 @@ to the following:
     }
 }
 @end lilypond
+
+@node Gregorian square neumes ligatures
+@subsubsection Gregorian square neumes ligatures
+
+@cindex Square neumes ligatures
+@cindex Gregorian square neumes ligatures
+
+Gregorian square neumes notation (following the style of the Editio
+Vaticana) is under heavy development, but not yet really usable for
+production purposes.  The following table contains the extended neumes
+table of the 2nd volume of the Antiphonale Romanum (@emph{Liber
+Hymnarius}), published 1983 by the monks of Solesmes.
+
+@multitable @columnfractions  .4 .2 .2 .2
+
+@item
+@b{Neuma aut@*Neumarum Elementa} @tab
+@b{Figurae@*Rectae} @tab
+@b{Figurae@*Liquescentes Auctae} @tab
+@b{Figurae@*Liquescentes Deminutae}
+
+@c TODO: \paper block is identical in all of the below examples.
+@c Therefore, it should somehow be included rather than duplicated all
+@c the time.
+
+@item
+@code{1. Punctum} @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=1.5cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Puctum
+        \[ b \]
+
+        % Punctum Inclinatum
+        \[ \inclinatum b \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Punctum Auctum Ascendens
+        \[ \auctum \ascendens b \]
+
+        % Punctum Auctum Descendens
+        \[ \auctum \descendens b \]
+
+        % Punctum Inclinatum Auctum
+        \[ \inclinatum \auctum b \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Punctum Inclinatum Parvum
+        \[ \inclinatum \deminutum b \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond
+
+@item
+@code{2. Virga} @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Virga
+        \[ \virga b \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond @tab @tab
+
+@item
+@code{3. Apostropha vel Stropha} @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Stropha
+        \[ \stropha b \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Stropha Aucta
+        \[ \stropha \auctum b \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond @tab
+
+@item
+@code{4. Oriscus} @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Oriscus
+        \[ \oriscus b \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond @tab @tab
+
+@item
+@code{5. Clivis vel Flexa} @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Clivis vel Flexa
+        \[ b \flexa g \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Clivis Aucta Descendens
+        \[ b \flexa \auctum \descendens g \]
+
+        % Clivis Aucta Ascendens
+        \[ b \flexa \auctum \ascendens g \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Cephalicus
+        \[ b \flexa \deminutum g \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond
+
+@item
+@code{6. Podatus vel Pes} @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Podatus vel Pes
+        \[ g \pes b \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Pes Auctus Descendens
+        \[ g \pes \auctum \descendens b \]
+
+        % Pes Auctus Ascendens
+        \[ g \pes \auctum \ascendens b \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Epiphonus
+        \[ g \pes \deminutum b \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond
+
+@item
+@code{7. Pes Quassus} @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Pes Quassus
+        \[ \oriscus g \pes \virga b \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Pes Quassus Auctus Descendens
+        \[ \oriscus g \pes \auctum \descendens b \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond @tab
+
+@item
+@code{8. Quilisma Pes} @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Quilisma Pes
+        \[ \quilisma g \pes b \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Quilisma Pes Auctus Descendens
+        \[ \quilisma g \pes \auctum \descendens b \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond @tab
+
+@item
+@code{9. Podatus Initio Debilis} @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Pes Initio Debilis
+        \[ \deminutum g \pes b \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Pes Auctus Descendens Initio Debilis
+        \[ \deminutum g \pes \auctum \descendens b \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond @tab
+
+@item
+@code{10. Torculus} @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Torculus
+        \[ a \pes b \flexa g \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Torculus Auctus Descendens
+        \[ a \pes b \flexa \auctum \descendens g \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Torculus Deminutus
+        \[ a \pes b \flexa \deminutum g \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond
+
+@item
+@code{11. Torculus Initio Debilis} @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Torculus Initio Debilis
+        \[ \deminutum a \pes b \flexa g \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Torculus Auctus Descendens Initio Debilis
+        \[ \deminutum a \pes b \flexa \auctum \descendens g \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Torculus Deminutus Initio Debilis
+        \[ \deminutum a \pes b \flexa \deminutum g \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond
+
+@item
+@code{12. Porrectus} @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Porrectus
+        \[ a \flexa g \pes b \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Porrectus Auctus Descendens
+        \[ a \flexa g \pes \auctum \descendens b \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Porrectus Deminutus
+        \[ a \flexa g \pes \deminutum b \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond
+
+@item
+@code{13. Climacus} @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Climacus
+        \[ \virga b \inclinatum a \inclinatum g \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Climacus Auctus
+        \[ \virga b \inclinatum a \inclinatum \auctum g \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Climacus Deminutus
+        \[ \virga b \inclinatum a \inclinatum \deminutum g \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond
+
+@item
+@code{14. Scandicus} @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Scandicus
+        \[ g \pes a \virga b \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Scandicus Auctus Descendens
+        \[ g \pes a \pes \auctum \descendens b \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Scandicus Deminutus
+        \[ g \pes a \pes \deminutum b \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond
+
+@item
+@code{15. Salicus} @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Salicus
+        \[ g \pes \oriscus a \virga b \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Salicus Auctus Descendens
+        \[ g \pes \oriscus a \auctum \descendens b \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond @tab
+
+@item
+@code{16. Trigomus} @tab
+@lilypond[noindent, 26pt, nofragment, linewidth=3.0cm]
+\include "gregorian-init.ly"
+\score {
+    \notes \transpose c c' {
+        % Trigonus
+        \[ \stropha b \stropha b \stropha a \]
+    }
+    \paper {
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator {
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Staff_symbol_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Bar_engraver"
+            minimumVerticalExtent = ##f
+        }
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Vaticana_ligature_engraver
+            NoteHead \set #'style = #'vaticana_punctum
+            Stem \set #'transparent = ##t
+        }
+    }
+}
+@end lilypond @tab @tab
+
+@end multitable
+
+@refbugs
+
+Horizontal head alignment is broken in Pes Quassus, Pes Quassus Auctus
+Descendens, Quilisma Pes Auctus Descendens, Pes Initio Debilis, Pes
+Auctus Descendens Initio Debilis, Torculus Deminutus Initio Debilis,
+Porrectus Deminutus, Scandicus Auctus Descendens, Scandicus Deminutus,
+Salicus, and Salicus Auctus Descendens.
+
+Porrectus Auctus Descendens: wrong glyph for auctus descendens head.
+
+Torculus Deminutus: use cephalicus head without stem.
 
 @node Figured bass
 @subsection Figured bass
