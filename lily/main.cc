@@ -5,7 +5,7 @@
 
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-
+ 
 #include "main.hh"
 
 #include <cassert>
@@ -51,6 +51,7 @@ String init_name_global;
 */
 String output_backend_global = "ps";
 String output_format_global = "pdf";
+
 bool is_pango_format_global;
 bool is_TeX_format_global;
 

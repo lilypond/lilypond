@@ -160,6 +160,7 @@ open_library ()
   dl_kpse_init_format = &kpse_init_format;
   dl_kpse_maketex_option = &kpse_maketex_option;
   dl_kpse_var_expand = &kpse_var_expand;
+  return 0;
 #endif
 }
 
