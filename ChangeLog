@@ -1,3 +1,7 @@
+2004-09-12  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/notation.itely: fixed Time Signature numbers bug.
+
 2004-09-12  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scm/define-grobs.scm (all-grob-descriptions): longer
