@@ -310,7 +310,9 @@ Paper_book::classic_output (String outname)
   Paper_outputter *out = papers_.top ()->get_paper_outputter (outname);
   out->output_header (papers_.top (), scopes (count - 1), 0);
 
-  Offset o (0, 0);
+  Paper_line *first = unsmob_paper_line (scm_vector_ref (scores_.top (),
+							 scm_int2num (0)));
+  Offset o (0, -0.5 * first->dim ()[Y_AXIS]);
   int line_count = SCM_VECTOR_LENGTH ((SCM) scores_.top ());
   for (int i = 0; i < line_count; i++)
     out->output_line (scm_vector_ref ((SCM) scores_.top (), scm_int2num (i)),

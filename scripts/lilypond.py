@@ -371,8 +371,6 @@ def global_latex_preamble (extra):
 %% Nullify [La]TeX page layout settings, page layout by LilyPond.
 \pagestyle{empty}
 \topmargin-1in
-%% FIXME: empirical computer science: page is ca 5mm too low.
-\advance\topmargin-5mm
 \headheight0pt\headsep0pt
 \oddsidemargin-1in
 \evensidemargin\oddsidemargin

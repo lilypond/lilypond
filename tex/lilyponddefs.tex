@@ -58,8 +58,6 @@
         %% Nullify [La]TeX page layout settings, page layout by LilyPond.
         \pagestyle{empty}
         \topmargin-1in
-        %% FIXME: empirical computer science: page is ca 5mm too low.
-        \advance\topmargin-5mm
         \headheight0pt\headsep0pt
         \oddsidemargin-1in
         \evensidemargin\oddsidemargin
@@ -115,15 +113,14 @@
 \gdef\lyitem#1#2#3{
   \topalign{\raise#2\outputscale\leftalign{\kern#1\outputscale#3}}}
 
-\gdef\XXXlybox#1#2#3#4#5{
-  \vbox to #4\outputscale{
-    \hbox to #3\outputscale{
-      \leftalign{\kern#1\outputscale\lower#2\outputscale\topalign{#5}}}
-    \hss}\vss}
-
-%% FIXME: no dimensions, should fix at toplevel
+\newdimen\lytempdim
 \gdef\lybox#1#2#3#4#5{
-  \leftalign{\kern#1\outputscale\lower#2\outputscale\topalign{#5}}}
+  \lytempdim\baselineskip
+  \advance\lytempdim-#4\outputscale
+  \raise\lytempdim
+  \vbox to#4\outputscale{
+    \leftalign{\kern#1\outputscale\lower#2\outputscale\topalign{#5}}
+    \vss}}
 
 \gdef\lyvrule#1#2#3#4{
   \kern#1\outputscale

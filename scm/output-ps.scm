@@ -255,6 +255,8 @@
 (define (end-output)
   "\nend-lilypond-output\n")
 
+(define end-output-classic end-output)
+
 (define (ez-ball ch letter-col ball-col)
   (string-append
    " (" ch ") "
