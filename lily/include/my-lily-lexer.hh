@@ -11,6 +11,7 @@
 
 #include <FlexLexer.h>
 
+#include "input.hh"
 #include "dictionary.hh"
 #include "lily-proto.hh"
 #include "flower-proto.hh"
@@ -46,8 +47,11 @@ public:
   ~My_lily_lexer ();
   int yylex ();
 
+  Input last_input_;
+  void prepare_for_next_token ();
+  int try_special_identifiers (SCM* ,SCM);
   Input here_input () const;
-
+  
   void add_scope (SCM);
   SCM remove_scope ();
   

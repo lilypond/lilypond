@@ -201,7 +201,7 @@ My_lily_lexer::LexerError (char const *s)
   else
     {
       errorlevel_ |= 1;
-      Input spot (get_source_file (),here_str0 ());
+      Input spot (get_source_file (), here_str0 ());
       spot.error (s);
     }
 }
@@ -229,4 +229,10 @@ My_lily_lexer::here_input () const
 {
   Source_file * f= get_source_file ();
   return Input (f, (char*)here_str0 ());
+}
+
+void
+My_lily_lexer::prepare_for_next_token ()
+{
+  last_input_ = here_input();
 }

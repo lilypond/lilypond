@@ -265,16 +265,15 @@ LY_DEFINE(ly_music_name, "ly-music-name", 1, 0, 0,
 // to do  property args 
 LY_DEFINE(ly_extended_make_music,
 	  "ly-make-bare-music", 2, 0, 0,  (SCM type, SCM props),
-	  "
-Make a music object/expression of type @var{type}, init with
-@var{props}. Warning: this interface will likely change in the near
-future.
-
-Music is the data type that music expressions are stored in. The data
-type does not yet offer many manipulations.
-
-WARNING: deprecated; use make-music-by-name. 
-")
+	  "Make a music object/expression of type @var{type}, init with\n"
+"@var{props}. Warning: this interface will likely change in the near\n"
+"future.\n"
+"\n"
+"Music is the data type that music expressions are stored in. The data\n"
+"type does not yet offer many manipulations.\n"
+"\n"
+"WARNING: only for internal use. Please use make-music-by-name. \n"
+)
 {
   SCM_ASSERT_TYPE(gh_string_p (type), type, SCM_ARG1, __FUNCTION__, "string");
 
@@ -287,11 +286,10 @@ WARNING: deprecated; use make-music-by-name.
 // to do  property args 
 LY_DEFINE(ly_get_mutable_properties,
 	  "ly-get-mutable-properties", 1, 0, 0,  (SCM mus),
-	  "
-Return an alist signifying the mutable properties of @var{mus}.
-The immutable properties are not available; they should be initialized
-by the functions make-music-by-name function.
-  ")
+"Return an alist signifying the mutable properties of @var{mus}.\n"
+"The immutable properties are not available; they should be initialized\n"
+"by the functions make-music-by-name function.\n"
+)
 {
   Music *m = unsmob_music (mus);
   SCM_ASSERT_TYPE(m, mus, SCM_ARG1, __FUNCTION__, "music");

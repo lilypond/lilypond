@@ -45,6 +45,8 @@ this.
 #include "chord.hh"
 #include "ly-modules.hh"
 #include "music-sequence.hh"
+#include "input-smob.hh"
+#include "event.hh"
 
 bool
 regular_identifier_b (SCM id)
@@ -147,6 +149,7 @@ yylex (YYSTYPE *s,  void * v)
 	My_lily_lexer * lex = pars->lexer_;
 
 	lex->lexval = (void*) s;
+	lex->prepare_for_next_token();
 	return lex->yylex ();
 }
 
@@ -477,7 +480,7 @@ translator_spec_block:
 
 translator_spec_body:
 	TRANSLATOR_IDENTIFIER	{
-		$$ = unsmob_translator_def ($1)->clone_scm ();
+		$$ = $1;
 		unsmob_translator_def ($$)-> set_spot (THIS->here_input ());
 	}
 	| TYPE STRING 	{
@@ -568,7 +571,7 @@ score_body:
 
 	}
 	| SCORE_IDENTIFIER {
-		$$ = new Score (*unsmob_score ($1));
+		$$ = unsmob_score ($1);
 		$$->set_spot (THIS->here_input ());
 	}
 	| score_body lilypond_header 	{
@@ -614,21 +617,21 @@ music_output_def_body:
 			p = dynamic_cast<Paper_def*> (id->clone ());
 		else
 			p = new Paper_def;
-		THIS-> lexer_->add_scope (p->scope_);
-		$$ = p;
-	}
-	| PAPER '{' MUSIC_OUTPUT_DEF_IDENTIFIER 	{
-		Music_output_def *p = unsmob_music_output_def ($3);
-		p = p->clone ();
-		THIS->lexer_->add_scope (p->scope_);
-		$$ = p;
-	}
-	| MIDI '{' MUSIC_OUTPUT_DEF_IDENTIFIER 	{
-		Music_output_def *p = unsmob_music_output_def ($3);
-		p = p->clone ();
 
 		THIS->lexer_->add_scope (p->scope_);
 		$$ = p;
+	}
+	| PAPER '{' MUSIC_OUTPUT_DEF_IDENTIFIER 	{
+		Music_output_def * o =  unsmob_music_output_def ($3);
+		$$ =o;
+
+		THIS->lexer_->add_scope (o->scope_);
+	}
+	| MIDI '{' MUSIC_OUTPUT_DEF_IDENTIFIER 	{
+		Music_output_def * o =  unsmob_music_output_def ($3);
+		$$ = o;
+
+		THIS->lexer_->add_scope (o->scope_);
 	}
 	| music_output_def_body assignment  {
 
@@ -798,9 +801,7 @@ Simple_music:
 		$$ = m;
 	}
 	| MUSIC_IDENTIFIER {
-		$$ = unsmob_music ($1)->clone ();
-
-		$$->set_spot (THIS->here_input());
+		$$ = unsmob_music ($1);
 	}
 	| property_def
 	| translator_change
@@ -1398,8 +1399,7 @@ event_with_dir:
 	
 verbose_event:
 	EVENT_IDENTIFIER	{
-		$$ = unsmob_music ($1)->clone ();
-		$$->set_spot (THIS->here_input ());
+		$$ = unsmob_music ($1);
 	}
 	| SPANREQUEST bare_int STRING {
  		Music * sp = make_span_req ($3);
@@ -1710,7 +1710,9 @@ steno_duration:
 	| DURATION_IDENTIFIER dots	{
 		Duration *d =unsmob_duration ($1);
 		Duration k (d->duration_log (),d->dot_count () + $2);
-		$$ = k.smobbed_copy ();
+
+		*d = k;
+		$$ = $1;
 	}
 	;
 
@@ -1902,25 +1904,14 @@ simple_element:
 	| MULTI_MEASURE_REST optional_notemode_duration  	{
 		THIS->pop_spot ();
 
-		Music * sk = MY_MAKE_MUSIC("SkipEvent");
-		sk->set_mus_property ("duration", $2);
-		Music *sp1 = MY_MAKE_MUSIC("MultiMeasureRestEvent");
-		Music *sp2 = MY_MAKE_MUSIC("MultiMeasureRestEvent");
-		sp1-> set_mus_property ("span-direction", gh_int2scm (START))
-;
-		sp2-> set_mus_property ("span-direction", gh_int2scm (STOP))
-;
-		Music *rqc1 = MY_MAKE_MUSIC("EventChord");
-		rqc1->set_mus_property ("elements", scm_list_n (sp1->self_scm (), SCM_UNDEFINED));
-		Music *rqc2 = MY_MAKE_MUSIC("EventChord");
-		rqc2->set_mus_property ("elements", scm_list_n (sk->self_scm (), SCM_UNDEFINED));;
-		Music *rqc3 = MY_MAKE_MUSIC("EventChord");
-		rqc3->set_mus_property ("elements", scm_list_n (sp2->self_scm (), SCM_UNDEFINED));;
+		static SCM proc ;
+		if (!proc)
+			proc = scm_c_eval_string ("make-multi-measure-rest");
 
-		SCM ms = scm_list_n (rqc1->self_scm (), rqc2->self_scm (), rqc3->self_scm (), SCM_UNDEFINED);
-
-		$$ = MY_MAKE_MUSIC("SequentialMusic");
-		$$->set_mus_property ("elements", ms);
+		SCM mus = scm_call_2 (proc, $2,
+			make_input (THIS->here_input()));	
+		scm_gc_protect_object (mus);
+		$$ = unsmob_music (mus);
 	}
 	| STRING optional_notemode_duration 	{
 		Input i = THIS->pop_spot ();
@@ -2190,4 +2181,45 @@ My_lily_parser::beam_check (SCM dur)
       m->origin ()->warning (_("Suspect duration found following this beam"));
     }
   last_beam_start_ = SCM_EOL;
+}
+
+
+/*
+It is a little strange, to have this function in this file, but
+otherwise, we have to import music classes into the lexer.
+
+*/
+int
+My_lily_lexer::try_special_identifiers (SCM * destination, SCM sid)
+{
+	if (gh_string_p (sid)) {
+		*destination = sid;
+		return STRING_IDENTIFIER;
+	} else if (gh_number_p (sid)) {
+		*destination = sid;
+		return NUMBER_IDENTIFIER;
+	} else if (unsmob_translator_def (sid)) {
+		*destination = unsmob_translator_def (sid)->clone_scm();
+		return TRANSLATOR_IDENTIFIER;
+	} else if (unsmob_score (sid)) {
+		Score *sc =  new Score (*unsmob_score (sid));
+		*destination =sc->self_scm ();
+		return SCORE_IDENTIFIER;
+	} else if (Music * mus =unsmob_music (sid)) {
+		*destination = unsmob_music (sid)->clone ()->self_scm();
+		unsmob_music (*destination)->
+			set_mus_property ("origin", make_input (last_input_));
+		return dynamic_cast<Event*> (mus)
+			? EVENT_IDENTIFIER : MUSIC_IDENTIFIER;
+	} else if (unsmob_duration (sid)) {
+		*destination = unsmob_duration (sid)->smobbed_copy();
+		return DURATION_IDENTIFIER;
+	} else if (unsmob_music_output_def (sid)) {
+		Music_output_def *p = unsmob_music_output_def (sid);
+		p = p->clone ();
+
+		*destination = p->self_scm();
+		return MUSIC_OUTPUT_DEF_IDENTIFIER;
+	}
+	return -1;	
 }
