@@ -1,3 +1,8 @@
+2004-01-16  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/midi.scm (instrument-equalizer-alist): fix equalizer setting
+	for flute. 
+
 2004-01-15  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* input/regression/*.ly: use newaddlyrics iso. addlyrics
@@ -20,7 +25,8 @@
 	* lily/system.cc (typeset_grob): warn if adding twice.
 
 	* lily/sequential-iterator.cc (run_always): implement run_always().
-
+	(also in other files.)
+	
 	* input/mutopia/F.Schubert/standchen.ly: use newaddlyrics. 
 
 	* lily/event.cc (to_relative_octave): add octave-check.
