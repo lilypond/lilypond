@@ -90,6 +90,7 @@ def parse_logfile (fn):
 			global_info['FontName'] = string.join (name,'-')
 			global_info['FullName'] = string.join (name,' ')
 			global_info['FamilyName'] = string.join (name[1:-1],
+								 '-')
 			global_info['Weight'] = tags[4]
 			global_info['FontBBox'] = '0 0 1000 1000'
 			global_info['Ascender'] = '0'
