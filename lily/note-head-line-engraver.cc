@@ -20,8 +20,12 @@
 /**
    Create line-spanner grobs for glissandi (and possibly other) lines
    that connect note heads.
- */
 
+
+   TODO: have the line commit suicide if the notes are connected with
+   either slur or beam.
+
+*/
 class Note_head_line_engraver : public Engraver
 {
 public:
@@ -74,29 +78,23 @@ Note_head_line_engraver::acknowledge_grob (Grob_info info)
 {
   if (Rhythmic_head::has_interface (info.elem_l_))
     {
-      last_head_ = head_;
       head_ = info.elem_l_;
       if (to_boolean (get_property ("followThread")))
 	{
-    	  Translator* staff = daddy_trans_l_ && daddy_trans_l_->daddy_trans_l_
-	    ? daddy_trans_l_->daddy_trans_l_->daddy_trans_l_ : 0;
-	  if (staff != last_staff_)
+	  Translator_group  * tr = daddy_trans_l_;
+	  while (tr && tr->type_str_ != "Staff")
+	    tr = tr->daddy_trans_l_ ;
+
+	  if (tr && tr->type_str_ == "Staff" && tr != last_staff_)
 	    {
 	      if (last_head_)
 		follow_ = true;
-	      last_staff_ = staff;
+	      last_staff_ = tr;
 	    }
 	}
     }
 }
 
-static Grob*
-beam_l (Grob *h)
-{
-  if (Grob *s = Rhythmic_head::stem_l (h))
-    return Stem::beam_l (s);
-  return 0;
-}
 
 void
 Note_head_line_engraver::create_grobs ()
@@ -104,36 +102,28 @@ Note_head_line_engraver::create_grobs ()
   if (!line_ && (follow_ || last_req_) && last_head_ && head_
       && (last_head_ != head_))
     {
-      /* Don't follow if there's a beam.
+      /* TODO: Don't follow if there's a beam.
 
-	 Hmm, this doesn't work, as head_ does not yet have a beam.
+	 We can't do beam-stuff here, since beam doesn't exist yet.
 	 Should probably store follow_ in line_, and suicide at some
 	 later point */
-      if (!(follow_
-	    && beam_l (last_head_) && beam_l (last_head_) == beam_l (head_)))
-	{
-	  if (follow_)
-	    line_ = new Spanner (get_property ("FollowThread"));
-	  else
-	    line_ = new Spanner (get_property ("Glissando"));
+      if (follow_)
+	line_ = new Spanner (get_property ("FollowThread"));
+      else
+	line_ = new Spanner (get_property ("Glissando"));
 	  
-	  line_->set_bound (LEFT, last_head_);
-	  line_->set_bound (RIGHT, head_);
+      line_->set_bound (LEFT, last_head_);
+      line_->set_bound (RIGHT, head_);
 	  
 	  /* Note, mustn't set y-parent of breakable symbol to simple item:
 	     one of the two broken parts won't have an y-parent! */
 	  /* X parent is set by set_bound */
-	  line_->set_parent (Staff_symbol_referencer::staff_symbol_l (last_head_),
-			     Y_AXIS);
+      line_->set_parent (Staff_symbol_referencer::staff_symbol_l (last_head_),
+			 Y_AXIS);
 	  
-	  announce_grob (line_, last_req_);
-	}
+      announce_grob (line_, last_req_);
+      last_req_ = 0;	
 
-      last_head_ = 0;
-      if (!follow_ && !req_)
-	head_ = 0;
-      
-      last_req_ = 0;
       follow_ = false;
     }
 }
@@ -146,8 +136,15 @@ Note_head_line_engraver::stop_translation_timestep ()
       typeset_grob (line_);
       line_ = 0;
     }
-  last_req_ = req_;
-  req_ = 0;
+  if (head_)
+    last_head_ = head_;
+  head_ = 0;
+
+  if (req_)
+    {
+      last_req_ = req_;
+      req_ =0;
+    }
 }
 
 

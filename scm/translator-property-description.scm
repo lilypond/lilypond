@@ -125,6 +125,8 @@ every barline.
 (translator-property-description 'drarnChords boolean? "")
 (translator-property-description 'explicitClefVisibility procedure? "visibility-lambda function for clef changes.")
 (translator-property-description 'explicitKeySignatureVisibility procedure? "visibility-lambda function for explicit Key changes.")
+(translator-property-description 'followThread boolean?
+				 "if set, note heads are tracked  across staff switches by a thin line")
 (translator-property-description 'forceClef boolean? "Show clef symbol, even if it hasn't changed.")
 (translator-property-description 'forgetAccidentals boolean? "do
 not set localKeySignature when a note alterated differently from

@@ -19,12 +19,10 @@
 
 Music_iterator::Music_iterator ()
 {
-  //  clone_i_ = 0;
 }
 
 Music_iterator::Music_iterator (Music_iterator const& src)
 {
-  //  clone_i_ = src.clone_i_ + 1;
   handle_ = *src.handle_.clone ();
   music_l_ = src.music_l_;
   music_length_ = src.music_length_;

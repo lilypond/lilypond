@@ -110,11 +110,12 @@ this and other documentation.
 * Bug reports:: 	           Where to report bugs.
 * Reference Manual::               Reference Manual.
 * Features::                       Features, tips and tricks.
-* Internals:(lilypond-internals).  Auto generated detailed documentation.
-* Programs::                       External programs.
+* Utility programs::                       External programs.
 * Internals::                      How it all works.
 * Development::                    On developing code for LilyPond.
-* Index::                          Unified index.
+* Index of internals:(lilypond-internals).  Auto generated detailed documentation.
+* Index::                  Unified index.
+* Function Index::         Function index.
 @end menu
 
 @contents
@@ -141,5 +142,12 @@ this and other documentation.
 @unnumbered Index
 
 @printindex cp
+
+@node Function Index
+@unnumbered Function Index
+
+@printindex fn
+
+
 
 @bye

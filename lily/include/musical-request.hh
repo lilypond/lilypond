@@ -160,6 +160,7 @@ public:
 
 class Glissando_req : public Request
 {
+public:
   VIRTUAL_COPY_CONS (Music);
 };
 

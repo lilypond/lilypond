@@ -37,6 +37,14 @@ Folded_repeat_iterator::~Folded_repeat_iterator ()
   delete alternative_iter_p_;
 }
 
+Folded_repeat_iterator::Folded_repeat_iterator (Folded_repeat_iterator const &src)
+  : Music_iterator (src)
+{
+  main_iter_p_ = src.main_iter_p_ ? src.main_iter_p_->clone () : 0;
+  alternative_iter_p_ = src.alternative_iter_p_ ? src.alternative_iter_p_->clone () : 0;
+  main_length_mom_ = src.main_length_mom_;
+}
+
 Moment
 Folded_repeat_iterator::pending_moment () const
 {
@@ -55,7 +63,7 @@ Folded_repeat_iterator::construct_children ()
   main_iter_p_ = get_iterator_p (mus->body ());
   if (!main_iter_p_->ok())
     {
-      leave_body ();
+     leave_body ();
       enter_alternative ();
     }
 }

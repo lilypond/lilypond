@@ -326,8 +326,11 @@ output_dict= {
       %s
     }
   >
-\end{lilypond}""", 
-		'output-lilypond':r"""\begin[%s]{lilypond}
+\end{lilypond}""",
+		'output-filename' : r'''
+
+\verb+%s+:''',
+		'output-lilypond': r"""\begin[%s]{lilypond}
 %s
 \end{lilypond}""",
 		'output-verbatim': "\\begin{verbatim}%s\\end{verbatim}",
@@ -342,6 +345,9 @@ output_dict= {
 %s
 @end lilypond 
 """,
+		'output-filename' : r'''
+
+@file{%s}:''',	  
 		  'output-lilypond-fragment': """@lilypond[%s]
 \context Staff\context Voice{ %s }
 @end lilypond """,
@@ -630,9 +636,11 @@ def completize_preamble (chunks):
 read_files = []
 def find_file (name):
 	"""
-	Search the include path for NAME. If found, return the contents of teh file.
+	Search the include path for NAME. If found, return the (CONTENTS, PATH) of the file.
 	"""
+	
 	f = None
+	nm = ''
 	for a in include_path:
 		try:
 			nm = os.path.join (a, name)
@@ -643,10 +651,10 @@ def find_file (name):
 			pass
 	if f:
 		sys.stderr.write ("Reading `%s'\n" % nm)
-		return f.read ()
+		return (f.read (), nm)
 	else:
 		error ("File not found `%s'\n" % name)
-		return ''
+		return ('', '')
 
 def do_ignore(match_object):
 	return [('ignore', match_object.group('code'))]
@@ -677,12 +685,22 @@ def make_lilypond(m):
 			(options, m.group('code')))]
 
 def make_lilypond_file(m):
+	"""
+
+	Find @lilypondfile{bla.ly} occurences and substitute bla.ly
+	into a @lilypond .. @end lilypond block.
+	
+	"""
+	
 	if m.group('options'):
 		options = m.group('options')
 	else:
 		options = ''
+	(content, nm) = find_file(m.group('filename'))
+	options = "filename=%s," % nm + options
+
 	return [('input', get_output('output-lilypond') %
-			(options, find_file(m.group('filename'))))]
+			(options, content))]
 
 def make_lilypond_block(m):
 	if m.group('options'):
@@ -752,7 +770,7 @@ def determine_format (str):
 def read_doc_file (filename):
 	"""Read the input file, find verbatim chunks and do \input and \include
 	"""
-	str = find_file(filename)
+	(str, path) = find_file(filename)
 	determine_format (str)
 	
 	chunks = [('input', str)]
@@ -820,6 +838,15 @@ def schedule_lilypond_block (chunk):
 	if 'png' in needed_filetypes and f(pathbase, '.eps', '.png'):
 		todo.append('png')
 	newbody = ''
+
+	if 'printfilename' in opts:
+		for o in opts:
+			m= re.match ("filename=(.*)", o)
+			if m:
+				newbody = newbody + get_output ("output-filename") % m.group(1)
+				break
+		
+	
 	if 'verbatim' in opts:
 		newbody = output_verbatim (body)
 
@@ -1033,7 +1060,7 @@ def check_texidoc (chunks):
 			(type, body, opts, todo, basename) = c;
 			pathbase = os.path.join (g_outdir, basename)
 			if os.path.isfile (pathbase + '.texidoc'):
-				body = '\n@include %s.texidoc' % basename + body
+				body = '\n@include %s.texidoc\n' % basename + body
 				c = (type, body, opts, todo, basename)
 		n.append (c)
 	return n

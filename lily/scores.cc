@@ -96,7 +96,8 @@ clear_scores ()
   score_global_array.clear();
   
   inclusion_global_array.clear ();
-  scm_unprotect_object (global_header_p ->self_scm ());
+  if (global_header_p)
+    scm_unprotect_object (global_header_p ->self_scm ());
   global_header_p =0; 
 }
 

@@ -7,7 +7,7 @@
   
  */
 
-#include "auto-change-music.hh"
+#include "music.hh"
 #include "auto-change-iterator.hh"
 #include "translator-group.hh"
 #include "musical-request.hh"
@@ -123,9 +123,7 @@ Auto_change_iterator::process (Moment m)
 	{
 	  where_dir_ = s;
 	  String to_id =  (s >= 0) ?  "up" : "down";
-	  Auto_change_music const * auto_mus = dynamic_cast<Auto_change_music const* > (music_l_);
-
-	  String wh = ly_scm2string (auto_mus->get_mus_property ("what"));
+	  String wh = ly_scm2string (music_l_->get_mus_property ("what"));
 	  change_to (child_iter_p_, wh, to_id);	  
 	}
     }

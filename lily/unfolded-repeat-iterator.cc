@@ -19,6 +19,17 @@ Unfolded_repeat_iterator::~Unfolded_repeat_iterator ()
   delete current_iter_p_;
 }
 
+Unfolded_repeat_iterator::Unfolded_repeat_iterator (Unfolded_repeat_iterator const &src)
+  : Music_iterator (src)
+{
+  done_count_ = src.done_count_;
+  current_iter_p_ = (src.current_iter_p_)? src.current_iter_p_->clone () : 0;
+  do_main_b_ = src.do_main_b_;
+  volta_b_ = src.volta_b_;
+  alternative_count_i_ = src.alternative_count_i_;
+  alternative_cons_ = src.alternative_cons_;
+}
+
 Unfolded_repeat_iterator::Unfolded_repeat_iterator ()
 {
   done_count_ =0;
@@ -26,6 +37,7 @@ Unfolded_repeat_iterator::Unfolded_repeat_iterator ()
   volta_b_ = false;
   do_main_b_ = false;
   alternative_count_i_ =0;
+  alternative_cons_ = SCM_EOL;
 }
 
 /**

@@ -22,7 +22,7 @@ public:
   static SCM constructor_cxx_function; 
 protected:
   virtual ~Part_combine_music_iterator ();
-
+  Part_combine_music_iterator (Part_combine_music_iterator const &);
   virtual void construct_children ();
   virtual Moment pending_moment () const;
   virtual void process (Moment);

@@ -191,10 +191,12 @@ Beam::auto_knee (Grob*me, String gap_str, bool interstaff_b)
         {
 	  bool is_b = (bool)(calc_interstaff_dist (stems[i], sp) 
 	    - calc_interstaff_dist (stems[i-1], sp));
-	  int l_y = (int)(Stem::head_positions(stems[i-1])[d])
-	    + (int)calc_interstaff_dist (stems[i-1], sp);
-	  int r_y = (int)(Stem::head_positions(stems[i])[d])
-	    + (int)calc_interstaff_dist (stems[i], sp);
+	  int l_y = (int)(Stem::head_positions(stems[i-1])[d]);
+	  int l_i = (int)calc_interstaff_dist (stems[i-1], sp);
+	  l_y -= l_i;
+	  int r_y = (int)(Stem::head_positions(stems[i])[d]);
+	  int r_i = (int)calc_interstaff_dist (stems[i], sp);
+	  r_y -= r_i;
 	  int gap_i = r_y - l_y;
 
 	  if ((abs (gap_i) >= auto_gap_i) && (!interstaff_b || is_b))
@@ -210,8 +212,9 @@ Beam::auto_knee (Grob*me, String gap_str, bool interstaff_b)
       for (int i=0; i < stems.size (); i++)
         {
 	  Item *s = stems[i];	  
-	  int y = (int)(Stem::head_positions(s)[d])
-	    + (int)calc_interstaff_dist (s, dynamic_cast<Spanner*> (me));
+	  int y = (int)(Stem::head_positions(s)[d]);
+	  int y_i = (int)calc_interstaff_dist (s, dynamic_cast<Spanner*> (me));
+	  y -= y_i;
 
 	  Directional_element_interface::set (s,y < knee_y ? UP : DOWN);
 	  s->set_grob_property ("dir-forced", SCM_BOOL_T);

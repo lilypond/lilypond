@@ -30,6 +30,12 @@ Chord_tremolo_iterator::Chord_tremolo_iterator()
   child_iter_p_ = 0;
 }
 
+Chord_tremolo_iterator::Chord_tremolo_iterator (Chord_tremolo_iterator const &src)
+  : Music_iterator (src)
+{
+  child_iter_p_ = src.child_iter_p_? src.child_iter_p_->clone () : 0; 
+}
+
 void
 Chord_tremolo_iterator::process (Moment m)
 {

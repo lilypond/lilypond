@@ -20,8 +20,6 @@
 (eval-string (ly-gulp-file "engraver-documentation-lib.scm"))
 (eval-string (ly-gulp-file "backend-documentation-lib.scm"))
 
-
-
 ;;(define no-copies #t)  ; from 490 to 410K, but doesn't look nice yet
 ;;
 ;; Also, copies of interfaces use up lots more space, but that's
@@ -54,11 +52,30 @@
        ("LilyPond context properties" . "context properties")       
        ("LilyPond backend" . "Detailed description of all Grobs")
        ("LilyPond interfaces" . "Grob Interfaces")
-       ("LilyPond backend properties" . "Grob properties")))
+       ("LilyPond backend properties" . "Grob properties")
+       ("Index" . "index")
+       ))
 
     
     
     doc
+
+    "@node Index
+@unnumbered Concept index
+
+@printindex cp
+
+@unnumbered Variable index
+
+@printindex vr
+
+@unnumbered Function index
+
+@printindex fn
+
+"
+
+    
     "\n@bye")
    out))
 

@@ -427,10 +427,9 @@ during a lilypond run.
   @item Molecule: device-independent page output object,
     including dimensions.  Produced by some Grob functions
     See @ref{Molecules}
-  @item Translator: object that produces audio objects or Grobs.
-  @item Font_metric: object representing a font. (Not yet user
-accessible.)
-
+  @item Translator: object that produces audio objects or Grobs. This is
+not yet user accessible.
+  @item Font_metric: object representing a font. (See @ref{Font metrics})
 @c  @item Audio_element: (todo,  smobme)
 @end itemize
 

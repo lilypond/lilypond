@@ -11,11 +11,13 @@ information:
 
 @itemize @bullet
 
-@item @strong{important:} a sample input which causes the error.
+@item a sample input which causes the error. This is @strong{important
+} to determine the cause of the problem.
 
 (and you will do us a favor if send a @strong{small} sample file)
 
-@item @strong{important:} which LilyPond version you use.
+@item which LilyPond version you use. This is  @strong{important information}
+
 
 This information tells us if you've found a new bug, or an old one.
 
