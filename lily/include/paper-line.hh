@@ -23,7 +23,7 @@ class Paper_line
 public:
   int number_;
 
-  Paper_line (Offset, SCM, int penalty = 0, bool = false);
+  Paper_line (Stencil, int penalty, bool);
 
   Offset dim () const;
   Stencil to_stencil () const;

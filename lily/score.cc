@@ -43,6 +43,7 @@ Score::~Score ()
 
 IMPLEMENT_SMOBS (Score);
 IMPLEMENT_DEFAULT_EQUAL_P (Score);
+IMPLEMENT_TYPE_P (Score, "ly:score?");
 
 SCM
 Score::mark_smob (SCM s)
@@ -69,7 +70,6 @@ Score::print_smob (SCM , SCM p, scm_print_state*)
   store point & click locations.
   Global to save some time. (Sue us!)
  */
-
 Score::Score (Score const &s)
   : Input (s)
 {
@@ -280,4 +280,47 @@ LY_DEFINE (ly_score_bookify, "ly:score-bookify",
   book->header_ = header;
   scm_gc_unprotect_object (book->self_scm ());
   return book->self_scm ();
+}
+
+
+LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
+	   2, 0, 0, (SCM score, SCM paper),
+	   "Run @var{score} through @var{paper}, a output definition, "
+	   " scaled to correct outputscale already,  return a list of paper-lines. ")
+{
+  Score * sc = unsmob_score (score);
+  Output_def *od = unsmob_output_def (paper);
+
+  SCM_ASSERT_TYPE (sc, score, SCM_ARG1, __FUNCTION__, "Score");
+  SCM_ASSERT_TYPE (od, paper, SCM_ARG2, __FUNCTION__, "Output_def");
+
+  SCM lines = SCM_EOL;
+  Output_def * score_def  = 0;
+
+  /*
+    UGR, FIXME, these are default \paper blocks once again. They suck.
+   */
+  for (int i = 0; !score_def && i < sc->defs_.size (); i++)
+    {
+      if (sc->defs_[i]->c_variable ("is-paper") == SCM_BOOL_T)
+	{
+	  score_def = sc->defs_[i];
+	}
+    }
+
+  if (!score_def)
+    return lines;
+  
+      
+  score_def = score_def->clone ();
+  SCM prot = score_def->self_scm ();
+  scm_gc_unprotect_object (prot);
+
+  score_def->parent_ = od;
+  
+  SCM context = ly_run_translator (sc->music_, score_def->self_scm ());
+  lines = ly_format_output (context, scm_makfrom0str ("<embedded>"));
+  
+  scm_remember_upto_here_1 (prot);
+  return lines;
 }

@@ -20,7 +20,7 @@
 
     It is implemented as a "tree" of scheme expressions, as in
 
-     Expr = combine Expr Expr
+     Expr = combine Expr-list
             | translate Offset Expr
 	    | origin (ORIGIN) Expr
 	    | no-origin Expr

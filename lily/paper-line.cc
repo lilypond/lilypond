@@ -21,27 +21,13 @@ IMPLEMENT_DEFAULT_EQUAL_P (Paper_line);
 #define TITLE_PENALTY -1
 
 
-Paper_line::Paper_line (Offset o, SCM stencils, int penalty, bool is_title)
+Paper_line::Paper_line (Stencil s, int penalty, bool is_title)
 {
   is_title_ = is_title;
   number_ = 0;
   penalty_ = penalty;
   smobify_self ();
-
-
-  /*
-    TODO: we should extend the definition of stencil to allow
-
-    stencil-expr:  LISTOF stencil-expr*
-
-    so that we don't use as much memory for combining the stencils, and
-    can do this conversion in constant time. 
-  */
-  for (SCM s = stencils; ly_c_pair_p (s); s = ly_cdr (s))
-    stencil_.add_stencil (*unsmob_stencil (ly_car (s)));
-
-  Box x (Interval (0, o[X_AXIS]), Interval (0, o[Y_AXIS]));
-  stencil_ = Stencil (x, stencil_.expr ());
+  stencil_ = s;
 }
 
 Paper_line::~Paper_line ()

@@ -119,6 +119,8 @@ Stencil::add_stencil (Stencil const &s)
   dim_.unite (s.dim_);
 }
 
+
+
 void
 Stencil::set_empty (bool e)
 {
@@ -223,8 +225,11 @@ interpret_stencil_expression (SCM expr,
 	}
       else if (head == ly_symbol2scm ("combine-stencil"))
 	{
-	  interpret_stencil_expression (ly_cadr (expr), func, func_arg, o);
-	  expr = ly_caddr (expr);
+	  for (SCM x = ly_cdr (expr); ly_c_pair_p (x); x = ly_cdr (x))
+	    {
+	      interpret_stencil_expression (ly_car (x), func, func_arg, o);
+	    }
+	  return ;
 	}
       else
 	{

@@ -133,9 +133,9 @@ System::get_lines ()
     progress_indication (_f ("Element count %d.",  count + element_count ()));
 
   int line_count = broken_intos_.size ();
-  SCM lines = scm_c_make_vector (line_count, SCM_UNDEFINED);
+  SCM lines = scm_c_make_vector (line_count, SCM_EOL);
   
-   for (int i = 0; i < line_count; i++)
+  for (int i = 0; i < line_count; i++)
     {
       if (verbose_global_b)
 	progress_indication ("[");
@@ -147,7 +147,7 @@ System::get_lines ()
       if (verbose_global_b)
 	progress_indication (to_string (i) + "]");
     }
-   return lines;
+  return lines;
 }
 
 /* Find the loose columns in POSNS, and drape them around the columns
@@ -336,6 +336,9 @@ System::get_line ()
      Start with layer 3, since scm_cons prepends to list.  */
   SCM all = get_property ("all-elements");
 
+  SCM exprs = SCM_EOL;
+  SCM *tail = &exprs;
+
   Real penalty = 0;
   for (int i = LAYER_COUNT; i--;)
     for (SCM s = all; ly_c_pair_p (s); s = ly_cdr (s))
@@ -357,16 +360,25 @@ System::get_line ()
 
 	/* Must copy the stencil, for we cannot change the stencil
 	   cached in G.  */
-	SCM my_stencil = stil->smobbed_copy ();
-	unsmob_stencil (my_stencil)->translate (o + extra);
-	stencils = scm_cons (my_stencil, stencils);
 
+	Stencil st = *stil;
+	st.translate (o + extra);
+	*tail = scm_cons (st.expr (), SCM_EOL);
+	tail = SCM_CDRLOC(*tail);
+	
+	/*
+	  UGH. back-end should extract this info from the System? 
+	 */
 	if (g->original_)
 	  {
+	    /*
+	      Huh ? penalties from all columns are added ??!! --hwn
+	     */
 	    if (Item *it = dynamic_cast <Item*> (g))
 	      {
 		Grob *col = it->get_column ();
 		SCM s = col->get_property ("page-penalty");
+		
 		// FIXME; page breaking is not discrete at +-10000
 		if (ly_c_number_p (s)) // && fabs (ly_scm2double (s)) < 10000)
 		  penalty += ly_scm2double (s);
@@ -376,8 +388,11 @@ System::get_line ()
 
   Interval x (extent (this, X_AXIS));
   Interval y (extent (this, Y_AXIS));
-  Paper_line *pl = new Paper_line (Offset (x.length (), y.length ()),
-				   stencils, (bool) penalty); // FIXME.
+  Stencil sys_stencil (Box (x,y),
+		       scm_cons (ly_symbol2scm ("combine-stencil"),
+				 exprs));
+  
+  Paper_line *pl = new Paper_line (sys_stencil, (int) penalty, false);
 
   return scm_gc_unprotect_object (pl->self_scm ());
 }

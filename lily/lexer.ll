@@ -494,6 +494,9 @@ HYPHEN		--
 	\> {
 		return '>';
 	}
+	\\score {
+		return SCORE;
+	}
 	{MARKUPCOMMAND} {
 		String str (YYText () + 1);
 		SCM s = lookup_markup_command (str);

@@ -24,22 +24,6 @@
   
  */
 
-// JUNKME
-SCM
-stencil2line (Stencil stil, bool is_title = false)
-{
-  static SCM z;
-  if (!z)
-    z = scm_permanent_object (ly_offset2scm (Offset (0, 0)));
-  Offset dim = Offset (stil.extent (X_AXIS).length (),
-		       stil.extent (Y_AXIS).length ());
-  Paper_line *pl = new Paper_line (dim, scm_cons (stil.smobbed_copy (),
-						  SCM_EOL),
-				   -10001 * is_title, is_title);
-
-  return scm_gc_unprotect_object (pl->self_scm ());
-}
-
 
 Paper_book::Paper_book ()
 {
@@ -319,15 +303,24 @@ Paper_book::lines ()
 
   Stencil title = book_title ();      
   if (!title.is_empty ())
-    lines_ = scm_cons (stencil2line (title, true), lines_);
+    {
+      Paper_line *pl = new Paper_line (title, -10001, true);
+      
+      lines_ = scm_cons (pl->self_scm (), lines_);
+      scm_gc_unprotect_object (pl->self_scm ());
+    }
   
   int score_count = score_lines_.size ();
   for (int i = 0; i < score_count; i++)
     {
       Stencil title = score_title (i);      
       if (!title.is_empty ())
-	lines_ = scm_cons (stencil2line (title, true), lines_);
-
+	{
+	  Paper_line *pl = new Paper_line (title, -10001, true);
+	  lines_ = scm_cons (pl->self_scm (), lines_);
+	  scm_gc_unprotect_object (pl->self_scm ());
+  	}
+      
       if (scm_vector_p (score_lines_[i].lines_) == SCM_BOOL_T)
 	{
 	  SCM line_list = scm_vector_to_list (score_lines_[i].lines_); // guh.

@@ -128,7 +128,7 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
   if (!stacking_dir)
     stacking_dir = DOWN;
   
-  Interval threshold  = robust_scm2interval ( me->get_property ("threshold"), Interval (0, Interval::infinity ()));
+  Interval threshold = robust_scm2interval (me->get_property ("threshold"), Interval (0, Interval::infinity ()));
   
   Array<Interval> dims;
 
