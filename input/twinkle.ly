@@ -114,6 +114,7 @@ textiii =  \lyrics{
 
 \score{
 	\notes <
+	        \property Score.automaticMelismata = ##f
 		\context Staff=i s1
 		\context Lyrics=top s1
 		\context GrandStaff <
