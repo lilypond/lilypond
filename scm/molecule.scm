@@ -60,13 +60,9 @@ encloses the contents.
 "
   (let* ((xext (ly:get-extent grob grob 0))
 	 (yext (ly:get-extent grob grob 1))
-	 (mol (ly:make-molecule '() '(10000 . -10000) '(10000 . -10000)))
-	 (thick 0.1)
-	 )
+	 (thick 0.1))
 
-    (set! mol (ly:molecule-add mol (box-molecule xext (cons (- (car yext) thick) (car yext) ))))
-    (set! mol (ly:molecule-add mol (box-molecule xext (cons  (cdr yext) (+ (cdr yext) thick) ))))
-    (set! mol (ly:molecule-add mol (box-molecule (cons (cdr xext) (+ (cdr xext) thick)) yext)))
-    (set! mol (ly:molecule-add mol (box-molecule (cons (- (car xext) thick) (car xext)) yext)))
-    mol
-  ))
+    (ly:molecule-add (box-molecule xext (cons (- (car yext) thick) (car yext) ))
+		     (box-molecule xext (cons  (cdr yext) (+ (cdr yext) thick) ))
+		     (box-molecule (cons (cdr xext) (+ (cdr xext) thick)) yext)
+		     (box-molecule (cons (- (car xext) thick) (car xext)) yext))))

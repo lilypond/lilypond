@@ -73,18 +73,12 @@ for the reader.
    (map (lambda (x) (interpret-markup grob props x)) (car rest)))
   )
 
-(define (combine-molecule-list lst)
-  (if (null? (cdr lst)) (car lst)
-      (ly:molecule-add (car lst) (combine-molecule-list (cdr lst)))
-      ))
 
 (define-public (combine-markup grob props . rest)
   (ly:molecule-add
    (interpret-markup grob props (car rest))
    (interpret-markup grob props (cadr rest))))
   
-;   (combine-molecule-list (map (lambda (x) (interpret-markup grob props x)) (car rest))))
-
 (define (font-markup qualifier value)
   (lambda (grob props . rest)
     (interpret-markup grob (cons (cons `(,qualifier . ,value) (car props)) (cdr props)) (car rest))
@@ -223,15 +217,12 @@ for the reader.
        (dot (ly:find-glyph-by-name font "dots-dot"))
        (dotwid  (interval-length (ly:molecule-get-extent dot X)))
        (dots (if (> dot-count 0)
-		 (reduce-no-unit 	; TODO: use reduce.
-		  (lambda (x y)
-		    (ly:molecule-add x y))
+		 (ly:molecule-add
 		  (map (lambda (x)
 			 (ly:molecule-translate-axis
 			  dot  (* (+ 1 (* 2 x)) dotwid) X) )
 		       (iota dot-count 1)))
-		 #f
-		 ))
+		 #f))
        
        (flaggl (if (> log 2)
 		   (ly:molecule-translate

@@ -1,5 +1,13 @@
 2003-07-03  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/lily.scm: remove reduce-no-unit 
+	(list-insert-separator): use fold-right
+
+	* lily/molecule-scheme.cc (ly_molecule_add): take variable number
+	of arguments. 
+
+	* NEWS: more neutral language for ancient notation 
+
 	* lily/chord-tremolo-engraver.cc (acknowledge_grob): only set
 	inside pointing beaming for chord tremolo.
 
