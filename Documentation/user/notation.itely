@@ -5219,16 +5219,15 @@ rest, use @code{MultiMeasureRest.expand-limit}.
 @cindex fermata on multi-measure rest
 
 Texts can be added to multi-measure rests by using the
-@var{note}-@code{markup} syntax (see @ref{Text markup}).  In this case, the number is
-replaced.  If you need both texts and the number, you must add the
-number by hand.  A variable (@code{\fermataMarkup}) is provided for
+@var{note}-@code{markup} syntax (see @ref{Text markup}).  
+A variable (@code{\fermataMarkup}) is provided for
 adding fermatas
 
 
 @lilypond[quote,raggedright,verbatim,fragment]
   \set Score.skipBars = ##t
   \time 3/4
-  R2.*10^\markup { \number 10 }_\markup { "Ad lib" }
+  R2.*10^\markup { "Ad lib" }
   R2.^\fermataMarkup
 @end lilypond
 
