@@ -161,8 +161,7 @@ Simultaneous_music_iterator::pending_moment () const
   for (SCM s = children_list_; gh_pair_p (s); s = gh_cdr(s))
     {
       Music_iterator * it = unsmob_iterator (gh_car (s));
-      if (!it-> run_always ())
-	next = next <? it->pending_moment ();
+      next = next <? it->pending_moment ();
     }
   
   return next;
