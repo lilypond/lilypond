@@ -16,13 +16,11 @@ height#:=designsize;
 fatten:=1;
 widen:=1;
 flaren:=1;
+tense=0.85;
 thick#:=7/30height#*fatten;
 thin#:=thick#/4*fatten;
 hair#:=blot_diameter#;
 kuulleke#:=1/8thick#;
-
-message "thin:"&decimal(thin#);
-message "blot:"&decimal(blot_diameter#);
 
 input feta-nummer;
 
