@@ -19,7 +19,7 @@
 #include "spanner.hh"
 #include "item.hh"
 
-MAKE_SCHEME_CALLBACK(Hyphen_spanner,brew_molecule)
+MAKE_SCHEME_CALLBACK(Hyphen_spanner,brew_molecule,1)
 
 SCM 
 Hyphen_spanner::brew_molecule (SCM smob)

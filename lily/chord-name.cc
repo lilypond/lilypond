@@ -23,7 +23,6 @@
    "text"
    ("text" . property-alist)
  */
-
 Molecule
 Chord_name::ly_word2molecule (Score_element * me, SCM word, Real* x) 
 {
@@ -126,7 +125,7 @@ Chord_name::ly_text2molecule (Score_element * me, SCM text)
   return mol;
 }
 
-MAKE_SCHEME_CALLBACK (Chord_name, after_line_breaking);
+MAKE_SCHEME_CALLBACK (Chord_name,after_line_breaking,1);
 SCM
 Chord_name::after_line_breaking (SCM smob)
 {
@@ -148,7 +147,7 @@ Chord_name::after_line_breaking (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-MAKE_SCHEME_CALLBACK (Chord_name, brew_molecule);
+MAKE_SCHEME_CALLBACK (Chord_name,brew_molecule,1);
 SCM
 Chord_name::brew_molecule (SCM smob) 
 {
@@ -168,7 +167,7 @@ Chord_name::brew_molecule (SCM smob)
 
   SCM pitches =  me->get_elt_property ("pitches");
   SCM func = me->get_elt_property (ly_symbol2scm ("chord-name-function"));
-  SCM text = gh_call3 (func, style, ly_quote_scm (pitches), ly_quote_scm (gh_cons (inversion, bass)));
+  SCM text = gh_call3 (func, style, pitches, gh_cons (inversion, bass));
 
   return ly_text2molecule (me, text).create_scheme ();
 }

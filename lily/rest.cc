@@ -15,7 +15,7 @@
 #include "staff-symbol-referencer.hh"
 
 // -> offset callback
-MAKE_SCHEME_CALLBACK(Rest,after_line_breaking);
+MAKE_SCHEME_CALLBACK(Rest,after_line_breaking,1);
 SCM
 Rest::after_line_breaking (SCM smob)
 {
@@ -37,7 +37,7 @@ Rest::after_line_breaking (SCM smob)
 }
 
 
-MAKE_SCHEME_CALLBACK(Rest,brew_molecule)
+MAKE_SCHEME_CALLBACK(Rest,brew_molecule,1)
 SCM 
 Rest::brew_molecule (SCM smob) 
 {

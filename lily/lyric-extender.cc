@@ -16,7 +16,7 @@
 #include "lyric-extender.hh"
 
 
-MAKE_SCHEME_CALLBACK(Lyric_extender,brew_molecule)
+MAKE_SCHEME_CALLBACK(Lyric_extender,brew_molecule,1)
 SCM 
 Lyric_extender::brew_molecule (SCM smob) 
 {
