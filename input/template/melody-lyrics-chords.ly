@@ -1,20 +1,7 @@
 \version "1.5.68"
 
 \header {
-  dedication = "dedication"
-  title = "Title"
-  subtitle = "Subtitle"
-  subsubtitle = "Subsubtitle"
-  composer = "Composer (xxxx-yyyy)"
-  opus = "Opus 0"
-  piece = "Piece I"
-  instrument = "Instrument"
-  arranger = "Arranger"
-  poet = "Poet"
-  texttranslator = "Translator"
-  copyright = "public domain"
-  enteredby = "jcn"
-  source =  "urtext"
+  texidoc = "popsong format: chords, melody and lyrics."
 }
 
 melody = \notes \relative c' {
@@ -26,7 +13,7 @@ text = \lyrics {
 }
 
 accompaniment = \chords {
-  a2: c2
+  a2 c2
 }
 
 \score {

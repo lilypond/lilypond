@@ -1,9 +1,4 @@
 
-* Mention this somewhere in documentation (Tutorial)
-
-* Better comment-out most header entries, or
-  move to template/title.ly altogether?
-
 * Naming conventions for voices/staves
   (think: \autochange, \partcombine)?
 
@@ -46,7 +41,6 @@ TODO (Choral templates, anyone?)
   string quintet parts
   orchestral score
   orchestral parts
-  choral score
   choral score with piano reduction (i.e., the piano staves have the
           same notes as the choral parts)
   choral score with piano accompaniment

@@ -1,28 +1,9 @@
-%{
-  argh. DOCME
-
-
+\version "1.5.68"
+\header {
+texidoc ="
   template that puts dynamics on a separate line, so it is neatly
 centered between staffs.
-%}
-
-\version "1.5.68"
-
-\header {
-  dedication = "dedication"
-  title = "title"
-  subtitle = "subtitle"
-  subsubtitle = "subsubtitle"
-  composer = "composer (xxxx-yyyy)"
-  opus = "opus 0"
-  piece = "piece i"
-  instrument = "instrument"
-  arranger = "arranger"
-  poet = "poet"
-  texttranslator = "translator"
-  copyright = "public domain"
-  enteredby = "jcn"
-  source =  "urtext"
+"
 }
 
 upper = \notes\relative c'' {

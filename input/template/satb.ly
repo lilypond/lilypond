@@ -1,9 +1,9 @@
+\header {
 
-%{
-
+    texidoc = "
  Example template for a SATB vocal  score.
- 
-%}
+" 
+}
 
 sopMusic = \notes  \relative c'' { c4 c [c8( )b] c4 }
 sopWords = \lyrics { hi4 hi hi hi  }
