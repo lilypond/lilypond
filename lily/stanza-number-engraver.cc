@@ -45,7 +45,7 @@ Stanza_number_engraver::process_music ()
 
 
       // TODO
-      if (gh_string_p (s))
+      if (gh_string_p (s) || gh_pair_p (s))
 
 	/*
 	  if (i.grob_l_->has_interface (symbol ("lyric-syllable-interface")))
