@@ -58,16 +58,20 @@ sub my_system
 	}
 	
 	my $ret =  ( system ($cmd));
-	if (!$ignoreret && $ret) {
-	    print STDERR "\nmake_website: failed on command \`$cmd\' (status $ret)\n";
-	    exit 2;
+	if ($ret) {
+	    if ($ignoreret) {
+		print STDERR "ignoring failed command \`$cmd\' (status $ret)\n";
+	    }else {
+		print STDERR "\nmake_website: failed on command \`$cmd\' (status $ret)\n";
+		exit 2;
+	    }
 	}
     }
 }
 
 
 local $base="lilypond/";
-local @examples=("wohltemperirt" ,"standchen", "scsii-menuetto", "rhythm", "collisions");
+local @examples=("wohltemperirt" ,"standchen", "toccata-fuga-E", "scsii-menuetto", "rhythm", "collisions");
 
 
 sub gen_html
@@ -134,7 +138,11 @@ sub gen_list
 {
     print "generating HTML list\n";
     open HTMLLIST, ">example_output.html";
-    print HTMLLIST "<html><body><title>LilyPond examples</title>\n";
+    print HTMLLIST "<html><body><title>LilyPond examples</title>\n
+These example files are taken from the LilyPond distribution.\n
+LilyPond currently only outputs TeX and MIDI. The pictures and\n
+ PostScript files were generated using TeX, Ghostscript and some graphics tools. \n
+The GIF files have been scaled to eliminate aliasing.";
     foreach $a (@examples) {
 	$name=$a;
 	print HTMLLIST "<h1>example file: $name</h1>\n<XMP>\n";
