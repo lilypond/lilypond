@@ -135,10 +135,9 @@ Separation_item::width (Grob *me)
 
 
 ADD_INTERFACE (Separation_item,"separation-item-interface",
-  "Item that computes widths to generate spacing rods.
-
-Calc dimensions for the Separating_group_spanner; this has to be
-an item to get dependencies correct.  It can't be an grob_group
-since these usually are in a different X_group
-",
+  "Item that computes widths to generate spacing rods.\n"
+"\n"
+"Calc dimensions for the Separating_group_spanner; this has to be "
+"an item to get dependencies correct.  It can't be an grob_group "
+"since these usually are in a different X_group ",
   "X-extent conditional-elements elements");

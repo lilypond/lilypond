@@ -331,6 +331,6 @@ Tie::brew_molecule (SCM smob)
 
 
 ADD_INTERFACE (Tie,"tie-interface",
-  "A tie connecting two noteheads.
-direction = Forced direction for all ties",
+  "A tie connecting two noteheads.\n"
+"direction = Forced direction for all ties",
   "y-offset staffline-clearance control-points heads details thickness x-gap direction minimum-length");

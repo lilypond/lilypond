@@ -1227,9 +1227,6 @@ Beam::set_stem_lengths (Grob *me)
   Interval pos = ly_scm2interval (me->get_grob_property ("positions"));
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
-  bool french = to_boolean (me->get_grob_property ("french-beaming"));
-
-  
   bool gap = false;
   Real thick =0.0;
   if (gh_number_p (me->get_grob_property ("gap"))
