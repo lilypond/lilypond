@@ -408,9 +408,14 @@ Beam::new_quanting (SCM smob)
 			 gh_cons (gh_double2scm (qscores[best_idx].yl),
 				  gh_double2scm (qscores[best_idx].yr))
 			 );
-  me->set_grob_property ("quant-score",
-			 gh_double2scm (qscores[best_idx].demerits));
-  me->set_grob_property ("best-idx", gh_int2scm (best_idx));
+
+  if (0)
+  {
+	  // debug quanting
+	  me->set_grob_property ("quant-score",
+				 gh_double2scm (qscores[best_idx].demerits));
+	  me->set_grob_property ("best-idx", gh_int2scm (best_idx));
+  }
 
   return SCM_UNSPECIFIED;
 }

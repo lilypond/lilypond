@@ -111,7 +111,7 @@ Text_spanner::brew_molecule (SCM smob)
   shorten[LEFT] = 0;
   shorten[RIGHT] = 0;
 
-  SCM s = me->get_grob_property ("shorten");
+  SCM s = me->get_grob_property ("shorten-pair");
   if (gh_pair_p (s))
     {
       shorten[LEFT] = gh_scm2double (ly_car (s));
@@ -275,6 +275,6 @@ Text_spanner::setup_pedal_bracket(Spanner *s)
 						 gh_double2scm ( height[RIGHT]) ) );
   s->set_grob_property ("edge-width",  gh_cons ( gh_double2scm ( width[LEFT]  ), 
 						 gh_double2scm ( width[RIGHT] ) ));
-  s->set_grob_property ("shorten", gh_cons ( gh_double2scm ( shorten[LEFT] ), 
+  s->set_grob_property ("shorten-pair", gh_cons ( gh_double2scm ( shorten[LEFT] ), 
 					     gh_double2scm ( shorten[RIGHT] ) ));
 }

@@ -180,9 +180,24 @@ def rest_crook(expr a, w) =
 enddef;
 
 %
+% Notes about 8th rest:  
+% 
+% * 8th rest should be no wider than the black note head
 %
-% todo: document rest.
+% * The inside corner of the horizontal portion is usually a little blotted.
 %
+% * The top of the crook chops off the vertical brush
+% 
+% * The crook widens a little
+%
+% * The bottom of the brush is slightly flat, as it has to align with
+% stafflines if it is inside the staff.
+%
+% * The top of the brush usually is a little lower than the top of bulb.
+%
+% * The bulb can vary. Sometimes it is open (like in the clefs). Sometimes 
+% it is closed, or even a flare.
+% 
 
 def normalize (expr p) =
 	(p / length (p))
@@ -196,13 +211,13 @@ def draw_eighth_rest =
 
 
 	width# := 1.0 staff_space#;
-	bulb_diam# := 0.6 staff_space#;
+	bulb_diam# := 0.64 staff_space#;
 	thin# := 1.1 stafflinethickness#;
 	thick# :=  2.2 stafflinethickness#;
 	crook_thick# := 1.8 stafflinethickness#;
 	crook_thin := 1.3 stafflinethickness;
 
-	lower_brush = 1.0 stafflinethickness;
+	lower_brush = 1.5 stafflinethickness;
 	ycenter := 0.5 staff_space;
 
 	define_pixels (width, bulb_diam, thin, thick, crook_thick);
@@ -214,7 +229,7 @@ def draw_eighth_rest =
 
 	y1 = ycenter + - 1.5 staff_space ;
 %	y9 = y5 -  lower_brush;
-	y2 = y5 -  0.7 stafflinethickness;
+	y2 = y5 -  lower_brush;
        
 	x2r = width;
 
@@ -225,15 +240,16 @@ def draw_eighth_rest =
 
 
 	x4 = 1.02 bulb_diam ;
-	y4 = ycenter - 2 stafflinethickness + crook_thin;
+	y4 := ceiling (ycenter - 2 stafflinethickness + crook_thin);
 
-	x5 = 0.5 bulb_diam;
+	x5 = 0.5 bulb_diam - 0.25 stafflinethickness;
 	y5 = ycenter +bulb_diam/2;
 	
 	z9 = z2 + 0.46 stafflinethickness * dir (angle(z2 - z1)- 10);
 
-	z7 = (bulb_diam/2,ycenter) + 0.26 staff_space * dir ( 35);
-	z8 = (0, ycenter);
+%	z7 = %(bulb_diam/2,ycenter) + 0.23 staff_space * dir ( 35);
+	z7 = 0.5 [z4, z5] + (0.45 stafflinethickness,0.4 stafflinethickness);
+	z8 = (0, ycenter + 0.5 stafflinethickness);
 
 	z6 = whatever [z1l, z2l];
 	z6 = whatever [z2l, z4] + crook_thick * (crook_dir rotated -90);
@@ -247,7 +263,7 @@ def draw_eighth_rest =
 
 	fill z2r -- z2l -- simple_serif (z1l, z1r, 40) -- cycle;
 	fill z2r{z2r-z1r} .. z9 .. z2l{dir(232)} .. tension 2
-		.. z4{left} .. z7{dir(90 + 25)} 
+		.. z4{left} .. tension 0.9 .. z7 %{dir(90 + 25)} 
 		.. z5{left} .. z8 .. z3{right}
 		.. {curl 0.2}z6 -- cycle;
 

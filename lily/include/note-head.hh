@@ -23,7 +23,7 @@ public:
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
   static Interval head_extent (Grob*,Axis);
   static Molecule ledger_lines (Grob*, bool, int,Direction,Interval);
-  static Molecule ledger_line (Interval, Grob*) ;
+  static Molecule ledger_line ( Grob*, Interval);
   DECLARE_SCHEME_CALLBACK (brew_ez_molecule, (SCM ));
   static bool has_interface (Grob*);
   static Real stem_attachment_coordinate (Grob *, Axis a);
