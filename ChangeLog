@@ -1,5 +1,9 @@
 2004-05-18  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/stencil.scm (fontify-text): reinstate function
+
+	* tex/lily-ps-defs.tex: remove lilypondblotdiam def.
+
 	* lily/book-paper-def.cc (Book_paper_def): add copy ctor.
 
 	* lily/parser.yy (book_paper_head): \bookpaper {} 

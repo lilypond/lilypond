@@ -25,6 +25,8 @@ public:
   Real output_scale_;
 
   Book_paper_def ();
+  SCM c_variable (String id) const;
+  SCM lookup_variable (SCM sym) const;
 
   Font_metric *find_scaled_font (Font_metric *f, Real m, SCM input_enc_name);
   Paper_def *scale_paper (Paper_def *pd) const;

@@ -74,3 +74,10 @@ encloses the contents.
     (set! stil (ly:stencil-combine-at-edge stil Y -1 x-rule 0.0))
     
     stil))
+
+(define-public (fontify-text font-metric text)
+  "Set TEXT with font FONT-METRIC, returning a stencil."
+  (let* ((b  (ly:text-dimension font-metric text)))
+    (ly:make-stencil
+     `(text ,font-metric ,text) (car b) (cdr b))))
+
