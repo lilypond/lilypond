@@ -34,6 +34,7 @@ private:
   bool start_new_syllable () ;
   void find_voice ();
 
+  bool warned_;
   bool made_association_;
   Context * lyrics_context_;
   Context * music_context_;
@@ -49,6 +50,7 @@ static Music *melisma_playing_ev;
 
 New_lyric_combine_music_iterator::New_lyric_combine_music_iterator ()
 {
+  warned_ = false;
   made_association_ = false;
   lyric_iter_ =0;
   music_context_ =0;
@@ -168,9 +170,12 @@ New_lyric_combine_music_iterator::find_voice ()
 
 	  String name = ly_scm2string (voice_name);
 	  Context *voice = find_context_below (t, ly_symbol2scm ("Voice"), name);
-	  if (!voice)
-	    get_music ()->origin ()->warning (_f ("cannot find Voice: %s",
-						  name.to_str0 ()) + "\n");
+	  if (!voice && !warned_)
+	    {
+	      warned_ = true;
+	      get_music ()->origin ()->warning (_f ("cannot find Voice: %s",
+						    name.to_str0 ()) + "\n");
+	    }
 	  else
 	    music_context_ = voice;
 	    
