@@ -2915,7 +2915,7 @@ The associated object is @internalsref{VoiceFollower}.
 Tablature notation is used for notating music for plucked string
 instruments.  It notates pitches not by using note heads, but by
 indicating on which string and fret a note must be played.  LilyPond
-offers limited support for tablature by abusing the fingering system.
+offers limited support for tablature.
 
 @menu
 * Tablatures basic::            
@@ -2930,22 +2930,48 @@ offers limited support for tablature by abusing the fingering system.
 Tablature can be typeset with Lilypond by using the
 @internalsref{TabStaff} and @internalsref{TabVoice} contexts. As
 tablature is a recent feature in Lilypond, most of the guitar special
-effects such as hammer, pull, bend are not yet supported.
+effects such as bend are not yet supported.
 
 With the @internalsref{TabStaff}, the string number associated to a note
-is given though the fingering mechanism, e.g. @code{c4-3} for a C
-quarter on the third string. The string 1 is the lowest one, and the
+is given as a backslash followed by the string number, e.g. @code{c4\3} for a C
+quarter on the third string. By default, string 1 is the highest one, and the
 tuning defaults to the standard guitar tuning (with 6 strings).
 
 @lilypond[fragment,verbatim]
   \context TabStaff <
     \notes {
-      \property Staff.Stem \override #'direction = #1
-      
-      a,4-2 c'-5 a-4 e'-6
-      e-3 c'-5 a-4 e'-6
+      a,4\5 c'\2 a\3 e'\1
+      e\4 c'\2 a\3 e'\1
     }
   >  
+@end lilypond
+
+If you do not specify a string number then lilypond automatically selects one.
+The selection is controlled by the translator property @code{minimumFret}. -- LilyPond
+simply selects the first string that does not give a fret number less than
+@code{minimumFret}. Default is 0.
+
+Notice that LilyPond does not handle chords in any special way, and hence
+the automatic string selector may easily select the same string to two notes in a chord.
+
+@example
+e8 fis gis a b cis' dis' e'
+\property TabStaff.minimumFret = #8
+e8 fis gis a b cis' dis' e'
+@end example
+@lilypond
+frag = \notes {
+    \key e \major
+    e8 fis gis a b cis' dis' e'
+    \property TabStaff.minimumFret = #8
+    e8 fis gis a b cis' dis' e'
+}
+\score {
+  \context StaffGroup <
+    \context Staff { \clef "G_8" \frag }
+    \context TabStaff { \frag }
+  >
+}
 @end lilypond
 
 @node Non-guitar tablatures
@@ -2970,7 +2996,7 @@ middle C, in string order: thus the notes are e, a, d & g)
 
     \outputproperty #(make-type-checker 'staff-symbol-interface)
                     #'line-count = #4
-    \property TabStaff.stringTunings =  #'(-20 - 15 -10 -5)
+    \property TabStaff.stringTunings =  #'(-5 -10 -15 -20)
     
     \notes {
       a,4 c' a e' e c' a e'
@@ -3352,14 +3378,36 @@ number itself is a property that can be set by modifying the
   \property Score.currentBarNumber = #217
 @end example
 
-If you want boxed bar numbers, see the example file
-@code{input/test/boxed-molecule.ly}.
+To typeset Bar Numbers at regular intervals instead of at the beginning of each line,
+you need to change the grob property @code{break-visibility} as well as the translator
+property @code{barNumberVisibility}, as illustrated in the following example which also
+adds a box around the bar numbers:
+@example
+\property Score.BarNumber \override #'break-visibility =
+  #end-of-line-invisible
+\property Score.barNumberVisibility = #(every-nth-bar-number-visible 5)
+\property Score.BarNumber \override #'molecule-callback =
+  #(make-molecule-boxer 0.1 0.25 0.25 Text_item::brew_molecule)
+\property Score.BarNumber \override #'font-relative-size = #0
+@end example
+@lilypond
+\score {
+    \context Staff \notes \transpose c''' {
+	\property Score.BarNumber \override #'break-visibility = #end-of-line-invisible
+	\property Score.barNumberVisibility = #(every-nth-bar-number-visible 5)
+	\property Score.BarNumber \override #'molecule-callback =
+	#(make-molecule-boxer 0.1 0.25 0.25 Text_item::brew_molecule)
+	\property Score.BarNumber \override #'font-relative-size = #0
+	
+	\repeat unfold 16 c1 \bar "|."
+    }
+}
+@end lilypond
 
 See also @seeinternals{BarNumber}.
 
 @refbugs
 
-Printing bar numbers at regular intervals is not implemented.
 Barnumbers can collide with the StaffGroup, if there is one at the
 top. To solve this, You have to twiddle with the
 @internalsref{padding} property of @internalsref{BarNumber} if your

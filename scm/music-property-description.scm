@@ -62,7 +62,7 @@ TODO: consider making type into symbol ")
 
 (music-property-description 'start-moment-function procedure? "Function to compute the negative length of
 starting grace notes.")
-
+(music-property-description 'string-number integer? "The number of the string in a String_number_req")
 (music-property-description 'symbol symbol? "Grob name to perform an override/revert on.")
 (music-property-description 'text markup? "markup expression to be printed")
 ;; markup?
