@@ -34,7 +34,7 @@ void
 Pointer_group_interface::add_element (Score_element*p) 
 {
   elt_l_->set_elt_property (name_.ch_C(),
-			   gh_cons (p->self_scm_,
+			   gh_cons (p->self_scm (),
 				    elt_l_->get_elt_property (name_.ch_C())));
 }
 

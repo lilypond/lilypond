@@ -70,7 +70,7 @@ Bar_number_engraver::acknowledge_element (Score_element_info inf)
   Score_element * s = inf.elem_l_;
   if (Staff_symbol::has_interface (s))
     {
-      staffs_ = gh_cons (inf.elem_l_->self_scm_, staffs_);
+      staffs_ = gh_cons (inf.elem_l_->self_scm (), staffs_);
     }
   else if (text_p_
 	   && dynamic_cast<Item*> (s)

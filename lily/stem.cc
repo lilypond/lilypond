@@ -200,7 +200,7 @@ Stem::extremal_heads (Score_element*me)
 void
 Stem::add_head (Score_element*me, Score_element *n)
 {
-  n->set_elt_property ("stem", me->self_scm_);
+  n->set_elt_property ("stem", me->self_scm ());
   n->add_dependency (me);
 
   if (Note_head::has_interface (n))
@@ -209,7 +209,7 @@ Stem::add_head (Score_element*me, Score_element *n)
     }
   else
     {
-      n->set_elt_property ("rest", n->self_scm_);
+      n->set_elt_property ("rest", n->self_scm ());
     }
 }
 

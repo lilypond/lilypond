@@ -126,6 +126,6 @@ Stem_tremolo::brew_molecule (SCM smob)
 void
 Stem_tremolo::set_stem (Score_element*me,Score_element *s)
 {
-  me->set_elt_property ("stem", s->self_scm_);
+  me->set_elt_property ("stem", s->self_scm ());
 }
 

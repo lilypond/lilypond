@@ -256,10 +256,10 @@ Dynamic_engraver::do_process_music ()
 	  if (text_p_)
 	    {
 	      index_set_cell (cresc_p_->get_elt_property ("dynamic-drul"),
-			      LEFT, text_p_->self_scm_);
+			      LEFT, text_p_->self_scm ());
 	      if (finished_cresc_p_)
 		index_set_cell (finished_cresc_p_->get_elt_property ("dynamic-drul"),
-				RIGHT, text_p_->self_scm_);
+				RIGHT, text_p_->self_scm ());
 	    }
 
 	  Axis_group_interface::add_element (line_spanner_, cresc_p_);

@@ -177,7 +177,7 @@ Slur::set_extremities (Score_element*me)
 	  for (SCM s = scm_eval (ly_symbol2scm ("slur-extremity-rules"));
 	       s != SCM_EOL; s = gh_cdr (s))
 	    {
-	      SCM r = gh_call2 (gh_caar (s), me->self_scm_,
+	      SCM r = gh_call2 (gh_caar (s), me->self_scm (),
 				 gh_int2scm ((int)dir));
 	      if (r != SCM_BOOL_F)
 		{

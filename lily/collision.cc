@@ -32,7 +32,7 @@ Collision::force_shift_callback (Score_element * c, Axis a)
    */
   if (!unsmob_element (me->get_elt_property ("done")))
     {
-      me->set_elt_property ("done", me->self_scm_);
+      me->set_elt_property ("done", me->self_scm ());
       do_shifts (me);
     }
   
@@ -195,7 +195,7 @@ Collision::automatic_shift (Score_element *me)
   do
     {
       for (int i=0; i < clash_groups[d].size (); i++)
-	tups = gh_cons (gh_cons (clash_groups[d][i]->self_scm_, gh_double2scm (offsets[d][i])),
+	tups = gh_cons (gh_cons (clash_groups[d][i]->self_scm (), gh_double2scm (offsets[d][i])),
 				 tups);
     }
   while (flip (&d) != UP);
@@ -216,7 +216,7 @@ Collision::forced_shift (Score_element *me)
       SCM force =  se->remove_elt_property ("force-hshift");
       if (gh_number_p (force))
 	{
-	  tups = gh_cons (gh_cons (se->self_scm_, force),
+	  tups = gh_cons (gh_cons (se->self_scm (), force),
 			  tups);
 	}
     }

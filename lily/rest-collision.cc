@@ -48,7 +48,7 @@ Rest_collision::add_column (Score_element*me,Score_element *p)
   gi.add_element (p);
 
   p->add_offset_callback (&Rest_collision::force_shift_callback, Y_AXIS);
-  p->set_elt_property ("rest-collision", me->self_scm_);
+  p->set_elt_property ("rest-collision", me->self_scm ());
 }
 
 static SCM

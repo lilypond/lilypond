@@ -86,7 +86,7 @@ Note_column::dir (Score_element*  me)
 void
 Note_column::set_stem (Score_element*me,Score_element * stem_l)
 {
-  me->set_elt_property ("stem", stem_l->self_scm_);
+  me->set_elt_property ("stem", stem_l->self_scm ());
   me->add_dependency (stem_l);
   Axis_group_interface::add_element (me, stem_l);
 }
@@ -96,7 +96,7 @@ Note_column::add_head (Score_element*me,Score_element *h)
 {
   if (Rest::has_interface (h))
     {
-      me->set_elt_property ("rest", h->self_scm_);
+      me->set_elt_property ("rest", h->self_scm ());
     }
   else if (Note_head::has_interface (h))
     {

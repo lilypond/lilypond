@@ -138,7 +138,7 @@ Align_interface::get_count (Score_element*me,Score_element*s)
   int c =0;
   while (gh_pair_p (e))
     {
-      if (gh_car (e) == s->self_scm_)
+      if (gh_car (e) == s->self_scm ())
 	break;
       c++;
       e = gh_cdr (e);

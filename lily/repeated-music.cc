@@ -26,14 +26,14 @@ Repeated_music::alternatives ()const
 
 Repeated_music::Repeated_music(Music *beg, int times, Music_sequence * alts)
 {
-  set_mus_property ("body", beg->self_scm_);
+  set_mus_property ("body", beg->self_scm ());
   fold_b_ = false;
   repeats_i_ = times;
   volta_fold_b_ = true;
   if (alts)
     {
       alts->truncate (times);
-      set_mus_property ("alternatives", alts->self_scm_);
+      set_mus_property ("alternatives", alts->self_scm ());
     }
 }
 

@@ -180,8 +180,8 @@ SCM
 Item::do_derived_mark ()
 {
   if (broken_to_drul_[LEFT])
-    scm_gc_mark (broken_to_drul_[LEFT]->self_scm_);
+    scm_gc_mark (broken_to_drul_[LEFT]->self_scm ());
   if (broken_to_drul_[RIGHT])
-    scm_gc_mark (broken_to_drul_[RIGHT]->self_scm_);
+    scm_gc_mark (broken_to_drul_[RIGHT]->self_scm ());
   return SCM_EOL;
 }
