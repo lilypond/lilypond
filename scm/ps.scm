@@ -161,9 +161,12 @@
      " draw_bezier_sandwich"))
 
   (define (start-line height)
-	  "\nstart-line {
+    (string-append
+     "\n"
+     (ly-number->string height)
+     " start-line {
 lilypondpaperoutputscale lilypondpaperoutputscale scale
-")
+"))
   
   (define (stem breapth width depth height) 
     (string-append (numbers->string (list breapth width depth height))

@@ -69,8 +69,11 @@
 	grestore
 } bind def
 
-/start-line
-{ 
+/start-line % height
+{
+	dup base-line-skip gt {
+		/line-height exch def
+	} if
 	line-y top-margin sub base-line-skip lt {
 		showpage
 		/line-y vsize top-margin sub def
@@ -82,29 +85,10 @@
 /stop-line
 { 
 	/the-line exch def
-	0 0 moveto the-line clippath pathbbox
+	the-line
 	stroke
 	grestore
- 	exch 4 -1 roll
-	sub
-	3 1 roll
-	exch sub
-	%pstack
-	%
-	% ugh: now we should have `width height' on stack,
-	% but it's probably just the width and height of last element
-	% (the last staff)
-	% How do we get all heights of all staffs in a line?
-	%
-	% output-scale div neg line-y add /line-y exch def
-	%
-	% discarding height...
-	pop
-	%
-	% discard width
-	pop
-	% use fixed base-line-skip for now
-	line-y base-line-skip output-scale mul sub /line-y exch def
+	line-y line-height output-scale mul sub /line-y exch def
 } bind def
 
 % FIXME: font definitions should come from LilyPond
@@ -215,11 +199,12 @@
 
 /turnOnExperimentalFeatures { } bind def
 
-
 staff-line-thickness setlinewidth
 
+% set postscript paper size
 paper-size
 
+% initialise paper dimensions
 staff-height init-paper
 
 /line-x left-margin def
