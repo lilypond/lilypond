@@ -77,33 +77,9 @@ ERROR_LOG = 2> /dev/null
 SILENT_LOG = 2>&1 >  /dev/null
 date := $(shell date +%x)	#duplicated?
 
-# compile and link options:
-#
-ARFLAGS = ru
-
-#INCLUDES =  $(depth)/$(builddir) include $(outdir) $($(PACKAGE)_INCLUDES) $(MODULE_INCLUDES)
 INCLUDES = include $(outdir) $($(PACKAGE)_INCLUDES) $(MODULE_INCLUDES)
 
-# urg: for windows ?
-# LOADLIBES = $(MODULE_LIBES) $($(PACKAGE)_LIBES) $(EXTRA_LIBES) -lstdc++
-#
-
-# macro compiler:
-#
 M4 = m4
-# 
-
-#
-LD_COMMAND = $(LD) $(LDFLAGS) -o $@
-#
-
-# dependencies:
-#
-depfile = $(outdir)/$(subst .o,.dep,$(notdir $@))#
-DODEP=rm -f $(depfile); DEPENDENCIES_OUTPUT="$(depfile) $(outdir)/$(notdir $@)"
-#
-
-#
 
 #replace to do stripping of certain objects
 STRIPDEBUG=true 
@@ -111,11 +87,7 @@ STRIPDEBUG=true
 DIST_FILES=$(EXTRA_DIST_FILES) GNUmakefile $(ALL_SOURCES)
 DOCDIR=$(depth)/$(outdir)
 
-
 STRIP=strip --strip-debug
-ifdef stablecc
- STABLEOBS=$(addprefix $(outdir)/,$(stablecc:.cc=.o))
-endif
 
 # substitute $(STRIP) in Site.make if you want stripping
 DO_STRIP=true

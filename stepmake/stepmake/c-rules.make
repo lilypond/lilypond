@@ -1,10 +1,16 @@
-.SUFFIXES: .c .o .h .y .l .dep
+.SUFFIXES: .c .dep .h .l .lo .o .so .y
 
 $(outdir)/%.o: %.c
-	$(DO_C_COMPILE)
+	$(DO_O_DEP) $(CC) -c $(CFLAGS) -o $@ $<
 
 $(outdir)/%.o: $(outdir)/%.c
-	$(DO_C_COMPILE)
+	$(DO_O_DEP) $(CC) -c $(CFLAGS) -o $@ $<
+
+$(outdir)/%.lo: %.c
+	$(DO_LO_DEP) $(CC) -c $(CFLAGS) $(PIC_FLAGS) -o $@ $<
+
+$(outdir)/%.lo: %.c
+	$(DO_LO_DEP) $(CC) -c $(CFLAGS) $(PIC_FLAGS) -o $@ $<
 
 $(outdir)/%.c: %.y
 	$(BISON) $<

@@ -1,5 +1,11 @@
-1.5.10.jcn2
-==========
+1.5.10.jcn3
+===========
+
+* include python midi parser.
+
+* stepmake updates.
+
+* add .cvsignore patterns for making patches the standard, manual way.
 
 * midi2ly: support chords, duration conversion rewrite.
 

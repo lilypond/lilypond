@@ -1,12 +1,16 @@
-.SUFFIXES: .cc .o .hh .yy .ll  .dep
+.SUFFIXES: .cc .dep .hh .ll .o .so .yy
 
-# compile rules:
-#
 $(outdir)/%.o: %.cc
-	$(DO_CXX_COMPILE)
+	$(DO_O_DEP) $(CXX) -c $(CXXFLAGS) -o $@ $<
 
 $(outdir)/%.o: $(outdir)/%.cc
-	$(DO_CXX_COMPILE)
+	$(DO_O_DEP) $(CXX) -c $(CXXFLAGS) -o $@ $<
+
+$(outdir)/%.lo: %.cc
+	$(DO_LO_DEP) $(CXX) -c $(CXXFLAGS) $(PIC_FLAGS) -o $@ $<
+
+$(outdir)/%.lo: $(outdir)/%.cc
+	$(DO_LO_DEP) $(CXX) -c $(CXXFLAGS) $(PIC_FLAGS) -o $@ $<
 
 $(outdir)/%.cc: %.yy
 	$(BISON) $<
