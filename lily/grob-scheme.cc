@@ -64,6 +64,10 @@ left, and @code{1} for right.
   return sl->get_bound (to_dir (dir))->self_scm ();
 }
 
+/*
+  TODO: make difference between scaled and unscalead variable in
+  calling (i.e different funcs.)
+ */
 LY_DEFINE(ly_get_paper_var,"ly-get-paper-variable", 2, 0, 0,
   (SCM grob, SCM sym),
   "Get a variable from the \\paper block.")
@@ -72,7 +76,7 @@ LY_DEFINE(ly_get_paper_var,"ly-get-paper-variable", 2, 0, 0,
   SCM_ASSERT_TYPE(sc, grob, SCM_ARG1, __FUNCTION__, "grob");
   SCM_ASSERT_TYPE(gh_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");  
 
-  return sc->get_paper () ->get_scmvar_scm (sym);
+  return sc->get_paper () ->lookup_variable (sym);
 }
 
 

@@ -92,9 +92,9 @@ Paper_outputter::output_scheme (SCM scm)
 }
 
 void
-Paper_outputter::output_scope (Scheme_hash_table *scope, String prefix)
+Paper_outputter::output_scope (SCM mod, String prefix)
 {
-  SCM al = scope->to_alist ();
+  SCM al = ly_module_to_alist (mod);
   for (SCM s = al ; gh_pair_p (s); s = ly_cdr (s))
     {
       SCM k = ly_caar (s);
@@ -170,11 +170,12 @@ Paper_outputter::write_header_field_to_file (String filename, SCM key, SCM value
 }
 
 void
-Paper_outputter::write_header_fields_to_file (Scheme_hash_table * header)
+Paper_outputter::write_header_fields_to_file (SCM mod)
 {
+  
   if (dump_header_fieldnames_global.size ())
     {
-      SCM fields = header->to_alist ();
+      SCM fields = ly_module_to_alist (mod);
       for (int i = 0; i < dump_header_fieldnames_global.size (); i++)
 	{
 	  String key = dump_header_fieldnames_global[i];

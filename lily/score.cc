@@ -30,7 +30,7 @@ Score::Score ()
   : Input ()
 {
   input_file_ = 0;
-  header_ = 0;
+  header_ = SCM_EOL;
   music_ = SCM_EOL;
   errorlevel_ = 0;
 
@@ -57,12 +57,8 @@ Score::Score (Score const &s)
   for (int i=0; i < s.defs_.size (); i++)
     defs_.push (s.defs_[i]->clone ());
   errorlevel_ = s.errorlevel_;
-  if (s.header_)
-    {
-      header_ = (s.header_) ? new Scheme_hash_table (*s.header_): 0;
-
-      scm_gc_unprotect_object (header_->self_scm ());
-    }
+  header_ = ly_make_anonymous_module ();
+  ly_copy_module_variable (header_, s.header_);
 }
 
 Score::~Score ()
@@ -124,7 +120,7 @@ Score::run_translator (Music_output_def *odef)
     progress_indication (_f ("elapsed time: %.2f seconds",  timer.read ()));
 
   if (!header_)
-    header_ = new Scheme_hash_table; // ugh
+    header_ = ly_make_anonymous_module(); // ug.h
 
   output->header_ = header_;
   output->origin_string_ =  location_string ();
@@ -165,8 +161,8 @@ SCM
 Score::mark_smob (SCM s)
 {
   Score * sc = (Score*) SCM_CELL_WORD_1 (s);
-  if (sc->header_)
-    scm_gc_mark (sc->header_->self_scm ());
+
+  scm_gc_mark (sc->header_);
   for (int i = sc->defs_.size (); i--;)
     scm_gc_mark (sc->defs_[i]->self_scm ());
   

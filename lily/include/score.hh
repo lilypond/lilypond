@@ -22,7 +22,7 @@ public:
   /// paper_, staves_ and commands_ form the problem definition.
   Link_array<Music_output_def> defs_;
   SCM music_;
-  Scheme_hash_table * header_;
+  SCM header_;
   Input_file_results* input_file_;
   
   int errorlevel_;

@@ -12,6 +12,7 @@
 
 #include "string.hh"
 #include "lily-proto.hh"
+#include "protected-scm.hh"
 
 /**
   Output something that was defined in a lilypond file. 
@@ -19,7 +20,7 @@
 class Music_output 
 {
 public:
-  Scheme_hash_table * header_;
+  Protected_scm header_;
   String default_out_string_;
   String origin_string_;
   int errorlevel_;

@@ -13,7 +13,7 @@
 #include "lily-proto.hh"
 #include "source.hh"
 #include "parray.hh"
-#include "scm-hash.hh"
+#include "protected-scm.hh"
 
 class Input_file_results
 {
@@ -22,8 +22,7 @@ public:
   Array<String> inclusion_names_;
   Array<String> target_strings_;
   Link_array<Score> scores_;
-  /* Global? prefix is bit confusing */
-  Scheme_hash_table * header_;
+  Protected_scm header_;
 
   void do_deps ();
   void do_scores ();

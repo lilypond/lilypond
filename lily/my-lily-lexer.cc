@@ -94,15 +94,34 @@ static Keyword_ent the_key_tab[]={
   {0,0}
 };
 
+
 My_lily_lexer::My_lily_lexer ()
 {
   keytable_ = new Keyword_table (the_key_tab);
-  toplevel_variable_tab_ = new Scheme_hash_table ;
-  scopes_.push (toplevel_variable_tab_);
+  scopes_ = SCM_EOL;
   
-  errorlevel_ = 0;
+  add_scope(ly_make_anonymous_module());
+
   main_input_b_ = false;
 }
+
+void
+My_lily_lexer::add_scope (SCM module)
+{
+  scm_set_current_module (module);
+  scopes_ = scm_cons (module, scopes_);
+}
+
+SCM
+My_lily_lexer::remove_scope ()
+{
+  SCM sc = gh_car (scopes_);
+  scopes_ = gh_cdr (scopes_);
+  scm_set_current_module (gh_car (scopes_));
+
+  return sc;
+}
+
 
 int
 My_lily_lexer::lookup_keyword (String s)
@@ -113,14 +132,13 @@ My_lily_lexer::lookup_keyword (String s)
 SCM
 My_lily_lexer::lookup_identifier (String s)
 {
-  SCM sym = ly_symbol2scm (s.to_str0 ());
-  
-  for (int i = scopes_.size (); i--;)
-    {
-      SCM val = SCM_UNSPECIFIED;
-      if (scopes_[i]->try_retrieve (sym, &val))
-	return val;
-    }
+  SCM sym = ly_symbol2scm (s.to_str0());
+  for (SCM s = scopes_; gh_pair_p (s); s = gh_cdr (s))
+  {
+    SCM var = scm_module_lookup (gh_car (s), sym);
+    return scm_variable_ref (var);
+  }
+
   return SCM_UNSPECIFIED;
 }
 
@@ -143,14 +161,18 @@ My_lily_lexer::set_identifier (SCM name, SCM s)
       warning (_f ("Identifier name is a keyword: `%s'", str));
       free  (str);
     }
-  
-  scopes_.top ()->set (scm_string_to_symbol (name), s);
+
+  SCM sym = scm_string_to_symbol (name);
+  SCM mod = gh_car (scopes_);
+  SCM var = scm_module_lookup (mod, ly_symbol2scm ("symbols-defined-here"));
+
+  scm_variable_set_x (var, gh_cons (sym,  scm_variable_ref (var)));
+  scm_module_define (mod, sym, s);
 }
 
 My_lily_lexer::~My_lily_lexer ()
 {
   delete keytable_;
-  scm_gc_unprotect_object (toplevel_variable_tab_->self_scm ());
 }
 
 

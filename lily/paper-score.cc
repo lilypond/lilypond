@@ -38,6 +38,7 @@ Paper_score::typeset_line (System *l)
     {
       system_ = l;		// ugh.
     }
+
   main_smob_ = gh_cons (l->self_scm (), main_smob_);
   l->pscore_ = this;
 
@@ -115,8 +116,7 @@ Paper_score::process ()
   outputter_->output_comment (_ ("Outputting Score, defined at: "));
   outputter_->output_comment (origin_string_);
 
-  if (paper_->variable_tab_)
-    outputter_->output_scope (paper_->variable_tab_, "lilypondpaper");
+  outputter_->output_scope (paper_->scope_, "lilypondpaper");
 
   SCM scm = scm_list_n (ly_symbol2scm ("header-end"), SCM_UNDEFINED);
   outputter_->output_scheme (scm);

@@ -118,8 +118,8 @@ Input_file_results::do_deps ()
 void
 Input_file_results::do_scores ()
 {
-  if (!header_)
-    header_ = new Scheme_hash_table;
+  if (header_ == SCM_EOL)
+    header_ = ly_make_anonymous_module ();
 
   for (int i=0; i < scores_.size (); i++)
     {
@@ -147,7 +147,7 @@ Input_file_results::~Input_file_results ()
   
   inclusion_names_.clear ();
   if (header_)
-    scm_gc_unprotect_object (header_ ->self_scm ());
+    header_ = SCM_EOL;
 
   global_input_file =0;
 }
@@ -157,7 +157,7 @@ Input_file_results* global_input_file;
 
 Input_file_results::Input_file_results (String init_string, String file_string)
 {
-  header_ = 0;
+  header_ = SCM_EOL;
   global_input_file = this;
   ly_set_point_and_click_x (SCM_BOOL_F);
   
