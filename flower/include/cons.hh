@@ -75,7 +75,7 @@ template<class T> int cons_list_size_i (Cons<T> *l)
 template<class T>
 Cons<T> * last_cons (Cons<T> * head)
 {
-  while (head->next_)
+  while (head && head->next_)
     {
       head = head->next_;
     }

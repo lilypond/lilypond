@@ -11,15 +11,18 @@
 #  * slurs
 #  * lyrics
 #  * articulation
-# 
+#  * grace notes
+#  * tuplets
+
 
 # todo:
-#  * automatic PC/mac/unix conversion
 #  * slur/stem directions
 #  * voices (2nd half of frame?)
 #  * more intelligent lyrics
 #  * beams (better use autobeam?)
-#  * more robust: try entertainer.etf (freenote), schubert ave maria (gmd)
+#  * more robust: try entertainer.etf (freenote)
+#  * dynamics
+#
 
 program_name = 'etf2ly'
 version = '@TOPLEVEL_VERSION@'
@@ -142,6 +145,44 @@ def lily_notename (tuple2):
 	return nn
 
 
+class Tuplet:
+	def __init__ (self, number):
+		self.start_note = number
+		self.finale = []
+
+	def append_finale (self, fin):
+		self.finale.append (fin)
+
+	def factor (self):
+		n = self.finale[0][2]*self.finale[0][3]
+		d = self.finale[0][0]*self.finale[0][1]
+		return rat_simplify( (n, d))
+	
+	def dump_start (self):
+		return '\\times %d/%d { ' % self.factor ()
+	
+	def dump_end (self):
+		return ' }'
+
+	def calculate (self, chords):
+		edu_left = self.finale[0][0] * self.finale[0][1]
+
+		startch = chords[self.start_note]
+		c = startch
+ 		while c and edu_left:
+			c.tuplet = self
+			if c == startch:
+				c.chord_prefix = self.dump_start () + c.chord_prefix 
+
+			if not c.grace:
+				edu_left = edu_left - c.EDU_duration ()
+			if edu_left == 0:
+				c.chord_suffix = c.chord_suffix+ self.dump_end ()
+			c = c.next
+
+		if edu_left:
+			sys.stderr.write ("\nHuh? Tuplet starting at entry %d was too short." % self.start_note)
+		
 class Slur:
 	def __init__ (self, number):
 		self.number = number
@@ -163,8 +204,7 @@ class Slur:
 			cs.note_suffix = '(' + cs.note_suffix 
 			ce.note_prefix = ce.note_prefix + ')'
 		except IndexError:
-			sys.stderr.write ("""\nHuh? Incorrect slur start/endpoint
-len(list) is %d, start/end is (%d,%d)\n""" % (len (chords), startnote, endnote))
+			sys.stderr.write ("""\nHuh? Slur no %d between (%d,%d), with %d notes""" % (self.number,  startnote, endnote, len (chords)))
 					 
 		
 class Global_measure:
@@ -198,6 +238,9 @@ articulation_dict ={
 	11: '\\prall',
 	12: '\\mordent',
 	8: '\\fermata',
+	4: '^',
+	1: '.',
+	3: '>',
 	18: '"arp"' , # arpeggio
 };
 
@@ -211,6 +254,7 @@ class Articulation:
 		try:
 			a = articulation_dict[self.type]
 		except KeyError:
+			sys.stderr.write ("\nUnknown articulation no. %d on note no. %d" % (self.type, self.notenumber))
 			a = '"art"'
 			
 		c.note_suffix = '-' + a + c.note_suffix
@@ -299,22 +343,43 @@ class Frame:
 	def set_measure (self, m):
 		self.measure = m
 
-	def dump (self):
-		str = ''
-		left = self.measure.global_measure.length ()
+	def calculate (self):
+
+		# do grace notes.
+		lastch = None
 		for c in self.chords:
-			str = str + c.ly_string () + ' '
-			left = rat_subtract (left, c.length ())
+			if c.grace and (lastch == None or (not lastch.grace)):
+				c.chord_prefix = r'\grace {' + c.chord_prefix
+			elif not c.grace and lastch and lastch.grace:
+				lastch.chord_suffix = lastch.chord_suffix + ' } '
+
+			lastch = c
 			
+
+		
+	def dump (self):
+		str = '%% FR(%d)\n' % self.number
+		left = self.measure.global_measure.length ()
+
+		
+		ln = ''
+		for c in self.chords:
+			add = c.ly_string () + ' '
+			if len (ln) + len(add) > 72:
+				str = str + ln + '\n'
+				ln = ''
+			ln = ln + add
+			left = rat_subtract (left, c.length ())
+
+		str = str + ln 
+		
 		if left[0] < 0:
-			sys.stderr.write ("""Huh? Going backwards.
-Frame no %d, start/end (%d,%d)
-""" % (self.number, self.start, self.end))
+			sys.stderr.write ("""\nHuh? Going backwards in frame no %d, start/end (%d,%d)""" % (self.number, self.start, self.end))
 			left = (0,1)
 		if left[0]:
-			str = str + 's*%d/%d' % left
-			
-		str = str + '\n'
+			str = str + rat_to_lily_duration (left)
+
+		str = str + '  | \n'
 		return str
 		
 def encodeint (i):
@@ -364,7 +429,7 @@ class Staff:
 				last_clef = m.clef
 			if e:
 				if gap <> (0,1):
-					k = k +' s1*%d/%d \n ' % gap
+					k = k +' ' + rat_to_lily_duration (gap) + '\n'
 				gap = (0,1)
 				k = k + e
 			
@@ -393,7 +458,7 @@ class Staff:
 				if fr:
 					first_frame = fr
 					if gap <> (0,1):
-						laystr = laystr +'} s1*%d/%d {\n ' % gap
+						laystr = laystr +'} %s {\n ' % rat_to_lily_duration (gap)
 						gap = (0,1)
 					laystr = laystr + fr.dump ()
 				else:
@@ -431,6 +496,23 @@ def EDU_to_duration (edu):
 		dots = 2
 	return (log, dots)	
 
+def rat_to_lily_duration (rat):
+	(n,d) = rat
+
+	basedur = 1
+	while d and  d % 2 == 0:
+		basedur = basedur << 1
+		d = d >> 1
+
+	str = 's%d' % basedur
+	if n <> 1:
+		str = str + '*%d' % n
+	if d <> 1:
+		str = str + '/%d' % d
+
+	return str
+		
+
 class Chord:
 	def __init__ (self, finale_entry):
 		self.pitches = []
@@ -443,6 +525,8 @@ class Chord:
 		self.note_suffix = ''
 		self.chord_suffix = ''
 		self.chord_prefix = ''
+		self.tuplet = None
+		self.grace = 0
 		
 	def measure (self):
 		if not self.frame:
@@ -450,19 +534,36 @@ class Chord:
 		return self.frame.measure
 
 	def length (self):
+		if self.grace:
+			return (0,1)
+		
 		l = (1, self.duration[0])
 
 		d = 1 << self.duration[1]
 
 		dotfact = rat_subtract ((2,1), (1,d))
-		return rat_multiply (dotfact, l)
+		mylen =  rat_multiply (dotfact, l)
+
+		if self.tuplet:
+			mylen = rat_multiply (mylen, self.tuplet.factor())
+		return mylen
 		
 	def number (self):
 		return self.finale[0][0]
+
+	def EDU_duration (self):
+		return self.finale[0][3]
 	def set_duration (self):
-		((no, prev, next, dur, pos, entryflag, extended, follow),
-		 notelist) = self.finale
-		self.duration = EDU_to_duration(dur)
+		self.duration = EDU_to_duration(self.EDU_duration ())
+	def calculate (self):
+		self.find_realpitch ()
+		self.set_duration ()
+
+		flag = self.finale[0][5]
+		if Chord.GRACE_MASK & flag:
+			self.grace = 1
+		
+		
 	def find_realpitch (self):
 		
 		((no, prev, next, dur, pos, entryflag, extended, follow), notelist) = self.finale
@@ -493,6 +594,8 @@ class Chord:
 		
 	REST_MASK = 0x40000000L
 	TIE_START_MASK = 0x40000000L
+	GRACE_MASK = 0x00800000L
+	
 	def ly_string (self):
 		s = ''
 
@@ -541,12 +644,16 @@ IMre = re.compile (r"""^\^IM\(([0-9-]+),([0-9-]+)\) ([0-9-]+) ([0-9-]+) ([0-9-]+
 vere = re.compile(r"""^\^(ve|ch|se)\(([0-9-]+),([0-9-]+)\) ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+)""")
 versere = re.compile(r"""^\^verse\(([0-9]+)\)(.*)\^end""")
 
+TPre = re.compile(r"""^\^TP\(([0-9]+),([0-9]+)\) *([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+)""")
+
+
 class Etf_file:
 	def __init__ (self, name):
 		self.measures = [None]
 		self.entries = [None]
 		self.chords = [None]
 		self.frames = [None]
+		self.tuplets = [None]
 		self.staffs = [None]
 		self.slurs = [None]
 		self.articulations = [None]
@@ -585,7 +692,17 @@ class Etf_file:
 			bn = string.atoi (m.group (1))
 			where = string.atoi (m.group (2)) / 1024.0
 		return m
+	def try_TP(self, l):
+		m = TPre.match (l)
+		if m:
+			(nil, num) = map (string.atoi, (m.groups ()[0:2]))
+			entries = map (string.atoi, (m.groups ()[2:]))
 
+			if self.tuplets[-1] == None or num <> self.tuplets[-1].start_note:
+				self.tuplets.append (Tuplet (num))
+
+			self.tuplets[-1].append_finale (entries)
+			
 	def try_IM (self, l):
 		m = IMre.match (l)
 		if m:
@@ -627,7 +744,7 @@ class Etf_file:
 
 			entryflag = string.atol (entryflag,16)
 			if no > len (self.entries):
-				sys.stderr.write ("Huh? Entry number to large,\nexpected %d got %d. Filling with void entries.\n" % (len(self.entries), no  ))
+				sys.stderr.write ("\nHuh? Entry number to large,\nexpected %d got %d. Filling with void entries.\n" % (len(self.entries), no  ))
 				while len (self.entries) <> no:
 					c = ((len (self.entries), 0, 0, 0, 0, 0L, 0, 0), [])
 					self.entries.append (c)
@@ -723,6 +840,8 @@ class Etf_file:
 			if not m:
 				m = self.try_Sx (l)
 			if not m:
+				m = self.try_TP (l)
+			if not m:
 				m = self.try_verse (l)
 
 		sys.stderr.write ('processing ...')
@@ -759,8 +878,13 @@ class Etf_file:
 				mno = mno + 1
 
 		for c in self.chords[1:]:
-			c.find_realpitch ()
-			c.set_duration ()
+			c.calculate()
+
+		for f in self.frames[1:]:
+			f.calculate ()
+			
+		for t in self.tuplets[1:]:
+			t.calculate (self.chords)
 			
 		for s in self.slurs [1:]:
 			s.calculate (self.chords)
@@ -788,8 +912,6 @@ class Etf_file:
 				str = str + '\n\n' + s.dump () 
 				staffs.append ('\\' + s.staffid ())
 
-		if staffs:
-			str = str + '\\score { < %s > } ' % string.join (staffs)
 
 		# should use \addlyrics ?
 
@@ -798,6 +920,9 @@ class Etf_file:
 
 		if len (self.verses) > 1:
 			sys.stderr.write ("\nLyrics found; edit to use \\addlyrics to couple to a staff\n")
+			
+		if staffs:
+			str = str + '\\score { < %s > } ' % string.join (staffs)
 			
 		return str
 

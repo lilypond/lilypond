@@ -84,8 +84,8 @@ Beam::before_line_breaking (SCM smob)
       warning (_ ("beam has less than two stems"));
     }
 
-  if (!Directional_element_interface (me).get ())
-    Directional_element_interface (me).set (get_default_dir (me));
+  if (!Directional_element_interface::get (me))
+    Directional_element_interface::set (me, get_default_dir (me));
 
   auto_knees (me);
   set_stem_directions (me);
@@ -112,7 +112,7 @@ Beam::get_default_dir (Score_element*me)
   for (int i=0; i <stems.size (); i++)
     do { // HUH -- waar slaat dit op?
       Score_element *s = stems[i];
-      Direction sd = Directional_element_interface (s).get ();
+      Direction sd = Directional_element_interface::get (s);
       int current = sd	? (1 + d * sd)/2
 	: Stem::get_center_distance (s, (Direction)-d);
 
@@ -152,14 +152,14 @@ Beam::set_stem_directions (Score_element*me)
 {
   Link_array<Item> stems
     =Pointer_group_interface__extract_elements (me,  (Item*) 0, "stems");
-  Direction d = Directional_element_interface (me).get ();
+  Direction d = Directional_element_interface::get (me);
   
   for (int i=0; i <stems.size (); i++)
     {
       Score_element *s = stems[i];
       SCM force = s->remove_elt_property ("dir-forced");
       if (!gh_boolean_p (force) || !gh_scm2bool (force))
-	Directional_element_interface (s).set (d);
+	Directional_element_interface ::set (s,d);
     }
 } 
 
@@ -183,8 +183,8 @@ Beam::auto_knee (Score_element*me, String gap_str, bool interstaff_b)
   bool knee_b = false;
   int knee_y = 0;
   SCM gap = me->get_elt_property (gap_str.ch_C());
-  
-  Direction d = Directional_element_interface (me).get ();
+
+  Direction d = Directional_element_interface::get (me);
       Link_array<Item> stems=
 	Pointer_group_interface__extract_elements (me, (Item*)0, "stems");
   
@@ -218,7 +218,7 @@ Beam::auto_knee (Score_element*me, String gap_str, bool interstaff_b)
 	  int y = (int)(Stem::head_positions(s)[d])
 	    + (int)calc_interstaff_dist (s, dynamic_cast<Spanner*> (me));
 
-	  Directional_element_interface (s).set (y < knee_y ? UP : DOWN);
+	  Directional_element_interface::set (s,y < knee_y ? UP : DOWN);
 	  s->set_elt_property ("dir-forced", SCM_BOOL_T);
 	}
     }
@@ -300,8 +300,8 @@ Beam::after_line_breaking (SCM smob)
   /*
     until here, we used only stem_info, which acts as if dir=up
    */
-  y *= Directional_element_interface (me).get ();
-  dy *= Directional_element_interface (me).get ();
+  y *= Directional_element_interface::get (me);
+  dy *= Directional_element_interface::get (me);
 
 
   Real half_space = Staff_symbol_referencer::staff_space (me) / 2;
@@ -343,7 +343,7 @@ Beam::after_line_breaking (SCM smob)
 	  */
 	  int quant_dir = 0;
 	  if (abs (y_shift) > half_space / 2)
-	    quant_dir = sign (y_shift) * Directional_element_interface (me).get ();
+	    quant_dir = sign (y_shift) * Directional_element_interface::get (me);
 	  y = quantise_y_f (me, y, dy, quant_dir);
 	}
     }
@@ -459,8 +459,8 @@ Beam::calc_stem_y_f (Score_element*me,Item* s, Real y, Real dy)
   Real stem_y = (dy && dx ? (s->relative_coordinate (0, X_AXIS) - x0) / dx * dy : 0) + y;
 
   /* knee */
-   Direction dir  = Directional_element_interface(me).get ();
-   Direction sdir = Directional_element_interface (s).get ();
+   Direction dir  = Directional_element_interface::get (me);
+   Direction sdir = Directional_element_interface::get (s);
    
     /* knee */
    if (dir!= sdir)
@@ -473,7 +473,7 @@ Beam::calc_stem_y_f (Score_element*me,Item* s, Real y, Real dy)
       // huh, why not for first visible?
        if (Staff_symbol_referencer::staff_symbol_l (s)
 	   != Staff_symbol_referencer::staff_symbol_l (last_visible_stem (me)))
-	 stem_y += Directional_element_interface (me).get ()
+	 stem_y += Directional_element_interface::get (me)
 	   * (beam_multiplicity - stem_multiplicity) * interbeam_f;
       }
 
@@ -485,7 +485,7 @@ Beam::check_stem_length_f (Score_element*me,Real y, Real dy)
 {
   Real shorten = 0;
   Real lengthen = 0;
-  Direction dir = Directional_element_interface (me).get ();
+  Direction dir = Directional_element_interface::get (me);
 
   Link_array<Item> stems=
     Pointer_group_interface__extract_elements (me, (Item*)0, "stems");
@@ -596,7 +596,7 @@ Beam::quantise_y_f (Score_element*me,Real y, Real dy, int quant_dir)
   if (a.size () <= 1)
     return y;
 
-  Real up_y = Directional_element_interface (me).get () * y;
+  Real up_y = Directional_element_interface::get (me) * y;
   Interval iv = quantise_iv (a, up_y/staff_space) * staff_space;
 
   Real q = up_y - iv[SMALLER] <= iv[BIGGER] - up_y 
@@ -604,7 +604,7 @@ Beam::quantise_y_f (Score_element*me,Real y, Real dy, int quant_dir)
   if (quant_dir)
     q = iv[(Direction)quant_dir];
 
-  return q * Directional_element_interface (me).get ();
+  return q * Directional_element_interface::get (me);
 }
 
 void
@@ -674,7 +674,7 @@ Beam::stem_beams (Score_element*me,Item *here, Item *next, Item *prev)
     nw_f = me->paper_l ()->get_var ("quartwidth");
 
 
-  Direction dir = Directional_element_interface (me).get ();
+  Direction dir = Directional_element_interface::get (me);
   
   /* half beams extending to the left. */
   if (prev)

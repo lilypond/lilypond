@@ -63,7 +63,6 @@ public:
   VIRTUAL_COPY_CONS(Translator);
   Translator_group(Translator_group const &);
   Translator_group();
-  void add_simple_translator (Translator *trans_p);
   void add_group_translator (Translator *trans_p);
 
   
@@ -75,7 +74,7 @@ public:
   void terminate_translator (Translator*r_l);
   Translator *remove_translator_p (Translator*trans_l);
   void check_removal ();
-  Translator *get_simple_translator (String) const;
+  // Translator *get_simple_translator (String) const;
   Translator_group *find_existing_translator_l (String n, String id);
   Translator_group *find_create_translator_l (String n, String id);
   Link_array<Translator_group> path_to_acceptable_translator (String alias, Music_output_def*) const;

@@ -73,7 +73,7 @@ Tuplet_spanner::brew_molecule (SCM smob)
       Real w = dynamic_cast<Spanner*>(me)->spanner_length () + ncw;
 
       Real staff_space = me->paper_l ()->get_var ("interline");
-      Direction dir = Directional_element_interface (me).get ();
+      Direction dir = Directional_element_interface::get (me);
       Real dy = gh_scm2double (me->get_elt_property ("delta-y"));
       SCM number = me->get_elt_property ("text");
       if (gh_string_p (number) && number_visibility)
@@ -131,7 +131,7 @@ Tuplet_spanner::calc_position_and_height (Score_element*me,Real *offset, Real * 
   Score_element * commony = me->common_refpoint (me->get_elt_property ("columns"), Y_AXIS);
   Score_element * commonx = me->common_refpoint (me->get_elt_property ("columns"), X_AXIS);  
   
-  Direction d = Directional_element_interface (me).get ();
+  Direction d = Directional_element_interface::get (me);
 
   /*
     Use outer non-rest columns to determine slope
@@ -186,7 +186,7 @@ Tuplet_spanner::calc_dy (Score_element*me,Real * dy)
   Link_array<Score_element> column_arr=
     Pointer_group_interface__extract_elements (me, (Score_element*)0, "columns");
  
-  Direction d = Directional_element_interface (me).get ();
+  Direction d = Directional_element_interface::get (me);
   *dy = column_arr.top ()->extent (Y_AXIS) [d]
     - column_arr[0]->extent (Y_AXIS) [d];
 }
@@ -207,11 +207,11 @@ Tuplet_spanner::after_line_breaking (SCM smob)
       return SCM_UNSPECIFIED;
     }
 
-  Direction d = Directional_element_interface (me).get ();
+  Direction d = Directional_element_interface::get (me);
   if (!d)
     {
       d = Tuplet_spanner::get_default_dir (me);
-      Directional_element_interface (me).set (d);
+      Directional_element_interface::set (me, d);
 
     }
   Real dy, offset;

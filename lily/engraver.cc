@@ -25,9 +25,6 @@ Engraver::announce_element (Score_element_info inf)
 void
 Engraver::announce_element (Score_element* e, Music *m)
 {
-  if (e->get_elt_property ("interfaces") == SCM_EOL)
-    Group_interface (e, "interfaces").add_thing (ly_symbol2scm (e->name()));
-
   if (m && m->origin ()->location_str ().length_i ())
     {
       e->set_elt_property ("origin", m->get_mus_property ("origin"));

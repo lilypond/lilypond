@@ -11,24 +11,9 @@
 #include "musical-request.hh"
 
 
-bool
-Bar_req::do_equal_b (Request const *r) const
-{
-  Bar_req  const* b = dynamic_cast <Bar_req const *> (r);
-  return b && type_str_ == b->type_str_;
-}
-
-void
-Bar_req::do_print () const
-{
-#ifndef NPRINT
-  DEBUG_OUT << type_str_;
-#endif
-}
-
 Bar_req::Bar_req (String s)
 {
-  type_str_ = s;
+  set_mus_property ("type", ly_str02scm (s.ch_C()));
 }
 
 bool
