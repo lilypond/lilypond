@@ -518,7 +518,7 @@ Midi_track::add (int delta_time_i, String event_str)
       cout << String_convert::bin2hex_str (event_str) << endl;
     }
   assert (delta_time_i >= 0);
-  assert(event_str.length_i());
+  assert (event_str.length_i());
   Midi_chunk::add (i2varint_str (delta_time_i) + event_str);
 }
 
