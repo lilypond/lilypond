@@ -28,7 +28,7 @@
      (apply define-grob-property x))
 
    `(
-     (X-extent-callback ,procedure? "procedure taking an grob and axis
+     (X-extent-callback ,procedure? "Procedure taking a grob and axis
 argument, returning a number-pair. The return value is the extent of
 the grob. If this value is set to @code{#f}, the object is empty in
 the X direction.")

@@ -1828,7 +1828,12 @@ def conv (str):
 	str = re.sub (r'LyricsVoice', 'Lyrics', str)
 	str = re.sub (r'tupletInvisible',
 		      r"TupletBracket \\set #'transparent", str)
-	
+#	str = re.sub (r'molecule', 'collage', str)
+#molecule -> collage
+	str = re.sub (r"\\property\s+[a-zA-Z]+\s*\.\s*[a-zA-Z]+\s*"
+		      + r"\\set\s*#'X-extent-callback\s*=\s*#Grob::preset_extent",
+		      "", str)
+
 	return str
 
 conversions.append (((2,1,21), conv, """molecule-callback -> print-function,
@@ -1836,6 +1841,7 @@ brew_molecule -> print
 brew-new-markup-molecule -> Text_item::print
 LyricsVoice -> Lyrics
 tupletInvisible -> TupletBracket \set #'transparent
+Grob::preset_extent removed.
 """ ))
 
 

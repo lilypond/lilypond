@@ -118,8 +118,6 @@ public:
   void suicide ();
   bool live () const;
   
-  DECLARE_SCHEME_CALLBACK (preset_extent, (SCM smob, SCM axis));
-  DECLARE_SCHEME_CALLBACK (point_dimension_callback, (SCM smob, SCM axis));
   DECLARE_SCHEME_CALLBACK (molecule_extent, (SCM smob, SCM axis));
 
   static SCM ly_set_grob_property (SCM, SCM,SCM);

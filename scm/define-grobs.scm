@@ -352,7 +352,7 @@
     (LeftEdge
      . (
 	(break-align-symbol . left-edge)
-	(X-extent-callback . ,Grob::point_dimension_callback)
+	(X-extent .  (0 . 0))
 	(breakable . #t)
 	(space-alist . (
 			(custos . (extra-space . 0.0))
@@ -493,7 +493,7 @@
 	(length . 0.66)
 	(spacing-procedure . ,Hyphen_spanner::set_spacing_rods)
 	(print-function . ,Hyphen_spanner::print)
-	(Y-extent-callback . ,Grob::point_dimension_callback)
+	(Y-extent  . (0 . 0))
 	(meta . ((interfaces . (lyric-interface lyric-hyphen-interface
 						spanner-interface))))
 	))
@@ -503,7 +503,7 @@
 	(print-function . ,Lyric_extender::print)
 	(thickness . 0.8) ; linethickness
 	(minimum-length . 1.5)
-	(Y-extent-callback . ,Grob::point_dimension_callback)
+	(Y-extent . (0 . 0))
 	(meta . ((interfaces . (lyric-interface
 				lyric-extender-interface spanner-interface))))
 	))

@@ -399,7 +399,9 @@ Dynamic_engraver::acknowledge_grob (Grob_info i)
 
       if (script_ && !script_->get_parent (X_AXIS))
 	{
-	  script_->set_parent (i.grob_,  X_AXIS);
+	  SCM head = scm_last_pair (i.grob_->get_grob_property ("heads"));
+	  if (gh_pair_p (head))
+	    script_->set_parent (unsmob_grob (head),  X_AXIS);
 	}
       
     }

@@ -274,7 +274,7 @@ Auto_beam_engraver::begin_beam ()
   
   stems_ = new Link_array<Item>;
   grouping_ = new Beaming_info_list;
-  beam_settings_ = get_property ("Beam");
+  beam_settings_ = updated_grob_properties (daddy_trans_, ly_symbol2scm ("Beam"));
   
   beam_start_moment_ = now_mom ();
   beam_start_location_ = *unsmob_moment (get_property ("measurePosition"));

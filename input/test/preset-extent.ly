@@ -4,9 +4,7 @@
 @cindex Preset Extent
 
 
-Grob extents may be hard coded using grob properties.  This
-requires Grob::preset_extent () function.
-
+Grob extents may be hard coded using grob properties.
 The lyrics in this example have extent (-10,10) which is why they are
 spaced so widely.
 
@@ -17,7 +15,7 @@ spaced so widely.
 \score {
     \context Lyrics \lyrics {
 	foo --
-	\property Lyrics . LyricText \set #'X-extent-callback = #Grob::preset_extent
+	
 	\property Lyrics . LyricText \set #'X-extent = #'(-10.0 . 10.0)
  bar baz
 	}

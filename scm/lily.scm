@@ -426,15 +426,13 @@ L1 is copied, L2 not.
        "slur.scm"
        "font.scm"
        
+       "define-markup-commands.scm"
        "define-grob-properties.scm"
        "define-grobs.scm"
        "define-grob-interfaces.scm"
 
        "paper.scm"
        ))
-
-
-       
 
 
 (set! type-p-name-alist

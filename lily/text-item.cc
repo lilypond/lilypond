@@ -79,7 +79,7 @@ Text_item::markup_p (SCM x)
 }
 
 ADD_INTERFACE (Text_item,"text-interface",
-  "A scheme markup text, see @ref{Markup functions}.",
+  "A scheme markup text, see @usermanref{Markup functions}.",
   "text baseline-skip word-space");
 
 

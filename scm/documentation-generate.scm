@@ -36,11 +36,61 @@
 ;; are described...
 (define no-copies #f)
 
+
+
+
+
+
+
+
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(dump-node (all-scheme-functions-doc)
+	   (open-output-file "scheme-functions.tely")
+	   2)
+
+(display 
+ (markup-doc-string)
+
+ (open-output-file "markup-commands.tely")
+ )
+
+(dump-node
+ (make <texi-node>
+   #:name "Layout property overview"
+   #:desc "All user serviceable layout properties"
+   #:text (backend-properties-doc-string all-user-grob-properties))
+
+ (open-output-file "layout-properties.tely")
+ 2)
+
+(dump-node
+ (make <texi-node>
+   #:name "Context property overview"
+   #:desc "All user serviceable context properties"
+   #:text (translation-properties-doc-string all-user-translation-properties))
+ 
+ (open-output-file "context-properties.tely")
+ 2)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 (define file-name "lilypond-internals")
 (define outname (string-append file-name ".texi"))
+
+
 (define out-port (open-output-file outname))
 
 (writing-wip outname)
+
+
+
+
 
 (display
  (string-append
@@ -126,7 +176,6 @@
      (translation-doc-node)
      (backend-doc-node)
      (all-scheme-functions-doc)
-     (markup-doc-node)
      (make <texi-node>
        #:name "Index"
        #:text "
@@ -153,26 +202,5 @@
 (newline (current-error-port))
 
 
-(dump-node (all-scheme-functions-doc)
-	   (open-output-file "scheme-functions.tely")
-	   2)
-
-(dump-node
- (make <texi-node>
-   #:name "Layout property overview"
-   #:desc "All user serviceable layout properties"
-   #:text (backend-properties-doc-string all-user-grob-properties))
-
- (open-output-file "layout-properties.tely")
- 2)
-
-(dump-node
- (make <texi-node>
-   #:name "Context property overview"
-   #:desc "All user serviceable context properties"
-   #:text (translation-properties-doc-string all-user-translation-properties))
- 
- (open-output-file "context-properties.tely")
- 2)
 
 

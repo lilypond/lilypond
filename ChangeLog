@@ -5,6 +5,28 @@
 
 2004-02-12  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/documentation-generate.scm (markup-doc-string): dump
+	markup-commands.tely
+
+	* scm/define-markup-commands.scm (override): new file.
+	Move documentation from refman into doc-strings. 
+
+	* input/test/staff-container.ly: fix example.
+
+	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): remove
+	StaffContainer
+
+	* lily/grob.cc: remove point_dimension_callback
+	(Grob): read forced dimensions from X-extent and Y-extent.
+	(get_paper): remove preset_extent.
+
+	* scm/define-grobs.scm (all-grob-descriptions): remove
+	point_dimension_callback. 
+
+	* lily/dynamic-engraver.cc (acknowledge_grob): attach dynamic
+	textscript to head. This makes no-spacing-rods work on
+	DynamicText.
+
 	* lily/chord-name.cc: remove props chord, bass, inversion.
 
 	* Documentation/user/appendices.itely: add Scheme functions,

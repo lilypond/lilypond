@@ -988,7 +988,7 @@ music of the baroque era, has been one of the most popular polyphonic
 composition methods.
 
 @lilypond[staffsize=11,noquote]
-\property Score.TimeSignature \override #'style = #'()
+\property Score.TimeSignature \override #'style =\turnOff
 \notes\context PianoStaff <<
   \context Staff = SA \relative c' {
     \key bes \major
@@ -2755,7 +2755,7 @@ The briefest intelligible and self-contained fragment of a musical theme or
 subject.
 
 @lilypond
-\property Score.TimeSignature \override #'style = #'()
+\property Score.TimeSignature \override #'style = \turnOff
 %\property Score.TextScript \set #'font-style = #'large
 \notes\relative c'' {
   \time 4/4

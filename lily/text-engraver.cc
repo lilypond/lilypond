@@ -84,9 +84,7 @@ Text_engraver::process_acknowledged_grobs ()
       Music * r = reqs_[i];
       
       // URG: Text vs TextScript
-      String basic = "TextScript";
-
-      Item *text = new Item (get_property (basic.to_str0 ()));
+      Item *text = make_item ("TextScript");
 
       
       Axis ax = Y_AXIS;
