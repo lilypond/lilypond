@@ -56,7 +56,7 @@ hide tweaks at higher context levels.
 @item The lilypond-book script has been rewritten.
 It is shorter, cleaner and faster.  The special construct
 @code{mbinclude} has been removed, plain @code{@@include} or
-@code{\\input} can be used now.
+@code{\input} can be used now.
 
 @ignore
 It now supports
@@ -170,8 +170,8 @@ setting staff sizes. Both are demonstrated in this fragment:
 
 
 @noindent
-Both have  the same effect on the global layout  of a
-piece. Similarly, the paper size may be changed as follows
+Both have the same effect on the global layout of a piece. Similarly,
+the paper size may be changed as follows
 
 @example
   #(set-paper-size "a4")

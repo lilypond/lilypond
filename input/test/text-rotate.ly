@@ -15,12 +15,15 @@ the lilypond.py script, and a line must be uncommented.
     
 
     }
+
+\version "2.1.22"
+
 \score {
 \new Staff \notes \relative c'' {
-    \property Staff.instrument	= #"rotatebox{90}{Chor}"
+    \set Staff.instrument =  #"rotatebox{90}{Chor}"
 
 %%  uncomment this for rotation
-%    \property Staff.instrument	= #"\\rotatebox{90}{Chor}"
+%    \set Staff.instrument =  #"\\rotatebox{90}{Chor}"
 
     c4 c4 }
 
