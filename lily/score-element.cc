@@ -448,12 +448,14 @@ Score_element::smobify_self ()
     return self_scm_;
   
   SCM s;
+
   SCM_NEWCELL(s);
+  self_scm_ = s;
+
   SCM_SETCAR(s,smob_tag);
   void * me_p = this; 
   SCM_SETCDR(s,me_p);
   scm_protect_object (s);
-  self_scm_ = s;
 
   scm_unprotect_object (element_property_alist_); // ugh
   return s;
