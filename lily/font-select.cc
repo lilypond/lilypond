@@ -69,7 +69,9 @@ get_font_by_design_size (Output_def *layout, Real requested,
 #if HAVE_PANGO_FT2
       PangoFontDescription *description
 	= pango_font_description_from_string (pango_description_string.to_str0 ());
-      fm = all_fonts_global->find_pango_font (description);
+      return all_fonts_global->find_pango_font (description,
+						requested / size,
+						output_scale (layout));
 #else
       error ("Trying to retrieve pango font without HAVE_PANGO_FT2."); 
 #endif
@@ -114,7 +116,7 @@ select_encoded_font (Output_def *layout, SCM chain)
   if (scm_is_string (name)
       && is_pango_format_global)
     {
-      select_pango_font (layout, chain);
+      return select_pango_font (layout, chain);
     }
   else
 #endif

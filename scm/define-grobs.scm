@@ -145,8 +145,6 @@
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(self-alignment-X . 1)
 
-	;; hmm. why did we do this: ?
-	(extra-offset . (1.3 . 0))
 	(meta .
 	      ((interfaces . (side-position-interface
 			      text-interface
@@ -1164,7 +1162,6 @@
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(direction . 1)
-	(extra-offset . (-1 . 0))
 	(padding . 0.5)
 	(staff-padding . 0.5)
 	(script-priority . 200)
@@ -1219,8 +1216,8 @@
 	(style . default)
 	(print-function . ,Text_interface::print)
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
-	(extra-offset . (0 . -0.65)) ;; UGH! TODO: Clean this up!
 	(stem-attachment-function . ,tablature-stem-attachment-function)
+	(font-series . bold)
 	(meta . ((interfaces
 		  . (rhythmic-head-interface
 		     font-interface

@@ -4074,7 +4074,11 @@ A complete example of a SATB score setup is in section
 Program reference: @internalsref{LyricCombineMusic},
 @internalsref{Lyrics}, @internalsref{Melisma_translator}.
 
-Examples: @ref{Small ensembles},
+
+@c link broken:
+@c Examples: @ref{Small ensembles},
+
+
 @inputfileref{input/@/regression,lyric@/-combine@/-new@/.ly}.
 @c TODO: make separate section for melismata
 

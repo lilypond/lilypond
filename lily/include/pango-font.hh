@@ -26,10 +26,12 @@ class Pango_font : public Font_metric
   PangoAttrList *attribute_list_;
   Real scale_;
   SCM subfonts_;
+  
 public:
   Pango_font (PangoFT2FontMap *,
 	      Direction leftright,
-	      PangoFontDescription *);
+	      PangoFontDescription *,
+	      Real);
   ~Pango_font ();
 
   SCM font_file_name () const;

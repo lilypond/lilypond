@@ -525,7 +525,7 @@ AncientRemoveEmptyStaffContext = \context {
 
     %% One may change the strings tuning as following :
     %% The lenght of the list must be equal to the number of string
-    stringTunings = #guitar-tunings
+    stringTunings = #guitar-tuning
     tablatureFormat = #fret-number-tablature-format
 
     %%
@@ -612,6 +612,13 @@ EasyNotation = \context {	% TODO: why \context override?
       % This feature is now disabled because most of the tab does not use it.
       %\override Beam #'damping = #100000
       %\override Stem #'up-to-staff = ##t
+
+      % TabStaff increase the staff-space, which in turn
+      % increases beam thickness and spacing; beams are
+      % too big. We have to adjust the beam settings:
+      \override Beam #'thickness = #0.32
+      \override Beam #'space-function =
+          #(lambda (beam mult) (* 0.62 (Beam::space_function beam mult)))
 
       % No accidental in tablature !
       \remove Accidental_engraver

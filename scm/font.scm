@@ -174,7 +174,7 @@
 		  ,(delay  (ly:font-load "emmentaler23"))		  
 		  ,(delay  (ly:font-load "emmentaler26"))))
 
-     (fetaBraces 100.0 #(,(delay
+     (fetaBraces ,(ly:pt 20.0) #(,(delay
 			    (ly:font-load "aybabtu")))))))
 
 (define-public (add-cmr-fonts node factor)

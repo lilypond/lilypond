@@ -1,5 +1,36 @@
 2005-01-08  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/define-grobs.scm (all-grob-descriptions): remove all
+	extra-offsets from definitions.
+
+2005-01-08  Erlend Aasland  <erlenda@gmail.com>
+
+	* scm/output-lib.scm: Rename guitar-tunings to guitar-tuning and
+	add tuning for 4-string bass and some common 4/5-string banjo tunings.
+	New function (four-string-banjo) turns a 5-string tuning into a 4-string
+	tuning.
+	New function (fret-number-tablature-format-banjo) computes correct fret
+	numbers on 5-string banjos.
+
+	* ly/engraver-init.ly: Default stringTunings = #guitar-tuning
+	Add beam correction to TabVoice.
+
+	* scm/define-grobs.scm: Adjust notehead offset. Print fret numbers
+	using bold font; makes tabs more readable.
+
+2005-01-08  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/font-select.cc (get_font_by_design_size): don't make
+	Modified_font_metric; this causes trouble, since we don't know the
+	font magnification from inside Pango_font::text_stencil()
+
+	* lily/all-font-metrics.cc (find_pango_font): take magnification argument.
+
+	* Documentation/user/notation.itely (The Lyrics context): comment out
+	broken {Small ensembles} link.
+
+	* scm/framework-svg.scm (output-framework): change calling convention.
+
 	* lily/object-key-dumper-scheme.cc: new file.
 
 	* lily/object-key-undumper-scheme.cc: new file.
