@@ -25,8 +25,10 @@ Span_bar_engraver::get_span_bar_p()const
 void
 Span_bar_engraver::acknowledge_element(Score_elem_info i)
 {
-    if ( i.origin_grav_l_arr_.size() > 1 && 
-	 i.elem_l_->is_type_b( Bar::static_name() ) ) {
+    int depth = i.origin_grav_l_arr_.size();
+    if ( depth > 1
+	 && i.elem_l_->is_type_b( Bar::static_name() ) ) 
+    {
 	bar_l_arr_.push( (Bar*)i.elem_l_->item() );
 	
 	if (bar_l_arr_.size() >= 2 && !spanbar_p_) {
@@ -46,7 +48,7 @@ Span_bar_engraver::do_pre_move_processing()
 	for (int i=0; i < bar_l_arr_.size() ; i++)
 	    spanbar_p_->add(bar_l_arr_[i]);
 	spanbar_p_->set( valign_l_ );
-	typeset_breakable_item(spanbar_p_);
+	typeset_element(spanbar_p_);
 	spanbar_p_ =0;
     }
     bar_l_arr_.set_size( 0);

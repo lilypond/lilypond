@@ -120,7 +120,7 @@ Break_algorithm::Break_algorithm()
 }
 
 void
-Break_algorithm::set_pscore(PScore*s)
+Break_algorithm::set_pscore(Paper_score*s)
 {
     pscore_l_ = s;
     linelength = s->paper_l_->linewidth_f();
