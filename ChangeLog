@@ -1,5 +1,7 @@
 2004-01-20  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/regression/note-head-style.ly (pattern): cleanup.
+
 	* mf/GNUmakefile ($(outdir)/$(redhat-package)): use http for
 	downloading.
 
