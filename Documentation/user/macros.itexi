@@ -175,7 +175,7 @@ internals document,  @internalsref{\NAME\}
 
 @end macro
 
-@macro context{NAME}
+@macro context{NAME}@c
 @code{\NAME\}@c should use internalsref
 @cindex \NAME\@c
 @end macro

@@ -4445,7 +4445,7 @@ first part (with context called @code{one}) always gets up stems, and
 `Solo II'.
 
 If you just want the merging parts, and not the textual markings, you
-may set the property @var{soloADue} to false
+may set the property @code{soloADue} to false
 
 @lilypond[quote,verbatim,raggedright,fragment,relative=2]
 \new Staff <<
