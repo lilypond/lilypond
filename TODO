@@ -112,12 +112,7 @@ BUGS
 
 	* staccato dot positions.
 
-	* \meter 4/4; c1.  doesn't gen bar.
-
 	* stacked scripts.
-
-	* redo timing stuff <-> pulk to allow \meter 2/4; e2. to work
-	out correctly
 
 	* key transposition.
 
@@ -165,6 +160,8 @@ INPUTLANGUAGE
 
 SMALLISH PROJECTS
 
+	* Help_line, Help_line_reg
+
 	* --fast/--draft: leave out constraints
 
 	* write Dynamic_line (to group dynamics horizontally)
@@ -181,9 +178,11 @@ SMALLISH PROJECTS
 	* cleanup lily-proto.hh and proto.hh
 
 	* half-sharps, half-flats
-	
-	* resync barcheck.
 
+	* adaptive accidental spacing.
+
+	* score_elem invible_b_ flag
+	
 	* key undo
 
 	* unix style paths for LILYINCLUDE env

@@ -18,7 +18,9 @@
 
 /**
   Align requests with starting time.
- */
+
+  To our foreign readers "pulk"ing is what you do with the stuff in
+  your nose to get it out.  (and I don't mean blowing) */
 class Pulk_voice
 {
     PCursor<Voice_element*> cur_;
@@ -34,6 +36,10 @@ public:
     bool ok()const { return cur_.ok() ; }
 
     Pulk_voice(Voice*, int staff_idx);
+
+    /**
+      Get the requests at when(), and advance.
+     */
     Array<Request*> get_req_l_arr();
 };
 
