@@ -1357,7 +1357,7 @@ Normally, beaming patterns within a beam are determined automatically.
 When this mechanism fouls up, the properties
 @code{stemLeftBeamCount} and @code{stemRightBeamCount} can
 be used to control the beam subdivision on a stem.  If either property
-is set, its value will be used only once, and then it is erased.
+is set, its value will be used only once, and then it is erased:
 
 @lilypond[fragment,relative,verbatim]
   \context Staff {
@@ -1370,7 +1370,7 @@ is set, its value will be used only once, and then it is erased.
 
 The property @code{subdivideBeams} can be set in order to subdivide
 all 16th or shorter beams at beat positions, as defined by the
-@code{beatLength} property .  This accomplishes the same effect as
+@code{beatLength} property.  This accomplishes the same effect as
 twiddling with @code{stemLeftBeamCount} and @code{stemRightBeamCount},
 but it take less typing:
 
@@ -1540,7 +1540,7 @@ The variables set properties in the ``@code{Current}'' context (see
 normally be added right after the creation of the context in which the
 accidental typesetting described by the variable is to take
 effect. For example, if you want to use piano-accidentals in a piano
-staff then issue @code{\pianoAccidentals} first thing after the
+staff, then issue @code{\pianoAccidentals} first thing after the
 creation of the piano staff:
 @example
 \score @{
@@ -1899,7 +1899,7 @@ will only affect normal slurs and not phrasing slurs.
 @cindex @code{\phrasingSlurDown}
 @code{\phrasingSlurDown}, 
 @cindex @code{\phrasingSlurBoth}
-@code{\phrasingSlurBoth}, 
+@code{\phrasingSlurBoth}.
 
 @seealso
 
@@ -2193,8 +2193,10 @@ longer be computed.
 
 @refcommands
 
-@refcommand{fatText}, @refcommand{emptyText}.
-
+@cindex @code{\fatText}
+@code{\fatText}, 
+@cindex @code{\emptyText}
+@code{\emptyText}.
 
 @seealso
 
@@ -2331,7 +2333,7 @@ Another option is to change the variables @code{startGraceMusic},
 @code{stopGraceMusic}, @code{startAccacciaturaMusic},
 @code{stopAccacciaturaMusic}, @code{startAppoggiaturaMusic},
 @code{stopAppoggiaturaMusic}.  More information is in the file
-@file{ly/grace-init.ly}
+@file{ly/grace-init.ly}.
 
 
 @seealso
@@ -3556,7 +3558,7 @@ To make empty spaces in lyrics, use @code{\skip}.
 
 @seealso
 
-Internals: Layout objects @internalsref{LyricText}
+Internals: Layout objects @internalsref{LyricText} and
 @internalsref{VocalName}.  Music expressions:
 @internalsref{LyricEvent}.
 
@@ -3653,7 +3655,7 @@ rather than to the @internalsref{Voice} context.
 
 It is possible to tune individual ambituses for multiple voices on a
 single staff, for example by erasing or shifting them horizontally. An
-example is in @inputfileref{input/test,ambitus-mixed.ly}
+example is in @inputfileref{input/test,ambitus-mixed.ly}.
 
 @seealso
 
@@ -4192,7 +4194,7 @@ that behavior:
 
 @seealso
 
-Internals: @internalsref{MarkEvent}, @internalsref{RehearsalMark}
+Internals: @internalsref{MarkEvent}, @internalsref{RehearsalMark}.
 
 Init files: @file{scm/translation-functions.scm} contains the
 definition of @code{format-mark-numbers} and
@@ -4264,7 +4266,7 @@ names:
     \set Staff.instrument = \markup {
         \column < "Clarinetti"
           { "in B"
-            \smaller \musicglyph #"accidentals--1"
+            \smaller \flat
           }
           >
      }
@@ -4461,8 +4463,7 @@ The syntax for part combining is
   \partcombine @var{musicexpr1} @var{musicexpr2}
 @end example
 
-The music expressions will be interpreted as @internalsref{Voice}
-contexts.
+The music expressions will be interpreted as @internalsref{Voice} contexts.
 
 The following example demonstrates the basic functionality of the part
 combiner: putting parts on one staff, and setting stem directions and
@@ -7504,7 +7505,7 @@ used in music aimed at beginners:
 }
 @end lilypond
 
-The @code{EasyNotation} variable overrides a @internalsref{Score}
+The @code{EasyNotation} variable overrides a @internalsref{Score} 
 context.  To make the letters readable, it has to be printed in a
 large font size.  To print with a larger font, see @ref{Font Size}.
 
@@ -7966,7 +7967,7 @@ The following commands set @code{fontSize} for the current voice.
 @cindex @code{\small}
 @code{\small}, 
 @cindex @code{\normalsize}
-@code{\normalsize}, 
+@code{\normalsize}.
 
 @seealso
 
