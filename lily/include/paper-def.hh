@@ -77,7 +77,10 @@ public:
     /** convert a duration to an idealspacing
       influence using the geometric_ and  parameters.
       */
-    Real duration_to_dist (Moment);
+    Real duration_to_dist (Moment, Real)const;
+  Real geometric_spacing(Moment)const;
+  Real arithmetic_constant(Moment minimal_mom)const;
+  Real arithmetic_spacing( Moment mom,Real constant)const;
 };
 
 #endif // Paper_def_HH
