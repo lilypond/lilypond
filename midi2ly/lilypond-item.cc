@@ -71,7 +71,7 @@ Lilypond_key::str ()
   if (accidentals_i)
     notename_str += String (accname [accidentals_i + 2]);
 
-  return "\\key " + notename_str  + (minor_i_ ? "\\minor" : "\\major") + ";\n";
+  return "\\key " + notename_str  + (minor_i_ ? "\\minor" : "\\major") + "\n";
 }
 
 String
@@ -195,7 +195,7 @@ Lilypond_time_signature::str ()
 {
   String str = "\\time "
     + to_str (num_i_) + "/" + to_str (1 << den_i_)
-    + ";\n";
+    + "\n";
   return str;
 }
 
@@ -328,7 +328,7 @@ Lilypond_tempo::str ()
 {
   String str = "\\tempo 4=";
   str += to_str (get_tempo_i (Rational (1, 4)));
-  str += ";\n";
+  str += "\n";
   return str;
 }
 
