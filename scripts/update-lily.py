@@ -31,6 +31,7 @@ import string
 import sys
 import __main__
 
+sys.path.append ('@datadir@/python')
 try:
 	import gettext
 	gettext.bindtextdomain ('lilypond', '@localedir@')
@@ -39,13 +40,6 @@ try:
 except:
 	def _ (s):
 		return s
-
-sys.path.append ('@datadir@/python')
-import gettext
-gettext.bindtextdomain ('lilypond', '@localedir@')
-gettext.textdomain('lilypond')
-_ = gettext.gettext
-
 
 program_name = 'build-lily'
 package_name = 'lilypond'

@@ -1,3 +1,15 @@
+1.5.9.jcn1
+==========
+
+* Bugfix: update-lily: remove unprotected gettext.py include.
+
+* po update.
+
+* windows doc update.
+
+1.5.9
+=====
+
 1.5.8.uu1
 =========
 
