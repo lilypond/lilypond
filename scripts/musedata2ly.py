@@ -226,27 +226,22 @@ class Chord:
 
 		sd = sd + '.' * self.dots
 
-		str = ')' * len (self.slurstart) + str
-		
 		for p in self.pitches:
 			if str:
 				str = str + ' ' 
-			str = str + pitch_to_lily_string (p) + sd
-		str = str + '(' * len (self.slurstart)
+			str = str + pitch_to_lily_string (p) 
 		
+		if len (self.pitches) > 1:
+			str = '<<%s>>' % str
+		elif len (self.pitches) == 0:
+			str = 'r'
 
+		str = str + sd + '-(' * len (self.slurstart) + '-)' * len (self.slurstart) 
 		for s in self.scripts:
 			str = str + '-' + s
 
 		str = self.note_prefix +str  + self.note_suffix
-		
-		if len (self.pitches) > 1:
-			str = '<%s>' % str
-		elif len (self.pitches) == 0:
-			str = 'r' + sd
-
 		str = self.chord_prefix + str + self.chord_suffix
-		
 		return str
 
 class Measure_start:

@@ -1,5 +1,15 @@
 2002-12-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scripts/musedata2ly.py (): idem
+
+	* scripts/midi2ly.py (dump_chord): idem
+
+	* scripts/etf2ly.py (version): idem 
+
+	* scripts/pmx2ly.py (Slur.calculate): new chord syntax
+
+	* scripts/mup2ly.py (pre_processor_commands): new chord syntax
+
 	* scm/tex.scm (tex-output-expression): remove eval compat
 	glut. Other output files too.
 

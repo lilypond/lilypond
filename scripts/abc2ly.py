@@ -49,8 +49,11 @@
 
 
 #TODO:
+#
+# Convert to new chord styles.
+#
 # UNDEF -> None
- 
+#
   
   
 program_name = 'abc2ly'
@@ -924,7 +927,6 @@ def try_parse_note (str, parser_state):
 
 	(str, num,den,current_dots) = parse_duration (str, parser_state)
 
-
 	if re.match('[ \t]*\)', str):
 		str = string.lstrip (str)
 	
@@ -934,9 +936,6 @@ def try_parse_note (str, parser_state):
 		str = str[1:]
 
 	
-	if slur_end:
-		voices_append ('%s' % ')' *slur_end )
-
 	bar_acc = get_bar_acc(notename, octave, parser_state)
 	pit = pitch_to_lilypond_name(notename, acc, bar_acc, global_key[notename])
 	oct = octave_to_lilypond_quotes (octave)
@@ -960,7 +959,10 @@ def try_parse_note (str, parser_state):
 		if not parser_state.parsing_tuplet:
 			voices_append ("}")
 	if slur_begin:
-		voices_append ('%s' % '(' * slur_begin )
+		voices_append ('-(' * slur_begin )
+	if slur_end:
+		voices_append ('-)' *slur_end )
+
 
 
 	return str

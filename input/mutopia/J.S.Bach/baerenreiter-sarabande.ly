@@ -146,12 +146,7 @@ sarabandeCelloGlobal =  \notes{
 sarabandeCelloScripts =  \notes{
 }
 
-  #(warn "FIXME: Setting beamed lengths")
 sarabandeCelloStaff =  \context Staff <
-  %%#(warn "FIXME: Setting beamed lengths")
-  %%\notes c4*0-#(warn "FIXME: Setting beamed lengths")
-  \property Staff.Stem \set #'beamed-lengths = #'(3.26)
-  
   \sarabandeA
   \sarabandeCelloGlobal
   \sarabandeCelloScripts
