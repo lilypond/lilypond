@@ -14,7 +14,8 @@ AC_CONFIG_SUBDIRS(stepmake)
 # Uncomment the configuration options your package needs.
 AC_STEPMAKE_COMPILE
 # AC_HAVE_HEADERS(limits.h malloc.h string.h unistd.h values.h)
-AC_HAVE_HEADERS(assert.h)
+AC_HAVE_HEADERS(assert.h sys/stat.h)
+AC_HEADER_STAT
 
 printing_b=no
 AC_ARG_ENABLE(printing,
