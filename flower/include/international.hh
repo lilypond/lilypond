@@ -12,6 +12,13 @@
 
 #include "string.hh"
 
+/**
+ Internationalisation: _i ("to be translated") gets an entry in the POT file
+ gettext () must be invoked explicitely to do the actual "translation".
+ See flower/getopt-long.cc.
+ */
+#define _i(sz) sz
+
 // don't inline: get warnings only once
 /**
  Internationalisation: _ ("to be translated") gets "translated" by GNU gettext

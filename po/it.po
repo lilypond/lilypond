@@ -5,7 +5,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"POT-Creation-Date: 1999-08-15 23:58+0200\n"
+"POT-Creation-Date: 1999-08-20 18:48+0200\n"
 "Content-Type: text/plain; charset=\n"
 "Date: 1998-05-30 00:17:12+0200\n"
 "From:  <jantien@xs4all.nl>\n"
@@ -29,27 +29,27 @@ msgstr "Non ci sono sufficienti campi in Dstream init."
 msgid "Debug output disabled.  Compiled with NPRINT."
 msgstr "L'output di debug è disabilitato. Compilato con NPRINT."
 
-#: getopt-long.cc:103
+#: getopt-long.cc:141
 #, c-format
 msgid "option `%s' requires an argument"
 msgstr "l'opzione `%s' richiede un argomento"
 
-#: getopt-long.cc:107
+#: getopt-long.cc:145
 #, c-format
 msgid "option `%s' doesn't allow an argument"
 msgstr "opzione `%s' non accetta argomenti"
 
-#: getopt-long.cc:111
+#: getopt-long.cc:149
 #, c-format
 msgid "unrecognized option: `%s'"
 msgstr "opzione non riconosciuta: `%s'"
 
-#: getopt-long.cc:113
+#: getopt-long.cc:151
 #, c-format
 msgid "%c"
 msgstr ""
 
-#: getopt-long.cc:117
+#: getopt-long.cc:155
 #, c-format
 msgid "invalid argument `%s' to option `%s'"
 msgstr "argomento `%s' non valido per l'opzione `%s'"
@@ -371,124 +371,147 @@ msgstr ""
 msgid "Aborting"
 msgstr ""
 
-#: lookup.cc:434
+#: lookup.cc:436
 #, c-format
 msgid "Non-matching braces in text `%s', adding braces."
 msgstr ""
 
-#: main.cc:85
-#, c-format
-msgid "Usage: %s [OPTION]... [FILE]..."
-msgstr "Uso: %s [OPZIONE]... [FILE]..."
+#: main.cc:68
+msgid "BASENAME"
+msgstr ""
 
-#: main.cc:86
-msgid "Typeset music and or play MIDI from FILE or <stdin>"
-msgstr "Stampa partitura oppure suona una song MIDI da FILE o <stdin>"
+#: main.cc:68
+msgid "write output to BASENAME[-x].extension"
+msgstr ""
 
-#: main.cc:47 main.cc:89
-msgid "Options:"
-msgstr "Opzioni: "
-
-#: main.cc:92
-msgid "  -a, --about            about LilyPond\n"
-msgstr "  -a, --about            cos'è LilyPond\n"
-
-#: main.cc:95
+#: main.cc:69 main.cc:101
 #, fuzzy
-msgid "  -d, --debug            enable debugging output\n"
+msgid "show warranty and copyright"
+msgstr "  -w, --warranty         mostra la garanzia e il copyright\n"
+
+#: main.cc:70 main.cc:92
+msgid "this help"
+msgstr ""
+
+#: main.cc:71
+#, fuzzy
+msgid "switch on experimental features"
+msgstr "  -t, --test             usa le caratteristiche sperimentali\n"
+
+#: main.cc:72 main.cc:91
+#, fuzzy
+msgid "enable debugging output"
 msgstr "  -D, --debug            abilita l'output di debugging\n"
 
-#: main.cc:98
+#: main.cc:73 main.cc:95
+msgid "FILE"
+msgstr ""
+
+#: main.cc:73
 #, fuzzy
-msgid ""
-"  -M, --dependencies     write Makefile dependencies for every input file\n"
+msgid "use FILE as init file"
+msgstr "  -i, --init=NOMEFILE    usa NOMEFILE come file iniziale\n"
+
+#: main.cc:74
+msgid "DIR"
+msgstr ""
+
+#: main.cc:74
+#, fuzzy
+msgid "add DIR to search path"
+msgstr "  -I, --include=DIR      aggiunge DIR ai path di ricerca\n"
+
+#: main.cc:75
+#, fuzzy
+msgid "produce midi output only"
+msgstr "  -M, --no-paper         produce solo output midi\n"
+
+#: main.cc:76
+#, fuzzy
+msgid "write Makefile dependencies for every input file"
 msgstr ""
 "  -d, --dependencies     scrive le dependenze del Makefile per ogni file di "
 "input\n"
 
-#: main.cc:56 main.cc:101
-msgid "  -h, --help             this help\n"
-msgstr "  -h, --help             questo help\n"
-
-#: main.cc:104
-msgid "  -f, --output-format=X  use output format X\n"
-msgstr "  -f, --output-format=X  usa il formato dell'ouput X\n"
-
-#: main.cc:59 main.cc:107
-msgid "  -I, --include=DIR      add DIR to search path\n"
-msgstr "  -I, --include=DIR      aggiunge DIR ai path di ricerca\n"
-
-#: main.cc:110
-msgid "  -i, --init=FILE        use FILE as init file\n"
-msgstr "  -i, --init=NOMEFILE    usa NOMEFILE come file iniziale\n"
-
-#: main.cc:113
+#: main.cc:77 main.cc:99
 #, fuzzy
-msgid "  -m, --no-paper         produce midi output only\n"
-msgstr "  -M, --no-paper         produce solo output midi\n"
-
-#: main.cc:116
-msgid "  -o, --output=FILE      set FILE as default output base\n"
+msgid "don't timestamp the output"
 msgstr ""
-"  -o, --output=FILE      indica FILE come base di default per l'output\n"
+"  -T, --no-timestamps    non inserisce marcatori temporali nell'output\n"
 
-#: main.cc:119
-msgid "  -Q, --find-old-relative show all changes in relative syntax\n"
+#: main.cc:78
+#, fuzzy
+msgid "show all changes in relative syntax"
 msgstr ""
 "  -Q, --find-old-relative mostra tutti i cambiamenti nella sintassi "
 "relativa\n"
 
-#: main.cc:122
-msgid ""
-"  -s, --safe             inhibit file output naming and exporting TeX  "
-"macros\n"
+#: main.cc:79
+#, fuzzy
+msgid "ignore mudela version"
+msgstr "versione di mudela errata: %s (%s, %s)"
+
+#: main.cc:80 main.cc:103
+msgid "print version number"
+msgstr ""
+
+#: main.cc:81
+msgid "EXT"
+msgstr ""
+
+#: main.cc:81
+msgid "use output format EXT"
+msgstr ""
+
+#: main.cc:82
+#, fuzzy
+msgid "inhibit file output naming and exporting"
 msgstr ""
 "  -s, --safe             inibisce la rinomina dei file di output e "
 "l'esportazione di macro di TeX\n"
 
-#: main.cc:124
-msgid "  -t, --test             switch on experimental features\n"
-msgstr "  -t, --test             usa le caratteristiche sperimentali\n"
+#: main.cc:89
+#, c-format
+msgid "Usage: %s [OPTION]... [FILE]..."
+msgstr "Uso: %s [OPZIONE]... [FILE]..."
 
-#: main.cc:77 main.cc:127
-msgid "  -T, --no-timestamps    don't timestamp the output\n"
-msgstr ""
-"  -T, --no-timestamps    non inserisce marcatori temporali nell'output\n"
+#: main.cc:91
+#, fuzzy
+msgid "Typeset music and or play MIDI from FILE."
+msgstr "Stampa partitura oppure suona una song MIDI da FILE o <stdin>"
 
-#: main.cc:130
-msgid "  -V, --ignore-version   ignore mudela version\n"
-msgstr "  -V, --ignore-version   ignora la versione di mudela\n"
+#: main.cc:97 main.cc:115
+msgid "Options:"
+msgstr "Opzioni: "
 
-#: main.cc:86 main.cc:133
-msgid "  -w, --warranty         show warranty and copyright\n"
-msgstr "  -w, --warranty         mostra la garanzia e il copyright\n"
-
-#: main.cc:136
-msgid "GNU LilyPond was compiled with the following settings:"
+#: main.cc:101
+#, fuzzy
+msgid "This binary was compiled with the following options:"
 msgstr "GNU LilyPond è stata compilata con le seguenti impostazioni:"
 
-#: main.cc:166
-msgid "GNU LilyPond is Free software, see --warranty"
-msgstr "GNU LilyPond è Free software, vedi --warranty"
+#: main.cc:118 main.cc:119
+msgid "Report bugs to"
+msgstr ""
 
-#: main.cc:106 main.cc:169 main.cc:182
+#: main.cc:52 main.cc:134
+#, c-format
+msgid ""
+"This is free software.  It is covered by the GNU General Public License,and "
+"you are welcome to change it and/or distribute copies of it undercertain "
+"conditions.  Invoke as `%s --warranty' for more information.\n"
+msgstr ""
+
+#: main.cc:59 main.cc:141 main.cc:153
 #, c-format
 msgid "Copyright (c) %s by"
 msgstr "Copyright (c) %s di"
 
-#: main.cc:108 main.cc:171 main.cc:184
-msgid "Han-Wen Nienhuys <hanwen@cs.uu.nl>"
-msgstr ""
-
-#: main.cc:109 main.cc:172 main.cc:185
-msgid "Jan Nieuwenhuizen <janneke@gnu.org>"
-msgstr ""
-
-#: main.cc:180
+#. GNU GNU?
+#: main.cc:151
 msgid "GNU LilyPond -- The GNU Project music typesetter"
 msgstr "GNU LilyPond -- Il tipografo musicale del progetto GNU"
 
-#: main.cc:112 main.cc:188
+#: main.cc:68 main.cc:159
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License version 2\n"
@@ -973,7 +996,6 @@ msgid ""
 "using a high level description file as input.  LilyPond is part of \n"
 "the GNU Project.\n"
 "\n"
-"\n"
 msgstr ""
 
 #: out/COPERTINA.hh:2
@@ -992,78 +1014,73 @@ msgstr ""
 
 #: out/FLAPTEKST.hh:2
 msgid ""
-"LilyPond is de muziekzetter van het GNU Project.  Dit programma drukt\n"
-"prachtige bladmuziek volgens een muzikaal definitie bestand.  Ook kan\n"
-"het een mechanische uitvoering afspelen naar een MIDI bestand.\n"
-"Bijzondere kunstjes zijn verscheidene notenbalken, maatsoorten, sleutels, \n"
-"toonaarden, zangteksten, krachtige invoer taal, cadensa, balken, boogjes, \n"
-"triolen, accoordnamen, transponeren, partituren, en uittreksels voor \n"
-"individuele partijen.  Een fraaie set muziektekens is inbegrepen.\n"
+"LilyPond is een muziekzetter.  Zij maakt prachtige bladmuziek\n"
+"uitgaande van een hoog niveau beschrijving bestand.  LilyPond \n"
+"maakt deel uit van het GNU Project.\n"
 msgstr ""
 
-#: main.cc:42
-#, c-format
-msgid "Usage: %s [OPTION]... [FILE]"
-msgstr "Uso: %s [OPZIONE... [FILE]"
-
-#: main.cc:44
-msgid "Translate midi-file to mudela"
-msgstr "Traduce un file midi in mudela"
-
-#: main.cc:50
-msgid "  -b, --no-quantify      write exact durations, e.g.: a4*385/384\n"
+#: main.cc:90
+#, fuzzy
+msgid "write exact durations, e.g.: a4*385/384"
 msgstr "  -b, --no-quantify      scrive durate esatte,  p.es.: a4*385/384\n"
 
-#: main.cc:53
-msgid "  -D, --debug            enable debugging output\n"
-msgstr "  -D, --debug            abilita l'output di debugging\n"
+#: main.cc:93
+msgid "ACC[:MINOR]"
+msgstr ""
 
-#: main.cc:62
-msgid "  -k, --key=ACC[:MINOR]  set key: ACC +sharps/-flats; :1 minor\n"
+#: main.cc:93
+#, fuzzy
+msgid "set key: ACC +sharps/-flats; :1 minor"
 msgstr ""
 " -k, --key=ACC[:MINOR]  imposta l'armatura: ACC +diesis/-bemolli; :1 minore\n"
 
-#: main.cc:65
+#: main.cc:94
 #, fuzzy
-msgid ""
-"  -n, --no-silly         assume no tuplets or double dots, smallest is 32\n"
+msgid "assume no tuplets or double dots, smallest is 32"
 msgstr ""
 "  -n, --no-silly         assume che non ci siano gruppetti o doppi punti, la "
 "figura più piccola è 32\n"
 
-#: main.cc:68
-msgid "  -o, --output=FILE      set FILE as default output\n"
+#: main.cc:95
+#, fuzzy
+msgid "set FILE as default output"
 msgstr "  -o, --output=FILE      set FILE come output di default\n"
 
-#: main.cc:71
-#, fuzzy
-msgid "  -p, --no-tuplets       assume no tuplets\n"
-msgstr "  -p, --no-plets         assume che non ci siano gruppetti\n"
-
-#: main.cc:74
-msgid "  -q, --quiet            be quiet\n"
-msgstr "  -q, --quiet            sii silenzioso\n"
-
-#: main.cc:80
-msgid ""
-"  -s, --smallest=N       assume no shorter (reciprocal) durations than N\n"
+#: main.cc:96
+msgid "assume no tuplets"
 msgstr ""
-"  -s, --smallest=N       assume che non ci siano durate (reciproche) "
-"inferiori a N\n"
 
-#: main.cc:83
-msgid "  -v, --verbose          be verbose\n"
-msgstr "  -v, --verbose          sii loquace\n"
+#: main.cc:97
+msgid "be quiet"
+msgstr ""
 
-#: main.cc:89
-msgid "  -x, --no-double-dots   assume no double dotted notes\n"
+#: main.cc:98
+msgid "DUR"
+msgstr ""
+
+#: main.cc:98
+#, fuzzy
+msgid "Set smallest duration (?)"
+msgstr "indicazione durata priva di senso"
+
+#: main.cc:100
+msgid "be verbose"
+msgstr ""
+
+#: main.cc:102
+#, fuzzy
+msgid "assume no double dotted notes"
 msgstr ""
 " -x, --no-double-dots   assume che non ci siano note con doppio punto\n"
 
-#: main.cc:104
-#, fuzzy
-msgid "Midi2ly, translate midi to mudela"
-msgstr "Mi2mu, tradice midi in mudela"
+#: main.cc:110
+#, c-format
+msgid "Usage: %s [OPTION]... [FILE]"
+msgstr "Uso: %s [OPZIONE... [FILE]"
+
+#: main.cc:112
+msgid "Translate midi-file to mudela"
+msgstr "Traduce un file midi in mudela"
 
 #: midi-parser.cc:64
 msgid "zero length string encountered"
@@ -1189,9 +1206,59 @@ msgstr "% Generato automaticamente"
 msgid "% from input file: "
 msgstr "% dal file di input: "
 
-#: version.cc:11
-msgid "of"
-msgstr "di"
+#, fuzzy
+#~ msgid "enable debugging output "
+#~ msgstr "  -D, --debug            abilita l'output di debugging\n"
+
+#, fuzzy
+#~ msgid "don't timestamp the output "
+#~ msgstr ""
+#~ "  -T, --no-timestamps    non inserisce marcatori temporali nell'output\n"
+
+#~ msgid "  -a, --about            about LilyPond\n"
+#~ msgstr "  -a, --about            cos'è LilyPond\n"
+
+#~ msgid "  -h, --help             this help\n"
+#~ msgstr "  -h, --help             questo help\n"
+
+#~ msgid "  -f, --output-format=X  use output format X\n"
+#~ msgstr "  -f, --output-format=X  usa il formato dell'ouput X\n"
+
+#~ msgid "  -o, --output=FILE      set FILE as default output base\n"
+#~ msgstr ""
+#~ "  -o, --output=FILE      indica FILE come base di default per l'output\n"
+
+#~ msgid "  -V, --ignore-version   ignore mudela version\n"
+#~ msgstr "  -V, --ignore-version   ignora la versione di mudela\n"
+
+#~ msgid "GNU LilyPond is Free software, see --warranty"
+#~ msgstr "GNU LilyPond è Free software, vedi --warranty"
+
+#~ msgid "  -D, --debug            enable debugging output\n"
+#~ msgstr "  -D, --debug            abilita l'output di debugging\n"
+
+#, fuzzy
+#~ msgid "  -p, --no-tuplets       assume no tuplets\n"
+#~ msgstr "  -p, --no-plets         assume che non ci siano gruppetti\n"
+
+#~ msgid "  -q, --quiet            be quiet\n"
+#~ msgstr "  -q, --quiet            sii silenzioso\n"
+
+#~ msgid ""
+#~ "  -s, --smallest=N       assume no shorter (reciprocal) durations than N\n"
+#~ msgstr ""
+#~ "  -s, --smallest=N       assume che non ci siano durate (reciproche) "
+#~ "inferiori a N\n"
+
+#~ msgid "  -v, --verbose          be verbose\n"
+#~ msgstr "  -v, --verbose          sii loquace\n"
+
+#, fuzzy
+#~ msgid "Midi2ly, translate midi to mudela"
+#~ msgstr "Mi2mu, tradice midi in mudela"
+
+#~ msgid "of"
+#~ msgstr "di"
 
 #~ msgid "please fix me"
 #~ msgstr "correggimi, per favore"

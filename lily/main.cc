@@ -59,83 +59,47 @@ Getopt_long * oparser_global_p = 0;
 
 String distill_inname_str (String name_str, String& ext_r);
 
+/*
+ Internationalisation kludge in two steps:
+   * use _i () to get entry in POT file
+   * call gettext () explicitely for actual "translation"
+ */
 Long_option_init theopts[] = {
-  {0, "about", 'a'},
-  {1, "output", 'o'},
-  {0, "warranty", 'w'},
-  {0, "help", 'h'},
-  {0, "test", 't'},
-  {0, "debug", 'd'},
-  {1, "init", 'i'},
-  {1, "include", 'I'},
-  {0, "no-paper", 'm'},
-  {0, "dependencies", 'M'},	// like GCC
-  {0, "no-timestamps", 'T'},	// why do we have this option?
-  {0, "find-old-relative", 'Q'},
-  {0, "ignore-version", 'V'},
-  {0, "version", 'v'},
-  {1, "output-format", 'f'},
-  {0, "safe", 's'},
-  {0,0,0}
+  {_i ("BASENAME"), "output", 'o',  _i ("write output to BASENAME[-x].extension")},
+  {0, "warranty", 'w',  _i ("show warranty and copyright")},
+  {0, "help", 'h',  _i ("this help")},
+  {0, "test", 't',  _i ("switch on experimental features")},
+  {0, "debug", 'd',  _i ("enable debugging output")},
+  {_i ("FILE"), "init", 'i',  _i ("use FILE as init file")},
+  {_i ("DIR"), "include", 'I',  _i ("add DIR to search path")},
+  {0, "no-paper", 'm',  _i ("produce midi output only")},
+  {0, "dependencies", 'M',  _i ("write Makefile dependencies for every input file")},
+  {0, "no-timestamps", 'T',  _i ("don't timestamp the output")},
+    {0, "find-old-relative", 'Q',  _i ("show all changes in relative syntax")},
+  {0, "ignore-version", 'V',  _i ("ignore mudela version")},
+  {0, "version", 'v',  _i ("print version number")},
+  {_i ("EXT"), "output-format", 'f',  _i ("use output format EXT")},
+  {0, "safe", 's',  _i ("inhibit file output naming and exporting")},
+  {0,0,0, 0}
 };
 
 void
 usage ()
 {
-  cout << _f ("Usage: %s [OPTION]... [FILE]...", "lilypond") << '\n';
-  cout << _ ("Typeset music and or play MIDI from FILE or <stdin>");
-  cout << '\n';
+  cout << _f ("Usage: %s [OPTION]... [FILE]...", "lilypond");
+  cout << "\n\n";
+  cout << _ ("Typeset music and or play MIDI from FILE.");
+  cout << "\n\n";
+  cout << 
+#include "BLURB.hh"
+
   cout << '\n';
   cout << _ ("Options:");
   cout << '\n';
-  cout  << _ (
-    "  -a, --about            about LilyPond\n"
-    );
-  cout  << _ (
-    "  -d, --debug            enable debugging output\n"
-    );
-  cout  << _ (
-    "  -M, --dependencies     write Makefile dependencies for every input file\n"
-    );
-  cout  << _ (
-    "  -h, --help             this help\n"
-    );
-  cout  << _ (
-    "  -f, --output-format=X  use output format X\n"
-    );
-  cout  << _ (
-    "  -I, --include=DIR      add DIR to search path\n"
-    );
-  cout  << _ (
-    "  -i, --init=FILE        use FILE as init file\n"
-    );
-  cout  << _ (
-    "  -m, --no-paper         produce midi output only\n"
-    );
-  cout  << _ (
-    "  -o, --output=FILE      set FILE as default output base\n"
-    );
-  cout  << _ (
-    "  -Q, --find-old-relative show all changes in relative syntax\n"
-    );
-  cout << _ (
-    "  -s, --safe             inhibit file output naming and exporting TeX  macros\n");
-  cout  << _ (
-    "  -t, --test             switch on experimental features\n"
-    );
-  cout  << _ (
-    "  -T, --no-timestamps    don't timestamp the output\n"
-    );
-  cout  << _ (
-    "  -V, --ignore-version   ignore mudela version\n"
-    );
-  cout  << _ (
-	      "  -w, --warranty         show warranty and copyright\n"
-	      );
+  cout << Long_option_init::table_str (theopts);
   cout << '\n';
-  cout << _ ("GNU LilyPond was compiled with the following settings:");
-  cout << '\n';
-  cout <<
+  cout << _ ("This binary was compiled with the following options:") 
+    << " " <<
 #ifdef NDEBUG
     "NDEBUG "
 #endif
@@ -145,44 +109,51 @@ usage ()
 #ifdef STRING_UTILS_INLINED
     "STRING_UTILS_INLINED "
 #endif
-    "datadir=" DIR_DATADIR
+    "datadir =" DIR_DATADIR
     "\n"
-    "localedir=" DIR_LOCALEDIR
+    "localedir =" DIR_LOCALEDIR
 
-    "\n";
+    "\n\n";
 
-  ;
+  cout << _("Report bugs to") << " bug-gnu-music@gnu.org" << endl;
 
   print_mudela_versions (cout);
 }
 
 void
-about ()
+identify ()
 {
+  cout << gnu_lilypond_version_str () << endl;
+}
+
+void
+version ()
+{
+  identify ();
   cout << '\n';
-  cout << 
-#include "BLURB.hh"
-    cout << '\n';
-  cout << _ ("GNU LilyPond is Free software, see --warranty");
-  cout << '\n';
-  cout << '\n';
+  cout << _f (""
+  "This is free software.  It is covered by the GNU General Public License,"
+  "and you are welcome to change it and/or distribute copies of it under"
+  "certain conditions.  Invoke as `%s --warranty' for more information.\n",
+    "lilypond");
+  cout << endl;
+
   cout << _f ("Copyright (c) %s by", "1996--1999");
-  cout << '\n';
-  cout << "  " + _ ("Han-Wen Nienhuys <hanwen@cs.uu.nl>") + "\n";
-  cout << "  " + _ ("Jan Nieuwenhuizen <janneke@gnu.org>") + "\n";
-  cout << '\n';
+  cout << "Han-Wen Nienhuys <hanwen@cs.uu.nl>\n"
+       << "Jan Nieuwenhuizen <janneke@gnu.org>\n";
 }
 
 void
 notice ()
 {
   cout << '\n';
+  // GNU GNU?
   cout << _ ("GNU LilyPond -- The GNU Project music typesetter");
   cout << '\n';
   cout << _f ("Copyright (c) %s by", "1996--1999");
   cout << '\n';
-  cout << "  " + _ ("Han-Wen Nienhuys <hanwen@cs.uu.nl>") + "\n";
-  cout << "  " + _ ("Jan Nieuwenhuizen <janneke@gnu.org>") + "\n";
+  cout << "  Han-Wen Nienhuys <hanwen@cs.uu.nl>\n";
+  cout << "  Jan Nieuwenhuizen <janneke@gnu.org>\n";
   cout << '\n';
   cout << _ (
 	     "    This program is free software; you can redistribute it and/or\n"
@@ -200,11 +171,6 @@ notice ()
 	     "USA.\n");
 }
 
-void
-identify ()
-{
-  *mlog << gnu_lilypond_version_str () << endl;
-}
 
 void
 setup_paths ()
@@ -319,16 +285,16 @@ main_prog (int, char**)
 int
 main (int argc, char **argv)
 {
-  identify ();
   debug_init ();		// should be first
   setup_paths ();
 
   oparser_global_p = new Getopt_long(argc, argv,theopts);
   while (Long_option_init const * opt = (*oparser_global_p)())
     {
-      switch (opt->shortname)
+      switch (opt->shortname_ch_)
 	{
 	case 'v':
+	  version();
 	  exit (0);		// we print a version anyway.
 	  break;
 	case 't':
@@ -354,9 +320,6 @@ main (int argc, char **argv)
 	case 'i':
 	  init_str_global = oparser_global_p->optional_argument_ch_C_;
 	  break;
-	case 'a':
-	  about ();
-	  exit (0);
 	case 'h':
 	  usage ();
 	  exit (0);
@@ -384,6 +347,7 @@ main (int argc, char **argv)
 	  break;
 	}
     }
+  identify ();
 
 #ifdef WINNT
   gh_enter (argc, argv, main_prog);
