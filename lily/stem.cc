@@ -458,8 +458,6 @@ Stem::dim_callback (SCM e, SCM ax)
 }
 
 
-const Real ANGLE = 20* (2.0*M_PI/360.0); // ugh! Should be settable.
-
 
 MAKE_SCHEME_CALLBACK(Stem,brew_molecule,1);
 
@@ -479,10 +477,15 @@ Stem::brew_molecule (SCM smob)
 
   Real dy = Staff_symbol_referencer::staff_space (me)/2.0;
   Real head_wid = 0;
-  
+
+  Real angle =0.0;
   if (Grob *hed = support_head (me))
-    head_wid = hed->extent (hed,X_AXIS).length ();
-  stem_y[Direction(-d)] += d * head_wid * tan(ANGLE)/(2*dy);
+    {
+      head_wid = hed->extent (hed,X_AXIS).length ();
+
+      angle = gh_scm2double (hed->get_grob_property ("attachment-angle"));
+    }
+  stem_y[Direction(-d)] += d * head_wid * tan(angle)/(2*dy);
   
   if (!invisible_b (me))
     {
@@ -502,6 +505,9 @@ Stem::brew_molecule (SCM smob)
   return mol.smobbed_copy ();
 }
 
+/*
+  move the stem to right of the notehead if it is up.
+ */
 MAKE_SCHEME_CALLBACK(Stem,off_callback,2);
 SCM
 Stem::off_callback (SCM element_smob, SCM )
@@ -518,7 +524,7 @@ Stem::off_callback (SCM element_smob, SCM )
       
       Real rule_thick = gh_scm2double (me->get_grob_property ("thickness")) * me->paper_l ()->get_var ("stafflinethickness");
       Direction d = get_direction (me);
-      r = head_wid[d] - d * rule_thick ;
+      r = head_wid[d] - d * rule_thick * 0.5;
     }
   return gh_double2scm (r);
 }

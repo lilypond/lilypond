@@ -11,9 +11,6 @@ corniStaff = \context Staff = corni <
 	  "2 Corni" (rows "(E" ,text-flat ")"))
 	
 	\property Staff.instr = #`(lines "Cor."  (rows "(E" ,text-flat ")"))
-
-	% urg: can't; only My_midi_lexer:<non-static> () parses pitch?
-	%\property Staff.transposing = "es"
 	\property Staff.transposing = #3
 	\Time
 	\notes { \key c \major; }

@@ -33,8 +33,8 @@ subdirectory @file{input/tutorial/}.@footnote{When we refer
 to filenames, they are relative to the top directory of the source
 package.
 @cindex file names
-} We recommend that you experiment with writing Lilypond input yourself,
-to get a feel for how the program behaves.
+}. We recommend that you experiment with writing Lilypond input
+yourself, to get a feel for how the program behaves.
 
 
 @node Running LilyPond
@@ -66,7 +66,7 @@ If you run Unix, proceed as follows: run lilypond on the file, i.e.,
 @example
   lilypond test
 @end example
-You will the following on your screen:
+You will see the following on your screen:
 @example
 GNU LilyPond 1.3.125.
 Now processing: `input/tutorial/test.ly'
@@ -78,7 +78,7 @@ paper output to test.tex...
 @end example
 
 Now, run @TeX{}@footnote{@TeX{} is a text-typesetting system that is
-especially suited for typesetting mathematics}. The result should
+especially suited for typesetting mathematics.}. The result should
 resemble this: 
 @example
 This is TeX, Version 3.14159 (Web2C 7.3.1)
@@ -101,7 +101,7 @@ To view the output, run Xdvi, i.e.
 @example
         xdvi test
 @end example
-You should will see this
+You should see the following in  a window next to some buttons.
 @lilypond
 \header {
  title = "Test";
@@ -112,7 +112,6 @@ You should will see this
   \paper { }
 } 
 @end lilypond
-along with some buttons in a window.
 
 @cindex postscript, converting to
 When you're satisfied with the result, you can print it. For printing,
@@ -132,12 +131,12 @@ This is dvips(k) 5.86 Copyright 1999 Radical Eye Soft ...
 @cindex GhostScript
 @cindex @code{lpr}
 PostScript is a page description language, similar to PDF. Some printers
-can understand a postscript file directly, but the cheapers need the
-intervention of GhostScript, a PostScript   emulator that runs on your
+can understand a postscript file directly, but the cheaper ones need the
+intervention of GhostScript, an emulator that runs PostScript on your
 computer instead of your printer. Most Linux distributions nowadays have
-GhostScript running ``in the  background'', so any configured printer
-will act as a PostScript printer.  Assuming this,  the
-following command will print the  file
+GhostScript running ``in the background'', so any configured printer
+will act as a PostScript printer.  Assuming this, the following command
+will print the file
 @example
         lpr test.ps
 @end example
@@ -145,11 +144,11 @@ If this does not make your printer produce a page of music, then you
 should look into installing and configuring ghostscript.  Refer to
 GhostScript's website at @uref{http://www.ghostscript.com}.  
 
-There are two different routes: firstly, you can add titling to the
-output. This is done by a separate program called ly2dvi: this program
-first calls LilyPond to process the @file{.ly} file, and then runs
-@TeX{} on it to produce a @file{.dvi} file with proper margin settings
-and titling.
+There are three other routes: firstly, you can add titling to the
+output. This is done by a separate program called @file{ly2dvi}: this
+program first calls LilyPond to process the @file{.ly} file, and then
+runs @TeX{} on it to produce a @file{.dvi} file with proper margin
+settings and titling.
 
 @cindex titles, adding
 @cindex ly2dvi
@@ -158,20 +157,27 @@ and titling.
         ly2dvi test.ly
 @end example
 After some disk-activity, you should end up with a @file{.dvi} file.
-6
-Secondly, you can generate PostScript directly. This is not very useful
-currently, but here goes:
+Ly2dvi is further described in the Chapter @ref{ly2dvi}.
+
+Secondly, you can generate PostScript directly. This is  useful if you
+can not or do not want to  run @TeX{} on your system. 
+To obtain PS output, invoke LilyPond as follows:
 @cindex PostScript output
 @example
       lilypond -f ps test.ly  
 @end example
 
-[treat FAQs here, eg. about env vars.]
+You have to set some environment variables to view or print this
+output. More information can be found in the Section @ref{Invoking
+LilyPond}.
 
+Finally, there is a script called lilypond-book, that allows you to
+freely mix LilyPond input with Texinfo or LaTeX input. For example, this
+manual was written using lilypond-book.
 
 @unnumberedsubsec Windows
 
-[todo]
+[TODO]
 
 
 @node The first tune

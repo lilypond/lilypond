@@ -217,7 +217,7 @@ object."
    'note-head-interface
    "Note head"
    '(
-    style 
+    style  attachment-angle
     )
    ))
 

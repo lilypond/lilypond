@@ -11,9 +11,6 @@ clarinettiStaff = \context Staff = clarinetti <
 	  "2 Clarinetti" (rows "(B" ,text-flat ")"))
 	
 	\property Staff.instr = #`(lines "Cl."  (rows "(B" ,text-flat ")"))
-
-	% urg: can't; only My_midi_lexer:<non-static> () parses pitch?
-	%\property Staff.transposing = "bes"
 	\property Staff.transposing = #-2
 	
 	\Time
