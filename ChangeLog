@@ -1,3 +1,10 @@
+2002-05-04  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/beam.cc (check_concave): allow undefined gap and
+	threshold. Change the meaning of threshold/gap == 0.0.
+	(check_concave): skip Stolba concaveness check if we have a knee
+	on outer stems.
+
 2002-05-03  Han-Wen  <hanwen@cs.uu.nl>
 
 	* mf/feta-klef.mf: more twiddling with G clef. Almost straight

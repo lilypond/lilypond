@@ -35,8 +35,8 @@
     (AccidentalPlacement
      . (
 	(X-extent-callback . ,Accidental_placement::extent_callback)
-	(left-padding . 0.2)
-	(right-padding . 0.5)
+	(left-padding . 0.3)
+	(right-padding . 0.3)
 	(meta . ((interfaces . (accidental-placement-interface))))
 	))
 
@@ -630,7 +630,10 @@
      . (
 	;; don't set direction here: it breaks staccato.
 	(molecule-callback . ,Script::brew_molecule)
-	(padding . 0.29) 
+
+	;; This value is sensitive: if too large, staccato dots will move a
+	;; space a away.
+	(padding . 0.25) 
 	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent))
 	(before-line-breaking-callback . ,Script::before_line_breaking)
 	(font-family . music)

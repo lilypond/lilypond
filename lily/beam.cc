@@ -796,16 +796,28 @@ Beam::check_concave (SCM smob)
   if (stems.size () < 3)
     return SCM_UNSPECIFIED;
 
-  Direction dir = Directional_element_interface::get (me);
+
   /* Concaveness #1: If distance of an inner notehead to line between
      two outer noteheads is bigger than CONCAVENESS-GAP (2.0ss),
-     beam is concave (Heinz Stolba). */
+     beam is concave (Heinz Stolba).
+
+     In the case of knees, the line connecting outer heads is often
+     not related to the beam slope (it may even go in the other
+     direction). Skip the check when the outer stems point in
+     different directions. --hwn
+     
+  */
   bool concaveness1 = false;
-  Real r1 = gh_scm2double (me->get_grob_property ("concaveness-gap"));
-  if (r1 > 0)
+  SCM gap = me->get_grob_property ("concaveness-gap");
+  if (gh_number_p (gap)
+      && Stem::get_direction(stems.top ())
+         == Stem::get_direction(stems[0]))
     {
+      Real r1 = gh_scm2double (gap);
       Real dy = Stem::chord_start_f (stems.top ())
 	- Stem::chord_start_f (stems[0]);
+
+      
       Real slope = dy / (stems.size () - 1);
       
       Real y0 = Stem::chord_start_f (stems[0]);
@@ -824,9 +836,14 @@ Beam::check_concave (SCM smob)
   /* Concaveness #2: Sum distances of inner noteheads that fall
      outside the interval of the two outer noteheads */
   Real concaveness2 = 0;
-  Real r2 = gh_scm2double (me->get_grob_property ("concaveness-threshold"));
-  if (!concaveness1 && r2 > 0)
+  SCM thresh = me->get_grob_property ("concaveness-threshold");
+  Real r2 = infinity_f;
+  if (!concaveness1 && gh_number_p (thresh))
     {
+      r2 = gh_scm2double (thresh);
+      
+      Direction dir = Directional_element_interface::get (me);  
+
       Real concave = 0;
       Interval iv (Stem::chord_start_f (stems[0]),
 		   Stem::chord_start_f (stems.top ()));
@@ -843,7 +860,10 @@ Beam::check_concave (SCM smob)
 	  else if ((c = f - iv[MIN]) < 0)
 	    concave += c;
 	}
-      
+      /*
+	Ugh. This will mess up with knees. Direction should be
+	determined per stem.
+       */
       concave *= dir;
 
       concaveness2 = concave / (stems.size () - 2);

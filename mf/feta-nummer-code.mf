@@ -324,12 +324,13 @@ fet_beginchar("Numeral 3", "3", "three")
 	penpos1(hair,-90);
 
 %	flare_start = 0.25 ;
-	x1l = 35/80 w;
+	x1l = 36/80 w;
 	y1l = h;
 	
 %	z1l=(17/16thick,h);
 	penpos2(7/8thick,180);
-	z2l=(w-thick/8,3/4h+thick/16);
+	x2l= w-thick/8;
+	y2l = 3/4h + thick*  3/32; 
 	penpos3(thin,90);
 	z3=(w/2,h/2+1/8thick);
 	penpos4(thin,90);

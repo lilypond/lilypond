@@ -1,18 +1,27 @@
 \header{
-  texidoc = "Concave beams should be horizontal.  However, what exactly
+
+texidoc = "Concave beams should be horizontal. informally spoken,
+  concave refers to the shape of the notes that are opposite a
+  beam. If an up-beam has high notes on its center stems, then we call
+  it concave.  In this example, only the beams that are marked `horiz'
+  are considered concave by lily. They should be printed horizontally.
+  "
+}
+
+
+%{
+ However, what exactly
 it is that makes a beam concave is still unclear.
 
 Beams 1 and 3 should be sloped, 2 and 4 should be horizontal.  Two
 sane attempts of calculating concaveness of a beam fail to distinguish
 beams this way."
+%}
 
-}
 
 \score{
   \notes\relative c'{
-    \property Voice.Beam \set #'concaveness-threshold = #0.08
-    \property Voice.Beam \set #'concaveness-bt2 = #2.0
-    
+
 %% This case seems easy: second beam should be horizontal.
     
     %% SCS-I Menuet I, m15
@@ -57,8 +66,13 @@ beams this way."
 %     [g, e' cis]
 
     
-%%% `Han-Wen': this should be concave
+%%% Han-Wen: this should be concave
     [a,16^"horiz." a' a a]
+
+    \clef treble
+
+%%%% This should not be concave (hwn)
+    [\stemUp bes8  \stemDown d'8 bes8]  
   }
   \paper{
     linewidth = -1.0
