@@ -1,3 +1,30 @@
+1.5.8.uu1
+=========
+
+* Mensural rests (Juergen Reuter)
+
+* Swedish translation (Thanks to the translation project)
+
+* Bugfix: down 8th flag restored.
+
+* Bugfix: span-bars and hara-kiri.
+
+* More advanced collisions: handle meshed chords as well.
+
+1.5.8.jcn1
+==========
+
+* Add mktextfm wrapper for windows (thanks Mats).
+
+1.5.8.hjj1
+==========
+
+* Emacs-mode: new keywords, reserved words, notenames and brackets are
+font-lock-keywords; implementation encourages spacing/indenting.
+
+
+1.5.8
+=====
 1.5.7.hwn1
 ==========
 
