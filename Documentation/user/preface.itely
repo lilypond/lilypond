@@ -12,20 +12,16 @@
 @node Preface to version 1.8
 @unnumberedsec Preface to version 1.8
 
-During the past year when we worked on 1.8, the focus has not so much
-been on adding shiny new features, or more excellent
-typography. Instead, we have taken stock of how various things worked
-on the inside. In many cases, we found new and more elegant ways to
-implement these systems, making them more robust and more flexible.
-
 If you are familiar with LilyPond version 1.6, then version 1.8 will
-no offer no big surprises. The only real change from 1.6 to 1.8 is the
-way that formatted text is entered. There is now a new syntax that is
-more friendly, more versatile and extensible. We hope you like it.
-
-Less visible changes include rewritten chord name formatting and entry
-code, revised music expression storage, and tighter integration
-between lilypond variables and Scheme variables.
+no offer no big surprises. The only conspicuous change is in the way
+that formatted text is entered. There is now a new syntax that is more
+friendly, more versatile and extensible. We hope you like it.  In
+general, development on version 1.8 has been focused on improving the
+design of various internal mechanisms.  This includes chord name
+formatting and entry code, music expression storage, and integration
+between LilyPond and Scheme.  These changes may not be evident
+directly, but they make the program more robust and more flexible,
+which translates into fewer bugs and more adjustment options.
 
 Special thanks for version 1.8 go out to Juergen Reuter for lots of
 work on the ancient notation engine, and to Amy Zapf for pushing us to

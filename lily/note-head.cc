@@ -108,7 +108,7 @@ internal_brew_molecule (Grob *me, bool ledger_take_space)
   SCM style  = me->get_grob_property ("style");
   if (!gh_symbol_p (style))
     {
-      return Molecule();
+      return Molecule ();
     }
 
   SCM log = gh_int2scm (Note_head::get_balltype (me));

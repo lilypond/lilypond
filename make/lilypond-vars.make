@@ -37,6 +37,10 @@ ifneq ($(the-script-dir),)
 ### some versions apparently choke on $(message)
 ### $(message running from source tree stepmake)
 
+
+
+### Some versions of What? --hwn 
+
 ABC2LY = $(script-dir)/abc2ly.py
 CONVERT_LY = $(script-dir)/convert-ly.py
 LILYPOND = $(builddir)/lily/$(outconfbase)/lilypond

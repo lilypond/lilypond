@@ -2,19 +2,31 @@
 @node Invoking LilyPond
 @chapter Invoking LilyPond
 
+This chapter details the technicalities of running LilyPond.
+
+ 
 @menu
+* Invoking the lilypond binary::  
 * Reporting bugs::              
-* Website::                     
 * Point and click::             
 * Invoking ly2dvi::             Titling LilyPond scores.
 @end menu
 
+
+
+@node Invoking the lilypond binary
+@section Invoking the lilypond binary
 @cindex Invoking LilyPond
 @cindex command line options
 @cindex options, command line
 @cindex switches
 
-Usage:
+
+The LilyPond system consists of two parts: a binary executable, which
+is responsible for the formatting functionality, and support scripts,
+which post-process the resulting output. Normally, the support scripts
+are called, which in turn invoke the @code{lilypond} binary. However,
+@code{lilypond} may be called directly as follows.
 
 @example
         lilypond [@var{option}]@dots{} @var{file}@dots{}
@@ -187,11 +199,14 @@ This selects the language for the warning messages
 
 
 
-@cindex bugs
-@cindex reporting bugs
 
 @node Reporting bugs
 @section Reporting bugs
+
+@cindex bugs
+@cindex reporting bugs
+
+
 
 Since there is no finder's fee which doubles every year, there is no
 need to wait for the prize money to grow. Send a bug report today!
@@ -219,17 +234,7 @@ ly2dvi.
 
 @end itemize
 
-You can send the report to @email{bug-lilypond@@gnu.org}. This is a
-mailinglist, but you do not have to be subscribed to it to post.
-
-@node Website
-@section Website
-
-If you are reading this manual in print, it is possible that the
-website contains updates to the manual. You can find the website at
-@uref{http://www.lilypond.org/}.
-
-
+You can send the report to @email{bug-lilypond@@gnu.org}.
 
 @node Point and click
 @section Point and click

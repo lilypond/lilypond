@@ -888,7 +888,9 @@ if 1:
 	if preview_p:
 		for score in find_tex_files (files, extra_init):
 			preview_base = ly.strip_extension (score[0], '.tex')
-			ly.make_preview (preview_base)
+			ly.make_ps_images (preview_base + '.preview.ps',
+					     resolution=preview_resolution
+					     )
 
 	if 'PDFTEX' in targets:
 		try:
@@ -914,7 +916,7 @@ if 1:
 				ly.warning (_("Running LaTeX falied. Rerun with --verbose for a trace."))
 				
 	if page_images_p:
-		ly.make_page_images (outbase)
+		ly.make_ps_images (outbase)
 
 	# add DEP to targets?
 	if track_dependencies_p:
