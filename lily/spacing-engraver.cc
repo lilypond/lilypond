@@ -13,6 +13,9 @@
 #include "spacing-spanner.hh"
 #include "engraver.hh"
 #include "pqueue.hh"
+#include "note-spacing.hh"
+#include "staff-spacing.hh"
+#include "group-interface.hh"
 
 struct Rhythmic_tuple
 {
@@ -92,10 +95,15 @@ Spacing_engraver::finalize ()
 void
 Spacing_engraver::acknowledge_grob (Grob_info i)
 {
+  if (Note_spacing::has_interface (i.grob_l_) || Staff_spacing::has_interface (i.grob_l_))
+    {
+      Pointer_group_interface::add_element (spacing_p_, ly_symbol2scm  ("wishes"), i.grob_l_);
+    }
+  
   if (to_boolean (i.grob_l_->get_grob_property ("non-rhythmic")))
     return;
   
-  if (Rhythmic_req * r = dynamic_cast<Rhythmic_req*> (i.req_l_))
+  if (Rhythmic_req * r = dynamic_cast<Rhythmic_req*> (i.music_cause ()))
     {
       Rhythmic_tuple t (i, now_mom () + r->length_mom ());
       now_durations_.push (t);
@@ -109,7 +117,7 @@ Spacing_engraver::stop_translation_timestep ()
   shortest_playing.set_infinite (1);
   for (int i=0; i < playing_durations_.size (); i++)
     {
-      Moment m = (playing_durations_[i].info_.req_l_)->length_mom ();
+      Moment m = (playing_durations_[i].info_.music_cause ())->length_mom ();
       if (m.to_bool ())
 	{
 	  shortest_playing = shortest_playing <? m;
@@ -121,7 +129,7 @@ Spacing_engraver::stop_translation_timestep ()
   starter=inf;
   for (int i=0; i < now_durations_.size (); i++)
     {
-      Moment m = now_durations_[i].info_.req_l_->length_mom ();
+      Moment m = now_durations_[i].info_.music_cause ()->length_mom ();
       if (m.to_bool ())
 	starter = starter <? m;
 

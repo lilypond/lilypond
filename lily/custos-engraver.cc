@@ -85,7 +85,7 @@ Custos_engraver::acknowledge_grob (Grob_info info)
 	    don't look at the staff-position, since we can't be sure
 	    whether Clef_engraver already applied a vertical shift.
 	  */
-	  Note_req * nr = dynamic_cast<Note_req*> (info.req_l_);
+	  Note_req * nr = dynamic_cast<Note_req*> (info.music_cause ());
 	  if (nr)
 	    pitches_.push (*unsmob_pitch (nr->get_mus_property ("pitch")));
 	}

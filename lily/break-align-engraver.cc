@@ -28,10 +28,6 @@ public:
   TRANSLATOR_DECLARATIONS(Break_align_engraver);
 };
 
-
-
-
-
 void
 Break_align_engraver::add_column (SCM smob)
 {
@@ -88,7 +84,7 @@ Break_align_engraver::acknowledge_grob (Grob_info inf)
 {
   if (Item * item_l = dynamic_cast <Item *> (inf.grob_l_))
     {
-      if (item_l->empty_b (X_AXIS) || item_l->parent_l (X_AXIS))
+      if (item_l->empty_b (X_AXIS) || item_l->get_parent (X_AXIS))
 	return;
 
       SCM bp=item_l->get_grob_property ("breakable");

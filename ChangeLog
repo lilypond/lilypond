@@ -1,0 +1,55 @@
+2001-12-01  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/note-head.cc (head_extent): added to compute width without
+	ledger lines. By default, ledger lines take up width now.
+
+	* input/regression/fingering.ly: demonstrate auto fingering.
+	Horizontal placement is still buggy. 
+	
+	* lily/fingering-engraver.cc (class Fingering_engraver):
+	added. Provides support for horizontal fingering scripts
+
+	* lily/include/grob.hh: Naming: change parent_l() into get_parent()
+
+	* lily/side-position-interface.cc (add_staff_support): add staff
+	only for Y-axis side positions.
+
+	* lily/parser.yy (request_chord): Fix mem leak.
+
+	* lily/musical-request.cc (transpose): moved to Music::transpose()
+
+	* lily/include/grob-info.hh: Change music pointer to SCM, so we
+	can store grobs as grob-creation cause as well.
+
+	* lily/group-interface.cc (add_thing): efficiency tweak: reuse
+	handle when adding. Use precomputed symbols throughout lily.
+	
+	* lily/rhythmic-column-engraver.cc: make NoteSpacing grobs to keep
+	track of spacing issues.
+
+	* lily/separating-line-group-engraver.cc: make StaffSpacing grobs
+	to keep track of staff spacing
+
+2001-11-30  Jan Nieuwenhuizen <janneke@gnu.org>
+
+	* Rewrote new conditional guile >= 1.5 compilation switches, to keep
+	  code clean from conditionals and have a concentrated sets of
+	  compatitility fixes for old guile versions.
+
+	* Fixes for guile 1.4, including embedded ps.
+
+2001-11-30  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/stanza-number-engraver.cc (process_music): allow pairs as
+	well for markup texts.
+
+	* lily/musical-request.cc (length_mom): kludge for null pointer.
+
+	* scm/sketch.scm (sketch-output-expression): guile 1.4 compatibility
+
+	* scm/lily.scm (sign): bugfix
+
+	* CHANGES: Change log instated.
+
+	* stepmake/add-html-footer.py: @BRANCH@ tag insertion.
+

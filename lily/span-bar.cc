@@ -20,7 +20,7 @@
 void
 Span_bar::add_bar (Grob*me, Grob*b)
 {
-  Pointer_group_interface::add_element (me,"elements", b);
+  Pointer_group_interface::add_element (me, ly_symbol2scm ("elements"),  b);
 
   me->add_dependency (b);
 }

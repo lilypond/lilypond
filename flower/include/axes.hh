@@ -25,6 +25,7 @@ String axis_name_str (Axis);
 /**
   the operator ++ for Axis. 
  */
+Axis other_axis (Axis); 
 Axis post_incr (Axis &);
 Axis incr (Axis &);
 //Axis operator++ (Axis);

@@ -1,5 +1,5 @@
 /*   
-  g-script-column-engraver.cc --  implement Script_column_engraver
+  script-column-engraver.cc --  implement Script_column_engraver
   
   source file of the GNU LilyPond music typesetter
   
@@ -72,8 +72,6 @@ Script_column_engraver::create_grobs ()
   if (!scol_p_ && script_l_arr_.size () > 1)
     {
       scol_p_ = new Item (get_property ("ScriptColumn"));
-
-
       announce_grob (scol_p_, 0);
     }
 
@@ -83,6 +81,7 @@ Script_column_engraver::create_grobs ()
 	Script_column::add_staff_sided (scol_p_, script_l_arr_[i]);
       script_l_arr_.clear ();
     }
+
 }
 
 ENTER_DESCRIPTION(Script_column_engraver,

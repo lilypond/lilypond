@@ -98,7 +98,7 @@ A2_engraver::acknowledge_grob (Grob_info i)
 	  Grob*t = text_p_;
 	  Side_position_interface::add_support (t, i.grob_l_);
 	  if (Side_position_interface::get_axis (t) == X_AXIS
-	      && !t->parent_l (Y_AXIS))
+	      && !t->get_parent (Y_AXIS))
 	    t->set_parent (i.grob_l_, Y_AXIS);
 	}
       if (Stem::has_interface (i.grob_l_))

@@ -15,14 +15,10 @@
 #include "translator-group.hh"
 
 /*
-  JUNKME: should use pushproperty everywhere.
-  
+  This is deprecated, since revert/override should be used
  */
 class Property_engraver : public Engraver
 {
-  /*
-    UGH. Junk Dictionary
-  */
   Scheme_hash_table *prop_dict_;	// junkme
   void apply_properties (SCM, Grob*, Translator_group *origin);
 
@@ -69,7 +65,7 @@ Property_engraver::initialize ()
 void
 Property_engraver::acknowledge_grob (Grob_info i)
 {
- SCM ifs = i.grob_l_->get_grob_property ("interfaces");
+  SCM ifs = i.grob_l_->get_grob_property ("interfaces");
   SCM props;
   for (; gh_pair_p (ifs); ifs = ly_cdr (ifs))
     {      

@@ -98,7 +98,7 @@ Tie_engraver::acknowledge_grob (Grob_info i)
 {
   if (Rhythmic_head::has_interface (i.grob_l_))
     {
-      Note_req * m = dynamic_cast<Note_req* > (i.req_l_);
+      Note_req * m = dynamic_cast<Note_req* > (i.music_cause ());
       if (!m)
 	return;
       now_heads_.push (Grob_pitch_tuple (i.grob_l_, m, now_mom () + m->length_mom ()));

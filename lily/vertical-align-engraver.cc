@@ -53,7 +53,7 @@ Vertical_align_engraver::qualifies_b (Grob_info i) const
   int sz = i.origin_trans_l_arr ((Translator*)this).size ()  ;
 
   return sz > 1 && Axis_group_interface::has_interface (i.grob_l_)
-    && !i.grob_l_->parent_l (Y_AXIS) && Axis_group_interface::axis_b (i.grob_l_, Y_AXIS);
+    && !i.grob_l_->get_parent (Y_AXIS) && Axis_group_interface::axis_b (i.grob_l_, Y_AXIS);
 }
 
 void

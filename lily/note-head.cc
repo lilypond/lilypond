@@ -16,6 +16,12 @@
 #include "musical-request.hh"
 #include "rhythmic-head.hh"
 
+/*
+  Note_head contains the code for printing note heads and the ledger lines.
+  
+  TODO: maybe it's worthwhile to split away the Ledger lines into a
+  separate grob.  */
+
 #include "staff-symbol-referencer.hh"
 
 /*
@@ -53,12 +59,25 @@ Note_head::ledger_line (Interval xwid, Grob *me)
 
 
 Molecule
-Note_head::ledger_lines (Grob*me, int count, Direction dir, Interval idw)
+Note_head::ledger_lines (Grob*me,
+			 bool take_space,
+			 int count, Direction dir, Interval idw)
 {
   Real inter_f = Staff_symbol_referencer::staff_space (me)/2;
+
+  /*
+    idw ?
+
+    (who's that ?  :-)
+
+
+    --hwn 
+   */
   Molecule ledger (ledger_line (idw, me));
 
-  ledger.set_empty (true);
+  if (!take_space)
+    ledger.set_empty (true);
+  
   Real offs = (Staff_symbol_referencer::on_staffline (me))
     ? 0.0
     : -dir * inter_f;
@@ -75,13 +94,9 @@ Note_head::ledger_lines (Grob*me, int count, Direction dir, Interval idw)
   return legs;
 }
 
-MAKE_SCHEME_CALLBACK (Note_head,brew_molecule,1);
-
-SCM
-Note_head::brew_molecule (SCM smob)  
+Molecule
+internal_brew_molecule (Grob *me,  bool ledger_take_space)
 {
-  Grob *me = unsmob_grob (smob);
-
   int sz = Staff_symbol_referencer::line_count (me)-1;
   int p = (int)  rint (Staff_symbol_referencer::position_f (me));
   int streepjes_i = abs (p) < sz 
@@ -91,7 +106,7 @@ Note_head::brew_molecule (SCM smob)
   SCM style  = me->get_grob_property ("style");
   if (!gh_symbol_p (style))
     {
-      return SCM_EOL;
+      return Molecule();
     }
 
   /*
@@ -106,18 +121,34 @@ Note_head::brew_molecule (SCM smob)
   String name = "noteheads-" + ly_scm2string (scm_primitive_eval (exp));
   Molecule out = Font_interface::get_default_font (me)->find_by_name (name);
 
-  
   if (streepjes_i) 
     {
       Direction dir = (Direction)sign (p);
       Interval hd = out.extent (X_AXIS);
       Real hw = hd.length ()/4;
-      out.add_molecule (ledger_lines (me, streepjes_i, dir,
+      out.add_molecule (Note_head::ledger_lines (me, ledger_take_space, streepjes_i, dir,
 				      Interval (hd[LEFT] - hw,
 						hd[RIGHT] + hw)));
     }
-  
-  return out.smobbed_copy ();
+  return out;
+}
+
+MAKE_SCHEME_CALLBACK (Note_head,brew_molecule,1);
+
+SCM
+Note_head::brew_molecule (SCM smob)  
+{
+  Grob *me = unsmob_grob (smob);
+  return internal_brew_molecule (me, true).smobbed_copy ();
+}
+
+/*
+  Compute the width the head without ledgers.
+ */
+Interval
+Note_head::head_extent (Grob *me, Axis a)
+{
+  return  internal_brew_molecule (me, false).extent (a);
 }
 
 bool
@@ -129,6 +160,10 @@ Note_head::has_interface (Grob*m)
 
 MAKE_SCHEME_CALLBACK (Note_head,brew_ez_molecule,1);
 
+/*
+  TODO: ledger lines are causing  a mess again, now with accidentals and
+  ez-note heads.
+ */ 
 SCM
 Note_head::brew_ez_molecule (SCM smob)
 {
@@ -155,8 +190,8 @@ Note_head::brew_ez_molecule (SCM smob)
       Direction dir = (Direction)sign (p);
       Interval hd = m.extent (X_AXIS);
       Real hw = hd.length ()/4;
-      m.add_molecule (ledger_lines (me, streepjes_i, dir,
-				      Interval (hd[LEFT] - hw,
+      m.add_molecule (ledger_lines (me, false, streepjes_i, dir,
+				    Interval (hd[LEFT] - hw,
 						hd[RIGHT] + hw)));
     }
   

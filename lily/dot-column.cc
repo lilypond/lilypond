@@ -23,7 +23,7 @@ Dot_column::force_shift_callback (SCM element_smob, SCM axis)
   Grob *me = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
   assert (a == Y_AXIS);
-  me = me->parent_l (X_AXIS);
+  me = me->get_parent (X_AXIS);
   SCM l = me->get_grob_property ("dots");
   do_shifts (l);
   return gh_double2scm (0.0);
@@ -135,7 +135,7 @@ Dot_column::add_head (Grob * me, Grob *rh)
     {
       Side_position_interface::add_support (me,rh);
 
-      Pointer_group_interface ::add_element (me, "dots",d);
+      Pointer_group_interface::add_element (me, ly_symbol2scm ("dots"), d);
       d->add_offset_callback (Dot_column::force_shift_callback_proc , Y_AXIS);
       Axis_group_interface::add_element (me, d);
     }

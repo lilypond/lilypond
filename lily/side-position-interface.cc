@@ -19,7 +19,7 @@
 void
 Side_position_interface::add_support (Grob*me, Grob*e)
 {
-  Pointer_group_interface::add_element (me, "side-support-elements",e);
+  Pointer_group_interface::add_element (me, ly_symbol2scm ("side-support-elements"), e);
 }
 
 
@@ -67,7 +67,7 @@ Side_position_interface::aligned_on_support_extents (SCM element_smob, SCM axis)
 SCM
 Side_position_interface::general_side_position (Grob * me, Axis a, bool use_extents)
 {
-  Grob *common = me->parent_l (a);
+  Grob *common = me->get_parent (a);
 
   /*
     As this is only used as a callback, this is called only once. We
@@ -108,7 +108,7 @@ Side_position_interface::general_side_position (Grob * me, Axis a, bool use_exte
 
   Direction dir = Side_position_interface::get_direction (me);
     
-  Real off =  me->parent_l (a)->relative_coordinate (common, a);
+  Real off =  me->get_parent (a)->relative_coordinate (common, a);
   SCM minimum = me->remove_grob_property ("minimum-space");
 
   Real total_off = dim.linear_combination (dir) + off;
@@ -147,6 +147,8 @@ Side_position_interface::aligned_on_support_refpoints (SCM smob, SCM axis)
 
 /**
   callback that centers the element on itself
+
+  Requires that self-alignment-{X,Y} be set.
  */
 MAKE_SCHEME_CALLBACK (Side_position_interface,aligned_on_self,2);
 SCM
@@ -177,7 +179,7 @@ Side_position_interface::aligned_on_self (SCM element_smob, SCM axis)
     {
       return gh_double2scm (- unsmob_grob (align)->relative_coordinate (me,  a));
     }
-    return gh_double2scm (0.0);
+  return gh_double2scm (0.0);
 }
 
 
@@ -265,7 +267,7 @@ Side_position_interface::centered_on_parent (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
-  Grob *him = me->parent_l (a);
+  Grob *him = me->get_parent (a);
 
   return gh_double2scm (him->extent (him,a).center ());  
 }
@@ -275,7 +277,7 @@ void
 Side_position_interface::add_staff_support (Grob*me)
 {
   Grob* st = Staff_symbol_referencer::staff_symbol_l (me);
-  if (st)
+  if (st && get_axis (me) == Y_AXIS)
     {
       add_support (me,st);
     }

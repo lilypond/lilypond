@@ -100,7 +100,7 @@ Note_column::add_head (Grob*me,Grob *h)
     }
   else if (Note_head::has_interface (h))
     {
-      Pointer_group_interface::add_element (me, "note-heads",h);
+      Pointer_group_interface::add_element (me, ly_symbol2scm ("note-heads"),h);
     }
   Axis_group_interface::add_element (me, h);
 }

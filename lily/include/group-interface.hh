@@ -27,12 +27,13 @@ struct Group_interface
 {
 public:
   static int count (Grob*  , String);
+  static void add_thing (Grob*, SCM, SCM);
   static void add_thing (Grob*, String nm, SCM);
 };
 
 struct Pointer_group_interface : public Group_interface {
 public:
-  static void add_element (Grob*, String nm, Grob*e);
+  static void add_element (Grob*, SCM nm, Grob*e);
 };
 /** 
   Put all score elements of ELT's property called NAME into an array,

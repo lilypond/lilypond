@@ -27,6 +27,7 @@ INSTALL - compiling and installing GNU LilyPond
     Debian GNU/Linux
   Problems
     FLex-2.5.4a and gcc-3.0
+    Linux-2.4.0, Guile-1.4 -with-threads
     NetBSD
     Solaris:
     AIX
@@ -518,6 +519,17 @@ LilyPond with gcc-3.0 you may do:
              make conf=gcc-3.0 -C lily
 
    Note that this is fixed in Debian/unstable for flex >= 2.5.4a-13.
+
+Linux-2.4.0, Guile-1.4 -with-threads
+------------------------------------
+
+   There's a bug in certain kernels around version 2.4.0, that is
+triggered when using Guile 1.4 compiled with pthreads.  You'll see
+random segmentation fault crashes of LilyPond.  Upgrade to a newer
+version of Linux.  If you can't do that, you may try to recompiling
+Guile without threads (YMMV):
+
+              guile-1.4$ ./configure --without-threads; make all install
 
 NetBSD
 ------

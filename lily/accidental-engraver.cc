@@ -90,6 +90,7 @@ number_accidentals (SCM sig, Note_req * note_l)
   if (prev == SCM_BOOL_F)
     prev = scm_assoc (gh_int2scm (n), sig);
   SCM prev_acc = (prev == SCM_BOOL_F) ? gh_int2scm (0) : ly_cdr (prev);
+
   bool different = !gh_equal_p (prev_acc , gh_int2scm (a));
   int p = gh_number_p (prev_acc) ? gh_scm2int (prev_acc) : 0;
 
@@ -266,7 +267,7 @@ Accidental_engraver::stop_translation_timestep ()
 void
 Accidental_engraver::acknowledge_grob (Grob_info info)
 {
-  Note_req * note_l =  dynamic_cast <Note_req *> (info.req_l_);
+  Note_req * note_l =  dynamic_cast <Note_req *> (info.music_cause ());
 
   if (note_l && Rhythmic_head::has_interface (info.grob_l_))
     {

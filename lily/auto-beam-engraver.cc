@@ -360,7 +360,7 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
     {
       Item* stem_l = dynamic_cast<Item *> (info.grob_l_);
 				       
-      Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (info.req_l_);
+      Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (info.music_cause ());
       if (!rhythmic_req)
 	{
 	  programming_error ("Stem must have rhythmic structure");

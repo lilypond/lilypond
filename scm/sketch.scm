@@ -19,7 +19,6 @@
 ;;     elif symbol == 'char':
 ;;         out.write ('moveto( %f %f); char(%d)' % (x,y,rest))
 
-
 ;; (define (dispatch x y expr)
 ;;  (let ((keyword (car expr))) 
 ;;   (cond
@@ -30,16 +29,10 @@
 ;;    ))
 
 
-;; guile < 1.4 compatibility for eval
-(if (or (equal? (minor-version) "4")
-	(equal? (minor-version) "3.4"))
-    (define (ly-eval e m)
-      (eval-in-module e m))
-    (define (ly-eval e m)
-      (eval e m)))
 
-(define-module (scm sketch))
-(debug-enable 'backtrace)
+(define-module (scm sketch) )
+;   :export (sketch-output-expression)
+;  :no-backtrace
 
 (define this-module (current-module))
 
@@ -47,7 +40,8 @@
   (display (dispatch expr) port))
 
 (use-modules
- (guile))
+ (guile)
+ (guile-user))
 
 (use-modules (ice-9 format))
 

@@ -36,7 +36,7 @@ Spanner::do_break_processing ()
    */
   for (int a = X_AXIS; a < NO_AXES; a ++)
     {
-      if (Spanner* parent = dynamic_cast<Spanner*> (parent_l ((Axis)a)))
+      if (Spanner* parent = dynamic_cast<Spanner*> (get_parent ((Axis)a)))
 	{
 	  if (!parent->spanned_rank_iv ().contains_b (this->spanned_rank_iv ()))
 	    {
@@ -190,7 +190,7 @@ Spanner::set_bound (Direction d, Grob*s)
   */
   if (dynamic_cast<Paper_column*> (i))
     {
-      Pointer_group_interface::add_element (i, "bounded-by-me",this);  
+      Pointer_group_interface::add_element (i, ly_symbol2scm ("bounded-by-me"), this);  
     }
 }
 

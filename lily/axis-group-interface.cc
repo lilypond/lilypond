@@ -17,11 +17,11 @@ Axis_group_interface::add_element (Grob*me,Grob *e)
     {
       Axis a = (Axis) gh_scm2int (ly_car (ax));
       
-      if (!e->parent_l (a))
+      if (!e->get_parent (a))
 	e->set_parent (me, a);
     }
 
-  Pointer_group_interface::add_element (me, "elements", e);
+  Pointer_group_interface::add_element (me, ly_symbol2scm ("elements"), e);
   me->add_dependency (e);
 }
 

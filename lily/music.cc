@@ -130,8 +130,22 @@ Music::to_relative_octave (Pitch m)
 
 
 void
-Music::transpose (Pitch)
+Music::transpose (Pitch delta)
 {
+  Pitch *p = unsmob_pitch (get_mus_property ("pitch"));
+  if (!p)
+    return ;
+
+  Pitch np = *p;
+  np.transpose (delta);
+  
+  if (abs (np.alteration_i_) > 2)
+    {
+	warning (_f ("Transposition by %s makes accidental larger than two",
+	  delta.str ()));
+    }
+
+  set_mus_property ("pitch", np.smobbed_copy ());
 }
 
 IMPLEMENT_TYPE_P (Music, "music?");

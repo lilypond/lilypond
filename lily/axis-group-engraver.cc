@@ -28,8 +28,7 @@ protected:
   virtual Spanner* get_spanner_p () const;
   virtual void add_element (Grob*) ;
 public:  
-TRANSLATOR_DECLARATIONS(
-  Axis_group_engraver );
+TRANSLATOR_DECLARATIONS(Axis_group_engraver );
 };
 
 
@@ -107,7 +106,7 @@ Axis_group_engraver::create_grobs ()
   /* UGH UGH UGH */
   for (int i=0; i < elts_.size (); i++)
     {
-      Grob *par = elts_[i]->parent_l (Y_AXIS);
+      Grob *par = elts_[i]->get_parent (Y_AXIS);
 
       if ((!par || !Axis_group_interface::has_interface (par))
 	  && ! elts_[i]->empty_b (Y_AXIS))

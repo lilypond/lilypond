@@ -51,7 +51,7 @@ void
 Line_of_score::typeset_grob (Grob * elem_p)
 {
   elem_p->pscore_l_ = pscore_l_;
-  Pointer_group_interface::add_element (this, "all-elements",elem_p);
+  Pointer_group_interface::add_element (this, ly_symbol2scm ("all-elements"),elem_p);
   scm_gc_unprotect_object (elem_p->self_scm ());
 }
 
@@ -63,6 +63,7 @@ Line_of_score::output_lines ()
     {
       unsmob_grob (ly_car (s))->do_break_processing ();
     }
+
   /*
     fixups must be done in broken line_of_scores, because new elements
     are put over there.  */
@@ -77,7 +78,6 @@ Line_of_score::output_lines ()
 	}
       count += scm_ilength (all);
     }
-
   
   /*
     needed for doing items.
@@ -164,8 +164,8 @@ set_loose_columns (Line_of_score* which, Column_x_positions const *posns)
 
       right = loose;
 
-      Real rx = right->relative_coordinate (right->parent_l (X_AXIS), X_AXIS);
-      Real lx = left->relative_coordinate (left->parent_l (X_AXIS), X_AXIS);
+      Real rx = right->relative_coordinate (right->get_parent (X_AXIS), X_AXIS);
+      Real lx = left->relative_coordinate (left->get_parent (X_AXIS), X_AXIS);
 
       int j = 1;
       loose = col;
@@ -365,7 +365,7 @@ Line_of_score::post_processing (bool last_line)
   /*
     generate all molecules  to trigger all font loads.
 
- (ugh. This is not very memory efficient.)  */
+    (ugh. This is not very memory efficient.)  */
   for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = ly_cdr (s))
     {
       unsmob_grob (ly_car (s))->get_molecule ();

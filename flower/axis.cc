@@ -16,6 +16,13 @@ axis_name_str (Axis a)
   return to_str (char (a + 'x'));
 }
 
+
+Axis
+other_axis (Axis a)
+{
+  return a ==  Y_AXIS ? X_AXIS : Y_AXIS;
+}
+
 /*
   TODO inline these.
  */

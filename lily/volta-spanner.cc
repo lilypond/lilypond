@@ -117,7 +117,7 @@ Volta_spanner::brew_molecule (SCM smob)
 void
 Volta_spanner::add_bar (Grob *me, Item* b)
 {
-  Pointer_group_interface::add_element (me, "bars",b);
+  Pointer_group_interface::add_element (me, ly_symbol2scm ("bars"), b);
   Side_position_interface::add_support (me,b);
   add_bound_item (dynamic_cast<Spanner*> (me), b); 
 }

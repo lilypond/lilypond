@@ -18,7 +18,7 @@ Script_column::add_staff_sided (Grob *me, Item *i)
   if (!gh_number_p (p))
     return;
 
-  Pointer_group_interface::add_element (me, "scripts",i);
+  Pointer_group_interface::add_element (me, ly_symbol2scm ("scripts"),i);
   
   me->add_dependency (i);
 }

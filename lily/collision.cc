@@ -24,7 +24,7 @@ Collision::force_shift_callback (SCM element_smob, SCM axis)
   Axis a = (Axis) gh_scm2int (axis);
   assert (a == X_AXIS);
   
-   me = me->parent_l (a);
+   me = me->get_parent (a);
   /*
     ugh. the way DONE is done is not clean
    */

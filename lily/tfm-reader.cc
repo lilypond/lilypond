@@ -222,7 +222,7 @@ Tex_font_metric_reader::read_char ()
 #define GET_CHAR_DIMEN(d) \
    if (d##_index != 0) \
      { \
-       input_.seek_ch_C (header_.##d##_pos + d##_index*4); \
+       input_.seek_ch_C (header_. d##_pos + d##_index*4); \
        tfm_char.d##_fix_ = input_.get_U32 (); \
        tfm_char.d##_ = fix_to_real (tfm_char.d##_fix_) \
                       * info_.design_size; \

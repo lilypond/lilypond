@@ -233,8 +233,9 @@
 		(molecule-callback . ,Text_item::brew_molecule)
 		(X-offset-callbacks . (,Side_position_interface::centered_on_parent ,Side_position_interface::aligned_on_self))
 		(padding . 0.6)
-		(direction . -1)
+;		(direction . -1)
 		(self-alignment-X . 0)
+		(self-alignment-Y . 0)
 		(font-family . number)
 		(font-relative-size . -3)
 		(font-shape . upright)
@@ -566,7 +567,21 @@
 		(break-align-symbol . Clef_item)
 		(visibility-lambda . ,begin-of-line-visible)
 		(font-family . roman)
-		(meta . ,(grob-description break-aligned-interface text-interface font-interface))
+		(meta . ,(grob-description break-aligned-interface text-interface font-interface))		
+	))
+
+	(StaffSpacing . (
+		(breakable . #t)
+		(X-extent-callback . #f)
+		(Y-extent-callback . #f)
+
+		(meta . ,(grob-description staff-spacing-interface))
+	))
+	(NoteSpacing . (
+		(X-extent-callback . #f)
+		(Y-extent-callback . #f)
+
+		(meta . ,(grob-description note-spacing-interface))
 	))
 
 	(StaffSymbol . (

@@ -70,7 +70,7 @@ Hara_kiri_group_spanner::force_hara_kiri_in_parent_callback (SCM element_smob, S
   Grob *daughter = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
   assert (a == Y_AXIS);
-  force_hara_kiri_callback (daughter->parent_l (a)->self_scm (), axis);
+  force_hara_kiri_callback (daughter->get_parent (a)->self_scm (), axis);
   return gh_double2scm (0.0);
 }
 
@@ -99,5 +99,5 @@ void
 Hara_kiri_group_spanner::add_interesting_item (Grob* me,Grob* n)
 {
   me->add_dependency (n);
-  Pointer_group_interface::add_element (me, "items-worth-living",n);
+  Pointer_group_interface::add_element (me, ly_symbol2scm ("items-worth-living"),n);
 }

@@ -77,8 +77,6 @@ struct Melodic_req :virtual Request
   static int compare (Melodic_req const&,Melodic_req const&);
   
 protected:
-  /// transpose. #delta# is relative to central c.
-  virtual void transpose (Pitch delta);
   virtual bool do_equal_b (Request const*) const;
 
   VIRTUAL_COPY_CONS (Music);

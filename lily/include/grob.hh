@@ -176,7 +176,7 @@ public:
    */
   void set_parent (Grob* e, Axis);
   
-  Grob *parent_l (Axis a) const {   return  dim_cache_[a].parent_l_; }
+  Grob *get_parent (Axis a) const {   return  dim_cache_[a].parent_l_; }
   DECLARE_SCHEME_CALLBACK (fixup_refpoint, (SCM));
 };
 

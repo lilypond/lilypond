@@ -292,7 +292,7 @@ Tuplet_bracket::get_default_dir (Grob*me)
 void
 Tuplet_bracket::add_column (Grob*me, Item*n)
 {
-  Pointer_group_interface::add_element (me, "columns",n);
+  Pointer_group_interface::add_element (me, ly_symbol2scm ("columns"), n);
   me->add_dependency (n);
 
   add_bound_item (dynamic_cast<Spanner*> (me), n);

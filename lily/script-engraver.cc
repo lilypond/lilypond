@@ -132,12 +132,12 @@ Script_engraver::acknowledge_grob (Grob_info inf)
 	{
 	  Grob *e = script_p_arr_[i];
 	  
-	  if (!e->parent_l (X_AXIS))
+	  if (!e->get_parent (X_AXIS))
 	    {
 	      e->set_parent (inf.grob_l_, X_AXIS);
 	    }
 	  if (Side_position_interface::get_axis (e) == X_AXIS
-	      && !e->parent_l (Y_AXIS))
+	      && !e->get_parent (Y_AXIS))
 	    {
 	      e->set_parent (inf.grob_l_, Y_AXIS);
 	      e->add_dependency (inf.grob_l_); // ??

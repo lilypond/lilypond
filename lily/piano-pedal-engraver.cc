@@ -92,7 +92,7 @@ Piano_pedal_engraver::acknowledge_grob (Grob_info info)
 	      Side_position_interface::add_support (p->item_p_, info.grob_l_);
 
 	      if (Side_position_interface::get_axis (p->item_p_) == X_AXIS
-		  && !p->item_p_->parent_l (Y_AXIS))
+		  && !p->item_p_->get_parent (Y_AXIS))
 		p->item_p_->set_parent (info.grob_l_, Y_AXIS);
 	    }
 	  if (Stem::has_interface (info.grob_l_))

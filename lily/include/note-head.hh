@@ -21,7 +21,8 @@ class Note_head
 {
 public:
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
-  static Molecule ledger_lines (Grob*,int,Direction,Interval);
+  static Interval head_extent (Grob*,Axis);
+  static Molecule ledger_lines (Grob*, bool, int,Direction,Interval);
   static Molecule ledger_line (Interval, Grob*) ;
   DECLARE_SCHEME_CALLBACK (brew_ez_molecule, (SCM ));
   static bool has_interface (Grob*);

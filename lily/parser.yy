@@ -1091,15 +1091,16 @@ request_chord:
 		THIS->push_spot ();
 	} /*cont */ simple_element post_requests	{
 		Music_sequence *l = dynamic_cast<Music_sequence*> ($3);
-		if (l) {
-			for (int i=0; i < $1->size (); i++)
-				l->append_music ($1->elem (i));
-			for (int i=0; i < $4->size (); i++)
-				l->append_music ($4->elem (i));
-			}
-		else
-			programming_error ("Need Sequence to add music to");
+		
+		$1->concat (*$4);
+	        for (int i=0; i < $1->size (); i++) {
+		  Music * m = $1->elem (i);
+		  l->append_music (m);
+		}
  		$$ = $3;
+
+		delete $1;
+		delete $4;
 	}
 	| command_element
 	;
@@ -1250,8 +1251,6 @@ verbose_command_req:
 
 	}
 	| PENALTY SCM_T 	{
-
-		
 		Break_req * b = new Break_req;
 		SCM s = $2;
 		if (!gh_number_p (s))
@@ -1577,7 +1576,6 @@ script_abbreviation:
 		$$ = gh_str02scm ("Dot");
 	}
 	;
-
 
 script_dir:
 	'_'	{ $$ = DOWN; }
