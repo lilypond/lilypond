@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.0"
 
 \header {
     
@@ -11,9 +11,9 @@ blanknotes = { \property Voice.NoteHead
 	       \property Voice.Stem
 	       \override #'transparent = ##t }
 unblanknotes = { \property Voice.NoteHead
-		 \revert #'molecule-callback
+		 \revert #'transparent
 		 \property Voice.Stem
-		 \revert #'molecule-callback }
+		 \revert #'transparent }
 
 
 \score {
