@@ -29,7 +29,7 @@
 		(thin-kern . 3.0)
 		(hair-thickness . 1.6)
 		(thick-thickness . 6.0)
-		(meta . ,(element-description  "BarLine" bar-line-interface general-element-interface))
+		(meta . ,(element-description  "BarLine" bar-line-interface ))
 	))
 
 	(BarNumber . (
@@ -43,7 +43,7 @@
                 (markup-to-properties . ,markup-to-properties)
                 (font-family . "roman")
 		(meta . ,(element-description "BarNumber"
-			text-interface general-element-interface break-aligned-interface))
+			text-interface  break-aligned-interface))
 	))
 
 	(Beam . ,basic-beam-properties)
@@ -73,7 +73,7 @@
 		(molecule-callback . ,Breathing_sign::brew_molecule)
 		(Y-offset-callbacks . (,Breathing_sign::offset_callback))
 		(visibility-lambda . ,begin-of-line-invisible)
-		(meta . ,(element-description "BreathingSign" general-element-interface break-aligned-interface))
+		(meta . ,(element-description "BreathingSign"  break-aligned-interface))
 	))
 
 	(Clef . (
@@ -83,7 +83,7 @@
 	   (break-align-symbol . Clef_item)
 	   (visibility-lambda . ,begin-of-line-visible)
 	   (Y-offset-callbacks  . (,Staff_symbol_referencer::callback)) 
-	   (meta . ,(element-description "Clef" clef-interface break-aligned-interface general-element-interface))
+	   (meta . ,(element-description "Clef" clef-interface break-aligned-interface ))
 	))
 
 	(ChordNames . (
@@ -102,7 +102,7 @@
 		(axes 0 1)
 		(note-width . 1.65)
 		(meta . ,(element-description "NoteCollision"
-		  general-element-interface note-collision-interface axis-group-interface
+		   note-collision-interface axis-group-interface
 		))
 	))
 
@@ -120,7 +120,7 @@
 
 	(DotColumn . (
 		(axes 0 )
-		(meta . ,(element-description "DotColumn" dot-column-interface general-element-interface axis-group-interface))
+		(meta . ,(element-description "DotColumn" dot-column-interface  axis-group-interface))
 	))
 
 	(Dots . (
@@ -128,7 +128,7 @@
 		(dot-count . 1)
 		(staff-position . 0.0)
 		(Y-offset-callbacks  . (,Dots::quantised_position_callback ,Staff_symbol_referencer::callback))
-		(meta . ,(element-description "Dots" dot-interface general-element-interface))
+		(meta . ,(element-description "Dots" dot-interface ))
 	))
 	
 	(DynamicText . (
@@ -141,7 +141,7 @@
                 (markup-to-properties . ,markup-to-properties)
 		(self-alignment-Y . 0)
 
-		(meta . ,(element-description "DynamicText" text-interface general-element-interface))
+		(meta . ,(element-description "DynamicText" text-interface ))
 	))
 	
 	(DynamicLineSpanner . (
@@ -190,7 +190,7 @@
 		(minimum-length .  0.5) 
 		(molecule-callback . ,Hyphen_spanner::brew_molecule)
 		(Y-extent-callback . ,Score_element::point_dimension_callback)
-		(meta . ,(element-description "LyricHyphen" lyric-hyphen-interface general-element-interface))
+		(meta . ,(element-description "LyricHyphen" lyric-hyphen-interface ))
 	))
 	
 	(InstrumentName . (
@@ -203,7 +203,7 @@
  		(style-to-font-name . ,style-to-font-name)
  		(markup-to-properties . ,markup-to-properties)
  		(font-family . "roman")
-		(meta . ,(element-description "InstrumentName" general-element-interface text-interface break-aligned-interface))
+		(meta . ,(element-description "InstrumentName"  text-interface break-aligned-interface))
 	))
 	
 	(KeySignature . (
@@ -211,7 +211,7 @@
 	  (break-align-symbol . Key_item)
 	  (visibility-lambda . ,begin-of-line-visible)
 	  (breakable . #t)
-	  (meta . ,(element-description "KeySignature" key-signature-interface general-element-interface break-aligned-interface))
+	  (meta . ,(element-description "KeySignature" key-signature-interface  break-aligned-interface))
 	))
 	
 	(Accidentals . (
@@ -220,12 +220,12 @@
 		(direction . -1)
 		(left-padding . 0.2)
 		(right-padding . 0.4)
-		(meta . ,(element-description "Accidentals" general-element-interface accidentals-interface))
+		(meta . ,(element-description "Accidentals"  accidentals-interface))
 	))
 	
 	(LineOfScore . (
 		(axes . (0 1))
-		(meta . ,(element-description "LineOfScore" general-element-interface axis-group-interface))
+		(meta . ,(element-description "LineOfScore"  axis-group-interface))
 	))
 	
 	(LyricExtender . (
@@ -233,7 +233,7 @@
 		(height . 0.8) ; stafflinethickness;
 		(right-trim-amount . 0.5)
 		(Y-extent-callback . ,Score_element::point_dimension_callback)
-		(meta . ,(element-description "LyricExtender" general-element-interface lyric-extender-interface))
+		(meta . ,(element-description "LyricExtender"  lyric-extender-interface))
 	))
 	
 	(LyricText . (
@@ -260,7 +260,7 @@
                (font-style . mark)
 		 (visibility-lambda . ,end-of-line-invisible)
 	  (padding . 4.0)
-	  (meta . ,(element-description "RehearsalMark" general-element-interface mark-interface side-position-interface))
+	  (meta . ,(element-description "RehearsalMark"  mark-interface side-position-interface))
 	))
 	
 	(MultiMeasureRest . (
@@ -270,16 +270,16 @@
 		(expand-limit . 10)
 		(padding . 2.0) ; staffspace
 		(minimum-width . 12.5) ; staffspace
-		(properties-to-font-name . ,properties-to-font-name)
-		(style-to-font-name . ,style-to-font-name)
-		(markup-to-properties . ,markup-to-properties)
-		(font-family . "number")
-                (meta . ,(element-description "MultiMeasureRest" multi-measure-rest-interface general-element-interface))
+ 		(properties-to-font-name . ,properties-to-font-name)
+ 		(style-to-font-name . ,style-to-font-name)
+ 		(markup-to-properties . ,markup-to-properties)
+ 		(font-family . "number")
+		(meta . ,(element-description "MultiMeasureRest" multi-measure-rest-interface ))
 	))
 	
 	(NoteColumn . (
 		(axes . (0 1))
-		(meta . ,(element-description "NoteColumn" general-element-interface axis-group-interface note-column-interface))
+		(meta . ,(element-description "NoteColumn"  axis-group-interface note-column-interface))
 	))
 
 	(NoteHead . (
@@ -288,7 +288,7 @@
 		(Y-offset-callbacks  . (,Staff_symbol_referencer::callback)) 
 		(meta . ,(element-description  "NoteHead"
 			rhythmic-head-interface
-			note-head-interface general-element-interface))
+			note-head-interface ))
 	))
 
 	(NoteName . (
@@ -316,7 +316,7 @@
                 (style-to-font-name . ,style-to-font-name)
                 (markup-to-properties . ,markup-to-properties)
 
-		(meta . ,(element-description "OctavateEight" text-interface general-element-interface))
+		(meta . ,(element-description "OctavateEight" text-interface ))
 	))
 	
 	(PaperColumn . (
@@ -336,11 +336,11 @@
 		(minimum-beam-collision-distance . 1.5)
 		(meta . ,(element-description  "Rest"
 			rhythmic-head-interface
-			rest-interface general-element-interface))
+			rest-interface ))
 	))
 	(RestCollision . (
 		(minimum-distance . 0.75)
-		(meta . ,(element-description "RestCollision" rest-collision-interface general-element-interface))
+		(meta . ,(element-description "RestCollision" rest-collision-interface ))
 	))
 
 	(Script . (
@@ -360,7 +360,7 @@
 
 		;; assume that notes at least this long are present.
 		(maximum-duration-for-spacing . ,(make-moment 1 8))
-		(meta . ,(element-description "SpacingSpanner" general-element-interface spacing-spanner-interface))
+		(meta . ,(element-description "SpacingSpanner"  spacing-spanner-interface))
 	))
 	(SpanBar . (
 
@@ -383,7 +383,7 @@
 		(thin-kern . 3.0)
 		(hair-thickness . 1.6)
 		(thick-thickness . 6.0)
-		(meta . ,(element-description "SpanBar" span-bar-interface bar-line-interface general-element-interface))
+		(meta . ,(element-description "SpanBar" span-bar-interface bar-line-interface ))
 	))
 
 	(StanzaNumber . (
@@ -402,7 +402,7 @@
 		(molecule-callback . ,Staff_symbol::brew_molecule)
 		(staff-space . 1.0)
 		(line-count . 5 )
-		(meta . ,(element-description "StaffSymbol" staff-symbol-interface general-element-interface))
+		(meta . ,(element-description "StaffSymbol" staff-symbol-interface ))
 	))
 	(SostenutoPedal . (
 		(molecule-callback . ,Text_item::brew_molecule)
@@ -417,7 +417,7 @@
                 (markup-to-properties . ,markup-to-properties)
 		
 		(self-alignment-X . 0)
-		(meta . ,(element-description "SostenutoPedal" text-interface general-element-interface))
+		(meta . ,(element-description "SostenutoPedal" text-interface ))
 	))
 
 	(Stem . (
@@ -436,7 +436,7 @@
 		; if stem is on middle line, choose this direction.
 		(default-neutral-direction . 1)
 		(X-offset-callbacks . (,Stem::off_callback))		
-		(meta . ,(element-description  "Stem" stem-interface general-element-interface))
+		(meta . ,(element-description  "Stem" stem-interface ))
 	))
 
 	(StemTremolo . (
@@ -444,11 +444,11 @@
 		(beam-width . 2.0) ; staff-space
 		(beam-thickness . 0.42) ; staff-space
 		(beam-space-function . ,default-beam-space-function)
-		(meta . ,(element-description "StemTremolo" stem-tremolo-interface general-element-interface))
+		(meta . ,(element-description "StemTremolo" stem-tremolo-interface ))
 	))
 
 	(SeparationItem . (
-		(meta . ,(element-description "SeparationItem" separation-item-interface general-element-interface))
+		(meta . ,(element-description "SeparationItem" separation-item-interface ))
 	))
 	(SeparatingGroupSpanner . (
 		(spacing-procedure . ,Separating_group_spanner::set_spacing_rods)
@@ -478,18 +478,18 @@
 		(arch-width . 1.5)
 		(bracket-thick . 0.25)
 		(bracket-width . 2.0)
-		(meta . ,(element-description "SystemStartDelimiter" system-start-delimiter general-element-interface))
+		(meta . ,(element-description "SystemStartDelimiter" system-start-delimiter ))
 	))
 
 	(TextScript . (
 		(molecule-callback . ,Text_item::brew_molecule)
 		(no-spacing-rods . #t)
 		(padding . 0.5)
-		(properties-to-font-name . ,properties-to-font-name)
-                (style-to-font-name . ,style-to-font-name)
-                (markup-to-properties . ,markup-to-properties)
-		(font-family . "roman")
-		(meta . ,(element-description "TextScript" text-script-interface text-interface side-position-interface general-element-interface))
+               (properties-to-font-name . ,properties-to-font-name)
+               (style-to-font-name . ,style-to-font-name)
+               (markup-to-properties . ,markup-to-properties)
+               (font-family . "roman")
+		(meta . ,(element-description "TextScript" text-script-interface text-interface side-position-interface ))
 	))
 	(TextSpanner . (
 		(molecule-callback . ,Text_spanner::brew_molecule)
@@ -499,7 +499,7 @@
                 (markup-to-properties . ,markup-to-properties)
 		(type . "line")
 		(direction . 1)
-		(meta . ,(element-description "TextSpanner" text-spanner-interface general-element-interface))		
+		(meta . ,(element-description "TextSpanner" text-spanner-interface ))		
 	))
 	(Tie . (
 		(molecule-callback . ,Tie::brew_molecule)
@@ -509,12 +509,12 @@
 		(thickness . 1.2)
 		(x-gap . 0.2)
 		(minimum-length  . 2.5)
-		(meta . ,(element-description "Tie" tie-interface general-element-interface))
+		(meta . ,(element-description "Tie" tie-interface ))
 	))
 
 	(TieColumn . (
 		(after-line-breaking-callback . ,Tie_column::after_line_breaking)
-		(meta . ,(element-description "TieColumn" tie-column-interface general-element-interface))
+		(meta . ,(element-description "TieColumn" tie-column-interface ))
 	))
 
 	(TimeSignature . (
@@ -527,7 +527,7 @@
                 (markup-to-properties . ,markup-to-properties)
                 (font-style . timesig)
 		
-		(meta . ,(element-description "TimeSignature" time-signature-interface general-element-interface))
+		(meta . ,(element-description "TimeSignature" time-signature-interface ))
 	))
 
 	(TupletBracket . (
@@ -541,7 +541,7 @@
                 (markup-to-properties . ,markup-to-properties)
                 (font-shape . "italic")
 		(meta .  ,(element-description "TupletBracket"
-			  general-element-interface tuplet-bracket-interface))
+			   tuplet-bracket-interface))
 	))
 
 	(UnaChordaPdeal . (
@@ -556,7 +556,7 @@
 		(Y-offset-callbacks .
 		 (,Side_position::aligned_side
 		  ,Side_position::centered_on_parent))
-		(meta . ,(element-description "UnaChordaPedal" text-interface general-element-interface))
+		(meta . ,(element-description "UnaChordaPedal" text-interface ))
 	))
 
 	(VoltaBracket . (

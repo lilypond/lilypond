@@ -7,11 +7,12 @@
   (list symbol type? description))
   
 (define (lily-interface symbol description props)
-  (list (list symbol)
-	(list description)
+  (list symbol
+	description
 	props
 	)
   )
+
 
 (define (merge-interfaces ifs)
    (list
@@ -20,16 +21,30 @@
     (apply append (map caddr ifs))
   ))
 
+(define (uniqued-alist  alist acc)
+  (if (null? alist) acc
+      (if (assoc (caar alist) acc)
+	  (uniqued-alist (cdr alist) acc)
+	  (uniqued-alist (cdr alist) (cons (car alist) acc)
+  ))))
+
 (define (element-description name . interfaces)
-  (let ((merged (merge-interfaces interfaces)))
+  (let* ((ifs (cons general-element-interface interfaces))
+	 (props (map caddr ifs))
+	 (syms (map car ifs))
+	)
     (list (cons 'separator "\n\n\n")	;easy printing.
 	  (cons 'name name)
-	  (cons 'interfaces (car merged))
+	  (cons 'interfaces syms)
+	  (cons 'interface-descriptions ifs)
 	  ; (cons 'interface-descriptions (cadr merged))
 	  ;; description of the element itself?
-	  (cons 'properties (caddr merged))
+	  (cons 'properties (apply append props))
   )))
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;
 
 (define general-element-interface

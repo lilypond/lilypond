@@ -125,7 +125,7 @@ Property_engraver::apply_properties (SCM p, Score_element *e, Translator_group*o
 	  
 	  SCM name = e->get_elt_property ("meta");
 	  name = scm_assoc (ly_symbol2scm ("name"), name);
-	  scm_display (name, errport);
+	  scm_display (gh_cdr(name), errport);
 	  scm_puts(" \\push #'",errport);
 	  scm_display (elt_prop_sym,errport);
 	  scm_puts ( " = #",errport);
