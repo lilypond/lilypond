@@ -13,6 +13,7 @@
 #include "scalar.hh"
 #include "varray.hh"
 #include "engraver.hh"
+#include "direction.hh"
 
 /// where is c-0 in the staff?
 class Clef_engraver : public  Engraver {
@@ -33,6 +34,7 @@ protected:
 public:
   TRANSLATOR_CLONE(Clef_engraver);
   int c0_position_i_;
+  Direction octave_dir_;
   String clef_type_str_;
 
   /* ************** */

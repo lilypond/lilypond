@@ -7,6 +7,8 @@
 #ifndef CLEFITEM_HH
 #define CLEFITEM_HH
 #include "item.hh"
+#include "text-def.hh"
+#include "direction.hh"
 
 /**
   Set a clef in a staff.
@@ -26,6 +28,12 @@ public:
     /// set because of existence of a bar
     bool default_b_;
 
+    /// should we print an octave symbol (8), and where? (up=1, down=1)?
+    Direction octave_dir_;
+
+    /// text def to put above/below clef (ugh: should be const)
+    Text_def * octave_marker_td_p_;
+  
     /* *************** */
     DECLARE_MY_RUNTIME_TYPEINFO;
     SCORE_ELEM_CLONE(Clef_item);
