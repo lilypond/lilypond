@@ -14,38 +14,57 @@
 \def\theinstrument{}
 \def\theopus{}
 \def\thepiece{}
+\def\themetre{}
+\def\thepoet{}
 %
 % duh.  LaTeX has a \title too.
-\renewcommand*{\title}[1]{\def\thetitle{#1\\}}
-\newcommand*{\subtitle}[1]{\def\thesubtitle{#1\\}}
-\newcommand*{\composer}[1]{\def\thecomposer{#1\\}}
+\renewcommand*{\title}[1]{\def\thetitle{#1}}
+\newcommand*{\subtitle}[1]{\def\thesubtitle{#1}}
+\newcommand*{\composer}[1]{\def\thecomposer{#1}}
 \newcommand*{\arranger}[1]{\def\thearranger{#1}}
 \newcommand*{\instrument}[1]{\def\theinstrument{#1}}
 \newcommand*{\opus}[1]{\def\theopus{#1}}
 \newcommand*{\piece}[1]{\def\thepiece{#1}}
+\newcommand*{\metre}[1]{\def\themetre{#1}}
+\newcommand*{\poet}[1]{\def\thepoet{#1}}
 %
-\newcommand*{\mudelatitle}[1]{\def\thetitle{#1\\}}
-\newcommand*{\mudelasubtitle}[1]{\def\thesubtitle{#1\\}}
-\newcommand*{\mudelacomposer}[1]{\def\thecomposer{#1\\}}
+\newcommand*{\mudelatitle}[1]{\def\thetitle{#1}}
+\newcommand*{\mudelasubtitle}[1]{\def\thesubtitle{#1}}
+\newcommand*{\mudelacomposer}[1]{\def\thecomposer{#1}}
 \newcommand*{\mudelaarranger}[1]{\def\thearranger{#1}}
 \newcommand*{\mudelainstrument}[1]{\def\theinstrument{#1}}
 \newcommand*{\mudelaopus}[1]{\def\theopus{#1}}
 \newcommand*{\mudelapiece}[1]{\def\thepiece{#1}}
+\newcommand*{\mudelametre}[1]{\def\themetre{#1}}
+\newcommand*{\mudelapoet}[1]{\def\thepoet{#1}}
 %
-\def\makelilytitle
-{
-  {\center\bfseries\center\sethuge{\thetitle}}
-        \par
-       {\center\bfseries\setLarge{\thesubtitle}}
+%
+\def\mudelanull{}%
+%
+\def\makelilytitle{%
+  \begin{center}
+        \bfseries
+        \ifx\mudelanull\thetitle\else\sethuge{\thetitle}\\ \fi
+        \ifx\mudelanull\thesubtitle\else\setLarge{\thesubtitle}\\ \fi
+  \end{center}
   \bigskip
-  {\flushright\setlarge{\normalfont\scshape\thecomposer}\par}
   % urg
   \edef\saveparskip{\parskip}\parskip-5mm
-  {\flushright\settext{\theopus}\par}
-  {\flushright\settext{\thearranger}\par}
+  \begin{minipage}[t]{0.45\textwidth}
+        \ifx\mudelanull\thepoet\else\settext{\thepoet}\\ \fi
+        \ifx\mudelanull\themetre\else\settext{\themetre}\\ \fi
+  \end{minipage}\hspace*{\fill}
+  \begin{minipage}[t]{0.45\textwidth}
+      \begin{flushright}
+          \ifx\mudelanull\thecomposer\else\setlarge{\normalfont\scshape\thecomposer}\\ \fi
+          \ifx\mudelanull\theopus\else\settext{\theopus}\\ \fi
+          \ifx\mudelanull\thearranger\else\settext{\thearranger}\\ \fi
+        \end{flushright}%
+  \end{minipage}\par
   \parskip\saveparskip
   {\center\setlarge{\theinstrument}\par}
   {\flushleft\setLarge{\normalfont\scshape\thepiece}}
+  \leavevmode
 }
 \def\makelilypiecetitle
 {
