@@ -83,21 +83,12 @@ Bezier_bow::de_uglyfy ()
       Real h = curve_.control_[i][Y_AXIS] * ff / len;
 
       // ugh. Unhardcode this
-#if 0
-      // Too crude.
-      if (h > 4 * ind)
-	{
-	  h = 4* ind; 
-	}
-#else
       Real f = default_height (len) / len;
       if (h > 2.0 * f)
 	{
 	  h = 2.0 * f; 
 	}
-#endif
-      
-      if (h > 0.8 + -2 * ind)
+      else if (h > 0.8 + -2 * ind)
 	{
 	  h = 0.8 - 2  *ind; 
 	}
