@@ -45,7 +45,7 @@ info: $(INFO_FILES)
 # The next version of makeinfo should split html files into their own
 # directory.  For now available only as patches from
 # http://appel.lilypond.org/software
-SPLITTING_MAKEINFO = $(shell makeinfo --version | grep 4.0.jcn2)
+SPLITTING_MAKEINFO = $(shell makeinfo --version | grep '4.0.jcn[2,3]')
 
 
 # Generic rule using % twice not possible?
@@ -67,7 +67,7 @@ $(outdir)/features/features.html: $(outdir)/features.texi
 
 ifneq ($(SPLITTING_MAKEINFO),)
 
-DEEP_HTML_FILES = $(outdir)/lilypond/lilypond.html $(outdir)/lilypond-internals/lilypond-internals.html
+DEEP_HTML_FILES = $(outdir)/lilypond/lilypond.html $(outdir)/lilypond-internals/lilypond-internals.html $(outdir)/features/features.html
 
 else
 

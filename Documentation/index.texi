@@ -24,6 +24,8 @@
 @item @uref{../user/out-www/lilypond/lilypond.html,LilyPond reference manual}
 also available in @uref{../user/out-www/lilypond.ps.gz,Postscript}
 @item LilyPond @uref{../user/out-www/lilypond-internals/lilypond-internals.html,internals}
+@item @uref{../user/out-www/features/features.html, LilyPond features}
+work in progress, to me merged with reference manual.
 @item @uref{../user/out-www/glossary.html,A glossary of musical
 terms}, includes translations.  Also available in @uref{../user/out-www/glossary.ps.gz,Postscript})
 @item @uref{../user/out-www/lilypond-book.html,lilypond-book}, a tool for
