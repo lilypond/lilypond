@@ -20,9 +20,12 @@ class PointerList : public List<void *>
     void concatenate(PointerList<T> const &s) { List<void*>::concatenate(s); }
     PointerList() {}
 };
+/** This class does no deletion of the pointers, but it knows how to
+  copy itself (shallow copy). We could have derived it from List<T>,
+  but this design saves a lot of code dup; for all PointerLists in the
+  program only one parent List<void*> is instantiated.  */
 
-
-/// intrusive pl. deletes pointers given to it.
+///  pl. which deletes pointers given to it.
 template<class T>
 struct IPointerList : public PointerList<T> {
     IPointerList(IPointerList&) { set_empty(); }
@@ -33,6 +36,7 @@ protected:
 };
 /**
   NOTE:
+  
   The copy constructor doesn't do what you'd want:
   Since T might have a virtual ctor, we don't try to do a
 
