@@ -133,12 +133,11 @@ Tie::get_control_points (SCM smob)
   Real left_x;
 
   /*
-    this is a kludge: the tie has to be long enough to be
-    visible, but should not go through key sigs.
-
- (please fixme)
+     the tie has to be long enough to be visible, but should not go
+    through key sigs. In the 1.5 series the pref.matter - note
+    distance is fixed , so this won't be a problem anymore.
    */
-  Real lambda = 0.5;		
+  Real lambda = 0.9;		
   
   if (Note_head::has_interface (l))
     left_x = l->extent (l, X_AXIS)[RIGHT] + x_gap_f;

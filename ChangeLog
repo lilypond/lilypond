@@ -1,3 +1,7 @@
+2002-04-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* mf/feta-schrift.mf: lighter staccato.
+
 2002-04-22  Han-Wen  <hanwen@cs.uu.nl>
 
 	* mf/feta-nummer-code.mf (code): three fixes.

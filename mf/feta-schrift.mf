@@ -123,13 +123,9 @@ fet_beginchar("> accent", "sforzato", "sforzatoaccent")
 	labels(4);
 fet_endchar;
 
-%
-% Hmm. Should not meddle with darkness of font. Check out the 
-% correct value for radius. Maybe we'd better change padding --hwn
-%
 fet_beginchar("staccato dot", "staccato", "staccato")
 	save radius;
-	radius# =   3/(8 * 1.75) * staff_space#;
+	radius# =   0.20 * staff_space#;
 	define_whole_pixels(radius);
 	pickup pencircle scaled 2 radius;
 	drawdot (0,0);
@@ -152,9 +148,6 @@ fet_beginchar("staccatissimo/martellato up", "ustaccatissimo",
 	draw_staccatissimo;
 fet_endchar;
 
-%
-% FIXEM: scale labels too.
-%
 fet_beginchar("staccatissimo/martellato down", "dstaccatissimo", "dstaccatissimo")
 	draw_staccatissimo;
 	y_mirror_char;
