@@ -25,5 +25,3 @@ numbers, like @code{<4 6+>}.
 >
  }
 %% new-chords-done %%
-%% new-chords-done %%
-%% new-chords-done %%
