@@ -6,7 +6,7 @@
 
 scheme = \chords {
   % major chords
-  c
+  c1
   c:6		% 6 = major triad with added sixth
   c:maj		% triangle = maj
   c:6.9^7	% 6/9 
@@ -47,15 +47,15 @@ scheme = \chords {
 
 \score {
   \notes <
-    \context ChordNames {
-	#(set-chord-name-style 'jazz)
-	\property ChordNames.instrument = #"Jazz"
-	\property ChordNames.instr = #"Jz"
-	\scheme }
     \context ChordNames = bn {
 	#(set-chord-name-style 'banter)
 	\property ChordNames.instrument = # "Banter"
 	\property ChordNames.instr = #"Bn"
+	\scheme }
+    \context ChordNames = jz {
+	#(set-chord-name-style 'jazz)
+	\property ChordNames.instrument = #"Jazz"
+	\property ChordNames.instr = #"Jz"
 	\scheme }
     \context ChordNames = am {
 	#(set-chord-name-style 'american)
