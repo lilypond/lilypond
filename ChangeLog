@@ -1,3 +1,13 @@
+2003-04-04  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* lily/include/custos.hh, make/lilypond.suse.spec.in,
+	Documentation/topdocs/AUTHORS.texi: updated my email address
+
+	* Documentation/user/refman.itely: updated custos documentation;
+	beautified divisiones example; beautified articulations table
+
+	* lily/breathing-sign.cc: bugfix: finalis molecule
+
 2003-04-03  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* Documentation/user/refman.itely: added docu for

@@ -212,7 +212,7 @@ Breathing_sign::finalis (SCM smob)
   line2.translate_axis (0.5 * staff_space, X_AXIS);
   line1.add_molecule (line2);
 
-  return line2.smobbed_copy ();
+  return line1.smobbed_copy ();
 }
 
 MAKE_SCHEME_CALLBACK (Breathing_sign,offset_callback,2);

@@ -1909,68 +1909,71 @@ Other symbols can be added using the syntax
 @var{note}@code{-\}@var{name}. Again, they can be forced up or down
 using @code{^} and @code{_}.
 
-@cindex accent      
-@cindex marcato      
+@cindex accent
+@cindex marcato
 @cindex staccatissimo
 @cindex fermata
 @cindex stopped
 @cindex staccato
 @cindex portato
-@cindex tenuto        
+@cindex tenuto
 @cindex upbow
 @cindex downbow
 @cindex foot marks
 @cindex organ pedal marks
-@cindex turn         
-@cindex open          
+@cindex turn
+@cindex open
 @cindex flageolet
-@cindex reverseturn 
-@cindex trill        
-@cindex prall         
+@cindex reverseturn
+@cindex trill
+@cindex prall
 @cindex mordent
-@cindex prallprall  
-@cindex prallmordent 
+@cindex prallprall
+@cindex prallmordent
 @cindex prall, up
 @cindex prall, down
 @cindex mordent
 @cindex thumb marking
-@cindex segno         
+@cindex segno
 @cindex coda
 @cindex varcoda
 
 @lilypond[]
   \score {
     <
-      \property Score.LyricText \override #'font-family =#'typewriter
+      \property Score.LyricText \override #'font-family = #'typewriter
       \property Score.LyricText \override #'font-shape = #'upright
       \context Staff \notes {
+	\property Score.timing = ##f
+	\property Score.barAlways = ##t
+	\property Staff.BarLine \override #'transparent = ##t
         c''-\accent             c''-\marcato            c''-\staccatissimo
         c''-\staccato           c''-\tenuto             c''-\portato
-        c''-\stopped            c''-\upbow              c''-\downbow
-        c''^\lheel              c''-\rheel              c''^\ltoe
-        c''-\rtoe               c''-\open               c''-\flageolet
-        c''-\turn               c''-\reverseturn        c''-\trill
-        c''-\prall              c''-\mordent            c''-\prallprall
-        c''-\prallmordent       c''-\upprall            c''-\downprall
-        c''-\upmordent          c''-\downmordent        c''-\pralldown
-        c''-\prallup            c''-\lineprall          c''-\thumb
+        c''-\upbow              c''-\downbow            c''-\flageolet
+        c''-\thumb              c''^\lheel              c''-\rheel
+        c''^\ltoe               c''-\rtoe               c''-\open
+        c''-\stopped            c''-\turn               c''-\reverseturn
+        c''-\trill              c''-\prall              c''-\mordent
+        c''-\prallprall         c''-\prallmordent       c''-\upprall
+        c''-\downprall          c''-\upmordent          c''-\downmordent
+        c''-\pralldown          c''-\prallup            c''-\lineprall
         c''-\shortfermata       c''-\fermata            c''-\longfermata
         c''-\verylongfermata    c''-\segno              c''-\coda
         c''-\varcoda
       }
       \context Lyrics \lyrics {
-        accent__                marcato__              staccatissimo__
-        staccato__              tenuto__               portato__
-        stopped__               upbow__                downbow__
-        lheel__                 rheel__                ltoe__
-        rtoe__                  open__                 flageolet__
-        turn__                  reverseturn__          trill__
-        prall__                 mordent__              prallprall__
-        prallmordent__          uprall__               downprall__
-        upmordent__             downmordent__          pralldown__
-        prallup__               lineprall__            thumb__
-        shortfermata__          fermata__              longfermata__
-        verylongfermata__       segno__                coda__
+        accent__                marcato__               staccatissimo__
+        staccato__              tenuto__                portato__
+        upbow__                 downbow__               flageolet__
+        thumb__                 lheel__                 rheel__
+        ltoe__                  rtoe__                  open__
+        stopped__               turn__                  reverseturn__
+        trill__                 prall__                 mordent__
+        prallprall__            prallmordent__          uprall__
+        downprall__             upmordent__             downmordent__
+        pralldown__             prallup__               lineprall__            
+        shortfermata__          fermata__               longfermata__
+        verylongfermata__       segno__                 coda__
         varcoda__
       }
     >
@@ -4060,8 +4063,6 @@ output.
 @end example
 
 
-
-@c . {Custodes}
 @node Ancient notation 
 @section Ancient notation
 
@@ -4301,6 +4302,7 @@ historic editions (other than those of Petrucci)''.
 Petrucci used C clefs with differently balanced left-side vertical
 beams, depending on which staffline it was printed.
 
+@c . {Custodes}
 @node Custodes
 @subsection Custodes
 
@@ -4334,11 +4336,10 @@ such as via the @emph{editio vaticana} dating back to the beginning of
 the 20th century.
 
 For typesetting custodes, just put a @code{Custos_engraver} into the
-@internalsref{Staff} context when declaring the @code{\paper} block.  In this
-block, you can also globally control the appearance of the custos symbol
-by setting the custos @code{style} property.  Currently supported styles
-are @code{vaticana}, @code{medicaea}, @code{hufnagel} and
-@code{mensural}.
+Staff context when declaring the @code{\paper} block, as shown in the
+following example.  In the @code{\paper} block, you can also globally
+control the appearance of the custos symbol by setting the custos
+@code{style} property.
 
 @example
 \paper @{
@@ -4359,6 +4360,70 @@ block:
   c'1 d' e' d' \break c' d' e' d'
 @}
 @end example
+
+Currently, the following styles are supported:
+
+@lilypond[26pt]
+\score {
+    \notes {
+        \fatText
+        s
+        ^\markup { "vaticana" }
+        ^\markup { \musicglyph #"custodes-vaticana-u0" }
+        s
+        ^\markup { "medicaea" }
+        ^\markup { \musicglyph #"custodes-medicaea-u0" }
+        s
+        ^\markup { "hufnagel" }
+        ^\markup { \musicglyph #"custodes-hufnagel-u0" }
+        s
+        ^\markup { "mensural" }
+        ^\markup { \musicglyph #"custodes-mensural-u0" }
+    }
+    \paper {
+        linewidth = -1.0
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+            TextScript \override #'extra-X-extent = #'(-1 . 1)
+        }
+        \translator{
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Staff_symbol_engraver"
+            minimumVerticalExtent = ##f
+        }
+    }
+}
+@end lilypond
+
+If the boolean property @code{adjust-if-on-staffline} is set to
+@code{#t} (which it is by default), lily typesets slightly different
+variants of the custos glyph, depending on the pitch of the custos,
+i.e. depending on the glyph being typeset either on a staffline or
+between two stafflines.  The idea is that the glyph will optically fit
+well into the staff, with the appendage on the right of the custos
+always ending at the same vertical position between two stafflines
+regardless of the pitch.  If you set @code{adjust-if-on-staffline} to
+@code{#f}, then lily takes regardless of the pitch always a glyph that
+is a compromise of the former two variants.
+
+Just like stems can be attached to noteheads in two directions
+@emph{up} and @emph{down}, each custos glyph is available with its
+appendage pointing either up or down.  If the pitch of a custos is
+above a selectable position, the appendage will point downwards; if
+the pitch is below this position, the appendage will point upwards.
+Use property @code{neutral-position} to select this position.  By
+default, it is set to @code{0}, such that the neutral position is the
+center of the staff.  Use property @code{neutral-direction} to control
+what happens if a custos is typeset on the neutral position itself.
+By default, this property is set to @code{-1}, such that the appendage
+will point downwards.  If set to @code{1}, the appendage will point
+upwards.  Other values such as @code{0} are reserved for future
+extensions and should not be used.
 
 @node Divisiones
 @subsection Divisiones
@@ -4738,13 +4803,26 @@ frequently used in contemporary music notation:
 @lilypond[singleline,verbatim]
 \score {
     \notes {
-        b'1^\shortfermata_\shortfermata^\markup { short fermata }
+        \fatText
+        b'
+        ^\shortfermata
+        _\shortfermata
+        ^\markup { short fermata }
         r
-        b'^\fermata_\fermata^\markup { fermata }
+        b'
+        ^\fermata
+        _\fermata
+        ^\markup { fermata }
         r
-        b'^\longfermata_\longfermata^\markup { long fermata }
+        b'
+        ^\longfermata
+        _\longfermata
+        ^\markup { long fermata }
         r
-        b'^\verylongfermata_\verylongfermata^\markup { very long fermata }
+        b'
+        ^\verylongfermata
+        _\verylongfermata
+        ^\markup { very long fermata }
         r
     }
 }
