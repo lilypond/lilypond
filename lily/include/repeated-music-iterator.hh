@@ -23,11 +23,8 @@ public:
   virtual bool ok () const;
 
 protected:
-  virtual Repeated_music* repeated_music_l () const;
-
   virtual void do_print () const;
   virtual void do_process_and_next (Moment);
-
 private:
   void start_next_element ();
 

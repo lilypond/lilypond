@@ -8,14 +8,14 @@
 #define RHYTHMIC_GROUPING_HH
 
 #include "minterval.hh"
-#include "array.hh"
+#include "parray.hh"
 
 /** data structure which represents rhythmic units   this is a tree. It groupes notes according to rules
 
   TODO Documentation. Unhairing
  */
 struct Rhythmic_grouping {
-    Array<Rhythmic_grouping*> children;
+    Link_array<Rhythmic_grouping> children;
     MInterval *interval_;
     
 
@@ -28,7 +28,7 @@ struct Rhythmic_grouping {
     Rhythmic_grouping (Rhythmic_grouping const&);
     Rhythmic_grouping (MInterval, int n=1);
     Rhythmic_grouping();
-    Rhythmic_grouping (Array<Rhythmic_grouping*>);
+    Rhythmic_grouping (Link_array<Rhythmic_grouping>);
     ~Rhythmic_grouping();
 
     void add_child (Moment start, Moment len);

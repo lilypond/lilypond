@@ -170,21 +170,12 @@ public:
 
 class Dynamic_req  : public virtual Musical_req  {
 public:
-  /**
-    for absolute dynamics
-
-    This sux. We'd want increasing numbers for FFF till PPP, but not 
-    for FP, SF, SFZ (FP is *not* louder than FFF)
-   */
-  enum Loudness {
-    FFFFFF, FFFFF, FFFF, FFF, FF, F, MF, MP, P, PP, PPP, PPPP, PPPPP, PPPPPP, FP, SF, SFF, SFZ, SP, SPP, RFZ };
-  static String loudness_static_str (Loudness);
   REQUESTMETHODS(Dynamic_req);
 };
 
 class Absolute_dynamic_req  : public Dynamic_req  {
 public:
-  Loudness loudness_;
+  String loudness_str_;
   virtual bool do_equal_b (Request*) const;
   String loudness_str () const;
   Absolute_dynamic_req();

@@ -92,10 +92,10 @@ Dynamic_engraver::do_process_requests()
 	      continue;
 	    }
 	  
-	  String loud = absd->loudness_str ();
+	  String loud = absd->loudness_str_;
 
 	  text_p_ = new G_text_item;
-	  text_p_->text_str_ =  "dyn" + loud; // ugh
+	  text_p_->text_str_ =  loud; // ugh
 	  Scalar prop = get_property ("dynamicStyle", 0);
 
 	  text_p_->style_str_ = prop.length_i () ? prop :  "dynamic";

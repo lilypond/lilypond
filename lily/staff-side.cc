@@ -79,20 +79,12 @@ Staff_side::get_position_f () const
       if (!(abs (coordinate_offset_f_i) % 2))
 	y += (Real)dir_ * inter_f;
     }
-//  else
-//    y = v[dir_] + 1 * dir_ * inter_f;
 
   return y;
 }
 
 Interval
 Staff_side::symbol_height() const
-{
-  return Interval (0,0);
-}
-
-Interval
-Staff_side::symbol_width () const
 {
   return Interval (0,0);
 }
@@ -123,7 +115,9 @@ Staff_side::symbol_extent () const
   if (axis_ == Y_AXIS)
     return symbol_height ();
   else
-    return symbol_width ();
+    {
+      assert (false);
+    }
 }
 
 

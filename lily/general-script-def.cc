@@ -6,10 +6,10 @@
   (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
+#include "molecule.hh"
 #include "general-script-def.hh"
 #include "debug.hh"
-#include "atom.hh"
+
 
 Direction
 General_script_def::staff_dir() const
@@ -60,19 +60,13 @@ General_script_def::do_print() const
 {
 }
 
-Atom
-General_script_def::get_atom (Paper_def*, Direction) const
+Molecule
+General_script_def::get_molecule (Paper_def*, Direction) const
 {
-  Atom s;
-  return Atom (s);
+  Molecule s;
+  return Molecule (s);
 }
 
 
 
 
-Interval
-General_script_def::width (Paper_def*) const
-{
-  Interval t;
-  return t;
-}

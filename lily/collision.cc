@@ -155,7 +155,8 @@ Collision::do_pre_processing()
 	     (shaddup)
 	     */
 	  Offset o (x_off[j] * wid_f, y_off[j] * inter_f);
-	  ((Score_element*)col_l_a[j])->translate (o);
+	  col_l_a[j]->translate (o);
+	  //	  ((Score_element*)col_l_a[j])->translate (o);
 	}
     }
 }

@@ -8,7 +8,7 @@
  */
 
 #include "g-text-item.hh"
-#include "atom.hh"
+
 #include "molecule.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
@@ -16,7 +16,7 @@
 Molecule*
 G_text_item::do_brew_molecule_p () const
 {
-  Atom a= paper ()->lookup_l(0)->text (style_str_,text_str_); 
+  Molecule a= paper ()->lookup_l(0)->text (style_str_,text_str_); 
   return new Molecule (a);
 }
 

@@ -19,7 +19,7 @@ Staff_margin_engraver::Staff_margin_engraver ()
   axis_ = X_AXIS;
   type_ = "margin";
   visibility_lambda_
-    = gh_eval_str ("(lambda (d) (if (= d 1) '(#f . #f) '(#t . #t)))");
+    = gh_eval_str ("postbreak_only_visibility");
 }
 
 

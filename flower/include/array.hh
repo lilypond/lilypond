@@ -56,15 +56,12 @@ protected:
 
 public:
   /// check invariants
-  void OK() const 
-    {
-      assert (max_ >= size_ && size_ >=0);
-      if (max_) assert (array_p_);
-    }
+  void OK() const ;
   /** report the size_.
       @see 
       {setsize_}
   */
+
   int size() const  
     {
       return size_;
@@ -88,10 +85,10 @@ public:
 
   // ugh, get around gcc 2.8.1 ice; see bezier.cc
   Array (int i) 
-  { 
-    max_ = size_ = i; 
-    array_p_ = new T[i];
-  }
+    { 
+      max_ = size_ = i; 
+      array_p_ = new T[i];
+    }
 
 
   /** set the size_ to #s#.
@@ -107,17 +104,13 @@ public:
     { delete[] array_p_; }
 
   /// return a  "new"ed copy of array 
-    T* copy_array() const 
+  T* copy_array() const 
     {
       T* Tarray = new T[size_];
       arrcpy (Tarray, array_p_, size_);
       return Tarray;
     }
-  // depracated
-  operator T*() const 
-    {
-      return copy_array();	
-    }
+
   void operator=(Array const & src) 
     {
       set_size (src.size_);
@@ -130,37 +123,36 @@ public:
     }
 
   /// tighten array size_.
-    void precompute()     {
-      remax (size_);
-    }
-    
-  T * remove_array_p () {
-    T * p = array_p_;
-    size_ = 0;
-    max_ = 0;
-    array_p_ =0;
-    return p;
+  void precompute()     {
+    remax (size_);
   }
+    
+  T * remove_array_p ();
 
   /// access element
   T &operator[] (int i)  
     {
-      return elem (i);
+      return elem_ref (i);
     }
   /// access element
-    T const & operator[] (int i) const 
+  T const & operator[] (int i) const 
     {
-      return elem (i);
+      return elem_ref (i);
     }
   /// access element
-    T &elem (int i) const 
+  T &elem_ref (int i) const 
     {
       assert (i >=0&&i<size_);
       return ((T*)array_p_)[i];	
     }
+  /// access element
+  T elem (int i) const 
+    {
+      return elem_ref (i);
+    }
 
   /// add to the end of array
-    void push (T x) 
+  void push (T x) 
     {
       if (size_ == max_)
 	remax (2*max_ + 1);
@@ -170,7 +162,7 @@ public:
       array_p_[size_++] = x;
     }
   /// remove and return last entry 
-    T pop() 
+  T pop() 
     {
       assert (!empty());
       T l = top (0);
@@ -178,12 +170,12 @@ public:
       return l;
     }
   /// access last entry
-    T& top (int j=0) 
+  T& top (int j=0) 
     {
       return (*this)[size_-j-1];
     }
   /// return last entry
-    T top (int j=0) const 
+  T top (int j=0) const 
     {
       return (*this)[size_-j-1];
     }
@@ -195,7 +187,7 @@ public:
       (*this)[i]=(*this)[j];
       (*this)[j]=t;
     }
-  bool empty() const 
+  bool empty () const 
     { return !size_; }
 
   void insert (T k, int j);
@@ -209,9 +201,8 @@ public:
       return t;
     }
   void unordered_del (int i)
-    
     {
-      elem (i) = top();
+      elem_ref (i) = top();
       set_size (size() -1);
     }
   void del (int i) 
@@ -229,15 +220,7 @@ public:
       set_size (size_ + src.size_);
       arrcpy (array_p_+s,src.array_p_, src.size_);	
     }
-  Array<T> slice (int lower, int upper) 
-    {
-      assert (lower >= 0 && lower <=upper&& upper <= size_);
-      Array<T> r;
-      int s =upper-lower;
-      r.set_size (s);
-      arrcpy (r.array_p_, array_p_  + lower, s);
-      return r;
-    }
+  Array<T> slice (int lower, int upper) ;
   void reverse();
 };
 

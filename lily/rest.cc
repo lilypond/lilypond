@@ -41,8 +41,8 @@ Rest::do_brew_molecule_p () const
   bool streepjes_b = abs(position_i_) > staff_size_i_ /2 &&  
     (balltype_i_ == 0 || balltype_i_ == 1);
   
-  Atom s(lookup_l ()->rest (balltype_i_, streepjes_b));
-  Molecule * m = new Molecule ( Atom (s));
+  Molecule s(lookup_l ()->rest (balltype_i_, streepjes_b));
+  Molecule * m = new Molecule ( Molecule (s));
   m->translate_axis (position_i_ *  paper ()->internote_f (), Y_AXIS);
   return m;
 }

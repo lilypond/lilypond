@@ -15,7 +15,7 @@
 class Line_of_score : public Spanner , public Super_element
 {
 public:
-  Link_array<Paper_column> cols;
+  Link_array<Paper_column> cols_;
   bool error_mark_b_;
 
   

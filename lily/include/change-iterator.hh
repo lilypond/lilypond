@@ -15,7 +15,6 @@
 
 class Change_iterator : public Music_iterator
 {
-  Change_translator *change_l ();
   void  error (String);
 
 protected:

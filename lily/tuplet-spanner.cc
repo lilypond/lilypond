@@ -9,7 +9,7 @@
   todo: handle breaking elegantly.
  */
 #include "beam.hh"
-#include "atom.hh"
+
 #include "box.hh"
 #include "debug.hh"
 #include "lookup.hh"
@@ -39,11 +39,12 @@ Tuplet_spanner::do_brew_molecule_p () const
 
   if (column_arr_.size ()){
     Real ncw = column_arr_.top ()->extent (X_AXIS).length ();
-    Atom num (tdef_p_->get_atom (paper (), CENTER));
+    Molecule num (tdef_p_->get_molecule (paper (), CENTER));
 
     if (beam_l_ && !bracket_visibility_b_)
       {
-	num.translate (((Directional_spanner*)beam_l_)->center ());
+	Directional_spanner* ds = dynamic_cast<Directional_spanner*>(beam_l_);
+	num.translate (ds->center ());
 	num.translate_axis (ncw, X_AXIS);
       }
     
@@ -54,11 +55,11 @@ Tuplet_spanner::do_brew_molecule_p () const
 	Real w = extent (X_AXIS).length () + ncw;
 
 	num.translate (Offset (w/2, dy/2));
-	mol_p->add_atom (lookup_l ()->plet (dy, w, dir_));
+	mol_p->add_molecule (lookup_l ()->plet (dy, w, dir_));
       }
 
     if (num_visibility_b_)
-      mol_p->add_atom (num);
+      mol_p->add_molecule (num);
   }
   return mol_p;
 }

@@ -1,4 +1,4 @@
-% 
+%  -*-Fundamental-*-
 % feta-bolletjes.mf --  implement noteheads
 % 
 % source file of LilyPond's pretty-but-neat music font
@@ -16,7 +16,7 @@
 save black_notehead_width;
 numeric black_notehead_width;
 
-fet_begingroup("balls");
+fet_begingroup("noteheads");
 
 noteheight#:=interline#+ (1 + overdone_heads) *stafflinethickness#;
 define_pixels(noteheight);
@@ -74,11 +74,18 @@ def draw_ledger(expr wid)=
 	draw z1 .. z2;
 enddef;
 
+fet_beginchar("Ledger ending", "ledgerending", "ledgerending")
+set_char_box (5/2 ledgerlinethickness#, 5/2 ledgerlinethickness#,
+  		ledgerlinethickness#/2,ledgerlinethickness#/2);
+        pickup pencircle scaled ledgerlinethickness;
+	lft x1 = -b;
+	rt x2 = w;
+	y1 =0; y2 =0;
+	draw z1 .. z2;
+fet_endchar;
+
 fet_beginchar("Brevis notehead", "-1", "brevisball")
 	draw_brevis(brevis_wid#);
-fet_endchar;
-fet_beginchar("Brevis ledger", "-1l", "brevisledger")
-	draw_ledger(brevis_wid#);
 fet_endchar;
 
 %
@@ -96,9 +103,6 @@ fet_beginchar("Longa notehead", "-2", "longaball");
 	
 	fill z7r .. z6r{z6-z7} .. {z7-z6} z6l -- z7l -- cycle;
 	penlabels(6,7);
-fet_endchar;
-fet_beginchar("Longa ledger", "-2l", "longaledger")
-	draw_ledger(brevis_wid#);
 fet_endchar;
 
 
@@ -175,9 +179,6 @@ fet_beginchar("Whole notehead", "0", "wholeball")
 fet_endchar;
 
 
-fet_beginchar("Whole ledger line", "0l", "wholeledger")
-	draw_ledger(whole_notehead_width#);
-fet_endchar;
 
 % half note
 % Wanske, p.39
@@ -207,9 +208,6 @@ fet_beginchar("Half notehead", "1",
 fet_endchar;
 
 
-fet_beginchar("Half ledger", "1l", "halfledger")
-	draw_ledger(half_notehead_width#);
-fet_endchar;
 
 % quarter note
 % Wanske p.38
@@ -235,9 +233,6 @@ fet_beginchar("Quart notehead", "2", "quartball")
 fet_endchar;
 
 
-fet_beginchar("Quart ledger", "2l", "quartledger")
-	draw_ledger(black_notehead_width#);
-fet_endchar;
 
 
 
@@ -316,11 +311,8 @@ fet_beginchar("Harmonic notehead","harmonic","harmonicball")
 	draw_harmonic_notehead(harmonic_wid#)
 fet_endchar;
 
-fet_beginchar("Harmonic ledger", "harmonicl", "harmonicledger")
-        draw_ledger(harmonic_wid#);
-fet_endchar;
 %fi
 
-fet_endgroup("balls");
+fet_endgroup("noteheads");
 
 define_pixels(black_notehead_width);

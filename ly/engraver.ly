@@ -102,7 +102,7 @@ VoiceContext = \translator {
 	\consists "Stem_engraver";
 	\consists "Beam_engraver";
 	\consists "Auto_beam_engraver";
-	\include "auto-beam.ly";
+	\include "auto-beam-settings.ly";
 	\consists "Abbreviation_beam_engraver";
 %	\consists "Multi_measure_rest_engraver";
 

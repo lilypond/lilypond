@@ -119,7 +119,7 @@ Bar_engraver::do_process_requests()
   else if (!now_mom ())
     {
       create_bar ();
-      bar_p_->type_str_ = "";
+      bar_p_->type_str_ = "|";
     }
   else 
     {

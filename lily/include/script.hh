@@ -21,7 +21,6 @@ protected:
   virtual void do_substitute_dependency (Score_element*,Score_element*);
   virtual void do_print() const;
   virtual Interval symbol_height() const;
-  virtual Interval symbol_width () const;
   virtual void do_pre_processing();
   virtual Interval do_width() const;
   VIRTUAL_COPY_CONS(Score_element);

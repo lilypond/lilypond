@@ -7,8 +7,8 @@
 */
 
 
-#ifndef METERGRAV_HH
-#define METERGRAV_HH
+#ifndef TIME_SIG_ENGRAVER_HH
+#define TIME_SIG_ENGRAVER_HH
 #include "engraver.hh"
 #include "time-description.hh"
 #include "rhythmic-grouping.hh"
@@ -27,4 +27,4 @@ public:
   Time_signature_engraver();
   
 };
-#endif // METERGRAV_HH
+#endif // TIME_SIG_ENGRAVER_HH

@@ -44,22 +44,18 @@ Molecule*
 Staff_symbol::do_brew_molecule_p() const
 {
   Real w = extent (X_AXIS).length ();
-  Real left_dx = -spanned_drul_[LEFT]->extent (X_AXIS)[LEFT];
-  Real right_dx = spanned_drul_[RIGHT]->extent (X_AXIS)[RIGHT];
-  
   Paper_def * p = paper();
-  Atom rule  = lookup_l ()->rule_symbol (p->get_var ("rulethickness"),
-					 w);
+  Molecule rule  = lookup_l ()->rule_symbol (p->get_var ("rulethickness"),
+					     w);
   Real height = (no_lines_i_-1) * inter_note_f();
   Molecule * m = new Molecule;
   for (int i=0; i < no_lines_i_; i++)
     {
-      Atom a (rule);
+      Molecule a (rule);
       a.translate_axis (height - i * inter_note_f()*2, Y_AXIS);
       m->add_molecule (a);
     }
 
-  //  m->translate_axis (-left_dx, X_AXIS);
   return m;
 }
 

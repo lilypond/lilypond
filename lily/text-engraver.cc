@@ -82,7 +82,9 @@ Text_engraver::do_process_requests ()
       G_staff_side_item *ss = new G_staff_side_item;
       ss->set_victim (text);
       ss->dir_ = r->dir_;
-
+      Scalar p (get_property ("textstyle", 0)); // textStyle?
+      if (p.length_i ())
+	text->style_str_ = p;
       text->text_str_ = t->text_str_;
 
       announce_element (Score_element_info (text, r));

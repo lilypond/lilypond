@@ -11,6 +11,7 @@
 #include "engraver.hh"
 #include "engraver-group.hh"
 #include "debug.hh"
+#include "paper-def.hh"
 
 void
 Engraver::fill_staff_info (Staff_info&)
@@ -36,7 +37,7 @@ Engraver::typeset_element (Score_element*p)
 Paper_def*
 Engraver::paper() const
 {
-  return (Paper_def*)output_def_l_;
+  return dynamic_cast<Paper_def*>(output_def_l_);
 }
 
 

@@ -47,7 +47,7 @@ Note_head::compare (Note_head *const  &a, Note_head * const &b)
 Interval
 Note_head::do_width () const
 {
-  Atom a =  lookup_l ()->ball (balltype_i_);
+  Molecule a =  lookup_l ()->ball (balltype_i_);
   Interval i = a.dim_[X_AXIS];
   i+= x_dir_ * i.length ();
   return i;
@@ -65,38 +65,39 @@ Note_head::do_brew_molecule_p() const
     ? 0
     : (abs(position_i_) - staff_size_i_/2) /2;
   
-  //Atom  s = lookup_l()->ball (balltype_i_);
-  
-  Atom  s; // = lookup_l()->ball (balltype_i_);
+  Molecule head; 
 
   if (note_head_type_str_.length_i ()) {
-    if (note_head_type_str_ == "normal")
+    if (note_head_type_str_ == "normal") // UGH
       note_head_type_str_ = "";
-    s = lookup_l()->special_ball (balltype_i_, note_head_type_str_);
+    head = lookup_l()->special_ball (balltype_i_, note_head_type_str_);
     }
   else
-    s = lookup_l()->ball (balltype_i_);
-  out = new Molecule (Atom (s));
-  out->translate_axis (x_dir_ * s.dim_[X_AXIS].length (), X_AXIS);
+    head = lookup_l()->ball (balltype_i_);
+  
+  out = new Molecule (Molecule (head));
+  out->translate_axis (x_dir_ * head.dim_[X_AXIS].length (), X_AXIS);
 
 
-  //out = new Molecule (Atom (s));
-  //out->translate_axis (x_dir_ * s.dim_[X_AXIS].length (), X_AXIS);
 
   if (streepjes_i) 
     {
-      int dir = sign (position_i_);
-      Atom streepje = lookup_l ()->streepje (balltype_i_);
+      Direction dir = sign (position_i_);
+      Interval hd = head.dim_[X_AXIS];
+      Real hw = hd.length ()/4;
       
-      int parity =  (position_i_ % 2) ? 1 : 0;
-	
+      Molecule ledger
+	= lookup_l ()->ledger_line  (Interval (hd[LEFT] - hw,
+					       hd[RIGHT] + hw));
+      
+      int parity =  abs(position_i_) % 2;
       
       for (int i=0; i < streepjes_i; i++)
 	{
-	  Atom s = streepje;
+	  Molecule s (ledger);
 	  s.translate_axis (-dir * inter_f * (i*2 + parity),
 			   Y_AXIS);
-	  out->add_atom (s);
+	  out->add_molecule (s);
 	}
     }
   

@@ -13,8 +13,6 @@
 #include "rest.hh"
 #include "debug.hh"
 
-
-
 bool
 Note_column::rest_b () const
 {
@@ -49,16 +47,6 @@ Note_column::head_positions_interval() const
   return iv;
 }
 
-/*
-Interval 
-Note_column::do_width () const
-{
-  if (head_l_arr_.size ())
-    return head_l_arr_[0]->extent (X_AXIS);
-  else
-    return Interval (0,0);
-}
-*/
 void
 Note_column::do_pre_processing()
 {
@@ -121,15 +109,15 @@ Note_column::do_substitute_dependency (Score_element*o, Score_element*n)
 void
 Note_column::add_head (Rhythmic_head *h)
 {
-  if (dynamic_cast<Rest *> (h))
+  if (Rest*r=dynamic_cast<Rest *> (h))
     {
-      rest_l_arr_.push ((Rest*)h);
-      add_support (h);  
+      rest_l_arr_.push (r);
+      add_support (r);  
     }
-  if (dynamic_cast<Note_head *> (h))
+  if (Note_head *nh=dynamic_cast<Note_head *> (h))
     {
-      head_l_arr_.push ((Note_head*) h);
-      add_support (h);
+      head_l_arr_.push (nh);
+      add_support (nh);
     }
 }
 

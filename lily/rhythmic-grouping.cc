@@ -135,7 +135,7 @@ Rhythmic_grouping::split (Array<MInterval> splitpoints)
   //check on splitpoints..
   int j = 0, i = 0, starti = 0, startj = 0;
   
-  Array<Rhythmic_grouping*> ch;
+  Link_array<Rhythmic_grouping> ch;
   while (1) 
     {
       if  (i >= children.size() || j >= splitpoints.size ())
@@ -160,8 +160,8 @@ Rhythmic_grouping::split (Array<MInterval> splitpoints)
 	    }
 	  else 
 	    {
-	      Rhythmic_grouping *newchild=new Rhythmic_grouping (
-								 children.slice (starti, i+1));
+	      Link_array<Rhythmic_grouping> slice = children.slice (starti, i+1);
+	      Rhythmic_grouping *newchild=new Rhythmic_grouping (slice);
 
 	      ch.push (newchild);
 	    }
@@ -193,7 +193,7 @@ Rhythmic_grouping::Rhythmic_grouping (MInterval t, int n)
 }
 
 
-Rhythmic_grouping::Rhythmic_grouping (Array<Rhythmic_grouping*> r)
+Rhythmic_grouping::Rhythmic_grouping (Link_array<Rhythmic_grouping> r)
   :children (r)
 {
   interval_ =0;
@@ -351,7 +351,7 @@ Rhythmic_grouping::extend (MInterval m) const
   assert (m.left >= interval().left);
   while (m.right  >interval().right) 
     {
-      Array<Rhythmic_grouping*> a (children);
+      Link_array<Rhythmic_grouping> a (children);
       for (int i=0; i < a.size(); i++) 
 	{
 	  a[i] =new Rhythmic_grouping (*children[i]);
@@ -369,7 +369,7 @@ parse_grouping (Array<int> beat_i_arr, Array<Moment> elt_length_arr)
   Moment here =0;
   assert (beat_i_arr.size() == elt_length_arr.size ());
   
-  Array<Rhythmic_grouping*> children;
+  Link_array<Rhythmic_grouping> children;
   for (int i=0; i < beat_i_arr.size(); i++) 
     {
       Moment last = here;

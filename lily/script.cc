@@ -73,7 +73,7 @@ Script::set_default_dir ()
 Interval
 Script::do_width () const
 {
-  return specs_p_->get_atom (paper (), dir_).extent ().x ();
+  return specs_p_->get_molecule (paper (), dir_).extent ().x ();
 }
 
 void
@@ -93,21 +93,16 @@ Script::do_pre_processing ()
 Interval
 Script::symbol_height () const
 {
-  return specs_p_->get_atom (paper (), dir_).extent ().y ();
+  return specs_p_->get_molecule (paper (), dir_).extent ().y ();
 }
 
-Interval
-Script::symbol_width () const
-{
-  return specs_p_->width (paper ());
-}
 
 Molecule*
 Script::do_brew_molecule_p () const
 {
   Real dx =0.;
 
-  Molecule*mol_p = new Molecule (specs_p_->get_atom (paper (), dir_));
+  Molecule*mol_p = new Molecule (specs_p_->get_molecule (paper (), dir_));
   /*
     ugh, staccato dots are not centred between stafflines (how?)?
   */

@@ -27,7 +27,7 @@ sign (int i) {
 
 #ifndef STANDALONE
 #include "lily-proto.hh"
-Interval itemlist_width (const Array<Item*> &its);
+Interval itemlist_width (const Link_array<Item> &its);
 #endif
 
 void set_frobnify (void*, size_t);

@@ -1,0 +1,91 @@
+/*
+  span-bar-grav.cc -- implement Base_span_bar_engraver
+
+  source file of the GNU LilyPond music typesetter
+
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+*/
+
+#include "span-bar.hh"
+#include "base-span-bar-engraver.hh"
+#include "vertical-align-spanner.hh"
+
+Base_span_bar_engraver::Base_span_bar_engraver()
+{
+  spanbar_p_ =0;
+  valign_l_ =0;
+  use_priority_b_ = true;
+  break_priority_i_ = 0;
+}
+
+Span_bar*
+Base_span_bar_engraver::get_span_bar_p() const
+{
+  return new Span_bar;
+}
+
+
+void
+Base_span_bar_engraver::acknowledge_element (Score_element_info i)
+{
+  int depth = i.origin_grav_l_arr_.size();
+  if (depth > 1
+      && dynamic_cast<Bar *> (i.elem_l_)) 
+    {
+      bar_l_arr_.push (dynamic_cast<Bar *> (i.elem_l_));
+	
+      if (bar_l_arr_.size() >= 2 && !spanbar_p_) 
+	/*
+	  hmm, i do want a bracket with one staff some times, but not always
+	  if (bar_l_arr_.size() >= 1 && !spanbar_p_)
+
+	  --jcn
+	*/
+
+	/*
+
+	  use a property?  get_property ("singleStaffBracket", 0) ?
+
+	  --hwn
+	 */
+	{
+	  spanbar_p_ = get_span_bar_p();
+
+	  if (use_priority_b_)
+	    {
+	      spanbar_p_->break_priority_i_ = break_priority_i_;
+	    }
+	  else
+	    {
+	      spanbar_p_->dim_cache_[X_AXIS].parent_l_ = &bar_l_arr_[0]->dim_cache_[X_AXIS];	  
+	    }
+	  
+	  announce_element (Score_element_info (spanbar_p_,0));
+	  if (spanbar_p_->type_str_.empty_b ())
+	    spanbar_p_-> type_str_ = bar_l_arr_[0]->type_str_;
+	}
+    }
+  else if  (dynamic_cast<Vertical_align_spanner *> (i.elem_l_) 
+	    && i.origin_grav_l_arr_.size() <= 2) 
+    {
+      valign_l_ = dynamic_cast<Vertical_align_spanner *> (i.elem_l_);
+    }
+}
+
+void
+Base_span_bar_engraver::do_pre_move_processing()
+{
+  if (spanbar_p_) 
+    {
+      for (int i=0; i < bar_l_arr_.size() ; i++)
+	spanbar_p_->add_bar (bar_l_arr_[i]);
+      spanbar_p_->set_align (valign_l_);
+      typeset_element (spanbar_p_);
+      spanbar_p_ =0;
+    }
+  bar_l_arr_.set_size (0);
+}
+
+
+
+ADD_THIS_TRANSLATOR(Base_span_bar_engraver);

@@ -35,13 +35,13 @@ Score_performer::~Score_performer()
 void
 Score_performer::play (Audio_element * p)
 {
-  if  (dynamic_cast<Audio_item *> (p)) 
+  if  (Audio_item * i=dynamic_cast<Audio_item *> (p)) 
     {
-      audio_column_l_->add_audio_item ((Audio_item*)p);
+      audio_column_l_->add_audio_item (i);
     }
-  else if (dynamic_cast<Audio_staff *> (p)) 
+  else if (Audio_staff*s=dynamic_cast<Audio_staff *> (p)) 
     {
-      performance_p_->add_staff ((Audio_staff*)p);
+      performance_p_->add_staff (s);
     }
   performance_p_->add_element (p);
 }
@@ -97,5 +97,5 @@ Score_performer::do_add_processing ()
   Translator_group::do_add_processing ();
   assert (dynamic_cast<Midi_def *> (output_def_l_));
   performance_p_ = new Performance;
-  performance_p_->midi_l_ = (Midi_def*) output_def_l_;  
+  performance_p_->midi_l_ = dynamic_cast<Midi_def*>(output_def_l_); 
 }

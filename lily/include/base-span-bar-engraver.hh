@@ -1,5 +1,5 @@
 /*
-  span-bar-engraver.hh -- declare Span_bar_engraver
+  base-span-bar-engraver.hh -- declare Span_bar_engraver
 
   source file of the GNU LilyPond music typesetter
 
@@ -18,7 +18,7 @@
   Span_bar over them if we find more than 2 bars
 
   */
-class Span_bar_engraver : public Engraver
+class Base_span_bar_engraver : public Engraver
 {
   Span_bar * spanbar_p_;
   Array<Bar*> bar_l_arr_;
@@ -27,10 +27,15 @@ public:
   VIRTUAL_COPY_CONS(Translator);
   
     
-  Span_bar_engraver();
+  Base_span_bar_engraver();
 protected:
-  virtual void do_creation_processing ();
-  virtual void do_removal_processing ();
+  /**
+    Do we use break priorities?  If true, use break_priority_i_ as
+    horizontal alignment priority, otherwise, hang the spanbar on the
+    acknowledged bar.  */
+  bool use_priority_b_;
+  int break_priority_i_;
+  
   virtual void acknowledge_element (Score_element_info);
   virtual void do_pre_move_processing();
   virtual Span_bar* get_span_bar_p() const;

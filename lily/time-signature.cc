@@ -21,24 +21,20 @@ Time_signature::Time_signature ()
 Molecule*
 Time_signature::do_brew_molecule_p () const
 {
-  Atom s;
   if (time_sig_type_str_.length_i ())
     {
       if (time_sig_type_str_[0]=='1')
 	{
 	  Array<int> tmparr = args_;
-	  tmparr[1]= 0;
-	  s = lookup_l ()->time_signature (tmparr);
+	  return new Molecule( lookup_l ()->time_signature (args_[0], 0));
 	}
       else
 	{
-	  s = lookup_l ()-> special_time_signature (time_sig_type_str_ ,args_);
+	  return new Molecule( lookup_l ()-> special_time_signature (time_sig_type_str_ ,args_[0], args_[1]));
 	}
     }
   else
-    s = lookup_l ()->time_signature (args_);
-  s.translate_axis (-s.extent ()[Y_AXIS].center (), Y_AXIS);
-  return new Molecule (Atom (s));
+    return new Molecule(lookup_l ()->time_signature (args_[0], args_[1]));
 }
 
 

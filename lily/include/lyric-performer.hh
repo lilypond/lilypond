@@ -25,7 +25,7 @@ protected:
   virtual void do_process_requests();
 
 private:
-  Array<Lyric_req*> lreq_arr_;
+  Link_array<Lyric_req> lreq_arr_;
 };
 
 #endif // LYRIC_PERFOMER_HH

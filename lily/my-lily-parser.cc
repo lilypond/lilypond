@@ -188,10 +188,10 @@ My_lily_parser::get_note_element (Note_req *rq, Duration * duration_p)
 /*
   UGH.
  */
-Array<Request*>*
+Link_array<Request>*
 My_lily_parser::get_parens_request (int t)
 {
-  Array<Request*>& reqs = *new Array<Request*>;
+  Link_array<Request>& reqs = *new Link_array<Request>;
   switch (t)
     {
     case '~':

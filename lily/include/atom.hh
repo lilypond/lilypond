@@ -13,32 +13,46 @@
 #include "string.hh"
 #include "box.hh"
 #include "lily-proto.hh"
+#include "lily-guile.hh"
 
+#if 0
 /// a symbol which can be translated, and freely copied
 class Atom {
+  static long smob_tag_;
+
+  static SCM smob_mark (SCM);
+  static scm_sizet smob_free (SCM);
+  static int smob_display (SCM, SCM, scm_print_state*);
+  Atom (SCM s);
+  SCM make_smob () const;
+public:
   Offset off_;
 
+  static SCM make_atom (SCM outputfunc);
+  SCM copy_self () const;
+  static Atom *atom_l (SCM);
+
+  /// Is #obj# a Foo?
+  static bool Atom_b(SCM obj);
+  static void init_smob ();
   
-public:
-  Protected_scm lambda_;
-  Score_element * origin_l_;
-
-  // urg, only used as a temp buffer
-  String str_;
-  String font_;
-  Box dim_;
-
-  Offset offset () const;
-  String str() const;		// for printing.
-  Atom (String, Box);
-  Atom ();
-  void translate (Offset o);
-  void translate_axis (Real r,Axis a);
-  /// how big is #this#?
-  Box extent() const;
-  Interval extent (Axis)const;
-  void print() const;
-  bool check_infinity_b () const;
-  bool empty() const;
+  SCM func_;
+  SCM font_;
 };
+
+#else
+
+class Atom {
+public:
+  Atom (SCM s);
+  Offset off_;
+  /*
+    SCM expression that (when evaluated) gives a TeX string
+representing a musical notation symbol.  */
+  Protected_scm func_;
+  Protected_scm font_;
+};
+
+#endif
+
 #endif

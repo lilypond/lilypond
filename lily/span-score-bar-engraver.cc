@@ -1,5 +1,5 @@
 /*
-  span-score-bar-grav.cc -- implement Span_score_bar_engraver,
+  span-score-bar-engraver.cc -- implement Span_score_bar_engraver,
   Piano_bar_engraver and Staff_group_bar_engraver
 
   source file of the GNU LilyPond music typesetter
@@ -7,52 +7,58 @@
   (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "span-score-bar.hh"
-#include "piano-brace.hh"
-#include "staff-bracket.hh"
+#include "span-bar.hh"
 #include "span-score-bar-engraver.hh"
 #include "paper-def.hh"
-
 
 Span_bar*
 Span_score_bar_engraver::get_span_bar_p () const
 {
-  Span_bar*s =  new Span_score_bar;
-  s->break_priority_i_ = -4;
+  Span_bar*s =  new Span_bar;
+  s->visibility_lambda_
+    = gh_eval_str ("spanbar_non_postbreak_visibility");
+  s->type_str_ = "scorebar";
     
   return s;
 }
 
 
-
-
-
+Span_score_bar_engraver::Span_score_bar_engraver ()
+{
+  use_priority_b_ = true;
+  break_priority_i_ = -4;
+}
 
 Span_bar*
 Piano_bar_engraver::get_span_bar_p () const
 {
-  Span_bar *s= new Piano_brace;
-  s->break_priority_i_ = -4;
+  Span_bar *s= new Span_bar;
+  s->visibility_lambda_
+    = gh_eval_str ("spanbar_postbreak_only_visibility");
+  s->no_width_b_ =true;
+  s->type_str_ = "{";
   return s;
 }
 
 Span_bar*
 Staff_group_bar_engraver::get_span_bar_p () const
 {
-  Span_bar *s= new Staff_bracket;
-  s->break_priority_i_ = -4;
+  Span_bar *s= new Span_bar;
+  s->visibility_lambda_
+    = gh_eval_str ("spanbar_postbreak_only_visibility");
+  s->no_width_b_ =true;
+  s->type_str_ = "[";
   return s;
 }
 
 void
 Staff_group_bar_engraver::acknowledge_element (Score_element_info i)
 {
-  Span_bar_engraver::acknowledge_element (i);
-  if (dynamic_cast<Piano_brace *> (i.elem_l_))
+  Base_span_bar_engraver::acknowledge_element (i);
+  if (Span_bar * b = dynamic_cast<Span_bar *> (i.elem_l_))
     {
-      Span_bar* b =  dynamic_cast <Span_bar *> (i.elem_l_);
-      Piano_brace * piano_l = (Piano_brace*) b;
-      piano_l->extra_move_left_f_  = paper ()->interline_f (); // ugh
+      if (b->type_str_ == "{")
+	b->extra_x_off_ -=  paper ()->interline_f (); // ugh
     }
 }
 

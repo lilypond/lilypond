@@ -7,10 +7,10 @@
 #ifndef COLHPOS_HH
 #define COLHPOS_HH
 
-#include "array.hh"
+#include "parray.hh"
 #include "lily-proto.hh"
 
-typedef Array<Paper_column*>  Line_of_cols;
+typedef Link_array<Paper_column>  Line_of_cols;
 
 struct Column_x_positions {
   Line_spacer * spacer_l_;

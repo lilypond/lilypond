@@ -6,8 +6,7 @@ STEPMAKE_TEMPLATES=metafont metapost install install-out
 
 EXTRA_DIST_FILES += TODO README feta.mp mfplain.ini
 
-FET_FILES = $(wildcard feta[0-9]*.mf) feta-din10.mf \
-  $(wildcard feta-nummer[0-9]*.mf)
+FET_FILES = $(wildcard feta[0-9]*.mf)
 
 LYTABLES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.ly))
 LOG_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.log))

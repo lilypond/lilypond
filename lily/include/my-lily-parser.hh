@@ -11,7 +11,7 @@
 #define MY_LILY_PARSER_HH
 #include "lily-proto.hh"
 #include "string.hh"
-#include "array.hh"
+#include "parray.hh"
 #include "lily-proto.hh"
 #include "lily-proto.hh"
 #include "duration.hh"
@@ -36,7 +36,7 @@ public:
     
   bool first_b_;
 
-  Array<Request*> pre_reqs, post_reqs;
+  Link_array<Request> pre_reqs, post_reqs;
   int fatal_error_i_;
   Sources * source_l_;
   int error_level_i_;
@@ -52,7 +52,7 @@ public:
   void do_yyparse();
   void parser_error (String);
 
-  Array<Request*>* get_parens_request (int t);
+  Link_array<Request>* get_parens_request (int t);
     
   void set_debug();
   void set_yydebug (bool);

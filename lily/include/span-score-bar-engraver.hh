@@ -10,7 +10,7 @@
 #ifndef SPAN_SCORE_BAR_GRAV_HH
 #define SPAN_SCORE_BAR_GRAV_HH
 
-#include "span-bar-engraver.hh"
+#include "base-span-bar-engraver.hh"
 
 /** 
 
@@ -19,11 +19,11 @@
 
   */
 
-class Span_score_bar_engraver : public Span_bar_engraver 
+class Span_score_bar_engraver : public Base_span_bar_engraver 
 {
 public:
   VIRTUAL_COPY_CONS (Translator);
-  
+  Span_score_bar_engraver ();
   virtual Span_bar* get_span_bar_p () const;
 };
 

@@ -265,9 +265,11 @@ Slur::get_encompass_offset_arr () const
       notes.push (info.o_ - left);
     }
   Encompass_info info (encompass_arr_[encompass_arr_.size () - 1], dir_);
+
   // urg:
   Slur* urg = (Slur*)this;
   urg->interstaff_f_ = info.interstaff_f_;
+  
   d.y () += interstaff_f_;
 
   // prebreak

@@ -18,7 +18,7 @@ class Beam_engraver : public Engraver {
 
   Beam *finished_beam_p_;
   Beam *beam_p_;
-
+  Beam_req * prev_start_req_;
   Rhythmic_grouping*grouping_p_;
   Rhythmic_grouping*finished_grouping_p_;
   

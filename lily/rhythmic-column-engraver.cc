@@ -70,23 +70,24 @@ Rhythmic_column_engraver::acknowledge_element (Score_element_info i)
   Item * item =  dynamic_cast <Item *> (i.elem_l_);
   if (!item)
     return;
-  if (dynamic_cast<Script *> (item)
-      && i.req_l_
-      && dynamic_cast <Musical_req *> (i.req_l_)) 
+  if (Script *s=dynamic_cast<Script *> (item))
     {
-      script_l_arr_.push ((Script*)item);
+      if (i.req_l_ && dynamic_cast <Musical_req *> (i.req_l_)) 
+	{
+	  script_l_arr_.push (s);
+	}
     }
-  else if (dynamic_cast<Stem *> (item))
+  else if (Stem*s=dynamic_cast<Stem *> (item))
     {
-      stem_l_ = (Stem*) item;
+      stem_l_ = s;
     }
-  else if (dynamic_cast<Rhythmic_head *> (item))
+      else if (Rhythmic_head*r=dynamic_cast<Rhythmic_head *> (item))
     {
-      rhead_l_arr_.push ((Rhythmic_head*)item);
+      rhead_l_arr_.push (r);
     }
-  else if (dynamic_cast<Dot_column *> (item))
+      else if (Dot_column*d =dynamic_cast<Dot_column *> (item))
     {
-      dotcol_l_ = (Dot_column*) item;
+      dotcol_l_ = d;
     }
 }
 

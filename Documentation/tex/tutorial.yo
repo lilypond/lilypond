@@ -524,8 +524,8 @@ that is covered in bind(Section)ref(sec:polyphonic).
 
 subsect(Chords with names)
 
-In the previous section we have been talking more about 'stacked notes'
-rather than 'chords'.
+In the previous section we have been talking more about `stacked notes'
+rather than `chords'.
 If you need to enter a lot of chords that have proper names, you can use 
 the code(\chords) mode as an alternative:
 COMMENT(

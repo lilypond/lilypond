@@ -31,7 +31,7 @@ Spring_spacer::default_solution() const
 Score_column*
 Spring_spacer::scol_l (int i)
 {
-  return (Score_column*)cols_[i].pcol_l_;
+  return dynamic_cast<Score_column*>(cols_[i].pcol_l_);
 }
 
 const Real COLFUDGE=1e-3;
@@ -394,7 +394,7 @@ Spring_spacer::add_column (Paper_column  *col, bool fixed, Real fixpos)
 Line_of_cols
 Spring_spacer::error_pcol_l_arr() const
 {
-  Array<Paper_column*> retval;
+  Link_array<Paper_column> retval;
   for (int i=0; i< cols_.size(); i++)
     if (cols_[i].ugh_b_)
       retval.push (cols_[i].pcol_l_);

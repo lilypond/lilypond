@@ -267,5 +267,5 @@ Score_engraver::do_add_processing ()
   assert (dynamic_cast<Paper_def *> (output_def_l_));
   assert (!daddy_trans_l_);
   pscore_p_ = new Paper_score;
-  pscore_p_->paper_l_ = (Paper_def*)output_def_l_;
+  pscore_p_->paper_l_ = dynamic_cast<Paper_def*>(output_def_l_);
 }

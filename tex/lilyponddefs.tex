@@ -136,11 +136,6 @@
 
 % stacked horizontal lines 
 \def\interscoreline{\vskip 16pt}
-\def\setdynamic#1{\dynfont #1}
-\def\setfinger#1{\fingerfont #1}
-\def\setnumber#1{\fetanummer #1}
-\def\setnumberj#1{\fetanummerj #1}
-\def\setmark#1{\markfont #1}
 
 % big fat marks, if errors are detected.
 \def\columnerrormark{\placebox{-5pt}{0pt}{\bf C!}}
@@ -150,43 +145,8 @@
   %{\bf u} %FIXME
 }
 
-\input dyndefs
 \input fetdefs
 
-
-\def\deprecated#1S{%%%%%%%%%
-
-\def\emptybar{}
-
-
-
-\def\defaultthinbar{\thinbar{\staffheight}}
-\def\defaultthickbar{\thickbar{\staffheight}}
-%? what-s wrong with rightalign?
-\def\repeatstopbar{\rightalign{\repeatcolon\kern2\smallspace\defaultthinbar\kern\smallspace\defaultthickbar}}
-\def\repeatstartbar{\hbox{\defaultthickbar\kern\smallspace\defaultthinbar\kern2\smallspace\repeatcolon}}
-\def\repeatstopstart{\hbox{\repeatcolon\kern2\smallspace\defaultthickbar\kern\smallspace\defaultthickbar\kern2\smallspace\repeatcolon}}
-
-%compatibility
-%urg
-\fetdef\repeatcolon{21}
-\def\repeatbar#1{\repeatstopbar}
-\def\startrepeat#1{\repeatstartbar}
-\def\repeatbarstartrepeat#1{\repeatstopstart}
-
-\def\doublebar#1{\hbox{\thinbar{#1}\hskip\smallspace\thinbar{#1}}}
-\def\thinbar#1{\dimen0=#1%
-        \vrule height .5\dimen0 depth .5\dimen0 width 1.6\stafflinethickness} % TODO parametric.
-\def\thickbar#1{\dimen0=#1%
-        \vrule height .5\dimen0 depth .5\dimen0 width 2\smallspace}
-\def\maatstreep#1{\thinbar{#1}}
-\def\startbar#1{\leftalign{\thickbar{#1}\kern\smallspace\thinbar{#1}}}
-\def\finishbar#1{\rightalign{\thinbar{#1}\kern\smallspace\thickbar{#1}}}
-\def\fatdoublebar#1{\hbox{\phantom{\repeatcolon\kern2\smallspace}\thickbar{#1}\kern\smallspace\thickbar{#1}}}
-}
-
-
-\def\extender#1{\vrule width#1 height .8\stafflinethickness}
 
 % ugh
 % see e.g. input/test/beam-pos.ly

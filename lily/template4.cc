@@ -5,7 +5,7 @@
 
   (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-
+#if 0
 #ifndef __CYGWIN32__
 #include "proto.hh"
 #include "pcursor.hh"
@@ -21,4 +21,5 @@
 #include "pcursor.tcc"
 #include "plist.tcc"
 
+#endif
 #endif

@@ -29,7 +29,6 @@ public:
   virtual bool ok () const;
 
 protected:
-  Music_wrapper *music_wrapper_l () const;
   virtual void do_print () const;
   virtual void do_process_and_next (Moment) ;
 

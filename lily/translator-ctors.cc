@@ -41,24 +41,3 @@ get_translator_l (String s)
   return 0;
 }
 
-Array<Translator_ctor> *ctor_global_static_arr_p_;
-
-
-/*
-  Very special greetings go out to Steve Jobs for creating a system 
-  that doesn't handle global construction correctly.
- */
-void
-add_constructor (Translator_ctor c)
-{
-  if (!ctor_global_static_arr_p_)
-    ctor_global_static_arr_p_ = new Array<Translator_ctor>;
-  ctor_global_static_arr_p_->push (c);
-}
-
-void
-call_constructors ()
-{
-  for (int i=0; i < ctor_global_static_arr_p_->size (); i++)
-    add_translator (ctor_global_static_arr_p_->elem (i) ());
-}

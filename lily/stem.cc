@@ -125,13 +125,13 @@ void
 Stem::add_head (Rhythmic_head *n)
 {
   n->add_dependency (this);	// ?
-  if (dynamic_cast<Note_head *> (n))
+  if (Note_head *nh = dynamic_cast<Note_head *> (n))
     {
-      head_l_arr_.push ((Note_head*)n);
+      head_l_arr_.push (nh);
     }
-  else if (dynamic_cast<Rest *> (n))
+  else if (Rest *r = dynamic_cast<Rest *> (n))
     {
-      rest_l_arr_.push ((Rest*)n);
+      rest_l_arr_.push (r);
     }
 }
 
@@ -294,16 +294,16 @@ Stem::do_brew_molecule_p () const
   
   if (!invisible_b ())
     {
-      Atom ss =lookup_l ()->stem (stem_y[DOWN]*dy,
+      Molecule ss =lookup_l ()->stem (stem_y[DOWN]*dy,
 				     stem_y[UP]*dy);
-      mol_p->add_atom (ss);
+      mol_p->add_molecule (ss);
     }
 
   if (!beam_l_ && abs (flag_i_) > 2)
     {
-      Atom fl = lookup_l ()->flag (flag_i_, dir_);
+      Molecule fl = lookup_l ()->flag (flag_i_, dir_);
       fl.translate_axis(stem_y[dir_]*dy, Y_AXIS);
-      mol_p->add_atom (fl);
+      mol_p->add_molecule (fl);
     }
 
   if (head_l_arr_.size())

@@ -28,6 +28,7 @@
 #include "lily-guile.hh"
 #include "paper-def.hh"
 #include "midi-def.hh"
+#include "global-ctor.hh"
 
 #if HAVE_GETTEXT
 #include <libintl.h>
@@ -248,6 +249,12 @@ setup_paths ()
 void
 main_prog (int argc, char **argv)
 {
+  /*
+    need to do this first. Engravers use lily.scm contents.
+   */
+  read_lily_scm_file ( "lily.scm");
+  cout << endl;
+
   call_constructors ();
   default_outname_base_global = "lelie";
   all_fonts_global_p = new All_font_metrics (global_path.str ());

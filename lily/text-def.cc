@@ -21,21 +21,6 @@ Text_def::staff_dir () const
   return DOWN;
 }
 
-Real
-Text_def::guess_width_f(Atom& a) const
-{
-  return a.dim_.x ().length ();
-}
-
-Interval
-Text_def::width (Paper_def * p) const
-{
-  Atom a = get_atom (p,CENTER);
-
-  Interval i (0, guess_width_f (a));
-  i += - (align_dir_ + 1)* i.center ();
-  return i;
-}
 
 void
 Text_def::do_print() const
@@ -59,12 +44,12 @@ Text_def::do_equal_b (General_script_def const *gdef) const
 	&& style_str_ == def->style_str_;
 }
 
-Atom
-Text_def::get_atom (Paper_def *p, Direction) const
+Molecule
+Text_def::get_molecule (Paper_def *p, Direction) const
 {
-  Atom a= p->lookup_l(0)->text (style_str_, text_str_);
+  Molecule a= p->lookup_l(0)->text (style_str_, text_str_);
 
-  a.translate_axis (-(align_dir_ + 1)* guess_width_f (a) / 2, X_AXIS);
+  a.translate_axis (-(align_dir_ + 1)* a.dim_[X_AXIS].center (), X_AXIS);
   
   return a;
 }

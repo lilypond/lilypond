@@ -43,10 +43,13 @@ Protected_scm::operator =(Protected_scm const &s)
 Protected_scm::~Protected_scm ()
 {
   if  (object_)
-    scm_unprotect_object (object_);
+    {
+      scm_unprotect_object (object_);
+      object_ =0L;		// be nice to conservative GC
+    }
 }
 
-Protected_scm::operator SCM ()
+Protected_scm::operator SCM () const
 {
   return object_;
 }

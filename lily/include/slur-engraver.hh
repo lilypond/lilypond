@@ -11,10 +11,10 @@
 #include "engraver.hh"
 
 class Slur_engraver :public Engraver {
-  Array<Slur_req*> requests_arr_;
-  Array<Slur_req*> new_slur_req_l_arr_;
-  Array<Slur *> slur_l_stack_;
-  Array<Slur*> end_slur_l_arr_;
+  Link_array<Slur_req> requests_arr_;
+  Link_array<Slur_req> new_slur_req_l_arr_;
+  Link_array<Slur> slur_l_stack_;
+  Link_array<Slur> end_slur_l_arr_;
 
 protected:
   virtual bool do_try_music (Music*);

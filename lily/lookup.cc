@@ -25,6 +25,7 @@
 #include "afm.hh"
 #include "scope.hh"
 #include "molecule.hh"
+#include "atom.hh"
 
 SCM
 array_to_list (SCM *a , int l)
@@ -52,15 +53,35 @@ Lookup::Lookup (Lookup const& s)
 }
 
 
+Molecule
+Lookup::ledger_line (Interval xwid) const
+{
+  Molecule end (afm_find ("noteheads-ledgerending"));
+  Interval ed = end.dim_[X_AXIS];
+  xwid = Interval (xwid[LEFT] - ed[LEFT],
+		   xwid[RIGHT] - ed[RIGHT]);
+  Molecule mid = filledbox (Box (xwid, end.dim_[Y_AXIS]));
+  Molecule l (mid);
+
+  Molecule e2 = end;
+  Molecule e1 = end;
+  e1.translate_axis (xwid[RIGHT], X_AXIS);
+  e2.translate_axis (xwid[LEFT], X_AXIS);
+
+  l.add_molecule (e1);
+  l.add_molecule (e2);
+  return l;
+}
+
 
 Molecule
 Lookup::accidental (int j, bool cautionary) const
 {
-  Molecule m(afm_find (String ("accidentals") + String ("-") + to_str (j)));
+  Molecule m(afm_find (String ("accidentals-") + to_str (j)));
   if (cautionary) 
     {
-      Atom open = afm_find (String ("accidentals") + String ("-("));
-      Atom close = afm_find (String ("accidentals") + String ("-)"));
+      Molecule open = afm_find (String ("accidentals-("));
+      Molecule close = afm_find (String ("accidentals-)"));
       m.add_at_edge(X_AXIS, LEFT, Molecule(open), 0);
       m.add_at_edge(X_AXIS, RIGHT, Molecule(close), 0);
     }
@@ -69,12 +90,12 @@ Lookup::accidental (int j, bool cautionary) const
 
 
 
-Atom
+Molecule
 Lookup::afm_find (String s, bool warn) const
 {
   if (!afm_l_)      
     {
-      Lookup * me =     ((Lookup*)this);
+      Lookup * me =     (Lookup*)(this);
       me->afm_l_ = all_fonts_global_p->find_afm (font_name_);
       if (!me->afm_l_)
 	{
@@ -82,31 +103,30 @@ Lookup::afm_find (String s, bool warn) const
 	  warning (_f("Search path %s\n", global_path.str ().ch_C()));
 	}
     }
-  Adobe_font_char_metric m = afm_l_->find_char (s, warn);
-
-  Atom a;
-  if (m.code () < 0)
-    return a;
+  Adobe_font_char_metric cm = afm_l_->find_char (s, warn);
+  Molecule m;
+  if (cm.code () < 0)
+    return m;
     
-  a.dim_ = m.dimensions();
-  
-  a.lambda_ = gh_list (ly_symbol ("char"),
-		       gh_int2scm (m.code ()),
-		       SCM_UNDEFINED);
-  a.font_ = font_name_;
-  return a;
+  Atom at (gh_list (ly_symbol ("char"),
+		    gh_int2scm (cm.code ()),
+		    SCM_UNDEFINED));
+  at.font_ = ly_symbol (font_name_.ch_C());
+  m.dim_ = cm.dimensions();
+  m.add_atom (&at);
+  return m;
 }
 
-Atom
+Molecule
 Lookup::ball (int j) const
 {
   if (j > 2)
     j = 2;
 
-  return afm_find (String ("balls") + String ("-") + to_str (j));
+  return afm_find (String ("noteheads-") + to_str (j));
 }
 
-Atom
+Molecule
 Lookup::simple_bar (String type, Real h) const
 {
   SCM thick = ly_symbol ("barthick_" + type);
@@ -115,35 +135,30 @@ Lookup::simple_bar (String type, Real h) const
     {
       w = paper_l_->get_realvar (thick);
     }
-  
-  Atom a;
-  a.lambda_ = gh_list (ly_symbol ("filledbox"),
-		       gh_double2scm (0),
-		       gh_double2scm (w),		       
-		       gh_double2scm (h/2),
-		       gh_double2scm (h/2),		       
-		       SCM_UNDEFINED);
 
-  a.dim_[X_AXIS] = Interval(0,w);
-  a.dim_[Y_AXIS] = Interval (-h/2, h/2);
-  return a;
+  return filledbox (Box (Interval(0,w), Interval(-h/2, h/2)));
 }
 
   
 Molecule
 Lookup::bar (String str, Real h) const
 {
+  if (str == "[")
+    return staff_bracket (h);
+  else if (str == "{")
+    return staff_brace (h);
+  
   Real kern = paper_l_->get_var ("bar_kern");
   Real thinkern = paper_l_->get_var ("bar_thinkern");  
-  Atom thin = simple_bar ("thin", h);
-  Atom thick = simple_bar ("thick", h);
-  Atom colon = afm_find ("dots-repeatcolon");  
+  Molecule thin = simple_bar ("thin", h);
+  Molecule thick = simple_bar ("thick", h);
+  Molecule colon = afm_find ("dots-repeatcolon");  
 
   Molecule m;
-
+  
   if (str == "")
     {
-      return fill (Box (Interval(0,0),Interval (-h/2, h/2)));
+      return fill (Box (Interval(0, 0), Interval (-h/2, h/2)));
     }
   else if (str == "|")
     {
@@ -152,7 +167,7 @@ Lookup::bar (String str, Real h) const
   else if (str == "|.")
     {
       m.add_at_edge (X_AXIS, LEFT, thick, 0);      
-      m.add_at_edge (X_AXIS, LEFT, thin,kern);
+      m.add_at_edge (X_AXIS, LEFT, thin, kern);
     }
   else if (str == ".|")
     {
@@ -167,55 +182,57 @@ Lookup::bar (String str, Real h) const
     }
   else if (str == "|:")
     {
-      m.add_at_edge (X_AXIS, RIGHT, thick,0);
-      m.add_at_edge (X_AXIS, RIGHT, thin,kern);
-      m.add_at_edge (X_AXIS, RIGHT, colon,kern);      
+      m.add_at_edge (X_AXIS, RIGHT, thick, 0);
+      m.add_at_edge (X_AXIS, RIGHT, thin, kern);
+      m.add_at_edge (X_AXIS, RIGHT, colon, kern);      
     }
   else if (str == ":|:")
     {
-      m.add_at_edge (X_AXIS, LEFT, thick,thinkern);
-      m.add_at_edge (X_AXIS, LEFT, colon,kern);      
-      m.add_at_edge (X_AXIS, RIGHT, thick,kern);
-      m.add_at_edge (X_AXIS, RIGHT, colon,kern);      
+      m.add_at_edge (X_AXIS, LEFT, thick, thinkern);
+      m.add_at_edge (X_AXIS, LEFT, colon, kern);      
+      m.add_at_edge (X_AXIS, RIGHT, thick, kern);
+      m.add_at_edge (X_AXIS, RIGHT, colon, kern);      
+    }
+  else if (str == ".|.")
+    {
+      m.add_at_edge (X_AXIS, LEFT, thick, thinkern);
+      m.add_at_edge (X_AXIS, RIGHT, thick, kern);      
     }
   else if (str == "||")
     {
-      m.add_at_edge (X_AXIS, RIGHT, thin,0);
-      m.add_at_edge (X_AXIS, RIGHT, thin,thinkern);      
-    }
-
-  else if (str == ".|.")
-    {
-      m.add_at_edge (X_AXIS, RIGHT, thick, 0);
-      m.add_at_edge (X_AXIS, RIGHT, thick, kern);      
+      m.add_at_edge (X_AXIS, RIGHT, thin, 0);
+      m.add_at_edge (X_AXIS, RIGHT, thin, thinkern);      
     }
 
   return m;
 }
 
-Atom 
+Molecule 
 Lookup::beam (Real slope, Real width, Real thick) const
 {
   Real height = slope * width; 
   Real min_y = (0 <? height) - thick/2;
   Real max_y = (0 >? height) + thick/2;
 
-  Atom a;
-  a.lambda_ =   gh_list (ly_symbol ("beam"),
-	   gh_double2scm (width),
-	   gh_double2scm (slope),
-	   gh_double2scm (thick),
-	   SCM_UNDEFINED);
+  
+  Molecule m;
+  Atom at
+     (gh_list (ly_symbol ("beam"),
+				gh_double2scm (width),
+				gh_double2scm (slope),
+				gh_double2scm (thick),
+				SCM_UNDEFINED));
 
-  a.dim_[X_AXIS] = Interval (0, width);
-  a.dim_[Y_AXIS] = Interval (min_y, max_y);
-  return a;
+  m.dim_[X_AXIS] = Interval (0, width);
+  m.dim_[Y_AXIS] = Interval (min_y, max_y);
+  m.add_atom (&at);
+  return m;
 }
 
-Atom
+Molecule
 Lookup::clef (String st) const
 {
-  return afm_find (String ("clefs") + String ("-") + st);
+  return afm_find (String ("clefs-" + st));
 }
 
 SCM
@@ -225,7 +242,7 @@ offset2scm (Offset o)
 		  SCM_UNDEFINED);
 }
 
-Atom
+Molecule
 Lookup::dashed_slur (Array<Offset> controls, Real thick, Real dash) const
 {
   assert (controls.size () == 8);
@@ -234,10 +251,11 @@ Lookup::dashed_slur (Array<Offset> controls, Real thick, Real dash) const
   Real dx = d[X_AXIS];
   Real dy = d[Y_AXIS];
 
-  Atom a;
-  a.font_ = font_name_;
-  a.dim_[X_AXIS] = Interval (0, dx);
-  a.dim_[Y_AXIS] = Interval (0 <? dy,  0 >? dy);
+  Molecule m;
+
+
+  m.dim_[X_AXIS] = Interval (0, dx);
+  m.dim_[Y_AXIS] = Interval (0 <? dy, 0 >? dy);
 
   SCM sc[4];
   for (int i=0; i<  4; i++)
@@ -245,101 +263,107 @@ Lookup::dashed_slur (Array<Offset> controls, Real thick, Real dash) const
       sc[i] =  offset2scm (controls[i]);
     }
 
-  a.lambda_ = 
-    gh_list (ly_symbol ("dashed-slur"),
-	     gh_double2scm (thick), 
-	     gh_double2scm (dash),
-	     ly_quote_scm (array_to_list (sc, 4)),
-	     SCM_UNDEFINED);
-
-  return a;
+  Atom at
+     (gh_list (ly_symbol ("dashed-slur"),
+				gh_double2scm (thick), 
+				gh_double2scm (dash),
+				ly_quote_scm (array_to_list (sc, 4)),
+				SCM_UNDEFINED));
+  
+  
+  m.add_atom (&at);
+  return m;
 }
 
-Atom
+Molecule
 Lookup::dots () const
 {
-  return afm_find (String ("dots") + String ("-") + String ("dot"));
+  return afm_find (String ("dots-dot"));
 }
 
 
-Atom
-Lookup::extender (Real width) const
-{
-  Atom a;
-  a.lambda_ = gh_list (ly_symbol ("extender"),
-		       gh_double2scm (width),
-		       SCM_UNDEFINED);
 
-  a.dim_[X_AXIS] = Interval (0, width);
-  a.dim_[Y_AXIS] = Interval (0,0);
-  
-  a.font_ = font_name_;
-  return a;
-}
-
-Atom
+Molecule
 Lookup::fill (Box b) const
 {
-  Atom a;
-  a.dim_ = b;
-  return a;
+  Molecule m;
+  m.dim_ = b;
+  return m;
 }
 
-Atom
+Molecule
 Lookup::flag (int j, Direction d) const
 {
   char c = (d == UP) ? 'u' : 'd';
-  Atom a = afm_find (String ("flags") + String ("-") + to_str (c) + to_str (j));
-  return a;
+  return  afm_find (String ("flags-") + to_str (c) + to_str (j));
 }
 
-Atom
+Molecule
 Lookup::rest (int j, bool o) const
 {
-   return afm_find (String ("rests")
-		    + String ("-") + to_str (j) + (o ? "o" : ""));
+  return afm_find (String ("rests-") + to_str (j) + (o ? "o" : ""));
 }
 
-Atom
+Molecule
 Lookup::rule_symbol (Real height, Real width) const
 {
-  Atom a;
-  a.lambda_ = gh_list (ly_symbol ("rulesym"),
-		       gh_double2scm (height),
-		       gh_double2scm (width),
-		       SCM_UNDEFINED);
-  a.dim_.x () = Interval (0, width);
-  a.dim_.y () = Interval (0, height);
-  return a;
+  Atom at  (gh_list (ly_symbol ("rulesym"),
+					 gh_double2scm (height),
+					 gh_double2scm (width),
+					 SCM_UNDEFINED));
+
+  Molecule m;
+  m.dim_.x () = Interval (0, width);
+  m.dim_.y () = Interval (0, height);
+  
+  m.add_atom (&at);
+
+  return m;
 }
 
-Atom
+Molecule
 Lookup::script (String str) const
 {
-  return afm_find (String ("scripts") + String ("-") + str);
+  return afm_find (String ("scripts-") + str);
 }
 
-Atom
-Lookup::special_time_signature (String s, Array<int> arr) const
+Molecule
+Lookup::special_time_signature (String s, int n, int d) const
 {
   // First guess: s contains only the signature style
-  assert (arr.size () >1);
-  String symbolname = "timesig-" + s + to_str (arr[0]) + "/" + to_str (arr[1]);
+  String symbolname = "timesig-" + s + to_str (n) + "/" + to_str (d);
   
-  Atom a = afm_find (symbolname, false);
-  if (!a.empty ()) 
-    return a;
+  Molecule m = afm_find (symbolname, false);
+  if (!m.dim_[X_AXIS].empty_b ()) 
+    return m;
 
   // Second guess: s contains the full signature name
-  a = afm_find ("timesig-"+s, false);
-  if (!a.empty ()) 
-    return a;
+  m = afm_find ("timesig-"+s, false);
+  if (!m.dim_[X_AXIS].empty_b ()) 
+    return m;
 
   // Resort to default layout with numbers
-  return time_signature (arr);
+  return time_signature (n,d);
 }
 
-Atom
+Molecule
+Lookup::filledbox (Box b ) const
+{
+  Molecule m;
+  
+  Atom at  (gh_list (ly_symbol ("filledbox"),
+					 gh_double2scm (-b[X_AXIS][LEFT]),
+					 gh_double2scm (b[X_AXIS][RIGHT]),		       
+					 gh_double2scm (-b[Y_AXIS][DOWN]),
+					 gh_double2scm (b[Y_AXIS][UP]),		       
+					 SCM_UNDEFINED));
+
+  m.dim_ = b;
+  m.add_atom (&at);
+  return m;
+}
+
+Molecule
 Lookup::stem (Real y1, Real y2) const
 {
   if (y1 > y2)
@@ -348,32 +372,11 @@ Lookup::stem (Real y1, Real y2) const
       y1 = y2;
       y2 = t;
     }
-  Atom a;
-
-  a.dim_.x () = Interval (0,0);
-  a.dim_.y () = Interval (y1,y2);
-
   Real stem_width = paper_l_->get_var ("stemthickness");
-
-  a.lambda_ = gh_list (ly_symbol ("filledbox"),
-		       gh_double2scm(stem_width /2),
-		       gh_double2scm(stem_width/2),
-		       gh_double2scm(y2),
-		       gh_double2scm(-y1),
-		       SCM_UNDEFINED);
-
-  a.font_ = font_name_;
-  return a;
+  return filledbox (Box (Interval (-stem_width/2,stem_width/2),
+			 Interval (y1, y2)));
 }
 
-Atom
-Lookup::streepje (int type) const
-{
-  if (type > 2)
-    type = 2;
-
-  return  afm_find ("balls" + String ("-") +to_str (type) + "l");
-}
 
 static Dict_initialiser<char const*> cmr_init[] = {
   {"bold", "cmbx"},
@@ -384,26 +387,24 @@ static Dict_initialiser<char const*> cmr_init[] = {
   {"large", "cmbx"},
   {"Large", "cmbx"},
   {"mark", "feta-nummer"},
-  {"nummer", "feta-nummer"},
+  {"number", "feta-nummer"},
   {0,0}
 };
 
 static Dictionary<char const *> cmr_dict (cmr_init);
 
-Atom
+Molecule
 Lookup::text (String style, String text) const
 {
-  Atom a;
-  a.lambda_ = gh_list(ly_symbol ("set" + style),
-		      gh_str02scm (text.ch_C()),
-		      SCM_UNDEFINED);
+  Molecule m;
+  
 
   Real font_h = paper_l_->get_var ("font_normal");
   if (paper_l_->scope_p_->elem_b ("font_" + style))
     {
       font_h = paper_l_->get_var ("font_" + style);
     }
-  
+   
   if (cmr_dict.elem_b (style))
     {
       style = String (cmr_dict [style]) + to_str  ((int)font_h); // ugh
@@ -429,90 +430,107 @@ Lookup::text (String style, String text) const
     }
 
   DOUT << "\n" << to_str (w) << "\n";
-  a.dim_.x () = Interval (0, w);
-  a.dim_.y () = ydims;
-  a.font_ = font_name_;
-  return a;
+  m.dim_.x () = Interval (0, w);
+  m.dim_.y () = ydims;
+  Atom at  (gh_list (ly_symbol ("text"),
+		     gh_str02scm (text.ch_C()),
+		     SCM_UNDEFINED));
+  at.font_ = ly_symbol (style);
+  
+  m.add_atom (&at);
+  return m;
 }
   
 
 /*
-  TODO: should return a molecule with 2 stacked nums.
  */
-Atom
-Lookup::time_signature (Array<int> a) const
+Molecule
+Lookup::time_signature (int num, int den) const
 {
-  Atom s;
-  s.lambda_ = gh_list (ly_symbol ("generalmeter"),
-		       gh_int2scm (a[0]),
-		       gh_int2scm (a[1]),
-		       SCM_UNDEFINED);
-
-  Real r = paper_l_->interline_f () ;
-  s.dim_[Y_AXIS] =  Interval (-2*r, 2*r);
-  s.dim_[X_AXIS] = Interval (0, 2*r);
-  return s;
+  String sty = "number";
+  Molecule n (text (sty, to_str (num)));
+  Molecule d (text (sty, to_str (den)));
+  n.do_center (X_AXIS);
+  d.do_center (X_AXIS);
+  Molecule m;
+  if (den)
+    {
+      m.add_at_edge (Y_AXIS, UP, n, 0.0);
+      m.add_at_edge (Y_AXIS, DOWN, d, 0.0);
+    }
+  else
+    {
+      m = n;
+      m.do_center (Y_AXIS);
+    }
+  return m;
 }
 
-Atom
-Lookup::vbrace (Real &y) const
+Molecule
+Lookup::staff_brace (Real y) const
 {
-  Atom a;
-  a.lambda_ = gh_list (ly_symbol ("pianobrace"),
+  Molecule m;
+  
+  Atom at  (gh_list (ly_symbol ("pianobrace"),
 		       gh_double2scm (y),
 		       SCM_UNDEFINED
-		       );
-  a.dim_[Y_AXIS] = Interval (-y/2,y/2);
-  a.dim_[X_AXIS] = Interval (0,0);
-  a.font_ = font_name_;
-  return a;
+		       ));
+  
+  m.dim_[Y_AXIS] = Interval (-y/2,y/2);
+  m.dim_[X_AXIS] = Interval (0,0);
+  m.add_atom (&at);
+  return m;
 }
 
-Atom
+Molecule
 Lookup::hairpin (Real width, bool decresc, bool continued) const
 {
-  Atom a;  
+  Molecule m;   
   Real height = paper_l_->staffheight_f () / 6;
 
   String hairpin = String (decresc ? "de" : "") + "crescendo";
-  a.lambda_ = gh_list (ly_symbol (hairpin),
+  Atom at  (gh_list (ly_symbol (hairpin),
 		       gh_double2scm (width),
 		       gh_double2scm (height),
 		       gh_double2scm (continued ? height/2 : 0.0),
-		       SCM_UNDEFINED);
-  a.dim_.x () = Interval (0, width);
-  a.dim_.y () = Interval (-2*height, 2*height);
-  a.font_ = font_name_;
-  return a;
+		       SCM_UNDEFINED));
+  m.dim_.x () = Interval (0, width);
+  m.dim_.y () = Interval (-2*height, 2*height);
+
+  m.add_atom (&at);
+  return m;
 }
 
-Atom
+Molecule
 Lookup::plet (Real dy , Real dx, Direction dir) const
 {
-  Atom a;
+  Molecule m;
   SCM thick = ly_symbol ("tuplet_thick");
   Real t = 0.1 PT;
   if (paper_l_->scope_p_->elem_b (thick))
     {
       t = paper_l_->get_realvar (thick);
     }
-  a.lambda_ = gh_list(ly_symbol ("tuplet"),
+  
+  Atom at  (gh_list(ly_symbol ("tuplet"),
 		      gh_double2scm (dx),
 		      gh_double2scm (dy),
 		      gh_double2scm (t),
 		      gh_int2scm (dir),
-		      SCM_UNDEFINED);
-  return a;
+		      SCM_UNDEFINED));
+m.add_atom (&at);
+
+  return m;
 }
 
-
-Atom
+/*
+  Make a smooth curve along the points 
+ */
+Molecule
 Lookup::slur (Array<Offset> controls) const
 {
-  assert (controls.size () == 8);
-  Real dx = controls[3].x () - controls[0].x ();
-  Real dy = controls[3].y () - controls[0].y ();
-  Atom a;
+  Offset  delta_off = controls[3]- controls[0];
+  Molecule m; 
 
   SCM scontrols [8];
   int indices[] = {5,6,7,4,1,2,3,0};
@@ -521,57 +539,63 @@ Lookup::slur (Array<Offset> controls) const
     scontrols[i] = offset2scm (controls[indices[i]]);
 
 
-  a.lambda_ =gh_list (ly_symbol ("slur"),
+  Atom at  (gh_list (ly_symbol ("bezier-sandwich"),
 		      ly_quote_scm (array_to_list (scontrols, 8)),
-		      SCM_UNDEFINED);
+		      SCM_UNDEFINED));
 
-  a.dim_[X_AXIS] = Interval (0, dx);
-  a.dim_[Y_AXIS] = Interval (0 <? dy,  0 >? dy);
-  a.font_ = font_name_;
-  return a;
+  m.dim_[X_AXIS] = Interval (0, delta_off[X_AXIS]);
+  m.dim_[Y_AXIS] = Interval (0 <? delta_off[Y_AXIS], 0 >? delta_off[Y_AXIS]);
+  m.add_atom (&at);
+  return m;
 }
 
-Atom
-Lookup::vbracket (Real &y) const
+Molecule
+Lookup::staff_bracket (Real y) const
 {
-  Atom a;
-  a.lambda_ =  gh_list (ly_symbol ("bracket"),
+  Molecule m; 
+  Atom at  ( gh_list (ly_symbol ("bracket"),
 			gh_double2scm (y),
-			SCM_UNDEFINED);
-  a.dim_[Y_AXIS] = Interval (-y/2,y/2);
-  a.dim_[X_AXIS] = Interval (0,4 PT);
-  return a;
+			SCM_UNDEFINED));
+  m.add_atom (&at);				 
+  m.dim_[Y_AXIS] = Interval (-y/2,y/2);
+  m.dim_[X_AXIS] = Interval (0,4 PT);
+
+  m.translate_axis (- 4. / 3. * m.dim_[X_AXIS].length (), X_AXIS);
+  return m;
 }
 
-Atom
+Molecule
 Lookup::volta (Real w, bool last_b) const
 {
-  Atom a;
+  Molecule m; 
   SCM thick = ly_symbol ("volta_thick");
   Real t = 0.1 PT;
   if (paper_l_->scope_p_->elem_b (thick))
     {
       t = paper_l_->get_realvar (thick);
     }
-  a.lambda_ = gh_list (ly_symbol ("volta"),
+  Atom at  (gh_list (ly_symbol ("volta"),
 		       gh_double2scm (w),
 		       gh_double2scm (t),
 		       gh_int2scm (last_b),
-		       SCM_UNDEFINED);
+		       SCM_UNDEFINED));
 
   Real interline_f = paper_l_->interline_f ();
 
-  a.dim_[Y_AXIS] = Interval (-interline_f, interline_f);
-  a.dim_[X_AXIS] = Interval (0, w);
-  return a;
+  m.dim_[Y_AXIS] = Interval (-interline_f, interline_f);
+  m.dim_[X_AXIS] = Interval (0, w);
+
+  m.add_atom (&at);
+  return m;
 }
 
 
-Atom
+Molecule
 Lookup::special_ball (int j, String kind_of_ball) const
 {
   if (j > 2)
     j = 2;
 
-  return afm_find (String ("balls") + String ("-") + kind_of_ball);
+  return afm_find (String ("noteheads-") + kind_of_ball);
 }
+
