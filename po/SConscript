@@ -2,21 +2,15 @@
 
 Import ('env')
 pos = env['glob'] (env, '*.po')
-#pot = env['glob'] (env, '*.pot')
-#pot = 'lilypond'
 mos = map (env.MO, pos)
 dir = env['localedir']
 env.Install (dir, mos)
 env.Alias ('install', dir)
 
-
-
-outdir = Dir ('.').abspath
-env.Depends ('po', 'pot')
-env.Depends ('po', env['pottarget'])
-
-#pots = map (lambda x: outdir + '/' + x + '.po', pos)
-map (lambda x: env.Depends (outdir + '/lilypond.pot', x), pos)
+env.Depends ('po', 'po-update')
+# map (lambda x: env.Depends (x + '.mo', x + '.pom'), pos)
 poms = map (env.POMERGE, pos)
-env.Alias ('po', poms)
+env.Alias ('po-update', poms)
+env.Alias ('po', mos)
+#env.Alias ('all', mos)
 

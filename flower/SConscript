@@ -16,7 +16,5 @@ if env['static']:
 if not env['static'] or env['shared']:
 	e.SharedLibrary (name, sources)
 
-#pot = env.POT (sources + includes)
-#map (lambda x: e.Depends
-pot = env.Command (env['pottarget'], sources + includes, env['potcommand'])
-env.Alias ('pot', pot)
+po = env.Command ('lilypond.po', sources + includes, env['pocommand'])
+env.Alias ('po-update', po)

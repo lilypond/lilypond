@@ -21,11 +21,7 @@ default:
 GENHTMLS = engraving colorado  computer-notation
 OUTGENHTMLS = $(addprefix $(outdir)/, $(GENHTMLS:%=%.html))
 
-
-local-WWW: $(addprefix $(outdir)/, $(BIB_FILES:.bib=.html))
-	$(PYTHON) $(step-bindir)/ls-latex.py  --title 'References on Music Notation' \
-	  $(YO_FILES) $(OUTYO_FILES:.yo=.latex) $(BIB_FILES) $(DOC_FILES) $(TEX_FILES) \
-	  | sed "s!$(outdir)/!!g" > $(outdir)/index.html
+local-WWW: $(addprefix $(outdir)/, $(BIB_FILES:.bib=.html) index.html)
 
 $(outdir)/%.bib: %.bib
 	ln -f $< $@

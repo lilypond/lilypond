@@ -7,11 +7,11 @@
                  Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-//#include "config.hh"
-#include "config.h"
 #include <stdio.h>
 #include <errno.h>
 #include <limits.h>
+
+#include "config.hh"
 
 #if HAVE_SYS_STAT_H 
 #include <sys/stat.h>

@@ -100,7 +100,15 @@ vector of symbols."
 
 (define (get-coding coding-name)
   (let ((entry (assoc-get coding-name coding-alist)))
-    (cons (car entry) (force (cdr entry)))))
+    (if entry (cons (car entry) (force (cdr entry)))
+	(if (equal? coding-name "feta-music")
+	    (begin
+	      (ly:warn "installation problem: deprecated encoding requested: ~S" coding-name)
+	      (exit 1))
+	(let ((fallback "latin1"))
+	  (ly:warn "programming error: no such encoding: ~S" coding-name)
+	  (ly:warn "programming error: cross thumbs, using: ~S:" fallback)
+	  (get-coding fallback))))))
 
 (define-public (get-coding-filename coding-name)
   (car (get-coding coding-name)))

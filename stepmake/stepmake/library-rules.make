@@ -1,5 +1,5 @@
 
-$(LIBRARY): $(outdir)/config.h $(O_FILES)
+$(LIBRARY): $(outdir)/config.hh $(O_FILES)
 	$(AR) $(ARFLAGS) $@ $(O_FILES)
 # thanks to Nelson Beebe for this trick.
 	$(RANLIB) $@ || $(AR) ts $@ || true

@@ -21,7 +21,7 @@ I found a somewhat more elegant patch for this: Just #include
 
 */
 #include <unistd.h>	
-#include "config.h"
+#include "config.hh"
 
 #define popen REALLYUGLYKLUDGE
 #define pclose ANOTHERREALLYUGLYKLUDGE

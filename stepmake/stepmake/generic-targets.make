@@ -103,7 +103,7 @@ local-tags:
 $(outdir)/version.hh: $(depth)/VERSION $(config_make)
 	$(PYTHON) $(step-bindir)/make-version.py $< > $@
 
-$(outdir)/config.h: $(config_h)
+$(outdir)/config.hh: $(config_h)
 	cp -p $< $@
 
 configure: configure.in aclocal.m4
