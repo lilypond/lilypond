@@ -129,6 +129,7 @@ def exit (i):
 	if __main__.verbose_p:
 		raise _ ('Exiting (%d)...') % i
 	else:
+		print 'ex thoto' , i 
 		sys.exit (i)
 		
 def getopt_args (opts):
@@ -276,7 +277,7 @@ def read_pipe (cmd, mode = 'r'):
 		if error_log_file:
 			os.unlink (error_log_file)
 
-		exit (status)
+		exit (1)
 		
 	if __main__.verbose_p:
 		progress ('\n')
@@ -332,7 +333,7 @@ Exit status of CMD '''
 				sys.stderr.write (open (error_log_file).read ())
 			if error_log_file:
 				os.unlink (error_log_file)
-			exit (status)
+			exit (1)
 
 	if error_log_file:
 		os.unlink (error_log_file)
