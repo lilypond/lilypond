@@ -13,17 +13,17 @@
 #include "text-item.hh"
 #include "font-interface.hh"
 #include "virtual-font-metric.hh"
-
+#include "paper-def.hh"
 
 
 MAKE_SCHEME_CALLBACK(Text_item,interpret_markup,3);
 SCM
-Text_item::interpret_markup (SCM grob, SCM props, SCM markup)
+Text_item::interpret_markup (SCM paper, SCM props, SCM markup)
 {
   if (gh_string_p (markup))
     {
-      Grob *me = unsmob_grob (grob);
-      Font_metric *fm = Font_interface::get_font (me, props);
+      Paper_def *pap = unsmob_paper (paper);
+      Font_metric *fm = Font_interface::get_font (pap, props);
   
       SCM list = scm_list_n (ly_symbol2scm ("text"), markup, SCM_UNDEFINED);
       
@@ -47,7 +47,7 @@ Text_item::interpret_markup (SCM grob, SCM props, SCM markup)
       if (!markup_p (markup))
 	programming_error ("Markup head has no markup signature.");
       
-      return scm_apply_2 (func, grob, props, args);
+      return scm_apply_2 (func, paper, props, args);
     }
   else
     {

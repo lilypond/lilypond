@@ -1,4 +1,3 @@
-
 "
 Internally markup is stored as lists, whose head is a function.
 
@@ -52,8 +51,8 @@ for the reader.
 ;; syntax, description and example. 
 ;;
 
-(define-public (simple-markup grob props . rest)
-  (Text_item::interpret_markup grob props (car rest)))
+(define-public (simple-markup paper props . rest)
+  (Text_item::interpret_markup paper props (car rest)))
 
 (define-public (stack-molecule-line space molecules)
   (if (pair? molecules)
@@ -72,39 +71,39 @@ for the reader.
       '())
   )
 
-(define-public (line-markup grob props . rest)
+(define-public (line-markup paper props . rest)
   "A horizontal line of markups. Syntax:
 \\line << MARKUPS >>
 "
   
   (stack-molecule-line
    (cdr (chain-assoc 'word-space props))
-   (map (lambda (x) (interpret-markup grob props x)) (car rest)))
+   (map (lambda (x) (interpret-markup paper props x)) (car rest)))
   )
 
 
-(define-public (combine-markup grob props . rest)
+(define-public (combine-markup paper props . rest)
   (ly:molecule-add
-   (interpret-markup grob props (car rest))
-   (interpret-markup grob props (cadr rest))))
+   (interpret-markup paper props (car rest))
+   (interpret-markup paper props (cadr rest))))
   
 (define (font-markup qualifier value)
-  (lambda (grob props . rest)
-    (interpret-markup grob (cons (cons `(,qualifier . ,value) (car props)) (cdr props)) (car rest))
+  (lambda (paper props . rest)
+    (interpret-markup paper (cons (cons `(,qualifier . ,value) (car props)) (cdr props)) (car rest))
   
   ))
 
 
 (define-public (set-property-markup qualifier)
-  (lambda (grob props . rest  )
-    (interpret-markup grob
+  (lambda (paper props . rest  )
+    (interpret-markup paper
 		      (cons (cons `(,qualifier . ,(car rest))
 				  (car props)) (cdr props))
 		      (cadr rest))
     ))
 
-(define-public (finger-markup grob props . rest)
-  (interpret-markup grob
+(define-public (finger-markup paper props . rest)
+  (interpret-markup paper
 		    (cons (list '(font-relative-size . -3)
 				'(font-family . number))
 				props)
@@ -140,13 +139,13 @@ for the reader.
 
 
 ;; TODO: baseline-skip should come from the font.
-(define-public (column-markup grob props . rest)
+(define-public (column-markup paper props . rest)
   (stack-lines
    -1 0.0 (cdr (chain-assoc 'baseline-skip props))
-   (map (lambda (x) (interpret-markup grob props x)) (car rest)))
+   (map (lambda (x) (interpret-markup paper props x)) (car rest)))
   )
 
-(define-public (dir-column-markup grob props . rest)
+(define-public (dir-column-markup paper props . rest)
   "Make a column of args, going up or down, depending on DIRECTION."
   (let*
       (
@@ -155,13 +154,13 @@ for the reader.
     (stack-lines
      (if (number? dir) dir -1)
      0.0 (cdr (chain-assoc 'baseline-skip props))
-     (map (lambda (x) (interpret-markup grob props x)) (car rest)))
+     (map (lambda (x) (interpret-markup paper props x)) (car rest)))
     ))
 
-(define-public (center-markup grob props . rest)
+(define-public (center-markup paper props . rest)
   (let*
     (
-     (mols (map (lambda (x) (interpret-markup grob props x)) (car rest)))
+     (mols (map (lambda (x) (interpret-markup paper props x)) (car rest)))
      (cmols (map (lambda (x) (ly:molecule-align-to! x X CENTER)) mols))
      )
     
@@ -170,58 +169,58 @@ for the reader.
      mols)
     ))
 
-(define-public (right-align-markup grob props . rest)
-  (let* ((m (interpret-markup grob props (car rest))))
+(define-public (right-align-markup paper props . rest)
+  (let* ((m (interpret-markup paper props (car rest))))
     (ly:molecule-align-to! m X RIGHT)
     m))
 
-(define-public (halign-markup grob props . rest)
+(define-public (halign-markup paper props . rest)
   "Set horizontal alignment. Syntax: haling A MARKUP. A=-1 is LEFT,
 A=1 is right, values in between vary alignment accordingly."
-  (let* ((m (interpret-markup grob props (cadr rest))))
+  (let* ((m (interpret-markup paper props (cadr rest))))
     (ly:molecule-align-to! m X (car rest))
     m))
 
-(define-public (left-align-markup grob props . rest)
-  (let* ((m (interpret-markup grob props (car rest))))
+(define-public (left-align-markup paper props . rest)
+  (let* ((m (interpret-markup paper props (car rest))))
     (ly:molecule-align-to! m X RIGHT)
     m))
 
-(define-public (musicglyph-markup grob props . rest)
+(define-public (musicglyph-markup paper props . rest)
   (ly:find-glyph-by-name
-   (ly:get-font grob (cons '((font-name . ()) (font-family . music)) props))
+   (ly:paper-get-font paper (cons '((font-name . ()) (font-family . music)) props))
    (car rest))
   )
 
 
-(define-public (lookup-markup grob props . rest)
+(define-public (lookup-markup paper props . rest)
   "Lookup a glyph by name."
   (ly:find-glyph-by-name
-   (ly:get-font grob props)
+   (ly:paper-get-font paper  props)
    (car rest))
   )
 
-(define-public (char-markup grob props . rest)
+(define-public (char-markup paper props . rest)
   "Syntax: \\char NUMBER. "
-  (ly:get-glyph  (ly:get-font grob props) (car rest))
+  (ly:get-glyph  (ly:paper-get-font paper props) (car rest))
   )
 
-(define-public (raise-markup grob props  . rest)
+(define-public (raise-markup paper props  . rest)
   "Syntax: \\raise AMOUNT MARKUP. "
   (ly:molecule-translate-axis (interpret-markup
-			       grob
+			       paper
 			       props
 			       (cadr rest))
 			      (car rest) Y))
 
-(define-public (fraction-markup grob props . rest)
+(define-public (fraction-markup paper props . rest)
   "Make a fraction of two markups.
 
 Syntax: \\fraction MARKUP1 MARKUP2."
 
   (let*
-      ((m1 (interpret-markup grob props (car rest)))
-       (m2 (interpret-markup grob props (cadr rest))))
+      ((m1 (interpret-markup paper props (car rest)))
+       (m2 (interpret-markup paper props (cadr rest))))
 
     (ly:molecule-align-to! m1 X CENTER)
     (ly:molecule-align-to! m2 X CENTER)
@@ -242,7 +241,7 @@ Syntax: \\fraction MARKUP1 MARKUP2."
       )))
 
 
-(define-public (note-markup grob props . rest)
+(define-public (note-markup paper props . rest)
   "Syntax: \\note #LOG #DOTS #DIR.  By using fractional values
 for DIR, you can obtain longer or shorter stems."
  
@@ -251,7 +250,7 @@ for DIR, you can obtain longer or shorter stems."
        (log (car rest))
        (dot-count (cadr rest))
        (dir (caddr rest))
-       (font (ly:get-font grob (cons '((font-family .  music)) props)))
+       (font (ly:paper-get-font paper (cons '((font-family .  music)) props)))
        (stemlen (max 3 (- log 1)))
        (headgl
 	(ly:find-glyph-by-name font (string-append "noteheads-" (number->string (min log 2)))))
@@ -318,73 +317,73 @@ for DIR, you can obtain longer or shorter stems."
     stemgl
     ))
 
-(define-public (normal-size-super-markup grob props . rest)
+(define-public (normal-size-super-markup paper props . rest)
   (ly:molecule-translate-axis (interpret-markup
-			       grob
+			       paper
 			       props (car rest))
 			      (* 0.5 (cdr (chain-assoc 'baseline-skip props)))
 			      Y)
   )
 
-(define-public (super-markup grob props  . rest)
+(define-public (super-markup paper props  . rest)
   "Syntax: \\super MARKUP. "
   (ly:molecule-translate-axis (interpret-markup
-			       grob
+			       paper
 			       (cons '((font-relative-size . -2)) props) (car rest))
 			      (* 0.5 (cdr (chain-assoc 'baseline-skip props)))
 			      Y)
   )
 
-(define-public (translate-markup grob props . rest)
+(define-public (translate-markup paper props . rest)
   "Syntax: \\translate OFFSET MARKUP. "
-  (ly:molecule-translate (interpret-markup  grob props (cadr rest))
+  (ly:molecule-translate (interpret-markup  paper props (cadr rest))
 			 (car rest))
 
   )
 
-(define-public (sub-markup grob props  . rest)
+(define-public (sub-markup paper props  . rest)
   "Syntax: \\sub MARKUP."
   (ly:molecule-translate-axis (interpret-markup
-			       grob
+			       paper
 			       (cons '((font-relative-size . -2)) props)
 			       (car rest))
 			      (* -0.5 (cdr (chain-assoc 'baseline-skip props)))
 			      Y)
   )
 
-(define-public (normal-size-sub-markup grob props . rest)
+(define-public (normal-size-sub-markup paper props . rest)
   (ly:molecule-translate-axis (interpret-markup
-			       grob
+			       paper
 			       props (car rest))
 			      (* -0.5 (cdr (chain-assoc 'baseline-skip props)))
 			      Y)
   )
 
-(define-public (hbracket-markup grob props . rest)
+(define-public (hbracket-markup paper props . rest)
   "Horizontal brackets around its single argument. Syntax \\hbracket MARKUP."  
   
   (let*
       (
        (th 0.1) ;; todo: take from GROB.
-       (m (interpret-markup grob props (car rest)))
+       (m (interpret-markup paper props (car rest)))
        )
 
     (bracketify-molecule m X th (* 2.5 th) th)  
 ))
 
-(define-public (bracket-markup grob props . rest)
+(define-public (bracket-markup paper props . rest)
   "Vertical brackets around its single argument. Syntax \\bracket MARKUP."  
   (let*
       (
        (th 0.1) ;; todo: take from GROB.
-       (m (interpret-markup grob props (car rest)))
+       (m (interpret-markup paper props (car rest)))
        )
 
     (bracketify-molecule m Y th (* 2.5 th) th)  
 ))
 
 ;; todo: fix negative space
-(define (hspace-markup grob props . rest)
+(define (hspace-markup paper props . rest)
   "Syntax: \\hspace NUMBER."
   (let*
       ((amount (car rest)))
@@ -393,17 +392,17 @@ for DIR, you can obtain longer or shorter stems."
 	(ly:make-molecule "" (cons amount amount) '(-1 . 1)))
   ))
 
-(define-public (override-markup grob props . rest)
+(define-public (override-markup paper props . rest)
   "Tack the 1st arg in REST onto PROPS, e.g.
 
 \override #'(font-family . married) \"bla\"
 
 "
   
-  (interpret-markup grob (cons (list (car rest)) props)
+  (interpret-markup paper (cons (list (car rest)) props)
 		    (cadr rest)))
 
-(define-public (smaller-markup  grob props . rest)
+(define-public (smaller-markup  paper props . rest)
   "Syntax: \\smaller MARKUP"
   (let*
       (
@@ -411,11 +410,11 @@ for DIR, you can obtain longer or shorter stems."
        (entry (cons 'font-relative-size (- fs 1)))
        )
     (interpret-markup
-     grob (cons (list entry) props)
+     paper (cons (list entry) props)
      (car rest))
     ))
 
-(define-public (bigger-markup  grob props . rest)
+(define-public (bigger-markup  paper props . rest)
   "Syntax: \\bigger MARKUP"
   (let*
       (
@@ -423,30 +422,30 @@ for DIR, you can obtain longer or shorter stems."
        (entry (cons 'font-relative-size (+ fs 1)))
        )
   (interpret-markup
-   grob (cons (list entry) props)
+   paper (cons (list entry) props)
    (car rest))
   ))
 
-(define-public (box-markup grob props . rest)
+(define-public (box-markup paper props . rest)
   "Syntax: \\box MARKUP"
   (let*
       (
        (th 0.1)
        (pad 0.2)
-       (m (interpret-markup grob props (car rest)))
+       (m (interpret-markup paper props (car rest)))
        )
     (box-molecule m th pad)
   ))
 
 
-(define-public (strut-markup grob props . rest)
+(define-public (strut-markup paper props . rest)
   "Syntax: \strut
 
  A box of the same height as the space.
 "
 
   (let*
-      ((m (Text_item::interpret_markup grob props " ")))
+      ((m (Text_item::interpret_markup paper props " ")))
 
     (ly:molecule-set-extent! m 0 '(1000 . -1000))
     m))

@@ -76,4 +76,5 @@ public:
   friend int yyparse (void*);
 };
 
+Paper_def * unsmob_paper (SCM x);
 #endif // Paper_def_HH

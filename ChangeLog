@@ -1,3 +1,18 @@
+2003-09-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* mf/parmesan-clefs.mf: use # quantities for char_box
+	offsets. Fixes overflow errors in the PFA. 
+
+	* scm/new-markup.scm (strut-markup): change calling interface for
+	markup. Pass paper-def, not grob. This would \markup to be used
+	separately from grobs.
+
+	* lily/paper-def.cc: new function ly:paper-font; this function
+	replaces ly:get-font.
+
+	* lily/include/font-interface.hh (struct Font_interface): take
+	Paper_def iso. Grob for get_font().
+
 2003-09-14  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/ tutorial.itely, refman.itely: add warning

@@ -184,7 +184,7 @@ Accidental_interface::brew_molecule (SCM smob)
 			     (ly_symbol2scm ("font-relative-size"),
 			      scm_int2num (-1)), SCM_EOL),
 		    ac);
-      fm = Font_interface::get_font (me, ac);
+      fm = Font_interface::get_font (me->get_paper (), ac);
     }
   else
     fm = Font_interface::get_default_font (me);
