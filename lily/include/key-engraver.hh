@@ -32,6 +32,7 @@ public:
   Array<Musical_pitch> old_accidental_idx_arr_;
 
 
+  bool key_changed_b() const;
     
 protected:
   virtual bool do_try_music (Music *req_l);
