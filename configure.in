@@ -16,10 +16,15 @@ AC_STEPMAKE_COMPILE
 # AC_HAVE_HEADERS(limits.h malloc.h string.h unistd.h values.h)
 
 printing_b=no
+guile_b=no
 AC_ARG_ENABLE(printing,
     [  enable-printing         turn on debug printing. Default: off],
     [printing_b=$enableval])
+AC_ARG_ENABLE(guile,
+    [  enable-guile            link in GUILE. Default: off],
+    [guile_b=$enableval])
 
+    
 if test "$optimise_b" = yes; then
     DEFINES="$DEFINES -DSTRING_UTILS_INLINED"
     AC_DEFINE(STRINGS_UTILS_INLINED)
@@ -34,7 +39,8 @@ AC_STEPMAKE_LIB
 AC_STEPMAKE_LOCALE
 AC_STEPMAKE_GETTEXT
 AC_STEPMAKE_MSGFMT
-# AC_STEPMAKE_TEXMF
+AC_STEPMAKE_TEXMF
+# AC_STEPMAKE_TEXMF_DIRS
 AC_STEPMAKE_YODL
 
 
@@ -42,6 +48,13 @@ dnl should check out -print
 dnl huh?
 dnl AC_CHECK_SEARCH_RESULT($FIND, find, Please use --enable-tex-dir)
 
+case $guile_b in 
+    yes)
+    AC_CHECK_LIB(guile, scm_shell)
+
+    ;;
+esac
+    
 AC_FUNC_MEMCMP
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS(memmem snprintf vsnprintf gettext)
