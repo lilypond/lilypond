@@ -1908,7 +1908,7 @@ section.  @aref{functional harmony}.
     \clef treble
     \context Voice
     \partial 4 << c g e >>4 |
-    << c a f >> << b g d >> << c2 g e >>
+    << c a f >> << b g d >> << c g e >>2
   }
   \property Score.LyricText \set #'font-style = #'large
   \addlyrics
@@ -1942,13 +1942,13 @@ Consonances:
 \property Score.barNonAuto = ##t
 \property Score.TextScript \set #'font-style = #'large
 \context Voice \notes\relative c'' {
-  <<g1 g>>_"unisone  " s
-  <<g1 b>>_"third  " s
-  <<g1 c>>_"fourth  " s
-  <<g1 d'>>_"fifth  " s
-  <<g1 e'>>_"sixth  " s
-  <<g1 g'>>_"octave  " s
-  <<g1 b'>>_"decime" s s
+  <<g g>>1_"unisone  " s
+  <<g b>>_"third  " s
+  <<g c>>_"fourth  " s
+  <<g d'>>_"fifth  " s
+  <<g e'>>_"sixth  " s
+  <<g g'>>_"octave  " s
+  <<g b'>>_"decime" s s
 }
 @end lilypond
 
@@ -1958,9 +1958,9 @@ Dissonances:
 \property Score.barNonAuto = ##t
 \property Score.TextScript \set #'font-style = #'large
 \context Voice  \notes\relative c'' {
-  <<g1 a>>_"second  " s s
-  <<g1 f'>>_"seventh  " s s
-  <<g1 a'>>_"ninth" s s
+  <<g a>>1_"second  " s s
+  <<g f'>>_"seventh  " s s
+  <<g a'>>_"ninth" s s
 }
 @end lilypond
 
@@ -2024,7 +2024,7 @@ of such two forms an octave.
 \context Staff \notes\relative c'' {
   << g c >>^"perfect" s
   << g cis >>^"augm"  s
-  << gd' >>^"perfect"  s
+  << g d' >>^"perfect"  s
   << g des' >> ^"dim" s
   << gis es' >>^"dimin"  s
   << g! es' >>^"minor"  s
@@ -2074,7 +2074,7 @@ The difference between an interval and an octave.
 \property Score.barNonAuto = ##t
 \property Score.TextScript \set #'font-style = #'large
 \context Staff \notes\relative c'' {
-  << g  a >>1_"second  s s << g' a, >>_"seventh " s s \bar "||"
+  << g  a >>1_"second " s s << g' a, >>_"seventh " s s \bar "||"
   << g, b >>_"third  " s s << g' b, >>_"sixth  " s s \bar "||"
   << g, c >>_"fourth  " s s << g' c, >>_"fifth  " s s \bar "||"
 }

@@ -143,7 +143,7 @@ for a in files:
 	if re.search (str, marker_str):
 		continue
 	
-	str = sub_chords (str)  + marker_str
+	str = sub_chords (str)  + marker_str + '\n'
 
 	if edit:
 		open (a + '.NEW', 'w').write (str)
