@@ -30,7 +30,7 @@ virtuoso that taught in Geneva.
 %}
 
 
-#(set! point-and-click line-column-location)
+% #(set! point-and-click line-column-location)
 
 longgrace = \property Voice.Stem \override #'flag-style = #'()
 endlonggrace = \property Voice.Stem \revert #'flag-style

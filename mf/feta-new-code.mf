@@ -145,6 +145,11 @@ fet_endchar;
 % * blotting around the serif
 %
 %
+%
+% TODO: insert blots around the serif
+%
+%
+%
 
 code := 101;
 fet_beginchar("dynamic f", "f", "dynf");
@@ -221,11 +226,160 @@ fet_beginchar("dynamic f", "f", "dynf");
 
 	draw z13 .. z14;
 
-%
-% TODO: insert blots around the serif
-%
-%
-%
 	penlabels(16);
 	labels(13,14,15);
+fet_endchar;
+
+%
+% NOTES:
+%
+% * right stem is fatter and more straight than the left 2 two  stems.
+%
+% * The twiddle  at the left is similar to the p twiddle 
+%
+% * The bottoms of the stems are blotted. 
+%
+
+
+%
+%
+% This is cut & paste programming. Somehow 3 i's in two chars (p and m)
+% Doesn't seem the trouble of writing a macro worth.
+%
+code := 108;
+fet_beginchar("dynamic m", "m", "dynm");
+	set_char_box (0, 1.3 ex#, 0, 1.0 ex#);
+
+	% should share code with p for twiddle.
+
+	save i_thick, i_angle, i_twiddle_thick,
+		i_twiddle_start_angle, i_twiddle_start_y, 
+		i_left_space;
+	save p;
+	save idir, center, right_ending;
+	pair center, idir, right_ending;
+	path p;
+
+	i_thick := 21 / 80 ex;
+	i_angle := 20;
+	idir := dir(90- i_angle);
+
+	i_left_space = 16/80 ex;
+	i_twiddle_thick = serif_thick;
+	i_twiddle_start_y =  1/2 ex;
+	i_twiddle_start_angle = 20;
+	bottom_blot = serif_thick;
+
+	penpos1 (i_twiddle_thick, -i_twiddle_start_angle);
+	center =(0,0);
+
+	y1 = i_twiddle_start_y;
+	z1r = center - (i_left_space,0)  + whatever * idir;
+
+	y3 = bottom_blot + ypart center; 
+	penpos3(i_thick, 0);
+	z3l = center + whatever * idir;
+	y4 = ypart center;
+	penpos4(i_thick - bottom_blot, 0);
+	z4 - z3 = whatever * idir;
+
+	y2l = 1 ex;
+	z2l = .25 [z3l, z3r] + whatever * idir;
+	z2r = 3/4 [z1r, z3l] + whatever * idir;
+	y2r = y5l + 1/9 ex;
+	z2 = 1/2 [z2l, z2r] ;
+	penpos5(i_thick, 0);
+	z5 = z4 + whatever * idir;
+	y5 = 55 / 80 ex;
+
+	p := simple_serif (z1l, z1r, 90) .. tension 1.05 .. z2r{right} .. z5l --- z3l
+		..  z4l --- z4r .. z3r --- z5r .. z2l{left} .. cycle;
+
+	fill p;
+	right_ending := z5r;
+%	penlabels (1, 2, 3 , 4,5);
+	clearxy;
+
+
+	z1r = right_ending;
+	z5l = right_ending + (i_left_space,0);
+	penpos1(serif_thick, - i_twiddle_start_angle);
+
+	y3 = bottom_blot + ypart center; 
+	penpos3(i_thick, 0);
+	z3l = z5l + whatever * idir;
+	y4 = ypart center;
+	penpos4(i_thick - bottom_blot, 0);
+	z4 - z3 = whatever * idir;
+
+	y2l = 1 ex;
+	z2l = .25 [z3l, z3r] + whatever * idir;
+	z2r = 3/4 [z1r, z3l] + whatever * idir;
+	y2r = y5l + 1/9 ex;
+	z2 = 1/2 [z2l, z2r] ;
+	penpos5(i_thick, 0);
+
+	p := simple_serif (z1l, z1r, 90) .. tension 1.05 .. z2r{right} .. z5l --- z3l
+		..  z4l --- z4r .. z3r --- z5r .. z2l{left} .. cycle;
+
+	fill p;
+	right_ending := z5r;
+%	penlabels (1, 2, 3 , 4,5);
+	clearxy;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	i_thick := 25 / 80 ex;
+	i_angle := 15;
+	i_left_space := 14/80 ex;
+	end_overshoot = 1/2 serif_thick;
+
+
+	idir := dir(90- i_angle);
+	z1r = right_ending;
+	z5l = right_ending + (i_left_space,0);
+	penpos5 (whatever, 10);
+	penpos3 (whatever, 20);
+
+	y7 = 0; 
+	penpos7(i_thick ,0);
+	
+	penpos1(serif_thick, - i_twiddle_start_angle);
+	
+	z3l = z7l + whatever * idir;
+	z3r = z7r + whatever * idir;
+	z5l = z7l + whatever * idir;
+	z5r = z7r + whatever * idir;
+
+	save end_twiddle_angle;
+	end_twiddle_angle := 35;
+	penpos6(serif_thick, - end_twiddle_angle);
+	y6l = 23/80 ex + ypart center;
+	z6l = 1.6 [z3l, z3r]  + whatever * idir;
+	
+
+
+	y3l =  1/8 ex + ypart center; 
+	y2l = 1 ex+  end_overshoot;
+	z2l = .08 [z3l, z3r] + whatever * idir;
+	z2r = 3/4 [z1r, z3l] + whatever * idir;
+	y2r = y5l + 1/9 ex;
+	z2 = 1/2 [z2l, z2r] ;
+	z8 = z7 - (0, 2 end_overshoot);
+
+	p := simple_serif (z1l, z1r, 90) .. tension 1.05
+		.. z2r{right} .. z5l --- z3l
+		.. z8{right}
+		.. simple_serif(z6r, z6l, 90)
+		.. tension 0.85
+		.. z3r --- z5r
+		.. tension 1.09
+		.. z2l{left} .. cycle;
+
+%	pickup pencircle scaled 1;
+%	draw p;
+	fill p;
+	right_ending := z5r;
+%	penlabels (1, 2, 3 , 4,5,6,7, 8);
+	clearxy;
+
 fet_endchar;
