@@ -32,8 +32,8 @@
 	(cdr entry))))
 
 ;; define factors of total volume of minimum and maximum volume
-(define instrument-equaliser-alist '())
-(set! instrument-equaliser-alist
+(define instrument-equalizer-alist '())
+(set! instrument-equalizer-alist
       (append 
        '(
 	 ("flute" . (0 . 0.7))
@@ -48,7 +48,7 @@
 	 ("cello" . (0.2 . 0.8))
 	 ("contrabass" . (0.2 . 0.8))
 	 )
-       instrument-equaliser-alist))
+       instrument-equalizer-alist))
 
 ;; (name . program+32768*(channel10 ? 1 : 0) )
 (define instrument-names-alist '())
@@ -246,8 +246,8 @@
 )
 
 
-(define (default-instrument-equaliser s)
-  (let ((entry (assoc s instrument-equaliser-alist)))
+(define (default-instrument-equalizer s)
+  (let ((entry (assoc s instrument-equalizer-alist)))
     (if entry
 	(cdr entry))))
 

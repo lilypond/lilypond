@@ -755,8 +755,8 @@ Simple_music:
 
 		Music *m = new Music (SCM_EOL);
 		m->set_mus_property ("predicate", pred);
-		m->set_mus_property ("symbol", $3);
-		m->set_mus_property ("value",  $5);
+		m->set_mus_property ("grob-property", $3);
+		m->set_mus_property ("grob-value",  $5);
 		m->set_mus_property ("iterator-ctor",
 		Output_property_music_iterator::constructor_cxx_function);
 

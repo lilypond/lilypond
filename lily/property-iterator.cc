@@ -18,10 +18,10 @@
 void
 Property_iterator::process (Moment m)
 {
-  SCM sym = music_l_->get_mus_property ("symbol");
+  SCM sym = music_l_->get_mus_property ("grob-property");
   if (gh_symbol_p (sym))
     {
-      SCM val = music_l_->get_mus_property ("value");
+      SCM val = music_l_->get_mus_property ("grob-value");
       bool ok= true;
       if (val != SCM_EOL)
 	ok = type_check_assignment (val, sym, ly_symbol2scm ("translation-type?"));

@@ -268,6 +268,19 @@ isdir_b (SCM s)
   return false;
 }
 
+
+bool
+isaxis_b (SCM s)
+{
+  if (gh_number_p (s))
+    {
+      int i = gh_scm2int (s);
+      return i== 0 || i == 1;
+    }
+  return false;
+}
+
+
 Direction
 to_dir (SCM s)
 {

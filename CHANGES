@@ -1,5 +1,48 @@
-1.3.146.jcn4
+1.3.147.jcn2
 ============
+
+* Fixed windows documentation.
+
+* Filled in tutorial section on windows.
+
+* Ly2dvi: don't use posix file utilities if we have python >= 1.5.2.
+
+* Included additional cygwin login and wrapper scripts.
+
+* Added cygwin path conversion to file-path.cc, to get output in cwd.
+After upgrading cross compilation environment to cygwin-1.1.8-2, it
+seems that these are no longer necessary; disabled by default.
+
+1.3.147.mb1
+============
+
+* Glossary and refman fixes
+
+
+1.3.147.lec1
+============
+* abc2ly fixes:
+
+	- Remove $ from voice names.
+
+	- Fix problem with full names of modes
+
+* added documentation of major limitations of abc2ly to converters.itely.
+
+* added documentation of %%LY to converters.itely.
+
+1.3.147.hwn1
+============
+
+* refman fixes.
+
+* Spelling fixes in .scm files: change equaliser to equalizer
+
+* Add music properties to generated documentation.
+
+
+1.3.147
+=======
 
 * Updated doco to reflect Windows installer.
 

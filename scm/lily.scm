@@ -118,6 +118,7 @@
 	   "slur.scm"
 	   "font.scm"
 	   "music-functions.scm"
+	   "music-property-description.scm"
 	   "auto-beam.scm"
 	   "generic-property.scm"
 	   "basic-properties.scm"
