@@ -129,21 +129,24 @@ A2_engraver::acknowledge_grob (Grob_info i)
     state_ = SPLIT_INTERVAL;
   else if (unirhythm)
     state_ = UNIRHYTHM;
-	  
-  if (Stem::has_interface (i.elem_l_)
-      || Slur::has_interface (i.elem_l_)
-      // || Tie::has_interface (i.elem_l_)
-      || i.elem_l_->has_interface (ly_symbol2scm ("tie-interface"))
-      /*
-	Usually, dynamics are removed by *_devnull_engravers for the
-	second voice.  On the one hand, we don't want all dynamics for
-	the first voice to be placed above the staff.  On the other
-	hand, colliding of scripts may be worse */
+
+  /* Must only set direction for VoiceCombines, not for StaffCombines:
+     we can't detect that here, so, ugh, yet another property */
+  if (!to_boolean (get_property ("noDirection"))
+      && (Stem::has_interface (i.elem_l_)
+	  || Slur::has_interface (i.elem_l_)
+	  // || Tie::has_interface (i.elem_l_)
+	  || i.elem_l_->has_interface (ly_symbol2scm ("tie-interface"))
+	  /*
+	    Usually, dynamics are removed by *_devnull_engravers for the
+	    second voice.  On the one hand, we don't want all dynamics for
+	    the first voice to be placed above the staff.  On the other
+	    hand, colliding of scripts may be worse */
 #if 0
-      || i.elem_l_->has_interface (ly_symbol2scm ("dynamic-interface"))
-      || i.elem_l_->has_interface (ly_symbol2scm ("text-interface"))
+	  || i.elem_l_->has_interface (ly_symbol2scm ("dynamic-interface"))
+	  || i.elem_l_->has_interface (ly_symbol2scm ("text-interface"))
 #endif
-      )
+	  ))
     {
       /*
 	Hmm.  We must set dir when solo, in order to get

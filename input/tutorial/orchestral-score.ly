@@ -15,6 +15,7 @@ staffCombinePianoStaffProperties = {
 	\property PianoStaff.aDueText = #"\\`a2"
 	\property PianoStaff.splitInterval = #'(1 . 0)
 	\property PianoStaff.changeMoment = #`(,(make-moment 1 1) . ,(make-moment 1 1))
+	\property PianoStaff.noDirection = ##t
 }
 
 % Coriolan 218-222
@@ -229,6 +230,11 @@ contrabasso = \notes\relative c {
     \translator{
       \ThreadContext
       \consists "Rest_engraver";
+      
+      % Set value for engraver at thread level,
+      % to override the default that is set in ScoreContext
+      % for added engraver at Voice level
+      devNullThread = #'()
     }
     \translator{
       \VoiceContext
@@ -254,6 +260,8 @@ contrabasso = \notes\relative c {
 
       soloText = #"I."
       soloIIText = #"II."
+      % By default, turn off the Thread_devnull_engraver
+      % at Voice level
       devNullThread = #'never
 
       % Hmm

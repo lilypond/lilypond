@@ -116,6 +116,7 @@ interesting items (ie. note heads, lyric syllables and normal rests)"
      '(TextScript)
      '(
       combineParts
+      noDirection
       soloADue
       soloText
       soloIIText

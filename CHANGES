@@ -1,3 +1,13 @@
+1.3.132.jcn1
+============
+
+* a2-engraver: \property noDirection: don't force direction when part-combining (for StaffCombining).
+
+* text-spanner: don't repeat edge text for broken edge.
+
+* Coriolan fixes, titling, font setting, header info, cello octave
+(yes, notated different from bass; all agree) at end.
+
 1.3.131.jcn2
 ============
 

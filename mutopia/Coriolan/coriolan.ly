@@ -1,13 +1,7 @@
-%{
- run this through:
- ly2dvi -K coriolan.tex
- dvips -O 5mm,0mm -o coriolan.ps coriolan 2> /dev/null
-%}
-
-
 \version "1.3.120";
 
 instrument = "Orchestra"
+% instrument = ""
 
 \include "header.ly"
 \include "global.ly"
@@ -65,12 +59,7 @@ archiGroup =  \context StaffGroup = archi_group <
 		\archiGroup
 	>
 	\header{
-		title = "Coriolan";
-		subtitle = "Ouverture"; 
-		opus = "Opus 62";
-		composer = "Ludwig van Beethoven (1770-1827)";
-		enteredby = "JCN";
-		copyright = "public domain";
+		instrument = "";
 	}
 	\include "coriolan-paper.ly"
 	\include "coriolan-midi.ly"

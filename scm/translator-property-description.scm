@@ -209,6 +209,7 @@ top of those automatically detected. ")
 MIDI instrument to use ")
 (translator-property-description 'noAutoBeaming boolean? "If set to true then beams are not generated automatically.
 ")
+(translator-property-description 'noDirection boolean? "Don't set directions by a2-engraver when part-combining.")
 (translator-property-description 'noResetKey boolean? "Do not
 reset local key to the value of keySignature at the start of a measure,
 as determined by measurePosition.

@@ -1,72 +1,14 @@
-% dynamics should not collide with staff
-% dynamics (of two voices) should not collide with eachother
-% strange stem through beam bug in bar 8 on viola staff
-% 1-staff-high brace should collapse
-
-\header {
-texidoc="Template for part-combining orchestral scores";
-}
-
+% on their own staff, voices should be stemboth (not up/down)
 
 End = { \skip 1*8; }
 
-violaI = \notes\relative c'' {
-  c1 \break c c c c\break
-	g4\p\< r r r8 g(|
-	)c,4 r r r8 c|
-	[\!f8\sf(\>as f as][f g d)\!g]|
-		r [es'\p(c)es] r [d(bes)d]|
-
-
-}
-violaII = \notes\relative c'' {
-  c1 c c c c
-	g4\p\< r r r8 g(|
-	)c,4 r r r8 c|
-	[\!f8\sf(\>as f as][f g d)\!g]|
-	r [c\p(g)c] r [bes(g)bes]|
-}
-
-
-violoncello = \notes\relative c {
-  c4\< c c c 
-  \!c1\pp c c c
-	\property Voice.crescendoText = #"cresc."
-	\property Voice.crescendoSpanner = #'dashed-line
-  [g8\p\<(bes' g bes][d bes g)d~]|
-  [d8(a' fis a][d a fis)d]|
-  [\!f!8\sf\>(as f as][f g d)g]|
-  %75
-  \!c,4\p r d r|
+violoncello = \notes\relative c' {
+   c8 c c c    c8 c c c\break
 }
 
 contrabasso = \notes\relative c {
-  d8\< d d d  d d d d 
-  \!c1\ff c c c
-	\property Voice.crescendoText = #"cresc."
-	\property Voice.crescendoSpanner = #'dashed-line
-  g4\p\< r r r8 g(|
-  )c4 r r r8 c(|
-  \!)b1\sf|
-  c4\p r d r|
+   c4 c8 c    c8 c c c\break
 }
-
-violeStaff =  \notes \context Staff = viole <
- \context Voice=oneViole <
- 		\property Staff.instrument = #"Viola"
-		\property Staff.instr = #"Vla."
-
- \End
- >
- \context Voice=twoViole <
-		\property Staff.instrument = #"Viola II"
-		\property Staff.instr = #"Vla. II"
- \End
- >
-  \context Voice=oneViole \partcombine Voice
-    \context Thread=oneViole \violaI
-    \context Thread=twoViole \violaII
->
 
 staffCombinePianoStaffProperties = {
 	\property PianoStaff.devNullThread = #'()
@@ -83,9 +25,6 @@ staffCombinePianoStaffProperties = {
 
 \score {
   <
-  \context StaffGroup <
-  \violeStaff
-
   \context PianoStaff = bassi_group \notes <
     \staffCombinePianoStaffProperties
     \context Staff=oneBassi < \clef bass;
@@ -105,7 +44,6 @@ staffCombinePianoStaffProperties = {
       \context Voice=twoBassi { \contrabasso }
  >
 >
- >
   \paper {
     % \paperSixteen
     linewidth = 80 * \staffspace;

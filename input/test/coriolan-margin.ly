@@ -1,5 +1,15 @@
 \version "1.3.122"
 
+% Ugh, we need to override some LaTeX titling stuff
+\header {
+  title =	"Ouverture\\vrule width0pt height 0pt depth 1ex";
+  subtitle =	"\\normalsize Zu Heinrich Joseph v. Collins Trauerspiel\\vrule width0pt height 0pt depth 1ex";
+  subsubtitle =	"\\Large\\bf Coriolan";
+  opus =  "Op. 62";
+  piece = "\\normalfont\\large Allegro con brio";
+  composer = 	 "Ludwig van Beethoven (1770-1827)";
+  enteredby = 	 "JCN";
+}
 #(define raisedflat '((raise . 0.4) (music (named "accidentals--1"))))
 
 flauti = \notes \relative c' {
@@ -54,14 +64,14 @@ timpani = \notes \relative c' {
 }
 
 violino1 = \notes \relative c' {
-  \property Staff.instrument	= #"Violino I"
-  \property Staff.instr		= #"Vl. I"
+  \property Staff.instrument	= #"Violino I  "
+  \property Staff.instr		= #"Vl. I  "
   c1 c
 }
 
 violino2 = \notes \relative c' {
-  \property Staff.instrument	= #"Violino II"
-  \property Staff.instr		= #"Vl. II"
+  \property Staff.instrument	= #"Violino II  "
+  \property Staff.instr		= #"Vl. II  "
   c1 c
 }
 
@@ -109,15 +119,6 @@ violoncello = \notes \relative c' {
       \context Staff ="violoncello" \violoncello
     >
   >
- \header{
-		title = "Coriolan";
-		subtitle = "Ouverture"; 
-		opus = "Opus 62";
-		composer = "Ludwig van Beethoven (1770-1827)";
-		enteredby = "JCN";
-		copyright = "public domain";
-	}
-
   \paper {
   	\paperSixteen
   	indent=100.0\mm;

@@ -34,14 +34,18 @@ Midi_stream::operator << (String str)
   return *this;
 }
 
+extern bool verbose_global_b;
 Midi_stream&
 Midi_stream::operator << (Midi_item const& midi_c_r)
 {
-//    *this <<midi_c_r.str (); 
   String str = midi_c_r.str ();
-  if (flower_dstream && !flower_dstream->silent_b ("Midistrings")) 
+#if 0
+  if (flower_dstream && !flower_dstream->silent_b ("Midistrings"))
+#else    
+  if (verbose_global_b)
+#endif    
     {
-    str = String_convert::bin2hex_str (str) + "\n";
+     str = String_convert::bin2hex_str (str) + "\n";
     // ugh, should have separate debugging output with Midi*::print routines
     int i = str.index_i ("0a");
     while (i >= 0)

@@ -410,7 +410,7 @@ violinoI =  \notes \relative c {
 	R1|
 	\!es!4\p r r2|
 	R1|
-	d,4-"pizz." r r2|
+	d,4-#'((font-shape . upright) "pizz.") r r2|
 	
 	%295
 	R1|
@@ -441,15 +441,15 @@ violinoI =  \notes \relative c {
 	%310
 	\!c4\pp r r2|
 	R1|
-	c4-"pizz." r r2|
+	c4-#'((font-shape . upright) "pizz.") r r2|
 	c4 r r2|
 	c4 r r2|
 }
 
 violinoIStaff =  \context Staff = violino1 <
 	\property Staff.midiInstrument = #"violin"
-	\property Staff.instrument = #"Violino I"
-	\property Staff.instr = #"Vl. I"
+	\property Staff.instrument = #"Violino I  "
+	\property Staff.instr = #"Vl. I  "
 	\notes< 
 		\global
 		\context Voice=violinoi

@@ -450,8 +450,8 @@ Midi_note_off::Midi_note_off (Midi_note* n)
   // Anybody who hears any difference, or knows how this works?
   //  0 should definitely be avoided, notes stick on some sound cards.
   // 64 is supposed to be neutral
+  
   aftertouch_byte_ = 64;
-
 }
 
 String
@@ -594,16 +594,26 @@ Midi_track::add (Moment delta_time_mom, Midi_item* midi_p)
   event_p_list_.append (new Killing_cons<Midi_event> (e, 0));
 }
 
+extern bool verbose_global_b;
+
 String
 Midi_track::data_str () const
 {
   String str = Midi_chunk::data_str ();
+#if 0
   if (flower_dstream && !flower_dstream->silent_b ("Midistrings"))
+#else
+  if (verbose_global_b)
+#endif
     str += "\n";
   for (Cons<Midi_event> *i=event_p_list_.head_; i; i = i->next_) 
     {
       str += i->car_->str ();
+#if 0
       if (flower_dstream && !flower_dstream->silent_b ("Midistrings"))
+#else	
+      if (verbose_global_b)
+#endif	
         str += "\n";
     }
   return str;

@@ -302,7 +302,7 @@ a quarter note is assumed.  The duration can be followed by a dot
 @cindex @code{.}
 
 @lilypond[fragment,verbatim,center]
-  a'4. b'4.
+  a'4. b'4. c'2..
 @end lilypond
 @cindex @code{r}
 @cindex @code{s}
