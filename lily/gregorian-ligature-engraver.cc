@@ -307,3 +307,12 @@ ENTER_DESCRIPTION (Gregorian_ligature_engraver,
 /* acks  */      "ligature-head-interface note-head-interface rest-interface",
 /* reads */       "",
 /* write */       "");
+
+class Gregorian_ligature {
+public:
+  static bool has_interface (Grob *);
+};
+ADD_INTERFACE (Gregorian_ligature, "gregorian-ligature-interface",
+	       "A gregorian ligature",
+	       "virga stropha inclinatum auctum descendens ascendens "
+	       "pes-or-flexa semivocalis oriscus quilisma deminutum");

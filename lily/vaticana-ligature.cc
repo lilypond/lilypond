@@ -160,16 +160,16 @@ vaticana_add_ledger_lines (Grob *me, Molecule *out, int pos, Real offs,
 Molecule
 vaticana_brew_primitive (Grob *me, bool ledger_take_space)
 {
-  SCM head_scm = me->get_grob_property ("ligature-head");
-  if (head_scm == SCM_EOL)
+  SCM glyph_name_scm = me->get_grob_property ("glyph-name");
+  if (glyph_name_scm == SCM_EOL)
     {
       programming_error ("Vaticana_ligature:"
-			 "undefined ligature-head -> ignoring grob");
+			 "undefined glyph-name -> ignoring grob");
       return Molecule ();
     }
 
-  String head = ly_symbol2string (head_scm);
-  if (!String::compare (head, ""))
+  String glyph_name = ly_symbol2string (glyph_name_scm);
+  if (!String::compare (glyph_name, ""))
     {
       // empty head (typically, this is the right side of porrectus
       // shape, which is already typeset by the associated left side
@@ -196,20 +196,20 @@ vaticana_brew_primitive (Grob *me, bool ledger_take_space)
       thickness = 1.4 * me->get_paper ()->get_var ("linethickness");
     }
 
-  Real x_shift = 0.0;
-  SCM x_shift_scm = me->get_grob_property ("x-shift");
-  if (x_shift_scm != SCM_EOL)
+  Real x_offset = 0.0;
+  SCM x_offset_scm = me->get_grob_property ("x-offset");
+  if (x_offset_scm != SCM_EOL)
     {
-      x_shift = gh_scm2double (x_shift_scm);
+      x_offset = gh_scm2double (x_offset_scm);
     }
   else
     {
       programming_error (_f ("Vaticana_ligature:"
-			     "x-shift undefined; assuming 0.0",
+			     "x-offset undefined; assuming 0.0",
 			     me));
     }
 
-  if (!String::compare (head, "porrectus"))
+  if (!String::compare (glyph_name, "porrectus"))
     {
       SCM porrectus_height_scm = me->get_grob_property ("porrectus-height");
       if (porrectus_height_scm != SCM_EOL)
@@ -240,8 +240,10 @@ vaticana_brew_primitive (Grob *me, bool ledger_take_space)
     }
   else
     {
-      Molecule mol = Font_interface::get_default_font (me)->find_by_name ("noteheads-" + head);
-      mol.translate_axis (x_shift, X_AXIS);
+      Molecule mol =
+	Font_interface::get_default_font (me)->
+	find_by_name ("noteheads-" + glyph_name);
+      mol.translate_axis (x_offset, X_AXIS);
       out.add_molecule (mol);
     }
 
@@ -265,7 +267,7 @@ vaticana_brew_primitive (Grob *me, bool ledger_take_space)
 
   int pos = (int)rint (Staff_symbol_referencer::get_position (me));
   vaticana_add_ledger_lines(me, &out, pos, 0, ledger_take_space);
-  if (!String::compare (head, "porrectus"))
+  if (!String::compare (glyph_name, "porrectus"))
     {
       pos += porrectus_height;
       vaticana_add_ledger_lines(me, &out, pos, 0.5*porrectus_height, ledger_take_space);
@@ -292,5 +294,5 @@ Vaticana_ligature::brew_molecule (SCM)
 
 ADD_INTERFACE (Vaticana_ligature, "vaticana-ligature-interface",
 	       "A vaticana style gregorian ligature",
-	       "ligature-head porrectus-height porrectus-width thickness join-left add-stem x-shift"
-	       "ligature-primitive-callback");
+	       "glyph-name porrectus-height porrectus-width thickness join-left "
+	       "add-stem x-offset ligature-primitive-callback");
