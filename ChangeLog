@@ -53,7 +53,6 @@
 	* scripts/lilypond-book.py (LatexPaper.set_geo_option): Simplify
 	and correct the handling of geometry options.
 
->>>>>>> 1.75
 2002-04-10  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/include/grob-interface.hh (ADD_INTERFACE): make
