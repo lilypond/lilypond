@@ -1,3 +1,25 @@
+1.3.90.jcn1
+===========
+
+* Use S_ISDIR () and check for stat.h.
+
+* Various fixes for RedHat 7.0 / gcc 2.96.54
+
+* separate basic propertylist for fingerings, center them on
+noteheads.
+
+* Side_position_interface::aligned_on_self() now can take a real
+number for self-alignment-{X,Y}.
+
+* etf2ly: single line GF field.
+
+1.3.90.mb1
+===========
+
+* Added an interscorelinefill paper variable. Set to a positive number 
+  in order to stretch the inter-line spacing to fill the full pages,
+  except for the last page (where it would look really ugly).
+
 1.3.89.jcn1
 ===========
 

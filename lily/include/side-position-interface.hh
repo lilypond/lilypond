@@ -31,11 +31,16 @@
 
    padding -- add this much extra space between victim and support
 
-
+   self-alignment-X -- real number: -1 = left aligned, 0 = center, 1
+     right-aligned in X direction.
+     
+   self-alignment-Y -- like self-alignment-X but for Y axis
+   
    TODO: move  out unrelated callbacks.
 
    TODO: reduce number of methods.
- */
+
+*/
 struct Side_position
 {
 public:
