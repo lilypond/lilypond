@@ -10,8 +10,8 @@
 melody = \notes \relative c' {
         \partial 8
         g8 |
-        c4 c8 d [es () d] c4 | f4 f8 g [es() d] c g |
-        c4 c8 d [es () d] c4 | d4 es8 d c4.
+        c4 c8 d es-[ ( d-]-) c4 | f4 f8 g es-(-[ d-)-] c g |
+        c4 c8 d es-[ ( d-]-) c4 | d4 es8 d c4.
         \bar "|."
 }
 
