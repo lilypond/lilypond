@@ -48,20 +48,20 @@
 
 2004-09-16  Heikki Junes  <hjunes@cc.hut.fi>
 
-	 * Documentation/user/{changing-defaults,examples,invoking,
-	 tutorial}.itely: Expand 's to is.
+	* Documentation/user/{changing-defaults,examples,invoking,
+	tutorial}.itely: Expand 's to is.
 
-	 *  Documentation/user/notation.itely: Capitalize only first letter.
+	* Documentation/user/notation.itely: Capitalize only first letter.
 
-	 *  Documentation/user/programming-interface.itely: Capitalize Scheme.
+	* Documentation/user/programming-interface.itely: Capitalize Scheme.
 
-	 *  Documentation/user/lilypond-book.itely: use @refbugs.
- 
-	 *  THANKS: sort.
- 
-         *  input/mutopia/F.Schubert/morgenlied.ly,
-         input/mutopia/J.S.Bach/baerenreiter-sarabande.ly,
-         input/mutopia/R.Schumann/romanze-op28-2.ly: Add lifetime and full name.
+	* Documentation/user/lilypond-book.itely: use @refbugs.
+
+	* THANKS: sort.
+
+	* input/mutopia/F.Schubert/morgenlied.ly,
+	input/mutopia/J.S.Bach/baerenreiter-sarabande.ly,
+	input/mutopia/R.Schumann/romanze-op28-2.ly: Add lifetime and full name.
 
 2004-09-15  Juergen Reuter  <reuter@ipd.uka.de>
 
