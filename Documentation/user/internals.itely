@@ -11,18 +11,88 @@
 @chapter Technical manual
 
 
-When LilyPond is run, it reads an input file which is parsed.  During
-parsing, Music objects are created. This music is interpreted, which
-is done by contexts, that produce graphical objects.  This section
-discusses details of these three concepts, and how they are glued
-together with the embedded Scheme interpreter.
+When LilyPond is run, it reads music from a file, translates that into
+notation, and outputs the result to a file. The most important steps
+are the first three. Consequently, there are three important basic
+concepts within LilyPond: music, translation and layout.  The
+following diagram illustrates the concepts, and list the terminology
+associated with each step.
+
+ 
+@verbatim
+
+                  +-------------+   	  Translation	   +----------+
+                  |             |			   |	      |
+                  |    Music    |     ------------------>  | Layout   |
+                  |             |   		 	   |  	      |
+ 	     	  +-------------+			   +----------+
+ 
+ 
+Syntax:            c4                     \context           \set #'padding = 
+                                          \property		       
+ 
+Objects:           Music expressions   	 Contexts            Layout object
+                                         Engravers           (aka. Grob)
+                                         
+Example objects:   NoteEvent             Voice               NoteHead
+                                         Note_heads_engraver
+                                         
+Example properties: #'pitch              keySignature        #'line-count
+
+User applications: none                  various             tuning layout
+
+@end verbatim
+
+The objects passed around in LilyPond have @emph{properties},
+variables that can contain many different types of information. Users
+can set these variables, to modify the default behavior.  Since there
+are three different main concepts, there are also three types of
+properties:
+
+@cindex properties
+@cindex concepts, main
+@cindex context
+@cindex music expressions
+@cindex layout
+@cindex grob 
+
+
+@table @b
+@item Music properties
+These are used internally, and most users will not see or use them.
+
+They use Scheme style naming: @code{pitch}, @code{tremolo-type}.
+
+@item Translation properties
+These influence the translation process, and most users will encounter them
+regularly. For example, beaming behavior is tuned with
+@code{autoBeamSettings}.
+
+These use mixed-caps naming: @code{autoBeamSettings},
+@code{ignoreMelismata}.
+
+
+@item Layout properties
+These are internally used in the formatting process. Consequently, to
+tune formatting details, it is necessary to adjust these
+properties. For example, some objects may be moved around vertically
+by setting their @code{padding} property.
+
+These properties use Scheme-style naming: @code{c0-position},
+@code{break-align-symbol}.
+
+@end table
+
+This chapter discusses details of the three concepts in more detail,
+and explains how they are glued together in LilyPond with the embedded
+Scheme interpreter.
 
 @menu
-* Interpretation context::      
-* Scheme integration::          
-* Music storage format::        
-* Lexical details::             
-* Output details::              
+* Interpretation context::
+* Scheme integration::
+* Music storage format::
+* Lexical details::
+* Output details::
 @end menu
 
 
@@ -30,14 +100,14 @@ together with the embedded Scheme interpreter.
 @section Interpretation context
 
 @menu
-* Creating contexts::           
-* Default contexts::            
-* Context properties::          
-* Context evaluation::          
-* Defining contexts::           
-* Changing contexts locally::   
-* Engravers and performers::    
-* Defining new contexts::       
+* Creating contexts::
+* Default contexts::
+* Context properties::
+* Context evaluation::
+* Defining contexts::
+* Changing contexts locally::
+* Engravers and performers::
+* Defining new contexts::
 @end menu
 
 
@@ -182,7 +252,7 @@ contained contexts.  This means that a property valid for the
 If you do not wish to specify the name of the context in the
 @code{\property}-expression itself, you can refer to the abstract context
 name, @code{Current}.  The @code{Current} context is the latest
-used context.  This will typically mean the @internalsref{Thread} context, 
+used context.  This will typically mean the @internalsref{Thread} context,
 but you can force another context with the
 @code{\property}-command.  Hence the expressions
 
@@ -209,7 +279,7 @@ Properties can be unset using the following statement.
 @end example
 
 @cindex properties, unsetting
-@cindex @code{\unset} 
+@cindex @code{\unset}
 
 @noindent
 This removes the definition of @var{propname} in @var{contextname}.  If
@@ -291,7 +361,7 @@ referencing that variable.
 
 
 Extending an existing context can also be done locally. A piece of
-music can be interpreted in a changed context by using the following syntax 
+music can be interpreted in a changed context by using the following syntax
 
 @example
   \with @{
@@ -342,7 +412,7 @@ objects, and the @code{Skip_event_swallow_translator} only swallows
 @cindex plug-in
 
 An existing context definition can be changed by adding or removing an
-engraver. The syntax for these operations is 
+engraver. The syntax for these operations is
 @example
 \consists @var{engravername}
 \remove @var{engravername}
@@ -416,7 +486,7 @@ engravers.
 Engravers that group context objects into axis groups or alignments
 need to be at the end of the list. @code{\consistsend} insures that
 engravers stay at the end even if a user adds or removes engravers.
-    
+
 @item @code{\accepts} @var{contextname}:
 This context can contains @var{contextname} contexts.  The first
 @code{\accepts} is created as a default context when events (e.g. notes
@@ -460,10 +530,10 @@ When it is installed, the following link should take you to its manual
 @end ifinfo
 
 @menu
-* Inline Scheme::               
-* Input variables and Scheme::  
-* Scheme datatypes::            
-* Assignments::                 
+* Inline Scheme::
+* Input variables and Scheme::
+* Scheme datatypes::
+* Assignments::
 @end menu
 
 @node Inline Scheme
@@ -508,7 +578,7 @@ Both variables and scoping are implemented in the GUILE module system.
 An anonymous Scheme module is attached to each scope. An assignment of
 the form
 @example
- traLaLa = \notes @{ c'4 d'4 @} 
+ traLaLa = \notes @{ c'4 d'4 @}
 @end example
 
 @noindent
@@ -524,7 +594,7 @@ imported in a @code{\score} by means of a second variable
 @code{twice}:
 @example
   traLaLa = \notes @{ c'4 d'4 @}
-  
+
   #(define newLa (map ly:music-deep-copy
     (list traLaLa traLaLa)))
   #(define twice
@@ -553,7 +623,7 @@ written as
 
 Scheme is used to glue together different program modules. To aid this
 glue function, many LilyPond specific object types can be passed as
-Scheme value. 
+Scheme value.
 
 The following list are all LilyPond specific types, that
 can exist during parsing:
@@ -576,11 +646,11 @@ During a run, transient objects are also created and destroyed.
 
 @table @code
 @item Grob: short for `Graphical object'.
-@item Scheme_hash_table 
+@item Scheme_hash_table
 @item Music_iterator
 
 @item Molecule: Device-independent page output object,
-including dimensions.  
+including dimensions.
 
 @item Syllable_group
 
@@ -643,7 +713,7 @@ always be the first item in a block.
 @}
 @end example
 
-      
+
 
 @node Music storage format
 @section Music storage format
@@ -652,12 +722,12 @@ Music in LilyPond is entered as music expressions. This section
 discusses different types of music expressions, and explains how
 information is stored internally. This internal storage is accessible
 through the Scheme interpreter, so music expressions may be
-manipulated using Scheme functions. 
+manipulated using Scheme functions.
 
 @menu
-* Music expressions::           
-* Internal music representation::  
-* Manipulating music expressions::  
+* Music expressions::
+* Internal music representation::
+* Manipulating music expressions::
 @end menu
 
 @node Music expressions
@@ -670,9 +740,9 @@ enclosing a list of expressions in @code{\sequential @{ @}} or @code{<<
 >>}.  In the following example, a compound expression is formed out of
 the quarter note @code{c} and a quarter note @code{d}:
 
-@example 
-\sequential @{ c4 d4 @} 
-@end example 
+@example
+\sequential @{ c4 d4 @}
+@end example
 
 @cindex Sequential music
 @cindex @code{\sequential}
@@ -756,11 +826,11 @@ expressions}.
 
 @item
   `type' or interface: Each music name has several `types' or interface,
-  for example, a note is an @code{event}, but it is also a @code{note-event}, 
+  for example, a note is an @code{event}, but it is also a @code{note-event},
   a @code{rhythmic-event} and a @code{melodic-event}.
 
   All classes of music are listed in the internals manual, under
-  @internalsref{Music classes}. 
+  @internalsref{Music classes}.
 @item
 C++ object: Each music object is represented by a C++ object. For technical
 reasons, different music objects may be represented by different C++
@@ -790,8 +860,8 @@ and @internalsref{GraceMusic} has its single argument in
 @subsection Manipulating music expressions
 
 Music objects and their properties can be accessed and manipulated
-directly, through the @code{\apply} mechanism.  
-The syntax for @code{\apply} is 
+directly, through the @code{\apply} mechanism.
+The syntax for @code{\apply} is
 @example
 \apply #@var{func} @var{music}
 @end example
@@ -843,7 +913,7 @@ children.
     ; recurse
     (if (ly:music? child) (reverse-music child))
     (map reverse-music reversed)
-    
+
     music))
 @end example
 

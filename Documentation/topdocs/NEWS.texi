@@ -18,7 +18,7 @@ Version 2.1.9
 
 @itemize @bullet
 @item Default staff sizes are now scalable. There are two new mechanisms for
-setting staff sizes is, both demonstrated in this fragment
+setting staff sizes is. Both are demonstrated in this fragment:
 
 @example
   #(set-staff-size 15)
@@ -27,6 +27,7 @@ setting staff sizes is, both demonstrated in this fragment
   @}   
 @end example
 
+
 @noindent
 Both have  the same effect on the global layout  of a
 piece. Similarly, the paper size may be changed as follows
@@ -34,6 +35,15 @@ piece. Similarly, the paper size may be changed as follows
 @example
   #(set-paper-size "a4")
 @end example 
+
+
+@item
+   Warnings for bar check errors are more cleverly printed.  This
+makes barCheckSynchronize superfluous. barCheckSynchronize is now
+switched off by default.
+
+Warning: this will cause problems in scores that use bar checks to
+shorten measures.
 
 @item
  The black note head was made a little rounder, which causes a less

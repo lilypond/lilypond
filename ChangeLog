@@ -1,5 +1,12 @@
 2004-01-16  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/regression/note-head-harmonic.ly: new file.
+
+	* Documentation/user/internals.itely (Technical manual): explain
+	difference between music, translation, layout.
+
+	* mf/parmesan-heads.mf (overdone_heads): add 0harmonic head.
+
 	* scm/output-ascii-script.scm (bracket): rounding bfs.
 
 	* scripts/convert-ly.py (conv): add \include "paper" rule. 
@@ -24,9 +31,8 @@
 	* lily/system.cc (post_processing): move uniquify_list () to
 	dumping molecule stage.
 
-	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): set
-	barCheckSynchronize to #f. Warning: this will mess up scores that
-	use barchecks to shorten measures.
+	* ly/engraver-init.ly: set barCheckSynchronize to #f. Warning:
+	this will mess up scores that use barchecks to shorten measures.
 
 	* mf/feta-bolletjes.mf (overdone_heads): make note heads rounder
 	at 20pt too.
