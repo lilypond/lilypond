@@ -440,8 +440,7 @@ Accidental_engraver::acknowledge_grob (Grob_info info)
       && note->is_mus_type ("note-event")
       && Rhythmic_head::has_interface (info.grob_))
     {
-
-      if (to_boolean ("harmonicAccidentals")
+      if (to_boolean ( get_property ("harmonicAccidentals"))
 	  || !gh_equal_p (info.grob_->get_property ("style"),
 			  ly_symbol2scm ("harmonic")))
 	{
