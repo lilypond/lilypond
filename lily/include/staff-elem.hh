@@ -62,6 +62,7 @@ public:
       Overridable, since this staff-elem might act as a pseudo-list.
      */
     virtual void translate(Offset);
+    Offset offset()const;
     void add_processing();
     void pre_processing();
     void post_processing();
