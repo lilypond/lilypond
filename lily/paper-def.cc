@@ -151,3 +151,13 @@ unsmob_paper (SCM x)
   return dynamic_cast<Paper_def*> (unsmob_music_output_def (x));
 }
   
+
+LY_DEFINE (ly_paper_def_p, "ly:paper-def?",
+	   1, 0,0, (SCM def),
+	   "Is @var{def} a paper definition?")
+{
+  Paper_def *op = dynamic_cast<Paper_def*> (unsmob_music_output_def (def));
+
+  bool pap = op;
+  return gh_bool2scm (pap);
+}

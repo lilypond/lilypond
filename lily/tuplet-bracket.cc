@@ -169,11 +169,12 @@ Tuplet_bracket::print (SCM smob)
   SCM number = me->get_property ("text");
 
   Paper_def *pap = me->get_paper ();
-  if (gh_string_p (number) && number_visibility)
+  Stencil num;
+ if (gh_string_p (number) && number_visibility)
     {
       SCM properties = Font_interface::text_font_alist_chain (me);
       SCM snum = Text_item::interpret_markup (pap->self_scm (), properties, number);
-      Stencil num = *unsmob_stencil (snum);
+      num = *unsmob_stencil (snum);
       num.align_to (X_AXIS, CENTER);
       num.translate_axis (w/2, X_AXIS);
       num.align_to (Y_AXIS, CENTER);
@@ -198,8 +199,10 @@ Tuplet_bracket::print (SCM smob)
   if (bracket_visibility)      
     {
       Real ss =   Staff_symbol_referencer::staff_space (me);
-      Real gap = robust_scm2double (me->get_property ("gap"), 1.0)
-	* ss;
+      Real gap=0.;
+
+      if (!num.extent (X_AXIS).is_empty ())
+	gap = num.extent (X_AXIS).length () + 1.0;
       
       SCM fl = me->get_property ("bracket-flare");
       SCM eh = me->get_property ("edge-height");
@@ -220,7 +223,12 @@ Tuplet_bracket::print (SCM smob)
       
       Stencil brack = make_bracket (me, Y_AXIS,
 				     Offset (w, ry - ly), 
-				     height, gap,
+				     height,
+				    /*
+				      0.1 = more space at right due to italics
+				      TODO: use italic correction of font.
+				     */
+				    Interval (-0.5, 0.5) * gap + 0.1,
 				     flare, shorten);
       mol.add_stencil (brack);
     }
@@ -241,7 +249,7 @@ Tuplet_bracket::make_bracket (Grob *me,	// for line properties.
 			      Axis protusion_axis,
 			      Offset dz,
 			      Drul_array<Real> height,
-			      Real gap,
+			      Interval gap,
 			      Drul_array<Real> flare,
 			      Drul_array<Real> shorten)
 {
@@ -260,14 +268,11 @@ Tuplet_bracket::make_bracket (Grob *me,	// for line properties.
     straight_corners[d] += - d * shorten[d] /length * dz;
   } while (flip (&d) != LEFT);
 
-  /*
-    UGH: the shortening factor is magic.
-   */
-  gap = gap <?
-    (0.66 * (straight_corners[RIGHT] - straight_corners[LEFT]).length ());
-  
+
+  if (gap.is_empty())
+    gap = Interval (0,0);
   do {
-    gap_corners[d] = (dz * 0.5) + d * 0.5 * gap / length * dz;
+    gap_corners[d] = (dz * 0.5) + gap[d] / length * dz;
   } while (flip (&d) != LEFT);
 
   Drul_array<Offset> flare_corners = straight_corners;
@@ -537,5 +542,5 @@ Tuplet_bracket::add_column (Grob*me, Item*n)
 
 ADD_INTERFACE (Tuplet_bracket,"tuplet-bracket-interface",
   "A bracket with a number in the middle, used for tuplets.",
-  "note-columns bracket-flare edge-height shorten-pair padding gap left-position right-position bracket-visibility number-visibility thickness direction");
+  "note-columns bracket-flare edge-height shorten-pair padding left-position right-position bracket-visibility number-visibility thickness direction");
 

@@ -1,5 +1,21 @@
 2004-03-24  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/regression/tuplet-gap.ly: new file.
+
+	* lily/tuplet-bracket.cc (make_bracket): take gap interval.
+	(print): compute gap length from number size, include italic
+	correction.
+
+	* scm/define-grobs.scm (all-grob-descriptions): remove gap from
+	tuplet-bracket
+
+	* scm/paper.scm (set-default-paper-size): new function, to be
+	called at toplevel.
+	(set-paper-size): new function, to be called inside \paper {}
+	(set-default-paper-size): new function, to be called at toplevel.
+
+	* lily/paper-def.cc (LY_DEFINE): ly:paper-def?: new function. 
+
 	* lily/beam-performer.cc (process_music): idem.
 
 	* lily/slur-performer.cc (process_music): stop melisma for stop event.

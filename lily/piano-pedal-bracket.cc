@@ -84,7 +84,7 @@ Piano_pedal_bracket::print (SCM smob)
       m = Tuplet_bracket::make_bracket (me, Y_AXIS,
 					Offset (span_points.length (), 0),
 					height,
-					0.0,
+					Interval (),
 					flare, shorten);
     }
   m.translate_axis (span_points[LEFT]
