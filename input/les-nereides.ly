@@ -15,6 +15,15 @@ Nastiest piece of competition at
 http://www.orphee.com/comparison/study.html, see
 http://www.orphee.com/comparison/gray.pdf
 
+
+lines that contain tweaks (17 currently, not counting reverts) are
+marked with %tweak
+
+possibly more impressive to render without tweaks?
+
+  grep -v tweak input/les-nereides.ly > lnnt.ly
+  ly2dvi lnnt.ly
+
 %}
 
 #(ly:set-point-and-click 'line-column)
@@ -22,7 +31,7 @@ http://www.orphee.com/comparison/gray.pdf
   (lambda (elt) (equal? text (ly:get-grob-property elt 'text))))
 
 
-treble =  \context Voice=treble \notes\relative c''{
+treble = \context Voice=treble \notes\relative c''{
     \key a \major
     r2
     | %2
@@ -33,7 +42,7 @@ treble =  \context Voice=treble \notes\relative c''{
 
     \translator Staff=bass
 
-    \once\property Voice.TextScript \set #'extra-offset = #'(-3 . -4)
+    \once\property Voice.TextScript \set #'extra-offset = #'(-3 . -4) %tweak
 	    
     cis,16^2-(^\markup {\small \italic "m.d." }
     <<fis fis,>>8 <<e! e,!>>
@@ -47,7 +56,7 @@ treble =  \context Voice=treble \notes\relative c''{
 
     #(set-octavation 1)
 
-    \once\property Voice.TextScript \set #'extra-offset = #'(-3 . -2)
+    \once\property Voice.TextScript \set #'extra-offset = #'(-3 . -2) %tweak
 	    
     \tieUp
     cis''''4^\markup { \small \italic "m.g." }-\arpeggio-~
@@ -75,7 +84,7 @@ treble =  \context Voice=treble \notes\relative c''{
     \property Voice.Fingering \set #'direction = #1
     
     % Manual fix for collision with slur
-    \property Voice.Fingering \set #'extra-offset = #'(0 . 1)
+    \property Voice.Fingering \set #'extra-offset = #'(0 . 1) %tweak
     <<gis gis,>> <<fis fis,>> e-)-1-4-5 r
 
     | %6
@@ -116,8 +125,8 @@ bass =  \context Voice=bass \notes\relative c{
     \key a \major
     
     % Allow ugly (highly blown-up) slurs
-    \property Voice.Slur \override #'beautiful = #5.0
-    \property Voice.Slur \override #'attachment-offset = #'((0 . 3) . (0 . -4))
+    \property Voice.Slur \override #'beautiful = #5.0 %tweak
+    \property Voice.Slur \override #'attachment-offset = #'((0 . 3) . (0 . -4))  %tweak
     \slurDown
     
     \dynamicUp
@@ -127,25 +136,25 @@ bass =  \context Voice=bass \notes\relative c{
     <<cis cis,>>4
     \translator Staff=treble
     \stemDown
-    \property Voice.Slur \override #'attachment = #'(stem . stem)
+    \property Voice.Slur \override #'attachment = #'(stem . stem) %tweak
     <<a'' eis cis>>4-)-\arpeggio
     
-    \property Voice.Slur \revert #'attachment
+    \property Voice.Slur \revert #'attachment %tweak
     \translator Staff=bass
     \stemBoth
     
-    \property Voice.Slur \revert #'y-free
-    \property Voice.Slur \override #'y-free = #0.1
-    \property Voice.Slur \revert #'attachment-offset
-    \property Voice.Slur \override #'attachment-offset = #'((0 . 3) . (0 . 8))
+    \property Voice.Slur \revert #'y-free %tweak
+    \property Voice.Slur \override #'y-free = #0.1 %tweak
+    \property Voice.Slur \revert #'attachment-offset %tweak
+    \property Voice.Slur \override #'attachment-offset = #'((0 . 3) . (0 . 8)) %tweak
     r8. cis,,16( <<fis fis,>>8 <<gis gis,>>
     
     | %3
-    \property Voice.Stem \set #'length = #5
+    \property Voice.Stem \set #'length = #5 %tweak
     <<a a,>>4
     \translator Staff=treble
 			    
-    \property Voice.Stem \revert #'length
+    \property Voice.Stem \revert #'length %tweak
     \property Voice.Stem \revert #'direction
     \property Voice.Stem \override #'direction = #-1
     <<a' fis cis>>-)-\arpeggio
@@ -154,8 +163,8 @@ bass =  \context Voice=bass \notes\relative c{
     r2
     
     | %4
-    \property Voice.Slur \revert #'beautiful
-    \property Voice.Slur \revert #'attachment-offset
+    \property Voice.Slur \revert #'beautiful %tweak
+    \property Voice.Slur \revert #'attachment-offset %tweak
     \stemDown
     <<b,, b,>>4
     \clef treble
@@ -186,11 +195,11 @@ bass =  \context Voice=bass \notes\relative c{
     %%r b,-5 <<e-3 gis-5 d'>>4
     r b,-5 <<e gis d'>>4-3-5
     \slurBoth
-    \once \property Voice.Fingering \set #'extra-offset = #'(0 . -1)
+    \once \property Voice.Fingering \set #'extra-offset = #'(0 . -1) %tweak
     e,8-[-5-(
     
     | %6
-    \once \property Voice.Fingering \set #'extra-offset = #'(0 . -1)
+    \once \property Voice.Fingering \set #'extra-offset = #'(0 . -1) %tweak
     a-)-2]
     \slurUp
     e'-[(<<a cis>>-)] r b, <<e gis d'>>4
@@ -213,7 +222,7 @@ bassTwo =  \context Voice=bassTwo \notes\relative c{
 }
 
 middleDynamics =  \context Dynamics=middle \notes{
-    \property Dynamics.TextScript \set #'padding = #-1
+    \property Dynamics.TextScript \set #'padding = #-1 %tweak
     s2
     s1*2
     | %4
@@ -222,14 +231,14 @@ middleDynamics =  \context Dynamics=middle \notes{
     	   s8
     	   s16 s s
     	   s32 s
-           \once\property Dynamics.Hairpin \set #'extra-offset = #'(0 . 2)
+           \once\property Dynamics.Hairpin \set #'extra-offset = #'(0 . 2) %tweak
 	   s-\> s
      	   s32 s s s-\!
     }
     s32 s-"rall." s s s8 s4
     | %5
     s2-"a tempo" s8
-    \once\property Dynamics.Hairpin \set #'extra-offset = #'(1 . 0)
+    \once\property Dynamics.Hairpin \set #'extra-offset = #'(1 . 0) %tweak
     s \> s s
     | %6 
     s8-\!
@@ -250,9 +259,9 @@ lowerDynamics = \context Dynamics=lower \notes{
     
     % grace destroys pedal-line-spanner?
     % let's do manual tweak:
-    \once\property Dynamics.SustainPedal \set #'extra-offset = #'(10 . 0)
+    \once\property Dynamics.SustainPedal \set #'extra-offset = #'(10 . 0) %tweak
     s8-\sustainUp
-    \once\property Dynamics.SustainPedal \set #'extra-offset = #'(16 . 0)
+    \once\property Dynamics.SustainPedal \set #'extra-offset = #'(16 . 0) %tweak
     s8-\sustainDown
 %{
     s4
@@ -275,7 +284,7 @@ lowerDynamics = \context Dynamics=lower \notes{
     \property Dynamics.pedalSustainStyle = #'mixed
     s8-\sustainDown s s
     s s-\sustainUp-\sustainDown s
-    s-\sustainUp
+    s
     \once \property Dynamics.pedalSustainStyle = #'text
     s-\sustainUp
 
@@ -283,7 +292,7 @@ lowerDynamics = \context Dynamics=lower \notes{
     \property Dynamics.pedalSustainStyle = #'mixed
     s8-\sustainDown s s
     s s-\sustainUp-\sustainDown s
-    s-\sustainUp
+    s
     \once \property Dynamics.pedalSustainStyle = #'text
     s-\sustainUp
     | %7
