@@ -1,3 +1,7 @@
+2003-08-15  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* input/regression/note-head-style.ly: many fixes and updates
+
 2003-08-14  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* input/puer-fragment.ly: bugfix: central C position of do clef
