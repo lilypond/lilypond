@@ -25,7 +25,7 @@
 	music subtypes.
 
 	* scm/documentation-lib.scm: complete revision.
-	Use GOOPS objects to store document tree explicitly. Cleanedup and
+	Use GOOPS objects to store document tree explicitly. Cleaned up and
 	sped up doco generation a lot.
 
 2002-09-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
@@ -147,6 +147,8 @@
 	development versions.  Bugfixes.
 
 2002-09-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* VERSION: released 1.7.0
 
 	* scm/tex.scm (header-end): enclose lily output in begingroup/endgroup.
 
