@@ -1,7 +1,7 @@
 \version "2.1.22"
 
 \header { 
-texidoc = "Accidentals in different staffs don't effect the
+texidoc = "Accidentals in different staves don't effect the
 spacing of the quarter notes here."
 }
 

@@ -47,10 +47,6 @@ Translator::print_smob (SCM s, SCM port, scm_print_state *)
      
   scm_puts ("#<Translator ", port);
   scm_puts (classname (sc), port);
-
-  /*
-    don't try to print properties, that is too much hassle.
-   */
   scm_puts (" >", port);
   
   return 1;

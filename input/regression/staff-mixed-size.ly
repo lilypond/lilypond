@@ -1,11 +1,12 @@
 \header {
     
-texidoc = "Staffs may be present in several sizes within a score.
-This is achieved with an internal scaling factor. When code forgets
-factor, objects generally become too thick or too large.
-"
+texidoc = "Staves may be present in several sizes within a score.
+This is achieved with an internal scaling factor. When code forgets to
+take into account the scaling factor, objects generally become too
+thick or too large on smaller staves."
 
 }
+
 \version "2.1.23"
 
 \score {
