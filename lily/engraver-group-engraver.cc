@@ -14,7 +14,7 @@
 #include "grob.hh"
 
 
-ADD_THIS_TRANSLATOR(Engraver_group_engraver);
+ADD_THIS_TRANSLATOR (Engraver_group_engraver);
 
 void
 Engraver_group_engraver::announce_grob (Grob_info info)
@@ -28,7 +28,7 @@ void
 Engraver_group_engraver::create_grobs ()
 {
 
-  for (SCM p = simple_trans_list_; gh_pair_p (p); p = gh_cdr ( p))
+  for (SCM p = simple_trans_list_; gh_pair_p (p); p = gh_cdr (p))
     {
       Translator * t = unsmob_translator (gh_car (p));
       Engraver * eng = dynamic_cast<Engraver*> (t);
@@ -40,7 +40,7 @@ Engraver_group_engraver::create_grobs ()
 void
 Engraver_group_engraver::acknowledge_grobs ()
 {
-  for (int j =0; j < announce_info_arr_.size(); j++)
+  for (int j =0; j < announce_info_arr_.size (); j++)
     {
       Grob_info info = announce_info_arr_[j];
       for (SCM p = simple_trans_list_; gh_pair_p (p); p = gh_cdr (p))
@@ -54,9 +54,9 @@ Engraver_group_engraver::acknowledge_grobs ()
 }
 
 void
-Engraver_group_engraver::do_announces()
+Engraver_group_engraver::do_announces ()
 {
-  for (SCM p = trans_group_list_; gh_pair_p (p); p =gh_cdr ( p))
+  for (SCM p = trans_group_list_; gh_pair_p (p); p =gh_cdr (p))
     {
       Translator * t = unsmob_translator (gh_car (p));
       dynamic_cast<Engraver_group_engraver*> (t)->do_announces ();
@@ -80,7 +80,7 @@ Engraver_group_engraver::do_announces()
 void
 Engraver_group_engraver::process_music ()
 {
-   for (SCM p = simple_trans_list_; gh_pair_p (p); p =gh_cdr ( p))
+   for (SCM p = simple_trans_list_; gh_pair_p (p); p =gh_cdr (p))
     {
       Translator * t = unsmob_translator (gh_car (p));
       Engraver * eng = dynamic_cast<Engraver*> (t);
@@ -88,7 +88,7 @@ Engraver_group_engraver::process_music ()
       if (eng)
 	eng->process_music ();
     }
-   for (SCM p = trans_group_list_; gh_pair_p (p); p =gh_cdr ( p))
+   for (SCM p = trans_group_list_; gh_pair_p (p); p =gh_cdr (p))
     {
       Translator * t = unsmob_translator (gh_car (p));
       Engraver*eng = dynamic_cast<Engraver*> (t);

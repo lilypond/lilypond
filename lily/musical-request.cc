@@ -53,16 +53,16 @@ Rhythmic_req::do_equal_b (Request const* r) const
 Moment
 Rhythmic_req::length_mom () const
 {
-  return  unsmob_duration (  get_mus_property( "duration"))->length_mom ();
+  return  unsmob_duration (get_mus_property ("duration"))->length_mom ();
 
 }
 
 void
 Rhythmic_req::compress (Moment m)
 {
-  Duration *d =  unsmob_duration (get_mus_property( "duration"));
+  Duration *d =  unsmob_duration (get_mus_property ("duration"));
 
-  set_mus_property ("duration", d ->compressed (m).smobbed_copy());
+  set_mus_property ("duration", d ->compressed (m).smobbed_copy ());
 }
 
 bool
@@ -101,7 +101,6 @@ Text_script_req::do_equal_b (Request const* r) const
 			  t->get_mus_property ("text"));
 }
 
-
 bool
 Articulation_req::do_equal_b (Request const* r) const
 {
@@ -109,5 +108,17 @@ Articulation_req::do_equal_b (Request const* r) const
   
   return a; //  &&  articulation_str_ == a->articulation_str_;
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 

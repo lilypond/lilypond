@@ -66,7 +66,7 @@ Slur_engraver::try_music (Music *req_l)
 	  /*
 	    Let's not start more than one slur per moment.
 	   */
-	  if (sl->get_span_dir() == START)
+	  if (sl->get_span_dir () == START)
 	    {
 	      if (now_mom () > last_start_)
 	        {
@@ -136,9 +136,11 @@ Slur_engraver::create_grobs ()
     {
       Span_req* slur_req_l = new_slur_req_l_arr_[i];
       // end slur: move the slur to other array
-      if (slur_req_l->get_span_dir() == STOP)
+      if (slur_req_l->get_span_dir () == STOP)
 	{
 	  if (slur_l_stack_.empty ())
+	    /* How to shut up this warning, when Voice_devnull_engraver has
+	       eaten start request? */
 	    slur_req_l->origin ()->warning (_f ("can't find start of slur"));
 	  else
 	    {
@@ -152,7 +154,7 @@ Slur_engraver::create_grobs ()
 	      requests_arr_.pop ();
 	    }
 	}
-      else  if (slur_req_l->get_span_dir() == START)
+      else  if (slur_req_l->get_span_dir () == START)
 	{
 	  // push a new slur onto stack.
 	  // (use temp. array to wait for all slur STOPs)

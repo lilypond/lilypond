@@ -29,16 +29,16 @@ class Span_bar_engraver : public Engraver
   Link_array<Item> bar_l_arr_;
 
 public:
-  VIRTUAL_COPY_CONS(Translator);
-  Span_bar_engraver();
+  VIRTUAL_COPY_CONS (Translator);
+  Span_bar_engraver ();
 protected:
   virtual void acknowledge_grob (Grob_info);
-  virtual void stop_translation_timestep();
+  virtual void stop_translation_timestep ();
 
 };
 
 
-Span_bar_engraver::Span_bar_engraver()
+Span_bar_engraver::Span_bar_engraver ()
 {
   spanbar_p_ =0;
 }
@@ -48,14 +48,14 @@ Span_bar_engraver::Span_bar_engraver()
 void
 Span_bar_engraver::acknowledge_grob (Grob_info i)
 {
-  int depth = i.origin_trans_l_arr (this).size();
+  int depth = i.origin_trans_l_arr (this).size ();
   if (depth > 1
       && Bar::has_interface (i.elem_l_))
     {
-      Item * it = dynamic_cast<Item*>(i.elem_l_);
+      Item * it = dynamic_cast<Item*> (i.elem_l_);
       bar_l_arr_.push (it);
 
-      if (bar_l_arr_.size() >= 2 && !spanbar_p_) 
+      if (bar_l_arr_.size () >= 2 && !spanbar_p_) 
 	{
 	  spanbar_p_ = new Item (get_property ("SpanBar"));
 	  Span_bar::set_interface (spanbar_p_);
@@ -68,12 +68,12 @@ Span_bar_engraver::acknowledge_grob (Grob_info i)
     }
 }
 void
-Span_bar_engraver::stop_translation_timestep()
+Span_bar_engraver::stop_translation_timestep ()
 {
   if (spanbar_p_) 
     {
-      for (int i=0; i < bar_l_arr_.size() ; i++)
-	Span_bar::add_bar( spanbar_p_,bar_l_arr_[i]);
+      for (int i=0; i < bar_l_arr_.size () ; i++)
+	Span_bar::add_bar (spanbar_p_,bar_l_arr_[i]);
 
       SCM vissym =ly_symbol2scm ("visibility-lambda");
       SCM vis = bar_l_arr_[0]->get_grob_property (vissym);	  
@@ -88,7 +88,7 @@ Span_bar_engraver::stop_translation_timestep()
 
 
 
-ADD_THIS_TRANSLATOR(Span_bar_engraver);
+ADD_THIS_TRANSLATOR (Span_bar_engraver);
 
 
 

@@ -71,18 +71,18 @@ public:
 
 public:
   /// get ready for processing next error.
-  void next();
-  const Long_option_init *parselong();
-  const Long_option_init *parseshort();
-  void OK() const;
-  bool ok() const;
+  void next ();
+  const Long_option_init *parselong ();
+  const Long_option_init *parseshort ();
+  void OK () const;
+  bool ok () const;
 
   /// report an error and abort
   void report (Errorcod c);
 
 
   /// return an integer (with err. detect)
-  long argument_to_i();
+  long argument_to_i ();
  
     
   /**
@@ -100,10 +100,10 @@ public:
     @return pointer to next option found.
     0 if error occurred, or next argument is no option.
     */
-  const Long_option_init *operator()();
+  const Long_option_init *operator () ();
 
-  char const *current_arg();
-  char const * get_next_arg();
+  char const *current_arg ();
+  char const * get_next_arg ();
 };
 
 #endif // GETOPT_LONG_HH

@@ -16,12 +16,14 @@
 #include "lily-proto.hh"
 #include "string.hh"
 #include "smobs.hh"
+#include "music-constructor.hh"
+
 
 /** Music is anything that has duration and supports both time compression and
   transposition.
   
   In Lily, everything that can be thought to have a length and a pitch
-  (which has a duration which can be transposed) is considered "music",
+ (which has a duration which can be transposed) is considered "music",
 
   Music is hierarchical: 
 
@@ -49,17 +51,17 @@ public:
   /// The duration of this piece of music
   virtual Moment length_mom () const;
 
-  void print() const;
+  void print () const;
   /// Transpose, with the interval central C to #p#
   virtual void transpose (Pitch p);
 
   /// Scale the music in time by #factor#.
   virtual void compress (Moment factor);
-  VIRTUAL_COPY_CONS(Music);
+  VIRTUAL_COPY_CONS (Music);
   Music (Music const &m);
   Music (SCM);
 protected:
-  DECLARE_SMOBS(Music,);
+  DECLARE_SMOBS (Music,);
   SCM immutable_property_alist_;
   SCM mutable_property_alist_;
 };

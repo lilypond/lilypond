@@ -14,7 +14,7 @@
 #include "compare.hh"
 
 Rational
-Interval_t<Rational>::infinity()
+Interval_t<Rational>::infinity ()
 {
   Rational infty;
   infty.set_infinite (1);
@@ -29,4 +29,4 @@ Interval_t<Rational>::T_to_str (Rational a)
 
 
 
-template INTERVAL__INSTANTIATE(Rational);
+template INTERVAL__INSTANTIATE (Rational);

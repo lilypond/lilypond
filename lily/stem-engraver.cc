@@ -24,7 +24,7 @@ class Stem_engraver : public Engraver
 
 public:
   VIRTUAL_COPY_CONS (Translator);
-  Stem_engraver();
+  Stem_engraver ();
   
 protected:
   virtual void acknowledge_grob (Grob_info);
@@ -50,7 +50,7 @@ Stem_engraver::Stem_engraver ()
 
 
 void
-Stem_engraver::acknowledge_grob(Grob_info i)
+Stem_engraver::acknowledge_grob (Grob_info i)
 {
   Grob* h = i.elem_l_;
   if (Rhythmic_head::has_interface (h))
@@ -64,7 +64,7 @@ Stem_engraver::acknowledge_grob(Grob_info i)
 	{
 	  stem_p_ = new Item (get_property ("Stem"));
 	  Stem::set_interface (stem_p_);
-	  Staff_symbol_referencer::set_interface(stem_p_);
+	  Staff_symbol_referencer::set_interface (stem_p_);
 
 	  
 	  stem_p_->set_grob_property ("duration-log", gh_int2scm (duration_log));
@@ -120,7 +120,7 @@ Stem_engraver::acknowledge_grob(Grob_info i)
 }
 
 void
-Stem_engraver::stop_translation_timestep()
+Stem_engraver::stop_translation_timestep ()
 {
   if (tremolo_p_)
     {
@@ -132,13 +132,13 @@ Stem_engraver::stop_translation_timestep()
   if (stem_p_)
     {
       SCM prop = get_property ("stemLeftBeamCount");
-      if (gh_number_p(prop))
+      if (gh_number_p (prop))
 	{
 	  Stem::set_beaming (stem_p_,gh_scm2int (prop),LEFT);
 	  daddy_trans_l_->set_property ("stemLeftBeamCount", SCM_UNDEFINED);
 	}
       prop = get_property ("stemRightBeamCount");
-      if (gh_number_p(prop))
+      if (gh_number_p (prop))
 	{
 	  Stem::set_beaming (stem_p_,gh_scm2int (prop), RIGHT);
 	  daddy_trans_l_->set_property ("stemRightBeamCount", SCM_UNDEFINED);
@@ -151,12 +151,12 @@ Stem_engraver::stop_translation_timestep()
 	 to forced), if we have a Chord_tremolo.
        */
       SCM dir = stem_p_->get_grob_property ("direction");
-      if (gh_number_p (dir) && to_dir(dir))
+      if (gh_number_p (dir) && to_dir (dir))
 	{
 	  stem_p_->set_grob_property ("dir-forced", SCM_BOOL_T);	  
 	}
 
-      typeset_grob(stem_p_);
+      typeset_grob (stem_p_);
       stem_p_ = 0;
     }
 

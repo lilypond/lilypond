@@ -36,13 +36,13 @@ Paper_def::Paper_def (Paper_def const&src)
 Real
 Paper_def::get_var (String s) const
 {
-  return get_realvar (ly_symbol2scm (s.ch_C()));
+  return get_realvar (ly_symbol2scm (s.ch_C ()));
 }
 
 SCM
 Paper_def::get_scmvar (String s) const
 {
-  return  scope_p_->scm_elem (ly_symbol2scm (s.ch_C()));
+  return  scope_p_->scm_elem (ly_symbol2scm (s.ch_C ()));
 }
 
 Real
@@ -96,7 +96,7 @@ Paper_def::get_next_score_count () const
 }
 
 void
-Paper_def::reset_score_count()
+Paper_def::reset_score_count ()
 {
   score_count_i_ = 0;
 }
@@ -138,7 +138,7 @@ Paper_def::find_font (SCM fn, Real m)
   
   Font_metric*  f = all_fonts_global_p->find_font (ly_scm2string (fn));
   SCM val = Scaled_font_metric::make_scaled_font_metric (f, m);
-  scaled_fonts_ = scm_acons (key, val, scaled_fonts_ );
+  scaled_fonts_ = scm_acons (key, val, scaled_fonts_);
 
   scm_unprotect_object (val);
 
@@ -155,7 +155,7 @@ Paper_def::font_descriptions ()const
 
   
   SCM l = SCM_EOL;
-  for (SCM s = scaled_fonts_; gh_pair_p (s); s = gh_cdr(s))
+  for (SCM s = scaled_fonts_; gh_pair_p (s); s = gh_cdr (s))
     {
       SCM desc = gh_caar (s);
       SCM mdesc = unsmob_metrics (gh_cdar (s))->description_;

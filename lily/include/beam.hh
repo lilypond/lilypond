@@ -19,15 +19,15 @@ public:
   static Item* first_visible_stem (Grob*);
   static Item* last_visible_stem (Grob*);
   static bool has_interface (Grob*);
-  DECLARE_SCHEME_CALLBACK(rest_collision_callback, (SCM element, SCM axis));
+  DECLARE_SCHEME_CALLBACK (rest_collision_callback, (SCM element, SCM axis));
   Beam (SCM);
   static void add_stem (Grob*,Grob*);
   static void set_beaming (Grob*,Beaming_info_list *);
   static void set_stemlens (Grob*);
   static int get_multiplicity (Grob*me);
-  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
-  DECLARE_SCHEME_CALLBACK(before_line_breaking, (SCM ));
-  DECLARE_SCHEME_CALLBACK(after_line_breaking, (SCM ));
+  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
+  DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM ));
+  DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM ));
 
   /*
     y-dy callbacks

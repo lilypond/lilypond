@@ -90,7 +90,7 @@ static Keyword_ent the_key_tab[]={
   {0,0}
 };
 
-My_lily_lexer::My_lily_lexer()
+My_lily_lexer::My_lily_lexer ()
 {
   keytable_p_ = new Keyword_table (the_key_tab);
   toplevel_variable_tab_ = new Scheme_hash_table ;
@@ -111,9 +111,9 @@ My_lily_lexer::lookup_keyword (String s)
 SCM
 My_lily_lexer::lookup_identifier (String s)
 {
-  SCM sym = ly_symbol2scm (s.ch_C());
+  SCM sym = ly_symbol2scm (s.ch_C ());
   
-  for (int i = scope_l_arr_.size (); i--; )
+  for (int i = scope_l_arr_.size (); i--;)
     {
       SCM val = SCM_UNSPECIFIED;
       if (scope_l_arr_[i]->try_retrieve (sym, &val))
@@ -126,7 +126,7 @@ void
 My_lily_lexer::start_main_input ()
 {  
   new_input (main_input_str_, source_global_l);
-  allow_includes_b_ = allow_includes_b_ &&  !(safe_global_b);
+  allow_includes_b_ = allow_includes_b_ &&  ! (safe_global_b);
 }
 
 void
@@ -134,13 +134,13 @@ My_lily_lexer::set_identifier (String name_str, SCM s)
 {
   if (lookup_keyword (name_str) >= 0)
     {
-      warning (  _f ("Identifier name is a keyword: `%s'", name_str));
+      warning (_f ("Identifier name is a keyword: `%s'", name_str));
     }
   
   scope_l_arr_.top ()->set (name_str, s);
 }
 
-My_lily_lexer::~My_lily_lexer()
+My_lily_lexer::~My_lily_lexer ()
 {
   delete keytable_p_;
   scm_unprotect_object (toplevel_variable_tab_->self_scm ());
@@ -152,22 +152,22 @@ My_lily_lexer::~My_lily_lexer()
 void
 My_lily_lexer::LexerError (char const *s)
 {
-  if (include_stack_.empty())
+  if (include_stack_.empty ())
     {
       progress_indication (_f ("error at EOF: %s", s)+ String ("\n"));
     }
   else
     {
       errorlevel_i_ |= 1;
-      Input spot (source_file_l(),here_ch_C());
+      Input spot (source_file_l (),here_ch_C ());
       spot.error (s);
     }
 }
 
 char
-My_lily_lexer::escaped_char(char c) const
+My_lily_lexer::escaped_char (char c) const
 {
-  switch(c)
+  switch (c)
     {
     case 'n':
       return '\n';

@@ -47,10 +47,10 @@ Paper_outputter::Paper_outputter (String name)
     {
 	*stream_p_ << ""
 	  ";;; Usage: guile -s x.scm > x.tex\n"
-	  "(primitive-load-path 'standalone.scm)\n"
-	  ";(scm-tex-output)\n"
-	  "(scm-ps-output)\n"
-	  "(map (lambda (x) (display (ly-eval x))) '(\n"
+	  " (primitive-load-path 'standalone.scm)\n"
+	  "; (scm-tex-output)\n"
+	  " (scm-ps-output)\n"
+	  " (map (lambda (x) (display (ly-eval x))) ' (\n"
 	;
     }
 
@@ -74,7 +74,7 @@ Paper_outputter::output_header ()
       gh_define ("security-paranoia", SCM_BOOL_T);      
     }
 
-  SCM exp = gh_list (ly_symbol2scm ((output_format_global + "-scm").ch_C()),
+  SCM exp = gh_list (ly_symbol2scm ((output_format_global + "-scm").ch_C ()),
 		     ly_quote_scm (ly_symbol2scm ("all-definitions")),
 		     SCM_UNDEFINED);
   exp = scm_eval2 (exp, SCM_EOL);
@@ -117,7 +117,7 @@ void
 Paper_outputter::output_comment (String str)
 {
   output_scheme (gh_list (ly_symbol2scm ("comment"),
-			  ly_str02scm ((char*)str.ch_C()),
+			  ly_str02scm ((char*)str.ch_C ()),
 			  SCM_UNDEFINED)
 		 );
 }
@@ -137,13 +137,13 @@ Paper_outputter::output_scheme (SCM scm)
 /*
   UGH.
 
-  Should probably change interface to do less eval ( symbol ), and more
+  Should probably change interface to do less eval (symbol), and more
   apply (procedure, args)
  */
 void
 Paper_outputter::dump_scheme (SCM s)
 {
-  if  (verbatim_scheme_b_)
+  if (verbatim_scheme_b_)
     {
       *stream_p_ << ly_scm2string (ly_write2scm (s));
     }
@@ -192,8 +192,8 @@ Paper_outputter::output_version ()
   else
     id_str += String (", ") + version_str ();
 
-  output_String_def ( "lilypondtagline", id_str);
-  output_String_def ( "LilyPondVersion", version_str ());
+  output_String_def ("lilypondtagline", id_str);
+  output_String_def ("LilyPondVersion", version_str ());
 }
 
 
@@ -205,7 +205,7 @@ Paper_outputter::output_Real_def (String k, Real v)
   
   SCM scm = gh_list (ly_symbol2scm ("lily-def"),
 		     ly_str02scm (k.ch_l ()),
-		     ly_str02scm (to_str(v).ch_l ()),
+		     ly_str02scm (to_str (v).ch_l ()),
 		     SCM_UNDEFINED);
   output_scheme (scm);
 }

@@ -14,7 +14,7 @@
 #include "paper-def.hh"
 #include "font-interface.hh"
 
-MAKE_SCHEME_CALLBACK(Time_signature,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Time_signature,brew_molecule,1);
 /*
   TODO: make different functions for special and normal timesigs.
  */
@@ -70,7 +70,7 @@ Time_signature::special_time_signature (Grob*me, String s, int n, int d)
   String symbolname = "timesig-" + s + to_str (n) + "/" + to_str (d);
   
   Molecule m = feta->find_by_name (symbolname);
-  if (!m.empty_b()) 
+  if (!m.empty_b ()) 
     return m;
 
   /*

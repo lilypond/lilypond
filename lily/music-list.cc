@@ -24,15 +24,29 @@ Simultaneous_music::length_mom () const
   return maximum_length ();
 }
 
-Simultaneous_music::Simultaneous_music(SCM head)
+Simultaneous_music::Simultaneous_music (SCM head)
   : Music_sequence (head)
 {
   set_mus_property ("iterator-ctor",
 		    Simultaneous_music_iterator::constructor_cxx_function);
 }
 
-Sequential_music::Sequential_music(SCM head)
+Simultaneous_music::Simultaneous_music ()
+  : Music_sequence ()
+{
+  set_mus_property ("iterator-ctor",
+		    Simultaneous_music_iterator::constructor_cxx_function);
+  
+}
+
+Sequential_music::Sequential_music (SCM head)
   : Music_sequence (head)
+{
+  set_mus_property ("iterator-ctor",
+		    Sequential_music_iterator::constructor_cxx_function);
+}
+Sequential_music::Sequential_music ()
+  : Music_sequence ()
 {
   set_mus_property ("iterator-ctor",
 		    Sequential_music_iterator::constructor_cxx_function);
@@ -51,8 +65,14 @@ Simultaneous_music::to_relative_octave (Pitch p)
   return do_relative_octave (p, true);
 }
 
-Request_chord::Request_chord(SCM s)
+Request_chord::Request_chord (SCM s)
   : Simultaneous_music (s)
+{
+  set_mus_property ("iterator-ctor",
+		    Request_chord_iterator::constructor_cxx_function);
+}
+
+Request_chord::Request_chord ()
 {
   set_mus_property ("iterator-ctor",
 		    Request_chord_iterator::constructor_cxx_function);
@@ -69,7 +89,7 @@ Request_chord::to_relative_octave (Pitch last)
 	  Pitch pit = *unsmob_pitch (m->get_mus_property ("pitch"));
 	  
 	  pit.to_relative_octave (last);
-	  m->set_mus_property ("pitch", pit.smobbed_copy());
+	  m->set_mus_property ("pitch", pit.smobbed_copy ());
 	  	  
 	  return pit;
 	}
@@ -79,3 +99,6 @@ Request_chord::to_relative_octave (Pitch last)
 
 
 
+ADD_MUSIC (Simultaneous_music);
+ADD_MUSIC (Sequential_music);
+ADD_MUSIC (Request_chord);

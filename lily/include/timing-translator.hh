@@ -20,7 +20,7 @@ class Timing_translator : public virtual Translator
 
   SCM last_time_sig_;
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
   Timing_translator ();
   Music *check_;
 

@@ -21,11 +21,11 @@ SCM
 Hairpin::brew_molecule (SCM smob) 
 {
   Grob *me= unsmob_grob (smob);
-  Spanner *spanner = dynamic_cast<Spanner*>(me);
+  Spanner *spanner = dynamic_cast<Spanner*> (me);
 
   Real line = me->paper_l ()->get_var ("stafflinethickness");  
   
-  SCM s = me->get_grob_property("grow-direction");
+  SCM s = me->get_grob_property ("grow-direction");
   if (!isdir_b (s))
     {
       me->suicide ();

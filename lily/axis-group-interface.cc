@@ -26,7 +26,7 @@ Axis_group_interface::add_element (Grob*me,Grob *e)
 }
 
 bool
-Axis_group_interface::axis_b (Grob*me,Axis a )
+Axis_group_interface::axis_b (Grob*me,Axis a)
 {
   /*
     urg. FIXME, check for Hara_kiri_group_spanner shouldn't be necessary?
@@ -34,7 +34,7 @@ Axis_group_interface::axis_b (Grob*me,Axis a )
     
    */
   return me->has_extent_callback_b (group_extent_callback_proc, a) ||
-    (me->has_extent_callback_b (Hara_kiri_group_spanner::y_extent_proc, a));
+ (me->has_extent_callback_b (Hara_kiri_group_spanner::y_extent_proc, a));
 }
 
 Interval
@@ -51,14 +51,14 @@ Axis_group_interface::relative_group_extent (Axis a, Grob *common, SCM elts)
   return r;
 }
 
-MAKE_SCHEME_CALLBACK(Axis_group_interface,group_extent_callback,2);
+MAKE_SCHEME_CALLBACK (Axis_group_interface,group_extent_callback,2);
 SCM
 Axis_group_interface::group_extent_callback (SCM element_smob, SCM scm_axis)
 {
   Grob *me = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (scm_axis);
 
-  Grob * common =(Grob*) me;
+  Grob * common = (Grob*) me;
 
   for (SCM s = me->get_grob_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
     {

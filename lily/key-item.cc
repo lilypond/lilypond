@@ -28,7 +28,7 @@ const int SHARP_TOP_PITCH=4; /*  ais and bis typeset in lower octave */
   the thinking to other parties.
  */
 int
-Key_item::calculate_position(Grob *ki, SCM pair) 
+Key_item::calculate_position (Grob *ki, SCM pair) 
 {
   int p = gh_scm2int (gh_car (pair));
   int a = gh_scm2int (gh_cdr (pair));  
@@ -47,7 +47,7 @@ Key_item::calculate_position(Grob *ki, SCM pair)
     
     if ((a<0 && ((p>FLAT_TOP_PITCH) || (p+c0>4)) && (p+c0>1)) 
 	||
-	(a>0 && ((p>SHARP_TOP_PITCH) || (p+c0>5)) && (p+c0>2))) 
+ (a>0 && ((p>SHARP_TOP_PITCH) || (p+c0>5)) && (p+c0>2))) 
       {
 	p -= 7; /* Typeset below c_position */
       }
@@ -72,7 +72,7 @@ Key_item::calculate_position(Grob *ki, SCM pair)
   TODO
   - space the `natural' signs wider
  */
-MAKE_SCHEME_CALLBACK(Key_item,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Key_item,brew_molecule,1);
 SCM
 Key_item::brew_molecule (SCM smob)
 {
@@ -91,7 +91,7 @@ Key_item::brew_molecule (SCM smob)
     {
       int a = gh_scm2int (gh_cdar (s));
       Molecule m = Font_interface::get_default_font (me)->find_by_name ("accidentals-" + to_str (a));
-      m.translate_axis (calculate_position(me, gh_car (s)) * inter, Y_AXIS);
+      m.translate_axis (calculate_position (me, gh_car (s)) * inter, Y_AXIS);
       mol.add_at_edge (X_AXIS, LEFT, m, 0);
     }
 
@@ -104,10 +104,10 @@ Key_item::brew_molecule (SCM smob)
 
 	As suggested by [Ross], p.148.
        */
-      Interval x(0, inter);
-      Interval y(0,0);
+      Interval x (0, inter);
+      Interval y (0,0);
 
-      mol.add_at_edge (X_AXIS, LEFT, Lookup::blank (Box(x,y)),0);
+      mol.add_at_edge (X_AXIS, LEFT, Lookup::blank (Box (x,y)),0);
       
       for (; gh_pair_p (old); old = gh_cdr (old))
         {
@@ -117,7 +117,7 @@ Key_item::brew_molecule (SCM smob)
 	    find correspondences in pitches 
 	   */
           for (SCM s = newas; gh_pair_p (s); s = gh_cdr (s))
-	    if (gh_caar(s) == gh_caar (old))
+	    if (gh_caar (s) == gh_caar (old))
 	      found  = gh_car (s);
 		
 	  if (found == SCM_EOL || gh_cdr (found) != gh_cdar (old))
@@ -130,7 +130,7 @@ Key_item::brew_molecule (SCM smob)
         }
     }
 
-  return mol.smobbed_copy();
+  return mol.smobbed_copy ();
 }
 
 

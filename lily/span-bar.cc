@@ -25,7 +25,7 @@ Span_bar::add_bar (Grob*me, Grob*b)
   me->add_dependency (b);
 }
 
-MAKE_SCHEME_CALLBACK(Span_bar,width_callback,2);
+MAKE_SCHEME_CALLBACK (Span_bar,width_callback,2);
 SCM
 Span_bar::width_callback (SCM element_smob, SCM scm_axis)
 {
@@ -39,10 +39,10 @@ Span_bar::width_callback (SCM element_smob, SCM scm_axis)
    */
   Molecule m = Bar::compound_barline (se, gl, 40 PT);
   
-  return ly_interval2scm ( m.extent (X_AXIS));
+  return ly_interval2scm (m.extent (X_AXIS));
 }
 
-MAKE_SCHEME_CALLBACK(Span_bar,before_line_breaking,1);
+MAKE_SCHEME_CALLBACK (Span_bar,before_line_breaking,1);
 SCM
 Span_bar::before_line_breaking (SCM smob)
 {
@@ -51,12 +51,12 @@ Span_bar::before_line_breaking (SCM smob)
 
   /*
     no need to call   Bar::before_line_breaking (), because the info
-    in ELEMENTS already has been procced by Bar::before_line_breaking().
+    in ELEMENTS already has been procced by Bar::before_line_breaking ().
    */
   return SCM_UNSPECIFIED;
 }
 
-MAKE_SCHEME_CALLBACK(Span_bar,center_on_spanned_callback,2);
+MAKE_SCHEME_CALLBACK (Span_bar,center_on_spanned_callback,2);
 
 SCM
 Span_bar::center_on_spanned_callback (SCM element_smob, SCM axis)
@@ -72,7 +72,7 @@ Span_bar::center_on_spanned_callback (SCM element_smob, SCM axis)
     interval that we span.  */
   if (i.empty_b ())
     {
-      me->suicide();
+      me->suicide ();
       return gh_double2scm (0.0);
     }
   
@@ -85,7 +85,7 @@ Span_bar::evaluate_empty (Grob*me)
   /*
     TODO: filter all hara-kiried out of ELEMENS list, and then
     optionally do suicide. Call this cleanage function from
-    center_on_spanned_callback() as well.
+    center_on_spanned_callback () as well.
     
    */
   if (!gh_pair_p (me->get_grob_property ("elements")))
@@ -122,7 +122,7 @@ Span_bar::evaluate_glyph (Grob*me)
       type = ".|.";
     }
 
-  gl = ly_str02scm (type.ch_C());
+  gl = ly_str02scm (type.ch_C ());
   if (scm_equal_p (me->get_grob_property (glsym), gl) != SCM_BOOL_T)
     me->set_grob_property (glsym, gl);
 }
@@ -130,11 +130,11 @@ Span_bar::evaluate_glyph (Grob*me)
 Interval
 Span_bar::get_spanned_interval (Grob*me) 
 {
-  return ly_scm2interval (Axis_group_interface::group_extent_callback (me->self_scm(), gh_int2scm (Y_AXIS))); 
+  return ly_scm2interval (Axis_group_interface::group_extent_callback (me->self_scm (), gh_int2scm (Y_AXIS))); 
 }
 
 
-MAKE_SCHEME_CALLBACK(Span_bar,get_bar_size,1);
+MAKE_SCHEME_CALLBACK (Span_bar,get_bar_size,1);
 SCM
 Span_bar::get_bar_size (SCM smob)
 {

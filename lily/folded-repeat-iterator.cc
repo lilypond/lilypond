@@ -61,7 +61,7 @@ Folded_repeat_iterator::construct_children ()
 {
   Repeated_music  *  mus = dynamic_cast<Repeated_music*> (music_l_);
   main_iter_p_ = get_iterator_p (mus->body ());
-  if (!main_iter_p_->ok())
+  if (!main_iter_p_->ok ())
     {
      leave_body ();
       enter_alternative ();
@@ -75,7 +75,7 @@ Folded_repeat_iterator::process (Moment m)
     {
       bool success = try_music (music_l_);
       if (!success)
-	music_l_->origin ()->warning ( _("no one to print a repeat brace"));
+	music_l_->origin ()->warning (_ ("no one to print a repeat brace"));
     }
   
   if (main_iter_p_)
@@ -138,4 +138,4 @@ Folded_repeat_iterator::try_music_in_children (Music * m) const
   return 0;
 }
 
-IMPLEMENT_CTOR_CALLBACK(Folded_repeat_iterator);
+IMPLEMENT_CTOR_CALLBACK (Folded_repeat_iterator);

@@ -28,20 +28,20 @@ public:
   Music_output_def * output_def_l_;
   String type_str_;
   
-  virtual const char *name() const;
+  virtual const char *name () const;
   bool is_alias_b (String) const;
     
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
   Translator (Translator const &);
   Translator ();
   
   Translator_group * daddy_trans_l_ ;
  
 
-  void pre_move_processing();
-  void announces();
-  void post_move_processing();
-  void removal_processing();
+  void pre_move_processing ();
+  void announces ();
+  void post_move_processing ();
+  void removal_processing ();
   /**
     ask daddy for a feature
     */
@@ -60,7 +60,7 @@ public:
   SCM definition_;
   
   SCM properties_scm_;
-  DECLARE_SMOBS(Translator, dummy);
+  DECLARE_SMOBS (Translator, dummy);
 public:
 
     /**
@@ -73,11 +73,11 @@ public:
 
     */
   virtual bool try_music (Music *req_l);
-  virtual void stop_translation_timestep();
-  virtual void start_translation_timestep();
+  virtual void stop_translation_timestep ();
+  virtual void start_translation_timestep ();
   virtual void do_announces () ;
-  virtual void initialize() ;
-  virtual void finalize();
+  virtual void initialize () ;
+  virtual void finalize ();
 };
 
 
@@ -90,7 +90,7 @@ static void  _ ## T ## _adder () {\
       t->type_str_ = classname (t);\
       add_translator (t);\
 }\
-ADD_GLOBAL_CTOR(_ ## T ## _adder);
+ADD_GLOBAL_CTOR (_ ## T ## _adder);
 
 
 

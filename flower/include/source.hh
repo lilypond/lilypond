@@ -18,7 +18,7 @@ class Sources
   Sources (Sources const&) {}
 public:
   Sources ();
-  ~Sources();
+  ~Sources ();
 
   Source_file * get_file_l (String &filename );
   Source_file* sourcefile_l (char const* ch_C );

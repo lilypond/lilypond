@@ -19,8 +19,8 @@ struct Font_interface
   static Font_metric * get_font (Grob*, SCM alist_chain);
   static Font_metric * get_default_font (Grob*);
   static SCM add_style (Grob*, SCM style, SCM alist_chain);
-  static bool wild_compare(SCM field_val, SCM val);
-  DECLARE_SCHEME_CALLBACK(properties_to_font_name, (SCM,SCM));
+  static bool wild_compare (SCM field_val, SCM val);
+  DECLARE_SCHEME_CALLBACK (properties_to_font_name, (SCM,SCM));
 };
 
 #endif /* FONT_INTERFACE_HH */

@@ -83,10 +83,10 @@ Dynamic_performer::create_audio_elements ()
 	  */
 	  SCM s = get_property ("midiInstrument");
 	  
-	  if (!gh_string_p(s))
+	  if (!gh_string_p (s))
 	    s = get_property ("instrument");
 	  
-	  if (!gh_string_p(s))
+	  if (!gh_string_p (s))
 	    s = ly_str02scm ("piano");
 	  
 	  
@@ -127,7 +127,7 @@ Dynamic_performer::try_music (Music* r)
 {
   if (!script_req_l_)
     {
-      if( dynamic_cast <Text_script_req*> (r)
+      if (dynamic_cast <Text_script_req*> (r)
 	  && r->get_mus_property ("text-type") == ly_symbol2scm ("dynamic"))
 	{
 	  script_req_l_ = r;

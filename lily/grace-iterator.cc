@@ -29,7 +29,7 @@ Grace_iterator::construct_children ()
 void
 Grace_iterator::process (Moment)
 {
-  Global_translator * t = dynamic_cast<Global_translator*>(report_to_l ());
+  Global_translator * t = dynamic_cast<Global_translator*> (report_to_l ());
   if (t)
     {
       t->start ();
@@ -40,7 +40,7 @@ Grace_iterator::process (Moment)
     }
   else
     {
-      warning (_("no Grace context available")); 
+      warning (_ ("no Grace context available")); 
     }
 }
 
@@ -51,4 +51,4 @@ Grace_iterator::pending_moment () const
 }
 
 
-IMPLEMENT_CTOR_CALLBACK(Grace_iterator);
+IMPLEMENT_CTOR_CALLBACK (Grace_iterator);

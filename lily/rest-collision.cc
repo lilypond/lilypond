@@ -19,7 +19,7 @@
 #include "staff-symbol-referencer.hh"
 #include "duration.hh"
 
-MAKE_SCHEME_CALLBACK(Rest_collision,force_shift_callback,2);
+MAKE_SCHEME_CALLBACK (Rest_collision,force_shift_callback,2);
 SCM
 Rest_collision::force_shift_callback (SCM element_smob, SCM axis)
 {
@@ -52,10 +52,10 @@ Rest_collision::add_column (Grob*me,Grob *p)
   /*
     only add callback for the rests, since we don't move anything else.
 
-    (not?)
+ (not?)
   */
-      p->add_offset_callback (Rest_collision::force_shift_callback_proc, Y_AXIS);
-      p->set_grob_property ("rest-collision", me->self_scm ());
+  p->add_offset_callback (Rest_collision::force_shift_callback_proc, Y_AXIS);
+  p->set_grob_property ("rest-collision", me->self_scm ());
 }
 
 
@@ -96,7 +96,7 @@ Rest_collision::do_shift (Grob *me, SCM elts)
       if (!commony)
 	commony = e;
       else
-	commony= commony->common_refpoint  (e, Y_AXIS);
+	commony= commony->common_refpoint (e, Y_AXIS);
       
       if (unsmob_grob (e->get_grob_property ("rest")))
 	rests.push (e);
@@ -115,21 +115,21 @@ Rest_collision::do_shift (Grob *me, SCM elts)
    */
 
   // no rests to collide
-  if (!rests.size())
+  if (!rests.size ())
     return SCM_UNSPECIFIED;
 
   // no partners to collide with
-  if (rests.size() + notes.size () < 2)
+  if (rests.size () + notes.size () < 2)
     return SCM_UNSPECIFIED;
 
   // meisjes met meisjes
-  if (!notes.size()) 
+  if (!notes.size ()) 
     {
-      SCM characteristic = head_characteristic  (rests[0]);
+      SCM characteristic = head_characteristic (rests[0]);
       int i = 1;
       for (; i < rests.size (); i++)
 	{
-	  if (!gh_equal_p (head_characteristic  (rests[i]), characteristic))
+	  if (!gh_equal_p (head_characteristic (rests[i]), characteristic))
 	    break;
 	}
 
@@ -137,7 +137,7 @@ Rest_collision::do_shift (Grob *me, SCM elts)
 	If all durations are the same, we'll check if there are more
 	rests than maximum-rest-count.
 	Otherwise (different durations), we'll try to display them all
-	(urg: all 3 of them, currently).
+ (urg: all 3 of them, currently).
        */
       int display_count;
       SCM s = me->get_grob_property ("maximum-rest-count");
@@ -187,11 +187,11 @@ Rest_collision::do_shift (Grob *me, SCM elts)
     {
       if (rests.size () > 1)
 	{
-	  warning (_("too many colliding rests"));
+	  warning (_ ("too many colliding rests"));
 	}
       if (notes.size () > 1)
 	{
-	  warning (_("too many notes for rest collision"));
+	  warning (_ ("too many notes for rest collision"));
 	}
       Grob * rcol = rests[0];
 
@@ -213,7 +213,7 @@ Rest_collision::do_shift (Grob *me, SCM elts)
 	assumption: ref points are the same. 
        */
       Interval notedim;
-      for (int i = 0; i < notes.size(); i++) 
+      for (int i = 0; i < notes.size (); i++) 
 	{
 	  Grob * stem = Note_column::stem_l (notes[i]);
 	  Grob * head = Stem::first_head (stem);

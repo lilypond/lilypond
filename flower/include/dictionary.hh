@@ -19,7 +19,6 @@
 
 unsigned int string_hash (String);
 
-
 template<class V>
 struct Dict_initialiser
 {
@@ -42,7 +41,7 @@ public:
     {
       hash_func_ = string_hash;
       for (Dict_initialiser<V> *q = p; q->key_; q++)
-	(*this) [q->key_] = q->value_;
+ (*this) [q->key_] = q->value_;
 	  
     }
   bool elem_b (String s)

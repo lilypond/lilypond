@@ -17,7 +17,7 @@
 
 
 
-MAKE_SCHEME_CALLBACK(Staff_symbol,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Staff_symbol,brew_molecule,1);
 
 SCM
 Staff_symbol::brew_molecule (SCM smob)
@@ -52,7 +52,7 @@ Staff_symbol::brew_molecule (SCM smob)
 }
 
 int
-Staff_symbol::steps_i(Grob*me) 
+Staff_symbol::steps_i (Grob*me) 
 {
   return line_count (me) * 2;
 }
@@ -68,7 +68,7 @@ Staff_symbol::line_count (Grob*me)
 }
 
 Real
-Staff_symbol::staff_space (Grob*me )
+Staff_symbol::staff_space (Grob*me)
 {
   Real ss = 1.0;
   

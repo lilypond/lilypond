@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
   
- (c) 1998--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1998--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
  */
 #include <math.h>
@@ -53,8 +53,8 @@ Text_item::string2molecule (Grob *me, SCM text, SCM alist_chain)
 {
   SCM style = ly_assoc_chain (ly_symbol2scm ("font-style"),
 			      alist_chain);
-  if  (gh_pair_p (style) && gh_symbol_p (gh_cdr (style)))
-    alist_chain = Font_interface::add_style (me, gh_cdr(style), alist_chain);
+  if (gh_pair_p (style) && gh_symbol_p (gh_cdr (style)))
+    alist_chain = Font_interface::add_style (me, gh_cdr (style), alist_chain);
 
   Font_metric *fm = Font_interface::get_font (me, alist_chain);
   
@@ -122,7 +122,7 @@ Text_item::markup_text2molecule (Grob *me, SCM markup_text,
   SCM text = gh_cdr (markup_text);
 
 #if 1
-  SCM p = gh_cons  (gh_call2 (f, sheet, markup), alist_chain);
+  SCM p = gh_cons (gh_call2 (f, sheet, markup), alist_chain);
 #else
   SCM pp = gh_call2 (f, sheet, markup);
   gh_newline ();
@@ -163,7 +163,7 @@ Text_item::markup_text2molecule (Grob *me, SCM markup_text,
       Molecule m = text2molecule (me, gh_car (text), p);
       SCM m_p = SCM_EOL;
       if (gh_pair_p (gh_car (text)))
-	m_p = gh_cons  (gh_call2 (f, sheet, gh_caar (text)), alist_chain);
+	m_p = gh_cons (gh_call2 (f, sheet, gh_caar (text)), alist_chain);
       SCM m_k = ly_assoc_chain (ly_symbol2scm ("kern"), m_p);
       Real m_kern = kern[align];
       if (gh_pair_p (m_k) && gh_number_p (gh_cdr (m_k)))

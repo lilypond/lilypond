@@ -14,7 +14,7 @@
 class Output_property_engraver : public Engraver
 {
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
 protected:
 
   /*
@@ -52,7 +52,7 @@ Output_property_engraver::try_music (Music* m)
 void
 Output_property_engraver::acknowledge_grob (Grob_info inf)
 {
-  for (int i=props_.size (); i--; )
+  for (int i=props_.size (); i--;)
     {
       Music * o = props_[i];
       SCM pred = o->get_mus_property ("predicate");
@@ -77,4 +77,4 @@ Output_property_engraver::stop_translation_timestep ()
   props_.clear ();
 }
 
-ADD_THIS_TRANSLATOR(Output_property_engraver);
+ADD_THIS_TRANSLATOR (Output_property_engraver);

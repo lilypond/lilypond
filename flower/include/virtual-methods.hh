@@ -12,7 +12,7 @@
 
 #include <typeinfo>
 
-#define classname(class_ptr)   demangle_classname(typeid(*(class_ptr)))
+#define classname(class_ptr)   demangle_classname (typeid (* (class_ptr)))
 
 const char *
 demangle_classname (type_info const &);
@@ -20,10 +20,10 @@ demangle_classname (type_info const &);
 /**
 
    Virtual copy constructor. Make up for C++'s lack of a standard
-   clone() function.  Uses a typeof hack.  Usage:
+   clone () function.  Uses a typeof hack.  Usage:
 
    class Foo : Baseclass {
-   	VIRTUAL_COPY_CONS(Baseclass);
+   	VIRTUAL_COPY_CONS (Baseclass);
    };
    
  */
@@ -36,7 +36,7 @@ demangle_classname (type_info const &);
 #define VIRTUAL_COPY_CONS(base) \
   virtual base *clone () const \
   { \
-    return new typeof(*this) (*this); \
+    return new typeof (*this) (*this); \
   }
 #else
 #define VIRTUAL_COPY_CONS(base) \

@@ -21,7 +21,7 @@ class Grace_position_engraver:public Engraver
 {
   Paper_column *last_musical_col_l_;
 protected:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
   virtual void acknowledge_grob (Grob_info);
   virtual void create_grobs ();
   virtual void start_translation_timestep ();
@@ -29,7 +29,7 @@ protected:
   Item*align_l_;
   Link_array<Item> support_;
 public:
-  Grace_position_engraver();
+  Grace_position_engraver ();
 };
 
 
@@ -93,7 +93,7 @@ Grace_position_engraver::stop_translation_timestep ()
 
       if (last_musical_col_l_)
 	{
-	  warning (_("Unattached grace notes.  Attaching to last musical column."));
+	  warning (_ ("Unattached grace notes.  Attaching to last musical column."));
       
 	  align_l_->set_parent (0, X_AXIS);
 	  Axis_group_interface::add_element (last_musical_col_l_, align_l_);
@@ -103,7 +103,7 @@ Grace_position_engraver::stop_translation_timestep ()
 	  // tja.
 	}
     }
-  last_musical_col_l_ = dynamic_cast<Paper_column*>( unsmob_grob (get_property ("currentMusicalColumn")));
+  last_musical_col_l_ = dynamic_cast<Paper_column*> (unsmob_grob (get_property ("currentMusicalColumn")));
 }
 
 void
@@ -113,5 +113,5 @@ Grace_position_engraver::start_translation_timestep ()
   align_l_ =0;
 }
 
-ADD_THIS_TRANSLATOR(Grace_position_engraver);
+ADD_THIS_TRANSLATOR (Grace_position_engraver);
 

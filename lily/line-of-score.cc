@@ -32,7 +32,7 @@ fixup_refpoints (SCM s)
 }
 
 
-Line_of_score::Line_of_score(SCM s)
+Line_of_score::Line_of_score (SCM s)
   : Spanner (s)
 {
   rank_i_ = 0;
@@ -44,7 +44,7 @@ Line_of_score::Line_of_score(SCM s)
 int
 Line_of_score::element_count () const
 {
-  return scm_ilength ( get_grob_property ("all-elements"));
+  return scm_ilength (get_grob_property ("all-elements"));
 }
 
 void
@@ -93,7 +93,7 @@ Line_of_score::output_lines ()
   handle_broken_dependencies ();
 
   if (verbose_global_b)
-    progress_indication ( _f("Element count %d.",  count + element_count()));
+    progress_indication (_f ("Element count %d.",  count + element_count ()));
 
   
   for (int i=0; i < broken_into_l_arr_.size (); i++)
@@ -129,15 +129,15 @@ Line_of_score::break_into_pieces (Array<Column_x_positions> const &breaking)
 {
   for (int i=0; i < breaking.size (); i++)
     {
-      Line_of_score *line_l = dynamic_cast <Line_of_score*> (clone());
+      Line_of_score *line_l = dynamic_cast <Line_of_score*> (clone ());
       line_l->rank_i_ = i;
-      //      line_l->set_immutable_grob_property ("rank", gh_int2scm( i));
+      //      line_l->set_immutable_grob_property ("rank", gh_int2scm (i));
       Link_array<Grob> c (breaking[i].cols_);
       pscore_l_->typeset_line (line_l);
       
-      line_l->set_bound(LEFT,c[0]);
-      line_l->set_bound(RIGHT,c.top ());
-      for (int j=0; j < c.size(); j++)
+      line_l->set_bound (LEFT,c[0]);
+      line_l->set_bound (RIGHT,c.top ());
+      for (int j=0; j < c.size (); j++)
 	{
 	  c[j]->translate_axis (breaking[i].config_[j],X_AXIS);
 	  dynamic_cast<Paper_column*> (c[j])->line_l_ = line_l;
@@ -156,14 +156,14 @@ cname ## _init_func ()				\
   cname = ly_symbol2scm (name);			\
   scm_permanent_object (cname);			\
 }						\
-ADD_SCM_INIT_FUNC(cname,cname ## _init_func);\
+ADD_SCM_INIT_FUNC (cname,cname ## _init_func);\
 
 
-GLOBAL_SYMBOL( offset_sym , "translate-molecule");
-GLOBAL_SYMBOL( placebox_sym , "placebox");
-GLOBAL_SYMBOL( combine_sym , "combine-molecule");
-GLOBAL_SYMBOL( no_origin_sym , "no-origin");
-GLOBAL_SYMBOL( define_origin_sym , "define-origin");
+GLOBAL_SYMBOL (offset_sym , "translate-molecule");
+GLOBAL_SYMBOL (placebox_sym , "placebox");
+GLOBAL_SYMBOL (combine_sym , "combine-molecule");
+GLOBAL_SYMBOL (no_origin_sym , "no-origin");
+GLOBAL_SYMBOL (define_origin_sym , "define-origin");
 
 
 
@@ -183,7 +183,7 @@ Line_of_score::output_molecule (SCM expr, Offset o)
       
 
 	  pscore_l_->outputter_l_->output_scheme (gh_list (define_origin_sym,
-							   ly_str02scm (ip->file_str ().ch_C()),
+							   ly_str02scm (ip->file_str ().ch_C ()),
 							   gh_int2scm (ip->line_number ()),
 							   gh_int2scm (ip->column_number ()),
 							   SCM_UNDEFINED));
@@ -249,8 +249,8 @@ Line_of_score::pre_processing ()
   for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
     unsmob_grob (gh_car (s))->discretionary_processing ();
 
-  if(verbose_global_b)
-    progress_indication ( _f("Element count %d ",  element_count ()));
+  if (verbose_global_b)
+    progress_indication (_f ("Element count %d ",  element_count ()));
 
   
   for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
@@ -264,7 +264,7 @@ Line_of_score::pre_processing ()
       sc->calculate_dependencies (PRECALCED, PRECALCING, ly_symbol2scm ("before-line-breaking-callback"));
     }
   
-  progress_indication ("\n" + _ ("Calculating column positions...") + " " );
+  progress_indication ("\n" + _ ("Calculating column positions...") + " ");
   for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
     {
       Grob * e = unsmob_grob (gh_car (s));
@@ -285,8 +285,8 @@ Line_of_score::post_processing (bool last_line)
 				  ly_symbol2scm ("after-line-breaking-callback"));
     }
 
-  Interval i(extent(this, Y_AXIS));
-  if (i.empty_b())
+  Interval i (extent (this, Y_AXIS));
+  if (i.empty_b ())
     programming_error ("Huh?  Empty Line_of_score?");
   else
     translate_axis (- i[MAX], Y_AXIS);
@@ -301,7 +301,7 @@ Line_of_score::post_processing (bool last_line)
   /*
     generate all molecules  to trigger all font loads.
 
-    (ugh. This is not very memory efficient.)  */
+ (ugh. This is not very memory efficient.)  */
   for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
     {
       unsmob_grob (gh_car (s))->get_molecule ();
@@ -309,7 +309,7 @@ Line_of_score::post_processing (bool last_line)
   /*
     font defs;
    */
-  SCM font_names = ly_quote_scm (paper_l()->font_descriptions ());  
+  SCM font_names = ly_quote_scm (paper_l ()->font_descriptions ());  
   output_scheme (gh_list (ly_symbol2scm ("define-fonts"),
 					font_names,
 					SCM_UNDEFINED));
@@ -371,18 +371,18 @@ Line_of_score::broken_col_range (Item const*l, Item const*r) const
   SCM s = get_grob_property ("columns");
 
   while (gh_pair_p (s) && gh_car (s) != r->self_scm ())
-    s = gh_cdr  (s);
+    s = gh_cdr (s);
     
   if (gh_pair_p (s))
     s = gh_cdr (s);
   
   while (gh_pair_p (s) && gh_car (s) != l->self_scm ())
     {
-      Paper_column*c = dynamic_cast<Paper_column*> ( unsmob_grob (gh_car (s)));
+      Paper_column*c = dynamic_cast<Paper_column*> (unsmob_grob (gh_car (s)));
       if (Item::breakable_b (c) && !c->line_l_)
 	ret.push (c);
 
-      s = gh_cdr  (s);
+      s = gh_cdr (s);
     }
 
   ret.reverse ();
@@ -399,7 +399,7 @@ Line_of_score::column_l_arr ()const
   Link_array<Grob> acs
     = Pointer_group_interface__extract_elements (this, (Grob*) 0, "columns");
   bool bfound = false;
-  for (int i= acs.size (); i -- ; )
+  for (int i= acs.size (); i -- ;)
     {
       bool brb = Item::breakable_b (acs[i]);
       bfound = bfound || brb;

@@ -13,10 +13,10 @@
 class Tempo_performer : public Performer
 {
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
   
-  Tempo_performer();
-  ~Tempo_performer();
+  Tempo_performer ();
+  ~Tempo_performer ();
 
 protected:
 
@@ -53,7 +53,7 @@ Tempo_performer::create_audio_elements ()
       
       audio_p_ = new Audio_tempo (d->length_mom () /
 				  Moment (1, 4) 
-				  * Moment(gh_scm2int (met)));
+				  * Moment (gh_scm2int (met)));
 
       Audio_element_info info (audio_p_, tempo_req_l_);
       announce_element (info);

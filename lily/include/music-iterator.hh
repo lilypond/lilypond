@@ -26,10 +26,10 @@
   ok () -- events left ?
 
   pending_mom () -- time tag of the next event to be processed.
-    PRECONDITION: this->ok() holds.
+    PRECONDITION: this->ok () holds.
   
   process (M) -- process all at M (Precondition: no events exist
-    before M, this->ok() holds).  Side-effects:
+    before M, this->ok () holds).  Side-effects:
     
     * This removes all events at M from the pending queue.
 
@@ -120,14 +120,14 @@ Class ## _ctor (SCM)				\
 }						\
 SCM Class :: constructor_cxx_function;\
 void						\
-Class ## _constructor_init()				\
+Class ## _constructor_init ()				\
 {						\
   SCM s = smobify_cxx_function (& Class ## _ctor);	\
   scm_permanent_object (s);\
   gh_define (#Class "::constructor", s);\
   Class :: constructor_cxx_function = s;\
 }\
-ADD_SCM_INIT_FUNC(Class ## _ctor_init, Class ## _constructor_init); 
+ADD_SCM_INIT_FUNC (Class ## _ctor_init, Class ## _constructor_init); 
 
  
 

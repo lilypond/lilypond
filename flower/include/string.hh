@@ -61,7 +61,7 @@ public:
 
   /** init to empty string. This is needed because other
     constructors are provided.*/
-  String  ();
+  String ();
 
   /// String s = "abc";
   String (char const* source); 
@@ -69,20 +69,20 @@ public:
     
   ///  return "new"-ed copy of contents
   Byte* copy_byte_p () const;
-  char* copy_ch_p() const;
+  char* copy_ch_p () const;
 
   char const* ch_C () const;
   Byte const* byte_C () const;
   char* ch_l ();
   Byte* byte_l ();
 
-  String &operator =(String const & source);
+  String &operator = (String const & source);
 
   /// concatenate s
   void operator += (char const* s) { strh_ += s; }
   void operator += (String s);
 
-  bool empty_b  () const;
+  bool empty_b () const;
 
   void append (String);
   void prepend (String);
@@ -90,8 +90,8 @@ public:
   /**
     Return a char.  UNSAFE because it may change strlen () result
    */
-  char &operator [](int n);
-  char operator [](int n) const;
+  char &operator [] (int n);
+  char operator [] (int n) const;
 
   /// return n leftmost chars
   String left_str (int n) const;
@@ -120,7 +120,7 @@ public:
   /// index of rightmost c 
   int index_last_i (char c) const;
 
-  /// index of rightmost element of string  (???)
+  /// index of rightmost element of string (???)
   int index_last_i (char const* string) const;
 
   int index_i (char c) const;
@@ -177,7 +177,7 @@ String to_str (char const* format, ... );
 
 
 #include "compare.hh"
-INSTANTIATE_COMPARE(String const &, String::compare_i);
+INSTANTIATE_COMPARE (String const &, String::compare_i);
 
 #ifdef STRING_UTILS_INLINED
 #ifndef INLINE
@@ -189,18 +189,18 @@ INSTANTIATE_COMPARE(String const &, String::compare_i);
 
 
 // because char const* also has an operator ==, this is for safety:
-inline bool operator==(String s1, char const* s2)
+inline bool operator== (String s1, char const* s2)
 {
   return s1 == String (s2);
 }
-inline bool operator==(char const* s1, String s2)
+inline bool operator== (char const* s1, String s2)
 {
   return String (s1)==s2;
 }
-inline bool operator!=(String s1, char const* s2 ) {
+inline bool operator!= (String s1, char const* s2 ) {
   return s1!=String (s2);
 }
-inline bool operator!=(char const* s1,String s2) {
+inline bool operator!= (char const* s1,String s2) {
   return String (s2) !=s1;
 }
 

@@ -9,7 +9,7 @@
 #define FPROTO_HH
 
 
-char const * flower_version_sz();
+char const * flower_version_sz ();
 
 template<class T> struct Link_array;
 template<class T> struct Array;

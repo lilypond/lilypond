@@ -18,7 +18,7 @@ String
 Offset::str () const
 {
   String s;
-  s = String("(") + to_str (coordinate_a_[X_AXIS]) + ", " 
+  s = String (" (") + to_str (coordinate_a_[X_AXIS]) + ", " 
     + to_str (coordinate_a_[Y_AXIS]) + ")";
   return s;
 }
@@ -39,7 +39,7 @@ Offset
 complex_multiply (Offset z1, Offset z2)
 {
   Offset z;
-  if(!isinf_b(z2[Y_AXIS]))
+  if (!isinf_b (z2[Y_AXIS]))
   {
       z[X_AXIS] = z1[X_AXIS] * z2[X_AXIS] - z1[Y_AXIS]*z2[Y_AXIS];
       z[Y_AXIS] = z1[X_AXIS] * z2[Y_AXIS] + z1[Y_AXIS] * z2[X_AXIS];
@@ -74,7 +74,7 @@ complex_exp (Offset o)
   
   Real r = exp (o[X_AXIS]);
 
-  return Offset(r*c, r*s);
+  return Offset (r*c, r*s);
 }
 
 Real

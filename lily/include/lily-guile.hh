@@ -83,19 +83,19 @@ SCM index_set_cell (SCM cellp, Direction d, SCM val);
 /*
   snarfing.
  */
-void add_scm_init_func (void (*)());
+void add_scm_init_func (void (*) ());
 
 
-typedef SCM(*Scheme_function_unknown)();
+typedef SCM (*Scheme_function_unknown) ();
 
 #if __GNUC_MINOR__ >= 96
-typedef SCM(*Scheme_function_0)();
-typedef SCM(*Scheme_function_1)(SCM);
-typedef SCM(*Scheme_function_2)(SCM,SCM);	 
+typedef SCM (*Scheme_function_0) ();
+typedef SCM (*Scheme_function_1) (SCM);
+typedef SCM (*Scheme_function_2) (SCM,SCM);	 
 #else
-typedef SCM(*Scheme_function_0)(...);
-typedef SCM(*Scheme_function_1)(...);
-typedef SCM(*Scheme_function_2)(...);
+typedef SCM (*Scheme_function_0) (...);
+typedef SCM (*Scheme_function_1) (...);
+typedef SCM (*Scheme_function_2) (...);
 #endif
 
 #define DECLARE_SCHEME_CALLBACK(NAME,ARGS) \
@@ -108,10 +108,10 @@ void								\
 TYPE ## _ ## FUNC ## _init_functions ()					\
 {								\
   TYPE :: FUNC ## _proc = gh_new_procedure ## ARGCOUNT  ## _0 (#TYPE "::" #FUNC, \
-  ((Scheme_function_ ## ARGCOUNT)TYPE :: FUNC)); 				\
+ ((Scheme_function_ ## ARGCOUNT)TYPE :: FUNC)); 				\
 }								\
 								\
-ADD_SCM_INIT_FUNC(TYPE ## _ ## FUNC ## _callback, TYPE ## _ ## FUNC ## _init_functions);	\
+ADD_SCM_INIT_FUNC (TYPE ## _ ## FUNC ## _callback, TYPE ## _ ## FUNC ## _init_functions);	\
 
 
 #define ADD_SCM_INIT_FUNC(name, func)\

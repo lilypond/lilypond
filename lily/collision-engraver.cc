@@ -22,10 +22,10 @@ class Collision_engraver : public Engraver {
 protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void create_grobs ();
-  virtual void stop_translation_timestep();
+  virtual void stop_translation_timestep ();
 public:
-  VIRTUAL_COPY_CONS(Translator);
-  Collision_engraver();
+  VIRTUAL_COPY_CONS (Translator);
+  Collision_engraver ();
 };
 
 
@@ -53,7 +53,7 @@ Collision_engraver::acknowledge_grob (Grob_info i)
   if (Note_column::has_interface (i.elem_l_))
     {
       /*should check Y axis? */
-      if (Note_column::rest_b (i.elem_l_) || i.elem_l_->parent_l(X_AXIS))
+      if (Note_column::rest_b (i.elem_l_) || i.elem_l_->parent_l (X_AXIS))
 	return ;
 
       note_column_l_arr_.push (i.elem_l_);
@@ -61,7 +61,7 @@ Collision_engraver::acknowledge_grob (Grob_info i)
 }
 
 void
-Collision_engraver::stop_translation_timestep()
+Collision_engraver::stop_translation_timestep ()
 {
   if (col_p_) 
     {
@@ -71,11 +71,11 @@ Collision_engraver::stop_translation_timestep()
   note_column_l_arr_.clear ();
 }
 
-Collision_engraver::Collision_engraver()
+Collision_engraver::Collision_engraver ()
 {
   col_p_ =0;
 }
 
 
 
-ADD_THIS_TRANSLATOR(Collision_engraver);
+ADD_THIS_TRANSLATOR (Collision_engraver);

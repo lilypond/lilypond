@@ -105,12 +105,16 @@
 
 /* Commonly used flags
  */
-#define P_GW	(P_G | P_W) 
-#define P_GM	(P_G | P_M)
-#define P_GMP	(P_G | P_M | P_P)
-#define P_GMK	(P_G | P_M | P_P | P_T) 
-#define P_GALL	(P_G | P_M | P_P | P_T | P_C)
-
+#define P_GW\
+	(P_G | P_W) 
+#define P_GM\
+	(P_G | P_M)
+#define P_GMP\
+	(P_G | P_M | P_P)
+#define P_GMK\
+	(P_G | P_M | P_P | P_T) 
+#define P_GALL\
+	(P_G | P_M | P_P | P_T | P_C)
 
 
 /* Possible return codes from the parseFile procedure.
@@ -311,7 +315,7 @@ typedef struct
  *  "fp" should be a valid file pointer to an AFM file.
  *
  *  "fi" is a pointer to a pointer to a FontInfo record sturcture 
- *  (defined above). Storage for the FontInfo structure will be
+ * (defined above). Storage for the FontInfo structure will be
  *  allocated in parseFile and the structure will be filled in
  *  with the requested data from the AFM File.
  *

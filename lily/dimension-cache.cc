@@ -14,7 +14,7 @@
 
 Dimension_cache::Dimension_cache (Dimension_cache const &d)
 {
-  init();
+  init ();
   dimension_ = d.dimension_;
 
   offset_ = d.offset_;
@@ -25,11 +25,11 @@ Dimension_cache::Dimension_cache (Dimension_cache const &d)
 
 Dimension_cache::Dimension_cache ()
 {
-  init();
+  init ();
 }
 
 void
-Dimension_cache::init()
+Dimension_cache::init ()
 {
   dimension_ = SCM_EOL;
 

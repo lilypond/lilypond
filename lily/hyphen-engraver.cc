@@ -32,9 +32,9 @@ public:
 
 protected:
   virtual void acknowledge_grob (Grob_info);
-  virtual void finalize();
+  virtual void finalize ();
   virtual bool try_music (Music*);
-  virtual void stop_translation_timestep();
+  virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
   virtual void create_grobs ();
 private:
@@ -88,7 +88,7 @@ Hyphen_engraver::finalize ()
   if (hyphen_p_)
     {
       req_l_->origin ()->warning (_ ("unterminated hyphen"));
-      hyphen_p_->set_bound(RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
+      hyphen_p_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
     }
 }
 
@@ -105,7 +105,7 @@ Hyphen_engraver::create_grobs ()
       
       hyphen_p_ = new Spanner (get_property ("LyricHyphen"));
 
-      Hyphen_spanner (hyphen_p_).set_textitem  (LEFT, last_lyric_l_);
+      Hyphen_spanner (hyphen_p_).set_textitem (LEFT, last_lyric_l_);
       announce_grob (hyphen_p_, req_l_);
     }
 }

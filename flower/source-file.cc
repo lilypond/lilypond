@@ -58,8 +58,8 @@ Source_file::istream_l ()
 String
 Source_file::file_line_column_str (char const *context_ch_C) const
 {
-  if  (!ch_C ())
-    return "(" + _ ("position unknown") + ")";
+  if (!ch_C ())
+    return " (" + _ ("position unknown") + ")";
   else
     return name_str () + ":" + to_str (line_i (context_ch_C))
       + ":" + to_str (char_i (context_ch_C));
@@ -152,7 +152,7 @@ String
 Source_file::error_str (char const* pos_ch_C) const
 {
   if (!in_b (pos_ch_C))
-    return "(" + _ ("position unknown") + ")";
+    return " (" + _ ("position unknown") + ")";
 
   int ch_i = char_i (pos_ch_C);
   String line = line_str (pos_ch_C);

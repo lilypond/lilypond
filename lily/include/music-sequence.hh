@@ -19,11 +19,11 @@ class Music_sequence : public Music
 {
 public:
   Music_sequence (SCM h);
-
+  Music_sequence ();
   SCM music_list () const;
   void append_music (Music *);
-  VIRTUAL_COPY_CONS(Music);
-
+  VIRTUAL_COPY_CONS (Music);
+  
   Pitch do_relative_octave (Pitch p, bool b);
   virtual void transpose (Pitch );
   void truncate (int k);

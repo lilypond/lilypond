@@ -24,7 +24,7 @@ static int
 print_smob (SCM s, SCM port, scm_print_state *)
 {
   String str = "#<location " +  unsmob_input (s)->location_str () + ">";
-  scm_puts (str.ch_C(), port);
+  scm_puts (str.ch_C (), port);
   return 1;
 }
 
@@ -42,7 +42,7 @@ ly_input_p (SCM x)
 }
 
 static
-void start_input_smobs()
+void start_input_smobs ()
 {
   input_tag
     = scm_make_smob_type_mfpe ("input", 0,
@@ -58,7 +58,7 @@ make_input (Input ip)
   Input * nip =  new Input (ip);
   SCM z;
   
-  SCM_NEWCELL(z);
+  SCM_NEWCELL (z);
   SCM_SETCAR (z, (SCM)input_tag);
   SCM_SETCDR (z, (SCM)nip);
 				// fixme: done_malloc
@@ -70,14 +70,14 @@ unsmob_input (SCM s)
 {
   if (SCM_IMP (s))
     return 0;
-  if ((long)SCM_CAR(s) == input_tag) // ugh.
-    return (Input*) SCM_CDR(s);
+  if ((long)SCM_CAR (s) == input_tag) // ugh.
+    return (Input*) SCM_CDR (s);
   else						
     return 0;					
 }
 
 
-ADD_SCM_INIT_FUNC(input, start_input_smobs);
+ADD_SCM_INIT_FUNC (input, start_input_smobs);
 
 
 Input dummy_input_global;

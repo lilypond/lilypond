@@ -27,13 +27,13 @@ public:
   int errorlevel_i_;
     
   /// construction
-  Score();
+  Score ();
   Score (Score const&);
 
 
-  void process();
+  void process ();
   void add_output (Music_output_def *def_p);
-  DECLARE_SMOBS(Score,foo);
+  DECLARE_SMOBS (Score,foo);
 private:
   void run_translator (Music_output_def*);
 };

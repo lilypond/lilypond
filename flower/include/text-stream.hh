@@ -10,7 +10,7 @@
 /**
   line counting input stream. 
   a stream for textfiles. linecounting. Thin interface getchar and
-  ungetchar.  (ungetc is unlimited) 
+  ungetchar. (ungetc is unlimited) 
   
   should protect get and unget against improper use
 */
@@ -27,15 +27,15 @@ class Text_stream
     
 public:
   Text_stream (String fn);
-  String get_name() { return name; }
-  bool eof_b();
-  char get() {
+  String get_name () { return name; }
+  bool eof_b ();
+  char get () {
     char c;
 	
-    if (pushback.empty())
+    if (pushback.empty ())
       c = getc (f);	
     else 
-      c = pushback.pop();
+      c = pushback.pop ();
 
     if (c =='\n')
       line_no++;
@@ -46,21 +46,21 @@ public:
       line_no--;
     pushback.push (c);
   }
-  char peek() {
+  char peek () {
     if (eof_b ())
       return (char)-1;
-    char c = get();
+    char c = get ();
     unget (c);
     return c;
   }
-  bool eol() {
-    return (peek() == '\n');
+  bool eol () {
+    return (peek () == '\n');
   }
-  int line(){
+  int line (){
     return line_no;
   }
 
-  ~Text_stream();
+  ~Text_stream ();
   
 
   /// GNU format message.

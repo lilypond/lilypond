@@ -5,7 +5,7 @@
   
   (c) 1999--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
-    Mats Bengtsson <matsb@s3.kth.se>  (the ugly TeX parsing in text_dimension)
+    Mats Bengtsson <matsb@s3.kth.se> (the ugly TeX parsing in text_dimension)
  */
 
 #include <math.h>
@@ -29,7 +29,7 @@ Font_metric::text_dimension (String text) const
       switch (text[i]) 
 	{
 	case '\\':
-	  for (i++; (i < text.length_i ()) && !isspace(text[i]) 
+	  for (i++; (i < text.length_i ()) && !isspace (text[i]) 
 		 && text[i]!='{' && text[i]!='}'; i++)
 	    ;
 	  // ugh.
@@ -54,7 +54,7 @@ Font_metric::text_dimension (String text) const
   if (ydims.empty_b ())
     ydims = Interval (0,0);
 
-  return Box(Interval (0, w), ydims);
+  return Box (Interval (0, w), ydims);
 }
 
 
@@ -76,21 +76,21 @@ Font_metric::Font_metric (Font_metric const &s)
 
 
 Box 
-Font_metric::get_char (int )const
+Font_metric::get_char (int)const
 {
-  return Box (Interval(0,0),Interval (0,0));
+  return Box (Interval (0,0),Interval (0,0));
 }
 
 
 SCM
 Font_metric::mark_smob (SCM s)
 {
-  Font_metric * m = (Font_metric*) SCM_CELL_WORD_1(s);
+  Font_metric * m = (Font_metric*) SCM_CELL_WORD_1 (s);
   return m->description_;
 }
 
 int
-Font_metric::print_smob (SCM s, SCM port, scm_print_state * )
+Font_metric::print_smob (SCM s, SCM port, scm_print_state *)
 {
   Font_metric *m = unsmob_metrics (s);
   scm_puts ("#<Font_metric ", port);
@@ -102,7 +102,7 @@ Font_metric::print_smob (SCM s, SCM port, scm_print_state * )
 
 IMPLEMENT_UNSMOB (Font_metric, metrics);
 IMPLEMENT_SMOBS (Font_metric);
-IMPLEMENT_DEFAULT_EQUAL_P(Font_metric);
+IMPLEMENT_DEFAULT_EQUAL_P (Font_metric);
 IMPLEMENT_TYPE_P (Font_metric, "font-metric?");
 
 Molecule
@@ -133,4 +133,4 @@ font_metric_init ()
    scm_make_gsubr ("ly-find-glyph-by-name", 2 , 0, 0, (Scheme_function_unknown) ly_find_glyph_by_name);
 }
 
-ADD_SCM_INIT_FUNC(font_metric_init, font_metric_init);
+ADD_SCM_INIT_FUNC (font_metric_init, font_metric_init);

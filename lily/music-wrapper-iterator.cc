@@ -81,4 +81,4 @@ Music_wrapper_iterator::try_music_in_children (Music *m) const
   return child_iter_p_->try_music (m);
 }
 
-IMPLEMENT_CTOR_CALLBACK(Music_wrapper_iterator);
+IMPLEMENT_CTOR_CALLBACK (Music_wrapper_iterator);

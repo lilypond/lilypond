@@ -56,19 +56,19 @@ protected:
 
 public:
   /// check invariants
-  void OK() const ;
+  void OK () const ;
   /** report the size_.
       @see 
       {setsize_}
   */
 
-  int size() const  
+  int size () const  
     {
       return size_;
     }
     
-  /// POST: size() == 0
-  void clear() 
+  /// POST: size () == 0
+  void clear () 
     {
       size_ = 0;
     }
@@ -80,7 +80,7 @@ public:
       arrcpy (array_p_, tp, n);      
     }
   
-  Array() 
+  Array () 
     { array_p_ = 0; max_ =0; size_ =0; }
 
   // ugh, get around gcc 2.8.1 ice; see bezier.cc
@@ -92,7 +92,7 @@ public:
 
 
   /** set the size_ to #s#.
-      POST: size() == s.
+      POST: size () == s.
       Warning: contents are unspecified */
   void set_size (int s) 
     {
@@ -100,11 +100,11 @@ public:
       size_ = s;    
     }
     
-  ~Array() 
+  ~Array () 
     { delete[] array_p_; }
 
   /// return a  "new"ed copy of array 
-  T* copy_array() const 
+  T* copy_array () const 
     {
       T* Tarray = new T[size_];
       arrcpy (Tarray, array_p_, size_);
@@ -115,19 +115,19 @@ public:
     {
       return array_p_;
     }
-  void operator=(Array const & src) 
+  void operator= (Array const & src) 
     {
       set_size (src.size_);
       arrcpy (array_p_,src.array_p_, size_);
     }
   Array (Array const & src) 
     {
-      array_p_ = src.copy_array();
+      array_p_ = src.copy_array ();
       max_ = size_ = src.size_;	
     }
 
   /// tighten array size_.
-  void tighten_maxsize()     {
+  void tighten_maxsize ()     {
     remax (size_);
   }
     
@@ -161,16 +161,16 @@ public:
       if (size_ == max_)
 	remax (2*max_ + 1);
 
-      // T::operator=(T &) is called here. Safe to use with automatic
+      // T::operator= (T &) is called here. Safe to use with automatic
       // vars
       array_p_[size_++] = x;
     }
   /// remove and return last entry 
-  T pop() 
+  T pop () 
     {
-      assert (!empty());
+      assert (!empty ());
       T l = top (0);
-      set_size (size()-1);
+      set_size (size ()-1);
       return l;
     }
   /// access last entry
@@ -205,8 +205,8 @@ public:
   void swap (int i,int j) 
     {
       T t ((*this)[i]);
-      (*this)[i]=(*this)[j];
-      (*this)[j]=t;
+ (*this)[i]= (*this)[j];
+ (*this)[j]=t;
     }
   bool empty () const 
     { return !size_; }
@@ -223,8 +223,8 @@ public:
     }
   void unordered_del (int i)
     {
-      elem_ref (i) = top();
-      set_size (size() -1);
+      elem_ref (i) = top ();
+      set_size (size () -1);
     }
   void del (int i) 
     {
@@ -233,7 +233,7 @@ public:
       size_--;
     }
   // quicksort.
-  void sort (int (*compare)(T const&,T const&),
+  void sort (int (*compare) (T const&,T const&),
 	     int lower = -1, int upper = -1);
   void concat (Array<T> const &src) 
     {
@@ -242,7 +242,7 @@ public:
       arrcpy (array_p_+s,src.array_p_, src.size_);	
     }
   Array<T> slice (int lower, int upper) const; 
-  void reverse();
+  void reverse ();
 };
 
 #include "array.icc"

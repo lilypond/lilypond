@@ -14,7 +14,7 @@
 #include "item.hh"
 
 
-MAKE_SCHEME_CALLBACK(Hara_kiri_group_spanner,y_extent,2);
+MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner,y_extent,2);
 SCM
 Hara_kiri_group_spanner::y_extent (SCM element_smob, SCM scm_axis)
 {
@@ -28,7 +28,7 @@ Hara_kiri_group_spanner::y_extent (SCM element_smob, SCM scm_axis)
 
 
 void
-Hara_kiri_group_spanner::consider_suicide(Grob*me)
+Hara_kiri_group_spanner::consider_suicide (Grob*me)
 {
   SCM worth = me->get_grob_property ("items-worth-living");
   if (gh_pair_p (worth))
@@ -51,7 +51,7 @@ Hara_kiri_group_spanner::consider_suicide(Grob*me)
   We can't rely on offsets and dimensions of elements in a hara-kiri
   group. Use a callback to make sure that hara-kiri has been done
   before asking for offsets.  */
-MAKE_SCHEME_CALLBACK(Hara_kiri_group_spanner,force_hara_kiri_callback,2);
+MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner,force_hara_kiri_callback,2);
 SCM
 Hara_kiri_group_spanner::force_hara_kiri_callback (SCM element_smob, SCM axis)
 {
@@ -63,7 +63,7 @@ Hara_kiri_group_spanner::force_hara_kiri_callback (SCM element_smob, SCM axis)
 }
 
 
-MAKE_SCHEME_CALLBACK(Hara_kiri_group_spanner,force_hara_kiri_in_parent_callback,2);
+MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner,force_hara_kiri_in_parent_callback,2);
 SCM
 Hara_kiri_group_spanner::force_hara_kiri_in_parent_callback (SCM element_smob, SCM axis)
 {
@@ -71,7 +71,7 @@ Hara_kiri_group_spanner::force_hara_kiri_in_parent_callback (SCM element_smob, S
   Axis a = (Axis) gh_scm2int (axis);
   assert (a == Y_AXIS);
   force_hara_kiri_callback (daughter->parent_l (a)->self_scm (), axis);
-  return gh_double2scm ( 0.0);
+  return gh_double2scm (0.0);
 }
 
 void

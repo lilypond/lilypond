@@ -14,7 +14,7 @@
 
 /** a T interval.  this represents the closed interval [left,right].
   No invariants. T must be a totally ordered ring (with division, anyway ..)
-  At instantiation, the function infinity() has to be defined explicitely.
+  At instantiation, the function infinity () has to be defined explicitely.
   
   */
 template<class T>
@@ -22,9 +22,9 @@ struct Interval_t : public Drul_array<T> {
 
   /* ************** */
     
-  static T infinity() ;
+  static T infinity () ;
   static String T_to_str (T arg);
-  T center() { return (elem (LEFT) + elem (RIGHT)) / T(2);}
+  T center () { return (elem (LEFT) + elem (RIGHT)) / T (2);}
   void translate (T t)
     {
       elem (LEFT) += t;
@@ -38,12 +38,12 @@ struct Interval_t : public Drul_array<T> {
   void unite (Interval_t<T> h);
   void intersect (Interval_t<T> h);
 
-  T length() const;
-  void set_empty() ;
-  bool empty_b() const { return elem (LEFT) > elem (RIGHT); }
+  T length () const;
+  void set_empty () ;
+  bool empty_b () const { return elem (LEFT) > elem (RIGHT); }
   bool contains_b (Interval_t<T> const&) const;
-  Interval_t() {
-    set_empty();
+  Interval_t () {
+    set_empty ();
   }
   Interval_t (T m, T M) : Drul_array<T> (m,M)
     {}
@@ -57,12 +57,12 @@ struct Interval_t : public Drul_array<T> {
     elem (RIGHT) +=r;
     return *this;
   }
-  Interval_t<T> &operator *=(T r) {
+  Interval_t<T> &operator *= (T r) {
     if (!empty_b ())
       {
 	elem (LEFT) *= r;
 	elem (RIGHT) *= r;
-	if (r < T(0)) {
+	if (r < T (0)) {
 	  T t = elem (LEFT);
 	  elem (LEFT) = elem (RIGHT);
 	  elem (RIGHT) = t;
@@ -72,9 +72,9 @@ struct Interval_t : public Drul_array<T> {
   }
 
   Real linear_combination (Real x) const {
-    return ((1.0 - x) * Real (elem (LEFT))  + (x + 1.0) * Real (elem(RIGHT))) * 0.5;
+    return ((1.0 - x) * Real (elem (LEFT))  + (x + 1.0) * Real (elem (RIGHT))) * 0.5;
   }
-  String str() const;    
+  String str () const;    
   void print () const;
   bool elem_b (T r);
   void negate () {
@@ -106,7 +106,7 @@ _Interval__compare (const Interval_t<T>&a,Interval_t<T> const&b);
 
 #include "compare.hh"
 
-TEMPLATE_INSTANTIATE_COMPARE(Interval_t<T>&, Interval__compare, template<class T>);
+TEMPLATE_INSTANTIATE_COMPARE (Interval_t<T>&, Interval__compare, template<class T>);
 
 
 template<class T>
@@ -120,7 +120,7 @@ intersection (Interval_t<T> a, Interval_t<T> const&b)
 
 template<class T>
 inline
-Interval_t<T> operator +(T a,Interval_t<T> i)
+Interval_t<T> operator + (T a,Interval_t<T> i)
 {
   i += a;
   return i;
@@ -145,13 +145,13 @@ Interval_t<T> operator - (T a,Interval_t<T> i)
 
 template<class T>
 inline
-Interval_t<T> operator +(Interval_t<T> i,T a){
+Interval_t<T> operator + (Interval_t<T> i,T a){
   return a+i;
 }
 
 template<class T>
 inline
-Interval_t<T> operator *(T a,Interval_t<T> i)
+Interval_t<T> operator * (T a,Interval_t<T> i)
 {
   i *= a;
   return i;
@@ -159,7 +159,7 @@ Interval_t<T> operator *(T a,Interval_t<T> i)
 
 template<class T>
 inline
-Interval_t<T> operator *(Interval_t<T> i,T a){
+Interval_t<T> operator * (Interval_t<T> i,T a){
   return a*i;
 }
 

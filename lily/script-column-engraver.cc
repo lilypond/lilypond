@@ -22,7 +22,7 @@ class Script_column_engraver : public Engraver
 
 public:
   Script_column_engraver ();
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
 protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void create_grobs ();
@@ -31,7 +31,7 @@ protected:
 };
 
 
-Script_column_engraver::Script_column_engraver()
+Script_column_engraver::Script_column_engraver ()
 {
   scol_p_ =0;
 }
@@ -54,7 +54,7 @@ Script_column_engraver::start_translation_timestep ()
 }
 
 void
-Script_column_engraver::acknowledge_grob(Grob_info inf) 
+Script_column_engraver::acknowledge_grob (Grob_info inf) 
 {
   Item *thing = dynamic_cast<Item*> (inf.elem_l_);
   if (thing && Side_position_interface::has_interface (inf.elem_l_)) // ugh FIXME
@@ -85,4 +85,4 @@ Script_column_engraver::create_grobs ()
       script_l_arr_.clear ();
     }
 }
-ADD_THIS_TRANSLATOR(Script_column_engraver);
+ADD_THIS_TRANSLATOR (Script_column_engraver);

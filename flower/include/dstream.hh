@@ -16,7 +16,7 @@ const char eol= '\n';
 
 /**  Debug stream. 
    a class for providing debug output of nested structures,
-   with indents according to \{\}()[].
+   with indents according to \{\} ()[].
 
    One can turn on and off specific messages using the Assoc silent.
    This can be done automatically:
@@ -43,14 +43,14 @@ class Dstream
   Dictionary<bool> *silent_dict_p_;
   
 public:
-  void clear_silence();
+  void clear_silence ();
   bool silent_b (String) const;
     
   /**
      if rcfile == 0, then do not read any rc file.
   */
   Dstream (ostream *r, char const * rcfile);
-  virtual ~Dstream();
+  virtual ~Dstream ();
   Dstream &identify_as (String s);
 
 

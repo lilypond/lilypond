@@ -10,7 +10,6 @@
 #include "debug.hh"
 #include "musical-request.hh"
 
-
 bool
 Barcheck_req::do_equal_b (Request const *r) const
 {
@@ -18,35 +17,10 @@ Barcheck_req::do_equal_b (Request const *r) const
   return b;
 }
 
-
-
-
 Tempo_req::Tempo_req ()
 {
-  set_mus_property ("duration", Duration(2,0).smobbed_copy ());
+  set_mus_property ("duration", Duration (2,0).smobbed_copy ());
 }
-
-
-
-bool
-Tempo_req::do_equal_b (Request const *r) const
-{
-  Tempo_req const *t = dynamic_cast <Tempo_req const*> (r);
-
-  return t; //  && t->dur_.length_mom ()== dur_.length_mom ();
-  // && metronome_i_ == t->metronome_i_;
-}
-
-
-
-
-bool
-Key_change_req::do_equal_b (Request const * req) const
-{
-  Key_change_req const * k = dynamic_cast<Key_change_req const*> (req);
-  return k  && scm_equal_p (get_mus_property ("pitch-alist"), k->get_mus_property ("pitch-alist")) == SCM_BOOL_T;
-}
-
 
 void
 Key_change_req::transpose (Pitch p)
@@ -65,7 +39,7 @@ Key_change_req::transpose (Pitch p)
 
 	  orig.transpose (p);
 
-	  SCM key = gh_cons (gh_int2scm (orig.octave_i () ),
+	  SCM key = gh_cons (gh_int2scm (orig.octave_i ()),
 			     gh_int2scm (orig.notename_i_));
 
 	  newlist = gh_cons (gh_cons (key, gh_int2scm (orig.alteration_i_)),
@@ -97,3 +71,29 @@ Mark_req::do_equal_b (Request const * r) const
   return other && scm_equal_p (other->get_mus_property ("mark-label"),
 			       get_mus_property ("mark-label")) == SCM_BOOL_T;
 }
+
+
+ADD_MUSIC (Articulation_req);
+ADD_MUSIC (Barcheck_req);
+ADD_MUSIC (Break_req);
+ADD_MUSIC (Breathing_sign_req);
+ADD_MUSIC (Busy_playing_req);
+ADD_MUSIC (Extender_req);
+ADD_MUSIC (Glissando_req);
+ADD_MUSIC (Hyphen_req);
+ADD_MUSIC (Key_change_req);
+ADD_MUSIC (Lyric_req);
+ADD_MUSIC (Mark_req);
+ADD_MUSIC (Melisma_playing_req);
+ADD_MUSIC (Melisma_req);
+ADD_MUSIC (Melodic_req);
+ADD_MUSIC (Note_req);
+ADD_MUSIC (Rest_req);
+ADD_MUSIC (Rhythmic_req);
+ADD_MUSIC (Script_req);
+ADD_MUSIC (Skip_req);
+ADD_MUSIC (Span_req);
+ADD_MUSIC (Tempo_req);
+ADD_MUSIC (Text_script_req);
+ADD_MUSIC (Tie_req);
+ADD_MUSIC (Tremolo_req);

@@ -24,7 +24,7 @@ copy_killing_cons_list (Cons_list<T> &dest, Cons<T> *src)
 {
   for (; src; src  = src->next_)
     {
-      T *t = new T(*src->car_);
+      T *t = new T (*src->car_);
       dest.append ( new Killing_cons<T> (t, 0));
     }
 }

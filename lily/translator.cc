@@ -15,9 +15,9 @@
 #include "ly-smobs.icc"
 
 char const*
-Translator::name() const
+Translator::name () const
 {
-  return classname(this);
+  return classname (this);
 }
 
 Translator::~Translator ()
@@ -155,7 +155,7 @@ Translator::finalize ()
 SCM
 Translator::mark_smob (SCM sm)
 {
-  Translator * me = (Translator*) SCM_CELL_WORD_1(sm);
+  Translator * me = (Translator*) SCM_CELL_WORD_1 (sm);
   scm_gc_mark (me->simple_trans_list_);
   scm_gc_mark (me->trans_group_list_);
   scm_gc_mark (me->definition_);  
@@ -177,14 +177,10 @@ Translator::print_smob (SCM s, SCM port, scm_print_state *)
     don't try to print properties, that is too much hassle.
    */
   scm_puts (" >", port);
-
-  
   
   return 1;
 }
 
-
-
-IMPLEMENT_UNSMOB(Translator, translator);
-IMPLEMENT_SMOBS(Translator);
-IMPLEMENT_DEFAULT_EQUAL_P(Translator);
+IMPLEMENT_UNSMOB (Translator, translator);
+IMPLEMENT_SMOBS (Translator);
+IMPLEMENT_DEFAULT_EQUAL_P (Translator);

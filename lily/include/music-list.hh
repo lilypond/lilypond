@@ -19,10 +19,12 @@
 class Simultaneous_music : public Music_sequence
 {
 public:
-  VIRTUAL_COPY_CONS(Music);
-  Simultaneous_music(SCM);
+  VIRTUAL_COPY_CONS (Music);
+  Simultaneous_music (SCM);
   virtual Pitch to_relative_octave (Pitch);
   virtual Moment length_mom () const;
+
+  Simultaneous_music ();
 };
 
 /**
@@ -32,9 +34,11 @@ public:
 class Request_chord : public Simultaneous_music
 {
 public:
-  VIRTUAL_COPY_CONS(Music);
+  VIRTUAL_COPY_CONS (Music);
   virtual Pitch to_relative_octave (Pitch);
-  Request_chord(SCM list);
+  Request_chord (SCM list);
+
+  Request_chord ();
 };
 
 /**
@@ -43,9 +47,11 @@ public:
 class Sequential_music : public Music_sequence
 {
 public:
-  VIRTUAL_COPY_CONS(Music);
-  Sequential_music(SCM);
+  VIRTUAL_COPY_CONS (Music);
+  Sequential_music (SCM);
   virtual Moment length_mom () const;
+
+  Sequential_music ();
 };
 
 #endif // Music_sequence_HH

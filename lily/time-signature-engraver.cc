@@ -19,24 +19,24 @@
   */
 class Time_signature_engraver : public Engraver {
 protected:
-  virtual void stop_translation_timestep();
+  virtual void stop_translation_timestep ();
   virtual void create_grobs ();
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
   Item * time_signature_p_;
   SCM last_time_fraction_;
-  Time_signature_engraver();
+  Time_signature_engraver ();
 };
 
 
-Time_signature_engraver::Time_signature_engraver()
+Time_signature_engraver::Time_signature_engraver ()
 { 
   time_signature_p_ =0;
   last_time_fraction_ = SCM_BOOL_F;
 }
 
 void
-Time_signature_engraver::create_grobs()
+Time_signature_engraver::create_grobs ()
 {
   /*
     not rigorously safe, since the value might get GC'd and
@@ -57,7 +57,7 @@ Time_signature_engraver::create_grobs()
 
 
 void
-Time_signature_engraver::stop_translation_timestep()
+Time_signature_engraver::stop_translation_timestep ()
 {
   if (time_signature_p_) 
     {
@@ -67,6 +67,6 @@ Time_signature_engraver::stop_translation_timestep()
 }
 
 
-ADD_THIS_TRANSLATOR(Time_signature_engraver);
+ADD_THIS_TRANSLATOR (Time_signature_engraver);
  
 

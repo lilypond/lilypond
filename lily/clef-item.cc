@@ -16,7 +16,7 @@
 /*
  FIXME: should use symbol for #'style.
 */
-MAKE_SCHEME_CALLBACK(Clef,before_line_breaking,1);
+MAKE_SCHEME_CALLBACK (Clef,before_line_breaking,1);
 SCM
 Clef::before_line_breaking (SCM smob)
 {
@@ -29,11 +29,11 @@ Clef::before_line_breaking (SCM smob)
       String str = ly_scm2string (glyph);
 
       if (to_boolean (s->get_grob_property ("non-default"))
-	  && s->break_status_dir() != RIGHT
+	  && s->break_status_dir () != RIGHT
 	  && !to_boolean (s->get_grob_property ("full-size-change")))
 	{
 	  str += "_change";
-	  s->set_grob_property ("glyph-name", ly_str02scm (str.ch_C()));	  
+	  s->set_grob_property ("glyph-name", ly_str02scm (str.ch_C ()));	  
 	}
     }
   else
@@ -58,7 +58,7 @@ Clef::set_interface (Grob* me)
   me->set_interface (ly_symbol2scm ("clef-interface"));
 }
 
-MAKE_SCHEME_CALLBACK(Clef,brew_molecule,1)
+MAKE_SCHEME_CALLBACK (Clef,brew_molecule,1)
 SCM
 Clef::brew_molecule (SCM smob) 
 {

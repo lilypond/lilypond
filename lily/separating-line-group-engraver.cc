@@ -62,7 +62,7 @@ Separating_line_group_engraver::acknowledge_grob (Grob_info i)
     return;
   if (it->parent_l (X_AXIS)
       && it->parent_l (X_AXIS)->has_extent_callback_b
-      (Axis_group_interface::group_extent_callback_proc, X_AXIS))
+ (Axis_group_interface::group_extent_callback_proc, X_AXIS))
     return;
 
   
@@ -73,7 +73,7 @@ Separating_line_group_engraver::acknowledge_grob (Grob_info i)
   if (!p_ref_)
     {
       p_ref_ = new Item
-	(get_property ("SeparationItem"));
+ (get_property ("SeparationItem"));
 	  
       if (ib)
 	p_ref_->set_grob_property ("breakable", SCM_BOOL_T);
@@ -102,5 +102,5 @@ Separating_line_group_engraver::stop_translation_timestep ()
 
 
 
-ADD_THIS_TRANSLATOR(Separating_line_group_engraver);
+ADD_THIS_TRANSLATOR (Separating_line_group_engraver);
 

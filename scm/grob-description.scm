@@ -151,7 +151,7 @@
 		(dash-length . 4.0)
 		(self-alignment-Y . 0)
 		(Y-offset-callbacks . (,Side_position_interface::aligned_on_self))
-		(meta . ,(grob-description "Hairpin" hairpin-interface))
+		(meta . ,(grob-description "Hairpin" hairpin-interface dynamic-interface))
 	))
 
 	(DotColumn . (
@@ -175,7 +175,7 @@
 		(font-family . dynamic)
 		(font-shape . italic)
 		(self-alignment-Y . 0)
-		(meta . ,(grob-description "DynamicText" font-interface  text-interface ))
+		(meta . ,(grob-description "DynamicText" font-interface text-interface dynamic-interface))
 	))
 	
 	(DynamicLineSpanner . (
@@ -310,7 +310,7 @@
 		(minimum-width . 12.5) ; staffspace
 		(font-family . number)
 		(font-relative-size . 1)
-		(meta . ,(grob-description "MultiMeasureRest" multi-measure-rest-interface  font-interface ))
+		(meta . ,(grob-description "MultiMeasureRest" multi-measure-rest-interface rest-interface font-interface ))
 	))
 	(NoteCollision . (
 		(axes 0 1)
@@ -402,12 +402,25 @@
 		 (slope-limit . 0.8)
 		 (meta . ,(grob-description "PhrasingSlur" slur-interface))
 		 ))
+	
 	(NonMusicalPaperColumn . (
                 (axes 0)
                 (before-musical-spacing-factor . 1.0)
 		(column-space-strength . 2.0)
  		(meta . ,(grob-description "NonMusicalPaperColumn" paper-column-interface axis-group-interface spaceable-element-interface))
         ))
+
+	(PercentRepeat . (
+		(spacing-procedure . ,Multi_measure_rest::set_spacing_rods)
+		(molecule-callback . ,Multi_measure_rest::percent)
+		(staff-position . 0)
+		(expand-limit . 10)
+		(padding . 2.0) ; staffspace
+		(minimum-width . 12.5) ; staffspace
+		(font-family . music)
+		(meta . ,(grob-description "PercentRepeat" multi-measure-rest-interface  font-interface))
+	))
+
 	
 	(Rest . (
 		(after-line-breaking-callback . ,Rest::after_line_breaking)
@@ -430,7 +443,7 @@
 		;; don't set direction here: it breaks staccato.
 		(molecule-callback . ,Script::brew_molecule)
 		(X-offset-callbacks . (,Side_position_interface::centered_on_parent))
-		(after-line-breaking-callback . ,Script::after_line_breaking)
+		(before-line-breaking-callback . ,Script::before_line_breaking)
 		(meta . ,(grob-description "Script" script-interface side-position-interface font-interface))
 	))
 	

@@ -5,7 +5,7 @@
 
   (c) 1999 Glen Prideaux <glenprideaux@iname.com>
 
-  (adapted from lyric-extender)
+ (adapted from lyric-extender)
 */
 
 #include <math.h>
@@ -19,7 +19,7 @@
 #include "spanner.hh"
 #include "item.hh"
 
-MAKE_SCHEME_CALLBACK(Hyphen_spanner,brew_molecule,1)
+MAKE_SCHEME_CALLBACK (Hyphen_spanner,brew_molecule,1)
 
 SCM 
 Hyphen_spanner::brew_molecule (SCM smob)
@@ -30,7 +30,7 @@ Hyphen_spanner::brew_molecule (SCM smob)
   Direction d = LEFT;
   do
     {
-      common = common->common_refpoint( sp->get_bound (d), X_AXIS);
+      common = common->common_refpoint (sp->get_bound (d), X_AXIS);
     }
   while (flip (&d) != LEFT);
   Interval bounds;
@@ -54,8 +54,8 @@ Hyphen_spanner::brew_molecule (SCM smob)
   Real w  = bounds.length ();
   /* for length, use a geometric mean of the available space and some minimum
   */
-  if(l < w)
-    l = sqrt(l*w);
+  if (l < w)
+    l = sqrt (l*w);
   else
     {
       /* OK, we have a problem. Usually this means that we're on the
@@ -63,7 +63,7 @@ Hyphen_spanner::brew_molecule (SCM smob)
          the offset for stuff */
       /* This test for being on the first column has been shamelessly
          ripped from spanner.cc */
-      Paper_column *sc = dynamic_cast<Paper_column*> (sp->get_bound(LEFT)->column_l());
+      Paper_column *sc = dynamic_cast<Paper_column*> (sp->get_bound (LEFT)->column_l ());
       if (sc != NULL &&
 	  sc->break_status_dir () == RIGHT)
 	{
@@ -78,7 +78,7 @@ Hyphen_spanner::brew_molecule (SCM smob)
 	  l = w;
 	}
     }
-  Box b  (Interval (-l/2,l/2), Interval (h,h+th));
+  Box b (Interval (-l/2,l/2), Interval (h,h+th));
   Molecule mol (Lookup::filledbox (b));
   mol.translate_axis (bounds.center ()
 		      -sp->relative_coordinate (common, X_AXIS),

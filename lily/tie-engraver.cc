@@ -65,13 +65,13 @@ protected:
   virtual void create_grobs ();
   void typeset_tie (Grob*);
 public:
-  VIRTUAL_COPY_CONS(Translator);
-  Tie_engraver();
+  VIRTUAL_COPY_CONS (Translator);
+  Tie_engraver ();
 };
 
 
 
-Tie_engraver::Tie_engraver()
+Tie_engraver::Tie_engraver ()
 {
   req_l_ = 0;
   tie_column_p_ = 0;
@@ -112,7 +112,7 @@ Tie_engraver::acknowledge_grob (Grob_info i)
       Note_req * m = dynamic_cast<Note_req* > (i.req_l_);
       if (!m)
 	return;
-      now_heads_.push (CHead_melodic_tuple (i.elem_l_, m, now_mom()+ m->length_mom ()));
+      now_heads_.push (CHead_melodic_tuple (i.elem_l_, m, now_mom ()+ m->length_mom ()));
     }
 }
 
@@ -123,22 +123,22 @@ Tie_engraver::create_grobs ()
   if (req_l_)
     {
       now_heads_.sort (CHead_melodic_tuple::pitch_compare);
-      stopped_heads_.sort(CHead_melodic_tuple::pitch_compare);
+      stopped_heads_.sort (CHead_melodic_tuple::pitch_compare);
 
       SCM head_list = SCM_EOL;
       
       int j = stopped_heads_.size ()-1;
       int i = now_heads_.size ()-1;
 
-      while  (i >= 0 && j >=0)
+      while (i >= 0 && j >=0)
 	{
 	  int comp
-	    = Pitch::compare (*unsmob_pitch (now_heads_[i].req_l_->get_mus_property ("pitch") ),
+	    = Pitch::compare (*unsmob_pitch (now_heads_[i].req_l_->get_mus_property ("pitch")),
 				      *unsmob_pitch (stopped_heads_[j].req_l_->get_mus_property ("pitch")));
 
 	  if (comp)
 	    {
-	      (comp < 0) ? j -- : i--;
+ (comp < 0) ? j -- : i--;
 	      continue;
 	    }
 	  else
@@ -189,7 +189,7 @@ Tie_engraver::create_grobs ()
 	{
 	  tie_column_p_ = new Spanner (get_property ("TieColumn"));
 	  Tie_column::set_interface (tie_column_p_);
-	  for (int i = tie_p_arr_.size (); i--; )
+	  for (int i = tie_p_arr_.size (); i--;)
 	    Tie_column::add_tie (tie_column_p_,tie_p_arr_ [i]);
 	  announce_grob (tie_column_p_, 0);
 	}
@@ -208,6 +208,8 @@ Tie_engraver::stop_translation_timestep ()
 
   if (req_l_ && !tie_p_arr_.size ())
     {
+      /* How to shut up this warning, when no notes appeared because
+	 they were suicided by Thread_devnull_engraver? */
       req_l_->origin ()->warning (_ ("No ties were created!"));
     }
   
@@ -226,20 +228,20 @@ Tie_engraver::stop_translation_timestep ()
 void
 Tie_engraver::typeset_tie (Grob *her)
 {
-  if (!(Tie::head (her,LEFT) && Tie::head (her,RIGHT)))
+  if (! (Tie::head (her,LEFT) && Tie::head (her,RIGHT)))
     warning (_ ("lonely tie"));
 
   Direction d = LEFT;
   Drul_array<Grob *> new_head_drul;
-  new_head_drul[LEFT] = Tie::head(her,LEFT);
+  new_head_drul[LEFT] = Tie::head (her,LEFT);
   new_head_drul[RIGHT] = Tie::head (her,RIGHT);  
   do {
     if (!Tie::head (her,d))
-      new_head_drul[d] = Tie::head(her,(Direction)-d);
-  } while (flip(&d) != LEFT);
+      new_head_drul[d] = Tie::head (her, (Direction)-d);
+  } while (flip (&d) != LEFT);
 
-  index_set_cell (her->get_grob_property ("heads"), LEFT, new_head_drul[LEFT]->self_scm () );
-  index_set_cell (her->get_grob_property ("heads"), RIGHT, new_head_drul[RIGHT]->self_scm () );
+  index_set_cell (her->get_grob_property ("heads"), LEFT, new_head_drul[LEFT]->self_scm ());
+  index_set_cell (her->get_grob_property ("heads"), RIGHT, new_head_drul[RIGHT]->self_scm ());
 
   typeset_grob (her);
 }
@@ -265,7 +267,7 @@ Tie_engraver::start_translation_timestep ()
 
 }
 
-ADD_THIS_TRANSLATOR(Tie_engraver);
+ADD_THIS_TRANSLATOR (Tie_engraver);
 
 
 CHead_melodic_tuple::CHead_melodic_tuple ()
@@ -300,5 +302,5 @@ int
 CHead_melodic_tuple::time_compare (CHead_melodic_tuple const&h1,
 				   CHead_melodic_tuple const &h2)
 {
-  return (h1.end_ - h2.end_ ).sign ();
+  return (h1.end_ - h2.end_).sign ();
 }

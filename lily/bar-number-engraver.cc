@@ -28,11 +28,11 @@ protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void initialize ();
   virtual void create_grobs ();
-  void create_items();
+  void create_items ();
 
 public:
-  VIRTUAL_COPY_CONS(Translator);
-  Bar_number_engraver();
+  VIRTUAL_COPY_CONS (Translator);
+  Bar_number_engraver ();
 };
 
 
@@ -43,10 +43,10 @@ public:
 void
 Bar_number_engraver::create_grobs ()
 {
-  // todo include (&&!time->cadenza_b_ )
-  SCM bn = get_property("currentBarNumber");
+  // todo include (&&!time->cadenza_b_)
+  SCM bn = get_property ("currentBarNumber");
   SCM smp = get_property ("measurePosition");
-  Moment mp =  (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
+  Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
   
   if (gh_number_p (bn) &&
       !mp && now_mom () > Moment (0))
@@ -55,11 +55,11 @@ Bar_number_engraver::create_grobs ()
 
       // guh.
       text_p_->set_grob_property ("text",
-				 ly_str02scm (to_str (gh_scm2int (bn)).ch_C()));
+				 ly_str02scm (to_str (gh_scm2int (bn)).ch_C ()));
     }
 }
 
-ADD_THIS_TRANSLATOR(Bar_number_engraver);
+ADD_THIS_TRANSLATOR (Bar_number_engraver);
 
 Bar_number_engraver::Bar_number_engraver ()
 {
@@ -119,7 +119,7 @@ Bar_number_engraver::create_items ()
 
   SCM b = get_property ("BarNumber");
   text_p_ = new Item (b);
-  Side_position_interface::set_axis(text_p_,Y_AXIS);
+  Side_position_interface::set_axis (text_p_,Y_AXIS);
 
   announce_grob (text_p_, 0);
 }

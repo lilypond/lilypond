@@ -32,11 +32,11 @@ class Align_note_column_engraver: public Engraver
   virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
   Align_note_column_engraver ();
 };
 
-Align_note_column_engraver::Align_note_column_engraver()
+Align_note_column_engraver::Align_note_column_engraver ()
 {
   align_item_p_ =0;
   now_column_l_ =0;
@@ -72,7 +72,7 @@ Align_note_column_engraver::finalize ()
 void
 Align_note_column_engraver::acknowledge_grob (Grob_info inf)
 {
-  if (Note_column::has_interface(inf.elem_l_))
+  if (Note_column::has_interface (inf.elem_l_))
     {
       now_column_l_ =inf.elem_l_;
     }
@@ -98,12 +98,12 @@ Align_note_column_engraver::create_grobs ()
 	 use that to space grace notes.	 
       */
       SCM grsp = get_property ("graceAccidentalSpace") ;
-      if (gh_number_p(grsp))
+      if (gh_number_p (grsp))
 	{
 	  /*
 	    ugh.
 	  */
-	  Real extra_space = gh_scm2double(grsp);
+	  Real extra_space = gh_scm2double (grsp);
 	  SCM e = gh_cons (gh_double2scm (-extra_space),
 			   gh_double2scm (0.0));
 	  now_column_l_->set_grob_property ("extra-space", e);
@@ -128,5 +128,5 @@ Align_note_column_engraver::start_translation_timestep ()
   accidental_l_ =0;
 }
 
-ADD_THIS_TRANSLATOR(Align_note_column_engraver);
+ADD_THIS_TRANSLATOR (Align_note_column_engraver);
 

@@ -17,12 +17,12 @@
   This callback is set in the children of the align element. It does
   not compute anything, but a side effect of a->do_side_processing ()
   is that the elements are placed correctly.  */
-MAKE_SCHEME_CALLBACK(Align_interface,alignment_callback,2);
+MAKE_SCHEME_CALLBACK (Align_interface,alignment_callback,2);
 SCM
 Align_interface::alignment_callback (SCM element_smob, SCM axis)
 {
   Grob * me = unsmob_grob (element_smob);
-  Axis ax = (Axis )gh_scm2int (axis);
+  Axis ax = (Axis)gh_scm2int (axis);
   Grob * par = me->parent_l (ax);
   if (par && !to_boolean (par->get_grob_property ("alignment-done")))
     {
@@ -31,12 +31,12 @@ Align_interface::alignment_callback (SCM element_smob, SCM axis)
   return gh_double2scm (0.0);
 }
 
-MAKE_SCHEME_CALLBACK(Align_interface,fixed_distance_alignment_callback,2);
+MAKE_SCHEME_CALLBACK (Align_interface,fixed_distance_alignment_callback,2);
 SCM
 Align_interface::fixed_distance_alignment_callback (SCM element_smob, SCM axis)
 {
   Grob * me = unsmob_grob (element_smob);
-  Axis ax = (Axis )gh_scm2int (axis);
+  Axis ax = (Axis)gh_scm2int (axis);
   Grob * par = me->parent_l (ax);
   if (par && !to_boolean (par->get_grob_property ("alignment-done")))
     {
@@ -53,7 +53,7 @@ Align_interface::align_to_fixed_distance (Grob *me , Axis a)
   SCM d =   me->get_grob_property ("stacking-dir");
 
   
-  Direction stacking_dir = gh_number_p(d) ? to_dir (d) : CENTER;
+  Direction stacking_dir = gh_number_p (d) ? to_dir (d) : CENTER;
   if (!stacking_dir)
     stacking_dir = DOWN;
 
@@ -67,9 +67,9 @@ Align_interface::align_to_fixed_distance (Grob *me , Axis a)
     }
   
   Link_array<Grob> elems
-    = Pointer_group_interface__extract_elements (  me, (Grob*) 0, "elements");
+    = Pointer_group_interface__extract_elements (me, (Grob*) 0, "elements");
   Real where_f=0;
-  for (int j=0 ;  j < elems.size(); j++) 
+  for (int j=0 ;  j < elems.size (); j++) 
     {
       where_f += stacking_dir * dy;
       elems[j]->translate_axis (where_f, a);
@@ -88,7 +88,7 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
   SCM d =   me->get_grob_property ("stacking-dir");
 
   
-  Direction stacking_dir = gh_number_p(d) ? to_dir (d) : CENTER;
+  Direction stacking_dir = gh_number_p (d) ? to_dir (d) : CENTER;
   if (!stacking_dir)
     stacking_dir = DOWN;
 
@@ -108,12 +108,12 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
   Link_array<Grob> elems;
   Link_array<Grob> all_grobs
     = Pointer_group_interface__extract_elements (me, (Grob*) 0, "elements");
-  for (int i=0; i < all_grobs.size(); i++) 
+  for (int i=0; i < all_grobs.size (); i++) 
     {
-      Interval y = all_grobs[i]->extent(me, a);
-      if (!y.empty_b())
+      Interval y = all_grobs[i]->extent (me, a);
+      if (!y.empty_b ())
 	{
-	  Grob *e =dynamic_cast<Grob*>(all_grobs[i]);
+	  Grob *e =dynamic_cast<Grob*> (all_grobs[i]);
 
 	  // todo: fucks up if item both in Halign & Valign. 
 	  SCM min_dims = e->remove_grob_property ("minimum-space");
@@ -129,7 +129,7 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
 	      gh_number_p (gh_car (extra_dims))
 	      && gh_number_p (gh_cdr (extra_dims)))
 	    {
-	      y[LEFT] += gh_scm2double (gh_car  (extra_dims));
+	      y[LEFT] += gh_scm2double (gh_car (extra_dims));
 	      y[RIGHT] += gh_scm2double (gh_cdr (extra_dims));
 	    }
 
@@ -148,15 +148,15 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
 
   String s ("self-alignment-");
 
-  s +=  (a == X_AXIS) ? "X" : "Y";
+  s += (a == X_AXIS) ? "X" : "Y";
 
-  SCM align (me->get_grob_property (s.ch_C()));
+  SCM align (me->get_grob_property (s.ch_C ()));
      
   Array<Real> translates ;
   Interval total;
   Real where_f=0;
   
-  for (int j=0 ;  j < elems.size(); j++) 
+  for (int j=0 ;  j < elems.size (); j++) 
     {
       Real dy = 0.0;
       dy = - stacking_dir * dims[j][-stacking_dir];
@@ -165,12 +165,12 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
 
       if (j)
 	{
-	  dy = (dy >? threshold[SMALLER] )
+	  dy = (dy >? threshold[SMALLER])
 	    <? threshold[BIGGER];
 	}
 
       where_f += stacking_dir * dy;
-      total.unite ( dims[j] +   where_f);
+      total.unite (dims[j] +   where_f);
       translates.push (where_f);
     }
 
@@ -183,7 +183,7 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
     also move the grobs that were empty, to maintain spatial order. 
    */
   Array<Real> all_translates;
-  if (translates.size  ())
+  if (translates.size ())
     {
       int i =0;
       int j =0;
@@ -200,7 +200,7 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
 	  j++;
 	}
 
-      if (isdir_b  (align))
+      if (isdir_b (align))
 	{
 	  center_offset = total.linear_combination (gh_scm2double (align));
 	}
@@ -253,7 +253,7 @@ Align_interface::set_interface (Grob*me)
 void
 Align_interface::set_axis (Grob*me,Axis a)
 {
-  Axis_group_interface::set_axes (me, a,a );
+  Axis_group_interface::set_axes (me, a,a);
 }
 
 bool

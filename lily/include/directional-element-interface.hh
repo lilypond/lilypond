@@ -16,7 +16,7 @@ struct Directional_element_interface
 {
 public:
   static SCM direction_sym ;
-  static void set  (Grob*,Direction d);
+  static void set (Grob*,Direction d);
   static Direction get (Grob*) ;
   static bool has_interface (Grob*) ;
 };

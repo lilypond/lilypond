@@ -12,14 +12,14 @@
 /*
 
     TODO: quantise, we don't want to collide with staff lines.
-    (or should we be above staff?)
+ (or should we be above staff?)
 
   todo: handle breaking elegantly.
 */
 class Tuplet_bracket
 {
 public:
-  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
+  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
   static void set_interface (Grob*);  
   static bool has_interface (Grob*);
 
@@ -29,7 +29,7 @@ public:
   static void calc_dy (Grob*,Real *) ;
   static void calc_position_and_height (Grob*,Real*,Real *dy);
   
-  DECLARE_SCHEME_CALLBACK(after_line_breaking, (SCM ));
+  DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM ));
 
   static Direction get_default_dir (Grob*);
 };

@@ -1,6 +1,6 @@
 
 /*   
-  minmax.cc --  implement minmax()
+  minmax.cc --  implement minmax ()
   
   source file of the GNU LilyPond music typesetter
   

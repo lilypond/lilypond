@@ -17,7 +17,7 @@ class Script_column
 {
 public:
   static void add_staff_sided (Grob*, Item*);
-  DECLARE_SCHEME_CALLBACK(before_line_breaking, (SCM ));
+  DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM ));
 };
 
 

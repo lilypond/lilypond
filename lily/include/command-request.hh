@@ -21,14 +21,14 @@ public:
 
   Break_req ();
 protected:
-  VIRTUAL_COPY_CONS(Music);
+  VIRTUAL_COPY_CONS (Music);
 };
 
 class Mark_req : public Request {
 public:
   virtual bool do_equal_b (Request const*) const;
   SCM mark_label ();
-  VIRTUAL_COPY_CONS(Music);
+  VIRTUAL_COPY_CONS (Music);
 };
 
 /*
@@ -37,22 +37,20 @@ public:
 class Tempo_req : public Request
 {
 public:
-  Tempo_req();
+  Tempo_req ();
 protected:
-
-  VIRTUAL_COPY_CONS(Music);
-  bool do_equal_b (Request const *) const;
+  VIRTUAL_COPY_CONS (Music);
 };
 
 /// check if we're at start of a  measure.
 class Barcheck_req  : public Request  {
 public:
   bool do_equal_b (Request const *) const;
-  VIRTUAL_COPY_CONS(Music);
+  VIRTUAL_COPY_CONS (Music);
 };
 
 class Breathing_sign_req : public Request {
-  VIRTUAL_COPY_CONS(Music);
+  VIRTUAL_COPY_CONS (Music);
 };
 
 /**
@@ -64,9 +62,9 @@ public:
   SCM pitch_alist ();
   
 protected:
-  VIRTUAL_COPY_CONS(Music);
+  VIRTUAL_COPY_CONS (Music);
   void transpose (Pitch  d);
-  bool do_equal_b (Request const * )const; 
 };
 
 #endif // COMMANDREQUEST_HH
+

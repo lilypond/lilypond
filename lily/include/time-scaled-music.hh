@@ -18,8 +18,9 @@ class Time_scaled_music : public Music_wrapper
 {
 public:
   Time_scaled_music (SCM);
+  Time_scaled_music ();
   
-  VIRTUAL_COPY_CONS(Music);
+  VIRTUAL_COPY_CONS (Music);
 };
 
 #endif /* Time_scaled_music_HH */

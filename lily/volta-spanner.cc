@@ -35,7 +35,7 @@ Volta_spanner::set_interface (Grob*)
   
 */
 
-MAKE_SCHEME_CALLBACK(Volta_spanner,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Volta_spanner,brew_molecule,1);
 SCM
 Volta_spanner::brew_molecule (SCM smob) 
 {
@@ -60,7 +60,7 @@ Volta_spanner::brew_molecule (SCM smob)
   Real staff_thick = me->paper_l ()->get_var ("stafflinethickness");  
   Real half_space = 0.5;
 
-  Item * bound = dynamic_cast<Spanner*>(me)->get_bound (LEFT);
+  Item * bound = dynamic_cast<Spanner*> (me)->get_bound (LEFT);
 
   /*
     not a start, but really broken in two
@@ -79,7 +79,7 @@ Volta_spanner::brew_molecule (SCM smob)
     */
   }
 
-  Real w = dynamic_cast<Spanner*>(me)->spanner_length () - left - half_space;
+  Real w = dynamic_cast<Spanner*> (me)->spanner_length () - left - half_space;
   Real h =  gh_scm2double (me->get_grob_property ("height"));
   Real t =  staff_thick * gh_scm2double (me->get_grob_property ("thickness"));
 
@@ -96,7 +96,7 @@ Volta_spanner::brew_molecule (SCM smob)
 
   Box b (Interval (0, w), Interval (0, h));
   Molecule mol (b, at);
-  SCM text = me->get_grob_property("text");
+  SCM text = me->get_grob_property ("text");
   SCM properties = gh_list (me->mutable_property_alist_, me->immutable_property_alist_,SCM_UNDEFINED);
   Molecule num = Text_item::text2molecule (me, text, properties);
 
@@ -108,11 +108,11 @@ Volta_spanner::brew_molecule (SCM smob)
 
 
 void
-Volta_spanner::add_bar  (Grob *me, Item* b)
+Volta_spanner::add_bar (Grob *me, Item* b)
 {
-  Pointer_group_interface::add_element(me, "bars",b);
+  Pointer_group_interface::add_element (me, "bars",b);
   Side_position_interface::add_support (me,b);
-  add_bound_item (dynamic_cast<Spanner*>(me), b); 
+  add_bound_item (dynamic_cast<Spanner*> (me), b); 
 }
 
 void

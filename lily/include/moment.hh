@@ -19,7 +19,7 @@
    FIXME: remove self_scm_ and then remove this class */
 class Moment : public Rational
 {
-  DECLARE_SIMPLE_SMOBS(Moment,);
+  DECLARE_SIMPLE_SMOBS (Moment,);
 public:
   Moment () { }
   Moment (int m) : Rational (m) { }

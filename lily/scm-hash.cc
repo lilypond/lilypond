@@ -25,7 +25,7 @@ Scheme_hash_table::Scheme_hash_table (Scheme_hash_table const &src)
 }
 
 void
-Scheme_hash_table::operator =(Scheme_hash_table const & src)
+Scheme_hash_table::operator = (Scheme_hash_table const & src)
 {
   Scm_stl_map::operator = (src);
 	
@@ -39,9 +39,9 @@ Scheme_hash_table::mark_smob (SCM s)
     can't typecheck naively, since GC bit lives in CAR of S
    */
   
-  Scheme_hash_table *me = (Scheme_hash_table*) SCM_CELL_WORD_1(s);
+  Scheme_hash_table *me = (Scheme_hash_table*) SCM_CELL_WORD_1 (s);
 
-  for (Scm_stl_map::const_iterator i= me->begin (); i != me->end(); i++)
+  for (Scm_stl_map::const_iterator i= me->begin (); i != me->end (); i++)
     {
       scm_gc_mark ((*i).first);
       scm_gc_mark ((*i).second);
@@ -56,8 +56,8 @@ Scheme_hash_table::print_smob (SCM s, SCM p, scm_print_state*)
   char str[1000];
   sprintf (str, "#<Scheme_hash_table 0x%0x ", s);
   scm_puts (str, p);      
-  Scheme_hash_table *me = unsmob(s);
-  for (Scm_stl_map::const_iterator i = me->begin (); i != me->end(); i++)
+  Scheme_hash_table *me = unsmob (s);
+  for (Scm_stl_map::const_iterator i = me->begin (); i != me->end (); i++)
     {
       scm_display ((*i).first, p);
       scm_puts (" = ",p);      
@@ -88,18 +88,18 @@ Scheme_hash_table::elem_b (SCM k) const
 void
 Scheme_hash_table::set (SCM k, SCM v)
 {
-  (*this)[k] = v;
+ (*this)[k] = v;
 }
 
 // UGH. 
 SCM
 Scheme_hash_table::get (SCM k)const
 {
-  return (*(Scheme_hash_table*)this)[k]; 
+  return (* (Scheme_hash_table*)this)[k]; 
 }
 
 
-Scheme_hash_table::~Scheme_hash_table( )
+Scheme_hash_table::~Scheme_hash_table ()
 {
 }
 
@@ -107,15 +107,15 @@ SCM
 Scheme_hash_table::to_alist () const
 {
   SCM l = SCM_EOL;
-  for (Scm_stl_map ::const_iterator i = begin (); i != end(); i++)
+  for (Scm_stl_map ::const_iterator i = begin (); i != end (); i++)
     l = gh_cons (gh_cons ((*i).first, (*i).second), l);
   return l;  
 }
 
 
 
-IMPLEMENT_UNSMOB(Scheme_hash_table,scheme_hash);
-IMPLEMENT_SMOBS(Scheme_hash_table);
-IMPLEMENT_DEFAULT_EQUAL_P(Scheme_hash_table);
+IMPLEMENT_UNSMOB (Scheme_hash_table,scheme_hash);
+IMPLEMENT_SMOBS (Scheme_hash_table);
+IMPLEMENT_DEFAULT_EQUAL_P (Scheme_hash_table);
 
 

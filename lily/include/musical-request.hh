@@ -25,12 +25,12 @@ public:
   void compress (Moment);
   virtual Moment length_mom () const;
   static int compare (Rhythmic_req const&,Rhythmic_req const&);
-  VIRTUAL_COPY_CONS(Music);
+  VIRTUAL_COPY_CONS (Music);
 };
 
 class Skip_req  : public Rhythmic_req  {
 public:
-  VIRTUAL_COPY_CONS(Music);
+  VIRTUAL_COPY_CONS (Music);
 };
 
 
@@ -56,11 +56,11 @@ protected:
 class Articulation_req : public Script_req
 {
 public:
-  String get_articulation_str();
+  String get_articulation_str ();
 protected:
   virtual bool do_equal_b (Request const*) const;
 
-  VIRTUAL_COPY_CONS(Music);
+  VIRTUAL_COPY_CONS (Music);
 };
 
 class Text_script_req : public Script_req
@@ -81,7 +81,7 @@ protected:
   virtual void transpose (Pitch delta);
   virtual bool do_equal_b (Request const*) const;
 
-  VIRTUAL_COPY_CONS(Music);
+  VIRTUAL_COPY_CONS (Music);
 };
 
 /*
@@ -95,11 +95,11 @@ protected:
 class Note_req  : public Rhythmic_req, virtual public Melodic_req  {
 public:
     
-  Note_req();
+  Note_req ();
 protected:
 
   bool do_equal_b (Request const*) const;
-  VIRTUAL_COPY_CONS(Music);
+  VIRTUAL_COPY_CONS (Music);
 };
 
 /**
@@ -107,20 +107,20 @@ Put a rest on the staff. Why a request? It might be a good idea to not typeset t
 */
 class Rest_req : public Rhythmic_req {
 public:
-  VIRTUAL_COPY_CONS(Music);
+  VIRTUAL_COPY_CONS (Music);
 };
 
 
 /// an extender line
 class Extender_req : public Request  {
 public:
-  VIRTUAL_COPY_CONS(Music);
+  VIRTUAL_COPY_CONS (Music);
 };
 
 /// a centred hyphen
 class Hyphen_req : public Request  {
 public:
-  VIRTUAL_COPY_CONS(Music);
+  VIRTUAL_COPY_CONS (Music);
 };
 
 /** is anyone  playing a note?
@@ -139,7 +139,7 @@ public:
 class Melisma_req : public Span_req
 {
 public:
-  VIRTUAL_COPY_CONS(Music);
+  VIRTUAL_COPY_CONS (Music);
 };
 
 

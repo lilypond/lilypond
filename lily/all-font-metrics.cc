@@ -43,21 +43,21 @@ All_font_metrics::find_afm (String name)
 
   SCM val;
   
-  if (!afm_p_dict_->try_retrieve  (sname, &val))
+  if (!afm_p_dict_->try_retrieve (sname, &val))
     {
       String path;
 
-      if (path.empty_b())
+      if (path.empty_b ())
 	path = search_path_.find (name  + ".afm");
 
       if (path.empty_b ())
 	{
-	  char  * p = ly_find_afm (name.ch_C());
+	  char  * p = ly_find_afm (name.ch_C ());
 	  if (p)
 	    path = p;
 	}
 
-      if (path.empty_b())
+      if (path.empty_b ())
 	return 0;
       
       if (verbose_global_b)
@@ -76,19 +76,19 @@ All_font_metrics::find_afm (String name)
 
 
       Adobe_font_metric *afm
-	= dynamic_cast<Adobe_font_metric*> (unsmob_metrics (val) );
+	= dynamic_cast<Adobe_font_metric*> (unsmob_metrics (val));
       Tex_font_metric * tfm = find_tfm (name);
 
       if (tfm->info_.checksum != afm->checksum_)
 	{
 	  String s = _f ("checksum mismatch for font file: `%s'",
 			 path.ch_C ());
-	  s += " " + _f ("does not match: `%s'", tfm->path_.ch_C()); // FIXME
+	  s += " " + _f ("does not match: `%s'", tfm->path_.ch_C ()); // FIXME
 	  s += "\n";
 	  s += " TFM: " + to_str ((int) tfm->info_.checksum);
 	  s += " AFM: " + to_str ((int) afm->checksum_);
 	  s += "\n";
-	  s += _(" Rebuild all .afm files, and remove all .pk and .tfm files.  Rerun with -V to show font paths.");
+	  s += _ (" Rebuild all .afm files, and remove all .pk and .tfm files.  Rerun with -V to show font paths.");
 
 	  error (s);
 	}
@@ -109,16 +109,16 @@ All_font_metrics::find_tfm (String name)
     {
       String path;
       
-      if (path.empty_b())
+      if (path.empty_b ())
 	{
-	  char * p = ly_find_tfm (name.ch_C());
+	  char * p = ly_find_tfm (name.ch_C ());
 	  if (p)
 	    path = p;
 	}
 
-      if (path.empty_b())
+      if (path.empty_b ())
 	path = search_path_.find (name  + ".tfm");
-      if (path.empty_b())
+      if (path.empty_b ())
 	return 0;
 
       

@@ -24,9 +24,9 @@ public:
   String origin_str_;
   int errorlevel_i_;
 
-  virtual void process() {} 
+  virtual void process () {} 
   virtual ~Music_output (){}
-  Music_output() 
+  Music_output () 
   {
     errorlevel_i_ = 0;
   }

@@ -19,7 +19,7 @@ class Grace_align_item
 public:
   static void set_interface (Grob*);
   static bool has_interface (Grob*);
-  DECLARE_SCHEME_CALLBACK(before_line_breaking, (SCM ));
+  DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM ));
 };
 #endif /* GRACE_ALIGN_ITEM_HH */
 

@@ -57,7 +57,7 @@ void write_dependency_file (String fn, Array<String> targets,
 #endif
   for (int i=0; i < deps.size (); i ++)
     {
-      if (out.length_i() > WRAPWIDTH)
+      if (out.length_i () > WRAPWIDTH)
 	{
 	  f << out << "\\\n";
 	  out = "  ";
@@ -79,7 +79,7 @@ void write_dependency_file (String fn, Array<String> targets,
 }
 
 void
-do_deps()
+do_deps ()
 {
   if (dependency_global_b)
     {
@@ -93,22 +93,22 @@ do_deps()
 
 
 void
-do_scores()
+do_scores ()
 {
   if (!global_header_p)
     global_header_p = new Scheme_hash_table;
-  for (int i=0; i < score_global_array.size(); i++)
+  for (int i=0; i < score_global_array.size (); i++)
     {
       Score* is_p = score_global_array[i];
 
       if (is_p->errorlevel_i_)
 	{
-	  is_p->warning (_("Score contains errors; will not process it"));
+	  is_p->warning (_ ("Score contains errors; will not process it"));
 	  exit_status_global |= 1;
 	}
       else
 	{
-	  is_p->process();
+	  is_p->process ();
 	}
     }
   do_deps ();
@@ -119,7 +119,7 @@ clear_scores ()
 {
   for (int i=0; i < score_global_array.size (); i++)
     scm_unprotect_object (score_global_array[i]->self_scm ());
-  score_global_array.clear();
+  score_global_array.clear ();
   
   inclusion_global_array.clear ();
   if (global_header_p)
@@ -134,7 +134,7 @@ do_one_file (String init_str, String file_str)
   if (init_str.length_i () && global_path.find (init_str).empty_b ())
     {
       warning (_f ("can't find file: `%s'", init_str));
-      warning (_f ("(search path: `%s')", global_path.str ().ch_C()));
+      warning (_f ("(search path: `%s')", global_path.str ().ch_C ()));
       return;
     }
   if ((file_str != "-") && global_path.find (file_str).empty_b ())

@@ -15,9 +15,9 @@ class Line_of_score : public Spanner
 {
 public:
   int rank_i_;
-  void post_processing(bool);
+  void post_processing (bool);
 
-  Line_of_score(SCM);
+  Line_of_score (SCM);
   /// is #c# contained in #*this#?
   bool contains_b (Paper_column const *c) const;
   int element_count () const;
@@ -34,7 +34,7 @@ public:
   void output_scheme (SCM);
   void pre_processing ();
 protected:
-  VIRTUAL_COPY_CONS(Grob);
+  VIRTUAL_COPY_CONS (Grob);
 };
 
 #endif

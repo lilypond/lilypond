@@ -3,7 +3,7 @@
 
  source file of the GNU LilyPond music typesetter
 
- (c) 1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #ifndef LILY_PROTO_HH
@@ -173,10 +173,8 @@ class Tie_performer;
 class Tie_req;
 class Time_scaled_music;
 class Time_scaled_music_iterator;
-class Time_signature_change_req;
 class Time_signature_performer;
 class Timing_engraver;
-class Timing_req;
 class Timing_translator;
 class Translation_property;
 class Translator;

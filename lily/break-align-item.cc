@@ -21,7 +21,7 @@
 #include "group-interface.hh"
 #include "align-interface.hh"
 
-MAKE_SCHEME_CALLBACK(Break_align_interface,before_line_breaking,1);
+MAKE_SCHEME_CALLBACK (Break_align_interface,before_line_breaking,1);
 
 SCM
 Break_align_interface::before_line_breaking (SCM smob)
@@ -30,7 +30,7 @@ Break_align_interface::before_line_breaking (SCM smob)
   do_alignment (me);
   return SCM_UNSPECIFIED;
 }
-MAKE_SCHEME_CALLBACK(Break_align_interface,alignment_callback,2);
+MAKE_SCHEME_CALLBACK (Break_align_interface,alignment_callback,2);
 
 SCM
 Break_align_interface::alignment_callback (SCM element_smob, SCM axis)
@@ -49,7 +49,7 @@ Break_align_interface::alignment_callback (SCM element_smob, SCM axis)
   return gh_double2scm (0);
 }
 
-MAKE_SCHEME_CALLBACK(Break_align_interface,self_align_callback,2);
+MAKE_SCHEME_CALLBACK (Break_align_interface,self_align_callback,2);
 SCM
 Break_align_interface::self_align_callback (SCM element_smob, SCM axis)
 {
@@ -58,7 +58,7 @@ Break_align_interface::self_align_callback (SCM element_smob, SCM axis)
   assert (a == X_AXIS);
   
   Item* item = dynamic_cast<Item*> (me);
-  Direction bsd = item->break_status_dir();
+  Direction bsd = item->break_status_dir ();
   if (bsd == LEFT)
     {
       me->set_grob_property ("self-alignment-X", gh_int2scm (RIGHT));
@@ -89,10 +89,10 @@ Break_align_interface::do_alignment (Grob *me)
     = Pointer_group_interface__extract_elements (me, (Grob*)0,
 						 "elements");
   
-  for (int i=0; i < all_elems.size(); i++) 
+  for (int i=0; i < all_elems.size (); i++) 
     {
-      Interval y = all_elems[i]->extent(all_elems[i], X_AXIS);
-      if (!y.empty_b())
+      Interval y = all_elems[i]->extent (all_elems[i], X_AXIS);
+      if (!y.empty_b ())
 	elems.push (dynamic_cast<Grob*> (all_elems[i]));
     }
   
@@ -139,10 +139,10 @@ Break_align_interface::do_alignment (Grob *me)
 	  extra_space = scm_listify (ly_symbol2scm ("minimum-space"), gh_double2scm (0.0), SCM_UNDEFINED);
 	}
 
-      SCM symbol = gh_car  (extra_space);
-      Real spc = gh_scm2double (gh_cadr(extra_space));
+      SCM symbol = gh_car (extra_space);
+      Real spc = gh_scm2double (gh_cadr (extra_space));
 
-      dists.push(spc);
+      dists.push (spc);
       symbol_list = gh_cons (symbol, symbol_list);
       current_origin = next_origin;
     }
@@ -150,9 +150,9 @@ Break_align_interface::do_alignment (Grob *me)
 
   // skip the first sym.
   symbol_list  = gh_cdr (scm_reverse (symbol_list));
-  for (int i=0; i <elems.size()-1; i++)
+  for (int i=0; i <elems.size ()-1; i++)
     {
-      elems[i]->set_grob_property (gh_car  (symbol_list),
+      elems[i]->set_grob_property (gh_car (symbol_list),
 				  scm_cons (gh_double2scm (0),
 					    gh_double2scm (dists[i+1])));
 
@@ -170,7 +170,7 @@ Break_align_interface::do_alignment (Grob *me)
   scm_set_car_x (first_pair, gh_double2scm (-dists[0]));
   elems[0]->set_grob_property ("minimum-space", first_pair);
 
-  Direction bsd = item->break_status_dir();
+  Direction bsd = item->break_status_dir ();
   if (bsd == LEFT)
     {
       me->set_grob_property ("self-alignment-X", gh_int2scm (RIGHT));
@@ -198,12 +198,12 @@ Break_align_interface::do_alignment (Grob *me)
   
   Real stretch_distance =0.;
   
-  if (gh_car  (symbol_list) == ly_symbol2scm ("extra-space"))
+  if (gh_car (symbol_list) == ly_symbol2scm ("extra-space"))
     {
       spring_len += dists.top ();
       stretch_distance = dists.top ();
     }
-  else if (gh_car  (symbol_list) == ly_symbol2scm ("minimum-space"))
+  else if (gh_car (symbol_list) == ly_symbol2scm ("minimum-space"))
     {
       spring_len = spring_len >? dists.top ();
       stretch_distance = spring_len;
@@ -221,7 +221,7 @@ Break_align_interface::do_alignment (Grob *me)
     This is a side effect, and there is no guarantee that this info is
     computed at a "sane" moment.
 
-    (just spent some time tracking a bug that was caused by this info
+ (just spent some time tracking a bug that was caused by this info
     being written halfway:
 
     self_alignment_callback (*)

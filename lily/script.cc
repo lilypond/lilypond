@@ -17,12 +17,12 @@
 #include "lookup.hh"
 
 Molecule
-Script::get_molecule(Grob * me, Direction d)
+Script::get_molecule (Grob * me, Direction d)
 {
   SCM s = me->get_grob_property ("molecule");
   assert (gh_pair_p (s));
 
-  SCM key = gh_car  (s);
+  SCM key = gh_car (s);
   if (key == ly_symbol2scm ("feta"))
     {
       return Font_interface::get_default_font (me)->find_by_name ("scripts-" +
@@ -38,32 +38,44 @@ Script::get_molecule(Grob * me, Direction d)
   return Molecule ();
 }
 
-MAKE_SCHEME_CALLBACK(Script,after_line_breaking,1);
+MAKE_SCHEME_CALLBACK (Script,before_line_breaking,1);
 SCM
-Script::after_line_breaking (SCM smob)
+Script::before_line_breaking (SCM smob)
 {
   Grob * me = unsmob_grob (smob);
 
   Direction d = Side_position_interface::get_direction (me);
+
+  if (!d)
+    {
+  /*
+    we should not have `arbitrary' directions. 
+   */
+      programming_error ("Script direction not yet known!");
+      d = DOWN;
+    }
+  
   Side_position_interface::set_direction (me,d);
 
   return SCM_UNSPECIFIED;
 }
 
-MAKE_SCHEME_CALLBACK(Script,brew_molecule,1);
+
+MAKE_SCHEME_CALLBACK (Script,brew_molecule,1);
 
 SCM
 Script::brew_molecule (SCM smob)
 {
   Grob *me= unsmob_grob (smob);
-#if 0
-   Direction dir = DOWN;
-   SCM d = me->get_grob_property ("direction");
-   if (isdir_b (d))
-     dir = to_dir (d);
-#endif
-  Direction dir = Side_position_interface::get_direction(me);
-  return get_molecule (me, dir).smobbed_copy();
+
+  Direction dir = Side_position_interface::get_direction (me);
+  if (!dir)
+    {
+      programming_error ("Script direction not known, but molecule wanted.");
+      dir= DOWN;
+    }
+  
+  return get_molecule (me, dir).smobbed_copy ();
 }
 
 bool
@@ -77,3 +89,4 @@ Script::set_interface (Grob*me)
 {
   return me->set_interface (ly_symbol2scm ("script-interface"));
 }
+

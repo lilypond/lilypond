@@ -68,7 +68,7 @@ symbol (const char *ch)
   private_symbol_cache_end = private_symbol_cache + sz;
   for (p = private_symbol_cache_end -1;
        p != private_symbol_cache + idx; p --)
-    *p = *(p - 1);
+    *p = * (p - 1);
 
   p->key = ch;
   p->val = sym;

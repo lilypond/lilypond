@@ -26,14 +26,14 @@ My_lily_parser::My_lily_parser (Sources * source_l)
   default_header_p_ =0;
 }
 
-My_lily_parser::~My_lily_parser()
+My_lily_parser::~My_lily_parser ()
 {
   delete lexer_p_;
   delete default_header_p_;
 }
 
 void
-My_lily_parser::set_version_check (bool )
+My_lily_parser::set_version_check (bool)
 {
 }
 
@@ -44,13 +44,15 @@ My_lily_parser::parse_file (String init, String s)
 
   lexer_p_->main_input_str_ = s;
 
-  progress_indication (_("Parsing..."));
+  progress_indication (_ ("Parsing..."));
 
   set_yydebug (flower_dstream &&!flower_dstream->silent_b ("Parser"));
   lexer_p_->new_input (init, source_l_);
   do_yyparse ();
 
-  if (!define_spot_array_.empty())
+  progress_indication ("\n");
+  
+  if (!define_spot_array_.empty ())
     {
       define_spot_array_.top ().warning (_ ("Braces don't match"));
       error_level_i_ = 1;
@@ -62,21 +64,21 @@ My_lily_parser::parse_file (String init, String s)
 }
 
 void
-My_lily_parser::remember_spot()
+My_lily_parser::remember_spot ()
 {
-  define_spot_array_.push (here_input());
+  define_spot_array_.push (here_input ());
 }
 
 char const *
-My_lily_parser::here_ch_C() const
+My_lily_parser::here_ch_C () const
 {
-  return lexer_p_->here_ch_C();
+  return lexer_p_->here_ch_C ();
 }
 
 void
 My_lily_parser::parser_error (String s)
 {
-  here_input().error (s);
+  here_input ().error (s);
   error_level_i_ = 1;
   exit_status_global = 1;
 }
@@ -89,13 +91,13 @@ My_lily_parser::set_last_duration (Duration const *d)
 
 
 Input
-My_lily_parser::pop_spot()
+My_lily_parser::pop_spot ()
 {
-  return define_spot_array_.pop();
+  return define_spot_array_.pop ();
 }
 
 Input
-My_lily_parser::here_input() const
+My_lily_parser::here_input () const
 {
   return  lexer_p_->here_input ();
 }
@@ -106,7 +108,7 @@ My_lily_parser::here_input() const
 
 My_lily_parser * current_parser;
 
-MAKE_SCHEME_CALLBACK(My_lily_parser,paper_description, 0);
+MAKE_SCHEME_CALLBACK (My_lily_parser,paper_description, 0);
 
 SCM
 My_lily_parser::paper_description ()

@@ -33,7 +33,7 @@ staff_side_compare (Grob * const &i1,
   return gh_scm2int (p1) - gh_scm2int (p2);
 }
 
-MAKE_SCHEME_CALLBACK(Script_column,before_line_breaking,1);
+MAKE_SCHEME_CALLBACK (Script_column,before_line_breaking,1);
 
 SCM
 Script_column::before_line_breaking (SCM smob)
@@ -52,7 +52,7 @@ Script_column::before_line_breaking (SCM smob)
 
   Direction d = DOWN;
   do {
-    Link_array<Grob> &arr(arrs[d]);
+    Link_array<Grob> &arr (arrs[d]);
     
     arr.sort (staff_side_compare);
 
@@ -61,7 +61,7 @@ Script_column::before_line_breaking (SCM smob)
       {
 
 	if (last)
-	  Side_position_interface::add_support( arr[i],last);
+	  Side_position_interface::add_support (arr[i],last);
 	    
 	arr[i]->remove_grob_property ("script-priority");
 	last = arr[i];

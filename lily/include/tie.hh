@@ -22,10 +22,10 @@ public:
   static bool has_interface (Grob*);
   static Grob * head (Grob*,Direction) ;
   static Real position_f (Grob*) ;
-  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
-  static Direction get_default_dir(Grob*) ;
+  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
+  static Direction get_default_dir (Grob*) ;
   static SCM get_control_points (SCM);
-  DECLARE_SCHEME_CALLBACK(set_spacing_rods, (SCM ));
+  DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM ));
 };
 
 #endif // TIE_HH

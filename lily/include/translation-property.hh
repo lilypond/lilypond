@@ -25,7 +25,7 @@ class Translation_property : public Music
 {
 public:
   Translation_property ();
-  VIRTUAL_COPY_CONS(Music);
+  VIRTUAL_COPY_CONS (Music);
 };
 
 /**
@@ -41,7 +41,7 @@ public:
 class Push_translation_property : public Music
 {
 public:
-  VIRTUAL_COPY_CONS(Music);
+  VIRTUAL_COPY_CONS (Music);
 };
 
 /**
@@ -54,7 +54,7 @@ public:
 class Pop_translation_property : public Music
 {
 public:
-  VIRTUAL_COPY_CONS(Music);
+  VIRTUAL_COPY_CONS (Music);
 };
 
 

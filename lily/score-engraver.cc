@@ -19,7 +19,7 @@
 #include "translator-def.hh"
 
 
-Score_engraver::Score_engraver()
+Score_engraver::Score_engraver ()
 {
   scoreline_l_ =0;
   command_column_l_ =0;
@@ -40,11 +40,11 @@ Score_engraver::make_columns (Moment w)
       set_columns (new Paper_column (get_property (ly_symbol2scm ("NonMusicalPaperColumn"))),
 		   new Paper_column (get_property (ly_symbol2scm ("PaperColumn"))));
   
-      command_column_l_->set_grob_property ("when", w.smobbed_copy());
-      musical_column_l_->set_grob_property ("when", w.smobbed_copy());
+      command_column_l_->set_grob_property ("when", w.smobbed_copy ());
+      musical_column_l_->set_grob_property ("when", w.smobbed_copy ());
       command_column_l_->set_grob_property ("breakable", SCM_BOOL_T);
 
-      Grob_info i1(command_column_l_, 0), i2 (musical_column_l_,0);
+      Grob_info i1 (command_column_l_, 0), i2 (musical_column_l_,0);
 
       i1.origin_trans_l_ = this;
       i2.origin_trans_l_ = this;
@@ -59,17 +59,17 @@ Score_engraver::prepare (Moment w)
   Global_translator::prepare (w);
   make_columns (w);
 
-  post_move_processing();
+  post_move_processing ();
 }
 
 void
-Score_engraver::finish()
+Score_engraver::finish ()
 {
   if ((breaks_i_%8))
-    progress_indication ("[" + to_str ( breaks_i_) + "]");
+    progress_indication ("[" + to_str (breaks_i_) + "]");
    
-  check_removal();
-  removal_processing();
+  check_removal ();
+  removal_processing ();
 }
 
 /*
@@ -83,7 +83,7 @@ Score_engraver::initialize ()
   assert (dynamic_cast<Paper_def *> (output_def_l_));
   assert (!daddy_trans_l_);
   pscore_p_ = new Paper_score;
-  pscore_p_->paper_l_ = dynamic_cast<Paper_def*>(output_def_l_);
+  pscore_p_->paper_l_ = dynamic_cast<Paper_def*> (output_def_l_);
 
   SCM props = get_property (ly_symbol2scm ("LineOfScore"));
 
@@ -92,19 +92,19 @@ Score_engraver::initialize ()
   make_columns (Moment (0));
   scoreline_l_ = pscore_p_->line_l_;
 
-  scoreline_l_->set_bound(LEFT, command_column_l_);
+  scoreline_l_->set_bound (LEFT, command_column_l_);
   
   command_column_l_->set_grob_property ("breakable", SCM_BOOL_T);
 
-  Engraver_group_engraver::initialize();
+  Engraver_group_engraver::initialize ();
 }
 
 
 void
-Score_engraver::finalize()
+Score_engraver::finalize ()
 {
-  Engraver_group_engraver::finalize();
-  scoreline_l_->set_bound(RIGHT,command_column_l_);
+  Engraver_group_engraver::finalize ();
+  scoreline_l_->set_bound (RIGHT,command_column_l_);
   command_column_l_->set_grob_property ("breakable", SCM_BOOL_T);
   
   typeset_all ();
@@ -113,12 +113,12 @@ Score_engraver::finalize()
 }
 
 void
-Score_engraver::one_time_step()
+Score_engraver::one_time_step ()
 {
-  process_music();
-  announces();
-  pre_move_processing();
-  check_removal();
+  process_music ();
+  announces ();
+  pre_move_processing ();
+  check_removal ();
 }
 
 void
@@ -131,17 +131,17 @@ Score_engraver::announce_grob (Grob_info info)
 /* All elements are propagated to the top upon announcement. If
    something was created during one run of
    Engraver_group_engraver::do_announces, then
-   announce_info_arr_.size() will be nonzero again
+   announce_info_arr_.size () will be nonzero again
 */
 /* junkme? Done by Engraver_group_engraver::do_announces ()?
  */
    
 void
-Score_engraver::do_announces()
+Score_engraver::do_announces ()
 {
   //////  do
-    Engraver_group_engraver::do_announces();
-    //////while (announce_info_arr_.size());
+    Engraver_group_engraver::do_announces ();
+    //////while (announce_info_arr_.size ());
 }
 
 
@@ -157,9 +157,9 @@ Score_engraver::typeset_grob (Grob *elem_p)
 
 
 void
-Score_engraver::typeset_all()
+Score_engraver::typeset_all ()
 {
-  for  (int i =0; i < elem_p_arr_.size(); i++) 
+  for (int i =0; i < elem_p_arr_.size (); i++) 
     {
       Grob * elem_p = elem_p_arr_[i];
       
@@ -173,10 +173,16 @@ Score_engraver::typeset_all()
 	  do {
 	    if (!s->get_bound (d))
 	      {
-		s->set_bound(d, command_column_l_);
-		::warning (_f ("unbound spanner `%s'", s->name().ch_C()));
+		s->set_bound (d, command_column_l_);
+		/* don't warn for empty/suicided spanners,
+		   it makes real warningsinvisible.
+		   maybe should be junked earlier? */
+		if (elem_p->immutable_property_alist_ == SCM_EOL)
+		  ; // gdb hook
+		else
+		  ::warning (_f ("unbound spanner `%s'", s->name ().ch_C ()));
 	      }
-	  } while (flip(&d) != LEFT);
+	  } while (flip (&d) != LEFT);
 	}
       else 
 	{
@@ -187,24 +193,24 @@ Score_engraver::typeset_all()
 
 	    }
 	}
-      if (!elem_p->parent_l(Y_AXIS))
+      if (!elem_p->parent_l (Y_AXIS))
 	Axis_group_interface::add_element (scoreline_l_, elem_p);
     }
-  elem_p_arr_.clear();
+  elem_p_arr_.clear ();
 }
 
 void
-Score_engraver::stop_translation_timestep()
+Score_engraver::stop_translation_timestep ()
 {
   // this generates all items.
-  Engraver_group_engraver::stop_translation_timestep();
+  Engraver_group_engraver::stop_translation_timestep ();
   
-  typeset_all();
+  typeset_all ();
   if (to_boolean (command_column_l_->get_grob_property ("breakable")))
     {
       breaks_i_ ++;
       if (! (breaks_i_%8))
-	progress_indication ("[" + to_str ( breaks_i_) + "]");
+	progress_indication ("[" + to_str (breaks_i_) + "]");
     }
 }
 
@@ -251,9 +257,9 @@ Score_engraver::try_music (Music*r)
 	  gotcha = true;
 
 
-	  SCM pen = command_column_l_->get_grob_property  ("penalty");
+	  SCM pen = command_column_l_->get_grob_property ("penalty");
 	  Real total_penalty = gh_number_p (pen)
-	    ? gh_scm2double(pen)
+	    ? gh_scm2double (pen)
 	    : 0.0;
 
 	  SCM rpen = b->get_mus_property ("penalty");
@@ -283,6 +289,6 @@ Score_engraver::forbid_breaks ()
   command_column_l_->remove_grob_property ("breakable");
 }
 
-ADD_THIS_TRANSLATOR(Score_engraver);
+ADD_THIS_TRANSLATOR (Score_engraver);
 
 

@@ -3,7 +3,7 @@
  
  source file of the GNU LilyPond music typesetter
  
- (c) 1999--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1999--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
  
  */
 
@@ -24,7 +24,7 @@ public:
   static void set_interface (Grob*);
   static bool has_interface (Grob*);
   static void set_position (Grob*,Real);
-  DECLARE_SCHEME_CALLBACK(callback, (SCM element, SCM axis));
+  DECLARE_SCHEME_CALLBACK (callback, (SCM element, SCM axis));
 
   /**
      Leading are the lead strips between the sticks (lines) of

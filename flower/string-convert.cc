@@ -37,8 +37,8 @@ String
 String_convert::bin2hex_str (String bin_str)
 {
   String str;
-  Byte const* byte_C = bin_str.byte_C();
-  for (int i = 0; i < bin_str.length_i(); i++) 
+  Byte const* byte_C = bin_str.byte_C ();
+  for (int i = 0; i < bin_str.length_i (); i++) 
     {
       str += to_str ((char)nibble2hex_byte (*byte_C >> 4));
       str += to_str ((char)nibble2hex_byte (*byte_C++));
@@ -55,10 +55,10 @@ String_convert::bin2_i (String bin_str)
 unsigned
 String_convert::bin2_u (String bin_str)
 {
-  assert (bin_str.length_i() <= (int)sizeof(unsigned));
+  assert (bin_str.length_i () <= (int)sizeof (unsigned));
 
   unsigned result_u = 0;
-  for (int i = 0; i < bin_str.length_i(); i++) 
+  for (int i = 0; i < bin_str.length_i (); i++) 
     {
       result_u <<= 8;
       result_u += (Byte)bin_str[ i ];
@@ -70,11 +70,11 @@ String_convert::bin2_u (String bin_str)
 int
 String_convert::dec2_i (String dec_str)
 {
-  if (!dec_str.length_i())
+  if (!dec_str.length_i ())
     return 0;
 
   long l = 0;
-  int conv = sscanf (dec_str.ch_C(), "%ld", &l);
+  int conv = sscanf (dec_str.ch_C (), "%ld", &l);
   assert (conv);
 
   return (int)l;
@@ -85,7 +85,7 @@ String_convert::i64_str (I64 i64, char const* fmt)
 {
   char buffer[STRING_BUFFER_LEN];
   snprintf (buffer, STRING_BUFFER_LEN,
-	    (fmt ? fmt : "%Ld"), i64);     // assume radix 10
+ (fmt ? fmt : "%Ld"), i64);     // assume radix 10
   return String (buffer);
 
 }
@@ -93,10 +93,10 @@ String_convert::i64_str (I64 i64, char const* fmt)
 double
 String_convert::dec2_f (String dec_str)
 {
-  if (!dec_str.length_i())
+  if (!dec_str.length_i ())
     return 0;
   double d = 0;
-  int conv = sscanf (dec_str.ch_C(), "%lf", &d);
+  int conv = sscanf (dec_str.ch_C (), "%lf", &d);
   assert (conv);
   return d;
 }
@@ -104,19 +104,19 @@ String_convert::dec2_f (String dec_str)
 int
 String_convert::hex2bin_i (String hex_str, String& bin_str_r)
 {
-  if (hex_str.length_i() % 2)
+  if (hex_str.length_i () % 2)
     hex_str = "0" + hex_str;
 
   bin_str_r = "";
-  Byte const* byte_C= hex_str.byte_C();
+  Byte const* byte_C= hex_str.byte_C ();
   int i = 0;
-  while (i < hex_str.length_i()) 
+  while (i < hex_str.length_i ()) 
     {
       int high_i = hex2nibble_i (*byte_C++);
       int low_i = hex2nibble_i (*byte_C++);
       if (high_i < 0 || low_i < 0)
 	return 1; // illegal char
-      bin_str_r += to_str ((char)(high_i << 4 | low_i), 1 );
+      bin_str_r += to_str ((char) (high_i << 4 | low_i), 1 );
       i += 2;
     }
   return 0;
@@ -145,7 +145,7 @@ String_convert::hex2nibble_i (Byte byte)
   return -1;
 }
 
-// stupido.  Should use int_str()
+// stupido.  Should use int_str ()
 String 
 String_convert::i2dec_str (int i, int length_i, char ch)
 {
@@ -157,11 +157,11 @@ String_convert::i2dec_str (int i, int length_i, char ch)
   String dec_str = to_str (i);
   
   // ugh
-  return to_str (fill_ch, length_i - dec_str.length_i()) + dec_str;
+  return to_str (fill_ch, length_i - dec_str.length_i ()) + dec_str;
 }
 
 
-// stupido.  Should use int_str()
+// stupido.  Should use int_str ()
 String 
 String_convert::u2hex_str (unsigned u, int length_i, char fill_ch)
 {
@@ -172,15 +172,15 @@ String_convert::u2hex_str (unsigned u, int length_i, char fill_ch)
 #if 1 // both go...
   while (u) 
     {
-      str = to_str ((char)((u % 16)["0123456789abcdef"] ) ) + str;
+      str = to_str ((char) ((u % 16)["0123456789abcdef"] ) ) + str;
       u /= 16;
     }
 #else
   str += int_str (u, "%x");	// hmm. %lx vs. %x -> portability?
 #endif
 
-  str = to_str (fill_ch, length_i - str.length_i()) + str;
-  while ((str.length_i() > length_i) &&  (str[ 0 ] == 'f' ) )
+  str = to_str (fill_ch, length_i - str.length_i ()) + str;
+  while ((str.length_i () > length_i) && (str[ 0 ] == 'f' ) )
     str = str.cut_str (2, INT_MAX);
 
   return str;
@@ -211,7 +211,7 @@ String_convert::int_str (int i, char const* fmt)
 {
   char buffer[STRING_BUFFER_LEN];
   snprintf (buffer, STRING_BUFFER_LEN,
-	    (fmt ? fmt : "%d"), i);     // assume radix 10
+ (fmt ? fmt : "%d"), i);     // assume radix 10
   return String (buffer);
 }
 

@@ -31,7 +31,7 @@ Auto_change_iterator::change_to (Music_iterator *it, String to_type,
      
      If \translator Staff = bass, then look for Staff = *
    */
-  while  (current && current->type_str_ != to_type)
+  while (current && current->type_str_ != to_type)
     {
       last = current;
       current = current->daddy_trans_l_;
@@ -75,7 +75,7 @@ Auto_change_iterator::change_to (Music_iterator *it, String to_type,
   will confuse the autochanger, since it will not notice that the
   music for OTHERSTAFF is not his.
 
-  PRECONDITION: this->ok() holds.
+  PRECONDITION: this->ok () holds.
 */
 Array<Pitch>
 Auto_change_iterator::pending_pitch (Moment m) const
@@ -95,7 +95,7 @@ Auto_change_iterator::pending_pitch (Moment m) const
 	break;
 
       iter->skip (m);
-      if (!iter->ok())
+      if (!iter->ok ())
 	break;
       
       m = iter->pending_moment ();
@@ -110,7 +110,7 @@ Auto_change_iterator::process (Moment m)
 {
   /*
     first we get the pitches, then we do the real work.
-    Music_wrapper_iterator::process() might process (and throw away)
+    Music_wrapper_iterator::process () might process (and throw away)
     pitches we need.  */
   Array<Pitch> ps = pending_pitch (m);
 
@@ -118,20 +118,20 @@ Auto_change_iterator::process (Moment m)
   if (ps.size ())
     {
       Pitch p = ps[0];
-      Direction s = Direction (sign(p.steps ()));
+      Direction s = Direction (sign (p.steps ()));
       if (s != where_dir_)
 	{
 	  where_dir_ = s;
-	  String to_id =  (s >= 0) ?  "up" : "down";
+	  String to_id = (s >= 0) ?  "up" : "down";
 	  String wh = ly_scm2string (music_l_->get_mus_property ("what"));
 	  change_to (child_iter_p_, wh, to_id);	  
 	}
     }
 }
 
-Auto_change_iterator::Auto_change_iterator( )
+Auto_change_iterator::Auto_change_iterator ()
 {
   where_dir_ = CENTER;
 }
 
-IMPLEMENT_CTOR_CALLBACK(Auto_change_iterator);
+IMPLEMENT_CTOR_CALLBACK (Auto_change_iterator);

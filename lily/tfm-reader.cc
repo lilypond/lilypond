@@ -15,7 +15,8 @@
 #include "warn.hh"
 
 #define format_str String_convert::form_str
-#define FIX_UNITY (1 << 20)
+#define FIX_UNITY \
+ (1 << 20)
 static const Real fix_to_real (Fix f);
 
 
@@ -70,7 +71,7 @@ void
 Tex_font_metric_reader::read_header ()
 {
   U16 file_length = input_.get_U16 ();
-  (void) file_length;
+ (void) file_length;
   U16 header_length = input_.get_U16 ();
 
   info_.first_charcode = input_.get_U16 ();
@@ -81,9 +82,9 @@ Tex_font_metric_reader::read_header ()
   U16 italic_correction_word_count = input_.get_U16 ();
   U16 lig_kern_word_count = input_.get_U16 ();
   U16 kern_word_count = input_.get_U16 ();
-  (void)kern_word_count;
+ (void)kern_word_count;
   U16 extensible_word_count = input_.get_U16 ();
-  (void)extensible_word_count;
+ (void)extensible_word_count;
   
   header_.param_word_count = input_.get_U16 ();
   info_.parameter_count = header_.param_word_count;
@@ -102,7 +103,7 @@ Tex_font_metric_reader::read_header ()
   /* We don't care about the extensible table.  */
 
   if (header_length < 2)
-    error (_f ("TFM header of `%s' has only %u word(s)",
+    error (_f ("TFM header of `%s' has only %u word (s)",
 	       input_.name_str ().ch_C (), header_length));
 
   info_.checksum = input_.get_U32 ();
@@ -145,7 +146,7 @@ Tex_font_metric_reader::read_params ()
 
   /* The first parameter is different than all the rest, because it
      isn't scaled by the design size.  */
-  info_.parameters[(TFM_SLANT_PARAMETER) - 1] = get_U32_fix_f ();
+  info_.parameters[ (TFM_SLANT_PARAMETER) - 1] = get_U32_fix_f ();
 
   for (Char_code i = 2; i <= header_.param_word_count; i++)
     info_.parameters[i - 1] = get_U32_fix_scaled_f ();
@@ -227,10 +228,10 @@ Tex_font_metric_reader::read_char ()
                       * info_.design_size; \
      }
 
-  GET_CHAR_DIMEN(width);
-  GET_CHAR_DIMEN(height);
-  GET_CHAR_DIMEN(depth);
-  GET_CHAR_DIMEN(italic_correction);
+  GET_CHAR_DIMEN (width);
+  GET_CHAR_DIMEN (height);
+  GET_CHAR_DIMEN (depth);
+  GET_CHAR_DIMEN (italic_correction);
 
   /* The other condition for a character existing is that it be between
      the first and last character codes given in the header.  We've

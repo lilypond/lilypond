@@ -25,7 +25,7 @@ work at Voice level. Not a problem in practice, but aesthetically pleasing?
 class Multi_measure_rest_engraver : public Engraver
 {
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
   Multi_measure_rest_engraver ();
 
 protected:
@@ -79,11 +79,11 @@ Multi_measure_rest_engraver::try_music (Music* req_l)
       if (scm_equal_p (sp->get_mus_property ("span-type"),
 		       ly_str02scm ("rest")) == SCM_BOOL_T)
 	{
-	  if (sp->get_span_dir() == STOP)
+	  if (sp->get_span_dir () == STOP)
 	    {
 	      stop_req_l_ = sp;
 	    }
-	  else if (sp->get_span_dir() == START && !new_req_l_)
+	  else if (sp->get_span_dir () == START && !new_req_l_)
 	    {
 	      new_req_l_ = sp;
 	    }
@@ -96,7 +96,7 @@ Multi_measure_rest_engraver::try_music (Music* req_l)
 void
 Multi_measure_rest_engraver::process_music ()
 {
-    if (new_req_l_ && stop_req_l_)
+  if (new_req_l_ && stop_req_l_)
     stop_req_l_ = 0;
 
   if (new_req_l_)
@@ -137,7 +137,7 @@ void
 Multi_measure_rest_engraver::stop_translation_timestep ()
 {
   SCM smp = get_property ("measurePosition");
-  Moment mp =  (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
+  Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
 
   if (mmrest_p_ && (now_mom () >= start_moment_) 
     && !mp
@@ -166,7 +166,7 @@ void
 Multi_measure_rest_engraver::start_translation_timestep ()
 {
   SCM smp = get_property ("measurePosition");
-  Moment mp =  (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
+  Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
   
   if (mmrest_p_ && !mp)
     {

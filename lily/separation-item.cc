@@ -44,7 +44,7 @@ Separation_item::my_width (Grob *me)
       if (pc != il->column_l ())
 	{
 	  /* this shouldn't happen, but let's continue anyway. */
-	  programming_error (_("Separation_item:  I've been drinking too much"));
+	  programming_error (_ ("Separation_item:  I've been drinking too much"));
 	  continue;		/*UGH UGH*/ 
 	}
 
@@ -56,7 +56,7 @@ Separation_item::my_width (Grob *me)
       Interval iv (il->extent (pc, X_AXIS));
       if (!iv.empty_b ())
 	{
-	  w.unite  (iv);
+	  w.unite (iv);
 	}
     }
 

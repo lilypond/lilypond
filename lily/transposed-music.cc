@@ -23,5 +23,8 @@ Transposed_music::to_relative_octave (Pitch p)
   return p;
 }
 
+ADD_MUSIC (Transposed_music);
+Transposed_music::Transposed_music ()
+{
 
-
+}

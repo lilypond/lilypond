@@ -20,41 +20,41 @@
 class Staff_symbol_engraver : public Engraver { 
   Spanner *span_p_;
 public:
-  VIRTUAL_COPY_CONS(Translator);
-  Staff_symbol_engraver();
+  VIRTUAL_COPY_CONS (Translator);
+  Staff_symbol_engraver ();
   
 protected:
-  virtual ~Staff_symbol_engraver();
+  virtual ~Staff_symbol_engraver ();
   virtual void acknowledge_grob (Grob_info);
-  virtual void finalize();
-  virtual void initialize();
+  virtual void finalize ();
+  virtual void initialize ();
 };
 
 
-Staff_symbol_engraver::~Staff_symbol_engraver()
+Staff_symbol_engraver::~Staff_symbol_engraver ()
 {
   assert (!span_p_);
 }
 
-Staff_symbol_engraver::Staff_symbol_engraver()
+Staff_symbol_engraver::Staff_symbol_engraver ()
 {
   span_p_ = 0;
 }
 
 void
-Staff_symbol_engraver::initialize()
+Staff_symbol_engraver::initialize ()
 {
   span_p_ = new Spanner (get_property ("StaffSymbol"));
   
-  span_p_->set_bound(LEFT, unsmob_grob (get_property ("currentCommandColumn")));
+  span_p_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
 
   announce_grob (span_p_, 0);
 }
 
 void
-Staff_symbol_engraver::finalize()
+Staff_symbol_engraver::finalize ()
 {
-  span_p_->set_bound(RIGHT,unsmob_grob (get_property ("currentCommandColumn")));
+  span_p_->set_bound (RIGHT,unsmob_grob (get_property ("currentCommandColumn")));
   typeset_grob (span_p_);
   span_p_ =0;
 }
@@ -69,5 +69,5 @@ Staff_symbol_engraver::acknowledge_grob (Grob_info s)
 }
 
 
-ADD_THIS_TRANSLATOR(Staff_symbol_engraver);
+ADD_THIS_TRANSLATOR (Staff_symbol_engraver);
 

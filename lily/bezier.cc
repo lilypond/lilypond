@@ -34,8 +34,8 @@ scale (Array<Offset>* arr_p, Real x , Real y)
 {
   for (int i = 0; i < arr_p->size (); i++)
     {
-      (*arr_p)[i][X_AXIS] = x* (*arr_p)[i][X_AXIS];
-      (*arr_p)[i][Y_AXIS] = y* (*arr_p)[i][Y_AXIS];
+ (*arr_p)[i][X_AXIS] = x* (*arr_p)[i][X_AXIS];
+ (*arr_p)[i][Y_AXIS] = y* (*arr_p)[i][Y_AXIS];
     }
 }
 
@@ -44,21 +44,21 @@ rotate (Array<Offset>* arr_p, Real phi)
 {
   Offset rot (complex_exp (Offset (0, phi)));
   for (int i = 0; i < arr_p->size (); i++)
-    (*arr_p)[i] = complex_multiply (rot, (*arr_p)[i]);
+ (*arr_p)[i] = complex_multiply (rot, (*arr_p)[i]);
 }
 
 void
 translate (Array<Offset>* arr_p, Offset o)
 {
   for (int i = 0; i < arr_p->size (); i++)
-    (*arr_p)[i] += o;
+ (*arr_p)[i] += o;
 }
 
 /*
 
   Formula of the bezier 3-spline
 
-  sum_{j=0}^3  (3 over j) z_j (1-t)^(3-j)  t^j
+  sum_{j=0}^3 (3 over j) z_j (1-t)^ (3-j)  t^j
  */
 
 Real
@@ -84,7 +84,7 @@ Offset
 Bezier::curve_point (Real t)const
 {
   Real tj = 1;
-  Real one_min_tj =  (1-t)*(1-t)*(1-t);
+  Real one_min_tj = (1-t)* (1-t)* (1-t);
 
   Offset o;
   for (int j=0 ; j < 4; j++)
@@ -115,7 +115,7 @@ Bezier::polynomial (Axis a)const
       p += control_[j][a]
 	* Polynomial::power (j , Polynomial (0,1))*
 	Polynomial::power (3 - j, Polynomial (1,-1))*
-	binomial_coefficient(3, j);
+	binomial_coefficient (3, j);
     }
 
   return p;
@@ -156,7 +156,7 @@ Bezier::solve_derivative (Offset deriv)const
 Array<Real> 
 Bezier::solve_point (Axis ax, Real coordinate) const
 {
-  Polynomial p(polynomial (ax));
+  Polynomial p (polynomial (ax));
   p.coefs_[0] -= coordinate;
   
   Array<Real> sol (p.solve ());

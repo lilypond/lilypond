@@ -35,10 +35,10 @@ Rod::columnize ()
 void
 Rod::add_to_cols ()
 {
-  columnize();
+  columnize ();
   if (item_l_drul_[LEFT] != item_l_drul_[RIGHT])
     Spaceable_grob::add_rod (item_l_drul_[LEFT],
 				item_l_drul_[RIGHT],
-				distance_f_ );
+				distance_f_);
 }
 

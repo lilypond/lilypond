@@ -37,24 +37,24 @@
 
     Empty molecules have empty dimensions.  If add_at_edge is used to
     init the molecule, we assume that
-    DIMENSIONS = (Interval(0,0),Interval(0,0)
+    DIMENSIONS = (Interval (0,0),Interval (0,0)
 */
 class Molecule {
   Box dim_;
   SCM expr_;
 
   
-  DECLARE_SIMPLE_SMOBS(Molecule,);  
+  DECLARE_SIMPLE_SMOBS (Molecule,);  
 public:
   Molecule (Box, SCM s);
-  Molecule();
+  Molecule ();
 
 
   SCM smobbed_copy () const;
   SCM get_expr () const;
 
   /**
-     Set dimensions to empty, or to (Interval(0,0),Interval(0,0) */
+     Set dimensions to empty, or to (Interval (0,0),Interval (0,0) */
   void set_empty (bool);
   void add_at_edge (Axis a, Direction d, const Molecule &m, Real padding);
   void add_molecule (Molecule const &m);
@@ -63,9 +63,9 @@ public:
   /**
      align D direction in axis A.
 
-     If D == CENTER, then move the dimension(A).center() to (0,0)
+     If D == CENTER, then move the dimension (A).center () to (0,0)
 
-     Else, move so dimension(A)[D] == 0.0
+     Else, move so dimension (A)[D] == 0.0
      
    */
   void align_to (Axis a, Direction d);
@@ -77,7 +77,7 @@ public:
      codify THIS into a Scheme expression.
    */
   SCM create_scheme () const;
-  bool empty_b() const;
+  bool empty_b () const;
 
 
   static SCM ly_get_molecule_extent (SCM mol, SCM axis);

@@ -22,7 +22,7 @@ public:
 protected:
   virtual ~Chord_tremolo_iterator ();
   virtual Moment pending_moment () const;
-  virtual void construct_children  () ;
+  virtual void construct_children () ;
   virtual bool ok () const;
   virtual void process (Moment) ;
   virtual Music_iterator *try_music_in_children (Music *) const;

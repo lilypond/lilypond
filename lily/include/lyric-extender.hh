@@ -29,7 +29,7 @@ class Lyric_extender
 {
 public:
   static void set_textitem (Spanner*, Direction, Grob*);
-  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
+  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
 };
 
 #endif // EXTENDER_SPANNER_HH

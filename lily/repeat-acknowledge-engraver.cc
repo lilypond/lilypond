@@ -26,7 +26,7 @@ class Repeat_acknowledge_engraver : public Engraver
 {
 public:
   VIRTUAL_COPY_CONS (Translator);
-  Repeat_acknowledge_engraver();
+  Repeat_acknowledge_engraver ();
 
   virtual void start_translation_timestep ();
   virtual void process_music ();
@@ -43,7 +43,7 @@ Repeat_acknowledge_engraver::initialize ()
 }
 
 
-Repeat_acknowledge_engraver::Repeat_acknowledge_engraver()
+Repeat_acknowledge_engraver::Repeat_acknowledge_engraver ()
 {
 }
 
@@ -85,7 +85,7 @@ Repeat_acknowledge_engraver::process_music ()
       cs = gh_cdr (cs);      
     }
 
-  if (start && end )
+  if (start && end)
     s = ":|:";
   else if (start)
     s = "|:";
@@ -97,8 +97,8 @@ Repeat_acknowledge_engraver::process_music ()
    */
   if (s != "" || (volta_found && !gh_string_p (get_property ("whichBar"))))
     {
-      daddy_trans_l_->set_property ("whichBar", ly_str02scm(s.ch_C()));
+      daddy_trans_l_->set_property ("whichBar", ly_str02scm (s.ch_C ()));
     }
 }
 
-ADD_THIS_TRANSLATOR(Repeat_acknowledge_engraver);
+ADD_THIS_TRANSLATOR (Repeat_acknowledge_engraver);

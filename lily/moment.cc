@@ -13,8 +13,8 @@
 #include "warn.hh"
 #include "ly-smobs.icc"
 
-IMPLEMENT_UNSMOB(Moment,moment);
-IMPLEMENT_SIMPLE_SMOBS(Moment);
+IMPLEMENT_UNSMOB (Moment,moment);
+IMPLEMENT_SIMPLE_SMOBS (Moment);
 IMPLEMENT_TYPE_P (Moment, "moment?");
 
 SCM
@@ -28,7 +28,7 @@ SCM
 Moment::smobbed_copy () const
 {
   Moment * m = new Moment (*this);
-  return m->smobbed_self();
+  return m->smobbed_self ();
 }
 
 
@@ -38,8 +38,8 @@ Moment::print_smob (SCM s, SCM port, scm_print_state *)
   Moment  *r = (Moment *) gh_cdr (s);
      
   scm_puts ("#<Mom ", port);
-  String str(r->str());
-  scm_puts ((char *)str.ch_C(), port);
+  String str (r->str ());
+  scm_puts ((char *)str.ch_C (), port);
   scm_puts (" >", port);
   
   return 1;
@@ -53,7 +53,7 @@ make_rational (SCM n, SCM d)
 {
   Moment m (1,1);
 
-  if (SCM_INUMP (n) && SCM_INUMP(d))
+  if (SCM_INUMP (n) && SCM_INUMP (d))
     {
       m =  Moment (gh_scm2int (n), gh_scm2int (d));
     }
@@ -72,7 +72,7 @@ init_moments ()
   scm_make_gsubr ("make-moment", 2 , 0, 0, (Scheme_function_unknown) make_rational);
 }
 
-ADD_SCM_INIT_FUNC(moms,init_moments);
+ADD_SCM_INIT_FUNC (moms,init_moments);
 
 SCM
 Moment::equal_p (SCM a, SCM b)

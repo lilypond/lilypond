@@ -15,7 +15,7 @@
 struct Midi_note_event : PQueue_ent<Moment, Midi_note*>
 {
   bool ignore_b_;
-  Midi_note_event();
+  Midi_note_event ();
 };
 
 int compare (Midi_note_event const& left, Midi_note_event const& right);
@@ -27,10 +27,10 @@ class Midi_walker
 {
 public:
   Midi_walker (Audio_staff* audio_staff_l, Midi_track* midi_track_l);
-  ~Midi_walker();
+  ~Midi_walker ();
 
-  void process();
-  void operator ++(int);
+  void process ();
+  void operator ++ (int);
   bool ok () const;
 private:
   void do_start_note (Midi_note* note_p);

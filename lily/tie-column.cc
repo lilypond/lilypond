@@ -53,7 +53,7 @@ int
 tie_compare (Grob* const & s1,
 	     Grob* const & s2)
 {
-  return sign (Tie::position_f (s1) - Tie::position_f(s2));
+  return sign (Tie::position_f (s1) - Tie::position_f (s2));
 }
 
 /*
@@ -71,12 +71,12 @@ Tie_column::set_directions (Grob*me)
   Link_array<Grob> ties =
     Pointer_group_interface__extract_elements (me, (Grob*)0, "ties");
 
-  for (int i = ties.size (); i--; )
+  for (int i = ties.size (); i--;)
     if (Directional_element_interface::get (ties[i]))
       ties.del (i);
   
 
-  if(!ties.size())
+  if (!ties.size ())
     return ;
   
 
@@ -99,11 +99,11 @@ Tie_column::set_directions (Grob*me)
     }
   
   ties.sort (tie_compare);
-  Directional_element_interface::set( ties[0], DOWN);
+  Directional_element_interface::set (ties[0], DOWN);
   ties.del (0);
   
-  Directional_element_interface ::set(ties.pop (), UP);
-  for (int i=ties.size(); i--; )
+  Directional_element_interface ::set (ties.pop (), UP);
+  for (int i=ties.size (); i--;)
     {
       Grob *  t = ties[i];
       Real p = Tie::position_f (t);
@@ -115,7 +115,7 @@ Tie_column::set_directions (Grob*me)
   
 }
 
-MAKE_SCHEME_CALLBACK(Tie_column,after_line_breaking,1);
+MAKE_SCHEME_CALLBACK (Tie_column,after_line_breaking,1);
 SCM
 Tie_column::after_line_breaking (SCM smob)
 {

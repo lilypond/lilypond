@@ -24,7 +24,7 @@ template<class T> inline T abs (T x)
 template<class T> inline int sign (T x)
 {
   if (x)
-    return x > T(0) ? 1 : -1;
+    return x > T (0) ? 1 : -1;
   return 0;
 }
 

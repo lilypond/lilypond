@@ -21,18 +21,18 @@ class Axis_group_engraver : public Engraver
 protected:
   Spanner *staffline_p_;
   Link_array<Grob> elts_;
-  virtual void initialize();
-  virtual void finalize();
+  virtual void initialize ();
+  virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
   virtual void create_grobs ();
   virtual Spanner* get_spanner_p () const;
   virtual void add_element (Grob*) ;
 public:  
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
   Axis_group_engraver ();
 };
 
-ADD_THIS_TRANSLATOR(Axis_group_engraver);
+ADD_THIS_TRANSLATOR (Axis_group_engraver);
 
 Axis_group_engraver::Axis_group_engraver ()
 {
@@ -48,7 +48,7 @@ Axis_group_engraver::initialize ()
 
   Grob *  it = unsmob_grob (get_property ("currentCommandColumn"));
 
-  staffline_p_->set_bound(LEFT,it);
+  staffline_p_->set_bound (LEFT,it);
 
   announce_grob (staffline_p_, 0);
 }
@@ -63,7 +63,7 @@ void
 Axis_group_engraver::finalize ()
 {
   String type = daddy_grav_l ()->type_str_ ;
-  SCM dims = get_property ((type  + "VerticalExtent").ch_C());
+  SCM dims = get_property ((type  + "VerticalExtent").ch_C ());
   
   if (gh_pair_p (dims) && gh_number_p (gh_car (dims))
       && gh_number_p (gh_cdr (dims)))
@@ -72,12 +72,12 @@ Axis_group_engraver::finalize ()
       staffline_p_->set_grob_property ("extent-Y", dims);
     }
 
-  dims = get_property ((type + "MinimumVerticalExtent").ch_C());
+  dims = get_property ((type + "MinimumVerticalExtent").ch_C ());
   if (gh_pair_p (dims) && gh_number_p (gh_car (dims))
       && gh_number_p (gh_cdr (dims)))
     staffline_p_->set_grob_property ("minimum-extent-Y", dims);
 
-  dims = get_property ((type + "ExtraVerticalExtent").ch_C());
+  dims = get_property ((type + "ExtraVerticalExtent").ch_C ());
   if (gh_pair_p (dims) && gh_number_p (gh_car (dims))
       && gh_number_p (gh_cdr (dims)))
     staffline_p_->set_grob_property ("extra-extent-Y", dims);
@@ -85,7 +85,7 @@ Axis_group_engraver::finalize ()
   Grob *  it = unsmob_grob (get_property ("currentCommandColumn"));
 
 
-  staffline_p_->set_bound(RIGHT,it);
+  staffline_p_->set_bound (RIGHT,it);
 
   typeset_grob (staffline_p_);
   staffline_p_ = 0;
@@ -135,7 +135,7 @@ protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void add_element (Grob *e);
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
 };
 
 void
@@ -163,4 +163,4 @@ Hara_kiri_engraver::acknowledge_grob (Grob_info i)
       Hara_kiri_group_spanner::add_interesting_item (staffline_p_, i.elem_l_);
     }
 }
-ADD_THIS_TRANSLATOR(Hara_kiri_engraver);
+ADD_THIS_TRANSLATOR (Hara_kiri_engraver);

@@ -20,7 +20,7 @@
 #include "dimensions.hh"
 #include "direction.hh"
 
-MAKE_SCHEME_CALLBACK(Breathing_sign,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Breathing_sign,brew_molecule,1);
 SCM 
 Breathing_sign::brew_molecule (SCM smob)
 {
@@ -28,15 +28,15 @@ Breathing_sign::brew_molecule (SCM smob)
   Real space = Staff_symbol_referencer::staff_space (me);
 
   // todo: cfg'able.
-  Interval i1(0, space / 6), i2(-space / 2, space / 2);
-  Box b(i1, i2);
+  Interval i1 (0, space / 6), i2 (-space / 2, space / 2);
+  Box b (i1, i2);
 
-  return Lookup::filledbox(b).smobbed_copy ();
+  return Lookup::filledbox (b).smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK(Breathing_sign,offset_callback,2);
+MAKE_SCHEME_CALLBACK (Breathing_sign,offset_callback,2);
 SCM
-Breathing_sign::offset_callback (SCM element_smob, SCM )
+Breathing_sign::offset_callback (SCM element_smob, SCM)
 {
   Grob *me = unsmob_grob (element_smob);
   
@@ -49,12 +49,12 @@ Breathing_sign::offset_callback (SCM element_smob, SCM )
 
   Real inter_f = Staff_symbol_referencer::staff_space (me)/2;
   int sz = Staff_symbol_referencer::line_count (me)-1;
-  return gh_double2scm ( inter_f * sz * d);
+  return gh_double2scm (inter_f * sz * d);
 }
 
 void
 Breathing_sign::set_interface (Grob *b)
 {
-  Staff_symbol_referencer::set_interface  (b);
+  Staff_symbol_referencer::set_interface (b);
 
 }

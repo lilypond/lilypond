@@ -14,10 +14,10 @@
 class Time_signature_performer : public Performer
 {
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
   
-  Time_signature_performer();
-  ~Time_signature_performer();
+  Time_signature_performer ();
+  ~Time_signature_performer ();
 
 protected:
 
@@ -26,7 +26,7 @@ protected:
 
   SCM prev_fraction_;
 private:
-  Time_signature_change_req* time_signature_req_l_;
+
   Audio_time_signature* audio_p_;
 };
 
@@ -56,7 +56,7 @@ Time_signature_performer::create_audio_elements ()
       audio_p_ = new Audio_time_signature (b,o);
       Audio_element_info info (audio_p_, 0);
       announce_element (info);
-      time_signature_req_l_ = 0;
+
     }
 }
 

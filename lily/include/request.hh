@@ -27,7 +27,7 @@
 class Request : public Music {
 public:
   Request ();
-  VIRTUAL_COPY_CONS(Music);
+  VIRTUAL_COPY_CONS (Music);
   bool equal_b (Request const*) const;
 protected:
   virtual bool do_equal_b (Request const*) const;
@@ -42,7 +42,7 @@ public:
   void set_direction (Direction d);
   Direction get_direction () const;
 
-  VIRTUAL_COPY_CONS(Music);
+  VIRTUAL_COPY_CONS (Music);
   Script_req ();
 };
 
@@ -58,12 +58,12 @@ public:
   void set_span_dir (Direction d);
   Direction get_span_dir () const;  
   
-  Span_req();
+  Span_req ();
 protected:
   
   virtual bool do_equal_b (Request const*) const;
 
-  VIRTUAL_COPY_CONS(Music);
+  VIRTUAL_COPY_CONS (Music);
 };
 
 /**
@@ -71,7 +71,7 @@ protected:
  */
 class Tie_req : public Request {
 public:
-  VIRTUAL_COPY_CONS(Music);
+  VIRTUAL_COPY_CONS (Music);
 };
 
 #endif

@@ -29,7 +29,7 @@
 
 
 void
-Stem::set_beaming (Grob*me ,int i,  Direction d )
+Stem::set_beaming (Grob*me ,int i,  Direction d)
 {
   SCM pair = me->get_grob_property ("beaming");
   
@@ -63,14 +63,14 @@ Stem::head_positions (Grob*me)
   Drul_array<Grob*> e (extremal_heads (me));
 
   return Interval (Staff_symbol_referencer::position_f (e[DOWN]),
-		   Staff_symbol_referencer::position_f ( e[UP]));
+		   Staff_symbol_referencer::position_f (e[UP]));
 }
 
 
 Real
 Stem::chord_start_f (Grob*me) 
 {
-  return head_positions(me)[get_direction (me)]
+  return head_positions (me)[get_direction (me)]
     * Staff_symbol_referencer::staff_space (me)/2.0;
 }
 
@@ -112,7 +112,7 @@ Stem::set_stemend (Grob*me, Real se)
   // todo: margins
   Direction d= get_direction (me);
   
-  if (d && d * head_positions(me)[get_direction (me)] >= se*d)
+  if (d && d * head_positions (me)[get_direction (me)] >= se*d)
     warning (_ ("Weird stem size; check for narrow beams"));
 
   me->set_grob_property ("stem-end-position", gh_double2scm (se));
@@ -181,7 +181,7 @@ Stem::extremal_heads (Grob*me)
       Grob * n = unsmob_grob (gh_car (s));
 
       
-      int p = int(Staff_symbol_referencer::position_f (n));
+      int p = int (Staff_symbol_referencer::position_f (n));
 
       Direction d = LEFT;
       do {
@@ -215,14 +215,14 @@ Stem::add_head (Grob*me, Grob *n)
 bool
 Stem::invisible_b (Grob*me)
 {
-  return !(heads_i (me) && Rhythmic_head::balltype_i (support_head (me)) >= 1);
+  return ! (heads_i (me) && Rhythmic_head::balltype_i (support_head (me)) >= 1);
 }
 
 int
 Stem::get_center_distance (Grob*me, Direction d)
 {
   int staff_center = 0;
-  int distance = (int) (d*(head_positions(me)[d] - staff_center));
+  int distance = (int) (d* (head_positions (me)[d] - staff_center));
   return distance >? 0;
 }
 
@@ -246,19 +246,19 @@ Stem::get_default_stem_end_position (Grob*me)
   Array<Real> a;
 
   Real length_f = 0.;
-  SCM scm_len = me->get_grob_property("length");
+  SCM scm_len = me->get_grob_property ("length");
   if (gh_number_p (scm_len))
     {
       length_f = gh_scm2double (scm_len);
     }
   else
     {
-      s = me->get_grob_property("lengths");
+      s = me->get_grob_property ("lengths");
       for (SCM q = s; q != SCM_EOL; q = gh_cdr (q))
 	a.push (gh_scm2double (gh_car (q)));
 		
       // stem uses half-spaces
-      length_f = a[((flag_i (me) - 2) >? 0) <? (a.size () - 1)] * 2;
+      length_f = a[ ((flag_i (me) - 2) >? 0) <? (a.size () - 1)] * 2;
     }
 
 
@@ -271,7 +271,7 @@ Stem::get_default_stem_end_position (Grob*me)
   // stem uses half-spaces
 
   // fixme: use gh_list_ref () iso. array[]
-  Real shorten_f = a[((flag_i (me) - 2) >? 0) <? (a.size () - 1)] * 2;
+  Real shorten_f = a[ ((flag_i (me) - 2) >? 0) <? (a.size () - 1)] * 2;
 
   /* URGURGURG
      'set-default-stemlen' sets direction too
@@ -287,12 +287,12 @@ Stem::get_default_stem_end_position (Grob*me)
     stems in unnatural (forced) direction should be shortened, 
     according to [Roush & Gourlay]
    */
-  if (((int)chord_start_f (me))
+  if (( (int)chord_start_f (me))
       && (get_direction (me) != get_default_dir (me)))
     length_f -= shorten_f;
 
 
-   Real st = head_positions(me)[dir] + dir * length_f;
+   Real st = head_positions (me)[dir] + dir * length_f;
   
    bool no_extend_b = to_boolean (me->get_grob_property ("no-stem-extend"));
    if (!grace_b && !no_extend_b && dir * st < 0) // junkme?
@@ -308,7 +308,7 @@ int
 Stem::flag_i (Grob*me) 
 {
   SCM s = me->get_grob_property ("duration-log");
-  return  (gh_number_p (s)) ? gh_scm2int (s) : 2;
+  return (gh_number_p (s)) ? gh_scm2int (s) : 2;
 }
 
 void
@@ -357,7 +357,7 @@ Stem::position_noteheads (Grob*me)
     }
 }
 
-MAKE_SCHEME_CALLBACK(Stem,before_line_breaking,1);
+MAKE_SCHEME_CALLBACK (Stem,before_line_breaking,1);
 SCM
 Stem::before_line_breaking (SCM smob)
 {
@@ -368,7 +368,7 @@ Stem::before_line_breaking (SCM smob)
   if (invisible_b (me))
     {
       me->remove_grob_property ("molecule-callback");
-      // suicide();
+      // suicide ();
     }
   
   set_spacing_hints (me);
@@ -387,7 +387,7 @@ Stem::height (SCM smob, SCM ax)
 {
   Axis a = (Axis)gh_scm2int (ax);
   Grob * me = unsmob_grob (smob);
-  assert ( a == Y_AXIS);
+  assert (a == Y_AXIS);
 
   SCM mol = me->get_uncached_molecule ();
   Interval iv;
@@ -427,7 +427,7 @@ Stem::flag (Grob*me)
 {
   String style;
   SCM st = me->get_grob_property ("flag-style");
-  if ( gh_string_p (st))
+  if (gh_string_p (st))
     {
       style = ly_scm2string (st);
     }
@@ -436,11 +436,11 @@ Stem::flag (Grob*me)
   Molecule m = Font_interface::get_default_font (me)->find_by_name (String ("flags-") + to_str (c) + 
 				      to_str (flag_i (me)));
   if (!style.empty_b ())
-    m.add_molecule(Font_interface::get_default_font (me)->find_by_name (String ("flags-") + to_str (c) + style));
+    m.add_molecule (Font_interface::get_default_font (me)->find_by_name (String ("flags-") + to_str (c) + style));
   return m;
 }
 
-MAKE_SCHEME_CALLBACK(Stem,dim_callback,2);
+MAKE_SCHEME_CALLBACK (Stem,dim_callback,2);
 SCM
 Stem::dim_callback (SCM e, SCM ax)
 {
@@ -454,12 +454,12 @@ Stem::dim_callback (SCM e, SCM ax)
     {
       r = flag (se).extent (X_AXIS);
     }
-  return ly_interval2scm ( r);
+  return ly_interval2scm (r);
 }
 
 
 
-MAKE_SCHEME_CALLBACK(Stem,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Stem,brew_molecule,1);
 
 SCM
 Stem::brew_molecule (SCM smob) 
@@ -472,7 +472,7 @@ Stem::brew_molecule (SCM smob)
   Real y1 = Staff_symbol_referencer::position_f (first_head (me));
   Real y2 = stem_end_position (me);
   
-  Interval stem_y(y1,y2);
+  Interval stem_y (y1,y2);
   stem_y.unite (Interval (y2,y1));
 
   Real dy = Staff_symbol_referencer::staff_space (me)/2.0;
@@ -485,7 +485,7 @@ Stem::brew_molecule (SCM smob)
 
       angle = gh_scm2double (hed->get_grob_property ("attachment-angle"));
     }
-  stem_y[Direction(-d)] += d * head_wid * tan(angle)/(2*dy);
+  stem_y[Direction (-d)] += d * head_wid * tan (angle)/ (2*dy);
   
   if (!invisible_b (me))
     {
@@ -498,7 +498,7 @@ Stem::brew_molecule (SCM smob)
   if (!beam_l (me) && abs (flag_i (me)) > 2)
     {
       Molecule fl = flag (me);
-      fl.translate_axis(stem_y[d]*dy, Y_AXIS);
+      fl.translate_axis (stem_y[d]*dy, Y_AXIS);
       mol.add_molecule (fl);
     }
 
@@ -508,19 +508,19 @@ Stem::brew_molecule (SCM smob)
 /*
   move the stem to right of the notehead if it is up.
  */
-MAKE_SCHEME_CALLBACK(Stem,off_callback,2);
+MAKE_SCHEME_CALLBACK (Stem,off_callback,2);
 SCM
-Stem::off_callback (SCM element_smob, SCM )
+Stem::off_callback (SCM element_smob, SCM)
 {
   Grob *me = unsmob_grob (element_smob);
   
   Real r=0;
   if (Grob * f = first_head (me))
     {
-      Interval head_wid(0, f->extent (f,X_AXIS).length ());
+      Interval head_wid (0, f->extent (f,X_AXIS).length ());
 
       if (to_boolean (me->get_grob_property ("stem-centered")))
-	return gh_double2scm ( head_wid.center ());
+	return gh_double2scm (head_wid.center ());
       
       Real rule_thick = gh_scm2double (me->get_grob_property ("thickness")) * me->paper_l ()->get_var ("stafflinethickness");
       Direction d = get_direction (me);
@@ -575,7 +575,7 @@ Stem::calc_stem_info (Grob*me)
   Array<Real> a;
   SCM s;
   
-  s = me->get_grob_property("beamed-minimum-lengths");
+  s = me->get_grob_property ("beamed-minimum-lengths");
   a.clear ();
   for (SCM q = s; q != SCM_EOL; q = gh_cdr (q))
     a.push (gh_scm2double (gh_car (q)));
@@ -584,7 +584,7 @@ Stem::calc_stem_info (Grob*me)
   Real minimum_length = a[multiplicity <? (a.size () - 1)] * staff_space;
   s = me->get_grob_property ("beamed-lengths");
 
-  a.clear();
+  a.clear ();
   for (SCM q = s; q != SCM_EOL; q = gh_cdr (q))
     a.push (gh_scm2double (gh_car (q)));
 
@@ -646,7 +646,7 @@ Stem::calc_stem_info (Grob*me)
 
  Grob *common = me->common_refpoint (beam, Y_AXIS);
   Real interstaff_f = beam_dir *
-    (me->relative_coordinate (common, Y_AXIS)
+ (me->relative_coordinate (common, Y_AXIS)
      - beam->relative_coordinate (common, Y_AXIS));
 
   info.idealy_f_ += interstaff_f;

@@ -27,8 +27,8 @@ struct Duration {
   static int compare (Duration const&, Duration const&);
 
   SCM smobbed_copy () const;
-  DECLARE_SCHEME_CALLBACK(less_p, (SCM a, SCM b));
-  DECLARE_SIMPLE_SMOBS(Duration,);
+  DECLARE_SCHEME_CALLBACK (less_p, (SCM a, SCM b));
+  DECLARE_SIMPLE_SMOBS (Duration,);
 
 public:
   int duration_log ()const;
@@ -44,8 +44,8 @@ private:
 };
 
 #include "compare.hh"
-INSTANTIATE_COMPARE(Duration, Duration::compare);
-Duration*unsmob_duration(SCM);
+INSTANTIATE_COMPARE (Duration, Duration::compare);
+Duration*unsmob_duration (SCM);
 // int compare (Array<Duration>*, Array<Duration>*);
 
 #endif // DURATION_HH

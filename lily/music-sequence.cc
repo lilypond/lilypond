@@ -47,11 +47,11 @@ void
 Music_sequence::append_music (Music *m)
 {
   set_mus_property ("elements",
-		    gh_append2( music_list(), gh_cons (m->self_scm (), SCM_EOL)));
+		    gh_append2 (music_list (), gh_cons (m->self_scm (), SCM_EOL)));
   scm_unprotect_object (m->self_scm ());
 }
 
-Music_sequence::Music_sequence(SCM l)
+Music_sequence::Music_sequence (SCM l)
   : Music (l)
 {
 }
@@ -107,7 +107,7 @@ Music_sequence::do_relative_octave (Pitch p, bool ret_first)
   for (SCM s = music_list (); gh_pair_p (s);  s = gh_cdr (s))
     {
       last = unsmob_music (gh_car (s))->to_relative_octave (last);
-      if (!count ++ )
+      if (!count ++)
 	retval = last;
     }
 
@@ -122,4 +122,12 @@ Music_sequence::compress (Moment m)
 {
   for (SCM s = music_list (); gh_pair_p (s);  s = gh_cdr (s))
     unsmob_music (gh_car (s))->compress (m);
+}
+
+ADD_MUSIC (Music_sequence);
+
+Music_sequence::Music_sequence ()
+  : Music (SCM_EOL)
+{
+  
 }

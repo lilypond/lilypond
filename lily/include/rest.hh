@@ -15,10 +15,10 @@
 class  Rest
 {
 public:
-  DECLARE_SCHEME_CALLBACK(after_line_breaking, (SCM ));
+  DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM ));
   static bool has_interface (Grob*);
   static SCM brew_internal_molecule (SCM);
-  DECLARE_SCHEME_CALLBACK(extent_callback, (SCM,SCM));
-  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
+  DECLARE_SCHEME_CALLBACK (extent_callback, (SCM,SCM));
+  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
 };
 #endif // REST_HH

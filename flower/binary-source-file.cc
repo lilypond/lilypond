@@ -63,7 +63,7 @@ Binary_source_file::line_i (char const* pos_ch_C) const
 U8
 Binary_source_file::get_U8 ()
 {
-  return *(U8*)forward_ch_C (1);
+  return * (U8*)forward_ch_C (1);
 }
 
 
@@ -80,7 +80,7 @@ Binary_source_file::get_U16 ()
 
 
 U32
-Binary_source_file::get_U32()
+Binary_source_file::get_U32 ()
 {
   U32 b;
   

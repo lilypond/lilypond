@@ -17,10 +17,10 @@ class Hash_table_iter
   Hash_table<K,V> *dict_l_;
   int i;
 public:
-  Hash_table_iter(Hash_table<K,V> const &dict)
+  Hash_table_iter (Hash_table<K,V> const &dict)
     {
       i = 0;
-      dict_l_ =(Hash_table<K,V> *) & dict;
+      dict_l_ = (Hash_table<K,V> *) & dict;
       next_used ();
     }
 
@@ -36,7 +36,7 @@ public:
 	  i ++;
 	}
     }
-  void operator ++(int)
+  void operator ++ (int)
     {
       i++;
       next_used ();

@@ -13,7 +13,7 @@
 #include "debug.hh"
 #include "scope.hh"
 
-Midi_def::Midi_def()
+Midi_def::Midi_def ()
 {
   // ugh
   set_tempo (Moment (1, 4), 60);
@@ -23,7 +23,7 @@ int
 Midi_def::get_tempo_i (Moment one_beat_mom)
 {
   Moment w = *unsmob_moment (scope_p_->scm_elem ("whole-in-seconds"));
-  Moment wholes_per_min = Moment(60) /w;
+  Moment wholes_per_min = Moment (60) /w;
   int beats_per_min = wholes_per_min / one_beat_mom;
   return int (beats_per_min);
 }
@@ -33,8 +33,8 @@ Midi_def::set_tempo (Moment one_beat_mom, int beats_per_minute_i)
 {
   Moment beats_per_second = Moment (beats_per_minute_i) / Moment (60);
 
-  Moment m = Moment(1)/Moment(beats_per_second * one_beat_mom);
-  scope_p_->set ("whole-in-seconds", m.smobbed_copy());
+  Moment m = Moment (1)/Moment (beats_per_second * one_beat_mom);
+  scope_p_->set ("whole-in-seconds", m.smobbed_copy ());
 }
 
 

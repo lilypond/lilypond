@@ -45,13 +45,13 @@ Simultaneous_music_iterator::get_music (Moment m)const
 }
 
 void
-Simultaneous_music_iterator::construct_children()
+Simultaneous_music_iterator::construct_children ()
 {
   int j = 0;
   Music_sequence const *sim = dynamic_cast<Music_sequence const*> (music_l_);
 
   SCM i = sim->music_list ();
-  for (; gh_pair_p(i); i = gh_cdr(i), j++)
+  for (; gh_pair_p (i); i = gh_cdr (i), j++)
     {
       Music *mus = unsmob_music (gh_car (i));
       Music_iterator * mi = static_get_iterator_p (mus);
@@ -60,7 +60,7 @@ Simultaneous_music_iterator::construct_children()
 	 number number as name */
       
       Translator_group * t = (j && separate_contexts_b_)
-	? report_to_l ()->find_create_translator_l (report_to_l()->type_str_,
+	? report_to_l ()->find_create_translator_l (report_to_l ()->type_str_,
 						    to_str (j))
 	: report_to_l ();
 
@@ -70,7 +70,7 @@ Simultaneous_music_iterator::construct_children()
       mi->init_translator (mus, t);
       mi->construct_children ();
       
-      if (mi->ok()) 
+      if (mi->ok ()) 
 	{
 	  children_p_list_.append (new Killing_cons<Music_iterator> (mi,0));
 	}
@@ -86,14 +86,14 @@ Simultaneous_music_iterator::process (Moment until)
   for (Cons<Music_iterator> **pp = &children_p_list_.head_; *pp;)
     {
       Music_iterator * i = (*pp)->car_;
-      if  (i->pending_moment() == until) 
+      if (i->pending_moment () == until) 
 	{
 	  i->process (until);
 	}
-      if (!i->ok())
+      if (!i->ok ())
 	delete children_p_list_.remove_cons (pp);
       else
-	pp = &(*pp)->next_;
+	pp = & (*pp)->next_;
     }
 }
 
@@ -103,32 +103,32 @@ Simultaneous_music_iterator::skip (Moment until)
   for (Cons<Music_iterator> **pp = &children_p_list_.head_; *pp;)
     {
       Music_iterator * i = (*pp)->car_;
-      if (i->pending_moment() <= until) 
+      if (i->pending_moment () <= until) 
 	{
 	  i->skip (until);
 	}
-      if (!i->ok())
+      if (!i->ok ())
 	delete children_p_list_.remove_cons (pp);
       else
-	pp = &(*pp)->next_;
+	pp = & (*pp)->next_;
     }
 }
 
 Moment
-Simultaneous_music_iterator::pending_moment() const
+Simultaneous_music_iterator::pending_moment () const
 {
   Moment next;
   next.set_infinite (1);
   
   for (Cons<Music_iterator> *p = children_p_list_.head_; p; p = p->next_)
-    next = next <? p->car_->pending_moment() ;
+    next = next <? p->car_->pending_moment () ;
   return next;
 }
 
 
 
 bool
-Simultaneous_music_iterator::ok() const
+Simultaneous_music_iterator::ok () const
 {
   return children_p_list_.head_;
 }
@@ -144,4 +144,4 @@ Simultaneous_music_iterator::try_music_in_children (Music *m) const
 
 
 
-IMPLEMENT_CTOR_CALLBACK(Simultaneous_music_iterator);
+IMPLEMENT_CTOR_CALLBACK (Simultaneous_music_iterator);

@@ -5,10 +5,10 @@
 Item*
 to_item (Grob* g)
 {
-  return dynamic_cast<Item*>(g);
+  return dynamic_cast<Item*> (g);
 }
 Spanner*
 to_spanner (Grob*g)
 {
-  return dynamic_cast<Spanner*>(g);
+  return dynamic_cast<Spanner*> (g);
 }

@@ -15,12 +15,12 @@
 class Break_align_interface
 {
 public:
-  DECLARE_SCHEME_CALLBACK(before_line_breaking, (SCM ));
+  DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM ));
   static void do_alignment (Grob*);
   static void set_interface (Grob*);
   static bool has_interface (Grob*);
   static void add_element (Grob*me, Grob*add);
-  DECLARE_SCHEME_CALLBACK(alignment_callback, (SCM element, SCM axis));
-  DECLARE_SCHEME_CALLBACK(self_align_callback, (SCM element, SCM axis));
+  DECLARE_SCHEME_CALLBACK (alignment_callback, (SCM element, SCM axis));
+  DECLARE_SCHEME_CALLBACK (self_align_callback, (SCM element, SCM axis));
 };
 #endif // BREAK_ALIGN_ITEM_HH

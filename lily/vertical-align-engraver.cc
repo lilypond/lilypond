@@ -18,31 +18,31 @@ class Vertical_align_engraver : public Engraver
   Spanner * valign_p_;
   bool qualifies_b (Grob_info) const;  
 public:
-  VIRTUAL_COPY_CONS(Translator);
-  Vertical_align_engraver();
+  VIRTUAL_COPY_CONS (Translator);
+  Vertical_align_engraver ();
 protected:
   virtual void acknowledge_grob (Grob_info);
-  virtual void initialize();
-  virtual void finalize();
+  virtual void initialize ();
+  virtual void finalize ();
 };
 
-Vertical_align_engraver::Vertical_align_engraver()
+Vertical_align_engraver::Vertical_align_engraver ()
 {
   valign_p_ =0;
 }
 
 void
-Vertical_align_engraver::initialize()
+Vertical_align_engraver::initialize ()
 {
   valign_p_ =new Spanner (get_property ("VerticalAlignment"));
-  valign_p_->set_bound(LEFT,unsmob_grob (get_property ("currentCommandColumn")));
+  valign_p_->set_bound (LEFT,unsmob_grob (get_property ("currentCommandColumn")));
   announce_grob (valign_p_ , 0);
 }
 
 void
-Vertical_align_engraver::finalize()
+Vertical_align_engraver::finalize ()
 {
-  valign_p_->set_bound(RIGHT,unsmob_grob (get_property ("currentCommandColumn")));
+  valign_p_->set_bound (RIGHT,unsmob_grob (get_property ("currentCommandColumn")));
   typeset_grob (valign_p_);
   valign_p_ =0;
 }
@@ -51,7 +51,7 @@ Vertical_align_engraver::finalize()
 bool
 Vertical_align_engraver::qualifies_b (Grob_info i) const
 {
-  int sz = i.origin_trans_l_arr ((Translator*)this).size()  ;
+  int sz = i.origin_trans_l_arr ((Translator*)this).size ()  ;
 
   return sz > 1 && Axis_group_interface::has_interface (i.elem_l_)
     && !i.elem_l_->parent_l (Y_AXIS) && Axis_group_interface::axis_b (i.elem_l_, Y_AXIS);
@@ -66,4 +66,4 @@ Vertical_align_engraver::acknowledge_grob (Grob_info i)
     }
 }
 
-ADD_THIS_TRANSLATOR(Vertical_align_engraver);
+ADD_THIS_TRANSLATOR (Vertical_align_engraver);

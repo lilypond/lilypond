@@ -25,14 +25,14 @@ class Note_heads_engraver : public Engraver
   Link_array<Note_req> note_req_l_arr_;
   Moment note_end_mom_;
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
   
 protected:
   virtual void start_translation_timestep ();
   virtual bool try_music (Music *req_l) ;
   virtual void create_grobs ();
   virtual void acknowledge_grob (Grob_info) ;
-  virtual void stop_translation_timestep();
+  virtual void stop_translation_timestep ();
 };
 
 
@@ -95,7 +95,7 @@ Note_heads_engraver::create_grobs ()
 	}
 
       Pitch *pit =unsmob_pitch (req->get_mus_property ("pitch"));
-      note_p->set_grob_property("staff-position",  gh_int2scm (pit->steps ()));
+      note_p->set_grob_property ("staff-position",  gh_int2scm (pit->steps ()));
 
       if (to_boolean (get_property ("easyPlay")))
 	{
@@ -112,7 +112,7 @@ Note_heads_engraver::create_grobs ()
 }
  
 void
-Note_heads_engraver::stop_translation_timestep()
+Note_heads_engraver::stop_translation_timestep ()
 {
   for (int i=0; i < note_p_arr_.size (); i++)
     {
@@ -133,7 +133,7 @@ Note_heads_engraver::start_translation_timestep ()
 {
   /* TODO:make this settable?
    */
-  if (note_end_mom_ > now_mom() )
+  if (note_end_mom_ > now_mom ())
     {
       Score_engraver * e = 0;
       Translator * t  =  daddy_grav_l ();
@@ -151,5 +151,5 @@ Note_heads_engraver::start_translation_timestep ()
 
 
 
-ADD_THIS_TRANSLATOR(Note_heads_engraver);
+ADD_THIS_TRANSLATOR (Note_heads_engraver);
 

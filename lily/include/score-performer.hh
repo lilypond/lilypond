@@ -18,20 +18,20 @@ class Score_performer:
   public Performer_group_performer, public Global_translator 
 {
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
   
-  Score_performer();
-  ~Score_performer();
+  Score_performer ();
+  ~Score_performer ();
   Performance *performance_p_;
 
 protected:
-  virtual void finish();
+  virtual void finish ();
   virtual void prepare (Moment mom);
-  virtual void one_time_step();
-  virtual void start();
+  virtual void one_time_step ();
+  virtual void start ();
   virtual void initialize ();
   virtual void announce_element (Audio_element_info);
-  virtual int get_tempo_i() const;
+  virtual int get_tempo_i () const;
   virtual void play_element (Audio_element* p);
   virtual Music_output *get_output_p ();
 

@@ -22,13 +22,13 @@ protected:
   virtual void stop_translation_timestep ();
   virtual void process_music ();
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
 };
 
-ADD_THIS_TRANSLATOR(Timing_engraver);
+ADD_THIS_TRANSLATOR (Timing_engraver);
 
 void
-Timing_engraver::start_translation_timestep( )
+Timing_engraver::start_translation_timestep ()
 {
   Timing_translator::start_translation_timestep ();
 
@@ -46,7 +46,7 @@ Timing_engraver::start_translation_timestep( )
 	  || (to_boolean (always)))
 	{
 	  /* should this work, or be junked?  See input/bugs/no-bars.ly */
-	  which=get_property ("defaultBarType" );
+	  which=get_property ("defaultBarType");
 	}
     }
 

@@ -27,7 +27,7 @@ public:
   Music_wrapper_iterator (Music_wrapper_iterator const&);
   ~Music_wrapper_iterator ();
 
-  virtual void construct_children  () ;
+  virtual void construct_children () ;
   virtual Moment pending_moment () const;
   virtual bool ok () const;
   virtual SCM get_music (Moment)const;

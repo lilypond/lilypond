@@ -32,15 +32,66 @@ Multi_measure_rest::has_interface (Grob*me)
   return me->has_interface (ly_symbol2scm ("multi-measure-rest-interface"));
 }
 
+MAKE_SCHEME_CALLBACK (Multi_measure_rest,percent,1);
+SCM
+Multi_measure_rest::percent (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Spanner *sp = dynamic_cast<Spanner*> (me);
+  
+  Font_metric *musfont = Font_interface::get_default_font (me);
+			
+  Molecule r (musfont->find_by_name ("scripts-repeatsign"));
+
+  // ugh copy & paste.
+  
+  Interval sp_iv;
+  Direction d = LEFT;
+  do
+    {
+      Item * col = sp->get_bound (d)->column_l ();
+
+      Interval coldim = col->extent (0, X_AXIS);
+
+      sp_iv[d] = coldim[-d]  ;
+    }
+  while ((flip (&d)) != LEFT);
+  Real x_off = 0.0;
+
+  Real rx  = sp->get_bound (LEFT)->relative_coordinate (0, X_AXIS);
   /*
+    we gotta stay clear of sp_iv, so move a bit to the right if
+    needed.
+   */
+  x_off += (sp_iv[LEFT] -  rx) >? 0;
+
+  /*
+    center between stuff.
+   */
+  x_off += sp_iv.length ()/ 2;
+
+  r.translate_axis (x_off,X_AXIS);
+
+  
+  return r.smobbed_copy ();
+}
+
+
+/*
    [TODO]                                      17
- * variable-sized multi-measure rest symbol: |====| ??
+   variable-sized multi-measure rest symbol: |====| ??
 */
-MAKE_SCHEME_CALLBACK(Multi_measure_rest,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Multi_measure_rest,brew_molecule,1);
 SCM
 Multi_measure_rest::brew_molecule (SCM smob) 
 {
   Grob *me = unsmob_grob (smob);
+  if (to_boolean (me->get_grob_property ("skip-timestep")))
+    {
+      me->set_grob_property ("skip-timestep", SCM_EOL);
+      return SCM_EOL;
+    }
+  
   Spanner * sp = dynamic_cast<Spanner*> (me);
 
   SCM alist_chain = Font_interface::font_alist_chain (me);
@@ -134,7 +185,7 @@ Multi_measure_rest::brew_molecule (SCM smob)
     }
   else 
     {
-      String idx =  ("rests-") + to_str (-4);
+      String idx = ("rests-") + to_str (-4);
       s = musfont->find_by_name (idx);
     }
   
@@ -150,7 +201,7 @@ Multi_measure_rest::brew_molecule (SCM smob)
       mol.add_molecule (s);
     }
   mol.translate_axis (x_off, X_AXIS);
-  return mol.smobbed_copy();
+  return mol.smobbed_copy ();
 }
 
 /*
@@ -173,7 +224,7 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
   Grob*me = unsmob_grob (smob);
 
   Spanner*sp = dynamic_cast<Spanner*> (me);
-  if (!(sp->get_bound (LEFT) && sp->get_bound (RIGHT)))
+  if (! (sp->get_bound (LEFT) && sp->get_bound (RIGHT)))
     {
       programming_error ("Multi_measure_rest::get_rods (): I am not spanned!");
       return SCM_UNSPECIFIED;

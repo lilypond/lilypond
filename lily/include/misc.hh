@@ -7,8 +7,8 @@
 #include "array.hh"
 #include "interval.hh"
 
-double log_2(double x) ;
-int intlog2(int d);
+double log_2 (double x) ;
+int intlog2 (int d);
 
 inline int
 sign (int i)

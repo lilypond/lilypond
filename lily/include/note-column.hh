@@ -13,7 +13,7 @@
 #include "item.hh"
 
 /** a struct for treating a group of noteheads (noteheads, stem
-  (chord) and scripts) as a single entity.
+ (chord) and scripts) as a single entity.
 
   UGR. Junkme.  refpoint should be the notehead, dir should come from stem.
 
@@ -30,9 +30,9 @@ public:
     */
 
   static Direction dir (Grob*me);
-  static Slice head_positions_interval(Grob* me);
+  static Slice head_positions_interval (Grob* me);
   static Direction static_dir (Grob*);
-  static void translate_rests(Grob*me,int dy);
+  static void translate_rests (Grob*me,int dy);
   static Grob * first_head (Grob*me);
   static void set_stem (Grob*me,Grob*);
   static void set_dotcol (Grob*me,Grob*);
@@ -40,7 +40,7 @@ public:
   static bool rest_b (Grob*me);
   static bool has_interface (Grob*);
   static void set_interface (Grob*);
-  static Item *stem_l(Grob*);
+  static Item *stem_l (Grob*);
 };
 
 #endif // NOTE_COLUMN_HH

@@ -31,7 +31,7 @@ Timing_translator::try_music (Music*r)
 }
 
 void
-Timing_translator::process_music()
+Timing_translator::process_music ()
 {
   if (check_ && measure_position ())
     {
@@ -40,7 +40,7 @@ Timing_translator::process_music()
       Moment zero; 
       
       if (!to_boolean (get_property ("barCheckNoSynchronize")))
-	daddy_trans_l_->set_property("measurePosition", zero.smobbed_copy ());
+	daddy_trans_l_->set_property ("measurePosition", zero.smobbed_copy ());
     }
 
   SCM fr = get_property ("timeSignatureFraction");
@@ -54,7 +54,7 @@ Timing_translator::process_music()
 
 
 void
-Timing_translator::stop_translation_timestep()
+Timing_translator::stop_translation_timestep ()
 {
   check_ = 0;
   
@@ -84,10 +84,10 @@ Timing_translator::stop_translation_timestep()
 }
 
 
-ADD_THIS_TRANSLATOR(Timing_translator);
+ADD_THIS_TRANSLATOR (Timing_translator);
 
 void
-Timing_translator::initialize()
+Timing_translator::initialize ()
 {
   Moment m;
   daddy_trans_l_->set_property ("timing" , SCM_BOOL_T);  
@@ -102,8 +102,8 @@ Timing_translator::initialize()
 Moment
 Timing_translator::measure_length () const
 {
-  SCM l = get_property("measureLength");
-  if (unsmob_moment(l))
+  SCM l = get_property ("measureLength");
+  if (unsmob_moment (l))
     return *unsmob_moment (l);
   else
     return Moment (1);
@@ -124,7 +124,7 @@ Timing_translator::set_time_signature ()
   daddy_trans_l_->set_property ("beatLength", one_beat.smobbed_copy ());
 }
 
-Timing_translator::Timing_translator()
+Timing_translator::Timing_translator ()
 {
 
   last_time_sig_ = SCM_BOOL_F;
@@ -140,7 +140,7 @@ Timing_translator::measure_position () const
   Moment m   =0;
   if (unsmob_moment (sm))
     {
-      m = *unsmob_moment(sm);
+      m = *unsmob_moment (sm);
       while (m < Moment (0))
 	m += measure_length ();
     }
@@ -149,7 +149,7 @@ Timing_translator::measure_position () const
 }
 
 void
-Timing_translator::start_translation_timestep()
+Timing_translator::start_translation_timestep ()
 {
 	check_ =00;
   Translator *t = this;
@@ -176,24 +176,24 @@ Timing_translator::start_translation_timestep()
   SCM s = get_property ("measurePosition");
   if (unsmob_moment (s))
     {
-      measposp = *unsmob_moment(s);
+      measposp = *unsmob_moment (s);
     }
   else
     {
-      daddy_trans_l_->set_property ("measurePosition", measposp.smobbed_copy());
+      daddy_trans_l_->set_property ("measurePosition", measposp.smobbed_copy ());
     }
   
   measposp += dt;
   
   SCM barn = get_property ("currentBarNumber");
   int b = 0;
-  if (gh_number_p(barn))
+  if (gh_number_p (barn))
     {
       b = gh_scm2int (barn);
     }
 
   SCM cad = get_property ("timing");
-  bool c= to_boolean (cad );
+  bool c= to_boolean (cad);
 
   Moment len = measure_length ();
   while (c && measposp >= len)
@@ -203,6 +203,6 @@ Timing_translator::start_translation_timestep()
     }
 
   daddy_trans_l_->set_property ("currentBarNumber", gh_int2scm (b));
-  daddy_trans_l_->set_property ("measurePosition", measposp.smobbed_copy());
+  daddy_trans_l_->set_property ("measurePosition", measposp.smobbed_copy ());
 }
 

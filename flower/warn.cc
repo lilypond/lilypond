@@ -33,6 +33,6 @@ message (String m)
 void
 programming_error (String s)
 {
-  cerr << _("programming error: ") << s << _(" (Continuing; cross thumbs)") << '\n';
+  cerr << _ ("programming error: ") << s << _ (" (Continuing; cross thumbs)") << '\n';
 }
 

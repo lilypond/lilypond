@@ -47,7 +47,7 @@ Change_iterator::process (Moment m)
      
      If \translator Staff = bass, then look for Staff = *
    */
-  while  (current && current->type_str_ != to_type)
+  while (current && current->type_str_ != to_type)
     {
       last = current;
       current = current->daddy_trans_l_;
@@ -84,4 +84,4 @@ Change_iterator::process (Moment m)
 
 
 
-IMPLEMENT_CTOR_CALLBACK(Change_iterator);
+IMPLEMENT_CTOR_CALLBACK (Change_iterator);

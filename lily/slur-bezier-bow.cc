@@ -103,17 +103,17 @@ Slur_bezier_bow::enclosed_area_f () const
 	  x = Interval ((encompass_[i-1][X_AXIS] + encompass_[i][X_AXIS])/2, 
 			encompass_[i][X_AXIS]);
 	  y = Interval (0,
-			(curve_.get_other_coordinate (X_AXIS,
-						      (x[MIN] + x[MAX]) / 2)));
+ (curve_.get_other_coordinate (X_AXIS,
+ (x[MIN] + x[MAX]) / 2)));
 	}
       else
 	{
 	  x = Interval ((encompass_[i-1][X_AXIS] + encompass_[i][X_AXIS]) / 2, 
-			(encompass_[i][X_AXIS] + encompass_[i+1][X_AXIS]) / 2);
+ (encompass_[i][X_AXIS] + encompass_[i+1][X_AXIS]) / 2);
 	  y = Interval (encompass_[i][Y_AXIS],
-			(curve_.get_other_coordinate (X_AXIS, x[MIN])
+ (curve_.get_other_coordinate (X_AXIS, x[MIN])
 			 + curve_.get_other_coordinate (X_AXIS,
-							(x[MIN] + x[MAX]) / 2)
+ (x[MIN] + x[MAX]) / 2)
 			 + curve_.get_other_coordinate (X_AXIS, x[MAX])) / 3);
 	}
       
@@ -193,7 +193,7 @@ Slur_bezier_bow::minimise_enclosed_area (Real beauty,
 
 
 /*
-  max ( encompass.y / curve.y )
+  max (encompass.y / curve.y)
   
  */
 Real

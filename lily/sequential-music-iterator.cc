@@ -24,7 +24,7 @@
   The length of musiclist from start to up to cursor_ (cursor_ not
   including), is summed
 
-  here_mom_  = sum (length (musiclist [start ... cursor> ))  %)  
+  here_mom_  = sum (length (musiclist [start ... cursor>))  %)  
   
  */
 
@@ -48,13 +48,13 @@ Sequential_music_iterator::Sequential_music_iterator (Sequential_music_iterator 
     iter_p_ = 0;
 }
 
-Sequential_music_iterator::~Sequential_music_iterator()
+Sequential_music_iterator::~Sequential_music_iterator ()
 {
   delete iter_p_;
 }
 
 void
-Sequential_music_iterator::construct_children()
+Sequential_music_iterator::construct_children ()
 {
   cursor_ = dynamic_cast<Music_sequence const*> (music_l_)->music_list ();
 
@@ -67,7 +67,7 @@ Sequential_music_iterator::construct_children()
   /*
     iter_p_->ok () is tautology, but what the heck.
    */
-  if (iter_p_ && iter_p_->ok()) 
+  if (iter_p_ && iter_p_->ok ()) 
     descend_to_child ();
 
 }
@@ -146,7 +146,7 @@ Sequential_music_iterator::get_music (Moment until)const
       s = gh_append2 (nm, s);
       
       Moment m = 0;
-      for (SCM i = nm; gh_pair_p(i); i = gh_cdr (i))
+      for (SCM i = nm; gh_pair_p (i); i = gh_cdr (i))
 	m = m >? unsmob_music (gh_car (i))->length_mom ();
 
       if (m > Moment (0))
@@ -202,14 +202,14 @@ Sequential_music_iterator::process (Moment until)
 }
 
 Moment
-Sequential_music_iterator::pending_moment() const
+Sequential_music_iterator::pending_moment () const
 {
-  return iter_p_->pending_moment() + here_mom_;
+  return iter_p_->pending_moment () + here_mom_;
 }
 
 
 bool
-Sequential_music_iterator::ok() const
+Sequential_music_iterator::ok () const
 {
   return iter_p_;
 }
@@ -219,4 +219,4 @@ Sequential_music_iterator::try_music_in_children (Music *m) const
 { 
   return iter_p_ ? iter_p_->try_music (m) : 0;
 }
-IMPLEMENT_CTOR_CALLBACK(Sequential_music_iterator);
+IMPLEMENT_CTOR_CALLBACK (Sequential_music_iterator);

@@ -62,15 +62,15 @@ Interval__compare (const Interval_t<T>&a,Interval_t<T> const&b)
 
 template<class T>
 void
-Interval_t<T>::set_empty()
+Interval_t<T>::set_empty ()
 {
-  elem (LEFT) = (T) infinity();
-  elem (RIGHT) = (T) -infinity();
+  elem (LEFT) = (T) infinity ();
+  elem (RIGHT) = (T) -infinity ();
 }
 
 template<class T>
 T
-Interval_t<T>::length() const 
+Interval_t<T>::length () const 
 {
   if (elem (RIGHT) < elem (LEFT)) 
     return 0;
@@ -120,9 +120,9 @@ intersect (Interval_t<T> x, Interval_t<T> const &y)
 
 template<class T>
 String
-Interval_t<T>::str() const
+Interval_t<T>::str () const
 {
-  if (empty_b())
+  if (empty_b ())
     return "[empty]";
   String s ("[");
  
@@ -138,6 +138,6 @@ Interval_t<T>::elem_b (T r)
 
 
 #define INTERVAL__INSTANTIATE(T) struct Interval_t<T>;\
-template  int Interval__compare(const Interval_t<T>&,Interval_t<T> const&)
+template  int Interval__compare (const Interval_t<T>&,Interval_t<T> const&)
 
 #endif // INTERVAL_TCC

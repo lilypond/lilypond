@@ -21,7 +21,7 @@
 #include "item.hh"
 #include "staff-symbol-referencer.hh"
 
-MAKE_SCHEME_CALLBACK(Bar,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Bar,brew_molecule,1);
 
 SCM 
 Bar::brew_molecule (SCM smob) 
@@ -61,13 +61,16 @@ Bar::compound_barline (Grob*me, String str, Real h)
   
   Molecule thin = simple_barline (me, hair, h);
   Molecule thick = simple_barline (me, fatline, h);
-  Molecule colon = Font_interface::get_default_font (me)->find_by_name ("dots-repeatcolon");  
+  Molecule colon = Font_interface::get_default_font (me)->find_by_name (
+    Staff_symbol_referencer::line_count (me) & 1 == 1 ?
+    "dots-repeatcolon" : "dots-evenrepeatcolon"
+  );
 
   Molecule m;
   
   if (str == "")
     {
-      return Lookup::blank (Box (Interval(0, 0), Interval (-h/2, h/2)));
+      return Lookup::blank (Box (Interval (0, 0), Interval (-h/2, h/2)));
     }
   else if (str == "|")
     {
@@ -120,13 +123,13 @@ Bar::compound_barline (Grob*me, String str, Real h)
 Molecule
 Bar::simple_barline (Grob*,Real w, Real h) 
 {
-  return Lookup::filledbox (Box (Interval(0,w), Interval(-h/2, h/2)));
+  return Lookup::filledbox (Box (Interval (0,w), Interval (-h/2, h/2)));
 }
 
-MAKE_SCHEME_CALLBACK(Bar,before_line_breaking ,1);
+MAKE_SCHEME_CALLBACK (Bar,before_line_breaking ,1);
 
 SCM
-Bar::before_line_breaking  (SCM smob)
+Bar::before_line_breaking (SCM smob)
 {
   Grob*me=unsmob_grob (smob);
   Item * item = dynamic_cast<Item*> (me);
@@ -148,7 +151,7 @@ Bar::before_line_breaking  (SCM smob)
       // leave y_extent for spanbar? 
     }
 
-  if (! gh_equal_p  (g, orig))
+  if (! gh_equal_p (g, orig))
     me->set_grob_property ("glyph", g);
 
   
@@ -188,7 +191,7 @@ Bar::has_interface (Grob*m)
 }
 
 
-MAKE_SCHEME_CALLBACK(Bar,get_staff_bar_size,1);
+MAKE_SCHEME_CALLBACK (Bar,get_staff_bar_size,1);
 SCM
 Bar::get_staff_bar_size (SCM smob) 
 {
@@ -196,7 +199,7 @@ Bar::get_staff_bar_size (SCM smob)
   Real ss = Staff_symbol_referencer::staff_space (me);
   SCM size = me->get_grob_property ("bar-size");
   if (gh_number_p (size))
-    return gh_double2scm (gh_scm2double(size)*ss);
+    return gh_double2scm (gh_scm2double (size)*ss);
   else if (Staff_symbol_referencer::staff_symbol_l (me))
     {
       /*

@@ -31,19 +31,19 @@ protected:
   virtual void initialize ();
   virtual void finalize ();
 public:
-  ~Property_engraver();
-  Property_engraver();
-  VIRTUAL_COPY_CONS(Translator);
+  ~Property_engraver ();
+  Property_engraver ();
+  VIRTUAL_COPY_CONS (Translator);
 };
 
 
 
-Property_engraver::Property_engraver()
+Property_engraver::Property_engraver ()
 {
   prop_dict_ = 0;
 }
 void
-Property_engraver::finalize()
+Property_engraver::finalize ()
 {
   
 }
@@ -103,7 +103,7 @@ Property_engraver::apply_properties (SCM p, Grob *e, Translator_group*origin)
       SCM type_p   = gh_cadr (entry);
       SCM elt_prop_sym = gh_caddr (entry);
 
-      SCM preset = scm_assq(elt_prop_sym, e->mutable_property_alist_);
+      SCM preset = scm_assq (elt_prop_sym, e->mutable_property_alist_);
       if (preset != SCM_BOOL_F)
 	continue;
   
@@ -152,4 +152,4 @@ Property_engraver::apply_properties (SCM p, Grob *e, Translator_group*origin)
     }
 }
 
-ADD_THIS_TRANSLATOR(Property_engraver);
+ADD_THIS_TRANSLATOR (Property_engraver);

@@ -23,14 +23,14 @@ public:
   Paper_stream (String filename);
 
   /// delegate conversion to scalar class
-  Paper_stream &operator <<(String);
+  Paper_stream &operator << (String);
 
   /// close the file
-  ~Paper_stream();
+  ~Paper_stream ();
 
 private:
   Paper_stream (Paper_stream const&);
-  void break_line();
+  void break_line ();
 };
 
 class ostream;

@@ -20,7 +20,7 @@ Scope::Scope (Scheme_hash_table * st)
 bool
 Scope::elem_b (String s) const
 {
-  return id_dict_->elem_b (ly_symbol2scm (s.ch_C()));
+  return id_dict_->elem_b (ly_symbol2scm (s.ch_C ()));
 }
 
 bool
@@ -39,14 +39,14 @@ Scope::scm_elem (SCM s)const
 SCM
 Scope::scm_elem (String s) const
 {
- return scm_elem (ly_symbol2scm (s.ch_C()));
+ return scm_elem (ly_symbol2scm (s.ch_C ()));
 }
 
 
 void
 Scope::set (String s, SCM id)
 {
-  return id_dict_->set (ly_symbol2scm (s.ch_C()), id);
+  return id_dict_->set (ly_symbol2scm (s.ch_C ()), id);
 }
 
 SCM

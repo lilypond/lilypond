@@ -16,7 +16,7 @@
 #include "directional-element-interface.hh"
 
 
-MAKE_SCHEME_CALLBACK(Dots,quantised_position_callback,2);
+MAKE_SCHEME_CALLBACK (Dots,quantised_position_callback,2);
 SCM
 Dots::quantised_position_callback (SCM element_smob, SCM axis)
 {
@@ -34,11 +34,11 @@ Dots::quantised_position_callback (SCM element_smob, SCM axis)
 	return gh_double2scm (Staff_symbol_referencer::staff_space (me) / 2.0 * Directional_element_interface::get (me));
     }
 
-  return gh_double2scm  (0.0);
+  return gh_double2scm (0.0);
 }
 
 
-MAKE_SCHEME_CALLBACK(Dots,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Dots,brew_molecule,1);
 SCM  
 Dots::brew_molecule (SCM d)
 {
@@ -59,7 +59,7 @@ Dots::brew_molecule (SCM d)
       mol = Lookup::blank (Box (Interval (0,0),
 				Interval (0,0)));
   
-      for (int i = gh_scm2int (c); i--; )
+      for (int i = gh_scm2int (c); i--;)
 	{
 	  d.translate_axis (2*dw,X_AXIS);
 	  mol.add_at_edge (X_AXIS, RIGHT, d, dw);

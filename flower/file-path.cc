@@ -83,12 +83,12 @@ File_path::parse_path (String p)
 {
   int l;
   
-  while ( (l = p.length_i ()) )
+  while ((l = p.length_i ()) )
     {
-      int i = p.index_i(PATHSEP);
+      int i = p.index_i (PATHSEP);
       if (i <0) 
 	i = l;
-      add (p.left_str(i));
+      add (p.left_str (i));
       p = p.right_str (l- i - 1);
     }
 }
@@ -107,13 +107,13 @@ String
 File_path::find (String nm) const
 {
   DEBUG_OUT << "looking for" << nm << ": ";
-  if (!nm.length_i() || (nm == "-") )
+  if (!nm.length_i () || (nm == "-") )
     return nm;
-  for (int i=0; i < size(); i++)
+  for (int i=0; i < size (); i++)
     {
-      String path  = elem(i);
+      String path  = elem (i);
       String sep = to_str (DIRSEP);
-      String right(path.right_str (1));
+      String right (path.right_str (1));
       if (path.length_i () && right != sep)
 	path += to_str (DIRSEP);
 
@@ -126,10 +126,10 @@ File_path::find (String nm) const
 	Check if directory. TODO: encapsulate for autoconf
        */
       struct stat sbuf;
-      if (stat (path.ch_C(), &sbuf) == ENOENT)
+      if (stat (path.ch_C (), &sbuf) == ENOENT)
 	continue;
       
-      if (!(sbuf.st_mode & __S_IFREG))
+      if (! (sbuf.st_mode & __S_IFREG))
 	continue;
 #endif
 #if !STAT_MACROS_BROKEN
@@ -141,7 +141,7 @@ File_path::find (String nm) const
 	continue;
 #endif
 
-      FILE *f = fopen (path.ch_C(), "r"); // ugh!
+      FILE *f = fopen (path.ch_C (), "r"); // ugh!
       if (f)
 	{
 	  DEBUG_OUT << "found\n";
@@ -161,7 +161,7 @@ File_path::try_add (String s)
 {
   if (s == "")
     s =  ".";
-  FILE  * f = fopen (s.ch_C(), "r");
+  FILE  * f = fopen (s.ch_C (), "r");
   if (!f)
     return false;
   fclose (f);

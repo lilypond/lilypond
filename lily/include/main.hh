@@ -10,10 +10,10 @@
 
 #include "lily-proto.hh"
 
-void debug_init();
+void debug_init ();
 void set_debug (bool);
-void do_scores();
-void clear_scores();
+void do_scores ();
+void clear_scores ();
 void add_score (Score* s);
 void set_default_output (String s);
 String find_file (String);

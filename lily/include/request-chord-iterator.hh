@@ -38,7 +38,7 @@ public:
   virtual SCM get_music (Moment) const;
 protected:
   virtual void process (Moment);
-  virtual void construct_children();
+  virtual void construct_children ();
 };
 
 

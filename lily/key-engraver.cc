@@ -24,24 +24,24 @@
  */
 class Key_engraver : public Engraver
 {
-  void create_key(bool);
+  void create_key (bool);
   void read_req (Key_change_req const * r);
 
 public:
-  Key_engraver();
+  Key_engraver ();
   
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
 
   Key_change_req * keyreq_l_;
   Item * item_p_;
   Protected_scm old_accs_;	// ugh. -> property
     
 protected:
-  virtual void initialize();
+  virtual void initialize ();
   virtual void finalize ();
   virtual bool try_music (Music *req_l);
-  virtual void stop_translation_timestep();
-  virtual void start_translation_timestep();
+  virtual void stop_translation_timestep ();
+  virtual void start_translation_timestep ();
   virtual void create_grobs ();
   virtual void acknowledge_grob (Grob_info);
 };

@@ -22,13 +22,13 @@
 class Bar_engraver : public Engraver
 {
 public:
-  Bar_engraver();
-  VIRTUAL_COPY_CONS(Translator);
+  Bar_engraver ();
+  VIRTUAL_COPY_CONS (Translator);
   void request_bar (String type_str);
     
 protected:
   virtual void finalize ();
-  virtual void stop_translation_timestep();
+  virtual void stop_translation_timestep ();
   virtual void create_grobs ();
 
 private:
@@ -38,7 +38,7 @@ private:
   Item * bar_p_;
 };
 
-Bar_engraver::Bar_engraver()
+Bar_engraver::Bar_engraver ()
 {
   bar_p_ =0;
 }
@@ -91,7 +91,7 @@ Bar_engraver::typeset_bar ()
   lines may only be broken if there is a barline in all staffs 
 */
 void 
-Bar_engraver::stop_translation_timestep()
+Bar_engraver::stop_translation_timestep ()
 {
   if (!bar_p_)
     {
@@ -111,4 +111,4 @@ Bar_engraver::stop_translation_timestep()
     typeset_bar ();
 }
 
-ADD_THIS_TRANSLATOR(Bar_engraver);
+ADD_THIS_TRANSLATOR (Bar_engraver);

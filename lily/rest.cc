@@ -15,7 +15,7 @@
 #include "staff-symbol-referencer.hh"
 
 // -> offset callback
-MAKE_SCHEME_CALLBACK(Rest,after_line_breaking,1);
+MAKE_SCHEME_CALLBACK (Rest,after_line_breaking,1);
 SCM
 Rest::after_line_breaking (SCM smob)
 {
@@ -37,7 +37,7 @@ Rest::after_line_breaking (SCM smob)
 }
 
 
-MAKE_SCHEME_CALLBACK(Rest,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Rest,brew_molecule,1);
 
 SCM
 Rest::brew_internal_molecule (SCM smob)
@@ -51,7 +51,7 @@ Rest::brew_internal_molecule (SCM smob)
   if (balltype == gh_int2scm (0) || balltype == gh_int2scm (1))
     {
       int sz = Staff_symbol_referencer::line_count (me);
-      Real dif = abs(Staff_symbol_referencer::position_f (me)  - (2* gh_scm2int (balltype) - 1)); 
+      Real dif = abs (Staff_symbol_referencer::position_f (me)  - (2* gh_scm2int (balltype) - 1)); 
       ledger_b = dif > sz;
     }
   
@@ -62,10 +62,10 @@ Rest::brew_internal_molecule (SCM smob)
       style = ly_scm2string (scm_symbol_to_string (style_sym));
     }
 
-  String idx =  ("rests-") + to_str (gh_scm2int (balltype))
+  String idx = ("rests-") + to_str (gh_scm2int (balltype))
     + (ledger_b ? "o" : "") + style;
 
-  return Font_interface::get_default_font (me)->find_by_name (idx).smobbed_copy();
+  return Font_interface::get_default_font (me)->find_by_name (idx).smobbed_copy ();
 }
 
 SCM 
@@ -73,7 +73,7 @@ Rest::brew_molecule (SCM smob)
 {
   return brew_internal_molecule (smob);
 }
-MAKE_SCHEME_CALLBACK(Rest,extent_callback,2);
+MAKE_SCHEME_CALLBACK (Rest,extent_callback,2);
 /*
   We need the callback. The real molecule has ledgers depending on
   Y-position. The Y-position is known only after line breaking.  */

@@ -25,16 +25,16 @@ struct Offset {
 public:
   Real coordinate_a_[NO_AXES];
     
-  Real &operator[](Axis i) {
+  Real &operator[] (Axis i) {
     return coordinate_a_[i];
   }
-  Real operator[](Axis i) const{
+  Real operator[] (Axis i) const{
     return coordinate_a_[i];
   }
     
-  Offset& operator+=(Offset o) {
-    (*this)[X_AXIS] += o[X_AXIS];
-    (*this)[Y_AXIS] += o[Y_AXIS];
+  Offset& operator+= (Offset o) {
+ (*this)[X_AXIS] += o[X_AXIS];
+ (*this)[Y_AXIS] += o[Y_AXIS];
     return *this;
   }
   Offset operator - () const {
@@ -44,22 +44,22 @@ public:
     o[Y_AXIS]  = - o[Y_AXIS];
     return o;
   }
-  Offset& operator-=(Offset o) {
-    (*this)[X_AXIS] -= o[X_AXIS];
-    (*this)[Y_AXIS] -= o[Y_AXIS];
+  Offset& operator-= (Offset o) {
+ (*this)[X_AXIS] -= o[X_AXIS];
+ (*this)[Y_AXIS] -= o[Y_AXIS];
 
     return *this;
   }
   
   Offset &scale (Offset o) {
-    (*this)[X_AXIS] *= o[X_AXIS];
-    (*this)[Y_AXIS] *= o[Y_AXIS];
+ (*this)[X_AXIS] *= o[X_AXIS];
+ (*this)[Y_AXIS] *= o[Y_AXIS];
 
     return *this;
   }
-  Offset &operator *=(Real a) {
-    (*this)[X_AXIS] *= a;
-    (*this)[Y_AXIS] *= a;
+  Offset &operator *= (Real a) {
+ (*this)[X_AXIS] *= a;
+ (*this)[Y_AXIS] *= a;
 
     return *this;
   }
@@ -68,7 +68,7 @@ public:
     coordinate_a_[X_AXIS] =ix;
     coordinate_a_[Y_AXIS] =iy;    
   }
-  Offset() {
+  Offset () {
     coordinate_a_[X_AXIS]=
       coordinate_a_[Y_AXIS]=
       0.0;
@@ -79,16 +79,16 @@ public:
   void mirror (Axis);
   Real  arg () const;
   Real length () const;
-  Offset operator *=(Offset z2) {
+  Offset operator *= (Offset z2) {
     *this = complex_multiply (*this,z2);
     return *this;
   }
 
 };
 
-IMPLEMENT_ARITHMETIC_OPERATOR(Offset, +);
-IMPLEMENT_ARITHMETIC_OPERATOR(Offset, -);
-IMPLEMENT_ARITHMETIC_OPERATOR(Offset, *);
+IMPLEMENT_ARITHMETIC_OPERATOR (Offset, +);
+IMPLEMENT_ARITHMETIC_OPERATOR (Offset, -);
+IMPLEMENT_ARITHMETIC_OPERATOR (Offset, *);
 
 inline Offset
 operator* (Real o1, Offset o2)

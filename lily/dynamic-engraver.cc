@@ -57,7 +57,7 @@ class Dynamic_engraver : public Engraver
   void typeset_all ();
 
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
   Dynamic_engraver ();
   
 protected:
@@ -115,7 +115,7 @@ Dynamic_engraver::try_music (Music * m)
 	    earlier, not-to-be-terminated stuff.
 
 	    It will disappear by itself when stop_translation_timestep
-	    () finds that there is nothing to support anymore.  */
+ () finds that there is nothing to support anymore.  */
 	  
 	  if (cresc_p_)
 	    cresc_p_->suicide ();
@@ -124,7 +124,7 @@ Dynamic_engraver::try_music (Music * m)
       else if (t == "crescendo"
 	   || t == "decrescendo")
 	{
-	  accepted_spanreqs_drul_[s->get_span_dir()] = s;
+	  accepted_spanreqs_drul_[s->get_span_dir ()] = s;
 	  return true;
 	}
     }
@@ -192,10 +192,10 @@ Dynamic_engraver::process_music ()
 	there are no new dynamics.
        */
  
-      if ( !cresc_p_)
+      if (!cresc_p_)
 	{
 	  accepted_spanreqs_drul_[STOP]->origin ()->warning
-	    (_ ("can't find start of (de)crescendo"));
+ (_ ("can't find start of (de)crescendo"));
 	  accepted_spanreqs_drul_[STOP] = 0;
 	}
       else
@@ -219,7 +219,7 @@ Dynamic_engraver::process_music ()
       if (current_cresc_req_)
 	{
 	  accepted_spanreqs_drul_[START]->origin ()->warning
-	    (current_cresc_req_->get_span_dir() == 1
+ (current_cresc_req_->get_span_dir () == 1
 	     ? _ ("already have a crescendo")
 	     : _ ("already have a decrescendo"));
 	}
@@ -236,7 +236,7 @@ Dynamic_engraver::process_music ()
 	  /*
 	    ugh. Use push/pop?
 	  */
-	  SCM s = get_property ((start_type + "Spanner").ch_C());
+	  SCM s = get_property ((start_type + "Spanner").ch_C ());
 	  if (!gh_symbol_p (s) || s == ly_symbol2scm ("hairpin"))
 	    {
 	      cresc_p_  = new Spanner (get_property ("Hairpin"));
@@ -253,11 +253,12 @@ Dynamic_engraver::process_music ()
 	  else
 	    {
 	      cresc_p_  = new Spanner (get_property ("TextSpanner"));
+	      cresc_p_->set_interface (ly_symbol2scm ("dynamic-interface"));
 	      cresc_p_->set_grob_property ("type", s);
 	      
 	      daddy_trans_l_->set_property (start_type
 					    + "Spanner", SCM_UNDEFINED);
-	      s = get_property ((start_type + "Text").ch_C());
+	      s = get_property ((start_type + "Text").ch_C ());
 	      if (gh_string_p (s))
 		{
 		  cresc_p_->set_grob_property ("edge-text",
@@ -296,12 +297,19 @@ void
 Dynamic_engraver::finalize ()
 {
   typeset_all ();
+  
+  if (line_spanner_
+      && line_spanner_->immutable_property_alist_ == SCM_EOL)
+    line_spanner_ = 0;
   if (line_spanner_)
     {
       finished_line_spanner_ = line_spanner_;
       typeset_all ();
     }
 
+  if (cresc_p_
+      && cresc_p_->immutable_property_alist_ == SCM_EOL)
+    cresc_p_ = 0;
   if (cresc_p_)
     {
       current_cresc_req_->origin ()->warning (_ ("unterminated (de)crescendo"));
@@ -313,6 +321,19 @@ Dynamic_engraver::finalize ()
 void
 Dynamic_engraver::typeset_all ()
 {  
+  /*
+    remove suicided spanners,
+    ugh: we'll need this for every spanner, beam, slur
+    Hmm, how to do this, cleanly?
+    Maybe just check at typeset_grob ()?
+  */
+  if (finished_cresc_p_
+      && finished_cresc_p_->immutable_property_alist_ == SCM_EOL)
+    finished_cresc_p_ = 0;
+  if (finished_line_spanner_
+      && finished_line_spanner_->immutable_property_alist_ == SCM_EOL)
+    finished_line_spanner_ = 0;
+
   if (finished_cresc_p_)
     {
       if (!finished_cresc_p_->get_bound (RIGHT))
@@ -336,10 +357,9 @@ Dynamic_engraver::typeset_all ()
     }
   if (finished_line_spanner_)
     {
-      /*
-	To make sure that this works
-      */
+      /* To make sure that this works */
       Side_position_interface::add_staff_support (finished_line_spanner_);
+      
       /*
 	We used to have
 	
@@ -351,7 +371,8 @@ Dynamic_engraver::typeset_all ()
 
       */
 
-      if (!finished_line_spanner_->get_bound (RIGHT))
+      if (!finished_line_spanner_->get_bound (RIGHT)
+	  && finished_line_spanner_->get_bound (LEFT))
 	finished_line_spanner_->set_bound (RIGHT, finished_line_spanner_->get_bound (LEFT));
       
       typeset_grob (finished_line_spanner_);
@@ -364,10 +385,12 @@ Dynamic_engraver::acknowledge_grob (Grob_info i)
 {
   if (Note_column::has_interface (i.elem_l_))
     {
-      if (line_spanner_)
+      if (line_spanner_
+	  /* Don't refill killed spanner */
+	  && line_spanner_->immutable_property_alist_ != SCM_EOL)
 	{
 	  Side_position_interface::add_support (line_spanner_,i.elem_l_);
-	  add_bound_item (line_spanner_,dynamic_cast<Item*>(i.elem_l_));
+	  add_bound_item (line_spanner_,dynamic_cast<Item*> (i.elem_l_));
 	}
     }
 }

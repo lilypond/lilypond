@@ -28,7 +28,7 @@ struct Hash_table_entry
   V value_;
   bool free_b_;
 
-  Hash_table_entry() {
+  Hash_table_entry () {
     free_b_ = true;
   }
   Hash_table_entry (K s, V v)
@@ -55,12 +55,12 @@ public:
   Fixed_size_hash_table (int size_idx)
     {
       size_idx_ = size_idx;
-      int sz = prime_list(size_idx_);
+      int sz = prime_list (size_idx_);
       dict_arr_.set_size (sz);
     }
 
   /// find #s#, or find first empty entry corresponding to #s#
-  int lookup  (K s, unsigned int initial_hash)
+  int lookup (K s, unsigned int initial_hash)
     {
       int sz =dict_arr_.size ();
       initial_hash = initial_hash % sz; 
@@ -102,13 +102,13 @@ class Hash_table
     {
       Fixed_size_hash_table<K,V> *f = new Fixed_size_hash_table<K,V> (fixed_p_->size_idx_ +1);
       
-      for (int i=0; i < fixed_p_->dict_arr_.size(); i++)
+      for (int i=0; i < fixed_p_->dict_arr_.size (); i++)
 	{
 	  if (fixed_p_->dict_arr_[i].free_b_)
 	    continue;
 
 	  K nm (fixed_p_->dict_arr_[i].key_);
-	  unsigned int h = (*hash_func_)(nm);
+	  unsigned int h = (*hash_func_) (nm);
 	  int nl = f->lookup (nm, h);
 	  
 	  f->dict_arr_[nl] = Hash_table_entry<K,V> (nm, fixed_p_->dict_arr_[i].value_);
@@ -149,7 +149,7 @@ public:
     }
   bool elem_b (K s) const
     {
-      int l =  fixed_p_->lookup (s, (*hash_func_)(s));
+      int l =  fixed_p_->lookup (s, (*hash_func_) (s));
 
       return (l >= 0 && !fixed_p_->dict_arr_[l].free_b_) ;
     }
@@ -160,7 +160,7 @@ public:
   V& elem (K s)
     {
       int l;
-      unsigned int h = (*hash_func_)(s);
+      unsigned int h = (*hash_func_) (s);
       while ((l= fixed_p_->lookup (s,h)) <0)
 	{
 	  enlarge ();
@@ -172,7 +172,7 @@ public:
     }
   bool try_retrieve (K k, V *v)
   {
-    int l =  fixed_p_->lookup (k, (*hash_func_)(k));
+    int l =  fixed_p_->lookup (k, (*hash_func_) (k));
     if (l < 0 || fixed_p_->dict_arr_[l].free_b_)
       return false;
     else
@@ -204,11 +204,11 @@ public:
 
   V remove (K s)
     {
-      return fixed_p_->remove (s, (*hash_func_)(s));
+      return fixed_p_->remove (s, (*hash_func_) (s));
     }
   friend class Hash_table_iter<K,V>;
 public:
-  unsigned int (*hash_func_)(K);
+  unsigned int (*hash_func_) (K);
 };
 
 

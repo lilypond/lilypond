@@ -25,12 +25,12 @@ friend class String_handle;
     int references;
 
     /// init to ""
-    String_data();
+    String_data ();
 
     /// init from src. Conservative allocation.
     String_data (String_data const &src); 
     
-    ~String_data();
+    ~String_data ();
 
     /** POST: maxlen >= j.
       @param j, maximum stringlength_i_.    
@@ -45,13 +45,13 @@ friend class String_handle;
     void remax (int j);
 
     /// check if writeable.
-    void OKW();
+    void OKW ();
 
     /// check state.
-    void OK();
+    void OK ();
 
     /// reduce memory usage.
-    void tighten();
+    void tighten ();
 
     // assignment.
     void set (Byte const* byte_C, int length_i);
@@ -63,22 +63,22 @@ friend class String_handle;
 
     void operator += (char const* ch_C);
 
-    char const* ch_C() const; 
+    char const* ch_C () const; 
 
-    char* ch_l();
+    char* ch_l ();
 
-    Byte const* byte_C() const;
+    Byte const* byte_C () const;
 
     // idem, non const
-    Byte* byte_l();
+    Byte* byte_l ();
 
     void trunc (int j);
 
     /** access element. not really safe. Can alter length_i_ without
       #String_data# knowing it.  */
-    Byte &operator [](int j);
-    Byte operator [](int j) const;
-    bool is_binary_bo() const;
+    Byte &operator [] (int j);
+    Byte operator [] (int j) const;
+    bool is_binary_bo () const;
 };
 
 

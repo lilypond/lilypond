@@ -39,7 +39,7 @@ inline int compare (CNote_melodic_tuple const &a, CNote_melodic_tuple const &b)
 class Tie_performer : public Performer
 {
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
   Tie_performer ();
 private:
   bool done_;
@@ -108,7 +108,7 @@ Tie_performer::acknowledge_audio_element (Audio_element_info i)
       Note_req * m = dynamic_cast<Note_req* > (i.req_l_);
       if (!m)
 	return;
-      now_notes_.push (CNote_melodic_tuple (nh, m, now_mom()+ m->length_mom ()));
+      now_notes_.push (CNote_melodic_tuple (nh, m, now_mom ()+ m->length_mom ()));
     }
 }
 
@@ -131,19 +131,19 @@ Tie_performer::create_audio_elements ()
   if (req_l_)
     {
       now_notes_.sort (CNote_melodic_tuple::pitch_compare);
-      stopped_notes_.sort(CNote_melodic_tuple::pitch_compare);
+      stopped_notes_.sort (CNote_melodic_tuple::pitch_compare);
       int i=0;
       int j=0;
       int tie_count=0;
-      while  ( i < now_notes_.size () && j < stopped_notes_.size ())
+      while (i < now_notes_.size () && j < stopped_notes_.size ())
 	{
 	  int comp
-	    = Pitch::compare (*unsmob_pitch (now_notes_[i].req_l_->get_mus_property ("pitch") ),
+	    = Pitch::compare (*unsmob_pitch (now_notes_[i].req_l_->get_mus_property ("pitch")),
 				      *unsmob_pitch (stopped_notes_[j].req_l_->get_mus_property ("pitch")));
 
 	  if (comp)
 	    {
-	      (comp < 0) ? i ++ : j++;
+ (comp < 0) ? i ++ : j++;
 	      continue;
 	    }
 	  else
@@ -170,7 +170,7 @@ Tie_performer::create_audio_elements ()
       
       if (!tie_p_arr_.size ())
 	{
-	  req_l_->origin ()->warning (_("No ties were created!"));
+	  req_l_->origin ()->warning (_ ("No ties were created!"));
 	}
     }
 }
@@ -231,5 +231,5 @@ int
 CNote_melodic_tuple::time_compare (CNote_melodic_tuple const&h1,
 				   CNote_melodic_tuple const &h2)
 {
-  return (h1.end_ - h2.end_ ).sign ();
+  return (h1.end_ - h2.end_).sign ();
 }

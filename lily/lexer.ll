@@ -18,7 +18,7 @@
       lex.backup
   contains no backup states, but only the reminder
       Compressed tables always back up.
-  (don-t forget to rm lex.yy.cc :-)
+ (don-t forget to rm lex.yy.cc :-)
  */
 
 
@@ -60,7 +60,8 @@ valid_version_b (String s);
 	yy_push_state (quote);\
 	yylval.string = new String
 
-#define yylval (*(YYSTYPE*)lexval_l)
+#define yylval \
+	(*(YYSTYPE*)lexval_l)
 
 #define YY_USER_ACTION	add_lexed_char (YYLeng ());
 /*
@@ -95,7 +96,7 @@ N		[0-9]
 AN		{AA}|{N}
 PUNCT		[?!:']
 ACCENT		\\[`'"^]
-NATIONAL  [\001-\006\021-\027\031\036\200-\377]
+NATIONAL	[\001-\006\021-\027\031\036\200-\377]
 TEX		{AA}|-|{PUNCT}|{ACCENT}|{NATIONAL}
 WORD		{A}{AN}*
 ALPHAWORD	{A}+
@@ -214,7 +215,7 @@ HYPHEN		--
 	return RESTNAME;
 }
 <chords,notes>R		{
-	return MEASURES;
+	return MULTI_MEASURE_REST;
 }
 <INITIAL,chords,lyrics,notes>\\\${BLACK}*{WHITE}	{
 	String s=YYText () + 2;
@@ -282,7 +283,7 @@ HYPHEN		--
 }
 <quote>{
 	\\{ESCAPED}	{
-		*yylval.string += to_str (escaped_char(YYText()[1]));
+		*yylval.string += to_str (escaped_char (YYText ()[1]));
 	}
 	[^\\"]+	{
 		*yylval.string += YYText ();
@@ -293,7 +294,7 @@ HYPHEN		--
 
 		/* yylval is union. Must remember STRING before setting SCM*/
 		String *sp = yylval.string;
-		yylval.scm = ly_str02scm  (sp->ch_C ());
+		yylval.scm = ly_str02scm (sp->ch_C ());
 		delete sp;
 		return STRING;
 	}
@@ -322,17 +323,17 @@ HYPHEN		--
 			return yylval.i = HYPHEN;
 		int i = 0;
                	while ((i=s.index_i ("_")) != -1) // change word binding "_" to " "
-			*(s.ch_l () + i) = ' ';
+			* (s.ch_l () + i) = ' ';
 		if ((i=s.index_i ("\\,")) != -1)   // change "\," to TeX's "\c "
 			{
-			*(s.ch_l () + i + 1) = 'c';
+			* (s.ch_l () + i + 1) = 'c';
 			s = s.left_str (i+2) + " " + s.right_str (s.length_i ()-i-2);
 			}
 
 		char c = s[s.length_i () - 1];
 		if (c == '{' ||  c == '}') // brace open is for not confusing dumb tools.
 			here_input ().warning (
-				_("Brace found at end of lyric. Did you forget a space?"));
+				_ ("Brace found at end of lyric. Did you forget a space?"));
 		yylval.scm = ly_str02scm (s.ch_C ());
 
 		DEBUG_OUT << "lyric : `" << s << "'\n";
@@ -472,7 +473,7 @@ My_lily_lexer::scan_escaped_word (String str)
 {
 	// use more SCM for this.
 
-	SCM sym = ly_symbol2scm (str.ch_C());
+	SCM sym = ly_symbol2scm (str.ch_C ());
 
 	int l = lookup_keyword (str);
 	if (l != -1) {
@@ -520,7 +521,7 @@ My_lily_lexer::scan_escaped_word (String str)
 	String msg (_f ("unknown escaped string: `\\%s'", str));	
 	LexerError (msg.ch_C ());
 
-	yylval.scm = ly_str02scm(str.ch_C());
+	yylval.scm = ly_str02scm (str.ch_C ());
 
 	return STRING;
 }
@@ -541,7 +542,7 @@ My_lily_lexer::scan_bare_word (String str)
 		}
 	}
 
-	yylval.scm = ly_str02scm (str.ch_C());
+	yylval.scm = ly_str02scm (str.ch_C ());
 	return STRING;
 }
 
@@ -564,7 +565,7 @@ My_lily_lexer::lyric_state_b () const
 }
 
 /*
- urg, belong to String(_convert)
+ urg, belong to String (_convert)
  and should be generalised 
  */
 void
@@ -597,10 +598,10 @@ valid_version_b (String s)
 {
   Lilypond_version current ( MAJOR_VERSION "." MINOR_VERSION "." PATCH_LEVEL );
   Lilypond_version ver (s);
-  if (!((ver >= oldest_version) && (ver <= current)))
+  if (! ((ver >= oldest_version) && (ver <= current)))
 	{	
 		non_fatal_error (_f ("incorrect lilypond version: %s (%s, %s)", ver.str (), oldest_version.str (), current.str ()));
-		non_fatal_error (_("Consider converting the input with the convert-ly script")); 
+		non_fatal_error (_ ("Consider converting the input with the convert-ly script")); 
 		return false;
     }
   return true;

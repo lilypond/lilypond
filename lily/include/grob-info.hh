@@ -28,7 +28,7 @@ public:
 
 
   Grob_info (Grob*, Music*);
-  Grob_info();
+  Grob_info ();
 };
 
 

@@ -19,8 +19,8 @@
 class System_start_delimiter_engraver : public Engraver
 {
 public:
-  VIRTUAL_COPY_CONS(Translator);
-  System_start_delimiter_engraver();
+  VIRTUAL_COPY_CONS (Translator);
+  System_start_delimiter_engraver ();
 
 protected:
   Spanner * delim_;
@@ -29,7 +29,7 @@ protected:
   virtual void finalize ();
 };
 
-ADD_THIS_TRANSLATOR(System_start_delimiter_engraver);
+ADD_THIS_TRANSLATOR (System_start_delimiter_engraver);
 
 void
 System_start_delimiter_engraver::acknowledge_grob (Grob_info inf)
@@ -37,7 +37,7 @@ System_start_delimiter_engraver::acknowledge_grob (Grob_info inf)
   if (Staff_symbol::has_interface (inf.elem_l_))
     {
       /*
-	don't add as Axis_group_interface::add_element (delim_, ),
+	don't add as Axis_group_interface::add_element (delim_,),
 	because that would set the parent as well */
 	  
       Pointer_group_interface::add_element (delim_, "elements", inf.elem_l_);
@@ -52,18 +52,18 @@ System_start_delimiter_engraver::acknowledge_grob (Grob_info inf)
        */
       if (gh_symbol_p (gl) && gl  == ly_symbol2scm ("brace")
 	  && gh_symbol_p (my_gl) && my_gl == ly_symbol2scm ("bracket"))
-	inf.elem_l_->translate_axis ( -1.0, X_AXIS); // ugh
+	inf.elem_l_->translate_axis (-1.0, X_AXIS); // ugh
     }
 
 }
 
-System_start_delimiter_engraver::System_start_delimiter_engraver()
+System_start_delimiter_engraver::System_start_delimiter_engraver ()
 {
   delim_ = 0;
 }
 
 void
-System_start_delimiter_engraver::initialize()
+System_start_delimiter_engraver::initialize ()
 {
   delim_ = new Spanner (get_property ("SystemStartDelimiter"));
 

@@ -26,7 +26,7 @@ Audio_column::add_audio_item (Audio_item* l)
 }
 
 Moment
-Audio_column::at_mom() const
+Audio_column::at_mom () const
 {
   return at_mom_;
 }

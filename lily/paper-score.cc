@@ -74,7 +74,7 @@ void
 Paper_score::process ()
 {
   if (verbose_global_b)
-    progress_indication ( _f("Element count %d ",  line_l_->element_count ()));
+    progress_indication (_f ("Element count %d ",  line_l_->element_count ()));
 
   
   progress_indication (_ ("Preprocessing elements...") + " ");
@@ -97,6 +97,7 @@ Paper_score::process ()
   outputter_l_->output_header ();
   outputter_l_->output_version ();
 
+  progress_indication ("\n");
 
   if (global_header_p)
     {
@@ -125,7 +126,6 @@ Paper_score::process ()
   outputter_l_->output_scheme (scm);
 
   progress_indication ("\n");
-
 
   // huh?
   delete outputter_l_;

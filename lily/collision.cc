@@ -5,6 +5,7 @@
 
   (c)  1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+
 #include "debug.hh"
 #include "collision.hh"
 #include "note-column.hh"
@@ -14,7 +15,8 @@
 #include "item.hh"
 
 
-MAKE_SCHEME_CALLBACK(Collision,force_shift_callback,2);
+MAKE_SCHEME_CALLBACK (Collision,force_shift_callback,2);
+
 SCM
 Collision::force_shift_callback (SCM element_smob, SCM axis)
 {
@@ -39,7 +41,7 @@ Collision::force_shift_callback (SCM element_smob, SCM axis)
   TODO: make callback of this.
  */
 void
-Collision::do_shifts(Grob* me)
+Collision::do_shifts (Grob* me)
 {
   SCM autos (automatic_shift (me));
   SCM hand (forced_shift (me));
@@ -127,7 +129,7 @@ Collision::automatic_shift (Grob *me)
     {
       for (int i=0; i < clash_groups[d].size (); i++)
 	{
-	  Slice s(Note_column::head_positions_interval (clash_groups[d][i]));
+	  Slice s (Note_column::head_positions_interval (clash_groups[d][i]));
 	  s[LEFT] --;
 	  s[RIGHT]++;
 	  extents[d].push (s);
@@ -143,7 +145,7 @@ Collision::automatic_shift (Grob *me)
 	  Slice prev =extents[d][i-1];
 	  prev.intersect (extents[d][i]);
 	  if (prev.length ()> 0 ||
-	      (extents[-d].size () && d * (extents[d][i][-d] - extents[-d][0][d]) < 0))
+ (extents[-d].size () && d * (extents[d][i][-d] - extents[-d][0][d]) < 0))
 	    for (int j = i; j <  clash_groups[d].size (); j++)
 	      offsets[d][j] += d * 0.5;
 	}
@@ -162,8 +164,8 @@ Collision::automatic_shift (Grob *me)
       /*
 	TODO.
        */
-      Grob * nu_l= Note_column::first_head(cu_l);
-      Grob * nd_l = Note_column::first_head(cd_l);
+      Grob * nu_l= Note_column::first_head (cu_l);
+      Grob * nd_l = Note_column::first_head (cd_l);
       
       int downpos = Note_column::head_positions_interval (cd_l)[BIGGER];
       int uppos = Note_column::head_positions_interval (cu_l)[SMALLER];      
@@ -179,7 +181,7 @@ Collision::automatic_shift (Grob *me)
       /*
 	notes are close, but can not be merged.  Shift
        */
-      if (abs(uppos - downpos) < 2 && !merge)
+      if (abs (uppos - downpos) < 2 && !merge)
 	  do
 	  {
 	    for (int i=0; i < clash_groups[d].size (); i++)
@@ -220,9 +222,6 @@ Collision::forced_shift (Grob *me)
     }
   return tups;
 }
-
-
-
 
 void
 Collision::add_column (Grob*me,Grob* ncol_l)

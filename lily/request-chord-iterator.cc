@@ -33,10 +33,10 @@ Request_chord_iterator::get_req_translator_l ()
 }
 
 void
-Request_chord_iterator::construct_children()
+Request_chord_iterator::construct_children ()
 {
   Simple_music_iterator::construct_children ();
-  get_req_translator_l();
+  get_req_translator_l ();
 }
 
 Request_chord*
@@ -73,10 +73,10 @@ Request_chord_iterator::process (Moment m)
 
 	  bool gotcha = try_music (mus);
 	  if (!gotcha)
-	    mus->origin ()->warning (_f ("Junking request: `%s'", classname(mus)));
+	    mus->origin ()->warning (_f ("Junking request: `%s'", classname (mus)));
 	}
     }
   skip (m);
 }
 
-IMPLEMENT_CTOR_CALLBACK(Request_chord_iterator);
+IMPLEMENT_CTOR_CALLBACK (Request_chord_iterator);

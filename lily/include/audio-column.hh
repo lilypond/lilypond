@@ -22,8 +22,8 @@ public:
   Audio_column (Moment at_mom);
 
   void add_audio_item (Audio_item* i_l);
-  Moment at_mom() const;
-  void print() const;
+  Moment at_mom () const;
+  void print () const;
 
   Link_array<Audio_item> audio_item_l_arr_;
   Performance * performance_l_;

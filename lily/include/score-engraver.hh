@@ -28,32 +28,32 @@ class Score_engraver :
   Paper_column* musical_column_l_;
   void make_columns (Moment);
   void set_columns (Paper_column*,Paper_column*);
-  void typeset_all();
+  void typeset_all ();
     
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
   Paper_score * pscore_p_;
   
   void forbid_breaks ();
-  Score_engraver();
+  Score_engraver ();
   virtual Music_output *get_output_p ();  
 protected:   
   virtual void prepare (Moment);
-  virtual void finish();
-  virtual void one_time_step();
-  virtual int depth_i() const { return Global_translator::depth_i ();}
+  virtual void finish ();
+  virtual void one_time_step ();
+  virtual int depth_i () const { return Global_translator::depth_i ();}
 
 protected:
   /* Engraver_group_engraver interface */
 
   virtual bool try_music (Music*);
-  virtual void initialize();
-  virtual void finalize();
+  virtual void initialize ();
+  virtual void finalize ();
   virtual void announce_grob (Grob_info);
-  virtual void do_announces();
+  virtual void do_announces ();
   virtual void typeset_grob (Grob*elem_p);
 
-  virtual void stop_translation_timestep();
+  virtual void stop_translation_timestep ();
 
 };
 

@@ -15,18 +15,18 @@
 void
 Paper_column::do_break_processing ()
 {
-  Spaceable_grob::remove_interface(this);
+  Spaceable_grob::remove_interface (this);
   Item::do_break_processing ();
 }
 
 int
-Paper_column::rank_i(Grob*me) 
+Paper_column::rank_i (Grob*me) 
 {
   return dynamic_cast<Paper_column*> (me)->rank_i_;
 }
 
 Line_of_score*
-Paper_column::line_l() const
+Paper_column::line_l () const
 {
   return line_l_;
 }
@@ -34,7 +34,7 @@ Paper_column::line_l() const
 Paper_column*
 Paper_column::column_l () const
 {
-  return (Paper_column*)(this);
+  return (Paper_column*) (this);
 }
 
 Paper_column::Paper_column (SCM l)
@@ -69,11 +69,11 @@ Paper_column::musical_b () const
     {
       s = *unsmob_moment (m);
     }
-  return s != Moment(0);
+  return s != Moment (0);
 }
 
 bool
-Paper_column::used_b (Grob*me )
+Paper_column::used_b (Grob*me)
 {
   return gh_pair_p (me->get_grob_property ("elements")) ||  Item::breakable_b (me)
     || gh_pair_p (me->get_grob_property ("bounded-by-me"))

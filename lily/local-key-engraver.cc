@@ -30,10 +30,10 @@
 struct Local_key_engraver : Engraver {
   Item *key_item_p_;
 protected:
-  VIRTUAL_COPY_CONS(Translator);
-  virtual void process_music();
+  VIRTUAL_COPY_CONS (Translator);
+  virtual void process_music ();
   virtual void acknowledge_grob (Grob_info);
-  virtual void stop_translation_timestep();
+  virtual void stop_translation_timestep ();
   virtual void initialize ();
   virtual void create_grobs ();
   virtual void finalize ();
@@ -52,12 +52,12 @@ public:
   Link_array<Grob> support_l_arr_;
   Link_array<Item> forced_l_arr_;
   Link_array<Grob> tie_l_arr_;
-  Local_key_engraver();
+  Local_key_engraver ();
 
   Item * grace_align_l_;
 };
 
-Local_key_engraver::Local_key_engraver()
+Local_key_engraver::Local_key_engraver ()
 {
   key_item_p_ =0;
   grace_align_l_ =0;
@@ -74,11 +74,11 @@ Local_key_engraver::initialize ()
 void
 Local_key_engraver::create_grobs ()
 {
-  if (!key_item_p_ && mel_l_arr_.size()) 
+  if (!key_item_p_ && mel_l_arr_.size ()) 
     {
       SCM localsig = get_property ("localKeySignature");
   
-      for (int i=0; i  < mel_l_arr_.size(); i++) 
+      for (int i=0; i  < mel_l_arr_.size (); i++) 
 	{
 	  Grob * support_l = support_l_arr_[i];
 	  Note_req * note_l = mel_l_arr_[i];
@@ -94,9 +94,9 @@ Local_key_engraver::create_grobs ()
 	  SCM prev = scm_assoc (gh_cons (gh_int2scm (o), gh_int2scm (n)), localsig);
 	  if (prev == SCM_BOOL_F)
 	    prev = scm_assoc (gh_int2scm (n), localsig);
-	  SCM prev_acc = (prev == SCM_BOOL_F) ? gh_int2scm(0) : gh_cdr (prev);
-	  bool different = !gh_equal_p(prev_acc , gh_int2scm(a));
-	  int p = gh_number_p(prev_acc) ? gh_scm2int(prev_acc) : 0;
+	  SCM prev_acc = (prev == SCM_BOOL_F) ? gh_int2scm (0) : gh_cdr (prev);
+	  bool different = !gh_equal_p (prev_acc , gh_int2scm (a));
+	  int p = gh_number_p (prev_acc) ? gh_scm2int (prev_acc) : 0;
 
 	  Grob *tie_break_reminder = 0;
 	  bool tie_changes = false;
@@ -122,14 +122,14 @@ Local_key_engraver::create_grobs ()
 	     2. when different and not tie-changes
 	     3. maybe when at end of a tie: we must later see if
 	     we're after a line break */
-	  if (((to_boolean (note_l->get_mus_property ("force-accidental"))
+	  if (( (to_boolean (note_l->get_mus_property ("force-accidental"))
 		|| different)
 	       && !tie_changes)
 	      || tie_break_reminder)
 	    {
 	      if (!key_item_p_) 
 		{
-		  key_item_p_ = new Item(get_property ("Accidentals"));
+		  key_item_p_ = new Item (get_property ("Accidentals"));
 		  Local_key_item::set_interface (key_item_p_);
 
 
@@ -141,7 +141,7 @@ Local_key_engraver::create_grobs ()
 	      
 	      bool extra_natural =
 		sign (p) * (p - a) == 1
-		&& abs(p) == 2;
+		&& abs (p) == 2;
 
 	      Local_key_item::add_pitch (key_item_p_, *unsmob_pitch (note_l->get_mus_property ("pitch")),
 					 to_boolean (note_l->get_mus_property ("cautionary")),
@@ -203,7 +203,7 @@ Local_key_engraver::create_grobs ()
 
 	On which left, code or paper?
 
-	(Arpeggios are engraved left of accidentals, of course.)
+ (Arpeggios are engraved left of accidentals, of course.)
        */
       for (int i=0;  i < arpeggios_.size ();  i++)
 	Side_position_interface::add_support (arpeggios_[i], key_item_p_);
@@ -219,11 +219,11 @@ Local_key_engraver::finalize ()
 }
 
 void
-Local_key_engraver::stop_translation_timestep()
+Local_key_engraver::stop_translation_timestep ()
 {
   if (key_item_p_)
     {
-      for (int i=0; i < support_l_arr_.size(); i++)
+      for (int i=0; i < support_l_arr_.size (); i++)
 	Side_position_interface::add_support (key_item_p_,support_l_arr_[i]);
 
       typeset_grob (key_item_p_);
@@ -231,11 +231,11 @@ Local_key_engraver::stop_translation_timestep()
     }
 
   grace_align_l_ = 0;
-  mel_l_arr_.clear();
+  mel_l_arr_.clear ();
   arpeggios_.clear ();
   tie_l_arr_.clear ();
-  support_l_arr_.clear();
-  forced_l_arr_.clear();	
+  support_l_arr_.clear ();
+  forced_l_arr_.clear ();	
 }
 
 void
@@ -276,10 +276,10 @@ Local_key_engraver::acknowledge_grob (Grob_info info)
   ugh. repeated deep_copy generates lots of garbage.
  */
 void
-Local_key_engraver::process_music()
+Local_key_engraver::process_music ()
 {
   SCM smp = get_property ("measurePosition");
-  Moment mp =  (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
+  Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
 
   SCM sig = get_property ("keySignature");
 
@@ -300,5 +300,5 @@ Local_key_engraver::process_music()
 
 
 
-ADD_THIS_TRANSLATOR(Local_key_engraver);
+ADD_THIS_TRANSLATOR (Local_key_engraver);
 

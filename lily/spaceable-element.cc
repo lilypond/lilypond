@@ -12,7 +12,7 @@
 #include "warn.hh"
 
 SCM
-Spaceable_grob::get_minimum_distances ( Grob*me)
+Spaceable_grob::get_minimum_distances (Grob*me)
 {
   return me->get_grob_property ("minimum-distances");
 }
@@ -49,7 +49,7 @@ Spaceable_grob::add_spring (Grob*me, Grob * p, Real d, Real strength)
       SCM dist = gh_car (s);
       if (gh_car (dist) == p->self_scm ())
 	{
-	  programming_error("already have that spring");
+	  programming_error ("already have that spring");
 	  return ;
 	}
     }

@@ -14,7 +14,7 @@
 
 class Lyric_performer : public Performer {
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
  Lyric_performer ();
 
 protected:
@@ -49,7 +49,7 @@ Lyric_performer::create_audio_elements ()
       Audio_element_info info (audio_p_, lreq_arr_[0]);
       announce_element (info);
     }
-  lreq_arr_.clear();
+  lreq_arr_.clear ();
 }
 
 void
@@ -60,7 +60,7 @@ Lyric_performer::stop_translation_timestep ()
       play_element (audio_p_);
       audio_p_ = 0;
     }
-  lreq_arr_.clear();
+  lreq_arr_.clear ();
 }
 
 bool

@@ -17,7 +17,7 @@ init_functions ()
 {
   Directional_element_interface::direction_sym = scm_permanent_object (ly_symbol2scm ("direction"));
 }
-ADD_SCM_INIT_FUNC(Directional, init_functions);
+ADD_SCM_INIT_FUNC (Directional, init_functions);
 
 
 bool
@@ -31,7 +31,7 @@ Directional_element_interface::get (Grob*me)
 {
   // return dir_;
   SCM d= me->get_grob_property (direction_sym);
-  if (!isdir_b(d))
+  if (!isdir_b (d))
     return CENTER;
       
   return to_dir (d);

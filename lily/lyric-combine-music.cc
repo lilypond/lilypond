@@ -34,7 +34,7 @@ Lyric_combine_music::length_mom () const
 }
 
 Pitch
-Lyric_combine_music::to_relative_octave (  Pitch p )
+Lyric_combine_music::to_relative_octave (Pitch p)
 {
   p = music_l ()->to_relative_octave (p);
   return lyrics_l () ->to_relative_octave (p);
@@ -57,3 +57,10 @@ Lyric_combine_music::lyrics_l () const
 {
   return unsmob_music (get_mus_property ("lyrics"));
 }
+
+Lyric_combine_music::Lyric_combine_music ()
+  : Music (SCM_EOL)
+{
+}
+
+ADD_MUSIC (Lyric_combine_music);

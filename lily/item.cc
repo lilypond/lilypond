@@ -37,7 +37,7 @@ Item::breakable_b (Grob*me)
   if (me->original_l_)
     return false;
 
-  if (!dynamic_cast<Item*>(me))
+  if (!dynamic_cast<Item*> (me))
     programming_error ("only items can be breakable.");
   
   Item * i  =dynamic_cast<Item*> (me->parent_l (X_AXIS));
@@ -52,7 +52,7 @@ Item::column_l () const
 }
 
 Line_of_score *
-Item::line_l() const
+Item::line_l () const
 {
   Grob *g = parent_l (X_AXIS);
   return g ?  g->line_l () : 0;
@@ -60,18 +60,18 @@ Item::line_l() const
 
 
 void
-Item::copy_breakable_items()
+Item::copy_breakable_items ()
 {
   Drul_array<Item *> new_copies;
   Direction  i=LEFT;
   do 
     {
-      Grob * dolly = clone();
-      Item * item_p = dynamic_cast<Item*>(dolly);
+      Grob * dolly = clone ();
+      Item * item_p = dynamic_cast<Item*> (dolly);
       pscore_l_->line_l_->typeset_grob (item_p);
       new_copies[i] =item_p;
     }
-  while (flip(&i) != LEFT);
+  while (flip (&i) != LEFT);
   broken_to_drul_= new_copies;
 }
 
@@ -87,20 +87,20 @@ Item::broken_b () const
   Generate items for begin and end-of line.
  */
 void
-Item::discretionary_processing()
+Item::discretionary_processing ()
 {
   if (broken_b ())
     return;
 
   if (Item::breakable_b (this))
-    copy_breakable_items();
+    copy_breakable_items ();
 }
 
 Grob*
 Item::find_broken_piece (Line_of_score*l) const
 {
-  if (line_l() == l) 
-    return (Item*)(this);
+  if (line_l () == l) 
+    return (Item*) (this);
 
   Direction d = LEFT;
   do {

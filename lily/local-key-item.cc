@@ -18,7 +18,7 @@
 #include "lookup.hh"
 
 static SCM
-pitch_less  (SCM p1, SCM p2)
+pitch_less (SCM p1, SCM p2)
 {
   return Pitch::less_p (gh_car (p1),  gh_car (p2));
 }
@@ -31,12 +31,12 @@ init_pitch_funcs ()
   pitch_less_proc = gh_new_procedure2_0 ("pits-less", &pitch_less);
 }
 
-ADD_SCM_INIT_FUNC(lkpitch,init_pitch_funcs);
+ADD_SCM_INIT_FUNC (lkpitch,init_pitch_funcs);
 
 
 void
 Local_key_item::add_pitch (Grob*me, Pitch p, bool cautionary, bool natural,
-			   Grob* tie_break_cautionary)
+			   Grob* tie_break_reminder)
 {
   SCM acs = me->get_grob_property ("accidentals");
   SCM pitch = p.smobbed_copy ();
@@ -45,11 +45,11 @@ Local_key_item::add_pitch (Grob*me, Pitch p, bool cautionary, bool natural,
     opts = gh_cons (ly_symbol2scm ("cautionary"), opts);
   if (natural)
     opts = gh_cons (ly_symbol2scm ("natural"), opts);
-  if (tie_break_cautionary)
+  if (tie_break_reminder)
     {
       /* Ugh, these 'options' can't have a value, faking... */
-      opts = gh_cons (tie_break_cautionary->self_scm (), opts);
-      opts = gh_cons (ly_symbol2scm ("tie-break-cautionary"), opts);
+      opts = gh_cons (tie_break_reminder->self_scm (), opts);
+      opts = gh_cons (ly_symbol2scm ("tie-break-reminder"), opts);
     }
 
   pitch = gh_cons (pitch, opts);
@@ -61,10 +61,10 @@ Local_key_item::add_pitch (Grob*me, Pitch p, bool cautionary, bool natural,
 Molecule
 Local_key_item::parenthesize (Grob*me, Molecule m)
 {
-  Molecule open = Font_interface::get_default_font (me)->find_by_name (String ("accidentals-("));
+  Molecule open = Font_interface::get_default_font (me)->find_by_name (String ("accidentals- ("));
   Molecule close = Font_interface::get_default_font (me)->find_by_name (String ("accidentals-)"));
-  m.add_at_edge(X_AXIS, LEFT, Molecule(open), 0);
-  m.add_at_edge(X_AXIS, RIGHT, Molecule(close), 0);
+  m.add_at_edge (X_AXIS, LEFT, Molecule (open), 0);
+  m.add_at_edge (X_AXIS, RIGHT, Molecule (close), 0);
 
   return m;
 }
@@ -84,7 +84,7 @@ Local_key_item::after_line_breaking (SCM smob)
   Grob *me = unsmob_grob (smob);
 
   SCM accs = me->get_grob_property ("accidentals");
-  for  (SCM s = accs;
+  for (SCM s = accs;
 	gh_pair_p (s); s = gh_cdr (s))
     {
       SCM opts = gh_cdar (s);
@@ -113,7 +113,7 @@ Local_key_item::after_line_breaking (SCM smob)
   accidental placement is more complicated than this.
  */
 
-MAKE_SCHEME_CALLBACK(Local_key_item,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Local_key_item,brew_molecule,1);
 SCM
 Local_key_item::brew_molecule (SCM smob)
 {
@@ -127,7 +127,7 @@ Local_key_item::brew_molecule (SCM smob)
   int lastoct = -100;
 
   SCM accs = me->get_grob_property ("accidentals");
-  for  (SCM s = accs;
+  for (SCM s = accs;
 	gh_pair_p (s); s = gh_cdr (s))
     {
       Pitch p (*unsmob_pitch (gh_caar (s)));
@@ -161,7 +161,7 @@ Local_key_item::brew_molecule (SCM smob)
       if (scm_memq (ly_symbol2scm ("natural"), opts) != SCM_BOOL_F)
 	{
 	  Molecule prefix = Font_interface::get_default_font (me)->find_by_name (String ("accidentals-0"));
-	  acc.add_at_edge(X_AXIS, LEFT, Molecule(prefix), 0);
+	  acc.add_at_edge (X_AXIS, LEFT, Molecule (prefix), 0);
 	}
 
       if (scm_memq (ly_symbol2scm ("cautionary"), opts) != SCM_BOOL_F)
@@ -196,14 +196,14 @@ Local_key_item::brew_molecule (SCM smob)
 	if (!gh_number_p (pads[d]))
 	  continue;
 
-	Box b(Interval (0, gh_scm2double (pads[d]) * note_distance),
+	Box b (Interval (0, gh_scm2double (pads[d]) * note_distance),
 	      Interval (0,0));
 	Molecule m (Lookup::blank (b));
 	mol.add_at_edge (X_AXIS, d, m, 0);
-      } while ( flip (&d)!= LEFT);
+      } while (flip (&d)!= LEFT);
     }
 
-  return mol.smobbed_copy();
+  return mol.smobbed_copy ();
 }
 
 bool

@@ -56,7 +56,7 @@ public:
   
   /// pointer to the alternative that will be processed next.
   SCM alternative_cons_;
-  ~Unfolded_repeat_iterator();
+  ~Unfolded_repeat_iterator ();
   Unfolded_repeat_iterator ();
   Unfolded_repeat_iterator (Unfolded_repeat_iterator const &);
 protected:  
@@ -76,7 +76,7 @@ class Volta_repeat_iterator : public Unfolded_repeat_iterator
 public:
   Volta_repeat_iterator ();
   static  SCM constructor_cxx_function;
-  VIRTUAL_COPY_CONS(Music_iterator);
+  VIRTUAL_COPY_CONS (Music_iterator);
 };
 
 
@@ -166,7 +166,7 @@ Unfolded_repeat_iterator::next_element (bool side_effect)
 	      
 	      if (do_repcommands)
 		add_repeat_command (gh_list (ly_symbol2scm ("volta"),
-					     ly_str02scm (repstr.ch_C()), SCM_UNDEFINED));
+					     ly_str02scm (repstr.ch_C ()), SCM_UNDEFINED));
 	    }	  
 	}
       else if (volta_b_)
@@ -224,7 +224,7 @@ Unfolded_repeat_iterator::next_element (bool side_effect)
 	    {
 	      String repstr = to_str (done_count_ + 1) + ".";
 	      add_repeat_command (gh_list (ly_symbol2scm ("volta"),
-					   ly_str02scm (repstr.ch_C()), SCM_UNDEFINED));
+					   ly_str02scm (repstr.ch_C ()), SCM_UNDEFINED));
 	      add_repeat_command (ly_symbol2scm ("end-repeat"));
 	    }
 
@@ -276,9 +276,9 @@ Unfolded_repeat_iterator::construct_children ()
       do_main_b_ = false;
     }
 
-  while (current_iter_p_ && !current_iter_p_-> ok())
+  while (current_iter_p_ && !current_iter_p_-> ok ())
     {
-      next_element(true);
+      next_element (true);
     }
 }
 
@@ -289,7 +289,7 @@ void
 Unfolded_repeat_iterator::add_repeat_command (SCM what)
 {
   SCM reps = ly_symbol2scm ("repeatCommands");
-  SCM current_reps = report_to_l ()->get_property(reps);
+  SCM current_reps = report_to_l ()->get_property (reps);
 
   Translator_group * where = report_to_l ()->where_defined (reps);
   if (where
@@ -312,7 +312,7 @@ Unfolded_repeat_iterator::process (Moment m)
     {
       while (!current_iter_p_->ok ())
 	{
-	  next_element(true);
+	  next_element (true);
 
 	  if (!current_iter_p_)
 	    return;
@@ -360,7 +360,7 @@ Unfolded_repeat_iterator::get_music (Moment until)const
       s = gh_append2 (nm, s);
       
       Moment m = 0;
-      for (SCM i = nm; gh_pair_p(i); i = gh_cdr (i))
+      for (SCM i = nm; gh_pair_p (i); i = gh_cdr (i))
 	m = m >? unsmob_music (gh_car (i))->length_mom ();
 
       if (m > Moment (0))
@@ -381,8 +381,8 @@ Unfolded_repeat_iterator::try_music_in_children (Music  * m) const
   return  current_iter_p_->try_music (m);
 }
 
-IMPLEMENT_CTOR_CALLBACK(Unfolded_repeat_iterator);
-IMPLEMENT_CTOR_CALLBACK(Volta_repeat_iterator);
+IMPLEMENT_CTOR_CALLBACK (Unfolded_repeat_iterator);
+IMPLEMENT_CTOR_CALLBACK (Volta_repeat_iterator);
 
 Volta_repeat_iterator::Volta_repeat_iterator ()
 {

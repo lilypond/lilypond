@@ -26,7 +26,7 @@ class Item : public Grob
   Drul_array<Item*> broken_to_drul_;
 
 public:
-  VIRTUAL_COPY_CONS(Grob);
+  VIRTUAL_COPY_CONS (Grob);
   Item (SCM);
   Item (Item const &);
 
@@ -38,12 +38,12 @@ public:
   Item * find_prebroken_piece (Direction) const;
   Grob * find_broken_piece (Line_of_score*) const;    
 
-  virtual Line_of_score * line_l() const;
+  virtual Line_of_score * line_l () const;
   virtual Paper_column * column_l () const;
   virtual void handle_prebroken_dependencies ();
 protected:
   virtual void discretionary_processing ();
-  void copy_breakable_items();
+  void copy_breakable_items ();
   virtual SCM do_derived_mark ();
 };
 

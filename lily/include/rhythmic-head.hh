@@ -21,7 +21,7 @@ public:
   static Item * stem_l (Grob*) ;
   static Item * dots_l (Grob*) ;
   static int dot_count (Grob*) ;
-  DECLARE_SCHEME_CALLBACK(after_line_breaking, (SCM ));
+  DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM ));
   static bool has_interface (Grob*);
   static void set_interface (Grob*);
 };

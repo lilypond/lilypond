@@ -23,14 +23,14 @@ class Stanza_number_engraver : public Engraver
 
   void create_text (SCM s);
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
   Stanza_number_engraver ();
 
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
 };
 
-ADD_THIS_TRANSLATOR(Stanza_number_engraver);
+ADD_THIS_TRANSLATOR (Stanza_number_engraver);
 
 Stanza_number_engraver::Stanza_number_engraver ()
 {
@@ -39,7 +39,7 @@ Stanza_number_engraver::Stanza_number_engraver ()
 }
 
 void
-Stanza_number_engraver::acknowledge_grob(Grob_info i)
+Stanza_number_engraver::acknowledge_grob (Grob_info i)
 {
   SCM s = get_property ("stanza");
       
@@ -50,11 +50,11 @@ Stanza_number_engraver::acknowledge_grob(Grob_info i)
     {
 //       if (i.elem_l_->has_interface (symbol ("lyric-syllable-interface")))
         // Tried catching lyric items to generate stanza numbers, but it spoils lyric spacing.
-       if (Bar::has_interface (i.elem_l_) || now_mom() == Moment(0))
+       if (Bar::has_interface (i.elem_l_) || now_mom () == Moment (0))
 	// Works, but requires bar_engraver in LyricsVoice context apart from at beginning.
 	// Is there any score element we can catch that will do the trick?
 //       if (! i.elem_l_->has_interface (symbol ("lyric-syllable-interface")) ||
-// 	  now_mom() == Moment(0))
+// 	  now_mom () == Moment (0))
 	// What happens if we try anything at all EXCEPT a lyric? Is there anything else?
         // Not sure what it's catching, but it still mucks up lyrics.
 	create_text (s);
@@ -75,7 +75,7 @@ Stanza_number_engraver::stop_translation_timestep ()
 void
 Stanza_number_engraver::create_text (SCM txt)
 {
-  if(!text_)
+  if (!text_)
     {
       text_ = new Item (get_property ("StanzaNumber"));
       text_->set_grob_property ("text", txt);
