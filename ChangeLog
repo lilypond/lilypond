@@ -1,5 +1,7 @@
 2005-03-15  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* GNUmakefile.in: fix lilypond-words path.
+
 	* po/tr.po: update to 2.3.21
 
 	* lily/new-fingering-engraver.cc (position_scripts): take priority

@@ -138,7 +138,7 @@ $(tree-prefix)/lilypond-force:
 		ln -s ../../../mf/$(outconfbase) svg && \
 		ln -s ../../../mf/$(outconfbase) type1
 	cd $(tree-prefix)/elisp && \
-		ln -sf ../../../elisp/$(outconfbase)/lilypond-words.el . && \
+		ln -sf ../../../../elisp/$(outconfbase)/lilypond-words.el . && \
 		ln -s $(abs-srcdir)/elisp/*.el .
 	$(foreach i,$(CATALOGS), \
 		mkdir -p $(tree-prefix)/locale/$i/LC_MESSAGES && \
