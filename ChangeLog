@@ -1,5 +1,7 @@
 2004-11-14  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/grob-scheme.cc (LY_DEFINE): add new function ly:grob-key.
+
 	* lily/include/object-key-undumper.hh (Module): new file.
 
 	* lily/object-key-undumper.cc (Module): New file. Deserialize
@@ -10,7 +12,6 @@
 
 	* lily/include/object-key-dumper.hh (class Object_key_dumper): 
 	new file. Serialize object keys.
-
 	
 	* lily/object-key.cc (dump): new function.
 	(as_scheme): new virtual function

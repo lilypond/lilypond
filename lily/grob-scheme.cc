@@ -223,3 +223,14 @@ LY_DEFINE (ly_item_break_dir, "ly:item-break-dir",
   return scm_int2num (me->break_status_dir ());
 }
 
+
+LY_DEFINE(ly_grob_key, "ly:grob-key",
+	  1,0,0,
+	  (SCM grob),
+	  "Return the object-key for @var{grob}."
+	  )
+{
+  Grob *me = unsmob_grob (grob);
+  SCM_ASSERT_TYPE (me, grob, SCM_ARG1, __FUNCTION__, "Grob");
+  return me->get_key ()->self_scm ();
+}
