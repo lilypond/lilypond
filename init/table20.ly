@@ -11,7 +11,6 @@ table_twenty =
 
     % index TeXstring, 	xmin xmax ymin ymax
 
-    % not yet updated
     "scripts" = \table {
 	"fermata" "\fermata"		0.0\pt 0.0\pt	0.0\pt 6.0\pt
 	"-fermata" "\ifermata"		0.0\pt 0.0\pt	-6.0\pt 0.0\pt
@@ -78,8 +77,6 @@ table_twenty =
 	"tenor_change"	"\caltoclef" 	0.0\pt	16.0\pt	0.0\pt	20.0\pt
     }
 
-    % ugh what's our outdir called?
-    \include "font-en-tja20.ly"
 
     "slur" = \table {
 	"whole"	"\slurchar%{%}"	0.0\pt	0.0\pt	0.0\pt	0.0\pt
@@ -165,10 +162,12 @@ table_twenty =
 	"d7"	"\dhundredtwentyeighthflag"	0.0\pt	5.0\pt	0.0\pt	0.0\pt
      }
 
-    "beamslopes" = \table {
-	"uslope"	"\beamuslope{%}{%}"  2.0\pt 64.0\pt 0.0\pt 0.0\pt
-	"dslope"	"\beamdslope{%}{%}"  2.0\pt 64.0\pt 0.0\pt 0.0\pt
+  "beamslopes" = \table {
+	"slope"		"\beamslope{%}{%}"  2.0\pt 64.0\pt 0.0\pt 0.0\pt	
 	"horizontal"	"\rulesym{%}{%}"	
-    }
+     }
+     
+    % ugh what's our outdir called?
+    \include "font-en-tja20.ly"
 }
 
