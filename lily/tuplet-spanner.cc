@@ -38,6 +38,10 @@ Tuplet_spanner::do_brew_molecule_p () const
   SCM visibility_sym =get_elt_property (tuplet_visibility_scm_sym);
   if (visibility_sym != SCM_BOOL_F)
     {
+      /*
+	ARG. Fixme.
+       */
+      
       /* Property values:
 	 0       show nothing
 	 1       show number
