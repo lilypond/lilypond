@@ -173,8 +173,8 @@ Grob::preset_extent (SCM element_smob, SCM scm_axis)
   Axis a = (Axis) gh_scm2int (scm_axis);
 
   SCM ext = s->get_grob_property ((a == X_AXIS)
-				 ? "extent-X"
-				 : "extent-Y");
+				 ? "X-extent"
+				 : "Y-extent");
   
   if (gh_pair_p (ext))
     {
@@ -510,8 +510,8 @@ Grob::extent (Grob * refp, Axis a) const
   ext = ly_scm2interval (d->dimension_);
 
   SCM extra = get_grob_property (a == X_AXIS
-				? "extra-extent-X"
-				: "extra-extent-Y");
+				? "extra-X-extent"
+				: "extra-Y-extent");
 
   /*
     signs ?
@@ -523,8 +523,8 @@ Grob::extent (Grob * refp, Axis a) const
     }
   
   extra = get_grob_property (a == X_AXIS
-				? "minimum-extent-X"
-				: "minimum-extent-Y");
+				? "minimum-X-extent"
+				: "minimum-Y-extent");
   if (gh_pair_p (extra))
     {
       ext.unite (Interval (gh_scm2double (ly_car (extra)),
@@ -832,9 +832,9 @@ anything.
 ",
   "X-offset-callbacks Y-offset-callbacks X-extent-callback molecule cause
 Y-extent-callback molecule-callback extra-offset spacing-procedure
-staff-symbol interfaces dependencies extent-X extent-Y extra-extent-X
+staff-symbol interfaces dependencies X-extent Y-extent extra-X-extent
 causes meta layer before-line-breaking-callback
-after-line-breaking-callback extra-extent-Y minimum-extent-X
-minimum-extent-Y transparent");
+after-line-breaking-callback extra-Y-extent minimum-X-extent
+minimum-Y-extent transparent");
 
 

@@ -942,6 +942,15 @@ if 1:
 	
 	conversions.append (((1,5,68), conv, 'ly-set-X-property -> ly-set-X-property!'))
 
+if 1:
+	def conv (str):
+		str = re.sub ('extent-X', 'X-extent', str)
+		str = re.sub ('extent-Y', 'Y-extent', str)		
+		return str
+	
+	conversions.append (((1,5,71), conv, 'extent-[XY] -> [XY]-extent'))
+
+
 ################################
 #	END OF CONVERSIONS	
 ################################
