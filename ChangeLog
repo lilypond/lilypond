@@ -1,5 +1,8 @@
 2003-07-29  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/regression/font-name.ly: don't use PS fonts for
+	compatibility reasons. 
+
 	* mutopia/claop.py (accents): update to 1.8
 
 	* Documentation/user/music-glossary.tely (Top): remove 13pt.
