@@ -44,14 +44,13 @@
 	; Cm iso Cm.no5
 	(((0 . 0) (2 . -1)) . ("m"))
 	; C2 iso C2.no3
-	(((0 . 0) (1 . 0) (4 . 0)) . (super "2"))
+	(((0 . 0) (1 . 0) (4 . 0)) . ("" (super "2")))
 	; C4 iso C4.no3
-	(((0 . 0) (3 . 0) (4 . 0)) . (super "4"))
-	; Cdim iso Cm5-
+	(((0 . 0) (3 . 0) (4 . 0)) . ("" (super "4")))
+	;; Cdim iso Cm5-
 	(((0 . 0) (2 . -1) (4 . -1)) . ("dim"))
 	; Co iso Cm5-7-
-	; urg
-        (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . (super "o"))
+        (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . ("" (super "o")))
 	; Cdim9
 	(((0 . 0) (2 . -1) (4 . -1) (6 . -2) (1 . -1)) . ("dim" (super "9")))
 	(((0 . 0) (2 . -1) (4 . -1) (6 . -2) (1 . -1) (3 . -1)) . ("dim" (super "11")))
@@ -83,12 +82,12 @@
 	 (((0 . 0) (2 . -1)) . ("m"))
 	 (((0 . 0) (3 . 0) (4 . 0)) . ("sus"))
 	 (((0 . 0) (2 . -1) (4 . -1)) . ("dim"))
-;Alternate:	 (((0 . 0) (2 . -1) (4 . -1)) . ((super "o")))
+;Alternate:	 (((0 . 0) (2 . -1) (4 . -1)) . ("" (super "o")))
 	 (((0 . 0) (2 . 0) (4 . 1)) . ("aug"))
 ;Alternate:	 (((0 . 0) (2 . 0) (4 . 1)) . ("+"))
 	 (((0 . 0) (1 . 0) (4 . 0)) . ("2"))
 	 ;; Common seventh chords
-	 (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . (rows (super "o") "7"))
+	 (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . ("" (super "o") "7"))
 	 (((0 . 0) (2 . 0) (4 . 0) (6 . 0)) . ("maj7"))
 	 (((0 . 0) (2 . -1) (4 . 0) (6 . -1)) . ("m7"))
 	 (((0 . 0) (2 . 0) (4 . 0) (6 . -1)) . ("7"))
@@ -96,7 +95,9 @@
 	 ;jazz: the delta, see jazz-chords.ly
 	 ;;(((0 . 0) (2 . -1) (4 . -1) (6 . -2)) .  (super ((font-family . math) "N"))
 	 ;; ugh, kludge slashed o
-	 (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (rows ((raise . 1) "o") ((kern . -0.85) ((raise . 0.57) ((font-relative-size . -3) "/"))) "7")) ; slashed o
+	 ;; (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (rows ((raise . 1) "o") ((kern . -0.85) ((raise . 0.57) ((font-relative-size . -3) "/"))) "7")) ; slashed o
+	 (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (rows ((raise . 1) "o") (((kern . -0.85) (raise . 1.1) (font-relative-size . -2)) "/") "7")) ; slashed o
+
 	 (((0 . 0) (2 . 0) (4 . 1) (6 . -1)) . ("aug7"))
 	 (((0 . 0) (2 . 0) (4 . -1) (6 . 0)) . (rows "maj7" ((font-relative-size . -2) ((raise . 0.2) (music (named "accidentals--1")))) "5"))
 	 (((0 . 0) (2 . 0) (4 . -1) (6 . -1)) . (rows "7" ((font-relative-size . -2) ((raise . 0.2) (music (named "accidentals--1")))) "5"))
@@ -231,12 +232,14 @@
 
 	;; DONT use non-ascii characters, even if ``it works'' in Windows
 	
-	;;(((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . (((raise . 0.8)"o"))); works, but "o" is a little big
-	(((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . ((raise . 0.8) (size . -2) ("o")))
+ 	;;(((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . ((raise . 0.8) (size . -2) ("o")))
+ 	(((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . ("" (super "o")))
 
 	;; half diminshed chords
-	; half diminished seventh chord = slashed o
-	(((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (((raise . 0.8)"/o")))
+	;; half diminished seventh chord = slashed o
+	;; (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (((raise . 0.8) "/o")))
+        (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (rows ((raise . 1) "o") (((kern . -0.85) (raise . 1.1) (font-relative-size . -2)) "/") "7")) ; slashed o
+
 	; half diminished seventh chord  with major 9 = slashed o cancelation 9
 	(((0 . 0) (2 . -1) (4 . -1) (6 . -1) (1 . 0)) . (
 		((raise . 0.8)"/o(")
@@ -253,6 +256,7 @@
 
 (define (pitch->note-name pitch)
   (cons (cadr pitch) (caddr pitch)))
+  
 
 (define (accidental->text acc)
     (if (= acc 0)
@@ -266,7 +270,7 @@
 				(list (append '((raise . 0.6))
 				  (list
 				   (string-append "accidentals-" 
-						  (number->string acc))))))))))))
+                                                 (number->string acc))))))))))))
 )
 
 (define (pitch->text pitch)

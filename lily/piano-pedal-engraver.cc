@@ -57,7 +57,7 @@ Piano_pedal_engraver::initialize ()
   Pedal_info *p = info_list_;
 
 
-  char * names [] = { "Sostenuto", "Sustain", "UnaChorda", 0  };
+  char * names [] = { "Sostenuto", "Sustain", "UnaCorda", 0  };
   char **np = names ;
   do
     {
@@ -155,14 +155,14 @@ Piano_pedal_engraver::create_grobs ()
 	    }
 	  else
 	    {
-	      s = gh_car (strings);
+	      s = gh_caddr (strings);
 	    }
 	  p->start_req_l_ = 0;
 	}
       else if (p->req_l_drul_[START])
 	{
 	  p->start_req_l_ = p->req_l_drul_[START];
-	  s = gh_caddr (strings);
+	  s = gh_car (strings);
 	}
 
       if (gh_string_p (s))

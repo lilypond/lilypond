@@ -463,8 +463,8 @@ to any Graphic objects that satisfies the predicate."
     (engraver-description
      "Piano_pedal_engraver"
      "Engrave piano pedal symbols."
-     '(SostenutoPedal SustainPedal UnaChordaPedal)
-     '(pedalSostenutoStrings pedalSustainStrings pedalUnaChordaStrings
+     '(SostenutoPedal SustainPedal UnaCordaPedal)
+     '(pedalSostenutoStrings pedalSustainStrings pedalUnaCordaStrings
       )))
 
    (cons 
