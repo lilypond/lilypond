@@ -50,13 +50,23 @@ Part_combine_music::compress (Moment m)
 Music*
 Part_combine_music::first_l () const
 {
-  return unsmob_music (get_mus_property ("one"));
+  SCM l = get_mus_property ("elements");
+  if (!gh_pair_p (l))
+    return 0;
+  return unsmob_music (gh_car (l));
 }
+
 
 Music*
 Part_combine_music::second_l () const
 {
-  return unsmob_music (get_mus_property ("two"));
+  SCM l = get_mus_property ("elements");
+  if (!gh_pair_p (l))
+    return 0;
+  l = gh_cdr (l);
+  if (!gh_pair_p (l))
+    return 0;
+  return unsmob_music (gh_car (l));
 }
 
 

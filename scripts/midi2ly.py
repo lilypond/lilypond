@@ -289,6 +289,7 @@ def convert_midi (f):
 	str = open (f).read ()
 	midi_dump = midi.parse (str)
 
+
 	tracks = []
 	for t in midi_dump[1]:
 		tracks.append (split_track (t))
