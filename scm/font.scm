@@ -23,8 +23,12 @@
 	(else (ly-warning "unknown font field name"))
 	)
        ))
-  
-;;;;;;;;; TODO TODO . (should not use filtering?)
+
+
+
+;; most of these routines have been reimplemented in C++ 
+
+;; TODO TODO . (should not use filtering?)
 ;; this is bad, since we generate garbage every font-lookup.
 ;; otoh, if the qualifiers is narrow enough , we don't generate much garbage.
 
@@ -36,12 +40,28 @@
        font-descr-alist)
       )
 
-;; should really have name/pt size at the front of the list.
+(define paper-style-sheet-alist
+  '(
+    ((8 * * braces feta-braces 8) . "feta-braces8")
+    ((7 * * braces feta-braces 7) . "feta-braces7")
+    ((6 * * braces feta-braces 6) . "feta-braces6")
+    ((5 * * braces feta-braces 5) . "feta-braces5")
+    ((4 * * braces feta-braces 4) . "feta-braces4")
+    ((3 * * braces feta-braces 3) . "feta-braces3")
+    ((2 * * braces feta-braces 2) . "feta-braces2")
+    ((1 * * braces feta-braces 1) . "feta-braces1")
+    ((0 * * braces feta-braces 0) . "feta-braces0")
+    ))
+
+;; FIXME: what about this comment?:
+;;   should really have name/pt size at the front of the list.
+;;   (also tried to vary the order of this list, with little effect)
 ;;
-;; (also tried to vary the order of this list, with little effect)
+;; (font-relative-size font-series font-shape font-family font-name
+;; font-design-size)
 (define paper20-style-sheet-alist
   '(
-    ;; why are font-names strings, not symbols?
+    ;; why are font file names strings, not symbols?
     ((3 medium upright number feta-nummer 13) . "feta-nummer13")
     ((2 medium upright number feta-nummer 13) . "feta-nummer13")
     ((1 medium upright number feta-nummer 11) . "feta-nummer11")
@@ -101,26 +121,6 @@
     ((-1 medium caps roman cmcsc 8) . "cmcsc8")
     ((-2 medium caps roman cmcsc 7) . "cmcsc7")
     ((-3 medium caps roman cmcsc 7) . "cmcsc7")
-
-    ;; smallest needs 11 steps: -3 to +8, so
-    ;; biggest also needs 11 available steps: +2 to + 13
-    ((13 * * braces feta-braces 6) . "feta-braces6")
-    ((12 * * braces feta-braces 6) . "feta-braces6")
-    ((11 * * braces feta-braces 6) . "feta-braces6")
-    ((10 * * braces feta-braces 6) . "feta-braces6")
-    ((9 * * braces feta-braces 6) . "feta-braces6")
-    ((8 * * braces feta-braces 6) . "feta-braces6")
-    ((7 * * braces feta-braces 5) . "feta-braces5")
-    ((6 * * braces feta-braces 4) . "feta-braces4")
-    ((5 * * braces feta-braces 3) . "feta-braces3")
-    ((4 * * braces feta-braces 2) . "feta-braces2")
-    ((3 * * braces feta-braces 1) . "feta-braces1")
-    ((2 * * braces feta-braces 0) . "feta-braces0")
-    ((1 * * braces feta-braces 0) . "feta-braces0")
-    ((0 * * braces feta-braces 0) . "feta-braces0")
-    ((-1 * * braces feta-braces 0) . "feta-braces0")
-    ((-2 * * braces feta-braces 0) . "feta-braces0")
-    ((-3 * * braces feta-braces 0) . "feta-braces0")
 
     ((3 * * dynamic feta-din 19) . "feta-din19")
     ((2 * * dynamic feta-din 19) . "feta-din19")
@@ -191,7 +191,8 @@
 
 
 (define (make-style-sheet sym)
-  `((fonts . ,(cdr (assoc sym font-list-alist)))
+  `((fonts . ,(append paper-style-sheet-alist
+		      (cdr (assoc sym font-list-alist))))
     (font-defaults
      . ((font-family . music)
 	(font-relative-size . 0)

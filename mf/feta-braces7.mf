@@ -1,0 +1,11 @@
+% 
+% feta-braces6.mf --  next 256 braces
+% 
+% source file of the Feta (Font-En-Tja) music font
+% 
+% (c) 1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+% 
+
+font_count := 7;
+input feta-beugel;
+end.
