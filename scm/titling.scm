@@ -5,7 +5,7 @@
 ;;;; (c) 2004--2005 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;          Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
-(define-public (page-properties layout)
+(define-public (layout-extract-page-properties layout)
   (list (append `((linewidth . ,(ly:paper-get-number
 				 layout 'linewidth)))
 		(ly:output-def-lookup layout 'text-font-defaults))))
@@ -53,7 +53,7 @@ page:last?, page:page-number-string and page:page-number
 	       (props (append
 		       (list pgnum-alist)
 		       prefixed-alists
-		       (page-properties layout))))
+		       layout-extract-page-properties layout))))
 
 	  (interpret-markup layout props potential-markup))
 
@@ -88,7 +88,7 @@ PROPS argument will include variables set in SCOPES (prefixed with
 		      alist))
 	       alists))
 	 (props (append prefixed-alist
-			(page-properties layout)))
+			layout-extract-page-properties layout)))
 
 	 (markup (ly:output-def-lookup layout what)))
 
