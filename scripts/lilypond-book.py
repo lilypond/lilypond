@@ -1409,7 +1409,7 @@ def compile_all_files (chunks):
 		cmd = '(( %s  >&2 ) >&- )' % cmd
 		
 		ly.system (cmd)
-		ly.system ("dvips -E -o %s.eps %s" % (file, file))
+		ly.system ("dvips -Ppdf -u+lilypond.map -E -o %s.eps %s" % (file, file))
 	map (to_eps, eps)
 
 	map (ly.make_ps_images, map (lambda x: x + '.eps', png))
