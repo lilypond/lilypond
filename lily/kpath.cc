@@ -38,6 +38,7 @@ extern "C" {
 #include "string.hh"
 #include "main.hh"
 #include "kpath.hh"
+#include "source-file.hh"
 #include "warn.hh"
 
 String
@@ -80,6 +81,74 @@ kpathsea_find_tfm (char const * name)
   return "";
 }
 
+#if KPATHSEA
+/* FIXME: this should be part of kpathsea */
+
+static kpse_file_format_type
+kpathsea_find_format (String name)
+{
+  for (int i = 0; i < kpse_last_format; i++)
+    {
+      if (!kpse_format_info[i].type)
+        kpse_init_format ((kpse_file_format_type) i);
+
+      char const **suffixes[] = { kpse_format_info[i].suffix,
+				  kpse_format_info[i].alt_suffix };
+      for (int j = 0; j < 2; j++)
+	for (char const **p = suffixes[j]; p && *p; p++)
+	  {
+	    String suffix = *p;
+	    if (name.right_string (suffix.length ()) == suffix)
+	      return (kpse_file_format_type) i;
+	  }
+    }
+  return kpse_last_format;
+}
+#endif
+
+String
+kpathsea_gulp_file_to_string (String name)
+{
+  String filename = global_path.find (name);
+
+#if (KPATHSEA && HAVE_KPSE_FIND_FILE)
+  if (filename.is_empty ())
+    {
+      char *p = kpse_find_file (name.to_str0 (), kpathsea_find_format (name),
+	true);
+      if (p)
+	filename = p;
+      else
+	warning (_f ("kpathsea can not find file: `%s'", name));
+    }
+#endif
+
+  if (filename.is_empty ())
+    error (_f ("can't find file: `%s'", name));
+
+  if (verbose_global_b)
+    progress_indication ("[" + filename);
+
+  int filesize;
+  char *str = gulp_file (filename, &filesize);
+  String string (str);
+  delete[] str;
+  
+  if (verbose_global_b)
+    progress_indication ("]");
+
+  return string;
+}
+
+LY_DEFINE (ly_kpathsea_gulp_file, "ly:kpathsea-gulp-file",
+	   1, 0, 0, (SCM name),
+	   "Read the file @var{name}, and return its contents in a string.  "
+	   "The file is looked up using the search path and kpathsea.")
+{
+  SCM_ASSERT_TYPE (gh_string_p (name), name, SCM_ARG1, __FUNCTION__, "string");
+  return scm_makfrom0str
+    (kpathsea_gulp_file_to_string (ly_scm2string (name)).to_str0 ());
+}
 
 void
 initialize_kpathsea (char *av0)
@@ -127,5 +196,3 @@ initialize_kpathsea (char *av0)
   kpse_maketex_option ("tfm", TRUE);
 #endif
 }
-
-
