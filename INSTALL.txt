@@ -3,8 +3,10 @@
 INSTALL - compiling and installing GNU LilyPond
 ***********************************************
 
-ABSTRACT
+Abstract
 ========
+
+   TODO: document xdeltas
 
    This document explains what you need to install LilyPond, and what
 you should do.  If you are going to compile and install LilyPond often,
@@ -13,17 +15,18 @@ e.g. when doing development, you might want to check out the
 and symlinks, which comes in handly when you have to compile LilyPond
 more often.
 
-OBTAINING
+Obtaining
 =========
 
-   You can get the latest version of LilyPond at <
-ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/>.  Refer to the links document for
-mirror sites.
+   You can get the latest version of LilyPond at
+ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/
+(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/).  Refer to the links document
+for mirror sites.
 
    _If you upgrade by patching do remember to rerun autoconf after
 applying the patch_.
 
-PREREQUISITES
+Prerequisites
 =============
 
    For compilation you need:
@@ -37,34 +40,35 @@ PREREQUISITES
      disk-space run configure with `--disable-debugging'.
 
      Although we recommend to use Unix, LilyPond is known to run on
-     Windows NT/95/98 as well.  See Section *Note w32::.
+     Windows NT/95/98 as well.  See Section Windows NT/95,es.
 
-   * EGCS 1.1 or newer. Check out < ftp://ftp.gnu.org/pub/gcc/>
+   * EGCS 1.1 or newer. Check out ftp://ftp.gnu.org/pub/gcc/
+     (ftp://ftp.gnu.org/pub/gcc/)
 
-   * Python 1.5, Check out <ftp://ftp.python.org> or
-     <ftp://ftp.cwi.nl/pub/python>.
+   * Python 1.5, Check out ftp://ftp.python.org (ftp://ftp.python.org)
+     or ftp://ftp.cwi.nl/pub/python (ftp://ftp.cwi.nl/pub/python).
 
-   * GUILE 1.3,  check out
-     <http://www.gnu.org/software/guile/guile.html>.
+   * GUILE 1.3,  check out http://www.gnu.org/software/guile/guile.html
+     (http://www.gnu.org/software/guile/guile.html).
 
-   * GNU make.  Check out <ftp://ftp.gnu.org/make/>.
+   * GNU make.  Check out ftp://ftp.gnu.org/make/
+     (ftp://ftp.gnu.org/make/).
 
-   * Flex (version 2.5.4 or newer).  Check out
-     <ftp://ftp.gnu.org/flex/>.
+   * Flex (version 2.5.4 or newer).  Check out ftp://ftp.gnu.org/flex/
+     (ftp://ftp.gnu.org/flex/).
 
-   * Bison (version 1.25 or newer).  Check out
-     <ftp://ftp.gnu.org/bison/>.
+   * Bison (version 1.25 or newer).  Check out ftp://ftp.gnu.org/bison/
+     (ftp://ftp.gnu.org/bison/).
 
-   * Texinfo. Check out <ftp://ftp.gnu.org/pub/texinfo/>.  Most
-     documentation is in texinfo.
-
-   * Yodl.  Needed for obsolete docs (1.31.17)
-     <ftp://ftp.lilypond.org/pub/yodl>.
+   * Texinfo. Check out ftp://ftp.gnu.org/pub/texinfo/
+     (ftp://ftp.gnu.org/pub/texinfo/).  Most documentation is in
+     texinfo.
 
    * The geometry package for LaTeX is needed to use ly2dvi.  Available
      at
-     <ftp://ftp.ctan.org/tex-archive/macros/latex/contrib/supported/geometry>
-     or at mirror site <ftp://ftp.dante.de>
+     ftp://ftp.ctan.org/tex-archive/macros/latex/contrib/supported/geometry
+     (ftp://ftp.ctan.org/tex-archive/macros/latex/contrib/supported/geometry)
+     or at mirror site ftp://ftp.dante.de (ftp://ftp.dante.de)
 
    * MetaPost, if you want to use direct PostScript output. Please note
      that  tetex-0.4pl8 (included with Redhat 5.x) does not include
@@ -72,7 +76,7 @@ PREREQUISITES
      files.
 
 
-RUNNING
+Running
 =======
 
    GNU LilyPond does use a lot of resources. For operation you need the
@@ -84,7 +88,8 @@ following software
      strongly     recommended.  Xdvi will show all embedded PostScript
      too if you have     Ghostscript installed.
 
-   * GUILE 1.3, check out <http://www.gnu.org/programs/guile.html>
+   * GUILE 1.3, check out http://www.gnu.org/programs/guile.html
+     (http://www.gnu.org/programs/guile.html)
 
    For running LilyPond successfully you have to help TeX and MetaFont
 find various files.  The recommended way of doing so is adjusting the
@@ -101,7 +106,7 @@ respectively are generated in `buildscripts/out/lilypond-profile' and
    LilyPond is a hiddeously big, slow and bloated program.  A fast CPU
 and plenty of RAM is recommended for comfortable use.
 
-WEBSITE
+Website
 =======
 
    The website is the most convenient form to use for reading the
@@ -113,16 +118,16 @@ documentation on-line documentation. It is made by entering
    If you want to auto-generate Lily's website, you'll need some
 additional conversion tools.
 
-   * YODL 1.31.15 or later.
-
    * xpmtoppm (from the Portable Bitmap Utilities) (For RedHat Linux
       users: it is included within the package libgr-progs).
      the original is at
-     <ftp://ftp.x.org/contrib/utilities/netpbm-1mar1994.p1.tar.gz>
+     ftp://ftp.x.org/contrib/utilities/netpbm-1mar1994.p1.tar.gz
+     (ftp://ftp.x.org/contrib/utilities/netpbm-1mar1994.p1.tar.gz)
 
    * pnmtopng, which is also in libgr-progs for RedHat. The original is
      at
-     <ftp://swrinde.nde.swri.edu/pub/png/applications/pnmtopng-2.37.2.tar.gz>.i
+     ftp://swrinde.nde.swri.edu/pub/png/applications/pnmtopng-2.37.2.tar.gz
+     (ftp://swrinde.nde.swri.edu/pub/png/applications/pnmtopng-2.37.2.tar.gz).i
 
      The version of `pnmtopng' that is distributed with RedHat 5.1 and
      5.2 contains a bug: pnmtopng is dynamically linked to the wrong
@@ -139,10 +144,12 @@ additional conversion tools.
 
      You can then install the new pnmtopng into `/usr/local/bin/'
 
-   * Bib2html <http://pertsserver.cs.uiuc.edu/~hull/bib2html.>
-     Which, in turn depends on man2html for proper installation.
-     man2html can be had from
-     <http://askdonald.ask.uni-karlsruhe.de/hppd/hpux/Networking/WWW/Man2html-1.05>.
+   * Bib2html http://pertsserver.cs.uiuc.edu/~hull/bib2html.
+     (http://pertsserver.cs.uiuc.edu/~hull/bib2html.)      Which, in
+     turn depends on man2html for proper installation.  man2html can be
+     had from
+     http://askdonald.ask.uni-karlsruhe.de/hppd/hpux/Networking/WWW/Man2html-1.05
+     (http://askdonald.ask.uni-karlsruhe.de/hppd/hpux/Networking/WWW/Man2html-1.05).
 
      The website will build without this utility, but you will not see
      our hypertextified bibliography.
@@ -153,7 +160,7 @@ additional conversion tools.
    You also have to install `buildscripts/out/ps-to-gifs' in a
 directory that is in the path.
 
-CONFIGURING and COMPILING
+configuring and compiling
 =========================
 
    to install GNU LilyPond, simply type:
@@ -186,8 +193,8 @@ adjust your environment variables to your taste:
    `CPPFLAGS' are the preprocessor flags.
 
    The configure script is Cygnus configure, and it will accept
-*-help*. If you are not root, you will probably have to make it with a
-different *-prefix* option.  Our favourite location is
+`--help'. If you are not root, you will probably have to make it with a
+different `--prefix' option.  Our favourite location is
 
 
      	./configure --prefix=$HOME/usr
@@ -203,23 +210,23 @@ accordingly.
 
    Options to configure include:
 
-`*--enable-printing*'
-     Enable debugging print routines (lilypond *-D* option)
+``--enable-printing''
+     Enable debugging print routines (lilypond `-D' option)
 
-`*--enable-optimise*'
-     Set maximum optimisation: compile with *-O2*.  This can be
+``--enable-optimise''
+     Set maximum optimisation: compile with `-O2'.  This can be
      unreliable on some compiler/platform combinations (eg, DEC Alpha
      and PPC)
 
-`*--enable-profiling*'
+``--enable-profiling''
      Compile with support for profiling.
 
-`*--enable-config*'
+``--enable-config''
      Output to a different configuration file.  Needed for
      multi-platform     builds
 
    All options are documented in the `configure' help The option
-*-enable-optimise* is recommended for Real Life usage.
+`--enable-optimise' is recommended for Real Life usage.
 
    If you do
 
@@ -230,11 +237,11 @@ accordingly.
 resulting binaries can be found in the subdirectories `out/' (which
 contain all files generated during compilation).
 
-CONFIGURING FOR MULTIPLE PLATFORMS
+configuring for multiple platforms
 ==================================
 
    If you want to compile LilyPond with different configuration
-settings, then, you can use the *-enable-config* option.  Example:
+settings, then, you can use the `--enable-config' option.  Example:
 suppose I want to build with and   without profiling.  Then I'd use the
 following for the normal build,
 
@@ -250,10 +257,10 @@ following for the normal build,
            make config=optprof
            make config=optprof install
 
-INSTALLING
+Installing
 ==========
 
-   If you have done a successful `make', then a simple
+   if you have done a successful `make', then a simple
 
 
      	make install
@@ -273,7 +280,7 @@ CAVEATS
 
    * On PPC you need at least EGCS-1.1.2f.
 
-REDHAT LINUX
+Redhat linux
 ============
 
    RedHat Linux users can compile an RPM. A spec file is in
@@ -285,11 +292,13 @@ REDHAT LINUX
      	rpm -i /usr/src/redhat/RPMS/i386/lilypond-x.y.z
 
    Precompiled i386 RedHat RPMS are available from
-<ftp://freshmeat.net/pub/rpms/lilypond/> and
-<http://linux.umbc.edu/software/lilypond/rpms/>.
+ftp://freshmeat.net/pub/rpms/lilypond/
+(ftp://freshmeat.net/pub/rpms/lilypond/) and
+http://linux.umbc.edu/software/lilypond/rpms/
+(http://linux.umbc.edu/software/lilypond/rpms/).
 
    For compilation on a RedHat system you need these packages, in
-addition to the thoes needed for running:
+addition to the those needed for running:
    * glibc-devel
 
    * libstdc++-devel
@@ -300,26 +309,28 @@ addition to the thoes needed for running:
 
    * bison
 
-DEBIAN GNU/LINUX
+   * texinfo
+
+Debian GNU/linux
 ================
 
    A Debian package is also available; contact Anthony Fok
 <foka@debian.org>.  The build scripts are in the subdirectory `debian/'.
 
-WINDOWS NT/95
+Windows NT/95
 =============
 
-   Separate instructions on building for W32 are available
-<../../outdir/README-W32.html>.
+   Separate instructions on building for W32 are available; See file
+README-W32, included with the sources.
 
-BUGS
+Bugs
 ====
 
    Send bug reports to bug-gnu-music@gnu.org.  For help and questions
 use help-gnu-music@gnu.org and gnu-music-discuss@gnu.org.  Please
 consult the faq before mailing your problems.
 
-AUTHORS
+Authors
 =======
 
    Han-Wen Nienhuys <hanwen@cs.uu.nl>

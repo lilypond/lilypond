@@ -15,6 +15,8 @@ list is alphabetically ordered.
 
    * Eric Bullinger <eric@aut.ee.ethz.ch>,     accidental transposition.
 
+   * Laura Conrad (lconrad@world.std.com)     fixes to abc2ly
+
    * Jan Arne Fagertun <Jan.A.Fagertun@energy.sintef.no>,     TeX
      titling and lytodvi.sh
 
@@ -30,8 +32,8 @@ list is alphabetically ordered.
 
    * Michael Krause <m.krause@tu-harburg.de>,     breathing signs
 
-   * Werner Lemberg <xlwy01@uxp1.hrz.uni-dortmund.de>,     misc
-     bugfixes, some Beam and Stem code.
+   * Werner Lemberg <wl@gnu.org>,     misc bugfixes, some Beam and Stem
+     code.
 
    * David R. Linn <drl@vuse.vanderbilt.edu>,     Mailing list
      maintenance.
@@ -53,11 +55,12 @@ list is alphabetically ordered.
    * Glen Prideaux <glenprideaux@iname.com>,     minor bug fix to
      script used to generate doc++ documentation
 
+   * Roy R. Rankin <Roy.Rankin@alcatel.com.au>,     major extension,
+     fixes to abc2ly, lilypond bug fixes
+
    * Jeffrey B. Reed <daboys@austin.rr.com>,     Windows-NT support.
 
    * Shay Rojanski     Some mudela source.
-
-   * Laura Conrad (lconrad@world.std.com)     fixes to abc2ly
 
    Your name could be here! If you want to fix something, do it, and
 send us a patch!

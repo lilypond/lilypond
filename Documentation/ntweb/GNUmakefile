@@ -11,10 +11,8 @@ include $(depth)/make/stepmake.make
 
 default: do-doc dist-plain
 
-$(outdir)/%.html: %.yo
-	$(sed-version) < $< > $<.out
-	$(YODL2HTML) -doutdir=$(outdir) --live-data=3 -o $@ $<.out
-	rm -f $<.out
+$(outdir)/%.texi: %.texi
+	m4 -DTOPLEVEL_VERSION=$(TOPLEVEL_VERSION) < $< > $@ 
 
 dist-plain: 
 	cp $(PLAIN_FILES) $(outdir)

@@ -1,5 +1,6 @@
 -*-outline-layout:(2 (-1 -1 0 :) 0);outline-stylish-prefixes:nil -*-
 
+
 * GNU LilyPond TODO
 Features you cannot find in the documentation as working, should be
 mentioned here.  This is an assorted collection of stuff that will be
@@ -10,6 +11,9 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 
 .* TODO
 . * use Rhythmic_head::position_i () for all Staff_referenced 
+. * setting indent to 0 with \shape fails
+. * junk -M ?
+. * mudela-book doco
 . * Depracate Wordwrap
 . * rerun profile
 . * Break_req handling is silly (break_forbid () + \break fucks up.)

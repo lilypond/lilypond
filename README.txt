@@ -1,7 +1,5 @@
 
 
-   )
-
 This is the toplevel README to LilyPond
 ***************************************
 
@@ -33,10 +31,6 @@ installation
    For your convenience, a formatted copy of the INSTALL instructions
 are in the toplevel directory, as INSTALL.txt
 
-   The process is fairly straightforward, but chances are that you have
-to specify directories for TeX to `configure': this is done with the
-options `--enable-tex-dir' and `--enable-mf-dir'
-
 documentation
 =============
 
@@ -54,11 +48,8 @@ documentation
             make -C Documentation/tex/ dvi
 
    * use ASCII. Do using
-
           	make -C Documentation/
 
-     The tutorial and the reference manual  can not be made in ASCII, as
-     they contain graphics.
 
 comments
 ========
@@ -75,7 +66,7 @@ windows 32
 ==========
 
    If you have received this file as part of a DOS/Window32 distribution
-(LilyPond-*.zip), then it is advisable to also download the source
+(`LilyPond-*.zip'), then it is advisable to also download the source
 package, since it might contain more documentation
 `ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/'
 
@@ -96,8 +87,8 @@ font files, eg
 bugs
 ====
 
-   Send bug reports to bug-gnu-music@gnu.org.  For help and questions
-use help-gnu-music@gnu.org and gnu-music-discuss@gnu.org.  Please
+   Send bug reports to <bug-gnu-music@gnu.org>.  For help and questions
+use  <help-gnu-music@gnu.org> and <gnu-music-discuss@gnu.org>.  Please
 consult the faq before mailing your problems.
 
 cdrom distributions

@@ -137,7 +137,7 @@ def makediff (fromdir, todir, patch_name):
 		toname = os.path.basename (toname)
 		fromdir = '../' + fromname
 
-	f = open (patch_name, 'w')
+	f = open (patch_name, 'wb')
 	f.write (header %
 		(mailaddress (),   fromname, toname, 
 		 flags.package.name, os.path.basename (patch_name)))

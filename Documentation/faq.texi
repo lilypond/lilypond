@@ -40,16 +40,16 @@ Note: relative paths are meant to be relative to the source directory
 @node Installing, Documentation, Miscellaneous, FAQ - GNU LilyPond FAQs
 @section Installing
 
+
 @subsubsection If I install the .exe file on my DOS/windows 3.11 machine, it doesn't work
 
-The DOS port is done with the cygnus gnu/windows32 port of the GNU utils.
-It does @emph{not} work with windows 3.x; you need Windows-NT (95/98?).  This
-is not a recommendation, however.  We recommend you use Unix, in
-particular, use GNU/Linux.  For further information see @file{README-W32}.
+The NT port is done with the Cygnus GNU/Windows32 port of the GNU utils.
+It does @emph{not} work with windows 3.x; you need Windows-NT (95/98?).
+
 
 @subsubsection Where is guile-config
 
-RedHat RPMS don't include guile-config.  You need guile-config as it
+Old RedHat RPMS don't include guile-config.  You need guile-config as it
 was produced during the RPM build run.  Build the RPM from source
 (@file{.src.rpm}), and use the guile-config that is in
 @file{/usr/src/redhat/BUILD/guile-1.3/guile-config/}.
@@ -75,12 +75,6 @@ yourself:
  
 @end example 
 
-You might need to create some extra "out" directories.  Do this with
-@example 
-
-    make out-wwws
- 
-@end example 
 
 @subsubsection Some of your neat scripts fail, what directories do you use:
 
@@ -108,7 +102,7 @@ which looks like @file{/usr/}
 @end example 
 
 
-)	
+	
 
 ~/usr/src/bin is in the PATH, and contains symbolic links to the
 compiled executables.
@@ -119,7 +113,7 @@ Yes.  It is included with the source archive as mudela-mode.el.  If
 you have an rpm it is in /usr/doc/lilypond-X/.  You have to install it
 yourself.
 
-@subsubsection How do i create the @file{.tfm} files?
+@subsubsection How do I create the @file{.tfm} files?
 
 You don't.  The @file{.tfm} files should be generated automatically by
 Metafont when you run TeX.  Check your TeX installation, or ask
@@ -345,21 +339,18 @@ simple front end to the complicated internals.
 
 @subsubsection Can I join in on LilyPond development?  How do I do this?
 
-LilyPond development is open for anyone who wants to join.  We try
-to use a Bazaar style development model for LilyPond, see
-@uref{http://locke.ccil.org/~esr/writings/cathedral.html.}  This means:
-frequent releases, everyone can send in a patch or do suggestions and
-all development discussions are public.
+LilyPond development is open for anyone who wants to join.  We do
+frequent releases, you are welcome to send in a patch or do suggestions.
+Join the gnu-music-discuss mailing list to participate.
 
-To be precise, discussions take place on the gnu-music-discuss mailing
-list, which is open for subscription to everyone.
 
 @subsubsection I want to implement XXXX!  Should I do this?
 
-There might be better ways of doing XXXX, so it's a good thing to
+Yes.
+
+But since there might be better ways of doing XXXX, so it's a good thing to
 ask about this before you start hacking.  If you want to keep in touch
 with current developments, you should subscribe to the mailing list
-(see the "links" section of the documentation).
 
 @subsubsection Is there a GUI frontend?  Should I start building one?
 
@@ -368,15 +359,8 @@ doubt if a simple-minded approach (dragging and dropping notes) is any
 easier or quicker to use than mudela.  But for composing a graphical
 environment probably is indispensable.
 
-In any case @email{Derek Wyatt}(wyatt@@scar.utoronto.edu) is working on
-GTK based editor, but that effort practically died. (see
-@uref{http://harmonia.scar.utoronto.ca}.
-
-Matthew Hiller is working on extending Midiscore and Koobase to handle
-mudela.  Check out @uref{http://zoo.cs.yale.edu/~meh25/}.
-
-There is also a GUI package RoseGarden that could be extended to
-output mudela.
+Matthew Hiller has extended Midiscore and Koobase to handle mudela.
+Check out @uref{http://zoo.cs.yale.edu/~meh25/}.
 
 If you want to work on this, please send e-mail to the mailing list
 @email{gnu-music-discuss@@gnu.org}.
@@ -387,51 +371,11 @@ If you want to work on this, please send e-mail to the mailing list
 Your best bet of getting us to include code, is to present it as a
 "fait accompli", i.e., to send a patch to the mailing list.
 
-@subsubsection I made some code, how do I get you to include it?
-
-Send in a patch:
-@example 
-
-	diff -urN old-file new-file > patch
- 
-@end example 
-
-or 
-@example 
-
-	diff -urN old-directory/ new-directory/ > patch 
- 
-@end example 
-
-Alternatively, you can use issue the command
-@example 
-
-	make diff
- 
-@end example 
+Please use the diff command to generate a patch, and don't send complete
+files, even if the diff is larger than the whole file.
 
 Don't forget to put your name and e-mail address
 in the @file{AUTHORS.pod} file, or you won't get credits :-]
-
-@emph{Please} always send a @strong{-u} diff, even if it is larger than the
-whole file.
-
-@subsubsection How do I learn the C++ code?
-
-The entry point is in @code{main()}. Good luck. :-)
-
-Seriously, read, reread and reread internals and CodingStyle, and
-just start anywhere. 
-
-Anywhere? Well, most of the comment doco are in the header files, so
-your best bet would be @code{less lily/include/*.hh}.
-
-You should also have a look using Javadoc like tools.  Try
-DOC++, @uref{http://www.imaginator.com/doc++}
-
-@subsubsection Why GPL?
-
-No comment.
 
 
 @subsubsection Your make system does not adhere to GNU coding standards, could you please fix it?
@@ -462,11 +406,11 @@ having to support other compilers saves us a @emph{lot} of trouble.
 
 @subsubsection I use dvilj4, and there are lots of warning messages for the printing
 
-You should use dvips and ghostscript to print the @code{dvi} output:
-the slurs and beams are PS @code{\special} commands.
+You should use dvips and ghostscript to print the @code{dvi} output: the
+slurs and beams are PS @code{\special} commands.
 
 
-subsubsection(My symbols are all messed up after I upgraded, I get the wrong symbols and dvi-checksum errors!) 
+subsubsection My symbols are all messed up after I upgraded, I get the wrong symbols and dvi-checksum errors!
 
 We obviously mucked with the fonts in the upgrade.  Remove @emph{all}
 previous fonts, including the @file{.pk} and @file{.tfm} fonts in

@@ -43,6 +43,7 @@
 #include "repeated-music.hh"
 #include "mudela-version.hh"
 #include "grace-music.hh"
+#include "auto-change-music.hh"
 
 // mmm
 Mudela_version oldest_version ("1.1.52");
@@ -124,7 +125,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %pure_parser
 
 /* tokens which are not keywords */
-
+%token AUTOCHANGE
 %token TEXTSCRIPT
 %token ACCEPTS
 %token ALTERNATIVE
@@ -784,6 +785,12 @@ Composite_music:
 		delete $2;
 
 		$$ = csm;
+	}
+	| AUTOCHANGE STRING Music	{
+		Auto_change_music * chm = new Auto_change_music (*$2, $3);
+		delete $2;
+		$$ = chm;
+		chm->set_spot ($3->spot ());
 	}
 	| GRACE Music {
 		$$ = new Grace_music ($2);

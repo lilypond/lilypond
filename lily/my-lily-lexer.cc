@@ -21,6 +21,7 @@
 #include "input.hh"
 
 static Keyword_ent the_key_tab[]={
+  {"autochange", AUTOCHANGE},
   {"spanrequest", SPANREQUEST},
   {"simultaneous", SIMULTANEOUS},
   {"sequential", SEQUENTIAL},

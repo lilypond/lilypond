@@ -168,7 +168,7 @@ class Log_reader:
 
     def __init__(self,  texfile_nm, depfile_nm, afmfile_nm):	    
 	self.texfile = open(texfile_nm, 'w')
-	self.depfile = open (depfile_nm, 'w')
+	self.depfile = open (depfile_nm, 'wb')
 	self.afmfile = Afm_file (afmfile_nm)
 	headerstr = '%% Creator: %s\n%% Automatically generated on\n%% Do not edit' % \
 		   (program_id() )

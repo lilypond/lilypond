@@ -4,10 +4,6 @@
 
 @node Top, , , (dir)
 @top
-@menu
-* INSTALL - compiling and installing GNU LilyPond::INSTALL - compiling and installing GNU LilyPond
-@end menu
-
 
 @chapter INSTALL - compiling and installing GNU LilyPond
 
@@ -46,7 +42,7 @@ compile if you use debugging information.  If you are short on
 disk-space run configure with @code{--disable-debugging}.
 
 Although we recommend to use Unix, LilyPond is known to run on Windows
-NT/95/98 as well.  See Section @xref{w32}.
+NT/95/98 as well.  See Section Windows NT/95,es.
 
 @item  EGCS 1.1 or newer. Check out @uref{ ftp://ftp.gnu.org/pub/gcc/, ftp://ftp.gnu.org/pub/gcc/}
 
@@ -347,9 +343,8 @@ A Debian package is also available; contact Anthony Fok
 
 @section Windows NT/95
 
-
-Separate instructions on building for W32 are available
-@uref{../../outdir/README-W32.html,README-W32}.
+Separate instructions on building for W32 are available; See file
+README-W32, included with the sources.
 
 @section Bugs
 
