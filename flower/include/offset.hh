@@ -18,10 +18,12 @@ Offset complex_divide (Offset, Offset);
 Offset complex_exp (Offset);
 
 
-/** 2d vector
-    should change to Complex -- how is vector == complex?
+/*
 
-    ughr wat een beerput
+This is a mixture a 2D vector. Sometimes it can
+also be convenient to think of 2D vectors as complex numbers
+(ie. x + i y). The naming of some methods reflects that.
+
 */
 class Offset 
 {
@@ -100,10 +102,9 @@ public:
   Real arg () const;
   Real length () const;
 
-  //wtf, How is Offset a Complex? is this used?
   Offset operator *= (Offset z2) 
   {
-    *this = complex_multiply (*this,z2);
+    *this = complex_multiply (*this, z2);
     return *this;
   }
 
@@ -132,6 +133,13 @@ mirror (Offset o, Axis a)
 {
   o.mirror (a);
   return o;
+}
+
+inline
+Real
+dot_product  (Offset o1, Offset o2)
+{
+  return o1[X_AXIS] * o2[X_AXIS] + o1[Y_AXIS] * o2[Y_AXIS];
 }
 
 
