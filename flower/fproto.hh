@@ -34,5 +34,6 @@ struct Vector  ;
 class Text_stream;
 class Data_file ;
 struct Text_db;
+struct Scalar;
 #endif // FPROTO_HH
 
