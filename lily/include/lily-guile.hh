@@ -41,6 +41,7 @@
 #define scm_primitive_eval(form) fix_guile_1_4_scm_primitive_eval (form)
 
 #define scm_c_define_gsubr scm_make_gsubr
+#define scm_c_eval_string(str) gh_eval_str ((char*)str)
 #define scm_c_memq scm_sloppy_memq
 #define scm_gc_protect_object scm_protect_object
 #define scm_gc_unprotect_object scm_unprotect_object
