@@ -235,10 +235,10 @@ Tex_font_metric_reader::read_char ()
                       * info_.design_size; \
      }
 
-  GET_CHAR_DIMEN (width);
-  GET_CHAR_DIMEN (height);
-  GET_CHAR_DIMEN (depth);
-  GET_CHAR_DIMEN (italic_correction);
+  GET_CHAR_DIMEN(width);
+  GET_CHAR_DIMEN(height);
+  GET_CHAR_DIMEN(depth);
+  GET_CHAR_DIMEN(italic_correction);
 
   /* The other condition for a character existing is that it be between
      the first and last character codes given in the header.  We've
