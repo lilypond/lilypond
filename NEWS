@@ -21,8 +21,11 @@ now.
 * Better spacing: both globally and locally. It includes subtle
 details like optical stem spacing.
 
-* More ancient notation support: mensural ligatures, porrectuses,
-ambituses, more shapes.
+* More ancient notation support: mensural ligatures,
+more shapes.
+
+* Support for automatically determining and engraving ambitus (pitch
+range) of voices.
 
 * Piano notation: bracket pedals, directed arpeggios, arpeggio
 brackets.
