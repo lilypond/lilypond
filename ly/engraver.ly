@@ -5,9 +5,12 @@
 StaffContext=\translator {
 	\type "Engraver_group_engraver";
 	\name Staff ;
+	
 	barAuto = ##t
 	voltaVisibility = ##t
-
+	Generic_property_list = #generic-staff-properties
+	\consists "Property_engraver";
+	
 	\consists "Multi_measure_rest_engraver";
 	\consists "Bar_engraver";
  % Bar_engraver must be first so default bars aren't overwritten
@@ -66,6 +69,9 @@ StaffContext=\translator {
 RhythmicStaffContext=\translator{
 	\type "Engraver_group_engraver";
 	numberOfStaffLines  = #1
+	\consists "Property_engraver";
+	
+	Generic_property_list = #generic-staff-properties
 	
 	barSize = \staffheight;
 	\consists "Pitch_squash_engraver";
@@ -81,12 +87,16 @@ RhythmicStaffContext=\translator{
 };
 \translator{\RhythmicStaffContext}
 VoiceContext = \translator {
+
 	\type "Engraver_group_engraver";
 	dynamicPadding = #5.0
+	Generic_property_list = #generic-voice-properties
+
+
 	\consists "Dynamic_engraver";   % must come before text_engraver.
 	\name Voice ;
-
-%	\consists "Tie_engraver";
+	\consists "Property_engraver";
+	
 	\consists "Breathing_sign_engraver";
  	\consists "Rest_engraver";
 	\consists "Dot_column_engraver";
@@ -95,9 +105,7 @@ VoiceContext = \translator {
 	\consists "Auto_beam_engraver";
 	\include "auto-beam-settings.ly";
 	\consists "Chord_tremolo_engraver";
-%	\consists "Multi_measure_rest_engraver";
 
-	% ugh.  Order matters here.
 	\consists "Melisma_engraver";
 	textScriptPadding = #3.0
 	\consists "Text_engraver";
@@ -117,6 +125,9 @@ VoiceContext = \translator {
 GraceContext=\translator {
 	\type "Grace_engraver_group";
 	\name "Grace";
+
+	Generic_property_list = #generic-grace-properties
+	
 	\consists "Note_heads_engraver";
 	\consists "Local_key_engraver";
 	\consists "Stem_engraver";
@@ -126,13 +137,16 @@ GraceContext=\translator {
 	\consists "Auto_beam_engraver";
 	\include "auto-beam-settings.ly";
 	\consists "Align_note_column_engraver";
-	\consists "Font_size_engraver";
+
 	\consists "Rhythmic_column_engraver";
 	\consists "Dynamic_engraver";
+
+	\consists "Property_engraver";
 
 	stemStyle = #"grace" 
 	weAreGraceContext = ##t 
 	fontSize = #-1
+	
 	stemLength = #6.0
 	verticalDirection = \up ;
 	graceAccidentalSpace= 1.5 * \interline;
@@ -143,7 +157,9 @@ GraceContext=\translator {
 
 ThreadContext = \translator{
 	\type Engraver_group_engraver;
-	\consists "Note_heads_engraver" ;	
+	\consists "Note_heads_engraver" ;
+	Generic_property_list = #generic-thread-properties
+	\consists "Property_engraver";
 	\name Thread;
 };
 
@@ -289,6 +305,9 @@ ScoreContext = \translator {
 	\accepts "GrandStaff";
 	\accepts "ChoirStaff";
 	\accepts "PianoStaff";
+
+	clefBreakPriority = #-2
+	breathingSignBreakPriority = #-4
 };
 
 \translator { \ScoreContext }

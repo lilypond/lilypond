@@ -33,6 +33,7 @@
 	static scm_sizet free_smob (SCM s);			\
 	static int print_smob (SCM s, SCM p, scm_print_state*);	\
 	static long smob_tag_;					\
+	static SCM equal_p (SCM a, SCM b);\
 	static void init_smobs();				\
 	void unsmobify_self ();\
         void do_smobify_self();\

@@ -91,10 +91,6 @@ Slur_engraver::do_process_requests()
 	  // push a new slur onto stack.
 	  //(use temp. array to wait for all slur STOPs)
 	  Slur * s_p =new Slur;
-	  SCM prop = get_property ("slurDash", 0);
-	  if (SCM_NUMBERP(prop)) 
-	    s_p->set_elt_property (dashed_scm_sym, prop);
-
 	  
 	  requests_arr_.push (slur_req_l);
 	  start_slur_l_arr_.push (s_p);
@@ -112,7 +108,7 @@ Slur_engraver::do_pre_move_processing()
   SCM dir2 (get_property ("verticalDirection", 0));
 
   Direction slurdir = CENTER;
-  if (SCM_NUMBERP(dir))
+  if (gh_number_p(dir))
     slurdir = to_dir (dir);
   else if (gh_number_p (dir2))
     slurdir = to_dir (dir2);

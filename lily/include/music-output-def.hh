@@ -14,6 +14,7 @@
 #include "lily-proto.hh"
 #include "virtual-methods.hh"
 #include "dictionary.hh"
+#include "scm-hash.hh"
 
 /**
   Definition of how to output mudela. 
@@ -25,6 +26,7 @@ public:
   Scope *scope_p_;
   
   Array<String> filename_str_arr_;
+  Scheme_hash_table default_properties_;
   
   Music_output_def (Music_output_def const&);
   Music_output_def ();

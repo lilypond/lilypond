@@ -56,12 +56,7 @@ Rest_engraver::do_process_requests ()
 	  dot_p_->dots_i_ = rest_req_l_->duration_.dots_i_;	  
 	  announce_element (Score_element_info (dot_p_,0));
 	}
-      if (rest_p_->balltype_i_ >= 2) 
-	{
-	  SCM reststyle = get_property ("restStyle", 0);
-	  if (gh_string_p (reststyle))
-	    rest_p_->set_elt_property (style_scm_sym,reststyle);
-	}
+
       announce_element (Score_element_info (rest_p_, rest_req_l_));
     }
 }

@@ -52,7 +52,7 @@ Rest::do_brew_molecule_p () const
   
   String style; 
   SCM style_sym =get_elt_property (style_scm_sym);
-  if (style_sym != SCM_BOOL_F)
+  if (balltype_i_ >= 2 && style_sym != SCM_BOOL_F)
     {
       style = ly_scm2string (SCM_CDR(style_sym));
     }

@@ -59,7 +59,10 @@ public:
     ask daddy for a feature
     */
   Music_output_def *output_def_l () const;
+
   SCM get_property (String, Translator_group **) const;
+  SCM get_property (SCM symbol, Translator_group **) const;
+  
   virtual Moment now_mom () const;  
 
 protected:

@@ -45,7 +45,7 @@ Bar_script_engraver::do_creation_processing ()
 */
  
 void
-Bar_script_engraver::do_acknowledge_element (Item *i)
+Bar_script_engraver::attach_script_to_item (Item *i)
 {
   Axis other_axis = Axis((axis_ + 1)%2);
   if (staff_side_p_ && !staff_side_p_->parent_l(other_axis)) 
@@ -106,7 +106,7 @@ Bar_script_engraver::acknowledge_element (Score_element_info inf)
       if (inf.origin_trans_l_arr_.size () != 1)
 	return;
 
-      do_acknowledge_element (i);
+      attach_script_to_item (i);
     }
 }
 
@@ -154,7 +154,7 @@ Bar_script_engraver::create_items (Request *rq)
   staff_side_p_->set_victim(text_p_);
   
   SCM padding = get_property (type_ + "ScriptPadding", 0);
-  if (SCM_NUMBERP(padding))
+  if (gh_number_p(padding))
     {
       staff_side_p_->set_elt_property (padding_scm_sym, padding);
     }

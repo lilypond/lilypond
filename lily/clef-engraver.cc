@@ -190,11 +190,6 @@ Clef_engraver::create_clef()
   if (!clef_p_)
     {
       Clef_item *c= new Clef_item;
-      c->set_elt_property (break_priority_scm_sym, gh_int2scm (-2)); // ugh
-      SCM clefstyle = get_property ("clefStyle", 0);
-      if (gh_string_p(clefstyle))
-	c->set_elt_property (style_scm_sym, clefstyle);
-      
       announce_element (Score_element_info (c, clef_req_l_));
       clef_p_ = c;
     }

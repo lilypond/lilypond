@@ -99,21 +99,6 @@ Beam_engraver::do_process_requests ()
       
       
       /* urg, must copy to Auto_beam_engraver too */
-      SCM prop = get_property ("beamslopedamping", 0);
-      if (SCM_NUMBERP(prop)) 
-	beam_p_->set_elt_property (damping_scm_sym, prop);
-      
-      prop = get_property ("autoKneeGap", 0);
-      if (SCM_NUMBERP(prop)) 
-	beam_p_->set_elt_property (auto_knee_gap_scm_sym, prop);
-      
-      prop = get_property ("autoInterstaffKneeGap", 0);
-      if (SCM_NUMBERP(prop)) 
-	beam_p_->set_elt_property (auto_interstaff_knee_gap_scm_sym, prop);
-
-      prop = get_property ("beamquantisation", 0);
-      if (SCM_NUMBERP(prop)) 
-	beam_p_->quantisation_ = (Beam::Quantisation)gh_scm2int(prop);
  
       announce_element (Score_element_info (beam_p_, reqs_drul_[START]));
     }

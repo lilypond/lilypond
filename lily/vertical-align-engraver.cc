@@ -33,13 +33,13 @@ void
 Vertical_align_engraver::do_removal_processing()
 {
   SCM dist (get_property ("maxVerticalAlign", 0));
-  if (SCM_NUMBERP(dist))
+  if (gh_number_p(dist))
     {
       valign_p_->threshold_interval_[BIGGER]  = gh_scm2double (dist);
     }
 
   dist = get_property ("minVerticalAlign", 0);
-  if (SCM_NUMBERP(dist))
+  if (gh_number_p(dist))
     {
       valign_p_->threshold_interval_[SMALLER]  = gh_scm2double (dist);
     }

@@ -13,7 +13,7 @@
 
 Font_size_engraver::Font_size_engraver ()
 {
-  size_i_ = 0;
+  size_ = SCM_EOL;
 }
 
 void
@@ -21,20 +21,25 @@ Font_size_engraver::do_process_requests ()
 {
   SCM s (get_property ("fontSize", 0));
   
-  if (SCM_NUMBERP(s))
+  if (gh_number_p(s))
     {
-      size_i_ = gh_scm2int (s);
+      size_ = gh_scm2int (s);
+    }
+  else
+    {
+      size_ = SCM_EOL;
     }
 }
 
 void
 Font_size_engraver::acknowledge_element (Score_element_info e)
 {
-  if (size_i_ && e.elem_l_->get_elt_property (fontsize_scm_sym) == SCM_BOOL_F)
+  if (size_ != SCM_EOL
+      && e.elem_l_->get_elt_property (fontsize_scm_sym) == SCM_BOOL_F)
     {
-      e.elem_l_->set_elt_property (fontsize_scm_sym,
-				   gh_int2scm (size_i_));
+      e.elem_l_->set_elt_property (fontsize_scm_sym, size_);
     }
 }
+
 ADD_THIS_TRANSLATOR (Font_size_engraver);
 

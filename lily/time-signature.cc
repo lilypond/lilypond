@@ -21,16 +21,19 @@ Time_signature::Time_signature ()
 Molecule*
 Time_signature::do_brew_molecule_p () const
 {
-  if (time_sig_type_str_.length_i ())
+  SCM st = get_elt_property (style_scm_sym);
+  
+  if (st != SCM_BOOL_F)
     {
-      if (time_sig_type_str_[0]=='1')
+      String style (ly_scm2string (gh_cdr (st)));
+      if (style[0]=='1')
 	{
 	  Array<int> tmparr = args_;
 	  return new Molecule( lookup_l ()->time_signature (args_[0], 0, paper_l ()));
 	}
       else
 	{
-	  return new Molecule( lookup_l ()-> special_time_signature (time_sig_type_str_ ,args_[0], args_[1], paper_l ()));
+	  return new Molecule( lookup_l ()-> special_time_signature (style, args_[0], args_[1], paper_l ()));
 	}
     }
   else

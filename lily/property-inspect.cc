@@ -12,7 +12,7 @@
 bool
 isdir_b (SCM s)
 {
-  if (SCM_NUMBERP (s))
+  if (gh_number_p (s))
     {
       int i = gh_int2scm (s);
       return i>= -1 && i <= 1; 

@@ -67,3 +67,12 @@ init_moments ()
 }
 
 ADD_SCM_INIT_FUNC(moms,init_moments);
+
+SCM
+Moment::equal_p (SCM a, SCM b)
+{
+  Moment *m1 = SMOB_TO_TYPE(Moment, a);
+  Moment *m2 = SMOB_TO_TYPE(Moment, b);
+      
+  return (*m1 == *m2) ? SCM_BOOL_T : SCM_BOOL_F;
+}

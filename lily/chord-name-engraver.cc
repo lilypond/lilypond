@@ -83,10 +83,6 @@ Chord_name_engraver::do_process_requests ()
 
   item_p->text_str_ = chord.banter_str (inversion);
   
-  SCM style = get_property ("textStyle", 0);
-  if (gh_string_p (style))
-    item_p->style_str_ = ly_scm2string (style);
-  
   text_p_arr_.push (item_p);
   announce_element (Score_element_info (item_p, 0));
 }

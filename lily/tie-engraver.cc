@@ -140,7 +140,7 @@ Tie_engraver::do_pre_move_processing ()
   SCM dir2 (get_property ("verticalDirection", 0));
 
   Direction tie_dir = CENTER;
-  if (SCM_NUMBERP(dir))
+  if (gh_number_p(dir))
     tie_dir = to_dir (dir);
   else if (isdir_b (dir2))
     tie_dir = to_dir (dir2);

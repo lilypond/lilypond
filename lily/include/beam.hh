@@ -23,6 +23,7 @@ damping: amount of beam slope damping. (int)
 
 should beam slope be damped? 0: no, 1: yes, 100000: horizontal beams 
 
+slope_quantisation: 'none, 'normal or 'traditional
 
 */
 class Beam : public Directional_spanner  {
@@ -44,11 +45,7 @@ public:
   /// position of leftmost end of beam  
   Real left_y_;
 
-  /** should beam pos / slope be quantised? 0: no, 1: yes, 2: traditional
-      JUNKME.
-   */
-  Quantisation quantisation_;
-  
+
   /// maximum number of beams (for opening-up of beam-spacing)
   int multiple_i_;
 

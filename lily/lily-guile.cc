@@ -109,7 +109,7 @@ ly_quote_scm (SCM s)
 SCM
 ly_symbol (String name)
 {
-  return gh_car (scm_intern ((char*)name.ch_C(), name.length_i()));
+  return gh_symbol2scm ((char*)name.ch_C());
 }
 
 String
