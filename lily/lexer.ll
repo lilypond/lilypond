@@ -586,9 +586,9 @@ valid_version_b (String s)
   Mudela_version ver (s);
   if (!((ver >= oldest_version) && (ver <= current)))
 	{	
-		error (_f ("incorrect mudela version: %s (%s, %s)", ver.str (), oldest_version.str (), current.str ()));
-		if (!version_ignore_global_b)
-			return false;
+		non_fatal_error (_f ("incorrect mudela version: %s (%s, %s)", ver.str (), oldest_version.str (), current.str ()));
+		non_fatal_error (_("Consider converting the input with the convert-mudela script")); 
+		return false;
     }
   return true;
 }

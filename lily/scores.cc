@@ -120,7 +120,8 @@ do_one_file (String init_str, String file_str)
   source_global_l->set_path (&global_path);
   {
     My_lily_parser parser (source_global_l);
-    parser.set_version_check (version_ignore_global_b);
+    parser.set_version_check (false);
+    cout << "\nNow processing `" << file_str << "'\n";
     parser.parse_file (init_str, file_str);
 
     if (parser.error_level_i_)
