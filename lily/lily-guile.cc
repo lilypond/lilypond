@@ -816,14 +816,15 @@ int_list_to_slice (SCM l)
 
 
 /*
-  return I-th element, or last elt L
+  Return I-th element, or last elt L. If I < 0, then we take the first
+  element.
 
   PRE: length (L) > 0
  */
 SCM
 robust_list_ref(int i, SCM l)
 {
-  while (i--  && gh_pair_p (gh_cdr(l)))
+  while (i-- > 0 && gh_pair_p (gh_cdr(l)))
     l = gh_cdr (l);
 
   return gh_car(l);

@@ -1,3 +1,8 @@
+2002-07-23  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/lily-guile.cc (robust_list_ref): be sensible with negative
+	argument. This fixes too-long stems on half and quarter notes.
+
 2002-07-23  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/index.texi: Add, fix, change some links and names,

@@ -285,7 +285,7 @@ Stem::get_default_stem_end_position (Grob*me)
   SCM s;
   Array<Real> a;
 
-  Real length_f = 0.;
+  Real length_f = 3.5;
   SCM scm_len = me->get_grob_property ("length");
   if (gh_number_p (scm_len))
     {
@@ -294,8 +294,6 @@ Stem::get_default_stem_end_position (Grob*me)
   else
     {
       s = me->get_grob_property ("lengths");
-      length_f = 3.5;
-      
       if (gh_pair_p (s))
 	{
 	  length_f = 2* gh_scm2double (robust_list_ref (duration_log(me) -2, s));
