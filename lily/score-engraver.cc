@@ -92,7 +92,7 @@ Score_engraver::finish ()
   recurse_over_translators (context (), &Translator::finalize, UP);
 }
 
-#define MUSIC_FONT "bigcheese20"
+#define MUSIC_FONT "emmentaler20"
 
 /*
   use start/finish?

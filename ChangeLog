@@ -1,3 +1,10 @@
+2005-01-08  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/output-svg.scm: 
+	* scm/output-gnome.scm: s/bigcheese/emmentaler.
+
+	* lily/score-engraver.cc (MUSIC_FONT): Use emmentaler20.
+
 2005-01-07  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/general-scheme.cc (LY_DEFINE): Use snprintf (WAS: sprintf).

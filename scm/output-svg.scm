@@ -114,19 +114,19 @@
 
 ;; FIXME
 (define-public (otf-name-mangling font family)
-  ;; Hmm, family is bigcheese20/26?
-  (if (string=? (substring family 0 (min (string-length family) 9))
-		"bigcheese")
+  ;; Hmm, family is emmentaler20/26?
+  (if (string=? (substring family 0 (min (string-length family) 10))
+		"emmentaler")
       "LilyPond"
       (if (string=? family "aybabtu")
 	  "LilyPondBraces"
 	  family)))
 
 (define-public (otf-style-mangling font family)
-  ;; Hmm, family is bigcheese20/26?
-  (if (string=? (substring family 0 (min (string-length family) 9))
-		"bigcheese")
-      (substring family 9)
+  ;; Hmm, family is emmentaler20/26?
+  (if (string=? (substring family 0 (min (string-length family) 10))
+		"emmentaler")
+      (substring family 10)
       "Regular"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -136,15 +136,15 @@ lilypond -fgnome input/simple-song.ly
   (let ((encoding (ly:font-encoding font))
 	(family (font-family font)))
     (or (memq encoding '(fetaMusic fetaBraces))
-	(string=? (substring family 0 (min (string-length family) 9))
-		  "bigcheese"))))
+	(string=? (substring family 0 (min (string-length family) 10))
+		  "emmentaler"))))
 
 ;; FIXME
 (define-public (otf-name-mangling font family)
-  ;; Hmm, family is bigcheese20/26?
-  (if (string=? (substring family 0 (min (string-length family) 9))
-		"bigcheese")
-      (string-append "LilyPond " (substring family 9))
+  ;; Hmm, family is emmentaler20/26?
+  (if (string=? (substring family 0 (min (string-length family) 10))
+		"emmentaler")
+      (string-append "LilyPond " (substring family 10))
       (if (string=? family "aybabtu")
 	  "LilyPondBraces"
 	  family)))
