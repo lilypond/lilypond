@@ -53,7 +53,7 @@ TODO:
 #define MY_MAKE_MUSIC(x)  make_music_by_name (ly_symbol2scm (x))
 
 Music *property_op_to_music (SCM op);
-Music *context_spec_music (SCM type, SCM id, Music *m, SCM ops_);
+Music *context_spec_music (SCM type, SCM id, Music *m, SCM ops);
 SCM get_next_unique_context ();
 
 #define YYERROR_VERBOSE 1
@@ -257,6 +257,7 @@ or
 %token CHANGE
 %token CHORDMODIFIERS
 %token CHORDS
+%token CHORDMODE
 %token DOUBLE_ANGLE_OPEN
 %token DOUBLE_ANGLE_CLOSE
 %token CLEF
@@ -267,7 +268,9 @@ or
 %token DENIES
 %token DESCRIPTION
 %token EXTENDER
-%token FIGURES FIGURE_OPEN FIGURE_CLOSE
+%token FIGURES
+%token FIGUREMODE
+%token FIGURE_OPEN FIGURE_CLOSE
 %token FIGURE_BRACKET_CLOSE FIGURE_BRACKET_OPEN
 %token GROBDESCRIPTIONS
 %token HEADER
@@ -275,12 +278,13 @@ or
 %token INVALID
 %token KEY
 %token LYRICS
+%token LYRICMODE
 %token MARK
 %token MIDI
 %token MULTI_MEASURE_REST
 %token NAME
 %token NEWCONTEXT
-%token NOTES
+%token NOTEMODE
 %token OCTAVE
 %token ONCE
 %token OVERRIDE SET REVERT
@@ -361,8 +365,9 @@ or
 %token <scm> MUSIC_FUNCTION_SCM_MUSIC 
 %token <scm> MUSIC_FUNCTION_SCM_MUSIC_MUSIC 
 %token <scm> MUSIC_FUNCTION_SCM_SCM_MUSIC 
-%token DRUMS
 
+%token DRUMS
+%token DRUMMODE
 
 
 %type <book>	book_block book_body
@@ -419,6 +424,8 @@ or
 %type <scm>  	lyric_element
 %type <scm>     Alternative_music
 %type <scm>	markup markup_line markup_list markup_list_body full_markup
+%type <scm> 	mode_changing_head
+%type <scm> 	mode_changing_head_with_context
 
 %type <score>	score_block score_body
 
@@ -1084,57 +1091,31 @@ Prefix_composite_music:
 		$$->set_property ("element", p->self_scm ());
 		scm_gc_unprotect_object (p->self_scm ());
 	}
-	| NOTES
-		{
-		SCM nn = THIS->lexer_->lookup_identifier ("pitchnames");
-		THIS->lexer_->push_note_state (alist_to_hashq (nn));
-	}
-	Grouped_music_list
-		{ $$ = $3;
-		  THIS->lexer_->pop_state ();
-		}
-	| DRUMS
-		{
-		SCM nn = THIS->lexer_->lookup_identifier ("drumPitchNames");
-		THIS->lexer_->push_note_state (alist_to_hashq (nn));
-	}
-	Grouped_music_list
-		{ $$ = $3;
-		  THIS->lexer_->pop_state ();
-		}
-	| FIGURES
-		{ THIS->lexer_->push_figuredbass_state (); }
-	Grouped_music_list
+	| mode_changing_head Grouped_music_list {
+		if ($1 == ly_symbol2scm ("figures"))
 		{
 		  Music *chm = MY_MAKE_MUSIC ("UntransposableMusic");
-		  chm->set_property ("element", $3->self_scm ());
+		  chm->set_property ("element", $2->self_scm ());
 		  $$ = chm;
-		  scm_gc_unprotect_object ($3->self_scm ());
-
-		  THIS->lexer_->pop_state ();
-	}
-	| CHORDS {
-		SCM nn = THIS->lexer_->lookup_identifier ("chordmodifiers");
-		THIS->lexer_->chordmodifier_tab_ = alist_to_hashq (nn);
-		nn = THIS->lexer_->lookup_identifier ("pitchnames");
-		THIS->lexer_->push_chord_state (alist_to_hashq (nn));
-
-	}
-	Grouped_music_list
-	{
-		  Music *chm = MY_MAKE_MUSIC ("UnrelativableMusic");
-		  chm->set_property ("element", $3->self_scm ());
-		  scm_gc_unprotect_object ($3->self_scm ());
-		  $$ = chm;
-
-		  THIS->lexer_->pop_state ();
-	}
-	| LYRICS
-		{ THIS->lexer_->push_lyric_state (); }
-	Grouped_music_list
+		  scm_gc_unprotect_object ($2->self_scm ());
+		}
+		else
 		{
-		  $$ = $3;
-		  THIS->lexer_->pop_state ();
+		  $$ = $2;
+		}
+		THIS->lexer_->pop_state ();
+	}
+	| mode_changing_head_with_context optional_context_mod Grouped_music_list {
+		$$ = context_spec_music ($1, get_next_unique_context (),
+					 $3, $2);
+		if ($1 == ly_symbol2scm ("ChordNames"))
+		{
+		  Music *chm = MY_MAKE_MUSIC ("UntransposableMusic");
+		  chm->set_property ("element", $$->self_scm ());
+		  scm_gc_unprotect_object ($$->self_scm ());
+		  $$ = chm;
+		}
+		THIS->lexer_->pop_state ();
 	}
 	| relative_music	{ $$ = $1; }
 	| re_rhythmed_music	{ $$ = $1; }
@@ -1143,6 +1124,65 @@ Prefix_composite_music:
 		$$ = $3;
 	}
 	;
+
+mode_changing_head: 
+	NOTEMODE {
+		SCM nn = THIS->lexer_->lookup_identifier ("pitchnames");
+		THIS->lexer_->push_note_state (alist_to_hashq (nn));
+
+		$$ = ly_symbol2scm ("notes");
+	}
+	| DRUMMODE 
+		{
+		SCM nn = THIS->lexer_->lookup_identifier ("drumPitchNames");
+		THIS->lexer_->push_note_state (alist_to_hashq (nn));
+
+		$$ = ly_symbol2scm ("drums");
+	}
+	| FIGUREMODE {
+		THIS->lexer_->push_figuredbass_state ();
+
+		$$ = ly_symbol2scm ("figures");
+	}
+	| CHORDMODE {
+		SCM nn = THIS->lexer_->lookup_identifier ("chordmodifiers");
+		THIS->lexer_->chordmodifier_tab_ = alist_to_hashq (nn);
+		nn = THIS->lexer_->lookup_identifier ("pitchnames");
+		THIS->lexer_->push_chord_state (alist_to_hashq (nn));
+		$$ = ly_symbol2scm ("chords");
+
+	}
+	| LYRICMODE
+		{ THIS->lexer_->push_lyric_state ();
+		$$ = ly_symbol2scm ("lyrics");
+	}
+	;
+
+mode_changing_head_with_context: 
+	DRUMS {
+		SCM nn = THIS->lexer_->lookup_identifier ("drumPitchNames");
+		THIS->lexer_->push_note_state (alist_to_hashq (nn));
+
+		$$ = ly_symbol2scm ("DrumStaff");
+	}
+	| FIGURES {
+		THIS->lexer_->push_figuredbass_state ();
+
+		$$ = ly_symbol2scm ("FiguredBass");
+	}
+	| CHORDS {
+		SCM nn = THIS->lexer_->lookup_identifier ("chordmodifiers");
+		THIS->lexer_->chordmodifier_tab_ = alist_to_hashq (nn);
+		nn = THIS->lexer_->lookup_identifier ("pitchnames");
+		THIS->lexer_->push_chord_state (alist_to_hashq (nn));
+		$$ = ly_symbol2scm ("ChordNames");
+	}
+	| LYRICS
+		{ THIS->lexer_->push_lyric_state ();
+		$$ = ly_symbol2scm ("Lyrics");
+	}
+	;
+
 
 relative_music:
 	RELATIVE absolute_pitch Music {

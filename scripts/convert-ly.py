@@ -2178,10 +2178,11 @@ soloADue -> printPartCombineTexts, #notes-to-clusters -> \\makeClusters
 '''))
 
 
-def conv_mode_experiment (str):
+def conv (str):
 	str = re.sub (r'\\chords\b', r'\\chordmode', str)
 	str = re.sub (r'\\lyrics\b', r'\\lyricmode', str)
 	str = re.sub (r'\\figures\b', r'\\figuremode', str)
+	str = re.sub (r'\\notes\b', r'\\notemode', str)
 	str = re.sub (r'\\drums\b', r'\\drummode', str)
 	str = re.sub (r'\\chordmode\s*\\new ChordNames', r'\\chords', str)
 	str = re.sub (r'\\new ChordNames\s*\\chordmode', r'\\chords', str)
@@ -2192,8 +2193,9 @@ def conv_mode_experiment (str):
 
 	return str
 
-#conversions.append (((2, 3, 9), conv,
-#		     '''fold \new FooContext \foomode into \foo.'''))
+conversions.append (((2, 3, 16), conv,
+		     '''\foo -> \foomode (for chords, notes, etc.)
+fold \new FooContext \foomode into \foo.'''))
 
 ################################
 #	END OF CONVERSIONS	
