@@ -1,3 +1,28 @@
+1.3.35
+======
+
+* Removed Documentation/programmer directory 
+
+1.3.34.jcn3
+===========
+
+* Small enhancements to Staff_margin_engraver:
+   - by default, the marginScript left aligns the text
+   - to set the text style, use property marginScriptTextStyle
+   - to change the alignment, use property marginScriptHorizontalAlignment
+     (centred and right alignment require manual padding settings).
+
+* Print a friendly message if the manual pages failed to build.
+
+* Bugfix: dynamicDirection now overrides verticalDirection setting.
+
+* Warning messages and nl.po
+
+* Fixed vertical alignment for all dynamic items and (reluctantly)
+  reinstated old directional behaviour for orphaned dynamics.
+
+* Finished maximumRestCount property.
+
 1.3.34
 ======
 1.3.33.hwn2

@@ -6,7 +6,7 @@
 @top
 
 
-@unnumberedsubsec Info
+@unnumberedsubsec General information
 
 @itemize @bullet 
 @item @uref{DEDICATION.txt,Dedication}
@@ -16,8 +16,6 @@
 @item @uref{CHANGES.txt, Things recently done}
 @item @uref{faq.html,FAQ: Frequently asked questions}, with answers
 @end itemize
-
-
 
 @unnumberedsubsec Manuals
 
@@ -29,17 +27,12 @@ terms}, includes translations.  Also available in @uref{../user/out-www/glossary
 @item @uref{../user/out-www/mudela-book.html,mudela-book}, a tool for
 integrating text and music in LaTeX and texinfo; also available in
 @uref{../user/out-www/mudela-book.ps.gz,Postscript}
-@item @uref{ly2dvi.html,ly2dvi} manual. Ly2dvi does page layout for
-LilyPond prints
-@item @uref{midi2ly.html,midi2ly} manual. midi2ly converts MIDI files to
-LilyPond input
-@item @uref{../programmer/out-www/regression-test.html, LilyPond test document}
-@end itemize
-
-
-@unnumberedsubsec Status
-
-@itemize @bullet
+@item @uref{../user/out-www/ly2dvi.html,ly2dvi}  does page layout for
+LilyPond printout.
+@item @uref{../user/out-www/midi2ly.html,midi2ly} 
+converts MIDI files to LilyPond input
+@item @uref{regression-test.html, LilyPond test document}
+Also available in @uref{regression-test.ps.gz,Postscript}
 @end itemize
 
 
@@ -49,8 +42,6 @@ LilyPond input
 @item @uref{../pictures/out-www/lelie-logo.png, logo} in medium size
 @item @uref{../pictures/out-www/lelie-icon.png, logo} in small size
 @end itemize
-
-
 
 @unnumberedsubsec Literature
 
@@ -68,9 +59,13 @@ by computer}.
 @end itemize
 
 
-@unnumberedsubsec Miscellaneous texts
+@unnumberedsubsec Background information
+
+
 
 @itemize @bullet
+@item @uref{hacking.html,Internals} details of the implementation
+@item @uref{README-W32.html,Compiling and running on Windows32}
 @item @uref{../misc/out-www/CHANGES-0.0.txt, Change logs from 0.0 till 0.1 }
 @item @uref{../misc/out-www/CHANGES-0.1.txt, Change logs from 0.1 till 1.0 }
 @item @uref{../misc/out-www/CHANGES-1.0.txt, Change logs from 1.0 till 1.1 }
@@ -82,7 +77,7 @@ changes)}
 changes)}
 @item @uref{../misc/out-www/ANNOUNCE-1.2.txt, Announcement of 1.2 (includes summary of changes)}
 @item @uref{../misc/out-www/AIMS.txt, Why LilyPond?}
-pp@item @uref{../misc/out-www/interview.txt, Answers} to the Brave GNU world standard questions.
+@item @uref{../misc/out-www/interview.txt, Answers} to the Brave GNU world standard questions.
 @end itemize
 
 
