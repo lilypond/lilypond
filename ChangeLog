@@ -1,5 +1,8 @@
 2004-01-15  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/new-markup.scm (normalsize-markup): add function.
+	(sans-markup): new function.
+
 	* lily/beam-engraver.cc (valid_end_point): opps, beam-stop-events
 	come earlier nowadays.  This fixes beams on grace notes.
 	
