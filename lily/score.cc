@@ -6,19 +6,13 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
-#include "tex-stream.hh"
 #include "score.hh"
-#include "score-column.hh"
-#include "p-score.hh"
 #include "debug.hh"
-#include "paper-def.hh"
+#include "music-output-def.hh"
+#include "music-output.hh"
 #include "main.hh"
 #include "source.hh"
 #include "source-file.hh"
-#include "midi-def.hh"
-#include "midi-stream.hh"
-#include "audio-score.hh"
-#include "p-col.hh"
 #include "music-iterator.hh"
 #include "music.hh"
 #include "global-translator.hh"
@@ -30,189 +24,117 @@ Score::Score()
 {
   header_p_ = 0;
   music_p_ = 0;
-  pscore_p_ = 0;
-  audio_score_p_ = 0;
-  paper_p_ = 0;
-  midi_p_ = 0;
   errorlevel_i_ = 0;
 }
 
 Score::Score (Score const &s)
 {
-  assert (!pscore_p_);
   music_p_ = s.music_p_->clone();
-  midi_p_ = new Midi_def (*s.midi_p_);
-  paper_p_ = new Paper_def (*s.paper_p_);
+  for (int i=0; i < s.def_p_arr_.size (); i++)
+    def_p_arr_.push(s.def_p_arr_[i]->clone());
   header_p_ = new Header (*s.header_p_);
 }
 
 Score::~Score()
 {
   delete header_p_;
+  for (int i=0; i < def_p_arr_.size (); i++)
+    delete def_p_arr_[i];
   delete music_p_;
-  delete pscore_p_;
-  delete audio_score_p_;
-  delete paper_p_;
-  delete midi_p_;
 }
 
 void
-Score::run_translator (Global_translator * trans_l)
+Score::run_translator (Music_output_def *odef_l)
 {
-  trans_l->set_score (this);
+  Global_translator * trans_p = odef_l->get_global_translator_p();
+  if (!trans_p)
+    return ;
+  
+  *mlog << "\nInterpreting music ...";
+  trans_p->last_mom_ = music_p_->time_int().max ();
+
   Music_iterator * iter = Music_iterator::static_get_iterator_p (music_p_, 
-								  trans_l);
+								 trans_p);
   iter->construct_children();
 
-  if ( ! iter->ok()) 
+  if (! iter->ok()) 
     {
-	delete iter;
-	warning ("Need music in a score");
-	errorlevel_i_ =1;
-	return ;
+      delete iter;
+      warning ("Need music in a score");
+      errorlevel_i_ =1;
+      return ;
     }
   
-  trans_l->start();
+  trans_p->start();
   
-  while ( iter->ok() || trans_l->moments_left_i ()) 
+  while (iter->ok() || trans_p->moments_left_i ()) 
     {
-	Moment w = infinity_mom;
-	if (iter->ok()) 
-	  {
-	    w = iter->next_moment();
-	    DOUT << w;
-	    iter->print();
-	  }
-	trans_l->modify_next (w);
-	trans_l->prepare (w);
-	trans_l->print();
+      Moment w = infinity_mom;
+      if (iter->ok()) 
+	{
+	  w = iter->next_moment();
+	  DOUT << "proccing: " << w <<"\n";
+	  iter->print();
+	}
+      trans_p->modify_next (w);
+      trans_p->prepare (w);
+      trans_p->print();
 
-	iter->process_and_next (w);
-	trans_l->process();
+      iter->process_and_next (w);
+      trans_p->process();
     }
   delete iter;
-  trans_l->finish();
+  trans_p->finish();
+
+  
+  if (errorlevel_i_) 
+    {
+      // should we? hampers debugging. 
+      warning ("Errors found, /*not processing score*/");
+    }
+    
+  Music_output * output = trans_p->get_output_p();
+  delete trans_p;
+
+  output->header_l_ = header_p_;
+  output->default_out_str_ = default_out_fn;
+  output->origin_str_ =  location_str();
+  
+  *mlog << endl;
+  output->process();
+  delete output ;
 }
 
 void
 Score::process()
 {
+  if (!music_p_)
+    return;
+
   print();
-  paper();
-  midi();
+  for (int i=0; i < def_p_arr_.size (); i++)
+    run_translator (def_p_arr_[i]);
 }
 
-void
-Score::midi()
-{
-  if ( !midi_p_)
-	return;
-  
-  *mlog << "\nCreating MIDI elements ..." << flush;
-  audio_score_p_ = new Audio_score (this);
-  
-  Global_translator* score_trans=  midi_p_->get_global_translator_p();
-  run_translator (score_trans);
-  delete score_trans;
-  
-  if (errorlevel_i_)
-    {
-	// should we? hampers debugging. 
-	warning ("Errors found, /*not processing score*/");
-    }
-  *mlog << endl;
 
-  midi_output();
-}
-  
-void
-Score::paper()
-{
-  if (!paper_p_)
-	return;
-  
-  *mlog << "\nCreating elements ..." << flush;
-  pscore_p_ = new Paper_score (paper_p_);
-  
-  Global_translator * score_trans=  paper_p_->get_global_translator_p();
-  run_translator (score_trans);
-  delete score_trans;
-  
-  if (errorlevel_i_) 
-    {
-	// should we? hampers debugging. 
-	warning ("Errors found, /*not processing score*/");
-    }
-  
-  *mlog << endl;
-  pscore_p_->process();
 
-  // output
-  paper_output();
-}
-
-void
-Score::midi_output()
-{
-  if ( midi_p_->outfile_str_ == "")
-	midi_p_->outfile_str_ = default_out_fn + ".midi";
-
-  Midi_stream midi_stream (midi_p_->outfile_str_);    
-  *mlog << "MIDI output to " << midi_p_->outfile_str_ << " ..." << endl;    
-
-  audio_score_p_->output (midi_stream);
-  *mlog << endl;
-}
-
-void
-Score::paper_output()
-{
-  if (paper_p_->outfile_str_=="")
-	paper_p_->outfile_str_ = default_out_fn + ".tex";
-
-  if ( errorlevel_i_) 
-    {
-	*mlog << "lilypond: warning: no output to: " << paper_p_->outfile_str_ 
-	<< " (errorlevel=" << errorlevel_i_ << ")" << endl;
-      return;
-    }
-
-  *mlog << "TeX output to " << paper_p_->outfile_str_ << " ...\n";
-  
-  Tex_stream the_output (paper_p_->outfile_str_);
-  
-  the_output << "% outputting Score, defined at: " <<
-	location_str() << "\n";
-  if (header_p_) {
-    the_output << header_p_->TeX_string();
-  }
-  pscore_p_->output (the_output);
-}
 
 void
 Score::print() const
 {
 #ifndef NPRINT
   DOUT << "score {\n"; 
-  music_p_->print();
-  if (midi_p_)
-	midi_p_->print();
-  
+  for (int i=0; i < def_p_arr_.size (); i++)
+    def_p_arr_[i]->print();
   DOUT << "}\n";
 #endif
 }
 
 void
-Score::set (Paper_def *pap_p)
+Score::add (Music_output_def *pap_p)
 {
-  delete paper_p_;
-  paper_p_ = pap_p;
+  def_p_arr_.push(pap_p);
 }
 
-void
-Score::set (Midi_def* midi_p)
-{    
-  delete midi_p_;
-  midi_p_ = midi_p;
-}
+
 
