@@ -20,22 +20,35 @@ Line_of_cols
 Break_algorithm::find_breaks() const
 {
     Line_of_cols retval;
-    for (iter_top(pscore_.cols,c); c.ok(); c++)
+    for (iter_top(pscore_.cols,c); c.ok(); c++) {
 	if (c->breakable_b())
 	    retval.push(c);
-    assert(retval.top() == pscore_.cols.bottom().ptr());
+    }
+    if ( linelength <=0)
+	while ( retval.size() >2)
+	    retval.del(1);
+
     return retval;
 }
 
+void
+Break_algorithm::generate_spacing_problem(Line_of_cols curline, Spacing_problem & sp)const
+{
+    sp.add_column(curline[0], true, 0.0);
+    for (int i=1; i< curline.size()-1; i++)
+       sp.add_column(curline[i]);
+
+    if ( linelength > 0)
+	sp.add_column(curline.top(), true, linelength);
+    else
+	sp.add_column(curline.top());
+}
 
 Col_hpositions
 Break_algorithm::stupid_solution(Line_of_cols curline)const
 {
     Spacing_problem sp;
-    sp.add_column(curline[0], true, 0.0);
-    for (int i=1; i< curline.size()-1; i++)
-       sp.add_column(curline[i]);
-    sp.add_column(curline.top(), true, linelength);
+    generate_spacing_problem(curline, sp);
    Col_hpositions colhpos;
    colhpos.cols = curline;
    colhpos.energy = INFTY;
@@ -49,11 +62,7 @@ Col_hpositions
 Break_algorithm::solve_line(Line_of_cols curline) const
 {
    Spacing_problem sp;
-
-   sp.add_column(curline[0], true, 0.0);
-   for (int i=1; i< curline.size()-1; i++)
-       sp.add_column(curline[i]);
-   sp.add_column(curline.top(), true, linelength);
+   generate_spacing_problem(curline, sp);
 
    // misschien  moeven uit Spacing_problem? 
    for (iter_top(pscore_.suz,i); i.ok(); i++) {
@@ -80,6 +89,9 @@ Break_algorithm::Break_algorithm(PScore&s)
 bool
 Break_algorithm::feasible(Line_of_cols curline) const
 {
+    if (linelength <=  0)
+	return true;
+    
     Real l =0;
     for (int i=0; i < curline.size(); i++)
 	l +=curline[i]->width().length();
@@ -99,3 +111,11 @@ Break_algorithm::problem_OK() const
     assert(end->breakable_b());
 #endif
 }
+
+Array<Col_hpositions>
+Break_algorithm::solve()const
+{
+
+    return do_solve();
+}
+
