@@ -1,5 +1,8 @@
 2002-05-21  Han-Wen  <hanwen@cs.uu.nl>
 
+	* scm/grob-description.scm:  fix alignment of barnumber: make sure
+	it doesn't hit the G-clef. 
+
 	* input/mozart-hrn3-defs.ly (startGraceMusic): typo (it's
 	startGraceMusic not startGraceContext).
 
