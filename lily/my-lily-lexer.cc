@@ -71,7 +71,7 @@ static Keyword_ent the_key_tab[]={
 
 My_lily_lexer::My_lily_lexer()
 {
-    keytable_p_ = new Keyword_table(the_key_tab);
+    keytable_p_ = new Keyword_table (the_key_tab);
     identifier_assoc_p_ = new Assoc<String, Identifier*>;
     errorlevel_i_ = 0;
     post_quotes_b_ = false;
@@ -79,15 +79,15 @@ My_lily_lexer::My_lily_lexer()
 }
 
 int
-My_lily_lexer::lookup_keyword(String s)
+My_lily_lexer::lookup_keyword (String s)
 {
-    return keytable_p_->lookup(s);
+    return keytable_p_->lookup (s);
 }
 
 Identifier*
-My_lily_lexer::lookup_identifier(String s)
+My_lily_lexer::lookup_identifier (String s)
 {
-    if (!identifier_assoc_p_->elt_b(s))
+    if (!identifier_assoc_p_->elt_b (s))
 	return 0;
     
     return (*identifier_assoc_p_)[s];
@@ -95,10 +95,14 @@ My_lily_lexer::lookup_identifier(String s)
 
 
 void
-My_lily_lexer::add_identifier(Identifier*i)
+My_lily_lexer::set_identifier (String name_str, Identifier*i)
 {
-    delete lookup_identifier(i->name_str_);
-    (*identifier_assoc_p_)[i->name_str_] = i;
+    Identifier *old = lookup_identifier (name_str);
+    if  (old) {
+	old->warning( "redeclaration of \\" + name_str);
+	delete old;
+    }
+    (*identifier_assoc_p_)[name_str] = i;
 }
 
 My_lily_lexer::~My_lily_lexer()
@@ -106,47 +110,49 @@ My_lily_lexer::~My_lily_lexer()
     delete keytable_p_;
 
     for (Assoc_iter<String,Identifier*>
-	     ai(*identifier_assoc_p_); ai.ok(); ai++) {
-	mtor << "deleting: " << ai.key()<<'\n';
+	     ai (*identifier_assoc_p_); ai.ok(); ai++) {
+	DOUT << "deleting: " << ai.key()<<'\n';
 	delete ai.val();
     }
     delete note_tab_p_;
     delete identifier_assoc_p_;
 }
 void
-My_lily_lexer::print_declarations(bool init_b)const
+My_lily_lexer::print_declarations (bool init_b)const
 {
-    for (Assoc_iter<String,Identifier*> ai(*identifier_assoc_p_); ai.ok(); 
+    for (Assoc_iter<String,Identifier*> ai (*identifier_assoc_p_); ai.ok(); 
 	 ai++) {
-	if (ai.val()->init_b_ == init_b)
-	    ai.val()->print();
+	if (ai.val()->init_b_ == init_b) {
+	    DOUT << ai.key() << '=';
+	    ai.val()->print ();
+	}
     }
 }
 
 void
-My_lily_lexer::LexerError(char const *s)
+My_lily_lexer::LexerError (char const *s)
 {
     if (include_stack_.empty()) {
 	*mlog << "error at EOF" << s << '\n';
     } else {
 	errorlevel_i_ |= 1;
  
-	Input spot(source_file_l(),here_ch_C());
+	Input spot (source_file_l(),here_ch_C());
 
-	spot.error( s );
+	spot.error (s);
     }
 }
 
 Melodic_req*
-My_lily_lexer::lookup_melodic_req_l(String s)
+My_lily_lexer::lookup_melodic_req_l (String s)
 {
-    return note_tab_p_->get_l(s);
+    return note_tab_p_->get_l (s);
 }
 
 void
-My_lily_lexer::add_notename(String s, Melodic_req *p)
+My_lily_lexer::add_notename (String s, Melodic_req *p)
 {
-    note_tab_p_->add(s,p);
+    note_tab_p_->add (s,p);
 }
 
 void
