@@ -1,20 +1,11 @@
 
 [document reintroduced deficiencies.]
 
-wrong instrument:
-
-cad = \melodic { \id "Staff" "fr horn"; c4 }
-
-\score { 
-	\melodic {\cad}
-}
-
 *******************
  '.' -> lilypond: lexer.l:258: int My_lily_lexer::yylex(): Assertion `cnv == 1' failed.
 
 ***********************
 
-2nd staff takes too long.
 
 \score { < 
 	\melodic { \id "Staff" ""; c'4 g'4 }
