@@ -582,7 +582,7 @@ Octaves are specified by adding @code{'} and @code{,} to pitch names.
 When you copy existing music, it is easy to accidentally put a pitch
 in the wrong octave and hard to find such an error. The relative
 octave mode prevents these errors: a single error puts the rest of the
-piece off by one octave.
+piece off by one octave:
 
 @cindex @code{\relative}
 @example
@@ -592,9 +592,9 @@ piece off by one octave.
 The octave of notes that appear in @var{musicexpr} are calculated as
 follows: If no octave changing marks are used, the basic interval
 between this and the last note is always taken to be a fourth or less
-(This distance is determined without regarding alterations; a
+(; this distance is determined without regarding alterations: a
 @code{fisis} following a @code{ceses} will be put above the
-@code{ceses})
+@code{ceses}).
 
 The octave changing marks @code{'} and @code{,} can be added to raise
 or lower the pitch by an extra octave.  Upon entering relative mode,
@@ -608,14 +608,14 @@ Here is the relative mode shown in action:
   }
 @end lilypond
 
-Octave changing marks are used for intervals greater than a fourth.
+Octave changing marks are used for intervals greater than a fourth:
 @lilypond[fragment,verbatim,center]
   \relative c'' {
     c g c f, c' a, e'' }
 @end lilypond
 
 If the preceding item is a chord, the first note of the chord is used
-to determine the first note of the next chord.
+to determine the first note of the next chord:
 
 @lilypond[fragment,verbatim,center]
   \relative c' {
@@ -652,7 +652,7 @@ does not, a warning is printed.  Depending on the value of
 @code{barCheckSynchronize}, the beginning of the measure will be
 relocated.
 
-In the next example, the second bar check will signal an error. 
+In the next example, the second bar check will signal an error:
 @example
   \time 3/4 c2 e4 | g2 | 
 @end example
@@ -675,7 +675,7 @@ The property @code{Score.skipTypesetting} can be used to switch on and
 off typesetting completely during the interpretation phase. When
 typesetting is switched off, the music is processed much more quickly.
 This can be used to skip over the parts of a score that have already
-been checked for errors.
+been checked for errors:
 
 @lilypond[fragment,singleline,verbatim]
 \relative c'' { c8 d
@@ -690,7 +690,7 @@ c d b bes a g c2 }
 
 Long notes can be converted automatically to tied notes.  This is done
 by replacing the @internalsref{Note_heads_engraver} by the
-@internalsref{Completion_heads_engraver}.
+@internalsref{Completion_heads_engraver}:
 
 @example
   \paper @{ \translator @{
@@ -700,7 +700,7 @@ by replacing the @internalsref{Note_heads_engraver} by the
   @} @}
 @end example
 
-For example,
+which will make long notes tied in the following example:
 @example
   \time 2/4
   c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 
@@ -791,7 +791,7 @@ the staff.
 @syntax
 
 Setting or changing the key signature is done with the @code{\key}
-command.
+command:
 @example
   @code{\key} @var{pitch} @var{type}
 @end example
@@ -843,7 +843,7 @@ The clef can be set or changed with the @code{\clef} command:
   \key f\major  c''2 \clef alto g'2
 @end lilypond
 
-Supported clef-names include 
+Supported clef-names include:
 @c Moved standard clefs to the top /MB
 @table @code
 @item treble, violin, G, G2
@@ -871,8 +871,8 @@ G clef on 2nd line
 @end table
 
 By adding @code{_8} or @code{^8} to the clef name, the clef is
-transposed one octave down or up, respectively.  @var{clefname} must
-be enclosed in quotes when it contains underscores or digits. For
+transposed one octave down or up, respectively. Argument @var{clefname} 
+must be enclosed in quotes when it contains underscores or digits. For
 example,
 @example
 	\clef "G_8"
@@ -894,7 +894,7 @@ The object for this symbol is @internalsref{Clef}.
 
 ``Ottava'' brackets introduce an extra transposition of an octave for
 the staff. They are created by invoking the function
-@code{set-octavation}
+@code{set-octavation}:
 
 @cindex ottava
 @cindex 15ma
@@ -934,7 +934,7 @@ staff.
 @syntax
 
 The time signature is set or changed by the @code{\time}
-command.
+command:
 @lilypond[fragment,verbatim]
  \time 2/4 c'2 \time 3/4 c'2. 
 @end lilypond
@@ -959,7 +959,7 @@ More options are available through the Scheme function
 @internalsref{MeasureGrouping} signs. Such signs ease reading
 rhythmically complex modern music.  In the following example, the 9/8
 measure is subdivided in 2, 2, 2 and 3. This is passed to
-@code{set-time-signature} as the third argument @code{(2 2 2 3)}.
+@code{set-time-signature} as the third argument @code{(2 2 2 3)}:
 
 @lilypond[verbatim]
 \score { \notes \relative c'' {
@@ -1026,7 +1026,7 @@ off.
 @cindex @code{\cadenzaOn }
 @code{\cadenzaOn}, 
 @cindex @code{\cadenzaOff }
-@code{\cadenzaOff}, 
+@code{\cadenzaOff}.
 
 @node Bar lines
 @subsection Bar lines
@@ -1038,7 +1038,7 @@ off.
 
 
 Bar lines delimit measures, but are also used to indicate repeats.
-Normally, tehy are inserted automatically.  Line breaks may only
+Normally, they are inserted automatically.  Line breaks may only
 happen on barlines.
 
 @syntax
@@ -1049,7 +1049,7 @@ of barlines can be forced with the @code{\bar} command:
    c4 \bar "|:" c4
 @end lilypond
 
-The following bar types are available
+The following bar types are available:
 @lilypond[fragment,  relative, singleline, verbatim]
 c4
 \bar "|" c
@@ -1083,8 +1083,8 @@ created.  At the start of a measure it is set to
 @code{defaultBarType}. The contents of @code{repeatCommands} are used
 to override default measure bars.
 
-@code{whichBar} can also be set directly, using @code{\property} or
-@code{\bar}.  These settings take precedence over the automatic
+Property @code{whichBar} can also be set directly, using @code{\property} 
+or @code{\bar}.  These settings take precedence over the automatic
 @code{whichBar} settings. 
 
 @cindex whichBar
@@ -1128,7 +1128,7 @@ appropriately.
 
 This can also be done by instantiating @internalsref{Voice} contexts
 by hand, and using @code{\voiceOne}, up to @code{\voiceFour} to assign
-a stem directions and horizontal shift for each part.
+a stem directions and horizontal shift for each part:
 @c
 
 @lilypond[singleline, verbatim]
@@ -1140,7 +1140,7 @@ a stem directions and horizontal shift for each part.
 
 Normally, note heads with a different number of dots are not merged, but
 when  the object property @code{merge-differently-dotted} is set in
-the @internalsref{NoteCollision} object, they are:
+the @internalsref{NoteCollision} object, they are merged:
 @lilypond[verbatim,fragment,singleline]
 \relative c'' \context Voice < {
      g8 g8 
@@ -1161,7 +1161,7 @@ Similarly, you can merge half note heads with eighth notes, by setting
     c8 c4. } \\ { c2 c2 } >
 @end lilypond
 
-LilyPond also vertically shifts rests that are opposite of a stem. 
+LilyPond also vertically shifts rests that are opposite of a stem:
 
 
 @lilypond[singleline,fragment,verbatim]
@@ -1182,7 +1182,7 @@ LilyPond also vertically shifts rests that are opposite of a stem.
 @cindex @code{\voiceThree }
 @code{\voiceThree}, 
 @cindex @code{\voiceFour }
-@code{\voiceFour}, 
+@code{\voiceFour}.
 
 The following commands specify in what chords of the current voice
 should be shifted: the outer voice has @code{\shiftOff}, and the inner
@@ -1196,7 +1196,7 @@ voices have @code{\shiftOn}, @code{\shiftOnn}, etc.
 @cindex @code{\shiftOnnn}
 @code{\shiftOnnn}, 
 @cindex @code{\shiftOff}
-@code{\shiftOff}, 
+@code{\shiftOff}.
 
 
 
@@ -1218,7 +1218,7 @@ are handled. When LilyPond cannot cope, the @code{force-hshift}
 property of the @internalsref{NoteColumn} object and pitched rests can
 be used to override typesetting decisions.
 
-When using @code{merge-differently-headed} with upstem 8th or shorter
+When using @code{merge-differently-headed} with an upstem 8th or a shorter
 note, and a downstem half note, the 8th note gets the wrong offset.
 
 @node Beaming
