@@ -17,13 +17,6 @@
 #include "fproto.hh"
 #include "string-handle.hh"
 
-/*
-  technically incorrect, but lets keep it here: this is a
-  catch all place for this stuff.
-  */
-  
-#include "international.hh"
-
 /* Libg++ also has a String class.  Programming errors can lead to
   confusion about which String is in use.  Uncomment the following if you have 
   unexplained crashes after mucking with String
@@ -81,16 +74,9 @@ public:
   String (char const* source); 
   String (Byte const* byte_C, int length_i); 
     
-  /// "ccccc"
-  String (char c, int n = 1);
-
-  String (int i , char const *fmt=0);
-  String (double f , char const* fmt =0);
-  /// 'true' or 'false'
-  String (bool);
-
-  ///  return a "new"-ed copy of contents
-  Byte* copy_byte_p () const; //  return a "new"-ed copy of contents
+  ///  return "new"-ed copy of contents
+  Byte* copy_byte_p () const;
+  char* copy_ch_p() const;
 
   char const* ch_C () const;
   Byte const* byte_C () const;
@@ -138,9 +124,8 @@ public:
   /// return the "esrever" of *this
   String reversed_str () const;
 
-
   /// return a piece starting at index_i (first char = index_i 0), length n
-  String cut (int index_i, int n) const;
+  String cut_str (int index_i, int n) const;
 
   /// cut out a middle piece, return remainder
   String nomid_str (int index_i, int n) const;
@@ -157,13 +142,15 @@ public:
   /// index of leftmost #c#
   int index_i (char c) const;
 
-
   /// index of leftmost occurance of STRING
   int index_i (String) const;
+
+
   int index_any_i (String) const;
 
   void to_upper ();
   void to_lower ();
+
   /// provide Stream output
   void print_on (ostream& os) const;
 
@@ -176,6 +163,34 @@ public:
   /// convert to a double
   double value_f () const;
 };
+
+/*
+ better to clutter global namespace, than suffer *ugh, ugh, ugh*
+ implicit conversions.
+
+ it might be cool to have no type-checking at all in a language,
+ but once there is, having this silently circumvented is a nightmare.
+
+ whenever implicit conversions seem necessary (e.g. operator << ()),
+ use Scalar as the generic type iso String.
+ */
+
+/// for completeness (=handy)
+inline String to_str (String s) { return s; }
+/// "cccc"
+String to_str (char c, int n = 1);
+String to_str (int i, char const* format = 0);
+String to_str (double f , char const* format = 0);
+String to_str (bool b);
+String to_str (char const* format, ... );
+
+/*
+  technically incorrect, but lets keep it here: this is a
+  catch all place for this stuff.
+  */
+  
+#include "international.hh"
+
 
 #include "compare.hh"
 INSTANTIATE_COMPARE(String const &, String::compare_i);
