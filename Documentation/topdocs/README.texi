@@ -36,49 +36,33 @@ source archives; Xdelta (@file{.xd}) files are supplied on the website.
 @section Compilation
 
 For compiling and running LilyPond please refer to the installation
-instructions.  These instructions can be found when you unpack lilypond,
-as @file{lilypond-x.y.z/INSTALL.txt}.
+instructions.  These instructions can be found when you unpack
+lilypond, as @file{lilypond-x.y.z/INSTALL.txt}. They are also
+available on the web at
+@uref{http://lilypond.org/Documentation/topdocs/out-www/INSTALL.html}.
 
-
-NOTE: If you downloaded a binary (.rpm or a W95/NT .zip file),
-you don't have to compile LilyPond.
+NOTE: If you downloaded a binary (@file{.rpm} or a W95/NT @file{.zip}
+file), you don't have to compile LilyPond.
 
 
 @section Documentation
 
 The documentation is available online at
-@uref{http://www.lilypond.org/}.  You can also build it locally. This
-does require a working LilyPond binary.  The following formats are
-supported:
-@itemize @bullet
+@uref{http://www.lilypond.org/Documentation/out-www/index.html}.
 
-@item HTML. Refer to INSTALL.txt for information
-on how to make the HTML documentation.
-
-@item @file{.dvi},  for the tutorial and reference manual. Do
-@example 
-
- make -C Documentation/user/ dvi 
-
-@end example 
-The printable documentation is left in @file{Documentation/user/out/}.
-
-@item paper. Create the .dvi documentation, and print it with dvips.
-
-@end itemize
+You can also build it locally: follow the instructions under `Building
+website' in the installation instructions.
 
 
 @section Comments
 
-LilyPond is a long way from finished and polished, so please send your
-criticism, comments, bugreports, patches, etc., to the mailing list,
-@emph{not} to us personally.
+LilyPond is a long way from finished so we appreciate your criticism,
+comments, bugreports, patches, etc. Please send them to the mailing
+list, @emph{not} to us personally.
 
 @html
 <a name="mailing-lists">
 @end html
-
-
 
 We have the following mailing lists:
 
@@ -89,6 +73,7 @@ is a low-volume list for information on the GNU Music project.
     @email{drl@@gnu.org, David R. Linn} or
     @email{hanwen@@cs.uu.nl, Han-Wen} to send announcements for this
 list.
+
 @item
 @uref{http://mail.gnu.org/mailman/listinfo/lilypond-devel,lilypond-devel@@gnu.org}
   For discussions about developing lilypond, in particular the unstable series.
@@ -104,6 +89,8 @@ If you have bugreports, you should send them to this list.
   list.
 @end itemize
 
+You can search the lists from the following page:
+@uref{http://lilypond.org/search, searching facilities}.
 
 @section Windows 32
 
@@ -119,15 +106,14 @@ files, eg.,
 @example 
 rm `find /var/lib/texmf/fonts -name 'feta*'` 
 @end example 
-
-a script to do this for you is in @file{buildscripts/out/clean-fonts}
+a script to do this for you is left
+@file{buildscripts/out/clean-fonts}
 
 @section Bugs
 
 Send bug reports to @email{bug-lilypond@@gnu.org}.  For help and
-questions use @email{lilypond-user@@gnu.org}.  Please consult the FAQ
-and installation instructions before mailing your problems.
-
+questions use @email{lilypond-user@@gnu.org}.  Please consult the
+documentation before mailing your problems.
 
 
 @bye

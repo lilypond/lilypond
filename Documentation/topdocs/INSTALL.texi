@@ -123,6 +123,18 @@ on the FTP site.
 @end example
 @end itemize
 
+@subsection Font problems.
+
+If you are upgrading from a previous version of LilyPond, be sure to
+remove all old font files. These include @file{.pk} and @file{.tfm} files
+that may be located in @file{/var/lib/texmf}, @file{/var/spool/texmf},
+@file{/var/tmp/texmf} or @file{@var{prefix}/share/lilypond/fonts/}.  A
+script automating this has been included, see
+@file{buildscripts/clean-fonts.sh}.
+
+
+
+
 @section Requirements
 
 @subsection Compilation
@@ -224,7 +236,7 @@ Csh and bourne sh scripts are left in
 LilyPond is a big and slow program.  A fast CPU and plenty of RAM is
 recommended for comfortable use.
 
-@subsection Website requirements
+@subsection Building website 
 
 The documentation comes in the form of a website. You can view this
 website on the internet, but you can also build it locally. This process
@@ -245,7 +257,7 @@ fonts. Get it from @uref{http://www.cs.uu.nl/~hanwen/mftrace/}.  You
 will need to install some additional packages to get mftrace to work.
 @end itemize
 
-@section Building  LilyPond
+@section Building LilyPond
 
 to install GNU LilyPond, type:
 @example 

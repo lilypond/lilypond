@@ -11,9 +11,10 @@ Breaks can be encouraged and discouraged using @code{\\break} and
 \score{
 	\notes\context Voice{
 	\emptyText
-	c1 c1^"no break after 2nd note"  \noBreak c1 c1
-	  
-	  c1^"break after this" \break c1 c1 
+	c1 \noBreak c1 \noBreak \mark "nobreak" c1 \noBreak
+	c1 \break \mark "break" c1 \break \mark "break" c1 
 	}
-	\paper { linewidth = 4.0\cm}
+	\paper {
+	    indent = 0.0
+	    linewidth = 4.0\cm}
 }

@@ -13,7 +13,7 @@ include $(depth)/make/stepmake.make
 default: local-doc
 
 wiki-dump = $(outdir)/wiki-dump/LilyPond.html
-wiki-slurp: $(wiki-dump)
+#wiki-slurp: $(wiki-dump)
 
 $(wiki-dump):
 	mkdir -p $(outdir)/wiki-dump
@@ -22,7 +22,7 @@ foe:
 	mkdir -p $(outdir)/wiki-dump/images
 	ln -f $(builddir)/Documentation/pictures/$(outbase)/lelie-icon.png $(outdir)/wiki-dump/images/wikibase.png
 
-local-WWW: copy-for-me txt-to-html $(PS_GZ_FILES) $(PDF_FILES) wiki-slurp footify
+local-WWW: copy-for-me txt-to-html $(PS_GZ_FILES) $(PDF_FILES) footify
 
 local-WWW-clean: deep-WWW-clean
 

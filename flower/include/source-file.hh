@@ -1,7 +1,3 @@
-//
-//  source-file.hh -- declare Source_file
-//
-//  copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #ifndef SOURCE_FILE_HH
 #define SOURCE_FILE_HH

@@ -6,7 +6,7 @@ include $(stepdir)/www-targets.make
 
 local-WWW: $(OUTHTML_FILES) footify
 
-footify:
+footify: $(sort $(wildcard $(outdir)/*.html out/*.html out-www/*.html))
 	$(footify) $(sort $(wildcard $(outdir)/*.html out/*.html out-www/*.html))
 
 deep-footify:

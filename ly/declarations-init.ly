@@ -20,7 +20,7 @@ bigger = 1
 center=0
 
 break =  \penalty  #-10000
-noBreak =  \penalty #10000
+noBreak =  \penalty #10001
 \include "scale-definitions-init.ly"
 
 melisma = \property Staff.melismaBusy = ##t
