@@ -5,6 +5,7 @@
 
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+#include <math.h>
 
 #include "misc.hh"
 #include "dots.hh"
@@ -60,7 +61,7 @@ Note_head::brew_molecule (SCM smob)
   
   Real inter_f = Staff_symbol_referencer::staff_space (me)/2;
   int sz = Staff_symbol_referencer::line_count (me)-1;
-  int p = (int)Staff_symbol_referencer::position_f (me);
+  int p = (int)  rint (Staff_symbol_referencer::position_f (me));
   int streepjes_i = abs (p) < sz 
     ? 0
     : (abs(p) - sz) /2;
