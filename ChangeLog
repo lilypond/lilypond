@@ -1,3 +1,14 @@
+2004-03-23  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/accidental-engraver.cc (acknowledge_grob): add property
+	harmonicAccidentals
+
+	* lily/piano-pedal-engraver.cc (del_linespanner): new function.
+	general cleanups.
+	
+	* input/les-nereides.ly (middleDynamics): resurrect Les
+	nereides. Remove pedal hack.
+
 2004-03-22  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* input/regression/property-grace-polyphony.ly: new file.

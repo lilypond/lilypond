@@ -44,11 +44,11 @@ treble = \new Voice \notes\relative c''{
     \change Staff=bass
 
     \once\override TextScript  #'extra-offset = #'(-3 . -4) %tweak
-	    
-    cis,16^2(^\markup {\small \italic "m.d." }
+    
+    cis,16^2(^\markup {\small \italic "m.d." }\sustainUp
     <fis fis,>8 <e! e,!>
     | %4
-    <dis, a' dis>4)
+    <dis, a' dis>4)\sustainDown
     
     \change Staff=treble
     
@@ -62,22 +62,17 @@ treble = \new Voice \notes\relative c''{
     \tieUp
     cis''''4^\markup { \small \italic "m.g." }\arpeggio~
     \grace {
-	\override Stem  #'stroke-style = #"grace"
-  
-         cis8
-	 
-         %\stemBoth Hmm
+        cis8
+	\slurBoth % Tweak
 	
-	 \override Stem  #'direction = #0
+	\override Stem  #'direction = #0
 	 
-          a16[-5( fis dis]
-	 #(set-octavation 0)
+	a16[-5( fis dis]
+	#(set-octavation 0)
 	
- 	 cis32[ a-1 fis-4 dis]   cis[ a  fis)-2]
-	 % the small grace in lower staff comes after us
-	 s32
-    
-	\revert Stem #'stroke-style
+	cis32[ a-1 fis-4 dis]   cis[ a  fis)-2]
+				% the small grace in lower staff comes after us
+	s32
     }
 
 
@@ -140,7 +135,9 @@ bass = \new Voice \notes\relative c{
 
     r8. e,16(\f_2 <a a,>8[ <b b,>]
     | %2
-    <cis cis,>4
+    \override Staff.SustainPedalLineSpanner #'staff-padding = #5
+			   
+    <cis cis,>4\sustainDown
     \change Staff=treble
     \stemDown
     \override Slur  #'attachment = #'(stem . stem) %tweak
@@ -154,11 +151,11 @@ bass = \new Voice \notes\relative c{
     \override Slur  #'y-free = #0.1 %tweak
     \revert Slur #'attachment-offset %tweak
     \override Slur  #'attachment-offset = #'((0 . 3) . (0 . 8)) %tweak
-    r8. cis,,16( <fis fis,>8 <gis gis,>
+    r8. cis,,16(\sustainUp <fis fis,>8 <gis gis,>
     
     | %3
     \override Stem  #'length = #5 %tweak
-    <a a,>4
+    <a a,>4\sustainDown
     \change Staff=treble
 			    
     \revert Stem #'length %tweak
@@ -189,7 +186,7 @@ bass = \new Voice \notes\relative c{
  	s32 s s
 	s s s
 	\clef bass
-	<e,,, e,>32(
+	<e,,, e,>32(\sustainUp\sustainDown
     
 	\revert Stem #'stroke-style
     }
@@ -200,22 +197,27 @@ bass = \new Voice \notes\relative c{
     
     % \fingerDown
     \override Fingering  #'direction = #-1
-    
+
+			   
+    \override Staff.SustainPedalLineSpanner #'staff-padding = #3.5
+    \set Staff.pedalSustainStyle = #'mixed
     %%a,8 e'[-5(<a-2 cis-3>])
-    a,8 e'[-5(<a cis>])-2-3
+
+			   
+    a,8\sustainDown e'[-5(<a cis>])-2-3
     %%r b,-5 <e-3 gis-5 d'>4
-    r b,-5 <e gis d'>4-3-5
+    r b,-5\sustainUp\sustainDown <e gis d'>4-3-5
     \slurBoth
     \once \override Fingering  #'extra-offset = #'(0 . -1) %tweak
-    e,8[-5(
+    e,8[-5(\sustainUp
     
     | %6
     \once \override Fingering  #'extra-offset = #'(0 . -1) %tweak
-    a)-2]
+    a)-2]\sustainDown
     \slurUp
-    e'[(<a cis>)] r b, <e gis d'>4
+    e'[(<a cis>)] r b,\sustainUp\sustainDown <e gis d'>4
     \slurBoth
-    e,8[(
+    e,8[(\sustainUp
     
     | %7
     a)]
@@ -239,16 +241,14 @@ middleDynamics = \notes{
     | %4
     s2
     \grace {
-  \override Stem  #'stroke-style = #"grace"
-  
-    	   s8
-    	   s16 s s
-    	   s32 s
-           \once\override Dynamics.Hairpin  #'extra-offset = #'(0 . 2) %tweak
-	   s\> s
-     	   s32 s s s\!
+	s8
+	s16 s s
+	s32 s
+	\once\override Dynamics.Hairpin  #'extra-offset = #'(0 . 2) %tweak
+	s\> s
+	s32 s s s\!
     
-  \revert Stem #'stroke-style }
+    }
 
     s32 s-"rall." s s s8 s4
     | %5
@@ -262,60 +262,6 @@ middleDynamics = \notes{
     s8\!
 }
 
-lowerDynamics = \notes{
-    s2
-    | %2
-    s2\sustainDown s8. s16\sustainUp s4
-    | %3
-    s2\sustainDown s8. s16\sustainUp s4
-    | %4
-    s4\sustainDown
-    \set Dynamics.pedalSustainStrings = #'("Ped." "*Ped." "*")
-    
-    % grace destroys pedal-line-spanner?
-    % let's do manual tweak:
-    \once\override Dynamics.SustainPedal  #'extra-offset = #'(10 . 0) %tweak
-    s8\sustainUp
-    \once\override Dynamics.SustainPedal  #'extra-offset = #'(16 . 0) %tweak
-    s8\sustainDown
-%{
-    s4
-    \grace {
-  \override Stem  #'stroke-style = #"grace"
-  
-    	   s8
-    	   s16 s s
-    	   s32 s s s\sustainUp
-     	   s32 s s s\sustainDown
-    
-  \revert Stem #'stroke-style }
-
-%}
-    s2
-
-    | %5
-    % ugh, I don't think that 'mixed should show last edge, but rather:
-    %
-    %   Ped__________/\__________ *
-    %
-    % that's what gray wants, anyway.
-    
-    \set Dynamics.pedalSustainStyle = #'mixed
-    s8\sustainDown s s
-    s s\sustainUp\sustainDown s
-    s
-    \once \set Dynamics.pedalSustainStyle = #'text
-    s\sustainUp
-
-    | %6
-    \set Dynamics.pedalSustainStyle = #'mixed
-    s8\sustainDown s s
-    s s\sustainUp\sustainDown s
-    s
-    \once \set Dynamics.pedalSustainStyle = #'text
-    s\sustainUp
-    | %7
-}
 
 \score{
     \context PianoStaff <<
@@ -331,13 +277,11 @@ lowerDynamics = \notes{
 	    \bass
 	    \bassTwo
         >>
-	\new Dynamics <<
-	    \lowerDynamics
-	>>
     >>
     \paper {
 	\context {
 	    \ScoreContext
+	    pedalSustainStrings = #'("Ped." "*Ped." "*")
 	    \remove Bar_number_engraver
         }
 	\context {
@@ -346,9 +290,6 @@ lowerDynamics = \notes{
 	    \consists "Output_property_engraver"
 	    minimumVerticalExtent = #'(-1 . 1)
 
-	    pedalSustainStrings = #'("Ped." "*Ped." "*")
-	    
-	    \consists "Piano_pedal_engraver"
 	    \consists "Script_engraver"
 	    \consists "Dynamic_engraver"
 	    \consists "Text_engraver"

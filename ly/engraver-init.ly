@@ -475,6 +475,8 @@ AncientRemoveEmptyStaffContext = \context {
     pedalSostenutoStrings = #'("Sost. Ped." "*Sost. Ped." "*") 
     pedalSostenutoStyle = #'mixed
 
+
+    harmonicAccidentals = ##t 
     fingeringOrientations = #'(up down)
     tupletNumberFormatFunction = #denominator-tuplet-formatter
     markFormatter = #format-mark-letters
