@@ -7,7 +7,8 @@ requires adding an engraver to @code{ChordNames}, and setting
 }
 
 \version "2.2.3"
-<<
+\score {
+    <<
   \new ChordNames \with {
       voltaOnThisStaff = ##t
   } \chords {
@@ -15,7 +16,8 @@ requires adding an engraver to @code{ChordNames}, and setting
   }
   \new Staff \with {
       voltaOnThisStaff = ##f
-  } {
+  } \notes {
    \repeat volta 2 { c'1 } \alternative { c' }
   }
 >>
+}

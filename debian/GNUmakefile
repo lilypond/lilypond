@@ -26,7 +26,6 @@ EXTRA_DIST_FILES = $(CONF_FILES)\
  lilypond-doc.doc-base\
  lilypond-doc.postinst\
  lilypond-doc.prerm\
- lilypond.dirs\
  lilypond.doc-base\
  lilypond.install\
  lilypond1.3.copyright\

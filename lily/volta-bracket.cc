@@ -54,7 +54,7 @@ Volta_bracket_interface::print (SCM smob)
   if (gh_string_p (glyph))
     str = ly_scm2string (glyph);
   else
-    return "|";
+    str = "|";
   
   const char* cs = str.to_str0 ();
   no_vertical_end |=

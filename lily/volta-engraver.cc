@@ -61,7 +61,7 @@ bool
 Volta_engraver::staff_eligible ()
 {
   SCM doit =get_property ("voltaOnThisStaff");
-  if (ly_c_boolean_p (doit))
+  if (gh_boolean_p (doit))
     {
       return to_boolean (doit);
     }
@@ -83,7 +83,7 @@ Volta_engraver::staff_eligible ()
     volta engraver in score context or somesuch.
 	
   */
-  if (!ly_c_pair_p (staffs))
+  if (!gh_pair_p (staffs))
     {
       programming_error ("Huh? Volta engraver can't find staffs?");
       return false;

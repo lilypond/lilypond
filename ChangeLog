@@ -1,5 +1,11 @@
 2004-07-04  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* VERSION: release 2.2.4
+	
+	* ly/engraver-init.ly: add Volta_engraver.
+
+	* debian/GNUmakefile (EXTRA_DIST_FILES): remove lilypond.dirs.
+
 	* scripts/lilypond-book.py (Lilypond_snippet.output_texinfo): add
 	\n to texidoc.
 

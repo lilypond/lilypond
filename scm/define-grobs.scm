@@ -686,7 +686,7 @@
 	(print-function . ,Text_item::print)
 
 	;; no Y dimensions, because of lyrics under tenor clef.
-	(Y-extent-callback . (0 . 0))
+	(Y-extent . (0 . 0))
 	(font-shape . italic)
 	(padding . 0.6)
 	(staff-padding . 0.2)
