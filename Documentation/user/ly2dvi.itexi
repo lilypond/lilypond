@@ -3,7 +3,7 @@
 @node ly2dvi
 @chapter ly2dvi
 
-@file{ly2dvi} is a Python script that creates a nicely title output file
+@file{ly2dvi} is a Python script that creates a nicely titled output file
 from an input file for La@TeX{}. It can create a DVI or PS file. It
 works by running LilyPond on the input files, creating a La@TeX{}
 wrapper around the output, and running La@TeX{} (and optionally
@@ -11,8 +11,9 @@ wrapper around the output, and running La@TeX{} (and optionally
 
 @unnumberedsubsec Invoking ly2dvi
 
+@c ly2dvi needs at least one FILE, can't act as filter yet
 @example
-ly2dvi @var{[OPTIONS]} ... @var{[FILE]}...
+        ly2dvi [@var{OPTION}]@dots{} @var{FILE}@dots{}
 @end example
 
 @unnumberedsec Options
@@ -24,7 +25,7 @@ files. The temporary directory is created in the current directory as @code{ly2d
 @item -d,--dependencies
     Write makefile dependencies for every input file.
 @item -h,--help
-    Print help.
+    Print usage help.
 @item -I,--include=@var{DIR}
     Add @var{DIR} to LilyPond's include path.
 @item -m,--no-paper
@@ -34,7 +35,7 @@ files. The temporary directory is created in the current directory as @code{ly2d
 @item -o,--output=@var{FILE}
     Generate output to @var{FILE}.  The extension of @var{FILE} is ignored.
 @item -P,--postscript
-    Also generate PostScript output.
+    Also generate PostScript output, using dvips.
 @item -s,--set=@var{KEY}=@var{VAL}
     Add @var{KEY}= @var{VAL} to the settings, overriding those specified
 in the files. Possible keys: @code{language}, @code{latexheaders},
@@ -61,13 +62,13 @@ generate titling:
 @item subtitle
     Subtitle, centered below the title.
 @item poet
-    Name of the poet, left flushed below the below subtitle.
+    Name of the poet, left flushed below the subtitle.
 @item composer
     Name of the composer, right flushed below the subtitle.
-@item metre
-    Meter string, left flushed below the below poet.
+@item meter
+    Meter string, left flushed below the poet.
 @item opus
-    Name of the opus, right flushed below the below composer.
+    Name of the opus, right flushed below the composer.
 @item arranger
     Name of the arranger, right flushed below the opus.
 @item instrument
@@ -94,9 +95,9 @@ was here, @var{version-number}''.
 
 @unnumberedsubsec Additional parameters
 
-Ly2dvi responds to several parameters specified in the LilyPond
-file. They can be overridden by supplying a @code{--set} command line
-option.
+Ly2dvi responds to several parameters specified in a @code{\paper}
+section of the LilyPond file. They can be overridden by supplying a
+@code{--set} command line option.
 
 @table @code
 @item language
@@ -110,7 +111,7 @@ included.  Default: unset.
 
         Normally read from the @code{\header} block. Default value: empty
 
-@item latexheaders
+@item latexpackages
     Specify additional La@TeX{} packages file. This works cumulative,
 so you can add multiple packages using multiple @code{-s=latexpackages} options.
        Normally read from the @code{\header} block. Default value:
@@ -123,6 +124,10 @@ so you can add multiple packages using multiple @code{-s=latexpackages} options.
     Set orientation. Choices are @code{portrait} or @code{landscape}. Is
 read from the @code{\paper} block, if set.
         
+@item textheight
+    The vertical extension of the music on the page. It is normally 
+    calculated automatically, based on the paper size.
+
 @item linewidth
         The music line width. It is normally read from the @code{\paper}
 block.
