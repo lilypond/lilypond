@@ -1,0 +1,37 @@
+dnl configure.in   -*-shell-script-*-
+dnl Process this file with autoconf to produce a configure script. 
+
+# Bootstrap the init proces.  List a file identifies your package.
+AC_INIT(make/stepmake.lsm.in)
+AC_CONFIG_HEADER($CONFIGFILE.hh:config.hh.in)
+
+# Bootstrap StepMake configure
+AC_STEPMAKE_INIT
+
+# For all packages except the StepMake package itself
+# AC_CONFIG_SUBDIRS(stepmake)
+
+# Uncomment the configuration options your package needs.
+# AC_STEPMAKE_COMPILE
+# AC_HAVE_HEADERS(limits.h malloc.h string.h unistd.h values.h)
+# AC_STEPMAKE_CXX
+# AC_STEPMAKE_GXX
+# AC_STEPMAKE_CXXTEMPLATE
+# AC_STEPMAKE_LEXYACC
+# AC_STEPMAKE_LIB
+# AC_STEPMAKE_LIBTOOL
+AC_STEPMAKE_LOCALE
+# AC_STEPMAKE_GETTEXT
+# AC_STEPMAKE_MAN
+# AC_STEPMAKE_MSGFMT
+# AC_STEPMAKE_TEXMF
+AC_STEPMAKE_YODL
+
+# AM_PATH_GTK(1.0.0,,AC_MSG_ERROR([please install proper version of gtk]))
+# AM_PATH_GTK__(0.9.4,,AC_MSG_ERROR([please install proper version of gtk--]))
+
+AC_CHECK_PROGS(MAKEINFO, makeinfo, error)
+# AC_CHECK_SEARCH_RESULT($YODL2TEXINFO, yodl,  
+#    You should install Yodl 1.30.pre6 or better)
+
+AC_STEPMAKE_END
