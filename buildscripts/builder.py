@@ -22,7 +22,7 @@ def join_path (path, infix=os.pathsep, prefix = ''):
 verbose = verbose_opt (env, ' --verbose')
 MAKEINFO_INCLUDES = join_path (env['MAKEINFO_PATH'], '', ' -I')
 MAKEINFO = env['MAKEINFO']
-a = ('%(MAKEINFO)s %(verbose)s %(MAKEINFO_INCLUDES)s'\
+a = ('%(MAKEINFO)s%(verbose)s %(MAKEINFO_INCLUDES)s'\
      ' --no-split --no-headers --output=$TARGET $SOURCE') % vars ()
 texi2txt = Builder (action = a, suffix = '.txt', src_suffix = '.texi')
 env.Append (BUILDERS = {'Texi2txt': texi2txt})
@@ -89,7 +89,7 @@ def add_ps_target (target, source, env):
 	return (target + [base + '.ps'], source)
 
 a = ('LILYPONDPREFIX=%(LILYPONDPREFIX)s '\
-     + PYTHON + ' ' + LILYPOND_PY + verbose_opt (env, ' --verbose')\
+     + '%(PYTHON)s %(LILYPOND_PY)s%(verbose)s'\
      + ' --include=$$(dirname $TARGET)'\
      + ' --output=$$(dirname $TARGET)'\
      + ' $SOURCE') % vars ()
@@ -139,7 +139,8 @@ tfm = Builder (action = a, suffix = '.tfm', src_suffix = '.mf',
 env.Append (BUILDERS = {'TFM': tfm})
 
 MF_TO_TABLE_PY = env['MF_TO_TABLE_PY']
-verbose = verbose_opt (env, ' --verbose')
+#verbose = verbose_opt (env, ' --verbose')
+verbose = ''
 a = ('%(PYTHON)s %(MF_TO_TABLE_PY)s%(verbose)s'\
      + ' --outdir=$$(dirname $TARGET)'\
      + ' --afm=%(outdir)s/$$(basename $TARGET .afm).afm' \
@@ -184,7 +185,7 @@ def run_mftrace (target, source, env):
 	encoding = encoding_opt (target)
 	command = ('(cd $$(dirname $TARGET) && '
 		   + ' MFINPUTS=.:$$(dirname $TARGET):' + mfdir\
-		   + ' mftrace --pfa --simplify --keep-trying %(verbose)s' \
+		   + ' mftrace --pfa --simplify --keep-trying%(verbose)s'\
 		   + ' --include=$$(dirname $TARGET)'\
 		   + ' %(encoding)s %(mf)s)') % vars ()
 	return os.system (command)
