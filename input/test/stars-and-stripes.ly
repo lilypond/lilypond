@@ -71,6 +71,8 @@ global = \notes {
 	\bar "|.";
 	}
 
+\include "paper16.ly";
+
 \score{ 
 	\type GrandStaff < 
 		\type Staff=staffA < 
@@ -92,6 +94,9 @@ global = \notes {
 		>
 	>
 	\paper{
+		\paper_sixteen;
+		textheight = 230.\mm;
+		linewidth= 180.\mm;
 		\translator {
 				\GrandStaffContext
 				\accepts "Lyrics";
