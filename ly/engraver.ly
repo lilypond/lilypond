@@ -92,7 +92,6 @@ VoiceContext = \translator {
 	\consists "Dot_column_engraver";
 	\consists "Stem_engraver";
 	\consists "Beam_engraver";
-	beamAuto = "1";
 	\consists "Auto_beam_engraver";
 	\include "auto-beam-settings.ly";
 	\consists "Chord_tremolo_engraver";
@@ -122,7 +121,6 @@ GraceContext=\translator {
 	\consists "Local_key_engraver";
 	\consists "Stem_engraver";
 	\consists "Beam_engraver";
-	beamAuto = "1";
 	\consists "Slur_engraver";
 	\consists "Auto_beam_engraver";
 	\include "auto-beam-settings.ly";

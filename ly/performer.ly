@@ -102,6 +102,19 @@ PianoStaffContext = \translator {
 	\consists "Time_signature_performer";
 	\consists "Tempo_performer";
 }
+
+\translator {
+	\type "Staff_performer";
+	\accepts ChordNameVoice;
+	\name ChordNames;
+}
+
+\translator {
+	\type Performer_group_performer;
+	\consists Note_performer;
+	\name ChordNameVoice;	
+}
+
 \translator {
 	\type Performer_group_performer;
 
@@ -120,6 +133,7 @@ ScoreContext = \translator {
 	\accepts Lyrics; 
 	\accepts StaffGroup;
 	\accepts ChoirStaff;
+	\accepts ChordNames;
 	\consists "Swallow_performer";
 };
 \translator { \ScoreContext }

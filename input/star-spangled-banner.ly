@@ -16,7 +16,7 @@ http://www.Arkkra.com/doc/star.ps
 
 $staff1_voice_1 = \notes {
   a8.()fis16 
-  \repeat semi 2 { d4 fis4 a4 d'2 fis'8. e'16 d'4 fis4 gis4 a2 a8 a8 
+  \repeat volta 2 { d4 fis4 a4 d'2 fis'8. e'16 d'4 fis4 gis4 a2 a8 a8 
   fis'4. e'8 d'4 cis'2 b8. cis'16 d'4 d'4 a4 }
   \alternative { { fis4 d4 a8. fis16 } { fis4 d4 fis'8. fis'16 } } 
   fis'4 g'4 a'4 a'2 g'8 fis'8 e'4 fis'4
@@ -28,7 +28,7 @@ $staff1_voice_1 = \notes {
 
 $staff1_voice_2 = \notes { 
   a8.()fis16 
-  \repeat semi 2 { a,4 d4 e4 d4 () fis4 fis8. fis16 fis4 d4 d4 cis2
+  \repeat volta 2 { a,4 d4 e4 d4 () fis4 fis8. fis16 fis4 d4 d4 cis2
   e8 e8 a4. a8 a4 a2 a8. a16 a4 a4 a4 }
   \alternative { { fis4 d4 a8. fis16 } { fis4 d4 r4 } }
   a4 a4 d'4 d'2 a8 a8 cis'4 cis'4 cis'4 cis'2 a4 a4. a8 a4 a2
@@ -38,7 +38,7 @@ $staff1_voice_2 = \notes {
 
 $staff2_voice_1 = \notes { 
   r4 
-  \repeat semi 2 { fis4 a4 a4 b2 cis'8. cis'16 b4 b4 b4 a2 cis'8 cis'8 
+  \repeat volta 2 { fis4 a4 a4 b2 cis'8. cis'16 b4 b4 b4 a2 cis'8 cis'8 
   d'4. cis'8 d'4 e'2 e'8. e'16 d'4 d'4 a4 }
   \alternative { { fis4 d4 r4 } { fis4 d4 r4 } }
   d4 e4 fis4 fis'2 e'8 d'8 e'4 e'4 e'4 e'2 cis'4 d'4. cis'8 d'4 e'2
@@ -49,7 +49,7 @@ $staff2_voice_1 = \notes {
 
 $staff2_voice_2 = \notes { 
   r4 
-  \repeat semi 2 { d4 d4 cis4 b,2 ais,8. ais,16 b,4 b,4 e4 a,2 a8 a8 
+  \repeat volta 2 { d4 d4 cis4 b,2 ais,8. ais,16 b,4 b,4 e4 a,2 a8 a8 
   d4. e8 fis8 g8 a2 g8. g16 fis4 fis4 a4 }
   \alternative { { fis4 d4 r4 } { fis4 d4 r4 } } 
   d4 d4 d4 d2 d8 d8 a4 a4 a4 a2 a,4 d4. e8 fis8 g8 a2 g8. g16 

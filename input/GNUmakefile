@@ -2,9 +2,9 @@
 
 depth = ..
 
-SUBDIRS=test bugs
+SUBDIRS=test bugs tutorial
 
-examples=praeludium-fuga-E  star-spangled-banner just-friends 
+examples=praeludium-fuga-E  star-spangled-banner just-friends abc-raff
 flexamples=
 
 LOCALSTEPMAKE_TEMPLATES=mutopia

@@ -231,7 +231,7 @@ yylex (YYSTYPE *s,  void * v_l)
 
 %type <pitch_arr>	pitch_list
 %type <music>	chord
-%type <pitch_arr>	chord_additions chord_substractions chord_notes chord_step
+%type <pitch_arr>	chord_additions chord_subtractions chord_notes chord_step
 %type <pitch>	chord_note chord_inversion
 %type <midi>	midi_block midi_body
 %type <duration>	duration_length
@@ -267,7 +267,7 @@ yylex (YYSTYPE *s,  void * v_l)
 
 mudela:	/* empty */
 	| mudela toplevel_expression {}
-	| mudela assignment { }
+	| mudela assignment  { }
 	| mudela error
 	| mudela INVALID	{
 		THIS->error_level_i_  =1;
@@ -1447,7 +1447,7 @@ simple_element:
 	;
 
 chord:
-	steno_tonic_pitch optional_notemode_duration chord_additions chord_substractions chord_inversion {
+	steno_tonic_pitch optional_notemode_duration chord_additions chord_subtractions chord_inversion {
                 $$ = THIS->get_chord (*$1, $3, $4, $5, *$2);
         };
 
@@ -1470,7 +1470,7 @@ chord_notes:
 	}
 	;
 
-chord_substractions: 
+chord_subtractions: 
 	{
 		$$ = new Array<Musical_pitch>;
 	} 
@@ -1498,7 +1498,7 @@ chord_step:
 		$$ = new Array<Musical_pitch>;
 		$$->push (*$1);
 	}
-	| CHORDMODIFIER_PITCH chord_note {
+	| CHORDMODIFIER_PITCH chord_note { /* Ugh. */
 		$$ = new Array<Musical_pitch>;
 		$$->push (*$1);
 		$$->push (*$2);

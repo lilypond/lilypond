@@ -5,7 +5,7 @@ COMMENT(
 )
 manpage(LilyPond)
        (1)
-	(1998)
+	(1999)
        (abc2ly)
        (The LilyPond package)
 
@@ -22,7 +22,7 @@ music typesetting package.
 
 manpagessynopsis()
 
-	abc2ly [options] midi-file
+	abc2ly [options] abc-file
 
 manpageoptions()
 

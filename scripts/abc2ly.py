@@ -41,7 +41,6 @@ def select_voice (name):
 #	assert 0
 # current_voice_idx >= 0
 
-global_voice_stuff = []
 default_len = 8
 global_key = [0] * 7			# UGH
 names = ["One", "Two", "Three"]
@@ -70,12 +69,6 @@ class Rational:
 		pass
 	
 
-def dump_global (outf):
-	outf.write ("\nglobal = \\notes{")
-	for i in global_voice_stuff:
-		outf.write (i);
-	outf.write ("\n}")
-
 
 def dump_header (outf,hdr):
 	outf.write ('\\header {')
@@ -101,8 +94,8 @@ def dump_voices (outf):
 	
 def dump_score (outf):
 	outf.write (r"""\score{
-        \notes<
-           \global""")
+        \notes <
+""")
 
 	ks  = voice_idx_dict.keys ();
 	ks.sort ()
@@ -125,6 +118,16 @@ def set_default_length (s):
 	m =  re.search ('1/([0-9]+)', s)
 	if m:
 		__main__.default_len = string.atoi ( m.group (1))
+
+def set_default_len_from_time_sig (s):
+	m =  re.search ('([0-9]+)/([0-9]+)', s)
+	if m:
+		n = string.atoi (m.group (1))
+		d = string.atoi (m.group (2))
+		if (n * 1.0 )/(d * 1.0) <  0.75:
+			default_len =  16
+		else:
+			default_len = 8
 
 def gulp_file(f):
 	try:
@@ -247,7 +250,7 @@ tup_lookup = {
 	'5' : '4/5',
 	'6' : '4/6',
 	'7' : '6/7',
-	'9': '8/9',
+	'9' : '8/9',
 	}
 
 
@@ -311,11 +314,13 @@ def try_parse_header_line (ln):
 		if g == 'M':
 			if a == 'C':
 				a = '4/4'
-			global_voice_stuff.append ('\\time %s;' % a)
+#			global_voice_stuff.append ('\\time %s;' % a)
+			set_default_len_from_time_sig (a)
+			voices_append ('\\time %s;' % a)
 		if g == 'K':
 			__main__.global_key  =compute_key (a)# ugh.
+			voices_append ('\\key %s;' % a)
 
-			global_voice_stuff.append ('\\key %s;' % a)
 		if g == 'O': 
 			header ['origin'] = a
 		if g == 'X': 
@@ -326,6 +331,8 @@ def try_parse_header_line (ln):
 			header_append ('history', a)
 		if g == 'B':
 			header ['book'] = a
+		if g == 'C':
+			header ['composer'] = a
 		if g == 'S':
 			header ['subtitle'] = a
 		if g == 'L':
@@ -381,7 +388,7 @@ def duration_to_mudela_duration  (multiply_tup, defaultlen, dots):
 	base = 1
 
 	# (num /  den)  / defaultlen < 1/base
-	while base * multiply_tup[0] < defaultlen * multiply_tup[1]:
+	while base * multiply_tup[0] < multiply_tup[1]:
 		base = base * 2
 
 
@@ -394,7 +401,9 @@ class Parser_state:
 		self.next_den = 1
 		self.parsing_tuplet = 0
 
-# return (num,den,dots) 
+
+
+# return (str, num,den,dots) 
 def parse_duration (str, parser_state):
 	num = 0
 	den = parser_state.next_den
@@ -405,7 +414,7 @@ def parse_duration (str, parser_state):
 		num = 1
 	
 	if str[0] == '/':
-		while str[0] == '/':
+		while str[:1] == '/':
 			str= str[1:]
 			d = 2
 			if str[0] in DIGITS:
@@ -413,6 +422,8 @@ def parse_duration (str, parser_state):
 
 			den = den * d
 
+	den = den * default_len
+	
 	current_dots = parser_state.next_dots
 	parser_state.next_dots = 0
 	while str[0] == '>':
@@ -424,7 +435,17 @@ def parse_duration (str, parser_state):
 		str = str [1:]
 		den = den * 2
 		parser_state.next_dots = parser_state.next_dots + 1
-	
+
+
+
+	try_dots = [3, 2, 1]
+	for d in try_dots:
+		f = 1 << d
+		multiplier = (2*f-1)
+		if num % multiplier == 0 and den % f == 0:
+			num = num / multiplier
+			den = den / f
+			current_dots = current_dots + d
 		
 	return (str, num,den,current_dots)
 
@@ -442,8 +463,12 @@ def try_parse_rest (str, parser_state):
 
 def try_parse_articulation (str, state):
 	
-	if str and str[0] == '.':
+	if str[:1] =='.':
 		state.next_articulation = state.next_articulation + '-.'
+		str = str[1:]
+
+	if str[:1] =='~':
+		state.next_articulation = state.next_articulation + '-\\trill'
 		str = str[1:]
 		
 	# s7m2 input doesnt care about spaces
@@ -451,7 +476,7 @@ def try_parse_articulation (str, state):
 		str = string.lstrip (str)
 
 	slur_begin =0
-	while str and   str[0] == '(' and str[1] not in DIGITS:
+	while str[:1] =='(' and str[1] not in DIGITS:
 		slur_begin = slur_begin + 1
 		state.next_articulation = state.next_articulation + '('
 		str = str[1:]
@@ -505,7 +530,7 @@ def try_parse_note (str, parser_state):
 		str = string.lstrip (str)
 	
 	slur_end =0
-	while str and str[0] == ')':
+	while str[:1] ==')':
 		slur_end = slur_end + 1
 		str = str[1:]
 
@@ -535,7 +560,7 @@ def junk_space (str):
 
 
 def try_parse_guitar_chord (str, state):
-	if str and str[0] == '"':
+	if str[:1] =='"':
 		str = str[1:]
 		gc = ''
 		while str and str[0] != '"':
@@ -553,7 +578,7 @@ def try_parse_escape (str):
 		return str
 	
 	str = str[1:]
-	if str and str[0] == 'K':
+	if str[:1] =='K':
 		key_table = compute_key ()
 
 	return str
@@ -565,75 +590,67 @@ def try_parse_escape (str):
 # :| left repeat
 # |: right repeat
 # :: left-right repeat
-#
+# |1 volta 1
+# |2 volta 2
+bar_dict = {
+'|]' : '|.',
+'||' : '||',
+'[|' : '||',
+':|' : ':|',
+'|:' : '|:',
+'::' : '::',
+'|1' : '|',
+'|2' : '|',
+':|2' : ':|'
+}
+
+
+warn_about = ['|:', '::', ':|', '|1', ':|2', '|2']
 
 def try_parse_bar (str,state):
-	if str and str[0] == '|':
+	bs = None
 
-		if state.parsing_tuplet:
-			state.parsing_tuplet =0
-			voices_append ('} ')
-		
-		bs = ''
+	# first try the longer one
+	for trylen in [3,2]:
+		if str[:trylen] and bar_dict.has_key (str[:trylen]):
+			s = str[:trylen]
+			bs = "\\bar \"%s\";" % bar_dict[s]
+			if s in warn_about:
+				sys.stderr.write('Warning kludging for barline `%s\'\n' % s)
+			str = str[trylen:]
+			break
+
+	if str[:1] == '|':
+		bs = '|\n'
 		str = str[1:]
-		if str:
-			if  str[0] == ']':
-				bs = '|.'
-			if str[0] == '|':
-				bs = '||'
-			if str[0] == '|:':
-				sys.stderr.write ("warning: repeat kludge\n")
-				bs = '|:'
-		if bs:
-			voices_append ('\\bar "%s";' % bs)
-			str = str[1:]
-
-	if str and str[:2] == '[|':
-		if state.parsing_tuplet:
-			state.parsing_tuplet =0
-			voices_append ('} ')
-		sys.stderr.write ("warning: thick-thin bar kludge\n")
-		voices_append ('\\bar "||";')
-		str = str[2:]
-
-	if str and str[:2] == ':|':
+	
+	if bs <> None:
 		if state.parsing_tuplet:
 			state.parsing_tuplet =0
 			voices_append ('} ')
 		
-		sys.stderr.write ("warning: repeat kludge\n")
-		voices_append ('\\bar ":|:";')
-		str = str[2:]
-
-	if str and str[:2] == '::':
-		if state.parsing_tuplet:
-			state.parsing_tuplet =0
-			voices_append ('} ')
-			
-		sys.stderr.write ("warning: repeat kludge\n")
-		voices_append ('\\bar ":|:";')
-		str = str[2:]
+		voices_append (bs)
 
 	return str
-	
+
 def try_parse_tie (str):
-	if str and str[0] == '-':
+	if str[:1] =='-':
 		str = str[1:]
 		voices_append (' ~ ')
 	return str
 
 def try_parse_chord_delims (str):
-	if str and str[0] == '[':
+	if str[:1] =='[':
 		str = str[1:]
 		voices_append ('<')
 
 	ch = ''
-	if str and str[0] == ']':
+	if str[:1] ==']':
 		str = str[1:]
 		ch = '>'
 
 	end = 0
-	while str and str[0] == ')':
+	while str[:1] ==')':
 		end = end + 1
 		str = str[1:]
 
@@ -643,11 +660,11 @@ def try_parse_chord_delims (str):
 	return str
 
 def try_parse_grace_delims (str):
-	if str and str[0] == '{':
+	if str[:1] =='{':
 		str = str[1:]
 		voices_append ('\\grace { ')
 
-	if str and str[0] == '}':
+	if str[:1] =='}':
 		str = str[1:]
 		voices_append ('}')
 
@@ -737,6 +754,7 @@ for opt in options:
 		raise getopt.error
 
 
+header['tagline'] = 'Lily was here %s -- Directly converted from ABC' % version
 for f in files:
 	if f == '-':
 		f = ''
@@ -750,7 +768,7 @@ for f in files:
 		outf = sys.stdout
 
 
-	dump_global (outf)
+#	dump_global (outf)
 	dump_lyrics (outf)
 	dump_voices (outf)
 	dump_score (outf)

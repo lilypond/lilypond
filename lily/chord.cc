@@ -6,6 +6,12 @@
   (c)  1999 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
+/*
+  FIXME:
+
+  A triad is a chord of three tones, and not an interval of a third.
+ */
+
 #include "chord.hh"
 #include "warn.hh"
 
@@ -258,7 +264,7 @@ Chord::find_additions_and_subtractions(Array<Musical_pitch>* add_arr_p, Array<Mu
 {
   Musical_pitch tonic = pitch_arr_[0];
   /*
-    all the triads that should be there
+    construct an array of triads for a normal chord
    */
   Array<Musical_pitch> all_arr;
   all_arr.push (tonic);
@@ -270,29 +276,37 @@ Chord::find_additions_and_subtractions(Array<Musical_pitch>* add_arr_p, Array<Mu
   int j = 0;
   while ((i < all_arr.size ()) || (j < pitch_arr_.size ()))
     {
-      i = i <? all_arr.size () - 1;
-      j = j <? pitch_arr_.size () - 1;
-      Musical_pitch a = all_arr[i];
-      Musical_pitch p = pitch_arr_[j];
+      Musical_pitch a = all_arr [i <? all_arr.size () - 1];
+      Musical_pitch p = pitch_arr_ [j <? pitch_arr_.size () - 1];
+      /*
+        this pitch is present: do nothing, check next
+       */
       if (a == p)
 	{
 	  i++;
 	  j++;
 	}
+      /*
+        found an extra pitch: chord addition
+       */
       else if ((p < a) || (p.notename_i_ == a.notename_i_))
 	{
 	  add_arr_p->push (p);
-	  j++;
+	  (j < pitch_arr_.size ()) ? j++ : i++;
 	}
+      /*
+        a triad is missing: chord subtraction
+       */
       else
 	{
 	  sub_arr_p->push (a);
-	  i++;
+	  (i < all_arr.size ()) ? i++ : j++;
 	}
     }
       
   /*
     add highest addition, because it names chord
+    (1, 3 and) 5 not an addition: part of normal chord
    */
   if (trap_i (tonic, pitch_arr_.top () > 5))
     add_arr_p->push (pitch_arr_.top ());

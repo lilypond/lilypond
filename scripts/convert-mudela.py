@@ -389,12 +389,24 @@ if 1:
 	def conv(lines):
 		newlines =[]
 		for x in lines:
-			x =  re.sub ('\\repeat +\"?semi\"?','\\repeat "volta"', x)
+			x =  re.sub ('\\repeat *\"?semi\"?','\\repeat "volta"', x)
 			newlines.append (x)
 		return newlines
 
 	conversions.append ((1,1,66), conv,
 			    'semi -> volta')
+
+
+if 1:
+	def conv(lines):
+		newlines =[]
+		for x in lines:
+			x =  re.sub ('\"?beamAuto\"? *= *\"?0?\"?','noAutoBeaming = "1"', x)
+			newlines.append (x)
+		return newlines
+
+	conversions.append ((1,1,67), conv,
+			    'beamAuto -> noAutoBeaming')
 
 
 ############################
