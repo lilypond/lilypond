@@ -121,7 +121,7 @@ Performance::process()
 {
   print ();
 
-  String out=midi_l_->outfile_str_;
+  String out = midi_l_->get_default_output ();
   if (out.empty_b ())
     {
       

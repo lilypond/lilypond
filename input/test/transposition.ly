@@ -6,7 +6,7 @@ I have extend Mats' patches to allow accidental transposition:
 		= \transpose d =>
         \keysignature gis;
 
-As you can see in output the example file "test.ly" there are a few problems left:
+As you can see in output =  the example file "test.ly" there are a few problems left:
 - key undo (already in the Todo)
 - "wrong" transposition: e.g. \transpose d of fis-major = gis-major (better as-major?).
 	The solution gis=as etc. would concern both note and key transposistion
@@ -22,7 +22,7 @@ copyright =	 "public domain";
 }
 
 
-\version "1.0.4";
+\version "1.0.6";
 
 vOne = \notes \relative c''{
         \clef"violin";

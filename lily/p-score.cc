@@ -16,11 +16,15 @@
 #include "plist.hh"
 #include "p-col.hh"
 #include "p-score.hh"
-#include "tex-stream.hh"
 #include "p-col.hh"
 #include "header.hh"
 #include "word-wrap.hh"
 #include "gourlay-breaking.hh"
+#include "paper-stream.hh"
+#include "ps-stream.hh"
+#include "tex-stream.hh"
+#include "paper-outputter.hh"
+#include "ps-outputter.hh"
 #include "tex-outputter.hh"
 #include "file-results.hh"
 #include "misc.hh"
@@ -203,8 +207,8 @@ Paper_score::process ()
       line_l_->space_processing ();
 
   Array<Column_x_positions> breaking = calc_breaking ();
-  Tex_stream *tex_stream_p = open_output_stream ();
-  outputter_l_=open_tex_outputter (tex_stream_p);
+  Paper_stream *paper_stream_p = open_output_stream ();
+  outputter_l_ = open_paper_outputter (paper_stream_p);
 
   Link_array<Line_of_score> lines;
   for (int i=0; i < breaking.size (); i++)
@@ -230,9 +234,14 @@ Paper_score::process ()
       remove_line (line_l);
 	
     }
-  *tex_stream_p << "\n\\EndLilyPondOutput";
+
+  if (ps_output_global_b)
+    *paper_stream_p << "\nshowpage\n";
+  else
+    *paper_stream_p << "\n\\EndLilyPondOutput";
+
   delete outputter_l_;
-  delete tex_stream_p;
+  delete paper_stream_p;
   outputter_l_ = 0;
 }
 
@@ -267,11 +276,12 @@ Paper_score::remove_line (Line_of_score *l)
     }
 }
 
-Tex_stream *
+Paper_stream *
 Paper_score::open_output_stream ()
 {
   // output
-  String base_outname = paper_l_->outfile_str_ ;
+  String base_outname=paper_l_->get_default_output ();
+
   if (base_outname.empty_b ())
     {
       base_outname = default_outname_base_global;
@@ -283,36 +293,75 @@ Paper_score::open_output_stream ()
     }
 
   String outname = base_outname;
-  if (outname != "-")
-     outname += ".tex";
+
+  Paper_stream* p;
+  if (ps_output_global_b)
+    {
+      if (outname != "-")
+	 outname += ".ps";
+      *mlog << _f ("PostScript output to %s...", 
+		   outname == "-" ? String ("<stdout>") : outname ) << endl;
+      p = new Ps_stream (outname);
+    }
+  else
+    {
+      if (outname != "-")
+	 outname += ".tex";
+      *mlog << _f ("TeX output to %s...", 
+		   outname == "-" ? String ("<stdout>") : outname ) << endl;
+      p = new Tex_stream (outname);
+    }
   target_str_global_array.push (outname);
-
-  *mlog << _f ("TeX output to %s...", 
-    outname == "-" ? String ("<stdout>") : outname ) << endl;
-
-  return  new Tex_stream (outname);
+  return p;
 }
 
+// urg
+Paper_outputter*
+Paper_score::open_paper_outputter (Paper_stream* paper_stream_p)
+{
+  if (ps_output_global_b)
+    return open_ps_outputter ((Ps_stream*)paper_stream_p);
+  else
+    return open_tex_outputter ((Tex_stream*)paper_stream_p);
+}
 
+// urg urg urg
+Paper_outputter*
+Paper_score::open_ps_outputter (Ps_stream *ps_out_p)
+{
+  Ps_outputter *interfees_p = new Ps_outputter (ps_out_p);
 
-Tex_outputter *
+  if (header_global_p)
+    *ps_out_p << header_global_p->ps_string ();
+  
+  *ps_out_p << _ ("% outputting Score, defined at: ") << origin_str_ << '\n';
+
+  // urg
+  if (header_l_)
+    *ps_out_p << header_l_->ps_string ();
+  //aaarg
+  *ps_out_p << paper_l_->ps_output_settings_str ();
+
+  if (experimental_features_global_b)
+    *ps_out_p << "turnOnExperimentalFeatures\n";
+
+  return interfees_p;
+}
+
+Paper_outputter*
 Paper_score::open_tex_outputter (Tex_stream *tex_out_p)
 {
   Tex_outputter *interfees_p= new Tex_outputter (tex_out_p);
 
   if (header_global_p)
-    {
-      *tex_out_p << header_global_p->TeX_string ();
-    }
+    *tex_out_p << header_global_p->tex_string ();
     
   
   *tex_out_p << _ ("% outputting Score, defined at: ") << origin_str_ << '\n';
 
   if (header_l_)
-    {
-      *tex_out_p << header_l_->TeX_string();
-    }
-  *tex_out_p << paper_l_->TeX_output_settings_str ();
+    *tex_out_p << header_l_->tex_string();
+  *tex_out_p << paper_l_->tex_output_settings_str ();
   
 
   if (experimental_features_global_b)

@@ -52,6 +52,7 @@ static Keyword_ent the_key_tab[]={
   {"property", PROPERTY},
   {"pt", PT_T},
   {"relative", RELATIVE},
+  {"remove", REMOVE},
   {"score", SCORE},
   {"script", SCRIPT},
   {"shape", SHAPE},
@@ -86,7 +87,7 @@ Identifier*
 My_lily_lexer::lookup_identifier (String s)
 {
   for (int i = scope_l_arr_.size (); i--; )
-    if (scope_l_arr_[i]->elt_b (s))
+    if (scope_l_arr_[i]->elem_b (s))
       return (*scope_l_arr_[i])[s];
   return 0;
 }
@@ -165,7 +166,7 @@ My_lily_lexer::lookup_pitch (String s)
 bool
 My_lily_lexer::notename_b (String s) const
 {
-  return note_tab_p_->elt_b (s);
+  return note_tab_p_->elem_b (s);
 }
 
 void

@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.4";
+\version "1.0.6";
 
 \include "global.ly"
 \include "viola-1.ly"
@@ -27,7 +27,7 @@ $viola_staff = \type Staff = violai <
 
 \score{
 	\$viola_staff
-	\include "part-paper.ly"
+	\include "coriolan-part-paper.ly"
 	\midi{ \tempo 4 = 160; }
 }
 

@@ -14,7 +14,6 @@
 #include "my-lily-lexer.hh"
 #include "debug.hh"
 #include "symtable.hh"
-#include "lookup.hh"
 #include "script-def.hh"
 #include "request.hh"
 #include "translator.hh"
@@ -85,7 +84,6 @@ Class ## _identifier::do_print () const { \
 
 
 DEFAULT_PRINT(General_script_def);
-DEFAULT_PRINT(Lookup);
 DEFAULT_PRINT(Translator);
 DEFAULT_PRINT(Symtables);
 DEFAULT_PRINT(Music);
@@ -104,7 +102,6 @@ Class ## _identifier::do_str () const { \
 
 DUMMY_STR(Notename_table);
 DUMMY_STR(General_script_def);
-DUMMY_STR(Lookup);
 DUMMY_STR(Translator);
 DUMMY_STR(Symtables);
 DUMMY_STR(Music);
@@ -179,7 +176,6 @@ IMPLEMENT_ID_CLASS(int);
 IMPLEMENT_ID_CLASS(Real);
 IMPLEMENT_ID_CLASS(String);
 IMPLEMENT_ID_CLASS(General_script_def);
-IMPLEMENT_ID_CLASS(Lookup);
 IMPLEMENT_ID_CLASS(Symtables);
 IMPLEMENT_ID_CLASS(Music);
 IMPLEMENT_ID_CLASS(Score);
@@ -196,7 +192,6 @@ DEFAULT_ACCESSOR(Duration);
 DEFAULT_ACCESSOR(int);
 DEFAULT_ACCESSOR(Real);
 DEFAULT_ACCESSOR(String);
-DEFAULT_ACCESSOR(Lookup);
 DEFAULT_ACCESSOR(Symtables);
 DEFAULT_ACCESSOR(Score);
 DEFAULT_ACCESSOR(Midi_def);

@@ -1,7 +1,7 @@
-\version "1.0.4";
+\version "1.0.6";
 
 $somewhat_long = \lyric{
-	\textstyle "roman" ;
+	\property Lyrics . textstyle = "roman" 
 	AaaaaaA2
 	BbbbbbB2
 	CcccccC2 
@@ -11,7 +11,7 @@ $somewhat_long = \lyric{
 }
 
 $rather_long = \lyric{
-	\textstyle "roman" ;
+	\property Lyrics . textstyle = "roman" 
 	LLLLoooonggggg2 
 	Syyllllaaabbble2 
 	LLLLoooonggggg2 
@@ -21,7 +21,7 @@ $rather_long = \lyric{
 }
 
 $quite_long = \lyric{
-	\textstyle "roman" ;
+	\property Lyrics . textstyle = "roman"
 	LLLLLLLLLooooongggggggg2 
 	Syyyyyyyyyyyyylllllllaaaaaabbble2 
 	LLLLLLLLLooooongggggggg2 

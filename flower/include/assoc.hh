@@ -55,11 +55,11 @@ struct Assoc {
     return arr.size() -1;
   }
 public:
-  bool elt_b (K key) const {
+  bool elem_b (K key) const {
     return find (key) >= 0;
   }
   void del (K key) {
-    assert (elt_b (key));
+    assert (elem_b (key));
     int i= find (key);
     arr[i].free = true;
   }
@@ -77,7 +77,7 @@ public:
     return elem (key);
   }
   V const & elem (K key) const { 
-    assert (elt_b (key));
+    assert (elem_b (key));
     return arr[find (key)].val;
   }
   void clear () 

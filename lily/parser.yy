@@ -16,6 +16,8 @@
 #include "script-def.hh"
 #include "symtable.hh"
 #include "lookup.hh"
+#include "ps-lookup.hh"
+#include "tex-lookup.hh"
 #include "misc.hh"
 #include "my-lily-lexer.hh"
 #include "paper-def.hh"
@@ -44,8 +46,8 @@
 #include "transposed-music.hh"
 
 // mmm
-Mudela_version oldest_version ("1.0.3");
-Mudela_version version ("1.0.4");
+Mudela_version oldest_version ("1.0.6");
+Mudela_version version ("1.0.6");
 
 
 // needed for bison.simple's malloc() and free()
@@ -95,8 +97,6 @@ Paper_def* current_paper = 0;
     Score *score;
     Header *header;
     Interval *interval;
-    Lookup*lookup;
-
     Musical_req* musreq;
     Music_output_def * outputdef;
     Musical_pitch * pitch;
@@ -112,7 +112,7 @@ Paper_def* current_paper = 0;
     String *string;
     Atom * symbol;
     Symtable * symtable;
-    Symtables * symtables;
+    Symtables* symtables;
     Text_def * textdef;
     Tempo_req *tempo;
     char c;
@@ -175,6 +175,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token PROPERTY
 %token PT_T
 %token RELATIVE
+%token REMOVE
 %token SCORE
 %token SCRIPT
 %token SHAPE
@@ -233,7 +234,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <duration> entered_notemode_duration explicit_duration
 %type <interval>	dinterval
 %type <intvec>	intastint_list int_list
-%type <lookup>	symtables symtables_body
+%type <symtables>	symtables symtables_body
 
 %type <pitch>   explicit_musical_pitch steno_musical_pitch musical_pitch absolute_musical_pitch
 %type <notereq>	steno_notepitch
@@ -245,7 +246,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <music>	Music  relative_music Sequential_music Simultaneous_music
 %type <music>	property_def translator_change
 %type <music_list> Music_list
-%type <paper>	paper_block paper_body
+%type <paper>	paper_block paper_def_body
 %type <real>	dim real
 %type <real>	real_mult_expression real_primary
 %type <real>	unit
@@ -327,7 +328,7 @@ notenames_body:
 		$$ = new Notename_table;
 	}
 	| NOTENAME_TABLE_IDENTIFIER	{
-		$$ = $1-> access_Notename_table();
+		$$ = $1-> access_Notename_table(true);
 	}
 	| notenames_body STRING '=' explicit_musical_pitch {
 		(*$$)[*$2] = *$4;
@@ -368,7 +369,8 @@ add_declaration:
 	    $4->set_spot (THIS->pop_spot ());
 	}
 	;
-
+simple_identifier_init: identifier_init
+	;
 identifier_init:
 	score_block {
 		$$ = new Score_identifier ($1, SCORE_IDENTIFIER);
@@ -393,8 +395,7 @@ identifier_init:
 
 	}
 	| symtables {
-		$$ = new Lookup_identifier ($1, IDENTIFIER);
-
+		$$ = new Symtables_identifier ($1, IDENTIFIER);
 	}
 	| post_request {
 		$$ = new Request_identifier ($1, POST_REQUEST_IDENTIFIER);
@@ -402,11 +403,7 @@ identifier_init:
 	| explicit_duration {
 		$$ = new Duration_identifier ($1, DURATION_IDENTIFIER);
 	}
-	| simple_identifier_init
-	;
-
-simple_identifier_init:
-	real {
+	| real {
 		$$ = new Real_identifier (new Real ($1), REAL_IDENTIFIER);
 	}
 	| string {
@@ -427,11 +424,16 @@ translator_spec:
 
 translator_spec_body:
 	TRANS_IDENTIFIER	{
-		$$ = $1->access_Translator ();
+		$$ = $1->access_Translator (true);
 		$$-> set_spot (THIS->here_input ());
 	}
 	| TYPE STRING ';'	{
 		Translator* t = get_translator_l (*$2);
+		Translator_group * tg = t->access_Translator_group ();
+
+		if (!tg)
+			THIS->parser_error (_("Need a translator group for a context"));
+		
 		t = t->clone ();
 		t->set_spot (THIS->here_input ());
 		$$ = t;
@@ -453,12 +455,20 @@ translator_spec_body:
 		delete $4;
 		$$->set_property (*$2, str);
 	}
+	| translator_spec_body STRING ';' {
+		$$->type_str_ = *$2;
+		delete $2;
+	}
 	| translator_spec_body CONSISTS STRING ';' {
-		$$->group_l ()->consists_str_arr_.push (*$3);
+		$$->access_Translator_group ()-> set_element (*$3, true);
 		delete $3;
 	}
 	| translator_spec_body ACCEPTS STRING ';' {
-		$$->group_l ()->accepts_str_arr_.push (*$3);
+		$$->access_Translator_group ()-> set_acceptor (*$3, true);
+		delete $3;
+	}
+	| translator_spec_body REMOVE STRING ';' {
+		$$->access_Translator_group ()-> set_element (*$3, false);
 		delete $3;
 	}
 	;
@@ -486,7 +496,7 @@ score_body:		{
 		$$ = new Score;
 	}
 	| SCORE_IDENTIFIER {
-		$$ = $1->access_Score ();
+		$$ = $1->access_Score (true);
 	}
 	| score_body mudela_header 	{
 		$$->header_p_ = $2;
@@ -528,7 +538,7 @@ intastint_list:
 	PAPER
 */
 paper_block:
-	PAPER '{' paper_body '}' 	{ 
+	PAPER '{' paper_def_body '}' 	{ 
 		$$ = $3;
 		THIS-> lexer_p_->scope_l_arr_.pop ();
 	}
@@ -539,41 +549,34 @@ optional_semicolon:
 	| ';'
 	;
 
-paper_body:
+paper_def_body:
 	/* empty */		 	{
 		Paper_def *p = THIS->default_paper_p ();
 		THIS-> lexer_p_-> scope_l_arr_.push (p->scope_p_);
 		$$ = p;
 	}
 	| PAPER_IDENTIFIER optional_semicolon	{
-		Paper_def *p = $1->access_Paper_def ();
+		Paper_def *p = $1->access_Paper_def (true);
 		THIS->lexer_p_->scope_l_arr_.push (p->scope_p_);
 		$$ = p;
 	}
-	| paper_body OUTPUT STRING ';'	{ 
-		$$->outfile_str_ = *$3;
-		delete $3;
+	| paper_def_body int '=' symtables		{ // ugh, what a syntax
+		Lookup * l = ps_output_global_b ? new Ps_lookup (*$4)
+		  : new Tex_lookup (*$4);
+		$$->set_lookup ($2, l);
 	}
-	| paper_body int '=' symtables		{ // ugh, what a syntax
-		$$->set_lookup ($2, $4);
-	}
-	| paper_body STRING '=' simple_identifier_init optional_semicolon {
-	    Identifier* id = $4;
-	    id->init_b_ = THIS->init_parse_b_;
-	    if (id->is_type_b (Translator_identifier::static_name ()))
-	      {
-		$$->assign_translator (*$2, id->access_Translator ());
-		delete id;
-	      }
-	    else
-	      THIS->lexer_p_->set_identifier (*$2, id);
+	| paper_def_body STRING '=' simple_identifier_init ';' {
+	      THIS->lexer_p_->set_identifier (*$2, $4);
 	      delete $2;
 	}
-	| paper_body SHAPE '=' shape_array ';' {
+	| paper_def_body translator_spec {
+		$$-> assign_translator ($2);
+	}
+	| paper_def_body SHAPE '=' shape_array ';' {
 		$$->shape_int_a_ = *$4;
 		delete $4;
 	}
-	| paper_body error {
+	| paper_def_body error {
 
 	}
 	;
@@ -583,10 +586,7 @@ real_primary:
 		$$ = $1;
 	}
 	| REAL_IDENTIFIER		{
-		Real *r_p = $1->access_Real ();
-		$$ = * r_p;
-		DOUT << "Lookup real: " << *r_p << "\n";
-		delete r_p;
+		$$= *$1->access_Real (false);
 	}
 	| dim
 	| '(' real ')' {
@@ -635,15 +635,10 @@ midi_body: /* empty */ 		{
 		$$ = THIS->default_midi_p ();
 	}
 	| MIDI_IDENTIFIER	{
-		$$ = $1-> access_Midi_def ();		
+		$$ = $1-> access_Midi_def (true);
 	}
-	| midi_body STRING '=' translator_spec	{
-		$$-> assign_translator (*$2, $4);
-		delete $2;
-	}
-	| midi_body OUTPUT STRING ';'	{
-		$$->outfile_str_ = *$3;
-		delete $3;
+	| midi_body translator_spec	{
+		$$-> assign_translator ($2);
 	}
 	| midi_body tempo_request ';' {
 		$$->set_tempo ($2->dur_.length (), $2->metronome_i_);
@@ -703,7 +698,7 @@ Music:
 		$$ = new Transposed_music ($3, *$2);
 		delete $2;
 	}
-	| MUSIC_IDENTIFIER { $$ = $1->access_Music (); }
+	| MUSIC_IDENTIFIER { $$ = $1->access_Music (true); }
 	| NOTES
 		{ THIS->lexer_p_->push_note_state (); }
 	Music
@@ -795,7 +790,7 @@ abbrev_command_req:
 		$$ = new Barcheck_req;
 	}
 	| COMMAND_IDENTIFIER	{
-		$$ = $1->access_Request ();
+		$$ = $1->access_Request (true);
 	}
 	;
 
@@ -891,7 +886,7 @@ structured_post_request:
 
 post_request:
 	POST_REQUEST_IDENTIFIER	{
-		$$ = (Request*)$1->access_Request ();
+		$$ = (Request*)$1->access_Request (true);
 	}
 	| dynamic_req {
 		$$ = $1;
@@ -1232,7 +1227,7 @@ steno_duration:
 		     }
 	}
 	| DURATION_IDENTIFIER	{
-		$$ = $1->access_Duration ();
+		$$ = $1->access_Duration (true);
 	}
 	| steno_duration '.' 	{
 		$$->dots_i_ ++;
@@ -1330,9 +1325,7 @@ int:
 		$$ = -$2;
 	}
 	| INT_IDENTIFIER	{
-		int *i_p = $1->access_int ();
-		$$ = *i_p;
-		delete i_p;
+		$$ = *$1->access_int (false);
 	}
 	;
 
@@ -1341,10 +1334,7 @@ string_primary:
 		$$ = $1;
 	}
 	| STRING_IDENTIFIER	{
-		String *s_p = $1->access_String ();
-
-		$$ = s_p;
-		DOUT << "Lookup string: " << *s_p << "\n";
+		$$ = $1->access_String (true);
 	}
 	;
 
@@ -1378,10 +1368,10 @@ symtables:
 
 symtables_body:
 	 		{
-		$$ = new Lookup;
+		$$ = new Symtables;
 	}
 	| IDENTIFIER		{
-		$$ = $1->access_Lookup ();
+		$$ = $1->access_Symtables (true);
 	}
 	| symtables_body FONT STRING 		{
 		$$->font_ = *$3;
@@ -1450,4 +1440,5 @@ My_lily_parser::do_yyparse ()
 {
 	yyparse ((void*)this);
 }
+
 

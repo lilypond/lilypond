@@ -23,6 +23,8 @@ Symtables::Symtables()
 Symtables::Symtables (Symtables const &s)
   : Dictionary<Symtable*> (s)
 {
+  font_ = s.font_;
+  font_path_ = s.font_path_;
   for (Assoc_iter<String, Symtable*>  i (s); i.ok(); i++)
     {
       add (i.key(), new Symtable (*i.val ()));
@@ -40,7 +42,7 @@ Symtables::~Symtables()
 Atom
 Symtable::lookup (String s) const
 {
-  if (elt_b (s))
+  if (elem_b (s))
     {
       Atom a (elem(s));
       return a;
@@ -56,7 +58,7 @@ Symtable::lookup (String s) const
 Symtable*
 Symtables::operator()(String s)
 {
-  if (!elt_b (s))
+  if (!elem_b (s))
     {
       error (_f ("Symtable `%s\' unknown", s));
       /* 

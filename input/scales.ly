@@ -1,3 +1,7 @@
+%
+% This file prints lots of warning messages about scripts-dportato
+%
+
 \header{
 filename =	 "scales.ly";
 enteredby =	 "HWN";
@@ -12,7 +16,7 @@ copyright =	 "public domain";
 % scales with accents.
 %
 
-\version "1.0.4";
+\version "1.0.6";
 blah = 	\notes {
 		\time 6/8;	
 \transpose c {

@@ -22,7 +22,6 @@ class General_script_def_identifier;
 class Symtables_identifier;
 class Midi_def_identifier;
 class Paper_def_identifier;
-class Lookup_identifier;
 class Real_identifier;
 class int_identifier;
 class String_identifier;
@@ -61,7 +60,6 @@ struct Identifier : public Input {
   IDACCESSOR(Symtables)
   IDACCESSOR(Midi_def)
   IDACCESSOR(Paper_def)
-  IDACCESSOR(Lookup)
   IDACCESSOR(Real)
   IDACCESSOR(String)
   IDACCESSOR(Request)
@@ -86,7 +84,7 @@ struct Class ## _identifier : Identifier {\
     {\
       return this;\
     }\
-			     virtual Class* access_ ## Class (bool copy_b = true) const;\
+			     virtual Class* access_ ## Class (bool copy_b) const;\
 			     ~Class ## _identifier();\
 			     virtual void do_print () const; \
 			     virtual String do_str () const; \
@@ -99,7 +97,6 @@ DECLARE_ID_CLASS(Notename_table);
 DECLARE_ID_CLASS(Real);
 DECLARE_ID_CLASS(String);
 DECLARE_ID_CLASS(General_script_def);
-DECLARE_ID_CLASS(Lookup);
 DECLARE_ID_CLASS(Symtables);
 DECLARE_ID_CLASS(Music);
 DECLARE_ID_CLASS(int);

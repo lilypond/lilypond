@@ -60,11 +60,10 @@ Change_iterator::process_and_next (Moment m)
 	Translator_group * dest = 
 	  report_to_l ()->find_create_translator_l (to_type, to_id);
 	current->remove_translator_p (last);
-	dest->add (last);
+	dest->add_translator (last);
       }
     else
       {
-	
 	/*
 	  We could change the current translator's id, but that would make 
 	  errors hard to catch

@@ -6,7 +6,6 @@ depth = ..
 NAME = lilypond
 SUBDIRS = include
 
-EXTRA_DIST_FILES = VERSION 
 MODULE_LIBS=$(depth)/lib $(depth)/flower
 
 STEPMAKE_TEMPLATES= c++ executable 
@@ -21,7 +20,4 @@ $(outdir)/lily-version.o: $(outdir)/version.hh
 $(outdir)/main.o: $(outdir)/BLURB.hh $(outdir)/COPERTINA.hh $(outdir)/FLAPTEKST.hh
 
 
-# ugh . -> $(outdir)
-VERSION: $(depth)/VERSION
-	cp $< $@
 

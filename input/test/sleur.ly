@@ -1,11 +1,11 @@
 \header{
 enteredby =	 "jcn";
 copyright =	 "PD";
-TestedFeatures =	 "This file tests Feta embedded slurs"
+TestedFeatures =	 "This file tests Feta embedded slurs" +
 	 "(Feta definitively is not an abbreviation of Font-En-TjA)";
 }
 
-\version "1.0.4";
+\version "1.0.6";
 
 shortlong = \notes{
 	c4()c( c c  |

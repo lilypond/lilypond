@@ -1,7 +1,7 @@
 
 
 
-\version "1.0.4";
+\version "1.0.6";
 
 onestaff = \type Staff = foo\notes  {
 	\property Staff.instr = instr
@@ -18,55 +18,10 @@ grstaff = \notes \type GrandStaff <
 	\type Staff = bufl { c1 c2  }
 >
 
-scpaper =  \paper {Score = \translator {
-	\type Score_engraver;
-	barScriptPadding = "2.0";	% dimension \pt
-	markScriptPadding = "4.0";
-	barColumnPriority = "-4";
-	markBreakPriority = "-4";
-	barNumberBreakPriority = "-4";
-	
-	\consists "Timing_engraver";
-	\consists "Bar_column_engraver";
-	\consists "Bar_number_engraver";
-	\consists "Mark_engraver";
-	\consists "Span_score_bar_engraver";
-	\consists "Score_priority_engraver";
-	\consists "Priority_horizontal_align_engraver";
-	\consists "Vertical_align_engraver";
+scpaper =  \paper {\translator {\OrchestralScoreContext}}
 
-	\accepts "ChoireStaff";
-	\accepts "StaffGroup";
-	\accepts "Staff";
-	\accepts "RhythmicStaff";	
-	\accepts "Lyrics";
-	\accepts "GrandStaff";
-}}
 
-stpaper =\paper{
-Staff = \translator {
-	\type "Line_group_engraver_group";
-	defaultclef = violin;
-	barColumnPriority = "0";
-	barNumberBreakPriority = "0";
-	marginBreakPriority = "-4";
-
-	\consists "Bar_engraver";
-	\consists "Clef_engraver";
-	\consists "Key_engraver";
-	\consists "Time_signature_engraver";
-	\consists "Local_key_engraver";
-	\consists "Staff_sym_engraver";
-	\consists "Mark_engraver";	
-	\consists "Collision_engraver";
-	\consists "Rest_collision_engraver";
-	\consists "Bar_column_engraver";
-	\consists "Bar_number_engraver";
-	\consists "Separating_line_group_engraver";
-	\consists "Staff_margin_engraver";
-	\accepts "Voice";
-}}
-
+stpaper =\paper{ \BarNumberingStaffContext }
 scscore = \score { \grstaff \paper {
 \scpaper
 }}

@@ -72,7 +72,7 @@ Dynamic_engraver::do_process_requests()
 	  Text_def * td_p = new Text_def;
 	  td_p->align_dir_ = CENTER;
 	  String loud = dreq_l->access_Absolute_dynamic_req ()->loudness_str ();
-	  td_p->text_str_ = paper ()->lookup_l (0)->dynamic (loud).tex_;
+	  td_p->text_str_ = paper ()->lookup_l (0)->dynamic (loud).str_;
 	  td_p->style_str_ = "dynamic";
 
 	  

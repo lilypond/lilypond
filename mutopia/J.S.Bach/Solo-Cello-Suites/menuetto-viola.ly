@@ -17,7 +17,7 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.4";
+\version "1.0.6";
 
 \include "menuetto-urtext.ly";
 

@@ -46,3 +46,5 @@ Scope::Scope (Scope const&s)
 
 Scope::Scope ()
 {}
+
+

@@ -29,12 +29,12 @@ Atom::check_infinity_b ()const
       if (abs (off_[ax]) >= 100 CM)
 	{
 	  warning (_f ("ridiculous dimension: %s, %s", axis_name_str (ax),
-		   print_dimen(off_[ax])));
+		   print_dimen (off_[ax])));
 	  
 	  if (experimental_features_global_b)
 	    assert (false);
 
-	  ((Atom*)this)->off_[ax] = 0.0;
+	  ( (Atom*)this)->off_[ax] = 0.0;
 	  ridiculous = true;
 	}
     }
@@ -44,21 +44,21 @@ Atom::check_infinity_b ()const
 
 
 void
-Atom::print() const
+Atom::print () const
 {
 #ifndef NPRINT
-  DOUT << "texstring: " << tex_ << '\n';
+  DOUT << "string: " << str_ << '\n';
 
   DOUT << "dim:";
-  for (Axis i=X_AXIS; i < NO_AXES; incr(i))
-    DOUT << axis_name_str(i) << " = " << dim_[i].str();
+  for (Axis i=X_AXIS; i < NO_AXES; incr (i))
+    DOUT << axis_name_str (i) << " = " << dim_[i].str ();
 
   DOUT << "\noffset: " << off_.str ();
 #endif
 }
 
 Box
-Atom::extent() const
+Atom::extent () const
 {
   Box b (dim_);
   b.translate (off_);
@@ -66,23 +66,30 @@ Atom::extent() const
 }
 
 
-Atom::Atom()
+Atom::Atom ()
   : dim_ (Interval (0,0),Interval (0,0))
 {
-  tex_ = "\\unknown";
+  /*
+    urg
+    We should probably make Atom an abstract base class to
+    derive Ps_atom and Tex_atom from.
+    But Atom is used as a simple type *everywhere*,
+    and we don't have virtual contructors.
+   */
+  str_ = ps_output_global_b ? "unknown" : "\\unknown";
 }
 
 Atom::Atom (String s, Box b)
   :  dim_ (b)
 {
-  tex_ = s;
+  str_ = s;
 }
 
 
 String
-Atom::str() const
+Atom::str () const
 {
-  return String ("Atom (\'") + tex_ + "\', (" + dim_.x().str () + ", "
+  return String ("Atom (\'") + str_ + "\', (" + dim_.x ().str () + ", "
     + dim_.y ().str () + "))";
 }
 
@@ -106,4 +113,10 @@ Atom::translate (Offset o)
 {
   off_ += o;
   check_infinity_b ();
+}
+
+bool
+Atom::empty() const
+{
+  return (dim_.y().length() == 0);
 }

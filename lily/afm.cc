@@ -105,13 +105,13 @@ Adobe_font_metric::str () const
   UGH. should have hashtable.
  */
 Adobe_font_char_metric
-Adobe_font_metric::find_char (String nm) const
+Adobe_font_metric::find_char (String nm, bool warn) const
 {
   for (int i=0; i < char_metrics_.size (); i++)
     if (char_metrics_[i].N_ == nm)
       return char_metrics_[i];
-
-  warning (_f ("can't find character called `%s'", nm.ch_C()));
+  if (warn)
+    warning (_f ("can't find character called `%s'", nm.ch_C()));
 
  Adobe_font_char_metric a;
  return a;

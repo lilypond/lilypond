@@ -18,7 +18,7 @@
 class Atom {
   Offset off_;
 public:
-  String tex_;
+  String str_;
   String font_;
   Box dim_;
 
@@ -32,5 +32,6 @@ public:
   Box extent() const;
   void print() const;
   bool check_infinity_b () const;
+  bool empty() const;
 };
 #endif

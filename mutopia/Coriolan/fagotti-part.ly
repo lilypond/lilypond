@@ -9,13 +9,13 @@ copyright =	 "public domain";
 
 }
 
-\version "1.0.4";
+\version "1.0.6";
 
 \include "global.ly"
 \include "fagotti.ly"
 \score{
 	\$fagotti_staff
-	\include "part-paper.ly"
+	\include "coriolan-part-paper.ly"
 	\midi{ \tempo 4 = 160; }
 }
 

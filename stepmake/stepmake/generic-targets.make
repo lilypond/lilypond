@@ -3,7 +3,7 @@
 
 .PHONY : all clean config default dist doc doc++  exe help html lib TAGS\
 	 po
-
+VPATH=$(outdir)/		#ugh?
 # target all:
 #
 all:	 default
@@ -119,9 +119,12 @@ TAGS:
 
 	$(LOOP)
 
-$(outdir)/version.hh: VERSION
-	sh ./$(step-bindir)/make-version.sh > $@
+# ugh . -> $(outdir)
+$(outdir)/VERSION: $(depth)/VERSION
+	cp $< $@
 
+$(outdir)/version.hh: VERSION
+	sh ./$(step-bindir)/make-version.sh $< > $@
 
 # should this be in Rules?
 configure: configure.in aclocal.m4

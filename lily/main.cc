@@ -30,6 +30,7 @@ bool version_ignore_global_b = false;
 bool no_paper_global_b = false;
 bool no_timestamps_global_b = false;
 bool find_quarts_global_b = false;
+bool ps_output_global_b = false;
 String default_outname_base_global =  "lelie";
 int default_count_global;
 File_path global_path;
@@ -234,6 +235,7 @@ main (int argc, char **argv)
 	{
 	case 't':
 	  experimental_features_global_b = true;
+	  ps_output_global_b = true;
 	  break;
 	case 'o':
 	  outname_str = oparser.optional_argument_ch_C_;

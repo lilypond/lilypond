@@ -33,7 +33,6 @@ Abbreviation::brew_molecule_p () const
   Real interbeam_f = paper ()->interbeam_f (stem_l_->mult_i_);
   Real w = 1.5 * lookup_l ()->ball (2).dim_.x ().length ();
   Real internote_f = paper ()->internote_f ();
-  Real interline_f = paper ()->interline_f ();
   Real beam_f = paper ()->beam_thickness_f ();
 
   int beams_i = 0;

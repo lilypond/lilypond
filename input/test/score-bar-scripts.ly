@@ -1,7 +1,7 @@
 
 
 
-\version "1.0.4";
+\version "1.0.6";
 
 onestaff =	\type Staff = foo\notes  {
 		\property Staff.instr = instr
@@ -32,7 +32,7 @@ scpaper =  \paper {Score = \translator {
 	\consists "Priority_horizontal_align_engraver";
 	\consists "Vertical_align_engraver";
 
-	\accepts "ChoireStaff";
+	\accepts "ChoirStaff";
 	\accepts "StaffGroup";
 	\accepts "Staff";
 	\accepts "RhythmicStaff";	

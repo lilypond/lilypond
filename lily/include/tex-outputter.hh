@@ -1,5 +1,5 @@
 /*
-  outputter.hh -- declare Outputter
+  tex-outputter.hh -- declare Tex_outputter
 
   source file of the GNU LilyPond music typesetter
 
@@ -7,38 +7,21 @@
 */
 
 
-#ifndef OUTPUTTER_HH
-#define OUTPUTTER_HH
+#ifndef TEX_OUTPUTTER_HH
+#define TEX_OUTPUTTER_HH
 
-#include "lily-proto.hh"
-#include "array.hh"
-#include "string.hh"
+#include "paper-outputter.hh"
 
-/**
-  Abstract interface for a Score_element to output itself.
- */
-struct Outputter
+class Tex_outputter : public Paper_outputter
 {
-  virtual ~Outputter(){}
-  virtual void start_line ()=0;
-  virtual void output_molecule (Molecule const *, Offset, char const *)=0;
-  virtual void stop_line ()=0;
-};
+public:
+  Tex_outputter (Paper_stream *);
+  virtual ~Tex_outputter ();
 
-/**
-  Output a line of score using  TeX strings
- */
-struct Tex_outputter : Outputter
-{
-  Array<String> font_arr_;
-  String current_font_;
-  
-  Tex_outputter (Tex_stream *);
-  Tex_stream * outstream_l_;
   void switch_to_font (String);
   virtual void output_molecule (Molecule const*, Offset, char const*);
   virtual void start_line ();
   virtual void stop_line ();
 };
 
-#endif // OUTPUTTER_HH
+#endif // TEX_OUTPUTTER_HH

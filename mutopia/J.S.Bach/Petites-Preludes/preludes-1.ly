@@ -14,7 +14,7 @@ enteredby =	 "jcn";
 copyright =	 "public domain";
 }
 
-\version "1.0.4";
+\version "1.0.6";
 
 one = \notes\relative c {
 	\property Voice . textstyle =  "italic"

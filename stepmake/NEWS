@@ -1,5 +1,12 @@
+pl 55
+	- table-to-html stuff moved .
+
+pl 54
+	- && for TeX
+
 pl 53
 	- moved TeX stuff into tex template
+
 pl 52
 	- striproff
 	- reeable $(PACKAGE)_LIBES,_INCLUDES

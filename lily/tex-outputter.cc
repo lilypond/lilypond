@@ -4,6 +4,7 @@
   source file of the GNU LilyPond music typesetter
 
   (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "tex-outputter.hh"
@@ -16,9 +17,13 @@
 #include "string-convert.hh"
 #include "debug.hh"
 
-Tex_outputter::Tex_outputter (Tex_stream *s)
+Tex_outputter::Tex_outputter (Paper_stream *s)
+  :Paper_outputter (s)
 {
-  outstream_l_ = s;
+}
+
+Tex_outputter::~Tex_outputter ()
+{
 }
 
 /*
@@ -57,26 +62,8 @@ Tex_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
   if (check_debug)
     *outstream_l_ << String ("\n%start: ") << nm << "\n";
 
-  for (PCursor <Atom*> i (m->atoms_); i.ok (); i++)
-    {
-      Offset a_off = i->offset ();
-      a_off += o;
-
-      switch_to_font (i->font_);
-
-      Array<String> a;
-      String r;
-  
-    
-      String s ("\\placebox{%}{%}{%}");
-      a.push (print_dimen (a_off.y()));
-      a.push (print_dimen (a_off.x()));
-      a.push (i->tex_);
-      r += substitute_args (s, a);
-      *outstream_l_ << r;
-    }
+  Paper_outputter::output_molecule (m, o, nm, "\\placebox{%}{%}{%}");
 }
-
 
 void
 Tex_outputter::start_line ()

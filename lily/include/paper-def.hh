@@ -37,8 +37,8 @@
 class Paper_def : public Music_output_def 
 {
   Assoc<int, Lookup *> *lookup_p_assoc_p_;
-  Scope* scope_p_;
   static int default_count_i_;
+  bool ps_b_;
 
 protected:
   VIRTUAL_COPY_CONS(Paper_def,Music_output_def);
@@ -92,7 +92,9 @@ public:
   Real arithmetic_constant (Moment minimal_mom) const;
   Real arithmetic_spacing (Moment mom,Real constant) const;
   virtual int get_next_default_count () const;
-  String TeX_output_settings_str () const;
+  //urg
+  String tex_output_settings_str () const;
+  String ps_output_settings_str () const;
   // urg
   friend int yyparse (void*);
 };

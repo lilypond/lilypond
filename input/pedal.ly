@@ -1,3 +1,7 @@
+%
+% This file does not work.  
+%
+
 % pedal.ly
 % 
 % Johann Sebastian Bach
@@ -24,7 +28,7 @@
 % \lbheel \lbheel \lfheel \lftoe
 % \rbheel \rbtoe \rfheel \rftoe
 
-\version "1.0.4";
+\version "1.0.6";
 
 \score{
 		\notes {

@@ -5,7 +5,7 @@
  \include "table13.ly";
  \include "table16.ly";
 
-\version "1.0.4";
+\version "1.0.6";
 
 paper_twenty = \paper {
 	staffheight = 20.0\pt;
@@ -13,8 +13,8 @@ paper_twenty = \paper {
 	papersize = "a4";
 
 	% ugh see table20 for sizes
-	quartwidth =  6.61\pt
-	wholewidth = 9.90\pt
+	quartwidth =  6.61\pt;
+	wholewidth = 9.90\pt;
 
 
 	arithmetic_basicspace = 2.;

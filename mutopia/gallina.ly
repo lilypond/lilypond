@@ -45,7 +45,7 @@ Voice engraver by uncommenting the lines in the paper
 definition below. --MB
 %} 
 
-\version "1.0.4";
+\version "1.0.6";
 
 vi1=\notes \relative c'' {
   \time 4/4;
@@ -227,6 +227,7 @@ bc=\notes\transpose c'{
 
 \score{
   \type StaffGroup <
+    \property StaffGroup.timeSignatureStyle = "old"
     \vi1
     \vi2
     \bc
@@ -234,24 +235,14 @@ bc=\notes\transpose c'{
   \paper{
     gourlay_maxmeasures=7.;
 
-%{
+    \translator { \VoiceContext
+
 %% Uncomment to get the original layout without beams.
 %%%% Compare to the definition in init/engraver.ly.
-    Voice = \translator {
-       \type "Engraver_group_engraver";
-       \consists "Dynamic_engraver";
-       \consists "Rest_engraver";
-       \consists "Stem_engraver";
-       \consists "Plet_engraver";
- %     \consists "Beam_engraver";
-       \consists "Beam_req_swallow_translator";
-       \consists "Abbreviation_beam_engraver";
-       \consists "Script_engraver";
-       \consists "Rhythmic_column_engraver";
-       \consists "Slur_engraver";
-       \accepts "Thread";
-    }
-%}
+
+%  \remove "Beam_engraver";
+ 
+ }
     
   }
   \midi{ 

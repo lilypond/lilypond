@@ -1,5 +1,5 @@
 % test damping
-\version "1.0.4";
+\version "1.0.6";
 
 \score{
 	\notes\relative c'{

@@ -5,11 +5,11 @@ enteredby =	 "HWN,JCN";
 copyright =	 "public domain";
 Tested =	 "test the Collision resolution ";
 }
-\version "1.0.4";
+\version "1.0.6";
 
 
 
-two_voice = \notes 
+twovoice = \notes 
 	\type Staff < 
 	  { \stemdown
 		c4 d e f g2~  g4 a [c8 d e f] c2| }
@@ -18,7 +18,7 @@ two_voice = \notes
 
 	>
 
-two_voice_steminvert = \notes 
+twovoicesteminvert = \notes 
 	\type Staff <  
 	  { 
  \stemup
@@ -29,7 +29,7 @@ two_voice_steminvert = \notes
 
 	>
 
-three_voice = \notes 
+threevoice = \notes 
 	\type Staff <
 	{ \stemup 
 		g4 f e f g a g2 }
@@ -76,9 +76,9 @@ restsII = \notes {
 }
 
 \score{
-	\notes \transpose c' {  \two_voice  
-	\two_voice_steminvert 
-	\three_voice  
+	\notes \transpose c' {  \twovoice  
+	\twovoicesteminvert 
+	\threevoice  
 	\rests 
 	% UGH ! bug!
 	%\restsII 

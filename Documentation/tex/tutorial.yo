@@ -687,7 +687,7 @@ So the general form actually is `mycode(\keyword argument argument ... ;)'
 Let us review these commands:
 
 description(
-dit(mymycode(\clef) var(clefname)) This command sets the current clef for notation,
+dit(mycode(\clef) var(clefname)) This command sets the current clef for notation,
   i.e., a clef symbol is printed and the notes following this command
   are shifted vertically.  The argument is a string, the name of the
   new clef. The default clef is the treble clef.
@@ -696,12 +696,12 @@ dit(mymycode(\clef) var(clefname)) This command sets the current clef for notati
     \clef "treble"; c'4
     \clef "alto"; c'4    
   )
-dit(mymycode(\key) var(pitch)) This command changes the current key signature.  The
+dit(mycode(\key) var(pitch)) This command changes the current key signature.  The
   key signature is printed at the start of every line.  The argument
   is the name of the corresponding major key.  The key of C-minor can 
   thus be specified as `mycode(\key es)'.
   
-dit(mymycode(\keysignature) var(pitchlist))
+dit(mycode(\keysignature) var(pitchlist))
 
 This command changes the current key signature.  Unlike the
 `mycode(\key)' command, this command can produce arbitrary key
@@ -714,7 +714,7 @@ command `mycode(\keysignature fis es bis)' provides a more exotic
 example.
 
 
-dit(mymycode(\time) var(numerator)mycode(/)var(denominator))
+dit(mycode(\time) var(numerator)mycode(/)var(denominator))
   This command changes the current time signature.  LilyPond uses the
   time signature to
   calculate where to place the bars that start a measure.  These bars
@@ -730,7 +730,7 @@ song actually has a 2/4 time signature, so a metrically more correct
   )
 
 
-dit(mymycode(\cadenza) var(togglevalue)) When typesetting music without a
+dit(mycode(\cadenza) var(togglevalue)) When typesetting music without a
 regular meter (such as an ad libitum cadenza), no bar lines should be
 printed.  In LilyPond you can achieve this by issuing the command
 `mycode(\cadenza 1)': it turns off the automatically
@@ -740,7 +740,7 @@ You switch them on again with `mycode(\cadenza 0)', and then a bar line
 is printed.  LilyPond will act as if you are again at the start of a
 measure.
 
-dit(mymycode(\bar) var(bartype))
+dit(mycode(\bar) var(bartype))
   This command lets you print special bar
   lines and repeat symbols.  You can also use it to allow line breaks
   when entering cadenzas.  The argument var(bartype) is a string that
@@ -761,7 +761,7 @@ mudela(fragment,verbatim)(
 
 
   
-dit(mymycode(\partial) var(duration)) some music starts with a measure that
+dit(mycode(\partial) var(duration)) some music starts with a measure that
 isn't fully filled, a so-called upstep.  The mycode(\partial) command
 allows you to make
 upsteps. The argument is a duration similar to the duration of a note.
@@ -774,7 +774,7 @@ Example:
     [d'8 dis'] e' c''4 e'8 c''4 
   )
 
-  dit(mymycode(\grouping) var(durationslist)) sets the metric structure of the measure.
+  dit(mycode(\grouping) var(durationslist)) sets the metric structure of the measure.
     Its effect can best be shown by an example:
     mudela(fragment,verbatim)(
         \time 5/16;
@@ -976,9 +976,9 @@ mudela()(\score{
 \notes \relative c' {  \time 2/4; g'4 c,4 a'4 f4 e c d2 }
 \paper { 
   linewidth = -1.;
-  Staff = \translator {
+  \translator {
     \type "Line_group_engraver_group";
-
+    Staff ;
     defaultclef = violin;
 
     \consists "Timing_engraver";
@@ -1000,9 +1000,9 @@ mudela()(
   \notes \relative c' {  \time 2/4; g'4 c,4 a'4 f4 e c d2 }
   \paper{
   linewidth = -1.;
-    Staff = \translator {
+    \translator {
     \type "Line_group_engraver_group";
-    defaultclef = violin;
+    defaultclef = violin;Staff;
     \consists "Time_signature_engraver";
     \consists "Separating_line_group_engraver";
     \accepts "Voice";
@@ -1018,9 +1018,9 @@ mudela()(
   \notes \relative c' {  \time 2/4; g'4 c,4 a'4 f4 e c d2 }
   \paper{
   linewidth = -1.;
-    Staff = \translator {
+    \translator {
     \type "Line_group_engraver_group";
-    defaultclef = violin;
+    defaultclef = violin;Staff ;
     \consists "Bar_engraver";
     \consists "Time_signature_engraver";
     \consists "Separating_line_group_engraver";
@@ -1036,9 +1036,9 @@ mudela()(\score{
   \notes\relative c' { \time 2/4; g'4 c,4
 a'4 f4 e c d2 } \paper {
   linewidth = -1.;
-  Staff = \translator {
+  \translator {
     \type "Line_group_engraver_group";
-
+    Staff ;
     defaultclef = violin;
     \consists "Bar_engraver";
     \consists "Time_signature_engraver";
@@ -1057,9 +1057,9 @@ mudela()(\score {
   \notes \relative c' {\clef alto;  \time 2/4; g'4 c,4 a'4 f4 e c d2 }
 \paper {
   linewidth = -1.;
-  Staff = \translator {
+   \translator {
     \type "Line_group_engraver_group";
-
+    Staff;
      defaultclef = violin;
     \consists "Bar_engraver";
     \consists "Time_signature_engraver";
@@ -1574,9 +1574,14 @@ verb(
 \translator
 {
         \type "Engraver_group_engraver";
+
+	"ContextName"
+
         \accepts "...";
         \accepts "...";
         \accepts "...";
+
+
 
         \consists " ... ";
         \consists " ... ";
@@ -1634,30 +1639,14 @@ mycode(Timing_engraver).
 
 mudela(verbatim)(
 polymetricpaper = \paper {
-  Score = \translator {
-    \type Score_engraver;
-    \consists "Score_priority_engraver";
-    \consists "Priority_horizontal_align_engraver";
-    \consists "Vertical_align_engraver";
-    % \consists "Timing_engraver"; % removed Timing_engraver
-    \accepts "Staff";
+  \translator {
+    \ScoreContext
+    \remove "Timing_engraver";
   }
 
-  Staff = \translator {
-    \type "Line_group_engraver_group";
-
-    defaultclef = violin;
-
-    \consists "Bar_engraver";
-    \consists "Clef_engraver";
-    \consists "Key_engraver";
-    \consists "Local_key_engraver";
-    \consists "Time_signature_engraver";
-    \consists "Timing_engraver";  % added Timing_engraver
-    \consists "Staff_sym_engraver";
-    \consists "Separating_line_group_engraver";
-
-    \accepts "Voice";
+  \translator {
+    \StaffContext
+    \consists "Timing_engraver";
   }
 }
 \score {

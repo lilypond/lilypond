@@ -22,8 +22,10 @@
     */
 
 class Paper_score : public Music_output {
-  Tex_outputter *open_tex_outputter (Tex_stream*);
-  Tex_stream *open_output_stream ();
+  Paper_outputter *open_paper_outputter (Paper_stream*);
+  Paper_outputter *open_ps_outputter (Ps_stream*);
+  Paper_outputter *open_tex_outputter (Tex_stream*);
+  Paper_stream *open_output_stream ();
   
 public:
   Paper_def *paper_l_;
@@ -37,7 +39,7 @@ public:
   /// other elements
   Pointer_list<Score_element*> elem_p_list_;
   
-  Outputter *outputter_l_;  
+  Paper_outputter *outputter_l_;  
   Line_of_score * line_l_;
   
   Paper_score ();

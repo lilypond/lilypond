@@ -9,12 +9,12 @@ accidental@altération accidentelle@Vorzeichen@@toevallig teken@accidento@
 adjacent keys@tons voisins@@@@@
 alto@alto@@@alt@@
 ancient form??? (diatonic minor scale)@forme du mode mineur ancien@@@@@
-appoggiatura@appogiature, ports de voix, notes d'agr\'ement@langer Vorschl\"age@@@appogiature@
-arbitrary number of bars' rest)@bâton de pause@@@@@
+appoggiatura@appogiature, ports de voix, notes d'agr\'ement@langer Vorschl\"age@@lange voorslag@appogiature@
+arbitrary number of bars' rest)@bâton de pause@@@meermaats rust@@
 arpeggio@arpège, arpègement@Brechungen@@gebroken akoord@arpeggio@
 artificial measure@mesure artificielle@@@@@
 artificial rest@respiration@@@@@
-ascending interval@intervalle ascendant@@@@@
+ascending interval@intervalle ascendant@@@stijgend interval@@
 augmented (interval)@augmenté (intervalle)@@@overmatig interval@@
 B@si@@@@@
 backfall, forefall@accent, chute, port de voix@Vorschlag@@korte voorslag@appogiature@
@@ -25,14 +25,14 @@ bass clef@clé de fa@F Schl\"ussel@@F sleutel, bas sleutel@chiave di basso@
 bass@basse@@@bas@@
 beam@barre@Balken@@waardestreep/balk@barra@
 beat@temps@@@tel@@
-brace@accolade@Klammer@@@accolada@Symbol at the start of a system that connects staffs.
+brace@accolade@Klammer@@accolade, haak@accolada@Symbol at the start of a system that connects staffs.
 brass@@@@koper (blazers)@@
 C clef@clé d'ut@@@C sleutel, alt sleutel@chiave di tenore@
 C@do@@@C@@
 C@ut@@@@@
 cadence@cadence@@@cadens@@
 cadenza@fioriture@@@cadens@cadenza@
-cent@@@@@@1/1200 of an octave (1/100 of an equally tempered semitone)
+cent@@@@cent@@1/1200 of an octave (1/100 of an equally tempered semitone)
 chain of trills@chaîne de trilles@@@triller@@
 character@caractère@@@@@
 chevron@chevron@@@@@
@@ -41,19 +41,19 @@ chromatic scale@gamme chromatique@@@chromatische toonladder@@
 chromatic semitone@demi-ton chromatique@@@chromatische halve toon@@
 chromatic transposition@transposition chromatique@@@@@
 chromatic type@genre chromatique@@@@@
-church mode, ecclesiastical mode@mode ecclésiastique@@@@@
-clef@clé@Schl\"ussel@@Sleutel@la chiave (pl. le chiavi)@
-comma@comma@@@@@Difference in pitch of a note when the note is derived from a different tuning system.
+church mode, ecclesiastical mode@mode ecclésiastique@@@kerk toonladder@@
+clef@clé@Schl\"ussel@@sleutel@la chiave (pl. le chiavi)@
+comma@comma@@@komma@@Difference in pitch of a note when the note is derived from a different tuning system.
 compound interval@intervalle composé@@@@@
-compound measure@mesure composée@@@@@
+compound measure@mesure composée@@@samengestelde maat@@
 conjunct movement@mouvement conjoint@@@@@
 consonant interval; consonance@consonance@@@consonant@@
 contralto@contralto@@@@@
 contro-time@contre-temps@@@@@
 crescendo@crescendo@@@@crescendo@written with an extended opening angular bracket, indicates increasing volume
-cue-notes@@Stichnoten@@stichnoten@@
+cue-notes@@Stichnoten@@stichnoten@@In an orchestral part, notes for a different instrument that hint when tostart playing.  Usually printed in smaller type.
 D@ré@@@@@
-dash over/below@pizzicato@@@@@
+dash over/below@@@@@pizzicato@With plucked strings
 decrescendo@@@@@decrescendo@written with an extended closing angular bracket, indicates decreasing volume
 degree [of the scale]@degré [de la gamme]@@@trap [van de toonladder]@@
 descending interval@intervalle descendant@@@dalend interval@@
@@ -68,27 +68,27 @@ dissonant interval; dissonance@dissonance@@@dissonant interval; dissonant@@
 dominant ninth chord@accord de neuvième dominante@@@dominant noon akkoord@@
 dominant seventh chord@accord de septième dominante@@@dominant septiem akkoord@@
 dominant@dominante@@@dominant@@A tone that creates tension;the fifth degree of the scale.
-dorian mode@@@@@@Mode obtained by raising the sixth in minor mode.  A Dorian scale can be played from D to D with no sharps or flats.
-dot (augmentation dot) @point@Punkt@@punt@punto@
+dorian mode@@@@dorische toonladder@@Mode obtained by raising the sixth in minor mode.  A Dorian scale can be played from D to D with no sharps or flats.
+dot (augmentation dot) @point@Punkt@@punt@punto@An augmentation dot after note adds multiplies the duration by one and a half.
 dot and curved line combined@point et liaison combinés@@@@@
-dot over/below@@@@staccato@staccato@
+dot over/below@@@@staccato@staccato@Play each note short.
 dot@point@@@punt@@
 dotted note@note pointée@@@@@
 double appoggiatura@appogiature double@@@@@
-double bar line@double barre@Doppeltaktstrich@@dubbele streep@doppia barra@
+double bar line@double barre@Doppeltaktstrich@@dubbele streep@doppia barra@Indicates the end of a section within a movement.
 double dotted note@note doublement pointée@@@@@
 double flat@double bémol@Doppel-Be@@dubbelmol@doppio bemolle@
-double sharp@double dièse@Doppelkreuz@@dubbelkruis@doppio diesis@
-double trill@trille double@@@@@
+double sharp@double dièse@Doppelkreuz@@dubbelkruis@doppio diesis@Raise pitch by two semitones
+double trill@trille double@@@@@A trill on a chord
 double triplet@double triolet@@@dubbele triool@@
-double whole note@@@breve@brevis@breve@
+double whole note@@@breve@brevis@breve@Note during twice as long as a whole note. Mainly used in pre-1650 music.
 duple meter@temps binaire@@@tweedelige maatsoort@@
 duplet@duolet@@@duool@@
 duration@durée@@@duur, lengte@@
 E@mi@@@@@
 eighth note@croche@@quaver@achtste noot@@
 eighth rest@demi-soupir@@quaver rest@achtste rust@@
-engraving@@notenstechen@@steken@@
+engraving@@notenstechen@@steken@@The traditional process of music printing: cutting in a plate of metal.Now also the term for the art of music typography.
 enharmonic@enharmonique@@@enharmonisch@@Two notes, intervals, or scales are enharmonic if they have different names but sound the same.  Examples: C sharp and D flat, diminished fourth and major third
 equal temperament@tempérament égal@@@getempereerde stemming@@Tuning system in which each semitone is precisely 100 cents.
 essential alteration@altération essentielle@@@@@
@@ -97,22 +97,22 @@ extension of interval@extension d'intervalle@@@@@
 F@fa@@@@@
 fermata@pauses@Fermate@@fermate@fermata@Prolonged sound or silence of indefinite duration
 fifth@quinte@@@kwint@@
-flag, hook, tail, pennant@crochet@F\"anchen@@vlaggetje@coda uncinata@
-flat@bémol@Be@@mol@bemolle@
+flag, hook, tail, pennant@crochet@F\"anchen@@vlaggetje@coda uncinata@Ornament at the end of the stem of a note. The number of flagsdetermines the lengths of notes shorter than a quarter note.
+flat@bémol@Be@@mol@bemolle@Lower pitch by a semitone
 four-bar rest@bâton de pause@@@@@
 fourth@quarte@@@kwart@@
 G@sol@@@@@
-glissando@glissement@Glissando@@glissando@glissando@
+glissando@glissement@Glissando@@glissando@glissando@Letting the pitch  slide fluently from one note to the other
 graces@petites notes@kurz Vorschl\"age, Manieren (?)@@versieringen@appogiature@
 grand staff@@@@piano systeem@@A combination of two staffs with a brace.  Usually used for piano music.
 half note@blanche@@minim@halve noot@@
 half rest@demi-pause@@minim rest@halve rust@@
-harmonic cadence@cadence harmonique@@@cadens@@
+harmonic cadence@cadence harmonique@@@harmonische cadens@@Sequence of chords that terminate a musical phrase or section.
 harmonic form (diatonic minor scale)@forme harmonique@@@@@
 harmonic interval@intervalle harmonique@@@@@
 incomplete measure@mesure incomplète@@@@@
 interval@intervalle@@@interval@@Difference in pitch between two notes
-inversion of interval@renversement d'intervalle@@@inversie@@
+inversion of interval@renversement d'intervalle@@@interval inversie@@
 irregular contro-time@contre-temps irrégulier@@@@@
 irregular group@groupe irrégulier@@@@@
 irregular measure@mesure irrégulière@@@@@
@@ -124,7 +124,7 @@ kind of rest@figure de silence@@@@@
 leading note@sensible@@@@@
 ledger line, leger line@ligne supplémentaire@Hilfslinien, Kopfstriche (?)@@hulplijntje@lineette@A ledger line is an extension of the staff.  
 legato curve@liaison rythmique@@@legato boog@@
-lilypond@étang de lis@lilyteich@lily pond@lelievijver@stagno del giglio@
+lilypond@étang de lis@lilyteich@lily pond@lelievijver@stagno del giglio@A pond with  lilies floating in it, also the name of a music typesetter.
 line@ligne@@@lijn@@
 long appoggiatura@appogiature longue@@@@@
 lower number@chiffre inférieur@@@@@
@@ -132,13 +132,13 @@ major (interval)@majeur (intervalle)@@@groot (interval)@@
 major mode@mode majeur@@@@@
 meantone temperament@tempérament mésotonique@@@@@Tuning based on a fifth that is 16 cents smaller than the natural fifth.  
 mediant@médiante@@@mediant@@The third degree of a scale
-melodic cadence@cadence mélodique@@@cadens@@
+melodic cadence@cadence mélodique@@@cadens@@A free-form section at the end of a solo-concerto, where the soloistcan demonstrate his/her virtuosity.
 melodic form (diatonic minor scale)@forme mélodique@@@@@
 meter, time@m\`etre@Takt, Metrum@@maatsoort@@A recurring pattern of stress
-metronome@métronome@@@metronoom@@
-metronomic indication@indication métronomique@@@@@
+metronome@métronome@@@metronoom@@Device which sounds a steady beat
+metronomic indication@indication métronomique@@@@@Exact tempo indication (in beats per minute).  Also denoted by M.M. (M\"azels Metronom)
 mezzo-soprano@mezzo-soprano@@@@@
-middle C@do central@@@centrale C@@
+middle C@do central@@@centrale C@@First C below the 440 Hz A.
 minor (interval)@mineur (intervalle)@@@@@
 minor mode@mode mineur@@@@@
 modal note@note modale@@@@@
@@ -147,8 +147,8 @@ modulation@modulation@@@modulatie@@
 mordent@mordant, pinc\'e@Pralltriller, Mordent@@mordent@mordente@
 motive@incise@@@motief@@
 musical ladder@échelle musicale@@@@@
-mixolydian mode@@@@@@Mode obtained by lowering the seventh in major.  A mixolydian scale can be obtained by playing G to G with no sharps or flats.
-natural sign@bécarre@Aufl\"osungszeichen@@herstellingsteken@bequadro@
+mixolydian mode@@@@Mixolydische toonladder@@Mode obtained by lowering the seventh in major.  A mixolydian scale can be obtained by playing G to G with no sharps or flats.
+natural sign@bécarre@Aufl\"osungszeichen@@herstellingsteken@bequadro@Do not play the following note flat or sharp.
 ninth@@@@noon@@
 note head@@Notenkopf@@noot balletje@@
 note@note@Note@@noot@nota@
@@ -164,7 +164,7 @@ perfect (interval)@juste (intervalle)@@@rein (interval)@@
 perfect major chord@accord parfait majeur@@@@@
 perfect minor chord@accord parfait mineur@@@@@
 phrase member@membre de phrase@@@@@
-phrase@phrase@@@@@
+phrase@phrase@@@frase, zin@@
 phrasing@phrasé@@@@@
 pitch pipe; tuning fork@diapason@@@stemfluitje; stemvork@@
 pitch@hauteur@@@toonhoogte@@
@@ -230,7 +230,7 @@ tonal note@note tonale@@@@@
 tonality@tonalité@@@tonaliteit@@
 tone@ton@@@toon@@
 tonic@tonique@@@tonica@@
-transposition@transposition@@@transpositie@@
+transposition@transposition@@@transpositie@@Shifting a melody up or down in pitch, while keeping the same relative pitches.
 treble clef@clé de sol@G Schl\"ussel@@G sleutel, viool sleutel@chiave di violino@
 tremolo@tr\'emolo@Tremolo@@tremolo@tremolo@
 trill; shake@trille, tremblement, battement (cadence)@Triller@@triller@trillo@
@@ -240,7 +240,7 @@ tritone@triton@@@@@
 turn; gruppetto@bris\'e, groupe, doubl\'e, grupetto@Doppelschlag@@dubbelslag@grupetto@
 two-bar rest@bâton de pause@@@@@
 underline over/below@portamento@@@@@
-unison@unisson@@@@unisono@
+unison@unisson@@@@unisono@Different instruments playing exactly the same melody.
 unit of beat@unité de temps@@@@@
 unit of measure@unité de mesure@@@@@
 upper number@chiffre supérieur@@@@@

@@ -30,6 +30,6 @@ Performer_group_performer*
 Performer::daddy_perf_l () const
 {
   return (daddy_trans_l_) 
-    ?(Performer_group_performer*) daddy_trans_l_->performer_l ()
+    ?(Performer_group_performer*) daddy_trans_l_->access_Performer ()
     : 0;
 }

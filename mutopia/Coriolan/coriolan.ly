@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.4";
+\version "1.0.6";
 
 \include "global.ly"
 
@@ -63,7 +63,7 @@ strijkers = \type StaffGroup = strijkers_group <
 	\$bassi
 >
 
- \include "score-paper.ly"
+
 \score{
 	<
 		\property Score . textstyle =  "italic"
@@ -76,6 +76,7 @@ strijkers = \type StaffGroup = strijkers_group <
 	\paper{
 		% Give hara-kiri something to do...
 		linewidth = 130.0\mm;
+		\translator { \OrchestralScoreContext }
 	}
 	\midi{ \tempo 4 = 160; }
 }

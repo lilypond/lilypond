@@ -16,7 +16,7 @@ multiple \paper{}s in one \score
 Note: Original key F.
 %}
 
-\version "1.0.4";
+\version "1.0.6";
 
 $vocal_verse1 = \notes\relative c{
 	% ugh: treble/bass
@@ -448,7 +448,7 @@ $grand_staff = \type GrandStaff<
 		\$lyric_staff
 		{ \notes \transpose a { \$grand_staff } }
 	>
-	\include "score-paper.ly";
+	\paper { \translator { \OrchestralScoreContext }}
 	\midi{
 		\tempo 4 = 54;
 	}

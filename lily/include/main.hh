@@ -24,6 +24,7 @@ extern bool no_timestamps_global_b;
 extern bool find_quarts_global_b;
 extern int exit_status_i_;
 extern bool experimental_features_global_b;
+extern bool ps_output_global_b;
 extern bool dependency_global_b;
 extern bool version_ignore_global_b;
 

@@ -43,67 +43,60 @@ def header (html):
 def footer (html):
     html.write ('</table></body>')
 
-def convert_html (inname, outname, separator):
-    # urg, again?
-    from flower import *
-    table = File (inname)
+def convert_html (inname, outname, cols, separator, linesep):
+    table = open (inname)
     # ugh
-    html = File (outname, 'w')
+    html = open (outname, 'w')
 
     header (html)
     i = 0
-    while not table.eof ():
-	line = table.readline ()
+    for line in table.readlines ():
 	i = i + 1
 	if not len(line):
 	    continue
 	columns = split (line, separator)
 	html_line = '<tr><td>' + join (columns, '</td><td>') + '</td></tr>'
+	html_line= regsub.gsub (linesep, ' ',html_line)
 	html.write (html_line)
-	if len (columns) < 7:
-	    print inname + ': ' + str(i) + ':warning: not enough cols\n'
-	    continue
-	if len (columns) > 7:
-	    print inname + ': ' + str(i) + ':warning: too many cols\n'
-	    continue
+
+	if len (columns) <> cols:
+		print i
+		raise 'not enough cols'
 
     table.close ()
     footer (html)
     html.close ()
 
-def convert_tex (inname, outname, separator):
-    # urg, again?
-    from flower import *
-    table = File (inname)
-    # ugh
-    html = File (outname, 'w')
+
+def convert_tex (inname, outname, cols, separator, linesep):
+    table = open (inname)
+    html = open(outname, 'w')
 
     i = 0
-    while not table.eof ():
-	line = table.readline ()
+    for line in table.readlines ():    
 	i = i + 1
 	if not len(line):
 	    continue
 	columns = split (line, separator)
-	if len (columns) < 7:
-	    print inname + ': ' + str(i) + ':warning: not enough cols\n'
-	    continue
-	if len (columns) > 7:
-	    print inname + ': ' + str(i) + ':warning: too many cols\n'
-	    continue
+	if len (columns) <> cols:
+		print i
+		raise 'not enough cols'
 
-	html_line =  '\\tableentry{' + join (columns, '}{') + '}\n'
-	html.write (html_line)
+	tex_line =  '\\tableentry{' + join (columns, '}{') + '}\n'
+	tex_line = regsub.gsub (linesep, ' ', tex_line)
+	html.write (tex_line)
+	
     table.close ()
     html.close ()
 
 def main ():
     identify ()
     (options, files) = getopt.getopt (
-	sys.argv[1:], 'to:hp:s:', ['help', 'latex', 'output=', 'package=', 'separator='])
+	sys.argv[1:], 'tl:o:hp:c:s:', ['columns=', 'help', 'latex', 'output=', 'package=', 'separator=', 'linesep='])
     latex = 0
     separator = '@'
     output = ''
+    linesep = '\r'
     for opt in options:
 	o = opt[0]
 	a = opt[1]
@@ -117,6 +110,10 @@ def main ():
 	    output = a
 	elif o == '--package' or o == '-p':
 	    topdir=a
+	elif o == '--linesep' or o == '-l':
+		linesep = a
+	elif o == '--columns' or o == '-c':
+		cols =  atoi(a)
 	else:
 	    print o
 	    raise getopt.error
@@ -129,9 +126,9 @@ def main ():
     from flower import *
 
     if latex:
-	convert_tex (files[0], output, separator)
+	convert_tex (files[0], output,  cols, separator, linesep)
     else:
-	convert_html (files[0], output, separator)
+	convert_html (files[0], output, cols, separator, linesep)
 
 main ()
 

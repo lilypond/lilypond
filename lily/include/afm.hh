@@ -43,7 +43,7 @@ struct Adobe_font_metric {
   String EncodingScheme_;
   Array<Adobe_font_char_metric> char_metrics_;
 
-  Adobe_font_char_metric find_char (String name) const;
+  Adobe_font_char_metric find_char (String name, bool warn=true) const;
   String str () const;
   Adobe_font_metric ();
 };

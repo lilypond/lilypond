@@ -157,7 +157,7 @@ Translator::pre_move_processing ()
 Scalar
 Translator::get_property (String id)
 {
-  if (properties_dict_.elt_b (id))
+  if (properties_dict_.elem_b (id))
     {
       return properties_dict_[id];
     }

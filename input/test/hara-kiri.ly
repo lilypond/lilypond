@@ -1,4 +1,4 @@
-\version "1.0.4";
+\version "1.0.6";
 
 toeter_i = \notes\relative c {
 	\property Staff.instrument = "Toeters"

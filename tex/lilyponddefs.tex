@@ -231,9 +231,9 @@
 %        to time.
 %
 \ifx\csname nolilyfooter\endcsname\relax
-        \message{footer defined}%
-        \csname lilyfooter\texsuffix\endcsname
-\else
-        \message{footer empty!}
+        \message{[footer empty]}
         \csname nolilyfooter\texsuffix\endcsname
+\else
+        \message{[footer defined]}%
+        \csname lilyfooter\texsuffix\endcsname%
 \fi
