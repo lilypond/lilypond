@@ -199,16 +199,15 @@
       ;; FIXME: we need proper Fontmap for the bluesky CM*, EC* fonts.
       ;; Only the fonts that we trace in mf/ are in our own FontMap.
       (string-append basename ".pfb"))
-     ((or (equal? (substring basename 0 4) "feta")
-	  (equal? (substring basename 0 4) "parm"))
-      (regexp-substitute/global
-       #f "(feta|parmesan)([a-z-]*)([0-9]+)"
-       basename 'pre "GNU-LilyPond-" 1 2 "-" 3 'post))
-     (else basename)))
+     (else (string-append basename ".pfa"))
+     ))
 
   (define (font-load-command paper font)
-    (let* ((basename (ly:font-filename font))
-	   (fontname (guess-ps-fontname basename))
+    (let* ((specced-font-name (ly:font-name font))
+	   (fontname (if specced-font-name
+			 specced-font-name
+			 (guess-ps-fontname (ly:font-filename font))))
+	   
 	   (coding-alist (ly:font-encoding-alist font))
 	   (input-encoding (assoc-get 'input-name coding-alist))
 	   (font-encoding (assoc-get 'output-name coding-alist))

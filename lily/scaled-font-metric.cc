@@ -76,7 +76,7 @@ Modified_font_metric::Modified_font_metric (String coding, Font_metric* m, Real 
 
 
 
-LY_DEFINE (ly_font_encoding, "ly:font-encoding-alist",
+LY_DEFINE (ly_font_encoding_alist, "ly:font-encoding-alist",
 	   1, 0, 0,
 	   (SCM font),
 	   "Given the Modified_font_metric @var{font}, return an "
@@ -288,4 +288,10 @@ Modified_font_metric::text_dimension (String text)
     }
   
   return b;
+}
+
+Font_metric*
+Modified_font_metric::original_font () const
+{
+  return orig_;
 }

@@ -178,7 +178,7 @@ LY_DEFINE (ly_text_dimension,"ly:text-dimension",
   return scm_cons (ly_interval2scm (b[X_AXIS]), ly_interval2scm (b[Y_AXIS]));
 }
 
-LY_DEFINE (ly_font_name,"ly:font-filename",
+LY_DEFINE (ly_font_filename,"ly:font-filename",
 	   1, 0, 0,
 	   (SCM font),
 	   "Given the font metric @var{font}, "
@@ -188,6 +188,32 @@ LY_DEFINE (ly_font_name,"ly:font-filename",
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
   return ly_car (fm->description_);
 }
+
+
+#include "afm.hh"
+
+LY_DEFINE (ly_font_name,"ly:font-name",
+	   1, 0, 0,
+	   (SCM font),
+	   "Given the font metric @var{font}, "
+	   "return the corresponding file name.")
+{
+  Font_metric *fm = unsmob_metrics (font);
+      
+  SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
+
+
+  if (Modified_font_metric* mfm = dynamic_cast<Modified_font_metric*> (fm))
+    return ly_font_name (mfm->original_font ()->self_scm ());
+  else if (Adobe_font_metric* afm = dynamic_cast<Adobe_font_metric*> (fm))
+    {
+      return scm_makfrom0str (afm->font_info_->gfi->fontName);
+    }
+  else
+    return SCM_BOOL_F;
+}
+
+
 
 LY_DEFINE (ly_font_magnification,"ly:font-magnification", 1 , 0, 0,
 	  (SCM font),
