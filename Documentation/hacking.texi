@@ -1,0 +1,856 @@
+\input texinfo @c -*-texinfo-*-
+@setfilename internals.info
+@settitle LilyPond internals
+
+@node Top, LilyPond internals, (dir), (dir)
+@top
+
+
+@menu
+* LilyPond internals::
+* Overview::
+* mudela::                      
+* Request_engraver::            
+* Graphic elements::
+* Score elements::
+* Items::
+* Spanners::
+* Future work::
+* Coding standards::
+* Making patches::
+
+@end menu
+
+@node LilyPond internals,  , Top, Top
+@menu
+* Overview::                      Overview
+* mudela::                        mudela
+* Request_engraver::              Request_engraver
+@end menu
+
+
+@chapter Getting involved
+
+Please help us make LilyPond a better program. You can help LilyPond in
+several ways. Not all tasks requiring programming or understanding the
+full source code.  You can write to the mailing list
+(@email{gnu-music-discuss@@gnu.org} for more information)
+
+@unnumberedsubsec Users
+
+Mutopia needs your help. The mutopia project is a collection of public
+domain sheet music. You can help the project by entering music and
+submitting. Point your browser to the
+@uref{http://sca.uwaterloo.ca/Mutopia, Mutopia webpage}
+
+@unnumberedsubsec Font designers
+
+Our set of glyphs (the Feta font) is far from complete.  If you know  a
+little MetaFont you can contribute a glyph
+
+@unnumberedsubsec Writers
+
+The documentation of LilyPond and related utilities needs a lot of work.
+
+@unnumberedsubsec Translators
+
+LilyPond is completely ready for internationalized messages, but there
+are only three translations so far.
+
+@unnumberedsubsec Hackers
+
+There are lots of possibilities of improving the program itself. There are
+both small projects and big ones. Most of them are listed in the TODO
+file.  A interesting and very big project is writing a GUI frontend to
+LilyPond.
+
+
+@unnumberedsubsec Website designers
+
+The current website for LilyPond is neat and simple, but it is not very
+pretty.  We would like to have a website with pretty pictures, one that
+looks appealing to new users.
+
+
+@chapter LilyPond internals
+
+
+This documents some aspects of the internals of GNU LilyPond. Some of
+this stuff comes from e-mail I wrote, some from e-mail others wrote,
+some are large comments taken away from the headers. This page may be
+a little incoherent.  Unfortunately, it is also quite outdated.  A
+more thorough  and understandable document is in the works.
+
+You should use @code{doc++} to take a peek at the sources.
+
+@node Overview, mudela, Top, Top
+@section Overview
+
+GNU LilyPond is a "multi-pass" system. The different passes have been
+created so that they do not depend on each other. In a later stage
+some parts may be moved into libraries, or seperate programs, or they
+might be integrated in larger systems.
+
+@table @samp
+
+@item Parsing:
+
+No difficult algorithms. The .ly file is read, and converted to a list
+of @code{Scores}, which each contain @code{Music} and paper/midi-definitions.
+
+@item Interpreting music
+
+The music is walked through in time-order. The iterators which do the
+walking report Music to Translators which use this information to
+create elements, either MIDI or "visual" elements. The translators
+form a hierarchy; the ones for paper output are Engravers, for MIDI
+Performers.
+
+The translators swallow Music (mostly atomic gobs called Requests),
+create elements, broadcast them to other translators on higher or same
+level in the hierarchy:
+
+The stem of a voice A is broadcast to the staff which contains A, but
+not to the stems, beams and noteheads of a different voice (say B) or
+a different staff. The stem and noteheads of A are coupled, because
+the the Note_heads_engraver broadcasts its heads, and the Stem_engraver catches
+these.
+
+The engraver which agrees to handle a request decides whether to to
+honor the request, ignore it, or merge it with other requests. Merging
+of requests is preferably done with other requests done by members of
+the same voicegroups (beams, brackets, stems). In this way you can put
+the voices of 2 instruments in a conductor's score so they make chords
+(the Beam requests of both instruments will be merged).
+
+@item Prebreaking
+
+Breakable stuff (eg. clefs and bars) are copied into pre and
+postbreaks.
+
+@item Preprocessing
+
+Some dependencies are resolved, such as the direction of stems, beams,
+and "horizontal" placement issues (the order of clefs,  keys etc,
+placement of chords in multi-voice music), 
+
+@item Break calculation:
+
+The lines and horizontal positions of the columns are determined.
+
+@item Breaking
+
+Through some magical interactions with Line_of_score and Super_elem
+(check out the source) the "lines" are produced.
+
+All other spanners can figure across which lines they are spread. If
+applicable, they break themselves into pieces. After this, each piece
+(or, if there are no pieces, the original spanner itself) throws out
+any dependencies which are in the wrong line.
+
+@item Postprocesing:
+
+Some items and all spanners need computation after the Paper_column
+positions are determined. Examples: slurs, vertical positions of
+staffs.
+
+@item Output paper
+
+@end table
+
+@node mudela, Request_engraver, Overview, Top
+@section mudela
+
+Most information is stored in the form of a request.  In music
+typesetting, the user might want to cram a lot more symbols on the
+paper than actually fits. To reflect this idea (the user asks more
+than we can do), the container for this data is called Request.
+
+In a lot of other formats this would be called an 'Event'
+
+@table @samp
+@item @code{Barcheck_req}
+    Checks during music processing if start of this voice element
+    coincides with the start of a measure. Handy to check if you left out
+    some voice elts.
+@item @code{Note_req}
+    LilyPond has to decide if the ball should be hanging left or
+    right. This influences the horizontal dimensions of a column, and this
+    is why request processing should be done before horizontal spacing.
+    Other voices' frivolities may cause the need for accidentals, so this
+    is also for the to decide. The engraver can decide on positioning based on
+    ottava commands and the appropriate clef.
+@item @code{Rest_req}
+    Typeset a rest.
+@item @code{Span_req}
+    This type of request typically results in the creation of a @code{Spanner}
+@item @code{Beam_req}
+    Start/stop a beam.
+    Engraver has to combine this request with the stem_request, since the
+    number of flags that a stem wants to carry will determine the
+    number of beams.
+@item @code{Dynamic}
+    Each dynamic is bound to one note (a crescendo spanning multiple
+    notes is thought to be made of two "dynamics": a start and a stop).
+    Dynamic changes can occur in a smaller time than the length of its
+    note, therefore fore each  @code{Dynamic} request carries a time, measured
+    from the start of its note.
+@end table
+
+@node Request_engraver, , mudela, Top
+@section Request_engraver
+
+In the previous section the idea of Request has been explained, but
+this only solves one half of the problem. The other half is deciding
+which requests should be honored, which should merged with other
+requests, and which should be ignored. Consider this input
+
+@example 
+
+	\type Staff < % chord
+		@{ \meter 2/4; [c8 c8] @}
+		@{\meter 2/4;  [e8 e8] @}
+	>
+ 
+@end example 
+
+Both the cs and es are part of a staff (they are in the same
+Voice_group), so they should share meters, but the two [ ] pairs
+should be merged.
+
+The judge in this "allocation" problem a set of brokers: the requests
+are transmitted to so-called engravers which respond if they want to
+accept a request eg, the @code{Notehead_engraver} will accept
+@code{Note_req}s, and turn down @code{Slur_req}s. If the Music_iterator
+cannot find a engraver that wants the request, it is junked (with a
+warning message).
+
+After all requests have been either assigned, or junked, the Engraver
+will process the requests (which usually means creating an @code{Item}
+or @code{Spanner}). If a @code{Request_engraver} creates something, it
+tells the enclosing context. If all items/spanners have been created,
+then each Engraver is notified of any created Score_element, via a
+broadcasting system.
+
+@unnumberedsubsec example:
+
+@example 
+
+	c4
+ 
+@end example 
+
+produces:
+
+@example 
+
+	Note_request (duration 1/4)
+	Stem_request (duration 1/4)
+ 
+@end example 
+
+Note_request will be taken by a @code{Notehead_engraver}, stem_request
+will be taken by a @code{Stem_beam_engraver}. @code{Notehead_engraver}
+creates a @code{Notehead}, @code{Stem_beam_engraver} creates a
+@code{Stem}. Both announce this to the Staff_engraver. Staff_engraver
+will tell @code{Stem_beam_engraver} about the @code{Notehead}, which
+will add the @code{Notehead} to the @code{Stem} it just created.
+
+To decide on merging, several engravers have been grouped. Please
+check @file{init/engraver.ly}.
+
+
+
+@node Graphic elements, , , Top 
+@section Graphic elements
+
+
+Music notation is composed of a sets of interrelated glyphs.  In
+Lilypond every glyph usually is represented by one object, a so-called
+Graphic Object.  The primary relations between graphic objects involve
+positions:
+
+@itemize
+@item consecutive notes are printed left to right, grouped  in a staff
+@item simultaneous notes are horizontally aligned (internally grouped in
+a paper column).
+@item  the staccato mark is horizontally centered on the note it applies
+to.
+@end itemize
+
+The abstract encoding of such relations is done with the concept
+@dfn{reference point}.  The reference point (in X direction) of the
+staccato mark is the note it applies to.  The (X) position of the
+staccato mark is stored relative to the position of the note head.  This
+means that the staccato will always maintain a fixed offset wrt to the
+note head, whereever the head is moved to.
+
+In the same vein, all notes on a staff have their Y positions stored
+relative to an abstract object called Axis_group_spanner.  If the
+Axis_group_spanner of one staff is moved, the absolute Y positions of
+all objects in that spanner change along, in effect causing the staff
+and all its contents to move as a whole.
+
+Each graphic object stores a pointer and an relative offset for each
+direction: one for the X-axis, one for the Y-axis.  For example, the X
+parent of a Note_head usually is a Note_column.  The X parent of a
+Note_column usually is either a Collision or a Paper_column. The X
+parent of a Collision usually is a Paper_column.  If the Collision
+moves, all Note_heads that have that Collision as parent also move, but
+the absolute position of the Paper_column does not change.
+
+To build a graphical score with Graphic_elements, conceptually, one
+needs to have one Root object (in Lilypond: Line_of_score), and
+recursively attach objects to the Root.   However, due to the nature
+of the context selection mechanisms, it turns out to be more
+advantageous to construct the tree the other way around: first small
+trees (note heads, barlines etc.) are created, and these are
+subsequently composed into larger trees, which are finally hung on a
+Paper_column (in X direction) or Line_of_score (in Y direction). 
+
+The structure of the X,Y parent relations are determined by the
+engravers and notation contexts:
+
+The most important X-axis parent relation depends on the timing: notes
+that come earlier are attached to Paper_column that will be positioned
+more to the left.
+
+The most important Y-axis relation depends on containment of contexts:
+notes (created in a Thread or Voice context) are put in the staff where
+the originating context lives in.
+
+Graphical_axis_groups are special graphic objects, that are designed to
+function as a parent.  The size of a Graphical_axis_groups group is the
+union of its children.
+
+@node Score elements, ,  , Top
+
+Besides relative positions there are lots of other relations between
+elements. Lilypond does not contain other specialized relation
+management (Like the relative positioning code).  In stead, objects can
+be connected through dependencies, which sets the order in which objects
+are to be processed.
+
+Example: the direction of a beamed stem should equal the direction of
+the beam.  When the stem is a added to the beam, a dependency on the
+beam is set in the stem: this means that @code{Beam::do_pre_processing
+()} (which does various direction related things) will be called before
+@code{Stem::do_pre_processing ()}.
+
+The code that manages dependencies resides in the class
+@code{Score_element}, a derived class of @code{Graphical_element}.  The
+bulk of the code handles line breaking related issues.
+
+To sketch the problems with line breaking: suppose a slur spans a line
+break,
+@example
+
+c4(  c'''' c | \break d d )d
+
+@end example
+In this case, the slur will appear as two parts, the first part spanning
+the first three notes (the @code{c}s), the second spanning the last
+three (the @code{d}s).  Within Lilypond this is modeled as breaking the
+slur in parts: from the Original slur, two new clones of the old slur
+are made. Initially both clones depend on the six notes.  After the
+hairy code in Score_element, Spanner and Item which does substitutions
+in sets of dependencies, the first clone depends on the first three
+notes, the second on the last three.
+
+The major derived classes of Score_element are Item and  Spanner.
+An item has one horizontal position.  A spanner hangs on two  items.
+
+@node Items, , , Top
+@section Items
+
+
+
+An item is a score element that is associated with only one
+Paper_column. Examples are note heads, clefs, sup and superscripts, etc.
+Item is a derived class of Score_element.
+
+The shape of an item is known before the break calculations, and line
+spacing depends on the size of items: very wide items need more space
+than very small ones.
+
+An additional complication is the behavior of items at linebreaks.  For
+example, when you do a time signature change, you get only one symbol.
+If it occurs at a linebreak, the new time signature must be printed both
+before and after the linebreak.  Other `breakable symbols' such as
+clefs, and bar lines also exhibit this behavior. 
+
+if a line of music is broken, the next line usually gets a clef. So in
+TeX terms, the clef is a postbreak. The same thing happens with meter
+signs: Normally the meter follows the bar. If a line is broken at that
+bar, the bar along with the meter stays on the "last" line, but the next
+line also gets a meter sign after the clef.   To support this,
+breakable items are generated in the three versions: original
+(unbroken), left (before line break) and right (after line break).
+During the line spacing, these versions are used to try how the spacing
+of a  line works out.
+
+Once the definitive spacing is determined, dependencies (and various
+other pointers) are substituted such that all dependencies point at the
+active items: either they point at the original, or they point at left
+and right.
+
+@node Spanners, , , Top
+@section Spanners
+
+Spanners are symbols that are of variable shape, eg. Slurs, beams, etc.
+Spanners is a derived class of Score_element.
+
+The final shape can only be determined after the line breaking process.
+All spanners are spanned on two items, called the left and right
+boundary item.  The X reference point is the left boundary item.
+
+
+@node Future work, , , Top
+@section Future work
+
+There are plans to unify Spanner and Item, so there will no longer be
+such a clear distinction between the two.  Right now, Score_elements are
+always either Item or either Spanner.
+
+Most of the properties of a graphic object are now member variables of
+the classes involved.  To offer configurability, we want to move these
+variables to scheme (GUILE) variables, and no longer use C++ code to
+calculate them, but use Scheme functions.
+
+@node Coding standards,  , , Top
+
+@chapter CodingStyle - standards while programming for GNU
+LilyPond
+
+Functions and methods do not return errorcodes.
+
+
+@unnumberedsubsec Languages
+
+C++ and Python are preferred.  Perl is not.  Python code should use an
+indent of 8, using TAB characters.
+
+@unnumberedsubsec Filenames
+
+Definitions of classes that are only accessed via pointers
+(*) or references (&) shall not be included as include files.
+
+filenames
+
+@example 
+	".hh"	Include files
+	".cc"	Implementation files
+	".icc"	Inline definition files
+	".tcc"	non inline Template defs
+@end example 
+
+in emacs:
+
+@example 
+	(setq auto-mode-alist
+	      (append '(("\\.make$" . makefile-mode)
+			("\\.cc$" . c++-mode)
+			("\\.icc$" . c++-mode)
+			("\\.tcc$" . c++-mode)
+			("\\.hh$" . c++-mode)
+			("\\.pod$" . text-mode)		
+			)
+		      auto-mode-alist))
+@end example 
+
+
+The class Class_name_abbreviation is coded in @file{class-name-abbr.*}
+
+@unnumberedsubsec Indentation
+
+Standard GNU coding style is used.   In emacs:
+
+@example 
+	(add-hook 'c++-mode-hook
+		  '(lambda() (c-set-style "gnu")
+		     )
+		  )
+@end example 
+
+If you like using font-lock, you can also add this to your @file{.emacs}:
+
+@example 
+	(setq font-lock-maximum-decoration t)
+	(setq c++-font-lock-keywords-3 
+	      (append
+	       c++-font-lock-keywords-3
+	       '(("\\b\\([a-zA-Z_]+_\\)\\b" 1 font-lock-variable-name-face)
+	       ("\\b\\([A-Z]+[a-z_]+\\)\\b" 1 font-lock-type-face))
+	       ))
+@end example 
+
+@unnumberedsubsec Classes and Types
+
+@example 
+	This_is_a_class
+@end example 
+
+@unnumberedsubsec Members
+
+@example 
+	Class::member ()
+	Type Class::member_type_
+	Type Class::member_type ()
+@end example 
+
+the @code{type} is a Hungarian notation postfix for @code{Type}. See below
+
+@unnumberedsubsec Macros
+
+Macros should be written completely in uppercase
+
+The code should not be compilable if proper macro declarations are not
+included. 
+
+Don't laugh. It took us a whole evening/night to figure out one of
+these bugs, because we had a macro that looked like
+@code{DECLARE_VIRTUAL_FUNCTIONS ()}. 
+
+@unnumberedsubsec Broken code
+
+Broken code (hardwired dependencies, hardwired constants, slow
+algorithms and obvious limitations) should be marked as such: either
+with a verbose TODO, or with a short "ugh" comment.
+
+@unnumberedsubsec Comments
+
+The source is commented in the DOC++ style.  Check out doc++ at
+@uref{http://www.zib.de/Visual/software/doc++/index.html}
+
+@example 
+
+	/*
+		C style comments for multiline comments.
+		They come before the thing to document.
+		[...]
+	*/
+
+	/**
+		short description.
+		Long class documentation.
+		(Hungarian postfix)
+
+		TODO Fix boring_member ()
+	*/
+	class Class @{
+		/**
+		  short description.
+		  long description
+		*/
+
+		Data data_member_;
+
+		/**
+			short memo. long doco of member ()
+			@@param description of arguments
+			@@return Rettype
+		*/
+		Rettype member (Argtype);
+
+		/// memo only
+		boring_member () @{
+			data_member_ = 121; // ugh
+		@}
+	@};
+ 
+@end example 
+
+	
+Unfortunately most of the code isn't really documented that good.
+
+@unnumberedsubsec Members (2)
+
+Standard methods:
+
+@example 
+
+	///check that *this satisfies its invariants, abort if not.
+	void OK () const
+
+	/// print *this (and substructures) to debugging log
+	void print () const
+
+	/**
+	protected member. Usually invoked by non-virtual XXXX ()
+	*/
+	virtual do_XXXX ()
+
+	/**add some data to *this.
+	Presence of these methods usually imply that it is not feasible to this
+	via  a constructor
+	*/
+	add (..)
+
+	/// replace some data of *this
+	set (..)
+ 
+@end example 
+
+@unnumberedsubsec Constructor
+
+Every class should have a default constructor.  
+
+Don't use non-default constructors if this can be avoided:
+
+@example 
+
+	Foo f(1)
+ 
+@end example 
+
+is less readable than
+
+@example 
+
+	Foo f;
+	f.x = 1
+ 
+@end example 
+
+or 
+
+@example 
+
+	Foo f(Foo_convert::int_to_foo (1))
+ 
+@end example 
+
+@unnumberedsec Hungarian notation naming convention
+
+Proposed is a naming convention derived from the so-called
+@emph{Hungarian Notation}.  Macros, @code{enum}s and @code{const}s are all
+uppercase, with the parts of the names separated by underscores.
+
+The hungarian notation  is to be used when variables are not declared
+near usage (mostly in member variables and functions).
+
+@unnumberedsubsec Types
+
+@table @samp
+@item @code{byte}
+    unsigned char. (The postfix _by is ambiguous)
+@item @code{b}
+    bool
+@item @code{bi}
+    bit
+@item @code{ch}
+    char
+@item @code{f}
+    float
+@item @code{i}
+    signed integer
+@item @code{str}
+    string class
+@item @code{sz}
+    Zero terminated c string
+@item @code{u}
+    unsigned integer
+@end table
+
+@unnumberedsubsec User defined types
+
+@example 
+
+	/** Slur blah. blah.
+	(slur)
+	*/
+	class Slur @{@};
+	Slur* slur_p = new Slur;
+ 
+@end example 
+
+@unnumberedsubsec Modifiers
+
+The following types modify the meaning of the prefix. 
+These are preceded by the prefixes:
+
+@table @samp
+@item @code{a}
+    array
+@item @code{array}
+    user built array.
+@item @code{c}
+    const. Note that the proper order is @code{Type const}
+    i.s.o. @code{const Type}
+@item @code{C}
+    A const pointer. This would be equivalent to @code{_c_l}, but since any
+    "const" pointer has to be a link (you can't delete a const pointer),
+    it is superfluous.
+@item @code{l}
+    temporary pointer to object (link)
+@item @code{p}
+    pointer to newed object
+@item @code{r}
+    reference
+@end table
+
+@unnumberedsubsec Adjective
+
+Adjectives such as global and static should be spelled out in full.
+They come before the noun that they refer to, just as in normal english.
+
+@example 
+
+foo_global_i: a global variable of type int commonly called "foo".
+ 
+@end example 
+
+static class members do not need the static_ prefix in the name (the
+Class::var notation usually makes it clear that it is static)
+
+@table @samp
+@item @code{loop_i}
+    Variable loop: an integer
+@item @code{u}
+    Temporary variable: an unsigned integer
+@item @code{test_ch}
+    Variable test: a character
+@item @code{first_name_str}
+    Variable first_name: a String class object
+@item @code{last_name_ch_a}
+    Variable last_name: a @code{char} array
+@item @code{foo_i_p}
+    Variable foo: an @code{Int*} that you must delete
+@item @code{bar_i_l}
+    Variable bar: an @code{Int*} that you must not delete
+@end table
+
+Generally default arguments are taboo, except for nil pointers.
+
+The naming convention can be quite conveniently memorised, by
+expressing the type in english, and abbreviating it
+
+@example 
+
+	static Array<int*> foo
+ 
+@end example 
+
+@code{foo} can be described as "the static int-pointer user-array", so you get
+
+@example 
+
+	foo_static_l_arr
+ 
+@end example 
+
+
+@unnumberedsec Miscellaneous
+    
+For some tasks, some scripts are supplied, notably creating patches, a
+mirror of the website, generating the header to put over cc and hh
+files, doing a release.
+
+Use them.
+
+@node Making patches,  , , Top
+
+
+@unnumberedsec name
+    
+
+PATCHES - track and distribute your code changes
+
+This page documents how to distribute your changes to GNU lilypond
+    
+We would like to have unified context diffs with full pathnames.  A
+script automating supplied with Lily.
+
+Distributing a change normally goes like this:
+
+@itemize @bullet
+@item make your fix/add your code 
+@item Add changes to CHANGES, and add yourself to Documentation/topdocs/AUTHORS.texi
+@item generate a patch, 
+@item e-mail your patch to one of the mailing lists
+    gnu-music-discuss@@gnu.org or bug-gnu-music@@gnu.org
+@end itemize
+
+Please do not send entire files, even if the patch is bigger than the
+original.  A patch makes it clear what is changed, and it won't
+overwrite previous (not yet released) changes.
+
+@unnumberedsec Generating a patch
+
+Simple version: run
+
+@example
+        make -C lilypond-x.y.z/ distclean
+        make -C lilypond-x.y.z.NEW/ distclean
+        diff -urN lilypond-x.y.z/ lilypond-x.y.z.NEW/
+@end example
+
+Complicated (but automated) version:
+
+In @file{VERSION}, set MY_PATCH_LEVEL:
+
+@example 
+
+    VERSION:
+	...
+	MY_PATCH_LEVEL=jcn1
+ 
+@end example 
+
+In @file{CHANGES}, enter a summary of changes:
+
+@example 
+	pl 0.1.73.jcn1
+		- added PATCHES.texi
+@end example 
+
+Then, from the top of Lily's source tree, type
+
+@example 
+    make release
+@end example 
+
+These handy python scripts assume a directory structure which looks
+like:
+
+@example 
+
+    lilypond -> lilypond-x.y.z   # symlink to development directory
+    lilypond-x.y.z/              # current development
+    patches/ 		         # patches between different releases
+    releases/                    # .tar.gz releases
+
+@end example 
+
+(Some scripts also assume this lives in  @file{$HOME/usr/src}).
+
+	
+@unnumberedsec Applying patches
+    
+
+If you're following LilyPond development regularly, you probably want to
+download just the patch for each subsequent release.
+After downloading the patch (into the patches directory, of course), simply 
+apply it:
+
+@example 
+
+    gzip -dc ../patches/lilypond-0.1.74.diff.gz | patch -p1 -E
+ 
+@end example 
+
+and don't forget to make automatically generated files:
+
+@example 
+
+    autoconf footnote(patches don't include automatically generated files, 
+    i.e. file(configure) and files generated by file(configure).)
+
+    configure
+ 
+@end example 
+    
+
+@bye
+
+
