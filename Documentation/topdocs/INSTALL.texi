@@ -15,10 +15,10 @@
 @chapter INSTALL - compiling and installing GNU LilyPond
 
 
-This document describes how to build LilyPond on Unix platforms.  It is
-also known to run and compile on Windows NT/95/98 as well.  More
-information on this topic can be found at the
-@uref{http://www.lilypond.org/gnu-windows/, LilyPond on Windows page}.
+This document describes how to build LilyPond on Unix platforms.  It
+is also known to run and compile on Windows NT/95/98/ME/XP as well.
+More information on this topic can be found at the
+@uref{http://www.lilypond.org/cygwin/, LilyPond on Windows page}.
 
 
 @html
@@ -27,11 +27,11 @@ information on this topic can be found at the
 
 @section Downloading
 
-Even numbered versions are `stable'. The webpages for the stable version
-(1.2) reside @uref{http://www.gnu.org/software/lilypond, on the GNU
-servers}. Big enhancements go into the latest odd numbered version
-(1.3), whose webpages are on @uref{http://www.lilypond.org/,the lilypond
-site}.
+Even numbered versions are `stable'. The webpages for the stable
+version (1.4) reside @uref{http://www.lilypond.org/stable,the lilypond
+users site}. Big enhancements go into the latest odd numbered
+version (1.5), whose webpages are on
+@uref{http://www.lilypond.org/development, the lilypond development site}.
 
 @subsection Source code
 
