@@ -415,13 +415,15 @@ L1 is copied, L2 not.
     zigzag-line
     ))
 
-;; TODO: generate this list by registering the output-backend-commands
-;;       output-backend-commands should have docstrings.
+;; TODO:
+;;  - generate this list by registering the output-backend-commands
+;;    output-backend-commands should have docstrings.
+;;  - remove hard copies in output-ps output-tex
 (define-public (ly:all-output-backend-commands)
   "Return list of output backend commands."
   '(
     comment
-    define-origin
+    grob-cause
     no-origin
     placebox
     unknown

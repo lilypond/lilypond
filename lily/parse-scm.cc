@@ -1,3 +1,12 @@
+/*
+  parse-scm --
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+*/
+
+
 #include <stdio.h>
 
 #include "ly-module.hh"

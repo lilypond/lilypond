@@ -111,6 +111,28 @@ LY_DEFINE (ly_grob_parent, "ly:grob-parent",
   return par ? par->self_scm () : SCM_EOL;
 }
 
+LY_DEFINE (ly_grob_properties, "ly:grob-properties",
+	   1, 0, 0, (SCM grob),
+	   "Get the mutable proprerties of @var{grob}.")
+{
+  Grob *g = unsmob_grob (grob);
+  SCM_ASSERT_TYPE (g, grob, SCM_ARG1, __FUNCTION__, "grob");
+
+  /* FIXME: uhg? copy/read only? */
+  return g->mutable_property_alist_;
+}
+
+LY_DEFINE (ly_grob_basic_properties, "ly:grob-basic-properties",
+	   1, 0, 0, (SCM grob),
+	   "Get the immutable properties of @var{grob}.")
+{
+  Grob *g = unsmob_grob (grob);
+  SCM_ASSERT_TYPE (g, grob, SCM_ARG1, __FUNCTION__, "grob");
+
+  /* FIXME: uhg? copy/read only? */
+  return g->immutable_property_alist_;
+}
+
 LY_DEFINE (ly_grob_system, "ly:grob-system",
 	   1, 0, 0, (SCM g),
 	   "Return the System Grob of @var{g}.")
@@ -200,3 +222,4 @@ LY_DEFINE (ly_item_break_dir, "ly:item-break-dir",
   SCM_ASSERT_TYPE (me, it, SCM_ARG1, __FUNCTION__, "Item");
   return scm_int2num (me->break_status_dir ());
 }
+

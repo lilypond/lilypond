@@ -220,7 +220,12 @@ interpret_stencil_expression (SCM expr,
 	  
 	  (*func) (func_arg, scm_list_2 (head, grob));
 	  interpret_stencil_expression (ly_caddr (expr), func, func_arg, o);
+#if 0 //FIXME: why do we need, this + endless loop?  -- jcn
 	  (*func) (func_arg, scm_list_1 (ly_symbol2scm ("no-origin")));
+#else
+#endif	  
+	  //expr = ly_cadddr (expr);
+	  return;
 	}
       else
         {

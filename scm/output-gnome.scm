@@ -244,6 +244,9 @@ lilypond-bin -fgnome input/simple-song.ly
 (define (horizontal-line x1 x2 thickness)
   (filledbox (- x1) (- x2 x1) (* .5 thickness) (* .5 thickness)))
 
-(define (define-origin file line col)
-  (if (procedure? point-and-click)
-      (list 'location line col file)))
+;;(define (define-origin file line col)
+;;  (if (procedure? point-and-click)
+;;      (list 'location line col file)))
+
+(define (grob-cause grob)
+  grob)
