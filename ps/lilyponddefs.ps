@@ -46,29 +46,6 @@
 	grestore
 } bind def
 
-%
-% FIXME.  translate to middle of box.
-%
-
-/draw-box % breapth width depth height
-{
-	/h exch def
-	/d exch def
-	/w exch def
-	/b exch def
-	gsave
-
-	0 setlinewidth
-	b neg d neg rmoveto
-	b w add 0 rlineto
-	0 d h add rlineto
-	b w add neg 0 rlineto
-	closepath % 0 d h add neg rlineto
-	fill
-
-	grestore
-} bind def
-
 /start-line % height
 {
 	dup base-line-skip gt {
