@@ -12,7 +12,9 @@ hdr=    qlp.hh linespace.hh qlpsolve.hh\
 	sccol.hh stcol.hh scommands.hh melodicstaff.hh\
 	identifier.hh simplestaff.hh spanner.hh stem.hh\
 	notehead.hh leastsquares.hh beam.hh rest.hh\
-	swalker.hh bar.hh meter.hh
+	swalker.hh bar.hh meter.hh accidental.hh\
+	key.hh keyitem.hh localkeyitem.hh simplewalker.hh\
+	clef.hh clefitem.hh
 
 mycc=   qlp.cc qlpsolve.cc \
 	break.cc linespace.cc molecule.cc staffline.cc\
@@ -28,6 +30,8 @@ mycc=   qlp.cc qlpsolve.cc \
 	melodicstaff.cc simpleprint.cc stem.cc\
 	spanner.cc notehead.cc leastsquares.cc beam.cc\
 	texbeam.cc rest.cc swalker.cc scoreline.cc\
-	simplewalker.cc bar.cc meter.cc\
+	simplewalker.cc bar.cc meter.cc accidental.cc\
+	key.cc keyitem.cc localkeyitem.cc\
+	clef.cc clefitem.cc\
 	template1.cc template2.cc template3.cc\
 	version.cc
