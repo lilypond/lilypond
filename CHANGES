@@ -1,3 +1,29 @@
+
+1.3.49.hwn2
+===========
+
+* Junked Shift_tuple from collision; Now it uses SCM.
+
+* Bugfix of documentation and test-file of tuplet.
+
+* Bugfix type string of repeated music is copied. This fixes declared
+tremolos.
+
+* Junked various cruft from lily.scm
+
+* Use interfaces symbols instead of C++ class-name for assigning generic
+element properties.
+
+* Junked Dictionary from Piano_pedal_engraver and
+Piano_pedal_performer.
+
+* Introduced boolean element property no-spacing-rods: ignore this
+item for hard constraints.
+
+* Bugfix: added sanitised TeX fragment in faq.texi
+
+* Bugfix: merge equal Bar_reqs
+
 1.3.48.uu1
 ==========
 
@@ -116,7 +142,7 @@ puts alignment in function again
 
 * Fixed StaffGroup + GrandStaff combination.
 
-* Music is now mandatory as the first tihng in a \score{} block
+* Music is now mandatory as the first thing in a \score{} block
 
 1.3.45
 ======
