@@ -175,7 +175,7 @@
 ;; no-origin not yet supported by Xdvi
 (define (no-origin) "")
 
-(define (grob-cause grob)
+(define (grob-cause offset grob)
   (if (procedure? point-and-click)
       (let* ((cause (ly:grob-property grob 'cause))
 	     (music-origin (if (ly:music? cause)

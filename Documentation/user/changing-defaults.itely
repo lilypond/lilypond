@@ -1567,7 +1567,7 @@ and Cyrillic lyrics,
 @cindex Hebrew
 @cindex ASCII, non
 
-@lilypondfile{utf8.ly}
+@lilypondfile[fontload]{utf8.ly}
 
 
 The @TeX{} backend does not handle encoding specially at all.  Strings
@@ -1593,7 +1593,7 @@ interpreting non-ASCII strings.
 
 @seealso
 
-@inputfileref[fontload]{input/regression,utf8.ly}
+@inputfileref{input/regression,utf8.ly}
 
 
 @node Nested scores

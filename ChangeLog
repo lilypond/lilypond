@@ -1,3 +1,15 @@
+2005-02-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* ps/music-drawing-routines.ps: new routine: insert PDF mark
+
+	* scm/output-ps.scm (grob-cause): point & click support for
+	PostScript
+
+2005-02-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/input-scheme.cc (LY_DEFINE): rename to
+	ly:input-file-line-column
+
 2005-02-26  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/examples.itely: small fix from Steve Doonan.
@@ -18,6 +30,9 @@
 	future reorg.
 
 2005-02-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/user/lilypond-book.itely (Music fragment options):
+	doc fontload.
 
 	* Documentation/user/changing-defaults.itely (Text encoding): add
 	fontload option to utf8 include

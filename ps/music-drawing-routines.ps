@@ -3,6 +3,32 @@
 % Functions for direct and embedded PostScript
 
 
+/pdfmark where
+{pop} {userdict /pdfmark /cleartomark load put} ifelse
+
+
+% llx lly urx ury command
+/mark_file_line
+{
+    /editorcommand exch def
+    /ury exch def
+    /urx exch def
+    /lly exch def
+    /llx exch def
+    [
+	/Rect [ llx lly urx ury ]
+	/Border [ 0 0 0 0 ]
+	/Action 
+	<<
+	    /Subtype /Launch
+	    /File editorcommand
+	>>
+        /Subtype /Link
+    /ANN
+    pdfmark
+}
+bind def
+
 /set_tex_dimen {
 	cvr def
 } bind def
