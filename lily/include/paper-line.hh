@@ -14,14 +14,15 @@
 
 class Paper_line
 {
+  DECLARE_SMOBS (Paper_line,)
   SCM stencils_;
   Offset dim_;
   bool is_title_;
-  DECLARE_SMOBS (Paper_line,);
   
 public:
-  Paper_line (Offset, SCM, bool = true);
+  Paper_line (Offset, SCM, bool = false);
 
+  int number_;
   Offset dim () const;
   SCM stencils () const;
   bool is_title () const;

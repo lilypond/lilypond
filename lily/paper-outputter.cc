@@ -39,7 +39,7 @@ Paper_outputter::Paper_outputter (String name)
 
   if (output_format_global == PAGE_LAYOUT)
     {
-      output_func_ = SCM_UNDEFINED;
+      output_func_ = SCM_EOL;
       String name = "scm output-" + output_format_global;
       if (safe_global_b)
 	{
@@ -103,7 +103,7 @@ Paper_outputter::Paper_outputter (String name)
       output_func_
 	= scm_call_1 (find_dumper,
 		      scm_makfrom0str (output_format_global.to_str0 ()));
-      output_module_ = SCM_UNDEFINED;
+      output_module_ = SCM_EOL;
     }
 }
 

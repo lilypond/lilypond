@@ -29,10 +29,10 @@ public:
 
   Paper_book ();
   void init ();
-  Link_array<Page> *get_pages ();
-  Link_array<Page> *fill_pages (Page*, int, Real);
-  SCM get_scopes (int);
-  Stencil* get_title (int);
+  Link_array<Page> *pages ();
+  SCM lines ();
+  SCM scopes (int);
+  Stencil* title (int);
   void output (String);
   void classic_output (String);
   DECLARE_SMOBS (Paper_book, )

@@ -430,7 +430,8 @@ System::get_line ()
 
   Interval x (extent (this, X_AXIS));
   Interval y (extent (this, Y_AXIS));
-  Paper_line *pl = new Paper_line (Offset (x.length (), y.length ()), stencils);
+  Paper_line *pl = new Paper_line (Offset (x.length (), y.length ()),
+				   stencils);
   return pl->self_scm ();
 }
 

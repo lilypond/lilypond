@@ -547,7 +547,8 @@ without context specification. Called  from parser."
 ;; automatic music transformations.
 
 (define (switch-on-debugging m)
-  (set-debug-cell-accesses! 15000)
+  (if (defined? 'set-debug-cell-accesses!)
+      (set-debug-cell-accesses! 15000))
   m)
 
 (define-public toplevel-music-functions

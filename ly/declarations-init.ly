@@ -61,6 +61,8 @@ melismaEnd = #(make-span-event 'ManualMelismaEvent STOP)
 	(word-space . 0.6)
 	))
 
+    #(define page-breaking ly:ragged-page-breaks)
+    %#(define page-breaking ly:optimal-page-breaks)
     
     \include "engraver-init.ly"
 }

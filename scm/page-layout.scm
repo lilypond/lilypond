@@ -4,7 +4,6 @@
 ;;;; 
 ;;;; (c) 2004 Jan Nieuwenhuizen <janneke@gnu.org>
 
-
 (define (ly:modules-lookup modules sym)
   (let ((v (module-variable (car modules) sym)))
     (if (and v (variable-bound? v) (variable-ref v))
@@ -121,3 +120,199 @@
 	  ((markup? copyright) (interpret-markup paper props copyright)))))
 
 
+;;; optimal page breaking
+
+;;; This is not optimal page breaking, this is optimal distribution of
+;;; lines over pages; line breaks are a given.
+
+;;; TODO:
+;;;    - user tweaking:
+;;;       + \pagebreak, \nopagebreak
+;;;       + #pages?
+;;;    - short circut SCORE=-1 (dismiss path)
+
+
+(use-modules (oop goops describe))
+
+(define-class <break-node> ()
+  (prev #:init-value '() #:accessor node-prev #:init-keyword #:prev)
+  (line #:init-value 'barf #:accessor node-line #:init-keyword #:line)
+  (page #:init-value 0 #:accessor node-page #:init-keyword #:page)
+  (score #:init-value 0 #:accessor node-score #:init-keyword #:score)
+  (height #:init-value 0 #:accessor node-height #:init-keyword #:score))
+
+(define (node-line-number node)
+  (let ((line (node-line node)))
+    (if (null? line) 0
+	(ly:paper-line-number line))))
+
+(define (node-break-score node)
+  (let ((line (node-line node)))
+    (if (null? line) 0
+	(ly:paper-line-break-score line))))
+
+(define (make-node prev line page score)
+  (make <break-node> #:prev prev #:line line #:page page #:score score))
+
+;; print debuggging stuff
+(define pld? #f)
+(define MAX-CRAMP -5)
+
+(define-public (ly:optimal-page-breaks lines book-height text-height
+				       first-diff last-diff)
+
+  ;; FIXME: may need some tweaking: square, cubic
+  (define (height-score available used)
+    (let* ((empty (- available used))
+	   (norm-empty (* empty (/ 100 available))))
+      (if (< norm-empty 0)
+	  (if (< (/ empty available) MAX-CRAMP)
+	      ;; cannot fill more than MAX-CRAMP
+	      -1
+	      ;; overfull page is still worse by a power
+	      (* -1 norm-empty norm-empty norm-empty))
+	   (* norm-empty norm-empty))))
+
+  (define (page-height page-number page-count)
+    (let ((h text-height))
+      (if (= page-number 1)
+	  (set! h (+ h first-diff)))
+      (if (= page-number page-count)
+	  (set! h (+ h last-diff)))
+      h))
+
+  (define (cumulative-height lines)
+    (apply + (map ly:paper-line-height lines)))
+
+  (define (get-path node)
+    (if (null? node)
+	'()
+	(cons node (get-path (node-prev node)))))
+
+  (define (add-scores . lst)
+    (if (null? (filter (lambda (x) (> 0 x)) lst))
+	(apply + lst)
+	-1))
+
+  (define (density-variance nodes)
+    (define (sqr x) (* x x))
+    (define (density node)
+      (let ((p (page-height (node-page node) (node-page (car nodes))))
+	    (h (node-height node)))
+	(if (and p h) (* (- p h) (/ h 100)) 0)))
+    (let* ((densities (map density nodes))
+	   (mean (/ (apply + densities) (length densities)))
+	   (diff (map (lambda (x) (- x mean)) densities))
+	   (var (map sqr diff)))
+      (if pld?
+	  (begin
+	    (format (current-error-port) "densities: ~S\n" densities)
+	    (format (current-error-port) "mean: ~S\n" mean)
+	    (format (current-error-port) "diff: ~S\n" diff)
+	    (format (current-error-port) "density-var: ~S\n" var)))
+      (apply + var)))
+
+  (define (walk-paths best node lines nodes paths)
+    (if pld?
+	(begin
+	  (format (current-error-port) "node: ")
+	  (describe node)))
+    (let* ((height (cumulative-height lines))
+	   (page (page-height (node-page node) (if (= (node-score node) 0)
+						   (node-page node) 0))))
+      (set! (node-height node) height)
+      
+      (let* ((break-score (node-break-score node))
+	     (density-score (if (null? paths) 0
+				;; FIXME: 5 may need some tweaking
+				(* 5 (density-variance
+				      (cons node (get-path (car paths)))))))
+	     (page-score (height-score page height))
+	     (this-score (add-scores page-score break-score density-score))
+	     (path-score (if (null? paths) 0 (node-score (car paths))))
+	     (score (add-scores path-score this-score))
+	     (nbpn (+ (if (null? paths) 0 (node-page (car paths))) 1)))
+	    
+	(if pld?
+	    (begin
+	      (format (current-error-port) "lines: ~S\n" lines)
+	      (format (current-error-port) "page-height: ~f\n" page)
+	      (format (current-error-port) "height: ~f\n" height)
+	      (format (current-error-port) "break-score: ~f\n" break-score)
+	      (format (current-error-port) "density-score: ~f\n" density-score)
+	      (format (current-error-port) "this-score: ~f\n" this-score)
+	      (format (current-error-port) "path: ~f ~S\n" path-score
+		      (if (null? paths) '()
+			  (map node-line-number (get-path (car paths)))))
+	      (format (current-error-port) "score: ~f\n" score)
+	      (format (current-error-port) "best: ~f ~S\n" (node-score best)
+		      (map node-line-number (get-path best)))
+	      (format (current-error-port) "nbpn: ~f\n" nbpn)
+	      (format (current-error-port) "breaking after: ~S scores: ~S\n"
+		      (node-line-number node)
+		      score)))
+      
+	(set! (node-score node) score)
+	(if (and (>= score 0)
+		 (or (< score (node-score best))
+		     (= (node-score best) -1)
+		     ;;ugh
+		     (= (node-score best) 0)))
+	    ;; FIXME: (set! best node) ?
+	    (begin
+	      (set! (node-score best) score)
+	      (set! (node-page best) nbpn)
+	      (set! (node-prev best) node)
+	      (set! (node-height best) height)
+	      
+	      (if pld?
+		  (format (current-error-port) "NEW BEST: ~f ~S\n"
+			  (node-score best)
+			(map node-line-number (get-path best)))
+		  (format (current-error-port) "breaking after: ~S scores: ~S\n"
+			  (node-line-number node)
+			  score)))
+	    (if pld?
+		(format (current-error-port) "BEST still better\n")))
+	(if (null? (cdr nodes))
+	    best
+	    (walk-paths best (car paths) (cons (node-line node) lines)
+			(cdr nodes) (cdr paths))))))
+    
+  (define (walk-lines lines nodes paths)
+    
+    (if (null? (cdr lines))
+	paths
+	(let ((next (make-node (car nodes) (cadr lines) 0 0))
+	      (best (car nodes)))
+
+	  (if pld?
+	      (begin
+		(format (current-error-port) "\n***********TOP*************")
+		(describe best))
+	      (newline (current-error-port)))
+
+	  (let ((break (walk-paths next best
+				   (list (node-line best))
+				   (cons best nodes)
+				   paths)))
+	    
+	    (if pld?
+		(format (current-error-port) "break: ~f ~S\n"
+			(node-score break)
+			(map node-line-number (get-path break))))
+	    (walk-lines (cdr lines)
+			(cons (make-node '() (cadr lines) 0 0) nodes)
+			(cons break paths))))))
+  
+  (let* ((dummy (make-node '() '() 0 0))
+	 (result (walk-lines lines
+			     (list (make-node dummy (car lines) 0 0))
+			     (list dummy)))
+	 (path (get-path (car result)))
+	 ;; CDR: junk dummy node
+	 (breaks (cdr (reverse (map node-line-number path)))))
+
+    (format (current-error-port) "breaks: ~S\n" breaks)
+    (force-output (current-error-port))
+    (list->vector breaks)))
