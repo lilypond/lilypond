@@ -275,7 +275,9 @@ Source_file::get_line (char const* pos_str0) const
 			pos_str0, 
 			Link_array<char>::default_compare,
 			&lo, &hi);
-  
+
+  if (*pos_str0 == '\n')
+    lo --;
   return lo + 2;
 }
 

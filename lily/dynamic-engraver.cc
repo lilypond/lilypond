@@ -43,9 +43,9 @@ class Dynamic_engraver : public Engraver
   Spanner * finished_cresc_;
   Spanner * cresc_;
 
-  Music* script_req_;
+  Music* script_ev_;
   
-  Music * current_cresc_req_;
+  Music * current_cresc_ev_;
   Drul_array<Music*> accepted_spanreqs_drul_;
 
   Spanner* line_spanner_;
@@ -76,10 +76,10 @@ Dynamic_engraver::Dynamic_engraver ()
   finished_cresc_ = 0;
   line_spanner_ = 0;
   finished_line_spanner_ = 0;
-  current_cresc_req_ = 0;
+  current_cresc_ev_ = 0;
   cresc_ =0;
 
-  script_req_ = 0;
+  script_ev_ = 0;
   accepted_spanreqs_drul_[START] = 0;
   accepted_spanreqs_drul_[STOP] = 0;
 }
@@ -87,7 +87,7 @@ Dynamic_engraver::Dynamic_engraver ()
 void
 Dynamic_engraver::start_translation_timestep ()
 {
-  script_req_ = 0;
+  script_ev_ = 0;
   accepted_spanreqs_drul_[START] = 0;
   accepted_spanreqs_drul_[STOP] = 0;
 }
@@ -100,7 +100,7 @@ Dynamic_engraver::try_music (Music * m)
       /*
 	TODO: probably broken.
       */
-      script_req_ = m;
+      script_ev_ = m;
       return true;
     }
   else if (m->is_mus_type ("abort-event"))
@@ -131,15 +131,15 @@ Dynamic_engraver::try_music (Music * m)
 void
 Dynamic_engraver::process_music ()
 {
-  if (accepted_spanreqs_drul_[START] || accepted_spanreqs_drul_[STOP] || script_req_)
+  if (accepted_spanreqs_drul_[START] || accepted_spanreqs_drul_[STOP] || script_ev_)
     {
       if (!line_spanner_)
 	{
 	  line_spanner_ = new Spanner (get_property ("DynamicLineSpanner"));
 
 	  Music * rq = accepted_spanreqs_drul_[START];
-	  if (script_req_)
-	    rq =  script_req_ ;
+	  if (script_ev_)
+	    rq =  script_ev_ ;
 	  announce_grob(line_spanner_, rq ? rq->self_scm(): SCM_EOL);
 	}
     }
@@ -159,35 +159,33 @@ Dynamic_engraver::process_music ()
     maybe we should leave dynamic texts to the text-engraver and
     simply acknowledge them?
   */
-  if (script_req_)
+  if (script_ev_)
     {
       script_ = new Item (get_property ("DynamicText"));
       script_->set_grob_property ("text",
-				   script_req_->get_mus_property ("text"));
+				   script_ev_->get_mus_property ("text"));
 
       
-      if (Direction d = to_dir (script_req_->get_mus_property ("direction")))
+      if (Direction d = to_dir (script_ev_->get_mus_property ("direction")))
 	Directional_element_interface::set (line_spanner_, d);
 
       Axis_group_interface::add_element (line_spanner_, script_);
 
-      announce_grob(script_, script_req_->self_scm());
+      announce_grob(script_, script_ev_->self_scm());
     }
 
-  if (accepted_spanreqs_drul_[STOP])
+  Music *stop_ev = accepted_spanreqs_drul_ [STOP] ?
+    accepted_spanreqs_drul_[STOP] : script_ev_;
+
+  if (accepted_spanreqs_drul_[STOP] || script_ev_)
     {
       /*
 	finish side position alignment if the (de)cresc ends here, and
 	there are no new dynamics.
        */
- 
-      if (!cresc_)
-	{
-	  accepted_spanreqs_drul_[STOP]->origin ()->warning
- (_ ("can't find start of (de)crescendo"));
-	  accepted_spanreqs_drul_[STOP] = 0;
-	}
-      else
+
+
+      if (cresc_)
 	{
 	  assert (!finished_cresc_ && cresc_);
 
@@ -199,32 +197,41 @@ Dynamic_engraver::process_music ()
 
 	  finished_cresc_ = cresc_;
 	  cresc_ = 0;
-	  current_cresc_req_ = 0;
+	  current_cresc_ev_ = 0;
 	}
+      else if (accepted_spanreqs_drul_[STOP] )
+	{
+	  accepted_spanreqs_drul_[STOP]->origin ()->warning(_ ("can't find start of (de)crescendo"));
+	  stop_ev = 0;
+	}
+      
     }
   
   if (accepted_spanreqs_drul_[START])
     {
-      if (current_cresc_req_)
+      if (current_cresc_ev_)
 	{
-	  Direction sd = to_dir (current_cresc_req_->get_mus_property ("span-direction"));
+	  Direction sd = to_dir (current_cresc_ev_->get_mus_property ("span-direction"));
 	  String msg = sd == 1
 	    ? _ ("already have a crescendo")
 	    : _ ("already have a decrescendo");
       
 	  accepted_spanreqs_drul_[START]->origin ()->warning (msg);
-	  current_cresc_req_->origin ()->warning (_("Cresc started here"));
+	  current_cresc_ev_->origin ()->warning (_("Cresc started here"));
 	}
       else
 	{
-	  current_cresc_req_ = accepted_spanreqs_drul_[START];
+	  current_cresc_ev_ = accepted_spanreqs_drul_[START];
+
+	  if (Direction d = to_dir (current_cresc_ev_->get_mus_property ("direction")))
+	    Directional_element_interface::set (line_spanner_, d);
 
 	  /*
 	    TODO: Use symbols.
 	  */
 
 	  String start_type = 
-	    ly_symbol2string (current_cresc_req_->get_mus_property ("name"));
+	    ly_symbol2string (current_cresc_ev_->get_mus_property ("name"));
 
 	  /*
 	    ugh. Use push/pop?
@@ -243,6 +250,9 @@ Dynamic_engraver::process_music ()
 						       ? BIGGER : SMALLER));
 	      
 	    }
+
+
+	  
 	  /*
 	    This is a convenient (and legacy) interface to TextSpanners
 	    for use in (de)crescendi.
@@ -284,7 +294,7 @@ void
 Dynamic_engraver::stop_translation_timestep ()
 {
   typeset_all ();
-  if (!current_cresc_req_)
+  if (!current_cresc_ev_)
     {
       finished_line_spanner_ = line_spanner_;
       line_spanner_ =0;
@@ -311,7 +321,7 @@ Dynamic_engraver::finalize ()
     cresc_ = 0;
   if (cresc_)
     {
-      current_cresc_req_->origin ()->warning (_ ("unterminated (de)crescendo"));
+      current_cresc_ev_->origin ()->warning (_ ("unterminated (de)crescendo"));
       cresc_->suicide ();
       cresc_ = 0;
     }

@@ -12,10 +12,17 @@
 #include "engraver.hh"
 #include "spanner.hh"
 
+/*
+  TODO:
+  
+  ALGRGRRGRG
+
+  Derive this from Slur_engraver. This code is completely duplicate.
+ */
 class Phrasing_slur_engraver : public Engraver
 {
   Link_array<Music> eventses_;
-  Link_array<Music> new_phrasing_slur_reqs_;
+  Link_array<Music> new_phrasing_slur_evs_;
   Link_array<Grob> phrasing_slur_l_stack_;
   Link_array<Grob> end_phrasing_slurs_;
   Moment last_start_;
@@ -39,9 +46,9 @@ Phrasing_slur_engraver::Phrasing_slur_engraver ()
 }
 
 bool
-Phrasing_slur_engraver::try_music (Music *req)
+Phrasing_slur_engraver::try_music (Music *ev)
 {
-  if (req->is_mus_type ("abort-event"))
+  if (ev->is_mus_type ("abort-event"))
     {
 	  for (int i = 0; i < phrasing_slur_l_stack_.size (); i++)
 	    {
@@ -54,28 +61,28 @@ Phrasing_slur_engraver::try_music (Music *req)
 	    }
 	  end_phrasing_slurs_.clear ();
 	  eventses_.clear ();
-	  new_phrasing_slur_reqs_.clear ();
+	  new_phrasing_slur_evs_.clear ();
     }
-  else if (req->is_mus_type ("phrasing-slur-event"))
+  else if (ev->is_mus_type ("phrasing-slur-event"))
     {
       /*
 	Let's not start more than one phrasing slur per moment.
       */
       
-    Direction d = to_dir (req->get_mus_property ("span-direction"));
+    Direction d = to_dir (ev->get_mus_property ("span-direction"));
  	  
       if (d == START)
 	{
 	  if (now_mom () > last_start_)
 	    {
-	      new_phrasing_slur_reqs_.push (req);
+	      new_phrasing_slur_evs_.push (ev);
 	      last_start_ = now_mom ();
 	      return true;
 	    }
 	}
       else
 	{
-	  new_phrasing_slur_reqs_.push (req);
+	  new_phrasing_slur_evs_.push (ev);
 	  return true;
 	}
     }
@@ -121,17 +128,17 @@ void
 Phrasing_slur_engraver::process_acknowledged_grobs ()
 {
   Link_array<Grob> start_phrasing_slurs;
-  for (int i=0; i< new_phrasing_slur_reqs_.size (); i++)
+  for (int i=0; i< new_phrasing_slur_evs_.size (); i++)
     {
-      Music* phrasing_slur_req = new_phrasing_slur_reqs_[i];
+      Music* phrasing_slur_ev = new_phrasing_slur_evs_[i];
       // end phrasing slur: move the phrasing slur to other array
 
-      Direction d = to_dir (phrasing_slur_req->get_mus_property ("span-direction"));
+      Direction d = to_dir (phrasing_slur_ev->get_mus_property ("span-direction"));
       
       if (d == STOP)
 	{
 	  if (phrasing_slur_l_stack_.empty ())
-	    phrasing_slur_req->origin ()->warning (_f ("can't find start of phrasing slur"));
+	    phrasing_slur_ev->origin ()->warning (_f ("can't find start of phrasing slur"));
 	  else
 	    {
 	      Grob* phrasing_slur = phrasing_slur_l_stack_.pop ();
@@ -145,14 +152,21 @@ Phrasing_slur_engraver::process_acknowledged_grobs ()
 	  // (use temp. array to wait for all phrasing_slur STOPs)
 	  Grob* phrasing_slur = new Spanner (get_property ("PhrasingSlur"));
 	  Slur::set_interface (phrasing_slur); // can't remove.
+
+
+	  if (Direction updown = to_dir (phrasing_slur_ev->get_mus_property ("direction")))
+	    {
+	      phrasing_slur->set_grob_property ("direction", gh_int2scm (updown));
+	    }
+
 	  start_phrasing_slurs.push (phrasing_slur);
-	  eventses_.push (phrasing_slur_req);
-	  announce_grob(phrasing_slur, phrasing_slur_req->self_scm());
+	  eventses_.push (phrasing_slur_ev);
+	  announce_grob(phrasing_slur, phrasing_slur_ev->self_scm());
 	}
     }
   for (int i=0; i < start_phrasing_slurs.size (); i++)
     phrasing_slur_l_stack_.push (start_phrasing_slurs[i]);
-  new_phrasing_slur_reqs_.clear ();
+  new_phrasing_slur_evs_.clear ();
 }
 
 void
@@ -168,7 +182,7 @@ Phrasing_slur_engraver::stop_translation_timestep ()
 void
 Phrasing_slur_engraver::start_translation_timestep ()
 {
-  new_phrasing_slur_reqs_.clear ();
+  new_phrasing_slur_evs_.clear ();
 }
 
 
@@ -178,5 +192,5 @@ ENTER_DESCRIPTION(Phrasing_slur_engraver,
 /* creats*/       "PhrasingSlur",
 /* accepts */     "phrasing-slur-event",
 /* acks  */       "note-column-interface",
-/* reads */       "slurMelismaBusy",
+/* reads */       "",
 /* write */       "");

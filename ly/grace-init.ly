@@ -56,3 +56,23 @@ stopGraceMusic = {
 
     \property Voice.fontSize \unset
 }
+
+#(define (add-to-grace-init context object prop val)
+   " Override context.object #'property before entering grace context,
+and restore afterwards. Use this to add settings to default grace notes.
+"
+   (set! stopGraceMusic
+    (make-sequential-music
+     (cons
+      (context-spec-music  (make-grob-property-revert object prop) context)
+      (ly-get-mus-property stopGraceMusic 'elements)
+     )))
+   (set! startGraceMusic
+    (make-sequential-music
+     (append
+      (ly-get-mus-property startGraceMusic 'elements)
+      (list (context-spec-music  (make-grob-property-set object prop val) context))
+      )
+     )))
+   
+

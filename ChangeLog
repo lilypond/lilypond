@@ -1,5 +1,16 @@
 2002-10-06  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/dynamic-engraver.cc (process_music): take dynamic direction
+	from ^_ for crescendi. Idem for slurs and phrasing slurs.
+
+	* ly/grace-init.ly: add-to-grace-init: function to portably add
+	settings to \grace. 
+
+	* lily/dynamic-engraver.cc (process_music): finish (de)crescendo
+	if we get an absolute dynamic event.
+ 
+	* lily/time-signature-engraver.cc (process_music): warn for \time 5/5
+
 	* lily/source-file.cc (get_line): oops. All line numbers were off
 	by 2. Fix that. 
 

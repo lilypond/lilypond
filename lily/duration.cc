@@ -203,8 +203,7 @@ Extract the dot count from @var{dur}"
 
 LY_DEFINE(ly_intlog2,
 	  "intlog2", 1, 0, 0, (SCM d),
-	  "
-Extract the dot count from @var{dur}"
+	  "The 2-logarithm of 1/@var{d}."
 )
 {
   SCM_ASSERT_TYPE(gh_number_p (d), d, SCM_ARG1, __FUNCTION__, "integer");
