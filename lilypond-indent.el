@@ -7,8 +7,7 @@
 
 ;;; TODO:
 ;;;    * emulate show-paren-mode 
-;;;    * separate slurs '(' and ')' from '\(' and '\)'
-;;;    * blinking is not shonw in Emacs, but is shown in XEmacs
+;;;    * separate '('- and ')'-slurs from '\('- and '\)'-slurs.
 
 (defcustom LilyPond-indent-level 4
   "*Indentation of lilypond statements with respect to containing block.")
