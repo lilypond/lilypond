@@ -4,6 +4,12 @@
 #include "dimen.hh"
 #include "tex.hh"
 
+Real
+Lookup::internote()
+{
+    return ball(4).dim.y.length()/2;
+}
+
 void
 Lookup::parse(Text_db&t)
 {
@@ -35,6 +41,7 @@ Lookup::rest(int j)
 {
     return (*symtables_)("rests")->lookup(String(j));
 }
+
 Symbol
 Lookup::accidental(int j)
 {
@@ -54,7 +61,7 @@ Lookup::clef(String s)
     return (*symtables_)("clefs")->lookup(s);
 }
  
- Symbol
+Symbol
 Lookup::dots(int j)
 {
     if (j>3)
@@ -74,11 +81,12 @@ Lookup::streepjes(int i)
     assert(i);
     
     int arg;
-    String idx ;
-    if (i<0) {
+    String idx;
+    
+    if (i < 0) {
 	idx = "botlines";
 	arg = -i;
-    }else {
+    } else {
 	arg = i;
 	idx = "toplines";
     }
@@ -121,43 +129,38 @@ Linestaf_symbol::eval(svec<String> w)const
 /****************************************************************/
 
 
-struct Meter_sym:Parametric_symbol {
 
-    Meter_sym(Symtables*s) : Parametric_symbol(s){  }
-    Symbol eval(svec<String> a) const{
-	Symbol s;
-	s.dim.x = Interval( convert_dimen(0,"pt"),
-			    convert_dimen(10,"pt"));
-	s.dim.y = Interval(0, convert_dimen(20,"pt") );	// todo
-	String src = (*symtables_)("param")->lookup("meter").tex;
-	s.tex = substitute_args(src,a);
-	return s;
-    }
-};
-/****************************************************************/
-
-struct Stem_sym:Parametric_symbol {
-
-    Stem_sym(Symtables*s) : Parametric_symbol(s) {  }
-    Symbol eval(svec<String> a) const {
-	Real y1 = a[0].fvalue();
-	Real y2 = a[1].fvalue();
-	assert(y1 <= y2);
-	Symbol s;
-	s.dim.x = Interval(0,0);
-	s.dim.y = Interval(y1,y2);
-
-	String src = (*symtables_)("param")->lookup("stem").tex;
-	s.tex = substitute_args(src,a);
-	return s;
-    }
-};
-
-Parametric_symbol *
-Lookup::meter(String )
+Symbol
+Lookup::meter(svec<String> a)
 {
-    return new Meter_sym(symtables_);
+    Symbol s;
+    s.dim.x = Interval( convert_dimen(0,"pt"),
+			convert_dimen(10,"pt"));
+    s.dim.y = Interval(0, convert_dimen(20,"pt") );	// todo
+    String src = (*symtables_)("param")->lookup("meter").tex;
+    s.tex = substitute_args(src,a);
+    return s;    
 }
+
+
+Symbol
+Lookup::stem(Real y1,Real y2)
+{
+    assert(y1 <= y2);
+    Symbol s;
+    
+    s.dim.x = Interval(0,0);
+    s.dim.y = Interval(y1,y2);
+    
+    svec<String> a;
+    a.add(print_dimen(y1));
+    a.add(print_dimen(y2));
+	
+    String src = (*symtables_)("param")->lookup("stem").tex;
+    s.tex = substitute_args(src,a);
+    return s;
+}
+
 
 Parametric_symbol *
 Lookup::linestaff(int n)
@@ -165,8 +168,3 @@ Lookup::linestaff(int n)
     return new Linestaf_symbol(n,symtables_);
 }
 
-Parametric_symbol*
-Lookup::stem()
-{
-    return new Stem_sym(symtables_);
-}
