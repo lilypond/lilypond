@@ -27,6 +27,8 @@
 	    bracket
 	    dashed-slur
 	    char
+	    setcolor
+	    resetcolor
 	    named-glyph
 	    dashed-line
 	    zigzag-line
@@ -114,6 +116,16 @@
   (string-append 
    (ps-font-command font) " setfont " 
    "(\\" (ly:inexact->string i 8) ") show"))
+
+;; save current color on stack and set new color
+(define (setcolor r g b)
+  (string-append "currentrgbcolor "
+  (ly:numbers->string (list r g b))
+  " setrgbcolor\n"))
+
+;; restore color from stack
+(define (resetcolor)
+  (string-append "setrgbcolor\n"))
 
 (define (dashed-line thick on off dx dy)
   (string-append 

@@ -226,6 +226,19 @@ interpret_stencil_expression (SCM expr,
 	  (*func) (func_arg, scm_list_1 (ly_symbol2scm ("no-origin")));
 	  return;
 	}
+      else if (head == ly_symbol2scm ("color"))
+	{ 
+	  SCM color = scm_cadr (expr);
+	  SCM r = scm_car (color);
+	  SCM g = scm_cadr (color);
+	  SCM b = scm_caddr (color);
+
+	  (*func) (func_arg, scm_list_4 (ly_symbol2scm ("setcolor"), r, g, b));
+	  interpret_stencil_expression (scm_caddr (expr), func, func_arg, o);
+	  (*func) (func_arg, scm_list_1 (ly_symbol2scm ("resetcolor")));
+   
+	  return;
+	} 
       else
         {
           (*func) (func_arg,
