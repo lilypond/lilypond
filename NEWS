@@ -1,6 +1,27 @@
+pl 30
+
+Features
+	- better multivoice spacing
+	- move rest in multivoice staff
+	- errors in TeX output now warnings
+	- progress indicator
+	- music processing speedup.
+Internal
+	- make spanner for staffsym; scrap Line_pstaff
+	- scrap simplestaff (Rhythmic_staff temporarily disabled)
+	- docxx 3.0 format comments
+	- split register source files
+	- hardcoded dimensions compile time
+	- Lookup::tex_hairpin
+Bugs
+	- non G-clef clefs
+	- script junking (2x)
+	- empty files
+	- beam::center (plet position!)
+	
 pl 29
-	- multiplatform Makefile
-	- context errors: bugfixes
+	- multiplatform Makefile (JN)
+	- context errors: bugfixes (JN)
 
 pl 28
 
@@ -9,8 +30,8 @@ Internal
 Doc
 	- Request_register
 Bugfix
-	- Script.cc : float exception
-	- Request::Request(Request) copying of definition pointer
+	- Script.cc : float exception (MB)
+	- Request::Request(Request) copying of definition pointer (JN)
 	- cleaned dependencies for broken spanners
 	- stupid typo in Staff_elem::post_processing()
 	- init of hpos in PCol::PCol
