@@ -34,6 +34,7 @@ Chord_tremolo_iterator::Chord_tremolo_iterator ()
 Chord_tremolo_iterator::Chord_tremolo_iterator (Chord_tremolo_iterator const &src)
   : Music_iterator (src)
 {
+  factor_ = src.factor_;
   child_iter_p_ = src.child_iter_p_ ? src.child_iter_p_->clone () : 0; 
 }
 

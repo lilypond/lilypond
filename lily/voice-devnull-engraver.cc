@@ -36,13 +36,14 @@ bool
 Voice_devnull_engraver::try_music (Music *m)
 {
   SCM s = get_property ("devNullVoice");
+
 #if 0
   /* No need */
   if (gh_equal_p (s, ly_symbol2scm ("never")))
     return;
 #endif
 
-  if (gh_equal_p (s, ly_symbol2scm ("allways"))
+  if (gh_equal_p (s, ly_symbol2scm ("always"))
       || (s == SCM_EOL
 	  && daddy_trans_l_->id_str_.left_str (3) == "two"
 	  && (to_boolean (get_property ("unison"))

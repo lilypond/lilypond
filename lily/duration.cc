@@ -70,7 +70,14 @@ Duration::length_mom () const
 String
 Duration::str () const
 {
-  String s =  to_str (durlog_i_) + to_str ('.', dots_i_);
+  String s;
+
+  if (durlog_i_ < 0  )
+    s = "log = "  + to_str (durlog_i_);
+  else
+    s = to_str (1 << durlog_i_);
+  
+  s += to_str ('.', dots_i_);
   if (factor_ != Moment (Rational (1,1)))
     {
       s += "*" + factor_.str ();

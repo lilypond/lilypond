@@ -25,8 +25,6 @@ Part_combine_music::transpose (Pitch p)
   second_l () ->transpose (p);
 }
 
-
-
 Moment
 Part_combine_music::length_mom () const
 {

@@ -93,6 +93,7 @@ Unfolded_repeat_iterator::Unfolded_repeat_iterator (Unfolded_repeat_iterator con
   current_iter_p_ = (src.current_iter_p_)? src.current_iter_p_->clone () : 0;
   do_main_b_ = src.do_main_b_;
   volta_b_ = src.volta_b_;
+  here_mom_ = src.here_mom_;
   alternative_count_i_ = src.alternative_count_i_;
   alternative_cons_ = src.alternative_cons_;
 }
@@ -103,6 +104,7 @@ Unfolded_repeat_iterator::Unfolded_repeat_iterator ()
   current_iter_p_ =0;
   volta_b_ = false;
   do_main_b_ = false;
+  here_mom_ = Moment (0);
   alternative_count_i_ =0;
   alternative_cons_ = SCM_EOL;
 }
