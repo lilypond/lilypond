@@ -130,7 +130,7 @@
     (define (embedded-ps expr)
       (let ((ps-string
 	     (with-output-to-string
-	       (lambda () (ps-output-expression expr)))))
+	       (lambda () (ps-output-expression expr (current-output-port))))))
 	(string-append "\\embeddedps{" ps-string "}")))
     (define (embedded-ps expr)
       (let
