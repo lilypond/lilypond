@@ -28,9 +28,11 @@ Voice_element::print() const
 {
 #ifndef NPRINT
     mtor << "voice_element { dur :"<< duration_ <<"\n";
+    mtor << "principal: " << principal_req_l_->name() << "\n";
     for (iter_top(req_p_list_,rc); rc.ok(); rc++) {
 	rc->print();
     }
+    
     mtor << "}\n";
 #endif
 }
@@ -38,6 +40,9 @@ Voice_element::print() const
 void
 Voice_element::add(Request*r)
 {
+    if (! principal_req_l_ ) 
+	principal_req_l_ = r;
+
     if (r->duration()) {
 	assert (!duration_  || duration_ == r->duration());
 	duration_ = r->duration();
@@ -50,6 +55,7 @@ Voice_element::add(Request*r)
 
 Voice_element::Voice_element()
 {
+    principal_req_l_ = 0;
     voice_C_ = 0;
     duration_ = 0;
 }
@@ -57,7 +63,6 @@ Voice_element::Voice_element()
 Voice_element::Voice_element(Voice_element const&src)
     : Input(src)
 {
-  
     voice_C_=0;
     for (iter_top(src.req_p_list_, i); i.ok(); i++)
 	add(i->clone());
