@@ -25,7 +25,7 @@ protected:
   virtual void announce_element (Audio_element_info);
   virtual void start ();
   virtual void finish ();
-  virtual void process ();
+  virtual void one_time_step ();
   virtual void each (Method_pointer);
   virtual void finalize () ;
   virtual void play_element (Audio_element*);

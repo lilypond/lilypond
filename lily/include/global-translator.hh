@@ -31,7 +31,7 @@ public:
   
   virtual Music_output *get_output_p ();     
   virtual void prepare (Moment);
-  virtual void process();
+  virtual void one_time_step ();
   virtual void finish();
   virtual void start();
 

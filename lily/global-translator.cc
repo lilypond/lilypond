@@ -68,7 +68,7 @@ Global_translator::get_output_p()
 }
 
 void
-Global_translator::process ()
+Global_translator::one_time_step ()
 {
 }
 void
@@ -97,6 +97,6 @@ Global_translator::run_iterator_on_me (Music_iterator * iter)
       prepare (w);
       iter->process (w);
       
-      process ();
+      one_time_step ();
     }
 }

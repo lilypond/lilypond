@@ -40,7 +40,7 @@ public:
 protected:   
   virtual void prepare (Moment);
   virtual void finish();
-  virtual void process();
+  virtual void one_time_step();
   virtual int depth_i() const { return Global_translator::depth_i ();}
 
 protected:
