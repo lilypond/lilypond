@@ -50,6 +50,8 @@ protected:
   Moment start_mom_;
   Moment stop_mom_;
   int flags_ ;
+  int total_duration_flags_;
+  
   /// location  within measure where beam started.
   Moment beam_start_location_;
 
@@ -104,13 +106,7 @@ Chord_tremolo_engraver::try_music (Music * m)
       Rational total_dur = l.main_part_;
       Rational note_dur = total_dur / Rational (elt_count * repeat_->repeat_count ());
 
-      if (total_dur < Rational (1,4))
-	{
-	  /*
-	    This would require beams between flagged (8th) notes.
-	  */
-	  rp->origin ()->warning ("Chord tremolo is too short to denote properly.");
-	}
+      total_duration_flags_ = 0 >? (intlog2 (total_dur.den ()) - 2);
       
       flags_ = intlog2 (note_dur.den ()) -2 ;
       
@@ -181,12 +177,10 @@ Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
       else
 	Stem::set_beaming (s, flags_, LEFT);
 	  
-      SCM d = s->get_grob_property ("direction");
       if (Stem::duration_log (s) != 1)
 	{
-	  beam_->set_grob_property ("gap", gh_double2scm (0.8));
+	  beam_->set_grob_property ("gap-count", gh_int2scm (flags_ - total_duration_flags_));
 	}
-      s->set_grob_property ("direction", d);
 
       if (info.music_cause ()->is_mus_type ("rhythmic-event"))
 	{

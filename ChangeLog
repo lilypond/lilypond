@@ -1,5 +1,13 @@
 2003-09-21  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/beam.cc (brew_molecule): read gap-count to determine
+	number of tremolo (gapped) beams.
+
+	* lily/chord-tremolo-engraver.cc (acknowledge_grob): repeats
+	shorter than 1/8
+
+	* flower/include/array.hh (default_compare): new function
+
 	* cygwin/mknetrel: Native fixes.
 
 	* cygwin/GNUmakefile (EXTRA_DIST_FILES): Add mknetrel.*

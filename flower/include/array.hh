@@ -243,6 +243,17 @@ public:
   void reverse ();
 };
 
+template<class T>
+int default_compare (T const&a , T const&b)
+{
+  if (a < b)
+    return -1;
+  else if (a > b)
+    return 1;
+  else
+    return 0;
+}
+
 #include "array.icc"
 
 #endif
