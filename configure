@@ -1210,7 +1210,7 @@ fi
         fi
     fi 
 
-    if test "$OSTYPE" = "cygwin" -o "$OSTYPE" = "Windows_NT"; then
+    if test "$OSTYPE" = "cygwin" -o "$OSTYPE" = "cygwin32" -o "$OSTYPE" = "Windows_NT"; then
 	LN=cp # hard link does not work under cygnus-nt
 	LN_S='cp -r' # symbolic link does not work for native nt
 	ZIP="zip -r -9" #
