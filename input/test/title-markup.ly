@@ -9,6 +9,7 @@
 
 \paper{
     #(define page-breaking ly:optimal-page-breaks)
+    inputencoding = #"latin1"
 }
 
 latinTest = \markup { \latin-i "Hellö" }
@@ -69,8 +70,9 @@ spaceTest = \markup { "two space chars" }
 	c2-\sizeTest c2-\spaceTest
     }
     \paper {
-%	#(paper-set-staff-size (* 11.0 pt)) 
-	}
+	%% #(paper-set-staff-size (* 11.0 pt)) 
+	inputcoding = #"latin1"
+    }
 }
 
 \header {
@@ -87,5 +89,8 @@ spaceTest = \markup { "two space chars" }
 	%% 36 spread evenly over 4 pages
 	\repeat unfold 36 { a b c d \break }
 	c1
+    }
+    \paper {
+	inputcoding = #"latin1"
     }
 }
