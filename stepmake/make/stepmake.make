@@ -65,7 +65,8 @@ LOCALSTEPMAKE_TEMPLATES:= generic $(LOCALSTEPMAKE_TEMPLATES)
 # Don't try to outsmart us, you puny computer!
 # Well, UGH.  This only removes builtin rules from
 # subsequent $(MAKE)s, *not* from the current run!
-ifeq (0,${MAKELEVEL})
+ifeq ($(BUILTINS_REMOVED),)
+  export BUILTINS_REMOVED = yes
   MAKE:=$(MAKE) --no-builtin-rules
   include $(stepdir)/no-builtin-rules.make
 endif

@@ -65,6 +65,13 @@ cadenzaOff = {
   \property Score.measurePosition = #(make-moment 0 1)
 }
 
+newpage = {
+  \break
+  % urg, only works for TeX output
+  \context Score \outputproperty #(make-type-checker 'paper-column-interface)
+    #'between-system-string = #"\\newpage"
+}
+
 % dynamic dir?  text script, articulation script dir?	
 oneVoice = { 	
   \stemBoth
