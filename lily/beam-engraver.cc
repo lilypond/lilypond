@@ -37,6 +37,7 @@ class Beam_engraver : public Engraver
   Moment beam_start_mom_;
   
   void typeset_beam ();
+  void set_melisma (bool);
 protected:
   virtual void do_pre_move_processing ();
   virtual void do_post_move_processing ();
@@ -75,10 +76,27 @@ Beam_engraver::do_try_music (Music *m)
 	  m->origin ()->warning  (_ ("can't find start of beam"));
 	  return false;
 	}
+
+      if(d == STOP)
+	{
+	  SCM m = get_property ("automaticMelismata");
+	  SCM b = get_property("noAutoBeaming");
+	  if (to_boolean (m) && to_boolean(b))
+	    {
+	      set_melisma (false);
+	    }
+	}
+
       reqs_drul_[d ] = c;
       return true;
     }
   return false;
+}
+
+void
+Beam_engraver::set_melisma (bool m)
+{
+  daddy_trans_l_->set_property ("beamMelismaBusy", m ? SCM_BOOL_T :SCM_BOOL_F);
 }
 
 
@@ -160,6 +178,13 @@ void
 Beam_engraver::do_post_move_processing ()
 {
   reqs_drul_ [START] =0;
+  if(beam_p_) {
+    SCM m = get_property ("automaticMelismata");
+    SCM b = get_property("noAutoBeaming");
+    if (to_boolean (m) && to_boolean(b)) {
+      set_melisma (true);
+    }
+  }
 }
 
 void
