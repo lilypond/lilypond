@@ -14,7 +14,7 @@
 #include "performer.hh"
 
 struct CNote_melodic_tuple {
-  Music *req_ ;
+  Music *event_ ;
   Audio_note *note_;
   Moment end_;
   CNote_melodic_tuple ();
@@ -42,10 +42,13 @@ public:
   TRANSLATOR_DECLARATIONS(Tie_performer);
 private:
   bool done_;
-  PQueue<CNote_melodic_tuple> past_notes_pq_;
-  Music *req_;
+  
   Array<CNote_melodic_tuple> now_notes_;
-  Array<CNote_melodic_tuple> stopped_notes_;
+  Array<CNote_melodic_tuple> tied_notes_;
+
+  Music *event_;
+  Music * prev_event_;
+  
   Link_array<Audio_tie> ties_;
   
 protected:
@@ -60,7 +63,7 @@ protected:
 
 Tie_performer::Tie_performer ()
 {
-  req_ = 0;
+  event_ = 0;
   done_ = false;
 }
 
@@ -72,16 +75,16 @@ ENTER_DESCRIPTION (Tie_performer, "", "",
 void
 Tie_performer::initialize ()
 {
-  req_ = 0;
+  event_ = 0;
 }
 
 
 bool
 Tie_performer::try_music (Music *m)
 {
-  if (!req_)
+  if (!event_)
     {
-      req_ = m;
+      event_ = m;
       return true;
     }
   return false;
@@ -92,7 +95,7 @@ Tie_performer::acknowledge_audio_element (Audio_element_info i)
 {
   if (Audio_note *nh = dynamic_cast<Audio_note *> (i.elem_))
     {
-      Music *m = i.req_;
+      Music *m = i.event_;
       if (m->is_mus_type ("note-event"))
 	now_notes_.push (CNote_melodic_tuple (nh, m, now_mom ()+ m->get_length ()));
     }
@@ -101,62 +104,35 @@ Tie_performer::acknowledge_audio_element (Audio_element_info i)
 void
 Tie_performer::create_audio_elements ()
 {
-  if (req_ && ! done_)
+  /*
+    This is a nested loop. Not optimal, but good enough.
+   */
+  if (tied_notes_.size ())
     {
-      Moment now = now_mom ();
-      Link_array<Audio_note> nharr;
-      
-      stopped_notes_.clear ();
-      while (past_notes_pq_.size ()
-	     && past_notes_pq_.front ().end_ == now)
-	stopped_notes_.push (past_notes_pq_.get ());
-      done_ = true;
-      return;
-    }
-
-  if (req_)
-    {
-      now_notes_.sort (CNote_melodic_tuple::pitch_compare);
-      stopped_notes_.sort (CNote_melodic_tuple::pitch_compare);
-      int i=0;
-      int j=0;
-      int tie_count=0;
-      while (i < now_notes_.size () && j < stopped_notes_.size ())
+      Moment now = now_mom();
+      for (int i = tied_notes_.size (); i--; )
 	{
-	  int comp
-	    = Pitch::compare (*unsmob_pitch (now_notes_[i].req_->get_mus_property ("pitch")),
-				      *unsmob_pitch (stopped_notes_[j].req_->get_mus_property ("pitch")));
+	  if (tied_notes_[i].end_ != now)
+	    continue;
 
-	  if (comp)
+	  for (int j = now_notes_.size(); j--;)
 	    {
- (comp < 0) ? i ++ : j++;
-	      continue;
-	    }
-	  else
-	    {
-	      tie_count ++;
+	      int comp
+		= Pitch::compare (*unsmob_pitch (tied_notes_[i].event_->get_mus_property ("pitch")),
+				  *unsmob_pitch (now_notes_[j].event_->get_mus_property ("pitch")));
 
-	      /* don't go around recreating ties that were already
-		 made. Not infallible. Due to reordering in sort (),
-		 we will make the wrong ties when notenotes are
-		 added.  */
-	      if (tie_count > ties_.size ())
+	      if (comp == 0)
 		{
+		  
 		  Audio_tie * p = new Audio_tie;
-		  p->set_note (LEFT, stopped_notes_[j].note_);
-		  p->set_note (RIGHT, now_notes_[i].note_);
+		  p->set_note (LEFT, tied_notes_[i].note_);
+		  p->set_note (RIGHT, now_notes_[j].note_);
 		  ties_.push (p);
-		      announce_element (Audio_element_info (p, req_));
+		  announce_element (Audio_element_info (p, event_));
+
+		  tied_notes_.del (i);
 		}
-	      i++;
-	      j++;
-	      
 	    }
-	}
-      
-      if (!ties_.size ())
-	{
-	  req_->origin ()->warning (_ ("No ties were created!"));
 	}
     }
 }
@@ -165,42 +141,62 @@ Tie_performer::create_audio_elements ()
 void
 Tie_performer::stop_translation_timestep ()
 {
-  for (int i=0; i < now_notes_.size (); i++)
+  if (prev_event_ && tied_notes_.size () && !ties_.size ())
     {
-      past_notes_pq_.insert (now_notes_[i]);
+      prev_event_->origin ()->warning (_ ("No ties were performed."));
     }
-  now_notes_.clear ();
+  else
+    prev_event_ = 0;
+  
+  if (event_)
+    {
+      tied_notes_ = now_notes_ ;
+      prev_event_ = event_;
+    }
+  else
+    {
+      tied_notes_.clear (); 
+    }
+
+  event_ = 0;
+  now_notes_ .clear ();
 
   for (int i=0; i<  ties_.size (); i++)
-   {
-     //play_element (ties_[i]);
-     ties_[i]->note_l_drul_[RIGHT]->tie_to (ties_[i]->note_l_drul_[LEFT]);
-   }
+    {
+      ties_[i]->note_drul_[RIGHT]->tie_to (ties_[i]->note_drul_[LEFT]);
+    }
+  
   ties_.clear ();
 }
 
 void
 Tie_performer::start_translation_timestep ()
 {
-  req_ =0;
+  event_ =0;
   done_ = false;
   Moment now = now_mom ();
-  while (past_notes_pq_.size () && past_notes_pq_.front ().end_ < now)
-    past_notes_pq_.delmin ();
+  for (int i= tied_notes_.size ();
+       i -- ;)
+    {
+      if (tied_notes_[i].end_ < now)
+	tied_notes_.del (i);
+      else
+	break ;
+    }
 }
 
 
 CNote_melodic_tuple::CNote_melodic_tuple ()
 {
   note_ =0;
-  req_ =0;
+  event_ =0;
   end_ = 0;
 }
 
 CNote_melodic_tuple::CNote_melodic_tuple (Audio_note *h, Music*m, Moment mom)
 {
   note_ = h;
-  req_ = m;
+  event_ = m;
   end_ = mom;
 }
 
@@ -208,8 +204,8 @@ int
 CNote_melodic_tuple::pitch_compare (CNote_melodic_tuple const&h1,
 				    CNote_melodic_tuple const &h2)
 {
-  SCM p1  = h1.req_->get_mus_property ("pitch");
-  SCM p2  = h2.req_->get_mus_property ("pitch");  
+  SCM p1  = h1.event_->get_mus_property ("pitch");
+  SCM p2  = h2.event_->get_mus_property ("pitch");  
   return Pitch::compare (*unsmob_pitch (p1),
 			       *unsmob_pitch (p2));
 }

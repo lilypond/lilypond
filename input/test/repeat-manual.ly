@@ -1,4 +1,4 @@
-#(ly:set-option 'old-relative)
+
 \version "1.9.1"
 \header { texidoc = "@cindex Repeat Manual
 You can manually control repeat signs and numbers to produce

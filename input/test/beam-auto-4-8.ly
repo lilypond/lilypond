@@ -1,4 +1,4 @@
-#(ly:set-option 'old-relative)
+
 \version "1.9.1"
 % keep for now, although merging into beam-auto-override is a possibility.
 \header {

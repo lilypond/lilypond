@@ -94,7 +94,7 @@ Tie_engraver::acknowledge_grob (Grob_info i)
     {
       Grob * h  = i.grob_;
       now_heads_.push (h);
-      for  (int  i=heads_to_tie_.size (); i--;)
+      for  (int i = heads_to_tie_.size (); i--;)
 	{
 	  Grob *th =  heads_to_tie_[i];
 	  int staff_pos = gh_scm2int (h->get_grob_property ("staff-position"));
@@ -132,7 +132,6 @@ Tie_engraver::process_acknowledged_grobs ()
 void
 Tie_engraver::stop_translation_timestep ()
 {
-
   if (ties_.size ())
     {
       heads_to_tie_.clear ();

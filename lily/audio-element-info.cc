@@ -13,14 +13,14 @@ Audio_element_info::Audio_element_info (Audio_element*s, Music *r)
 {
   elem_ = s;
   origin_trans_ =0;
-  req_ = r;
+  event_ = r;
 }
 
 
 Audio_element_info::Audio_element_info ()
 {
   elem_ = 0;
-  req_ = 0;
+  event_ = 0;
   origin_trans_ =0;
 }
 

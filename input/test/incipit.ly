@@ -33,7 +33,7 @@ violin =  \notes\relative c''{
   \clef treble
 
   a4. b8 c4 fis |
-V  gis~ gis8 fis16^\trill (e) b8 c
+  gis~ gis8 fis16^\trill (e) b8 c
   <{ a d}\\ { es,4}>|
 }
 

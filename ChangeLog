@@ -1,5 +1,12 @@
 2003-08-26  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* configure.in: bump GCC requirements to 3.x
+
+	* lily/include/audio-item.hh (class Audio_tie): rename
+	note_l_drul_ to note_drul_
+
+	* lily/tie-performer.cc (class Tie_performer): patch for new ties.
+
 	* lily/parser.yy (relative_music): whoops. All \relative were off
 	by ...  a lot .... Ahem.
 

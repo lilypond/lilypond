@@ -1,4 +1,4 @@
-#(ly:set-option 'old-relative)
+
 \version "1.9.1"
 % TODO: this example has a ton of text for very little output.
 % Is it all needed?  -gp

@@ -1,4 +1,4 @@
-#(ly:set-option 'old-relative)
+
 \header {
 texidoc = "@cindex Ancient Accidentals
 Accidentals are available in different ancient styles. This

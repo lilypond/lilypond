@@ -212,7 +212,6 @@ ThreadContext = \translator{
 
 	% why here ? 
 	\consists "Output_property_engraver"	
-
 }
 
 
