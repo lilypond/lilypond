@@ -451,6 +451,16 @@ the syntax table"
   (let ((oldpos (point)))
     (self-insert-command 1)
     (setq close-char (char-before (point)))
+    ;; Test if a ligature \] or expressional slur \) was encountered;
+    ;; the result is now in backslashed-close-char, BUT
+    ;; the result should also be used  -- match also \] or \) !
+    ;; Thus, update: LilyPond-parens-regexp-alist, LilyPond-blink-matching-open
+    (setq backslashed-close-char nil)
+    (if (memq close-char '(?] ?\)))
+      (progn 
+	(setq np 0)
+	(while (eq (char-before (- (point) (setq np (+ np 1)))) ?\\)
+	  (setq backslashed-close-char (not backslashed-close-char)))))
     (if (and blink-matching-paren
 	     (not (LilyPond-inside-string-or-comment-p))
 	     (save-excursion (re-search-backward 
