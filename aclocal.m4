@@ -2,6 +2,8 @@ dnl WARNING WARNING WARNING WARNING
 dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
 dnl WARNING WARNING WARNING WARNING
 dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
+dnl WARNING WARNING WARNING WARNING
+dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
 dnl aclocal.m4   -*-shell-script-*-
 dnl StepMake subroutines for configure.in
 
@@ -566,7 +568,12 @@ AC_DEFUN(AC_STEPMAKE_TEXMF, [
     # For now let people define these in their environments
     #
     : ${MFPLAIN_MP=`kpsewhich mp mfplain.mp`}
-    : ${INIMETAPOST_FLAGS='-interaction=nonstopmode'}
+
+    if test  ${INIMETAPOST} = "inimp" ; then
+       : ${INIMETAPOST_FLAGS=''}
+    else
+       : ${INIMETAPOST_FLAGS='-interaction=nonstopmode'}
+    fi
 
     rm -f mfput.*
     AC_MSG_RESULT($MFMODE)
