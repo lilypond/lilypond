@@ -66,17 +66,12 @@ Melodic_staff::get_rest(Rest_req*rq)
 {
     Rest*r = Simple_staff::get_rest(rq);
     if (rq->balltype <= 2)
-	r->translate(Offset(0, NO_LINES * paper()->internote()));
+	r->translate(Offset(0, (NO_LINES-1) * paper()->internote()));
     return r;
 }
 
-Melodic_staff*
-Melodic_staff::clone()const
-{
-    return new Melodic_staff(*this);
-}
-
-Local_key_item* Melodic_staff::get_local_key_item()
+Local_key_item*
+Melodic_staff::get_local_key_item()
 {
     return new Local_key_item(-2);
 }

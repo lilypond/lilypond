@@ -19,7 +19,6 @@ struct Rhythmic_staff : public Simple_staff
     virtual Stem *get_stem(Stem_req *rq);
     virtual Notehead * get_notehead(Note_req *rq, int b);   
     virtual void set_output(PScore *);
-    virtual Rhythmic_staff*clone()const;
 };
 
 #endif // RHYTHMSTAF_HH
