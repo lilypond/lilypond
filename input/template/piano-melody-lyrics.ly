@@ -25,8 +25,7 @@ lower = \notes\relative c {
   <<
     \addlyrics
       \context Staff = mel {
-        \property Staff.autoBeaming = ##f
-        \property Staff.automaticMelismata = ##t
+        \autoBeamOff
         \melody
       }
       \context Lyrics \text

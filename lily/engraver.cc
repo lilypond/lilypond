@@ -35,7 +35,8 @@ Engraver::announce_grob (Grob* e, SCM cause)
   if (unsmob_music (cause) || unsmob_grob (cause))
     e->set_grob_property ("cause", cause);
 
-  Grob_info i (e);
+  Grob_info i;
+  i.grob_ = e;
   if (!i.origin_trans_)
     i.origin_trans_ = this;
   get_daddy_grav ()->announce_grob (i);

@@ -19,6 +19,7 @@
 #include "spanner.hh"
 #include "item.hh"
 
+
 MAKE_SCHEME_CALLBACK (Hyphen_spanner,set_spacing_rods,1);
 SCM
 Hyphen_spanner::set_spacing_rods (SCM smob)
@@ -145,8 +146,6 @@ Hyphen_spanner::Hyphen_spanner (Spanner*s)
 
 
 ADD_INTERFACE (Hyphen_spanner, "lyric-hyphen-interface",
-  "A centred hyphen is a simple line between lyrics used to divide "
-"syllables.   The length of the hyphen line should stretch based on the "
-"size of the gap between syllables.",
-  "thickness height minimum-length maximum-length word-space");
+	       "A centred hyphen is a simple line between lyrics used to divide syllables",
+	       "thickness height minimum-length maximum-length word-space");
 

@@ -14,53 +14,44 @@
 #include "paper-column.hh"
 #include "paper-def.hh"
 #include "lyric-extender.hh"
-
+#include "note-head.hh"
 
 MAKE_SCHEME_CALLBACK (Lyric_extender,brew_molecule,1)
 SCM 
 Lyric_extender::brew_molecule (SCM smob) 
 {
-  Spanner *sp = unsmob_spanner (smob);
-  Item* l = sp->get_bound (LEFT);
-  Item*r = sp->get_bound (RIGHT);
+  Spanner *me = unsmob_spanner (smob);
+  Item *l = me->get_bound (LEFT);
+  Item *r = me->get_bound (RIGHT);
+  Grob *common = l->common_refpoint (r, X_AXIS);
   
-  Real leftext = l->extent (l, X_AXIS).length ();
+  Real left_point = l->extent (common, X_AXIS)[RIGHT];
 
-  Real sl = sp->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));  
-  Real righttrim = 0.5; // default to half a space gap on the right
+  Real sl = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));  
 
 
   /*
-    If we're broken, we shouldn't extend past the end of the line.
+    It seems that short extenders are even lengthened to go past the note head,  but
+    haven't found a pattern in it yet. --hwn  1/1/04
+    
    */
-  if (r->break_status_dir () == CENTER)
-    {
-      SCM righttrim_scm = sp->get_grob_property ("right-trim-amount");
-      if (gh_number_p (righttrim_scm))
-	{
-	  righttrim = gh_scm2double (righttrim_scm);
-	}
-    }
+  Real right_point = r->extent (common, X_AXIS)
+    [(Note_head::has_interface (r)) ? RIGHT : LEFT];
   
-  // The extender can exist in the word space of the left lyric ...
-  SCM space =  sp->get_bound (LEFT)->get_grob_property ("word-space");
-  if (gh_number_p (space))
-    {
-      leftext -=  gh_scm2double (space);
-    }
-  Real w = sp->spanner_length () - leftext - righttrim;
+  Real w = right_point - left_point;
+
+  Real h = sl * gh_scm2double (me->get_grob_property ("thickness"));
   
-  Real h = sl * gh_scm2double (sp->get_grob_property ("height"));
   Molecule  mol (Lookup::filledbox (Box (Interval (0,w), Interval (0,h))));
-  mol.translate (Offset (leftext, 0));
+  mol.translate_axis (left_point - me->relative_coordinate (common, X_AXIS), X_AXIS);
   return mol.smobbed_copy ();
 }
 
 void
-Lyric_extender::set_textitem (Spanner*sp, Direction d, Grob*s)
+Lyric_extender::set_textitem (Spanner *me, Direction d, Grob *s)
 {
-  sp->set_bound (d, s);
-  sp->add_dependency (s);
+  me->set_bound (d, s);
+  me->add_dependency (s);
 }
 
 
@@ -68,5 +59,5 @@ Lyric_extender::set_textitem (Spanner*sp, Direction d, Grob*s)
 
 ADD_INTERFACE (Lyric_extender,"lyric-extender-interface",
   "The extender is a simple line at the baseline of the lyric "
-" that helps show the length of a melissima (tied/slurred note).",
-  "word-space height right-trim-amount");
+  " that helps show the length of a melissima (tied/slurred note).",
+  "thickness");

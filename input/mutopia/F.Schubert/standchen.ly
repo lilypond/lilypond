@@ -396,8 +396,7 @@ lyricStaff = \context Lyrics {
 vocals = \context Voice \notes {
 	\clef treble
  	% certainly no auto-beaming for vocals
- 	\property Voice.autoBeaming = ##f
-	\property Staff.automaticMelismata= ##t
+ 	\autoBeamOff
 
 	\dynamicUp
 	% duh 1 != 3/4

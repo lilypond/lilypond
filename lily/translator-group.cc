@@ -228,7 +228,7 @@ Translator_group::get_default_interpreter ()
       Translator_def *t = unsmob_translator_def (st);
       if (!t)
 	{
-	  warning (_f ("can't find or create: `%s'", ly_scm2string (nm).to_str0 ()));
+	  warning (_f ("can't find or create: `%s'", ly_symbol2string (nm).to_str0 ()));
 	  t = unsmob_translator_def (this->definition_);
 	}
       Translator_group *tg = t->instantiate (output_def_);

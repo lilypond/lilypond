@@ -378,7 +378,6 @@ as a real penalty.")
 			   "Remove the first staff of a orchestral score?")
 (grob-property-description 'right-padding ly:dimension? "space right of accs.")
 (grob-property-description 'right-position number? "position of right part of spanner.")
-(grob-property-description 'right-trim-amount ly:dimension? "shortening of the lyric extender on the right.")
 (grob-property-description 'script-priority number? "A sorting key that determines in what order a script is within a stack of scripts.")
 (grob-property-description 'self-alignment-X number-or-grob? "real number: -1 =
 left aligned, 0 = center, 1 right-aligned in X direction.

@@ -3,7 +3,7 @@
 %
 % setup for Request->Element conversion. Guru-only
 %
-StaffContext = \translator {
+\translator {
 	\type "Staff_performer"
 	\name Staff
 	\accepts Voice
@@ -14,7 +14,7 @@ StaffContext = \translator {
 
 }
 
-VoiceContext = \translator {
+\translator {
 	\type "Performer_group_performer"
 	\name Voice
 	\consists "Dynamic_performer"
@@ -24,44 +24,44 @@ VoiceContext = \translator {
 	\accepts "Thread"
 }
 
-ThreadContext = \translator {
+\translator {
 	\type "Performer_group_performer"
 	\name Thread
 	\consists "Note_performer"
 }
 
-FiguredBassContext = \translator {
+\translator {
 	\type "Performer_group_performer"
 	\name FiguredBass 
 	\consists "Swallow_performer"
 }
 
-GrandStaffContext = \translator {
+\translator {
 	\type "Performer_group_performer"
 	\name GrandStaff
 	\accepts RhythmicStaff
 	\accepts Staff
 }
 
-PianoStaffContext = \translator {
+\translator {
         \type "Performer_group_performer"
 	\name "PianoStaff"
 	\accepts Staff
 }
 
-TabVoiceContext = \translator {
+\translator {
         \type "Performer_group_performer"
 	\name "TabVoice"
 	\consists "Swallow_performer"
 }
 
-TabStaffContext = \translator {
+\translator {
         \type "Performer_group_performer"
 	\name "TabStaff"
 	\accepts "TabVoice"
 }
 
-ScoreContext = \translator {
+\translator {
 	\type "Score_performer"
 
 	\name Score
@@ -126,15 +126,6 @@ ScoreContext = \translator {
 	\accepts Staff
 }
 
-
-
-\translator { \ScoreContext }
-\translator { \StaffContext }
 \translator { \StaffContext \name RhythmicStaff }
-\translator { \VoiceContext }
-\translator { \ThreadContext }
-\translator { \PianoStaffContext }
-\translator { \TabVoiceContext }
-\translator { \TabStaffContext }
-\translator { \GrandStaffContext }
-\translator { \FiguredBassContext }
+
+

@@ -8,32 +8,16 @@
                   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "flower-proto.hh"
-#include "event.hh"
+#include "warn.hh"
 #include "lyric-extender.hh"
-#include "paper-column.hh"
 #include "item.hh"
 #include "engraver.hh"
-#include "drul-array.hh"
-#include "lyric-extender.hh"
-#include "pqueue.hh"
 
-
-/**
-  Generate an centred extender.  Should make a Extender_spanner that
-  typesets a nice centred extender of varying length depending on the
-  gap between syllables.
-
-  We remember the last Item that come across. When we get a
-  event, we create the spanner, and attach the left point to the
-  last lyrics, and the right point to any lyrics we receive by
-  then.  */
 class Extender_engraver : public Engraver
 {
-  Grob *last_lyric_;
-  Grob *current_lyric_;
-  Music* req_;
+  Music* ev_;
   Spanner* extender_;
+  Spanner * finished_extender_;  
 public:
   TRANSLATOR_DECLARATIONS(Extender_engraver);
 
@@ -53,25 +37,23 @@ private:
 
 Extender_engraver::Extender_engraver ()
 {
-  current_lyric_ = 0;
-  last_lyric_ = 0;
   extender_ = 0;
-  req_ = 0;
+  finished_extender_ = 0;
+  ev_ = 0;
 }
 
 void
 Extender_engraver::acknowledge_grob (Grob_info i)
 {
+  Item * item =  dynamic_cast<Item*> (i.grob_);
   // -> text_item
-  if (i.grob_->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
+  if (item && item->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
     {
-      current_lyric_ = i.grob_;
-      if (extender_
-	  && !extender_->get_bound (RIGHT)
-	    )
-	  {
-	    Lyric_extender::set_textitem (extender_, RIGHT, dynamic_cast<Item*> (i.grob_));
-	  }
+      if (extender_)
+	extender_->set_bound (LEFT, item);
+
+      if (finished_extender_ && !finished_extender_->get_bound (RIGHT))
+	finished_extender_->set_bound (RIGHT, item);
     }
 }
 
@@ -79,10 +61,10 @@ Extender_engraver::acknowledge_grob (Grob_info i)
 bool
 Extender_engraver::try_music (Music* r)
 {
-  if (req_)
+  if (ev_)
     return false;
 
-  req_ = r;
+  ev_ = r;
   return true;
 }
 
@@ -91,27 +73,25 @@ Extender_engraver::finalize ()
 {
   if (extender_)
     {
-      req_->origin ()->warning (_ ("unterminated extender"));
-      extender_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
+      extender_->warning (_ ("unterminated extender"));
+      typeset_grob (extender_);
+      extender_ = 0;
+    }
+  if (finished_extender_)
+    {
+      finished_extender_->warning (_("unterminated extender"));
+      typeset_grob (finished_extender_);
+      finished_extender_ =0;
     }
 }
 
 void
 Extender_engraver::process_music ()
 {
-  if (req_ && ! extender_)
+  if (ev_)
     {
-      if (!last_lyric_)
-	{
-	  req_->origin ()->warning (_ ("Nothing to connect extender to on the left.  Ignoring extender event."));
-	  return;
-	}
-      
       extender_ = new Spanner (get_property ("LyricExtender"));
-
-
-      Lyric_extender::set_textitem (extender_, LEFT, last_lyric_);
-      announce_grob(extender_, req_->self_scm());
+      announce_grob (extender_, ev_->self_scm());
     }
 }
 
@@ -119,23 +99,28 @@ Extender_engraver::process_music ()
 void
 Extender_engraver::stop_translation_timestep ()
 {
-  if (extender_)
+  if (finished_extender_ && finished_extender_->get_bound (RIGHT))
     {
-      typeset_grob (extender_);
-      extender_ = 0;
+      typeset_grob (finished_extender_);
+      finished_extender_ = 0;
     }
 
-  if (current_lyric_)
+  if (finished_extender_ && extender_)
     {
-      last_lyric_ = current_lyric_;
-      current_lyric_ =0;
+      programming_error ("Haven't finished extender yet.");
+      typeset_grob (finished_extender_);
+      finished_extender_ =0;
     }
+  
+  if (extender_)
+    finished_extender_ = extender_;
+  extender_ = 0;
 }
 
 void
 Extender_engraver::start_translation_timestep ()
 {
-  req_ = 0;
+  ev_ = 0;
 }
 
 
@@ -143,6 +128,6 @@ ENTER_DESCRIPTION(Extender_engraver,
 /* descr */       "Create lyric extenders",
 /* creats*/       "LyricExtender",
 /* accepts */     "extender-event",
-/* acks  */      "lyric-syllable-interface",
+/* acks  */       "lyric-syllable-interface",
 /* reads */       "",
 /* write */       "");

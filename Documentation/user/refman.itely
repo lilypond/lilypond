@@ -3474,10 +3474,10 @@ melisma on the last note in a melody is not printed.
 
 @cindex phrasing, in lyrics
 
-When multiple stanzas are printed underneath each other, the vertical
-groups of syllables should be aligned around punctuation.  This can be
-done automatically when corresponding lyric lines and melodies are
-marked.
+
+The lyrics should be aligned with the note heads of the melody. To
+achieve this, each line of lyrics should be marked to correspond with
+the melodic line.
 
 To this end, give the @internalsref{Voice} context an identity:
 @example
@@ -3496,9 +3496,6 @@ that identity followed by a dash.  In the preceding example, the
   \context LyricsVoice = "duet-2" @{
     Ooooo, ch\'e -- ri, je t'aime. @}
 @end example
-The convention for naming @internalsref{LyricsVoice} and
-@internalsref{Voice} must also be used to get melismata correct in
-conjunction with rests.
 
 The complete example is shown here:
 @lilypond[singleline,verbatim]

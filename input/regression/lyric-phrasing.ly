@@ -26,7 +26,6 @@
 \score {
   \addlyrics
     \context Voice = "v" \notes  \relative c'' {
-      \property Staff.automaticMelismata = ##t
       \autoBeamOff
       a a a8 ( a) a4
     }

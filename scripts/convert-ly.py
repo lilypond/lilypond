@@ -1624,7 +1624,22 @@ def conv (str):
 	str =re.sub (r"\.\s+stz=", ". instr ", str)
 	return str
 
-conversions.append (((2,1,2), conv, """ly:get-music-length -> ly:music-length"""))
+conversions.append (((2,1,3), conv, """stanza -> instrument"""))
+
+def conv (str):
+	def func (match):
+		c = match.group (1)
+		b = match.group (2)
+		
+		if b == 't' and c <> 'Score':
+			return r"\unset \property %s.melismaBusyProperties"  % c
+		elif b == 'f':
+			return r"\property %s.melismaBusyProperties = #'(melismaBusy)"  % c
+		
+	str =re.sub (r"\\property ([a-zA-Z]+)\s*\.\s*automaticMelismata\s*=\s*##([ft])", func, str)
+	return str
+
+conversions.append (((2,1,4), conv, """removal of automaticMelismata; use melismaBusyProperties instead."""))
 
 ################################
 #	END OF CONVERSIONS	

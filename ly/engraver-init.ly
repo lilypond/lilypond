@@ -5,7 +5,7 @@
 % setup for Request->Element conversion. Guru-only
 %
 
-StaffContext=\translator {
+\translator {
 	\type "Engraver_group_engraver"
 	\name Staff
 
@@ -59,7 +59,7 @@ StaffContext=\translator {
 }
 
 
-StaffContainerContext = \translator {
+\translator {
 	\type Engraver_group_engraver
 	\consists "Axis_group_engraver"
 	minimumVerticalExtent = ##f
@@ -71,7 +71,7 @@ StaffContainerContext = \translator {
 	\name StaffContainer
 }
 
-InnerChoirStaffContext = \translator {
+\translator {
 	\type "Engraver_group_engraver"
 	\name InnerChoirStaff
 	\consists "System_start_delimiter_engraver"
@@ -86,7 +86,7 @@ InnerChoirStaffContext = \translator {
 	\accepts "ChordNames"
 }
 
-ChoirStaffContext = \translator {
+\translator {
 	\InnerChoirStaffContext
 	\name ChoirStaff
 	
@@ -98,7 +98,7 @@ ChoirStaffContext = \translator {
 }
 
 
-RhythmicStaffContext=\translator{
+\translator{
 	\type "Engraver_group_engraver"
 	
 	\consists "Output_property_engraver"	
@@ -136,7 +136,7 @@ RhythmicStaffContext=\translator{
 }
 
 
-VoiceContext = \translator {
+\translator {
 	\type "Engraver_group_engraver"
 	\name Voice
 
@@ -196,7 +196,7 @@ VoiceContext = \translator {
 	\accepts Thread % bug if you leave out this!
 }
 
-ThreadContext = \translator{
+\translator{
 	\type Engraver_group_engraver
 	\name Thread
 	localKeySignature = #'()
@@ -215,8 +215,7 @@ ThreadContext = \translator{
 }
 
 
-
-GrandStaffContext=\translator{
+\translator{
 	\type "Engraver_group_engraver"
 	\name GrandStaff
 	localKeySignature = #'()
@@ -233,7 +232,7 @@ GrandStaffContext=\translator{
 	\accepts "Staff"
 }
 
-PianoStaffContext = \translator{
+\translator{
 	\GrandStaffContext
 	\name "PianoStaff"
 	\alias "GrandStaff"
@@ -254,7 +253,7 @@ PianoStaffContext = \translator{
 %	\consistsend "Axis_group_engraver"
 }
 
-InnerStaffGroupContext= \translator {
+\translator {
 	\type "Engraver_group_engraver"
 	\name InnerStaffGroup
 	localKeySignature = #'()
@@ -274,7 +273,7 @@ InnerStaffGroupContext= \translator {
 	\accepts "ChordNames"
 }
 
-StaffGroupContext = \translator {
+\translator {
 	\InnerStaffGroupContext
 	\name StaffGroup
 	
@@ -293,7 +292,7 @@ StaffGroupContext = \translator {
 
 
 % UGH! JUNKME
-LyricsVoiceContext= \translator{
+\translator{
 	\type "Engraver_group_engraver"
 	\consistsend "Hara_kiri_engraver"
 	minimumVerticalExtent = #'(-1.2 . 2.4)
@@ -313,10 +312,9 @@ LyricsVoiceContext= \translator{
 	\consists "Stanza_number_engraver"
 	\consists "Instrument_name_engraver"
 	\consists "Skip_event_swallow_translator"
-	phrasingPunctuation = #".,:!?\""
 	SeparationItem \set #'padding = #0.5
 }
-NoteNamesContext = \translator {
+\translator {
 	\type "Engraver_group_engraver"
 	\name NoteNames
 	\consistsend "Axis_group_engraver"
@@ -334,7 +332,7 @@ NoteNamesContext = \translator {
 	\consists "Separating_line_group_engraver"
 }
 
-LyricsContext = \translator {
+\translator {
 	\type "Engraver_group_engraver"
 	\name Lyrics
 	\description  "Typesets lyrics."
@@ -350,7 +348,7 @@ LyricsContext = \translator {
 }
 
 
-ChordNamesContext = \translator {
+\translator {
 	\type "Engraver_group_engraver"
 	\name ChordNames
 	\description "Typesets chord names."
@@ -368,7 +366,7 @@ ChordNamesContext = \translator {
 }
 
 
-RemoveEmptyStaffContext = \translator {
+RemoveEmptyStaffContext= \translator {
 	\StaffContext
 	\remove "Axis_group_engraver"
 	\consistsend "Hara_kiri_engraver"
@@ -378,13 +376,15 @@ RemoveEmptyStaffContext = \translator {
 	Beam \override #'auto-knee-gap = #'()
 }
 
-RemoveEmptyStaffContext = \translator {
+AncientRemoveEmptyStaffContext = \translator {
+    %% why not add by default?
+    
 	\RemoveEmptyStaffContext
 	\accepts "VaticanaVoice"
 	\accepts "GregorianTranscriptionVoice"
 }
 
-ScoreContext = \translator {
+\translator {
 	\type Score_engraver
 	\name Score
 	localKeySignature = #'()
@@ -450,7 +450,7 @@ ScoreContext = \translator {
 	centralCPosition = #-6
 	
         automaticPhrasing = ##t
-	automaticMelismata = ##t
+	phrasingPunctuation = #".,:!?\""
 	
 	defaultBarType = #"|"
 	barNumberVisibility = #default-bar-number-visibility
@@ -562,11 +562,11 @@ ScoreContext = \translator {
 	\grobdescriptions #all-grob-descriptions
 }
 
-OrchestralScoreContext= \translator {
+\translator {
 	\ScoreContext
 }
 
-EasyNotation =  \translator {
+EasyNotation = \translator {
 	\ScoreContext
 	NoteHead \override #'molecule-callback = #Note_head::brew_ez_molecule
 	NoteHead \override #'Y-extent-callback = #'()
@@ -575,7 +575,7 @@ EasyNotation =  \translator {
 
 
 
-FiguredBassContext = \translator {
+\translator {
 	\type "Engraver_group_engraver"
 	\name FiguredBass 
 	\consists "Figured_bass_engraver"
@@ -586,7 +586,7 @@ FiguredBassContext = \translator {
 	\consistsend "Hara_kiri_engraver"
 }
 
-TabVoiceContext =   \translator {
+\translator {
       \VoiceContext
       \name "TabVoice"
       \denies "Thread"
@@ -607,7 +607,7 @@ TabVoiceContext =   \translator {
       \remove Accidental_engraver
 }
 
-TabStaffContext = \translator {
+\translator {
       \StaffContext
       \alias "Staff"
       \name "TabStaff"
@@ -650,7 +650,7 @@ TabStaffContext = \translator {
 % TRANSLATOR: \translator { \VaticanaStaffContext }" in
 % gregorian-init.ly. --jr
 
-VaticanaVoiceContext = \translator {
+\translator {
   \VoiceContext
   \name "VaticanaVoice"
   \alias "Voice"
@@ -697,7 +697,7 @@ VaticanaVoiceContext = \translator {
   TextSpanner \set #'edge-text = #'("" . "")
 }
 
-VaticanaStaffContext = \translator {
+\translator {
   \StaffContext
   \name "VaticanaStaff"
   \alias "Staff"
@@ -737,7 +737,7 @@ VaticanaStaffContext = \translator {
   % Score.barAlways = ##t
 }
 
-GregorianTranscriptionVoiceContext = \translator {
+\translator {
   \VoiceContext
   \name "GregorianTranscriptionVoice"
   \alias "Voice"
@@ -782,8 +782,7 @@ GregorianTranscriptionVoiceContext = \translator {
   TextSpanner \set #'enclose-bounds = ##t
   TextSpanner \set #'edge-text = #'("" . "")
 }
-
-GregorianTranscriptionStaffContext = \translator {
+ \translator {
   \StaffContext
   \name "GregorianTranscriptionStaff"
   \alias "Staff"

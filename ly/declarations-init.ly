@@ -35,7 +35,6 @@ melisma = \property Staff.melismaBusy = ##t
 melismaEnd = \property Staff.melismaBusy = ##f
 
 
-\include "engraver-init.ly"
 \include "grace-init.ly"
 
 % ugh
