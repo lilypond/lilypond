@@ -671,7 +671,7 @@ programs.
 @ifhtml
 The
 @end ifhtml
-@emph{@ref{lilypond-book manual}}
+@emph{@ref{Integrating text and music}}
 explains  the details behind creating documents with in-line music
 examples (like this manual).
 

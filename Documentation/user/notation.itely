@@ -32,12 +32,11 @@ somewhat familiar with LilyPond.
 * Ancient notation::            
 * Contemporary notation::       
 * Educational use::             
-* Sound::                       
 @end menu
 
 @c FIXME: Note entry vs Music entry at top level menu is confusing.
 
-@node Note entry
+@node Note entry, Easier music entry, Notation manual, Notation manual
 @section Note entry
 @cindex Note entry
 
@@ -48,17 +47,20 @@ related constructs, such as stems, tuplets and ties.
 * Notes::                       
 * Pitches::                     
 * Chromatic alterations::       
+* Micro tones::                 
 * Chords::                      
 * Rests::                       
 * Skips::                       
 * Durations::                   
+* Augmentation dots::           
+* Scaling durations::           
 * Stems::                       
 * Ties::                        
 * Tuplets::                     
 @end menu
 
 
-@node Notes
+@node Notes, Pitches, Note entry, Note entry
 @subsection Notes
 
 
@@ -69,7 +71,7 @@ A note is printed by specifying its pitch and then its duration,
 @end lilypond
 
 
-@node Pitches
+@node Pitches, Chromatic alterations, Notes, Note entry
 @subsection Pitches
 
 @cindex Pitch names
@@ -158,7 +160,7 @@ Program reference: @internalsref{NoteEvent}, and @internalsref{NoteHead}.
 
 
 
-@node Chromatic alterations
+@node Chromatic alterations, Micro tones, Pitches, Note entry
 @subsection Chromatic alterations
 
 Normally accidentals are printed automatically, but you may also
@@ -184,7 +186,7 @@ ways. For more information, refer to @ref{Accidentals}.
 
 
 
-@node Micro tones
+@node Micro tones, Chords, Chromatic alterations, Note entry
 @subsection Micro tones
 
 Half-flats and half-sharps are formed by adding @code{-eh} and
@@ -193,8 +195,8 @@ Half-flats and half-sharps are formed by adding @code{-eh} and
 @cindex quarter tones
 @cindex semi-flats, semi-sharps
 
-@lilypond[verbatim,quote,relative=2]
-ceseh ceh cih cisih 
+@lilypond[verbatim,quote,relative=2,fragment]
+{ ceseh ceh cih cisih }
 @end lilypond
 
 Micro tones are also exported to the MIDI file 
@@ -205,7 +207,7 @@ Micro tones are also exported to the MIDI file
 There are no generally accepted standards for denoting three quarter
 flats, so LilyPond's symbol does not conform to any standard.
 
-@node Chords
+@node Chords, Rests, Micro tones, Note entry
 @subsection Chords
 
 A chord is formed by a enclosing a set of pitches in @code{<} and
@@ -216,7 +218,7 @@ articulations, just like simple notes.
 <c e g>4 <c>8 
 @end lilypond
 
-@node Rests
+@node Rests, Skips, Chords, Note entry
 @subsection Rests
 @cindex Rests
 
@@ -251,7 +253,7 @@ Program reference: @internalsref{RestEvent}, and @internalsref{Rest}.
 
 
 @c FIXME: naming.
-@node Skips
+@node Skips, Durations, Rests, Note entry
 @subsection Skips
 @cindex Skip
 @cindex Invisible rest
@@ -294,7 +296,7 @@ Program reference: @internalsref{SkipEvent}, @internalsref{SkipMusic}.
 
 
 
-@node Durations
+@node Durations, Augmentation dots, Skips, Note entry
 @subsection Durations
 
 
@@ -342,7 +344,7 @@ r1 r2 r4 r8 r16 r32 r64 r64
 @end lilypond
 
 
-@node Augmentation dots
+@node Augmentation dots, Scaling durations, Durations, Note entry
 @subsection Augmentation dots
 
 If the duration is omitted then it is set to the previously entered
@@ -374,7 +376,7 @@ direction manually
 
 Program reference: @internalsref{Dots}, and @internalsref{DotColumn}. 
 
-@node Scaling durations
+@node Scaling durations, Stems, Augmentation dots, Note entry
 @subsection Scaling durations
 
 You can alter the length of duration by a fraction @var{N/M}
@@ -395,7 +397,7 @@ a4
 This manual: @ref{Tuplets}
 
 
-@node Stems
+@node Stems, Ties, Scaling durations, Note entry
 @subsection Stems
 
 Whenever a note is found, a @internalsref{Stem} object is created
@@ -412,7 +414,7 @@ made invisible.
 @code{\stemBoth}. 
 
 
-@node Ties
+@node Ties, Tuplets, Stems, Note entry
 @subsection Ties
 
 @cindex Tie
@@ -483,7 +485,7 @@ Switching staves when a tie is active will not produce a slanted tie.
 Formatting of ties is a difficult subject. The results are often not
 optimal. 
 
-@node Tuplets
+@node Tuplets,  , Ties, Note entry
 @subsection Tuplets
 
 @cindex tuplets
@@ -558,7 +560,7 @@ tuplet brackets should be moved manually, which is demonstrated in
 
 
 
-@node Easier music entry
+@node Easier music entry, Staff notation, Note entry, Notation manual
 @section Easier music entry
 @cindex Music entry
 
@@ -583,7 +585,7 @@ website for more information.
 
 
 
-@node Relative octaves
+@node Relative octaves, Octave check, Easier music entry, Easier music entry
 @subsection Relative octaves
 @cindex Relative
 @cindex relative octave specification
@@ -649,7 +651,7 @@ The relative conversion will not affect @code{\transpose},
 relative within transposed music, an additional @code{\relative} must
 be placed inside @code{\transpose}.
 
-@node Octave check
+@node Octave check, Bar check, Relative octaves, Easier music entry
 @subsection Octave check
 
 
@@ -702,7 +704,7 @@ be deleted without changing the meaning of the piece.
 }
 @end lilypond
 
-@node Bar check
+@node Bar check, Skipping corrected music, Octave check, Easier music entry
 @subsection Bar check
 @cindex Bar check
 
@@ -751,7 +753,7 @@ pipeSymbol = \bar "||"
 @end lilypond 
 
 
-@node Skipping corrected music
+@node Skipping corrected music, Automatic note splitting, Bar check, Easier music entry
 @subsection Skipping corrected music
 
 The property @code{Score.skipTypesetting} can be used to switch on and
@@ -769,7 +771,7 @@ been checked for errors
   c d b bes a g c2 }
 @end lilypond
 
-@node Automatic note splitting
+@node Automatic note splitting,  , Skipping corrected music, Easier music entry
 @subsection Automatic note splitting
 
 Long notes can be converted automatically to tied notes.  This is done
@@ -807,11 +809,11 @@ Examples: @inputfileref{input/regression,completion-heads.ly}.
 Program reference: @internalsref{Completion_heads_engraver}.
 
 
-@node Staff notation
+@node Staff notation, Polyphony, Easier music entry, Notation manual
 @section Staff notation
 
 This section describes music notation that occurs on staff level,
-such as keys, clefs and time signatures.
+such as key signatures, clefs and time signatures.
 
 @cindex Staff notation
 
@@ -828,7 +830,7 @@ such as keys, clefs and time signatures.
 * Controlling formatting of  prefatory matter::  
 @end menu
 
-@node Staff symbol
+@node Staff symbol, Key signature, Staff notation, Staff notation
 @subsection Staff symbol
 
 @cindex adjusting staff symbol
@@ -857,7 +859,7 @@ If a staff is ended halfway a piece, the staff symbol may not end
 exactly on the bar line.
 
 
-@node Key signature
+@node Key signature, Clef, Staff symbol, Staff notation
 @subsection Key signature
 @cindex Key signature
 
@@ -911,7 +913,7 @@ Program reference: @internalsref{KeyChangeEvent}, and @internalsref{KeySignature
 @cindex @code{keySignature}
 
 
-@node Clef
+@node Clef, Ottava brackets, Key signature, Staff notation
 @subsection Clef
 @cindex @code{\clef}
 
@@ -919,9 +921,9 @@ The clef indicates which lines of the staff correspond to which
 pitches.
 
 
-The clef can be set or changed with the @code{\clef} command
+The clef can be set with the @code{\clef} command
 @lilypond[quote,fragment,verbatim]
-\key f\major  c''2 \clef alto g'2
+{ c''2 \clef alto g'2 }
 @end lilypond
 
 Supported clef-names include
@@ -1008,7 +1010,7 @@ Program reference: @internalsref{Clef}.
 
 
 
-@node Ottava brackets
+@node Ottava brackets, Time signature, Clef, Staff notation
 @subsection Ottava brackets
 
 ``Ottava'' brackets introduce an extra transposition of an octave for
@@ -1035,10 +1037,13 @@ The @code{set-octavation} function also takes -1 (for 8va bassa) and 2
 @code{centralCPosition}. For overriding the text of the bracket, set
 @code{ottavation} after invoking @code{set-octavation}, i.e.,
 
-@example
-#(set-octavation 1)
-\set Staff.ottavation = #"8"
-@end example
+@lilypond[verbatim]
+{
+  #(set-octavation 1)
+  \set Staff.ottavation = #"8"
+  c'''
+}
+@end lilypond
 
 @seealso
 
@@ -1055,7 +1060,7 @@ during an octavation bracket.
 
 
 
-@node Time signature
+@node Time signature, Partial measures, Ottava brackets, Staff notation
 @subsection Time signature
 @cindex Time signature
 @cindex meter
@@ -1133,7 +1138,7 @@ Program reference: @internalsref{TimeSignature}, and @internalsref{Timing_engrav
 Automatic beaming does not use the measure grouping specified with
 @code{set-time-signature}.
 
-@node Partial measures
+@node Partial measures, Unmetered music, Time signature, Staff notation
 @subsection Partial measures
 @cindex Partial
 @cindex anacrusis
@@ -1160,7 +1165,23 @@ This is  internally translated into
 The property @code{measurePosition} contains a rational number
 indicating how much of the measure has passed at this point.
 
-@node Unmetered music
+@refbugs
+
+This command does not take into account grace notes at the start of
+the music. When a piece starts with graces notes in the pickup, then
+the @code{\partial} should follow the grace notes
+
+@lilypond[verbatim,relative,fragment]
+{
+  \grace f16 
+  \partial 4
+  g4
+  a2 g2 
+}
+@end lilypond
+
+
+@node Unmetered music, Bar lines, Partial measures, Staff notation
 @subsection Unmetered music
 
 @cindex @code{\bar}
@@ -1187,7 +1208,7 @@ indicate where line breaks can occur.
 
 
 
-@node Bar lines
+@node Bar lines, Time administration, Unmetered music, Staff notation
 @subsection Bar lines
 @cindex Bar lines
 
@@ -1207,22 +1228,11 @@ c4 \bar "|:" c4
 @end lilypond
 
 The following bar types are available
-@lilypond[quote,fragment,relative=1,raggedright,verbatim]
-c4
-\bar "|" c
-\bar "" c
-\bar "|:" c
-\bar "||" c
-\bar ":|" c
-\bar ".|" c
-\bar ".|." c
-\bar ":|:" c
-\bar "|." c
-\bar ":" c
-@end lilypond
+@lilypondfile[notexidoc]{bar-lines.ly}
+
 For allowing line breaks, there is a special command,
 @example
-  \bar "empty"
+  \bar ""
 @end example 
 This will insert an invisible bar line, and allow line breaks at this
 point.
@@ -1245,14 +1255,15 @@ connected between different staves of a @internalsref{StaffGroup}
 >>
 @end lilypond
 
-A bar line is created whenever the @code{whichBar} property is set.
-At the start of a measure it is set to the contents of
-@code{defaultBarType}. The contents of @code{repeatCommands} are used
-to override default measure bars.
 
 The command @code{\bar }@var{bartype} is a short cut for doing
 @code{\set Timing.whichBar = }@var{bartype}.  Whenever @code{whichBar}
 is set to a string, a bar line of that type is created.
+
+A bar line is created whenever the @code{whichBar} property is set.
+At the start of a measure it is set to the contents of
+@code{defaultBarType}. The contents of @code{repeatCommands} are used
+to override default measure bars.
 
 @cindex @code{whichBar}
 @cindex @code{repeatCommands}
@@ -1265,26 +1276,21 @@ You are encouraged to use @code{\repeat} for repetitions.  See
 
 @seealso
 
-In this manual: @ref{Repeats}.
+In this manual: @ref{Repeats}, @ref{System start delimiters}
 
 
-Program reference: the bar line objects that are created at
-@internalsref{Staff} level are called @internalsref{BarLine}, the bar
-lines that span staves are @internalsref{SpanBar} objects.
+Program reference: @internalsref{BarLine} (created at
+@internalsref{Staff} level), @internalsref{SpanBar} (across staves).
 
 @cindex bar lines at start of system
 @cindex start of system
 
-The bar lines at the start of each system are
-@internalsref{SystemStartBar}, @internalsref{SystemStartBrace}, and
-@internalsref{SystemStartBracket}.  Only one of these types is created
-in every context, and that type is determined by the property
-@code{systemStartDelimiter}.
+
 
 Examples: @inputfileref{input/test,bar-lines.ly},
 
 
-@node Time administration
+@node Time administration, Controlling formatting of  prefatory matter, Bar lines, Staff notation
 @subsection Time administration
 
 Time is administered by the @internalsref{Time_signature_engraver},
@@ -1326,7 +1332,7 @@ the measure, so the next bar line will fall at 2/4 + 3/8.
 @end lilypond
 
 
-@node Controlling formatting of  prefatory matter
+@node Controlling formatting of  prefatory matter,  , Time administration, Staff notation
 @subsection Controlling formatting of  prefatory matter
 
 TODO
@@ -1360,7 +1366,7 @@ TODO
 @end lilypond
 
 
-@node Polyphony
+@node Polyphony, Beaming, Staff notation, Notation manual
 @section Polyphony
 @cindex polyphony
 
@@ -1378,7 +1384,7 @@ small, short-lived voices or for single chords
 @end lilypond
 
 The separator causes @internalsref{Voice} contexts@footnote{Polyphonic
-voices are sometimes called "layers" other notation packages}
+voices are sometimes called "layers" in other notation packages}
 @cindex layers
 to be instantiated. They bear the names @code{"1"}, @code{"2"}, etc. In
 each of these contexts, vertical direction of slurs, stems, etc. is set
@@ -1451,10 +1457,6 @@ for example
 @code{\voiceFour}.
 
 
-The following commands specify in what chords of the current voice
-should be shifted: the outer voice has @code{\shiftOff}, and the inner
-voices have @code{\shiftOn}, @code{\shiftOnn}, etc.
-
 
 @cindex @code{\shiftOn}
 @code{\shiftOn}, 
@@ -1463,7 +1465,12 @@ voices have @code{\shiftOn}, @code{\shiftOnn}, etc.
 @cindex @code{\shiftOnnn}
 @code{\shiftOnnn}, 
 @cindex @code{\shiftOff}
-@code{\shiftOff}.
+@code{\shiftOff}: these commands specify in what chords of the current
+voice should be shifted.  The outer voices (normally: voice one and
+two) have @code{\shiftOff}, while the inner voices (three and four)
+have @code{\shiftOn}.  @code{\shiftOnn} and @code{\shiftOnnn} define
+further shift levels.
+
 
 When LilyPond cannot cope, the @code{force-hshift}
 property of the @internalsref{NoteColumn} object and pitched rests can
@@ -1488,7 +1495,7 @@ be used to override typesetting decisions.
 Program reference: the objects responsible for resolving collisions are
 @internalsref{NoteCollision} and @internalsref{RestCollision}.
 
-Examples: See also example files
+Examples: 
 @inputfileref{input/regression,collision-dots.ly},
 @inputfileref{input/regression,collision-head-chords.ly},
 @inputfileref{input/regression,collision-heads.ly},
@@ -1508,7 +1515,7 @@ different accidentals in the same chord. In this case, it is
 recommended to use enharmonic transcription, or to use special cluster
 notation (see @ref{Clusters}).
 
-@node Beaming
+@node Beaming, Accidentals, Polyphony, Notation manual
 @section Beaming
 
 Beams are used to group short notes into chunks that are aligned with
@@ -1542,7 +1549,7 @@ Program reference: @internalsref{Beam}.
 * Beam formatting::             
 @end menu
 
-@node Manual beams
+@node Manual beams, Setting automatic beam behavior, Beaming, Beaming
 @subsection Manual beams
 @cindex beams, manual
 @cindex @code{]}
@@ -1550,11 +1557,11 @@ Program reference: @internalsref{Beam}.
 
 In some cases it may be necessary to override the automatic beaming
 algorithm.  For example, the autobeamer will not put beams over rests
-or bar lines. Such beams are specified by manually: the begin and end
-point are marked with @code{[} and @code{]}
+or bar lines. Such beams are specified manually by marking the begin
+and end point with @code{[} and @code{]}
 
 @lilypond[quote,fragment,relative=1,verbatim]
-\context Staff {
+{
   r4 r8[ g' a r8] r8 g[ | a] r8
 }
 @end lilypond
@@ -1623,7 +1630,7 @@ texts and accidentals.
 
 
 
-@node Setting automatic beam behavior
+@node Setting automatic beam behavior, Beam formatting, Manual beams, Beaming
 @subsection Setting automatic beam behavior 
 
 @cindex @code{autoBeamSettings}
@@ -1733,7 +1740,7 @@ It is not possible to specify beaming parameters that act differently in
 different parts of a measure. This means that it is not possible to use
 automatic beaming in irregular meters such as @code{5/8}.
 
-@node Beam formatting
+@node Beam formatting,  , Setting automatic beam behavior, Beaming
 @subsection Beam formatting
 
 
@@ -1752,7 +1759,7 @@ down.  However, this behaviour can be altered with the
 }
 @end lilypond
 
-@node Accidentals
+@node Accidentals, Expressive marks, Beaming, Notation manual
 @section Accidentals
 @cindex Accidentals
 
@@ -1900,7 +1907,7 @@ In the default scheme, accidentals only depend on other
 accidentals with the same pitch on the same staff, so no conflicts are
 possible.
 
-@node Expressive marks
+@node Expressive marks, Repeats, Accidentals, Notation manual
 @section Expressive marks
 
 
@@ -1924,7 +1931,7 @@ possible.
 * Dynamics::                    
 @end menu
 
-@node Slurs
+@node Slurs, Phrasing slurs, Expressive marks, Expressive marks
 @subsection Slurs
 @cindex Slurs
 
@@ -1976,7 +1983,7 @@ Program reference: @seeinternals{Slur}, and @internalsref{SlurEvent}.
 
 @cindex Adjusting slurs
 
-@node Phrasing slurs
+@node Phrasing slurs, Breath marks, Slurs, Expressive marks
 @subsection Phrasing slurs
 
 @cindex phrasing slurs
@@ -2017,7 +2024,7 @@ Program reference: see also @internalsref{PhrasingSlur}, and
 
 Putting phrasing slurs over rests leads to spurious warnings.
 
-@node Breath marks
+@node Breath marks, Metronome marks, Phrasing slurs, Expressive marks
 @subsection Breath marks
 
 Breath marks are entered using @code{\breathe}
@@ -2046,7 +2053,7 @@ Program reference: @internalsref{BreathingSign},
 Examples: @inputfileref{input/regression,breathing-sign.ly}.
 
 
-@node Metronome marks
+@node Metronome marks, Text spanners, Breath marks, Expressive marks
 @subsection Metronome marks
 
 @cindex Tempo
@@ -2071,7 +2078,7 @@ Program reference: @internalsref{MetronomeChangeEvent}.
   
 
 
-@node Text spanners
+@node Text spanners, Analysis brackets, Metronome marks, Expressive marks
 @subsection Text spanners
 @cindex Text spanners
 
@@ -2102,7 +2109,7 @@ Internals @internalsref{TextSpanEvent},
 Examples: @inputfileref{input/regression,text-spanner.ly}.
 
 
-@node Analysis brackets
+@node Analysis brackets, Articulations, Text spanners, Expressive marks
 @subsection Analysis brackets
 @cindex brackets
 @cindex phrasing brackets
@@ -2137,7 +2144,7 @@ Program reference: @internalsref{HorizontalBracket},
 Examples: @inputfileref{input/regression,note-group-bracket.ly}. 
 
 
-@node Articulations
+@node Articulations, Running trills, Analysis brackets, Expressive marks
 @subsection Articulations
 @cindex Articulations
 
@@ -2248,7 +2255,7 @@ effect on the MIDI rendering of the music.
 
 
 
-@node  Running trills
+@node  Running trills, Fingering instructions, Articulations, Expressive marks
 @subsection Running trills
 
 Long running trills are made with @code{\startTrillSpan} and
@@ -2274,7 +2281,7 @@ Long running trills are made with @code{\startTrillSpan} and
 Program reference: @internalsref{TrillSpanner},
 @internalsref{TrillSpanEvent}.
 
-@node Fingering instructions
+@node Fingering instructions, Text scripts, Running trills, Expressive marks
 @subsection Fingering instructions
 
 @cindex fingering
@@ -2330,7 +2337,7 @@ Program reference: @internalsref{FingerEvent}, and @internalsref{Fingering}.
 
 Examples: @inputfileref{input/regression,finger-chords.ly}.
 
-@node Text scripts
+@node Text scripts, Grace notes, Fingering instructions, Expressive marks
 @subsection Text scripts
 @cindex Text scripts
 
@@ -2369,7 +2376,7 @@ Program reference: @internalsref{TextScriptEvent}, @internalsref{TextScript}.
 
 
 
-@node Grace notes
+@node Grace notes, Glissando, Text scripts, Expressive marks
 @subsection Grace notes
 
 
@@ -2531,7 +2538,7 @@ expressions.  Nesting or juxtaposing grace sections is not supported,
 and might produce crashes or other errors.
 
 
-@node Glissando
+@node Glissando, Dynamics, Grace notes, Expressive marks
 @subsection Glissando
 @cindex Glissando 
 
@@ -2561,7 +2568,7 @@ Example files: @file{input/regression,glissando.ly}
 Printing text over the line (such as @emph{gliss.}) is not supported.
 
 
-@node Dynamics
+@node Dynamics,  , Glissando, Expressive marks
 @subsection Dynamics
 @cindex Dynamics
 
@@ -2666,7 +2673,7 @@ objects. Vertical positioning of these symbols is handled by the
 @internalsref{DynamicLineSpanner} object.
 
 
-@node Repeats
+@node Repeats, Rhythmic music, Expressive marks, Notation manual
 @section Repeats
 
 
@@ -2715,7 +2722,7 @@ Make beat or measure repeats. These look like percent signs.
 * Measure repeats::             
 @end menu
 
-@node Repeat syntax
+@node Repeat syntax, Repeats and MIDI, Repeats, Repeats
 @subsection Repeat syntax
 
 
@@ -2811,7 +2818,7 @@ example by setting @code{Score.measurePosition} or entering
 
 
 
-@node Repeats and MIDI
+@node Repeats and MIDI, Manual repeat commands, Repeat syntax, Repeats
 @subsection Repeats and MIDI
 
 @cindex expanding repeats
@@ -2849,7 +2856,7 @@ unfolded repeats, and one for notation, eg.
   @} 
 @end example
 
-@node Manual repeat commands
+@node Manual repeat commands, Tremolo repeats, Repeats and MIDI, Repeats
 @subsection Manual repeat commands
 
 @cindex @code{repeatCommands}
@@ -2889,7 +2896,7 @@ Program reference: @internalsref{VoltaBracket}, @internalsref{RepeatedMusic},
 @internalsref{UnfoldedRepeatedMusic}, and
 @internalsref{FoldedRepeatedMusic}.
 
-@node Tremolo repeats
+@node Tremolo repeats, Tremolo subdivisions, Manual repeat commands, Repeats
 @subsection Tremolo repeats
 @cindex tremolo beams
 
@@ -2923,7 +2930,7 @@ tremolos are @internalsref{StemTremolo} objects.  The music expression is
 Example files: @inputfileref{input/regression,chord-tremolo.ly},
 @inputfileref{input/regression,stem-tremolo.ly}.
 
-@node Tremolo subdivisions
+@node Tremolo subdivisions, Measure repeats, Tremolo repeats, Repeats
 @subsection Tremolo subdivisions
 @cindex tremolo marks
 @cindex @code{tremoloFlags}
@@ -2950,7 +2957,7 @@ In this manual: @ref{Tremolo repeats}.
 
 Elsewhere: @internalsref{StemTremolo}, @internalsref{TremoloEvent}.
 
-@node Measure repeats
+@node Measure repeats,  , Tremolo subdivisions, Repeats
 @subsection Measure repeats
 
 @cindex percent repeats
@@ -2976,7 +2983,7 @@ Program reference: @internalsref{RepeatSlash}, @internalsref{PercentRepeat},
 
 
 
-@node Rhythmic music
+@node Rhythmic music, Piano music, Repeats, Notation manual
 @section Rhythmic music
 
 
@@ -2987,7 +2994,7 @@ Program reference: @internalsref{RepeatSlash}, @internalsref{PercentRepeat},
 @end menu
 
 
-@node Showing melody rhythms
+@node Showing melody rhythms, Entering percussion, Rhythmic music, Rhythmic music
 @subsection Showing melody rhythms
 
 Sometimes you might want to show only the rhythm of a melody.  This
@@ -3008,7 +3015,7 @@ Program reference: @internalsref{RhythmicStaff}.
 Examples: @inputfileref{input/regression,rhythmic-staff.ly}.
 
 
-@node Entering percussion
+@node Entering percussion, Percussion staves, Showing melody rhythms, Rhythmic music
 @subsection Entering percussion
 
 @cindex percussion
@@ -3034,7 +3041,7 @@ The complete list of drum names is in the init file
 
 Program reference: @internalsref{DrumNoteEvent}.
 
-@node Percussion staves
+@node Percussion staves,  , Entering percussion, Rhythmic music
 @subsection Percussion staves
 @cindex percussion
 @cindex drums
@@ -3240,7 +3247,7 @@ Program reference: @internalsref{DrumStaff}, @internalsref{DrumVoice}.
 Because general MIDI does not contain rim shots, the sidestick is used
 for this purpose instead.
 
-@node Piano music
+@node Piano music, Vocal music, Rhythmic music, Notation manual
 @section Piano music
 
 Piano staves are two normal staves coupled with a brace.  The staves
@@ -3275,7 +3282,7 @@ require arcane command incantations. See
 @inputfileref{input/test,piano-staff-distance.ly}.
 
 
-@node Automatic staff changes
+@node Automatic staff changes, Manual staff switches, Piano music, Piano music
 @subsection Automatic staff changes
 @cindex Automatic staff changes
 
@@ -3346,7 +3353,7 @@ differently named @internalsref{Voice} contexts, the events in those
 will be ignored.
 
 
-@node Manual staff switches
+@node Manual staff switches, Pedals, Automatic staff changes, Piano music
 @subsection Manual staff switches
 
 @cindex manual staff switches
@@ -3384,7 +3391,7 @@ and the @context{Voice} is inserted afterwards
 @end example
 
 
-@node Pedals
+@node Pedals, Arpeggio, Manual staff switches, Piano music
 @subsection Pedals
 @cindex Pedals
 
@@ -3448,7 +3455,7 @@ bracket may be extended to the end of the note head
 c\sostenutoDown d e c, f g a\sostenutoUp
 @end lilypond
 
-@node Arpeggio
+@node Arpeggio, Staff switch lines, Pedals, Piano music
 @subsection Arpeggio
 @cindex Arpeggio
 
@@ -3519,7 +3526,7 @@ Program reference: @internalsref{ArpeggioEvent} music expressions lead to
 It is not possible to mix connected arpeggios and unconnected
 arpeggios in one @internalsref{PianoStaff} at the same time.
 
-@node Staff switch lines
+@node Staff switch lines, Cross staff stems, Arpeggio, Piano music
 @subsection Staff switch lines
 
 
@@ -3557,7 +3564,7 @@ The associated object is @internalsref{VoiceFollower}.
 @code{\hideStaffSwitch}.
 
 
-@node Cross staff stems
+@node Cross staff stems,  , Staff switch lines, Piano music
 @subsection Cross staff stems
 
 The chords which cross staves may be produced by increasing the length
@@ -3582,7 +3589,7 @@ noFlag = \once \override Stem  #'flag-style = #'no-flag
 @end lilypond
 
 
-@node Vocal music
+@node Vocal music, Other instrument specific notation, Piano music, Notation manual
 @section Vocal music
 
 
@@ -3627,7 +3634,7 @@ the following sections are about.
 * Ambitus::                     
 @end menu
 
-@node Entering lyrics
+@node Entering lyrics, The Lyrics context, Vocal music, Vocal music
 @subsection Entering lyrics
 
 
@@ -3715,7 +3722,7 @@ The definition of lyrics mode is too complex.
 
 
 
-@node The Lyrics context
+@node The Lyrics context, Flexibility in alignment, Entering lyrics, Vocal music
 @subsection  The Lyrics context
 
 
@@ -3868,7 +3875,7 @@ in @ref{More stanzas}.
 
 @c TODO: document \new Staff << Voice \lyricsto >> bug
 
-@node Flexibility in alignment
+@node Flexibility in alignment, More stanzas, The Lyrics context, Vocal music
 @subsection Flexibility in alignment
 
 
@@ -4008,7 +4015,7 @@ The underlay is switched back to the starting situation by assigning
 
 
 
-@node More stanzas
+@node More stanzas, Ambitus, Flexibility in alignment, Vocal music
 @subsection More stanzas
 
 @cindex phrasing, in lyrics
@@ -4059,7 +4066,7 @@ Program reference: Layout objects @internalsref{LyricText} and
 
 
 
-@node Ambitus
+@node Ambitus,  , More stanzas, Vocal music
 @subsection Ambitus
 @cindex ambitus
 
@@ -4155,14 +4162,14 @@ Examples:  @inputfileref{input/regression,ambitus.ly}.
 There is no collision handling in the case of multiple per-voice
 ambitus.
 
-@node Other instrument specific notation
+@node Other instrument specific notation, Tablatures, Vocal music, Notation manual
 @section Other instrument specific notation
 
 @menu
 * Harmonic notes::              
 @end menu
 
-@node Harmonic notes
+@node Harmonic notes,  , Other instrument specific notation, Other instrument specific notation
 @subsection Harmonic notes
 
 @cindex artificial harmonics
@@ -4179,7 +4186,7 @@ marking the harmonic pitch with @code{\harmonic}.
 @end lilypond
 
 
-@node Tablatures
+@node Tablatures, Popular music, Other instrument specific notation, Notation manual
 @section Tablatures
 
 @cindex tablature
@@ -4195,7 +4202,7 @@ offers limited support for tablature.
 * Non-guitar tablatures::       
 @end menu
 
-@node Tablatures basic
+@node Tablatures basic, Non-guitar tablatures, Tablatures, Tablatures
 @subsection Tablatures basic
 @cindex Tablatures basic
 
@@ -4251,7 +4258,7 @@ string selector may easily select the same string to two notes in a
 chord.
 
 
-@node Non-guitar tablatures
+@node Non-guitar tablatures,  , Tablatures basic, Tablatures
 @subsection Non-guitar tablatures
 @cindex Non-guitar tablatures
 
@@ -4285,7 +4292,7 @@ No guitar special effects have been implemented.
 Program reference: @internalsref{Tab_note_heads_engraver}.
 
 
-@node Popular music
+@node Popular music, Orchestral music, Tablatures, Notation manual
 @section Popular music 
 
 
@@ -4297,7 +4304,7 @@ Program reference: @internalsref{Tab_note_heads_engraver}.
 * Improvisation::               
 @end menu
 
-@node Chord names
+@node Chord names, Chords mode, Popular music, Popular music
 @subsection Chord names
 @cindex Chords
 
@@ -4654,7 +4661,7 @@ some common problems in orchestral music.
 
 
 @menu
-* Multiple staff contexts::     
+* System start delimiters::     
 * Aligning to cadenzas::        
 * Rehearsal marks::             
 * Bar numbers::                 
@@ -4668,8 +4675,8 @@ some common problems in orchestral music.
 * Quoting other voices::        
 @end menu
 
-@node Multiple staff contexts
-@subsection Multiple staff contexts
+@node System start delimiters
+@subsection  System start delimiters
 
 Polyphonic scores consist of many staves. These staves can be
 constructed in three different ways
@@ -4692,6 +4699,14 @@ connected.  This is the default for the score.
 @cindex grand staff
 @cindex staff group
 
+
+@seealso
+
+The bar lines at the start of each system are
+@internalsref{SystemStartBar}, @internalsref{SystemStartBrace}, and
+@internalsref{SystemStartBracket}.  Only one of these types is created
+in every context, and that type is determined by the property
+@code{systemStartDelimiter}.
 
 @node Aligning to cadenzas
 @subsection Aligning to cadenzas

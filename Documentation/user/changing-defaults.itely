@@ -1892,6 +1892,7 @@ titles.
 * Horizontal spacing::          
 * Line breaking::               
 * Line length and line breaking::  
+* Multiple movements::          
 * Titling::                     
 * Page breaking::               
 * Paper size::                  
@@ -2155,11 +2156,6 @@ following work-around may be used to insert extra space into a score.
 No work-around exists for decreasing the amount of space.
 
 
-@menu
-* Line breaking::               
-* Page layout::                 
-@end menu
-
 @node Line breaking
 @subsection Line breaking
 
@@ -2291,6 +2287,7 @@ the top of the file is inserted.
     \header @{ piece = "Menuetto" @}
   @}
 @}
+@end example
 
 @node Titling
 @subsection Titling

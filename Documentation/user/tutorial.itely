@@ -52,13 +52,11 @@ reference.
 * Commenting input files::      
 * Printing lyrics::             
 * A lead sheet::                
-* Listening to output::         
 * Adding titles::               
 * Single staff polyphony::      
 * Piano staves::                
 * Organizing larger pieces::    
 * An orchestral part::          
-* Integrating text and music::  
 @end menu
 
 
@@ -641,7 +639,7 @@ ones are made by combining expressions with operators (like @samp{+},
 Like mathematical expressions, music expressions can be nested
 arbitrarily deep,@footnote{The reason for getting three staves in the
 previous example but just a single staff in the current one will be
-explained in @ref{TODO}.}  which is necessary for complex music like
+explained in TODO.}  which is necessary for complex music like
 polyphonic scores.
 
 @lilypond[fragment,quote,verbatim,relative=2] 

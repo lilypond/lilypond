@@ -1,5 +1,8 @@
 2004-08-22  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scripts/convert-ly.py (lilypond_version_re_str): handle
+	\version "bar" % "foo"
+
 	* lily/completion-note-heads-engraver.cc (process_music): set
 	duration-log before announcing object.
 	

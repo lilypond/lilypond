@@ -169,7 +169,7 @@ this and other documentation.
 * Interfaces for programmers::
 * Invoking LilyPond::              Operation.
 * Converting from other formats::  Converting to lilypond source format.
-* lilypond-book manual::           Integrating text and music with lilypond-book.
+* Integrating text and music::     Integrating text and music with lilypond-book.
 * Unified index::                  
 * Notation manual details::
 * Literature list::
@@ -188,6 +188,7 @@ this and other documentation.
 @include examples.itely
 @include invoking.itexi
 @include notation.itely
+@include sound-output.itexi
 @include changing-defaults.itely
 @include programming-interface.itely
 @include lilypond-book.itely
