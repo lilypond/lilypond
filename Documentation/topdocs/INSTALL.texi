@@ -286,13 +286,18 @@ and for the profiling version, I specify a different configuration.
 
 @section Emacs mode
 
-An emacs mode for LilyPond is included with the source archive as
-@file{lilypond-mode.el} and @file{lilypond-font-lock.el}.  If you have
-an RPM, it is in @file{/usr/share/doc/lilypond-X/}.  You have to install
-it yourself.
+An Emacs mode for entering music and running LilyPond is included with
+the source archive as @file{lilypond-mode.el} and
+@file{lilypond-font-lock.el}.  You should install these files somewhere
+in your @var{load-path}.  If you have installed a precompiled LilyPond
+package, these files can be found in
+@file{/usr/share/doc/lilypond-x.y.z/}.
 
-Add this to your @file{~/.emacs} or @file{~/.emacs.el}:
-@example 
+Add this to your @file{~/.emacs} or @file{~/.emacs.el}, or install this
+file in Emacs' @file{site-start.d}:
+@example
+    ;;; lilypond-init.el --- Startup code for LilyPond mode
+
     (load-library "lilypond-mode.el")
     (setq auto-mode-alist
       (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
@@ -300,7 +305,8 @@ Add this to your @file{~/.emacs} or @file{~/.emacs.el}:
 @end example
 
 If you have the latest LilyPond-1.4.x Debian package, LilyPond-mode is
-automatically loaded, so you need not modify your @code{~/.emacs} file.
+automatically loaded, you not even need to modify your @code{~/.emacs}
+file.
 
 @section Compiling for distributions 
 
@@ -495,10 +501,10 @@ send bug reports to @email{bug-lilypond@@gnu.org}.
 
 Bugs that are not fault of LilyPond are documented here.
 
-@unnumberedsubsec Debian GNU/Linux unstable gcc-3.0
+@unnumberedsubsec FLex-2.5.4a and gcc-3.0
 
-Flex (2.5.4a-11) in unstable does not produce g++-3.0 compliant C++
-code.  To compile LilyPond with gcc-3.0 you may do:
+Flex 2.5.4a does not produce g++-3.0 compliant C++ code.  To compile
+LilyPond with gcc-3.0 you may do:
 
 @example
         CC=gcc-3.0 CXX=g++-3.0 ./configure --enable-config=gcc-3.0
@@ -506,6 +512,8 @@ code.  To compile LilyPond with gcc-3.0 you may do:
         patch -p1 < lexer-gcc-3.0.patch
         make conf=gcc-3.0 -C lily
 @end example
+
+Note that this is fixed in Debian/unstable for flex >= 2.5.4a-13.
 
 @unnumberedsubsec NetBSD
 

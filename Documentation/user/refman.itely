@@ -1,13 +1,10 @@
 
 @c Note:
 @c
-@c A menu is needed before every deeper *section nesting of @nodes
-@c Run M-x texinfo-all-menus-update
-@c to automagically fill in these menus
-@c before saving changes
+@c A menu is needed before every deeper *section nesting of @node's; run
+@c     M-x texinfo-all-menus-update
+@c to automagically fill in these menus before saving changes
 
-
-@
 
 @macro refbugs
 @strong{BUGS}

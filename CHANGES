@@ -1,3 +1,46 @@
+1.5.2.hwn1
+==========
+
+* Starting pagenumber (Mark Hindley)
+
+* Ancient font patch (Juergen Reuter) [WARNING: FONT UPDATE!]
+
+* Bugfix: don't  put grace beams on non grace notes, and vice versa.
+
+* etf2ly:
+  - miserable try at importing repeatbars and volta brackets;
+  - import articulation defs (IX tag)
+  - revamped file reading logic. Now much cleaner.
+
+* Experimental regular-spacing support: try to space regular runs of
+notes equidistantly.
+
+1.5.2.jcn2
+==========
+
+* Flex is fixed in Debian/unstable.  Update documentation accordingly.
+
+* Guile 1.3.4 compile fix.
+
+* Add trill line type, see input/test/trill.ly.
+
+* Dvips bugs workarounds:
+  - Draw filledbox in tex for now.  Test ps code using
+
+     lilypond -e '(define ps-testing 1)'
+
+  - Extend stems only half way into beam.
+
+* Change order of includes in tex/lilyponddefs.tex so that feta font
+can be used a little easier, like:
+
+    title="TeX \fetachar\fetasharp"
+
+* Update stepmake/bin config.sub, config.guess.
+
+1.5.2
+=====
+
 1.5.1.hwn1
 ==========
 

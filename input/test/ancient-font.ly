@@ -10,18 +10,26 @@
 
 global =  \notes {
     \property Score.timing = ##f
+%   \property Score.forceAccidental = ##t
 %   \property Staff.TimeSignature \override #'style = #'old
 }
 
 upperVoice =  \context Staff = upperVoice <
     \global
-    \property Staff.StaffSymbol \override #'line-count = #4
+    
+    % this is broken until further notice -- see refman
+    % \property Staff.StaffSymbol \override #'line-count = #4
+    \context Staff \outputproperty #(make-type-checker 'staff-symbol-interface)
+      #'line-count = #4
+
     \notes \transpose c' {
-	\property Voice.NoteHead \override #'style = #'mensural
-	\property Voice.Stem \override #'stem-centered = ##t
+	\property Staff.KeySignature \override #'style = #'vaticana
+	\property Staff.Accidentals \override #'style = #'vaticana
 	\property Staff.Custos \override #'style = #'vaticana
+	\property Voice.NoteHead \override #'style = #'mensural
+	\key es \major
 	\clef "vaticana_fa2"
-	c2 d e f g
+	cis!2 des! e! fis! ges!
 
 %	\property Staff.clefGlyph = #"clefs-vaticana_do"
 %	\property Staff.clefPosition = #1
@@ -29,83 +37,96 @@ upperVoice =  \context Staff = upperVoice <
 	\clef "vaticana_do2"
 
 	a b c'
-	b a g f
+	b as gis fes
 	\clef "vaticana_fa1"
-	e d c1 \bar "|"
+	es dis ces1 \bar "|"
 
+	\property Staff.KeySignature \override #'style = #'medicaea
+	\property Staff.Accidentals \override #'style = #'medicaea
 	\property Staff.Custos \override #'style = #'medicaea
+	\property Voice.NoteHead \override #'style = #'mensural
 	\clef "medicaea_fa2"
-	c2 d e f g
+	ces2 des es fes ges
 	\clef "medicaea_do2"
-	a b c'
-	b a g f
+	as bes ces'
+	bes as ges fes
 	\clef "medicaea_fa1"
-	e d c1 \bar "|"
+	es des ces1 \bar "|"
 
+	\property Staff.KeySignature \override #'style = #'hufnagel
+	\property Staff.Accidentals \override #'style = #'hufnagel
 	\property Staff.Custos \override #'style = #'hufnagel
+	\property Voice.NoteHead \override #'style = #'mensural
 	\clef "hufnagel_fa2"
-	c2 d e f g
+	ces!2 des! es! fes! ges!
 	\clef "hufnagel_do2"
-	a b c'
-	b a g f
-	\clef "hufnagel_fa1"
-	e d c1 \bar "||"
+	as! bes! ces'!
+	bes! as! ges! fes!
+	\clef "hufnagel_do_fa"
+	es! des! ces!1 \bar "||"
     }
 >
 
 lowerVoice =  \context Staff = lowerNotes <
     \global
-    \property Staff.StaffSymbol \override #'line-count = #5
+    
+    % this is broken until further notice -- see refman
+    % \property Staff.StaffSymbol \override #'line-count = #5
+    \context Staff \outputproperty #(make-type-checker 'staff-symbol-interface)
+      #'line-count = #5
+    
     \notes \transpose c' {
-        \property Voice.NoteHead \override #'style = #'mensural
-	\property Voice.Stem \override #'stem-centered = ##t
+	\property Staff.KeySignature \override #'style = #'mensural
+	\property Staff.Accidentals \override #'style = #'mensural
 	\property Staff.Custos \override #'style = #'mensural
-	\clef "mensural1_c2"
-	c2 d e f g
+        \property Voice.NoteHead \override #'style = #'mensural
+	\key a \major
+	\clef "neo_mensural_c2"
+	c2 dis es fis ges
         \property Staff.forceClef = ##t
-	\clef "mensural1_c2"
-	a b c'
-	b a g f
-	\clef "mensural2_c2"
+	\clef "neo_mensural_c2"
+	ais bes cis'
+	bis as gis fes
+	\clef "petrucci_c2"
 	e d c1 \bar "|"
 
-	\clef "mensural2_c2"
+	\clef "petrucci_c2"
 	c2 d e f g
         \property Staff.forceClef = ##t
-	\clef "mensural3_c2"
+	\clef "mensural_c2"
 	a b c'
 	b a g f
-	\clef "mensural3_c2"
+	\clef "mensural_g"
 	e d c1 \bar "|"
 
-	\clef "mensural1_f"
+	\clef "petrucci_f"
 	c2 d e f g
         \property Staff.forceClef = ##t
-	\clef "mensural1_f"
+	\clef "petrucci_f"
 	a b c'
 	b a g f
-	\clef "mensural2_f"
+	\clef "mensural_f"
 	e d c1 \bar "|"
 
         \property Staff.forceClef = ##t
-	\clef "mensural2_f"
+	\clef "mensural_f"
 	c2 d e f g
 	\clef "mensural_g"
-	a' b' c''
-	b' a' g' f'
+	as'! bes'! cis''!
+	bes'! as'! gis'! fis'!
         \property Staff.forceClef = ##t
 	\clef "mensural_g"
 	e' d' c'1 \bar "|"
 
         \property Staff.forceClef = ##t
-	\clef "mensural_g"
+	\clef "petrucci_g"
 	c'2 d' e' f' g'
-	\clef "hufnagel_do_fa"
-	a b c'
-	b a g f
+	\clef "petrucci_g"
+	as'! bes'! cis''!
+	bes'! as'! gis'! fis'!
         \property Staff.forceClef = ##t
-	\clef "hufnagel_do_fa"
-	e d c1 \bar "||"
+	\clef "mensural_g"
+	es'! des'! cis'!1 \bar "||"
     }
 >
 
@@ -118,6 +139,7 @@ lowerVoice =  \context Staff = lowerNotes <
 %	\paperTwentysix
 	linewidth = 17.25\cm
 	textheight = 26.0\cm
+	stafflinethickness = \staffspace / 5.0
 	indent = 0.0
 	\translator {
 	    \StaffContext
