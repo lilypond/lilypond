@@ -1,5 +1,8 @@
 2005-02-08  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* tex/GNUmakefile: teTeX-3.0 fix: install .enc in fonts/enc.  Add
+	2.0.x compatibility.
+
 	* GNUmakefile.in ($(builddir)/share/lilypond-force): teTeX-3.0 fix:
 	add enc symlink.
 
