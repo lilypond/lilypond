@@ -9,46 +9,7 @@
 #include "group-interface.hh"
 #include "score-element.hh"
 
-/*
-  UGH clean me . 
- */
-Pointer_group_interface::Pointer_group_interface (Score_element * e)
-{
-  elt_l_ = e;
-  name_ = "elements";
-}
 
 
-Pointer_group_interface::Pointer_group_interface (Score_element  *e, String s)
-{
-  elt_l_ =(Score_element*)e;
-  name_ = s;
-} 
-
-/*
-  duh.
- */
-bool
-Pointer_group_interface::has_interface () 
-{
-  SCM el = elt_l_->get_elt_property (name_.ch_C());
-
-  return el == SCM_EOL || gh_pair_p (el);
-}
-
-
-void
-Pointer_group_interface::add_element (Score_element*p) 
-{
-  elt_l_->set_elt_property (name_.ch_C(),
-			   gh_cons (p->self_scm (),
-				    elt_l_->get_elt_property (name_.ch_C())));
-}
-
-int
-Pointer_group_interface::count ()
-{
-  return scm_ilength (elt_l_->get_elt_property (name_.ch_C()));
-}
 
 

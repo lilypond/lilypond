@@ -18,8 +18,7 @@ Script_column::add_staff_sided (Score_element *me, Item *i)
   if (!gh_number_p (p))
     return;
 
-  Pointer_group_interface gi (me, "scripts");
-  gi.add_element (i);
+  Pointer_group_interface::add_element (me, "scripts",i);
   
   me->add_dependency (i);
 }

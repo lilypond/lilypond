@@ -39,8 +39,7 @@
 void
 Beam::add_stem (Score_element*me, Score_element*s)
 {
-  Pointer_group_interface gi (me, "stems");
-  gi.add_element (s);
+  Pointer_group_interface:: add_element(me, "stems", s);
   
   s->add_dependency (me);
 
@@ -931,7 +930,9 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
   Real beamy = (stem->relative_coordinate (0, X_AXIS) - x0) * dydx + beam_y;
 
   Real staff_space =   Staff_symbol_referencer::staff_space (rest);
-  Real rest_dim = rest->extent (Y_AXIS)[d]*2.0 / staff_space ;
+
+  
+  Real rest_dim = rest->extent (rest, Y_AXIS)[d]*2.0 / staff_space ; // refp??
 
   Real minimum_dist
     = gh_scm2double (rest->get_elt_property ("minimum-beam-collision-distance"));

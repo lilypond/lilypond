@@ -65,7 +65,13 @@ Arpeggio_engraver::acknowledge_element (Score_element_info info)
 	{
 	  stems_.push (info.elem_l_);
 	}
-      else if (Rhythmic_head::has_interface (info.elem_l_)
+      
+      else
+
+  /*
+    We can't catch local key items from Voice context, but let's leave
+    it here in case someone moves this stuff around.  */
+	if (Rhythmic_head::has_interface (info.elem_l_)
 	       || Local_key_item::has_interface (info.elem_l_))
 	{
 	  supports_.push (info.elem_l_);
@@ -80,17 +86,17 @@ Arpeggio_engraver::process_acknowledged ()
     {
       arpeggio_ = new Item (get_property ("Arpeggio"));
       arpeggio_->set_parent (stems_[0], Y_AXIS);
-      Side_position::set_axis (arpeggio_, X_AXIS);
-      Side_position::set_direction (arpeggio_, LEFT);
-      Pointer_group_interface pgi (arpeggio_, "stems");
+      
+      //      Staff_symbol_referencer::set_interface (arpeggio_);
+
       for (int i = 0; i < stems_.size (); i++)
 	{
-	  pgi.add_element (stems_[i]);
-	  Side_position::add_support (arpeggio_, stems_[i]);
+	  Pointer_group_interface::add_element (arpeggio_, "stems", stems_[i]);
+	  //Side_position::add_support (arpeggio_, stems_[i]);
 	}
       for (int i = 0; i < supports_.size (); i++)
 	{
-	  Side_position::add_support (arpeggio_, supports_[i]);
+	  ;//Side_position::add_support (arpeggio_, supports_[i]);
 	}
       announce_element (arpeggio_, arpeggio_req_);
     }

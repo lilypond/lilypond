@@ -48,8 +48,6 @@ Score_element::Score_element(SCM basicprops)
   /*
     fixme: default should be no callback.
    */
-  set_extent_callback (molecule_extent_proc, X_AXIS);
-  set_extent_callback (molecule_extent_proc, Y_AXIS) ;   
 
   pscore_l_=0;
   lookup_l_ =0;
@@ -60,21 +58,32 @@ Score_element::Score_element(SCM basicprops)
 
   smobify_self ();
 
-  dim_cache_[X_AXIS].offset_callbacks_
-    = get_elt_property ("X-offset-callbacks");
-  dim_cache_[Y_AXIS].offset_callbacks_
-    = get_elt_property ("Y-offset-callbacks");
+  char const*onames[] = {"X-offset-callbacks", "Y-offset-callbacks"};
+  char const*enames[] = {"X-extent-callback", "Y-extent-callback"};
+  
+  for (int a = X_AXIS; a <= Y_AXIS; a++){
+    SCM l = get_elt_property (onames[a]);
 
-  dim_cache_[X_AXIS].offsets_left_ = scm_ilength (dim_cache_[X_AXIS].offset_callbacks_);
-  dim_cache_[Y_AXIS].offsets_left_ = scm_ilength (dim_cache_[Y_AXIS].offset_callbacks_);  
+    if (scm_ilength (l) >=0)
+      {
+	dim_cache_[a].offset_callbacks_ = l;
+	dim_cache_[a].offsets_left_ = scm_ilength (l);
+      }
+    else
+      {
+	programming_error ("[XY]-offset-callbacks must be a list");
+      }
 
-  SCM cb = get_elt_property ("X-extent-callback");
-  if (cb !=  SCM_EOL)
-    dim_cache_[X_AXIS].dimension_ = cb;
+    SCM cb = get_elt_property (enames[a]);
 
-  cb = get_elt_property ("Y-extent-callback");  
-  if (cb != SCM_EOL)
-    dim_cache_[Y_AXIS].dimension_ = cb;
+    /*
+      Should change default to be empty? 
+     */
+    if (!gh_procedure_p (cb) && !gh_pair_p (cb))
+      cb = molecule_extent_proc;
+    
+    dim_cache_[a].dimension_ = cb;
+  }
 }
 
 
@@ -338,8 +347,8 @@ Score_element::add_dependency (Score_element*e)
 {
   if (e)
     {
-      Pointer_group_interface gi (this, "dependencies");
-      gi.add_element (e);
+      Pointer_group_interface ::add_element (this, "dependencies",e);
+
     }
   else
     programming_error ("Null dependency added");
@@ -569,9 +578,19 @@ Score_element::empty_b (Axis a)const
 	    gh_procedure_p (dim_cache_[a].dimension_ ));
 }
 
+/*
+  TODO: add
+
+    Score_element *refpoint
+
+  to arguments?
+ */
 Interval
-Score_element::extent (Axis a) const
+Score_element::extent (Score_element * refp, Axis a) const
 {
+  Real x = relative_coordinate (refp, a);
+
+  
   Dimension_cache * d = (Dimension_cache *)&dim_cache_[a];
   Interval ext ;   
   if (gh_pair_p (d->dimension_))
@@ -610,6 +629,8 @@ Score_element::extent (Axis a) const
       ext.unite (Interval (s * gh_scm2double (gh_car (extra)),
 			   s * gh_scm2double (gh_cdr (extra))));
     }
+
+  ext.translate (x);
   
   return ext;
 }

@@ -18,7 +18,7 @@
 void
 Side_position::add_support (Score_element*me, Score_element*e)
 {
-  Pointer_group_interface (me, "side-support-elements").add_element (e);
+  Pointer_group_interface::add_element (me, "side-support-elements",e);
 }
 
 
@@ -74,9 +74,7 @@ Side_position::side_position (SCM element_smob, SCM axis)
       Score_element * e  = unsmob_element ( gh_car (s));
       if (e)
 	{
-	  Real coord = e->relative_coordinate (common, a);
-
-	  dim.unite (coord + e->extent (a));
+	  dim.unite (e->extent (common, a));
 	}
     }
 
@@ -122,7 +120,7 @@ Side_position::aligned_on_self (SCM element_smob, SCM axis)
   SCM align (me->get_elt_property (s.ch_C()));
   if (gh_number_p (align))
     {
-      Interval ext(me->extent (a));
+      Interval ext(me->extent (me,a));
 
       if (ext.empty_b ())
 	{
@@ -199,7 +197,7 @@ Side_position::aligned_side (SCM element_smob, SCM axis)
   Direction d = Side_position::get_direction (me);
   Real o = gh_scm2double (side_position (element_smob,axis));
 
-  Interval iv =  me->extent (a);
+  Interval iv =  me->extent (me, a);
 
   if (!iv.empty_b ())
     {
@@ -223,7 +221,7 @@ Side_position::centered_on_parent (SCM element_smob, SCM axis)
   Axis a = (Axis) gh_scm2int (axis);
   Score_element *him = me->parent_l (a);
 
-  return gh_double2scm (him->extent (a).center ());  
+  return gh_double2scm (him->extent (him,a).center ());  
 }
 
 

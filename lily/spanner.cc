@@ -198,7 +198,7 @@ Spanner::set_bound(Direction d, Score_element*s)
   */
   if (dynamic_cast<Paper_column*> (i))
     {
-      Pointer_group_interface (i, "bounded-by-me").add_element (this);  
+      Pointer_group_interface::add_element (i, "bounded-by-me",this);  
     }
 }
 
@@ -286,7 +286,7 @@ Spanner::get_broken_left_end_align () const
 	But that doesn't make a difference, since the Paper_column
 	is likely to contain only a Break_align_item.
       */
-      return sc->extent (X_AXIS)[RIGHT];
+      return sc->extent (sc, X_AXIS)[RIGHT];
     }
 
   return 0.0;

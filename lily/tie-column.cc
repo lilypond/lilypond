@@ -33,14 +33,14 @@ Tie_column::has_interface (Score_element*me)
 void
 Tie_column::add_tie (Score_element*me,Score_element *s)
 {
-  Pointer_group_interface g (me, "ties");
-  if (!g.count ())
+
+  if (!  Pointer_group_interface ::count (me, "ties"))
     {
       dynamic_cast<Spanner*> (me)->set_bound (LEFT, Tie::head (s,LEFT));
       dynamic_cast<Spanner*> (me)->set_bound (RIGHT, Tie::head (s,RIGHT));
     }
   
-  Pointer_group_interface (me, "ties").add_element (s);
+  Pointer_group_interface::add_element (me, "ties",s);
   s->add_dependency (me);
 }
 

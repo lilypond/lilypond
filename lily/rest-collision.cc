@@ -47,8 +47,7 @@ void
 Rest_collision::add_column (Score_element*me,Score_element *p)
 {
   me->add_dependency (p);
-  Pointer_group_interface gi (me);  
-  gi.add_element (p);
+  Pointer_group_interface::add_element (me, "elements", p);
 
   p->add_offset_callback (Rest_collision::force_shift_callback_proc, Y_AXIS);
   p->set_elt_property ("rest-collision", me->self_scm ());
@@ -203,7 +202,7 @@ Rest_collision::do_shift (Score_element *me, SCM elts)
       Interval notedim;
       for (int i = 0; i < notes.size(); i++) 
 	{
-	  notedim.unite (notes[i]->extent (Y_AXIS));
+	  notedim.unite (notes[i]->extent (notes[i],Y_AXIS)); // refp?
 	}
 
       Interval inter (notedim);

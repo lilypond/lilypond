@@ -150,8 +150,7 @@ Stem::support_head (Score_element*me)
 int
 Stem::heads_i (Score_element*me)
 {
-  Pointer_group_interface gi (me, "heads");
-  return gi.count ();
+  return  Pointer_group_interface::count (me, "heads");
 }
 
 /*
@@ -205,7 +204,7 @@ Stem::add_head (Score_element*me, Score_element *n)
 
   if (Note_head::has_interface (n))
     {
-      Pointer_group_interface (me, "heads").add_element (n);
+      Pointer_group_interface::add_element (me, "heads",n);
     }
   else
     {
@@ -334,10 +333,11 @@ Stem::position_noteheads (Score_element*me)
     heads.reverse ();
 
 
-  Real w = support_head (me)->extent (X_AXIS)[dir];
+  Score_element *hed = support_head (me);
+  Real w = hed->extent (hed, X_AXIS)[dir];
   for (int i=0; i < heads.size (); i++)
     {
-      heads[i]->translate_axis (w - heads[i]->extent (X_AXIS)[dir], X_AXIS);
+      heads[i]->translate_axis (w - heads[i]->extent (heads[i], X_AXIS)[dir], X_AXIS);
     }
   
   bool parity= true;		// todo: make me settable.
@@ -351,7 +351,7 @@ Stem::position_noteheads (Score_element*me)
 	{
 	  if (parity)
 	    {
-	      Real l  = heads[i]->extent (X_AXIS).length ();
+	      Real l = heads[i]->extent (heads[i], X_AXIS).length ();
 	      heads[i]->translate_axis (l * get_direction (me), X_AXIS);
 	    }
 	  parity = !parity;
@@ -400,10 +400,7 @@ Stem::set_spacing_hints (Score_element*me)
       Item* item = dynamic_cast<Item*> (me);
       Item * col =  item->column_l ();
       SCM dirlist =col->get_elt_property ("dir-list");
-      if (dirlist == SCM_UNDEFINED)
-	dirlist = SCM_EOL;
-
-      if (scm_sloppy_memq (scmdir, dirlist) == SCM_EOL)
+      if (scm_sloppy_memq (scmdir, dirlist) == SCM_BOOL_F)
 	{
 	  dirlist = gh_cons (scmdir, dirlist);
 	  col->set_elt_property ("dir-list", dirlist);
@@ -466,8 +463,9 @@ Stem::brew_molecule (SCM smob)
 
   Real dy = Staff_symbol_referencer::staff_space (me)/2.0;
   Real head_wid = 0;
-  if (support_head (me))
-    head_wid = support_head (me)->extent (X_AXIS).length ();
+  
+  if (Score_element *hed = support_head (me))
+    head_wid = hed->extent (hed,X_AXIS).length ();
   stem_y[Direction(-d)] += d * head_wid * tan(ANGLE)/(2*dy);
   
   if (!invisible_b (me))
@@ -490,14 +488,14 @@ Stem::brew_molecule (SCM smob)
 
 MAKE_SCHEME_CALLBACK(Stem,off_callback,2);
 SCM
-Stem::off_callback (SCM element_smob, SCM axis)
+Stem::off_callback (SCM element_smob, SCM )
 {
   Score_element *me = unsmob_element (element_smob);
-
+  
   Real r=0;
   if (Score_element * f = first_head (me))
     {
-      Interval head_wid(0, f->extent (X_AXIS).length ());
+      Interval head_wid(0, f->extent (f,X_AXIS).length ());
 
       if (to_boolean (me->get_elt_property ("stem-centered")))
 	return gh_double2scm ( head_wid.center ());

@@ -21,7 +21,7 @@ Axis_group_interface::add_element (Score_element*me,Score_element *e)
 	e->set_parent (me, a);
     }
 
-  Pointer_group_interface (me).add_element (e);
+  Pointer_group_interface::add_element (me, "elements", e);
   me->add_dependency (e);
 }
 
@@ -44,9 +44,9 @@ Axis_group_interface::relative_group_extent (Axis a, Score_element *common, SCM 
   for (SCM s = elts; gh_pair_p (s); s = gh_cdr (s))
     {
       Score_element * se = unsmob_element (gh_car (s));
-      Interval dims = se->extent (a);
+      Interval dims = se->extent (common, a);
       if (!dims.empty_b ())
-	r.unite (dims + se->relative_coordinate (common, a));
+	r.unite (dims);
     }
   return r;
 }

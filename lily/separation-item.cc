@@ -23,7 +23,7 @@ void
 Separation_item::add_item (Score_element*s,Item* i)
 {
   assert (i);
-  Pointer_group_interface (s).add_element (i);
+  Pointer_group_interface::add_element (s,"elements",i);
   s->add_dependency (i);
 }
 
@@ -53,11 +53,10 @@ Separation_item::my_width (Score_element *me)
 	  continue;
 	}
 
-      Interval iv (il->extent (X_AXIS));
+      Interval iv (il->extent (pc, X_AXIS));
       if (!iv.empty_b ())
 	{
-	  Real off = il->relative_coordinate (pc, X_AXIS);
-	  w.unite  (iv + off);
+	  w.unite  (iv);
 	}
     }
 

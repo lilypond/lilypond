@@ -48,7 +48,7 @@ Slur::add_column (Score_element*me, Score_element*n)
     warning (_ ("Putting slur over rest.  Ignoring."));
   else
     {
-      Pointer_group_interface (me, "note-columns").add_element (n);
+      Pointer_group_interface::add_element (me, "note-columns",n);
       me->add_dependency (n);
     }
 
@@ -238,7 +238,7 @@ Slur::get_attachment (Score_element*me,Direction dir,
 	      /*
 		Default position is centered in X, on outer side of head Y
 	       */
-	      o += Offset (0.5 * n->extent (X_AXIS).length (),
+	      o += Offset (0.5 * n->extent (n,X_AXIS).length (),
 			   0.5 * ss * Directional_element_interface::get (me));
 	    }
 	  else if (str == "alongside-stem")
@@ -247,7 +247,7 @@ Slur::get_attachment (Score_element*me,Direction dir,
 	      /*
 		Default position is on stem X, on outer side of head Y
 	       */
-	      o += Offset (n->extent (X_AXIS).length ()
+	      o += Offset (n->extent (n,X_AXIS).length ()
 			   * (1 + Stem::get_direction (stem)),
 			   0.5 * ss * Directional_element_interface::get (me));
 	    }
@@ -258,8 +258,8 @@ Slur::get_attachment (Score_element*me,Direction dir,
 		Default position is on stem X, at stem end Y
 	       */
 	      o += Offset (0.5 *
-			   (n->extent (X_AXIS).length ()
-			    - stem->extent (X_AXIS).length ())
+			   (n->extent (n,X_AXIS).length ()
+			    - stem->extent (stem,X_AXIS).length ())
 			    * (1 + Stem::get_direction (stem)),
 			    0);
 	    }
@@ -335,18 +335,16 @@ Slur::encompass_offset (Score_element*me,
     Simply set x to middle of notehead
    */
 
-  o[X_AXIS] -= 0.5 * stem_dir * col->extent (X_AXIS).length ();
+  o[X_AXIS] -= 0.5 * stem_dir * col->extent (col,X_AXIS).length ();
 
   if ((stem_dir == dir)
-      && !stem_l->extent (Y_AXIS).empty_b ())
+      && !stem_l->extent (stem_l, Y_AXIS).empty_b ())
     {
-      o[Y_AXIS] = stem_l->relative_coordinate (common[Y_AXIS], Y_AXIS); // iuhg
-      o[Y_AXIS] += stem_l->extent (Y_AXIS)[dir];
+      o[Y_AXIS] = stem_l->extent (common[Y_AXIS], Y_AXIS)[dir];
     }
   else
     {
-      o[Y_AXIS] = col->relative_coordinate (common[Y_AXIS], Y_AXIS);	// ugh
-      o[Y_AXIS] += col->extent (Y_AXIS)[dir];
+      o[Y_AXIS] = col->extent (common[Y_AXIS], Y_AXIS)[dir];
     }
 
   /*
@@ -465,6 +463,10 @@ Slur::brew_molecule (SCM smob)
     gh_scm2double (me->get_elt_property ("thickness"));
   Bezier one = get_curve (me);
 
+  // get_curve may suicide
+  if (!scm_ilength (me->get_elt_property ("note-columns")))
+    return SCM_EOL;
+
   Molecule a;
   SCM d =  me->get_elt_property ("dashed");
   if (gh_number_p (d))
@@ -532,7 +534,10 @@ Slur::set_control_points (Score_element*me)
 	All these null control-points, where do they all come from?
       */
       if (i && b.control_[i][X_AXIS] == 0)
-	me->suicide ();
+	{
+	  me->suicide ();
+	  return;
+	}
     }
 
   me->set_elt_property ("control-points", controls);
@@ -545,11 +550,16 @@ Slur::get_curve (Score_element*me)
   int i = 0;
 
   if (!Directional_element_interface::get (me)
-      || ! gh_symbol_p (index_cell (me->get_elt_property ("attachment"), LEFT)))
+      || ! gh_symbol_p (index_cell (me->get_elt_property ("attachment"), LEFT))
+      || ! gh_symbol_p (index_cell (me->get_elt_property ("attachment"), RIGHT)))
     set_extremities (me);
   
   if (!gh_pair_p (me->get_elt_property ("control-points")))
     set_control_points (me);
+
+  // set_control_points may suicide
+  if (!scm_ilength (me->get_elt_property ("note-columns")))
+    return b;
 
   for (SCM s= me->get_elt_property ("control-points"); s != SCM_EOL; s = gh_cdr (s))
     {
