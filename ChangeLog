@@ -6,6 +6,8 @@
 
 2005-02-21  Pedro Kroger  <kroeger@pedrokroeger.net>
 
+	* HACKING: new file.
+
 	* input/regression/utf8.ly (portuguese): added a portuguese example
 	to show latin1 accents.
 
