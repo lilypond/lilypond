@@ -31,12 +31,20 @@ the program @command{convert-ly} can be used to deal with most of the
 syntax changes between LilyPond versions.
 
 It uses @code{\version} statements in the input files to detect the old
-version number.  For example, to upgrade all LilyPond files in the
-current directory and its subdirectories, enter the following on the
-command line.
+version number.  In most cases, to upgrade your input file it is sufficient
+to run
 
 @example
-convert-ly -e `find . -name '*.ly' -print`
+covert-ly -e MYFILE.ly
+@end example
+
+If there are no changes to MYFILE.ly and if a file called MYFILE.ly.NEW
+is created, then MYFILE.ly is already updated.
+
+To upgrade LilyPond fragments in texinfo files, use
+
+@example
+convert-ly --from=... --to=... --no-version *.itely
 @end example
 
 In general, the program is invoked as follows:
