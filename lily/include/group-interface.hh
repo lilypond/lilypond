@@ -13,8 +13,8 @@
 #include "lily-proto.hh"
 #include "string.hh"
 #include "lily-guile.hh"
-#include "smobs.hh"
 
+#include "grob.hh"
 /**
    Look at Score element ELT as thing which has a list property called
    NAME_. Normally the list would contain Grobs, but

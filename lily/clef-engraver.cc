@@ -98,8 +98,10 @@ Clef_engraver::create_clef ()
       
       clef_p_ = c;
     }
-  Staff_symbol_referencer::set_position (clef_p_,
-					 gh_scm2int (get_property ("clefPosition")));
+  SCM cpos = get_property ("clefPosition");
+
+  if (gh_number_p (cpos))
+    Staff_symbol_referencer::set_position (clef_p_, gh_scm2int (cpos));
 
   SCM oct =  get_property ("clefOctavation");
   if (gh_number_p (oct) && gh_scm2int (oct))

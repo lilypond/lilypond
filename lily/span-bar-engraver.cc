@@ -73,9 +73,9 @@ Span_bar_engraver::stop_translation_timestep ()
 	Span_bar::add_bar (spanbar_p_,bar_l_arr_[i]);
 
       SCM vissym =ly_symbol2scm ("visibility-lambda");
-      SCM vis = bar_l_arr_[0]->get_grob_property (vissym);	  
-      if (scm_equal_p (spanbar_p_->get_grob_property (vissym), vis) != SCM_BOOL_T)
-	spanbar_p_->set_grob_property (vissym, vis);
+      SCM vis = bar_l_arr_[0]->internal_get_grob_property (vissym);	  
+      if (scm_equal_p (spanbar_p_->internal_get_grob_property (vissym), vis) != SCM_BOOL_T)
+	spanbar_p_->internal_set_grob_property (vissym, vis);
 
       typeset_grob (spanbar_p_);
       spanbar_p_ =0;

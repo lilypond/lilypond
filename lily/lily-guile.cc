@@ -542,3 +542,8 @@ ly_truncate_list (int k, SCM l )
     }
   return l;
 }
+
+SCM my_gh_symbol2scm (const char* x)
+{
+  return gh_symbol2scm (x);
+}

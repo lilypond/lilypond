@@ -72,7 +72,7 @@ void
 System_start_delimiter_engraver::initialize ()
 {
   SCM delim_name =get_property ("SystemStartDelimiter");
-  delim_ = new Spanner (get_property (delim_name));
+  delim_ = new Spanner (internal_get_property (delim_name));
 
   delim_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
 

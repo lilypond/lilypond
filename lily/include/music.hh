@@ -19,6 +19,9 @@
 #include "music-constructor.hh"
 
 
+#define get_mus_property(x) internal_get_mus_property(ly_symbol2scm(x))
+#define set_mus_property(x,y) internal_set_mus_property(ly_symbol2scm (x), y)
+
 /** Music is anything that has duration and supports both time compression and
   transposition.
   
@@ -36,15 +39,16 @@ class Music {
 public:
   Input *origin () const; 
   void set_spot (Input);  
-  
-  SCM get_mus_property (const char*) const;
-  SCM get_mus_property (SCM) const;
-  void set_mus_property (const char * , SCM val);
+
+  SCM internal_get_mus_property (SCM) const;
+  void internal_set_mus_property (SCM , SCM val);
+#if 0
   void set_immutable_mus_property (const char * , SCM val);
-  void set_immutable_mus_property (SCM key, SCM val);  
-  void set_mus_property (SCM , SCM val);  
-  void set_mus_pointer (const char*, SCM val);
+  void set_immutable_mus_property (SCM key, SCM val);
+
   SCM remove_mus_property (const char* nm);
+#endif
+
 
   virtual Pitch to_relative_octave (Pitch);
 

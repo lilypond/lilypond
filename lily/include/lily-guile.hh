@@ -9,6 +9,8 @@
 #ifndef LILY_GUILE_HH
 #define LILY_GUILE_HH
 
+#define SCM_VOIDP_TEST
+
 #include <libguile.h>
 
 /*
@@ -89,6 +91,8 @@ SCM ly_truncate_list (int k, SCM l );
 #define CACHE_SYMBOLS
 #ifdef CACHE_SYMBOLS
 
+SCM my_gh_symbol2scm (const char* x);
+
 // #warning: CACHE_SYMBOLS
 
 /*
@@ -102,10 +106,11 @@ SCM ly_truncate_list (int k, SCM l );
 */
 #define ly_symbol2scm(x) ({ static SCM cached;  \
  SCM value = cached;  /* We store this one locally, since G++ -O2 fucks up else */   \
- if (__builtin_constant_p (x))\
-   value = cached =  scm_permanent_object (gh_symbol2scm((char*)x));\
- else\
-  value = gh_symbol2scm ((char*)x); \
+ if ( __builtin_constant_p ((x)))\
+ {  if (!cached)\
+     value = cached =  scm_gc_protect_object (my_gh_symbol2scm((char*) (x)));\
+ } else\
+  value = gh_symbol2scm ((char*) (x)); \
   value; })
 #else
 inline SCM ly_symbol2scm(char const* x) { return gh_symbol2scm((char*)x); }

@@ -35,7 +35,7 @@ Line_group_engraver_group::finalize ()
 {
   Engraver_group_engraver::finalize ();
   Grob *  it
-    = unsmob_grob (get_property (ly_symbol2scm ("currentCommandColumn")));
+    = unsmob_grob (get_property ("currentCommandColumn"));
 
   staffline_p_->set_bound (RIGHT,it);
   Engraver_group_engraver::typeset_grob (staffline_p_);
@@ -47,7 +47,7 @@ Line_group_engraver_group::initialize ()
 {
   create_line_spanner ();
   Grob *  it
-    = unsmob_grob (get_property (ly_symbol2scm ("currentCommandColumn"))); 
+    = unsmob_grob (get_property ("currentCommandColumn")); 
   staffline_p_->set_bound (LEFT,it);
   
   Engraver::announce_grob (staffline_p_,0);

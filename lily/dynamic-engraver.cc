@@ -253,8 +253,8 @@ Dynamic_engraver::process_music ()
 	      cresc_p_->set_interface (ly_symbol2scm ("dynamic-interface"));
 	      cresc_p_->set_grob_property ("type", s);
 	      
-	      daddy_trans_l_->set_property (start_type
-					    + "Spanner", SCM_UNDEFINED);
+	      daddy_trans_l_->set_property ((start_type
+					    + "Spanner").ch_C(), SCM_UNDEFINED);
 	      s = get_property ((start_type + "Text").ch_C ());
 	      /*
 		FIXME: use markup_p () to check type.
@@ -263,7 +263,7 @@ Dynamic_engraver::process_music ()
 		{
 		  cresc_p_->set_grob_property ("edge-text",
 					       gh_cons (s, ly_str02scm ("")));
-		  daddy_trans_l_->set_property (start_type + "Text",
+		  daddy_trans_l_->set_property ((start_type + "Text").ch_C(),
 						SCM_UNDEFINED);
 		}
 	    }

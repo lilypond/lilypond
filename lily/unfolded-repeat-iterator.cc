@@ -296,7 +296,7 @@ Unfolded_repeat_iterator::add_repeat_command (SCM what)
       && current_reps == SCM_EOL || gh_pair_p (current_reps))
     {
       current_reps = gh_cons (what, current_reps);
-      where->set_property (reps, current_reps);
+      where->internal_set_property (reps, current_reps);
     }
 }
 
