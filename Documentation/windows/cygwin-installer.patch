@@ -1,75 +1,38 @@
-diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/ChangeLog ./ChangeLog
---- ../cinstall.orig/ChangeLog	Sat Dec  1 00:36:20 2001
-+++ ./ChangeLog	Sun Dec  2 17:21:40 2001
-@@ -1,3 +1,22 @@
-+2001-12-02  Jan Nieuwenhuizen  <janneke@gnu.org>
+diff -purN --exclude=*~ ../cinstall.orig/ChangeLog ./ChangeLog
+--- ../cinstall.orig/ChangeLog	Tue Jan 29 21:50:51 2002
++++ ./ChangeLog	Tue Jan 29 22:29:56 2002
+@@ -1,3 +1,20 @@
++2002-01-29  Jan Nieuwenhuizen  <janneke@gnu.org>
 +
-+	* configure.in (CXXFLAGS): bugfix.
++	* site.cc (OnMessageCmd): Bugfix: don't try to add NULL url.
 +
++	* Forward port patch to cvs -D20020129.
++	
 +	* mklink2.c: Compile fix.
 +
-+	* Forward ported patch to cvs -D20011202.
-+	
-+	* Makefile.in: Fixed realclean target.
-+
-+	* desktop.cc: Removed spurious line breaks from etc_profile.
++	* desktop.cc: Remove spurious line breaks from etc_profile.
 +	(make_lily_bat): New function.
-+	(save_icon): Parametrized.
-+	(do_desktop_setup): LilyPond support; disabled Cygwin support.
++	(save_icon): Parametrize.
++	(do_desktop_setup): LilyPond support; disable Cygwin support.
 +
 +	* res.rc: Adapted for LilyPond.
 +
 +	* ini.cc (fprintf): Cygwin -> GNU LilyPond
 +
- 2001-12-01  Robert Collins  <rbtcollins@hotmail.com>
+ 2002-01-29  Christopher Faylor  <cgf@redhat.com>
  
- 	* package_source.cc (packagesource::set_canonical): Filename was out by one.
-@@ -2336,4 +2355,4 @@ Sat Apr  1 20:48:09 2000  Christopher Fa
+ 	* configure: Regenerate.
+@@ -3288,4 +3305,4 @@ Sat Apr  1 20:48:09 2000  Christopher Fa
  	* zlib/Makefile.in: Regenerate from Makefile.am
  
- %%% $Id: cygwin-installer.patch,v 1.6 2001/12/05 13:53:28 fred Exp $
--$Revision: 1.6 $
-+$Revision: 1.6 $
+ %%% $Id: cygwin-installer.patch,v 1.7 2002/01/31 12:17:54 fred Exp $
+-$Revision: 1.7 $
++$Revision: 1.7 $
 Binary files ../cinstall.orig/LilyPond.ico and ./LilyPond.ico differ
-diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/Makefile.in ./Makefile.in
---- ../cinstall.orig/Makefile.in	Fri Nov 30 13:25:00 2001
-+++ ./Makefile.in	Sun Dec  2 17:38:37 2001
-@@ -35,7 +35,7 @@ CC		:= @CC@
- CC_FOR_TARGET	:= $(CC)
- CXX		:= @CXX@
- 
--CFLAGS		:= @CFLAGS@ -Werror -Winline -Wall -Wpointer-arith -Wcast-align\
-+CFLAGS		:= @CFLAGS@ -Winline -Wall -Wpointer-arith -Wcast-align\
- 	-Wwrite-strings -Wstrict-prototypes -Wmissing-prototypes \
- 	-Wmissing-declarations -Wcomments
- CXXFLAGS	:= @CXXFLAGS@ $(CFLAGS) -fno-exceptions -fno-rtti
-@@ -167,7 +167,9 @@ clean:
- 	$(MAKE) -C zlib clean
- 
- realclean: clean
--	rm -f  Makefile config.cache
-+	rm -f Makefile *.d version.c
-+	rm -f config.cache config.log config.status
-+	$(MAKE) -C zlib realclean
- 
- install: all
- 	$(SHELL) $(updir1)/mkinstalldirs $(bindir) $(etcdir)
-diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/configure.in ./configure.in
---- ../cinstall.orig/configure.in	Mon Dec 11 01:07:56 2000
-+++ ./configure.in	Sun Dec  2 17:23:33 2001
-@@ -64,7 +64,7 @@ if test -z "$CXX"; then
-   test -z "$CC" && AC_MSG_ERROR([no acceptable cc found in \$PATH])
- fi
- 
--CXXFLAGS='$(CFLAGS)'
-+CXXFLAGS="$CFLAGS"
- ])
- 
- AC_CANONICAL_SYSTEM
-diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/desktop.cc ./desktop.cc
---- ../cinstall.orig/desktop.cc	Thu Nov 29 10:52:32 2001
-+++ ./desktop.cc	Sun Dec  2 17:00:31 2001
-@@ -81,9 +81,7 @@ static const char *etc_profile[] = {
+diff -purN --exclude=*~ ../cinstall.orig/desktop.cc ./desktop.cc
+--- ../cinstall.orig/desktop.cc	Tue Jan 29 10:24:32 2002
++++ ./desktop.cc	Tue Jan 29 10:33:01 2002
+@@ -83,9 +83,7 @@ static const char *etc_profile[] = {
    "done",
    "",
    "export MAKE_MODE=unix",
@@ -79,8 +42,8 @@ diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/desktop.cc ./deskto
 +  "export PS1='\\[\\033]0;\\w\\007\\033[32m\\]\\u@\\h \\[\\033[33m\\w\\033[0m\\]$ '",
    "",
    "cd \"$HOME\"",
-   "",
-@@ -204,6 +202,34 @@ make_cygwin_bat ()
+   0
+@@ -204,6 +202,35 @@ make_cygwin_bat ()
  }
  
  static void
@@ -102,20 +65,21 @@ diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/desktop.cc ./deskto
 +  fprintf (bat, "chdir %s\n\n",
 +	   backslash (concat (get_root_dir () + 2, "/bin", 0)));
 +
-+  /* fprintf (bat, "bash --rcfile /bin/lilypond-profile\n"); */
-+  fprintf (bat, "bash --login -i\n");
++  if (_access (cygpath ("/usr/bin/rxvt"), 0) == 0)
++    fprintf (bat, "rxtv -e /bin/bash --login -i \n");
++  else
++    /* fprintf (bat, "bash --rcfile /bin/lilypond-profile\n"); */
++    fprintf (bat, "bash --login -i\n");
 +
 +  fclose (bat);
 +
-+  if (_access ("/usr/bin/rxvt", 0) == 0)
-+    batname = backslash (concat (get_root_dir (), "/usr/bin/rxvt", 0));
 +}
 +
 +static void
  make_etc_profile ()
  {
    char *fname = cygpath ("/etc/profile", 0);
-@@ -301,11 +327,11 @@ out:
+@@ -301,11 +328,11 @@ out:
  }
  
  static void
@@ -131,7 +95,7 @@ diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/desktop.cc ./deskto
    if (rsrc == NULL)
      {
        fatal ("FindResource failed");
-@@ -325,12 +351,13 @@ save_icon ()
+@@ -325,12 +352,13 @@ save_icon ()
  static void
  do_desktop_setup ()
  {
@@ -146,7 +110,7 @@ diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/desktop.cc ./deskto
    if (root_menu)
      {
        start_menu ("Cygwin Bash Shell", batname);
-@@ -339,6 +366,20 @@ do_desktop_setup ()
+@@ -339,6 +367,20 @@ do_desktop_setup ()
    if (root_desktop)
      {
        desktop_icon ("Cygwin", batname);
@@ -167,148 +131,135 @@ diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/desktop.cc ./deskto
      }
  }
  
-diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/ini.cc ./ini.cc
---- ../cinstall.orig/ini.cc	Thu Nov 29 10:52:32 2001
-+++ ./ini.cc	Sun Dec  2 16:11:25 2001
-@@ -187,7 +187,7 @@ fprintf (FILE * f, const char *fmt, ...)
+diff -purN --exclude=*~ ../cinstall.orig/ini.cc ./ini.cc
+--- ../cinstall.orig/ini.cc	Tue Jan 29 10:24:34 2002
++++ ./ini.cc	Tue Jan 29 10:33:01 2002
+@@ -282,7 +282,7 @@ fprintf (FILE * f, const char *fmt, ...)
  	{
  	  *nl = 0;
  	  /*OutputDebugString (stderrbuf); */
 -	  MessageBox (0, buf, "Cygwin Setup", 0);
-+ 	  MessageBox (0, buf, "GNU LilyPond Cygwin Setup", 0);
++ 	  MessageBox (0, buf, "GNU LilyPond Setup", 0);
  	  stderrbuf[0] = 0;
  	}
  
-diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/mklink2.c ./mklink2.c
---- ../cinstall.orig/mklink2.c	Tue Nov 13 02:49:32 2001
-+++ ./mklink2.c	Sun Dec  2 17:09:31 2001
-@@ -1,5 +1,5 @@
--#include <stdlib.h>
- #include "win32.h"
-+#include <stdlib.h>
- #include "shlobj.h"
- #include "mklink2.h"
- 
-diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/msg.cc ./msg.cc
---- ../cinstall.orig/msg.cc	Tue Nov 13 02:49:32 2001
-+++ ./msg.cc	Sun Dec  2 15:42:13 2001
-@@ -47,7 +47,7 @@ mbox (const char *name, int type, int id
+diff -purN --exclude=*~ ../cinstall.orig/msg.cc ./msg.cc
+--- ../cinstall.orig/msg.cc	Sun Dec 23 13:13:29 2001
++++ ./msg.cc	Tue Jan 29 11:10:03 2002
+@@ -47,7 +47,7 @@ mbox (HWND owner, const char *name, int 
  
    vsprintf (buf, fmt, args);
    log (0, "mbox %s: %s", name, buf);
--  return MessageBox (0, buf, "Cygwin Setup", type | MB_TOPMOST);
-+  return MessageBox (0, buf, "GNU LilyPond Cygwin Setup", type | MB_TOPMOST);
+-  return MessageBox (owner, buf, "Cygwin Setup", type);
++  return MessageBox (owner, buf, "GNU LilyPond Setup", type);
  }
  
  void
-diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/res.rc ./res.rc
---- ../cinstall.orig/res.rc	Wed Nov 14 01:11:35 2001
-+++ ./res.rc	Sun Dec  2 15:50:36 2001
-@@ -30,10 +30,10 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_U
+diff -purN --exclude=*~ ../cinstall.orig/res.rc ./res.rc
+--- ../cinstall.orig/res.rc	Tue Jan 29 10:24:34 2002
++++ ./res.rc	Tue Jan 29 22:26:51 2002
+@@ -30,7 +30,7 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_U
  
- IDD_SOURCE DIALOG DISCARDABLE  0, 0, 215, 95
- STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+ IDD_SOURCE DIALOG DISCARDABLE  0, 0, 317, 179
+ STYLE DS_MODALFRAME | DS_CENTER | WS_CHILD | WS_CAPTION | WS_SYSMENU
 -CAPTION "Cygwin Setup"
 +CAPTION "GNU LilyPond Setup"
  FONT 8, "MS Sans Serif"
  BEGIN
--    ICON            IDI_CYGWIN,-1,5,5,20,20
-+    ICON            IDI_LILYPOND,-1,5,5,20,20
      CONTROL         "&Install from Internet",IDC_SOURCE_NETINST,"Button",
-                     BS_AUTORADIOBUTTON,55,15,75,10
-     CONTROL         "&Download from Internet",IDC_SOURCE_DOWNLOAD,"Button",
-@@ -46,10 +46,10 @@ END
+@@ -39,7 +39,7 @@ BEGIN
+                     BS_AUTORADIOBUTTON | WS_TABSTOP,101,84,115,10
+     CONTROL         "Install from &Local Directory",IDC_SOURCE_CWD,"Button",
+                     BS_AUTORADIOBUTTON | WS_TABSTOP,101,99,115,10
+-    ICON            IDI_CYGWIN,IDC_STATIC,290,0,21,20
++    ICON            IDI_LILYPOND,IDC_STATIC,290,0,21,20
+     CONTROL         "",IDC_STATIC,"Static",SS_BLACKFRAME | SS_SUNKEN,0,28,
+                     317,1
+     LTEXT           "Choose A Download Source",IDC_STATIC_HEADER_TITLE,7,0,
+@@ -50,13 +50,13 @@ END
  
- IDD_LOCAL_DIR DIALOG DISCARDABLE  0, 0, 215, 95
- STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+ IDD_LOCAL_DIR DIALOG DISCARDABLE  0, 0, 317, 179
+ STYLE DS_MODALFRAME | DS_CENTER | WS_CHILD | WS_CAPTION | WS_SYSMENU
 -CAPTION "Cygwin Setup"
 +CAPTION "GNU LilyPond Setup"
  FONT 8, "MS Sans Serif"
  BEGIN
--    ICON            IDI_CYGWIN,IDC_STATIC,5,5,20,20
-+    ICON            IDI_LILYPOND,IDC_STATIC,5,5,20,20
-     PUSHBUTTON      "B&rowse...",IDC_LOCAL_DIR_BROWSE,150,10,34,14
-     LTEXT           "Local Package &Directory",IDC_STATIC,55,15,85,11
-     EDITTEXT        IDC_LOCAL_DIR,55,25,127,12,ES_AUTOHSCROLL
-@@ -60,10 +60,10 @@ END
+     EDITTEXT        IDC_LOCAL_DIR,58,83,165,15,ES_AUTOHSCROLL | WS_GROUP
+     PUSHBUTTON      "B&rowse...",IDC_LOCAL_DIR_BROWSE,223,83,34,14
+     GROUPBOX        "Local Package Directory",IDC_STATIC,53,67,210,45
+-    ICON            IDI_CYGWIN,IDC_STATIC,290,0,21,20
++    ICON            IDI_LILYPOND,IDC_STATIC,290,0,21,20
+     CONTROL         "",IDC_STATIC,"Static",SS_BLACKFRAME | SS_SUNKEN,0,28,
+                     317,1
+     LTEXT           "Select a directory where you want Setup to store the installation files it dowmloads.  The directory will be created if it does not already exist.",
+@@ -67,7 +67,7 @@ END
  
- IDD_ROOT DIALOG DISCARDABLE  0, 0, 215, 95
- STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+ IDD_ROOT DIALOG DISCARDABLE  0, 0, 317, 179
+ STYLE DS_MODALFRAME | DS_CENTER | WS_CHILD | WS_CAPTION | WS_SYSMENU
 -CAPTION "Cygwin Setup"
 +CAPTION "GNU LilyPond Setup"
  FONT 8, "MS Sans Serif"
  BEGIN
--    ICON            IDI_CYGWIN,IDC_STATIC,5,5,20,20
-+    ICON            IDI_LILYPOND,IDC_STATIC,5,5,20,20
-     PUSHBUTTON      "B&rowse...",IDC_ROOT_BROWSE,150,10,34,14
-     LTEXT           "Select install root &directory",IDC_STATIC,55,15,85,11
-     EDITTEXT        IDC_ROOT_DIR,55,25,127,12,ES_AUTOHSCROLL
-@@ -84,10 +84,10 @@ END
- 
- IDD_SITE DIALOG DISCARDABLE  0, 0, 222, 206
- STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+     GROUPBOX        "Root Directory",IDC_STATIC,5,50,305,40,WS_TABSTOP
+@@ -83,7 +83,7 @@ BEGIN
+                     WS_GROUP | WS_TABSTOP,170,120,90,8
+     CONTROL         "&Unix",IDC_ROOT_BINARY,"Button",BS_AUTORADIOBUTTON | 
+                     WS_TABSTOP,170,135,90,8
+-    ICON            IDI_CYGWIN,IDC_STATIC,290,0,20,20
++    ICON            IDI_LILYPOND,IDC_STATIC,290,0,21,20
+     CONTROL         "",IDC_STATIC,"Static",SS_BLACKFRAME | SS_SUNKEN,0,28,
+                     317,1
+     LTEXT           "Select the directory where you want to install Cygwin.  Also choose a few installation parameters.",
+@@ -96,10 +96,10 @@ IDD_SITE DIALOG DISCARDABLE 0, 0, 317, 1
+ STYLE DS_MODALFRAME | DS_3DLOOK | DS_CENTER | WS_CHILD | WS_VISIBLE | 
+     WS_CAPTION | WS_SYSMENU
+ EXSTYLE WS_EX_CONTROLPARENT
 -CAPTION "Cygwin Setup"
 +CAPTION "GNU LilyPond Setup"
  FONT 8, "MS Sans Serif"
  BEGIN
--    ICON            IDI_CYGWIN,IDC_STATIC,5,5,20,20
-+    ICON            IDI_LILYPOND,IDC_STATIC,5,5,20,20
-     LTEXT           "Select Download &Site",IDC_STATIC,55,5,135,11
-     LISTBOX         IDC_URL_LIST,55,20,160,155,LBS_NOINTEGRALHEIGHT | 
-                     WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
-@@ -98,10 +98,10 @@ END
+-    ICON            IDI_CYGWIN,IDC_STATIC,290,0,20,20
++    ICON            IDI_LILYPOND,IDC_STATIC,290,0,21,20
+     LISTBOX         IDC_URL_LIST,66,45,185,110,LBS_NOINTEGRALHEIGHT | 
+                     LBS_EXTENDEDSEL | WS_VSCROLL | WS_HSCROLL | WS_GROUP | 
+                     WS_TABSTOP
+@@ -119,7 +119,7 @@ END
  
- IDD_OTHER_URL DIALOG DISCARDABLE  0, 0, 215, 95
- STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+ IDD_NET DIALOG DISCARDABLE  0, 0, 317, 179
+ STYLE DS_MODALFRAME | DS_CENTER | WS_CHILD | WS_CAPTION | WS_SYSMENU
 -CAPTION "Cygwin Setup"
 +CAPTION "GNU LilyPond Setup"
  FONT 8, "MS Sans Serif"
  BEGIN
--    ICON            IDI_CYGWIN,IDC_STATIC,5,5,20,20
-+    ICON            IDI_LILYPOND,IDC_STATIC,5,5,20,20
-     LTEXT           "Select &URL to download from",IDC_STATIC,55,15,135,11
-     EDITTEXT        IDC_OTHER_URL,55,25,127,12,ES_AUTOHSCROLL
-     DEFPUSHBUTTON   "&Next -->",IDOK,100,75,45,15
-@@ -111,10 +111,10 @@ END
- 
- IDD_NET DIALOGEX 0, 0, 215, 95
- STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
--CAPTION "Cygwin Setup"
-+CAPTION "GNU LilyPond Setup"
- FONT 8, "MS Sans Serif"
- BEGIN
--    ICON            IDI_CYGWIN,IDC_STATIC,5,5,20,20
-+    ICON            IDI_LILYPOND,IDC_STATIC,5,5,20,20
      CONTROL         "&Direct Connection",IDC_NET_DIRECT,"Button",
-                     BS_AUTORADIOBUTTON,55,10,73,10
-     CONTROL         "Use &IE5 Settings",IDC_NET_IE5,"Button",
-@@ -135,10 +135,10 @@ END
- IDD_DLSTATUS DIALOG DISCARDABLE  0, 0, 215, 95
- STYLE DS_MODALFRAME | DS_SETFOREGROUND | DS_CENTER | WS_POPUP | WS_VISIBLE | 
-     WS_CAPTION | WS_SYSMENU
+@@ -137,7 +137,7 @@ BEGIN
+                     NOT WS_GROUP
+     RTEXT           "Por&t",IDC_STATIC,85,125,30,12,SS_CENTERIMAGE | NOT 
+                     WS_GROUP
+-    ICON            IDI_CYGWIN,IDC_STATIC,290,0,21,20
++    ICON            IDI_LILYPOND,IDC_STATIC,290,0,21,20
+     CONTROL         "",IDC_STATIC,"Static",SS_BLACKFRAME | SS_SUNKEN,0,28,
+                     317,1
+     LTEXT           "Setup needs to know how you want it to connect to the internet.  Choose the appropriate settings below.",
+@@ -149,7 +149,7 @@ END
+ IDD_INSTATUS DIALOG DISCARDABLE  0, 0, 317, 179
+ STYLE DS_MODALFRAME | DS_CENTER | WS_CHILD | WS_VISIBLE | WS_CAPTION | 
+     WS_SYSMENU
 -CAPTION "Cygwin Setup"
 +CAPTION "GNU LilyPond Setup"
  FONT 8, "MS Sans Serif"
  BEGIN
--    ICON            IDI_CYGWIN,IDC_STATIC,5,5,20,20
-+    ICON            IDI_LILYPOND,IDC_STATIC,5,5,20,20
-     PUSHBUTTON      "Cancel",IDCANCEL,165,75,45,15
-     LTEXT           "Downloading...",IDC_STATIC,55,5,135,8
-     LTEXT           "(URL)",IDC_DLS_URL,55,15,150,8
-@@ -157,10 +157,10 @@ END
- IDD_INSTATUS DIALOG DISCARDABLE  0, 0, 215, 95
- STYLE DS_MODALFRAME | DS_SETFOREGROUND | DS_CENTER | WS_POPUP | WS_VISIBLE | 
-     WS_CAPTION | WS_SYSMENU
--CAPTION "Cygwin Setup"
-+CAPTION "GNU LilyPond Setup"
- FONT 8, "MS Sans Serif"
- BEGIN
--    ICON            IDI_CYGWIN,IDC_STATIC,5,5,20,20
-+    ICON            IDI_LILYPOND,IDC_STATIC,5,5,20,20
-     PUSHBUTTON      "Cancel",IDCANCEL,165,75,45,15
-     LTEXT           "Installing...",IDC_INS_ACTION,55,5,135,8
-     LTEXT           "(PKG)",IDC_INS_PKG,55,15,150,8
-@@ -178,10 +178,10 @@ END
+     LTEXT           "Installing...",IDC_INS_ACTION,45,55,205,8,NOT WS_GROUP
+@@ -164,7 +164,7 @@ BEGIN
+     LTEXT           "Package:",IDC_INS_BL_PACKAGE,45,100,47,8,NOT WS_GROUP
+     LTEXT           "Total:",IDC_INS_BL_TOTAL,45,115,48,8,NOT WS_GROUP
+     LTEXT           "Disk:",IDC_INS_BL_DISK,45,130,47,8,NOT WS_GROUP
+-    ICON            IDI_CYGWIN,IDC_STATIC,290,0,20,20
++    ICON            IDI_LILYPOND,IDC_STATIC,290,0,20,20
+     CONTROL         "",IDC_STATIC,"Static",SS_BLACKFRAME | SS_SUNKEN,0,28,
+                     317,1
+     LTEXT           "This page displays the progress of the download or installation.",
+@@ -175,10 +175,10 @@ END
  
  IDD_PROXY_AUTH DIALOG DISCARDABLE  0, 0, 215, 95
  STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
@@ -321,7 +272,7 @@ diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/res.rc ./res.rc
      LTEXT           "Proxy &User ID",IDC_STATIC,5,28,55,15,SS_CENTERIMAGE,
                      WS_EX_RIGHT
      EDITTEXT        IDC_NET_USER,65,28,145,12,ES_AUTOHSCROLL
-@@ -195,10 +195,10 @@ END
+@@ -192,10 +192,10 @@ END
  
  IDD_NET_AUTH DIALOG DISCARDABLE  0, 0, 215, 95
  STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
@@ -334,59 +285,73 @@ diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/res.rc ./res.rc
      LTEXT           "&User ID",IDC_STATIC,5,28,55,15,SS_CENTERIMAGE,
                      WS_EX_RIGHT
      EDITTEXT        IDC_NET_USER,65,28,145,12,ES_AUTOHSCROLL
-@@ -212,17 +212,14 @@ END
- 
- IDD_SPLASH DIALOG DISCARDABLE  0, 0, 215, 95
- STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+@@ -210,27 +210,26 @@ END
+ IDD_SPLASH DIALOG DISCARDABLE  0, 0, 317, 179
+ STYLE DS_MODALFRAME | DS_3DLOOK | DS_CENTER | WS_CHILD | WS_VISIBLE | 
+     WS_CAPTION | WS_SYSMENU
 -CAPTION "Cygwin Setup"
 +CAPTION "GNU LilyPond Setup"
  FONT 8, "MS Sans Serif"
  BEGIN
--    ICON            IDI_CYGWIN,IDC_STATIC,5,5,20,20
--    LTEXT           "Cygwin Net Release Setup Program",IDC_STATIC,55,10,114,
--                    8
--    LTEXT           "Version (unknown)",IDC_VERSION,55,25,120,10
--    LTEXT           "Copyright 2000, 2001 Red Hat Inc.",IDC_STATIC,55,35,120,
--                    8
--    LTEXT           "http://sources.redhat.com/cygwin/",IDC_STATIC,55,50,112,
--                    8
-+    ICON            IDI_LILYPOND,IDC_STATIC,5,5,20,20
-+    LTEXT           "GNU LilyPond Setup Program",IDC_STATIC,55,10,114,8
-+    LTEXT           "Version 1.4.9",IDC_VERSION,55,25,120,10
-+    LTEXT           "Copyright (C) 2000-2001 Red Hat Inc",IDC_STATIC,55,35,135,8
-+    LTEXT           "                (C) 2001 Jan Nieuwenhuizen <janneke@gnu.org>",IDC_STATIC,55,45,135,8
-     DEFPUSHBUTTON   "&Next -->",IDOK,100,75,45,15
-     PUSHBUTTON      "Cancel",IDCANCEL,165,75,45,15
+-    ICON            IDI_CYGWIN,IDC_STATIC,113,112,21,20,WS_GROUP
++    ICON            IDI_LILYPOND,IDC_STATIC,113,100,21,20,WS_GROUP
+     CONTROL         "",IDC_STATIC,"Static",SS_WHITERECT,0,0,95,178
+-    LTEXT           "Version (unknown)",IDC_VERSION,115,137,195,10
+-    LTEXT           "Cygwin Net Release Setup Program",
++    LTEXT           "Version (1.4.10)",IDC_VERSION,115,137,195,10
++    LTEXT           "GNU LilyPond Setup Program",
+                     IDC_STATIC_WELCOME_TITLE,115,1,195,24
+-    LTEXT           "Copyright 2000, 2001 Red Hat Inc.",IDC_STATIC,115,150,
+-                    195,8
+-    LTEXT           "http://sources.redhat.com/cygwin/",IDC_STATIC,115,162,
+-                    195,8
+-    LTEXT           "This wizard will guide you through the installation and updating of the Cygwin environment and a plethora of GNU packages.",
+-                    IDC_STATIC,115,33,195,54
++    LTEXT           "Copyright (C) 2000-2002 Red Hat Inc.",
++			IDC_STATIC,115,138,195,8
++    LTEXT           "                (C) 2001 Jan Nieuwenhuizen <janneke@gnu.org>",IDC_STATIC,115,150,195,8
++    LTEXT           "http://www.lilypond.org/cygwin/",IDC_STATIC,115,162,195,8
++    LTEXT           "This wizard will guide you through the installation and updating LilyPond and all other necessary Cygwin packages.",IDC_STATIC,115,33,195,54
  END
-@@ -230,10 +227,10 @@ END
- IDD_CHOOSE DIALOG DISCARDABLE  0, 0, 429, 266
- STYLE DS_MODALFRAME | DS_3DLOOK | DS_CENTER | WS_POPUP | WS_CAPTION | 
-     WS_SYSMENU
+ 
+ IDD_CHOOSE DIALOG DISCARDABLE  0, 0, 430, 266
+ STYLE DS_MODALFRAME | DS_3DLOOK | DS_CENTER | WS_CHILD | WS_VISIBLE | 
+     WS_CAPTION | WS_SYSMENU
+ EXSTYLE WS_EX_CONTROLPARENT
 -CAPTION "Cygwin Setup"
 +CAPTION "GNU LilyPond Setup"
  FONT 8, "MS Sans Serif"
  BEGIN
--    ICON            IDI_CYGWIN,IDC_STATIC,0,2,21,20
-+    ICON            IDI_LILYPOND,IDC_STATIC,0,2,21,20
+     DEFPUSHBUTTON   "&Next -->",IDOK,311,242,45,15,WS_GROUP
+@@ -243,7 +242,7 @@ BEGIN
+     CONTROL         "E&xp",IDC_CHOOSE_EXP,"Button",BS_AUTORADIOBUTTON,323,5,
+                     25,10
+     PUSHBUTTON      "&View",IDC_CHOOSE_VIEW,353,5,20,10,WS_GROUP
+-    ICON            IDI_CYGWIN,IDC_STATIC,0,2,20,20
++    ICON            IDI_LILYPOND,IDC_STATIC,0,2,20,20
      LTEXT           "Select packages to install",IDC_CHOOSE_INST_TEXT,125,5,
                      99,8
      CONTROL         "",IDC_LISTVIEW_POS,"Static",SS_BLACKFRAME | NOT 
-@@ -256,10 +253,10 @@ END
- 
- IDD_DESKTOP DIALOG DISCARDABLE  0, 0, 215, 95
- STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+@@ -257,14 +256,14 @@ END
+ IDD_DESKTOP DIALOG DISCARDABLE  0, 0, 317, 179
+ STYLE DS_MODALFRAME | DS_3DLOOK | DS_CENTER | WS_CHILD | WS_VISIBLE | 
+     WS_CAPTION | WS_SYSMENU
 -CAPTION "Cygwin Setup"
 +CAPTION "GNU LilyPond Setup"
  FONT 8, "MS Sans Serif"
  BEGIN
--    ICON            IDI_CYGWIN,IDC_STATIC,5,5,20,20
-+    ICON            IDI_LILYPOND,IDC_STATIC,5,5,20,20
-     CONTROL         "Create Desktop &Icon",IDC_ROOT_DESKTOP,"Button",
-                     BS_AUTOCHECKBOX,55,25,100,8
-     CONTROL         "Add to &Start Menu",IDC_ROOT_MENU,"Button",
-@@ -271,10 +268,10 @@ END
+     CONTROL         "Create icon on &Desktop",IDC_ROOT_DESKTOP,"Button",
+                     BS_AUTOCHECKBOX,108,78,100,8
+     CONTROL         "Add icon to &Start Menu",IDC_ROOT_MENU,"Button",
+                     BS_AUTOCHECKBOX,108,93,100,8
+-    ICON            IDI_CYGWIN,IDC_STATIC,290,0,21,20
++    ICON            IDI_LILYPOND,IDC_STATIC,290,0,21,20
+     CONTROL         "",IDC_STATIC,"Static",SS_BLACKFRAME | SS_SUNKEN,0,28,
+                     317,1
+     LTEXT           "Tell setup if you want it to create a few icons for convenient access to the Cygwin environment.",
+@@ -275,10 +274,10 @@ END
  
- IDD_FTP_AUTH DIALOGEX 0, 0, 215, 95
+ IDD_FTP_AUTH DIALOG DISCARDABLE  0, 0, 215, 95
  STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
 -CAPTION "Cygwin Setup"
 +CAPTION "GNU LilyPond Setup"
@@ -397,7 +362,16 @@ diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/res.rc ./res.rc
      LTEXT           "&User ID",IDC_STATIC,5,28,55,15,SS_CENTERIMAGE,
                      WS_EX_RIGHT
      EDITTEXT        IDC_NET_USER,65,28,145,12,ES_AUTOHSCROLL
-@@ -322,6 +319,7 @@ END
+@@ -293,7 +292,7 @@ END
+ IDD_CHOOSER DIALOG DISCARDABLE  0, 0, 247, 116
+ STYLE DS_MODALFRAME | DS_3DLOOK | WS_CHILD | WS_VISIBLE | WS_CAPTION | 
+     WS_SYSMENU
+-CAPTION "Cygwin Setup"
++CAPTION "GNU LilyPond Setup"
+ FONT 8, "MS Sans Serif"
+ BEGIN
+     CTEXT           "This space intentionally left blank",IDC_STATIC,57,45,
+@@ -336,6 +335,7 @@ END
  
  // Icon with lowest ID value placed first to ensure application icon
  // remains consistent on all systems.
@@ -405,7 +379,7 @@ diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/res.rc ./res.rc
  IDI_CYGWIN              ICON    DISCARDABLE     "cygwin.ico"
  
  /////////////////////////////////////////////////////////////////////////////
-@@ -329,6 +327,7 @@ IDI_CYGWIN              ICON    DISCARDA
+@@ -343,6 +343,7 @@ IDI_CYGWIN              ICON    DISCARDA
  // FILE
  //
  
@@ -413,20 +387,28 @@ diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/res.rc ./res.rc
  CYGWIN.ICON             FILE    DISCARDABLE     "cygwin.ico"
  
  /////////////////////////////////////////////////////////////////////////////
-@@ -383,7 +382,8 @@ STRINGTABLE DISCARDABLE 
+@@ -452,7 +453,7 @@ STRINGTABLE DISCARDABLE 
  BEGIN
      IDS_ROOT_SLASH          "Warning: we recommend you do NOT use the root of your hard drive as the cygwin root.  Proceed anyway?"
      IDS_ROOT_SPACE          "You should not choose a root path that include spaces in directory names.  Proceed anyway?"
 -    IDS_MIRROR_LST          "http://sources.redhat.com/cygwin/mirrors.lst"
-+    // IDS_MIRROR_LST          "http://appel.lilypond.org/lilypond/gnu-windows/mirrors.lst"
-+    IDS_MIRROR_LST          "http://www.lilypond.org/gnu-windows/mirrors.lst"
++    IDS_MIRROR_LST          "http://www.lilypond.org/cygwin/mirrors.lst"
      IDS_DIALOG_FAILED       "Unable to create Dialog Box"
      IDS_CYGWIN_FUNC_MISSING "Error: unable to find function `%s' in %s"
      IDS_DOWNLOAD_SHORT      "Download error: %s too short (%d, wanted %d)"
-diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/resource.h ./resource.h
---- ../cinstall.orig/resource.h	Sat Jun 30 03:37:55 2001
-+++ ./resource.h	Sun Dec  2 15:45:18 2001
-@@ -47,12 +47,13 @@
+@@ -461,7 +462,7 @@ BEGIN
+     IDS_OLD_SETUPINI        "This setup.ini is older than the one you used last time you installed cygwin.  Proceed anyway?"
+     IDS_ERR_RENAME          "Can't rename %s to %s: %s"
+     IDS_NOTHING_INSTALLED   "Nothing needed to be installed"
+-    IDS_INSTALL_COMPLETE    "Installation Complete"
++    IDS_INSTALL_COMPLETE    "Installation Complete.  See http://www.lilypond.org/cygwin/ for support."
+     IDS_REBOOT_REQUIRED     "In-use files have been replaced. You need to reboot as soon as possible to activate the new versions. Cygwin may operate incorrectly until you reboot."
+ END
+ 
+diff -purN --exclude=*~ ../cinstall.orig/resource.h ./resource.h
+--- ../cinstall.orig/resource.h	Tue Jan 29 10:24:34 2002
++++ ./resource.h	Tue Jan 29 10:34:12 2002
+@@ -48,13 +48,14 @@
  #define IDB_SPIN                        118
  #define IDB_RTARROW                     119
  #define IDI_SPIN                        120
@@ -437,7 +419,20 @@ diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/resource.h ./resour
  #define IDB_CHECK_NO                    124
  #define IDB_CHECK_NA                    125
  #define IDD_FTP_AUTH                    126
-+#define IDI_CYGWIN                      127
+ #define IDD_CHOOSER                     127
++#define IDI_CYGWIN                      128
  #define IDC_SOURCE_DOWNLOAD             1000
  #define IDC_SOURCE_NETINST              1001
  #define IDC_SOURCE_CWD                  1002
+diff -purN --exclude=*~ ../cinstall.orig/site.cc ./site.cc
+--- ../cinstall.orig/site.cc	Tue Jan 29 10:24:34 2002
++++ ./site.cc	Tue Jan 29 22:17:13 2002
+@@ -415,6 +415,8 @@ bool SitePage::OnMessageCmd (int id, HWN
+ 	  {
+ 	    // User pushed the Add button.
+ 	    other_url = eget (GetHWND (), IDC_EDIT_USER_URL, other_url);
++	    if (!other_url)
++	      break;
+ 	    site_list_type *
+ 	      newsite =
+ 	      new

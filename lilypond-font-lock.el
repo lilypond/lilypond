@@ -24,9 +24,7 @@
 ;;
 
 ;; TODO:
-;;   - should handle block comments too.
 ;;   - handle lexer modes (\header, \melodic, \lyric) etc.
-;;   - indentation
 
 (defconst LilyPond-font-lock-keywords
   (let* ((keywords '( ; need special order due to over[lapping] of words
@@ -131,7 +129,13 @@
 ;; highlight keywords
       (cons (concat "\\([_^]?\\(" kwregex "\\)\\)+\\($\\|[] \t(~{}>\\\\]\\)") '(0 font-lock-keyword-face t))
 
-      '("\\([][><}{]\\)" 0 font-lock-warning-face t)
+;; highlight bracketing constructs
+      '("\\([][}{]\\)" 0 font-lock-warning-face t)
+;; these regexps allow angle-brackets to be highlighted,
+;; but leave accented notes, e.g. a b c->, alone
+      '("[^\\]\\(<\\)" 1 font-lock-warning-face t)
+      '("[_^-]\\s-*[-^]\\s-*\\(>\\)" 1 font-lock-warning-face t)
+      '("[^\\t\\n _^-]\\s-*\\(>\\)" 1 font-lock-warning-face t)
 
       '("\\([(~)]\\|\\\\<\\|\\\\!\\|\\\\>\\)" 0 font-lock-builtin-face t)
 
@@ -158,24 +162,21 @@
   (mapcar (function
 	   (lambda (x) (modify-syntax-entry
 			(car x) (cdr x) LilyPond-mode-syntax-table)))
-	  '(( ?\( . "()" ) ( ?\) . ")(" )   ; need matching parens for inline lisp
- 	    ( ?\[ . "." ) ( ?\] . "." )
-	    ( ?\{ . "(}" ) ( ?\} . "){" )
-	    ( ?\< . "(>" )( ?\> . ")>") 
+	  '(( ?\( . "." ) ( ?\) . "." ) 
+	    ( ?\[ . "." ) ( ?\] . "." )
+	    ( ?\{  .  "(}2b" )
+	    ( ?\}  .  "){4b" )
+	    ( ?\< . "." )( ?\> . ".") 
 	    ( ?\$ . "." ) ( ?\% . "." ) ( ?\& . "." )
-	    ( ?\* . "." ) ( ?\+ . "." ) ( ?\- . "." )
+	    ( ?\* . "." ) ( ?\+ . "." )
 	    ( ?\/ . "." )  ( ?\= . "." )
 	    ( ?\| . "." ) (?\\ . "\\" )
-	    ( ?\_ . "." )	
+	    ( ?\- . "." ) ( ?\_ . "." ) ( ?\^ . "." )
 	    ( ?\' . "w")	
 	    ( ?\" . "\"" )
-	    ( ?\% . "<")
+	    ( ?\%  .  ". 1b3b" )
 	    ( ?\n . ">")
-
-; FIXME
-;	    ( ?%  .  ". 124b" )
-;	    ( ?{  .  ". 23" )
+	    ( ?\r . ">")
 	    ))
-
-  )	
+  )
 
