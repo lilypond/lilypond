@@ -113,6 +113,8 @@ lilypond -fgnome input/simple-song.ly
 	(gnome-canvas-path-def-lineto (get-def this) x y))
       (define-method (closepath (this <gnome-canvas-path-def>))
 	(gnome-canvas-path-def-closepath (get-def this)))
+      (define-method (reset (this <gnome-canvas-path-def>))
+	(gnome-canvas-path-def-reset (get-def this)))
       
       (define -set-path-def set-path-def)
       (define -get-path-def get-path-def)
@@ -199,6 +201,8 @@ lilypond -fgnome input/simple-song.ly
 		   #:fill-color "black"
 		   #:outline-color "black"
 		   #:width-units thick)))
+
+    (reset def)
     
     ;; cl cr r l  0 1 2 3 
     ;; cr cl l r  4 5 6 7
@@ -219,7 +223,8 @@ lilypond -fgnome input/simple-song.ly
     bezier))
 
 (define (char font i)
-  (text font (utf8 i)))
+  ;;(text font (utf8 i)))
+  (text font (list->string (list (integer->char i))))); (utf8 i)))
 
 (define (placebox x y expr)
   (debugf "item: ~S\n" expr)
@@ -240,15 +245,25 @@ lilypond -fgnome input/simple-song.ly
   ;; FIXME: blot?
   (draw-rectangle (- breapth) depth width (- height) "black" blot-diameter))
 
+(define pango-font-name-alist
+  '(("GNU-LilyPond-feta-20" . "lilypond-feta, regular 32")
+    ("GNU-LilyPond-feta-nummer-5.5" . "lilypond-feta-nummer, regular 32")
+    ("GNU-LilyPond-feta-din-14" . "lilypond-feta-din, 25")
+    ("GNU-LilyPond-feta-14.14" . "lilypond-feta, regular 25")
+    ("GNU-LilyPond-feta-12.6" .  "lilypond-feta, regular 22")
+    ("GNU-LilyPond-feta-braces-f-90" . "LilyPond-feta-braces-f, 32")
+    ))
+
 (define (pango-font-name font)
-  (cond
-   ((equal? (ly:font-name font) "GNU-LilyPond-feta-20")
-    "lilypond-feta, regular 32")
-   (else
-    ;; FIXME
-    "ecrm12")))
-    ;;(ly:font-name font))))
-    ;;(ly:font-filename font))))
+  (let ((pango-font (assoc-get (ly:font-name font) pango-font-name-alist #f)))
+    (if pango-font
+	pango-font
+	(begin
+	  (stderr "font-name: ~S\n" (ly:font-name font))
+	  ;; TODO s/filename/file-name/
+	  (stderr "font-filename: ~S\n" (ly:font-filename font))
+	  (stderr "pango-font-size: ~S\n" (pango-font-size font))
+	"ecrm12"))))
 
 (define (pango-font-size font)
   (let* ((designsize (ly:font-design-size font))
@@ -280,15 +295,6 @@ lilypond -fgnome input/simple-song.ly
 ;;design:20.0
 
 (define (text font string)
-  (if #f
-      (begin
-	(stderr "font-name: ~S\n" (ly:font-name font))
-	;; TODO s/filename/file-name/
-	(stderr "font-filename: ~S\n" (ly:font-filename font))
-	
-	(stderr "pango-font-name: ~S\n" (pango-font-name font))
-	(stderr "pango-font-size: ~S\n" (pango-font-size font))))
-  
   (make <gnome-canvas-text>
     #:parent (canvas-root)
 

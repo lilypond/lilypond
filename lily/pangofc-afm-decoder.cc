@@ -301,8 +301,8 @@ main (int argc, char **argv)
 
   /* Register GNU LilyPond FETA AFM decoders.  */
   pango_fc_afm_add_decoder ("lilypond-feta");
-  pango_fc_afm_add_decoder ("lilypond-braces");
-  pango_fc_afm_add_decoder ("lilypond-dyn");
+  pango_fc_afm_add_decoder ("lilypond-feta-braces-f");
+  pango_fc_afm_add_decoder ("lilypond-din");
   pango_fc_afm_add_decoder ("lilypond-parmesan");
 
   int text_item = gnome_canvas_text_get_type ();
@@ -312,6 +312,8 @@ main (int argc, char **argv)
   gnome_canvas_text (45.0, 122.5, "LilyPond-feta-nummer 16", "3");
   gnome_canvas_text (45.0, 142.5, "LilyPond-feta-nummer, r 16", "4");
   gnome_canvas_text (10.0, 142.0, "LilyPond-feta, 32", g_clef_utf8);
+  gnome_canvas_text (10.0, 162.0, "LilyPond-feta-din, 32", "fmsrpz");
+  gnome_canvas_text (5.0, 142.0, "LilyPond-feta-braces-f, 32", "AZ");
 
   gtk_main ();
   return 0;
