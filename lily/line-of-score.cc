@@ -233,8 +233,6 @@ Line_of_score::add_column (Paper_column*p)
 
   p->rank_i_ = prev ? Paper_column::rank_i (prev) + 1 : 0; 
 
-
-
   me->set_grob_property ("columns",  gh_cons (p->self_scm (), cs));
 
   Axis_group_interface::add_element (me, p);
