@@ -75,7 +75,7 @@ New_pc_iterator::derived_mark () const
 
 void
 New_pc_iterator::derived_substitute (Translator_group*f,
-						 Translator_group*t)
+				     Translator_group*t)
 {
   if (first_iter_)
     first_iter_->substitute_outlet (f,t);
@@ -205,16 +205,16 @@ New_pc_iterator::construct_children ()
     =  report_to ()->find_create_translator (ly_symbol2scm ("Voice"),
 					     "shared",props);
 
-  Translator_group *null
-    =  report_to ()->find_create_translator (ly_symbol2scm ("Devnull"),
-					     "", SCM_EOL);
-  null_.set_translator (null);
   tr->execute_pushpop_property (ly_symbol2scm ("NoteHead"),
 				ly_symbol2scm ("font-size"), gh_int2scm (3));
 
   
   shared_ .set_translator (tr); 
   set_translator (tr);
+  Translator_group *null
+    =  report_to ()->find_create_translator (ly_symbol2scm ("Devnull"),
+					     "", SCM_EOL);
+  null_.set_translator (null);
 
   Translator_group *one = tr->find_create_translator (ly_symbol2scm ("Voice"),
 						      "one", props);
