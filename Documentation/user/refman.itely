@@ -9,7 +9,6 @@
 
 @macro refbugs
 @strong{BUGS}
-
 @end macro
 
 
@@ -1689,8 +1688,15 @@ respectively.
 @end lilypond
 
 Typographically, the phrasing slur behaves almost exactly like a normal
-slur. See also  @seeinternals{PhrasingSlur}.
+slur.  See also @seeinternals{PhrasingSlur}.  But although they behave
+similarily to normal slurs, phrasing slurs count as different objects.
+A @code{\slurUp} will have no effect on a phrasing slur; instead, you
+should use @code{\phrasingSlurUp}, @code{\phrasingSlurDown}, and
+@code{\phrasingSlurBoth}.
 
+Note that the commands
+@code{\slurUp}, @code{\slurDown}, and @code{\slurBoth} will only affect
+normal slurs and not phrasing slurs.
 
 @node Breath marks
 @subsection Breath marks
@@ -2014,6 +2020,31 @@ is to put the grace notes before a phantom ``space note'', e.g.
     < { d1^\trill ( }
      { s2 \grace { [c16 d] } } >
    )c4
+}
+@end lilypond
+
+A @code{\grace} section has some default values, and LilyPond will
+use those default values unless you specify otherwise inside the
+@code{\grace} section.  For example, if you specify \slurUp
+@emph{before} your @code{\grace} section, a slur which starts inside
+the @code{\grace} won't be forced up, even if the slur ends outside
+of the @code{\grace}.  Note the difference between the first and
+second bars in this example:
+
+@lilypond[fragment,verbatim]
+\relative c'' \context Voice {
+    \slurUp
+    \grace {
+        a4 ( }
+    ) a4 a4 () a2
+    \slurBoth
+
+    \grace {
+        \slurUp
+        a4 ( }
+    ) a4 a4 () a2
+    \slurBoth
+
 }
 @end lilypond
 
