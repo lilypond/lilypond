@@ -1,3 +1,18 @@
+pl 71pre
+	- init id's, Input_register aliases.
+	- bf: notehead x-swap 
+	- bf: auto-keys.
+	- bf: first clef
+	- junked \init_end; construct
+	- Preparatory work for MIDI output:
+		* Acceptor as baseclass for Register_group_register
+		* Global_acceptor as interface of Register to Score
+	- bf: empty voice
+	- Lyrics: partially working
+	- some doco updates (junks, mostly)
+
+
+******
 june 30
 pl 70pre
 	- bf: text Script

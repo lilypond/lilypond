@@ -30,36 +30,9 @@ might be integrated in larger systems.
 
 No difficult algorithms. Associated datastructures have prefix Input
 (eg Input_score, Input_command). The .ly file is read, and converted
-to Requests, Voice_elements, Voices.
+to 
 
-The result looks something like this (? = 0 or 1, * =0 or more, + = 1
-or more)
-
-	Score {
-		Midi_def?
-		Paper_def?
-		Staff+ {
-			Voice+ {
-				start_moment
-				Voice_element* {
-					duration
-					Request*
-				}
-			}
-			Input_register { ..}
-		}
-	}
-
-Request is a baseclass for almost all kinds of information. As you can
-see, the info is stored horizontally; horizontally is the natural form
-for entering music.
-
-=item Setting up music
-
-Simultaneous  Requests are grouped into columns. Vertical is the
-natural form for processing music.
-
-=item Processing:
+=item Creating elements
 
 Requests are processed and used to create elements (like balls, stems,
 slurs etc). This is done by a hierarchy of "brokers" (called
@@ -104,51 +77,7 @@ determine what to output when.
 
 =head1 INTERNALS
 
-This chapter deals with the internals of Mudela. In the end Mudela
-converted to Voice, which contain Voice_elements which (in turn)
-contain Requests. The former 2 types are basically containers (lists).
-Consider the following simple mudela
-
-	\music { c4 <e4 g4> }
-
-After the parsing, this is converted to: (from the debug output)
-
-	Voice { start: 0
-	  voice_element { dur :1/4
-	    Stem_req {duration { 4}}
-	    Note_req {notename: 0 acc: 0 oct: -1 
-	      duration { 4}}
-	    Group_change_req {}
-	    }
-	  voice_element { dur :0
-	    Terminate_voice_req {}
-	    }
-	  }
-
-	Voice { start: 1/4
-	  voice_element { dur :1/4
-	    Stem_req {duration { 4}}
-	    Note_req {notename: 2 acc: 0 oct: -1 
-	      duration { 4}}
-	    Group_change_req {}
-	    }
-	  voice_element { dur :0
-	    Terminate_voice_req {}
-	    }
-	  }
-
-	Voice { start: 1/4
-	  voice_element { dur :1/4
-	    Stem_req {duration { 4}}
-	    Note_req {notename: 4 acc: 0 oct: -1 
-	      duration { 4}}
-	    Group_change_req {}
-	    }
-	  voice_element { dur :0
-	    Terminate_voice_req {}
-	    }
-	  }
-
+This chapter deals with the internals of Mudela. 
 
 =head2 Requests
 
@@ -223,15 +152,6 @@ notes is thought to be made of two "dynamics": a start and a stop).
 Dynamic changes can occur in a smaller time than the length of its
 note, therefore fore each  C<Dynamic> request carries a time, measured
 from the start of its note.
-
-=head2 Voice_element
-
-Voice_element is a list of requests together with a duration. It is
-strictly horizontal
-
-=head2 Voice
-
-Voice is a list of Voice_elements together with a starting time.
 
 =head2 Voice groups
 
