@@ -118,17 +118,8 @@ a fresh copy of the  list-head is made."
 	(car rest)
 	'Voice))))
 
-;; UGH -- fixme, docme
-(define-public (score-override-auto-beam-setting setting num den . rest)
-  (ly:export
-   (context-spec-music
-    (make-apply-context (lambda (c)
-			  (override-property-setting
-			   c 'autoBeamSettings
-			   setting (ly:make-moment num den))))
-    (if (and (pair? rest) (symbol? (car rest)))
-	(car rest)
-	'Score))))
+(define-public (score-override-auto-beam-setting setting num den)
+  (override-auto-beam-setting setting num den 'Score))
 
 (define-public (revert-auto-beam-setting setting . rest)
   (ly:export
