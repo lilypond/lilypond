@@ -1,3 +1,10 @@
+2004-04-06  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/kpath.cc (kpathsea_gulp_file_to_string): 
+	(ly:kpathsea-gulp-file): New function.
+
+	* scm/encoding.scm (read-encoding-file): Use it.
+
 2004-04-06  Werner Lemberg  <wl@gnu.org>
 
 	* scm/encoding.scm (coding-alist): Fix typo.

@@ -39,36 +39,30 @@ Source_file::load_stdin ()
   contents_str0_ = chs.remove_array ();
 }
 
-
-
-char *
-gulp_file (String fn, int* len)
+char*
+gulp_file (String filename, int *filesize)
 {
-  /*
-    let's hope that "b" opens anything binary, and does not apply
-    CR/LF translation
-    */
-  FILE * f =  fopen (fn.to_str0 (), "rb");
-
+  /* "b" must ensure to open literally, avoiding text (CR/LF)
+     conversions.  */
+  FILE *f = fopen (filename.to_str0 (), "rb");
   if (!f)
     {
-      warning (_f ("can't open file: `%s'", fn.to_str0 ()));
+      warning (_f ("can't open file: `%s'", filename.to_str0 ()));
       return 0;
     }
 
-  int ret = fseek (f, 0, SEEK_END);
-
-  *len = ftell (f);
+  fseek (f, 0, SEEK_END);
+  *filesize = ftell (f);
   rewind (f);
-  char *  str = new char[*len+1];
-  str[*len] = 0;
-  ret = fread (str, sizeof (char), *len, f);
 
-  if (ret!=*len)
-    warning (_f ("Huh?  Got %d, expected %d characters", ret, *len));
+  char *str = new char[*filesize + 1];
+  str[*filesize] = 0;
 
+  int bytes_read = fread (str, sizeof (char), *filesize, f);
+  if (bytes_read != *filesize)
+    warning (_f ("Huh?  Got %d, expected %d characters", bytes_read,
+		 *filesize));
   fclose (f);
-
 
   return str;
 }

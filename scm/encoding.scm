@@ -5,24 +5,20 @@
 ;;;; (c) 2004 Jan Nieuwenhuizen <janneke@gnu.org>
 
 ;; WIP
-;; cp /usr/share/texmf/dvips/base/*.enc mf/out
-;; cp /usr/share/texmf/dvips/tetex/*.enc mf/out
 ;; encoding.ly:
 ;; #(display (reencode-string "adobe" "latin1" "hellö fóebär"))
 ;;
 
 
-(define (read-encoding-file filename)
-  "Read .enc file, returning a vector of symbols."
-  (let* ((raw (ly:gulp-file filename))
+(define-public (read-encoding-file filename)
+  "Read .enc file, return as a vector of symbols."
+  (let* ((raw (ly:kpathsea-gulp-file filename))
 	 (string (regexp-substitute/global #f "%[^\n]*" raw 'pre "" 'post))
 	 (start (string-index string #\[))
 	 (end (string-index string #\]))
 	 (ps-lst (string-tokenize (substring string (+ start 1) end)))
-	 (lst (map (lambda (x) (substring x 1)) ps-lst))
-	 (vector (list->vector lst)))
-
-    vector))
+	 (lst (map (lambda (x) (substring x 1)) ps-lst)))
+    (list->vector lst)))
 
 (define (make-encoding-table encoding-vector)
   "Return a hash table mapping names to chars. ENCODING-VECTOR is a
@@ -90,8 +86,9 @@ vector of symbols."
 	 
 	 ("T1" . "tex256.enc")
 
-	 ;; for testing -- almost adome
+	 ;; FIXME: find full Adobe; for testing -- almost Adobe:
 	 ("adobe" . "ad.enc")
+
 	 ("latin1" . "cork.enc")
 	 
 	 ;; LilyPond.
@@ -111,12 +108,7 @@ vector of symbols."
   (cadr (get-coding coding-name)))
 
 
+;;; JUNKME
 ;;; what's this for? --hwn
-(define-public (encoded-index font-coding input-coding code)
-  (format (current-error-port) "CODE: ~S\n" code)
-  (let* ((font (get-coding-table font-coding))
-	 (in (get-coding-vector input-coding))
-	 (char (vector-ref in code)))
-    (format (current-error-port) "CHAR: ~S\n" char)
-    (hash-ref font char)))
-
+;; (define-public (encoded-index font-coding input-coding code)
+;; This was used by simplistic first incarnation of reencode-string --jcn
