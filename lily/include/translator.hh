@@ -120,7 +120,7 @@ classname::static_translator_description () const \
 			      parse_symbol_list (grobs), static_properties);	\
 			      									\
   static_properties= scm_acons (ly_symbol2scm ("description"),					\
-			      ly_str02scm (desc), static_properties);				\
+			      scm_makfrom0str (desc), static_properties);				\
 												\
   static_properties= scm_acons (ly_symbol2scm ("interfaces-acked"),				\
 			      parse_symbol_list (acked), static_properties);			\

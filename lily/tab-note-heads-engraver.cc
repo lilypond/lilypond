@@ -71,15 +71,6 @@ Tab_note_heads_engraver::try_music (Music *m)
 void
 Tab_note_heads_engraver::process_music ()
 {
-  /*
-  for (int i=0; i < tabstring_reqs_.size (); i++) {
-      Music * tabstring_req = tabstring_reqs_[i];
-      
-      size_t lenp;
-      char* tab_string_as_string = gh_scm2newstr(tabstring_req->get_mus_property ("text"), &lenp);
-  }
-  */
-  
   for (int i=0; i < note_reqs_.size (); i++)
     {
       SCM stringTunings = get_property ("stringTunings");
