@@ -26,11 +26,15 @@ PScore::get_spacing(PCol*l, PCol*r)
 void
 PScore::clean_cols()
 {
+    int rank_i = 0;
     for (iter_top(cols,c); c.ok(); )
 	if (!c->used_b()) {
 	    delete c.remove_p();
-	} else
+	} else {
+	    c->set_rank(rank_i++);
 	    c++;
+	}
+    
 }
 
 
@@ -248,6 +252,7 @@ void
 PScore::process()
 {
     clean_cols();
+    
     *mlog << "Preprocessing ... " <<flush;
     preprocess();
     *mlog << "\nCalculating column positions ... " <<flush;
