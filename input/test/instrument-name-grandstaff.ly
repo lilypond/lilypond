@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.29"
 \header { texidoc = "@cindex Instrument Name Grandstaff
 You can have a name for the whole @code{GrandStaff} in addition to 
 individual @code{Staff}s. " }
@@ -14,6 +14,6 @@ individual @code{Staff}s. " }
 
 \paper {
 raggedright = ##t
-\translator { \GrandStaffContext \consists "Instrument_name_engraver" }
+\context { \GrandStaffContext \consists "Instrument_name_engraver" }
 }}
 

@@ -5,7 +5,7 @@
     texts using a similar syntax as @code{\\markup}."
 
     }
-\version "2.1.28"
+\version "2.1.29"
 \score {
     \notes {
         \fatText
@@ -56,7 +56,7 @@
     \paper { 
         raggedright = ##t
         indent = #0
-        \translator {
+        \context {
             \StaffContext
             \remove Time_signature_engraver 
         }

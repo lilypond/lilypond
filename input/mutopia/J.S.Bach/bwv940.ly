@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.1.28"
+\version "2.1.29"
 
 %{
  Header for Petites Preludes.
@@ -151,7 +151,7 @@ global = \notes{
 	>>
 	\paper{
 		linewidth = 17.0 \cm  
-		\translator {
+		\context {
 		    \ScoreContext
 		    \override SpacingSpanner #'spacing-increment = #2.0
 		}

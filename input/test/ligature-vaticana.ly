@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.29"
 
 \header { texidoc	= "@cindex Ancient Vaticana
 Vaticana ligature uses four staff lines, special clef, an notes
@@ -33,7 +33,7 @@ verba = \context Lyrics = "verba" \lyrics {
     indent = 0.0
     raggedright = ##t
     packed = ##t
-    \translator {
+    \context {
       \ScoreContext
       \remove Bar_number_engraver
       timing = ##f

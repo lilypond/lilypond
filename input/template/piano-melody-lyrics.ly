@@ -1,5 +1,5 @@
 
-\version "2.1.28"
+\version "2.1.29"
 \header {
   texidoc ="Classical song format: one staff with melody and lyrics,
 and piano accompaniment."
@@ -39,7 +39,7 @@ lower = \notes\relative c {
       >>
   >>
   \paper {
-      \translator { \RemoveEmptyStaffContext }
+      \context { \RemoveEmptyStaffContext }
   }  
   \midi { }  
 }

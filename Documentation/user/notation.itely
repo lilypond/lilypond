@@ -306,7 +306,7 @@ r1 r2 r4 r8 r16 r32 r64 r64
     r1 r2 r4 r8 r16 r32 r64 r64 
   }
   \paper {
-    \translator {
+    \context {
       \StaffContext
         \remove "Clef_engraver"
         \override StaffSymbol #'transparent = ##t 
@@ -1011,7 +1011,7 @@ measure is subdivided in 2, 2, 2 and 3. This is passed to
    }
    \paper {
        raggedright = ##t
-       \translator { \StaffContext
+       \context { \StaffContext
          \consists "Measure_grouping_engraver"
    }}}
 @end lilypond 
@@ -1957,7 +1957,7 @@ To use this, add the @internalsref{Horizontal_bracket_engraver} to
 	c4\startGroup
         c4\stopGroup\stopGroup
   }
-  \paper { \translator {
+  \paper { \context {
 	    \StaffContext \consists "Horizontal_bracket_engraver"
 	}}}
 @end lilypond
@@ -2821,7 +2821,7 @@ mus = \drums  { cymc cyms cymr hh | hhc hho hhho hhp | \break cb hc
     \paper {
     %% need to do this, because of indented @itemize
     linewidth= 9 \cm 
-    \translator { \ScoreContext
+    \context { \ScoreContext
     \override BarNumber #'transparent =##T
 }}}
 @end lilypond
@@ -3582,7 +3582,7 @@ To apply, add the @internalsref{Ambitus_engraver} to the
 
 @example
   \paper @{
-    \translator @{
+    \context @{
       \VoiceContext
       \consists Ambitus_engraver
     @}
@@ -3610,7 +3610,7 @@ lower = \notes \relative c {
     >>
   }
   \paper {
-    \translator {
+    \context {
       \StaffContext
       \consists Ambitus_engraver
     }
@@ -4541,7 +4541,7 @@ in this example disappears in the second line:
   >>
   \paper {
     linewidth = 6.\cm 
-    \translator { \RemoveEmptyStaffContext }
+    \context { \RemoveEmptyStaffContext }
   }
 }
 @end lilypond
@@ -4832,11 +4832,11 @@ select ancient accidentals.   Supported styles are
     \paper {
         raggedright = ##t 
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator{
+        \context{
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -5219,7 +5219,7 @@ following table:
     \paper {
 	indent = 0.0
 	raggedright = ##t
-	\translator {
+	\context {
 	    \StaffContext
 	    \remove Staff_symbol_engraver
 	    \remove Clef_engraver
@@ -5293,7 +5293,7 @@ as shown in the following example:
 
 @example
 \paper @{
-  \translator @{
+  \context @{
      \StaffContext
      \consists Custos_engraver
      Custos \override #'style = #'mensural
@@ -5312,7 +5312,7 @@ The result looks like this:
 	g'
     }
     \paper {
-	\translator {
+	\context {
 	    \StaffContext
 	    \consists Custos_engraver
 	}
@@ -5352,11 +5352,11 @@ supported are @code{vaticana}, @code{medicaea}, @code{hufnagel} and
     \paper {
 	raggedright = ##t 
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator{
+        \context{
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -5528,7 +5528,7 @@ To engrave white mensural ligatures, in the paper block the
 
 @example
     \paper @{
-        \translator @{
+        \context @{
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Mensural_ligature_engraver
@@ -5569,7 +5569,7 @@ For example,
         \[ e1 f1 a\breve g\longa \]
     }
     \paper {
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Mensural_ligature_engraver
@@ -5652,11 +5652,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -5665,7 +5665,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -5694,11 +5694,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -5707,7 +5707,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -5728,11 +5728,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -5741,7 +5741,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -5765,11 +5765,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -5778,7 +5778,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -5804,11 +5804,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -5817,7 +5817,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -5838,11 +5838,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -5851,7 +5851,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -5876,11 +5876,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -5889,7 +5889,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -5915,11 +5915,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -5928,7 +5928,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -5953,11 +5953,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -5966,7 +5966,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -5987,11 +5987,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -6000,7 +6000,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -6024,11 +6024,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -6037,7 +6037,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -6062,11 +6062,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -6075,7 +6075,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -6096,11 +6096,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -6109,7 +6109,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -6133,11 +6133,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -6146,7 +6146,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -6167,11 +6167,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -6180,7 +6180,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -6205,11 +6205,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -6218,7 +6218,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -6239,11 +6239,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -6252,7 +6252,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -6277,11 +6277,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -6290,7 +6290,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -6311,11 +6311,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -6324,7 +6324,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -6349,11 +6349,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -6362,7 +6362,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -6383,11 +6383,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -6396,7 +6396,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -6417,11 +6417,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -6430,7 +6430,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -6454,11 +6454,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -6467,7 +6467,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -6488,11 +6488,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -6501,7 +6501,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -6522,11 +6522,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -6535,7 +6535,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -6559,11 +6559,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -6572,7 +6572,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -6593,11 +6593,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -6606,7 +6606,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -6627,11 +6627,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -6640,7 +6640,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -6664,11 +6664,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -6677,7 +6677,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -6698,11 +6698,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -6711,7 +6711,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -6732,11 +6732,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -6745,7 +6745,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -6769,11 +6769,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -6782,7 +6782,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -6803,11 +6803,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -6816,7 +6816,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -6837,11 +6837,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -6850,7 +6850,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -6874,11 +6874,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -6887,7 +6887,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -6908,11 +6908,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -6921,7 +6921,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -6946,11 +6946,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     }
     \paper {
         interscoreline = 1
-        \translator {
+        \context {
             \ScoreContext
             \remove "Bar_number_engraver"
         }
-        \translator {
+        \context {
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
@@ -6959,7 +6959,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
         }
-        \translator {
+        \context {
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
@@ -7550,7 +7550,7 @@ used in music aimed at beginners:
 @lilypond[raggedright,verbatim,staffsize=26]
 \score {
   \notes { c'2 e'4 f' | g'1 }
-  \paper { \translator { \EasyNotation } } 
+  \paper { \context { \EasyNotation } } 
 }
 @end lilypond
 

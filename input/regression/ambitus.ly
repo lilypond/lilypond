@@ -23,7 +23,7 @@ switched on or off via the @code{join-heads} property.
 paper block:
 
 @example
-\translator @{
+\context @{
   \ScoreContext
   breakAlignOrder = #'(
     instrument-name
@@ -42,7 +42,7 @@ paper block:
 
  
 @example
-\translator @{
+\context @{
   \VoiceContext
   \consists Ambitus_engraver
   Ambitus \set #'note-head-style = #'noteheads-2mensural
@@ -52,7 +52,7 @@ paper block:
 
 
  %}
-\version "2.1.28"
+\version "2.1.29"
 
 upper = \notes \relative c {
 	\clef "treble"
@@ -76,7 +76,7 @@ lower = \notes \relative c {
 		\new Staff { \lower }
 	>> }
 	\paper {
-	       \translator {
+	       \context {
 			\ScoreContext
 			breakAlignOrder = #'(
 				instrument-name
@@ -91,7 +91,7 @@ lower = \notes \relative c {
 				custos
 			)
 		}
-		\translator {
+		\context {
 			\VoiceContext
 			\consists Ambitus_engraver
 		}

@@ -1,5 +1,5 @@
 
-\version "2.1.28"
+\version "2.1.29"
 % possible rename to bar-lines-foo.  -gp
 
 \header{ texidoc = "@cindex Bar Lines Remove
@@ -15,7 +15,7 @@ have been removed.
   }
   \paper {
     raggedright = ##t
-    \translator {
+    \context {
       \StaffContext
       whichBar = #""
       \remove "Time_signature_engraver"

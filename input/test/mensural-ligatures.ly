@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.29"
 % TODO:
 % check with ancient- stuff.  rename, merge, something.  -gp
 
@@ -47,7 +47,7 @@ voice = \notes \transpose c c' {
     >>
     \paper {
 	linethickness = \staffspace / 5.0
-	\translator {
+	\context {
 	    \VoiceContext
 	    \name MensuralVoice
 	    \alias Voice
@@ -55,7 +55,7 @@ voice = \notes \transpose c c' {
 	    \consists Mensural_ligature_engraver
 	    \override NoteHead #'style = #'mensural
 	}
-	\translator {
+	\context {
 	    \StaffContext
 	    \name MensuralStaff
 	    \alias Staff
@@ -72,11 +72,11 @@ voice = \notes \transpose c c' {
 	    clefPosition = #-2
 	    clefOctavation = #-0
 	}
-	\translator {
+	\context {
 	    \RemoveEmptyStaffContext
 	    \accepts MensuralVoice
         }
-	\translator {
+	\context {
 	    \ScoreContext
 	    \accepts MensuralStaff
 	}

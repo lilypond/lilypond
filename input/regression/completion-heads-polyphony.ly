@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.29"
 \header {
 
     texidoc = "Completion heads are broken across bar lines. This was
@@ -15,7 +15,7 @@ Completion heads are not fooled by polyphony with a different rhythm.
 	>>
 
 	\paper {
-		\translator{
+		\context{
 			\VoiceContext
 			\remove "Note_heads_engraver"
 			\consists "Completion_heads_engraver"

@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.29"
 
 
 \header {
@@ -145,7 +145,7 @@ banterProperties = \sequential {
     >>
     \paper {
 	indent = 3.\cm
-	\translator { 
+	\context { 
 	    \ChordNamesContext
 	    \consists Instrument_name_engraver
 	}

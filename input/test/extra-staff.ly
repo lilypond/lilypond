@@ -1,5 +1,5 @@
 
-\version "2.1.28"
+\version "2.1.29"
 
 % definitely wil be renamed to something.
 %{
@@ -45,7 +45,7 @@ a piece. "
 	>>
   	\paper {
 		raggedright = ##t
-		\translator{
+		\context{
 			\ScoreContext
 
 		}

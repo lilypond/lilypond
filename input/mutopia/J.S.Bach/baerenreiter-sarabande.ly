@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.29"
 
 % #(ly:set-point-and-click 'line-column)
 
@@ -150,11 +150,11 @@ sarabandeCelloStaff = \context Staff <<
 
 % size perversions
 smallerPaper = \paper {
-    \translator { \StaffContext
+    \context { \StaffContext
 		  fontSize = #-1
 		  \override StaffSymbol  #'staff-space = #0.8
 		  }
-    \translator { \ScoreContext
+    \context { \ScoreContext
 		   \override SpacingSpanner #'spacing-increment = #0.96
 		}
 	
@@ -166,7 +166,7 @@ baerPaper = \paper {
     indent = 7. \mm
     linewidth =183.5 \mm
     interscoreline=4.0\mm
-    \translator {
+    \context {
 	     \ScoreContext
 %	     \override System #'print-function = #box-grob-stencil
     }

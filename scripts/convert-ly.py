@@ -1982,10 +1982,11 @@ new syntax for setting \\arpeggioBracket"""))
 
 def conv (str):
 	str = re.sub (r'\\center([^-])', '\\center-align\\1', str)
+	str = re.sub (r'\\translator', '\\context', str)
 	return str
 
 conversions.append (((2,1,29), conv,
-		     '\\center -> \\center-align'))
+		     '\\center -> \\center-align, \\translator -> \\context'))
 
 ################################
 #	END OF CONVERSIONS	

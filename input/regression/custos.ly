@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.29"
 \header {
     texidoc = "Custodes may be engraved in various styles."
 }
@@ -24,7 +24,7 @@
 	\break < d' a' f''>1
     }
     \paper {
-	\translator {
+	\context {
 	    \StaffContext
 	    \consists Custos_engraver
 	}

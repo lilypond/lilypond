@@ -4,7 +4,7 @@
 \include "deutsch.ly"
 
 #(set-global-staff-size 16)
-\version "2.1.28"
+\version "2.1.29"
 
 \header {
   title = "Romanzen"
@@ -274,14 +274,14 @@ leftb = \notes \transpose c cis {
     % textheight = 29.8 \cm
     pagenumber = no
     linewidth = 17.0 \cm
-    \translator {
+    \context {
       \RemoveEmptyStaffContext
     }
-    \translator {
+    \context {
       \ScoreContext
       \override SpacingSpanner #'common-shortest-duration = #(ly:make-moment 1 8)
     }
-    \translator {
+    \context {
       \PianoStaffContext
       \override VerticalAlignment #'forced-distance = #13.0
     }

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.1.28"
+\version "2.1.29"
 
 \header {
     composer = "ARTHUR GRAY"
@@ -336,11 +336,11 @@ lowerDynamics = \notes{
 	>>
     >>
     \paper {
-	\translator {
+	\context {
 	    \ScoreContext
 	    \remove Bar_number_engraver
         }
-	\translator {
+	\context {
 	    \type "Engraver_group_engraver"
 	    \name Dynamics
 	    \consists "Output_property_engraver"
@@ -361,7 +361,7 @@ lowerDynamics = \notes{
 	    \consistsend "Axis_group_engraver"
     	}
 
-	\translator {
+	\context {
 	    \PianoStaffContext
 	    \accepts Dynamics
 	    \override VerticalAlignment #'forced-distance = #7

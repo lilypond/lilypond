@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.29"
 \header {
     
 texidoc = "@cindex Blank Paper Tab
@@ -16,7 +16,7 @@ emptymusic = \notes { \repeat unfold 4  { s1\break }  \bar "|." }
 
 
   \paper {
-    \translator {
+    \context {
       \ScoreContext
       \remove Bar_number_engraver
     }

@@ -6,7 +6,7 @@ beam."
 
 }
 
-\version "2.1.28"
+\version "2.1.29"
 
 
 
@@ -18,7 +18,7 @@ beam."
     a1 a2 a4 a8 a16 a32 a64 a64 
   }
   \paper {
-    \translator {
+    \context {
       \StaffContext
 	\remove "Clef_engraver"
 %%	\remove "Staff_symbol_engraver"

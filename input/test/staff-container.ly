@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.29"
 
 \header {
 
@@ -37,12 +37,12 @@ what you would expect.)
  >>
 
 \paper {
-	\translator {
+	\context {
 		\ScoreContext
 		\accepts StaffContainer
 		\denies Staff
 	}
-	\translator {
+	\context {
 		\type Engraver_group_engraver
 		\consists Clef_engraver
 		\consists Time_signature_engraver
@@ -52,7 +52,7 @@ what you would expect.)
 		
 		\name StaffContainer
 	}
-	\translator {
+	\context {
 		\StaffContext
 		\remove Axis_group_engraver
 		\remove Separating_line_group_engraver

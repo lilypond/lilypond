@@ -1,9 +1,9 @@
-\version "2.1.28"
+\version "2.1.29"
 
 				%
 				% setup for Request->Element conversion. Guru-only
 				%
-\translator {
+\context {
     \type "Staff_performer"
     \name Staff
     \accepts Voice
@@ -12,19 +12,19 @@
     \consists "Tempo_performer"
     \consists "Time_signature_performer"
 }
-\translator {
+\context {
     \name Global
     \accepts Score
 \description "Hard coded entry point for LilyPond. Cannot be tuned."
     }
-\translator {
+\context {
     \StaffContext
     \name DrumStaff
     midiInstrument = #"drums"
     \accepts DrumVoice
 }
 
-\translator {
+\context {
     \type "Performer_group_performer"
     \name Voice
     \consists "Dynamic_performer"
@@ -38,51 +38,51 @@
 }
 
 
-\translator {
+\context {
     \VoiceContext
     \remove "Note_performer"
     \consists "Drum_note_performer" 
     \name DrumVoice
 }
 
-\translator {
+\context {
     \type "Performer_group_performer"
     \name FiguredBass 
     \consists "Swallow_performer"
 }
 
-\translator {
+\context {
     \type "Performer_group_performer"
     \name GrandStaff
     \accepts RhythmicStaff
     \accepts Staff
 }
 
-\translator {
+\context {
     \type "Performer_group_performer"
     \name "PianoStaff"
     \accepts Staff
     \accepts DrumStaff
 }
 
-\translator {
+\context {
     \type "Performer_group_performer"
     \name "TabVoice"
     \consists "Swallow_performer"
 }
 
-\translator {
+\context {
     \type "Performer_group_performer"
     \name "Devnull"
     \consists "Swallow_performer"
 }
-\translator {
+\context {
     \type "Performer_group_performer"
     \name "TabStaff"
     \accepts "TabVoice"
 }
 
-\translator {
+\context {
     \type "Score_performer"
 
     \name Score
@@ -112,7 +112,7 @@
 }
 
 
-\translator {
+\context {
     \type "Staff_performer" % Performer_group_performer ?
     \consists "Lyric_performer"
     \name Lyrics
@@ -120,7 +120,7 @@
     \consists "Tempo_performer"
 }
 
-\translator{
+\context{
     \type "Performer_group_performer"
     \name ChoirStaff
     \accepts Staff
@@ -128,19 +128,19 @@
 }
 
 
-\translator {
+\context {
     \type "Staff_performer"
     \accepts ChordNameVoice
     \name ChordNames
 }
 
-\translator {
+\context {
     \type "Performer_group_performer"
     \consists "Note_performer"
     \name ChordNameVoice	
 }
 
-\translator {
+\context {
     \type "Performer_group_performer"
 
     \name StaffGroup
@@ -148,6 +148,6 @@
     \accepts DrumStaff
 }
 
-\translator { \StaffContext \name RhythmicStaff }
+\context { \StaffContext \name RhythmicStaff }
 
 

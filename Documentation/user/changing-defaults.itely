@@ -858,10 +858,10 @@ is fixed beforehand.  This is also done with a
 @internalsref{VerticalAlignment} object, created in
 @internalsref{PianoStaff}. In this object the distance between the
 staves is fixed by setting @code{forced-distance}. If you want to
-override this, use a @code{\translator} block as follows:
+override this, use a @code{\context} block as follows:
 @example
   \paper @{
-    \translator @{
+    \context @{
       \PianoStaffContext
       \override VerticalAlignment #'forced-distance = #9
     @}
@@ -965,7 +965,7 @@ Properties of the  @internalsref{SpacingSpanner} must be overridden
 from the @code{\paper} block, since the @internalsref{SpacingSpanner} is
 created before any property commands are interpreted.
 @example
-\paper @{ \translator  @{
+\paper @{ \context  @{
   \ScoreContext
   SpacingSpanner \override #'spacing-increment = #3.0
 @} @}
@@ -1379,7 +1379,7 @@ by referencing a context identifier:
 
 @example
 \paper @{
-  \translator @{
+  \context @{
     @var{context-identifier}
   @}
 @}
@@ -1392,7 +1392,7 @@ Every predefined context has a standard identifier. For example, the
 The context can then be modified by setting or changing properties,
 e.g.
 @example
-\translator @{
+\context @{
   \StaffContext
   Stem \set #'thickness = #2.0
   defaultBarType = #"||"
@@ -1406,7 +1406,7 @@ command will override any predefined settings.
 @refbugs
 
 It is not possible to collect multiple property assignments in a
-variable, and apply to one @code{\translator} definition by
+variable, and apply to one @code{\context} definition by
 referencing that variable.
 
 @node Changing contexts locally
@@ -1425,7 +1425,7 @@ music can be interpreted in a changed context by using the following syntax
 These statements comes between @code{\new} or @code{\context} and the
 music to be interpreted. The @var{context modifications} property
 settings and @code{\remove}, @code{\consists} and @code{\consistsend}
-commands. The syntax is similar to the @code{\translator} block.
+commands. The syntax is similar to the @code{\context} block.
 
 The following example shows how a staff is created with bigger spaces,
 and without a @code{Clef_engraver}.
@@ -1486,7 +1486,7 @@ the middle C is at its default position, the center line:
     c'4 f'4
   }
   \paper {
-    \translator {
+    \context {
       \StaffContext
       \remove Clef_engraver
     }
@@ -1507,7 +1507,7 @@ example, a very simple Staff context is created: one that will put
 note heads on a staff symbol.
 
 @example
-\translator @{
+\context @{
   \type "Engraver_group_engraver"
   \name "SimpleStaff"
   \alias "Staff"

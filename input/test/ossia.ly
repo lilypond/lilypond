@@ -4,7 +4,7 @@
     @code{RemoveEmptyStaffContext} take out the unused parts.
 " }
 
-\version "2.1.28"
+\version "2.1.29"
 
 \score {
     \notes\relative c''
@@ -32,8 +32,8 @@
 
     \paper {
 	raggedright= ##t
-	\translator {\RemoveEmptyStaffContext}
-	\translator {
+	\context {\RemoveEmptyStaffContext}
+	\context {
 	    \ScoreContext
 	    \remove System_start_delimiter_engraver
 	    }

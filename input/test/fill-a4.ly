@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.29"
 %possible rename to paper-fill-a4.ly -gp
 % candidate for reg -gp
 % Han says no, but keeping this comment temporarily so that I don't
@@ -36,7 +36,7 @@ This should fill a4 paper. "
 		textheight = 297.0\mm - 7.0\mm
 		papersize = "a4"
 		linewidth = 15.0\mm
-		\translator {
+		\context {
 			\StaffContext
 			minimumVerticalExtent = #(cons 0 0)
 		}

@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.29"
 
 \header{
 texidoc="
@@ -25,11 +25,11 @@ lyrics do not collide with barlines.
 	>>
 	\paper {
 		raggedright = ##t
-		\translator {
+		\context {
 			\ScoreContext
 			\accepts "LyricsWithBars"
 		}
-		\translator {
+		\context {
 			\LyricsContext
 			\consists "Bar_engraver"
 			\name "LyricsWithBars"

@@ -1,6 +1,6 @@
-\version "2.1.28"
+\version "2.1.29"
 
-\translator {
+\context {
     \name Global
 
     \accepts Score
@@ -13,7 +13,7 @@
 % setup for Request->Element conversion. Guru-only
 %
 
-\translator {
+\context {
 	\type "Engraver_group_engraver"
 	\name Staff
 
@@ -62,7 +62,7 @@
 
 }
 
-\translator {
+\context {
     \StaffContext
     \type "Engraver_group_engraver"
     \name DrumStaff
@@ -85,7 +85,7 @@
 }
 
 
-\translator {
+\context {
     \type "Engraver_group_engraver"
     \name InnerChoirStaff
     \consists "System_start_delimiter_engraver"
@@ -101,7 +101,7 @@
     \accepts "ChordNames"
 }
 
-\translator {
+\context {
 	\InnerChoirStaffContext
 	\name ChoirStaff
 	
@@ -113,7 +113,7 @@
 }
 
 
-\translator{
+\context{
     \type "Engraver_group_engraver"
     
     \consists "Output_property_engraver"	
@@ -152,7 +152,7 @@
 }
 
 
-\translator {
+\context {
     \type "Engraver_group_engraver"
     \name Voice
 
@@ -213,7 +213,7 @@
     \consists "Skip_event_swallow_translator"
 }
 
-\translator {
+\context {
     \VoiceContext
     \name DrumVoice
     \alias Voice
@@ -242,7 +242,7 @@
     \consists "Skip_event_swallow_translator"
 }
 
-\translator{
+\context{
     \type "Engraver_group_engraver"
     \name GrandStaff
     localKeySignature = #'()
@@ -259,7 +259,7 @@
     \accepts "Staff"
 }
 
-\translator{
+\context{
     \GrandStaffContext
     \name "PianoStaff"
     \alias "GrandStaff"
@@ -279,7 +279,7 @@
     instr = #'()
 }
 
-\translator {
+\context {
     \type "Engraver_group_engraver"
     \name InnerStaffGroup
     localKeySignature = #'()
@@ -300,7 +300,7 @@
     \accepts "ChordNames"
 }
 
-\translator {
+\context {
     \InnerStaffGroupContext
     \name StaffGroup
     
@@ -317,7 +317,7 @@ connected vertically.  "
 }
 
 
-\translator{
+\context{
     \type "Engraver_group_engraver"
     \consistsend "Hara_kiri_engraver"
     minimumVerticalExtent = #'(-1.2 . 2.4)
@@ -339,7 +339,7 @@ printing of a single line of lyrics.  "
     \override SeparationItem #'padding = #0.2
 }
 
-\translator {
+\context {
     \type "Engraver_group_engraver"
     \name NoteNames
     \consistsend "Axis_group_engraver"
@@ -356,7 +356,7 @@ printing of a single line of lyrics.  "
     \consists "Separating_line_group_engraver"
 }
 
-\translator {
+\context {
     \type "Engraver_group_engraver"
     \name ChordNames
     \description "Typesets chord names."
@@ -375,14 +375,14 @@ printing of a single line of lyrics.  "
 }
 
 
-RemoveEmptyStaffContext= \translator {
+RemoveEmptyStaffContext= \context {
     \StaffContext
     \remove "Axis_group_engraver"
     \consistsend "Hara_kiri_engraver"
     \override Beam #'auto-knee-gap = #'()
 }
 
-AncientRemoveEmptyStaffContext = \translator {
+AncientRemoveEmptyStaffContext = \context {
     %% why not add by default?
     
     \RemoveEmptyStaffContext
@@ -390,7 +390,7 @@ AncientRemoveEmptyStaffContext = \translator {
     \accepts "GregorianTranscriptionVoice"
 }
 
-\translator {
+\context {
     \type Score_engraver
     \name Score
     localKeySignature = #'()
@@ -564,11 +564,11 @@ AncientRemoveEmptyStaffContext = \translator {
     
 }
 
-OrchestralScoreContext = \translator {
+OrchestralScoreContext = \context {
 	\ScoreContext
 }
 
-EasyNotation = \translator {
+EasyNotation = \context {
 	\ScoreContext
 	\override NoteHead #'print-function = #Note_head::brew_ez_stencil
 	\override NoteHead #'Y-extent-callback = #'()
@@ -577,7 +577,7 @@ EasyNotation = \translator {
 
 
 
-\translator {
+\context {
 	\type "Engraver_group_engraver"
 	\name FiguredBass 
 	\consists "Figured_bass_engraver"
@@ -589,7 +589,7 @@ EasyNotation = \translator {
 	\consistsend "Hara_kiri_engraver"
 }
 
-\translator {
+\context {
     \name "Devnull"
     \type "Engraver_group_engraver"
 
@@ -601,7 +601,7 @@ EasyNotation = \translator {
     \description "Silently discards all musical information given to this context. "
     }
 
-\translator {
+\context {
       \VoiceContext
       \name "TabVoice"
       \consists "Tab_note_heads_engraver"
@@ -623,7 +623,7 @@ EasyNotation = \translator {
       \remove Accidental_engraver
 }
 
-\translator {
+\context {
       \StaffContext
       \alias "Staff"
       \name "TabStaff"
@@ -655,12 +655,12 @@ EasyNotation = \translator {
 %
 % If I try to do so, I get "error: unknown escaped string:
 % `\VaticanaStaffContext'" in params-init.ly.  If I also move
-% "\translator { \Vaticana*Context }" from params-init.ly to the end
+% "\context { \Vaticana*Context }" from params-init.ly to the end
 % of gregorian-init.ly, then I get "error: parse error, unexpected
-% TRANSLATOR: \translator { \VaticanaStaffContext }" in
+% TRANSLATOR: \context { \VaticanaStaffContext }" in
 % gregorian-init.ly. --jr
 
-\translator {
+\context {
   \VoiceContext
   \name "VaticanaVoice"
   \alias "Voice"
@@ -689,7 +689,7 @@ EasyNotation = \translator {
   \override TextSpanner #'edge-text = #'("" . "")
 }
 
-\translator {
+\context {
   \StaffContext
   \name "VaticanaStaff"
   \alias "Staff"
@@ -729,7 +729,7 @@ EasyNotation = \translator {
   % Score.barAlways = ##t
 }
 
-\translator {
+\context {
   \VoiceContext
   \name "GregorianTranscriptionVoice"
   \alias "Voice"
@@ -754,7 +754,7 @@ EasyNotation = \translator {
   \override TextSpanner #'enclose-bounds = #1
   \override TextSpanner #'edge-text = #'("" . "")
 }
- \translator {
+ \context {
   \StaffContext
   \name "GregorianTranscriptionStaff"
   \alias "Staff"

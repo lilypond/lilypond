@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.29"
 \header { texidoc = "@cindex Bar line lyric only
 You can move @code{Bar_engraver} and @code{Span_bar_engraver} to 
 a different engraving context, if you want, for example, bar lines 
@@ -19,21 +19,21 @@ on lyrics. "
 
 \paper  {
 	raggedright = ##t
-\translator {
+\context {
   \LyricsContext
   \consists Bar_engraver
   % need procedure, since lyrics doesn't have a staff_sym engraver.
   \override BarLine #'bar-size-procedure = #(lambda (x) 3.0)
 }
-\translator {
+\context {
   \LyricsContext
   \consists "Span_bar_engraver"
 }
-\translator{
+\context{
   \ChoirStaffContext
   \remove "Span_bar_engraver"
 }
-\translator {
+\context {
   \StaffContext
   \remove "Bar_engraver"
 }

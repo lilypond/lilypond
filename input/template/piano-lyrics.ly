@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.29"
 
 \header {
   texidoc ="Lyrics between two staffs."
@@ -28,11 +28,11 @@ text = \lyrics {
     >>  
   >>
   \paper {
-    \translator {
+    \context {
       \GrandStaffContext
       \accepts "Lyrics"
     }
-    \translator {
+    \context {
       %\LyricsContext
       \LyricsContext
       \consists "Bar_engraver"

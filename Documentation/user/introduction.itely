@@ -349,7 +349,7 @@ note heads, the @code{Note_heads_engraver}.
 
 \score { \topVoice
 \paper {
-       \translator { \VoiceContext
+       \context { \VoiceContext
        \remove "Stem_engraver"
        \remove "Phrasing_slur_engraver"
        \remove "Slur_engraver"
@@ -358,7 +358,7 @@ note heads, the @code{Note_heads_engraver}.
        \remove "Auto_beam_engraver"
        
        }
-       \translator { \StaffContext
+       \context { \StaffContext
        \remove "Accidental_engraver"
        \remove "Key_engraver"
        \remove "Clef_engraver"
@@ -379,7 +379,7 @@ Then a @code{Staff_symbol_engraver} adds the staff:
 
 \score { \topVoice
 \paper {
-       \translator { \VoiceContext
+       \context { \VoiceContext
        \remove "Stem_engraver"
        \remove "Phrasing_slur_engraver"
        \remove "Slur_engraver"
@@ -388,7 +388,7 @@ Then a @code{Staff_symbol_engraver} adds the staff:
        \remove "Auto_beam_engraver"
        
        }
-       \translator { \StaffContext
+       \context { \StaffContext
        \remove "Accidental_engraver"
        \remove "Key_engraver"
        \remove "Clef_engraver"
@@ -408,7 +408,7 @@ Then a @code{Staff_symbol_engraver} adds the staff:
 
 \score { \topVoice
 \paper {
-       \translator { \VoiceContext
+       \context { \VoiceContext
        \remove "Stem_engraver"
        \remove "Phrasing_slur_engraver"
        \remove "Slur_engraver"
@@ -416,7 +416,7 @@ Then a @code{Staff_symbol_engraver} adds the staff:
        \remove "Beam_engraver"
        \remove "Auto_beam_engraver"
        }
-       \translator { \StaffContext
+       \context { \StaffContext
        \remove "Accidental_engraver"
        \remove "Key_engraver"
        \remove "Bar_engraver"
@@ -434,14 +434,14 @@ And the @code{Stem_engraver} adds stems:
 
 \score { \topVoice
 \paper {
-       \translator { \VoiceContext
+       \context { \VoiceContext
        \remove "Phrasing_slur_engraver"
        \remove "Slur_engraver"
        \remove "Script_engraver"
        \remove "Beam_engraver"
        \remove "Auto_beam_engraver"
        }
-       \translator { \StaffContext
+       \context { \StaffContext
        \remove "Accidental_engraver"
        \remove "Key_engraver"
        \remove "Bar_engraver"

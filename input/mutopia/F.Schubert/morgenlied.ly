@@ -27,7 +27,7 @@ been lowered
 
 }
 
-\version "2.1.28"
+\version "2.1.29"
 manuscriptBreak = { \break }
 
 
@@ -165,21 +165,21 @@ pianoLH = \notes \relative c'' \repeat volta 2 {
     >>
 
     \paper {
-	\translator {
+	\context {
 	    \LyricsContext
 	    minimumVerticalExtent = #'(-1.0 . 0)
 	}
-	\translator {
+	\context {
 	    \ScoreContext
 	    \override Beam #'thickness = #0.55
 	    \override SpacingSpanner #'spacing-increment = #1.0
 	    \override Slur #'height-limit = #1.5
 	}
-	\translator {
+	\context {
 	    \PianoStaffContext
 	    \override VerticalAlignment #'forced-distance = #10
 	}
-	\translator {
+	\context {
 	    \StaffContext
 	    minimumVerticalExtent = #'(-3. . 6)
 	}

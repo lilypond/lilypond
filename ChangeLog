@@ -1,5 +1,11 @@
 2004-03-08  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/translation-functions.scm (fraction-tuplet-formatter):
+	reverse fraction.
+
+	* lily/parser.yy (context_def_spec_block): use \context instead of
+	\translator.
+
 	* lily/[a-g].cc: () style cleanup.
 
 	* Documentation/user/tutorial.itely (Automatic and manual beams):

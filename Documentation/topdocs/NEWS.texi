@@ -18,6 +18,8 @@ Version 2.1.13
 
 @itemize @bullet
 
+@item Context definitions now use the word @code{\context} instead of @code{\translator}.
+
 @item Property functions may be used as an argument to @code{set!},
 for example
 

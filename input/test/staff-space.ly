@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.29"
 
 \header{ texidoc ="@cindex Staff Space
 By just increasing @code{staff-space} on a staff, you may produce strange
@@ -16,7 +16,7 @@ results. "
 	   f[ c']
 	 }
 >>
-\paper {  \translator  {
+\paper {  \context  {
       \StaffContext
       \override StaffSymbol #'staff-space = #5.5
       }

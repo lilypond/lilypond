@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.29"
 \header {
         title = "Song"
         subtitle = "(tune)"
@@ -239,8 +239,8 @@ drumContents = {
 >>
         \paper {
                 linewidth = 15.0 \cm
-                \translator { \RemoveEmptyStaffContext }
-                \translator {
+                \context { \RemoveEmptyStaffContext }
+                \context {
                         \ScoreContext
                         \override BarNumber #'padding = #3
                         \override RehearsalMark #'padding = #2

@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.29"
 \header {
 
     texidoc = "
@@ -42,7 +42,7 @@ bassWords = \lyrics { ho4 ho ho ho }
 	  
 	  >>
   \paper {
-    \translator {
+    \context {
 
 	% a little smaller so lyrics can be closer to the staff. 
 	\StaffContext

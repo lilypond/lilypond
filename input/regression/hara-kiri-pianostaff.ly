@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.29"
 
 \header { texidoc =
 
@@ -28,7 +28,7 @@ alignment; this should not confuse the mechanism.
    \new Staff {  e4 e e e s1 e4 e e e s1 }
  >>
  \paper {
-  \translator {
+  \context {
    \RemoveEmptyStaffContext
   }
  }
