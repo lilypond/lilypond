@@ -1,3 +1,7 @@
+2005-04-02  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* GNUmakefile.in: Add newline.
+
 2005-04-01  Erlend Aasland  <erlenda@gmail.com>
 
 	* tex/lilyponddefs.tex: use color instead of xcolor
