@@ -84,7 +84,7 @@ Notehead_register::process_request()
     if (!accepted_req_arr_.size())
 	return;
     
-    Request* req_l = accepted_req_arr_.last();
+    Request* req_l = accepted_req_arr_.top();
     if (req_l->note()) {
 	Notehead*n_p = new Notehead(8);	// ugh
 	note_p_ = n_p;
@@ -151,7 +151,7 @@ Slur_register::process_request()
 	// end slur: move the slur to other array
 	if (slur_req_l->spantype == Span_req::STOP) {
 	    if (slur_l_stack_.empty())
-		warning("can't find slur to end; ",
+		warning("can't find slur to end",
 		      slur_req_l->defined_ch_c_l_m);
 	    else {
 		end_slur_l_arr_.push(slur_l_stack_.pop());
@@ -181,6 +181,6 @@ Slur_register::do_pre_move_process()
 Slur_register::~Slur_register()
 {
     for (int i=0; i < requests_arr_.size(); i++) {
-	warning("unterminated slur: ", requests_arr_[i]->defined_ch_c_l_m);
+	warning("unterminated slur", requests_arr_[i]->defined_ch_c_l_m);
     }
 }

@@ -45,6 +45,7 @@ Source_file::~Source_file()
 char const*
 Source_file::ch_c_l()
 {
+    assert( this );
     return (char const*)data_caddr_m;
 }
 
@@ -60,6 +61,7 @@ Source_file::close()
 String
 Source_file::error_str( char const* pos_ch_c_l )
 {
+    assert( this );
     if ( !in_b( pos_ch_c_l ) )
 	return "";
 
@@ -78,13 +80,13 @@ Source_file::error_str( char const* pos_ch_c_l )
 	}
     end_ch_c_l--;
 
-// String( char const* p, int size ) is missing!?
+// String( char const* p, int length ) is missing!?
 //    String line_str( begin_ch_c_l, end_ch_c_l - begin_ch_c_l );
 
-    int size_i = end_ch_c_l - begin_ch_c_l;
-    char* ch_p = new char[ size_i ];
-    strncpy( ch_p, begin_ch_c_l, size_i );
-    ch_p[ size_i ] = 0;
+    int length_i = end_ch_c_l - begin_ch_c_l;
+    char* ch_p = new char[ length_i + 1 ];
+    strncpy( ch_p, begin_ch_c_l, length_i );
+    ch_p[ length_i ] = 0;
     String line_str( ch_p );
     delete ch_p;
 
@@ -106,15 +108,21 @@ Source_file::error_str( char const* pos_ch_c_l )
 bool
 Source_file::in_b( char const* pos_ch_c_l )
 {
-    return ( pos_ch_c_l >= ch_c_l() ) && ( pos_ch_c_l < ch_c_l() + size_off_m );
+    return ( pos_ch_c_l && ( pos_ch_c_l >= ch_c_l() ) && ( pos_ch_c_l < ch_c_l() + size_off_m ) );
 }
 
 istream*
 Source_file::istream_l()
 {
     assert( fildes_i_m );
-    if ( !istream_p_m )
-    	istream_p_m = new istrstream( ch_c_l(), size_off_m );
+    if ( !istream_p_m ) {
+	if ( size_off_m ) // can-t this be done without such a hack?
+	    istream_p_m = new istrstream( ch_c_l(), size_off_m );
+        else {
+	    istream_p_m = new istrstream( "", 0 );
+	    istream_p_m->set(ios::eofbit);
+	}
+    }
     return istream_p_m;
 }
 
@@ -124,7 +132,7 @@ Source_file::line_i( char const* pos_ch_c_l )
     if ( !in_b( pos_ch_c_l ) )
     	return 0;
 
-    int i = 0;
+    int i = 1;
     char const* scan_ch_c_l = ch_c_l();
     while ( scan_ch_c_l < pos_ch_c_l )
     	if ( *scan_ch_c_l++ == '\n' )
@@ -135,7 +143,7 @@ Source_file::line_i( char const* pos_ch_c_l )
 void
 Source_file::map()
 {
-    data_caddr_m = (caddr_t)mmap( (void*)0, size_off_m, PROT_READ, MAP_FILE | MAP_SHARED, fildes_i_m, 0 );
+    data_caddr_m = (caddr_t)mmap( (void*)0, size_off_m, PROT_READ, MAP_SHARED, fildes_i_m, 0 );
 
     if ( (int)data_caddr_m == -1 ) {
 	cerr << "lilypond: can't map: " << name_str_m << ": " << strerror( errno ) << endl;

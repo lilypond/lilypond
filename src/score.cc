@@ -12,7 +12,7 @@
 void
 Score::process()
 {
-    *mlog << "\nProcessing music ... ";
+    *mlog << "\nProcessing music" << endl;
     
     assert (paper_p_);
     if (last() == Moment(0)) {
@@ -35,7 +35,6 @@ Score::process()
     // debugging
     OK();
     pscore_p_->process();    
-    *mlog << "\n";
 }
 
 // remove empty cols.

@@ -205,8 +205,7 @@ Complex_walker::try_request(Request*req)
     } 
 
     if (!b)
-	warning("junking request: "  + String(req->name()),
-		req->defined_ch_c_l_m);
+	warning("junking request: "  + String(req->name()), req->defined_ch_c_l_m);
 }
 
 void

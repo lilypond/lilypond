@@ -98,15 +98,17 @@ Voice_element *
 get_note_element(String pitch, int * notename, int * duration )
 {
     Voice_element*v = new Voice_element;
+    v->defined_ch_c_l_m = defined_ch_c_l;
     int i=0;
     
     int dur = duration[0];
     int dots=duration[1];
 
     if (dur >= 2) {
-	Stem_req * st = new Stem_req(dur,dots);
-	st->plet_factor = Moment(default_plet_dur, default_plet_type);
-	v->add(st);
+	Stem_req * stem_req_p = new Stem_req(dur,dots);
+	stem_req_p->plet_factor = Moment(default_plet_dur, default_plet_type);
+	stem_req_p->defined_ch_c_l_m = defined_ch_c_l;
+	v->add(stem_req_p);
     }
     
     if ( !defined_ch_c_l )
@@ -128,7 +130,6 @@ get_note_element(String pitch, int * notename, int * duration )
     rq->print();
 
     v->add(rq);
-    v->defined_ch_c_l_m = defined_ch_c_l;
 
     return v;
 }
@@ -137,7 +138,7 @@ Voice_element*
 get_word_element(Text_def* tdef_p, int* duration)
 {
     Voice_element* velt_p = new Voice_element;
-
+    velt_p->defined_ch_c_l_m = defined_ch_c_l;
     
     int dur = duration[0];
     int dots=duration[1];
@@ -155,6 +156,7 @@ get_word_element(Text_def* tdef_p, int* duration)
     lreq_p->dots = dots;
     lreq_p->plet_factor = Moment(default_plet_dur, default_plet_type);
     lreq_p->print();
+    lreq_p->defined_ch_c_l_m = defined_ch_c_l;
 
     velt_p->add(lreq_p);
 
@@ -164,16 +166,19 @@ get_word_element(Text_def* tdef_p, int* duration)
 Voice_element *
 get_rest_element(String,  int * duration )
 {    
-    Voice_element*v = new Voice_element;
+    Voice_element* velt_p = new Voice_element;
+    velt_p->defined_ch_c_l_m = defined_ch_c_l;
 
-    Rest_req * rq = new Rest_req;
-    rq->plet_factor = Moment(default_plet_dur, default_plet_type);
-    rq->balltype = duration[0];
-    rq->dots = duration[1];    
-    rq->print();
-    v->add(rq);
+    Rest_req * rest_req_p = new Rest_req;
+    rest_req_p->plet_factor = Moment(default_plet_dur, default_plet_type);
+    rest_req_p->balltype = duration[0];
+    rest_req_p->dots = duration[1];    
+    rest_req_p->print();
+    rest_req_p->defined_ch_c_l_m = defined_ch_c_l;
 
-    return v;
+    velt_p->add(rest_req_p);
+
+    return velt_p;
 }
 
 void
@@ -283,45 +288,58 @@ get_scriptdef(char c)
 Request*
 get_script_req(int d , Script_def*def)
 {
-    return new Script_req(d, def);
+    Script_req* script_req_p = new Script_req(d, def);
+    script_req_p->defined_ch_c_l_m = defined_ch_c_l;
+    return script_req_p;
 }
 
 Request*
 get_text_req(int d , Text_def*def)
 {
-    return new Text_req(d, def);
+    Text_req* text_req_p = new Text_req(d, def);
+    text_req_p->defined_ch_c_l_m = defined_ch_c_l;
+    return text_req_p;
 }
 
 Voice_element*
 get_mark_element(String s)
 {
     Voice_element*v_p = new Voice_element;
-    v_p->add( new Mark_req(s));
-    
+    v_p->defined_ch_c_l_m = defined_ch_c_l;
+    Mark_req* mark_req_p = new Mark_req(s);
+    mark_req_p->defined_ch_c_l_m = defined_ch_c_l;
+    v_p->add(mark_req_p); 
     return v_p;
 }
 Voice_element*
 get_command_element(Input_command*com_p)
 {
-    Voice_element *v_p = new Voice_element;
-    v_p->add(new Staff_command_req(com_p));
-    return v_p;
+    Voice_element *velt_p = new Voice_element;
+    velt_p->defined_ch_c_l_m = defined_ch_c_l;
+    Staff_command_req* scommand_req_p = new Staff_command_req(com_p);
+    scommand_req_p->defined_ch_c_l_m = defined_ch_c_l;
+    velt_p->add(scommand_req_p);
+    return velt_p;
 }
 Voice_element*
 get_barcheck_element()
 {
-    Voice_element*v_p = new Voice_element;
-    v_p->add( new Barcheck_req);
-    
-    return v_p;
+    Voice_element* velt_p = new Voice_element;
+    velt_p->defined_ch_c_l_m = req_defined_ch_c_l;
+    Barcheck_req* barcheck_req_p = new Barcheck_req;
+    barcheck_req_p->defined_ch_c_l_m = req_defined_ch_c_l;
+    velt_p->add(barcheck_req_p);
+    return velt_p;
 }
 
 Voice_element*
 get_stemdir_element(int d)
 {
     Voice_element*v_p = new Voice_element;
+    v_p->defined_ch_c_l_m = req_defined_ch_c_l;
     Group_feature_req * gfreq_p = new Group_feature_req;
     gfreq_p->stemdir_i_ =d; 
+    gfreq_p->defined_ch_c_l_m = req_defined_ch_c_l;
     v_p->add(gfreq_p);
     return v_p;
 }

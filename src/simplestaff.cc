@@ -37,15 +37,14 @@ Simple_column::setup_requests()
 	    Request *rq= j;
 	    if (rq->barcheck()) {
 		if (tdescription_->whole_in_measure) {
-//		    error("Barcheck failed, " + tdescription_->str());
-		    error( "Barcheck failed", rq->defined_ch_c_l_m );
+		    warning( "Barcheck failed", rq->defined_ch_c_l_m );
 		}
 	    }
 	    if (rq->rhythmic()){
 		notes.push(rq->rhythmic());
 	    }
 	    if (rq->script()) {
-		notes.last().scripts.push(rq->script());
+		notes.top().scripts.push(rq->script());
 	    }
 	    if (rq->stem()) {
 		stem_ = rq->stem();

@@ -7,7 +7,7 @@
 #include "lyriccolumn.hh"
 #include "sccol.hh" 
 #include "pscore.hh"
-
+#include "main.hh"
 
 Lyric_column::Lyric_column(Score_column*s, Lyric_staff* lstaff_l)
     : Staff_column(s)
@@ -23,7 +23,7 @@ Lyric_column::setup_requests()
 	    Request* req_l = j;
 	    if (req_l->barcheck()) {
 		if (tdescription_->whole_in_measure) {
-		    error( "Barcheck failed ", req_l->defined_ch_c_l_m );
+		    warning( "Barcheck failed ", req_l->defined_ch_c_l_m );
 		}
 	    }
 	    if (req_l->lreq_l()) {

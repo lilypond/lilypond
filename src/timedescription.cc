@@ -10,7 +10,7 @@ Time_description::str()const
     s+= "at ";
     s+=when;
     s+="\nmeter " + String(whole_per_measure/one_beat) +":" +
-	String(Rational(1/one_beat));
+	String(Rational(Rational(1)/one_beat));
     s+= "\nposition "+String( bars) + ":"+ whole_in_measure +"\n}\n";
     return s;
 }

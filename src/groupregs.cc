@@ -82,7 +82,7 @@ Stem_beam_register::process_request()
 
 	if (beam_p_) {
 	    if (stem_req_l_->balltype<= 4)
-		warning( "stem doesn't fit in Beam.",
+		warning( "stem doesn't fit in Beam",
 			 stem_req_l_->defined_ch_c_l_m);
 	    else
 		beam_p_->add(stem_p_);

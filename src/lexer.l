@@ -270,9 +270,7 @@ include           {
 	//ignore
 }
 .		{
-//	error( "lexer error: illegal character '"+String(YYText()[0])+ "' encountered");
-	error( String( "illegal character: " ) + String( YYText()[0] ) + ": ",
-		here_ch_c_l() );
+	error( String( "illegal character: " ) + String( YYText()[0] ), here_ch_c_l() );
 	return YYText()[0];
 }
 

@@ -254,10 +254,10 @@ void
 PScore::process()
 {
     clean_cols();
-    *mlog << "Preprocessing ... ";
+    *mlog << "Preprocessing" << endl;
     preprocess();
-    *mlog << "Calculating ... ";
+    *mlog << "Calculating" << endl;
     calc_breaking();
-    *mlog << "Postprocessing ... ";
+    *mlog << "Postprocessing" << endl;
     postprocess();
 }
