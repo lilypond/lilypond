@@ -4,7 +4,7 @@ depth = ..
 
 SUBDIRS=bugs test regression tutorial no-notation ascii-art
 
-examples=trip  star-spangled-banner paddy scarlatti-test
+examples=trip  star-spangled-banner paddy twinkle
 flexamples=
 
 LOCALSTEPMAKE_TEMPLATES=ly mutopia
