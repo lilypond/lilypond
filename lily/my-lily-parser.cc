@@ -39,6 +39,20 @@ My_lily_parser::My_lily_parser (Sources *sources)
   smobify_self ();
 }
 
+My_lily_parser::My_lily_parser (My_lily_parser const &src)
+{
+  book_count_ = src.book_count_;
+  score_count_ = src.score_count_;
+  lexer_ = src.lexer_;
+  sources_ = src.sources_;
+  default_duration_ = src.default_duration_;
+  error_level_ = src.error_level_;
+  last_beam_start_ = src.last_beam_start_;
+  header_ = src.header_;
+
+  smobify_self ();
+}
+
 My_lily_parser::~My_lily_parser ()
 {
   delete lexer_;
@@ -97,7 +111,10 @@ My_lily_parser::parse_file (String init, String name, String out_name)
 void
 My_lily_parser::parse_string (String ly_code)
 {
-  lexer_ = new My_lily_lexer (sources_);
+  My_lily_lexer *parent = lexer_;
+  lexer_ = (parent == 0 ? new My_lily_lexer (sources_)
+	    : new My_lily_lexer (*parent));
+
   lexer_->main_input_name_ = "<string>";
   lexer_->main_input_b_ = true;
 
@@ -112,6 +129,18 @@ My_lily_parser::parse_string (String ly_code)
     }
 
   error_level_ = error_level_ | lexer_->error_level_;
+
+  if (parent != 0)
+    {
+      parent->keytable_ = lexer_->keytable_;
+      parent->encoding_ = lexer_->encoding_;
+      parent->chordmodifier_tab_ = lexer_->chordmodifier_tab_;
+      parent->pitchname_tab_stack_ = lexer_->pitchname_tab_stack_;
+      parent->sources_ = lexer_->sources_;
+      parent->scopes_ = lexer_->scopes_;
+      parent->error_level_ = lexer_->error_level_; 
+      parent->main_input_b_ = lexer_->main_input_b_;
+    }
 }
 
 void
@@ -132,8 +161,6 @@ My_lily_parser::parser_error (String s)
   here_input ().error (s);
   error_level_ = 1;
 }
-
-
 
 Input
 My_lily_parser::pop_spot ()
@@ -323,12 +350,15 @@ LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
 #endif
   SCM_ASSERT_TYPE (ly_c_string_p (ly_code), ly_code, SCM_ARG1, __FUNCTION__, "string");
 
-#if 1
+#if 0
   My_lily_parser *parser = unsmob_my_lily_parser (parser_smob);
-#else
-  /* New parser, copy vars but no state?  */
-#endif
   parser->parse_string (ly_scm2string (ly_code));
+#else
+  My_lily_parser *parser = unsmob_my_lily_parser (parser_smob);
+  My_lily_parser *clone = new My_lily_parser (*parser);
+  clone->parse_string (ly_scm2string (ly_code));
+  clone = 0;
+#endif
   
   return SCM_UNSPECIFIED;
 }

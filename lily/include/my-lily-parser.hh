@@ -53,6 +53,7 @@ public:
   SCM last_beam_start_;
 
   My_lily_parser (Sources *sources);
+  My_lily_parser (My_lily_parser const&);
 
   DECLARE_SCHEME_CALLBACK (paper_description, ());
   

@@ -93,19 +93,33 @@ static Keyword_ent the_key_tab[] = {
 };
 
 
-My_lily_lexer::My_lily_lexer (Sources *srcs)
+My_lily_lexer::My_lily_lexer (Sources *sources)
+  
 {
   keytable_ = new Keyword_table (the_key_tab);
   encoding_ = SCM_EOL;
   chordmodifier_tab_ = scm_make_vector (scm_int2num (1), SCM_EOL);
   pitchname_tab_stack_ = SCM_EOL; 
-  sources_ = srcs;
+  sources_ = sources;
   scopes_ = SCM_EOL;
+  error_level_ = 0; 
+  main_input_b_ = false;
   
   add_scope (ly_make_anonymous_module ());
-  error_level_ = 0; 
+}
 
-  main_input_b_ = false;
+My_lily_lexer::My_lily_lexer (My_lily_lexer const &src)
+  : Includable_lexer ()
+{
+  keytable_ = src.keytable_;
+  encoding_ = src.encoding_;
+  chordmodifier_tab_ = src.chordmodifier_tab_;
+  pitchname_tab_stack_ = src.pitchname_tab_stack_;
+  sources_ = src.sources_;
+  scopes_ = src.scopes_;
+  error_level_ = src.error_level_; 
+  //  main_input_b_ = false;
+  main_input_b_ = src.main_input_b_;
 }
 
 SCM
