@@ -113,18 +113,18 @@ script = '/usr/bin/lilypond'
 if os.path.exists ('/usr/bin/ly2dvi'):
 	script = '/usr/bin/ly2dvi'
 
-stat = system ('%s %s > %s.log 2>&1' % (script, escape_shell (base),
+stat = system ('%s %s > %s.lylog 2>&1' % (script, escape_shell (base),
 				    escape_shell (stem)))
 
 if not os.path.exists (pdffile):
 	# message box?
 	sys.stderr.write ('PDF output not found. Error log: \n')
 
-	map (sys.stderr.write, open (stem + '.log').readlines ()[-20:])
-	sys.stderr.write ('A full log is in the file %s.log\n' % stem)
+	map (sys.stderr.write, open (stem + '.lylog').readlines ()[-20:])
+	sys.stderr.write ('A full log is in the file %s.lylog\n' % stem)
 	sys.stderr.write ('\n\nPress enter to close window\n')
 	sys.stdin.readline ()
 else:
 	
-	# run even if failed, to make sure that error 
+	# run even if failed, to make sure that error is visible.
 	system ('%s %s.pdf' % (escape_shell (pdfview), escape_shell (native_base)))

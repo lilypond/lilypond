@@ -1,5 +1,8 @@
 2005-02-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* cygwin/lily-wins.py (stat): write to .lylog, so as not to
+	overwrite .log. 
+
 	* lily/main.cc: remove -m, --no-layout
 
 	* flower/include/libc-extension.hh: add ALIAS_FILE_TO_FILECOOKIE
