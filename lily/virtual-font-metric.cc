@@ -11,7 +11,7 @@ source file of the GNU LilyPond music typesetter
 #include "virtual-font-metric.hh"
 #include "all-font-metrics.hh"
 #include "stencil.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 
 
 /*

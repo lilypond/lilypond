@@ -16,7 +16,7 @@
 #include "text-item.hh"
 #include "lookup.hh"
 #include "font-interface.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 
 
 

@@ -9,7 +9,7 @@
 
 #include "multi-measure-rest.hh"
 #include "warn.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "paper-column.hh" // urg
 #include "font-interface.hh"
 #include "rest.hh"

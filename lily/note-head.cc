@@ -19,7 +19,7 @@
 #include "rhythmic-head.hh"
 #include "staff-symbol-referencer.hh"
 #include "lookup.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 
 /*
   Note_head contains the code for printing note heads.

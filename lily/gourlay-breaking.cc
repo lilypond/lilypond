@@ -14,7 +14,7 @@
 #include "main.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "simple-spacer.hh"
 #include "system.hh"
 
@@ -106,7 +106,7 @@ Gourlay_breaking::do_solve () const
 	  cp.cols_ = line;
 
 	  Interval line_dims
-	    = pscore_->paper_->line_dimensions_int (optimal_paths[start_idx].line_);
+	    = line_dimensions_int (pscore_->paper_, optimal_paths[start_idx].line_);
 	  Simple_spacer * sp = generate_spacing_problem (line, line_dims);
 	  bool last_line = break_idx == breaks.size ()-1;
 	  bool ragged = ragged_right

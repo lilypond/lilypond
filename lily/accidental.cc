@@ -8,7 +8,7 @@
 #include "item.hh"
 #include "stencil.hh"
 #include "accidental-interface.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "pitch.hh"
 
 /*

@@ -11,7 +11,7 @@
 #include "warn.hh"
 #include "spanner.hh"
 #include "item.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "system.hh"
 
 

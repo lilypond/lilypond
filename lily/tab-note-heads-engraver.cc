@@ -7,7 +7,7 @@
 #include <stdio.h>
 
 #include "rhythmic-head.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "event.hh"
 #include "dots.hh"
 #include "dot-column.hh"

@@ -4596,7 +4596,7 @@ empty after the line-breaking process, they are removed.
 For normal staves, a specialized @internalsref{Staff} context is
 available, which does the same: staves containing nothing (or only
 multi measure rests) are removed. The context definition is stored in
-@code{\RemoveEmptyStaff} variable. Observe how the second staff
+@code{\RemoveEmptyStaffContext} variable. Observe how the second staff
 in this example disappears in the second line
 
 
@@ -4608,7 +4608,7 @@ in this example disappears in the second line
   >>
   \paper {
     linewidth = 6.\cm 
-    \context { \RemoveEmptyStaff }
+    \context { \RemoveEmptyStaffContext }
   }
 }
 @end lilypond

@@ -14,7 +14,7 @@
 #include "staff-symbol-referencer.hh"
 #include "font-interface.hh"
 #include "warn.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "paper-column.hh"
 
 /*

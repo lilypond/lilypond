@@ -10,7 +10,7 @@
 #include "font-metric.hh"
 #include "font-interface.hh"
 #include "grob.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "warn.hh"
 
 

@@ -11,7 +11,7 @@
 #include "lookup.hh"
 #include "group-interface.hh"
 #include "directional-element-interface.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "staff-symbol-referencer.hh"
 
 struct Horizontal_bracket

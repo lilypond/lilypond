@@ -2097,7 +2097,10 @@ def conv (str):
 		else:
 			return m.group (0)
 		
-	return re.sub (r'\\([a-zA-Z]+)Context\b', func, str)
+	str = re.sub (r'\\([a-zA-Z]+)Context\b', func, str)
+
+	str = re.sub ('ly:paper-lookup', 'ly:output-def-lookup', str)
+	return str
 
 conversions.append (((2, 3, 2), conv,
 		     '''\\FooContext -> \\Foo'''))

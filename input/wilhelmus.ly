@@ -14,10 +14,13 @@
 #(define (prepend-grob-property grob-name
 	  grob-prop entry)
   (lambda (context)
-   (ly:context-pushpop-property context grob-name grob-prop
-    (cons
-     entry
-     (assoc-get grob-prop (car (ly:context-property context grob-name)))))))
+   (let*
+    ((grob-def (ly:context-property context grob-name)))
+    (if (pair? grob-def)
+     (ly:context-pushpop-property context grob-name grob-prop
+      (cons
+       entry
+       (assoc-get grob-prop (car grob-def))))))))
 
 #(define (set-extra-space grob-name entry value)
   (prepend-grob-property grob-name 'space-alist
@@ -183,7 +186,7 @@ oneHalfNoteTime = \markup {
     }
   >>
   \paper {}
-%  \midi {}
+  \midi {}
 }
 
 %%% Local variables:

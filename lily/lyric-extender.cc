@@ -13,7 +13,7 @@
 #include "lookup.hh"
 #include "stencil.hh"
 #include "paper-column.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "lyric-extender.hh"
 #include "note-head.hh"
 #include "group-interface.hh"

@@ -43,7 +43,7 @@ public:
 
   SCM internal_get_property (SCM symbol) const;
   
-  virtual Music_output_def *get_output_def () const;
+  virtual Output_def *get_output_def () const;
   virtual Translator_group* get_daddy_translator ()const;
   virtual Moment now_mom () const;  
   virtual bool try_music (Music *req);

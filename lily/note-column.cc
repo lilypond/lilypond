@@ -11,7 +11,7 @@
 #include "note-column.hh"
 #include "stem.hh"
 #include "warn.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "group-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "rest.hh"

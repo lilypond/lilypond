@@ -14,7 +14,7 @@
 #include "line-interface.hh"
 #include "stencil.hh"
 #include "paper-column.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "text-item.hh"
 #include "volta-bracket.hh"
 #include "group-interface.hh"
@@ -66,7 +66,7 @@ Volta_bracket_interface::print (SCM smob)
     (strcmp (cs,":|")!=0 && strcmp (cs,"|:")!=0 && strcmp (cs,"|.")!=0
      && strcmp (cs,":|:")!=0 && strcmp (cs,".|")!=0);
 
-  Paper_def * paper =me->get_paper ();
+  Output_def * paper =me->get_paper ();
   Real half_space = 0.5;
 
   Item * bound = dynamic_cast<Spanner*> (me)->get_bound (LEFT);

@@ -16,7 +16,7 @@
 #include "context-def.hh"
 #include "translator-group.hh"
 #include "warn.hh"
-#include "music-output-def.hh"
+#include "output-def.hh"
 #include "ly-smobs.icc"
 #include "score-context.hh"
 
@@ -175,7 +175,7 @@ Context_def::get_accepted (SCM user_mod) const
 
 	   
 Link_array<Context_def>
-Context_def::path_to_acceptable_context (SCM type_sym, Music_output_def* odef) const
+Context_def::path_to_acceptable_context (SCM type_sym, Output_def* odef) const
 {
   assert (ly_c_symbol_p (type_sym));
   
@@ -184,7 +184,7 @@ Context_def::path_to_acceptable_context (SCM type_sym, Music_output_def* odef) c
   Link_array<Context_def> accepteds;
   for (SCM s = accepted; ly_c_pair_p (s); s = ly_cdr (s))
     {
-      Context_def *t = unsmob_context_def (odef->find_context_def (ly_car (s)));
+      Context_def *t = unsmob_context_def (find_context_def (odef, ly_car (s)));
       if (!t)
 	continue;
       accepteds.push (t);

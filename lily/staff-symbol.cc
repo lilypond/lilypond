@@ -8,7 +8,7 @@
 
 #include "lookup.hh"
 #include "dimensions.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "stencil.hh"
 #include "warn.hh"
 #include "item.hh"

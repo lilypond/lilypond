@@ -16,11 +16,11 @@
 #include "ly-smobs.icc"
 #include "main.hh"
 #include "music-iterator.hh"
-#include "music-output-def.hh"
+#include "output-def.hh"
 #include "music-output.hh"
 #include "music.hh"
 #include "paper-book.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "paper-score.hh"
 #include "scm-hash.hh"
 #include "score.hh"
@@ -99,7 +99,7 @@ LY_DEFINE (ly_run_translator, "ly:run-translator",
 	   "and @var{mus} is interpreted with it.  "
 	   "The context is returned in its final state.")
 {
-  Music_output_def *odef = unsmob_music_output_def (output_def);
+  Output_def *odef = unsmob_output_def (output_def);
   Music *music = unsmob_music (mus);
 
   SCM_ASSERT_TYPE (music, mus, SCM_ARG1, __FUNCTION__, "Music");
@@ -160,10 +160,10 @@ default_rendering (SCM music, SCM outdef,
 		   SCM book_outputdef,
 		   SCM header, SCM outname)
 {
-  Book_paper_def *bpd = unsmob_book_paper_def (book_outputdef);
-  if (bpd && unsmob_paper (outdef))
+  Book_output_def *bpd = unsmob_book_output_def (book_outputdef);
+  if (bpd && unsmob_output_def (outdef))
     /* FIXME:  memory leak */
-    outdef = bpd->scale_paper (unsmob_paper (outdef))->self_scm ();
+    outdef = bpd->scale_paper (unsmob_output_def (outdef))->self_scm ();
   
   SCM context = ly_run_translator (music, outdef);
 
@@ -193,22 +193,22 @@ default_rendering (SCM music, SCM outdef,
  
 SCM
 Score::book_rendering (String outname,
-		       Book_paper_def* paperbook,
-		       Music_output_def *default_def,
-		       Paper_def **paper)
+		       Book_output_def* paperbook,
+		       Output_def *default_def,
+		       Output_def **paper)
 {
   SCM out = scm_makfrom0str (outname.to_str0 ());
   SCM systems = SCM_EOL;
   int outdef_count = defs_.size ();
   for (int i = 0; !i || i < outdef_count; i++)
     {
-      Music_output_def *def = outdef_count ? defs_[i] : default_def;
-      if (Paper_def * pd = dynamic_cast<Paper_def*> (def))
+      Output_def *def = outdef_count ? defs_[i] : default_def;
+      if (Output_def * pd = dynamic_cast<Output_def*> (def))
 	{
 	  def = paperbook->scale_paper (pd);
 	}
       
-      if (!(no_paper_global_b && dynamic_cast<Paper_def*> (def)))
+      if (!(no_paper_global_b && dynamic_cast<Output_def*> (def)))
 	{
 	  SCM context = ly_run_translator (music_, def->self_scm ());
 	  if (Global_context *g = dynamic_cast<Global_context*>

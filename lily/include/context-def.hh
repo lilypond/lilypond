@@ -42,7 +42,7 @@ public:
   void set_acceptor (SCM accepts, bool add);
 
   Link_array<Context_def> path_to_acceptable_context (SCM type_string,
-						      Music_output_def*) const;
+						      Output_def*) const;
   Context * instantiate (SCM extra_ops);
 
   SCM to_alist () const;

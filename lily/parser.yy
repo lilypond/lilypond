@@ -37,14 +37,13 @@ TODO:
 #include "lilypond-input-version.hh"
 #include "ly-module.hh"
 #include "main.hh"
-#include "midi-def.hh"
 #include "misc.hh"
 #include "music-list.hh"
 #include "music-sequence.hh"
 #include "my-lily-lexer.hh"
 #include "my-lily-parser.hh"
 #include "paper-book.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "scm-hash.hh"
 #include "scm-option.hh"
 #include "score.hh"
@@ -194,8 +193,8 @@ of the parse stack onto the heap. */
 
 %union {
 	Book *book;
-	Book_paper_def *bookpaper;
-	Music_output_def *outputdef;
+	Book_output_def *bookpaper;
+	Output_def *outputdef;
 	SCM scm;
 	String *string;
  	Music *music;
@@ -474,15 +473,18 @@ toplevel_expression:
 	}
 	| output_def {
 		SCM id = SCM_EOL;
-		if (dynamic_cast<Paper_def*> ($1))
-			id = scm_makfrom0str ("$defaultpaper");
-		else if (dynamic_cast<Midi_def*> ($1))
-			id = scm_makfrom0str ("$defaultmidi");
+		if ($1->c_variable ("is-paper") == SCM_BOOL_T)
+			id = ly_symbol2scm ("$defaultpaper");
+		else if ($1->c_variable ("is-midi") == SCM_BOOL_T)
+			id = ly_symbol2scm ("$defaultmidi");
+		else if ($1->c_variable ("is-book-paper") == SCM_BOOL_T)
+			id = ly_symbol2scm ("$defaultbookpaper");
+
 		THIS->lexer_->set_identifier (id, $1->self_scm ());
 		scm_gc_unprotect_object ($1->self_scm ());
 	}
 	| book_paper_block {
-		THIS->lexer_->set_identifier (scm_makfrom0str ("$defaultbookpaper"), $1->self_scm ());
+		THIS->lexer_->set_identifier (ly_symbol2scm ("$defaultbookpaper"), $1->self_scm ());
 		scm_gc_unprotect_object ($1->self_scm ());
 	}
 	;
@@ -622,7 +624,7 @@ book_paper_block:
 	;
 book_paper_head:
 	BOOKPAPER '{' {
-		$$ = unsmob_book_paper_def (THIS->lexer_->lookup_identifier ("$defaultbookpaper"))->clone ();
+		$$ = get_bookpaper (THIS);
 		THIS->lexer_->add_scope ($$->scope_);
 	}
 	;
@@ -651,7 +653,7 @@ book_body:
 	{
 		$$ = new Book;
 		$$->set_spot (THIS->here_input ());
-		$$->bookpaper_ = unsmob_book_paper_def (THIS->lexer_->lookup_identifier ("$defaultbookpaper"))->clone ();
+		$$->bookpaper_ = dynamic_cast<Book_output_def*> (unsmob_book_output_def (THIS->lexer_->lookup_identifier ("$defaultbookpaper"))->clone ());
 		scm_gc_unprotect_object ($$->bookpaper_->self_scm ());
 	}
 	| book_body book_paper_block {
@@ -735,25 +737,13 @@ output_def:
 
 music_output_def_head:
 	MIDI    {
-		Music_output_def *id = unsmob_music_output_def (THIS->lexer_->lookup_identifier ("$defaultmidi"));
-
-
-		Midi_def *p = 0;
-		if (id)
-			p = dynamic_cast<Midi_def*> (id->clone ());
-		else
-			p = new Midi_def;
-
+		Output_def *p = get_midi (THIS);
 		$$ = p;
 		THIS->lexer_->add_scope (p->scope_);
 	}
 	| PAPER 	{
-		Music_output_def *id = unsmob_music_output_def (THIS->lexer_->lookup_identifier ("$defaultpaper"));
-		  Paper_def *p = 0;
-		if (id)
-			p = dynamic_cast<Paper_def*> (id->clone ());
-		else
-			p = new Paper_def;
+		Output_def* p = get_paper (THIS);
+
 
 		THIS->lexer_->add_scope (p->scope_);
 		$$ = p;
@@ -769,7 +759,7 @@ music_output_def_body:
 	}
 	| music_output_def_head '{' MUSIC_OUTPUT_DEF_IDENTIFIER 	{
 		scm_gc_unprotect_object ($1->self_scm ());
-		Music_output_def *o = unsmob_music_output_def ($3);
+		Output_def *o = unsmob_output_def ($3);
 		o->input_origin_.set_spot (THIS->here_input ());
 		$$ = o;
 		THIS->lexer_->remove_scope ();
@@ -780,18 +770,16 @@ music_output_def_body:
 
 	}
 	| music_output_def_body context_def_spec_block	{
-		$$->assign_context_def ($2);
+		assign_context_def ($$, $2);
 	}
 	| music_output_def_body tempo_event  {
 		/*
 			junk this ? there already is tempo stuff in
 			music.
 		*/
-		int m = ly_scm2int ( $2->get_property ("metronome-count"));
+		int m = ly_scm2int ($2->get_property ("metronome-count"));
 		Duration *d = unsmob_duration ($2->get_property ("tempo-unit"));
-		Midi_def *md = dynamic_cast<Midi_def*> ($$);
-		if (md)
-			md->set_tempo (d->get_length (), m);
+		set_tempo ($$, d->get_length (), m);
 		scm_gc_unprotect_object ($2->self_scm ());
 	}
 	| music_output_def_body error {
@@ -2478,7 +2466,7 @@ markup:
  		Book *book = new Book;
 		book->scores_.push (score);
 			
-		Music_output_def *paper = get_paper (THIS);
+		Output_def *paper = get_paper (THIS);
 		book->bookpaper_ = get_bookpaper (THIS);
 
 		SCM s = book->to_stencil (paper, THIS->header_);
@@ -2583,8 +2571,8 @@ My_lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 	} else if (unsmob_duration (sid)) {
 		*destination = unsmob_duration (sid)->smobbed_copy ();
 		return DURATION_IDENTIFIER;
-	} else if (unsmob_music_output_def (sid)) {
-		Music_output_def *p = unsmob_music_output_def (sid);
+	} else if (unsmob_output_def (sid)) {
+		Output_def *p = unsmob_output_def (sid);
 		p = p->clone ();
 
 		*destination = p->self_scm ();

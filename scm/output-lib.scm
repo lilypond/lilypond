@@ -42,7 +42,7 @@
 	   (paper (ly:grob-paper grob))
 	   (text (interpret-markup
 		  paper
-		  (ly:grob-alist-chain grob (ly:paper-lookup paper 'text-font-defaults))
+		  (ly:grob-alist-chain grob (ly:output-def-lookup paper 'text-font-defaults))
 		  letter)))
     
       (let ((x (/ (- (cdr (ly:stencil-extent slur 0)) 

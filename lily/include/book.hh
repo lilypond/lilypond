@@ -20,13 +20,13 @@ class Book : public Input
 
 public:
   SCM header_;
-  Book_paper_def *bookpaper_;
+  Book_output_def *bookpaper_;
   
   Link_array<Score> scores_;
   Book ();
 
-  void process (String outname, Music_output_def*, SCM header);
-  SCM to_stencil (Music_output_def*, SCM header);
+  void process (String outname, Output_def*, SCM header);
+  SCM to_stencil (Output_def*, SCM header);
 };
 DECLARE_UNSMOB (Book, book);
 

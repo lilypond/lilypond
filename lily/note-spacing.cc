@@ -18,7 +18,7 @@
 #include "separation-item.hh"
 #include "staff-spacing.hh"
 #include "accidental-placement.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 
 
 /*

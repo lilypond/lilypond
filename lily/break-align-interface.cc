@@ -17,7 +17,7 @@
 #include "lily-guile.hh"
 #include "break-align-interface.hh"
 #include "dimensions.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "paper-column.hh"
 #include "group-interface.hh"
 #include "align-interface.hh"

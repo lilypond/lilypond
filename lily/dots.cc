@@ -9,7 +9,7 @@
 #include "dots.hh"
 #include "item.hh"
 #include "stencil.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "font-interface.hh"
 #include "lookup.hh"
 #include "staff-symbol-referencer.hh"

@@ -12,7 +12,7 @@
 #include "group-interface.hh"
 #include "axis-group-interface.hh"
 #include "hara-kiri-group-spanner.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 
 MAKE_SCHEME_CALLBACK (Align_interface,alignment_callback,2);
 SCM

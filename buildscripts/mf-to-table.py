@@ -198,12 +198,12 @@ def write_fontlist (file, global_info, charmetrics):
     interscoreline = 1.0
     indent = 0.0 \cm
     \context {
-      \LyricsContext
+      \Lyrics
       \override SeparationItem #'padding = #2
       minimumVerticalExtent = ##f
     }
     \context {
-	\ScoreContext
+	\Score
 	\remove "Bar_number_engraver"
 	}
 	}

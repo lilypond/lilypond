@@ -9,7 +9,7 @@
 
 #include "lily-guile.hh"
 #include "paper-column.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "side-position-interface.hh"
 #include "item.hh"
 #include "moment.hh"

@@ -13,7 +13,7 @@
 #include "note-head.hh"
 #include "item.hh"
 #include "font-interface.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "lookup.hh"
 
 /*

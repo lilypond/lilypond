@@ -14,7 +14,6 @@
 #include "file-name.hh"
 #include "lily-version.hh"
 #include "main.hh"
-#include "midi-def.hh"
 #include "midi-item.hh"
 #include "midi-stream.hh"
 #include "performance.hh"

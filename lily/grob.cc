@@ -158,7 +158,7 @@ Grob::stencil_extent (SCM element_smob, SCM scm_axis)
   return ly_interval2scm (e);
 }
 
-Paper_def*
+Output_def*
 Grob::get_paper ()  const
 {
  return pscore_ ? pscore_->paper_ : 0;

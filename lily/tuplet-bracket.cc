@@ -31,7 +31,7 @@
 #include "warn.hh"
 #include "font-interface.hh"
 #include "stencil.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "text-item.hh"
 #include "tuplet-bracket.hh"
 #include "stem.hh"
@@ -168,7 +168,7 @@ Tuplet_bracket::print (SCM smob)
   
   SCM number = me->get_property ("text");
 
-  Paper_def *pap = me->get_paper ();
+  Output_def *pap = me->get_paper ();
   Stencil num;
  if (ly_c_string_p (number) && number_visibility)
     {

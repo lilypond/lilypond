@@ -27,9 +27,8 @@
 #include "lily-guile.hh"
 #include "lily-version.hh"
 #include "main.hh"
-#include "midi-def.hh"
 #include "misc.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "string.hh"
 #include "warn.hh"
 

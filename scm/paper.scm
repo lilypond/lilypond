@@ -109,13 +109,13 @@
   (let*
       ((scale (ly:bookpaper-outputscale bookpap))
        (new-pap (ly:output-def-clone pap))
-       (dim-vars (ly:paper-lookup pap 'dimension-variables))
+       (dim-vars (ly:output-def-lookup pap 'dimension-variables))
        (scope (ly:output-def-scope new-pap)))
 
     (for-each
      (lambda (v)
        (module-define! scope v
-		       (/ (ly:paper-lookup pap v) scale)))
+		       (/ (ly:output-def-lookup pap v) scale)))
      
      dim-vars)
 

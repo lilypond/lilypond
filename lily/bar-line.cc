@@ -14,7 +14,7 @@
 #include "bar-line.hh"
 #include "string.hh"
 #include "stencil.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "font-interface.hh"
 
 #include "all-font-metrics.hh"

@@ -206,7 +206,7 @@
 	   (plain (font-command font #f))
 	   (designsize (ly:font-design-size font))
 	   (magnification (* (ly:font-magnification font)))
-	   (ops (ly:paper-lookup paper 'outputscale))
+	   (ops (ly:output-def-lookup paper 'outputscale))
 	   (scaling (* ops magnification designsize)))
 
       (string-append
@@ -275,7 +275,7 @@
    "%%Creator: " creator " " time-stamp "\n"
    "%%Pages: " (number->string page-count) "\n"
    "%%PageOrder: Ascend\n"
-   "%%DocumentPaperSizes: " (ly:paper-lookup paper 'papersize) "\n"
+   "%%DocumentPaperSizes: " (ly:output-def-lookup paper 'papersize) "\n"
    ;;(string-append "GNU LilyPond (" (lilypond-version) "), ")
    ;;	   (strftime "%c" (localtime (current-time))))
    ;; FIXME: duplicated in every backend

@@ -21,13 +21,13 @@ class Score : public Input
   DECLARE_SMOBS (Score, foo);
 
 public:
-  Link_array<Music_output_def> defs_;
+  Link_array<Output_def> defs_;
   SCM music_;
   SCM header_;
     
   Score ();
   Score (Score const&);
-  SCM book_rendering (String, Book_paper_def*, Music_output_def*, Paper_def**);
+  SCM book_rendering (String, Book_output_def*, Output_def*, Output_def**);
 };
 
 DECLARE_UNSMOB (Score, score);

@@ -204,7 +204,7 @@ ly_options = {
     indent = 0.0\mm''',
 	NOTIME : r'''
     \context {
-        \StaffContext
+        \Staff
         \remove Time_signature_engraver
     }''',
 	QUOTE : r'''

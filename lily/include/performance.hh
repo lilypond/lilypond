@@ -29,7 +29,7 @@ public:
 
   Link_array<Audio_staff> audio_staffs_;
   Cons<Audio_element> *audio_elem_p_list_;
-  Midi_def *midi_;
+  Output_def *midi_;
 };
 
 #endif /* PERFORMANCE_HH */

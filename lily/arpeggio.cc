@@ -7,7 +7,7 @@
  */
 
 #include "stencil.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "arpeggio.hh"
 #include "grob.hh"
 #include "stem.hh"

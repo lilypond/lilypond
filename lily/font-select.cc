@@ -11,7 +11,7 @@
 
 #include "book-paper-def.hh"
 #include "all-font-metrics.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "font-interface.hh"
 #include "warn.hh"
 
@@ -22,7 +22,7 @@ LY_DEFINE (ly_paper_get_font, "ly:paper-get-font", 2, 0, 0,
 	   "in the alist chain @var{chain}.\n"
 	   "(An alist chain is a list of alists, containing grob properties).\n")
 {
-  Paper_def *pap = unsmob_paper (paper);
+  Output_def *pap = unsmob_output_def (paper);
   SCM_ASSERT_TYPE (pap, paper, SCM_ARG1, __FUNCTION__, "paper definition");
   
   Font_metric *fm = select_font (pap, chain);
@@ -33,7 +33,7 @@ LY_DEFINE (ly_paper_get_number, "ly:paper-get-number", 2, 0, 0,
 	   (SCM paper, SCM name),
 	   "Return the paper variable @var{name}.")
 {
-  Paper_def *pap = unsmob_paper (paper);
+  Output_def *pap = unsmob_output_def (paper);
   SCM_ASSERT_TYPE (pap, paper, SCM_ARG1, __FUNCTION__, "paper definition");
   return scm_make_real (pap->get_dimension (name));
 }
@@ -51,7 +51,7 @@ wild_compare (SCM field_val, SCM val)
   design size is specced in advance.
  */
 Font_metric*
-get_font_by_design_size (Paper_def* paper, Real requested,
+get_font_by_design_size (Output_def* paper, Real requested,
 			 SCM font_vector, SCM input_encoding_name)
 {
   int n = SCM_VECTOR_LENGTH (font_vector);
@@ -84,13 +84,15 @@ get_font_by_design_size (Paper_def* paper, Real requested,
     }
 
   Font_metric *fm = unsmob_metrics (scm_force (SCM_VECTOR_REF (font_vector, i)));
-  return paper->bookpaper_->find_scaled_font (fm, requested / size, input_encoding_name);
+  return dynamic_cast<Book_output_def*> (paper->parent_)
+    // ugh.
+    ->find_scaled_font (fm, requested / size, input_encoding_name);
 
 }
 
 
 Font_metric*
-get_font_by_mag_step (Paper_def* paper, Real requested_step,
+get_font_by_mag_step (Output_def* paper, Real requested_step,
 		      SCM font_vector, Real default_size, SCM input_encoding_name)
 {
   return get_font_by_design_size (paper,
@@ -108,7 +110,7 @@ properties_to_font_size_family (SCM fonts, SCM alist_chain)
 
 
 Font_metric *
-select_encoded_font (Paper_def *paper, SCM chain, SCM encoding_name)
+select_encoded_font (Output_def *paper, SCM chain, SCM encoding_name)
 {
   SCM name = ly_assoc_chain (ly_symbol2scm  ("font-name"), chain);
   
@@ -129,7 +131,8 @@ select_encoded_font (Paper_def *paper, SCM chain, SCM encoding_name)
       Font_metric * fm = all_fonts_global->find_font (ly_scm2string (name));
       
       
-      return paper->bookpaper_->find_scaled_font (fm, rmag, encoding_name);
+      return dynamic_cast<Book_output_def*> (paper->parent_)
+	->find_scaled_font (fm, rmag, encoding_name);
     }
   else if (scm_instance_p (name))
     {
@@ -151,7 +154,7 @@ select_encoded_font (Paper_def *paper, SCM chain, SCM encoding_name)
 }
 
 Font_metric *
-select_font (Paper_def *paper, SCM chain)
+select_font (Output_def *paper, SCM chain)
 {
   return select_encoded_font (paper, chain, SCM_EOL);
 }

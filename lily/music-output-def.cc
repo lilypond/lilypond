@@ -1,39 +1,42 @@
 /*
-  music-output-def.cc -- implement Music_output_def
+  music-output-def.cc -- implement Output_def
 
   source file of the GNU LilyPond music typesetter
 
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "scm-hash.hh"
+#include "book-paper-def.hh"
 #include "context-def.hh"
 #include "file-path.hh"
 #include "global-context.hh"
 #include "lily-guile.hh"
 #include "ly-module.hh"
 #include "main.hh"
-#include "music-output-def.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
+#include "output-def.hh"
+#include "scm-hash.hh"
 #include "warn.hh"
 
 #include "ly-smobs.icc"
 
-Music_output_def::Music_output_def ()
+Output_def::Output_def ()
 {
   scope_ = SCM_EOL;
+  parent_ = 0;
   smobify_self ();
 
   scope_ = ly_make_anonymous_module (false);
 }
 
-Music_output_def::~Music_output_def ()
+Output_def::~Output_def ()
 {
 }
 
-Music_output_def::Music_output_def (Music_output_def const &s)
+Output_def::Output_def (Output_def const &s)
 {
   scope_ = SCM_EOL;
+  parent_ = 0;
   smobify_self ();
 
   scope_= ly_make_anonymous_module (false);
@@ -42,30 +45,32 @@ Music_output_def::Music_output_def (Music_output_def const &s)
 }
 
 
-IMPLEMENT_SMOBS (Music_output_def);
-IMPLEMENT_DEFAULT_EQUAL_P (Music_output_def);
+IMPLEMENT_SMOBS (Output_def);
+IMPLEMENT_DEFAULT_EQUAL_P (Output_def);
 
-#include "paper-def.hh"
-#include "book-paper-def.hh"
 
 SCM
-Music_output_def::mark_smob (SCM m)
+Output_def::mark_smob (SCM m)
 {
-  Music_output_def * mo = (Music_output_def*) SCM_CELL_WORD_1 (m);
+  Output_def * mo = (Output_def*) SCM_CELL_WORD_1 (m);
 
   /*
     FIXME: why is this necessary?
     all bookpaper_ should be protected by themselves.
   */
-  Paper_def *pd  = dynamic_cast<Paper_def*>(mo);
-  if (pd && pd->bookpaper_)
-    scm_gc_mark (pd->bookpaper_->self_scm ());
+  if (mo->parent_)
+    scm_gc_mark (mo->parent_->self_scm ());
   
+
+  mo->derived_mark ();
   return mo->scope_;
 }
 
 void
-Music_output_def::assign_context_def (SCM transdef)
+Output_def::derived_mark () {}
+
+void
+assign_context_def (Output_def * m, SCM transdef)
 {
   Context_def *tp = unsmob_context_def (transdef);
   assert (tp);
@@ -73,7 +78,7 @@ Music_output_def::assign_context_def (SCM transdef)
   if (tp)
     {
       SCM sym = tp->get_context_name ();
-      scm_module_define (scope_, sym, transdef);
+      scm_module_define (m->scope_, sym, transdef);
     }  
 }
 
@@ -81,24 +86,16 @@ Music_output_def::assign_context_def (SCM transdef)
   find the translator for NAME. NAME must be a symbol.
 */
 SCM
-Music_output_def::find_context_def (SCM name) const
+find_context_def (Output_def const *m, SCM name)
 {  
-  SCM var = ly_module_lookup (scope_, name);
-
-  if (var != SCM_BOOL_F)
-    {
-      var = scm_variable_ref (var);
-      Context_def *cd = (unsmob_context_def (var));
-      return cd ? cd->self_scm () : SCM_EOL;
-    }
-  else
-    return SCM_EOL;
+  Context_def *cd = unsmob_context_def (m->lookup_variable (name));
+  return cd ? cd->self_scm () : SCM_EOL;
 }
 
 int
-Music_output_def::print_smob (SCM s, SCM p, scm_print_state *)
+Output_def::print_smob (SCM s, SCM p, scm_print_state *)
 {
-  Music_output_def * def = unsmob_music_output_def (s);
+  Output_def * def = unsmob_output_def (s);
   scm_puts ("#< ", p);
   scm_puts (classname (def), p);
   
@@ -107,56 +104,76 @@ Music_output_def::print_smob (SCM s, SCM p, scm_print_state *)
   return 1;
 }
 
+Real
+Output_def::get_dimension (SCM s) const
+{
+  SCM val = lookup_variable (s);
+  return ly_scm2double (val);
+}
+
+
 SCM
-Music_output_def::lookup_variable (SCM sym) const
+Output_def::lookup_variable (SCM sym) const
 {
   SCM var = ly_module_lookup (scope_, sym);
-
-  return scm_variable_ref (var);
+  if (SCM_VARIABLEP (var))
+    return SCM_VARIABLE_REF (var);
+  
+  if (parent_)
+    return parent_->lookup_variable (sym);
+  
+  return SCM_EOL;
 }
 
 SCM
-Music_output_def::c_variable (String s) const
+Output_def::c_variable (String s) const
 {
   return lookup_variable (ly_symbol2scm (s.to_str0 ()));
 }
 
 void
-Music_output_def::set_variable (SCM sym, SCM val)
+Output_def::set_variable (SCM sym, SCM val)
 {
   scm_module_define (scope_, sym, val);
 }
 
-LY_DEFINE (ly_paper_lookup, "ly:paper-lookup",
-	   2, 0,0, (SCM pap, SCM sym),
+LY_DEFINE (ly_paper_lookup, "ly:output-def-lookup",
+	   2, 0, 0, (SCM pap, SCM sym),
 	   "Lookup @var{sym} in @var{pap}. "
 	   "Return the value or @code{'()} if undefined.")
 {
-  Music_output_def *op = unsmob_music_output_def (pap);
-  SCM_ASSERT_TYPE (op, pap, SCM_ARG1, __FUNCTION__, "Paper");
+  Output_def *op = unsmob_output_def (pap);
+  SCM_ASSERT_TYPE (op, pap, SCM_ARG1, __FUNCTION__, "Output_def");
   SCM_ASSERT_TYPE (ly_c_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
 
-  SCM var = ly_module_lookup (op->scope_, sym);
-  if (SCM_VARIABLEP (var))
-    return SCM_VARIABLE_REF (var);
-  else
-    return SCM_EOL;
+  return op->lookup_variable (sym);
 }
 
 LY_DEFINE (ly_output_def_scope, "ly:output-def-scope",
 	   1, 0,0, (SCM def),
 	   "Get the variable scope inside @var{def}.")
 {
-  Music_output_def *op = unsmob_music_output_def (def);
+  Output_def *op = unsmob_output_def (def);
   SCM_ASSERT_TYPE (op, def, SCM_ARG1, __FUNCTION__, "Output definition");
   return op->scope_;
 }
+
+
+LY_DEFINE (ly_output_def_parent, "ly:output-def-parent",
+	   1, 0, 0, (SCM def),
+	   "Get the parent output-def of @var{def}.")
+{
+  Output_def *op = unsmob_output_def (def);
+  SCM_ASSERT_TYPE (op, def, SCM_ARG1, __FUNCTION__, "Output definition");
+  return op->parent_ ? op->parent_->self_scm () : SCM_EOL;
+}
+
 
 LY_DEFINE (ly_output_def_clone, "ly:output-def-clone",
 	   1, 0, 0, (SCM def),
 	   "Clone @var{def}.")
 {
-  Music_output_def *op = unsmob_music_output_def (def);
+  Output_def *op = unsmob_output_def (def);
   SCM_ASSERT_TYPE (op, def, SCM_ARG1, __FUNCTION__, "Output definition");
   SCM s = op->clone ()->self_scm ();
   scm_gc_unprotect_object (s);
@@ -168,7 +185,7 @@ LY_DEFINE(ly_output_description, "ly:output-description",
 	  (SCM output_def),
 	  "Return the description of translators in @var{output-def}.")
 {
-  Music_output_def *id = unsmob_music_output_def (output_def);
+  Output_def *id = unsmob_output_def (output_def);
   
   SCM al =ly_module_to_alist (id->scope_);
 
@@ -187,3 +204,23 @@ LY_DEFINE(ly_output_description, "ly:output-description",
 }
   
 
+
+#include "interval.hh"
+
+/* FIXME.  This is broken until we have a generic way of
+   putting lists inside the \paper block.  */
+Interval
+line_dimensions_int (Output_def *def, int n)
+{
+  Real lw =  def->get_dimension (ly_symbol2scm ("linewidth"));
+  Real ind = n ? 0.0 : def->get_dimension (ly_symbol2scm ("indent"));
+
+  return Interval (ind, lw);
+}
+
+LY_DEFINE (ly_paper_def_p, "ly:paper-def?",
+	   1, 0, 0, (SCM def),
+	   "Is @var{def} a paper definition?")
+{
+  return ly_bool2scm (unsmob_output_def (def));
+}

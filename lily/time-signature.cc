@@ -11,7 +11,7 @@
 #include "stencil.hh"
 #include "text-item.hh"
 #include "time-signature.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "font-interface.hh"
 #include "warn.hh"
 #include "staff-symbol-referencer.hh"

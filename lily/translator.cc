@@ -64,7 +64,7 @@ Translator::now_mom () const
   return daddy_context_->now_mom ();
 }
 
-Music_output_def *
+Output_def *
 Translator::get_output_def () const
 {
   return daddy_context_->get_output_def ();

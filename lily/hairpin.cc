@@ -13,7 +13,7 @@
 #include "spanner.hh"
 #include "font-interface.hh"
 #include "dimensions.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "warn.hh"
 #include "paper-column.hh"
 #include "lookup.hh"

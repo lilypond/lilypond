@@ -19,7 +19,7 @@
 #include "staff-symbol-referencer.hh"
 #include "beam.hh"
 #include "stem.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "group-interface.hh"
 #include "align-interface.hh"
 

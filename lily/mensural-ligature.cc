@@ -14,7 +14,7 @@
 #include "lookup.hh"
 #include "staff-symbol-referencer.hh"
 #include "note-head.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "warn.hh"
 
 /*

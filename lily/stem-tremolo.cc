@@ -11,7 +11,7 @@
 #include "directional-element-interface.hh"
 #include "item.hh"
 #include "lookup.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "staff-symbol-referencer.hh"
 #include "stem-tremolo.hh"
 #include "stem.hh"

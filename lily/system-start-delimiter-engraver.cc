@@ -12,7 +12,7 @@
 #include "staff-symbol.hh"
 #include "group-interface.hh"
 #include "paper-column.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "spanner.hh"
 
 class System_start_delimiter_engraver : public Engraver

@@ -12,7 +12,7 @@
 #include "script.hh"
 #include "font-interface.hh"
 #include "side-position-interface.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "item.hh"
 #include "stencil.hh"
 #include "lookup.hh"

@@ -1,5 +1,5 @@
 /* 
-  book-paper-def.cc --  implement Book_paper_def
+  book-paper-def.cc --  implement Book_output_def
   
   source file of the GNU LilyPond music typesetter
   
@@ -8,7 +8,7 @@
 */
 
 #include "ly-module.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "dimensions.hh"
 #include "book-paper-def.hh"
 #include "ly-smobs.icc"
@@ -16,59 +16,41 @@
 #include "virtual-font-metric.hh"
 #include "scaled-font-metric.hh"
 
-IMPLEMENT_SMOBS (Book_paper_def);
-IMPLEMENT_DEFAULT_EQUAL_P (Book_paper_def);
-
-Book_paper_def::Book_paper_def ()
+Book_output_def::Book_output_def ()
 {
   output_scale_ = 1.0;
   scaled_fonts_ = SCM_EOL;
-  scope_ = SCM_EOL;
-  smobify_self ();
   scaled_fonts_ = scm_c_make_hash_table (11);
-  scope_ = ly_make_anonymous_module (false); 
 }
 
-Book_paper_def::Book_paper_def (Book_paper_def const & src)
+Real
+Book_output_def::output_scale () const
+{
+  return output_scale_;
+}
+
+Book_output_def::Book_output_def (Book_output_def const & src)
+  : Output_def (src)
 {
   output_scale_ = src.output_scale_;
-  scope_ = SCM_EOL;
   scaled_fonts_ = SCM_EOL;
-  smobify_self ();
-  scope_= ly_make_anonymous_module (false);
-  if (is_module (src.scope_))
-    ly_import_module (scope_, src.scope_);
-
   scaled_fonts_ = scm_c_make_hash_table (11); // copying is not done with live defs. hopefully.
 }
 
-Book_paper_def::~Book_paper_def ()
+void
+Book_output_def::derived_mark ()
 {
+  scm_gc_mark (scaled_fonts_);
 }
 
-SCM
-Book_paper_def::mark_smob (SCM m)
-{
-  Book_paper_def *mo = (Book_paper_def*) SCM_CELL_WORD_1 (m);
 
-  scm_gc_mark (mo->scope_);
-  return mo->scaled_fonts_;
-}
-
-int
-Book_paper_def::print_smob (SCM s, SCM p, scm_print_state*)
-{
-  (void) s;
-  scm_puts ("#<Book_paper>", p);
-  return 1;
-}
 
 Font_metric*
-Book_paper_def::find_scaled_font (Font_metric *f, Real m, SCM input_enc_name)
+Book_output_def::find_scaled_font (Font_metric *f, Real m, SCM input_enc_name)
 {
   Real lookup_mag = m;
   if (!dynamic_cast<Virtual_font_metric*> (f))
-    lookup_mag /= output_scale_;
+    lookup_mag /= output_scale ();
   
   SCM sizes = scm_hashq_ref (scaled_fonts_, f->self_scm (), SCM_BOOL_F);
   if (sizes != SCM_BOOL_F)
@@ -114,13 +96,11 @@ Book_paper_def::find_scaled_font (Font_metric *f, Real m, SCM input_enc_name)
     {
       if (!ly_c_symbol_p (input_enc_name))
 	{
-#if 0
-	  /* FIXME.*/
 	  SCM var = ly_module_lookup (scope_, ly_symbol2scm ("inputencoding"));
-	  input_enc_name = scm_variable_ref (var);
-      
-#endif
-	  input_enc_name = ly_symbol2scm ("latin1"); 
+	  if (var != SCM_BOOL_F) 
+	    input_enc_name = scm_variable_ref (var);
+	  if (!ly_c_symbol_p (input_enc_name))
+	    input_enc_name = ly_symbol2scm ("latin1"); 
 	}
 
       val = Modified_font_metric::make_scaled_font_metric (input_enc_name,
@@ -133,17 +113,17 @@ Book_paper_def::find_scaled_font (Font_metric *f, Real m, SCM input_enc_name)
   return unsmob_metrics (val);
 }
 
-Paper_def * 
-Book_paper_def::scale_paper (Paper_def *pd) const
+Output_def* 
+Book_output_def::scale_paper (Output_def *pd) const
 {
   SCM proc = ly_scheme_function ("scale-paper");
   SCM new_pap = scm_call_2 (proc, pd->self_scm (), self_scm ());
 
   scm_gc_protect_object (new_pap);
 
-  Paper_def *p = unsmob_paper (new_pap);
+  Output_def *p = unsmob_output_def (new_pap);
   
-  p->bookpaper_ = (Book_paper_def*) this;
+  p->parent_ = (Output_def*) this;
   return p;
 }
 
@@ -152,7 +132,7 @@ LY_DEFINE (ly_make_bookpaper, "ly:make-bookpaper",
 	   (SCM size),
 	   "Make a paperbook, for staff space SIZE, which is in INTERNAL_UNIT.") 
 {
-  Book_paper_def *bp = new Book_paper_def ;
+  Book_output_def *bp = new Book_output_def ;
 
   SCM_ASSERT_TYPE (ly_c_number_p (size), size,
 		   SCM_ARG1, __FUNCTION__, "number");
@@ -162,12 +142,18 @@ LY_DEFINE (ly_make_bookpaper, "ly:make-bookpaper",
   return scm_gc_unprotect_object (bp->self_scm ());
 }
 
+Book_output_def *
+unsmob_book_output_def (SCM bp)
+{
+  return dynamic_cast<Book_output_def*> (unsmob_output_def (bp));
+}
+
 LY_DEFINE (ly_bookpaper_fonts, "ly:bookpaper-fonts",
 	   1, 0, 0,
 	   (SCM bp),
 	   "Return fonts scaled up BP")
 {
-  Book_paper_def *b = unsmob_book_paper_def (bp);
+  Book_output_def *b = unsmob_book_output_def (bp);
   
   SCM_ASSERT_TYPE (b, bp, SCM_ARG1, __FUNCTION__, "bookpaper");
 
@@ -195,32 +181,18 @@ LY_DEFINE (ly_bookpaper_outputscale, "ly:bookpaper-outputscale",
 	  (SCM bp),
 	  "Get outputscale for BP.")
 {
-  Book_paper_def *b = unsmob_book_paper_def (bp);
+  Book_output_def *b = unsmob_book_output_def (bp);
   SCM_ASSERT_TYPE (b, bp, SCM_ARG1, __FUNCTION__, "bookpaper");
   return scm_make_real (b->output_scale_);
 }
 
 
-SCM
-Book_paper_def::lookup_variable (SCM sym) const
-{
-  SCM var = ly_module_lookup (scope_, sym);
 
-  return scm_variable_ref (var);
-}
-
-SCM
-Book_paper_def::c_variable (String s) const
-{
-  return lookup_variable (ly_symbol2scm (s.to_str0 ()));
-}
-
-
-LY_DEFINE (ly_book_paper_def_scope, "ly:bookpaper-def-scope",
+LY_DEFINE (ly_book_output_def_scope, "ly:bookpaper-def-scope",
 	   1, 0,0, (SCM def),
 	   "Get the variable scope inside @var{def}.")
 {
-  Book_paper_def *op = unsmob_book_paper_def (def);
+  Book_output_def *op = unsmob_book_output_def (def);
   SCM_ASSERT_TYPE (op, def, SCM_ARG1, __FUNCTION__, "Output definition");
   return op->scope_;
 }

@@ -100,7 +100,7 @@
      ly:paper-line-number
      ly:paper-line-stencil
      ly:paper-line?
-     ly:paper-lookup
+     ly:output-def-lookup
      ly:parse-string
      ly:parser-parse-string
      ly:parser-print-book

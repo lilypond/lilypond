@@ -20,7 +20,7 @@
 #include "note-head.hh"
 #include "stem.hh"
 #include "warn.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "rhythmic-head.hh"
 #include "font-interface.hh"
 #include "stencil.hh"
