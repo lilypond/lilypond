@@ -266,8 +266,8 @@ returns whether the instrument should use midi channel 9
          (entry (assoc inst instrument-names-alist))
 	)
      (and entry (>= (cdr entry) 32768))
-  )
-)
+  ))
+
 (define-public (midi-program instrument)
 "
 returns the program of the instrument

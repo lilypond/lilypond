@@ -16,6 +16,7 @@
 \translator {
     \StaffContext
     \name DrumStaff
+    midiInstrument = #"drums"
     \accepts DrumVoice
 }
 
@@ -30,6 +31,8 @@
 
 \translator {
     \VoiceContext
+    \remove "Note_performer"
+    \consists "Drum_note_performer" 
     \name DrumVoice
 }
 
@@ -94,13 +97,14 @@
     \accepts RhythmicStaff
     \accepts ChordNames
     \accepts FiguredBass
-
+    \accepts LyricsVoice
     \alias "Timing"
     \consists "Timing_translator"
     \consists "Swallow_performer"
     
     dynamicAbsoluteVolumeFunction = #default-dynamic-absolute-volume
     instrumentEqualizer = #default-instrument-equalizer
+    drumPitchTable = #(alist->hash-table midiDrumPitches) 
 }
 
 

@@ -93,9 +93,7 @@ Staff_performer::stop_translation_timestep ()
   /*
     UGH. -> don't use eval.
   */
-  
   static SCM proc;
-
   if (!proc)
     proc = scm_primitive_eval (ly_symbol2scm ("percussion?"));
   

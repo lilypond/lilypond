@@ -168,13 +168,23 @@
 
 
 (if (not (defined? 'hash-table?))	; guile 1.6 compat
-    (define hash-table? vector?))
+    (begin
+      (define hash-table? vector?)
 
-(define-public (hash-table->alist t)
-  "Convert table t to list"
-  (apply append
-	 (vector->list t)
-  ))
+      (define-public (hash-table->alist t)
+	"Convert table t to list"
+	(apply append
+	       (vector->list t)
+	       )))
+
+    ;; native hashtabs.
+    (begin
+      (define-public (hash-table->alist t)
+
+	(hash-fold (lambda (k v acc) (acons  k v  acc))
+		   '() t)
+	)
+      ))
 
 ;; todo: code dup with C++. 
 (define-public (alist->hash-table l)
