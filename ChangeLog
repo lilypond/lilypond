@@ -1,5 +1,10 @@
 2005-02-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/user/invoking.itely (Editor support): remove
+	lilypond-latex section.
+
+	* scripts/lilypond-latex.py (Module): remove script.
+
 	* cygwin/lily-wins.py (stat): write to .lylog, so as not to
 	overwrite .log. 
 
