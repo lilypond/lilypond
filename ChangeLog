@@ -1,3 +1,14 @@
+2002-09-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/*.cc: specify accepts for many engravers.
+
+	* scm/music-documentation-lib.scm: dump music expressions and
+	music subtypes.
+
+	* scm/documentation-lib.scm: complete revision.
+	Use GOOPS objects to store document tree explicitly. Cleanedup and
+	sped up doco generation a lot.
+
 2002-09-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/trip.ly (fugaIILeft): add arpeggio

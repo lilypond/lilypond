@@ -299,7 +299,7 @@ ENTER_DESCRIPTION(Beam_engraver,
 /* descr */       "Handles Beam_requests by engraving Beams.    If omitted, then notes will be
 printed with flags instead of beams.",
 /* creats*/       "Beam",
-/* accepts */     "general-music",
+/* accepts */     "beam-event abort-event",
 /* acks  */      "stem-interface rest-interface",
 /* reads */       "beamMelismaBusy beatLength subdivideBeams",
 /* write */       "");

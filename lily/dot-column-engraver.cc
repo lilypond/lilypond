@@ -84,7 +84,7 @@ ENTER_DESCRIPTION(Dot_column_engraver,
 If omitted, then dots appear on top of the notes.
 ",
 /* creats*/       "DotColumn",
-/* accepts */     "general-music",
+/* accepts */     "",
 /* acks  */      "rhythmic-head-interface dot-column-interface stem-interface",
 /* reads */       "",
 /* write */       "");

@@ -101,5 +101,5 @@ Key_performer::try_music (Music* req)
 
 ENTER_DESCRIPTION(Key_performer,
 		  "","",
-		  "general-music",
+		  "key-change-event",
 		  "","","");

@@ -78,7 +78,7 @@ Collision_engraver::Collision_engraver ()
 ENTER_DESCRIPTION(Collision_engraver,
 /* descr */       "",
 /* creats*/       "NoteCollision",
-/* accepts */     "general-music",
+/* accepts */     "",
 /* acks  */      "note-column-interface",
 /* reads */       "",
 /* write */       "");

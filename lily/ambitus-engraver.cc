@@ -197,7 +197,7 @@ Ambitus_engraver::finalize ()
 ENTER_DESCRIPTION(Ambitus_engraver,
 /* descr */       "",
 /* creats*/       "Ambitus",
-/* accepts */ "general-music",
+/* accepts */ "",
 /* acks  */     "note-head-interface",
 /* reads */       "",
 /* write */       "");

@@ -42,7 +42,7 @@ protected:
 bool
 Tuplet_engraver::try_music (Music *r)
 {
-  if (Time_scaled_music * c = dynamic_cast<Time_scaled_music *> (r))
+  if ( c->is_mus_type ("time-scaled-music"))
     {
       Music *el = c->element ();
       if (!dynamic_cast<Request_chord*> (el))
@@ -155,7 +155,7 @@ Tuplet_engraver::Tuplet_engraver(){}
 ENTER_DESCRIPTION(Tuplet_engraver,
 /* descr */       "Catch Time_scaled_music and generate appropriate bracket  ",
 /* creats*/       "TupletBracket",
-/* accepts */     "general-music",
+/* accepts */     "time-scaled-music",
 /* acks  */      "note-column-interface",
 /* reads */       "tupletNumberFormatFunction tupletSpannerDuration tupletInvisible",
 /* write */       "");

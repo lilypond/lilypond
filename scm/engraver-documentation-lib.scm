@@ -246,14 +246,20 @@
       )
     ))
 
+
+(define all-engravers-list  (ly-get-all-translators))
+(set! all-engravers-list
+      (sort all-engravers-list
+	    (lambda (a b) (string<? (ly-translator-name a)
+				    (ly-translator-name b)))))
+
 (define (all-engravers-doc)
   (make <texi-node>
     #:name "Engravers"
     #:desc "All separate engravers"
     #:children
-    (map engraver-doc (ly-get-all-translators))))
+    (map engraver-doc all-engravers-list)))
 
-(define all-engravers-list  (ly-get-all-translators))
 (define (all-translation-properties-doc)
   
   (let*
