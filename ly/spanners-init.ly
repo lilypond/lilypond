@@ -54,16 +54,24 @@ setTextCresc = {
     \set crescendoSpanner = #'dashed-line
 }
 setTextDecresc = {
-    \set crescendoText = \markup { \italic "decr." }
-    \set crescendoSpanner = #'dashed-line
+    \set decrescendoText = \markup { \italic "decr." }
+    \set decrescendoSpanner = #'dashed-line
 }
 setTextDim = {
-    \set crescendoText = \markup { \italic "dim." }
-    \set crescendoSpanner = #'dashed-line
+    \set decrescendoText = \markup { \italic "dim." }
+    \set decrescendoSpanner = #'dashed-line
 }
 setHairpinCresc = {
     \unset crescendoText 
     \unset crescendoSpanner 
+}
+setHairpinDecresc = {
+    \unset decrescendoText 
+    \unset decrescendoSpanner 
+}
+setHairpinDim = {
+    \unset decrescendoText 
+    \unset decrescendoSpanner 
 }
 
 
