@@ -27,6 +27,8 @@
 (music-property-description 'span-type string? "What kind of spanner should be created?
 
 TODO: consider making type into symbol") 
+(music-property-description 'articulations music-list?
+			    "Articulation events specifically for this note.")
 (music-property-description 'articulation-type string? "key for script definitions alist.
 
 TODO: consider making type into symbol ")

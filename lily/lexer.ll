@@ -277,6 +277,14 @@ HYPHEN		--
 	yylval.scm = sval;
 	return SCM_T;
 }
+<INITIAL,notes>{ 
+	\<\<   {
+		return CHORD_OPEN;
+	}
+	\>\>   {
+		return CHORD_CLOSE;
+	}
+}
 <figures>{
 	_	{
 		return FIGURE_SPACE;
