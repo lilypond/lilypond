@@ -7,7 +7,8 @@
 %textheight = \staffheight/20.0 * \textheight20;
 
 linewidth = \hsize - 2.\cm;
-textheight = \vsize - 4.\cm;
+% Leave the textheight calculation to the geometry package. /MB
+%textheight = \vsize - 4.\cm;
 
 indent = \linewidth / 14.0;
 

@@ -39,7 +39,8 @@ Arne Fagertun name @file{ly2dvi}.
     Keep LilyPond output after the run.
 @item -L,--landscape
     Set landscape orientation - portrait is the default.
-    (@strong{-L} produces @code{\usepackage[landscape]@{article@}})
+    Use together with @code{dvips -t landscape} if you run dvips 
+    separately. 
 @item -N,--nonumber
     Switch off page numbering.
 @item -O,--orientation=

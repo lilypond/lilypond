@@ -81,7 +81,7 @@ Script_engraver::create_grobs ()
       art = gh_cdr(art);
 
       SCM force_dir = l->get_mus_property ("direction");
-      if (isdir_b (force_dir) && to_dir (force_dir))
+      if (isdir_b (force_dir) && !to_dir (force_dir))
 	force_dir = gh_car (art);
       
       art = gh_cdr(art);
