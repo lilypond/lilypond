@@ -104,7 +104,8 @@ Stem::set_default_extents()
 void
 Stem::postprocess()
 {
-    set_default_extents();
+    if (bot == top)
+	set_default_extents();
     brew_molecole();
 }
 
