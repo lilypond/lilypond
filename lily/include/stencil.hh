@@ -11,7 +11,6 @@
 #include <stdlib.h>		// size_t
 #include "lily-proto.hh"
 #include "box.hh"
-#include "axes.hh"
 #include "direction.hh"
 #include "lily-guile.hh"
 #include "smobs.hh"

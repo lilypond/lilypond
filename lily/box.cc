@@ -8,6 +8,7 @@
 
 #include "box.hh"
 #include "array.hh"
+#include "axes.hh"
 
 void
 Box::translate (Offset o)

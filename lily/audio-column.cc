@@ -13,7 +13,6 @@
 Audio_column::Audio_column (Moment at_mom)
 {
   at_mom_ = at_mom;
-  performance_ = 0;
 }
 
 void

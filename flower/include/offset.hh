@@ -11,6 +11,7 @@
 #include "real.hh"
 #include "axes.hh"
 #include "arithmetic-operator.hh"
+#include "string.hh"
 
 Offset complex_multiply (Offset, Offset);
 Offset complex_divide (Offset, Offset);
