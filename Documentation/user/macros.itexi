@@ -91,9 +91,10 @@ $\\flat$%
 @cindex \NAME\
 @end macro
 
-@macro fileref{DIR,NAME}
+@macro inputfileref{DIR,NAME}
 @uref{../../../\DIR\/out-www/collated-files.html#\NAME\}
 @end macro
+
 @end ifhtml
 
 @ifinfo
@@ -102,7 +103,7 @@ $\\flat$%
 @cindex \NAME\
 @end macro
 
-@macro fileref{DIR,NAME}
+@macro inputfileref{DIR,NAME}
 @file{\DIR\/\NAME\}
 @end macro
 
@@ -113,7 +114,7 @@ $\\flat$%
 @cindex \NAME\
 @code{\NAME\}
 @end macro
-@macro fileref{DIR,NAME}
+@macro inputfileref{DIR,NAME}
 @file{\DIR\/\NAME\}
 @end macro
 @end iftex
