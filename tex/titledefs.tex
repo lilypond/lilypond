@@ -6,16 +6,30 @@
 \def\EndLilyPondOutput{\endinput}
 \def\thetitle{}
 \def\thecomposer{}
+\def\thearranger{}
 \def\theinstrument{}
+\def\theLineOne{}
+\def\theLineTwo{}
+\def\theLineThree{}
+\def\lineOne#1{\def\theLineOne{#1}}
+\def\lineTwo#1{\def\theLineTwo{#1}}
+\def\lineThree#1{\def\theLineThree{#1}}
 \def\title#1{\def\thetitle{#1}}
 \def\composer#1{\def\thecomposer{#1}}
+\def\arranger#1{\def\thearranger{#1}}
 \def\instrument#1{\def\theinstrument{#1}}
 
-\def\maketit{
+\def\makelilytitle{
   \begin{center}
     {\Large\bfseries\thetitle}\\
     \vskip12pt
-    {\bfseries\theinstrument}\hfill{\scshape\thecomposer}
+    {\scshape\theLineOne}
+    {\hfill\scshape\thecomposer}
+    \vskip4pt
+    {\bfseries\theLineTwo}
+    {\bfseries\thearranger}
   \end{center}
+  \bfseries\theLineThree
+  \bfseries\theinstrument
   \bigskip
   }
