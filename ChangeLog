@@ -1,3 +1,8 @@
+2003-07-27  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* Documentation/user/{ many }: increase readability (read through 
+	User manual from `one big page').
+
 2003-07-26  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/test/polymetric-differing-notes.ly: add example with
