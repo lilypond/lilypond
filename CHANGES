@@ -1,4 +1,28 @@
+1.3.115.jcn2
+============
 
+* Bugfix: lilypond-book.py: only include exisisting .texidoc files.
+
+* Lilypond: don't write empty header field file if header field does
+not exist (ie, empty .texidoc files).
+
+* Turn on info generation.
+
+* Fixes to dynamic placement and crescendo spanners.  Incomprehensible
+``width-correct'' hack remains.
+
+* Bugfix: auto-beamer beaming over bar lines.
+
+* Bugfix: consecutive and non-consecutive glissandi.
+
+1.3.115.hwn1
+============
+
+* Bugfix: multi-measure rest ends, chords. 
+
+* Some back end documentation
+
+* Rename element to grob in .scm files.
 
 1.3.114.mb1
 ===========
@@ -10,12 +34,13 @@
 * Allow for instrument names with multiple lines and font selection,
   see input/test/coriolan-margin.ly
 
-* Added example for figured bass: input/test/figbass.ly
+* Added example for figured bass: input/test/figured-bass.ly
 
 1.3.114.lec1
 ============
 
 * abc2ly fixes
+
 	* allow a g_8 clef to be specified by treble8
 
 	* allow full mode names, as well as 3 character abbreviations
@@ -942,6 +967,12 @@ prematurely killed.
 
   - fix repeat bar behavior.
 
+1.3.115.hwn1
+============
+
+* documentation
+
+* 
 
 * cleaned up Directional_element_interface
 
