@@ -20,6 +20,7 @@ Tested Features: lyrics, interleaving lyrics and staffs
 melody = \melodic{
 	\clef violin;
 	\octave c';
+	\property Staff.instrument = "alto sax"
 	
 	c4 c | g g | a a | g g |
 	f f | e e | d d8.( e16 | )c2 | % :|

@@ -59,7 +59,14 @@ Staff_performer::do_removal_processing()
 String 
 Staff_performer::instrument_str() 
 { 
+  // mustn't ask Score for instrument: it will return piano!
   return get_property ("instrument");
+
+/* ugh, but can't
+  if (properties_dict_.elt_b ("instrument"))
+    return properties_dict_["instrument"];
+  return "";
+*/
 }
 
 void 

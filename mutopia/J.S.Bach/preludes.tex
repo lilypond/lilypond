@@ -1,0 +1,50 @@
+\documentclass{article}         %UGH
+\usepackage{a4}
+
+\advance\oddsidemargin-30mm
+\evensidemargin\oddsidemargin
+% ugh, centre
+\advance\textwidth60mm
+\hsize210mm
+\vsize269mm
+\advance\topmargin-25mm
+\advance\textheight45mm
+\pagestyle{empty}
+
+\input titledefs
+        
+\input lilyponddefs
+\def\interscoreline{\vskip2mm}
+%ugh
+\staffheight=20pt
+
+\font\numfont=feta-nummer10 scaled \magstep2
+\def\piece#1#2#3{%
+%  \hbox to0pt{\vbox to\staffheight{\vss}}
+%  \nopagebreak
+  \vbox to 0pt{\large\bf#3\vss}
+  \nopagebreak
+  \vbox to0pt{\vbox to4.5\staffheight{\vss\numfont#1}\vss}
+  \nopagebreak
+  \input#2%
+}
+
+\begin{document}
+
+\title{DOUZE PETITS PR\'ELUDES\\
+	TWAALF KLEINE PRELUDI\"EN}
+\composer{J.S.\ Bach (1685-1750)}
+
+\makelilytitle
+\kern-\staffheight
+
+\piece{1}{preludes-1}{Moderato}
+\vskip2\staffheight
+\piece{2}{preludes-2}{Moderato}
+\newpage
+\piece{3}{preludes-3}{Semplice e non troppo legato}
+\newpage
+\piece{4}{preludes-4}{Allegretto}
+
+\end{document}
+

@@ -1,10 +1,13 @@
 \header{
 filename =	 "preludes-1.ly";
-title =	 "1";
+title =	 "DOUZE P\'ETITES PRELUDES";
+% tempo = "Moderato"
 composer =	 "Johann Sebastian Bach (1685-1750)";
 enteredby =	 "jcn";
 copyright =	 "public domain";
 }
+
+\include "paper20.ly"
 
 rh = \melodic{
 	\octave c'';
@@ -66,8 +69,8 @@ lh = \melodic{
 	c4-5 e-3 [g32-1 fis-2 g8.-1] 'g4 |
 	d-5 f-3 [a32-1 gis a8.] 'a4 |
 	% ugh grouping32: 4..4
-	e-5 e'-1 a-4 [e32-3 b c' b] [c' b a b] |
-	c'4 e-4 fis [a32-1 gis fis gis] [ ais gis fis gis] |
+ 	e-5 e'-1 a-4 [a32-3 b c' b] [c' b a b] |
+ 	c'4 e-4 fis [a32-1 gis fis gis] [a gis fis gis] |
 	a4 c-4 d [d32 e f e] [f e d e] |
 	% ugh tril sign
 	% f4-1 e d-3\tr c |
@@ -106,6 +109,8 @@ global  = \melodic{
 		>
 	>
 	\paper{
+		\paper_twenty
+		linewidth= 195.\mm;
 	}
 	\midi{
 		\tempo 4 = 70;

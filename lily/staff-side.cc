@@ -68,7 +68,8 @@ Staff_side::get_position_f() const
   Real inter_f = paper()-> internote_f ();
 
   Interval v= support_height();
-  y = v[dir_]  + 2*dir_*inter_f;	// ugh
+//  y = v[dir_]  + 2*dir_*inter_f;	// ugh
+  y = v[dir_];	// ugh
 
   return y;
 }

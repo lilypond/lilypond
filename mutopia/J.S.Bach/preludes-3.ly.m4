@@ -6,6 +6,8 @@ enteredby =	 "jcn";
 copyright =	 "public domain";
 }
 
+\include "paper20.ly"
+
 define(comma, r16 [$1$4 $2 $3] [$2 $1 $2 $6$1] r $1$7 r $5$1 |)
 define(s, `comma(translit($*,` ', `,'))')
 define(t, r16 [$1$4 $2 $3] [$2 $1 $2 $6$1] r $1$7 r $5$1 |)
@@ -35,20 +37,25 @@ rh = \melodic{
 	s('a c fis)
 	s('a c fis)
 	s('bes d g)
+
+
 	s(c fis a -"poco\\_a\\_poco\\_cresc.")
 	s(d g bes)
 	s(d fis c')
+
 	s(cis g bes)
 	s(c es a !-"dim.")
 	s('bes e g)
 	s('a c g)
+
 	s('a c fis)
 	s('g 'bes e)
-	s('fis a es)
+	s('fis 'a es)
+
 	s('g 'bes d -"dim.")
 	s('g 'a c)
-	s('fis a c)
-	s('fis a c)
+	s('fis 'a c)
+	s('fis 'a c)
 	r16\p ['g 'a c] ['b 'g 'b 'g] r 'g r 'g
 	s('a c fis -"poco\\_cresc.")
 	s(c fis a)
@@ -95,8 +102,9 @@ lh = \melodic{
 	'd4 r [d8 'a] |
 	'd4 r [d8 'bes] |
 
+
 	'd4 r [es8 c] |
-	'd4 r [es8 d] |
+	'd4 r [g8 d] |
 	'd4 r [a8 fis] |
 
 	'd4 r [g8 es] |
@@ -108,7 +116,7 @@ lh = \melodic{
 	'd4 r [cis8 'bes] |
 	'd4 r [c!8 'a] |
 
-	'd4 r ['bes8 g] |
+	'd4 r ['bes8 'g] |
 	'd4 r [es8 c] |
 	'd4 r [d8 c] |
 
@@ -124,7 +132,7 @@ lh = \melodic{
 	'g4 r [es8 c] |
 	'g4 r [es8 c] |
 	'g4 r r |
-	'g2.-\fermata 
+	'g2._\fermata 
 	\bar "|.";
 }
 
@@ -146,6 +154,8 @@ global  = \melodic{
 		>
 	>
 	\paper{
+		\paper_twenty
+		linewidth= 195.\mm;
 	}
 	\midi{
 		\tempo 4 = 90;

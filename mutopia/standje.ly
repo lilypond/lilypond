@@ -47,7 +47,7 @@ $vocal_verse1 = \melodic{
 	% [a3 2\grace b] )
 	[2/3 a!8( ) gis] a \] c'4. a8 |
 	g!2. |
-	[2/3 d'8\f cis'] d \] f'4. b8 |
+	[2/3 d'8\f cis'] d' \] f'4. b8 |
 	c'!2. |
 }
 
@@ -110,6 +110,8 @@ $lyric_verse2 = \lyric{
 % 23
 	R\"uh-8. ren16 mit4. den8 
 	Sil-8. ber-16 t\"o-4. nen8
+	\[2/3 Jed-4 es8 \] wei-4. che8 
+	Herz.2.
 	\[2/3 Jed-4 es8 \] wei-4. che8 
 	Herz.2.
 }
@@ -175,7 +177,7 @@ $treble_eentje = \melodic{
 	<e4. g> <[e8-. g-.(> <e-. g-.> <e-. )g-.]> |
 	<f4. g> <['b8-. g-.(> <d-. g-.> <f-. )g-.]> |
 	<e2 g\pp> <e4 g> |
-	<f2\mf a(> <[as8.( c'> <)f16 )a]> |
+	<f2\mf a(> <[a8.( c'> <)f16 )a]> |
 	<e4. g> <[e8-. g-.(> <e-. g-.> <e-. )g-.]> |
 	<f4. g> <['b8-. g-.(> <d-. g-.> <f-. )g-.]> |
 	<e2. g> |
@@ -236,6 +238,16 @@ global= \melodic {\meter 3 /4; \key bes es as; }
 		
 \score{
 	\melodic<
+		\type Staff { < 
+			\global 
+			{ 
+				\property Staff.instrument = "alto sax"
+				\skip 4 * 12; 
+				\$vocal_verse1 
+				\skip 4 * 24; 
+				\$vocal_verse1
+			}
+		> }
 		\type Lyrics { 
 			\meter 3 /4; 
 			\skip 4 * 12; 
@@ -243,16 +255,6 @@ global= \melodic {\meter 3 /4; \key bes es as; }
 			\skip 4 * 24; 
 			\$lyric_verse2
 		}
-		\type Staff { < 
-			\global 
-			{ 
-				\skip 4 * 12; 
-				\$vocal_verse1 
-				\skip 4 * 24; 
-				\$vocal_verse1
-			}
-		> }
-		
 		\type Grandstaff < 
 			< 
 				\global
