@@ -123,7 +123,7 @@ binary-arch: build install
 	dh_testdir
 	dh_testroot
 	cp -av lilypond-mode.el lilypond-font-lock.el lilypond-indent.el \
-		buildscripts/out/lilypond.words \
+		buildscripts/out/lilypond.words.el \
 		$(r)/usr/share/emacs/site-lisp/
 	dh_installdocs AUTHORS.txt NEWS.txt README.txt \
 		DEDICATION THANKS 

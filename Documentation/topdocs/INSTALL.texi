@@ -265,7 +265,7 @@ and for the profiling version, I specify a different configuration:
 An Emacs mode for entering music and running LilyPond is contained in
 the source archive as @file{lilypond-mode.el},
 @file{lilypond-indent.el}, @file{lilypond-font-lock.el} and
-@file{lilypond.words}.  You should install these files to a directory
+@file{lilypond.words.el}.  You should install these files to a directory
 included in your @var{load-path}. File @file{lilypond-init.el} should
 be placed to @var{load-path}@file{/site-start.d/} or appended to your
 @file{~/.emacs} or @file{~/.emacs.el}.
@@ -284,7 +284,7 @@ to your @var{load-path}. Append the following line (modified) to your
 
 A Vim mode for entering music and running LilyPond is contained in
 the source archive. Append the content of @file{vimrc} to @file{~/.vimrc}
-to get shortcuts. Install file @file{lilypond.words} to @file{~/.vim/} to 
+to get shortcuts. Install file @file{lilypond.words.el} to @file{~/.vim/} to 
 get auto-completion. Syntax highlighting you get by installing 
 @file{lilypond.vim} to @file{~/.vim/syntax/} and appending the following
 to @file{~/.vim/filetype.vim}:

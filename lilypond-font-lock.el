@@ -5,8 +5,6 @@
 ;; Author: 2001-2003: Heikki Junes
 ;;  * Emacs-mode: new keywords, reserved words, identifiers, notenames, 
 ;;    some dynamics and brackets are font-lock-keywords
-;;  * File lilypond.words contains \keywords, \Identifiers and 
-;;    ReservedWords notenames.
 ;;  * context-dependent syntax-tables
 ;; Author: 1997: Han-Wen Nienhuys
 ;; Author: 1995-1996 Barry A. Warsaw
