@@ -15,7 +15,7 @@ c16[ c c c]
 r c16[ c c]
 
 }
-    \lyrics \new Lyrics {
+     \new Lyrics \lyrics {
 	bla16 -- bla -- bla -- bla --
 	bla -- bla -- bla -- bla8 --
 	       bla16 -- bla -- bla 

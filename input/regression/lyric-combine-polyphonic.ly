@@ -21,13 +21,12 @@ texidoc ="Polyphonic rhythms and rests do not disturb
 	      \voiceTwo
 	      ees'8 r8 r8 r8 ees' r8 r8 r8 
           }
-          \lyricsto "two" \lyrics \new Lyrics {
-             Do na
+          \lyricsto "two" \new Lyrics \lyrics {
+	      Do na
          }
-	 \lyrics  \lyricsto "one" \new Lyrics
-	   {
-	       Do mi nus ex
-	   }
+	 \lyricsto "one" \new Lyrics \lyrics {
+	     Do mi nus ex
+	 }
        >>
     }
     \paper { raggedright = ##t}

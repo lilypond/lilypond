@@ -13,8 +13,8 @@
 	\autoBeamOff
 	c2( d4) e8[ c b c] f4
     }
-    \lyricsto "bla" \lyrics \new Lyrics { bla ab blob blob }
-    \lyricsto "bla" \lyrics \new Lyrics {
+    \lyricsto "bla" \new Lyrics \lyrics { bla ab blob blob }
+    \lyricsto "bla" \new Lyrics \lyrics {
 	bla 
 
 	\set ignoreMelismata = ##t
@@ -28,6 +28,8 @@
 	blob
     }
     
-    \lyricsto "bla" \lyrics \new Lyrics { nes ted lyrics voice with more words than no tes } >>
-
+    \lyricsto "bla" \new Lyrics \lyrics {
+	nes ted lyrics voice with more words than no tes
+    }
+    >>
     }
