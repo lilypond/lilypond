@@ -22,6 +22,23 @@ where x is one of \@\{\\ppp, \\pp, \\p, \\mp, \\mf, \\f, \\ff, \\fff.\@\}")
 	(types . (general-music apply-context))
 	(iterator-ctor . ,Apply_context_iterator::constructor)
 	))
+    (ApplyOutputEvent
+     . (
+	(description . "
+Call the argument with all current grobs during interpreting phase.
+
+SYNTAX
+
+\applyoutput FUNC
+
+arguments to func are 1. the grob, 2. the originating context,
+3. context where FUNC is called.
+
+")
+	(internal-class-name . "Event")
+	(iterator-ctor . ,Output_property_music_iterator::constructor)
+	(types . (general-music layout-instruction))
+	))
     (ArpeggioEvent 
      . (
 	(description .  "Make an arpeggio on this note. Syntax:
@@ -181,7 +198,8 @@ c8-[ c c-] c8")
 
 	(internal-class-name . "Key_change_ev")
 	(types . (general-music key-change-event event))
-	)) 
+	))
+    
     (LigatureEvent
      . (
 	(description .  "(docme).")
@@ -257,7 +275,13 @@ e.g. @code{\\mark \"A\"}.")
     
     (OverrideProperty
      . (
-	(description .  "Extend the definition of a graphical object")
+	(description .  "Extend the definition of a graphical object.
+
+SYNTAX
+
+@code{\\propery Foo.Bar \\override} @var{SYMBOL} = @var{VALUE}
+
+")
 
 	(internal-class-name . "Music")
 	(types . (general-music layout-instruction))
@@ -355,7 +379,11 @@ to group start-mmrest, skip, stop-mmrest sequence. Syntax @code{R2.*5} for 5 mea
     
     (SimultaneousMusic
      . (
-	(description .  "Music playing together. Syntax: \\simultaneous @{ .. @} or < .. >.")
+	(description .  "Music playing together.
+
+SYNTAX
+
+@code{ \\simultaneous @{ .. @}} or < .. >.")
 
 	(internal-class-name . "Simultaneous_music")
 	(iterator-ctor . ,Simultaneous_music_iterator::constructor)

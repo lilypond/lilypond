@@ -4604,6 +4604,7 @@ object, and set a object property in that object.
 
 @menu
 * Tuning objects ::             
+* Applyoutput::                 
 * Outputproperty::              
 * Font selection::              
 * Text markup::                 
@@ -4755,12 +4756,37 @@ The backend is not very strict in type-checking object properties. If you
 LilyPond may crash.
 
 
+@node Applyoutput
+@subsection Applyoutput
+
+The most versatile way of tuning object is @code{\applyoutput}. Its
+syntax is
+@example
+\applyoutput @var{proc}
+@end example
+where @var{proc} is a Scheme function, taking four arguments.
+
+When interpreted, the function @var{proc} is called for every grob found
+in the context, with the following arguments:
+@itemize @bullet
+@item the grob itself
+@item the context where the grob was created
+@item the context where @code{\applyoutput} is processed.
+@end itemize
+
+The cause of the grob, i.e.  the music expression or object that was
+responsible for creating the object, is in the object property
+@code{cause}.  For example, for a note head, this is a
+@internalsref{NoteHead} event, and for a @internalsref{Stem} object,
+this is a @internalsref{NoteHead} object.
+
+
 @node Outputproperty
 @subsection Outputproperty
 
 @cindex \outputproperty
 
-A second way of tuning objects is the more arcane @code{\outputproperty}
+Another way of tuning objects is the more arcane @code{\outputproperty}
 feature.  The syntax is as follows:
 @example
 \outputproperty @var{predicate} @var{symbol} = @var{value}

@@ -285,11 +285,10 @@ for the reader.
        (fs (cdr (chain-assoc 'font-relative-size props)))
        (entry (cons 'font-relative-size (- fs 1)))
        )
-  (interpret-markup
-   grob (cons (list entry) props)
-   (car rest))
-
-  ))
+    (interpret-markup
+     grob (cons (list entry) props)
+     (car rest))
+    ))
 
 (define-public (bigger-markup  grob props . rest)
   "Syntax: \\bigger MARKUP"

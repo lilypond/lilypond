@@ -29,6 +29,7 @@ static Keyword_ent the_key_tab[]={
   {"alias", ALIAS},
   {"apply", APPLY},
   {"applycontext", APPLYCONTEXT},
+  {"applyoutput", APPLYOUTPUT},
   {"autochange", AUTOCHANGE},
   {"simultaneous", SIMULTANEOUS},
   {"sequential", SEQUENTIAL},

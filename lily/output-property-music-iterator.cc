@@ -10,6 +10,13 @@
 #include "music-list.hh"
 #include "output-property-music-iterator.hh"
 
+
+/*
+  Huh.
+
+  Why do we need this?
+  
+ */
 void
 Output_property_music_iterator::process (Moment m)
 {

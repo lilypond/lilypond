@@ -1,3 +1,14 @@
+2003-04-30  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/parser.yy (Simple_music): add \applyoutput, syntax
+	\applyoutput PROCEDURE
+
+	* lily/my-lily-lexer.cc: add \applyoutput.
+
+	* scm/music-types.scm (music-descriptions): add ApplyOutputEvent.
+
+	* lily/text-item.cc: clean text-interface description
+
 2003-04-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/{regression,test}/: use postfix for slur endings and beam
