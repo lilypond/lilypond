@@ -1,4 +1,3 @@
-
 ; distances are given in stafflinethickness (thicknesses) and
 ; staffspace (distances)
 
@@ -93,14 +92,16 @@
 		(meta . ,(element-description "ChordNames"  font-interface text-interface chord-name-interface))
 	))
 
-	(NoteCollision . (
-		(axes 0 1)
-		(note-width . 1.65)
-		(meta . ,(element-description "NoteCollision"
-		   note-collision-interface axis-group-interface
-		))
-	))
-
+       (Custos . (
+               (break-align-symbol . Custos)
+               (breakable . #t )
+               (molecule-callback . ,Custos::brew_molecule)
+               (visibility-lambda . ,end-of-line-visible)
+	       (style .  "vaticana")
+	       (Y-offset-callbacks . (,Staff_symbol_referencer::callback))
+               (meta . ,(element-description "Custos" custos-interface staff-symbol-interface break-aligned-interface) )
+       ))
+	
 	(Crescendo . (
 		(molecule-callback . ,Crescendo::brew_molecule)
 		(thickness . 1.0)
@@ -139,8 +140,8 @@
 	
 	(DynamicLineSpanner . (
 		(axes . ( 1))
-		(padding . 3)
-		(minimum-space . 6)
+		(padding . 0.6)
+		(minimum-space . 1.2)
 		(meta . ,(element-description "DynamicLineSpanner" dynamic-interface axis-group-interface side-position-interface))
 	))
 	
@@ -154,7 +155,7 @@
 	(Fingering . (
 		(molecule-callback . ,Text_item::brew_molecule)
 		(X-offset-callbacks . (,Side_position::centered_on_parent ,Side_position::aligned_on_self))
-		(padding . 	3.0)
+		(padding . 0.6)
 		(self-alignment-X . 0)
 		(font-family . number)
 		(font-relative-size . -3)
@@ -246,7 +247,7 @@
 		(font-family . number)
 		(font-relative-size . 1)
 		(visibility-lambda . ,end-of-line-invisible)
-		(padding . 4.0)
+		(padding . 0.8)
 		(meta . ,(element-description "RehearsalMark"  mark-interface side-position-interface))
 	))
 	
@@ -260,6 +261,13 @@
 		(font-family . number)
 		(font-relative-size . 1)
 		(meta . ,(element-description "MultiMeasureRest" multi-measure-rest-interface  font-interface ))
+	))
+	(NoteCollision . (
+		(axes 0 1)
+		(note-width . 1.65)
+		(meta . ,(element-description "NoteCollision"
+		   note-collision-interface axis-group-interface
+		))
 	))
 	
 	(NoteColumn . (
@@ -532,7 +540,7 @@
 		(Y-offset-callbacks . (,Side_position::aligned_side))
 		(thickness . 1.6)  ;  stafflinethickness
 		(height . 2.0) ; staffspace;
-		(minimum-space . 25)
+		(minimum-space . 5)
  		(font-family . number)
  		(font-relative-size . -2)
 		(meta . ,(element-description "VoltaBracket" volta-bracket-interface side-position-interface font-interface))

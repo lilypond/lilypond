@@ -396,10 +396,9 @@ Beam::suspect_slope_b (Score_element*me, Real y, Real dy)
   /*
     steep slope running against lengthened stem is suspect
   */
-  Real ss = me->paper_l ()->get_var ("staffspace");
   Real first_ideal = Stem::calc_stem_info (first_visible_stem (me)).idealy_f_;
   Real last_ideal = Stem::calc_stem_info (last_visible_stem (me)).idealy_f_;
-  Real lengthened = gh_scm2double (me->get_elt_property ("outer-stem-length-limit")) * ss;
+  Real lengthened = gh_scm2double (me->get_elt_property ("outer-stem-length-limit"));
   Real steep = gh_scm2double (me->get_elt_property ("slope-limit"));
 
   // ugh -> use commonx
@@ -443,13 +442,11 @@ Beam::calc_stem_y_f (Score_element*me,Item* s, Real y, Real dy)
   int beam_multiplicity = get_multiplicity (me);
   int stem_multiplicity = (Stem::flag_i (s) - 2) >? 0;
 
-  Real staffspace = me->paper_l ()->get_var ("staffspace");
-  
   SCM space_proc = me->get_elt_property ("space-function");
   SCM space = gh_call1 (space_proc, gh_int2scm (beam_multiplicity));
 
-  Real thick = gh_scm2double (me->get_elt_property ("thickness")) *staffspace;
-  Real interbeam_f = gh_scm2double (space) * staffspace;
+  Real thick = gh_scm2double (me->get_elt_property ("thickness")) ;
+  Real interbeam_f = gh_scm2double (space) ;
 
   // ugh -> use commonx
   Real x0 = first_visible_stem (me)->relative_coordinate (0, X_AXIS);
@@ -553,7 +550,7 @@ Beam::quantise_dy_f (Score_element*me,Real dy)
   SCM proc = me->get_elt_property ("height-quants");
   SCM quants = gh_call2 (proc, me->self_scm (),
 			 gh_double2scm (me->paper_l ()->get_var ("stafflinethickness")
-					/ me->paper_l ()->get_var ("staffspace")));
+					/ 1.0));
   
   
   for (SCM s = quants; gh_pair_p (s); s = gh_cdr (s))
@@ -651,13 +648,12 @@ Beam::stem_beams (Score_element*me,Item *here, Item *next, Item *prev)
 
   Real staffline_f = me->paper_l ()->get_var ("stafflinethickness");
   int multiplicity = get_multiplicity (me);
-  Real staffspace =me->paper_l ()->get_var ("staffspace");
 
   SCM space_proc = me->get_elt_property ("space-function");
   SCM space = gh_call1 (space_proc, gh_int2scm (multiplicity));
 
-  Real thick = gh_scm2double (me->get_elt_property ("thickness")) *staffspace;
-  Real interbeam_f = gh_scm2double (space) * staffspace;
+  Real thick = gh_scm2double (me->get_elt_property ("thickness")) ;
+  Real interbeam_f = gh_scm2double (space) ;
     
   Real bdy = interbeam_f;
   Real stemdx = staffline_f;
@@ -680,7 +676,7 @@ Beam::stem_beams (Score_element*me,Item *here, Item *next, Item *prev)
 
     SCM proc = me->get_elt_property ("flag-width-function");
     SCM result = gh_call1 (proc, gh_int2scm (t));
-    nw_f = gh_scm2double (result) * staffspace;
+    nw_f = gh_scm2double (result);
   }
 
 

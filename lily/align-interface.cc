@@ -88,7 +88,7 @@ Align_interface::do_side_processing (Score_element * me, Axis a)
   SCM thr = me->get_elt_property ("threshold");
   if (gh_pair_p (thr))
     {
-      Real ss = me->paper_l ()-> get_var ("staffspace");
+      Real ss = 1.0;
       threshold[SMALLER] = ss *gh_scm2double (gh_car (thr));
       threshold[BIGGER] = ss * gh_scm2double (gh_cdr (thr));      
     }

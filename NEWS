@@ -15,9 +15,9 @@ internals: LilyPond is smaller, cleaner, more flexible, etc.
 
  - Improved robustness: Lily almost never crashes.
 
-* Rewritten font selection, Latex-NFSS like
+* New font selection scheme similar to Latex-NFSS.
 
-* Piano pedal support, Arpeggios
+* Piano pedal support, Arpeggios, Custodes
 
 * MIDI: dynamics, tempo changes
 

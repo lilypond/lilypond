@@ -79,7 +79,6 @@ Break_align_interface::do_alignment (Score_element *me)
   Item * item = dynamic_cast<Item*> (me);
   Item *column = item->column_l ();
 
-  Real interline= me->paper_l ()->get_var ("staffspace");	
   Link_array<Score_element> elems;
   Link_array<Score_element> all_elems
     = Pointer_group_interface__extract_elements (me, (Score_element*)0,
@@ -137,7 +136,6 @@ Break_align_interface::do_alignment (Score_element *me)
 
       SCM symbol = gh_car  (extra_space);
       Real spc = gh_scm2double (gh_cadr(extra_space));
-      spc *= interline;
 
       dists.push(spc);
       symbol_list = gh_cons (symbol, symbol_list);

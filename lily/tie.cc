@@ -295,7 +295,7 @@ Tie::set_spacing_rods (SCM smob)
   
   r.distance_f_
     = gh_scm2double (me->get_elt_property ("minimum-length"))
-    * me->paper_l ()->get_var ("staffspace");
+    * 1.0;
   r.add_to_cols ();
   return SCM_UNSPECIFIED;
 }

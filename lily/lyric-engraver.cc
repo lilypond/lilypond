@@ -52,7 +52,7 @@ Lyric_engraver::do_process_music()
 	(UGH UGH, pulled amount of space out of thin air)
       */
       
-      text_p_->translate_axis (paper_l()->get_var ("staffspace")*0.66, X_AXIS);
+      text_p_->translate_axis (0.66, X_AXIS);
       
       announce_element (text_p_, req_l_);
     }

@@ -22,7 +22,7 @@ Crescendo::brew_molecule (SCM smob)
 {
   Score_element *me= unsmob_element (smob);
   Spanner *span = dynamic_cast<Spanner*>(me);
-  Real staff_space = me->paper_l ()->get_var ("staffspace");
+
   Real line = me->paper_l ()->get_var ("stafflinethickness");  
   
   Real broken_left =  span->get_broken_left_end_align ();
@@ -56,7 +56,7 @@ Crescendo::brew_molecule (SCM smob)
   while (flip (&d) != LEFT);
   
   bool continued = broken[Direction (-grow_dir)];
-  Real height = staff_space * gh_scm2double (me->get_elt_property ("height"));
+  Real height = gh_scm2double (me->get_elt_property ("height"));
   Real thick = line * gh_scm2double (me->get_elt_property ("thickness"));
   
   const char* type = (grow_dir < 0) ? "decrescendo" :  "crescendo";

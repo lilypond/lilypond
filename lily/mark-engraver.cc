@@ -118,19 +118,6 @@ Mark_engraver::create_items (Request *rq)
       prop = gh_int2scm (UP);
     }
   text_p_->set_elt_property ("direction", prop);
-
-  SCM padding = get_property ("markScriptPadding");
-  if (gh_number_p(padding))
-    {
-      text_p_->set_elt_property ("padding", padding);
-    }
-  else
-    {
-      text_p_
-	->set_elt_property ("padding",
-			    gh_double2scm(paper_l ()->get_var ("staffspace")));
-    }
-
   
   announce_element (text_p_, rq);
 }

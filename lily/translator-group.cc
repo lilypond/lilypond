@@ -281,6 +281,9 @@ Translator_group::where_defined (SCM sym) const
   return (daddy_trans_l_) ? daddy_trans_l_->where_defined (sym) : 0;
 }
 
+/*
+  TODO: return SCM_EOL iso. SCM_UNDEFINED when not found.
+*/
 SCM
 Translator_group::get_property (SCM sym) const
 {

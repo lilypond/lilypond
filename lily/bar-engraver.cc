@@ -18,8 +18,14 @@
 #include "item.hh"
 #include "engraver.hh"
 
-/**
+/*
   generate bars. Either user ("|:"), or default (new measure)
+
+  TODO
+
+  - document this
+
+  - document how barlines and line breaks interact.
   */
 class Bar_engraver : public Engraver
 {

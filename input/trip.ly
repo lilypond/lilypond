@@ -178,7 +178,7 @@ fugaIIPedal = \notes \relative c {
 
  	\property Score.midiInstrument = "church organ"
         \praeludiumRight 
-	 r1 \mark "B";
+	 \times 4/3 {  c4 c4 c4 }  \mark "B";
 	   \fugaIIRight }
       \context Staff = bass {
 	\property Staff.instrument = #"left"

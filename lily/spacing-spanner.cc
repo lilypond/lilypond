@@ -233,7 +233,7 @@ Spacing_spanner::get_duration_space (Score_element*me, Moment d, Moment shortest
   Real k = gh_scm2double (me->get_elt_property  ("arithmetic-basicspace"))
     - log;
   
-  return (log_2 (d) + k) * gh_scm2double (me->get_elt_property ("arithmetic-multiplier")) * me->paper_l ()->get_var ("staffspace");
+  return (log_2 (d) + k) * gh_scm2double (me->get_elt_property ("arithmetic-multiplier"));
 }
 
 
@@ -312,8 +312,6 @@ Spacing_spanner::stem_dir_correction (Score_element*me, Score_element*l, Score_e
 
   Real correction = 0.0;
   Real ssc = gh_scm2double (me->get_elt_property("stem-spacing-correction"));
-
-  ssc *= me->paper_l ()->get_var ("staffspace");
 
   if (d1 && d2 && d1 * d2 == -1)
     {

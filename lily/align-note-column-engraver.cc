@@ -104,7 +104,7 @@ Align_note_column_engraver::process_acknowledged ()
 	    ugh.
 	  */
 	  Real extra_space = gh_scm2double(grsp);
-	  SCM e = gh_cons (gh_double2scm (-extra_space * paper_l ()->get_var ("staffspace")),
+	  SCM e = gh_cons (gh_double2scm (-extra_space),
 			   gh_double2scm (0.0));
 	  now_column_l_->set_elt_property ("extra-space", e);
 	}

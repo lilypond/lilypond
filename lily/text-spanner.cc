@@ -55,9 +55,8 @@ Text_spanner::brew_molecule (SCM smob)
     text_style = ly_scm2string (s);
 #endif
 
-  SCM properties = gh_list (me->mutable_property_alist_,
-			    me->immutable_property_alist_,
-			    SCM_UNDEFINED);
+  SCM properties = Font_interface::font_alist_chain (me);
+
   SCM edge_text = me->get_elt_property ("edge-text");
   Drul_array<Molecule> edge;
   if (gh_pair_p (edge_text))

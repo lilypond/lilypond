@@ -52,7 +52,7 @@ System_start_delimiter_engraver::acknowledge_element (Score_element_info inf)
        */
       if (gh_symbol_p (gl) && gl  == ly_symbol2scm ("brace")
 	  && gh_symbol_p (my_gl) && my_gl == ly_symbol2scm ("bracket"))
-	inf.elem_l_->translate_axis ( -paper_l ()->get_var ("staffspace"), X_AXIS); // ugh
+	inf.elem_l_->translate_axis ( -1.0, X_AXIS); // ugh
     }
 
 }

@@ -69,6 +69,8 @@ list is alphabetically ordered.
    * Roy R. Rankin <Roy.Rankin@alcatel.com.au>,     major extension,
      fixes to abc2ly, lilypond bug fixes
 
+   * Juergen Reuter <reuterj@ira.uka.de>         Custos support.
+
    * Jeffrey B. Reed <daboys@austin.rr.com>,     Windows-NT support.
 
    * Shay Rojanski     Some mudela source.

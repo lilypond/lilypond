@@ -52,10 +52,9 @@ Staff_symbol_referencer::staff_space (Score_element*me)
   Score_element * st = staff_symbol_l (me);
   if (st)
     return Staff_symbol::staff_space (st);
-  else if (me->pscore_l_ && me->paper_l ())
-    return me->paper_l ()->get_var ("staffspace");
- 
-  return 0.0;
+
+  
+  return 1.0;
 }
 
 

@@ -403,7 +403,7 @@ Slur::encompass_offset (Score_element*me,
    leave a gap: slur mustn't touch head/stem
    */
   o[Y_AXIS] += dir * gh_scm2double (me->get_elt_property ("y-free")) *
-    me->paper_l ()->get_var ("staffspace");
+    1.0;
   return o;
 }
 
@@ -490,7 +490,7 @@ Slur::set_spacing_rods (SCM smob)
   r.item_l_drul_[RIGHT] = sp->get_bound (RIGHT);
   r.distance_f_ =
     gh_scm2double (me->get_elt_property ("minimum-length"))
-    * me->paper_l ()->get_var ("staffspace");
+    * 1.0;
 
   r.add_to_cols ();
   return SCM_UNSPECIFIED;

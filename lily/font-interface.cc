@@ -13,8 +13,23 @@
 #include "score-element.hh"
 #include "paper-def.hh"
 
+
+SCM
+Font_interface::font_alist_chain (Score_element *me)
+{
+  SCM defaults = gh_cdr (scm_assoc (ly_symbol2scm ("font-defaults"),
+				    me->paper_l ()->style_sheet_ ));
+
+  SCM ch = gh_list (me->mutable_property_alist_,
+		    me->immutable_property_alist_,
+		    defaults,
+		    SCM_UNDEFINED);
+
+  return ch;
+}
+
 /*
-  todO : split up this func, reuse in text_item? 
+  todo: split up this func, reuse in text_item? 
  */
 Font_metric *
 Font_interface::get_default_font (Score_element*me)
@@ -33,11 +48,7 @@ Font_interface::get_default_font (Score_element*me)
 				    ss));
 
   assert (gh_procedure_p (proc));
-  SCM font_name = gh_call2 (proc, fonts,
-			    gh_list (me->mutable_property_alist_,
-				     me->immutable_property_alist_,
-				     defaults,
-				     SCM_UNDEFINED));
+  SCM font_name = gh_call2 (proc, fonts, font_alist_chain (me));
 
   fm = me->paper_l ()->find_font (font_name, 1.0);
   me->set_elt_property ("font", fm->self_scm ());

@@ -35,6 +35,7 @@ if test = 0:
 	input feta-timesig;
 	input feta-pendaal;
 	input feta-accordion;
+	input feta-custodes;	
 else:
 %	input feta-bolletjes;	
 %	input feta-banier;

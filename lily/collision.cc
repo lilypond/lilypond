@@ -47,8 +47,7 @@ Collision::do_shifts(Score_element* me)
   Link_array<Score_element> done;
   
   Real wid
-    = gh_scm2double (me->get_elt_property ("note-width"))
-      * me->paper_l ()->get_var ("staffspace");
+    = gh_scm2double (me->get_elt_property ("note-width"));
   
   for (; gh_pair_p (hand); hand =gh_cdr (hand))
     {

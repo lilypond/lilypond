@@ -23,7 +23,7 @@ calc_interstaff_dist (Item  *item, Spanner  *span)
 
 
       
-      interstaff = item->paper_l ()->get_var ("staffspace");
+      interstaff = 1.0;
       if (gh_pair_p (threshold))
 	interstaff =  gh_scm2double (gh_car (threshold)) * interstaff;
 
