@@ -1074,7 +1074,9 @@ def quiet_system (cmd, name):
 	return system (cmd)
 
 def get_bbox (filename):
-	system ('gs -sDEVICE=bbox -q  -sOutputFile=- -dNOPAUSE %s -c quit > %s.bbox 2>&1 ' % (filename, filename))
+
+	# gs bbox device is ugh, it always prints of stderr.
+	system ('gs -sDEVICE=bbox -q  -sOutputFile=- -dNOPAUSE %s -c quit > %s.bbox 2>&1' % (filename, filename))
 
 	box = open (filename + '.bbox').read()
 	m = re.match ('^%%BoundingBox: ([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)', box)
@@ -1096,9 +1098,9 @@ def make_pixmap (name):
 	x = (2* margin + bbox[2] - bbox[0]) * res / 72.
 	y = (2* margin + bbox[3] - bbox[1]) * res / 72.
 
-	cmd = r'''gs -g%dx%d -sDEVICE=pnggray  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=- -r%d -dNOPAUSE %s %s -c quit  > %s'''
+	cmd = r'''gs -g%dx%d -sDEVICE=pnggray  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=%s -r%d -dNOPAUSE %s %s -c quit '''
 	
-	cmd = cmd % (x, y, res, name + '.trans.eps', name + '.eps',name + '.png')
+	cmd = cmd % (x, y, name + '.png', res, name + '.trans.eps', name + '.eps')
 	status = 0
 	try:
 		status = system (cmd)
