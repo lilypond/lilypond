@@ -3,7 +3,7 @@
 #ifndef PSCORE_HH
 #define PSCORE_HH
 
-#include "break.hh"
+#include "colhpos.hh"
 #include "varray.hh"
 #include "pcol.hh"
 #include "pstaff.hh"
@@ -38,7 +38,7 @@ struct PScore {
     
     PScore(Paperdef*);
     /// add a line to the broken stuff. Positions given in #config#
-    void set_breaking(Array<Col_configuration>);
+    void set_breaking(Array<Col_hpositions>);
 
     void add(PStaff *);
     
