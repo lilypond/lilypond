@@ -19,8 +19,8 @@ melody = \melodic{
 
 accompany = \melodic{
 	\clef \bass
-	\octave{'c}
-	c c' | e' c' | f' c' | e' c' | 
+	\octave{'c}\duration{4}
+	c4 c' | e' c' | f' c' | e' c' | 
 	d' b | c' a | f g | c2 | 
 
 	e' g | d g | c' g | b g | 
@@ -33,7 +33,7 @@ accompany = \melodic{
 
 global = \melodic{
 		\meter {2 / 4}
-		\skip {24*2}
+		\skip {2*24}
 %		\bar "||"
 	}
 
@@ -102,11 +102,11 @@ textiii = \lyric{
 }
 
 \score{
-	\staff{ global melody }
-	\staff{ global tekst hegedraagjetekst }
-	\staff{ global texte }
-	\staff{ global texti textii textiii }
-	\staff{ accompany }
+	\staff{ melodicregs global melody }
+	\staff{ lyricregs global tekst hegedraagjetekst }
+	\staff{ lyricregs global texte }
+	\staff{ lyricregs global texti textii textiii }
+	\staff{ melodicregs global accompany }
 	\paper{
 		\unitspace 2.5\cm
 	}
