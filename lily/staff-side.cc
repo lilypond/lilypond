@@ -75,8 +75,9 @@ Staff_side::get_position_i() const
   Real inter_f = paper()-> internote_f ();
   if (!inside_staff_b_) 
     {
-      y  = (dir_ > 0 && staff_sym_l_) ? staff_sym_l_->steps_i() + 2: -2; 
+      y  = (staff_sym_l_) ? dir_ * (staff_sym_l_->steps_i() + 2) : -2;  
       y *=inter_f;
+      
       Interval v= support_height();
 
       if (dir_ > 0) 
