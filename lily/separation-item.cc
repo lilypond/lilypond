@@ -127,6 +127,14 @@ Separation_item::width (Grob *me)
   return w;
 }
 
+Interval
+Separation_item::relative_width (Grob * me, Grob * common)
+{
+  Interval iv = width (me);
+
+  return dynamic_cast<Item*>(me)->get_column ()->relative_coordinate (common, X_AXIS) + iv ;
+}
+
 
 /*
   Try to find the break-aligned symbol in SEPARATION_ITEM that is

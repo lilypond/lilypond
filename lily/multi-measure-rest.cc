@@ -20,6 +20,7 @@
 #include "text-item.hh"
 #include "percent-repeat-item.hh"
 #include "lookup.hh"
+#include "separation-item.hh"
 
 MAKE_SCHEME_CALLBACK (Multi_measure_rest,percent,1);
 SCM
@@ -76,11 +77,13 @@ Multi_measure_rest::brew_molecule (SCM smob)
   Grob *common = sp->get_bound (LEFT)->common_refpoint (sp->get_bound (RIGHT), X_AXIS);
   do
     {
-      Item * col = sp->get_bound (d)->get_column ();
+      Item * b = sp->get_bound (d);
 
-      Interval coldim = col->extent (common, X_AXIS);
+      Interval coldim =  (Separation_item::has_interface (b))
+	? Separation_item::relative_width (b, common)
+	: b->extent (common, X_AXIS);
 
-      sp_iv[d] = coldim[-d]  ;
+      sp_iv[d] = coldim.is_empty () ?   b->relative_coordinate (common, X_AXIS) : coldim[-d];
     }
   while ((flip (&d)) != LEFT);
 

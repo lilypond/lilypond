@@ -8,13 +8,17 @@
 @chapter New features in 2.1 since 2.0
 
 @itemize
+@item Multi measure rests are now truly centered between the
+clefs/barlines of the staff, independent of symbols on the other staffs.
+
 @item Collision resolution for dots in chords has been improved greatly. 
 
 @item
 Spacing following barlines was improved for widely stretched lines.
 
 @item
-Lyric hyphens now conform to standard typesetting practice.
+Lyric hyphens and extenders now conform to standard typesetting
+practice.
 
 @item
 Lyrics are now aligned under note heads conforming to engraving

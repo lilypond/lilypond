@@ -118,6 +118,10 @@ using barchecks in polyphonic music.")
 (translator-property-description 'beatGrouping list?
 				 "List of beatgroups. Eg. in 5/8 time #(list 2 3).")
 
+
+(translator-property-description 'breakableSeparationItem ly:grob?
+"The breakable items in this time step, for this staff.")
+
 (translator-property-description 'breakAlignOrder list? "Defines the order in which
 prefatory matter (clefs, key signatures) appears, eg. this puts the
 key signatures after the bar lines:
