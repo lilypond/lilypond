@@ -1,3 +1,8 @@
+2003-09-22  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* scripts/lilypond.py: add support for 'legal' and 'tabloid' paper
+	sizes. Remove support for 'ledger'(=tabloid+landscape).
+
 2003-09-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/font.scm (paper20-style-sheet-alist): add cmss entries.
