@@ -27,6 +27,7 @@ Spacing_problem::col_id(const PCol *w)const
 void
 Spacing_problem::OK() const
 {
+#ifndef NDEBUG
     Union_find connected(cols.sz());
 
     for (int i=0; i < ideals.sz(); i++) {
@@ -39,6 +40,7 @@ Spacing_problem::OK() const
     for (int i = 0; i < cols.sz(); i++) {
 	assert( connected.equiv(0,i));
     }
+#endif    
 }
 
 bool
@@ -164,9 +166,10 @@ Spacing_problem::make_constraints(Optimisation_problem& lp) const
 svec<Real>
 Spacing_problem::solve() const
 {
+    print();
     OK();
     assert(check_feasible());
-    print();
+
     
     /* optimalisatiefunctie */        
     Optimisation_problem lp(cols.sz());
@@ -212,16 +215,19 @@ Spacing_problem::add_ideal(const Idealspacing *i)
 void
 Spacing_problem::print_ideal(const Idealspacing*id)const
 {
+#ifndef NPRINT
     int l = col_id(id->left);
     int r = col_id(id->right);
 
     mtor << "idealspacing { between " << l <<","<<r<<'\n';
     mtor << "distance "<<id->space<< " strength " << id->hooke << "}\n";
+#endif
 }
 
 void
 Spacing_problem::print() const
 {
+    #ifndef NPRINT
     for (int i=0; i < cols.sz(); i++) {
 	mtor << "col " << i<<' ';
 	cols[i].print();
@@ -229,14 +235,20 @@ Spacing_problem::print() const
     for (int i=0; i < ideals.sz(); i++) {
 	print_ideal(ideals[i]);
     }
+    #endif
+    
 }
 
 void
 Colinfo::print() const
 {
+#ifndef NPRINT
     mtor << "column { ";
     if (fixed)
 	mtor << "fixed at " << fixpos<<", ";
     mtor << "[" << minleft() << ", " << minright() << "]";
     mtor <<"}\n";
+#endif
 }
+
+

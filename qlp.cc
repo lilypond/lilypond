@@ -1,18 +1,22 @@
 #include "debug.hh"
+#include "const.hh"
 #include "qlp.hh"
 #include "choleski.hh"
+
 void
 Mixed_qp::add_equality_cons(Vector v, double r)
 {
     assert(false);
 }
+
 void
 Mixed_qp::add_fixed_var(int i, Real r)
 {
     eq_cons.add(i);
     eq_consrhs.add(r);
 }
-   void
+
+void
 Ineq_constrained_qp::add_inequality_cons(Vector c, double r)
 {
     cons.add(c);
@@ -26,11 +30,13 @@ Ineq_constrained_qp::Ineq_constrained_qp(int novars):
 }
 
 void
-Ineq_constrained_qp::OK()const
+Ineq_constrained_qp::OK() const
 {
+#ifndef NDEBUG    
     assert(cons.sz() == consrhs.sz());
     Matrix Qdif= quad - quad.transposed();
-    assert(Qdif.norm() < EPS);
+    assert(Qdif.norm()/quad.norm() < EPS);
+#endif    
 }
      
 
@@ -95,29 +101,34 @@ Mixed_qp::Mixed_qp(int n)
 }
 
 void
-Mixed_qp::OK()const
+Mixed_qp::OK() const
 {
+#ifndef NDEBUG
     Ineq_constrained_qp::OK();
     assert(eq_consrhs.sz() == eq_cons.sz());
+#endif    
 }
 void
 Ineq_constrained_qp::print() const
 {
-
+#ifndef NPRINT
     mtor << "Quad " << quad;
     mtor << "lin " << lin <<"\n";
     for (int i=0; i < cons.sz(); i++) {
 	mtor << "constraint["<<i<<"]: " << cons[i] << " >= " << consrhs[i];
 	mtor << "\n";
     }
+#endif
 }
 void
 Mixed_qp::print() const
 {
+#ifndef NPRINT
     Ineq_constrained_qp::print();
     for (int i=0; i < eq_cons.sz(); i++) {
 	mtor << "eq cons "<<i<<": x["<<eq_cons[i]<<"] == " << eq_consrhs[i]<<"\n";
     }
+#endif
 }
 
 

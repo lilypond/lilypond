@@ -11,7 +11,9 @@ Idealspacing::Idealspacing(const PCol * l,const PCol * r)
 void
 Idealspacing::OK() const
 {
+#ifndef NDEBUG
     assert(hooke >= 0 && left  && right);
+#endif    
 }
 
 Interval
@@ -31,6 +33,7 @@ int
 PCol::compare(const PCol &c1, const PCol &c2)
 {
     assert(false);
+    return 0 ;
 }
 
 void
@@ -64,8 +67,10 @@ PCol::PCol(PCol *parent) {
 
 PCol::~PCol()
 {
-    delete prebreak;
-    delete postbreak;	
+    if (prebreak)
+	delete prebreak;	// no recursion!
+    if (postbreak)
+	delete postbreak;	
 }
 
 void
