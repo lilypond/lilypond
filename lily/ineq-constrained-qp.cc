@@ -7,8 +7,9 @@
 */
 #include "ineq-constrained-qp.hh"
 #include "qlpsolve.hh"
-#include "const.hh"
 #include "debug.hh"
+#include "choleski.hh"
+
 /*
   MAy be this also should go into a library
  */
@@ -75,14 +76,14 @@ Ineq_constrained_qp::eval (Vector v)
 int
 min_elt_index(Vector v)
 {
-    Real m=INFTY_f; 
+    Real m=infinity_f; 
     int idx=-1;
     for (int i = 0; i < v.dim(); i++){
 	if (v(i) < m) {
 	    idx = i;
 	    m = v(i);
 	}
-	assert(v(i) <= INFTY_f);
+	assert(v(i) <= infinity_f);
     }
     return idx;
 }
@@ -102,24 +103,24 @@ min_elt_index(Vector v)
 
     */
 Vector
-Ineq_constrained_qp::solve(Vector start) const 
+Ineq_constrained_qp::constraint_solve(Vector start) const 
 {    
     if (!dim())
 	return Vector(0);
+    
     // experimental
-//    quad.try_set_band();
+    if (quad.dim() > 10)
+	quad.try_set_band();
     
     Active_constraints act(this);
-
-
     act.OK();    
 
     
     Vector x(start);
     Vector gradient=quad*x+lin;
-//    Real fvalue = x*quad*x/2 + lin*x + const_term;
-// it's no use.
-    
+	//    Real fvalue = x*quad*x/2 + lin*x + const_term;
+	// it's no use.
+
     Vector last_gradient(gradient);
     int iterations=0;
     
@@ -131,15 +132,15 @@ Ineq_constrained_qp::solve(Vector start) const
 	if (direction.norm() > EPS) {
 	    mtor << act.status() << '\n';
 	    
-	    Real minalf = INFTY_f;
+	    Real minalf = infinity_f;
 
 	    Inactive_iter minidx(act);
 
 
 	    /*
-    we know the optimum on this "hyperplane". Check if we
-    bump into the edges of the simplex
-    */
+	    we know the optimum on this "hyperplane". Check if we
+	    bump into the edges of the simplex
+	    */
     
 	    for (Inactive_iter ia(act); ia.ok(); ia++) {
 
@@ -197,3 +198,14 @@ Ineq_constrained_qp::solve(Vector start) const
 } 
 
     
+Vector
+Ineq_constrained_qp::solve(Vector start)const
+{ 
+    /* no hassle if no constraints*/
+    if ( ! cons.size() ) {
+	Choleski_decomposition chol( quad );
+	return - chol.solve(lin);
+    } else {
+	return constraint_solve( start );
+    }
+}
