@@ -138,7 +138,7 @@ Interval_t<T>::to_string () const
 
 template<class T>
 bool
-Interval_t<T>::elem_b (T r)
+Interval_t<T>::contains (T r)
 {
   return r >= elem (LEFT) && r <= elem (RIGHT);
 }
