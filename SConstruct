@@ -74,6 +74,13 @@ if not COMMAND_LINE_TARGETS:
 # All builds everything (all directories)
 env.Alias ('all', ['lily', 'mf', 'input', 'Documentation'])
 
+#?
+env.Depends ('Documentation', ['lily', 'mf'])
+env.Depends ('input', ['lily', 'mf'])
+env.Depends ('doc', ['lily', 'mf'])
+env.Depends ('doc', 'mf')
+env.Depends ('input', ['lily', 'mf'])
+
 
 ## FIXME: opts in function
 
@@ -298,7 +305,7 @@ def configure (env):
 			defines['HAVE_PANGO_CVS'] = '1'
 			defines['HAVE_PANGO_FC_FONT_MAP_ADD_DECODER_FIND_FUNC'] = '1'
 
-	# ugh - needed at all?  make Builder/Command for config.h!
+	# use Command
 	if not os.path.exists (outdir):
 		os.mkdir (outdir)
 
@@ -306,7 +313,6 @@ def configure (env):
 	for i in list_sort (defines.keys ()):
 		config.write ('#define %s %s\n' % (i, defines[i]))
 	config.close ()
-
 
 	os.system (sys.executable \
 		   + ' ./stepmake/bin/make-version.py VERSION > '\
@@ -332,16 +338,10 @@ def configure (env):
 # Hmm.  Must configure when building lily, to get compiler and linker
 # flags set-up.
 # FIXME
-if not os.path.exists (config_h) or 'config' in COMMAND_LINE_TARGETS\
-   or 'lily' in BUILD_TARGETS or 'all' in BUILD_TARGETS:
+if 1 or not os.path.exists (config_h) or 'config' in COMMAND_LINE_TARGETS:
 	env = configure (env)
 
-if os.path.exists ('parser'):
-	env.Append (LIBPATH = ['#/flower', '#/lily', '#/parser', '#/gui',],
-		    CPPPATH = [outdir, '#',])
-else:	
-	env.Append (LIBPATH = ['#/flower/' + out,],
-		    CPPPATH = [outdir, '#',])
+env.Append (LIBPATH = ['#/flower/' + out,], CPPPATH = [outdir, '#',])
 
 Export ('env')
 
@@ -382,9 +382,8 @@ SConscript ('buildscripts/builder.py')
 
 for d in subdirs:
 	b = os.path.join (build, d, out)
-	# Support clean sourctree build (srcdir build)
-	# and outdir build.
-	# TODO: figure out SConscript (dir, builddir, duplicate)) feature
+	# Support clean sourcetree build (--srcdir build)
+	# and ./out build.
 	if (build and build != '.') \
 	   or (out and out != '.'):
 		env.BuildDir (b, d, duplicate=0)
@@ -431,13 +430,10 @@ def symlink_tree (prefix):
 
 if env['debugging']:
 	prefix = os.path.join (out, 'usr')
-	if not os.path.exists (prefix):
+	if not os.path.exists (os.path.join (absbuild, prefix)):
 		symlink_tree (prefix)
 
 #### dist, tar
-src_files = ['ChangeLog', '.cvsignore', 'Documentation/index.html.in',
-	     'lily/beam.cc']
-
 def cvs_files (dir):
 	entries = open (os.path.join (dir, 'CVS/Entries')).readlines ()
 	files = filter (lambda x: x[0] != 'D', entries)

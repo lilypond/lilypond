@@ -1,5 +1,6 @@
 # -*-python-*-
 
+import glob
 import os
 import re
 import string
@@ -166,13 +167,6 @@ def add_enc_src (target, source, env):
 	base = os.path.splitext (str (target[0]))[0]
 	return (target, source + [base + '.enc'])
 
-def encoding_opt (target):
-	base = os.path.splitext (os.path.basename (str (target[0])))[0]
-	enc = base + '.enc'
-	if os.path.exists (os.path.join (outdir, enc)):
-		return ' --encoding=' + enc
-	return ''
-
 # UGH, should fix --output option for mftrace
 verbose = verbose_opt (env, ' --verbose')
 a = ('(cd ${TARGET.dir} && '
@@ -190,7 +184,7 @@ pfa = Builder (action = a,
 	       emitter = add_enc_src)
 env.Append (BUILDERS = {'PFA': pfa})
 
-# FIXMExo
+# FIXME
 #verbose = verbose_opt (env, ' --verbose')
 verbose = ''
 DIFF_PY = os.path.join (srcdir, 'stepmake/bin/package-diff.py')
@@ -200,3 +194,10 @@ a = ('%(PYTHON)s %(DIFF_PY)s%(verbose)s'\
 patch = Builder (action = a, suffix = '.diff', src_suffix = '.tar.gz')
 env.Append (BUILDERS = {'PATCH': patch})
 
+def src_glob (env, s):
+	here = os.getcwd ()
+	os.chdir (env.Dir ('.').srcnode ().abspath)
+	result = glob.glob (s)
+	os.chdir (here)
+	return result
+env['src_glob'] = src_glob

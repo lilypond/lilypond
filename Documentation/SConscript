@@ -1,13 +1,5 @@
 # -*-python-*-
 
-import glob
-import os
-
 Import ('env')
-here = os.getcwd ()
-reldir = str (Dir ('.').srcnode ())
-os.chdir (reldir)
 sources = ['index.html.in', 'texinfo.css']
-os.chdir (here)
-outdir = os.path.join (env['build'], reldir, env['out'])
 
