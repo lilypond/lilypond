@@ -39,6 +39,7 @@ for name in [
 'ly/engraver-init.ly',
 'ly/grace-init.ly',
 'ly/gregorian-init.ly',
+'ly/music-functions-init.ly',
 'ly/performer-init.ly',
 'ly/property-init.ly',
 'ly/scale-definitions-init.ly',
@@ -54,6 +55,7 @@ for name in [
 
 # more identifiers
 for name in [
+'ly/declarations-init.ly',
 'ly/declarations-init.ly',
 'ly/params-init.ly',
 ]:
