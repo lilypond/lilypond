@@ -16,20 +16,17 @@ Grep for TODO and ugh/ugr/urg.
 > lines from the staff to the note will have a blob too.  For example,
 > with the note "a4" there will be a black note at the ledger line where
 > "c" would be too.  However, only the "a4" will have the extra blob.
-
 . * ps/lily.ps
-. * AFM for BlueSky AFM files.
 . * devise standard for functioning of Vertical_align_element.
 . * fix interstaff slurs & beams.
 . * staff size for post/prebreaks
 . * .ly files
 .  * input/star-spangled-banner
+.  * input/scripts.ly
 .  * mutopia/J.S.Bach/wtk1-fugue2.ly
 .  * input/test/grace
 .  * fix: text on rests: ridiculous dims
-. * \score { \notes { c8 c8 c8 c c c }
-\paper { \translator { \VoiceContext \remove "Auto_beam_engraver";}}
-}
+.  * clefs.ly
 . * m=\notes\relative c'''{
   \time 2/4;
 
@@ -73,6 +70,7 @@ otherwise 2). say preMudelaExample[eps]{}, and change it in document body someti
 . * latex bla.tex broken (titles / \lilyfooter stuff?
 . * fix dynamics decently, ie. use kerning & ligatures.  
 . * support_l_arr_ empty in staff-margin's G_staff_side_item
+. * slurs colllide with lyrics.
 . * minVerticalAlign for StaffGroups.
 . * fix OrchestralScore and Hara-kiri (i.e., fix Coriolan)
 . * Phrasing:  Indicating the textual underlay of a piece, or
@@ -81,9 +79,22 @@ otherwise dividing a piece into phrases.
 There are distinct ways of specifying the first two (although at
 present, they're not properly distinguished) but no distinct way to
 specify the third.  Should there be?
+. * spacing of mmrests.
+
+.* Cleanups needed
+. * Beam
+. * Stem + Notehead
+. * Slur
+. * Repeats
+. * Rhythmic_grouping
+. * Duration
+. * Spring generation
+. * Collision
+. * Rest_collision
 
 .* TODO before 1.2
 . * \selectmusic to cut pieces from music. 
+. * TODO: merge atom & molecule; make  tree from molecule.
 . * break priority setting from SCM.
 . * Gade score
 .  * remove [] in favour of auto-beamer
@@ -128,11 +139,8 @@ compilation.
 . * fix Repeated_music design
 . * one big ly2dvi input that includes *all* tests.
 . * store req -> element, element -> element causes for warnings
-. * junk Text_def, use G_text_item in stead.
-. * junk Script_def
 . * include examples in RPM.
 . * fix partial measures in meaningful way.
-
 . * add scripts to bars eg.  |^"bla" 
 . * relative mode for mi2mu
 . * uniformise recent feta contributions.
@@ -167,10 +175,10 @@ length?
 . * fix convert-mudela manpage
 . * decimal point in \paper {}
 . * {  \voiceone <a'4.*2/3  d''4.*2/3 fis''4.*2/3>  [g''8 fis'' e''] d''4 |}
-	 and=20
+	 and
 	 { \voicetwo  d'4 d'2.*2/3 } spacing
 . * tied notes for MIDI
-. * sharp /flat on trills (in MIDI ??)
+. * sharp / flat on trills (in MIDI ??)
 . * scm-ify \property values.
 . * move class Lookup {} into scm
 . * msgfmt -o check?
@@ -204,7 +212,7 @@ length?
 . * uniformise property names...
 .  * ydirection <-> yDirection
 .  * rather allow '_' in identifiers first (i.e. junk ^ and _),
-	    and do y_direction?
+and do y_direction?
 .  * typo checks on property names?
 . * use streambufs and iostream
 	to provide IO handling for TeX stream, mudela stream, data-file.
@@ -260,9 +268,7 @@ gs: Operand stack:
 .  * abbrev -> tremolo
 .  * abbreviation-beam -> (measured/unmeasured) tremolo
 .  * partial -> anacrouse
-. * shared lib
 . * robustify Beam (in case of no stems, 32nd notes)
-. * decentralised spring factory
 . * move paper vars into engraver properties
 . * check for groff / troff/ nroff et
 . * more intelligent file searching
@@ -270,17 +276,6 @@ gs: Operand stack:
 . * handle ^C for tmp/file creation.
 . * make LilyPond RPM fully relocatable
 . * dots & rest collisions.
-. * documentation
-.  * remove links to non-free SW.
-.  * internal documentation
-.  * a general paper. 
-.  * \properties
-.   * left/rightbeamcount
-.   * various other new properties.
-.  * introduction?
-.  * info?
-.  * LaTeX?
-.  * more manpages?
 . * the warning about the negative slur/tie length appears twice
 which is irritating.
 . * better hshift (dots, distance, head dependent)
@@ -404,7 +399,6 @@ touching it.
 .  * slurs
 .  * accents
 .  * dynamics
-
 > Would it be hard to add support for proper dynamics in MIDI output?  I
 > would really like to have this feature...
 
@@ -493,13 +487,19 @@ hesitate to ask.
 .  * PS lines to .eps files
 .  * write custom prolog
 
-.  * NIFF ?
-.  * Common Music Notation
-.  * PostScript output (esp. Beams, Slurs, etc)
-.  * Move all Score_elems, into libmutype.a
-.  * SGML
+. * SGML input
 
 . * Documentation
+.  * remove links to non-free SW.
+.  * internal documentation
+.  * a general paper. 
+.  * \properties
+.   * left/rightbeamcount
+.   * various other new properties.
+.  * introduction?
+.  * info?
+.  * LaTeX?
+.  * more manpages?
 .  * Doc (C) stuff of sheet music
 .  * a better format?  SGML?  TeX?  Info?
 .  * a better tutorial
