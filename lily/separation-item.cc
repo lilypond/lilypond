@@ -78,7 +78,7 @@ Separation_item::conditional_width (Grob * me, Grob * left)
 Interval
 Separation_item::width (Grob *me)
 {
-  SCM sw = me->get_grob_property ("extent-X");
+  SCM sw = me->get_grob_property ("X-extent");
   if (ly_number_pair_p (sw))
     {
       return ly_scm2interval (sw);
@@ -123,7 +123,7 @@ Separation_item::width (Grob *me)
   }
 
 
-  me->set_grob_property ("extent-X", ly_interval2scm (w));
+  me->set_grob_property ("X-extent", ly_interval2scm (w));
   
   
   return w;
@@ -141,4 +141,4 @@ Calc dimensions for the Separating_group_spanner; this has to be
 an item to get dependencies correct.  It can't be an grob_group
 since these usually are in a different X_group
 ",
-  "extent-X conditional-elements elements");
+  "X-extent conditional-elements elements");
