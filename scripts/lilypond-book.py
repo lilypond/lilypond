@@ -153,22 +153,16 @@ class LatexPaper:
 		self.__body = None
 	def set_geo_option(self, name, value):
 
-		if type(value) == type(""):
-			m = re.match ("([0-9.]+)(cm|in|pt|mm|em|ex)",value)
-			if m:
-				unit = m.group (2)
-				num = string.atof(m.group (1))
-				conv =  dimension_conversion_dict[m.group(2)]
+		if type(value) == type([]):
+			value = map(conv_dimen_to_float, value)
+		else:
+			value = conv_dimen_to_float(value)
 
-				value = conv(num)
-				
-			else:
-				m = re.match ("^[0-9.]+$",value)
-				if m:
-					value = float(value)
-				
 		if name == 'body' or name == 'text':
-			self.m_geo_textwidth =  value
+			if type(value) == type([]):
+				self.m_geo_textwidth =  value[0]
+			else:
+				self.m_geo_textwidth =  value
 			self.__body = 1
 		elif name == 'portrait':
 			self.m_geo_landscape = 0
@@ -182,7 +176,10 @@ class LatexPaper:
 			self.m_geo_x_marginparsep =  value
 			self.m_geo_includemp = 1
 		elif name == 'scale':
-			self.m_geo_width = self.get_paperwidth() * value
+			if type(value) == type([]):
+				self.m_geo_width = self.get_paperwidth() * value[0]
+			else:
+				self.m_geo_width = self.get_paperwidth() * value
 		elif name == 'hscale':
 			self.m_geo_width = self.get_paperwidth() * value
 		elif name == 'left' or name == 'lmargin':
@@ -197,14 +194,25 @@ class LatexPaper:
 			if value[2] not in ('*', ''):
 				self.m_geo_rmargin =  value[2]
 		elif name == 'hmargin':
-			self.m_geo_lmargin =  value
-			self.m_geo_rmargin =  value
+			if type(value) == type([]):
+				self.m_geo_lmargin =  value[0]
+				self.m_geo_rmargin =  value[1]
+			else:
+				self.m_geo_lmargin =  value
+				self.m_geo_rmargin =  value
 		elif name == 'margin':#ugh there is a bug about this option in
 					# the geometry documentation
-			self.m_geo_lmargin =  value
-			self.m_geo_rmargin =  value
+			if type(value) == type([]):
+				self.m_geo_lmargin =  value[0]
+				self.m_geo_rmargin =  value[0]
+			else:
+				self.m_geo_lmargin =  value
+				self.m_geo_rmargin =  value
 		elif name == 'total':
-			self.m_geo_width =  value
+			if type(value) == type([]):
+				self.m_geo_width =  value[0]
+			else:
+				self.m_geo_width =  value
 		elif name == 'width' or name == 'totalwidth':
 			self.m_geo_width =  value
 		elif name == 'paper' or name == 'papername':
@@ -213,8 +221,7 @@ class LatexPaper:
 			self.m_papersize = name
 		else:
                        	pass 
-			# what is _set_dimen ?? /MB
-                       	#self._set_dimen('m_geo_'+name, value)
+
 	def __setattr__(self, name, value):
 		if type(value) == type("") and \
 		   dimension_conversion_dict.has_key (value[-2:]):
@@ -332,6 +339,23 @@ dimension_conversion_dict ={
 	'pt': pt2pt
 	}
 
+# Convert numeric values, with or without specific dimension, to floats.
+# Keep other strings
+def conv_dimen_to_float(value):
+	if type(value) == type(""):
+		m = re.match ("([0-9.]+)(cm|in|pt|mm|em|ex)",value)
+		if m:
+			unit = m.group (2)
+			num = string.atof(m.group (1))
+			conv =  dimension_conversion_dict[m.group(2)]
+			
+			value = conv(num)
+	 	
+		elif re.match ("^[0-9.]+$",value):
+			value = float(value)
+
+	return value
+			
 	
 # latex linewidths:
 # indices are no. of columns, papersize,  fontsize
