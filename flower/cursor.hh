@@ -82,7 +82,7 @@ class Cursor
     void del();
     
     /// access the list this came from
-    const List<T>& list() const ;
+    List<T>& list() const ;
     Link<T>* pointer();
 
 private:
