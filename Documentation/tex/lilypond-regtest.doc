@@ -19,9 +19,10 @@ centered on the middle staff line.
 \mudelafile{rest.fly}
 
 Note head shapes are settable.  The stem endings should be adjusted
-per note head
+per note head.  If you want different note head styles on one stem,
+you must create a special context called Thread.
 
-\mudelafile{noteheadstyle.fly}
+\mudelafile{noteheadstyle.ly}
 
 
 \section{Beams, slurs and other spanners}

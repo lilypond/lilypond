@@ -58,6 +58,9 @@
 #   - bf: \mudela{ \times 2/3{...} }
 #        * \t in \times is not tab character and
 #        * dont treat the first '}' as command ending
+# 0.5.4: (Mats B)
+#   - .fly and .sly files in \mudelafile{} are treated as standalone Lilypond.
+#   - Fragments, .fly and .sly files are in \relative mode.
 
 import os
 import string
@@ -92,6 +95,7 @@ documentclass_re = re.compile('\\\\documentclass')
 twocolumn_re = re.compile('\\\\twocolumn')
 onecolumn_re = re.compile('\\\\onecolumn')
 mudela_file_re = re.compile('\\\\mudelafile{([^}]+)}')
+file_ext_re = re.compile('.+\\.([^.}]+$)')
 preMudelaExample_re = re.compile('\\\\def\\\\preMudelaExample')
 postMudelaExample_re = re.compile('\\\\def\\\\postMudelaExample')
 boundingBox_re = re.compile('%%BoundingBox: ([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)')
@@ -260,7 +264,7 @@ class Mudela_output:
         else:
             optlist = []
         if 'fragment' in optlist:
-            self.code_type_override = 'fly'
+            self.code_type_override = 'sly'
         if 'nonfragment' in optlist:
             self.code_type_override = 'ly'
         if 'eps' in optlist:
@@ -273,8 +277,9 @@ class Mudela_output:
                          % Props.getMudelaFontsize())
                          
         s = fontsize_i2a[Props.getMudelaFontsize()]
-        if self.code_type == 'fly':
+        if self.code_type == 'sly':
             linewidth_str = 'linewidth = -1.\cm;'
+            self.code_type = 'fly'
         else:
             linewidth_str = 'linewidth = %i.\\pt;' % Props.getLineWidth()
         self.file.write("\\paper {"
@@ -283,7 +288,7 @@ class Mudela_output:
                         + "castingalgorithm = \Gourlay; \n}")
                         #+ "castingalgorithm = \Wordwrap; indent = 2.\cm; \n}")
         if self.code_type == 'fly':
-            self.file.write('\\score{\n\\notes{')
+            self.file.write('\\score{\n\\notes\\relative c{')
     def close (self):
         if self.code_type == 'unknown':
             self.code_type = 'fly'
@@ -556,12 +561,17 @@ class Main_tex_input(Tex_input):
 		r = mudela_file_re.search(line)
 
 		self.mudela = Mudela_output(self.gen_basename())
-		fn = r.groups ()[0]
+		fn = r.group (1)
 		full_path = find_file (fn)
 		if not full_path:
 		    print 'error: can\'t find file `%s\'.' % fn
 		    sys.exit (1)
-		
+
+
+		r = file_ext_re.search(fn)
+                if r:
+                    self.code_type = r.group(1)
+
 		f = open (full_path, 'r')
 		lines =f.readlines ()
 		for x in lines:

@@ -11,7 +11,6 @@
 #define MUSICAL_PITCH_HH
 
 #include "lily-proto.hh"
-#include "array.hh"
 #include "input.hh"
 
 /** A "tonal" pitch. This is a pitch as it figures in diatonal western
@@ -22,8 +21,6 @@
 */
 struct Musical_pitch : public Input
 {
-  static String name_str_arr_arr_[7][5];
-
   Musical_pitch (int notename=0, int accidental=0, int octave=0);
 
   /// 0 is c, 6 is b

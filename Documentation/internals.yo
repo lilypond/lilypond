@@ -25,27 +25,28 @@ of code(Scores), which each contain code(Music) and paper/midi-definitions.
 
 dit(Interpreting music)
 
-The music is walked column by column. The iterators which do the
-walking report the Request to Translators which use this information
-to create elements, either MIDI or "visual" elements. The translators
+The music is walked through in time-order. The iterators which do the
+walking report Music to Translators which use this information to
+create elements, either MIDI or "visual" elements. The translators
 form a hierarchy; the ones for paper output are Engravers, for MIDI
 Performers.
 
-The translators swallow requests, create elements, broadcast them to
-other translators on higher or same level  in the hierarchy:
+The translators swallow Music (mostly atomic gobs called Requests),
+create elements, broadcast them to other translators on higher or same
+level in the hierarchy:
 
 The stem of a voice A is broadcast to the staff which contains A, but
-not to the noteheads of A, and not to the stems, beams and noteheads
-of a different voice (say B) or a different staff. The stem and
-noteheads of A are coupled, because the the Notehead_engraver
-broadcasts its heads, and the Stem catches these.
+not to the stems, beams and noteheads of a different voice (say B) or
+a different staff. The stem and noteheads of A are coupled, because
+the the Note_heads_engraver broadcasts its heads, and the Stem_engraver catches
+these.
 
 The engraver which agrees to handle a request decides whether to to
 honor the request, ignore it, or merge it with other requests. Merging
 of requests is preferably done with other requests done by members of
 the same voicegroups (beams, brackets, stems). In this way you can put
 the voices of 2 instruments in a conductor's score so they make chords
-(the Stem_reqs of both instruments will be merged).
+(the Beam requests of both instruments will be merged).
 
 dit(Prebreaking)
 

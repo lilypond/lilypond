@@ -229,8 +229,7 @@ void
 Rhythmic_grouping::junk()
 {
   delete interval_;
-  for (int i=0; i < children.size(); i++)
-    delete children[i];
+  junk_pointer_array (children);
   init();
 }
 

@@ -1,26 +1,21 @@
---- ../lilypond-1.1.39.mb1/NEWS	Tue Apr 13 22:32:12 1999
-++ b/NEWS	Fri Apr 16 00:27:00 1999
-@@ -1,3 +1,8 @@
 pl 39.mb2
 	- added more mensural style time signatures, old3/4, old6/8, old9/8
 	- redesigned old6/4, old9/4
 	- Updated refman.yo, lilypond-regtest.doc, clefs.ly, time.fly
 
- pl 39.mb1
- 	- bf: invisible clefs don't take any space, moved _8 below clef
- 	- updated incipit example and macro--- ../lilypond-1.1.39/NEWS	Tue Apr 13 21:32:36 1999
-++ b/NEWS	Tue Apr 13 22:43:46 1999
-@@ -1,3 +1,7 @@
 pl 39.hwn1
-	- consified mi2mu
+	- consified mi2mu (pl 37.jcn1)
 
+pl 39.mb1
+	- bf: invisible clefs don't take any space, moved _8 below clef
+	- updated incipit example and macro
 
- pl 39
- 	- \property textstyle -> textStyle
- pl 39.jcn1
-	- Musical_pitch::str (): use names from notename table
+pl 39.uu1
+	- delete graphical objects  in reverse
+	- faq updates.
 
-pl 39
+********
+pl 39 (april 12)
 	- \property textstyle -> textStyle
 
 pl 38.tca1

@@ -27,7 +27,10 @@ Clef_item::do_pre_processing()
   if (break_status_dir() != RIGHT && style != "fullSizeChanges")
     symbol_ += "_change";
   if (style == "transparent")
-    set_elt_property (transparent_scm_sym, SCM_BOOL_T);
+    {
+      set_elt_property (transparent_scm_sym, SCM_BOOL_T);
+      dim_cache_[X_AXIS].set_empty (true);
+    }
 }
 
 /*
@@ -61,7 +64,7 @@ Clef_item::do_add_processing ()
 	  g->dim_cache_[X_AXIS].parent_l_ = &dim_cache_[X_AXIS];
 	  add_dependency (g);	// just to be sure.
 
-	  Real r = do_height ()[d] + g->extent (Y_AXIS)[-d];
+	  Real r = do_height ()[d] - g->extent (Y_AXIS)[-d];
 	  g->dim_cache_[Y_AXIS].set_offset (r);
 
 	  SCM my_vis = get_elt_property (visibility_lambda_scm_sym);

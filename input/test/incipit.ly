@@ -20,12 +20,26 @@ violin = \notes\relative c''{
   gis~ gis8 fis16^\trill ()e b8 c \type Staff<{\voiceone a d}{\voicetwo es,4}>|
 }
 
+BC  = \notes\relative c{
+  \key D;
+  \time 2/2;
+  \clef "bass";
+
+  b2. cis4 | 
+  d e fis g |
+}
+
 \score{
   \notes{
+    \type Staff=violin
     \property Staff.clefStyle = "transparent" 
-    \incipit 
-    \property Staff.clefStyle = "fullSizeChanges" \clef "treble"; \bar "";
-    \violin
+      \incipit 
+    < \type Staff=violin { 
+      \bar ".|"; \endincipit
+      \violin}
+      \type Staff=cb { \property Staff.clefStyle = "transparent" 
+      \bar ".|";  \endincipit 
+      \BC}>
   }
   \paper{
     \translator{\StaffContext

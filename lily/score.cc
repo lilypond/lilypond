@@ -42,8 +42,7 @@ Score::Score (Score const &s)
 Score::~Score()
 {
   delete header_p_;
-  for (int i=0; i < def_p_arr_.size (); i++)
-    delete def_p_arr_[i];
+  junk_pointer_array (def_p_arr_);
   delete music_p_;
 }
 

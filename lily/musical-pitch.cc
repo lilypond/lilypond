@@ -10,8 +10,6 @@
 #include "debug.hh"
 #include "main.hh"
 
-String Musical_pitch::name_str_arr_arr_[7][5];
-
 Musical_pitch::Musical_pitch (int n, int a, int o)
 {
   notename_i_ = n;
@@ -80,10 +78,22 @@ Musical_pitch::transpose (Musical_pitch delta)
   accidental_i_ -= delta_acc;
 }
 
+
+#if 0
+// nice test for internationalisation strings
+char const *accname[] = {"double flat", "flat", "natural",
+			 "sharp" , "double sharp"};
+#else
+char const *accname[] = {"eses", "es", "", "is" , "isis"};
+#endif
+
 String
 Musical_pitch::str () const
 {
-  String s = name_str_arr_arr_[notename_i_ % 7][accidental_i_ + 2];
+  int n = (notename_i_ + 2) % 7;
+  String s = to_str (char(n + 'a'));
+  if (accidental_i_)
+    s += String (accname[accidental_i_ + 2]);
 
   if (octave_i_ > 0)
     {
@@ -97,6 +107,11 @@ Musical_pitch::str () const
       while (o--)
 	s += to_str (',');
     }
+#if 0  
+  if (octave_i_)
+    s  += String ((octave_i_> 0)? "^": "_") + to_str (octave_i_);
+#endif
+  
   return s;
 }
 

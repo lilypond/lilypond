@@ -41,9 +41,9 @@ Paper_score::Paper_score (Paper_score const &s)
 
 Paper_score::~Paper_score ()
 {
-  for (int i=0; i < span_p_arr_.size (); i++)
+  for (int i=span_p_arr_.size (); --i >=0 ; )
     delete span_p_arr_[i];
-  for (int i=0; i < elem_p_arr_.size (); i++)
+  for (int i=elem_p_arr_.size (); --i >=0 ; )
     delete elem_p_arr_[i];
 }
 

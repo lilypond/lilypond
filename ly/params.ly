@@ -95,6 +95,7 @@ notewidth = (\quartwidth + \wholewidth) / 2.0;
 
 % ugh
 barsize = \staffheight;
+rulethickness = \staffline;
 
 gourlay_energybound = 100000.;
 %{
@@ -104,19 +105,29 @@ on a line.  Decreasing it greatly reduces computation time
 gourlay_maxmeasures = 10.;
 castingalgorithm = \Gourlay;
 
-% relative thickness of thin lines  1.6 : 1 : 0.8
-stemthickness = 0.8*\staffline;
-rulethickness = \staffline;
-barthick_thin = 1.6*\staffline;
+%{ Ross. page 151 lists these values, but we think that thick lines
+and kernings are too thick.
 
-barthick_thick = 6.0* \staffline;
+bar_kern = 0.5 * \interline;
+bar_thinkern = 0.75 * \interline;
+barthick_thick = 0.5* \interline;
+barthick_score = 0.13333* \interline;
+barthick_thin = 0.1*\interline;
+
+%}
 
 bar_kern = 3.0 * \staffline;
 bar_thinkern = 3.0 * \staffline;
-
+barthick_thick = 6.0* \staffline;
+barthick_thin = 1.6*\staffline;
 
 tuplet_thick = 1.0*\staffline;
 volta_thick = 1.6*\staffline;
+
+% relative thickness of thin lines  1.6 : 1 : 0.8
+stemthickness = 0.8*\staffline;
+rulethickness = \staffline;
+
 
 extender_height = 0.8*\staffline;
 
