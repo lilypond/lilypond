@@ -22,7 +22,8 @@ XPM_FONTS = feta20 feta-din10 feta-nummer10 feta-braces20 parmesan20
 
 LOG_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.log)
 TEXTABLES = $(FETA_MF_FILES:%.mf=$(outdir)/%.tex)
-AFM_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.afm)
+AFM_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.afm) \
+	$(AF_FILES:%.af=$(outdir)/%.afm)
 ENC_FILES = $(TEXTABLES:.tex=.enc)
 TFM_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.tfm)
 

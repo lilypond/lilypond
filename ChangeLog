@@ -1,3 +1,22 @@
+2003-06-02  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/output-ascii-script.scm (as-font-alist-alist):
+	(as-properties-to-font-name):
+	(as-make-style-sheet): Remove.
+
+	* scm/font.scm (as-make-font-list): New function.
+	(as-font-sheet-alist): New variable.
+
+	* ly/paper-as9-init.ly: 
+	* ly/paper-as5-init.ly: Update.
+
+	* ly/paper-as5.ly:
+	* ly/paper-as9.ly: New file.
+
+2003-05-29  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* mf/GNUmakefile (AFM_FILES): Add AF_FILES.
+
 2003-05-28  Graham Percival  <gperlist@shaw.ca>
 	* input/sondag-morgen/*: removed due to copyright concerns.
 	* input/[a,b]*.ly: added a newline at the end of the texinfo

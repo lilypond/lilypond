@@ -387,3 +387,24 @@ and warn if the selected font is not unique.
 
 
 )
+
+;;; ascii-script font init
+(define as-font-sheet-alist
+  '((as5 . (((* * * braces *) . ("as-braces9"))
+	    ((* * * number *) . "as-number1")
+	    ((0 * * music *) . ("as5"))
+	    ((0 * * roman *) . "as-dummy")))
+    (as9 . (((* * * braces *) . ("as-braces9"))
+	    ((0 medium upright number 10) . "as-number4")
+	    ((* * * number 5) . "as-number1")
+	    ((0 * * music *) . ("as9"))
+	    ((0 * * roman *) . "as-dummy")))))
+
+(define-public (as-make-font-list sym)
+  (set! font-list-alist
+	(append font-list-alist as-font-sheet-alist))
+  (make-font-list sym))
+
+
+
+

@@ -40,56 +40,6 @@
 		(font-load-command (car x) (cdr x)))
 	      (map cdr font-name-alist))))
 
-(define as-font-alist-alist
-  '(
-    (as5 .
-	 (
-	  (feta16 . as5)
-	  (feta20 . as5)
-	  (feta-nummer6 . as-number1)
-	  (feta-nummer8 . as-number1)
-	  (feta-braces16 . as-braces9)
-	  (cmr7 . as-dummy)
-	  (cmr8 . as-dummy)
-	  (cmr10 . as-dummy)
-	  ))
-    (as9 .
-	 (
-	  (feta16 . as9)
-	  (feta20 . as9)
-	  (feta-nummer4 . as-number1)
-	  (feta-nummer8 . as-number4)
-	  (feta-braces16 . as-braces9)
-	  (cmr7 . as-dummy)
-	  (cmr8 . as-dummy)
-	  (cmr10 . as-dummy)
-	  (cmr12 . as-dummy)
-	  ))
-    ))
-
-(define (as-properties-to-font-name size fonts properties-alist-list)
-  (let* ((feta-name (properties-to-font-name fonts properties-alist-list))
-	 (as-font-alist (cdr (assoc size as-font-alist-alist)))
-	 (font (assoc (string->symbol feta-name) as-font-alist)))
-    (if font (symbol->string (cdr font))
-	(let ((e (current-error-port)))
-	  (newline e)
-	  (display "can't find font: " e)
-	  (write feta-name e)
-	  ;;(symbol->string size)
-	  "as-dummy"
-	  ))))
-
-;; FIXME: making a full style-sheet is a pain, so we parasite on
-;; paper16 and translate the result.
-;;
-(define (as-make-style-sheet size)
-  (let ((sheet (make-style-sheet 'paper16)))
-    (assoc-set! sheet 'properties-to-font
-		(lambda (x y) (as-properties-to-font-name size x y)))
-    sheet))
-
-
 (define (dot x y radius) "") ;; TODO
 
 (define (beam width slope thick)
@@ -167,7 +117,11 @@
   (filledbox breapth width depth height))
 
 (define (draw-line thick x1 y1 x2 y2)
-  (filledbox 0 (- x2 x1) 0 (- y2 y1)))
+  (let ((dx (- x2 x1))
+	(dy (- y2 y1)))
+    (string-append
+     (func ("rmove-to" x1 y1))
+     (filledbox 0 dx 0 dy))))
 	     
 (define (font-load-command name-mag command)
   ;; (display "name-mag: ")
