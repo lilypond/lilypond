@@ -77,20 +77,19 @@ substitute_grob (Grob *sc)
 
 
 /*
-      Do break substitution in S, using CRITERION. Return new value.
-      CRITERION is either a SMOB pointer to the desired line, or a number
-      representing the break direction. Do not modify SRC.
+  Do break substitution in S, using CRITERION. Return new value.
+  CRITERION is either a SMOB pointer to the desired line, or a number
+  representing the break direction. Do not modify SRC.
 
-      It is rather tightly coded, since it takes a lot of time; it is
-      one of the top functions in the profile.
+  It is rather tightly coded, since it takes a lot of time; it is
+  one of the top functions in the profile.
 
-      We don't pass break_criterion as a parameter, since it is
-      `constant', but takes up stack space.
+  We don't pass break_criterion as a parameter, since it is
+  `constant', but takes up stack space.
 
-      It would be nice if we could do this in-place partially.  We now
-       generate a lot of garbage.
- */
-
+  It would be nice if we could do this in-place partially.  We now
+  generate a lot of garbage.
+*/
 SCM
 do_break_substitution (SCM src)
 {
@@ -99,6 +98,17 @@ do_break_substitution (SCM src)
   if (unsmob_grob (src))
     {
       return substitute_grob (unsmob_grob (src));
+    }
+  else if (gh_vector_p (src))
+    {
+      int  l = SCM_VECTOR_LENGTH (src);
+      SCM nv = scm_c_make_vector (l, SCM_UNDEFINED);
+
+      for (int i  =0 ; i< l ; i++)
+	{
+	  SCM si = gh_int2scm (i);
+	  scm_vector_set_x (nv, si, do_break_substitution (scm_vector_ref (src, si))); 
+	}
     }
   else if (ly_pair_p (src)) 
     {
@@ -160,7 +170,7 @@ SCM grob_list_p;
 /*
   Although the substitution can be written as
 
-  mutable_property_alist_ = do_substitution (mutable_property_alist_),
+  property_alist = do_substitution (other_property_alist),
 
   we have a special function here: we want to invoke a special
   function for lists of grobs. These can be very long for large
@@ -171,7 +181,7 @@ SCM grob_list_p;
   pthreads. pthreads impose small limits on the stack size.
  */
 SCM
-substitute_mutable_properties (SCM alist)
+substitute_mutable_property_alist (SCM alist)
 {
   if (!grob_list_p)
     grob_list_p = scm_c_eval_string ("grob-list?");
@@ -195,3 +205,5 @@ substitute_mutable_properties (SCM alist)
 
   return l;
 }
+
+

@@ -1,3 +1,20 @@
+2002-07-03  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/grob-property.cc (HASHING_FOR_MUTABLE_PROPS): experiment:
+	try hash tables for mutable properties.
+
+	* lily/align-interface.cc: remove aligned-interface and props
+	minimum-space-pair extra-space 
+
+	* lily/grob-property.cc: new file move grob prop handling here.
+
+	* lily/lily-guile.cc (ly_deep_copy): add vector support
+
+	* lily/break-substitution.cc (do_break_substitution): add vector
+	support.
+
+	* lily/spanner.cc: remove extend_spanner_over_* funcs.
+
 2002-07-02  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* stepmake/aclocal.m4 (STEPMAKE_GET_VERSION): Workaround for

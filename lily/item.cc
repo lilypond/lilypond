@@ -21,7 +21,6 @@ Item::Item (SCM s)
 {
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT]=0;
   Group_interface::add_thing (this, ly_symbol2scm ("interfaces"), ly_symbol2scm ("item-interface"));
-		     
 }
 
 /**
@@ -143,11 +142,7 @@ Item::break_status_dir () const
 void
 Item::handle_prebroken_dependencies ()
 {
-  if (original_l_)
-    {
-      set_break_subsititution (gh_int2scm (break_status_dir ()));
-      mutable_property_alist_ = substitute_mutable_properties(original_l_->mutable_property_alist_);
-    }
+  Grob::handle_prebroken_dependencies ();
   
   /*
     Can't do this earlier, because try_visibility_lambda () might set
@@ -155,8 +150,8 @@ Item::handle_prebroken_dependencies ()
 
     TODO:
 
-    handle break-visibility the item itself iso. breakstatusdir, so
-    the function can do more complicated things.
+    give the item to break-visibility itself, so the function can do
+    more complicated things.
   */
   SCM vis = get_grob_property ("break-visibility");
   if (gh_procedure_p (vis))
@@ -200,7 +195,7 @@ ADD_INTERFACE(Item,
 	      "item-interface",
 	      "
 
-Grobs can also be distinguished in their role in the horizontal spacing.
+Grobs can be distinguished in their role in the horizontal spacing.
 Many grobs define constraints on the spacing by their sizes. For
 example, note heads, clefs, stems, and all other symbols with a fixed
 shape.  These grobs form a subtype called @code{Item}.

@@ -388,7 +388,7 @@ Piano_pedal_engraver::finalize ()
 	suicide?
        */
       if (p->line_spanner_
-	  && p->line_spanner_->immutable_property_alist_ == SCM_EOL)
+	  && !p->line_spanner_->live())
 	p->line_spanner_ = 0;
       
       if (p->line_spanner_)
@@ -397,7 +397,7 @@ Piano_pedal_engraver::finalize ()
 	  typeset_all ();
 	}
       if (p->bracket_p_
-	  && p->bracket_p_->immutable_property_alist_ == SCM_EOL)
+	  && !p->bracket_p_->live())
 	p->bracket_p_ = 0;
       if (p->bracket_p_)
 	{
@@ -435,10 +435,10 @@ Piano_pedal_engraver::typeset_all ()
 	Handle suicide. 
        */
       if (p->finished_line_spanner_
-	  && p->finished_line_spanner_->immutable_property_alist_ == SCM_EOL)
+	  && !p->finished_line_spanner_->live ())
 	p->finished_line_spanner_ = 0;
       if (p->finished_bracket_p_
-	  && p->finished_bracket_p_->immutable_property_alist_ == SCM_EOL)
+	  && !p->finished_bracket_p_->live())
 	p->finished_bracket_p_ = 0;
 
 

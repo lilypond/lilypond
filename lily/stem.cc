@@ -642,15 +642,23 @@ Stem::brew_molecule (SCM smob)
 
   /*
     TODO: make  the stem start a direction ?
-    
   */
+  
+
+  
   if (to_boolean (me->get_grob_property ("avoid-note-head")))
     {
-      y1 = Staff_symbol_referencer::position_f (last_head (me));
+      Grob * lh = last_head (me);
+      if (!lh)
+	return SCM_EOL;
+      y1 = Staff_symbol_referencer::position_f (lh);
     }
   else
     {
-      y1 = Staff_symbol_referencer::position_f (first_head (me));
+      Grob * lh = first_head (me);
+      if (!lh)
+	return SCM_EOL;
+      y1 = Staff_symbol_referencer::position_f (lh);
     }
   
   Real y2 = stem_end_position (me);

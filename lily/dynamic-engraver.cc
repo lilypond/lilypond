@@ -291,7 +291,7 @@ Dynamic_engraver::finalize ()
   typeset_all ();
   
   if (line_spanner_
-      && line_spanner_->immutable_property_alist_ == SCM_EOL)
+      && !line_spanner_->live())
     line_spanner_ = 0;
   if (line_spanner_)
     {
@@ -300,7 +300,7 @@ Dynamic_engraver::finalize ()
     }
 
   if (cresc_p_
-      && cresc_p_->immutable_property_alist_ == SCM_EOL)
+      && !cresc_p_->live())
     cresc_p_ = 0;
   if (cresc_p_)
     {
@@ -320,10 +320,10 @@ Dynamic_engraver::typeset_all ()
     Maybe just check at typeset_grob ()?
   */
   if (finished_cresc_p_
-      && finished_cresc_p_->immutable_property_alist_ == SCM_EOL)
+      && !finished_cresc_p_->live())
     finished_cresc_p_ = 0;
   if (finished_line_spanner_
-      && finished_line_spanner_->immutable_property_alist_ == SCM_EOL)
+      && !finished_line_spanner_->live())
     finished_line_spanner_ = 0;
 
   if (finished_cresc_p_)
@@ -355,7 +355,7 @@ Dynamic_engraver::typeset_all ()
       /*
 	We used to have
 	
-	     extend_spanner_over_elements (finished_line_spanner_);
+	     extend-spanner-over-elements (finished_line_spanner_);
 
 	but this is rather kludgy, since finished_line_spanner_
 	typically has a staff-symbol field set , extending it over the
@@ -396,7 +396,7 @@ Dynamic_engraver::acknowledge_grob (Grob_info i)
     {
       if (line_spanner_
 	  /* Don't refill killed spanner */
-	  && line_spanner_->immutable_property_alist_ != SCM_EOL)
+	  && line_spanner_->live())
 	{
 	  Side_position_interface::add_support (line_spanner_,i.grob_l_);
 	  add_bound_item (line_spanner_,dynamic_cast<Item*> (i.grob_l_));

@@ -176,7 +176,6 @@ mean centre distance weighted per note
 @code{extra-offset} is added just before `printing' the grob, so the
 typesetting engine is completely oblivious to it.
 ")
-(grob-property-description 'extra-space number-pair? "pair of distances (cons LEFT RIGHT).")
 (grob-property-description 'extremity-offset-alist list? "an alist (attachment stem-dir*dir slur-dir*dir) -> offset.  The offset adds to the centre of the notehead, or stem.")
 
 (grob-property-description 'extremity-rules list? "an alist (procedure
@@ -358,6 +357,7 @@ minimum-space or extra-space.")
 (grob-property-description 'space-function procedure? "return interbeam space given Beam grob and multiplicity.")
 (grob-property-description 'spacing-increment number? "Add this much space for a doubled duration. Typically, the width of a note head. See also @ref{spacing-spanner-interface}.")
 
+(grob-property-description 'spacing-wishes grob-list? "List of note spacing or staff spacing objects.")
 (grob-property-description 'spacing-procedure procedure? "procedure
 taking grob as argument. This is called after
 before-line-breaking-callback, but before the actual line breaking

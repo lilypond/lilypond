@@ -524,14 +524,26 @@ init_functions ()
 ADD_SCM_INIT_FUNC (funcs, init_functions);
 
 SCM
-ly_deep_copy (SCM l)
+ly_deep_copy (SCM src)
 {
-  if (gh_pair_p (l))
+  if (gh_pair_p (src))
     {
-      return gh_cons (ly_deep_copy (ly_car (l)), ly_deep_copy (ly_cdr (l)));
+      return gh_cons (ly_deep_copy (ly_car (src)), ly_deep_copy (ly_cdr (src)));
+    }
+  else if (gh_vector_p (src))
+    {
+      int  l = SCM_VECTOR_LENGTH (src);
+      SCM nv = scm_c_make_vector (l, SCM_UNDEFINED);
+      for (int i  =0 ; i< l ; i++)
+	{
+	  SCM si = gh_int2scm (i);
+	  scm_vector_set_x (nv, si, ly_deep_copy (scm_vector_ref (src, si))); 
+	}
     }
   else
-    return l;
+    return src;
+
+  return src;
 }
 
 
