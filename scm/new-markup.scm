@@ -658,13 +658,11 @@ against SIGNATURE, reporting MAKE-NAME as the user-invoked function.
 
 (define-public (brew-new-markup-molecule grob)
   (let*
-      ((t (ly:get-grob-property grob 'text)))
+      ((t (ly:get-grob-property grob 'text))
+       (chain (Font_interface::get_property_alist_chain grob)))
     (if (markup? t)
-	(interpret-markup grob
-			  (Font_interface::get_property_alist_chain grob)
-			  t
-			  )
-	(Text_item::text_to_molecule t)
+	(interpret-markup grob  chain t)
+	(Text_item::text_to_molecule grob t chain)
 	)))
 
 (define-public empty-markup (make-simple-markup ""))

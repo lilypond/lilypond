@@ -1,5 +1,7 @@
 2003-06-30  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/new-markup.scm (brew-new-markup-molecule): bugfix 
+
 	* python/lilylib.py (make_ps_images): bugfixes.
 
 	* input/regression/volta-multi-staff.ly: new file.
