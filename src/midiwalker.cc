@@ -9,11 +9,11 @@
 #include "musicalrequest.hh"
 #include "pscore.hh"
 #include "staff.hh"
-#include "stcol.hh"
 #include "midiwalker.hh"
 #include "midiitem.hh"
 #include "midistream.hh"
 #include "debug.hh"
+#include "staffcolumn.hh"
 
 Midi_walker::Midi_walker(Staff *st_l, Midi_track* track_l)
     : PCursor<Staff_column*>(st_l->cols_)
@@ -21,7 +21,9 @@ Midi_walker::Midi_walker(Staff *st_l, Midi_track* track_l)
     track_l_ = track_l;
     last_moment_= 0;
 }
-
+/**
+  output notestop events for all notes which end before #max_moment#
+ */
 void
 Midi_walker::do_stop_notes(Moment max_moment)
 {
