@@ -263,6 +263,7 @@ def do_file (f):
 	wiki_page = ('v%s.%s-' % (versiontup[0], versiontup[1]) +  f)
 	wiki_page = re.sub ('out-www/', '', wiki_page)
 	wiki_page = re.sub ('/', '-', wiki_page) 
+	wiki_page = re.sub (r'\.-', '', wiki_page) 
 	wiki_page = re.sub ('.html', '', wiki_page)
 
 	subst = globals ()

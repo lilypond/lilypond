@@ -16,6 +16,9 @@ Version 2.1.7
 
 @itemize @bullet
 
+@item The documentation now has links to a wiki, where everyone can
+add personal comments to the manual.
+
 @item Contexts may now be changed locally for an isolated music
 expression. For example,
   
@@ -70,7 +73,7 @@ attached to the lyric syllable.
 
 @item
 When redefining a context, the associated identifier is also
-updated. For example, after reading following the snippet,
+updated. For example, after reading the following snippet,
 @example
  \translator @{
         \ScoreContext

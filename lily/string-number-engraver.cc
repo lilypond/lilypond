@@ -11,7 +11,6 @@ public:
   TRANSLATOR_DECLARATIONS(String_number_engraver);
 protected:
   virtual bool try_music (Music* m);
-
 };
 
 
