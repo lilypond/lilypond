@@ -280,6 +280,8 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
       progress_indication ("\n");
 
       My_lily_parser *parser = new My_lily_parser (&sources);
+
+      // TODO: use $parser 
       scm_module_define (global_lily_module, ly_symbol2scm ("parser"),
 			 parser->self_scm ());
       parser->parse_file (init, file_name, out_file);
@@ -452,6 +454,25 @@ LY_DEFINE (ly_parser_print_score, "ly:parser-print-score",
   return SCM_UNDEFINED;
 }
 
+
+LY_DEFINE (ly_parser_set_names, "ly:parser-set-note-names",
+	   2, 0, 0,
+	   (SCM parser, SCM names),
+	   "Replace current note names in @var{parser}. @var{names} is an alist of "
+	   "symbols. This only has effect if the current mode is notes.")
+{
+  My_lily_parser *p = unsmob_my_lily_parser (parser);
+  SCM_ASSERT_TYPE(p, parser, SCM_ARG1, __FUNCTION__, "Lilypond parser");
+
+  if (p->lexer_->is_note_state ())
+    {
+      p->lexer_->pop_state ();
+      p->lexer_->push_note_state (alist_to_hashq (names));
+    }
+
+  return SCM_UNSPECIFIED;
+}
+
 LY_DEFINE (ly_parser_print_book, "ly:parser-print-book",
 	   2, 0, 0,
 	   (SCM parser_smob, SCM book_smob),
@@ -484,3 +505,4 @@ LY_DEFINE (ly_parser_print_book, "ly:parser-print-book",
 
   return SCM_UNDEFINED;
 }
+
