@@ -1,4 +1,4 @@
-
+\version "1.5.68"
 
 #(set! point-and-click line-column-location)
 
@@ -47,9 +47,6 @@ mistakes. The second line begins with measure 6 (but prints 5). The |:
 half way in measure 13 has been forgotten.
  "
 }
-
-
-\version "1.5.68"
 
 
 sarabandeA =  \context Voice \notes \relative c {
@@ -140,8 +137,6 @@ sarabande =  \context Staff \notes<
   
 >
 
-\version "1.5.68"
-
 sarabandeCelloGlobal =  \notes{
   \time 3/4
   \key f \major
@@ -156,7 +151,12 @@ sarabandeCelloGlobal =  \notes{
 sarabandeCelloScripts =  \notes{
 }
 
+  #(warn "FIXME: Setting beamed lengths")
 sarabandeCelloStaff =  \context Staff <
+  %%#(warn "FIXME: Setting beamed lengths")
+  %%\notes c4*0-#(warn "FIXME: Setting beamed lengths")
+  \property Staff.Stem \set #'beamed-lengths = #'(3.26)
+  
   \sarabande
   \sarabandeCelloGlobal
   \sarabandeCelloScripts

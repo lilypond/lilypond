@@ -1,3 +1,15 @@
+/*
+  beam-quanting.cc -- implement Beam quanting functions
+  
+  source file of the GNU LilyPond music typesetter
+  
+  (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  Jan Nieuwenhuizen <janneke@gnu.org>
+  
+*/
+
+
+
 #include <math.h>
 
 #include "grob.hh"
@@ -181,13 +193,10 @@ Beam::quanting (SCM smob)
 	qscores.push (qs);
       }
 
-  /*
-    This is a longish function, but we don't separate this out into
-    neat modular separate subfunctions, as the subfunctions would be
-    called for many values of YL, YR. By precomputing various
-    parameters outside of the loop, we can save a lot of time.
-  */
-
+  /* This is a longish function, but we don't separate this out into
+     neat modular separate subfunctions, as the subfunctions would be
+     called for many values of YL, YR. By precomputing various
+     parameters outside of the loop, we can save a lot of time. */
   for (int i = qscores.size (); i--;)
     {
       qscores[i].demerits
@@ -197,9 +206,7 @@ Beam::quanting (SCM smob)
 
   Real rad = Staff_symbol_referencer::staff_radius (me);
   int beam_count = get_beam_count (me);
-  Real beam_translation = beam_count < 4
-    ? (2*ss + slt - thickness) / 2.0
-     : (3*ss + slt - thickness) / 3.0;
+  Real beam_translation = get_beam_translation (me);
 
   Real reasonable_score = (knee_b) ? 200000 : 100;
   for (int i = qscores.size (); i--;)
@@ -268,18 +275,13 @@ Beam::score_stem_lengths (Link_array<Grob>stems,
       Stem_info info = stem_infos[i];
       Direction d = info.dir_;
 
-      score[d] += pen
-	* (0 >? (d * (info.shortest_y_ - current_y)));
+      score[d] += pen * (0 >? (d * (info.shortest_y_ - current_y)));
 
-      Real ideal_score = shrink_extra_weight (d * current_y  - d * info.ideal_y_);
+      Real ideal_score = shrink_extra_weight (d * (current_y - info.ideal_y_));
       
-      /*
-
-      we introduce a power, to make the scoring strictly
-      convex. Otherwise a symmetric knee beam (up/down/up/down) does
-      not have an optimum in the middle.
-	
-       */
+      /* We introduce a power, to make the scoring strictly
+         convex. Otherwise a symmetric knee beam (up/down/up/down)
+         does not have an optimum in the middle. */
       if (knee)
 	ideal_score = pow (ideal_score, 1.1);
       score[d] += STEM_LENGTH_DEMERIT_FACTOR * ideal_score;

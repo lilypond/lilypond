@@ -11,9 +11,6 @@
 /*
 TODO:
 
-
-  * Junk stem_info.
-
   * Use Number_pair i.s.o Interval to represent (yl, yr).
   
   - Determine auto knees based on positions if it's set by the user.
@@ -70,9 +67,7 @@ Beam::add_stem (Grob *me, Grob *s)
 }
 
 
-/*
-  this returns the translation between 2 adjoining beams.
- */
+/* Return the translation between 2 adjoining beams. */
 Real
 Beam::get_beam_translation (Grob *me)
 {
@@ -1154,10 +1149,8 @@ where_are_the_whole_beams(SCM beaming)
   return l;
 }
 
-/*
-  Calculate the Y position of the stem-end, given the Y-left, Y-right
-  in POS for stem S. This Y position is relative to S.
- */
+/* Return the Y position of the stem-end, given the Y-left, Y-right
+   in POS for stem S.  This Y position is relative to S. */
 Real
 Beam::calc_stem_y (Grob *me, Grob* s, Grob ** common,
 		   Real xl, Real xr,

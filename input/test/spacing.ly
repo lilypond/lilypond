@@ -91,7 +91,7 @@ singlepart =  \notes{
 	\multipart 
     }
     \paper {
-%    linewidth= 18.\cm
-
+      indent = 0.0 \cm
+      linewidth= 20.0\cm
     }
 }
