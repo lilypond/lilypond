@@ -15,13 +15,13 @@ include ./$(depth)/make/Include.make
 
 # list of distribution files:
 # 
-INIFILES = $(wildcard *.ini)
-DISTFILES = Makefile $(INIFILES)
+INITFILES = $(wildcard *.ly)
+DISTFILES = Makefile $(INITFILES)
 #
 
 localinstall:
 	$(INSTALL) -d $(datadir)/lilypond/init
-	$(INSTALL) -m 644 $(INIFILES) $(datadir)/lilypond/init
+	$(INSTALL) -m 644 $(INITFILES) $(datadir)/lilypond/init
 
 localuninstall:
 	for i in $(INIFILES) ; do rm -f $(datadir)/lilypond/init/$$i; done
