@@ -43,7 +43,42 @@ done
 
 
 needdevoflags () {
-    return 1
+    false
+}
+
+fix_libtool_script () {
+    cd $build || exit 1
+
+    # Fix libtool's -rpath detection
+    export CC="${build_cc}"
+    export CXX="${build_cxx}"
+    export DLLTOOL=${build_dlltool}
+    export OBJDUMP=${build_objdump}
+    export AS="${build_as}"
+    export HOST_CC=/usr/bin/gcc
+    export allow_undefined="yes"
+    export allow_undefined_flag=""
+    
+    # fix libtool's dlltool usage
+    mv libtool libtool.orig
+    sed -e 's/^DLLTOOL="dlltool"/DLLTOOL="i686-cygwin-dlltool"/' \
+        -e 's/^DLLTOOL=/HOST_CC=gcc\nDLLTOOL=/' \
+        -e 's/^HOST_CC=/SED=sed\nHOST_CC=/' < libtool.orig > libtool
+    chmod +x libtool
+}
+
+fix_libtool_la () {
+    # fix libtool's .la dependency_libs output for dlopen
+    for i in $inst/lib $inst/$prefix/lib ]; do
+	if [ -d $i ]; then
+	    cd $i || exit 1
+	    for j in $(ls -1 *la); do
+		mv $j .libtool-$j
+		sed -e 's/ *-L *[^ ][^ ]*//g' .libtool-$j > $j
+		chmod +x $j
+	    done
+	fi
+    done
 }
 
 preconfig () {
@@ -67,13 +102,15 @@ EOF
 }
 
 postconfig () {
+    # fix_libtool_script
+
     # cross-compiling: configure for build-host
     if ! iscygwin; then
 	rm -f config.cache
 	export HOST_CC=gcc
 	export HOST_CXX=g++
 	(PATH="$old_path" \
-	    PATH="$HOME/usr/pkg/guile-1.6/bin:$PATH" \
+	    PATH="$HOME/usr/pkg/guile/bin:$PATH" \
 	    CFLAGS="-O2 -g" \
 	    CC=$HOST_CC \
 	    CXX=$HOST_CXX \
@@ -127,6 +164,7 @@ preinstall () {
 
 postinstall () {
     fixdoc
+    fix_libtool_la
     
     mkdir -p $inst-doc/$docprefix
     cd $build || exit 1

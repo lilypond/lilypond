@@ -21,7 +21,7 @@ doc_name () {
 lib_split () {
     mkdir -p ./$prefix/bin || exit 1
     mv $inst/$prefix/bin/*.dll ./$prefix/bin
-    # dlopen-able .la files go in BIN dir, lib package
+    # dlopen-able .la files go in BIN dir, BIN OR LIB package
     mkdir -p ./$prefix/bin || exit 1
     mv $inst/$prefix/lib/lib*[0-9]*.la ./$prefix/bin
     mkdir -p ./$prefix/share || exit 1
@@ -32,11 +32,10 @@ lib_split () {
 devel_split () {
     mkdir -p ./$prefix/bin || exit 1
     mv $inst/$prefix/include ./$prefix/include
+    # Only static .a libs in devel, load time .la files go in LIB or
+    # BIN package.
     mkdir -p ./$prefix/lib || exit 1
     mv $inst/$prefix/lib/*.a ./$prefix/lib
-    # link time .la files go in LIB dir devel package
-    mkdir -p ./$prefix/lib || exit 1
-    mv $inst/$prefix/lib/*.la ./$prefix/lib
     mkdir -p ./$prefix/share || exit 1
     mv $inst/$prefix/share/aclocal ./$prefix/share
     true

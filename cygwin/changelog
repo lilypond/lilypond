@@ -1,3 +1,9 @@
+lilypond (2.3.22-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Jan Nieuwenhuizen <janneke@gnu.org>  Tue, 12 Oct 2004 14:00:15 +0200
+
 lilypond (2.3.20-1) unstable; urgency=low
 
   * New upstream release.
