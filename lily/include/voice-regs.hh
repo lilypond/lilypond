@@ -25,7 +25,7 @@ public:
 protected:
     virtual void pre_move_processing();
     virtual bool acceptable_request_b(Request*);
-    virtual void acknowledge_element(Staff_elem_info info);
+    virtual void acknowledge_element(Score_elem_info info);
     virtual bool try_request(Request*);
     virtual void do_print() const;
 };

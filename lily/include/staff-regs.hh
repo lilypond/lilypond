@@ -25,7 +25,7 @@ protected:
     virtual bool try_request(Request * r);
     virtual Staff_info get_staff_info();
     virtual bool acceptable_request_b(Request*) const ;
-    virtual void acknowledge_element(Staff_elem_info);
+    virtual void acknowledge_element(Score_elem_info);
 public:
     
     /* *************** */

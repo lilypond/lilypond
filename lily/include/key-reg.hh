@@ -25,7 +25,7 @@ struct Key_register : Request_register {
     virtual void process_requests();
     virtual void pre_move_processing();
     virtual void post_move_processing();
-    virtual void acknowledge_element(Staff_elem_info);
+    virtual void acknowledge_element(Score_elem_info);
     Key_register();
     NAME_MEMBERS(Key_register);
 private:

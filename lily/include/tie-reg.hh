@@ -24,7 +24,7 @@ class Tie_register : public Request_register {
     
 protected:
     virtual ~Tie_register();
-    virtual void acknowledge_element(Staff_elem_info);
+    virtual void acknowledge_element(Score_elem_info);
     virtual bool try_request(Request*);
     virtual bool acceptable_request_b(Request*);
     virtual void sync_features();

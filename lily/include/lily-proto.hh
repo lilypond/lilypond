@@ -47,6 +47,8 @@ struct Request_column;
 struct Rest_req;
 struct Rhythmic_grouping_req;
 struct Rhythmic_req;
+struct Score_elem;
+struct Score_elem_info;
 struct Script_req;
 struct Skip_req;
 struct Slur_req;
@@ -69,4 +71,6 @@ struct Script_column;
 struct Rest_column;
 struct Rest_collision_register;
 struct Rest_collision;
+struct Vertical_spanner;
+struct Vertical_brace;
 #endif // LILY_PROTO_HH

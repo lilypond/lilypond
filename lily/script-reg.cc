@@ -38,28 +38,28 @@ Script_register::process_requests()
 	Script_req* l=script_req_l_arr_[i];
 	Script *p =new Script( l);
 	script_p_arr_.push(p);
-	announce_element(Staff_elem_info(p, l));
+	announce_element(Score_elem_info(p, l));
     }
 }
 
 bool
-Script_register::acceptable_elem_b(Staff_elem*s_l)
+Script_register::acceptable_elem_b(Score_elem*s_l)
 {
     char const *nC = s_l->name();
     return (nC == Stem::static_name());
 }
 
 void
-Script_register::acknowledge_element(Staff_elem_info info)
+Script_register::acknowledge_element(Score_elem_info info)
 {
-    Staff_elem *elem_l = info.elem_l_;
+    Score_elem *elem_l = info.elem_l_;
     if (!acceptable_elem_b(elem_l))
 	return;
     
     for (int i=0; i < script_p_arr_.size(); i++) {
 	Script*script_l = script_p_arr_[i];
 	if (elem_l->name() == Stem::static_name())
-	    script_l->set_stem((Stem*)elem_l);
+	    script_l->set_stem((Stem*)elem_l->item());
     }
 }
 

@@ -48,7 +48,7 @@ Notehead_register::process_requests()
 		       6 * paper()->internote()));
     }
     
-    Staff_elem_info itinf(note_p_,note_req_l_);
+    Score_elem_info itinf(note_p_,note_req_l_);
     announce_element(itinf);
 }
 

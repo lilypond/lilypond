@@ -68,7 +68,7 @@ Complex_walker::regs_process_requests()
 }
 
 void
-Complex_walker::typeset_element(Staff_elem *elem_p)
+Complex_walker::typeset_element(Score_elem *elem_p)
 {
     if (!elem_p)
 	return;

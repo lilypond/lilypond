@@ -19,7 +19,7 @@ Spanner::broken_at(PCol*c1, PCol *c2)const
 
     for (int i=0; i < dependant_l_arr_.size(); i++) {
 	dependant_l_arr_[i]->
-	    substitute_dependency((Staff_elem*)this, span_p); 
+	    substitute_dependency((Score_elem*)this, span_p); 
     }
     
     span_p->left_col_l_ = c1;

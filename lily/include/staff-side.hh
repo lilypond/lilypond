@@ -14,9 +14,9 @@
 
 /// A symbol which sits along  the staff
 class Staff_side  {
-    Array<Staff_elem*> support_l_arr_;
+    Array<Score_elem*> support_l_arr_;
     int staff_size_i_;
-    Staff_elem * elem_l_;
+    Score_elem * elem_l_;
     Interval support_height()const;
     Staff_symbol* staff_sym_l_;
     void read_staff_sym();
@@ -32,8 +32,8 @@ public:
 
     void set_staffsym(Staff_symbol*);
   
-    Staff_side(Staff_elem*);
-    void add_support(Staff_elem*);
+    Staff_side(Score_elem*);
+    void add_support(Score_elem*);
     
 protected:
     int get_position_i()const;

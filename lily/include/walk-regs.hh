@@ -22,22 +22,22 @@ struct Walker_registers : Register_group_register {
     Array<Item*> prebreak_item_p_arr_;
     Array<Item*> nobreak_item_p_arr_;
     Array<Item*> postbreak_item_p_arr_;
-    Array<Staff_elem_info> announce_info_arr_;
+    Array<Score_elem_info> announce_info_arr_;
  
     Complex_walker * walk_l_;
 
     /* *************** */
   
-    void typeset_musical_item(Staff_elem * elem_p);
+    void typeset_musical_item(Score_elem * elem_p);
     Walker_registers(Complex_walker*);
     void do_announces();
    
     virtual Staff_info get_staff_info();
 
-    virtual void announce_element(Staff_elem_info);
-    virtual void acknowledge_element(Staff_elem_info);
+    virtual void announce_element(Score_elem_info);
+    virtual void acknowledge_element(Score_elem_info);
     virtual void typeset_breakable_item(Item * pre_p , Item * nobreak_p, Item * post_p);
-    virtual void typeset_element(Staff_elem*elem_p);
+    virtual void typeset_element(Score_elem*elem_p);
     virtual void pre_move_processing();
     virtual void post_move_processing();
     virtual Paper_def * paper() const;

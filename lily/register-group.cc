@@ -77,7 +77,7 @@ Register_group_register::post_move_processing()
 }
 
 void
-Register_group_register::acknowledge_element(Staff_elem_info info)
+Register_group_register::acknowledge_element(Score_elem_info info)
 {
     Request_register* origin = info.origin_reg_l_arr_[0];
     if (!contains_b(origin) && !origin->contains_b(this)) // am i sure?

@@ -17,7 +17,7 @@
 #include "staff-info.hh"
 
 /**
-  a struct which processes requests, and creates the #Staff_elem#s.
+  a struct which processes requests, and creates the #Score_elem#s.
   It may use derived classes. Hungarian postfix: register
   */
 class Request_register {
@@ -69,7 +69,7 @@ protected:
     /**
       Invoke walker method to typeset element. Default: pass on to daddy.
       */
-    virtual void typeset_element(Staff_elem*elem_p);
+    virtual void typeset_element(Score_elem*elem_p);
     
      /**
       take note of item/spanner
@@ -77,11 +77,11 @@ protected:
 
       Default: ignore the info
       */
-    virtual void acknowledge_element(Staff_elem_info) {}
+    virtual void acknowledge_element(Score_elem_info) {}
     /**
       Announce element. Default: pass on to daddy. Utility
       */
-    virtual void announce_element(Staff_elem_info);
+    virtual void announce_element(Score_elem_info);
     /**
       Set Feature of the register(s). Default: ignore Feature.
      */

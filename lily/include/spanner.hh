@@ -31,7 +31,7 @@
   length of stems of notes they encompass.
 
     */
-class Spanner:public Staff_elem {
+class Spanner:public virtual Score_elem {
 public:
     PCol *left_col_l_, *right_col_l_;
 

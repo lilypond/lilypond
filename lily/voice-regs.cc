@@ -25,7 +25,7 @@ Voice_registers::Voice_registers(Voice *v_p, Input_register const*ireg_C)
 }
 
 void
-Voice_registers::acknowledge_element(Staff_elem_info i)
+Voice_registers::acknowledge_element(Score_elem_info i)
 {
     if (i.voice_l_ != voice_l_)
 	return;

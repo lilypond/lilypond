@@ -44,7 +44,7 @@ public:
     virtual void sync_features() ;
     virtual void pre_move_processing();
     virtual void post_move_processing();
-    virtual void acknowledge_element(Staff_elem_info info);
+    virtual void acknowledge_element(Score_elem_info info);
     virtual bool try_request(Request*);
     virtual void process_requests();
     virtual ~Register_group_register();

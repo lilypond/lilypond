@@ -14,7 +14,7 @@
 #include "rest-column.hh"
 
 bool
-Note_column_register::acceptable_elem_b(Staff_elem const*elem_C)const
+Note_column_register::acceptable_elem_b(Score_elem const*elem_C)const
 {
     char const*nC = elem_C->name();
     return (nC == Script::static_name() || nC == Notehead::static_name() 
@@ -25,7 +25,7 @@ Note_column_register::note_col_l()
 {
     if (!ncol_p_){
 	ncol_p_ = new Note_column;
-	announce_element(Staff_elem_info(ncol_p_, 0));
+	announce_element(Score_elem_info(ncol_p_, 0));
     }
     return ncol_p_;
 }
@@ -35,13 +35,13 @@ Note_column_register::rest_col_l()
 {
     if (!restcol_p_) {
 	restcol_p_  = new Rest_column;
-	announce_element(Staff_elem_info(restcol_p_,0));
+	announce_element(Score_elem_info(restcol_p_,0));
     }
     return restcol_p_;
 }
 
 void
-Note_column_register::acknowledge_element(Staff_elem_info i)
+Note_column_register::acknowledge_element(Score_elem_info i)
 {
     if (!acceptable_elem_b(i.elem_l_))
 	return;
@@ -50,16 +50,16 @@ Note_column_register::acknowledge_element(Staff_elem_info i)
     char const*nC = i.elem_l_->name();
 
     if (nC == Script::static_name()) {
-	script_l_arr_.push((Script*)i.elem_l_);
+	script_l_arr_.push((Script*)i.elem_l_->item());
     } else if (nC == Notehead::static_name()) {
-	Notehead * h_l = (Notehead*)i.elem_l_;
+	Notehead * h_l = (Notehead*)i.elem_l_->item();
 	if (h_l->rest_b_)
 	    rest_col_l()->add(h_l);
 	else
 	    note_col_l()->add(h_l);
     }
     else if (nC == Stem::static_name()){ 
-	stem_l_ = (Stem*)i.elem_l_;
+	stem_l_ = (Stem*)i.elem_l_->item();
     }
 }
 

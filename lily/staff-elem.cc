@@ -1,5 +1,5 @@
 /*
-  staff-elem.cc -- implement Staff_elem
+  staff-elem.cc -- implement Score_elem
 
   source file of the LilyPond music typesetter
 
@@ -16,14 +16,14 @@
 #include "debug.hh"
 
 String
-Staff_elem::TeXstring() const
+Score_elem::TeXstring() const
 {
     Molecule m(*output);
     m.translate(offset_);	// ugh?
     return m.TeXstring();
 }
 
-Staff_elem::Staff_elem(Staff_elem const&s)
+Score_elem::Score_elem(Score_elem const&s)
       :dependancy_l_arr_(s.dependancy_l_arr_),
         dependant_l_arr_(s.dependant_l_arr_)
 {
@@ -38,7 +38,7 @@ Staff_elem::Staff_elem(Staff_elem const&s)
   TODO:
   If deleted, then remove dependant_l_arr_ depency!
   */
-Staff_elem::~Staff_elem()
+Score_elem::~Score_elem()
 {
     assert(status < DELETED);
     delete output;
@@ -47,13 +47,13 @@ Staff_elem::~Staff_elem()
 }
 
 void
-Staff_elem::translate(Offset O)
+Score_elem::translate(Offset O)
 {
     offset_ += O;
 }
 
 Interval
-Staff_elem::do_width() const 
+Score_elem::do_width() const 
 {
     Interval r;
     
@@ -67,7 +67,7 @@ Staff_elem::do_width() const
 }
 
 Interval
-Staff_elem::width() const
+Score_elem::width() const
 {
     Interval r=do_width();
 
@@ -77,7 +77,7 @@ Staff_elem::width() const
     return r;
 }
 Interval
-Staff_elem::do_height() const 
+Score_elem::do_height() const 
 {
     Interval r;
     if (!output){
@@ -90,7 +90,7 @@ Staff_elem::do_height() const
 }
 
 Interval
-Staff_elem::height() const
+Score_elem::height() const
 {
     Interval r=do_height();
 
@@ -102,7 +102,7 @@ Staff_elem::height() const
 }
 
 void
-Staff_elem::print()const
+Score_elem::print()const
 {
 #ifndef NPRINT
     mtor << name() << "{\n";
@@ -116,7 +116,7 @@ Staff_elem::print()const
 
 
 
-Staff_elem::Staff_elem()
+Score_elem::Score_elem()
 {
     pstaff_l_=0;
     offset_ = Offset(0,0);
@@ -126,14 +126,14 @@ Staff_elem::Staff_elem()
 
 
 Paper_def*
-Staff_elem::paper()  const
+Score_elem::paper()  const
 {
     assert(pstaff_l_);
     return pstaff_l_->pscore_l_->paper_l_;
 }
 
 void
-Staff_elem::add_processing()
+Score_elem::add_processing()
 {
     if (status >= VIRGIN)
 	return;
@@ -142,7 +142,7 @@ Staff_elem::add_processing()
 }
 
 void
-Staff_elem::pre_processing()
+Score_elem::pre_processing()
 {
     if (status >= PRECALCED )
 	return;
@@ -158,7 +158,7 @@ Staff_elem::pre_processing()
     status = PRECALCED;
 }
 void
-Staff_elem::post_processing()
+Score_elem::post_processing()
 {
     if (status >= POSTCALCED)
 	return;
@@ -173,7 +173,7 @@ Staff_elem::post_processing()
 }
 
 void 
-Staff_elem::molecule_processing()
+Score_elem::molecule_processing()
 {
     if (status >= OUTPUT)
 	return;
@@ -186,22 +186,26 @@ Staff_elem::molecule_processing()
 }
 
 void
-Staff_elem::do_post_processing()
+Score_elem::do_post_processing()
 {
 }
 
 void
-Staff_elem::do_pre_processing()
+Score_elem::do_pre_processing()
+{
+}
+void
+Score_elem::do_verticalcing()
 {
 }
 
 void
-Staff_elem::do_add_processing()
+Score_elem::do_add_processing()
 {
 }
 
 void
-Staff_elem::substitute_dependency(Staff_elem * old, Staff_elem * newdep)
+Score_elem::substitute_dependency(Score_elem * old, Score_elem * newdep)
 {
     bool hebbes_b=false;
     for (int i=0; i < dependancy_l_arr_.size(); i++) {
@@ -217,7 +221,7 @@ Staff_elem::substitute_dependency(Staff_elem * old, Staff_elem * newdep)
 }
 
 void
-Staff_elem::add_dependency(Staff_elem * p)
+Score_elem::add_dependency(Score_elem * p)
 {
     for (int i=0; i < dependancy_l_arr_.size(); i ++)
 	if (dependancy_l_arr_[i] == p)
@@ -226,16 +230,16 @@ Staff_elem::add_dependency(Staff_elem * p)
     dependancy_l_arr_.push(p);
     p->dependant_l_arr_.push(p);
 }
-IMPLEMENT_STATIC_NAME(Staff_elem);
+IMPLEMENT_STATIC_NAME(Score_elem);
 
 Molecule*
-Staff_elem::brew_molecule_p()const
+Score_elem::brew_molecule_p()const
 {
     Atom a(paper()->lookup_l()->fill(Box(Interval(0,0), Interval(0,0))));
     return new Molecule (a);
 }
 Offset
-Staff_elem::offset() const
+Score_elem::offset() const
 {
     return offset_; 
 }

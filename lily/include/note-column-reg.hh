@@ -24,10 +24,10 @@ class Note_column_register :public Request_register {
     int dir_i_;
     
     /* *************** */
-    bool acceptable_elem_b(Staff_elem const*)const;
+    bool acceptable_elem_b(Score_elem const*)const;
 protected:
     virtual void set_feature(Feature);
-    virtual void acknowledge_element(Staff_elem_info);
+    virtual void acknowledge_element(Score_elem_info);
     virtual void pre_move_processing();
     virtual void post_move_processing();
 public:
