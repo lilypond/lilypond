@@ -91,6 +91,7 @@ public:
   Real arithmetic_constant (Moment minimal_mom) const;
   Real arithmetic_spacing (Moment mom,Real constant) const;
   virtual int get_next_default_count () const;
+  static void reset_default_count();
 
   void output_settings (Paper_outputter*) const;
   Paper_outputter* paper_outputter_p (Paper_stream*, Scope*, String) const;
@@ -102,4 +103,3 @@ public:
 };
 
 #endif // Paper_def_HH
-
