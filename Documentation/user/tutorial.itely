@@ -23,8 +23,9 @@
 * Titling ::                    
 * Single staff polyphony  ::    
 * Piano staffs::                
+* Setting variables::           
+* Fine tuning layout::          
 * Organising larger pieces::    
-* Fine tuning a piece::         
 * An orchestral part::          
 * Integrating text and music::  Integrating text and music
 @end menu
@@ -868,7 +869,7 @@ line}. It is entered as two  underscores, i.e.,
      \times 2/3 { f g g } \times 2/3 { g4-( a2-) }
 
      %% ugh, this is to deal with bugs in the extender implementation
-     \blankNotes
+     \hideNotes
      c8
    }
    \context Lyrics  \lyrics { I want to break free __ }
@@ -1116,6 +1117,121 @@ More information on formatting piano music is in @ref{Piano music}.
 @node Setting variables
 @section Setting variables
 
+When the music is converted from notes to print, it is interpreted
+from left-to-right order, similar to what happens when we read
+music. During this step, context-sensitive information, such as the
+accidentals to print, and where barlines must be placed, are stored in
+variables. These variables are called @emph{translation properties}.
+The properties can also be manipulated from input files: for example,
+@example
+\property Staff.autoBeaming = ##f
+@end example 
+sets the property named @code{autoBeaming} in the current staff to
+@code{##f} which means `false'. This property controls whether beams
+are printed automatically:
+@lilypond[relative 1,fragment,verbatim]
+  c8 c c c
+  \property Staff.autoBeaming = ##f
+  c8 c c c  
+@end lilypond
+
+@noindent
+LilyPond includes a built-in programming language, namely, a dialect
+of Scheme.  The argument to @code{\property}, @code{##f}, is an
+expression in that language.  The first hash-mark signals that a piece
+of Scheme code follows. The second hash character is part of the
+boolean value true (@code{#t}).  Values of other types may be
+entered as follows
+@itemize @bullet
+@item a string, enclosed in double quotes, for example
+@example
+  \property Staff.instrument = #"French Horn"
+@end example
+@item a boolean: either @code{#t} or @code{#f}, for true and false
+respectively, e.g.
+@example
+  \property Voice.autoBeaming = ##f
+  \property Score.skipBars = ##t
+@end example
+
+@item a number
+@example
+  \property Score.currentBarNumber = #20
+@end example
+
+@item a symbol, which is introduced by a quote character,
+@example
+  \property Staff.crescendoSpanner = #'dashed-line
+@end example
+
+@item a pair, which is also introduced by a quote character.
+The following statements set properties to the pairs (-7.5, 6)  and
+(3, 4) respectively.
+
+@example
+  \property Staff.minimumVerticalExtent  = #'(-7.5 . 6)
+  \property Staff.timeSignatureFraction  = #'(3 . 4)
+@end example
+
+
+@end itemize
+
+There are many different properties, and not all of them are listed in
+this manual. However, the internal documentation lists them all in the
+@internalsref{All translation properties}, and almost all properties
+are demonstrated in one of the
+@ifhtml
+@uref{../../../input/test/out-www/collated-files.html,tips-and-tricks}
+@end ifhtml
+@ifnothtml
+tips-and-tricks
+@end ifnothtml
+examples.
+
+
+@node Fine tuning layout
+@section Fine tuning layout
+
+Sometimes it is necessary to change music layout by hand.  When music
+is formatted, layout objects are created for each symbol.  For
+example, every clef and every note head is represented by a layout
+object.  These layout objects also carry variables, which
+we call @emph{layout properties}. By changing these variables, we can
+alter the look of a formatted score.
+
+@lilypond[verbatim,relative 0]
+  c4
+  \property Voice.Stem \override #'thickness = #3.0
+  c4 c4 c4 
+@end lilypond
+
+@noindent
+In the example shown here, the layout property @code{thickness} (a
+symbol) is set to 3 in the @code{Stem} layout objects of the current
+Voice.  As a result, the notes following @code{\property} have thicker
+stems.
+
+In most cases of manual overrides, only a single object must be
+changed. This can be achieved by prefix @code{\once} to the
+@code{\property} statement, i.e.,
+
+@example
+ \once \property Voice.Stem \set #'thickness = #3.0
+@end example
+
+@lilypond[relative 0]
+  c4
+  \once \property Voice.Stem \set #'thickness = #3.0
+  c4 c4 c4 
+@end lilypond
+
+@noindent
+Some overrides are so common that predefined commands are provided as
+a short cut.  For example, @code{\slurUp} and @code{\stemDown}. These
+commands are described in the @ref{Notation manual}.
+
+
+
 
 
 @node Organising larger pieces
@@ -1123,23 +1239,8 @@ More information on formatting piano music is in @ref{Piano music}.
 
 TODO: discuss identifiers, p&c, .
 
-@separate
-@example 
-\version "1.5.72"
-@end example 
-Lilypond and its language are still under development, and
-occasionally details of the syntax are changed.  The @code{version}
-fragment indicates which LilyPond version the input file was written
-for.  When you compile this file, the version number will be
-checked. When the file is too old, a warning is issued.  The version
-number is also used by the @code{convert-ly} program (See
-@ref{Invoking convert-ly}), which updates the file to the latest
-version automatically.
 
 
-
-@node Fine tuning a piece
-@section  Fine tuning a piece
 
 In this section we show some ways to fine tune the final output of a
 piece.  We do so using a single measure of a moderately complex piano
@@ -1204,7 +1305,7 @@ internals document. This is a set of HTML pages which should be
 included if you installed a binary distribution.  [TODO: revise for
 new site.]  These HTML pages are also available on the web: go to the
 LilyPond website, click ``Documentation: Index'' on the side bar, look
-in the ``Information for uses'' section, and click on ``Documentation
+in the ``Information for users'' section, and click on ``Documentation
 of internals.''
 
 You might want to bookmark either the HTML files on your disk, or the
@@ -1407,6 +1508,18 @@ TODO:
 
 \markup, mmrest, transposing, cue notes, identifiers?.
 
+@separate
+@example 
+\version "1.5.72"
+@end example 
+Lilypond and its language are still under development, and
+occasionally details of the syntax are changed.  The @code{version}
+fragment indicates which LilyPond version the input file was written
+for.  When you compile this file, the version number will be
+checked. When the file is too old, a warning is issued.  The version
+number is also used by the @code{convert-ly} program (See
+@ref{Invoking convert-ly}), which updates the file to the latest
+version automatically.
 
 @node Integrating text and music
 @section Integrating text and music

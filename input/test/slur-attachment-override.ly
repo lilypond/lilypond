@@ -5,6 +5,11 @@ texidoc="@cindex Slur Attachment Override
 In some cases you may want to set slur attachments by hand. "
 }
 
+
+%%
+%% except that both slurs are stem <-> stem.
+%%
+
 fragment = \notes {
   \property Voice.autoBeaming = ##f
   \property Voice.Stem \set #'direction = #1

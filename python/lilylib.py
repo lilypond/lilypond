@@ -402,10 +402,10 @@ def make_ps_images (ps_name, resolution = 90):
 	## have better algorithm for deciding when to crop page,
 	## and when to show full page
 	
-	single_page = re.search ('^%%Pages: 1', open (ps_name).read (1024))
+	multi_page = re.search ('^%%Pages: ', open (ps_name).read (1024))
 	cmd = ''
 
-	if single_page:
+	if multi_page == None:
 		bbox = get_bbox (ps_name)
 		trans_ps = ps_name + '.trans.ps'
 		output_file = re.sub (r'\.e?ps', '.png', ps_name)

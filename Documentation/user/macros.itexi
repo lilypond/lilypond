@@ -146,6 +146,19 @@ internals document,  @internalsref{\NAME\}
 @noindent
 @end macro
 
+@macro refcommands
+@noindent
+@strong{Predefined commands}
+
+@noindent
+@end macro
+
+
+@macro refcommand{WHAT}
+@cindex @code{\WHAT\}
+@code{\WHAT\}
+@end macro
+
 @macro syntax
 @noindent
 @strong{Syntax}
