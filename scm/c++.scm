@@ -38,38 +38,11 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-(define type-p-name-alist
-  `(
-   (,ly:dir? . "direction")
-   (,scheme? . "any type")
-   (,number-pair? . "pair of numbers")
-   (,ly:input-location? . "input location")   
-   (,ly:grob? . "grob (GRaphical OBject)")
-   (,grob-list? . "list of grobs")
-   (,ly:duration? . "duration")
-   (,pair? . "pair")
-   (,integer? . "integer")
-   (,list? . "list")
-   (,symbol? . "symbol")
-   (,string? . "string")
-   (,boolean? . "boolean")
-   (,ly:moment? . "moment")
-   (,ly:input-location? . "input location")
-   (,music-list? . "list of music")
-   (,ly:music? . "music")
-   (,number? . "number")
-   (,char? . "char")
-   (,input-port? . "input port")
-   (,output-port? . "output port")   
-   (,vector? . "vector")
-   (,procedure? . "procedure") 
-   (,boolean-or-symbol? . "boolean or symbol")
-   (,number-or-string? . "number or string")
-   (,markup? . "markup (list or string)")
-   (,number-or-grob? . "number or grob")
-   ))
 
 
+;; moved list to end of lily.scm: then all type-predicates are
+;; defined.
+(define type-p-name-alist '()) 
 
 (define (match-predicate obj alist)
   (if (null? alist)

@@ -237,6 +237,7 @@ is the  first to satisfy CRIT
      '("music-types.scm"
        "output-lib.scm"
        "c++.scm"
+       
        "molecule.scm"
        "bass-figure.scm"
        "grob-property-description.scm"
@@ -261,3 +262,36 @@ is the  first to satisfy CRIT
 
 
        
+
+
+(set! type-p-name-alist
+  `(
+   (,ly:dir? . "direction")
+   (,scheme? . "any type")
+   (,number-pair? . "pair of numbers")
+   (,ly:input-location? . "input location")   
+   (,ly:grob? . "grob (GRaphical OBject)")
+   (,grob-list? . "list of grobs")
+   (,ly:duration? . "duration")
+   (,pair? . "pair")
+   (,integer? . "integer")
+   (,list? . "list")
+   (,symbol? . "symbol")
+   (,string? . "string")
+   (,boolean? . "boolean")
+   (,ly:moment? . "moment")
+   (,ly:input-location? . "input location")
+   (,music-list? . "list of music")
+   (,ly:music? . "music")
+   (,number? . "number")
+   (,char? . "char")
+   (,input-port? . "input port")
+   (,output-port? . "output port")   
+   (,vector? . "vector")
+   (,procedure? . "procedure") 
+   (,boolean-or-symbol? . "boolean or symbol")
+   (,number-or-string? . "number or string")
+   (,markup? . "markup")
+   (,markup-list? . "list of markups")
+   (,number-or-grob? . "number or grob")
+   ))
