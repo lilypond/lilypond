@@ -192,7 +192,7 @@ class LatexPaper:
 	def __setattr__(self, name, value):
 		if type(value) == type("") and \
 		   dimension_conversion_dict.has_key (value[-2:]):
-			f = dimension_conversion_dict[dim]
+			f = dimension_conversion_dict[value[-2:]]
 			self.__dict__[name] = f(float(value[:-2]))
 		else:
 			self.__dict__[name] = value
