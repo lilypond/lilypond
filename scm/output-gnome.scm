@@ -41,12 +41,17 @@
 ;;;   * Supposing that LilyPond was built in ~/cvs/savannah/lilypond,
 ;;;     tell fontconfig about the feta fonts dir:
 "
+cat > ~/.fonts.conf << EOF
 <fontconfig>
 <dir>~/cvs/savannah/lilypond/mf/out</dir>
 </fontconfig>
+EOF
 "
 ;;;     or copy all your .pfa/.pfb's to ~/.fonts if your fontconfig
-;;;     already looks there for fonts
+;;;     already looks there for fonts.  Check if it works by doing:
+"
+fc-list | grep -i lily
+"
 ;;;
 ;;;   * Setup environment
 "

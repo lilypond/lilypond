@@ -170,7 +170,7 @@ Quote_iterator::process (Moment m)
     }
 
   if (event_idx_ <= end_idx_
-      && vector_moment (event_idx_).main_part_ < stop_moment_.main_part_;
+      && vector_moment (event_idx_).main_part_ < stop_moment_.main_part_
       )
     {
       SCM entry = SCM_VECTOR_REF (event_vector_, event_idx_);

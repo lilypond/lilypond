@@ -125,18 +125,16 @@ get-deb-pfa: $(outdir)/$(debian-package)
 	rm -rf $(outdir)/./usr
 	ar p $< data.tar.gz | \
 		tar -C $(outdir) -zvxf - '*.pfa'
-	touch $(addprefix $(outdir)/, $(addsuffix .bla,$(SAUTER_FONTS)))
 	cp `find $(outdir)/usr/ -name '*.pfa'` $(outdir)/
 
 
 redhat-package=lilypond-$(TOPLEVEL_VERSION)-1.i386.rpm
 $(outdir)/$(redhat-package):
-	wget  --passive-ftp -P $(outdir) http://lilypond.org/download/binaries/Fedora-1/$(redhat-package)
+	wget  --passive-ftp -P $(outdir) http://lilypond.org/download/binaries/Fedora-3/$(redhat-package)
 
 get-rpm-pfa: $(outdir)/$(redhat-package)
 	cd $(outdir) ; rm -rf usr/ # (root alert!) 
 	cd $(outdir) ; rpm2cpio $(redhat-package) | cpio -uid '*.pfa'
-	touch $(addprefix $(outdir)/, $(addsuffix .bla,$(SAUTER_FONTS)))
 	cp `find $(outdir)/usr/ -name '*.pfa'` $(outdir)/
 
 # change this dependency 

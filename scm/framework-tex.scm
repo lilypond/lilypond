@@ -25,7 +25,7 @@
   (if (ly:get-option 'safe)
       (regexp-substitute/global
        #f "\\\\"
-       (regexp-substitute/global #f "([{}])" "bla{}" 'pre  "\\" 1 'post )
+       (regexp-substitute/global #f "([{}])" s 'pre  "\\" 1 'post )
        'pre "$\\backslash$" 'post)
       s))
 
@@ -60,7 +60,8 @@
      "\n"
      "\\def\\" (tex-font-command font) "{%\n"
      ;; UGH.  Should be handled via alist.
-     (if (equal? "Extended-TeX-Font-Encoding---Latin" font-encoding)
+     (if (or (equal? "Extended-TeX-Font-Encoding---Latin" font-encoding)
+	     (not font-encoding))
 	 "  \\lilypondfontencoding{T1}"
 	 "  ")
      "\\lilypond" (tex-font-command font)
@@ -139,7 +140,7 @@
       "lilypondpaper" 'linewidth
       (ly:number->string (* scale (ly:output-def-lookup paper 'linewidth))))
      "\\def\\lilyponddocumentclassoptions{"
-     texpaper
+     (sanitize-tex-string texpaper)
      (if landscape? ",landscape" "")
      "}%\n"
      (tex-string-def
@@ -270,6 +271,13 @@
 	 (ly:get-option 'resolution))
      (string-append (basename name ".tex") ".ps"))))
 
+
+;;
+;; ugh  -   double check this. We are leaking
+;; untrusted (user-settable) info to a command-line 
+;;
+
+
 (define-public (convert-to-ps book name)
   (let* ((paper (ly:paper-book-paper book))
 	 (preview? (string-contains name ".preview"))
@@ -279,26 +287,24 @@
 	 (cmd (string-append "dvips "
 			     (if preview?
 				 " -E "
-				 (string-append " -t " papersizename))
+				 (string-append
+				  " -t "
+				  (sanitize-command-option papersizename)))
+				 
 			     (if landscape?
 				 " -t landscape "
 				 " ")
 			     "  -u+ec-mftrace.map -u+lilypond.map -Ppdf "
-			     base
-
-			     (if (ly:get-option 'verbose)
-				 " "
-				 " 2>&1 1>& /dev/null "))))
-
-    (if (ly:get-option 'verbose)
-	(begin 
-	  (newline (current-error-port))
-	  (format (current-error-port) (_ "Invoking ~S") cmd)
-	  (newline (current-error-port)))
+			     base)))
+    
+    (let ((ps-name (string-append base ".ps")))
+      (if (access? ps-name W_OK)
+	  (delete-file ps-name)))
+    (if (not (ly:get-option 'verbose))
 	(begin
 	  (format (current-error-port) (_ "Converting to `~a.ps'...") base)
 	  (newline (current-error-port))))
-    (system cmd)))
+    (ly:system cmd)))
 
 (define-public (convert-to-dvi book name)
   (let* ((curr-extra-mem
@@ -309,16 +315,12 @@
 	    'pre "" 'post)))
 	 (base (basename name ".tex"))
 	 (cmd (string-append
-	       "latex \\\\nonstopmode \\\\input " name
-	       (if (ly:get-option 'verbose)
-		   " "
-		   " 2>&1 1>& /dev/null "))))
+	       "latex \\\\nonstopmode \\\\input " name)))
     (setenv "extra_mem_top" (number->string (max curr-extra-mem 1024000)))
-    (if (ly:get-option 'verbose)
-	(begin 
-	  (newline (current-error-port))
-	  (format (current-error-port) (_ "Invoking ~S") cmd)
-	  (newline (current-error-port)))
+    (let ((dvi-name (string-append base ".dvi")))
+      (if (access? dvi-name W_OK)
+	  (delete-file dvi-name)))
+    (if (not (ly:get-option 'verbose))
 	(begin
 	  (format (current-error-port) (_ "Converting to `~a.dvi'...") base)
 	  (newline (current-error-port))))
@@ -327,7 +329,7 @@
     (if (ly:get-option 'safe)
 	(set! cmd (string-append "openout_any=p " cmd)))
 
-    (system cmd)))
+    (ly:system cmd)))
 
 (define-public (convert-to-tex book name)
   #t)

@@ -164,7 +164,7 @@ HYPHEN		--
   }
 }
 
-<INITIAL,notes>\\encoding{WHITE}* {
+<INITIAL,lyrics,figures,notes>\\encoding{WHITE}* {
 	yy_push_state (encoding);
 }
 <INITIAL,chords,lyrics,notes,figures>\\version{WHITE}*	{
@@ -188,17 +188,16 @@ HYPHEN		--
 		return INVALID;
 }
 <renameinput>\"[^"]*\"     {
-	String s (YYText ()+1);
+	String s (YYText () + 1);
 	s = s.left_string (s.index_last ('\"'));
 
 	yy_pop_state();
 	this->here_input().source_file_->name_ = s;
-	progress_indication ("\n");
-	progress_indication (_f ("input renamed to: `%s'", s.to_str0 ()));
+	progress_indication (_f ("Renaming input to: `%s'", s.to_str0 ()));
 	progress_indication ("\n");
 	scm_module_define (scm_car (scopes_),
 		     ly_symbol2scm ("input-file-name"),
-		     scm_makfrom0str (s.to_str0()));
+		     scm_makfrom0str (s.to_str0 ()));
 
 }
 <encoding>. 	{
@@ -244,16 +243,14 @@ HYPHEN		--
 <INITIAL,chords,lyrics,figures,notes>\\include           {
 	yy_push_state (incl);
 }
-<incl>\"[^"]*\";?   { /* got the include file name */
-/* FIXME: semicolon? */
+<incl>\"[^"]*\"   { /* got the include file name */
 	String s (YYText ()+1);
 	s = s.left_string (s.index_last ('"'));
 
 	new_input (s, sources_);
 	yy_pop_state ();
 }
-<incl>\\{BLACK}*;?{WHITE} { /* got the include identifier */
-/* FIXME: semicolon? */
+<incl>\\{BLACK}*{WHITE} { /* got the include identifier */
 	String s = YYText () + 1;
 	strip_trailing_white (s);
 	if (s.length () && (s[s.length () - 1] == ';'))
@@ -357,7 +354,6 @@ HYPHEN		--
 		yylval.i = String_convert::dec2int (String (YYText () +1));
 		return E_UNSIGNED;
 	}
-
 	\" {
 		start_quote ();
 	}

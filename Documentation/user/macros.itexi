@@ -139,7 +139,7 @@
 
 
 @macro seeinternals{NAME}
-internals document,  @internalsref{\NAME\}
+internals document, @internalsref{\NAME\}
 @end macro
 @end iftex
 

@@ -1,3 +1,178 @@
+ ***************
+*** 1,7 ****
+  2004-11-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+i  
+  	* input/regression/new-slur.ly: mention forcing.
+  
+  2004-11-04  Heikki Junes <hjunes@cc.hut.fi>
+  
+          * Documentation/user/lilypond.tely: changes 2.3.x to 2.5.x.
+--- 1,164 ----
++ 2004-11-08  Han-Wen Nienhuys  <hanwen@xs4all.nl>
++ 
++ 	* lily/grace-engraver.cc (start_translation_timestep): split
++ 	scm_cadddr
++ 	
++ 2004-11-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
++ 
++ 	* lily/quote-iterator.cc (Module): remove old quote-iterator
++ 
++ 	* scm/define-music-types.scm (music-descriptions): move
++ 	NewQuoteMusic over QuoteMusic
++ 
++ 	* Documentation/user/notation.itely (Formatting cue notes): use
++ 	\cueDuring.
++ 
++ 	* lily/new-quote-iterator.cc (quote_ok): new function.
++ 
++ 	* input/regression/quote-cue-during.ly: new file.
++ 
++ 	* input/regression/quote-grace.ly: new file.
++ 
++ 	* scm/define-context-properties.scm (Module): change definition of
++ 	graceSettings
++ 
++ 	* lily/context-property.cc (Module): rename from
++ 	translator-property.cc
++ 
++ 	* lily/context.cc (context_name_symbol): new function
++ 
++ 	* lily/grace-engraver.cc: new file. Set properties for grobs based
++ 	on the grace-ness of now_moment().
++ 
++ 	* scm/music-functions.scm (add-grace-property): use list
++ 	iso. vector for graceSettings
++ 	remove set-{start,stop}-grace-properties. 
++ 
++ 	* lily/new-quote-iterator.cc (construct_children): set
++ 	quote_outlet_ if no quoted-context-{id,type} specified.
++ 
++ 	* scripts/convert-ly.py (conv): \quote -> \quoteDuring.
++ 
++ 	* lily/parser.yy (command_element): remove \quote.
++ 
++ 	* ly/music-functions-init.ly (location): add quoteDuring music
++ 	function. 
++ 
++ 	* lily/lexer.ll: allow \encoding in lyrics as well.  Remove
++ 	optional semicolon. (backportme)
++ 
++ 2004-11-06  Jan Nieuwenhuizen  <janneke@gnu.org>
++ 
++ 	* python/GNUmakefile (STEPMAKE_TEMPLATES): Unset USER_LDFLAGS, no
++ 	need to link to GUILE et al.
++ 
++ 2004-11-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
++ 
++ 	* scm/define-music-properties.scm (all-music-properties): add
++ 	quoted-context-type, quoted-context-id.
++ 
++ 	* scm/lily.scm (type-check-list): new function.
++ 	
++ 	* scm/lily-library.scm: new file. Generic library routines.
++ 
++ 	* lily/parser.yy (Generic_prefix_music): move typechecking out of
++ 	parser.
++ 
++ 	* ly/music-functions-init.ly: add quoteDuring function.
++ 
++ 	* lily/include/music-iterator.hh (class Music_iterator): rename
++ 	set_translator -> set_context
++ 
++ 	* lily/parser.yy (Generic_prefix_music_scm): add
++ 	MUSIC_FUNCTION_SCM_SCM_MUSIC
++ 
++ 	* scm/lily.scm (sanitize-command-option): new function. (backportme)
++ 
++ 	* scm/framework-tex.scm (header): sanitize TeX paper size.
++ 	(backportme)
++ 
++ 2004-11-06  Jan Nieuwenhuizen  <janneke@gnu.org>
++ 
++ 	* elisp/lilypond-indent.el (LilyPond-indent-level): 2 is now standard.
++ 
++ 	* tex/lilyponddefs.tex: If no inputencoding use latin1.  (backportme)
++ 
++ 	* scm/framework-tex.scm (font-load-command): Use T1 if no
++ 	font-encoding set.  (backportme)
++ 
++ 	* scm/lily.scm (postscript->pdf): Remove .pdf file if it
++ 	exists before converting.  (backportme)
++ 
++ 	* scm/framework-tex.scm (convert-to-dvi): Remove .dvi file if it
++ 	exists before converting.  (backportme)
++ 	(convert-to-ps): Remove .ps file if it exists before
++ 	converting.  (backportme)
++ 
++ 	* lily/lexer.ll: Remove extra progress newline, use present tense.
++ 
++ 	* scm/paper.scm (paper-alist): public.
++ 	* scm/framework-tex.scm (convert-to-ps):
++ 	* scm/lily.scm (postscript->pdf): Do not leak papersizename into
++ 	command line.
++ 
++ 2004-11-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
++ 
++ 	* scm/lily.scm (ly:system): add > /dev/null 2>&1 . (backportme)
++ 
++ 	* lily/recording-group-engraver.cc (derived_mark): mark
++ 	now_events_. (backportme)
++ 
++ 2004-11-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
++ 
++ 	* mf/GNUmakefile: use Fedora-3 in download link. (backportme.)
++ 
++ 	* scm/framework-tex.scm (convert-to-dvi): use ly:system for
++ 	invoking latex. (backportme.)
++ 
++ 	* lily/stem.cc (off_callback): center stems for all rest stems.
++ 
++ 2004-11-05  Werner Lemberg  <wl@gnu.org>
++ 
++ 	* Documentation/user/lilypond.tely: Add more guidelines for writing
++ 	lilypond texinfo documents.
++ 
++ 2004-11-05  Heikki Junes  <hjunes@cc.hut.fi>
++ 
++ 	* Documentation/index.html.in: remove <hr>.
++ 
++ 	* THANKS: change 2.3 to 2.4.
++ 
++ 2004-11-05  Jan Nieuwenhuizen  <jannneke@gnu.org>
++ 
++ 	* scm/output-gnome.scm: More fontconfig comment.
++ 
++ 2004-11-05  Pedro Kroger  <kroeger@pedrokroeger.net>
++ 
++ 	* GNUmakefile.in ($(builddir)/share/lilypond-force): create the
++ 	<package> directory in $(builddir)/share according with
++ 	PACKAGE_NAME defined in the VERSION file.
++ 
+  2004-11-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+  
++ 	* lily/beam.cc (rest_collision_callback): use local beam
++ 	multiplicity.
++ 
++ 	* input/regression/stem-stemlet.ly: new file.
++ 
++ 	* lily/stem.cc (add_head): store rests as well.
++ 
++ 	* scm/define-grob-properties.scm (all-user-grob-properties): add
++ 	stemlet-length
++ 
++ 	* lily/stem.cc: store rests as well.
++ 	
+  	* input/regression/new-slur.ly: mention forcing.
+  
++ 2004-11-04  Werner Lemberg  <wl@gnu.org>
++ 
++ 	* Documentation/user/*: A new round of layout fixes and document
++ 	structure cleanup.
++ 
+  2004-11-04  Heikki Junes <hjunes@cc.hut.fi>
+  
+          * Documentation/user/lilypond.tely: changes 2.3.x to 2.5.x.
+	
 2004-11-08  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/quote-iterator.cc (process): add  comparison  for

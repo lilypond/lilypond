@@ -6,7 +6,7 @@
 Music can be entered also by importing it from other formats.  This
 chapter documents the tools included in the distribution to do so.
 There are other tools that produce LilyPond input, for example GUI
-sequencers and XML converters. Refer to the
+sequencers and XML converters.  Refer to the
 @uref{http://@/lilypond@/.org,website} for more details.
 
 
@@ -22,12 +22,12 @@ sequencers and XML converters. Refer to the
 
 
 @node Invoking convert-ly
-@section Invoking convert-ly
+@section Invoking @command{convert-ly}
 
 The syntax is regularly changed to simplify it or improve it in
-different ways. A side effect of this, is that LilyPond often is not
-compatible with older files. To remedy this, the program convert-ly
-can be used to deal with most of the syntax changes.
+different ways.  A side effect of this, is that LilyPond often is not
+compatible with older files.  To remedy this, the program
+@command{convert-ly} can be used to deal with most of the syntax changes.
 
 It uses @code{\version} statements in the file to detect the old
 version number.  For example, to upgrade all LilyPond files in the
@@ -35,12 +35,13 @@ current directory and its subdirectories, enter the following on the
 command line.
 
 @example
-        convert-ly -e `find . -name '*.ly' -print`
+convert-ly -e `find . -name '*.ly' -print`
 @end example
 
-The program is invoked as follows:
+In general, the program is invoked as follows:
+
 @example
-        convert-ly [@var{option}]@dots{} @var{file}@dots{}
+convert-ly [@var{option}]@dots{} @var{file}@dots{}
 @end example
 
 
@@ -48,38 +49,46 @@ The following options can be given:
 
 @table @code
 @item -e,--edit
-    Do an inline edit of the input file. Overrides @code{--output}.
+Do an inline edit of the input file.  Overrides @code{--output}.
+
 @item -f,--from=@var{from-patchlevel}
-    Set the level to convert from. If this is not set, convert-ly will
-    guess this, on the basis of @code{\version} strings in the file.
+Set the level to convert from.  If this is not set, @command{convert-ly}
+will guess this, on the basis of @code{\version} strings in the file.
+
 @item -o,--output=@var{file}
-    Set the output file to write.  
+Set the output file to write.  
+
 @item -n,--no-version
-    Normally, convert-ly adds a @code{\version} indicator 
-    to the output. Specifying this option suppresses this.  
+Normally, @command{convert-ly} adds a @code{\version} indicator 
+to the output. Specifying this option suppresses this.  
+
 @item -s, --show-rules
-    Show all known conversions and exit.
+Show all known conversions and exit.
+
 @item --to=@var{to-patchlevel}
-    Set the goal version of the conversion. It defaults to the latest
-    available version.
+Set the goal version of the conversion.  It defaults to the latest
+available version.
+
 @item -h, --help
-    Print usage help.
+Print usage help.
 @end table
 
-convert-ly always converts up to the last syntax change handled by
-it. This means that the @code{\version} number left in the file is
-usually lower than the version of convert-ly itself.
+@command{convert-ly} always converts up to the last syntax change handled by
+it.  This means that the @code{\version} number left in the file is
+usually lower than the version of @command{convert-ly} itself.
 
 @refbugs
 
-Not all language changes are handled. Only one output option can be specified.
+Not all language changes are handled.  Only one output option can be
+specified.
 
 @node Invoking midi2ly
-@section Invoking midi2ly
+@section Invoking @command{midi2ly}
 
 @cindex MIDI
 
-Midi2ly translates a Type 1 MIDI file to a LilyPond source file.
+@command{midi2ly} translates a Type@tie{}1 MIDI file to a LilyPond source
+file.
 
 MIDI (Music Instrument Digital Interface) is a standard for digital
 instruments: it specifies cabling, a serial protocol and a file
@@ -88,17 +97,17 @@ exporting music from other programs, so this capability may come in
 useful when importing files from a program that has convertor for a
 direct format.
 
-Midi2ly will convert tracks into @internalsref{Staff} and
+@command{midi2ly} converts tracks into @internalsref{Staff} and
 channels into @internalsref{Voice} contexts.  Relative mode is used
 for pitches, durations are only written when necessary.
 
 It is possible to record a MIDI file using a digital keyboard, and
-then convert it to @file{.ly}. However, human players are not
+then convert it to @file{.ly}.  However, human players are not
 rhythmically exact enough to make a MIDI to LY conversion trivial.
-When invoked with quantizing (@code{-s} and @code{-d} options) midi2ly
-tries to compensate for these timing errors, but is not very good at
-this. It is therefore not recommended to use midi2ly for
-human-generated midi files.
+When invoked with quantizing (@code{-s} and @code{-d} options)
+@command{midi2ly} tries to compensate for these timing errors, but is not
+very good at this.  It is therefore not recommended to use @command{midi2ly}
+for human-generated midi files.
 
 
 It is invoked from the command-line as follows,
@@ -107,46 +116,58 @@ midi2ly [@var{option}]@dots{} @var{midi-file}
 @end example
 
 
-The following options are supported by midi2ly.
+The following options are supported by @command{midi2ly}.
 
 @table @code
 @item -a, --absolute-pitches
-    Print absolute pitches.
+Print absolute pitches.
+
 @item -d, --duration-quant=@var{DUR}
-    Quantize note durations on @var{DUR}.
+Quantize note durations on @var{DUR}.
+
 @item -e, --explicit-durations
-    Print explicit durations.
+Print explicit durations.
+
 @item -h,--help
-    Show summary of usage.
+Show summary of usage.
+
 @item -k, --key=@var{acc}[:@var{minor}]
-    Set default key.  @var{acc} > 0 sets number of sharps; @var{acc} < 0
-    sets number of flats.  A minor key is indicated by ":1".
+Set default key.  @math{@var{acc} > 0} sets number of sharps;
+@math{@var{acc} < 0} sets number of flats.  A minor key is indicated by
+":1".
+
 @item -o, --output=@var{file}
-    Write output to @var{file}.
+Write output to @var{file}.
+
 @item -s, --start-quant=@var{DUR}
-    Quantize note starts on DUR.
+Quantize note starts on DUR.
+
 @item -t, --allow-tuplet=@var{DUR}*@var{NUM}/@var{DEN}
-    Allow tuplet durations @var{DUR}*@var{NUM}/@var{DEN}.
+Allow tuplet durations @var{DUR}*@var{NUM}/@var{DEN}.
+
 @item -V, --verbose
-    Be verbose.
+Be verbose.
+
 @item -v, --version
-    Print version number.
+Print version number.
+
 @item -w, --warranty
-    Show warranty and copyright.
+Show warranty and copyright.
+
 @item -x, --text-lyrics
-    Treat every text as a lyric.
+Treat every text as a lyric.
 @end table
 
 
 @refbugs
 
-Overlapping notes in an arpeggio will not be correctly rendered. The
+Overlapping notes in an arpeggio will not be correctly rendered.  The
 first note will be read and the others will be ignored.  Set them all
 to a single duration and add phrase markings or pedal indicators.
 
 
 @node Invoking etf2ly
-@section Invoking etf2ly
+@section Invoking @command{etf2ly}
 
 @cindex ETF
 @cindex enigma
@@ -154,21 +175,23 @@ to a single duration and add phrase markings or pedal indicators.
 @cindex Coda Technology
 
 ETF (Enigma Transport Format) is a format used by Coda Music
-Technology's Finale product. etf2ly will convert part of an ETF
+Technology's Finale product.  @command{etf2ly} will convert part of an ETF
 file to a ready-to-use LilyPond file.
 
 It is invoked from the command-line as follows.
+
 @example
-        etf2ly [@var{option}]@dots{} @var{etf-file}
+etf2ly [@var{option}]@dots{} @var{etf-file}
 @end example
 
-The following options are supported by etf2ly:
+The following options are supported by @command{etf2ly}:
+
 @table @code
-@item   -h,--help
+@item -h,--help
 this help
-@item  -o,--output=FILE
+@item -o,--output=FILE
 set output filename to FILE
-@item  -v,--version
+@item -v,--version
 version information
 @end table
 
@@ -176,32 +199,34 @@ version information
 @refbugs
 
 The list of articulation scripts is incomplete.  Empty measures
-confuse etf2ly. Sequences of grace notes are ended improperly.
+confuse @command{etf2ly}.  Sequences of grace notes are ended improperly.
 
 
 @node Invoking abc2ly
-@section Invoking abc2ly
+@section Invoking @code{abc2ly}
 
 @cindex ABC
 
 ABC is a fairly simple ASCII based format.  It is described at the ABC site:
+
 @quotation
 @uref{http://@/www@/.gre@/.ac@/.uk/@/~c.walshaw/@/abc2mtex/@/abc@/.txt}.
 @end quotation
-abc2ly translates from ABC to LilyPond. It is invoked as follows:
+
+@command{abc2ly} translates from ABC to LilyPond.  It is invoked as follows:
 
 @example
-        abc2ly [@var{option}]@dots{} @var{abc-file}
+abc2ly [@var{option}]@dots{} @var{abc-file}
 @end example
 
-The following options are supported by abc2ly:
+The following options are supported by @command{abc2ly}:
 
 @table @code
-@item   -h,--help
+@item -h,--help
 this help
-@item  -o,--output=@var{file}
+@item -o,--output=@var{file}
 set output filename to @var{file}.
-@item  -v,--version
+@item -v,--version
 print version information.
 @end table
 
@@ -209,7 +234,7 @@ There is a rudimentary facility for adding LilyPond code to the ABC
 source file.  If you say:
 
 @example
-        %%LY voices \set autoBeaming = ##f
+%%LY voices \set autoBeaming = ##f
 @end example
 
 This will cause the text following the keyword ``voices'' to be inserted 
@@ -218,7 +243,7 @@ into the current voice of the LilyPond output file.
 Similarly,
 
 @example
-        %%LY slyrics more words
+%%LY slyrics more words
 @end example
 
 will cause the text following the ``slyrics'' keyword to be inserted
@@ -227,49 +252,50 @@ into the current line of lyrics.
 
 @refbugs
 
-The ABC standard is not very ``standard''. For extended features
-(e.g. polyphonic music) different conventions exist. 
+The ABC standard is not very ``standard''.  For extended features
+(e.g., polyphonic music) different conventions exist. 
 
 Multiple tunes in one file cannot be converted.
 
-ABC synchronizes words and notes at the beginning of a line; abc2ly does 
-not.
+ABC synchronizes words and notes at the beginning of a line;
+@command{abc2ly} does not.
 
-abc2ly ignores the ABC beaming.
+@command{abc2ly} ignores the ABC beaming.
 
 
 @node Invoking mup2ly
-@section Invoking mup2ly
+@section Invoking @command{mup2ly}
 
 Mup (Music Publisher) is a shareware music notation program by Arkkra
-Enterprises.  Mup2ly will convert part of a Mup file to LilyPond
-format. It is invoked as follows:
+Enterprises.  @command{mup2ly} will convert part of a Mup file to LilyPond
+format.  It is invoked as follows:
 
 @cindex Music Publisher
 @cindex Mup
 @cindex Arkkra
 
 It is invoked from the command-line as follows.
+
 @example
-        mup2ly [@var{option}]@dots{} @var{mup-file}
+mup2ly [@var{option}]@dots{} @var{mup-file}
 @end example
 
-The following options are supported by mup2ly:
+The following options are supported by @command{mup2ly}:
 
 @table @code
-@item   -d,--debug
+@item -d,--debug
 show what constructs are not converted, but skipped.
 @item -D, --define=@var{name}[=@code{exp}]
 define macro @var{name} with opt expansion @code{exp}
-@item   -E,--pre-process
+@item -E,--pre-process
 only run the pre-processor
-@item   -h,--help
+@item -h,--help
 print help
-@item  -o,--output=@var{file}
+@item -o,--output=@var{file}
 write output to @var{file}
-@item  -v,--version
+@item -v,--version
 version information
-@item  -w,--warranty
+@item -w,--warranty
 print warranty and copyright. 
 @end table
 
@@ -284,17 +310,20 @@ converted.
 @section Other formats
 
 LilyPond itself does not come with support for other formats, but
-there are also external tools that generate LilyPond files.
+there are some external tools that generate LilyPond files also.
 
 These tools include
-@uref{http://@/denemo@/.sourceforge@/.net/,Denemo}.
 
 @itemize @bullet
-@item @uref{http://@/www@/.nongnu@/.org/@/xml2ly/, xml2ly}, that imports
+@item
+@uref{http://@/denemo@/.sourceforge@/.net/,Denemo}.
+@item
+@uref{http://@/www@/.nongnu@/.org/@/xml2ly/, xml2ly}, that imports
 @uref{http://@/www@/.musicxml@/.com/,MusicXML}
 @item
 @uref{http://@/rnvs@/.informatik@/.tu@/-chemnitz@/.de/@/~jan/@/noteedit/@/noteedit@/.html,NoteEdit}
 which imports MusicXML
-@item @uref{http://@/www@/.all@/-day@/-breakfast@/.com/@/rosegarden/,Rosegarden},
+@item
+@uref{http://@/www@/.all@/-day@/-breakfast@/.com/@/rosegarden/,Rosegarden},
 which imports MIDI
 @end itemize
