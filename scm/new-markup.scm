@@ -30,7 +30,7 @@ arguments to expect:
 3. The command is now available in markup mode, e.g.
 
 
-  \markup { .... \COMMAND #1 argument ... }
+  \\markup { .... \\COMMAND #1 argument ... }
 
 
 BUGS:
@@ -393,7 +393,7 @@ for DIR, you can obtain longer or shorter stems."
 (define-public (override-markup paper props . rest)
   "Tack the 1st arg in REST onto PROPS, e.g.
 
-\override #'(font-family . married) \"bla\"
+\\override #'(font-family . married) \"bla\"
 
 "
   
@@ -434,7 +434,7 @@ for DIR, you can obtain longer or shorter stems."
 
 
 (define-public (strut-markup paper props . rest)
-  "Syntax: \strut
+  "Syntax: \\strut
 
  A box of the same height as the space.
 "

@@ -119,7 +119,7 @@ Paper_outputter::output_scope (SCM mod, String prefix)
 	{
 	  output_String_def (prefix + s, ly_scm2string (v));
 	}
-      else if (scm_exact_p (v) == SCM_BOOL_T)
+      else if (scm_number_p (v) == SCM_BOOL_T && scm_exact_p (v) == SCM_BOOL_T)
 	{
 	  output_int_def (prefix + s, gh_scm2int (v));	  
 	}
