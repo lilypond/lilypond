@@ -108,7 +108,7 @@ files, eg.,
 rm `find /var/lib/texmf/fonts -name 'feta*'` 
 @end example 
 
-a script to do this for you is in @file{buildscripts/clean-fonts.sh}
+a script to do this for you is in @file{buildscripts/out/clean-fonts}
 
 @section Bugs
 
