@@ -8,7 +8,7 @@ LilyPond is a program to print sheet music. If you have used notation
 programs before, then the way to use this program might be surprising
 at first sight. To print music with lilypond, you have to enter
 musical codes in a file. Then you run LilyPond on the file, and the
-music is produced without any intervention intervention. For example,
+music is produced without any user intervention. For example,
 something like this:
 
 @lilypond[fragment,verbatim, relative 1, intertext="produces this"]
