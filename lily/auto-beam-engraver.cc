@@ -145,7 +145,11 @@ Auto_beam_engraver::test_moment (Direction dir, Moment test_mom)
   SCM type = scm_list_n (scm_int2num (test_mom.num ()),
 		      scm_int2num (test_mom.den ()), SCM_UNDEFINED);
 
-  SCM settings = get_property ("autoBeamSettings");
+  /*
+    UGH UGH.
+    settings aren't grob-properties.
+   */
+  SCM settings = updated_grob_properties (daddy_trans_, ly_symbol2scm ("autoBeamSettings"));
   
   /* first guess */
   
