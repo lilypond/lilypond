@@ -36,7 +36,7 @@ ADD_INTERFACE (Paper_column, "paper-column-interface",
 	       "\n"
 	       ,
 	       "between-cols when bounded-by-me "
-	       "shortest-playing-duration shortest-starter-duration");
+	       "page-penalty shortest-playing-duration shortest-starter-duration");
 
 void
 Paper_column::do_break_processing ()

@@ -709,11 +709,10 @@ ADD_INTERFACE (Grob, "grob-interface",
 ,
 	       "X-offset-callbacks Y-offset-callbacks X-extent-callback stencil cause "
 	       "Y-extent-callback print-function extra-offset spacing-procedure "
-	       "staff-symbol interfaces dependencies X-extent Y-extent extra-X-extent "
+	       "context staff-symbol interfaces dependencies X-extent Y-extent extra-X-extent "
 	       "meta layer before-line-breaking-callback "
 	       "after-line-breaking-callback extra-Y-extent minimum-X-extent "
-	       // FIXME: page-penalty?
-	       "minimum-Y-extent page-penalty transparent "
+	       "minimum-Y-extent transparent "
 	       );
 
 
