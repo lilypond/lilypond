@@ -86,6 +86,9 @@ doc++:
 
 
 local-dist: $(DIST_FILES) $(OUT_DIST_FILES) $(NON_ESSENTIAL_DIST_FILES)
+#	echo topdir=$(topdir)
+#	echo distdir=$(distdir)
+#	echo locladir=$(localdir)
 	mkdir -p $(distdir)/$(localdir)
 	$(LN) $(DIST_FILES) $(distdir)/$(localdir)
 
@@ -99,7 +102,9 @@ local-dist: $(DIST_FILES) $(OUT_DIST_FILES) $(NON_ESSENTIAL_DIST_FILES)
 		mkdir $(distdir)/$(localdir)/out; \
 		$(LN) $(OUT_DIST_FILES) $(distdir)/$(localdir)/out;; \
 	esac
-	$(foreach i, $(SUBDIRS), $(MAKE) distdir=../$(distdir) localdir=$(localdir)/$(i) -C $(i) local-dist &&) true
+#	$(foreach i, $(SUBDIRS), $(MAKE) distdir=../$(distdir) localdir=$(localdir)/$(i) -C $(i) local-dist &&) true
+# absolute for installed stepmake
+	$(foreach i, $(SUBDIRS), $(MAKE) topdir=$(topdir) distdir=$(distdir) localdir=$(localdir)/$(notdir $(i)) -C $(i) local-dist &&) true
 
 
 
@@ -118,7 +123,7 @@ $(outdir)/VERSION: $(depth)/VERSION
 	cp $< $@
 
 $(outdir)/version.hh: $(outdir)/VERSION
-	sh ./$(step-bindir)/make-version.sh $< > $@
+	sh $(step-bindir)/make-version.sh $< > $@
 
 # should this be in Rules?
 configure: configure.in aclocal.m4

@@ -13,9 +13,10 @@ local-maintainerclean:
 GNUmakefile: make/toplevel.make.in
 	$(MAKE) INFILE=$< OUTFILE=$@ -f $(stepdir)/automatically-generated.sub.make
 
-aclocal.m4: $(stepdir)/../aclocal.m4
+ifneq ($(PACKAGE),STEPMAKE)
+aclocal.m4: $(stepmake)/aclocal.m4
 	$(MAKE) INFILE=$< OUTFILE=$@ LINECOMMENT=dnl -f $(stepdir)/automatically-generated.sub.make
-
+endif
 
 local-WWW: #index.html 
 
@@ -35,7 +36,7 @@ dist:
 # ugh.
 # Can't compare "stage1" dist with "stage2" dist in this way?
 	-ln -f $(depth)/$(outdir)/$(distname).tar.gz $(release-dir)
-	rm -rf ./$(distdir)/
+	rm -rf $(distdir)/
 
 local-help:
 	@echo -e "\

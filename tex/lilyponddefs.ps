@@ -15,7 +15,8 @@
 {
 	/object exch def
 	gsave
-	exch translate
+	%exch translate
+	translate
 	0 0 moveto
 	object
 	grestore
@@ -67,7 +68,7 @@
 	stafflinethickness 1.6 mul widthbar
 } bind def
 
-/maatstreep
+/maatstreep % height
 {
 	thinbar
 } bind def
@@ -77,8 +78,9 @@
 	thickbar
 } bind def
 
-/generalmeter
+/generalmeter % num den
 {
+	pop pop
 } bind def
 
 /pianobrace
@@ -110,7 +112,8 @@
 	yoffset staffheight 8 mul sub /yoffset exch def
 } bind def
 
-/unknown {} bind def
+/unknown { (U) show} bind def
+/empty {(E) show} bind def
 
 /turnOnExperimentalFeatures { } bind def
 

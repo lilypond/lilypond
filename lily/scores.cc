@@ -17,7 +17,6 @@
 #include "file-results.hh"
 #include "my-lily-parser.hh"
 #include "source.hh"
-#include "lookup.hh"
 
 Sources* source_global_l = 0;
 Array<String> inclusion_global_array;
@@ -124,16 +123,6 @@ do_one_file (String init_str, String file_str)
     My_lily_parser parser (source_global_l);
     parser.set_version_check (version_ignore_global_b);
     parser.parse_file (init_str, file_str);
-
-    /*
-       urg
-       when calling {Ps,Tex}_lookup::paper_stream_p (),
-       it *appears* (aaargh, latest gdb on ppc is gdb 4.16.97)
-       that (global_lookup_l's) 
-       paper_l_ is invalid but not NULL
-       (deleted without being reset maybe?)
-     */
-    global_lookup_l->paper_l_ = parser.default_paper_p ();
 
     if (parser.error_level_i_)
       {

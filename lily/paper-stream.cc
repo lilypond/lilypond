@@ -7,7 +7,6 @@
 */
 
 #include <fstream.h>
-#include <time.h>
 
 #include "main.hh"
 #include "paper-stream.hh"
@@ -27,7 +26,6 @@ Paper_stream::Paper_stream (String filename)
   nest_level = 0;
   line_len_i_ = 0;
   outputting_comment=false;
-  //  header ();
 }
 
 Paper_stream::~Paper_stream ()
@@ -99,6 +97,8 @@ Paper_stream::operator << (Scalar s)
 		break;
 	      }
     }
+  //urg, for debugging only!!
+  *os << flush;
   return *this;
 }
 

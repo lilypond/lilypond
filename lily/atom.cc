@@ -29,7 +29,7 @@ Atom::check_infinity_b ()const
       if (abs (off_[ax]) >= 100 CM)
 	{
 	  warning (_f ("ridiculous dimension: %s, %s", axis_name_str (ax),
-		   global_lookup_l->print_dimen (off_[ax])));
+		   print_dimen (off_[ax])));
 	  
 	  if (experimental_features_global_b)
 	    assert (false);
@@ -76,12 +76,14 @@ Atom::Atom ()
     But Atom is used as a simple type *everywhere*,
     and we don't have virtual contructors.
    */
-  str_ = global_lookup_l->unknown_str ();
+  lambda_ = 0;
+  str_ = "unknown\n";
 }
 
 Atom::Atom (String s, Box b)
   :  dim_ (b)
 {
+  lambda_ = 0;
   str_ = s;
 }
 

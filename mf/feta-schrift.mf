@@ -4,7 +4,7 @@
 % source file of the Feta (defintively not an abbreviation for Font-En-Tja)
 % music font
 % 
-% (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+% (c) 1997, 1998 Han-Wen Nienhuys <hanwen@stack.nl>
 %	Jan Nieuwenhuizen <janneke@gnu.org>
 % 
 
@@ -56,6 +56,37 @@ fet_endchar;
 fet_beginchar("fermata down", "dfermata", "dfermata")
 	draw_fermata;
 	y_mirror_char;
+fet_endchar;
+
+%
+% Thumbs are used in cello music.
+% TODO : thumbs should look like the finger-font and should be placed in
+% the same way in the score.
+%
+
+fet_beginchar("Thumb", "thumb", "thumb")
+        save thin, height, width, thick;
+        height# = 5/4 width#;
+        height# = interline#;
+        thin = 1.2 stafflinethickness;
+        thick =  1.4 thin;
+        set_char_box(width#/2, width#/2, height#/2, height#/2);
+
+        penpos1(thick, 0);
+        penpos2(thin, 90);
+        z1r = (w, 0);
+        z2r = (0, h);
+        penlabels(1,2);
+        penstroke z1e{up} .. {left}z2e;
+        addto currentpicture also currentpicture xscaled -1;
+        addto currentpicture also currentpicture yscaled -1;
+
+	pickup pencircle scaled thin;
+	save x,y;
+	z3r = (0, -h);
+	z4 = (0, -2h);
+	penlabels(3,4);
+	draw z3r -- z4;
 fet_endchar;
 
 
@@ -179,6 +210,7 @@ fet_beginchar("marcato down", "dmarcato", "dmarcato")
 	xy_mirror_char;
 fet_endchar;
  
+
 %
 % used in french horn music todo
 %

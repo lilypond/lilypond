@@ -10,6 +10,8 @@
 #include <iostream.h>
 #include <assert.h>
 #include <locale.h>
+#include "lily-guile.hh"
+
 #include "proto.hh"
 #include "dimensions.hh"
 #include "plist.hh"
@@ -21,8 +23,6 @@
 #include "config.hh"
 #include "file-results.hh"
 #include "debug.hh"
-#include "ps-lookup.hh"
-#include "tex-lookup.hh"
 #include "lily-guile.hh"
 
 #if HAVE_GETTEXT
@@ -34,13 +34,14 @@ bool version_ignore_global_b = false;
 bool no_paper_global_b = false;
 bool no_timestamps_global_b = false;
 bool find_quarts_global_b = false;
+
+char const* output_global_ch = "tex";
+// temporarily default to ps, because tex is even more broken
+//char const* output_global_ch = "ps";
+
 String default_outname_base_global =  "lelie";
 int default_count_global;
 File_path global_path;
-
-Ps_lookup ps_lookup;
-Tex_lookup tex_lookup;
-Lookup* global_lookup_l = &tex_lookup;
 
 bool experimental_features_global_b = false;
 bool dependency_global_b = false;
@@ -63,6 +64,7 @@ Long_option_init theopts[] = {
   {0, "no-timestamps", 'T'},
   {0, "find-fourths", 'Q'},
   {0, "ignore-version", 'V'},
+  {1, "output-format", 'f'},
   {0,0,0}
 };
 
@@ -85,13 +87,16 @@ usage ()
     "  -d, --dependencies     write Makefile dependencies for every input file\n"
     );
   cout  << _ (
+    "  -h, --help             this help\n"
+    );
+  cout  << _ (
+    "  -f, --output-format=X  use output format X\n"
+    );
+  cout  << _ (
     "  -I, --include=DIR      add DIR to search path\n"
     );
   cout  << _ (
     "  -i, --init=FILE        use FILE as init file\n"
-    );
-  cout  << _ (
-    "  -h, --help             this help\n"
     );
   cout  << _ (
     "  -M, --no-paper         produce midi output only\n"
@@ -186,15 +191,6 @@ identify ()
   *mlog << get_version_str () << endl;
 }
 
-void 
-guile_init ()
-{
-#ifdef   HAVE_LIBGUILE
-   gh_eval_str ("(define (add-column p) (display \"adding column (in guile): \") (display p) (newline))");
-#endif
-}
-
-
 void
 setup_paths ()
 {
@@ -237,11 +233,9 @@ setup_paths ()
 }
 
 
-
-int
+void
 main_prog (int argc, char **argv)
 {
-  guile_init ();
   identify ();
   call_constructors ();
   debug_init ();		// should be first
@@ -258,7 +252,7 @@ main_prog (int argc, char **argv)
 	{
 	case 't':
 	  experimental_features_global_b = true;
-	  global_lookup_l = &ps_lookup;
+	  *mlog << "*** enabling experimental features, you're on your own now ***\n";
 	  break;
 	case 'o':
 	  outname_str = oparser.optional_argument_ch_C_;
@@ -266,6 +260,9 @@ main_prog (int argc, char **argv)
 	case 'w':
 	  notice ();
 	  exit (0);
+	  break;
+	case 'f':
+	  output_global_ch = oparser.optional_argument_ch_C_;
 	  break;
 	case 'Q':
 	  find_quarts_global_b = true;
@@ -344,8 +341,18 @@ main_prog (int argc, char **argv)
 	default_outname_base_global = outname_str;
       do_one_file (i, default_outname_base_global);
     }
+}
 
+int
+main (int argc, char **argv)
+{
+#ifdef HAVE_LIBGUILE
+  gh_enter (argc, argv, (void(*)())main_prog);
   return exit_status_i_;
+#else
+  main_prog (argc, argv);
+  return exit_status_i_;
+#endif
 }
 
 /*
@@ -385,19 +392,3 @@ distill_inname_str (String name_str, String& ext_r)
   return str;
 }
 
-
-#ifdef HAVE_LIBGUILE
-int
-main (int argc, char **argv)
-{
-  gh_enter (argc, argv, (void(*)())main_prog);
-  return exit_status_i_;
-}
-
-#else
-int main (int argc, char **argv)
-{
-  return main_prog (argc, argv);
-}
-
-#endif

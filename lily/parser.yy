@@ -10,14 +10,13 @@
 */
 
 #include <iostream.h>
+#include "lily-guile.hh"
 #include "notename-table.hh"
 #include "scalar.hh"
 #include "translation-property.hh"
 #include "script-def.hh"
 #include "symtable.hh"
 #include "lookup.hh"
-#include "ps-lookup.hh"
-#include "tex-lookup.hh"
 #include "misc.hh"
 #include "my-lily-lexer.hh"
 #include "paper-def.hh"
@@ -95,7 +94,6 @@ Paper_def* current_paper = 0;
 
 #define yyerror THIS->parser_error
 #define ARRAY_SIZE(a,s)   if (a.size () != s) THIS->parser_error (_f("expecting %d arguments", s))
-
 
 %}
 
@@ -195,6 +193,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token PT_T
 %token RELATIVE
 %token REMOVE
+%token SCHEME /* token vs typedef;  can't be named SCM */
 %token SCORE
 %token SCRIPT
 %token SHAPE
@@ -321,7 +320,17 @@ toplevel_expression:
 			Midi_def_identifier ($1, MIDI_IDENTIFIER);
 		THIS->lexer_p_->set_identifier ("$defaultmidi", id)
 	}
+	| embedded_scm { 
+	}
 	;
+
+embedded_scm:
+	SCHEME STRING ';' {
+	#ifdef HAVE_LIBGUILE
+		gh_eval_str ($2->ch_l ());
+	#endif
+		delete $2;
+	};
 
 check_version:
 	VERSION STRING ';'		{
@@ -589,7 +598,7 @@ paper_def_body:
 		$$ = p;
 	}
 	| paper_def_body int '=' symtables		{ // ugh, what a syntax
-		Lookup * l = global_lookup_l->lookup_p (*$4);
+		Lookup * l = new Lookup (*$4);
 		$$->set_lookup ($2, l);
 	}
 	| paper_def_body assignment ';' {
@@ -1450,13 +1459,15 @@ symtable_body:
 
 symboldef:
 	STRING unsigned box		{
-		$$ = global_lookup_l->atom_p (*$1, $2, *$3);
+		// ignore #args
+		$$ = new Atom (*$1, *$3);
 		delete $1;
 		delete $3;
 	}
 	| STRING unsigned {
 		Box b (Interval (0,0), Interval (0,0));
-		$$ = global_lookup_l->atom_p (*$1, $2, b);
+		// ignore #args
+		$$ = new Atom (*$1, b);
 		delete $1;
 	}
 	;
