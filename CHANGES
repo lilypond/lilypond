@@ -1,3 +1,9 @@
+1.3.46.jcn2
+===========
+
+* Drastically reduced vertical space used by headers/footers, when using
+  ly2dvi.  See input/test/fill-a4.ly.
+
 1.3.46
 ======
 

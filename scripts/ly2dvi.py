@@ -258,11 +258,22 @@ class TeXOutput:
 \usepackage{geometry}
 \usepackage[latin1]{inputenc} 
 %%\usepackage[T1]{fontenc} 
+%%
 %s 
+%% don not waste unused space at bottom of page
+%% (unless we have footnotes ...)
+%%\headheight9pt
+%%\headsep0pt
+%% Maybe this is too drastic, but let us give it a try.
+\headheight0pt
+\headsep2mm
+\footskip2mm
+%%
 %%\addtolength{\oddsidemargin}{-1cm} 
 %%\addtolength{\topmargin}{-1cm} 
 %%\setlength{\textwidth}{%s} 
 %%\setlength{\textheight}{%s} 
+%%
 \geometry{width=%spt, left=%spt, height=%spt, top=%spt} 
 \input lilyponddefs 
 \input titledefs 
