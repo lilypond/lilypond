@@ -283,8 +283,8 @@ i.e.  this is not an override"
     ))
 
 
-(define-public (make-nonevent-skip dur)
-  (let*  ((m (make-music-by-name 'NonEventSkip)))
+(define-public (make-skip-music dur)
+  (let*  ((m (make-music-by-name 'SkipMusic)))
     (ly:set-mus-property! m 'duration dur)
     m
   ))
@@ -501,8 +501,6 @@ Rest can contain a list of beat groupings
 
 
 ;;; splitting chords into voices.
-;; todo: spec \context Staff for  <<\\>>
-;;
 (define (voicify-list lst number)
    "Make a list of Musics.
 

@@ -531,9 +531,12 @@ For example, transposed music.")
 	(types . (general-music event))
 	))
 
-    (NonEventSkip
+    (SkipMusic
      . (
-	(description .  "Filler that takes up duration, but does not print anything. This also does not create any event-accepting contexts. ")
+	(description .  "Filler that takes up duration, does not print anything, and also
+does not create staffs or voices implicitly.
+
+Syntax: @code{\\skip }@var{duration}.")
 	(internal-class-name . "Music")
 	(length . ,ly:music-duration-length)
 	(iterator-ctor . ,Simple_music_iterator::constructor)
@@ -542,12 +545,13 @@ For example, transposed music.")
      
     (SkipEvent
      . (
-	(description .  "Filler that takes up duration, but does not print anything.")
+	(description .  "Filler that takes up duration, but does not print anything.
+
+Syntax: @code{s}@var{duration}")
 
 	(internal-class-name . "Event")
 	(types . (general-music event rhythmic-event skip-event))
 	))
-    
     (SpanEvent
      . (
 	(description .  "Event for anything that is started at a different time than stopped.")
