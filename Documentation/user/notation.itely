@@ -821,9 +821,6 @@ Not all durations (especially those containing tuplets) can be
 represented exactly with normal notes and dots, but the engraver will
 not insert tuplets.
 
-The @internalsref{Completion_heads_engraver} can be combined with
-@code{\lyricsto} or @code{\addlyrics}.
-
 @seealso
 
 Examples: @inputfileref{input/regression,completion-heads.ly}.
