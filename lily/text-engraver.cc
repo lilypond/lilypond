@@ -9,7 +9,7 @@
 #include "dimension-cache.hh"
 
 #include "engraver.hh"
-#include "staff-side.hh"
+#include "side-position-interface.hh"
 #include "text-item.hh"
 #include "musical-request.hh"
 #include "note-head.hh"
