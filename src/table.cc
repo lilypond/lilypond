@@ -1,7 +1,8 @@
 #include "glob.hh"
 #include "debug.hh"
 #include "string.hh"
-#include "identifier.hh"
+#include "inputstaff.hh"
+#include "identparent.hh"
 #include "keyword.hh"
 #include "associter.hh"
 #include "parser.hh"
@@ -16,7 +17,7 @@ static Keyword_ent the_key_tab[]={
     "geometric", GEOMETRIC,
     "in", IN,
     "key", KEY, 
-    "melodicstaff", MELODICSTAFF,
+    "melodic", MELODIC,
     "meter", METER,
     "mm", MM,
     "octave", OCTAVECOMMAND,
@@ -24,7 +25,7 @@ static Keyword_ent the_key_tab[]={
     "partial", PARTIAL,
     "paper", PAPER,
     "pt", PT,
-    "rhythmstaff", RHYTHMSTAFF,
+    "rhythmic", RHYTHMIC,
     "score", SCORE,
     "skip", SKIP,
     "staff", STAFF,
@@ -36,9 +37,10 @@ static Keyword_ent the_key_tab[]={
     "violin", VIOLIN,
     "voice", VOICE,
     "voices", VOICES,
-    "width", WIDTH,   
+    "width", WIDTH,
+    "music", MUSIC,
     0,0
-} ;
+};
 
 
 int
