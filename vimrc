@@ -13,6 +13,9 @@ map <F5> :w<Return>:se makeprg=ly2dvi\ -P\ %<<Return>:make<Return>
 " F6  view ps
 map <F6> :!gv -watch %<.ps &<Return>
 "
+" <S-F6>  view dvi
+map <S-F6> :!xdvi %<.dvi &<Return>
+"
 " F7  prev error
 map <F7> :cp<Return>
 "
