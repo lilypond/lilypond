@@ -23,10 +23,12 @@ AC_DEFUN(STEPMAKE_GET_VERSION, [
     ## Workaround for broken Debian gcc version string:
     ##     gcc (GCC) 3.1.1 20020606 (Debian prerelease)
     ##
+    ## -V: Workaround for python
+    ##
     ## Assume, and hunt for, dotted version multiplet.
 
     changequote(<<, >>)dnl
-    "$1" --version 2>&1 | grep '[0-9]\.[0-9]' | head -1 | \
+    ("$1" --version || "$1" -V) 2>&1 | grep '[0-9]\.[0-9]' | head -1 | \
 	sed -e 's/.*[^-.0-9]\([0-9][0-9]*\.[0-9][.0-9]*\).*/\1/'
     changequote([, ])dnl
 ])
@@ -640,8 +642,8 @@ AC_DEFUN(STEPMAKE_INIT, [
 	AC_PATH_PROG(BASH, bash, $SHELL)
     fi
     AC_SUBST(SHELL)
-    
-    STEPMAKE_PATH_PROG(PYTHON, python, REQUIRED)
+
+    STEPMAKE_PYTHON(REQUIRED, 1.5)
 
     if expr "$MAKE" : '.*\(echo\)' >/dev/null; then
  	$MAKE -v 2> /dev/null | grep GNU > /dev/null
@@ -878,10 +880,50 @@ AC_DEFUN(STEPMAKE_PERL, [
 ])
 
 
+AC_DEFUN(STEPMAKE_PYTHON, [
+    unset pv
+    AC_MSG_CHECKING([for python])
+    for python in $PYTHON python python2 python2.3 python2.2 python2.1 python2.0; do
+	AC_MSG_RESULT([$python])
+	if ! $python -V > /dev/null 2>&1 ; then
+	    #AC_MSG_WARN([cannot execute $python])
+	    PYTHON='echo no python'
+	else
+	    unset pv
+	    STEPMAKE_CHECK_VERSION(python, pv, $2)
+	    if test -z "$pv"; then
+		PYTHON=$python
+		break
+	    fi
+	fi
+    done
+    if test -n "$pv"; then
+	STEPMAKE_ADD_ENTRY($1, $pv)
+    fi
+    AC_SUBST(PYTHON)
+])
+
 AC_DEFUN(STEPMAKE_PYTHON_DEVEL, [
-    AC_CHECK_HEADERS([python2.2/Python.h python2.1/Python.h python2.0/Python.h python2/Python.h python/Python.h python1.5/Python.h Python.h],[PYTHON_HEADER=yes])
+    unset PYTHON_HEADER PYTHON_INCLUDE
+    if test -n "$PYTHON"; then
+	changequote(<<, >>)dnl
+	# alternatively, for python >= 2.0
+	# 'import sys, distutils.sysconfig; sys.stdout.write (distutils.sysconfig.get_python_inc ())'
+	PYTHON_INCLUDE=`$PYTHON -c 'import sys; sys.stdout.write ("%s/include/python%s" % (sys.prefix, sys.version[:3]))'`
+	changequote([, ])dnl
+    fi
+    
+    ##AC_CHECK_HEADERS([Python.h],[PYTHON_HEADER=yes])
     if test -z "$PYTHON_HEADER"; then
-	warn='python.h (python-devel, python-dev or libpython-dev package)'
+	#URG -- how to extend include path?
+	ac_compile="$ac_compile -I$PYTHON_INCLUDE"
+	ac_cpp="$ac_cpp -I$PYTHON_INCLUDE"
+	CPPFLAGS="$CPPFLAGS -I$PYTHON_INCLUDE"
+	AC_CHECK_HEADERS([Python.h],[PYTHON_HEADER=yes])
+    fi
+    
+    if test -z "$PYTHON_HEADER"; then
+	warn="$PYTHON_INCLUDE/Python.h (python-devel, python-dev or libpython-dev package)"
 	STEPMAKE_ADD_ENTRY($1, $warn)
     fi
 ])

@@ -10,7 +10,7 @@
 
 /*
 
-python2
+python
 import midi
 s = open ("s.midi").read ()
 midi.parse_track (s)
@@ -19,27 +19,7 @@ midi.parse (s)
 */
 
 #include "config.h"
-
-/* urg */
-#if HAVE_PYTHON2_PYTHON_H
-#include <python2/Python.h>
-#elif HAVE_PYTHON2_2_PYTHON_H
-#include <python2.2/Python.h>
-#elif HAVE_PYTHON2_1_PYTHON_H
-#include <python2.1/Python.h>
-#elif HAVE_PYTHON2_0_PYTHON_H
-#include <python2.0/Python.h>
-#elif HAVE_PYTHON1_5_PYTHON_H
-#include <python1.5/Python.h>
-#elif HAVE_PYTHON_PYTHON_H
-#define assert(x)
-#include <python/Python.h>
-#elif HAVE_PYTHON_H
-#define assert(x)
 #include <Python.h>
-#else
-#error Need Python.h
-#endif
 
 #if 0
 int x = 0;
