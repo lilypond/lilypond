@@ -9,8 +9,12 @@ grep for TODO and ugh/ugr/urg
 
 
 BUGS:
+	* disallow backslashes
 
-	
+	* \breathmark TeX macro 
+
+	* catch GUILE errors?
+
 	* add new glyphs to font.ly
 
 	* formatting of input stuff. 
@@ -102,8 +106,6 @@ BUGS:
 	* mi2mu empty staffs.
 
 	* include MIDI list 
-
-	* make GNU style webpages.
 
 	* midi_instrument -> midiInstrument
 
@@ -350,7 +352,6 @@ PROJECTS
 	-  indentation
 	-  notenames?
 	-  fontlock: \melodic \melodic
- 
 
 	* use properties for:
 	- plet?
@@ -372,9 +373,8 @@ PROJECTS
 
 	* Spring_spacer:
 	- write a faster Spring_spacer (without matrices if possible)
-	- use straight LP to find minimal "fitting force"
 	- relate energybound to linelen unitspace fontsize etc.
-	- used fixed point fp
+	- used fixed point fp?
 
 	* \header
 	- output header info to MIDI too.
@@ -458,7 +458,7 @@ PROJECTS
 	* Documentation
 	- Doc (C) stuff of sheet music
 	- a better format?  SGML?  TeX?  Info?
-	- a tutorial
+	- a better tutorial
 
 	* more spanners (smallish)
 	- Glissando
