@@ -80,7 +80,7 @@ Beam::get_interbeam (Grob *me)
   SCM s = me->get_grob_property ("beam-space");
   if (gh_number_p (s))
     return gh_scm2double (s) * ss;
-  else if (gh_list_p (s))
+  else if (s != SCM_EOL && gh_list_p (s))
     return gh_scm2double (scm_list_ref (s,
 					gh_int2scm (multiplicity - 1
 						    <? scm_ilength (s) - 1)))
