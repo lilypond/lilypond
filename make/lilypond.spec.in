@@ -32,7 +32,7 @@ mkdir htmldocs
 tar -C htmldocs -xzf out/htmldoc.tar.gz
 #tar -C $RPM_BUILD_ROOT/tmp/lilypond-rpm-doc -xzf out/htmldoc.tar.gz
 
-strip lily/out/lilypond mi2mu/out/mi2mu
+strip lily/out/lilypond midi2ly/out/midi2ly
 make prefix="$RPM_BUILD_ROOT/usr" install
 # gzip -9fn $RPM_BUILD_ROOT/usr/info/* || true
 
@@ -66,8 +66,8 @@ fi
 /usr/bin/mudela-book
 /usr/bin/ly2dvi
 /usr/bin/lilypond
-/usr/bin/mi2mu
-/usr/man/man1/mi2mu.1
+/usr/bin/midi2ly
+/usr/man/man1/midi2ly.1
 /usr/man/man1/lilypond.1
 /usr/man/man1/mudela-book.1
 /usr/man/man1/ly2dvi.1

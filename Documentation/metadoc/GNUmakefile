@@ -7,20 +7,23 @@ datafiles = $(addprefix $(outdir)/,$(DATA_FILES:.data=.html))
 TEX_FILES = $(wildcard *.tex)
 DOC_FILES = $(wildcard *.doc)
 DVI_FILES = $(addprefix $(outdir)/,$(DOC_FILES:.doc=.dvi) $(YO_FILES:.yo=.dvi))
+OUT_BIB_FILES = $(addprefix $(outdir)/, $(BIB_FILES))
 
 # just include me
 YO_URG_FILES = $(wildcard *.yo-urg)
 
 OUTTEX_FILES = $(addprefix $(outdir)/, $(TEX_FILES))
 OUTDOC_FILES = $(addprefix $(outdir)/, $(DOC_FILES))
-
-EXTRA_DIST_FILES= $(DOC_FILES) $(DATA_FILES) $(EL_FILES) $(YO_URG_FILES) $(TEX_FILES) testje.fly
+EL_FILES = $(wildcard *.el)
+BIB_FILES= $(wildcard *.bib)
+EXTRA_DIST_FILES= $(BIB_FILES) $(DOC_FILES) $(DATA_FILES) $(EL_FILES) $(YO_URG_FILES) $(TEX_FILES) $(wildcard *.sty) 
 HTML_FILES = $(addprefix $(outdir)/, $(YO_FILES:.yo=.html))
 PS_FILES = $(DVI_FILES:.dvi=.ps)
 
 STEPMAKE_TEMPLATES=tex documentation
 LOCALSTEPMAKE_TEMPLATES=lilypond mudela
 
+export BIBINPUTS:=$(shell pwd)//$(PATHSEP)$(BIBINPUTS)
 include $(depth)/make/stepmake.make 
 
 
@@ -28,14 +31,14 @@ include $(depth)/make/stepmake.make
 
 
 
-dvi: $(DVI_FILES)
+dvi: $(OUT_BIB_FILES) $(DVI_FILES)
 
 ps: $(PS_FILES)
 
 # urg
 default:
 
-GENHTMLS = engraving colorado glossary computer-notation
+GENHTMLS = engraving colorado  computer-notation
 OUTGENHTMLS = $(addprefix $(outdir)/, $(GENHTMLS:%=%.html))
 
 #urg should generalise and move Lilypond -> StepMake
@@ -48,12 +51,9 @@ $(outdir)/%.tex: %.data $(depth)/VERSION
 	$(PYTHON) $(step-bindir)/table-to-html.py --columns=7 --linesep='' --package=$(topdir) -o $@ --latex $<
 
 
-$(outdir)/glossary.dvi: $(outdir)/glossary-table.tex
-$(outdir)/glossary.html: $(outdir)/glossary-table.html
 
-
-local-WWW: $(HTML_FILES) $(OUTDOC_FILES:.doc=.ps.gz) $(OUTTEX_FILES:.tex=.ps.gz) $(OUTYO_FILES:.yo=.latex) $(OUTYO_FILES:.yo=.ps.gz)  $(datafiles)
-	$(PYTHON) $(step-bindir)/ls-latex.py --package=$(topdir) --title 'LaTeX documents about LilyPond' \
+local-WWW: $(HTML_FILES) $(OUTTEX_FILES:.tex=.ps.gz) $(OUTYO_FILES:.yo=.latex) $(OUTYO_FILES:.yo=.ps.gz) $(addprefix $(outdir)/, $(BIB_FILES:.bib=.html)) $(datafiles)
+	$(PYTHON) $(step-bindir)/ls-latex.py --package=$(topdir) --title 'LaTeX documents about design and implementation of LilyPond' \
 	  $(YO_FILES) $(OUTYO_FILES:.yo=.latex) $(BIB_FILES) $(DOC_FILES) $(TEX_FILES)\
 	  | sed "s!$(outdir)/!!g" > $(outdir)/index.html
 	  $(PYTHON) $(step-bindir)/add-html-footer.py --package=$(topdir) $(outdir)/index.html
@@ -61,11 +61,15 @@ local-WWW: $(HTML_FILES) $(OUTDOC_FILES:.doc=.ps.gz) $(OUTTEX_FILES:.tex=.ps.gz)
 $(outdir)/%.bib: %.bib
 	ln -f $< $@
 
+# ignore result since bib2html is nonstandard. Errors would halt the RPM build.j  
+$(outdir)/%.html: %.bib
+	-bib2html $< $@
+
 # Yeah right: 
 # make -k out/mudela.dvi => cp -f out/vocabulary.tex out/mudela.dvi
 
 #out/%: $(outdir)/%
 #	cp -f $< $@
 
-localclean:
+locamlclean:
 	rm -f fonts.aux fonts.log feta*.tfm feta*.*pk
