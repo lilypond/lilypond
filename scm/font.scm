@@ -50,6 +50,9 @@
        font-descr-alist)
       )
 
+;; should really have name/pt size at the front of the list.
+;;
+;; (also tried to vary the order of this list, with little effect)
 (define paper20-style-sheet-alist
   '(
     ((3 medium upright number feta-nummer 13) . "feta-nummer13")
@@ -185,7 +188,10 @@
 	(Large . ((font-series . bold) (font-family . roman) (font-relative-size . 2)))
 	(dynamic . ((font-series . bold) (font-family . dynamic) (font-relative-size . 0)))
 	))
-    (properties-to-font . ,properties-to-font-name)
+    (properties-to-font .
+
+			,Font_interface::properties_to_font_name)
+			; ,properties-to-font-name)
 
     ;; FIXME: this is a not-so-cool idea to use ALIGN
     ;; RAISE, LOOKUP, since they are not proper elt-properties,

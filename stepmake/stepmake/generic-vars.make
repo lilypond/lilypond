@@ -139,7 +139,8 @@ endif
 DO_STRIP=true
 LOOP=$(foreach i,  $(SUBDIRS), $(MAKE) PACKAGE=$(PACKAGE) -C $(i) $@ &&) true
 
-ETAGS_FLAGS=-CT
+# different redhat releases need different flags for etags. Just use defaults.
+ETAGS_FLAGS= # -CT
 CTAGS_FLAGS=-h
 
 include $(stepdir)/files.make

@@ -23,7 +23,6 @@ class Rhythmic_req  : public virtual Request  {
 public:
   Duration duration_;
 
-
   bool do_equal_b (Request const*) const;
   void compress (Moment);
   virtual Moment length_mom () const;
@@ -40,8 +39,9 @@ public:
 struct Tremolo_req : public Request {
   VIRTUAL_COPY_CONS (Music);
   Tremolo_req ();
-  int type_i_;
 
+  void set_type (int);
+  int get_type () const;
 };
 
 
@@ -58,7 +58,7 @@ protected:
 class Articulation_req : public Script_req
 {
 public:
-  String articulation_str_;
+  String get_articulation_str();
 protected:
   virtual bool do_equal_b (Request const*) const;
 
@@ -106,14 +106,17 @@ struct Bass_req : public Melodic_req
   VIRTUAL_COPY_CONS (Music);
 };
 
-/// Put a note of specified type, height, and with accidental on the staff.
-class Note_req  : public Rhythmic_req, virtual public Melodic_req  {
-public:
-    
-  /// force/supress printing of accidental.
+/*
+   Put a note of specified type, height, and with accidental on the staff.
+    /// force/supress printing of accidental.
   bool forceacc_b_;
   /// Cautionary, i.e. parenthesized accidental.
   bool cautionary_b_;
+
+ */
+class Note_req  : public Rhythmic_req, virtual public Melodic_req  {
+public:
+    
   Note_req();
 protected:
 

@@ -83,7 +83,7 @@ Hyphen_spanner::brew_molecule (SCM smob)
   mol.translate_axis (bounds.center ()
 		      -sp->relative_coordinate (common, X_AXIS),
 		      X_AXIS);
-  return mol.create_scheme ();
+  return mol.smobbed_copy ();
 }
   
 void

@@ -159,7 +159,7 @@ Local_key_item::brew_molecule (SCM smob)
       } while ( flip (&d)!= LEFT);
     }
 
-  return mol.create_scheme();
+  return mol.smobbed_copy();
 }
 
 bool

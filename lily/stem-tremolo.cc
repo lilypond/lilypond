@@ -138,7 +138,7 @@ Stem_tremolo::brew_molecule (SCM smob)
 			     whole_note_correction, dy));
     }
   
-  return mol.create_scheme();
+  return mol.smobbed_copy ();
 }
 
 

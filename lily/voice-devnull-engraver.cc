@@ -42,7 +42,8 @@ Voice_devnull_engraver::do_try_music (Music *m)
 	{
 	  if (Span_req *s = dynamic_cast <Span_req *> (m))
 	    {
-	      if (s->span_type_str_ == *p)
+	      if (scm_equal_p (s->get_mus_property ("span-type"),
+			       ly_str02scm ( *p)) == SCM_BOOL_T)
 		{
 		  return true;
 		}

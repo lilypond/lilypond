@@ -19,6 +19,7 @@ struct Font_interface
   static Font_metric * get_font (Score_element*, SCM alist_chain);
   static Font_metric * get_default_font (Score_element*);
   static SCM add_style (Score_element*, SCM style, SCM alist_chain);
+  DECLARE_SCHEME_CALLBACK(properties_to_font_name, (SCM,SCM));
 };
 
 #endif /* FONT_INTERFACE_HH */

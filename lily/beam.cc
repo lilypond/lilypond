@@ -806,7 +806,7 @@ Beam::brew_molecule (SCM smob)
   mol.translate_axis (x0 
     - dynamic_cast<Spanner*> (me)->get_bound (LEFT)->relative_coordinate (0, X_AXIS), X_AXIS);
 
-  return mol.create_scheme ();
+  return mol.smobbed_copy ();
 }
 
 int

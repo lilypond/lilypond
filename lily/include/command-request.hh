@@ -16,9 +16,12 @@
 #include "musical-pitch.hh"
 #include "protected-scm.hh"
 
+/*
+  Real penalty_f_;
+ */
 class Break_req : public Request {
 public:
-  Real penalty_f_;
+
   Break_req ();
 protected:
   VIRTUAL_COPY_CONS(Music);
@@ -39,12 +42,14 @@ public:
   VIRTUAL_COPY_CONS(Music);
 };
 
-
+/*
+    int metronome_i_;
+ */
 class Tempo_req : public Timing_req
 {
 public:
   Duration dur_;
-  int metronome_i_;
+
 
   Tempo_req();
 protected:
@@ -56,15 +61,16 @@ protected:
 
 /**
   todo: allow C time_signature
+
+  int beats_i_;
+  int one_beat_i_;
+  
  */
 class Time_signature_change_req  : public Timing_req  {
 public:
-  int beats_i_;
-  int one_beat_i_;
-
   Time_signature_change_req();
-protected:
 
+protected:
   bool do_equal_b (Request const *) const;
   VIRTUAL_COPY_CONS(Music);
 };
@@ -106,10 +112,14 @@ protected:
   bool do_equal_b (Request const * )const; 
 };
 
+/*
+  String clef_str_;
+ */
+
 class Clef_change_req  : public Request  {
 public:
-  String clef_str_;
-  Clef_change_req (String);
+  
+  Clef_change_req ();
 protected:
 
   VIRTUAL_COPY_CONS(Music);

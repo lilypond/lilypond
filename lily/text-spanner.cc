@@ -189,7 +189,7 @@ Text_spanner::brew_molecule (SCM smob)
     m.add_at_edge (X_AXIS, RIGHT, edge[RIGHT], 0);
   m.translate_axis (broken_left, X_AXIS);
 
-  return m.create_scheme ();
+  return m.smobbed_copy ();
 }
 
 

@@ -43,7 +43,7 @@ Lyric_extender::brew_molecule (SCM smob)
   Real h = sl * gh_scm2double (sp->get_elt_property  ("height"));
   Molecule  mol (Lookup::filledbox ( Box (Interval (0,w), Interval (0,h))));
   mol.translate (Offset (leftext, 0));
-  return mol.create_scheme();
+  return mol.smobbed_copy();
 }
 
 void

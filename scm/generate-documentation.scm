@@ -30,14 +30,15 @@
 (define no-copies #f)
 
 (let* ((doc (string-append
-	     (document-paper "LilyPond interpretation contexts")
-	     (document-all-engravers "LilyPond engravers")
-	     (document-all-elements "LilyPond backend")
-	     (document-all-interfaces "LilyPond interfaces")))
+ 	     (document-paper "LilyPond interpretation contexts")
+ 	     (document-all-engravers "LilyPond engravers")
+ 	     (document-all-elements "LilyPond backend")
+ 	     (document-all-interfaces "LilyPond interfaces"))
+       )
        (name "lilypond-internals")
        (outname (string-append name ".texi"))
        (out (open-output-file outname)))
-    
+
   (writing-wip outname)
   (display 
    (string-append
@@ -49,9 +50,9 @@
        ("LilyPond engravers" . "Engravers create Elements")
        ("LilyPond backend" . "Detailed description of all Elements")
        ("LilyPond interfaces" . "Element Interfaces")))
-     
+    
     doc
     "\n@bye")
-    out))
+   out))
 
 (newline (current-error-port))

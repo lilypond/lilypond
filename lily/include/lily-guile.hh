@@ -38,7 +38,7 @@ String ly_scm2string (SCM s);
 String ly_symbol2string (SCM);
 SCM ly_offset2scm (Offset);
 Offset ly_scm2offset (SCM);
-
+SCM ly_assoc_chain (SCM key, SCM achain);
 Interval ly_scm2interval (SCM);
 SCM ly_interval2scm (Interval);
 

@@ -45,8 +45,13 @@ Timing_translator::do_try_music (Music*r)
        */
       if (Time_signature_change_req *c
 	  = dynamic_cast <Time_signature_change_req *> (t))
-	set_time_signature (c->beats_i_, c->one_beat_i_);
-    
+	{
+	  int b = gh_scm2int (c->get_mus_property ("beats"));
+	  int o = gh_scm2int (c->get_mus_property ("one-beat"));      
+	  
+	  set_time_signature (b, o);
+
+	}
       timing_req_l_arr_.push(t);
       return true;
     }

@@ -31,7 +31,7 @@ ps: $(PS_FILES)
 
 info: $(INFO_FILES)
 
-default: info
+default: 
 
 local-WWW: $(HTML_FILES)   $(datafiles) $(PS_GZ_FILES) backdoc-WWW
 	$(SHELL) $(buildscript-dir)/install-info-html.sh $(outdir) lilypond lilypond-internals

@@ -98,7 +98,8 @@ Dynamic_engraver::do_try_music (Music * m)
     }
   else if (Span_req* s =  dynamic_cast <Span_req*> (m))
     {
-      if (s->span_type_str_ == "abort")
+      String t = ly_scm2string (s->get_mus_property ("span-type"));
+      if (t== "abort")
 	{
 	  accepted_spanreqs_drul_[LEFT] = 0;
 	  accepted_spanreqs_drul_[RIGHT] = 0;
@@ -109,8 +110,8 @@ Dynamic_engraver::do_try_music (Music * m)
 	    cresc_p_->suicide ();
 	  cresc_p_ = 0;
 	}
-      else if ((s->span_type_str_ == "crescendo"
-	   || s->span_type_str_ == "decrescendo"))
+      else if (t == "crescendo"
+	   || t == "decrescendo")
 	{
 	  accepted_spanreqs_drul_[s->get_span_dir()] = s;
 	  return true;
@@ -230,13 +231,18 @@ Dynamic_engraver::do_process_music ()
 	  /*
 	    TODO: Use symbols.
 	   */
-	  SCM s = get_property ((accepted_spanreqs_drul_[START]->span_type_str_ + "Spanner").ch_C());
 
+	  String start_type = ly_scm2string (accepted_spanreqs_drul_[START]->get_mus_property ("span-type"));
+
+	  /*
+	    ugh. Use push/pop?
+	   */
+	  SCM s = get_property ((start_type + "Spanner").ch_C());
 	  if (!gh_string_p (s) || ly_scm2string (s) == "hairpin")
 	    {
 	      cresc_p_  = new Spanner (get_property ("Crescendo"));
 	      cresc_p_->set_elt_property ("grow-direction",
-					  gh_int2scm ((accepted_spanreqs_drul_[START]->span_type_str_ == "crescendo")
+					  gh_int2scm ((start_type == "crescendo")
 						      ? BIGGER : SMALLER));
 	      
 	    }
@@ -249,15 +255,15 @@ Dynamic_engraver::do_process_music ()
 	    {
 	      cresc_p_  = new Spanner (get_property ("TextSpanner"));
 	      cresc_p_->set_elt_property ("type", s);
-	      daddy_trans_l_->set_property (accepted_spanreqs_drul_[START]->span_type_str_
+	      daddy_trans_l_->set_property (start_type
 					    + "Spanner", SCM_UNDEFINED);
-	      s = get_property ((accepted_spanreqs_drul_[START]->span_type_str_ + "Text").ch_C());
+	      s = get_property ((start_type + "Text").ch_C());
 	      if (gh_string_p (s))
 		{
 		  cresc_p_->set_elt_property ("edge-text",
 					      gh_cons (s, ly_str02scm ("")));
-		  daddy_trans_l_->set_property (accepted_spanreqs_drul_[START]->span_type_str_
-						+ "Text", SCM_UNDEFINED);
+		  daddy_trans_l_->set_property (start_type + "Text",
+						SCM_UNDEFINED);
 		}
 	    }
 	

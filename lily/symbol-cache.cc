@@ -60,15 +60,15 @@ symbol (const char*s)
 
   global with binsearch.
 
-
 	real	0m19.352s
 	user	0m18.710s
 	sys	0m0.230s
+
   local binsearch
 
    user 18.8
 
-   local with binsearch, and other optimizations.
+  local with binsearch, and other optimizations.
 
    17.7
 */

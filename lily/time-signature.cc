@@ -15,7 +15,9 @@
 #include "font-interface.hh"
 
 MAKE_SCHEME_CALLBACK(Time_signature,brew_molecule,1);
-
+/*
+  TODO: make different functions for special and normal timesigs.
+ */
 SCM
 Time_signature::brew_molecule (SCM smob) 
 {
@@ -36,15 +38,15 @@ Time_signature::brew_molecule (SCM smob)
       String style (ly_scm2string (st));
       if (style[0]=='1')
 	{
-	  return time_signature (me, n, 0).create_scheme();
+	  return time_signature (me, n, 0).smobbed_copy ();
 	}
       else
 	{
-	  return special_time_signature (me, style, n, d).create_scheme();
+	  return special_time_signature (me, style, n, d).smobbed_copy ();
 	}
     }
   else
-    return time_signature (me, n,d).create_scheme();
+    return time_signature (me, n,d).smobbed_copy ();
 }
 
 Molecule

@@ -65,7 +65,7 @@ Dots::brew_molecule (SCM d)
 	  mol.add_at_edge (X_AXIS, RIGHT, d, dw);
 	}
     }
-  return mol.create_scheme ();
+  return mol.smobbed_copy ();
 }
 
 

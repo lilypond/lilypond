@@ -478,7 +478,7 @@ Stem::brew_molecule (SCM smob)
       mol.add_molecule (fl);
     }
 
-  return mol.create_scheme();
+  return mol.smobbed_copy ();
 }
 
 MAKE_SCHEME_CALLBACK(Stem,off_callback,2);

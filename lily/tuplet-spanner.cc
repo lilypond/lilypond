@@ -108,7 +108,7 @@ Tuplet_spanner::brew_molecule (SCM smob)
 	  mol.add_molecule (Molecule (b, at));
 	}
     }
-  return mol.create_scheme();
+  return mol.smobbed_copy ();
 }
 
 

@@ -14,7 +14,6 @@
 
 Tremolo_req::Tremolo_req ()
 {
-  type_i_ = 0;
 }
 
 
@@ -83,8 +82,6 @@ Note_req::do_equal_b (Request const* r) const
 
 Note_req::Note_req ()
 {
-  cautionary_b_ = false;
-  forceacc_b_ = false;
 }
 
 
@@ -117,7 +114,7 @@ Articulation_req::do_equal_b (Request const* r) const
 {
   Articulation_req const* a = dynamic_cast<Articulation_req const*> (r);
   
-  return a &&  articulation_str_ == a->articulation_str_;
+  return a; //  &&  articulation_str_ == a->articulation_str_;
 }
 
 

@@ -100,7 +100,7 @@ public:
   virtual void discretionary_processing ();
   virtual SCM do_derived_mark ();
 
-  Molecule get_molecule () const;
+  Molecule * get_molecule () const;
   void suicide ();
   
   DECLARE_SCHEME_CALLBACK(preset_extent, (SCM smob, SCM axis));

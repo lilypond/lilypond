@@ -65,7 +65,8 @@ Text_spanner_engraver::do_try_music (Music *m)
 {
   if (Span_req *s =  dynamic_cast <Span_req*> (m))
     {
-      if (s->span_type_str_ == "abort")
+      String t =  ly_scm2string (s->get_mus_property ("span-type"));            
+      if (t == "abort")
 	{
 	  req_drul_[LEFT] = 0;
 	  req_drul_[RIGHT] = 0;
@@ -73,7 +74,7 @@ Text_spanner_engraver::do_try_music (Music *m)
 	    span_->suicide ();
 	  span_ = 0;
 	}
-      else if (s->span_type_str_ == "text")
+      else if (t == "text")
 	{
 	  req_drul_[s->get_span_dir()] = s;
 	  return true;

@@ -78,7 +78,7 @@ Arpeggio::brew_molecule (SCM smob)
     }
   mol.translate_axis (heads[LEFT], Y_AXIS);
 
-  return mol.create_scheme (); 
+  return mol.smobbed_copy () ;
 }
 
 /*

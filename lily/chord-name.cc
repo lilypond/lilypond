@@ -72,5 +72,5 @@ Chord_name::brew_molecule (SCM smob)
 		       Staff_symbol_referencer::staff_space (me));
     }
 
-  return mol.create_scheme ();
+  return mol.smobbed_copy ();
 }

@@ -105,4 +105,10 @@ private:
   Interpretation_context_handle handle_;
 };
 
+
+ 
+  
+
+
+
 #endif // MUSIC_ITERATOR_HH

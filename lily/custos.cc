@@ -165,8 +165,7 @@ Custos::brew_molecule (SCM smob)
       else
         {
 	  add_streepjes(me, (int)pos, interspaces, &molecule);
-	  SCM result = molecule.create_scheme();
-	  return result;
+	  return  molecule.smobbed_copy();
 	}
     }
   else

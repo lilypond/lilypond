@@ -13,8 +13,8 @@
 #include "lily-proto.hh"
 #include "lily-guile.hh"
 
-typedef SCM (* Score_element_callback) (Score_element * ,  SCM extra_params);
-SCM smobify_callback (Score_element_callback cb);
+typedef void * (*Cpp_function) (SCM param);
+SCM smobify_cpp_function (Cpp_function cb);
 
 
 #endif /* SCORE_ELEMENT_CALLBACK_HH */
