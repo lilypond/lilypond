@@ -61,6 +61,12 @@ from source drill.
 The latest development version is also available through anonymous
 CVS. See @uref{http://savannah.gnu.org/cvs/?group=lilypond}.
 
+CVS does not contain generated files.  To create @file{configure}, run
+@quotation
+@example
+./autogen.sh
+@end example
+@end quotation
 
 @html
 <a name="download-binaries">
@@ -160,9 +166,10 @@ Check out @uref{http://www.gnu.org/software/bison/,the bison  webpage}
 
 @TeX{} is used as an output backend.
 
-Also, @TeX{}'s libkpathsea is used to find the fonts (@file{.mf}, @file{.afm}, @file{.tfm}).
-Make sure you have tetex 1.0 or newer (1.0.6 is known to work).  You may
-need to install a tetex-devel or tetex-dev package too.
+Also, @TeX{}'s libkpathsea is used to find the fonts (@file{.mf},
+@file{.afm}, @file{.tfm}).  Make sure you have tetex 1.0 or newer
+(1.0.6 is known to work).  You may need to install a tetex-devel (or
+tetex-dev or libkpathsea-dev) package too.
 
 @item Texinfo (version 4.2 or newer).
 The documentation of lily is written in texinfo.  Check out

@@ -84,8 +84,9 @@ the symbols should appear on the printout.
 @subsection I upgraded, and now my symbols are all messed up
 
 We obviously mucked with the fonts in the upgrade.  Remove all
-previous fonts, including the .pk and .tfm fonts in /var/lib/texmf.  A
-script automating this has been included, see
+previous fonts, including any .pk and .tfm fonts in
+@file{/var/lib/texmf}, @file{/var/spool/texmf}, @file{/var/tmp/texmf}
+or @file{/tmp}.  A script automating this has been included, see
 @file{buildscripts/clean-fonts.sh}.
 
 @bye

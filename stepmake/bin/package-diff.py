@@ -173,8 +173,8 @@ Patches do not contain automatically generated files
 or (urg) empty directories, 
 i.e., you should run
 
-	autogen.sh
-	configure [your options.]
+	./autogen.sh
+	./configure [your options.]
 
 	
 """
