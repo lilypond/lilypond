@@ -107,7 +107,7 @@ chkfontpath --remove=%{_datadir}/share/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
 
 %files
 %defattr(-, root, root)
-%{_datadir}/emacs/site-lisp/lilypond-*
+%{_datadir}/emacs/site-lisp/lilypond*
 %{_datadir}/emacs/site-lisp/site-start.d/lilypond-*
 
 %{_bindir}/abc2ly

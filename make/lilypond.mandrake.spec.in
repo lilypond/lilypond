@@ -148,7 +148,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # is the following really started during startup of emacs?
 %{_datadir}/emacs/site-lisp/site-start.d/lilypond-*
-%{_datadir}/emacs/site-lisp/lilypond-*
+%{_datadir}/emacs/site-lisp/lilypond*
 
 %if %{info}
   %{_infodir}/*
