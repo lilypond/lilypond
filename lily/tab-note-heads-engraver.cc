@@ -25,7 +25,7 @@ class Tab_note_heads_engraver : public Engraver
   
   Link_array<Item> dots_;
   Link_array<Note_req> note_reqs_;
-  Link_array<Text_script_req> tabstring_reqs_;
+  Link_array<String_number_req> tabstring_reqs_;
 public:
   TRANSLATOR_DECLARATIONS(Tab_note_heads_engraver);
 
@@ -50,10 +50,8 @@ Tab_note_heads_engraver::try_music (Music *m)
       note_reqs_.push (n);
       return true;
     }
-  else if (Text_script_req * ts = dynamic_cast<Text_script_req*> (m))
+  else if (String_number_req * ts = dynamic_cast<String_number_req*> (m))
     {
-      if (m->get_mus_property ("text-type") != ly_symbol2scm ("finger")) return false;
-      
       while(tabstring_reqs_.size () < note_reqs_.size ()-1)
 	tabstring_reqs_.push(0);
       tabstring_reqs_.push(ts);
@@ -75,6 +73,7 @@ Tab_note_heads_engraver::process_music ()
     {
       SCM stringTunings = get_property ("stringTunings");
       int number_of_strings = ((int) gh_length(stringTunings));
+      bool high_string_one = to_boolean(get_property ("highStringOne"));
 
       Item * note  = new Item (get_property ("TabNoteHead"));
       
@@ -84,16 +83,17 @@ Tab_note_heads_engraver::process_music ()
       if(tabstring_reqs_.size()>i)
 	tabstring_req = tabstring_reqs_[i];
       // printf("%d %d\n",tabstring_reqs_.size(),i);
-      size_t lenp;
+      // size_t lenp;
       int tab_string;
       bool string_found;
       if (tabstring_req) {
-	char* tab_string_as_string = gh_scm2newstr(tabstring_req->get_mus_property ("text"), &lenp);
-	tab_string = atoi(tab_string_as_string);
+	//char* tab_string_as_string = gh_scm2newstr(tabstring_req->get_mus_property ("text"), &lenp);
+	//tab_string = atoi(tab_string_as_string);
+	tab_string = gh_scm2int(tabstring_req->get_mus_property ("string-number"));
 	string_found = true;
       }
       else {
-	tab_string = number_of_strings;
+	tab_string = high_string_one ? 1 : number_of_strings;
 	string_found = false;
       }
       
@@ -125,15 +125,16 @@ Tab_note_heads_engraver::process_music ()
 	int fret = unsmob_pitch(scm_pitch)->semitone_pitch()
 	  - gh_scm2int(gh_list_ref(stringTunings,gh_int2scm(tab_string-1)));
 	if(fret<min_fret)
-	  tab_string--;
+	  tab_string += high_string_one ? 1 : -1;
 	else
 	  string_found = true;
       }
 
       SCM text = gh_call3 (proc, gh_int2scm (tab_string), stringTunings, scm_pitch);
 
-      int pos = 2 * (tab_string-1) - number_of_strings; // No tab-note between the string !!!
-      
+      int pos = 2 * tab_string - number_of_strings - 1; // No tab-note between the string !!!
+      if(to_boolean(get_property("stringOneTopmost")))
+	pos = -pos;
       
       note->set_grob_property ("text", text);      
       
@@ -173,6 +174,6 @@ ENTER_DESCRIPTION(Tab_note_heads_engraver,
 /* descr */       "Generate one or more tablature noteheads from Music of type Note_req.",
 /* creats*/       "TabNoteHead Dots",
 /* acks  */       "",
-/* reads */       "centralCPosition stringTunings minimumFret tablatureFormat",
+/* reads */       "centralCPosition stringTunings minimumFret tablatureFormat highStringOne stringOneTopmost",
 /* write */       "");
 

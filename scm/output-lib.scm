@@ -9,7 +9,7 @@
 
 ; The TabNoteHead stem attachment function.
 (define (tablature-stem-attachment-function style duration)
-  (cons 0.0 1.0)
+  (cons 0.0 0.5) ;; UGH!
 )
 
 ; The TabNoteHead molecule callback.
@@ -66,6 +66,7 @@
 
 
 
+(define guitar-tunings '(4 -1 -5 -10 -15 -20))
 
 ; end of tablature functions
 
@@ -221,4 +222,4 @@ centered, X==1 is at the right, X == -1 is at the left."
 	  (string-encode-integer (quotient i 26))))))
 
 
-(define (default-bar-number-visibility n) (> n 1))
+(define ((every-nth-bar-number-visible n) barnum) (and (> barnum 1) (= 0 (modulo barnum n))))

@@ -1026,6 +1026,7 @@
 	(style . default)
 	(molecule-callback . ,tablature-molecule-callback)
 	(Y-offset-callbacks  . (,Staff_symbol_referencer::callback))
+	(extra-offset . (0 . -0.65)) ;; UGH! TODO: Clean this up!
 	(stem-attachment-function . ,tablature-stem-attachment-function)
 	(meta . ((interfaces
 		  . (rhythmic-head-interface

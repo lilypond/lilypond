@@ -397,7 +397,7 @@ ScoreContext = \translator {
 	automaticMelismata = ##t
 	
 	defaultBarType = #"|"
-	barNumberVisibility = #default-bar-number-visibility
+	barNumberVisibility = #(every-nth-bar-number-visible 1)
 
 	explicitClefVisibility = #all-visible
 	explicitKeySignatureVisibility = #all-visible
@@ -495,6 +495,10 @@ TabStaffContext = \translator {
       % 6 strings
       StaffSymbol \override #'line-count  = #6
       StaffSymbol \override #'staff-space = #1.5
+
+      stringOneTopmost = ##t
+      highStringOne = ##t
+
       % One may change the strings tuning as following :
       % The lenght of the list must be equal to the number of string
       %TabNoteHead \override #'string-tunings = #'(10 10 10 10 10 10)
@@ -503,12 +507,13 @@ TabStaffContext = \translator {
       clefGlyph = #"clefs-tab"
       clefPosition = #0
       
-      % Don't draw stems over the tabature figures !
+      % Don't draw stems over the tablature figures !
       Stem \override #'avoid-note-head = ##t
       
       % No accidental in tablature !
       \remove Accidental_engraver
-      stringTunings   = #'(-20 -15 -10 -5 -1 4)
+      \remove Key_engraver
+      stringTunings   = #guitar-tunings
       tablatureFormat = #fret-number-tablature-format
 }
    

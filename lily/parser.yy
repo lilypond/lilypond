@@ -241,11 +241,11 @@ yylex (YYSTYPE *s,  void * v)
 
 /* escaped */
 %token E_CHAR E_EXCLAMATION E_SMALLER E_BIGGER E_OPEN E_CLOSE
-%token E_LEFTSQUARE E_RIGHTSQUARE E_TILDE E_DIGIT
+%token E_LEFTSQUARE E_RIGHTSQUARE E_TILDE
 %token E_BACKSLASH
+%token <i> E_UNSIGNED
 %token CHORD_BASS CHORD_COLON CHORD_MINUS CHORD_CARET  CHORD_SLASH
 %token FIGURE_SPACE
-
 
 %type <i>	exclamations questions dots optional_rest
 %type <i>  	bass_number bass_mod
@@ -1395,12 +1395,15 @@ post_request:
 	;
 
 
-/*
-TODO.
-*/
 string_request:
-	E_DIGIT  { $$ = new Text_script_req (); } 
+	E_UNSIGNED {
+		String_number_req* s = new String_number_req;
+		s->set_mus_property ("string-number",  gh_int2scm($1));
+		s->set_spot (THIS->here_input ());
+		$$ = s;
+	}
 	;
+
 
 request_that_take_dir:
 	gen_text_def

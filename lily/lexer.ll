@@ -113,6 +113,7 @@ WORD		{A}{AN}*
 ALPHAWORD	{A}+
 DIGIT		{N}
 UNSIGNED	{N}+
+E_UNSIGNED	\\{N}+
 FRACTION	{N}+\/{N}+
 INT		-?{UNSIGNED}
 REAL		({INT}\.{N}*)|(-?\.{N}+)
@@ -303,6 +304,10 @@ HYPHEN		--
 		yylval.i = String_convert::dec2int (String (YYText ()));
 		return UNSIGNED;
 	}
+	{E_UNSIGNED}	{
+		yylval.i = String_convert::dec2int (String (YYText () +1));
+		return E_UNSIGNED;
+	}
 
 	\" {
 		start_quote ();
@@ -438,6 +443,7 @@ HYPHEN		--
 	return UNSIGNED;
 }
 
+
 [{}]	{
 
 	return YYText ()[0];
@@ -474,11 +480,6 @@ HYPHEN		--
 	return E_TILDE;
     case '\\':
 	return E_BACKSLASH;
-
-    case '0': case '1': case '2': case '3': case '4':
-    case '5': case '6': case '7': case '8': case '9':
-	yylval.i = c -'0'; 
-	return E_DIGIT;
 
     default:
 	return E_CHAR;

@@ -223,6 +223,8 @@ in a context. This is done using the @code{Font_size_engraver}.")
 (translator-property-description 'forceClef boolean? "Show clef symbol, even if it hasn't changed. Only active for the first clef after the property is set, not for the full staff.")
 (translator-property-description 'graceAccidentalSpace number? "amount space to alot for an accidental")
 (translator-property-description 'graceAlignPosition dir? "put the grace note before or after the main note?")
+(translator-property-description 'highStringOne boolean? "Whether the 1st string is the string with
+highest pitch on the instrument (used by the automatic string selector).")
 (translator-property-description 'instr markup? "see @code{instrument}")
 (translator-property-description 'instrument markup? " If @code{Instrument_name_engraver}
 @cindex Instrument_name_engraver
@@ -323,6 +325,8 @@ help with debugging large scores.")
 (translator-property-description 'split-interval boolean? "set if part-combiner separated voices based on splitInterval.")
 (translator-property-description 'squashedPosition integer? " Vertical position of
 squashing for Pitch_squash_engraver.")
+(translator-property-description 'stringOneTopmost boolean? "Whether the 1st string is printed on the
+top line of the tablature.")
 (translator-property-description 'stavesFound list? "list of all staff-symbols found.")
 (translator-property-description 'stanza markup? "Stanza `number' to print at start of a verse. Use in LyricsVoice context.")
 
