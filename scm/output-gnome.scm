@@ -273,7 +273,7 @@ lilypond -fgnome input/simple-song.ly
     bezier))
 
 (define (char font i)
-  (text font (ly:font-index-to-charcode (integer->char i))))
+  (text font (ly:font-index-to-charcode font i)))
 
 ;; FIXME: naming
 (define (filledbox breapth width depth height)

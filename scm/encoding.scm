@@ -98,8 +98,10 @@ vector of symbols."
 
 	 ;; LilyPond FETA music font
 	 ("fetaBraces" . "feta-braces-a.enc")
-	 ("fetaDynamic" . "feta-din10.enc")
-	 ("fetaNumber" . "feta-nummer10.enc")
+	 ;;("fetaDynamic" . "feta-din10.enc")
+	 ;;("fetaNumber" . "feta-nummer10.enc")
+	 ("fetaDynamic" . "feta-alphabet20.enc")
+	 ("fetaNumber" . "feta-alphabet20.enc")
 	 ("fetaMusic" . "feta20.enc")
 	 ("parmesanMusic" . "parmesan20.enc"))
        ))

@@ -201,7 +201,7 @@ LY_DEFINE (ly_font_glyph_name_to_charcode, "ly:font-glyph-name-to-charcode",
 #endif
 }
 
-LY_DEFINE (ly_text_dimension,"ly:text-dimension",
+LY_DEFINE (ly_text_dimension, "ly:text-dimension",
 	   2, 0, 0,
 	  (SCM font, SCM text),
 	  "Given the font metric in @var{font} and the string @var{text}, "
@@ -219,7 +219,7 @@ LY_DEFINE (ly_text_dimension,"ly:text-dimension",
   return scm_cons (ly_interval2scm (b[X_AXIS]), ly_interval2scm (b[Y_AXIS]));
 }
 
-LY_DEFINE (ly_font_file_name,"ly:font-file-name",
+LY_DEFINE (ly_font_file_name, "ly:font-file-name",
 	   1, 0, 0,
 	   (SCM font),
 	   "Given the font metric @var{font}, "
@@ -233,7 +233,7 @@ LY_DEFINE (ly_font_file_name,"ly:font-file-name",
 
 #include "afm.hh"
 
-LY_DEFINE (ly_font_name,"ly:font-name",
+LY_DEFINE (ly_font_name, "ly:font-name",
 	   1, 0, 0,
 	   (SCM font),
 	   "Given the font metric @var{font}, "
@@ -250,7 +250,7 @@ LY_DEFINE (ly_font_name,"ly:font-name",
   return SCM_BOOL_F;
 }
 
-LY_DEFINE (ly_font_magnification,"ly:font-magnification", 1 , 0, 0,
+LY_DEFINE (ly_font_magnification, "ly:font-magnification", 1, 0, 0,
 	  (SCM font),
 	   "Given the font metric @var{font}, return the "
 	   "magnification, relative to the current outputscale.")
@@ -260,7 +260,7 @@ LY_DEFINE (ly_font_magnification,"ly:font-magnification", 1 , 0, 0,
   return scm_cdr (fm->description_);
 }
 
-LY_DEFINE (ly_font_design_size,"ly:font-design-size", 1 , 0, 0,
+LY_DEFINE (ly_font_design_size, "ly:font-design-size", 1, 0, 0,
 	  (SCM font),
 	   "Given the font metric @var{font}, return the "
 	   "design size, relative to the current outputscale.")
