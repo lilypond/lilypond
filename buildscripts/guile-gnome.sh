@@ -15,6 +15,14 @@ if  [ -d $HOME/usr/pkg/libffi/ ]; then
     export CPPFLAGS=-I$HOME/usr/pkg/libffi/include
 fi
 
+if [ -x /usr/bin/gcc34 ] ;then
+    export GCC=gcc34
+fi
+
+if [ -x /usr/bin/gcc-3.4 ] ;then
+    export GCC=gcc-3.4
+fi
+
 export AUTOMAKE=automake-1.8
 export AUTOCONF=`which autoconf2.50 `
 
@@ -97,13 +105,7 @@ fi
 
 ../src/configure --prefix=$HOME/usr/pkg/guile-gnome
 
-if [ -x /usr/bin/gcc-3.4 ]; then
-    G_WRAP_MODULE_DIR=$HOME/usr/pkg/g-wrap/share/guile/site make install CC=gcc-3.4
-else
-    ## requires 800mb RAM with -O2  -- are you sure that's not for ./gtk ?
-    (cd libgnomecanvas/gnome/gw; perl -i~ -pe 's/-O2//g' Makefile)
-    G_WRAP_MODULE_DIR=$HOME/usr/pkg/g-wrap/share/guile/site make install
-fi
+G_WRAP_MODULE_DIR=$HOME/usr/pkg/g-wrap/share/guile/site make install CC=$GCC
 
 export GUILE_LOAD_PATH=$HOME/usr/pkg/guile-gnome/share/guile:$GUILE_LOAD_PATH
 export LD_LIBRARY_PATH=$HOME/usr/pkg/guile-gnome/lib:$LD_LIBRARY_PATH
