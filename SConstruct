@@ -150,6 +150,7 @@ env = Environment (
 	ENV = ENV,
 
 	BASH = '/bin/bash',
+	CPPDEFINES = '-DHAVE_CONFIG_H',
 	PERL = '/usr/bin/perl',
 	PYTHON = '/usr/bin/python',
 	SH = '/bin/sh',
@@ -365,6 +366,9 @@ def configure (target, source, env):
 	if conf.CheckLib ('kpathsea', 'kpse_find_tfm'):
 		conf.env['DEFINES']['HAVE_KPSE_FIND_TFM'] = '1'
 
+	# FIXME fc3 - move to kpath-guile/SConscript?
+	conf.env['DEFINES']['HAVE_LIBKPATHSEA_SO'] = '1'
+
 	if env['fast']:
 		cpppath = []
 		if env.has_key ('CPPPATH'):
@@ -374,6 +378,17 @@ def configure (target, source, env):
 	#this could happen after flower...
 	env.ParseConfig ('guile-config compile')
 
+	## FIXME: pkg-test to required/optional
+	if os.system ('pkg-config --atleast-version=1.6.0 pango'):
+		barf
+	env.ParseConfig ('pkg-config --cflags --libs pango')
+	conf.env['DEFINES']['HAVE_PANGO16'] = '1'
+	
+	if os.system ('pkg-config --atleast-version=1.6.0 pangoft2'):
+		barf
+	env.ParseConfig ('pkg-config --cflags --libs pangoft2')
+	conf.env['DEFINES']['HAVE_PANGO_FT2'] = '1'
+	
 	#this could happen only for compiling pango-*
 	if env['gui']:
 		env.ParseConfig ('pkg-config --cflags --libs gtk+-2.0')
@@ -610,7 +625,10 @@ env.Append (
 	run_prefix = run_prefix,
 	LILYPONDPREFIX = os.path.join (run_prefix, 'share/lilypond'),
 
-	LIBPATH = [os.path.join (absbuild, 'flower', env['out']),],
+	# FIXME: move to lily/SConscript?
+	LIBPATH = [os.path.join (absbuild, 'flower', env['out']),
+		   os.path.join (absbuild, 'kpath-guile', env['out']),
+		   os.path.join (absbuild, 'ttftool', env['out']),],
 	CPPPATH = [outdir, ],
 	LILYPOND_PATH = ['.', '$srcdir/input',
 			 '$srcdir/input/regression',
@@ -738,7 +756,12 @@ if env['fast']\
    and 'web' not in COMMAND_LINE_TARGETS\
    and 'install' not in COMMAND_LINE_TARGETS\
    and 'clean' not in COMMAND_LINE_TARGETS:
-	subdirs = ['lily', 'lily/include', 'flower', 'flower/include', 'mf']
+	subdirs = ['lily', 'lily/include',
+		   'flower', 'flower/include',
+		   'kpath-guile',
+		   'ttftool',
+		   'mf',
+		   ]
 else:
 	subdirs = flatten (cvs_dirs ('.'), [])
 
