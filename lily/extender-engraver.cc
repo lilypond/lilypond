@@ -63,10 +63,7 @@ Extender_engraver::do_removal_processing ()
   if (extender_spanner_p_)
     {
       span_reqs_drul_[LEFT]->warning (_ ("unterminated extender"));
-      extender_spanner_p_->unlink ();
-      delete extender_spanner_p_;
-      extender_spanner_p_ = 0;
-      span_reqs_drul_[RIGHT] = span_reqs_drul_[LEFT] = 0;
+      extender_spanner_p_->set_bounds(RIGHT, get_staff_info ().command_l ());
     }
 }
 

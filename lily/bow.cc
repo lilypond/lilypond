@@ -92,6 +92,7 @@ Bow::do_height () const
   return iv;
 }
 
+#if 0
 Interval
 Bow::do_width () const    
 {
@@ -99,6 +100,7 @@ Bow::do_width () const
   Real dx = i.length();
   return Interval (0, dx);
 }
+#endif
 
 Array<Offset>
 Bow::get_controls () const

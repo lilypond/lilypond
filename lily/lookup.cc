@@ -101,6 +101,7 @@ Lookup::afm_find (String s, bool warn) const
 	{
 	  warning (_f("Can't open `%s'\n", font_name_));
 	  warning (_f("Search path %s\n", global_path.str ().ch_C()));
+	  error (_f("Aborting"));
 	}
     }
   Adobe_font_char_metric cm = afm_l_->find_char (s, warn);
@@ -382,6 +383,7 @@ static Dict_initialiser<char const*> cmr_init[] = {
   {"bold", "cmbx"},
   {"dynamic", "feta-din"},
   {"finger", "feta-nummer"},
+  {"typewriter", "cmtt"},
   {"italic", "cmti"},
   {"roman", "cmr"},
   {"large", "cmbx"},

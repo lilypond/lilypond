@@ -151,13 +151,15 @@ Tie::do_substitute_dependency (Score_element*o, Score_element*n)
     head_l_drul_[RIGHT] = new_l;
 }
 
+#if 0
 Interval
 Tie::do_width () const
 {
-  Real min_f = paper ()->get_var ("tie_x_minimum");
+  Real min_f = 
   Interval width_int = Bow::do_width ();
   return width_int.length () < min_f ? Interval (0, min_f) : width_int;
 }
+#endif
 
 Array<Rod>
 Tie::get_rods () const
@@ -165,7 +167,7 @@ Tie::get_rods () const
   Array<Rod> a;
   Rod r;
   r.item_l_drul_ = spanned_drul_;
-  r.distance_f_ = do_width ().length ();
+  r.distance_f_ = paper ()->get_var ("tie_x_minimum");
   a.push (r);
   return a;
 }

@@ -5,7 +5,7 @@
 ; (c) 1998 Jan Nieuwenhuizen <janneke@gnu.org>
 
 
-(debug-enable 'backtrace)
+;(debug-enable 'backtrace)
 
 ;;; library funtions
 (define

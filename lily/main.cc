@@ -164,7 +164,7 @@ about ()
   cout << _ ("GNU LilyPond is Free software, see --warranty");
   cout << '\n';
   cout << '\n';
-  cout << _f ("Copyright (c) %s by", "1996, 1997, 1998");
+  cout << _f ("Copyright (c) %s by", "1996--1999");
   cout << '\n';
   cout << "  " + _ ("Han-Wen Nienhuys <hanwen@cs.uu.nl>") + "\n";
   cout << "  " + _ ("Jan Nieuwenhuizen <janneke@gnu.org>") + "\n";
@@ -177,7 +177,7 @@ notice ()
   cout << '\n';
   cout << _ ("GNU LilyPond -- The GNU Project music typesetter");
   cout << '\n';
-  cout << _f ("Copyright (c) %s by", "1996, 1997, 1998");
+  cout << _f ("Copyright (c) %s by", "1996--1999");
   cout << '\n';
   cout << "  " + _ ("Han-Wen Nienhuys <hanwen@cs.uu.nl>") + "\n";
   cout << "  " + _ ("Jan Nieuwenhuizen <janneke@gnu.org>") + "\n";

@@ -28,7 +28,6 @@ protected:
 private:
   void start_next_element ();
 
-  bool done_b_;
   int unfold_i_;
   Moment here_mom_;
   Music_iterator* repeat_iter_p_;

@@ -1,6 +1,5 @@
-
 /*   
-  direction.cc --  implement 
+  direction.cc --  implement Direction
   
   source file of the GNU LilyPond music typesetter
   

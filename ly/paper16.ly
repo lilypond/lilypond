@@ -18,7 +18,8 @@ paper_sixteen = \paper {
 	font_finger = 4.;
 	font_volta = 5.;
 	font_number = 8.;
-	font_mark = 10.;
+	      font_dynamic = 10.;
+   font_mark = 10.;
 
      	arithmetic_basicspace = 2.;
         arithmetic_multiplier = 4.8\pt;

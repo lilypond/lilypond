@@ -146,6 +146,8 @@ Spanner::output_processing ()
 Interval
 Spanner::do_width() const
 {
+  
+  
   Real l = spanned_drul_[LEFT]->absolute_coordinate (X_AXIS);
   Real r = spanned_drul_[RIGHT]->absolute_coordinate (X_AXIS);
 

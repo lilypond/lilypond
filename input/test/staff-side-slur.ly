@@ -1,8 +1,6 @@
 \score{
 	\type Staff \notes\relative c''{
-		% length matters...
-%		\property Staff.instrument = "Tot"
-		\property Staff.instrument = "ToetersToetersToeters"
+		\property Staff.instrument = "Toeters"
 		c c c c(\break
 		)c c c c ~\break
 		c c c c\break
@@ -14,6 +12,7 @@
 		\translator {
 			\StaffContext
 			\consists "Staff_margin_engraver";
+			marginHangOnClef = 1;
 		}
 	}
 }

@@ -2,7 +2,7 @@
 
 depth = ../..
 
-examples=cadenza
+examples=# cadenza
 LOCALSTEPMAKE_TEMPLATES=mutopia
 
 include $(depth)/make/stepmake.make
