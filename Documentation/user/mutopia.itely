@@ -1,18 +1,25 @@
-
 @node Mutopia project
 @chapter Mutopia project
 @cindex mutopia project
 @cindex sheet music archive
 
+[TODO:
 
-The Mutopia project needs your help.  Mutopia is a collection of
-public domain sheet music.  All the music on Mutopia is completely
-free to download, print out, perform and distribute.  Mutopia is
-similar in spirit to Project Gutenburg - but consists of a growing
-collection of free music.  You can help the project by entering music
-(either by hand, or by converting from scans or MIDI) and submitting
-it.  Point your browser to the @uref{http://www.mutopiaproject.org}.
+* different name. Ports sucks
 
+* drop for 1.4
+
+* mutopia is rather offtopic in the lilypond manual
+
+]
+
+
+Mutopia is a collection of public domain sheet music.  All the music
+on Mutopia is completely free to download, print out, perform and
+distribute.  Mutopia is similar in spirit to Project Gutenburg.  You can
+help the project by entering music (either by hand, or by converting
+from scans or MIDI) and submitting it.  Point your browser to the
+@uref{http://www.mutopiaproject.org}.
 
 @menu
 * Mutopia ports collection::    
@@ -23,22 +30,20 @@ it.  Point your browser to the @uref{http://www.mutopiaproject.org}.
 @cindex mutopia ports collection
 
 
-We're working on a ports collection for LilyPond.  The aim is to make
-all music in Mutopia very easily accessible for LilyPond users 
-to study, edit and print.
-
-A somewhat functional experimental tree will be available in version
-1.3.141.  It should then be very easy to
+The ports collection to makes all music in Mutopia very easily
+accessible for LilyPond users to study, edit and print.  The
+ports-system performs the following functions:
 
 @enumerate 1
-  download anything from Mutopia
-  compile for printing or for Mutopia submission
-  publish and package for Mutopia
+@item  download anything from Mutopia
+@item  compile for printing or for Mutopia submission
+@item  publish and package for Mutopia
 @end enumerate
 
 Type @samp{make help} in @file{ports} directory to see possible
 targets.
 
+@ignore
 [TODO]
 
 Now that we have the @samp{make sync} target, maybe we should
@@ -73,3 +78,5 @@ $ make mutopia
 @end example
 
 Disadvantage: no clue of available titles.
+@end ignore
+

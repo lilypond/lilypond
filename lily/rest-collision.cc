@@ -76,6 +76,10 @@ head_characteristic (Grob * col)
 
 /*
   TODO: fixme, fucks up if called twice on the same set of rests.
+
+  TODO: look at horizontal-shift to determine ordering between rests
+  for more than two voices.
+  
  */
 SCM
 Rest_collision::do_shift (Grob *me, SCM elts)

@@ -72,7 +72,6 @@ this and other documentation.
 * Tutorial::                       A tutorial introduction to LilyPond.
 * Reference Manual::               Reference Manual.
 * Mutopia project::                Mutopia project.
-* Tricks::                         Features, tips and tricks.
 * Invoking LilyPond::              Operation.
 * Bug reports::                    Where to report bugs.
 * ly2dvi::                         Generating nice output with titles.
@@ -97,7 +96,6 @@ this and other documentation.
 @mbinclude tutorial.itely
 @mbinclude refman.itely
 @mbinclude mutopia.itely
-@mbinclude tricks.itely
 @mbinclude internals.itely
 @mbinclude invoking.itexi
 @mbinclude bugs.itexi
