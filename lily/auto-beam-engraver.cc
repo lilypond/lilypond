@@ -19,6 +19,11 @@
 
 ADD_THIS_TRANSLATOR (Auto_beam_engraver);
 
+
+/*
+  TODO: remove all references to Timing_engraver; should read properties.
+  
+ */
 Auto_beam_engraver::Auto_beam_engraver ()
 {
   stem_l_arr_p_ = 0;
@@ -52,7 +57,7 @@ void
 Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
 {
   if (!timer_l_)
-      return;
+    return;
   
   int num;
   int den;

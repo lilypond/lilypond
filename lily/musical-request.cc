@@ -159,19 +159,6 @@ Span_req::Span_req ()
   span_dir_ = CENTER;
 }
 
-Chord_tremolo_req::Chord_tremolo_req ()
-{
-  type_i_ = 0;
-}
-
-void
-Chord_tremolo_req::do_print () const
-{
-#ifndef NPRINT
-  DEBUG_OUT << type_i_;
-#endif
-}
-
 void
 Text_script_req::do_print () const
 {

@@ -220,7 +220,11 @@ Local_key_engraver::acknowledge_element (Score_element_info info)
 void
 Local_key_engraver::do_process_music()
 {
-  if (time_trans_l_ && !time_trans_l_->measure_position ())
+
+  SCM smp = get_property ("measurePosition");
+  Moment mp =  (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
+
+  if (!mp)
     {
       if (!to_boolean (get_property ("noResetKey")) && key_grav_l_)
 	local_key_= key_grav_l_->key_;

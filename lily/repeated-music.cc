@@ -112,23 +112,21 @@ Repeated_music::alternatives_length_mom () const
 }
 
 Moment
+Repeated_music::body_length_mom () const
+{
+  Moment m = 0;
+  if (repeat_body_p_)
+    {
+      m = repeat_body_p_->length_mom ();
+      if (!fold_b_ && !volta_fold_b_)
+	m *= Rational (repeats_i_);
+    }
+  return m;
+}
+
+Moment
 Repeated_music::length_mom () const
 {
-  Moment m =0;
-  if (fold_b_)
-    {
-      if (repeat_body_p_)
-	m += repeat_body_p_->length_mom ();
-    }
-  else
-    {
-      Moment beg = (repeat_body_p_) ? repeat_body_p_->length_mom () : Rational(0);
-      if (!volta_fold_b_)
-	beg *=  Rational (repeats_i_);
-      m += beg;
-    }
-
-  m += alternatives_length_mom ();
-  return m;
+  return body_length_mom () + alternatives_length_mom ();
 }
 

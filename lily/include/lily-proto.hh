@@ -61,7 +61,6 @@ struct Chord;
 struct Chord_name;
 struct Chord_name_engraver;
 struct Chord_tremolo_engraver;
-struct Chord_tremolo_req;
 struct Clef_change_req;
 struct Clef_engraver;
 struct Clef_item;

@@ -12,10 +12,7 @@
 #include "score-element-info.hh"
 #include "multi-measure-rest.hh"
 
-
-
 ADD_THIS_TRANSLATOR(Timing_engraver);
-
 
 void
 Timing_engraver::do_post_move_processing( )

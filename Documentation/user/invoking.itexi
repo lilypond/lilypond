@@ -48,27 +48,7 @@ code and named output.
 
 
 When invoked with a filename that has no extension, LilyPond will try
-adding `@file{.ly}' as an extension first, then `@file{.fly}' and
-finally `@file{.sly}' extension.  If the filename ends with
-`@file{.fly}', LilyPond processes the file as music using
-`@file{init.fly}'.  In this case, LilyPond does something like:
-
-@quotation
-
-@example 
-\score @{
-  \notes\relative c @{
-1    \input "yourfile.fly"
-  @}
-  \paper@{@}
-  \midi@{@}
-@} 
-@end example 
-
-@end quotation
-
-The result of `@file{.sly}' is similar except that a single unjustified
-line is produced.
+adding `@file{.ly}' as an extension first.
 
 If you invoke LilyPond with a file `@file{foo.}@var{ext}' that doesn't
 have the `@file{.ly}' extension, then LilyPond will look for a file

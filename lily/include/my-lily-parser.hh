@@ -42,18 +42,12 @@ public:
 
   Scope *default_header_p_;
 
-
-  // JUNKME
-  int chord_tremolo_type_i_;
-
   int fatal_error_i_;
   Sources * source_l_;
   int error_level_i_;
 
   My_lily_lexer * lexer_p_;
   bool ignore_version_b_;
-
-
   
   Input here_input() const;
   void remember_spot();

@@ -98,7 +98,7 @@ print_mudela_versions (ostream &os)
     Real real;
     Request * request;
 
- /* We use SCMs to do strings, because it saves us the trouble of
+    /* We use SCMs to do strings, because it saves us the trouble of
 deleting them.  Let's hope that a stack overflow doesnt trigger a move
 of the parse stack onto the heap. */
     SCM scm;
@@ -951,39 +951,11 @@ shorthand_command_req:
 		b->span_type_str_ = "beam";
 		$$ =b;
 	}
-	| '[' ':' unsigned {
-		// JUNKME
-		if (!is_duration_b ($3))
-		  THIS->parser_error (_f ("not a duration: %d", $3));
-		else
-		  THIS->set_chord_tremolo ($3);
-
-		Chord_tremolo_req* a = new Chord_tremolo_req;
-		a->span_dir_ = START;
-	        // urg
-		a->type_i_ = THIS->chord_tremolo_type_i_;
-		$$=a;
-	}
 	| ']'		{
-	        /* URG
-	         */
-		if (!THIS->chord_tremolo_type_i_)
-		  {
-		     Span_req*b= new Span_req;
-		     b->span_dir_ = STOP;
-		     b->span_type_str_ = "beam";
-		     $$ = b;
-		   }
-		else
-		  {
-		    Chord_tremolo_req* a = new Chord_tremolo_req;
-		    a->span_dir_ = STOP;
-		    a->type_i_ = THIS->chord_tremolo_type_i_;
-
-	// JUNKME.
-		    THIS->set_chord_tremolo (0);
-		    $$ = a;
-		  }
+	     Span_req*b= new Span_req;
+	     b->span_dir_ = STOP;
+	     b->span_type_str_ = "beam";
+	     $$ = b;
 	}
 	| BREATHE {
 		$$ = new Breathing_sign_req;
@@ -1143,7 +1115,6 @@ verbose_request:
 		a->articulation_str_ = ly_scm2string ($2);
 		a->set_spot (THIS->here_input ());
 		$$ = a;
-
 	}
 	;
 
@@ -1417,17 +1388,7 @@ simple_element:
 		
 		n->pitch_ = *$1;
 		n->duration_ = *$4;
-                /*
-	          URG, JUNKTHIS!
-                 */
-		if (THIS->chord_tremolo_type_i_)
-		  {
-		    if (n->duration_.plet_b ())
-	              // urg, burp.  what nonsense / silly implementation
-		      THIS->parser_error (_ ("can't put stem tremolo on tuplet"));
-		    else
-		      n->duration_.set_plet (1, 2);
-		  }
+
 		n->cautionary_b_ = $3 % 2;
 		n->forceacc_b_ = $2 % 2 || n->cautionary_b_;
 

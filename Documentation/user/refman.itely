@@ -1038,6 +1038,8 @@ Some more elaborate constructions:
 
 Beaming can be generated automatically; see section XREF-autobeam [FIXME].
 
+[OUTDATED, FIXME]
+
 To place tremolo marks 
 @cindex tremolo beams
  between two notes, begin

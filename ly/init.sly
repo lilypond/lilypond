@@ -10,7 +10,7 @@
     \maininput
   }
   \paper {
-	    linewidth=-1.0;
+
 	% indent = 0.0;
   }  
   \midi{ }

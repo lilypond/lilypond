@@ -1,38 +1,56 @@
-/*
-  chord-tremolo-engraver.cc -- implement Chord_tremolo_engraver
-
+/*   
+  new-chord-tremolo-engraver.cc --  implement Chord_tremolo_engraver
+  
   source file of the GNU LilyPond music typesetter
-
-  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-           Jan Nieuwenhuizen <janneke@gnu.org>
-*/
-
-#include "timing-translator.hh"
-#include "stem.hh"
-#include "beam.hh"
-#include "musical-request.hh"
-#include "misc.hh"
-#include "warn.hh"
-#include "score-engraver.hh"
-#include "engraver.hh"
-#include "drul-array.hh"
-#include "timing-engraver.hh"
-#include "beaming.hh"
-
-/**
-  Generate a beam tremolo.  Eat stems.
-
-  UGH. Derive me from Beam_engraver.
+  
+  (c) 2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
+
+#include "engraver.hh"
+#include "beam.hh"
+#include "repeated-music.hh"
+#include "stem.hh"
+#include "note-head.hh"
+#include "engraver-group-engraver.hh"
+#include "musical-request.hh"
+#include "warn.hh"
+#include "misc.hh"
+
+/**
+  This acknowledges repeated music with "tremolo" style.  It typesets
+  a beam.
+
+  TODO:
+
+  - perhaps use engraver this to steer other engravers? That would
+  create dependencies between engravers, which is bad.
+
+  - create dots if appropriate.
+
+ */
+
 class Chord_tremolo_engraver : public Engraver
 {
+  void typeset_beam ();
 public:
   VIRTUAL_COPY_CONS(Translator);
-  
-
   Chord_tremolo_engraver();
+protected:
+  Repeated_music * repeat_;
 
+  /// moment (global time) where beam started.
+  Moment start_mom_;
+  Moment stop_mom_;
+
+  /// location  within measure where beam started.
+  Moment beam_start_location_;
+
+  int note_head_i_;
+  
+  Beam * beam_p_;
+  Beam * finished_beam_p_;
+  
 protected:
   virtual void do_removal_processing();
   virtual void do_process_music();
@@ -40,139 +58,49 @@ protected:
   virtual void acknowledge_element (Score_element_info);
   virtual void do_pre_move_processing();
   virtual void do_post_move_processing();
-
-private:
-  void typeset_beam ();
-  Drul_array<Chord_tremolo_req*> reqs_drul_;
-  Chord_tremolo_req* prev_start_req_;
-  Beam* beam_p_;
-  Beam* finished_beam_p_;
-
-  /// location  within measure where beam started.
-  Moment beam_start_location_;
-
-  /// moment (global time) where beam started.
-  Moment beam_start_mom_;
-  Beaming_info_list * beam_info_p_;
-  Beaming_info_list * finished_beam_info_p_;  
 };
 
-ADD_THIS_TRANSLATOR (Chord_tremolo_engraver);
-
-Chord_tremolo_engraver::Chord_tremolo_engraver ()
+Chord_tremolo_engraver::Chord_tremolo_engraver()
 {
-  reqs_drul_[LEFT] = reqs_drul_[RIGHT] = 0;
-  beam_p_ = 0;
-  finished_beam_p_ = 0;
-  prev_start_req_ = 0;
-  finished_beam_info_p_=0;
-  beam_info_p_ =0;
+  beam_p_  = finished_beam_p_ = 0;
+  repeat_ =0;
+  note_head_i_ = 0;
 }
 
 bool
-Chord_tremolo_engraver::do_try_music (Music* m)
+Chord_tremolo_engraver::do_try_music (Music * m)
 {
-  if (Chord_tremolo_req* b = dynamic_cast <Chord_tremolo_req *> (m))
+  Repeated_music * rp = dynamic_cast<Repeated_music*> (m);
+  if (rp && rp->type_ == "tremolo" && !repeat_) 
     {
-      Direction d = b->span_dir_;
-      if (reqs_drul_[d] && !reqs_drul_[d]->equal_b (b))
-	return false;
+      Moment l = rp->body_length_mom ();
+      repeat_ = rp;
+      start_mom_ = now_mom ();
+      stop_mom_ = start_mom_ + l;
 
-      if ((d == STOP) && !beam_p_)
-	{
-	  m->warning (_ ("can't find start of chord tremolo"));
-	  return false;
-	}
-
-      reqs_drul_[d] = b;
+      // ugh. should generate dots, triplet beams.      
+      note_head_i_ = l.den () <? 4; 
       return true;
     }
-
   return false;
 }
 
 void
 Chord_tremolo_engraver::do_process_music ()
 {
-  if (reqs_drul_[STOP])
+  if (repeat_ && !beam_p_)
     {
-      if (!beam_p_)
-	reqs_drul_[STOP]->warning (_ ("can't find start of chord tremolo"));
-
-      prev_start_req_ = 0;
-
-      finished_beam_p_ = beam_p_;
-      beam_p_ = 0;
-
-      finished_beam_info_p_ = beam_info_p_;
-      beam_info_p_ = 0;
-    }
-
-  if (beam_p_)
-    {
-      Score_engraver * e = 0;
-      Translator * t  =  daddy_grav_l ();
-      for (; !e && t;  t = t->daddy_trans_l_)
-	{
-	  e = dynamic_cast<Score_engraver*> (t);
-	}
-      
-      if (!e)
-	programming_error ("No score engraver!");
-      else
-	e->forbid_breaks ();
-    }
-
-  if (reqs_drul_[START])
-    {
-      if (beam_p_)
-	{
-	  reqs_drul_[START]->warning (_ ("already have a chord tremolo"));
-	  return;
-	}
-
-      prev_start_req_ = reqs_drul_[START];
-
       beam_p_ = new Beam;
       beam_p_->set_elt_property ("chord-tremolo", SCM_BOOL_T);
-      Translator * t  = daddy_grav_l  ()->get_simple_translator ("Timing_engraver");
-      Timing_engraver *timer = dynamic_cast<Timing_engraver*> (t);
-      beam_start_location_ = (t) ?  timer->measure_position () : Moment (0);
-      beam_start_mom_ = now_mom();
-      beam_info_p_ = new Beaming_info_list;
-      
-      announce_element (Score_element_info (beam_p_, reqs_drul_[LEFT]));
-  }
-}
-
-void
-Chord_tremolo_engraver::do_post_move_processing ()
-{
-  reqs_drul_ [START] = 0;
-}
 
 
-void
-Chord_tremolo_engraver::do_pre_move_processing ()
-{
-  typeset_beam ();
-}
-
-void
-Chord_tremolo_engraver::typeset_beam ()
-{
-  if (finished_beam_p_)
-    {
-      finished_beam_info_p_->beamify ();
-      finished_beam_p_->set_beaming (finished_beam_info_p_);
-      typeset_element (finished_beam_p_);
-      finished_beam_p_ = 0;
-      delete finished_beam_info_p_;
-      finished_beam_info_p_ =0;
-
-      reqs_drul_[STOP] = 0;
+      SCM smp = get_property ("measurePosition");
+      Moment mp =  (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
+      beam_start_location_ = mp;
+      announce_element (Score_element_info (beam_p_, repeat_));
     }
 }
+
 
 void
 Chord_tremolo_engraver::do_removal_processing ()
@@ -180,12 +108,22 @@ Chord_tremolo_engraver::do_removal_processing ()
   typeset_beam ();
   if (beam_p_)
     {
-      prev_start_req_->warning (_ ("unterminated chord tremolo"));
+      repeat_->warning (_ ("unterminated chord tremolo"));
       finished_beam_p_ = beam_p_;
-      finished_beam_info_p_ = beam_info_p_;
       typeset_beam ();
     }
 }
+
+void
+Chord_tremolo_engraver::typeset_beam ()
+{
+  if (finished_beam_p_)
+    {
+      typeset_element (finished_beam_p_);
+      finished_beam_p_ = 0;
+    }
+}
+
 
 void
 Chord_tremolo_engraver::acknowledge_element (Score_element_info info)
@@ -194,11 +132,10 @@ Chord_tremolo_engraver::acknowledge_element (Score_element_info info)
     {
       if (Stem* s = dynamic_cast<Stem *> (info.elem_l_))
 	{
-	  int type_i = prev_start_req_->type_i_;
-	  s->set_elt_property ("duration-log",  gh_int2scm (intlog2 (type_i) - 2));
-
-	  s->set_beaming (s->flag_i (), LEFT);
-	  s->set_beaming ( s->flag_i (), RIGHT);
+	  int f = s->flag_i ();
+	  f = (f > 2) ? f - 2 : 1;
+	  s->set_beaming (f, LEFT);
+	  s->set_beaming (f, RIGHT);
 	  
 	  /*
 	    URG: this sets the direction of the Stem s.
@@ -206,7 +143,10 @@ Chord_tremolo_engraver::acknowledge_element (Score_element_info info)
 	    
 	      Stem:: type_i () ->first_head ()->get_direction () ->
 	              directional_element (me).set (d);
-	    
+
+
+	      don't understand this comment.
+		      --hwn.
 	   */
 	  SCM d = s->get_elt_property ("direction");
 	  if (s->type_i () != 1)
@@ -220,9 +160,7 @@ Chord_tremolo_engraver::acknowledge_element (Score_element_info info)
 	    {
 	      beam_p_->add_stem (s);
 	      Moment stem_location = now_mom () -
-		beam_start_mom_ + beam_start_location_;
-	      beam_info_p_->add_stem (stem_location,
-				      (r->duration_.durlog_i_ - 2) >? 1);
+		start_mom_ + beam_start_location_;
 	    }
 	  else
 	    {
@@ -233,6 +171,32 @@ Chord_tremolo_engraver::acknowledge_element (Score_element_info info)
 		::warning (s);
 	    }
 	}
+      if (Note_head *nh = dynamic_cast<Note_head*> (info.elem_l_))
+	{
+	  nh->set_elt_property ("duration-log", gh_int2scm (intlog2 (note_head_i_)));
+	}
     }
 }
+
+
+void
+Chord_tremolo_engraver::do_post_move_processing ()
+{
+  if (beam_p_ && stop_mom_ == now_mom ())
+    {
+      finished_beam_p_ = beam_p_;
+
+      repeat_ = 0;
+      beam_p_ = 0;
+    }
+}
+
+
+void
+Chord_tremolo_engraver::do_pre_move_processing ()
+{
+  typeset_beam ();
+}
+
+ADD_THIS_TRANSLATOR(Chord_tremolo_engraver);
 

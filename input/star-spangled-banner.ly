@@ -168,7 +168,11 @@ handLyrics = \notes \context GrandStaff <
 		}
 		\translator {
 			\LyricsContext
+		}
+		\translator {
+			\LyricsVoiceContext
 			\consists "Bar_engraver";
+			
 		}
 	}
 	\midi {}
