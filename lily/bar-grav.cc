@@ -7,7 +7,7 @@
 */
 
 #include "bar-grav.hh"
-#include "normal-bar.hh"
+#include "bar.hh"
 #include "command-request.hh"
 #include "time-description.hh"
 #include "engraver-group.hh"
@@ -33,6 +33,17 @@ Bar_engraver::do_try_request (Request*r_l)
 }
 
 void
+Bar_engraver::create_bar ()
+{
+  if (!bar_p_)
+    {
+      bar_p_ = new Bar;
+      bar_p_->break_priority_i_  = 0;
+      announce_element (Score_elem_info (bar_p_, bar_req_l_));
+    }
+}
+
+void
 Bar_engraver::do_process_requests()
 {
   if (bar_p_)
@@ -40,21 +51,17 @@ Bar_engraver::do_process_requests()
   
   if (bar_req_l_) 
     {
-      bar_p_ = new Normal_bar;
+      create_bar ();
       bar_p_->type_str_=bar_req_l_->type_str_;
     }
   else 
     {
       Time_description const *time = get_staff_info().time_C_;
       if (time && !time->whole_in_measure_) 
- 	bar_p_ = new Normal_bar;
+ 	create_bar ();
     }
   
-  if (bar_p_)
-    {
-      announce_element (Score_elem_info (bar_p_, bar_req_l_));
-    }
-  else 
+  if (!bar_p_)
     {
       Disallow_break_req r;
       daddy_grav_l()->try_request (&r);
