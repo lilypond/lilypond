@@ -12,6 +12,7 @@
 #include "directional-element-interface.hh"
 #include "engraver.hh"
 #include "spanner.hh"
+#include "tie.hh"
 
 /*
   It is possible that a slur starts and ends on the same note.  At
@@ -89,16 +90,30 @@ Slur_engraver::acknowledge_grob (Grob_info info)
     }
   else
     {
+      SCM inside = e->get_property ("inside-slur");
       if (Tie::has_interface (e)
-	  || to_boolean (e->get_property ("inside-slur")))
+	  || to_boolean (inside))
 	{
 	  for (int i = slurs_.size (); i--; )
 	    New_slur::add_extra_encompass (slurs_[i], e);
 	  for (int i = end_slurs_.size (); i--; )
 	    New_slur::add_extra_encompass (end_slurs_[i], e);
 	}
+      else if (inside == SCM_BOOL_F)
+	{
+	  Grob *slur = slurs_.size()?slurs_[0] : 0;
+	  slur =  (end_slurs_.size () && !slur)
+	    ? end_slurs_[0] : slur;
+
+	  if (slur)
+	    {
+	      e->add_offset_callback (New_slur::outside_slur_callback_proc, Y_AXIS);
+	      e->set_property ("slur", slur->self_scm());
+	    }
+	}
     }
 }
+
 void
 Slur_engraver::finalize ()
 {

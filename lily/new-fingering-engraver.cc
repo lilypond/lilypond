@@ -24,7 +24,7 @@ struct Finger_tuple
   Grob *script_;
   Music *note_event_;
   Music *finger_event_;
-  SCM description_;
+  bool follow_into_staff_;
   int position_;
 
   Finger_tuple ()
@@ -32,7 +32,7 @@ struct Finger_tuple
     position_ = 0;
     head_ = script_ = 0;
     note_event_ = finger_event_ = 0;
-    description_ = SCM_EOL;
+    follow_into_staff_ = false;
   }
   static int compare (Finger_tuple const & c1, Finger_tuple const & c2)
   {
@@ -114,7 +114,7 @@ New_fingering_engraver::add_script (Grob * head,
   Finger_tuple ft ;
 
   Grob * g=  make_item ("Script", event->self_scm () );
-  make_script_from_event (g, &ft.description_, context (),
+  make_script_from_event (g, &ft.follow_into_staff_, context (),
 			  event->get_property ("articulation-type"), 0);
   if (g)
     {
@@ -300,8 +300,7 @@ New_fingering_engraver::stop_translation_timestep ()
       if (stem_ && to_dir (sc->get_property ("side-relative-direction")))
 	sc->set_property ("direction-source", stem_->self_scm ());
       
-      SCM follow = scm_assoc (ly_symbol2scm ("follow-into-staff"), articulations_[i].description_);
-      if (ly_c_pair_p (follow) && to_boolean (ly_cdr (follow)))
+      if (articulations_[i].follow_into_staff_)
 	{
 	  sc->add_offset_callback (Side_position_interface::quantised_position_proc, Y_AXIS);
 	  sc->set_property ("staff-padding" , SCM_EOL);

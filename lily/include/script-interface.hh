@@ -26,7 +26,7 @@ public:
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
 };
 
-void make_script_from_event (Grob *p, SCM *descr, Context *tg,
+void make_script_from_event (Grob *p, bool *follow, Context *tg,
 			     SCM type, int index);
 
 #endif /* SCRIPT_INTERFACE_HH */

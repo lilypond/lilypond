@@ -129,3 +129,55 @@ New_slur::add_extra_encompass (Grob*me, Grob*n)
 ADD_INTERFACE (New_slur, "new-slur-interface",
 	       "A slur",
 	       "encompass-objects control-points dashed details direction height-limit note-columns ratio thickness");
+
+
+
+MAKE_SCHEME_CALLBACK (New_slur, outside_slur_callback, 2);
+SCM
+New_slur::outside_slur_callback (SCM grob, SCM axis)
+{
+  Grob *script = unsmob_grob (grob);
+  Axis a = Axis (ly_scm2int (axis));
+  assert (a == Y_AXIS);
+
+  Grob *slur = unsmob_grob (script->get_property ("slur"));
+
+  if (!slur)
+    return scm_from_int (0);
+  
+  Grob *cx = script->common_refpoint (slur, X_AXIS);
+  Grob *cy = script->common_refpoint (slur, Y_AXIS);
+
+  Bezier curve = New_slur::get_curve (slur);
+
+  curve.translate (Offset (slur->relative_coordinate (cx, X_AXIS),
+			   slur->relative_coordinate (cy, Y_AXIS)));
+
+  Interval yext = robust_relative_extent (script, cy, Y_AXIS);
+  Interval xext = robust_relative_extent (script, cx, X_AXIS);
+
+
+  Real slur_padding = 0.2;	// todo: slur property, script property?
+  yext.widen (slur_padding);
+  
+  Interval bezext (curve.control_[0][X_AXIS],
+		   curve.control_[3][X_AXIS]);
+
+  Real x = xext.center ();
+  if (!bezext.contains (xext[RIGHT]))
+    x = xext[LEFT];
+  else if (!bezext.contains (xext[LEFT]))
+    x = xext[RIGHT];
+
+  
+  if (!bezext.contains (x))
+    return scm_make_real (0);
+
+  Real y = curve.get_other_coordinate (X_AXIS, x);
+  if (yext.contains (y)) 
+    {
+      Direction dir = get_grob_direction (script); 
+      return scm_make_real (y - yext[-dir] + dir * slur_padding);
+    }
+  return scm_make_real (0.0);
+}

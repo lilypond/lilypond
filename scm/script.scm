@@ -7,21 +7,19 @@
 (set! default-script-alist
       (append 
        '(("thumb" .
-	  (
-	   (script-stencil . (feta . ("thumb"  . "thumb")))
+	  ((script-stencil . (feta . ("thumb"  . "thumb")))
 	   (direction . 1)))
 	 ("accent" .
-	  (
+	  ((inside-slur . #t) 
+	   (follow-into-staff . #t)
 	   (script-stencil . (feta . ("sforzato" .  "sforzato")))
-	   (side-relative-direction . -1))
-	  )	 
+	   (side-relative-direction . -1)))	 
 	 ("marcato" .
-	  (
-	   (script-stencil . (feta . ("dmarcato" . "umarcato")))
+	  ((script-stencil . (feta . ("dmarcato" . "umarcato")))
 	   (follow-into-staff . #t)
 	   (side-relative-direction .  -1)))
 	 ("staccatissimo" .
-	  (
+	  ((inside-slur . #t) 
 	   (script-stencil . (feta . ("dstaccatissimo" . "ustaccatissimo")))
 	   (side-relative-direction .  -1)))
 	 
@@ -76,6 +74,7 @@
 	  ((script-stencil . (feta . ("staccato" . "staccato")))
 	   (side-relative-direction .  -1)
 	   (follow-into-staff  . #t)
+	   (inside-slur . #t) 
 	   (priority . -100)))
 	 ("tenuto" .
 	  ((script-stencil . (feta . ("tenuto" . "tenuto")))
@@ -91,10 +90,12 @@
 	   (direction . 1)))
 	 ("upbow" .
 	  ((script-stencil . (feta . ("upbow" . "upbow")))
+	   (inside-slur . #f)
 	   (direction  . 1) ))
 	 ("downbow" .
 	  ((script-stencil . (feta . ("downbow" . "downbow")))
-	   (direction  . 1) ))
+	   (inside-slur . #f)
+	   (direction  . 1)))
 	 ("lheel" .
 	  ((script-stencil . (feta . ("upedalheel" . "upedalheel")))
 	   (direction .  -1))
