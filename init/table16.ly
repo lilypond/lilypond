@@ -53,6 +53,9 @@ table_sixteen=
 	"p" "\dynp"
 	"pp" "\dynpp"
 	"ppp" "\dynppp"
+	"fp" "\dynfp"
+	"sf" "\dynsf"
+	"sfz" "\dynsfz"
 
 	}
      "align" = \table {
@@ -72,12 +75,13 @@ table_sixteen=
 	"tenor_change"	"\caltoclef" 	0.0\pt	11.2\pt	0.0\pt	16.0\pt
      }
 
+     % dimens are ignored?
      "balls" = \table {
 	"-2"	"\longaball"	0.0\pt	6.0\pt	-2.0\pt	2.0\pt
 	"-1"	"\breveball"	0.0\pt	6.0\pt	-2.0\pt	2.0\pt
-	"0"	"\wholeball"	0.0\pt	6.0\pt	-2.0\pt	2.0\pt
-	"1"	"\halfball"	0.0\pt	5.0\pt	-2.0\pt	2.0\pt
-	"2"	"\quartball"	0.0\pt	5.0\pt	-2.0\pt	2.0\pt
+	"0"	"\wholeball"	0.0\pt	8.0\pt	0.0\pt	4.4\pt
+	"1"	"\halfball"	0.0\pt	5.4\pt	0.0\pt	4.4\pt
+	"2"	"\quartball"	0.0\pt	5.5\pt	0.0\pt	4.4\pt
      }
 
      "slur" = \table {

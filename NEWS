@@ -1,3 +1,10 @@
+pl 14.jcn1
+	- lily's own music bolletjes (font-en-tja*.mf)
+	- {table,paper}* and taupindefs adaptions (when are we moving?)
+	- fp, sf, sfz dynamics
+	- font.ly
+	- bf: dist mudela-mode
+
 pl 14
 	- Simple but nifty mudela-mode.el for Emacs
 	- slightly better syntax for single-note-repeat, now default kept in

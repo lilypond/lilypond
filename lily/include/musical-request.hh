@@ -223,7 +223,7 @@ class Dynamic_req  : public virtual Musical_req  {
 public:
   /// for absolute dynamics
   enum Loudness {
-    FFF, FF, F, MF, MP, P, PP, PPP
+    FFF, FF, F, MF, MP, P, PP, PPP, FP, SF, SFZ
   };
   static String loudness_str (Loudness);
   REQUESTMETHODS(Dynamic_req, dynamic);

@@ -29,6 +29,7 @@ if [ "x$LILYINCLUDE" = "x" ]; then
 	echo you should make add the following to your login script
 	echo "export LILYINCLUDE=$lelie/current/init"
 	echo "export PATH=$PATH:$lelie/current/bin/out/"
+	echo "export MFINPUTS=$MFINPUTS:$lelie/current/mf"
 fi
 
 configure --prefix=/usr --enable-debugging --enable-printing --enable-checking

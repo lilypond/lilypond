@@ -440,6 +440,10 @@ Dynamic_req::loudness_str (Loudness l)
   case P: return "p";
   case PP: return "pp";
   case PPP: return "ppp";
+
+  case FP: return "fp";
+  case SF: return "sf";
+  case SFZ: return "sfz";
     }
   assert (false);
   return "";

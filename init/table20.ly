@@ -55,6 +55,9 @@ table_twenty =
 	"p" "\dynp"
 	"pp" "\dynpp"
 	"ppp" "\dynppp"
+	"fp" "\dynfp"
+	"sf" "\dynsf"
+	"sfz" "\dynsfz"
 
 	}
      "align" = \table {
@@ -77,9 +80,9 @@ table_twenty =
 
     "balls" = \table {
 	"-1"	"\breveball" 	0.0\pt	7.5\pt	-2.5\pt	2.5\pt
-	"0"	"\wholeball"	0.0\pt	7.5\pt	-2.5\pt	2.5\pt
-	"1"	"\halfball"	0.0\pt	6.0\pt	-2.5\pt	2.5\pt
-	"2"	"\quartball"	0.0\pt	6.0\pt	-2.5\pt	2.5\pt
+	"0"	"\wholeball"	0.0\pt	10.2\pt	0.0\pt	5.4\pt
+	"1"	"\halfball"	0.0\pt	6.8\pt	0.0\pt	5.4\pt
+	"2"	"\quartball"	0.0\pt	6.6\pt	0.0\pt	5.4\pt
     }
 
     "slur" = \table {
