@@ -1210,11 +1210,13 @@ def make_pixmap (name):
 	cmd = r'''gs -g%dx%d -sDEVICE=pnggray  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=- -r%d -dNOPAUSE %s %s -c quit  > %s'''
 	
 	cmd = cmd % (x, y, res, name + '.trans.eps', name + '.eps',name + '.png')
-	quiet_system (cmd, 'gs')
-
+	status = 0
 	try:
-		status = system (cmd)
+		status = quiet_system (cmd, 'gs')
 	except:
+		status = -1
+
+	if status:
 		os.unlink (name + '.png')
 		error ("Removing output file")
 

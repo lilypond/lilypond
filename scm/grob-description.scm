@@ -778,7 +778,6 @@
      . (
 	(molecule-callback . ,Staff_symbol::brew_molecule)
 	(line-count . 5)
-	(ragged-right . #f)
 	(layer . 0)
 	(meta . ((interfaces . (staff-symbol-interface spanner-interface))))
 	))

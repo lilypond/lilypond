@@ -1,3 +1,19 @@
+2002-07-14  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/paper-column.cc (before_line_breaking): bug fix.
+
+	* lily/volta-engraver.cc (process_music): do something sensible if
+	no staffs found. 
+
+	* scripts/lilypond-book.py (make_pixmap): opps. Do png conversion
+	only once. 
+
+	* Documentation/user/refman.itely (Global layout): made section on
+	global layout, added spacing documentation.
+
+	* lily/staff-symbol.cc (brew_molecule): change ragged right for
+	staff symbols. See comments.
+
 2002-07-14  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/voice-devnull-engraver.cc (acknowledge_grob): Use proper

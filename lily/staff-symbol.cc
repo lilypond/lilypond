@@ -28,28 +28,30 @@ Staff_symbol::brew_molecule (SCM smob)
   Grob * common
     = sp->get_bound (LEFT)->common_refpoint (sp->get_bound (RIGHT), X_AXIS);
   
-  bool paper_raggedright = to_boolean (me->paper_l ()->get_scmvar ("raggedright"));
-  bool grob_raggedright = to_boolean (me->get_grob_property ("ragged-right"));
-  Real width;
+  Real width  = 0.0;
 
+  /*
+    For raggedright without ragged staffs, simply set width to the linewidth.
+
+    (ok -- lousy UI, since width is in staff spaces)
+
+    --hwn.
+   */
+  
   SCM width_scm = me->get_grob_property ("width");
-  if (gh_number_p (width_scm)) // user-defined width
+  if (gh_number_p (width_scm))
     {
-      width = gh_scm2double (width_scm) *
-	Staff_symbol_referencer::staff_space (me);
+
+      /*
+	don't multiply by Staff_symbol_referencer::staff_space (me),
+	since that would make aligning staff symbols of different sizes to
+	one right margin hell.
+      */      
+      width = gh_scm2double (width_scm);
     }
-  else // determine width automatically
+  else
     {
-      if (paper_raggedright && !grob_raggedright)
-	{
-	  // *prevent* staff symbol from being ragged right; instead, use
-	  // paper variable "linewidth"
-	  width = me->paper_l ()->get_var ("linewidth");
-	}
-      else // determine width from my own bounds
-	{
-	  width = sp->get_bound (RIGHT)->relative_coordinate (common , X_AXIS);
-	}
+      width = sp->get_bound (RIGHT)->relative_coordinate (common , X_AXIS);
     }
 
   // respect indentation, if any
@@ -115,7 +117,9 @@ Staff_symbol::staff_space (Grob*me)
 
 ADD_INTERFACE (Staff_symbol,"staff-symbol-interface",
   "This spanner draws the lines of a staff.  The center (i.e. middle line
-or space) is position 0.",
+or space) is position 0. The length of the symbol may be set by hand
+through the @code{width} property.
+",
 	       
-  "ragged-right staff-space thickness line-count");
+  "width staff-space thickness line-count");
 

@@ -129,6 +129,181 @@ section.
 * Lexical details::             
 @end menu
 
+@c . {Output formats}
+@node Output formats
+@section Output formats
+
+LilyPond can output processed music in different output formats.  
+
+@menu
+* @TeX{} output::               
+* PostScript output::           
+* Scheme output::               
+* ASCIIScript output::          
+* Sketch output::               
+@end menu
+
+@node @TeX{} output
+@subsection @TeX{} output
+@cindex @TeX{} output
+
+LilyPond will use @TeX{} by default.  Even if you want to produce
+PostScript output for viewing or printing, you should normally have
+LilyPond produce @TeX{} first.  The .tex output must be processed by
+@TeX{} (@strong{not} La@TeX{}) to generate a .dvi.  Then, @file{Dvips}
+is used to generate PostScript.  Alternatively, @file{ly2dvi} can be
+used to generate the .dvi for you.
+
+@refbugs
+
+Titling is not generated unless you use @file{ly2dvi}. 
+
+
+@node PostScript output
+@subsection PostScript output
+@cindex PostScript output
+@cindex direct PostScript output
+
+LilyPond can produce PostScript directly, without going through @TeX{}.
+Currently, this is mainly useful if you cannot use TeX, because direct
+PostScript output has some problems; see Bugs below.
+
+@example
+$ lilypond -fps foo.ly
+GNU LilyPond 1.3.144
+Now processing: `foo.ly'
+Parsing...
+Interpreting music...[3]
+Preprocessing elements... 
+Calculating column positions... 
+paper output to foo.ps...
+
+$ cat /usr/share/lilypond/pfa/feta20.pfa foo.ps | lpr
+@end example
+
+
+@refbugs
+
+Text font selection is broken.
+
+The .ps file does not contain the .pfa font files.  To print a .ps
+created through direct postscript output, you should prepend the
+necessary .pfa files to LilyPond's .ps output, or upload them to the
+printer before printing.
+
+The line height calculation is broken, you must set @var{lineheight} in
+the paperblock if you have more than one staff in your score, e.g.
+
+@example
+  ...
+  \paper @{
+    % Set line height to 40 staff spaces
+    lineheight = 40    
+  @}
+@end example
+
+@node Scheme output
+@subsection Scheme output
+@cindex Scheme output
+
+In the typesetting stage, LilyPond builds a page description, which is
+then written to disk in postscript, @TeX{} or ASCII art. Before it is
+written, the page description is represented as Scheme expressions.  You
+can also dump these  Scheme expressions to a file, which may be
+convenient for debugging output routines.  This is done with the Scheme
+output format
+
+@example
+$ lilypond -fscm foo.ly
+GNU LilyPond 1.3.144
+Now processing: `foo.ly'
+Parsing...
+Interpreting music...[3]
+Preprocessing elements... 
+Calculating column positions... 
+paper output to foo.scm...
+
+$ head -4 foo.scm 
+;;; Usage: guile -s x.scm > x.tex
+ (primitive-load-path 'standalone.scm)
+; (scm-tex-output)
+ (scm-ps-output)
+
+$ guile -s foo.scm > foo.tex
+@end example
+
+
+@node ASCIIScript output
+@subsection ASCIIScript output
+@cindex ASCIIScript output
+@cindex ascii script
+@cindex ascii art
+
+LilyPond can output ASCII Art.  This is a two step process, LilyPond
+produces an ASCII description file, dubbed ASCIIScript (extension
+@file{.as}).  ASCIIScript has a small and simple command set that
+includes font selection, character and string printing and line drawing
+commands.  The program @file{as2text} is used to translate an .as file
+to text.
+
+To produce ASCII Art, you must include an ASCII Art paper definition
+file in your .ly, one of:
+@example
+\include "paper-as5.ly"
+\include "paper-as9.ly"
+@end example
+
+Here's an example use for ASCII Art output (the example file
+@file{as-email.ly} is included in the LilyPond distribution), the staff
+symbol has been made invisible:
+
+@example
+$ lilypond -fas as-email.ly
+GNU LilyPond 1.3.144
+Now processing: `as-email.ly'
+Parsing...
+Interpreting music...[3]
+Preprocessing elements... 
+Calculating column positions... [2]
+paper output to as-email.as...
+
+$ as2text as-email.as 2>/dev/null
+          |\
+          |/     |##|##|      |  |  |  |  |
+         /|      |  |  | |    |\ |\ |\ |\ |\ |
+        / |_  3  |  |  | | 5  | )| )| )| )| )|
+       | /| \ 8 *  *  *  | 8 *  *  *  *  *   |
+        \_|_/            |                   |
+        *_|
+
+                                               lily
+@end example
+
+
+@refbugs
+
+The ASCII Art fonts are far from complete and not very well designed.
+It's easy to change the glyphs, though; if you think you can do better,
+have a look at @file{mf/*.af}.
+
+Lots of resizable symbols such as slurs, ties and tuplets are missing.
+
+The poor looks of most ASCII Art output and its limited general
+usefulness gives ASCII Art output a low priority; it may be
+dropped in future versions.
+
+
+@node Sketch output
+@subsection Sketch output
+
+@uref{http://sketch.sourceforge.net,Sketch} is a Free vector drawing
+program. LilyPond includes bare bones output for Sketch version 0.7.
+
+@cindex Sketch
+@cindex vector drawing
+@cindex drawing program
+
+
 @node Interpretation context
 @section Interpretation context
 

@@ -45,7 +45,7 @@ encouraged to study the tutorial first.
 * Writing parts::               
 * Ancient notation ::           
 * Tuning output::               
-* Page layout::                 
+* Global layout::               
 * Output formats::              
 * Sound::                       
 @end menu
@@ -3596,7 +3596,6 @@ object, and set a grob property in that object.
 * Tuning per grob ::            
 * Font selection::              
 * Text markup::                 
-* Spacing::                     
 @end menu
 
 @node Tuning groups of grobs 
@@ -4005,15 +4004,117 @@ marking:
 The syntax and semantics of markup texts are not clean, and both
 syntax and semantics are slated for a rewrite.
 
+@node Global layout
+@section Global layout
+
+The global layout determined by three factors: the page layout, the
+line breaks and the spacing. These all influence each other: The
+choice of spacing determines how densely each system of music is set,
+whree line breaks breaks are chosen, and thus ultimately how many
+pages a piece of music takes. In this section we will explain how the
+lilypond spacing engine works, and how you can tune its results.
+
+Globally spoken, this procedure happens in three steps: first,
+flexible distances (``springs'') are chosen, based on durations. All
+possible line breaking combination are tried, and the one with the
+best results---a layout that has uniform density and requires as
+little stretching or cramping as possible---is chosen. When the score
+is processed by @TeX{}, page are filled with systems, and page breaks
+are chosen whenever the page gets full.
+
+@menu
+* Spacing::                     
+* Font Size::                   
+* Line breaking::               
+* Page layout::                 
+@end menu
+
 @node Spacing
 @subsection Spacing
 
-S
+The spacing engine translates differences in durations into
+stretchable distances (``springs'') of differing lengths. Longer
+durations get more space, shorter durations get less.  The basis for
+assigning spaces to durations, is that the shortest durations get a
+fixed amount of space, and the longer durations get more: doubling a
+duration adds a fixed amount of space to the note.
 
-TODO: Move this section.
+For example, the following piece contains lots of half, quarter and
+8th notes, the eighth note is followed by 1 note head width. The The
+quarter note is followed by 2 NHW, the half by 3 NHW, etc.
+@lilypond[fragment, verbatim, relative=1]
+ c2 c4. c8 c4. c8 c4. c8 c8 c8 c4 c4 c4
+@end lilypond
+
+These two amounts of space are @code{shortest-duration-space}
+@code{spacing-increment}, grob properties of
+@internalsref{SpacingSpanner}. Normally @code{spacing-increment} is
+set to 1.2, which is the width of a note head, and
+@code{shortest-duration-space} is set to 2.0, meaning that the
+shortest note gets 2 noteheads of space. For normal notes, this space
+is always counted from the left edge of the symbol, so the short notes
+in a score is generally followed by one note head width of space.
+
+If one would follow the above procedure exactly, then adding a single
+32th note to a score that uses 8th and 16th notes, would widen up the
+entire score a lot. The shortest note is no longer a 16th, but a 64th,
+thus adding 2 noteheads of space to every note. To prevent this, the
+shortest duration for spacing is not the shortest note in the score,
+but the most commonly found shortest note.  Notes that are even
+shorter this are followed by a space that is proportonial to their
+duration relative to the common shortest note.  So if we were to add
+only a few 16th notes to the example above, they would be followed by
+half a NHW:
+
+@lilypond[fragment, verbatim, relative=1]
+ c2 c4. c8 c4. [c16 c] c4. c8 c8 c8 c4 c4 c4
+@end lilypond
+
+The most common shortest duration is determined as follows: in every
+measure, the shortest duration is determined. The most common short
+duration, is taken as the basis for the spacing, with the stipulation
+that this shortest duration should always be equal to or shorter than
+1/8th note. The shortest duration is printed when you run lilypond
+with @code{--verbose}.  These durations may also be customized. If you
+set the @code{common-shortest-duration} in
+@internalsref{SpacingSpanner}, then this sets the base duration for
+spacing. The maximum duration for this base (normally 1/8th), is set
+through @code{base-shortest-duration}.
+
+@cindex @code{common-shortest-duration}
+@cindex @code{base-shortest-duration}
+@cindex @code{stem-spacing-correction}
+@cindex @code{spacing}
+
+In the introduction it was explained that stem directions influence
+spacing. This is controlled with @code{stem-spacing-correction} in
+@internalsref{NoteSpacing}. The @code{StaffSpacing} grob contains the
+same property for controlling the stem/barline spacing. In the
+following example shows these corrections, once with default settings,
+and once with exaggerated corrections.  
+
+@lilypond
+    \score { \notes {
+      c'4 e''4 e'4 b'4 |
+      b'4 e''4 b'4 e''4|
+      \property Staff.NoteSpacing \override #'stem-spacing-correction
+      = #1.5
+      \property Staff.StaffSpacing \override #'stem-spacing-correction
+      = #1.5
+      c'4 e''4 e'4 b'4 |
+      b'4 e''4 b'4 e''4|      
+    }
+    \paper { linewidth = -1. } }
+@end lilypond
+
+
 
 @refbugs
 
+Spacing is determined on a score wide basis. If you have a score that
+changes its character (measured in durations) half way during the
+score, the part containing the longer durations will be spaced too
+widely.
 
 Generating optically pleasing spacing is black magic. LilyPond tries
 to deal with a number of frequent cases. Here is an example that is
@@ -4030,111 +4131,6 @@ kneed stems.
      \paper { linewidth = -1 }
 }
 @end lilypond
-
-The spacing algorithm is global: it searches the entire score for the
-shortest notes. Pieces that have major changes in duration density
-(eg. due to meter changes) will be printed in a uniform density, which
-is undesirable
-
-@c . {Page layout}
-@node Page layout
-@section Page layout
-@cindex Page layout
-
-The page layout is the combined product of LilyPond formatting notation,
-and (La)@TeX{} putting the notation on a page, including page breaks.
-The part of LilyPond is documented here.
-
-@menu
-* Paper block::                 
-* Paper variables::             
-* Font Size::                   
-* Paper size::                  
-* Line break::                  
-* Page break::                  
-@end menu
-
-@c .  {Paper block}
-@node Paper block
-@subsection Paper block
-@cindex Paper block
-
-The most important output definition is the @code{\paper} block, for
-music notation.  The syntax is
-
-@example
-  @code{\paper @{} [@var{paperidentifier}] @var{items} @code{@}}
-@end example
-
-where each of the items is one of
-
-@itemize @bullet
-  @item  An assignment.
-
-  @item  A context definition.  See @ref{Interpretation context} for
-       more information on context definitions.
-@end itemize
-
-@c .  {Paper variables}
-@node Paper variables
-@subsection Paper variables 
-@cindex Paper variables
-
-The paper block has some variables you may want to use or change:
-
-@table @code
-@cindex @code{indent}
-  @item @code{indent}  
-    The indentation of the first line of music.
-@cindex @code{staffspace}
-
-  @item @code{staffspace}
-    The distance between two staff lines, calculated from the center
-    of the lines.
-
-@cindex @code{linewidth}
-  @item @code{linewidth}  
-    Sets the width of the lines.
-
-If set to a negative value, a single unjustified line is produced.
-@c rename to singleLinePaper ?
-The shorthand @code{\singleLine} defines a default paper block that
-produces a single line.
-
-@cindex @code{textheight}
-
-  @item @code{textheight}  
-    Sets the total height of the music on each page. Only used by
-@code{ly2dvi}.
-
-@cindex @code{interscoreline}
-
-  @item @code{interscoreline}  
-    Sets the spacing between systems. The default is 16pt.
-    
-@cindex @code{interscorelinefill}
-
-  @item @code{interscorelinefill}  
-    If set to a positive number, the distance between the score 
-    lines will stretch in order to fill the full page. In that
-    case @code{interscoreline} specifies the minimum spacing.
-
-        Not set by default.
-
-
-@cindex @code{stafflinethickness}
-
-  @item @code{stafflinethickness}  
-    Determines the thickness of staff lines, and also acts as a scaling
-    parameter for other line thicknesses.
-@end table
-
-You may enter these dimension using units (@code{cm}, @code{in},
-@code{mm}, @code{pt})
-@example
-        linewidth = 20.0 * \staffspace
-        indent  = 0.5 \cm
-@end example
 
 
 @c .  {Font size}
@@ -4164,34 +4160,9 @@ The font definitions are generated using a Scheme function. For more
 details, see the file @file{scm/font.scm}.
 
 
-
-@c .  {Paper size}
-@node Paper size
-@subsection Paper size
-@cindex Paper size
-
-@cindex paper size
-@cindex page size
-@cindex @code{papersize}
-
-To change the paper size, you must first set the
-@code{papersize} paper variable variable.  Set it to
-the strings @code{a4}, @code{letter}, or @code{legal}.  After this
-specification, you must set the font as described above.  If you want
-the default font, then use the 20 point font.
-
-@example
-        \paper@{ papersize = "a4" @}
-        \include "paper16.ly"
-@end example
-
-The file @code{paper16.ly}  will now include a file named @file{a4.ly}, which
-will set the paper variables @code{hsize} and @code{vsize} (used by
-Lilypond and @code{ly2dvi})
-
 @c .  {Line break}
-@node Line break
-@subsection Line break
+@node Line breaking
+@subsection Line breaking
 
 @cindex line breaks
 @cindex breaking lines
@@ -4217,12 +4188,38 @@ If you want linebreaks at regular intervals, you can use the following:
 This makes the following 28 measures (assuming 4/4 time) be broken every
 4 measures.
 
-@c .  {Page break}
-@node Page break
-@subsection Page break
+@node Page layout
+@subsection Page layout
 
 @cindex page breaks
 @cindex breaking pages
+
+@cindex @code{indent}
+@cindex @code{linewidth}
+
+The most basic settings influencing the spacing are @code{linewidth}
+and @code{indent}, both set in the @code{\paper} block.  They control
+the indentation of the first line of music, and the lengths of the
+lines.  If @code{linewidth} set to a negative value, a single
+unjustified line is produced.  The shorthand @code{\singleLine}
+defines a default paper block that produces a single line.  A similar
+effect for scores that are longer than one line, can be produced by
+setting @code{raggedright} to true in the @code{\paper} block.
+
+@cindex page layout
+
+The page layout process happens outside lilypond. Ly2dvi sets page
+layout instructions. Ly2dvi responds to the following variables in the
+@code{\paper} block.  The variable @code{textheight} sets the total
+height of the music on each page.  The spacing between systems is
+controlled with @code{interscoreline}, its default is 16pt.
+The distance between the score lines will stretch in order to fill the
+full page @code{interscorelinefill} is set to a positive number.  In
+that case @code{interscoreline} specifies the minimum spacing.
+
+@cindex @code{textheight}
+@cindex @code{interscoreline}
+@cindex @code{interscorelinefill}
 
 Page breaks are normally computed by @TeX{}, so they are not under
 direct control of LilyPond.  However, you can insert a commands into
@@ -4231,188 +4228,27 @@ can insert a @code{\newpage} from within lilypond. This is done by
 setting the @code{between-systems-strings} on the
 @internalsref{NonMusicalPaperColumn} where the system is broken.
 
+@cindex paper size
+@cindex page size
+@cindex @code{papersize}
 
-
-@refbugs
-
-There is no mechanism to select magnification of particular fonts,
-meaning that you don't have access to continuously scaled fonts.
-
-
-
-@c . {Output formats}
-@node Output formats
-@section Output formats
-
-LilyPond can output processed music in different output formats.  
-
-@menu
-* @TeX{} output::               
-* PostScript output::           
-* Scheme output::               
-* ASCIIScript output::          
-* Sketch output::               
-@end menu
-
-@node @TeX{} output
-@subsection @TeX{} output
-@cindex @TeX{} output
-
-LilyPond will use @TeX{} by default.  Even if you want to produce
-PostScript output for viewing or printing, you should normally have
-LilyPond produce @TeX{} first.  The .tex output must be processed by
-@TeX{} (@strong{not} La@TeX{}) to generate a .dvi.  Then, @file{Dvips}
-is used to generate PostScript.  Alternatively, @file{ly2dvi} can be
-used to generate the .dvi for you.
-
-@refbugs
-
-Titling is not generated unless you use @file{ly2dvi}. 
-
-
-@node PostScript output
-@subsection PostScript output
-@cindex PostScript output
-@cindex direct PostScript output
-
-LilyPond can produce PostScript directly, without going through @TeX{}.
-Currently, this is mainly useful if you cannot use TeX, because direct
-PostScript output has some problems; see Bugs below.
+To change the paper size, you must first set the
+@code{papersize} paper variable variable.  Set it to
+the strings @code{a4}, @code{letter}, or @code{legal}.  After this
+specification, you must set the font as described above.  If you want
+the default font, then use the 20 point font.
 
 @example
-$ lilypond -fps foo.ly
-GNU LilyPond 1.3.144
-Now processing: `foo.ly'
-Parsing...
-Interpreting music...[3]
-Preprocessing elements... 
-Calculating column positions... 
-paper output to foo.ps...
-
-$ cat /usr/share/lilypond/pfa/feta20.pfa foo.ps | lpr
+        \paper@{ papersize = "a4" @}
+        \include "paper16.ly"
 @end example
 
-
-@refbugs
-
-Text font selection is broken.
-
-The .ps file does not contain the .pfa font files.  To print a .ps
-created through direct postscript output, you should prepend the
-necessary .pfa files to LilyPond's .ps output, or upload them to the
-printer before printing.
-
-The line height calculation is broken, you must set @var{lineheight} in
-the paperblock if you have more than one staff in your score, e.g.
-
-@example
-  ...
-  \paper @{
-    % Set line height to 40 staff spaces
-    lineheight = 40    
-  @}
-@end example
-
-@node Scheme output
-@subsection Scheme output
-@cindex Scheme output
-
-In the typesetting stage, LilyPond builds a page description, which is
-then written to disk in postscript, @TeX{} or ASCII art. Before it is
-written, the page description is represented as Scheme expressions.  You
-can also dump these  Scheme expressions to a file, which may be
-convenient for debugging output routines.  This is done with the Scheme
-output format
-
-@example
-$ lilypond -fscm foo.ly
-GNU LilyPond 1.3.144
-Now processing: `foo.ly'
-Parsing...
-Interpreting music...[3]
-Preprocessing elements... 
-Calculating column positions... 
-paper output to foo.scm...
-
-$ head -4 foo.scm 
-;;; Usage: guile -s x.scm > x.tex
- (primitive-load-path 'standalone.scm)
-; (scm-tex-output)
- (scm-ps-output)
-
-$ guile -s foo.scm > foo.tex
-@end example
+The file @code{paper16.ly}  will now include a file named @file{a4.ly}, which
+will set the paper variables @code{hsize} and @code{vsize} (used by
+Lilypond and @code{ly2dvi})
 
 
-@node ASCIIScript output
-@subsection ASCIIScript output
-@cindex ASCIIScript output
-@cindex ascii script
-@cindex ascii art
 
-LilyPond can output ASCII Art.  This is a two step process, LilyPond
-produces an ASCII description file, dubbed ASCIIScript (extension
-@file{.as}).  ASCIIScript has a small and simple command set that
-includes font selection, character and string printing and line drawing
-commands.  The program @file{as2text} is used to translate an .as file
-to text.
-
-To produce ASCII Art, you must include an ASCII Art paper definition
-file in your .ly, one of:
-@example
-\include "paper-as5.ly"
-\include "paper-as9.ly"
-@end example
-
-Here's an example use for ASCII Art output (the example file
-@file{as-email.ly} is included in the LilyPond distribution), the staff
-symbol has been made invisible:
-
-@example
-$ lilypond -fas as-email.ly
-GNU LilyPond 1.3.144
-Now processing: `as-email.ly'
-Parsing...
-Interpreting music...[3]
-Preprocessing elements... 
-Calculating column positions... [2]
-paper output to as-email.as...
-
-$ as2text as-email.as 2>/dev/null
-          |\
-          |/     |##|##|      |  |  |  |  |
-         /|      |  |  | |    |\ |\ |\ |\ |\ |
-        / |_  3  |  |  | | 5  | )| )| )| )| )|
-       | /| \ 8 *  *  *  | 8 *  *  *  *  *   |
-        \_|_/            |                   |
-        *_|
-
-                                               lily
-@end example
-
-
-@refbugs
-
-The ASCII Art fonts are far from complete and not very well designed.
-It's easy to change the glyphs, though; if you think you can do better,
-have a look at @file{mf/*.af}.
-
-Lots of resizable symbols such as slurs, ties and tuplets are missing.
-
-The poor looks of most ASCII Art output and its limited general
-usefulness gives ASCII Art output a low priority; it may be
-dropped in future versions.
-
-
-@node Sketch output
-@subsection Sketch output
-
-@uref{http://sketch.sourceforge.net,Sketch} is a Free vector drawing
-program. LilyPond includes bare bones output for Sketch version 0.7.
-
-@cindex Sketch
-@cindex vector drawing
-@cindex drawing program
 
 @c . {Sound}
 @node Sound
