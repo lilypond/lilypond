@@ -3197,13 +3197,13 @@ arrowhead to the wiggly line.  This can be typeset by setting
 
 A square bracket on the left indicates that the player should not
 arpeggiate the chord. To draw these brackets, set the
-@code{molecule-callback} property of @code{Arpeggio} or
+@code{print-function} property of @code{Arpeggio} or
 @code{PianoStaff.Arpeggio} objects to @code{\arpeggioBracket}, and use
 @code{\arpeggio} statements within the chords as before:
 
 @lilypond[fragment,relative,verbatim]
     \property PianoStaff.Arpeggio \override
-        #'molecule-callback = \arpeggioBracket
+        #'print-function = \arpeggioBracket
        <c' e g c>\arpeggio
 @end lilypond
 
