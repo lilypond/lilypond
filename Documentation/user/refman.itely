@@ -3516,8 +3516,68 @@ Klaus Ignatzek (See @ref{Literature}).
 
 [TODO: add description for banter other jazz.]
 
-[TODO: describe tweak options, chordNameFunction,chordNameExceptions,
-majorSevenSymbol, chordNameSeparator]
+The Ignatzek chord name formatting can be tuned in a number of ways
+through the following properties:
+@table @code
+@item chordNameExceptions
+This is a list that contains the chords that have special formatting.
+For example.
+@lilypond[verbatim,singleline]
+chExceptionMusic = \notes { <<c f g bes>>1-\markup { \super "7" "wahh" }}
+chExceptions = #(append
+  (sequential-music-to-chord-exceptions chExceptionMusic)
+  ignatzekExceptions)
+
+\score {   \context ChordNames
+    \chords {
+      c:7sus4 c:dim7
+      \property ChordNames.chordNameExceptions = #chExceptions
+      c:7sus4 c:dim7 } }
+@end lilypond
+
+Putting the exceptions list encoded as
+@example
+ \notes @{ <<c f g bes>>1-\markup @{ \super "7" "wahh" @} @}
+@end example
+into the property takes a little manoeuvring. The following code
+transforms  @code{chExceptionMusic} (which is a sequential music)
+into a list of exceptions.
+@example
+  (sequential-music-to-chord-exceptions chExceptionMusic)
+@end example
+Then,
+@example
+#(append
+  ... ignatzekExceptions)
+@end example
+adds the new exceptions to the default ones, which are defined in
+@file{ly/chord-modifier-init.ly}.
+
+@item majorSevenSymbol
+This property contains the markup object used for the 7th step, when
+it is major. Predefined options are @code{whiteTriangleMarkup},
+@code{blackTriangleMarkup}. The following uses another popular shorthand. 
+@lilypond[fragment,verbatim]
+\context ChordNames \chords {
+      c:7
+      \property ChordNames.majorSevenSymbol = \markup { "j7" }
+      c:7 } 
+@end lilypond
+@item chordNameSeparator
+Different parts of a chord name are normally separated by a
+slash. By setting @code{chordNameSeparator}, you can specify other
+separators, e.g.
+@lilypond[fragment,verbatim]
+\context ChordNames \chords {
+      c:7sus4
+      \property ChordNames.chordNameSeparator = \markup { "|" }
+      c:7sus4 }
+@end lilypond
+@end table
+
+
+
+
 
 @node Writing parts
 @section Writing parts

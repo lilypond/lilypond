@@ -20,8 +20,8 @@
 Dictionary<Translator*> *global_translator_dict=0;
 
 LY_DEFINE(get_all_translators,"ly:get-all-translators", 0, 0, 0,  (),
-	  "Return an list of a all translator objects that may be instantiated
-during a lilypond run.")
+	  "Return an list of a all translator objects that may be instantiated "
+" during a lilypond run.")
 {
   SCM l = SCM_EOL;
   for (std::map<String,Translator*>::const_iterator (ci (global_translator_dict->begin()));

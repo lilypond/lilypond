@@ -1,3 +1,10 @@
+2003-02-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/refman.itely (Printing named chords): add
+	chord name tweak doco.
+
+	* input/template/gregorian-transcription.ly: new file.
+
 2003-02-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/test/*: lots of cleanups/comment-outs/removals in chord

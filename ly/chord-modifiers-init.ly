@@ -14,3 +14,6 @@ ignatzekExceptionMusic =  \notes {
 	<<c es ges bes>>-\markup { \super \combine "o" "/" }
 	<<c es ges beses>>-\markup { \super  "o7" }
 }
+
+ignatzekExceptions = #(sequential-music-to-chord-exceptions ignatzekExceptionMusic)
+

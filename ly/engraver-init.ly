@@ -449,7 +449,7 @@ ScoreContext = \translator {
 	chordNameFunction = #ignatzek-chord-names
 	majorSevenSymbol = #whiteTriangleMarkup
 	chordNameSeparator = #(make-simple-markup  "/")
-	chordNameExceptions = #(sequential-music-to-chord-exceptions ignatzekExceptionMusic)
+	chordNameExceptions = #ignatzekExceptions
 
 	\grobdescriptions #all-grob-descriptions
 }
