@@ -138,12 +138,17 @@
 (define (chain-assoc-get x alist-list . default)
   "Return ALIST entry for X. Return DEFAULT (optional, else #f) if not
 found."
-  (if (null? alist-list)
-      (if (pair? default) (car default) #f)
-      (let* ((handle (assoc x (car alist-list))))
-	(if (pair? handle)
-	    (cdr handle)
-	    (chain-assoc-get x (cdr alist-list) default)))))
+
+  (define (helper x alist-list default)
+    (if (null? alist-list)
+	default
+	(let* ((handle (assoc x (car alist-list))))
+	  (if (pair? handle)
+	      (cdr handle)
+	      (helper x (cdr alist-list) default)))))
+
+  (helper x alist-list
+	  (if (pair? default) (car default) #f)))
 
 (define (map-alist-vals func list)
   "map FUNC over the vals of  LIST, leaving the keys."

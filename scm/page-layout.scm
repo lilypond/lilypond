@@ -11,6 +11,10 @@
 	(variable-ref v)
 	(if (module? (cdr modules)) (ly:modules-lookup (cdr modules) sym)))))
 
+(define (page-properties paper)
+  (list (append `((linewidth . ,(ly:paper-get-number
+				 paper 'linewidth)))
+		(ly:paper-lookup paper 'text-font-defaults))))
 
 (define-public (book-title paper scopes)
   "Generate book title from header strings."
@@ -19,10 +23,8 @@
     (let ((x (ly:modules-lookup scopes sym)))
       (if (and x (not (unspecified? x))) x "")))
   
-  (let ((props (list (append `((linewidth . ,(ly:paper-get-number
-					      paper 'linewidth))
-			       )
-			     (ly:paper-lookup paper 'text-font-defaults)))))
+  (let ((props (page-properties paper)))
+    
     (interpret-markup
      paper props
      (markup
@@ -55,11 +57,8 @@
 (define-public (user-title paper markup)
   "Generate book title from header markup."
   (if (markup? markup)
-      (let ((BASELINE-SKIP 2)
-	     (props (list (append `((linewidth . ,(ly:paper-get-number
-						  paper 'linewidth))
-				    (font-family . roman))
-				  (ly:paper-lookup paper 'font-defaults)))))
+      (let ((props (page-properties paper))
+	    (baseline-skip (chain-assoc-get 'baseline-skip props 2)) )
 	(stack-lines DOWN 0 BASELINE-SKIP
 		     (list (interpret-markup paper props markup))))))
 
@@ -70,10 +69,7 @@
     (let ((x (ly:modules-lookup scopes sym)))
       (if (and x (not (unspecified? x))) x "")))
   
-  (let ((props (list (append `((linewidth . ,(ly:paper-get-number
-					      paper 'linewidth))
-			       (font-family . roman))
-			     (ly:paper-lookup paper 'font-defaults)))))
+  (let ((props (page-properties paper)))
     
     (interpret-markup
      paper props
@@ -86,10 +82,7 @@
        #:fill-line (#:large #:bigger #:caps (get 'piece) "")))))))
 
 (define-public (make-header paper page-number)
-  (let ((props (list (append `((linewidth . ,(ly:paper-get-number
-					      paper 'linewidth))
-			       (font-family . roman))
-			     (ly:paper-lookup paper 'font-defaults)))))
+  (let ((props (page-properties paper) ))
     (interpret-markup paper props
 		      (markup #:fill-line
 			      ;; FIXME: font not found
@@ -97,11 +90,9 @@
 			      ("" (number->string page-number))))))
 
 (define-public (make-footer paper page-number)
-  (let ((props (list (append `((linewidth . ,(ly:paper-get-number
-					      paper 'linewidth))
-			       (font-family . roman))
-			     (ly:paper-lookup paper 'font-defaults)))))
-  (interpret-markup paper props
+  (let ((props (page-properties paper)))
+
+    (interpret-markup paper props
 		    (markup #:fill-line ("" (number->string page-number))))))
 
 
@@ -109,12 +100,10 @@
   (string-append "Engraved by LilyPond (version " (lilypond-version) ")"))
 
 (define-public (make-tagline paper scopes)
-  (let* ((props (list (append `((linewidth . ,(ly:paper-get-number
-					       paper 'linewidth))
-				(font-family . roman))
-			      (ly:paper-lookup paper 'font-defaults))))
+  (let* ((props (page-properties paper))
 	 (tagline-var (ly:modules-lookup scopes 'tagline))
 	 (tagline (if (markup? tagline-var) tagline-var TAGLINE)))
+
     (cond ((string? tagline)
 	   (if (not (equal? tagline ""))
 	       (interpret-markup paper props
@@ -122,11 +111,9 @@
 	  ((markup? tagline) (interpret-markup paper props tagline)))))
 
 (define-public (make-copyright paper scopes)
-  (let ((props (list (append `((linewidth . ,(ly:paper-get-number
-					      paper 'linewidth))
-			       (font-family . roman))
-			     (ly:paper-lookup paper 'font-defaults))))
+  (let ((props (page-properties paper))
 	(copyright (ly:modules-lookup scopes 'copyright)))
+    
     (cond ((string? copyright)
 	   (if (not (equal? copyright ""))
 	       (interpret-markup paper props
