@@ -1,10 +1,16 @@
 2002-06-07  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scripts/convert-ly.py:  add tuplet-X-visibility rules.
+	add VerticalExtent -> verticalExtent rules.
+
+	* lily/axis-group-engraver.cc: consistent case for
+	XxxxVerticalExtent properties.  
 
 	* Documentation/user/refman.itely (Tuplets): update
 	tuplet-X-visibility properties. 
 
+	* input/test/defaultbars.ly: Corrected (thanks Mats)
+	
 2002-06-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/beam.cc (shift_region_to_valid): fix stupido bug. 

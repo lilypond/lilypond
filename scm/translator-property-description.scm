@@ -15,17 +15,17 @@
 
 
 
-(translator-property-description 'ExtraVerticalExtent
+(translator-property-description 'extraVerticalExtent
 				 number-pair? "extra vertical extent, same format as  MinimumVerticalExtent")
-(translator-property-description 'MinimumVerticalExtent number-pair?
+(translator-property-description 'minimumVerticalExtent number-pair?
 				 "minimum vertical extent, same format as VerticalExtent")
-(translator-property-description 'VerticalExtent number-pair?
+(translator-property-description 'verticalExtent number-pair?
 				 "hard coded vertical extent.
 The format is a pair of dimensions, for example, this sets the sizes
 of a staff to 10 (5+5) staffspaces high.
 
 @example
-property Staff.VerticalExtent = #(-5.0 . 5.0)
+property Staff.verticalExtent = #(-5.0 . 5.0)
 @end example
 
 VerticalExtent, MinimumVerticalExtent and ExtraVerticalExtent are

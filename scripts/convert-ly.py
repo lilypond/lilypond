@@ -873,6 +873,19 @@ if 1:
 	conversions.append (((1,5,58), conv, 'deprecate textNonEmpty'))
 
 
+if 1:
+	def conv (str):
+		str = re.sub ('MinimumVerticalExtent', 'MinimumV@rticalExtent', str)
+		str = re.sub ('ExtraVerticalExtent', 'ExtraV@rticalExtent', str)
+		str = re.sub ('VerticalExtent', 'verticalExtent', str)
+		str = re.sub ('ExtraV@rticalExtent', 'extraVerticalExtent', str)
+		str = re.sub ('MinimumV@rticalExtent', 'minimumVerticalExtent', str)		
+		return str
+
+	conversions.append (((1,5,59), conv,
+	'XxxxVerticalExtent -> xxxVerticalExtent'))
+
+
 ################################
 #	END OF CONVERSIONS	
 ################################
