@@ -65,7 +65,7 @@ StaffContainerContext = \translator {
 InnerChoirStaffContext = \translator {
 	\type "Engraver_group_engraver"
 	\name InnerChoirStaff
-	alignmentReference = #0
+	%% alignmentReference = #0 FIXME
 	\consists "System_start_delimiter_engraver"
 	systemStartDelimiter = #'SystemStartBracket
 	localKeySignature = #'()

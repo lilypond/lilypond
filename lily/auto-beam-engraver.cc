@@ -488,7 +488,8 @@ Auto_beam_engraver::process_acknowledged_grobs ()
         auto-beam-engraver.cc:459: warning: value computed is not used (gcc: 2.96) */
   count_ = count_ + 1;
 }
-ENTER_DESCRIPTION(Auto_beam_engraver,
+
+ENTER_DESCRIPTION (Auto_beam_engraver,
 /* descr */       "Generate beams based on measure characteristics and observed
 Stems.  Uses beatLength, measureLength and measurePosition to decide
 when to start and stop a beam.  Overriding beaming is done through

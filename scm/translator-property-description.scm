@@ -135,12 +135,12 @@ key signatures after the bar lines:
 
 @example
 	\\property Score.breakAlignOrder = #'(
-	  Span_bar
-	  Breathing_sign
-	  Clef_item
-	  Staff_bar
-	  Key_item
-	  Time_signature
+	  span-bar
+	  breathing-sign
+	  clef
+	  staff-bar
+	  key
+	  time-signature
 	)
 @end example
 ")

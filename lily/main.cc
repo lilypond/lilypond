@@ -352,7 +352,16 @@ main_prog (void *, int, char **)
   
   int p=0;
   const char *arg  = oparser_p_static->get_next_arg ();
-  
+
+  /* Only exit until after running init_scheme_code, for
+     (set-lily-option 'help) */
+  if (!arg)
+    {
+      usage ();
+      /* No FILE arguments is now a usage error */
+      exit (2);
+    }
+
   do
     {
       String infile (arg);
@@ -503,14 +512,6 @@ main (int argc, char **argv)
       if (verbose_global_b)
 	dirinfo (stdout);
       exit (0);
-    }
-
-
-  if (!oparser_p_static->current_arg () )
-    {
-      usage ();
-      /* No FILE arguments is now a usage error */
-      exit (2);
     }
 
   scm_boot_guile (argc, argv, (void (*) (void*, int, char**))main_prog, 0);
