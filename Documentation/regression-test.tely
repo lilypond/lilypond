@@ -78,7 +78,7 @@ Accidentals are currently in a development stage.
 
 @lilypondfile[printfilename]{staccato-pos.ly}
 
-@lilypondfile[printfilename]{scripts-stack-order.ly}
+@lilypondfile[printfilename]{script-stack-order.ly}
 
 @lilypondfile[printfilename]{arpeggio.ly}
 
