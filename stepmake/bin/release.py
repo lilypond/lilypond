@@ -11,11 +11,11 @@ outdir = '.'
 (options, files) = getopt.getopt(sys.argv[1:], 'ho:p:', ['help', 'outdir=', 'package=']) 
 
 def help ():
-	sys.stdout.write (r"""Usage: release [OPTION]...
-Make a tarball and patch
+	sys.stdout.write (r"""Usage: release [OPTIONS]...
+Make a tarball and patch.
 
 Options:
-  -o, --outdir=DIR       where to leave patches.
+  -o, --outdir=DIR       specify where to leave patches
   -h, --help             print this help
   -p, --package=DIR      specify package"""
 )

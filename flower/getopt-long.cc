@@ -113,7 +113,7 @@ Long_option_init::str_for_help () const
   else
     s = "  ";
 
-  s = s + ((shortname_char_ && longname_str0_) ? "," : " ");
+  s = s + ((shortname_char_ && longname_str0_) ? ", " : "  ");
 
   if (longname_str0_)
     s = s + "--" + longname_str0_;

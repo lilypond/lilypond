@@ -526,7 +526,7 @@ class Parser:
 
 def help ():
 	sys.stdout.write (
-"""Usage: musedata2ly [OPTION]... FILE1 [FILE2 ...]
+"""Usage: musedata2ly [OPTIONS]... FILE1 [FILE2 ...]
 
 Convert musedata to LilyPond.
 
@@ -541,13 +541,14 @@ classical music scores, currently comprising XXX scores.  The music is
 encoded in so-called Musedata format
 (http://www.ccarh.org/publications/books/beyondmidi/online/musedata).
 musedata2ly converts a set of musedata files to one .ly file, and will
-include a \header field if a .ref file is supplied 
+include a \header field if a .ref file is supplied.
 
 This converter is not complete -- this is left to the user as an excercise.
 
 Report bugs to bug-lilypond@gnu.org.
 
-Written by Han-Wen Nienhuys <hanwen@cs.uu.nl>
+Written by Han-Wen Nienhuys <hanwen@cs.uu.nl>.
+
 """)
 
 
@@ -558,7 +559,7 @@ This is free software.  It is covered by the GNU General Public License,
 and you are welcome to change it and/or distribute copies of it under
 certain conditions.  Invoke as `midi2ly --warranty' for more information.
 
-Copyright (c)  2000--2003 by Han-Wen Nienhuys <hanwen@cs.uu.nl>
+Copyright (c)  2000--2003 by Han-Wen Nienhuys <hanwen@cs.uu.nl>.
 """ % version)
 def identify():
 	sys.stderr.write ("%s from LilyPond %s\n" % (program_name, version))

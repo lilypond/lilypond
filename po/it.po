@@ -87,8 +87,8 @@ msgstr "Genero le voci..."
 
 #: lilylib.py:194 midi2ly.py:224 mup2ly.py:220
 #, fuzzy, python-format
-msgid "Usage: %s [OPTION]... FILE"
-msgstr "Uso: %s [OPZIONE... [FILE]"
+msgid "Usage: %s [OPTIONS]... FILE"
+msgstr "Uso: %s [OPZIONE]... [FILE]"
 
 #: lilylib.py:198 midi2ly.py:228 mup2ly.py:224 main.cc:166
 msgid "Options:"
@@ -709,7 +709,7 @@ msgid "produce MIDI output only"
 msgstr "  -M, --no-paper         produce solo output midi\n"
 
 #: ly2dvi.py:135 midi2ly.py:102
-msgid "write ouput to FILE"
+msgid "write output to FILE"
 msgstr ""
 
 #: ly2dvi.py:136
@@ -948,7 +948,7 @@ msgstr "L'output MIDI è inviato a %s..."
 #. original_dir = os.getcwd ()
 #. keep_temp_dir_p = 0
 #: midi2ly.py:94
-msgid "Convert MIDI to LilyPond source"
+msgid "Convert MIDI to LilyPond source."
 msgstr ""
 
 #: midi2ly.py:97
@@ -1090,7 +1090,7 @@ msgstr ""
 #. if set, LILYPONDPREFIX must take prevalence
 #. if datadir is not set, we're doing a build and LILYPONDPREFIX
 #: mup2ly.py:70
-msgid "Convert mup to LilyPond source"
+msgid "Convert mup to LilyPond source."
 msgstr ""
 
 #: mup2ly.py:73
@@ -1690,7 +1690,7 @@ msgstr ""
 #. No version number or newline here. It confuses help2man.
 #: main.cc:155
 #, fuzzy, c-format
-msgid "Usage: %s [OPTION]... FILE..."
+msgid "Usage: %s [OPTIONS]... FILE..."
 msgstr "Uso: %s [OPZIONE]... [FILE]..."
 
 #: main.cc:157
@@ -2510,8 +2510,8 @@ msgstr ""
 #~ msgstr ""
 #~ " -x, --no-double-dots   assume che non ci siano note con doppio punto\n"
 
-#~ msgid "Usage: %s [OPTION]... [FILE]"
-#~ msgstr "Uso: %s [OPZIONE... [FILE]"
+#~ msgid "Usage: %s [OPTIONS]... [FILE]"
+#~ msgstr "Uso: %s [OPZIONE]... [FILE]"
 
 #, fuzzy
 #~ msgid "Translate MIDI-file to lilypond"
@@ -2582,8 +2582,8 @@ msgstr ""
 #~ msgstr "scrivo il file delle dipendenze: `%s'..."
 
 #, fuzzy
-#~ msgid "Usage: ly2dvi [OPTION]... FILE\n"
-#~ msgstr "Uso: %s [OPZIONE... [FILE]"
+#~ msgid "Usage: ly2dvi [OPTIONS]... FILE\n"
+#~ msgstr "Uso: %s [OPZIONE]... [FILE]"
 
 #~ msgid "unconventional key: flats: %d, sharps: %d"
 #~ msgstr "armatura non convenzionale: %d bemolli e %d diesis"

@@ -41,15 +41,15 @@ def identify ():
 
 def usage ():
 	sys.stdout.write (
-		r"""Usage: %s [OPTION]... [FILE]... 
+		r"""Usage: %s [OPTIONS]... [FILE]... 
 Try to convert to newer lilypond-versions.  The version number of the
-input is guessed by default from \version directive
+input is guessed by default from \version directive.
 
 Options:
   -h, --help             print this help
   -e, --edit             edit in place
   -f, --from=VERSION     start from version; overrides \version found in file
-  -s, --show-rules       print all rules.
+  -s, --show-rules       print all rules
   -t, --to=VERSION       show target version
   -n, --no-version       don't add new version stamp
       --version          print program version

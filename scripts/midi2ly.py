@@ -91,7 +91,7 @@ verbose_p = 0
 # keep_temp_dir_p = 0
 
 
-help_summary = _ ("Convert MIDI to LilyPond source")
+help_summary = _ ("Convert MIDI to LilyPond source.")
 
 option_definitions = [
 	('', 'a', 'absolute-pitches', _ ("print absolute pitches")),
@@ -99,7 +99,7 @@ option_definitions = [
 	('', 'e', 'explicit-durations', _ ("print explicit durations")),
 	('', 'h', 'help', _ ("print this help")),
 	(_ ("ALT[:MINOR]"), 'k', 'key', _ ("set key: ALT=+sharps|-flats; MINOR=1")),
-	(_ ("FILE"), 'o', 'output', _ ("write ouput to FILE")),
+	(_ ("FILE"), 'o', 'output', _ ("write output to FILE")),
 	(_ ("DUR"), 's', 'start-quant', _ ("quantise note starts on DUR")),
 	(_ ("DUR*NUM/DEN"), 't', 'allow-tuplet', _ ("allow tuplet durations DUR*NUM/DEN")),
 	('', 'V', 'verbose', _ ("be verbose")),
@@ -221,7 +221,7 @@ def options_help_str (opts):
 	return str
 
 def help ():
-	ls = [(_ ("Usage: %s [OPTION]... FILE") % program_name),
+	ls = [(_ ("Usage: %s [OPTIONS]... FILE") % program_name),
 		('\n\n'),
 		(help_summary),
 		('\n\n'),

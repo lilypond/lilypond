@@ -89,7 +89,7 @@ msgstr "Afslutter... "
 
 #: lilylib.py:194 midi2ly.py:224 mup2ly.py:220
 #, python-format
-msgid "Usage: %s [OPTION]... FILE"
+msgid "Usage: %s [OPTIONS]... FILE"
 msgstr "Brug: %s [FLAG]... FIL"
 
 #: lilylib.py:198 midi2ly.py:228 mup2ly.py:224 main.cc:166
@@ -713,7 +713,7 @@ msgid "produce MIDI output only"
 msgstr "lav kun MIDI-uddata"
 
 #: ly2dvi.py:135 midi2ly.py:102
-msgid "write ouput to FILE"
+msgid "write output to FILE"
 msgstr "skriv uddata til FIL"
 
 #: ly2dvi.py:136
@@ -955,8 +955,8 @@ msgstr "%s udskrevet til \"%s\"..."
 #. original_dir = os.getcwd ()
 #. keep_temp_dir_p = 0
 #: midi2ly.py:94
-msgid "Convert MIDI to LilyPond source"
-msgstr "Konvertér MIDI til LilyPond-klide"
+msgid "Convert MIDI to LilyPond source."
+msgstr "Konvertér MIDI til LilyPond-klide."
 
 #: midi2ly.py:97
 msgid "print absolute pitches"
@@ -1098,8 +1098,8 @@ msgstr "ingen filer angivne på kommandolinjen."
 #. if set, LILYPONDPREFIX must take prevalence
 #. if datadir is not set, we're doing a build and LILYPONDPREFIX
 #: mup2ly.py:70
-msgid "Convert mup to LilyPond source"
-msgstr "Konvertér mup til LilyPond-kilde"
+msgid "Convert mup to LilyPond source."
+msgstr "Konvertér mup til LilyPond-kilde."
 
 #: mup2ly.py:73
 msgid "debug"
@@ -1692,7 +1692,7 @@ msgstr "hindr navngivning af filuddata og eksportering"
 #. No version number or newline here. It confuses help2man.
 #: main.cc:155
 #, c-format
-msgid "Usage: %s [OPTION]... FILE..."
+msgid "Usage: %s [OPTIONS]... FILE..."
 msgstr "Brug: %s [FLAG]... FIL..."
 
 #: main.cc:157
@@ -2611,7 +2611,7 @@ msgstr "Overvej at konvertere inddata med skriptet \"convert-ly\""
 #~ msgid "assume no double dotted notes"
 #~ msgstr "antag ingen dobbeltpunktede noder"
 
-#~ msgid "Usage: %s [OPTION]... [FILE]"
+#~ msgid "Usage: %s [OPTIONS]... [FILE]"
 #~ msgstr "Brug: %s [FLAG]... [FIL]"
 
 #~ msgid "Translate MIDI-file to lilypond"

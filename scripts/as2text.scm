@@ -37,13 +37,13 @@
 (define (show-help)
   (display "Convert AsciiScript to text.
 
-
-Usage: as2text [OPTION]... AS-FILE
+Usage: as2text [OPTIONS]... AS-FILE
 
 Options:
-  -h,--help          this help
+  -h,--help          show this help
   -o,--output=FILE   set output file
   -v,--version       show version
+
 "))
 
 ;;

@@ -89,7 +89,7 @@ msgstr ""
 
 #: lilylib.py:194 midi2ly.py:224 mup2ly.py:220
 #, python-format
-msgid "Usage: %s [OPTION]... FILE"
+msgid "Usage: %s [OPTIONS]... FILE"
 msgstr ""
 
 #: lilylib.py:198 midi2ly.py:228 mup2ly.py:224 main.cc:166
@@ -703,7 +703,7 @@ msgid "produce MIDI output only"
 msgstr ""
 
 #: ly2dvi.py:135 midi2ly.py:102
-msgid "write ouput to FILE"
+msgid "write output to FILE"
 msgstr ""
 
 #: ly2dvi.py:136
@@ -938,7 +938,7 @@ msgstr ""
 #. original_dir = os.getcwd ()
 #. keep_temp_dir_p = 0
 #: midi2ly.py:94
-msgid "Convert MIDI to LilyPond source"
+msgid "Convert MIDI to LilyPond source."
 msgstr ""
 
 #: midi2ly.py:97
@@ -1078,7 +1078,7 @@ msgstr ""
 #. if set, LILYPONDPREFIX must take prevalence
 #. if datadir is not set, we're doing a build and LILYPONDPREFIX
 #: mup2ly.py:70
-msgid "Convert mup to LilyPond source"
+msgid "Convert mup to LilyPond source."
 msgstr ""
 
 #: mup2ly.py:73
@@ -1654,7 +1654,7 @@ msgstr ""
 #. No version number or newline here. It confuses help2man.
 #: main.cc:155
 #, c-format
-msgid "Usage: %s [OPTION]... FILE..."
+msgid "Usage: %s [OPTIONS]... FILE..."
 msgstr ""
 
 #: main.cc:157

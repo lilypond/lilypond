@@ -88,7 +88,7 @@ msgstr "Выбрасываю музыку: `%s'"
 
 #: lilylib.py:194 midi2ly.py:224 mup2ly.py:220
 #, fuzzy, python-format
-msgid "Usage: %s [OPTION]... FILE"
+msgid "Usage: %s [OPTIONS]... FILE"
 msgstr "Использование: %s [ОПЦИЯ]... [ФАЙЛ]"
 
 #: lilylib.py:198 midi2ly.py:228 mup2ly.py:224 main.cc:166
@@ -709,7 +709,7 @@ msgstr "производить вывод только MIDI"
 
 #: ly2dvi.py:135 midi2ly.py:102
 #, fuzzy
-msgid "write ouput to FILE"
+msgid "write output to FILE"
 msgstr "записывать вывод в ОСНОВА[-x].расширение"
 
 #: ly2dvi.py:136
@@ -945,7 +945,7 @@ msgstr "вывод MIDI в %s..."
 #. original_dir = os.getcwd ()
 #. keep_temp_dir_p = 0
 #: midi2ly.py:94
-msgid "Convert MIDI to LilyPond source"
+msgid "Convert MIDI to LilyPond source."
 msgstr ""
 
 #: midi2ly.py:97
@@ -1085,7 +1085,7 @@ msgstr ""
 #. if set, LILYPONDPREFIX must take prevalence
 #. if datadir is not set, we're doing a build and LILYPONDPREFIX
 #: mup2ly.py:70
-msgid "Convert mup to LilyPond source"
+msgid "Convert mup to LilyPond source."
 msgstr ""
 
 #: mup2ly.py:73
@@ -1676,7 +1676,7 @@ msgstr "скрыть именование и экспорт вывода в файл"
 #. No version number or newline here. It confuses help2man.
 #: main.cc:155
 #, fuzzy, c-format
-msgid "Usage: %s [OPTION]... FILE..."
+msgid "Usage: %s [OPTIONS]... FILE..."
 msgstr "Использование: %s [ОПЦИЯ]... [ФАЙЛ]..."
 
 #: main.cc:157
@@ -2458,7 +2458,7 @@ msgstr ""
 #~ msgid "don't timestamp the output"
 #~ msgstr "не отмечать дату и время вывода"
 
-#~ msgid "Usage: %s [OPTION]... [FILE]"
+#~ msgid "Usage: %s [OPTIONS]... [FILE]"
 #~ msgstr "Использование: %s [ОПЦИЯ]... [ФАЙЛ]"
 
 #, fuzzy
@@ -2535,7 +2535,7 @@ msgstr ""
 #~ msgstr "Сообщайте об ошибках по %s."
 
 #, fuzzy
-#~ msgid "Usage: ly2dvi [OPTION]... FILE\n"
+#~ msgid "Usage: ly2dvi [OPTIONS]... FILE\n"
 #~ msgstr "Использование: %s [ОПЦИЯ]... [ФАЙЛ]"
 
 #~ msgid "unconventional key: flats: %d, sharps: %d"

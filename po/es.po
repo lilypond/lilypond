@@ -87,8 +87,8 @@ msgstr "Saliendo..."
 
 #: lilylib.py:194 midi2ly.py:224 mup2ly.py:220
 #, python-format
-msgid "Usage: %s [OPTION]... FILE"
-msgstr "Sintaxis: %s [OPTION]... FICHERO"
+msgid "Usage: %s [OPTIONS]... FILE"
+msgstr "Sintaxis: %s [OPTIONS]... FICHERO"
 
 #: lilylib.py:198 midi2ly.py:228 mup2ly.py:224 main.cc:166
 msgid "Options:"
@@ -709,7 +709,7 @@ msgid "produce MIDI output only"
 msgstr "producir solamente una salida MIDI"
 
 #: ly2dvi.py:135 midi2ly.py:102
-msgid "write ouput to FILE"
+msgid "write output to FILE"
 msgstr "escribir la salida en el FICHERO"
 
 #: ly2dvi.py:136
@@ -947,7 +947,7 @@ msgstr "%s producidos en `%s'..."
 #. original_dir = os.getcwd ()
 #. keep_temp_dir_p = 0
 #: midi2ly.py:94
-msgid "Convert MIDI to LilyPond source"
+msgid "Convert MIDI to LilyPond source."
 msgstr ""
 
 #: midi2ly.py:97
@@ -1089,8 +1089,8 @@ msgstr "no se ha especificado ningún fichero en la línea de órdenes."
 #. if datadir is not set, we're doing a build and LILYPONDPREFIX
 #: mup2ly.py:70
 #, fuzzy
-msgid "Convert mup to LilyPond source"
-msgstr "Convertir mup a ly"
+msgid "Convert mup to LilyPond source."
+msgstr "Convertir mup a ly."
 
 #: mup2ly.py:73
 msgid "debug"
@@ -1677,7 +1677,7 @@ msgstr "inhibir la denominación del fichero de salida y la exportación"
 #. No version number or newline here. It confuses help2man.
 #: main.cc:155
 #, c-format
-msgid "Usage: %s [OPTION]... FILE..."
+msgid "Usage: %s [OPTIONS]... FILE..."
 msgstr "Sintaxis: %s [OPCIÓN]... FICHERO..."
 
 #: main.cc:157

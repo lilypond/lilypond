@@ -187,7 +187,7 @@ def options_help_str (opts):
 	return str
 
 def help ():
-	ls = [(_ ("Usage: %s [OPTION]... FILE") % __main__.program_name),
+	ls = [(_ ("Usage: %s [OPTIONS]... FILE") % __main__.program_name),
 	      ('\n\n'),
 	      (__main__.help_summary),
 	      ('\n\n'),

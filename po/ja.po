@@ -87,7 +87,7 @@ msgstr "行 ..."
 
 #: lilylib.py:194 midi2ly.py:224 mup2ly.py:220
 #, fuzzy, python-format
-msgid "Usage: %s [OPTION]... FILE"
+msgid "Usage: %s [OPTIONS]... FILE"
 msgstr "使い方: %s [オプション]... [ファイル]"
 
 #: lilylib.py:198 midi2ly.py:228 mup2ly.py:224 main.cc:166
@@ -708,7 +708,7 @@ msgstr "MIDI 出力の生成のみ"
 
 #: ly2dvi.py:135 midi2ly.py:102
 #, fuzzy
-msgid "write ouput to FILE"
+msgid "write output to FILE"
 msgstr "BASENAME[-x].拡張子 へ出力を書き込む"
 
 #: ly2dvi.py:136
@@ -947,7 +947,7 @@ msgstr "%s への MIDI 出力"
 #. original_dir = os.getcwd ()
 #. keep_temp_dir_p = 0
 #: midi2ly.py:94
-msgid "Convert MIDI to LilyPond source"
+msgid "Convert MIDI to LilyPond source."
 msgstr ""
 
 #: midi2ly.py:97
@@ -1090,7 +1090,7 @@ msgstr ""
 #. if set, LILYPONDPREFIX must take prevalence
 #. if datadir is not set, we're doing a build and LILYPONDPREFIX
 #: mup2ly.py:70
-msgid "Convert mup to LilyPond source"
+msgid "Convert mup to LilyPond source."
 msgstr ""
 
 #: mup2ly.py:73
@@ -1693,7 +1693,7 @@ msgstr "名前付けとエクスポートの出力ファイルを抑制する"
 #. No version number or newline here. It confuses help2man.
 #: main.cc:155
 #, fuzzy, c-format
-msgid "Usage: %s [OPTION]... FILE..."
+msgid "Usage: %s [OPTIONS]... FILE..."
 msgstr "使い方: %s [オプション]... [ファイル]..."
 
 #: main.cc:157
@@ -2540,7 +2540,7 @@ msgstr ""
 #~ msgid "assume no double dotted notes"
 #~ msgstr "複符点音符を無くすよう試みます"
 
-#~ msgid "Usage: %s [OPTION]... [FILE]"
+#~ msgid "Usage: %s [OPTIONS]... [FILE]"
 #~ msgstr "使い方: %s [オプション]... [ファイル]"
 
 #, fuzzy
@@ -2628,7 +2628,7 @@ msgstr ""
 #~ msgstr "バグレポートは %s へ"
 
 #, fuzzy
-#~ msgid "Usage: ly2dvi [OPTION]... FILE\n"
+#~ msgid "Usage: ly2dvi [OPTIONS]... FILE\n"
 #~ msgstr "使い方: %s [オプション]... [ファイル]"
 
 #~ msgid "unconventional key: flats: %d, sharps: %d"

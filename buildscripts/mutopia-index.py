@@ -101,13 +101,16 @@ def read_lilypond_header (fn):
 	return dict
 
 def help ():
-	sys.stdout.write (r"""Usage: mutopia-index [options] INFILE OUTFILE
-Generate index for mutopia\n
+	sys.stdout.write (r"""Usage: mutopia-index [OPTIONS] INFILE OUTFILE
+Generate index for mutopia.
+
 Options:
   -h, --help                 print this help
-  -o,-output=FILE            write output to file.
+  -o, --output=FILE          write output to file
   -s, --subdirs=DIR	     add subdir
-  --suffix=SUF			 specify suffix"""
+      --suffix=SUF	     specify suffix
+      
+"""
 					  )
 	sys.exit (0)
 
