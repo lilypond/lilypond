@@ -2307,6 +2307,7 @@ are squashed, and the  staff itself  looks has  a single staff line:
 
 @menu
 * Percussion staves::           
+* Percussion midi output::      
 @end menu
 
 @node Percussion staves
