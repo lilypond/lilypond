@@ -1,4 +1,10 @@
 \version "1.7.18"
+%rename to partcobine- something.  -gp
+
+\header {texidoc = "@cindex Partcombine something. "
+
+% FIXMEsoon.
+}
 
 \score{
 	\context Staff = one <
@@ -16,7 +22,7 @@
 				}
 		>
 	\paper{
-		linewidth = 100.\mm
+%		linewidth = 100.\mm
 		raggedright=##t
 	}
 }

@@ -1,12 +1,11 @@
 \version "1.7.18"
 % regression, and should be merged with -2.
-\header{
-title="symmetry.
-
-Both slurs should look the same.
-
-"
-}
+\header { texidoc = "REGRESSION or DELETE. "}
+%\header{
+%title="symmetry.
+%
+%Both slurs should look the same. "
+%}
 
 \score{
 	\notes\relative c'{

@@ -1,5 +1,6 @@
 \version "1.7.18"
 % looks pretty, but it's for regression.  -gp
+\header { texidoc = "REGRESSION?  or DELETE. "}
 
 x = {
   \outputproperty #(make-type-checker 'note-head-interface) 

@@ -1,5 +1,6 @@
 \version "1.7.18"
 % more fodder for regression.  -gp
+\header {texidoc = "DELETE or REGRESSION"}
 
 \score { 
   \context Voice \notes\relative c {

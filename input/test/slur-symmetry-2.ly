@@ -1,9 +1,10 @@
 \version "1.7.18"
 % another regression.  -gp
-\header{
+\header { texidoc = "REGRESSION or DELETE. "}
+%\header{
 % should look the same
-title="symmetry"
-}
+%title="symmetry"
+%}
 \score{
 	\notes\relative c'{
 		 g'8-[( e  c'-) g,]

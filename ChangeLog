@@ -1,3 +1,18 @@
+2003-06-28  Graham Percival  <gperlist@shaw.ca>
+
+	* input/test/key-clefs.ly: moved to regression.
+
+	* input/test/perform-grace.ly: moved to to no-notation/midi-grace.ly
+
+	* input/no-notation/README: added note about midi-*.ly files.
+
+	* input/test/two-key.ly: moved to no-notation/parse5.ly
+
+	* input/test/ short-part-combine.ly sketch.ly system-start-brace.ly
+	system-start-bracket.ly two-slurs.ly voice-switch.ly : deleted
+
+	* input/test/ {various}: modified comments, marked some for deletion.
+
 2003-06-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/chord-name.scm (note-name->markup): don't superscript root
