@@ -4,28 +4,14 @@
 #include "string.hh"
 #include "boxes.hh"
 
-/// anything which can be output
-struct Output {
-    virtual String TeXstring() const=0;
-    /** generate a TeX string, which typesets the symbol. Vertical
-     base position is the "origin" of the staff
-    */
-    virtual Box extent() const=0;
-};
+String
+substitute_args(String source, svec<String> args);
 /**
-  any output should (at least) be outputtable for TeX, and have a
-  dimension
-*/
+  this structure provides a simple macro mechanism:
 
-
-/// an idea
-struct Text_gob : Output {
-    String text;
-    // fonts, sizes, etc?
-    virtual String TeXstring() const;
-    virtual Box extent() const;
-};
-
+  if source == "tex%bla%", then
+  eval({"X","Y"})  == "texXblaY"
+  */
 
 /// #h# is in points
 String vstrut(Real h);
