@@ -55,6 +55,7 @@ In the case of alignment grobs, this should contain only one number.")
 (grob-property-description 'beam-thickness number? "thickness, measured in staffspace")
 (grob-property-description 'beam-thickness number? "thickness, measured in staffspace")
 (grob-property-description 'beam-width number? "width of the tremolo sign")
+(grob-property-description 'beamAuto boolean? "enable autobeaming?")
 (grob-property-description 'beamed-lengths list? "list of stem lengths given beam multiplicity ")
 (grob-property-description 'beamed-minimum-lengths list? "list of minimum stem lengths given beam multiplicity")
 (grob-property-description 'beamed-stem-shorten number? "shorten beamed stems in forced direction")
@@ -80,7 +81,7 @@ column as start/begin point. Only columns that have grobs or act as bounds are s
 (grob-property-description 'center-element ly-grob? "grob which will
 be at the center of the group after aligning (when using
 Align_interface::center_on_element). ")
-
+(grob-property-description 'chordChanges boolean? "only show changes in chord scheme?")
 (grob-property-description 'collapse-height number? "Minimum height of system start delimiter. If smaller, the delimiter is removed.")
 (grob-property-description 'column-space-strength number? "relative strength of space following breakable columns (eg. prefatory matter)")
 (grob-property-description 'columns list? "list of grobs, typically containing paper-columns, list of note-columns")

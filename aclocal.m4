@@ -1,31 +1,6 @@
 dnl aclocal.m4   -*-shell-script-*-
 dnl StepMake subroutines for configure.in
 
-function base ()
-{
-    expr "$1" : "\(/[^/]*\)"
-}
-
-function unbase ()
-{
-    expr "$1" : "/[^/]*\(.*\)"
-}
-
-function walk ()
-{
-    from=`(cd "$1" && pwd)`
-    to=`pwd`
-    t=`base "$to"`
-    f=`base "$from"`
-    while [ -n "$t" -a "$t" = "$f" ]; do
-	to=`unbase "$to"`
-	from=`unbase "$from"`
-	t=`base "$to"`
-	f=`base "$from"`
-    done
-    echo ..$to
-}
-
 AC_DEFUN(AC_STEPMAKE_BIBTEX2HTML, [
     AC_CHECK_PROGS(BIBTEX2HTML, bibtex2html bib2html, error)
     if test "$BIBTEX2HTML" = "bib2html"; then

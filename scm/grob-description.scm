@@ -57,7 +57,7 @@
 		 ;; todo: clean this up a bit: the list is getting
 		 ;; rather long.
 		 (molecule-callback . ,Beam::brew_molecule)
-		 (thickness . 0.42) ; in staff-space, should use stafflinethick?
+		 (thickness . 0.48) ; in staff-space
 		 (before-line-breaking-callback . ,Beam::before_line_breaking)
 		 (after-line-breaking-callback . ,Beam::after_line_breaking)
 		 (default-neutral-direction . 1)
@@ -541,7 +541,6 @@
 		(glyph . bar-line)
 		(arch-width . 1.5)
 		(bracket-thick . 0.25)
-		(bracket-width . 2.0)
 		(Y-extent-callback . #f)
 		(font-family . braces)
 		;; if you want to set point-size, you cannot set
