@@ -259,7 +259,7 @@ Part_combine_iterator::unisono (bool silent)
 	  if (!event)
 	    event = make_music_by_name (ly_symbol2scm ("UnisonoEvent"));
 
-	  (state_ == SOLO2 ? second_iter_ : first_iter_)
+	  (last_playing_ == SOLO2 ? second_iter_ : first_iter_)
 	    ->try_music_in_children (event);      
 	  playing_state_ = UNISONO;
 	}
@@ -423,7 +423,7 @@ Part_combine_iterator::process (Moment m)
 	  programming_error (s);
 	}
     }
-  
+
   if (first_iter_->ok ())
     {
       first_iter_->process (m);

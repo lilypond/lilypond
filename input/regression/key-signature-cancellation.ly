@@ -1,7 +1,6 @@
-\header { texidoc = "Cancellation are printed before the barline. The
+\header { texidoc = "Cancellation signs are printed by default. The
    spacing of the natural signs depends on their vertical
    positions. The stems should not clash graphically."
-
 
 }
 

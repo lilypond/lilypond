@@ -7,17 +7,16 @@ corresponding engraver.
 "
 }
 
-\score {
-   { c4 d4 e8 d8 }
-  \layout {
+\layout {
     raggedright = ##t
-    \context {
-      \Staff
-      \remove Staff_symbol_engraver
-      \consists Pitch_squash_engraver
-      \remove Clef_engraver
-    }
-  }
 }
+
+\relative \new Staff \with {
+	\remove Staff_symbol_engraver
+	\consists Pitch_squash_engraver
+	\remove Clef_engraver
+    } {
+	c4 d4 e8 d8
+    }
 
 

@@ -1,7 +1,10 @@
 \header
 {
+    
 texidoc = "Music function are generic music transformation functions,
-which can be used to extend music syntax seamlessly."
+which can be used to extend music syntax seamlessly.  Here we
+demonstrate a @code{\myBar} function, which works similar to
+@code{\bar}, but is implemented completely in Scheme."
 
 }
 \version "2.3.22"
@@ -13,13 +16,11 @@ which can be used to extend music syntax seamlessly."
     (context-spec-music
      (context-spec-music (make-property-set 'whichBar type) 'Timing)
      'Score))
-    
     ))
 
-\score{
-     {
-	d4 \myBar #"|:" d4
-	
-    }
+\layout { raggedright = ##t }
+
+{
+    d4 \myBar #"|:" d4
 }
 

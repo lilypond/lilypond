@@ -1,3 +1,10 @@
+2004-10-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/quote-iterator.cc (process): use <= for comparisons. Fixes
+	quote problem if for last note of quoted sequence. 
+
+	* input/regression/part-combine-text.ly (comm): add expect strings.
+
 2004-10-30  Werner Lemberg  <wl@gnu.org>
 
 	* Documentation/user/examples.itely: Improved layout.
@@ -10,6 +17,17 @@
 	Other layout fixes.
 
 2004-10-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/part-combine-iterator.cc (unisono): examine last_playing_
+	(not state_), this fixes a2 printing after chord.
+
+	* input/regression/no-staff.ly: fix octave, revise syntax.
+
+	* input/regression/lyrics-bar.ly (texidoc): fixes.
+
+	* input/regression/beam-dir-functions.ly (Module): remove from regtest
+
+	* input/regression/accidentals.ly (Module): remove from regtest.
 
 	* lily/parser.yy (Prefix_composite_music): 
 	oops. Chords should be unrelativable, not bass figures untransposable.
