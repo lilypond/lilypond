@@ -233,7 +233,6 @@ do_one_file (char const *file)
   Paper_book book;
   paper_book = &book;
   Input_file_results inp_file (init, in_file, out_file);
-#ifdef PAGE_LAYOUT
-  book.output (out_file);
-#endif
+  if (output_format_global == PAGE_LAYOUT)
+    book.output (out_file);
 }

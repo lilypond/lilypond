@@ -178,9 +178,8 @@ default_rendering (SCM music, SCM outdef, SCM header, SCM outname)
 	  paper_book->headers_.push (header);
 	  Paper_score *ps = dynamic_cast<Paper_score*> (output);
 	  paper_book->papers_.push (ps->paper_);
-#ifndef PAGE_LAYOUT
-	  paper_book->classic_output (ly_scm2string (outname));
-#endif
+	  if (output_format_global != PAGE_LAYOUT)
+	    paper_book->classic_output (ly_scm2string (outname));
 	}
       delete output;
     }

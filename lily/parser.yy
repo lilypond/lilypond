@@ -453,14 +453,12 @@ toplevel_expression:
 		   id = id ? id->clone () : new Paper_def;
 	
 		   default_rendering (sc->music_, id->self_scm (), head, outname);
-						
-#ifndef PAGE_LAYOUT
-		   scm_gc_unprotect_object (id->self_scm ());
-#endif
+
+		   if (output_format_global != PAGE_LAYOUT)
+		   	 scm_gc_unprotect_object (id->self_scm ());
 		}
-#ifndef PAGE_LAYOUT
-		scm_gc_unprotect_object (sc->self_scm ());
-#endif
+		   if (output_format_global != PAGE_LAYOUT)
+			scm_gc_unprotect_object (sc->self_scm ());
 	}
 	| output_def {
 		SCM id = SCM_EOL;

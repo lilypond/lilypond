@@ -24,8 +24,7 @@
 #include "paper-def.hh"
 #include "input-file-results.hh"
 #include "ly-module.hh"
-
-
+#include "paper-book.hh"
 #include "input-smob.hh"  // output_expr
 
 
@@ -108,13 +107,13 @@ Paper_outputter::output_line (SCM line, bool is_last)
     {
       Stencil *stil = unsmob_stencil (ly_cdar (s));
       SCM head = ly_caar (s);
-#ifndef PAGE_LAYOUT
+      
       if (head == ly_symbol2scm ("between-system-string"))
 	{
 	  between = stil->get_expr ();
 	  continue;
 	}
-#endif      
+  
       output_expr (stil->get_expr (), ly_scm2offset (head));
     }
 
@@ -123,7 +122,7 @@ Paper_outputter::output_line (SCM line, bool is_last)
   else
     {
       output_scheme (scm_list_1 (ly_symbol2scm ("stop-system")));
-      if (between != SCM_EOL)
+      if (output_format_global != PAGE_LAYOUT && between != SCM_EOL)
 	output_scheme (between);
     }
 }
