@@ -1,3 +1,8 @@
+2005-03-31  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/user/macros.itexi: Fix @usermanref html links in
+	split documents: use @inforef.
+
 2005-03-30  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/programming-interface.itely: minor fix.
