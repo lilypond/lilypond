@@ -35,7 +35,7 @@ outdir=$(OUTDIR_NAME)
 
 # derived names
 lily_bindir = $(depth)/bin
-distdir = $(depth)/$(DIST_NAME)
+distdir = $(depth)/$(outdir)/$(DIST_NAME)
 module-distdir = $(depth)/$(MODULE_DIST_NAME)
 depdir = $(outdir)
 
