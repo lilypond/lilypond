@@ -1,7 +1,7 @@
 2004-03-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* scm/output-ps.scm (define-fonts): Always scale by 12.  Fixes
-	feta-nummer, feta-din scaling.
+	* scm/output-ps.scm (define-fonts): Always scale by designsize.
+	Fixes feta-nummer, feta-din scaling.
 
 2004-03-19  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
