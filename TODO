@@ -10,6 +10,7 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 
 .* TODO
 . * use hash tabs iso. alist_ for elt property?
+. * TODO: junk dstream output.
 . * agressive type-checking for SCM stuff.
 . * use  "staff-space" and "half-space" iso interline,
     staff_line_leading () etc.
@@ -29,6 +30,29 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 . * acc at tied note after linebreak.
 . * fix font-naming and selecting
 . * sparse ties.
+. * 
+- in the melody contex I have:
+
+                d8 d, d' <d f> d, <d' f> |
+
+- in the bass context I have:
+
+
+                r8 d4. d4 |
+
+The problem is with 3rd note from melody / 2nd note from the bass.
+lilypond prints them as 2 separate notes, while the original score uses
+the same note circle, and draws both up and down stems. Like for the 5th
+melody / 3rd bass note. Is there any way to solve this ? It looks like
+lilypond doesn't like that the bass note is "4." If I make it "4", then
+lilypond will draw it like I want.
+
+Also, another problem is the midi output. Those bass notes are doubled.
+Is there any way to mute one of "them" ? 
+
+Probably this is not a problem with lilypond, but with my lack of
+knowledge of music theory and/or lilypond. Anyhow, any help is highly
+appreciated, like always :-)
 . * chord tonic: placement of accidental  C#, Cb (from scm and C++)
 . * note head on stem err msg in dutch.
 . * why need to run -C mf twice?
@@ -67,23 +91,18 @@ ChoirStaff bar line types in the rest of the scores
 . * make all Feta (including dynamics) available to the user in
     textual scripts. Examples: "D.S. al \coda", "\mf espress.".
 . * Write script that uses --find-old-relative to do auto relativization. 
-. * Junk shared cruft (duration, moment) in lib/
 
 
 .* Cleanups needed
 . * \$ and $ identifier syntax in examples. 
-. * Junk ghost positioning objects eg, Script leans on  Staffside
-    leans on Staff.
 . * Key_engraver, Local_key_item
 . * Think of comprehensive solution for "if (grace_b == self_grace_b_)"
 . * String[String.length] doesn't trap.
 . * Rhythmic_column and interaction stem/rhythmic_column/note_head/dots.
-. * Duration
 . * clef engraver 
 . * parser
 . * Lookup::text -> needs  to be TeX independent.
 . * junk Music_iterator::first_b_
-. * Bezier
 
 .* ACCIDENTALS
 . * half-sharps, half-flats
@@ -94,9 +113,7 @@ ChoirStaff bar line types in the rest of the scores
 .* Beams
 . * [c8. c16 c16 c16] in 6/8 timesig.
 . * Rewrite Stem, Beam (hairy)
-.  * general shaving on Beam and Stem
-.  * use plet grouping
-.  * beams over bars
+.  * beams over barlines
 . * Rests and beams don't work too well together. Example:
    [ r8 g''16 des'] [r8 c16 a] 
 . * autoBeamMelisma: if I explicitly beam notes in a staff with auto
