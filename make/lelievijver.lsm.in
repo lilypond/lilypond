@@ -2,22 +2,14 @@ Begin3
 Titel: LilyPond
 Versie: @TOPLEVEL_VERSION@
 Inschrijf datum: @DATE@
-Beschrijving: LilyPond is de muziek typesetter van het GNU Project.  
-		Het programma genereert muziek in zichtbare of 
-		hoorbare vorm uit uit een muzikale definitie file: 
-		voor bladmuziek wordt typeset informatie naar een 
-		TeX file geschreven, voor een (mechanische) uitvoering 
-		wordt een MIDI file geschreven.  Enkele kunstjes zijn 
-		verscheidene notenbalken, maatsoorten, sleutels, 
-		toonsoorten, teksten, krachtige invoer taal, cadensen, 
-		balken, boogjes, triolen.
+Beschrijving: @FLAPTEKST@
 Trefwoorden: muziek typezetten midi notatie
 Auteur: hanwen@stack.nl (Han-Wen Nienhuys)
-	jan@digicash.com (Jan Nieuwenhuizen)
-Onderhouden door: hanwen@stack.nl (Han-Wen Nienhuys)
+	janneke@gnu.org (Jan Nieuwenhuizen)
+Onderhouden door: hanwen@cs.ruu.nl (Han-Wen Nienhuys)
 Voornaamste plek: sunsite.unc.edu /pub/Linux/apps
-	395k lilypond-@TOPLEVEL_VERSION@.tar.gz 
+	610k @package@-@TOPLEVEL_VERSION@.tar.gz 
 Oorspronkelijke plek: pcnov095.win.tue.nl /pub/lilypond/
-	395k lilypond-@TOPLEVEL_VERSION@.tar.gz 
-Copi"eer politie: GPL
+	610k @package@-@TOPLEVEL_VERSION@.tar.gz 
+Copi-eer voorwaarden: GPL
 End

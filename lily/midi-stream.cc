@@ -3,7 +3,7 @@
 //
 // source file of the GNU LilyPond music typesetter
 //
-// (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
+// (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #include <fstream.h>
 #include "string.hh"
@@ -72,7 +72,7 @@ Midi_stream::operator << (int i)
 void
 Midi_stream::open ()
 {
-  os_p_ = new ofstream (filename_str_.ch_C ());
+  os_p_ = new ofstream (filename_str_.ch_C (),ios::out|ios::bin);
   if (!*os_p_)
-    error (_ ("can't open `") + filename_str_ + "\'");
+    error (_f ("can't open file: `%s\'", filename_str_));
 }

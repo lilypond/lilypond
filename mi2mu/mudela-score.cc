@@ -1,7 +1,7 @@
 //
 // mudela-score.cc -- implement Mudela_score
 //
-// copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
+// copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #include <assert.h>
 #include "moment.hh"
@@ -19,7 +19,7 @@
 #include "cursor.tcc"
 
 //static Mudela_key key_c (0, 0);
-static Mudela_meter meter_4 (4, 2, 24, 8);
+static Mudela_time_signature time_sig_4 (4, 2, 24, 8);
 // useconds per 4: 250000 === 60 4 per minute
 static Mudela_tempo tempo_60 (1000000);
 
@@ -31,7 +31,7 @@ Mudela_score::Mudela_score (int format_i, int tracks_i, int tempo_i)
   column_l_array_.push (new Mudela_column (this, Moment (0)));
   //  mudela_key_l_ = &key_c;
   mudela_key_l_ = 0;
-  mudela_meter_l_ = &meter_4;
+  mudela_time_signature_l_ = &time_sig_4;
   mudela_tempo_l_ = &tempo_60;
 }
 
@@ -91,21 +91,29 @@ Mudela_score::find_column_l (Moment mom)
 Mudela_column*
 Mudela_score::get_column_l (Moment mom)
 {
-  if ( column_l_array_ [column_l_array_.size() - 1]->at_mom () > mom )
+  int i;
+  Mudela_column *c=0;
+  for (i=column_l_array_.size() - 1; !c && i >=0; i--)
     {
-      error (_("ugh"));
-      exit (1);
+      if (column_l_array_ [i]->at_mom () == mom )
+	c = column_l_array_[i];
+      else if (column_l_array_[i]->at_mom () < mom)
+	break;
     }
-  if ( column_l_array_[column_l_array_.size() - 1]->at_mom () < mom )
-    column_l_array_.push (new Mudela_column (this, mom));
+  if (!c)
+    {
+      c = new Mudela_column (this, mom);
+      column_l_array_.insert (c, i+1);
+    }
 
-  return column_l_array_ [column_l_array_.size() - 1];
+  assert (c->at_mom () == mom);
+  return c;
 }
 
 void
 Mudela_score::output (String filename_str)
 {
-  LOGOUT(NORMAL_ver) << _("Lily output to ") << filename_str << " ..." << endl;
+  LOGOUT(NORMAL_ver) << _f ("Lily output to %s...", filename_str) << endl;
 
   // ugh, ugly midi type 1 fix
   if  ( (mudela_staff_p_list_.size() == 1) && !mudela_staff_p_list_.top()->number_i_)
@@ -115,23 +123,22 @@ Mudela_score::output (String filename_str)
   Mudela_stream mudela_stream (filename_str);
   for  (PCursor<Mudela_staff*> i (mudela_staff_p_list_); i.ok(); i++)
     {
-      LOGOUT(NORMAL_ver) << _("track ") << track_i++ << ": " << flush;
+      LOGOUT(NORMAL_ver) << _ ("track ") << track_i++ << ": " << flush;
       i->output (mudela_stream);
-      mudela_stream << "\n";
+      mudela_stream << '\n';
       LOGOUT(NORMAL_ver) << endl;
     }
 
   mudela_stream << "\\score{\n";
   if  (mudela_staff_p_list_.size() > 1)
-    mudela_stream << "\\multi 3 < \\type Staff\n";
+    mudela_stream << "< \n";
   for  (PCursor<Mudela_staff*> i (mudela_staff_p_list_); i.ok(); i++)
     {
       if  ( (mudela_staff_p_list_.size() != 1)
 	    &&  (i == mudela_staff_p_list_.top()))
 	continue;
-      mudela_stream << "< \\melodic{ ";
-      mudela_stream << "\\$" << i->id_str();
-      mudela_stream << " } >\n";
+      mudela_stream << "\\type Staff = \"" << i->id_str() << "\" ";
+      mudela_stream << "\\$" << i->id_str() << "\n";
     }
   if  (mudela_staff_p_list_.size() > 1)
     mudela_stream << ">\n";
@@ -149,22 +156,22 @@ Mudela_score::output (String filename_str)
 void
 Mudela_score::process()
 {
-  LOGOUT(NORMAL_ver) << _("\nProcessing...") << endl;
+  LOGOUT(NORMAL_ver) << '\n' << _ ("Processing...") << endl;
 
   LOGOUT(DEBUG_ver) << "columns\n";
   //  for  (PCursor<Mudela_column*> i (mudela_column_p_list_); i.ok(); i++)
-  //	LOGOUT(DEBUG_ver) << "At: " << i->at_mom() << "\n";
+  //	LOGOUT(DEBUG_ver) << "At: " << i->at_mom() << '\n';
 
   settle_columns();
   filter_tempo();
   quantify_columns();
   quantify_durations();
 
-  LOGOUT(NORMAL_ver) << _("\nCreating voices...") << endl;
+  LOGOUT(NORMAL_ver) << '\n' << _ ("Creating voices...") << endl;
   int track_i = 0;
   for  (PCursor<Mudela_staff*> i (mudela_staff_p_list_); i.ok(); i++)
     {
-      LOGOUT(NORMAL_ver) << _("track ") << track_i++ << ": " << flush;
+      LOGOUT(NORMAL_ver) << _ ("track ") << track_i++ << ": " << flush;
       i->process();
       LOGOUT(NORMAL_ver) << endl;
     }
@@ -173,7 +180,7 @@ Mudela_score::process()
 void
 Mudela_score::filter_tempo()
 {
-  LOGOUT(NORMAL_ver) << _("\nNOT Filtering tempo...") << endl;
+  LOGOUT(NORMAL_ver) << '\n' << _ ("NOT Filtering tempo...") << endl;
 }
 
 void
@@ -182,14 +189,14 @@ Mudela_score::quantify_columns()
   // ugh
   if  (Duration_convert::no_quantify_b_s)
     {
-      LOGOUT(NORMAL_ver) << _("\nNOT Quantifying columns...") << endl;
+      LOGOUT(NORMAL_ver) << '\n' << _("NOT Quantifying columns...") << endl;
       return;
     }
 
-  LOGOUT(NORMAL_ver) << _("\nQuantifying columns...") << endl;
+  LOGOUT(NORMAL_ver) << '\n' << _("Quantifying columns...") << endl;
 
   int current_bar_i = 0;
-  Moment bar_mom = mudela_meter_l_->bar_mom();
+  Moment bar_mom = mudela_time_signature_l_->bar_mom();
 
   int n = 5 >? Duration_convert::no_smaller_than_i_s;
   n = Duration_convert::type2_i (n);
@@ -203,7 +210,7 @@ Mudela_score::quantify_columns()
       int bar_i = (int) (column_l_array_ [i]->at_mom () / bar_mom) + 1;
       if (bar_i > current_bar_i)
 	{
-	  LOGOUT (NORMAL_ver) << '[' << bar_i << ']' << flush;
+	  LOGOUT (NORMAL_ver) << "[" << bar_i << "]" << flush;
 	  current_bar_i = bar_i;
 	}
     }
@@ -213,15 +220,15 @@ Mudela_score::quantify_columns()
 void
 Mudela_score::quantify_durations()
 {
-  //    LOGOUT(NORMAL_ver) << "\nQuantifying durations..." << endl;
+  //    LOGOUT(NORMAL_ver) << '\n' << "Quantifying durations..." << endl;
 }
 
 void
 Mudela_score::settle_columns()
 {
-  //    LOGOUT(NORMAL_ver) << "\nNOT Settling columns..." << endl;
+  //    LOGOUT(NORMAL_ver) << '\n' << "NOT Settling columns..." << endl;
   //    return;
-  LOGOUT(NORMAL_ver) << _("\nSettling columns...") << endl;
+  LOGOUT(NORMAL_ver) << '\n' << _("Settling columns...") << endl;
 
 #if 0
   assert (!column_l_array_.size());

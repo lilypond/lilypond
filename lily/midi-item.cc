@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
 #include "proto.hh"
@@ -25,7 +25,7 @@ IMPLEMENT_IS_TYPE_B1 (Midi_duration, Midi_item);
 IMPLEMENT_IS_TYPE_B1 (Midi_header, Midi_chunk);
 IMPLEMENT_IS_TYPE_B1 (Midi_instrument, Midi_item);
 IMPLEMENT_IS_TYPE_B1 (Midi_key,Midi_item);
-IMPLEMENT_IS_TYPE_B1 (Midi_meter, Midi_item);
+IMPLEMENT_IS_TYPE_B1 (Midi_time_signature, Midi_item);
 IMPLEMENT_IS_TYPE_B1 (Midi_note, Midi_item);
 IMPLEMENT_IS_TYPE_B1 (Midi_note_off, Midi_item);
 IMPLEMENT_IS_TYPE_B1 (Midi_tempo, Midi_item);
@@ -79,7 +79,7 @@ Midi_duration::Midi_duration (Real seconds_f)
 String
 Midi_duration::str () const
 {
-  return String ("<duration: ") + String (seconds_f_) + ">";
+  return String ("<duration: ") + to_str (seconds_f_) + ">";
 }
 
 Midi_event::Midi_event (Moment delta_mom, Midi_item* mitem_p)
@@ -312,8 +312,8 @@ Midi_instrument::str () const
 	break;
       }
 
-  String str = String ( (char) (0xc0 + channel_i_));
-  str += String ( (char)program_byte);
+  String str = to_str ((char) (0xc0 + channel_i_));
+  str += to_str ((char)program_byte);
   return str;
 }
 
@@ -337,7 +337,7 @@ Midi_item::i2varint_str (int i)
   String str;
   while (1) 
     {
-      str += (char)buffer_i;
+      str += to_str ((char)buffer_i);
       if (buffer_i & 0x80)
 	buffer_i >>= 8;
       else
@@ -354,13 +354,17 @@ Midi_key::Midi_key (Audio_item* audio_item_l)
 String
 Midi_key::str () const
 {
-  Key_change_req* k = audio_item_l_->req_l_->command ()->keychange ();
+  Key_change_req* k = audio_item_l_->req_l_->access_Command_req ()->access_Key_change_req ();
   int sharps_i = k->sharps_i ();
   int flats_i = k->flats_i ();
 
   // midi cannot handle non-conventional keys
   if (flats_i && sharps_i)
-    return "";
+    {
+      String str = _f ("unconventional key: flats: %d, sharps: %d", flats_i, 
+        sharps_i);
+      flats_i = sharps_i = 0;
+    }
   int accidentals_i = sharps_i - flats_i;
 
   String str = "ff5902";
@@ -370,16 +374,16 @@ Midi_key::str () const
   return String_convert::hex2bin_str (str);
 }
 
-Midi_meter::Midi_meter (Audio_item* audio_item_l)
+Midi_time_signature::Midi_time_signature (Audio_item* audio_item_l)
   : Midi_item (audio_item_l)
 {
   clocks_per_1_i_ = 18;
 }
 
 String
-Midi_meter::str () const
+Midi_time_signature::str () const
 {
-  Meter_change_req* m = audio_item_l_->req_l_->command ()->meterchange ();
+  Time_signature_change_req* m = audio_item_l_->req_l_->access_Command_req ()->access_Time_signature_change_req ();
   int num_i = m->beats_i_;
   int den_i = m->one_beat_i_;
 
@@ -400,28 +404,39 @@ Midi_note::Midi_note (Audio_item* audio_item_l)
 Moment
 Midi_note::duration () const
 {
-  return audio_item_l_->req_l_->musical ()->rhythmic ()->duration ();
+  Moment m = audio_item_l_->req_l_->access_Musical_req ()->access_Rhythmic_req ()->duration ();
+  if (m < Moment (1, 1000))
+    {
+      warning (_ ("silly duration"));
+      m = 1;
+     }
+  return m;
 }
 
 int
 Midi_note::pitch_i () const
 {
-  return audio_item_l_->req_l_->musical ()->melodic ()->pitch_.semitone_pitch ();
+  int p = audio_item_l_->req_l_->access_Musical_req ()->access_Melodic_req 
+    ()->pitch_.semitone_pitch () 
+    + ((Audio_note*)audio_item_l_)->transposing_i_;
+  if (p == INT_MAX)
+    {
+      warning (_ ("silly pitch"));
+      p = 0;
+     }
+  return p;
 }
 
 String
 Midi_note::str () const
 {
-  if (pitch_i () == INT_MAX)
-    return String ("");
-
   Byte status_byte = (char) (0x90 + channel_i_);
 
-  String str = String ( (char)status_byte);
-  str += (char) (pitch_i () + c0_pitch_i_c_);
+  String str = to_str ((char)status_byte);
+  str += to_str ((char) (pitch_i () + c0_pitch_i_c_));
 
   // poor man's staff dynamics:
-  str += (char) (dynamic_byte_ - 0x10 * channel_i_);
+  str += to_str ((char) (dynamic_byte_ - 0x10 * channel_i_));
 
   return str;
 }
@@ -437,20 +452,19 @@ Midi_note_off::Midi_note_off (Midi_note* midi_note_l)
 int
 Midi_note_off::pitch_i () const
 {
-  return audio_item_l_->req_l_->musical ()->melodic ()->pitch_.semitone_pitch ();
+  return audio_item_l_->req_l_->access_Musical_req ()->access_Melodic_req 
+    ()->pitch_.semitone_pitch ()
+    + ((Audio_note*)audio_item_l_)->transposing_i_;
 }
 
 String
 Midi_note_off::str () const
 {
-  if (pitch_i () == INT_MAX)
-    return String ("");
-
   Byte status_byte = (char) (0x80 + channel_i_);
 
-  String str = String ( (char)status_byte);
-  str += (char) (pitch_i () + Midi_note::c0_pitch_i_c_);
-  str += (char)aftertouch_byte_;
+  String str = to_str ((char)status_byte);
+  str += to_str ((char) (pitch_i () + Midi_note::c0_pitch_i_c_));
+  str += to_str ((char)aftertouch_byte_);
   return str;
 }
 

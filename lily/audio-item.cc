@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 #include "debug.hh"
 #include "audio-item.hh"
@@ -42,9 +42,10 @@ Audio_key::midi_item_p()
 }
 IMPLEMENT_IS_TYPE_B1 (Audio_key, Audio_item);
 
-Audio_note::Audio_note (Request* req_l)
+Audio_note::Audio_note (Request* req_l, int transposing_i)
   : Audio_item (req_l)
 {
+  transposing_i_ = transposing_i;
 }
 
 Midi_item*
@@ -69,17 +70,17 @@ Audio_tempo::midi_item_p()
 
 IMPLEMENT_IS_TYPE_B1(Audio_tempo, Audio_item);
 
-Audio_meter::Audio_meter (Request* req_l)
+Audio_time_signature::Audio_time_signature (Request* req_l)
   : Audio_item (req_l)
 {
 }
 
 Midi_item*
-Audio_meter::midi_item_p()
+Audio_time_signature::midi_item_p()
 {
-  return new Midi_meter (this);
+  return new Midi_time_signature (this);
 }
-IMPLEMENT_IS_TYPE_B1(Audio_meter, Audio_item);
+IMPLEMENT_IS_TYPE_B1(Audio_time_signature, Audio_item);
 
 Audio_text::Audio_text (Audio_text::Type type, String text_str)
   : Audio_item (0)

@@ -3,11 +3,11 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "atom.hh"
-#include "boxes.hh"
+#include "box.hh"
 #include "debug.hh"
 #include "lookup.hh"
 #include "molecule.hh"
@@ -31,7 +31,7 @@ Plet_spanner::Plet_spanner ()
   visibility_i_ = 3;
 
   tdef_p_ = new Text_def;
-  tdef_p_->align_i_ = CENTER;
+  tdef_p_->align_dir_ = CENTER;
   tdef_p_->style_str_ = "italic";
 }
 
@@ -59,12 +59,12 @@ Plet_spanner::brew_molecule_p () const
   
   w += (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
   
-  Atom a = paper ()->lookup_l ()->plet (dy_f, w, dir_);
+  Atom a = lookup_l ()->plet (dy_f, w, dir_);
 
   a.translate (Offset (dx_f_drul_[LEFT], dy_f_drul_[LEFT]));
 
   if (visibility_i_ >= 2)
-      mol_p->add (a);
+      mol_p->add_atom (a);
 
   Real interline_f = paper ()->interline_f ();
   Real numy_f = (dir_ > 0 ? 0 : -interline_f) + dir_ * interline_f / 2;
@@ -73,7 +73,7 @@ Plet_spanner::brew_molecule_p () const
     dy_f_drul_[LEFT] + dy_f / 2 + numy_f));
 
   if (visibility_i_ >= 1)
-    mol_p->add (num);
+    mol_p->add_atom (num);
 
   return mol_p;
 }
@@ -82,7 +82,7 @@ void
 Plet_spanner::do_add_processing ()
 {
   if (! (stem_l_drul_[LEFT] && stem_l_drul_[RIGHT]))
-    warning (_ ("Lonely plet.. "));
+    warning (_ ("lonely plet"));
 
   Direction d = LEFT;
   Drul_array<Stem *> new_stem_drul = stem_l_drul_;
@@ -126,12 +126,12 @@ Plet_spanner::do_post_processing ()
 }
 
 void
-Plet_spanner::do_substitute_dependency (Score_elem* o, Score_elem* n)
+Plet_spanner::do_substitute_dependency (Score_element* o, Score_element* n)
 {
-  Stem* new_l = n ? (Stem*)n->item () : 0;
-  if (o->item () == stem_l_drul_[LEFT])
+  Stem* new_l = n ? (Stem*)n->access_Item () : 0;
+  if (o->access_Item () == stem_l_drul_[LEFT])
     stem_l_drul_[LEFT] = new_l;
-  else if (o->item () == stem_l_drul_[RIGHT])
+  else if (o->access_Item () == stem_l_drul_[RIGHT])
     stem_l_drul_[RIGHT] = new_l;
 }
   

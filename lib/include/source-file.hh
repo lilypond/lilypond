@@ -1,7 +1,7 @@
 //
 //  source-file.hh -- declare Source_file
 //
-//  copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
+//  copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #ifndef SOURCE_FILE_HH
 #define SOURCE_FILE_HH
@@ -20,6 +20,7 @@ public:
   /** Ugh! filename gets changed! The path to the opened file may
     change, since it might be searched in multiple directories.  */
   Source_file (String filename_str_r );
+  Source_file (String name_str, String data_str);
   virtual ~Source_file ();
 
   char const* ch_C () const;

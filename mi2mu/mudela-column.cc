@@ -1,7 +1,7 @@
 //
 // mudela-column.cc -- implement Mudela_column
 //
-// copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
+// copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #include "mudela-column.hh"
 

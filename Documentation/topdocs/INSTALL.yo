@@ -1,0 +1,298 @@
+article(INSTALL - compiling and installing GNU LilyPond)(HWN & JCN)()
+
+sect(ABSTRACT)
+
+You do something which looks remotely like
+verb(
+	configure    # Check out the buildscripts/set-lily.sh script
+	make
+	make install
+)
+
+The detailed instructions follow here.  The
+file(buildscripts/set-lily.sh) script sets some environment variables
+and symlinks, which comes in handly when you have to compile LilyPond
+very often.  It is aimed at people who run (or debug) LilyPond without 
+installing.
+
+sect(PREREQUISITES)
+
+For compilation you need:
+
+itemize(
+it()A GNU system: GNU LilyPond is known to run on these GNU systems: Linux
+    (PPC, intel), FreeBSD, AIX, NeXTStep, IRIX, Digital Unix and
+Solaris.
+
+Although we recommend to use Unix, LilyPond is known to run on Windows
+NT/95/98 as well.  See Section ref(w32).
+
+it() GNU C++ version 2.7 or newer (2.8 and egcs are also fine).
+it() Python 1.5
+)
+
+sect(RUNNING)
+
+GNU LilyPond does use a lot of resources. For operation you need the following:
+
+itemize(
+it()TeX
+it()A PostScript printer and/or viewer (such as Ghostscript) is strongly
+    recommended.  Xdvi will show all embedded PostScript too if you have
+    Ghostscript installed.
+)
+
+sect(RECOMMENDED)
+
+Although not strictly necessary, these are recommended to have.
+
+itemize(
+it()GNU make. 
+it()Flex (version 2.5.4 or newer). 
+it()Bison (version 1.25 or newer).
+it()Python (version 1.5 or newer).
+it()Yodl.  All documentation will be in Yodl. (1.30.17)
+lurl(ftp://pcnov095.win.tue.nl/pub/yodl)
+    lurl(http://www.cs.uu.nl/~hanwen/yodl)
+it()Texinfo. (version 3.12 or newer)
+
+it()GNU find
+it() A fast computer (a full page of music typically takes 1 minute on my
+    486/133, using the bf(--enable-checking) compile. It's lot slower than
+    most MusiXTeX preprocessors)
+)
+
+sect(WEBSITE)
+
+If you want to auto-generate Lily's website, you'll need some additional
+conversion tools.
+
+itemize(
+it()xpmtoppm (from the Portable Bitmap Utilities) (For RedHat Linux
+	     users: it is included within the package libgr-progs).
+it()Bib2html lurl(http://pertsserver.cs.uiuc.edu/~hull/bib2html.)
+    Which, in turn depends on man2html for proper installation.
+man2html can be had from lurl(http://askdonald.ask.uni-karlsruhe.de/hppd/hpux/Networking/WWW/Man2html-1.05).
+
+    TeTeX users should not forget to rerun texhash.
+)
+
+sect(CONFIGURING and COMPILING)
+
+to install GNU LilyPond, simply type:
+verb(
+	configure  --enable-tex-dir=XXXX --enable-mf-dir=YYYY
+	make
+	make install
+)
+
+This will install a number of files, something close to:
+verb(
+	/usr/local/man/man1/mi2mu.1
+	/usr/local/man/man1/convert-mudela.1
+	/usr/local/man/man1/mudela-book.1
+	/usr/local/man/man1/lilypond.1
+	/usr/local/bin/lilypond
+	/usr/local/bin/mi2mu
+	/usr/local/share/lilypond/*
+	/usr/local/share/locale/{it,nl}/LC_MESSAGES/lilypond.mo
+	/usr/lib/texmf/texmf/tex/lilypond/* 
+)
+
+
+You should specify directories that are in TeX()'s and MetaFont's
+include path with the options (--enable-tex-dir) and
+bf(--enable-mf-dir).  If you don't specify any directories, the TeX()
+include directory is detected dynamically, which is unreliable.  The
+above assumes that you are root and have the GNU development tools,
+and your make is GNU make.  If this is not the case, you can adjust
+your environment variables to your taste:
+
+verb(
+	export CPPFLAGS="-I /home/me/my_include -DWEIRD_FOOBAR" 
+	configure
+)
+
+code(CPPFLAGS) are the preprocessor flags. 
+
+The configure script is Cygnus configure, and it will accept
+bf(--help). If you are not root, you will probably have to make it
+with a different bf(--prefix) option.  Our favourite location is
+
+verb(
+	configure --prefix=$HOME/usr
+)
+
+In this case, you will have to set up MFINPUTS, and TEXINPUTS accordingly.
+
+If you want to install GNU LilyPond in file(/usr/local), and your TeX has
+no default hooks for local stuff, you can do:
+
+verb(
+	configure --prefix=/usr/local --enable-tex-prefix=/usr/lib/texmf
+)
+
+Since GNU LilyPond currently is beta, you are advised to also use
+
+verb(
+	--enable-debugging
+	--enable-checking
+)
+
+Other options include:
+
+description(
+dit(bf(--enable-shared))
+    Make a shared library (gnu/linux, solaris (?) only )  (TEMPORARILY
+OUT OF ORDER)
+
+dit(bf(--enable-printing))
+    Enable debugging print routines (lilypond bf(-D) option)
+dit(bf(--enable-optimise))
+    Set maximum optimisation: compile with bf(-O2)
+dit(bf(--enable-profiling))
+    Compile with support for profiling.
+dit(bf(--enable-tex-prefix))
+    Set the directory where TeX and Metafont live.
+dit(bf(--enable-tex-dir))
+    Set then directory TeX input is in (detected as a subdir of
+    tex-prefix).  This should be a directory that is reachable both for
+    tex and latex.  On my system the best choice would be
+    file(/usr/lib/texmf/texmf/tex/generic//).
+dit(bf(--enable-mf-dir))
+    Set the directory metafont input is in (idem).   On my system the best
+    choice would be file(/usr/lib/texmf/texmf/fonts/source/public/).
+dit(bf(--enable-config))
+    Output to a different configuration file.  Needed for multi-platform
+    builds
+)
+
+All options are documented in the file(configure) help
+The option bf(--enable-optimise) is recommended for Real Life usage.
+
+If you do
+
+verb(
+	make all
+)
+
+everything will be compiled, but nothing will be installed.  The
+resulting binaries can be found in the subdirectories file(out/) (which
+contain all files generated during compilation).
+
+sect(CONFIGURING FOR MULTIPLE PLATFORMS)
+
+If you want to compile LilyPond with different configuration settings,
+then, you can use the bf(--enable-config) option.  Example: suppose I
+want to build with and   without profiling.  Then I'd use the
+following for the normal build, 
+
+verb(
+      configure --prefix=~ --disable-optimise --enable-checking
+      make
+      make install
+     )
+
+and for the profiling version, I specify a different configuration.
+
+verb(
+      configure --prefix=~ --enable-profiling --enable-config=optprof --enable-optimise --disable-checking
+      make configuration=optprof
+      make configuration=optprof install
+)
+
+
+sect(INSTALLING)
+
+If you have done a successful code(make), then a simple
+
+verb(
+	make install
+)
+
+should do the trick.
+
+If you are doing an upgrade, please remember to remove obsolete
+file(.pk) and file(.tfm) files of the fonts.  A script has been
+provided to do the work for you, see file(bin/clean-fonts.sh).
+
+nsect(CAVEATS)
+
+itemize(
+it()The -O2 option to gcc triggers a gcc bug on DEC Alpha in dstream.cc. You
+    should turn off this flag for this file.
+)
+
+nsect(EXAMPLE)
+
+This is what I type in my xterm:
+
+verb(
+	lilypond someinput.ly
+	tex someinput.tex
+	xdvi someinput&
+)
+
+This is what the output looks like over here:
+
+verb(
+	GNU LilyPond 0.0.78 #4/FlowerLib 1.1.24 #0
+	Parsing ... [/home/hw/share/lilypond/init//
+		<..etc..>
+		init//performer.ly]]][input/kortjakje.ly]
+	Creating elements ...[8][16][24][25]
+	Preprocessing elements... 
+	Calculating column positions ... [14][25]
+	Postprocessing elements...
+	TeX output to someinput.tex ...
+	Creating MIDI elements ...MIDI output to someinput.midi ...
+
+
+	hw:~/musix/spacer$ xdvi someinput&
+	[1] 855
+)
+
+Check out the input files, some of them have comments
+Please refer to the man page for more information.
+
+sect(REDHAT LINUX)
+
+RedHat Linux users can compile an RPM. A spec file is in
+file(make/out/lilypond.spec).  You should install a gif file called
+file(lelie_icon.gif) along with the sources.  You can generate this
+gif file by typing
+
+verb(
+     make gifs
+)
+
+in the directory file(Documentation).
+
+You can make the rpm by issuing
+
+verb(
+	make rpm
+)
+
+
+sect(DEBIAN GNU/LINUX)
+
+A Debian package is also available; contact Anthony Fok
+email(foka@debian.org).  The build scripts are in the subdirectory file(debian/)
+
+
+sect(WINDOWS NT/95)
+label(w32)
+
+
+Separate instructions on building for W32 are avaible
+url(in the file README-W32.yo)(../../DOEXPAND(outdir)/README-W32.html).
+
+sect(AUTHORS)
+
+nemail(Han-Wen Nienhuys)(hanwen@cs.uu.nl)
+
+nemail(Jan Nieuwenhuizen)(janneke@gnu.org)
+
+
+Have fun!

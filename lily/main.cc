@@ -3,15 +3,16 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include <stdlib.h>
 #include <iostream.h>
 #include <assert.h>
+#include <locale.h>
 #include "proto.hh"
 #include "plist.hh"
-#include "lgetopt.hh"
+#include "getopt-long.hh"
 #include "misc.hh"
 #include "string.hh"
 #include "main.hh"
@@ -20,6 +21,10 @@
 #include "file-results.hh"
 #include "debug.hh"
 
+#if HAVE_GETTEXT
+#include <libintl.h>
+#endif
+
 
 bool version_ignore_global_b = false;
 bool no_paper_global_b = false;
@@ -27,15 +32,18 @@ bool no_timestamps_global_b = false;
 bool find_quarts_global_b = false;
 String default_outname_base_global =  "lelie";
 int default_count_global;
+File_path global_path;
+
 
 bool experimental_features_global_b = false;
 bool dependency_global_b = false;
 
 int exit_status_i_;
 
-void destill_inname (String &name_str_r);
+String distill_inname_str (String name_str, String& ext_r);
 
 Long_option_init theopts[] = {
+  {0, "about", 'a'},
   {1, "output", 'o'},
   {0, "warranty", 'w'},
   {0, "help", 'h'},
@@ -46,7 +54,7 @@ Long_option_init theopts[] = {
   {0, "no-paper", 'M'},
   {0, "dependencies", 'd'},
   {0, "no-timestamps", 'T'},
-  {0, "find-quarts", 'Q'},
+  {0, "find-fourths", 'Q'},
   {0, "ignore-version", 'V'},
   {0,0,0}
 };
@@ -54,25 +62,55 @@ Long_option_init theopts[] = {
 void
 usage ()
 {
-  cout <<
-    _("Usage: lilypond [options] [mudela-files]\n"
-    "Typeset and or produce midi output from mudela-file or stdin\n"
-    "\n"
-    "Options:\n"
+  cout << _f ("Usage: %s [OPTION]... [FILE]...", "lilypond") << '\n';
+  cout << _ ("Typeset music and or play MIDI from FILE or <stdin>");
+  cout << '\n';
+  cout << '\n';
+  cout << _ ("Options:");
+  cout << '\n';
+  cout  << _ (
+    "  -a, --about            about LilyPond\n"
+    );
+  cout  << _ (
     "  -D, --debug            enable debugging output\n"
+    );
+  cout  << _ (
     "  -d, --dependencies     write Makefile dependencies for every input file\n"
-    "  -Q, --find-quarts      show all intervals bigger than a quart\n"
+    );
+  cout  << _ (
     "  -I, --include=DIR      add DIR to search path\n"
+    );
+  cout  << _ (
     "  -i, --init=FILE        use FILE as init file\n"
+    );
+  cout  << _ (
     "  -h, --help             this help\n"
+    );
+  cout  << _ (
     "  -M, --no-paper         produce midi output only\n"
-    "  -o, --output=FILE      set FILE as default output\n"
+    );
+  cout  << _ (
+    "  -o, --output=FILE      set FILE as default output base\n"
+    );
+  cout  << _ (
+    "  -Q, --find-fourths     show all intervals greater than a fourth\n"
+    );
+  cout  << _ (
     "  -t, --test             switch on experimental features\n"
+    );
+  cout  << _ (
     "  -T, --no-timestamps    don't timestamp the output\n"
+    );
+  cout  << _ (
     "  -V, --ignore-version   ignore mudela version\n"
+    );
+  cout  << _ (
     "  -w, --warranty         show warranty and copyright\n"
-    "\n"
-    "GNU LilyPond was compiled with the following settings:\n")
+    );
+  cout << '\n';
+  cout << _ ("GNU LilyPond was compiled with the following settings:");
+  cout << '\n';
+  cout <<
 #ifdef NDEBUG
     "NDEBUG "
 #endif
@@ -82,7 +120,9 @@ usage ()
 #ifdef STRING_UTILS_INLINED
     "STRING_UTILS_INLINED "
 #endif
-        "datadir= " DIR_DATADIR
+        "datadir=" DIR_DATADIR
+	" "
+        "localedir=" DIR_LOCALEDIR
 
     "\n";
 
@@ -90,15 +130,34 @@ usage ()
 }
 
 void
+about ()
+{
+  cout << '\n';
+  cout << 
+  #include "BLURB.hh"
+  cout << '\n';
+  cout << _ ("GNU LilyPond is Free software, see --warranty");
+  cout << '\n';
+  cout << '\n';
+  cout << _f ("Copyright (c) %s by", "1996, 1997, 1998");
+  cout << '\n';
+  cout << "  " + _ ("Han-Wen Nienhuys <hanwen@cs.uu.nl>") + "\n";
+  cout << "  " + _ ("Jan Nieuwenhuizen <janneke@gnu.org>") + "\n";
+  cout << '\n';
+}
+
+void
 notice ()
 {
-  cout <<
-    _("\n"
-    "GNU LilyPond -- The GNU Project music typesetter.\n"
-    "Copyright 1996, 97, 98 by\n"
-    "  Han-Wen Nienhuys <hanwen@stack.nl>\n"
-    "  Jan Nieuwenhuizen <jan@digicash.com>\n"
-    "\n"
+  cout << '\n';
+  cout << _ ("GNU LilyPond -- The GNU Project music typesetter");
+  cout << '\n';
+  cout << _f ("Copyright (c) %s by", "1996, 1997, 1998");
+  cout << '\n';
+  cout << "  " + _ ("Han-Wen Nienhuys <hanwen@cs.uu.nl>") + "\n";
+  cout << "  " + _ ("Jan Nieuwenhuizen <janneke@gnu.org>") + "\n";
+  cout << '\n';
+  cout << _ (
     "    This program is free software; you can redistribute it and/or\n"
     "modify it under the terms of the GNU General Public License version 2\n"
     "as published by the Free Software Foundation.\n"
@@ -114,38 +173,43 @@ notice ()
     "USA.\n");
 }
 
-
- File_path path;
-
-
 void
 identify ()
 {
-  cout << get_version_str () << endl;
+  *mlog << get_version_str () << endl;
 }
 
 int
 main (int argc, char **argv)
 {
+
+#if HAVE_GETTEXT
+  setlocale (LC_ALL, "");
+//  setlocale (LC_MESSAGES, "");
+  String name (PACKAGE);
+  name.to_lower ();
+  bindtextdomain (name.ch_C (), DIR_LOCALEDIR);
+  textdomain (name.ch_C ());
+#endif
+
   identify ();
   call_constructors ();
   debug_init ();		// should be first
 
-
-  
-  path.add ("");
+  global_path.add ("");
   // must override (come before) "/usr/local/share/lilypond"!
   char const *env_sz = getenv ("LILYINCLUDE");
   if (env_sz)
-    path.parse_path (env_sz);
+    global_path.parse_path (env_sz);
 
-  path.add (String (DIR_DATADIR) + "/init/");
+  global_path.add (String (DIR_DATADIR) + "/init/");
 
-  path.push (DIR_DATADIR);
+  global_path.push (DIR_DATADIR);
 
   Getopt_long oparser (argc, argv,theopts);
-  String init_str ("lily-init.ly");
+  String init_str;
 
+  String outname_str;
   while (Long_option_init const * opt = oparser ())
     {
       switch (opt->shortname)
@@ -154,7 +218,7 @@ main (int argc, char **argv)
 	  experimental_features_global_b = true;
 	  break;
 	case 'o':
-	  default_outname_base_global = oparser.optional_argument_ch_C_;
+	  outname_str = oparser.optional_argument_ch_C_;
 	  break;
 	case 'w':
 	  notice ();
@@ -164,11 +228,14 @@ main (int argc, char **argv)
 	  find_quarts_global_b = true;
 	  break;
 	case 'I':
-	  path.push (oparser.optional_argument_ch_C_);
+	  global_path.push (oparser.optional_argument_ch_C_);
 	  break;
 	case 'i':
 	  init_str = oparser.optional_argument_ch_C_;
 	  break;
+	case 'a':
+	  about ();
+	  exit (0);
 	case 'h':
 	  usage ();
 	  exit (0);
@@ -194,39 +261,83 @@ main (int argc, char **argv)
 	}
     }
 
+  default_outname_base_global = "lelie";
+
+  
+
   int p=0;
   const char *arg ;
   while ((arg= oparser.get_next_arg ()))
     {
       String f (arg);
-      destill_inname (f);
-      do_one_file (init_str,f);
+      String i;
+      f = distill_inname_str (f, i);
+      if (f == "-")
+	default_outname_base_global = "-";
+      else
+	{
+	  String a,b,c,d;
+	  split_path (f, a, b, c, d);
+	  default_outname_base_global = c;
+	}
+      if (outname_str.length_i ())
+	default_outname_base_global = outname_str;
+      if (init_str.length_i ())
+	i = init_str;
+      else
+	i = "init" + i;
+      do_one_file (i, f);
       p++;
     }
   if (!p)
     {
-      do_one_file (init_str, "");
+      String i;
+      if (init_str.length_i ())
+	i = init_str;
+      else
+	i = "init.ly";
+      default_outname_base_global = "-";
+      if (outname_str.length_i ())
+	default_outname_base_global = outname_str;
+      do_one_file (i, default_outname_base_global);
     }
 
   return exit_status_i_;
 }
 
-/// make input file name: add default extension. "" is stdin.
-void
-destill_inname (String &name_str_r)
+/*
+  urg: make input file name: 
+  input: file name
+  output: file name with added default extension. "" is stdin.
+          in reference argument: the extention. ".ly" if none
+ */
+
+String
+distill_inname_str (String name_str, String& ext_r)
 {
-  if (name_str_r.length_i ())
+  String str = name_str;
+  if (str.length_i ())
     {
-      if (name_str_r[ 0 ] != '-')
+      if (str != "-")
 	{
-	  String a,b,c,d;
-	  split_path (name_str_r,a,b,c,d);
+	  String a,b,c;
+	  split_path (str,a,b,c,ext_r);
 
 	  // add extension if not present.
-	  if (d.empty_b ())
-	    d = ".ly";
-	  name_str_r = a+b+c+d;
+	  if (ext_r.empty_b ())
+	    {
+	      ext_r = ".fly";
+	      if (global_path.find (a+b+c+ext_r).empty_b ())
+		ext_r = ".ly";
+	    }
+	  str = a+b+c+ext_r;
 	}
     }
-  else name_str_r = "";
+  else 
+    {
+      str = "-";
+      ext_r = ".ly";
+    }
+  return str;
 }
+

@@ -1,9 +1,9 @@
 /*
-  duration.hh -- declare Duration Plet
-
+  duration.hh -- declare Duration
+  
   source file of the LilyPond music typesetter
 
-  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
 
 */
 
@@ -17,7 +17,7 @@
 #include "plet.hh"
 
 /**
-  Class to handle "musical" durations. This means: balltype 1,2,4,etc. and dots.
+   Handle "musical" durations. This means: balltype 1,2,4,etc. and dots.
    
   (dur)
   */

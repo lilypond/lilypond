@@ -4,15 +4,18 @@
 
   source file of the flowerlib
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+         Jan Nieuwenhuizen <janneke@gnu.org>
 */
-#include <stdarg.h>
+
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
 #include "libc-extension.hh"
 
-
+/*
+  urg: why soo wierd?
+ */
 char* 
 strnlwr (char* start_l ,int n)
 {
@@ -109,8 +112,8 @@ strrev (Byte* byte_l, int length_i)
 }
 
 #if ! HAVE_SNPRINTF
-int snprintf (char *str, size_t,
-	      char const *format, ...)
+int 
+snprintf (char *str, size_t, char const *format, ...)
 {
   va_list ap;
   va_start (ap, format);
@@ -119,3 +122,13 @@ int snprintf (char *str, size_t,
   return i;
 }
 #endif
+
+#if ! HAVE_VSNPRINTF
+int 
+vsnprintf (char *str, size_t, char const *format, va_list args)
+{
+  int i = vsprintf (str, format, args);
+  return i;
+}
+#endif
+

@@ -1,7 +1,7 @@
 //
 // mudela-score.hh -- declare Mudela_score
 //
-// copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
+// copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #ifndef MUDELA_SCORE_HH
 #define MUDELA_SCORE_HH
@@ -28,7 +28,7 @@ public:
 
     // ugh
     Mudela_key* mudela_key_l_;
-    Mudela_meter* mudela_meter_l_;
+    Mudela_time_signature* mudela_time_signature_l_;
     Mudela_tempo* mudela_tempo_l_;
 
 private:

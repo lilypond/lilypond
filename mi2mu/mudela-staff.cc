@@ -1,7 +1,7 @@
 //
 // mudela-staff.cc -- implement Mudela_staff
 //
-// copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
+// copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #include <assert.h>
 #include <ctype.h>
@@ -26,7 +26,7 @@ Mudela_staff::Mudela_staff (int number_i, String copyright_str, String track_nam
   instrument_str_ = instrument_str;
   name_str_ = track_name_str;
   mudela_key_l_ = 0;
-  mudela_meter_l_ = 0;
+  mudela_time_signature_l_ = 0;
   mudela_tempo_l_ = 0;
 }
 
@@ -68,7 +68,7 @@ Mudela_staff::eat_voice (Link_list<Mudela_item*>& items)
 	}
       else if  (i.ok())
 	i++;
-      LOGOUT(DEBUG_ver) << "mom: " << mom.str () << "\n";
+      LOGOUT(DEBUG_ver) << "mom: " << mom.str () << '\n';
     }
 }
 
@@ -88,7 +88,7 @@ Mudela_staff::name_str()
 {
   if  (name_str_.length_i())
     return name_str_;
-  return String ("track") + String (number_i_);
+  return String ("track") + to_str (number_i_);
 }
 
 void
@@ -96,12 +96,12 @@ Mudela_staff::output (Mudela_stream& mudela_stream_r)
 {
   mudela_stream_r << "$" << id_str() << " = \\melodic";
   mudela_stream_r <<  (mudela_voice_p_list_.size() > 1 ? "<" : "{");
-  mudela_stream_r << "\n";
-  mudela_stream_r << _("% midi copyright:") << copyright_str_ << "\n";
-  mudela_stream_r << _("% instrument:") << instrument_str_ << "\n";
+  mudela_stream_r << '\n';
+  mudela_stream_r << _ ("% midi copyright:") << copyright_str_ << '\n';
+  mudela_stream_r << _ ("% instrument:") << instrument_str_ << '\n';
 
   // don't use last duration mode
-  mudela_stream_r << "\\duration 4;\n";
+  //  mudela_stream_r << "\\duration 4;\n";
   if  (mudela_voice_p_list_.size() == 1)
     mudela_voice_p_list_.top()->output (mudela_stream_r);
   else
@@ -113,13 +113,13 @@ Mudela_staff::output (Mudela_stream& mudela_stream_r)
       }
 
   mudela_stream_r <<  (mudela_voice_p_list_.size() > 1 ? "\n>" : "\n}");
-  mudela_stream_r << " % " << name_str() << "\n";
+  mudela_stream_r << " % " << name_str() << '\n';
 }
 
 void
 Mudela_staff::output_mudela_begin_bar (Mudela_stream& mudela_stream_r, Moment now_mom, int bar_i)
 {
-  Moment bar_mom = mudela_meter_l_->bar_mom();
+  Moment bar_mom = mudela_time_signature_l_->bar_mom();
   Moment into_bar_mom = now_mom - Moment (bar_i - 1) * bar_mom;
   if  (bar_i > 1)
     {
@@ -129,7 +129,7 @@ Mudela_staff::output_mudela_begin_bar (Mudela_stream& mudela_stream_r, Moment no
   mudela_stream_r << "% " << String_convert::i2dec_str (bar_i, 0, ' ');
   if  (into_bar_mom)
     mudela_stream_r << ":" << Duration_convert::dur2_str (Duration_convert::mom2_dur (into_bar_mom));
-  mudela_stream_r << "\n";
+  mudela_stream_r << '\n';
 }
 
 
@@ -137,7 +137,7 @@ Mudela_staff::output_mudela_begin_bar (Mudela_stream& mudela_stream_r, Moment no
 void
 Mudela_staff::output_mudela_rest (Mudela_stream& mudela_stream_r, Moment begin_mom, Moment end_mom)
 {
-  Moment bar_mom = mudela_meter_l_->bar_mom();
+  Moment bar_mom = mudela_time_signature_l_->bar_mom();
   Moment now_mom = begin_mom;
 
   int begin_bar_i = (int) (now_mom / bar_mom) + 1;
@@ -229,7 +229,7 @@ Mudela_staff::process()
 
   assert (mudela_score_l_g);
   mudela_key_l_ = mudela_score_l_g->mudela_key_l_;
-  mudela_meter_l_ = mudela_score_l_g->mudela_meter_l_;
+  mudela_time_signature_l_ = mudela_score_l_g->mudela_time_signature_l_;
   mudela_tempo_l_ = mudela_score_l_g->mudela_tempo_l_;
 
   Link_list<Mudela_item*> items;

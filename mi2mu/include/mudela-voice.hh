@@ -1,7 +1,7 @@
 //
 // mudela-voice.hh -- declare Mudela_voice
 //
-// copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
+// copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #ifndef MUDELA_VOICE_HH
 #define MUDELA_VOICE_HH

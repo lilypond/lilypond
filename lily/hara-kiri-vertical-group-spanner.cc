@@ -4,51 +4,53 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1998 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "hara-kiri-vertical-group-spanner.hh"
-#include "item.hh"
+#include "debug.hh"
 #include "note-head.hh"
-#include "p-col.hh"
-#include "molecule.hh"
+#include "bar.hh"
 
 IMPLEMENT_IS_TYPE_B1 (Hara_kiri_vertical_group_spanner, Vertical_group_spanner);
 
-void 
-Hara_kiri_vertical_group_spanner::add_element (Graphical_element* e)
+Hara_kiri_vertical_group_spanner::Hara_kiri_vertical_group_spanner()
 {
-  if (e->is_type_b (Note_head::static_name ()))
-    add_dependency ((Score_elem*)e);
-  Vertical_group_spanner::add_element (e);
 }
 
-// we never get here, or indeed in axis-group-spanner::do_break_processing?
 void 
-Hara_kiri_vertical_group_spanner::do_break_processing ()
+Hara_kiri_vertical_group_spanner::add_note (Note_head* n)
 {
-  Vertical_group_spanner::do_break_processing ();
-  if (dependency_size ())
-    return;
-  transparent_b_ = true;
+  add_dependency (n);
+  head_l_arr_.push (n);
 }
 
-// too late ?
 void 
 Hara_kiri_vertical_group_spanner::do_post_processing ()
 {
-  if (dependency_size ())
+  if (!head_l_arr_.empty ())
     return;
-  transparent_b_ = true;
+
+  Link_array<Score_element> childs = get_children ();
+  for (int i = 0; i < childs.size (); i++)
+    {
+      childs[i]->transparent_b_ = true;
+      childs[i]->set_empty (true);
+    }
+  set_empty (true);
 }
 
-Molecule*
-Hara_kiri_vertical_group_spanner::brew_molecule_p() const
+void
+Hara_kiri_vertical_group_spanner::do_substitute_dependency (Score_element*o, Score_element*n)
 {
-  // aaarg: go away
-  if (1) // transparent_b_)
-    return new Molecule;
-  return Vertical_group_spanner::brew_molecule_p ();
+  if (o->is_type_b (Note_head::static_name ()))
+    head_l_arr_.substitute ((Note_head*)o->access_Item (), 
+      (n)? (Note_head*)n->access_Item () : 0);
 }
 
 
+void
+Hara_kiri_vertical_group_spanner::do_print () const
+{
+  Axis_group_spanner::do_print ();
+}

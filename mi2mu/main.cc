@@ -1,12 +1,14 @@
 //
-// main.cc -- implement silly main() entry point
+// main.cc -- implement silly main () entry point
 // should have Root class.
 //
-// copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
+// copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #include <assert.h>
+#include <locale.h>
+#include "config.hh"
 #include "string-convert.hh"
-#include "lgetopt.hh"
+#include "getopt-long.hh"
 #include "file-path.hh"
 #include "duration-convert.hh"
 #include "source.hh"
@@ -15,7 +17,11 @@
 #include "midi-score-parser.hh"
 #include "mudela-item.hh"
 #include "mudela-score.hh"
-//#include "version.hh"
+
+#if HAVE_GETTEXT
+#include <libintl.h>
+#endif
+
 
 // ugh
 String filename_str_g;
@@ -34,25 +40,55 @@ Verbose level_ver = NORMAL_ver;
 void
 usage()
 {
-  LOGOUT(NORMAL_ver) <<
-	_("Usage: mi2mu [options] midi-file\n"
-  "Translate midi-file to mudela\n"
-  "\n"
-  "Options:\n"
+  cout << _f ("Usage: %s [OPTION]... [FILE]", "mi2mu");
+  cout << '\n';
+  cout << _ ("Translate midi-file to mudela");
+  cout << '\n';
+  cout << '\n';
+  cout << _ ("Options:");
+  cout << '\n';
+  cout << _ (
   "  -b, --no-quantify      write exact durations, e.g.: a4*385/384\n"
-  "  -d, --debug            print lots of debugging stuff\n"
+  );
+  cout << _ (
+  "  -D, --debug            enable debugging output\n"
+  );
+  cout << _ (
   "  -h, --help             this help\n"
+  );
+  cout << _ (
   "  -I, --include=DIR      add DIR to search path\n"
+  );
+  cout << _ (
   "  -k, --key=ACC[:MINOR]  set key: ACC +sharps/-flats; :1 minor\n"
+  );
+  cout << _ (
   "  -n, --no-silly         assume no plets or double dots, smallest is 32\n"
+  );
+  cout << _ (
   "  -o, --output=FILE      set FILE as default output\n"
+  );
+  cout << _ (
   "  -p, --no-plets         assume no plets\n"
+  );
+  cout << _ (
   "  -q, --quiet            be quiet\n"
+  );
+  cout << _ (
   "  -T, --no-timestamps    don't timestamp the output\n"
+  );
+  cout << _ (
   "  -s, --smallest=N       assume no shorter (reciprocal) durations than N\n"
+  );
+  cout << _ (
   "  -v, --verbose          be verbose\n"
+  );
+  cout << _ (
   "  -w, --warranty         show warranty and copyright\n"
-  "  -x, --no-double-dots   assume no double dotted notes\n")
+  );
+  cout << _ (
+  "  -x, --no-double-dots   assume no double dotted notes\n"
+  );
   ;
 }
 
@@ -65,37 +101,49 @@ identify()
 void
 notice()
 {
-  LOGOUT(NORMAL_ver) <<
-  _("\n"
-  "Mi2mu, translate midi to mudela.\n"
-  "Copyright (C) 1997 by\n"
-  "  Jan Nieuwenhuizen <jan@digicash.com>\n"
-  "  Han-Wen Nienhuys <hanwen@stack.nl>\n"
-  "\n"
-  "    This program is free software; you can redistribute it and/or\n"
-  "modify it under the terms of the GNU General Public License version 2\n"
-  "as published by the Free Software Foundation.\n"
-  "\n"
-  "    This program is distributed in the hope that it will be useful,\n"
-  "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-  "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
-  "General Public License for more details.\n"
-  "\n"
-  "    You should have received a copy (refer to the file COPYING) of the\n"
-  "GNU General Public License along with this program; if not, write to\n"
-  "the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,\n"
-  "USA.\n");
+  LOGOUT(NORMAL_ver) << '\n';
+  LOGOUT(NORMAL_ver) << _ ("Mi2mu, translate midi to mudela");
+  LOGOUT(NORMAL_ver) << '\n';
+  LOGOUT(NORMAL_ver) << _f ("Copyright (c) %s by", "1997, 1998");
+  LOGOUT(NORMAL_ver) << '\n';
+  LOGOUT(NORMAL_ver) << "  " + _ ("Han-Wen Nienhuys <hanwen@cs.uu.nl>") + "\n";
+  LOGOUT(NORMAL_ver) << "  " + _ ("Jan Nieuwenhuizen <janneke@gnu.org>") + "\n";
+  LOGOUT(NORMAL_ver) << '\n';
+  LOGOUT(NORMAL_ver) << _ (
+    "    This program is free software; you can redistribute it and/or\n"
+    "modify it under the terms of the GNU General Public License version 2\n"
+    "as published by the Free Software Foundation.\n"
+    "\n"
+    "    This program is distributed in the hope that it will be useful,\n"
+    "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+    "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
+    "General Public License for more details.\n"
+    "\n"
+    "    You should have received a copy (refer to the file COPYING) of the\n"
+    "GNU General Public License along with this program; if not, write to\n"
+    "the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,\n"
+    "USA.\n");
 }
 
 int
 main (int argc_i, char* argv_sz_a[])
 {
+
+#if HAVE_GETTEXT
+  setlocale (LC_ALL, "");
+//  setlocale (LC_MESSAGES, "");
+  String name (PACKAGE);
+  name.to_lower ();
+  bindtextdomain (name.ch_C (), DIR_LOCALEDIR);
+  textdomain (name.ch_C ()) ;
+#endif
+
   Mudela_key key (0, 0);
 
   Long_option_init long_option_init_a[] =
     {
 	{0, "no-quantify", 'b'},
-	{0, "debug", 'd'},
+	{0, "debug", 'D'},
 	{0, "help", 'h'},
 	{1, "key", 'k'},
 	{0, "no-silly", 'n'},
@@ -118,7 +166,7 @@ main (int argc_i, char* argv_sz_a[])
 	case 'b':
 	    Duration_convert::no_quantify_b_s = true;
 	    break;
-	case 'd':
+	case 'D':
 	    level_ver = DEBUG_ver;
 	    break;
 	case 'h':
@@ -135,7 +183,7 @@ main (int argc_i, char* argv_sz_a[])
 	    int i = str.index_i (':');
 	    i = (i >=0 ? i : str.length_i ());
 	    key.accidentals_i_ = String_convert::dec2_i (str.left_str (i));
-	    key.minor_i_ = (int)(bool)String_convert::dec2_i (str.cut (i + 1,1));
+	    key.minor_i_ = (int)(bool)String_convert::dec2_i (str.cut_str (i + 1,1));
 	    break;
 	  }
 	case 'n':

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "moment.hh"
@@ -21,7 +21,7 @@ Midi_score_parser::open (String filename_str, Sources* sources_l)
 {
   info_l_->source_l_ = sources_l->get_file_l (filename_str);
   if (!info_l_->source_l_)
-    ::error (_("can't find: `") + filename_str + "'");
+    ::error (_f ("can't find file: `%s\'", filename_str));
   info_l_->byte_L_ = (Byte const*)info_l_->source_l_->ch_C ();
 //  info_l_->end_byte_L_ = info_l_->byte_L_ + info_l_->source_l_->length_i ();
   info_l_->end_byte_L_ = info_l_->byte_L_ + info_l_->source_l_->length_i () + 1;
@@ -42,12 +42,12 @@ Midi_score_parser::parse_header ()
 {
   String str = get_str (4);
   if ( str != "MThd" )
-    exit (_("MIDI header expected"));
+    exit (_ ("MIDI header expected"));
 
   int length_i = get_i (4);
   // is this signed?
   if (length_i < 6)
-    exit (_("Invalid header length"));
+    exit (_ ("Invalid header length"));
   info_l_->format_i_ = get_i (2);
   if (info_l_->format_i_ != 0 && info_l_->format_i_ != 1)
     exit (_("Invalid midi format"));
@@ -56,7 +56,7 @@ Midi_score_parser::parse_header ()
     exit (_("Invalid number of tracks"));
   info_l_->division_1_i_ = get_i (2) * 4;
   if (info_l_->division_1_i_ < 0)
-    exit (_("Cannot handle non-metrical time"));
+    exit (_f ("can't handle %s", _ ("non-metrical time")));
   // ugh
   Duration::division_1_i_s = info_l_->division_1_i_;
   forward_byte_L (length_i - 6);
@@ -82,7 +82,7 @@ Mudela_score*
 Midi_score_parser::parse_score ()
 {
   int current_bar_i = 0;
-  Mudela_meter m4 (4, 2, 24, 8);
+  Mudela_time_signature m4 (4, 2, 24, 8);
   Moment bar4_mom = m4.bar_mom ();
 
   Mudela_score* score_p = new Mudela_score( 1, 1, 1 );
@@ -92,7 +92,7 @@ Midi_score_parser::parse_score ()
   for (int i = 0; i < info_l_->tracks_i_; i++)
     tracks.push (new Midi_track_parser (info_l_, i));
 
-  LOGOUT (NORMAL_ver) << _("Parsing...\n");
+  LOGOUT (NORMAL_ver) << _ ("Parsing...\n");
   while (tracks.size ())
     {
       int i = find_earliest_i (tracks);

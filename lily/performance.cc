@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include <time.h>
@@ -26,7 +26,7 @@ Performance::Performance ()
 }
 
 void
-Performance::add (Audio_column* p)
+Performance::add_column (Audio_column* p)
 {
   p->performance_l_ = this;
   audio_column_p_list_.bottom().add (p);
@@ -73,9 +73,8 @@ Performance::output_header_track (Midi_stream& midi_stream_r)
   Midi_text generate (Midi_text::TEXT, str);
   midi_track.add (Moment (0), &generate);
 
-  str = _("from musical definition: ");
+  str = _f ("from musical definition: %s", origin_str_);
 
-  str += origin_str_;
   Midi_text from (Midi_text::TEXT, str);
   midi_track.add (Moment (0), &from);
 
@@ -96,7 +95,7 @@ Performance::add_staff (Audio_staff* l)
 }
 
 void
-Performance::add (Audio_element *p)
+Performance::add_element (Audio_element *p)
 {
   audio_elem_p_list_.bottom().add (p);
 }
@@ -127,17 +126,19 @@ Performance::process()
     {
       
       out = default_outname_base_global;
+      if (out == "-")
+        out = "lelie";
       int def = midi_l_->get_next_default_count ();
       if (def)
 	{
-	  out += "-" + String(def);
+	  out += "-" + to_str (def);
 	}
 
       out += ".midi";
     }
   
   Midi_stream midi_stream (out);
-  *mlog << _("MIDI output to ") << out<< " ..." << endl;
+  *mlog << _f ("MIDI output to %s...", out) << endl;
   target_str_global_array.push (out);
 
   output (midi_stream);

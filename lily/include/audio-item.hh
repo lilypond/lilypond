@@ -1,7 +1,7 @@
 /*
   audio-item.hh -- declare Audio_items
 
-  (c) 1996,  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c) 1996,  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
 #ifndef AUDIO_ITEM_HH
@@ -58,8 +58,9 @@ struct Audio_instrument : public Audio_item {
                                       
 struct Audio_note : public Audio_item {
   DECLARE_MY_RUNTIME_TYPEINFO;
-  Audio_note (Request* req_l);
+  Audio_note (Request* req_l, int transposing_i = 0);
   virtual Midi_item* midi_item_p();
+  int transposing_i_;
 };
 
 struct Audio_text : Audio_item {
@@ -82,8 +83,8 @@ struct Audio_tempo : Audio_item {
   int per_minute_4_i_;
 };
 
-struct Audio_meter : Audio_item {
-  Audio_meter (Request* req_l);
+struct Audio_time_signature : Audio_item {
+  Audio_time_signature (Request* req_l);
   virtual Midi_item* midi_item_p();
   DECLARE_MY_RUNTIME_TYPEINFO;
 };

@@ -1,20 +1,20 @@
 //
 // version.cc -- implement inexpensive versioning
 //
-// copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
+// copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #include <stdio.h>
 #include "config.hh"
+#include "version.hh"
 
+#define VERSION_SZ  MAJOR_VERSION "." MINOR_VERSION "."  PATCH_LEVEL "." MY_PATCH_LEVEL
 
-// static char *s = "mi2mu " MAJOR_VERSION "." MINOR_VERSION "."  PATCH_LEVEL MY_PATCH_LEVEL " #%d";
-//urg
-//static char *s = "mi2mu " TOPLEVEL_VERSION " #%d";
-static char *s = "mi2mu FIXME " ;
+static char *s = "mi2mu " VERSION_SZ;
 
 
 const char * 
 mi2mu_version_sz()
-{  return s;
+{
+  return s;
 }
 

@@ -3,8 +3,8 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998, 1998 Han-Wen Nienhuys <hanwen@stack.nl>
-    Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998, 1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+    Jan Nieuwenhuizen <janneke@gnu.org>
 
 */
 
@@ -19,9 +19,9 @@
 #include <math.h>
 
 #include "p-col.hh"
-#include "varray.hh"
+#include "array.hh"
 #include "proto.hh"
-#include "dimen.hh"
+#include "dimension.hh"
 #include "beam.hh"
 #include "abbreviation-beam.hh"
 #include "misc.hh"
@@ -34,7 +34,6 @@
 #include "lookup.hh"
 #include "grouping.hh"
 #include "stem-info.hh"
-#include "main.hh"  // experimental features
 
 
 IMPLEMENT_IS_TYPE_B1 (Beam, Spanner);
@@ -50,7 +49,7 @@ Beam::Beam ()
 }
 
 void
-Beam::add (Stem*s)
+Beam::add_stem (Stem*s)
 {
   stems_.push (s);
   s->add_dependency (this);
@@ -79,7 +78,7 @@ Beam::brew_molecule_p () const
       Molecule sb = stem_beams (i, next, prev);
       Real  x = i->hpos_f ()-x0;
       sb.translate (Offset (x, (x * slope_f_ + left_y_) * internote_f));
-      mol_p->add (sb);
+      mol_p->add_molecule (sb);
     }
   mol_p->translate_axis (x0 
     - spanned_drul_[LEFT]->absolute_coordinate (X_AXIS), X_AXIS);
@@ -105,7 +104,7 @@ void
 Beam::do_print () const
 {
 #ifndef NPRINT
-  DOUT << "slope_f_ " <<slope_f_ << "left ypos " << left_y_;
+  DOUT << "slope_f_ " << slope_f_ << "left ypos " << left_y_;
   Spanner::do_print ();
 #endif
 }
@@ -115,7 +114,7 @@ Beam::do_post_processing ()
 {
   if (stems_.size () < 2)
     {
-      warning (_ ("Beam with less than 2 stems"));
+      warning (_ ("beam with less than two stems"));
       transparent_b_ = true;
       return ;
     }
@@ -124,10 +123,10 @@ Beam::do_post_processing ()
 }
 
 void
-Beam::do_substitute_dependent (Score_elem*o,Score_elem*n)
+Beam::do_substitute_dependent (Score_element*o,Score_element*n)
 {
   if (o->is_type_b (Stem::static_name ()))
-      stems_.substitute ((Stem*)o->item (),  n? (Stem*) n->item ():0);
+      stems_.substitute ((Stem*)o->access_Item (),  n? (Stem*) n->access_Item ():0);
 }
 
 Interval
@@ -173,15 +172,30 @@ Beam::set_default_dir ()
      But is that because it really looks better, or because he
      wants to provide some real simple hands-on rules.
      
-     We have our doubts.
+     We have our doubts, so we simply provide all sensible alternatives.
   */
 
-  // fixme.  make runtime.
-  // majority
-  // dir_ = (count[UP] > count[DOWN]) ? UP : DOWN;
-
-  // mean centre distance
-  dir_ = (total[UP] > total[DOWN]) ? UP : DOWN;
+  Dir_algorithm a = (Dir_algorithm)rint(paper ()->get_var ("beam_dir_algorithm"));
+  switch (a)
+    {
+    case MAJORITY:
+      dir_ = (count[UP] > count[DOWN]) ? UP : DOWN;
+      break;
+    case MEAN:
+      // mean centre distance
+      dir_ = (total[UP] > total[DOWN]) ? UP : DOWN;
+      break;
+    default:
+    case MEDIAN:
+      // median centre distance
+      if (!count[UP])
+	dir_ = DOWN;
+      else if (!count[DOWN])
+	dir_ = UP;
+      else
+	dir_ = (total[UP] / count[UP] > total[DOWN] / count[DOWN]) ? UP : DOWN;
+      break;
+    }
 
   for (int i=0; i <stems_.size (); i++)
     {
@@ -545,7 +559,7 @@ Beam::set_stemlens ()
 	    { 
 	      // when all too short, normal stems win..
 	      if (dy_f < -epsilon_f)
-		warning ( _("Weird beam shift, check your knees."));
+		warning (_ ("weird beam shift, check your knees"));
 	      dy_f = dy_f >? info.miny_f_ - y;
 	    }
 	}
@@ -621,7 +635,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
   Real dy = interbeam_f;
   Real stemdx = staffline_f;
   Real sl = slope_f_* internote_f;
-  paper ()->lookup_l ()->beam (sl, 20 PT, 1 PT);
+  lookup_l ()->beam (sl, 20 PT, 1 PT);
 
   Molecule leftbeams;
   Molecule rightbeams;
@@ -631,16 +645,21 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
     {
       int lhalfs= lhalfs = here->beams_left_i_ - prev->beams_right_i_ ;
       int lwholebeams= here->beams_left_i_ <? prev->beams_right_i_ ;
-      Real w = (here->hpos_f () - prev->hpos_f ())/4 <? paper ()->note_width ();;
+      /*
+       Half beam should be one note-width, 
+       but let's make sure two half-beams never touch
+       */
+      Real w = here->hpos_f () - prev->hpos_f ();
+      w = w/2 <? paper ()->note_width ();
       Atom a;
       if (lhalfs)		// generates warnings if not
-	a =  paper ()->lookup_l ()->beam (sl, w, beam_f);
+	a =  lookup_l ()->beam (sl, w, beam_f);
       a.translate (Offset (-w, -w * sl));
       for (int j = 0; j  < lhalfs; j++)
 	{
 	  Atom b (a);
 	  b.translate_axis (-dir_ * dy * (lwholebeams+j), Y_AXIS);
-	  leftbeams.add (b);
+	  leftbeams.add_atom (b);
 	}
     }
 
@@ -650,7 +669,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       int rwholebeams = here->beams_right_i_ <? next->beams_left_i_;
 
       Real w = next->hpos_f () - here->hpos_f ();
-      Atom a = paper ()->lookup_l ()->beam (sl, w + stemdx, beam_f);
+      Atom a = lookup_l ()->beam (sl, w + stemdx, beam_f);
       a.translate_axis( - stemdx/2, X_AXIS);
       int j = 0;
       Real gap_f = 0;
@@ -661,34 +680,34 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 	    {
 	      Atom b (a);
 	      b.translate_axis (-dir_ * dy * j, Y_AXIS);
-	      rightbeams.add (b);
+	      rightbeams.add_atom (b);
 	    }
 	  // TODO: notehead widths differ for different types
 	  gap_f = paper ()->note_width () / 2;
 	  w -= 2 * gap_f;
-	  a = paper ()->lookup_l ()->beam (sl, w + stemdx, beam_f);
+	  a = lookup_l ()->beam (sl, w + stemdx, beam_f);
 	}
 
       for (; j  < rwholebeams; j++)
 	{
 	  Atom b (a);
 	  b.translate (Offset (gap_f, -dir_ * dy * j));
-	  rightbeams.add (b);
+	  rightbeams.add_atom (b);
 	}
 
-      w = w/4 <? paper ()->note_width ();
+      w = w/2 <? paper ()->note_width ();
       if (rhalfs)
-	a = paper ()->lookup_l ()->beam (sl, w, beam_f);
+	a = lookup_l ()->beam (sl, w, beam_f);
 
       for (; j  < rwholebeams + rhalfs; j++)
 	{
 	  Atom b (a);
 	  b.translate_axis (-dir_ * dy * j, Y_AXIS);
-	  rightbeams.add (b);
+	  rightbeams.add_atom (b);
 	}
 
     }
-  leftbeams.add (rightbeams);
+  leftbeams.add_molecule (rightbeams);
 
   /*
     Does beam quanting think  of the asymetry of beams? 

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include <assert.h>
@@ -61,7 +61,7 @@ Midi_parser::get_str (int n)
 {
   assert (n >= 0);
   if (!n)
-    warning (_("Zero length string encountered"));
+    warning (_ ("zero length string encountered"));
 
   Byte const* p = forward_byte_L (n);
   return String (p, n);
@@ -97,5 +97,5 @@ Midi_parser::message (String str)
 void
 Midi_parser::warning (String str)
 {
-  ::message (message (String (_("warning: ")) + str));
+  ::message (message (String (_ ("warning: ")) + str));
 }

@@ -1,0 +1,18 @@
+StepMake
+
+This is a simple generic make package.
+It is being used by LilyPond and Harmonia
+(and StepMake itself, of course)
+
+You're looking at her embryonal state -- things are *supposed* 
+to be broken.
+
+Fixes/patches/suggestions appreciated.
+
+StepMake is Free Software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License 
+version 2 as published by the Free Software Foundation.
+
+Jan Nieuwenhuizen <janneke@gnu.org>
+ftp://pcnov095.win.tue.nl/pub/lilypond/development
+

@@ -3,8 +3,8 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998, 1998 Han-Wen Nienhuys <hanwen@stack.nl>
-    Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998, 1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+    Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include <math.h>
@@ -118,4 +118,3 @@ quantise_iv (Array<Real> const& positions, Real period, Real x)
 
   return iv;
 }
-

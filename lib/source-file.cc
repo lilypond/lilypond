@@ -3,8 +3,8 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
-  & Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
+  & Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -15,15 +15,23 @@
 #include "proto.hh"
 #include "plist.hh"
 #include "warn.hh"
-#include "windhoos-suck-suck-suck-thank-you-cygnus.hh"
+#include "thank-you-cygnus.hh"
 #include "source-file.hh"
 #include "simple-file-storage.hh"
+#include "string-storage.hh"
 
 Source_file::Source_file (String filename_str)
 {
   name_str_ = filename_str;
   istream_p_ = 0;
   storage_p_ = new Simple_file_storage (filename_str);
+}
+
+Source_file::Source_file (String name_str, String data_str)
+{
+  name_str_ = name_str;
+  istream_p_ = 0;
+  storage_p_ = new String_storage (data_str);
 }
 
 istream*
@@ -51,10 +59,10 @@ String
 Source_file::file_line_column_str (char const *context_ch_C) const
 {
   if  (!ch_C ())
-    return _ ("(unknown)");
+    return "(" + _ ("position unknown") + ")";
   else
-    return name_str () + ":" + String (line_i (context_ch_C))
-      + ":" + String (char_i (context_ch_C));
+    return name_str () + ":" + to_str (line_i (context_ch_C))
+      + ":" + to_str (char_i (context_ch_C));
 }
 
 String
@@ -144,14 +152,14 @@ String
 Source_file::error_str (char const* pos_ch_C) const
 {
   if (!in_b (pos_ch_C))
-    return _ ("(position unknown)");
+    return "(" + _ ("position unknown") + ")";
 
   int ch_i = char_i (pos_ch_C);
   String line = line_str (pos_ch_C);
   String context = line.left_str (ch_i)
-    + String ('\n')
-    + String (' ', column_i (pos_ch_C))
-    + line.cut (ch_i, INT_MAX);
+    + to_str ('\n')
+    + to_str (' ', column_i (pos_ch_C))
+    + line.cut_str (ch_i, INT_MAX);
 
   return context;
 }

@@ -3,8 +3,8 @@
 
   source file of the LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
-	   Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+	   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 #include <assert.h>
 #include "duration-convert.hh"
@@ -23,19 +23,19 @@ String
 Duration_convert::dur2_str (Duration dur)
 {
   if (dur.ticks_i_)
-    return String ("[") + String (dur.ticks_i_) + "]";
+    return String ("[") + to_str (dur.ticks_i_) + "]";
   
   String str;
   if (dur.durlog_i_ >= 0)
-    str = String ( type2_i (dur.durlog_i_) );
+    str = to_str ( type2_i (dur.durlog_i_) );
   else if (dur.durlog_i_ == -1)
     str = "\\breve";
   else if (dur.durlog_i_ == -2)
     str = "\\longa";
-  str += String ('.', dur.dots_i_);
+  str += to_str ('.', dur.dots_i_);
   if (dur.plet_b ())
-    str += String ("*") + String (dur.plet_.iso_i_)
-      + String ("/") + String (dur.plet_.type_i_);
+    str += String ("*") + to_str (dur.plet_.iso_i_)
+      + String ("/") + to_str (dur.plet_.type_i_);
   return str;
 }
 
@@ -47,12 +47,11 @@ Duration_convert::dur2ticks_i (Duration dur)
   return dur2_mom (dur) * Moment (Duration::division_1_i_s);
 }
 
-
 int
 Duration_convert::i2_type (int i)
 {
   int t=0;
-  while (!(i & 1)) {
+  while (i && !(i & 1)) {
     i >>= 1;
     t++;
   }

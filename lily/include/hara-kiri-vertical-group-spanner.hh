@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1998 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 
@@ -20,14 +20,17 @@ class Hara_kiri_vertical_group_spanner : public Vertical_group_spanner
 public:
   DECLARE_MY_RUNTIME_TYPEINFO;
 
+  Hara_kiri_vertical_group_spanner ();
   virtual void do_post_processing ();
-  virtual void add_element (Graphical_element* e);
+  void add_note (Note_head* n);
 
 protected:
-  SCORE_ELEM_CLONE (Hara_kiri_vertical_group_spanner);
+  SCORE_ELEMENT_CLONE (Hara_kiri_vertical_group_spanner);
 
-  virtual void do_break_processing ();
-  virtual Molecule* brew_molecule_p () const;
+  virtual void do_substitute_dependency (Score_element*, Score_element*);
+  virtual void do_print ()const;
+
+  Link_array<Note_head> head_l_arr_;
 };
 
 

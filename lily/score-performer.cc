@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996,  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c) 1996,  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
 #include "score-performer.hh"
@@ -37,13 +37,13 @@ Score_performer::play (Audio_element * p)
 {
   if  (p->is_type_b (Audio_item::static_name())) 
     {
-      audio_column_l_->add ((Audio_item*)p);
+      audio_column_l_->add_audio_item ((Audio_item*)p);
     }
   else if (p->is_type_b (Audio_staff::static_name())) 
     {
       performance_p_->add_staff ((Audio_staff*)p);
     }
-  performance_p_->add (p);
+  performance_p_->add_element (p);
 }
 
 void 
@@ -51,7 +51,7 @@ Score_performer::prepare (Moment m)
 {
   Global_translator::prepare (m);
   audio_column_l_ = new Audio_column (m);
-  performance_p_->add (audio_column_l_);
+  performance_p_->add_column (audio_column_l_);
   post_move_processing ();
 }
 

@@ -1,7 +1,7 @@
 //
 // mudela-item.hh -- declare mudela_item
 //
-// copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
+// copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #ifndef MUDELA_ITEM_HH
 #define MUDELA_ITEM_HH
@@ -45,10 +45,10 @@ public:
     int minor_i_;
 };
 
-class Mudela_meter : public Mudela_item 
+class Mudela_time_signature : public Mudela_item 
 {
 public:
-    Mudela_meter (int num_i, int den_i, int division_4_i, int count_32_i);
+    Mudela_time_signature (int num_i, int den_i, int division_4_i, int count_32_i);
 
     Duration i2_dur (int time_i, int division_1_i);
     int clocks_1_i();
@@ -108,7 +108,7 @@ public:
 
 private:
     int useconds_per_4_i_;
-    Real seconds_per_1_f_;
+    Moment seconds_per_1_mom_;
 };
 
 class Mudela_text : public Mudela_item 

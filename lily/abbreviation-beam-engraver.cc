@@ -3,8 +3,8 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
-           Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+           Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "duration-convert.hh"
@@ -27,11 +27,11 @@ Abbreviation_beam_engraver::Abbreviation_beam_engraver ()
 bool
 Abbreviation_beam_engraver::do_try_request (Request*r)
 {
-  Musical_req* mus_l = r->musical ();
+  Musical_req* mus_l = r->access_Musical_req ();
   if (!mus_l)
     return false;
 
-  Abbreviation_beam_req * b = mus_l->abbrev_beam ();
+  Abbreviation_beam_req * b = mus_l->access_Abbreviation_beam_req ();
 
   if (!b)
     return false;
@@ -52,7 +52,7 @@ Abbreviation_beam_engraver::do_process_requests ()
 {
   if (!abeam_p_ && span_reqs_drul_[LEFT]) {
     abeam_p_ = new Abbreviation_beam;
-    announce_element (Score_elem_info (abeam_p_, span_reqs_drul_[LEFT]));
+    announce_element (Score_element_info (abeam_p_, span_reqs_drul_[LEFT]));
   }
 }
 
@@ -80,12 +80,12 @@ Abbreviation_beam_engraver::do_removal_processing ()
 }
 
 void
-Abbreviation_beam_engraver::acknowledge_element (Score_elem_info i)
+Abbreviation_beam_engraver::acknowledge_element (Score_element_info i)
 {
   if (!abeam_p_ || !i.elem_l_->is_type_b (Stem::static_name ()))
     return;
 
-  Stem* s = (Stem*)i.elem_l_->item ();
+  Stem* s = (Stem*)i.elem_l_->access_Item ();
 
   int type_i = span_reqs_drul_[LEFT]->type_i_;
   s->flag_i_ = intlog2 (type_i) - 2;
@@ -98,5 +98,5 @@ Abbreviation_beam_engraver::acknowledge_element (Score_elem_info i)
   if (s->type_i () != 1) // no abbrev gaps on half note
     s->beam_gap_i_ = s->flag_i_ - ((s->type_i () >? 2) - 2);
 
-  abeam_p_->add (s);
+  abeam_p_->add_stem (s);
 }
