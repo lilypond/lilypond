@@ -103,7 +103,7 @@ included.  Default: unset.
 
 @item latexheaders
     Specify additional La@TeX{} headers file.
-
+<
         Normally read from the @code{\header} block. Default value: empty.
 
 @item latexpackages
@@ -134,13 +134,8 @@ block.
 @item papersize
    The paper size (as a name, e.g. @code{a4}). It is normally read from
 the @code{\paper} block.
-
-@item pagenumber
-   If set to @code{no}, no page numbers will be printed.  If set to a
-positive integer, start with this value as the first page number.
-
   
-  @item fontenc
+@item fontenc
      The font encoding, should be set identical to the @code{font-encoding}
      property in the score.
 @end table
@@ -177,22 +172,8 @@ output).  If @file{filename.ly} contains more than one @code{\score}
 block, then the rest of the scores will be output in numbered files,
 starting with @file{filename-1.tex}.  Several files can be specified;
 they will each be processed independently.  @footnote{The status of
-  GUILE is not reset across invocations, so be careful not to change any
-  system defaults from within Scheme.}
-
-We strongly advise against making LilyPond formatting available
-through a web server. That is, processing input from untrusted users,
-and returning the resulting PDF file. LilyPond is a big and complex
-program. It was not written with security in mind. Making it available
-to the outside world is a huge risk; consider the security
-implications of
-
-@verbatim
-  #(system "rm -rf /")
-  \score {
-    c4^#(ly:export (ly:gulp-file "/etc/passwd"))
-  }
-@end verbatim
+GUILE is not reset across invocations, so be careful not to change any
+system defaults from within Scheme.}
 
 
 @section Command line options
@@ -211,11 +192,11 @@ information.
 @item -f,--format=@var{format}
 @c
 @c
-Output format for sheet music. Choices are @code{tex} (for @TeX{}
-output, to be processed with La@TeX{}, or through @code{lilypond}),
-and @code{ps} for PostScript.
+A comma separated list of output formats.  Choices are @code{tex} (for
+@TeX{} output, to be processed with La@TeX{}, and @code{ps} for
+PostScript.
 
-Other output options are intended for developers.
+Other output options are intended for developers. 
 
 
 @cindex output format, setting
@@ -238,8 +219,28 @@ will be generated.
 Set the default output file to @var{FILE}.
 
 @item -s,--safe
-Disallow untrusted @code{\include} directives, limit available in-line
-Scheme function, disable backslashes in @TeX{}, code.
+Do not trust the @code{.ly} input. 
+
+When LilyPond formatting available through a web server, the
+@code{--safe} @b{MUST} be passed.  This will prevent code like
+
+@verbatim
+  #(system "rm -rf /")
+  \score {
+    c4^#(ly:export (ly:gulp-file "/etc/passwd"))
+  }
+@end verbatim
+
+The @code{--safe} option works by evaluating in-line Scheme
+expressions in a special safe module. This safe module is derived from
+GUILE @file{safe-r5rs} module, but adds a number of functions of the
+LilyPond API. These functions are listed in @file{safe-lily.scm}.
+
+In addition, @code{--safe} disallows @code{\include} directives and
+disables the use of backslashes in @TeX{} strings.
+
+In @code{--safe} mode, it is not possible to import LilyPond variables
+into Scheme. 
 
 @item -v,--version
 Show version information.
