@@ -542,7 +542,7 @@ AncientRemoveEmptyStaffContext = \context {
 	(Voice NoteHead  font-size -3)
 	(Voice Dots  font-size -3)
 	(Voice Stem beamed-lengths  
-	 ,(map (lambda (x) (* 0.8 x)) '(3.26)))
+	 ,(map (lambda (x) (* 0.8 x)) '(3.3 3.3 4.0)))
 	(Voice Stem beamed-minimum-free-lengths  
 	 ,(map (lambda (x) (* 0.8 x)) '(2.5 2.0 1.5)))
 	(Voice Stem beamed-extreme-minimum-free-lengths  
