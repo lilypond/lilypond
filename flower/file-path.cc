@@ -74,20 +74,23 @@ File_path::parse_path (String p)
 /** find a file.
   It will search in the current dir, in the construction-arg, and
   in any other added path, in this order.
+
+  @return
+  The full path if found, or empty string if not found
   */
 String
 File_path::find (String nm) const
 {
-  fdebug << _("looking for ") << nm << ": ";
+  fdebug << "looking for" << nm << ": ";
   if (!nm.length_i() || (nm == "-") )
     return nm;
   for (int i=0; i < size(); i++)
     {
       String path  = elem(i);
-      String sep (DIRSEP);
+      String sep = to_str (DIRSEP);
       String right(path.right_str (1));
       if (path.length_i () && right != sep)
-	path += DIRSEP;
+	path += to_str (DIRSEP);
 
       path += nm;
 
@@ -95,12 +98,12 @@ File_path::find (String nm) const
       FILE *f = fopen (path.ch_C(), "r"); // ugh!
       if (f)
 	{
-	  fdebug << _("found\n");
+	  fdebug << "found\n";
 	  fclose (f);
 	  return path;
 	}
     }
-  fdebug << "\n";
+  fdebug << '\n';
   return "";
 }
 

@@ -1,0 +1,6 @@
+LilyPond is the GNU Project music typesetter.  This program can print
+beautiful sheet music from a music definition file.  It can also play
+mechanical performances to a MIDI file.  Features include multiple
+staffs, meters, clefs, keys, lyrics, versatile input language, cadenzas,
+beams, slurs, triplets, formatting scores, part extraction.  It includes
+a nice font of musical symbols.

@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include "string.hh"
-#include "varray.hh"
+#include "array.hh"
 
 /**
   line counting input stream. 
@@ -28,10 +28,8 @@ class Text_stream
 public:
   Text_stream (String fn);
   String get_name() { return name; }
-  bool eof() {
-    return feof (f);
-  }
-  char    get() {
+  bool eof_b();
+  char get() {
     char c;
 	
     if (pushback.empty())
@@ -49,6 +47,8 @@ public:
     pushback.push (c);
   }
   char peek() {
+    if (eof_b ())
+      return -1;
     char c = get();
     unget (c);
     return c;
@@ -61,7 +61,7 @@ public:
   }
 
   ~Text_stream(){
-    if (!eof()) 
+    if (!eof_b()) 
       cerr <<__FUNCTION__<< ": closing unended file";
     
     fclose (f);

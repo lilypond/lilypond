@@ -40,7 +40,7 @@ public:
 
     Text_db (String fn):Data_file (fn) { }
     Data_file::error;
-    bool eof();
+    bool eof_b ();
 
     /// get next line.
     Text_record operator++(int) {
@@ -48,7 +48,7 @@ public:
     }
     /// are we done yet?
     operator bool() {
-	return !eof();
+	return !eof_b ();
     }
 };
 
