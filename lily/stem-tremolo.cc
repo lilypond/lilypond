@@ -127,6 +127,12 @@ Stem_tremolo::print (SCM grob)
 {
   Grob *me = unsmob_grob (grob);
   Grob *stem = unsmob_grob (me->get_property ("stem"));
+  if (!stem)
+    {
+      programming_error ("No stem for stem-tremolo");
+      return SCM_EOL;
+    }
+  
   Grob *beam = Stem::get_beam (stem);
   Direction stemdir = Stem::get_direction (stem);
   Real beam_translation
