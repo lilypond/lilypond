@@ -42,34 +42,34 @@
    (equal? (substring fontname 0 2) "ec")))
 
 (define (ps-embed-cff body font-set-name version)
-  (let* ((binary-data 
+  (let* ((binary-data
 	  (string-append
 	   (format "/~a ~s StartData " font-set-name (string-length body))
 	   body)))
-    
+
     (string-append
      (format
-      "%!PS-Adobe-3.0 Resource-FontSet
+      "%%BeginResource: font ~a
+%!PS-Adobe-3.0 Resource-FontSet
 %%DocumentNeededResources: ProcSet (FontSetInit)
+%%Title: (FontSet/~a)
+%%Version: ~s
 %%EndComments
 %%IncludeResource: ProcSet (FontSetInit)
 %%BeginResource: FontSet (~a)
-%%Title: (FontSet/~a)
-%%Version: ~s
 /FontSetInit /ProcSet findresource begin
 %%BeginData: ~s Binary Bytes
 "
-      font-set-name font-set-name version (string-length binary-data))
+      font-set-name font-set-name version font-set-name
+      (string-length binary-data))
      binary-data
      "\n%%EndData
 %%EndResource
 %%EOF
+%%EndResource
 ")))
 
-
-
 (define (define-fonts paper)
-  
   (define font-list (ly:paper-fonts paper))
   (define (define-font command fontname scaling)
     (string-append
@@ -79,14 +79,14 @@
   (define (standard-tex-font? x)
     (or (equal? (substring x 0 2) "ms")
 	(equal? (substring x 0 2) "cm")))
-  
+
   (define (font-load-command font)
     (let* ((specced-font-name (ly:font-name font))
 	   (fontname (if specced-font-name
 			 specced-font-name
 			 (ly:font-file-name font)))
 	   (command (ps-font-command font))
-	   
+
 	   ;; FIXME -- see (ps-font-command )
 	   (plain (ps-font-command font #f))
 	   (designsize (ly:font-design-size font))
@@ -94,9 +94,9 @@
 	   (ops (ly:output-def-lookup paper 'outputscale))
 	   (scaling (* ops magnification designsize)))
 
-      
+
       ;; Bluesky pfbs have UPCASE names (sigh.)
-      ;; FIXME - don't support Bluesky? 
+      ;; FIXME - don't support Bluesky?
       (if (standard-tex-font? fontname)
 	  (set! fontname (string-upcase fontname)))
       (if (equal? fontname "unknown")
@@ -122,22 +122,23 @@
   (define (output-entry ps-key ly-key)
     (string-append
      "/" ps-key " "
-     (value->string (ly:output-def-lookup layout ly-key)) " def \n"))
+     (value->string (ly:output-def-lookup layout ly-key)) " def\n"))
 
   (string-append
-   "/lily-output-units " (number->string mm-to-bigpoint) " def %% milimeter
-"
+   "/lily-output-units "
+     (number->string mm-to-bigpoint)
+     " def %% millimeter\n"
    (output-entry "staff-line-thickness" 'linethickness)
    (output-entry "line-width" 'linewidth)
    (output-entry "paper-size" 'papersizename)
    (output-entry "staff-height" 'staffheight)	;junkme.
    "/output-scale "
-   (number->string (ly:output-def-lookup layout 'outputscale))
-   " def \n"
+     (number->string (ly:output-def-lookup layout 'outputscale))
+     " def\n"
    (output-entry "page-height" 'vsize)
    (output-entry "page-width" 'hsize)))
 
-(define (dump-page outputter page page-number page-count landscape?) 
+(define (dump-page outputter page page-number page-count landscape?)
   (ly:outputter-dump-string outputter
 			    (string-append
 			     "%%Page: "
@@ -226,11 +227,9 @@
 			(ly:warn "cannot find CFF/PFA/PFB font ~S" x)
 			""))))
 		  (filter string? font-names))))
-      
+
       (string-join pfas "\n")))
-	   
-  
-  
+
   (list
    (output-variables paper)
    (ly:gulp-file "music-drawing-routines.ps")
@@ -238,7 +237,6 @@
    (if load-fonts?
        (load-fonts paper)
        "")
-   
    (define-fonts paper)))
 
 (define-public (output-framework basename book scopes fields )
@@ -257,16 +255,16 @@
      (cons
       (page-header paper page-count #t)
       (preamble paper #t)))
-    
+
     (for-each
      (lambda (page)
        (set! page-number (1+ page-number))
        (dump-page outputter page page-number page-count landscape?))
      pages)
-    
+
     (ly:outputter-dump-string outputter "%%Trailer\n%%EOF\n")
         (ly:outputter-close outputter)
-    (postprocess-output book framework-ps-module filename (ly:output-formats)) 
+    (postprocess-output book framework-ps-module filename (ly:output-formats))
 ))
 
 (if (not (defined? 'nan?))
@@ -285,7 +283,7 @@
 	 (non-title (find (lambda (x)
 			    (not (ly:paper-system-title? x))) systems))
 	 (dump-me
-	  (stack-stencils Y DOWN 0.0 
+	  (stack-stencils Y DOWN 0.0
 			  (map ly:paper-system-stencil
 			       (append titles (list non-title)))))
 	 (xext (ly:stencil-extent dump-me X))
@@ -297,7 +295,7 @@
 		 0.0 x))
 	   (list (car xext) (car yext)
 		 (cdr xext) (cdr yext)))	       ))
-    
+
     (for-each
      (lambda (x)
        (ly:outputter-dump-string outputter x))
@@ -321,7 +319,7 @@
     (ly:outputter-dump-string outputter "} stop-system\n%%Trailer\n%%EOF\n")
         (ly:outputter-close outputter)
     (postprocess-output book framework-ps-module filename
-			(ly:output-formats)) 
+			(ly:output-formats))
 ))
 
 
@@ -353,7 +351,7 @@
        (cons
 	header
 	(preamble paper #f)))
-      
+
       (ly:outputter-dump-string outputter
 				(string-append "start-system { "
 					       "set-ps-scale-to-lily-scale "
@@ -362,7 +360,7 @@
       (ly:outputter-dump-stencil outputter dump-me)
       (ly:outputter-dump-string outputter "} stop-system\n%%Trailer\n%%EOF\n")
       (ly:outputter-close outputter)))
-  
+
   (define (dump-lines lines count)
     (if (pair? lines)
 	(let*
@@ -373,7 +371,7 @@
 	  (dump-line outputter line)
 	  (dump-lines rest (1+ count))
 	  )))
-    
+
   (let* ((lines (ly:paper-book-systems book))
 	 (tex-port (open-output-file (format "~a.tex" basename)))
 	 (last-line (car (last-pair lines))))

@@ -1,3 +1,7 @@
+2005-01-18  Werner Lemberg  <wl@gnu.org>
+
+	* scm/framework-ps.scm (ps-embed-cff): Fix DSC comments.
+
 2005-01-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* mf/GNUmakefile (MFTRACE_FLAGS): add --no-afm to MFTRACE_FLAGS
