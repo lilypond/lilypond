@@ -51,6 +51,7 @@ stopGraceMusic= \sequential {
         minimumVerticalExtent = #'(-4.5 . 4.5)
     }
     % #(define fonts my-sheet)
+    #(define page-breaking ly:optimal-page-breaks)
 
     indent = 10. \mm
     linewidth = 189. \mm
