@@ -13,5 +13,5 @@
 %% 
 
 \relative {
-  a'2 ~ a4( e8[ )e] a,16[ a a a]
+  a'2 ~ a4( e8[) e] a,16[ a a a]
 }

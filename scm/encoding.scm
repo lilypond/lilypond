@@ -17,7 +17,7 @@
 	 (raw (ly:gulp-file path))
 	 (string (regexp-substitute/global #f "%[^\n]*" raw 'pre "" 'post))
 	 (command (match:substring
-		   (string-match "/([^ \t\n\r]*)[ \t\n\r]+[[]" string) 1))
+		   (string-match "/([^ \t\n\r]*)[ \t\n\r]*[[]" string) 1))
 	 (encoding (match:substring (string-match "[[](.*)[]]" string) 1))
 	 (ps-lst (string-tokenize encoding))
 	 (lst (map (lambda (x) (string->symbol (substring x 1))) ps-lst))
@@ -74,7 +74,6 @@ vector of symbols."
   (map (lambda (x)
 	 (cons (car x)
 	       (cons (cdr x) (delay (get-coding-from-file (cdr x))))))
-       
        '(
 	 ;; teTeX font (output) encodings
 	 ("TeX-typewriter-text" . "09fbbfac.enc") ;; cmtt10
@@ -99,6 +98,7 @@ vector of symbols."
 
 	 ;; LilyPond FETA music font
 	 ("fetaBraces" . "feta-braces-a.enc")
+	 ("fetaDynamic" . "feta-din10.enc")
 	 ("fetaNumber" . "feta-nummer10.enc")
 	 ("fetaMusic" . "feta20.enc")
 	 ("parmesanMusic" . "parmesan20.enc"))
@@ -135,18 +135,14 @@ vector of symbols."
 (define-public (decode-byte-string encoding-name str)
   "Return vector of glyphname symbols that correspond to string,
 assuming that STR is byte-coded using ENCODING-NAME."
-  
-  (let*
-      ((coding-vector (get-coding-vector encoding-name))
-       (len (string-length str))
-       (output-vector (make-vector len '.notdef))
-       )
 
+  (let* ((coding-vector (get-coding-vector encoding-name))
+	 (len (string-length str))
+	 (output-vector (make-vector len '.notdef)))
 
     (do
 	((idx 0 (1+ idx)))
 	((>= idx len) output-vector)
       (vector-set! output-vector idx
 		     (vector-ref coding-vector
-				 (char->integer (string-ref str idx))))
-      )))
+				 (char->integer (string-ref str idx)))))))

@@ -74,8 +74,9 @@ Font_metric *select_font (Output_def *layout, SCM chain);
 DECLARE_UNSMOB (Output_def, output_def);
 
 
-Font_metric *find_scaled_font (Output_def * od,
-			       Font_metric *f, Real m, SCM input_enc_name);
+Font_metric *find_scaled_font (Output_def *od,
+			       Font_metric *f, Real magnification,
+			       SCM font_encoding, SCM input_encoding);
 Output_def *scale_output_def (Output_def *def, Real scale);
 Real output_scale (Output_def*);
 

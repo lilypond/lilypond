@@ -1,11 +1,10 @@
-/*   
+/*
   font-select.cc -- implement property -> font_metric routines. 
 
   source file of the GNU LilyPond music typesetter
 
   (c) 2003--2004 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
- */
+*/
 
 #include <cmath>
 
@@ -55,22 +54,23 @@ wild_compare (SCM field_val, SCM val)
  */
 Font_metric *
 get_font_by_design_size (Output_def *layout, Real requested,
-			 SCM font_vector, SCM input_encoding)
+			 SCM font_vector,
+			 SCM font_encoding, SCM input_encoding)
 {
   int n = SCM_VECTOR_LENGTH (font_vector);
   Real size = 1e6;
   Real last_size = -1e6;
   int i = 0;
-  
+
   for (; i < n; i++)
     {
       SCM entry = SCM_VECTOR_REF (font_vector, i);
       Font_metric *fm = unsmob_metrics (scm_force (entry));
       size = fm->design_size ();
-      
+
       if (size > requested)
 	break;
-      last_size = size; 
+      last_size = size;
     }
 
   if (i == n)
@@ -86,17 +86,18 @@ get_font_by_design_size (Output_def *layout, Real requested,
 
   Font_metric *fm = unsmob_metrics (scm_force (SCM_VECTOR_REF (font_vector,
 							       i)));
-  return find_scaled_font (layout, fm, requested / size, input_encoding);
+  return find_scaled_font (layout, fm, requested / size,
+			   font_encoding, input_encoding);
 }
 
-Font_metric*
+Font_metric *
 get_font_by_mag_step (Output_def *layout, Real requested_step,
 		      SCM font_vector, Real default_size,
-		      SCM input_encoding)
+		      SCM font_encoding, SCM input_encoding)
 {
   return get_font_by_design_size (layout, default_size
 				  * pow (2.0, requested_step / 6.0),
-				  font_vector, input_encoding);
+				  font_vector, font_encoding, input_encoding);
 }
 
 SCM
@@ -108,8 +109,8 @@ properties_to_font_size_family (SCM fonts, SCM alist_chain)
 Font_metric *
 select_encoded_font (Output_def *layout, SCM chain, SCM input_encoding)
 {
-  SCM name = ly_assoc_chain (ly_symbol2scm  ("font-name"), chain);
-  
+  SCM name = ly_assoc_chain (ly_symbol2scm ("font-name"), chain);
+
   if (!scm_is_pair (name) || !scm_is_string (scm_cdr (name)))
     {
       SCM fonts = layout->lookup_variable (ly_symbol2scm ("fonts"));
@@ -125,21 +126,26 @@ select_encoded_font (Output_def *layout, SCM chain, SCM input_encoding)
 		   ? robust_scm2double (scm_cdr (mag), 1.0)
 		   : 1);
       Font_metric *fm = all_fonts_global->find_font (ly_scm2string (name));
-		   
-      return find_scaled_font (layout, fm, rmag, input_encoding);
+		
+      SCM font_encoding
+	= scm_cdr (ly_assoc_chain (ly_symbol2scm ("font-encoding"), chain));
+      return find_scaled_font (layout, fm, rmag, font_encoding, input_encoding);
     }
   else if (scm_instance_p (name))
     {
       SCM base_size  = scm_slot_ref (name, ly_symbol2scm ("default-size"));
       SCM vec = scm_slot_ref (name, ly_symbol2scm ("size-vector"));
-      
+
       SCM font_size = ly_assoc_chain (ly_symbol2scm ("font-size"), chain);
       Real req = 0;
       if (scm_is_pair (font_size))
 	req = scm_to_double (scm_cdr (font_size));
 
+      SCM font_encoding
+	= scm_cdr (ly_assoc_chain (ly_symbol2scm ("font-encoding"), chain));
+
       return get_font_by_mag_step (layout, req, vec, scm_to_double (base_size),
-				   input_encoding);
+				   font_encoding, input_encoding);
     }
 
   assert (0);

@@ -13,44 +13,39 @@
 #include "warn.hh"
 #include "stencil.hh"
 
-Modified_font_metric::Modified_font_metric (String input_encoding,
-					    Font_metric *m, Real magn)
+Modified_font_metric::Modified_font_metric (Font_metric *fm,
+					    Real magnification,
+					    String font_encoding,
+					    String input_encoding)
 {
-  /* UGR, FIXME:
-
-     THIS.coding_scheme == input encoding.
-     ORIG.coding_scheme () == font_encoding.
-
-     encoding is hairy enough by itself, should fix treacherous naming.   */
-  
-  coding_scheme_ = input_encoding;
-
+  input_encoding_ = input_encoding;
   coding_vector_ = SCM_EOL;
   coding_mapping_ = SCM_EOL;
   coding_table_ = SCM_EOL;
   coding_description_ = SCM_EOL;
+  magnification_ = magnification;
   
-  magnification_ = magn;
-  
-  SCM desc = m->description_;
+  SCM desc = fm->description_;
 
-  Real total_mag = magn * scm_to_double (scm_cdr (desc));
+  Real total_mag = magnification * scm_to_double (scm_cdr (desc));
   assert (total_mag);
   
   description_ = scm_cons (scm_car (desc), scm_make_real (total_mag));
-  orig_ = m;
-  
-  if (coding_scheme_ != "" 
-      && coding_scheme_ != "TeX"
-      && coding_scheme_ != "ASCII"
-      && coding_scheme_ !=  orig_->coding_scheme ())
-    {
-      /* FIXME: this is broken, cannot get font encoding from font/AFM file,
-	 should use encoding from font-tree in fonts.scm.  */
+  orig_ = fm;
 
-      coding_vector_
-	= scm_call_1 (ly_scheme_function ("get-coding-vector"),
-		      scm_makfrom0str (coding_scheme_.to_str0 ()));
+  String metric_coding = orig_->coding_scheme ();
+  if (metric_coding != "FontSpecific"
+      && metric_coding != font_encoding)
+    warning (_f ("conflicting metric coding (%s) and font_encoding (%s)",
+		 metric_coding, font_encoding));
+
+  if (input_encoding_ != "" 
+      && input_encoding_ != "TeX"
+      && input_encoding_ != "ASCII"
+      && input_encoding_ !=  font_encoding)
+    {
+      coding_vector_ = scm_call_1 (ly_scheme_function ("get-coding-vector"),
+				   scm_makfrom0str (font_encoding.to_str0 ()));
 
       if (!ly_c_vector_p (coding_vector_))
 	{
@@ -58,9 +53,8 @@ Modified_font_metric::Modified_font_metric (String input_encoding,
 	  coding_vector_ = scm_c_make_vector (256, ly_symbol2scm (".notdef"));
 	}
 
-      coding_table_
-	= scm_call_1 (ly_scheme_function ("get-coding-table"),
-		      scm_makfrom0str (orig_->coding_scheme ().to_str0 ()));
+      coding_table_ = scm_call_1 (ly_scheme_function ("get-coding-table"),
+				  scm_makfrom0str (font_encoding.to_str0 ()));
 
       coding_mapping_
 	= scm_call_2 (ly_scheme_function ("make-encoding-mapping"),
@@ -70,7 +64,7 @@ Modified_font_metric::Modified_font_metric (String input_encoding,
       coding_description_ = SCM_EOL;
       coding_description_
 	= scm_acons (ly_symbol2scm ("input-name"),
-		     scm_makfrom0str (coding_scheme_.to_str0 ()),
+		     scm_makfrom0str (input_encoding_.to_str0 ()),
 		     coding_description_);
       coding_description_
 	= scm_acons (ly_symbol2scm ("input-vector"),
@@ -89,20 +83,25 @@ Modified_font_metric::Modified_font_metric (String input_encoding,
 		     coding_description_);
     } 
 }
+
 SCM
-Modified_font_metric::make_scaled_font_metric (SCM coding,
-					       Font_metric *m, Real s)
+Modified_font_metric::make_scaled_font_metric (Font_metric *fm, Real scaling,
+					       SCM font_encoding,
+					       SCM input_encoding)
 {
   /*
     UGH.
    */
-  if (scm_is_symbol (coding))
-    coding = scm_symbol_to_string (coding);
+  if (scm_is_symbol (input_encoding))
+    input_encoding = scm_symbol_to_string (input_encoding);
   
-  String scheme = scm_is_string (coding) ? ly_scm2string (coding) : ""; 
+  String font_encoding_str = ly_symbol2string (font_encoding);
+  String input_encoding_str
+    = scm_is_string (input_encoding) ? ly_scm2string (input_encoding) : ""; 
   
-  Modified_font_metric *sfm = new Modified_font_metric (scheme, m, s);
-  
+  Modified_font_metric *sfm = new Modified_font_metric (fm, scaling,
+							font_encoding_str,
+							input_encoding_str);
   return sfm->self_scm ();
 }
 
@@ -157,7 +156,7 @@ Modified_font_metric::index_to_ascii (int k) const
 String
 Modified_font_metric::coding_scheme () const
 {
-  return coding_scheme_;
+  return input_encoding_;
 }
 
 void
@@ -229,11 +228,11 @@ Box
 Modified_font_metric::text_dimension (String text) 
 {
   Box b; 
-  if (coding_scheme_ == "TeX")
+  if (input_encoding_ == "TeX")
     b = tex_kludge (text);
-  else if (coding_scheme_ == "ASCII"
-	   || coding_scheme_ == "" 
-	   || coding_scheme_ ==  orig_->coding_scheme ())
+  else if (input_encoding_ == "ASCII"
+	   || input_encoding_ == "" 
+	   || input_encoding_ ==  orig_->coding_scheme ())
     {
       Interval ydims;
 
