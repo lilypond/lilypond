@@ -101,6 +101,9 @@ rm `find /var/lib/texmf -name 'feta*pk -print' -or -name 'feta*tfm -print'` /tmp
 %_install_info lilypond.info
 %_install_info lilypond-internals.info
 
+echo 'Please logout first before using LilyPond.'
+
+
 %preun
 %_remove_install_info lilypond.info
 %_remove_install_info lilypond-internals.info
