@@ -22,11 +22,20 @@ struct Score_lines
   void gc_mark ();
 };
 
+/*
+  
+  DOCME.
+  
+*/
 class Paper_book
 {
   DECLARE_SMOBS (Paper_book, );
 
-  Real height_;
+  SCM lines_;
+  SCM pages_;
+
+  
+  Real height_;			// what is this variable for? 
   SCM copyright_;
   SCM tagline_;
 public:
