@@ -46,11 +46,8 @@ Request_chord_iterator::elt_l () const
 }
 
 SCM
-Request_chord_iterator::get_music (Moment m) const
+Request_chord_iterator::get_music (Moment) const
 {
-  Request_chord_iterator* urg = (Request_chord_iterator*)this;
-  urg->last_processed_mom_ = m;
-  urg->last_processed_mom_.set_infinite (1);
   SCM s = SCM_EOL;
   if (music_l_)
     {
@@ -60,7 +57,6 @@ Request_chord_iterator::get_music (Moment m) const
 	{
 	  s = gh_cons (gh_car (m) , s);
 	}
-      urg->music_l_ = 0;
     }
   return s;
 }
@@ -68,7 +64,6 @@ Request_chord_iterator::get_music (Moment m) const
 void
 Request_chord_iterator::process (Moment m)
 {
-  last_processed_mom_ = m;
   if (music_l_)
     {
       for (SCM s = dynamic_cast<Music_sequence *> (music_l_)->music_list ();
@@ -86,7 +81,6 @@ Request_chord_iterator::process (Moment m)
 	    mus->origin ()->warning (_f ("Huh?  Not a Request: `%s'",
 					 classname (mus)));
 	}
-
-     music_l_ =0;
     }
+  skip (m);
 }

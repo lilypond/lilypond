@@ -1,3 +1,9 @@
+1.3.87.jcn2
+===========
+
+* Added skip (M) to music-iterator which fixes ugly non-const hack 
+  of get-music (M).
+
 1.3.87.jcn1
 ===========
 

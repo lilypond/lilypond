@@ -46,6 +46,13 @@ Simple_music_iterator::pending_moment ()const
 }
 
 void
+Simple_music_iterator::skip (Moment m)
+{
+  music_l_ = 0;
+  last_processed_mom_ = m;
+}
+
+void
 Simple_music_iterator::process (Moment m)
 {
 #if 0
@@ -60,6 +67,5 @@ Simple_music_iterator::process (Moment m)
 					  classname (music_l_)));
     }
 #endif
-  music_l_ = 0;
-  last_processed_mom_ = m;
+  skip (m);
 }

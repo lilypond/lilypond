@@ -21,7 +21,8 @@ public:
   Simple_music_iterator ();
   Simple_music_iterator (Simple_music_iterator const &);
   virtual void process (Moment);
-  virtual bool ok()const;
+  virtual bool ok ()const;
+  virtual void skip (Moment);
   virtual Moment pending_moment ()const;
   virtual void construct_children ();
 };
