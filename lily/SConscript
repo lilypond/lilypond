@@ -3,9 +3,9 @@
 import glob
 import os
 
-## this only works for BuildDir aliasing, not for scons -Y ../scrdir
 here = os.getcwd ()
-os.chdir (str (Dir ('.').srcnode ()))
+reldir = str (Dir ('.').srcnode ())
+os.chdir (reldir)
 sources = glob.glob ('*.cc') + ['parser.yy', 'lexer.ll']
 os.chdir (here)
 
@@ -15,8 +15,11 @@ Import ('env')
 e = env.Copy ()
 
 e.Append (YACCFLAGS = '-d')
-e.Append (CPPPATH = ['include', '#/lily/include', '#/flower/include'])
+outdir = os.path.join (env['build'], reldir, env['out'])
+e.Append (CPPPATH = [outdir, '#/lily/include', '#/flower/include'])
 e.Depends ('lexer.cc', 'parser.cc')
+e.Depends ('my-lily-lexer.o', 'parser.cc')
+e.Depends ('my-lily-parser.o', 'parser.cc')
 
 # some stuff here from lily-as-lib
 if not os.path.exists ('main.cc'):
@@ -29,4 +32,6 @@ else:
 	e.Append (LIBS = ['flower'])
 	e.ParseConfig ('guile-config link')
 	name = 'lilypond-bin'
-	e.Program (name, sources)
+	lily = e.Program (name, sources)
+	env.Install (env['bindir'], lily)
+	env.Alias ('install', env['bindir'])

@@ -3,16 +3,17 @@
 import glob
 import os
 
-## this only works for BuildDir aliasing, not for scons -Y ../scrdir
 here = os.getcwd ()
-os.chdir (str (Dir ('.').srcnode ()))
+reldir = str (Dir ('.').srcnode ())
+os.chdir (reldir)
 sources = glob.glob ('*.cc')
 os.chdir (here)
 
 name = 'flower'
 Import ('env')
 e = env.Copy ()
-e.Append (CPPPATH = ['include'])
+outdir = os.path.join (env['build'], reldir, env['out'])
+e.Append (CPPPATH = [outdir, 'include'])
 if env['static']:
 	e.Library (name, sources) 
 if not env['static'] or env['shared']:

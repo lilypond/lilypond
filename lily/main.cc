@@ -226,7 +226,7 @@ setup_paths ()
 #if !KPATHSEA
 	/* Urg: GNU make's $ (word) index starts at 1 */
 	int i  = 1;
-	while (global_path.try_add (p + to_string (".") + to_string (i)))
+	while (global_path.try_append (p + to_string (".") + to_string (i)))
 	  i++;
 #endif
       }
