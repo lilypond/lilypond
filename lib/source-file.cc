@@ -54,7 +54,7 @@ Source_file::file_line_column_str (char const *context_ch_C) const
     return _ ("(unknown)");
   else
     return name_str () + ":" + String (line_i (context_ch_C))
-      + ":" + String (position_i (context_ch_C));
+      + ":" + String (char_i (context_ch_C));
 }
 
 String
@@ -112,7 +112,7 @@ Source_file::line_str (char const* pos_ch_C) const
 }
 
 int
-Source_file::position_i (char const* pos_ch_C) const
+Source_file::char_i (char const* pos_ch_C) const
 {
   if (!in_b (pos_ch_C))
     return 0;
@@ -127,11 +127,11 @@ Source_file::column_i (char const* pos_ch_C) const
   if (!in_b (pos_ch_C))
     return 0;
 
-  int pos_i = position_i (pos_ch_C);
+  int ch_i = char_i (pos_ch_C);
   String line = line_str (pos_ch_C);
 
   int col_i = 0;
-  for (int i = 0; i < pos_i; i++)
+  for (int i = 0; i < ch_i; i++)
     if (line[i] == '\t')
       col_i = (col_i / 8 + 1) * 8;
     else
@@ -146,12 +146,12 @@ Source_file::error_str (char const* pos_ch_C) const
   if (!in_b (pos_ch_C))
     return _ ("(position unknown)");
 
-  int pos_i = position_i (pos_ch_C);
+  int ch_i = char_i (pos_ch_C);
   String line = line_str (pos_ch_C);
-  String context = line.left_str (pos_i)
+  String context = line.left_str (ch_i)
     + String ('\n')
     + String (' ', column_i (pos_ch_C))
-    + line.cut (pos_i, INT_MAX);
+    + line.cut (ch_i, INT_MAX);
 
   return context;
 }
