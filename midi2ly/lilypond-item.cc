@@ -311,7 +311,7 @@ Lilypond_skip::str ()
     return "";
 
   String str = "\\skip ";
-  str += Duration_convert::dur2_str (dur) + "; ";
+  str += Duration_convert::dur2_str (dur);
 
   return str;
 }
