@@ -7769,22 +7769,22 @@ A property tweak of modifies a local copy of the object definition.
 After such a tweak, the definition is independent of the objects in
 enclosing contexts. For example
 
-@lilypond
-  \property Voice.Stem \set #'neutral-direction = #1
-  b'8
+@lilypond[verbatim,fragment]
+  \property Voice.Stem \set #'direction = #1
+  a'4
   \property Staff.Stem \set #'thickness = #4.0
-  b'16
-  \new Voice { b'32 }
+  a'8
+  \new Voice { a'32 }
 @end lilypond
 
-In this fragment, @code{neutral-direction} is tweaked. As a result,
-the current @internalsref{Voice} gets a private version of the
+In this fragment, @code{direction} is tweaked. As a result, the
+current @internalsref{Voice} gets a private version of the
 @internalsref{Stem} object. The following tweak modifies the
 definition at @internalsref{Staff} level. Since it a different
-definition, the thickness of the @code{b'16} is unaffected.  For the
-third note, a new Voice is created, which inherits the new definition,
-including the changed thickness, but excluding the new neutral
-direction.
+definition, the thickness of the first @code{b'16} is unaffected.  For
+the third note, a new Voice is created, which inherits the new
+definition, including the changed thickness, but excluding the new
+neutral direction.
 
 
 
@@ -8095,8 +8095,8 @@ The following commands set @code{fontSize} for the current voice.
 
 @seealso
 
-Init files: @file{ly/paper20.ly} contains hints how new fonts may be
-added to LilyPond.
+Init files: @file{ly/declarations-init.ly} contains hints how new
+fonts may be added to LilyPond.
 
 @refbugs
 

@@ -835,6 +835,10 @@ Rest can contain a list of beat groupings
 ;; stack traces result in core dumps.
 ;; therefore we retain debugging code.
 ;;
+
+;;
+;; todo: this is too hairy.
+;;
 (define-public (determine-split-list evl1 evl2)
   "EVL1 and EVL2 should be ascending"
   
@@ -854,32 +858,59 @@ Rest can contain a list of beat groupings
 	  (uniq-list
 	  (merge (map car evl1) (map car evl2) ly:moment<?)))))
 
-  (define (analyse-events i1 i2 ri
-			  active1
-			  active2)
+  (define (analyse-time-step i1 i2 ri
+			     active1
+			     active2)
 
-    (define (analyse-span-events active evs)
-      (define (analyse-span-event active ev)
-	(let*
-	    ((name (ly:get-mus-property ev 'name))
-	     (key (cond
-		   ((equal? name 'SlurEvent) 'slur)
-		   ((equal? name 'PhrasingSlurEvent) 'tie)
-		   ((equal? name 'Beam) 'beam)
-		   (else #f)))
-	     (sp (ly:get-mus-property ev 'span-direction)))
-
-	   (if (and (symbol? key) (ly:dir? sp))
-	       ((if (= sp STOP) delete! cons) key active)
-	       active))
-	)
-
-      (if (pair? evs)
-	  (analyse-span-events
-	   (analyse-span-event active (car evs))
-	   (cdr evs))
+    (define (analyse-tie-start active ev)
+      (if (equal? (ly:get-mus-property ev 'name) 'TieEvent)
+	  (acons 'tie ri active)
 	  active
 	  ))
+    
+    (define (analyse-tie-end active ev)
+      (if (equal? (ly:get-mus-property ev 'name) 'NoteEvent)
+	  (assoc-remove!  active 'tie)
+	  active) )
+    (define (active<? a b)
+      (cond
+       ((symbol<? (car a) (car b)) #t)
+       ((symbol<? (car b) (car b)) #f)
+       (else
+	(< (cdr a) (cdr b)))
+       ))
+    
+    (define (analyse-span-event active ev)
+      (let*
+	  ((name (ly:get-mus-property ev 'name))
+	   (key (cond
+		       ((equal? name 'SlurEvent) 'slur)
+		       ((equal? name 'PhrasingSlurEvent) 'tie)
+		       ((equal? name 'BeamEvent) 'beam)
+		       ((equal? name 'CrescendoEvent) 'cresc)
+		       ((equal? name 'DecrescendoEvent) 'decr)
+		       (else #f)) )
+	   (sp (ly:get-mus-property ev 'span-direction))
+	   )
+
+	(if (and (symbol? key) (ly:dir? sp))
+	    (if (= sp STOP)
+		(assoc-remove! active key)
+		(acons key ri active))
+	    active)
+	))
+
+    (define (analyse-events active evs)
+      (define (helper analyzer active evs)
+	(if (pair? evs)
+	    (helper analyzer (analyzer active (car evs)) (cdr evs))
+	    active
+	    ))
+      (sort
+       (helper analyse-span-event
+	       (helper analyse-tie-start
+		       (helper analyse-tie-end active evs) evs) evs)
+       active<?))
     
     (define (get-note-evs v i)
       (define (f? x)
@@ -887,8 +918,17 @@ Rest can contain a list of beat groupings
       (filter f? (map car (what v i))))
     
     (define (put x . index)
-      (set-cdr! (vector-ref result (if (pair? index)
-				       (car index) ri)) x) )
+      "Put the result to X, starting from INDEX backwards."
+      (let
+	  ((i (if (pair? index) (car index) ri)))
+
+	(if (and (<= 0 i) (not (symbol? (what result i))))
+	    (begin
+	      (set-cdr! (vector-ref result i) x)
+	      (put x (1- i))
+	    ))
+	))
+	
 
 ;    (display (list i1 i2 ri active1 active2 (vector-length ev1) (vector-length ev2) (vector-length result)  "\n"))
     (cond
@@ -902,13 +942,12 @@ Rest can contain a list of beat groupings
 	   (m1 (when ev1 i1))
 	   (m2 (when ev2 i2))
 ;	   (x (display "oked"))
-	   (new-active1
-	    (sort
-	     (analyse-span-events active1 (map car (what ev1 i1)))
-	     symbol<?))
-	   (new-active2
-	    (sort (analyse-span-events active2 (map car (what ev2 i2)))
-		  symbol<?)))
+	   (evs1 (map car (what ev1 i1)))
+	   (evs2 (map car (what ev2 i2)))
+	   
+	   (new-active1 (analyse-events active1 evs1))
+	   (new-active2 (analyse-events active2 evs2))
+	   )
 	
 	(if (not (or (equal? m1 (when result ri))
 		     (equal? m2 (when result ri))))
@@ -917,20 +956,18 @@ Rest can contain a list of beat groupings
 	       (list "<? M1,M2 != result :"
 		     m1 m2 (when result ri)))
 	      (scm-error "boem")))
-	
+
 	(cond
 	 ((ly:moment<? m1 m2)
 	  (put 'apart)
 	  (if (> ri 0) (put 'apart (1- ri)))
-	  (analyse-events (1+ i1) i2 (1+ ri) new-active1 new-active2))
+	  (analyse-time-step (1+ i1) i2 (1+ ri) new-active1 new-active2))
 	 ((ly:moment<? m2 m1)
 	  (put 'apart)
 	  (if (> ri 0) (put 'apart (1- ri)))
-	  (analyse-events i1 (1+ i2) (1+ ri) new-active1 new-active2))
+	  (analyse-time-step i1 (1+ i2) (1+ ri) new-active1 new-active2))
 	 (else
-	  (if (or (not (equal? active1 active2)) (not (equal? new-active2 new-active1)))
-	      (put 'apart)
-
+	  (if (and (equal? active1 active2) (equal? new-active2 new-active1))
 	      (let*
 		  ((notes1 (get-note-evs ev1 i1))
 		   (pitches1 (sort
@@ -940,27 +977,36 @@ Rest can contain a list of beat groupings
 			      (map (lambda (x) (ly:get-mus-property x 'pitch)) notes2) ly:pitch<?))
 		   )
 		(cond
-		 ((equal? pitches1 pitches2) (put 'unisono))
 		 ((= (length notes1) 0) (put 'solo2))
 		 ((= (length notes2) 0) (put 'solo1))
 		 ((> (length notes1) 1) (put 'apart))
 		 ((> (length notes2) 1) (put 'apart))
 		 (else
-		  (let* (
-;			 (bla (display (list (length pitches1) (length pitches2))))
-			 (diff (ly:pitch-diff (car pitches1) (car pitches2))))
-		    (if (< (ly:pitch-steps diff) chord-threshold)
-			(put 'chords)
-			(put 'apart))
-		    ))))
-	      )
-	  (analyse-events (1+ i1) (1+ i2) (1+ ri) new-active1 new-active2))
+		  (if (< chord-threshold (ly:pitch-steps
+			  (ly:pitch-diff (car pitches1) (car pitches2))))
+			(put 'apart)
+
+
+			;; copy previous split state from spanner state
+			(begin
+			  (map (lambda (key-idx)
+				 (let*
+				     ((idx (cdr key-idx))
+				      (prev (what result  idx))
+				      )
+				   (if (symbol? prev)
+				       (put prev))
+				   )) (append active1 active2))
+			  (if (and (null? new-active1) (null? new-active2))
+			      (put 'chords ri)))
+		    
+		    ))) )
+	      ;; active states different: 
+	      (put 'apart) )
+	  (analyse-time-step (1+ i1) (1+ i2) (1+ ri) new-active1 new-active2))
 	 )))))
 
 
-   (analyse-events 0 0  0 '() '())
+   (analyse-time-step 0 0  0 '() '())
+;   (display result)
    (vector->list result))
-
-
-
-; (determine-split-list '((1 . 2) (3 . 4)) '((1 . 2) (3 . 4)))
