@@ -915,24 +915,24 @@ if 1:
 
 if 1:
 	def conv (str):
-		break_dict = {
- 		"Instrument_name": "instrument-name",
- 		"Left_edge_item": "left-edge",
- 		"Span_bar": "span-bar",
- 		"Breathing_sign": "breathing-sign",
- 		"Staff_bar": "staff-bar",
- 		"Clef_item": "clef",
- 		"Key_item": "key-signature",
- 		"Time_signature": "time-signature",
- 		"Custos": "custos"
- 		}
+	
 		def func(match):
-			props =  m.group (1)
+			break_dict = {
+			"Instrument_name": "instrument-name",
+			"Left_edge_item": "left-edge",
+			"Span_bar": "span-bar",
+			"Breathing_sign": "breathing-sign",
+			"Staff_bar": "staff-bar",
+			"Clef_item": "clef",
+			"Key_item": "key-signature",
+			"Time_signature": "time-signature",
+			"Custos": "custos"
+			}
+			props =  match.group (1)
 			for (k,v) in break_dict.items():
 				props = re.sub (k, v, props)
+			return  "breakAlignOrder = #'(%s)" % props
 
-			
-			return  "breakAlignOrder = #'( %s )" % props
 		str = re.sub (r"breakAlignOrder *= *#'\(([a-z_A-Z ]+)\)", func, str)
 		return str
 

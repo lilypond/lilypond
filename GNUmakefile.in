@@ -122,7 +122,7 @@ default: $(config_h) builddir-setup
 builddir-setup: $(builddir)/share/lilypond-force
 
 $(builddir)/share/lilypond-force:
-	# Preparing LilyPond tree for builddir exec
+# Preparing LilyPond tree for builddir exec
 	@echo Making $(builddir)/share 
 	@cd $(builddir) && rm -rf share
 	@mkdir -p $(builddir)/share/lilypond
