@@ -47,7 +47,8 @@ My_lily_parser::My_lily_parser (My_lily_parser const &src)
   last_beam_start_ = src.last_beam_start_;
 
   smobify_self ();
-  lexer_ = new My_lily_lexer (*src.lexer_);
+  if (src.lexer_)
+    lexer_ = new My_lily_lexer (*src.lexer_);
 }
 
 My_lily_parser::~My_lily_parser ()
