@@ -1,7 +1,16 @@
 
+This is an assorted collection of stuff that will be done, might be
+done, or is an idea that I want to think about
+
+Most of the items are marked in the code as well, with full explanation. 
+grep for TODO and ugh/ugr
+
+
 IMPORTANT
 
 	* update 20 pt table
+
+	* use Hungarian throughout code
 
 	* rename mf fonts to avoid conflicts with musixtex
 
@@ -11,33 +20,29 @@ IMPORTANT
 
 	* script priority
 
-	* slur direction
-
 	* use own fonts/update musixtex fonts
 
 	* check return status in make_website
 
 	* a Hands on tutorial [HKN]
 
-This is an assorted collection of stuff that will be done, might be
-done, or is an idea that I want to think about
 
-Most of the items are marked in the code as well, with full explanation. 
-grep for TODO and ugh/ugr
+PROJECT:
+
+	* Output class, handles 
+	- help text /(c) notice?
+	- warning /errors/progress
+	- abort on error/warning; exit status
+	- quiet/ignore-version options
+	- logfile output
 
 PARSER
 	* Duration-> Musical_duration, typedef Rational Duration?
 
 HKN buglist:
 
-exitcode? (altijd 0)
-
 \bar || ook dunne streepjes? Sluit de balk niet af! (soms met de
 ruimte van een hele maat erachter (bij unmatching staffs)
-
-logfile?
-
-Gepunteerde rusten kloppen niet (punt eronder/boven ipv ernaast)
 
 Hele rusten ook in andere maatsoort dan 4/4 (en centreren in de maat)
 
@@ -48,7 +53,7 @@ barcheck failed in lyric mode -> assert (zie barcheck.ly) (0.0.57)
 ------------------------/
 
 optie om te stoppen na eerste barcheck fail? (en wellicht in eerder
-stadium van precessing)
+stadium van preprocessing)
 
 noten staan vaak te dicht aan de rechterkant van de maatstreep.
 
@@ -61,8 +66,6 @@ barcheck her-synchroniseren? (evt met optie)
 script ^"3" onder ondanks boven?
 
 symbolen voor triller? (dus "tr---")
-
-mogelijkheid om complete regions te commenten (met /* */ ofzo)
 
 waarom geen ; achter dingen in \paper? (\textwidth 180\mm)
 (sowieso: wanneer wel en geen ; ?)
@@ -77,28 +80,6 @@ midi: instrumenten definieren?
 midi: tempo halverwege het stuk wijzigen?
 midi: gebonden noten niet herhalen?
 
-TeX literals invoegen?
-
---------/\
-Dit geeft gigantische trubbels
-        < [d8.( e'32*2/3 d'32*2/3 cis'32*2/3 b16 d'16 cis'16 )b'16]
-          [b8.  cis'32*2/3 b32*2/3 a32*2/3     gis16 fis16 e16 d16] >
-(zie file junkjunk.ly) Ik had natuurlijk wat accolades moeten
-plaatsen, maar ja...
-
---------/\
-Inconsequent: ene keer wel, andere keer niet parse error?
-ipt.ini][/usr/local/share/lilypond/init//table_sixteen.ini]]./lacidarem.ly: 56: 
-error: parse error:
-        <[d8. b8.> \duration 32; <e'*
-                                     2/3 cis'*2/3> <d'*2/3 b*2/3>
-./lacidarem.ly: 56: error: parse error:
-        <[d8. b8.> \duration 32; <e'*2/3 cis'*2/3> <d'*
-                                                       2/3 b*2/3>
-./lacidarem.ly: 57: error: parse error:
-        <cis'*
-              2/3 a*2/3> \duration 16; <b gis> <d' fis> <cis' e> <b' d]> |
-]./lacidarem.ly: 65: warning: Score contains errors. Will not process it. :
 --------/\
 De beam van de triool klopt niet.
         <[d8. b8.> \duration 32; <e'32*2/3 cis'32*2/3> <d'32*2/3 b32*2/3>
@@ -135,13 +116,15 @@ BUGS
 
 	* [c8. c32 c32]
 
+	* \duration 8; e*2/3
+
 	* cis ( | ) cis
 
 	* lilypond - -> crash
 
 	* chlapik balk ruimte 
 
-		* standchen triool beam up/down
+	* standchen triool beam up/down
 
 
 SEVERELY LACKING:
@@ -203,8 +186,6 @@ SMALLISH PROJECTS
 	
 	* caching breakpoints / saving them. 
 
-	* hack ElectricFence to use with LD_PRELOAD
-
 	* use dstream feature in mi2mu
 
         * qtor, btor, mtor-> tor( QUIET_ver ), tor( DEBUG_ver ), etc.
@@ -263,8 +244,6 @@ DOC
 	* a test suite
 
 FUTURE
-
-	* tie a ~ b, move slur reg into voice-group.
 
 	* Reg_configure_request
 
@@ -340,8 +319,6 @@ IDEAS
 	* SHIT: meters/bars should be aligned, which is difficult if
 	we get different keychanges in different staffs.
 
-	* Integrating (objectiveC) MusicKit with LilyPond?
-		
 	* MusixTeX output possible?
 
 	* PostScript output (esp. Beams, Slurs, etc)
@@ -352,8 +329,6 @@ IDEAS
 	  make ofi2 TeX, MusixTex, PostScript, Ascii... interpreters.
 
 	* caching breakpoints
-
-	* use exceptions iso assert?
 
 	* #c <-> cis
 
