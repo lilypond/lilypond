@@ -10,7 +10,7 @@
 #include "hara-kiri-engraver.hh"
 #include "rhythmic-head.hh"
 
-Axis_group_spanner*
+Spanner*
 Hara_kiri_engraver::get_spanner_p () const
 {
   return new Hara_kiri_group_spanner;
