@@ -1,0 +1,44 @@
+#!@FONTFORGE@
+
+# all your braces are belong to us
+
+New();
+
+SetFontNames("aybabtu", "LilyPondBraces", "LilyPond Braces", "Regular", "GNU GPL", "@TOPLEVEL_VERSION@");
+
+MergeFonts("feta-braces-a.pfa");
+MergeFonts("feta-braces-b.pfa");
+MergeFonts("feta-braces-c.pfa");
+MergeFonts("feta-braces-d.pfa");
+MergeFonts("feta-braces-e.pfa");
+MergeFonts("feta-braces-f.pfa");
+MergeFonts("feta-braces-g.pfa");
+MergeFonts("feta-braces-h.pfa");
+MergeFonts("feta-braces-i.pfa");
+
+i = 0;
+while (i < CharCnt())
+  Select(i);
+# crashes fontforge, use PUA for now -- jcn
+# SetUnicodeValue(i + 0xF0000, 0);
+/*
+PRIVATE AREA
+       In the BMP, the range 0xe000 to 0xf8ff will never be  assigned  to  any
+       characters  by  the standard and is reserved for private usage. For the
+       Linux community, this private area has been subdivided further into the
+       range  0xe000  to 0xefff which can be used individually by any end-user
+       and the Linux zone in the range 0xf000 to 0xf8ff where  extensions  are
+       coordinated  among  all  Linux  users.  The  registry of the characters
+       assigned to the Linux zone is currently maintained by  H.  Peter  Anvin
+       <Peter.Anvin@linux.org>.
+*/
+  SetUnicodeValue(i + 0xE000, 0);
+  ++i;
+endloop
+
+LoadTableFromFile("LILF", "aybabtu.subfonts")
+LoadTableFromFile("LILC", "feta-braces-a.otf-table")
+LoadTableFromFile("LILY", "feta-braces-a.otf-gtable")
+
+Generate("aybabtu.otf");
+Generate("aybabtu.cff");

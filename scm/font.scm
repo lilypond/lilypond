@@ -183,16 +183,7 @@
 		  ,(delay  (ly:font-load "bigcheese26"))))
 
      (fetaBraces 15 #(,(delay
-			 (ly:make-virtual-font
-			  (ly:font-load "feta-braces-a")
-			  (ly:font-load "feta-braces-b")
-			  (ly:font-load "feta-braces-c")
-			  (ly:font-load "feta-braces-d")
-			  (ly:font-load "feta-braces-e")
-			  (ly:font-load "feta-braces-f")
-			  (ly:font-load "feta-braces-g")
-			  (ly:font-load "feta-braces-h")
-			  (ly:font-load "feta-braces-i"))))))))
+			  (ly:font-load "aybabtu")))))))
 
 (define-public (add-cmr-fonts node factor)
   (add-font node '((font-encoding . TeX-math))

@@ -315,11 +315,34 @@
 %%
 %% (Don't remove the spaces after the arguments to \input!)
 %%
+%
+%% In teTeX-3.0, latex is actually pdfetex, and we need
+%% ifpdf.sty to determinine if we are really *tex or pdf*tex.
+%
+%% \input ifpdf.sty
+%
+%% However, ifpfd.sty is too smart for LilyPond, so we copy the
+%% logic here.  Using \input ifpdf.sty is a no-op when using latex,
+%% and the \ifpdf switch is needed before \documentclass, using
+%% \usepackage{ifpdf} is not an option.
+%
 \lilypondifundefined{lilypondpostscript}
-  {\lilypondifundefined{pdfoutput}
+  {\newif\ifpdf
+   \ifx\pdfoutput\undefined
+   \else
+     \ifx\pdfoutput\relax
+     \else
+       \ifcase\pdfoutput
+       \else
+         \pdftrue
+       \fi
+     \fi
+   \fi
+   \ifpdf
+     {\input lily-pdf-defs }
+   \else
      {\input lily-ps-defs }
-     {\pdfoutput = 1
-      \input lily-pdf-defs }}
+   \fi}
   {}
 
 %% Restore newline functionality (disabled to avoid \par).
