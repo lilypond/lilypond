@@ -87,6 +87,11 @@ enddef;
 % drawing
 %
 
+def simple_serif(expr p,q, a)= 
+	p{dir(angle(q-p) -a)} .. q{ - dir(angle(p -q) + a)}
+enddef;
+%
+
 % a: x diameter
 % b: y diameter
 % err_x: drift of y axis at top
