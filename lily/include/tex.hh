@@ -3,7 +3,7 @@
 
   source file of the LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -12,10 +12,10 @@
 #define TEX_HH
 
 #include "string.hh"
-#include "boxes.hh"
+#include "box.hh"
 #include "scalar.hh"
 
-/** parameter substitution in TeX_strings.
+/** paratime_signature substitution in TeX_strings.
   this function provides a simple macro mechanism:
 
   if source == "tex%bla%", then
@@ -24,7 +24,7 @@
 String
 substitute_args (String source, Array<String> args);
 
-/// parameter substitution in TeX_strings
+/// paratime_signature substitution in TeX_strings
 String
 substitute_args (String source, Array<Scalar> args);
 

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -19,7 +19,7 @@ class Timing_translator : public virtual Translator
 {
 public:
   TRANSLATOR_CLONE(Timing_translator);
-  Meter_change_req * meter_req_l () const;
+  Time_signature_change_req * time_signature_req_l () const;
   Timing_translator ();
   DECLARE_MY_RUNTIME_TYPEINFO;
   Time_description time_;
