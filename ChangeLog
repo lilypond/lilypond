@@ -1,3 +1,10 @@
+2002-12-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/chord-name.scm: complete new markup usage
+
+	* scm/grob-description.scm (all-grob-descriptions): use new markup
+	texts by default
+
 2002-12-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/chord-name.scm: partial move to new markup texts.

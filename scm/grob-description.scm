@@ -243,9 +243,9 @@
 
     (ChordName
      . (
-	(molecule-callback . ,Chord_name::brew_molecule)
+	(molecule-callback . ,new-chord-name-brew-molecule)
 	(after-line-breaking-callback . ,Chord_name::after_line_breaking)
-	(chord-name-function . ,default-chord-name-function)
+	(chord-name-function . ,chord->markup)
 	(font-family . roman)
 	(meta . ((interfaces . (font-interface text-interface chord-name-interface item-interface ))))
 	))
