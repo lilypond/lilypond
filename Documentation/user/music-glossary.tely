@@ -159,8 +159,8 @@ they look too intrusive (says Han-Wen).
 This is an example reference, that points you to the @aref{accent}
 entry.
 
-
-@table @samp @c @strong 
+ @c @strong 
+@table @samp
 
 @aitem{A}
 ES: la,
@@ -4191,8 +4191,8 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 @end table
 
 @page
-
-@table @samp @c @strong
+ @c @strong
+@table @samp
 @item DURATION NAMES, NOTES AND RESTS
 @end table
 
@@ -4255,7 +4255,8 @@ sextio@-fj@"arde@-del @tab kuudeskymmenesnelj@"asosa- @tab
 
 @page
 
-@table @samp @c strong
+ @c strong
+@table @samp
 @item PITCH NAMES
 @end table
 
@@ -4320,8 +4321,8 @@ ais @tab ais @tab ais
 @end multitable
 
 @
-
-@table @samp @c strong
+ @c strong
+@table @samp
 
 @item ---------------------
 
