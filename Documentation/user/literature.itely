@@ -1,9 +1,11 @@
 @node Literature
 @chapter Literature
 
-If you need to know more about music notation, here are some interesting
-titles to read. The source archive includes a more elaborate
-bibliography of over 100 entries in @file{Documentation/bibliography/}.
+If you need to know more about music notation, here are some
+interesting titles to read. The source archive includes a more
+elaborate BibTeX bibliography of over 100 entries in
+@file{Documentation/bibliography/}. It is also available online from
+the lilypond website.
 
 @table @cite
 @item Banter 1987

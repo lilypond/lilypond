@@ -35,25 +35,16 @@ which substitutes some @AT_VARIABLES@ as well.
   <tr>
     <td align=left valign=top width="15%" bgcolor="#e8ffe8">
     <table align=left>
-      <tr><td bgcolor="#e8e8ff"><a href="@INDEX@"><b>Home</b></a></td></tr>
-      <tr><td><font size=-1>
-        <a href="http://www.lilypond.org/">LilyPond website</a><br>
-        <a href="http://www.lilypond.org/wiki">WikiWikiWeb</a><br>
-        <a href="http://www.gnu.org">GNU Project</a><br>
-        <a href="http://www2.iro.umontreal.ca/~pinard/po/registry.cgi?domain=lilypond">Translations</a><br>
-        <a href="http://www.cs.uu.nl/~hanwen/lilypond/">Han-Wen's site</a><br>
-	<br>
-      </td></tr>
+  
       <tr><td bgcolor="#e8e8ff">
-    	<a href="@TOP@Documentation/out-www/index.html"><b>Documentation</b></a>
+      <b>Documentation</b>
       </td></tr>
       <tr><td><font size=-1>
-    	<a href="@TOP@Documentation/out-www/CHANGES.html">Change Log</a><br>
-    	<a href="http://appel.lilypond.org/wiki?LilyPondFaqs">FAQ</a><br>
-    	<a href="@TOP@Documentation/user/out-www/lilypond/lilypond.html">User manual</a><br>
-	<a href="@TOP@Documentation/out-www/regression-test.html">Regression Test</a><br>
-	<a href="@TOP@Documentation/user/out-www/lilypond-internals/lilypond-internals.html">Documentation of internals</a><br>
-<br>
+    	<a href="@TOP@Documentation/out-www/index.html#everyone">General information</a><br>
+    	<a href="@TOP@Documentation/out-www/index.html#new-users">New users</a><br>
+    	<a href="@TOP@Documentation/out-www/index.html#other-users">Other users</a><br>
+    	<a href="@TOP@Documentation/out-www/index.html#developers">Developers</a><br>
+    	<a href="@TOP@Documentation/out-www/index.html#background">Background info</a><br>
       </td></tr>
       <tr><td bgcolor="#e8e8ff">
 	<b>Download </b>
@@ -63,24 +54,31 @@ which substitutes some @AT_VARIABLES@ as well.
 	<a href="@TOP@Documentation/topdocs/out-www/INSTALL.html#download-binaries">Binary</a>	<br>
       </td></tr>
       <tr><td bgcolor="#e8e8ff">
-	<a href="@INDEX@#music"><b>Music</b></a>
+	<b>Music</b>
       </td></tr>
       <tr><td><font size=-1>
 	<a href="@TOP@short-examples.html">Short examples</a><br>
 	<a href="@TOP@long-examples.html">Longer examples</a><br>
 	<a href="http://www.mutopiaproject.org/">Mutopia Project</a><br>
 
-	<a href="http://appel.lilypond.org/wiki?DownloadLilyPondScores">Other URLs</a><br>
+	<a href="http://www.lilypond.org/wiki?DownloadLilyPondScores">Other URLs</a><br>
 	<br>
       </td></tr>
       <tr><td bgcolor="#e8e8ff">
-        <a href="@INDEX@#mailing-lists"><b>Mailing Lists</b></a>
+	<b>Mailing Lists</b>
       </td></tr>
       <tr><td><font size=-1>
 	<a href="http://mail.gnu.org/mailman/listinfo/gnu-music-discuss/">Discussion</a><br>
         <a href="http://mail.gnu.org/mailman/listinfo/help-gnu-music">Help</a><br>
         <a href="http://mail.gnu.org/mailman/listinfo/bug-gnu-music/">Bugs</a><br>
         <a href="http://mail.gnu.org/mailman/listinfo/info-gnu-music">Announcements</a><br>
+	<br>
+      </td></tr>
+    <tr><td bgcolor="#e8e8ff"><b>Sites</b></td></tr>
+      <tr><td><font size=-1>
+        <a href="http://www.lilypond.org/">Website</a><br>
+        <a href="http://www.lilypond.org/wiki">WikiWiki</a><br>
+        <a href="ftp://ftp.lilypond.org/pub">FTP site</a><br>
 	<br>
       </td></tr>
     </table>
