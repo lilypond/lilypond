@@ -29,8 +29,8 @@ ignatzekExceptionMusic = {
 	<c e gis>1-\markup { "+" }
 	<c es ges>-\markup { \super "o" } % should be $\circ$ ?
 	<c es ges bes>-\markup {
-	  %%  f8 o with slash.
-	  #(ly:export (ly:wide-char->utf-8 #x00f8))
+	  %%  f8 is o with slash.
+	  \super #(ly:export (ly:wide-char->utf-8 #x00f8))
 	}
 	<c es ges beses>-\markup { \super  "o7" }
 }
