@@ -23,6 +23,8 @@ documenting bugfixes.
 
 @section Notes and rests
 
+@lilypondfile[printfilename]{note-head-chord.ly}
+
 @lilypondfile[printfilename]{note-head-style.ly}
 
 @lilypondfile[printfilename]{mensural.ly}

@@ -1,5 +1,9 @@
 2002-04-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scripts/lilypond-book.py: fix by Mats. Try to import pre if available.
+
+	* scripts/ly2dvi.py (setup_environment): fix by Mats.
+
 	* lily/stem.cc (head_count): Change function name. Change property
 	to #'note-heads i.s.o.  #'heads.
 	(position_noteheads): Kern noteheads for invisible stems.

@@ -40,16 +40,29 @@
 import os
 import stat
 import string
-import re
+
+
 import getopt
 import sys
 import __main__
 import operator
 
+# Handle bug in Python 1.6-2.1
+#
+# there are recursion limits for some patterns in Python 1.6 til 2.1. 
+# fix this by importing pre instead. Fix by Mats.
+
+# todo: should check Python version first.
+try:
+	import pre
+	re = pre
+	del pre
+except ImportError:
+	import re
 
 program_version = '@TOPLEVEL_VERSION@'
 if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
-	program_version = '1.5.18'
+	program_version = '1.5.53'
 
 # if set, LILYPONDPREFIX must take prevalence
 # if datadir is not set, we're doing a build and LILYPONDPREFIX 
@@ -411,7 +424,8 @@ output_dict= {
 \verb+%s+:''',
 		'output-lilypond': r"""\begin[%s]{lilypond}
 %s
-\end{lilypond}""",
+\end{lilypond}
+""",
 		'output-verbatim': "\\begin{verbatim}%s\\end{verbatim}",
 		'output-default-post': "\\def\postLilypondExample{}\n",
 		'output-default-pre': "\\def\preLilypondExample{}\n",
@@ -420,6 +434,7 @@ output_dict= {
 		'output-tex': '{\\preLilypondExample \\input %(fn)s.tex \\postLilypondExample\n}',
 		'pagebreak': r'\pagebreak',
 		},
+	
 	'texi' : {'output-lilypond': """@lilypond[%s]
 %s
 @end lilypond 
@@ -467,24 +482,29 @@ def output_verbatim (body):
 	return get_output ('output-verbatim') % body
 
 
+#warning: this uses extended regular expressions. Tread with care.
+
+# legenda (?P  name parameter
+# *? match non-greedily.
+
 re_dict = {
-	'latex': {'input': r'(?m)^[^%\n]*(?P<match>\\mbinput{?([^}\t \n}]*))',
-		  'include': r'(?m)^[^%\n]*(?P<match>\\mbinclude{(?P<filename>[^}]+)})',
+	'latex': {'input': r'(?m)^[^%\n]*?(?P<match>\\mbinput{?([^}\t \n}]*))',
+		  'include': r'(?m)^[^%\n]*?(?P<match>\\mbinclude{(?P<filename>[^}]+)})',
 		  'option-sep' : ',\s*',
-		  'header': r"\\documentclass\s*(\[.*\])?",
-		  'geometry': r"^(?m)[^%\n]*\\usepackage\s*(\[(?P<options>.*)\])?\s*{geometry}",
+		  'header': r"\\documentclass\s*(\[.*?\])?",
+		  'geometry': r"^(?m)[^%\n]*?\\usepackage\s*(\[(?P<options>.*)\])?\s*{geometry}",
 		  'preamble-end': r'(?P<code>\\begin{document})',
-		  'verbatim': r"(?s)(?P<code>\\begin{verbatim}.*\\end{verbatim})",
-		  'verb': r"(?P<code>\\verb(?P<del>.).*(?P=del))",
-		  'lilypond-file': r'(?m)^[^%\n]*(?P<match>\\lilypondfile\s*(\[(?P<options>.*)\])?\s*{(?P<filename>[^}]+)})',
-		  'lilypond' : r'(?m)^[^%\n]*(?P<match>\\lilypond\s*(\[(?P<options>.*)\])?\s*{(?P<code>.*)})',
-		  'lilypond-block': r"(?sm)^[^%\n]*(?P<match>\\begin\s*(\[(?P<options>.*)\])?\s*{lilypond}(?P<code>.*)\\end{lilypond})",
+		  'verbatim': r"(?s)(?P<code>\\begin{verbatim}.*?\\end{verbatim})",
+		  'verb': r"(?P<code>\\verb(?P<del>.).*?(?P=del))",
+		  'lilypond-file': r'(?m)^[^%\n]*?(?P<match>\\lilypondfile\s*(\[(?P<options>.*?)\])?\s*\{(?P<filename>.+)})',
+		  'lilypond' : r'(?m)^[^%\n]*?(?P<match>\\lilypond\s*(\[(?P<options>.*?)\])?\s*{(?P<code>.*?)})',
+		  'lilypond-block': r"(?sm)^[^%\n]*?(?P<match>\\begin\s*(\[(?P<options>.*?)\])?\s*{lilypond}(?P<code>.*?)\\end{lilypond})",
 		  'def-post-re': r"\\def\\postLilypondExample",
 		  'def-pre-re': r"\\def\\preLilypondExample",		  
 		  'usepackage-graphics': r"\usepackage{graphics}",
-		  'intertext': r',?\s*intertext=\".*\"',
+		  'intertext': r',?\s*intertext=\".*?\"',
 		  'multiline-comment': no_match,
-		  'singleline-comment': r"(?m)^.*(?P<match>(?P<code>^%.*$\n+))",
+		  'singleline-comment': r"(?m)^.*?(?P<match>(?P<code>^%.*$\n+))",
 		  'numcols': r"(?P<code>\\(?P<num>one|two)column)",
 		  },
 
@@ -493,20 +513,20 @@ re_dict = {
 
 	
 	'texi': {
-		 'include':  '(?m)^[^%\n]*(?P<match>@mbinclude[ \n\t]+(?P<filename>[^\t \n]*))',
+		 'include':  '(?m)^[^%\n]*?(?P<match>@mbinclude[ \n\t]+(?P<filename>[^\t \n]*))',
 		 'input': no_match,
 		 'header': no_match,
 		 'preamble-end': no_match,
 		 'landscape': no_match,
-		 'verbatim': r"""(?s)(?P<code>@example\s.*@end example\s)""",
-		 'verb': r"""(?P<code>@code{.*})""",
-		 'lilypond-file': r"""(?m)^(?P<match>@lilypondfile(\[(?P<options>[^]]*)\])?{(?P<filename>[^}]+)})""",
-		 'lilypond' : r"""(?m)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?{(?P<code>.*)})""",
-		 'lilypond-block': r"""(?ms)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?\s(?P<code>.*)@end lilypond)\s""",
+		 'verbatim': r"""(?s)(?P<code>@example\s.*?@end example\s)""",
+		 'verb': r"""(?P<code>@code{.*?})""",
+		 'lilypond-file': '(?m)^(?P<match>@lilypondfile(\[(?P<options>[^]]*)\])?{(?P<filename>[^}]+)})',
+		 'lilypond' : '(?m)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?{(?P<code>.*?)})',
+		 'lilypond-block': r"""(?ms)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?\s(?P<code>.*?)@end lilypond)\s""",
 		  'option-sep' : ',\s*',
-		  'intertext': r',?\s*intertext=\".*\"',
-		  'multiline-comment': r"(?sm)^\s*(?!@c\s+)(?P<code>@ignore\s.*@end ignore)\s",
-		  'singleline-comment': r"(?m)^.*(?P<match>(?P<code>@c.*$\n+))",
+		  'intertext': r',?\s*intertext=\".*?\"',
+		  'multiline-comment': r"(?sm)^\s*(?!@c\s+)(?P<code>@ignore\s.*?@end ignore)\s",
+		  'singleline-comment': r"(?m)^.*?(?P<match>(?P<code>@c.*$\n+))",
 		  'numcols': no_match,
 		 }
 	}
@@ -637,8 +657,8 @@ def compose_full_body (body, opts):
 
 def parse_options_string(s):
 	d = {}
-	r1 = re.compile("((\w+)={(.*)})((,\s*)|$)")
-	r2 = re.compile("((\w+)=(.*))((,\s*)|$)")
+	r1 = re.compile("((\w+)={(.*?)})((,\s*)|$)")
+	r2 = re.compile("((\w+)=(.*?))((,\s*)|$)")
 	r3 = re.compile("(\w+?)((,\s*)|$)")
 	while s:
 		m = r1.match(s)
@@ -676,7 +696,7 @@ def scan_latex_preamble(chunks):
 		for o in options:
 			if o == 'landscape':
 				paperguru.m_landscape = 1
-			m = re.match("(.*)paper", o)
+			m = re.match("(.*?)paper", o)
 			if m:
 				paperguru.m_papersize = m.group()
 			else:
@@ -836,7 +856,6 @@ def chop_chunks(chunks, re_name, func, use_match=0):
         if c[0] == 'input':
             str = c[1]
             while str:
-#		print re_name
                 m = get_re (re_name).search (str)
                 if m == None:
                     newchunks.append (('input', str))
@@ -917,7 +936,7 @@ def schedule_lilypond_block (chunk):
 	file_body = compose_full_body (body, opts)
 	basename = 'lily-' + `abs(hash (file_body))`
 	for o in opts:
-		m = re.search ('filename="(.*)"', o)
+		m = re.search ('filename="(.*?)"', o)
 		if m:
 			basename = m.group (1)
 			if not taken_file_names.has_key(basename):
@@ -964,7 +983,7 @@ def schedule_lilypond_block (chunk):
 		newbody = output_verbatim (body)
 
 	for o in opts:
-		m = re.search ('intertext="(.*)"', o)
+		m = re.search ('intertext="(.*?)"', o)
 		if m:
 			newbody = newbody  + m.group (1) + "\n\n"
 	if format == 'latex':
@@ -1261,7 +1280,7 @@ def fix_epswidth (chunks):
 
 			return '%fpt' % (dims[0] *lmag)
  	
-		body = re.sub (r"""\\lilypondepswidth{(.*)}""", replace_eps_dim, c[1])
+		body = re.sub (r"""\\lilypondepswidth{(.*?)}""", replace_eps_dim, c[1])
 		newchunks.append(('lilypond', body, c[2], c[3], c[4]))
 			
 	return newchunks
