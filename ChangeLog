@@ -1,5 +1,17 @@
 2003-09-23  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* make/ly-rules.make: Test for files instead of touching void and
+	ignoring errors.
+
+	* GNUmakefile.in:
+	* make/lilypond.redhat.spec.in:
+	* debian/rules: Fix lilypond.words stuff a bit.  For running from
+	<builddir>, adding
+	
+             (push "<builddir>/share/lilypond/elisp" load-path)
+
+	to your ~/.emacs.el should give you LilyPond-mode again.
+
 	* scripts/lilypond-book.py (re_dict): Only fix texinfo @mbinclude
 	regexp for DOS/Windows, we are too paranoid to fix others.
 

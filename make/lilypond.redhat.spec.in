@@ -50,8 +50,6 @@ Documentation and example files of LilyPond. An index is available at
 make MAKE_PFA_FILES=1 all
 make -C mf/ pfa
 
-make lilypond.words
-
 # make info
 make -C Documentation
 
