@@ -149,7 +149,7 @@
        "}\\vss\n}\n\\vfill\n"
        "}\\vss\n}\n\\vfill\\lilypondpagebreak\n")))
 
-(define-public (output-framework outputter book scopes fields basename)
+(define-public (output-framework outputter book scopes fields basename options)
   (let* ((bookpaper (ly:paper-book-book-paper book))
 	 (pages (ly:paper-book-pages book))
 	 (last-page (car (last-pair pages)))
@@ -203,7 +203,7 @@
 
 
 (define-public (output-preview-framework
-		outputter book scopes fields basename)
+		outputter book scopes fields basename options)
   (let* ((bookpaper (ly:paper-book-book-paper book))
 	 (lines (ly:paper-book-lines book)))
     (for-each

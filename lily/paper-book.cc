@@ -114,6 +114,32 @@ LY_DEFINE (ly_output_formats, "ly:output-formats",
 }
 
 void
+Paper_book::post_processing (SCM module,
+			     SCM file_name)
+{
+  if (make_pdf)
+    {
+      SCM func = scm_c_module_lookup (module, "convert-to-pdf");
+      if (scm_variable_p (func) == SCM_BOOL_T)
+	{
+	  func = scm_variable_ref (func);
+	  if (ly_c_procedure_p (func))
+	    scm_call_2 (func, self_scm(), file_name);
+	}
+    }
+
+  if (make_png)
+    {
+      SCM func = scm_c_module_lookup (module, "convert-to-png");
+      if (scm_variable_p (func) ==  SCM_BOOL_T)
+	{
+	  func = scm_variable_ref (func);
+	  if (ly_c_procedure_p (func))
+	    scm_call_2 (func, self_scm(), file_name);
+	}
+    }
+}
+void
 Paper_book::output (String outname)
 {
   if (!score_lines_.size ())
@@ -126,8 +152,8 @@ Paper_book::output (String outname)
   for (SCM s = formats; ly_c_pair_p (s); s = ly_cdr (s)) 
     {
       String format = ly_scm2string (ly_car (s));
-      Paper_outputter *out = get_paper_outputter (outname + "." + format,
-						  format);
+      String file_name = outname + "." + format;
+      Paper_outputter *out = get_paper_outputter (file_name, format);
   
       SCM scopes = SCM_EOL;
       if (ly_c_module_p (header_))
@@ -145,8 +171,31 @@ Paper_book::output (String outname)
 				     dump_fields (),
 				     scm_makfrom0str (outname.to_str0 ()),
 				     SCM_UNDEFINED));
-
+      out->close ();
       scm_gc_unprotect_object (out->self_scm ());
+
+      post_processing (mod, scm_makfrom0str (file_name.to_str0 ()));
+      
+      if (make_preview)
+	{
+	  String file_name = outname + ".preview." + format;
+	  Paper_outputter *out = get_paper_outputter (file_name, format);
+  
+   	  SCM func = scm_c_module_lookup (mod, "output-preview-framework");
+	  func = scm_variable_ref (func);
+	  scm_apply_0 (func, scm_list_n (out->self_scm (),
+					 self_scm (),
+					 scopes,
+					 dump_fields (),
+					 scm_makfrom0str (outname.to_str0 ()),
+					 SCM_UNDEFINED));
+
+	  out->close ();
+	  scm_gc_unprotect_object (out->self_scm ());
+
+	  post_processing (mod, scm_makfrom0str (file_name.to_str0 ()));
+     	}
+      
       progress_indication ("\n");
     }
 }
@@ -181,9 +230,10 @@ Paper_book::classic_output (String outname)
       Paper_outputter *out = get_paper_outputter (outname + "." + format,
 						  format);
 
-      scm_apply_0 (func, scm_list_5 (out->self_scm (), self_scm (), scopes,
+      scm_apply_0 (func, scm_list_n (out->self_scm (), self_scm (), scopes,
 				     dump_fields (),
-				     scm_makfrom0str (outname.to_str0 ())));
+				     scm_makfrom0str (outname.to_str0 ()),
+				     SCM_UNDEFINED));
 
       scm_gc_unprotect_object (out->self_scm ());
       progress_indication ("\n");

@@ -63,7 +63,9 @@ bool verbose_global_b = false;
 */
 String init_scheme_code_string = "(begin #t ";
 
-
+bool make_pdf = false;
+bool make_png = false;
+bool make_preview = false;
 
 /*
  * Miscellaneous global stuff.
@@ -129,6 +131,7 @@ static Long_option_init options_static[] =
     {_i ("FILE"), "init", 'i',  _i ("use FILE as init file")},
     {0, "no-paper", 'm',  _i ("produce MIDI output only")},
     {_i ("FILE"), "output", 'o',  _i ("write output to FILE")},
+    {0, "preview", 'p',  _i ("generate a preview")},
     {0, "safe-mode", 's',  _i ("run in safe mode")},
     {0, "version", 'v',  _i ("print version number")},
     {0, "verbose", 'V', _i ("be verbose")},
@@ -331,6 +334,9 @@ parse_argv (int argc, char **argv)
 	    File_name file_name (s);
 	    output_name_global = file_name.to_string ();
 	  }
+	  break;
+	case 'p':
+	  make_preview = true;	  
 	  break;
 	case 'e':
 	  init_scheme_code_string += option_parser->optional_argument_str0_;
