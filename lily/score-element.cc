@@ -150,7 +150,7 @@ Score_element::add_processing()
 
 
 void
-Score_element::calcalute_dependencies (int final, int busy,
+Score_element::calculate_dependencies (int final, int busy,
 				    Score_element_method_pointer funcptr)
 {
   if (status_i_ >= final)
@@ -160,11 +160,11 @@ Score_element::calcalute_dependencies (int final, int busy,
   status_i_= busy;
 
   for (int i=0; i < dependency_size(); i++)
-    dependency (i)->calcalute_dependencies (final, busy, funcptr);
+    dependency (i)->calculate_dependencies (final, busy, funcptr);
 
   Link_array<Score_element> extra (get_extra_dependencies());
   for (int i=0; i < extra.size(); i++)
-    extra[i]->calcalute_dependencies (final, busy, funcptr);
+    extra[i]->calculate_dependencies (final, busy, funcptr);
   
   invalidate_cache (X_AXIS);
   invalidate_cache (Y_AXIS);
