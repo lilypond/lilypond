@@ -1,3 +1,11 @@
+
+% Generated automatically by: lilypond-book.py
+% options are filename=/var/fred/cvs/savannah/lilypond/input/test/trills.ly printfilename  
+\include "paper16.ly"
+\paper  {
+  linewidth = 433.619940\pt
+  
+} 
 \version "1.5.68"
 \header {
   texidoc="Document trills, pralls and turns"
@@ -46,12 +54,17 @@ endHorizScript = {
 	 \context Voice=lower{\voiceTwo 
 	   \property Voice.Script \override #'extra-offset = #'(-0.8 . 2.0)
 	   b_\turn}>
-	\startHorizScript c^\comma
+	\startHorizScript
+%{ FIXME  \comma does not exist
+ 
+	c^\comma
 	\time 3/8
 	c4.^\comma
 	b8 c4_\comma 
 	c8 b4_\comma
-	b8 c4^\comma _\comma \endHorizScript
+	b8 c4^\comma _\comma
+%}
+	\endHorizScript
         \time  2/2 \slurDown
 	<{c2}{s4 \invisible d1*1/4 ( \visible }> ) e2
 	<{a,2}{s4 \invisible b1*1/4 ( \visible }> ) d2
