@@ -33,7 +33,6 @@ F.close()
 
 # identifiers and keywords
 for name in [
-'ly/a4-init.ly',
 'ly/chord-modifiers-init.ly',
 'ly/dynamic-scripts-init.ly',
 'ly/engraver-init.ly',
