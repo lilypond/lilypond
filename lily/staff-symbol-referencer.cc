@@ -21,7 +21,9 @@ Staff_symbol_referencer_interface::Staff_symbol_referencer_interface (Score_elem
 void
 Staff_symbol_referencer_interface::set_interface ()
 {
-  elt_l_->set_elt_property ("staff-position", gh_double2scm (0.0));
+  if (!gh_number_p (elt_l_->get_elt_property ("staff-position")))
+      elt_l_->set_elt_property ("staff-position", gh_double2scm (0.0));
+      
   elt_l_->add_offset_callback (callback, Y_AXIS);
 }
 

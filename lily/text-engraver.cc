@@ -78,7 +78,7 @@ Text_engraver::do_process_music ()
     {
       Text_script_req * r = reqs_[i];
 
-      Text_item *text = new Text_item (SCM_EOL);
+      Text_item *text = new Text_item (get_property ("basicTextScriptProperties"));
       Side_position_interface stafy (text);
 
       SCM axisprop = get_property ("scriptHorizontal");
@@ -106,9 +106,9 @@ Text_engraver::do_process_music ()
 	text->set_elt_property ("style", ly_str02scm (r->style_str_.ch_C()));
       
       SCM empty = get_property ("textNonEmpty");
-      if (!to_boolean (empty))
+      if (to_boolean (empty))
 	{
-	  text->set_elt_property ("no-spacing-rods" , SCM_BOOL_T);
+	  text->set_elt_property ("no-spacing-rods" , SCM_BOOL_F);
 	  text->set_extent_callback (0, X_AXIS);
 	}
       announce_element (Score_element_info (text, r));
