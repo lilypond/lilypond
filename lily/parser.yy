@@ -1288,9 +1288,22 @@ chord_body_element:
 		if ($2 % 2 || $3 % 2)
 			n->set_mus_property ("force-accidental", SCM_BOOL_T);
 
-		SCM arts = scm_reverse_x ($4, SCM_EOL);
-		n->set_mus_property ("articulations", arts);
+		if (gh_pair_p ($4)) {
+			SCM arts = scm_reverse_x ($4, SCM_EOL);
+			n->set_mus_property ("articulations", arts);
+		}
+		$$ = n;
+	}
+	| DRUM_PITCH post_events {
+		Music *n =  MY_MAKE_MUSIC("NoteEvent");
+		n->set_mus_property ("duration" ,$2);
+		n->set_mus_property ("drum-type" , $1);
+		n->set_spot (THIS->here_input());
 
+		if (gh_pair_p ($2)) {
+			SCM arts = scm_reverse_x ($2, SCM_EOL);
+			n->set_mus_property ("articulations", arts);
+		}
 		$$ = n;
 	}
 	;

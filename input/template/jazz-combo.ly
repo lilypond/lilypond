@@ -1,4 +1,4 @@
-\version "2.1.13"
+\version "2.1.19"
 \header {
         title = "Song"
         subtitle = "(tune)"
@@ -15,11 +15,13 @@
 %%%%%%%%%%%% Some macros %%%%%%%%%%%%%%%%%%%
 
 sl = {
-          \property Voice.NoteHead \override #'style = #'slash
-          \property Voice.Stem \override #'length = #0 }
+    \property Voice.NoteHead \override #'style = #'slash
+    \property Voice.Stem \override #'transparent = ##t
+}
 nsl = {
-         \property Voice.NoteHead \revert #'style
-         \property Voice.Stem \revert #'length }
+    \property Voice.NoteHead \revert #'style
+    \property Voice.Stem \revert #'transparent
+}
 cr = \property Voice.NoteHead \override #'style = #'cross
 ncr = \property Voice.NoteHead \revert #'style
 
@@ -27,29 +29,30 @@ ncr = \property Voice.NoteHead \revert #'style
 
 jzchords = { } 
 
+
 %%%%%%%%%%%% Keys'n'thangs %%%%%%%%%%%%%%%%%
 
 global = \notes {
-        \time 4/4
+    \time 4/4
 }
 
-Key = \notes \key c \major
+Key = \notes { \key c \major }
 
 % ############ Horns ############
 % ------ Trumpet ------
 trpt = \notes \transpose c d \relative c'' {
-	\Key
-        c1 c c
+    \Key
+    c1 c c
 }
 
 trpharmony = \chords \transpose c' d { \jzchords }
 trumpet = {
-        \global 
-        \property Staff.instrument = #"Trumpet"
-        \clef treble
-        \context Staff <<
-                \trpt
-        >>
+    \global 
+    \property Staff.instrument = #"Trumpet"
+    \clef treble
+    \context Staff <<
+	\trpt
+    >>
 }
 
 % ------ Alto Saxophone ------
@@ -178,31 +181,33 @@ bass = \notes \relative c {
 }
 
 bass = {
-        \global
-        \property Staff.instrument = #"Bass"
-        \clef bass
-        \context Staff <<
-                \bass
-        >>
+    \global
+    \property Staff.instrument = #"Bass"
+    \clef bass
+    \context Staff <<
+	\bass
+    >>
 }
 
-% ------ Drums ------
-\include "drumpitch-init.ly"
-up = \notes {
-        hh4 <<hh4 sn>> hh4 <<hh4 sn>> hh4 <<hh4 sn>> hh4 <<hh4 sn>>
-	hh4 <<hh4 sn>> hh4 <<hh4 sn>>
-}
-down = \notes {
-        bd4 s bd s bd s bd s bd s bd s
+				% ------ Drums ------
+
+up = \drums {
+    hh4 <hh sn>4 hh <hh sn> hh <hh sn>4
+    hh4 <hh sn>4
+    hh4 <hh sn>4
+    hh4 <hh sn>4
 }
 
-drums = \context Staff = drums {
+down = \drums {
+    bd4 s bd s bd s bd s bd s bd s
+}
+
+drumContents = {
 	\global
-	\property Staff.instrument = #"Drums"
-	\clef percussion
 	<<
-		\context Voice = first { \voiceOne \up }
-		\context Voice = second { \voiceTwo \down }
+		\property DrumStaff.instrument = #"Drums"
+		\new DrumVoice { \voiceOne \up }
+		\new DrumVoice { \voiceTwo \down }
 	>>
 }
 
@@ -229,10 +234,9 @@ drums = \context Staff = drums {
                 
                 \context Staff = bass \bass
                 
-                \apply #(drums->paper 'drums) \drums
+                \new DrumStaff { \drumContents }
         >>
 >>
-        \midi { \tempo 4 = 75 }
         \paper {
                 linewidth = 15.0 \cm
                 \translator { \RemoveEmptyStaffContext }
@@ -243,5 +247,6 @@ drums = \context Staff = drums {
                         skipBars = ##t
                 }
         }
+        \midi { \tempo 4 = 75 }
 }
 
