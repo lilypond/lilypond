@@ -69,7 +69,7 @@ Slur::de_uglyfy (Grob*me, Slur_bezier_bow* bb, Real default_height)
       Real f = default_height / length;
       SCM up = me->get_grob_property ("de-uglify-parameters");
       
-      Real c1 = gh_scm2double (gh_car (up));
+      Real c1 = gh_scm2double (ly_car (up));
       Real c2 = gh_scm2double (gh_cadr (up));
       Real c3 = gh_scm2double (gh_caddr (up)); 
       
@@ -178,7 +178,7 @@ Slur::set_extremities (Grob *me)
       if (!gh_symbol_p (index_cell (me->get_grob_property ("attachment"), dir)))
 	{
 	  for (SCM s = me->get_grob_property ("extremity-rules");
-	       s != SCM_EOL; s = gh_cdr (s))
+	       s != SCM_EOL; s = ly_cdr (s))
 	    {
 	      SCM r = gh_call2 (gh_caar (s), me->self_scm (),
 				 gh_int2scm ((int)dir));
@@ -201,10 +201,10 @@ Real
 Slur::get_first_notecolumn_y (Grob *me, Direction dir)
 {
   Grob *col = dir == LEFT
-    ? unsmob_grob (gh_car (scm_reverse (me->get_grob_property
+    ? unsmob_grob (ly_car (scm_reverse (me->get_grob_property
  ("note-columns"))))
     : unsmob_grob
- (gh_car (me->get_grob_property ("note-columns")));
+ (ly_car (me->get_grob_property ("note-columns")));
   
   Grob *common[] =
   {
@@ -267,7 +267,7 @@ Slur::get_attachment (Grob *me, Direction dir,
       set_extremities (me);
       s = me->get_grob_property ("attachment");
     }
-  SCM a = dir == LEFT ? gh_car (s) : gh_cdr (s);
+  SCM a = dir == LEFT ? ly_car (s) : ly_cdr (s);
   Spanner*sp = dynamic_cast<Spanner*> (me);
   String str = ly_symbol2string (a);
   Real staff_space = Staff_symbol_referencer::staff_space ((Grob*)me);
@@ -327,7 +327,7 @@ Slur::get_attachment (Grob *me, Direction dir,
     Hmm, maybe after-line-breaking should set this to loose-end?  */
   else // if (str == "loose-end")
     {
-      SCM other_a = dir == LEFT ? gh_cdr (s) : gh_car (s);
+      SCM other_a = dir == LEFT ? ly_cdr (s) : ly_car (s);
       if (ly_symbol2string (other_a) != "loose-end")
 	o = broken_trend_offset (me, dir);
     }
@@ -343,7 +343,7 @@ Slur::get_attachment (Grob *me, Direction dir,
 
   if (l != SCM_BOOL_F)
     {
-      Offset off = ly_scm2offset (gh_cdr (l)) * staff_space;
+      Offset off = ly_scm2offset (ly_cdr (l)) * staff_space;
       off[X_AXIS] *= dir;
       off[Y_AXIS] *= Directional_element_interface::get (me);
       o += off;
@@ -431,8 +431,8 @@ Slur::get_encompass_offset_arr (Grob *me)
   Link_array<Grob>  encompass_arr;
   while (gh_pair_p (eltlist))
     {
-      encompass_arr.push (unsmob_grob (gh_car (eltlist)));      
-      eltlist =gh_cdr (eltlist);
+      encompass_arr.push (unsmob_grob (ly_car (eltlist)));      
+      eltlist =ly_cdr (eltlist);
     }
   encompass_arr.reverse ();
 
@@ -545,8 +545,8 @@ Slur::set_control_points (Grob*me)
   SCM h_inf_scm = scm_assq (ly_symbol2scm ("height-limit"), details);
   SCM r_0_scm = scm_assq (ly_symbol2scm ("ratio"), details);
 
-  Real r_0 = gh_scm2double (gh_cdr (r_0_scm));
-  Real h_inf = staff_space * gh_scm2double (gh_cdr (h_inf_scm));
+  Real r_0 = gh_scm2double (ly_cdr (r_0_scm));
+  Real h_inf = staff_space * gh_scm2double (ly_cdr (h_inf_scm));
   
   Slur_bezier_bow bb (get_encompass_offset_arr (me),
 		      Directional_element_interface::get (me),
@@ -565,8 +565,8 @@ Slur::set_control_points (Grob*me)
       bb.minimise_enclosed_area (sb, details);
       SCM sbf = scm_assq (ly_symbol2scm ("force-blowfit"), details);
       Real bff = 1.0;
-      if (gh_pair_p (sbf) && gh_number_p (gh_cdr (sbf)))
-	  bff = gh_scm2double (gh_cdr (sbf));
+      if (gh_pair_p (sbf) && gh_number_p (ly_cdr (sbf)))
+	  bff = gh_scm2double (ly_cdr (sbf));
 
       bb.curve_.control_[1][Y_AXIS] *= bff;
       bb.curve_.control_[2][Y_AXIS] *= bff;
@@ -622,9 +622,9 @@ Slur::get_curve (Grob*me)
   if (!scm_ilength (me->get_grob_property ("note-columns")))
     return b;
 
-  for (SCM s= me->get_grob_property ("control-points"); s != SCM_EOL; s = gh_cdr (s))
+  for (SCM s= me->get_grob_property ("control-points"); s != SCM_EOL; s = ly_cdr (s))
     {
-      b.control_[i] = ly_scm2offset (gh_car (s));
+      b.control_[i] = ly_scm2offset (ly_car (s));
       i++;
     }
 

@@ -110,8 +110,8 @@ Text_spanner::brew_molecule (SCM smob)
   SCM s = me->get_grob_property ("shorten");
   if (gh_pair_p (s))
     {
-      shorten[LEFT] = gh_scm2double (gh_car (s));
-      shorten[RIGHT] = gh_scm2double (gh_cdr (s));
+      shorten[LEFT] = gh_scm2double (ly_car (s));
+      shorten[RIGHT] = gh_scm2double (ly_cdr (s));
     }
 
   width -= shorten[LEFT] + shorten[RIGHT];

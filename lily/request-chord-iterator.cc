@@ -53,9 +53,9 @@ Request_chord_iterator::get_music (Moment) const
     {
       Music_sequence * ms = dynamic_cast<Music_sequence*> (music_l ());
      
-      for (SCM m = ms->music_list (); gh_pair_p (m); m = gh_cdr (m))
+      for (SCM m = ms->music_list (); gh_pair_p (m); m = ly_cdr (m))
 	{
-	  s = gh_cons (gh_car (m) , s);
+	  s = gh_cons (ly_car (m) , s);
 	}
     }
   return s;
@@ -67,9 +67,9 @@ Request_chord_iterator::process (Moment m)
   if (last_processed_mom_ < Moment (0))
     {
       for (SCM s = dynamic_cast<Music_sequence *> (music_l ())->music_list ();
-	   gh_pair_p (s);  s = gh_cdr (s))
+	   gh_pair_p (s);  s = ly_cdr (s))
 	{
-	  Music *mus = unsmob_music (gh_car (s));
+	  Music *mus = unsmob_music (ly_car (s));
 
 	  bool gotcha = try_music (mus);
 	  if (!gotcha)

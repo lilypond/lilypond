@@ -28,9 +28,9 @@ Performer_group_performer::announce_element (Audio_element_info info)
 void
 Performer_group_performer::create_audio_elements ()
 {
-  for (SCM p = simple_trans_list_; gh_pair_p (p); p = gh_cdr (p))
+  for (SCM p = simple_trans_list_; gh_pair_p (p); p = ly_cdr (p))
     {
-      Translator * t = unsmob_translator (gh_car (p));
+      Translator * t = unsmob_translator (ly_car (p));
       Performer * eng = dynamic_cast<Performer*> (t);
       if (eng)
 	eng->create_audio_elements ();
@@ -44,9 +44,9 @@ Performer_group_performer::acknowledge_audio_elements ()
     {
       Audio_element_info info = announce_info_arr_[j];
 
-      for (SCM p = simple_trans_list_; gh_pair_p (p); p = gh_cdr (p))
+      for (SCM p = simple_trans_list_; gh_pair_p (p); p = ly_cdr (p))
 	{
-	  Translator * t = unsmob_translator (gh_car (p));
+	  Translator * t = unsmob_translator (ly_car (p));
 	  Performer * eng = dynamic_cast<Performer*> (t);
 	  if (eng && eng!= info.origin_trans_l_)
 	    eng->acknowledge_audio_element (info);
@@ -57,9 +57,9 @@ Performer_group_performer::acknowledge_audio_elements ()
 void
 Performer_group_performer::do_announces ()
 {
-  for (SCM p = trans_group_list_; gh_pair_p (p); p =gh_cdr (p))
+  for (SCM p = trans_group_list_; gh_pair_p (p); p =ly_cdr (p))
     {
-      Translator * t = unsmob_translator (gh_car (p));
+      Translator * t = unsmob_translator (ly_car (p));
       dynamic_cast<Performer_group_performer*> (t)->do_announces ();
     }
 

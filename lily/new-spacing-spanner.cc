@@ -144,7 +144,7 @@ cout << "params for cols " << Paper_column::rank_i (l) << " " << Paper_column::r
 	    access to the note head.
 
 	  */
-	  for (SCM s = seq; gh_pair_p (s); s = gh_cdr (s))
+	  for (SCM s = seq; gh_pair_p (s); s = ly_cdr (s))
 	    {
 	      Grob *lm = unsmob_grob (gh_caar (s));
 	      Grob *rm = unsmob_grob (gh_cdar (s));
@@ -189,7 +189,7 @@ New_spacing_spanner::breakable_column_spacing (Item* l, Item *r)
   Real break_dist = 0.0;
   SCM espace = l->get_grob_property ("extra-space");
   if (gh_pair_p (espace))
-    break_dist += gh_scm2double (gh_cdr (espace));
+    break_dist += gh_scm2double (ly_cdr (espace));
 
   if (!break_dist)
     break_dist = 1.0;
@@ -199,7 +199,7 @@ New_spacing_spanner::breakable_column_spacing (Item* l, Item *r)
   // todo: naming of "distance"
   espace = l->get_grob_property ("stretch-distance");
   if (gh_pair_p (espace))
-    break_stretch += gh_scm2double (gh_cdr (espace));
+    break_stretch += gh_scm2double (ly_cdr (espace));
 
   if (!break_stretch)
     break_stretch = 1.0;
@@ -471,8 +471,8 @@ New_spacing_spanner::stem_dir_correction (Grob*me, Grob*l, Grob*r)
   if (scm_ilength (dl) != 1 || scm_ilength (dr) != 1)
     return 0.;
 
-  dl = gh_car (dl);
-  dr = gh_car (dr);
+  dl = ly_car (dl);
+  dr = ly_car (dr);
 
   assert (gh_number_p (dl) && gh_number_p (dr));
   int d1 = gh_scm2int (dl);

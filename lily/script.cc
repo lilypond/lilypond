@@ -22,15 +22,15 @@ Script::get_molecule (Grob * me, Direction d)
   SCM s = me->get_grob_property ("molecule");
   assert (gh_pair_p (s));
 
-  SCM key = gh_car (s);
+  SCM key = ly_car (s);
   if (key == ly_symbol2scm ("feta"))
     {
       return Font_interface::get_default_font (me)->find_by_name ("scripts-" +
-				    ly_scm2string (index_cell (gh_cdr (s), d)));
+				    ly_scm2string (index_cell (ly_cdr (s), d)));
     }
   else if (key == ly_symbol2scm ("accordion"))
     {
-      return Lookup::accordion (gh_cdr (s), 1.0, Font_interface::get_default_font (me));
+      return Lookup::accordion (ly_cdr (s), 1.0, Font_interface::get_default_font (me));
     }
   else
     assert (false);

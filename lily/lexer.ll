@@ -547,7 +547,7 @@ My_lily_lexer::scan_escaped_word (String str)
 		
 		if (gh_pair_p (pitch))
 		{
-			yylval.scm = gh_cdr (pitch);
+			yylval.scm = ly_cdr (pitch);
 			return NOTENAME_PITCH;
 		}
 	}
@@ -566,11 +566,11 @@ My_lily_lexer::scan_bare_word (String str)
 	if ((YYSTATE == notes) || (YYSTATE == chords)) {
 		SCM pitch = scm_hashq_get_handle (pitchname_tab_, sym);
 		if (gh_pair_p (pitch)) {
-		    yylval.scm = gh_cdr (pitch);
+		    yylval.scm = ly_cdr (pitch);
                     return (YYSTATE == notes) ? NOTENAME_PITCH : TONICNAME_PITCH;
 		} else if ((pitch = scm_hashq_get_handle (chordmodifier_tab_, sym))!= SCM_BOOL_F)
 		{
-		    yylval.scm = gh_cdr (pitch);
+		    yylval.scm = ly_cdr (pitch);
 		    return CHORDMODIFIER_PITCH;
 		}
 	}

@@ -55,9 +55,9 @@ Span_bar::brew_molecule (SCM smobbed_me)
 
   // compute common refpoint of elements
   Grob *refp = me;
-  for (SCM elts = first_elt; gh_pair_p (elts); elts = gh_cdr (elts))
+  for (SCM elts = first_elt; gh_pair_p (elts); elts = ly_cdr (elts))
     {
-      SCM smobbed_staff_bar = gh_car (elts);
+      SCM smobbed_staff_bar = ly_car (elts);
       Grob *staff_bar = unsmob_grob (smobbed_staff_bar);
       refp = staff_bar->common_refpoint (refp, Y_AXIS);
     }
@@ -78,9 +78,9 @@ Span_bar::brew_molecule (SCM smobbed_me)
   Molecule span_bar_mol;
 
   Interval prev_extent;
-  for (SCM elts = first_elt; gh_pair_p (elts); elts = gh_cdr (elts))
+  for (SCM elts = first_elt; gh_pair_p (elts); elts = ly_cdr (elts))
     {
-      SCM smobbed_staff_bar = gh_car (elts);
+      SCM smobbed_staff_bar = ly_car (elts);
       Grob *staff_bar = unsmob_grob (smobbed_staff_bar);
       Interval ext = staff_bar->extent (refp, Y_AXIS);
       if (ext.empty_b ())
@@ -177,7 +177,7 @@ void
 Span_bar::evaluate_glyph (Grob*me)
 {
   SCM elts = me->get_grob_property ("elements");
-  Grob * b = unsmob_grob (gh_car (elts));
+  Grob * b = unsmob_grob (ly_car (elts));
   SCM glsym =ly_symbol2scm ("glyph");
   SCM gl =b ->get_grob_property (glsym);
   if (!gh_string_p (gl))

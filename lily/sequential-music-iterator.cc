@@ -39,7 +39,7 @@
 
 
   if (gh_pair_p (cursor_))
-    iter_p_->music_l_ == unsmob_music (gh_car (cursor_))
+    iter_p_->music_l_ == unsmob_music (ly_car (cursor_))
   else
     iter_p_ == 0;
 
@@ -94,9 +94,9 @@ get_grace_fixups (SCM cursor)
   Grace_fixup *head = 0;
   Grace_fixup **tail = &head;
 
-  for (; gh_pair_p (cursor); cursor = gh_cdr (cursor))
+  for (; gh_pair_p (cursor); cursor = ly_cdr (cursor))
     {
-      Music * mus = unsmob_music (gh_car (cursor));
+      Music * mus = unsmob_music (ly_car (cursor));
       Moment s = mus->start_mom ();
       Moment l =mus->length_mom () - s;
 
@@ -130,7 +130,7 @@ Sequential_music_iterator::construct_children ()
 {
   cursor_ = dynamic_cast<Music_sequence const*> (music_l ())->music_list ();
 
-  iter_p_ = gh_pair_p (cursor_) ?  get_iterator_p (unsmob_music (gh_car (cursor_))) : 0;
+  iter_p_ = gh_pair_p (cursor_) ?  get_iterator_p (unsmob_music (ly_car (cursor_))) : 0;
   while (iter_p_ && !iter_p_->ok ())
     {
       next_element ();
@@ -184,10 +184,10 @@ Sequential_music_iterator::next_element ()
     }
   
   delete iter_p_;
-  cursor_ = gh_cdr (cursor_);
+  cursor_ = ly_cdr (cursor_);
 
   if (gh_pair_p (cursor_))
-    iter_p_ = get_iterator_p (unsmob_music (gh_car (cursor_)));
+    iter_p_ = get_iterator_p (unsmob_music (ly_car (cursor_)));
   else
     iter_p_ = 0;
 }
@@ -244,9 +244,9 @@ Sequential_music_iterator::get_music (Moment until)const
       s = gh_append2 (nm, s);
       
       Moment m = 0;
-      for (SCM i = nm; gh_pair_p (i); i = gh_cdr (i))
+      for (SCM i = nm; gh_pair_p (i); i = ly_cdr (i))
 	{
-	  Music *mus=unsmob_music (gh_car (i));
+	  Music *mus=unsmob_music (ly_car (i));
 	  m = m >? (mus->length_mom () - mus->start_mom ());
 	}
       if (m > Moment (0))

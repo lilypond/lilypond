@@ -25,9 +25,9 @@ Separating_group_spanner::find_rods (Item * r, SCM next)
     This is an inner loop, however, in most cases, the interesting L
     will just be the first entry of NEXT, making it linear in most of
     the cases.  */
-  for(; gh_pair_p (next); next = gh_cdr (next))
+  for(; gh_pair_p (next); next = ly_cdr (next))
     {
-      Item *l = dynamic_cast<Item*> (unsmob_grob (gh_car( next)));
+      Item *l = dynamic_cast<Item*> (unsmob_grob (ly_car( next)));
       Item *lb = l->find_prebroken_piece (RIGHT);
 
       if (lb)
@@ -77,12 +77,12 @@ Separating_group_spanner::set_spacing_rods (SCM smob)
 {
   Grob*me = unsmob_grob (smob);
   
-  for (SCM s = me->get_grob_property ("elements"); gh_pair_p (s) && gh_pair_p (gh_cdr (s)); s = gh_cdr (s))
+  for (SCM s = me->get_grob_property ("elements"); gh_pair_p (s) && gh_pair_p (ly_cdr (s)); s = ly_cdr (s))
     {
       /*
 	Order of elements is reversed!
        */
-      SCM elt = gh_car (s);
+      SCM elt = ly_car (s);
       Item *r = dynamic_cast<Item*> (unsmob_grob (elt));
 
       if (!r)
@@ -91,9 +91,9 @@ Separating_group_spanner::set_spacing_rods (SCM smob)
       Item *rb
 	= dynamic_cast<Item*> (r->find_prebroken_piece (LEFT));
       
-      find_rods (r, gh_cdr (s));
+      find_rods (r, ly_cdr (s));
       if (rb)
-	find_rods (rb, gh_cdr (s));
+	find_rods (rb, ly_cdr (s));
     }
 
   find_musical_sequences (me);
@@ -104,9 +104,9 @@ Separating_group_spanner::set_spacing_rods (SCM smob)
   /*
     We've done our job, so we get lost. 
    */
-  for (SCM s = me->get_grob_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = me->get_grob_property ("elements"); gh_pair_p (s); s = ly_cdr (s))
     {
-      Item * it =dynamic_cast<Item*> (unsmob_grob (gh_car (s)));
+      Item * it =dynamic_cast<Item*> (unsmob_grob (ly_car (s)));
       if (it && it->broken_b ())
 	{
 	  it->find_prebroken_piece (LEFT) ->suicide ();
@@ -133,9 +133,9 @@ Separating_group_spanner::find_musical_sequences (Grob *me)
   Item *last = 0;
   Item *llast = 0;
   for (SCM s = me->get_grob_property ("elements");
-       gh_pair_p (s); s = gh_cdr (s))
+       gh_pair_p (s); s = ly_cdr (s))
     {
-      Item *it = dynamic_cast<Item*> (unsmob_grob (gh_car (s)));
+      Item *it = dynamic_cast<Item*> (unsmob_grob (ly_car (s)));
       if (last)
 	{	
 	  Item *lcol = last->column_l ();
@@ -178,12 +178,12 @@ Separating_group_spanner::find_musical_sequences (Grob *me)
 		    }
 
 		  Item * left
-		    = dynamic_cast<Item*> (unsmob_grob (gh_car (between)));
+		    = dynamic_cast<Item*> (unsmob_grob (ly_car (between)));
 		  if(Paper_column::rank_i (left->column_l ()) < rank)
 		    gh_set_car_x (between, col->self_scm());
 		  
 		  Item * right
-		    = dynamic_cast<Item*> (unsmob_grob (gh_cdr (between)));
+		    = dynamic_cast<Item*> (unsmob_grob (ly_cdr (between)));
 		  if (Paper_column::rank_i (right->column_l ()) > llrank )
 		    gh_set_cdr_x (between, llcol->self_scm ());
 		}

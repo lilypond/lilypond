@@ -126,9 +126,9 @@ get_music_info (Moment m, Music_iterator* iter, SCM *pitches, SCM *durations)
 {
   if (iter->ok ())
     {
-      for (SCM i = iter->get_music (m); gh_pair_p (i); i = gh_cdr (i))
+      for (SCM i = iter->get_music (m); gh_pair_p (i); i = ly_cdr (i))
 	{
-	  Music *m = unsmob_music (gh_car (i));
+	  Music *m = unsmob_music (ly_car (i));
 	  if (Melodic_req *r = dynamic_cast<Melodic_req *> (m))
 	    *pitches = gh_cons (r->get_mus_property ("pitch"), *pitches);
 	  if (Rhythmic_req *r = dynamic_cast<Rhythmic_req *> (m))
@@ -152,8 +152,8 @@ Part_combine_music_iterator::get_state (Moment)
   if (!gh_pair_p (s))
     return state;
 
-  Moment change_mom = *unsmob_moment (gh_car (s));
-  Moment diff_mom = *unsmob_moment (gh_cdr (s));
+  Moment change_mom = *unsmob_moment (ly_car (s));
+  Moment diff_mom = *unsmob_moment (ly_cdr (s));
   
   Moment now = pending_moment ();
 
@@ -206,22 +206,22 @@ Part_combine_music_iterator::get_state (Moment)
 	      scm_sort_list_x (second_pitches,
 			       scm_primitive_eval (ly_str02scm ("Pitch::less_p")));
 
-	      interval = gh_int2scm (unsmob_pitch (gh_car (first_pitches))->steps ()
-				     - unsmob_pitch (gh_car (scm_last_pair (second_pitches)))->steps ());
+	      interval = gh_int2scm (unsmob_pitch (ly_car (first_pitches))->steps ()
+				     - unsmob_pitch (ly_car (scm_last_pair (second_pitches)))->steps ());
 	    }
 	  
 	  if (first_durations != SCM_EOL)
 	    {
 	      scm_sort_list_x (first_durations,
 			       scm_primitive_eval (ly_str02scm ("Duration::less_p")));
-	      first_mom += unsmob_duration (gh_car (first_durations))->length_mom ();
+	      first_mom += unsmob_duration (ly_car (first_durations))->length_mom ();
 	    }
 	  
 	  if (second_durations != SCM_EOL)
 	    {
 	      scm_sort_list_x (second_durations,
 			       scm_primitive_eval (ly_str02scm ("Duration::less_p")));
-	      second_mom += unsmob_duration (gh_car (second_durations))->length_mom ();
+	      second_mom += unsmob_duration (ly_car (second_durations))->length_mom ();
 	    }
 	  
 	  if (first_pitches != SCM_EOL && second_pitches == SCM_EOL
@@ -280,10 +280,10 @@ Part_combine_music_iterator::get_state (Moment)
 	      SCM s = first_translator->get_property (ly_symbol2scm ("splitInterval"));
 	      int i = gh_scm2int (interval);
 	      if (gh_pair_p (s)
-		  && gh_number_p (gh_car (s))
-		  && gh_number_p (gh_cdr (s))
-		  && i >= gh_scm2int (gh_car (s))
-		  && i <= gh_scm2int (gh_cdr (s)))
+		  && gh_number_p (ly_car (s))
+		  && gh_number_p (ly_cdr (s))
+		  && i >= gh_scm2int (ly_car (s))
+		  && i <= gh_scm2int (ly_cdr (s)))
 		{
 		  if (! (state & ~ (SPLIT_INTERVAL | UNIRHYTHM | UNISON)))
 		    state |= SPLIT_INTERVAL;

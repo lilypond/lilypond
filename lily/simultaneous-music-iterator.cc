@@ -52,9 +52,9 @@ Simultaneous_music_iterator::construct_children ()
   Music_sequence const *sim = dynamic_cast<Music_sequence const*> (music_l ());
 
   SCM i = sim->music_list ();
-  for (; gh_pair_p (i); i = gh_cdr (i), j++)
+  for (; gh_pair_p (i); i = ly_cdr (i), j++)
     {
-      Music *mus = unsmob_music (gh_car (i));
+      Music *mus = unsmob_music (ly_car (i));
       Music_iterator * mi = static_get_iterator_p (mus);
 
       /* if separate_contexts_b_ is set, create a new context with the

@@ -214,7 +214,7 @@ Collision::do_shifts (Grob* me)
   Real wid
     = gh_scm2double (me->get_grob_property ("note-width"));
   
-  for (; gh_pair_p (hand); hand =gh_cdr (hand))
+  for (; gh_pair_p (hand); hand =ly_cdr (hand))
     {
       Grob * s = unsmob_grob (gh_caar (hand));
       Real amount = gh_scm2double (gh_cdar (hand));
@@ -222,7 +222,7 @@ Collision::do_shifts (Grob* me)
       s->translate_axis (amount *wid, X_AXIS);
       done.push (s);
     }
-  for (; gh_pair_p (autos); autos =gh_cdr (autos))
+  for (; gh_pair_p (autos); autos =ly_cdr (autos))
     {
       Grob * s = unsmob_grob (gh_caar (autos));
       Real amount = gh_scm2double (gh_cdar (autos));
@@ -245,9 +245,9 @@ Collision::automatic_shift (Grob *me)
   SCM  tups = SCM_EOL;
 
   SCM s = me->get_grob_property ("elements");
-  for (; gh_pair_p (s); s = gh_cdr (s))
+  for (; gh_pair_p (s); s = ly_cdr (s))
     {
-      SCM car = gh_car (s);
+      SCM car = ly_car (s);
 
       Grob * se = unsmob_grob (car);
       if (Note_column::has_interface (se))
@@ -348,9 +348,9 @@ Collision::forced_shift (Grob *me)
   SCM tups = SCM_EOL;
   
   SCM s = me->get_grob_property ("elements");
-  for (; gh_pair_p (s); s = gh_cdr (s))
+  for (; gh_pair_p (s); s = ly_cdr (s))
     {
-      Grob * se = unsmob_grob (gh_car (s));
+      Grob * se = unsmob_grob (ly_car (s));
 
       SCM force =  se->remove_grob_property ("force-hshift");
       if (gh_number_p (force))

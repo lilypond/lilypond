@@ -17,8 +17,8 @@ Scaled_font_metric::Scaled_font_metric (Font_metric* m, Real magn)
   magnification_f_ = magn;
   SCM desc = m->description_;
 
-  Real total_mag = magn * gh_scm2double (gh_cdr (desc));
-  description_ = gh_cons (gh_car (desc), gh_double2scm (total_mag));
+  Real total_mag = magn * gh_scm2double (ly_cdr (desc));
+  description_ = gh_cons (ly_car (desc), gh_double2scm (total_mag));
   orig_l_ = m;
 }
 

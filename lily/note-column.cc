@@ -59,9 +59,9 @@ Note_column::head_positions_interval (Grob *me)
   iv.set_empty ();
 
   SCM h = me->get_grob_property ("note-heads");
-  for (; gh_pair_p (h); h = gh_cdr (h))
+  for (; gh_pair_p (h); h = ly_cdr (h))
     {
-      Grob *se = unsmob_grob (gh_car (h));
+      Grob *se = unsmob_grob (ly_car (h));
       
       int j = int (Staff_symbol_referencer::position_f (se));
       iv.unite (Slice (j,j));

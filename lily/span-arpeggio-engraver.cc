@@ -82,11 +82,11 @@ Span_arpeggio_engraver::stop_translation_timestep ()
       for (int i=0; i < arpeggios_.size (); i ++)
 	{
 	  for (SCM s = arpeggios_[i]->get_grob_property ("stems");
-	       gh_pair_p (s); s = gh_cdr (s))
-	    Group_interface::add_thing (span_arpeggio_, "stems", gh_car (s));
+	       gh_pair_p (s); s = ly_cdr (s))
+	    Group_interface::add_thing (span_arpeggio_, "stems", ly_car (s));
 	  for (SCM s = arpeggios_[i]->get_grob_property ("side-support-elements");
-	       gh_pair_p (s); s = gh_cdr (s))
-	    Group_interface::add_thing (span_arpeggio_, "side-support-elements", gh_car (s));
+	       gh_pair_p (s); s = ly_cdr (s))
+	    Group_interface::add_thing (span_arpeggio_, "side-support-elements", ly_car (s));
 
 	  /*
 	    we can't kill the children, since we don't want to the

@@ -59,8 +59,8 @@ Translator::is_alias_b (String s) const
   bool b  = s == type_str_;
 
   for (SCM a = unsmob_translator_def (definition_)->type_aliases_;
-       !b && gh_pair_p (a); a = gh_cdr (a))
-    b = b || s == ly_scm2string (gh_car (a));
+       !b && gh_pair_p (a); a = ly_cdr (a))
+    b = b || s == ly_scm2string (ly_car (a));
 
   return b;
 }
@@ -162,7 +162,7 @@ Translator::mark_smob (SCM sm)
 int
 Translator::print_smob (SCM s, SCM port, scm_print_state *)
 {
-  Translator *sc = (Translator *) gh_cdr (s);
+  Translator *sc = (Translator *) ly_cdr (s);
      
   scm_puts ("#<Translator ", port);
   scm_puts ((char *)sc->name (), port);

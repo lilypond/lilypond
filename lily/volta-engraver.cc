@@ -57,10 +57,10 @@ Volta_engraver::process_music ()
   start_str_ = SCM_EOL;
   while (gh_pair_p (cs))
     {
-      SCM c = gh_car (cs);
+      SCM c = ly_car (cs);
 
-      if (gh_pair_p (c) && gh_car (c) == ly_symbol2scm ("volta")
-	  && gh_pair_p (gh_cdr (c)))
+      if (gh_pair_p (c) && ly_car (c) == ly_symbol2scm ("volta")
+	  && gh_pair_p (ly_cdr (c)))
 	{
 	  if (gh_cadr (c) ==  SCM_BOOL_F)
 	    end = true;
@@ -68,7 +68,7 @@ Volta_engraver::process_music ()
 	    start_str_ = gh_cadr (c);
 	}
       
-      cs = gh_cdr (cs);
+      cs = ly_cdr (cs);
     }
 
   if (volta_span_p_)

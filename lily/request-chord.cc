@@ -21,9 +21,9 @@ Request_chord::Request_chord ()
 Pitch
 Request_chord::to_relative_octave (Pitch last)
 {
-  for (SCM s = music_list (); gh_pair_p (s);  s = gh_cdr (s))
+  for (SCM s = music_list (); gh_pair_p (s);  s = ly_cdr (s))
     {
-      Music * mus = unsmob_music (gh_car (s));
+      Music * mus = unsmob_music (ly_car (s));
       if (Melodic_req *m= dynamic_cast <Melodic_req *> (mus))
 	{
 	  Pitch pit = *unsmob_pitch (m->get_mus_property ("pitch"));

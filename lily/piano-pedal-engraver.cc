@@ -162,7 +162,7 @@ Piano_pedal_engraver::create_grobs ()
       else if (p->req_l_drul_[START])
 	{
 	  p->start_req_l_ = p->req_l_drul_[START];
-	  s = gh_car (strings);
+	  s = ly_car (strings);
 	}
 
       if (gh_string_p (s))

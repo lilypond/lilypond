@@ -90,10 +90,10 @@ Rest_collision::do_shift (Grob *me, SCM elts)
   Link_array<Grob> rests;
   Link_array<Grob> notes;
   Grob * commony = 0;
-  for (SCM s = elts; gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = elts; gh_pair_p (s); s = ly_cdr (s))
     {
       
-      Grob * e = unsmob_grob (gh_car (s));
+      Grob * e = unsmob_grob (ly_car (s));
       if (!e)
 	continue;
       

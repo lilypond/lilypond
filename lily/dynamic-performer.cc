@@ -99,8 +99,8 @@ Dynamic_performer::create_audio_elements ()
 	  if (gh_pair_p (s))
 	    {
 	      Interval iv;
-	      iv[MIN] = gh_scm2double (gh_car (s));
-	      iv[MAX] = gh_scm2double (gh_cdr (s));
+	      iv[MIN] = gh_scm2double (ly_car (s));
+	      iv[MAX] = gh_scm2double (ly_cdr (s));
 	      volume = iv[MIN] + iv.length () * volume;
 	    }
 	}

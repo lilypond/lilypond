@@ -156,17 +156,17 @@ Key_engraver::read_req (Key_change_req const * r)
   SCM n = scm_list_copy (p);
   SCM accs = SCM_EOL;
   for (SCM s = get_property ("keyAccidentalOrder");
-       gh_pair_p (s); s = gh_cdr (s))
+       gh_pair_p (s); s = ly_cdr (s))
     {
-      if (gh_pair_p (scm_member (gh_car (s), n)))
+      if (gh_pair_p (scm_member (ly_car (s), n)))
 	{
-	  accs = gh_cons (gh_car (s), accs);
-	  n = scm_delete_x (gh_car (s), n);
+	  accs = gh_cons (ly_car (s), accs);
+	  n = scm_delete_x (ly_car (s), n);
 	}
     }
-  for (SCM s = n ; gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = n ; gh_pair_p (s); s = ly_cdr (s))
     if (gh_scm2int (gh_cdar (s)))
-      accs = gh_cons (gh_car (s), accs);
+      accs = gh_cons (ly_car (s), accs);
 
   old_accs_ = get_property ("keySignature");
   daddy_trans_l_->set_property ("keySignature", accs);
