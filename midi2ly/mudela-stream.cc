@@ -100,7 +100,7 @@ Mudela_stream::header()
   *os_p_ << filename_str_g;
   *os_p_ << "\n\n";
   // ugh
-  *os_p_ << "\\version \"1.3.4\";\n";
+  *os_p_ << "\\version \"1.3.76\";\n";
 }
 
 void

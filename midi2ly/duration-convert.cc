@@ -29,8 +29,14 @@ Duration_convert::dur2_str (Duration dur)
     str = to_str ( type2_i (dur.durlog_i_) );
   else if (dur.durlog_i_ == -1)
     str = "\\breve";
-  else if (dur.durlog_i_ == -2)
-    str = "\\longa";
+  else if (dur.durlog_i_ <= -2)
+    {
+      str = "\\longa";
+      if (dur.durlog_i_ < -2)
+	{
+	  dur.plet_.iso_i_ *= 1 << (-2 - dur.durlog_i_);
+	}
+     }
   str += to_str ('.', dur.dots_i_);
   if (dur.plet_b ())
     str += String ("*") + to_str (dur.plet_.iso_i_)

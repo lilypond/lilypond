@@ -56,7 +56,7 @@ Mudela_key::str ()
     : ((-accidentals_i_ % 7) ["cfbeadg"] - 'a' - 2 -2 * minor_i_ + 7) % 7;
   
   String notename_str = !minor_i_
-    ? to_str ((char) ((key_i + 2) % 7 + 'A'))
+    ? to_str ((char) ((key_i + 2) % 7 + 'a'))
     : to_str ((char) ((key_i + 2) % 7 + 'a'));
 
   // fis cis gis dis ais eis bis
@@ -70,7 +70,7 @@ Mudela_key::str ()
   if (accidentals_i)
     notename_str += String (accname [accidentals_i + 2]);
 
-  return "\\key " + notename_str  + (minor_i_ ? "\\minor" : "") + ";\n";
+  return "\\key " + notename_str  + (minor_i_ ? "\\minor" : "\\major") + ";\n";
 }
 
 String
