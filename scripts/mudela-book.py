@@ -8,6 +8,38 @@
 # * if you run mudela-book once with --no-pictures, and then again
 #   without the option, then the pngs will not be created. You have
 #   to delete the generated .ly files and  rerun mudela-book.
+# * kontroller hvordan det skannes etter preMudelaExample i preamble
+#   det ser ut til at \usepackage{graphics} legges til bare hvis
+#   preMudelaExample ikke finnes.
+# * add suppoert for @c comments. Check that preamble scanning works after this.
+
+# * in LaTeX, commenting out blocks like this
+# %\begin{mudela}
+# %c d e
+# %\end{mudela} works as expected.
+# * \usepackage{landscape} is gone. Convince me it is really neede to get it back.
+# * We are calculating more of the linewidths, for example 2 col from 1 col.
+
+
+
+# This is was the idea for handling of comments:
+#	Multiline comments, @ignore .. @end ignore is scanned for
+#	in read_doc_file, and the chunks are marked as 'ignore', so
+#	mudela-book will not touch them any more. The content of the
+#	chunks are written to the output file. Also 'include' and 'input'
+#	regex has to check if they are commented out.
+#
+#	Then it is scanned for 'mudela', 'mudela-file' and 'mudela-block'.
+#	These three regex's has to check if they are on a commented line,
+#	% for latex, @c for texinfo.
+#
+#	Then lines that are commented out with % (latex) and @c (Texinfo)
+#	are put into chunks marked 'ignore'. This cannot be done before
+#	searching for the mudela-blocks because % is also the comment character
+#	for lilypond.
+#
+#	The the rest of the rexeces are searched for. They don't have to test
+#	if they are on a commented out line.
 
 import os
 import stat
@@ -16,7 +48,7 @@ import re
 import getopt
 import sys
 import __main__
-
+import operator
 
 
 program_version = '@TOPLEVEL_VERSION@'
@@ -38,40 +70,229 @@ no_match = 'a\ba'
 default_music_fontsize = 16
 default_text_fontsize = 12
 
+
+class LatexPaper:
+	def __init__(self):
+		self.m_paperdef =  {
+			# the dimentions are from geometry.sty
+			'a0paper': (mm2pt(841), mm2pt(1189)),
+			'a1paper': (mm2pt(595), mm2pt(841)),
+			'a2paper': (mm2pt(420), mm2pt(595)),
+			'a3paper': (mm2pt(297), mm2pt(420)),
+			'a4paper': (mm2pt(210), mm2pt(297)),
+			'a5paper': (mm2pt(149), mm2pt(210)),
+			'b0paper': (mm2pt(1000), mm2pt(1414)),
+			'b1paper': (mm2pt(707), mm2pt(1000)),
+			'b2paper': (mm2pt(500), mm2pt(707)),
+			'b3paper': (mm2pt(353), mm2pt(500)),
+			'b4paper': (mm2pt(250), mm2pt(353)),
+			'b5paper': (mm2pt(176), mm2pt(250)),
+			'letterpaper': (in2pt(8.5), in2pt(11)),
+			'legalpaper': (in2pt(8.5), in2pt(14)),
+			'executivepaper': (in2pt(7.25), in2pt(10.5))}
+		self.m_use_geometry = None
+		self.m_papersize = 'letterpaper'
+		self.m_fontsize = 10
+		self.m_num_cols = 1
+		self.m_landscape = 0
+		self.m_geo_landscape = 0
+		self.m_geo_width = None
+		self.m_geo_textwidth = None
+		self.m_geo_lmargin = None
+		self.m_geo_rmargin = None
+		self.m_geo_includemp = None
+		self.m_geo_marginparwidth = {10: 57, 11: 50, 12: 35}
+		self.m_geo_marginparsep = {10: 11, 11: 10, 12: 10}
+		self.m_geo_x_marginparwidth = None
+		self.m_geo_x_marginparsep = None
+		self.__body = None
+	def set_geo_option(self, name, value):
+		if name == 'body' or name == 'text':
+			if type(value) == type(""):
+				self._set_dimen('m_geo_textwidth', value)
+			else:
+				self._set_dimen('m_geo_textwidth', value[0])
+			self.__body = 1
+		elif name == 'portrait':
+			self.m_geo_landscape = 0
+		elif name == 'reversemp' or name == 'reversemarginpar':
+			if self.m_geo_includemp == None:
+				self.m_geo_includemp = 1
+		elif name == 'marginparwidth' or name == 'marginpar':
+			self._set_dimen('m_geo_x_marginparwidth', value)
+			self.m_geo_includemp = 1
+		elif name == 'marginparsep':
+			self._set_dimen('m_geo_x_marginparsep', value)
+			self.m_geo_includemp = 1
+		elif name == 'scale':
+			if type(value) == type(""):
+				self.m_geo_width = self.get_paperwidth() * float(value)
+			else:
+				self.m_geo_width = self.get_paperwidth() * float(value[0])
+		elif name == 'hscale':
+			self.m_geo_width = self.get_paperwidth() * float(value)
+		elif name == 'left' or name == 'lmargin':
+			self._set_dimen('m_geo_lmargin', value)
+		elif name == 'right' or name == 'rmargin':
+			self._set_dimen('m_geo_rmargin', value)
+		elif name == 'hdivide' or name == 'divide':
+			if value[0] not in ('*', ''):
+				self._set_dimen('m_geo_lmargin', value[0])
+			if value[1] not in ('*', ''):
+				self._set_dimen('m_geo_width', value[1])
+			if value[2] not in ('*', ''):
+				self._set_dimen('m_geo_rmargin', value[2])
+		elif name == 'hmargin':
+			if type(value) == type(""):
+				self._set_dimen('m_geo_lmargin', value)
+				self._set_dimen('m_geo_rmargin', value)
+			else:
+				self._set_dimen('m_geo_lmargin', value[0])
+				self._set_dimen('m_geo_rmargin', value[1])
+		elif name == 'margin':#ugh there is a bug about this option in
+					# the geometry documentation
+			if type(value) == type(""):
+				self._set_dimen('m_geo_lmargin', value)
+				self._set_dimen('m_geo_rmargin', value)
+			else:
+				self._set_dimen('m_geo_lmargin', value[0])
+				self._set_dimen('m_geo_rmargin', value[0])
+		elif name == 'total':
+			if type(value) == type(""):
+				self._set_dimen('m_geo_width', value)
+			else:
+				self._set_dimen('m_geo_width', value[0])
+		elif name == 'width' or name == 'totalwidth':
+			self._set_dimen('m_geo_width', value)
+		elif name == 'paper' or name == 'papername':
+			self.m_papersize = value
+		elif name[-5:] == 'paper':
+			self.m_papersize = name
+		else:
+			self._set_dimen('m_geo_'+name, value)
+	def _set_dimen(self, name, value):
+		if type(value) == type("") and value[-2:] == 'pt':
+			self.__dict__[name] = float(value[:-2])
+		elif type(value) == type("") and value[-2:] == 'mm':
+			self.__dict__[name] = mm2pt(float(value[:-2]))
+		elif type(value) == type("") and value[-2:] == 'cm':
+			self.__dict__[name] = 10 * mm2pt(float(value[:-2]))
+		elif type(value) == type("") and value[-2:] == 'in':
+			self.__dict__[name] = in2pt(float(value[:-2]))
+		else:
+			self.__dict__[name] = value
+	def display(self):
+		print "LatexPaper:\n-----------"
+		for v in self.__dict__.keys():
+			if v[:2] == 'm_':
+				print v, self.__dict__[v]
+		print "-----------"
+	def get_linewidth(self):
+		w = self._calc_linewidth()
+		if self.m_num_cols == 2:
+			return (w - 10) / 2
+		else:
+			return w
+	def get_paperwidth(self):
+		#if self.m_use_geometry:
+			return self.m_paperdef[self.m_papersize][self.m_landscape or self.m_geo_landscape]
+		#return self.m_paperdef[self.m_papersize][self.m_landscape]
+	
+	def _calc_linewidth(self):
+		# since geometry sometimes ignores 'includemp', this is
+		# more complicated than it should be
+		mp = 0
+		if self.m_geo_includemp:
+			if self.m_geo_x_marginparsep is not None:
+				mp = mp + self.m_geo_x_marginparsep
+			else:
+				mp = mp + self.m_geo_marginparsep[self.m_fontsize]
+			if self.m_geo_x_marginparwidth is not None:
+				mp = mp + self.m_geo_x_marginparwidth
+			else:
+				mp = mp + self.m_geo_marginparwidth[self.m_fontsize]
+		if self.__body:#ugh test if this is necessary
+			mp = 0
+		def tNone(a, b, c):
+			return a == None, b == None, c == None
+		if not self.m_use_geometry:
+			return latex_linewidths[self.m_papersize][self.m_fontsize]
+		else:
+			if tNone(self.m_geo_lmargin, self.m_geo_width,
+				self.m_geo_rmargin) == (1, 1, 1):
+				if self.m_geo_textwidth:
+					return self.m_geo_textwidth
+				w = self.get_paperwidth() * 0.8
+				return w - mp
+			elif tNone(self.m_geo_lmargin, self.m_geo_width,
+			         self.m_geo_rmargin) == (0, 1, 1):
+				 if self.m_geo_textwidth:
+				 	return self.m_geo_textwidth
+				 return self.f1(self.m_geo_lmargin, mp)
+			elif tNone(self.m_geo_lmargin, self.m_geo_width,
+			         self.m_geo_rmargin) == (1, 1, 0):
+				 if self.m_geo_textwidth:
+				 	return self.m_geo_textwidth
+				 return self.f1(self.m_geo_rmargin, mp)
+			elif tNone(self.m_geo_lmargin, self.m_geo_width,
+				self.m_geo_rmargin) \
+					in ((0, 0, 1), (1, 0, 0), (1, 0, 1)):
+				if self.m_geo_textwidth:
+					return self.m_geo_textwidth
+				return self.m_geo_width - mp
+			elif tNone(self.m_geo_lmargin, self.m_geo_width,
+				self.m_geo_rmargin) in ((0, 1, 0), (0, 0, 0)):
+				w = self.get_paperwidth() - self.m_geo_lmargin - self.m_geo_rmargin - mp
+				if w < 0:
+					w = 0
+				return w
+			raise "Never do this!"
+	def f1(self, m, mp):
+		tmp = self.get_paperwidth() - m * 2 - mp
+		if tmp < 0:
+			tmp = 0
+		return tmp
+	def f2(self):
+		tmp = self.get_paperwidth() - self.m_geo_lmargin \
+			- self.m_geo_rmargin
+		if tmp < 0:
+			return 0
+		return tmp
+
+class TexiPaper:
+	def __init__(self):
+		self.m_papersize = 'a4'
+		self.m_fontsize = 12
+	def get_linewidth(self):
+		return texi_linewidths[self.m_papersize][self.m_fontsize]
+
+def mm2pt(x):
+	return x * 2.8452756
+def in2pt(x):
+	return x * 72.26999
+def em2pt(x, fontsize):
+	return {10: 10.00002, 11: 10.8448, 12: 11.74988}[fontsize] * x
+def ex2pt(x, fontsize):
+	return {10: 4.30554, 11: 4.7146, 12: 5.16667}[fontsize] * x
+	
 # latex linewidths:
 # indices are no. of columns, papersize,  fontsize
 # Why can't this be calculated?
 latex_linewidths = {
- 1: {	'a4':{10: 345, 11: 360, 12: 390},
-	'a4-landscape': {10: 598, 11: 596, 12:592},
-	'a5':{10: 276, 11: 276, 12: 276},
-	'b5':{10: 345, 11: 356, 12: 356},
-	'letter':{10: 345, 11: 360, 12: 390},
-	'letter-landscape':{10: 598, 11: 596, 12:596},
-	'legal': {10: 345, 11: 360, 12: 390},
-	'executive':{10: 345, 11: 360, 12: 379}},
- 2: {	'a4':{10: 167, 11: 175, 12: 190},
- 	'a4-landscape': {10: 291, 11: 291, 12: 291},
-	'a5':{10: 133, 11: 133, 12: 133},
-	'b5':{10: 167, 11: 173, 12: 173},
-	'letter':{10: 167, 11: 175, 12: 190},
-	'letter-landscape':{10: 270, 11: 267, 12: 269},
-	'legal':{10: 167, 11: 175, 12: 190},
-	'executive':{10: 167, 11: 175, 12: 184}}}
+ 	'a4paper':{10: 345, 11: 360, 12: 390},
+	'a4paper-landscape': {10: 598, 11: 596, 12:592},
+	'a5paper':{10: 276, 11: 276, 12: 276},
+	'b5paper':{10: 345, 11: 356, 12: 356},
+	'letterpaper':{10: 345, 11: 360, 12: 390},
+	'letterpaper-landscape':{10: 598, 11: 596, 12:596},
+	'legalpaper': {10: 345, 11: 360, 12: 390},
+	'executivepaper':{10: 345, 11: 360, 12: 379}}
 
 texi_linewidths = {
 	'a4': {12: 455},
 	'a4wide': {12: 470},
 	'smallbook': {12: 361},
 	'texidefault': {12: 433}}
-
-
-def get_linewidth(cols, paper, fontsize):
-	if __main__.format == 'latex':
-		return latex_linewidths[cols][paper][fontsize]
-	elif __main__.format == 'texi':
-		return texi_linewidths[paper][fontsize]
-	raise "never here"
 
 option_definitions = [
   ('EXT', 'f', 'format', 'set format.  EXT is one of texi and latex.'),
@@ -104,7 +325,7 @@ output_dict= {
 		'output-mudela':r"""\begin[%s]{mudela}
 %s
 \end{mudela}""",
-		'output-verbatim': r"""\begin{verbatim}%s\end{verbatim}""",
+		'output-verbatim': "\\begin{verbatim}%s\\end{verbatim}",
 		'output-default-post': r"""\def\postMudelaExample{}""",
 		'output-default-pre': r"""\def\preMudelaExample{}""",
 		'output-eps': '\\noindent\\parbox{\\mudelaepswidth{%(fn)s.eps}}{\includegraphics{%(fn)s.eps}}',
@@ -157,42 +378,42 @@ def output_mbverbatim (body):#ugh .format
 	return get_output ('output-verbatim') % body
 
 re_dict = {
-	'latex': {'input': '\\\\mbinput{?([^}\t \n}]*)',
-		  'include': '\\\\mbinclude{(?P<filename>[^}]+)}',
-		 
+	'latex': {'input': r'(?m)^[^%\n]*?(?P<match>\\mbinput{?([^}\t \n}]*))',
+		  'include': r'(?m)^[^%\n]*?(?P<match>\\mbinclude{(?P<filename>[^}]+)})',
 		  'option-sep' : ', *',
-		  'header': r"""\\documentclass(\[.*?\])?""",
-		  #              ^(?m)[^%]* is here so we can comment it out
-		  'landscape': r"^(?m)[^%]*\\usepackage{landscape}",
-		  'preamble-end': '\\\\begin{document}',
-		  'verbatim': r"""(?s)(?P<code>\\begin{verbatim}.*?\\end{verbatim})""",
-		  'verb': r"""(?P<code>\\verb(?P<del>.).*?(?P=del))""",
-		  'mudela-file': r'\\mudelafile(\[(?P<options>.*?)\])?\{(?P<filename>.+)}',
-		  'mudela' : '(?m)^[^%]*?\\\\mudela(\[(?P<options>.*?)\])?{(?P<code>.*?)}',
-		  #'mudela-block': r"""(?m)^[^%]*?\\begin(\[(?P<options>.*?)\])?{mudela}(?P<code>.*?)\\end{mudela}""",
-		  'mudela-block': r"""(?s)\\begin(\[(?P<options>.*?)\])?{mudela}(?P<code>.*?)\\end{mudela}""",
-		  'def-post-re': r"""\\def\\postMudelaExample""",
-		  'def-pre-re': r"""\\def\\preMudelaExample""",		  
+		  'header': r"\\documentclass\s*(\[.*?\])?",
+		  'geometry': r"^(?m)[^%\n]*?\\usepackage\s*(\[(?P<options>.*)\])?\s*{geometry}",
+		  'preamble-end': r'(?P<code>\\begin{document})',
+		  'verbatim': r"(?s)(?P<code>\\begin{verbatim}.*?\\end{verbatim})",
+		  'verb': r"(?P<code>\\verb(?P<del>.).*?(?P=del))",
+		  'mudela-file': r'(?m)^[^%\n]*?(?P<match>\\mudelafile(\[(?P<options>.*?)\])?\{(?P<filename>.+)})',
+		  'mudela' : r'(?m)^[^%\n]*?(?P<match>\\mudela(\[(?P<options>.*?)\])?{(?P<code>.*?)})',
+		  'mudela-block': r"(?sm)^[^%\n]*?(?P<match>\\begin(\[(?P<options>.*?)\])?{mudela}(?P<code>.*?)\\end{mudela})",
+		  'def-post-re': r"\\def\\postMudelaExample",
+		  'def-pre-re': r"\\def\\preMudelaExample",		  
 		  'intertext': r',?\s*intertext=\".*?\"',
-		  #'ignore': r"(?m)(?P<code>%.*?^)",
-		  'ignore': r"(?m)(?P<code>^%.*)$",
+		  'multiline-comment': no_match,
+		  'singleline-comment': r"(?m)(?P<code>^%.*$\n+)",
 		  'numcols': r"(?P<code>\\(?P<num>one|two)column)",
 		  },
 	
 	'texi': {
-		 'include':  '@mbinclude[ \n\t]+(?P<filename>[^\t \n]*)',
+		 'include':  '(?m)^[^%\n]*?(?P<match>@mbinclude[ \n\t]+(?P<filename>[^\t \n]*))',
 		 'input': no_match,
-		 'landscape': no_match,
 		 'header': no_match,
 		 'preamble-end': no_match,
+		 'landscape': no_match,
 		 'verbatim': r"""(?s)(?P<code>@example\s.*?@end example\s)""",
 		 'verb': r"""(?P<code>@code{.*?})""",
-		 'mudela-file': '@mudelafile(\[(?P<options>.*?)\])?{(?P<filename>[^}]+)}',
-		 'mudela' : '@mudela(\[(?P<options>.*?)\])?{(?P<code>.*?)}',
-		 'mudela-block': r"""(?s)@mudela(\[(?P<options>.*?)\])?\s(?P<code>.*?)@end mudela\s""",
+		 'mudela-file': '(?P<match>@mudelafile(\[(?P<options>.*?)\])?{(?P<filename>[^}]+)})',
+		 'mudela' : '(?m)^(?!@c)(?P<match>@mudela(\[(?P<options>.*?)\])?{(?P<code>.*?)})',
+		 #ugh add check for @c
+		 'mudela-block': r"""(?m)^(?!@c)(?P<match>(?s)(?P<match>@mudela(\[(?P<options>.*?)\])?\s(?P<code>.*?)@end mudela\s))""",
 		  'option-sep' : ', *',
 		  'intertext': r',?\s*intertext=\".*?\"',
-		  'ignore': r"(?s)(?P<code>@ignore\s.*?@end ignore)\s",
+		  #ugh fix
+		  'multiline-comment': r"(?s)(?P<code>@ignore\s.*?@end ignore)\s",
+		  'singleline-comment': r"(?m)(?P<code>^@c.*$\n+)",
 		  'numcols': no_match,
 		 }
 	}
@@ -244,22 +465,9 @@ def error (str):
 def compose_full_body (body, opts):
 	"""Construct the mudela code to send to Lilypond.
 	Add stuff to BODY using OPTS as options."""
-	if __main__.format == 'texi':
-		paper = 'texidefault'
-	else:
-		paper = 'letter' # yes, latex use letter as default, at least
-		                 # my tetex distro
-		if 'landscape' in opts:
-		    paper = paper + '-' + 'landscape'
 	music_size = default_music_fontsize
 	latex_size = default_text_fontsize
 	for o in opts:
-		m = re.search ('^(.*)paper$', o)
-		if m:
-			paper = m.group (1)
-			if 'landscape' in opts:
-				paper = paper + '-' + 'landscape'
-		
 		if g_force_mudela_fontsize:
 			music_size = g_force_mudela_fontsize
 		else:
@@ -285,7 +493,7 @@ def compose_full_body (body, opts):
 	if 'singleline' in opts:
 		l = -1.0;
 	else:
-		l = get_linewidth(g_num_cols, paper, latex_size)
+		l = paperguru.get_linewidth()
 	
 	if 'relative' in opts:#ugh only when is_fragment
 		body = '\\relative c { %s }' % body
@@ -299,7 +507,6 @@ def compose_full_body (body, opts):
 	opts = uniq (opts)
 	optstring = string.join (opts, ' ')
 	optstring = re.sub ('\n', ' ', optstring)
-	
 	body = r"""
 %% Generated by mudela-book.py; options are %s  %%ughUGH not original options
 \include "paper%d.ly"
@@ -307,34 +514,78 @@ def compose_full_body (body, opts):
 """ % (optstring, music_size, l) + body
 	return body
 
+def parse_options_string(s):
+	d = {}
+	r1 = re.compile("((\w+)={(.*?)})((,\s*)|$)")
+	r2 = re.compile("((\w+)=(.*?))((,\s*)|$)")
+	r3 = re.compile("(\w+?)((,\s*)|$)")
+	while s:
+		m = r1.match(s)
+		if m:
+			s = s[m.end():]
+			d[m.group(2)] = re.split(",\s*", m.group(3))
+			continue
+		m = r2.match(s)
+		if m:
+			s = s[m.end():]
+			d[m.group(2)] = m.group(3)
+			continue
+		m = r3.match(s)
+		if m:
+			s = s[m.end():]
+			d[m.group(1)] = 1
+			continue
+		print "trøbbel:%s:" % s
+	return d
 
-def scan_preamble (str):
-	options = []
-	if __main__.format == 'texi':
-		x = 250
-		if string.find(str[:x], "@afourpaper") != -1:
-			options = ['a4paper']
-		elif string.find(str[:x], "@afourwide") != -1:
-			options = ['a4widepaper']
-		elif string.find(str[:x], "@smallbook") != -1:
-			options = ['smallbookpaper']
-	m = get_re ('landscape').search(str)
-	if m:
-	    options.append('landscape')
-	m = get_re ('header').search( str)
-	# should extract paper & fontsz.
-	if m and m.group (1):
-		options = options + re.split (',[\n \t]*', m.group(1)[1:-1])
-
-	def verbose_fontsize ( x):
-		if re.match('[0-9]+pt', x):
-			return 'latexfontsize=' + x
-		else:
-			return x 
+def scan_latex_preamble(chunks):
+	# first we want to scan the \documentclass line
+	# it should be the first non-comment line
+	idx = 0
+	while 1:
+		if chunks[idx][0] == 'ignore':
+			idx = idx + 1
+			continue
+		m = get_re ('header').match(chunks[idx][1])
+		options = re.split (',[\n \t]*', m.group(1)[1:-1])
+		for o in options:
+			if o == 'landscape':
+				paperguru.m_landscape = 1
+			m = re.match("(.*?)paper", o)
+			if m:
+				paperguru.m_papersize = m.group()
+			else:
+				m = re.match("(\d\d)pt", o)
+				if m:
+					paperguru.m_fontsize = int(m.group(1))
 			
-	options = map (verbose_fontsize, options)
-	return options
+		break
+	while chunks[idx][0] != 'preamble-end':
+		if chunks[idx] == 'ignore':
+			idx = idx + 1
+			continue
+		m = get_re ('geometry').search(chunks[idx][1])
+		if m:
+			paperguru.m_use_geometry = 1
+			o = parse_options_string(m.group('options'))
+			for k in o.keys():
+				paperguru.set_geo_option(k, o[k])
+		idx = idx + 1
 
+def scan_preamble (chunks):
+	if __main__.format == 'texi':
+		#ugh has to be fixed when @c comments are implemented
+		# also the searching here is far from bullet proof.
+		if string.find(chunks[0][1], "@afourpaper") != -1:
+			paperguru.m_papersize = 'a4'
+		elif string.find(chunks[0][1], "@afourwide") != -1:
+			paperguru.m_papersize = 'a4wide'
+		elif string.find(chunks[0][1], "@smallbook") != -1:
+			paperguru.m_papersize = 'smallbook'
+	else:
+		assert __main__.format == 'latex'
+		scan_latex_preamble(chunks)
+		
 
 def completize_preamble (str):
 	m = get_re ('preamble-end').search( str)
@@ -376,6 +627,8 @@ def find_file (name):
 
 def do_ignore(match_object):
 	return [('ignore', match_object.group('code'))]
+def do_preamble_end(match_object):
+	return [('preamble-end', match_object.group('code'))]
 
 def make_verbatim(match_object):
 	return [('verbatim', match_object.group('code'))]
@@ -435,6 +688,26 @@ def do_columns(m):
 	if m.group('num') == 'two':
 		return [('numcols', m.group('code'), 2)]
 	
+def new_chop_chunks(chunks, re_name, func):
+    newchunks = []
+    for c in chunks:
+        if c[0] == 'input':
+            str = c[1]
+            while str:
+                m = get_re (re_name).search (str)
+                if m == None:
+                    newchunks.append (('input', str))
+                    str = ''
+                else:
+                    newchunks.append (('input', str[:m.start ('match')]))
+                    #newchunks.extend(func(m))
+		    # python 1.5 compatible:
+		    newchunks = newchunks + func(m)
+                    str = str [m.end(0):]
+        else:
+            newchunks.append(c)
+    return newchunks
+
 def chop_chunks(chunks, re_name, func):
     newchunks = []
     for c in chunks:
@@ -470,20 +743,25 @@ def read_doc_file (filename):
 			__main__.format = 'texi'
 		else:
 			__main__.format = 'latex'
+	if __main__.format == 'texi':
+		__main__.paperguru = TexiPaper()
+	else:
+		__main__.paperguru = LatexPaper()
 	chunks = [('input', str)]
 	# we have to check for verbatim before doing include,
 	# because we don't want to include files that are mentioned
 	# inside a verbatim environment
 	chunks = chop_chunks(chunks, 'verbatim', make_verbatim)
 	chunks = chop_chunks(chunks, 'verb', make_verb)
+	chunks = chop_chunks(chunks, 'multiline-comment', do_ignore)
 	#ugh fix input
-	chunks = chop_chunks(chunks, 'include', do_include_file)
-	chunks = chop_chunks(chunks, 'input', do_input_file)
+	chunks = new_chop_chunks(chunks, 'include', do_include_file)
+	chunks = new_chop_chunks(chunks, 'input', do_input_file)
 	return chunks
 
 
 taken_file_names = {}
-def schedule_mudela_block (chunk, extra_opts):
+def schedule_mudela_block (chunk):
 	"""Take the body and options from CHUNK, figure out how the
 	real .ly should look, and what should be left MAIN_STR (meant
 	for the main file).  The .ly is written, and scheduled in
@@ -494,14 +772,12 @@ def schedule_mudela_block (chunk, extra_opts):
 	TODO has format [basename, extension, extension, ... ]
 	
 	"""
-	#print "-schedule_mudela_block", extra_opts
 	if len(chunk) == 3:
 		(type, body, opts) = chunk
 		complete_body = None
 	else:# mbverbatim
 		(type, body, opts, complete_body) = chunk
 	assert type == 'mudela'
-	opts = opts +  extra_opts
 	file_body = compose_full_body (body, opts)
 	basename = `abs(hash (file_body))`
 	for o in opts:
@@ -540,7 +816,7 @@ def schedule_mudela_block (chunk, extra_opts):
 	for o in opts:
 		m = re.search ('intertext="(.*?)"', o)
 		if m:
-			newbody = newbody  + m.group (1)
+			newbody = newbody  + m.group (1) + "\n\n"
 	if format == 'latex':
 		if 'eps' in opts:
 			s = 'output-eps'
@@ -551,14 +827,14 @@ def schedule_mudela_block (chunk, extra_opts):
 	newbody = newbody + get_output(s) % {'fn': basename }
 	return ('mudela', newbody, opts, todo, basename)
 
-def process_mudela_blocks(outname, chunks, global_options):#ugh rename
+def process_mudela_blocks(outname, chunks):#ugh rename
 	newchunks = []
 	# Count sections/chapters.
 	for c in chunks:
 		if c[0] == 'mudela':
-			c = schedule_mudela_block (c, global_options)
+			c = schedule_mudela_block (c)
 		elif c[0] == 'numcols':
-			__main__.g_num_cols = c[2]
+			paperguru.m_num_cols = c[2]
 		newchunks.append (c)
 	return newchunks
 
@@ -740,14 +1016,17 @@ def do_file(input_filename):
 	my_depname = my_outname + '.dep'		
 
 	chunks = read_doc_file(input_filename)
-	chunks = chop_chunks(chunks, 'mudela', make_mudela)
-	chunks = chop_chunks(chunks, 'mudela-file', make_mudela_file)
-	chunks = chop_chunks(chunks, 'mudela-block', make_mudela_block)
-	chunks = chop_chunks(chunks, 'ignore', do_ignore)
-	#for c in chunks: print "c:", c
+	chunks = new_chop_chunks(chunks, 'mudela', make_mudela)
+	chunks = new_chop_chunks(chunks, 'mudela-file', make_mudela_file)
+	chunks = new_chop_chunks(chunks, 'mudela-block', make_mudela_block)
+	chunks = chop_chunks(chunks, 'singleline-comment', do_ignore)
+	chunks = chop_chunks(chunks, 'preamble-end', do_preamble_end)
 	chunks = chop_chunks(chunks, 'numcols', do_columns)
-	global_options = scan_preamble(chunks[0][1])
-	chunks = process_mudela_blocks(my_outname, chunks, global_options)
+	#print "-" * 50
+	#for c in chunks: print "c:", c;
+	#sys.exit()
+	scan_preamble(chunks)
+	chunks = process_mudela_blocks(my_outname, chunks)
 	# Do It.
 	if __main__.g_run_lilypond:
 		compile_all_files (chunks)

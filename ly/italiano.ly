@@ -10,7 +10,7 @@
 
 % contributed by Paolo Zuliani <zuliap@easynet.it>
 
-\notenames {
+\notenames #'
 	(dobb . ( -1 0 -2 ))
 	(dob . ( -1 0 -1 ))
 	(do . ( -1 0 0 ))
@@ -46,6 +46,6 @@
 	(si . ( -1 6 0 ))
 	(sid . ( -1 6 1 ))
 	(sidd . ( -1 6 2 ))
-}
+)
 
-\version "1.3.59";
+\version "1.3.90";
