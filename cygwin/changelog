@@ -1,4 +1,4 @@
-lilypond (1.5.72-jcn2) unstable; urgency=low
+lilypond (1.5.73-1) unstable; urgency=low
 
   * New upstream release.
   * Fix man pages for midi2ly and lilypond.
