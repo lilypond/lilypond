@@ -7,8 +7,8 @@
   
  */
 
-#ifndef TRANSLATOR_DEF_HH
-#define TRANSLATOR_DEF_HH
+#ifndef CONTEXT_DEF_HH
+#define CONTEXT_DEF_HH
 
 #include "lily-proto.hh"
 #include "smobs.hh"
@@ -36,27 +36,28 @@ public:
   void add_context_mod (SCM);
   SCM default_child_context_name ();
   SCM get_context_name () const;
-  SCM get_accepted (SCM)  const;
-  SCM get_property_ops ()  const { return property_ops_; }
+  SCM get_accepted (SCM) const;
+  SCM get_property_ops () const { return property_ops_; }
   SCM get_translator_names (SCM) const;
   void set_acceptor (SCM accepts, bool add);
 
-  Link_array<Context_def> path_to_acceptable_context (SCM type_string, Music_output_def* odef) const;
+  Link_array<Context_def> path_to_acceptable_context (SCM type_string,
+						      Music_output_def*) const;
   Context * instantiate (SCM extra_ops);
 
   SCM to_alist () const;
-  static SCM make_scm () ;
+  static SCM make_scm ();
 
-  SCM clone_scm ()const;
-  void apply_default_property_operations (Context *);
+  SCM clone_scm () const;
+  void apply_default_property_operations (Context*);
+
 private:
-  DECLARE_SMOBS (Context_def,foo);
+  DECLARE_SMOBS (Context_def, foo);
   Context_def ();
   Context_def (Context_def const&);
 };
 
-DECLARE_UNSMOB(Context_def,context_def);
+DECLARE_UNSMOB (Context_def, context_def);
 
-
-#endif /* TRANSLATOR_DEF_HH */
+#endif /* CONTEXT_DEF_HH */
 

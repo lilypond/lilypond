@@ -190,10 +190,6 @@ Page::text_height ()
 
 /****************************************************************/
 
-/* Current global paper book.  Gives default_rendering access from
-   input-file-results.  */
-Paper_book *paper_book;
-
 Paper_book::Paper_book ()
 {
   copyright_ = SCM_EOL;
@@ -288,8 +284,8 @@ Stencil*
 Paper_book::title (int i)
 {
   SCM user_title = ly_scheme_function ("user-title");
-    SCM book_title = ly_scheme_function ("book-title");
-    SCM score_title = ly_scheme_function ("score-title");
+  SCM book_title = ly_scheme_function ("book-title");
+  SCM score_title = ly_scheme_function ("score-title");
   SCM field = (i == 0 ? ly_symbol2scm ("bookTitle")
 	       : ly_symbol2scm ("scoreTitle"));
 

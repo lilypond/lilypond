@@ -6,9 +6,8 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
-#ifndef Music_output_DEF_HH
-#define Music_output_DEF_HH
+#ifndef MUSIC_OUTPUT_DEF_HH
+#define MUSIC_OUTPUT_DEF_HH
 
 #include "string.hh"
 #include "lily-proto.hh"
@@ -44,5 +43,6 @@ public:
   DECLARE_SMOBS (Music_output_def,);
 };
 
-DECLARE_UNSMOB(Music_output_def,music_output_def);
-#endif // Music_output_DEF_HH
+DECLARE_UNSMOB (Music_output_def, music_output_def);
+
+#endif /* MUSIC_OUTPUT_DEF_HH */

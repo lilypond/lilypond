@@ -25,30 +25,31 @@ TODO:
 #include <stdio.h>
 
 
-#include "scm-option.hh"
+#include "book.hh"
 #include "context-def.hh"
-#include "lily-guile.hh"
-#include "misc.hh"
-#include "my-lily-lexer.hh"
-#include "paper-def.hh"
-#include "midi-def.hh"
-#include "main.hh"
-#include "file-path.hh"
-#include "warn.hh"
 #include "dimensions.hh"
-#include "my-lily-parser.hh"
-#include "score.hh"
-#include "input-file-results.hh"
-#include "input.hh"
-#include "lilypond-input-version.hh"
-#include "scm-hash.hh"
-#include "ly-module.hh"
-#include "music-sequence.hh"
-#include "input-smob.hh"
 #include "event.hh"
-#include "text-item.hh"
+#include "file-path.hh"
+#include "input-file-results.hh"
+#include "input-smob.hh"
+#include "input.hh"
+#include "lily-guile.hh"
+#include "lilypond-input-version.hh"
+#include "ly-module.hh"
+#include "main.hh"
+#include "midi-def.hh"
+#include "misc.hh"
 #include "music-list.hh"
+#include "music-sequence.hh"
+#include "my-lily-lexer.hh"
+#include "my-lily-parser.hh"
 #include "paper-book.hh"
+#include "paper-def.hh"
+#include "scm-hash.hh"
+#include "scm-option.hh"
+#include "score.hh"
+#include "text-item.hh"
+#include "warn.hh"
 
 #define MY_MAKE_MUSIC(x)  make_music_by_name (ly_symbol2scm (x))
 
@@ -107,15 +108,10 @@ make_simple_markup (SCM encoding, SCM a)
 {
 	SCM simple = ly_scheme_function ("simple-markup");
 	if (is_symbol (encoding))
-	{
 		return scm_list_3 (ly_scheme_function ("encoded-simple-markup"),
 			   encoding, a);
-	} else
-		return scm_list_2 (simple, a);
-
-	return markup;
+	return scm_list_2 (simple, a);
 }
-
 
 bool
 is_duration (int t)
@@ -177,12 +173,13 @@ of the parse stack onto the heap. */
 
 
 %union {
+	Book *book;
+	Music_output_def *outputdef;
+	SCM scm;
 	String *string;
-    Music *music;
-    Score *score;
-    Music_output_def *outputdef;
-    SCM scm;
-    int i;
+ 	Music *music;
+ 	Score *score;
+ 	int i;
 }
 %{
 
@@ -248,6 +245,7 @@ or
 %token APPLYOUTPUT
 %token AUTOCHANGE
 %token BAR
+%token BOOK
 %token BREATHE
 %token CHANGE
 %token CHORDMODIFIERS
@@ -315,6 +313,7 @@ or
 %token CHORD_BASS CHORD_COLON CHORD_MINUS CHORD_CARET  CHORD_SLASH
 %token FIGURE_SPACE
 
+%type <book>	book_block book_body
 %type <i>	exclamations questions dots optional_rest
 %type <i>  	 bass_mod
 %type <scm> 	grace_head
@@ -427,23 +426,37 @@ toplevel_expression:
 	}
 	| add_quote {
 	}
+	| book_block {
+		Book *book = $1;
+		SCM header = THIS->input_file_->header_.to_SCM ();
+		Path outname = split_path (THIS->output_basename_);
+		int *c = &THIS->input_file_->book_count_;
+		if (*c)
+ 			outname.base += "-" + to_string (*c);
+		(*c)++;
+ 		Music_output_def *dp = unsmob_music_output_def
+			(THIS->lexer_->lookup_identifier ("$defaultpaper"));
+ 		book->process (outname.to_string (),
+			dp ? dp->clone () : new Paper_def, header);
+ 		scm_gc_unprotect_object (book->self_scm ());
+	}
 	| score_block {
 		Score *sc = $1;
-
-		SCM head = is_module (sc->header_) ? sc->header_ : THIS->input_file_->header_.to_SCM ();
+		SCM head = is_module (sc->header_) ? sc->header_
+			: THIS->input_file_->header_.to_SCM ();
 
 		Path p = split_path (THIS->output_basename_);
 		int *c = &THIS->input_file_->score_count_;
 		if (*c)
-			{
 			p.base += "-" + to_string (*c);
-			}
 
 		(*c)++;
 		SCM outname = scm_makfrom0str (p.to_string ().to_str0());
 
 		for (int i = 0; i < sc->defs_.size (); i++)
-			default_rendering (sc->music_, sc->defs_[i]->self_scm (), head, outname);
+			default_rendering (sc->music_,
+					   sc->defs_[i]->self_scm (), head,
+					   outname);
 
 		if (sc->defs_.is_empty ())
 		{
@@ -592,9 +605,29 @@ context_def_spec_body:
 	}
 	;
 
-/*
-	SCORE
-*/
+book_block:
+	BOOK {
+		THIS->push_spot ();
+	}
+	/*cont*/ '{' book_body '}' 	{
+		THIS->pop_spot ();
+		$$ = $4;
+	}
+	;
+
+book_body:
+	{
+		$$ = new Book;
+		$$->set_spot (THIS->here_input ());
+	}
+	| book_body score_block {
+		$$->scores_.push ($2);
+		scm_gc_unprotect_object ($2->self_scm ());
+	}
+	| book_body error {
+	}
+	;
+
 score_block:
 	SCORE {
 		THIS->push_spot ();
@@ -602,7 +635,6 @@ score_block:
 	/*cont*/ '{' score_body '}' 	{
 		THIS->pop_spot ();
 		$$ = $4;
-
 	}
 	;
 

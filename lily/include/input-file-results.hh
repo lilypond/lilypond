@@ -23,6 +23,7 @@ public:
   Array<String> target_strings_;
   Protected_scm header_;
 
+  int book_count_;
   int score_count_;
   
   void do_deps (String);

@@ -32,8 +32,6 @@
 #include "scm-hash.hh"
 #include "ly-module.hh"
 
-#include "paper-book.hh"
-
 bool store_locations_global_b;
 
 /*
@@ -127,18 +125,17 @@ Input_file_results::~Input_file_results ()
   ly_clear_anonymous_modules ();
 }
 
-
-
 Input_file_results* global_input_file;
 
-Input_file_results::Input_file_results (String init, String in_file, String out_file)
+Input_file_results::Input_file_results (String init,
+					String in_file, String out_file)
 {
   header_ = ly_make_anonymous_module ();
   global_input_file = this;
+  book_count_ = 0;
   score_count_ = 0;
   sources_.set_path (&global_path);
   
-
   progress_indication (_f ("Now processing `%s'", in_file.to_str0 ()));
   progress_indication ("\n");
 
@@ -150,7 +147,6 @@ Input_file_results::Input_file_results (String init, String in_file, String out_
       exit_status_global  = 1;
       failed_files.push (in_file);
     }
-
   
   do_deps (out_file);
 }
@@ -225,11 +221,5 @@ do_one_file (char const *file)
       return;
     }
 
-  paper_book = new Paper_book ();;
   Input_file_results inp_file (init, in_file, out_file);
-  if (output_format_global == PAGE_LAYOUT)
-    paper_book->output (out_file);
-
-  scm_gc_unprotect_object (paper_book->self_scm ());
-  paper_book = 0;
 }
