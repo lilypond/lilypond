@@ -1,3 +1,9 @@
+2004-11-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/lily.scm (sanitize-command-option): new function.
+
+	* scm/framework-tex.scm (header): sanitize TeX paper size. 
+
 2004-11-06  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/lily.scm (postscript->pdf): Remove .pdf file if it
@@ -16,7 +22,7 @@
 
 2004-11-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
-	* scm/lily.scm (ly:system): add > /dev/null 2>&1 
+	* scm/lily.scm (ly:system): add > /dev/null 2>&1 . (backportme)
 
 	* lily/recording-group-engraver.cc (derived_mark): mark
 	now_events_. (backportme)
