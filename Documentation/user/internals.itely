@@ -69,8 +69,10 @@ regularly. For example, beaming behavior is tuned with
 @code{autoBeamSettings}.
 
 These use mixed-caps naming: @code{autoBeamSettings},
-@code{ignoreMelismata}.
-
+@code{ignoreMelismata}. They are assigned as follows:
+@example
+  \property LyricsVoice.ignoreMelismata = ...
+@end example
 
 @item Layout properties
 These are internally used in the formatting process. Consequently, to
@@ -79,7 +81,14 @@ properties. For example, some objects may be moved around vertically
 by setting their @code{padding} property.
 
 These properties use Scheme-style naming: @code{c0-position},
-@code{break-align-symbol}.
+@code{break-align-symbol}. They most often assigned as follows:
+
+@example
+  \property Score.RehearsalMark \set #'break-align-symbol = ...
+@end example
+
+@noindent
+Here, @code{RehearsalMark} is the type of the layout object.
 
 @end table
 

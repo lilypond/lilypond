@@ -18,7 +18,7 @@ Version 2.1.9
 
 @itemize @bullet
 @item Default staff sizes are now scalable. There are two new mechanisms for
-setting staff sizes is. Both are demonstrated in this fragment:
+setting staff sizes. Both are demonstrated in this fragment:
 
 @example
   #(set-staff-size 15)
