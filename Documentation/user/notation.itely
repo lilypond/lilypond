@@ -3986,7 +3986,7 @@ Here is an example demonstrating manual lyric durations,
 @cindex choral score
 
 A complete example of a SATB score setup is in section
-@ref{Vocal ensembles}.
+@ref{Vocal Ensembles}.
 
 
 @refcommands
@@ -5947,7 +5947,7 @@ Examples: @inputfileref{input/@/test,ancient@/-accidentals@/.ly}.
 
 
 Use the @code{style} property of grob @internalsref{Rest} to select
-ancient accidentals.   Supported styles are @code{classical},
+ancient rests.   Supported styles are @code{classical},
 @code{neomensural} and @code{mensural}.  @code{classical} differs
 from the @code{default} style only in that the quarter rest looks like
 a horizontally mirrored 8th rest.  The @code{neomensural} style suits

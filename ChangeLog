@@ -1,3 +1,8 @@
+2005-01-13  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* Documentation/user/notation.itely (Ancient rests): Fix typo
+	(thanks Anthony)
+
 2005-01-03  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	Backport teTeX-3.0 compatibility.
