@@ -19,6 +19,15 @@ I also found a few bugs:
   be to the left of the staff lines.
 **************
 
+- Textual scripts and dynamics are printed in the middle of the staff.
+
+	* fix AFM for BlueSky AFM files.
+
+- I didn't find any working example of the Staff_margin-engraver in 
+  input/test, and I couldn't invent one myself either. 
+  bar-scripts.ly, score-bar-scripts.ly and hara-kiri.ly don't work
+  properly.
+
 	* check widths of TFM, something's wrong here. 
 
 	* hang Item on Spanner
@@ -28,6 +37,8 @@ I also found a few bugs:
 	* remove Interval dim_ from Dimension_cache and rename the struct.
 
 	* do --safe for PS output?
+
+	* convert-mudela --output
 
 	* staff_margin (with a partial measure.)
 
@@ -74,7 +85,6 @@ BUGS:
 	* fix: text on rests: rediculous dims
 
 	* ly2dvi
-	  - barfs on linewidth = -1.
 	  - bottomnote for ly2dvi
 	  - deps for ly2dvi
 
