@@ -23,6 +23,10 @@ public:
   Text_stream::eof_b;
   Text_stream::get_name;    
 
+  /**
+   Get a char.
+   Only class member who uses text_file::get
+   */
   char data_get();    
   void data_unget (char c) {
     unget (c);

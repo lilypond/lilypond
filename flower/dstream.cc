@@ -14,7 +14,7 @@
 #include "string-convert.hh"
 #include "rational.hh"
 
-/// indent of each level
+/// amount of indentation for each level.
 const int INDTAB = 2;
 
 /*

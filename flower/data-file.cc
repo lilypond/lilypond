@@ -63,9 +63,6 @@ Data_file::get_word()
   return s;
 }
 
-/**  get a char
-   Only class member who uses text_file::get
-   */
 char
 Data_file::data_get()
 {
@@ -80,7 +77,6 @@ Data_file::data_get()
   return c;
 }
 
-/// read line, gobble '\n'
 String
 Data_file::get_line()
 {
@@ -92,7 +88,6 @@ Data_file::get_line()
   return s;
 }
 
-/// gobble stuff before first entry on a line.
 void
 Data_file::gobble_leading_white()
 {
