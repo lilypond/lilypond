@@ -28,8 +28,10 @@
 
 # Enhancements (Laura Conrad)
 #
-# Beaming now preserved between ABC and lilypond
-#
+# Barring now preserved between ABC and lilypond
+# the default placement for text in abc is above the staff.
+# %%LY now supported.						
+			
 # Limitations
 #
 # Multiple tunes in single file not supported
@@ -44,8 +46,9 @@
 
 
 #TODO:
-# - UNDEF -> None
-# - rewrite this to be like etf2ly.py
+# UNDEF -> None
+ 
+  
   
 program_name = 'abc2ly'
 version = '@TOPLEVEL_VERSION@'
@@ -74,6 +77,7 @@ lyric_idx = -1
 part_names = 0
 default_len = 8
 length_specified = 0
+nobarlines = 0
 global_key = [0] * 7			# UGH
 names = ["One", "Two", "Three"]
 DIGITS='0123456789'
@@ -92,6 +96,10 @@ def check_clef(s):
               else:
                       state.base_octave = 0
                       voices_append("\\clef treble;\n")
+      elif re.match('^-8va', s):
+	      s = s[4:]
+	      state.base_octave = -1
+	      voices_append("\\clef \"G_8\";\n")
       elif re.match('^alto', s):
               s = s[4:]
               state.base_octave = -1
@@ -206,6 +214,7 @@ def dump_score (outf):
 
 
 def set_default_length (s):
+	global length_specified
 	m =  re.search ('1/([0-9]+)', s)
 	if m:
 		__main__.default_len = string.atoi ( m.group (1))
@@ -232,7 +241,7 @@ def gulp_file(f):
 		return ''
 	s = i.read (n)
 	if len (s) <= 0:
-		sys.stderr.write ("gulped emty file: %s\n" % f)
+		sys.stderr.write ("gulped empty file: %s\n" % f)
 	i.close ()
 	return s
 
@@ -417,7 +426,7 @@ def  try_parse_group_end (str, state):
 	if str and str[0] in HSPACE:
 		str = str[1:]
 	return str
-
+	
 def header_append (key, a):
 	s = ''
 	if header.has_key (key):
@@ -488,6 +497,7 @@ def slyrics_append(a):
 
 
 def try_parse_header_line (ln, state):
+	global length_specified
 	m = re.match ('^([A-Za-z]): *(.*)$', ln)
 
 	if m:
@@ -504,15 +514,17 @@ def try_parse_header_line (ln, state):
 			if a == 'C':
 				if not state.common_time:
 					state.common_time = 1
-					voices_append ("\\property Staff.timeSignatureStyle=\"C\"\n")
+					voices_append ("\\property Staff.TimeSignature \push #\'style = #\"C\"\n")
 				a = '4/4'
 			if a == 'C|':
 				if not state.common_time:
 					state.common_time = 1
-					voices_append ("\\property Staff.timeSignatureStyle=\"C\"\n")
+					voices_append ("\\property Staff.TimeSignature \push #\'style = #\"C\"\n")
 				a = '2/2'
 			if not length_specified:
 				set_default_len_from_time_sig (a)
+			else:
+				length_specified = 0
 			voices_append ('\\time %s;' % a)
 			state.next_bar = ''
 		if g == 'K': # KEY
@@ -520,11 +532,19 @@ def try_parse_header_line (ln, state):
 			if a:
 				m = re.match ('^([^ \t]*) *(.*)$', a) # seperate clef info
 				if m:
-					__main__.global_key  =compute_key (m.group(1))# ugh.
-					voices_append ('\\key %s;' % lily_key(m.group(1)))
-					check_clef(m.group(2))
+					# there may or may not be a space
+					# between the key letter and the mode
+					if key_lookup.has_key(m.group(2)[0:3]):
+						key_info = m.group(1) + m.group(2)[0:3]
+						clef_info = m.group(2)[4:]
+					else:
+						key_info = m.group(1)
+						clef_info = m.group(2)
+					__main__.global_key  = compute_key (key_info)# ugh.
+					voices_append ('\\key %s;' % lily_key(key_info))
+					check_clef(clef_info)
 				else:
-					__main__.global_key  =compute_key (a)# ugh.
+					__main__.global_key  = compute_key (a)# ugh.
 					voices_append ('\\key %s \\major;' % lily_key(a))
 		if g == 'O': # Origin
 			header ['origin'] = a
@@ -566,7 +586,8 @@ def try_parse_header_line (ln, state):
 def pitch_to_mudela_name (name, acc, bar_acc, key):
 	s = ''
 	if acc == UNDEF:
-		acc = bar_acc
+		if not nobarlines:
+			acc = bar_acc
 	if acc == UNDEF:
 		acc = key
 	if acc == -1:
@@ -865,7 +886,7 @@ def try_parse_guitar_chord (str, state):
 		if str:
 			str = str[1:]
 		gc = re.sub('#', '\\#', gc)	# escape '#'s
-		state.next_articulation = ("-\"%s\"" % gc) + state.next_articulation
+		state.next_articulation = ("^\"%s\"" % gc) + state.next_articulation
 	return str
 
 def try_parse_escape (str):
@@ -892,7 +913,7 @@ bar_dict = {
 '[|' : '||',
 ':|' : ':|',
 '|:' : '|:',
-'::' : '::',
+'::' : ':|:',
 '|1' : '|',
 '|2' : '|',
 ':|2' : ':|',
@@ -996,6 +1017,33 @@ def try_parse_grace_delims (str, state):
 
 	return str
 
+def try_parse_comment (str):
+	global nobarlines
+	if (str[0] == '%'):
+		if str[0:5] == '%MIDI':
+#the nobarlines option is necessary for an abc to mudela translator for
+#exactly the same reason abc2midi needs it: abc requires the user to enter
+#the note that will be printed, and MIDI and lilypond expect entry of the
+#pitch that will be played.
+#
+#In standard 19th century musical notation, the algorithm for translating
+#between printed note and pitch involves using the barlines to determine
+#the scope of the accidentals.
+#
+#Since ABC is frequently used for music in styles that do not use this
+#convention, such as most music written before 1700, or ethnic music in
+#non-western scales, it is necessary to be able to tell a translator that
+#the barlines should not affect its interpretation of the pitch.  
+			if (string.find(str,'nobarlines') > 0):
+ 		                #debugging
+				nobarlines = 1
+		elif str[0:3] == '%LY':
+			p = string.find(str, 'voices')
+			if (p > -1):
+				voices_append(str[p+7:])
+				voices_append("\n")
+#write other kinds of appending  if we ever need them.			
+	return str
 
 happy_count = 100
 def parse_file (fn):
@@ -1017,6 +1065,7 @@ def parse_file (fn):
 		m = re.match  ('^([^%]*)%(.*)$',ln)  # add comments to current voice
 		if m:
 			if m.group(2):
+				try_parse_comment(m.group(2))
 				voices_append ('%% %s\n' % m.group(2))
 			ln = m.group (1)
 
@@ -1069,6 +1118,8 @@ http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt) To LilyPond input.
 
 def print_version ():
 	print r"""abc2ly (GNU lilypond) %s""" % version
+
+
 
 (options, files) = getopt.getopt (sys.argv[1:], 'vo:h', ['help','version', 'output='])
 out_filename = ''
