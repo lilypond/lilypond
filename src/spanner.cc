@@ -59,3 +59,7 @@ Spanner::print()const
     mtor << "}\n";
 #endif
 }
+Spanner::~Spanner()
+{
+    delete output;
+}
