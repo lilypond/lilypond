@@ -1,3 +1,23 @@
+1.5.22.jcn1
+===========
+
+* Resurrected experimental sketch output, now with dispatch.
+
+* Bugfix: prefix directory defaults to DIR_DATADIR if not defined.
+
+* Rune: more reliable repeat dots (WARNING: FONT CHANGED)
+
+1.5.22.hwn1
+===========
+
+* Dashed slur bugfix. 
+
+* GUILE 1.4 compatibility.
+
+ 
+
+1.5.22
+======
 
 1.5.21.hwn1
 ===========
