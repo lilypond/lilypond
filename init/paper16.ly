@@ -9,8 +9,8 @@ default_paper = \paper {
 	interline = 4.\pt;
 	notewidth = 5.0\pt;
 	wholewidth = 4.8\pt;
-	unitspace = 30.\pt;
-	basicspace = 5.0\pt;
+	unitspace = 22.\pt;
+	basicspace = 4.\pt;
 
 	%
 	interbeam = 2.667\pt;
