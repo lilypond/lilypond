@@ -31,35 +31,3 @@ Han-Wen and Jan
 Utrecht/Amsterdam, The Netherlands, March 2001.
 
 
-@ignore
-
-appendix?
-[details from lilypond-1.0.0]
-
-GNU LilyPond's roots lie in MPP, a preprocessor to the rather arcane
-MusiXTeX macro package for TeX.  A friend of mine, Jan Nieuwenhuizen
-wrote the first 44 versions (0.01 to 0.44), then his program caught my
-attention, and I was slowly sucked in to the interesting problem of
-easily producing beautifully printed music.  I contributed some
-code.  We soon realised that MPP's design was too fundamentally broken
-to be repaired, so it was decided to rewrite MPP.  We debated a lot about
-the requirements to an inputformat (fall 1995).  I sat down and started
-with a parser-first, bottom-up rewrite called mpp95 (which totally
-failed, obviously).
-
-After long and hard thinking, I came up with an algorithm for the
-horizontal spacing of multiple staves (april 1996) I coded it (and did
-not test it).  After starting with this fundamental piece, I slowly
-added the stages which come before spacing, and after.  A half year
-later, I had a first working version, (october 1996).  I announced
-Patchlevel 0.0.7 (or 8) to the mutex list after asking some technical
-details on spacing; it was downloaded approximately 4 times.  Then I
-got the hang of it, and in the subsequent two months, I coded until it
-had doubled in size (pl 23).
-
-Most the other history is described in the NEWS file.  The first large
-scale release (0.1) was done after approximately 78 patchlevels on
-August 1, 1997.
-
-
-@end ignore
