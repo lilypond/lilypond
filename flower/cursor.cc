@@ -1,10 +1,7 @@
-// cursor.cc
 #ifndef CURSOR_CC
 #define CURSOR_CC
 
 #include "cursor.hh"
-//#define inline
-//#include "cursor.inl"
 #include <assert.h>
 
 template<class T>
@@ -70,6 +67,29 @@ Cursor<T>::operator -( int i ) const
 	r--;
     
     return r;
+}
+
+template<class T>
+int
+Cursor<T>::operator-(Cursor<T> c) const
+{
+    assert(c.list == list);
+    int dif = 0;
+    Cursor<T> upward(c);
+    while (upward.ok() && upward.pointer_ != pointer_) {
+	upward++;
+	dif++;
+    }
+    
+    if (upward.ok())
+	return dif;
+    dif =0;
+    while (c.ok()&& c.pointer_ != pointer_) {
+	dif --;
+	c--;
+    }
+    assert(c.ok());
+    return dif;
 }
 
 #endif
