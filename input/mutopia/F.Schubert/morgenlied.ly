@@ -26,7 +26,7 @@
 
 }
 
-\version "2.1.3"
+\version "2.1.7"
 manuscriptBreak = { \break }
 \paper  {
     staffheight = 6.0 \mm

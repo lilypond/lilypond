@@ -8,7 +8,7 @@
   copyright =   "Public Domain"
 }
 
-\version "1.9.8"
+\version "2.1.7"
 
 \include "nederlands.ly"
 
@@ -81,9 +81,9 @@ ii =  \context Staff \notes\relative c'{
   r <cis e> r <cis e> | r <b d> r <a d> | r <g b> r <a cis> |
   r <a cis> r <a cis> |
 
-  \translator Staff=bass\voiceOne
+  \change Staff=bass\voiceOne
   r <g b> r <fis a> r <fis a> | r <g bes>
-  \translator Staff=treble\voiceTwo
+  \change Staff=treble\voiceTwo
   r <a c> r <a d> |
 
   r <bes d> r <bes d> | r <g c> r <bes d> | r <c es> r <d g> |

@@ -1,5 +1,5 @@
 
-\version "1.9.8"
+\version "2.1.7"
 \header { texidoc = "@cindex Repeat Manual
 You can manually control repeat signs and numbers to produce
 unusual output. "

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.8"
+\version "2.1.7"
 \header {
 
     texidoc = "Kneed beams (often happens with cross-staff beams)
@@ -13,9 +13,9 @@ to the last beam.
 	 \context PianoStaff \relative c' <<
 	     \context Staff = SA {
 		 \stemDown
-		  c8[ c16 \translator Staff = SB \stemUp c16 ]
+		  c8[ c16 \change Staff = SB \stemUp c16 ]
 		 \stemBoth
-		  f[ g \translator Staff = SA a c] 
+		  f[ g \change Staff = SA a c] 
 			       }
 	     \context Staff = SB \relative c' {
 \clef bass

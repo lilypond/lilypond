@@ -1,12 +1,12 @@
-\version "1.9.8"
+\version "2.1.7"
 
 \header {
 texidoc = "Note head lines (e.g. glissando)
 run between centers of the note heads."
 }
 
-su = \notes{ \translator Staff = up}
-sd = \notes{ \translator Staff = down}
+su = \notes{ \change Staff = up}
+sd = \notes{ \change Staff = down}
 
 \score {
     \context PianoStaff

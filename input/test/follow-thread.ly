@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.8"
+\version "2.1.7"
 % MERGED: stuff from follow-break.ly to follow-thread.ly
 
 % followVoice: connect note heads with line when thread switches staff 
@@ -15,10 +15,10 @@ property @code{followVoice}. " }
 		\context Staff=one \context Voice {
 			\property Voice.VoiceFollower \set #'style = #'dashed-line
 			c'1
-			\translator Staff=two
+			\change Staff=two
 			b2 a
 % these lines from follow-break.ly:
-			\translator Staff=one
+			\change Staff=one
 			a1
 		    }
 		\context Staff=two {\clef bass \skip 1*3 }

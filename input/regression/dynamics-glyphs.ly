@@ -1,5 +1,5 @@
 
-\version "1.9.8"
+\version "2.1.7"
 
 \header {texidoc = "Dynamic letters are kerned, and their weight
 matches that of the hairpin signs.  The dynamic scripts should be

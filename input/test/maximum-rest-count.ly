@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.8"
+\version "2.1.7"
 % possible rename to rest-foo
 \header {
     texidoc = "@cindex Rest Collision Count

@@ -38,7 +38,7 @@
 %}
 
 
-\version "1.9.8"
+\version "2.1.7"
 
 
 
@@ -61,7 +61,7 @@ dux =  \context Voice=two \notes \relative c''{
 %%10 
   as4 r8 a bes bes16 a bes8 f |
   g4 r8 g as as g
-  \translator Staff = bass \stemUp 
+  \change Staff = bass \stemUp 
   f |
   r8 
   as, bes c r8 as16 g as8 f8 |
@@ -69,7 +69,7 @@ dux =  \context Voice=two \notes \relative c''{
   f des' c bes c as g f |
 %%15
   g8
- \translator Staff = treble
+ \change Staff = treble
    \stemDown
 
   g'16 fis g8 c, 
@@ -83,10 +83,10 @@ dux =  \context Voice=two \notes \relative c''{
 %%20
   c16 f es d
    c
-  \translator Staff = bass
+  \change Staff = bass
   \stemUp
    bes! as g 
-  f8 \translator Staff = treble
+  f8 \change Staff = treble
   \stemDown
   as' g f |
   es d es f b, c d b |

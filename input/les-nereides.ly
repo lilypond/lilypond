@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.1.1"
+\version "2.1.7"
 
 \header {
     composer =   "ARTHUR GRAY"
@@ -41,7 +41,7 @@ treble = \new Voice \notes\relative c''{
     | %3
     r4 <cis fis a cis>\arpeggio r8.
 
-    \translator Staff=bass
+    \change Staff=bass
 
     \once\property Voice.TextScript \set #'extra-offset = #'(-3 . -4) %tweak
 	    
@@ -50,7 +50,7 @@ treble = \new Voice \notes\relative c''{
     | %4
     <dis, a' dis>4)
     
-    \translator Staff=treble
+    \change Staff=treble
     
     \slurUp
     \property PianoStaff.connectArpeggios = ##t
@@ -141,13 +141,13 @@ bass =  \new Voice \notes\relative c{
     r8. e,16(\f_2 <a a,>8[ <b b,>]
     | %2
     <cis cis,>4
-    \translator Staff=treble
+    \change Staff=treble
     \stemDown
     \property Voice.Slur \override #'attachment = #'(stem . stem) %tweak
     <a'' eis cis>4)\arpeggio
     
     \property Voice.Slur \revert #'attachment %tweak
-    \translator Staff=bass
+    \change Staff=bass
     \stemBoth
     
     \property Voice.Slur \revert #'y-free %tweak
@@ -159,13 +159,13 @@ bass =  \new Voice \notes\relative c{
     | %3
     \property Voice.Stem \set #'length = #5 %tweak
     <a a,>4
-    \translator Staff=treble
+    \change Staff=treble
 			    
     \property Voice.Stem \revert #'length %tweak
     \property Voice.Stem \revert #'direction
     \property Voice.Stem \override #'direction = #-1
     <a' fis cis>)\arpeggio
-    \translator Staff=bass
+    \change Staff=bass
     \property Voice.Stem \revert #'direction
     r2
     

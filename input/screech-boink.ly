@@ -1,4 +1,4 @@
-\version "1.9.8"
+\version "2.1.7"
 \header {
     title = "Screech and boink"
     subtitle = "Random complex notation"
@@ -12,15 +12,15 @@
     \key c \minor
 
 
-<< { \property Voice.Stem \override #'direction = #'()   	\translator Staff = down
+<< { \property Voice.Stem \override #'direction = #'()   	\change Staff = down
     \property Voice.subdivideBeams = ##t	     
  	g16.[
-	\translator Staff = up
-	c'''32 	\translator Staff = down
-	g32 \translator Staff = up
-	c'''32	\translator Staff = down
+	\change Staff = up
+	c'''32 	\change Staff = down
+	g32 \change Staff = up
+	c'''32	\change Staff = down
 	 g16]
-	\translator Staff = up
+	\change Staff = up
 \property Voice.Stem \revert #'direction
 	\property Voice.followVoice = ##t
 	c'''32([ b''16 a''16 gis''16 g''32)]  } \\
@@ -52,7 +52,10 @@
 
 \paper { linewidth = -1.0
 
-	\translator { \StaffContext \consists Horizontal_bracket_engraver }
+	\translator {
+	    \StaffContext
+	    \consists Horizontal_bracket_engraver }
+
 }
 \midi { \tempo 8 = 60 }
 }

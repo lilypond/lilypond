@@ -1,4 +1,4 @@
-\version "1.9.8"
+\version "2.1.7"
 \header { texidoc= "@cindex Chord Names No Inversions
 Chord names don't attempt to find inversions and
 bass notes. " }

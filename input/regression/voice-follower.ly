@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.8"
+\version "2.1.7"
 
 
 \header { texidoc= "
@@ -15,7 +15,7 @@ can be printed automatically. This is enabled if the property
     \property PianoStaff.followVoice = ##t
     \context Staff = one \context Voice {
       c1
-      \translator Staff=two
+      \change Staff=two
       b2 a
     }
     \context Staff = two {\clef bass \skip 1*2 }

@@ -1,4 +1,4 @@
-\version "1.9.8"
+\version "2.1.7"
 \header {
 
 texidoc =
@@ -13,8 +13,8 @@ Noteheads for improvisation have a different shape.
 " }
 
 
-improOn = \notes {\translator Voice = impro }
-improOff = \notes {\translator SquashVoice = melo }
+improOn = \notes {\change Voice = impro }
+improOff = \notes {\change SquashVoice = melo }
 
 global = \notes { s1*3 \bar "|." }
 

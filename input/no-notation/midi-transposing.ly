@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.8"
+\version "2.1.7"
 
 \header { texidoc = "@cindex Transposing
 The transposing property leaves output invariant, but has effect on MIDI. "
