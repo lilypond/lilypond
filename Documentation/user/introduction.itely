@@ -109,7 +109,7 @@ exact mathematical spacing, and once with corrections.  Can you
 spot which fragment is which?
 
 @cindex optical spacing
-@lilypondfile[quote,noindent]{spacing-optical.ly}
+@c @lily pondfile[quote,noindent]{spacing-optical.ly}
 
 @cindex regular rhythms
 @cindex regular spacing
@@ -724,7 +724,7 @@ to various languages.  It is a separate document, available in HTML
 and PDF.
 @end iftex
 @ifnottex
-The @ref{music-glossary,Music glossary,,music-glossary}, explains musical terms and
+The @ref{Top,Music glossary,,music-glossary}, explains musical terms and
 includes translations to various languages.  It is also available in
 PDF.
 @end ifnottex
@@ -745,7 +745,7 @@ documentation package for your platform
 Program reference
 @end iftex
 @ifnottex
-@ref{lilypond-internals,Program reference,,lilypond-internals}.
+@ref{Top,Program reference,,lilypond-internals}.
 @end ifnottex
 
 The program reference is a set of heavily cross linked HTML pages,
