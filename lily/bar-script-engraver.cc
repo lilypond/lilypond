@@ -13,6 +13,7 @@
 #include "g-staff-side.hh"
 #include "g-text-item.hh"
 #include "lily-guile.hh"
+#include "p-col.hh"
 
 Bar_script_engraver::Bar_script_engraver ()
 {
@@ -46,7 +47,12 @@ Bar_script_engraver::do_acknowledge_element (Item *i)
 	=  &i->dim_cache_[axis_];	  
 
       staff_side_p_->add_support (i);
-      i->add_dependency (staff_side_p_); // UGH. 
+
+      /*
+	How do we make sure that staff_side_p_ has a dependency from
+	someone else? We can't use i for that, 
+       */
+      get_staff_info ().command_pcol_l ()->add_dependency (staff_side_p_);
     }
 }
 

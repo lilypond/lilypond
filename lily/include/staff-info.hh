@@ -17,14 +17,14 @@
     JUNKME.
  */
 struct Staff_info {
-    Time_description const *time_C_;
-    Rhythmic_grouping const *rhythmic_C_;
-    Score_column *musical_l_;
-    Score_column *command_l_;
+  Time_description const *time_C_;
+  Rhythmic_grouping const *rhythmic_C_;
+  Score_column *musical_l_;
+  Score_column *command_l_;
 
-    Paper_column * command_pcol_l();
-    Paper_column * musical_pcol_l();
-    Staff_info();
+  Paper_column * command_pcol_l();
+  Paper_column * musical_pcol_l();
+  Staff_info();
 };
 
 #endif // STAFF_INFO_HH
