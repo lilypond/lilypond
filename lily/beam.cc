@@ -19,7 +19,6 @@ TODO:
   
 Notes:
 
-
  - Stems run to the Y-center of the beam.
   
  - beam_translation is the offset between Y centers of the beam.

@@ -2,6 +2,7 @@
 
 	* lily/side-position-interface.cc (out_of_staff): move contents of
 	out_of_staff into aligned_side.
+	remove out_of_staff().
 
 	* input/regression/measure-grouping.ly: fix warning.
 

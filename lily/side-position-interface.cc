@@ -197,6 +197,11 @@ Side_position_interface::aligned_side (SCM element_smob, SCM axis)
       o += - iv[-d];
     }
 
+  /*
+  Maintain a minimum distance to the staff. This is similar to side
+  position with padding, but it will put adjoining objects on a row if
+  stuff sticks out of the staff a little.
+ */
   Grob * st = Staff_symbol_referencer::get_staff_symbol (me);
   if (st && a == Y_AXIS
       && gh_number_p (me->get_grob_property ("staff-padding")))
@@ -214,18 +219,6 @@ Side_position_interface::aligned_side (SCM element_smob, SCM axis)
     }
       
   return gh_double2scm (o);
-}
-
-/*
-  Maintain a minimum distance to the staff. This is similar to side
-  position with padding, but it will put adjoining objects on a row if
-  stuff sticks out of the staff a little.
- */
-MAKE_SCHEME_CALLBACK (Side_position_interface,out_of_staff,2);
-SCM
-Side_position_interface::out_of_staff (SCM element_smob, SCM axis)
-{
-  return gh_double2scm (0);
 }
 
 void
@@ -291,8 +284,8 @@ ADD_INTERFACE (Side_position_interface,"side-position-interface",
 	       "Position a victim object (this one) next to other objects (the "
 	       "support).  In this case, the property @code{direction} signifies where to put the  "
 	       "victim object relative to the support (left or right, up or down?)\n\n "
-	       "The @code{out_of_staff} routine puts objects at a distance of the staff. If the property "
-	       "@code{staff-padding} is not defined, the routine doesn't do anything." 
+	       "The routine puts objects at a distance of the staff if the property "
+	       "@code{staff-padding} is defined. If undefined, the staff symbol is ignored." 
 	       ,
 	       "staff-padding side-support-elements direction-source "
 	       "direction side-relative-direction minimum-space padding");

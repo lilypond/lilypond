@@ -254,7 +254,6 @@ New_fingering_engraver::position_scripts ()
       f->set_grob_property ("script-priority",
 			    gh_int2scm (finger_prio + i));
       f->add_offset_callback (Side_position_interface::aligned_side_proc, Y_AXIS);
-      f->add_offset_callback (Side_position_interface::out_of_staff_proc, Y_AXIS);
       f->add_offset_callback (Self_alignment_interface::centered_on_parent_proc, X_AXIS);
       f->add_offset_callback (Self_alignment_interface::aligned_on_self_proc, X_AXIS);
       
@@ -274,7 +273,6 @@ New_fingering_engraver::position_scripts ()
       f->add_offset_callback (Self_alignment_interface::centered_on_parent_proc, X_AXIS);
       f->add_offset_callback (Self_alignment_interface::aligned_on_self_proc, X_AXIS);
       f->add_offset_callback (Side_position_interface::aligned_side_proc, Y_AXIS);
-      f->add_offset_callback (Side_position_interface::out_of_staff_proc, Y_AXIS);
       f->set_grob_property ("direction", gh_int2scm (DOWN));
       typeset_grob (f);
     }
