@@ -123,12 +123,13 @@ marker_str = '%% new-chords-done %%'
 def sub_chords (str):
 	if re.search (marker_str,str):
 		return str
-	
 	str= re.sub (r'\\<', '@STARTCRESC@', str)
 	str= re.sub (r'\\>', '@STARTDECRESC@', str)
 	str= re.sub (r'([_^-])>', r'\1@ACCENT@', str)
 	str = re.sub ('<([^<>{}]+)>', sub_chord, str)
-
+	str = re.sub (r'\\! *@STARTCHORD@([^@]+)@ENDCHORD@',
+		      r'@STARTCHORD@\1@ENDCHORD@-\!',
+		      str)
 	str = re.sub ('<([^?])', r'%s\1' % simstart, str)
 	str = re.sub ('>([^?])', r'%s\1' % simend,  str)
 	str = re.sub ('@STARTCRESC@', r'\\<', str)
@@ -139,11 +140,76 @@ def sub_chords (str):
 	str = re.sub (r'@ACCENT@', '>', str)
 	return str
 
-(opts, files)= getopt.getopt( sys.argv[1:], 'e',['edit'])
+def articulation_substitute (str):
+	str = re.sub (r"""([^-])\[ *([a-z]+[,']*[!?]?[0-9:]*\.*)""",
+		      r" \1 \2-[", str)
+	str = re.sub (r"""([^-])\) *([a-z]+[,']*[!?]?[0-9:]*\.*)""",
+		      r"\1 \2-)", str)
+	str = re.sub (r"""([^-])\\! *([a-z]+[,']*[!?]?[0-9:]*\.*)""",
+		      r"\1 \2-\\!", str)
+	return str
+
+def help ():
+	print r"""
+new-chords.py -- update .ly files to new syntax.
+
+Usage:
+  new-chords.py [OPTIONS] FILE(S)
+
+Options
+
+  -e, --edit     in-place edit
+  -h, --help     this help
+
+Description
+
+  This script converts old chord notation to new chord notation, i.e.
+
+     \< <a )b>
+
+  becomes
+
+     <<a b>> -\< -)
+
+  It will also convert slur-end, beam-start and cresc-end to postfix
+  notation, i.e.
+
+    [ \! )a
+
+  becomes
+
+    a-\!-)-[ 
+
+  By default, the script will print the result on stdout. Use with -e
+  if you are confident that it does the right thing.
+
+Warning
+
+  This conversion does not convert all files correctly. It is
+  recommended to verify the output of the new file manually.
+  In particular, files with extensive Scheme code (markups, like
+
+     #'(italic "foo")
+
+  and Scheme function definitions may be garbled by the textual
+  substitution.
+
+"""
+
+
+(opts, files)= getopt.getopt( sys.argv[1:], 'eh',['help','edit'])
 edit = 0
 for (o,a) in opts:
 	if o == '-e' or o == '--edit':
 		edit = 1
+	if o == '-h' or o == '--help':
+		help ()
+		sys.exit (0)
+
+if not files:
+	print 'Error: no input files.\n use -h for help.'
+	sys.exit(2)
+	
 
 for a in files:
 	str = open (a).read()
@@ -153,6 +219,7 @@ for a in files:
 	sys.stderr.write ("processing %s\n" %a)
 	
 	str = sub_chords (str)  + marker_str + '\n'
+	str = articulation_substitute (str)
 
 	if edit:
 		open (a + '.NEW', 'w').write (str)
@@ -166,8 +233,6 @@ for a in files:
 ## regexes for postfix slur & beam:
 ##
 #PYTHON
-## ([^-])\[ *([a-z]+[!?]?[,']*[0-9:]+\.*) -> " \1 \2-["
-## ([^-])\( *([a-z]+[!?]?[,']*[0-9:]+\.*) -> "\1 \2-("
 ##
 #EMACS
 ## \([^-]\)\[ *\([a-z]+[!?]?[,']*[0-9:]*\.*\)

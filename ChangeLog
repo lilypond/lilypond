@@ -1,5 +1,12 @@
 2003-07-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION: release 1.7.27
+
+	* buildscripts/new-chords.py (help): add help text
+
+	* Documentation/user/introduction.itely (Typography and program
+	architecture):  fixes.
+
 	* Documentation/user/GNUmakefile (DVIPS_PAPERSIZE): set A4 paper
 	for texinfo and dvips. This fixes problems with PDF output of the
 	wrong size.
