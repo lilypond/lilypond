@@ -3,9 +3,6 @@
 	* lily/paper-outputter.cc (write_header_fields_to_file): 
 	only dump value if it is a string.
 
-n2003-08-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
-
-
 	* flower/include/dictionary.hh: remove.
 	
 	* Documentation/ChangeLog-1.5: add back old log.
