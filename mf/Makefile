@@ -12,8 +12,8 @@ include ./$(depth)/make/Include.make
 # 
 TEXFILES = $(wildcard *.tex)
 MFFILES = $(wildcard *.mf)
-MFDEPS = mf.dep
-EXTRA_DISTFILES = $(MFFILES) $(TEXFILES) $(MFDEPS) TODO README
+MFDEPS = $(outdir)/mf.dep
+EXTRA_DISTFILES = $(MFFILES) $(TEXFILES) TODO README
 #
 
 FONT_FILES = $(wildcard *[0-9].mf)
@@ -28,7 +28,10 @@ TEXTABLES = $(addprefix $(texout)/, $(FET_FILES:.mf=.tex))
 all: $(LYTABLES) $(TEXTABLES)
 
 localclean:
-	rm -f $(LYTABLES) $(TEXTABLES) $(MFDEPS)
+	rm -f $(LYTABLES) $(TEXTABLES) 
+
+localrealclean: 
+	rm -f $(MFDEPS)
 
 $(outdir)/%.dvi: %.mf
 	mf $<
