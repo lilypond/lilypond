@@ -393,7 +393,7 @@ Translator_group::start_translation_timestep ()
 void
 Translator_group::do_announces ()
 {
-  each (&Translator::announces);
+  each (&Translator::do_announces);
 }
 
 void

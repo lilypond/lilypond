@@ -20,6 +20,11 @@ Engraver_group_engraver::announce_grob (Grob_info info)
   Engraver::announce_grob (info);
 }
 
+void
+Engraver_group_engraver::start_translation_timestep ()
+{
+  Translator_group::start_translation_timestep();
+}
 
 void
 Engraver_group_engraver::process_acknowledged_grobs_in_simple_children ()

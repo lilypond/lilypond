@@ -46,14 +46,6 @@ Score_engraver::make_columns ()
   
       command_column_l_->set_grob_property ("breakable", SCM_BOOL_T);
 
-      Grob_info i1 (command_column_l_);
-      i1.origin_trans_l_ = this;
-
-      Grob_info i2 (musical_column_l_);
-      i2.origin_trans_l_ = this;
-
-      announce_grob (i1);
-      announce_grob (i2);
     }
 }
 
@@ -67,7 +59,17 @@ Score_engraver::prepare (Moment w)
   command_column_l_->set_grob_property ("when", now_mom_.smobbed_copy ());
   musical_column_l_->set_grob_property ("when", now_mom_.smobbed_copy ());
   
-  start_translation_timestep ();
+  Grob_info i1 (command_column_l_);
+  i1.origin_trans_l_ = this;
+  
+  Grob_info i2 (musical_column_l_);
+  i2.origin_trans_l_ = this;
+
+  
+  announce_grob (i1);
+  announce_grob (i2);
+
+  Translator_group::start_translation_timestep();
 }
 
 void
@@ -126,11 +128,22 @@ Score_engraver::one_time_step ()
   if (!to_boolean (get_property ("skipTypesetting")))
     {
       process_music ();
-      announces ();
+      do_announces ();
     }
   
   stop_translation_timestep ();
   check_removal ();
+
+
+  for (int i = announce_info_arr_.size(); i--;)
+    {
+      Grob *g = announce_info_arr_[i].grob_l_;
+      String msg= "Grob "
+	+ g->name()
+	+ " was created too late!";
+      g->programming_error (msg);
+    }
+  announce_info_arr_.clear ();
 }
 
 void

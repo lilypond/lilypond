@@ -46,8 +46,6 @@ public:
 
   
   Translator_group * daddy_trans_l_ ;
-  void announces ();
-
   void removal_processing ();
   /**
     ask daddy for a feature

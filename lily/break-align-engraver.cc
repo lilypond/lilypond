@@ -140,6 +140,6 @@ Break_align_engraver::add_to_group(SCM align_name, Item*item_l)
 ENTER_DESCRIPTION(Break_align_engraver,
 /* descr */       "Align grobs with corresponding break-align-symbols into groups, and order the groups according to breakAlignOrder",
 /* creats*/       "BreakAlignment BreakAlignGroup LeftEdge",
-/* acks  */       "grob-interface", // break-aligned-interface ?
-/* reads */       "breakAlignOrder",
+/* acks  */       "break-aligned-interface"
+,/* reads */       "breakAlignOrder",
 /* write */       "");
