@@ -4356,15 +4356,31 @@ is
   \transpose @var{from} @var{to} @var{musicexpr}
 @end example
 
-This means that @var{musicexpr} is transposed by the interval
-between the pitches @var{from} and @var{to}.
-Since @var{from} and @var{to} are pitches, @code{\transpose} must be
-inside a @code{\notes} section.
+This means that @var{musicexpr} is transposed by the interval between
+the pitches @var{from} and @var{to}: any note with pitch @code{from}
+is changed to @code{to}.
 
-@code{\transpose} distinguishes between enharmonic pitches: both
-@code{\transpose c cis} or @code{\transpose c des} will transpose up
-half a tone.  The first version will print sharps and the second
-version will print flats:
+
+For example, consider  a piece written in the key of  D major.  If
+this piece is a  little too low for its performer, it can be
+transposed up to E major with
+@example
+ \tranpose d e @ldots{}
+@end example
+
+Consider a part  written for violin (a C instrument). If
+this part is to be played on the A clarinet, the following
+transposition will produce the appropriate part
+
+@example
+  \transpose a c
+@end example   
+
+Since @var{from} and @var{to} are pitches, @code{\transpose} must be
+inside a @code{\notes} section.  @code{\transpose} distinguishes
+between enharmonic pitches: both @code{\transpose c cis} or
+@code{\transpose c des} will transpose up half a tone.  The first
+version will print sharps and the second version will print flats:
 
 @lilypond[singleline, verbatim]
 mus =\notes { \key d \major cis d fis g }

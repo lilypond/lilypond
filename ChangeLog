@@ -1,5 +1,7 @@
 2004-02-02  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/test/text-rotate.ly: new file.
+
 	* scm/new-markup.scm (markup): a macro that provides a
 	LilyPond-like syntax in scheme for building markups, in order to
 	help markup command definition. (Nicolas Sceaux)
