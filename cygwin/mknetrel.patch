@@ -1,0 +1,18 @@
+# -*- shell-script -*-
+
+#
+# mknetrel.patch -- patch sources
+#
+
+dopatchsrc () {
+    cd $src
+    cp -p $patch/$package.patch $src/cygwin/
+    patch -p1 < $patch/$package.patch
+    [ -d cygwin -a ! -e CYGWIN-PATCHES ] && ln -s cygwin CYGWIN-PATCHES
+    [ -d CYGWIN-PATCHES -a ! -e cygwin ] && ln -s CYGWIN-PATCHES cygwin
+    [ -d CYGWIN-PATCHES ] || mkdir CYGWIN-PATCHES
+}
+
+patchsrc () {
+    [ -r $patch/$package.patch -a ! -r $src/CYGWIN-PATCHES -a ! -r $src/cygwin ] && dopatchsrc
+}

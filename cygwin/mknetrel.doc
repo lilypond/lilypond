@@ -1,0 +1,37 @@
+# -*- shell-script -*-
+
+#
+# mknetrel.doc -- fixup doc
+#
+
+if [ "$ABI" = "1.5" ]; then
+    docprefix=$prefix/share
+else
+    docprefix=$prefix
+fi
+
+docdir=$docprefix/doc
+
+cygdocdir=$docdir/Cygwin
+infodir=$docprefix/info
+mandir=$docprefix/man
+packagedocdir=$docdir/$base-$ver
+
+if [ "$ABI" = "1.5" ]; then
+fixdoc () {
+    #
+    cd $inst || exit 1
+    mkdir -p $inst/$docprefix
+    for i in info man doc; do
+	#if [ -d $inst/$docprefix/$i ]; then
+	if [ -d $inst/$prefix/$i ]; then
+	    cd $inst/$prefix
+	    tar -cf - $i | tar -C $inst/$docprefix -xf -
+	    rm -rf $inst/$prefix/$i
+	fi
+    done
+    true
+}
+else
+fixdoc () { :; }
+fi
