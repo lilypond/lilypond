@@ -133,9 +133,6 @@ unusedEntry = \notes { c4 }
 %% must have size argument for GUILE 1.6 compat.
 #(define musicQuotes (make-hash-table 29))
 
-%%#(define-public toplevel-music-handler ly:parser-add-book-and-score)
-#(define toplevel-book-handler default-toplevel-book-handler)
-#(define toplevel-music-handler default-toplevel-music-handler)
-#(define toplevel-score-handler default-toplevel-score-handler)
-
-#(define toplevel-score-handler default-toplevel-score-handler)
+#(define toplevel-book-handler ly:parser-print-book)
+#(define toplevel-music-handler collect-music-for-book)
+#(define toplevel-score-handler collect-scores-for-book)

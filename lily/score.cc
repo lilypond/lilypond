@@ -260,7 +260,7 @@ LY_DEFINE (ly_score_bookify, "ly:score-bookify",
 	   "@var{header} as book level header.")
 {
   SCM_ASSERT_TYPE (unsmob_score (score_smob), score_smob,
-		   SCM_ARG1, __FUNCTION__, "score_smob");
+		   SCM_ARG1, __FUNCTION__, "Score");
   
   Score *score = unsmob_score (score_smob);
   Book *book = new Book;

@@ -177,9 +177,6 @@
      make-voice-props-set
      chord-name->german-markup
      note-name->german-markup
-     default-toplevel-music-handler
-     default-toplevel-book-handler
-     default-toplevel-score-handler
 
      Accidental_interface::after_line_breaking
      Accidental_interface::print

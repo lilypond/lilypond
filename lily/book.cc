@@ -95,3 +95,30 @@ Book::process (String outname, Output_def *default_def)
   return paper_book;
 }
 
+LY_DEFINE(ly_make_book, "ly:make-book",
+	  2, 0, 1, (SCM bookpaper, SCM header, SCM scores),
+	  "Make a \\book of @var{bookpaper} and @var{header} (which may be #f as well)  "
+	  "containing @code{\scores}.")
+{
+  Output_def * odef = unsmob_output_def (bookpaper);
+  SCM_ASSERT_TYPE (odef, bookpaper,
+		   SCM_ARG1, __FUNCTION__, "Output_def");
+
+  Book *book = new Book;
+  book->bookpaper_ = odef;
+
+  if (ly_c_module_p (header))
+    book->header_ = header;
+  
+  for (SCM s = scores; ly_c_pair_p (s); s = ly_cdr (s))
+    {
+      Score *score = unsmob_score (ly_car (s));
+      if (score)
+	book->scores_.push (score);
+    }
+  
+  SCM x = book->self_scm ();
+  scm_gc_unprotect_object (x);
+  return x;
+}
+  

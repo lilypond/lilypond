@@ -11,10 +11,10 @@
 
 #(ly:set-option 'new-relative)
 #(ly:set-point-and-click #f)
+#(define  toplevel-scores '())
 
 \maininput
 % there is a problem at the end of the input file
-
 
 %%
 %% above and below message is to compensate for look ahead of the parser.
@@ -29,6 +29,8 @@
 	)))% there is a problem at the end of the input file
 
 
+#(if (pair? toplevel-scores)
+  (ly:parser-print-book parser (apply ly:make-book $defaultbookpaper $globalheader toplevel-scores)))
 
 #(if (ly:get-option 'verbose)
   (begin
