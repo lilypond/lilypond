@@ -784,8 +784,11 @@ staves rather than on the staves.
 \version "2.4.0"
 
 global = {
+  \set Score.skipBars = ##t
+
   % incipit
   \once \override Score.SystemStartBracket #'transparent = ##t
+  \override Score.SpacingSpanner #'spacing-increment = #1.0 % tight spacing
   \key f \major
   \time 2/2
   \once \override Staff.TimeSignature #'style = #'neomensural
@@ -801,6 +804,7 @@ global = {
   \bar ""
 
   % main
+  \revert Score.SpacingSpanner #'spacing-increment % CHECK: no effect?
   \cadenzaOff % turn bar lines on again
   \once \override Staff.Clef #'full-size-change = ##t
   \set Staff.forceClef = ##t
@@ -816,13 +820,7 @@ global = {
   \set Staff.printKeyCancellation = ##t
   \set Staff.forceClef = ##f
 
-  \skip 1*5
-
-  % last bar contains a brevis (i.e., spans 2 bars);
-  % therefore do not draw this particular bar
-  \cadenzaOn
-  \skip 1*2
-  \cadenzaOff
+  \skip 1*7 % the actual music
 
   % let finis bar go through all staves
   \override Staff.BarLine #'transparent = ##f

@@ -2153,7 +2153,7 @@ any markup text.  For example,
 @lilypond[quote,raggedright,fragment,verbatim,relative=1]
 c'4
 \override BreathingSign #'text
-  = #(make-musicglyph-markup "scripts-rvarcomma")
+  = #(make-musicglyph-markup "scripts.rvarcomma")
 \breathe
 d4
 @end lilypond
@@ -5239,7 +5239,7 @@ segno, and fermata on a bar line.  Use @code{\markup} to
 access the appropriate symbol
 
 @lilypond[fragment,quote,raggedright,verbatim,relative=2]
-c1 \mark \markup { \musicglyph #"scripts-ufermata" }
+c1 \mark \markup { \musicglyph #"scripts.ufermata" }
 c1
 @end lilypond
 
@@ -6166,21 +6166,21 @@ select ancient accidentals.   Supported styles are
   s^\markup {
     \column {
       "vaticana"
-      \line { " " \musicglyph #"accidentals-vaticana-1"
-        " " \musicglyph #"accidentals-vaticana0" }
+      \line { " " \musicglyph #"accidentals.vaticana-1"
+        " " \musicglyph #"accidentals.vaticana0" }
     }
     \column {
       "medicaea"
-      \line { " " \musicglyph #"accidentals-medicaea-1" }
+      \line { " " \musicglyph #"accidentals.medicaea-1" }
     }
     \column {
       "hufnagel"
-      \line { " " \musicglyph #"accidentals-hufnagel-1" }
+      \line { " " \musicglyph #"accidentals.hufnagel-1" }
     }
     \column {
       "mensural"
-      \line { " " \musicglyph #"accidentals-mensural-1"
-        " " \musicglyph #"accidentals-mensural1" }
+      \line { " " \musicglyph #"accidentals.mensural-1"
+        " " \musicglyph #"accidentals.mensural1" }
     }
   }
 }
@@ -6508,34 +6508,34 @@ following table
   \set Score.timing = ##f
   \set Score.barAlways = ##t
   s_\markup { "$\\backslash$time 4/4" }
-  ^\markup { "       " \musicglyph #"timesig-neomensural4/4" }
+  ^\markup { "       " \musicglyph #"timesig.neomensural4/4" }
   s
   s_\markup { "$\\backslash$time 2/2" }
-  ^\markup { "       " \musicglyph #"timesig-neomensural2/2" }
+  ^\markup { "       " \musicglyph #"timesig.neomensural2/2" }
   s
   s_\markup { "$\\backslash$time 6/4" }
-  ^\markup { "       " \musicglyph #"timesig-neomensural6/4" }
+  ^\markup { "       " \musicglyph #"timesig.neomensural6/4" }
   s
   s_\markup { "$\\backslash$time 6/8" }
-  ^\markup { "       " \musicglyph #"timesig-neomensural6/8" }
+  ^\markup { "       " \musicglyph #"timesig.neomensural6/8" }
   \break
   s_\markup { "$\\backslash$time 3/2" }
-  ^\markup { "       " \musicglyph #"timesig-neomensural3/2" }
+  ^\markup { "       " \musicglyph #"timesig.neomensural3/2" }
   s
   s_\markup { "$\\backslash$time 3/4" }
-  ^\markup { "       " \musicglyph #"timesig-neomensural3/4" }
+  ^\markup { "       " \musicglyph #"timesig.neomensural3/4" }
   s
   s_\markup { "$\\backslash$time 9/4" }
-  ^\markup { "       " \musicglyph #"timesig-neomensural9/4" }
+  ^\markup { "       " \musicglyph #"timesig.neomensural9/4" }
   s
   s_\markup { "$\\backslash$time 9/8" }
-  ^\markup { "       " \musicglyph #"timesig-neomensural9/8" }
+  ^\markup { "       " \musicglyph #"timesig.neomensural9/8" }
   \break
   s_\markup { "$\\backslash$time 4/8" }
-  ^\markup { "       " \musicglyph #"timesig-neomensural4/8" }
+  ^\markup { "       " \musicglyph #"timesig.neomensural4/8" }
   s
   s_\markup { "$\\backslash$time 2/4" }
-  ^\markup { "       " \musicglyph #"timesig-neomensural2/4" }
+  ^\markup { "       " \musicglyph #"timesig.neomensural2/4" }
 }
 @end lilypond
 
@@ -6680,19 +6680,19 @@ supported are @code{vaticana}, @code{medicaea}, @code{hufnagel}, and
 \new Lyrics \lyricmode {
   \markup { \column {
     \typewriter "vaticana"
-    \line { " " \musicglyph #"custodes-vaticana-u0" }
+    \line { " " \musicglyph #"custodes.vaticana-u0" }
   } }
   \markup { \column {
     \typewriter "medicaea"
-    \line { " " \musicglyph #"custodes-medicaea-u0" }
+    \line { " " \musicglyph #"custodes.medicaea-u0" }
   }}
   \markup { \column {
     \typewriter "hufnagel"
-    \line { " " \musicglyph #"custodes-hufnagel-u0" }
+    \line { " " \musicglyph #"custodes.hufnagel-u0" }
   }}
   \markup { \column {
     \typewriter "mensural"
-    \line { " " \musicglyph #"custodes-mensural-u0" }
+    \line { " " \musicglyph #"custodes.mensural-u0" }
   }}
 }
 @end lilypond
@@ -7978,7 +7978,7 @@ created with a markup text.  This markup text is inserted in the
 tsMarkup =\markup {
   \number {
     \column { "2" "4" }
-    \musicglyph #"scripts-stopped"
+    \musicglyph #"scripts.stopped"
     \bracket \column { "5" "8" }
   }
 }
