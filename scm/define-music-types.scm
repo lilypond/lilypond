@@ -198,7 +198,8 @@ Syntax: @var{note}\\cr
     (GraceMusic
      . (
 	(description .	"Interpret the argument as grace notes. ")
-	(internal-class-name . "Grace_music")
+	(internal-class-name . "Music_wrapper")
+	(start-callback . ,Grace_music::start_callback)
 	(length . ,(ly:make-moment 0 1))
 	(iterator-ctor . ,Grace_iterator::constructor)
 	(types . (grace-music music-wrapper-music general-music))
@@ -352,6 +353,8 @@ SYNTAX
 	(description .	"Combine two parts on a staff, either merged or
 as separate voices.")
 	(internal-class-name . "Simultaneous_music")
+	(length-callback . ,Music_sequence::maximum_length_callback)
+	(start-callback . ,Music_sequence::minimum_start_callback)
 	(types . (general-music part-combine-music))
 	(iterator-ctor . ,Part_combine_iterator::constructor)
 	))
@@ -368,15 +371,12 @@ Syntax NOTE \\(  and \\) NOTE")
      . (
 	(description .	"Set a context property.
 
-
-
 Syntax: @code{\\property @var{context}.@var{prop} = @var{scheme-val}}.")
 	(internal-class-name . "Music")
 	(types . (layout-instruction general-music))
 	(iterator-ctor . ,Property_iterator::constructor)
-	)
-     )
-    
+	))
+
     (PropertyUnset
      . (
 	(description .	"Remove the definition of a context @code{\\property}.")
@@ -384,8 +384,7 @@ Syntax: @code{\\property @var{context}.@var{prop} = @var{scheme-val}}.")
 	(internal-class-name . "Music")
 	(types . (layout-instruction general-music))
 	(iterator-ctor . ,Property_unset_iterator::constructor)
-	)
-     )
+	))
     
     (PesOrFlexaEvent
      . (
@@ -454,6 +453,7 @@ Syntax \\sequential @{..@} or simply @{..@} .")
 
 	(internal-class-name . "Sequential_music")
 	(length-callback . ,Music_sequence::cumulative_length_callback)
+	(start-callback . ,Music_sequence::first_start_callback)
 	(iterator-ctor . ,Sequential_music_iterator::constructor)
 	(types . (general-music sequential-music))
 	))
@@ -466,6 +466,7 @@ to group start-mmrest, skip, stop-mmrest sequence.
 Syntax @code{R2.*5} for 5 measures in 3/4 time.")
 	(internal-class-name . "Sequential_music")
 	(length-callback . ,Music_sequence::cumulative_length_callback)
+	(start-callback . ,Music_sequence::first_start_callback)
 	(iterator-ctor . ,Sequential_music_iterator::constructor)
 	(types . (general-music sequential-music))
 	))
@@ -500,6 +501,7 @@ SYNTAX
 
 	(internal-class-name . "Simultaneous_music")
 	(iterator-ctor . ,Simultaneous_music_iterator::constructor)
+	(start-callback . ,Music_sequence::minimum_start_callback)
 	(length-callback . ,Music_sequence::maximum_length_callback)
 	
 	(types . (general-music simultaneous-music))
@@ -715,7 +717,7 @@ Syntax: @code{\\\\}")
 	(iterator-ctor . ,Volta_repeat_iterator::constructor)
 	(internal-class-name . "Repeated_music")
 	(description . "")
-	(start-moment-function .  ,Repeated_music::first_start)
+	(start-callback .  ,Repeated_music::first_start)
 	(length-callback . ,Repeated_music::volta_music_length)
 	(types . (general-music repeated-music volta-repeated-music))
 	))
@@ -724,7 +726,7 @@ Syntax: @code{\\\\}")
      . (
 	(iterator-ctor . ,Unfolded_repeat_iterator::constructor)
 	(description .	"")
-	(start-moment-function .  ,Repeated_music::first_start)
+	(start-callback .  ,Repeated_music::first_start)
 	(internal-class-name . "Repeated_music")
 	(types . (general-music repeated-music unfolded-repeated-music))
 	(length-callback . ,Repeated_music::unfolded_music_length)
@@ -734,7 +736,7 @@ Syntax: @code{\\\\}")
 	(internal-class-name . "Repeated_music")
 	(description .	"Repeats encoded by percents.")
 	(iterator-ctor . ,Percent_repeat_iterator::constructor)
-	(start-moment-function .  ,Repeated_music::first_start)
+	(start-callback .  ,Repeated_music::first_start)
 	(length-callback . ,Repeated_music::unfolded_music_length)
 	(types . (general-music repeated-music percent-repeated-music))
 	))
@@ -744,7 +746,7 @@ Syntax: @code{\\\\}")
 	(iterator-ctor . ,Chord_tremolo_iterator::constructor)
 	(description .	"Repeated notes denoted by tremolo beams.")
 	(internal-class-name . "Repeated_music")
-	(start-moment-function .  ,Repeated_music::first_start)
+	(start-callback .  ,Repeated_music::first_start)
 
 	;; the length of the repeat is handled by shifting the note logs
 	(length-callback . ,Repeated_music::folded_music_length)
@@ -757,7 +759,7 @@ Syntax: @code{\\\\}")
 	(internal-class-name . "Repeated_music")
 	(description .	"Repeats with alternatives placed in parallel. ")
 	(iterator-ctor	. ,Folded_repeat_iterator::constructor)
-	(start-moment-function .  ,Repeated_music::minimum_start)
+	(start-callback .  ,Repeated_music::minimum_start)
 	(length-callback . ,Repeated_music::folded_music_length)
 	(types . (general-music repeated-music folded-repeated-music))
 	))

@@ -47,7 +47,7 @@ public:
   virtual Pitch to_relative_octave (Pitch);
   String name () const;
   Moment get_length () const;
-  virtual Moment start_mom () const;
+  Moment start_mom () const;
   void print () const;
   /// Transpose, with the interval central C to #p#
   virtual void transpose (Pitch p);
@@ -61,6 +61,7 @@ protected:
   SCM mutable_property_alist_;
 protected:
   SCM length_callback_;
+  SCM start_callback_;
   friend SCM ly_extended_make_music (SCM, SCM);
 };
 

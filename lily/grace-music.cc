@@ -7,21 +7,21 @@
   
 */
 
-#include "grace-music.hh"
-#include "grace-iterator.hh"
+#include "music.hh"
+#include "music-wrapper.hh"
 
-Moment
-Grace_music::start_mom () const
+class Grace_music
 {
-  Moment *l = unsmob_moment (Music_wrapper::length_callback (self_scm ()));
+public:
+  DECLARE_SCHEME_CALLBACK(start_callback, (SCM));
+};
+
+MAKE_SCHEME_CALLBACK(Grace_music,start_callback,1);
+SCM
+Grace_music::start_callback (SCM m) 
+{
+  Moment *l = unsmob_moment (Music_wrapper::length_callback (m));
   Moment gl;
   gl.grace_part_ = -(l->main_part_ + l->grace_part_ );
-  return gl;
+  return gl.smobbed_copy ();
 }
-
-Grace_music::Grace_music (SCM x)
-  : Music_wrapper (x)
-{
-}
-
-ADD_MUSIC (Grace_music);

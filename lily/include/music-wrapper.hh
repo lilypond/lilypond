@@ -25,8 +25,9 @@ public:
   Music_wrapper (SCM);
   VIRTUAL_COPY_CONSTRUCTOR (Music, Music_wrapper);
   DECLARE_SCHEME_CALLBACK(length_callback,(SCM));
+  DECLARE_SCHEME_CALLBACK(start_callback, (SCM));
+  
   Music *element () const;
-  virtual Moment start_mom () const;
 };
 
 #endif /* MUSIC_WRAPPER_HH */

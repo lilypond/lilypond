@@ -156,8 +156,6 @@ Repeated_music::Repeated_music (SCM x)
 
 
 MAKE_SCHEME_CALLBACK (Repeated_music,minimum_start, 1);
-MAKE_SCHEME_CALLBACK (Repeated_music,first_start, 1);
-
 SCM
 Repeated_music::minimum_start (SCM m)
 {
@@ -172,6 +170,7 @@ Repeated_music::minimum_start (SCM m)
     }
 }
 
+MAKE_SCHEME_CALLBACK (Repeated_music,first_start, 1);
 SCM
 Repeated_music::first_start (SCM m)
 {

@@ -82,6 +82,23 @@ Music_sequence::cumulative_length_callback (SCM m)
   return cumulative_length (me->get_property ("elements")).smobbed_copy();
 }
 
+
+MAKE_SCHEME_CALLBACK(Music_sequence,minimum_start_callback,1);
+SCM
+Music_sequence::minimum_start_callback (SCM m)
+{
+  Music* me = unsmob_music (m);
+  return minimum_start (me->get_property ("elements")).smobbed_copy();
+}
+
+MAKE_SCHEME_CALLBACK(Music_sequence,first_start_callback,1);
+SCM
+Music_sequence::first_start_callback (SCM m)
+{
+  Music* me = unsmob_music (m);
+  return first_start (me->get_property ("elements")).smobbed_copy();
+}
+
 Pitch
 music_list_to_relative (SCM l,Pitch p, bool ret_first)
 {
