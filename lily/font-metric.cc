@@ -183,7 +183,7 @@ LY_DEFINE (ly_font_index_to_charcode, "ly:font-index-to-charcode",
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
   SCM_ASSERT_TYPE (scm_is_integer (index), index, SCM_ARG2, __FUNCTION__, "index");
 
-  return scm_from_unsigned_integer (fm->index_to_charcode (ly_scm2int (index)));
+  return scm_from_unsigned_integer (fm->index_to_charcode (scm_to_int (index)));
 }
 
 LY_DEFINE (ly_font_glyph_name_to_charcode, "ly:font-glyph-name-to-charcode",
@@ -328,4 +328,10 @@ Offset
 Font_metric::attachment_point (String) const
 {
   return Offset (0, 0);
+}
+
+SCM
+Font_metric::sub_fonts () const
+{
+  return SCM_EOL;
 }

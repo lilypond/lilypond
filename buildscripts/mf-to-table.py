@@ -153,8 +153,6 @@ def write_afm_metric (file, global_info, charmetrics):
 
 
 def write_tex_defs (file, global_info, charmetrics):
-	nm = global_info['font
-	## nm = global_info['FontFamily']
 	nm = font_family
 	for m in charmetrics:
 		

@@ -21,6 +21,7 @@ class Open_type_font : public Font_metric
 {
   FT_Face face_; /* handle to face object */
 
+  SCM lily_subfonts_; 
   SCM lily_character_table_; 
   SCM lily_global_table_;
   Index_to_charcode_map index_to_charcode_map_;
@@ -36,6 +37,7 @@ public:
   //virtual unsigned glyph_name_to_charcode (String) const;
   virtual unsigned index_to_charcode (int) const;
   virtual void derived_mark () const;
+  virtual SCM sub_fonts () const;
 #if 0
   virtual int count () const;
   virtual int index_to_ascii (int) const;
