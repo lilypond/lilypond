@@ -48,9 +48,11 @@ EXTRA_DISTFILES= configure config.hh.in configure.in .version $(README_FILES) $(
 include ./$(depth)/make/Targets.make
 include ./$(depth)/make/Rules.make
 #
-default: shared-lib
 
-shared-lib: $(SHAREDLIBRARY) 
+default: the-lib
+
+THE_LIB=$(outdir)/$(LIB_PREFIX)flower$(LIB_SUFFIX)
+the-lib: $(THE_LIB) 
 
 # version:
 #
