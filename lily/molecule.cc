@@ -106,10 +106,15 @@ Molecule::add_at_edge (Axis a, Direction d, Molecule const &m, Real padding)
 {
   Real my_extent= empty_b () ? 0.0 : dim_[a][d];
   Interval i (m.extent (a));
+  Real his_extent;
   if (i.empty_b ())
-    programming_error ("Molecule::add_at_edge: adding empty molecule.");
-  
-  Real his_extent = i[-d];
+    {
+      programming_error ("Molecule::add_at_edge: adding empty molecule.");
+      his_extent = 0.0;
+    }
+  else
+    his_extent = i[-d];      
+
   Real offset = my_extent -  his_extent;
   Molecule toadd (m);
   toadd.translate_axis (offset + d * padding, a);
