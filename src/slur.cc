@@ -85,10 +85,9 @@ Slur::brew_molecule()
     assert(left->line == right->line);
     int minp=1000, maxp=-1000;	// todo
     for (int i=0; i<encompass.sz(); i++) {
-	minp = MIN(encompass[i]->position, minp);
-	maxp = MAX(encompass[i]->position, maxp);
-    }
-    
+	minp = encompass[i]->position <? minp;
+	maxp = encompass[i]->position <? maxp;
+    }    
     assert(encompass.sz()>0);	// todo
     int pos1 = encompass.last()->position;
     int pos2 = encompass[0]->position;
