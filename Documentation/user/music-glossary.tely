@@ -1056,7 +1056,7 @@ of the 20th century
 	\break < d' a' f''>1
     }
     \paper {
-	\translator {
+	\context {
 	    \StaffContext
 	    \consists Custos_engraver
 	}

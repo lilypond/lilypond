@@ -185,12 +185,12 @@ def write_fontlist (file, global_info, charmetrics):
 }
   \paper{
     interscoreline=1
-    \translator{
+    \context {
       \ScoreContext
       \remove "Bar_number_engraver"
       \override TextScript #'extra-X-extent = #'(-1 . 1)
     }
-    \translator{
+    \context {
       \StaffContext
       \remove "Clef_engraver"
       \remove "Key_engraver"
