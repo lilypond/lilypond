@@ -145,10 +145,10 @@ interval (Pitch const & from , Pitch const & to )
 char const *accname[] = {"eses", "es", "", "is" , "isis"};
 
 String
-Pitch::string () const
+Pitch::to_string () const
 {
   int n = (notename_ + 2) % 7;
-  String s = to_string (char (n + 'a'));
+  String s = ::to_string (char (n + 'a'));
   if (alteration_)
     s += String (accname[alteration_ + 2]);
 
@@ -162,7 +162,7 @@ Pitch::string () const
     {
       int o = (-octave_) - 1;
       while (o--)
-	s += to_string (',');
+	s += ::to_string (',');
     }
 
   return s;
@@ -248,7 +248,7 @@ Pitch::print_smob (SCM s, SCM port, scm_print_state *)
   Pitch  *r = (Pitch *) ly_cdr (s);
      
   scm_puts ("#<Pitch ", port);
-  scm_display (scm_makfrom0str (r->string ().to_str0 ()), port);
+  scm_display (scm_makfrom0str (r->to_string ().to_str0 ()), port);
   scm_puts (" >", port);
   
   return 1;

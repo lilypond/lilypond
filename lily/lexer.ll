@@ -731,7 +731,7 @@ valid_version_b (String s)
   Lilypond_version ver (s);
   if (! ((ver >= oldest_version) && (ver <= current)))
 	{	
-		non_fatal_error (_f ("Incorrect lilypond version: %s (%s, %s)", ver.string (), oldest_version.string (), current.string ()));
+		non_fatal_error (_f ("Incorrect lilypond version: %s (%s, %s)", ver.to_string (), oldest_version.to_string (), current.to_string ()));
 		non_fatal_error (_ ("Consider updating the input with the convert-ly script")); 
 		return false;
     }

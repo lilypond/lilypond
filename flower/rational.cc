@@ -277,16 +277,17 @@ Rational::operator -= (Rational r)
 }
 
 String
-Rational::string () const
+Rational::to_string () const
 {
   if (infty_b ())
     {
       String s (sign_ > 0 ? "" : "-" );
       return String (s + "infinity");
     }
-  String s = to_string (num ());
+
+  String s = ::to_string (num ());
   if (den () != 1 && num ())
-    s += "/" + to_string (den ());
+    s += "/" + ::to_string (den ());
   return s;
 }
 

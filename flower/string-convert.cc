@@ -268,7 +268,7 @@ String_convert::char_string (char c, int n)
 String
 String_convert::rational_string (Rational r)
 {
-	return r.string ();
+ return r.to_string ();
 }
 
 String

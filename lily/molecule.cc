@@ -176,7 +176,7 @@ Molecule::print_smob (SCM , SCM port, scm_print_state *)
   scm_puts ("#<Molecule ", port);
 #if 0
   Molecule  *r = (Molecule *) ly_cdr (s);
-  String string (r->string ());
+  String string (r->to_string ());
   scm_puts ((char *)str.to_str0 (), port);
 #endif
   scm_puts (" >", port);

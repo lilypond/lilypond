@@ -138,7 +138,7 @@ struct Tex_font_char_metric
   Array<Tfm_kern> kerns_;
   Array<Tfm_ligature> ligatures_;
 
-  String string () const;
+  String to_string () const;
   Tex_font_char_metric ();
 
   Box dimensions () const; 
@@ -154,9 +154,7 @@ public:
   virtual Box get_char (int) const;
   Tex_font_char_metric const *find_ascii (int ascii, bool warn=true) const;
 
-  String string () const;
-
-
+  String to_string () const;
   
   Tfm_info info_;
   Tfm_header header_;

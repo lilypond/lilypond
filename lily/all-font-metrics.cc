@@ -182,7 +182,7 @@ All_font_metrics::find_font (String name)
     return f;
 
   error (_f ("can't find default font: `%s'", def_name.to_str0 ()));
-  error (_f ("(search path: `%s')", search_path_.string ()));
+  error (_f ("(search path: `%s')", search_path_.to_string ()));
   error (_ ("Giving up"));
 
   return 0;

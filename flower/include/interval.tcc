@@ -127,7 +127,7 @@ intersect (Interval_t<T> x, Interval_t<T> const &y)
 
 template<class T>
 String
-Interval_t<T>::string () const
+Interval_t<T>::to_string () const
 {
   if (empty_b ())
     return "[empty]";

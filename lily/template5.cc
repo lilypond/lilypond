@@ -24,7 +24,7 @@ Interval_t<Rational>::infinity ()
 String
 Interval_t<Rational>::T_to_string (Rational a)
 {
-  return a.string ();
+  return a.to_string ();
 }
 
 

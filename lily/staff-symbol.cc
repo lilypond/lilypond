@@ -115,10 +115,9 @@ Staff_symbol::staff_space (Grob*me)
 
 
 ADD_INTERFACE (Staff_symbol,"staff-symbol-interface",
-  "This spanner draws the lines of a staff.  The center (i.e. middle line
-or space) is position 0. The length of the symbol may be set by hand
-through the @code{width} property.
-",
+  "This spanner draws the lines of a staff.  The center (i.e. middle line "
+"or space) is position 0. The length of the symbol may be set by hand "
+"through the @code{width} property. ",
 	       
   "width staff-space thickness line-count");
 

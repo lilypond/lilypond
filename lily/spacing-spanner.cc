@@ -376,7 +376,7 @@ Spacing_spanner::set_springs (SCM smob)
       global_shortest = find_shortest (me, all);
       if (verbose_global_b)
 	{
-	  progress_indication (_f("Global shortest duration is %s\n", global_shortest.string ())); 
+	  progress_indication (_f("Global shortest duration is %s\n", global_shortest.to_string ())); 
 	}
     }
   prune_loose_colunms (me, &all, global_shortest);
@@ -845,7 +845,7 @@ Spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
   
   if (! shortest_playing_len.to_bool ())
     {
-      programming_error ("can't find a ruling note at " + Paper_column::when_mom (lc).string ());
+      programming_error ("can't find a ruling note at " + Paper_column::when_mom (lc).to_string ());
       shortest_playing_len = 1;
     }
 

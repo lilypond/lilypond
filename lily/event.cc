@@ -42,7 +42,7 @@ Event::transpose (Pitch delta)
   if (abs (np.get_alteration ()) > 2)
     {
 	warning (_f ("Transposition by %s makes alteration larger than two",
-	  delta.string ()));
+	  delta.to_string ()));
     }
 
   set_mus_property ("pitch", np.smobbed_copy ());

@@ -92,7 +92,7 @@ Getopt_long::parselong ()
 }
 
 String
-Long_option_init::string () const
+Long_option_init::to_string () const
 {
   String str;
   if (shortname_char_)
@@ -109,7 +109,7 @@ Long_option_init::str_for_help () const
 {
   String s;
   if (shortname_char_)
-    s = "-" + to_string (shortname_char_);
+    s = "-" + ::to_string (shortname_char_);
   else
     s = "  ";
 
@@ -144,11 +144,11 @@ Getopt_long::report (Errorcod c)
     {
     case E_ARGEXPECT:
       str += _f ("option `%s' requires an argument",
-	found_option_->string ());
+	found_option_->to_string ());
       break;
     case  E_NOARGEXPECT:
       str += _f ("option `%s' doesn't allow an argument",
-	found_option_->string ());
+	found_option_->to_string ());
       break;
     case E_UNKNOWNOPTION:
       str += _f ("unrecognized option: `%s'",
@@ -159,7 +159,7 @@ Getopt_long::report (Errorcod c)
       break;
     case E_ILLEGALARG:
       str += _f ("invalid argument `%s' to option `%s'",
-        optional_argument_str0_, found_option_->string ());
+        optional_argument_str0_, found_option_->to_string ());
       break;
     default:
       assert (false);

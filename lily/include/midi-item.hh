@@ -29,7 +29,7 @@ public:
 
   static String i2varint_string (int i);
 
-  virtual String string () const = 0;
+  virtual String to_string () const = 0;
 
   int channel_;
 };
@@ -44,7 +44,7 @@ public:
 
   Moment delta_mom_;
   Midi_item* midi_;
-  String string () const;
+  String to_string () const;
 };
 
 /**
@@ -54,7 +54,7 @@ class Midi_chunk : public Midi_item
 {
 public:
   void set (String header_string, String data_string, String footer_string);
-  virtual String string () const;
+  virtual String to_string () const;
   virtual String data_string () const;
 
 private:
@@ -68,7 +68,7 @@ class Midi_duration : public Midi_item
 public:
   Midi_duration (Real seconds_f);
 
-  virtual String string () const;
+  virtual String to_string () const;
   Real seconds_;
 };
 
@@ -86,7 +86,7 @@ class Midi_instrument : public Midi_item
 public:
   Midi_instrument (Audio_instrument*);
 
-  virtual String string () const;
+  virtual String to_string () const;
 
   Audio_instrument* audio_;
 };
@@ -97,7 +97,7 @@ class Midi_key : public Midi_item
 public:
   Midi_key (Audio_key*);
 	
-  virtual String string () const;
+  virtual String to_string () const;
 
   Audio_key* audio_;
 };
@@ -107,7 +107,7 @@ class Midi_time_signature : public Midi_item
 public:
   Midi_time_signature (Audio_time_signature*);
   
-  virtual String string () const;
+  virtual String to_string () const;
 
   Audio_time_signature* audio_;
   int clocks_per_1_;
@@ -123,7 +123,7 @@ public:
 
   Moment get_length () const;
   int get_pitch () const;
-  virtual String string () const;
+  virtual String to_string () const;
 
   Audio_note* audio_;
 
@@ -139,7 +139,7 @@ class Midi_note_off : public Midi_note
 public:
   Midi_note_off (Midi_note*); 
 
-  virtual String string () const;
+  virtual String to_string () const;
 
   Midi_note* on_;
   Byte aftertouch_byte_;
@@ -155,7 +155,7 @@ public:
 
   Midi_text (Audio_text*);
     
-  virtual String string () const;
+  virtual String to_string () const;
 
   Audio_text* audio_;
 };
@@ -165,7 +165,7 @@ class Midi_dynamic : public Midi_item
 public:
   Midi_dynamic (Audio_dynamic*);
   
-  virtual String string () const;
+  virtual String to_string () const;
 
   Audio_dynamic* audio_;
 };
@@ -175,7 +175,7 @@ class Midi_piano_pedal : public Midi_item
 public:
   Midi_piano_pedal (Audio_piano_pedal*);
   
-  virtual String string () const;
+  virtual String to_string () const;
 
   Audio_piano_pedal* audio_;
 };
@@ -185,7 +185,7 @@ class Midi_tempo : public Midi_item
 public:
   Midi_tempo (Audio_tempo*);
   
-  virtual String string () const;
+  virtual String to_string () const;
 
   Audio_tempo* audio_;
 };

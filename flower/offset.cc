@@ -15,11 +15,11 @@
 
 #ifndef STANDALONE
 String
-Offset::string () const
+Offset::to_string () const
 {
   String s;
-  s = String (" (") + to_string (coordinate_a_[X_AXIS]) + ", " 
-    + to_string (coordinate_a_[Y_AXIS]) + ")";
+  s = String (" (") + ::to_string (coordinate_a_[X_AXIS]) + ", " 
+    + ::to_string (coordinate_a_[Y_AXIS]) + ")";
   return s;
 }
 #endif

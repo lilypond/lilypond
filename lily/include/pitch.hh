@@ -66,7 +66,7 @@ public:
   int steps () const;
   /// return pitch from central c (in halfnotes)
   int semitone_pitch () const; 
-  String string () const;
+  String to_string () const;
 
   SCM smobbed_copy () const;
   DECLARE_SCHEME_CALLBACK (less_p, (SCM a, SCM b));

@@ -291,4 +291,5 @@ Note: MIDI cannot handle other tonalities than major/minor.
       (begin
 	(ly:warn "Attempt to determine tonality of transposed scale")
 	#t)
-  (eq? (cdr (list-ref pitch-list 4)) (cdr (list-ref pitch-list 6)))))
+      (eq? (cdr (list-ref pitch-list 4)) (cdr (list-ref pitch-list 6))))
+  )

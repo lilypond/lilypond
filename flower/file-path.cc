@@ -72,16 +72,16 @@ dos_to_posix_list (String path)
 
 /* Join components to full path. */
 String
-Path::string () const
+Path::to_string () const
 {
   String s;
   if (!root.empty_b ())
-    s = root + to_string (ROOTSEP);
+    s = root + ::to_string (ROOTSEP);
   if (!dir.empty_b ())
-    s += dir + to_string (DIRSEP);
+    s += dir + ::to_string (DIRSEP);
   s += base;
   if (!ext.empty_b ())
-    s += to_string (EXTSEP) + ext;
+    s += ::to_string (EXTSEP) + ext;
   return s;
 }
 
@@ -164,10 +164,10 @@ File_path::find (String nm) const
   for (int i=0; i < size (); i++)
     {
       String path  = elem (i);
-      String sep = to_string (DIRSEP);
+      String sep = ::to_string (DIRSEP);
       String right (path.right_string (1));
       if (path.length () && right != sep)
-	path += to_string (DIRSEP);
+	path += ::to_string (DIRSEP);
 
       path += nm;
 
@@ -232,7 +232,7 @@ File_path::add (String s)
 }
 
 String
-File_path::string () const
+File_path::to_string () const
 {
   String s;
   for (int i=0; i< size (); i++)

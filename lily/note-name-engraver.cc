@@ -44,7 +44,7 @@ Note_name_engraver::process_acknowledged_grobs ()
     {
       if (i)
 	s += " ";
-      s += unsmob_pitch (reqs_[i]->get_mus_property ("pitch"))->string ();
+      s += unsmob_pitch (reqs_[i]->get_mus_property ("pitch"))->to_string ();
     }
   if (s.length ())
     {

@@ -113,7 +113,7 @@ dump reinterpret the markup as a molecule.
 (define (pitch->note-name pitch)
   (cons (cadr pitch) (caddr pitch)))
 
-(define (accidental->markup acc)
+(define (old-accidental->markup acc)
   "ACC is an int, return a markup making an accidental."
   (if (= acc 0)
       (make-line-markup (list empty-markup))
@@ -121,28 +121,12 @@ dump reinterpret the markup as a molecule.
 			    (string-append "accidentals-"
 					   (number->string acc))))))
 
-; unused.
-(define (accidental->markupp acc pos)
-
-  (if (= acc 0)
-      empty-markup
-      (let ((acc-markup (make-musicglyph-markup
-			 (string-append "accidentals-"
-					(number->string acc)))))
-	
-	(if (equal? pos 'columns)
-	    (make-line-markup (list (make-smaller-markup acc-markup)))
-	  (if (equal? pos 'super)
-	      (make-line-markup (list (make-super-markup acc-markup)))
-	      ;; not 'super or 'columns must be 'sub...
-	      (make-line-markup (list (make-sub-markup acc-markup))))))))
-
 
 ; unused.
 
 ;; FIXME: possibly to be used for american/jazz style
 ;; However, only pos == columns is used, which seems to do
-;; exactly what accidental->markup does...
+;; exactly what old-accidental->markup does...
 (define (amy-accidental->text acc) (accidental->textp acc 'columns))
 
 
@@ -161,7 +145,7 @@ dump reinterpret the markup as a molecule.
     (make-simple-markup
      (vector-ref #("C" "D" "E" "F" "G" "A" "B")  (cadr pitch)))
     (make-normal-size-super-markup
-     (accidental->markup (caddr pitch))))))
+     (old-accidental->markup (caddr pitch))))))
   
 ;;; Hooks to override chord names and note names, 
 ;;; see input/tricks/german-chords.ly
@@ -199,7 +183,7 @@ dump reinterpret the markup as a molecule.
 (define (step->markup-previously-alternate-jazz pitch)
   (make-line-markup
    (list
-    (accidental->markup (caddr pitch))
+    (old-accidental->markup (caddr pitch))
     (make-simple-markup
      (number->string (+ (cadr pitch) (if (= (car pitch) 0) 1 8)))))))
 
@@ -209,7 +193,7 @@ dump reinterpret the markup as a molecule.
 	;; sharp 7 only included for completeness?
 	((-2) (make-line-markup
 	       (list
-		(accidental->markup  -1)
+		(old-accidental->markup  -1)
 		(make-simple-markup "7"))))
 	((-1) (make-simple-markup "7"))
 	((0) (make-simple-markup "maj7"))
@@ -217,9 +201,9 @@ dump reinterpret the markup as a molecule.
 	;;      (list (make-simple-markup "maj7"))))
 	((1) (make-line-markup
 	      (list
-	       (accidental->markup 1) (make-simple-markup "7"))))
+	       (old-accidental->markup 1) (make-simple-markup "7"))))
 	((2) (make-line-markup
-	      (list (accidental->markup 1)
+	      (list (old-accidental->markup 1)
 		    (make-simple-markup "7")))))
       (step->markup-previously-alternate-jazz pitch)))
 
@@ -512,11 +496,11 @@ dump reinterpret the markup as a molecule.
   (make-line-markup
    (list
     (case (caddr pitch)
-      ((-2) (accidental->markup -2))
-      ((-1) (accidental->markup -1))
+      ((-2) (old-accidental->markup -2))
+      ((-1) (old-accidental->markup -1))
       ((0) empty-markup)
-      ((1) (accidental->markup 1))
-      ((2) (accidental->markup 2)))
+      ((1) (old-accidental->markup 1))
+      ((2) (old-accidental->markup 2)))
     (make-simple-markup (number->string (+ (cadr pitch) (if (= (car pitch) 0) 1 8)))))))
 
 (define-public chord::exception-alist-american 
@@ -539,22 +523,22 @@ dump reinterpret the markup as a molecule.
 (define (step->markup-american pitch)
   (case (cadr pitch)
     ((6) (case (caddr pitch)
-	   ((-2) (make-line-markup (list (accidental->markup -1) (make-simple-markup "7"))))
+	   ((-2) (make-line-markup (list (old-accidental->markup -1) (make-simple-markup "7"))))
 	   ((-1) (make-simple-markup "7"))
 	   ((0) (make-simple-markup "maj7"))
-	   ((1) (make-line-markup (list (accidental->markup 1) (make-simple-markup "7"))))
-	   ((2) (make-line-markup (list (accidental->markup 2) (make-simple-markup "7"))))))
+	   ((1) (make-line-markup (list (old-accidental->markup 1) (make-simple-markup "7"))))
+	   ((2) (make-line-markup (list (old-accidental->markup 2) (make-simple-markup "7"))))))
     ((4) (case (caddr pitch)
-	   ((-2) (make-line-markup (list (accidental->markup -2) (make-simple-markup "5"))))
+	   ((-2) (make-line-markup (list (old-accidental->markup -2) (make-simple-markup "5"))))
 	   ;;choose your symbol for the diminished fifth
 	   ((-1) (make-simple-markup "-5"))
-	   ;;((-1) (make-line-markup (list (accidental->markup -1) (make-simple-markup "5")))))
+	   ;;((-1) (make-line-markup (list (old-accidental->markup -1) (make-simple-markup "5")))))
 	   ((0) empty-markup)
 	   ;;choose your symbol for the augmented fifth
 	   ;;((1) (make-simple-markup "aug"))
-	   ;;((1) (make-line-markup (list (accidental->markup 1) (make-simple-markup "5")))))
+	   ;;((1) (make-line-markup (list (old-accidental->markup 1) (make-simple-markup "5")))))
 	   ((1) (make-simple-markup "+5"))
-	   ((2) (make-line-markup (list (accidental->markup 2) (make-simple-markup "5"))))))
+	   ((2) (make-line-markup (list (old-accidental->markup 2) (make-simple-markup "5"))))))
     (else (if (and (= (car pitch) 0)
 		   (= (cadr pitch) 3)
 		   (= (caddr pitch) 0))
@@ -715,25 +699,25 @@ dump reinterpret the markup as a molecule.
 (define (step->markup-jazz pitch)
   (case (cadr pitch)
     ((6) (case (caddr pitch)
-	   ((-2) (make-line-markup (list (accidental->markup -1) (make-simple-markup "7"))))
+	   ((-2) (make-line-markup (list (old-accidental->markup -1) (make-simple-markup "7"))))
 	   ((-1) (make-simple-markup "7"))
 	   ;;Pick your favorite maj7
 	   ((0) mathm-markup-object)  ;;a white triangle
 	   ;;((0) mathn-markup-object) ;;a black triangle
 	   ;;((0) (make-simple-markup "maj7")) ;;good old maj7
-	   ((1) (make-line-markup (list (accidental->markup 1) (make-simple-markup "7"))))
-	   ((2) (make-line-markup (list (accidental->markup 2) (make-simple-markup "7"))))))
+	   ((1) (make-line-markup (list (old-accidental->markup 1) (make-simple-markup "7"))))
+	   ((2) (make-line-markup (list (old-accidental->markup 2) (make-simple-markup "7"))))))
     ((4) (case (caddr pitch)
-	   ((-2) (make-line-markup (list (accidental->markup -2) (make-simple-markup "5"))))
+	   ((-2) (make-line-markup (list (old-accidental->markup -2) (make-simple-markup "5"))))
 	   ;;choose your symbol for the diminished fifth
 	   ;;((-1) (make-simple-markup "-5"))
-	   ((-1) (make-line-markup (list (accidental->markup -1) (make-simple-markup "5"))))
+	   ((-1) (make-line-markup (list (old-accidental->markup -1) (make-simple-markup "5"))))
 	   ((0) empty-markup)
 	   ;;choose your symbol for the augmented fifth
 	   ;;((1) (make-simple-markup "aug"))
-	   ((1) (make-line-markup (list (accidental->markup 1) (make-simple-markup "5"))))
+	   ((1) (make-line-markup (list (old-accidental->markup 1) (make-simple-markup "5"))))
 	   ;;((1) (make-simple-markup "+5"))
-	   ((2) (make-line-markup (list (accidental->markup 2) (make-simple-markup "5"))))))
+	   ((2) (make-line-markup (list (old-accidental->markup 2) (make-simple-markup "5"))))))
     (else (if (and (= (car pitch) 0)
 		   (= (cadr pitch) 3)
 		   (= (caddr pitch) 0))
