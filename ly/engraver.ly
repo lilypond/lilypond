@@ -408,26 +408,11 @@ ScoreContext = \translator {
 	voltaVisibility = ##t
 	%  name, glyph id, clef position 
 	% where is c0 in this clef?
-	clefPitches = #'(("clefs-G" . -4)
-	  ("clefs-C" . 0)
-	  ("clefs-F" . 4)
-	  ("clefs-vaticana_do" . 0)
-	  ("clefs-vaticana_fa" . 4)
-	  ("clefs-medicaea_do" . 0)
-	  ("clefs-medicaea_fa" . 4)
-	  ("clefs-hufnagel_do" . 0)
-	  ("clefs-hufnagel_fa" . 4)
-	  ("clefs-hufnagel_do_fa" . 0)
-	  ("clefs-mensural1_c" . 0)
-	  ("clefs-mensural2_c" . 0)
-	  ("clefs-mensural3_c" . 0)
-	  ("clefs-mensural1_f" . 4)
-	  ("clefs-mensural2_f" . 4)
-	  ("clefs-mensural_g" . -4))
 
 	clefGlyph = #"clefs-G"
 	clefPosition = #-2
-
+	centralCPosition = #-6
+	
         automaticPhrasing = ##t
 	alignmentReference = #-1   % \down
 	defaultBarType = #"|"

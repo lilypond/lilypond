@@ -124,7 +124,6 @@ key signatures after the bar lines:
 (translator-property-description 'clefGlyph string? "Name of the symbol within the music font")
 (translator-property-description 'clefOctavation integer? "Add
 this much extra octavation. Values of 7 and -7 are common.")
-(translator-property-description 'clefPitches list? "an alist mapping GLYPHNAME to the position of the central C for that symbol")
 (translator-property-description 'clefPosition number? "Where should the center of the symbol go?")
 (translator-property-description 'combineParts boolean? "try to combine parts?")
 (translator-property-description 'connectArpeggios boolean? " If
@@ -368,7 +367,7 @@ If not set explicitly (by property or @code{\bar}), this is set
 according to values of @code{defaultBarType}, @code{barAlways},
 @code{barNonAuto} and @code{measurePosition}.
 
-Legal values are described in @ref{(lilypond-internals)bar-line-interface}.
+Valid values are described in @ref{(lilypond-internals)bar-line-interface}.
 
 .")
 

@@ -1315,14 +1315,9 @@ syntactically valid, but makes no sense and may cause runtime errors.
 Ending a staff or score with grace notes may also generate a run-time
 error, since there will be no main note to attach the grace notes to.
 
-Combining grace notes and clef changes will prints note heads on
-erroneous vertical positions.
-
 The present implementation of grace notes is not robust and generally
 kludgey. We expect it to change after LilyPond 1.4. Syntax changes might
 also be implemented.
-
-
 
 @menu
 * Glissando ::                  
@@ -1548,6 +1543,12 @@ meaningful for unfolded repeats.
 Folded repeats offer little more over simultaneous music.  However, it
 is to be expected that more functionality -- especially for the MIDI
 backend -- will be implemented at some point in the future.
+
+Volta repeats are printed over all staffs in a score. You must turn them
+off explicitly, for example by doing
+@example
+  \property Staff.VoltaBracket = \turnOff
+@end example
 
 @node Manual repeat commands
 @subsection Manual repeat commands
