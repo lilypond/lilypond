@@ -72,7 +72,7 @@ Tie_engraver::do_process_requests()
 void
 Tie_engraver::acknowledge_element (Score_elem_info i)
 {
-  if (i.elem_l_->name() == Note_head::static_name ())
+  if (i.elem_l_->is_type_b (Note_head::static_name ()))
     {
       if (tie_p_)
 	{

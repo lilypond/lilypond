@@ -150,7 +150,7 @@ Dynamic_engraver::do_removal_processing ()
 void
 Dynamic_engraver::acknowledge_element (Score_elem_info i)
 {
-  if (i.elem_l_->name() == Note_column::static_name ())
+  if (i.elem_l_->is_type_b (Note_column::static_name ()))
     {
       if (dynamic_p_) dynamic_p_->add_support (i.elem_l_);
       if (to_end_cresc_p_)
