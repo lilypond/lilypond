@@ -1,3 +1,37 @@
+1.3.46
+======
+
+1.3.45.jcn2
+===========
+
+* Fixed chord-name customisation and made small chord-name build fixes.
+
+* Accidentals with chord-names smaller and as superscript.
+
+* Do some extra footify (works only once) while making html docs.  
+
+1.3.45.hwn1
+===========
+
+* Debian patch (Thanks Anthony)
+
+* Rewrote Bar_number_engraver and Mark_engraver and removed
+Bar_script_engraver as baseclass. Both Bar_number_engraver and
+Mark_engraver are simpler and more robust.
+
+* Fixed precedence of \property verticalDirection and dynamicDirection
+
+* Fixed keys without barlines 
+
+* Fixed StaffGroups: removing `\consistsend "Axis_group_engraver"'
+puts alignment in function again
+
+* Fixed StaffGroup + GrandStaff combination.
+
+* Music is now mandatory as the first tihng in a \score{} block
+
+1.3.45
+======
 1.3.44.jcn2
 ===========
 
@@ -6,9 +40,6 @@
 * Added Properties textScriptWordSpace and chordNameWordSpace.
 
 * Junked old lyrics in star-spangled-banner.
-
-1.3.44.jcn1
-===========
 
 * Added a Piano_pedal_engraver.
 
@@ -26,9 +57,6 @@
 
 1.3.43
 ======
-
-1.3.43.hwn1
-===========
 
 * Put global element list into Line_of_score, instead of
 Paper_score. post processing (the stage after line breaking) is now
@@ -84,7 +112,7 @@ Also updated index.texi.
 * Change all occurances of Staff_margin_engraver to
 Instrument_name_engraver, add a convert-mudela rule
 
-* Change status == busy assert into programming sample/sample/error
+* Change status == busy assert into programming error
 
 1.3.42
 ======
@@ -326,9 +354,9 @@ property is already set.
 
       # Use same configuration, but different output directory:
       #
-      #     make out=WWW
+      #     make out=www
       #
-      # uses config.make and config.h; output goes to out-WWW.
+      # uses config.make and config.h; output goes to out-www.
       #
 
 

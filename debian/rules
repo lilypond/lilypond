@@ -25,7 +25,7 @@ build: build-stamp
 build-stamp:
 	dh_testdir
 
-	./configure --disable-checking --disable-debugging \
+	./configure --enable-checking --disable-debugging \
 		--enable-printing --prefix=/usr --enable-optimise \
 		--enable-shared \
 		--infodir='$${prefix}/share/info' \
@@ -40,9 +40,10 @@ build-stamp:
 clean:
 	dh_testdir
 	dh_testroot
-	rm -f build-stamp install-stamp
+	rm -f build-stamp
 	-$(MAKE) distclean
-	rm -f stepmake/stepmake/aclocal.m4
+	# Remove obsolete files which are still in the upstream tarball (1.3.42)
+	rm -f debian/control.in debian/doc-base debian/prerm
 	dh_clean
 
 	# Correct the owner of the out/dummy.dep files when built with sudo.
