@@ -23,6 +23,10 @@
 #          flex/flex-src.tar.gz
 #          gcc/gcc-2.95.2-1-src.tar.gz
 #
+#      ftp.xraylith.wisc.edu/pub/khan/gnu-win32/mingw32/runtime/
+#
+#          bin-crtdll-2000-02-03.tar.gz  (mingw only)
+#
 #  * guile-1.3.4.tar.gz
 #
 #  * lilypond-1.3.38.jcn1.tar.gz
@@ -34,7 +38,16 @@
 # config section
 ################
 
-ROOT=/usr/src/cygwin-net-485
+target=cygwin
+#target=mingw
+
+if [ $target = cygwin ]; then
+	ROOT=/usr/src/cygwin-net-485
+	TARGET_ARCH=i686-pc-cygwin
+else
+	ROOT=/usr/src/mingw-net-485
+	TARGET_ARCH=i386-pc-mingw32
+fi
 PREFIX=$ROOT/usr
 NATIVE_PREFIX=/Cygnus/usr
 
@@ -44,13 +57,22 @@ WWW=$DEVEL/WWW/lilypond/gnu-windows
 #WWW=/tmp
 
 CYGWIN_SOURCE=$DEVEL/sourceware.cygnus.com/pub/cygwin/private/cygwin-net-485
-SOURCE_PATH=$DEVEL/usr/src/releases:$DEVEL/usr/src/patches:$DEVEL/usr/src/lilypond/Documentation/ntweb
+MINGW_SOURCE=$DEVEL/ftp.xraylith.wisc.edu/pub/khan/gnu-win32/mingw32/runtime
+SOURCE_PATH=$DEVEL/usr/src/releases:$DEVEL/usr/src/patches:$DEVEL/usr/src/lilypond/Documentation/ntweb:$MINGW_SOURCE
 
 HOST=`uname -m`-gnu-`uname -s | tr '[A-Z]' '[a-z]'`
 
 cygwin_binary=cygwin-20000301.tar.gz
-TARGET_ARCH=i686-pc-cygwin
-CYGWIN_DLL=cygwin1-net-485.dll
+mingw_binary=bin-crtdll-2000-02-03.tar.gz
+
+#CYGWIN_DLL=cygwin1-net-485.dll
+CYGWIN_DLL=cygwin1.dll
+MINWG_DLL=mingwc10-net-485.dll
+
+
+################
+# cross packages
+################
 
 cross_packages="
 binutils-19990818
@@ -58,34 +80,57 @@ gcc-2.95.2
 flex
 bison
 "
-
-not_yet_needed=cygwin-2000301
+not_yet_needed="
+cygwin-2000301
+"
 
 cross_configure='--prefix=$PREFIX --target=$TARGET_ARCH'
-##native_configure='--prefix=$NATIVE_PREFIX --target=$TARGET_ARCH'
 gcc_make='LANGUAGES="c++"'
 cygwin_make='-k || true'
 
-native_configure='--target=$TARGET_ARCH --build=$TARGET_ARCH --host=$HOST --oldincludedir=$PREFIX/include --prefix=$NATIVE_PREFIX'
+
+#################
+# native packages
+#################
+
+# Typically, we install native packages under
+#
+#   /Cygnus/usr/package-x.y.z
+#
+# so that's how we configure them.
+#
+native_configure='--target=$TARGET_ARCH --build=$TARGET_ARCH --host=$HOST --oldincludedir=$PREFIX/include --prefix=$NATIVE_PREFIX/$package'
 
 guile_patch='guile-1.3.4-gnu-windows.patch'
+if [ $target = mingw ]; then
+	guile_patch1='guile-1.3.4-mingw.patch'
+	guile_cflags='-I $PREFIX/$TARGET_ARCH/include -I $PREFIX/i686-pc-cygwin/include'
+fi
 guile_configure='--enable-sizeof-int=4 --enable-sizeof-long=4 --enable-restartable-syscalls=yes'
 guile_make='oldincludedir=$PREFIX/include'
 
+# We need to get guile properly installed for cross-development, ie
+# at our prefix: $PREFIX.  When packaging, the prefix we configured
+# for, will be used.
+#
+guile_install='prefix=$PREFIX'
+
 lilypond_version=@TOPLEVEL_VERSION@
-#lilypond_prefix="$NATIVE_PREFIX/lilypond-$lilypond_version"
+if [ $target = mingw ]; then
+	lilypond_cflags='-I $PREFIX/$TARGET_ARCH/include -I $PREFIX/i686-pc-cygwin/include'
+fi
 lilypond_ldflags='-L$PREFIX/lib -lguile $PREFIX/bin/$CYGWIN_DLL'
 #lilypond_configure='--prefix=$lilypond_prefix'
 ## URG, help2man: doesn't know about cross-compilation.
 #lilypond_make='-k || make -k || true'
 lilypond_patch=lilypond-manpages.patch
+# Don't install lilypond
 lilypond_install='--just-print'
 
 native_packages="
 guile-1.3.4
 lilypond-$lilypond_version
 "
-
 
 #######################
 # end of config section
@@ -94,20 +139,6 @@ lilypond-$lilypond_version
 cygwin_dirs=`/bin/ls -d1 $CYGWIN_SOURCE/*`
 cygwin_source_path=`echo $CYGWIN_SOURCE $cygwin_dirs`
 source_path=`echo $SOURCE_PATH:$cygwin_source_path | sed 's/:/ /g'`
-
-# mingw doesn't work yet. 
-#TARGET_ARCH=i686-pc-mingw32
-#
-# building cross-compiler i686-pc-mingw32-gcc exists on:
-#
-#  /usr/src/cygwin-mingw/usr/src/cross-gcc-2.95.2/gcc/xgcc -B/usr/src/cygwin-mingw/usr/src/cross-gcc-2.95.2/gcc/ -B/usr/src/cygwin-mingw/usr/i686-pc-mingw32/bin/ -I/usr/src/cygwin-mingw/usr/i686-pc-mingw32/include -O2 -I../../gcc-2.95.2/gcc/../winsup/include -DCROSS_COMPILE -DIN_GCC     -g -O2 -I./include   -g1  -DIN_LIBGCC2 -D__GCC_FLOAT_NOT_NEEDED   -I. -I../../gcc-2.95.2/gcc -I../../gcc-2.95.2/gcc/config -I../../gcc-2.95.2/gcc/../include -c
-#
-# with:
-#
-#  ../../gcc-2.95.2/gcc/libgcc2.c:2582: conflicting types for `getpagesize'
-#/usr/src/cygwin-mingw/usr/i686-pc-mingw32/include/sys/unistd.h:43: previous declaration of `getpagesize'
-# it seems that __CYGWIN__ is not defined in mingw compiler/or compiler isn't
-# fully ported to mingw
 
 ###########
 # functions
@@ -145,6 +176,35 @@ expand ()
 )
 }
 
+find_path ()
+{(
+	set -
+	expr=$1
+	found=
+	for i in $source_path; do
+		found=`/bin/ls -d1 $i/$expr 2>/dev/null | head -1`
+		if [ -e "$found" ]; then
+			break
+		fi
+	done
+	echo $found
+)
+}
+
+fix_extension ()
+{
+	file=$1
+	ext=$2
+	expr="$3"
+	base=`basename $file $ext`
+	if [ $base$ext != $i ]; then
+		type="`file $file`"
+		if expr "$type" : "$expr"; then
+			mv -f $file $base$ext
+		fi
+	fi
+}
+
 build ()
 {(
 	package=$1
@@ -156,7 +216,7 @@ build ()
 	fi
 
         name=`echo $package | sed 's/-.*//'`
-        name_patch=`expand $name _patch`
+        name_cflags=`expand $name _cflags`
         name_ldflags=`expand $name _ldflags`
         name_configure=`expand $name _configure`
         type_configure=`expand $type _configure`
@@ -176,23 +236,27 @@ build ()
 	fi
 	
 	untar $found $package
-	if [ "x$name_patch" != "x" ]; then
+	patch=`expand $name _patch`
+	count=0
+	while [ "x$patch" != "x" ]; do
 		(
 		cd $package
-		found=`find_path $name_patch`
+		found=`find_path $patch`
 		if [ "$found" = "" ]; then
-			echo "$name_patch: no such file"
+			echo "$patch: no such file"
 			exit 1
 		fi
 		patch -p1 -E < $found
 		)
-	fi
+		count=`expr $count + 1`
+		patch=`expand $name _patch$count`
+	done
 	set -x
 	mkdir $type-$package
 	cd $type-$package
 
 	rm -f config.cache
-	LDFLAGS="$name_ldflags" ../$package/configure $type_configure $name_configure || exit 1
+	CFLAGS="$name_cflags" LDFLAGS="$name_ldflags" ../$package/configure $type_configure $name_configure || exit 1
 	make $name_make || exit 1
 	make install $name_install || exit 1
 )
@@ -206,7 +270,7 @@ pack ()
         name=`echo $package | sed 's/-.*//'`
         name_pack_install=`expand $name _pack_install`
 	install_root=/tmp/$package-install
-	install_prefix=$install_root/$NATIVE_PREFIX
+	install_prefix=$install_root/$NATIVE_PREFIX/$package
 
 	set -x
 	rm -rf $install_root
@@ -219,31 +283,12 @@ pack ()
 	## for people that use a dumb shell instead of bash
 	cd $install_prefix/bin &&
 	for i in `/bin/ls -d1 *`; do
-		base=`basename $i .exe`
-		if [ $base.exe != $i ]; then
-			type="`file $i`"
-			if expr "$type" : '.*Windows.*\(executable\).*'; then
-				mv -f $i $base.exe
-			fi
-		fi
+		fix_extension $i .exe '.*Windows.*\(executable\).*'
+		fix_extension $i .py '.*\(python\).*'
 	done
+
         rm -f $WWW/$package.zip
         cd $install_root && zip -r $WWW/$package.zip .$NATIVE_PREFIX
-)
-}
-
-find_path ()
-{(
-	set -
-	expr=$1
-	found=
-	for i in $source_path; do
-		found=`/bin/ls -d1 $i/$expr 2>/dev/null | head -1`
-		if [ -e "$found" ]; then
-			break
-		fi
-	done
-	echo $found
 )
 }
 ##################
@@ -268,18 +313,30 @@ if [ ! -d $PREFIX ]; then
 	mkdir -p $PREFIX/lib/gcc-lib/$TARGET_ARCH/2.95.2
 
 	cd $PREFIX
+
 	# urg, bug in gcc's cross-make configuration
-	if [ ! -e include ]; then
-		#mv include huh-include
-		# not target-arch, but [i686-]pc-cygwin!
-		ln -s $PREFIX/i686-pc-cygwin/include .
-		# these necessary only for mingw32
-		ln -s $PREFIX/i686-pc-cygwin/include $TARGET_ARCH
-		ln -s $PREFIX/include $PREFIX/$TARGET_ARCH/include
-	fi
+	rm -f include
+	ln -s $PREFIX/$TARGET_ARCH/include .
 else
 	echo "$PREFIX: already exists"
 	echo "$cygwin_binary: skipping"
+fi
+
+# mingw
+if [ ! -d $PREFIX/$TARGET_ARCH ]; then
+	cd $PREFIX
+	found=`find_path $mingw_binary`
+	if [ "$found" = "" ]; then
+		echo "$mingw_binary: no such tarball"
+		exit 1
+	fi
+	tar xzf $found
+
+	mkdir -p $PREFIX/lib/gcc-lib/$TARGET_ARCH/2.95.2
+	rm -f include
+	mkdir -p $PREFIX/i386-mingw32/include
+	ln -s $PREFIX/i386-mingw32 $TARGET_ARCH
+	ln -s $PREFIX/$TARGET_ARCH/include .
 fi
 
 if [ ! -e $NATIVE_PREFIX ]; then
@@ -301,7 +358,8 @@ for i in $cross_packages; do
 done
 
 # urg, bug in gcc's cross-make install
-mv -f $PREFIX/bin/cygwin1.dll $PREFIX/bin/$CYGWIN_DLL
+mv $PREFIX/bin/cygwin1.dll $PREFIX/bin/$CYGWIN_DLL
+mv $PREFIX/bin/mingwc10.dll $PREFIX/bin/$MINGW_DLL
 ln -f $PREFIX/bin/$TARGET_ARCH-gcc $PREFIX/$TARGET_ARCH/bin/cc 
 ln -f $PREFIX/bin/$TARGET_ARCH-c++ $PREFIX/$TARGET_ARCH/bin/c++
 ln -f $PREFIX/bin/$TARGET_ARCH-g++ $PREFIX/$TARGET_ARCH/bin/g++
