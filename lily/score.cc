@@ -24,12 +24,28 @@
 
 extern String default_out_fn;
 
+Score::Score()
+{
+    pscore_p_=0;
+    paper_p_ = 0;
+    midi_p_ = 0;
+    errorlevel_i_ = 0;
+}
+
 Score::Score(Score const &s)
 {
     assert(!pscore_p_);
     music_p_ = s.music_p_->clone();
     midi_p_ = new Midi_def(*s.midi_p_);
     paper_p_ = new Paper_def(*s.paper_p_);
+}
+
+Score::~Score()
+{
+    delete music_p_;
+    delete pscore_p_;
+    delete paper_p_;
+    delete midi_p_;
 }
 
 void
@@ -40,6 +56,7 @@ Score::run_translator(Global_translator * trans_l)
 								  trans_l);
     iter->construct_children();
 
+    trans_l->start();
     while ( iter->ok() || trans_l->moments_left_i() ) {
 	Moment w = INFTY;
 	if (iter->ok() ) {
@@ -55,7 +72,6 @@ Score::run_translator(Global_translator * trans_l)
     trans_l->finish();
 }
 
-
 void
 Score::process()
 {
@@ -66,11 +82,10 @@ Score::process()
 void
 Score::midi()
 {
-    if (!midi_p_)
+    if ( !midi_p_ )
 	return;
     
-    *mlog << "\nCreating elements ..." << endl; //flush;
-//    pscore_p_ = new PScore(paper_p_);
+    *mlog << "\nCreating elements ..." << flush;
     
     Global_translator* score_trans=  midi_p_->get_global_translator_p();
     run_translator( score_trans );
@@ -78,15 +93,11 @@ Score::midi()
     
     if( errorlevel_i_){
 	// should we? hampers debugging. 
-	warning("Errors found, /*not processing score*/");
+	warning( "Errors found, /*not processing score*/" );
 //	return;
     }
     print();
     *mlog << endl;
-//    pscore_p_->process();
-
-    // output
-    midi_output();
 }
     
 void
@@ -204,22 +215,6 @@ Score::print() const
     
     mtor << "}\n";
 #endif
-}
-
-Score::Score()
-{
-    pscore_p_=0;
-    paper_p_ = 0;
-    midi_p_ = 0;
-    errorlevel_i_ = 0;
-}
-
-Score::~Score()
-{
-    delete music_p_;
-    delete pscore_p_;
-    delete paper_p_;
-    delete midi_p_;
 }
 
 void

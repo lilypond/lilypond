@@ -18,6 +18,18 @@
 #include "break.hh"
 #include "p-col.hh"
 
+PScore::PScore(Paper_def*p)
+{
+    paper_l_ = p;
+    super_elem_l_   = new Super_elem;
+    typeset_element(super_elem_l_);
+}
+
+PScore::~PScore()
+{
+    super_elem_l_->unlink_all();
+}
+
 void
 PScore::typeset_element(Score_elem * elem_p)
 {
@@ -129,13 +141,6 @@ PScore::add(PCol *p)
     cols.bottom().add(p);
 }
 
-PScore::PScore(Paper_def*p)
-{
-    paper_l_ = p;
-    super_elem_l_   = new Super_elem;
-    typeset_element(super_elem_l_);
-}
-
 void
 PScore::output(Tex_stream &ts)
 {
@@ -144,11 +149,6 @@ PScore::output(Tex_stream &ts)
     ts << "\n\\EndLilyPondOutput";
 }
 
-
-PScore::~PScore()
-{
-    super_elem_l_->unlink_all();
-}
 
 void
 PScore::OK()const

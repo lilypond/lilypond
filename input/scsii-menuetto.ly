@@ -101,7 +101,8 @@ IImenuetto = \melodic{
 }
 
 \score{
-	\melodic { \IImenuetto }
+	% huh? how to set id_str
+	\melodic{ \id "Melodic" "Cello"; \IImenuetto }
 	\paper{
 		unitspace= 9.0\mm  ;% to get lily to use only three lines
 		geometric= 1.40;

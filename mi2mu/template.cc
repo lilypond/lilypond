@@ -17,9 +17,19 @@ class ostream;
 #include "plist.hh"
 #include "plist.tcc"
 
-//IPL_instantiate(Midi_event);
+#ifdef MEVENT_LIST
+IPL_instantiate(Midi_event);
+#endif
+
 IPL_instantiate(Midi_track);
-// PL_instantiate(Midi_voice);
+
+#ifdef MVOICE_LIST
+PL_instantiate(Midi_voice);
+#endif
+
 IPL_instantiate(Midi_voice);
-//IPL_instantiate(Track_column);
+
+#ifdef TCOL_LIST
+IPL_instantiate(Track_column);
+#endif
 

@@ -1,3 +1,12 @@
+pl 75.jcn4
+	- midi output, notes only
+
+pl 75.jcn3
+	- working midi output -- hacked
+
+pl 75.jcn2
+	- doze compile, mingw32 configure (still triggers gcc ico)
+
 pl 75.jcn1
 	- all of the above
 

@@ -22,12 +22,18 @@ public:
     Performer();
     virtual ~Performer();
 
+    virtual void midi_output( Midi_stream* midi_stream_l_ );
     void print() const;
     virtual void process_requests();
+
+    virtual void set( Moment mom );
+    virtual void set_track( Midi_def* midi_l, int& track_i_r );
+
     virtual bool try_request( Request* req_l );
 
 protected:
     virtual void do_print() const;
+    virtual Moment get_mom() const;
     virtual void play_event( Midi_item* l );
 };
 

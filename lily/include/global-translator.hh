@@ -27,6 +27,7 @@ public:
     virtual void prepare(Moment);
     virtual void process() {}
     virtual void finish() {}
+    virtual void start() {}
     
 protected:
     virtual Global_translator *global_l() { return this; }

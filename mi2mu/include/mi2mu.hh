@@ -28,8 +28,8 @@
 #endif
 
 // arrays are 20% faster, but we have no Pointer_array yet
-#define MVOICE_LIST  // does this work?
-#define MEVENT_LIST
+#define MEVENT_LIST  // does this work?
+#define MVOICE_LIST
 #define TCOL_LIST
 
 #include "string.hh"

@@ -26,6 +26,17 @@ Performer::do_print() const
 {
 }
 
+Moment
+Performer::get_mom() const
+{
+    return daddy_perf_l_->get_mom();
+}
+
+void
+Performer::midi_output( Midi_stream* )
+{
+}
+
 void 
 Performer::play_event( Midi_item* l ) 
 { 
@@ -46,6 +57,16 @@ void
 Performer::process_requests()
 {
 }
+
+void
+Performer::set( Moment )
+{
+} 
+
+void
+Performer::set_track( Midi_def*, int& )
+{
+} 
 
 bool 
 Performer::try_request( Request* req_l )

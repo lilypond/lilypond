@@ -37,7 +37,7 @@ private:
 //    Rhythmic_req * note_req_l_;
 
 //    Melodic_req* current_l_;
-//    Moment off_mom_;
+    Moment off_mom_;
 //    Moment on_mom_;
 };
 

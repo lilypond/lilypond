@@ -107,6 +107,17 @@ Performer_group_performer::get_default_interpreter()
 	return perf_p->get_default_interpreter();
 }
 
+Moment
+Performer_group_performer::get_mom() const
+{
+    Moment mom = Performer::get_mom();
+
+    for ( int i = 0; i < nongroup_l_arr_.size(); i++ )
+	nongroup_l_arr_[ i ]->set( mom );
+    
+    return mom;
+}
+
 bool
 Performer_group_performer::is_bottom_performer_b() const
 {
@@ -114,13 +125,24 @@ Performer_group_performer::is_bottom_performer_b() const
 }
 
 void
+Performer_group_performer::midi_output( Midi_stream* midi_stream_l )
+{
+    for ( PCursor<Performer*> i( perf_p_list_.top() ); i.ok(); i++ )
+	i->midi_output( midi_stream_l );
+}
+
+void
 Performer_group_performer::process_requests()
 {
-    PCursor<Performer*> i( perf_p_list_.top() );
-    while( i.ok() ) {
-	Performer* perf_l = i++; 
-	perf_l->process_requests();
-    }
+    for ( PCursor<Performer*> i( perf_p_list_.top() ); i.ok(); i++ )
+	i->process_requests();
+}
+
+void
+Performer_group_performer::set_track( Midi_def* midi_l, int& track_i_r )
+{
+    for ( PCursor<Performer*> i( perf_p_list_.top() ); i.ok(); i++ )
+	i->set_track( midi_l, track_i_r );
 }
 
 bool
@@ -135,3 +157,4 @@ Performer_group_performer::try_request( Request* req_l )
 	hebbes_b = daddy_perf_l_->try_request(req_l);
     return hebbes_b ;
 }
+

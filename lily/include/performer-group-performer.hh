@@ -36,9 +36,13 @@ public:
     virtual Translator* get_default_interpreter();
 
     Translator * ancestor_l( int l = 1 );
-    int depth_i() const;
+    virtual int depth_i() const;
 
-    void process_requests();
+    virtual Moment get_mom() const;
+
+    virtual void midi_output( Midi_stream* midi_stream_l );
+    virtual void process_requests();
+    virtual void set_track( Midi_def* midi_l, int& track_i_r );
 
 private:
     Pointer_list<Performer*> perf_p_list_;
