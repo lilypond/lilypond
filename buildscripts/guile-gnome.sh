@@ -21,7 +21,7 @@ SLIB_PATH=`locate slib/require.scm | head -1 | sed -s 's/require.scm//g'`
 
 # What extra modules to pull (eg: EXTRA="libgnomecanvas libwnck")
 EXTRA=${EXTRA-libgnomecanvas}
-GGVERSION=2.7.91
+GGVERSION=2.7.94
 GWRAPVERSION=1.9.3
 
 download=$HOME/usr/src/releases
@@ -98,7 +98,7 @@ GUILE_LOAD_PATH=$OPT/g-wrap/share/guile/site:$GUILE_LOAD_PATH:$SLIB_PATH
 
 ## 4.  get g-wrap 2.0
 ## note that bleeding edge (2004-9-13) g-wrap breaks guile-gnome.
-if ! pkg-config --exact-version=1.9.1 g-wrap-2.0-guile; then
+if ! pkg-config --atleast-version=$GWRAPVERSION g-wrap-2.0-guile; then
     if [ -n "$BLOEDIGE_RAND" ]; then
 	tla register-archive a.rottmann@gmx.at--2004-main \
 	    http://people.debian.org/~rotty/arch/a.rottmann@gmx.at/2004-main || true

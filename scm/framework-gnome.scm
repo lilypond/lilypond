@@ -18,6 +18,65 @@
  (gnome gtk gdk-event)
  (gnome gw canvas))
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Wrappers from guile-gnome TLA
+;;; guile-gnome-devel@gnu.org--2004
+;;; http://arch.gna.org/guile-gnome/archive-2004
+;;;
+;;; janneke@gnu.org--2004-gnome
+;;; http://lilypond.org/~janneke/{arch}/2004-gnome
+;;;
+(if (not (defined? 'gdk-event-motion:x))
+    (define (gdk-event-motion:x event)
+      (let ((vector (gdk-event->vector event)))
+	(case (gdk-event:type event)
+	  ((motion-notify)
+	   (vector-ref vector 4))
+	  (else
+	   (gruntime-error "Event not of the proper type: ~A" event))))))
+
+(if (not (defined? 'gdk-event-motion:y))
+    (define (gdk-event-motion:y event)
+      (let ((vector (gdk-event->vector event)))
+	(case (gdk-event:type event)
+	  ((motion-notify)
+	   (vector-ref vector 5))
+	  (else
+	   (gruntime-error "Event not of the proper type: ~A" event))))))
+
+; (if (not (defined? 'gdk-event-motion:x-root))
+;     (define (gdk-event-motion:x-root event)
+;       (let ((vector (gdk-event->vector event)))
+; 	(case (gdk-event:type event)
+; 	  ((motion-notify)
+; 	   (vector-ref vector 9))
+; 	  (else
+; 	   (gruntime-error "Event not of the proper type: ~A" event))))))
+
+; (if (not (defined? 'gdk-event-motion:y-root))
+;     (define (gdk-event-motion:y-root event)
+;       (let ((vector (gdk-event->vector event)))
+; 	(case (gdk-event:type event)
+; 	  ((motion-notify)
+; 	   (vector-ref vector 10))
+; 	  (else
+; 	   (gruntime-error "Event not of the proper type: ~A" event))))))
+
+(if (not (defined? 'gdk-event-button:modifiers))
+    (define (gdk-event-button:modifiers event)
+      (let ((vector (gdk-event->vector event)))
+	(case (gdk-event:type event)
+	  ((button-press button-release)
+	   ;; We have to do some hackery here, because there are bitmasks
+	   ;; used by XKB that we don't know about.
+	   (gflags->symbol-list
+	    (make <gdk-modifier-type>
+	      #:value (logand #x1fff (vector-ref vector 6)))))
+	  (else
+	   (gruntime-error "Event not of the proper type: ~A" event))))))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (define-public (output-framework outputter book scopes fields basename)
   (gnome-main book basename))
 
@@ -39,8 +98,12 @@
       
 (define-class <gnome-outputter> ()
   (name #:init-value "untitled" #:init-keyword #:name #:accessor name)
+
+  ;; FIXME
   (dragging #:init-value #f #:accessor dragging)
   (drag-origin #:init-value #f #:accessor drag-origin)
+  (drag-location #:init-value #f #:accessor drag-location)
+  
   (page-stencils ;;#:init-value '#()
    #:init-keyword #:page-stencils #:accessor page-stencils)
   (window #:init-value (make <gtk-window> #:type 'toplevel) #:accessor window)
@@ -229,11 +292,12 @@
 	 (extra-offset (ly:grob-property grob 'extra-offset))
 	 (origin (if (null? extra-offset) '(0 . 0)
 		     (cons (car extra-offset)
-					(- 0 (cdr extra-offset))))))
-    (if grob
-	(hashq-set! (grob-tweaks go) grob (cons (+ (car origin) (car offset))
-						(+ (cdr origin) (cdr offset)))))
-    (move item (car offset) (cdr offset))))
+			   (- 0 (cdr extra-offset))))))
+    (if grob (hashq-set! (grob-tweaks go) grob
+			 (cons (+ (car origin) (car offset))
+			       (- 0 (+ (cdr origin) (cdr offset))))))
+    ;;;(move item (car offset) (cdr offset))))
+    ))
 
 (define-method (save-tweaks (go <gnome-outputter>))
   (let ;;((file (current-error-port)))
@@ -256,14 +320,24 @@
     ((enter-notify) (gobject-set-property item 'fill-color "red"))
     ((leave-notify) (gobject-set-property item 'fill-color "black"))
     ((motion-notify) (if (ly:grob? (dragging go))
-			 ;; FIXME: wrap gdk-event-motion:*
-			 ;;(stderr "MOVE TO: \n")))
-			 #t))
+			 (let* ((x (gdk-event-motion:x event))
+				(y (gdk-event-motion:y event))
+				;;(s (pixels-per-unit go))
+				(s output-scale)
+				(r (drag-location go)))
+			   ;;(stderr "MOVED AT: ~S ~S\n" x y)
+			   (move item (/ (- x (car r)) s) (/ (- y (cdr r)) s))
+			   (set! (drag-location go) (cons x y)))))
     ((button-release) (if (ly:grob? (dragging go))
-			  (let ((x (gdk-event-button:x event))
-				(y (gdk-event-button:y event))
-				(s (pixels-per-unit go))
-				(o (drag-origin go)))
+			  (let* ((x (gdk-event-button:x event))
+				 (y (gdk-event-button:y event))
+				 ;;(s (pixels-per-unit go))
+				 (s output-scale)
+				 (o (drag-origin go))
+				 (r (drag-location go)))
+			    (move item (/ (- x (car r)) s) (/ (- y (cdr r)) s))
+			    (set! (drag-location go) #f)
+			    (set! (drag-origin go) #f)
 			    (stderr "RELEASE at: ~S ~S\n" x y)
 			    (set! (dragging go) #f)
 			    (tweak go item (cons (/ (- x (car o)) s)
@@ -272,18 +346,21 @@
      (let ((button (gdk-event-button:button event)))
        (cond
 	((= button 1)
-	 ;; FIXME: wrap gdk-event-button:state (== modifiers)
-	 ;;(if (null? (gdk-event-button:state event))
+	 (if (null? (gdk-event-button:modifiers event))
 	     (let ((x (gdk-event-button:x event))
 		   (y (gdk-event-button:y event)))
 	       (stderr "CLICK at: ~S ~S\n" x y)
 	       (set! (dragging go) (hashq-ref (item-grobs go) item #f))
-	       (set! (drag-origin go) (cons x y))))
-	((= button 3)
-	     ;; some modifier, do jump to source
-	     (and-let* ((grob (hashq-ref (item-grobs go) item #f))
-			(location (get-location grob)))
-		       (location-callback location)))
+	       (set! (drag-origin go) (cons x y))
+	       (set! (drag-location go) (cons x y)))
+	     (begin
+	       (stderr "CLICK WITH MODIFIERS: ~S\n"
+		       (gdk-event-button:modifiers event))
+	     
+	       ;; some modifier, do jump to source
+	       (and-let* ((grob (hashq-ref (item-grobs go) item #f))
+			  (location (get-location grob)))
+			 (location-callback location)))))
 	((= button 2)
 	 (and-let*
 	  ((grob (hashq-ref (item-grobs go) item #f)))
