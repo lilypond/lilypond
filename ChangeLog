@@ -1,3 +1,9 @@
+2003-03-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scripts/lilypond-book.py (make_lilypond_file): convert
+	lilypond-file to lilypond block directly, without going through
+	begin/end lilypond text.
+	
 
 2003-03-21  Juergen Reuter  <reuter@ipd.uka.de>
 
