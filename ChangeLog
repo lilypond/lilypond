@@ -12,7 +12,7 @@
 	(Setting variables): new section
 	(Fine tuning layout): new section
 
-	* input/just-friends.ly (Subject): remove file. Superseeded by
+	* input/just-friends.ly: remove file. Superseeded by
 	input/test/chords-without-melody.ly
 
 	* ly/property-init.ly: add all commands to refman.
@@ -24,9 +24,7 @@
 	name. Underscores botch up PS output.
 
 	* scm/define-translator-properties.scm: remove
-	textNonEmpty
-	(beatLength): change from oneBeat.
-	(repeatCommands): remove regularSpacingDelta
+	textNonEmpty, oneBeat, regularSpacingDelta
 
 	* scripts/convert-ly.py (FatalConversionError.conv): conversion
 	rule for automaticBars.
