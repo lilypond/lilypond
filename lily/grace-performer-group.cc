@@ -73,7 +73,7 @@ Grace_performer_group::one_time_step ()
   calling_self_b_  = true;
   // process_music ();
   announces ();
-  pre_move_processing ();
+  stop_translation_timestep ();
   check_removal ();
   calling_self_b_ = false;
 }

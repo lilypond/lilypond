@@ -259,6 +259,11 @@ r1 r1*3 R1*3  \\\\property Score.skipBars= ##t r1*3 R1*3
 @end example
 
 ")
+(translator-property-description 'skipTypesetting boolean?
+				 "When true, all no typesetting is done at
+this moment, causing  the interpretation phase to go a lot faster. This can
+help with debugging large scores.")
+
 (translator-property-description 'slurBeginAttachment symbol?
 "translates to the car of grob-property 'attachment of NoteColumn. See
 @ref{Slur}.")
