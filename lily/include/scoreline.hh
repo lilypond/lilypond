@@ -13,10 +13,10 @@
 /// the columns of a score that form one line.
 struct
 Line_of_score {
-    PointerList<PCol *> cols;
+    Pointer_list<PCol *> cols;
 
     // need to store height of each staff.
-    IPointerList<Line_of_staff*> staffs;
+    IPointer_list<Line_of_staff*> staffs;
     PScore * pscore_l_;	// needed to generate staffs
 
     /* *************** */

@@ -10,14 +10,14 @@
 #include "plist.hh"
 #include "cursor.hh"
 
-/**  cursor to go with PointerList. 
-  don't create PointerList<void*>'s.
+/**  cursor to go with Pointer_list. 
+  don't create Pointer_list<void*>'s.
   This cursor is just an interface class for Cursor. It takes care of the
   appropriate type casts
  */
 template<class T>
 class PCursor : private Cursor<void *> {
-    friend class IPointerList<T>;
+    friend class IPointer_list<T>;
 
     /// delete contents
     void junk();
@@ -36,14 +36,14 @@ public:
 	return remove_p();
     }
     
-    PointerList<T> &list() { return (PointerList<T>&)Cursor<void*>::list(); }
+    Pointer_list<T> &list() { return (Pointer_list<T>&)Cursor<void*>::list(); }
     PCursor<T> operator++(int) { return Cursor<void*>::operator++(0);}
     PCursor<T> operator--(int) { return Cursor<void*>::operator--(0); }
     PCursor<T> operator+=(int i) { return Cursor<void*>::operator+=(i);}
     PCursor<T> operator-=(int i) { return Cursor<void*>::operator-=(i); }    
     PCursor<T> operator -(int no) const { return Cursor<void*>::operator-(no);}
     int operator -(PCursor<T> op) const { return Cursor<void*>::operator-(op);}
-    PCursor<T> operator +( int no) const {return Cursor<void*>::operator+(no);}    PCursor(const PointerList<T> & l) : Cursor<void*> (l) {}
+    PCursor<T> operator +( int no) const {return Cursor<void*>::operator+(no);}    PCursor(const Pointer_list<T> & l) : Cursor<void*> (l) {}
     PCursor() : Cursor<void*> () {}
     PCursor( const Cursor<void*>& cursor ) : Cursor<void*>(cursor) { }
     void* vptr() const { return *((Cursor<void*> &) *this); }

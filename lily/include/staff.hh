@@ -20,9 +20,9 @@ class Staff {
 public:
     Input_register * ireg_p_;
     
-    PointerList<Voice*> voice_list_;
+    Pointer_list<Voice*> voice_list_;
     /// runtime field
-    PointerList<Staff_column*> cols_;
+    Pointer_list<Staff_column*> cols_;
 
     Score *score_l_;
     PScore *pscore_l_;
@@ -30,7 +30,7 @@ public:
     
     /* *************************************************************** */
 
-    void add(const PointerList<Voice*> &s);
+    void add(const Pointer_list<Voice*> &s);
 
     void add_voice(Voice *v_p);
     Paper_def*paper()const;

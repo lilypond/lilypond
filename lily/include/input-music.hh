@@ -12,7 +12,7 @@
 #include "voice.hh"
 #include "moment.hh"
 
-struct Voice_list : public PointerList<Voice*> {
+struct Voice_list : public Pointer_list<Voice*> {
     void translate_time(Moment dt);
 };
 
@@ -67,7 +67,7 @@ struct Simple_music : Input_music {
 
 /// Complex_music consists of multiple voices
 struct Complex_music : Input_music {
-    IPointerList<Input_music*> elts;
+    IPointer_list<Input_music*> elts;
     /* *************** */
     virtual void transpose(Melodic_req const&) const ;
     virtual void set_default_group(String g);

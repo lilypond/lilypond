@@ -15,7 +15,7 @@ template<class T> class Link;
    items are always stored as copies in List, but:
    #List<String># :  copies of #String# stored 
    #List<String*># : copies of #String*# stored! 
-   (do not use, use \Ref{PointerList} #<String*># instead.)
+   (do not use, use \Ref{Pointer_list} #<String*># instead.)
  
    {\bf note:} 
    retrieving "invalid" cursors, i.e. 

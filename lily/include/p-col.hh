@@ -22,8 +22,8 @@
 
 class PCol { 
 public:
-    PointerList<Item const *> its;
-    PointerList<Spanner const *> stoppers, starters;
+    Pointer_list<Item const *> its;
+    Pointer_list<Spanner const *> stoppers, starters;
     
     /** prebreak is put before end of line.
     if broken here, then (*this) column is discarded, and prebreak

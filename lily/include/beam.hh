@@ -14,7 +14,7 @@
   make sure that they reach the beam and that point in the correct
   direction */
 struct Beam:  public Directional_spanner {
-    PointerList<Stem*> stems;
+    Pointer_list<Stem*> stems;
     /// the slope of the beam in posns / point (dimension)   
     Real slope;
 

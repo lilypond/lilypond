@@ -24,7 +24,7 @@ public:
       Voice_element */
     Moment duration_;
     Voice const *voice_C_;
-    IPointerList<Request*> req_p_list_;
+    IPointer_list<Request*> req_p_list_;
     Request * principal_req_l_;
 
     /* *************** */
