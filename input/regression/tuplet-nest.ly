@@ -18,8 +18,8 @@
 
     \property Voice.tupletNumberFormatFunction = #fraction-tuplet-formatter
 
-    \outputproperty #(make-text-checker-once "2:3")
-      #'extra-offset = #'(0 . 1.5)
+    \applyoutput #(outputproperty-compatibility (make-text-checker-once "2:3")
+		   'extra-offset '(0 . 1.5))
     \times 2/3 {
       \times 2/3 {
         a a a

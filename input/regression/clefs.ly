@@ -28,7 +28,7 @@ way, so this is fragile as well.
 	 \property Staff.Clef \override #'transparent = ##t
          \clef "treble" c'1^"transparent=\#t" \bar "||"
 	 \property Staff.Clef \override #'transparent = ##f
-	 \context Staff \outputproperty #(make-type-checker 'clef-interface) #'full-size-change = ##t
+	 \context Staff \applyoutput  #(outputproperty-compatibility (make-type-checker 'clef-interface) 'full-size-change #t)
          \clef "french" c'1^"full-size-change = \#t" \bar "|."
          }
          \paper{

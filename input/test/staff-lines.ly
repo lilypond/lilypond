@@ -19,14 +19,12 @@ lower = \notes\relative c {
     %\time 4/4
     \new Staff <<
       \upper
-      \outputproperty #(make-type-checker 'staff-symbol-interface)
-        #'line-count = #5
     >>  
     \new Staff <<
       \clef bass
       \lower
-      \outputproperty #(make-type-checker 'staff-symbol-interface)
-        #'line-count = #4
+      \applyoutput #(outputproperty-compatibility (make-type-checker 'staff-symbol-interface)
+        'line-count = 4)
     >>  
   >>
   \paper { raggedright=##t}  

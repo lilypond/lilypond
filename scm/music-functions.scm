@@ -538,6 +538,9 @@ Rest can contain a list of beat groupings
     ;;(eq? #t (ly:get-grob-property elt symbol))
     (not (eq? #f (memq symbol (ly:get-grob-property elt 'interfaces))))))
 
+(define-public ((outputproperty-compatibility func sym val) grob g-context ao-context)
+  (if (func grob)
+      (ly:set-grob-property! grob sym val)))
 
 ;;
 (define-public (smart-bar-check n)

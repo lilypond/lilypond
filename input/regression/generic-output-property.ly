@@ -10,13 +10,11 @@ setting the @code{extra-offset} of a grob.
 
 \score{
 	\notes\relative c''{
-  	\outputproperty #(make-type-checker 'note-head-interface) 
-		#'extra-offset = #'(2 . 3)
+	    \applyoutput #(outputproperty-compatibility (make-type-checker 'note-head-interface) 'extra-offset '(2 . 3))
   	c2
 	c
 	\context Score {
-		\outputproperty #(make-type-checker 'mark-interface) 
-		#'extra-offset = #'(-1 . 4)
+	    \applyoutput #(outputproperty-compatibility (make-type-checker 'mark-interface) 'extra-offset '(-1 . 4))
 	}
 	\mark A
 	d1
