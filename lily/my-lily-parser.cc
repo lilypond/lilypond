@@ -131,12 +131,10 @@ My_lily_parser::here_input () const
 /****************************************************************/
 
 
-
-bool store_locations_global_b;
-
 /*
-  TODO: should merge with My_lily_parser. 
+  junkme?
  */
+bool store_locations_global_b;
 
 /*
   no ! suffix since it doesn't modify 1st argument.
@@ -247,9 +245,6 @@ LY_DEFINE(ly_parse_file, "ly:parse-file",
 
       My_lily_parser parser (&sources);
       parser.parse_file (init, in_file, out_file);
-  
-
-
   
       if (parser.error_level_)
 	{

@@ -1,0 +1,3 @@
+if unknown exbase: input exbase fi;
+gensize:=10;
+generate ecb;
