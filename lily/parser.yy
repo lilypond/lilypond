@@ -1112,7 +1112,7 @@ script_req:
 gen_script_def:
 	text_def	{ 
 		$$ = $1;
-		((Text_def*) $$)->align_dir_ = CENTER; /* UGH */
+		((Text_def*) $$)->align_dir_ = LEFT; /* UGH */
 	}
 	| mudela_script	{ 
 		$$ = $1;

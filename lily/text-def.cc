@@ -12,6 +12,7 @@
 #include "molecule.hh"
 #include "text-def.hh"
 #include "dimension.hh"
+#include <ctype.h>
 
 Direction
 Text_def::staff_dir () const
@@ -21,16 +22,29 @@ Text_def::staff_dir () const
   return DOWN;
 }
 
+Real
+Text_def::guess_width_f(Atom& a) const
+{
+  // Count each TeX command as one character, ugh
+  int index, length=0;
+  int total_length=text_str_.length_i();
+  const char* str=text_str_.ch_C();
+  for (index=0;index<total_length;index++) {
+    length++;
+    if (str[index]=='\\')
+      for (index++;(index < total_length) && isalpha(str[index]);index++)
+	;
+  }
+  return length * a.dim_.x ().length (); // ugh
+}
+
 Interval
 Text_def::width (Paper_def * p) const
 {
   Atom a = get_atom (p,CENTER);
 
-  /* TODO: check string for \texcommand
-   */
 
-  Real guess_width_f = text_str_.length_i() * a.dim_.x ().length (); // ugh
-  Interval i (0, guess_width_f);
+  Interval i (0, guess_width_f(a));
   i += - (align_dir_ + 1)* i.center();
   return i;
 }
@@ -62,8 +76,7 @@ Text_def::get_atom (Paper_def *p, Direction) const
 {
   Atom a= p->lookup_l(0)->text (style_str_, text_str_);
 
-  Real guess_width_f = text_str_.length_i() * a.dim_.x ().length (); // ugh
-  a.translate_axis (-(align_dir_ + 1)* guess_width_f/ 2, X_AXIS);
+  a.translate_axis (-(align_dir_ + 1)* guess_width_f (a) / 2, X_AXIS);
   
   return a;
 }
