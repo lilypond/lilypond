@@ -116,13 +116,13 @@ on the FTP site.
 You need the following packages to compile Lilypond.
 
 @itemize
-@item A reasonably new C++ compiler:  EGCS 1.1, GCC 2.95.2 or
+@item A reasonably new version of the GNU C++ compiler:  EGCS 1.1, GCC 2.95.2 or
 newer. Check out @uref{ftp://ftp.gnu.org/gnu/gcc/, the gcc site}.
 
-@item  Python (version 1.5 or newer; not 2.1.x)
+@item Python (version 1.5 or newer; not 2.1.x)
 Check out @uref{http://www.python.org, the python website}.
 
-@item  GUILE 1.4 or newer,  check out
+@item GUILE 1.4 or newer,  check out
 @uref{http://www.gnu.org/software/guile/guile.html,the GUILE webpage}.
 Version 1.4 is recommended for better performance.
 
@@ -171,20 +171,8 @@ configure something like:
 
 
 @item pktrace, [OPTIONAL], needed for generating PostScript Type1
-fonts. Get it from  @uref{http://www.cs.uu.nl/~hanwen/pktrace/}
-
-@item autotrace-0.27a, [OPTIONAL], needed for generating PostScript Type1
-fonts. @uref{http://autotrace.sourceforge.net}.
- 
-@item MetaPost [OPTIONAL] needed for generating PostScript Type3 fonts. Please
-note that tetex-0.4pl8 (included with Red Hat 5.x) does not include
-@file{mfplain.mp}, which is needed for producing the scalable font
-files.
-
-If you don't have MetaPost and don't want to use PostScript output, then
-edit @file{mf/GNUmakefile}, removing the line saying @code{PFA_FILES=}.
-
-
+fonts. Get it from  @uref{http://www.cs.uu.nl/~hanwen/pktrace/}.  You
+will need to install some additional packages to get pktrace to work.
 
 @end itemize
 
