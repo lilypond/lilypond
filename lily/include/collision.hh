@@ -1,0 +1,25 @@
+/*
+  collision.hh -- declare Collision
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
+
+#ifndef COLLISION_HH
+#define COLLISION_HH
+#include "lily-proto.hh"
+#include "item.hh"
+
+class Collision : public Item {
+    Array<Note_column*> clash_l_arr_;
+protected:
+    virtual void do_pre_processing();
+public:
+    NAME_MEMBERS(Collision);
+    void add (Note_column*ncol_l);
+    Collision();
+    
+};
+#endif // COLLISION_HH
