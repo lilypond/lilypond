@@ -53,7 +53,7 @@ internal_print (Grob *me, String * font_char)
   
   Stencil out;
 
-  String prefix = "noteheads-";
+  String prefix = "noteheads.";
   String idx =
     prefix + ((stem_dir == UP) ? "u" : "d")  + ly_scm2string (scm_font_char);
   out = fm->find_by_name (idx);

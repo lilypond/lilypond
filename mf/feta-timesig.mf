@@ -78,11 +78,11 @@ def draw_C =
 	penlabels(1,2,3,4,5,6);
 enddef;
 
-fet_beginchar ("4/4 meter", "C4/4", "fourfourmeter")
+fet_beginchar ("4/4 meter", "C44", "fourfourmeter")
 	draw_C;
 fet_endchar;
 
-fet_beginchar ("2/2 meter", "C2/2", "allabreve")
+fet_beginchar ("2/2 meter", "C22", "allabreve")
 	draw_C;
 	save excentricity;
 	pair excentricity;

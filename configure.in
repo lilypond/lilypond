@@ -89,10 +89,11 @@ PKG_CONFIG_PATH=/opt/gnome/lib/pkgconfig:$PKG_CONFIG_PATH
 PKG_CONFIG_PATH=$HOME/usr/pkg/gnome/lib/pkgconfig:$PKG_CONFIG_PATH
 PKG_CONFIG_PATH=$HOME/usr/pkg/pango/lib/pkgconfig:$PKG_CONFIG_PATH
 
-#STEPMAKE_FREETYPE2
+STEPMAKE_FREETYPE2
+STEPMAKE_PANGO
+
 if test "$gui_b" = "yes"; then
     STEPMAKE_GTK2
-    STEPMAKE_PANGO
 fi
 
 ## Optional tools for building documentation, website, extra fonts.

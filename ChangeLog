@@ -1,3 +1,10 @@
+2004-12-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* buildscripts/mf-to-table.py (write_ps_encoding): write real
+	names in .enc
+
+	* lily/*.cc: use '.' iso. '-' for separating glyph name elements.
+
 2004-12-09  Graham Percival  <gperlist@shaw.ca>
 
         * Documentation/user/changing-defaults.itely: add info about
@@ -11,6 +18,10 @@
 	* lily/lily-guile.cc: change MACOS_X to __APPLE__
 
 2004-12-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* buildscripts/mf-to-table.py (parse_logfile): use . for
+	concatting name and group.
+	(parse_logfile): use M for Minus (negative.)
 
 	* lily/include/type-swallow-translator.hh
 	(DECLARE_EVENT_SWALLOWER): ENTER_DESCRIPTION -> ADD_TRANSLATOR

@@ -229,7 +229,7 @@ Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
 	  head_width = 0.0;
 	  x_offset = join_thickness -
 	    Font_interface::get_default_font (primitive)->
-	    find_by_name ("noteheads-" + glyph_name).extent (X_AXIS).length ();
+	    find_by_name ("noteheads." + glyph_name).extent (X_AXIS).length ();
 	}
       else if (!String::compare (glyph_name, "flexa") ||
 	       !String::compare (glyph_name, ""))
@@ -249,7 +249,7 @@ Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
 	   */
 	  head_width =
 	    Font_interface::get_default_font (primitive)->
-	    find_by_name ("noteheads-" + glyph_name).extent (X_AXIS).length ();
+	    find_by_name ("noteheads." + glyph_name).extent (X_AXIS).length ();
 	  x_offset = 0.0;
 	}
 

@@ -408,3 +408,22 @@ String::print_on (ostream& os) const
       os << (Byte) (*this)[ i ];
 }
 #endif
+
+
+String
+String::substituted (char chr, String sub) const
+{
+  Byte const* t = this->to_bytes ();
+  
+  String accumulator;
+  int n = length();
+  for (int i = 0; i < n; i++)
+    {
+      if (t[i] == chr)
+	accumulator += sub;
+      else
+	accumulator += String_convert::char_string (t[i], 1); 
+    }
+
+  return accumulator;
+}

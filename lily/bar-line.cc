@@ -58,7 +58,7 @@ Bar_line::compound_barline (Grob*me, String str, Real h)
 
   Stencil thin = simple_barline (me, hair, h);
   Stencil thick = simple_barline (me, fatline, h);
-  Stencil dot = Font_interface::get_default_font (me)->find_by_name ("dots-dot");
+  Stencil dot = Font_interface::get_default_font (me)->find_by_name ("dots.dot");
 
   int lines = Staff_symbol_referencer::line_count (me);
   Real dist 

@@ -79,8 +79,8 @@ public:
 
   char const* to_str0 () const;
   Byte const* to_bytes () const;
-  char* get_str0 ();
-  Byte* get_bytes ();
+  char *get_str0 ();
+  Byte *get_bytes ();
 
   String &operator = (String const & source);
 
@@ -107,7 +107,6 @@ public:
 
   /// return uppercase of *this
   String upper_string () const;
-
   /// return lowercase of *this
   String lower_string () const;
 
@@ -153,6 +152,8 @@ public:
 
   /// convert to a double
   double to_double () const;
+
+  String substituted (char text, String sub) const; 
 };
 
 /*

@@ -126,7 +126,7 @@ Key_signature_interface::print (SCM smob)
       int alteration = scm_to_int (scm_cdar (s));
       String font_char =
 	Accidental_interface::get_fontcharname (style, alteration);
-      Stencil acc (fm->find_by_name ("accidentals-" + font_char));
+      Stencil acc (fm->find_by_name ("accidentals." + font_char));
 
       if (acc.is_empty ())
 	{

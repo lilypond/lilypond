@@ -457,11 +457,11 @@ Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
 
   if (sym == "Discant")
     {
-      Stencil r = fm->find_by_name ("accordion-accDiscant");
+      Stencil r = fm->find_by_name ("accordion.accDiscant");
       m.add_stencil (r);
       if (reg.left_string (1) == "F")
 	{
-	  Stencil d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 2.5 PT, Y_AXIS);
 	  m.add_stencil (d);
 	  reg = reg.right_string (reg.length ()-1);
@@ -489,27 +489,27 @@ Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
 	}
       if (eflag & 0x02)
 	{
-	  Stencil d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 1.5 PT, Y_AXIS);
 	  m.add_stencil (d);
 	}
       if (eflag & 0x04)
 	{
-	  Stencil d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 1.5 PT, Y_AXIS);
 	  d.translate_axis (0.8 * staff_space PT, X_AXIS);
 	  m.add_stencil (d);
 	}
       if (eflag & 0x01)
 	{
-	  Stencil d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 1.5 PT, Y_AXIS);
 	  d.translate_axis (-0.8 * staff_space PT, X_AXIS);
 	  m.add_stencil (d);
 	}
       if (reg.left_string (2) == "SS")
 	{
-	  Stencil d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (0.5 * staff_space PT, Y_AXIS);
 	  d.translate_axis (0.4 * staff_space PT, X_AXIS);
 	  m.add_stencil (d);
@@ -519,7 +519,7 @@ Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
 	}
       if (reg.left_string (1) == "S")
 	{
-	  Stencil d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (0.5 * staff_space PT, Y_AXIS);
 	  m.add_stencil (d);
 	  reg = reg.right_string (reg.length ()-1);
@@ -527,29 +527,29 @@ Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
     }
   else if (sym == "Freebase")
     {
-      Stencil r = fm->find_by_name ("accordion-accFreebase");
+      Stencil r = fm->find_by_name ("accordion.accFreebase");
       m.add_stencil (r);
       if (reg.left_string (1) == "F")
 	{
-	  Stencil d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 1.5 PT, Y_AXIS);
 	  m.add_stencil (d);
 	  reg = reg.right_string (reg.length ()-1);
 	}
       if (reg == "E")
 	{
-	  Stencil d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 0.5 PT, Y_AXIS);
 	  m.add_stencil (d);
 	}
     }
   else if (sym == "Bayanbase")
     {
-      Stencil r = fm->find_by_name ("accordion-accBayanbase");
+      Stencil r = fm->find_by_name ("accordion.accBayanbase");
       m.add_stencil (r);
       if (reg.left_string (1) == "T")
 	{
-	  Stencil d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 2.5 PT, Y_AXIS);
 	  m.add_stencil (d);
 	  reg = reg.right_string (reg.length ()-1);
@@ -557,14 +557,14 @@ Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
       /* include 4' reed just for completeness. You don't want to use this. */
       if (reg.left_string (1) == "F")
 	{
-	  Stencil d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 1.5 PT, Y_AXIS);
 	  m.add_stencil (d);
 	  reg = reg.right_string (reg.length ()-1);
 	}
       if (reg.left_string (2) == "EE")
 	{
-	  Stencil d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 0.5 PT, Y_AXIS);
 	  d.translate_axis (0.4 * staff_space PT, X_AXIS);
 	  m.add_stencil (d);
@@ -574,7 +574,7 @@ Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
 	}
       if (reg.left_string (1) == "E")
 	{
-	  Stencil d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 0.5 PT, Y_AXIS);
 	  m.add_stencil (d);
 	  reg = reg.right_string (reg.length ()-1);
@@ -582,25 +582,25 @@ Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
     }
   else if (sym == "Stdbase")
     {
-      Stencil r = fm->find_by_name ("accordion-accStdbase");
+      Stencil r = fm->find_by_name ("accordion.accStdbase");
       m.add_stencil (r);
       if (reg.left_string (1) == "T")
 	{
-	  Stencil d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 3.5 PT, Y_AXIS);
 	  m.add_stencil (d);
 	  reg = reg.right_string (reg.length ()-1);
 	}
       if (reg.left_string (1) == "F")
 	{
-	  Stencil d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 2.5 PT, Y_AXIS);
 	  m.add_stencil (d);
 	  reg = reg.right_string (reg.length ()-1);
 	}
       if (reg.left_string (1) == "M")
 	{
-	  Stencil d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 2 PT, Y_AXIS);
 	  d.translate_axis (staff_space PT, X_AXIS);
 	  m.add_stencil (d);
@@ -608,14 +608,14 @@ Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
 	}
       if (reg.left_string (1) == "E")
 	{
-	  Stencil d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 1.5 PT, Y_AXIS);
 	  m.add_stencil (d);
 	  reg = reg.right_string (reg.length ()-1);
 	}
       if (reg.left_string (1) == "S")
 	{
-	  Stencil d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 0.5 PT, Y_AXIS);
 	  m.add_stencil (d);
 	  reg = reg.right_string (reg.length ()-1);
@@ -625,22 +625,22 @@ Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
      for the rectangle */
   else if (sym == "SB")
     {
-      Stencil r = fm->find_by_name ("accordion-accSB");
+      Stencil r = fm->find_by_name ("accordion.accSB");
       m.add_stencil (r);
     }
   else if (sym == "BB")
     {
-      Stencil r = fm->find_by_name ("accordion-accBB");
+      Stencil r = fm->find_by_name ("accordion.accBB");
       m.add_stencil (r);
     }
   else if (sym == "OldEE")
     {
-      Stencil r = fm->find_by_name ("accordion-accOldEE");
+      Stencil r = fm->find_by_name ("accordion.accOldEE");
       m.add_stencil (r);
     }
   else if (sym == "OldEES")
     {
-      Stencil r = fm->find_by_name ("accordion-accOldEES");
+      Stencil r = fm->find_by_name ("accordion.accOldEES");
       m.add_stencil (r);
     }
   return m;  

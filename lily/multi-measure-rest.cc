@@ -235,7 +235,7 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measures,
 	      k = -1;
 	    }
 
-	  Stencil r (musfont->find_by_name ("rests-" + to_string (k)));
+	  Stencil r (musfont->find_by_name ("rests." + to_string (k)));
 	  symbols_width += r.extent (X_AXIS).length ();
 	  mols = scm_cons (r.smobbed_copy (), mols);
 	}
@@ -258,7 +258,7 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measures,
 	      l--;
 	    }
 
-	  Stencil r (musfont->find_by_name ("rests-" + to_string (k)));
+	  Stencil r (musfont->find_by_name ("rests." + to_string (k)));
 	  if (k == 0)
 	    {
 	      Real staff_space = Staff_symbol_referencer::staff_space (me);
