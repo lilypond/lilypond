@@ -19,7 +19,7 @@
 void
 Chord_tremolo_iterator::construct_children ()
 {
-  Repeated_music * rep = dynamic_cast<Repeated_music*> (music_l_);
+  Repeated_music * rep = dynamic_cast<Repeated_music*> (music_l ());
   factor_  = Moment (1, rep->repeat_count ());
   child_iter_p_ = get_iterator_p (rep->body ());
 }
@@ -41,11 +41,11 @@ Chord_tremolo_iterator::process (Moment m)
 {
   if (!m)
     {
-      Music_iterator *yeah = try_music (music_l_);
+      Music_iterator *yeah = try_music (music_l ());
       if (yeah)
 	set_translator (yeah->report_to_l ());
       else
-	music_l_->origin ()->warning (_ ("no one to print a tremolos"));
+	music_l ()->origin ()->warning (_ ("no one to print a tremolos"));
     }
 
   child_iter_p_->process (factor_ * m);

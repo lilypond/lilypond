@@ -62,7 +62,7 @@ Part_combine_music_iterator::ok () const
 void
 Part_combine_music_iterator::construct_children ()
 {
-  Part_combine_music const * m = dynamic_cast<Part_combine_music const*> (music_l_);
+  Part_combine_music const * m = dynamic_cast<Part_combine_music const*> (music_l ());
   
   first_iter_p_ = get_iterator_p (m->first_l ());
   second_iter_p_ = get_iterator_p (m->second_l ());
@@ -141,7 +141,7 @@ int
 Part_combine_music_iterator::get_state (Moment)
 {
   int state = UNKNOWN;
-  Part_combine_music const *p = dynamic_cast<Part_combine_music const* > (music_l_);
+  Part_combine_music const *p = dynamic_cast<Part_combine_music const* > (music_l ());
 
   String w = ly_scm2string (p->get_mus_property ("what"));
     
@@ -157,7 +157,7 @@ Part_combine_music_iterator::get_state (Moment)
   
   Moment now = pending_moment ();
 
-  if (!now.mod_rat (change_mom))
+  if (!now.main_part_.mod_rat (change_mom.main_part_))
     {
       SCM interval = SCM_BOOL_F;
       if (first_until_ < now)
@@ -341,7 +341,7 @@ Part_combine_music_iterator::process (Moment m)
   else
     state = state_;
   
-  Part_combine_music const *p = dynamic_cast<Part_combine_music const* > (music_l_);
+  Part_combine_music const *p = dynamic_cast<Part_combine_music const* > (music_l ());
 
 
   bool previously_combined_b = first_iter_p_->report_to_l ()->daddy_trans_l_

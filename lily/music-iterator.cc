@@ -26,6 +26,7 @@ Music_iterator::Music_iterator (Music_iterator const& src)
   handle_ = *src.handle_.clone ();
   music_l_ = src.music_l_;
   music_length_ = src.music_length_;
+  start_mom_ = src.start_mom_;
 }
 
 Music_iterator::~Music_iterator ()
@@ -58,7 +59,6 @@ Music_iterator::pending_moment () const
 {
   return 0;
 }
-
 
 void
 Music_iterator::process (Moment)
@@ -102,8 +102,9 @@ Music_iterator::static_get_iterator_p (Music *m)
     }
 
   p->music_l_ = m;
+  assert (m);
   p->music_length_ = m->length_mom ();
-  
+  p->start_mom_ = m->start_mom ();
   return p;
 }
 
@@ -112,12 +113,20 @@ Moment
 Music_iterator::music_length_mom () const
 {
   return music_length_;
+
+}
+
+Moment
+Music_iterator::music_start_mom ()const
+{
+  return start_mom_;
 }
 
 void
 Music_iterator::init_translator (Music *m, Translator_group *report_l)
 {
   music_l_ = m;
+  assert (m);
   if (Context_specced_music * csm =dynamic_cast<Context_specced_music *> (m))
     {
       SCM ct = csm->get_mus_property ("context-type");
@@ -169,3 +178,9 @@ Music_iterator::try_music_in_children (Music *) const
 }
 
 IMPLEMENT_CTOR_CALLBACK (Music_iterator);
+
+Music *
+Music_iterator::music_l () const
+{
+  return music_l_;
+}

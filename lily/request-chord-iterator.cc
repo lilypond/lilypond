@@ -42,7 +42,7 @@ Request_chord_iterator::construct_children ()
 Request_chord*
 Request_chord_iterator::elt_l () const
 {
-  return (Request_chord*) music_l_;
+  return (Request_chord*) music_l ();
 }
 
 SCM
@@ -51,7 +51,7 @@ Request_chord_iterator::get_music (Moment) const
   SCM s = SCM_EOL;
   if (last_processed_mom_ < Moment (0))
     {
-      Music_sequence * ms = dynamic_cast<Music_sequence*> (music_l_);
+      Music_sequence * ms = dynamic_cast<Music_sequence*> (music_l ());
      
       for (SCM m = ms->music_list (); gh_pair_p (m); m = gh_cdr (m))
 	{
@@ -66,7 +66,7 @@ Request_chord_iterator::process (Moment m)
 {
   if (last_processed_mom_ < Moment (0))
     {
-      for (SCM s = dynamic_cast<Music_sequence *> (music_l_)->music_list ();
+      for (SCM s = dynamic_cast<Music_sequence *> (music_l ())->music_list ();
 	   gh_pair_p (s);  s = gh_cdr (s))
 	{
 	  Music *mus = unsmob_music (gh_car (s));

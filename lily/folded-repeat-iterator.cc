@@ -59,7 +59,7 @@ Folded_repeat_iterator::pending_moment () const
 void
 Folded_repeat_iterator::construct_children ()
 {
-  Repeated_music  *  mus = dynamic_cast<Repeated_music*> (music_l_);
+  Repeated_music  *  mus = dynamic_cast<Repeated_music*> (music_l ());
   main_iter_p_ = get_iterator_p (mus->body ());
   if (!main_iter_p_->ok ())
     {
@@ -73,9 +73,9 @@ Folded_repeat_iterator::process (Moment m)
 {
   if (!m)
     {
-      bool success = try_music (music_l_);
+      bool success = try_music (music_l ());
       if (!success)
-	music_l_->origin ()->warning (_ ("no one to print a repeat brace"));
+	music_l ()->origin ()->warning (_ ("no one to print a repeat brace"));
     }
   
   if (main_iter_p_)
@@ -104,7 +104,7 @@ Folded_repeat_iterator::process (Moment m)
 void
 Folded_repeat_iterator::leave_body ()
 {
-  Repeated_music *  mus = dynamic_cast<Repeated_music *> (music_l_);
+  Repeated_music *  mus = dynamic_cast<Repeated_music *> (music_l ());
   delete main_iter_p_;
   main_iter_p_ = 0;
   main_length_mom_ +=  mus->body ()->length_mom ();
@@ -113,7 +113,7 @@ Folded_repeat_iterator::leave_body ()
 void
 Folded_repeat_iterator::enter_alternative ()
 {
-  Repeated_music *  mus = dynamic_cast<Repeated_music *> (music_l_);  
+  Repeated_music *  mus = dynamic_cast<Repeated_music *> (music_l ());  
   if (mus->alternatives ())
     {
       Simultaneous_music_iterator * s = new Simultaneous_music_iterator;

@@ -18,10 +18,10 @@
 void
 Property_iterator::process (Moment m)
 {
-  SCM sym = music_l_->get_mus_property ("symbol");
+  SCM sym = music_l ()->get_mus_property ("symbol");
   if (gh_symbol_p (sym))
     {
-      SCM val = music_l_->get_mus_property ("value");
+      SCM val = music_l ()->get_mus_property ("value");
       bool ok= true;
       if (val != SCM_EOL)
 	ok = type_check_assignment (val, sym, ly_symbol2scm ("translation-type?"));
@@ -34,7 +34,7 @@ Property_iterator::process (Moment m)
 void
 Property_unset_iterator::process (Moment m)
 {
-  SCM sym = music_l_->get_mus_property ("symbol");
+  SCM sym = music_l ()->get_mus_property ("symbol");
   if (gh_symbol_p (sym))
     {
       report_to_l ()->unset_property (sym);
@@ -46,11 +46,11 @@ Property_unset_iterator::process (Moment m)
 void
 Push_property_iterator::process (Moment m)
 {
-  SCM syms = music_l_->get_mus_property ("symbols");
-  SCM eprop = music_l_->get_mus_property ("grob-property");
-  SCM val = music_l_->get_mus_property ("grob-value");
+  SCM syms = music_l ()->get_mus_property ("symbols");
+  SCM eprop = music_l ()->get_mus_property ("grob-property");
+  SCM val = music_l ()->get_mus_property ("grob-value");
 
-  if (to_boolean (music_l_->get_mus_property ("pop-first")))
+  if (to_boolean (music_l ()->get_mus_property ("pop-first")))
     Translator_def::apply_pushpop_property (report_to_l (),
 					    syms, eprop, SCM_UNDEFINED);
 
@@ -62,8 +62,8 @@ Push_property_iterator::process (Moment m)
 void
 Pop_property_iterator::process (Moment m)
 {
-  SCM syms = music_l_->get_mus_property ("symbols");
-  SCM eprop = music_l_->get_mus_property ("grob-property");
+  SCM syms = music_l ()->get_mus_property ("symbols");
+  SCM eprop = music_l ()->get_mus_property ("grob-property");
   Translator_def::apply_pushpop_property (report_to_l (), syms, eprop, SCM_UNDEFINED);
   
   Simple_music_iterator::process (m);

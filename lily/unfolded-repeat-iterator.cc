@@ -120,7 +120,7 @@ the  alternative just set.
 void
 Unfolded_repeat_iterator::next_element (bool side_effect) 
 {
-  Repeated_music * repmus =dynamic_cast<Repeated_music *> (music_l_);
+  Repeated_music * repmus =dynamic_cast<Repeated_music *> (music_l ());
   delete current_iter_p_;
   current_iter_p_ =0;
 
@@ -256,7 +256,7 @@ Unfolded_repeat_iterator::pending_moment () const
 void
 Unfolded_repeat_iterator::construct_children ()
 {
-  Repeated_music * mus =dynamic_cast<Repeated_music *> (music_l_);
+  Repeated_music * mus =dynamic_cast<Repeated_music *> (music_l ());
   
   alternative_cons_ = (mus->alternatives ())
     ? mus->alternatives ()->music_list ()

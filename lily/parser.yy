@@ -188,7 +188,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token EXTENDER
 %token FONT
 %token GLISSANDO
-%token GRACE
+%token GRACE NGRACE
 %token HEADER
 %token HYPHEN
 %token IN_T
@@ -806,9 +806,43 @@ Composite_music:
 		chm->set_spot (*$3->origin ());
 	}
 	| GRACE Music {
-		$$ = new Grace_music (SCM_EOL);
+#if 1
+	/*
+		The other version is for easier debugging  of
+		Sequential_music_iterator in combination with grace notes.
+	*/
+
+		SCM start = THIS->lexer_p_->lookup_identifier ("startGraceMusic");
+		SCM stop = THIS->lexer_p_->lookup_identifier ("stopGraceMusic");
+		Music *startm = unsmob_music (start);
+		Music *stopm = unsmob_music (stop);
+
+		SCM ms = SCM_EOL;
+		if (stopm) {
+			stopm = stopm->clone ();
+			ms = gh_cons (stopm->self_scm (), ms);
+			scm_unprotect_object (stopm->self_scm ());
+		}
+		ms = gh_cons ($2->self_scm (), ms);
+		scm_unprotect_object ($2->self_scm());
+		if (startm) {
+			startm = startm->clone ();
+			ms = gh_cons (startm->self_scm () , ms);
+			scm_unprotect_object (startm->self_scm ());
+		}
+
+		Music* seq = new Sequential_music (SCM_EOL);
+		seq->set_mus_property ("elements", ms);
+
+		$$ = new New_grace_music (SCM_EOL);
+		$$->set_mus_property ("element", seq->self_scm ());
+		scm_unprotect_object (seq->self_scm ());
+#else
+		$$ = new New_grace_music (SCM_EOL);
 		$$->set_mus_property ("element", $2->self_scm ());
 		scm_unprotect_object ($2->self_scm ());
+#endif
+
 
 	}
 	| CONTEXT string '=' string Music {
@@ -1604,7 +1638,7 @@ multiplied_duration:
 		$$ = unsmob_duration ($$)->compressed ( $3) .smobbed_copy ();
 	}
 	| multiplied_duration '*' FRACTION {
-		Moment m (gh_scm2int (gh_car ($3)), gh_scm2int (gh_cdr ($3)));
+		Rational  m (gh_scm2int (gh_car ($3)), gh_scm2int (gh_cdr ($3)));
 
 		$$ = unsmob_duration ($$)->compressed (m).smobbed_copy ();
 	}
