@@ -3,7 +3,8 @@
 '''
 TODO:
       ly-options: intertext, quote ?
-      --linewidth
+      --linewidth?
+      eps in latex?
       check latex parameters, twocolumn
       multicolumn?
       papersizes?
@@ -17,7 +18,7 @@ test:
 convert-ly on book:
      filter-lilypond-book --filter="convert-ly --no-version --from=1.6.11 -" BOOK
 
-classic lilypond-book (WIP):
+classic lilypond-book:
      filter-lilypond-book --process="lilypond-bin" BOOK.tely
 
   options in .tely/.lytex must be converted (or grokked by me :-)
@@ -186,7 +187,7 @@ snippet_res = {
 	'lilypond-block': r'''(?ms)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?\s(?P<code>.*?)@end lilypond)\s''',
 	'lilypond-file': '(?m)^(?P<match>@lilypondfile(\[(?P<options>[^]]*)\])?{(?P<filename>[^}]+)})',
 	'multiline-comment': r"(?sm)^\s*(?!@c\s+)(?P<code>@ignore\s.*?@end ignore)\s",
-	'singleline-comment': r"(?m)^.*?(?P<match>(?P<code>@c.*$\n+))",
+	'singleline-comment': r"(?m)^.*?(?P<match>(?P<code>@c([ \t][^\n]*|)\n))",
 	'verb': r'''(?P<code>@code{.*?})''',
 	'verbatim': r'''(?s)(?P<code>@example\s.*?@end example\s)''',
 	},
@@ -428,7 +429,6 @@ class Snippet:
 		       or self.type == 'lilypond-file':
 			h = open (self.basename () + '.ly', 'w')
 			h.write (self.full_ly ())
-			h.close ()
 
 	def output_html (self):
 		base = self.basename ()
@@ -517,12 +517,13 @@ def find_toplevel_snippets (s, types):
 	for i in types:
 		res[i] = ly.re.compile (snippet_res[format][i])
 
+	length = len (s)
 	snippets = []
 	index = 0
+	endex = 1000
 	while 1:
 		matches = {}
 		first = 0
-		endex = 1 << 30
 		for i in types:
 			matches[i] = res[i].search (s[index:index+endex])
 			if matches[i]:
@@ -532,10 +533,15 @@ def find_toplevel_snippets (s, types):
 				if not first \
 				       or start < matches[first].start (0):
 					first = i
-		if not first:
+		if first:
+			snippets.append (Snippet (first, s, index,
+						  matches[first]))
+			index = index + matches[first].end (0)
+			endex = 1000
+		elif index + endex < length:
+			endex *= 2
+		else:
 			break
-		snippets.append (Snippet (first, s, index, matches[first]))
-		index = index + matches[first].end (0)
 		
 	return snippets
 
@@ -635,6 +641,23 @@ format2ext = {
 	LATEX: '.tex',
 	}
 
+def find_lilypond_block (a, b):
+	return find_toplevel_snippets (a, b)
+def find_verb (a, b):
+	return find_toplevel_snippets (a, b)
+def find_verbatim (a, b):
+	return find_toplevel_snippets (a, b)
+def find_singleline (a, b):
+	return find_toplevel_snippets (a, b)
+def find_multiline (a, b):
+	return find_toplevel_snippets (a, b)
+def find_lilypond_file (a, b):
+	return find_toplevel_snippets (a, b)
+def find_include (a, b):
+	return find_toplevel_snippets (a, b)
+def find_lilypond (a, b):
+	return find_toplevel_snippets (a, b)
+	
 def do_file (input_filename):
 	#ugh
 	global format
@@ -648,18 +671,29 @@ def do_file (input_filename):
 				     % input_filename))
 
 	ly.progress (_ ("Reading %s...") % input_filename)
-	global h
 	if not input_filename or input_filename == '-':
-		h = sys.stdin
+		ih = sys.stdin
 	else:
-		h = open (input_filename)
-	source = h.read ()
+		ih = open (input_filename)
+	source = ih.read ()
 	ly.progress ('\n')
 
 	ly.progress (_ ("Dissecting..."))
-	snippets = find_toplevel_snippets (source, snippet_res[format].keys ())
+	#snippets = find_toplevel_snippets (source, snippet_res[format].keys ())
+	snippet_types = (
+		'lilypond-block',
+		#'verb',
+		'verbatim',
+		'singleline-comment',
+		'multiline-comment',
+		'lilypond-file',
+		'include',
+		'lilypond', )
+	
+	snippets = find_toplevel_snippets (source, snippet_types)
 	ly.progress ('\n')
 
+	global h
 	if output_name == '-' or not output_name:
 		h = sys.stdout
 		output_filename = '-'
