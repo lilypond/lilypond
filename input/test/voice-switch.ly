@@ -1,6 +1,7 @@
 \version "1.7.18"
-% delete.  We have other partcombine examples -- if that's
-% what this is.  -gp
+\header{texidoc = "DELETE.
+We have other partcombine examples -- if that's
+what this is.  -gp  "}
 
 \score{
 	\context Staff <

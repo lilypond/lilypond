@@ -1,8 +1,5 @@
 \version "1.7.18"
-% delete.  -gp
-\header {
-texidoc = "" 
-}
+\header {texidoc = "DELETE. "} 
 
 \score{
   \context TabStaff <

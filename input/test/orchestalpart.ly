@@ -1,5 +1,6 @@
 \version "1.7.18"
-% candidate for delete.  Nothing to see here.
+\header{ texidoc = "
+DELETE. "} 
 
 \score {
 	\notes {

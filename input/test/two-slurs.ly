@@ -1,8 +1,9 @@
 \version "1.7.18"
-% remove?  -hwn
 
 \header{ texidoc = "@cindex Two Slurs
-You can print a slur in each voice.  DELETE?"
+You can print a slur in each voice.  DELETE?
+remove?  -hwn
+"
 }
 
 % We'd want to combine the stems, but have two slurs too...

@@ -5,6 +5,8 @@
 	* input/test/ script-horizontal.ly tuplet-spanner-duration.ly:
 	deleted file.
 
+	* input/test/ {many} : marked file for possible deletion.
+
 2003-06-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/regression/beam-funky.ly: add note about (disputed)

@@ -1,6 +1,6 @@
 \version "1.7.18"
 % covered by refman, I think.  delete or regression.  -gp
-\header { texidoc = ""}
+\header { texidoc = "DELETE or REGRESSION. "}
 \score{
   \context RhythmicStaff {
     \notes\relative c''{ 

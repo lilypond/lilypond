@@ -1,5 +1,6 @@
 \version "1.7.18"
-% pretty similar to hshift.ly.  Probably delete soon.
+\header{ texidoc = "
+pretty similar to hshift.ly.  DELETE. "}
 
 \score { 
   \context Voice \notes\relative c {

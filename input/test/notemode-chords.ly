@@ -1,5 +1,6 @@
 \version "1.7.18"
-% looks like an old file; probably delete.
+\header{ texidoc = "
+looks like an old file; probably DELETE. "}
 
 \score{
 	\notes \transpose c c'{
