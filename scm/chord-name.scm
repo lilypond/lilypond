@@ -121,25 +121,3 @@ FOOBAR-MARKUP) if OMIT-ROOT is given and non-false.
 	 (alist (map chord-to-exception-entry elts)))
     (filter (lambda (x) (cdr x)) alist)))
 
-
-(define-public (new-chord-name-brew-molecule grob)
-  (let*
-      (
-       (ws (ly:get-grob-property grob 'word-space))
-       (markup (ly:get-grob-property grob 'text))
-       (molecule (interpret-markup grob
-				   (cons '((word-space . 0.0))
-					 (Font_interface::get_property_alist_chain grob))
-				   markup))
-       )
-
-    ;;
-    ;; chord names aren't in staffs, so WS is in global staff space.
-    (if (number? ws)
-	(ly:molecule-combine-at-edge
-	 molecule
-	 X RIGHT (ly:make-molecule "" (cons 0 ws) '(-1 . 1) )
-	 0.0)
-	molecule)
-    ))
-

@@ -154,11 +154,12 @@ Tuplet_bracket::brew_molecule (SCM smob)
   Real ly = gh_scm2double (me->get_grob_property ("left-position"));
   Real ry = gh_scm2double (me->get_grob_property ("right-position"));  
   SCM number = me->get_grob_property ("text");
-  
+
+  Paper_def *pap = me->get_paper ();
   if (gh_string_p (number) && number_visibility)
     {
       SCM properties = Font_interface::font_alist_chain (me);
-      SCM snum = Text_item::interpret_markup (smob, properties, number);
+      SCM snum = Text_item::interpret_markup (pap->self_scm (), properties, number);
       Molecule num = *unsmob_molecule (snum);
       num.align_to (X_AXIS, CENTER);
       num.translate_axis (w/2, X_AXIS);
@@ -171,7 +172,7 @@ Tuplet_bracket::brew_molecule (SCM smob)
       
   if (bracket_visibility)      
     {
-      Real  lt =  me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
+      Real  lt =  pap->get_realvar (ly_symbol2scm ("linethickness"));
   
       SCM thick = me->get_grob_property ("thickness");
       if (gh_number_p (thick))

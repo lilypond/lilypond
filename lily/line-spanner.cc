@@ -168,7 +168,7 @@ Line_spanner::line_molecule (Grob *me, Real thick,
 					     ly_symbol2scm ("music")),
 				    SCM_UNDEFINED);
       
-      Font_metric *fm = Font_interface::get_font (me->get_paper (),
+      Font_metric *fm = select_font (me->get_paper (),
 						  gh_cons (style_alist,
 							   alist_chain));
       Molecule m = fm->find_by_name ("scripts-trill-element");

@@ -68,5 +68,4 @@ interscoreline = 4. \mm
 	(font-series . medium)
 	))
 
-#(define properties-to-font Font_interface::properties_to_font_name)
 

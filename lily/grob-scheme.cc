@@ -163,3 +163,19 @@ LY_DEFINE (get_broken_into,
   return s;
 }
 
+
+
+LY_DEFINE(ly_property_alist_chain, "ly:grob-property-chain",
+	  1,1,0,
+	  (SCM grob, SCM defaults),
+	  "Return all the properties of @code{grob}. Glue @var{defaults} at the end of the chain.")
+{
+  Grob * g = unsmob_grob (grob);
+  SCM_ASSERT_TYPE(g, grob, SCM_ARG1, __FUNCTION__, "grob");
+
+  if (defaults == SCM_UNDEFINED)
+    defaults = SCM_EOL;
+
+  SCM ch = g->get_property_alist_chain (defaults);  
+  return ch;
+}

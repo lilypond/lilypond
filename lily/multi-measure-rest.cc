@@ -136,7 +136,7 @@ Multi_measure_rest::symbol_molecule (Grob *me, Real space)
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Font_metric *musfont
-    = Font_interface::get_font (me->get_paper (), alist_chain);
+    = select_font (me->get_paper (), alist_chain);
 
   SCM sml = me->get_grob_property ("use-breve-rest");
   if (measures == 1)

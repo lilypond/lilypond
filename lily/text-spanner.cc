@@ -46,6 +46,7 @@ Text_spanner::brew_molecule (SCM smob)
     padding = gh_scm2double (itp);
 
   Grob *common = spanner->get_bound (LEFT)->common_refpoint (spanner->get_bound (RIGHT), X_AXIS);
+  Paper_def * paper = me->get_paper();
   
   Interval span_points;
   Drul_array<bool> broken;
@@ -87,7 +88,7 @@ Text_spanner::brew_molecule (SCM smob)
 	  SCM text = index_get_cell (edge_text, d);
 
 	  if (Text_item::markup_p (text)) 
-	    edge[d] = *unsmob_molecule (Text_item::interpret_markup (smob, properties, text));
+	    edge[d] = *unsmob_molecule (Text_item::interpret_markup (paper->self_scm (), properties, text));
 	  
 	  if (!edge[d].empty_b ())
 	    edge[d].align_to (Y_AXIS, CENTER);
@@ -112,8 +113,8 @@ Text_spanner::brew_molecule (SCM smob)
       span_points[LEFT] += gh_scm2double (ly_car (ew));
       span_points[RIGHT] -= gh_scm2double (ly_cdr (ew));
     }
-  
-  Real thick = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));  
+
+  Real thick = paper->get_realvar (ly_symbol2scm ("linethickness"));  
   SCM st = me->get_grob_property ("thickness");
   if (gh_number_p (st))
     {

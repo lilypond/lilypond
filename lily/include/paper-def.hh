@@ -77,4 +77,6 @@ public:
 };
 
 Paper_def * unsmob_paper (SCM x);
+Font_metric *select_font (Paper_def *paper, SCM chain);
+
 #endif // Paper_def_HH
