@@ -381,9 +381,19 @@ ScoreContext = \translator {
 	defaultBarType = #"|"
        systemStartDelimiterGlyph = #'bar-line
 
+       %
+       % what order to print accs.  We could compute this, 
+       % but computing is more work than putting it here.
+       %
+       % Flats come first, then sharps.
+       keyAccidentalOrder = #'(
+         (6 . -1) (2  . -1) (5 . -1 ) (1  . -1) (4  . -1) (0  . -1) (3  . -1)
+	 (3  . 1) (0 . 1) (4 . 1) (1 . 1) (5 . 1) (2 . 1) (6 . 1)
+       )
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	% default settings, mainly for breakable items
 	% in alphabetical order
+	% TODO: uniform naming.;  
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	basicBarlineProperties = #`(
 		(break-align-symbol . Staff_bar)

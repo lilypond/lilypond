@@ -113,19 +113,19 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
   SCM one (get_property ("beatLength"));
 
   Moment end_mom;
-  if (SMOB_IS_TYPE_B(Moment, one))
-    end_mom = *SMOB_TO_TYPE (Moment, one);
+  if (unsmob_moment (one))
+    end_mom = *unsmob_moment (one);
 
   /*
     second guess: property generic time exception
   */
   SCM begin = get_property (time_str + "beamAutoBegin");
-  if (SMOB_IS_TYPE_B(Moment, begin))
-    begin_mom = * SMOB_TO_TYPE(Moment, begin);
+  if (unsmob_moment (begin))
+    begin_mom = * unsmob_moment (begin);
 
   SCM end = get_property (time_str + "beamAutoEnd");
-  if (SMOB_IS_TYPE_B (Moment, end))
-    end_mom = * SMOB_TO_TYPE(Moment,end);
+  if (unsmob_moment (end))
+    end_mom = * unsmob_moment (end);
 
   /*
     third guess: property time exception, specific for duration type
@@ -133,26 +133,26 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
   if (type_str.length_i ())
     {
       SCM end_mult = get_property ( time_str + "beamAutoEnd" + type_str);
-      if (SMOB_IS_TYPE_B (Moment, end_mult))
-	end_mom = * SMOB_TO_TYPE (Moment,end_mult);
+      if (unsmob_moment (end_mult))
+	end_mom = * unsmob_moment (end_mult);
 
       SCM begin_mult = get_property (time_str + "beamAutoBegin" + type_str);
-      if (SMOB_IS_TYPE_B (Moment, begin_mult))
-	begin_mom = * SMOB_TO_TYPE (Moment,begin_mult);
+      if (unsmob_moment (begin_mult))
+	begin_mom = * unsmob_moment (begin_mult);
     }
 
   /*
     fourth guess [user override]: property plain generic
   */
   begin = get_property ("beamAutoBegin");
-  if (SMOB_IS_TYPE_B(Moment, begin))
-    begin_mom = * SMOB_TO_TYPE(Moment, begin);
+  if (unsmob_moment (begin))
+    begin_mom = * unsmob_moment (begin);
 
 
   
   end = get_property ("beamAutoEnd");
-  if (SMOB_IS_TYPE_B (Moment, end))
-    end_mom = * SMOB_TO_TYPE (Moment,end);
+  if (unsmob_moment (end))
+    end_mom = * unsmob_moment (end);
 
   /*
     fifth guess [user override]: property plain, specific for duration type
@@ -160,12 +160,12 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
   if (type_str.length_i ())
     {
       SCM end_mult = get_property (String ("beamAutoEnd") + type_str);
-      if (SMOB_IS_TYPE_B (Moment, end_mult))
-	end_mom = * SMOB_TO_TYPE (Moment,end_mult);
+      if (unsmob_moment (end_mult))
+	end_mom = * unsmob_moment (end_mult);
 
       SCM begin_mult = get_property (String ("beamAutoBegin") + type_str);
-      if (SMOB_IS_TYPE_B (Moment, begin_mult))
-	begin_mom = * SMOB_TO_TYPE (Moment,begin_mult);
+      if (unsmob_moment (begin_mult))
+	begin_mom = * unsmob_moment (begin_mult);
     }
 
   Rational r;

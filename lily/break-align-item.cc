@@ -91,7 +91,7 @@ Break_align_item::before_line_breaking ()
 	}
 
       SCM symbol = gh_car  (extra_space);
-      Real spc = gh_scm2double (SCM_CADR(extra_space));
+      Real spc = gh_scm2double (gh_cadr(extra_space));
       spc *= interline;
 
       dists.push(spc);

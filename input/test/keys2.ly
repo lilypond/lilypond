@@ -9,7 +9,7 @@ blah = \notes {
 	[cis8 d e f] [e! a b cis'] |
 	es e f e a a' a  a' |
  \clef "bass";  }
-  [es16 c' b a] [g f es d] [c d es d] [c Bes As G] |
+  [es16 c' b a] [g f es d] [c d es d] [c bes, as, g,] |
 
 \clef "violin";
 	\keysignature  c;

@@ -111,7 +111,7 @@ Key_change_req::Key_change_req ()
 Key_change_req::Key_change_req (Key_change_req const&s)
   : Request (s)
 {
-  key_ = s.key_ ?  new Key_def (*s.key_) : 0;
+  key_ = s.key_ ?  new Newkey_def (*s.key_) : 0;
 }
 
 Key_change_req::~Key_change_req ()

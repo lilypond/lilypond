@@ -151,7 +151,6 @@ yylex (YYSTYPE *s,  void * v_l)
 %token IN_T
 %token INVALID
 %token KEY
-%token KEYSIGNATURE
 %token LYRICS
 %token MARK
 %token MEASURES
@@ -169,7 +168,6 @@ yylex (YYSTYPE *s,  void * v_l)
 %token RELATIVE
 %token REMOVE
 %token REPEAT
-%token REPETITIONS
 %token ADDLYRICS
 %token SCM_T
 %token SCORE
@@ -223,7 +221,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <i>	tremolo_type
 %type <i>	int unsigned
 %type <i>	script_dir
-%type <i>	optional_modality 
+
 %type <id>	identifier_init  
 %type <duration> steno_duration optional_notemode_duration
 %type <duration> entered_notemode_duration explicit_duration
@@ -233,7 +231,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <pitch>   steno_musical_pitch musical_pitch absolute_musical_pitch
 %type <pitch>   steno_tonic_pitch
 
-%type <pitch_arr>	pitch_list chord_additions chord_subtractions chord_notes chord_step
+%type <pitch_arr>	chord_additions chord_subtractions chord_notes chord_step
 %type <music>	chord
 %type <pitch>	chord_note chord_inversion chord_bass
 %type <midi>	midi_block midi_body
@@ -1008,28 +1006,16 @@ verbose_command_req:
 		key_p->key_ = 0;
 		$$ = key_p;
 	}
-/* UGH. optional.  */
-
-	| KEY NOTENAME_PITCH optional_modality	{
+/*
+TODO: Support for minor/major keys; make `major-scale' settable.
+*/
+	| KEY NOTENAME_PITCH 	{
 		Key_change_req *key_p= new Key_change_req;
-		Key_def d;
-		d.pitch_arr_.push (*$2);
-		d.ordinary_key_b_ = true;
-		d.modality_i_ = $3;
-
-		key_p->key_ = new Key_def (d);
-		$$ = key_p;
-		delete $2;
-	}
-	| KEYSIGNATURE pitch_list {
-		Key_change_req *key_p= new Key_change_req;
-		Key_def d;
-		d.pitch_arr_ = *$2;
-		d.ordinary_key_b_ = false;
-
-		key_p->key_ = new Key_def(d);
-		$$ = key_p;
-		delete $2;
+		key_p->key_ = new Newkey_def;
+		
+		key_p->key_->pitch_alist_ = scm_eval (ly_symbol2scm ("major-scale"));
+		key_p->key_->transpose (* $2);
+		$$ = key_p; 
 	}
 	;
 
@@ -1102,15 +1088,6 @@ verbose_request:
 		a->articulation_str_ = ly_scm2string ($2);
 		a->set_spot (THIS->here_input ());
 		$$ = a;
-	}
-	;
-
-optional_modality:
-	/* empty */	{
-		$$ = 0;
-	}
-	| int	{
-		$$ = $1;
 	}
 	;
 
@@ -1555,6 +1532,11 @@ chord_note:
 /*
 	UTILITIES
  */
+
+/*
+  FIXME: use scm.
+*/
+/*
 pitch_list:			{
 		$$ = new Array<Musical_pitch>;
 	}
@@ -1563,7 +1545,7 @@ pitch_list:			{
 		delete $2;
 	}
 	;
-
+*/
 
 int_list:
 	/**/			{

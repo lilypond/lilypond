@@ -59,9 +59,7 @@ Pointer_group_interface__extract_elements (Score_element const *elt, T *, const 
   for (SCM s = elt->get_elt_pointer (name); gh_pair_p (s); s = gh_cdr (s))
     {
       SCM e = gh_car (s);
-      assert (SMOB_IS_TYPE_B(Score_element,e));
-      Score_element* se = SMOB_TO_TYPE(Score_element, e);
-      arr.push (dynamic_cast<T*> (se));
+      arr.push (dynamic_cast<T*> (unsmob_element (e)));
     }
 
   arr.reverse ();

@@ -7,9 +7,7 @@
 
 #include "musical-request.hh"
 #include "command-request.hh"
-#include "local-key-engraver.hh"
 #include "local-key-item.hh"
-#include "key-engraver.hh"
 #include "debug.hh"
 #include "key-item.hh"
 #include "tie.hh"
@@ -41,8 +39,8 @@ protected:
   virtual void process_acknowledged ();
   virtual void do_removal_processing ();
 public:
-  
-  Newkey local_key_;
+
+  SCM last_accs_;
   Key_engraver *key_grav_l_;
   Array<Note_req* > mel_l_arr_;
   Array<Item*> support_l_arr_;
@@ -51,7 +49,6 @@ public:
   Local_key_engraver();
   bool self_grace_b_;
   Grace_align_item * grace_align_l_;
-  Timing_translator * time_trans_l_  ;
 };
 
 
@@ -61,44 +58,21 @@ Local_key_engraver::Local_key_engraver()
   key_grav_l_ = 0;
   key_item_p_ =0;
   grace_align_l_ =0;
-  time_trans_l_ = 0;
+  last_accs_ = SCM_EOL;
 }
+
 
 void
 Local_key_engraver::do_creation_processing ()
 {
-  /*
-    UGHGUHGUH.
-
-    Breaks if Key_engraver is removed from under us.
-  */
-  Translator * result =
-    daddy_grav_l()->get_simple_translator ("Key_engraver");
-
-  key_grav_l_ = dynamic_cast<Key_engraver *> (result);
-
-  if (!key_grav_l_)
-    {
-      warning (_ ("out of tune:"));
-      warning (_f ("can't find: `%s'", "Key_engraver"));
-    }
-  else
-    {
-      local_key_ = key_grav_l_->key_;
-    }
-
-  /*
-    TODO
-    (if we are grace) get key info from parent Local_key_engraver
-  */
-
-  Translator * tr = daddy_grav_l()->get_simple_translator ("Timing_engraver");	// ugh
-  time_trans_l_ = dynamic_cast<Timing_translator*> (tr);
+  last_accs_ = get_property ("keySignature");
 }
 
 void
 Local_key_engraver::process_acknowledged ()
 {
+  SCM localsig = get_property ("localKeySignature");
+  
   if (!key_item_p_ && mel_l_arr_.size()) 
     {
       SCM f = get_property ("forgetAccidentals");
@@ -108,18 +82,23 @@ Local_key_engraver::process_acknowledged ()
 	  Item * support_l = support_l_arr_[i];
 	  Note_req * note_l = mel_l_arr_[i];
 
+	  int n = note_l->pitch_.notename_i_;
+	  int o = note_l->pitch_.octave_i_;
+	  int a = note_l->pitch_.accidental_i_;
+	  
 	  /* see if there's a tie that "changes" the accidental */
 	  /* works because if there's a tie, the note to the left
 	     is of the same pitch as the actual note */
 
-	  int prev_acc =local_key_.get (note_l->pitch_.octave_i_,
-					note_l->pitch_.notename_i_);
-	  bool different = prev_acc != note_l->pitch_.accidental_i_;
+	  SCM prev = scm_assoc (gh_cons (gh_int2scm (o), gh_int2scm (n)), localsig);
+	  if (prev == SCM_BOOL_F)
+	    prev = scm_assoc (gh_int2scm (n), localsig);
+	  int prev_acc = (prev == SCM_BOOL_F) ? 0 : gh_scm2int (gh_cdr (prev));
+	  bool different = prev_acc != a;
 	  
 	  bool tie_changes = tied_l_arr_.find_l (support_l) && different;
 	  if (!forget
-	      && (note_l->forceacc_b_
-		  || !different)
+	      && (note_l->forceacc_b_ || different)
 	      && !tie_changes)
 	    {
 	      if (!key_item_p_) 
@@ -133,8 +112,9 @@ Local_key_engraver::process_acknowledged ()
 		}
 
 	      
-	      bool extra_natural
-		= sign (prev_acc) * (prev_acc - note_l->pitch_.accidental_i_) == 1 ;
+	      bool extra_natural =
+		sign (prev_acc) * (prev_acc - a) == 1
+		&& abs(prev_acc) == 2;
 
 	      key_item_p_->add_pitch (note_l->pitch_,
 	  			      note_l->cautionary_b_,
@@ -144,9 +124,14 @@ Local_key_engraver::process_acknowledged ()
 	  
 	  if (!forget)
 	    {
-	      local_key_.set (note_l->pitch_.octave_i_, note_l->pitch_.notename_i_,
-			      note_l->pitch_.accidental_i_);
+	      localsig = scm_assoc_set_x (localsig, gh_cons (gh_int2scm (o),
+							     gh_int2scm (n)),
+					  gh_int2scm (a)); 
+
 #if 0
+	      /*
+		TESTME!
+	       */
 	      if (!tied_l_arr_.find_l (support_l))
 		{
 		  local_key_.clear_internal_forceacc (note_l->pitch_);
@@ -170,7 +155,7 @@ Local_key_engraver::process_acknowledged ()
 void
 Local_key_engraver::do_removal_processing ()
 {
-  // TODO: signal accidentals to Local_key_engraver the 
+  // TODO: if grace ? signal accidentals to Local_key_engraver the 
 }
 
 void
@@ -231,14 +216,15 @@ Local_key_engraver::do_process_music()
   SCM smp = get_property ("measurePosition");
   Moment mp =  (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
 
+  SCM sig = get_property ("keySignature");
   if (!mp)
     {
-      if (!to_boolean (get_property ("noResetKey")) && key_grav_l_)
-	local_key_= key_grav_l_->key_;
+      if (!to_boolean (get_property ("noResetKey")))
+	daddy_trans_l_->set_property ("localKeySignature",  sig);
     }
-  else if (key_grav_l_ && key_grav_l_->key_changed_b ())
+  else if (last_accs_ != sig) 
     {
-      local_key_ = key_grav_l_->key_;
+      daddy_trans_l_->set_property ("localKeySignature",  sig);
     }
 }
 
