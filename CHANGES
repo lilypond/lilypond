@@ -1,3 +1,46 @@
+1.3.82
+======
+
+* engraver.ly: cleanups.
+
+* etf2ly: robustness fixes, handle mac files as well.
+
+* Smobified Translator and Translator_group, junked
+Translator_group_identifier.
+
+
+* \pushproperty and \popproperty withing \translator, similar to
+predefining \property, ie.
+
+	\translator { [...] \pushproperty [..] }
+	\translator { [...] \popproperty [..] }
+
+(these \pushes and \pops are delayed until instantiation, so if you do
+
+
+	\score {
+		\pushproperty #'basicFooProperties #'bla #VALUE1
+		\context Voice { \pushproperty #'basicFooProperties #'bar #VALUE2
+			[..]
+		}
+	}
+
+then the setting for basicFooProperties contains both (bla . VALUE1)
+and (bar . VALUE2).
+
+* allow \pushproperty #'symbol [..] as well as \pushproperty #'(symbol1 symbol2 ... )
+
+1.3.81.jcn1
+===========
+
+* Activated regex for windows.
+
+* New guile-1.4 patch for cross windows build.
+
+* Added configure messages for metapost checking.
+
+1.3.81
+======
 1.3.80.gp1
 ==========
 
