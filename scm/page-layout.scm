@@ -138,30 +138,32 @@
   (line #:init-value 'barf #:accessor node-line #:init-keyword #:line)
   (page #:init-value 0 #:accessor node-page #:init-keyword #:page)
   (score #:init-value 0 #:accessor node-score #:init-keyword #:score)
-  (height #:init-value 0 #:accessor node-height #:init-keyword #:score))
+  (height #:init-value 0 #:accessor node-height #:init-keyword #:height))
 
 (define INFINITY 1e9)
 
-(define (line-number line)
+(define (robust-paper-line-number line)
   (if (null? line) 0
       (ly:paper-line-number line)))
   
-(define (line-height line)
+(define (robust-line-height line)
   (if (null? line) 0
       (ly:paper-line-height line)))
   
-(define (node-line-number node)
+(define (robust-line-number node)
   (if (null? node) 0
-      (line-number (node-line node))))
+      (robust-paper-line-number (node-line node))))
 
-(define (node-break-score node)
+(define (robust-break-score node)
   (let ((line (node-line node)))
     (if (null? line) 0
 	(ly:paper-line-break-score line))))
 
-(define (make-node prev line page score)
-  (make <break-node> #:prev prev #:line line #:page page #:score score))
+(define (make-node prev line page score . height)
+  (make <break-node> #:prev prev #:line line #:page page #:score score
+	#:height (if (null? height) 0 (car height))))
 
+;; max density %
 (define MAX-CRAMP 0.05)
 
 (define-public (ly:optimal-page-breaks lines book-height text-height
@@ -176,8 +178,11 @@
 	      ;; cannot fill more than MAX-CRAMP
 	      -1
 	      ;; overfull page is still worse by a power
-	      (* -1 norm-empty norm-empty norm-empty))
-	   (* norm-empty norm-empty))))
+	      ;; -- which means it never happens
+	      ;; let's try a factor 2
+	      ;;(* -1 norm-empty norm-empty norm-empty))
+	      (* 2 norm-empty norm-empty))
+	  (* norm-empty norm-empty))))
 
   (define (page-height page-number page-count)
     (let ((h text-height))
@@ -189,32 +194,39 @@
       h))
 
   (define (cumulative-height lines)
-    (apply + (map line-height lines)))
+    (apply + (map robust-line-height lines)))
 
   (define (get-path node)
-    (if (null? node)
-	'()
-	(cons node (get-path (node-prev node)))))
+    (if (null? node) '() (cons node (get-path (node-prev node)))))
 
   (define (add-scores . lst)
-    (if (null? (filter (lambda (x) (> 0 x)) lst))
-	(apply + lst)
-	-1))
+    (if (null? (filter (lambda (x) (> 0 x)) lst)) (apply + lst) -1))
 
   (define (density-variance nodes)
     (define (sqr x) (* x x))
     (define (density node)
       (let ((p (page-height (node-page node) (node-page (car nodes))))
 	    (h (node-height node)))
-	(if (and p h) (* (- p h) (/ h 100)) 0)))
-    (let* ((densities (map density nodes))
+	(if (and p h) (/ h p) 0)))
+    
+    (let* ((height-nodes (reverse
+			  ;; reverse makes for handier debugging
+			  (filter (lambda (x) (> (node-height x) 0)) nodes)))
+	   (densities (map density height-nodes))
+	   (p-heights (map (lambda (x) (page-height (node-page x)
+						    (node-page (car nodes))))
+			   height-nodes))
+	   (heights (map node-height height-nodes))
 	   (mean (/ (apply + densities) (length densities)))
 	   (diff (map (lambda (x) (- x mean)) densities))
-	   (var (map sqr diff)))
+	   (var (map sqr (map (lambda (x) (* (car p-heights) x)) diff))))
       (if #f
 	  (begin
 	    (format (current-error-port) "\nDENSITIES")
-	    (map describe nodes)
+	    (format (current-error-port) "lines: ~S\n"
+		    (map robust-line-number height-nodes))
+	    (format (current-error-port) "page-heighs: ~S\n" p-heights)
+	    (format (current-error-port) "heights: ~S\n" heights)
 	    (format (current-error-port) "densities: ~S\n" densities)
 	    (format (current-error-port) "mean: ~S\n" mean)
 	    (format (current-error-port) "diff: ~S\n" diff)
@@ -224,51 +236,60 @@
   (define (walk-paths best node lines nodes paths)
     (let* ((height (cumulative-height lines))
 	   (next-page (+ (if (null? paths) 0 (node-page (car paths))) 1))
-	   (page (page-height (node-page node) next-page)))
-      (set! (node-height node) height)
-      (let* ((break-score (node-break-score node))
-	     (density-score (if (null? paths) 0
-				(* 0 (density-variance
-				      (get-path (car paths))))))
-	     (page-score (height-score page height))
-	     (this-score (add-scores page-score break-score density-score))
-	     (path-score (if (null? paths) 0 (node-score (car paths))))
-	     (score (add-scores path-score this-score)))
-	    
-	(if (and (>= score 0)
-		 (not (null? lines))
-		 (or (< score (node-score best))
-		     (= (node-score best) -1)))
-	    (begin
-	      (set! (node-score best) score)
-	      (set! (node-page best) next-page)
-	      (set! (node-height best) height)
-	      (set! (node-prev best) node)))
+	   (page (page-height (node-page node) next-page))
+	   (hh (make-node '() (node-line node) 0 0 height))
+	   (break-score (robust-break-score node))
+	   (density-score (if (null? paths) 0
+			      (* 0 (density-variance
+				    (cons hh (get-path (car paths)))))))
+	   (page-score (height-score page height))
+	   (this-score (add-scores page-score break-score density-score))
+	   (path-score (if (null? paths) 0 (node-score (car paths))))
+	   (score (add-scores path-score this-score)))
 
-	(if (null? nodes)
-	    best
-	    (walk-paths best (car paths)
-			(cons (node-line node) lines)
-			(cdr nodes) (cdr paths))))))
+      (if #f
+	  (begin
+	    (format (current-error-port) "page-score: ~S\n" page-score)
+	    (format (current-error-port) "density-score: ~S\n" density-score)
+	    (format (current-error-port) "this-score: ~S\n" this-score)))
+      
+      (if (and (>= score 0)
+	       (or (< score (node-score best))
+		   (= (node-score best) -1)))
+	  (begin
+	    (set! (node-score best) score)
+	    (set! (node-page best) next-page)
+	    (set! (node-height best) height)
+	    (set! (node-prev best) node)))
+      
+      (if (null? nodes)
+	  best
+	  (walk-paths best (car paths) (cons (node-line node) lines)
+		      (cdr nodes) (cdr paths)))))
 
   (define (walk-lines lines nodes paths)
     (if (null? (cdr lines))
 	paths
 	(let* ((prev (node-prev (car nodes)))
 	       (this (make-node prev (car lines) 0 INFINITY))
-	       (next (make-node this (cadr lines) 0 0)))
-	  (let ((break (walk-paths this (car nodes) '() (cdr nodes) paths)))
-	    (walk-lines (cdr lines) (cons next nodes) (cons break paths))))))
+	       (next (make-node this (cadr lines) 0 0))
+	       (best (walk-paths this (car paths)
+				 (list (node-line (car nodes)))
+				 (cddr nodes) (cdr paths))))
+	  (walk-lines (cdr lines) (cons next nodes) (cons best paths)))))
   
   (let* ((dummy (make-node '() '() 0 0))
 	 (this (make-node dummy (car lines) 0 0))
 	 (result (walk-lines lines (list this dummy) (list dummy)))
 	 (path (get-path (car result)))
 	 ;; CDR: junk dummy node
-	 (breaks (cdr (reverse (map node-line-number path)))))
+	 (breaks (cdr (reverse (map robust-line-number path)))))
 
     (format (current-error-port) "ESTIMATE: ~S\n"
 	    (/ book-height text-height))
     (format (current-error-port) "breaks: ~S\n" breaks)
     (force-output (current-error-port))
+
+    (if #f (format (current-error-port) "scores: ~S\n" (map node-score path)))
+	  
     (list->vector breaks)))
