@@ -511,6 +511,7 @@ Stem::brew_molecule (SCM smob)
   Interval stem_y (y1,y2);
   stem_y.unite (Interval (y2,y1));
 
+  // dy?
   Real dy = Staff_symbol_referencer::staff_space (me)/2.0;
     
   if (Grob *hed = support_head (me))
@@ -524,7 +525,10 @@ Stem::brew_molecule (SCM smob)
   
   if (!invisible_b (me))
     {
-      Real stem_width = gh_scm2double (me->get_grob_property ("thickness")) * me->paper_l ()->get_var ("stafflinethickness");
+      Real stem_width = gh_scm2double (me->get_grob_property ("thickness"))
+	// URG
+	* me->paper_l ()->get_var ("stafflinethickness");
+      
       Molecule ss =Lookup::filledbox (Box (Interval (-stem_width/2, stem_width/2),
 					   Interval (stem_y[DOWN]*dy, stem_y[UP]*dy)));
       mol.add_molecule (ss);

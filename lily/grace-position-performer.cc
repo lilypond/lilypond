@@ -60,7 +60,7 @@ Grace_position_performer::create_audio_elements ()
 	  for (int i=1; i < notes_.size (); i++)
 	    shortest_mom = shortest_mom <? notes_[i]->length_mom_;
 	  
-	  Rational grace_fraction_rat (1, 2);
+	  Moment grace_fraction_rat (1, 2);
 	  SCM prop = get_property ("graceFraction");
 	  if (unsmob_moment (prop))
 	    grace_fraction_rat = *unsmob_moment (prop);
@@ -81,7 +81,7 @@ Grace_position_performer::create_audio_elements ()
       for (int i=0; i < graces_.size (); i++)
 	grace_length_mom += graces_[i]->length_mom_;
 
-      Rational grace_factor_rat = delay_mom / grace_length_mom;
+      Moment grace_factor_rat = delay_mom / grace_length_mom;
 
       for (int i=0; i < graces_.size (); i++)
 	{

@@ -97,13 +97,14 @@
   (define (header-end)
     (string-append
      "\\special{\\string! "
-
+     
      ;; URG: ly-gulp-file: now we can't use scm output without Lily
      (if use-regex
 	 ;; fixed in 1.3.4 for powerpc -- broken on Windows
 	 (regexp-substitute/global #f "\n"
 				   (ly-gulp-file "music-drawing-routines.ps") 'pre " %\n" 'post)
 	 (ly-gulp-file "music-drawing-routines.ps"))
+     (if (defined? 'ps-testing) "/testing true def%\n" "")
      "}"
      "\\input lilyponddefs\\newdimen\\outputscale \\outputscale=\\lilypondpaperoutputscale pt\\turnOnPostScript"))
 
@@ -164,12 +165,17 @@
     "}\\vss}\\interscoreline\n")
   (define (stop-last-line)
     "}\\vss}")
-  (define (filledbox breapth width depth height) 
+  (define (xfilledbox breapth width depth height) 
     (string-append 
      "\\kern" (number->dim (- breapth))
      "\\vrule width " (number->dim (+ breapth width))
      "depth " (number->dim depth)
      "height " (number->dim height) " "))
+
+  (define (filledbox breapth width depth height) 
+    (embedded-ps
+     (string-append (numbers->string (list breapth width depth height))
+		   " draw_box" )))
 
   (define (text s)
     (string-append "\\hbox{" (output-tex-string s) "}"))

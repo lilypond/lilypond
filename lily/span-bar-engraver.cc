@@ -59,8 +59,6 @@ Span_bar_engraver::acknowledge_grob (Grob_info i)
 	{
 	  spanbar_p_ = new Item (get_property ("SpanBar"));
 	  Span_bar::set_interface (spanbar_p_);
-		
-	  spanbar_p_->set_parent (bar_l_arr_[0], Y_AXIS);
 	  spanbar_p_->set_parent (bar_l_arr_[0], X_AXIS);
 
 	  announce_grob (spanbar_p_,0);

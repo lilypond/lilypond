@@ -15,33 +15,51 @@
 
 /**
    Rationals with glue for Guilification;
-
-   FIXME: remove self_scm_ and then remove this class */
-class Moment : public Rational
+*/
+class Moment
 {
   DECLARE_SIMPLE_SMOBS (Moment,);
 public:
-  Moment () { }
-  Moment (int m) : Rational (m) { }
-  Moment (int m, int n) : Rational (m,n) { }
-  Moment (Rational m) : Rational (m) { }
+  Moment ();
+  Moment (int m);
+  Moment (int m, int n);
 
+  Moment (Rational m);
+
+
+  void operator += (Moment const &m);
+  void operator -= (Moment const &m);  
+
+  void operator *= (Moment const &m);
+  void operator /= (Moment const &m);  
+
+  Rational main_part_;
+  Rational grace_mom_;
+
+  void set_infinite (int k);
+  
+  operator bool ();
+  int den () const;
+  int num () const;
   /*
     Deliver a copy of THIS as a smobified SCM
    */
-  SCM smobbed_copy () const; 
+  SCM smobbed_copy () const;
+  String str () const;
+  static int compare (Moment const&, Moment const&);
 };
+IMPLEMENT_ARITHMETIC_OPERATOR (Moment, + );
+IMPLEMENT_ARITHMETIC_OPERATOR (Moment, - );
+IMPLEMENT_ARITHMETIC_OPERATOR (Moment, / );
+IMPLEMENT_ARITHMETIC_OPERATOR (Moment, * );
 
 
 Moment * unsmob_moment (SCM);
+int compare (Moment const&,Moment const&);
+INSTANTIATE_COMPARE (Moment const&, Moment::compare);
 
 #if 0
-IMPLEMENT_ARITHMETIC_OPERATOR (Moment, / );
-IMPLEMENT_ARITHMETIC_OPERATOR (Moment, * );
-IMPLEMENT_ARITHMETIC_OPERATOR (Moment, + );
-IMPLEMENT_ARITHMETIC_OPERATOR (Moment, - );
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, % );
-INSTANTIATE_COMPARE (Moment const&, Rational::compare);
 #endif
 
 #endif /* MOMENT_HH */

@@ -39,8 +39,7 @@ public:
   void invert ();
   int num () const { return sign_ * num_; }
   int den () const { return den_; }
-  int num_i () const { return sign_ * num_; }
-  int den_i () const { return den_; }
+
   Rational trunc_rat () const;
   Rational div_rat (Rational) const;
   Rational mod_rat (Rational) const;

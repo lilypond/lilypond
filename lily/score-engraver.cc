@@ -19,6 +19,9 @@
 #include "translator-def.hh"
 
 
+/*
+  TODO: the column creation logic is rather hairy. Revise it.
+ */
 Score_engraver::Score_engraver ()
 {
   scoreline_l_ =0;
@@ -29,19 +32,17 @@ Score_engraver::Score_engraver ()
 }
 
 void
-Score_engraver::make_columns (Moment w)
+Score_engraver::make_columns ()
 {
   /*
     ugh.
    */
-  if (!command_column_l_
-      || *unsmob_moment (command_column_l_->get_grob_property ("when")) != w)
+  if (!command_column_l_)
+    //      || *unsmob_moment (command_column_l_->get_grob_property ("when")) != w)
     {
       set_columns (new Paper_column (get_property (ly_symbol2scm ("NonMusicalPaperColumn"))),
 		   new Paper_column (get_property (ly_symbol2scm ("PaperColumn"))));
   
-      command_column_l_->set_grob_property ("when", w.smobbed_copy ());
-      musical_column_l_->set_grob_property ("when", w.smobbed_copy ());
       command_column_l_->set_grob_property ("breakable", SCM_BOOL_T);
 
       Grob_info i1 (command_column_l_, 0), i2 (musical_column_l_,0);
@@ -57,8 +58,8 @@ void
 Score_engraver::prepare (Moment w)
 {
   Global_translator::prepare (w);
-  make_columns (w);
 
+  make_columns ();
   start_translation_timestep ();
 }
 
@@ -70,6 +71,7 @@ Score_engraver::finish ()
    
   check_removal ();
   removal_processing ();
+
 }
 
 /*
@@ -89,11 +91,9 @@ Score_engraver::initialize ()
 
   pscore_p_->typeset_line (new Line_of_score (props));
   
-  make_columns (Moment (0));
+  make_columns ();
   scoreline_l_ = pscore_p_->line_l_;
-
   scoreline_l_->set_bound (LEFT, command_column_l_);
-  
   command_column_l_->set_grob_property ("breakable", SCM_BOOL_T);
 
   Engraver_group_engraver::initialize ();
@@ -104,12 +104,13 @@ void
 Score_engraver::finalize ()
 {
   Engraver_group_engraver::finalize ();
-  scoreline_l_->set_bound (RIGHT,command_column_l_);
-  command_column_l_->set_grob_property ("breakable", SCM_BOOL_T);
+
+  Grob * cc
+    = unsmob_grob (get_property (ly_symbol2scm ("currentCommandColumn")));
+  scoreline_l_->set_bound (RIGHT, cc);
+  cc->set_grob_property ("breakable", SCM_BOOL_T);
   
   typeset_all ();
-
-  set_columns (0,0);
 }
 
 void
@@ -217,25 +218,25 @@ Score_engraver::stop_translation_timestep ()
       if (! (breaks_i_%8))
 	progress_indication ("[" + to_str (breaks_i_) + "]");
     }
+
+  command_column_l_->set_grob_property ("when", now_mom_.smobbed_copy ());
+  musical_column_l_->set_grob_property ("when", now_mom_.smobbed_copy ());
+
+  scoreline_l_->add_column (command_column_l_);
+  scoreline_l_->add_column (musical_column_l_);
+  
+  command_column_l_ = 0;
+  musical_column_l_ = 0;
 }
 
 void
 Score_engraver::set_columns (Paper_column *new_command_l, 
 			     Paper_column *new_musical_l)
 {
-  Paper_column * news[] = {new_command_l, new_musical_l};
-  Paper_column **current[] = {&command_column_l_, &musical_column_l_};
-
-  for (int i=00; i< 2; i++) 
-    {
-      if (*current[i])
-	{
-	  scoreline_l_->add_column ((*current[i]));
-	}
-      if (news[i])
-	*current[i] = news[i];
-    }
-
+  assert (!command_column_l_ && !musical_column_l_);
+  command_column_l_ = new_command_l;
+  musical_column_l_ = new_musical_l;
+  
   if (new_musical_l)
     set_property ("currentMusicalColumn", new_musical_l->self_scm ());
   if (new_command_l)

@@ -15,7 +15,7 @@
 #include "string.hh"
 #include "molecule.hh"
 #include "debug.hh"
-#include "killing-cons.tcc"
+
 
 #include "ly-smobs.icc"
 

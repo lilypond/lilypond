@@ -53,13 +53,20 @@ Switch on any experimental features.  Not for general public use.
 SCM
 set_lily_option (SCM var, SCM val)
 {
+  /*
+    Scheme option usage:
+    lilypond -e "(set-lily-option 'help 0)"
+   */
   if (var == ly_symbol2scm ("help"))
     {
       cout << '\n';
       cout << _ ("Scheme options:");
-      cout << "help"; 
-      cout << "midi-debug (boolean)"; 
-      cout << "testing-level (int)"; 
+      cout << '\n';
+      cout << "  help (any-symbol)"; 
+      cout << '\n';
+      cout << "  midi-debug (boolean)"; 
+      cout << '\n';
+      cout << "  testing-level (int)"; 
       cout << '\n';
       exit (0);
     }

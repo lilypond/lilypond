@@ -167,10 +167,9 @@ Clef_engraver::inspect_clef_properties ()
 
       clef_p_->set_grob_property ("non-default", SCM_BOOL_T);
 
-       prev_cpos_ = clefpos;
-       prev_glyph_ = glyph;
-       prev_octavation_ = octavation;
-
+      prev_cpos_ = clefpos;
+      prev_glyph_ = glyph;
+      prev_octavation_ = octavation;
     }
 
   if (to_boolean (force_clef))

@@ -53,10 +53,18 @@ Spacing_spanner::do_measure (Grob*me, Link_array<Grob> cols)
     {
       if (dynamic_cast<Paper_column*> (cols[i])->musical_b ())
 	{
+	  Moment *when = unsmob_moment (cols[i]->get_grob_property  ("when"));
+
+	  /*
+	    ignore grace notes for shortest notes.
+	   */
+	  if (when && when->grace_mom_)
+	    continue;
+	  
 	  SCM  st = cols[i]->get_grob_property ("shortest-starter-duration");
 	  Moment this_shortest = *unsmob_moment (st);
 	  shortest = shortest <? this_shortest;
-	  if (!mean_shortest.infty_b ())
+	  if (!mean_shortest.main_part_.infty_b ())
 	    {
 	      n++;
 	      mean_shortest += this_shortest;
@@ -64,7 +72,6 @@ Spacing_spanner::do_measure (Grob*me, Link_array<Grob> cols)
 	}
     }
   mean_shortest /= n;
-
 
   for (int i= 0; i < cols.size () - 1; i++)
     {
@@ -266,12 +273,28 @@ Spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
   Real dist = get_duration_space (me, shortest_playing_len, shortest);
   dist *= (double) (delta_t / shortest_playing_len);
 
+
+
   /*
     UGH: KLUDGE!
   */
   
   if (delta_t > Moment (1,32))
     dist += stem_dir_correction (me, lc,rc);
+
+
+  Moment *lm = unsmob_moment (lc->get_grob_property ("when"));
+  Moment *rm = unsmob_moment (rc->get_grob_property ("when"));
+
+  if (lm && rm)
+    {
+      if (lm->grace_mom_ && rm->grace_mom_)
+	dist *= 0.5;
+      else if (!rm->grace_mom_ && lm->grace_mom_)
+	dist *= 0.7;
+    }
+
+  
   return dist;
 }
 

@@ -1,7 +1,9 @@
-%!PS-Adobe-1.0: lily.ps 
+%!PS-Adobe-1.0: music-drawing-routines.ps
 %
 % Functions for direct and embedded PostScript
 
+
+% FIXME: set with individual symbols
 % round cappings 
 1 setlinecap
 
@@ -10,17 +12,81 @@
 	1 copy mul exch 1 copy mul add sqrt 
 } bind def 
 
-/draw_beam % width slope thick 
-{ 
-        2 div /beam_thick exch def 
-        /beam_slope exch def 
-        /beam_wd exch def 
-        beam_slope beam_wd mul /beam_ht exch def 
-        0 beam_thick neg moveto  
-        beam_wd beam_ht rlineto  
-        0 beam_thick 2 mul rlineto 
-        0 beam_thick lineto 
-        closepath fill 
+% FIXME.  translate to middle of box.
+% Nice rectangle with rounded corners
+% FIXME: linewidth hardcoded.  check: too round?
+/draw_box % breapth width depth height
+{
+	%% FIXME: hardcoded
+	currentdict /testing known {
+		%% real thin lines for testing
+		/l 0.005 def
+	}{
+		/l 0.05 def
+	} ifelse
+
+	0 setlinecap
+	l setlinewidth
+	1 setlinejoin
+
+	l 2 div sub /h exch def
+	l 2 div sub /d exch def
+
+	%% UGH huh?
+	%% Where does this correction come from?
+	%% Why don't we need this in x direction?
+	h l 2 div sub /h exch def
+	d l 2 div sub /d exch def
+
+	l 2 div sub /w exch def
+	l 2 div sub /b exch def
+
+	b neg d neg moveto
+	b w add 0 rlineto
+	0 d h add rlineto
+	b w add neg 0 rlineto
+	0 d h add neg rlineto
+
+	currentdict /testing known {
+		%% outline only, for testing:
+		stroke
+	}{
+		closepath gsave stroke grestore fill
+	} ifelse
+} bind def
+
+% Nice beam with rounded corners
+% FIXME: linewidth hardcoded.  check: too round?
+/draw_beam % slope width thick 
+{
+	%% FIXME: hardcoded
+	currentdict /testing known {
+		%% real thin lines for testing
+		/l 0.01 def
+	}{
+		/l 0.1 def
+	} ifelse
+	l 2 div setlinewidth
+
+ 	0 setlinecap
+	1 setlinejoin
+
+	l sub /t exch def
+	l sub /w exch def
+	w mul /h exch def
+
+	l 2 div t 2 div neg moveto
+	w h rlineto
+	0 t rlineto
+	w neg h neg rlineto
+	0 t neg rlineto
+
+	currentdict /testing known {
+		%% outline only, for testing:
+		stroke
+	}{
+		closepath gsave stroke grestore fill
+	} ifelse
 } bind def 
 
 /draw_repeat_slash % width slope thick

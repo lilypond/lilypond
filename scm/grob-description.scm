@@ -518,11 +518,9 @@
 	(SpanBar . (
 		(break-align-symbol . Staff_bar)
 		(bar-size-procedure . ,Span_bar::get_bar_size) 
-		(molecule-callback . ,Bar::brew_molecule)
+		(molecule-callback . ,Span_bar::brew_molecule)
 		(visibility-lambda . ,begin-of-line-invisible)
 		(X-extent-callback . ,Span_bar::width_callback)
-		(Y-offset-callbacks . (,Span_bar::center_on_spanned_callback))
-		
 		(breakable . #t)
 		(glyph . "|")
 		(before-line-breaking-callback . ,Span_bar::before_line_breaking)

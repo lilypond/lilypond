@@ -69,10 +69,24 @@ Music_sequence::transpose (Pitch rq)
 Moment
 Music_sequence::cumulative_length () const
 {
-  Moment last=0;
+  Moment cumulative;
+  
+  Moment last_len ; 
   for (SCM s = music_list (); gh_pair_p (s);  s = gh_cdr (s))
-    last += unsmob_music (gh_car (s))->length_mom ();
-  return  last;
+    {
+      Moment l = unsmob_music (gh_car (s))->length_mom ();
+      if (last_len.grace_mom_ && l.main_part_)
+	{
+	  last_len.grace_mom_ = Rational (0);
+	}
+      cumulative += last_len;
+      last_len = l;
+    }
+
+  last_len.grace_mom_ = Rational (0);
+  cumulative += last_len;
+  
+  return  cumulative;
 }
 
 Pitch
@@ -131,3 +145,37 @@ Music_sequence::Music_sequence ()
 {
   
 }
+
+Moment
+Music_sequence::minimum_start () const
+{
+  Moment m;
+  
+  for (SCM s = music_list (); gh_pair_p (s);  s = gh_cdr (s))
+    {
+      m = m <? unsmob_music (gh_car (s))->start_mom ();
+    }
+  return m;
+}
+
+Moment
+Music_sequence::first_start () const
+{
+  Moment m;
+  
+  for (SCM s = music_list (); gh_pair_p (s);  s = gh_cdr (s))
+    {
+      Music * mus = unsmob_music (gh_car (s));
+      Moment l = mus->length_mom ();
+
+      if (l.main_part_)
+	return mus->start_mom ();
+      else if (l.grace_mom_)
+	{
+	  m.grace_mom_ = - l.grace_mom_; 
+	  return m;
+	}
+    }
+  return m;
+}
+

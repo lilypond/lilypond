@@ -64,19 +64,20 @@ criticism, comments, bugreports, patches, etc., to the mailing list,
 We have the following mailing lists:
 
 @itemize @bullet
-@item @uref{http://mail.gnu.org/mailman/listinfo/info-gnu-music,info-gnu-music@@gnu.org}
+@item @uref{http://mail.gnu.org/mailman/listinfo/info-lilypond,info-lilypond@@gnu.org}
 is a low-volume list for information on the GNU Music project.
     This list is moderated; ask 
     @email{drl@@gnu.org, David R. Linn} or
     @email{hanwen@@cs.uu.nl, Han-Wen} to send announcements for this
 list.
 @item
-@uref{http://mail.gnu.org/mailman/listinfo/gnu-music-discuss,gnu-music-discuss@@gnu.org}
-  For general discussions concerning LilyPond.
+@uref{http://mail.gnu.org/mailman/listinfo/lilypond-devel,lilypond-devel@@gnu.org}
+  For discussions about developing lilypond, in particular the unstable series.
 
-@item @uref{http://mail.gnu.org/mailman/listinfo/help-gnu-music,help-gnu-music@@gnu.org}
-    For help with using LilyPond.
-@item @uref{http://mail.gnu.org/mailman/listinfo/bug-gnu-music,bug-gnu-music@@gnu.org}
+@item @uref{http://mail.gnu.org/mailman/listinfo/help-lilypond,help-lilypond@@gnu.org}
+  For discussions about using lilypond, in particular the stable series.
+
+@item @uref{http://mail.gnu.org/mailman/listinfo/bug-lilypond,bug-lilypond@@gnu.org}
 If you have bugreports, you should send them to this list.
 @end itemize
 
@@ -100,9 +101,9 @@ a script to do this for you is in @file{buildscripts/clean-fonts.sh}
 
 @section Bugs
 
-Send bug reports to @email{bug-gnu-music@@gnu.org}.  For help and
-questions use @email{help-gnu-music@@gnu.org} and
-@email{gnu-music-discuss@@gnu.org}.  Please consult the FAQ and
+Send bug reports to @email{bug-lilypond@@gnu.org}.  For help and
+questions use @email{help-lilypond@@gnu.org} and
+@email{lilypond-discuss@@gnu.org}.  Please consult the FAQ and
 installation instructions before mailing your problems.
 
 

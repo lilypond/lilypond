@@ -221,6 +221,8 @@ and documenting bugfixes.
 
 @lilypondfile[printfilename]{bar-number.ly}
 
+@lilypondfile[printfilename]{span-bar.ly}
+
 @lilypondfile[printfilename]{bar-scripts.ly}
 
 @lilypondfile[printfilename]{staff-margin.ly}

@@ -86,7 +86,11 @@ Music_output_def::assign_translator (SCM transdef)
   Translator_def *tp = unsmob_translator_def (transdef);
   assert (tp);
 
-  String s = ly_scm2string (tp->type_name_);
+  
+  String s;
+  if (gh_string_p (tp->type_name_))
+      s =  ly_scm2string (tp->type_name_);
+
   translator_p_dict_p_->set (s, transdef);
 }
 
@@ -124,7 +128,10 @@ Music_output_def::get_global_translator_p ()
 int
 Music_output_def::print_smob (SCM s, SCM p, scm_print_state *)
 {
-  scm_puts ("#<Music_output_def>", p);
+  Translator_def * def = unsmob_translator_def (s);
+  scm_puts ("#<Music_output_def ", p);
+  scm_write (def->type_name_, p);
+  scm_puts (">", p);
   return 1;
 }
 

@@ -28,14 +28,14 @@ Duration::Duration ()
 {
   durlog_i_ = 0;
   dots_i_ = 0;
-  factor_ = Moment (1,1);
+  factor_ = Rational (1,1);
 }
 
 Duration::Duration (int l, int d)
 {
   durlog_i_ = l;
   dots_i_ = d;
-  factor_ = Moment (1,1);
+  factor_ = Rational (1,1);
 }
 
 Duration
@@ -52,13 +52,13 @@ Duration::length_mom () const
   Rational mom (1 << abs (durlog_i_));
 
   if (durlog_i_> 0)
-    mom = Moment (1)/mom;
+    mom = Rational (1)/mom;
 
   Rational delta = mom;
 
   for (int d = dots_i_; d; d--)
     {
-      delta /= Moment (2);
+      delta /= Rational (2);
       mom += delta;
     }
 

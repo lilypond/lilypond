@@ -11,6 +11,15 @@
 
 #include "music-iterator.hh"
 
+
+struct Grace_skip 
+{
+  Moment start_;
+  Rational length_;
+  Rational grace_length_;  
+  Grace_skip *next_;
+};
+
 /** Sequential_music iteration: walk each element in turn, and
   construct an iterator for every element.
   
@@ -18,6 +27,8 @@
 class Sequential_music_iterator :  public Music_iterator
 {
 public:
+  Grace_skip * grace_skips_;
+  
   VIRTUAL_COPY_CONS (Music_iterator);
   static SCM constructor_cxx_function;
   Sequential_music_iterator ();

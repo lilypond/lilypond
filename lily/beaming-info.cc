@@ -33,10 +33,10 @@ Beaming_info_list::min_denominator_index () const
 
   for (int i=1; i < infos_.size (); i++)
     {
-      if (infos_[i].start_mom_.den_i () < minden)
+      if (infos_[i].start_mom_.den () < minden)
 	{
 	  minidx = i;
-	  minden = infos_[i].start_mom_.den_i ();
+	  minden = infos_[i].start_mom_.den ();
 	}
     }
 

@@ -18,7 +18,6 @@
   TODO: change the rest of lily, so communication with
   Timing_translator is only done through properties.  This means the
   class declaration can go here.  */
-
 bool
 Timing_translator::try_music (Music*r)
 {
@@ -33,7 +32,7 @@ Timing_translator::try_music (Music*r)
 void
 Timing_translator::process_music ()
 {
-  if (check_ && measure_position ())
+  if (check_ && measure_position ().main_part_)
     {
       check_->origin ()->warning (_f ("barcheck failed at: %s", 
 				      measure_position ().str ()));
@@ -43,7 +42,6 @@ Timing_translator::process_music ()
 	daddy_trans_l_->set_property ("measurePosition", zero.smobbed_copy ());
     }
 }
-
 
 void
 Timing_translator::stop_translation_timestep ()
@@ -92,24 +90,20 @@ Timing_translator::initialize ()
   daddy_trans_l_->set_property ("beatLength", Moment (1,4).smobbed_copy ());
 }
 
-Moment
+Rational
 Timing_translator::measure_length () const
 {
   SCM l = get_property ("measureLength");
   if (unsmob_moment (l))
-    return *unsmob_moment (l);
+    return unsmob_moment (l)->main_part_;
   else
-    return Moment (1);
+    return Rational (1);
 }
-
-
 
 Timing_translator::Timing_translator ()
 {
 
-
 }
-
 
 Moment
 Timing_translator::measure_position () const
@@ -120,8 +114,8 @@ Timing_translator::measure_position () const
   if (unsmob_moment (sm))
     {
       m = *unsmob_moment (sm);
-      while (m < Moment (0))
-	m += measure_length ();
+      while (m.main_part_ < Rational (0))
+	m.main_part_ += measure_length ();
     }
   
   return m;
@@ -130,7 +124,7 @@ Timing_translator::measure_position () const
 void
 Timing_translator::start_translation_timestep ()
 {
-	check_ =00;
+  check_ = 0;
   Translator *t = this;
   Global_translator *global_l =0;
   do
@@ -174,10 +168,10 @@ Timing_translator::start_translation_timestep ()
   SCM cad = get_property ("timing");
   bool c= to_boolean (cad);
 
-  Moment len = measure_length ();
-  while (c && measposp >= len)
+  Rational len = measure_length ();
+  while (c && measposp.main_part_ >= len)
     {
-      measposp -= len;
+      measposp.main_part_ -= len;
       b ++;
     }
 

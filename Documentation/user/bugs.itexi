@@ -27,7 +27,7 @@ system libraries, whether you downloaded a binary release)
 @end itemize
 
 
-You can send the report to @email{bug-gnu-music@@gnu.org}. This is a
+You can send the report to @email{bug-lilypondg@@gnu.org}. This is a
 mailinglist, but you don't have to be subscribed to it.  You may also
 enter the bug in the LilyPond wiki, at
 @uref{http://www.lilypond.org/wiki?LilyPondBugs}.

@@ -39,7 +39,7 @@ private:
   int durlog_i_;
   int dots_i_;
 
-  Moment factor_;
+  Rational factor_;
 
 };
 

@@ -83,6 +83,9 @@ Global_translator::finish ()
 void
 Global_translator::run_iterator_on_me (Music_iterator * iter)
 {
+  if (iter-> ok ())
+    prev_mom_ = now_mom_ = iter->pending_moment ();
+  
   while (iter->ok () || moments_left_i ())
     {
       Moment w;
@@ -90,7 +93,6 @@ Global_translator::run_iterator_on_me (Music_iterator * iter)
       if (iter->ok ())
 	{
 	  w = iter->pending_moment ();
-      
 	}
 
       w = sneaky_insert_extra_moment (w);

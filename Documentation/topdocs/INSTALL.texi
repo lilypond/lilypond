@@ -489,10 +489,9 @@ interfere with your build, you may want to do this before the build too:
 
 @section Problems
 
-For help and questions use @email{help-gnu-music@@gnu.org} and
-@email{gnu-music-discuss@@gnu.org}.  Please consult the FAQ before
-mailing your problems.  If you find bugs, please send bug reports to
-@email{bug-gnu-music@@gnu.org}.
+For help and questions use @email{lilypond-user@@gnu.org}.  Please
+consult the FAQ before mailing your problems.  If you find bugs, please
+send bug reports to @email{bug-lilypond@@gnu.org}.
 
 Bugs that are not fault of LilyPond are documented here.
 

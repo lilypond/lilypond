@@ -47,7 +47,7 @@ Grace_iterator::process (Moment)
 Moment
 Grace_iterator::pending_moment () const
 {
-  return 0;
+  return  0;
 }
 
 
