@@ -837,10 +837,12 @@ at @uref{http://www.ghostscript.com}.
 @unnumberedsubsec Windows users
 Windows users start the terminal by clicking on the LilyPond icon.
 Notepad is sufficient for editing the LilyPond file. Viewing the PS file
-can be done with @code{gsview32 test.ps}.  Viewing DVI files can be done
-with @code{yap test.dvi}.  The "print" button in Yap will print files.
-You can also print from the command line by executing @code{gsview32 /s
-test.ps}
+can be done with @code{gsview32 test.ps}.@footnote{ You can also view
+DVI files with @code{yap test.dvi}, but unfortunately the postscript
+interaction seems broken, meaning that you will not see slurs or beams
+in the Yap window.}  You can also print from the command line by
+executing @code{gsview32 /s test.ps}
+
 
 
 @node The first real tune
