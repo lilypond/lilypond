@@ -475,12 +475,8 @@ so that the line can be constructed from a whole number of squiggles.")
 
      (avoid-note-head ,boolean? "if set, the stem of a chord does not pass through all note head, but start at the last note head. Used by tablature.")
      (staff-padding ,ly:dimension?
-		    "Maintain this much space to the staff.  It's
-effect is similar to the padding mechanism, but this will keep objects
-above and below the staff in a row more often, when the heights of the
-notes vary.
-")
-
+		    "Maintain this much space between reference points
+and the staff.  Its effect is to align objects of differing sizes (like the dynamic @b{p} and @b{f})  on their baselines.")
      (use-breve-rest ,boolean? "boolean that tells multi-measure-rest
 to use a breve rest to represent the duration of 1 measure instead of
 whole rest.  It defaults to false.  It is set to true when the

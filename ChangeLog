@@ -19,7 +19,11 @@
 
 2004-02-11  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
-	* GNUmakefile.in (README_FILES): remove TODO.
+	* lily/side-position-interface.cc (general_side_position): if
+	staff-padding is set, then include staff in support too.
+
+	* GNUmakefile.in (README_FILES): remove TODO. Put in new CVS
+	module workbook
 
 	* TODO: Remove.  Put in new CVS module /cvsroot/lilypond/workbook/
 
