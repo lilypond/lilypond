@@ -381,7 +381,7 @@ is the  first to satisfy CRIT
      '("define-music-types.scm"
        "output-lib.scm"
        "c++.scm"
-       "chords-ignatzek.scm"
+       "chord-ignatzek-names.scm"
        "chord-entry.scm"
        "double-plus-new-chord-name.scm"
        "molecule.scm"
