@@ -15,6 +15,18 @@
 #include "molecule.hh"
 #include "musical-request.hh"
 
+/*
+  TODO
+  
+  Separate notehead into 
+
+
+     Rhythmic_head
+       Note_head
+       Rest
+
+     and Stem takes Rhythmic_heads 
+ */
 
 
 Note_head::Note_head(int ss)
@@ -24,6 +36,7 @@ Note_head::Note_head(int ss)
     position_i_ = 0;
     balltype_i_ = 0;
     dots_i_ = 0;
+    dot_delta_y_i_ = 0;
     extremal_i_ = 0;
     rest_b_ = false;
 }
@@ -31,9 +44,16 @@ Note_head::Note_head(int ss)
 void
 Note_head::do_pre_processing()
 {
-   // 8 ball looks the same as 4 ball:
+    // 8 ball looks the same as 4 ball:
     if (balltype_i_ > 4 && !rest_b_)
 	balltype_i_ = 4;
+    	
+    if (rest_b_) { 
+	if (balltype_i_ == 1)
+	    position_i_ = 6;
+	else if (balltype_i_ == 2)
+	    position_i_ = 4;
+    }
 }
 
 void
@@ -64,46 +84,62 @@ Note_head::compare(Note_head *const  &a, Note_head * const &b)
     return a->position_i_ - b->position_i_;
 }
 
+void
+Note_head::set_dots()
+{
+    if (!(position_i_ %2) && rest_b_ && balltype_i_ == 1)
+	dot_delta_y_i_ = -1;
+    else if (!(position_i_ %2))
+	dot_delta_y_i_ = 1;
+}
+
+/*
+  Ugh, hairy.
+ */
 Molecule*
 Note_head::brew_molecule_p() const 
 {
+    ((Note_head*)this)->set_dots(); // UGH GUH
     Molecule*out = 0;
     Paper_def *p = paper();
-
-    Real dy = p->internote_f();
+    Real inter_f = p->internote_f();
     Symbol s;
+
+    // ugh
+    bool streepjes_b = (position_i_<-1) || (position_i_ > staff_size_i_+1);
+    
     if (!rest_b_)
 	s = p->lookup_l()->ball(balltype_i_);
-    else 
-	s = p->lookup_l()->rest(balltype_i_);
-    
+    else {
+	s = p->lookup_l()->rest(balltype_i_, streepjes_b);
+    }
     out = new Molecule(Atom(s));
     if (dots_i_) {
-	Symbol d = p->lookup_l()->dots(dots_i_);
+	Symbol d = p->lookup_l()->dots(dots_i_ );
 	Molecule dm;
 	dm.add(Atom(d));
-	if (!(position_i_ %2))
-	    dm.translate_y(dy);
+	dm.translate_y( inter_f * dot_delta_y_i_ );
 	out->add_right(dm);
     }
-    out->translate_x(x_dir_i_ * p->note_width());
-    bool streepjes = (position_i_<-1)||(position_i_ > staff_size_i_+1);
+
     
-    if (rest_b_ && balltype_i_ > 2)
-	streepjes = false;
+    if (rest_b_) {
+	streepjes_b = false;
+    }
     
-    if (streepjes) {
+    if (streepjes_b) {
 	int dir = sign(position_i_);
 	int s =(position_i_<-1) ? -((-position_i_)/2): (position_i_-staff_size_i_)/2;
+	
 	Symbol str = p->lookup_l()->streepjes(s);
 	Molecule sm;
 	sm.add(Atom(str));
 	if (position_i_ % 2)
-	    sm.translate_y(-dy* dir);
+	    sm.translate_y(-inter_f* dir);
 	out->add(sm);	    
     }
     
-    out->translate_y(dy*position_i_);
+    out->translate_y(inter_f*position_i_);
     return out;
 }
 
