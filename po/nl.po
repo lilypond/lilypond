@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 2.1.36\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-31 16:05+0200\n"
-"PO-Revision-Date: 2004-03-31 16:13+0200\n"
+"POT-Creation-Date: 2004-03-31 16:22+0200\n"
+"PO-Revision-Date: 2004-03-31 16:21+0200\n"
 "Last-Translator: Jan Nieuwenhuizen <janneke@gnu.org>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -380,7 +380,7 @@ msgstr "onbekende instelling: %s"
 #: lilypond.py:284
 #, python-format
 msgid "LilyPond crashed (signal %d)."
-msgstr "LilyPond is ingestort (signaal %s)."
+msgstr "LilyPond is neergestort (signaal %d)."
 
 #: lilypond.py:285
 msgid "Please submit a bug report to bug-lilypond@gnu.org"
@@ -814,7 +814,7 @@ msgstr "heb al een waardestreep"
 msgid "unterminated beam"
 msgstr "onbeëindigde waardestreep"
 
-#: beam-engraver.cc:245 chord-tremolo-engraver.cc:191
+#: beam-engraver.cc:245 chord-tremolo-engraver.cc:179
 msgid "stem must have Rhythmic structure"
 msgstr "stok moet Ritmische structuur hebben"
 
@@ -842,11 +842,11 @@ msgstr "kan `%s' niet in `%s' veranderen"
 #.
 #. last->translator_id_string_  = get_change ()->change_to_id_string_;
 #.
-#: change-iterator.cc:80
+#: change-iterator.cc:87
 msgid "I'm one myself"
 msgstr "Ben er zelf een"
 
-#: change-iterator.cc:83
+#: change-iterator.cc:90
 msgid "none of these in my family"
 msgstr "geen van deze in mijn gezin"
 
@@ -855,7 +855,7 @@ msgstr "geen van deze in mijn gezin"
 msgid "Chord tremolo with %d elements. Must have two elements."
 msgstr "Akkoordtremool met %d elementen. Moet twee elementen hebben."
 
-#: chord-tremolo-engraver.cc:153
+#: chord-tremolo-engraver.cc:141
 msgid "unterminated chord tremolo"
 msgstr "onbeëindigd akkoordtremolo"
 
@@ -866,7 +866,7 @@ msgstr "niemand om tremolos af te drukken"
 #: clef.cc:64
 #, c-format
 msgid "clef `%s' not found"
-msgstr "sleutel `s' niet gevonden"
+msgstr "sleutel `%s' niet gevonden"
 
 #: cluster.cc:123
 #, c-format
@@ -881,7 +881,7 @@ msgstr "hebbes: ptr=%ul"
 #: coherent-ligature-engraver.cc:96
 #, c-format
 msgid "distance=%f"
-msgstr "afstand=%s"
+msgstr "afstand=%f"
 
 #: coherent-ligature-engraver.cc:139
 #, c-format
@@ -1098,8 +1098,7 @@ msgstr ""
 #: lookup.cc:174
 msgid "round filled box vertical extent smaller than blot; decreasing blot"
 msgstr ""
-"rond gevulde doos vertikale afmetingen kleiner dan blot; verkleinen van "
-"blot\n"
+"rond gevulde doos vertikale afmetingen kleiner dan blot; verkleinen van blot"
 
 #: main.cc:100
 msgid ""
@@ -1111,7 +1110,7 @@ msgstr ""
 "Dit is vrije programmatuur.  Het valt onder de GNU Algemene Openbare\n"
 "Licentie (General Public Licence), en u wordt uitgenodigd het te\n"
 "veranderen en/of te verspreiden onder bepaalde voorwaarden.  Roep aan\n"
-"als `lilypond-bin --warranty' voor meer informatie.  "
+"als `lilypond-bin --warranty' voor meer informatie.\n"
 
 #: main.cc:106
 msgid ""
@@ -1302,7 +1301,7 @@ msgstr "Vingerzettingen zijn ook niet onder?! Zet ze toch onder."
 
 #: new-lyric-combine-music-iterator.cc:172
 #, c-format
-msgid "cannot find Voice: %s\n"
+msgid "cannot find Voice: %s"
 msgstr "kan Voice niet vinden: %s"
 
 #: note-collision.cc:384
@@ -1538,12 +1537,12 @@ msgstr "vlag streep `%s' niet gevonden"
 msgid "tremolo duration is too long"
 msgstr "tremololengte is te lang"
 
-#: stem-engraver.cc:126
+#: stem-engraver.cc:128
 #, c-format
 msgid "Adding note head to incompatible stem (type = %d)"
 msgstr "Voeg noot bolletje toe aan onverenigbare stok (type = %d)"
 
-#: stem-engraver.cc:127
+#: stem-engraver.cc:129
 msgid "Don't you want polyphonic voices instead?"
 msgstr "Wil je anders echt geen polyfone stemmen?"
 
@@ -1644,13 +1643,15 @@ msgid ""
 "ignored prefix (es) `%s' of this head according to restrictions of the "
 "selected ligature style"
 msgstr ""
-"negeren van voorvoegsel (es) `%s' van dit bolletje volgens restricties van de\n"
+"negeren van voorvoegsel (es) `%s' van dit bolletje volgens restricties van "
+"de\n"
 "geselecteerde ligatuurstijl"
 
 #: vaticana-ligature-engraver.cc:572
 #, c-format
 msgid "Vaticana_ligature_engraver: setting `spacing-increment = %f': ptr=%ul"
-msgstr "Vaticana_ligature_engraver: instelling `spacing-increment = %f': ptr=%ul"
+msgstr ""
+"Vaticana_ligature_engraver: instelling `spacing-increment = %f': ptr=%ul"
 
 #: volta-engraver.cc:140
 msgid "No volta spanner to end"
@@ -1677,48 +1678,48 @@ msgid "More alternatives than repeats.  Junking excess alternatives."
 msgstr ""
 "Meer alternatieven dan herhalingen.  Schroot overvloedige alternatieven."
 
-#: parser.yy:856 parser.yy:863
+#: parser.yy:857 parser.yy:864
 msgid "\\applycontext takes function argument"
 msgstr "\\applycontext neemt een functieargument"
 
-#: parser.yy:1013
+#: parser.yy:1014
 msgid "\\apply takes function argument"
 msgstr "\\apply neemt een functieargument"
 
-#: parser.yy:1376
+#: parser.yy:1377
 msgid "Can't find music"
 msgstr "Kan geen muziek vinden"
 
-#: parser.yy:1494
+#: parser.yy:1495
 msgid "Second argument must be pitch list."
 msgstr "Tweede argument moet een toonhoogtelijst zijn."
 
-#: parser.yy:1531 parser.yy:1536 parser.yy:2069
+#: parser.yy:1532 parser.yy:1537 parser.yy:2070
 msgid "Have to be in Lyric mode for lyrics"
 msgstr "Moet in Lyric modus zijn voor liedteksten"
 
-#: parser.yy:1621
+#: parser.yy:1622
 msgid "Expecting string as script definition"
 msgstr "Verwacht string voor script definitie"
 
-#: parser.yy:1828 parser.yy:1883
+#: parser.yy:1829 parser.yy:1884
 #, c-format
 msgid "not a duration: %d"
 msgstr "geen duur: %d"
 
-#: parser.yy:1979
+#: parser.yy:1980
 msgid "Have to be in Note mode for notes"
 msgstr "Moet in Note modus zijn voor noten"
 
-#: parser.yy:2084
+#: parser.yy:2085
 msgid "Have to be in Chord mode for chords"
 msgstr "Moet in Chord modus zijn voor accoorden"
 
-#: parser.yy:2231
+#: parser.yy:2232
 msgid "need integer number arg"
 msgstr "heb integer getal arg nogig"
 
-#: parser.yy:2382
+#: parser.yy:2383
 msgid "Suspect duration found following this beam"
 msgstr "Verdachte lengte gevonden volgend op deze waardestreep"
 
