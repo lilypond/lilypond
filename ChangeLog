@@ -1,4 +1,10 @@
+2002-09-11  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* mf/GNUmakefile: make PFA for sauter CM fonts.
+
 2002-09-10  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* mf/GNUmakefile: make map file for pfa target as well. 
 
 	* scm/tex.scm (end-output): add newline to output
 
