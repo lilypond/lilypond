@@ -1,3 +1,5 @@
+% fetdefs.tex
+% encapsulating tex backend for auto-generated font-en-tja definitions
 
 \def\fetsixteendefs{
         \font\fontentja=font-en-tja16
@@ -8,6 +10,19 @@
 
 % \def\fetdef#1#2{\def#1{\fetchar{#2}}}
 % ugh, linewidth, ugh, tablexx.ly balldims not used!
-\def\fetdef#1#2{\def#1{\lower.5\staffrulethickness\hbox{\fetchar{#2}}}}
+\def\fetdef#1#2{\def#1{\lower.3884\staffrulethickness\hbox{\fetchar{#2}}}}
 \def\fetchar#1{\fontentja\char#1}
+
 \input font-en-tja20
+
+\def\beamuslope#1#2{{\count0=#2\advance\count0 by#1
+        \advance\count0 by \beamuslopestart
+	% huh?? -- think i followed taupin beam convention
+	% is lily confused?
+	\advance\count0 by -8
+        \fetchar\count0}}
+\def\beamdslope#1#2{{\count0=#2\advance\count0 by#1
+        \advance\count0 by \beamdslopestart
+	% huh??
+	\advance\count0 by -8
+        \fetchar\count0}}

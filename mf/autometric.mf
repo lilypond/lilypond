@@ -1,5 +1,9 @@
 % autometric.mf
 % part of LilyPond's pretty-but-neat music font
+% 
+% these macros help create ascii logging output
+% to automate generation of lily tables and tex backend
+% parsed by the mf-to-table script
 
 % font or database?
 def fet_beginfont(expr name,size) =
@@ -25,8 +29,15 @@ def fet_endgroup(expr name) =
 	message "";
 	enddef;
 	
-def fet_beginchar(expr code,w,h,d,name,id,texstr) =
-	message "@@char:"&name&":"&decimal code&":"&decimal w&":"&decimal h&":"&decimal d&":"&id&":"&texstr&"@@";
+% starts just as plain mf's beginchar:
+%     charcode, width, height, depth
+% and then adds:
+%     charname	see below
+%     breapth	x-depth
+%     id	index in lily's table
+%     texstr	name of tex macro in lily's table and tex backend
+def fet_beginchar(expr code,w,h,d,b,name,id,texstr) =
+	message "@@char:"&name&":"&decimal code&":"&decimal w&":"&decimal h&":"&decimal d&":"&decimal b&":"&id&":"&texstr&"@@";
 	beginchar(code,w,h,d) name;
 	enddef;
 

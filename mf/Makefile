@@ -46,12 +46,12 @@ localuninstall:
 # dependencies:
 #
 $(lyout)/dyn10.ly: autometric.mf ital-f.mf ital-m.mf ital-p.mf ital-r.mf ital-s.mf ital-z.mf dyn10.mf
-$(lyout)/font-en-tja16.ly: autometric.mf bolletjes.mf eindelijk.mf font-en-tja16.mf
-$(lyout)/font-en-tja20.ly: autometric.mf bolletjes.mf eindelijk.mf font-en-tja20.mf
+$(lyout)/font-en-tja16.ly: autometric.mf bolletjes.mf eindelijk.mf font-en-tja16.mf wat-zie-ik.mf
+$(lyout)/font-en-tja20.ly: autometric.mf bolletjes.mf eindelijk.mf font-en-tja20.mf wat-zie-ik.mf
 #
 $(texout)/dyn10.tex: autometric.mf ital-f.mf ital-m.mf ital-p.mf ital-r.mf ital-s.mf ital-z.mf dyn10.mf
-$(texout)/font-en-tja16.tex: autometric.mf bolletjes.mf eindelijk.mf font-en-tja16.mf
-$(texout)/font-en-tja20.tex: autometric.mf bolletjes.mf eindelijk.mf font-en-tja20.mf
+$(texout)/font-en-tja16.tex: autometric.mf bolletjes.mf eindelijk.mf font-en-tja16.mf wat-zie-ik.mf
+$(texout)/font-en-tja20.tex: autometric.mf bolletjes.mf eindelijk.mf font-en-tja20.mf wat-zie-ik.mf
 #
 
 

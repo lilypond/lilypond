@@ -18,6 +18,7 @@ code:=-1;
 
 input bolletjes;
 input eindelijk;
+input wat-zie-ik;
 
 fet_endfont("font-en-tja");
 

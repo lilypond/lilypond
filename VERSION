@@ -3,4 +3,4 @@ TOPLEVEL_MINOR_VERSION = 1
 TOPLEVEL_PATCH_LEVEL = 17
 
 # use to send patches, always empty for released version:
-TOPLEVEL_MY_PATCH_LEVEL = .jcn1
+TOPLEVEL_MY_PATCH_LEVEL = .jcn2

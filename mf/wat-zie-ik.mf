@@ -1,0 +1,58 @@
+% wat-zie-ik.mf
+% part of LilyPond's pretty-but-neat music font
+% beams: plat en steil
+
+fet_begingroup("beamslopes");
+
+beamheight#:=0.48interline#;
+define_pixels(beamheight);
+
+pen beam_pen;
+beam_pen:=penrazor scaled beamheight rotated 90;
+
+% mimic taupin-SLOPES for now -- because lily knows them
+ELEM_TAN:=0.05;
+SLOPES:=10;
+LENGTHS:=5;
+ELEM_LEN:=2;
+
+% fake char for tables; will be overwritten by mf
+% misuse breapth for minimum length (mf-to-table negates breapth again)
+fet_beginchar(code+1,ELEM_LEN**LENGTHS,0,0,-ELEM_LEN,"Beamslopes up","uslope","beamuslope{%}{%}");
+	endchar;
+
+% Beamslopes up
+for i:=1 upto SLOPES:
+	width:=ELEM_LEN;
+	for j:=1 upto LENGTHS:
+		beginchar(incr code,width,0,0);
+			pickup beam_pen;
+			draw origin--(lft w,w*i*ELEM_TAN);
+			endchar;
+		width:=2*width;
+		endfor;
+	endfor;
+
+% fake char for tables; will be overwritten by mf
+% misuse breapth for minimum length (mf-to-table negates breapth again)
+fet_beginchar(code+1,ELEM_LEN**LENGTHS,0,0,-ELEM_LEN,"Beamslopes down","dslope","beamdslope{%}{%}");
+	endchar;
+
+% Beamslopes down
+for i:=1 upto SLOPES:
+	width:=ELEM_LEN;
+	for j:=1 upto LENGTHS:
+		beginchar(incr code,width,0,0);
+			pickup beam_pen;
+			draw origin--(lft w,-w*i*ELEM_TAN);
+			endchar;
+		width:=2*width;
+		endfor;
+	endfor;
+
+% fake char for tables
+fet_beginchar(code+1*SLOPES*LENGTHS,0,0,0,0,"Horizontal beams","horizontal","rulesym{%}{%}");
+	endchar;
+	
+fet_endgroup("beamslopes");
+

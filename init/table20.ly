@@ -165,7 +165,7 @@ table_twenty =
 	"d7"	"\dhundredtwentyeighthflag"	0.0\pt	5.0\pt	0.0\pt	0.0\pt
      }
 
-    "beamslopes" = \table {
+    "oldbeamslopes" = \table {
 	"uslope"	"\beamuslope{%}{%}"  2.0\pt 64.0\pt 0.0\pt 0.0\pt
 	"dslope"	"\beamdslope{%}{%}"  2.0\pt 64.0\pt 0.0\pt 0.0\pt
 	"horizontal"	"\rulesym{%}{%}"	

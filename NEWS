@@ -1,3 +1,11 @@
+pl 17.jcn2
+	- egcs compile (no link yet)
+	- nicer 4rest
+	- beam font (je kunt wel tegen een grapje, eva?)
+	- mf-to-table: 
+	  * "breapth" (x-depth) feature
+	  * handle generic stuff such as beams
+
 pl 17.jcn1
 	- all of the above
 

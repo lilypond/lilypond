@@ -7,7 +7,7 @@
 interline#:=staffsize#/(stafflines-1);
 %noteheight#:=interline#;
 % even more pronounced (almost overdone), just like the original
-noteheight#:=interline#+2stafflinethickness#;
+noteheight#:=interline#+1.5stafflinethickness#;
 
 def test_grid =
 if test>1:
@@ -46,7 +46,7 @@ def end_notehead(expr code,height,name,id,texstr) =
 	define_pixels(a,b);
 	define_pixels(w,h);
 	define_pixels(ai,bi);
- 	fet_beginchar(code,w#,h#,0,name,id,texstr);
+ 	fet_beginchar(code,w#,h#,0,0,name,id,texstr);
 		path black,white;
 		black=distorted_ellipse(a,b,a*err_y_a,0,super);
 		white=distorted_ellipse(ai,bi,ai*err_y_ai,bi*err_x_bi,superi);
@@ -156,7 +156,7 @@ nhh#:=interline#;
 nhw#:=6/5interline#;
 define_pixels(nhh,nhw);
 
-fet_beginchar(incr code,2interline#,interline#,0,"Brevis notehead","-1","breveball");
+fet_beginchar(incr code,2interline#,interline#,0,0,"Brevis notehead","-1","breveball");
 	fill_square (5/4nhw, .25nhh, (0,.25nhh));
 	add_mirror (origin, right);
 	x1=x2=0; x3=x4=5/4nhw; y1=-y2=y3=-y4=.7nhh;
@@ -165,7 +165,7 @@ fet_beginchar(incr code,2interline#,interline#,0,"Brevis notehead","-1","breveba
 	savepic;
 	endchar;
 
-fet_beginchar(incr code,2interline#,interline#,0,"Longa notehead","-2","longaball");
+fet_beginchar(incr code,2interline#,interline#,0,0,"Longa notehead","-2","longaball");
 	callpic;
 	pickup line_pen;
 	draw (5/4nhw,-.7nhh)--(5/4nhw,-1.7nhh);

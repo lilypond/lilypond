@@ -267,7 +267,14 @@ Translator_group::get_default_interpreter()
 }
 
 void
-Translator_group::each (Method_pointer method) const
+Translator_group::each (Method_pointer method)
+{
+  for (PCursor<Translator*> i (trans_p_list_.top ()); i.ok (); i++)
+    (i.ptr()->*method) ();     
+}
+
+void
+Translator_group::each (Const_method_pointer method) const
 {
   for (PCursor<Translator*> i (trans_p_list_.top ()); i.ok (); i++)
     (i.ptr()->*method) ();     
