@@ -1,3 +1,13 @@
+2004-09-22  Pedro Kroger  <kroeger@pedrokroeger.net>
+
+	* scm/paper.scm (set-paper-dimensions): add printfirstpagenumber.
+
+	* scm/page-layout.scm (plain-header): if printfirstpagenumber is
+	true will print the page number in the first page.
+
+	* Documentation/user/changing-defaults.itely: Document
+	printfirstpagenumber.
+
 2004-09-22  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/phrasing-slur-engraver.cc (acknowledge_grob): avoid more

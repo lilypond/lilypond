@@ -2213,6 +2213,9 @@ The default layout responds to the following settings in the
 @table @code
 @item firstpagenumber
  The value of the page number of the first page. Default is 1.
+@item printfirstpagenumber
+ If set to true will print the page number in the first page. Default is
+ false.
 @item hsize
  The width of the page
 @item vsize
