@@ -670,6 +670,109 @@ bassWords = \lyricmode {
 @end lilypond
 
 
+@subsection SATB vocal score and piano reduction
+
+This template adds an automatic piano reduction to the SATB vocal
+score.  This demonstrates one of the strengths of LilyPond -- you
+can use a music definition more than once.  If you make any changes
+to the vocal notes (say, tenorMusic), then the changes will also
+apply to the piano reduction.
+
+@lilypond[quote,verbatim,raggedright]
+\version "2.4.0"
+global = {
+   \key c \major
+   \time 4/4
+}
+
+sopMusic = \relative c'' {
+   c4 c c8[( b)] c4
+}
+sopWords = \lyricmode {
+   hi hi hi hi
+}
+
+altoMusic = \relative c' {
+   e4 f d e
+}
+altoWords =\lyricmode {
+   ha ha ha ha
+}
+
+tenorMusic = \relative c' {
+   g4 a f g
+}
+tenorWords = \lyricmode {
+   hu hu hu hu
+}
+bassMusic = \relative c {
+   c4 c g c
+}
+bassWords = \lyricmode {
+   ho ho ho ho
+}
+
+\score {
+<<
+  \context ChoirStaff
+  <<
+    \context Lyrics = sopranos { s1 }
+    \context Staff = women <<
+      \context Voice =
+        sopranos { \voiceOne << \global \sopMusic >> }
+      \context Voice =
+        altos { \voiceTwo << \global \altoMusic >> }
+    >>
+    \context Lyrics = altos { s1 }
+    \context Lyrics = tenors { s1 }
+    \context Staff = men <<
+      \clef bass
+      \context Voice =
+        tenors { \voiceOne <<\global \tenorMusic >> }
+      \context Voice =
+        basses { \voiceTwo <<\global \bassMusic >> }
+    >>
+    \context Lyrics = basses { s1 }
+    \context Lyrics = sopranos \lyricsto sopranos \sopWords
+    \context Lyrics = altos \lyricsto altos \altoWords
+    \context Lyrics = tenors \lyricsto tenors \tenorWords
+    \context Lyrics = basses \lyricsto basses \bassWords
+  >>
+  \new PianoStaff
+  <<
+    \new Staff <<
+    \context Lyrics = tenors \lyricsto tenors \tenorWords
+    \context Lyrics = basses \lyricsto basses \bassWords
+  >>
+  \new PianoStaff
+  <<
+    \new Staff <<
+      \set Staff.printPartCombineTexts = ##f
+      \partcombine
+      << \global \sopMusic >>
+      << \global \altoMusic >>
+    >>
+    \new Staff <<
+      \clef bass
+      \set Staff.printPartCombineTexts = ##f
+      \partcombine
+      << \global \tenorMusic >>
+      << \global \bassMusic >>
+    >>
+  >>
+>>
+   
+   \layout {
+      \context {
+         % a little smaller so lyrics
+         % can be closer to the staff
+         \Staff minimumVerticalExtent = #'(-3 . 3)
+      }
+   }
+}
+@end lilypond
+
+
 @c bad node name to avoid node name confict
 @node Ancient notation templates
 @section Ancient notation templates
