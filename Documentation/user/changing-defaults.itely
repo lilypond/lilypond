@@ -534,7 +534,7 @@ second group of eighth notes.
 
 There is also an @code{\unset} command,
 @quotation
-  @code{\set }@var{context}@code{.}@var{prop}
+  @code{\unset }@var{context}@code{.}@var{prop}
 @end quotation
 
 @noindent
