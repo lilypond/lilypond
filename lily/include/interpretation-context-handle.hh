@@ -22,7 +22,7 @@ public:
   void operator = (Interpretation_context_handle const&);
   Interpretation_context_handle (Interpretation_context_handle const&);
   Translator_group * report_to () const;
-
+  int get_count () const;
   void quit ();
 private:
   Translator_group * report_to_;

@@ -1635,7 +1635,7 @@ def conv (str):
 			if c == 'Score':
 				return ''
 			else:
-				return r"\unset \property %s.melismaBusyProperties"  % c
+				return r" \property %s.melismaBusyProperties \unset"  % c
 		elif b == 'f':
 			return r"\property %s.melismaBusyProperties = #'(melismaBusy)"  % c
 		

@@ -4,7 +4,7 @@
 input feta-autometric;
 
 % todo change file name
-fet_beginfont("feta", 22.5);
+fet_beginfont("feta", 18);
 staffsize#:=17.82pt#;
 test:=0;
 

@@ -91,6 +91,12 @@ Lyric_phrasing_engraver::get_phrasing_assoc (String nm)
 String
 Lyric_phrasing_engraver::get_voice_name_for_lyric (Translator_group*tr)
 {
+  SCM voice_context = tr->get_property ("associatedVoiceContext");
+  if (Translator *vc = unsmob_translator (voice_context))
+    {
+      return dynamic_cast<Translator_group*> (vc)->id_string_;
+    }
+  
   SCM voice = tr->get_property ("associatedVoice");
   String nm = tr->id_string_;
   if (gh_string_p (voice))

@@ -1123,7 +1123,8 @@ c4
 \bar ":|" c
 \bar ".|" c
 \bar ".|." c
-\bar "|." 
+\bar "|." c
+\bar ":" c
 @end lilypond
 For allowing linebreaks, there is a special command,
 @example
@@ -1171,9 +1172,9 @@ You are encouraged to use @code{\repeat} for repetitions.  See
 In this manual: @ref{Repeats}.
 
 
-The bar line objects that are created at @internalsref{Staff} level
-are called @internalsref{BarLine}, the bar lines that span staves are
-@internalsref{SpanBar}s.
+Internals: the bar line objects that are created at
+@internalsref{Staff} level are called @internalsref{BarLine}, the bar
+lines that span staves are @internalsref{SpanBar}s.
 
 @cindex bar lines at start of system
 @cindex start of system
@@ -1183,6 +1184,8 @@ The barlines at the start of each system are
 @internalsref{SystemStartBracket}.  Only one of these types is created
 in every context, and that type is determined by the property
 @code{systemStartDelimiter}.
+
+Examples: @inputfileref{input/test,bar-lines.ly},
 
 @node Polyphony
 @section Polyphony

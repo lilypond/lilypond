@@ -238,6 +238,7 @@ yylex (YYSTYPE *s,  void * v)
 
 %token ACCEPTS
 %token ADDLYRICS
+%token NEWADDLYRICS
 %token ALIAS
 %token ALTERNATIVE
 %token APPLY
@@ -1096,6 +1097,13 @@ re_rhythmed_music:
 	  scm_gc_unprotect_object ($3->self_scm ());
 	  scm_gc_unprotect_object ($2->self_scm ());
 	  $$ = l;
+	}
+	| NEWADDLYRICS string Music {
+	  Music*l =MY_MAKE_MUSIC("NewLyricCombineMusic");
+	  l->set_mus_property ("element", $3->self_scm ());
+	  scm_gc_unprotect_object ($3->self_scm ());
+	  $$ = l;
+	  l->set_mus_property ("associated-context", $2);
 	}
 	;
 

@@ -445,7 +445,7 @@ Spacing_spanner::find_shortest (Grob *me, Link_array<Grob> const &cols)
 	  assert (this_shortest.to_bool());
 	  shortest_in_measure = shortest_in_measure <? this_shortest.main_part_;
 	}
-      else if (!shortest_in_measure.infty_b()
+      else if (!shortest_in_measure.is_infinity ()
 	       && Item::breakable_b (cols[i]))
 	{
 	  int j = 0;

@@ -95,4 +95,8 @@ Interpretation_context_handle::report_to ()const
   return report_to_;
 }
 
-
+int
+Interpretation_context_handle::get_count ()const
+{
+  return report_to_->iterator_count_ ;
+}

@@ -16,7 +16,7 @@ parens are also not seen by accidentals.
    "Construct a function that will do CALLBACK and add parentheses.
 Example usage:
 
-  \property Voice.NoteHead \\override #'molecule-callback
+  \\property Voice.NoteHead \\override #'molecule-callback
 		      =
 		      #(parenthesize-callback Note_head::brew_molecule)
 		    

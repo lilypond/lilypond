@@ -270,6 +270,9 @@ function.")
 (translator-property-description 'highStringOne boolean? "Whether the
 1st string is the string with highest pitch on the instrument (used by
 the automatic string selector).")
+
+(translator-property-description 'ignoreMelismata boolean?
+				 "Ignore melismata for this @ref{LyricsVoice}.")
 (translator-property-description 'instr markup? "see @code{instrument}")
 (translator-property-description 'instrument markup? " If @code{Instrument_name_engraver}
 @cindex Instrument_name_engraver

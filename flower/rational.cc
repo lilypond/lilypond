@@ -143,7 +143,7 @@ Rational::compare (Rational const &r, Rational const &s)
     return -1;
   else if (r.sign_ > s.sign_)
     return 1;
-  else if (r.infty_b ())
+  else if (r.is_infinity ())
     return 0;
   else if (r.sign_ == 0)
     return 0;
@@ -169,9 +169,9 @@ Rational::operator %= (Rational r)
 Rational &
 Rational::operator += (Rational r)
 {
-  if (infty_b ())
+  if (is_infinity ())
     ;
-  else if (r.infty_b ())
+  else if (r.is_infinity ())
     {
       *this = r;
     }
@@ -242,7 +242,7 @@ Rational &
 Rational::operator *= (Rational r)
 {
   sign_ *= ::sign (r.sign_);
-  if (r.infty_b ())
+  if (r.is_infinity ())
     {	
       sign_ = sign () * 2;
       goto exit_func;
@@ -279,7 +279,7 @@ Rational::operator -= (Rational r)
 String
 Rational::to_string () const
 {
-  if (infty_b ())
+  if (is_infinity ())
     {
       String s (sign_ > 0 ? "" : "-" );
       return String (s + "infinity");
@@ -301,4 +301,10 @@ int
 sign (Rational r)
 {
   return r.sign ();
+}
+
+bool
+Rational::is_infinity () const
+{
+  return sign_ == 2 || sign_ == -2;
 }
