@@ -18,11 +18,14 @@
 #include "dimen.hh"
 #include "debug.hh"
 #include "lookup.hh"
+#include "misc.hh"
 
 Atom
 Lookup::beam_element (int sidx, int widx, Real slope) const
 {
-  Atom bs=(*symtables_)("beamslopes")->lookup ("slope");
+  char dir_char = slope >0 ? 'u' : 'd';
+  String name = dir_char + String("slope");
+  Atom bs=(*symtables_)("beamslopes")->lookup (name);
   
   Array<String> args;
   args.push (sidx);
@@ -39,7 +42,7 @@ Lookup::beam_element (int sidx, int widx, Real slope) const
 static int
 slope_index (Real &s)
 {
-  if (abs (s) > 0.5) 
+  if (abs (s) > 0.5)
     {
       WARN << "beam steeper than 0.5 (" << s << ")\n";
       s = sign (s) * 0.5;
@@ -49,9 +52,9 @@ slope_index (Real &s)
 
   s = i/20.0;
   if (s>0)
-    return 6*i +122;
+    return 6*i;
   else
-    return -6 * i+ 186;
+    return -6 * i;
 }
 
 Atom
@@ -73,13 +76,18 @@ Lookup::beam (Real &slope, Real width) const
   int sidx = slope_index (slope);
   if (!slope)
     return rule_symbol (2 PT, width);
-  if (width < 2 PT) 
+
+  Interval xdims = (*symtables_)("beamslopes")->lookup ("uslope").dim_[X_AXIS];
+  Real min_wid = xdims[LEFT];
+  Real max_wid = xdims[RIGHT];
+
+  if (width < min_wid) 
     {
       WARN<<"Beam too narrow. (" << print_dimen (width) <<")\n";
-      width = 2 PT;
+      width = min_wid;
     }
-  Real elemwidth = 64 PT;
-  int widx = 5;
+  Real elemwidth = max_wid;
+  int widx = intlog2 (int (max_wid/min_wid));
 
   Molecule m;
   
@@ -92,16 +100,15 @@ Lookup::beam (Real &slope, Real width) const
   Real last_x = width - elemwidth;
   Real x = overlap;
   Atom elem (beam_element (sidx, widx, slope));
-  Atom a (elem);
-  m.add (a);
+  m.add (elem);
   while (x < last_x) 
     {
-      a=elem;
+      Atom a(elem);
       a.translate (Offset (x-overlap, (x-overlap)*slope));
       m.add (a);
       x += elemwidth - overlap;
     }
-  a=elem;
+  Atom a(elem);
   a.translate (Offset (last_x, (last_x) * slope));
   m.add (a);
   

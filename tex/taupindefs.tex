@@ -1,8 +1,8 @@
-
+\input fetdefs
 \def\musixtwentyfonts{
         \font\normaltextfont=cmr10 %\textfont is a primitive
         \font\smalltextfont=cmr8
-        \font\meterfont=cmbx12
+        \font\meterfont=cmbx15
         \font\slurufont=xslu20
         \font\slurdfont=xsld20
         \font\slurhfont=xslz20
@@ -14,7 +14,7 @@
         \font\italicfont=cmti10
         \font\dynfont=dyn10 scaled \magstep2
         \font\musicmathfont=cmsy10
-        \font\fontentja=font-en-tja20
+        \fettwentydefs
 }
 
 
@@ -33,21 +33,11 @@
         \font\dynfont=dyn10 scaled \magstep1
         \font\musicdraw=musixsps
         \font\musicmathfont=cmsy8
-        \font\fontentja=font-en-tja16
+        \fetsixteendefs
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % provide interface to musixtex fonts 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \def\fetdef#1#2{\def#1{\fetchar{#2}}}
-% ugh, linewidth, ugh, tablexx.ly balldims not used!
-\def\fetdef#1#2{\def#1{\lower.5\staffrulethickness\hbox{\fetchar{#2}}}}
-\def\fetchar#1{\fontentja\char#1}
-% \musicdef\quartball{'007}
-% \musicdef\halfball{'010}
-% \musicdef\wholeball{'011}
-\fetdef\quartball{'002}
-\fetdef\halfball{'001}
-\fetdef\wholeball{'000}
 \musicdef\breveball{'040}
 \musicdef\longaball{'047}
 \musicdef\halfrest{'074}
@@ -134,3 +124,11 @@
 \musicdef\downbow{22}
 
 \def\tr{{\it tr}}
+
+\def\beamuslope#1#2{{\count0=#2\advance\count0 by#1
+        \advance\count0 by 122
+        \musicfnt\char\count0}}
+\def\beamdslope#1#2{{\count0=#2\advance\count0 by#1
+        \advance\count0 by 186
+        \musicfnt\char\count0}}
+
