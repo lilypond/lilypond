@@ -1,4 +1,14 @@
-pl 18.jcn5
+--- ../lilypond-1.1.18/NEWS	Mon Jan  4 10:25:45 1999
+++ b/NEWS	Wed Jan  6 01:43:24 1999
+@@ -1,3 +1,8 @@
+pl 18.mb1
+        - \mark now works, using G_staff_side_item.
+	- Improved layout of multi-bar rests, including a new
+	  font symbol.
+
+ pl 17.jbr2
+         - Documentation/README-W32: Brought my stuff up to date
+         - Documentation/ntweb: updated for realeasepl 18.jcn5
 	- bf: beamtrend
 	- bf: vv-duet
 

@@ -15,7 +15,7 @@
 #include "script.hh"
 #include "text-def.hh"
 #include "molecule.hh"
-
+#include "misc.hh"
 
 
 Multi_measure_rest::Multi_measure_rest ()
@@ -37,17 +37,28 @@ Multi_measure_rest::do_brew_molecule_p () const
      * make real multi-measure rest symbol: |---|
      * make two,four,eight-measure-rest symbols
    */
-
-  Atom s (lookup_l ()->rest (0, 0));
+  Atom s;
+  if (measures_i_ == 1 || measures_i_ == 2 || measures_i_ == 4) 
+    {
+      s = (lookup_l ()->rest (- intlog2(measures_i_), 0));
+    }
+  else 
+    {
+      s = (lookup_l ()->rest (-4, 0));
+    }
   Molecule* mol_p = new Molecule ( Atom (s));
   Real interline_f = paper ()->interline_f ();
-  mol_p->translate_axis (interline_f, Y_AXIS);
+  if (measures_i_ == 1)
+    {
+      mol_p->translate_axis (interline_f, Y_AXIS);
+    }
 
   if (measures_i_ > 1)
     {
       Text_def text;
       text.text_str_ = to_str (measures_i_);
       text.style_str_ = "number";
+      text.align_dir_ = CENTER;
       Atom s = text.get_atom (paper (), UP);
       s.translate_axis (3.0 * interline_f, Y_AXIS);
       mol_p->add_atom (s);
