@@ -38,9 +38,7 @@
 		(visibility-lambda . ,begin-of-line-visible)
 		(padding . 1.0)
 		(direction . 1)
-                (markup-to-properties . ,markup-to-properties)
                 (font-family . roman)
-		
 		(font-relative-size . -1)
 		(meta . ,(element-description "BarNumber"
 			text-interface  font-interface break-aligned-interface))
@@ -91,8 +89,8 @@
 		(molecule-callback . ,Chord_name::brew_molecule)
 		(after-line-breaking-callback . ,Chord_name::after_line_breaking)
 		(chord-name-function . ,default-chord-name-function)
-		(markup-to-properties . ,markup-to-properties)
-		(meta . ,(element-description "ChordNames"  font-interface chord-name-interface))
+		(font-family . roman)
+		(meta . ,(element-description "ChordNames"  font-interface text-interface chord-name-interface))
 	))
 
 	(NoteCollision . (
@@ -133,8 +131,8 @@
 		(Y-offset-callbacks . (,Side_position::aligned_on_self))
 		(molecule-callback . ,Text_item::brew_molecule)
 		(script-priority . 100)
-		(font-style . dynamic)
-                (markup-to-properties . ,markup-to-properties)
+		(font-series . bold)
+		(font-family . dynamic)
 		(self-alignment-Y . 0)
 		(meta . ,(element-description "DynamicText" font-interface  text-interface ))
 	))
@@ -158,9 +156,9 @@
 		(X-offset-callbacks . (,Side_position::centered_on_parent ,Side_position::aligned_on_self))
 		(padding . 	3.0)
 		(self-alignment-X . 0)
-		
-		(font-style . finger)
-                (markup-to-properties . ,markup-to-properties)
+		(font-family . number)
+		(font-relative-size . -3)
+		(font-shape . upright)
 		(meta . ,(element-description "Fingering" finger-interface  font-interface text-script-interface text-interface side-position-interface))
 	))
 
@@ -196,7 +194,6 @@
 		(molecule-callback . ,Text_item::brew_molecule)		
 		(break-align-symbol . Instrument_name)
 		(visibility-lambda . ,begin-of-line-visible)
- 		(markup-to-properties . ,markup-to-properties)
  		(font-family . roman)
 		(meta . ,(element-description "InstrumentName"  font-interface  text-interface break-aligned-interface))
 	))
@@ -237,23 +234,20 @@
 		(self-alignment-X . 0)
 		(non-rhythmic . #t)
 		(word-space . 0.6)
-		
-		(markup-to-properties . ,markup-to-properties)
 		(font-family . roman)
 		(font-shape . upright)
 		(font-relative-size . 0)
-                
 		(meta . ,(element-description "LyricText" lyric-syllable-interface text-interface font-interface ))
 	))
 	
 	(RehearsalMark . (
-	  (molecule-callback . ,Text_item::brew_molecule)	
-	  (breakable . #t)
-              (markup-to-properties . ,markup-to-properties)
-               (font-style . mark)
-		 (visibility-lambda . ,end-of-line-invisible)
-	  (padding . 4.0)
-	  (meta . ,(element-description "RehearsalMark"  mark-interface side-position-interface))
+		(molecule-callback . ,Text_item::brew_molecule)	
+		(breakable . #t)
+		(font-family . number)
+		(font-relative-size . 1)
+		(visibility-lambda . ,end-of-line-invisible)
+		(padding . 4.0)
+		(meta . ,(element-description "RehearsalMark"  mark-interface side-position-interface))
 	))
 	
 	(MultiMeasureRest . (
@@ -263,8 +257,8 @@
 		(expand-limit . 10)
 		(padding . 2.0) ; staffspace
 		(minimum-width . 12.5) ; staffspace
- 		(markup-to-properties . ,markup-to-properties)
-		(font-style . mmrest)
+		(font-family . number)
+		(font-relative-size . 1)
 		(meta . ,(element-description "MultiMeasureRest" multi-measure-rest-interface  font-interface ))
 	))
 	
@@ -285,7 +279,6 @@
 	(NoteName . (
 		(style . default)
 		(molecule-callback . ,Text_item::brew_molecule)
-                (markup-to-properties . ,markup-to-properties)
 		(meta . ,(element-description  "NoteName"
 					       note-name-interface font-interface
 					       general-element-interface))
@@ -299,8 +292,6 @@
 		(Y-offset-callbacks . (,Side_position::aligned_side))
 		(molecule-callback . ,Text_item::brew_molecule)
                 (font-shape . italic)
-                (markup-to-properties . ,markup-to-properties)
-
 		(meta . ,(element-description "OctavateEight" text-interface font-interface ))
 	))
 	
@@ -380,9 +371,8 @@
 		(molecule-callback . ,Text_item::brew_molecule)		
 		(break-align-symbol . Clef_item)
 		(visibility-lambda . ,begin-of-line-visible)
-                (markup-to-properties . ,markup-to-properties)
 		(font-family . roman)
-(meta . ,(element-description "StanzaNumber" break-aligned-interface text-interface font-interface))
+		(meta . ,(element-description "StanzaNumber" break-aligned-interface text-interface font-interface))
 	))
 
 	(StaffSymbol . (
@@ -399,8 +389,6 @@
 		  ,Side_position::centered_on_parent))
 		(no-spacing-rods . #t)
                 (font-shape . italic)
-                (markup-to-properties . ,markup-to-properties)
-		
 		(self-alignment-X . 0)
 		(meta . ,(element-description "SostenutoPedal" text-interface  font-interface))
 	))
@@ -446,8 +434,8 @@
 		(self-alignment-X . 0)
 		(X-offset-callbacks . (,Side_position::aligned_on_self))
 		(Y-offset-callbacks .
-		 (,Side_position::aligned_side
-		  ,Side_position::centered_on_parent))
+				    (,Side_position::aligned_side
+				     ,Side_position::centered_on_parent))
 
 		(meta . ,(element-description "SustainPedal" sustain-pedal-interface side-position-interface font-interface))
 	))
@@ -474,16 +462,14 @@
 		(molecule-callback . ,Text_item::brew_molecule)
 		(no-spacing-rods . #t)
 		(padding . 0.5)
-               (markup-to-properties . ,markup-to-properties)
-               (font-family . roman)
-               (font-shape . italic)
-               (font-relative-size . 0)
+		(font-family . roman)
+		(font-shape . italic)
+		(font-relative-size . 0)
 		(meta . ,(element-description "TextScript" text-script-interface text-interface side-position-interface font-interface ))
 	))
 	(TextSpanner . (
 		(molecule-callback . ,Text_spanner::brew_molecule)
                 (font-shape . italic)
-                (markup-to-properties . ,markup-to-properties)
 		(type . "line")
 		(direction . 1)
 		(meta . ,(element-description "TextSpanner" text-spanner-interface  font-interface))		
@@ -509,9 +495,8 @@
 		(break-align-symbol . Time_signature)
 		(visibility-lambda . ,all-visible)
 		(breakable . #t)
-                (markup-to-properties . ,markup-to-properties)
-                (font-style . timesig)
-		(meta . ,(element-description "TimeSignature" time-signature-interface  font-interface))
+                (font-family . number)
+                (meta . ,(element-description "TimeSignature" time-signature-interface  font-interface))
 	))
 
 	(TupletBracket . (
@@ -520,8 +505,8 @@
 		(thick . 1.0)
 		(after-line-breaking-callback . ,Tuplet_spanner::after_line_breaking)
 		(molecule-callback . ,Tuplet_spanner::brew_molecule)
-                (markup-to-properties . ,markup-to-properties)
-                (font-style . tuplet)
+		(font-shape . italic)
+		(font-relative-size . -1)
 		(meta .  ,(element-description "TupletBracket" text-interface
 			   tuplet-bracket-interface font-interface))
 	))
@@ -529,7 +514,6 @@
 	(UnaChordaPedal . (
 		(molecule-callback . ,Text_item::brew_molecule)
                 (font-shape . italic)
-                (markup-to-properties . ,markup-to-properties)
 		(no-spacing-rods . #t)
 		(self-alignment-X . 0)
 		(X-offset-callbacks . (,Side_position::aligned_on_self))
@@ -544,12 +528,13 @@
 	
 		(direction . 1)
 		(padding . 1)
-                (markup-to-properties . ,markup-to-properties)
                 (font-style . volta)
 		(Y-offset-callbacks . (,Side_position::aligned_side))
 		(thickness . 1.6)  ;  stafflinethickness
 		(height . 2.0) ; staffspace;
 		(minimum-space . 25)
+ 		(font-family . number)
+ 		(font-relative-size . -2)
 		(meta . ,(element-description "VoltaBracket" volta-bracket-interface side-position-interface font-interface))
 	))
 

@@ -105,15 +105,13 @@ Text_item::string2molecule (Score_element *me, SCM text, SCM alist_chain)
   SCM proc  = gh_cdr (scm_assoc (ly_symbol2scm ("properties-to-font"), sheet));
   SCM font_name = gh_call2 (proc, fonts, alist_chain);
 
-#if 0   
-  SCM lookup = scm_assoc (ly_symbol2scm ("lookup"), properties);
+  SCM lookup = ly_assoc_chain (ly_symbol2scm ("lookup"), alist_chain);
 
   Molecule mol;
   if (gh_pair_p (lookup) && ly_symbol2string (gh_cdr (lookup)) == "name")
     mol = lookup_character (me, font_name, text);
   else
-#endif
-  Molecule mol = lookup_text (me, font_name, text);
+    mol = lookup_text (me, font_name, text);
   
   return mol;
 }
@@ -163,30 +161,32 @@ Text_item::markup_sentence2molecule (Score_element *me, SCM markup_sentence,
 {
   /*
     FIXME
+
+    huh?
    */
-  return Molecule ();
+  // return Molecule ();
   
   SCM sheet = me->paper_l ()->style_sheet_;
-  SCM f = gh_cdr (scm_assoc (ly_symbol2scm ("markup-abbrev-to-properties-alist"), sheet));
+  SCM f = gh_cdr (scm_assoc (ly_symbol2scm ("markup-to-properties"), sheet));
   
   SCM markup = gh_car (markup_sentence);
   SCM sentence = gh_cdr (markup_sentence);
   
-  SCM p = gh_cons  (gh_call1 (f, markup), alist_chain);
+  SCM p = gh_cons  (gh_call2 (f, sheet, markup), alist_chain);
 
   Axis align = X_AXIS;
-  SCM a = scm_assoc (ly_symbol2scm ("align"), p);
+  SCM a = ly_assoc_chain (ly_symbol2scm ("align"), p);
   if (gh_pair_p (a) && gh_number_p (gh_cdr (a)))
     align = (Axis)gh_scm2int (gh_cdr (a));
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real kern = 0;
-  SCM k = scm_assoc (ly_symbol2scm ("kern"), p);
+  SCM k = ly_assoc_chain (ly_symbol2scm ("kern"), p);
   if (gh_pair_p (k) && gh_number_p (gh_cdr (k)))
     kern = gh_scm2double (gh_cdr (k)) * staff_space;
 			     
   Real raise = 0;
-  SCM r = scm_assoc (ly_symbol2scm ("raise"), p);
+  SCM r = ly_assoc_chain (ly_symbol2scm ("raise"), p);
   if (gh_pair_p (r) && gh_number_p (gh_cdr (r)))
     raise = gh_scm2double (gh_cdr (r)) * staff_space;
 
