@@ -20,18 +20,6 @@
 #include "audio-item.hh"
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 Midi_chunk::Midi_chunk ()
   : Midi_item (0)
 {

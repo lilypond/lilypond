@@ -43,7 +43,16 @@ Performance::output (Midi_stream& midi_stream_r)
   output_header_track (midi_stream_r);
   int n = 1;
   for (PCursor<Audio_staff*> i (audio_staff_l_list_); i.ok(); i++)
-    i->output (midi_stream_r, n++);
+    {
+      /*
+	Aargh, let's hear it for the MIDI standard.
+	MIDI players tend to ignore instrument settings on
+	channel 10, the percussion channel by default.
+       */
+      if (n == 10)
+	n++;
+      i->output (midi_stream_r, n++);
+    }
 }
 
 void
