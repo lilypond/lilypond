@@ -24,7 +24,7 @@ class Cursor
 
     /// make cursor with #no# items further
     Cursor<T> operator +( int no) const;
-
+    int operator -(Cursor<T> op) const;
     Cursor<T> operator -=(int);
     Cursor<T> operator +=(int);
     
@@ -80,13 +80,11 @@ class Cursor
     /// access the list this came from
     const List<T>& list() const ;
     Link<T>* pointer();
-    
+
 private:
     List<T>& list_;
     Link<T>* pointer_;
 };
-
-
 /** 
   add and insert extend the list
   items are always stored as copies in List, but:
@@ -98,31 +96,32 @@ private:
 
 
 
-/// cursor which feels like a pointer
+
+
+
+/*
+  comparations.
+  */
+
+
+
+
+
+
+
+
+
+#include "compare.hh"
+
 template<class T>
-struct PCursor : public Cursor<T> {
+inline  int cursor_compare(Cursor<T> a,Cursor<T>b)
+{
+    return b-a;
+}
 
-    /// make cursor with #no# items back
-    PCursor<T> operator -( int no) const {
-	return PCursor<T> (Cursor<T>::operator-(no));
-    }
+template_instantiate_compare(Cursor<T>, cursor_compare, template<class T>);
 
-    /// make cursor with #no# items further
-    PCursor<T> operator +( int no) const {
-	return PCursor<T> (Cursor<T>::operator+(no));
-    }
-    PCursor(List<T> & l) : Cursor<T> (l) {}
-
-    PCursor( const Cursor<T>& cursor ) : Cursor<T>(cursor) { }
-    T operator ->() { return  *(*this); }
-
-};
-/**
- HWN: I'd like an operator->(), so here it is.
-
- Cursor to go with pointer list.
- */
-
+#include "pcursor.hh"
 #include "list.hh"
 #include "cursor.inl"
 
