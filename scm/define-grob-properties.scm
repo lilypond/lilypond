@@ -447,6 +447,7 @@ notation manual for more information.")
 same as setting molecule-callback to #f, but this retains the
 dimensions of this grob, which means that you can erase grobs
 individually. .")
+(grob-property-description 'tremolo-flag ly:grob? "The tremolo object on a stem.")
 (grob-property-description 'bracket-visibility boolean-or-symbol? "
 This controls the visibility of the tuplet bracket.
 Setting it to false will prevent printing of the
