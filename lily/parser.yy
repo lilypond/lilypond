@@ -5,14 +5,13 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
            Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include <iostream.h>
 #include "lily-guile.hh"
 #include "notename-table.hh"
-#include "scalar.hh"
 #include "translation-property.hh"
 #include "lookup.hh"
 #include "misc.hh"
@@ -79,11 +78,11 @@ print_mudela_versions (ostream &os)
     Array<Real>* realarr;
     Array<Musical_pitch> *pitch_arr;
     Link_array<Request> *reqvec;
-    Array<String> * strvec;
     Array<int> *intvec;
     Notename_table *chordmodifiertab;
     Duration *duration;
     Identifier *id;
+    String * string;
     Music *music;
     Music_list *music_list;
     Score *score;
@@ -98,11 +97,14 @@ print_mudela_versions (ostream &os)
     Paper_def *paper;
     Real real;
     Request * request;
-    Scalar *scalar;
 
-    String *string;
+ /* We use SCMs to do strings, because it saves us the trouble of
+deleting them.  Let's hope that a stack overflow doesnt trigger a move
+of the parse stack onto the heap. */
+    SCM scm;
+
     Tempo_req *tempo;
-    Translator* trans;
+    Translator_group* trans;
     char c;
     int i;
     int ii[10];
@@ -170,7 +172,6 @@ yylex (YYSTYPE *s,  void * v_l)
 %token REPETITIONS
 %token ADDLYRICS
 %token SCM_T
-%token SCMFILE
 %token SCORE
 %token SCRIPT
 %token SHAPE
@@ -206,8 +207,9 @@ yylex (YYSTYPE *s,  void * v_l)
 %token <id>	MIDI_IDENTIFIER
 %token <id>	PAPER_IDENTIFIER
 %token <real>	REAL
-%token <string>	DURATION RESTNAME
-%token <string>	STRING
+%token <scm>	DURATION RESTNAME
+%token <scm>	STRING
+%token <scm>	SCM_T
 %token <i>	UNSIGNED
 
 
@@ -221,7 +223,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <i>	abbrev_type
 %type <i>	int unsigned
 %type <i>	script_dir
-%type <i>	optional_modality
+%type <i>	optional_modality 
 %type <id>	identifier_init  
 %type <duration> steno_duration optional_notemode_duration
 %type <duration> entered_notemode_duration explicit_duration
@@ -238,7 +240,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <midi>	midi_block midi_body
 %type <duration>	duration_length
 
-%type <scalar>  scalar
+%type <scm>  embedded_scm scalar
 %type <music>	Music Sequential_music Simultaneous_music Music_sequence
 %type <music>	relative_music re_rhythmed_music
 %type <music>	property_def translator_change
@@ -250,11 +252,11 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <request> command_req verbose_command_req
 %type <request>	extender_req
 %type <request> hyphen_req
-%type <string>	string
+%type <scm>	string
 %type <score>	score_block score_body
 %type <realarr>	real_array
 
-%type <string>	script_abbreviation
+%type <scm>	script_abbreviation
 %type <trans>	translator_spec_block translator_spec_body
 %type <tempo> 	tempo_request
 %type <notenametab> notenames_body notenames_block chordmodifiers_block
@@ -300,21 +302,14 @@ toplevel_expression:
 			Midi_def_identifier ($1, MIDI_IDENTIFIER);
 		THIS->lexer_p_->set_identifier ("$defaultmidi", id)
 	}
-	| embedded_scm { 
-	}
+	| embedded_scm {
+		// junk value
+	}	
 	;
 
 embedded_scm:
-	SCMFILE STRING semicolon {
-		read_lily_scm_file (*$2);
-		delete $2;
-	}
-	| SCM_T STRING semicolon {
-		if (THIS->lexer_p_->main_input_b_ && safe_global_b)
-			error (_("Can't evaluate Scheme in safe mode"));
-		gh_eval_str ($2->ch_l ());
-		delete $2;
-	};
+	SCM_T
+	;
 
 
 chordmodifiers_block:
@@ -336,10 +331,9 @@ notenames_body:
 		$$ = $1-> access_content_Notename_table(true);
 	}
 	| notenames_body STRING '=' explicit_musical_pitch {
-		(*$$)[*$2] = *$4;
+		(*$$)[ly_scm2string ($2)] = *$4;
 
 		delete $4;
-		delete $2;
 	}
 	;
 
@@ -369,7 +363,7 @@ assignment:
 		THIS->remember_spot ();
 	}
 	/* cont */ '=' identifier_init  {
-	    THIS->lexer_p_->set_identifier (*$1, $4);
+	    THIS->lexer_p_->set_identifier (ly_scm2string ($1), $4);
 	    $4->init_b_ = THIS->init_parse_b_;
 	    $4->set_spot (THIS->pop_spot ());
 	}
@@ -396,7 +390,7 @@ identifier_init:
 
 	}
 	| translator_spec_block {
-		$$ = new Translator_identifier ($1, TRANS_IDENTIFIER);
+		$$ = new Translator_group_identifier ($1, TRANS_IDENTIFIER);
 	}
 	| Music  {
 		$$ = new Music_identifier ($1, MUSIC_IDENTIFIER);
@@ -412,7 +406,7 @@ identifier_init:
 		$$ = new Real_identifier (new Real ($1), REAL_IDENTIFIER);
 	}
 	| string {
-		$$ = new String_identifier ($1, STRING_IDENTIFIER);
+		$$ = new String_identifier (new String (ly_scm2string ($1)), STRING_IDENTIFIER);
 	}
 	| int	{
 		$$ = new int_identifier (new int ($1), INT_IDENTIFIER);
@@ -428,23 +422,23 @@ translator_spec_block:
 
 translator_spec_body:
 	TRANS_IDENTIFIER	{
-		$$ = $1->access_content_Translator (true);
-		Translator_group * tg = dynamic_cast<Translator_group*> ($$);
-		if (!tg)
-			THIS->parser_error (_("Need a translator group for a context"));
+		$$ = $1->access_content_Translator_group (true);
 		$$-> set_spot (THIS->here_input ());
 	}
 	| TYPE STRING semicolon	{
-		Translator* t = get_translator_l (*$2);
+		Translator* t = get_translator_l (ly_scm2string ($2));
 		Translator_group * tg = dynamic_cast<Translator_group*> (t);
 
 		if (!tg)
 			THIS->parser_error (_("Need a translator group for a context"));
 		
-		t = t->clone ();
-		t->set_spot (THIS->here_input ());
-		$$ = t;
-		delete $2;
+		tg = dynamic_cast<Translator_group*> (t->clone ());
+		tg->set_spot (THIS->here_input ());
+		$$ = tg;
+	}
+	| translator_spec_body STRING '=' embedded_scm			{
+		Translator_group* tg = dynamic_cast<Translator_group*> ($$);
+		tg->set_property (ly_scm2string ($2), $4);
 	}
 	| translator_spec_body STRING '=' identifier_init semicolon	{ 
 		Identifier* id = $4;
@@ -452,39 +446,33 @@ translator_spec_body:
 		Real_identifier *r= dynamic_cast<Real_identifier*>(id);
 		int_identifier *i = dynamic_cast<int_identifier*> (id);
 	
-		String str;
-		if (s) str = *s->access_content_String (false); 
-		if (i) str = to_str (*i->access_content_int (false));
-		if (r) str = to_str (*r->access_content_Real (false));
+		SCM v;
+		if (s) v = ly_ch_C_to_scm (s->access_content_String (false)->ch_C());
+		if (i) v = gh_int2scm (*i->access_content_int (false));
+		if (r) v = gh_double2scm (*r->access_content_Real (false));
 		if (!s && !i && !r)
 			THIS->parser_error (_("Wrong type for property value"));
 
 		delete $4;
 		/* ugh*/
 		Translator_group* tg = dynamic_cast<Translator_group*> ($$);
-		if (!tg)
-			THIS->parser_error (_("Need a translator group for a context"));
-		tg->set_property (*$2, str);
+		
+		tg->set_property (ly_scm2string ($2), v);
 	}
 	| translator_spec_body NAME STRING semicolon {
-		$$->type_str_ = *$3;
-		delete $3;
+		$$->type_str_ = ly_scm2string ($3);
 	}
 	| translator_spec_body CONSISTS STRING semicolon {
-		dynamic_cast<Translator_group*> ($$)-> set_element (*$3, true);
-		delete $3;
+		dynamic_cast<Translator_group*> ($$)-> set_element (ly_scm2string ($3), true);
 	}
 	| translator_spec_body CONSISTSEND STRING semicolon {
-		dynamic_cast<Translator_group*> ($$)-> set_element (*$3, true);
-		delete $3;
+		dynamic_cast<Translator_group*> ($$)-> set_element (ly_scm2string ($3), true);
 	}
 	| translator_spec_body ACCEPTS STRING semicolon {
-		dynamic_cast<Translator_group*> ($$)-> set_acceptor (*$3, true);
-		delete $3;
+		dynamic_cast<Translator_group*> ($$)-> set_acceptor (ly_scm2string ($3), true);
 	}
 	| translator_spec_body REMOVE STRING semicolon {
-		dynamic_cast<Translator_group*> ($$)-> set_element (*$3, false);
-		delete $3;
+		dynamic_cast<Translator_group*> ($$)-> set_element (ly_scm2string ($3), false);
 	}
 	;
 
@@ -558,8 +546,7 @@ paper_def_body:
 	}
 	| paper_def_body int '=' FONT STRING		{ // ugh, what a syntax
 		Lookup * l = new Lookup;
-		l->font_name_ = *$5;
-		delete $5;
+		l->font_name_ = ly_scm2string ($5);
 		$$->set_lookup ($2, l);
 	}
 	| paper_def_body assignment semicolon {
@@ -731,9 +718,8 @@ Repeated_music:
 
 		Repeated_music * r = new Repeated_music ($4, $3 >? 1, m);
 		$$ = r;
-		r->fold_b_ = (*$2 == "fold");
-		r->volta_fold_b_ =  (*$2 == "volta");
-		delete $2;
+		r->fold_b_ = (ly_scm2string ($2) == "fold");
+		r->volta_fold_b_ =  (ly_scm2string ($2) == "volta");
 		r->set_spot ($4->spot  ());
 	}
 	;
@@ -786,15 +772,15 @@ Composite_music:
 	CONTEXT STRING Music	{
 		Context_specced_music *csm =  new Context_specced_music ($3);
 
-		csm->translator_type_str_ = *$2;
+		csm->translator_type_str_ = ly_scm2string ($2);
 		csm->translator_id_str_ = "";
-		delete $2;
+
 
 		$$ = csm;
 	}
 	| AUTOCHANGE STRING Music	{
-		Auto_change_music * chm = new Auto_change_music (*$2, $3);
-		delete $2;
+		Auto_change_music * chm = new Auto_change_music (ly_scm2string ($2), $3);
+
 		$$ = chm;
 		chm->set_spot ($3->spot ());
 	}
@@ -804,10 +790,8 @@ Composite_music:
 	| CONTEXT STRING '=' STRING Music {
 		Context_specced_music *csm =  new Context_specced_music ($5);
 
-		csm->translator_type_str_ = *$2;
-		csm->translator_id_str_ = *$4;
-		delete $2;
-		delete $4;
+		csm->translator_type_str_ = ly_scm2string ($2);
+		csm->translator_id_str_ = ly_scm2string ($4);
 
 		$$ = csm;
 	}
@@ -873,38 +857,33 @@ re_rhythmed_music:
 translator_change:
 	TRANSLATOR STRING '=' STRING  {
 		Change_translator * t = new Change_translator;
-		t-> change_to_type_str_ = *$2;
-		t-> change_to_id_str_ = *$4;
+		t-> change_to_type_str_ = ly_scm2string ($2);
+		t-> change_to_id_str_ = ly_scm2string ($4);
 
 		$$ = t;
 		$$->set_spot (THIS->here_input ());
-		delete $2;
-		delete $4;
 	}
 	;
 
 property_def:
-	PROPERTY STRING '.' STRING '=' scalar {
+	PROPERTY STRING '.' STRING '='  scalar {
 		Translation_property *t = new Translation_property;
 
-		t-> var_str_ = *$4;
-		t-> value_ = *$6;
+		t->var_str_ = ly_scm2string ($4);
+		t->value_ = $6;
 
 		Context_specced_music *csm = new Context_specced_music (t);
 		$$ = csm;
 		$$->set_spot (THIS->here_input ());
 
-		csm-> translator_type_str_ = *$2;
-
-		delete $2;
-		delete $4;
-		delete $6;
+		csm-> translator_type_str_ = ly_scm2string ($2);
 	}
 	;
 
 scalar:
-	string		{ $$ = new Scalar (*$1); delete $1; }
-	| int		{ $$ = new Scalar ($1); }
+	string		{ $$ = $1; }
+	| int		{ $$ = gh_int2scm ($1); }
+	| embedded_scm 	{ $$ = $1; }
 	;
 
 
@@ -992,12 +971,11 @@ abbrev_command_req:
 
 verbose_command_req:
 	BAR STRING 			{
-		$$ = new Bar_req (*$2);
-		delete $2;
+		$$ = new Bar_req (ly_scm2string ($2));
 	}
 	| MARK STRING {
-		$$ = new Mark_req (*$2);
-		delete $2;
+		$$ = new Mark_req (ly_scm2string ($2));
+
 	}
 	| MARK unsigned {
 		$$ = new Mark_req (to_str ($2));
@@ -1031,9 +1009,10 @@ verbose_command_req:
 		delete $2;
 	}
 	| CLEF STRING {
-		$$ = new Clef_change_req (*$2);
-		delete $2;
+		$$ = new Clef_change_req (ly_scm2string ($2));
+
 	}
+/* UGH. optional.  */
 	| KEY NOTENAME_PITCH optional_modality	{
 		Key_change_req *key_p= new Key_change_req;
 		key_p->key_.pitch_arr_.push (*$2);
@@ -1073,10 +1052,9 @@ request_that_take_dir:
 	gen_text_def
 	| verbose_request
 	| script_abbreviation {
-		Identifier*i = THIS->lexer_p_->lookup_identifier ("dash-" + *$1);
+		Identifier*i = THIS->lexer_p_->lookup_identifier ("dash-" + ly_scm2string ($1));
 		Articulation_req *a = new Articulation_req;
 		a->articulation_str_ = *i->access_content_String (false);
-		delete $1;
 		$$ = a;
 	}
 	;
@@ -1098,17 +1076,16 @@ verbose_request:
 	}
 	| TEXTSCRIPT STRING STRING 	{
 		Text_script_req *ts_p = new Text_script_req;
-		ts_p-> text_str_ = *$2;
-		ts_p-> style_str_ = *$3;
+		ts_p-> text_str_ = ly_scm2string ($2);
+		ts_p-> style_str_ = ly_scm2string ($3);
 		ts_p->set_spot (THIS->here_input ());
-		delete $3;
-		delete $2;
+
 		$$ = ts_p;
 	}
 	| SPANREQUEST int STRING {
 		Span_req * sp_p = new Span_req;
 		sp_p-> span_dir_  = Direction($2);
-		sp_p->span_type_str_ = *$3;
+		sp_p->span_type_str_ = ly_scm2string ($3);
 		sp_p->set_spot (THIS->here_input ());
 		$$ = sp_p;
 	}
@@ -1120,10 +1097,10 @@ verbose_request:
 	}
 	| SCRIPT STRING 	{ 
 		Articulation_req * a = new Articulation_req;
-		a->articulation_str_ = *$2;
+		a->articulation_str_ = ly_scm2string ($2);
 		a->set_spot (THIS->here_input ());
 		$$ = a;
-		delete $2;
+
 	}
 	;
 
@@ -1283,8 +1260,8 @@ gen_text_def:
 	string {
 		Text_script_req *t  = new Text_script_req;
 		$$ = t;
-		t->text_str_ = *$1;
-		delete $1;
+		t->text_str_ = ly_scm2string ($1);
+
 		$$->set_spot (THIS->here_input ());
 	}
 	| DIGIT {
@@ -1298,22 +1275,22 @@ gen_text_def:
 
 script_abbreviation:
 	'^'		{
-		$$ = new String ("hat");
+		$$ = gh_str02scm  ("hat");
 	}
 	| '+'		{
-		$$ = new String ("plus");
+		$$ = gh_str02scm("plus");
 	}
 	| '-' 		{
-		$$ = new String ("dash");
+		$$ = gh_str02scm ("dash");
 	}
  	| '|'		{
-		$$ = new String ("bar");
+		$$ = gh_str02scm ("bar");
 	}
 	| '>'		{
-		$$ = new String ("larger");
+		$$ = gh_str02scm ("larger");
 	}
 	| '.' 		{
-		$$ = new String ("dot");
+		$$ = gh_str02scm ("dot");
 	}
 	;
 
@@ -1429,8 +1406,8 @@ simple_element:
 		$$ = v;
 	}
 	| RESTNAME optional_notemode_duration		{
-		$$ = THIS->get_rest_element (*$1, $2);
-		delete $1;  // delete notename
+		$$ = THIS->get_rest_element (ly_scm2string ($1), $2);
+
 	}
 	| MEASURES optional_notemode_duration  	{
 		Multi_measure_rest_req* m = new Multi_measure_rest_req;
@@ -1455,8 +1432,8 @@ simple_element:
 	| STRING optional_notemode_duration 	{
 		if (!THIS->lexer_p_->lyric_state_b ())
 			THIS->parser_error (_ ("Have to be in Lyric mode for lyrics"));
-		$$ = THIS->get_word_element (*$1, $2);
-		delete $1;
+		$$ = THIS->get_word_element (ly_scm2string ($1), $2);
+
 	}
 	| chord {
 		if (!THIS->lexer_p_->chord_state_b ())
@@ -1594,11 +1571,10 @@ string:
 		$$ = $1;
 	}
 	| STRING_IDENTIFIER	{
-		$$ = $1->access_content_String (true);
+		$$ = ly_ch_C_to_scm ($1->access_content_String (true)->ch_C ());
 	}
 	| string '+' string {
-		*$$ += *$3;
-		delete $3;
+		$$ = scm_string_append (scm_listify ($1, $3, SCM_UNDEFINED));
 	}
 	;
 
