@@ -168,7 +168,7 @@ My_lily_lexer::lookup_identifier_symbol (SCM sym)
 SCM
 My_lily_lexer::lookup_identifier (String name)
 {
-  return lookup_identifier_symbol ( ly_symbol2scm (name.to_str0 ()));
+  return lookup_identifier_symbol (ly_symbol2scm (name.to_str0 ()));
 }
 
 void
@@ -177,7 +177,7 @@ My_lily_lexer::start_main_input ()
   // yy_flex_debug = 1;
   new_input (main_input_name_, sources_);
   /* Do not allow \include in --safe-mode */
-  allow_includes_b_ = allow_includes_b_ && ! safe_global_b;
+  allow_includes_b_ = allow_includes_b_ && !safe_global_b;
 
   scm_module_define (ly_car (scopes_),
 		     ly_symbol2scm ("input-file-name"),

@@ -88,15 +88,12 @@ Key_engraver::try_music (Music * ev)
 {
   if (ev->is_mus_type ("key-change-event"))
     {
+      /* do this only once, just to be on the safe side.  */
       if (!key_ev_)
 	{
-	  /*
-	    do this only once, just to be on the safe side.
-	    */	    
 	  key_ev_ = ev;
 	  read_ev (key_ev_);
 	}
-      
       return true;
     }   
   return  false;

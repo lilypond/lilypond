@@ -164,22 +164,19 @@ void
 Global_context::apply_finalizations ()
 {
   SCM lst = get_property ("finalizations");
-  set_property ("finalizations" , SCM_EOL); 
-  for (SCM s = lst ; ly_c_pair_p (s); s = ly_cdr (s))
-    {
-      scm_primitive_eval (ly_car (s)); // TODO: make safe.
-    }
+  set_property ("finalizations", SCM_EOL);
+  for (SCM s = lst; ly_c_pair_p (s); s = ly_cdr (s))
+    /* TODO: make safe.  */
+    scm_primitive_eval (ly_car (s));
 }
 
-/*
-  Add a function to execute before stepping to the next time step.
-*/
+/* Add a function to execute before stepping to the next time step.  */
 void
 Global_context::add_finalization (SCM x)
 {
   SCM lst = get_property ("finalizations");
   lst = scm_cons (x, lst);
-  set_property ("finalizations" ,lst); 
+  set_property ("finalizations", lst); 
 }
 
 Moment

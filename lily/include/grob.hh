@@ -30,40 +30,57 @@ enum Grob_status {
 
 typedef void (Grob::*Grob_method_pointer) (void);
 
+// looking at gtk+/pango docstrings .. WIP
 
-/* Basic G[raphical output] O[bject].  */
+/**
+ * Grob:
+ * @internal_get_property: get property #NAME.
+ *
+ * Class structure for #Grob.
+ **/
 class Grob
 {
+private:  
+  DECLARE_SMOBS (Grob, foo);
+  void init ();
+
 protected:
   SCM immutable_property_alist_;
   SCM mutable_property_alist_;
   friend class Spanner;
   
-  void substitute_mutable_properties(SCM,SCM);
+  void substitute_mutable_properties (SCM, SCM);
   char status_;
+  
 public:
   Grob *original_;
 
-  /*
-    TODO: junk this member.
-   */
+  /* TODO: junk this member. */
   Paper_score *pscore_;
+
   Dimension_cache dim_cache_[NO_AXES];
 
   Grob (SCM basic_props);
   Grob (Grob const&);
-  VIRTUAL_COPY_CONSTRUCTOR(Grob,Grob);
+  VIRTUAL_COPY_CONSTRUCTOR (Grob, Grob);
+  DECLARE_SCHEME_CALLBACK (stencil_extent, (SCM smob, SCM axis));
  
   String name () const;
-  
+
+
   /*
-    properties
+    Properties
    */
   SCM internal_get_property (SCM) const;
   void internal_set_property (SCM, SCM val);
   void add_to_list_property (SCM, SCM);
-  void warning (String)const;
-  void programming_error (String)const;
+
+  SCM get_property_alist_chain (SCM) const;
+  static SCM ly_grob_set_property (SCM, SCM,SCM);
+  static SCM ly_grob_property (SCM, SCM);  
+
+  void warning (String) const;
+  void programming_error (String) const;
   
   Output_def *get_paper () const;
   void add_dependency (Grob*);    
@@ -77,60 +94,54 @@ public:
   virtual void discretionary_processing ();
   virtual SCM do_derived_mark () const;
 
-  Stencil * get_stencil () const;
+  Stencil *get_stencil () const;
   SCM get_uncached_stencil () const;
 
-  SCM get_property_alist_chain (SCM) const;
   void suicide ();
   bool is_live () const;
+  bool is_empty (Axis a) const;
   
-  DECLARE_SCHEME_CALLBACK (stencil_extent, (SCM smob, SCM axis));
-
-  static SCM ly_grob_set_property (SCM, SCM,SCM);
-  static SCM ly_grob_property (SCM, SCM);  
-
   bool internal_has_interface (SCM intf);
-  static bool has_interface (Grob*me);  
+  static bool has_interface (Grob *me);
 
   virtual void handle_broken_dependencies ();
   virtual void handle_prebroken_dependencies ();
 
-  DECLARE_SMOBS (Grob,foo);
-
-  void init ();
-public:
-  bool is_empty (Axis a) const;
-
   Interval extent (Grob * refpoint, Axis) const;
  
   void translate_axis (Real, Axis);
-  Real relative_coordinate (Grob const* refp, Axis) const;
-  Grob*common_refpoint (Grob const* s, Axis a) const;
+  Real relative_coordinate (Grob const *refp, Axis) const;
+  Grob *common_refpoint (Grob const *s, Axis a) const;
 
   // duh. slim down interface here. (todo)
-  bool has_offset_callback (SCM callback, Axis)const;
+  bool has_offset_callback (SCM callback, Axis) const;
   void add_offset_callback (SCM callback, Axis);
-  bool has_extent_callback (SCM, Axis)const;  
-  void set_extent (SCM , Axis);
+  bool has_extent_callback (SCM, Axis) const;
+  void set_extent (SCM, Axis);
   Real get_offset (Axis a) const;
   
   void set_parent (Grob* e, Axis);
-  Grob *get_parent (Axis a) const {   return  dim_cache_[a].parent_; }
+
+  // URG
+  Grob *get_parent (Axis a) const
+  {
+    return  dim_cache_[a].parent_;
+  }
 
   DECLARE_SCHEME_CALLBACK (fixup_refpoint, (SCM));
 };
 
-DECLARE_UNSMOB(Grob,grob);
-Spanner* unsmob_spanner (SCM );
-Item* unsmob_item (SCM );
+DECLARE_UNSMOB (Grob, grob);
+Spanner *unsmob_spanner (SCM);
+Item *unsmob_item (SCM);
 
-Grob*common_refpoint_of_list (SCM elt_list, Grob * , Axis a);
-Grob*common_refpoint_of_array (Link_array<Grob> const&, Grob * , Axis a);
+Grob *common_refpoint_of_list (SCM elt_list, Grob *, Axis a);
+Grob *common_refpoint_of_array (Link_array<Grob> const&, Grob *, Axis a);
 
 void set_break_subsititution (SCM criterion);
 SCM substitute_mutable_property_alist (SCM alist);
 
-Link_array<Grob> ly_scm2grobs (SCM l);
+Link_array<Grob> ly_scm2grobs (SCM ell);
 SCM ly_grobs2scm (Link_array<Grob> a);
 
 #endif /* GROB_HH */

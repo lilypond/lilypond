@@ -1,11 +1,18 @@
+;;;; safe-lily.scm -- 
+;;;;
+;;;; source file of the GNU LilyPond music typesetter
+;;;; 
+;;;; (c)  2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+
 (define safe-objects
-  
   (map
    (lambda (sym)
-     (cons sym (primitive-eval sym))) 
+     (cons sym (primitive-eval sym)))
    '(ly:add-interface
      ly:add-moment
      ly:all-grob-interfaces
+     ly:all-output-backend-commands
+     ly:all-stencil-expressions
      ly:bracket
      ly:context-find
      ly:context-id
@@ -140,14 +147,14 @@
      ly:warn
 
      ;; need these for parsing init files:
-     ;; todo: should have a macro define-safe-public 
-     DOUBLE-FLAT 
-     THREE-Q-FLAT 
-     FLAT 
-     SEMI-FLAT 
-     NATURAL 
-     SEMI-SHARP 
-     SHARP 
+     ;; todo: should have a macro define-safe-public
+     DOUBLE-FLAT
+     THREE-Q-FLAT
+     FLAT
+     SEMI-FLAT
+     NATURAL
+     SEMI-SHARP
+     SHARP
      THREE-Q-SHARP
      DOUBLE-SHARP
      SEMI-TONE
@@ -274,17 +281,9 @@
      Vaticana_ligature::brew_ligature_primitive
      Vaticana_ligature::print
      Volta_bracket_interface::print
-
-
-
-     
      )))
 
 (define-public (make-safe-lilypond-module)
-  (let*
-      ((m (make-safe-module)))
-    (for-each
-     (lambda (p) (module-define! m (car p) (cdr p)))
-     safe-objects)
+  (let* ((m (make-safe-module)))
+    (for-each (lambda (p) (module-define! m (car p) (cdr p))) safe-objects)
     m))
-    

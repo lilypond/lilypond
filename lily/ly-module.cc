@@ -28,16 +28,13 @@ ly_make_anonymous_module (bool safe)
   SCM mod = SCM_EOL;
   if (!safe)
     {
-      
       String s = "*anonymous-ly-" + to_string (module_count++) +  "*";
       mod = scm_c_define_module (s.to_str0 (), ly_init_anonymous_module, 0);
-
       ly_use_module (mod, global_lily_module);
     }
   else
     {
       SCM proc = ly_scheme_function ("make-safe-lilypond-module");
-
       mod = scm_call_0 (proc);
     }
   return mod;

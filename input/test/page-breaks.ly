@@ -1,3 +1,4 @@
+#(ly:set-point-and-click 'line-column)
 \version "2.3.4"
 
 \header {
@@ -22,6 +23,7 @@ texidoc = "Stress optimal page breaking.  This should look
 }
 
 #(set-default-paper-size "a6")
+
 
 pattern =  { a b c d \break }
 \book {    

@@ -3,13 +3,20 @@
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
 ;;;; (c)  1998--2004 Jan Nieuwenhuizen <janneke@gnu.org>
-;;;;                  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;;                 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 
 ;; (debug-enable 'backtrace)
 
-;; the public interface is tight.
+;; The public interface is tight.
 ;; It has to be, because user-code is evalled with this module.
+
+;; ***It should also be clean, well defined, documented and reviewed***
+
+;; To be reasonably safe, you probably do not want to use the TeX
+;; backend anyway, but rather the PostScript backend.  You may want
+;; to run gs in a uml sandbox too.
+
 
 (define-module (scm output-tex)
   #:re-export (quote)

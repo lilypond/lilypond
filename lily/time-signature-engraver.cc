@@ -18,7 +18,7 @@
   */
 class Time_signature_engraver : public Engraver
 {
-  Item * time_signature_;
+  Item *time_signature_;
   SCM last_time_fraction_;
 
 protected:
@@ -31,7 +31,7 @@ public:
 
 Time_signature_engraver::Time_signature_engraver ()
 { 
-  time_signature_ =0;
+  time_signature_ = 0;
   last_time_fraction_ = SCM_BOOL_F;
 }
 
@@ -41,7 +41,7 @@ Time_signature_engraver::process_music ()
   /*
     not rigorously safe, since the value might get GC'd and
     reallocated in the same spot */
-  SCM fr= get_property ("timeSignatureFraction");
+  SCM fr = get_property ("timeSignatureFraction");
   if (!time_signature_
       && last_time_fraction_ != fr
       && ly_c_pair_p (fr))
@@ -70,7 +70,7 @@ Time_signature_engraver::process_music ()
 void
 Time_signature_engraver::stop_translation_timestep ()
 {
-      time_signature_ =0;
+  time_signature_ = 0;
 }
  
 

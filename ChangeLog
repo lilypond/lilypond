@@ -1,5 +1,12 @@
 2004-06-16  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/: Stray janitorial cleanups.
+
+	* scm/lily.scm (ly:all-stencil-expressions):
+	* scm/lily.scm (ly:all-output-backend-commands): New function.
+
+	* scm/safe-lily.scm (safe-objects): Add them.
+
 	* scm/framework-gnome.scm (<gnome-outputter>): New class.
 
 	* scm/output-gnome.scm: Move non-stencil evaluators to framework.

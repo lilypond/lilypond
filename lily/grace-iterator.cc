@@ -17,14 +17,12 @@
 void
 Grace_iterator::process (Moment m)
 {
-  Moment main ;
+  Moment main;
   main.main_part_ = - start_mom_.grace_part_ + m.grace_part_;
   Music_wrapper_iterator::process (main);
 
-  /*
-    We can safely do this, since \grace should always be inside
-    sequential.
-   */
+  /* We can safely do this, since \grace should always be inside
+     sequential.  */
   descend_to_child (child_iter_->get_outlet ());
 }
 

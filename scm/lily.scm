@@ -374,6 +374,8 @@ L1 is copied, L2 not.
 ;;  output
 
    
+;;(define-public (output-framework) (write "hello\n"))
+
 (define output-tex-module
   (make-module 1021 (list (resolve-interface '(scm output-tex)))))
 (define output-ps-module
@@ -382,7 +384,43 @@ L1 is copied, L2 not.
 (define-public (ps-output-expression expr port)
   (display (eval expr output-ps-module) port))
 
+;; TODO: generate this list by registering the stencil expressions
+;;       stencil expressions should have docstrings.
+(define-public (ly:all-stencil-expressions)
+  "Return list of stencil expressions."
+  '(
+    beam
+    bezier-sandwich
+    blank
+    bracket
+    char
+    dashed-line
+    dashed-slur
+    dot
+    draw-line
+    ez-ball
+    filledbox
+    horizontal-line
+    polygon
+    repeat-slash
+    round-filled-box
+    symmetric-x-triangle
+    text
+    tuplet
+    zigzag-line
+    ))
 
+;; TODO: generate this list by registering the output-backend-commands
+;;       output-backend-commands should have docstrings.
+(define-public (ly:all-output-backend-commands)
+  "Return list of output backend commands."
+  '(
+    comment
+    define-origin
+    no-origin
+    placebox
+    unknown
+    ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; other files.
@@ -501,34 +539,23 @@ L1 is copied, L2 not.
 		 " ")
 		"\n")))
 	   protects))
-     outfile)
+     outfile)))
 
-    ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
 
 (define-public (lilypond-main files)
-  "Entry point for Lilypond"
-  (let*
-      ((failed '())
-       (handler (lambda (key arg)
-		  (set! failed (cons arg failed))))
-       )
-
+  "Entry point for LilyPond."
+  (let* ((failed '())
+	 (handler (lambda (key arg) (set! failed (cons arg failed)))))
     (for-each
-     (lambda (fn)
-	(catch 'ly-file-failed
-	      (lambda () (ly:parse-file fn))
-	      handler))
-       
-	files)
+     (lambda (f) (catch 'ly-file-failed (lambda () (ly:parse-file f)) handler))
+     files)
 
     (if (pair? failed)
 	(begin
-	  (display (string-append "\n *** Failed files: " (string-join failed) "\n" ))
+	  (display
+	   (string-append "\n *** Failed files: " (string-join failed) "\n"))
 	  (exit 1))
-	(exit 0))
-
-    ))
-
+	(exit 0))))
 
