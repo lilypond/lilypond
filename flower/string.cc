@@ -16,7 +16,7 @@
 #include "string.hh"
 
 #ifdef STRING_DEBUG
-void* mymemmove( void* dest, void* src, size_t n );
+void* mymemmove( void* dest, void const* src, size_t n );
 #define memmove mymemmove
 #endif
 
@@ -25,11 +25,10 @@ strlwr( char* s )
 {
     char* p = s;
 
-    while( *p )
-        {
+    while( *p ) {
         *p = tolower( *p );    /* a macro on some compilers */
         p++;
-        }
+    }
     return s;
 }
 
@@ -38,11 +37,10 @@ strupr( char* s )
 {
     char* p = s;
 
-    while( *p )
-        {
+    while( *p ) {
         *p = toupper( *p );    /* a macro on some compilers */
         p++;
-        }
+    }
     return s;
 }
 
@@ -71,7 +69,7 @@ String::copy_byte_p() const
 }
 
 void
-String::printOn(ostream& os) const
+String::print_on(ostream& os) const
 {
     if ( length_i() == strlen( ch_c_l() ) )
         os << ch_c_l();
@@ -128,13 +126,13 @@ String::String(int i)
 
 String::String( const int i, const int n, char const c )
 {
-    char fillChar = c;
-    if ( fillChar)
-        fillChar = '0';
+    char fill_ch = c;
+    if ( fill_ch)
+        fill_ch = '0';
 
     String v( i );
     
-    String str = String( fillChar, n - v.length_i() ) + String( v );
+    String str = String( fill_ch, n - v.length_i() ) + String( v );
     strh_.set( str.byte_c_l(), str.length_i() );
 }
 
@@ -164,7 +162,7 @@ String::ch_l()
 
 // signed comparison,  analogous to memcmp;
 int
-String::compare(String const& s1, String const& s2 ) 
+String::compare_i(String const& s1, String const& s2 ) 
 {
     Byte const* p1 = s1.byte_c_l();
     Byte const* p2 = s2.byte_c_l();
@@ -181,96 +179,96 @@ String::compare(String const& s1, String const& s2 )
 
 
 int
-String::lastPos( char const c ) const
+String::index_last_i( char const c ) const
 {
-    // not binary safe
-    assert( length_i() == strlen( ch_c_l() ) );
-    char const* me = strh_.ch_c_l();
-    int pos = 0;
-    if ( length_i() )
-        {
+	// not binary safe
+	assert( length_i() == strlen( ch_c_l() ) );
+	if ( !length_i() ) 
+		return -1;
+
+	char const* me = strh_.ch_c_l();
 	char const* p = strrchr(me, c );
-        if ( p )
-            pos = p - me + 1;
-        }
-    return pos;
+	if ( p )
+		return p - me;
+	return -1;
 }
 
 int
-String::lastPos( char const* string ) const
+String::index_last_i( char const* string ) const
 {
-    // not binary safe
-    assert( length_i() == strlen( ch_c_l() ) );
-    int pos = 0;
-    int length = strlen( string );
-    if ( length_i() && length )
-        {
-        int nextpos = this->pos( string );
-        while( nextpos )
-            {
-            pos += nextpos;
-            nextpos = right( length_i() - pos - length + 1 ).pos( string );
-            }
-        }
-    return pos;
+	// not binary safe
+	assert( length_i() == strlen( ch_c_l() ) );
+
+	int length = strlen( string );
+	if ( !length_i() || !length ) 
+		return -1;
+
+	int next_i = index_i( string );
+	if ( next_i == -1 )
+		return -1;
+		
+	int index_i = 0;
+	while( next_i >= 0 ) {
+		index_i += next_i;
+		next_i = right_str( length_i() - index_i - length ).index_i( string );
+	}
+	return index_i;
 }
 
 // find c
-// return 0 if not found. 
+// return -1 if not found. 
 
-// ? should return length_i()?, as in string.left(pos(delimiter))
+// ? should return length_i()?, as in string.left_str(index_i(delimiter))
 int
-String::pos(char c ) const
+String::index_i(char c ) const
 {
-    // not binary safe
-    assert( length_i() == strlen( ch_c_l() ) );
-    char const* me = strh_.ch_c_l();
-    int pos = 0;
-    if ( length_i() )
-        {
+	// not binary safe
+	assert( length_i() == strlen( ch_c_l() ) );
+	if ( !length_i() )
+		return -1;
+
+	char const* me = strh_.ch_c_l();
 	char const* p = strchr( me, c );
-        if ( p )
-            pos = p - me + 1;
-        }
-    return pos;
+	if ( p )
+		return p - me;
+	return -1;
 }
 
 // find searchfor. (what if this == "" && searchfor == "") ???
 int
-String::pos( char const* searchfor ) const
+String::index_i( char const* searchfor ) const
 {
-    // not binary safe
-    assert( length_i() == strlen( ch_c_l() ) );
-    char const* me = strh_.ch_c_l();
-    int pos = 0;
-    if ( length_i() && searchfor)
-        {
+	// not binary safe
+	assert( length_i() == strlen( ch_c_l() ) );
+	if ( !length_i() || !searchfor )
+		return -1;
+		
+	char const* me = strh_.ch_c_l();
 	char const* p = strstr(me, searchfor);
-        if ( p )
-	    pos = p - me + 1;
-        }
-    return pos;
+	if ( p )
+		return p - me;
+	return -1;
 }
 
 // find chars of a set.
 int
-String::posAny( char const* string ) const
+String::index_any_i( char const* string ) const
 {
-    // not binary safe
-    assert( length_i() == strlen( ch_c_l() ) );
-    int pos = 0;
-    char const* s = (char const* )strh_.ch_c_l();
-    if ( length_i() && string )
-        {
+	// not binary safe
+	assert( length_i() == strlen( ch_c_l() ) );
+
+	if ( !length_i() || !string )
+		return -1;
+		
+	char const* s = (char const* )strh_.ch_c_l();
 	char const* p = strpbrk( s, string );
-        if ( p )
-	    pos = p - s + 1;
-        }
-    return pos;
+	if ( p )
+		return p - s;
+	return -1;
 }
 
 String
-String::left( int n ) const
+String::left_str( int n ) const
 {
     if (n >= length_i())
 	return *this;
@@ -287,7 +285,7 @@ String::left( int n ) const
 
 // n rightmst chars
 String
-String::right( int n ) const
+String::right_str( int n ) const
 {
     if (n > length_i())
 	return *this;
@@ -300,57 +298,53 @@ String::right( int n ) const
 
 
 String
-String::nomid( const int pos, const int n ) const
+String::nomid_str( int index_i, int n ) const
 {
-    String retval;
-        
-    if ( pos < 1 )
-        return String("");
-    if ( pos > length_i())
-	return *this;
+	if ( index_i < 0 )
+		return String();
+	if ( index_i >= length_i() )
+		return *this;
     
-    return String( String( left( pos - 1 ) ) + right( length_i() - pos - n + 1 ));
+	return String( String( left_str( index_i ) ) + right_str( length_i() - index_i - n ));
 }
 
 
 String
-String::mid( int pos, int n ) const
+String::mid_str( int index_i, int n ) const
 {
-    // HWN. This SUX: JCN: yep, please change me + all my invocations
-    // pos 1 == strh_->string[ 0 ];
-    // pos 0 allowed for convenience
-    if ( !length_i() || ( pos < 0 ) || ( pos > length_i() ) && ( n < 1 ) )
-        return String();
+	if ( !length_i() || ( index_i < 0 ) || ( index_i >= length_i() ) || ( n < 1 ) )
+		return String();
 
-    // overflow...
-    if ( ( n > length_i() ) ||  ( pos + n - 1 > length_i() ) )
-	n = length_i() - pos + 1;
+	if ( ( n > length_i() ) ||  ( index_i + n > length_i() ) )
+		n = length_i() - index_i;
 
-    return String( byte_c_l() + pos -1, n );
+	return String( byte_c_l() + index_i, n );
 }
 
 
-// to  uppercase
+// return uppercase
 String
-String::upper()
+String::upper_str() const
 {
     // not binary safe
     assert( length_i() == strlen( ch_c_l() ) );
-    char *s = strh_.byte_l();
+    String str = *this;
+    char *s = str.strh_.byte_l();
     strupr( s );
-    return *this;
+    return str;
 }
 
 
-// to lowercase
+// return lowercase
 String 
-String::lower()
+String::lower_str() const
 {
     // not binary safe
     assert( length_i() == strlen( ch_c_l() ) );
-    char* s = strh_.byte_l();
+    String str = *this;
+    char* s = str.strh_.ch_l();
     strlwr(s);
-    return *this;
+    return str;
 }
 
 String::String (double f, char const* fmt)
@@ -369,53 +363,45 @@ String::String (double f, char const* fmt)
     *this = buf;
 }
 
-long
-String::value() const
+int
+String::value_i() const
 {
-    long l =0;
-    if (length_i()) {
-	int conv = sscanf(strh_.ch_c_l(), "%ld", &l);
-	assert(conv);
-    }
-    return l;
+	return String_convert::dec2_i( *this );
 }
 
 double
-String::fvalue() const
+String::value_f() const
 {
-    double d =0;
-    if (length_i()) {
-	int conv = sscanf(strh_.ch_c_l(), "%lf", &d);
-	assert(conv);
-    }
-    return d;
+	return String_convert::dec2_f( *this );
 }
 
 
-String quoteString( String msg, String quote)
+#if 0
+String 
+quoteString( String msg, String quote)
 {
-    return msg + " `" + quote  + "' ";
+     return msg + " `" + quote  + "' ";
 }
-
+#endif // 0
 
 Byte*
 strrev( Byte* byte_l, int length_i )
 {
-  Byte by;
+  Byte byte;
   Byte* left_byte_l = byte_l;
   Byte* right_byte_l = byte_l + length_i;
 
   while ( right_byte_l > left_byte_l ) {
-    by = *left_byte_l;
+    byte = *left_byte_l;
     *left_byte_l++ = *right_byte_l;
-    *right_byte_l-- = by;
+    *right_byte_l-- = byte;
   }
   return byte_l;
 }
 
 
 String 
-String::reversed() const
+String::reversed_str() const
 {
     String str = *this;
     strrev( str.byte_l(), str.length_i() );

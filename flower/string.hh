@@ -25,20 +25,21 @@
   ref counting through #String_handle#
 \item
 
-  conversion from bool, int, double, char *, char.
+  conversion from bool, int, double, char* , char.
 \item
 
-  conversion to int, upcase, downcase
+  to be moved to String_convert:
+  conversion to int, upcase, downcase 
 
 \item
 
   printable. 
 
 \item
-  indexing (pos, posAny, lastPos)
+  indexing (index_i, index_any_i, last_index_i)
 
 \item
-  cutting (left, right, mid)
+  cutting (left_str, right_str, mid_str)
 
 \item
   concat (+=, +)
@@ -48,7 +49,7 @@
 
 \item
   No operator[] is provided, since this would be enormously  slow. If needed,
-  convert to const char *.
+  convert to char const* .
 \end{itemize}
 */
 class String
@@ -62,9 +63,9 @@ public:
     String() {  }                  
     String(Rational);
     /// String s = "abc";
-    String( const char* source ); 
+    String( char const* source ); 
 
-    String( Byte const* l_byte_c, int length_i ); 
+    String( Byte const* byte_c_l, int length_i ); 
     
     /// "ccccc"
     String( char c, int n = 1 );
@@ -76,7 +77,7 @@ public:
     String(bool );
 
     /// String s( 3.14, 6, '#' );
-    String ( double f , const char *fmt =0);
+    String ( double f , char const* fmt =0);
     String(  int i,  int n,  char c = ' ' );
 
     ///  return a "new"-ed copy of contents
@@ -88,7 +89,7 @@ public:
     Byte* byte_l();
 
     /// deprecated; use ch_c_l()
-    operator const char *() const { return ch_c_l(); }
+    operator char const* () const { return ch_c_l(); }
     
     String operator =( const String & source ) { strh_ = source.strh_; return *this; }
 
@@ -99,82 +100,82 @@ public:
     char operator []( int n ) const { return strh_[n]; }
 
     /// return n leftmost chars
-    String left( int n ) const;
+    String left_str( int n ) const;
 
     /// return n rightmost chars
-    String right( int n ) const;
+    String right_str( int n ) const;
 
-    /// convert this to upcase
-    String upper();
+    /// return uppercase of *this
+    String upper_str() const;
 
-    /// convert this to downcase
-    String lower(); // & ??
+    /// return lowercase of *this
+    String lower_str() const;
 
     /// return the "esrever" of *this
-    String reversed() const;
+    String reversed_str() const;
 
 
-    /// return a piece starting at pos (first char = pos 1), ength n
-    String mid(int pos,  int n ) const;
+    /// return a piece starting at index_i (first char = index_i 0), length n
+    String mid_str(int index_i, int n ) const;
 
     /// cut out a middle piece, return remainder
-    String nomid(int pos, int n ) const;
+    String nomid_str(int index_i, int n ) const;
 
     /// signed comparison,  analogous to memcmp;
-    static int compare(const String& s1,const  String& s2);
+    static int compare_i(const String& s1,const  String& s2);
 	
     /// index of rightmost c 
-    int lastPos( char c) const;
+    int index_last_i( char c) const;
 
     /// index of rightmost element of string 
-    int lastPos( const char* string ) const;
+    int index_last_i( char const* string ) const;
 
     /**
       index of leftmost c.
       
     @return
-    0 if not found, else index + 1
+    -1 if not found, else index
     */
-    int pos(char c ) const;
-    int pos(const char* string ) const;
-    int posAny(const char* string ) const;
+    int index_i(char c ) const;
+    int index_i(char const* string ) const;
+    int index_any_i(char const* string ) const;
 
 
     /// provide Stream output
-    void printOn(ostream& os) const;
+    void print_on(ostream& os) const;
 
-    /// convert to an integer
-    long value() const;
-
-    /// convert to a double
-    double fvalue() const;
-    
     /// the length of the string
     int length_i() const;
 
-    // deprecated 
+    // ***** depreciated
     int len() const {
     	return length_i();
     }
 
+    /// convert to an integer
+    int value_i() const;
+
+    /// convert to a double
+    double value_f() const;
+    // *****     
 };
 
 #include "compare.hh"
 
-instantiate_compare(const String &, String::compare);
+instantiate_compare(const String &, String::compare_i);
 
-// because const char* also has an operator ==, this is for safety:
-inline bool operator==(String s1, const char *s2){
+// because char const* also has an operator ==, this is for safety:
+inline bool operator==(String s1, char const* s2){
     return s1 == String(s2);
 }
-inline bool operator==(const char *s1, String s2)
+inline bool operator==(char const* s1, String s2)
 {
     return String(s1)==s2;
 }
-inline bool operator!=(String s1, const char *s2  ) {
+inline bool operator!=(String s1, char const* s2  ) {
     return s1!=String(s2);
 }
-inline bool operator!=(const char *s1,String s2) {
+inline bool operator!=(char const* s1,String s2) {
     return String(s2) !=s1;
 }
 
@@ -189,13 +190,13 @@ operator  + (String s1, String  s2)
 inline ostream &
 operator << ( ostream& os, String d )
 {
-    d.printOn(os);
+    d.print_on(os);
     return os;
 }
 
 
-String quoteString(String message, String quote);
+// String quoteString(String message, String quote);
 
-#include "stringconversion.hh"
+#include "string-convert.hh"
 
 #endif

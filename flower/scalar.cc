@@ -10,15 +10,14 @@ Scalar::Scalar(Rational r)
 
 Scalar::operator Rational()
 {
-    int p = pos('/');
-    if (!p)
+    int p = index_i('/');
+    if (p == -1)
 	return int(*this);
     
-    String s2 = right(len()-p);
-    p--;
-    String s1 = left(p);
+    String s2 = right_str(len()-p-1);
+    String s1 = left_str(p);
 
-    return Rational(s1.value(), s2.value());
+    return Rational(s1.value_i(), s2.value_i());
 }
 
 bool
@@ -35,13 +34,13 @@ Scalar::isnum()
 Scalar::operator Real()
 {
     assert (isnum());
-    return fvalue();
+    return value_f();
 }
 
 Scalar::operator int()
 {
     assert (isnum());
-    return value();
+    return value_i();
 }
 
 
@@ -52,8 +51,7 @@ Scalar::operator bool() const
     if (*this == "0")
 	return false;
     String u (*this);
-    u.upper();
-    if (u== "FALSE")
+    if ( u.upper_str() == "FALSE")
 	return false;
     return true;
 }

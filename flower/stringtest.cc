@@ -9,17 +9,17 @@ main()
     String str( "hai" );
     cout <<  str << endl;
     cout << "left" << endl;
-    cout << "	0:" << str.left( 0 ) << endl;
-    cout << "	1:" << str.left( 1 ) << endl;
-    cout << "	2:" << str.left( 2 ) << endl;
-    cout << "	3:" << str.left( 3 ) << endl;
-    cout << "	4:" << str.left( 4 ) << endl;
+    cout << "	0:" << str.left_str( 0 ) << endl;
+    cout << "	1:" << str.left_str( 1 ) << endl;
+    cout << "	2:" << str.left_str( 2 ) << endl;
+    cout << "	3:" << str.left_str( 3 ) << endl;
+    cout << "	4:" << str.left_str( 4 ) << endl;
     cout << "right" << endl;
-    cout << "	0:" << str.right( 0 ) << endl;
-    cout << "	1:" << str.right( 1 ) << endl;
-    cout << "	2:" << str.right( 2 ) << endl;
-    cout << "	3:" << str.right( 3 ) << endl;
-    cout << "	4:" << str.right( 4 ) << endl;
+    cout << "	0:" << str.right_str( 0 ) << endl;
+    cout << "	1:" << str.right_str( 1 ) << endl;
+    cout << "	2:" << str.right_str( 2 ) << endl;
+    cout << "	3:" << str.right_str( 3 ) << endl;
+    cout << "	4:" << str.right_str( 4 ) << endl;
 
     str += " daar";
     cout << str << endl;
@@ -35,9 +35,9 @@ main()
 
     fn = "";
     fn += "";
-    delete fn.copy_by_p();
+    delete fn.copy_byte_p();
 
-    delete str.copy_by_p();
+    delete str.copy_byte_p();
 
-    cout << StringConversion::bin2hex_str( String( (char)0xff ) ) << endl;
+    cout << String_convert::bin2hex_str( String( (char)0xff ) ) << endl;
 }
