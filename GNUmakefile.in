@@ -117,6 +117,7 @@ WWW:
 fontpaths:
 	-ln -s $(depth)/mf/out dvips
 	-mkdir -p fonts
+	-rm fonts/source
 	-ln -s ../$(depth)/mf fonts/source
 	-ln -s ../$(depth)/mf/out fonts/afm
 	-ln -s ../$(depth)/mf/out fonts/tfm
