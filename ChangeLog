@@ -1,3 +1,8 @@
+2003-06-16  Rune Zedeler  <rz@daimi.au.dk>
+
+	* input/mutopia/R.Schumann/romanze-op28-2.ly: Minor fixes.
+	Reduce to 16pt.
+
 2003-06-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/regression/spacing-knee.ly: docstring
