@@ -1,3 +1,8 @@
+2004-07-01  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* scm/output-gnome.scm: updated instructions for running gnome
+	backend
+
 2004-06-29  Carl Sorensen  <carldsorensen@attbi.net>
 
 	* scm/fret-diagrams.scm (draw-dots): default values for dot size
