@@ -709,6 +709,7 @@
 	(grace-space-factor . 0.6)
 	(shortest-duration-space . 2.0)
 	(spacing-increment . 1.2)
+	(base-shortest-duration . ,(make-moment 1 8))
 	(meta . ((interfaces . (spacing-spanner-interface))))
 	))
 
