@@ -100,7 +100,11 @@ Tie::get_default_dir (Grob*me)
   return UP;
 }
 
-
+/*
+  TODO: we should also use thickness for computing the clearance
+  between head and tie. Very thick ties will now touch the note head.
+  
+  */
 SCM
 Tie::get_control_points (SCM smob)
 {  

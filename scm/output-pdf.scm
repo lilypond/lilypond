@@ -192,9 +192,6 @@
 
 (define (placebox x y s) "")
 
-(define (bezier-bow l thick)
-  (bezier-sandwich l thick))
-
 (define (bezier-sandwich l thick)
   (string-append (setlinewidth thick)
 		 (moveto-pair (list-ref l 7))

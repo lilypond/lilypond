@@ -1,5 +1,5 @@
 /*
-  lilypond-version.cc -- implement LilyPond_version
+  lilypond-version.cc -- implement Lilypond_version
 
   source file of the GNU LilyPond music typesetter
 
@@ -11,14 +11,14 @@
 #include "string-convert.hh"
 #include "array.hh"
 
-LilyPond_version::LilyPond_version (int major, int minor, int patch)
+Lilypond_version::Lilypond_version (int major, int minor, int patch)
 {
   major_ = major;
   minor_ = minor;
   patch_ = patch;
 }
 
-LilyPond_version::LilyPond_version (String str)
+Lilypond_version::Lilypond_version (String str)
 {
   Array<String> version;
   version = String_convert::split (str, '.');
@@ -34,12 +34,12 @@ LilyPond_version::LilyPond_version (String str)
 }
 
 String
-LilyPond_version::to_string () const
+Lilypond_version::to_string () const
 {
   return ::to_string (major_) + "." + ::to_string (minor_) + "." + ::to_string (patch_);
 }
 
-LilyPond_version::operator int () const
+Lilypond_version::operator int () const
 {
     // ugh
   return 100000 * major_ + 1000 * minor_ + patch_;

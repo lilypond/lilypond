@@ -12,10 +12,10 @@
 
 #include "string.hh"
 
-struct LilyPond_version 
+struct Lilypond_version 
 {
-  LilyPond_version (int major, int minor, int patch);
-  LilyPond_version (String str);
+  Lilypond_version (int major, int minor, int patch);
+  Lilypond_version (String str);
 
   String to_string () const;
   operator int () const;
@@ -26,6 +26,6 @@ struct LilyPond_version
   String extra_patch_string_;
 };
 
-extern LilyPond_version oldest_version;
+extern Lilypond_version oldest_version;
 
 #endif // LILYPOND_VERSION_HH

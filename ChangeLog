@@ -1,11 +1,22 @@
+
+2003-07-29  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/tie.cc: add TODO comment.
+
+	* lily/bezier.cc: replace bezier-bow with bezier-sandwich.
+
+	* scm/*.scm: remove bezier-bow. Use bezier-sandwich with rounded
+	linejoins and linecaps. This fixes problems with occasional spikes
+	on slur/tie endings.
+	
 2003-07-29  Heikki Junes <hjunes@cc.hut.fi>
 
         * { many }: Use two uppercase letters in LilyPond.
 
 	* lily/main.cc, po/{ many }, scripts/{ many }: add verbs.
 
-2003-07-29  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
-
+	* VERSION: 1.7.29 released.
+	
 	* input/regression/font-name.ly: don't use PS fonts for
 	compatibility reasons. 
 

@@ -400,7 +400,7 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick)
     }
   
   
-  SCM at = (scm_list_n (ly_symbol2scm ("bezier-bow"),
+  SCM at = (scm_list_n (ly_symbol2scm ("bezier-sandwich"),
 		     ly_quote_scm (list),
 		     gh_double2scm (linethick),
 		     SCM_UNDEFINED));

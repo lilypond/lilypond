@@ -214,12 +214,15 @@
 
 % this is for drawing slurs. 
 /draw_bezier_sandwich  % thickness controls 
-{ 
+{
+    % round ending and round beginning
+    1 setlinejoin 1 setlinecap
 	setlinewidth 
 	moveto 
 	curveto 
 	lineto 
-	curveto 
+	curveto
+	closepath
 	gsave 
 	fill 
 	grestore 
