@@ -12,8 +12,8 @@ Choices are @code{divisioMinima}, @code{divisioMaior}
 \include "gregorian-init.ly"
 
 \score {
-    \notes {
-	\new Staff \addlyrics \notes \transpose c c' {
+ <<
+	\context Voice \notes \transpose c c' {
 	    \property Score.timing = ##f
 	    \property Score.barAlways = ##t
 	    \property Voice.TextScript \set #'padding = #3
@@ -40,7 +40,7 @@ Choices are @code{divisioMinima}, @code{divisioMaior}
 	    \caesura
             g4( a) g e( f) e
 	}
-	\new Lyrics \lyrics {
+	\newaddlyrics "" \new  LyricsVoice \lyrics {
 	    Blah blub, blah blam.
 	    Blah blub, blah blam.
 	    Blah blub, blah blam.
@@ -49,5 +49,5 @@ Choices are @code{divisioMinima}, @code{divisioMaior}
 	    Blah blub, blah blam.
 	    Blah blub, blah blam.
 	}
-    }
+    >>
 }
