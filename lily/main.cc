@@ -26,7 +26,7 @@
 #include "string.hh"
 #include "main.hh"
 #include "file-path.hh"
-#include "file-results.hh"
+#include "input-file-results.hh"
 #include "warn.hh"
 #include "lily-guile.hh"
 #include "paper-def.hh"

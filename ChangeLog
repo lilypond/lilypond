@@ -1,5 +1,17 @@
 2002-08-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/source-file.cc (init_port): add an SCM port to the
+	sourcefile as well.
+
+	* lily/parse-scm.cc (parse_handler): don't construct a new strport
+	for every parsing.
+
+	* lily/include/input-file-results.hh: move from
+	file-results. Rename Input_file_settings to Input_file_results.
+
+	* flower/ : remove simple-file-storage, mapped-file-storage,
+	string-storage. Move source-file, binary-source-file to lily/
+
 	* Documentation/header.html.in: remove FAQ
 
 	* Documentation/index.texi (Top): reorganise
@@ -7,8 +19,6 @@
 	* Documentation/topdocs/INSTALL.texi (Top): add note about fonts.
 
 	* Documentation/topdocs/FAQ.texi: remove.
-
-	
 
 	* stepmake/stepmake/documentation-targets.make (footify): must
 	depend on all .html files, otherwise rebuilds are broken due to

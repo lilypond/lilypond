@@ -1,8 +1,9 @@
+#include <stdio.h>
 
 #include "lily-guile.hh"
 #include "parse-scm.hh"
 #include "string.hh"
-
+#include "source-file.hh"
 
 /*
   Pass string to scm parser, evaluate one expression.
@@ -15,22 +16,13 @@
 SCM
 internal_ly_parse_scm (Parse_start * ps)
 {
-  /*
-    
-    This is actually pretty wasteful: we stuff the rest of the entire
-    file down GUILE, while we usually need only a bit of it.
+  Source_file* sf =ps->start_location_.source_file_;
+  SCM port = sf->get_port();
 
-    TODO: implement read_only_string_port(), (preferably in GUILE ?)
-    
-   */
-  SCM str = scm_makfrom0str (ps->str);
-  SCM port = scm_mkstrport (SCM_INUM0, str, SCM_OPN | SCM_RDNG,
-                            "ly_eval_scm_0str");
-
-  scm_set_port_filename_x (port, scm_makfrom0str (ps->start_location.file_string ().get_str0()));
-  scm_set_port_line_x (port,  gh_int2scm (ps->start_location.line_number ()));
-  scm_set_port_column_x (port,  gh_int2scm (ps->start_location.column_number()));
+  int off = ps->start_location_.defined_str0_ - sf->to_str0();
   
+  
+  scm_seek (port, scm_long2num (off), scm_long2num (SEEK_SET));
   SCM from = scm_ftell (port);
 
   SCM form;
@@ -85,7 +77,7 @@ parse_handler (void * data, SCM tag, SCM args)
 {
   Parse_start* ps = (Parse_start*) data;
 
-  ps->start_location.error (_("GUILE signaled an error for the expression begining here"));
+  ps->start_location_.error (_("GUILE signaled an error for the expression begining here"));
 
   if (scm_ilength (args) > 2)
     scm_display_error_message (gh_cadr (args), gh_caddr(args), scm_current_error_port());
@@ -127,7 +119,7 @@ ly_parse_scm (char const* s, int *n, Input i)
 {
   Parse_start ps ;
   ps.str = s;
-  ps.start_location = i;
+  ps.start_location_ = i;
 
   SCM ans = protected_ly_parse_scm (&ps);
   *n = ps.nchars;

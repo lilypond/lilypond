@@ -44,7 +44,7 @@ this.
 #include "music-list.hh"
 #include "output-property-music-iterator.hh"
 #include "property-iterator.hh"
-#include "file-results.hh"
+#include "input-file-results.hh"
 #include "input.hh"
 #include "relative-music.hh"
 #include "lyric-combine-music.hh"
@@ -349,9 +349,9 @@ toplevel_expression:
 		THIS->lexer_->chordmodifier_tab_  = $1;
 	}
 	| lilypond_header {
-		if (THIS->input_file_->global_header_)
-			scm_gc_unprotect_object (THIS->input_file_->global_header_->self_scm ());
-		THIS->input_file_->global_header_ = $1;
+		if (THIS->input_file_->header_)
+			scm_gc_unprotect_object (THIS->input_file_->header_->self_scm ());
+		THIS->input_file_->header_ = $1;
 	}
 	| score_block {
 		THIS->input_file_->scores_.push ($1);

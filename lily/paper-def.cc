@@ -16,7 +16,7 @@
 #include "scaled-font-metric.hh"
 #include "main.hh"
 #include "scm-hash.hh"
-#include "file-results.hh" // urg? header_global
+#include "input-file-results.hh" // urg? header_global
 #include "paper-outputter.hh"
 
 /*

@@ -22,7 +22,7 @@
 #include "scm-hash.hh"
 #include "lily-version.hh"
 #include "paper-def.hh"
-#include "file-results.hh"
+#include "input-file-results.hh"
 
 
 /*

@@ -15,7 +15,7 @@
 #include "parray.hh"
 #include "scm-hash.hh"
 
-class Input_file_settings
+class Input_file_results
 {
 public:
   Sources sources_;
@@ -23,20 +23,20 @@ public:
   Array<String> target_strings_;
   Link_array<Score> scores_;
   /* Global? prefix is bit confusing */
-  Scheme_hash_table * global_header_;
+  Scheme_hash_table * header_;
 
   void do_deps ();
   void do_scores ();
 
-  Input_file_settings (String file, String init);
-  ~Input_file_settings ();
+  Input_file_results (String file, String init);
+  ~Input_file_results ();
   
 private:
   /* Make sure we never get an implicit constructor.*/
-  Input_file_settings ();
+  Input_file_results ();
 };
 
-extern Input_file_settings* global_input_file;
+extern Input_file_results* global_input_file;
 
 void do_one_file (String init_string, String file_string);
 

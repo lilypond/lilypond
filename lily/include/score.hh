@@ -23,7 +23,7 @@ public:
   Link_array<Music_output_def> defs_;
   SCM music_;
   Scheme_hash_table * header_;
-  Input_file_settings* input_file_;
+  Input_file_results* input_file_;
   
   int errorlevel_;
     

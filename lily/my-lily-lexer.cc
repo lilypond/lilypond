@@ -13,7 +13,7 @@
 #include "lily-proto.hh"
 #include "scm-hash.hh"
 #include "interval.hh"
-#include "file-results.hh"
+#include "input-file-results.hh"
 #include "lily-guile.hh"
 #include "parser.hh"
 #include "keyword.hh"

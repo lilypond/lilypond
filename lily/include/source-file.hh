@@ -7,6 +7,7 @@
 #include "flower-proto.hh"
 #include "string.hh"
 #include "interval.hh"
+#include "protected-scm.hh"
 
 /**
   class for reading and mapping a file. 
@@ -19,11 +20,9 @@
 class Source_file
 {
 public:
-  /** Ugh! filename gets changed! The path to the opened file may
-    change, since it might be searched in multiple directories.  */
-  Source_file (String filename_string_r );
+  Source_file (String fn);
+  Source_file (String, String );
 
-  Source_file (String name_string, String data_string);
   virtual ~Source_file ();
 
   char const* to_str0 () const;
@@ -37,6 +36,8 @@ public:
 
   // return start + n
   char const* seek_str0 (int n);
+
+  int tell () const;
   // return here + n bytes
   char const* forward_str0 (int n);
   char const* pos_str0 () { return pos_str0_; }
@@ -53,11 +54,20 @@ public:
    */
   char const* pos_str0_;
 
+  SCM get_port()const { return str_port_; }
 private:
   String name_string_;
   std::istream* istream_;
-  File_storage * storage_;
+  char  * contents_str0_;
+  int length_;
+  void load_stdin ();
+  void init_port ();
+  
+  Protected_scm str_port_;
+  
 };
+
+char * gulp_file (String fn, int *len);
 
 #endif // SOURCE_FILE_HH //
 

@@ -19,7 +19,7 @@
 #include "audio-staff.hh"
 #include "performance.hh"
 #include "score.hh"
-#include "file-results.hh"
+#include "input-file-results.hh"
 #include "file-path.hh"
 #include "lily-version.hh"
 

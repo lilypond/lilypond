@@ -75,6 +75,7 @@ Includable_lexer::new_input (String s, Sources  * global_sources)
   yy_switch_to_buffer (yy_create_buffer (sl->get_istream (), YY_BUF_SIZE));
 
 }
+
 void
 Includable_lexer::new_input (String name, String data, Sources* sources)
 {
