@@ -1,4 +1,5 @@
 \documentclass[a4paper]{article}
+\usepackage{graphics}
 \begin{document}
 
 Documents for lilypond-book may freely mix music and text.  For
@@ -6,7 +7,7 @@ example,
 
 \begin{lilypond}
 \relative {
-  c2 g'2 \times 2/3 { f8 e d } c'2 g4
+  c2^"test" g'2 \times 2/3 { f8 e d } c'2 g4
 } 
 \end{lilypond}
 
