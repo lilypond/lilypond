@@ -124,6 +124,7 @@ HORIZONTALWHITE		[ \t]
 BLACK		[^ \n\t\f\r]
 RESTNAME	[rs]
 NOTECOMMAND	\\{A}+
+MARKUPCOMMAND	\\({A}|[-_])+
 LYRICS		({AA}|{TEX})[^0-9 \t\n\f]*
 ESCAPED		[nt\\'"]
 EXTENDER	__
@@ -441,7 +442,7 @@ HYPHEN		--
 	\" {
 		start_quote ();
 	}
-	{NOTECOMMAND} {
+	{MARKUPCOMMAND} {
 		String str (YYText() + 1);
 		SCM s = lookup_markup_command (str);
 

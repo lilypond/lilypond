@@ -5,9 +5,9 @@
 ;;;; (c) 2003 Jan Nieuwenhuizen <janneke@gnu.org>
 
 ;;;; NOTE: this is experimental code
-;;;; It only handles naming for steps 5 and up
-;;;; There's no code for naming the base chord (steps 1-5)
-;;;; or exceptions.
+;;;; Base and inversion are ignored.
+;;;; Naming of the base chord (steps 1-5) is handled by exceptions only
+;;;; see input/test/chord-names-dpnj.ly
 
 
 (define-module (scm double-plus-new-chord-name))
@@ -20,10 +20,20 @@
 
 (define this-module (current-module))
 
-(define (tail x)
-  (car (reverse x)))
+
+;; SCM utilily functions
+
+(define (write-me message x)
+  "Return X.  Display MESSAGE and write X.  Handy for debugging, possibly turned off."
+;;  (display message) (write x) (newline) x)
+  x)
+
+(define (tail lst)
+  "Return tail element of LST."
+  (car (reverse lst)))
 
 (define (list-minus a b)
+  "Return list of elements in A that are not in B."
   (if (pair? a)
       (if (pair? b)
 	  (if (member (car a) b)
@@ -32,17 +42,48 @@
 	  a)
       '()))
 
-(define (assoc-default key alist default)
-  (let ((value (assoc key alist)))
-    (if value (cdr value) default)))
-	 
+(define (first-n n lst)
+  "Return first N elements of LST"
+  (if (and (pair? lst)
+	   (> n 0))
+      (cons (car lst) (first-n (- n 1) (cdr lst)))
+      '()))
+
+(define (butfirst-n n lst)
+  "Return all but first N entries of LST"
+  (if (pair? lst)
+      (if (> n 0)
+	  (butfirst-n (- n 1) (cdr lst))
+	  lst)
+      '()))
+  
+(define (assoc-get key alist)
+  "Return value if KEY in ALIST, else #f."
+  (let ((entry (assoc key alist)))
+    (if entry (cdr entry) #f)))
+  
+(define (assoc-get-default key alist default)
+  "Return value if KEY in ALIST, else DEFAULT."
+  (let ((entry (assoc key alist)))
+    (if entry (cdr entry) default)))
+
+
+;; MARKUP functions
 (define (markup-join markups sep)
   "Return line-markup of MARKUPS, joining them with markup SEP"
   (if (pair? markups)
       (make-line-markup (reduce-list markups sep))
       empty-markup))
 
+(define (markup-or-empty-markup markup)
+  "Return MARKUP if markup, else empty-markup"
+  (if (markup? markup) markup empty-markup))
+
+
+;; Generic PITCH/MARKUP functions
 (define (ly:pitch-diff pitch tonic)
+  "Return pitch with value PITCH - TONIC, ie,
+TONIC == (ly:pitch-transpose tonic delta)."
   (let ((simple-octave (- (ly:pitch-octave pitch) (ly:pitch-octave tonic)))
 	(simple-notename
 	 (- (ly:pitch-notename pitch) (ly:pitch-notename tonic))))
@@ -64,6 +105,7 @@
 	(string-append "accidentals-" (number->string alteration))))))
 
 (define (pitch->markup pitch)
+  "Return pitch markup for PITCH."
   (make-line-markup
    (list
     (make-simple-markup
@@ -71,15 +113,14 @@
     (make-normal-size-super-markup
      (accidental->markup (ly:pitch-alteration pitch))))))
 
-(define-public (write-me message x)
-  (write message) (write x) (newline) x)
-
 (define-public (double-plus-new-chord->markup-banter . args)
   (apply double-plus-new-chord->markup (cons 'banter args)))
 
 (define-public (double-plus-new-chord->markup-jazz . args)
   (apply double-plus-new-chord->markup (cons 'jazz args)))
 
+;; FIXME: if/when double-plus-new-chord->markup get installed
+;; setting and calling can be done a bit handier.
 (define-public (double-plus-new-chord->markup
 		func pitches bass inversion options)
   "Entry point for New_chord_name_engraver.  See
@@ -149,7 +190,7 @@ input/test/dpncnt.ly).
     (make-line-markup (list (make-simple-markup "no") (step->markup pitch))))
 			 
   (define (get-full-list pitch)
-    (if (< (step-nr pitch) (step-nr (tail pitches)))
+    (if (<= (step-nr pitch) (step-nr (tail pitches)))
 	(cons pitch (get-full-list (next-third pitch)))
 	'()))
 
@@ -162,25 +203,62 @@ input/test/dpncnt.ly).
 	      '()))
 	'()))
 
-  (let* ((all pitches)
+  (define (full-match exceptions)
+    (if (pair? exceptions)
+	(let* ((e (car exceptions))
+	       (e-pitches (car e)))
+	  (if (equal? e-pitches pitches)
+	      e
+	      (full-match (cdr exceptions))))
+	'(())))
+
+  (define (partial-match exceptions)
+    (if (pair? exceptions)
+	(let* ((e (car exceptions))
+	       (e-pitches (car e)))
+	  (if (equal? e-pitches (first-n (length e-pitches) pitches))
+	      e
+	      (partial-match (cdr exceptions))))
+	'(())))
+
+  (write-me "options: " options)
+  (write-me "pitches: " pitches)
+  (let* ((full-exceptions (assoc-get 'full-exceptions options))
+	 (full-exception (full-match full-exceptions))
+	 (full-markup (cdr full-exception))
+	 
+	 (partial-exceptions (assoc-get 'partial-exceptions options))
+	 (partial-exception (partial-match partial-exceptions))
+	 (partial-pitches (car partial-exception))
+	 (partial-markup (markup-or-empty-markup (cdr partial-exception)))
+
+	 (tonic (car pitches))
+	 (full (get-full-list tonic))
+	 ;; kludge alert: replace partial matched lower part of all with
+	 ;; 'normal' pitches from full
+	 ;; (all pitches)
+	 (all (append (first-n (length partial-pitches) full)
+		      (butfirst-n (length partial-pitches) pitches)))
+	      
 	 (highest (tail all))
-	 (full (get-full-list (car all)))
 	 (missing (list-minus full (map pitch-unalter all)))
 	 (consecutive (get-consecutive 1 all))
 	 (rest (list-minus all consecutive))
 	 (altered (filter-list step-even-or-altered? all))
 	 (cons-alt (filter-list step-even-or-altered? consecutive))
-	 (base (list-minus consecutive altered))
+	 (base (list-minus consecutive altered)))
 	 
-	 (full-exceptions (assoc 'full-exceptions options))
-	 (partial-exceptions (assoc 'partial-exceptions options)))
 
-    ;;(newline)
-    ;;(write-me "pitches" pitches)
-    ;;(write-me "altered:" altered)
-    ;;(write-me "missing:" missing)
-    ;;(write-me "consecutive:" consecutive)
-    ;;(write-me "rest:" rest)
+    (write-me "full:" full)
+    ;; (write-me "partial-pitches:" partial-pitches)
+    (write-me "full-markup:" full-markup)
+    (write-me "partial-markup:" partial-markup)
+    (write-me "all:" all)
+    (write-me "altered:" altered)
+    (write-me "missing:" missing)
+    (write-me "consecutive:" consecutive)
+    (write-me "rest:" rest)
+    (write-me "base:" base)
 
     (case func
       ((banter)
@@ -188,62 +266,86 @@ input/test/dpncnt.ly).
        ;;    + steps:altered + (highest all -- if not altered)
        ;;    + subs:missing
        
-       (let* ((tonic->markup
-	       (assoc-default 'tonic->markup options pitch->markup))
-	      (step->markup
-	       (assoc-default 'step->markup options step->markup-plusminus))
-	      (sub->markup
-	       (assoc-default
-		'sub->markup options
-		(lambda (x) (step-based-sub->markup step->markup x))))
-	      (sep
-	       (assoc-default 'separator options (make-simple-markup "/"))))
+       (let* ((tonic->markup (assoc-get-default
+			      'tonic->markup options pitch->markup))
+	      (step->markup (assoc-get-default
+			     'step->markup options step->markup-plusminus))
+	      (sub->markup (assoc-get-default
+			    'sub->markup options
+			    (lambda (x)
+			      (step-based-sub->markup step->markup x))))
+	      (sep (assoc-get-default
+		    'separator options (make-simple-markup "/"))))
 	 
-	 (make-line-markup
-	  (list
-	   (tonic->markup (car pitches))
-
-	   (make-normal-size-super-markup
-	    (markup-join
-	     (apply append
-		    (map step->markup
-			 (append altered
-				 (if (and (> (step-nr highest) 5)
-					  (not
-					   (step-even-or-altered? highest)))
-				     (list highest) '())))
-		    
-		    (list (map sub->markup missing)))
-	     sep))))))
-
+	 (if
+	  (pair? full-markup)
+	  (make-line-markup (list (tonic->markup tonic) full-markup))
+	    
+	  (make-line-markup
+	   (list
+	    (tonic->markup tonic)
+	    partial-markup
+	    (make-normal-size-super-markup
+	     (markup-join
+	      (apply append
+		     (map step->markup
+			  (append altered
+				  (if (and (> (step-nr highest) 5)
+					   (not
+					    (step-even-or-altered? highest)))
+				      (list highest) '())))
+		     
+		     (list (map sub->markup missing)))
+	      sep)))))))
+       
       
       ((jazz)
        ;;    tonic
        ;;    + steps:(highest base) + cons-alt
        ;;    + 'add'
        ;;    + steps:rest
-       (let* ((tonic->markup
-	       (assoc-default 'tonic->markup options pitch->markup))
-	      (step->markup
-	       (assoc-default 'step->markup options step->markup-accidental))
-	      (sep
-	       (assoc-default 'separator options (make-simple-markup " ")))
-	      (add-prefix
-	       (assoc-default 'add-prefix options
-			      (make-simple-markup " add"))))
+       (let* ((tonic->markup (assoc-get-default
+			      'tonic->markup options pitch->markup))
+	      (step->markup (assoc-get-default
+			     'step->markup options step->markup-accidental))
+	      (sep (assoc-get-default
+		    'separator options (make-simple-markup " ")))
+	      (add-prefix (assoc-get-default 'add-prefix options
+					     (make-simple-markup " add"))))
 	 
-	 (make-line-markup
-	  (list
-	   (tonic->markup (car pitches))
-	   
-	   (make-normal-size-super-markup
-	    (make-line-markup
-	     (list
-	      (markup-join (map step->markup (cons (tail base) cons-alt)) sep)
-	      (if (pair? rest)
-		  add-prefix
-		  empty-markup)
-	      (markup-join (map step->markup rest) sep))))))))
-      
-      (else empty-markup))))
+	 (if
+	  (pair? full-markup)
+	  (make-line-markup (list (tonic->markup tonic) full-markup))
+	  
+	  (make-line-markup
+	   (list
+	    (tonic->markup tonic)
+	    partial-markup
+	    (make-normal-size-super-markup
+	     (make-line-markup
+	      (list
+	       
+	       ;; kludge alert: omit <= 5
+	       ;;(markup-join (map step->markup
+	       ;;			 (cons (tail base) cons-alt)) sep)
+	       
+	       ;; This fixes:
+	       ;;  c     C5       -> C
+	       ;;  c:2   C5 2     -> C2
+	       ;;  c:3-  Cm5      -> Cm
+	       ;;  c:6.9 C5 6add9 -> C6 add 9 (add?)
+	       ;;  ch = \chords { c c:2 c:3- c:6.9^7 }
+	       (markup-join (map step->markup
+  				 (let ((tb (tail base)))
+  				   (if (> (step-nr tb) 5)
+  				       (cons tb cons-alt)
+  				       cons-alt))) sep)
+	       
+	       (if (pair? rest)
+		   add-prefix
+		   empty-markup)
+	       (markup-join (map step->markup rest) sep)))))))))
+       
+       (else empty-markup))))
+
   

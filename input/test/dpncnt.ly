@@ -1,12 +1,37 @@
+\header {
+1    texidoc = "test file for new-new-chord names, ie, double-plus-new-chord-name"
+}
 
 efull = \chordnames {
-    c:3-.5-.7- = \markup { \super "didem" }
-    c:7+ = \markup { \super "maj7" }
+
+    %% ? what 'bout maj7?
+    %% c:7 = \markup { \normal-size-super "maj7" }
+
+    %% Choose your symbol for the fully diminished chord
+    %% American:
+    %% c:3-.5-.7- = \markup { "dim" }
+    %% Jazz:
+    c:3-.5-.7- = \markup { \super " o" }
+
+    %% Hmm
+    %%    	   ;;Pick your favorite maj7
+    %%	   ((0) mathm-markup-object)  ;;a white triangle
+    %%	   ;;((0) mathn-markup-object) ;;a black triangle
+    %% ;;((0) (make-simple-markup "maj7")) ;;good old maj7
+
+    %% This ok?
+    c:7+ = \markup { \normal-size-super \override #'(font-family . math) "N" }
+    %%c:3.5.7 = \markup { \override #'(font-family . math) "M" }
+    %%c:3.5.7 = \markup { \normal-size-super "maj7" }
 }
 
 epartial = \chordnames {
-    c:3- = \markup { "dim" }
+    c:2^3 = \markup { \normal-size-super "2" }
+    c:3-  = \markup { "m" }
+    c:4   = \markup { \normal-size-super "sus4" }
+    c:5^3 = \markup { \normal-size-super "5" }
 }
+
 
 xch = \chords { c:7+.9-^3.5 c:dim }
 
@@ -34,6 +59,7 @@ ch = \chords { c c:m c:7 c:7.9 c:7+.9 c:7.9+ c:9^7 c:3.11^7 }
 
 %ch = \chords { c:9^7 c:5^3}
 
+ch = \chords { c:3- c:3 c:2 c:7+ c:3-.5-.7- c:6.9^7 }
 
 \score{
     <
