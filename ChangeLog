@@ -1,3 +1,9 @@
+2003-04-11  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* mf/parmesan-clefs.mf: bugfix: char boxes corrected
+
+	* mf/parmesan-scripts.mf: fixed typo in char name
+
 2003-04-11  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* python/lilylib.py (setup_temp): temporary directories are mode 700.

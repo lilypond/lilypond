@@ -40,7 +40,7 @@ fet_beginchar("signum congruentiae up",
 fet_endchar;
 
 fet_beginchar("signum congruentiae down",
-	      "dsignum_congruentiae", "dsignumcongruentiae")
+	      "dsignumcongruentiae", "dsignumcongruentiae")
 	draw_signum_congruentiae;
 	xy_mirror_char;
 fet_endchar;
