@@ -296,6 +296,14 @@ Durations can also be produced through GUILE extension mechanism.
 @end lilypond
 
 
+@refbugs
+
+Dot placement for chords is not perfect.  In some cases, dots overlap:
+@lilypond[]
+ \context Voice { <f,4. c'' d e f> }
+@end lilypond
+
+
 @node Ties
 @subsection Ties
 
@@ -725,12 +733,38 @@ such as keys, clefs and time signatures.
 @cindex Staff notation
 
 @menu
+* Staff symbol::
 * Key signature::               
 * Clef::                        
 * Time signature::              
 * Unmetered music::             
 * Bar lines::                   
 @end menu
+
+@node Staff symbol
+@subsection Staff symbol
+
+
+@cindex adjusting staff symbol
+@cindex StaffSymbol, using \property
+@cindex staff lines, setting number of
+
+
+The lines of the staff symbol are formed by the
+@internalsref{StaffSymbol} grob.  This grob is created at the moment
+that their context is created.  You can not change the appearance of
+the staff symbol by using @code{\override} or @code{\set}.  At the
+moment that @code{\property Staff} is interpreted, a Staff context is
+made, and the StaffSymbol is created before any @code{\override} is
+effective. You can deal with this either overriding properties in a
+@code{\translator} definition, or by using @code{\outputproperty}.
+
+
+@refbugs
+
+If you end a staff half way a piece, the staff symbol may not end
+exactly on the barline.
+
 
 @c .  {Key}
 @node Key signature
@@ -3185,7 +3219,6 @@ To print a  rehearsal mark, use the @code{\mark} command.
   c1 \mark \default 
   c1 \mark "12"
   c1 \mark \default
-  c1 \mark #'(music "scripts-segno") 
   c1
 }
 @end lilypond
@@ -3196,6 +3229,28 @@ As you can see, the mark is incremented automatically if you use
 is @internalsref{RehearsalMark} in @internalsref{Score} context. See
 @code{input/test/boxed-molecule.ly} if you need boxes around the
 marks.
+
+The @code{\mark} command can also be used to put signs like coda,
+segno and fermatas on a barline.  The trick is to use the text markup
+mechanism to access the fermata symbol.
+@lilypond[fragment,verbatim,relative=1]
+  c1 \mark #'(music "scripts-ufermata") 
+  c1
+@end lilypond
+
+The problem is that marks that occur at a line break are typeset only
+at the beginning of the next line, opposite to what you want for the
+fermata. This can be corrected by the following property setting
+@example
+\property Score.RehearsalMark \override
+  #'visibility-lambda = #begin-of-line-invisible
+@end example
+
+@cindex fermatas
+@cindex coda
+@cindex segno
+@cindex barlines, putting symbols on 
+
 
 @node Bar numbers
 @subsection Bar numbers
@@ -3814,20 +3869,6 @@ LilyPond will hang or crash if @var{value} contains cyclic references.
 The backend is not very strict in type-checking grob properties. If you
 @code{\revert} properties that are expected to be set by default,
 LilyPond may crash.
-
-
-@cindex adjusting staff symbol
-@cindex StaffSymbol, using \property
-@cindex staff lines, setting number of
-
-Some grobs are created at the moment that their context is created. An
-example of such a grob is the staff itself (i.e. the horizontal lines).
-You can not change the appearance of the staff symbol by manipulating
-@code{\property Staff.StaffSymbol}.  At the moment that @code{\property
-Staff} is interpreted, a Staff context is made, and the StaffSymbol is
-created before any @code{\override} is effective. You can deal with this
-either overriding properties in a @code{\translator} definition, or by
-using @code{\outputproperty}.
 
 
 

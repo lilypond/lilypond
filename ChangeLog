@@ -1,3 +1,12 @@
+2002-07-31  Han-Wen  <hanwen@cs.uu.nl>
+
+	* input/bugs/: remove various files.
+
+	* Documentation/user/refman.itely: doco updates.
+
+	* scripts/ly2dvi.py (find_pfa_fonts): add and document --pdf
+	option.
+
 2002-07-30  Rune Zedeler <rune@zedeler.dk>
 
 	* ly/engraver-init.ly: add alias "Current" to all contexts.

@@ -314,22 +314,40 @@ ghostview.
 
 The DVI file (@file{test.dvi}) contains the same sheet music in a
 different format. DVI files are more easily processed by the computer,
-so viewing them usually is quicker.  Execute @code{xdvi test.dvi}
-to view the DVI file.
+so viewing them usually is quicker.  Execute @code{xdvi test.dvi} or
+@code{kdvi test.dvi} to view the DVI file. In Xdvi, the mouse buttons
+activate magnifying glasses.  Unfortunately, variable symbols, such as
+beams and slurs won't show up in these.
 
 If your DVI viewer does not have a "Print" button, you can print the
 file by executing @code{lpr test.ps}.
 
 @c volgende alinea schrappen?  
 
-If you can't get the examples to print, then you should look into
-installing and configuring ghostscript.  Refer to GhostScript's website
-at @uref{http://www.ghostscript.com}.
+If your system does not support printing PostScript files, then you
+can install GhostScript, a PostScript emulator.  Refer to
+GhostScript's website at @uref{http://www.ghostscript.com}.
 
 @cindex GhostScript
 @cindex @code{lpr}
 @cindex Printing output
 @cindex PostScript
+@cindex PDF
+
+A final option, is to use the popular PDF format. You can get a PDF
+file by running @code{ly2dvi --pdf test.ly}. With the @code{--pdf},
+you will get a DVI, PS and PDF file. The viewers for the PS files also
+accept PDF files, but there are also many other applications for
+viewing PDF files.
+
+If you are familiar with @TeX{}, then one warning is in place: do not
+use other DVI drivers like @code{dvilj}. The @TeX{} coming out of
+LilyPond uses embedded PostScript code, and will not render correctly
+if you use anything different than @code{dvips}.
+
+@cindex dvips
+@cindex dvilj
+@cindex DVI driver
 
 @unnumberedsubsec Windows users
 Windows users start the terminal by clicking on the LilyPond or Cygwin
