@@ -1,4 +1,4 @@
-g#!@PYTHON@
+#!@PYTHON@
 #
 # ly2dvi.py -- Run LilyPond, add titles to bare score, generate printable
 #              document
