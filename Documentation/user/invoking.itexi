@@ -275,8 +275,9 @@ column location.
 @c move this elsewhere?
 
 There is also support for emacs: lilypond-mode for emacs provides
-indentation, autocompletion, syntax coloring, handy compile short-cuts
-and reading Info documents of lilypond inside emacs.  If lilypond-mode
+keyword autocompletion, indentation, LilyPond specific parenthesis matching
+and syntax coloring, handy compile short-cuts and reading LilyPond manuals 
+using Info.  If lilypond-mode
 is not installed on your platform, then refer to the installation
 instructions for more information.
 
