@@ -13,11 +13,11 @@
 
 Timing_engraver::Timing_engraver()
 {
-    default_grouping_ = Rhythmic_grouping(MInterval(0,4),4); // ugh
+    default_grouping_ = Rhythmic_grouping (MInterval (0,4),4); // ugh
 }
 
 void
-Timing_engraver::fill_staff_info(Staff_info &inf)
+Timing_engraver::fill_staff_info (Staff_info &inf)
 {
     inf.time_C_ = &time_;
     inf.rhythmic_C_ = &default_grouping_;

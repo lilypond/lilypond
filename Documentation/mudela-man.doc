@@ -123,8 +123,14 @@ When assigning identifiers you use
 
 \begin{verbatim}
 string = ...
-\oldidentifier = ..
 \end{verbatim}
+
+If you reuse identifiers, then the previous contents will be thrown
+away after the right hand is evaluated, eg
+\begin{verbatim}
+bla = \melodic { \bla }
+\end{verbatim}
+is legal
 
 When using identifiers they have to be escaped:
 

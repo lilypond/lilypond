@@ -22,10 +22,10 @@ struct Key_item : Item {
     DECLARE_MY_RUNTIME_TYPEINFO;
     SCORE_ELEM_CLONE(Key_item);
 
-    Key_item(int cposition);
-    void add(int pitch, int acc);
-    void read(const Key_engraver&);
-    void set_c_position(int);
+    Key_item (int cposition);
+    void add (int pitch, int acc);
+    void read (const Key_engraver&);
+    void set_c_position (int);
 protected:
     virtual void do_pre_processing();
     Molecule* brew_molecule_p()const;

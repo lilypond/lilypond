@@ -46,9 +46,9 @@ class Spacing_problem {
     Array<Colinfo> loose_col_arr_;
     
     /// mark column #i# as being loose.
-    void loosen_column(int i);
+    void loosen_column (int i);
     /// the index of #c# in #cols#
-    int col_id(PCol const *c) const;
+    int col_id (PCol const *c) const;
 
     /// generate an (nonoptimal) solution
     Vector find_initial_solution() const;
@@ -57,17 +57,17 @@ class Spacing_problem {
     bool check_feasible() const;
 
     /// does #this# contain the column #w#? 
-    bool contains(PCol const *w);
+    bool contains (PCol const *w);
 
     /// make the energy function
-    void make_matrices(Matrix &quad, Vector &lin,Real&) const;
+    void make_matrices (Matrix &quad, Vector &lin,Real&) const;
 
     /// generate the LP constraints
-    void make_constraints(Mixed_qp& lp) const;
+    void make_constraints (Mixed_qp& lp) const;
 
 
     void handle_loose_cols();
-    void position_loose_cols(Vector &) const;
+    void position_loose_cols (Vector &) const;
    /**
        add a idealspacing to the problem.
       
@@ -75,13 +75,13 @@ class Spacing_problem {
     since they can be "summed" if the columns to which #i# refers are
     not in this problem, the spacing is ignored.
     */
-    void add_ideal(Idealspacing const *i);
-    void print_ideal(Idealspacing const *)const; 
+    void add_ideal (Idealspacing const *i);
+    void print_ideal (Idealspacing const *)const; 
     Vector try_initial_solution() const;
     void calcideal();
 
-    Score_column* scol_l(int);
-    void connect(int i,int j, Real,Real);
+    Score_column* scol_l (int);
+    void connect (int i,int j, Real,Real);
 public:
     static Line_spacer *constructor() {
 	return new Line_spacer;
@@ -89,13 +89,13 @@ public:
     Array<PCol*> error_pcol_l_arr() const;
 
     virtual   Array<Real> solve() const;
-    virtual  void add_column(PCol  *, bool fixed=false, Real fixpos=0.0);
+    virtual  void add_column (PCol  *, bool fixed=false, Real fixpos=0.0);
  
 
     virtual Vector default_solution() contains { 
 	return try_initial_solution() ; 
     }
-    virtual   bool check_constraints(Vector v) const;
+    virtual   bool check_constraints (Vector v) const;
     virtual    void OK() const;
     virtual    void print() const;
     virtual    void prepare();

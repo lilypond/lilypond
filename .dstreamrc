@@ -15,25 +15,21 @@ Matrix			1
 
 
 # flower lib
-File_path		0
+File_path		1
 
 Atom			0
 Bar			0
 Beam			0
 Change_iterator		0
 Chord			0
-Chord_iterator		0
+Chord_iterator		1
 Clef_item		0
 Col_configuration	0
 Colinfo			0
 Colinfo			0
 Collision		0
-
-# E l b e ment? search/replace typo.
-# Yeah. kind of. Looks cute though
-Elbement_group		0
-Engraver		0
-Engraver_group_engraver 0
+Engraver		1
+Engraver_group_engraver 1
 Group_change_req	0
 Head_column		0
 Idealspacing		0
@@ -41,13 +37,13 @@ Ineq_constrained_qp 	0
 Input_translator	0
 Item			0
 Key_item		0
-Lookup			0
+Lookup			1
 Line_spacer		0
 Melodic_req		0
 Midi_def		0
 Mixed_qp		0
 Music			0
-Music_iterator		0
+Music_iterator		1
 My_lily_lexer		1
 Note_head		0
 Note_performer		0
@@ -59,7 +55,7 @@ Paperdef		0
 Performer		0
 Performer_group_performer	0
 Request			0
-Request_iterator	0
+Request_iterator	1
 Rest_collision		0
 Rest_collision_engraver 0
 Rest_req		0

@@ -35,24 +35,24 @@ public:
 
     /// construction
     Score();
-    Score(Score const&);
+    Score (Score const&);
     ~Score();    
 
     /// do everything except outputting to file
     void process();
     
     /// output to file
-    void output(String fn);
+    void output (String fn);
 
     ///
-    void set(Midi_def* midi_p);
+    void set (Midi_def* midi_p);
     ///
-    void set(Paper_def* midi_p);
+    void set (Paper_def* midi_p);
 
     void print() const;
 
 private:
-    void run_translator(Global_translator*);
+    void run_translator (Global_translator*);
     void midi_output();
     void paper_output();
 
@@ -63,7 +63,7 @@ private:
     void paper();
 
     // utils:
-    PCursor<Score_column*> create_cols(Moment, PCursor<Score_column*> &last);
+    PCursor<Score_column*> create_cols (Moment, PCursor<Score_column*> &last);
 
     /**
       make the pcol_l_ fields of each Score_column point to the correct PCol,

@@ -28,7 +28,7 @@ void
 Key_performer::do_print() const
 {
 #ifndef NPRINT
-    if ( key_req_l_ )
+    if ( key_req_l_)
     	key_req_l_->print();
 #endif
 }
@@ -36,21 +36,21 @@ Key_performer::do_print() const
 void
 Key_performer::process_requests()
 {
-    if ( key_req_l_ )
-	play( new Audio_key( key_req_l_ ) );
+    if ( key_req_l_)
+	play (new Audio_key (key_req_l_) );
     key_req_l_ = 0;
 }
 
 bool
-Key_performer::do_try_request( Request* req_l )
+Key_performer::do_try_request (Request* req_l)
 {
-    if ( key_req_l_ )
+    if ( key_req_l_)
 	return false;
 
-    if ( req_l->command() )
-	key_req_l_ = req_l->command()->keychange();
+    if ( req_l->command())
+	key_req_l_ = req_l->command()->keychange ();
 
-    if ( key_req_l_ )
+    if ( key_req_l_)
 	return true;
 
     return false;

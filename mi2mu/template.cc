@@ -8,28 +8,19 @@
 #include "list.tcc"
 #include "cursor.tcc"
 
-L_instantiate(void *);
-
 class istream;
 class ostream;
 
-#include "mi2mu.hh"
+#include "mudela-item.hh"
+#include "mudela-column.hh"
+#include "mudela-staff.hh"
+#include "mudela-voice.hh"
 #include "plist.hh"
 #include "plist.tcc"
 
-#ifdef MEVENT_LIST
-IPL_instantiate(Midi_event);
-#endif
-
-IPL_instantiate(Midi_track);
-
-#ifdef MVOICE_LIST
-PL_instantiate(Midi_voice);
-#endif
-
-IPL_instantiate(Midi_voice);
-
-#ifdef TCOL_LIST
-IPL_instantiate(Track_column);
-#endif
+template IPL_INSTANTIATE(Mudela_item);
+template IPL_INSTANTIATE(Mudela_staff);
+template PL_INSTANTIATE(Mudela_voice);
+template IPL_INSTANTIATE(Mudela_voice);
+template IPL_INSTANTIATE(Mudela_column);
 

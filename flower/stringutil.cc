@@ -10,9 +10,9 @@
 #include <sys/types.h>
 #include <memory.h>
 void* 
-mymemmove( void* dest, void const* src, size_t n )
+mymemmove (void* dest, void const* src, size_t n)
 {
-	return memcpy( dest, src, n ); // wohltempererit: 69006
+	return memcpy (dest, src, n); // wohltempererit: 69006
 }
 #define memmove mymemmove
 #endif

@@ -22,12 +22,12 @@ class Music_list : public Music {
 public:
     int multi_level_i_;
   
-    Music_list(Music_list const&);    
+    Music_list (Music_list const&);    
     Music_list();
     DECLARE_MY_RUNTIME_TYPEINFO;
     VIRTUAL_COPY_CONS(Music_list,Music);
-    virtual void add(Music*);
-    virtual void transpose(Melodic_req const *);
+    virtual void add (Music*);
+    virtual void transpose (Melodic_req const *);
     
     Pointer_list<Music*> music_p_list_;
 protected:
@@ -44,7 +44,7 @@ public:
     Chord();
     DECLARE_MY_RUNTIME_TYPEINFO;
     VIRTUAL_COPY_CONS(Chord,Music);
-    virtual void translate(Moment dt);
+    virtual void translate (Moment dt);
     virtual MInterval time_int()const;
 };
 
@@ -70,7 +70,7 @@ public:
     Voice();
     DECLARE_MY_RUNTIME_TYPEINFO;
     VIRTUAL_COPY_CONS(Voice, Music);
-    virtual void translate(Moment dt);
+    virtual void translate (Moment dt);
     virtual MInterval time_int()const;
 };
 

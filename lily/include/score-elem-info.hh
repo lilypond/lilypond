@@ -23,7 +23,7 @@ struct Score_elem_info {
     Array<Engraver*> origin_grav_l_arr_;
 
     /* *** */
-    Score_elem_info(Score_elem*, Request*);
+    Score_elem_info (Score_elem*, Request*);
     Score_elem_info();
 };
 

@@ -12,12 +12,12 @@
 /// Perl -like scalar type.
 struct Scalar : public String {
     
-    Scalar(Real r) : String(r) {}
-    Scalar(int i) : String(i) {}
-    Scalar(char c) : String(c) {}
-    Scalar(char const *c) : String(c) {}    
-    Scalar(String s ):String(s) {}
-    Scalar(Rational );
+    Scalar (Real r) : String (r) {}
+    Scalar (int i) : String (i) {}
+    Scalar (char c) : String (c) {}
+    Scalar (char const *c) : String (c) {}    
+    Scalar (String s):String (s) {}
+    Scalar (Rational);
     operator Rational();
     Scalar() {}
     bool isnum();

@@ -17,10 +17,10 @@ Matrix::operator String() const
     String s;
 #ifndef NPRINT
     Matrix_storage const * stor_c_l = dat;
-    s=String("matrix { (")  + dat->name() + ")\n";
+    s=String ("matrix { (")  + dat->name() + ")\n";
     for (int i=0; i< rows(); i++){
 	for (int j = 0; j < cols(); j++) {
-	    s+= String(stor_c_l->elem(i,j), "%6f ");
+	    s+= String (stor_c_l->elem (i,j), "%6f ");
 	}
 	s+="\n";
     }
@@ -44,7 +44,7 @@ Vector::operator String() const
 #ifndef NPRINT
     s="vector [";
     for (int i=0; i < dim(); i++) {
-	s += String(dat[i], "%6f") + String(' ');
+	s += String (dat[i], "%6f") + String (' ');
     }
     s+="]";
 #endif

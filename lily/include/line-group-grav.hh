@@ -21,7 +21,7 @@ class Line_group_engraver : public Engraver{
 protected:
     virtual void do_creation_processing();
     virtual void do_removal_processing();
-    virtual void acknowledge_element(Score_elem_info);
+    virtual void acknowledge_element (Score_elem_info);
 
 public:
     DECLARE_MY_RUNTIME_TYPEINFO;

@@ -19,17 +19,17 @@
   this function provides a simple macro mechanism:
 
   if source == "tex%bla%", then
-  substitute_args(source, {"X","Y"})  == "texXblaY"
+  substitute_args (source, {"X","Y"})  == "texXblaY"
   */
 String
-substitute_args(String source, Array<String> args);
+substitute_args (String source, Array<String> args);
 
 /// parameter substitution in TeX_strings
 String
-substitute_args(String source, Array<Scalar> args);
+substitute_args (String source, Array<Scalar> args);
 
 /// #h# is in points
-String vstrut(Real h);
+String vstrut (Real h);
 
 
 #endif

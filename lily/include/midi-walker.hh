@@ -21,7 +21,7 @@ struct Midi_note_event : PQueue_ent<Moment, Midi_note_off*>
     Midi_note_event();
 };
 
-int compare(Midi_note_event const& left, Midi_note_event const& right );
+int compare (Midi_note_event const& left, Midi_note_event const& right);
 
 /**
   walk audio and output midi
@@ -29,15 +29,15 @@ int compare(Midi_note_event const& left, Midi_note_event const& right );
 class Midi_walker : public PCursor<Audio_item*> 
 {
 public:
-    Midi_walker( Audio_staff* audio_staff_l, Midi_track* midi_track_l );
+    Midi_walker (Audio_staff* audio_staff_l, Midi_track* midi_track_l);
     ~Midi_walker();
 
     void process();
 
 private:
-    void do_start_note( Midi_note* note_l );
-    void do_stop_notes( Moment now_mom );
-    void output_event( Moment now_mom, Midi_item* l );
+    void do_start_note (Midi_note* note_l);
+    void do_stop_notes (Moment now_mom);
+    void output_event (Moment now_mom, Midi_item* l);
 
     Midi_track* track_l_;
     PQueue<Midi_note_event> stop_note_queue;

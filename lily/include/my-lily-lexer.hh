@@ -26,9 +26,9 @@ void set_lexer();
 
 /// lexer for Mudela
 class My_lily_lexer : public Includable_lexer {
-    int lookup_keyword(String);
-    int scan_bare_word(String);
-    int scan_escaped_word(String);
+    int lookup_keyword (String);
+    int scan_bare_word (String);
+    int scan_escaped_word (String);
 
     bool post_quotes_b_;
 public:
@@ -42,18 +42,18 @@ public:
     /* *************** */
 
     void clear_notenames();
-    Identifier*lookup_identifier(String s);
-    Melodic_req* lookup_melodic_req_l(String s);
+    Identifier*lookup_identifier (String s);
+    Melodic_req* lookup_melodic_req_l (String s);
     void push_note_state();
     void push_lyric_state();
     void pop_state();
-    void LexerError(char const *);
+    void LexerError (char const *);
     My_lily_lexer();
-    void add_identifier(Identifier*i);
+    void set_identifier (String,Identifier*i);
     ~My_lily_lexer();
     int yylex();
-    void print_declarations(bool init_b) const;
-    void add_notename(String, Melodic_req*);
+    void print_declarations (bool init_b) const;
+    void add_notename (String, Melodic_req*);
     bool note_state_b() const;
     bool lyric_state_b() const;
 };

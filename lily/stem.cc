@@ -37,7 +37,7 @@ Stem::max_head_i() const
     
 }
 
-Stem::Stem(int c) 
+Stem::Stem (int c) 
 {
     beams_left_i_ = 0;
     beams_right_i_ = 0;
@@ -58,7 +58,7 @@ void
 Stem::do_print() const
 {
 #ifndef NPRINT
-    mtor << "flag "<< flag_i_ << " print_flag_b_ " << print_flag_b_;
+    DOUT << "flag "<< flag_i_ << " print_flag_b_ " << print_flag_b_;
 #endif
 }
 
@@ -82,28 +82,28 @@ Stem::stem_end_f() const
 
 
 void
-Stem::set_stemend(Real se)
+Stem::set_stemend (Real se)
 {
     // todo: margins
     if (!  ((dir_i_ > 0 && se >= max_head_i()) || 
-	    (se <= min_head_i() && dir_i_ <0))  )	
- 	warning("Weird stem size; check for narrow beams");
+	    (se <= min_head_i() && dir_i_ <0)) )	
+ 	warning ("Weird stem size; check for narrow beams");
 
     stem_top_f_  = (dir_i_ < 0) ? max_head_i()           : se;
     stem_bottom_f_  = (dir_i_ < 0) ? se  : min_head_i();
 }
 
 void
-Stem::add(Note_head *n)
+Stem::add (Note_head *n)
 {
-    n->add_dependency(this);
+    n->add_dependency (this);
     if (n->rest_b_) {
-	rest_l_arr_.push(n);
+	rest_l_arr_.push (n);
     } else if (n->balltype_i_ == 1) {
-	whole_l_arr_.push(n);
+	whole_l_arr_.push (n);
 	return;
     } else{
-	head_l_arr_.push(n);
+	head_l_arr_.push (n);
     }
 }
 
@@ -162,11 +162,11 @@ Stem::set_default_stemlen()
 
     
     // ugh... how about non 5-line staffs?
-    if ((max_head_i() < -2 && dir_i_ == 1 )
-	||(min_head_i() > staff_size_i_ && dir_i_ == -1) ){
-	set_stemend(    staff_size_i_ /2 -1 );
+    if ((max_head_i() < -2 && dir_i_ == 1)
+	||(min_head_i() > staff_size_i_ && dir_i_ == -1)){
+	set_stemend (staff_size_i_ /2 -1);
     } else {
-	set_stemend( (dir_i_ > 0) ? max_head_i() + STEMLEN : 
+	set_stemend ((dir_i_ > 0) ? max_head_i() + STEMLEN : 
 				     min_head_i() - STEMLEN);
 
     }
@@ -179,10 +179,10 @@ Stem::set_default_extents()
     if (!stem_length_f())
 	set_default_stemlen();
 
-    set_stemend((dir_i_< 0) ? 
-		max_head_i()-stem_length_f(): min_head_i() +stem_length_f());
+    set_stemend ((dir_i_< 0) ? 
+		max_head_i()-stem_length_f (): min_head_i () +stem_length_f ());
     if (dir_i_ > 0){	
-	stem_xoffset_f_ = paper()->note_width()-paper()->rule_thickness();
+	stem_xoffset_f_ = paper()->note_width ()-paper ()->rule_thickness ();
     } else
 	stem_xoffset_f_ = 0;
 }
@@ -196,9 +196,9 @@ Stem::set_default_extents()
 void
 Stem::set_noteheads()
 {
-    if(!head_l_arr_.size())
+    if (!head_l_arr_.size())
 	return;
-    head_l_arr_.sort(Note_head::compare);
+    head_l_arr_.sort (Note_head::compare);
     if (dir_i_ < 0) 
 	head_l_arr_.reverse();
     
@@ -207,7 +207,7 @@ Stem::set_noteheads()
     int parity=1;
     int lastpos = head_l_arr_[0]->position_i_;
     for (int i=1; i < head_l_arr_.size(); i ++) {
-	int dy =abs(lastpos- head_l_arr_[i]->position_i_);
+	int dy =abs (lastpos- head_l_arr_[i]->position_i_);
 	
 	if (dy <= 1) {
 	    if (parity)
@@ -225,7 +225,7 @@ Stem::do_pre_processing()
     if (stem_bottom_f_== stem_top_f_)
 	set_default_extents();
     set_noteheads();
-    flag_i_ = dir_i_*abs(flag_i_);
+    flag_i_ = dir_i_*abs (flag_i_);
     transparent_b_ = invisible_b();
     empty_b_ = invisible_b();
 }
@@ -234,10 +234,10 @@ Stem::do_pre_processing()
 Interval
 Stem::do_width()const
 {
-    if (!print_flag_b_ || abs(flag_i_) <= 4)
-	return Interval(0,0);	// TODO!
+    if (!print_flag_b_ || abs (flag_i_) <= 4)
+	return Interval (0,0);	// TODO!
     Paper_def*p= paper();
-    Interval r(p->lookup_l()->flag(flag_i_).dim.x());
+    Interval r (p->lookup_l()->flag (flag_i_).dim.x ());
     r+= stem_xoffset_f_;
     return r;
 }
@@ -250,27 +250,27 @@ Stem::brew_molecule_p()const
     Real bot  = stem_bottom_f_;
     Real top = stem_top_f_;
     
-    assert(bot!=top);
+    assert (bot!=top);
  
     Paper_def *p =paper();
 
     Real dy = p->internote_f();
-    Symbol ss =p->lookup_l()->stem(bot*dy,top*dy);
+    Symbol ss =p->lookup_l()->stem (bot*dy,top*dy);
 
-    out = new Molecule(Atom(ss));
+    out = new Molecule (Atom (ss));
 
-    if (print_flag_b_&&abs(flag_i_) > 4){
-	Symbol fl = p->lookup_l()->flag(flag_i_);
-	Molecule m(fl);
+    if (print_flag_b_&&abs (flag_i_) > 4){
+	Symbol fl = p->lookup_l()->flag (flag_i_);
+	Molecule m (fl);
 	if (flag_i_ < -4){		
-	    out->add_bottom(m);
+	    out->add_bottom (m);
 	} else if (flag_i_ > 4) {
-	    out->add_top(m);
+	    out->add_top (m);
 	} else
-	    assert(false); 
+	    assert (false); 
     }
 
-    out->translate(stem_xoffset_f_, X_AXIS);
+    out->translate (stem_xoffset_f_, X_AXIS);
     return out;
 }
 
@@ -282,11 +282,11 @@ Stem::hpos_f()const
 
 
 void
-Stem::do_substitute_dependency(Score_elem*o,Score_elem*n)
+Stem::do_substitute_dependency (Score_elem*o,Score_elem*n)
 {
     Item * o_l = o->item();
     Item * n_l = n? n->item():0;
-    whole_l_arr_.substitute((Note_head*)o_l, (Note_head*)n_l);
-    head_l_arr_.substitute((Note_head*)o_l, (Note_head*)n_l);
-    rest_l_arr_.substitute((Note_head*)o_l, (Note_head*)n_l);
+    whole_l_arr_.substitute ((Note_head*)o_l, (Note_head*)n_l);
+    head_l_arr_.substitute ((Note_head*)o_l, (Note_head*)n_l);
+    rest_l_arr_.substitute ((Note_head*)o_l, (Note_head*)n_l);
 }

@@ -5,10 +5,8 @@
 
 #ifndef SOURCE_HH
 #define SOURCE_HH
-
-#include "proto.hh"
 #include "plist.hh"
-
+#include "proto.hh"
 class Sources 
 {
 public:

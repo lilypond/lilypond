@@ -13,16 +13,16 @@
 
 
 void
-Tie::set_head(int x_pos, Note_head * head_l)
+Tie::set_head (int x_pos, Note_head * head_l)
 {
     if (x_pos >0) {
-	assert(!right_head_l_);
+	assert (!right_head_l_);
 	right_head_l_ = head_l;
     } else {
-	assert(!left_head_l_);
+	assert (!left_head_l_);
 	left_head_l_ = head_l;
     }
-    add_dependency(head_l);
+    add_dependency (head_l);
 }
 
 Tie::Tie()
@@ -43,7 +43,7 @@ Tie::set_default_dir()
 void
 Tie::do_add_processing()
 {
-    assert(left_head_l_ && right_head_l_);
+    assert (left_head_l_ && right_head_l_);
     left_col_l_ = left_head_l_ -> pcol_l_;
     right_col_l_ = right_head_l_ -> pcol_l_;
 }
@@ -54,7 +54,7 @@ Tie::do_add_processing()
 void
 Tie::do_post_processing()
 {
-    assert(left_head_l_ || right_head_l_);
+    assert (left_head_l_ || right_head_l_);
     left_pos_i_ =  (left_head_l_)? 
 	left_head_l_->position_i_ : right_head_l_->position_i_;
     right_pos_i_ = (right_head_l_) ? 
@@ -81,7 +81,7 @@ Tie::do_post_processing()
 
 
 void
-Tie::do_substitute_dependency(Score_elem*o, Score_elem*n)
+Tie::do_substitute_dependency (Score_elem*o, Score_elem*n)
 {
     Note_head *new_l =n?(Note_head*)n->item():0;
     if (o->item() == left_head_l_)

@@ -23,7 +23,7 @@ class P {
     /**
       Set contents to a copy of #t_l#
      */
-    void copy(T const*t_l);
+    void copy (T const*t_l);
     T* t_p;
 
     /**
@@ -63,7 +63,7 @@ public:
     //P(T *p) { t_p = p; }
     
     T *operator ->() { return t_p; }
-    operator T * () {  return t_p; }
+    operator T *() {  return t_p; }
     const T *operator ->() const { return t_p ; }
     T &operator *() { return *t_p; }
     T const  &operator *() const { return *t_p; }

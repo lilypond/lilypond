@@ -17,8 +17,8 @@ public:
     Array<int> accidental_i_arr_;
  
     Octave_key();
-    void set(int i, int acc);
-    int acc(int i)const { return accidental_i_arr_[i]; }
+    void set (int i, int acc);
+    int acc (int i)const { return accidental_i_arr_[i]; }
 };
 
 /// administration of accidentals
@@ -30,9 +30,9 @@ class Key
 public:
     bool multi_octave_b_;
     
-    Octave_key&oct(int);
-    void set(int name, int acc);
-    void set(int oct, int name, int acc);
+    Octave_key&oct (int);
+    void set (int name, int acc);
+    void set (int oct, int name, int acc);
     Key();
 };
 

@@ -26,7 +26,7 @@ void
 Item::do_print() const
 {
 #ifndef NPRINT
-    mtor << "(unknown)";
+    DOUT << "(unknown)";
 #endif
 }
 
@@ -34,7 +34,7 @@ Item::do_print() const
 Real 
 Item::hpos_f()const
 {
-    return pcol_l_->hpos_f_ + absolute_coordinate(X_AXIS);
+    return pcol_l_->hpos_f_ + absolute_coordinate (X_AXIS);
 }
 
 Line_of_score *
@@ -52,15 +52,15 @@ Item::break_status_i() const
 void
 Item::copy_breakable_items()
 {
-    if ( broken_to_a_[0] || broken_to_a_[1] )
+    if ( broken_to_a_[0] || broken_to_a_[1])
 	return;
     Item *new_copies[2];
     for (int i=0; i < 2; i++) {
-	Item * item_p = clone()->item();
-	item_p->copy_dependencies(*this);
+	Item * item_p = clone()->item ();
+	item_p->copy_dependencies (*this);
 	
 	item_p->break_status_i_ =  -1+ 2*i;
-	pscore_l_->typeset_item(item_p, pcol_l_);
+	pscore_l_->typeset_item (item_p, pcol_l_);
 	item_p->handle_prebroken_dependencies();
 	new_copies[i] =item_p;
     }
@@ -79,13 +79,13 @@ Item::do_breakable_col_processing()
     /*
       Otherwise the broken items won't be pre_process()'ed.
      */
-    add_dependency( broken_to_a_[0] );
-    add_dependency( broken_to_a_[1] );    
+    add_dependency (broken_to_a_[0]);
+    add_dependency (broken_to_a_[1]);    
 
 }
 
 Item*
-Item::find_prebroken_piece(Line_of_score*l) const
+Item::find_prebroken_piece (Line_of_score*l) const
 {
     if (line_l() == l) 
 	return (Item*)this;
@@ -98,9 +98,9 @@ Item::find_prebroken_piece(Line_of_score*l) const
 }
 
 Item*
-Item::find_prebroken_piece(PCol*c)const
+Item::find_prebroken_piece (PCol*c)const
 {
-    if (c == pcol_l_ )
+    if (c == pcol_l_)
 	return (Item *) this;	// ugh
 
     if (c == pcol_l_->prebreak_p_)
@@ -108,12 +108,12 @@ Item::find_prebroken_piece(PCol*c)const
     else if (c==pcol_l_->postbreak_p_)
 	return  (Item *)broken_to_a_[1];
 
-    assert(false);
+    assert (false);
 }
 
 void
 Item::handle_prebroken_dependencies()
 {
-    if ( breakable_b_ )
+    if ( breakable_b_)
 	Score_elem::handle_prebroken_dependencies();
 }

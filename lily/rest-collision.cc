@@ -19,25 +19,17 @@
 IMPLEMENT_IS_TYPE_B1(Rest_collision,Item);
 
 void
-Rest_collision::add(Note_column *nc_l)
+Rest_collision::add (Note_column *nc_l)
 {
-    add_dependency(nc_l);
-    ncol_l_arr_.push(nc_l);
+    add_dependency (nc_l);
+    ncol_l_arr_.push (nc_l);
 }
 
 void
-Rest_collision::add(Rest_column *rc_l)
+Rest_collision::add (Rest_column *rc_l)
 {
-    add_dependency(rc_l);
-    rest_l_arr_.push(rc_l);
-}
-
-void
-Rest_collision::add(Collision * c_l)
-{
-    add_dependency(c_l);
-    for (int i=0; i < c_l->clash_l_arr_.size(); i ++)
-	ncol_l_arr_.push(c_l->clash_l_arr_[i]);
+    add_dependency (rc_l);
+    rest_l_arr_.push (rc_l);
 }
 
 void
@@ -74,7 +66,7 @@ Rest_collision::do_post_processing()
 #else // nogo: stem_start not set for rests?
     int pos = (stem_l->stem_start_f() - midpos) + dir_i * 2;
 #endif
-    rest_l_arr_[0]->translate_heads(pos);	
+    rest_l_arr_[0]->translate_heads (pos);	
 }
 
 void
@@ -92,23 +84,23 @@ Rest_collision::do_pre_processing()
     	return;
 
     // no partners to collide with
-    if (rest_l_arr_.size() + ncol_l_arr_.size() < 2 )
+    if (rest_l_arr_.size() + ncol_l_arr_.size () < 2)
 	return;
 
     // meisjes met meisjes
     if (!ncol_l_arr_.size()) {
 	int dy = rest_l_arr_.size() > 2 ? 6 : 4;
 	
-	rest_l_arr_[0]->translate_heads(rest_l_arr_[0]->dir_i_ *dy);	
+	rest_l_arr_[0]->translate_heads (rest_l_arr_[0]->dir_i_ *dy);	
 	// top is last element...
-	rest_l_arr_.top()->translate_heads(rest_l_arr_.top()->dir_i_* dy);	
+	rest_l_arr_.top()->translate_heads (rest_l_arr_.top ()->dir_i_* dy);	
     }
     // meisjes met jongetjes
     else {
 #if 0 // breendet: rests go always under
 	// geen gemug, trug op je rug
 	int dir_i = -1;
-	rest_l_arr_[0]->translate_heads(dir_i * 3 );	
+	rest_l_arr_[0]->translate_heads (dir_i * 3);	
 #else
 	// int dir_i = - ncol_l_arr_[0]->dir_i_;
 	int dir_i = rest_l_arr_[0]->dir_i_;
@@ -126,11 +118,11 @@ Rest_collision::do_pre_processing()
 	for (int i = 0; i < ncol_l_arr_.size(); i++) {
 	    // how to know whether to sort?
 	    ncol_l_arr_[i]->sort();
-	    for ( int j = 0; j < ncol_l_arr_[i]->head_l_arr_.size(); j++ )
+	    for ( int j = 0; j < ncol_l_arr_[i]->head_l_arr_.size(); j++)
 		minpos = minpos >? dir_i * 
-		    (ncol_l_arr_[i]->head_l_arr_[j]->position_i_ -midpos ) + sep_i;
+		    (ncol_l_arr_[i]->head_l_arr_[j]->position_i_ -midpos) + sep_i;
 	}
-	rest_l_arr_[0]->translate_heads(dir_i * minpos );	
+	rest_l_arr_[0]->translate_heads (dir_i * minpos);	
 #endif
     }
 }
@@ -139,19 +131,19 @@ void
 Rest_collision::do_print() const
 {
 #ifndef NPRINT
-    mtor << "rests: " << rest_l_arr_.size() << ", ";
-    mtor << "cols: " << ncol_l_arr_.size();
+    DOUT << "rests: " << rest_l_arr_.size() << ", ";
+    DOUT << "cols: " << ncol_l_arr_.size();
 #endif
 }
 
 void
-Rest_collision::do_substitute_dependency(Score_elem*o,Score_elem*n)
+Rest_collision::do_substitute_dependency (Score_elem*o,Score_elem*n)
 {
     Item*o_l = o->item();
     Item*n_l = n?n->item():0;
     
-    rest_l_arr_.substitute((Rest_column*)o_l,(Rest_column*)n_l);
-    ncol_l_arr_.substitute((Note_column*)o_l,(Note_column*)n_l);
+    rest_l_arr_.substitute ((Rest_column*)o_l,(Rest_column*)n_l);
+    ncol_l_arr_.substitute ((Note_column*)o_l,(Note_column*)n_l);
 }
 
 Rest_collision::Rest_collision()

@@ -19,18 +19,18 @@ intlog2(int d) {
 	d/= 2;
 	i++;
     }
-    assert(!(d/2));
+    assert (!(d/2));
     return i;
 }
 
 double
 log_2(double x) {
-    return log(x)  /log(2.0);
+    return log (x)  /log (2.0);
 }
 
 #if 1
 Interval
-itemlist_width(const Array<Item*> &its)
+itemlist_width (const Array<Item*> &its)
 {
     Interval iv ;
     iv.set_empty();

@@ -28,12 +28,12 @@ class Matrix {
 
 protected:
     Matrix_storage *dat;
-    void set(Matrix_storage*);
-    Matrix(Matrix_storage*);
+    void set (Matrix_storage*);
+    Matrix (Matrix_storage*);
 public:
     void OK() const { dat->OK(); }
-    int cols() const { return dat->cols(); }
-    int rows() const { return dat->rows(); }
+    int cols() const { return dat->cols (); }
+    int rows() const { return dat->rows (); }
 
     /**  return the size of a matrix. 
       PRE
@@ -54,14 +54,14 @@ public:
     ~Matrix() { delete dat; }
 
     /// set entries to r 
-    void fill(Real r);
+    void fill (Real r);
 
     /// set diagonal to d
-    void set_diag(Real d);
+    void set_diag (Real d);
 
-    void set_diag(Vector d);
+    void set_diag (Vector d);
     /// set unit matrix
-    void unit() { set_diag(1.0); }
+    void unit() { set_diag (1.0); }
 
     void operator+=(Matrix const &m);
     void operator-=(Matrix const &m);    
@@ -72,48 +72,48 @@ public:
       add a row to the matrix before  row k
 
       PRE
-      v.dim() == cols()
+      v.dim() == cols ()
       0 <= k <= rows()
     */
-    void insert_row(Vector v,int k);
+    void insert_row (Vector v,int k);
     /** . 
       delete a row from this matrix.
 
       PRE
       0 <= k < rows();
     */
-    void delete_row(int k) { dat->delete_row(k); }
-    void delete_column(int k) { dat->delete_column(k); }
+    void delete_row (int k) { dat->delete_row (k); }
+    void delete_column (int k) { dat->delete_column (k); }
 
     /**
       square n matrix, initialised to null
     */
-    Matrix(int n);
+    Matrix (int n);
    
     /**
       n x m matrix, init to 0
     */
-    Matrix(int n, int m);
-    Matrix(Matrix const &m);
+    Matrix (int n, int m);
+    Matrix (Matrix const &m);
 
     /// dyadic product: v * w.transpose
-    Matrix(Vector v, Vector w);
+    Matrix (Vector v, Vector w);
     void operator=(Matrix const &m);
 
     /// access an element
-    Real operator()(int i,int j) const { return dat->elem(i,j); }
+    Real operator()(int i,int j) const { return dat->elem (i,j); }
 
     /// access an element
-    Real &operator()(int i, int j) { return dat->elem(i,j); }
+    Real &operator()(int i, int j) { return dat->elem (i,j); }
 
     /// Matrix multiply with vec (from right)
     Vector operator *(Vector const &v) const;
 
     /// set this to m1*m2.
-    void set_product(Matrix const &m1, Matrix const &m2);
+    void set_product (Matrix const &m1, Matrix const &m2);
 
 
-    Vector left_multiply(Vector const &) const;
+    Vector left_multiply (Vector const &) const;
     
     Matrix operator-() const;
     
@@ -128,24 +128,24 @@ public:
       PRE
       0 <= c1,c2 < cols()
     */
-    void swap_columns(int c1, int c2);
+    void swap_columns (int c1, int c2);
 
     /**  swap. 
       PRE
       0 <= c1,c2 < rows()
     */
-    void swap_rows(int c1, int c2);
+    void swap_rows (int c1, int c2);
 
 
-    Vector row(int ) const;
-    Vector col(int) const;
+    Vector row (int) const;
+    Vector col (int) const;
 
     operator String() const;
     void print() const;
 };
 
 inline Vector
-operator *(Vector &v, Matrix const & m) { return m.left_multiply(v); }
+operator *(Vector &v, Matrix const & m) { return m.left_multiply (v); }
 Matrix operator *(Matrix const & m1,Matrix const &m2);
 Matrix operator /(Matrix const &m1,Real a);
 inline Matrix operator -(Matrix m1,const Matrix m2)

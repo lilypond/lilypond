@@ -34,29 +34,29 @@ struct Time_description {
     int bars_i_;
 
     /* *************** */
-    void set_cadenza(bool);
+    void set_cadenza (bool);
     void OK() const;
     Time_description();
-    void add(Moment dt);
+    void add (Moment dt);
     bool allow_meter_change_b();
     String str()const;
     void print() const;
-    void setpartial(Moment p);
-    String try_set_partial_str(Moment)const;
+    void setpartial (Moment p);
+    String try_set_partial_str (Moment)const;
     Moment barleft()const;
     Moment next_bar_moment()const;
-    void set_meter(int,int);
+    void set_meter (int,int);
     static int compare (const Time_description&, const Time_description&);
 };
 
 #include "compare.hh"
 
 
-instantiate_compare(Time_description&,Time_description::compare);
+INSTANTIATE_COMPARE(Time_description&,Time_description::compare);
 
 
 void
-process_timing_reqs(Time_description &time_, 
+process_timing_reqs (Time_description &time_, 
 		    Rhythmic_grouping *default_grouping,
 		    Array<Timing_req*> const& timing_req_l_arr);
 #endif // Time_description_HH

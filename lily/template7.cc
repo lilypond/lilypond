@@ -14,5 +14,5 @@
 #include "music-list.hh"
 #include "music-iterator.hh"
 
-IPL_instantiate(Music);
-IPL_instantiate(Music_iterator);
+template IPL_INSTANTIATE(Music);
+template IPL_INSTANTIATE(Music_iterator);

@@ -19,11 +19,11 @@ Clef_engraver::Clef_engraver()
     clef_p_ = 0;
     clef_req_l_ =0;
     
-    set_type("violin");
+    set_type ("violin");
 }
 
 bool
-Clef_engraver::set_type(String s)
+Clef_engraver::set_type (String s)
 {
     clef_type_str_  = s;
     if (clef_type_str_ == "violin") {
@@ -41,23 +41,23 @@ Clef_engraver::set_type(String s)
 }
 
 void
-Clef_engraver::fill_staff_info(Staff_info &i)
+Clef_engraver::fill_staff_info (Staff_info &i)
 {
     i.c0_position_i_l_ = &c0_position_i_;
 }
 
 void 
-Clef_engraver::read_req(Clef_change_req*c_l)
+Clef_engraver::read_req (Clef_change_req*c_l)
 {
-    if (!set_type(c_l->clef_str_))
-	c_l->error("unknown clef type ");
+    if (!set_type (c_l->clef_str_))
+	c_l->error ("unknown clef type ");
 }
 void
-Clef_engraver::acknowledge_element(Score_elem_info info)
+Clef_engraver::acknowledge_element (Score_elem_info info)
 {
-    if (info.elem_l_->name() == Bar::static_name() ) {
+    if (info.elem_l_->name() == Bar::static_name ()) {
 	create_clef();
-	if ( !clef_req_l_ )
+	if ( !clef_req_l_)
 	    clef_p_->default_b_ = true;
     }
 }
@@ -70,7 +70,7 @@ Clef_engraver::do_creation_processing()
 }
 
 bool
-Clef_engraver::do_try_request(Request * r_l)
+Clef_engraver::do_try_request (Request * r_l)
 {
     Command_req* creq_l= r_l->command();
     if (!creq_l || !creq_l->clefchange())
@@ -78,7 +78,7 @@ Clef_engraver::do_try_request(Request * r_l)
 
     clef_req_l_ = creq_l->clefchange();
     
-    read_req(clef_req_l_); 
+    read_req (clef_req_l_); 
     return true;
 }
 
@@ -87,9 +87,9 @@ Clef_engraver::create_clef()
 {
     if (!clef_p_) {
 	clef_p_ = new Clef_item;
-        announce_element(Score_elem_info(clef_p_,clef_req_l_));
+        announce_element (Score_elem_info (clef_p_,clef_req_l_));
     }
-    clef_p_->read(*this);
+    clef_p_->read (*this);
 }
 
 void
@@ -106,7 +106,7 @@ Clef_engraver::do_pre_move_processing()
 {
     if (!clef_p_)
 	return;
-    typeset_element(clef_p_);
+    typeset_element (clef_p_);
     clef_p_ = 0;
 }
     

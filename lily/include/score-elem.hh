@@ -53,8 +53,8 @@ class Score_elem : private Directed_graph_node {
     
     Status status_;
 
-    Score_elem* dependency(int) const;
-    Score_elem* dependent(int) const;
+    Score_elem* dependency (int) const;
+    Score_elem* dependent (int) const;
     int dependent_size() const;
     int dependency_size() const;
 public:
@@ -70,9 +70,9 @@ public:
     Paper_score *pscore_l_;    
     Axis_group_element * axis_group_l_a_[2];
 
-    Score_elem(Score_elem const&);
-    virtual String TeX_string () const ;
-    String TeX_string_without_offset(Offset)const;
+    Score_elem (Score_elem const&);
+    virtual String TeX_string() const ;
+    String TeX_string_without_offset (Offset)const;
     virtual void print() const;
     
     Paper_def *paper() const;
@@ -81,7 +81,7 @@ public:
     Score_elem();
     DECLARE_MY_RUNTIME_TYPEINFO;    
     
-    Interval extent(Axis)const;
+    Interval extent (Axis)const;
     Interval width() const;
     Interval height() const;
     Status status() const;
@@ -89,16 +89,16 @@ public:
      /**
       translate the symbol. The symbol does not have to be created yet. 
       */
-    void translate(Offset);
+    void translate (Offset);
     /**
       translate in one direction
      */
     
-    void translate(Real, Axis);
-    Real relative_coordinate(Axis_group_element*, Axis)const;
+    void translate (Real, Axis);
+    Real relative_coordinate (Axis_group_element*, Axis)const;
     Offset absolute_offset()const;
-    Real absolute_coordinate(Axis)const;
-    Axis_group_element*common_group(Score_elem const* s, Axis a)const;
+    Real absolute_coordinate (Axis)const;
+    Axis_group_element*common_group (Score_elem const* s, Axis a)const;
 
     void add_processing();
     void OK() const;
@@ -114,13 +114,13 @@ public:
      */
     void unlink();
     void unlink_all();
-    void substitute_dependency(Score_elem*,Score_elem*);
-    void remove_dependency(Score_elem*);
+    void substitute_dependency (Score_elem*,Score_elem*);
+    void remove_dependency (Score_elem*);
     /**
       add a dependency. It may be the 0 pointer, in which case, it is ignored.
      */
-    void add_dependency(Score_elem* );    
-    void copy_dependencies(Score_elem const&);
+    void add_dependency (Score_elem*);    
+    void copy_dependencies (Score_elem const&);
     /**
       junk the dependency array. Don't do derived stuff.
      */
@@ -158,8 +158,8 @@ protected:
     /// do calculations after determining horizontal spacing
     virtual void do_post_processing();
     
-    virtual void do_substitute_dependency(Score_elem * , Score_elem *);
-    virtual void do_substitute_dependent(Score_elem *, Score_elem *);
+    virtual void do_substitute_dependency (Score_elem * , Score_elem *);
+    virtual void do_substitute_dependent (Score_elem *, Score_elem *);
     virtual void do_break_processing();
     virtual void handle_broken_dependencies();
     virtual void handle_prebroken_dependencies();

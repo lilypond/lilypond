@@ -16,7 +16,7 @@
 struct Performer_table_entry {
     String name_str_;
     Perf_ctor ctor_l_;
-    Performer_table_entry(String s, Perf_ctor f) {
+    Performer_table_entry (String s, Perf_ctor f) {
 	name_str_ =s;
 	ctor_l_ = f;
     }
@@ -29,22 +29,22 @@ struct Performer_table_entry {
 static Array<Performer_table_entry> *perf_table=0;
 
 void
-add_Performer(String s, Perf_ctor f)
+add_Performer (String s, Perf_ctor f)
 {
     if (!perf_table)
 	perf_table = new Array<Performer_table_entry>;
     
-    perf_table->push(Performer_table_entry(s, f));
+    perf_table->push (Performer_table_entry (s, f));
 }
 
 
 Performer*
-get_performer_p(String s)
+get_performer_p (String s)
 {
     for (int i=0; i < perf_table->size(); i++) {
 	if ((*perf_table)[i].name_str_ == s)
 	    return (*(*perf_table)[i].ctor_l_)();
     }
-    error("Unknown performer `" + s +"\'");
+    error ("Unknown performer `" + s +"\'");
     return 0;
 }

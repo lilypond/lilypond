@@ -10,7 +10,7 @@
 
 /// copy a bare (C-)array from #src# to #dest# sized  #count#
 template<class T>
-inline void arrcpy(T*dest, T*src, int count) {
+inline void arrcpy (T*dest, T*src, int count) {
     for (int i=0; i < count ; i++)
 	*dest++ = *src++;
 }
@@ -42,10 +42,10 @@ protected:
     T *thearray;
 
     /// stretch or shrink  array.
-    void remax(int newmax) {	 
+    void remax (int newmax) {	 
 	T* newarr = new T[newmax];
 	size_ = (newmax < size_) ? newmax : size_;
-	arrcpy(newarr, thearray, size_);
+	arrcpy (newarr, thearray, size_);
 	
 	delete[] thearray;
 	thearray = newarr;
@@ -56,8 +56,8 @@ protected:
 public:
     /// check invariants
     void OK() const {
-	assert(max >= size_ && size_ >=0);
-	if (max) assert(thearray);
+	assert (max >= size_ && size_ >=0);
+	if (max) assert (thearray);
     }
     /** report the size_.
       @see {setsize_}
@@ -73,8 +73,8 @@ public:
     /** set the size_ to #s#.
       POST: size() == s.
     Warning: contents are unspecified */
-    void set_size(int s) {
-	if (s >= max) remax(s);
+    void set_size (int s) {
+	if (s >= max) remax (s);
 	size_ = s;    
     }
     
@@ -83,44 +83,44 @@ public:
     /// return a  "new"ed copy of array 
     T* copy_array() const {
 	T* Tarray = new T[size_];
-	arrcpy(Tarray, thearray, size_);
+	arrcpy (Tarray, thearray, size_);
 	return Tarray;
     }
     // depracated
-    operator T* () const {
+    operator T*() const {
 	return copy_array();	
     }
     void operator=(Array const & src) {
 	set_size (src.size_);
-	arrcpy(thearray,src.thearray, size_);
+	arrcpy (thearray,src.thearray, size_);
     }
-    Array(Array const & src) {
+    Array (Array const & src) {
 	thearray = src.copy_array();
 	max = size_ = src.size_;	
     }
 
     /// tighten array size_.
-    void precompute () { remax(size_); }
+    void precompute() { remax (size_); }
     
 
     /// access element
     T &operator[] (int i)  {
-	return elem(i);
+	return elem (i);
     }
     /// access element
     T const & operator[] (int i) const {
-	return elem(i);
+	return elem (i);
     }
     /// access element
-    T &elem( int i) const {
-	assert(i >=0&&i<size_);
+    T &elem (int i) const {
+	assert (i >=0&&i<size_);
 	return ((T*)thearray)[i];	
     }
 
     /// add to the end of array
-    void push(T x) {
+    void push (T x) {
 	if (size_ == max)
-	    remax(2*max + 1);
+	    remax (2*max + 1);
 
 	// T::operator=(T &) is called here. Safe to use with automatic
 	// vars
@@ -128,13 +128,13 @@ public:
     }
     /// remove and return last entry 
     T pop() {
-	assert(!empty());
-	T l = top(0);
-	set_size(size()-1);
+	assert (!empty());
+	T l = top (0);
+	set_size (size()-1);
 	return l;
     }
     /// access last entry
-    T& top(int j=0) {
+    T& top (int j=0) {
 	return (*this)[size_-j-1];
     }
      /// return last entry
@@ -144,14 +144,14 @@ public:
 
 
     void swap (int i,int j) {
-	T t((*this)[i]);
+	T t ((*this)[i]);
 	(*this)[i]=(*this)[j];
 	(*this)[j]=t;
     }
     bool empty() const { return !size_; }
-    void insert(T k, int j) {
-	assert(j >=0 && j<= size_);
-	set_size(size_+1);
+    void insert (T k, int j) {
+	assert (j >=0 && j<= size_);
+	set_size (size_+1);
 	for (int i=size_-1; i > j; i--)
 	    thearray[i] = thearray[i-1];
 	thearray[j] = k;
@@ -159,56 +159,56 @@ public:
     /**
       remove  i-th element, and return it.
      */
-    T get(int i) {
-	T t = elem(i);
+    T get (int i) {
+	T t = elem (i);
 	del (i);
 	return t;
     }
-    void unordered_del(int i)
+    void unordered_del (int i)
     {
-	elem(i) = top();
-	set_size(size() -1);
+	elem (i) = top();
+	set_size (size() -1);
     }
-    void del(int i) {
-	assert(i >=0&& i < size_);
-	arrcpy(thearray+i, thearray+i+1, size_-i-1);
+    void del (int i) {
+	assert (i >=0&& i < size_);
+	arrcpy (thearray+i, thearray+i+1, size_-i-1);
 	size_--;
     }
     // quicksort.
     void sort (int (*compare)( T const&,T const&),
-	       int lower = -1, int upper = -1 ) {
+	       int lower = -1, int upper = -1) {
 	if (lower < 0) {
 	    lower = 0 ;
 	    upper = size()-1;
 	}
 	if (lower >= upper)
 	    return;
-	swap(lower, (lower+upper)/2);
+	swap (lower, (lower+upper)/2);
 	int last = lower;
 	for (int i= lower +1; i <= upper; i++)
-	    if (compare(thearray[i], thearray[lower]) < 0 )
-		swap( ++last,i);
-	swap(lower, last);
-	sort(compare, lower, last-1);
-	sort(compare, last+1, upper);
+	    if (compare (thearray[i], thearray[lower]) < 0)
+		swap (++last,i);
+	swap (lower, last);
+	sort (compare, lower, last-1);
+	sort (compare, last+1, upper);
     }
-    void concat(Array<T> const &src) {
+    void concat (Array<T> const &src) {
 	int s = size_;
-	set_size(size_ + src.size_);
-	arrcpy(thearray+s,src.thearray, src.size_);	
+	set_size (size_ + src.size_);
+	arrcpy (thearray+s,src.thearray, src.size_);	
     }
-    Array<T> slice(int lower, int upper) {
-	assert(lower >= 0 && lower <=upper&& upper <= size_);
+    Array<T> slice (int lower, int upper) {
+	assert (lower >= 0 && lower <=upper&& upper <= size_);
 	Array<T> r;
 	int s =upper-lower;
-	r.set_size(s);
-	arrcpy(r.thearray, thearray  + lower, s);
+	r.set_size (s);
+	arrcpy (r.thearray, thearray  + lower, s);
 	return r;
     }
     void reverse() {
 	int h = size_/2;
 	for (int i =0,j = size_-1; i < h; i++,j--)
-	    swap(i,j);
+	    swap (i,j);
     }
 };
 

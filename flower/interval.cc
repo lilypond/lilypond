@@ -10,7 +10,7 @@
 #include "real.hh"
 #include "interval.tcc"
 
-Interval__instantiate(Real);
+template INTERVAL__INSTANTIATE(Real);
 
 Real
 Interval_t<Real>::infinity() 

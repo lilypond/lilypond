@@ -12,12 +12,12 @@
 #include "debug.hh"
 #include "music-list.hh"
 
-Music_list::Music_list(Music_list const&s)
-    : Music(s)
+Music_list::Music_list (Music_list const&s)
+    : Music (s)
 {
     multi_level_i_ = s.multi_level_i_;   
-    for (iter(s.music_p_list_.top(), i); i.ok(); i++)
-	add(i->clone());
+    for (iter (s.music_p_list_.top(), i); i.ok (); i++)
+	add (i->clone());
 }
 
 IMPLEMENT_IS_TYPE_B1(Music_list, Music);
@@ -28,17 +28,17 @@ MInterval
 Chord::time_int()const
 {
     MInterval m;
-    for (iter(music_p_list_.top(), i); i.ok(); i++)
-	m.unite(i->time_int());
+    for (iter (music_p_list_.top(), i); i.ok (); i++)
+	m.unite (i->time_int());
 
     return m;
 }
 
 void
-Chord::translate(Moment m)
+Chord::translate (Moment m)
 {
-    for (iter(music_p_list_.top(), i); i.ok(); i++)
-	i->translate(m); 
+    for (iter (music_p_list_.top(), i); i.ok (); i++)
+	i->translate (m); 
 }
 
 Chord::Chord()
@@ -55,20 +55,20 @@ MInterval
 Voice::time_int() const
 {
     Moment last=0;
-    for (iter(music_p_list_.top(), i); i.ok(); i++) {
+    for (iter (music_p_list_.top(), i); i.ok (); i++) {
 	MInterval interval = i->time_int();
 	
         /*
 	  c4 <> c4
         */
-	if ( !interval.empty_b() )
+	if ( !interval.empty_b())
 	    last += interval.length();
     }
-    return  offset_mom_ + MInterval(0,last);
+    return  offset_mom_ + MInterval (0,last);
 }
 
 void
-Voice::translate(Moment dt)
+Voice::translate (Moment dt)
 {
     offset_mom_ += dt;
 }
@@ -80,27 +80,27 @@ Music_list::Music_list()
 }
 
 void
-Music_list::add(Music*m_p)
+Music_list::add (Music*m_p)
 {
     if (!m_p)
 	return;
 
     m_p->parent_music_l_ = this;
-    music_p_list_.bottom().add(m_p);
+    music_p_list_.bottom().add (m_p);
 }
 
 void
-Music_list::transpose(Melodic_req const*rq)
+Music_list::transpose (Melodic_req const*rq)
 {
-    for (iter(music_p_list_.top(),i); i.ok(); i++)
-	i->transpose(rq);    
+    for (iter (music_p_list_.top(),i); i.ok (); i++)
+	i->transpose (rq);    
 }
 
 void
 Music_list::do_print()const
 {
 #ifndef NPRINT
-    for (iter(music_p_list_.top(),i); i.ok(); i++)
+    for (iter (music_p_list_.top(),i); i.ok (); i++)
 	i->print();
 #endif 
 }

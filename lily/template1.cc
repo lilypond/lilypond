@@ -17,11 +17,11 @@
 #include "plist.tcc"
 
 
-#define IPLC_instantiate(a) IPL_instantiate(a); PL_instantiate(const a)
+#define IPLC_INSTANTIATE(a) IPL_INSTANTIATE(a); template PL_INSTANTIATE(const a)
 
 
-IPLC_instantiate(Score_elem);
-IPLC_instantiate(Spanner);
-IPLC_instantiate(Idealspacing);
-IPLC_instantiate(PCol);
+template IPLC_INSTANTIATE(Score_elem);
+template IPLC_INSTANTIATE(Spanner);
+template IPLC_INSTANTIATE(Idealspacing);
+template IPLC_INSTANTIATE(PCol);
 

@@ -12,13 +12,13 @@
 
 /** a macro to declare the classes name as a static and virtual function.
   The static_name() can *not* be inlined (this might have the effect that 
-  s->name() != S::static_name(). Overlapping strings need not be merged in C++
+  s->name() != S::static_name (). Overlapping strings need not be merged in C++
  */
 #define DECLARE_MY_RUNTIME_TYPEINFO	\
 static char const *static_name();\
-static bool static_is_type_b(const char*s);\
-virtual bool is_type_b(const char *s)const { return static_is_type_b(s); } \
-virtual char const *name() const{ return static_name(); } \
+static bool static_is_type_b (const char*s);\
+virtual bool is_type_b (const char *s)const { return static_is_type_b (s); } \
+virtual char const *name() const{ return static_name (); } \
 int a_stupid_nonexistent_function_to_allow_the_semicolon_come_out()
 
 #define IMPLEMENT_STATIC_NAME(c)\
@@ -38,22 +38,22 @@ int a_stupid_nonexistent_function_to_allow_the_semicolon_come_out()
     
 #define IMPLEMENT_IS_TYPE_B(D) 							   \
     IMPLEMENT_STATIC_NAME(D)\
-  bool D::static_is_type_b(const char *s)					   \
+  bool D::static_is_type_b (const char *s)					   \
 { 										   \
     return s == static_name();							   \
 }										   
 										   
 #define IMPLEMENT_IS_TYPE_B1(D,B) 						   \
 	IMPLEMENT_STATIC_NAME(D)\
-  bool D::static_is_type_b(const char *s)						   \
+  bool D::static_is_type_b (const char *s)						   \
 { 										   \
-    return s == static_name() || B::static_is_type_b(s);				   \
+    return s == static_name() || B::static_is_type_b (s);				   \
 }										   
 #define IMPLEMENT_IS_TYPE_B2(D, BA, BB) 						   \
 	IMPLEMENT_STATIC_NAME(D)\
-  bool D::static_is_type_b(const char *s)						   \
+  bool D::static_is_type_b (const char *s)						   \
 { 										   \
-    return s == static_name() || BA::static_is_type_b(s) || BB::static_is_type_b(s); \
+    return s == static_name() || BA::static_is_type_b (s) || BB::static_is_type_b (s); \
 }
 
 #endif 

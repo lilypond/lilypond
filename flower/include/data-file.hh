@@ -24,8 +24,8 @@ class Data_file : private Text_stream
     Text_stream::get_name;    
 
     char data_get();    
-    void data_unget(char c) {
-	unget(c);
+    void data_unget (char c) {
+	unget (c);
     }
 
     /// read line, eat #\n#
@@ -39,7 +39,7 @@ class Data_file : private Text_stream
 
     /// gobble empty stuff before first field.
     void gobble_leading_white();
-    Data_file(String s) : Text_stream(s) {
+    Data_file (String s) : Text_stream (s) {
 	//*mlog << "(" << s << flush;	
 	rawmode=  false;	
     }
@@ -48,12 +48,12 @@ class Data_file : private Text_stream
 	//	*mlog << ")"<<flush;	
     }    
 
-    warning(String s) {
-	message("warning: " + s);
+    warning (String s) {
+	message ("warning: " + s);
     }
-    error(String s){
-	message(s);
-	exit(1);    
+    error (String s){
+	message (s);
+	exit (1);    
     }
 };
 #endif // DATAFILE_HH

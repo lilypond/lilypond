@@ -15,10 +15,10 @@
 IMPLEMENT_IS_TYPE_B1(Note_column,Head_column);
 
 void
-Note_column::set(Stem*s)
+Note_column::set (Stem*s)
 {
     stem_l_ = s;
-    add_support(s);
+    add_support (s);
 }
 
 Note_column::Note_column()
@@ -29,7 +29,7 @@ Note_column::Note_column()
 void
 Note_column::sort()
 {
-    head_l_arr_.sort( Note_head::compare);
+    head_l_arr_.sort (Note_head::compare);
 }
     
 Interval_t<int>
@@ -46,7 +46,7 @@ void
 Note_column::do_pre_processing()
 {
     if (!dir_i_&& !stem_l_){
-	dir_i_ = (head_positions_interval().center() >=  5) ? -1 : 1;
+	dir_i_ = (head_positions_interval().center () >=  5) ? -1 : 1;
     }
     Head_column::do_pre_processing();
 }

@@ -21,11 +21,11 @@ public:
     
     Global_translator();
     int moments_left_i()const;
-    void modify_next(Moment&);
-    void add_moment_to_process(Moment);
+    void modify_next (Moment&);
+    void add_moment_to_process (Moment);
 
-    virtual void set_score(Score*);
-    virtual void prepare(Moment);
+    virtual void set_score (Score*);
+    virtual void prepare (Moment);
     virtual void process() {}
     virtual void finish() {}
     virtual void start() {}
@@ -35,7 +35,7 @@ protected:
     
     virtual Global_translator *global_l() { return this; }
     virtual int depth_i() const;
-    virtual Translator *ancestor_l(int);
+    virtual Translator *ancestor_l (int);
 };
 
 

@@ -22,9 +22,9 @@ class Staff_symbol : public Spanner
 public:
 
 
-    void set_extent(PCol* p1, PCol* p2);
+    void set_extent (PCol* p1, PCol* p2);
     DECLARE_MY_RUNTIME_TYPEINFO;
-    Staff_symbol(int lines);
+    Staff_symbol (int lines);
     Real inter_note_f()const;
     int steps_i()const;
 protected:

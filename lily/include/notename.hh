@@ -12,12 +12,12 @@
 struct Notename_tab {
     String notetab[7*5];
     
-    void set(int l, int s, String nm);
-    void lookup(int &large, int &small, String s);
+    void set (int l, int s, String nm);
+    void lookup (int &large, int &small, String s);
 };
 
-void set_notename_tab(Notename_tab*n);
-void lookup_notename(int &large, int &small, String s);
+void set_notename_tab (Notename_tab*n);
+void lookup_notename (int &large, int &small, String s);
 
 
 #endif // NOTENAME_HH

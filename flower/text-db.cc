@@ -28,20 +28,20 @@ Text_db::get_record()
    while (1) {
 	String s;
 	Array<String> fields;
-	assert(!eof());
+	assert (!eof());
 	
 	while ((s = get_word()) != "")
 	    {
-	    fields.push(s);	
+	    fields.push (s);	
 	    gobble_white();
 	    }
 	     
 
 	if (get_line() != "")
-	    assert(false);
+	    assert (false);
       
 	assert (fields.size());
-	return Text_record(fields, get_name(), line());
+	return Text_record (fields, get_name(), line ());
    }
 }
 

@@ -5,14 +5,12 @@ done, or is an idea that I want to think about
 
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr
+
 	* Generate TeX titles from MudelaHeader
 
 	* integrate midi-elts from mi2mu and lily
 
 	* virtualise PCols to make encapsulated spacing problems
-
-	* fix spacing: standchen: distance bar-note, 
- 	  strange stretching and compressing of 8's
  
 	* Doc Mutopia (Music To The People) 
 
@@ -79,6 +77,8 @@ grep for TODO and ugh/ugr
 	* a tutorial
 
 3RD PARTY BUGS:
+
+	* ICE: spring-spacer::calcideal()
 
 	* collision.cc: 138, g++ errors
 

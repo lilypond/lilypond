@@ -13,21 +13,21 @@
 
 
 char* 
-strnlwr( char* start_l ,int n)
+strnlwr (char* start_l ,int n)
 {
     char * p = start_l + n;
     while ( --p >= start_l) {
-	*p = tolower( *p );    /* a macro on some compilers */
+	*p = tolower (*p);    /* a macro on some compilers */
     }
     return start_l;
 }
 
 char* 
-strnupr( char* start_l, int n)
+strnupr (char* start_l, int n)
 {
     char * p = start_l + n;
     while ( --p >= start_l) {
-	*p = toupper( *p );    /* a macro on some compilers */
+	*p = toupper (*p);    /* a macro on some compilers */
     }
     return start_l;
 }
@@ -39,7 +39,7 @@ strnupr( char* start_l, int n)
   */
 
 char *
-memmem(Byte const * haystack, int haystack_len,
+memmem (Byte const * haystack, int haystack_len,
        Byte const *needle,int needle_len)
 {
     Byte const * end_haystack = haystack + haystack_len - needle_len;
@@ -65,7 +65,7 @@ memmem(Byte const * haystack, int haystack_len,
 #endif
 
 Byte *
-memrchr(Byte const * p, int n, char c)
+memrchr (Byte const * p, int n, char c)
 {
     const    Byte * q = p+n;
     while (q > p) {
@@ -78,7 +78,7 @@ memrchr(Byte const * p, int n, char c)
 
 template<class T>
 inline void
-my_swap(T &t1, T &t2, T &tmp)
+my_swap (T &t1, T &t2, T &tmp)
 {
     tmp = t1;
     t1 = t2;
@@ -86,27 +86,27 @@ my_swap(T &t1, T &t2, T &tmp)
 }
 
 Byte*
-strrev( Byte* byte_l, int length_i )
+strrev (Byte* byte_l, int length_i)
 {
   Byte tmp_byte;
   
   Byte* left_l = byte_l;
   Byte* right_l = byte_l + length_i;
 
-  while ( right_l > left_l ) {
-      my_swap(*right_l-- , *left_l++ , tmp_byte);
+  while ( right_l > left_l) {
+      my_swap (*right_l-- , *left_l++ , tmp_byte);
   }
   return byte_l;
 }
 
 #if ! HAVE_SNPRINTF
 int snprintf ( char *str, size_t,
-	       char const *format, ... )
+	       char const *format, ...)
 {
     va_list ap;
-    va_start(ap, format);
-    int i = vsprintf(str, format, ap);
-    va_end(ap);
+    va_start (ap, format);
+    int i = vsprintf (str, format, ap);
+    va_end (ap);
     return i;
 }
 #endif

@@ -15,7 +15,7 @@
   print a fixed width text above or below the staff.
  */
 class Text_item : public Item ,public Staff_side{
-    void init(Text_def* tdef_l); 
+    void init (Text_def* tdef_l); 
  
 public:
 
@@ -24,7 +24,7 @@ public:
     
     /* ***************/
 
-    Text_item(General_script_def*,int dir=0);
+    Text_item (General_script_def*,int dir=0);
     virtual ~Text_item();
     DECLARE_MY_RUNTIME_TYPEINFO;
 

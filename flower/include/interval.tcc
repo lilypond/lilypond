@@ -1,3 +1,15 @@
+/*
+  interval.tcc -- implement Interval_t
+
+  source file of the Flower Library
+
+  (c) 1996,1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
+
+#ifndef INTERVAL_TCC
+#define INTERVAL_TCC
+
 #include <assert.h> 
 #include <math.h>
 #include "interval.hh"
@@ -6,7 +18,7 @@
 
 template<class T>
 int
-_Interval__compare(const Interval_t<T>&a,Interval_t<T> const&b)
+_Interval__compare (const Interval_t<T>&a,Interval_t<T> const&b)
 {
     if (a.left == b.left && a.right == b.right)
 	return 0;
@@ -22,9 +34,9 @@ _Interval__compare(const Interval_t<T>&a,Interval_t<T> const&b)
 
 template<class T>
 bool 
-Interval_t<T>::contains_b(Interval_t<T> const& a)const
+Interval_t<T>::contains_b (Interval_t<T> const& a)const
 {
-    int c_i= _Interval__compare( *this, a);
+    int c_i= _Interval__compare (*this, a);
     if (c_i == -2)
 	return false;
     return c_i >= 0;
@@ -32,11 +44,11 @@ Interval_t<T>::contains_b(Interval_t<T> const& a)const
 
 template<class T>
 int
-Interval__compare(const Interval_t<T>&a,Interval_t<T> const&b)
+Interval__compare (const Interval_t<T>&a,Interval_t<T> const&b)
 {
-    int i = _Interval__compare(a,b);
+    int i = _Interval__compare (a,b);
     if (i < -1)
-	assert(false);
+	assert (false);
     return i;
 }
 
@@ -51,13 +63,13 @@ Interval_t<T>::set_empty()
 template<class T>
 T
 Interval_t<T>::length() const {
-    assert(right >= left);
+    assert (right >= left);
     return right-left;
 }
 
 template<class T>
 void
-Interval_t<T>::unite(Interval_t<T> h)
+Interval_t<T>::unite (Interval_t<T> h)
 {
     if (h.left<left)
 	left = h.left;
@@ -71,22 +83,22 @@ Interval_t<T>::unite(Interval_t<T> h)
 
 template<class T>
 void
-Interval_t<T>::intersect(Interval_t<T> h)
+Interval_t<T>::intersect (Interval_t<T> h)
 {
 #if defined (__GNUG__) && ! defined (__STRICT_ANSI__)
     left = h.left >? left;
     right = h.right <?right;
 #else
-    left = max(h.left, left);
-    right = min(h.right, right);
+    left = max (h.left, left);
+    right = min (h.right, right);
 #endif
 }
 
 template<class T>
 Interval_t<T>
-intersect(Interval_t<T> x, Interval_t<T> const &y)
+intersect (Interval_t<T> x, Interval_t<T> const &y)
 {
-    x.intersect(y);
+    x.intersect (y);
     return x;
 }
 
@@ -96,14 +108,20 @@ Interval_t<T>::str() const
 {
     if (empty_b())
 	return "[empty]";
-    String s("[");
+    String s ("[");
  
-    return s + String( left ) + String( "," ) + String( right ) + String( "]" );
+    return s + String (left) + String ("," ) + String (right ) + String ("]" );
 }
 
 template<class T>
 bool
-Interval_t<T>::elt_b(T r)
+Interval_t<T>::elt_b (T r)
 {
     return r >= left && r <= right;
 }
+
+
+#define INTERVAL__INSTANTIATE(T) struct Interval_t<T>;\
+  template  int Interval__compare(const Interval_t<T>&,Interval_t<T> const&)
+
+#endif // INTERVAL_TCC

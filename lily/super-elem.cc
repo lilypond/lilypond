@@ -17,7 +17,7 @@ Super_elem::TeX_string()const
     String s;
     for (int i=0; i < lines_arr_.size(); i++){
 	s += lines_arr_[i]->TeX_string();
-	if (i + 1<lines_arr_.size() )
+	if (i + 1<lines_arr_.size())
 	    s += "\\interscoreline"; // TODO
     }
     return s;
@@ -28,12 +28,12 @@ Super_elem::handle_broken_dependencies()
 {
     lines_arr_ = line_of_score_l_->get_lines();
     for (int i =0; i < lines_arr_.size(); i++) 
-	add_dependency(lines_arr_[i]);
+	add_dependency (lines_arr_[i]);
 }
     
 
 void
-Super_elem::do_substitute_dependency(Score_elem*o,Score_elem* n)
+Super_elem::do_substitute_dependency (Score_elem*o,Score_elem* n)
 {
     if (line_of_score_l_ == o->spanner())
 	line_of_score_l_ = n?(Line_of_score*)n->spanner():0;
@@ -47,8 +47,8 @@ Super_elem::Super_elem()
 void
 Super_elem::do_add_processing()
 {
-    pscore_l_->typeset_unbroken_spanner( line_of_score_l_ );
-    add_dependency(line_of_score_l_);
+    pscore_l_->typeset_unbroken_spanner (line_of_score_l_);
+    add_dependency (line_of_score_l_);
 }
 
 

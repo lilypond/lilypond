@@ -21,7 +21,7 @@
 template<class T>
 class Link_array : public Array<T*>
 {
-    static default_compare(T *const& p1, T  *const&p2) {
+    static default_compare (T *const& p1, T  *const&p2) {
 	/* can't do p1 -p2, since T might be an incomplete type */
 	if (p1 < p2)
 	    return -1 ;
@@ -30,48 +30,48 @@ class Link_array : public Array<T*>
 	return 0;
     }
 public:
-    void substitute(T *old, T*new_l)
+    void substitute (T *old, T*new_l)
     {
 	int i;
-	while ((i = find_i(old)) >=0) 
+	while ((i = find_i (old)) >=0) 
 	    if (new_l)
-		elem(i) =new_l;
+		elem (i) =new_l;
 	    else
-		del(i);
+		del (i);
     }
-    void unordered_substitute(T* old, T * new_l)
+    void unordered_substitute (T* old, T * new_l)
     {
 	int i;
-	while ((i = find_i(old)) >=0) 
+	while ((i = find_i (old)) >=0) 
 	    if (new_l)
-		elem(i) =new_l;
+		elem (i) =new_l;
 	    else {
-		unordered_del( i );
+		unordered_del (i);
 	    }
     
     }
     void default_sort() {
-	sort(default_compare);
+	sort (default_compare);
     }
     void uniq() {
 	Link_array<T> l_arr;
 	for (int i=0; i < size(); i++) 
-	    if (!i || elem(i-1) != elem(i))
-		l_arr.push(elem(i)); 
+	    if (!i || elem (i-1) != elem (i))
+		l_arr.push (elem (i)); 
 	*this = l_arr;
     }
 
     int find_i (T const * t) const {
 	for (int i=0; i < size(); i++)
-	    if (elem(i) == t)
+	    if (elem (i) == t)
 		return i;
 	return -1;
     }
-    T *find_l(T const *t)const
+    T *find_l (T const *t)const
     {
-	int i = find_i(t);
+	int i = find_i (t);
 	if (i >= 0)
-	    return elem(i);
+	    return elem (i);
 	else
 	    return 0;
     }

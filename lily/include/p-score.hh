@@ -41,33 +41,33 @@ public:
     /* *************** */
     /* CONSTRUCTION */
     
-    Paper_score(Paper_def*);
+    Paper_score (Paper_def*);
     /// add a line to the broken stuff. Positions given in #config#
-    void set_breaking(Array<Col_hpositions> const &);
+    void set_breaking (Array<Col_hpositions> const &);
 
     /** add an item.
        add the item in specified containers. If breakstatus is set
        properly, add it to the {pre,post}break of the pcol.
        */
-    void typeset_item(Item *item_p,  PCol *pcol_l);
+    void typeset_item (Item *item_p,  PCol *pcol_l);
 
     /// add to bottom of pcols
-    void add(PCol*);
+    void add (PCol*);
 
     /**
       @return argument as a cursor of the list
       */
-    PCursor<PCol *> find_col(PCol const *)const;
+    PCursor<PCol *> find_col (PCol const *)const;
 
-    Link_array<PCol> col_range(PCol *left_l, PCol *right_l) const;
-    Link_array<PCol> breakable_col_range(PCol*,PCol*) const;
-    Link_array<PCol> broken_col_range(PCol*,PCol*) const;
+    Link_array<PCol> col_range (PCol *left_l, PCol *right_l) const;
+    Link_array<PCol> breakable_col_range (PCol*,PCol*) const;
+    Link_array<PCol> broken_col_range (PCol*,PCol*) const;
     
     /* MAIN ROUTINES */
     void process();
 
     /// last deed of this struct
-    void output(Tex_stream &ts);
+    void output (Tex_stream &ts);
 
     /* UTILITY ROUTINES */
 
@@ -76,10 +76,10 @@ public:
     void OK()const;
     void print() const;
     ~Paper_score();
-    void typeset_element(Score_elem*);
-    void typeset_broken_spanner(Spanner*);
+    void typeset_element (Score_elem*);
+    void typeset_broken_spanner (Spanner*);
     /// add a Spanner
-    void typeset_unbroken_spanner(Spanner*);
+    void typeset_unbroken_spanner (Spanner*);
  
     
 private:

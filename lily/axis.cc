@@ -10,7 +10,7 @@
 #include "string.hh"
 
 String
-axis_name_str(Axis a)
+axis_name_str (Axis a)
 {
     return String (a + 'x');
 }

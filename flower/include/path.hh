@@ -27,11 +27,11 @@ class File_path : private Array<String>
 {
 public:
     /// locate a file in the search path
-    String find(String nm)const;
+    String find (String nm)const;
 
     /// add to end of path.
     Array<String>::push;
-    void add(String str) { push(str); }
+    void add (String str) { push (str); }
 };
 
 /** split a path into its components.
@@ -41,6 +41,6 @@ public:
   @return
   String &drive, String &dirs, String &filebase, String &extension
  */
-void split_path(String path, String &drive, String &dirs, String &filebase, String &extension);
+void split_path (String path, String &drive, String &dirs, String &filebase, String &extension);
 
 #endif

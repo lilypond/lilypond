@@ -31,7 +31,7 @@ class Score_engraver :
     Score_column* musical_column_l_;
     
     friend class Score;
-    void set_columns(Score_column*,Score_column*);
+    void set_columns (Score_column*,Score_column*);
     void typeset_all();
     
 public:
@@ -41,22 +41,22 @@ public:
 
 protected:   
     /* Global_translator interface */
-    virtual void set_score(Score * score_l);
-    virtual void prepare(Moment);
+    virtual void set_score (Score * score_l);
+    virtual void prepare (Moment);
     virtual void finish();
     virtual void process();
-    virtual int depth_i() const { return Global_translator::depth_i();}
-    virtual Translator* ancestor_l(int l) { return Global_translator::ancestor_l(l);}
+    virtual int depth_i() const { return Global_translator::depth_i ();}
+    virtual Translator* ancestor_l (int l) { return Global_translator::ancestor_l (l);}
 
 protected:
     /* Engraver_group_engraver interface */
     virtual Staff_info get_staff_info()const;
-    virtual bool do_try_request(Request*);
+    virtual bool do_try_request (Request*);
     virtual void do_creation_processing();
     virtual void do_removal_processing();
-    virtual void announce_element(Score_elem_info);
+    virtual void announce_element (Score_elem_info);
     virtual void do_announces();
-    virtual void typeset_element(Score_elem*elem_p);
+    virtual void typeset_element (Score_elem*elem_p);
     virtual Paper_def * paper() const;
     virtual void do_pre_move_processing();
 };

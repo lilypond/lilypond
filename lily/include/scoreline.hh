@@ -20,16 +20,16 @@ public:
     DECLARE_MY_RUNTIME_TYPEINFO;
     Line_of_score();
     
-    void add(Score_elem *);
+    void add (Score_elem *);
 
     /// is #c# contained in #*this#?
-    bool contains_b(PCol const *c)const;
+    bool contains_b (PCol const *c)const;
     
     Link_array<Line_of_score> get_lines()const;
-    void set_breaking(Array<Col_hpositions> const&);
+    void set_breaking (Array<Col_hpositions> const&);
 
 protected:
-    virtual void break_into_pieces(bool);
+    virtual void break_into_pieces (bool);
     virtual Interval do_width()const;
     virtual void do_print() const;
     SCORE_ELEM_CLONE(Line_of_score);

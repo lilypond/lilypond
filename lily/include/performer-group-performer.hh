@@ -23,18 +23,18 @@ public:
     DECLARE_MY_RUNTIME_TYPEINFO;
     Input_translator* itrans_l_;
 
-    virtual void add( Performer* perf_p );
-    virtual bool do_try_request( Request* req_l );
+    virtual void add (Performer* perf_p);
+    virtual bool do_try_request (Request* req_l);
     virtual void print() const;
-    virtual bool try_request(Request* r);
+    virtual bool try_request (Request* r);
     
 
 protected:
     virtual ~Performer_group_performer();
-    virtual Translator* find_get_translator_l( String name, String id );
+    virtual Translator* find_get_translator_l (String name, String id);
     virtual Translator* get_default_interpreter();
 
-    Translator * ancestor_l( int l = 1 );
+    Translator * ancestor_l (int l = 1);
     virtual int depth_i() const;
 
     virtual void process_requests();
@@ -42,7 +42,7 @@ protected:
     virtual void do_creation_processing();
 
     bool is_bottom_performer_b() const;
-    virtual Performer_group_performer* find_performer_l( String name, String id );
+    virtual Performer_group_performer* find_performer_l (String name, String id);
     virtual void do_print()const;
 
 private:

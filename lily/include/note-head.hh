@@ -37,14 +37,14 @@ public:
     
     /* *************** */
     
-    void set_rhythmic(Rhythmic_req *);
+    void set_rhythmic (Rhythmic_req *);
 
     /**
       position of top line (5 linestaff: 8)
       */
-    Note_head(int staff_size);
+    Note_head (int staff_size);
     void set_dots();
-    static int compare(Note_head * const &a, Note_head *const &b) ;
+    static int compare (Note_head * const &a, Note_head *const &b) ;
 protected:
     virtual    void do_print()const;
     virtual void do_pre_processing();

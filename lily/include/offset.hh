@@ -28,11 +28,11 @@ struct Offset {
     }
     
     Offset operator+=(Offset o) {
-	x()+=o.x();
-	y()+=o.y();
+	x()+=o.x ();
+	y()+=o.y ();
 	return *this;
     }
-    Offset(Real ix , Real iy) {
+    Offset (Real ix , Real iy) {
 	x()=ix;
 	y()=iy;
     }

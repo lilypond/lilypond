@@ -22,7 +22,7 @@ class Meter: public Item {
 protected:
     Molecule*brew_molecule_p() const;
 public:
-    Meter(Array<Scalar> args) ;
+    Meter (Array<Scalar> args) ;
     DECLARE_MY_RUNTIME_TYPEINFO;
     SCORE_ELEM_CLONE(Meter);
 };

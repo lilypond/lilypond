@@ -11,6 +11,6 @@ char const *
 flower_version_sz()
 {
     static char v[1024];
-    sprintf(v, s, build);
+    sprintf (v, s, build);
     return v;
 }

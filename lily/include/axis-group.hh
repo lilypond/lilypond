@@ -21,15 +21,15 @@ axis-group.hh -- declare Axis_group_administration, Axis_group_element
 struct Axis_group_administration {
     Link_array<Score_elem> elem_l_arr_;
     
-    Interval extent(Axis)const;
+    Interval extent (Axis)const;
     void print() const ;
-    Axis_group_administration(Axis_group_administration const&);
+    Axis_group_administration (Axis_group_administration const&);
     Axis_group_administration(){}
-    void remove_all(Axis a1,Axis a2);
+    void remove_all (Axis a1,Axis a2);
     
-    bool contains_b(Score_elem const *)const;
-    void add_element(Score_elem*, Axis_group_element*, Axis a1, Axis a2);
-    void remove_element(Score_elem*, Axis a1, Axis a2);
+    bool contains_b (Score_elem const *)const;
+    void add_element (Score_elem*, Axis_group_element*, Axis a1, Axis a2);
+    void remove_element (Score_elem*, Axis a1, Axis a2);
 };
 
 /** 
@@ -45,9 +45,9 @@ protected:
 
 public:
     virtual void remove_all()=0;
-    virtual void add_element(Score_elem*)=0;
-    virtual void remove_element(Score_elem*)=0;
-    virtual bool contains_b(Score_elem const *)const;
+    virtual void add_element (Score_elem*)=0;
+    virtual void remove_element (Score_elem*)=0;
+    virtual bool contains_b (Score_elem const *)const;
     DECLARE_MY_RUNTIME_TYPEINFO;
 };
 #endif // Axis_group_administration_HH

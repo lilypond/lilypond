@@ -22,7 +22,10 @@
   (don-t forget to rm lex.yy.cc :-)
  */
 
-#include "mi2mu.hh"
+#include "string-convert.hh"
+#include "mi2mu-global.hh"
+#include "mi2mu-proto.hh"
+#include "my-midi-lexer.hh"
 #include "midi-parser.hh"
 
 #define YY_USER_ACTION char_count_ += YYLeng(); // ugh
@@ -101,87 +104,87 @@ SSME		[\0x7f][\x03]
 %%
 
 {HEADER} {
-	tor( DEBUG_ver ) << "lex: header" << endl;
-	yy_push_state( int16 ); 
-	yy_push_state( int16 ); 
-	yy_push_state( int16 ); 
-	yy_push_state( int32 ); 
+	LOGOUT(DEBUG_ver) << "lex: header" << endl;
+	yy_push_state(int16); 
+	yy_push_state(int16); 
+	yy_push_state(int16); 
+	yy_push_state(int32); 
 	return HEADER;
 }
 
 {TRACK} {
-	tor( DEBUG_ver ) << "lex: track" << endl;
-	yy_push_state( track ); 
-	yy_push_state( int32 ); 
+	LOGOUT(DEBUG_ver) << "lex: track" << endl;
+	yy_push_state(track); 
+	yy_push_state(int32); 
 	return TRACK;
 }
 {U8}	{
-	error( String( "top level: header expected: " )
-		+ String_convert::bin2hex_str( String( *YYText() ) ) );
-	exit( 1 );
+	error(String("top level: header expected: ")
+		+ String_convert::bin2hex_str(String(*YYText())));
+	exit(1);
 }
 {BACKUP_TOP_0} {
-	error( String( "top level: header expected: " )
-		+ String_convert::bin2hex_str( String( *( YYText() ) ) ) );
-	exit( 1 );
+	error(String("top level: header expected: ")
+		+ String_convert::bin2hex_str(String(*(YYText()))));
+	exit(1);
 }
 {BACKUP_TOP_1} {
-	error( String( "top level: header expected: " )
-		+ String_convert::bin2hex_str( String( *( YYText() ) ) ) );
-	exit( 1 );
+	error(String("top level: header expected: ")
+		+ String_convert::bin2hex_str(String(*(YYText()))));
+	exit(1);
 }
 {BACKUP_TOP_2} {
-	error( String( "top level: header expected: " )
-		+ String_convert::bin2hex_str( String( *( YYText() ) ) ) );
-	exit( 1 );
+	error(String("top level: header expected: ")
+		+ String_convert::bin2hex_str(String(*(YYText()))));
+	exit(1);
 }
 <int32>{INT32}	{ // really signed? 
-	tor( DEBUG_ver ) << "lex: int32" << endl;
-	assert( YYLeng() == 4 );
-	String str( (Byte const*)YYText(), YYLeng() );
-	yylval.i = String_convert::bin2_i( str );
+	LOGOUT(DEBUG_ver) << "lex: int32" << endl;
+	assert(YYLeng() == 4);
+	String str((Byte const*)YYText(), YYLeng());
+	yylval.i = String_convert::bin2_i(str);
 	yy_pop_state();
 	return INT32;
 }
 <int32>{BACKUP_INT32_0} {
-	error( String( "int32: int32 expected: " )
-		+ String_convert::bin2hex_str( String( *( YYText() ) ) ) );
-	exit( 1 );
+	error(String("int32: int32 expected: ")
+		+ String_convert::bin2hex_str(String(*(YYText()))));
+	exit(1);
 }
 <int32>{BACKUP_INT32_1} {
-	error( String( "int32: int32 expected: " )
-		+ String_convert::bin2hex_str( String( *( YYText() ) ) ) );
-	exit( 1 );
+	error(String("int32: int32 expected: ")
+		+ String_convert::bin2hex_str(String(*(YYText()))));
+	exit(1);
 }
 <int32>{BACKUP_INT32_2} {
-	error( String( "int32: int32 expected: " )
-		+ String_convert::bin2hex_str( String( *( YYText() ) ) ) );
-	exit( 1 );
+	error(String("int32: int32 expected: ")
+		+ String_convert::bin2hex_str(String(*(YYText()))));
+	exit(1);
 }
 <int16>{INT16}	{ // really signed?
-	tor( DEBUG_ver ) << "lex: int16" << endl;
-	assert( YYLeng() == 2 );
-	String str( (Byte const*)YYText(), YYLeng() );
-	yylval.i = (short)String_convert::bin2_i( str );
+	LOGOUT(DEBUG_ver) << "lex: int16" << endl;
+	assert(YYLeng() == 2);
+	String str((Byte const*)YYText(), YYLeng());
+	yylval.i = (short)String_convert::bin2_i(str);
 	yy_pop_state();
 	return INT16;
 }
 <int16>{BACKUP_INT16_0} {
-	error( String( "int16: int16 expected: " )
-		+ String_convert::bin2hex_str( String( *( YYText() ) ) ) );
-	exit( 1 );
+	error(String("int16: int16 expected: ")
+		+ String_convert::bin2hex_str(String(*(YYText()))));
+	exit(1);
 }
 <i8>{I8}	{
-	tor( DEBUG_ver ) << "lex: i8" << endl;
-	assert( YYLeng() == 1 );
+	LOGOUT(DEBUG_ver) << "lex: i8" << endl;
+	assert(YYLeng() == 1);
 //	yylval.byte = *(signed char*)YYText();
 	yylval.i = *(signed char*)YYText();
 	yy_pop_state(); 
 	return I8;
 }
 <u8>{U8}	{
-	tor( DEBUG_ver ) << "lex: u8" << endl;
-	assert( YYLeng() == 1 );
+	LOGOUT(DEBUG_ver) << "lex: u8" << endl;
+	assert(YYLeng() == 1);
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state(); 
@@ -189,328 +192,329 @@ SSME		[\0x7f][\x03]
 }
 
 <track>{VARINT} {
-	String str( (Byte const*)YYText(), YYLeng() );
-	yylval.i = My_midi_lexer::varint2_i( str );
-	tor( DEBUG_ver ) << String( "lex: track: varint(" ) 
-		+ String( yylval.i ) + "): "
-		+ String_convert::bin2hex_str( str ) << endl;
-	yy_push_state( event ); 
+	String str((Byte const*)YYText(), YYLeng());
+	yylval.i = My_midi_lexer::varint2_i(str);
+	LOGOUT(DEBUG_ver) << String("lex: track: varint(") 
+		+ String(yylval.i) + "): "
+		+ String_convert::bin2hex_str(str) << endl;
+	yy_push_state(event); 
 	return VARINT;
 }
 <track>{U8}	{
-	error( String( "track: illegal byte: " ) 
-		+ String_convert::bin2hex_str( String( *YYText() ) ) );
-	exit( 1 );
+	error(String("track: illegal byte: ") 
+		+ String_convert::bin2hex_str(String(*YYText())));
+	exit(1);
 }
 <track>{BACKUP_VARINT_0}{U8} {
-	error( String( "track: varint expected: " )
-		+ String_convert::bin2hex_str( String( *( YYText() ) ) ) );
-	exit( 1 );
+	error(String("track: varint expected: ")
+		+ String_convert::bin2hex_str(String(*(YYText()))));
+	exit(1);
 }
 <track>{BACKUP_VARINT_1}{U8} {
-	error( String( "track: varint expected: " )
-		+ String_convert::bin2hex_str( String( *( YYText() ) ) ) );
-	exit( 1 );
+	error(String("track: varint expected: ")
+		+ String_convert::bin2hex_str(String(*(YYText()))));
+	exit(1);
 }
 <track>{BACKUP_VARINT_2}{U8} {
-	error( String( "track: varint expected: " )
-		+ String_convert::bin2hex_str( String( *( YYText() ) ) ) );
-	exit( 1 );
+	error(String("track: varint expected: ")
+		+ String_convert::bin2hex_str(String(*(YYText()))));
+	exit(1);
 }
 <event>{RUNNING_STATUS}	{
 //	yylval.byte = *(Byte*)YYText();
 //	yylval.i = *(Byte*)YYText();
 	yylval.i = running_status_i_;
-	tor( DEBUG_ver ) << String ( "lex: running status: " ) + String( yylval.i ) << endl;
+	LOGOUT(DEBUG_ver) << String ("lex: running status: ") + String(yylval.i) << endl;
 	/*
 	 'running status' rather means 'missing status'.
 	 we'll put the running status data back, prepend (unput) 
 	 the running status, and try again.
 	 */
-	yyless( 0 );
-	unput( running_status_i_ );
+	yyless(0);
+	unput(running_status_i_);
 	return RUNNING_STATUS;
 }
 <event>{DATA_ENTRY}	{
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
-	tor( DEBUG_ver ) << String ( "lex: undefined data entry: " ) + String( yylval.i ) << endl;
+	LOGOUT(DEBUG_ver) << String ("lex: undefined data entry: ") + String(yylval.i) << endl;
 	yy_pop_state(); 
-	yy_push_state( u8 );
+	yy_push_state(u8);
 	return DATA_ENTRY;
 }
 <event>{ALL_NOTES_OFF}	{
-	tor( DEBUG_ver ) << "lex: all note off" << endl;
+	LOGOUT(DEBUG_ver) << "lex: all note off" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
-	tor( DEBUG_ver ) << String ( "lex: all notes off: " ) + String( yylval.i ) << endl;
+	LOGOUT(DEBUG_ver) << String ("lex: all notes off: ") + String(yylval.i) << endl;
 	yy_pop_state(); 
-	yy_push_state( u8 );
-	yy_push_state( u8 );
+	yy_push_state(u8);
+	yy_push_state(u8);
 	return ALL_NOTES_OFF;
 }
 <event>{NOTE_OFF}	{
-	tor( DEBUG_ver ) << "lex: note off" << endl;
+	LOGOUT(DEBUG_ver) << "lex: note off" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	running_status_i_ = yylval.i;
 	yy_pop_state(); 
-	yy_push_state( u8 );
-	yy_push_state( u8 );
+	yy_push_state(u8);
+	yy_push_state(u8);
 	return NOTE_OFF;
 }
 <event>{NOTE_ON}	{
-	tor( DEBUG_ver ) << "lex: note on" << endl;
+	LOGOUT(DEBUG_ver) << "lex: note on" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	running_status_i_ = yylval.i;
 	yy_pop_state(); 
-	yy_push_state( u8 );
-	yy_push_state( u8 );
+	yy_push_state(u8);
+	yy_push_state(u8);
 	return NOTE_ON;
 }
 <event>{POLYPHONIC_AFTERTOUCH}	{
-	tor( DEBUG_ver ) << "lex: polyphonic aftertouch" << endl;
+	LOGOUT(DEBUG_ver) << "lex: polyphonic aftertouch" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	running_status_i_ = yylval.i;
 	yy_pop_state(); 
-	yy_push_state( u8 );
-	yy_push_state( u8 );
+	yy_push_state(u8);
+	yy_push_state(u8);
 	return POLYPHONIC_AFTERTOUCH;
 }
 <event>{CONTROLMODE_CHANGE}	{
-	tor( DEBUG_ver ) << "lex: controlmode change" << endl;
+	LOGOUT(DEBUG_ver) << "lex: controlmode change" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	running_status_i_ = yylval.i;
 	yy_pop_state(); 
-	yy_push_state( u8 );
-	yy_push_state( u8 );
+	yy_push_state(u8);
+	yy_push_state(u8);
 	return CONTROLMODE_CHANGE;
 }
 <event>{PROGRAM_CHANGE}	{
-	tor( DEBUG_ver ) << "lex: program change" << endl;
+	LOGOUT(DEBUG_ver) << "lex: program change" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	running_status_i_ = yylval.i;
 	yy_pop_state(); 
-	yy_push_state( u8 );
+	yy_push_state(u8);
 	return PROGRAM_CHANGE;
 }
 <event>{CHANNEL_AFTERTOUCH}	{
-	tor( DEBUG_ver ) << "lex: channel aftertouch" << endl;
+	LOGOUT(DEBUG_ver) << "lex: channel aftertouch" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	running_status_i_ = yylval.i;
 	yy_pop_state(); 
-	yy_push_state( u8 );
-	yy_push_state( u8 );
+	yy_push_state(u8);
+	yy_push_state(u8);
 	return CHANNEL_AFTERTOUCH;
 }
 <event>{PITCHWHEEL_RANGE} {
-	tor( DEBUG_ver ) << "lex: pitchwheel range" << endl;
+	LOGOUT(DEBUG_ver) << "lex: pitchwheel range" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	running_status_i_ = yylval.i;
 	yy_pop_state(); 
-	yy_push_state( u8 );
-	yy_push_state( u8 );
+	yy_push_state(u8);
+	yy_push_state(u8);
 	return PITCHWHEEL_RANGE;
 }
 <event>{SYSEX_EVENT1} {	// len data
-	tor( DEBUG_ver ) << "lex: sysex1" << endl;
+	LOGOUT(DEBUG_ver) << "lex: sysex1" << endl;
 	yy_pop_state(); 
-	yy_push_state( data );
+	yy_push_state(data);
 	return SYSEX_EVENT1;
 }
 <event>{SYSEX_EVENT2} {	// len data
-	tor( DEBUG_ver ) << "lex: sysex2" << endl;
+	LOGOUT(DEBUG_ver) << "lex: sysex2" << endl;
 	yy_pop_state(); 
-//	yy_push_state( u8 ); //?
-	yy_push_state( data );
+//	yy_push_state(u8); //?
+	yy_push_state(data);
 	return SYSEX_EVENT2;
 }
 <event>{META_EVENT}	{
-	tor( DEBUG_ver ) << "lex: meta" << endl;
-	yy_push_state( meta_event );
+	LOGOUT(DEBUG_ver) << "lex: meta" << endl;
+	yy_push_state(meta_event);
 	return META_EVENT;
 }
 <event>{U8}	{
-	error( String( "event: illegal byte: " ) 
-		+ String_convert::bin2hex_str( String( *YYText() ) ) );
-	exit( 1 );
+	error(String("event: illegal byte: ") 
+		+ String_convert::bin2hex_str(String(*YYText())));
+	exit(1);
 }
 <meta_event>{SEQUENCE}	{	// ssss sequence number
-	tor( DEBUG_ver ) << "lex: sequence" << endl;
+	LOGOUT(DEBUG_ver) << "lex: sequence" << endl;
 	yy_pop_state();
 	yy_pop_state();
-	yy_push_state( int16 );
+	yy_push_state(int16);
 	return SEQUENCE;
 }
 <meta_event>{YYTEXT}	{		// len data
-	tor( DEBUG_ver ) << "lex: text" << endl;
+	LOGOUT(DEBUG_ver) << "lex: text" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state();
 	yy_pop_state();
-	yy_push_state( data );
+	yy_push_state(data);
 	return YYTEXT;
 }
 <meta_event>{YYCOPYRIGHT}	{
-	tor( DEBUG_ver ) << "lex: copyright" << endl;
+	LOGOUT(DEBUG_ver) << "lex: copyright" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state();
 	yy_pop_state();
-	yy_push_state( data );
+	yy_push_state(data);
 	return YYCOPYRIGHT;
 }
 <meta_event>{YYTRACK_NAME}	{
-	tor( DEBUG_ver ) << "lex: track name" << endl;
+	LOGOUT(DEBUG_ver) << "lex: track name" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state();
 	yy_pop_state();
-	yy_push_state( data );
+	yy_push_state(data);
 	return YYTRACK_NAME;
 }
 <meta_event>{YYINSTRUMENT_NAME}	{
-	tor( DEBUG_ver ) << "lex: instrument name" << endl;
+	LOGOUT(DEBUG_ver) << "lex: instrument name" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state();
 	yy_pop_state();
-	yy_push_state( data );
+	yy_push_state(data);
 	return YYINSTRUMENT_NAME;
 }
 <meta_event>{YYLYRIC}	{
-	tor( DEBUG_ver ) << "lex: lyric" << endl;
+	LOGOUT(DEBUG_ver) << "lex: lyric" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state();
 	yy_pop_state();
-	yy_push_state( data );
+	yy_push_state(data);
 	return YYLYRIC;
 }
 <meta_event>{YYMARKER}	{
-	tor( DEBUG_ver ) << "lex: marker" << endl;
+	LOGOUT(DEBUG_ver) << "lex: marker" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state();
 	yy_pop_state();
-	yy_push_state( data );
+	yy_push_state(data);
 	return YYMARKER;
 }
 <meta_event>{YYCUE_POINT}	{
-	tor( DEBUG_ver ) << "lex: cue point" << endl;
+	LOGOUT(DEBUG_ver) << "lex: cue point" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state();
 	yy_pop_state();
-	yy_push_state( data );
+	yy_push_state(data);
 	return YYCUE_POINT;
 }
 <meta_event>{TEMPO}	{ 	// tttttt usec
-	tor( DEBUG_ver ) << "lex: tempo" << endl;
+	LOGOUT(DEBUG_ver) << "lex: tempo" << endl;
 	yy_pop_state();
 	yy_pop_state();
-	yy_push_state( u8 );
-	yy_push_state( u8 );
-	yy_push_state( u8 );
+	yy_push_state(u8);
+	yy_push_state(u8);
+	yy_push_state(u8);
 	return TEMPO;
 }
 <meta_event>{SMPTE_OFFSET}	{ 		// hr mn se fr ff
-	tor( DEBUG_ver ) << "lex: smpte offset" << endl;
+	LOGOUT(DEBUG_ver) << "lex: smpte offset" << endl;
 	yy_pop_state();
 	yy_pop_state();
-	yy_push_state( u8 );
-	yy_push_state( u8 );
-	yy_push_state( u8 );
-	yy_push_state( u8 );
-	yy_push_state( u8 );
+	yy_push_state(u8);
+	yy_push_state(u8);
+	yy_push_state(u8);
+	yy_push_state(u8);
+	yy_push_state(u8);
 	return SMPTE_OFFSET;
 }
 <meta_event>{TIME}	{		// nn dd cc bb
-	tor( DEBUG_ver ) << "lex: time" << endl;
+	LOGOUT(DEBUG_ver) << "lex: time" << endl;
 	yy_pop_state();
 	yy_pop_state();
-	yy_push_state( u8 );
-	yy_push_state( u8 );
-	yy_push_state( u8 );
-	yy_push_state( u8 );
+	yy_push_state(u8);
+	yy_push_state(u8);
+	yy_push_state(u8);
+	yy_push_state(u8);
 	return TIME;
 }
 <meta_event>{KEY}	{	// sf mi
-	tor( DEBUG_ver ) << "lex: key" << endl;
+	LOGOUT(DEBUG_ver) << "lex: key" << endl;
 	yy_pop_state();
 	yy_pop_state();
-	yy_push_state( i8 );
-	yy_push_state( i8 );
+	yy_push_state(i8);
+	yy_push_state(i8);
 	return KEY;
 }
 <meta_event>{SSME}	{	// len data
-	tor( DEBUG_ver ) << "lex: smme" << endl;
+	LOGOUT(DEBUG_ver) << "lex: smme" << endl;
 	yy_pop_state();
 	yy_pop_state();
-	yy_push_state( data );
+	yy_push_state(data);
 	return SSME;
 }
 <meta_event>{END_OF_TRACK} {
-	tor( DEBUG_ver ) << "lex: end of track" << endl;
+	LOGOUT(DEBUG_ver) << "lex: end of track" << endl;
 	yy_pop_state();
 	yy_pop_state();
 	yy_pop_state();
 	return END_OF_TRACK;
 }
 <meta_event>{U8} {
-	warning( String( "meta_event: unimplemented event: " )
-		+ String_convert::bin2hex_str( String( *YYText() ) )
-//,		this->here_ch_C() 
+	warning(String("meta_event: unimplemented event: ")
+		+ String_convert::bin2hex_str(String(*YYText()))
+// huh?
+//		,this->here_ch_C() 
 	);
 	yy_pop_state();
 	yy_pop_state();
-	yy_push_state( u8 ); 
-	yy_push_state( u8 );
+	yy_push_state(u8); 
+	yy_push_state(u8);
 	return U8;
 }
 
 <data>{VARINT} {
-	tor( DEBUG_ver ) << "lex: data" << endl;
-	String str( (Byte const*)YYText(), YYLeng() );
-	int i = My_midi_lexer::varint2_i( str );
+	LOGOUT(DEBUG_ver) << "lex: data" << endl;
+	String str((Byte const*)YYText(), YYLeng());
+	int i = My_midi_lexer::varint2_i(str);
 	String* str_p = new String;
-	while ( i-- )
+	while (i--)
 		*str_p += (char)yyinput();
 	yylval.str_p = str_p;
 	yy_pop_state();
 	return DATA;
 }
 <data>{U8}	{
-	error( String( "data: illegal byte: " )
-		+ String_convert::bin2hex_str( String( *YYText() ) ) );
-	exit( 1 );
+	error(String("data: illegal byte: ")
+		+ String_convert::bin2hex_str(String(*YYText())));
+	exit(1);
 }
 <data>{BACKUP_VARINT_0}{U8} {
-	error( String( "data: varint expected: " )
-		+ String_convert::bin2hex_str( String( *( YYText() ) ) ) );
-	exit( 1 );
+	error(String("data: varint expected: ")
+		+ String_convert::bin2hex_str(String(*(YYText()))));
+	exit(1);
 }
 <data>{BACKUP_VARINT_1}{U8} {
-	error( String( "data: varint expected: " )
-		+ String_convert::bin2hex_str( String( *( YYText() ) ) ) );
-	exit( 1 );
+	error(String("data: varint expected: ")
+		+ String_convert::bin2hex_str(String(*(YYText()))));
+	exit(1);
 }
 <data>{BACKUP_VARINT_2}{U8} {
-	error( String( "data: varint expected: " )
-		+ String_convert::bin2hex_str( String( *( YYText() ) ) ) );
-	exit( 1 );
+	error(String("data: varint expected: ")
+		+ String_convert::bin2hex_str(String(*(YYText()))));
+	exit(1);
 }
 
 <<EOF>> {
-//	tor( NORMAL_ver ) << "<<EOF>>";
+//	LOGOUT(NORMAL_ver) << "<<EOF>>";
 
-	if ( !close_i() )
+	if (!close_i())
  	  yyterminate(); // can't move this, since it actually rets a YY_NULL
 }
 

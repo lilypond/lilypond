@@ -14,13 +14,13 @@
 
 #include "interval.tcc"
 
-Interval__instantiate(Rational);
-Interval__instantiate(int);
+template INTERVAL__INSTANTIATE(Rational);
+template INTERVAL__INSTANTIATE(int);
 
 Rational
 Interval_t<Rational>::infinity()
 {
-    return Rational(INT_MAX);
+    return Rational (INT_MAX);
 }
 
 int

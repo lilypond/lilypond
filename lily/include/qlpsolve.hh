@@ -37,8 +37,8 @@ class Active_constraints {
 public:
     String status()const;
     
-    Vector vec(int k) const { return opt->cons[k]; }
-    Real rhs(int k) const { return opt->consrhs[k]; }
+    Vector vec (int k) const { return opt->cons[k]; }
+    Real rhs (int k) const { return opt->consrhs[k]; }
     
 
     /** drop constraint. drop constraint k from the active set. k is the index of the
@@ -52,18 +52,18 @@ public:
     add constraint j to the active set j is the index of the
     constraint in #inactive#   
     */
-    void add(int j);
+    void add (int j);
 
     /// exchange in and out.
-    void exchange(int in, int out) { add(in); drop (out); }
+    void exchange (int in, int out) { add (in); drop (out); }
     
 
-    Vector find_active_optimum(Vector g);
+    Vector find_active_optimum (Vector g);
 
     /// get lagrange multipliers.
-    Vector get_lagrange(Vector v);
+    Vector get_lagrange (Vector v);
 
-    Active_constraints(Ineq_constrained_qp const *op);
+    Active_constraints (Ineq_constrained_qp const *op);
     /** construct: no constraints active, n vars. Put the equalities
      into the constraints.  */
 
@@ -79,13 +79,13 @@ class Inactive_iter {
     int j;
     Active_constraints const* ac;
 public:
-    Inactive_iter(Active_constraints const &c) { ac=&c; j=0; }
+    Inactive_iter (Active_constraints const &c) { ac=&c; j=0; }
     int idx() const { return j; }
     void operator ++(int) { j++; }
     int constraint_id() const { return ac->inactive[j]; }
-    Vector vec() const { return ac->vec(constraint_id()); }
-    Real rhs() const { return ac->rhs(constraint_id()); }
-    bool ok() const { return j < ac->inactive.size(); }
+    Vector vec() const { return ac->vec (constraint_id ()); }
+    Real rhs() const { return ac->rhs (constraint_id ()); }
+    bool ok() const { return j < ac->inactive.size (); }
 };
 
 #endif // QLPSOLVE_HH

@@ -25,12 +25,12 @@ public:
     virtual int rel_stem_dir_i()const;
     virtual int priority_i()const;
     virtual bool inside_b()const;
-    virtual Atom get_atom(Paper_def* p, int dir_i_)const;
-    bool equal_b(General_script_def const&)const;
+    virtual Atom get_atom (Paper_def* p, int dir_i_)const;
+    bool equal_b (General_script_def const&)const;
     virtual ~General_script_def() {}
     
 protected:
-    virtual bool do_equal_b(General_script_def const *)const;
+    virtual bool do_equal_b (General_script_def const *)const;
     virtual void do_print()const;
 };
 

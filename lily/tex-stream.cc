@@ -9,7 +9,7 @@
 
   make an abstract interface to output, operations: 
 
-  move(x,y), put(symbol).
+  move (x,y), put (symbol).
 */
 
 #include <fstream.h>
@@ -22,11 +22,11 @@
 
 const int MAXLINELEN = 200;
 
-Tex_stream::Tex_stream(String filename) 
+Tex_stream::Tex_stream (String filename) 
 {
-    os = new ofstream(filename);
+    os = new ofstream (filename);
     if (!*os)
-	error("can't open `" + filename+"\'");
+	error ("can't open `" + filename+"\'");
     nest_level = 0;
     line_len_i_ = 0;
     outputting_comment=false;
@@ -37,13 +37,13 @@ Tex_stream::header()
 {
     *os << "% Creator: " << get_version_str() << "\n";
     *os << "% Automatically generated, at ";
-    time_t t(time(0));
-    *os << ctime(&t)<<"\n";
+    time_t t (time (0));
+    *os << ctime (&t)<<"\n";
 }
 Tex_stream::~Tex_stream()
 {
     delete os;
-    assert(nest_level == 0);
+    assert (nest_level == 0);
 }
 
 // print string. don't forget indent.
@@ -61,7 +61,7 @@ Tex_stream::operator<<(String s)
 	    continue;
 	}
 	line_len_i_ ++;
-	switch(*cp) 
+	switch (*cp) 
 	    {
 	    case '%':
 		outputting_comment = true;
@@ -77,7 +77,7 @@ Tex_stream::operator<<(String s)
 		
 		if (nest_level < 0) {
 		    delete os;	// we want to see the remains.
-		    assert(nest_level>=0);
+		    assert (nest_level>=0);
 		}
 		/* FALLTHROUGH */
 		
@@ -102,7 +102,7 @@ void
 Tex_stream::break_line()
 {
     *os << "%\n";
-    *os << String(' ', nest_level);
+    *os << String (' ', nest_level);
     line_len_i_ = 0;
 }
 

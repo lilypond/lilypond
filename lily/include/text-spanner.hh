@@ -20,13 +20,13 @@ public:
     Offset text_off_;
     DECLARE_MY_RUNTIME_TYPEINFO;
 
-    void set_support(Directional_spanner*);
+    void set_support (Directional_spanner*);
     Text_spanner();
-    Text_spanner(Text_spanner const&);
+    Text_spanner (Text_spanner const&);
 protected:
     SCORE_ELEM_CLONE(Text_spanner);
     ~Text_spanner();
-    virtual void do_substitute_dependency(Score_elem*,Score_elem*);
+    virtual void do_substitute_dependency (Score_elem*,Score_elem*);
     virtual void do_pre_processing();
     virtual void do_post_processing();
     virtual Interval height() const ;

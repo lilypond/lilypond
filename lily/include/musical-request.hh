@@ -50,11 +50,11 @@ public:
     Duration duration_;
     
     /* *************** */
-    void set_duration(Duration);
-    bool do_equal_b(Request*)const;
+    void set_duration (Duration);
+    bool do_equal_b (Request*)const;
     virtual Moment duration() const;
     Rhythmic_req();
-    static int compare(Rhythmic_req const&,Rhythmic_req const&);
+    static int compare (Rhythmic_req const&,Rhythmic_req const&);
     REQUESTMETHODS(Rhythmic_req, rhythmic);
 };
 
@@ -86,9 +86,9 @@ public:
     Text_def *tdef_p_;
 
     /* *************** */
-    Text_req(int d, Text_def*);
+    Text_req (int d, Text_def*);
     ~Text_req();
-    Text_req(Text_req const&);
+    Text_req (Text_req const&);
 
     REQUESTMETHODS(Text_req,text);
 };
@@ -98,7 +98,7 @@ public:
   */
 class Lyric_req  : public  Rhythmic_req, public Text_req  {
 public:
-    Lyric_req(Text_def* t_p);
+    Lyric_req (Text_def* t_p);
     REQUESTMETHODS(Lyric_req, lreq_l);
 };
 
@@ -117,12 +117,12 @@ struct Melodic_req :virtual Musical_req
     int height()const;
 
     /// transpose. #delta# is relative to central c.
-    void transpose(Melodic_req const &delta);
+    void transpose (Melodic_req const &delta);
     /// return pitch from central c (in halfnotes)
     int pitch()const; 
     Melodic_req();
-    bool do_equal_b(Request*)const;
-    static int compare(    Melodic_req const&,Melodic_req const&);
+    bool do_equal_b (Request*)const;
+    static int compare (Melodic_req const&,Melodic_req const&);
     REQUESTMETHODS(Melodic_req,melodic);
 };
 
@@ -133,8 +133,8 @@ public:
     /// force/supress printing of accidental.
     bool forceacc_b_;
     Note_req();
-    bool do_equal_b(Request*)const;
-    Rhythmic_req* rhythmic() { return Rhythmic_req::rhythmic(); }
+    bool do_equal_b (Request*)const;
+    Rhythmic_req* rhythmic() { return Rhythmic_req::rhythmic (); }
     REQUESTMETHODS(Note_req, note);
  };
 
@@ -168,7 +168,7 @@ public:
     enum {
 	NOSPAN, START, STOP
     } spantype ;
-    bool do_equal_b(Request*)const;
+    bool do_equal_b (Request*)const;
     REQUESTMETHODS(Span_req,span);
 
     Span_req();
@@ -214,7 +214,7 @@ public:
     enum Loudness {
  	FFF, FF, F, MF, MP, P, PP, PPP
     };
-    static String loudness_str(Loudness);
+    static String loudness_str (Loudness);
     REQUESTMETHODS(Dynamic_req, dynamic);
 };
 

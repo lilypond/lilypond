@@ -21,7 +21,7 @@ struct PQueue_ent
 
 template<class K, class T>
 int compare (PQueue_ent<K,T> const &e1 , PQueue_ent<K,T> const &e2) {
-    return compare(e1.key , e2.key);
+    return compare (e1.key , e2.key);
 }
 
 /**
@@ -35,10 +35,10 @@ int compare (PQueue_ent<K,T> const &e1 , PQueue_ent<K,T> const &e2) {
 template<class T>
 class PQueue {
     Array<T> heap_arr_;
-    T &elt(int i) {
+    T &elt (int i) {
 	return heap_arr_[i-1];
     }
-    T const&elt(int i) const {
+    T const&elt (int i) const {
 	return heap_arr_[i-1];
     }
 public:
@@ -52,25 +52,25 @@ public:
     {
 #ifndef NDEBUG
 	for (int i =2; i <= size(); i++)
-	    assert(compare (elt(i/2), elt(i)) <= 0);
+	    assert (compare (elt (i/2), elt (i)) <= 0);
 #endif
     }
-    T front () const { return elt(1); }
-    int size() const { return heap_arr_.size(); }
-    void insert(T v) {
-	heap_arr_.push(v);
+    T front() const { return elt (1); }
+    int size() const { return heap_arr_.size (); }
+    void insert (T v) {
+	heap_arr_.push (v);
 	int i = heap_arr_.size();
 	int j = i / 2 ;
 	while (j) {
-	    if (compare(elt(j), v) > 0) {
-		elt(i) = elt(j);	
+	    if (compare (elt (j), v) > 0) {
+		elt (i) = elt (j);	
 		i = j;
 		j = i/2;
 	    } else {
 		break;
 	    }
 	}
-	elt(i) = v;
+	elt (i) = v;
 	OK();
     }
     T max() const {
@@ -78,23 +78,23 @@ public:
 	T max_t;
 	return max_t;
     }
-    void delmin( ) {
-	assert(size());
+    void delmin() {
+	assert (size());
 	T last = heap_arr_.top();
 	
 	int mini=2;
 	int lasti=1;
 
-	while ( mini < size() ) {
-	    if (compare(elt(mini + 1), elt(mini)) <0)
+	while ( mini < size()) {
+	    if (compare (elt (mini + 1), elt (mini)) <0)
 		mini++;
-	    if (compare(last,elt(mini) ) < 0)
+	    if (compare (last,elt (mini)) < 0)
 		break;
-	    elt(lasti) = elt(mini);
+	    elt (lasti) = elt (mini);
 	    lasti = mini;
 	    mini *= 2;
 	}
-	elt(lasti) = last;
+	elt (lasti) = last;
 	heap_arr_.pop();
 	OK();
     }

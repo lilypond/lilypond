@@ -14,16 +14,16 @@
 #include "debug.hh"
 
 void
-Staff_side::set_staffsym(Staff_symbol* s_l)
+Staff_side::set_staffsym (Staff_symbol* s_l)
 {
     staff_sym_l_ = s_l;
-    add_dependency( s_l );
+    add_dependency (s_l);
 }
 
 Staff_side::Staff_side()
 {
     pos_i_ =0;
-    sym_int_ = Interval(0,0);
+    sym_int_ = Interval (0,0);
     staff_size_i_ = 0;
     staff_sym_l_=0;
     dir_i_ =0;
@@ -45,32 +45,32 @@ Staff_side::support_height() const
     Interval r;
     
     for (int i=0; i < support_l_arr_.size(); i++)
-	r.unite(support_l_arr_[i]->height());
+	r.unite (support_l_arr_[i]->height());
     if (r.empty_b()) {
-	r = Interval(0,0);
+	r = Interval (0,0);
     }
     return r;
 }
 
 void
-Staff_side::add_support(Score_elem*i)
+Staff_side::add_support (Score_elem*i)
 {
-    support_l_arr_.push(i);
-    add_dependency(i);
+    support_l_arr_.push (i);
+    add_dependency (i);
 }
 
 int
 Staff_side::get_position_i()const
 {
     if (!dir_i_) {
-	warning("Staff_side::get_position_i(): " 
+	warning ("Staff_side::get_position_i(): " 
 		"somebody forgot to set my vertical direction, returning -20");
 	return -20;
     }
     
 
     Real y=0;
-    Real inter_f = paper()-> internote_f();
+    Real inter_f = paper()-> internote_f ();
     if (!inside_staff_b_) {
 	y  = (dir_i_ > 0 && staff_sym_l_) ? staff_sym_l_->steps_i() + 2: -2; 
 	y *=inter_f;
@@ -85,28 +85,28 @@ Staff_side::get_position_i()const
 	Interval v= support_height();
 	y = v[dir_i_]  + 2*dir_i_*inter_f;	// ugh
     }
-    return int(rint(Real(y)/inter_f)); // should ret a float?
+    return int (rint (Real (y)/inter_f)); // should ret a float?
 }
 
 Interval
 Staff_side::symbol_height() const
 {
-    return Interval(0,0);
+    return Interval (0,0);
 }
 
 void
 Staff_side::do_post_processing()
 {
     sym_int_ = symbol_height();
-    pos_i_ = get_position_i( );
+    pos_i_ = get_position_i();
     if (dir_i_)
-	pos_i_ += int(rint(- sym_int_[-dir_i_] / paper()->internote_f()));
+	pos_i_ += int (rint (- sym_int_[-dir_i_] / paper()->internote_f ()));
 }
 
 void
-Staff_side::do_substitute_dependency(Score_elem*o, Score_elem*n)
+Staff_side::do_substitute_dependency (Score_elem*o, Score_elem*n)
 { 
-    support_l_arr_.unordered_substitute(o,n);
+    support_l_arr_.unordered_substitute (o,n);
     if (staff_sym_l_ == o)
 	staff_sym_l_ = n ? (Staff_symbol*) n->spanner():0;
 }

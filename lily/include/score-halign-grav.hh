@@ -16,7 +16,7 @@ public:
     DECLARE_MY_RUNTIME_TYPEINFO;
     Score_horizontal_align_engraver();
 protected:
-    virtual void acknowledge_element(Score_elem_info);
+    virtual void acknowledge_element (Score_elem_info);
     virtual void do_pre_move_processing();
 };
 #endif // SCORE_HALIGN_GRAV_HH

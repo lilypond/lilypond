@@ -23,19 +23,19 @@ public:
     ~Score_performer();
 
 protected:
-    virtual Translator* ancestor_l(int l);
+    virtual Translator* ancestor_l (int l);
     virtual int depth_i() const;
 
     virtual void finish();
-    virtual void prepare(Moment mom);
+    virtual void prepare (Moment mom);
     virtual void process();
-    virtual void set_score(Score* score_l);
+    virtual void set_score (Score* score_l);
     virtual void start();
     virtual int get_tempo_i() const;
-    virtual void play(Audio_element* p);
+    virtual void play (Audio_element* p);
 
 private:
-    void header(Midi_stream&);
+    void header (Midi_stream&);
 
     Moment now_mom_;
     Audio_column* audio_column_l_;

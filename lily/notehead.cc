@@ -29,7 +29,7 @@
  */
 
 
-Note_head::Note_head(int ss)
+Note_head::Note_head (int ss)
 {
     x_dir_i_ = 0;
     staff_size_i_=ss;
@@ -57,7 +57,7 @@ Note_head::do_pre_processing()
 }
 
 void
-Note_head::set_rhythmic(Rhythmic_req*r_req_l)
+Note_head::set_rhythmic (Rhythmic_req*r_req_l)
 {
     balltype_i_ = r_req_l->duration_.type_i_;
     dots_i_ = r_req_l->duration_.dots_i_;
@@ -71,15 +71,15 @@ Note_head::do_print()const
 {
 #ifndef NPRINT
     if (rest_b_)
-	mtor << "REST! ";
-    mtor << "balltype_i_ "<< balltype_i_ << ", position_i_ = "<< position_i_
+	DOUT << "REST! ";
+    DOUT << "balltype_i_ "<< balltype_i_ << ", position_i_ = "<< position_i_
 	 << "dots_i_ " << dots_i_;
 #endif
 }
 
 
 int
-Note_head::compare(Note_head *const  &a, Note_head * const &b)
+Note_head::compare (Note_head *const  &a, Note_head * const &b)
 {
     return a->position_i_ - b->position_i_;
 }
@@ -109,18 +109,18 @@ Note_head::brew_molecule_p() const
     bool streepjes_b = (position_i_<-1) || (position_i_ > staff_size_i_+1);
     
     if (!rest_b_)
-	s = p->lookup_l()->ball(balltype_i_);
+	s = p->lookup_l()->ball (balltype_i_);
     else {
-	s = p->lookup_l()->rest(balltype_i_, streepjes_b);
+	s = p->lookup_l()->rest (balltype_i_, streepjes_b);
     }
-    out = new Molecule(Atom(s));
-    out->translate( x_dir_i_ * s.dim.x().length() , X_AXIS);
+    out = new Molecule (Atom (s));
+    out->translate (x_dir_i_ * s.dim.x().length () , X_AXIS);
     if (dots_i_) {
-	Symbol d = p->lookup_l()->dots(dots_i_ );
+	Symbol d = p->lookup_l()->dots (dots_i_);
 	Molecule dm;
-	dm.add(Atom(d));
-	dm.translate( inter_f * dot_delta_y_i_ , Y_AXIS);
-	out->add_right(dm);
+	dm.add (Atom (d));
+	dm.translate (inter_f * dot_delta_y_i_ , Y_AXIS);
+	out->add_right (dm);
     }
 
     
@@ -129,18 +129,18 @@ Note_head::brew_molecule_p() const
     }
     
     if (streepjes_b) {
-	int dir = sign(position_i_);
+	int dir = sign (position_i_);
 	int s =(position_i_<-1) ? -((-position_i_)/2): (position_i_-staff_size_i_)/2;
 	
-	Symbol str = p->lookup_l()->streepjes(s);
+	Symbol str = p->lookup_l()->streepjes (s);
 	Molecule sm;
-	sm.add(Atom(str));
+	sm.add (Atom (str));
 	if (position_i_ % 2)
-	    sm.translate(-inter_f* dir, Y_AXIS);
-	out->add(sm);	    
+	    sm.translate (-inter_f* dir, Y_AXIS);
+	out->add (sm);	    
     }
     
-    out->translate(inter_f*position_i_, Y_AXIS);
+    out->translate (inter_f*position_i_, Y_AXIS);
     return out;
 }
 

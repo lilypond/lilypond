@@ -18,11 +18,11 @@ class Super_elem : public Score_elem {
 public:
     Link_array<Line_of_score> lines_arr_;
     Line_of_score * line_of_score_l_;
-    void add_broken_line(Line_of_score*);
+    void add_broken_line (Line_of_score*);
     Super_elem();
     virtual String TeX_string()const;
 protected:
-    virtual void do_substitute_dependency(Score_elem*,Score_elem*);
+    virtual void do_substitute_dependency (Score_elem*,Score_elem*);
     virtual void handle_broken_dependencies();
 
     virtual void do_add_processing();

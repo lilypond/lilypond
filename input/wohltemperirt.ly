@@ -9,7 +9,6 @@
  copyright: Public Domain 
 
  Tested Features: stem direction, multivoice, forced accidentals.
-
 %}
 
 \version "0.1.1";
@@ -176,7 +175,10 @@ bassdux =
                  >
              >
 
-    \paper{}
+    \paper{
+	gourlay_maxmeasures =4.;
+	
+    }
     \midi {
         \tempo 4 = 84;
     }

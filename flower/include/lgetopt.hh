@@ -14,7 +14,7 @@ struct Long_option_init {
     char const * longname;
     char        shortname;
 
-    void printon(ostream &errorout)const ;
+    void printon (ostream &errorout)const ;
 };
 
 
@@ -72,7 +72,7 @@ public:
     bool ok() const;
 
     /// report an error and abort
-    void report(Errorcod c);
+    void report (Errorcod c);
 
 
     /// return an integer (with err. detect)
@@ -85,10 +85,10 @@ public:
        if #os# is null, then do not report nor abort, just set #error#
       */
        
-    void seterror(ostream *os);
+    void seterror (ostream *os);
 
     /// construct: pass arguments and option info.
-    Getopt_long(int c,  char **v, Long_option_init *lo);
+    Getopt_long (int c,  char **v, Long_option_init *lo);
 
     /**  get the next option. 
       @return pointer to next option found.

@@ -15,12 +15,12 @@ struct Assoc_iter {
     int i;
     Assoc<K,V> &assoc_;
     /// we don't want to be bothered by const correctness
-    Assoc_iter(const Assoc<K,V> &a) :
+    Assoc_iter (const Assoc<K,V> &a) :
 	assoc_((Assoc<K,V> &)a)
     {	
-	i= next(0);
+	i= next (0);
     }
-    int next(int j) {
+    int next (int j) {
 	while (j < assoc_.arr.size() && assoc_.arr[j].free)
 	    j++;
 	return j;
@@ -29,9 +29,9 @@ struct Assoc_iter {
 	return i < assoc_.arr.size();
     }
     void OK()const {
-	assert(!ok() || !assoc_.arr[i].free);
+	assert (!ok() || !assoc_.arr[i].free);
     }
-    void operator++(int) { i++; i = next(i); }
+    void operator++(int) { i++; i = next (i); }
     K key() { return assoc_.arr[i].key; }
     V &val() { return assoc_.arr[i].val; }    
 };

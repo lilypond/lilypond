@@ -30,9 +30,9 @@ Performer::do_print() const
 }
 
 void 
-Performer::play( Audio_element* p ) 
+Performer::play (Audio_element* p) 
 { 
-    daddy_perf_l_->play( p ); 
+    daddy_perf_l_->play (p); 
 }
 
 int
@@ -45,9 +45,9 @@ void
 Performer::print() const
 {
 #ifndef NPRINT
-    mtor << "\n" << name() << " {";
+    DOUT << "\n" << name() << " {";
     do_print();
-    mtor << "}";
+    DOUT << "}";
 #endif
 }
 
@@ -57,18 +57,18 @@ Performer::process_requests()
 }
 
 bool 
-Performer::do_try_request( Request* req_l )
+Performer::do_try_request (Request* req_l)
 {
     return false;
 }
 
 bool
-Performer::try_request(Request*r)
+Performer::try_request (Request*r)
 {
     if (!init_b_) { 
 	creation_processing();
     }
-    return do_try_request(r);
+    return do_try_request (r);
 }
 
 void

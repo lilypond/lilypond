@@ -18,7 +18,7 @@ class Vertical_align_spanner : public Vertical_align_element, public Spanner
 public:
     DECLARE_MY_RUNTIME_TYPEINFO;
     SCORE_ELEM_CLONE(Vertical_align_spanner);
-    virtual void do_print() const { Vertical_align_element::do_print() ; }
+    virtual void do_print() const { Vertical_align_element::do_print () ; }
     
 };
 #endif // VERTICAL_ALIGN_SPANNER_HH

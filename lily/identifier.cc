@@ -13,7 +13,6 @@
 #include "identifier.hh"
 #include "my-lily-lexer.hh"
 #include "debug.hh"
-
 #include "symtable.hh"
 #include "lookup.hh"
 #include "script-def.hh"
@@ -26,21 +25,19 @@ IMPLEMENT_IS_TYPE_B(Identifier);
 Identifier::~Identifier()
 {
     if (!accessed_b_ && !init_b_)
-	warning("Variable not used");
+	warning ("Variable not used");
 }
 void
-Identifier::error(String expect)
+Identifier::error (String expect)
 {
-    String e("Wrong identifier type: ");
-    e += String(name()) + "(expected " + expect + ")";
-    ::error(e);
+    String e ("Wrong identifier type: ");
+    e += String (name()) + "(expected " + expect + ")";
+    ::error (e);
 }
 
-Identifier::Identifier(String n, int code)
-    :  name_str_(n) 
+Identifier::Identifier ( int code)
 {
     token_code_i_ = code; 
-    data = 0;
     accessed_b_ = 0;
     init_b_ = 0;
 }
@@ -48,7 +45,7 @@ Identifier::Identifier(String n, int code)
 void
 Identifier::print()const
 {
-    mtor << "identifier \'" << name_str_ << "\'=";
+    DOUT << "identifier ";
     do_print();
 }
 
@@ -56,7 +53,7 @@ Identifier::print()const
 #define DEFAULT_PRINT(Class, Content_type, accessor) \
 void \
 Class::do_print() const { \
-    ((Class*)this)->accessor(false)->print(); \
+    ((Class*)this)->accessor()->print(); \
 } \
 class Class
 
@@ -74,67 +71,61 @@ DEFAULT_PRINT(Paper_def_id,Paper_def, paperdef);
 void
 Real_id::do_print() const
 {
-    mtor << *((Real_id*)this)->real(false)<< "\n";
+    DOUT << *data_p_<< "\n";
 }
 
 void
 Int_id::do_print() const
 {
-    mtor << *((Int_id*)this)->intid(false)<< "\n";
+    DOUT << *data_p_<< "\n";
 }
 
 
-#define default_accessor(Idclass, Class, accessor)\
+#define DEFAULT_ACCESSOR(Idclass, Class, accessor)\
 Class*\
-Idclass::accessor(bool copy) {\
-	if (copy){ \
-	    accessed_b_ = true;\
-	    return new Class(* (Class*) data);\
-        }else\
-	    return (Class*) data;\
-    }\
+Idclass::accessor () {\
+    accessed_b_ = true;\
+    return new Class (*data_p_);\
+}
 
-#define virtual_accessor(Idclass, Class, accessor)\
+#define VIRTUAL_ACCESSOR(Idclass, Class, accessor)\
 Class*\
-Idclass::accessor(bool copy) {\
-	if (copy){ \
-	    accessed_b_ = true;\
-	    return (Class*) ((Class*) data)->clone();\
-        }else\
-	    return (Class*) data;\
-    }\
+Idclass::accessor () {\
+  accessed_b_ = true;\
+  return (Class*)data_p_->clone();\
+}
+
+#define IMPLEMENT_ID_CLASS(Idclass, Class, accessor)	\
+	IMPLEMENT_IS_TYPE_B1(Idclass,Identifier)\
+	Idclass::~Idclass() { delete data_p_; }\
+	Idclass::Idclass (Class*st, int code):Identifier (code) { data_p_ = st; }\
 
 
-#define implement_id_class(Idclass, Class, accessor)	\
-IMPLEMENT_IS_TYPE_B1(Idclass,Identifier)\
-Idclass::~Idclass() { delete accessor(false); }\
-Idclass::Idclass(String s, Class*st, int code):Identifier(s,code) { data = st; }\
+IMPLEMENT_ID_CLASS(Input_translator_id, Input_translator, input_translator);
+IMPLEMENT_ID_CLASS(Int_id, int, intid);
+IMPLEMENT_ID_CLASS(Real_id, Real, real);
+IMPLEMENT_ID_CLASS(Script_id, General_script_def, script);
+IMPLEMENT_ID_CLASS(Lookup_id, Lookup, lookup);
+IMPLEMENT_ID_CLASS(Symtables_id, Symtables, symtables);
+IMPLEMENT_ID_CLASS(Music_id, Music, music);
+IMPLEMENT_ID_CLASS(Score_id, Score, score);
+IMPLEMENT_ID_CLASS(Request_id, Request, request);
+IMPLEMENT_ID_CLASS(Midi_def_id, Midi_def, mididef);
+IMPLEMENT_ID_CLASS(Paper_def_id, Paper_def, paperdef);
 
-
-implement_id_class(Input_translator_id, Input_translator, input_translator);
-implement_id_class(Int_id, int, intid);
-implement_id_class(Real_id, Real, real);
-implement_id_class(Script_id, General_script_def, script);
-implement_id_class(Lookup_id, Lookup, lookup);
-implement_id_class(Symtables_id, Symtables, symtables);
-implement_id_class(Music_id, Music, music);
-implement_id_class(Score_id, Score, score);
-implement_id_class(Request_id, Request, request);
-implement_id_class(Midi_def_id, Midi_def, mididef);
-implement_id_class(Paper_def_id, Paper_def, paperdef);
-
-Identifier::Identifier(Identifier const&)
+Identifier::Identifier (Identifier const&)
 {
-    assert(false);
+    assert (false);
 }
-default_accessor(Input_translator_id,Input_translator, input_translator);
-default_accessor(Int_id, int, intid);
-default_accessor(Real_id, Real, real);
-virtual_accessor(Script_id, General_script_def, script);
-default_accessor(Lookup_id, Lookup, lookup);
-default_accessor(Symtables_id, Symtables, symtables);
-virtual_accessor(Music_id, Music, music);
-default_accessor(Score_id, Score, score);
-virtual_accessor(Request_id, Request, request);
-default_accessor(Midi_def_id, Midi_def, mididef);
-default_accessor(Paper_def_id, Paper_def, paperdef);
+
+DEFAULT_ACCESSOR(Input_translator_id,Input_translator, input_translator);
+DEFAULT_ACCESSOR(Int_id, int, intid);
+DEFAULT_ACCESSOR(Real_id, Real, real);
+VIRTUAL_ACCESSOR(Script_id, General_script_def, script);
+DEFAULT_ACCESSOR(Lookup_id, Lookup, lookup);
+DEFAULT_ACCESSOR(Symtables_id, Symtables, symtables);
+VIRTUAL_ACCESSOR(Music_id, Music, music);
+DEFAULT_ACCESSOR(Score_id, Score, score);
+VIRTUAL_ACCESSOR(Request_id, Request, request);
+DEFAULT_ACCESSOR(Midi_def_id, Midi_def, mididef);
+DEFAULT_ACCESSOR(Paper_def_id, Paper_def, paperdef);

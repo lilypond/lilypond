@@ -37,15 +37,15 @@ public:
 
     int pos_i_;
 
-    void set_staffsym(Staff_symbol *  );
+    void set_staffsym (Staff_symbol * );
   
     Staff_side();
-    void add_support(Score_elem*);
+    void add_support (Score_elem*);
     DECLARE_MY_RUNTIME_TYPEINFO;
     
 protected:
     virtual Interval symbol_height() const;
-    virtual void do_substitute_dependency(Score_elem *, Score_elem*);
+    virtual void do_substitute_dependency (Score_elem *, Score_elem*);
     virtual void do_post_processing();
 };
 #endif // STAFF_SIDE_HH

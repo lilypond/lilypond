@@ -23,7 +23,7 @@ struct Col_stats
     int cols_i_;
 
     Col_stats(); 
-    void add(Line_of_cols const&l);
+    void add (Line_of_cols const&l);
     String str()const;
 };
 
@@ -47,16 +47,16 @@ protected:
     
 
     /// helper: solve for the columns in #curline#.
-    void solve_line(Col_hpositions*) const;
+    void solve_line (Col_hpositions*) const;
 
     /// helper: approximate the energyv
-    void approximate_solve_line(Col_hpositions*) const;
+    void approximate_solve_line (Col_hpositions*) const;
 
     /// does curline fit on the paper?    
-    bool feasible(Line_of_cols)const;
+    bool feasible (Line_of_cols)const;
     
 
-    Line_spacer* generate_spacing_problem(Line_of_cols)const;
+    Line_spacer* generate_spacing_problem (Line_of_cols)const;
 
     virtual Array<Col_hpositions> do_solve()const=0;
     void print_stats()const;
@@ -69,7 +69,7 @@ public:
     Line_spacer* (*get_line_spacer)();
     
     Break_algorithm();
-    void set_pscore(Paper_score*);
+    void set_pscore (Paper_score*);
 
     /// check if the spacing/breaking problem is well-stated
     void problem_OK()const;

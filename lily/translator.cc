@@ -17,7 +17,7 @@ Translator::Translator()
 IMPLEMENT_IS_TYPE_B(Translator);
 
 bool
-Translator::try_request(Request*)
+Translator::try_request (Request*)
 {
     return false;
 }

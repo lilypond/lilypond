@@ -18,30 +18,30 @@ Text_engraver::Text_engraver()
 }
 
 bool
-Text_engraver::do_try_request(Request*req_l)
+Text_engraver::do_try_request (Request*req_l)
 {
     Musical_req *m = req_l->musical();
     if (!m || ! m->text())
 	return false;
-    if (text_req_l_ && text_req_l_->equal_b(m))
+    if (text_req_l_ && text_req_l_->equal_b (m))
 	return false;
 
     text_req_l_ = m->text();
     return true;
 }
 void
-Text_engraver::acknowledge_element(Score_elem_info i)
+Text_engraver::acknowledge_element (Score_elem_info i)
 {
-    if (text_p_ && i.elem_l_->name() == Note_column::static_name()) {
-	text_p_->add_support(i.elem_l_);
+    if (text_p_ && i.elem_l_->name() == Note_column::static_name ()) {
+	text_p_->add_support (i.elem_l_);
     }
 }
 void
 Text_engraver::do_process_requests()
 {
     if (text_req_l_) {
-	text_p_ = new Text_item(text_req_l_->tdef_p_, text_req_l_->dir_i_); // ugh
-	announce_element(Score_elem_info(text_p_, text_req_l_));
+	text_p_ = new Text_item (text_req_l_->tdef_p_, text_req_l_->dir_i_); // ugh
+	announce_element (Score_elem_info (text_p_, text_req_l_));
     }
 }
 void
@@ -51,14 +51,14 @@ Text_engraver::do_pre_move_processing()
 	if (dir_i_ && !text_p_->dir_i_)
 	    text_p_->dir_i_ = dir_i_;
 	Staff_symbol* s_l = get_staff_info().staff_sym_l_;
-	text_p_->set_staffsym(s_l);
-	typeset_element(text_p_);
+	text_p_->set_staffsym (s_l);
+	typeset_element (text_p_);
 	    
 	text_p_ = 0;
     }
 }
 void
-Text_engraver::set_feature(Feature i)
+Text_engraver::set_feature (Feature i)
 {
     if (i.type_ == "vdir")	
 	dir_i_ = i.value_;

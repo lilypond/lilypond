@@ -28,7 +28,7 @@ friend class String_handle;
     String_data();
 
     /// init from src. Conservative allocation.
-    String_data(String_data const &src); 
+    String_data (String_data const &src); 
     
     ~String_data();
 
@@ -36,13 +36,13 @@ friend class String_handle;
       @param j, maximum stringlength_i_.    
       contents thrown away.
     */
-    void setmax(int j);
+    void setmax (int j);
     
     /** POST: maxlen >= j.
       @param j, maximum stringlength_i_.
       contents are kept if it grows.
       */
-    void remax(int j);
+    void remax (int j);
 
     /// check if writeable.
     void OKW();
@@ -54,14 +54,14 @@ friend class String_handle;
     void tighten();
 
     // assignment.
-    void set( Byte const* byte_C, int length_i );
+    void set (Byte const* byte_C, int length_i);
 
-    void set( char const* ch_C );
+    void set (char const* ch_C);
     
     /// concatenation.
-    void append( Byte const* byte_C, int length_i );
+    void append (Byte const* byte_C, int length_i);
 
-    void operator += ( char const* ch_C );
+    void operator += ( char const* ch_C);
 
     char const* ch_C() const; 
 
@@ -72,7 +72,7 @@ friend class String_handle;
     // idem, non const
     Byte* byte_l();
 
-    void trunc(int j);
+    void trunc (int j);
 
     /** access element. not really safe. Can alter length_i_ without
       #String_data# knowing it.  */

@@ -16,7 +16,7 @@ class Swallow_performer : public Performer {
 public:
     DECLARE_MY_RUNTIME_TYPEINFO;
 protected:
-    virtual bool do_try_request (Request* ) { return true; }
+    virtual bool do_try_request (Request*) { return true; }
 };
 
 #endif // SWALLOW_PERF_HH

@@ -10,7 +10,7 @@
 #include "p-col.hh"
 #include "score-column.hh"
 
-Score_column::Score_column(Moment w)
+Score_column::Score_column (Moment w)
 {
     when_ = w;
     musical_b_ = false;
@@ -20,44 +20,44 @@ void
 Score_column::print() const
 {
 #ifndef NPRINT
-    mtor << "Score_column { mus "<< musical_b_ <<" at " <<  when_<<'\n';
-    mtor << "durations: [";
+    DOUT << "Score_column { mus "<< musical_b_ <<" at " <<  when_<<'\n';
+    DOUT << "durations: [";
     for (int i=0; i < durations.size(); i++)
-	mtor << durations[i] << " ";
-    mtor << "]\n";
+	DOUT << durations[i] << " ";
+    DOUT << "]\n";
     PCol::print();
-    mtor << "}\n";
+    DOUT << "}\n";
 #endif
 }
 
 int
-Moment_compare(Moment const &m1, Moment const &m2)
+Moment_compare (Moment const &m1, Moment const &m2)
 {
-    return sign(m1-m2);
+    return sign (m1-m2);
 }
 
 void
 Score_column::preprocess()
 {
-    durations.sort(Moment_compare);
+    durations.sort (Moment_compare);
 }
 
 void
-Score_column::add_duration(Moment d)
+Score_column::add_duration (Moment d)
 {
-    assert(d);
+    assert (d);
     for (int i = 0; i< durations.size(); i++) {
 	if (d == durations[i])
 	    return ;
     }
-    durations.push(d);
+    durations.push (d);
 }
 
 void
 Score_column::do_set_breakable()
 {
-    Score_column *c1 = new Score_column(when_);
-    Score_column *c2 = new Score_column(when_);
+    Score_column *c1 = new Score_column (when_);
+    Score_column *c2 = new Score_column (when_);
     prebreak_p_ =c1;
     postbreak_p_ = c2;
     c1->durations = durations;

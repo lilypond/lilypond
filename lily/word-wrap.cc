@@ -25,10 +25,10 @@ Word_wrap::do_solve()const
 {
     problem_OK();
     
-    PCursor<PCol*> curcol(pscore_l_->col_p_list_.top());
+    PCursor<PCol*> curcol (pscore_l_->col_p_list_.top());
     Array<Col_hpositions> breaking;
-    Line_of_cols breakpoints(find_breaks());
-    assert(breakpoints.size()>=2);
+    Line_of_cols breakpoints (find_breaks());
+    assert (breakpoints.size()>=2);
 
     int break_idx_i=0;			
     while ( break_idx_i < breakpoints.size() -1) {
@@ -37,7 +37,7 @@ Word_wrap::do_solve()const
 
         // do  another line
 	PCol *post = breakpoints[break_idx_i]->postbreak_p_;
-	current.add( post);
+	current.add (post);
 	curcol++;		// skip the breakable.
 	break_idx_i++;
 
@@ -45,18 +45,18 @@ Word_wrap::do_solve()const
 	
 	    // add another measure.
 	    while (breakpoints[break_idx_i] != curcol.ptr()){
-		current.add(curcol);
+		current.add (curcol);
 		curcol++;
 	    }
-	    current.add(breakpoints[break_idx_i]->prebreak_p_ );
+	    current.add (breakpoints[break_idx_i]->prebreak_p_);
 
-	    current.spacer_l_ = generate_spacing_problem( current.cols );
+	    current.spacer_l_ = generate_spacing_problem (current.cols);
 
 	    // try to solve
-	    if (!feasible(current.cols)) {
+	    if (!feasible (current.cols)) {
 		if (!minimum.cols.size()) {
-		    warning("Ugh, this measure is too long, breakpoint: "
-			  + String(break_idx_i) +
+		    warning ("Ugh, this measure is too long, breakpoint: "
+			  + String (break_idx_i) +
 			" (generating stupido solution)");
 		    current.stupid_solution();
 		    current.energy_f_ = - 1; // make sure we break out.
@@ -89,7 +89,7 @@ Word_wrap::do_solve()const
 	}
 
 	*mlog << "[" <<break_idx_i<<"]"<<flush;
-	breaking.push(minimum);
+	breaking.push (minimum);
     }
     print_stats();
     return breaking;

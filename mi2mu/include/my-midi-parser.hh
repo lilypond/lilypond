@@ -6,6 +6,14 @@
 #ifndef MY_MIDI_PARSER_HH
 #define MY_MIDI_PARSER_HH
 
+#include "mi2mu-proto.hh"
+#include "proto.hh"
+#include "plist.hh"
+#include "string.hh"
+#include "moment.hh"
+
+#include "string.hh"
+#include "moment.hh"
 
 int yyparse();
 
@@ -15,42 +23,45 @@ int yyparse();
  */
 class My_midi_parser {
 public:
-    My_midi_parser( String filename_str,Sources * );
+    My_midi_parser (String filename_str,Sources *);
     ~My_midi_parser();
 
-    void add_score( Midi_score* midi_score_p );
-    void error( char const* sz_l );
+    void add_score (Mudela_score* mudela_score_p);
+    void error (char const* sz_l);
     int parse();
-    void forward( int i );
-    Moment mom();
-    void note_begin( int channel_i, int pitch_i, int dyn_i );
-    Midi_event* note_end_midi_event_p( int channel_i, int pitch_i, int dyn_i );
-    int output_mudela( String filename_str );
+    void forward (int i);
+    Moment at_mom();
+    void note_begin (int channel_i, int pitch_i, int dyn_i);
+    void note_end (int channel_i, int pitch_i, int aftertouch_i);
+    void note_end_all();
+
     void reset();
-    void set_division_4( int division_4_i );
-    void set_key( int accidentals_i, int minor_i );
-    void set_tempo( int useconds_per_4_i );
-    void set_time( int num_i, int den_i, int clocks_i, int count_32_i );
+    void set_division_4 (int division_4_i);
+    void set_key (int accidentals_i, int minor_i);
+    void set_meter (int num_i, int den_i, int clocks_i, int count_32_i);
+    void set_tempo (int useconds_per_4_i);
 
     int bar_i_;
+
+    // ugh
     int track_i_;
     String filename_str_;
     String copyright_str_;
     String instrument_str_;
     String track_name_str_;
 
-    Midi_key* midi_key_p_;
-    Midi_tempo* midi_tempo_p_;
-    Midi_time* midi_time_p_;
+    // ugh
+    Mudela_key* mudela_key_p_;
+    Mudela_meter* mudela_meter_p_;
+    Mudela_tempo* mudela_tempo_p_;
+
+    Mudela_staff* mudela_staff_l_;
+    Mudela_score* mudela_score_p_;
+    Mudela_column* mudela_column_l_;
 
 private:
-    I64 now_i64_;	// 31 bits yields tipically about 1000 bars
+    Link_list<Mudela_note*> open_mudela_note_l_list_;
 
-    static int const CHANNELS_i = 16;
-    static int const PITCHES_i = 128;
-    I64 running_i64_i64_a_[ CHANNELS_i ][ PITCHES_i ];
-
-    Midi_score* midi_score_p_;
     int division_1_i_;
 
     char const* defined_ch_C_;

@@ -28,14 +28,14 @@ Span_score_bar::do_pre_processing()
 
 
 Symbol
-Piano_brace::get_bar_sym(Real dy)const
+Piano_brace::get_bar_sym (Real dy)const
 {
-    return paper()->lookup_l()->vbrace(dy);
+    return paper()->lookup_l ()->vbrace (dy);
 }
 Interval
 Piano_brace::do_width()const
 {
-    return Interval(0,0);
+    return Interval (0,0);
 }
 
 

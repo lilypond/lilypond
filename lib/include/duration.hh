@@ -41,7 +41,6 @@ struct Duration {
       Ctor of Duration. type_i should be a power of 2. 
        */
     Duration();
-    Duration( int type_i, int dots_i = 0 );
     /// is the "plet factor" of this note != 1 ?
     bool plet_b();
     String str()const;

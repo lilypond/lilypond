@@ -26,17 +26,17 @@ class Text_stream
     String name;
     
  public:
-    Text_stream(String fn);
+    Text_stream (String fn);
     String get_name() { return name; }
     bool eof() {
-	return feof(f);
+	return feof (f);
     }
     bool eol() {
 	return (peek() == '\n');
     }
     char peek() {
 	char c = get();
-	unget(c);
+	unget (c);
 	return c;
     }
     int line(){
@@ -47,7 +47,7 @@ class Text_stream
 	char c;
 	
 	if (pushback.empty())
-	    c = getc(f);	
+	    c = getc (f);	
 	else 
 	    c = pushback.pop();
 
@@ -55,20 +55,20 @@ class Text_stream
 	    line_no++;
 	return c;	
     }
-    void unget(char c) {
+    void unget (char c) {
 	if (c =='\n')
 	    line_no--;
-	pushback.push(c);
+	pushback.push (c);
     }
-    ~Text_stream (){
+    ~Text_stream(){
 	if (!eof()) 
 	    cerr <<__FUNCTION__<< ": closing unended file";
     
-	fclose(f);
+	fclose (f);
     }
 
     /// GNU format message.
-    void message(String s); 
+    void message (String s); 
 };
 
 #endif

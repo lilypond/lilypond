@@ -26,12 +26,12 @@ Stem_beam_engraver::Stem_beam_engraver()
 }
 
 bool
-Stem_beam_engraver::do_try_request(Request*req_l)
+Stem_beam_engraver::do_try_request (Request*req_l)
 {
     
     Musical_req* mus_l = req_l->musical();
     /* Debiele puntkomma's. Laat je er eentje per ongeluk achter een
-      if(..) staan, lijkt het net op een luis in gcc.
+      if (..) staan, lijkt het net op een luis in gcc.
 
       (ofwel Python rules)
       */
@@ -39,23 +39,23 @@ Stem_beam_engraver::do_try_request(Request*req_l)
 	return false;
 
 
-    if ( mus_l->beam() ) {
-	if (bool(beam_p_ ) == bool(mus_l->beam()->spantype == Span_req::START))
+    if ( mus_l->beam()) {
+	if (bool (beam_p_) == bool (mus_l->beam()->spantype == Span_req::START))
 	    return false;
 	
-	if (beam_req_l_ && beam_req_l_ ->equal_b(mus_l))
+	if (beam_req_l_ && beam_req_l_ ->equal_b (mus_l))
 	    return false;
 	
 	beam_req_l_ = mus_l->beam();
 	return true;
     }
     
-    if ( mus_l->stem() ) {
-	if (current_grouping && !current_grouping->child_fit_b(
+    if ( mus_l->stem()) {
+	if (current_grouping && !current_grouping->child_fit_b (
 	    get_staff_info().time_C_->whole_in_measure_))
 	    return false;
 
-	if (stem_req_l_ && !stem_req_l_->equal_b( mus_l ) )
+	if (stem_req_l_ && !stem_req_l_->equal_b (mus_l) )
 	    return false;
 
 	stem_req_l_ = mus_l->stem();
@@ -74,28 +74,28 @@ Stem_beam_engraver::do_process_requests()
 	} else {
 	    beam_p_ = new Beam;
 	    start_req_l_ = beam_req_l_;
-	    beam_p_->left_col_l_ = get_staff_info().musical_pcol_l();
+	    beam_p_->left_col_l_ = get_staff_info().musical_pcol_l ();
 	    current_grouping = new Rhythmic_grouping;
 	    if (beam_req_l_->nplet) {
 		Text_spanner* t = new Text_spanner();
 		Text_def *defp = new Text_def;
-		t->set_support(beam_p_);
+		t->set_support (beam_p_);
 		defp->align_i_ = 0;
 		defp->text_str_ = beam_req_l_->nplet;
 		defp->style_str_="italic";
 		t->spec_p_  = defp;
-		announce_element(Score_elem_info(t,0));
-		typeset_element(t);
+		announce_element (Score_elem_info (t,0));
+		typeset_element (t);
 	    }
-	    announce_element ( Score_elem_info(beam_p_, 0));
+	    announce_element ( Score_elem_info (beam_p_, 0));
 	     
 	}
     }
 
     if (stem_req_l_) {
-	stem_p_ = new Stem(8);
+	stem_p_ = new Stem (8);
 	if (current_grouping)
-	    current_grouping->add_child(
+	    current_grouping->add_child (
 		get_staff_info().time_C_->whole_in_measure_,
 		stem_req_l_->duration());
 
@@ -103,29 +103,29 @@ Stem_beam_engraver::do_process_requests()
 
 	if (beam_p_) {
 	    if (stem_req_l_->duration_.type_i_<= 4)
-		stem_req_l_->warning( "stem doesn't fit in Beam");
+		stem_req_l_->warning ("stem doesn't fit in Beam");
 	    else
-		beam_p_->add(stem_p_);
+		beam_p_->add (stem_p_);
 	    stem_p_->print_flag_b_ = false;
 	} else {
 	    stem_p_->print_flag_b_ = true;
 	}
 	
-	announce_element(Score_elem_info(stem_p_, stem_req_l_));
+	announce_element (Score_elem_info (stem_p_, stem_req_l_));
     }
 }
 
 void
-Stem_beam_engraver::acknowledge_element(Score_elem_info info)
+Stem_beam_engraver::acknowledge_element (Score_elem_info info)
 {
     if (!stem_p_)
 	return;
 
-    if (info.elem_l_->name() == Note_head::static_name() &&
+    if (info.elem_l_->name() == Note_head::static_name () &&
 	stem_req_l_->duration() 
-	== info.req_l_->musical()->rhythmic()->duration()){
+	== info.req_l_->musical()->rhythmic ()->duration ()){
 	Note_head * n_l= (Note_head*)info.elem_l_->item();
-	stem_p_->add(n_l);
+	stem_p_->add (n_l);
     }
 }
 void
@@ -135,15 +135,15 @@ Stem_beam_engraver::do_pre_move_processing()
 	if (default_dir_i_)
 	    stem_p_->dir_i_ = default_dir_i_;
 	
-	typeset_element(stem_p_);
+	typeset_element (stem_p_);
 	stem_p_ = 0;
     }
     if (beam_p_ && end_beam_b_) {
 	Rhythmic_grouping const * rg_C = get_staff_info().rhythmic_C_;
-	rg_C->extend(current_grouping->interval());
-	beam_p_->set_grouping(*rg_C, *current_grouping);
-	beam_p_->right_col_l_ = get_staff_info().musical_pcol_l();
-	typeset_element(beam_p_);
+	rg_C->extend (current_grouping->interval());
+	beam_p_->set_grouping (*rg_C, *current_grouping);
+	beam_p_->right_col_l_ = get_staff_info().musical_pcol_l ();
+	typeset_element (beam_p_);
 	delete current_grouping;
 	current_grouping = 0;
 	beam_p_ = 0;
@@ -162,11 +162,11 @@ Stem_beam_engraver::do_post_move_processing()
 Stem_beam_engraver::~Stem_beam_engraver()
 {
     if (beam_p_)
-	start_req_l_->warning("unterminated beam");
+	start_req_l_->warning ("unterminated beam");
 }
 
 void
-Stem_beam_engraver::set_feature(Feature i)
+Stem_beam_engraver::set_feature (Feature i)
 {
     if (i.type_ == "vdir")	
 	default_dir_i_ = i.value_;

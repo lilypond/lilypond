@@ -3,7 +3,11 @@
 //
 // copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 
-#include "mi2mu.hh"
+#include "string-convert.hh"
+#include "mi2mu-global.hh"
+#include "my-midi-lexer.hh"
+#include "source.hh"
+#include "source-file.hh"
 
 int
 yylex() 
@@ -13,10 +17,12 @@ yylex()
 
 My_midi_lexer* midi_lexer_l_g = 0;
 
-My_midi_lexer::My_midi_lexer( String &filename_str, Sources * sources )
+My_midi_lexer::My_midi_lexer (String &filename_str, Sources * sources)
 {
-    source_file_l_ =sources->get_file_l(filename_str);
-    switch_streams( source_file_l_->istream_l() ,0 );
+    source_file_l_ = sources->get_file_l(filename_str);
+    if  (!source_file_l_)
+	::error  ("can't find: `" + filename_str + "'");
+    switch_streams (source_file_l_->istream_l(), 0);
     errorlevel_i_ = 0;
     char_count_ = 0;
     running_status_i_ = 0;
@@ -28,23 +34,23 @@ My_midi_lexer::~My_midi_lexer()
 }
 
 void
-My_midi_lexer::error( char const* sz_l )
+My_midi_lexer::error (char const* sz_l)
 {
-    if (1|| !source_file_l_ ) {
-	cerr << "error at EOF" << sz_l << '\n';
+    if (1|| !source_file_l_) {
+	cerr << "error at EOF: `" << sz_l << "'\n";
     } else {
 	
 	// FIXME
 	#if 0
 	char const* ch_C = here_ch_C();
-	if ( ch_C ) {
+	if  (ch_C) {
 	    ch_C--;
-	    while ( ( *ch_C == ' ' ) || ( *ch_C == '\t' ) || ( *ch_C == '\n' ) )
+	    while  ( (*ch_C == ' ') ||  (*ch_C == '\t') ||  (*ch_C == '\n'))
 		ch_C--;
 	    ch_C++;
 	}
 	errorlevel_i_ |= 1;
-	error( sz_l);
+	error (sz_l);
 	#endif
     }
 }
@@ -56,19 +62,19 @@ My_midi_lexer::here_ch_C()
 }
 
 int
-My_midi_lexer::varint2_i( String str )
+My_midi_lexer::varint2_i (String str)
 {
     int var_i = 0;
 
-    for ( int i = 0; i < str.length_i(); i++ ) {
+    for  (int i = 0; i < str.length_i(); i++) {
 	Byte byte = str[ i ];
 	var_i <<= 7;
 	var_i += byte & 0x7f;
-	if ( ! ( byte & 0x80 ) )
+	if  (!  (byte & 0x80))
 	    return var_i;
     }
-    cout << "\nvarint2_i:" << String_convert::bin2hex_str( str ) << endl;
-    assert( 0 ); // illegal varint
+    cout << "\nvarint2_i:" << String_convert::bin2hex_str (str) << endl;
+    assert (0); // illegal varint
     return 0;
 }
 

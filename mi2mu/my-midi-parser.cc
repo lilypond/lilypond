@@ -3,183 +3,226 @@
 //
 // copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 
-#include "mi2mu.hh"
+#include "string-convert.hh"
+#include "duration-convert.hh"
+#include "mi2mu-global.hh"
+#include "my-midi-lexer.hh"
+#include "my-midi-parser.hh"
+#include "mudela-column.hh"
+#include "mudela-item.hh"
+#include "mudela-score.hh"
+#include "mudela-staff.hh"
 
 void
-yyerror(char const* sz_l )
+yyerror(char const* sz_l)
 {
-	midi_parser_l_g->error( sz_l );
+    midi_parser_l_g->error (sz_l);
 }
 
 
 My_midi_parser* midi_parser_l_g = 0;
 
-My_midi_parser::My_midi_parser( String filename_str, Sources *sources_l )
+My_midi_parser::My_midi_parser (String filename_str, Sources *sources_l)
 {
-	filename_str_ = filename_str;
-	midi_lexer_p_ = new My_midi_lexer( filename_str_,sources_l );
-	midi_lexer_l_g = midi_lexer_p_;	// ugh
+    filename_str_ = filename_str;
+    midi_lexer_p_ = new My_midi_lexer (filename_str_,sources_l);
+    midi_lexer_l_g = midi_lexer_p_;    // ugh
 
-	defined_ch_C_ = 0;
-	fatal_error_i_ = 0;
-	midi_key_p_ = 0;
-	midi_score_p_ = 0;
-	midi_tempo_p_ = 0;
-	midi_time_p_ = 0;
-	track_i_ = 0;
-	bar_i_ = 1;
-	reset();
+    bar_i_ = 1;
+
+    defined_ch_C_ = 0;
+    fatal_error_i_ = 0;
+    
+    mudela_column_l_ = 0;
+    mudela_score_p_ = new Mudela_score (1, 1, 1);
+
+
+    // ugh, belong to Mudela_{score,staff}
+    track_i_ = 0;
+    mudela_staff_l_ = 0;
+    mudela_key_p_ = 0;
+    mudela_tempo_p_ = 0;
+    mudela_meter_p_ = 0;
+
+    reset();
 }
 
 My_midi_parser::~My_midi_parser()
 {
-    midi_lexer_l_g = 0;	// ugh
+    midi_lexer_l_g = 0;    // ugh
 
-	delete midi_lexer_p_;
-	delete midi_key_p_;
-	delete midi_tempo_p_;
-	delete midi_time_p_;
-	delete midi_score_p_;
+    delete midi_lexer_p_;
+    delete mudela_key_p_;
+    delete mudela_tempo_p_;
+    delete mudela_meter_p_;
+    delete mudela_score_p_;
 }
 
 void
 My_midi_parser::reset()
 {
-	delete midi_key_p_;
-	midi_key_p_ = new Midi_key( 0, 0 );
-	// useconds per 4: 250000 === 60 4 per minute
-	delete midi_tempo_p_;
-	midi_tempo_p_ = new Midi_tempo( 1000000 );
-	delete midi_time_p_;
-	midi_time_p_ = new Midi_time( 4, 2, 24, 8 );
-	now_i64_ = 0;
-	bar_i_ = 1;
+//    open_mudela_note_l_list_.clear();
+    open_mudela_note_l_list_.junk_links();
 
-	copyright_str_ = "";
-	track_name_str_ = "";
-	instrument_str_ = "";
+    // ugh
+    delete mudela_key_p_;
+    mudela_key_p_ = new Mudela_key (0, 0);
+    // useconds per 4: 250000 === 60 4 per minute
+    delete mudela_tempo_p_;
+    mudela_tempo_p_ = new Mudela_tempo (1000000);
+    delete mudela_meter_p_;
+    mudela_meter_p_ = new Mudela_meter (4, 2, 24, 8);
 
-	for ( int i = 0; i < CHANNELS_i; i++ )
-		for ( int j = 0; j < PITCHES_i; j++ )
-//			running_i64_i64_a_[ i ][ j ] = -1;
-			running_i64_i64_a_[ i ][ j ] = 0;
+    bar_i_ = 1;
+    mudela_column_l_ = mudela_score_p_->mudela_column_l (0);
+
+    // ugh
+    copyright_str_ = "";
+    track_name_str_ = "";
+    instrument_str_ = "";
 }
 
 void
-My_midi_parser::add_score( Midi_score* midi_score_p )
+My_midi_parser::add_score (Mudela_score* mudela_score_p)
 {
-	assert( !midi_score_p_ );
-	midi_score_p_ = midi_score_p;
-	track_i_ = 0;
-	bar_i_ = 1;
+    assert (mudela_score_p_);
+
+#if 0 // ugh, already constructed
+    mudela_score_p_ = mudela_score_p;
+    if  (!mudela_column_l_)
+	mudela_column_l_ = mudela_score_p_->mudela_column_l (0);
+#endif
+	
+    mudela_score_p_->mudela_key_l_ = mudela_key_p_;
+    mudela_score_p_->mudela_meter_l_ = mudela_meter_p_;
+    mudela_score_p_->mudela_tempo_l_ = mudela_tempo_p_;
+    bar_i_ = 1;
 }
 
 void
-My_midi_parser::error( char const* sz_l )
+My_midi_parser::error (char const* sz_l)
 {
-	midi_lexer_l_g->error( sz_l );
+    midi_lexer_l_g->error (sz_l);
 
-	if ( fatal_error_i_ )
-		exit( fatal_error_i_ );
+    if  (fatal_error_i_)
+	exit (fatal_error_i_);
 }
 
 void
-My_midi_parser::forward( int i )
+My_midi_parser::forward (int i)
 {
-	if ( Duration_convert::no_quantify_b_s ) {
-		now_i64_ += i;
-		return;
-	}
-	while ( i > Duration::division_1_i_s ) {
-		now_i64_ += Duration::division_1_i_s;
-		i -= Duration::division_1_i_s;
-	}
-	Duration dur = Duration_convert::ticks2standardised_dur( i );
-	now_i64_ += Duration_convert::dur2ticks_i( dur );
+    if  (!i)
+	return;
+
+    Duration dur;
+    dur.type_i_ = (0);
+    dur.set_ticks (i);
+    Moment mom = at_mom() + Duration_convert::dur2_mom (dur);
+
+    mudela_column_l_ = mudela_score_p_->mudela_column_l (mom);
+
+    if  (i) {
+	int bars_i = (int) (mom / mudela_meter_p_->bar_mom());
+	if  (bars_i > bar_i_)
+	    LOGOUT(NORMAL_ver) << '[' << bar_i_ << ']' << flush; 
+	bar_i_ = bars_i;
+    }
 }
 
 Moment
-My_midi_parser::mom()
+My_midi_parser::at_mom()
 {
-	return Moment( now_i64_, Duration::division_1_i_s );
+    assert (mudela_column_l_);
+//    return mudela_column_l_ ? mudela_column_l_->at_mom() : 0;
+    return mudela_column_l_->at_mom();
 }
 
 void
-My_midi_parser::note_begin( int channel_i, int pitch_i, int dyn_i )
+My_midi_parser::note_begin (int channel_i, int pitch_i, int dyn_i)
 {
-	// one pitch a channel at time!
-	// heu, what about { < c2 >  < c4 d4 > }
-//	assert( running_i64_i64_a_[ channel_i ][ pitch_i ]  == -1 );
-	running_i64_i64_a_[ channel_i ][ pitch_i ] = now_i64_;
+    // junk dynamics
+    (void)dyn_i;
+
+    Mudela_note* p = new Mudela_note (mudela_column_l_, channel_i, pitch_i, dyn_i);
+//  ugh, score doesn't know about last staff yet...
+//    mudela_score_p_->add_item (p);
+    mudela_staff_l_->add_item (p);
+    open_mudela_note_l_list_.bottom().add (p);
 }
 
-Midi_event*
-My_midi_parser::note_end_midi_event_p( int channel_i, int pitch_i, int dyn_i )
+void
+My_midi_parser::note_end (int channel_i, int pitch_i, int aftertouch_i)
 {
-	I64 start_i64 = running_i64_i64_a_[ channel_i ][ pitch_i ];
+    // junk dynamics
+    (void)aftertouch_i;
 
-//	running_i64_i64_a_[ channel_i ][ pitch_i ] = -1;
-//	assert( start_i64 != -1 ); // did we start?
-
-	Duration dur;
-	dur.type_i_ = 0;
-	if ( Duration_convert::no_quantify_b_s )
-		dur = Duration_convert::ticks2_dur( (I64)now_i64_ - start_i64 );
-	else {
-		dur = Duration_convert::ticks2standardised_dur( (I64)now_i64_ - start_i64 );
-		// checking myself iso using tor saves some time
-		if ( level_ver >= VERBOSE_ver ) { 
-			Moment mom( (I64)now_i64_ - start_i64, Duration::division_1_i_s );
-			if ( dur.length() != mom )
-				warning( String( "duration not exact: " ) + String( (Real)mom ) );
-		}
+    // find 
+    for  (PCursor<Mudela_note*> i (open_mudela_note_l_list_); i.ok(); i++) {
+	if  ( (i->pitch_i_ == pitch_i) &&  (i->channel_i_ == channel_i)) {
+	    i->end_column_l_ = mudela_column_l_;
+	    LOGOUT(DEBUG_ver) << "Note: " << pitch_i;
+	    LOGOUT(DEBUG_ver) << "; " << i->mudela_column_l_->at_mom_;
+	    LOGOUT(DEBUG_ver) << ", " << i->end_column_l_->at_mom_ << "\n";
+	    i.remove_p();
+	    return;
 	}
-	return new Midi_note( midi_key_p_->notename_str( pitch_i ), dur );
+    }
+    warning (String ("junking note-end event: ")
+	+ " channel = " + String_convert::i2dec_str (channel_i, 0, ' ')
+	+ ", pitch = " + String_convert::i2dec_str (pitch_i, 0, ' '));
 }
 
-int
-My_midi_parser::output_mudela( String filename_str )
+void
+My_midi_parser::note_end_all()
 {
-	assert( midi_score_p_ );
-	tor( NORMAL_ver ) << "\nProcessing..." << endl;
-	midi_score_p_->process();
-	return midi_score_p_->output_mudela( filename_str );
+    // find 
+    for  (PCursor<Mudela_note*> i (open_mudela_note_l_list_); i.ok(); i++) {
+	i->end_column_l_ = mudela_column_l_;
+	i.remove_p();
+	// ugh
+	if  (!i.ok())
+	    break;
+    }
 }
 
 int
 My_midi_parser::parse()
 {
-	tor( NORMAL_ver ) << "\nParsing..." << flush;
-	return ::yyparse();
+    LOGOUT(NORMAL_ver) << "\nParsing..." << flush;
+    int i = ::yyparse();
+    if  (!i)
+	note_end_all();
+    return i;
 }
 
 void
-My_midi_parser::set_division_4( int division_4_i )
+My_midi_parser::set_division_4 (int division_4_i)
 {
-	division_1_i_ = division_4_i * 4;
-	Duration::division_1_i_s = division_1_i_;
-	if ( division_4_i < 0 )
-		warning( "seconds iso metrical time" );
+    division_1_i_ = division_4_i * 4;
+    // ugh
+    Duration::division_1_i_s = division_1_i_;
+    if  (division_4_i < 0)
+	warning ("seconds iso metrical time");
 }
 
 void
-My_midi_parser::set_key( int accidentals_i, int minor_i )
+My_midi_parser::set_key (int accidentals_i, int minor_i)
 {
-	delete midi_key_p_;
-	midi_key_p_ = new Midi_key( accidentals_i, minor_i );
+    delete mudela_key_p_;
+    mudela_key_p_ = new Mudela_key (accidentals_i, minor_i);
 }
 
 void
-My_midi_parser::set_tempo( int useconds_per_4_i )
+My_midi_parser::set_meter (int num_i, int den_i, int clocks_i, int count_32_i)
 {
-	delete midi_tempo_p_;
-	midi_tempo_p_ = new Midi_tempo( useconds_per_4_i );
+    delete mudela_meter_p_;
+    mudela_meter_p_ = new Mudela_meter (num_i, den_i, clocks_i, count_32_i);
 }
 
 void
-My_midi_parser::set_time( int num_i, int den_i, int clocks_i, int count_32_i )
+My_midi_parser::set_tempo (int useconds_per_4_i)
 {
-	delete midi_time_p_;
-	midi_time_p_ = new Midi_time( num_i, den_i, clocks_i, count_32_i );
+    delete mudela_tempo_p_;
+    mudela_tempo_p_ = new Mudela_tempo (useconds_per_4_i);
 }
 

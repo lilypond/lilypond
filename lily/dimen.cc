@@ -4,20 +4,20 @@
 #include "string.hh"
 
 Real
-parse_dimen(String dim)
+parse_dimen (String dim)
 {
     int i=dim.length_i()-1;
     char const *s = dim;
-    while  (i > 0 && (isspace(s[i]) || isalpha(s[i])) ){
+    while  (i > 0 && (isspace (s[i]) || isalpha (s[i]))){
 	i--;
     }
-    String unit(s + i+1);
-    return convert_dimen(dim.value_f(), unit); 
+    String unit (s + i+1);
+    return convert_dimen (dim.value_f(), unit); 
 }
 
 
 Real
-convert_dimen(Real quant, String unit)
+convert_dimen (Real quant, String unit)
 {
     if (unit == "cm")
 	return quant * CM_TO_PT;
@@ -31,9 +31,9 @@ convert_dimen(Real quant, String unit)
 }
 
 String
-print_dimen(Real r)
+print_dimen (Real r)
 {
-    String s(r, "%.3f");
+    String s (r, "%.3f");
     s += "pt ";
     return s;
 }

@@ -21,7 +21,7 @@ struct Local_key_engraver : Engraver {
     Link_array<Item > tied_l_arr_;
     /* *************** */
     virtual void do_process_requests();
-    virtual void acknowledge_element(Score_elem_info);
+    virtual void acknowledge_element (Score_elem_info);
     virtual void do_pre_move_processing();
     Local_key_engraver();
     DECLARE_MY_RUNTIME_TYPEINFO;

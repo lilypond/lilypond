@@ -30,17 +30,17 @@ public:
     void print() const;
     virtual void process_requests();
 
-    virtual bool try_request( Request* req_l );
+    virtual bool try_request (Request* req_l);
 
     virtual void do_removal_processing();
     void creation_processing();
 
 protected:
     virtual void do_creation_processing();
-    virtual bool do_try_request(Request*);
+    virtual bool do_try_request (Request*);
     virtual int get_tempo_i() const;
     virtual void do_print() const;
-    virtual void play( Audio_element * elem_p  );
+    virtual void play (Audio_element * elem_p );
 };
 
 #include "global-performers.hh"

@@ -17,7 +17,7 @@
 
   
 
-  TODO: insert(order, elem)
+  TODO: insert (order, elem)
   */
 class Horizontal_align_item :  public Item {
 protected:
@@ -34,16 +34,16 @@ public:
         
     DECLARE_MY_RUNTIME_TYPEINFO;
     SCORE_ELEM_CLONE(Horizontal_align_item);
-    void add(Item*, int p);
+    void add (Item*, int p);
     void OK()const;
     Horizontal_align_item();
 protected:
     
-    virtual void do_substitute_dependency(Score_elem * , Score_elem *);
+    virtual void do_substitute_dependency (Score_elem * , Score_elem *);
     /// do calculations before determining horizontal spacing
     virtual void do_pre_processing();
     virtual void do_print()const;
     virtual Interval do_width()const;
-    bool contains_b(Item*)const;
+    bool contains_b (Item*)const;
 };
 #endif // HORIZONTAL_ALIGN_ITEM_HH

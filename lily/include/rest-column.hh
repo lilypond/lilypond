@@ -18,7 +18,7 @@
 class Rest_column : public Head_column {
 public:
     DECLARE_MY_RUNTIME_TYPEINFO;
-    void translate_heads(int dy);
+    void translate_heads (int dy);
 };
 
 #endif // REST_COLUMN_HH

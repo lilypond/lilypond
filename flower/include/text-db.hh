@@ -14,14 +14,14 @@ public:
     Text_record() { } // needed because of other ctor
 
     /// report an error in this line.
-    message(String s) {
+    message (String s) {
 	cerr << '\n'<< filename << ": "<< line_no << s << "\n";
     }	       
     String operator[](int j) {
 	return Array<String>::operator[](j);
     }
 
-    Text_record(Array<String> s, String fn, int j) : Array<String>(s) { 
+    Text_record (Array<String> s, String fn, int j) : Array<String>(s) { 
 	filename = fn; line_no = j; 
     }
     Array<String>::size;           
@@ -38,7 +38,7 @@ public:
     /// get a line with records
     Text_record    get_record();
 
-    Text_db(String fn):Data_file(fn) { }
+    Text_db (String fn):Data_file (fn) { }
     Data_file::error;
     bool eof();
 

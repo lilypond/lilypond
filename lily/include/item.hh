@@ -35,8 +35,8 @@ public:
     int break_status_i_;
     /// nobreak = 0, pre = -1, post = 1
     int break_status_i()const;
-    Item * find_prebroken_piece(PCol*)const;
-    Item * find_prebroken_piece(Line_of_score*)const;    
+    Item * find_prebroken_piece (PCol*)const;
+    Item * find_prebroken_piece (Line_of_score*)const;    
 
     virtual Item *item() { return this; }
     Item();

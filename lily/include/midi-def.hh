@@ -32,15 +32,15 @@ struct Midi_def {
     Real whole_seconds_f_;
 
     Midi_def();
-    Midi_def( Midi_def const& midi_c_r );
+    Midi_def (Midi_def const& midi_c_r);
     ~Midi_def();
 
-    Real duration_to_seconds_f(Moment);
+    Real duration_to_seconds_f (Moment);
     Global_translator* get_global_translator_p() const;
-    int get_tempo_i( Moment moment );
+    int get_tempo_i (Moment moment);
     void print() const;
-    void set( Input_translator* itrans_p );
-    void set_tempo( Moment moment, int count_per_minute_i );
+    void set (Input_translator* itrans_p);
+    void set_tempo (Moment moment, int count_per_minute_i);
 };
 
 #endif // MIDI_DEF_HH

@@ -19,9 +19,9 @@
 
 class Audio_column { 
 public:
-    Audio_column( Moment at_mom );
+    Audio_column (Moment at_mom);
 
-    void add( Audio_item* i_l );
+    void add (Audio_item* i_l);
     Moment at_mom() const;
     void print() const;
 
@@ -29,7 +29,7 @@ public:
     Audio_score * audio_score_l_;
 
 private:
-    Audio_column( Audio_column const& );
+    Audio_column (Audio_column const&);
 
     Moment at_mom_;
 };

@@ -3,12 +3,12 @@
 
 
 Symbol::Symbol()
-    :    dim(Interval(0,0),Interval(0,0))
+    :    dim (Interval (0,0),Interval (0,0))
 {
     tex = "\\unknown";
 }
-Symbol::Symbol(String s, Box b)
-    :  dim(b)
+Symbol::Symbol (String s, Box b)
+    :  dim (b)
 {
     tex = s;
 }
@@ -17,5 +17,5 @@ Symbol::Symbol(String s, Box b)
 String
 Symbol::str()const 
 {
-    return  "symbol(\'"+tex+"\', (" + dim.x().str() + ", " + dim.y().str() + "))";
+    return  "symbol (\'"+tex+"\', (" + dim.x().str () + ", " + dim.y ().str () + "))";
 }

@@ -47,10 +47,13 @@ struct String_convert;
 struct String;
 struct Matrix_storage;
 struct Vector ;
+struct Rational;
 struct Text_stream;
 struct Data_file;
 struct Text_db;
 struct Scalar;
 typedef unsigned char Byte;
+
+
 #endif // FPROTO_HH
 

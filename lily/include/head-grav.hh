@@ -20,7 +20,7 @@ public:
     Note_head_engraver();
     DECLARE_MY_RUNTIME_TYPEINFO;
 protected:
-    virtual bool do_try_request(Request *req_l) ;
+    virtual bool do_try_request (Request *req_l) ;
     virtual void do_process_requests();
     virtual void do_pre_move_processing();
     virtual void do_post_move_processing();

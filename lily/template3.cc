@@ -13,5 +13,5 @@
 #include "plist.tcc"
 #include "pcursor.tcc"
 
-IPL_instantiate(Atom);
-IPL_instantiate(Input_translator);
+template IPL_INSTANTIATE(Atom);
+template IPL_INSTANTIATE(Input_translator);

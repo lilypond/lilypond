@@ -21,40 +21,40 @@ const INDTAB = 2;
   should use Regexp library.
   */
 static String
-strip_pretty(String pretty_str)
+strip_pretty (String pretty_str)
 {
-    int i = pretty_str.index_i('(');
+    int i = pretty_str.index_i ('(');
     if (i>=0)
-	pretty_str = pretty_str.left_str(i);
+	pretty_str = pretty_str.left_str (i);
     
-    int l = pretty_str.index_last_i(' '); // strip until last ' '
+    int l = pretty_str.index_last_i (' '); // strip until last ' '
     if (l>=0)
-	pretty_str = pretty_str.nomid_str(0,l+1);
+	pretty_str = pretty_str.nomid_str (0,l+1);
     return pretty_str;
 }
 
 static String
-strip_member(String pret)
+strip_member (String pret)
 {
-    int l=pret.index_last_i(':')-1;
+    int l=pret.index_last_i (':')-1;
     if (l>=0)
-	pret = pret.left_str(l );
+	pret = pret.left_str (l);
     return pret;
 }
 
 Dstream&
-Dstream::identify_as(String name)
+Dstream::identify_as (String name)
 {
     if (!os_l_)
 	return *this;
     
-    String mem(strip_pretty(name));
-    String cl(strip_member(mem));
+    String mem (strip_pretty (name));
+    String cl (strip_member (mem));
     String idx = cl;
     
-    if (silent_assoc_p_->elt_b(mem))
+    if (silent_assoc_p_->elt_b (mem))
 	idx  = mem;
-    else if (silent_assoc_p_->elt_b(cl))
+    else if (silent_assoc_p_->elt_b (cl))
 	idx = cl;
     else {
 	(*silent_assoc_p_)[idx] = false;
@@ -69,9 +69,9 @@ Dstream::identify_as(String name)
 }
 
 bool
-Dstream::silence(String s)
+Dstream::silence (String s)
 {
-    if (!silent_assoc_p_->elt_b(s))
+    if (!silent_assoc_p_->elt_b (s))
 	return false;
     return (*silent_assoc_p_)[s];
 }
@@ -79,32 +79,32 @@ Dstream::silence(String s)
 Dstream &
 Dstream::operator<<(String s)
 {
-    output(s);
+    output (s);
     return *this;
 }
 
 Dstream &
 Dstream::operator<<(void const *v_l)
 {
-    output(String_convert::pointer_str(v_l));
+    output (String_convert::pointer_str (v_l));
     return *this;
 }
 
 Dstream &
 Dstream::operator<<(char const *ch_l)
 {
-    output(ch_l);
+    output (ch_l);
     return *this;
 }
 
 void
-Dstream::output(String s)
+Dstream::output (String s)
 {
     if (local_silence_b_|| !os_l_)
 	return ;
     
     for (char const *cp = s  ; *cp; cp++)
-	switch(*cp) {
+	switch (*cp) {
 	    case '{':
 	    case '[':
 	    case '(': indent_level_i_ += INDTAB;
@@ -131,7 +131,7 @@ Dstream::output(String s)
 }
 
 
-Dstream::Dstream(ostream *r, char const * cfg_nm )
+Dstream::Dstream (ostream *r, char const * cfg_nm)
 {
     os_l_ = r;
     silent_assoc_p_ = new Assoc<String,bool>;
@@ -141,19 +141,19 @@ Dstream::Dstream(ostream *r, char const * cfg_nm )
     
     char const * fn =cfg_nm ? cfg_nm : ".dstreamrc";
     {
-	ifstream ifs(fn);	// can't open
+	ifstream ifs (fn);	// can't open
 	if (!ifs)
 	    return;
     }
 
-    Text_db cfg(fn);
+    Text_db cfg (fn);
     while (! cfg.eof()){	     
-	 Text_record  r(  cfg++);
+	 Text_record  r (cfg++);
 	 if (r.size() != 2) {
-	     r.message("not enough fields in Dstream init.");
+	     r.message ("not enough fields in Dstream init.");
 	     continue;
 	 }
-	 (*silent_assoc_p_)[r[0]] = (bool)(int)(Scalar(r[1]));
+	 (*silent_assoc_p_)[r[0]] = (bool)(int)(Scalar (r[1]));
     }
 
 }
@@ -162,13 +162,13 @@ Dstream::Dstream(ostream *r, char const * cfg_nm )
 Dstream::~Dstream()
 {    
     delete silent_assoc_p_;
-    assert(!indent_level_i_) ;
+    assert (!indent_level_i_) ;
 }
 
 void
 Dstream::clear_silence() 
 {
-    for (Assoc_iter<String, bool> i(*silent_assoc_p_); i.ok(); i++) {
+    for (Assoc_iter<String, bool> i (*silent_assoc_p_); i.ok(); i++) {
 	i.val() = 0;
     }
 }

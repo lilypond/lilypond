@@ -22,19 +22,19 @@ Script::do_print() const
 }
 
 void
-Script::do_substitute_dependency(Score_elem*o,Score_elem*n)
+Script::do_substitute_dependency (Score_elem*o,Score_elem*n)
 {
-    Staff_side::do_substitute_dependency(o,n);
+    Staff_side::do_substitute_dependency (o,n);
     if (o == stem_l_) {
 	stem_l_ = n ? (Stem*)n->item() : 0;
     }
 }
 
 void
-Script::set_stem(Stem*st_l)
+Script::set_stem (Stem*st_l)
 {
     stem_l_ = st_l;
-    add_support(st_l);
+    add_support (st_l);
 }
 
 
@@ -51,23 +51,23 @@ Script::set_default_dir()
 {
     int s_i=specs_l_->rel_stem_dir_i();
     if (s_i) { 
-	if(stem_l_)
+	if (stem_l_)
 	    dir_i_ = stem_l_->dir_i_ * s_i;
 	else{ 
-	    specs_l_->warning("Script needs stem direction");
+	    specs_l_->warning ("Script needs stem direction");
 	    dir_i_ = -1;
 	}
     } else {
 	dir_i_ =specs_l_->staff_dir_i();
     }
-    assert(dir_i_);
+    assert (dir_i_);
 }
 
 
 Interval
 Script::do_width() const
 {
-    return specs_l_->get_atom(paper(), dir_i_).extent().x();
+    return specs_l_->get_atom (paper(), dir_i_).extent ().x ();
 }
 
 void
@@ -85,16 +85,16 @@ Script::do_pre_processing()
 Interval
 Script::symbol_height()const
 {
-    return specs_l_->get_atom(paper(), dir_i_).extent().y();
+    return specs_l_->get_atom (paper(), dir_i_).extent ().y ();
 }
 
 Molecule*
 Script::brew_molecule_p() const
 {
-    Real dy = paper()->internote_f();
+    Real dy = paper()->internote_f ();
     
-    Molecule*out = new Molecule(specs_l_->get_atom(paper(), dir_i_));
-    out->translate(dy * pos_i_, Y_AXIS);
+    Molecule*out = new Molecule (specs_l_->get_atom (paper(), dir_i_));
+    out->translate (dy * pos_i_, Y_AXIS);
     return out;
 }
 
@@ -102,8 +102,8 @@ Script::brew_molecule_p() const
 IMPLEMENT_IS_TYPE_B2(Script,Item,Staff_side);
 
 int 
-Script::compare(Script  *const&l1, Script *const&l2) 
+Script::compare (Script  *const&l1, Script *const&l2) 
 {
-    return l1->specs_l_->priority_i() - l2->specs_l_->priority_i();
+    return l1->specs_l_->priority_i() - l2->specs_l_->priority_i ();
 }
     

@@ -4,7 +4,7 @@ CodingStyle - standards while programming for GNU LilyPond
 
 =head1 DESCRIPTION
 
-Please use these standards while doing programming for GNU LilyPond
+We use these standards while doing programming for GNU LilyPond
 
 Functions and methods do not return errorcodes, but use assert for
 checking status. 
@@ -90,19 +90,23 @@ If you like using font-lock, you can also add this to your F<.emacs>:
 	This_is_a_class
 	AClass_name	(for Abbreviation_class_name)
 
-=head2 DATA MEMBERS
+=head2 MEMBERS
 
 	Class::member()
 	Type Class::member_type_
+	Type Class::member_type()
 
 the C<type> is a Hungarian notation postfix for C<Type>. See below
 
 =head2 MACROS
 
+Macros should be written completely in uppercase
+
 The code should not be compilable if proper macro declarations are not
 included. 
 
-Don't laugh. It took us a whole figure out one of these bugs.
+Don't laugh. It took us a whole evening/night to figure out one of
+these bugs.
 
 =head2 BROKEN CODE
 
@@ -213,10 +217,11 @@ Another fun quote from Microsoft Secrets:
 	our source code, you also notice very few comments.  Hungarian
 	gives us the ability to go in and read code..."
 
-
 Wow! If you use Hungarian you don't have to document your software!
 Just think of the hours I have wasted documenting while this "silver bullet"
-existed. I feel so stupid and ashamed!
+existed. I feel so stupid and ashamed!  [Didn't MMM-Brooks say `There is
+no silver bullet?' --HWN]
+
 
 =head2 Disadvantages
 
@@ -339,7 +344,7 @@ unsigned integer
 =head2 Modifiers
 
 The following types modify the meaning of the prefix. 
-These are precede the prefixes:
+These are preceded by the prefixes:
 
 =over 5
 
@@ -353,7 +358,7 @@ user built array.
 
 =item C<c>
 
-const. Note that the proper order C<Type const> i.s.o. C<const Type>
+const. Note that the proper order is C<Type const> i.s.o. C<const Type>
 
 =item C<C>
 

@@ -23,7 +23,7 @@ struct Assoc;
    One can turn on and off specific messages using the Assoc silent.
    This can be done automatically:
 
-   #define DEBUG  dstream_.identify_as(__PRETTY_FUNCTION__) 
+   #define DEBUG  dstream_.identify_as (__PRETTY_FUNCTION__) 
 
    DEBUG << "a message\n";
    
@@ -38,18 +38,18 @@ class Dstream
     int indent_level_i_;
     bool local_silence_b_;
     String current_classname_str_;
-    void output(String s);
+    void output (String s);
     Assoc<String, bool> *silent_assoc_p_;
 public:
     void clear_silence();
-    bool silence(String);
+    bool silence (String);
     
     /**
       if rcfile == 0, then do not read any rc file.
       */
-    Dstream(ostream *r, char const * rcfile);
+    Dstream (ostream *r, char const * rcfile);
     virtual ~Dstream();
-    Dstream &identify_as(String s);
+    Dstream &identify_as (String s);
 
 /** Output a string via the Dstream. This is the only output
  interface. It delegates all conversion to String class.  */

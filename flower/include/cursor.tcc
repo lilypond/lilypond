@@ -8,27 +8,27 @@ template<class T>
  void
 Cursor<T>::backspace()
 {
-    Cursor<T> c(*this);
-    if ( c.ok() )
+    Cursor<T> c (*this);
+    if ( c.ok())
 	c--;        
-    list_.remove( *this );
+    list_.remove (*this);
 }
 
 template<class T>
  void
 Cursor<T>::del()
 {
-    Cursor<T> c(*this);
-    if ( c.ok() )
+    Cursor<T> c (*this);
+    if ( c.ok())
 	c++;
-    list_.remove( *this );    
+    list_.remove (*this);    
     *this = c;
 }
 
 
 template<class T>
 Cursor<T> 
-Cursor<T>::operator -=( int j )    
+Cursor<T>::operator -=( int j)    
 {
     while (j--)
 	(*this)--;
@@ -36,7 +36,7 @@ Cursor<T>::operator -=( int j )
 }
 template<class T>
 Cursor<T> 
-Cursor<T>::operator +=( int j )    
+Cursor<T>::operator +=( int j)    
 {
     while (j++)
 	(*this)++;
@@ -45,7 +45,7 @@ Cursor<T>::operator +=( int j )
 
 template<class T>
 Cursor<T> 
-Cursor<T>::operator +( int i ) const    
+Cursor<T>::operator +( int i) const    
 {
     Cursor<T> r = *this;
 
@@ -60,7 +60,7 @@ Cursor<T>::operator +( int i ) const
 
 template<class T>
 Cursor<T>
-Cursor<T>::operator -( int i ) const
+Cursor<T>::operator -( int i) const
 {
     Cursor<T> r = *this;
     if (i<0)
@@ -79,11 +79,11 @@ template<class T>
 int
 Cursor<T>::operator-(Cursor<T> rhs) const
 {
-    assert(rhs.list == list);
+    assert (rhs.list == list);
     int dif = 0;
 
     // search from *this on further up (positive difference)
-    Cursor<T> c(*this);
+    Cursor<T> c (*this);
     while (c.ok() && c.pointer_ != rhs.pointer_) {
 	c--;
 	dif++;
@@ -99,10 +99,10 @@ Cursor<T>::operator-(Cursor<T> rhs) const
 	dif --;
 	c++;
     }
-    assert(c.ok());
+    assert (c.ok());
 
 gotcha:
-    assert((*this - dif).pointer_ == c.pointer_);
+    assert ((*this - dif).pointer_ == c.pointer_);
     return dif;
 }
 

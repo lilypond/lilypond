@@ -184,7 +184,7 @@ yylex(YYSTYPE *s,  void * v_l)
 %type <music>	simple_element music_elt full_element lyrics_elt command_elt
 %type <i>	int
 %type <i>	script_dir
-%type <id>	declaration
+%type <id>	identifier_init
 %type <duration>	explicit_duration notemode_duration entered_notemode_duration
 %type <interval>	dinterval
 %type <intvec>	intastint_list
@@ -206,9 +206,7 @@ yylex(YYSTYPE *s,  void * v_l)
 %type <score>	score_block score_body
 %type <script>	script_definition script_body mudela_script gen_script_def
 %type <textdef> text_def
-%type <string>	declarable_identifier
 %type <string>	script_abbreviation
-%type <id>	old_identifier
 %type <symbol>	symboldef
 %type <symtable>	symtable symtable_body
 %type <itrans>	input_translator_spec input_translator_spec_body
@@ -258,81 +256,60 @@ notenames_body:
 /*
 	DECLARATIONS
 */
-add_declaration: declaration	{
-		THIS->lexer_p_->add_identifier($1);
-		$1->init_b_ = THIS->init_parse_b_;
-		$1->set_spot(THIS->pop_spot());
-	}
-	;
 
-declarable_identifier:
+add_declaration:
 	STRING {
 		THIS->remember_spot();
-	    $$ = $1;
 	}
-	| old_identifier { 
-		THIS->remember_spot();
-		$$ = new String($1->name_str_); 
-		THIS->here_input().warning("redeclaration of `" + *$$ + "'");
+	/* cont */ '=' identifier_init {
+	    THIS->lexer_p_->set_identifier(*$1, $4);
+	    $4->init_b_ = THIS->init_parse_b_;
+	    $4->set_spot(THIS->pop_spot());
 	}
 	;
-
-
-old_identifier:
-	IDENTIFIER
-	|	INPUT_TRANS_IDENTIFIER
-	|	MELODIC_REQUEST_IDENTIFIER 
-	|	POST_REQUEST_IDENTIFIER
-	|	SCRIPT_IDENTIFIER
-	|	REAL_IDENTIFIER
-	|	SCORE_IDENTIFIER
-	|	REQUEST_IDENTIFIER
-	;
-
-declaration:
-	declarable_identifier '=' score_block {
-		$$ = new Score_id(*$1, $3, SCORE_IDENTIFIER);
-		delete $1;
+identifier_init:
+	score_block {
+		$$ = new Score_id($1, SCORE_IDENTIFIER);
+		
 	}
-	| declarable_identifier '=' paper_block {
-		$$ = new Paper_def_id(*$1, $3, PAPER_IDENTIFIER);
-		delete $1;
+	| paper_block {
+		$$ = new Paper_def_id($1, PAPER_IDENTIFIER);
+		
 	}
-	| declarable_identifier '=' midi_block {
-		$$ = new Midi_def_id(*$1, $3, MIDI_IDENTIFIER);
-		delete $1;
+	| midi_block {
+		$$ = new Midi_def_id($1, MIDI_IDENTIFIER);
+		
 	}
-	| declarable_identifier '=' script_definition {
-		$$ = new Script_id(*$1, $3, SCRIPT_IDENTIFIER);
-		delete $1;
+	| script_definition {
+		$$ = new Script_id($1, SCRIPT_IDENTIFIER);
+		
 	}
-	| declarable_identifier '=' Music  {
-		$$ = new Music_id(*$1, $3, MUSIC_IDENTIFIER);
-		delete $1;
+	| Music  {
+		$$ = new Music_id($1, MUSIC_IDENTIFIER);
+		
 	}
-	| declarable_identifier '=' symtables {
-		$$ = new Lookup_id(*$1, $3, IDENTIFIER);
-		delete $1;
+	| symtables {
+		$$ = new Lookup_id($1, IDENTIFIER);
+		
 	}
-	| declarable_identifier '=' real	{
-		$$ = new Real_id(*$1, new Real($3), REAL_IDENTIFIER);
-		delete $1;
+	| real	{
+		$$ = new Real_id(new Real($1), REAL_IDENTIFIER);
+		
 	}
-	| declarable_identifier '=' int	{
-		$$ = new Int_id(*$1, new int($3), INT_IDENTIFIER);
-		delete $1;
+	| int	{
+		$$ = new Int_id(new int($1), INT_IDENTIFIER);
+		
 	}
-	| declarable_identifier '=' post_request {
-		$$ = new Request_id(*$1, $3, POST_REQUEST_IDENTIFIER);
-		delete $1;
+	| post_request {
+		$$ = new Request_id($1, POST_REQUEST_IDENTIFIER);
+		
 	}
-	| declarable_identifier '=' melodic_request {
-		$$ = new Request_id(*$1, $3, MELODIC_REQUEST_IDENTIFIER);
-		delete $1;
+	| melodic_request {
+		$$ = new Request_id($1, MELODIC_REQUEST_IDENTIFIER);
+		
 	}
-	| declarable_identifier '=' input_translator_spec {
-		$$ = new Input_translator_id ( *$1, $3, INPUT_TRANS_IDENTIFIER);
-		delete $1;
+	| input_translator_spec {
+		$$ = new Input_translator_id ( $1, INPUT_TRANS_IDENTIFIER);
 	}
 	;
 
@@ -345,7 +322,7 @@ input_translator_spec:
 
 input_translator_spec_body:
 	INPUT_TRANS_IDENTIFIER	{
-		$$ = $1->input_translator(true);
+		$$ = $1->input_translator();
 		$$-> set_spot( THIS->here_input() );
 	}
 	| STRING STRING	{ 
@@ -394,7 +371,7 @@ score_body:		{
 		$$ = new Score; 
 	}
 	| SCORE_IDENTIFIER {
-		$$ = $1->score(true);
+		$$ = $1->score();
 	}
 	| score_body Music	{
 		$$->music_p_ = $2;
@@ -516,7 +493,7 @@ Music:
 	| Voice		{ $$ = $1; }
 	| Chord			{ $$ = $1; }
 	| transposed_music	{ $$ = $1; }
-	| MUSIC_IDENTIFIER 	{ $$ = $1->music(true); }
+	| MUSIC_IDENTIFIER 	{ $$ = $1->music(); }
 	| MELODIC 
 		{ THIS->lexer_p_->push_note_state(); } 
 	Music
@@ -597,7 +574,7 @@ abbrev_command_req:
 		$$ = new Barcheck_req;
 	}
 	| COMMAND_IDENTIFIER	{
-		$$ = $1->request(true);
+		$$ = $1->request();
 	}
 	;
 
@@ -669,7 +646,7 @@ post_requests:
 
 post_request:
 	POST_REQUEST_IDENTIFIER	{
-		$$ = (Request*)$1->request(true);
+		$$ = (Request*)$1->request();
 	}
 	|close_request_parens	{ 
 		$$ = THIS->get_parens_request($1); 
@@ -839,10 +816,10 @@ script_abbreviation:
 	;
 	
 mudela_script:
-	SCRIPT_IDENTIFIER		{ $$ = $1->script(true); }
+	SCRIPT_IDENTIFIER		{ $$ = $1->script(); }
 	| script_definition		{ $$ = $1; }
 	| script_abbreviation		{ 
-		$$ = THIS->lexer_p_->lookup_identifier(*$1)->script(true);
+		$$ = THIS->lexer_p_->lookup_identifier(*$1)->script();
 		delete $1;
 	}
 	;
@@ -993,7 +970,9 @@ int:
 		$$ = $1;
 	}
 	| INT_IDENTIFIER	{
-		$$ = * $1->intid(0);
+		int *i_p = $1->intid();
+		$$ = *i_p;
+		delete i_p;
 	}
 	;
 
@@ -1003,7 +982,9 @@ real:
 		$$ = $1;
 	}
 	| REAL_IDENTIFIER		{
-		$$ = * $1->real(0);		
+		Real *r_p = $1->real();
+		$$ = * r_p;
+		delete r_p;
 	}
 	;
 	
@@ -1032,7 +1013,7 @@ symtables_body:
 		$$ = new Lookup;
 	}
 	| IDENTIFIER		{
-		$$ = $1->lookup(true);
+		$$ = $1->lookup();
 	}
 	| symtables_body TEXID STRING 		{
 		$$->texsetting = *$3;
@@ -1102,13 +1083,13 @@ Paper_def*
 My_lily_parser::default_paper()
 {
 	Identifier *id = lexer_p_->lookup_identifier( "default_paper" );
-	return id ? id->paperdef(true) : new Paper_def ;
+	return id ? id->paperdef() : new Paper_def ;
 }
 
 Midi_def*
 My_lily_parser::default_midi()
 {
 	Identifier *id = lexer_p_->lookup_identifier( "default_midi" );
-	return id ? id->mididef(true) : new Midi_def ;
+	return id ? id->mididef() : new Midi_def ;
 }
 

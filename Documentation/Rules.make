@@ -4,8 +4,9 @@
 .SUFFIXES: .pod .text .1  .html
 
 
-$(outdir)/%.xpm: %.gif
-	giftopnm $< | ppmtoxpm > $@
+$(outdir)/%.gif: %.xpm
+	xpmtoppm $< | ppmtogif > $@
+
 
 $(outdir)/%.ps: $(outdir)/%.dvi
 	dvips -o $@ $<
@@ -44,7 +45,6 @@ $(outdir)/%.gz: $(outdir)/%
 name-stem= $(notdir $(basename $<))
 $(outdir)/%.dvi: $(depth)/input/%.ly 
 	(cd $(outdir); \
-	rm lelie.midi ; \
 	lilypond -o  $(name-stem)  ../$< )
 	(cd $(outdir); \
 	if [ -f ../$(basename $< ).tex ]; \

@@ -14,8 +14,8 @@ const Real PT_TO_PT =1.0;
 #define CM  *CM_TO_PT
 #define INCH *INCH_TO_PT
 
-Real parse_dimen(String);
-String print_dimen(Real);
-Real convert_dimen(Real, String);
+Real parse_dimen (String);
+String print_dimen (Real);
+Real convert_dimen (Real, String);
 #endif
 

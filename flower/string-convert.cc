@@ -25,24 +25,24 @@
 static const int STRING_BUFFER_LEN=1024;
 
 String
-String_convert::bin2hex_str( String bin_str )
+String_convert::bin2hex_str (String bin_str)
 {
     String str;
     Byte const* byte_C = bin_str.byte_C();
-    for ( int i = 0; i < bin_str.length_i(); i++ ) {
-	str += (char)nibble2hex_byte( *byte_C >> 4 );
-	str += (char)nibble2hex_byte( *byte_C++ );
+    for ( int i = 0; i < bin_str.length_i(); i++) {
+	str += (char)nibble2hex_byte (*byte_C >> 4);
+	str += (char)nibble2hex_byte (*byte_C++);
     }
     return str;
 }
 
 int
-String_convert::bin2_i( String bin_str )
+String_convert::bin2_i (String bin_str)
 {
-    assert( bin_str.length_i() <= 4 );
+    assert (bin_str.length_i() <= 4);
 
     int result_i = 0;
-    for ( int i = 0; i < bin_str.length_i(); i++ ) {
+    for ( int i = 0; i < bin_str.length_i(); i++) {
 	result_i <<= 8;
 	result_i += (Byte)bin_str[ i ];
     }
@@ -51,76 +51,76 @@ String_convert::bin2_i( String bin_str )
 
 // breendet imp from String
 int
-String_convert::dec2_i( String dec_str )
+String_convert::dec2_i (String dec_str)
 {
-    if ( !dec_str.length_i() )
+    if ( !dec_str.length_i())
     	return 0;
 
     long l = 0;
-    int conv = sscanf( dec_str.ch_C(), "%ld", &l );
-    assert( conv );
+    int conv = sscanf (dec_str.ch_C(), "%ld", &l);
+    assert (conv);
 
     return (int)l;
 }
 
 String
-String_convert::i64_str( I64 i64, char const* fmt)
+String_convert::i64_str (I64 i64, char const* fmt)
 {
     char buffer[STRING_BUFFER_LEN];
-    snprintf(buffer, STRING_BUFFER_LEN,
-	     (fmt ? fmt : "%Ld"), i64 );     // assume radix 10
-    return String(buffer);
+    snprintf (buffer, STRING_BUFFER_LEN,
+	     (fmt ? fmt : "%Ld"), i64);     // assume radix 10
+    return String (buffer);
 
 }
 // breendet imp from String
 double
-String_convert::dec2_f( String dec_str )
+String_convert::dec2_f (String dec_str)
 {
-    if ( !dec_str.length_i() )
+    if ( !dec_str.length_i())
     	return 0;
     double d = 0;
-    int conv = sscanf( dec_str.ch_C(), "%lf", &d );
-    assert( conv );
+    int conv = sscanf (dec_str.ch_C(), "%lf", &d);
+    assert (conv);
     return d;
 }
 
 int
-String_convert::hex2bin_i( String hex_str, String& bin_str_r )
+String_convert::hex2bin_i (String hex_str, String& bin_str_r)
 {
-    if ( hex_str.length_i() % 2 )
+    if ( hex_str.length_i() % 2)
         hex_str = "0" + hex_str;
 
     bin_str_r = "";
     Byte const* byte_C= hex_str.byte_C();
     int i = 0;
-    while ( i < hex_str.length_i() ) {   
-        int high_i = hex2nibble_i( *byte_C++ );
-        int low_i = hex2nibble_i( *byte_C++ );
-        if ( high_i < 0 || low_i < 0 )
+    while ( i < hex_str.length_i()) {   
+        int high_i = hex2nibble_i (*byte_C++);
+        int low_i = hex2nibble_i (*byte_C++);
+        if ( high_i < 0 || low_i < 0)
             return 1; // illegal char
-        bin_str_r += String( (char)( high_i << 4 | low_i ), 1 );
+        bin_str_r += String ((char)( high_i << 4 | low_i), 1 );
         i += 2;
     }
     return 0;
 }
 
 String 
-String_convert::hex2bin_str( String hex_str )
+String_convert::hex2bin_str (String hex_str)
 {
     String str;
 //  silly, asserts should alway be "on"!
-//    assert( !hex2bin_i( hex_str, str ) );
-    int error_i = hex2bin_i( hex_str, str );
-    assert( !error_i );
+//    assert (!hex2bin_i (hex_str, str) );
+    int error_i = hex2bin_i (hex_str, str);
+    assert (!error_i);
     return str;
 }
 
 int 
-String_convert::hex2nibble_i( Byte byte )
+String_convert::hex2nibble_i (Byte byte)
 {
-    if ( byte >= '0' && byte <= '9' )
+    if ( byte >= '0' && byte <= '9')
         return byte - '0';
-    if ( byte >= 'A' && byte <= 'F' )
+    if ( byte >= 'A' && byte <= 'F')
         return byte - 'A' + 10;
     if ( byte >= 'a' && byte <= 'f')
         return byte - 'a' + 10;
@@ -129,57 +129,57 @@ String_convert::hex2nibble_i( Byte byte )
 
 // stupido.  Should use int_str()
 String 
-String_convert::i2dec_str( int i, int length_i, char ch )
+String_convert::i2dec_str (int i, int length_i, char ch)
 {
     char fill_ch = ch;
     if ( fill_ch)
         fill_ch = '0';
 
     // ugh
-    String dec_str( i );
+    String dec_str (i);
     
     // ugh
-    return String( fill_ch, length_i - dec_str.length_i() ) + dec_str;
+    return String (fill_ch, length_i - dec_str.length_i()) + dec_str;
 }
 
 
 // stupido.  Should use int_str()
 String 
-String_convert::u2hex_str( unsigned u, int length_i, char fill_ch )
+String_convert::u2hex_str (unsigned u, int length_i, char fill_ch)
 {
     String str;
-    if ( !u )
+    if ( !u)
 	str = "0";
 
 #if 1 // both go...
-    while ( u ) {
-	str = String( (char)( ( u % 16 )["0123456789abcdef"] ) ) + str;
+    while ( u) {
+	str = String ((char)( ( u % 16)["0123456789abcdef"] ) ) + str;
 	u /= 16;
     }
 #else
-    str += int_str( u, "%x" );	// hmm. %lx vs. %x -> portability?
+    str += int_str (u, "%x");	// hmm. %lx vs. %x -> portability?
 #endif
 
-    str = String( fill_ch, length_i - str.length_i() ) + str;
-    while ( ( str.length_i() > length_i ) &&  ( str[ 0 ] == 'f' ) )
-    	str = str.mid_str( 2, INT_MAX );
+    str = String (fill_ch, length_i - str.length_i()) + str;
+    while ( ( str.length_i() > length_i) &&  ( str[ 0 ] == 'f' ) )
+    	str = str.mid_str (2, INT_MAX);
 
     return str;
 }
 
 String 
-String_convert::i2hex_str( int i, int length_i, char fill_ch )
+String_convert::i2hex_str (int i, int length_i, char fill_ch)
 {
-    return u2hex_str( (unsigned)i, length_i, fill_ch );
+    return u2hex_str ((unsigned)i, length_i, fill_ch);
 }
 
 Byte
-String_convert::nibble2hex_byte( Byte byte )
+String_convert::nibble2hex_byte (Byte byte)
 {
-    if ( ( byte & 0x0f ) <= 9 )
-	return ( byte & 0x0f ) + '0';
+    if ( ( byte & 0x0f) <= 9 )
+	return ( byte & 0x0f) + '0';
     else
-	return ( byte & 0x0f ) - 10 + 'a';
+	return ( byte & 0x0f) - 10 + 'a';
 }
 /**
   Convert an integer to a string
@@ -188,12 +188,12 @@ String_convert::nibble2hex_byte( Byte byte )
   #fmt# is a printf style format, default assumes "%d" as format. 
   */
 String
-String_convert::int_str(int i, char const* fmt)
+String_convert::int_str (int i, char const* fmt)
 {
     char buffer[STRING_BUFFER_LEN];
-    snprintf(buffer, STRING_BUFFER_LEN,
-	     (fmt ? fmt : "%d"), i );     // assume radix 10
-    return String(buffer);
+    snprintf (buffer, STRING_BUFFER_LEN,
+	     (fmt ? fmt : "%d"), i);     // assume radix 10
+    return String (buffer);
 }
 
 /**
@@ -202,12 +202,12 @@ String_convert::int_str(int i, char const* fmt)
   @param #fmt# is a printf style format, default assumes "%lf" as format
  */
 String
-String_convert::double_str(double f, char const* fmt)
+String_convert::double_str (double f, char const* fmt)
 {
     char buf[STRING_BUFFER_LEN]; 
 
-    snprintf(buf, STRING_BUFFER_LEN, fmt ? fmt : "%f", f);
-    return String(buf);
+    snprintf (buf, STRING_BUFFER_LEN, fmt ? fmt : "%f", f);
+    return String (buf);
 }
 
 /**
@@ -217,25 +217,25 @@ String_convert::double_str(double f, char const* fmt)
     #n# is a repetition count, default value is 1
  */
 String
-String_convert::char_str(char c, int n)
+String_convert::char_str (char c, int n)
 {
     n = n >= 0 ? n : 0;
     char* ch_p = new char[ n ];
-    memset( ch_p, c, n );
-    String s((Byte*)ch_p, n);
+    memset (ch_p, c, n);
+    String s ((Byte*)ch_p, n);
     delete ch_p;
     return s;
 }
 
 String
-String_convert::rational_str(Rational r)
+String_convert::rational_str (Rational r)
 {
-    char * n = Itoa(r.numerator()); // LEAK????
+    char * n = Itoa (r.numerator()); // LEAK????
     
     String s = n;
     if (r.denominator() != 1) {
-	char * d = Itoa(r.denominator());
-	s +=  String( '/' ) + String(d);
+	char * d = Itoa (r.denominator());
+	s +=  String ('/') + String (d);
 	//delete d;
     }
 /*    delete n;
@@ -244,9 +244,9 @@ String_convert::rational_str(Rational r)
 }
 
 String
-String_convert::pointer_str(void const *l)
+String_convert::pointer_str (void const *l)
 {
     char buffer[STRING_BUFFER_LEN];
-    snprintf(buffer, STRING_BUFFER_LEN, "%p", l );     // assume radix 10
-    return String(buffer);
+    snprintf (buffer, STRING_BUFFER_LEN, "%p", l);     // assume radix 10
+    return String (buffer);
 }

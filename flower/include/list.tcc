@@ -1,20 +1,27 @@
+/*
+  list.tcc -- implement List<T>
+
+  source file of the Flower Library
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
 #ifndef LIST_CC
 #define LIST_CC
 
 
 // instantiate a template:  explicit instantiation.
-#define L_instantiate(a)  template class List<a>; template class Cursor<a>; \
+#define L_INSTANTIATE(a)   class List<a>; template class Cursor<a>; \
   template class Link<a>
 
 #include "list.hh"
 
 template<class T>
-List<T>::List(List const&src)
+List<T>::List (List const&src)
 {
     set_empty();
     // probably el stupido
-    for (Cursor<T> c(src); c.ok(); c++)
-	bottom().add(c);
+    for (Cursor<T> c (src); c.ok(); c++)
+	bottom().add (c);
 }
 
 template<class T>
@@ -24,26 +31,26 @@ List<T>::OK() const
     int i = size_;
     Link<T> *lp = top_;
     while (i--) {
-	assert(lp);
+	assert (lp);
 	lp->OK();
 	lp = lp->next();
     }
-    assert(!lp);
+    assert (!lp);
      i = size_;
     lp = bottom_;
     while (i--) {
-	assert(lp);
+	assert (lp);
 	lp->OK();
 	lp = lp->previous();
     }
-    assert(!lp);
+    assert (!lp);
 }
 
 template<class T>
 void
 List<T>::junk_links()
 {
-    Cursor<T> c(*this);
+    Cursor<T> c (*this);
     while (c.ok())
 	c.del();
 }
@@ -68,17 +75,17 @@ List<T>::~List()
 */
 template<class T>
 void
-List<T>::add( T const & thing, Cursor<T> &after_me )
+List<T>::add (T const & thing, Cursor<T> &after_me)
 {
     if (!size_) {		// not much choice if list is empty
-        bottom_ = top_ = new Link<T>( thing );
+        bottom_ = top_ = new Link<T>( thing);
 	if (!after_me.ok())
 	    after_me = bottom();
     } else {			// add at aprioprate place
 	if (!after_me.ok())
 	    after_me = bottom();
 	Link<T> *p =after_me.pointer();
-	p->add(thing);
+	p->add (thing);
 	if (p == bottom_)	// adjust bottom_ if necessary.
 	    bottom_ = p->next();
     }
@@ -88,10 +95,10 @@ List<T>::add( T const & thing, Cursor<T> &after_me )
 
 template<class T>
 void
-List<T>::insert( T const & thing, Cursor<T> &before_me )
+List<T>::insert (T const & thing, Cursor<T> &before_me)
 {
     if (!size_) {
-	bottom_ = top_ = new Link<T>( thing );
+	bottom_ = top_ = new Link<T>( thing);
 	if (!before_me.ok())
 	    before_me = top();
 	
@@ -101,7 +108,7 @@ List<T>::insert( T const & thing, Cursor<T> &before_me )
 	
 	Link<T> *p = before_me.pointer() ;
 
-	p->insert(thing);
+	p->insert (thing);
 	if (p == top_)
 	    top_ = p->previous();
     }
@@ -112,11 +119,11 @@ List<T>::insert( T const & thing, Cursor<T> &before_me )
 
 template<class T>
 void
-List<T>::concatenate(List<T> const&s)
+List<T>::concatenate (List<T> const&s)
 {
-    Cursor<T> b(bottom());
-    for (Cursor<T> c(s); c.ok(); c++) {
-	b.add(c);
+    Cursor<T> b (bottom());
+    for (Cursor<T> c (s); c.ok(); c++) {
+	b.add (c);
 	b++;
     }
 }
