@@ -111,11 +111,17 @@ or
 \lilypond@{ YOUR LILYPOND CODE @}
 @end example
 
-You can use whatever commands you like in the document preamble.
-Lilypond-book will send it to La@TeX{} to find out how wide the text is
-and adjust the linewidth variable in the paper definition of you music
-according to that. Lilypond-book also know about the @code{\onecolumn}
-and @code{\twocolumn} commands.
+You can use whatever commands you like in the document preamble,
+that is the part of the document before @code{\begin@{document@}}.
+@command{lilypond-book} will send it to La@TeX{} to find out how wide
+the text is and adjust the linewidth variable in the paper definition of
+you music according to that.
+
+After @code{\begin@{document@}} you must be a little more careful
+when you use commands that change the width of the text and how
+many columns there are. @command{lilypond-book} know about the
+@code{\onecolumn} and @code{\twocolumn} commands and the @code{multicols}
+environment from the multicol package.
 
 The music will be surrounded by @code{\preLilypondExample} and
 @code{\postLilypondExample}. The variables are 

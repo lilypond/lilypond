@@ -163,6 +163,7 @@ class LatexPaper:
 	def __init__(self):
 		self.m_document_preamble = []
 		self.m_num_cols = 1
+		self.m_multicols = 1
 	def find_latex_dims(self):
 		if g_outdir:
 			fname = os.path.join(g_outdir, "lily-tmp.tex")
@@ -200,10 +201,14 @@ class LatexPaper:
 		except:
 			pass
 	def get_linewidth(self):
-		if self.m_num_cols == 2:
-			return (self.m_textwidth-self.m_columnsep)/2
+		if self.m_num_cols == 1:
+			w = self.m_textwidth
 		else:
-			return self.m_textwidth
+			w = (self.m_textwidth - self.m_columnsep)/2
+		if self.m_multicols > 1:
+			return (w - self.m_columnsep*(self.m_multicols-1)) \
+			   / self.m_multicols
+		return w
 
 
 class HtmlPaper:
@@ -444,6 +449,7 @@ re_dict = {
 		  'multiline-comment': r"(?sm)\s*(?!@c\s+)(?P<code><!--\s.*?!-->)\s",
 		  'singleline-comment': no_match,
 		  'numcols': no_match,
+		  'multicols': no_match,
 		 },
 	
 	'latex': {'input': r'(?m)^[^%\n]*?(?P<match>\\mbinput{?([^}\t \n}]*))',
@@ -463,6 +469,7 @@ re_dict = {
 		  'multiline-comment': no_match,
 		  'singleline-comment': r"(?m)^.*?(?P<match>(?P<code>^%.*$\n+))",
 		  'numcols': r"(?P<code>\\(?P<num>one|two)column)",
+		  'multicols': r"(?P<code>\\(?P<be>begin|end){multicols}({(?P<num>\d+)?})?)",
 		  },
 
 
@@ -485,6 +492,7 @@ re_dict = {
 		 'multiline-comment': r"(?sm)^\s*(?!@c\s+)(?P<code>@ignore\s.*?@end ignore)\s",
 		 'singleline-comment': r"(?m)^.*?(?P<match>(?P<code>@c.*$\n+))",
 		 'numcols': no_match,
+		 'multicols': no_match,
 		 }
 	}
 
@@ -807,7 +815,16 @@ def do_columns(m):
 		return [('numcols', m.group('code'), 1)]
 	if m.group('num') == 'two':
 		return [('numcols', m.group('code'), 2)]
-	
+
+def do_multicols(m):
+	if __main__.format != 'latex':
+		return []
+	if m.group('be') == 'begin':
+		return [('multicols', m.group('code'), int(m.group('num')))]
+	else:
+		return [('multicols', m.group('code'), 1)]
+	return []
+
 def chop_chunks(chunks, re_name, func, use_match=0):
 	newchunks = []
 	for c in chunks:
@@ -975,6 +992,8 @@ def process_lilypond_blocks(chunks):#ugh rename
 			c = schedule_lilypond_block (c)
 		elif c[0] == 'numcols':
 			paperguru.m_num_cols = c[2]
+		elif c[0] == 'multicols':
+			paperguru.m_multicols = c[2]
 		newchunks.append (c)
 	return newchunks
 
@@ -1284,6 +1303,7 @@ def do_file(input_filename):
 	chunks = chop_chunks(chunks, 'singleline-comment', do_ignore, 1)
 	chunks = chop_chunks(chunks, 'preamble-end', do_preamble_end)
 	chunks = chop_chunks(chunks, 'numcols', do_columns)
+	chunks = chop_chunks(chunks, 'multicols', do_multicols)
 	#print "-" * 50
 	#for c in chunks: print "c:", c;
 	#sys.exit()

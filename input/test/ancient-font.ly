@@ -133,7 +133,7 @@ lowerVoice =  \context Staff = lowerNotes <
 	\property Staff.KeySignature \set #'font-family = #'ancient
 	\property Staff.KeySignature \override #'style = #'mensural
 	\property Staff.Accidental \set #'font-family = #'ancient
-	\property Staff.Accidental \override #'style = #'mensural
+	\property Staff.Accidentalg \override #'style = #'mensural
 	\property Staff.Custos \set #'font-family = #'ancient
 	\property Staff.Custos \override #'style = #'mensural
 	\property Staff.Custos \override #'neutral-position = #3
