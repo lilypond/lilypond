@@ -15,13 +15,11 @@ Choleski_decomposition::solve(Vector rhs)const
 	    sum += y(j) * L(i,j);
 	y(i) = (rhs(i) - sum)/L(i,i);
     }
-    for (int i=0; i < n; i++) {
-	assert(D(i));
+    for (int i=0; i < n; i++)
 	y(i) /= D(i);
-    }
 
     // backward subst
-    Vector x(n);
+    Vector &x(rhs);		// using input as return val.
     for (int i=n-1; i >= 0; i--) {
 	Real sum(0.0);
 	for (int j=i+1; j < n; j++)
@@ -91,7 +89,3 @@ Choleski_decomposition::inverse() const
     
     return invm;
 }
-
-
-
-
