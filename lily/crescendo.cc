@@ -48,7 +48,9 @@ Crescendo::brew_molecule_p() const return m_p ;
     Symbol s( paper()->lookup_l()->hairpin(w_dim, grow_dir_i_ < 0) );
     m_p->add(Atom(s));
     int pos = (dir_i_ >0) ? staff_size_i_ + 4 : - 4 ;
-    m_p->translate(Offset(0,pos * paper()->internote()));
+    if(dir_i_<0 )		// should do something better anyway.
+	m_p->translate(Offset(0, -m_p->extent().y.left ));
+    m_p->translate(Offset(x_off_dim,pos * paper()->internote()));
 }
 
 IMPLEMENT_STATIC_NAME(Crescendo);
