@@ -39,17 +39,21 @@ Word_wrap::solve()
 
 	    // try to solve
 	    if (!feasible(current.cols)) {
-		if (!minimum.cols.size())
-		    error("sorry, this measure is too long, breakpoint: "
-			  + String(break_idx_i) );
-		current.energy = INFTY;	// make sure we go back
+		if (!minimum.cols.size()) {
+		    warning("Ugh, this measure is too long, breakpoint: "
+			  + String(break_idx_i) +
+			" (generating stupido solution)");
+		    current = stupid_solution(current.cols);
+		    current.energy = - 1; // make sure we break out.
+		} else
+		    current.energy = INFTY;	// make sure we go back
 	    } else {
 		current = solve_line(current.cols);
 		current.print();
 	    }
 
 	    // update minimum, or backup.
-	    if (current.energy < minimum.energy) {		
+	    if (current.energy < minimum.energy || current.energy < 0) {		
 		minimum = current;	   
 	    } else {		// we're one col too far.
 		break_idx_i--;

@@ -41,6 +41,10 @@ struct Break_algorithm {
     bool feasible(Line_of_cols)const;
     
     virtual Array<Col_hpositions> solve()=0;
+
+    /** generate a solution with no regard to idealspacings or
+      constraints.  should always work */
+    Col_hpositions stupid_solution(Line_of_cols) const;
 };
 
 /// wordwrap type algorithm: move to next line if current is optimal.
