@@ -280,7 +280,7 @@ Modified_font_metric::text_dimension (String text)
 	  if (!ly_c_symbol_p (sym))
 	    continue;
 
-	  char const * chars =  SCM_SYMBOL_CHARS(sym);
+	  char const * chars =  scm_i_string_chars (scm_symbol_to_string(sym));
 	  
 	  int idx = orig_->name_to_index (chars);
 	  if (idx >= 0)

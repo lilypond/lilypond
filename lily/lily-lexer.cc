@@ -216,7 +216,8 @@ Lily_lexer::set_identifier (SCM name, SCM s)
     {
       if (lookup_keyword (ly_symbol2string (sym)) >= 0)
 	{
-	  warning (_f ("Identifier name is a keyword: `%s'", SCM_SYMBOL_CHARS (sym)));
+	  String symstr = ly_symbol2string (sym); 
+	  warning (_f ("Identifier name is a keyword: `%s'", symstr.to_str0()));
 	}
 
       SCM mod = ly_car (scopes_);
