@@ -5,11 +5,14 @@
 #include "lookup.hh"
 #include "clef.hh"
 
+NAME_METHOD(Clef_item);
+
 Clef_item::Clef_item()
 {
     change = true;
     read("violin");
 }
+
 void
 Clef_item::read(String t)
 {

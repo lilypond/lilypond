@@ -18,6 +18,7 @@ struct Beam:  public Directional_spanner {
     /// dir: -1 below heads, +1 above heads.
 
     /****************/
+    const char * name() const;
     
     virtual Interval width()const;    
     Offset center() const;
@@ -30,7 +31,7 @@ struct Beam:  public Directional_spanner {
     void do_pre_processing();
     void do_post_processing();
 
-    void print() const;
+    void do_print() const;
     void set_grouping(Rhythmic_grouping def, Rhythmic_grouping current);
     void set_stemlens();
     ~Beam();
