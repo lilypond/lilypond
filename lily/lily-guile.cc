@@ -822,7 +822,6 @@ alist_to_hashq (SCM alist)
   return tab; 
 }
 
-#if 1
 /*
   Debugging mem leaks:
  */
@@ -832,7 +831,6 @@ LY_DEFINE (ly_protects, "ly:protects",
 {
   return scm_protects;
 }
-#endif
 
 
 #if HAVE_PANGO_FC_FONT_MAP_ADD_DECODER_FIND_FUNC
