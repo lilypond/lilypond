@@ -4007,28 +4007,23 @@ which is normally updated automatically for every measure.
 Bar numbers can be typeset at regular intervals instead of at the
 beginning of each line. This is illustrated in the following example,
 whose source is available as
-@inputfileref{input/test,bar-number-every-fifth.ly}
+@inputfileref{input/test,bar-number-regular-interval.ly}
 
-@lilypondfile[notexidoc]{bar-number-every-fifth.ly}
-
-The start of that numbering can also be reset, as demonstrated in
-@inputfileref{input/test,bar-number-every-five-reset.ly}.
-
-@lilypondfile[notexidoc]{bar-number-every-five-reset.ly}
+@lilypondfile[notexidoc]{bar-number-regular-interval.ly}
 
 
 @seealso
 
 @internalsref{BarNumber}.
 @inputfileref{input/test,bar-number-every-five-reset.ly}.
-@inputfileref{input/test,bar-number-every-fifth.ly}
+@inputfileref{input/test,bar-number-regular-interval.ly}
 
 @refbugs
 
 Bar numbers can collide with the @internalsref{StaffGroup} bracket, if
-there is one at the top. To solve this, You have to twiddle with the
-@internalsref{padding} property of @internalsref{BarNumber} if your
-score starts with a @internalsref{StaffGroup}.
+there is one at the top. To solve this, In that case, the
+@internalsref{padding} property of @internalsref{BarNumber} can be
+used to position the number correctly.
 
 @node Instrument names
 @subsection Instrument names
@@ -4148,11 +4143,8 @@ durations.  This can be done with augmentation dots or fractions:
  R1*13/8*12
 @end lilypond
 
-A @code{R} spanning a single measure is printed as a whole rest
-centered in the measure (or a breve when the measure lasts longer than
-two whole notes), regardless of the time signature.
-
- 
+A @code{R} spanning a single measure is printed as either a whole rest
+or a breve, centered in the measure regardless of the time signature.
 
 @cindex text on multi-measure rest
 @cindex script on multi-measure rest
@@ -4201,7 +4193,7 @@ Be careful when entering multimeasure rests followed by whole notes,
  R1*4 cis cis 
 @end example
 will enter two notes lasting four measures each. When @code{skipBars}
-is set, then the result will look OK6, but the bar numbering will be
+is set, then the result will look OK, but the bar numbering will be
 off.
 
 @node Automatic part combining
@@ -4304,21 +4296,20 @@ The part combiner is slated to be rewritten [TODO: explain why].
 @node Frenched scores
 @subsection Frenched scores
 
-In orchestral scores, staff lines that only have rests are usually removed.
-This saves some space. This style is called `French Score'. 
-
-@syntax
-
-This is supported through the @code{RemoveEmptyStaff}. This staff is
-removed when it turns out empty (or containing multimeasure rests)
-after the line-breaking process.
-
+In orchestral scores, staff lines that only have rests are usually
+removed.  This saves some space. This style is called `French Score'.
 For @internalsref{Lyrics}, @internalsref{LyricsVoice},
 @internalsref{ChordNames} and @internalsref{FiguredBass}, this is
-switched on by default. For normal staffs, it is available as a
-specialized @internalsref{Staff} context, with the name variable
-@code{\RemoveEmptyStaffContext}.  Observe how the second staff in this
-example disappears in the second line.
+switched on by default.  When these line of these contexts turn out
+empty after the line-breaking process, they are removed.
+
+
+For normal staffs, a specialized @internalsref{Staff} context is
+available, which does the same: staffs containing nothing (or only
+multi measure rests) are removed. The context definition is stored in
+@code{\RemoveEmptyStaffContext} variable. Observe how the second staff
+in this example disappears in the second line.
+
 
 @lilypond[verbatim]
 \score  {
@@ -6298,7 +6289,8 @@ known as German gothic neumes) or Medicaea (kind of a very simple
 forerunner of the Editio Vaticana).  As soon as Hufnagel ligature
 engraver and Medicaea ligature engraver will have been implemented, it
 will be as simple as replacing the ligature engraver in the
-VoiceContext to get the desired notation style from the same input.
+@internalsref{Voice} context to get the desired notation style from
+the same input.
 
 The following table shows the code fragments that produce the
 ligatures in the above neumes table.  The letter in the first column
@@ -6585,11 +6577,11 @@ Spaces or dashes may be inserted by using @code{_}. Brackets are
 introduced with @code{[} and @code{]}.
 
 @example
-	< [4 6] 8 [_ 12]>
+	< [4 6] 8 [_! 12]>
 @end example
 @lilypond[fragment]
  \context FiguredBass
-\figures { < [4 6] 8 [_ 12]> }
+\figures { < [4 6] 8 [_! 12]> }
 @end lilypond
 
 Although the support for figured bass may superficially resemble chord
@@ -6663,8 +6655,8 @@ A cluster is engraved as the envelope of a set of
 cluster-notes. Cluster notes are created by applying the function
 @code{notes-to-clusters} to a sequence of chords, eg.
 @c
-@lilypond[relative 2]
-    \apply #notes-to-clusters {  << c e >> <<b f'>>  }
+@lilypond[relative 1,verbatim]
+    \apply #notes-to-clusters {  <<c e >> <<b f'>>  }
 @end lilypond
 
 The following example (from
@@ -6708,8 +6700,7 @@ The following are supported
 
 @lilypond[singleline]
 \score {
-  <  \notes {
-        \fatText
+  <  \addlyrics \notes {
         b'
         ^\shortfermata
         _\shortfermata
@@ -6745,16 +6736,31 @@ There are situations where default layout decisions are not
 sufficient.  In this section we discuss ways to override these
 defaults.
 
-Formatting is internally done by manipulating so called objects (graphic
-objects). Each object carries with it a set of properties (object
-properties) specific to that object.  For example, a stem object has
-properties that specify its direction, length and thickness.
+Formatting is internally done by manipulating so called objects
+(graphic objects). Each object carries with it a set of properties
+(object or layout properties) specific to that object.  For example, a
+stem object has properties that specify its direction, length and
+thickness.
 
 The most direct way of tuning the output is by altering the values of
 these properties. There are two ways of doing that: first, you can
 temporarily change the definition of one type of object, thus
 affecting a whole set of objects.  Second, you can select one specific
-object, and set a object property in that object.
+object, and set a layout property in that object.
+
+Do not confuse layout properties with translation
+properties. Translation properties always use a mixed caps style
+naming, and are manipulated using @code{\property}
+@example
+  \property Context.propertyName  = @var{value}
+@end example
+Layout properties are use Scheme style variable naming, i.e.  lower
+case words separated with dashes. They are symbols, and should always
+be quoted using @code{#'}.  For example, this could be an imaginary
+layout property name:
+@example
+  #'layout-property-name
+@end example
 
 @menu
 * Tuning objects ::             
@@ -6772,10 +6778,10 @@ object, and set a object property in that object.
 
 @cindex object description
 
-The definition of an object is actually a list of default object
+The definition of an object is a list of default object
 properties. For example, the definition of the Stem object (available
-in @file{scm/define-grobs.scm}), includes the following definitions for
-@internalsref{Stem}
+in @file{scm/define-grobs.scm}), includes the following definitions
+for @internalsref{Stem}
 
 @example
         (thickness . 1.3)
@@ -6785,14 +6791,14 @@ in @file{scm/define-grobs.scm}), includes the following definitions for
 @end example
 
 
-By adding variables on top of these existing definitions, the system
-default is overridden, and the appearance of a layout objects is
-altered.
+Adding variables on top of this existing definition overrides the
+system default, and alters the resulting appearance of the layout
+object.
 
 @syntax
 
 
-Changing a variable for only   one object is commonly achieved with
+Changing a variable for only one object is commonly achieved with
 @code{\once}:
 
 @example
@@ -6830,7 +6836,7 @@ An existing definition may be removed by the following command
 @end example
 @c
 All @code{\override} and @code{\revert} commands should be balanced.
-The @code{\set} shorthand, performs a revert followed by an override,
+The @code{\set} shorthand performs a revert followed by an override,
 and is often more convenient to use
 
 @example
@@ -6859,32 +6865,36 @@ Reverting a setting which was not set in the first place has no
 effect. However, if the setting was set as a system default, this may
 remove the default value, and this may give surprising results,
 including crashes.  In other words, @code{\override} and
-@code{\revert} must be carefully balanced.
+@code{\revert} must be carefully balanced.  The following are examples
+of correct nesting of @code{\override}, @code{\set}, @code{\revert}.
 
-These are examples of correct nesting of @code{\override}, @code{\set},
-@code{\revert}. 
-
+@itemize @bullet
+@item
 A clumsy but correct form:
 @example
   \override \revert \override \revert \override \revert
 @end example
 
+@item
 Shorter version of the same:
 @example 
   \override \set \set  \revert
 @end example
 
+@item
 A short form, using only @code{\set}. This requires you to know the
 default value:
 @example
   \set \set \set \set @var{to default value}
 @end example
 
+@item
 If there is no default (i.e. by default, the object property is unset),
 then you can use
 @example
   \set \set \set \revert
 @end example
+@end itemize
 
 For the digirati, the object description is an Scheme association
 list. Since a Scheme list is a singly linked list, we can treat it as
@@ -6926,18 +6936,17 @@ to crashes.
 
 
 
-Using @code{\override} and @code{\set}, requires three pieces of
-information: the name of the layout object, the context and the name
+Three pieces of information are required to use @code{\override} and
+@code{\set}: the name of the layout object, the context and the name
 of the property.  We demonstrate how to glean this information from
 the notation manual and the generated documentation.
 
 The generated documentation is a set of HTML pages which should be
 included if you installed a binary distribution, typically in
 @file{/usr/share/doc/lilypond}.  They are also available on the web:
-go to the @uref{LilyPond website,http://lilypond.org}, click
-``Documentation: Index'' on the side bar, look in the ``Information
-for users'' section, and click on ``Documentation of internals.''  It
-is advisable to bookmark either the local HTML files if possilbe. They
+go to the @uref{http://lilypond.org,LilyPond website}, click
+``Documentation'', and then ``Program reference'' on the side bar. It
+is advisable to bookmark either the local HTML files if possible. They
 will load faster than the ones on the web.  If you use the version
 from the web, you must check whether the documentation matches the
 program version: the documentation is generated from the definitions
@@ -6949,7 +6958,7 @@ LilyPond version.
 
 Suppose we want to move the fingering indication in the fragment below
 
-@lilypond[relative=2]
+@lilypond[relative=2,verbatim]
 c-2
 \stemUp
 f
@@ -6964,19 +6973,16 @@ instructions}), you will notice that it says
 @internalsref{FingerEvent} and @internalsref{Fingering}.
 @end quotation
 
-This implies that the fingerings, once entered, are internally stored
-as @code{FingerEvent} music objects. When printed, a @code{Fingering}
+@noindent
+In other words, the fingerings once entered, are internally stored as
+@code{FingerEvent} music objects. When printed, a @code{Fingering}
 layout object is created for every @code{FingerEvent}.
 
-@ifhtml
-When we follow the link of @internalsref{Fingering},
-@end ifhtml
-@ifnothtml
-When we look up @internalsref{Fingering} in the generated
-documentation,
-@end ifnothtml
-we see a list of interfaces. The Fingering object has a number of
-different functions, and each of those is captured in an interface.
+The Fingering object has a number of different functions, and each of
+those is captured in an interface.  when we look up
+@internalsref{Fingering} in the generated documentation.
+
+
 
 The @code{Fingering} object has a fixed size
 (@internalsref{item-interface}), the symbol is a piece of text
@@ -6998,7 +7004,7 @@ it.  Finally, it denotes a fingering instruction, so it has
 For the vertical placement, we have to look under
 @code{side-position-interface}.
 @quotation
- side-position-interface
+@code{side-position-interface}
 
   Position a victim object (this one) next to other objects (the
   support).  In this case, the direction signifies where to put the
@@ -7022,8 +7028,10 @@ between the note and the fingering
 \once \property Voice.Fingering \set #'padding = #3
 @end example
 
-Before the object is created, we get
-@lilypond[relative=2,fragment]
+Inserting this command before the Fingering object is created,
+i.e. before @code{c2}, yields the following result.
+
+@lilypond[relative=2,fragment,verbatim]
 \once \property Voice.Fingering
   \set #'padding = #3
 c-2
@@ -7043,19 +7051,12 @@ translating them to a @code{Fingering} object.  Such a module is called
 an @emph{engraver}.  The documentation of the @code{Fingering_engraver}
 says
 @example
-Fingering_engraver is part of contexts: Voice and TabVoice
+Fingering_engraver is part of contexts: Voice 
 @end example
-so tuning the settings for Fingering should be done using either
+so tuning the settings for Fingering should be done with
 @example
   \property Voice.Fingering \set @dots{}
 @end example
-or
-@example
-  \property TabVoice.Fingering \set @dots{}
-@end example
-
-Since the @code{TabVoice} is only used for tab notation, we see that
-the first guess @code{Voice} was indeed correct.
 
 Of course, the tweak may also done in a larger context than
 @code{Voice}, for example, @internalsref{Staff} or
@@ -7070,11 +7071,13 @@ tweak by browsing the internals document.
 @node Applyoutput
 @subsection Applyoutput
 
-The most versatile way of tuning object is @code{\applyoutput}. Its
+The most versatile way of tuning an object is @code{\applyoutput}. Its
 syntax is
 @example
 \applyoutput @var{proc}
 @end example
+
+@noindent
 where @var{proc} is a Scheme function, taking four arguments.
 
 When interpreted, the function @var{proc} is called for every layout object found
@@ -7115,26 +7118,30 @@ the use of @code{\outputproperty}.
 
 @refbugs
 
-If possible, avoid this feature: the semantics are not very clean, and
-the syntax and semantics are up for rewrite.
+This command is slated for removal.  Please use the
+@code{\applyoutput} command, see @ref{Applyoutput}.
 
 
 @node Font selection
 @subsection Font selection
 
-The most common thing to change about the appearance of fonts is
-their size. The font size of any context can be easily
-changed by setting the @code{fontSize} property for that context:
+The most common thing to change about the appearance of fonts is their
+size. The font size of any context can be easily changed by setting
+the @code{fontSize} property for that context.  Its value is an
+integer: negative numbers make the font smaller, positive numbers
+larger. An example is given below.
 @c
 @lilypond[fragment,relative=1,verbatim,quote]
   c4 c4 \property Voice.fontSize = #-1
   f4 g4
 @end lilypond
- This command will set @code{font-relative-size} (see below),
- and does not change the size of variable symbols, such as
-beams or slurs.  You can use this command to get smaller symbol for
-cue notes, but that involves some more subtleties. An elaborate
-example of those is in @inputfileref{input/test,cue-notes.ly}.
+This command will set @code{font-relative-size} (see below), and does
+not change the size of variable symbols, such as beams or slurs.
+
+
+One of the uses of @code{fontSize} is to get smaller symbol for cue
+notes. An elaborate example of those is in
+@inputfileref{input/test,cue-notes.ly}.
 
 @cindex magnification
 
@@ -7155,8 +7162,11 @@ The font used for printing a object can be selected by setting
   \property Staff.TimeSignature
     \set #'font-name = #"cmr17"
 @end example
-You may use any font which is available to @TeX{}, such as foreign
-fonts or fonts that do not belong to the Computer Modern font family.
+
+@noindent
+Any font can be used, as long as it is available to @TeX{}. Possible
+fonts include foreign fonts or fonts that do not belong to the
+Computer Modern font family.
 
 Font selection for the standard fonts, @TeX{}'s Computer Modern fonts,
 can also be adjusted with a more fine-grained mechanism.  By setting
@@ -7203,9 +7213,9 @@ For any of these properties, the value @code{*} (i.e. the symbol
 @code{*}, entered as @code{#'*}), acts as a wildcard. This can be used
 to override default setting, which are always present. For example:
 @example
-  \property Lyrics.LyricText \override #'font-series = #'bold
-  \property Lyrics.LyricText \override #'font-family = #'typewriter
-  \property Lyrics.LyricText \override #'font-shape  = #'*
+  \property Lyrics . LyricText \override #'font-series = #'bold
+  \property Lyrics . LyricText \override #'font-family = #'typewriter
+  \property Lyrics . LyricText \override #'font-shape  = #'*
 @end example
 
 @cindex @code{font-style}
@@ -7254,12 +7264,15 @@ similar to lyrics: simply enter them, surrounded by spaces.
 
 @cindex font switching
 
-The line of the example demonstrates font switching commands.  The
-command only apply to the first following word; enclose a set of texts
-with braces to apply a command to more words.
+The markup in the example demonstrates font switching commands.  The
+command @code{\bold} and @code{\italic} only apply to the first
+following word; enclose a set of texts with braces to apply a command
+to more words.
 @example
   \markup @{ \bold @{ hi there @} @}
 @end example
+
+@noindent
 For clarity, you can also do this for single arguments, e.g.
 @example
   \markup @{ is \italic @{ anyone @} home @}
@@ -7354,11 +7367,14 @@ See @ref{The Feta font} for  a complete listing of the possible glyphs.
 This produces a single character, e.g. @code{\char #65} produces the 
 letter 'A'.
 
-@item \note
-@cindex @code{\note @var{log} @var{dots} @var{dir}}
+@item \note  @var{log} @var{dots} @var{dir}
+@cindex @code{\note}
 
 This produces a note with a stem pointing in @var{dir} direction, with
-duration log @var{log} and @var{dots} augmentation dots.
+duration log @var{log} and @var{dots} augmentation dots. The duration
+log is the negative 2-logarithm of the duration denominator. For
+example, a quarter note has log 2, an eighth note 3 and a breve has
+log -1.
 
 @item \hspace #@var{amount}
 @cindex @code{\hspace}
@@ -7655,9 +7671,10 @@ set. These files should be imported at toplevel, i.e.
 	\score @{  ... @}
 @end example
 
-The font definitions are generated using a Scheme function. For more
-details, see the file @file{scm/font.scm}.
-
+The default font size settings for each staff heights are generated
+from the 20pt style sheet. For more details, see the file
+@file{scm/font.scm}.
+l
 
 
 @node Line breaking
@@ -7682,12 +7699,15 @@ point.
 @cindex regular line breaks
 @cindex four bar music. 
 
-If you want linebreaks at regular intervals, you can use the following:
+For linebreaks at regular intervals  use @code{\break} separated by
+skips and repeated with @code{\repeat}:
 @example
 <  \repeat unfold 7 @{ s1 * 4 \break  @}
    @emph{the real music}
 > 
 @end  example
+
+@noindent
 This makes the following 28 measures (assuming 4/4 time) be broken every
 4 measures.
 
@@ -7785,8 +7805,8 @@ Lilypond and @code{ly2dvi})
 
 @refbugs
 
-There is no concept of page breaking, which makes it difficult to
-choose sensible page breaks in multi-page pieces.
+LilyPond has no concept of page layout, which makes it difficult to
+reliably choose page breaks in longer pieces.
 
 
 
@@ -7805,7 +7825,7 @@ range, crescendi and decrescendi make the volume vary linearly between
 their two extremities.  The fractions be adjusted by
 @code{dynamicAbsoluteVolumeFunction} in @internalsref{Voice} context.
 For each type of MIDI instrument, a volume range can be defined.  This
-gives you basic equalizer control, which can enhance the quality of
+gives a basic equalizer control, which can enhance the quality of
 the MIDI output remarkably.  The equalizer can be controlled by
 setting @code{instrumentEqualizer}.
 
