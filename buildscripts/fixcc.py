@@ -55,8 +55,10 @@ rules = {
 	 '\\1 \\3'),
 	# unary pointer, minus, not
 	('(return|=) (\*|&|-|!) ([\w\(])', '\\1 \\2\\3'),
+	# delete space after `operator'
+	#('(\Woperator) (\W)', '\\1\\2'),
 	# space after `operator'
-	('(\Woperator) (\W)', '\\1\\2'),
+	('(\Woperator) *(\W)', '\\1 \\2'),
 	# dangling newline
 	('\n[ \t]*\n[ \t]*\n', '\n\n'),
 	# dangling parenthesis open
@@ -87,6 +89,7 @@ rules = {
 
 	## Massage code that gets broken by rules above.
 	# delete spaces around template brackets
+	# Note that this does not work for PQueue_event.  Fix C++ name?
 	('(dynamic_cast|template|([A-Z]\w*))[ \t]*<[ \t]*((bool|char|int|unsigned|void|(class[ \t]+\w*)|([A-Z]\w*)))[ \t]*?(| \*)[ \t]*>',
 	 '\\1<\\3\\7>'),
 	# delete space before #define x()
