@@ -548,7 +548,7 @@ None.
 				pass
 
 		if pfa_file:
-			opts = opts + ' -Ppdf -G0 -u lilypond.map'
+			opts = opts + ' -Ppdf -G0 -u +lilypond.map'
 		else:
 			ly.warning (_ ('''Trying create PDF, but no PFA fonts found.
 Using bitmap fonts instead. This will look bad.'''))

@@ -1,3 +1,11 @@
+2003-03-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scripts/ly2dvi.py (run_dvips): +add the .map file 
+
+2003-03-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/screech-boink.ly: new file.
+
 2003-03-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scripts/lilypond-book.py (make_lilypond_file): convert
