@@ -6,7 +6,7 @@ diff -urN ../guile-1.3.4/ChangeLog ./ChangeLog
 + 
 +	* guile-config/cross-guile-config.in: Simple shell script to
 + 	take over guile-config's functionality for cross-compilation.
-+ 	It will be installed as ${build}-guile-config.
++ 	It will be installed as ${target}-guile-config.
 + 
 + 	* guile-config/Makefile.am: Provide for cross-guile-config.in
 + 	and its targets.
@@ -14,6 +14,17 @@ diff -urN ../guile-1.3.4/ChangeLog ./ChangeLog
  1999-09-25  Jim Blandy  <jimb@savonarola.red-bean.com>
  
  	* Guile 1.3.4 released.
+diff -urN ../guile-1.3.4/configure.in ./configure.in
+--- ../guile-1.3.4/configure.in	Sat Sep 25 19:26:50 1999
++++ ./configure.in	Wed Mar 29 15:49:56 2000
+@@ -21,6 +21,7 @@
+ dnl  Boston, MA 02111-1307, USA.
+ 
+ AC_INIT(Makefile.in)
++AC_CANONICAL_SYSTEM
+ . $srcdir/GUILE-VERSION
+ AM_INIT_AUTOMAKE($PACKAGE, $VERSION, no-define)
+ AM_MAINTAINER_MODE
 diff -urN ../guile-1.3.4/guile-config/Makefile.am ./guile-config/Makefile.am
 --- ../guile-1.3.4/guile-config/Makefile.am	Mon Oct 19 17:24:31 1998
 +++ ./guile-config/Makefile.am	Mon Mar 27 15:47:43 2000
@@ -24,8 +35,8 @@ diff -urN ../guile-1.3.4/guile-config/Makefile.am ./guile-config/Makefile.am
 -bin_SCRIPTS=guile-config
 -CLEANFILES=guile-config
 -EXTRA_DIST=guile-config.in
-+bin_SCRIPTS=guile-config @build@-guile-config
-+CLEANFILES=guile-config @build@-guile-config
++bin_SCRIPTS=guile-config @target@-guile-config
++CLEANFILES=guile-config @target@-guile-config
 +EXTRA_DIST=guile-config.in cross-guile-config.in
  
  ## We use @-...-@ as the substitution brackets here, instead of the
@@ -35,7 +46,7 @@ diff -urN ../guile-1.3.4/guile-config/Makefile.am ./guile-config/Makefile.am
  	chmod +x guile-config.tmp
  	mv guile-config.tmp guile-config
 +
-+@build@-guile-config: cross-guile-config.in
++@target@-guile-config: cross-guile-config.in
 +	rm -f $<.tmp
 +	sed < ${srcdir}/$< > $<.tmp \
 +	    -e s:@-SHELL-@:${SHELL}: \
@@ -51,7 +62,7 @@ diff -urN ../guile-1.3.4/guile-config/cross-guile-config.in ./guile-config/cross
 +++ ./guile-config/cross-guile-config.in	Mon Mar 27 15:46:36 2000
 @@ -0,0 +1,16 @@
 +#!@-SHELL-@
-+# build-guile-config.in
++# target-guile-config.in
 +case $1 in
 +	--version)
 +		echo "@-GUILE_VERSION-@"
