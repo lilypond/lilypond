@@ -51,11 +51,11 @@ Moment::print_smob (SCM s, SCM port, scm_print_state *)
 SCM
 make_rational (SCM n, SCM d)
 {
-  Moment m (1,1);
+  Moment m (Rational (1,1));
 
   if (SCM_INUMP (n) && SCM_INUMP (d))
     {
-      m =  Moment (gh_scm2int (n), gh_scm2int (d));
+      m =  Moment (Rational (gh_scm2int (n), gh_scm2int (d)));
     }
   else
     {
@@ -112,10 +112,10 @@ Moment::Moment (int m)
   grace_part_  = Rational( 0);
 }
 
-Moment::Moment (int m, int n)
+Moment::Moment (Rational m, Rational g)
 {
-  main_part_ = Rational (m,n);
-  grace_part_  = Rational (0);
+  main_part_ = m;
+  grace_part_  = g;
 }
 
 Moment::Moment (Rational m)

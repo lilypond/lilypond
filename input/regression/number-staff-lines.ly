@@ -1,11 +1,9 @@
 \version "1.3.146"
 
 \header{
-
 texidoc=" The number of stafflines of a staff can be set.  Ledger
 lines both on note heads and rests are adjusted.  Barlines also are
 adjusted.  "
-
 }
 
 \score { 

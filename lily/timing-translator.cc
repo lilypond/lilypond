@@ -90,9 +90,9 @@ Timing_translator::initialize ()
 
   daddy_trans_l_->set_property ("timeSignatureFraction",
 				gh_cons (gh_int2scm (4), gh_int2scm (4)));
-  daddy_trans_l_->set_property ("measurePosition", Moment (0).smobbed_copy ());
-  daddy_trans_l_->set_property ("measureLength", Moment (1).smobbed_copy ());
-  daddy_trans_l_->set_property ("beatLength", Moment (1,4).smobbed_copy ());
+  daddy_trans_l_->set_property ("measurePosition", Moment (Rational (0)).smobbed_copy ());
+  daddy_trans_l_->set_property ("measureLength", Moment (Rational (1)).smobbed_copy ());
+  daddy_trans_l_->set_property ("beatLength", Moment (Rational (1,4)).smobbed_copy ());
 }
 
 Rational

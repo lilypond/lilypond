@@ -12,10 +12,10 @@
 
 @section Introduction
 
-This document tries give a brief overview of LilyPond features.  When
-the text correspond with the shown notation, we consider LilyPond
-Officially BugFree (tm).  This document is intended for finding bugs,
-and documenting bugfixes.
+This document presents a brief overview of LilyPond features.  When the
+text correspond with the shown notation, we consider LilyPond Officially
+BugFree (tm).  This document is intended for finding bugs, and
+documenting bugfixes.
 
 @section Notes and rests
 
@@ -79,8 +79,24 @@ and documenting bugfixes.
 
 @section Grace notes
 
+Grace note do weird things with timing. Fragile.
+
+
 @lilypondfile[printfilename]{grace.ly}
 
+@lilypondfile[printfilename]{grace-bar-line.ly}
+
+@lilypondfile[printfilename]{grace-nest2.ly}
+
+@lilypondfile[printfilename]{grace-nest3.ly}
+
+@lilypondfile[printfilename]{grace-nest4.ly}
+
+@lilypondfile[printfilename]{grace-nest.ly}
+
+@lilypondfile[printfilename]{grace-start.ly}
+
+@lilypondfile[printfilename]{grace-sync.ly}
 
 
 @section Beams
@@ -179,6 +195,7 @@ and documenting bugfixes.
 @lilypondfile[printfilename]{rest-collision.ly}
 
 @lilypondfile[printfilename]{collisions.ly}
+
 @lilypondfile[printfilename]{collision-dots.ly}
 
 @lilypondfile[printfilename]{number-staff-lines.ly}
@@ -194,6 +211,14 @@ and documenting bugfixes.
 @lilypondfile[printfilename]{spacing-natural.ly}
 
 @lilypondfile[printfilename]{spacing-loose.ly}
+
+@lilypondfile[printfilename]{spacing-accidentals.ly}
+
+@lilypondfile[printfilename]{spacing-accidentals-staff.ly}
+
+@lilypondfile[printfilename]{spacing-accidentals.ly}
+
+@lilypondfile[printfilename]{spacing-accidentals-staff.ly}
 
 @lilypondfile[printfilename]{lyrics-bar.ly}
 

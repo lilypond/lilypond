@@ -204,7 +204,12 @@ For barline, space after a thick line.")
 (grob-property-description 'left-padding number? "space left of accs.")
 (grob-property-description 'length number? "Stem length for unbeamed stems, only for user override.")
 (grob-property-description 'lengths list? "Stem length given multiplicity of flag.")
-(grob-property-description 'line-count integer? "Number of staff lines.")
+(grob-property-description 'line-count integer? "Number of staff
+lines.  If you want to override this for staffs individually, you must
+use @code{\outputproperty}. @code{\property .. \override} will not
+work: @code{\override} is processed after the StaffSymbol is created,
+and will have no effect.
+")
 (grob-property-description 'line-thickness number? "the thickness[stafflinethickness] of the line.")
 (grob-property-description 'lookup symbol? "lookup method: 'value for plain text, 'name for character-name.")
 (grob-property-description 'magnify number? "the magnification factor.  FIXME: doesn't work for feta fonts.")

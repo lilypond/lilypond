@@ -86,7 +86,6 @@ Global_translator::run_iterator_on_me (Music_iterator * iter)
   if (iter-> ok ())
     prev_mom_ = now_mom_ = iter->pending_moment ();
 
-
   bool first = true;
   while (iter->ok () || moments_left_i ())
     {

@@ -103,7 +103,7 @@ Percent_repeat_engraver::try_music (Music * m)
 	meas_len = *unsmob_moment (m);
 
       if (body_length_ < meas_len &&
-	  meas_len.main_part_.mod_rat (body_length_.main_part_) == Moment (0,0))
+	  meas_len.main_part_.mod_rat (body_length_.main_part_) == Moment (Rational (0,0)))
 	repeat_sign_type_ = BEAT;
       else if (meas_len == body_length_)
 	repeat_sign_type_ = MEASURE;

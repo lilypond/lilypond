@@ -872,7 +872,7 @@ Composite_music:
 		scm_gc_unprotect_object (mp->self_scm ());
 		$$->set_mus_property ("numerator", gh_int2scm (n));
 		$$->set_mus_property ("denominator", gh_int2scm (d));
-		$$->compress (Moment (n,d));
+		$$->compress (Moment (Rational (n,d)));
 
 	}
 	| Repeated_music		{ $$ = $1; }

@@ -83,7 +83,7 @@ Score_performer::start ()
 int
 Score_performer::get_tempo_i () const
 {
-  return performance_p_->midi_l_->get_tempo_i (Moment (1, 4));
+  return performance_p_->midi_l_->get_tempo_i (Moment (Rational (1, 4)));
 }
 
 void

@@ -146,7 +146,7 @@ cout << "params for cols " << Paper_column::rank_i (l) << " " << Paper_column::r
 	    UGH: KLUDGE!
 	  */
 	  
-	  //	  if (delta_t > Moment (1,32))
+	  //	  if (delta_t > Moment (Rational (1,32)))
 	  hinterfleisch += stem_dir_correction (me, l, r);
 	}
 

@@ -76,7 +76,7 @@ Auto_beam_engraver::Auto_beam_engraver ()
 {
   count_i_ = 0;
   stem_l_arr_p_ = 0;
-  shortest_mom_ = Moment (1, 8);
+  shortest_mom_ = Moment (Rational (1, 8));
   finished_beam_p_ = 0;
   finished_grouping_p_ = 0;
   grouping_p_ = 0;
@@ -265,7 +265,7 @@ Auto_beam_engraver::junk_beam ()
   delete grouping_p_;
   grouping_p_ = 0;
 
-  shortest_mom_ = Moment (1, 8);
+  shortest_mom_ = Moment (Rational (1, 8));
 }
 
 void
@@ -286,7 +286,7 @@ Auto_beam_engraver::end_beam ()
       grouping_p_ = 0;
     }
 
-  shortest_mom_ = Moment (1, 8);
+  shortest_mom_ = Moment (Rational (1, 8));
 }
 
 void

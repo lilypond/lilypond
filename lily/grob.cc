@@ -56,32 +56,40 @@ Grob::Grob (SCM basicprops)
 
   smobify_self ();
 
+  /*
+    TODO:
+
+    destill this into a function, so we can re-init the immutable
+    properties with a new BASICPROPS value after creation. Convenient
+    eg. when using \override with StaffSymbol.  */
+  
   char const*onames[] = {"X-offset-callbacks", "Y-offset-callbacks"};
   char const*enames[] = {"X-extent-callback", "Y-extent-callback"};
   
-  for (int a = X_AXIS; a <= Y_AXIS; a++){
-    SCM l = get_grob_property (onames[a]);
+  for (int a = X_AXIS; a <= Y_AXIS; a++)
+    {
+      SCM l = get_grob_property (onames[a]);
 
-    if (scm_ilength (l) >=0)
-      {
-	dim_cache_[a].offset_callbacks_ = l;
-	dim_cache_[a].offsets_left_ = scm_ilength (l);
-      }
-    else
-      {
-	programming_error ("[XY]-offset-callbacks must be a list");
-      }
+      if (scm_ilength (l) >=0)
+	{
+	  dim_cache_[a].offset_callbacks_ = l;
+	  dim_cache_[a].offsets_left_ = scm_ilength (l);
+	}
+      else
+	{
+	  programming_error ("[XY]-offset-callbacks must be a list");
+	}
 
-    SCM cb = get_grob_property (enames[a]);
+      SCM cb = get_grob_property (enames[a]);
 
-    /*
-      Should change default to be empty? 
-     */
-    if (cb != SCM_BOOL_F && !gh_procedure_p (cb) && !gh_pair_p (cb))
-      cb = molecule_extent_proc;
+      /*
+	Should change default to be empty? 
+      */
+      if (cb != SCM_BOOL_F && !gh_procedure_p (cb) && !gh_pair_p (cb))
+	cb = molecule_extent_proc;
     
-    dim_cache_[a].dimension_ = cb;
-  }
+      dim_cache_[a].dimension_ = cb;
+    }
 
   SCM meta = get_grob_property ("meta");
   SCM ifs = scm_assoc (ly_symbol2scm ("interfaces"), meta);

@@ -228,7 +228,8 @@ Midi_note::length_mom () const
 {
   Moment m = audio_l_->length_mom_;
 #if 0
-  if (m < Moment (1, 1000))
+  //junkme?
+  if (m < Moment (Rational (1, 1000)))
     {
       warning (_ ("silly duration"));
       m = 1;

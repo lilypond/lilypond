@@ -123,7 +123,7 @@ Performance::output_header_track (Midi_stream& midi_stream)
   midi_track.add (Moment (0), &track_name);
 
   // Some sequencers read track 0 last.
-  //  Audio_tempo tempo_a (midi_l_->get_tempo_i (Moment (1, 4)));
+  //  Audio_tempo tempo_a (midi_l_->get_tempo_i (Moment (Rational (1, 4))));
   //  Midi_tempo tempo (&tempo_a);
   //  midi_track.add (Moment (0), &tempo);
 
