@@ -146,15 +146,14 @@ Tie::get_control_points (SCM smob)
    */
   Real lambda = 0.5;		
   
-  if (Note_head::has_interface (me->get_bound (LEFT)))
+  if (Note_head::has_interface (l))
     left_x = l->extent (l, X_AXIS)[RIGHT] + x_gap_f;
   else
     left_x = l->extent (l, X_AXIS).linear_combination (lambda);
   
 
   Real width;
-  if (Note_head::has_interface (me->get_bound (LEFT))
-      && Note_head::has_interface (me->get_bound (RIGHT)))
+  if (Note_head::has_interface (l) && Note_head::has_interface (r))
     {
       width = 
 	+ r->extent (commonx,X_AXIS)[LEFT]
@@ -163,7 +162,7 @@ Tie::get_control_points (SCM smob)
     }
   else
     {
-      if (Note_head::has_interface (me->get_bound (LEFT)))
+      if (Note_head::has_interface (l))
 	width = r->relative_coordinate (commonx, X_AXIS)
 	  - l->extent (commonx, X_AXIS)[RIGHT]
 	  - 2 * x_gap_f;
@@ -210,6 +209,20 @@ Tie::get_control_points (SCM smob)
   Real ypos = Tie::position_f (me) * staff_space/2 + dir * dy;
 
   /*
+    Make sure we don't start on a dots
+   */
+  if (Note_head::has_interface (l) && Rhythmic_head::dots_l (l))
+    {
+      Grob* dots = Rhythmic_head::dots_l(l);
+      if(fabs (staff_space * Staff_symbol_referencer::position_f (dots) /2
+	       - ypos) < 0.5)
+	{
+	  ypos += 0.5 * dir ;
+	}
+    }
+
+  
+  /*
     todo: prevent ending / staffline collision.
 
     todo: tie / stem collision
@@ -243,7 +256,7 @@ Tie::get_control_points (SCM smob)
 
       Real clear = staff_space * gh_scm2double (me->get_grob_property ("staffline-clearance"));
 
-	if (fabs (y) <= Staff_symbol_referencer::staff_radius (me)
+      if (fabs (y) <= Staff_symbol_referencer::staff_radius (me)
 	  && fabs (diff) < clear)
 	{
 	  Real y1 = ry + clear;
@@ -251,7 +264,7 @@ Tie::get_control_points (SCM smob)
 	  
 	  newy = (fabs (y1 - y) < fabs (y2 - y)) ? y1 : y2;
 	  
-	  //	  newy = ry - 0.5 * staff_space * sign (diff) ;
+	  // newy = ry - 0.5 * staff_space * sign (diff) ;
 
 	  /*
 	    we don't want horizontal ties

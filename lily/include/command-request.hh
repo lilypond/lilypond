@@ -18,8 +18,6 @@
 
 class Break_req : public Request {
 public:
-
-  Break_req ();
 protected:
   VIRTUAL_COPY_CONS (Music);
 };
@@ -63,6 +61,7 @@ public:
   
 protected:
   VIRTUAL_COPY_CONS (Music);
+  bool do_equal_b (Request const * ) const;
   void transpose (Pitch  d);
 };
 

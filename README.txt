@@ -24,7 +24,8 @@ Requirements
 ============
 
    For the compilation and running of LilyPond you need some additional
-packages.  Please refer to the installation instructions.
+packages.  Please refer to the installation instructions in
+`INSTALL.txt'.
 
    NOTE: If you downloaded a binary (.rpm or a W95/NT .zip file), you
 don't have to compile LilyPond.
@@ -38,41 +39,39 @@ are in the toplevel directory, as INSTALL.txt
 Documentation
 =============
 
-   The real documentation is the directory Documentation/
+   The documentation is available online at
+`http://www.cs.uu.nl/~hanwen/lilypond/index.html'.  You can also build
+it locally. This does require a working LilyPond binary.  The following
+formats are supported:
+   * HTML. Refer to INSTALL.txt for information on how to make the HTML
+     documentation.
 
-   If you want to read the documentation online, these are options:
-   * use HTML. Refer to INSTALL.txt for information on how to make the
-     HTML documentation.
+   * `.dvi',  for the tutorial and reference manual. Do
 
-   * use HTML. Point your browser to
-     `http://www.cs.uu.nl/~hanwen/lilypond/index.html'.
+           make -C Documentation/user/ dvi
+     The printable documentation is left in `Documentation/user/out/'.
 
-   * use `.dvi',  for the tutorial and reference manual. Do
-
-            make -C Documentation/user/ dvi
-
-     You need a working LilyPond binary to create the DVI and HTML
-     sources.
-
-   * use ASCII. Do using
-          	make doc
+   * paper. Create the .dvi documentation, and print it with dvips.
 
 
 Comments
 ========
 
-   LilyPond is a long way from finished and polished.  We do appreciate
-criticism, comments, bugreports, patches, etc., but please,
+   LilyPond is a long way from finished and polished, so we please send
+your criticism, comments, bugreports, patches, etc., to the mailing
+list.  and _not_ to us personally.
 
-     	   Please send your e-mail to one of the MAILING LISTS
-
-   and _not_ to us personally. We have the following mailing lists:
+   We have the following mailing lists:
 
    * info-gnu-music@gnu.org
      (http://mail.gnu.org/mailman/listinfo/info-gnu-music) is a
      low-volume list for information on the GNU Music project.
      This list is moderated; ask     David R. Linn <drl@gnu.org> or
      Han-Wen <hanwen@cs.uu.nl> to send announcements for this list.
+
+   * gnu-music-discuss@gnu.org
+     (http://mail.gnu.org/mailman/listinfo/gnu-music-discuss)   For
+     general discussions concerning LilyPond.
 
    * help-gnu-music@gnu.org
      (http://mail.gnu.org/mailman/listinfo/help-gnu-music)     For help
@@ -89,9 +88,6 @@ Windows 32
 (`LilyPond-*.zip'), it is advisable to also download the source
 package, since it might contain more documentation
 `ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/'
-
-   If you decide to build LilyPond from source, please read the
-INSTALL.txt document first, especially the Windows NT/95 section.
 
 Caveats
 =======

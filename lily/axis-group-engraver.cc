@@ -63,7 +63,7 @@ void
 Axis_group_engraver::finalize ()
 {
   String type = daddy_grav_l ()->type_str_ ;
-  SCM dims = get_property ((type  + "VerticalExtent").ch_C ());
+  SCM dims = get_property ("VerticalExtent");
   
   if (gh_pair_p (dims) && gh_number_p (gh_car (dims))
       && gh_number_p (gh_cdr (dims)))
@@ -72,12 +72,12 @@ Axis_group_engraver::finalize ()
       staffline_p_->set_grob_property ("extent-Y", dims);
     }
 
-  dims = get_property ((type + "MinimumVerticalExtent").ch_C ());
+  dims = get_property ("MinimumVerticalExtent");
   if (gh_pair_p (dims) && gh_number_p (gh_car (dims))
       && gh_number_p (gh_cdr (dims)))
     staffline_p_->set_grob_property ("minimum-extent-Y", dims);
 
-  dims = get_property ((type + "ExtraVerticalExtent").ch_C ());
+  dims = get_property ("ExtraVerticalExtent");
   if (gh_pair_p (dims) && gh_number_p (gh_car (dims))
       && gh_number_p (gh_cdr (dims)))
     staffline_p_->set_grob_property ("extra-extent-Y", dims);

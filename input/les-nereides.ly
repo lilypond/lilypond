@@ -441,7 +441,7 @@ lowerDynamics =  \context Dynamics=lower \notes{
 	    \consists "Output_property_engraver";
 	    Generic_property_list = #generic-voice-properties
 	    \consists "Property_engraver";
-	    DynamicsMinimumVerticalExtent = #(cons -3 -3)
+	    MinimumVerticalExtent = #(cons -3 -3)
 	    VerticalAlignment \override #'threshold = #'(9 . 9) 
 
 	    startSustain = #"Ped."

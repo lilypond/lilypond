@@ -2,7 +2,7 @@
 
 depth = ..
 
-SUBDIRS=bugs tricks test regression tutorial no-notation ascii-art
+SUBDIRS=bugs test regression tutorial no-notation ascii-art
 
 examples=trip  star-spangled-banner paddy scarlatti-test
 flexamples=

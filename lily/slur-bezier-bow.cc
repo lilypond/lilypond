@@ -163,9 +163,6 @@ Slur_bezier_bow::minimise_enclosed_area (Real beauty,
   for (int i=0; i < steps; i++)
     {
       Real area = enclosed_area_f ();
-      if (!i)
-	DEBUG_OUT << to_str ("Init area: %f\n", area);
-
       if (area <= beautiful)
 	break;
 
@@ -186,8 +183,6 @@ Slur_bezier_bow::minimise_enclosed_area (Real beauty,
       curve_.control_[1][X_AXIS] -= da[0] * u * pct;
       curve_.control_[2][X_AXIS] -= da[1] * u * pct;
     }
-
-  //  Real area = enclosed_area_f ();
 }
 
 

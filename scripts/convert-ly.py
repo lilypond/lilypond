@@ -525,10 +525,8 @@ if 1:
 
 
 
-################ TODO: lots of other syntax change should be done here as well
 
-
-
+# TODO: lots of other syntax change should be done here as well
 if 1:
 	def conv (str):
 		str = re.sub ('basicCollisionProperties', 'NoteCollision', str)
@@ -623,7 +621,7 @@ if 1:
 	conversions.append (((1,3,97), conv, 'ChordName -> ChordNames'))
 
 
-## TODO: add lots of these
+# TODO: add lots of these
 	
 if 1:
 	def conv (str):
@@ -782,8 +780,21 @@ if 1:
 	conversions.append (((1,3,144), conv, 'Chorda -> Corda'))
 
 
-############################
-	
+if 1:
+	def conv (str):
+		str = re.sub ('([A-Za-z]+)MinimumVerticalExtent', 'MinimumV@rticalExtent', str)
+		str = re.sub ('([A-Za-z]+)ExtraVerticalExtent', 'ExtraV@rticalExtent', str)
+		str = re.sub ('([A-Za-z]+)VerticalExtent', 'VerticalExtent', str)
+		str = re.sub ('ExtraV@rticalExtent', 'ExtraVerticalExtent', str)
+		str = re.sub ('MinimumV@rticalExtent', 'MinimumVerticalExtent', str)		
+		return str
+
+	conversions.append (((1,3,145), conv,
+	'ContextNameXxxxVerticalExtent -> XxxxVerticalExtent'))
+
+################################
+#	END OF CONVERSIONS	
+################################
 
 def get_conversions (from_version, to_version):
 	def version_b (v, f = from_version, t = to_version):

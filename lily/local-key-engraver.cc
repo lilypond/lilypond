@@ -135,8 +135,11 @@ Local_key_engraver::create_grobs ()
 		  key_item_p_ = new Item (get_property ("Accidentals"));
 		  Local_key_item::set_interface (key_item_p_);
 
-
+		  
 		  Staff_symbol_referencer::set_interface (key_item_p_);
+		  SCM c0 = get_property ("centralCPosition");
+		  if (gh_number_p (c0))
+		    Staff_symbol_referencer::set_position (key_item_p_, gh_scm2int (c0));
 			 
 		  announce_grob (key_item_p_, 0);
 		}

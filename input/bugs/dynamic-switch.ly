@@ -1,4 +1,5 @@
 
+% what's the problem?
 \score{
 	\context Staff <
 		\context Voice=one \skip 1;

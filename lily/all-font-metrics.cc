@@ -78,8 +78,13 @@ All_font_metrics::find_afm (String name)
       Adobe_font_metric *afm
 	= dynamic_cast<Adobe_font_metric*> (unsmob_metrics (val));
 
-      if (output_format_global == "tex")
+      /*
+	only check checksums if there is one.  We take the risk that
+	some file has valid checksum 0
+      */
+      if (afm->checksum_)
 	{
+	  
 	  Tex_font_metric * tfm = find_tfm (name);
 	  
 	  /* FIXME: better warning message

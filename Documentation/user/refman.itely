@@ -19,7 +19,7 @@
 @chapter Reference Manual
 
 This document describes GNU LilyPond and its input format. The last
-revision of this document was for LilyPond 1.3.141.
+revision of this document was made for LilyPond 1.3.145.
 
 
 @menu
@@ -62,7 +62,7 @@ by `music compiler' or `music to notation compiler'.
 
 LilyPond is linked to GUILE, GNU's Scheme library for extension. The
 Scheme library provides the glue that holds together the low-level
-routines and separate modules general, which are C++.
+routines and separate modules which are written in C++.
 
 When lilypond is run to typeset sheet music, the following happens:
 @itemize @bullet
@@ -71,13 +71,14 @@ When lilypond is run to typeset sheet music, the following happens:
 then the user @file{ly} file is read.
 @item interpretation: the music in the file is processed ``in playing
 order'', i.e. the order that  you  use to read sheet music, or the
-order in which notes are played.
+order in which notes are played. The result of this step is a typesetting
+specification.
 
 @item typesetting:
-in this step, the results of the interpretation, a typesetting
-specification, is solved.
+The typesetting specification is solved: positions and formatting is
+calculated.
 
-@item the visible results ("virtual ink") is written to the output file.
+@item the visible results ("virtual ink") are written to the output file.
 @end itemize
 
 During these stages different types of data play the the main role:
@@ -117,7 +118,6 @@ brevity we omit obligotary lint such as @code{\score} blocks and
 * Tuplets::                     
 * Rests::                       
 * Skip::                        
-* Note mode::                   
 @end menu
 
 @c .  {Pitches}
@@ -216,18 +216,16 @@ The syntax for a verbose duration specification is
 @example
  \duration @var{scmduration}
 @end example
-Here, @var{scmduration} is a Scheme object of type Duration. See
+Here, @var{scmduration} is a Scheme object of type @code{Duration}. See
 @ref{Duration} for more information.
 
 
 In Note, Chord, and Lyrics mode, durations may be designated by numbers
 and dots: durations are entered as their reciprocal values.  For notes
-longer than a whole note, use identifiers.
-
-@quotation
+longer than a whole note you must use identifiers.
 
 @example 
-c'\longa c'\breve  
+ c'\breve  
 c'1 c'2 c'4 c'8 c'16 c'32 c'64 c'64 
 r\longa r\breve  
 r1 r2 r4 r8 r16 r32 r64 r64 
@@ -237,7 +235,7 @@ r1 r2 r4 r8 r16 r32 r64 r64
 @lilypond[]
 \score {
   \notes \relative c'' {
-    a\longa a\breve  \autoBeamOff
+  \breve  \autoBeamOff
     a1 a2 a4 a8 a16 a32 a64 a64 
     r\longa r\breve  
     r1 r2 r4 r8 r16 r32 r64 r64 
@@ -253,11 +251,15 @@ r1 r2 r4 r8 r16 r32 r64 r64
   }
 }
 @end lilypond
-@end quotation
 
-As you can see, the longa is not printed. To get a longa note head, you
-have to use a mensural note heads. This is done accomplished by setting
-the @code{style} property of the NoteHead grob to @code{mensural}.
+ To get a longa note head, you have to use a mensural note heads. This
+is done accomplished by setting the @code{style} property of the
+NoteHead grob to @code{mensural}.
+
+@lilypond[fragment,singleline,verbatim]
+ \property Voice.NoteHead \set #'style = #'mensural
+ a'\longa
+@end lilypond
 
 If the duration is omitted then it is set to the previous duration
 entered.  At the start of parsing a quarter note is assumed.  The
@@ -282,12 +284,12 @@ notes or rests produced.
 A note specification has the form
 
 @example
-  @var{pitch}[@var{octavespec}][!][?][@var{duration}]
+  @var{pitch}[!][?][@var{duration}]
 @end example
 
-LilyPond will determine what accidentals to typeset depending on the key
-and context. The alteration refers to what note is heard, not to whether
-an accidental is printed.  A reminder accidental
+The alteration refers to what note is heard, not to whether an
+accidental is printed. This is done depending on the key and context.
+A reminder accidental
 @cindex reminder accidental
 @cindex @code{?}
 can be forced by adding an exclamation mark @code{!} after the pitch.  A
@@ -312,7 +314,7 @@ note head that includes a note name.  It is used in some publications by
 Hal-Leonard Inc.  music publishers.
 
 @lilypond[singleline,verbatim]
-\include "paper26.ly"
+\include "paper23.ly"
 \score {
         \notes { c'2 e'4 f' | g'1 }
         \paper { \translator { \EasyNotation } } 
@@ -340,9 +342,9 @@ the @code{-f ps} option of lilypond will produce the desired result.
 
 A tie connects two adjacent note heads of the same pitch.  When used
 with chords, it connects all of the note heads whose pitches match.
-Ties are indicated using the tilde symbol `@code{~}'.
-If you try to tie together chords which have no common pitches, a
-warning message will appear and no ties will be created.
+Ties are indicated using the tilde symbol `@code{~}'.  If you try to tie
+together chords which have no common pitches then no ties will be
+created.
 
 @lilypond[fragment,verbatim,center]
   e' ~ e' <c' e' g'> ~ <c' e' g'>
@@ -357,11 +359,15 @@ ties:
 @end lilypond
 
 In its meaning a tie is just a way of extending a note duration, similar
-to the augmentation dot: the following example are three ways of notating
+to the augmentation dot: the following example are two ways of notating
 exactly the same concept.
+@c
 @lilypond[fragment, singleline]
 c'2 c'4 ~ c'4
 @end lilypond
+
+
+Ties are printed through the @code{Tie} grob.
 
 @refbugs
 
@@ -371,7 +377,7 @@ between tied notes, dotted notes and plain notes.
 
 Tieing only a subset of the note heads of a chord is not supported in a
 simple way.  It can be achieved by moving the tie-engraver into Thread
-context and turning off ties per Thread.
+context and turning on an off ties per Thread.
 
 
 @node Tuplets
@@ -409,12 +415,24 @@ of tuplets.
 \times 2/3 { c''8 c c c c c }
 @end lilypond
 
+The format of the number is determined by the property
+@code{tupletNumberFormatFunction}. The default prints only the
+denominator, but if you set it to the Scheme function
+@code{fraction-tuplet-formatter} will print @var{num}:@var{den} instead.
+
+@cindex @code{tupletNumberFormatFunction}
+@cindex tuplet formatting 
+
+Tuplet brackets are printed as @code{TupletBracket} grobs
+
+
 @c .  {Rests}
 @node  Rests
 @subsection Rests
 @cindex Rests
 
-Rests are entered like notes, with note name `@code{r}'.
+Rests are entered like notes, with note name `@code{r}'. The grob is
+@code{Rest}.
 
 
 @c .  {Skip}
@@ -433,29 +451,6 @@ Skips the amount of time specified by @var{duration}.  If no other music
 is played, a gap will be left for the skipped time with no notes
 printed.  The shorthand is only available in Note and Chord mode.
 
-
-
-@node Note mode
-@subsection Note mode
-
-
-
-@cindex note mode
-@cindex @code{\notes}
-
-Note mode is the lexical mode generally used for inputting notes. The
-syntax is
-@example
-\notes @var{expr}
-@end example
-
-This instructs the tokenizer to interpret @var{expr} in note mode.  If a
-a sequence of alfabetical characters, like @code{foobar}, LilyPond first
-checks if @code{foobar} is a pitch name.  If it is not a pitch name,
-then it is treated as a string.
-
-Numbers and dots indicate durations, so you can enter floating point
-numbers in this mode.
 
 
 @node Staff notation
@@ -506,6 +501,8 @@ semitones that should be added to the pitch given in the subsequent
 
 This command sets context property @code{Staff.keySignature}.
 
+The printed signature is a @code{KeySignature} grob.
+
 @cindex @code{keySignature}
 
 @c .  {Clef}
@@ -523,6 +520,8 @@ Shortcut for
   \property Staff.clefPosition = @var{clef Y-position for clefname}
   \property Staff.clefOctavation = @var{extra pitch of clefname}
 @end example
+
+Any change in these properties creates a clef (a @code{Clef} grob).
 
 Supported clef-names include 
 
@@ -588,7 +587,9 @@ Internally, this is a shortcut for doing
      \property Score.timeSignatureFraction = #'(@var{numerator} . @var{denominator})
 @end example
 
-[TODO: discuss options for layout]
+The grob is @code{TimeSignature}.  There are many options for the layout
+of this grob. They are selected through the @code{style} grob
+property. See @file{input/test/time.ly} for examples.
 
 @c .   {Partial}
 @subsection Partial
@@ -661,7 +662,7 @@ documentation.
 @cindex repeatCommands
 @cindex defaultBarType
 
-Bar lines are created by the @code{Bar_line_engraver}. That engraver examines
+Bar lines are created by the @code{Bar_engraver}. That engraver examines
 @code{whichBar} at every moment. Whenever it is set to a string, it will
 create a bar with that type.  @code{whichBar} is usually set
 automatically: at the start of a measure it is set to
@@ -672,6 +673,7 @@ override default measure bars.
 @code{\bar ; }.  These settings take precedence over automatic @code{whichBar}
 settings. 
 
+@code{Bar_engraver} creates @code{BarLine} grobs.
 
 @c .   {Polyphony}
 @node Polyphony
@@ -705,7 +707,7 @@ in @code{NoteColumn}).
          \shiftOnn \stemUp ais
        }
        \context Voice=four {
-	  \shiftOnnn \stemUp fis-2
+	  \shiftOnnn \stemUp fis
        }
   >
 @end lilypond
@@ -720,7 +722,6 @@ correct manner.
   \context Voice = VB { \voiceThree b4 ais ~ ais4 gis4 } 
   \context Voice = VC { \voiceTwo fis4~  fis4 f ~ f  } >
 @end lilypond
-
 
 LilyPond also vertically shifts rests that are opposite of a stem. 
 
@@ -745,8 +746,6 @@ Resolving collisions is a very intricate subject, and LilyPond only
 handles a few situations. When it can not cope, you are advised to use
 @code{force-hshift} of the NoteColumn grob and @code{staff-position} of
 the Rest grob to override typesetting decisions.
-
-[TODO: doc merge-differently-dotted]
 
 @node Beaming
 @section Beaming
@@ -885,9 +884,11 @@ control the number of beams through the properties
 @end lilypond
 @cindex @code{stemRightBeamCount}
 
-The beam symbol can be tweaked through @code{Voice.Beam}'s
-grob-properties @code{height} and @code{staff-position},
-in staff-spaces.
+The beam symbol (grob @code{Voice.Beam}, both for automatic and manual
+beams) can be tweaked through grob-properties @code{height} and
+@code{staff-position}, which are both measured  staff-spaces.
+
+[TODO: check: halfspaces?]
 
 Set @code{height} to zero, to get horizontal beams:
 
@@ -934,9 +935,6 @@ Slurs avoid crossing stems, and are attached to note heads whenever
 possible.  In some instances involving beams slurs may be attached to a
 stem end.  If you want to override this layout you can do this through
 @code{Voice.Slur}'s grob-property @code{attachment}:
-
-Maybe reinclude other slur features and move back to tricks?  Esp. the
-second example, how to fix, can be very helpful.
 
 @lilypond[fragment,relative,verbatim]
   \property Voice.Slur \set #'direction = #1
@@ -1038,7 +1036,8 @@ output with 76 quarter notes per minute.
 @refbugs
   
 The tempo setting is not printed, but is currently only used in the MIDI
-output.
+output. You can trick lily into producing a metronome mark,
+though. Details   are in @ref{Text markup}.
   
 
 
@@ -1170,6 +1169,7 @@ helpful identifier definitions appear in @file{script.ly}.
 
 For information on how to add scripts, consult @file{scm/script.scm}.
 
+Grobs for these objects are @code{Script} and @code{Fingering}.
 
 @refbugs
 
@@ -1298,8 +1298,8 @@ also be implemented.
 
 @cindex @code{\glissando}
 
-A glissando line can be requested by attaching a @code{\glissando} to a
-note:
+A glissando line (grob @code{Voice.Glissando}) can be requested by attaching a
+@code{\glissando} to a note:
 
 @lilypond[fragment,relative,verbatim]
   c'' \glissando c'
@@ -1386,6 +1386,10 @@ is an example how to do it:
 @end lilypond
 
 
+Dynamics are grobs of @code{Voice.DynamicText} and
+@code{Voice.Hairpin}. They are put together on
+@code{Voice.DynamicLineSpanner} to align them vertically.
+
 
 @c .  {Repeats}
 @node Repeats
@@ -1460,10 +1464,8 @@ With alternative endings:
   \alternative { {d'2 d'} {f' f} }
 @end lilypond
 
-Folded repeats look like this:@footnote{Folded repeats offer little
-more over simultaneous music.  However, it is to be expected that
-more functionality -- especially for the MIDI backend -- will be
-implemented at some point in the future.}
+Folded repeats look like this:
+
 
 @lilypond[fragment,verbatim]
   c'1
@@ -1497,6 +1499,10 @@ after 1.4.
 It is possible to nest @code{\repeat}, although it probably is only
 meaningful for unfolded repeats.
 
+Folded repeats offer little more over simultaneous music.  However, it
+is to be expected that more functionality -- especially for the MIDI
+backend -- will be implemented at some point in the future.
+
 @node Manual repeat commands
 @subsection Manual repeat commands
 
@@ -1526,6 +1532,8 @@ command can be
 @end lilypond
 
 
+Repeats brackets are @code{Staff.VoltaBracket} grobs.
+
 @node Tremolo repeats
 @subsection Tremolo repeats
 @cindex tremolo beams
@@ -1542,6 +1550,9 @@ style.
   }
 }
 @end lilypond
+
+Tremolo beams are @code{Voice.Beam} grobs. Single stem tremolos are
+@code{Voice.StemTremolo}.
 
 @refbugs
 
@@ -1587,9 +1598,12 @@ printed once, and then the pattern is replaced with a special sign.
 }
 @end lilypond
 
+The signs are represented by these grobs: @code{Voice.RepeatSlash} and
+@code{Voice.PercentRepeat} and @code{Voice.DoublePercentRepeat}.
+
 @refbugs
 
-You can not nest percent repeats, filling in the first measure with
+You can not nest percent repeats, e.g. filling in the first measure with
 slashes, and repeating that measure with percents.
 
 @node Rhythmic music
@@ -1744,12 +1758,13 @@ to the chords in both staffs, and set
   >  
 @end lilypond
 
-This command creates @code{Arpeggio} grobs. 
+This command creates @code{Voice.Arpeggio} grobs.  Cross staff arpeggios
+are @code{PianoStaff.Arpeggio}.
 
 @refbugs
 
- It is not possible to mix
-connected arpeggios and unconnected arpeggios at the same time.
+It is not possible to mix connected arpeggios and unconnected arpeggios
+at the same time.
 
 
 @c .    {VoiceFollower}
@@ -1778,6 +1793,7 @@ can be printed automatically. This is enabled if the property
   >  
 @end lilypond
 
+The associated grob is @code{Voice.VoiceFollower}.
 
 @c . {Lyrics}
 @node Lyrics
@@ -1847,6 +1863,8 @@ interpreted as melismata. Lyric syllables must be interpreted within a
        share the so -- ftware; }
 @end lilypond
 
+The Lyric syllables are @code{LyricsVoice.LyricSyllable} grobs.
+
 @cindex extender
 @cindex lyric extender
 @cindex melisma
@@ -1855,6 +1873,8 @@ As you can see, extender lines are entered as @code{__}.  This will
 create an extender, a line that extends over the entire duration of the
 lyric.  This line will run all the way to the start of the next lyric,
 so you may want to shorten it by using a blank lyric (using @code{_}).
+The grob for this symbol is @code{LyricsVoice.LyricExtender}.
+
 
 @cindex hyphen
 
@@ -1863,6 +1883,7 @@ attached to the end of the first syllable) you can use the special
 `@code{-}@code{-}' lyric as a separate word between syllables.  This
 will result in a hyphen which length varies depending on the space
 between syllables, and which will be centered between the syllables. 
+The grob for this symbol is @code{LyricsVoice.LyricHyphen}.
 
 @cindex Lyric hyphen
 
@@ -4446,8 +4467,7 @@ A mode switch is entered as a compound music expressions
 In each of these cases, these expressions do not add anything to the
 meaning of their arguments.  They are just a way to indicate that the
 arguments should be parsed in indicated mode.  The modes are treated in
-more detail in the @ref{Note entry}, @ref{Lyrics} and
-@ref{Chords}.
+more detail in @ref{Lyrics} and @ref{Chords}.
 
 You may nest different input modes.
 

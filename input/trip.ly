@@ -17,6 +17,8 @@ TODO:
 
 * lyrics.
 
+* drum, jazz, pop notation
+
 %}
 
 

@@ -2157,23 +2157,8 @@ Music (TM), have a look at the @ref{Mutopia project}.
 
 this should be on mutopia website.
 
-Ja, inderdaad: OOK on mutopia website.
-
-This helps people to generate .ps from .ly in general, create booklets
-etc, use dependencies.  Figure out where to include this.  Refman?
-
-
-Zie makefile rm lily-* discussies op gmd.
-
-
-
 ]
 
-@c UGH UGH: emacs' texinfo-all-menus-update also parses inside @ignore
-@c blocks.
-
-@c @no de Pre-cooked makefile
-@c @s ection Pre-cooked makefile
 
 @c waar deze info?  is uiteindelijk wel handig, schat ik.
 [TODO: cut blabla]
