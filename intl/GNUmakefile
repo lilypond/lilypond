@@ -24,10 +24,10 @@ default: $(outdir)
 $(outdir)/library.a:
 	@echo "*** To install libintl type 'make lib; make install-lib' ***"
 
-localinstall: $(outdir)
+local-install: $(outdir)
 	@echo "*** To install libintl type 'make lib; make install-lib' ***"
 
-localuninstall: $(outdir)
+local-uninstall: $(outdir)
 	@echo "*** To uninstall libintl type 'make uninstall-lib' ***"
 
 include $(depth)/make/stepmake.make
@@ -38,8 +38,8 @@ lib:
 	$(MAKE) LIBINTL=yes all
 
 install-lib: $(LIBRARY)
-	$(MAKE) LIBINTL=yes localinstall
+	$(MAKE) LIBINTL=yes local-install
 
 uninstall-lib:
-	$(MAKE) LIBINTL=yes localuninstall
+	$(MAKE) LIBINTL=yes local-uninstall
 

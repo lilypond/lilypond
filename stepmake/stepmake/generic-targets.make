@@ -11,7 +11,7 @@ man:
 	$(LOOP)
 
 # be careful about deletion.
-clean: localclean
+clean: local-clean
 	-rm -f $(outdir)/*
 	$(LOOP)
 
@@ -130,7 +130,7 @@ configure: configure.in aclocal.m4
 	autoconf 
 	chmod +x configure
 
-localclean:
+local-clean:
 
 local-distclean:
 
@@ -139,15 +139,15 @@ local-maintainerclean:
 install-strip:
 	$(MAKE) INSTALL="$(INSTALL) -s" install
 
-install: localinstall
+install: local-install
 	$(LOOP)
 
-localinstall:
+local-install:
 
-uninstall: localuninstall
+uninstall: local-uninstall
 	$(LOOP)
 
-localuninstall:
+local-uninstall:
 
 installextradoc:
 	-$(INSTALL) -d $(prefix)/doc/$(package)

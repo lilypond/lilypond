@@ -11,6 +11,7 @@ LILYPONDPREFIX="@datadir@"
 MFINPUTS="@datadir@/mf:"${MFINPUTS:=":"}
 TEXINPUTS="@datadir@/tex:@datadir@/ps:"${TEXINPUTS:=":"}
 
+# TFMFONTS="@datadir@/tfm:$TFMFONTS"
 
 ## gs_lib ??? 
 export LILYINCLUDE LILYPONDPREFIX MFINPUTS TEXINPUTS GS_LIB GS_FONTPATH

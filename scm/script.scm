@@ -6,6 +6,10 @@
 
 ;;TODO?      extra padding :: Real (given in staff spaces)
 
+
+;; TODO: generate Grob types for this, by prepending appropriate props
+;; on top of Script (?)  
+
 (set! default-script-alist
       (append 
       '(("thumb" . ((feta . ("thumb"  . "thumb")) #f 0 1 0))

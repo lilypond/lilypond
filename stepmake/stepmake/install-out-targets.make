@@ -1,11 +1,11 @@
 # install-out-targets.make
 
-localinstall: localinstall-files localinstall-outfiles
+local-install: local-install-files local-install-outfiles
 
-localinstall-files:
+local-install-files:
 
 # urg, parameterise
-localinstall-outfiles: $(INSTALLATION_OUT_FILES) $(foreach suff, $(INSTALLATION_OUT_SUFFIXES), $(INSTALLATION_OUT_FILES$(suff)))
+local-install-outfiles: $(INSTALLATION_OUT_FILES) $(foreach suff, $(INSTALLATION_OUT_SUFFIXES), $(INSTALLATION_OUT_FILES$(suff)))
 	-$(INSTALL) -d $(INSTALLATION_OUT_DIR)
 	$(foreach i, $(INSTALLATION_OUT_FILES), \
 		$(INSTALL) -m 644 $(i) $(INSTALLATION_OUT_DIR)/ && ) true
@@ -15,11 +15,11 @@ localinstall-outfiles: $(INSTALLATION_OUT_FILES) $(foreach suff, $(INSTALLATION_
 			$(INSTALL) -m 644 $(i) $(INSTALLATION_OUT_DIR$(suff))/ && ) true && ) true
 
 
-localuninstall: localuninstall-outfiles localuninstall-files 
+local-uninstall: local-uninstall-outfiles local-uninstall-files 
 
-localuninstall-files:
+local-uninstall-files:
 
-localuninstall-outfiles:
+local-uninstall-outfiles:
 	rm -f $(foreach  i, $(notdir $(INSTALLATION_OUT_FILES)), \
 		$(INSTALLATION_OUT_DIR)/$(i))
 	rm -f $(foreach suff, $(INSTALLATION_OUT_SUFFIXES),  \

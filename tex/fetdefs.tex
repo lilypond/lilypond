@@ -2,13 +2,19 @@
 % encapsulating tex backend for auto-generated feta definitions
 
 % fix chord.cc::banter_str before removing these
+
 \def\fetdef#1#2{%
   \def#1{\hbox{\char#2}}}
 
 \fetdef\fetasharp{16}
 \fetdef\fetanatural{17}
 \fetdef\fetaflat{18}
-\font\fetasixteenfont=feta16
+
+%  \font\fetasixteenfont=feta16
+
+\def\fetasixteenfont{\message{TeX strings are deprecated. Please use
+Scheme markup expressions. See the reference manual for more information}} 
+
 \def\fetafont{\fetasixteenfont}
 \def\textflat{{\fetafont\raise 1ex\hbox{\fetaflat}}}
 \def\textnatural{{\fetafont\raise 1ex\hbox{\fetanatural}}}

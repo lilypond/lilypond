@@ -100,7 +100,7 @@ $(outdir)/%.bib: %.bib
 # we want footers even if website builds (or is built) partly
 	$(MAKE) footify
 
-localclean:
+local-clean:
 	rm -f fonts.aux fonts.log feta*.tfm feta*.*pk 
 	rm -rf $(outdir)/lilypond $(outdir)/lilypond-internals
 

@@ -14,6 +14,7 @@
 #include "dimensions.hh"
 #include "staff-symbol-referencer.hh"
 #include "group-interface.hh"
+#include "directional-element-interface.hh"
 
 void
 Side_position_interface::add_support (Grob*me, Grob*e)
@@ -41,7 +42,7 @@ Side_position_interface::get_direction (Grob*me)
   Grob * e = unsmob_grob(other_elt);
   if (e)
     {
-      return (Direction)(relative_dir * Side_position_interface::get_direction (e));
+      return (Direction)(relative_dir * Directional_element_interface::get (e));
     }
   
   return CENTER;

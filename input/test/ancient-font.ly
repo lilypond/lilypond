@@ -61,6 +61,7 @@ lowerVoice =  \context Staff = lowerNotes <
 	\property Staff.Custos \override #'style = #'mensural
 	\clef "mensural1_c2";
 	c2 d e f g
+        \property Staff.forceClef = ##t
 	\clef "mensural1_c2";
 	a b c'
 	b a g f
@@ -69,6 +70,7 @@ lowerVoice =  \context Staff = lowerNotes <
 
 	\clef "mensural2_c2";
 	c2 d e f g
+        \property Staff.forceClef = ##t
 	\clef "mensural3_c2";
 	a b c'
 	b a g f
@@ -77,25 +79,30 @@ lowerVoice =  \context Staff = lowerNotes <
 
 	\clef "mensural1_f";
 	c2 d e f g
+        \property Staff.forceClef = ##t
 	\clef "mensural1_f";
 	a b c'
 	b a g f
 	\clef "mensural2_f";
 	e d c1 \bar "|";
 
+        \property Staff.forceClef = ##t
 	\clef "mensural2_f";
 	c2 d e f g
 	\clef "mensural_g";
 	a' b' c''
 	b' a' g' f'
+        \property Staff.forceClef = ##t
 	\clef "mensural_g";
 	e' d' c'1 \bar "|";
 
+        \property Staff.forceClef = ##t
 	\clef "mensural_g";
 	c'2 d' e' f' g'
 	\clef "hufnagel_do_fa";
 	a b c'
 	b a g f
+        \property Staff.forceClef = ##t
 	\clef "hufnagel_do_fa";
 	e d c1 \bar "||";
     }

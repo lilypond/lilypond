@@ -19,5 +19,11 @@ if ($?TEXINPUTS) then
 else
         setenv TEXINPUTS "/usr/share/lilypond/tex::"
 endif
+if ($?TEXINPUTS) then
+        setenv TFMFONTS "@datadir@/tfm:$TFMFONTS"
+else
+        setenv TFMFONTS "@datadir@/tfm:"
+endif
+
 
 

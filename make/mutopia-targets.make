@@ -35,7 +35,7 @@ mutopia-letter=$(mutopia-examples:%=out-letter/%.ps.gz)
 mutopia:
 	$(MAKE) examples="$(mutopia-examples)" PAPERSIZE=letter local-WWW $(mutopia-letter)
 
-localclean: local-letter-clean
+local-clean: local-letter-clean
 
 local-letter-clean:
 	rm -f $(outdir)-letter/*

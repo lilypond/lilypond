@@ -24,7 +24,7 @@ protected:
   virtual void initialize ();
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
-  virtual void create_grobs ();
+  virtual void process_music ();
   virtual void acknowledge_grob (Grob_info);
 };
 
@@ -52,7 +52,7 @@ Script_engraver::try_music (Music *r_l)
 }
 
 void
-Script_engraver::create_grobs ()
+Script_engraver::process_music ()
 {
   for (int i=0; i < script_req_l_arr_.size(); i++)
     {
@@ -115,7 +115,6 @@ Script_engraver::create_grobs ()
       
       announce_grob (p, l);
     }
-  script_req_l_arr_.clear ();
 }
 
 void
@@ -134,6 +133,7 @@ Script_engraver::acknowledge_grob (Grob_info inf)
 	  Grob*e = script_p_arr_[i];
 
 	  e->set_grob_property ("direction-source", inf.elem_l_->self_scm ());
+	  e->add_dependency (inf.elem_l_);
 	  Side_position_interface::add_support (e, inf.elem_l_);
 	}
     }

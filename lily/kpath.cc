@@ -8,7 +8,9 @@ source file of the GNU LilyPond music typesetter
  */
 
 #include <stdio.h>
+
 #include "config.h"
+#include "string.hh"
 
 #define popen REALLYUGLYKLUDGE
 #define pclose ANOTHERREALLYUGLYKLUDGE
@@ -20,14 +22,8 @@ extern "C" {
 }
 #endif
 
-#include <sys/types.h>
-#include <fcntl.h>
-#if HAVE_SYS_STAT_H 
-#include <sys/stat.h>
-#endif
-
 #include "kpath.hh"
-
+#include "version.hh"
 
 
 char * ly_find_afm (char const * name)
@@ -58,28 +54,18 @@ ly_init_kpath (char *av0)
   kpse_maketex_option("tfm", TRUE);
 
   /*
-    UGH: should not use DIR_DATADIR, but /var,
-
-    hmm, but where to get /var?
-    
+    ugh: apparently the program_args is non-functional.
    */
-
-  int fd;
-  struct stat stat_buf;
-  if (stat (DIR_DATADIR "/tfm", &stat_buf) == 0
-      && (S_ISDIR (stat_buf.st_mode) || S_ISLNK (stat_buf.st_mode))
-      // ugh, howto test if we can write there?
-      //      && (stat_buf.st_mode & S_IWUSR))
-      && ((fd = open (DIR_DATADIR "/tfm/lily", O_CREAT)) != -1))
-    {
-      close (fd);
-      unlink (DIR_DATADIR "/tfm/lily");
-      kpse_format_info[kpse_tfm_format].program ="mktextfm --destdir " DIR_DATADIR "/tfm";
-
-      kpse_format_info[kpse_tfm_format].client_path =
-	(DIR_DATADIR "/tfm" );
-    }
+#define VERSION MAJOR_VERSION "." MINOR_VERSION "."  PATCH_LEVEL
   
+#define MY_TFMPATH "$VARTEXFONTS/tfm/lilypond/" VERSION "/"
+
+  char * mypath = kpse_expand (MY_TFMPATH);
+  String prog = "mktextfm --destdir ";
+  prog += mypath;
+  
+  kpse_format_info[kpse_tfm_format].program = strdup (prog.ch_C());
+  kpse_format_info[kpse_tfm_format].client_path = mypath;
 #endif
 }
 
