@@ -25,7 +25,6 @@ Sequential_music_iterator::Sequential_music_iterator ()
   cursor_ = 0;
   here_mom_ = 0;
   iter_p_ =0;
-  per_elt_b_ = false;
 }
 
 void
@@ -68,14 +67,22 @@ Sequential_music_iterator::start_next_element()
 void
 Sequential_music_iterator::set_sequential_music_translator()
 {
-  if (iter_p_->report_to_l()->depth_i () > report_to_l ()->depth_i ()
-      && ! dynamic_cast<Grace_iterator*> (iter_p_)) // UGH.!
-    set_translator (iter_p_->report_to_l());
+  Translator_group  * child_report = child_report = iter_p_->report_to_l ();
+  if (dynamic_cast<Grace_iterator*> (iter_p_))
+    child_report = child_report->daddy_trans_l_;
+    
+  if (report_to_l()->depth_i () < child_report->depth_i ())
+    set_translator (child_report);
 }
 
 Sequential_music_iterator::~Sequential_music_iterator()
 {
-  assert (! iter_p_);
+  if (iter_p_)
+    {
+      music_l_->warning ("Must stop before this music ends");
+      delete iter_p_;
+      iter_p_ = 0;
+    }
 }
 
 
@@ -101,20 +108,13 @@ Sequential_music_iterator::do_process_and_next (Moment until)
       
       if (!iter_p_->ok()) 
 	{
+	  set_sequential_music_translator();
 	  leave_element();
 	  
 	  if (cursor_)
-	    {
-	      start_next_element();
-	      set_sequential_music_translator();
-
-	      if (per_elt_b_)
-		goto loopexit;	// ugh.
-	    }
+	    start_next_element();
 	  else 
-	    {
-	      goto loopexit;
-	    }
+	    goto loopexit;
 	}
     }
 
@@ -129,40 +129,6 @@ Sequential_music_iterator::next_moment() const
   return iter_p_->next_moment() + here_mom_;
 }
 
-Music*
-Sequential_music_iterator::next_music_l ()
-{
-  if (!iter_p_)
-    return 0;
-
-  while (1) 
-    {
-      if (Music* m = iter_p_->next_music_l ())
-	{
-	  return m;
-	}
-      else
-	{
-	  // urg FIXME: sequential children should be iterated to finish
-	  if (dynamic_cast<Request_chord_iterator*> (iter_p_))
-	    delete iter_p_;
-	  iter_p_ = 0;
-	  leave_element ();
-	  
-	  if (cursor_)
-	    {
-	      start_next_element ();
-	      set_sequential_music_translator ();
-	    }
-	  else 
-	    {
-	      delete iter_p_;
-	      iter_p_ = 0;
-	      return 0;
-	    }
-	}
-    }
-}
 
 bool
 Sequential_music_iterator::ok() const
@@ -170,3 +136,8 @@ Sequential_music_iterator::ok() const
   return iter_p_;
 }
 
+Music_iterator*
+Sequential_music_iterator::try_music_in_children (Music const *m) const
+{ 
+  return iter_p_ ? iter_p_->try_music (m) : 0;
+}
