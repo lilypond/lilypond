@@ -2,14 +2,14 @@
 
 texidoc = " Chord names are generated from a list pitches.  The
 functions constructing the names are customisable. This file shows
-Jazz chords.  Compare with chords-ignatzek.ly"
+Jazz chords.  Compare with @file{chords-ignatzek.ly}."
 
 }
 
 chs = \notes \transpose c c' 
 {
 	<<c e g>>1-"dpn"
-	<<c es g>>% m = minor triad
+	<<c es g>>  % m = minor triad
 	<<c e gis>>
 	<<c es ges>> \break
 	<<c e g bes>>
@@ -54,7 +54,8 @@ chs = \notes \transpose c c'
 	<<c es g f'>>
 }
 
-efullmusic = \notes{
+efullmusic = \notes
+{
     <<c e gis>>1-\markup { "+" }
     <<c e g b>>-\markup { \normal-size-super
     %			  \override #'(font-family . math) "N" }

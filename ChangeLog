@@ -1,3 +1,7 @@
+2003-06-10  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/test/chord-names-dpnj.ly (texidoc): bugfix.
+
 2003-06-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/chord-ignatzek-names.scm (remove-step): rename file.
@@ -104,7 +108,6 @@
 	* scm/chord-name.scm (sequential-music-to-chord-exceptions): Add
 	comment about octave change.
 
->>>>>>> 1.959
 2003-06-04  Graham Percival  <gperlist@shaw.ca>
 
 	* input/test/[d,e]: added texinfo index tags.
