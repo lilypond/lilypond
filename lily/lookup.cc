@@ -239,15 +239,6 @@ sanitise_TeX_string (String text)
 
 /**
    JUNKME
- */
-String
-sanitise_PS_string (String t)
-{
-  return t;
-}
-
-/**
-   JUNKME
 */
 Molecule
 Lookup::text (String style, String text, Paper_def *paper_l) 
@@ -306,8 +297,6 @@ Lookup::text (String style, String text, Paper_def *paper_l)
       String str (lines[i]);
       if (output_global_ch == "tex")
 	str = sanitise_TeX_string  (str);
-      else if (output_global_ch == "ps")
-	str = sanitise_PS_string (str);
       lines[i] = str;
     }
 

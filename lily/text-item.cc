@@ -7,6 +7,7 @@
   Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
+#include "debug.hh"
 #include "text-item.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
@@ -70,23 +71,70 @@ Text_item::string2molecule (Score_element *me, SCM text, SCM properties)
       SCM f = me->get_elt_property ("properties-to-font-name");
       font_name = gh_call2 (f, paper, properties);
     }
-  String font_str = "roman";
-  if (gh_string_p (font_name))
-    font_str = ly_scm2string (font_name);
+   
+  // should move fallback to scm
+  if (!gh_string_p (font_name))
+    font_name = ly_str02scm ("cmr10");
     
-  SCM magnification = me->get_elt_property ("font-magnification");
+  SCM lookup = scm_assoc (ly_symbol2scm ("lookup"), properties);
 
-  Font_metric* metric_l = 0;
-  if (gh_number_p (magnification))
-    metric_l = all_fonts_global_p->find_scaled (font_str,
-						gh_scm2int (magnification));
+  Molecule mol;
+  if (gh_pair_p (lookup) && ly_symbol2string (gh_cdr (lookup)) == "name")
+    mol = lookup_character (me, font_name, text);
   else
-    metric_l = all_fonts_global_p->find_font (font_str);
+    mol = lookup_text (me, font_name, text);
+  
+  return mol;
+}
 
+/*
+  caching / use some form of Lookup without 'paper'?
+*/
+Molecule
+Text_item::lookup_character (Score_element *me, SCM font_name, SCM char_name)
+{
+  Adobe_font_metric *afm = all_fonts_global_p->find_afm (ly_scm2string (font_name));
+
+  if (!afm)
+    {
+      warning (_f ("can't find font: `%s'", ly_scm2string (font_name)));
+      warning (_f ("(search path: `%s')", global_path.str ().ch_C()));
+      error (_ ("Aborting"));
+    }
+  
+  AFM_CharMetricInfo const *metric =
+    afm->find_char_metric (ly_scm2string (char_name), true);
+
+  if (!metric)
+    {
+      Molecule m;
+      m.set_empty (false);
+      return m;
+    }
+
+  SCM list = gh_list (ly_symbol2scm ("char"),
+		      gh_int2scm (metric->code),
+		      SCM_UNDEFINED);
+  
+  list = fontify_atom (afm, list);
+  return Molecule (afm_bbox_to_box (metric->charBBox), list);
+}
+
+Molecule
+Text_item::lookup_text (Score_element *me, SCM font_name, SCM text)
+{
+  SCM magnification = me->get_elt_property ("font-magnification");
+  Font_metric* metric = 0;
+  if (gh_number_p (magnification))
+    metric = all_fonts_global_p->find_scaled (ly_scm2string (font_name),
+					      gh_scm2int (magnification));
+  else
+    metric = all_fonts_global_p->find_font (ly_scm2string (font_name));
+  
   SCM list = gh_list (ly_symbol2scm ("text"), text, SCM_UNDEFINED);
-  list = fontify_atom (metric_l, list);
-
-  return Molecule (metric_l->text_dimension (ly_scm2string (text)), list);
+  list = fontify_atom (metric, list);
+  
+  return Molecule (metric->text_dimension (ly_scm2string (text)), list);
 }
 
 Molecule

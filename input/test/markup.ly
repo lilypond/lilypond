@@ -9,9 +9,10 @@
 		c-\textscript #'(bold "textb")
 		d-\textscript #'(lines "een" "twee" "drie")
 		e-\textscript #'(lines (bold "een") 
-		  (rows "en" "dat" "is" ((family . "orator") "2"))
+		  (rows "en" "dat" "is" ((family . "number") "2"))
 		  (italic "drie"))
 		f-\textscript #'(finger "3")
+		g-\textscript #'(music (named "noteheads-2"))
 	}
 	\paper{
 		linewidth = -1.\mm;
@@ -20,6 +21,7 @@
 			TextScript \push #'style-sheet = #'paper16
 			TextScript \push #'font-family = #'roman
 			TextScript \pop #'no-spacing-rods
+			TextScript \push #'direction = #1
 		}
 	}
 }

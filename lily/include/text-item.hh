@@ -20,6 +20,8 @@ public:
   static Molecule text2molecule (Score_element *me, SCM text, SCM properties);
   static Molecule string2molecule (Score_element *me, SCM text, SCM properties);
   static Molecule markup_sentence2molecule (Score_element *me, SCM markup_sentence, SCM properties);
+  static Molecule lookup_character (Score_element *me, SCM font_name, SCM text);
+  static Molecule lookup_text (Score_element *me, SCM font_name, SCM char_name);
 };
 
 #endif /* TEXT_ITEM */
