@@ -1,5 +1,33 @@
-1.3.123.hwn1
+1.3.124.jcn3
 ============
+
+* Updated Coriolan.
+
+* Bugfix: beams with no stems.
+
+* Cleanup automatic knees, junked calc_interstaff_dist.
+
+* Automatic knees now on by default for vertical distances >= 7 staff-space.
+
+* Bugfix: automatic interstaff knees.
+
+1.3.124.hwn1
+============
+
+* Auto change music bugfix; removed Auto_change_music type
+
+* Bugfix: add copy ctors to all relevant iterators, this fixes various
+combinations with auto-change and part-combine.
+
+* Bugfix: glissandi with smaller rhythms parallel.
+
+* Add printfilename option to @lilypondfile 
+
+* Include Grobs in Context self-documentation; remove "Grob " from
+node name for grob documentation.
+
+1.3.124
+=======
 
 * Tutorial fragment on ly2dvi.
 

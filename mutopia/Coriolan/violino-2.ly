@@ -1,13 +1,13 @@
 \header{
 filename = 	 "violino-2.ly";
-xtitle = 	 "Ouvert\\"ure zu Collins Trauerspiel \\"Coriolan\\" Opus 62";
+%title = 	 "Ouvert\\"ure zu Collins Trauerspiel \\"Coriolan\\" Opus 62";
 description = 	 "";
 composer = 	 "Ludwig van Beethoven (1770-1827)";
 enteredby = 	 "JCN";
 copyright = 	 "public domain";
 }
 
-\version "1.3.117";
+\version "1.3.120";
 
 violinoII =  \notes \relative c {
 	c'1\ff ~ |

@@ -31,7 +31,6 @@
 #include "lookup.hh"
 #include "group-interface.hh"
 #include "staff-symbol-referencer.hh"
-#include "cross-staff.hh"
 #include "item.hh"
 #include "spanner.hh"
 #include "warn.hh"
@@ -78,18 +77,23 @@ Beam::before_line_breaking (SCM smob)
   Grob * me =  unsmob_grob (smob);
 
   // Why?
+  /*
+    Why what?  Why the warning (beams with less than 2 stems are
+    degenerate beams, should never happen), or why would this ever
+    happen (don't know). */
   if (visible_stem_count (me) < 2)
     {
       warning (_ ("beam has less than two stems"));
     }
-
-  if (!Directional_element_interface::get (me))
-    Directional_element_interface::set (me, get_default_dir (me));
-
-  auto_knees (me);
-  set_stem_directions (me);
-  set_stem_shorten (me);
-
+  if (visible_stem_count (me) >= 1)
+    {
+      if (!Directional_element_interface::get (me))
+	Directional_element_interface::set (me, get_default_dir (me));
+      
+      consider_auto_knees (me);
+      set_stem_directions (me);
+      set_stem_shorten (me);
+    }
   return SCM_EOL;
 }
 
@@ -106,7 +110,7 @@ Beam::get_default_dir (Grob*me)
 	Pointer_group_interface__extract_elements (me, (Item*)0, "stems");
 
   for (int i=0; i <stems.size (); i++)
-    do { // HUH -- waar slaat dit op?
+    do {
       Grob *s = stems[i];
       Direction sd = Directional_element_interface::get (s);
       int current = sd	? (1 + d * sd)/2
@@ -158,66 +162,63 @@ Beam::set_stem_directions (Grob*me)
     }
 } 
 
-void
-Beam::auto_knees (Grob*me)
-{
-  if (!auto_knee (me,"auto-interstaff-knee-gap", true))
-    auto_knee (me, "auto-knee-gap", false);
-}
-
 /*
   Simplistic auto-knees; only consider vertical gap between two
   adjacent chords.
 
   `Forced' stem directions are ignored.  If you don't want auto-knees,
-  don't set, or unset autoKneeGap/autoInterstaffKneeGap.
+  don't set, or unset auto-knee-gap.
  */
-bool
-Beam::auto_knee (Grob*me, String gap_str, bool interstaff_b)
+void
+Beam::consider_auto_knees (Grob *me)
 {
-  bool knee_b = false;
-  int knee_y = 0;
-  SCM gap = me->get_grob_property (gap_str.ch_C());
+  SCM scm = me->get_grob_property ("auto-knee-gap");
 
-  Direction d = Directional_element_interface::get (me);
+  if (gh_number_p (scm))
+    {
+      bool knee_b = false;
+      Real knee_y = 0;
+      Real staff_space = Staff_symbol_referencer::staff_space (me);
+      Real gap = gh_scm2double (scm) / staff_space;
+
+      Direction d = Directional_element_interface::get (me);
       Link_array<Item> stems=
 	Pointer_group_interface__extract_elements (me, (Item*)0, "stems");
-  
-  if (gh_number_p (gap))
-    {
-      Spanner*sp = dynamic_cast<Spanner*> (me);
-      int auto_gap_i = gh_scm2int (gap);
+      
+      Grob *common = me->common_refpoint (stems[0], Y_AXIS);
+      for (int i=1; i < stems.size (); i++)
+	common = common->common_refpoint (stems[i], Y_AXIS);
+      
       for (int i=1; i < stems.size (); i++)
         {
-	  bool is_b = (bool)(calc_interstaff_dist (stems[i], sp) 
-	    - calc_interstaff_dist (stems[i-1], sp));
-	  int l_y = (int)(Stem::head_positions(stems[i-1])[d])
-	    + (int)calc_interstaff_dist (stems[i-1], sp);
-	  int r_y = (int)(Stem::head_positions(stems[i])[d])
-	    + (int)calc_interstaff_dist (stems[i], sp);
-	  int gap_i = r_y - l_y;
+	  Real left = Stem::extremal_heads (stems[i-1])[d]
+	    ->relative_coordinate (common, Y_AXIS);
+	  Real right = Stem::extremal_heads (stems[i])[d]
+	    ->relative_coordinate (common, Y_AXIS);
 
-	  if ((abs (gap_i) >= auto_gap_i) && (!interstaff_b || is_b))
+	  Real dy = right - left;
+
+	  if (abs (dy) >= gap)
 	    {
-	      knee_y = (r_y + l_y) / 2;
+	      knee_y = (right + left) / 2;
 	      knee_b = true;
 	      break;
 	    }
 	}
-    }
-  if (knee_b)
-    {
-      for (int i=0; i < stems.size (); i++)
-        {
-	  Item *s = stems[i];	  
-	  int y = (int)(Stem::head_positions(s)[d])
-	    + (int)calc_interstaff_dist (s, dynamic_cast<Spanner*> (me));
+      
+      if (knee_b)
+	{
+	  for (int i=0; i < stems.size (); i++)
+	    {
+	      Item *s = stems[i];	  
+	      Real y = Stem::extremal_heads (stems[i])[d]
+		->relative_coordinate (common, Y_AXIS);
 
-	  Directional_element_interface::set (s,y < knee_y ? UP : DOWN);
-	  s->set_grob_property ("dir-forced", SCM_BOOL_T);
+	      Directional_element_interface::set (s, y < knee_y ? UP : DOWN);
+	      s->set_grob_property ("dir-forced", SCM_BOOL_T);
+	    }
 	}
     }
-  return knee_b;
 }
 
 /*
@@ -230,8 +231,6 @@ void
 Beam::set_stem_shorten (Grob*m)
 {
   Spanner*me = dynamic_cast<Spanner*> (m);
-  if (!visible_stem_count (me))
-    return;
 
   Real forced_fraction = forced_stem_count (me) / visible_stem_count (me);
   if (forced_fraction < 0.5)
@@ -302,7 +301,13 @@ Beam::after_line_breaking (SCM smob)
   /* weird: why do we do calc_position_and_height () ? regardless of
      this setting?
 
-  */
+     If the user sets height, we still need to calculate the y-position.
+     If the user sets height-hs, we still need to calculate and
+     quantise y-position.
+
+     We use least squares to calculate y-position and height, so we
+     inherently always calculate both.  */
+  
   /* check for user-override of dy */
   SCM s = me->remove_grob_property ("height-hs");
   if (gh_number_p (s))
@@ -520,6 +525,12 @@ Beam::set_stem_length (Grob*me,Real y, Real dy)
   Link_array<Item> stems=
     Pointer_group_interface__extract_elements (me, (Item*)0, "stems");
 
+  if (stems.size () < 1)
+    return;
+  
+  Grob *common = me->common_refpoint (stems[0], Y_AXIS);
+  for (int i=1; i < stems.size (); i++)
+    common = common->common_refpoint (stems[i], Y_AXIS);
 
   for (int i=0; i < stems.size (); i++)
     {
@@ -530,7 +541,9 @@ Beam::set_stem_length (Grob*me,Real y, Real dy)
       Real stem_y = calc_stem_y_f (me, s, y, dy);
 
       /* caution: stem measures in staff-positions */
-      Stem::set_stemend (s,(stem_y + calc_interstaff_dist (s, dynamic_cast<Spanner*> (me))) / half_space);
+      Real id = me->relative_coordinate (common, Y_AXIS)
+	- stems[i]->relative_coordinate (common, Y_AXIS);
+      Stem::set_stemend (s, (stem_y + id) / half_space);
     }
 }
 

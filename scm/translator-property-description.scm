@@ -115,6 +115,10 @@ set, connect all arpeggios that are found.  In this way, you can make
 arpeggios that cross staffs.
 ")
 (translator-property-description 'createKeyOnClefChange boolean? "Print a key signature whenever the clef is changed.")
+(translator-property-description 'crescendoText string? "Text to print at start of non-hairpin crecscendo, ie: @samp{cresc.}")
+(translator-property-description 'crescendoSpanner symbol? "Type of spanner to be used for crescendi.  One of: @samp{hairpin}, @samp{line}, @samp{dashed-line}, @samp{dotted-line}.  If unset, hairpin type is used.")
+(translator-property-description 'decrescendoText string? "Text to print at start of non-hairpin decrecscendo, ie: @samp{dim.}")
+(translator-property-description 'decrescendoSpanner symbol? "Type of spanner to be used for decrescendi.  One of: @samp{hairpin}, @samp{line}, @samp{dashed-line}, @samp{dotted-line}.  If unset, hairpin type is used.")
 (translator-property-description 'currentBarNumber integer? "Contains the current barnumber. This property is incremented at
 every barline.
 ")
@@ -125,6 +129,8 @@ every barline.
 (translator-property-description 'drarnChords boolean? "")
 (translator-property-description 'explicitClefVisibility procedure? "visibility-lambda function for clef changes.")
 (translator-property-description 'explicitKeySignatureVisibility procedure? "visibility-lambda function for explicit Key changes.")
+(translator-property-description 'followThread boolean?
+				 "if set, note heads are tracked  across staff switches by a thin line")
 (translator-property-description 'forceClef boolean? "Show clef symbol, even if it hasn't changed.")
 (translator-property-description 'forgetAccidentals boolean? "do
 not set localKeySignature when a note alterated differently from
@@ -223,16 +229,16 @@ r1 r1*3 R1*3  \\\\property Score.skipBars= ##t r1*3 R1*3
 ")
 (translator-property-description 'slurBeginAttachment symbol?
 "translates to the car of grob-property 'attachment of NoteColumn. See
-@ref{Grob Slur}.")
+@ref{Slur}.")
 
-(translator-property-description 'slurEndAttachment symbol? "translates to the cdr of grob-property 'attachment of NoteColumn. See @ref{Grob Slur}.")
-(translator-property-description 'slurMelismaBusy boolean? "Signal a slur if automaticMelismata is set")
-(translator-property-description 'solo boolean? "set if solo is detected by the part combiner")
-(translator-property-description 'soloADue boolean? "set Solo/A due texts in the part combiner?")
-(translator-property-description 'soloIIText string? "text for begin of solo for voice ``two'' when part-combining")
-(translator-property-description 'soloText string? "text for begin of solo when part-combining")
+(translator-property-description 'slurEndAttachment symbol? "translates to the cdr of grob-property 'attachment of NoteColumn. See @ref{1Slur}.")
+(translator-property-description 'slurMelismaBusy boolean? "Signal a slur if automaticMelismata is set.")
+(translator-property-description 'solo boolean? "set if solo is detected by the part combiner.")
+(translator-property-description 'soloADue boolean? "set Solo/A due texts in the part combiner?.")
+(translator-property-description 'soloIIText string? "text for begin of solo for voice ``two'' when part-combining.")
+(translator-property-description 'soloText string? "text for begin of solo when part-combining.")
 (translator-property-description 'sparseTies boolean? "only create one tie per chord.")
-(translator-property-description 'split-interval number-pair? "always split into two voices for contained intervals when part-combining")
+(translator-property-description 'split-interval number-pair? "always split into two voices for contained intervals when part-combining.")
 (translator-property-description 'squashedPosition integer? " Vertical position of
 squashing for Pitch_squash_engraver.")
 (translator-property-description 'staffsFound list? "list of all staff-symbols found.")
@@ -243,15 +249,15 @@ squashing for Pitch_squash_engraver.")
 Specify the number of beams to draw on the left side of the next note.
 Overrides automatic beaming.  The value is only used once, and then it
 is erased.
-")
-(translator-property-description 'stemRightBeamCount integer? "idem, for the right side")
+.")
+(translator-property-description 'stemRightBeamCount integer? "idem, for the right side.")
 (translator-property-description 'stz string? "Abbreviated form for a stanza, see also Stanza property.")
 (translator-property-description 'textNonEmpty boolean? " If set
 to true then text placed above or below the staff is not assumed to
 have zero width.  @code{\fatText} and @code{\emptyText} are predefined
 settings.
-")
-(translator-property-description 'tieMelismaBusy boolean? "Signal ties when automaticMelismata is set")
+.")
+(translator-property-description 'tieMelismaBusy boolean? "Signal ties when automaticMelismata is set.")
 (translator-property-description 'timeSignatureFraction number-pair? "
 pair of numbers,  signifying the time signature. For example #'(4 . 4) is a 4/4time signature.")
 (translator-property-description 'timing boolean? " Keep administration of measure length, position, bar number, etc?
@@ -276,14 +282,14 @@ context Voice 	imes 2/3 @{
 @}
 @@end lilypond
 @end example
-")
+.")
 (translator-property-description 'unirhythm boolean? "set if unirhythm is detected by the part combiner.")
 (translator-property-description 'unisilence boolean? "set if unisilence is detected by the part combiner.")
-(translator-property-description 'unison boolean? "set if unisono is detected  by the part combiner. ")
+(translator-property-description 'unison boolean? "set if unisono is detected  by the part combiner. .")
 (translator-property-description 'verticalAlignmentChildCallback
 procedure? "what callback to add to children of a vertical alignment.
 It determines what alignment procedure is used on the alignment
-itself.  ")
+itself.  .")
 (translator-property-description 'voltaSpannerDuration moment? "maximum duration of the volta bracket.
 
     Set to a duration to control the size of the brackets printed by
@@ -292,8 +298,8 @@ to use for the brackets.  This can be used to shrink the length of
 brackets in the situation where one alternative is very large.  It may
 have odd effects if the specified duration is longer than the music
 given in an @code{\\alternative}.
-")
-(translator-property-description 'weAreGraceContext boolean? "")
+.")
+(translator-property-description 'weAreGraceContext boolean? ".")
 (translator-property-description 'whichBar string?
 				 "This property is read to determine what type of barline to create.
 
@@ -310,5 +316,5 @@ according to values of @code{defaultBarType}, @code{barAlways},
 
 Legal values are described in @ref{(lilypond-internals)bar-line-interface}.
 
-")
+.")
 

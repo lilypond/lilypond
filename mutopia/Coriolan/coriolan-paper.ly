@@ -1,5 +1,6 @@
+\version "1.3.120"
 \paper{
-	\paper_sixteen
+	\paperSixteen
 
 	%textheight = 290.0\mm;
 	%linewidth = 195.0\mm;
