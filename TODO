@@ -10,7 +10,11 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 
 .* TODO before 1.2
 . * Break_req handling is silly (break_forbid () + \break fucks up.)
-. * chord names.
+. * chord names. -- what about?
+. * check html (png) music: pictures are cut-off at the bottom over here (jcn)
+. * Staff.noAutoBeaming = 0 ?  (vs: automaticMelismas)  I don't like 
+settings with negations in them (manualBeaming?) 
+. * Melismas(*) --> Melismata (at least in doco)
 
 .* Cleanups needed
 . * \$ and $ identifier syntax in examples.
