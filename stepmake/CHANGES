@@ -1,3 +1,8 @@
+pl 81
+	- Yodl-free (tm)
+	- bf: package-zet: too many symlinks
+	- bf: yodl-targets.make
+
 pl 80
 	- use mgsmerge iso tupdate
 

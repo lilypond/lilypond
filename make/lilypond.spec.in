@@ -6,7 +6,8 @@ Group: Applications/Publishing
 Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-@TOPLEVEL_VERSION@.tar.gz
 Summary: A program for printing sheet music.
 URL: http://www.cs.uu.nl/~hanwen/lilypond
-Packager: Han-Wen Nienhuys <hanwen@cs.uu.nl>
+# get Packager from (undocumented?) ~/.rpmmacros!
+# Packager: Han-Wen Nienhuys <hanwen@cs.uu.nl>
 # Icon: @package@-icon.gif
 BuildRoot: /tmp/lilypond-install
 Prereq: tetex
