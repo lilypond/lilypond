@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.11"
 foollilypondbook = "
 \score
 "
@@ -9,5 +9,5 @@ foollilypondbook = "
 
 
 
-\include "paper16.ly"
+#(set-staff-size 16)
 \include "allfontstyle.lyinc"

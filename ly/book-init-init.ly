@@ -1,10 +1,10 @@
 % Toplevel initialisation file. 
 	
-\version "1.9.8"
+\version "2.1.11"
 
 
 \include "declarations-init.ly"
-\include "paper16-init.ly"
+#(set-staff-size 16)
 
  \paper{
 	\paperSixteen

@@ -17,6 +17,27 @@ Version 2.1.9
 @end ignore
 
 @itemize @bullet
+@item Default staff sizes are now scalable. There are two new mechanisms for
+setting staff sizes is, both demonstrated in this fragment
+
+@example
+  #(set-staff-size 15)
+  \paper {
+    #(paper-set-staff-size (* 15 pt))
+  }   
+@end example
+
+@noindent
+Both have  the same effect on the global layout  of a
+piece. Similarly, the paper size may be changed as follows
+
+@example
+  #(set-paper-size "a4")
+@end example 
+
+@item
+ The black note head was made a little rounder, which causes a less
+ frantic graphic impression.
 
 @item
 A more concise syntax for checking octaves was introduced. A note may

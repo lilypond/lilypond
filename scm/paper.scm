@@ -17,6 +17,7 @@
     (module-define! m 'fonts (scale-font-list (/  sz (* 20 pt))))
     (module-define! m 'staffheight sz)
     (module-define! m 'staff-space ss)
+    (module-define! m 'staffspace ss)
     (module-define! m 'linethickness (* 0.5 pt))
     (module-define! m 'outputscale ss)
     (module-define! m 'ledgerlinethickness (+ (* 0.5 pt) (/ ss 10)))
@@ -48,6 +49,19 @@
 
 ;; todo: take dimension arguments.
 
+
+(define (set-paper-dimensions m h w)
+  (let*
+      ( (mm (eval 'mm m)) )
+
+    (module-define! m 'hsize w)
+    (module-define! m 'vsize h)
+    (module-define! m 'linewidth (- w (* 20 mm)))
+    (module-define! m 'raggedright #f)
+    (module-define! m 'packed #f)
+    (module-define! m 'indent (/ w 14)) ))
+
+
 (define-public (set-paper-size name)
   (let*
       ((entry (assoc name paper-alist))
@@ -58,13 +72,7 @@
     (if (pair? entry)
 	(begin
 	  (set! entry (eval  (cdr entry) m))
-	  (module-define! m 'papersize name)
-	  (module-define! m 'papersizename name)
-	  (module-define! m 'hsize (car entry))
-	  (module-define! m 'vsize (cdr entry))
-	  (module-define! m 'linewidth (- (car entry) (* 20 mm)))
-	  (module-define! m 'raggedright #f)
-	  (module-define! m 'packed #f)
-	  (module-define! m 'indent (/ (car entry) 4)) )
+	  (set-paper-dimensions m (car entry) (cdr entry))
+	  )
 	(ly:warning (string-append "Unknown papersize: " name))
 	)))

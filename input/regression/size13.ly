@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.11"
 foollilypondbook = "
 \score
 "
@@ -7,5 +7,5 @@ foollilypondbook = "
     texidoc ="Staff height 13 pt."
     }
 
-\include "paper13.ly"
+#(set-staff-size 13)
 \include "allfontstyle.lyinc"

@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.11"
 %possible rename to paper-fill-a4.ly -gp
 % candidate for reg -gp
 % Han says no, but keeping this comment temporarily so that I don't
@@ -16,7 +16,7 @@
 This should fill a4 paper. "
 }
 
-\include "paper13.ly"
+#(set-staff-size 13)
 
 \score{
 	\context Voice \notes\relative c'{
