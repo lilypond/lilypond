@@ -8,10 +8,14 @@
 @unnumbered New features in 2.1 since 2.0
 
 @itemize @bullet
+
+@item The @code{Timing_engraver} now sets the @code{Timing} alias on
+its containing context automatically.
+
 @item The code for font selection has been rewritten. In addition to
 existing font selection properties, the property @code{font-encoding}
-has been added, which makes the switch between normal  @code{text} and other
-encodings like @code{braces},  @code{music} and @code{math}. 
+has been added, which makes the switch between normal @code{text} and
+other encodings like @code{braces}, @code{music} and @code{math}.
 
 @item The pmx2ly script has been removed from the distribution.
 

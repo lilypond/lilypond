@@ -616,7 +616,7 @@ Grob::has_extent_callback (SCM cb, Axis a)const
 bool
 Grob::has_offset_callback (SCM cb, Axis a)const
 {
-  return scm_memq (cb, dim_cache_[a].offset_callbacks_) != SCM_BOOL_F;
+  return scm_c_memq (cb, dim_cache_[a].offset_callbacks_) != SCM_BOOL_F;
 }
 
 void
@@ -763,7 +763,7 @@ Grob::internal_has_interface (SCM k)
 {
   SCM ifs = get_property ("interfaces");
 
-  return scm_memq (k, ifs) != SCM_BOOL_F;
+  return scm_c_memq (k, ifs) != SCM_BOOL_F;
 }
 
 

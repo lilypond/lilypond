@@ -248,23 +248,144 @@ need explicit accidentals.
 This information can be present on several levels.  For example, the
 effect of an accidental is limited to a single stave, while a bar line
 must be synchronized across the entire score.  To match this
-hierarchy, LilyPond's interpretation step is hierarchical. Properties
-are maintained `interpretation contexts', like Voice, Staff and Score,
-and each context can have different @emph{properties}, variables that
-are contained in a context.
+hierarchy, LilyPond's interpretation step is hierarchical.  There are
+interpretation contexts, like @context{Voice}, Staff and Score, and each level
+can maintain its own properties.
+
+Full description of all available contexts is in the program
+reference, see
+@ifhtml
+@internalsref{Contexts}
+@end ifhtml.
+@ifnothtml 
+Translation @arrow{} Context.
+@end ifnothtml
 
 @menu
+* Creating contexts::           
 * Changing context properties on the fly ::  
-* context property defaults ::  
+* Modifying context plug-ins::  
+* Defining context defaults ::  
 * which properties to change::  
 @end menu
+
+@node Creating contexts
+@subsection Creating contexts
+
+For simple scores, the correct contexts are created automatically. For
+more complex scores, it is necessary to instantiate them by hand.
+There are three commands to do this.
+
+The easiest command is @code{\new}, and it also the quickest to type.
+It is prepended to a  music expression, for example
+
+@example
+  \new @var{type} @var{music expression}
+@end example
+
+@noindent
+where @var{type} is a context name (like @code{Staff} or
+@code{Voice}).  This command creates a new context, and starts
+interpreting @var{music expression} with that.
+
+A practical application of @code{\new} is a score with many
+staves. Each part that should be on its own staff, gets a @code{\new
+Staff}.
+
+@lilypond[verbatim,relative=2,raggedright]
+  << \new Staff { c4 c }
+     \new Staff { d4 d }
+  >>
+@end lilypond
+
+
+The @code{\context} command also directs a music expression to a
+context object, but gives the context an extra name. The syntax is
+
+@example
+  \context @var{type} = @var{id} @var{music}
+@end example
+
+This form will search for an existing context of type @var{type}
+called @var{id}. If that context does not exist yet, it is created.
+This is useful if the context referred to later on. For example, when
+setting lyrics the melody is in a named context
+
+@example
+ \context Voice = "@b{tenor}" @var{music}
+@end example
+
+@noindent
+so the texts can be properly aligned to its notes,
+
+@example
+\new Lyrics \lyricsto "@b{tenor}" @var{lyrics} 
+@end example
+
+@noindent
+
+Another possibility is funneling two different music expressions into
+one context. In the following example, articulations and notes are
+entered separately,
+
+@example
+music = \notes { c4 c4 }
+arts = \notes  { s4-. s4-> }
+@end example
+
+They are combined by sending both to the same @context{Voice} context,
+
+@example
+  << \new Staff \context Voice = "A" \music
+     \context Voice = "A" \arts
+  >>
+@end example
+@lilypond[raggedright]
+music = \notes \context Voice = "one" { c4 c4 }
+arts = \notes \context Voice = "one"  { s4-. s4-> }
+\score {
+  << \new Staff \context Voice = "A" \music
+     \context Voice = "A" \arts
+  >>
+} 
+@end lilypond
+
+
+
+The third command for creating contexts is
+@example
+  \context @var{type} @var{music}
+@end example
+
+
+@noindent
+It is similar to @code{\context} with @code{= @var{id}}, but now it
+matches any context of type @var{type}, regardless of its given name.
+
+This variant is used with music expressions that can be interpreted at
+several levels. For example, the @code{\applyoutput} command (see
+@ref{Running a function on all layout objects}). Without an explicit
+@code{\context}, it is usually is applied to @context{Voice}
+
+@example
+  \applyoutput #@var{function}   % apply to Voice
+@end example
+
+To have it interpreted at @context{Score} or @context{Staff} level use
+these forms
+
+@example
+  \context Score \applyoutput #@var{function}
+  \context Staff \applyoutput #@var{function}
+@end example
+
 
 @node Changing context properties on the fly 
 @subsection Changing context properties  on the fly
 
-Context variables, properties, can be changed during the
-interpretation step.  This is achieved by inserting the @code{\set}
-command in the music,
+Each context can have different @emph{properties}, variables contained
+in that context. They can be changed during the interpretation step.
+This is achieved by inserting the @code{\set} command in the music,
 
 @quotation
   @code{\set }[@var{context}]@code{.}@var{prop}@code{ = #}@var{value} 
@@ -282,7 +403,7 @@ multi rests are condensed.  The value assigned is a Scheme object. In
 this case, it is @code{#t}, the boolean True value.
 
 If the @var{context} argument is left out, then the current
-bottom-most context (typically ChordNames, Voice or Lyrics) is used.
+bottom-most context (typically ChordNames, @context{Voice} or Lyrics) is used.
 In this example,
 
 @lilypond[verbatim,relative=2]
@@ -306,20 +427,19 @@ There is also an @code{\unset} command,
 
 @noindent
 which removes the definition of @var{prop}. This command only removes
-definitions  set in
-@var{context}. in
+the definition if it is set in @var{context}. In
 
 @example
-  \set staff.autoBeaming = ##f
-  \unset voice.autoBeaming
+  \set Staff.autoBeaming = ##f
+  \unset Voice.autoBeaming
 @end example
 
 @noindent
 the current voice does not have the property, and the definition at
 staff level remains intact.
 
-Settings that should only apply to a single time-step  can be entered
-easily with @code{\once}, for example in 
+Settings that should only apply to a single time-step can be entered
+easily with @code{\once}, for example in
 
 @lilypond[verbatim,relative=2]
   c4
@@ -330,9 +450,106 @@ easily with @code{\once}, for example in
 
 @code{fontSize} is unset after the third note.
 
+A full description of all available context properties is in the
+program reference, see
+@ifhtml
+@internalsref{Tunable-context-properties}.
+@end ifhtml
+@ifnothtml
+Translation @arrow{} Tunable context properties.
+@end ifnothtml
+
+
 @node Modifying context plug-ins
 @subsection Modifying context plug-ins
 
+Notation contexts (like Score and Staff) not only store properties,
+they also contain plug-ins, called ``engravers'' that create notation
+elements. For example, the Voice context contains a
+@code{Note_head_engraver} and the Staff context contains a
+@code{Key_signature_engraver}.
+
+For a full a description of each plug-in, see 
+@ifhtml
+@internalsref{Engravers}
+@end ifhtml
+@ifnothtml
+Program reference @arrow Translation @arrow{} Engravers.
+@end ifnothtml
+Every context described in
+@ifhtml
+@internalsref{Contexts}
+@end ifhtml.
+@ifnothtml 
+Program reference @arrow Translation @arrow{} Context.
+@end ifnothtml
+lists the engravers used for that context.
+
+
+It can be useful to shuffle around these plug-ins. This is done by
+starting a new context, with @code{\new} or @code{\context}, and
+modifying it like this, 
+
+@example
+ \new @var{context} \with @{
+   \consists @dots{}
+   \consists @dots{}
+   \remove  @dots{}
+   \remove @dots{}
+   @emph{etc.}
+ @}
+ @var{..music..}
+@end example
+
+where the @dots{} should be the name of an engraver. Here is a simple
+example which removes @code{Time_signature_engraver} and
+@code{Clef_engraver} from a @code{Staff} context,
+
+@lilypond[relative=1, verbatim]
+<< \new Staff {
+    f2 g
+  }
+  \new Staff \with {
+     \remove Time_signature_engraver
+     \remove Clef_engraver
+  } {
+    f2 g2
+  }
+>>
+@end example
+
+In the second stave there are no time signature or clef symbols.  This
+is a rather crude method of making objects disappear, it will affect
+the entire staff. More sophisticated method is shown in TODO.
+
+The next example shows a practical application.  Bar lines and time
+signatures are normally synchronized across the score.  This is done
+by the @code{Timing_engraver}. This plug-in keeps an administration of
+time signature, location within the measure, etc. By moving the
+@code{Timing_engraver} engraver from Score to Staff context, we can
+have score where each staff has its own time signature.
+
+@cindex polymetric scores
+
+
+@lilypond[relative=1,raggedright,verbatim]
+\new Score \with {
+  \remove Timing_engraver
+} <<
+  \new Staff \with {
+    \consists Timing_engraver
+  } {
+      \time 3/4
+      c4 c c c c c
+  }
+  \new Staff \with {
+    \consists Timing_engraver {
+  } {
+       \time 2/4
+       c4 c c c c c
+  }
+  >>
+@end lilypond
 
 
 @node Defining context defaults 

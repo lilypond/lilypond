@@ -71,7 +71,7 @@ check_interfaces_for_property (Grob const *me, SCM sym)
 	  continue;
 	}
 
-      found= found || (scm_memq (sym, gh_caddr (iface)) != SCM_BOOL_F);
+      found= found || (scm_c_memq (sym, gh_caddr (iface)) != SCM_BOOL_F);
     }
 
   if (!found)

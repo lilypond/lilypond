@@ -111,6 +111,7 @@ public:
   Music * get_music () const;
 protected:
   virtual void do_quit();
+  void descend_to_child (Context*);
 private:
   Interpretation_context_handle handle_;
   Music  * music_;

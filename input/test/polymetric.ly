@@ -1,4 +1,4 @@
-\version "2.1.30"
+\version "2.1.31"
 
 \header{ texidoc="@cindex Time Signature Multiple
 
@@ -42,7 +42,7 @@ lines seem to distort the regular spacing.
 	\context{
 	    \StaffContext
 	    \consists "Timing_engraver"
-	    \alias "Timing"
+	    
 	}
     }
 }

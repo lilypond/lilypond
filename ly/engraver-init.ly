@@ -408,9 +408,7 @@ AncientRemoveEmptyStaffContext = \context {
 
 				% move the alias along with the engraver.
 
-    %% TODO? add this alias from Timing_engraver::initialize() ? 
     \consists "Timing_engraver"
-    \alias "Timing"
     
     \consists "Output_property_engraver"
     \consists "System_start_delimiter_engraver"
@@ -592,7 +590,6 @@ EasyNotation = \context {
 
     %% don't want to route anything out of here: 
     \alias "Staff"
-    \alias "Timing"
     \alias "Voice"
     \consists "Swallow_engraver"
     \description "Silently discards all musical information given to this context. "

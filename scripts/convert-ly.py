@@ -2013,6 +2013,13 @@ ly:translator-find -> ly:context-find
 ly:get-stencil-extent -> ly:stencil-extent
 '''))
 
+def conv (str):
+	str = re.sub (r'\\alias\s*"?Timing"?', '', str)
+	return str
+
+conversions.append (((2,1,31), conv,
+		     '''remove \\alias Timing'''))
+
 ################################
 #	END OF CONVERSIONS	
 ################################

@@ -127,7 +127,7 @@ engraver_valid (Translator*tr, SCM ifaces)
   SCM ack_ifs = scm_assoc (ly_symbol2scm ("interfaces-acked"), tr->translator_description ());
   ack_ifs = gh_cdr (ack_ifs);
   for (SCM s = ifaces; ly_pair_p (s); s = ly_cdr (s))
-    if (scm_memq (ly_car (s), ack_ifs) != SCM_BOOL_F)
+    if (scm_c_memq (ly_car (s), ack_ifs) != SCM_BOOL_F)
       return true;
   return false;
 }

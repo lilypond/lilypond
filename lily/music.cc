@@ -21,7 +21,7 @@ Music::internal_is_music_type (SCM k) const
 {
   SCM ifs = get_property ("types");
 
-  return scm_memq (k, ifs) != SCM_BOOL_F;
+  return scm_c_memq (k, ifs) != SCM_BOOL_F;
 }
 
 String

@@ -212,7 +212,7 @@ position_with_maximal_common_beams (SCM left_beaming, SCM right_beaming,
       for ( SCM s = gh_car (right_beaming); gh_pair_p (s); s = gh_cdr (s))
 	{
 	  int k = - right_dir * gh_scm2int (gh_car (s)) + i;
-	  if (scm_memq (scm_int2num (k), left_beaming) != SCM_BOOL_F)
+	  if (scm_c_memq (scm_int2num (k), left_beaming) != SCM_BOOL_F)
 	    count ++;
 	}
 
@@ -380,7 +380,7 @@ Beam::print (SCM grob)
 	   gh_pair_p (s); s =gh_cdr (s))
 	{
 	  int b = gh_scm2int (gh_car (s));
-	  if (scm_memq (gh_car (s), right) != SCM_BOOL_F)
+	  if (scm_c_memq (gh_car (s), right) != SCM_BOOL_F)
 	    {
 	      full_beams.push (b);
 	    }
@@ -393,7 +393,7 @@ Beam::print (SCM grob)
 	   gh_pair_p (s); s =gh_cdr (s))
 	{
 	  int b = gh_scm2int (gh_car (s));
-	  if (scm_memq (gh_car (s), left) == SCM_BOOL_F)
+	  if (scm_c_memq (gh_car (s), left) == SCM_BOOL_F)
 	    {
 	      rfliebertjes.push (b);
 	    }
@@ -1227,7 +1227,7 @@ where_are_the_whole_beams (SCM beaming)
   
   for ( SCM s = gh_car (beaming); gh_pair_p (s) ; s = gh_cdr (s))
     {
-      if (scm_memq (gh_car (s), gh_cdr (beaming)) != SCM_BOOL_F)
+      if (scm_c_memq (gh_car (s), gh_cdr (beaming)) != SCM_BOOL_F)
 	
 	l.add_point (gh_scm2int (gh_car (s)));
     }

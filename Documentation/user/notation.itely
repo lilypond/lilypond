@@ -2494,7 +2494,7 @@ With alternative endings:
 
 @refbugs
 
-If you do a nested repeat like
+A nested repeat like
 
 @example 
 \repeat @dots{}
@@ -2503,10 +2503,10 @@ If you do a nested repeat like
 @end example 
 
 @noindent
-then it is ambiguous to which @code{\repeat} the @code{\alternative}
-belongs. This ambiguity is resolved by always having the
-@code{\alternative} belong to the inner @code{\repeat}.  For clarity,
-it is advisable to use braces in such situations.
+is ambiguous, since it is is not clear to which @code{\repeat} the
+@code{\alternative} belongs. This ambiguity is resolved by always
+having the @code{\alternative} belong to the inner @code{\repeat}.
+For clarity, it is advisable to use braces in such situations.
 @cindex ambiguity
 
 @node Repeats and MIDI

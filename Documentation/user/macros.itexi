@@ -42,6 +42,21 @@ $\\flat$%
 @end macro
 @end iftex
 
+@macro arrow{}
+@iftex
+@tex $\\Rightarrow$ @end tex@c
+@end iftex
+@ifhtml
+@html
+&rarr;
+@end html
+@end ifhtml
+@ifinfo
+-->
+@end ifinfo
+@end macro
+
+
 
 
 @iftex
@@ -145,6 +160,14 @@ internals document,  @internalsref{\NAME\}
 
 @end macro
 
+@ifhtml
+@macro context{NAME}
+@code{NAME}@c should use internalsref
+@cindex \NAME\@c
+@end macro
+
+
+
 
 @c
 @c ARGGGHHHHH! I want
@@ -156,10 +179,3 @@ internals document,  @internalsref{\NAME\}
 @cindex @code{\WHAT\}
 @code{\WHAT\}, 
 @end macro
-
-@macro syntax
-@noindent
-@subsubheading Syntax
-
-@end macro
-

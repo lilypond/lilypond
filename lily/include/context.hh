@@ -26,6 +26,8 @@ public:
   SCM properties_scm_;
   SCM context_list_;
   SCM accepts_list_;
+  SCM aliases_;
+
   Context * daddy_context_;
   
   Context ();
@@ -45,6 +47,7 @@ public:
   
   virtual Score_context * get_score_context () const;  
   bool is_alias (SCM) const;
+  void add_alias (SCM); 
   void add_context (Context *trans);
   bool is_bottom_context () const;
   bool is_removable () const;

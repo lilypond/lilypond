@@ -49,7 +49,7 @@ translator_accepts_any_of (Translator*tr, SCM ifaces)
 			   tr->translator_description ());
   ack_ifs = gh_cdr (ack_ifs);
   for (SCM s = ifaces; ly_pair_p (s); s = ly_cdr (s))
-    if (scm_memq (ly_car (s), ack_ifs) != SCM_BOOL_F)
+    if (scm_c_memq (ly_car (s), ack_ifs) != SCM_BOOL_F)
       return true;
   return false;
 }

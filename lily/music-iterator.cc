@@ -236,3 +236,22 @@ Music_iterator::run_always ()const
 {
   return false;
 }
+
+/*
+  move to context of child iterator if it is deeper down in the
+  hierarchy.
+  */
+void
+Music_iterator::descend_to_child (Context * child_report)
+{
+  Context * me_report = get_outlet ();
+
+  Context * c = child_report;
+  while (c && c != me_report)
+    {
+      c = c->daddy_context_;
+    }
+  
+  if (c == me_report)
+    set_translator (child_report);
+}

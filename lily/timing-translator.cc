@@ -49,7 +49,7 @@ Timing_translator::initialize ()
   /*
     move this to engraver-init.ly? 
    */
- 
+  daddy_context_->add_alias (ly_symbol2scm ("Timing"));
   daddy_context_->set_property ("timing" , SCM_BOOL_T);  
   daddy_context_->set_property ("currentBarNumber" , gh_int2scm (1));
 
@@ -125,7 +125,8 @@ Timing_translator::start_translation_timestep ()
   else
     {
       measposp = now;
-      daddy_context_->set_property ("measurePosition", measposp.smobbed_copy ());
+      daddy_context_->set_property ("measurePosition",
+				    measposp.smobbed_copy ());
     }
   
   measposp += dt;
@@ -151,4 +152,9 @@ Timing_translator::start_translation_timestep ()
   daddy_context_->set_property ("measurePosition", measposp.smobbed_copy ());
 }
 
-ENTER_DESCRIPTION (Timing_translator,"","","","","","");
+ENTER_DESCRIPTION (Timing_translator,
+		   "This engraver adds the alias "
+		   "@code{Timing} to its containing context."
+		   ,
+
+		   "","","","","");
