@@ -1,3 +1,11 @@
+2003-06-04  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* input/test/dpncnt.ly: Transpose example to match new
+	default \chords octave.  Add comment.
+	
+	* scm/chord-name.scm (sequential-music-to-chord-exceptions): Add
+	comment about octave change.
+
 2003-06-04  Graham Percival  <gperlist@shaw.ca>
 
 	* input/test/[d,e]: added texinfo index tags.
