@@ -53,7 +53,7 @@ Auto_change_iterator::change_to (Music_iterator *it, SCM to_type_sym,
   while (current && !current->is_alias (to_type_sym))
     {
       last = current;
-      current = current->daddy_context_;
+      current = current->get_parent_context ();
     }
 
   if (current && current->id_string_ == to_id)

@@ -1,5 +1,27 @@
 2004-04-12  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/include/context.hh (class Context): make members protected.
+	(children_contexts): new accessor function.
+
+	* lily/include/translator.hh (class Translator): make
+	daddy_context_ protected.
+	(class Translator): clean up. 
+
+	* lily/include/context.hh (class Context): make daddy_context_
+	private.
+
+	* lily/lyric-engraver.cc (get_voice_to_lyrics): recursively go
+	higher for finding Voice. (backportme)	
+
+	* lily/include/context.hh (class Context): remove
+	find_context_below() as a method.
+
+	* Documentation/user/notation.itely (The Lyrics context): add note
+	about manual durations
+
+	* ly/chord-modifiers-init.ly (blackTriangleMarkup): use TeX-math
+	encoding.
+
 	* scm/output-tex.scm (text): dump \inputencoding{} for text.
 
 2004-04-11  Han-Wen Nienhuys   <hanwen@xs4all.nl>

@@ -35,30 +35,18 @@ public:							\
 class Translator
 {
   void init ();
+  
 public:
-  Music_output_def * output_def_;
+  Context * get_parent_context () const { return daddy_context_; }
   
   Translator (Translator const &);
-  Context * daddy_context_ ;
 
   void removal_processing ();
-  virtual Music_output_def *get_output_def () const;
   SCM internal_get_property (SCM symbol) const;
+  
+  virtual Music_output_def *get_output_def () const;
   virtual Translator_group* get_daddy_translator ()const;
   virtual Moment now_mom () const;  
-
-public:
-  DECLARE_SMOBS (Translator, dummy);
-
-protected:			// should be private.
-  SCM simple_trans_list_;
-  friend class Context_def;
-
-public:
-  Score_context * get_score_context () const;
-  Global_context * get_global_context () const;
-  
-  TRANSLATOR_DECLARATIONS(Translator);
   virtual bool try_music (Music *req);
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
@@ -66,6 +54,17 @@ public:
   virtual void process_music ();
   virtual void do_announces ();
   virtual void finalize ();
+  
+  Score_context * get_score_context () const;
+  Global_context * get_global_context () const;
+  
+  TRANSLATOR_DECLARATIONS(Translator);
+  DECLARE_SMOBS (Translator, dummy);
+protected:			// should be private.
+  Context * daddy_context_ ;
+  SCM simple_trans_list_;
+  friend class Context_def;
+  friend class Context;
 };
 
 /**

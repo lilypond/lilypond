@@ -61,8 +61,8 @@ Clef_engraver::set_glyph ()
 
   SCM basic = ly_symbol2scm ("Clef");
   
-  execute_pushpop_property (daddy_context_, basic, glyph_sym, SCM_UNDEFINED);
-  execute_pushpop_property (daddy_context_, basic, glyph_sym, glyph);
+  execute_pushpop_property (get_parent_context (), basic, glyph_sym, SCM_UNDEFINED);
+  execute_pushpop_property (get_parent_context (), basic, glyph_sym, glyph);
 }
 
 /** 
@@ -152,7 +152,7 @@ Clef_engraver::inspect_clef_properties ()
 
   if (to_boolean (force_clef))
     {
-      Context * w = daddy_context_->where_defined (ly_symbol2scm ("forceClef"));
+      Context * w = get_parent_context ()->where_defined (ly_symbol2scm ("forceClef"));
       w->set_property ("forceClef", SCM_EOL);
     }
 }

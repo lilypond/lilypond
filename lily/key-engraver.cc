@@ -167,8 +167,8 @@ Key_engraver::read_ev (Music const * r)
     if (ly_scm2int (ly_cdar (s)))
       accs = scm_cons (ly_car (s), accs);
 
-  daddy_context_->set_property ("keySignature", accs);
-  daddy_context_->set_property ("tonic" ,
+  get_parent_context ()->set_property ("keySignature", accs);
+  get_parent_context ()->set_property ("tonic" ,
 			      r->get_property ("tonic"));
 }
 
@@ -177,18 +177,18 @@ void
 Key_engraver::start_translation_timestep ()
 {
   key_ev_ = 0;
-  daddy_context_->set_property ("lastKeySignature", get_property ("keySignature"));
+  get_parent_context ()->set_property ("lastKeySignature", get_property ("keySignature"));
 }
 
 
 void
 Key_engraver::initialize ()
 {
-  daddy_context_->set_property ("keySignature", SCM_EOL);
-  daddy_context_->set_property ("lastKeySignature", SCM_EOL);
+  get_parent_context ()->set_property ("keySignature", SCM_EOL);
+  get_parent_context ()->set_property ("lastKeySignature", SCM_EOL);
 
   Pitch p (0,0,0);
-  daddy_context_->set_property ("tonic", p.smobbed_copy ());
+  get_parent_context ()->set_property ("tonic", p.smobbed_copy ());
 
 }
 

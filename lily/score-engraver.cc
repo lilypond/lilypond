@@ -47,9 +47,9 @@ Score_engraver::make_columns ()
   if (!command_column_)
     {
       SCM nmp
-	= updated_grob_properties (daddy_context_,
+	= updated_grob_properties (get_parent_context (),
 				   ly_symbol2scm ("NonMusicalPaperColumn"));
-      SCM pc = updated_grob_properties (daddy_context_,
+      SCM pc = updated_grob_properties (get_parent_context (),
 					ly_symbol2scm ("PaperColumn"));
       
       set_columns (new Paper_column (nmp), new Paper_column (pc));
@@ -80,7 +80,7 @@ Score_engraver::prepare (Moment m)
   command_column_->set_property ("when", w);
   musical_column_->set_property ("when", w);
   
-  recurse_over_translators (daddy_context_, &Translator::start_translation_timestep, DOWN);
+  recurse_over_translators (get_parent_context (), &Translator::start_translation_timestep, DOWN);
 }
 
 void
@@ -89,7 +89,7 @@ Score_engraver::finish ()
   if ((breaks_%8))
     progress_indication ("[" + to_string (breaks_) + "]");
 
-  recurse_over_translators (daddy_context_, &Translator::finalize, UP);
+  recurse_over_translators (get_parent_context (), &Translator::finalize, UP);
 }
 
 /*
@@ -107,7 +107,7 @@ Score_engraver::initialize ()
   pscore_ = new Paper_score;
   pscore_->paper_ = dynamic_cast<Paper_def*> (get_output_def ());
 
-  SCM props = updated_grob_properties (daddy_context_, ly_symbol2scm ("System"));
+  SCM props = updated_grob_properties (get_parent_context (), ly_symbol2scm ("System"));
 
   pscore_->typeset_line (new System (props));
   
@@ -139,11 +139,11 @@ Score_engraver::one_time_step ()
 {
   if (!to_boolean (get_property ("skipTypesetting")))
     {
-      recurse_over_translators (daddy_context_, &Engraver::process_music, UP);
-      recurse_over_translators (daddy_context_, &Engraver::do_announces, UP);
+      recurse_over_translators (get_parent_context (), &Engraver::process_music, UP);
+      recurse_over_translators (get_parent_context (), &Engraver::do_announces, UP);
     }
   
-  recurse_over_translators (daddy_context_, &Translator::stop_translation_timestep, UP);
+  recurse_over_translators (get_parent_context (), &Translator::stop_translation_timestep, UP);
 }
 
 void
@@ -241,12 +241,12 @@ Score_engraver::set_columns (Paper_column *new_command,
   musical_column_ = new_musical;
   if (new_command)
     {
-      daddy_context_->set_property ("currentCommandColumn", new_command->self_scm ());  
+      get_parent_context ()->set_property ("currentCommandColumn", new_command->self_scm ());  
     }
   
   if (new_musical)
     {
-      daddy_context_->set_property ("currentMusicalColumn", new_musical->self_scm ());
+      get_parent_context ()->set_property ("currentMusicalColumn", new_musical->self_scm ());
     }
 }
 

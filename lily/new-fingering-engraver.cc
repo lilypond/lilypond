@@ -112,7 +112,7 @@ New_fingering_engraver::add_script (Grob * head,
   Finger_tuple ft ;
 
   Grob * g=  make_item ("Script");
-  make_script_from_event (g, &ft.description_, daddy_context_,
+  make_script_from_event (g, &ft.description_, get_parent_context (),
 			  event->get_property ("articulation-type"), 0);
   if (g)
     {

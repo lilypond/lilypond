@@ -30,7 +30,7 @@ LY_DEFINE (ly_context_name, "ly:context-name",
 {
   Context *tr = unsmob_context (context);
   SCM_ASSERT_TYPE (tr, context, SCM_ARG1, __FUNCTION__, "Context");
-  return unsmob_context_def (tr->definition_)->get_context_name (); 
+  return ly_symbol2scm (tr->context_name ().to_str0 ()); 
 }
 
 LY_DEFINE (is_contextushpop_property, "ly:context-pushpop-property",
@@ -111,7 +111,7 @@ LY_DEFINE (is_contextarent, "ly:context-parent",
   Context *tr = unsmob_context (context);
   SCM_ASSERT_TYPE (tr, context, SCM_ARG1, __FUNCTION__, "Context");
 
-  tr = tr->daddy_context_ ;
+  tr = tr->get_parent_context () ;
   if (tr)
     return tr->self_scm ();
   else
@@ -132,7 +132,7 @@ LY_DEFINE (ly_context_find, "ly:context-find",
     {
       if (tr->is_alias (name))
 	return tr->self_scm ();
-      tr =  tr->daddy_context_ ;
+      tr =  tr->get_parent_context () ;
     }
   
   return SCM_BOOL_F;

@@ -73,7 +73,7 @@ static void
 set_property_on_children (Context * trans, const char * sym, SCM val)
 {
   trans->set_property (sym, val);
-  for (SCM p = trans->context_list_; is_pair (p); p = ly_cdr (p))
+  for (SCM p = trans->children_contexts (); is_pair (p); p = ly_cdr (p))
     {
       Context *trg =  unsmob_context (ly_car (p));
       set_property_on_children (trg, sym, ly_deep_copy (val));
@@ -91,14 +91,14 @@ Accidental_engraver::initialize ()
 {
   last_keysig_ = get_property ("keySignature");
 
-  Context * trans_ = daddy_context_;
+  Context * trans_ = get_parent_context ();
   while (trans_)
     {
       trans_ -> set_property ("localKeySignature",
 			      ly_deep_copy (last_keysig_));
-      trans_ = trans_->daddy_context_;
+      trans_ = trans_->get_parent_context ();
     }
-  set_property_on_children (daddy_context_,"localKeySignature", last_keysig_);
+  set_property_on_children (get_parent_context (),"localKeySignature", last_keysig_);
 }
 
 /*
@@ -203,7 +203,7 @@ number_accidentals (bool *different,
 	{
 	  Context * dad = origin;
 	  while (dad && !dad->is_alias (rule))
-	    dad = dad->daddy_context_;
+	    dad = dad->get_parent_context ();
       
 	  if (dad)
 	    origin = dad;
@@ -411,7 +411,7 @@ Accidental_engraver::stop_translation_timestep ()
 
 	  if (change)
 	    origin->set_property ("localKeySignature",  localsig);
-	  origin = origin->daddy_context_;
+	  origin = origin->get_parent_context ();
 	}
     }
   
@@ -447,7 +447,7 @@ Accidental_engraver::acknowledge_grob (Grob_info info)
 	  
 	  Accidental_entry entry ;
 	  entry.head_ = info.grob_;
-	  entry.origin_ = info.origin_trans_->daddy_context_;
+	  entry.origin_ = info.origin_trans_->get_parent_context ();
 	  entry.melodic_ = note;
 
 	  accidentals_.push (entry);
@@ -477,13 +477,13 @@ Accidental_engraver::process_music ()
   */
   if (last_keysig_ != sig)
     {
-      Context * trans_ = daddy_context_;
+      Context * trans_ = get_parent_context ();
       while (trans_)
 	{
 	  trans_ -> set_property ("localKeySignature",  ly_deep_copy (sig));
-	  trans_ = trans_->daddy_context_;
+	  trans_ = trans_->get_parent_context ();
 	}
-      set_property_on_children (daddy_context_,"localKeySignature", sig);
+      set_property_on_children (get_parent_context (),"localKeySignature", sig);
 
       last_keysig_ = sig;
     }

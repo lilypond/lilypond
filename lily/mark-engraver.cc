@@ -123,12 +123,12 @@ Mark_engraver::process_music ()
 	    {
 	      int mark_count = ly_scm2int (m);
 	      mark_count ++;
-	      daddy_context_->set_property ("rehearsalMark",
+	      get_parent_context ()->set_property ("rehearsalMark",
 					    scm_int2num (mark_count));
 	    }
 
 	  if (is_number (m))
-	    m = scm_call_2 (proc, m, daddy_context_->self_scm ());
+	    m = scm_call_2 (proc, m, get_parent_context ()->self_scm ());
 	  else
 	    warning ("rehearsalMark does not have integer value.");
 	}

@@ -21,7 +21,7 @@ Translator_group*
 Translator_group::get_daddy_translator () const
 {
   Translator *t
-    = unsmob_translator (daddy_context_->daddy_context_->implementation_);
+    = unsmob_translator (get_parent_context ()->get_parent_context ()->implementation_);
   return dynamic_cast<Translator_group*> (t);
 }
 
@@ -38,7 +38,7 @@ void
 Translator_group::initialize ()
 {
   SCM tab = scm_make_vector (scm_int2num (19), SCM_BOOL_F);
-  daddy_context_->set_property ("acceptHashTable", tab);
+  get_parent_context ()->set_property ("acceptHashTable", tab);
 }
 
 
@@ -97,28 +97,6 @@ Translator_group::try_music (Music* m)
   return false;
 }
 
-SCM
-names_to_translators (SCM namelist, Context*tg)
-{
-  SCM l = SCM_EOL;
-  for (SCM s = namelist; is_pair (s) ; s = ly_cdr (s))
-    {
-      Translator * t = get_translator (ly_car (s));
-      if (!t)
-	warning (_f ("can't find: `%s'", s));
-      else
-	{
-	  Translator * tr = t->clone ();
-	  SCM str = tr->self_scm ();
-	  l = scm_cons (str, l);
-
-	  tr->daddy_context_ = tg;
-	  scm_gc_unprotect_object (str);
-	}
-    }
-  return l;
-}
-
 
 SCM
 Translator_group::get_simple_trans_list ()
@@ -144,7 +122,7 @@ recurse_over_translators (Context * c, Translator_method ptr, Direction dir)
       (tg->*ptr) ();
     }
 
-  for (SCM s = c->context_list_ ; is_pair (s);
+  for (SCM s = c->children_contexts () ; is_pair (s);
        s =ly_cdr (s))
     {
       recurse_over_translators (unsmob_context (ly_car (s)), ptr, dir);

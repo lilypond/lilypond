@@ -32,7 +32,7 @@ Staff_collecting_engraver::acknowledge_grob (Grob_info gi)
       SCM staffs = get_property ("stavesFound");
       staffs = scm_cons (gi.grob_->self_scm (), staffs);
 
-      daddy_context_->set_property ("stavesFound", staffs);
+      get_parent_context ()->set_property ("stavesFound", staffs);
     }
 }
 

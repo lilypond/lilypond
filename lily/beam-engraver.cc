@@ -121,7 +121,7 @@ Beam_engraver::set_melisma (bool ml)
 {
   SCM b = get_property ("autoBeaming");
   if (!to_boolean (b))
-    daddy_context_->set_property ("beamMelismaBusy", ml ? SCM_BOOL_T :SCM_BOOL_F);
+    get_parent_context ()->set_property ("beamMelismaBusy", ml ? SCM_BOOL_T :SCM_BOOL_F);
 }
 
 void
