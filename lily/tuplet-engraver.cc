@@ -10,7 +10,6 @@
 #include "tuplet-bracket.hh"
 #include "note-column.hh"
 #include "beam.hh"
-#include "music-list.hh"
 #include "engraver.hh"
 #include "spanner.hh"
 

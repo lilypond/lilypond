@@ -7,10 +7,9 @@
 */
 
 #include "sequential-iterator.hh"
-
+#include "music.hh"
 #include "translator-group.hh"
 #include "context.hh"
-#include "music-list.hh"
 #include "grace-fixup.hh"
 
 /*

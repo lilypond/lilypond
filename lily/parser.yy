@@ -36,8 +36,6 @@ TODO:
 #include "lilypond-input-version.hh"
 #include "main.hh"
 #include "misc.hh"
-#include "music-list.hh"
-#include "music-sequence.hh"
 #include "lily-lexer.hh"
 #include "lily-parser.hh"
 #include "paper-book.hh"

@@ -7,16 +7,25 @@
 
 */
 
-#include "relative-octave-check.hh"
-
+#include "music.hh"
 #include "input.hh"
 #include "pitch.hh"
 
-Pitch
-Relative_octave_check::to_relative_octave (Pitch p)
+class Relative_octave_check
 {
-  Pitch * check_p = unsmob_pitch (get_property ("pitch"));
+public:
+  DECLARE_SCHEME_CALLBACK(relative_callback,(SCM,SCM));
+};
 
+
+MAKE_SCHEME_CALLBACK(Relative_octave_check, relative_callback, 2)
+SCM
+Relative_octave_check::relative_callback (SCM music, SCM last_pitch)
+{
+  Pitch p = *unsmob_pitch (last_pitch);
+  Music *m = unsmob_music (music); 
+  Pitch *check_p = unsmob_pitch (m->get_property ("pitch"));
+  
   int delta_oct = 0;
   if (check_p)
     {
@@ -31,20 +40,12 @@ Relative_octave_check::to_relative_octave (Pitch p)
 	  String s = _("Failed octave check, got: ");
 	  s += result.to_string ();
 	  
-	  origin ()->warning (s);
+	  m->origin ()->warning (s);
 	  
 	  delta_oct = check_p->get_octave () - result.get_octave ();
 	}
     }
   
-  return  Pitch (p.get_octave () + delta_oct,
-		 p.get_notename (), p.get_alteration ());
+  return Pitch (p.get_octave () + delta_oct,
+		p.get_notename (), p.get_alteration ()).smobbed_copy ();
 }
-
-
-Relative_octave_check::Relative_octave_check (SCM x)
-  : Music (x)
-{
-}
-
-ADD_MUSIC (Relative_octave_check);

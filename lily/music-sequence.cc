@@ -6,21 +6,11 @@
   (c) 1998--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "music-list.hh"
 #include "warn.hh"
+#include "scm-option.hh"
 #include "pitch.hh"
 #include "input.hh"
-
-Music_sequence::Music_sequence (SCM x)
-  : Music (x)
-{
-}
-
-SCM
-Music_sequence::music_list () const
-{
-  return get_property ("elements");
-}
+#include "music-sequence.hh"
 
 void
 transpose_music_list (SCM lst, Pitch rq)
@@ -116,7 +106,7 @@ music_list_to_relative (SCM l,Pitch p, bool ret_first)
 	}
     }
 
-  return  (ret_first)?  first : last;
+  return (ret_first) ? first : last;
 }
 
 
@@ -126,8 +116,6 @@ compress_music_list (SCM l, Moment m)
   for (SCM s = l; scm_is_pair (s);  s = scm_cdr (s))
     unsmob_music (scm_car (s))->compress (m);
 }
-
-ADD_MUSIC (Music_sequence);
 
 Moment
 Music_sequence::minimum_start (SCM l)
@@ -157,4 +145,36 @@ Music_sequence::first_start (SCM l)
   return m;
 }
 
+MAKE_SCHEME_CALLBACK(Music_sequence, simultaneous_relative_callback, 2);
+SCM
+Music_sequence::simultaneous_relative_callback (SCM music, SCM pitch)
+{
+  Music *me = unsmob_music (music);
+  Pitch p = *unsmob_pitch (pitch);
 
+  SCM elts = me->get_property ("elements"); 
+
+  Pitch retval = music_list_to_relative (elts, p, false);
+  if (lily_1_8_relative)
+    {
+      Pitch retval_1_8 = music_list_to_relative (elts, p, true);
+      if (retval_1_8 != retval)
+	lily_1_8_compatibility_used = true;
+
+      retval = retval_1_8;
+    }
+
+  return retval.smobbed_copy ();
+}
+
+
+MAKE_SCHEME_CALLBACK(Music_sequence,event_chord_relative_callback,2);
+SCM
+Music_sequence::event_chord_relative_callback (SCM music, SCM pitch)
+{
+  Music *me = unsmob_music (music);
+  Pitch p = *unsmob_pitch (pitch);
+  return music_list_to_relative (me->get_property ("elements"),
+				 p, true).smobbed_copy ();
+}
+  

@@ -8,8 +8,7 @@
  */
 
 #include "repeated-music.hh"
-
-#include "music-list.hh"
+#include "music-sequence.hh"
 #include "pitch.hh"
 #include "warn.hh"
 #include "scm-option.hh"
