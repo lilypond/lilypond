@@ -32,7 +32,7 @@ public:
 
 protected:
   virtual void acknowledge_grob (Grob_info);
-  virtual void do_removal_processing();
+  virtual void finalize();
   virtual bool try_music (Music*);
   virtual void stop_translation_timestep();
   virtual void start_translation_timestep ();
@@ -83,12 +83,12 @@ Hyphen_engraver::try_music (Music* r)
 }
 
 void
-Hyphen_engraver::do_removal_processing ()
+Hyphen_engraver::finalize ()
 {
   if (hyphen_p_)
     {
       req_l_->origin ()->warning (_ ("unterminated hyphen"));
-      hyphen_p_->set_bound(RIGHT, unsmob_element (get_property ("currentCommandColumn")));
+      hyphen_p_->set_bound(RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
     }
 }
 

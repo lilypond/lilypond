@@ -64,7 +64,7 @@ MAKE_SCHEME_CALLBACK(System_start_delimiter,after_line_breaking,1);
 SCM
 System_start_delimiter::after_line_breaking (SCM smob)
 {
-  try_collapse (unsmob_element (smob));
+  try_collapse (unsmob_grob (smob));
   return SCM_UNSPECIFIED;
 }
 
@@ -86,7 +86,7 @@ MAKE_SCHEME_CALLBACK(System_start_delimiter,brew_molecule,1);
 SCM
 System_start_delimiter::brew_molecule (SCM smob)
 {
-  Grob * me = unsmob_element (smob);
+  Grob * me = unsmob_grob (smob);
   Interval ext = ly_scm2interval (Axis_group_interface::group_extent_callback (me->self_scm(), gh_int2scm (Y_AXIS)));
   Real l = ext.length (); 
   Molecule m;

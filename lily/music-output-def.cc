@@ -73,8 +73,7 @@ Music_output_def::get_global_translator_p ()
 
   Translator_group * tg = t->instantiate (this);
   
-  tg->add_processing ();
-  tg->do_creation_processing ();
+  tg->initialize ();
   
   return dynamic_cast <Global_translator *> (tg);
 }

@@ -72,16 +72,7 @@ Translator::now_mom () const
 }
 
 
-void
-Translator::add_processing ()
-{
-  do_add_processing ();
-}
 
-void
-Translator::do_add_processing ()
-{
-}
 
 
 void
@@ -93,7 +84,7 @@ Translator::post_move_processing ()
 void
 Translator::removal_processing ()
 {
-  do_removal_processing ();
+  finalize ();
 }
 
 
@@ -146,12 +137,12 @@ Translator::do_announces ()
 }
 
 void
-Translator::do_creation_processing ()
+Translator::initialize ()
 {
 }
 
 void
-Translator::do_removal_processing ()
+Translator::finalize ()
 {
 }
 

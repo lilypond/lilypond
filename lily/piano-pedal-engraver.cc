@@ -31,7 +31,7 @@ public:
   Piano_pedal_engraver ();
   ~Piano_pedal_engraver ();
 protected:
-  virtual void do_creation_processing ();
+  virtual void initialize ();
   virtual bool try_music (Music*);
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
@@ -58,7 +58,7 @@ Piano_pedal_engraver::Piano_pedal_engraver ()
   info_list_ = 0;
 }
 void
-Piano_pedal_engraver::do_creation_processing()
+Piano_pedal_engraver::initialize()
 {
   info_list_ = new Pedal_info[4];
   Pedal_info *p = info_list_;

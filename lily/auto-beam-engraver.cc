@@ -33,7 +33,7 @@ public:
 protected:
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
-  virtual void do_removal_processing ();
+  virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
   virtual void create_grobs ();
 
@@ -181,7 +181,7 @@ Auto_beam_engraver::test_moment (Direction dir, Moment test_mom)
 void
 Auto_beam_engraver::consider_begin (Moment test_mom)
 {
-  SCM off = to_boolean (get_property ("noAutoBeaming"));
+  bool off = to_boolean (get_property ("noAutoBeaming"));
   if (!stem_l_arr_p_ && ! off)
     {
       bool b = test_moment (START, test_mom);
@@ -310,7 +310,7 @@ Auto_beam_engraver::stop_translation_timestep ()
 }
 
 void
-Auto_beam_engraver::do_removal_processing ()
+Auto_beam_engraver::finalize ()
 {
   /* finished beams may be typeset */
   typeset_beam ();
@@ -453,8 +453,8 @@ Auto_beam_engraver::create_grobs ()
     }
 
   /*
-    Ugh.
-    gcc: 2.95.3-2c (latest and greatest from Franz Sirl for ppc)
-    auto-beam-engraver.cc:459: warning: value computed is not used */
-  count_i_++;
+    count_i_++ -> 
+
+        auto-beam-engraver.cc:459: warning: value computed is not used (gcc: 2.96) */
+  count_i_ = count_i_ + 1;
 }

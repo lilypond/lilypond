@@ -31,7 +31,7 @@ MAKE_SCHEME_CALLBACK (Text_spanner, brew_molecule, 1);
 SCM
 Text_spanner::brew_molecule (SCM smob) 
 {
-  Grob *me= unsmob_element (smob);
+  Grob *me= unsmob_grob (smob);
   Spanner *spanner = dynamic_cast<Spanner*> (me);
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);

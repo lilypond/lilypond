@@ -23,11 +23,11 @@ MAKE_SCHEME_CALLBACK(Rest_collision,force_shift_callback,2);
 SCM
 Rest_collision::force_shift_callback (SCM element_smob, SCM axis)
 {
-  Grob *them = unsmob_element (element_smob);
+  Grob *them = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
   assert (a == Y_AXIS);
 
-  Grob * rc = unsmob_element (them->get_grob_property ("rest-collision"));
+  Grob * rc = unsmob_grob (them->get_grob_property ("rest-collision"));
 
   if (rc)
     {
@@ -65,7 +65,7 @@ Rest_collision::add_column (Grob*me,Grob *p)
 static SCM
 head_characteristic (Grob * col)
 {
-  Grob * s = unsmob_element (col->get_grob_property ("rest"));
+  Grob * s = unsmob_grob (col->get_grob_property ("rest"));
 
   if (!s)
     return SCM_BOOL_F;
@@ -89,7 +89,7 @@ Rest_collision::do_shift (Grob *me, SCM elts)
   for (SCM s = elts; gh_pair_p (s); s = gh_cdr (s))
     {
       
-      Grob * e = unsmob_element (gh_car (s));
+      Grob * e = unsmob_grob (gh_car (s));
       if (!e)
 	continue;
       
@@ -98,7 +98,7 @@ Rest_collision::do_shift (Grob *me, SCM elts)
       else
 	commony= commony->common_refpoint  (e, Y_AXIS);
       
-      if (unsmob_element (e->get_grob_property ("rest")))
+      if (unsmob_grob (e->get_grob_property ("rest")))
 	rests.push (e);
       else
 	notes.push (e);
@@ -147,7 +147,7 @@ Rest_collision::do_shift (Grob *me, SCM elts)
 	  display_count = gh_scm2int (s);
 	  for (; i > display_count; i--)
 	    {
-	      Grob* r = unsmob_element (rests[i-1]->get_grob_property ("rest"));
+	      Grob* r = unsmob_grob (rests[i-1]->get_grob_property ("rest"));
 	      if (r)
 		r->suicide ();
 	      rests[i-1]->suicide ();
@@ -198,7 +198,7 @@ Rest_collision::do_shift (Grob *me, SCM elts)
       // try to be opposite of noteheads. 
       Direction dir = - Note_column::dir (notes[0]);
 
-      Grob * r = unsmob_element (rcol->get_grob_property ("rest"));
+      Grob * r = unsmob_grob (rcol->get_grob_property ("rest"));
       Interval restdim = r->extent (r, Y_AXIS);	// ??
 
       if (restdim.empty_b ())

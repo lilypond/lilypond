@@ -38,7 +38,7 @@ MAKE_SCHEME_CALLBACK(Tuplet_spanner,brew_molecule,1);
 SCM
 Tuplet_spanner::brew_molecule (SCM smob) 
 {
-  Grob *me= unsmob_element (smob);
+  Grob *me= unsmob_grob (smob);
   Molecule  mol;
 
   // Default behaviour: number always, bracket when no beam!
@@ -193,7 +193,7 @@ MAKE_SCHEME_CALLBACK(Tuplet_spanner,after_line_breaking,1);
 SCM
 Tuplet_spanner::after_line_breaking (SCM smob)
 {
-  Grob * me = unsmob_element (smob);
+  Grob * me = unsmob_grob (smob);
   Link_array<Note_column> column_arr=
     Pointer_group_interface__extract_elements (me, (Note_column*)0, "columns");
   Spanner *sp = dynamic_cast<Spanner*> (me);
@@ -223,7 +223,7 @@ Tuplet_spanner::after_line_breaking (SCM smob)
   if (scm_ilength (me->get_grob_property ("beams")) == 1)
     {
       SCM bs = me->get_grob_property ("beams");
-      Grob *b = unsmob_element (gh_car (bs));
+      Grob *b = unsmob_grob (gh_car (bs));
       Spanner * beam_l = dynamic_cast<Spanner *> (b);
       if (!sp->broken_b () 
 	  && sp->get_bound (LEFT)->column_l () == beam_l->get_bound (LEFT)->column_l ()
@@ -249,7 +249,7 @@ Tuplet_spanner::get_default_dir (Grob*me)
   d = UP ;
   for (SCM s = me->get_grob_property ("columns"); gh_pair_p (s); s = gh_cdr (s))
     {
-      Grob * nc = unsmob_element (gh_car (s));
+      Grob * nc = unsmob_grob (gh_car (s));
       if (Note_column::dir (nc) < 0) 
 	{
 	  d = DOWN;

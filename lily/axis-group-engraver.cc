@@ -21,8 +21,8 @@ class Axis_group_engraver : public Engraver
 protected:
   Spanner *staffline_p_;
   Link_array<Grob> elts_;
-  virtual void do_creation_processing();
-  virtual void do_removal_processing();
+  virtual void initialize();
+  virtual void finalize();
   virtual void acknowledge_grob (Grob_info);
   virtual void create_grobs ();
   virtual Spanner* get_spanner_p () const;
@@ -40,13 +40,13 @@ Axis_group_engraver::Axis_group_engraver ()
 }
 
 void
-Axis_group_engraver::do_creation_processing ()
+Axis_group_engraver::initialize ()
 {
   staffline_p_ = get_spanner_p ();
   Axis_group_interface::set_interface (staffline_p_);
   Axis_group_interface::set_axes (staffline_p_, Y_AXIS, Y_AXIS);
 
-  Grob *  it = unsmob_element (get_property ("currentCommandColumn"));
+  Grob *  it = unsmob_grob (get_property ("currentCommandColumn"));
 
   staffline_p_->set_bound(LEFT,it);
 
@@ -60,7 +60,7 @@ Axis_group_engraver::get_spanner_p () const
 }
 
 void
-Axis_group_engraver::do_removal_processing ()
+Axis_group_engraver::finalize ()
 {
   String type = daddy_grav_l ()->type_str_ ;
   SCM dims = get_property ((type  + "VerticalExtent").ch_C());
@@ -82,7 +82,7 @@ Axis_group_engraver::do_removal_processing ()
       && gh_number_p (gh_cdr (dims)))
     staffline_p_->set_grob_property ("extra-extent-Y", dims);
 
-  Grob *  it = unsmob_element (get_property ("currentCommandColumn"));
+  Grob *  it = unsmob_grob (get_property ("currentCommandColumn"));
 
 
   staffline_p_->set_bound(RIGHT,it);

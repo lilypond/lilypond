@@ -60,7 +60,7 @@ Lyric_phrasing_engraver::~Lyric_phrasing_engraver()
 }
 
 void
-Lyric_phrasing_engraver::do_removal_processing ()
+Lyric_phrasing_engraver::finalize ()
 {
   /*
     but do need to unprotect alist_, since Engravers are gc'd now.

@@ -69,7 +69,7 @@ MAKE_SCHEME_CALLBACK(Local_key_item,brew_molecule,1);
 SCM
 Local_key_item::brew_molecule (SCM smob)
 {
-  Grob* me = unsmob_element (smob);
+  Grob* me = unsmob_grob (smob);
   
   Molecule mol;
 

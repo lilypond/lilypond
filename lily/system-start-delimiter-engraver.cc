@@ -25,8 +25,8 @@ public:
 protected:
   Spanner * delim_;
   virtual void acknowledge_grob (Grob_info);
-  virtual void do_creation_processing ();
-  virtual void do_removal_processing ();
+  virtual void initialize ();
+  virtual void finalize ();
 };
 
 ADD_THIS_TRANSLATOR(System_start_delimiter_engraver);
@@ -63,20 +63,20 @@ System_start_delimiter_engraver::System_start_delimiter_engraver()
 }
 
 void
-System_start_delimiter_engraver::do_creation_processing()
+System_start_delimiter_engraver::initialize()
 {
   delim_ = new Spanner (get_property ("SystemStartDelimiter"));
 
-  delim_->set_bound (LEFT, unsmob_element (get_property ("currentCommandColumn")));
+  delim_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
 
 
   announce_grob (delim_,0);
 }
 
 void
-System_start_delimiter_engraver::do_removal_processing ()
+System_start_delimiter_engraver::finalize ()
 {
-  delim_->set_bound (RIGHT, unsmob_element (get_property ("currentCommandColumn")));
+  delim_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
   typeset_grob (delim_);
 }
 

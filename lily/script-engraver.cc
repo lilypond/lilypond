@@ -21,7 +21,7 @@ public:
 
 protected:
   virtual bool try_music (Music*);
-  virtual void do_creation_processing ();
+  virtual void initialize ();
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
   virtual void create_grobs ();
@@ -30,7 +30,7 @@ protected:
 
 
 void
-Script_engraver::do_creation_processing ()
+Script_engraver::initialize ()
 {
   script_req_l_arr_.clear();
 }

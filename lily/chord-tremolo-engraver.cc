@@ -57,7 +57,7 @@ protected:
   Spanner * finished_beam_p_;
   
 protected:
-  virtual void do_removal_processing();
+  virtual void finalize();
   virtual bool try_music (Music*);
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep();
@@ -111,7 +111,7 @@ Chord_tremolo_engraver::create_grobs ()
 
 
 void
-Chord_tremolo_engraver::do_removal_processing ()
+Chord_tremolo_engraver::finalize ()
 {
   typeset_beam ();
   if (beam_p_)

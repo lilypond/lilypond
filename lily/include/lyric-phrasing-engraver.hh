@@ -65,7 +65,7 @@ protected:
   virtual void acknowledge_grob(Grob_info);
   virtual void create_grobs ();
   virtual void stop_translation_timestep();
-  virtual void do_removal_processing ();  
+  virtual void finalize ();  
 private:
   void record_notehead(const String &context_id, Grob * notehead);
   void record_lyric(const String &context_id, Grob * lyric);

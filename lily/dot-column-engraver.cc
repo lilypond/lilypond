@@ -46,7 +46,7 @@ Dot_column_engraver::stop_translation_timestep ()
 void
 Dot_column_engraver::acknowledge_grob (Grob_info info)
 {
-  Grob *d = unsmob_element (info.elem_l_->get_grob_property ("dot"));
+  Grob *d = unsmob_grob (info.elem_l_->get_grob_property ("dot"));
   if (d)
     {
       if (!dotcol_p_)

@@ -43,7 +43,7 @@ Axis_group_interface::relative_group_extent (Axis a, Grob *common, SCM elts)
   Interval r;
   for (SCM s = elts; gh_pair_p (s); s = gh_cdr (s))
     {
-      Grob * se = unsmob_element (gh_car (s));
+      Grob * se = unsmob_grob (gh_car (s));
       Interval dims = se->extent (common, a);
       if (!dims.empty_b ())
 	r.unite (dims);
@@ -55,14 +55,14 @@ MAKE_SCHEME_CALLBACK(Axis_group_interface,group_extent_callback,2);
 SCM
 Axis_group_interface::group_extent_callback (SCM element_smob, SCM scm_axis)
 {
-  Grob *me = unsmob_element (element_smob);
+  Grob *me = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (scm_axis);
 
   Grob * common =(Grob*) me;
 
   for (SCM s = me->get_grob_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
     {
-      Grob * se = unsmob_element (gh_car (s));
+      Grob * se = unsmob_grob (gh_car (s));
       common = se->common_refpoint (common, a);
     }
 
@@ -118,7 +118,7 @@ Axis_group_interface::get_children (Grob*me)
   
   for (SCM ep = me->get_grob_property ("elements"); gh_pair_p (ep); ep = gh_cdr (ep))
     {
-      Grob* e = unsmob_element (gh_car (ep));
+      Grob* e = unsmob_grob (gh_car (ep));
       if (e)
 	childs.concat (Axis_group_interface::get_children (e));
     }

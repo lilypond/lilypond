@@ -44,7 +44,7 @@ class Beam_engraver : public Engraver
 protected:
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
-  virtual void do_removal_processing ();
+  virtual void finalize ();
   virtual void create_grobs ();
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music*);
@@ -211,7 +211,7 @@ Beam_engraver::stop_translation_timestep ()
 }
 
 void
-Beam_engraver::do_removal_processing ()
+Beam_engraver::finalize ()
 {
   typeset_beam ();
   if (beam_p_)

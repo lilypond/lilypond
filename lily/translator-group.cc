@@ -70,8 +70,12 @@ Translator_group::add_translator (SCM list, Translator *t)
   list = gh_append2 (list, gh_cons (t->self_scm (), SCM_EOL));
   t->daddy_trans_l_ = this;
   t->output_def_l_ = output_def_l_;
-  t->add_processing ();
-  t->do_creation_processing ();
+  if (Translator_group*tg = dynamic_cast<Translator_group*> (t))
+    {
+      unsmob_translator_def (tg->definition_)->apply_property_operations (tg);
+    }
+  
+  t->initialize ();
   return list;
 }
 void
@@ -254,18 +258,6 @@ Translator_group::each (Method_pointer method)
 }
 
 
-
-void
-Translator_group::do_add_processing ()
-{
-  unsmob_translator_def (definition_)->apply_property_operations (this);
-  for (SCM s = simple_trans_list_; gh_pair_p (s) ; s = gh_cdr (s))
-    {
-      Translator * t = unsmob_translator (gh_car (s));
-      t->add_processing ();
-    }
-}
-
 /*
   PROPERTIES
  */
@@ -385,13 +377,13 @@ Translator_group::do_announces ()
 }
 
 void
-Translator_group::do_creation_processing ()
+Translator_group::initialize ()
 {
-  each (&Translator::do_creation_processing);
+  each (&Translator::initialize);
 }
 
 void
-Translator_group::do_removal_processing ()
+Translator_group::finalize ()
 {
   each (&Translator::removal_processing);
 }

@@ -26,8 +26,8 @@ public:
 protected:
   virtual ~Staff_symbol_engraver();
   virtual void acknowledge_grob (Grob_info);
-  virtual void do_removal_processing();
-  virtual void do_creation_processing();
+  virtual void finalize();
+  virtual void initialize();
 };
 
 
@@ -42,19 +42,19 @@ Staff_symbol_engraver::Staff_symbol_engraver()
 }
 
 void
-Staff_symbol_engraver::do_creation_processing()
+Staff_symbol_engraver::initialize()
 {
   span_p_ = new Spanner (get_property ("StaffSymbol"));
   
-  span_p_->set_bound(LEFT, unsmob_element (get_property ("currentCommandColumn")));
+  span_p_->set_bound(LEFT, unsmob_grob (get_property ("currentCommandColumn")));
 
   announce_grob (span_p_, 0);
 }
 
 void
-Staff_symbol_engraver::do_removal_processing()
+Staff_symbol_engraver::finalize()
 {
-  span_p_->set_bound(RIGHT,unsmob_element (get_property ("currentCommandColumn")));
+  span_p_->set_bound(RIGHT,unsmob_grob (get_property ("currentCommandColumn")));
   typeset_grob (span_p_);
   span_p_ =0;
 }

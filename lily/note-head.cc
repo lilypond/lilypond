@@ -55,7 +55,7 @@ MAKE_SCHEME_CALLBACK(Note_head,brew_molecule,1);
 SCM
 Note_head::brew_molecule (SCM smob)  
 {
-  Grob *me = unsmob_element (smob);
+  Grob *me = unsmob_grob (smob);
 
   
   Real inter_f = Staff_symbol_referencer::staff_space (me)/2;

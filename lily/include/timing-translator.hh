@@ -25,7 +25,7 @@ public:
   Music *check_;
 
 protected: 
-  virtual void do_creation_processing ();
+  virtual void initialize ();
   virtual bool try_music (Music *req_l);
   virtual void process_music ();
   virtual void stop_translation_timestep ();

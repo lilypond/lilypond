@@ -180,7 +180,7 @@ MAKE_SCHEME_CALLBACK (Text_item, brew_molecule, 1);
 SCM 
 Text_item::brew_molecule (SCM smob)
 {
-  Grob *me = unsmob_element (smob);
+  Grob *me = unsmob_grob (smob);
   
   SCM text = me->get_grob_property ("text");
 

@@ -13,14 +13,14 @@
 Pitch
 Relative_octave_music::to_relative_octave (Pitch)
 {
-  return last_pitch_;
+  return * unsmob_pitch (get_mus_property ("last-pitch"));
 }
 
 
 Relative_octave_music::Relative_octave_music(Music*p,Pitch def)
   : Music_wrapper (p)
 {
-  last_pitch_ = element ()->to_relative_octave (def);
+  set_mus_property ("last-pitch", element ()->to_relative_octave (def).smobbed_copy ());
   set_mus_property ("type", ly_symbol2scm ("relative-octave-music"));  
 }
 

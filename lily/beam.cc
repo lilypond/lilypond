@@ -55,7 +55,7 @@ Beam::get_multiplicity (Grob*me)
   int m = 0;
   for (SCM s = me->get_grob_property ("stems"); gh_pair_p (s); s = gh_cdr (s))
     {
-      Grob * sc = unsmob_element (gh_car (s));
+      Grob * sc = unsmob_grob (gh_car (s));
 
       if (Stem::has_interface (sc))
 	m = m >? Stem::beam_count (sc,LEFT) >? Stem::beam_count (sc,RIGHT);
@@ -75,7 +75,7 @@ MAKE_SCHEME_CALLBACK(Beam,before_line_breaking,1);
 SCM
 Beam::before_line_breaking (SCM smob)
 {
-  Grob * me =  unsmob_element (smob);
+  Grob * me =  unsmob_grob (smob);
 
   // Why?
   if (visible_stem_count (me) < 2)
@@ -274,7 +274,7 @@ MAKE_SCHEME_CALLBACK(Beam,after_line_breaking,1);
 SCM
 Beam::after_line_breaking (SCM smob)
 {
-  Grob * me =  unsmob_element (smob);
+  Grob * me =  unsmob_grob (smob);
 
   /* first, calculate y, dy */
   Real y, dy;
@@ -766,7 +766,7 @@ MAKE_SCHEME_CALLBACK(Beam,brew_molecule,1);
 SCM
 Beam::brew_molecule (SCM smob)
 {
-  Grob * me =unsmob_element (smob);
+  Grob * me =unsmob_grob (smob);
 
   Molecule mol;
   if (!gh_pair_p (me->get_grob_property ("stems")))
@@ -890,16 +890,16 @@ MAKE_SCHEME_CALLBACK(Beam,rest_collision_callback,2);
 SCM
 Beam::rest_collision_callback (SCM element_smob, SCM axis)
 {
-  Grob *rest = unsmob_element (element_smob);
+  Grob *rest = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
   
   assert (a == Y_AXIS);
 
-  Grob * st = unsmob_element (rest->get_grob_property ("stem"));
+  Grob * st = unsmob_grob (rest->get_grob_property ("stem"));
   Grob * stem = st;
   if (!stem)
     return gh_double2scm (0.0);
-  Grob * beam = unsmob_element (stem->get_grob_property ("beam"));
+  Grob * beam = unsmob_grob (stem->get_grob_property ("beam"));
   if (!beam || !Beam::has_interface (beam) || !Beam::visible_stem_count (beam))
     return gh_double2scm (0.0);
 

@@ -40,7 +40,7 @@ MAKE_SCHEME_CALLBACK(Multi_measure_rest,brew_molecule,1);
 SCM
 Multi_measure_rest::brew_molecule (SCM smob) 
 {
-  Grob *me = unsmob_element (smob);
+  Grob *me = unsmob_grob (smob);
   Spanner * sp = dynamic_cast<Spanner*> (me);
 
   SCM alist_chain = Font_interface::font_alist_chain (me);
@@ -170,7 +170,7 @@ MAKE_SCHEME_CALLBACK (Multi_measure_rest, set_spacing_rods,1);
 SCM
 Multi_measure_rest::set_spacing_rods (SCM smob)
 {
-  Grob*me = unsmob_element (smob);
+  Grob*me = unsmob_grob (smob);
 
   Spanner*sp = dynamic_cast<Spanner*> (me);
   if (!(sp->get_bound (LEFT) && sp->get_bound (RIGHT)))

@@ -31,11 +31,11 @@ Line_group_engraver_group::typeset_grob (Grob *elem)
 
 
 void
-Line_group_engraver_group::do_removal_processing()
+Line_group_engraver_group::finalize()
 {
-  Engraver_group_engraver::do_removal_processing ();
+  Engraver_group_engraver::finalize ();
   Grob *  it
-    = unsmob_element (get_property (ly_symbol2scm ("currentCommandColumn")));
+    = unsmob_grob (get_property (ly_symbol2scm ("currentCommandColumn")));
 
   staffline_p_->set_bound(RIGHT,it);
   Engraver_group_engraver::typeset_grob (staffline_p_);
@@ -43,11 +43,11 @@ Line_group_engraver_group::do_removal_processing()
 }
 
 void
-Line_group_engraver_group::do_creation_processing()
+Line_group_engraver_group::initialize()
 {
   create_line_spanner ();
   Grob *  it
-    = unsmob_element (get_property (ly_symbol2scm ("currentCommandColumn"))); 
+    = unsmob_grob (get_property (ly_symbol2scm ("currentCommandColumn"))); 
   staffline_p_->set_bound(LEFT,it);
   
   Engraver::announce_grob (staffline_p_,0);

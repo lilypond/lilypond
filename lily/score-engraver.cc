@@ -12,11 +12,11 @@
 #include "item.hh"
 #include "score-engraver.hh"
 #include "paper-score.hh"
-#include "musical-request.hh"
 #include "paper-column.hh"
 #include "command-request.hh"
 #include "paper-def.hh"
 #include "axis-group-interface.hh"
+#include "translator-def.hh"
 
 
 Score_engraver::Score_engraver()
@@ -76,8 +76,19 @@ Score_engraver::finish()
   use start/finish?
  */
 void
-Score_engraver::do_creation_processing ()
+Score_engraver::initialize ()
 {
+  unsmob_translator_def (definition_)->apply_property_operations (this);
+
+  assert (dynamic_cast<Paper_def *> (output_def_l_));
+  assert (!daddy_trans_l_);
+  pscore_p_ = new Paper_score;
+  pscore_p_->paper_l_ = dynamic_cast<Paper_def*>(output_def_l_);
+
+  SCM props = get_property (ly_symbol2scm ("LineOfScore"));
+
+  pscore_p_->typeset_line (new Line_of_score (props));
+  
   make_columns (Moment (0));
   scoreline_l_ = pscore_p_->line_l_;
 
@@ -85,14 +96,14 @@ Score_engraver::do_creation_processing ()
   
   command_column_l_->set_grob_property ("breakable", SCM_BOOL_T);
 
-  Engraver_group_engraver::do_creation_processing();
+  Engraver_group_engraver::initialize();
 }
 
 
 void
-Score_engraver::do_removal_processing()
+Score_engraver::finalize()
 {
-  Engraver_group_engraver::do_removal_processing();
+  Engraver_group_engraver::finalize();
   scoreline_l_->set_bound(RIGHT,command_column_l_);
   command_column_l_->set_grob_property ("breakable", SCM_BOOL_T);
   
@@ -105,7 +116,6 @@ void
 Score_engraver::process()
 {
   process_music();
-  
   announces();
   pre_move_processing();
   check_removal();
@@ -210,16 +220,6 @@ Score_engraver::set_columns (Paper_column *new_command_l,
       if (*current[i])
 	{
 	  scoreline_l_->add_column ((*current[i]));
-#if 0
-	  /*
-	    TODO: delay this decision.
-	   */
-	  if (!Paper_column::used_b (*current[i]))
-	    {
-	      (*current[i])->suicide ();
-	      *current[i]  =0;
-	    }
-#endif
 	}
       if (news[i])
 	*current[i] = news[i];
@@ -285,17 +285,4 @@ Score_engraver::forbid_breaks ()
 
 ADD_THIS_TRANSLATOR(Score_engraver);
 
-void
-Score_engraver::do_add_processing ()
-{
-  Translator_group::do_add_processing ();
-  assert (dynamic_cast<Paper_def *> (output_def_l_));
-  assert (!daddy_trans_l_);
-  pscore_p_ = new Paper_score;
-  pscore_p_->paper_l_ = dynamic_cast<Paper_def*>(output_def_l_);
-
-  SCM props = get_property (ly_symbol2scm ("LineOfScore"));
-
-  pscore_p_->typeset_line (new Line_of_score (props));
-}
 

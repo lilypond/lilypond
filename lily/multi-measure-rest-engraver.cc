@@ -33,7 +33,7 @@ protected:
   virtual bool try_music (Music*);
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
-  virtual void do_removal_processing ();
+  virtual void finalize ();
   virtual void create_grobs ();
 
 private:
@@ -173,7 +173,7 @@ Multi_measure_rest_engraver::start_translation_timestep ()
 
 
 void
-Multi_measure_rest_engraver::do_removal_processing ()
+Multi_measure_rest_engraver::finalize ()
 {
   if (mmrest_p_)
     typeset_grob (mmrest_p_);

@@ -27,7 +27,7 @@ protected:
   virtual void finish ();
   virtual void process ();
   virtual void each (Method_pointer);
-  virtual void do_removal_processing () ;
+  virtual void finalize () ;
   virtual void play_element (Audio_element*);
   virtual bool try_music (Music *m);
 };

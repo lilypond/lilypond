@@ -22,6 +22,7 @@ class Timing_engraver : public Timing_translator, public Engraver
 protected:
   virtual void start_translation_timestep ();
   virtual void stop_translation_timestep ();
+  virtual void process_music ();
 public:
   VIRTUAL_COPY_CONS(Translator);
 };
@@ -61,4 +62,11 @@ Timing_engraver::stop_translation_timestep ()
 }
 
 
-
+/*
+  ugh. Translator doesn't do process_music ().
+ */
+void
+Timing_engraver::process_music ()
+{
+  Timing_translator::process_music ();
+}

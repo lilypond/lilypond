@@ -21,7 +21,7 @@ MAKE_SCHEME_CALLBACK(Time_signature,brew_molecule,1);
 SCM
 Time_signature::brew_molecule (SCM smob) 
 {
-  Grob * me = unsmob_element (smob);
+  Grob * me = unsmob_grob (smob);
   SCM st = me->get_grob_property ("style");
   SCM frac = me->get_grob_property ("fraction");
   int n = 4;

@@ -39,7 +39,6 @@ public:
  
 
   void pre_move_processing();
-  void add_processing ();
   void announces();
   void post_move_processing();
   void removal_processing();
@@ -64,7 +63,6 @@ public:
   DECLARE_SMOBS(Translator, dummy);
 public:
 
-  virtual void do_add_processing ();
     /**
     try to fit the request in this engraver
 
@@ -78,8 +76,8 @@ public:
   virtual void stop_translation_timestep();
   virtual void start_translation_timestep();
   virtual void do_announces () ;
-  virtual void do_creation_processing() ;
-  virtual void do_removal_processing();
+  virtual void initialize() ;
+  virtual void finalize();
 };
 
 

@@ -28,8 +28,8 @@ class Align_note_column_engraver: public Engraver
 
   virtual void create_grobs ();
   virtual void start_translation_timestep ();
-  virtual void do_creation_processing ();
-  virtual void do_removal_processing ();
+  virtual void initialize ();
+  virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
 public:
   VIRTUAL_COPY_CONS(Translator);
@@ -44,7 +44,7 @@ Align_note_column_engraver::Align_note_column_engraver()
 }
 
 void
-Align_note_column_engraver::do_creation_processing ()
+Align_note_column_engraver::initialize ()
 {
   align_item_p_ = new Item (get_property ("GraceAlignment"));
   Grace_align_item::set_interface (align_item_p_);
@@ -56,7 +56,7 @@ Align_note_column_engraver::do_creation_processing ()
 }
 
 void
-Align_note_column_engraver::do_removal_processing ()
+Align_note_column_engraver::finalize ()
 {
   SCM al = get_property ("graceAlignPosition");
   if (isdir_b (al))

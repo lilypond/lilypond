@@ -28,7 +28,7 @@ protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
-  virtual void do_removal_processing ();
+  virtual void finalize ();
   virtual void create_grobs ();
 
 public:
@@ -106,7 +106,7 @@ Slur_engraver::acknowledge_grob (Grob_info info)
 }
 
 void
-Slur_engraver::do_removal_processing ()
+Slur_engraver::finalize ()
 {
   for (int i = 0; i < slur_l_stack_.size (); i++)
     {

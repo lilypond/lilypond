@@ -26,7 +26,7 @@ protected:
 protected:
   virtual void stop_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
-  virtual void do_creation_processing ();
+  virtual void initialize ();
   virtual void create_grobs ();
   void create_items();
 
@@ -62,7 +62,7 @@ Bar_number_engraver::Bar_number_engraver ()
 }
 
 void
-Bar_number_engraver::do_creation_processing ()
+Bar_number_engraver::initialize ()
 {
   /*
     ugh: need to share code with mark_engraver

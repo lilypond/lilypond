@@ -42,7 +42,7 @@ MAKE_SCHEME_CALLBACK(Stem_tremolo,dim_callback,2);
 SCM
 Stem_tremolo::dim_callback (SCM e, SCM )
 {
-  Grob * se = unsmob_element (e);
+  Grob * se = unsmob_grob (e);
   
   Real space = Staff_symbol_referencer::staff_space (se);
   return ly_interval2scm ( Interval (-space, space));
@@ -54,8 +54,8 @@ MAKE_SCHEME_CALLBACK(Stem_tremolo,brew_molecule,1);
 SCM
 Stem_tremolo::brew_molecule (SCM smob)
 {
-  Grob *me= unsmob_element (smob);
-  Grob * stem = unsmob_element (me->get_grob_property ("stem"));
+  Grob *me= unsmob_grob (smob);
+  Grob * stem = unsmob_grob (me->get_grob_property ("stem"));
   Grob * beam = Stem::beam_l (stem);
   
   Real dydx;

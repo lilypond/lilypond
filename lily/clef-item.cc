@@ -20,7 +20,7 @@ MAKE_SCHEME_CALLBACK(Clef,before_line_breaking,1);
 SCM
 Clef::before_line_breaking (SCM smob)
 {
-  Item * s = dynamic_cast<Item*> (unsmob_element (smob));
+  Item * s = dynamic_cast<Item*> (unsmob_grob (smob));
 
   SCM glyph = s->get_grob_property ("glyph");
   
@@ -62,7 +62,7 @@ MAKE_SCHEME_CALLBACK(Clef,brew_molecule,1)
 SCM
 Clef::brew_molecule (SCM smob) 
 {
-  Grob * sc = unsmob_element (smob);
+  Grob * sc = unsmob_grob (smob);
   SCM glyph = sc->get_grob_property ("glyph");
   if (gh_string_p (glyph))
     {

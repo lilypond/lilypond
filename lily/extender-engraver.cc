@@ -38,7 +38,7 @@ public:
 
 protected:
   virtual void acknowledge_grob (Grob_info);
-  virtual void do_removal_processing();
+  virtual void finalize();
   virtual bool try_music (Music*);
   virtual void stop_translation_timestep();
   virtual void start_translation_timestep ();
@@ -91,12 +91,12 @@ Extender_engraver::try_music (Music* r)
 }
 
 void
-Extender_engraver::do_removal_processing ()
+Extender_engraver::finalize ()
 {
   if (extender_p_)
     {
       req_l_->origin ()->warning (_ ("unterminated extender"));
-      extender_p_->set_bound(RIGHT, unsmob_element (get_property ("currentCommandColumn")));
+      extender_p_->set_bound(RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
     }
 }
 

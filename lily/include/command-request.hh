@@ -37,9 +37,6 @@ public:
 class Tempo_req : public Request
 {
 public:
-  Duration dur_;
-
-
   Tempo_req();
 protected:
 

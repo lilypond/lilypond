@@ -38,7 +38,7 @@ MAKE_SCHEME_CALLBACK(Sustain_pedal,brew_molecule,1);
 SCM
 Sustain_pedal::brew_molecule (SCM smob) 
 {
-  Grob * e = unsmob_element (smob);
+  Grob * e = unsmob_grob (smob);
   
   Molecule mol;
   SCM glyph = e->get_grob_property ("text");

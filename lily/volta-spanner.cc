@@ -39,7 +39,7 @@ MAKE_SCHEME_CALLBACK(Volta_spanner,brew_molecule,1);
 SCM
 Volta_spanner::brew_molecule (SCM smob) 
 {
-  Grob *me = unsmob_element (smob);
+  Grob *me = unsmob_grob (smob);
   Link_array<Item> bar_arr
     = Pointer_group_interface__extract_elements (me, (Item*)0, "bars");
 

@@ -87,7 +87,7 @@ Timing_translator::stop_translation_timestep()
 ADD_THIS_TRANSLATOR(Timing_translator);
 
 void
-Timing_translator::do_creation_processing()
+Timing_translator::initialize()
 {
   Moment m;
   daddy_trans_l_->set_property ("timing" , SCM_BOOL_T);  

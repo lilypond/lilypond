@@ -179,7 +179,7 @@ MAKE_SCHEME_CALLBACK(Grob,molecule_extent,2);
 SCM
 Grob::molecule_extent (SCM element_smob, SCM scm_axis)
 {
-  Grob *s = unsmob_element (element_smob);
+  Grob *s = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (scm_axis);
 
   Molecule *m = s->get_molecule ();
@@ -194,7 +194,7 @@ MAKE_SCHEME_CALLBACK(Grob,preset_extent,2);
 SCM
 Grob::preset_extent (SCM element_smob, SCM scm_axis)
 {
-  Grob *s = unsmob_element (element_smob);
+  Grob *s = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (scm_axis);
 
   SCM ext = s->get_grob_property ((a == X_AXIS)
@@ -237,7 +237,7 @@ Grob::calculate_dependencies (int final, int busy, SCM funcname)
 
   for (SCM d=  get_grob_property ("dependencies"); gh_pair_p (d); d = gh_cdr (d))
     {
-      unsmob_element (gh_car (d))
+      unsmob_grob (gh_car (d))
 	->calculate_dependencies (final, busy, funcname);
     }
 
@@ -257,10 +257,20 @@ Grob::get_molecule ()  const
   SCM mol = get_grob_property ("molecule");
   if (unsmob_molecule (mol))
     return unsmob_molecule (mol);
+
+  mol =  get_uncached_molecule ();
   
+  Grob *me = (Grob*)this;
+  me->set_grob_property ("molecule", mol);
+  
+  return unsmob_molecule (mol);  
+}
+SCM
+Grob::get_uncached_molecule ()const
+{
   SCM proc = get_grob_property ("molecule-callback");
 
-  mol = SCM_EOL;
+  SCM  mol = SCM_EOL;
   if (gh_procedure_p (proc)) 
     mol = gh_apply (proc, gh_list (this->self_scm (), SCM_UNDEFINED));
 
@@ -294,13 +304,8 @@ Grob::get_molecule ()  const
   if (m && to_boolean (get_grob_property ("transparent")))
     mol = Molecule (m->extent_box (), SCM_EOL).smobbed_copy ();
 
-  Grob *me = (Grob*)this;
-  me->set_grob_property ("molecule", mol);
-  
-  m = unsmob_molecule (mol);  
-  return m;
+  return mol;
 }
-
 
 /*
   
@@ -347,7 +352,7 @@ SCM
 Grob::handle_broken_smobs (SCM src, SCM criterion)
 {
  again:
-  Grob *sc = unsmob_element (src);
+  Grob *sc = unsmob_grob (src);
   if (sc)
     {
       if (gh_number_p (criterion))
@@ -363,7 +368,7 @@ Grob::handle_broken_smobs (SCM src, SCM criterion)
       else
 	{
 	  Line_of_score * line
-	    = dynamic_cast<Line_of_score*> (unsmob_element (criterion));
+	    = dynamic_cast<Line_of_score*> (unsmob_grob (criterion));
 	  if (sc->line_l () != line)
 	    {
 	      sc = sc->find_broken_piece (line);
@@ -647,7 +652,7 @@ Grob::common_refpoint (SCM elist, Axis a) const
   Grob * common = (Grob*) this;
   for (; gh_pair_p (elist); elist = gh_cdr (elist))
     {
-      Grob * s = unsmob_element (gh_car (elist));
+      Grob * s = unsmob_grob (gh_car (elist));
       if (s)
 	common = common->common_refpoint (s, a);
     }
@@ -709,7 +714,7 @@ MAKE_SCHEME_CALLBACK(Grob,fixup_refpoint,1);
 SCM
 Grob::fixup_refpoint (SCM smob)
 {
-  Grob *me = unsmob_element (smob);
+  Grob *me = unsmob_grob (smob);
   for (int a = X_AXIS; a < NO_AXES; a ++)
     {
       Axis ax = (Axis)a;
@@ -749,7 +754,7 @@ Grob::fixup_refpoint (SCM smob)
  ****************************************************/
 
 
-IMPLEMENT_UNSMOB(Grob, element);
+IMPLEMENT_UNSMOB(Grob, grob);
 IMPLEMENT_SMOBS(Grob);
 IMPLEMENT_DEFAULT_EQUAL_P(Grob);
 
@@ -801,7 +806,7 @@ Grob::do_derived_mark ()
 SCM
 ly_set_grob_property (SCM elt, SCM sym, SCM val)
 {
-  Grob * sc = unsmob_element (elt);
+  Grob * sc = unsmob_grob (elt);
 
   if (!gh_symbol_p (sym))
     {
@@ -827,7 +832,7 @@ ly_set_grob_property (SCM elt, SCM sym, SCM val)
 SCM
 ly_get_grob_property (SCM elt, SCM sym)
 {
-  Grob * sc = unsmob_element (elt);
+  Grob * sc = unsmob_grob (elt);
   
   if (sc)
     {
@@ -852,7 +857,7 @@ Grob::discretionary_processing()
 SCM
 spanner_get_bound (SCM slur, SCM dir)
 {
-  return dynamic_cast<Spanner*> (unsmob_element (slur))->get_bound (to_dir (dir))->self_scm ();
+  return dynamic_cast<Spanner*> (unsmob_grob (slur))->get_bound (to_dir (dir))->self_scm ();
 }
 
 

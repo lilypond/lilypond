@@ -37,8 +37,8 @@ public:
   Protected_scm old_accs_;	// ugh. -> property
     
 protected:
-  virtual void do_creation_processing();
-  virtual void do_removal_processing ();
+  virtual void initialize();
+  virtual void finalize ();
   virtual bool try_music (Music *req_l);
   virtual void stop_translation_timestep();
   virtual void start_translation_timestep();
@@ -48,7 +48,7 @@ protected:
 
 
 void
-Key_engraver::do_removal_processing ()
+Key_engraver::finalize ()
 {
   old_accs_ = SCM_EOL;		// unprotect can not  be called from dtor.
 }
@@ -180,7 +180,7 @@ Key_engraver::start_translation_timestep ()
 }
 
 void
-Key_engraver::do_creation_processing ()
+Key_engraver::initialize ()
 {
   daddy_trans_l_->set_property ("keySignature", SCM_EOL);
   old_accs_ = SCM_EOL;

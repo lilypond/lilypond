@@ -38,7 +38,7 @@ Side_position::get_direction (Grob*me)
     }
   
   SCM other_elt = me->get_grob_property ("direction-source");
-  Grob * e = unsmob_element(other_elt);
+  Grob * e = unsmob_grob(other_elt);
   if (e)
     {
       return (Direction)(relative_dir * Side_position::get_direction (e));
@@ -55,14 +55,14 @@ MAKE_SCHEME_CALLBACK(Side_position,side_position,2);
 SCM
 Side_position::side_position (SCM element_smob, SCM axis)
 {
-  Grob *me = unsmob_element (element_smob);
+  Grob *me = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
 
   Grob *common = me->parent_l (a);
   SCM support = me->get_grob_property ("side-support-elements");
   for (SCM s = support; s != SCM_EOL; s = gh_cdr (s))
     {
-      Grob * e  = unsmob_element (gh_car (s));
+      Grob * e  = unsmob_grob (gh_car (s));
       if (e)
 	common = common->common_refpoint (e, a);
     }
@@ -71,7 +71,7 @@ Side_position::side_position (SCM element_smob, SCM axis)
   for (SCM s = support; s != SCM_EOL; s = gh_cdr (s))
     {
 
-      Grob * e  = unsmob_element ( gh_car (s));
+      Grob * e  = unsmob_grob ( gh_car (s));
       if (e)
 	{
 	  dim.unite (e->extent (common, a));
@@ -111,7 +111,7 @@ MAKE_SCHEME_CALLBACK(Side_position,aligned_on_self,2);
 SCM
 Side_position::aligned_on_self (SCM element_smob, SCM axis)
 {
-  Grob *me = unsmob_element (element_smob);
+  Grob *me = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
   String s ("self-alignment-");
 
@@ -132,9 +132,9 @@ Side_position::aligned_on_self (SCM element_smob, SCM axis)
 	  return gh_double2scm (- ext.linear_combination (gh_scm2double (align)));
 	}
     }
-  else if (unsmob_element (align))
+  else if (unsmob_grob (align))
     {
-      return gh_double2scm (- unsmob_element (align)->relative_coordinate (me,  a));
+      return gh_double2scm (- unsmob_grob (align)->relative_coordinate (me,  a));
     }
     return gh_double2scm (0.0);
 }
@@ -160,7 +160,7 @@ MAKE_SCHEME_CALLBACK(Side_position,quantised_position,2);
 SCM
 Side_position::quantised_position (SCM element_smob, SCM )
 {
-  Grob *me = unsmob_element (element_smob);
+  Grob *me = unsmob_grob (element_smob);
   
   
   Direction d = Side_position::get_direction (me);
@@ -190,7 +190,7 @@ MAKE_SCHEME_CALLBACK(Side_position,aligned_side,2);
 SCM
 Side_position::aligned_side (SCM element_smob, SCM axis)
 {
-  Grob *me = unsmob_element (element_smob);
+  Grob *me = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
   
   Direction d = Side_position::get_direction (me);
@@ -216,7 +216,7 @@ MAKE_SCHEME_CALLBACK(Side_position,centered_on_parent,2);
 SCM
 Side_position::centered_on_parent (SCM element_smob, SCM axis)
 {
-  Grob *me = unsmob_element (element_smob);
+  Grob *me = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
   Grob *him = me->parent_l (a);
 

@@ -27,7 +27,7 @@ public:
   void request_bar (String type_str);
     
 protected:
-  virtual void do_removal_processing ();
+  virtual void finalize ();
   virtual void stop_translation_timestep();
   virtual void create_grobs ();
 
@@ -59,7 +59,7 @@ Bar_engraver::create_bar ()
 }
 
 void
-Bar_engraver::do_removal_processing ()
+Bar_engraver::finalize ()
 {
   typeset_bar ();
 }

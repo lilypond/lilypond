@@ -76,7 +76,7 @@ MAKE_SCHEME_CALLBACK(Key_item,brew_molecule,1);
 SCM
 Key_item::brew_molecule (SCM smob)
 {
-  Grob*me =unsmob_element (smob);
+  Grob*me =unsmob_grob (smob);
 
 
   Real inter = Staff_symbol_referencer::staff_space (me)/2.0;

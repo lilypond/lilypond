@@ -26,7 +26,7 @@ MAKE_SCHEME_CALLBACK(Bar,brew_molecule,1);
 SCM 
 Bar::brew_molecule (SCM smob) 
 {
-  Grob * me = unsmob_element (smob);
+  Grob * me = unsmob_grob (smob);
 
   SCM s = me->get_grob_property ("glyph");
   SCM barsiz_proc = me->get_grob_property ("barsize-procedure");
@@ -128,7 +128,7 @@ MAKE_SCHEME_CALLBACK(Bar,before_line_breaking ,1);
 SCM
 Bar::before_line_breaking  (SCM smob)
 {
-  Grob*me=unsmob_element (smob);
+  Grob*me=unsmob_grob (smob);
   Item * item = dynamic_cast<Item*> (me);
   
   SCM g = me->get_grob_property ("glyph");
@@ -192,7 +192,7 @@ MAKE_SCHEME_CALLBACK(Bar,get_staff_bar_size,1);
 SCM
 Bar::get_staff_bar_size (SCM smob) 
 {
-  Grob*me = unsmob_element (smob);
+  Grob*me = unsmob_grob (smob);
   Real ss = Staff_symbol_referencer::staff_space (me);
   SCM size = me->get_grob_property ("bar-size");
   if (gh_number_p (size))

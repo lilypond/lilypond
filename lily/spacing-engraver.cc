@@ -48,8 +48,8 @@ protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void start_translation_timestep ();
   virtual void stop_translation_timestep ();
-  virtual void do_creation_processing ();
-  virtual void do_removal_processing ();
+  virtual void initialize ();
+  virtual void finalize ();
 public:
   Spacing_engraver ();
 };
@@ -73,18 +73,18 @@ Spacing_engraver::Spacing_engraver()
 }
 
 void
-Spacing_engraver::do_creation_processing ()
+Spacing_engraver::initialize ()
 {
   spacing_p_  =new Spanner (get_property ("SpacingSpanner"));
   Spacing_spanner::set_interface (spacing_p_);
-  spacing_p_->set_bound (LEFT, unsmob_element (get_property ("currentCommandColumn")));  
+  spacing_p_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));  
   announce_grob (spacing_p_, 0);
 }
 
 void
-Spacing_engraver::do_removal_processing ()
+Spacing_engraver::finalize ()
 {
-  Grob * p = unsmob_element (get_property ("currentCommandColumn"));
+  Grob * p = unsmob_grob (get_property ("currentCommandColumn"));
   spacing_p_->set_bound (RIGHT, p);
   typeset_grob (spacing_p_);
   spacing_p_ =0;
@@ -136,7 +136,7 @@ Spacing_engraver::stop_translation_timestep ()
   shortest_playing = shortest_playing <? starter;
   
   Paper_column * sc
-    = dynamic_cast<Paper_column*> (unsmob_element (get_property ("currentMusicalColumn")));
+    = dynamic_cast<Paper_column*> (unsmob_grob (get_property ("currentMusicalColumn")));
 
   SCM sh = shortest_playing.smobbed_copy( );
   SCM st = starter.smobbed_copy();

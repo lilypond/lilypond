@@ -26,7 +26,7 @@ MAKE_SCHEME_CALLBACK(Break_align_interface,before_line_breaking,1);
 SCM
 Break_align_interface::before_line_breaking (SCM smob)
 {
-  Grob* me = unsmob_element (smob);
+  Grob* me = unsmob_grob (smob);
   do_alignment (me);
   return SCM_UNSPECIFIED;
 }
@@ -35,7 +35,7 @@ MAKE_SCHEME_CALLBACK(Break_align_interface,alignment_callback,2);
 SCM
 Break_align_interface::alignment_callback (SCM element_smob, SCM axis)
 {
-  Grob *me = unsmob_element (element_smob);
+  Grob *me = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
 
   assert (a == X_AXIS);
@@ -53,7 +53,7 @@ MAKE_SCHEME_CALLBACK(Break_align_interface,self_align_callback,2);
 SCM
 Break_align_interface::self_align_callback (SCM element_smob, SCM axis)
 {
-  Grob *me = unsmob_element (element_smob);
+  Grob *me = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
   assert (a == X_AXIS);
   

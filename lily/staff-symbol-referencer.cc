@@ -15,7 +15,7 @@
 bool
 Staff_symbol_referencer::has_interface (Grob*e)
 {
-  return unsmob_element (e->get_grob_property ("staff-symbol"))
+  return unsmob_grob (e->get_grob_property ("staff-symbol"))
     || gh_number_p (e->get_grob_property ("staff-position"));
 }
 
@@ -43,7 +43,7 @@ Grob*
 Staff_symbol_referencer::staff_symbol_l (Grob*me) 
 {
   SCM st = me->get_grob_property ("staff-symbol");
-  return unsmob_element(st);
+  return unsmob_grob(st);
 }
 
 Real
@@ -90,7 +90,7 @@ MAKE_SCHEME_CALLBACK(Staff_symbol_referencer,callback,2);
 SCM
 Staff_symbol_referencer::callback (SCM element_smob, SCM )
 {
-  Grob *me = unsmob_element (element_smob);
+  Grob *me = unsmob_grob (element_smob);
 
   
   SCM pos = me->get_grob_property ("staff-position");

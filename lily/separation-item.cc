@@ -37,10 +37,10 @@ Separation_item::my_width (Grob *me)
   for (SCM s =  me->get_grob_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
     {
       SCM elt = gh_car (s);
-      if (!unsmob_element (elt))
+      if (!unsmob_grob (elt))
 	continue;
 
-      Item *il = dynamic_cast<Item*> (unsmob_element (elt));
+      Item *il = dynamic_cast<Item*> (unsmob_grob (elt));
       if (pc != il->column_l ())
 	{
 	  /* this shouldn't happen, but let's continue anyway. */

@@ -23,13 +23,13 @@ public:
   VIRTUAL_COPY_CONS(Translator);
   Grace_engraver_group ();
 protected:
-  virtual void do_creation_processing ();
+  virtual void initialize ();
   virtual void announce_grob (Grob_info);
   virtual void start ();
   virtual void finish ();
   virtual void process ();
   virtual void each (Method_pointer);
-  virtual void do_removal_processing () ;
+  virtual void finalize () ;
   virtual void typeset_grob (Grob*);
   virtual bool try_music (Music *m);
 };

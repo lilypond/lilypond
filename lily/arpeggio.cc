@@ -26,12 +26,12 @@ MAKE_SCHEME_CALLBACK (Arpeggio, brew_molecule, 1);
 SCM 
 Arpeggio::brew_molecule (SCM smob) 
 {
-  Grob *me = unsmob_element (smob);
+  Grob *me = unsmob_grob (smob);
   
   Grob * common = me;
   for (SCM s = me->get_grob_property ("stems"); gh_pair_p (s); s = gh_cdr (s))
     {
-      Grob * stem =  unsmob_element (gh_car (s));
+      Grob * stem =  unsmob_grob (gh_car (s));
       common =  common->common_refpoint (Staff_symbol_referencer::staff_symbol_l (stem),
 				 Y_AXIS);
     }
@@ -49,7 +49,7 @@ Arpeggio::brew_molecule (SCM smob)
       
   for (SCM s = me->get_grob_property ("stems"); gh_pair_p (s); s = gh_cdr (s))
     {
-      Grob * stem = unsmob_element (gh_car (s));
+      Grob * stem = unsmob_grob (gh_car (s));
       Grob * ss = Staff_symbol_referencer::staff_symbol_l (stem);
       Interval iv =Stem::head_positions (stem);
       iv *= Staff_symbol::staff_space (ss)/2.0;
@@ -90,7 +90,7 @@ MAKE_SCHEME_CALLBACK(Arpeggio, width_callback,2);
 SCM
 Arpeggio::width_callback (SCM smob, SCM axis)
 {
-  Grob * me = unsmob_element (smob);
+  Grob * me = unsmob_grob (smob);
   Axis a = (Axis)gh_scm2int (axis);
   assert (a == X_AXIS);
   Molecule arpeggio = Font_interface::get_default_font (me)->find_by_name ("scripts-arpeggio");

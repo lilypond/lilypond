@@ -49,7 +49,9 @@ Tempo_performer::create_grobs ()
     {
 
       SCM met = tempo_req_l_->get_mus_property ("metronome-count");
-      audio_p_ = new Audio_tempo (tempo_req_l_->dur_.length_mom () /
+      Duration *d = unsmob_duration (tempo_req_l_->get_mus_property ("tempo"));
+      
+      audio_p_ = new Audio_tempo (d->length_mom () /
 				  Moment (1, 4) 
 				  * Moment(gh_scm2int (met)));
 

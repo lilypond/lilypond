@@ -18,7 +18,7 @@ MAKE_SCHEME_CALLBACK(Collision,force_shift_callback,2);
 SCM
 Collision::force_shift_callback (SCM element_smob, SCM axis)
 {
-  Grob *me = unsmob_element (element_smob);
+  Grob *me = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
   assert (a == X_AXIS);
   
@@ -26,7 +26,7 @@ Collision::force_shift_callback (SCM element_smob, SCM axis)
   /*
     ugh. the way DONE is done is not clean
    */
-  if (!unsmob_element (me->get_grob_property ("done")))
+  if (!unsmob_grob (me->get_grob_property ("done")))
     {
       me->set_grob_property ("done", me->self_scm ());
       do_shifts (me);
@@ -51,7 +51,7 @@ Collision::do_shifts(Grob* me)
   
   for (; gh_pair_p (hand); hand =gh_cdr (hand))
     {
-      Grob * s = unsmob_element (gh_caar (hand));
+      Grob * s = unsmob_grob (gh_caar (hand));
       Real amount = gh_scm2double (gh_cdar (hand));
       
       s->translate_axis (amount *wid, X_AXIS);
@@ -59,7 +59,7 @@ Collision::do_shifts(Grob* me)
     }
   for (; gh_pair_p (autos); autos =gh_cdr (autos))
     {
-      Grob * s = unsmob_element (gh_caar (autos));
+      Grob * s = unsmob_grob (gh_caar (autos));
       Real amount = gh_scm2double (gh_cdar (autos));
       
       if (!done.find_l (s))
@@ -84,7 +84,7 @@ Collision::automatic_shift (Grob *me)
     {
       SCM car = gh_car (s);
 
-      Grob * se = unsmob_element (car);
+      Grob * se = unsmob_grob (car);
       if (Note_column::has_interface (se))
 	clash_groups[Note_column::dir (se)].push (se);
     }
@@ -209,7 +209,7 @@ Collision::forced_shift (Grob *me)
   SCM s = me->get_grob_property ("elements");
   for (; gh_pair_p (s); s = gh_cdr (s))
     {
-      Grob * se = unsmob_element (gh_car (s));
+      Grob * se = unsmob_grob (gh_car (s));
 
       SCM force =  se->remove_grob_property ("force-hshift");
       if (gh_number_p (force))

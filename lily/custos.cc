@@ -70,7 +70,8 @@
  *
  * (3) The thickness of the ledger line is fixed (limitation).
  */
-Molecule create_ledger_line (Interval x_extent, Grob *me) 
+Molecule
+Custos::create_ledger_line (Interval x_extent, Grob *me) 
 {
   Molecule line;
   Molecule slice = Font_interface::get_default_font (me)->find_by_name ("noteheads-ledgerending");
@@ -105,7 +106,8 @@ Molecule create_ledger_line (Interval x_extent, Grob *me)
   return line;
 }
 
-void add_streepjes(Grob* me,
+void
+Custos::add_streepjes(Grob* me,
 		   int pos,
 		   int interspaces,
 		   Molecule* custos_p_)
@@ -139,7 +141,7 @@ MAKE_SCHEME_CALLBACK(Custos,brew_molecule,1);
 SCM
 Custos::brew_molecule (SCM smob)
 {
-  Item *me = (Item *)unsmob_element (smob);
+  Item *me = (Item *)unsmob_grob (smob);
   SCM scm_style = me->get_grob_property ("style");
 
   if (gh_symbol_p (scm_style))

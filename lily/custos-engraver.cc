@@ -28,7 +28,7 @@ public:
   virtual void acknowledge_grob(Grob_info);
   virtual void create_grobs ();
   virtual void stop_translation_timestep ();
-  virtual void do_removal_processing ();
+  virtual void finalize ();
   VIRTUAL_COPY_CONS(Translator);
 
 private:
@@ -126,7 +126,7 @@ Custos_engraver::create_custos()
 }
 
 void
-Custos_engraver::do_removal_processing ()
+Custos_engraver::finalize ()
 {
   for (int i = custos_arr_.size (); i--;)
     {

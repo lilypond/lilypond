@@ -54,7 +54,7 @@ public:
   Dynamic_engraver ();
   
 protected:
-  virtual void do_removal_processing ();
+  virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music *req_l);
   virtual void stop_translation_timestep ();
@@ -205,7 +205,7 @@ Dynamic_engraver::create_grobs ()
       else
 	{
 	  assert (!finished_cresc_p_);
-	  Grob* cc = unsmob_element (get_property ("currentMusicalColumn"));
+	  Grob* cc = unsmob_grob (get_property ("currentMusicalColumn"));
 	  
 	  cresc_p_->set_bound (RIGHT, cc);
 
@@ -268,7 +268,7 @@ Dynamic_engraver::create_grobs ()
 	    }
 	  cresc_p_->set_bound (LEFT, script_p_
 			       ? script_p_
-			       : unsmob_element (get_property ("currentMusicalColumn")));
+			       : unsmob_grob (get_property ("currentMusicalColumn")));
 	  
 	  Axis_group_interface::add_element (line_spanner_, cresc_p_);
 	  announce_grob (cresc_p_, accepted_spanreqs_drul_[START]);
@@ -286,7 +286,7 @@ Dynamic_engraver::stop_translation_timestep ()
 }
 
 void
-Dynamic_engraver::do_removal_processing ()
+Dynamic_engraver::finalize ()
 {
   typeset_all ();
   if (line_spanner_)
@@ -310,7 +310,7 @@ Dynamic_engraver::typeset_all ()
     {
       finished_cresc_p_->set_bound (RIGHT, script_p_
 			   ? script_p_
-			   : unsmob_element (get_property ("currentMusicalColumn")));
+			   : unsmob_grob (get_property ("currentMusicalColumn")));
 	        
       typeset_grob (finished_cresc_p_);
       finished_cresc_p_ =0;

@@ -119,6 +119,6 @@ MAKE_SCHEME_CALLBACK(Tie_column,after_line_breaking,1);
 SCM
 Tie_column::after_line_breaking (SCM smob)
 {
-  set_directions (unsmob_element (smob));
+  set_directions (unsmob_grob (smob));
   return SCM_UNSPECIFIED;
 }

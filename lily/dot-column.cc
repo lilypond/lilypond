@@ -50,7 +50,7 @@ MAKE_SCHEME_CALLBACK(Dot_column,force_shift_callback,2);
 SCM
 Dot_column::force_shift_callback (SCM element_smob, SCM axis)
 {
-  Grob *me = unsmob_element (element_smob);
+  Grob *me = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
   assert (a == Y_AXIS);
  me = me->parent_l (X_AXIS);
@@ -65,7 +65,7 @@ Dot_column::do_shifts (SCM l)
   Link_array<Grob> dots;
   while (gh_pair_p (l))
     {
-      dots.push (unsmob_element (gh_car (l)));
+      dots.push (unsmob_grob (gh_car (l)));
       l = gh_cdr (l);
     }
   
@@ -121,7 +121,7 @@ Dot_column::has_interface (Grob*m)
 void
 Dot_column::add_head (Grob * me, Grob *rh)
 {
-  Grob * d = unsmob_element (rh->get_grob_property ("dot"));
+  Grob * d = unsmob_grob (rh->get_grob_property ("dot"));
   if (d)
     {
       Side_position::add_support (me,rh);

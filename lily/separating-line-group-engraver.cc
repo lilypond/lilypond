@@ -21,8 +21,8 @@ protected:
   Spanner * sep_span_p_;
   
   virtual void acknowledge_grob (Grob_info);
-  virtual void do_creation_processing ();
-  virtual void do_removal_processing ();
+  virtual void initialize ();
+  virtual void finalize ();
   virtual void stop_translation_timestep ();
 public:
   Separating_line_group_engraver ();
@@ -37,18 +37,18 @@ Separating_line_group_engraver::Separating_line_group_engraver ()
 }
 
 void
-Separating_line_group_engraver::do_creation_processing ()
+Separating_line_group_engraver::initialize ()
 {
   sep_span_p_ = new Spanner (get_property ("SeparatingGroupSpanner"));
   Separating_group_spanner::set_interface (sep_span_p_);
   announce_grob (sep_span_p_, 0);
-  sep_span_p_->set_bound (LEFT, unsmob_element (get_property ("currentCommandColumn")));
+  sep_span_p_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
 }
 
 void
-Separating_line_group_engraver::do_removal_processing ()
+Separating_line_group_engraver::finalize ()
 {
-  sep_span_p_->set_bound (RIGHT, unsmob_element (get_property ("currentCommandColumn")));
+  sep_span_p_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
   typeset_grob (sep_span_p_);
   sep_span_p_ =0;
 }

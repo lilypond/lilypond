@@ -132,7 +132,7 @@ Grob*
 Stem::support_head (Grob*me)
 {
   SCM h = me->get_grob_property ("support-head");
-  Grob * nh = unsmob_element (h);
+  Grob * nh = unsmob_grob (h);
   if (nh)
     return nh;
   else if (heads_i (me) == 1)
@@ -141,7 +141,7 @@ Stem::support_head (Grob*me)
 	UGH.
        */
       
-      return unsmob_element (gh_car (me->get_grob_property ("heads")));
+      return unsmob_grob (gh_car (me->get_grob_property ("heads")));
     }
   else
     return first_head (me);
@@ -179,7 +179,7 @@ Stem::extremal_heads (Grob*me)
   
   for (SCM s = me->get_grob_property ("heads"); gh_pair_p (s); s = gh_cdr (s))
     {
-      Grob * n = unsmob_element (gh_car (s));
+      Grob * n = unsmob_grob (gh_car (s));
 
       
       int p = int(Staff_symbol_referencer::position_f (n));
@@ -362,7 +362,7 @@ MAKE_SCHEME_CALLBACK(Stem,before_line_breaking,1);
 SCM
 Stem::before_line_breaking (SCM smob)
 {
-  Grob*me = unsmob_element (smob);
+  Grob*me = unsmob_grob (smob);
   stem_end_position (me);	// ugh. Trigger direction calc.
   position_noteheads (me);
 
@@ -427,9 +427,9 @@ Stem::dim_callback (SCM e, SCM ax)
 {
   Axis a = (Axis) gh_scm2int (ax);
   assert (a == X_AXIS);
-  Grob *se = unsmob_element (e);
+  Grob *se = unsmob_grob (e);
   Interval r (0, 0);
-  if (unsmob_element (se->get_grob_property ("beam")) || abs (flag_i (se)) <= 2)
+  if (unsmob_grob (se->get_grob_property ("beam")) || abs (flag_i (se)) <= 2)
     ;	// TODO!
   else
     {
@@ -447,7 +447,7 @@ MAKE_SCHEME_CALLBACK(Stem,brew_molecule,1);
 SCM
 Stem::brew_molecule (SCM smob) 
 {
-  Grob*me = unsmob_element (smob);
+  Grob*me = unsmob_grob (smob);
   Molecule mol;
   Direction d = get_direction (me);
   
@@ -487,7 +487,7 @@ MAKE_SCHEME_CALLBACK(Stem,off_callback,2);
 SCM
 Stem::off_callback (SCM element_smob, SCM )
 {
-  Grob *me = unsmob_element (element_smob);
+  Grob *me = unsmob_grob (element_smob);
   
   Real r=0;
   if (Grob * f = first_head (me))
@@ -510,7 +510,7 @@ Grob*
 Stem::beam_l (Grob*me)
 {
   SCM b=  me->get_grob_property ("beam");
-  return unsmob_element (b);
+  return unsmob_grob (b);
 }
 
 

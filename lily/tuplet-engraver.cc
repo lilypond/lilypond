@@ -32,7 +32,7 @@ protected:
   /// The spanners. Array order is synced with time_scaled_music_arr_
   Link_array<Spanner> started_span_p_arr_;
 
-  virtual void do_removal_processing ();
+  virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music*r);
   virtual void start_translation_timestep ();
@@ -81,8 +81,9 @@ Tuplet_engraver::create_grobs ()
       else
 	started_span_p_arr_[i] = glep;
       
-      glep->set_grob_property ("text",
-			      ly_str02scm (to_str (time_scaled_music_arr_[i]->den_i_).ch_C()));
+
+      int d = gh_scm2int (time_scaled_music_arr_[i]->get_mus_property ("denominator"));
+      glep->set_grob_property ("text", ly_str02scm (to_str (d).ch_C()));
       
       announce_grob (glep, time_scaled_music_arr_ [i]);
     }
@@ -146,7 +147,7 @@ Tuplet_engraver::start_translation_timestep ()
 }
 
 void
-Tuplet_engraver::do_removal_processing ()
+Tuplet_engraver::finalize ()
 {
   for (int i=0; i < started_span_p_arr_.size (); i++)
     {
