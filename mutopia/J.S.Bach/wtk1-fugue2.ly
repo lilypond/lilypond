@@ -18,8 +18,9 @@
 \include "nederlands.ly"                 % for correct parsing of note names
 
 global = \notes {
+  \key c \minor;
   \time 4/4;
-  \keysignature bes es as;
+  \property Staff.timeSignatureStyle = "C"
   \skip 1*31;
   \bar "|."; |
 }
@@ -89,8 +90,8 @@ comes = \notes \relative c''  {
 %%10 
   [f f16 e] [f8 c8] d4 r8 d |
   [es8 es16 d] [es8 bes ] [c es16 d] [es8 f] |
-  \stemboth [bes,  es16 d] [es8 f] [as,16 bes ] c4 [bes16 as ] |
-  [g16 es f g] [as bes c d] [es d c d] [es f g a] |
+  [bes,  es16 d] [es8 f] [as,16 bes ] c4 [bes16 as ] |
+  \stemboth [g16 es f g] [as bes c d] [es d c d] [es f g a] |
   [bes f, g as] [bes c d e] [f es d es] [ f g a b] |
 %%15
   \stemup [c8 b16 a] [g f! es d] [c8 es d c] |
@@ -152,12 +153,15 @@ bassdux = \notes \relative c' {
   g4 r4 r16 [g a b] [c d es f] |
   [g f as g] [f es d c] [b8 c16 b] [c8 g] |
   [as c16 b] [c8 d] [g, c16 b] [c8 d] |
-  [f16 g] as4 [g16 f] es4 r8 es |
-  [d c g g]
+  [f,16 g] as4 [g16 f] es4 r8 es' |
+  [d c g' g,]
 %%30
+  %urg
+  %using only \type Staff or \voiceone/two don't work anymore?
+  %moreover, the ties are not fooled by this anymore
   \type Staff <
-    { \stemup c2 ~ | c1 ~ | c1 }
-    { \stemdown c,2 ~ | c1 ~ | c1 }
+    {\voiceone c2 ~ | c1 ~ | c1 }
+    {\voicetwo c,2 ~ | c1 ~ | c1 }
   >
 }
 
@@ -177,11 +181,19 @@ bassdux = \notes \relative c' {
     >
 
   \paper {
-    gourlay_maxmeasures =5.;
-%    castingalgorithm = \Wordwrap;
+    gourlay_maxmeasures = 4.;
     % current default for 16pt -> three pages
-    % arithmetic_multiplier = 4.8\pt;
-    arithmetic_multiplier = 4.4\pt;
+    % hmm, too tight already, better more vsize!
+    arithmetic_multiplier = 4.8\pt;
+    % arithmetic_multiplier = 4.4\pt;
+
+    % Breitkopf; unlike B\"arenreiter rule
+    % really looks a lot better?
+    % should have an array of min/ideal lengths (scheme)
+    % and check B\"arenreiter rules again -- make testcase
+    beam_multiple_break = 2.0;
+
+    %    beam_dir_algorithm = \MEDIAN;
   }
 
   \midi {

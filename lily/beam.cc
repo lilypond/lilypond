@@ -160,10 +160,17 @@ Beam::set_default_dir ()
 
     } while (flip(&d) != DOWN);
   
+#if 0
+   /*
+     urg?  consider [b''16 a]: will get stem down!
+     i'll leave this 'fix' commented-out in case something breaks.
+     jcn
+    */
    do {
     if (!total[d])
       count[d] = 1;
   } while (flip(&d) != DOWN);
+#endif
   
   /* 
      [Ross] states that the majority of the notes dictates the

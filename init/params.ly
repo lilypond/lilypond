@@ -38,7 +38,13 @@ forced_stem_shorten = 1.0 * \interline;
 %
 % enum Dir_algorithm { DOWN=-1, UP=1, MAJORITY=2, MEAN, MEDIAN };
 %
-beam_dir_algorithm = 2.0;
+DOWN = -1.0;
+UP = 1.0;
+MAJORITY = 2.0;
+MEAN = 3.0;
+MEDIAN = 4.0;
+% [Ross]: majority
+beam_dir_algorithm = \MAJORITY;
 
 %
 %
