@@ -125,6 +125,7 @@ LAYOUT = 'layout'
 LINEWIDTH = 'linewidth'
 NOFRAGMENT = 'nofragment'
 NOINDENT = 'noindent'
+NOQUOTE = 'noquote'
 NOTES = 'body'
 NOTIME = 'notime'
 OUTPUT = 'output'
@@ -139,7 +140,8 @@ TEXIDOC = 'texidoc'
 TEXINFO = 'texinfo'
 VERBATIM = 'verbatim'
 
-# NOTIME has no opposite so it isn't part of this dictionary
+# NOTIME has no opposite so it isn't part of this dictionary.
+# NOQUOTE is used internally only.
 no_options = {
 	NOFRAGMENT: FRAGMENT,
 	NOINDENT: INDENT,
@@ -431,16 +433,13 @@ output = {
 %(str)s
 </blockquote>
 ''',
+
 		VERBATIM: r'''<pre>
 %(verb)s</pre>''',
 	},
 
 	##
 	LATEX: {
-		AFTER: '',
-
-		BEFORE: '',
-
 		OUTPUT: r'''{%%
 \parindent 0pt
 \catcode`\@=12
@@ -482,10 +481,6 @@ output = {
 %(code)s
 @lilypond''',
 
-		AFTER: '',
-
-		BEFORE: '',
-
 		OUTPUT: r'''@noindent
 @image{%(base)s,,,[image of music],%(ext)s}''',
 
@@ -493,15 +488,16 @@ output = {
 	''',
 
 		QUOTE: r'''@quotation
-%(str)s
-@end quotation
+%(str)s@end quotation
 ''',
 
-		# FIXME: @exampleindent 5 is the default...
+		NOQUOTE: r'''@format
+%(str)s@end format
+''',
+
 		VERBATIM: r'''@exampleindent 0
 @example
 %(verb)s@end example
-@exampleindent 5
 ''',
 	},
 }
@@ -629,10 +625,28 @@ def compose_ly (code, options, type):
 	# defaults
 	relative = 1
 	override = {}
-	# FIXME: Where to get sane value for exampleindent?
-	#        In texinfo.tex, its maximum value is 0.4in, so we use that.
+	# The concept of the `exampleindent' option is broken.  It is not
+	# possible to get a sane value for @exampleindent at all without
+	# processing the document itself.  Saying
+	#
+	#   @exampleindent 0
+	#   @example
+	#   ...
+	#   @end example
+	#   @exampleindent 5
+	#
+	# causes ugly results with the DVI backend of texinfo since the
+	# default value for @exampleindent isn't 5em but 0.4in (or a smaller
+	# value).  Executing the above code changes the environment
+	# indentation to an unknown value because we don't know the amount
+	# of 1em in advance since it is font-dependent.  Modifying
+	# @exampleindent in the middle of a document is simply not
+	# supported within texinfo.
+	#
+	# To set @exampleindent locally to zero, we use the @format
+	# environment for non-quoted snippets.
 	override[EXAMPLEINDENT] = r'0.4\in'
-	override[LINEWIDTH] = None
+	override[LINEWIDTH] = texinfo_linewidths['@smallbook']
 	override.update (default_ly_options)
 
 	option_list = []
@@ -912,15 +926,13 @@ class Lilypond_snippet (Snippet):
 
 	def output_info (self):
 		str = self.output_print_filename (HTML)
-		str = output[TEXINFO][BEFORE] % vars ()
 		for image in self.get_images ():
 			(base, ext) = os.path.splitext (image)
 
-			# URG, makeinfo implicitely prepends dot to ext
+			# URG, makeinfo implicitly prepends dot to ext
 			# specifying no extension is most robust
 			ext = ''
 			str += output[TEXINFO][OUTPUT] % vars ()
-		str += output[TEXINFO][AFTER] % vars ()
 		return str
 
 	def output_latex (self):
@@ -934,9 +946,7 @@ class Lilypond_snippet (Snippet):
 			if QUOTE in self.options:
 				str = output[LATEX][QUOTE] % vars ()
 
-		str += (output[LATEX][BEFORE]
-			+ (output[LATEX][OUTPUT] % vars ())
-			+ output[LATEX][AFTER])
+		str += (output[LATEX][OUTPUT] % vars ())
 		return str
 
 	def output_print_filename (self,format):
@@ -963,6 +973,8 @@ class Lilypond_snippet (Snippet):
 		if VERBATIM in self.options:
 			verb = verbatim_texinfo (self.substring ('code'))
 			str += (output[TEXINFO][VERBATIM] % vars ())
+			if not QUOTE in self.options:
+				str = output[TEXINFO][NOQUOTE] % vars()
 
 		str += ('@ifinfo\n' + self.output_info () + '\n@end ifinfo\n')
 		str += ('@tex\n' + self.output_latex () + '\n@end tex\n')

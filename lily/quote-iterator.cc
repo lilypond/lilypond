@@ -24,6 +24,7 @@ public:
   Moment vector_moment (int idx) const;
   
   Moment start_moment_;
+  Moment stop_moment_;
   SCM event_vector_;
   int event_idx_;
   int end_idx_ ;
@@ -111,15 +112,16 @@ Quote_iterator::construct_children ()
   set_translator (get_outlet ()->get_default_interpreter ());
   
   Moment now = get_outlet ()->now_mom ();
-  Moment stop = now + unsmob_duration (dur)->get_length ();
+  
 
   start_moment_ = now;
+  stop_moment_ = now + unsmob_duration (dur)->get_length ();
   event_vector_ = get_music ()->get_property ("quoted-events");
 
   if (ly_c_vector_p (event_vector_))
     {
       event_idx_ = binsearch_scm_vector (event_vector_, now.smobbed_copy (), &moment_less);
-      end_idx_ = binsearch_scm_vector (event_vector_, stop.smobbed_copy (), &moment_less);
+      end_idx_ = binsearch_scm_vector (event_vector_, stop_moment_.smobbed_copy (), &moment_less);
     }
   else
     {
@@ -131,7 +133,10 @@ Quote_iterator::construct_children ()
 bool
 Quote_iterator::ok () const
 {
-  return ly_c_vector_p (event_vector_) && (event_idx_ <= end_idx_);
+  return
+    ly_c_vector_p (event_vector_)
+    && (event_idx_ <= end_idx_)
+    && vector_moment (event_idx_).main_part_ < stop_moment_.main_part_;
 }
 
 Moment
@@ -164,7 +169,9 @@ Quote_iterator::process (Moment m)
       event_idx_++;
     }
 
-  if (event_idx_ <= end_idx_)
+  if (event_idx_ <= end_idx_
+      && vector_moment (event_idx_).main_part_ < stop_moment_.main_part_;
+      )
     {
       SCM entry = SCM_VECTOR_REF (event_vector_, event_idx_);
       Pitch * quote_pitch = unsmob_pitch (scm_cdar (entry));
@@ -208,8 +215,8 @@ Quote_iterator::process (Moment m)
 		mus->origin ()->warning (_f ("In quotation: junking event %s", mus->name ()));
 	    }
 	}
+      event_idx_ ++; 
     }
-  event_idx_ ++; 
 }
 
 IMPLEMENT_CTOR_CALLBACK (Quote_iterator);

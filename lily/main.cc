@@ -125,7 +125,7 @@ static Getopt_long *option_parser = 0;
 static Long_option_init options_static[] =
   {
     {_i ("EXPR"), "evaluate", 'e',
-     _i ("set options, use -e '(ly:option-usage)' for help")},
+     _i ("set option, use -e '(ly:option-usage)' for help")},
     /* Bug in option parser: --output=foe is taken as an abbreviation
        for --output-format.  */
     {_i ("EXT"), "format", 'f', _i ("select back-end to use")},
@@ -154,7 +154,7 @@ dir_info (FILE *out)
 {
   fputs ("\n", out);
   fprintf (out, "LILYPOND_DATADIR=\"%s\"\n", LILYPOND_DATADIR);
-  fprintf (out, "LOCAL_LILYPOND_DATADIR=\%s\"\n", LOCAL_LILYPOND_DATADIR);
+  fprintf (out, "LOCAL_LILYPOND_DATADIR=\"\%s\"\n", LOCAL_LILYPOND_DATADIR);
   fprintf (out, "LOCALEDIR=\"%s\"\n", LOCALEDIR);
 
   char *lilypond_prefix = getenv ("LILYPONDPREFIX");
@@ -175,13 +175,13 @@ static void
 identify (FILE *out)
 {
   fputs (gnu_lilypond_version_string ().to_str0 (), out);
+  fputs ("\n", out);
 }
  
 static void
 notice ()
 {
   identify (stdout);
-  printf ("\n");
   printf (_f (NOTICE, PROGRAM_NAME).to_str0 ());
   printf ("\n");
   copyright ();
@@ -191,7 +191,7 @@ static void
 usage ()
 {
   /* No version number or newline here.  It confuses help2man.  */
-  printf (_f ("Usage: %s [OPTIONS]... FILE...", PROGRAM_NAME).to_str0 ());
+  printf (_f ("Usage: %s [OPTION]... FILE...", PROGRAM_NAME).to_str0 ());
   printf ("\n\n");
   printf (_ ("Typeset music and/or produce MIDI from FILE.").to_str0 ());
   printf ("\n\n");
@@ -309,7 +309,6 @@ main_with_guile (void *, int, char **)
 
   ly_c_init_guile ();
   call_constructors ();
-  progress_indication ("\n");
 
   determine_output_options ();  
   all_fonts_global = new All_font_metrics (global_path.to_string ());
@@ -454,6 +453,7 @@ parse_argv (int argc, char **argv)
 
   if (help_b)
     {
+      identify (stdout);
       usage ();
       if (verbose_global_b)
 	dir_info (stdout);
@@ -464,9 +464,10 @@ parse_argv (int argc, char **argv)
 int
 main (int argc, char **argv)
 {
-  setup_localisation ();  
+  setup_localisation ();
   setup_paths ();
   parse_argv (argc, argv);
+  identify (stderr);
   initialize_kpathsea (argv[0]);
 
   scm_boot_guile (argc, argv, main_with_guile, 0);

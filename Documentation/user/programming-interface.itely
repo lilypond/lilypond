@@ -212,7 +212,7 @@ functions:
 Examples of the use of @code{\applymusic} are in the next section.
 
 @seealso
-@file{ly/music-functions-init.ly}.
+@file{ly/@/music@/-functions@/-init@/.ly}.
 
 @node Manipulating music expressions
 @subsection Manipulating music expressions
@@ -276,7 +276,7 @@ children.
 @end example
 
 A slightly more elaborate example is in
-@inputfileref{input/test,reverse-music.ly}.
+@inputfileref{input/@/test,reverse@/-music@/.ly}.
 
 Some of the input syntax is also implemented as recursive music
 functions. For example, the syntax for polyphony
@@ -293,10 +293,10 @@ above by the internal equivalent of
 @end example
 
 Other applications of @code{\applymusic} are writing out repeats
-automatically (@inputfileref{input/test,unfold-all-repeats.ly}),
-saving keystrokes (@inputfileref{input/test,music-box.ly}) and
+automatically (@inputfileref{input/@/test,unfold@/-all@/-repeats@/.ly}),
+saving keystrokes (@inputfileref{input/@/test,music@/-box@/.ly}) and
 exporting LilyPond input to other formats
-(@inputfileref{input/test,to-xml.ly})
+(@inputfileref{input/@/test,to@/-xml@/.ly})
 
 @cindex internal storage
 @cindex @code{\displayMusic}
@@ -306,10 +306,10 @@ music function @code{\displayMusic}
 
 @seealso
 
-@file{scm/music-functions.scm}, @file{scm/music-types.scm},
-@inputfileref{input/test,add-staccato.ly},
-@inputfileref{input/test,unfold-all-repeats.ly}, and
-@inputfileref{input/test,music-box.ly}.
+@file{scm/@/music@/-functions@/.scm}, @file{scm/@/music@/-types@/.scm},
+@inputfileref{input/@/test,add@/-staccato@/.ly},
+@inputfileref{input/@/test,unfold@/-all@/-repeats@/.ly}, and
+@inputfileref{input/@/test,music@/-box@/.ly}.
 
 
 @node Using LilyPond syntax inside Scheme
@@ -514,7 +514,7 @@ raise markup is called as
 The @code{raise-markup} first creates the stencil for the @code{foo}
 string, and then it raises that Stencil by 0.5 staff space. This is a
 rather simple example; more complex examples are in the rest of this
-section, and in @file{scm/define-markup-commands.scm}.
+section, and in @file{scm/@/define@/-markup@/-commands@/.scm}.
 
 @node Markup command definition
 @subsection Markup command definition

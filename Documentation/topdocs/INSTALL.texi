@@ -76,6 +76,8 @@ newer),
 work.
 
 @item @uref{http://www.gnu.org/software/guile/guile.html,GUILE} (version 1.6.0 or newer).
+If you are installing a binary packages, you may need to install
+guile-devel or guile-dev or libguile-dev too.
 
 @item  @uref{http://www.gnu.org/software/flex/,Flex} (version 2.5.4a or newer). 
 
@@ -90,16 +92,10 @@ lexer-gcc-3.1.sh in the source directory.
 
 Also, @TeX{}'s libkpathsea is used to find the fonts (@file{.mf},
 @file{.afm}, @file{.tfm}).  Make sure you have tetex 1.0 or newer
-(1.0.6 is known to work).  You may need to install a tetex-devel (or
-tetex-dev or libkpathsea-dev) package too.
+(1.0.6 is known to work).  If you are installing binary packages, you
+may need to install tetex-devel, tetex-dev or libkpathsea-dev too.
 
 @item @uref{ftp://ftp.gnu.org/gnu/texinfo/,Texinfo} (version 4.7 or newer).
-
-@item The
-@uref{ftp://ftp.ctan.org/tex-archive/macros/latex/contrib/supported/geometry,geometry
-package for LaTeX}.
-
- This package is normally included with the @TeX{} distribution.
 
 @item kpathsea, a library for searching (@TeX{}) files.
 

@@ -514,6 +514,20 @@ AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
     GUILE_PATCH_LEVEL=`expr $guile_version : '[0-9]*\.[0-9]*\.\([0-9]*\)'`
     changequote([, ])dnl
     STEPMAKE_GUILE_FLAGS
+    save_CPPFLAGS="$CPPFLAGS"
+    save_LIBS="$LIBS"
+    CPPFLAGS="$GUILE_CFLAGS $CPPFLAGS"
+    LIBS="$GUILE_LDFLAGS $LIBS"
+    AC_CHECK_HEADERS([libguile.h])
+    AC_CHECK_LIB(guile, scm_boot_guile)
+    AC_CHECK_FUNCS(scm_boot_guile,,libguile_b=no)
+    if test "$libguile_b" = "no"; then
+	    warn='libguile (libguile-dev, guile-devel or guile-dev
+   package).'
+	    STEPMAKE_ADD_ENTRY(REQUIRED, $warn)
+    fi
+    CPPFLAGS="$save_CPPFLAGS"
+    LIBS="$save_LIBS"
     AC_DEFINE_UNQUOTED(GUILE_MAJOR_VERSION, $GUILE_MAJOR_VERSION)
     AC_DEFINE_UNQUOTED(GUILE_MINOR_VERSION, $GUILE_MINOR_VERSION)
     AC_DEFINE_UNQUOTED(GUILE_PATCH_LEVEL, $GUILE_PATCH_LEVEL)
@@ -989,7 +1003,7 @@ AC_DEFUN(STEPMAKE_TEXMF_DIRS, [
 AC_DEFUN(STEPMAKE_TEXMF, [
     # urg, never know what names these teTeX guys will think up
 
-    STEPMAKE_PROGS(METAFONT, mf mfont, $1)
+    STEPMAKE_PROGS(METAFONT, mf-nowin mf mfw mfont, $1)
     STEPMAKE_PROGS(INIMETAFONT, inimf inimfont, $1)
 
     AC_MSG_CHECKING(for working metafont mode)

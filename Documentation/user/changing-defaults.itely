@@ -18,7 +18,7 @@ The controls available for tuning are described in a separate
 document, the @internalsref{Program reference} manual. That manual
 lists all different variables, functions and options available in
 LilyPond. It is written as a HTML document, which is available
-@uref{http://lilypond.org/doc/Documentation/user/out-www/lilypond-internals/,on-line},
+@uref{http://@/lilypond@/.org/@/doc/@/Documentation/@/user/@/out@/-www/@/lilypond@/-internals/,on@/-line},
 but is also included with the LilyPond documentation package.
 
 There are three areas where the default settings may be changed:
@@ -1076,7 +1076,7 @@ are.
 
 We have been talking of `the' @code{Fingering} object, but actually it
 does not amount to much. The initialization file
-@file{scm/define-grobs.scm} shows the soul of the `object',
+@file{scm/@/define@/-grobs@/.scm} shows the soul of the `object',
 
 @verbatim
    (Fingering
@@ -1406,7 +1406,7 @@ directions.
 
 @seealso
 
-Init files: @file{ly/declarations-init.ly} contains hints how new
+Init files: @file{ly/@/declarations@/-init@/.ly} contains hints how new
 fonts may be added to LilyPond.
 
 
@@ -1497,7 +1497,7 @@ objects can be moved with layout properties such as @code{padding} and
 
 @seealso
 
-Init files:  @file{scm/new-markup.scm}.
+Init files:  @file{scm/@/new@/-markup@/.scm}.
 
 
 @refbugs
@@ -2087,7 +2087,12 @@ The header block for a book supports the following
 
 This is a demonstration of the fields available, 
 
-@lilypond[verbatim]
+@lilypond[verbatim,linewidth=11.0\cm]
+\paper {
+  linewidth = 11.0\cm
+  vsize = 10.0\cm
+}
+
 \book {
   \header {
     title = "Title,"
@@ -2116,9 +2121,6 @@ This is a demonstration of the fields available,
     }
     { c'1 }
   }
-  \paper {
-    linewidth = 8.0 \cm
-  }
 }
 @end lilypond
 
@@ -2135,7 +2137,7 @@ A more advanced option is to change the Scheme functions
 @code{make-book-title} and @code{make-score-title} functions, defined
 in the @code{\paper} of the @code{\book} block. These functions
 create a block of titling, given the information in the
-@code{\header}. The init file @file{ly/titling.scm} shows how the
+@code{\header}. The init file @file{ly/@/titling@/.scm} shows how the
 default format is created, and it may be used as a template for
 different styles.
 
@@ -2179,12 +2181,12 @@ Page breaks are computed by the @code{page-breaking} function in the
 To change the paper size, there are two equal commands,
 @example
   #(set-default-paper-size "a4")
-  \layout@{
+  \paper@{
     #(set-paper-size "a4")
   @}
 @end example
 
-The first command sets the size of all pages.  The second command sets the size of the pages that the @code{\layout} block applies to -- if the @code{\layout} block is at the top of the file, then it will apply to all pages.  If the @code{\layout} block is inside a @code{\score}, then the paper size will only apply to that score.
+The first command sets the size of all pages.  The second command sets the size of the pages that the @code{\paper} block applies to -- if the @code{\paper} block is at the top of the file, then it will apply to all pages.  If the @code{\paper} block is inside a @code{\score}, then the paper size will only apply to that score.
 
 The following paper sizes are supported.
 
@@ -2318,7 +2320,7 @@ can.}
 
 The header and footer are created by the functions @code{make-footer}
 and @code{make-header}, defined in @code{\paper}. The default
-implementations are in @file{scm/page-layout.scm}.
+implementations are in @file{scm/@/page@/-layout@/.scm}.
 
 The following settings influence the header and footer layout.
 
@@ -2336,7 +2338,7 @@ page given the system to put on it.
 
 @seealso
 
-Examples: @inputfileref{input/test,page-breaks.ly}
+Examples: @inputfileref{input/@/test,page@/-breaks@/.ly}
 
 @refbugs
 
@@ -2386,7 +2388,7 @@ toplevel scores, and combined as a single @code{\book}.
 
 This behavior can be changed by setting the variable
 @code{toplevel-score-handler} at toplevel.  The default handler is
-defined in the init file @file{scm/lily.scm}.
+defined in the init file @file{scm/@/lily@/.scm}.
 
 @item
 A @code{\book} block logically combines multiple movements
@@ -2396,7 +2398,7 @@ concatenated..
 
 This behavior can be changed by setting the variable
 @code{toplevel-book-handler} at toplevel.  The default handler is
-defined in the init file @file{scm/lily.scm}.
+defined in the init file @file{scm/@/lily@/.scm}.
 
 
 @item A compound music expression, such as
@@ -2410,7 +2412,7 @@ expressions.
  
 This behavior can be changed by setting the variable
 @code{toplevel-music-handler} at toplevel. The default handler is
-defined in the init file @file{scm/lily.scm}.
+defined in the init file @file{scm/@/lily@/.scm}.
  
 @end itemize
 
