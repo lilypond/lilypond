@@ -133,19 +133,22 @@ internals document,  @internalsref{\NAME\}
 @end ifnottex
 
 @macro refbugs
-@strong{BUGS}
+@noindent
+@strong{Bugs}
 
-
+@noindent
 @end macro
 
 @macro seealso
-@strong{SEE ALSO}
+@noindent
+@strong{See also}
 
-
+@noindent
 @end macro
 
 @macro syntax
-@strong{SYNTAX}
+@noindent
+@strong{Syntax}
 
-
+@noindent
 @end macro
