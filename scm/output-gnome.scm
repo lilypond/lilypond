@@ -524,10 +524,14 @@ guile -s ../src/libgnomecanvas/examples/canvas.scm
 (define (papersize window paper)
   (let* ((hsize (ly:output-def-lookup paper 'hsize))
 	 (vsize (ly:output-def-lookup paper 'vsize))
-	 (width (inexact->exact (ceiling (* output-scale hsize))))
-	 (height (inexact->exact (ceiling (* output-scale vsize))))
+	 ;; 2?
+	 (width (inexact->exact (ceiling (* output-scale 2 hsize))))
+	 (height (inexact->exact (ceiling (* output-scale 2 vsize))))
 	 (max-width (gdk-screen-width))
 	 (max-height (gdk-screen-height)))
+
+    ;; ughr: panels?
+    (set! max-height (- max-height 80))
     
     (set! window-width (min width max-width))
     (set! window-height (min height max-height))
@@ -566,6 +570,7 @@ guile -s ../src/libgnomecanvas/examples/canvas.scm
 	 (canvas (new-canvas)))
 
     (papersize window bookpaper)
+    (set-size-request window window-width window-height)
     ;;; (ly:bookpaper-outputscale bookpaper))))
     
     (add window vbox)
