@@ -11,6 +11,7 @@ struct Symbol {
 
     Symbol (String, Box);
     Symbol();
+    String str()const;		// for printing.
 };
 
 #endif

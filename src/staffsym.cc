@@ -7,10 +7,10 @@
 */
 #include "staffsym.hh"
 #include "lookup.hh"
-#include "paperdef.hh"
+#include "paper-def.hh"
 #include "debug.hh"
 
-NAME_METHOD(Staff_symbol);
+
 
 Staff_symbol::Staff_symbol(int l)
 {

@@ -20,7 +20,7 @@
 /// the total music def of one movement
 struct Score {
     /// paper_, staffs_ and commands_ form the problem definition.
-    Paperdef *paper_p_;
+    Paper_def *paper_p_;
     Midi_def *midi_p_;
     IPointerList<Staff*> staffs_;
     
@@ -48,7 +48,7 @@ struct Score {
     ///
     void set(Midi_def* midi_p);
     ///
-    void set(Paperdef* midi_p);
+    void set(Paper_def* midi_p);
 
     // standard
     void OK() const;

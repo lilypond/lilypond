@@ -15,7 +15,7 @@
  */
 
 struct PScore {
-    Paperdef *paper_l_;
+    Paper_def *paper_l_;
     
     /// the columns, ordered left to right
     IPointerList<PCol *> cols;
@@ -41,7 +41,7 @@ struct PScore {
     /* *************** */
     /* CONSTRUCTION */
     
-    PScore(Paperdef*);
+    PScore(Paper_def*);
     /// add a line to the broken stuff. Positions given in #config#
     void set_breaking(Array<Col_hpositions>);
 

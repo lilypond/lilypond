@@ -1,8 +1,8 @@
 #include "main.hh"
-#include "inputscore.hh"
+#include "input-score.hh"
 #include "score.hh"
 #include "string.hh"
-#include "paperdef.hh"
+#include "paper-def.hh"
 #include "debug.hh"
 
 static Array<Input_score*> score_array_global;

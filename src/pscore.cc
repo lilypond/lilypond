@@ -2,12 +2,12 @@
 #include "debug.hh"
 #include "lookup.hh"
 #include "spanner.hh"
-#include "paperdef.hh"
+#include "paper-def.hh"
 #include "molecule.hh"
 #include "dimen.hh"
 #include "scoreline.hh"
 #include "pscore.hh"
-#include "tstream.hh"
+#include "tex-stream.hh"
 #include "item.hh"
 #include "break.hh"
 
@@ -28,7 +28,7 @@ PScore::clean_cols()
 {
     for (iter_top(cols,c); c.ok(); )
 	if (!c->used_b()) {
-	    delete c.get();
+	    delete c.get_p();
 	} else
 	    c++;
 }
@@ -110,7 +110,7 @@ PScore::add(PCol *p)
     cols.bottom().add(p);
 }
 
-PScore::PScore( Paperdef*p)
+PScore::PScore( Paper_def*p)
 {
     paper_l_ = p;
 }

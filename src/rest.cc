@@ -1,7 +1,7 @@
 #include "rest.hh"
 #include "dimen.hh" 
 #include "debug.hh"
-#include "paperdef.hh"
+#include "paper-def.hh"
 #include "lookup.hh"
 #include "molecule.hh"
 
@@ -11,7 +11,7 @@ Rest::Rest(int t, int d)
     balltype = t;
     dots = d;
 }
-NAME_METHOD(Rest);
+
 
 void
 Rest::do_print()const
@@ -25,7 +25,7 @@ Rest::do_print()const
 Molecule*
 Rest::brew_molecule_p()const
 {
-    Paperdef *p =paper();
+    Paper_def *p =paper();
 
     Symbol s;
     s = p->lookup_p_->rest(balltype);

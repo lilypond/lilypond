@@ -1,3 +1,11 @@
+/*
+  lookup.cc -- implement simple Lookup methods.
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include "lookup.hh"
 #include "debug.hh"
 #include "symtable.hh"
@@ -27,6 +35,14 @@ Lookup::add(String s, Symtable*p)
     symtables_->add(s, p);
 }
 
+void
+Lookup::print()const
+{
+    mtor << "Lookup: " << texsetting << " {\n";
+    symtables_->print();
+    mtor << "}\n";
+}
+
 Symbol
 Lookup::text(String style, String text, int dir)
 {
@@ -42,7 +58,6 @@ Lookup::text(String style, String text, int dir)
     return s;
 }
 
-/* *************** */
 
 Real
 Lookup::internote()

@@ -1,14 +1,14 @@
 #include "staff.hh"
 #include "score.hh"
 #include "voice.hh"
-#include "staffwalker.hh"
-#include "staffcolumn.hh"
-#include "scorecolumn.hh"
-
+#include "staff-walker.hh"
+#include "staff-column.hh"
+#include "score-column.hh"
+#include "voice-element.hh"
 #include "debug.hh"
 #include "musicalrequest.hh"
 #include "commandrequest.hh" // todo
-#include "midistream.hh"
+#include "midi-stream.hh"
 
 void
 Staff::add(PointerList<Voice*> const &l)
@@ -17,7 +17,7 @@ Staff::add(PointerList<Voice*> const &l)
 	voice_list_.bottom().add(i);
 }
 
-Paperdef *
+Paper_def *
 Staff::paper() const
 {
     return score_l_->paper_p_;
@@ -34,7 +34,7 @@ Staff::clean_cols()
 	    i->command_column_l_ =0;
 	
 	if (!i->command_column_l_&& !i->musical_column_l_)
-	    delete i.get();
+	    delete i.get_p();
 	else
 	    i++;
     }

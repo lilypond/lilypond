@@ -9,7 +9,7 @@
 
 struct  Symtable : public Assoc<String, Symbol> {
     Symbol lookup(String)const;
-    
+    void print()const;
 };
 
 
@@ -20,6 +20,7 @@ struct Symtables : private Assoc<String, Symtable*> {
     Symtables();
     Symtables(Symtables const&);
     Assoc<String, Symtable*>::add;
+    void print()const;
 };
 
 
