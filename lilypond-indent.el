@@ -17,7 +17,7 @@
 ;;;    * in syntax-highlighting slurs are not always highlighted the right way
 ;;;      e.g. opening slurs are found found better in "#( ( ) ( ) )" than
 ;;;      opening slurs
-;;;    * XEmacs: should make Lilypond-paren-mode instead of using paren-mode
+;;;    * Mouse double-clicks should use LilyPond-scan-sexps for slur matching.
 
 (defcustom LilyPond-indent-level 4
   "*Indentation of lilypond statements with respect to containing block.")
@@ -811,6 +811,37 @@ in `show-paren-style' after `show-paren-delay' seconds of Emacs idle time."
       (and show-paren-overlay-1
 	   (eq (overlay-buffer show-paren-overlay-1) (current-buffer))
 	   (delete-overlay show-paren-overlay-1))))
-;;; XEMACS' Lilypond-paren-mode definition
-(progn ; TODO
-))
+;;; XEMACS' Lilypond-paren-set-mode definition
+(defun LilyPond-paren-set-mode (arg &optional quiet)
+  "Cycles through possible values for `paren-mode', force off with negative arg.
+When called from lisp, a symbolic value for `paren-mode' can be passed directly.
+See also `paren-mode' and `paren-highlight'."
+  (interactive "P")
+  ;; kill off the competition, er, uh, eliminate redundancy...
+  (setq post-command-hook (delq 'show-paren-command-hook post-command-hook))
+  (setq pre-command-hook (delq 'blink-paren-pre-command pre-command-hook))
+  (setq post-command-hook (delq 'blink-paren-post-command post-command-hook))
+
+  (let* ((paren-modes '(blink-paren paren sexp))
+	 (paren-next-modes (cons nil (append paren-modes (list nil)))))
+    (setq paren-mode (if (and (numberp arg) (< arg 0))
+			 nil		; turn paren highlighting off
+		       (cond ((and arg (symbolp arg)) arg)
+			     ((and (numberp arg) (> arg 0))
+			      (nth (1- arg) paren-modes))
+			     ((numberp arg) nil)
+			     (t (car (cdr (memq paren-mode
+						paren-next-modes)))))
+		       )))
+  (cond (paren-mode
+	 (add-hook 'post-command-hook 'LilyPond-paren-highlight)
+	 (add-hook 'pre-command-hook 'paren-nuke-extent)
+	 (setq blink-matching-paren nil))
+	((not (local-variable-p 'paren-mode (current-buffer)))
+	 (remove-hook 'post-command-hook 'LilyPond-paren-highlight)
+	 (remove-hook 'pre-command-hook 'paren-nuke-extent)
+	 (paren-nuke-extent)		; overkill
+	 (setq blink-matching-paren t)
+	 ))
+  (or quiet (message "Paren mode is %s" (or paren-mode "OFF"))))
+)
