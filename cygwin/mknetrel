@@ -102,13 +102,27 @@ prebuild () {
 	mkdir -p mf/out
 	cp -pv mf/out-for-build/* mf/out
     fi
-    
-    addmakeflags MAKE_PFA_FILES=1 ' ' LDFLAGS="$cygwin_root/usr/bin/libpython2.3.dll" ' ' 'target=i686-pc-cygwin'
+
+    EXTRABUILDARGS="LDFLAGS=$cygwin_root/usr/bin/libpython2.3.dll"
+
+    # set LDFLAGS to find the python library
+    # addmakeflags LDFLAGS="$cygwin_root/usr/bin/libpython2.3.dll" ' ' "target=i686-pc-cygwin" ' '
+
+    if iscygwin; then
+	EXTRABUILDARGS="$EXTRABUILDARGS all doc web"
+    fi
 }
 
 preinstall () {
 
-    addmakeflags MAKE_PFA_FILES=1 ' ' LDFLAGS="$cygwin_root/usr/bin/libpython2.3.dll" ' ' 'target=i686-pc-cygwin'
+    # set LDFLAGS to find the python library
+    # addmakeflags LDFLAGS="$cygwin_root/usr/bin/libpython2.3.dll" ' ' "target=i686-pc-cygwin"
+#    if ! iscygwin; then
+#	EXTRAINSTALLARGS="target=i686-pc-cygwin"
+#    else
+    if iscygwin; then
+	EXTRAINSTALLARGS="web-install target=i686-pc-cygwin"
+    fi
 }
 
 postinstall () {
@@ -117,7 +131,9 @@ postinstall () {
     mkdir -p $inst-doc/$docprefix
     cd $build || exit 1
     
-    make conf=for-build webdir=$inst-doc/$packagedocdir web-install
+    if ! iscygwin; then
+	make conf=for-build webdir=$inst-doc/$packagedocdir web-install
+    fi
 
     ## copy READMEs etc
 
