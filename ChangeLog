@@ -4,6 +4,11 @@
 
 2005-01-09  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* config.make.in (METAFONT): Append -progname=mf, fixes use with
+	mf-nowin for teTeX-3.0.  Backportme.
+
+	* scm/output-svg.scm (utf8-string): New function.
+
 	* scm/output-gnome.scm (utf8-string): New function.
 	(otf-name-mangling): Remove.
 

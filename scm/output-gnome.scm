@@ -6,6 +6,10 @@
 
 ;;; TODO:
 ;;;
+;;;  * font selection: name, size, design size
+;;;  * font scaling
+;;;  * .cff MUST NOT be in fc's fontpath?
+
 ;;;  * check: blot+scaling
 ;;;  * Figure out and fix font scaling and character placement
 ;;;  * EC font package: add missing X font directories and AFMs
@@ -145,23 +149,10 @@ lilypond -fgnome input/simple-song.ly
 (define (pango-font-size font)
   (let* ((designsize (ly:font-design-size font))
 	 (magnification (* (ly:font-magnification font)))
-	 
-	 ;;font-name: "GNU-LilyPond-feta-20"
-	 ;;font-file-name: "feta20"
-	 ;;pango-font-name: "lilypond-feta, regular 32"
-	 ;;OPS:2.61
-	 ;;scaling:29.7046771653543
-	 ;;magnification:0.569055118110236
-	 ;;design:20.0
-	 
-	 ;; ugh, experimental sizing
-	 ;; where does factor ops come from?
-	 ;; Hmm, design size: 26/20 
-	 ;;(ops 2.60)
-	 (ops output-scale)
-	 
-	 (scaling (* 1.5 ops magnification designsize)))
-    (debugf "OPS:~S\n" ops)
+	 ;; FIXME
+	 ;;(scaling (* output-scale magnification designsize)))
+	 (scaling (* 1.4 output-scale magnification designsize)))
+    ;;(debugf "OPS:~S\n" ops)
     (debugf "scaling:~S\n" scaling)
     (debugf "magnification:~S\n" magnification)
     (debugf "design:~S\n" designsize)
@@ -406,7 +397,10 @@ lilypond -fgnome input/simple-song.ly
     #:x 0.0 #:y (if (music-font? font) 0.15 0.69)
     #:anchor (if (music-font? font) 'west 'south-west)
     #:font (pango-font-name font)
+    ;; FIXME: points
     #:size-points (pango-font-size font)
+    ;;  or pixels?
+;;    #:size (inexact->exact (round (pango-font-size font)))
     #:size-set #t
     #:text (if (integer? s)
 	       (integer->utf8-string s)
@@ -418,6 +412,6 @@ lilypond -fgnome input/simple-song.ly
     #:x 0.0 #:y 0.0
     #:anchor 'west
     #:font pango-font-description
-    ;;#:size-points 
+    #:size-points 12
     #:size-set #t
     #:text string))
