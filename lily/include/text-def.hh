@@ -1,5 +1,5 @@
 /*
-  text-def.hh -- part of LilyPond
+  text-def.hh -- part of GNU LilyPond
 
   (c) 1996,97 Han-Wen Nienhuys
 */
@@ -8,7 +8,7 @@
 #define TEXT_DEF_HH
 
 #include "string.hh"
-#include "proto.hh"
+#include "lily-proto.hh"
 #include "input.hh"
 
 class Text_def : public Input {

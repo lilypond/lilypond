@@ -1,7 +1,7 @@
 /*
   voice-element.hh -- declare Voice_element
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -10,7 +10,7 @@
 #ifndef VOICE_ELEMENT_HH
 #define VOICE_ELEMENT_HH
 
-#include "proto.hh"
+#include "lily-proto.hh"
 #include "plist.hh"
 #include "moment.hh"
 #include "input.hh"

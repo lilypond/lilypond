@@ -7,7 +7,7 @@
 #ifndef STAFFWALKER_HH
 #define STAFFWALKER_HH
 
-#include "proto.hh"
+#include "lily-proto.hh"
 #include "time-description.hh"
 #include "pcursor.hh"
 

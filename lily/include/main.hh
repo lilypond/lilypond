@@ -1,6 +1,6 @@
 #ifndef MAIN_HH
 #define MAIN_HH
-#include "proto.hh"
+#include "lily-proto.hh"
 
 void debug_init();
 void set_debug(bool);

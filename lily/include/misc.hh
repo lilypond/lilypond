@@ -1,7 +1,7 @@
 #ifndef MISC_HH
 #define MISC_HH
 
-#include "proto.hh"
+#include "lily-proto.hh"
 #include "real.hh"
 #include "moment.hh"
 #include "scalar.hh"

@@ -1,7 +1,7 @@
 /*
   my-lily-parser.hh -- declare My_lily_parser
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -9,12 +9,12 @@
 
 #ifndef MY_LILY_PARSER_HH
 #define MY_LILY_PARSER_HH
-#include "proto.hh"
+#include "lily-proto.hh"
 #include "duration.hh"
 #include "string.hh"
 #include "varray.hh"
 #include "lily-proto.hh"
-#include "proto.hh"
+#include "lily-proto.hh"
 #include "duration.hh"
 #include "string.hh"
 #include "varray.hh"

@@ -1,5 +1,5 @@
 /*
-  colhpos.hh -- part of LilyPond
+  colhpos.hh -- part of GNU LilyPond
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -7,7 +7,7 @@
 #ifndef COLHPOS_HH
 #define COLHPOS_HH
 #include "varray.hh"
-#include "proto.hh"
+#include "lily-proto.hh"
 
 typedef Array<PCol*>  Line_of_cols;
 

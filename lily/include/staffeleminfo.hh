@@ -1,7 +1,7 @@
 /*
   staffeleminfo.hh -- declare Score_elem_info
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -10,7 +10,7 @@
 #ifndef STAFFELEMINFO_HH
 #define STAFFELEMINFO_HH
 
-#include "proto.hh"
+#include "lily-proto.hh"
 
 /// data container.
 struct Score_elem_info {

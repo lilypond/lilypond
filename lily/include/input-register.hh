@@ -1,7 +1,7 @@
 /*
   input-register.hh -- declare Input_register
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -12,7 +12,7 @@
 
 #include "plist.hh"
 #include "string.hh"
-#include "proto.hh"
+#include "lily-proto.hh"
 #include "input.hh"
 
 struct Input_register : Input { 

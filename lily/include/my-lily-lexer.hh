@@ -1,7 +1,7 @@
 /*
   lexer.hh -- declare My_lily_lexer
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -12,7 +12,7 @@
 #include <FlexLexer.h>
 
 #include "lily-proto.hh"
-#include "proto.hh"
+#include "lily-proto.hh"
 #include "fproto.hh"
 #include "varray.hh"
 #include "string.hh"

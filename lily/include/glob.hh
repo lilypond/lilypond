@@ -4,6 +4,6 @@
 #include <math.h>
 #include "real.hh"
 
-#include "proto.hh"
+#include "lily-proto.hh"
 #include "const.hh"
 #endif

@@ -1,7 +1,7 @@
 /*
 paper-def.hh -- declare Paper_def
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1996,1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -9,7 +9,7 @@ paper-def.hh -- declare Paper_def
 
 #ifndef PAPER_DEF_HH
 #define PAPER_DEF_HH
-#include "proto.hh"
+#include "lily-proto.hh"
 #include "real.hh"
 #include "string.hh"
 #include "moment.hh"
@@ -51,9 +51,9 @@ public:
     /**
       The distance between lines
      */
-    Real interline()const;
+    Real interline_f()const;
     /// half the distance between lines
-    Real internote()const;
+    Real internote_f()const;
 
     /// thickness of the standard line 
     Real rule_thickness()const;

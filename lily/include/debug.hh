@@ -9,7 +9,7 @@
 #include <iostream.h>
 #include "dstream.hh"
 #include "real.hh"
-#include "proto.hh"
+#include "lily-proto.hh"
 #include "warn.hh"
 
 void error_t(const String& s, Time_description const &  t_tdes);
