@@ -887,53 +887,69 @@ score_extra_encompass (Grob *me, Grob *common[],
   Array<Real> xidxs;
   Array<Interval> yexts;
   Array<Interval> xexts;
-  for (int i = 0; i < encompasses.size (); i++)
+
+  for (int i = encompasses.size (); i--; )
     {
-      Grob *g = encompasses [i];
-      Interval xe = g->extent (common[X_AXIS], X_AXIS);
-      Interval ye = g->extent (common[Y_AXIS], Y_AXIS);
-
-      Real xp = 0.0;
-
-      if (Accidental_interface::has_interface (g))
+      if (New_slur::has_interface (encompasses[i]))
 	{
-	  /* Begin copy accidental.cc */
-	  bool parens = false;
-	  if (to_boolean (g->get_property ("cautionary")))
+	  Grob * small_slur = encompasses[i];
+	  Bezier b = New_slur::get_curve (small_slur);
+
+	  Offset z = b.curve_point (0.5);
+	  z += Offset (small_slur->relative_coordinate (common[X_AXIS], X_AXIS),
+		       small_slur->relative_coordinate (common[Y_AXIS], Y_AXIS));
+
+	  xexts.push (Interval (z[X_AXIS], z[X_AXIS]));
+	  xidxs.push (0.0);
+	  yexts.push (z[Y_AXIS] + thick * Interval (-0.5, 0.5));
+	}
+      else
+	{
+	  Grob *g = encompasses [i];
+	  Interval xe = g->extent (common[X_AXIS], X_AXIS);
+	  Interval ye = g->extent (common[Y_AXIS], Y_AXIS);
+
+	  Real xp = 0.0;
+
+	  if (Accidental_interface::has_interface (g))
 	    {
-	      SCM cstyle = g->get_property ("cautionary-style");
-	      parens = ly_c_equal_p (cstyle, ly_symbol2scm ("parentheses"));
-	    }
-	
-	  SCM accs = g->get_property ("accidentals");
-	  SCM scm_style = g->get_property ("style");
-	  if (!ly_c_symbol_p (scm_style)
-	      && !parens
-	      && scm_ilength (accs) == 1)
-	    {
-	      /* End copy accidental.cc */
-	      switch (ly_scm2int (ly_car (accs)))
+	      /* Begin copy accidental.cc */
+	      bool parens = false;
+	      if (to_boolean (g->get_property ("cautionary")))
 		{
-		case FLAT:
-		case DOUBLE_FLAT:
-		  xp = LEFT;
-		  break ;
-		case SHARP:
-		  xp = 0.5 * dir;
-		  break ;
-		case NATURAL:
-		  xp = -dir;
-		  break; 
+		  SCM cstyle = g->get_property ("cautionary-style");
+		  parens = ly_c_equal_p (cstyle, ly_symbol2scm ("parentheses"));
+		}
+	
+	      SCM accs = g->get_property ("accidentals");
+	      SCM scm_style = g->get_property ("style");
+	      if (!ly_c_symbol_p (scm_style)
+		  && !parens
+		  && scm_ilength (accs) == 1)
+		{
+		  /* End copy accidental.cc */
+		  switch (ly_scm2int (ly_car (accs)))
+		    {
+		    case FLAT:
+		    case DOUBLE_FLAT:
+		      xp = LEFT;
+		      break ;
+		    case SHARP:
+		      xp = 0.5 * dir;
+		      break ;
+		    case NATURAL:
+		      xp = -dir;
+		      break; 
+		    }
 		}
 	    }
+
+	  xidxs.push (xp);
+	  ye.widen (thick * 0.5);
+	  yexts.push (ye);
+	  xexts.push (xe);
 	}
-
-      xidxs.push (xp);
-      ye.widen (thick * 0.5);
-      yexts.push (ye);
-      xexts.push (xe);
     }
-
   for (int i = 0; i < scores->size (); i++)
     {
       Real demerit = 0.0;
@@ -1088,6 +1104,9 @@ score_slopes (Grob *me, Grob *common[],
 #endif
       (*scores)[i].score_ += demerit;
     }
+
+
+  
 }
 
 

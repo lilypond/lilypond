@@ -6,7 +6,6 @@
 
 #include "event.hh"
 #include "new-slur.hh"
-#include "warn.hh"
 #include "note-column.hh"
 #include "context.hh"
 #include "directional-element-interface.hh"
