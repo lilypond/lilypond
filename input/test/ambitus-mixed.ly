@@ -1,60 +1,30 @@
 
 \header {
-texidoc = "The showing of ambituses can be switched off or they can be
-shifted horizontally by using @code{applyoutput}.
 
-If you want to mix per-voice and per-staff ambituses, then you have to
-define new context type derived from the @code{Voice} or @code{Staff} 
-context.  The derived context must contain the @code{Ambitus_engraver} 
-and it must be accepted by a proper parent context, which are respectively
-the @code{Staff} context or @code{Score} context in the example below. 
-The original context and the derived context can then be used in parallel 
-in the same score (not demonstrated in this file).
-"
+    texidoc = "Ambituses can be added per voice. In that case, the
+ambitus must be moved manually to prevent collisions."
+
 }
 
 \version "2.3.8"
 
-#(define (kill-ambitus grob grob-context apply-context)
-  (if (memq 'ambitus-interface (ly:grob-property grob 'interfaces))
-   (ly:grob-suicide grob)
-  ))
-
-#(define ((shift-ambitus x) grob grob-context apply-context)
-  (if (memq 'ambitus-interface (ly:grob-property grob 'interfaces))
-   (ly:grob-translate-axis! grob x X)
-  ))
-
-
-
-voiceA =  \relative c'' {
-  c4 a d e f2
-}
-voiceB =  \relative c' {
-  es4 f g as b2 
-}
-\score {
-  \context ChoirStaff <<
-    \new Staff <<
-	{
-	   \applyoutput  #(shift-ambitus 1.0)
-	    \voiceA
-	   } \\
-       {
-	   \voiceB
-       }
-    >>
-    \new Staff <<
-       {  \applyoutput #kill-ambitus \voiceA } \\
-       {  \applyoutput #kill-ambitus \voiceB }
-    >>
-  >>
-  \paper {
+\paper {
     raggedright = ##t
-
-    \context {
-	\Voice
-      \consists Ambitus_engraver
-    }
-    }
 }
+
+\new Staff <<
+    \new Voice \with {
+	\consists "Ambitus_engraver"
+    } \relative c'' {
+	\override Ambitus #'X-offset-callbacks
+	=  #(list (lambda (grob axis) -1.0))
+	\voiceOne
+	c4 a d e f2
+    }
+    \new Voice \with {
+	\consists "Ambitus_engraver"
+    } \relative c' {
+	\voiceTwo
+	es4 f g as b2
+    }
+>>

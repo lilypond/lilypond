@@ -15,11 +15,6 @@ Beam positions may be controlled manually, by overriding the @code{positions} se
 	%% from center to one above centre (position 2)
 	\override Beam  #'positions = #'(0 . 1)
 	 c[ c]
-	
-	%% normal beam-algorithm
-	\revert Beam #'positions
-	\revert Beam #'positions
-	 c[ e]  e[ c]
   }
 \paper{raggedright = ##t}
 }

@@ -29,7 +29,7 @@ somewhat familiar with LilyPond.
 * Orchestral music::            
 * Ancient notation::            
 * Contemporary notation::       
-* Special notation::            
+* Educational use::             
 * Sound::                       
 @end menu
 
@@ -1371,6 +1371,7 @@ Program reference: @internalsref{Beam}.
 @menu
 * Manual beams::                
 * Setting automatic beam behavior::  
+* Beam formatting::             
 @end menu
 
 @node Manual beams
@@ -1563,6 +1564,25 @@ manual beaming.
 It is not possible to specify beaming parameters that act differently in
 different parts of a measure. This means that it is not possible to use
 automatic beaming in irregular meters such as @code{5/8}.
+
+@node Beam formatting
+@subsection Beam formatting
+
+
+When a beam falls in the middle of the staff, the beams point normally
+down.  However, this behaviour can be altered with the
+@code{neutral-direction} property.
+
+
+@lilypond
+\relative c'' {
+   b8[ b]
+  \override Beam  #'neutral-direction = #-1
+   b[ b]
+  \override Beam  #'neutral-direction = #1
+   b[ b]
+}
+@end lilypond
 
 @node Accidentals
 @section Accidentals
@@ -3313,7 +3333,6 @@ These three functions can be controlled separately, and that is what
 the following sections are about.
 
 @menu
-* Easy lyrics entry
 * Entering lyrics::             
 * The Lyrics context::          
 * More stanzas::                
@@ -4801,8 +4820,8 @@ ancient notation, see @ref{Custodes}, @ref{Divisiones},
 * Custodes::                    
 * Divisiones::                  
 * Ligatures::                   
-* Figured bass::                
 * Vaticana style contexts::     
+* Figured bass::                
 @end menu
 
 If this all is way too much of documentation for you, and you just
@@ -6605,11 +6624,13 @@ See @ref{Articulations} for general instructions how to apply scripts
 such as fermatas to notes.
 
 
-@node Special notation
-@section Special notation
+@node Educational use
+@section Educational use
 
 @menu
 * Balloon help::                
+* Blank music paper::           
+* Notation for excercises::     
 * Easy Notation note heads::    
 @end menu
 
@@ -6643,6 +6664,57 @@ the `balloon.'
 Program reference: @internalsref{text-balloon-interface}.
 
 Examples: @inputfileref{input/regression,balloon.ly}.
+
+
+
+
+@node Blank music paper
+@subsection Blank music paper
+
+A blank music paper can be produced also by using invisible notes, and
+removing @code{Bar_number_engraver}.
+
+
+@lilypond
+emptymusic =  {
+  \repeat unfold 2 % Change this for more lines. 
+  { s1\break }
+  \bar "|."
+}
+\new Score \with {
+    \override TimeSignature #'transparent = ##t
+    defaultBarType = #""
+    \remove Bar_number_engraver
+} <<
+	\context Staff \emptymusic
+	\context TabStaff \emptymusic
+>>
+@end lilypond
+
+
+@node Notation for excercises
+@subsection Notation for excercises
+
+@cindex Blank Notes
+
+Invisible (or transparent) notes can be useful, when weird tricks are
+needed; especially, a slur cannot be attach to a rest or spacer rest.
+
+
+@lilypond
+blanknotes = { \override NoteHead  #'transparent = ##t
+	       \override Stem  #'transparent = ##t }
+unblanknotes = { \revert NoteHead #'transparent
+		 \revert Stem #'transparent }
+
+
+\relative c'' {
+    c4 d4 
+    \blanknotes e4 f4   \unblanknotes
+    g4 a 
+}
+@end lilypond
+
 
 @node Easy Notation note heads
 @subsection Easy Notation note heads
