@@ -36,7 +36,7 @@ def draw_meta_sharp (expr width) =
 	pair center;
 
 	interbeam := 1.05 staff_space;
-	beamheight := 4 stafflinethickness;
+	beamheight := 0.3 staff_space + stafflinethickness;
 	beamwidth := width;
 	stemwidth := 1.5 stafflinethickness;
 	roundness := 2 blot_diameter;
@@ -133,7 +133,7 @@ fet_beginchar( "Natural", "0", "natural")
 	stemwidth;
 	save top_stem_thick;
 
-	beamheight# = 4.0 stafflinethickness#;
+	beamheight# = 0.3 staff_space# + stafflinethickness#;
 	height# = 1.5 staff_space#;
 	set_char_box(0, 2/3 staff_space#, height#, height#);
 
@@ -146,7 +146,7 @@ fet_beginchar( "Natural", "0", "natural")
 	
 
 	interstem + stemwidth =  w;
-	stemwidth = 1.3 stafflinethickness;
+	stemwidth = 0.03 staff_space + stafflinethickness;
 
 	z2 -z1 = (interstem, slope * interstem);
 	xpart .5 [z2,z1] = xcenter ;
@@ -228,10 +228,10 @@ def draw_meta_flat(expr xcenter, w, crook_fatness) =
 
 	% this is a somewhat heuristic.  We should  probably make it
 	% straight for low resolution (300 dpi and less).
-	top_stem_thick = round (2.2 stafflinethickness) + 0.74;
+	top_stem_thick = round (0.1 staff_space + 1.2 stafflinethickness) + 0.74;
 
 	bottom_overshoot = stafflinethickness;
-	bottom_stem_thick = 1.2 stafflinethickness;
+	bottom_stem_thick =0.06 staff_space +  0.6 stafflinethickness;
 
 	z1 = (0, 2 staff_space) + center - (0, stafflinethickness/2
 		+ clearing);

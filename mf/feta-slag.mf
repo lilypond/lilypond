@@ -9,198 +9,191 @@
 
 % this file is included by feta-scripts.mf
 
-tfat := 1/2;
-%twidth# := 0.5staff_space#;
-%theight# := 0.55staff_space#;
-% tthin# := stafflinethickness#;
-tthin# := 1.6stafflinethickness#;
+trill_thin# = 0.1 staff_space# + 0.6 stafflinethickness#;
+trill_thick# = 1/2 staff_space#;
+trill_width# = 5/12 staff_space#;
+trill_height# = 1/2staff_space#;
+trill_overlap# = 1/6 staff_space#;
 
-twidth# := 2/3staff_space#;
-theight# := 1/2staff_space#;
+pair trill_ne;
+trill_ne := unitvector ((6,9));
 
-% uhg/ uhuh?
-% toverlap# := tfat*twidth#+tthin#;
-toverlap# := tfat*twidth#+0.45tthin#;
-define_pixels(twidth,theight,tthin,toverlap);
+define_pixels (trill_thick, trill_thin, 
+		trill_width, trill_overlap, trill_height);
 
-def draw_trillelement = 
-	save x, y;
 
-	pickup pencircle scaled tthin;
+%
+% the trill element sticks out on both the left and right side
+% out of the normal bbox, so you can glue them together easily.
+%
+def draw_trillelement (expr startx) =
+begingroup
+	clearxy;
+	save x, y, p;
+
+	pickup pencircle scaled trill_thin;
 	
-	lft x1 = -twidth;
-%	x3 = -1/3*twidth;
-	x3 = -0.3*twidth;
-	top y3 = theight;
+	x1 = - trill_width;
+	y1 = 0;
+	z3 = whatever * trill_ne + z1;
+	top y3 = trill_height;
+	z2 =  z3 - (trill_thick - trill_thin) * trill_ne;
 
-	z3 - z1 = whatever * (0.5twidth, theight);
-	z2 = tfat[z3, z1];
+	z4 = z1 - trill_ne * trill_overlap;
 
 	path p;
-	p = z3 -- z2 -- z1 -- z2;
+	p = z3 -- z2 -- z4 -- z2;
 	p := p -- (p scaled -1) -- cycle;
-	filldraw p;
-	labels(1,2,3);
+	%pickup pencircle scaled 2;
+	filldraw (p shifted (startx + trill_width,0)) ;
+	%draw p;
+	labels(1,2,3,4);
+endgroup;
 enddef;
 
-def draw_trill_two = 
-	draw_trillelement;
-	currentpicture := currentpicture shifted (-2*twidth+toverlap, 0);
-	draw_trillelement;
-	currentpicture := currentpicture shifted (twidth-0.5toverlap, 0);
-enddef;
 
-def draw_trill_three = 
-	draw_trillelement;
-	currentpicture := currentpicture shifted (-2*twidth+toverlap, 0);
-	draw_trillelement;
-	currentpicture := currentpicture shifted (-2*twidth+toverlap, 0);
-	draw_trillelement;
-	currentpicture := currentpicture shifted (2twidth-toverlap, 0);
-enddef;
 
-def draw_trill_four = 
-	draw_trillelement;
-	currentpicture := currentpicture shifted (-2*twidth+toverlap, 0);
-	draw_trillelement;
-	currentpicture := currentpicture shifted (-2*twidth+toverlap, 0);
-	draw_trillelement;
-	currentpicture := currentpicture shifted (-2*twidth+toverlap, 0);
-	draw_trillelement;
-	currentpicture := currentpicture shifted (3twidth-1.5toverlap, 0);
-enddef;
-
-def draw_mordent(expr a) = 
-	pickup pencircle scaled tthin;
-	save x, y;
-	top y1 = 4/3theight;
-	x1 = x2 = a;
-	y2 = - y1;
-	draw z1 -- z2;
-enddef;
 
 fet_beginchar("trilelement", "trilelement", "trilelement")
-%	set_char_box(twidth#, twidth#, theight#, theight#);
-	set_char_box(twidth#, twidth#-toverlap#, theight#, theight#);
-	draw_trillelement;
+	set_char_box(trill_width#, trill_width#,
+				trill_height#, trill_height#);
+	draw_trillelement(-trill_width);
 fet_endchar;
 
 fet_beginchar("prall", "prall", "prall")
-	trills := 2;
-	set_char_box(trills*twidth#-0.5toverlap#, trills*twidth#-0.5toverlap#, theight#, theight#);
-	draw_trill_two;
+	set_char_box(2 trill_width#, 2 trill_width#,
+		     trill_height#, trill_height#);
+	draw_trillelement(-2 trill_width);
+	draw_trillelement(0);
 fet_endchar;
 
 fet_beginchar("mordent", "mordent", "mordent")
-	trills := 2;
-	set_char_box(trills*twidth#-0.5toverlap#, trills*twidth#-0.5toverlap#, 4/3*theight#, 4/3*theight#);
-	draw_trill_two;
-	draw_mordent(0);
+	set_char_box(2 trill_width#, 2 trill_width#,
+			4/3 trill_height#, 4/3 trill_height#);
+	draw_trillelement(-2 trill_width);
+	draw_trillelement(0);
+
+	pickup pencircle scaled trill_thin;
+	top y1 = h;
+	bot y2 = -d;
+	x1 = x2 ;
+	x2 = 0;
+	draw z1 -- z2;
 fet_endchar;
 
-
-% in modern typesetting, i've seen these double symbols implemented 
-% as three trills rather than the actual double four [gerou and lusk].
-% it looks nicer and i don't think it introduces ambiguity.
-% would like to have more references -- jcn.
-
 fet_beginchar("prallprall", "prallprall", "prallprall")
-	trills := 3;
-	set_char_box(trills*twidth#-(trills-1)*0.5toverlap#, trills*twidth#-(trills-1)*0.5toverlap#, theight#, theight#);
-	draw_trill_three;
+	set_char_box(3 trill_width#, 3 trill_width#,
+		     trill_height#, trill_height#);
+	draw_trillelement(-3 trill_width);
+	draw_trillelement(-1 trill_width);
+	draw_trillelement(1 trill_width);
 fet_endchar;
 
 fet_beginchar("prallmordent", "prallmordent", "prallmordent")
-	trills := 3;
-	set_char_box(trills*twidth#-(trills-1)*0.5toverlap#, trills*twidth#-(trills-1)*0.5toverlap#, 4/3*theight#, 4/3*theight#);
-	draw_trill_three;
-	draw_mordent(twidth-0.5toverlap);
+
+	set_char_box(3 trill_width#, 3 trill_width#,
+		     4/3 trill_height#, 4/3trill_height#);
+	draw_trillelement(-3 trill_width);
+	draw_trillelement(-1 trill_width);
+	draw_trillelement(1 trill_width);
+
+	pickup pencircle scaled trill_thin;
+	top y1 = h;
+	bot y2 = -d;
+	x1 = x2 ;
+	x2 = trill_width;
+	draw z1 -- z2;
 fet_endchar;
 
-input feta-sleur;
-
-%
-% URG.   The attached slurs look weird, and discontinuous in their connection to the 
-% main part.  --hwn
+save remember_pic;
+picture remember_pic;
 
 fet_beginchar("upprall", "upprall", "upprall")
-%	trills := 4;
-	trills := 3;
-	set_char_box(trills*twidth#-(trills-1)*0.5toverlap#, trills*twidth#-(trills-1)*0.5toverlap#, theight#, theight#);
-%	draw_slur(-2twidth#,-2theight#,0,-1);
-%	currentpicture := currentpicture shifted (-0.5w+tthin,-tfat*theight+0.75tthin);
-	draw_slur(0,-2theight#,0,-1);
-%	currentpicture := currentpicture shifted (-0.5w+1.3tthin,-tfat*theight+1.5tthin);
-	currentpicture := currentpicture shifted (-0.5w+1.65tthin,-tfat*theight+1.15tthin);
-%	draw_trill_four;
-	draw_trill_three;
-fet_endchar;
+	set_char_box(3 trill_width#, 3 trill_width#,
+		      trill_height#, trill_height#);
+	draw_trillelement(-3 trill_width);
+	draw_trillelement(-1 trill_width);
+	draw_trillelement(1 trill_width);
 
-fet_beginchar("downprall", "downprall", "downprall")
-	trills := 3;
-	set_char_box(trills*twidth#-(trills-1)*0.5toverlap#, trills*twidth#-(trills-1)*0.5toverlap#, theight#, theight#);
-%	draw_slur(-2twidth#,2theight#,0,1);
-	draw_slur(0,2theight#,0,1);
-%	currentpicture := currentpicture shifted (-0.5w+tthin,-tfat*theight+0.75tthin);
-	currentpicture := currentpicture shifted (-0.5w+tthin,-tfat*theight+0.5tthin);
-	draw_trill_three;
+
+	z1 = (- b,0) - trill_overlap * trill_ne ;
+	z4 = z1 + (0, - 2 trill_height);
+	labels (1,4);
+	draw z1{-trill_ne} .. z4{trill_ne yscaled  -1};
+	remember_pic := currentpicture ;
 fet_endchar;
 
 fet_beginchar("upmordent", "upmordent", "upmordent")
-%	trills := 4;
-	trills := 3;
-	set_char_box(trills*twidth#-(trills-1)*0.5toverlap#, trills*twidth#-(trills-1)*0.5toverlap#, 4/3*theight#, 4/3*theight#);
-%	draw_slur(-2twidth#,-2theight#,0,-1);
-%	currentpicture := currentpicture shifted (-0.5w+tthin,-tfat*theight+0.75tthin);
-	draw_slur(0,-2theight#,0,-1);
-%	currentpicture := currentpicture shifted (-0.5w+1.3tthin,-tfat*theight+1.5tthin);
-	currentpicture := currentpicture shifted (-0.5w+1.65tthin,-tfat*theight+1.15tthin);
-%	draw_trill_four;
-	draw_trill_three;
-	draw_mordent(twidth-0.5toverlap);
-fet_endchar;
+	set_char_box(3 trill_width#, 3 trill_width#,
+		      trill_height#, trill_height#);
 
-fet_beginchar("downmordent", "downmordent", "downmordent")
-	trills := 3;
-	set_char_box(trills*twidth#-(trills-1)*0.5toverlap#, trills*twidth#-(trills-1)*0.5toverlap#, 4/3*theight#, 4/3*theight#);
-%	draw_slur(-2twidth#,2theight#,0,1);
-	draw_slur(0,2theight#,0,1);
-%	currentpicture := currentpicture shifted (-0.5w+tthin,-tfat*theight+0.75tthin);
-	currentpicture := currentpicture shifted (-0.5w+tthin,-tfat*theight+0.5tthin);
-	draw_trill_three;
-	draw_mordent(twidth-0.5toverlap);
-fet_endchar;
+	currentpicture := remember_pic;
 
-fet_beginchar("lineprall", "lineprall", "lineprall")
-	trills := 3;
-	set_char_box(trills*twidth#-(trills-1)*0.5toverlap#, trills*twidth#-(trills-1)*0.5toverlap#, theight#, 4*theight#);
-	pickup pencircle scaled tthin;
-	draw (-0.5w+tthin,-tfat*theight+0.5tthin) -- (-0.5w+tthin,h);
-	draw_trill_three;
+	pickup pencircle scaled trill_thin;
+	top y1 = h;
+	bot y2 = -d;
+	x1 = x2 ;
+	x2 = trill_width;
+	draw z1 -- z2;
 fet_endchar;
 
 fet_beginchar("pralldown", "pralldown", "pralldown")
-%	trills := 4;
-	trills := 3;
-	set_char_box(trills*twidth#-(trills-1)*0.5toverlap#, trills*twidth#-(trills-1)*0.5toverlap#, theight#, theight#);
-%	draw_slur(-2twidth#,-2theight#,0,-1);
-%	currentpicture := currentpicture shifted (-0.5w+tthin,-tfat*theight+0.75tthin);
-	draw_slur(0,-2theight#,0,-1);
-%	currentpicture := currentpicture shifted (-0.5w+1.3tthin,-tfat*theight+1.5tthin);
-	currentpicture := currentpicture shifted (-0.5w+1.65tthin,-tfat*theight+1.15tthin);
-%	draw_trill_four;
-	draw_trill_three;
-	currentpicture := currentpicture xscaled -1;
+	set_char_box(3 trill_width#, 3 trill_width#,
+		      trill_height#, trill_height#);
+	currentpicture := remember_pic xscaled -1;
+fet_endchar;
+
+fet_beginchar("downprall", "downprall", "downprall")
+	set_char_box(3 trill_width#, 3 trill_width#,
+		      trill_height#, trill_height#);
+	remember_pic := currentpicture;
+	draw_trillelement(-3 trill_width);
+	draw_trillelement(-1 trill_width);
+	draw_trillelement(1 trill_width);
+
+
+	z1 = (- b,0) - trill_overlap * trill_ne ;
+	z4 = z1 + (0, 2 trill_height);
+	labels (1,4);
+	draw z1{trill_ne xscaled -1} .. z4{trill_ne};
+	remember_pic := currentpicture ;
+
+fet_endchar;
+
+fet_beginchar("downmordent", "downmordent", "downmordent")
+	set_char_box(3 trill_width#, 3 trill_width#,
+		    4/3  trill_height#, 4/3trill_height#);
+
+	currentpicture := remember_pic;
+
+	pickup pencircle scaled trill_thin;
+	top y1 = h;
+	bot y2 = -d;
+	x1 = x2 ;
+	x2 = trill_width;
+	draw z1 -- z2;
 fet_endchar;
 
 fet_beginchar("prallup", "prallup", "prallup")
-	trills := 3;
-	set_char_box(trills*twidth#-(trills-1)*0.5toverlap#, trills*twidth#-(trills-1)*0.5toverlap#, theight#, theight#);
-%	draw_slur(-2twidth#,2theight#,0,1);
-	draw_slur(0,2theight#,0,1);
-%	currentpicture := currentpicture shifted (-0.5w+tthin,-tfat*theight+0.75tthin);
-	currentpicture := currentpicture shifted (-0.5w+tthin,-tfat*theight+0.5tthin);
-	draw_trill_three;
-	currentpicture := currentpicture xscaled -1;
+	set_char_box(3 trill_width#, 3 trill_width#,
+		      trill_height#, trill_height#);
+	currentpicture := remember_pic xscaled -1;
 fet_endchar;
+
+
+fet_beginchar("lineprall", "lineprall", "lineprall")
+	set_char_box(3 trill_width#, 3 trill_width#,
+		      trill_height#, 4trill_height#);
+	remember_pic := currentpicture;
+	draw_trillelement(-3 trill_width);
+	draw_trillelement(-1 trill_width);
+	draw_trillelement(1 trill_width);
+
+	
+	z1 = (- b,0) - trill_overlap * trill_ne ;
+	z4 = z1 + (0, h);
+	labels (1,4);
+	draw z1 -- z4;
+fet_endchar;
+
 

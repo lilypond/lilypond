@@ -20,7 +20,7 @@ def draw_fermata =
 
   radius# = 1.25 staff_space#;
   crook_thinness# = 1.5stafflinethickness#;
-  crook_fatness# = 4 stafflinethickness#;
+  crook_fatness# = 0.25 staff_space# +  1.5 stafflinethickness#;
 
   radius# + crook_fatness#/2 = h#;
   radius# + crook_thinness#/2 = w#;
@@ -60,7 +60,8 @@ fet_endchar;
 def draw_short_fermata =
 	save fat_factor, thinness, dot_radius;
 	set_char_box(staff_space#, staff_space#, 0, 2.2 staff_space#);
-	dot_radius# = 8/3*stafflinethickness#;
+
+	dot_radius# = 0.133 staff_space# + 1.33 stafflinethickness#;
 	define_pixels(dot_radius)
 
 	fat_factor = .11;
@@ -101,8 +102,8 @@ def draw_long_fermata =
 
 	wd# = 2.5 staff_space#;
 	stemthick = 1.5 stafflinethickness;
-	beamheight = 4 stafflinethickness;
-	dot_radius# = 8/3*stafflinethickness#;
+	beamheight = 0.3 staff_space+  stafflinethickness;
+	dot_radius# = 0.133 staff_space#+ + 1.333 *stafflinethickness#;
 	set_char_box(wd#/2, wd#/2, 0, 3/2 staff_space#);
 
 	draw_rounded_block((-b, h-beamheight), (w, h), blot_diameter);
@@ -128,16 +129,18 @@ def draw_very_long_fermata =
 	save ibeamheight, obeamheight;
 	save ihwd, ohwd, iht, oht; % inner/outer half_width/height
 	save stemthick, dot_radius;
-	define_pixels(ihwd, ohwd, iht, oht, dot_radius)
+	define_pixels(ihwd, ohwd, iht, oht)
 
 	ihwd# = 1.0 staff_space#;
 	ohwd# = 1.5 staff_space#;
 	iht# = 0.9 staff_space#;
 	oht# = 1.6 staff_space#;
+
 	stemthick = 1.5 stafflinethickness;
-	ibeamheight = 3 stafflinethickness;
-	obeamheight = 5 stafflinethickness;
-	dot_radius# = 8/3*stafflinethickness#;
+	ibeamheight = 0.3 staff_space;
+	obeamheight = 0.5 staff_space;
+	dot_radius = ((iht - ibeamheight) * 4/10)  ;
+
 	set_char_box(ohwd#, ohwd#, 0, oht#);
 
 	draw_rounded_block((-ohwd, oht-obeamheight), (ohwd, oht), blot_diameter);
@@ -171,10 +174,12 @@ fet_beginchar("Thumb", "thumb", "thumb")
         save thin, height, width, thick;
         height# = 5/4 width#;
         height# = staff_space#;
-        thin = 1.2 stafflinethickness;
-        thick =  2 thin;
         set_char_box(width#/2, width#/2, height#/2, height#/2);
-        
+	define_pixels (height,width)
+
+        thin = .6  stafflinethickness + 0.06 staff_space;
+	2 thick + 0.5 (height - 2 thin) = width;
+
 	penpos1(thick, 0);
         penpos2(thin, 90);
         z1r = (w, 0);
@@ -198,7 +203,7 @@ fet_beginchar("> accent", "sforzato", "sforzatoaccent")
 	set_char_box(.9 staff_space#, .9 staff_space#, .5 staff_space#, .5 staff_space#);
 	save thickness, diminish;
 
-	thickness = 3/2 stafflinethickness;
+	thickness = 0.05 staff_space + stafflinethickness;
 	pickup pencircle scaled thickness;
 
 	% prevent blobs at crossing lines
@@ -210,7 +215,7 @@ fet_beginchar("> accent", "sforzato", "sforzatoaccent")
 	y2 = .25 thickness* diminish;
 
 	rt z4 = (w,0);
-	x3 =0;
+	x3 = - stafflinethickness + 0.1 staff_space;
 	z3 = whatever [z1, z4];
 
 	penpos2(thickness*(2 - diminish)/2 , 90);
@@ -239,7 +244,7 @@ fet_endchar;
 def draw_staccatissimo =
 	save radius, height;
 	height# = .8 staff_space#;
-	radius# = 2 stafflinethickness#;
+	radius# = stafflinethickness# + .1 staff_space#;
 	define_whole_pixels(radius);
 	define_pixels(height);
 
@@ -341,9 +346,10 @@ fet_beginchar("open (unstopped)", "open", "ouvert")
 	save thin, height, width, thick;
 	height# = 5/4 width#;
 	height# = staff_space#;
-	thin = 1.2 stafflinethickness;
-	thick =  1.4 thin;
+        thin = .6  stafflinethickness + 0.06 staff_space;
 	set_char_box(width#/2, width#/2, height#/2, height#/2);
+	define_pixels (width,height);
+	2 thick + 0.6 (height - 2 thin) = width;
 	
 	penpos1(thick, 0);
 	penpos2(thin, 90);
@@ -384,7 +390,9 @@ begingroup
 	rt x2 =  w;
 	top y2 = h;
 
-	z3 = 0.6 [z2, z1];
+	z3 = whatever [z2, z1];
+	y3 = 0.6 [y2, y1] + thickness;
+
 	penpos3(thickness, 0);
 	penpos4(thickness * diminish, 0);
 	x4r = thickness/2;
@@ -438,7 +446,7 @@ def draw_turn =
 
 	wd# = 35/16 staff_space#;
 	ht# = 18/17 staff_space#;
-	darkness = 1.20 stafflinethickness;
+	darkness = 0.3 stafflinethickness + 0.09 staff_space;
 
 	set_char_box(wd#/2, wd#/2, ht#/2, ht#/2);	
 
@@ -484,16 +492,12 @@ enddef;
 fet_beginchar("Reverse turn","reverseturn","reverseturn")
 	draw_turn;
 	currentpicture := currentpicture yscaled -1;
-	penlabels(5,6,7);
-	penlabels(2,3,4);
 fet_endchar;
 
 
 fet_beginchar("Turn","turn","turn")
 	draw_turn;
-		
-	penlabels(5,6,7);
-	penlabels(1,2,3,4);
+	penlabels(1,2,3,4,5,6,7);
 fet_endchar;
 
 
@@ -521,7 +525,7 @@ fet_beginchar("Trill (`tr')","trill","trill")
 	ex# = 1.4 staff_space#;
 	kerning# = .60 ex#;
 	start_nib_angle = 20;
-	bulb_size = 0.70;
+	bulb_size = 0.80;
 	define_pixels(ex, ascender_extra, ascender, kerning);
 
 	t_overshoot = 0.03 ex;
@@ -530,8 +534,8 @@ fet_beginchar("Trill (`tr')","trill","trill")
 	t_width =  1.9 t_fatness;
 	r_fatness = 0.78 fatness;
 	uitschieter = 0.48 ex;
-	hair_thick =  blot_diameter;
-	r_flare = 0.45  r_fatness;
+	hair_thick =  stafflinethickness;
+	r_flare = .5 hair_thick + 0.25 r_fatness;
 	r_width =  2 r_fatness + 0.25 kerning;
 	slant = .2;
 
@@ -617,13 +621,13 @@ fet_beginchar("Trill (`tr')","trill","trill")
 	set_char_box(.85 staff_space# , .85 staff_space#, 0,ascender#);
 
 
-	penpos11(1/4 r_fatness, -4);
+	penpos11(hair_thick, -4);
 	z11r = z9r;
 	
 	z13l = (x9l + r_width, y11 -  stafflinethickness );
 	penpos13(r_flare, 180);
 
-	z15 = z13r  - (bulb_size * r_fatness,0);
+	z15 = z13r  - ( bulb_size * r_fatness,0);
 	z14 = 0.5 [z13l, z15] - (0,bulb_size* r_fatness);
 	z16 = 0.5 [z13l, z15] + (0,bulb_size* r_fatness);
 
@@ -720,6 +724,12 @@ fet_beginchar("Flageolet", "flageolet", "flageolet")
 	draw z1..z2..z3..z4..cycle;
 fet_endchar;
 
+%%
+%
+%TODO:  ARGRGHGH code dup.
+%
+%
+
 fet_beginchar("Segno", "segno", "segno")
 	save thin, thick, ball_diam, darkness, pointheight;
 	save wd, ht, thick_nibangle, ball_nib_thick;
@@ -728,7 +738,7 @@ fet_beginchar("Segno", "segno", "segno")
 
 	ht# = 3 staff_space#;
 	wd# = 2 staff_space#;
-	darkness = 1.20 stafflinethickness;
+	darkness = .08 staff_space + 0.4  stafflinethickness;
 
 	set_char_box(wd#/2, wd#/2, ht#/2, ht#/2);	
 
@@ -781,15 +791,18 @@ fet_beginchar("Segno", "segno", "segno")
 fet_endchar;
 
 fet_beginchar("Coda", "coda", "coda")
-	save thin, thick, codawidth, codaheight;
-	thin# = 1.2 stafflinethickness#;
-	thick# = 3.5 stafflinethickness#;
+	save stickout, thin, thick, codawidth, codaheight;
+
+	stickout# = 0.35 staff_space#;
 	codawidth# = 2/3 staff_space#;
 	codaheight# = 1 staff_space#;
-	define_pixels(thin, thick, codawidth, codaheight);
 
-	set_char_box(codawidth#+thick#, codawidth#+thick#,
-		codaheight#+thick#, codaheight#+thick#);
+	set_char_box(codawidth#+stickout#, codawidth#+stickout#,
+		codaheight#+stickout#, codaheight#+stickout#);
+
+	define_pixels(codawidth, codaheight);
+	thin = 1.2 stafflinethickness;
+	0.1 (codaheight - 2 thin)  = (codawidth - 2 thick);
 
 	penpos1(thick,0);
 	penpos2(thin,-90);
@@ -815,7 +828,7 @@ fet_endchar;
 fet_beginchar("Varied Coda", "varcoda", "varcoda")
 	save thin, thick, codawidth, codaheight;
 	thin# = 1.2 stafflinethickness#;
-	thick# = 3.5 stafflinethickness#;
+	thick# = 1.0 stafflinethickness# + 0.25 staff_space#;
 	codawidth# = 2/3 staff_space#;
 	codaheight# = 1 staff_space#;
 	define_pixels(thin, thick, codawidth, codaheight);
@@ -902,7 +915,7 @@ fet_endchar;
 thick#:=1/24designsize;
 define_blacker_pixels(thick);
 
-rthin:=1/8*staff_space;
+rthin:= 0.075 *staff_space + 0.5 stafflinethickness;
 rthick:=2thick+rthin;
 
 def draw_arpeggio =

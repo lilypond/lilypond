@@ -3,7 +3,7 @@
 
 # we want to see botched results as well.
 $(outdir)/%.dvi: %.mf
-	-$(METAFONT) "\nonstopmode; input $<;"
+	-$(METAFONT) "\scrollmode; input $<;"
 	gftodvi  $(basename $<)
 	mv $(basename $<).dvi $(outdir)
 	rm $(basename $<).*gf

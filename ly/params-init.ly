@@ -19,13 +19,15 @@ paperfile = \papersize + "-init.ly"
 \include "paper-init.ly"
 
 staffspace = #(/ staffheight 4.0)
-linethickness = #(/ staffspace  10.0)
+linethickness = 0.5 \pt 
 outputscale =  #(/ staffheight 4.0)
-ledgerlinethickness = #(* 2.0 linethickness)
+
+% don't do full 2x for ledger, otherwise no white is left. 
+ledgerlinethickness = #(+ linethickness (/ staffspace 10))
 
 % 2/3 stafflinethickness in 20pt staffheight
 % this parameter is independent of the output size.
-blotdiameter = 0.45 \pt
+blotdiameter = 0.35 \pt
 interscoreline = 4. \mm
 
 

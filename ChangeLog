@@ -1,3 +1,12 @@
+2003-12-29  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
+
+	* mf/feta-params.mf (stafflines): fix stafflinethickness at 0.5 pt
+	throughout. Many fixes.
+
+	* mf/feta-sleur,slur.mf: remove. 
+
+	* mf/feta-slag.mf: rewrite.
+
 2003-12-24  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
 
 	* stepmake/stepmake/toplevel-targets.make: remove pfa targets

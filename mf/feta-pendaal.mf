@@ -20,8 +20,9 @@ pedalpha = 40;
 pedbeta = 25;
 
 penh#=0.7stafflinethickness#;
-penw#=4penh#;
-%penw#=penh#;
+
+penw# = 2penh# + 0.14 staff_space#;
+
 define_pixels (penh,penw);
 
 pedalh# = 2staff_space#;
@@ -31,42 +32,48 @@ define_pixels (pedalh,pedalbh);
 % code values for own pedal font commented out
 % code := 41;  % * = 42
 
-def draw_asterisk_bulb (expr w, h, i) =
-	begingroup;
-	clearxy;
-	save bulb, p;
+fet_beginchar("Pedal asterisk", "*", "pedalasterisk")
+	set_char_box(0, 7/9pedalh#, 0, pedalh#);
+	z0 = (1/2w, h - 1/2w);
+	save bulb, p, radius, thin;
 	path p;
-	bulb = 4/3penw;
+
+	thin = 0.8 stafflinethickness;
+
+	bulb + 2 radius = w;
+	0.9 thin +  bulb = (radius * pi * 2) / 8;
 
 	pickup pencircle scaled penh;
 	penpos 1 (bulb, 180);
 	penpos 2 (bulb, 0);
-	penpos 3 (penh, 0);
-	penpos 4 (penw, 0);
+	penpos 3 (thin, 0);
 
-	z0 = (1/2w, h - 1/2w);
-	z1 = (1/2w, h-1/2bulb);
+	z1 = z0 + (0,radius);
 	z2 = z1;
-	z3 = (x1, y1-penw);
-	z4 = (x1, y3-2penh);
+
+	save inner_r ;
+	inner_r = .45 radius ;
+
+	z4l = z0 + inner_r * dir (90 + 360/16);
+	z4r = z0 + inner_r * dir (90 - 360/16);
+
+	z4 = .5 [z4l,z4r];
+	z3 = .75 [z1,z4];
+
 
 	penlabels (1,2,3,4);
-%	penstroke z1e{up}..z2e{down}..z3e{down}..z4e;
-	p = z1l{up}..z2l{down}..z3l{down}..z4l..z4r
-		..z3r{up}..z2r{up}..z1r{down}..cycle;
-	p := p rotatedaround (z0, 360/8i);
-	fill p;
-	endgroup;
-	enddef;
 
-fet_beginchar("Pedal asterisk", "*", "pedalasterisk")
-	set_char_box(0, 7/9pedalh#, 0, pedalh#);
-	z0 = (1/2w, h - 1/2w);
-	for i = 0 upto 7:
-		draw_asterisk_bulb (w, h, i);
-		pickup pencircle scaled penw;
-		undraw z0;
-	endfor
+	%% what is empty path? 
+	p = z3r{up} ..  z1l{up}..z2l{down}..z3l{down} .. z4l{dir (180 + 360/16)}; 
+	for i = 1 upto 7:
+		p := p ... ((z3r{up}.. z1l{up}..z2l{down}..z3l{down}..z4l{dir (180 + 360/16)}) 
+		rotatedaround (z0, 360/8i));
+		endfor
+
+	p := p .. cycle;
+	fill p;
+	pickup pencircle scaled (7/8 inner_r);
+	undraw z0;
 fet_endchar;
 
 % skip + and ,

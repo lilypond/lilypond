@@ -402,50 +402,70 @@ endgroup;
 
 %%% Editable values:
 
-slash_slope := 1.7; % slope of slash. From scm/grob-description.scm. How to auto-copy?
-slt# := 2/3*0.48staff_space#; % thickness of lines. quarter notes get 1.5slt width.
-slh# := 2staff_space#; % height of char.
 
-%%% Calculated values:
-sxa# := 0; % how much the char exceeds the boundingbox horizontally:
+% slope of slash. From scm/grob-description.scm. How to auto-copy?
+slash_slope := 1.7; 
 
- % Width of hor. pen - with thanks to Pythagoras
-slxt# := sqrt(slt#*slt#+(slt#/slash_slope)*(slt#/slash_slope));
-slw# := slh#/slash_slope; % width of sloping part of slash:
+% thickness of lines. quarter notes get 1.5slt width.
+slash_thick# := 2/3*0.48staff_space#;
 
-define_pixels(slt,slh,sxa,slxt,slw);
-
-
-%
-%
-% UUGGGH! FIXME -- get rid of those sharp corners. 
-%
-%
-%
-
+define_pixels(slash_thick);
 
 def draw_slash(expr hwid_hash) =
-	wid# := slw#+2slxt#+hwid_hash;
-	set_char_box(0,wid#-2sxa#,slh#/2,slh#/2);
-	define_pixels (wid#);
-	pickup penrazor scaled slxt;
-	draw (-b+slxt/2-sxa,-d) -- (-b+slxt/2+slw-sxa,h);
-	draw (w-slxt/2-slw+sxa,-d) -- (w-slxt/2+sxa,h);
-	pickup penrazor scaled slt rotated 90;
-	draw (-b+slxt-sxa,-d+slt/2) -- (w-slw+sxa,-d+slt/2);
-	draw (-b+slw-sxa,h-slt/2) -- (w-slxt+sxa,h-slt/2);
+	set_char_box (0, staff_space# / slash_slope + hwid_hash,
+			staff_space#/2 + stafflinethickness#/2,
+			staff_space#/2 + stafflinethickness#/2);
+
+	clearxy;
+	pickup pencircle scaled blot_diameter;
+
+	bot y1 = - d;
+	top y2 = h;
+	lft x1 = 0;
+	lft x2 = staff_space / slash_slope;
+	
+	rt x3 = w;
+	y3 = y2;
+	y4 = y1;
+	x3- x2 = x4 - x1;
+
+	filldraw z1 --- z2 --- z3 --- z4 --- cycle;
+
+	if hwid_hash > 2 slash_thick#:
+		save th;
+
+		th = slash_thick - blot_diameter;
+		y6 = y7;
+		y5 = y8;
+		y3 - y7 = th;
+		y5 - y1 = th;
+		z6 - z5 = whatever * (1,  slash_slope);
+		z8 - z7 = whatever * (1,  slash_slope);
+
+		z5  = z1 + whatever * (1,  slash_slope) + (th, 0);
+		z8  = z4 + whatever * (1,  slash_slope) + (-th, 0);
+
+		unfill
+			z5 -- z6 -- z7 -- z8 -- cycle;
+	fi
+	labels (range 1 thru 10);
+
+
 enddef;
 
+
+
+
 fet_beginchar("Whole slashhead","0slash","wholeslashhead")
- 	draw_slash(staff_space#);
+	draw_slash(2 slash_thick# + 0.5 staff_space#);
 fet_endchar;
 
 fet_beginchar("Half slashhead","1slash","halfslashhead")
-	draw_slash(0.6staff_space#);
+	draw_slash(2 slash_thick# + 0.15 staff_space#);
 fet_endchar;
 
 fet_beginchar("Quart slashhead","2slash","quartslashhead")
-	draw_slash(-slxt#/2);
+	draw_slash(slash_thick#);
 fet_endchar;
 
 % thick is the distance between the two parallel lines in the cross (distance between centres of lines)

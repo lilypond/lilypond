@@ -83,18 +83,19 @@ fet_beginchar ("4/4 meter", "C4/4", "fourfourmeter")
 fet_endchar;
 
 fet_beginchar ("2/2 meter", "C2/2", "allabreve")
-
 	draw_C;
 	save excentricity;
 	pair excentricity;
 
-	xpart	excentricity = x2 -1.25 stafflinethickness;
+	xpart excentricity = x2 -1.25 stafflinethickness;
 	ypart excentricity = 0;
 
 	save stemlen ;
 	stemlen = 1.4 staff_space;
+	save thick;
+	thick = stafflinethickness / 2 + 0.025 staff_space;
 
-	draw_block((- .75 stafflinethickness, - stemlen) + excentricity, (.75 stafflinethickness , stemlen) + excentricity);
+	draw_block((- thick, - stemlen) + excentricity, (thick , stemlen) + excentricity);
 fet_endchar;
 
 fet_endgroup("timesig");

@@ -21,7 +21,7 @@ def draw_c_clef (expr reduction) =
 	save hair, norm, reduced_ss, right_edge;
 	reduced_ss#=staff_space#*reduction;
 	norm#:=2/3reduced_ss#;
-	hair#:=1/6norm#;
+	hair#:=0.06 reduced_ss# + 0.5 stafflinethickness# ;
 
 	right_edge# = 15/4norm#+2hair#;
 
@@ -43,7 +43,7 @@ def draw_c_clef (expr reduction) =
 	z3=(((right_edge -xoff)/2)+xoff,2hair);
 
 	penpos4(hair,0);
-	z4=(xoff+1/2norm+1/2hair,reduced_ss-hair);
+	z4=(xoff+1/2norm+1/2hair, reduced_ss - stafflinethickness - .2 hair);
 	
 	penpos5(4hair,0);
 	z5=(xoff+5/4hair,0);
@@ -275,7 +275,7 @@ def draw_gclef (expr reduction)=
 	define_pixels(reduced_ss);
 	pair downstroke_dir, center;
 
-	thinness = 1.4 stafflinethickness;
+	thinness = 0.1 staff_space + 0.4 stafflinethickness;
 	downstroke_dir = unitvector (14, -75);
 	downstroke_angle = angle downstroke_dir;
 
@@ -283,7 +283,7 @@ def draw_gclef (expr reduction)=
 	breapth_factor = 21.0 /14;
 	inner_thick_end = 45;
 	inner_start_angle = downstroke_angle - 43;
-	thickness = .4 reduced_ss;
+	thickness = .3 reduced_ss + 1 stafflinethickness;
 
 	thinnib = thinness;
 
@@ -296,7 +296,7 @@ def draw_gclef (expr reduction)=
 	center := (1.0 * breapth_factor* reduced_ss, 0);
 
 	save upward_swoosh_angle;
-	upward_swoosh_angle =130 ;
+	upward_swoosh_angle = 132;
 	penpos7(thickness, upward_swoosh_angle);
 	penpos5(thickness, upward_swoosh_angle);
 
@@ -337,7 +337,7 @@ def draw_gclef (expr reduction)=
 
 	z10 = .5 [z10l, z10r];
 
-	z11 =  center + whatever * downstroke_dir +  ( .05 reduced_ss, 0);
+	z11 =  center + whatever * downstroke_dir +  ( .00 reduced_ss, 0);
 
 	penpos1(thinnib, inner_start_angle);
 	penpos2(thickness, 90);
@@ -349,7 +349,7 @@ def draw_gclef (expr reduction)=
 	save lipje;
 	pair lipje;
 	lipje= .5 [z9l, z9r] +  .25 ((z9r- z9l)  rotated -90);
-	penpos13(2 thinnib, 180);
+	penpos13(thinnib + 0.14 staff_space, 180);
 
 	pickup pencircle scaled 1;
 
@@ -359,12 +359,10 @@ def draw_gclef (expr reduction)=
 		.. z4l{left}
 		.. z5l{up}
 		.. z7l{up} 
-		%.. z8l	
 		.. tension 1.2 
 		.. z9l -- lipje
 		--z9r % {dir (downstroke_angle+ 0)}
 		.. tension 0.8
-		%.. z8r
 		.. z7r{down} .. z5r{down} .. z4r{right}
 		.. z3r .. z2r{left} .. 
 		tension .95 .. 
@@ -394,8 +392,7 @@ def draw_gclef (expr reduction)=
 
 	p := z9 .. z10{down}
 		.. z6
-		.. (.52 [z4, z3])
-		.. z11{down}
+		.. z11{dir (-95) }
 		.. z12{dir(bot_angle)}
 		.. z13{up}
 	;
@@ -431,7 +428,9 @@ def draw_gclef (expr reduction)=
 		z11r{dir(start_angle)}
 		.. z12r{dir(bot_angle)}
 
-		..new_bulb (z13r, 0.45 reduced_ss, 0.38 reduced_ss, 3 stafflinethickness,  1, -1) {down}
+		..new_bulb (z13r, 0.45 reduced_ss, 0.38 reduced_ss, thinnib
+			+ .15 staff_space
+			,  1, -1) {down}
 
 %		.. tension 0.98
 		.. z12l{-dir (bot_angle)}
