@@ -1,6 +1,35 @@
 
-(need to fix pictures. I know)
+pl 10.uu2
+	- plet-spanner fix.
+	- large doc patch (thanks Adrian)
 
+pl 10.jbr1
+        - aclocal.m4, stepmake/aclocal.m4: Choose specific python
+        - stepmake/bin/release.py: Use the same python calling process
+        - make/lilypond-vars.make: PATH should not use PATHSEP.  It is fine 
+          to hard code it to `:' on both Windows NT and UNIX.
+        - stepmake/bin/package-zip32.sh: Perform configure with a specific
+          python, ie cygwin32 python on Windows NT
+
+pl 10.uu1
+	- junked \octave
+	- marginBreakPriority, direction==LEFT
+	- mf-to-table NT fix (JBR)
+	- createKeyOnClefChange property
+
+
+pl 10.jcn1
+ 	- mf-to-xpms for Harmonia
+  
+pl 9.jbr1
+        - scripts/convert-mudela.py: We must close infile and outfile before
+          a rename occurs.  NT Windows locks open files.
+          stepmake/bin/package-zip32.sh: renamed all python bins to:
+          <filename>.py in NT Windows distribution.
+
+
+*********
+pl 10
 
 pl 9.jcn1
 	- started gnuisation of website
@@ -15,6 +44,7 @@ pl 9.hwn1
 	- notename table now can be declared as well.
 	- junked \clear
 
+*********
 pl 9
 	
 pl 8.uu1

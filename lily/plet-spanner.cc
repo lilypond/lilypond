@@ -119,7 +119,9 @@ Plet_spanner::do_post_processing ()
   do {
     if (stem_l_drul_[d]->empty_b ())
       {
-	dy_f_drul_[d] = dy_f_drul_[flip (&d)]; // ughugh \[/3 r8 c8 r8 \]/1
+	Direction u = d;
+	flip (&u);
+	dy_f_drul_[d] = dy_f_drul_[u]; // ughugh \[/3 r8 c8 r8 \]/1
       }
     }
   while (flip(&d) != LEFT);

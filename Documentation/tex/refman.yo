@@ -4,6 +4,8 @@ redef(var)(1)(whenlatex(latexcommand({\normalfont\scshape )ARG1+latexcommand(}))
     whenhtml(sc(ARG1)))
 def(mycode)(1)(tt(ARG1))
 
+
+
 COMMENT( This document contains Mudela fragments.  You need at least
 Yodl-1.30.18 to convert this to tex or html.
 
@@ -21,6 +23,7 @@ latexlayoutcmds(
 \setlength{\textwidth}{5.875in} 
 \setlength{\oddsidemargin}{0.25in}   
 \setlength{\evensidemargin}{0.25in}
+\usepackage[T1]{fontenc}
 \input mudela-book
 )
 
@@ -85,42 +88,61 @@ just is a disclaimer.  Docs usually are written after the program
 itself.)  This document intends to give an idea of how it works. It is
 not a guide on how to use it.
 
-sect(Files)
 
-The de-facto extension of Mudela is file(.ly). Files may be included by
-entering code(\include) at the start of a line:
+sect(Running LilyPond)
 
-verb(\include "a_file.ly")
+When invoked with a filename that has no extension, LilyPond will add
+a file(.ly) extension.  When invoked with a filename  ending  in
+file(.fly),  LilyPond processes  the file as a music fragment  using
+file(init.fly).  When file(foo.fly) is read, LilyPond does something
+like this:
+\verb(\score {
+  \notes\relative c {
+    \input "foo.fly"
+  }
+  \paper{}
+  \midi{}
+})
 
 
 sect(Syntax)
 
-COMMENT(I don't understand the syntax, so  I can't  write  this
-section very well.  --Adrian)
+A Mudela files consists of statements, generally
+separated by spaces, tabs or newlines.  A one line comment is
+introduced by a code(%) character.  Block comments are started by
+code(%{) and ended by code(%}).  They cannot be nested.
 
-A one line comment is introduced by a 
-code(%) character.  
-Block comments are started 
-by 
-code(%{)
-and
-ended by code(%}).
-They cannot be nested.
+Mudela supports several data types.  Four types of simple constants
+are supported: integers, reals, strings, and notes.  An integer is a
+sequence of digits such as code(12).  A real is fromed from an
+optional minus sign and a sequence of digits followed by a decimal
+point and an optional exponent such as code(-1.2e3).  A string is
+started and ended with the code(") character.  To include a code(")
+character in a string, you must write code(\").  Various other
+backslash sequences have special interpretations as in the C language.
+A string that contains no spaces can be written without the quotes.  A
+note consists of a note name followed by an optional duration.  See
+section ref(notedesc) for details on this type.  A dimension consists
+of a real followed by one of the dimension keywords: code(\mm),
+code(\pt), code(\in), or code(\cm).  Dimensions are converted
+immediately to a real which gives the dimension in points, so they can
+be mixed with reals.
 
-Mudela supports three types of constants: strings, reals, and integers. 
-verb("I am a string"
--1.2e3          % a real
-12              % an integer)
-A string which contains no spaces can be written without the quotes.  
-However, in Note mode, unquoted text can be intepreted as note names
-rather than as a string.  
+Compound types are built up from the simple types.  The compound types
+are: arglist, assignlist and musiclist.  An arglist is a
+white space separated list of integers, reals and or strings surrounded
+by braces code({) and code(}).  An assignlist is a list of 
+identifier assignments, which have the form var(key)code(=)var(value).
+The simplest musiclist is a single note.  More complicated music lists
+are formed by surrounding a list of musiclists with braces code({) and
+code(}) or with angle brackets code(<) and code(>).  Items appearing
+in braces will be treated as serial. Items in angle brackets will be
+simultaneous. 
 
-Pairs of braces `code({)' and `code(})' or pairs of angle brackets 
-`code(<)' and `code(>)' are used to identify the scope
-of contexts and enable the construction of hierarchical structure.
-Items in braces will be treated as serial; items in angle brackets
-will be stacked into chords.  
-Braces are also used to group arguments for certain commands.
+A statement in Mudela has one of three forms:
+verb(\keyword argument
+\keyword argument1 argument2 ... ;
+string=value)
         
 To assign an identifier you use:
 verb(string = ...)
@@ -141,26 +163,21 @@ an identifier assignment.)
 The following words are keywords.  You can define an identifer whose
 name is a keyword, but you will not be able to reference it.
 
-verb(absdynamic  font           time       penalty       spandynamic
-accepts     grouping       midi       property      symboltables
-bar         in             mm         pt            table
-cadenza     include        multi      relative      tempo       
-clear       lyric          header     score         translator  
-clef        key            notenames  script        type        
-cm          keysignature   octave     shape         transpose   
-consists    mark           output     skip          version     
-contains    notes        partial    staff     
-duration    musicalpitch   paper      spandynamic)
+verb(absdynamic  font           mm             pt              time       
+accepts     grouping       musicalpitch   relative        translator 
+bar         header         notenames      score           transpose  
+cadenza     in             notes          script          type       
+clear       include        octave         shape           version    
+clef        key            output         skip        
+cm          keysignature   paper          spandynamic 
+consists    lyric          partial        symboltables
+contains    mark           penalty        table       
+duration    midi           property       tempo )
 
-COMMENT( I don't know  the proper  way to make this kind of table in
-yodl.  
+COMMENT( I don't know the proper way to make this kind of table in
+yodl. )
 
-Also  note: Lilypond  should  really give an error when  I write
-       lyric = .....  
-Instead, I get the error later, after I try to use my redefinition of
-\lyric.  The cause  is much less clear. )
-
-
+COMMENT(
 subsect(Hierarchical structures)
 
 The general structure consists of declarations:
@@ -180,15 +197,8 @@ verb(\TYPE{ \IDENTIFIER [...] })
 
 Some exceptions on this rule have been made to prevent inputting
 Mudela becoming tedious
-
-
-COMMENT(As far as I can tell, the last bit is simply a repetition of
-the information on how to use an identifier, so it should be deleted.
-
-But I'm uncertain about the meaning of \TYPE in the above section.
-Different from \type?  Does it refer to \notes, \lyric?  In general,
-the use of the word "type" seems to be a source of confusion.
 )
+
 
 
 sect(Modes)
@@ -212,7 +222,7 @@ is treated as a string.
 
 dit(Note mode) Note mode is introduced by the keyword
 code(\notes).  In Note mode, words can only contain alphabetic
-characters.  If code(word) is encountered, Lilypond first checks for a
+characters.  If code(word) is encountered, LilyPond first checks for a
 notename of code(word).  If no notename is found, then code(word) is
 treated as a string.  If you mistype a notename, the parser will most
 likely complain that you should be in code(\lyric) mode to do lyrics. 
@@ -246,14 +256,15 @@ What's this about reals?  When can you enter them or not enter them?)
 
 
 sect(Note Description)
+label(notedesc)
 
-subsect(Basic note specification)
+subsect(Basic Note Specification)
 
 A note specification has the form 
-var(pitch)[var(octavespec)][var(duration)].
+var(pitch)[var(octavespec)][code(!)][var(duration)].
 The pitch of the note is specified by the note's name.  
 
-Lilypond has predefined note names for various languages.  The default
+LilyPond has predefined note names for various languages.  The default
 names are the Dutch note names.  The notes are specified by the
 letters code(c) through code(b), where code(c) is an octave below
 middle C and the letters span the ocatave above that C.  
@@ -295,11 +306,11 @@ mudela(fragment,verbatim,center)(
 ceses' eses' geses' ases' beses'
 )
 
-Whenever a C-sharp is desired,  you must specify a C-sharp.  Lilypond
+Whenever a C-sharp is desired,  you must specify a C-sharp.  LilyPond
 will determine what accidentals to  typeset  depending on the  key and
 context.   
 A reminder accidental can be forced by
-using an exclamation mark code(!)
+using the optional exclamation mark `code(!)'
 on a pitch.
 mudela(fragment,verbatim,center)(
 cis' d' e' cis'  c'! d' e' c' 
@@ -325,7 +336,7 @@ a'4. b'4.
 
 In addition, the duration can be followed by a multiplier which is
 introduced with the asterisk code(*) and can be an integer or a
-fraction.  The multiplier changes the duration that Lilypond uses
+fraction.  The multiplier changes the duration that LilyPond uses
 internally for the note, but it does not change the symbol that is
 printed.  
 mudela(fragment,verbatim,center)(
@@ -349,7 +360,7 @@ mudela(fragment,verbatim,center)(
 
 In order to create triplets, you must use a length multiplier after
 the brackets.  An open bracket code([) followed by a fraction
-instructs Lilypond to print a number over the beam, and it also
+instructs LilyPond to print a number over the beam, and it also
 starts multiplying all note lengths by the fraction.  The closing
 bracket code(]) should be followed by the fraction code(1/1) in order
 to restore normal note lengths.  To create a triplet without a beam,
@@ -388,6 +399,7 @@ c'4:32 [:16 c'8 d'8]
 )
 
 
+
 subsect(Slurs and Ties)
 
 A tie connects two adjacent note heads
@@ -408,15 +420,75 @@ mudela(fragment,verbatim,center)(
 c'( d' e' )f'
 )
 
+subsect(Note Ornaments)
+
+A variety of symbols can appear above and below notes to indicate
+different characteristics of the performance.  These symbols can be
+added to a note with `var(note)code(-\)var(name)'.  Numerous different
+symbols are defined in file(script.ly).  Each symbol is defined using
+the code(\script) keyword which specifies where symbols appear.
+Symbols can be forced to appear above the note by writing
+`var(note)code(^\)var(name)', and they can be forced to appear below
+by writing `var(note)code(_\)var(name)'.  Here is a chart showing
+symbols above notes, with the name of the corresponding symbol
+appearing underneath.  
+
+mudela()(
+\score{
+ < \notes{ c''-\accent c''-\marcato c''-\staccatissimo f'-\fermata 
+          c''-\stopped c''-\staccato c''-\tenuto c''-\upbow c''-\downbow
+          c''-\lheel c''-\rheel  c''-\ltoe  c''-\rtoe  c''-\turn
+          c''-\open  c''-\flageolet  c''-\reverseturn 
+          c''-\trill
+          c''-\prall c''-\mordent c''-\prallprall  c''-\prallmordent
+          c''-\upprall c''-\downprall }
+  \type Lyrics \lyric{  
+        accent      marcato      staccatissimo fermata stopped
+           staccato tenuto upbow downbow lheel rheel ltoe rtoe  turn
+           open  flageolet reverseturn 
+             trill  prall
+           mordent prallprall prallmordent uprall  downprall }>
+  \paper{linewidth  = 5.875\in
+         indent = 0.0
+        }
+}
+)
+
+In addition, it is possible to place arbitrary strings of text or
+TeX() above or below notes by using a string instead of an identifier:
+`code(c^"text")'.  Fingerings can be placed by simply using digits.
+
+To save typing,  a few common symbols  can  be  abbreviated  with
+single characters:
+mudela()(
+\score{ \notes {
+	\property Voice.textstyle = typewriter
+        c''4-._"c-." s4
+        c''4--_"c--"  s4
+        c''4-+_"c-+" s4
+        c''4-|_"c-|" s4
+        c''4->_"c->"  s4
+        c''4-^_"c-\\^{ }"  s4 }
+	\paper { linewidth = 12.\cm; }})
+
+Dynamic marks are specified by using an identifier after
+a note without a dash: code(c4 \ff).  The available  dynamic marks
+are:  code(\ppp),  code(\pp), code(\p), code(\mp), code(\mf),
+code(\f), code(\ff),  code(\fff), code(\fp), code(sf), and code(\sfz).
+
+A crescendo mark is started with code(\cr) and terminated with
+code(\rc).  A decrescendo mark is started with code(\decr) and
+terminated with code(\rced).
+
+
 
 sect(Lyrics)
 
 Lyrics are entered like notes, with pitches replaced
 by text.  For example code(Twin-4 kle4 twin-4 kle4) enters four
-syllables, each with quarter note duration.  Two words can be bound
-together by an underscore If a single duration   
+syllables, each with quarter note duration.  
 
-In order to instruct Lilypond to write lyrics underneath the
+In order to instruct LilyPond to write lyrics underneath the
 staff, you must enter the lyrics context with code(\type Lyrics).  
 Lyrics should be entered in lyrics mode which is entered with code(\lyric).
 
@@ -467,24 +539,24 @@ mudela(fragment,verbatim)(
 
 sect(Time)  
 
-Lilypond aligns all musical objects according to the amount of time
+LilyPond aligns all musical objects according to the amount of time
 they occupy.  All of these objects have a duration.  When music is
 written in series using braces the duration is the sum of the 
 durations of the elements.  When music is stacked using angle
 brackets, the duration is the maximum of the durations of the
 elements.  
 
-Because Lilypond knows the durations of all musical elements, the time
-signature enables Lilypond to draw bar lines automatically.  The time
-signature is specified with the code(\time) command: code(\time 3/4).
-If no time signature is given, Lilypond assumes 4/4.  The automatic
-generation of bar lines can toggled with the code(\cadenza) command,
+Because LilyPond knows the durations of all musical elements, the time
+signature enables LilyPond to draw bar lines automatically.  The time
+signature is specified with the code(\time) keyword: code(\time 3/4).
+If no time signature is given, LilyPond assumes 4/4.  The automatic
+generation of bar lines can toggled with the code(\cadenza) keyword,
 and an incomplete measure at the start of the music can be created
-using the code(\partial) command: code(\partial 8*2;) creates a
+using the code(\partial) keyword: code(\partial 8*2;) creates a
 starting measure lasting two eighth notes.
 
 In order to help with error checking, you can insert bar markers in
-your music by typing code(|).  Whenever Lilypond encounters a code(|)
+your music by typing code(|).  Whenever LilyPond encounters a code(|)
 that doesn't fall at a measure boundary, she prints a warning message.
 
 Rhythmic grouping is  a concept closely associated with this. 
@@ -492,25 +564,9 @@ A default grouping is selected for the chosen time signature.
 The default consists of combinations of 2 and 3 beats with as many
 groups of 3 as possible, and the groups of 3 coming first.  For
 example, 4/4 is divided into 2+2 and 8/8 is divided into 3+3+2.  This
-default grouping can be changed using the \grouping command which
+default grouping can be changed using the \grouping keyword which
 takes a list of durations to specify the grouping. 
 
-
-
-sect(A complete example)
-COMMENT(%label(se:complete))
-
-A Mudela file needs some red tape
-
-mudela(verbatim)(
-\score{
-        \notes {
-                c' d' e' c' |
-                c' d' e' c' |
-                e' f' g'2 |
-        }
-}
-)
 
 
 sect(Composition: forming bigger structures)
@@ -578,151 +634,177 @@ verb(
 )
 
 
-sect(Properties)
-
-By default the same key signature is valid for all octaves, but
-  this can be changed with the property code(keyoctaviation).
 
 
-The identifier code(\specialkey) sets the property for the Staff.  A
-key with two flats in one octave and three sharps in the next can be 
-declared with verb(\specialkey \keysignature bes es fis' cis' gis';)
+sect(Keywords)
 
-sect(Music fragments)
-label(tutorial:music-fragments)
-
-Sometimes you only need to print a small fragment of music, perhaps 
-something much like one of the examples in this document.  Back in
-section ref(sec:running-lilypond) we told you that the music you
-enter should be encapsulated in something like:
-verb(\score<
-        \notes\relative c{
-                d
-        }
-        \paper{ }
-        \midi{ }
->)
-where the only interesting information is this particular example is verb(
-        d
-)
-The rest of the above example was already nicknamed `red tape'.
-You may easily get bored if you have to provide this same red tape 
-for every fragmenty you nop(try)footnote(Of course, in most cases your
-favourite text editor (TM)
-will help you out.).
-
-Luckily there's a trick around this, and it's called file(.fly) files.
-If you use the extension file(.fly) for Mudela file file(foo),
-LilyPond will embed your file(foo.fly) nop(in)footnote(Or something very 
-similar.  If you want to know exactly, see file(init/init.fly)):
-verb(\score<
-        \notes\relative c{
-                <<foo.ly>>
-        }
-        \paper{ }
-        \midi{ })
-Here's how it works.  If you run LilyPond on your file file(bar.ly), you
-may notice that she starts off by reading quite a number of files before
-she actually reaches your file(bar.ly).  There's no magic going on, Lily
-by default reads an initialisation file (file(init/init.ly)).  In the
-initialisation process a lot of things are defined that you'll need for 
-normal operation, such as notenames and various other mudela shortcuts,
-engraver and perforer definitions, font sizes, musical dimensions and 
-paper sizes.  When you use the extension file(.fly), Lily just starts
-reading another initialisation file (file(init/init.fly)), that includes the 
-red tape for you too.
-
-
-sect(Commands)
-
-Commands take the form of a keyword followed by a list of arguments
-separated by spaces and terminated by a semicolon: 
+Keywords sometimes appear alone, but usually they require arguments. 
+A keyword may have a single argument, or a sequence of arguments separated
+by spaces and terminated by a semicolon:
 `code(\keyword argument argument ... ;)'
 
-COMMENT(The above is wrong. Many  commands  have the form 
-         \keyword { text }
-       with no semicolon, at least much of the time, and some commands
-have obligatory braces as far as I can tell, which don't contain music.)
 
 description(
 
-dit(mycode(\absdynamic))
+dit(code(\absdynamic) code({) var(code) code(})) Internal command for
+printing dynamic marks such as $f$ under music.  The parameter
+var(code) is unsigned and specifies the dynamic mark to print.
+Normally you should use the more user friendly abbreviations defined
+in the init file file(dynamic.ly).
 
-dit(mycode(\accepts))
+dit(code(\accepts) var(string)code(;)) This command can appear only within a
+code(\translator) block.  It specifies what contexts are allowed
 
-dit(mycode(\bar) var(bartype)) Prints a special bar symbol, or at
+dit(code(\bar) var(bartype)code(;)) Prints a special bar symbol, or at
 measure boundaries, replaces the regular bar symbol with a special
 symbol.  The argument var(bartype) is a string which specifies the
 kind of bar to print.  Options are code(":|"), code("|:"),
-code(":|:"), code("||"), code("|."),
-code(".|"), or code(".|.").  These produce respectively a right repeat, a left
-repeat, a double repeat, a double bar, a start bar, an end bar, or a
-thick double bar.  If var(bartype) is set to "empty" then nothing is
-printed, but a line break is allowed at that spot.
+code(":|:"), code("||"), code("|."), code(".|"), or code(".|.").
+These produce respectively a right repeat, a left repeat, a double
+repeat, a double bar, a start bar, an end bar, or a thick double bar.
+If var(bartype) is set to code("empty") then nothing is printed, but a
+line break is allowed at that spot.  Note that the printing of special bars
+has no effect on the MIDI output.
 
-dit(mycode(\cadenza) var(togglevalue)) Toggles the automatic generation
+dit(code(\cadenza) var(togglevalue)code(;)) Toggles the automatic generation
 of bar lines.  If var(togglevalue) is 0 then bar line generation is
 turne off.   If var(togglevalue) is  1  then a bar is  immediately
 printed and bar generation is turned  on.
 
-dit(mycode(\clear))
+dit(code(\clear)) Allowed only within code(\notename).  Clears all the
+previously defined note names.  
 
-dit(mycode(\clef)  var(clefname)) Sets the current clef.   The argument
-is the name of the clef.  Possibilities are code(bass), code(alto),
-and code(treble).  Treble clef is the default.
+dit(code(\clef) var(clefname)code(;)) Allowed only in music.  
+Sets the current clef.  The argument is
+a string which specifies the name of the clef.  Several clef names are
+supported.  If code(_8) or code(^8) is added to the end of a clef
+name then the clef lowered or raised an octave will be generated.  
+Here are the supported clef names with middle C shown in each clef:
+mudela()(
+\score{
+  \notes{  
+   %\property Voice.textstyle = typewriter
+   \clef subbass; c'4-"\kern-10mm subbass" 
+           \clef bass;    c'4^"\kern -8mm bass"
+           \clef baritone; c'4_"\kern -10mm baritone"
+           \clef varbaritone; c'4^"\kern -10mm varbaritone"
+           \clef tenor;     c'4_"\kern -10mm tenor"
+           \clef "G_8";   c'4^"\kern -6mm G\_8"  }  
+\paper{ linewidth= 4.5 \in;
+Staff = \translator {
+        \type "Line_group_engraver_group";
 
-dit(mycode(\cm)) Specify a width in centimeters. 
+        defaultclef = violin;
 
-dit(mycode(\consists))
+%       \consists "Bar_engraver";
+        \consists "Clef_engraver";
+        \consists "Key_engraver";
+        \consists "Local_key_engraver";
+        \consists "Time_signature_engraver";
+        \consists "Staff_sym_engraver";
+        \consists "Collision_engraver";
+        \consists "Rest_collision_engraver";
+        \consists "Separating_line_group_engraver";
+          
+        \accepts "Voice";
+        }
 
-dit(mycode(\contains))
+}
 
-dit(mycode(\duration) { var(length) var(dotcount) }) Specify note
+}
+)
+mudela()(
+\score{
+  \notes{\clef alto;    c'4_"\kern -10mm alto"
+           \clef mezzosoprano; c'4^"\kern -10mm mezzosoprano"
+           \clef soprano;  c'4_"\kern -10mm soprano"
+           \clef treble;  c'4^"\kern -6mm treble"
+           \clef french;  c'4_"\kern -10mm french" }  
+\paper{ linewidth= 4.5 \in;
+Staff = \translator {
+        \type "Line_group_engraver_group";
+
+        defaultclef = violin;
+
+%       \consists "Bar_engraver";
+        \consists "Clef_engraver";
+        \consists "Key_engraver";
+        \consists "Local_key_engraver";
+        \consists "Time_signature_engraver";
+        \consists "Staff_sym_engraver";
+        \consists "Collision_engraver";
+        \consists "Rest_collision_engraver";
+        \consists "Separating_line_group_engraver";
+          
+        \accepts "Voice";
+        }
+}
+}
+)
+The treble  clef  can also  be obtained using  the  names code(G) or
+code(violin).  The bass clef is also available by code(\clef  F). 
+
+dit(code(\cm)) Specify a dimension in centimeters. 
+
+dit(code(\consists) var(string)code(;)) This command can appear only within a
+code(\translator) block.  It specifies that an engraver named
+var(string) should be added to the translator.
+
+dit(code(\contains)) Produces a parse error.  (There is no rule in the
+grammar that refers to this token.)
+
+dit(code(\duration) code({) var(length) var(dotcount) code(})) Specify note
 duration.  The parameter var(length) is the negative logarithm (base
 2) of duration: 1 is a half note, 2 is a quarter note, 3 is an eighth
 note, etc.  The number of dots  after  the  note is given by
 var(dotcount). 
 
-dit(mycode(\font))
+dit(code(\font) var(string)) Internal command.  Used within
+code(\symboltables) to specify the font.
 
-dit(mycode(\grouping) var(durationlist))  Sets  the  metric structure of
-the measure.  
-COMMENT(elaboration is needed here.)
+dit(code(\grouping) var(durationseq); )  Sets  the  metric structure of
+the measure.  Each argument specifies the duration of one metric unit.
+For example, code(\duration 16*5;) specifies a grouping of five beats
+together in 5/16 time.  The default grouping is to have as many groups
+of 3 as possible followed by groups of two.  
 
-dit(mycode(\in)) Specify a width in inches.  
+dit(code(\in)) Specify a dimension in inches.  
 
-dit(mycode(\include) var(file)) Include the specified file.
+dit(code(\include) var(file)) Include the specified file.  The
+argument var(file) is a string.  The full filename including the
+file(.ly) extension must be given. 
 
-dit(mycode(\lyric) { var(list) } ) Parse var(list) in lyrics mode.
+dit(code(\lyric) var(lyriclist)) Parse var(lyriclist) in lyrics mode.
 
-dit(mycode(\key) var(pitch)) Change key signature to  that of var(pitch)-major.
+dit(code(\key) var(pitch)) Change key signature to that of
+var(pitch)-major.
 
-dit(mycode(\keysignature) var(notelist))
-Specify an arbitrary key signature.  The notes from var(notelist) will
+dit(code(\keysignature) var(pitchseq);)
+Specify an arbitrary key signature.  The pitches from var(pitch) will
 be printed in the key signature in the order that they appear on the list.
 
-dit(mycode(\mark))
+dit(code(\mark) var(unsigned) or code(\mark) var(string)) Allowed in
+music only.  What does this do?
 
-dit(mycode(\notes) var(music)) Enter note mode and process the
+dit(code(\musicalpitch) code({) var(octave) var(note) var(shift) code(})) 
+Specify note pitch.  The octave is specified by an integer,
+zero for the octave containing middle C.  The note is a number from 0
+to 7, with 0 corresponding to C and 7 corresponding to B.  The shift
+is zero for a natural, negative to add flats, or positive to add
+sharps.
+
+dit(code(\notes) var(music)) Enter note mode and process the
 specified music. 
 
-dit(mycode(\musicalpitch) { var(octave) var(note) var(shift) }) Specify
-note pitch.  The octave is specified by an integer, zero for the
-octave containing middle C.  The note is a number from 0 to 7, with 0
-corresponding to C and 7 corresponding to B.  The shift is zero for a
-natural, negative to add flats, or positive to add sharps.
-
-dit(mycode(\time) var(numerator)mycode(/)var(denominator)) Change the time
+dit(code(\time) var(numerator)code(/)var(denominator)) Change the time
 signature.  The default time signature  is 4/4.  
 
-dit(mycode(\midi)) Produce musical output.  See code(\tempo) for setting
-the tempo.
+dit(code(\midi) var(statementlist)) Appears in a score block to
+indicate that musical output should be produced.  See code(\tempo).
 
-dit(mycode(\mm)) Specify a width in millimeters. 
+dit(code(\mm)) Specify a dimension in millimeters. 
 
-dit(mycode(\multi))
-
-dit(mycode(\header) { var(key1) = var(val1); var(key2) = var(val2); ... })
+dit(code(\header) code({) var(key1) = var(val1); var(key2) = var(val2); ... code(}))
 Specifies information about the music.  A header should appear at the
 top of the file describing the file's contents.  If a file has
 multiple code(\score) blocks, then a header should appear in
@@ -730,31 +812,36 @@ each score block describing its contents.  Tools like code(ly2dvi) can
 use this information for generating titles.   Some possible key values
 are: title, opus, description, composer, enteredby, and copyright.
 
-dit(mycode(\notenames) { var(list) }) Define new note names.  
-The argument var(list) is a list of  definitions of  the form
+dit(code(\notenames) var(assignmentlist)) Define new note names.  
+The argument is a list of definitions of  the form
 var(name) = var(pitch),  where var(pitch) is specified with the
-code(\musicalpitch) command.  
+code(\musicalpitch) command.  Another possibility is code(\clear)
+which can appear instead of an assignment.  
 
-dit(mycode(\octave))
-dit(mycode(\nop(output)))
+dit(code(\octave)) Generate a parse error.  Never referred to in the
+grammar.
 
-dit(mycode(\partial) var(duration)) Specify that the first measure of
+dit(code(\output) var(string)code(;)) Allowed only in
+code(\paper) block.  The parameter var(string) specifies an alternate
+name for the TeX() output.  A file(.tex) extension will be added to
+var(string) to produce the output file name.
+
+dit(code(\partial) var(duration)) Specify that the first measure of
 the music lasts only for the specified duration.
 
-dit(mycode(\paper) mycode({) [ mycode(linewidth = )var(width)mycode(;) ] mycode(})) 
+dit(code(\paper) var(statmentlist)) 
 Appears in a score block to indicate that the music should be printed.
-The line width can be set to -1.  in order to prevent justification of
-small fragments of music, or the width can be specified explicitly
-using code(\cm), code(\in), code(\mm), or code(\pt) to specify the
-units.
 
-dit(mycode(\penalty))
+dit(code(\penalty) code(=) var(int)) Allowed only in musiclists.
+Discourages line breaks.
 
-dit(mycode(\property))
+dit(code(\property) var(contextname)code(.)var(propname) code(=) var(value))
+Sets the var(propname) property of the context var(contextname) to the
+specified var(value).  All three arguments are strings.
 
-dit(mycode(\pt)) Specify a width in points. 
+dit(code(\pt)) Specify a dimension in points. 
 
-dit(mycode(\relative) var(pitch) var(music)) Processes the specified
+dit(code(\relative) var(pitch) var(music)) Processes the specified
 var(music) in relative pitch
 mode.  In this mode, the octave of a pitch note is chosen so that the
 note is closest to the preceeding note.  
@@ -763,34 +850,358 @@ the starting pitch for this comparision.  In the case of chords, the
 first note of a chord is used as the base for the pitches in the next
 chord.  
 
-dit(mycode(\score)) Start a music definition.
+dit(code(\score) var(statementlist)) Define music.
 
-dit(mycode(\script))
+dit(code(\script) code({) var(name) var(instaff) var(withstem)
+var(location) var(invertible) var(priority) code(})) This command is
+used the initialization file(script.ly) to define the various symbols
+that can appear above and below notes.  The first argument is the name
+of the symbol.  The second argument var(instaff) is 1 if the symbol
+follows the notehead into the staff and 0 if the symbol stays above or
+below the staff lines.  The third parameter var(withstem) is 0 if the
+symbol's placement does not depend on the stem direction; it is 1 if
+the symbol should be at the stem end of the note and it is -1 if the
+symbol should be at the note head end of the note.  The argument
+var(location) is set to 1 for symbols that always appear above the
+staff; it is -1 for symbols that appear below the staff.  If
+var(invertible) is set to 1 then the symbol can be inverted; otherwise
+it cannot.  The last argument var(priority) sets a priority for the
+order of placement of several symbols on a single note.
 
-dit(mycode(\shape))
+dit(code(\shape) code(=) var(indent1) var(width1) var(indent2)
+var(width2) ... code(;)) Allowed only within code(\paper).  Each pair
+of var(indent) and var(width) values is a dimension specifying how far
+to indent and how wide to make the line.  The indentation and width of
+successive lines are specified by the successive pairs of dimensions.
+The last pair of dimensions will define the characeristics of all
+lines beyond those explicitly specified.
 
-dit(mycode(\skip))
+COMMENT(First pair of dimensions seems to be skipped.  At least it is
+in the example file denneboom.ly.)
 
-dit(mycode(\staff))
+dit(code(\skip) var(duration)) Skips the amount of time specified by
+var(duration).  A gap will be left for the skipped time with no notes
+printed.  It works in Note Mode or Lyrics Mode (but generates a
+mysterious error in lyrics).
 
-dit(mycode(\spandynamic))
-dit(mycode(\symboltables))
-dit(mycode(\table))
+dit(code(\spandynamic) code({) var(kind) var(toggle) code(})) Internal
+command for crescendo and decrescendo symbols.  The first parameter
+var(kind) is set to 1 for a crescendo and -1 for a decrescendo.  The
+second parameter is set to 1 to start the mark and 2 to stop it.
+Users should use the abbreviations which are defined in the
+initialization file file(dynamic.ly).
 
-dit(mycode(\tempo) var(duration) = var(perminute)) Used when creating
-MIDI output to specify the tempo.  For example, 
-`code(\midi { \temp0 4 = 76})' requests output with 76 quarter notes
-per minute.  
+dit(code(\symboltables)) Internal command.  Used to create symbol
+tables.  See initialization files file(paper*.ly), file(feta*.ly), and
+file(table*.ly).  
 
-dit(mycode(\translator))
-dit(mycode(\type))
+dit(code(\table)) Internal command.  Used within code(\symboltables)
+to specify the tables.  See initialization  files. 
 
-dit(mycode(\transpose) var(pitch) var(music)) Transposes the specified
+dit(code(\tempo) var(duration) = var(perminute)) Used within
+code(\midi) to specify the tempo.  For example, 
+`code(\midi { \tempo 4 = 76})' requests output with 76 quarter notes
+per minute. 
+
+dit(code(\translator) var(statements) or code(\translator)
+var(context) = var(name)) The first variant appears only within
+code(\paper) and specifies a translator for
+converting music to notation.  The translator is specified with a
+single code(\type) statement and a series of code(\accepts), and
+code(\consists) statements.  The second variant appears in a
+musiclist.  It specifies that the current the contexts
+contained within the specified context should be shifted to the
+context with the specified name.  
+
+COMMENT( \translator seems like a strange name for the second
+operation, and is the overloading desireable? )
+
+dit(code(\type) var(contexttype) [code(=) var(contextname)]
+var(musiclist) or code(\type) var(translatortype)code(;)) The first
+variant is used only within musiclists to 
+create a instance of a context.  The new context
+can optionally be given a name.  The second variant appears within a
+code(\translator) block and specifies the type of translator being
+created.
+
+dit(code(\transpose) var(pitch) var(music)) Transposes the specified
 music.  Middle C is tranposed to var(pitch). 
 
-dit(mycode(\version) var(string)) Specify the version of Lilypond that
-a file was written for.  The argument is the version number,
-for example code("1.0.4").
+dit(code(\version) var(string)) Specify the version of Mudela that a
+file was written for.  The argument is the version number, for example
+code("1.0.1").  Note that the Mudela version is different from the
+LilyPond version.
 
 )
 
+
+sect(Notation Contexts)
+
+Notation contexts provide information that appears in printed music
+but not in the music itself.  A new musical context is created using
+the code(\type) keyword: `code(\type) var(contexttype) [code(=)
+var(contextname)] var(musiclist)'.  The following context types are
+allowed.
+
+description(
+
+dit(code(Lyrics)) Typesets lyrics.
+
+dit(code(Voice)) Corresponds to a voice on a staff.
+  This context handles the conversion of noteheads,
+  dynamic signs, stems, beams, super- and subscripts, slurs, ties and rests.
+
+dit(code(Staff)) Handles clefs, bar lines, keys,
+  accidentals.  It can contain code(Voice) or code(Lyrics) contexts.
+
+dit(code(RhythmicStaff)) A context like code(Staff) but for printing
+rhythms.  Pitches are ignored; the notes are printed on one line.  
+It can contain code(Voice) or code(Lyrics) contexts. 
+
+dit(code(GrandStaff)) Contains code(Staff) or code(RhythmicStaff)
+contexts.  It adds a brace on the left side grouping the staffs
+together. The bar lines of the contained staffs are connected vertically.
+It can contain code(Staff), code(RhythmicStaff) or code(Lyrics) contexts.
+
+dit(code(StaffGroup)) Contains code(Staff) or code(RhythmicStaff)
+contexsts.  Adds a bracket on the left side, grouping the staffs
+together.  The bar lines of the contained staffs are connected vertically.
+It can contain code(Staff), code(RhythmicStaff) or code(Lyrics) contexts.  
+
+dit(code(ChoireStaff)) Identical to code(StaffGroup) except that the
+contained staffs are not connected vertically.  
+
+COMMENT(Odd spelling of "choir".)
+
+dit(code(Score)) This is the top level notation context.  It is entered with
+the code(\score) command rather than the code(\type) command.  No
+other context can contain a code(Score) context.  This context handles
+the administration of time signatures.  It also makes sure that items
+such as clefs, time signatures, and key-signatures are aligned across
+staffs.  It can contain code(Lyrics), code(Staff),
+code(RhythmicStaff), code(GrandStaff), code(StaffGroup), and
+code(ChoireStaff) contexts.
+
+)
+
+The various contexts have properties associated with them.  These
+properties can be changed using the code(\property) command:
+`code(\property) var(context)code(.)var(propname) code(=) var(value)'.
+Properties can also be set within the code(\translator) block
+corresponding to the appropriate context.  In this case, they are
+assigned by `var(propname) code(=) var(value)'.
+
+
+description(
+  dit(Lyrics properties)
+
+     description(
+        dit(code(textstyle)) Set the font for lyrics.  The available
+font choices are code(normaltext), code(roman), code(italic), code(bold)
+code(normaltext), code(large), code(Large), code(huge), and
+code(finger).  The code(finger) font can only display numbers.  
+Note also that you must be careful when using code(\property) in
+Lyrics mode.  Because of the way strings are parsed, either put quotes
+around the arguments to code(\property) or be sure to leave a space on
+both sides of the dot.  
+    dit(code(textalignment))
+Controls alignment of lyrics.
+Set to -1 to align the left end of the lyric with
+the note; set to 1 to align the right end of the lyric with the note.
+Set to 0 to align the center of the lyric with the note.  
+       )
+   dit(Voice properties)
+
+     description(  
+     dit(code(ydirection)) Determines the direction of
+stems, subscripts, beams, slurs, and ties.  Set to -1 to force them
+down, 1 to force them up, or 0 to let LilyPond decide.  This can be
+used to distinguish between voices on the same staff.  The
+code(\stemdown), code(\stemup), and code(\stemboth) identifiers set
+this property.  
+   dit(code(slurydirection)) Set to 0 for free choice of slur
+direction, set to 1 to force slurs up, set to 0 to force slurs down.
+The shorthands code(\slurup), code(\slurdown), and code(\slurboth) are
+available.  
+
+   dit(code(slurdash)) Set to 0 for normal slurs, 1 for dotted slurs,
+and a larger value for dashed slurs.  Identifiers code(\slurnormal)
+  and code(\slurdotted) are  predefined  to  set the first two settings.
+
+   dit(code(hshift)) Set to 1 to enable LilyPond to shift notes
+horizontally if they collide with other notes.  This is useful when
+typesetting many voices on one staff.  The identifier code(\shift) is
+defined to enable this.  
+
+   dit(code(textalignment)) Controls alignment of superscripted and
+subscripted text.  Set to -1 to align the left end of the text with
+the note; set to 1 to align the right end of the text with the note.
+Set to 0 to align the center of the text with the note.  
+  dit(code(textstyle)) Set the text style for superscripts and
+subscripts.  See above for list of text styles.
+
+  dit(code(fontsize)) Can be used to select smaller font sizes for music.  The
+  normal font size is 0, and the two smaller sizes are -1 and -2.
+
+  dit(code(pletvisibility)) Determines whether tuplets of notes are
+  labelled.   Setting to 0 shows nothing; setting to 1  shows a
+  number; setting to 2  shows a  number and  a bracket if there is  no
+  beam; setting  to  3 shows  a number, and if there is no beam it
+  adds a  bracket; setting  to 4 shows both a  number  and  a bracket
+  unconditionally.   
+)
+
+dit(Staff properties)
+
+ description(
+ 
+   dit(code(defaultclef)) Determines the default clef.  See code(\clef)
+   keyword.
+
+   dit(code(nolines)) If set to 1, then the staff has only one line instead
+ of the usual five lines.
+    
+   dit(code(barAlways)) If set to 1 a bar line is drawn after each note.
+
+   dit(code(defaultBarType)) Sets the default  type of bar  line.  See
+   code(\bar) keyword.   
+
+   dit(code(keyoctaviation)) If set to 1, then keys are the same in all
+   octaves.  If set to 0 then the key signature for different octaves
+   can be different and is specified independently:
+   code(\keysignature bes fis').  The default value
+   is 1.  Can be set to zero with code(\specialkey) or reset to 1 with
+   code(\normalkey).  
+
+   dit(code(instrument) and code(instr)) If code(Staff_margin_engraver) is
+   added to the Staff translator, then the code(instrument) property is used to
+   label the first line of the staff and the code(instr) property is used to
+   label subsequent lines.
+COMMENT(Check that this works)
+
+   dit(code(midi_instrument)) Sets  the  instrument for MIDI  output. 
+
+   dit(code(transposing)) Tranpose the MIDI  output. 
+COMMENT(What syntax?   "0 c" "2 c" ???)
+
+     dit(code(ydirection))   What does this do in staff ???
+)
+   
+  dit(GrandStaff  properties)
+
+    description( 
+      dit(code(maxVerticalAlign))
+      dit(code(minVerticalAlign))
+      )
+
+   dit(Score properties)
+
+   description(
+    dit(code(part))  Set  to a part  number  for  music with  several  parts.   
+      Each part has its own code(\score) block  with a different part setting.  
+   dit(code(SkipBars)) ???
+
+   dit(code(beamquantisation)) Set to 0 for no  quantization.  Set  to 1 to
+   quantize  position  and  slope.  Set to 2 to  avoid  wedges.   These three
+   settings  are available via code(\beamposfree),  code(\beamposnormal),  and
+   code(\beampostraditional).    
+
+   dit(code(beamslopedamping)) Set to 0 for undamped beams.  Set to 1 for
+   damped beams.  Set to 100000 for beams with zero slope.  The identifiers
+   code(\beamslopeproportional), code(\beamslopedamped), and
+   code(\beamslopezero) each set the corresponding value.
+  )
+       
+)
+
+
+COMMENT(
+
+Mystery properties:
+
+bar-column-engraver.cc:  "barColumnPriority"
+bar-number-engraver.cc:  "barNumberBreakPriority"
+bar-number-engraver.cc:  "barScriptPadding"
+dynamic-engraver.cc:     "dynamicdir"
+mark-engraver.cc:        "markScriptPadding"
+mark-engraver.cc:        "markBreakPriority"
+span-bar-engraver.cc:    "singleStaffBracket"
+staff-margin-engraver.cc:"marginBreakPriority"
+stem-engraver.cc:        "abbrev"
+)
+
+sec(Pre-defined Identifiers)
+
+Various identifiers are defined in the initialization files to
+provide shorthands for some settings.  
+
+description(
+dit(code(\cr)) Start a crescendo.
+dit(code(\decr)) Start a decrescendo.
+dit(code(\f)) Print forte symbol on the preceeding note.
+dit(code(\ff)) Print fortissimo symbol on the preceeding note. 
+dit(code(\fff)) Print fortississimo symbol on preceeding note. 
+dit(code(\fp)) Print fortepiano symbol on preceeding note. 
+dit(code(\mf)) Print mezzoforte symbol on preceeding note. 
+dit(code(\mp)) Print mezzopiano symbol on preceeding note. 
+dit(code(\normalkey)) Select normal key signatures where each octave
+has the same key signature.  This sets the Staff.keyoctaviation property.
+dit(code(\p)) Print a piano symbol on preceeding note. 
+dit(code(\pp)) Print pianissimo symbol on preceeding note. 
+dit(code(\ppp)) Print pianississimo symbol on preceeding note. 
+dit(code(\rc)) Terminate a crescendo. 
+dit(code(\rced)) Terminate a decrescendo
+dit(code(\sf)) Print a ?? symbol on preceeding note. 
+dit(code(\sfz)) Print a ?? symbol on preceeding note. 
+dit(code(\shift)) Enable note heads that collide with other note heads
+to be shifted horiztonally.  This sets the Voice.hshift property.
+dit(code(\slurboth)) Allow slurs to be above or below notes.  This
+sets the Voice.slurydirection property. 
+dit(code(\slurdown)) Force slurs to be below notes. This sets the
+Voice.slurydirection property. 
+dit(code(\slurup)) Force slurs to be above notes.  This sets the
+Voice.slurydirection property.  
+dit(code(\specialkey)) Allow keys signatures do differ in different
+octaves.  This sets the Staff.keyoctaviation property.  
+dit(code(\stemboth)) Allow stems, beams, and slurs to point either
+direction.  This sets the Voice.ydirection property. 
+dit(code(\stemdown)) Force stems, beams, and slurs to point down.
+This sets the Voice.ydirection property. 
+dit(code(\stemup)) Force stems, beams and slurs to point up.  This
+sets the Voice.ydirectoin property. 
+)
+
+
+sect(The code(\paper) Block)
+
+The code(\paper) block may begin with an optional identifier reference.  No
+identifier references are allowed anywhere else in the block.  
+The keywords code(\shape), code(\output) and code(\translator) may
+appear in this block.  In addition, variable assignments may appear.  
+The variables control layout details and are set to reasonable
+defaults that depend on the font size in use. 
+
+subsect(Paper variables)
+
+description(
+  dit(var(integer)) If an integer appears on the left side of an
+assignment then a code(\symboltables) keyword must appear on the right
+side.  This defines a font.  
+
+dit(code(arithmetic_basicspace))
+dit(code(arithmetic_multiplier))
+dit(code(basicspace))
+dit(code(beam_thickness)) Specify the thickness of beams
+dit(code(geometric))
+dit(code(indent)) Sets the indentation of the first line of music.  
+dit(code(interbeam))
+dit(code(interbeam4))
+dit(code(interline))
+dit(code(internote))
+dit(code(linewidth))  Sets the width of the lines.  If it is set to
+-1, then a single unjustified line is produced.  
+dit(code(notewidth))
+dit(code(rulethickness)) Determines thickness of staff lines and bars. 
+dit(code(staffheight))
+dit(code(unitspace))
+)
