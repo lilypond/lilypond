@@ -1,4 +1,4 @@
-\version "1.9.1"
+\version "1.9.4"
 \header {
     title	= "Puer natus est nobis (excerptum)"
     subtitle	= "Antiphona ad introitum VII"
@@ -91,11 +91,11 @@ verba = \context Lyrics = verba \lyrics {
 }
 
 \score {
-  \context VaticanaVoice <
+  \context VaticanaVoice <<
     \addlyrics
     \cantus
     \verba
-  >
+  >>
   \paper {
     stafflinethickness = \staffspace / 7.0
     linewidth = 137.0\mm

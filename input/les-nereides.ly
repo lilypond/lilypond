@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.4"
 
 \header {
     composer =   "ARTHUR GRAY"
@@ -22,7 +22,7 @@ marked with %tweak
 
 possibly more impressive to render without tweaks?
 
-  grep -v tweak input/les-nereides.ly > lnnt.ly
+  grep -v tweak input/les-nereides.ly >> lnnt.ly
   ly2dvi lnnt.ly
 
 %}
@@ -37,18 +37,18 @@ treble = \new Voice \notes\relative c''{
     r2
     | %2
     \stemUp
-    r4 <<cis eis a cis>>\arpeggio r2
+    r4 <cis eis a cis>\arpeggio r2
     | %3
-    r4 <<cis fis a cis>>\arpeggio r8.
+    r4 <cis fis a cis>\arpeggio r8.
 
     \translator Staff=bass
 
     \once\property Voice.TextScript \set #'extra-offset = #'(-3 . -4) %tweak
 	    
     cis,16^2(^\markup {\small \italic "m.d." }
-    <<fis fis,>>8 <<e! e,!>>
+    <fis fis,>8 <e! e,!>
     | %4
-    <<dis, a' dis>>4)
+    <dis, a' dis>4)
     
     \translator Staff=treble
     
@@ -62,6 +62,8 @@ treble = \new Voice \notes\relative c''{
     \tieUp
     cis''''4^\markup { \small \italic "m.g." }\arpeggio~
     \grace {
+  \property Voice.Stem \override #'stroke-style = #"grace"
+  
          cis8
 	 
          %\stemBoth Hmm
@@ -73,24 +75,26 @@ treble = \new Voice \notes\relative c''{
  	 cis32[ a-1 fis-4 dis]   cis[ a  fis)-2]
 	 % the small grace in lower staff comes after us
 	 s32
-    }
+    
+  \property Voice.Stem \revert #'stroke-style }
+
 
     \stemUp
     cis'4( bis)
 
     | %5
-    r8 <<a' a,>>8(\mf <<gis gis,>> <<fis fis,>>
+    r8 <a' a,>8(\mf <gis gis,> <fis fis,>
     
     % \fingerUp
     \property Voice.Fingering \set #'direction = #1
     
     % Manual fix for collision with slur
     \property Voice.Fingering \set #'extra-offset = #'(0 . 1) %tweak
-    <<gis gis,>> <<fis fis,>> e)-1-4-5 r
+    <gis gis,> <fis fis,> e)-1-4-5 r
 
     | %6
-    r <<a a,>>8(\mf <<gis gis,>> <<fis fis,>>
-    <<gis gis,>> <<fis fis,>>  e) r
+    r <a a,>8(\mf <gis gis,> <fis fis,>
+    <gis gis,> <fis fis,>  e) r
     
     | %7
     \bar "||"
@@ -107,18 +111,18 @@ trebleTwo =  \new Voice \notes\relative c''{
     s1*2
     | %4
     s4
-    <<cis' a fis dis>>4\arpeggio
-    <<e, gis, e d!>>2
+    <cis' a fis dis>4\arpeggio
+    <e, gis, e d!>2
     | %5
     s8 cis4. d4
-    %%<<cis e,>>8[( <<b-3 d,-1>>
-    <<cis e,>>8[( <<b d,>>-3-1
+    %%<cis e,>8[( <b-3 d,-1>
+    <cis e,>8[( <b d,>-3-1
     | %6
-    %%<<a-2 cis,-1>>)] cis4. d4 
-    <<a cis,>>)]-2-1 cis4. d4 
-    <<cis e,>>8[( <<b d,>>
+    %%<a-2 cis,-1>)] cis4. d4 
+    <a cis,>)]-2-1 cis4. d4 
+    <cis e,>8[( <b d,>
     | %7
-    <<a cis,>>)]
+    <a cis,>)]
 }
 
 bass =  \new Voice \notes\relative c{
@@ -132,13 +136,13 @@ bass =  \new Voice \notes\relative c{
     
     \dynamicUp
 
-    r8. e,16(\f_2 <<a a,>>8[ <<b b,>>]
+    r8. e,16(\f_2 <a a,>8[ <b b,>]
     | %2
-    <<cis cis,>>4
+    <cis cis,>4
     \translator Staff=treble
     \stemDown
     \property Voice.Slur \override #'attachment = #'(stem . stem) %tweak
-    <<a'' eis cis>>4)\arpeggio
+    <a'' eis cis>4)\arpeggio
     
     \property Voice.Slur \revert #'attachment %tweak
     \translator Staff=bass
@@ -148,17 +152,17 @@ bass =  \new Voice \notes\relative c{
     \property Voice.Slur \override #'y-free = #0.1 %tweak
     \property Voice.Slur \revert #'attachment-offset %tweak
     \property Voice.Slur \override #'attachment-offset = #'((0 . 3) . (0 . 8)) %tweak
-    r8. cis,,16( <<fis fis,>>8 <<gis gis,>>
+    r8. cis,,16( <fis fis,>8 <gis gis,>
     
     | %3
     \property Voice.Stem \set #'length = #5 %tweak
-    <<a a,>>4
+    <a a,>4
     \translator Staff=treble
 			    
     \property Voice.Stem \revert #'length %tweak
     \property Voice.Stem \revert #'direction
     \property Voice.Stem \override #'direction = #-1
-    <<a' fis cis>>)\arpeggio
+    <a' fis cis>)\arpeggio
     \translator Staff=bass
     \property Voice.Stem \revert #'direction
     r2
@@ -167,23 +171,27 @@ bass =  \new Voice \notes\relative c{
     \property Voice.Slur \revert #'beautiful %tweak
     \property Voice.Slur \revert #'attachment-offset %tweak
     \stemDown
-    <<b,, b,>>4
+    <b,, b,>4
     \clef treble
     \stemBoth
-    <
+    <<
         %urg: staff-change: ! on dis
-        <<cis'' a fis dis!>>\arpeggio
-    >
+        <cis'' a fis dis!>\arpeggio
+    >>
     
     \grace {
+  \property Voice.Stem \override #'stroke-style = #"grace"
+  
         s8
         s16 s s
  	s32 s s
 	s s s
 	\clef bass
         \property Voice.fontSize = #-3
-	<<e,,, e,>>32(
-    } <<gis' e>>2)
+	<e,,, e,>32(
+    
+  \property Voice.Stem \revert #'stroke-style }
+ <gis' e>2)
     
     | %5
     \slurUp
@@ -191,10 +199,10 @@ bass =  \new Voice \notes\relative c{
     % \fingerDown
     \property Voice.Fingering \set #'direction = #-1
     
-    %%a,8 e'[-5(<<a-2 cis-3>>])
-    a,8 e'[-5(<<a cis>>])-2-3
-    %%r b,-5 <<e-3 gis-5 d'>>4
-    r b,-5 <<e gis d'>>4-3-5
+    %%a,8 e'[-5(<a-2 cis-3>])
+    a,8 e'[-5(<a cis>])-2-3
+    %%r b,-5 <e-3 gis-5 d'>4
+    r b,-5 <e gis d'>4-3-5
     \slurBoth
     \once \property Voice.Fingering \set #'extra-offset = #'(0 . -1) %tweak
     e,8[-5(
@@ -203,7 +211,7 @@ bass =  \new Voice \notes\relative c{
     \once \property Voice.Fingering \set #'extra-offset = #'(0 . -1) %tweak
     a)-2]
     \slurUp
-    e'[(<<a cis>>)] r b, <<e gis d'>>4
+    e'[(<a cis>)] r b, <e gis d'>4
     \slurBoth
     e,8[(
     
@@ -229,13 +237,17 @@ middleDynamics = \notes{
     | %4
     s2
     \grace {
+  \property Voice.Stem \override #'stroke-style = #"grace"
+  
     	   s8
     	   s16 s s
     	   s32 s
            \once\property Dynamics.Hairpin \set #'extra-offset = #'(0 . 2) %tweak
 	   s\> s
      	   s32 s s s\!
-    }
+    
+  \property Voice.Stem \revert #'stroke-style }
+
     s32 s-"rall." s s s8 s4
     | %5
     s2-"a tempo" s8
@@ -267,11 +279,15 @@ lowerDynamics = \notes{
 %{
     s4
     \grace {
+  \property Voice.Stem \override #'stroke-style = #"grace"
+  
     	   s8
     	   s16 s s
     	   s32 s s s\sustainUp
      	   s32 s s s\sustainDown
-    }
+    
+  \property Voice.Stem \revert #'stroke-style }
+
 %}
     s2
 
@@ -300,23 +316,23 @@ lowerDynamics = \notes{
 }
 
 \score{
-    \context PianoStaff <
-        \context Staff=treble <
+    \context PianoStaff <<
+        \context Staff=treble <<
 	    \treble
 	    \trebleTwo
-        >
-	\new Dynamics <
+        >>
+	\new Dynamics <<
 	    \middleDynamics
-	>
-        \context Staff=bass <
+	>>
+        \context Staff=bass <<
 	    \clef bass
 	    \bass
 	    \bassTwo
-        >
-	\new Dynamics <
+        >>
+	\new Dynamics <<
 	    \lowerDynamics
-	>
-    >
+	>>
+    >>
     \paper {
 	\translator {
 	    \ScoreContext

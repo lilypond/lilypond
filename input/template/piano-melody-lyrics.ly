@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 
 \header {
   texidoc ="Classical song format: one staff with melody and lyrics,
@@ -24,7 +24,7 @@ lower = \notes\relative c {
 }
 
 \score {
-  <
+  <<
     \addlyrics
       \context Staff = mel {
         \property Staff.autoBeaming = ##f
@@ -33,14 +33,14 @@ lower = \notes\relative c {
       }
       \context Lyrics \text
 
-    \context PianoStaff <
+    \context PianoStaff <<
       \context Staff = upper \upper
-      \context Staff = lower <
+      \context Staff = lower <<
 	\clef bass
 	\lower
-      >
-    >
-  >
+      >>
+    >>
+  >>
   \paper {
     \translator { \RemoveEmptyStaffContext }
   }  

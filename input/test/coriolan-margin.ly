@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 
 
 % Ugh, we need to override some LaTeX titling stuff
@@ -41,7 +41,7 @@ oboi = \notes \relative c' {
 
 clarinetti = \notes \relative c' {
     \property Staff.instrument
-	= \markup { \column << "Clarinetti" { "in B" \raisedFlat } >> }
+	= \markup { \column < "Clarinetti" { "in B" \raisedFlat } > }
     \property Staff.instr
 	= \markup { \smaller  { "Cl(B" \raisedFlat ")" } }
 
@@ -56,7 +56,7 @@ fagotti = \notes \relative c' {
 
 corni = \notes \relative c' {
     \property Staff.instrument
-	= \markup { \column << "Corni" { "in E" \raisedFlat } >> }
+	= \markup { \column < "Corni" { "in E" \raisedFlat } > }
     \property Staff.instr
 	= \markup { \smaller  { "Cor(E" \raisedFlat ")" } }
 
@@ -64,14 +64,14 @@ corni = \notes \relative c' {
 }
 
 trombe = \notes \relative c' {
-  \property Staff.instrument	= \markup \column << "2 Trombe" "(C)" >>
-  \property Staff.instr		= \markup \column <<  "Tbe." "(C)" >>
+  \property Staff.instrument	= \markup \column < "2 Trombe" "(C)" >
+  \property Staff.instr		= \markup \column <  "Tbe." "(C)" >
 
   c1 c
 }
 
 timpani = \notes \relative c' {
-  \property Staff.instrument	= \markup \column << "Timpani" "(C-G)" >>
+  \property Staff.instrument	= \markup \column < "Timpani" "(C-G)" >
   \property Staff.instr		= #"Timp."
 
   c1 c
@@ -97,41 +97,41 @@ viola = \notes \relative c' {
 }
 
 violoncello = \notes \relative c' {
-  \property Staff.instrument	= \markup \column << "Violoncello" "e" "Contrabasso" >>
-  \property Staff.instr		= \markup \column <<  "Vc." "Cb." >>
+  \property Staff.instrument	= \markup \column < "Violoncello" "e" "Contrabasso" >
+  \property Staff.instr		= \markup \column <  "Vc." "Cb." >
   c1 c
 }
 
 
 \score {
-  < 
-    \context StaffGroup ="legni" < 
+  << 
+    \context StaffGroup ="legni" << 
       \context Staff ="flauti" \flauti
       \context Staff ="oboi" \oboi
       \context Staff ="clarinetti" \clarinetti 
       \context Staff ="fagotti" \fagotti 
-    >
-    \context StaffGroup ="ottoni" <
+    >>
+    \context StaffGroup ="ottoni" <<
       \context Staff ="corni" \corni
       \context Staff ="trombe" \trombe
-    >
-    \context StaffGroup ="timpani" <
+    >>
+    \context StaffGroup ="timpani" <<
       \context Staff ="timpani" \timpani
      { 
        \skip 1 
        % Hmm: this forces a staff-bracket, that's good!
        % However, I can't find where is decided on staff-bracket yes/no
      }
-    >
-    \context StaffGroup ="archi" <
-      \context GrandStaff ="violini" <
+    >>
+    \context StaffGroup ="archi" <<
+      \context GrandStaff ="violini" <<
         \context Staff ="violinoI" \violinoI
         \context Staff ="violinoII" \violinoII
-      >
+      >>
       \context Staff ="viola" \viola
       \context Staff ="violoncello" \violoncello
-    >
-  >
+    >>
+  >>
   \paper {
   	\paperSixteen
   	indent=100.0\mm

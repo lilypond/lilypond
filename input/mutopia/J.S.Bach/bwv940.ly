@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.4"
 
 %{
  Header for Petites Preludes.
@@ -120,13 +120,13 @@ four =   \notes\relative c{
 	\stemUp\tieUp
 	b2 a |
 	g a4. gis16 a |
-	gis2 << g cis,>>8 <<f d>> e4 |
+	gis2 < g cis,>8 <f d> e4 |
 	d4. fis16 g r16 bes8. ~ bes4 |
 	%10
 	\stemDown
-	< d,1  { \fatText s4^\markup { \hspace #20 }
+	<< d,1  { \fatText s4^\markup { \hspace #20 }
 		 s4^\markup { \hspace #1 }  s4 }
-	     >
+	     >>
 }
 
 global =  \notes{
@@ -136,19 +136,19 @@ global =  \notes{
 
 \score{
 	% Allegretto
-	\context PianoStaff <
-		\context Staff = upper <
+	\context PianoStaff <<
+		\context Staff = upper <<
 			\global
 			\context Voice = i\one
 			\context Voice = ii \two
-		>
-		\context Staff = lower <
+		>>
+		\context Staff = lower <<
 			\global
 			\clef "bass"
 			\context Voice= iii \three
 			\context Voice = iv \four
-		>
-	>
+		>>
+	>>
 	\paper{
 		linewidth = 17.0 \cm  
 		\translator {

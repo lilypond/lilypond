@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 
 \header {
   texidoc ="Lyrics between two staffs."
@@ -18,15 +18,15 @@ text = \lyrics {
 }
 
 \score {
-  \context GrandStaff <
+  \context GrandStaff <<
     \addlyrics
       \context Staff = upper \upper
       \context Lyrics \text
-    \context Staff = lower <
+    \context Staff = lower <<
       \clef bass
       \lower
-    >  
-  >
+    >>  
+  >>
   \paper {
     \translator {
       \GrandStaffContext

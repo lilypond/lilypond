@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 \header {
 
     texidoc = "Kneed beams (often happens with cross-staff beams)
@@ -10,7 +10,7 @@ to the last beam.
 }
 
 \score { \notes
-	 \context PianoStaff \relative c' <
+	 \context PianoStaff \relative c' <<
 	     \context Staff = SA {
 		 \stemDown
 		  c8[ c16 \translator Staff = SB \stemUp c16 ]
@@ -25,7 +25,7 @@ to the last beam.
 		  b,8[ b16 \stemDown b''16 b ]
 	     }	     
 	     
-	     >
+	     >>
     \paper { raggedright= ##t }
 
 }

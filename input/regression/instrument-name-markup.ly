@@ -7,14 +7,14 @@ including alterations. "
 }
 
 
-\version "1.9.2"
+\version "1.9.4"
 
 
 textFlat = \markup {\smaller \musicglyph #"accidentals--1"}
 \score {
   \notes \new Staff {
     \property Staff.instrument
-	= \markup { \column << "Clarinetti" { "in B" \textFlat } >> }
+	= \markup { \column < "Clarinetti" { "in B" \textFlat } > }
     \property Staff.instr
 	= \markup { \smaller  { "Cl(B" \textFlat ")" } }
 

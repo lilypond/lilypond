@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 
 \header {
   texidoc = "Simple piano music." 
@@ -14,14 +14,14 @@ lower = \notes\relative c {
 }
 
 \score {
-  \context PianoStaff <
+  \context PianoStaff <<
     %\time 4/4
     \context Staff = upper \upper
-    \context Staff = lower <
+    \context Staff = lower <<
       \clef bass
       \lower
-    >  
-  >
+    >>  
+  >>
   \paper { }  
   \midi { }  
 }

@@ -1,4 +1,4 @@
-\version "1.9.2"
+\version "1.9.4"
 
 % this chart is used in the manual too.
 
@@ -11,7 +11,7 @@ A chart showing all feta scripts.
 }
 
 \score {
-    <
+    <<
       \property Score.LyricText \override #'font-family = #'typewriter
       \property Score.LyricText \override #'font-shape = #'upright
       \context Staff \notes {
@@ -47,7 +47,7 @@ A chart showing all feta scripts.
         longfermata__           verylongfermata__       segno__
         coda__                  varcoda__
       }
-    >
+    >>
     \paper {
       linewidth = 5.1\in
       indent    = 0.0\mm

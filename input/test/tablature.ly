@@ -1,4 +1,4 @@
-\version "1.9.2"
+\version "1.9.4"
 
 \header{ texidoc = "@cindex Tabulature
 A sample tablature, with both normal staff and tab.
@@ -18,14 +18,14 @@ partition = \notes {
 }
 
 \score {
-  \context StaffGroup <
-    \context Staff <
+  \context StaffGroup <<
+    \context Staff <<
 	\clef "G_8"
 	\partition
-    >
-    \context TabStaff <
+    >>
+    \context TabStaff <<
 	\partition
-    >
-  >
+    >>
+  >>
 }
 

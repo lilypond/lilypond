@@ -1,9 +1,9 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.4"
 \score {
-    \notes\context PianoStaff <
+    \notes\context PianoStaff <<
     \context Staff = up
-    \relative c'' <
+    \relative c'' <<
         {   \key d\major 
             \property Voice.Slur \set #'attachment = #'(stem . stem)
 
@@ -20,16 +20,16 @@
             \tieUp
             fis16(\> d b\! \translator Staff = down
 	    \stemUp
-	    \clef treble g~ <<g e>>8) } \\
+	    \clef treble g~ <g e>8) } \\
         { s16
 	  \once \property Voice.Stem \set #'transparent = ##t
           d'
-          ~ <<d b>>4 }
-    >
+          ~ <d b>4 }
+    >>
     \context Staff = down {
         \key d \major
         \time 3/8 \clef bass s4. }
-    >
+    >>
     \paper { raggedright = ##t}
 }
 

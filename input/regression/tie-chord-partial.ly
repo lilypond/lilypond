@@ -6,14 +6,14 @@ putting the Tie engraver at Thread level, and redirecting untied notes
 to a different thread."
 
 }
-\version "1.9.2"
+\version "1.9.4"
     \paper { raggedright= ##t }
 
 \score {
 
 \notes \context Thread \relative c' {
-  < c~ e \new Thread c' > 
-  < c e c'  > 
+  << c~ e \new Thread c' >> 
+  << c e c'  >> 
 }
 
 

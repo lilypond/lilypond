@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 \header { texidoc = "@cindex Scheme Move Notehead
 
 You can move objects around with the property extra-offset.  This

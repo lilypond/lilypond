@@ -1,12 +1,12 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 
 \header  {
 texidoc = "Arpeggio stays clear of accidentals and flipped note heads.
 Since Arpeggio engraver is Voice, it does nothing for voice collisions."
 }
 
-hairyChord = \context Staff \notes\relative c' <
+hairyChord = \context Staff \notes\relative c' <<
     \new Voice {
         \property Voice.Stem \override #'direction = #1
 	 \property Voice.NoteColumn \override #'horizontal-shift = #0
@@ -30,14 +30,14 @@ hairyChord = \context Staff \notes\relative c' <
 	\property Voice.NoteColumn \override #'horizontal-shift = #-1
 	fis\arpeggio
 	}
->
+>>
 
 
 \score{
     \notes \transpose c c' {
-	<< fis'' g  d a >>\arpeggio
-	<< fis, g  d a >>\arpeggio
-	<< fis'' g  d a >>\arpeggio
+	< fis'' g  d a >\arpeggio
+	< fis, g  d a >\arpeggio
+	< fis'' g  d a >\arpeggio
         \hairyChord
 	}
     \paper {

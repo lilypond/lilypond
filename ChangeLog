@@ -1,5 +1,10 @@
 2003-08-31  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scripts/convert-ly.py (FatalConversionError.figures_replace):
+	rule for < > <-> << >> substitution
+
+	* lily/lexer.ll: exchange meaning of << >> and < > 
+
 	* VERSION (PACKAGE_NAME): 1.9.3 released
 
 	* stepmake/stepmake/help2man-rules.make ($(outdir)/%.1): build man

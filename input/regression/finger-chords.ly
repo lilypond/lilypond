@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 \header {
 
 texidoc = "With the new chord syntax it's possible to associate
@@ -14,22 +14,22 @@ easier to process."
     \notes \relative c'{
 
 	%% input order is not 1 2 3 , output is.
-	<<c-1 g'-3 e-2  b'-4 d-5 f-6 a-7 c-8 >> 4	
+	<c-1 g'-3 e-2  b'-4 d-5 f-6 a-7 c-8 > 4	
 
 	\property Voice.fingeringOrientations = #'(left)
-	<< c-1  e-2 g-3 b-5 >> 4
+	< c-1  e-2 g-3 b-5 > 4
 
 	\property Voice.fingeringOrientations = #'(down left)
-	<< c-1  e-2 g-3 b-5 >> 4
+	< c-1  e-2 g-3 b-5 > 4
 
 	\property Voice.fingeringOrientations = #'(down left up)
-	<< c-1  e-2 g-3 b-5 >> 4
+	< c-1  e-2 g-3 b-5 > 4
 
 	\property Voice.fingeringOrientations = #'(up left)
-	<< c-1  e-2 g-3 b-5 >> 4
+	< c-1  e-2 g-3 b-5 > 4
 
 	\property Voice.fingeringOrientations = #'(right)
-	<< c-1  e-2 g-3 b-5 >> 4
+	< c-1  e-2 g-3 b-5 > 4
 
 
 	

@@ -1,5 +1,5 @@
 
-\version "1.9.3"
+\version "1.9.4"
 \header {
 
 texidoc = "The @code{\\tag} command marks music expressions with a
@@ -17,15 +17,15 @@ common =
 \notes \relative c''  {
 
     c1
-    \relative c' <
-	\tag #'part <
+    \relative c' <<
+	\tag #'part <<
 	  R1 \\
 	  {
 	      \property Voice.fontSize = #-1
 	      c4_"cue" f2 g4 } 
-        >
+        >>
 	\tag #'score R1
-     >
+     >>
     c1-\tag #'part ^4
 }
 

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 
 \header {
   texidoc="@cindex Trills
@@ -37,8 +37,8 @@ endHorizScript = {
 
 
 \score {
-  <
-    \context GrandStaff <
+  <<
+    \context GrandStaff <<
       \new Staff \notes\relative c'' {
 	\time 1/4
 	c4\prall
@@ -52,10 +52,10 @@ endHorizScript = {
 	\time 3/4
 	b4 c^\turn d 
 	\time 1/4
-	<{ d4}\\
+	<<{ d4}\\
 	{ 
 	   \property Voice.Script \override #'extra-offset = #'(-0.8 . 2.0)
-	   b_\turn}>
+	   b_\turn}>>
 	\startHorizScript
 %{ FIXME  \comma does not exist
  
@@ -68,9 +68,9 @@ endHorizScript = {
 %}
 	\endHorizScript
         \time  2/2 \slurDown
-	<{c2}{s4 \invisible d1*1/4 ( \visible }>  e2)
-	<{a,2}{s4 \invisible b1*1/4 ( \visible }>  d2)
-	<{a2}{s4 \invisible b1*1/4 ( \visible }>  d2)
+	<<{c2}{s4 \invisible d1*1/4 ( \visible }>>  e2)
+	<<{a,2}{s4 \invisible b1*1/4 ( \visible }>>  d2)
+	<<{a2}{s4 \invisible b1*1/4 ( \visible }>>  d2)
 	\time 3/4
 	d2^\prallup e4
       }
@@ -114,8 +114,8 @@ endHorizScript = {
 	c32[( b a16 b  c)]
 	b32[ \repeat unfold 5 { c d32 } c]
       }
-    >
-  >
+    >>
+  >>
 	\paper{ }
 }
 

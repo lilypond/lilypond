@@ -1,4 +1,4 @@
-\version "1.9.2"
+\version "1.9.4"
 % possible rename to ancient-something.
 
 \header { texidoc	= "Ancient Vaticana
@@ -22,10 +22,10 @@ verba = \context Lyrics = verba \lyrics {
 }
 
 \score {
-  \context VaticanaVoice <
+  \context VaticanaVoice <<
     \cantus
     \verba
-  >
+  >>
   \paper {
     stafflinethickness = \staffspace / 7.0
     linewidth = 137.0 \mm

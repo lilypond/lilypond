@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.4"
 
 % move to regtest once it works?
 
@@ -35,22 +35,22 @@ contrabasso = \notes\relative c {
    a1
 }
 
-violeStaff = \notes \context Staff = viole <
- \context Voice=oneViole <
+violeStaff = \notes \context Staff = viole <<
+ \context Voice=oneViole <<
  		\property Staff.instrument = #"Viola"
 		\property Staff.instr = #"Vla."
 
  \End
- >
- \context Voice=twoViole <
+ >>
+ \context Voice=twoViole <<
 		\property Staff.instrument = #"Viola II"
 		\property Staff.instr = #"Vla. II"
  \End
- >
+ >>
   \context Voice=oneViole \partcombine Voice
     \context Thread=oneViole \violaI
     \context Thread=twoViole \violaII
->
+>>
 
 staffCombinePianoStaffProperties = {
 	\property PianoStaff.devNullThread = #'()
@@ -67,30 +67,30 @@ staffCombinePianoStaffProperties = {
 
 
 \score {
-  <
-  \context StaffGroup <
+  <<
+  \context StaffGroup <<
    \violeStaff
 
-  \context PianoStaff = bassi_group \notes <
+  \context PianoStaff = bassi_group \notes <<
     \staffCombinePianoStaffProperties
-    \context Staff=oneBassi < \clef bass
+    \context Staff=oneBassi << \clef bass
     		\property Staff.instrument = #'(lines
     		  "Violoncello" "    e" "Contrabasso")
 
     		\property Staff.instr = #"Vc."
-		\End >
-    \context Staff=twoBassi < \clef bass
+		\End >>
+    \context Staff=twoBassi << \clef bass
     		\property Staff.instrument = #"Contrabasso"
 		\property Staff.instr = #"Cb."
 
-    \End >
+    \End >>
   
     \context Staff=oneBassi \partcombine Staff
       \context Voice=oneBassi { \violoncello }
       \context Voice=twoBassi { \contrabasso }
- >
->
- >
+ >>
+>>
+ >>
   \paper {
     % \paperSixteen
     linewidth = 80 * \staffspace

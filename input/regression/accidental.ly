@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 
 \header{
 texidoc="
@@ -11,7 +11,7 @@ fourth show forced and courtesy accidentals.
 foo = \notes\relative c''   {   \key as \major dis4 dis dis!^"force" dis? }
 
 \score {
-  < \foo 
+  << \foo 
    \context NoteNames \foo
-  >
+  >>
 }

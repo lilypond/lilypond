@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 \header{
 	texidoc="
 
@@ -14,7 +14,7 @@ can be shortened.
 
 
 \score {
-	<
+	<<
 		\context Staff \notes\relative c''{
 			c c c c
 			% coda-klugde: let volta span only one bar
@@ -34,7 +34,7 @@ can be shortened.
 			}
 			five1
 		}
-	>
+	>>
 \paper{raggedright = ##t}
 }
 

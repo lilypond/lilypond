@@ -1,4 +1,4 @@
-\version "1.9.2"
+\version "1.9.4"
 \header {
     texidoc =
 "
@@ -8,12 +8,12 @@ The piano brace should be shifted horizontally if it  is enclosed in a bracket.
 
 
 \score { \notes  {
-    \context StaffGroup <
+    \context StaffGroup <<
 	c4
-	\context PianoStaff <<
+	\context PianoStaff <
 	    d
 	    e
-	   >>4
-    >
+	   >4
+    >>
     }\paper {raggedright = ##t}}
 

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 
 
 \header { texidoc= "
@@ -11,7 +11,7 @@ can be printed automatically. This is enabled if the property
 }
 \score {
 \notes \relative c'
-\context PianoStaff <
+\context PianoStaff <<
     \property PianoStaff.followVoice = ##t
     \context Staff \context Voice {
       c1
@@ -19,6 +19,6 @@ can be printed automatically. This is enabled if the property
       b2 a
     }
     \new Staff {\clef bass \skip 1*2 }
-  >\paper{ 
+  >>\paper{ 
 linewidth =-1.
 }}

@@ -5,12 +5,12 @@
   on the right side."
 }
 
-\version "1.9.2"
+\version "1.9.4"
     \paper { raggedright= ##t }
 
 
 \score{
-        \context Staff \notes <
+        \context Staff \notes <<
                 \clef "bass"
                 \new Voice {
                         \stemUp
@@ -20,7 +20,7 @@
                         \stemDown
 			b2 b2 
                 }
-        >
+        >>
 }
 
 

@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 \header {
 
     texidoc = "Spacing uses the duration of the notes, but disregards

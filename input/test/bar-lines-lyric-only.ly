@@ -1,19 +1,19 @@
-\version "1.9.2"
+\version "1.9.4"
 \header { texidoc = "@cindex Bar line lyric only
 You can move around @code{Bar_engraver} and
 @code{Span_bar_engraver} if you want bar lines on lyrics. "
 }
 
 \score {
-\notes \relative c' \context ChoirStaff <
+\notes \relative c' \context ChoirStaff <<
  \new Staff { c1 c1 c1}
- \context Lyrics \lyrics <
+ \context Lyrics \lyrics <<
   { bla1 die bla }
   { foo bar foo }
   { foo bar foo }  
- >
+ >>
  \new Staff { c1 c1 c1} 
- >
+ >>
 
 
 \paper  {

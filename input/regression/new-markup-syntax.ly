@@ -2,7 +2,7 @@
 texidoc = "New markup syntax."
 }
 
-\version "1.9.2"
+\version "1.9.4"
 
 
 \score {
@@ -13,7 +13,7 @@ texidoc = "New markup syntax."
 		\raise #0.2 \hbracket \bold bar
 		\override #'(baseline-skip . 4)
 
-		\bracket \column << baz bazr bla >>
+		\bracket \column < baz bazr bla >
 		\hspace #2.0
 		\override #'(font-family . music) {
 			\lookup #"noteheads-0"
@@ -23,7 +23,7 @@ texidoc = "New markup syntax."
 		\combine "X" "+"   
 		\combine "o" "/"
 %		\char-number #"abc1234abc"
-		\box \column << { "string 1" } { "string 2" } >>
+		\box \column < { "string 1" } { "string 2" } >
 		"$\\emptyset$"
 		\italic Norsk
 		\super "2"

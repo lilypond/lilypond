@@ -312,12 +312,12 @@ HYPHEN		--
 	yylval.scm = sval;
 	return SCM_T;
 }
-<INITIAL,notes,markup>{ 
+<INITIAL,notes,lyrics>{ 
 	\<\<   {
-		return CHORD_OPEN;
+		return LESSLESS;
 	}
 	\>\>   {
-		return CHORD_CLOSE;
+		return MOREMORE;
 	}
 }
 <figures>{
@@ -467,6 +467,12 @@ HYPHEN		--
 <markup>{
 	\" {
 		start_quote ();
+	}
+	\< {
+		return '<';
+	}
+	\> {
+		return '>';
 	}
 	{MARKUPCOMMAND} {
 		String str (YYText() + 1);

@@ -1,4 +1,4 @@
-\version "1.9.2"
+\version "1.9.4"
 \header {
 texidoc = "Collisions for single head notes. "
 }
@@ -8,10 +8,10 @@ texidoc = "Collisions for single head notes. "
 \score {
     \notes
 
-  \context Staff \notes \transpose c c' <  
+  \context Staff \notes \transpose c c' <<  
 	{  c4 d e f g2 g4 a | }  \\
 	{ g4 f e g  g2 g2 } 
-  >
+  >>
 }
 
 

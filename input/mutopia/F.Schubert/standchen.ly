@@ -42,7 +42,7 @@ instrument = "Piano"
  footer = "Mutopia-2001/04/27-xx"
 } 
 
-\version "1.9.1"
+\version "1.9.4"
 
 dynamicUp = \property Voice.DynamicLineSpanner \override #'direction = #1
 dynamicRevert = \property Voice.DynamicLineSpanner \revert #'direction
@@ -65,14 +65,26 @@ vocalVerse =  \notes\relative c''{
 	R2. |
 	g8. b16 es4. d8 |
 	c8. g16 es4. c8 |
-	\grace {  as'32[( bes ] } \times 2/3 {  as8[)(  g)] as } c4. as8 |
+	\grace {
+  \property Voice.Stem \override #'stroke-style = #"grace"
+    as'32[( bes ] 
+  \property Voice.Stem \revert #'stroke-style }
+ \times 2/3 {  as8[)(  g)] as } c4. as8 |
 	g2. |
-	\grace {  f32[( g ] } \times 2/3 {  f8[)(  e)] f } as4. f8 |
+	\grace {
+  \property Voice.Stem \override #'stroke-style = #"grace"
+    f32[( g ] 
+  \property Voice.Stem \revert #'stroke-style }
+ \times 2/3 {  f8[)(  e)] f } as4. f8 |
   
 	es!2. |
 	g8. b16 es4. d8 |
 	c8. g16 e4. c8 |
- 	\grace {  a'32[( b ] } \times 2/3 {  a!8[)(  gis)] a } c4. a8 |
+ 	\grace {
+  \property Voice.Stem \override #'stroke-style = #"grace"
+    a'32[( b ] 
+  \property Voice.Stem \revert #'stroke-style }
+ \times 2/3 {  a!8[)(  gis)] a } c4. a8 |
 	g!2. |
 	\times 2/3 {  d'8[\f(  cis)] d } f4. b,8 |
 	c!2. |
@@ -88,7 +100,11 @@ vocalThrough =  \notes\relative c{
 	a8. b16 c4-> a8 r |
 	R2. |
 	R2. |
-	\grace {  a32[( b ] } \times 2/3 {  a!8[)(  gis)] a } c4. a8 |
+	\grace {
+  \property Voice.Stem \override #'stroke-style = #"grace"
+    a32[( b ] 
+  \property Voice.Stem \revert #'stroke-style }
+ \times 2/3 {  a!8[)(  gis)] a } c4. a8 |
 	g!2. |
 	\times 2/3 {  d'8[\f(  cis)] d } f4. b,8 |
 	c!2. ~ |
@@ -140,209 +156,213 @@ lyricThrough =  \lyrics{
 }
 
 trebleIntro =  \notes\relative c{
-	r8^"\bf M\\\"a\\ss ig"\pp <<g' c>>-. <<c es>>-. <<g c>>-. <<c es>>-. <<g c>>-. |
-	r8 <<as c>>-. <<c es>>-. <<as c>>-. <<c es>>-. <<as c>>-. |
-	r8 <<as c>>-. <<c d>>-. <<as c>>-. <<c d>>-. <<as c>>-. |
-	r8 <<g b>>-. <<b d>>-. <<g b>>-. <<b d>>-. <<g b>>-. |
+	r8^"\bf M\\\"a\\ss ig"\pp <g' c>-. <c es>-. <g c>-. <c es>-. <g c>-. |
+	r8 <as c>-. <c es>-. <as c>-. <c es>-. <as c>-. |
+	r8 <as c>-. <c d>-. <as c>-. <c d>-. <as c>-. |
+	r8 <g b>-. <b d>-. <g b>-. <b d>-. <g b>-. |
 }
 
 trebleVerseOne =  \notes\relative c{
 	%5
-	r8 <<g' c>> <<c es>> <<g c>> <<c es>> <<g c>> |
-	r8 <<f c'>> <<c' d>> <<f, c'>> <<c' d>> <<f, c'>> |
-	r8 <<f g b>> <<g b d>> <<f g b>> <<g b d>> <<f g b>> |
-	r8 <<es g c>> <<g c es>> <<es g c>> <<g c es>> <<es g c>> |
-	<<g'' b,>>4.( <<f d>>8)
-	\times 2/3 { <<f d>>([ <<es c>> <<d b>>)] }
+	r8 <g' c> <c es> <g c> <c es> <g c> |
+	r8 <f c'> <c' d> <f, c'> <c' d> <f, c'> |
+	r8 <f g b> <g b d> <f g b> <g b d> <f g b> |
+	r8 <es g c> <g c es> <es g c> <g c es> <es g c> |
+	<g'' b,>4.( <f d>8)
+	\times 2/3 { <f d>([ <es c> <d b>)] }
 
 	%10
-	<<c es>>2. |
-	r8 <<g, c>> <<c es>> <<g c>> <<c es>> <<g c>> |
-	r8 <<f c'>> <<c' d>> <<f, c'>> <<c' d>> <<f, c'>> |
-	r8 <<f as bes>> <<as bes d>> <<f as bes>> <<as bes d>> <<f as bes>> |
+	<c es>2. |
+	r8 <g, c> <c es> <g c> <c es> <g c> |
+	r8 <f c'> <c' d> <f, c'> <c' d> <f, c'> |
+	r8 <f as bes> <as bes d> <f as bes> <as bes d> <f as bes> |
 	r8
-	<<es g bes>>[
-	<<g bes es>>
-	<<es g bes>>
-	<<g bes es>>]
-	<<es' c'>>(
-	<<d bes'>>4.()
-	<<f as>>8)
+	<es g bes>[
+	<g bes es>
+	<es g bes>
+	<g bes es>]
+	<es' c'>(
+	<d bes'>4.()
+	<f as>8)
 	
-	\times 2/3 { <<f as>>([ <<es g>> <<d f>>)] }
+	\times 2/3 { <f as>([ <es g> <d f>)] }
 	%16
-	<<es g>>2. |
-	r8 <<f, g>> <<g b>> <<f g>> <<g b>> <<f g>> |
-	r8 <<es g>> <<g c>> <<es g>> <<g c>> <<es g>> |
-	r8\pp <<es as c>> <<as c es>> <<es as c>> <<as c es>> <<es as c>> |
+	<es g>2. |
+	r8 <f, g> <g b> <f g> <g b> <f g> |
+	r8 <es g> <g c> <es g> <g c> <es g> |
+	r8\pp <es as c> <as c es> <es as c> <as c es> <es as c> |
 	%20
-	r8 <<es g bes>> <<g bes es>> <<es g bes>> <<g bes es>> <<es g bes>> |
+	r8 <es g bes> <g bes es> <es g bes> <g bes es> <es g bes> |
 	\property Voice.Slur \override #'attachment = #'(stem . stem)
-	\grace {  as'32[( bes ] }
+	\grace {
+  \property Voice.Stem \override #'stroke-style = #"grace"
+    as'32[( bes ] 
+  \property Voice.Stem \revert #'stroke-style }
+
 	\times 2/3 {  as8[)( g as] } c4.->  as8) |
 	\property Voice.Slur \revert #'attachment
 	g2. |
-	r8 <<f, g>> <<g b>> <<f g>> <<g b>> <<f g>> |
-	r8 <<e g>> <<g c>> <<e g>> <<g c>> <<e g>> |
-	r8 <<f a c>> <<a c f>> <<f a c>> <<a c f>> <<f a c>> |
-	r8 <<e g c>> <<g c e>> <<e g c>> <<g c e>> <<e g c>> |
-	\times 2/3  { <<f' f'>>\f( <<e e'>> <<f f'>> }
-	<<a a'>>4.-> <<f f'>>8)  |
+	r8 <f, g> <g b> <f g> <g b> <f g> |
+	r8 <e g> <g c> <e g> <g c> <e g> |
+	r8 <f a c> <a c f> <f a c> <a c f> <f a c> |
+	r8 <e g c> <g c e> <e g c> <g c e> <e g c> |
+	\times 2/3  { <f' f'>\f( <e e'> <f f'> }
+	<a a'>4.-> <f f'>8)  |
 }
 
 trebleEentje =  \notes \relative c' \context Voice {
 	\stemBoth
-	<<e e'>>2 r4 |
-	<<f as!>>2\(\mf <<as c>>8.(-> <<f as>>16)\) |
+	<e e'>2 r4 |
+	<f as!>2\(\mf <as c>8.(-> <f as>16)\) |
 	% urg: slurs with staccati are ugly
-	<<e g>>4. <<e g>>8-.( <<e g>>-. <<e g>>)-. |
-	<<f g>>4. <<b, g'>>8-.( <<d g>>-. <<f g>>)-. |
-	<<e g>>2 <<e g>>4\pp |
-	<<f a>>2\( <<a c>>8.( <<f a>>16)\) |
-	<<e g>>4.\( <<e g>>8(-. <<e g>>-. <<e g>>)\)-. |
-	<<f g>>4. <<b, g'>>8(-. <<d g>>-. <<f g>>)-. |
+	<e g>4. <e g>8-.( <e g>-. <e g>)-. |
+	<f g>4. <b, g'>8-.( <d g>-. <f g>)-. |
+	<e g>2 <e g>4\pp |
+	<f a>2\( <a c>8.( <f a>16)\) |
+	<e g>4.\( <e g>8(-. <e g>-. <e g>)\)-. |
+	<f g>4. <b, g'>8(-. <d g>-. <f g>)-. |
 	%60
-	<<e g>>2 r4 |
+	<e g>2 r4 |
 }
 
 trebleThrough =  \notes \relative c'{
 	\stemBoth
-	<<e e'>>2. |
+	<e e'>2. |
 	%61
 	R2. |
-	<<g, g'>>8.[\< <<g g'>>16 <<b b'>>8. <<b b'>>16\>\! <<d d'>>8. <<d d'>>16] |
+	<g, g'>8.[\< <g g'>16 <b b'>8. <b b'>16\>\! <d d'>8. <d d'>16] |
 
 	%% score has double slur on chord.
-	<<c c'>>4( <<b c'>>) r\!
+	<c c'>4( <b c'>) r\!
 
-	<<g g'>>4. <<b b'>>8 <<d' d, >>8.->[ c16] |
+	<g g'>4. <b b'>8 <d' d, >8.->[ c16] |
 	%65
-        <<d, e b'>>2.~(\f
-	<<c e a>>2)  r4
-	< 
+        <d, e b'>2.~(\f
+	<c e a>2)  r4
+	<< 
 	{ 	a'8. b16 c4^> ( a8) r |
 		a8. b16 c4^> ( a8) r |
 	}\\{ 
-		<<d, f>>4 <<d f>>2 |
-		<<c! es>>4 <<c es>>2 |
-	} >
+		<d, f>4 <d f>2 |
+		<c! es>4 <c es>2 |
+	} >>
 
 	% 4 bars copied from end verse1
-	r8 <<f, a c>> <<a c f>> <<f a c>> <<a c f>> <<f a c>> |
+	r8 <f, a c> <a c f> <f a c> <a c f> <f a c> |
 	%70
-	r8 <<e g c>> <<g c e>> <<e g c>> <<g c e>> <<e g c>> |
-	\times 2/3 {  <<f' f'>>8( <<e e'>> <<f f'>> }
+	r8 <e g c> <g c e> <e g c> <g c e> <e g c> |
+	\times 2/3 {  <f' f'>8( <e e'> <f f'> }
 
-	<<a a'>>4.-> <<f f'>>8)
-	<<e e'>>2. |
-	<<es! es'! >>2. |
+	<a a'>4.-> <f f'>8)
+	<e e'>2. |
+	<es! es'! >2. |
 	\property Voice . TextScript \override #'font-shape = #'italic
-	<<d d'>>2._"decresc."
+	<d d'>2._"decresc."
 	\property Voice . TextScript \revert #'font-shape
 
 	%75
-	<<b b'>>2. |
-	<<c c'>>2 <<e g>>4\pp |
+	<b b'>2. |
+	<c c'>2 <e g>4\pp |
 
 	% four copied from begin eentje
-	<<f as!>>2( <<as c>>8.-> <<f as>>16) |
-	<<e g>>4. <<e g>>8(-. <<e g>>-. <<e g>>)-. |
-	<<f g>>4. <<b, g'>>8(-. <<d g>>-. <<f g>>)-. |
+	<f as!>2( <as c>8.-> <f as>16) |
+	<e g>4. <e g>8(-. <e g>-. <e g>)-. |
+	<f g>4. <b, g'>8(-. <d g>-. <f g>)-. |
 	%80
 
 	\property Voice . TextScript \override #'font-shape = #'italic
-	<<e g>>2._"dim."
+	<e g>2._"dim."
 	\property Voice . TextScript \revert #'font-shape
 
-	<<g, e' g>>2. |
-	<<g e' g>>2.\fermata |
+	<g, e' g>2. |
+	<g e' g>2.\fermata |
 }
 
 bassIntro =  \notes\relative c{
 	\dynamicUp
 %1
-	<<c, c'>>2 r4 |
-	<<as as'>>2 r4 |
-	<<f f'>>2 r4 |
-	<<g g'>>2 r4 |
+	<c, c'>2 r4 |
+	<as as'>2 r4 |
+	<f f'>2 r4 |
+	<g g'>2 r4 |
 }
 
 bassVerseOne =  \notes\relative c{
 %	\clef bass
 	\dynamicUp
 %5
-	<<c, c'>>2 r4 |
-	<<as as'>>2 r4 |
-	<<g g'>>2 r4 |
-	<<c c'>>2 r4 |
-	<<g g'>>8 <<g'' d'>>[ <<d' f>> <<g, d'>> <<d' f>> <<g, d'>>] |
+	<c, c'>2 r4 |
+	<as as'>2 r4 |
+	<g g'>2 r4 |
+	<c c'>2 r4 |
+	<g g'>8 <g'' d'>[ <d' f> <g, d'> <d' f> <g, d'>] |
 %10
-	<<c,, c'>>8 <<g'' c>>[ <<c es>> <<g c>> <<c es>> <<g c>>] |
-	<<c,, c'>>2 r4 |
-	<<as as'>>2 r4 |
-	<<bes bes'>>2 r4 |
-	<<es, es'>>2 r4 |
+	<c,, c'>8 <g'' c>[ <c es> <g c> <c es> <g c>] |
+	<c,, c'>2 r4 |
+	<as as'>2 r4 |
+	<bes bes'>2 r4 |
+	<es, es'>2 r4 |
 %15
-	bes'8 <<bes' f'>>[ <<f' as>> <<bes, f'>> <<f' as>> <<bes, f'>>] |
-	es,8 <<bes' es>>[ <<es g>> <<bes es>> <<es g>> <<bes es>>] |
-	<<g, g'>>2 r4 |
-	<<c c'>>2 r4 |
-	<<as as'>>2 r4 |
-	<<es es'>>2 r4 |
-	<<bes' bes'>>8 <<f'' bes>>[ <<bes d>> <<f bes>> <<bes d>> <<f bes>>] |
-	<<es,, es'>>8 <<es'' g bes>>[ <<g bes es>> <<es g bes>> <<g bes es>> <<es g bes>>] |
-	<<g,, g'>>2 r4 |
-	<<c c'>>2 r4 |
-	<<f, f'>>2 r4 |
-	<<c' c'>>2 r4 |
-	<<g g'>>8 <<d'' g>>[ <<g b>> <<d g>> <<g b>> <<d g>>] |
-	c,8 <<c' e g>>[ <<e g c>> <<c e g>> <<e g c>> <<c e g>>] |
+	bes'8 <bes' f'>[ <f' as> <bes, f'> <f' as> <bes, f'>] |
+	es,8 <bes' es>[ <es g> <bes es> <es g> <bes es>] |
+	<g, g'>2 r4 |
+	<c c'>2 r4 |
+	<as as'>2 r4 |
+	<es es'>2 r4 |
+	<bes' bes'>8 <f'' bes>[ <bes d> <f bes> <bes d> <f bes>] |
+	<es,, es'>8 <es'' g bes>[ <g bes es> <es g bes> <g bes es> <es g bes>] |
+	<g,, g'>2 r4 |
+	<c c'>2 r4 |
+	<f, f'>2 r4 |
+	<c' c'>2 r4 |
+	<g g'>8 <d'' g>[ <g b> <d g> <g b> <d g>] |
+	c,8 <c' e g>[ <e g c> <c e g> <e g c> <c e g>] |
 }
 
 bassEentje =  \notes\relative c{
 	\dynamicUp
-	<<c, c'>>8 <<c' f as!>>[ <<f as c>> <<c f as>> <<f as c>> <<c f as>>] |
-	c,8 <<c' e g>>[ <<e g c>> <<c e g>> <<e g c>> <<c e g>>] |
-	<<g, g'>>8 <<d'' g>>[ <<g b>> <<d g>> <<g b>> <<d g>>] |
-	c,8 <<e' g>>[ <<g c>> <<e g>> <<g c>> <<e g>>] |
-	<<c, c'>>8 <<c' f a>>[ <<f a c>> <<c f a>> <<f a c>> <<c f a>>] |
-	c,8 <<c' e g>>[ <<e g c>> <<c e g>> <<e g c>> <<c e g>>] |
-	<<g, g'>>8 <<d'' g>>[ <<g b>> <<d g>> <<g b>> <<d g>>] |
-	c,8 <<e' g>>[ <<g c>> <<e g>> <<g c>> <<e g>>] |
+	<c, c'>8 <c' f as!>[ <f as c> <c f as> <f as c> <c f as>] |
+	c,8 <c' e g>[ <e g c> <c e g> <e g c> <c e g>] |
+	<g, g'>8 <d'' g>[ <g b> <d g> <g b> <d g>] |
+	c,8 <e' g>[ <g c> <e g> <g c> <e g>] |
+	<c, c'>8 <c' f a>[ <f a c> <c f a> <f a c> <c f a>] |
+	c,8 <c' e g>[ <e g c> <c e g> <e g c> <c e g>] |
+	<g, g'>8 <d'' g>[ <g b> <d g> <g b> <d g>] |
+	c,8 <e' g>[ <g c> <e g> <g c> <e g>] |
 }
 
 bassThrough =  \notes\relative c{
 	\dynamicUp
 	%61
-	<<g, g'>>8^"cresc." <<g' b d>>[ <<b d f>> <<g b d>> <<as! b d >>-> <<b d f>>] |
-	<<g, g'>>8 <<g' d'>>[ <<d' f>> <<g, d'>> <<as b d >>-> <<b d f>>] |
+	<g, g'>8^"cresc." <g' b d>[ <b d f> <g b d> <as! b d >-> <b d f>] |
+	<g, g'>8 <g' d'>[ <d' f> <g, d'> <as b d >-> <b d f>] |
 	% copied
-	<<g, g'>>8 <<g' d'>>[ <<d' f>> <<g, d'>> <<as b d >>-> <<b d f>>] |
-	<<g, g'>>8 <<g' d'>>[ <<d' f>> <<g, d'>> <<gis b d >>-> <<b d f>>] |
+	<g, g'>8 <g' d'>[ <d' f> <g, d'> <as b d >-> <b d f>] |
+	<g, g'>8 <g' d'>[ <d' f> <g, d'> <gis b d >-> <b d f>] |
 	%65
-	<<gis, gis'>>8 <<d'' e>>[\> <<e b'>> <<d e>> <<e b'>> <<d e>> \!] |
-	<<a, a'>>8 <<c' e>>[ <<e a>> <<c e>> <<e a>> <<c e>>] |
-	<<a, a'>>8 <<a' d f>>[ <<d f a>> <<a d f>> <<d f a>> <<a d f>>] |
-	<<a, a'>>8 <<a' c e>>[ <<c e a>> <<a c e>> <<c e a>> <<a c e>>] |
+	<gis, gis'>8 <d'' e>[\> <e b'> <d e> <e b'> <d e> \!] |
+	<a, a'>8 <c' e>[ <e a> <c e> <e a> <c e>] |
+	<a, a'>8 <a' d f>[ <d f a> <a d f> <d f a> <a d f>] |
+	<a, a'>8 <a' c e>[ <c e a> <a c e> <c e a> <a c e>] |
 	% 4 bars copied from end verse1
-	<<f, f'>>2\p r4 |
+	<f, f'>2\p r4 |
 	%70
-	<<c' c'>>2 r4 |
-	<<g g'>>8 <<d'' g>>[ <<g b>> <<d g>> <<g b>> <<d g>>] |
-	c,8\> <<c' e g>>[ << e g c>> \! <<c e g>> <<e g c>> <<c e g>>] |
+	<c' c'>2 r4 |
+	<g g'>8 <d'' g>[ <g b> <d g> <g b> <d g>] |
+	c,8\> <c' e g>[ < e g c> \! <c e g> <e g c> <c e g>] |
 
-	<<c, c'>>8 <<c' es! g>>[ <<es g c>> <<c es g>> <<es g c>> <<c es g>>] |
-	<<f,, f'>>8 <<d'' f>>[ <<f as!>> <<d f>> <<f as>> <<d f>>] |
+	<c, c'>8 <c' es! g>[ <es g c> <c es g> <es g c> <c es g>] |
+	<f,, f'>8 <d'' f>[ <f as!> <d f> <f as> <d f>] |
 	%75
-	<<g,, g'>>8 <<d'' f>>[ <<f g>> <<d f>> <<f g>> <<d f>>] |
-	c,8 <<c' e>>[ <<e g>> <<c e>> <<e g>> <<c e>>] |
-	c,8 <<c' f>>[ <<f as>> <<c f>> <<f as>> <<c f>>] |
-	c,8 <<c' e>>[ <<e g>> <<c e>> <<e g>> <<c e>>] |
-	g,8 <<g' d'>>[ <<d' f>> <<g, d'>> <<d' f>> <<g, d'>>] |
+	<g,, g'>8 <d'' f>[ <f g> <d f> <f g> <d f>] |
+	c,8 <c' e>[ <e g> <c e> <e g> <c e>] |
+	c,8 <c' f>[ <f as> <c f> <f as> <c f>] |
+	c,8 <c' e>[ <e g> <c e> <e g> <c e>] |
+	g,8 <g' d'>[ <d' f> <g, d'> <d' f> <g, d'>] |
 	%80
-	c,8 <<c' e>>[ <<e g>> <<c e>> <<e g>> <<c e>>] |
-	c,8 <<c' g>>[ <<e c>> <<c g>> <<e c>> <<c g>>] |
-	<<c, g' c>>2._\fermata |
+	c,8 <c' e>[ <e g> <c e> <e g> <c e>] |
+	c,8 <c' g>[ <e c> <c g> <e c> <c g>] |
+	<c, g' c>2._\fermata |
 }
 		
 global =  \notes{
@@ -389,11 +409,11 @@ vocals = \context Voice \notes {
 	R1 * 3/4 * 6
 }
 
-vocalStaff =  \context Staff = vocal<
+vocalStaff =  \context Staff = vocal<<
 	  \property Staff.midiInstrument = "synth voice"
-	\context Voice = "leise" < 	  \global
-	  \vocals >
->
+	\context Voice = "leise" << 	  \global
+	  \vocals >>
+>>
 
 treble =  {
 	\clef treble
@@ -405,11 +425,11 @@ treble =  {
 	\trebleThrough
 }
 
-trebleStaff =  \context Staff = treble< 
+trebleStaff =  \context Staff = treble<< 
         \property Staff.midiInstrument = "acoustic grand"
 	\global
 	\treble
->
+>>
 bass =  {
 	\clef bass
 	\bassIntro 
@@ -419,21 +439,21 @@ bass =  {
 	\bassThrough
 }
 
-bassStaff =  \context Staff = bass<
+bassStaff =  \context Staff = bass<<
         \property Staff.midiInstrument = "acoustic grand"
 	\global
 	\bass
->
+>>
 
-grandStaff =  \context PianoStaff <
+grandStaff =  \context PianoStaff <<
 
 	\trebleStaff
 	\bassStaff
->
+>>
 
 
 \score{
-	<
+	<<
 
 %{
 	Transpose as you like for your voice
@@ -450,7 +470,7 @@ grandStaff =  \context PianoStaff <
 			\vocalStaff
 			\lyricStaff 
 		\grandStaff
-	>
+	>>
 	\paper {
 		% Use
 		%   textheight = 280.\mm

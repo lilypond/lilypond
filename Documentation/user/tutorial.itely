@@ -45,8 +45,8 @@ produce printed output.  You should then be able to create and print
 your first sheets of music.
 
 @menu
-* First steps::                 Music language of LilyPond.
-* Running LilyPond::            Printing music.
+* First steps::                 
+* Running LilyPond::            
 * More about pitches and accidentals::  
 * Octave entry::                
 * Combining music into compound expressions::  
@@ -62,7 +62,7 @@ your first sheets of music.
 * Fine tuning layout::          
 * Organizing larger pieces::    
 * An orchestral part::          
-* Integrating text and music::  Integrating text and music.
+* Integrating text and music::  
 @end menu
 
 

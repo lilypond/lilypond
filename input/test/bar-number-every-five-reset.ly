@@ -1,4 +1,4 @@
-\version "1.9.2"
+\version "1.9.4"
 
 \header {
     texidoc = "@cindex Bar Number Every Fifth Reset
@@ -14,7 +14,7 @@ intervals, starting from the @code{\applycontext}.
 resetBarnum = \context Score \applycontext
   #(set-bar-number-visibility 4)
 \score {
-    <
+    <<
         \notes \transpose c c'' {
 	    \property Score.BarNumber \override #'break-visibility =#end-of-line-invisible
 	    \property Score.RehearsalMark \override #'padding = #2.5
@@ -24,6 +24,6 @@ resetBarnum = \context Score \applycontext
 	    \repeat unfold 8 c
             \bar "|."
         }
-    >
+    >>
 \paper{raggedright = ##t}
 }

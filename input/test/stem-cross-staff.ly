@@ -1,4 +1,4 @@
-\version "1.9.2"
+\version "1.9.4"
 
 \header { texidoc = "@cindex Stem Cross Staff
 There is no support for putting chords across staves.
@@ -14,7 +14,7 @@ noFlag = \once \property Voice.Stem \override #'flag-style = #'no-flag
 
 \score { \notes 
     \context  PianoStaff
-        < \new Staff   {
+        << \new Staff   {
 	    \stemDown
 	    \stemExtend
 	    f'4
@@ -24,7 +24,7 @@ noFlag = \once \property Voice.Stem \override #'flag-style = #'no-flag
           \new Staff {
 	      \clef bass
 	      a4 a8 }
-	  >
+	  >>
 
     \paper { raggedright = ##t}
 }

@@ -1,4 +1,4 @@
-\version "1.9.2"
+\version "1.9.4"
 % TODO: split ancient-font into seperate files; possibly in
 % different locations.
 \header {
@@ -9,8 +9,8 @@ included in LilyPond's support of ancient notation.
 }
 
 
-upperStaff =  \context GregorianStaff = upperStaff <
-  \context GregorianVoice <
+upperStaff =  \context GregorianStaff = upperStaff <<
+  \context GregorianVoice <<
     \property Score.timing = ##f
 %   \property Score.forceAccidental = ##t %%%%%%%% FIXME: what happened to this property?
 
@@ -112,11 +112,11 @@ upperStaff =  \context GregorianStaff = upperStaff <
 	s32*1
 %	\break % 12 (32*1)
     }
-  >
->
+  >>
+>>
 
-lowerStaff =  \context MensuralStaff = lowerStaff <
-  \context MensuralVoice <
+lowerStaff =  \context MensuralStaff = lowerStaff <<
+  \context MensuralVoice <<
     
     % this is broken until further notice -- see refman
     % \property Staff.StaffSymbol \override #'line-count = #5
@@ -211,14 +211,14 @@ lowerStaff =  \context MensuralStaff = lowerStaff <
 	es'! des'! cis'!1 \bar "||"
 %	\break % 12 (8*1)
     }
-  >
->
+  >>
+>>
 
 \score {
-    \context Score <
+    \context Score <<
 	\upperStaff
 	\lowerStaff
-    >
+    >>
     \paper {
 % do we want to keep these settings? -gp
 	linewidth = 17.25\cm

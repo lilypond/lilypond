@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 
 \header { texidoc = "@cindex Script Priority
 Relative placements of different script types can be controlled

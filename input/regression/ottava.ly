@@ -6,7 +6,7 @@ use of the scheme function @code{set-octavation}.
 "
 
 }
-\version "1.9.2"
+\version "1.9.4"
 
 
 \paper { raggedright = ##t} 

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 % possible rename to rest-foo
 \header {
     texidoc = "@cindex Rest Collision Count
@@ -7,7 +7,7 @@ Control the number of rests in a collision with maximum-rest-count."
 }
 
 \score{
-\context Staff \notes\relative c''<
+\context Staff \notes\relative c''<<
 	\new Voice {
 		a4 
 		r 
@@ -38,7 +38,7 @@ Control the number of rests in a collision with maximum-rest-count."
 		r
 		r
 	}
-	>
+	>>
 	\paper{ raggedright = ##t }
 }
 

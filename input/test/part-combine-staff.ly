@@ -1,11 +1,11 @@
 
-\version "1.9.2"
+\version "1.9.4"
 \header { texidoc = "@cindex Part Combine Staff
 You can combine parts on two staffs, as well as two voices. "
 }
 
 \score{
-	\context PianoStaff <
+	\context PianoStaff <<
 		\context StaffCombineStaff=one \skip 1*7
 		\context StaffCombineStaff=two \skip 1*7
 		\context StaffCombineStaff=one \partcombine StaffCombineStaff
@@ -29,7 +29,7 @@ You can combine parts on two staffs, as well as two voices. "
 					a4 a a a
 					c2 e2
 				}
-		>
+		>>
 	\paper {
 		textheight = 295.0\mm
 		linewidth = 180.0\mm

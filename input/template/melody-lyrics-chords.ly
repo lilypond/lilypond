@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 
 \header {
   texidoc = "Popsong format: chords, melody and lyrics."
@@ -18,7 +18,7 @@ accompaniment = \chords {
 }
 
 \score {
-  <
+  <<
     \context ChordNames \accompaniment
     \addlyrics
       \context Staff = one {
@@ -27,7 +27,7 @@ accompaniment = \chords {
         \melody
       }
       \context Lyrics \text
-  >
+  >>
   \paper { }
   \midi  { }
 }

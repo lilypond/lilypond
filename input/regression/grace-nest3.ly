@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 \header {
     texidoc = "Another nested grace situation."
     }
@@ -8,7 +8,7 @@
 \score { \notes \relative c'' {
 	f1
     \grace e8 f1
-        < { \grace { e8 } f1 } >
+        << { \grace { e8 } f1 } >>
 }
 }
 

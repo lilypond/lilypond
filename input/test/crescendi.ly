@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 \header{
 	texidoc="@cindex Crescendi
 LilyPond can print crescendi in a number of different ways.

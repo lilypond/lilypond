@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 
 \header{
 texidoc="
@@ -27,8 +27,8 @@ R1*10 |
 R1*11 | 
 }
 
-\score { < \context Staff \thenotes
+\score { << \context Staff \thenotes
 
-	>
+	>>
 }
 

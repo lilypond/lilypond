@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.4"
 % ASCII Art output
 %
 % Process as:
@@ -11,22 +11,22 @@
 \include "paper-as5.ly"
 
 \score {
-  \context StaffGroup <
+  \context StaffGroup <<
     \context Staff=upper \notes\relative c{
       \key f \major
       \time 3/4
       r8^"Moderato" %\pp 
-      <g'-. c-.> <c-. es-.> <g-. c-.> <c-. es-.> <g-. c-.> |
-      r8 <as-. c-.> <c-. es-.>
+      <<g'-. c-.>> <<c-. es-.>> <<g-. c-.>> <<c-. es-.>> <<g-. c-.>> |
+      r8 <<as-. c-.>> <<c-. es-.>>
     }
     \context Staff=lower \notes\relative c{
       \key f \major
       \time 3/4
       \clef "bass"
-      <c,2 c'> r4 
-      <as2 as'> r4
+      <<c,2 c'>> r4 
+      <<as2 as'>> r4
     }
-  >
+  >>
   \paper {
     indent=4.0\char
     linewidth=78.0\char

@@ -1,4 +1,4 @@
-\version "1.9.1"
+\version "1.9.4"
 \header {
   title =	"Title"
   subtitle =	"Subtitle"

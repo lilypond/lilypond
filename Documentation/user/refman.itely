@@ -4437,7 +4437,7 @@ in this example disappears in the second line:
 @node Different editions from one source
 @subsection Different editions from one source
 
-The @code{\\tag} command marks music expressions with a name. These
+The @code{\tag} command marks music expressions with a name. These
 tagged expressions can be filtered out later.  With this mechanism it
 is possible to make different versions of the same music source.
 

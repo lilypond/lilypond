@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 
 \header {
 
@@ -25,21 +25,21 @@ what you would expect.
 quarterSkip = #(make-nonevent-skip (ly:make-duration 2 0))
 
 \score  {
- \notes \relative c'' <
+ \notes \relative c'' <<
  	\new StaffContainer {
 
-	    %% need < >, otherwise we descend to the voice inside SA  
-	    < \new Staff { c4 c4 } >
+	    %% need << >>, otherwise we descend to the voice inside SA  
+	    << \new Staff { c4 c4 } >>
 	    \quarterSkip
 	    
-	    < \new Staff { b4 b4 } > 
+	    << \new Staff { b4 b4 } >> 
 	}
  	\new StaffContainer {
 	    \quarterSkip
-	    < \context Staff { e d f } >
+	    << \context Staff { e d f } >>
 	    \quarterSkip
 	}
- >
+ >>
 
 \paper {
 	\translator {

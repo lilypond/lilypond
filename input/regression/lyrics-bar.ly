@@ -1,4 +1,4 @@
-\version "1.9.2"
+\version "1.9.4"
 
 \header{
 texidoc="
@@ -8,11 +8,11 @@ lyrics don't collide with barlines.
 }
 
 \score {
-	\context StaffGroup <
+	\context StaffGroup <<
 	\notes \context Staff {
 	        b1 \bar "|:" b1 \bar ":|"
 	}
-	\lyrics\context Lyrics <
+	\lyrics\context Lyrics <<
 	 	\context LyricsVoiceWithBars {
 %		        thisContextHasBarEngraver1  added
 		        ThisContextCertainlyHasBarEngraverAddedButThereHasBeenSomethingFunnyBefore1.  Here.
@@ -20,9 +20,9 @@ lyrics don't collide with barlines.
 		\context LyricsVoice {
 		        this4 one has no BarEngraverAddedToContext1
 		}
-	>
+	>>
 	\notes \new Staff { b1 b1 }
-	>
+	>>
 	\paper {
 		raggedright = ##t
 		\translator {

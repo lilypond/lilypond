@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 \header{
 texidoc = "Stripped version of trip.ly.  Staffs should be of correct length."
 }
@@ -7,7 +7,7 @@ texidoc = "Stripped version of trip.ly.  Staffs should be of correct length."
     \paper { raggedright= ##t }
 
 \score{
-  \context PianoStaff \notes \relative c'' <
+  \context PianoStaff \notes \relative c'' <<
     \new Staff {
        r1
        r1
@@ -19,7 +19,7 @@ texidoc = "Stripped version of trip.ly.  Staffs should be of correct length."
 	\grace { c16 } c1
       }
     }
-  > 
+  >> 
   \paper { }
 }
 

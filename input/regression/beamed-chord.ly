@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 
 \header{
 texidoc = "Hairy case for beam, chord, and automatic knees."
@@ -16,6 +16,6 @@ texidoc = "Hairy case for beam, chord, and automatic knees."
     %\stemUp
     \clef alto
     \time 3/4
-    r8 <<d  bes >>( bes') d <<e g, c, c,>>-> r |
+    r8 <d  bes >( bes') d <e g, c, c,>-> r |
   }
 }

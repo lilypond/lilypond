@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 % TODO: this example has a ton of text for very little output.
 % Is it all needed?  -gp
 % should this go to regression or be delete'd?   -gp
@@ -9,7 +9,7 @@ only have one stem. "
 }
 
 \score{
-	\context PianoStaff <
+	\context PianoStaff <<
 		\context StaffCombineStaff=one \skip 1*2
 		\context StaffCombineStaff=two \skip 1*2
 		\context StaffCombineStaff=one \partcombine StaffCombineStaff
@@ -23,7 +23,7 @@ only have one stem. "
 					c4 d e f
 					c2 e2
 				}
-		>
+		>>
 	\paper {
 		raggedright= ##t
 		textheight = 295.0\mm

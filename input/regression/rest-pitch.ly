@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 \header {
 
 texidoc = "Rests can have pitches--these will be affected by
@@ -14,8 +14,8 @@ collision will leave it alone."
 {
    a4\rest b4\rest c4\rest
 
-<d \\  d\rest^"rest pitch" >
-<d \\  r> 
+<<d \\  d\rest^"rest pitch" >>
+<<d \\  r>> 
 }
 }
 

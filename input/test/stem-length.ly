@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 
 \header{ texidoc = "@cindex Stem Length
 You can alter the length of stems. "

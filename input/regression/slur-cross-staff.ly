@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 \header{
 texidoc="
 The same goes for slurs. They behave decently when broken across
@@ -9,7 +9,7 @@ linebreak.
 
 	
 \score{
-	\context PianoStaff <
+	\context PianoStaff <<
 	\context Staff=one \notes\relative c'{
 		\stemUp \slurUp
 		 c4( c \translator Staff=two c  c) |
@@ -44,7 +44,7 @@ linebreak.
 		\clef bass
 		s1 s1 s1 s1 s1 s1 s1 s1 s1 s1
 	}
-	>
+	>>
 }
 
 

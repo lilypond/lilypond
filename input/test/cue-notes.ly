@@ -1,4 +1,4 @@
-\version "1.9.2"
+\version "1.9.4"
 % TODO: check to see if this example can be simplified using \small
 % or \tiny.
 \header { texidoc = "@cindex Cue Notes
@@ -13,7 +13,7 @@ Cue notes should be set in smaller type. "
        \property Staff.instrument = #"Horn in F"
        \property Score.skipBars = ##t
        R1*21
-    <
+    <<
 	{
 	    \property Staff.MultiMeasureRest \override #'staff-position = #-6
 	    R1
@@ -40,7 +40,7 @@ Cue notes should be set in smaller type. "
        \property Staff.fontSize\unset
 
        \clef treble
-     } >
+     } >>
    c'8^"Horn" cis'
    \property Staff.Clef \unset
    eis'4 fis'4

@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 \header {
 texidoc="Multi measure rests of second voice should not disappear."
 }
@@ -33,13 +33,13 @@ two = \notes \relative c'' {
 }
 	
 \score {
-  \notes <
-    \context Staff = Viole <
+  \notes <<
+    \context Staff = Viole <<
 	\context Voice=one \partcombine Voice
 		\context Thread=one \one
 		\context Thread=two \two
-    >
-  >
+    >>
+  >>
   \paper {
     \translator {
       \ThreadContext

@@ -11,7 +11,7 @@ possible to use @code{\override} would shift both texts.
 
 }
 
-\version "1.9.2"
+\version "1.9.4"
 
 #(define (make-text-checker text)
    (lambda (grob) (equal? text (ly:get-grob-property grob 'text))))

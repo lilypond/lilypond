@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 
 \header{
 
@@ -9,7 +9,7 @@ with explicit staff switches)."
      }
 
 \score {
-  \notes \context PianoStaff <
+  \notes \context PianoStaff <<
     \context Staff = "up" \notes\relative c''{
       b8[ \translator Staff="down" d,, ]
       c[ \translator Staff="up" c'' ]
@@ -19,7 +19,7 @@ with explicit staff switches)."
       \clef bass 
       s2.
     }
-  >
+  >>
   \paper{
     raggedright = ##t
   }

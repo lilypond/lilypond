@@ -1,6 +1,6 @@
 #(ly:set-option 'old-relative)
 
-\version "1.9.1"
+\version "1.9.4"
 \include  "mozart-hrn3-defs.ly"
 
 romanze = \notes \relative c' {
@@ -44,7 +44,11 @@ romanze = \notes \relative c' {
 	 d8[( e f  d)] b4 r8 g
 	 c[ ( e) g g]  g[( f e  d)]
 	c4(
-	\grace { \longgrace e16 \endlonggrace }
+	\grace {
+  \property Voice.Stem \override #'stroke-style = #"grace"
+   \longgrace e16 \endlonggrace 
+  \property Voice.Stem \revert #'stroke-style }
+
 	 d8.[  c16) \< ]  c8[ c-.( c-. c)-.]\!
 	\mark "C"
 

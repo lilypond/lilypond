@@ -11,7 +11,7 @@ dynamics are left over. These are put onto the 2nd measure."
 
 }
 
-\version "1.9.2"
+\version "1.9.4"
 
 #(define (notes-to-skip m)
 "Convert all stuff with duration (notes, lyrics, bass figures, etc.) to skips.
@@ -36,7 +36,7 @@ foobar = \notes \transpose c c' { c4\>-^ c4-^ c4\!-^ c4-^  }
   \notes \relative c''  \context Voice {
 	\foobar
 
-	< \apply #(lambda (x) (music-map notes-to-skip x))
+	<< \apply #(lambda (x) (music-map notes-to-skip x))
 		\foobar
-	   { d2 d2 } > 
+	   { d2 d2 } >> 
 }}

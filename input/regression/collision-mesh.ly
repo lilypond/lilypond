@@ -1,4 +1,4 @@
-\version "1.9.2"
+\version "1.9.4"
 \header {
 texidoc = "Oppositely stemmed chords,  meshing into each other,
 are resolved."
@@ -11,20 +11,20 @@ are resolved."
   \context Staff \notes \transpose c c' {
      \time 3/4
      % Here's what I was trying to do:
-     <          {
+     <<          {
          d'4
          d'4.	 
-	 <<a c'>>4
-	 <<g b g'>>4
-	 <<g b g'>>4.	 	 
+	 <a c'>4
+	 <g b g'>4
+	 <g b g'>4.	 	 
 	   }\\ {
-       <<g b g'>>4
-       <<g b g'>>4.       
-       <<g b d'>>4
+       <g b g'>4
+       <g b g'>4.       
+       <g b d'>4
        d'4
        d'4.       
        }
- >
+ >>
 
   }
 }
