@@ -64,7 +64,7 @@
 	(mutetriangle	  trim	,(make-pitch 1 4 1))
 	(triangle	  tri	,(make-pitch 1 4 2))
 	(opentriangle	  trio	,(make-pitch 1 5 0))
-	 "transposing" pitches:
+	;; "transposing" pitches:
 	(oneup		  ua	,(make-pitch 0 1 0))
 	(twoup		  ub	,(make-pitch 0 2 0))
 	(threeup	  uc	,(make-pitch 0 3 0))

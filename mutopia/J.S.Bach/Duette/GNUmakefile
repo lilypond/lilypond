@@ -5,7 +5,7 @@ depth = ../../..
 SUBDIRS =
 EXTRA_DIST_FILES=
 
-LOCALSTEPMAKE_TEMPLATES=mutopia
+LOCALSTEPMAKE_TEMPLATES=ly mutopia
 examples=
 
 include $(depth)/make/stepmake.make

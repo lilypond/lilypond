@@ -1,26 +1,26 @@
 \header{
-	enteredby = "Tom Cato Amundsen";
-	copyright = "Public Domain";
-	piece = "Allemande";
+	enteredby = "Tom Cato Amundsen"
+	copyright = "Public Domain"
+	piece = "Allemande"
 }
 
-\version "1.3.117";
+\version "1.3.146"
 
 global =  \notes{
-	\time 4/4;
-	\partial 8*3;
-	\key es \major;
-	\skip 1*15;
-	\skip 4*3;
-	\skip 16*4;
-	\bar ":|:";
-	\skip 16*3;
-	\skip 1*16;
-	\bar ":|";
+	\time 4/4
+	\partial 8*3
+	\key es \major
+	\skip 1*15
+	\skip 4*3
+	\skip 16*4
+	\bar ":|:"
+	\skip 16*3
+	\skip 1*16
+	\bar ":|"
 }
 
 hoyreEn =  \notes\relative c'''{
-%	\partial 4.; 
+%	\partial 4. 
 	[as16 g f] |
 	[g16 d es b][c f es d][es b c g][as d c b] |
 	[c g as es][f es' d c][b8. a16][g8 b] |
@@ -80,11 +80,11 @@ hoyreEn =  \notes\relative c'''{
 }
 
 venstreEn =  \notes\relative c{
-	\clef bass; 
-%	\partial 4.; 
+	\clef bass 
+%	\partial 4. 
 	r16 r8 |
-	[c8 c,] \clef treble; r16 [as''' g f][g d es b][c f es d] |
-	\clef bass; [es b c g][as8 f][g g,~][g16 f' es d] |
+	[c8 c,] \clef treble r16 [as''' g f][g d es b][c f es d] |
+	\clef bass [es b c g][as8 f][g g,~][g16 f' es d] |
 	[es b c g][as g' f es][f c d a][bes as' g f] |
 	[g d es b][c bes' as g][as es f c][d8 b'] |
 %5

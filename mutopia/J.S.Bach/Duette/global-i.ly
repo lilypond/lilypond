@@ -1,6 +1,6 @@
-\version "1.3.122";
+\version "1.3.146"
 
 globalI =  \notes{
-	\time 12/8;
-	\key g \major;
+	\time 12/8
+	\key g \major
 }

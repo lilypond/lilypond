@@ -12,12 +12,6 @@ all: $(OUT_FILES)
 
 local-WWW: $(ly_examples) $(fly_examples) $(ps_examples) $(png_examples)
 
-convert-ly: local-convert-ly
-	$(LOOP)
-
-local-convert-ly:
-	$(PYTHON) $(CONVERT_LY) --edit --assume-old *ly
-
 tar:
 	mkdir -p $(outdir)/$(tarball)
 	cp -p *.ly $(outdir)/$(tarball)
@@ -51,7 +45,6 @@ local-mutopia-help:
 	@echo -e "\
   <NAME>      update $(outdir)/<NAME>.ps\n\
   <NAME>-book update booklet $(outdir)/<NAME>-book.ps\n\
-  convert-ly  convert all LilyPond sources\n\
   mutopia     update PNGs, PostScript a4 and letter of all mutopia-examples\n\
   png         update PNGs of all examples\n\
   ps          update PostScript of all examples\n\

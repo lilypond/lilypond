@@ -8,7 +8,7 @@ LILYINCLUDE:=$(LILYINCLUDE):out
 export LILYINCLUDE
 
 examples=preludes-2
-LOCALSTEPMAKE_TEMPLATES=mutopia
+LOCALSTEPMAKE_TEMPLATES=ly mutopia
 
 mutopia-examples=preludes-score
 

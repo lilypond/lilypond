@@ -1,9 +1,9 @@
-\version "1.3.98"
+\version "1.3.146"
 % This is the main score file of the Petites Preludes
 
-\include "header.ly";
+\include "header.ly"
 
-\paper { linewidth = 18.0\cm; }
+\paper { linewidth = 18.0\cm }
 
 \include "preludes-1.ly"
 \include "preludes-2.ly"

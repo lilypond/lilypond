@@ -3,13 +3,13 @@
 opus = "BWV 940"
 piece = "6"
 
-\version "1.3.98";
+\version "1.3.146"
 
 
 
 one =  \context Staff \notes\relative c{
 	\context Voice=i
-	\skip 1; |
+	\skip 1 |
 	\stemUp
 	r4 d''2 cis4 |
 	\stemBoth
@@ -26,7 +26,7 @@ one =  \context Staff \notes\relative c{
 	fis4 g r8 g16 bes e4 |
 	%10
 	d1
-	\bar "|.";
+	\bar "|."
 }
 
 two =  \context Staff \notes\relative c{
@@ -69,21 +69,21 @@ three =  \context Staff \notes\relative c{
 	d, cis' |
 	%10
 	a'1
-	\bar "|.";
+	\bar "|."
 }
 
 four =  \context Staff \notes\relative c{
 	\context Voice=iv
 	\stemDown 
 	d2 cis |
-	\skip 1*2; |
-	\skip 4*3;
+	\skip 1*2 |
+	\skip 4*3
 	\translator Staff=upper \stemUp
 	\property Voice.NoteColumn \override #'horizontal-shift = #1
 	c''4 |
 	%5
 	a gis ~ gis16 gis fis e 
-	\skip 4*1;
+	\skip 4*1
 	\translator Staff=lower \stemDown
 	\property Voice.NoteColumn \override #'horizontal-shift = #0
 	\stemUp\tieUp
@@ -97,8 +97,8 @@ four =  \context Staff \notes\relative c{
 }
 
 global =  \notes{
-	\time 4/4;
-	\key f \major;
+	\time 4/4
+	\key f \major
 }
 
 \score{
@@ -111,19 +111,19 @@ global =  \notes{
 		>
 		\context Staff = lower <
 			\global
-			\clef "bass";
+			\clef "bass"
 			\three
 			\four
 		>
 	>
 	\paper{
-		linewidth = 18.0 \cm;  
+		linewidth = 18.0 \cm  
 
 	}
-	\midi{ \tempo 4 = 40; }
+	\midi{ \tempo 4 = 40 }
 	\header{
-		piece = \piece;
-		opus = \opus;
+		piece = \piece
+		opus = \opus
 	}
 }
 

@@ -1,14 +1,14 @@
 \header{
-filename = 	"violino-i.ly";
-title = 		 "Vier Duette";
-description = 	"Four duets for Violino and Violoncello (Viola)";
-opus = 		"BWV";
-composer = 	"Johann Sebastian Bach (1685-1750)";
-enteredby = 	"jcn";
-copyright = 	"Public Domain";
+filename = 	"violino-i.ly"
+title = 		 "Vier Duette"
+description = 	"Four duets for Violino and Violoncello (Viola)"
+opus = 		"BWV"
+composer = 	"Johann Sebastian Bach (1685-1750)"
+enteredby = 	"jcn"
+copyright = 	"Public Domain"
 }
 
-\version "1.3.122";
+\version "1.3.146"
 
 violinoI =  \notes\relative c'' {
   \property Voice.autoBeamSettings \override #'(end * * * *) = #(make-moment 3 8)\property Voice.autoBeamSettings \override #'(end 1 8 * *) = #(make-moment 1 16)
@@ -92,7 +92,7 @@ violinoI =  \notes\relative c'' {
     \context Voice { \stemUp\slurUp\tieUp a16 fis | g1. }
     \context Voice=x { \stemDown\slurDown\tieDown c,16 c | b1. }
   >
-  \bar "|.";
+  \bar "|."
 }
 
 \include "global-i.ly"

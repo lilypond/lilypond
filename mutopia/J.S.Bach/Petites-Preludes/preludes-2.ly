@@ -4,7 +4,7 @@ opus= "BWV 939"
 piece = "2"
 
 
-\version "1.3.98";
+\version "1.3.146"
 upper =  \context Staff \notes\relative c{
 	\context Voice=i
 	\property Voice.TextScript \set #'font-style = #'italic
@@ -45,7 +45,7 @@ upper =  \context Staff \notes\relative c{
 	<g,2 c>
 	<d4 b'>
 	<e1 c'>
-	\bar "|.";
+	\bar "|."
 }
 
 lower =  \context Staff \notes\relative c{
@@ -70,11 +70,11 @@ lower =  \context Staff \notes\relative c{
 	f1 ~ |
 	f8 d e c g'4 g, |
 	c,1
-	\bar "|.";
+	\bar "|."
 }
 
 global =  \notes{
-	\time 4/4;
+	\time 4/4
 }
 
 \score{
@@ -85,17 +85,17 @@ global =  \notes{
 		>
 		\context Staff = lower <
 			\global
-			\clef "bass";
+			\clef "bass"
 			\lower
 		>
 	>
 	\paper{
-	  linewidth = 18.0 \cm;  
+	  linewidth = 18.0 \cm  
         }
-	\midi{ \tempo 4 = 100; }
+	\midi{ \tempo 4 = 100 }
 	\header {
-		opus = \opus;
-		piece = \piece;
+		opus = \opus
+		piece = \piece
 	}
 }
 

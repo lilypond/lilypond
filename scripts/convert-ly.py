@@ -800,9 +800,14 @@ if 1:
 		str = re.sub ('\\\\key[ \t]*;', '\\key \\default;', str)
 		str = re.sub ('\\\\mark[ \t]*;', '\\mark \\default;', str)
 
-		# only remove ; that are directly after words.
-		# otherwise  we interfere with Scheme comments, which is badbadbad.
-		str = re.sub ("([^ \t]);", "\\1", str)
+		# Make sure groups of more than one ; have space before
+		# them, so that non of them gets removed by next rule
+		str = re.sub ("([^ \n\t;]);(;+)", "\\1 ;\\2", str)
+		
+		# Only remove ; that are not after spaces, # or ;
+		# Otherwise  we interfere with Scheme comments,
+		# which is badbadbad.
+		str = re.sub ("([^ \t;#]);", "\\1", str)
 
 		return str
 	conversions.append (((1,3,146), conv, 'semicolons removed'))
@@ -943,6 +948,8 @@ identify ()
 for f in files:
 	if f == '-':
 		f = ''
+	if not os.path.isfile (f):
+		continue
 	try:
 		do_one_file (f)
 	except UnknownVersion:

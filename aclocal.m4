@@ -421,7 +421,7 @@ AC_DEFUN(AC_STEPMAKE_KPATHSEA, [
     if test "$kpathsea_b" = "yes"; then	
 	AC_HAVE_HEADERS(kpathsea/kpathsea.h)
 	AC_CHECK_LIB(kpathsea, kpse_find_file)
-	AC_CHECK_FUNCS(kpse_find_file,, AC_ERROR(Cannot find kpathsea functions.  Rerun with --without-kpathsea.) )
+	AC_CHECK_FUNCS(kpse_find_file,, AC_ERROR(Cannot find kpathsea functions.  You should install kpathsea; see INSTALL.txt.  Rerun ./configure --without-kpathsea only if kpathsea is not available for your platform.))
     fi
     AC_MSG_CHECKING(whether to use kpathsea)
     if test "$kpathsea_b" = yes; then

@@ -1,14 +1,14 @@
 \header{
-filename = 	"violino-ii.ly";
-title = 		 "Vier Duette";
-description = 	"Four duets for Violino and Violoncello (Viola)";
-opus = 		"BWV";
-composer = 	"Johann Sebastian Bach (1685-1750)";
-enteredby = 	"jcn";
-copyright = 	"Public Domain";
+filename = 	"violino-ii.ly"
+title = 		 "Vier Duette"
+description = 	"Four duets for Violino and Violoncello (Viola)"
+opus = 		"BWV"
+composer = 	"Johann Sebastian Bach (1685-1750)"
+enteredby = 	"jcn"
+copyright = 	"Public Domain"
 }
 
-\version "1.3.122";
+\version "1.3.146"
 
 violinoIi =  \notes\relative c''{
   R1*8 |
@@ -86,7 +86,7 @@ violinoIi =  \notes\relative c''{
       c1|
     }
   >
-  \bar "|.";
+  \bar "|."
 }
 
 \include "global-ii.ly"
@@ -101,4 +101,4 @@ violinoIiStaff =  \context Staff = violino <
   \violinoIi
   \globalIi
 >
-\version "1.3.122";
+\version "1.3.146"

@@ -255,10 +255,9 @@ setup_paths ()
     global_path.parse_path (env_sz);
 
 
-  /*
-    Should use kpathsea, this is getting out of hand.  
-   */
-  char *suffixes[] = {"ly", "afm", "scm", "tfm", "ps", 0};
+  /* Adding mf/out make lilypond unchanged source directory, when setting
+     LILYPONDPREFIX to lilypond-x.y.z */
+  char *suffixes[] = {"ly", "afm", "mf/out", "scm", "tfm", "ps", 0};
   String prefix = prefix_directory;
   if (prefix.empty_b ())
     prefix =  DIR_DATADIR;

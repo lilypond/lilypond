@@ -18,7 +18,7 @@ TestedFeatures = 	 "Banter named chords"
 
 % {
 
-#(define chord::names-alist-banter '())
+#;(define chord::names-alist-banter '())
 #(set! chord::names-alist-banter
       (append 
       '(

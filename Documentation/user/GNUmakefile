@@ -136,6 +136,6 @@ $(outdir)/lilypond-internals.nexi $(outdir)/lilypond-internals.texi:
 	touch $(outdir)/$(*F).nexi
 
 $(outdir)/interfaces.itexi:
-	cp dummy-interfaces.itexi $@
+	cp $(src-depth)/Documentation/user/dummy-interfaces.itexi $@
 endif
 

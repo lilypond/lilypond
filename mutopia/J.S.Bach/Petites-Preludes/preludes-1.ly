@@ -18,7 +18,7 @@ Lemoine puts fermatas on ending bar lines everywhere.
 
 
 
-\version "1.3.98";
+\version "1.3.146"
 
 
 lowstaff =  \translator "Staff" = "lower"
@@ -88,7 +88,7 @@ upper =  \context Staff=upper \notes\relative c {
 	>
 	\stemBoth |
 	<c1 g e>
-	\bar "|.";
+	\bar "|."
 }
 
 % lower = \context Staff \notes\relative c{
@@ -103,17 +103,17 @@ lower =  \context Staff=lower \notes\relative c{
 	f4 e d-\prall c |
 	g'-\mordent^"\\textsharp" g, g'-\mordent g, |
 	g'-\mordent g, g'-\mordent g, |
-	g' r s s | s s s s \clef "bass"; |
+	g' r s s | s s s s \clef "bass" |
 	<
 		{ \stemUp\tieUp g1 ~ g ~ g ~ g ~ g ~ g ~ g }
 		\context Voice=ii { \stemDown\tieDown g,1 ~ g ~ g ~ g ~ g ~ g ~ g }
 	>
 	<c,1 c,>
-	\bar "|.";
+	\bar "|."
 }
 
 global =  \notes{
-	\time 4/4;
+	\time 4/4
 }
 
 \score{
@@ -125,14 +125,14 @@ global =  \notes{
 		>
 		\context Staff = lower <
 			\global
-			\clef "bass";
+			\clef "bass"
 			\lower
 		>
 	>
-	\paper { linewidth = 18.0 \cm;  }
-	\midi{ \tempo 4 = 80; }
+	\paper { linewidth = 18.0 \cm  }
+	\midi{ \tempo 4 = 80 }
 	\header {
-		opus = \opus;
-		piece = \piece;
+		opus = \opus
+		piece = \piece
 	}
 }

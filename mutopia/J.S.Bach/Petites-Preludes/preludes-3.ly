@@ -14,7 +14,7 @@ note, some have dotted half notes.
 This file was partly generated using m4.
 %}
 
-\version "1.3.98";
+\version "1.3.146"
 
 
 upper =   \notes \transpose c'' {
@@ -66,7 +66,7 @@ upper =   \notes \transpose c'' {
 
 
 	<g4 d b>	
-	\bar "|.";
+	\bar "|."
 }
 
 lower =   \notes{
@@ -127,12 +127,12 @@ lower =   \notes{
 	g,4 r r |
 	%% FIXME: \fermata?
 	g,4_\fermata 
-	\bar "|.";
+	\bar "|."
 }
 
 global  = \notes{
-	\time 3/4;
-	\key es \major;
+	\time 3/4
+	\key es \major
 }
 
 \score{
@@ -143,16 +143,16 @@ global  = \notes{
 		>
 		\context Staff = down <
 			\global
-			\clef "bass";
+			\clef "bass"
 			\lower
 		>
 	>
 	\paper{
 		\translator {\OrchestralScoreContext }
 	}
-	\midi{ \tempo 4 = 100; }
+	\midi{ \tempo 4 = 100 }
 	\header{
-		opus = \opus;
-		piece = \piece;
+		opus = \opus
+		piece = \piece
 	}
 }
