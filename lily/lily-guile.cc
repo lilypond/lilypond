@@ -85,7 +85,7 @@ gulp_file_to_string (String fn)
     {
       String e = _f ("can't find file: `%s'", fn);
       e += " ";
-      e += _f ("(load path: `%s')", global_path.string ());
+      e += _f ("(load path: `%s')", global_path.to_string ());
       error (e);
     }
   else if (verbose_global_b)

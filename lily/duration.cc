@@ -69,19 +69,19 @@ Duration::get_length () const
 
 
 String
-Duration::string () const
+Duration::to_string () const
 {
   String s;
 
   if (durlog_ < 0  )
-    s = "log = "  + to_string (durlog_);
+    s = "log = "  + ::to_string (durlog_);
   else
-    s = to_string (1 << durlog_);
+    s = ::to_string (1 << durlog_);
   
-  s += to_string ('.', dots_);
+  s += ::to_string ('.', dots_);
   if (factor_ != Moment (Rational (1,1)))
     {
-      s += "*" + factor_.string ();
+      s += "*" + factor_.to_string ();
     }
   return s;
 }
@@ -102,7 +102,7 @@ Duration::print_smob (SCM s, SCM port, scm_print_state *)
   Duration  *r = (Duration *) ly_cdr (s);
      
   scm_puts ("#<Duration ", port);
-  scm_display (scm_makfrom0str (r->string ().to_str0 ()), port);
+  scm_display (scm_makfrom0str (r->to_string ().to_str0 ()), port);
   scm_puts (" >", port);
   
   return 1;

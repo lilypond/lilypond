@@ -49,10 +49,10 @@ Tex_font_char_metric::Tex_font_char_metric ()
   italic_correction_fix_ = 0;
 }
 
-#define APPEND_CHAR_METRIC_ELT(k)  outstr += to_string (#k) + " "  + to_string (k ## _)  + "; "
+#define APPEND_CHAR_METRIC_ELT(k)  outstr += ::to_string (#k) + " "  + ::to_string (k ## _)  + "; "
 
 String
-Tex_font_char_metric::string () const
+Tex_font_char_metric::to_string () const
 {
   String outstr ;
 
@@ -109,11 +109,11 @@ Tex_font_metric::get_char (int a) const
 
 
 String
-Tex_font_metric::string () const
+Tex_font_metric::to_string () const
 {
   String outstr;
   for (int i=0; i < char_metrics_.size (); i++)
-    outstr += char_metrics_[i].string ();
+    outstr += char_metrics_[i].to_string ();
   
   return outstr;
 }

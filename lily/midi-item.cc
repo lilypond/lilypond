@@ -61,7 +61,7 @@ Midi_chunk::data_string () const
 }
 
 String
-Midi_chunk::string () const
+Midi_chunk::to_string () const
 {
   String str = header_string_;
   String dat = data_string ();
@@ -80,9 +80,9 @@ Midi_duration::Midi_duration (Real seconds_f)
 }
 
 String
-Midi_duration::string () const
+Midi_duration::to_string () const
 {
-  return String ("<duration: ") + to_string (seconds_) + ">";
+  return String ("<duration: ") + ::to_string (seconds_) + ">";
 }
 
 Midi_event::Midi_event (Moment delta_mom, Midi_item* midi)
@@ -95,14 +95,14 @@ Midi_event::Midi_event (Moment delta_mom, Midi_item* midi)
   ugh. midi output badly broken since grace note hackage.
  */
 String
-Midi_event::string () const
+Midi_event::to_string () const
 {
   Rational rat_dt = (delta_mom_.main_part_ * Rational (384) +
     delta_mom_.grace_part_ * Rational (100))*Rational (4);
   int delta_i = int (rat_dt);
 
   String delta_string = Midi_item::i2varint_string (delta_i);
-  String midi_string = midi_->string ();
+  String midi_string = midi_->to_string ();
   assert (midi_string.length ());
   return delta_string + midi_string;
 }
@@ -131,7 +131,7 @@ Midi_instrument::Midi_instrument (Audio_instrument* a)
 }
 
 String
-Midi_instrument::string () const
+Midi_instrument::to_string () const
 {
   Byte program_byte = 0;
   bool found = false;
@@ -147,8 +147,8 @@ Midi_instrument::string () const
   else
       warning (_f ("no such instrument: `%s'", audio_->str_.to_str0 ()));
 
-  String str = to_string ((char) (0xc0 + channel_)); //YIKES! FIXME: Should be track. -rz
-  str += to_string ((char)program_byte);
+  String str = ::to_string ((char) (0xc0 + channel_)); //YIKES! FIXME: Should be track. -rz
+  str += ::to_string ((char)program_byte);
   return str;
 }
 
@@ -175,7 +175,7 @@ Midi_item::i2varint_string (int i)
   String str;
   while (1) 
     {
-      str += to_string ((char)buffer_i);
+      str += ::to_string ((char)buffer_i);
       if (buffer_i & 0x80)
 	buffer_i >>= 8;
       else
@@ -190,7 +190,7 @@ Midi_key::Midi_key (Audio_key*a)
 }
 
 String
-Midi_key::string () const
+Midi_key::to_string () const
 {
   String str = "ff5902";
   str += String_convert::int2hex (audio_->accidentals_, 2, '0');
@@ -208,7 +208,7 @@ Midi_time_signature::Midi_time_signature (Audio_time_signature* a)
 }
 
 String
-Midi_time_signature::string () const
+Midi_time_signature::to_string () const
 {
   int num = audio_->beats_;
   int den = audio_->one_beat_;
@@ -255,14 +255,14 @@ Midi_note::get_pitch () const
 }
 
 String
-Midi_note::string () const
+Midi_note::to_string () const
 {
   Byte status_byte = (char) (0x90 + channel_);
 
-  String str = to_string ((char)status_byte);
-  str += to_string ((char) (get_pitch () + c0_pitch_i_));
+  String str = ::to_string ((char)status_byte);
+  str += ::to_string ((char) (get_pitch () + c0_pitch_i_));
 
-  str += to_string ((char)dynamic_byte_);
+  str += ::to_string ((char)dynamic_byte_);
   return str;
 }
 
@@ -280,13 +280,13 @@ Midi_note_off::Midi_note_off (Midi_note* n)
 }
 
 String
-Midi_note_off::string () const
+Midi_note_off::to_string () const
 {
   Byte status_byte = (char) (0x80 + channel_);
 
-  String str = to_string ((char)status_byte);
-  str += to_string ((char) (get_pitch () + Midi_note::c0_pitch_i_));
-  str += to_string ((char)aftertouch_byte_);
+  String str = ::to_string ((char)status_byte);
+  str += ::to_string ((char) (get_pitch () + Midi_note::c0_pitch_i_));
+  str += ::to_string ((char)aftertouch_byte_);
   return str;
 }
 
@@ -296,10 +296,10 @@ Midi_dynamic::Midi_dynamic (Audio_dynamic* a)
 }
 
 String
-Midi_dynamic::string () const
+Midi_dynamic::to_string () const
 {
   Byte status_byte = (char) (0xB0 + channel_);
-  String str = to_string ((char)status_byte);
+  String str = ::to_string ((char)status_byte);
 
   /*
     Main volume controller (per channel):
@@ -314,8 +314,8 @@ Midi_dynamic::string () const
   if (volume > full_scale)
     volume = (int)full_scale;
 
-  str += to_string ((char)0x07);
-  str += to_string ((char)volume);
+  str += ::to_string ((char)0x07);
+  str += ::to_string ((char)volume);
   return str;
 }
 
@@ -325,20 +325,20 @@ Midi_piano_pedal::Midi_piano_pedal (Audio_piano_pedal* a)
 }
 
 String
-Midi_piano_pedal::string () const
+Midi_piano_pedal::to_string () const
 {
   Byte status_byte = (char) (0xB0 + channel_);
-  String str = to_string ((char)status_byte);
+  String str = ::to_string ((char)status_byte);
 
   if (audio_->type_string_ == "Sostenuto")
-    str += to_string ((char)0x42);
+    str += ::to_string ((char)0x42);
   else if (audio_->type_string_ == "Sustain")
-    str += to_string ((char)0x40);
+    str += ::to_string ((char)0x40);
   else if (audio_->type_string_ == "UnaCorda")
-    str += to_string ((char)0x43);
+    str += ::to_string ((char)0x43);
 
   int pedal = ((1 - audio_->dir_) / 2) * 0x7f;
-  str += to_string ((char)pedal);
+  str += ::to_string ((char)pedal);
   return str;
 }
 
@@ -348,7 +348,7 @@ Midi_tempo::Midi_tempo (Audio_tempo* a)
 }
 
 String
-Midi_tempo::string () const
+Midi_tempo::to_string () const
 {
   int useconds_per_4_i = 60 * (int)1e6 / audio_->per_minute_4_;
   String str = "ff5103";
@@ -362,7 +362,7 @@ Midi_text::Midi_text (Audio_text* a)
 }
 
 String
-Midi_text::string () const
+Midi_text::to_string () const
 {
   String str = "ff" + String_convert::int2hex (audio_->type_, 2, '0');
   str = String_convert::hex2bin (str);
@@ -427,7 +427,7 @@ Midi_track::data_string () const
     str += "\n";
   for (Cons<Midi_event> *i=event_p_list_.head_; i; i = i->next_) 
     {
-      str += i->car_->string ();
+      str += i->car_->to_string ();
       if (midi_debug_global_b)
         str += "\n";
     }

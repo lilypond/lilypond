@@ -102,8 +102,8 @@ Spaceable_grob::remove_interface (Grob*me)
 
 
 ADD_INTERFACE (Spaceable_grob,"spaceable-grob-interface",
-  "A grob (a Paper_column) that takes part in the
-spacing problem. ",
-  "measure-length spacing-wishes penalty minimum-distances ideal-distances
-left-neighbors right-neighbors");
+	       "A grob (a Paper_column) that takes part in the \n"
+	       "spacing problem. ",
+  "measure-length spacing-wishes penalty minimum-distances ideal-distances "
+"left-neighbors right-neighbors");
 

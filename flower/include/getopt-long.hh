@@ -14,7 +14,7 @@ struct Long_option_init {
 
   char const * help_str0_;
   
-  String string () const;
+  String to_string () const;
   String str_for_help () const;
   //   NO constructor!
 

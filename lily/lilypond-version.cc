@@ -34,9 +34,9 @@ Lilypond_version::Lilypond_version (String str)
 }
 
 String
-Lilypond_version::string () const
+Lilypond_version::to_string () const
 {
-  return to_string (major_) + "." + to_string (minor_) + "." + to_string (patch_);
+  return ::to_string (major_) + "." + ::to_string (minor_) + "." + ::to_string (patch_);
 }
 
 Lilypond_version::operator int () const

@@ -70,7 +70,7 @@ public:
   Rational &operator %= (Rational);
   static int compare (Rational const&, Rational const&);
   int sign () const;
-  String string () const;
+  String to_string () const;
 };
 
 IMPLEMENT_ARITHMETIC_OPERATOR (Rational, / );

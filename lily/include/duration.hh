@@ -22,7 +22,7 @@ public:
   
   Duration ();
   Duration (int, int);
-  String string () const;
+  String to_string () const;
 
   Duration compressed (Rational) const;
   Rational get_length () const ;

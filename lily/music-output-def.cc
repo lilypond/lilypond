@@ -143,7 +143,7 @@ Music_output_def::outname_string ()
     {
       Path p = split_path (out);
       p.base += "-" + to_string (def);
-      out = p.string ();
+      out = p.to_string ();
     }
   return out;
 }

@@ -431,9 +431,8 @@ Note_collision_interface::add_column (Grob*me,Grob* ncol)
 
 
 ADD_INTERFACE (Note_collision_interface, "note-collision-interface",
-  "An object that handles collisions between notes with different stem
-directions and horizontal shifts. Most of the interesting properties
-are to be set in @ref{note-column-interface}: these are
-@code{force-hshift} and @code{horizontal-shift}.
-",
+  "An object that handles collisions between notes with different stem " 
+"directions and horizontal shifts. Most of the interesting properties "
+"are to be set in @ref{note-column-interface}: these are "
+"@code{force-hshift} and @code{horizontal-shift}. ",
   "merge-differently-dotted merge-differently-headed collision-done");

@@ -43,7 +43,7 @@ Midi_stream::operator << (String str)
 Midi_stream&
 Midi_stream::operator << (Midi_item const& midi_c_r)
 {
-  String str = midi_c_r.string ();
+  String str = midi_c_r.to_string ();
 
 
   if (midi_debug_global_b)

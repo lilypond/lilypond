@@ -314,7 +314,7 @@ Chord::tonic_add_sub_to_pitches (SCM tonic, SCM add, SCM sub)
   
   for (SCM i = sub; gh_pair_p (i); i = ly_cdr (i))
     warning (_f ("invalid subtraction: not part of chord: %s",
-		 unsmob_pitch (ly_car (i))->string ()));
+		 unsmob_pitch (ly_car (i))->to_string ()));
 
   return pitches;
 }
@@ -343,7 +343,7 @@ Chord::get_chord (SCM tonic, SCM add, SCM sub, SCM inversion, SCM bass, SCM dur)
 	}
       else
 	warning (_f ("invalid inversion pitch: not part of chord: %s",
-		     unsmob_pitch (inversion)->string ()));
+		     unsmob_pitch (inversion)->to_string ()));
     }
 
   /* Bass is easy, just add if requested */

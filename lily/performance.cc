@@ -157,13 +157,13 @@ Performance::process ()
     {
       Path p = split_path (out);
       p.base += "-" + to_string (def);
-      out = p.string ();
+      out = p.to_string ();
     }
 
   /* Maybe a bit crude, but we had this before */
   Path p = split_path (out);
   p.ext = "midi";
-  out = p.string ();
+  out = p.to_string ();
   
   Midi_stream midi_stream (out);
   progress_indication (_f ("MIDI output to `%s'...", out));

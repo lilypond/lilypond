@@ -286,11 +286,11 @@ distill_inname (String str)
 	  if (*extensions[i] && !p.ext.empty_b ())
 	    p.ext += ".";
 	  p.ext += extensions[i];
-	  if (!global_path.find (p.string ()).empty_b ())
+	  if (!global_path.find (p.to_string ()).empty_b ())
 	      break;
 	}
       /* Reshuffle extension */
-      p = split_path (p.string ());
+      p = split_path (p.to_string ());
     }
   return p;
 }
@@ -335,7 +335,7 @@ main_prog (void *, int, char **)
 
   progress_indication ("\n");
 
-  all_fonts_global = new All_font_metrics (global_path.string ());
+  all_fonts_global = new All_font_metrics (global_path.to_string ());
 
   init_scheme_code_string += ")";
   gh_eval_str ((char *)init_scheme_code_string.to_str0 ());
@@ -363,7 +363,7 @@ main_prog (void *, int, char **)
 
       /* By default, use base name of input file for output file name */
       Path outpath = inpath;
-      if (inpath.string () != "-")
+      if (inpath.to_string () != "-")
 	outpath.ext = format_to_ext (output_format_global);
 
       /* By default, write output to cwd; do not copy directory part
@@ -382,8 +382,8 @@ main_prog (void *, int, char **)
 	
       /* Burp: output name communication goes through _global */
       String save_output_name_global = output_name_global;
-      output_name_global = outpath.string ();
-      do_one_file (init, inpath.string ());
+      output_name_global = outpath.to_string ();
+      do_one_file (init, inpath.to_string ());
       output_name_global = save_output_name_global;
       
       p++;
@@ -441,7 +441,7 @@ main (int argc, char **argv)
 	    Path p = split_path (s);
 	    if (s != "-" && p.ext.empty_b ())
 	      p.ext = format_to_ext (output_format_global);
-	    output_name_global = p.string ();
+	    output_name_global = p.to_string ();
 	  }
 	  break;
 	case 'e':

@@ -109,7 +109,7 @@ Input_file_results::do_deps ()
     {
       Path p = split_path (output_name_global);
       p.ext = "dep";
-      write_dependency_file (p.string (),
+      write_dependency_file (p.to_string (),
 			     target_strings_,
 			     inclusion_names_);
     }
@@ -189,7 +189,7 @@ do_one_file (String init_string, String file_string)
    if (init_string.length () && global_path.find (init_string).empty_b ())
     {
       warning (_f ("can't find file: `%s'", init_string));
-      warning (_f ("(search path: `%s')", global_path.string ().to_str0 ()));
+      warning (_f ("(search path: `%s')", global_path.to_string ().to_str0 ()));
       return;
     }
   if ((file_string != "-") && global_path.find (file_string).empty_b ())

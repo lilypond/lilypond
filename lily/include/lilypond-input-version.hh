@@ -17,7 +17,7 @@ struct Lilypond_version
   Lilypond_version (int major, int minor, int patch);
   Lilypond_version (String str);
 
-  String string () const;
+  String to_string () const;
   operator int () const;
 
   int major_;

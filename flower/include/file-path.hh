@@ -30,7 +30,7 @@ public:
   String base;
   String ext;
 
-  String string () const;
+  String to_string () const;
 };
 
 class File_path : private Array<String>
@@ -40,7 +40,7 @@ public:
 
   Array<String>::push;
   void prepend (String str) { Array<String>::insert (str, 0); }
-  String string ()const;
+  String to_string ()const;
   bool try_add (String str);
   void add (String);
   void parse_path (String);

@@ -74,7 +74,7 @@ public:
       0.0;
   }
 
-  String string () const;
+  String to_string () const;
 
   void mirror (Axis);
   Real  arg () const;

@@ -49,7 +49,7 @@ Bar_check_iterator::process (Moment m)
       if (where->main_part_)
 	{
 	  get_music ()->origin ()->warning (_f ("barcheck failed at: %s", 
-					      where->string ()));
+					      where->to_string ()));
 	  if (to_boolean (sync))
 	    {
 	      tr = tr->where_defined (ly_symbol2scm("measurePosition"));

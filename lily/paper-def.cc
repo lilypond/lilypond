@@ -100,7 +100,7 @@ Paper_def::get_paper_outputter ()
   Paper_outputter * po = new Paper_outputter (outname);
   Path p = split_path (outname);
   p.ext = "";
-  po->basename_ = p.string ();
+  po->basename_ = p.to_string ();
   return po;
 }
 
