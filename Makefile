@@ -3,32 +3,29 @@ include Variables.make
 .SUFFIXES:
 .SUFFIXES: .cc .o .hh .y .l .pod .txt .1 .dep
 
+
 $(exe): $(obs)
 	$(CXX) -o $@ $^ $(LOADLIBES)
 
-depend:	; # automatically by gnu make.
 clean:
-	rm -f $(exe) objects/*.o $(DOCDIR)/* core  
-	$(MAKE) -C $(CCDIR) clean
-	$(MAKE) -C $(HEADERDIR) clean
+	rm -f $(exe) $(DOCDIR)/* core $(obs)
+	for SUBDIR in $(SUBDIRS); \
+	do \
+		$(MAKE) SUBDIR=$$SUBDIR -C $$SUBDIR clean;\
+	done
 
 distclean: clean
 	rm -f  version.hh $(gencc) .GENERATE *~ deps/*.dep
 
 all: kompijl doc
 
-# doc++ documentation of classes
 doc:
 	$(MAKE) -C Documentation doc
 
+# doc++ documentation of classes
 docpp: $(progdocs)
 	-mkdir $(DOCDIR)
 	doc++ -p -I -d $(DOCDIR) $^
-
-%.o: $(CCDIR)/%.cc
-	$(DODEP)\
-	$(CXX) -c $(CXXFLAGS) $^  -o $(OBJECTDIR)/$@
-
 
 $(OBJECTDIR)/%.o: $(CCDIR)/%.cc
 	$(DODEP)\
