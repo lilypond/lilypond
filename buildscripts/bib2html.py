@@ -9,7 +9,7 @@ import string
 def usage ():
     print 'usage: %s [-s style] [-o <outfile>] BIBFILES...';
 
-print os.environ['BSTINPUTS']
+#print os.environ['BSTINPUTS']
 
 (options, files) = getopt.getopt(sys.argv[1:], 's:o:', [])
 

@@ -1,3 +1,9 @@
+2004-07-16  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scripts/lilypond-book.py (compose_ly): make fragment mandatory
+	for fragment snippets. This fixes inclusion of toplevel-music
+	examples (such as new-slur.ly)
+ 
 2004-07-16  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/lilypond-book.py: Remove second import of stat.
