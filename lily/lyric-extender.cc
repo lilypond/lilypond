@@ -70,10 +70,10 @@ Lyric_extender::print (SCM smob)
     right_point = right_point <? (robust_relative_extent (right_text, common, X_AXIS)[LEFT] - pad);
 
   /* run to end of line. */
-  right_point = right_point >? (robust_relative_extent (me->get_bound (RIGHT), common, X_AXIS)[LEFT] - pad);
+  if (me->get_bound (RIGHT)->break_status_dir ())
+    right_point = right_point >? (robust_relative_extent (me->get_bound (RIGHT), common, X_AXIS)[LEFT] - pad);
   
   left_point += pad;
-
   Real w = right_point - left_point;
 
   if (w < 1.5 * h)
