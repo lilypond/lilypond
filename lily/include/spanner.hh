@@ -12,8 +12,6 @@
 #include "drul-array.hh"
 #include "rod.hh"
 
-
-class Axis_group_spanner;
 /** A symbol which is attached between two columns. A spanner is a
   symbol which spans across several columns, so its final appearance
   can only be calculated after the breaking problem is solved.
@@ -36,6 +34,9 @@ class Spanner : public  Score_element {
 
 public:
   Link_array<Spanner> broken_into_l_arr_;
+
+  // TODO: make virtual and do this for Items as well.
+  Interval_t<int> spanned_rank_iv ();
   void set_bound (Direction d, Item*);
   Item *get_bound (Direction d) const;
   

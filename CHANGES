@@ -1,4 +1,72 @@
+1.3.38
+======
 
+1.3.37.hwn1
+===========
+
+* (generic-property.scm) added tieDash
+
+* Removed  ly_eval_str(), we should use scm_eval (Scm_object).
+
+* Removed scm_to_array (), array_to_scm (), associated junk. Reverted
+undocumented .29 patch that made Bezier::control_ into an
+Array<Offset>.  Added some comments documenting the reasons for the
+changes.
+
+* Revert generic-property.scm of .37 fix, fix the real problem in
+property-engraver.cc: use the right symbol to check if element
+property is already set.
+
+1.3.37.jcn2
+===========
+
+* Fixed srcdir build, so that you can do:
+
+      tar xzf releases/lilypond-x.y.z
+      mkdir <build>
+      cd <build>
+      ../lilypond-x.y.z/configure
+      make
+
+  as with any other gnu package.  All build output goes to <build>/out.
+
+* Changed and fixed use of different configurations, and different output
+  directories.  Finally, you can use different configurations alongside
+  eachother.  From make/stepmake.make:
+
+      # Use alternate configurations alongside eachother:
+      #
+      #     ./configure --enable-configsuffix=debug
+      #     make conf=debug
+      #
+      # uses config-debug.make and config-debug.h; output goes to out-debug.
+      #
+
+      # Use same configuration, but different output directory:
+      #
+      #     make out=WWW
+      #
+      # uses config.make and config.h; output goes to out-WWW.
+      #
+
+
+* Fixed performance of (de)crescendi.
+
+* Better documentation for arithmetic_multiplier and arithmetic_basicspace
+  in params.ly.
+
+* Added instrument-equaliser for MIDI output, see scm/midi.scm, and
+  properties midiMinimumVolume, midiMaximumVolume, ranges [0,1].
+
+* Changed absolute midi volume settings into factor of full scale.
+
+* Fixed another dynamic-line-spanner bug, it gets hairy.
+
+* Added warning for spanners that are not fully contained in parent spanner.
+
+
+1.3.37
+======
 1.3.36.hwn1
 ===========
 
