@@ -4,7 +4,7 @@
 If you need to know more about music notation, here are some interesting titles to read
 
 @table @cite
-@item banter
+@item Banter 1987
 Harald Banter, Akkord Lexikon.  Schott's S@"{o}hne
 1987. Mainz, Germany ISBN 3-7957-2095-8
 
@@ -13,7 +13,7 @@ unification for all different kinds of chord names.
 
 
 
-@item gerou96
+@item Gerou 19xx
 
 Tom Gerou and Linda Lusk, Essential Dictionary of Music
 Notation.  Alfred Publishing, Van Nuys CA ISBN 0-88284-768-6
@@ -21,22 +21,8 @@ Notation.  Alfred Publishing, Van Nuys CA ISBN 0-88284-768-6
 A concise, alphabetically ordered list of typesetting and music
 (notation) issues which covers most of the normal  cases.
 
-@item Stone80
 
-Kurt Stone, Music Notation in the Twentieth Century
-Norton, New York 1980.
-
-The most important book on notation in recent years: it describes music
-notation for modern serious music, but starts out with a thorough
-overview of existing traditional notation practices.
-
-@item read-notation,
-Gardner Read,  Music Notation: a Manual of Modern Practice.
-Taplinger Publishing, New York (2nd edition).
-
-A standard work on music notation.  
-
-@item hader48,
+@item Hader 1948,
 
 Karl Hader, Aus der Werkstatt eines Notenstechers. Waldheim--Eberle
 Verlag, Vienna 1948.
@@ -49,7 +35,14 @@ compactly formulated rules on musical orthography. This book is out of
 print.
 
 
-@item ross,
+@item Read 1968
+Gardner Read,  Music Notation: a Manual of Modern Practice.
+Taplinger Publishing, New York (2nd edition).
+
+A standard work on music notation.  
+
+
+@item Ross 1987,
 Ted Ross, Teach yourself the art of music engraving and processing.
 Hansen House, Miami, Florida 	 1987
 
@@ -57,7 +50,17 @@ This book is about engraving, i.e.  professional typesetting.  It contains
 directions on good typesetting, but the sections on reproduction
 technicalities, how to use pens and history are interesting.
 
-@item  wanske,
+
+@item Stone 1980
+
+Kurt Stone, Music Notation in the Twentieth Century
+Norton, New York 1980.
+
+The most important book on notation in recent years: it describes music
+notation for modern serious music, but starts out with a thorough
+overview of existing traditional notation practices.
+
+@item Wanske 1988,
 
 Helene Wanske, Musiknotation --- Von der Syntax des Notenstichs zum
 EDV-gesteuerten Notensatz.  Schott-Verlag, Mainz 1988.  ISBN

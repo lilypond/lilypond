@@ -80,12 +80,10 @@ If you want to compile LilyPond from source, download here:
 @item Download stable releases at
 @uref{ftp://ftp.gnu.org/gnu/lilypond/,GNU}
 @item Download development releases from
-@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/,the source}
-@item @uref{http://sca.uwaterloo.ca/lilypond/, by http (Canadian
-mirror)} and
-@uref{ftp://sca.uwaterloo.ca/pub/, ftp (Canadian mirror)} 
-@item 
-@uref{ftp://ftp.lilypond.org/pub/LilyPond/, mirror (Europe)}
+@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/, by FTP} and
+@uref{http://ftp.cs.uu.nl/pub/GNU/LilyPond/development/, by HTTP}.
+@item @uref{ftp://sca.uwaterloo.ca/pub/, ftp (Canadian mirror)} 
+@item @uref{ftp://ftp.lilypond.org/pub/LilyPond/, mirror (Europe)}
 @end itemize
 
 Installing and compiling requires many additional packages, which are
