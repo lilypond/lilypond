@@ -1,3 +1,12 @@
+pl 74pre
+	- Input_engraver -> Input_translator
+	- bf: span start/stop is now a "used" col.
+	- Rest_column/Rest_collisions bugfixes
+	- bf: crescendi.
+	- Spanner do_print()
+	
+******
+july 7
 pl 73pre
 	- some refs doco.
 	- move Input_engraver into Paper_def
