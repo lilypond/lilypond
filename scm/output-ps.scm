@@ -11,7 +11,6 @@
 ;;;; TODO:
 ;;;;   * UGR: SPACE character in CM* fonts
 ;;;;   * text setting, kerning?
-;;;;   * font size and designsize
 ;;;;   * linewidth
 ;;;;   * font properties
 ;;;;   * construction/customisation of title markup
@@ -26,6 +25,7 @@
 (use-modules
  (guile)
  (ice-9 regex)
+ (srfi srfi-13)
  (lily))
 
 
@@ -44,27 +44,6 @@
 ;; WIP -- stencils from markup? values of output-scopes
 (define header-stencil #f)
 
-(define lily-traced-cm-fonts
-  (map symbol->string
-       '(cmbx14
-	 cmbx17
-	 cmbxti12
-	 cmbxti14
-	 cmbxti6
-	 cmbxti7
-	 cmbxti8
-	 cmcsc12
-	 cmcsc7
-	 cmcsc8
-	 cmss5
-	 cmss6
-	 cmss7
-	 cmti5
-	 cmti6
-	 cmtt17
-	 cmtt5
-	 cmtt6
-	 cmtt7)))
 
 ;;; helper functions, not part of output interface
 (define (escape-parentheses s)
@@ -85,6 +64,9 @@
 	       (number->string val)
 	       (number->string (exact->inexact val)))))
     (string-append "/" prefix (symbol->string key) " " s " def\n")))
+
+(define (tex-font? fontname)
+  (equal? (substring fontname 0 2) "cm"))
 
 
 
@@ -140,50 +122,70 @@
 
 (define (define-fonts internal-external-name-mag-pairs)
 
-  (define (font-load-command name-mag command)
+  (define (fontname->designsize fontname)
+    (let ((i (string-index fontname char-numeric?)))
+      (string->number (substring fontname i))))
+			 
+  ;;  (define (font-load-command name-mag command)
+  (define (font-load-command lst)
+    (let* ((key-name-size (car lst))
+	   (value (cdr lst))
+	   (value-name-size (car value))
+	   (command (cdr value))
+	   (fontname (car value-name-size))
+	   (designsize (if (tex-font? fontname)
+			   (/ 12 (fontname->designsize fontname))
+			   ;; This is about 12/20 :-)
+			   (cdr key-name-size)))
+	   (fontsize (cdr value-name-size))
+	   (scaling (* 12 (/ fontsize designsize)))
+	   (scaling (/ fontsize (/ designsize 12))))
 
-    ;; frobnicate NAME to jibe with external definitions.
-    (define (possibly-capitalize-font-name name)
-      (cond
-       ((and (equal? (substring name 0 2) "cm")
-	     (not (member name lily-traced-cm-fonts)))
-	
-	;; huh, how is this supposed to work?
-	;;(string-upcase name)
-	
-	(string-append name ".pfb"))
-       
-       ((equal? (substring name 0 4) "feta")
-	(regexp-substitute/global #f "feta([a-z-]*)([0-9]+)" name 'pre "GNU-LilyPond-feta" 1 "-" 2 'post))
-       (else name)))
+      ;; frobnicate NAME to jibe with external definitions.
+      (define (possibly-mangle-fontname fontname)
+	(cond
+	 ((tex-font? fontname)
+	  ;; FIXME: we need proper Fontmap for CM fonts, like so:
+	  ;; /CMR10 (cmr10.pfb); 
+	  ;; (string-upcase fontname)
+	  (string-append fontname ".pfb"))
+	 ((or (equal? (substring fontname 0 4) "feta")
+	      (equal? (substring fontname 0 8) "parmesan"))
+	  (regexp-substitute/global
+	   #f "(feta|parmesan)([a-z-]*)([0-9]+)"
+	   fontname 'pre "GNU-LilyPond-" 1 2 "-" 3 'post))
+	 (else fontname)))
+      (if
+       #f
+       (begin
+	 (newline)
+	 (format (current-error-port) "key-name-size ~S\n" key-name-size)
+	 (format (current-error-port) "value ~S\n" value)
+	 (format (current-error-port) "value-name-size ~S\n" value-name-size)
+	 (format (current-error-port) "command ~S\n" command)
+	 (format (current-error-port) "designsize ~S\n" designsize)
+	 (format (current-error-port) "fontname ~S\n" fontname)
+	 (format (current-error-port) "fontsize ~S\n" fontsize)
+	 (format (current-error-port) "scaling ~S\n" scaling)))
+	 
+      (string-append
+       "/" command
+       " { /" (possibly-mangle-fontname fontname) " findfont "
+       (ly:number->string scaling)
+       "output-scale div scalefont setfont } bind def \n")))
     
-    (string-append
-     "/" command
-     " { /"
-     ;; Ugh, the Bluesky type1 fonts for computer modern use capitalized 
-     ;; postscript font names.
-     (possibly-capitalize-font-name (car name-mag))
-     " findfont "
-     "20 " (ly:number->string (cdr name-mag)) " mul "
-     "output-scale div scalefont setfont } bind def "
-     "\n"))
-
   (define (ps-encoded-fontswitch name-mag-pair)
     (let* ((key (car name-mag-pair))
-	   (value (cdr name-mag-pair)))
-      (cons key
-	    (cons value
-		  (string-append "lilyfont"
-				 (car value)
-				 "-"
-				 (number->string (cdr value)))))))
-      
-  (set! font-name-alist (map ps-encoded-fontswitch
-			     internal-external-name-mag-pairs))
+	   (value (cdr name-mag-pair))
+	   (fontname (car value))
+	   (scaling (cdr value)))
+      (cons key (cons value
+		      (string-append
+		       "lilyfont" fontname "-" (number->string scaling))))))
 
-  (apply string-append
-	 (map (lambda (x) (font-load-command (car x) (cdr x)))
-	      (map cdr font-name-alist))))
+  (set! font-name-alist
+	(map ps-encoded-fontswitch internal-external-name-mag-pairs))
+  (apply string-append (map font-load-command font-name-alist)))
 
 (define (define-origin file line col) "")
 
@@ -284,7 +286,11 @@
   (if header-stencil
       (let ((x-ext (ly:stencil-get-extent header-stencil Y))
 	    (y-ext (ly:stencil-get-extent header-stencil X)))
-	(display (start-system (interval-length x-ext) (interval-length y-ext))
+	;;(display (start-system (interval-length x-ext) (interval-length y-ext))
+	(display (start-system
+		  ;; output-scale trouble?
+		  (/ (interval-length x-ext) 2)
+		  (/ (interval-length y-ext) 2))
 		 port)
 	(output-stencil port (ly:stencil-get-expr header-stencil) '(0 . 0))
 	(display (stop-system) port)))

@@ -22,6 +22,28 @@ texidoc = "
 
 %}
 
+sizeTest = \markup {
+	\column <
+            { \normalsize "normalsize"
+              \hspace #10
+              \smaller "smaller"
+              \hspace #10
+              \smaller \smaller "smaller"
+              \hspace #10
+              \smaller \smaller \smaller "smaller"
+            }
+            " " 
+            { \normalsize "normalsize"
+              \hspace #10
+              \bigger "bigger"
+              \hspace #10
+              \bigger \bigger "bigger"
+              \hspace #10
+              \bigger \bigger \bigger "bigger"
+            }
+       >
+}
+
 \header {
     texidoc = "Make titles using markup (WIP)."
 
@@ -33,7 +55,7 @@ texidoc = "
  		  (font-series . medium)
  		  (font-style . roman)
  		  (font-shape . upright)
- 		  (font-size . 0))
+ 		  (font-size . 2))
     
     title = "Title String"
     subtitle = "(and (the) subtitle)"
@@ -50,6 +72,7 @@ texidoc = "
             " "
             \center <
                 \center < { \normalsize \bold \subtitle } >
+                %" " \hspace #60 " "
             >
             " "
             " "
@@ -58,12 +81,14 @@ texidoc = "
             " "
 	    { \left-align { \smaller \caps \piece }
               \right-align { \upright \poet } }
+            " "
 	 >
     }
+     foe = \sizeTest
 }
 
 \score {
     \context Staff \notes \relative c' {
-	c-\markup { \center < \roman \caps "foe" > }
+	c-\sizeTest % \markup { \center < \roman \caps "foe" > }
     }
 }
