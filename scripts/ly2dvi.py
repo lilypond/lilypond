@@ -514,21 +514,25 @@ None
 		ly.exit (1)
 	
 	if preview_p:
-		# make a preview by rendering only the 1st line.
-		preview_fn = outbase + '.preview.tex'
-		f = open (preview_fn, 'w')
-		wfs = find_tex_files (files, extra)
-		s = global_latex_definition (wfs, extra)
+		# make a preview by rendering only the 1st line
+		# of each score
+		for score in find_tex_files (files, extra):
+			preview_base = ly.strip_extension (score[0], '.tex')
+			preview_fn = preview_base + '.preview.tex'
+			s = global_latex_definition ((score,), extra)
+			s = re.sub ('thispagestyle{firstpage}',
+				    r'''thispagestyle{empty}%
+				    \\def\\interscoreline{\\endinput}''', s)
+			s = re.sub ('thispagestyle{lastpage}',
+				    r'''thispagestyle{empty}%
+				    \\def\\interscoreline{\\endinput}''', s)
+			f = open (preview_fn, 'w')
+			f.write (s)
+			f.close ()
+			cmd = '%s \\\\nonstopmode \\\\input %s' \
+			      % (latex_cmd, preview_fn)
+			ly.system (cmd)
 
-		s = re.sub ('thispagestyle{firstpage}', r'''thispagestyle{empty}%
-\\def\\interscoreline{\\endinput}''',s ) 
-		s = re.sub ('thispagestyle{lastpage}', r'''thispagestyle{empty}%
-\\def\\interscoreline{\\endinput}''',s ) 
-		f.write (s)
-		f.close()
-		cmd = '%s \\\\nonstopmode \\\\input %s' % (latex_cmd, preview_fn)
-		ly.system (cmd)
-	
 
 def run_dvips (outbase, extra):
 
@@ -568,8 +572,12 @@ Using bitmap fonts instead. This will look bad.'''))
 	ly.system (cmd)
 
 	if preview_p:
-		cmd = 'dvips -E -o%s %s' % ( outbase + '.preview.ps', outbase + '.preview.dvi')		
-		ly.system (cmd)
+		for score in find_tex_files (files, extra):
+			preview_base = ly.strip_extension (score[0], '.tex')
+			cmd = 'dvips -E -o%s %s' \
+			      % (preview_base + '.preview.ps',
+				 preview_base + '.preview.dvi')
+			ly.system (cmd)
 
 	if 'PDF' in targets:
 		cmd = 'ps2pdf %s.ps %s.pdf' % (outbase , outbase)
@@ -878,7 +886,9 @@ if 1:
 				ly.warning (_("Failed to make PS file. Rerun with --verbose for a trace."))
 
 	if preview_p:
-		ly.make_preview (outbase)
+		for score in find_tex_files (files, extra_init):
+			preview_base = ly.strip_extension (score[0], '.tex')
+			ly.make_preview (preview_base)
 
 	if 'PDFTEX' in targets:
 		try:
@@ -956,7 +966,8 @@ if 1:
 			ly.warning (_ ("can't find file: `%s'") % outname)
 
 	if html_p:
-		make_html_menu_file (os.path.join (outdir, outbase + ".html"), files_found)
+		make_html_menu_file (os.path.join (outdir, outbase + ".html"),
+				     files_found)
 
 	os.chdir (original_dir)
 	ly.cleanup_temp ()
