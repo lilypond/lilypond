@@ -20,6 +20,7 @@
 #include "dimensions.hh"
 #include "molecule.hh"
 #include "all-font-metrics.hh"
+#include "spacing-interface.hh"
 
 // todo: use map.
 void
@@ -58,7 +59,11 @@ System::output_lines ()
   for (SCM s = get_grob_property ("all-elements");
        gh_pair_p (s); s = ly_cdr (s))
     {
-      unsmob_grob (ly_car (s))->do_break_processing ();
+      Grob * g = unsmob_grob (ly_car (s));
+      if (Spacing_interface::has_interface (g))
+	g->suicide ();
+      else
+	g->do_break_processing ();
     }
 
   /*
