@@ -59,6 +59,7 @@ public:
 
 };
 
+
 Accidental_engraver::Accidental_engraver ()
 {
   key_item_p_ =0;
@@ -79,19 +80,22 @@ Accidental_engraver::initialize ()
   *   Negative (-1 or -2) if accidental has changed.
   **/
 static int
-number_accidentals (SCM sig, Note_req * note_l)
+number_accidentals (SCM sig, Note_req * note_l, bool ignore_octave_b)
 {
   Pitch *pitch = unsmob_pitch (note_l->get_mus_property ("pitch"));
   int n = pitch->notename_i_;
-  int o = pitch->octave_i () ;
+  int o = pitch->octave_i_;
   int a = pitch->alteration_i_;
   
-  SCM prev = scm_assoc (gh_cons (gh_int2scm (o), gh_int2scm (n)), sig);
+  SCM prev;
+  if (ignore_octave_b)
+    prev = ly_assoc_cdr (gh_int2scm (n), sig);
+  else
+    prev = gh_assoc (gh_cons (gh_int2scm (o), gh_int2scm (n)), sig);
   if (prev == SCM_BOOL_F)
-    prev = scm_assoc (gh_int2scm (n), sig);
+    prev = gh_assoc (gh_int2scm (n), sig);
   SCM prev_acc = (prev == SCM_BOOL_F) ? gh_int2scm (0) : ly_cdr (prev);
 
-  bool different = !gh_equal_p (prev_acc , gh_int2scm (a));
   int p = gh_number_p (prev_acc) ? gh_scm2int (prev_acc) : 0;
 
   int num;
@@ -102,6 +106,33 @@ number_accidentals (SCM sig, Note_req * note_l)
   return a==p ? num : -num;
 }
 
+static int
+number_accidentals (SCM localsig, SCM lazysig, Note_req * note_l, SCM accidentals_l) {
+  int number=0;
+  int diff=0;
+  if(gh_memq(ly_symbol2scm("same-octave"),accidentals_l)!=SCM_BOOL_F) {
+    int n = number_accidentals(localsig,note_l,false);
+    diff |= n<0;
+    number = max(number,abs(n));
+  }
+  if(gh_memq(ly_symbol2scm("lazy-same-octave"),accidentals_l)!=SCM_BOOL_F) {
+    int n = number_accidentals(lazysig,note_l,false);
+    diff |= n<0;
+    number = max(number,abs(n));
+  }
+  if(gh_memq(ly_symbol2scm("any-octave"),accidentals_l)!=SCM_BOOL_F) {
+    int n = number_accidentals(localsig,note_l,true);
+    diff |= n<0;
+    number = max(number,abs(n));
+  }
+  if(gh_memq(ly_symbol2scm("lazy-any-octave"),accidentals_l)!=SCM_BOOL_F) {
+    int n = number_accidentals(lazysig,note_l,true);
+    diff |= n<0;
+    number = max(number,abs(n));
+  }
+  return diff ? -number : number;
+}
+
 void
 Accidental_engraver::create_grobs ()
 {
@@ -109,31 +140,25 @@ Accidental_engraver::create_grobs ()
     {
       SCM localsig = get_property ("localKeySignature");
       SCM lazysig = get_property ("lazyKeySignature");
+      SCM accidentals_l =  get_property ("autoAccidentals");
+      SCM cautionaries_l =  get_property ("autoCautionaries");
+
+      bool extra_natural_b = get_property ("extraNatural")==SCM_BOOL_T;
 
       for (int i=0; i  < mel_l_arr_.size (); i++) 
 	{
 	  Grob * support_l = support_l_arr_[i];
 	  Note_req * note_l = mel_l_arr_[i];
 
-	  int local_num = number_accidentals(localsig,note_l);
-	  bool local_diff = local_num<0; local_num = abs(local_num);
-	  int lazy_num = number_accidentals(lazysig,note_l);
-	  bool lazy_diff = lazy_num<0; lazy_num = abs(lazy_num);
-
-	  int num = local_num;;
-	  bool different= local_diff;
+	  int num = number_accidentals(localsig,lazysig,note_l,accidentals_l);
+	  int num_caut = number_accidentals(localsig,lazysig,note_l,cautionaries_l);
 	  bool cautionary = to_boolean (note_l->get_mus_property ("cautionary"));
-	  if (to_boolean (get_property ("noResetKey"))) {
-	    num = lazy_num;
-	    different = lazy_diff;
+	  if (abs(num_caut)>abs(num)) {
+	    num=num_caut;
+	    cautionary=true;
 	  }
-	  else if (gh_equal_p (get_property ("autoReminders"),ly_symbol2scm("cautionary"))
-		   || gh_equal_p (get_property ("autoReminders"),ly_symbol2scm("accidental"))) {
-	    num = max(local_num,lazy_num);
-	    if (gh_equal_p (get_property ("autoReminders"),ly_symbol2scm("cautionary"))
-		&& lazy_num>local_num)
-	      cautionary = true;
-	  }
+	  bool different=num<0;
+	  num=abs(num);
 
 	  /* see if there's a tie that "changes" the accidental */
 	  /* works because if there's a tie, the note to the left
@@ -176,7 +201,7 @@ Accidental_engraver::create_grobs ()
 	      
 	      Local_key_item::add_pitch (key_item_p_, *unsmob_pitch (note_l->get_mus_property ("pitch")),
 					 cautionary,
-					 num==2,
+					 num==2 && extra_natural_b,
 					 tie_break_reminder);
 	      Side_position_interface::add_support (key_item_p_,support_l);
 	    }
@@ -188,7 +213,8 @@ Accidental_engraver::create_grobs ()
 
 	    Checking whether it is tied also works mostly, but will it
 	    always do the correct thing?
-	    (???? -Rune )
+	    FIXME: 2nd accidental after broken-tie accidental should be junked.
+	           Remove broken-tie-support?
 	   */
 	  
 	  Pitch *pitch = unsmob_pitch (note_l->get_mus_property ("pitch"));
@@ -203,8 +229,8 @@ Accidental_engraver::create_grobs ()
 		Remember an alteration that is different both from
 		that of the tied note and of the key signature.
 	       */
-	      localsig = scm_assoc_set_x (localsig, on, SCM_BOOL_T); 
-	      lazysig = scm_assoc_set_x  (lazysig,  on, SCM_BOOL_T); 
+	      localsig = ly_assoc_front_x (localsig, on, SCM_BOOL_T);
+	      lazysig = ly_assoc_front_x  (lazysig,  on, SCM_BOOL_T);
 	    }
 	  else if (!forget)
 	    {
@@ -212,8 +238,8 @@ Accidental_engraver::create_grobs ()
 		not really really correct if there are more than one
 		noteheads with the same notename.
 	       */
-	      localsig = scm_assoc_set_x (localsig, on, gh_int2scm (a)); 
-	      lazysig = scm_assoc_set_x  (lazysig,  on, gh_int2scm (a)); 
+	      localsig = ly_assoc_front_x (localsig, on, gh_int2scm (a)); 
+	      lazysig = ly_assoc_front_x  (lazysig,  on, gh_int2scm (a)); 
 	    }
         }
   
@@ -221,7 +247,7 @@ Accidental_engraver::create_grobs ()
       daddy_trans_l_->set_property ("lazyKeySignature",   lazysig);
     }
   
-
+  
   if (key_item_p_)
     {
       /*
@@ -307,7 +333,11 @@ Accidental_engraver::process_music ()
     }
   else if (!mp.to_bool () )
     {
-	daddy_trans_l_->set_property ("localKeySignature",  ly_deep_copy (sig));
+      /* Use the old local sig as new lazy sig. This way the lazy sig will be one measure late */
+      if (get_property("oneMeasureLazy")==SCM_BOOL_T)
+	daddy_trans_l_->set_property ("lazyKeySignature",
+	  daddy_trans_l_->get_property ("localKeySignature"));
+      daddy_trans_l_->set_property ("localKeySignature",  ly_deep_copy (sig));
     }
 }
 
@@ -321,5 +351,5 @@ events.  Due to interaction with ties (which don't come together
 with note heads), this needs to be in a context higher than Tie_engraver. FIXME",
 /* creats*/       "Accidentals",
 /* acks  */       "rhythmic-head-interface tie-interface arpeggio-interface",
-/* reads */       "localKeySignature forgetAccidentals noResetKey autoReminders",
+/* reads */       "localKeySignature lazyKeySignature forgetAccidentals oneMeasureLazy extraNatural autoAccidentals autoCautionaries",
 /* write */       "");

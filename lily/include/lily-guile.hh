@@ -133,8 +133,10 @@ String ly_symbol2string (SCM);
 SCM ly_offset2scm (Offset);
 Offset ly_scm2offset (SCM);
 SCM ly_assoc_chain (SCM key, SCM achain);
+SCM ly_assoc_cdr (SCM key, SCM alist);
 Interval ly_scm2interval (SCM);
 SCM ly_interval2scm (Interval);
+
 
 SCM ly_parse_scm (char const* s, int* n);
 SCM ly_quote_scm (SCM s);
@@ -153,6 +155,11 @@ inline SCM ly_cddr (SCM x) { return SCM_CDDR (x); }
 inline SCM ly_caddr (SCM x) { return SCM_CADDR (x); }
 inline SCM ly_cdadr (SCM x) { return SCM_CDADR (x); }
 inline SCM ly_caadr (SCM x) { return SCM_CAADR (x); }
+/* inserts at front, removing dublicates */
+inline SCM ly_assoc_front_x(SCM alist, SCM key, SCM val)
+{
+  return scm_acons(key, val, scm_assoc_remove_x (alist, key));
+}
 inline bool ly_pair_p (SCM x) { return SCM_NFALSEP (scm_pair_p (x)); }
 inline bool ly_symbol_p (SCM x) { return SCM_SYMBOLP (x); }
 inline bool ly_number_p (SCM x) { return SCM_NUMBERP (x); }

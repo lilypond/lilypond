@@ -382,6 +382,10 @@ ScoreContext = \translator {
 	tupletNumberFormatFunction = #denominator-tuplet-formatter
 	
 	subdivideBeams = ##f
+	extraNatural = ##t
+	autoAccidentals = #'(same-octave)
+	autoCautionaries = #'()  
+
 
        keyAccidentalOrder = #'(
          (6 . -1) (2  . -1) (5 . -1 ) (1  . -1) (4  . -1) (0  . -1) (3  . -1)

@@ -13,12 +13,12 @@ thenotes =  \notes \relative cis' { \time 4/4
 gisis'4 gis gisis ges |
 geses ges geses gis |
 gisis g geses g |
-gis g ges g |
+gis ges gis g |
 \key a \major
 gisis4 gis gisis ges |
 geses ges geses gis |
 gisis g geses g |
-gis g ges g |
+gis ges gis g |
 }
 
 \score { < \context Staff \thenotes
