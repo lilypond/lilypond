@@ -1,3 +1,12 @@
+2003-06-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/regression/beam-funky.ly: add note about (disputed)
+	correct beaming.
+
+	* ly/engraver-init.ly (ScoreContext): put key-signature after
+	staff-bar
+	
+
 2003-06-20  Graham Percival  <gperlist@shaw.ca>
 
 	* input/test/ broken.ly lyric-phrasing.ly: deleted.

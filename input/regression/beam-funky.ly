@@ -1,6 +1,11 @@
 \version "1.7.18"
 \header {
-    texidoc = "Knee beaming. (funky)"
+    
+    texidoc = "Knee beaming, complex configurations.  According to
+Paul Roberts, the first stem of a beam determines the direction of the
+beam, and as such the way that following (kneed) stems attach to the
+beam. This is in disagreement with the current algorithm."
+    
 }
 
 \score { \notes

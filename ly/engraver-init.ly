@@ -480,11 +480,10 @@ ScoreContext = \translator {
 	  instrument-name
 	  left-edge
 	  ambitus
-	  span-bar
 	  breathing-sign
 	  clef
-	  key-signature
 	  staff-bar
+	  key-signature
 	  time-signature
 	  custos
 	)
