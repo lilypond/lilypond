@@ -1,6 +1,6 @@
 mailto(daboys@bga.com)
-article(LilyPond Windows NT 4.0 Distribution)(nemail(Jeffrey B. Reed)(daboys@bga.com))(label(contents))
-sect(Windows NT Binary Distribution)
+article(LilyPond Windows NT 4.0/95 Distribution)(nemail(Jeffrey B. Reed)(daboys@bga.com))(label(contents))
+sect(Windows NT/95 Binary Distribution)
 
 subsect(Introduction) label(introduction)
 
@@ -16,20 +16,29 @@ includefile(../BLURB.in)
 link(Back to top)(contents)
 clearpage()
 
-I'm back from the dead!  There have been many changes since my last
-update.  Please read information on batch files and update as needed.
-The fonts have changed so you will also need to remove any cached
-fonts. In addition please bring music sources up to date by using
-convert-mudela utility.  I used:
+subsect(NEWS) label(news)
 
-verb(
-% bf(convert-mudela.py -e angels.ly)
+I have made my first attempt at distributing lilypond as a self
+extracting executable for Windows NT 4.0 and Windows 95.  The
+executable will extract the distribution in the directory specified by
+the user and create em(lilypond-@TOPLEVEL_VERSION@\lily.bat).  This
+batch file initializes the LilyPond environment and fires up a Command
+Prompt.  From this Command Prompt you may run:
+
+itemize(
+    it()ly2dvi
+    it()convert-mudela
+    it()mudela-book
+    it()lilypond
+    it()mi2mu
 )
 
-Also please refer to LilyPond documentation for new and changed
-features.
+I have also converted the Manual Pages for the above tools to HTML for
+easy browsing.  This release has been tested on Windows NT 4.0sp3 and
+Windows 95 and found to be operational.  If you have any troubles and
+or comments please do not hesitate to drop me a line
+url(Jeffrey B. Reed)(mailto:daboys@bga.com). 
 
-subsect(NEWS) label(news)
 This is what the version @TOPLEVEL_VERSION@ brings:
 
 verb(
@@ -52,9 +61,13 @@ professional quality music score. code(Python) is an interpreted,
 interactive, object-oriented programming language.  It is often
 compared to code(Tcl), code(Perl), code(Scheme) or code(Java).
 
+Gsview is used to display and print the music scores created by
+LilyPond.
+
 itemize(
     it()url(code(MiKTeX))(http://www.snafu.de/~cschenk/miktex/)
     it()url(code(Python))(http://www.python.org)
+    it()url(code(gsview))(http://www.cs.wisc.edu/~ghost/gsview/index.html)
 )
 
 link(Back to top)(contents)
@@ -64,9 +77,7 @@ clearpage()
 subsect(Download) label(download)
 
 itemize(
-    it() pre-guile version lurl(lilypond-1.0.17.jbr1.bin.zip) nl()
-	NOTE: LILYPONDPREFIX=em(LilyPond-dir) for this version
-    it()lurl(lilypond-@TOPLEVEL_VERSION@.bin.zip)
+    it()url(lilypond-@TOPLEVEL_VERSION@)(lily1123jbr1.exe)
 )
 
 link(Back to top)(contents)
@@ -77,24 +88,8 @@ subsect(Installation) label(installation)
 
 itemize(
   it()link(Download)(download) the distribution.
-  it()unzip
-  it()Set your path variable for lilypond and TeX 
-  description(
-    dit(batch file)
-      In a batch file you can add the following entries: nl()
-      bf(set LILYPONDHOME=em(LilyPond-dir)) nl()
-      bf(set LILYPONDPREFIX=%LILYPONDHOME%\share\lilypond) nl()
-      bf(set path=%path%;%LILYPONDHOME%\bin;em(MiKTeX-dir)\miktex\bin) nl()
-      bf(set TEXINPUTS=%LILYPONDPREFIX%\tex;%LILYPONDPREFIX%\ps;;) nl()
-      bf(set MFINPUTS=%LILYPONDPREFIX%\mf;;) nl()
-COMMENT(    dit(Windows Environment)
-      In the Windows environment you can select
-      properties menu of the My Computer icon. Click on
-      the environment tag and add the following to the user
-      variables path entry. nl()
-      bf(em(LilyPond-dir)\bin;em(MiKTeX-dir)\miktex\bin))
-   ) nl()
-   it() The first installation of LilyPond also requires these
+  it()run downloaded executable. nl()
+  it() The first installation of LilyPond also requires these
         additional steps:
      description(
        dit(LaTeX geometry package)
@@ -132,10 +127,15 @@ subsect(Running LilyPond) label(running)
 itemize(
   it()Take a look at url(angels.ly)(angels.ly)
   it()Save angels.ly to your local disk
-  it()From a Command Prompt run: nl()
-  bf(ly2dvi.py angels.ly) nl()
+  it()Execute lilypond-@TOPLEVEL_VERSION@\lily.bat nl()
+NOTE: If you get an em(out of environment memory error), simply increase
+the environment memory by selecting
+em(lilypond-@TOPLEVEL_VERSION@\lily.bat) Properties/Memory and increase
+the available environment memory to 1024.
+  it() From a LilyPond Command Prompt run: nl()
+  bf(ly2dvi angels.ly) nl()
   bf(dvips angels.dvi) nl()
-  bf(cmd /c angels.ps) nl()
+  bf(start angels.ps) nl()
 )
 
 link(Back to top)(contents)

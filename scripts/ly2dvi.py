@@ -14,7 +14,7 @@ Output: DVI file
 """
 
 name = 'ly2dvi'
-version = '0.0.9'
+version = '0.0.10'
 errorlog = ''
 
 import sys
@@ -341,7 +341,7 @@ class TeXOutput:
             psoutfile=this.__base + '.ps'
             if Props.get('output') != '':
                 psoutfile = os.path.join(Props.get('output'), psoutfile )
-            stat = os.system('dvips -o %s %s 2>&1' % (psoutfile,outfile))
+            stat = os.system('dvips -o %s %s' % (psoutfile,outfile))
             if stat:
                 sys.exit('ExitBadPostscript')
             
@@ -1016,7 +1016,11 @@ def main():
             type = infile.type()
             infile.close()
             if type == 'source':
-                cmd = 'lilypond %s %s 2>&1' % (getLilyopts(), file)
+                if os.environ.has_key('OS') and \
+                   os.environ['OS'] == 'Windows_95':
+                    cmd = 'ash -c "lilypond %s %s 2>&1"' %(getLilyopts(), file)
+                else:
+                    cmd = 'lilypond %s %s 2>&1' % (getLilyopts(), file)
 		sys.stderr.write ('executing: %s\n'% cmd)
 		
                 fd = os.popen(cmd , 'r')
