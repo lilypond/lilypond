@@ -21,6 +21,11 @@
 #include "request.hh"
 #include "input-register.hh"
 
+Identifier::~Identifier()
+{
+    if (!accessed_b_ && !init_b_)
+	warning("Variable not used");
+}
 void
 Identifier::error(String expect)
 {
@@ -30,7 +35,7 @@ Identifier::error(String expect)
 }
 
 Identifier::Identifier(String n, int code)
-    :  name(n) 
+    :  name_str_(n) 
 {
     token_code_i_ = code; 
     data = 0;
@@ -41,7 +46,7 @@ Identifier::Identifier(String n, int code)
 void
 Identifier::print()const
 {
-    mtor << "identifier \'" << name << "\'=";
+    mtor << "identifier \'" << name_str_ << "\'=";
     do_print();
 }
 

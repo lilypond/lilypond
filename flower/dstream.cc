@@ -45,9 +45,9 @@ Dstream::identify_as(String name)
     String cl(strip_member(mem));
     String idx = cl;
     
-    if (silent->elt_query(mem))
+    if (silent->elt_b(mem))
 	idx  = mem;
-    else if (silent->elt_query(cl))
+    else if (silent->elt_b(cl))
 	idx = cl;
     else {
 	(*silent)[idx] = false;
@@ -64,7 +64,7 @@ Dstream::identify_as(String name)
 bool
 Dstream::silence(String s)
 {
-    if (!silent->elt_query(s))
+    if (!silent->elt_b(s))
 	return false;
     return (*silent)[s];
 }
