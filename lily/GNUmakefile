@@ -21,7 +21,7 @@ include $(depth)/make/stepmake.make
 
 ETAGS_FLAGS += -r '/^LY_DEFINE *(\([^,]+\),/\1/'  -r '/^LY_DEFINE *([^,]+, *"\([^"]+\)"/\1/' 
 
-default: 
+default:
 
 # force these: Make can't know these have to be generated in advance
 $(outdir)/my-lily-parser.o: $(outdir)/parser.hh
@@ -31,3 +31,9 @@ $(outdir)/lexer.o: $(outdir)/parser.hh $(outdir)/version.hh
 $(outdir)/kpath.o: $(outdir)/version.hh
 $(outdir)/lily-guile.o: $(outdir)/version.hh
 $(outdir)/lily-version.o: $(outdir)/version.hh
+
+# ugh.  For --srcdir builds, these must exist to satisfy their broken
+# lexer.dep and parser.dep file entries.
+ifneq ($(srcdir), .)
+.PRECIOUS: $(outdir)/lexer.cc $(outdir)/parser.cc
+endif
