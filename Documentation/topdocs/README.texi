@@ -41,7 +41,7 @@ lilypond, as @file{lilypond-x.y.z/INSTALL.txt}. They are also
 available on the web at
 @uref{http://lilypond.org/Documentation/topdocs/out-www/INSTALL.html}.
 
-NOTE: If you downloaded a binary (@file{.rpm} or use the Cygwin
+NOTE: If you downloaded a binary (@file{.rpm}) or use the Cygwin
 @file{setup.exe} program, then you don't have to compile LilyPond.
 
 
@@ -95,7 +95,7 @@ You can search the lists from the following page:
 @section Caveats
 
 If you have installed a previous version, be sure to remove old font
-files, eg.,
+files, e.g.,
 @example 
 rm `find /var/lib/texmf/fonts -name 'feta*'` 
 @end example 

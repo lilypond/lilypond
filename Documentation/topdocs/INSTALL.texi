@@ -43,7 +43,7 @@ packages if these are available for your platform.
 @c Otoh, lilypond.org is not updated when release mail arrives
 @uref{ftp://ftp.lilypond.org/pub/LilyPond/} by FTP and
 @uref{http://www.lilypond.org/ftp/} by HTTP.
-@item @uref{ftp://sca.uwaterloo.ca/pub/} by FTP (Canadian mirror)
+@item @uref{ftp://sca.uwaterloo.ca/pub/} by FTP (Canadian mirror).
 @end itemize
 
 
@@ -119,7 +119,7 @@ on the FTP site.
 @end example
 @end itemize
 
-@subsection Font problems.
+@subsection Font problems
 
 If you are upgrading from a previous version of LilyPond, be sure to
 remove all old font files. These include @file{.pk} and @file{.tfm} files
@@ -168,7 +168,7 @@ distribution supports g++ 3.x and flex.  For workarounds, see
 lexer-gcc-3.0.patch and lexer-gcc-3.1.sh in the source directory.
 
 @item Bison (version 1.25 or newer).
-Check out @uref{http://www.gnu.org/software/bison/,the bison  webpage}
+Check out @uref{http://www.gnu.org/software/bison/,the bison webpage}.
 
 @item @TeX{}.
 
