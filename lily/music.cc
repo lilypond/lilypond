@@ -181,8 +181,6 @@ Music::internal_get_mus_property (SCM sym) const
   return (s == SCM_BOOL_F) ? SCM_EOL : ly_cdr (s); 
 }
 
-void paranoia_check (Music*);
-
 void
 Music::internal_set_mus_property (SCM s, SCM v)
 {
