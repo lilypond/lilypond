@@ -63,7 +63,7 @@ Clef_engraver::read_req (Clef_change_req*c_l)
 void
 Clef_engraver::acknowledge_element (Score_elem_info info)
 {
-  if (info.elem_l_->name() == Bar::static_name ()) 
+  if (info.elem_l_->name() == Bar::static_name () && clef_type_str_) 
     {
       create_clef();
       if (!clef_req_l_)
@@ -74,12 +74,11 @@ Clef_engraver::acknowledge_element (Score_elem_info info)
 void
 Clef_engraver::do_creation_processing()
 {
-   Scalar def = get_property ("defaultclef");
+  Scalar def = get_property ("defaultclef");
   if (def)
     set_type (def);
-  else
-    set_type ("violin");
- create_clef();
+  if (clef_type_str_)
+    create_clef();
   clef_p_->default_b_ = false;
 }
 
@@ -90,8 +89,7 @@ Clef_engraver::do_try_request (Request * r_l)
   if (!creq_l || !creq_l->clefchange())
     return false;
 
-  clef_req_l_ = creq_l->clefchange();
-  
+  clef_req_l_ = creq_l->clefchange();  
   read_req (clef_req_l_); 
   return true;
 }
@@ -120,12 +118,12 @@ Clef_engraver::do_process_requests()
 void
 Clef_engraver::do_pre_move_processing()
 {
-  if (!clef_p_)
-    return;
-  typeset_element (clef_p_);
-  clef_p_ = 0;
+  if (clef_p_)
+    {
+      typeset_element (clef_p_);
+      clef_p_ = 0;
+    }
 }
-  
 void
 Clef_engraver::do_post_move_processing()
 {
