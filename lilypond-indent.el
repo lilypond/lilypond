@@ -387,7 +387,7 @@ slur-paren-p defaults to nil.
 ;;; Largely taken from the 'blink-matching-open' in lisp/simple.el in
 ;;; the Emacs distribution.
 
-(defun LilyPond-blink-matching-open (bracket-type)
+(defun LilyPond-blink-matching-open ()
   "Move cursor momentarily to the beginning of the sexp before
 point. In lilypond files this is used for closing ), ], } and >, whereas the
 builtin 'blink-matching-open' is not used. In syntax table, see
@@ -397,12 +397,10 @@ builtin 'blink-matching-open' is not used. In syntax table, see
   (let ( (oldpos (point))
 	 (level 0) 
 	 (mismatch) )
-    ;; Test if a ligature \] or expressional slur \) was encountered;
-    ;; the result is now in backslashed-close-char, BUT
-    ;; the result should also be used  -- match also \] or \) !
-    ;; Thus, update: LilyPond-parens-regexp-alist, LilyPond-blink-matching-open
+    ;; Test if a ligature \] or expressional slur \) was encountered
+    (setq bracket-type (char-after (point)))
     (setq char-before-bracket-type nil)
-    (if (memq close-char '(?] ?\)))
+    (if (memq bracket-type '(?] ?\)))
       (progn 
 	(setq np -1)
 	(while (eq (char-before (- (point) (setq np (+ np 1)))) ?\\)
@@ -476,12 +474,11 @@ builtin 'blink-matching-open' is not used. In syntax table, see
   (interactive)
   (let ((oldpos (point)))
     (self-insert-command 1)
-    (setq close-char (char-before (point)))
     (if (and blink-matching-paren
 	     (not (LilyPond-inside-string-or-comment-p))
 	     (save-excursion (re-search-backward 
 			      (concat (mapconcat 'cdr (mapcar 'cdr LilyPond-parens-regexp-alist) "\\|") "\\|)") nil t)
 			     (eq oldpos (1- (match-end 0)))))
 	(progn (backward-char 1)
-	       (LilyPond-blink-matching-open close-char)
+	       (LilyPond-blink-matching-open)
 	       (forward-char 1)))))
