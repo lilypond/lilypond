@@ -29,7 +29,6 @@ struct Adobe_font_char_metric : Character_metric {
   
   String str () const;
   Adobe_font_char_metric ();
-
   Box dimensions () const;
 };
 
@@ -55,7 +54,6 @@ struct Adobe_font_metric : Font_metric {
   String str () const;
   Adobe_font_metric ();
   void read_char_metrics (Data_file &input, int size);
-
 
   Character_metric *get_char (int, bool) const;
 };

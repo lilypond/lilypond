@@ -150,7 +150,7 @@ Slur::do_post_processing ()
 	  if (d == RIGHT)
 	    {
 	      dx_f_drul_[LEFT] = spanned_drul_[LEFT]->extent (X_AXIS).length ();
-
+	      
 	      // urg -- check if needed
 	      if (encompass_arr_.size () > 1)
 		dx_f_drul_[RIGHT] += notewidth_f;
@@ -312,18 +312,15 @@ Slur::get_encompass_offset_arr () const
       notes.push (info.o_ - left);
     }
   Encompass_info info (encompass_arr_.top (), dir_, this);
+  Real inter_staff = info.interstaff_f_;
   
-  // urg:
-  Slur* urg = (Slur*)this;
-  urg->interstaff_f_ = info.interstaff_f_;
-  
-  d[Y_AXIS] += interstaff_f_;
+  d[Y_AXIS] += inter_staff;
 
   // prebreak
-  if (interstaff_f_ && (encompass_arr_.top () != spanned_drul_[RIGHT]))
+  if (inter_staff && (encompass_arr_.top () != spanned_drul_[RIGHT]))
     {
       Encompass_info info (encompass_arr_[encompass_arr_.size () - 1], dir_, this);
-      d[Y_AXIS] -= info.o_[Y_AXIS] - interstaff_f_;
+      d[Y_AXIS] -= info.o_[Y_AXIS] - inter_staff;
     }
 
   notes.push (d);

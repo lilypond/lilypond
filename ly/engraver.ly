@@ -66,6 +66,7 @@ StaffContext=\translator {
 	\type "Line_group_engraver_group";
 	\name ChoirStaff;
 	\consists "Vertical_align_engraver";
+	alignmentReference = \center;	
 	\consists "Staff_group_bar_engraver";
 	\accepts "Staff";
 	\accepts "RhythmicStaff";
@@ -126,6 +127,7 @@ GrandStaffContext=\translator{
 	\consists "Span_bar_engraver";
 	\consists "Vertical_align_engraver";
 	\consists "Piano_bar_engraver";
+	alignmentReference = \center;
 	minVerticalAlign = 1.5*\staffheight;
 
 	\accepts "Staff";
@@ -134,15 +136,19 @@ GrandStaffContext=\translator{
 \translator{\GrandStaffContext
 	minVerticalAlign = 3.0*\staffheight;
 	maxVerticalAlign = 3.0*\staffheight;
+
 	\name "PianoStaff";
 	
 }
 
 StaffGroupContext= \translator {
-	\type "Hara_kiri_line_group_engraver";
+%	\type "Hara_kiri_line_group_engraver";
 %	\type "Line_group_engraver_group";
+	\type "Engraver_group_engraver";
 	\consists "Span_bar_engraver";
 	\consists "Vertical_align_engraver";
+	alignmentReference = \center;
+	
 	\consists "Staff_group_bar_engraver";
 	\name StaffGroup;
 	\accepts "Staff";
@@ -189,28 +195,6 @@ ChordNameContext = \translator {
 };
 \translator { \ChordNameContext }
 
-ScoreContext = \translator {
-	\type Score_engraver;
-	\name Score;
-
-	\consists "Timing_engraver";
-
-	\consists "Span_score_bar_engraver";
-	\consists "Score_priority_engraver";
-%	\consists "Priority_horizontal_align_engraver";
-	\consists "Vertical_align_engraver";
-
-
-	\accepts "StaffGroup";
-	\accepts "Staff";
-	\accepts "RhythmicStaff";	
-	\accepts "Lyrics";
-	\accepts "ChordNames";
-	\accepts "GrandStaff";
-	\accepts "ChoirStaff";
-	\accepts "PianoStaff";
-};
-\translator { \ScoreContext }
 
 ScoreWithNumbers = \translator {
  	\type "Score_engraver";
@@ -266,31 +250,41 @@ OrchestralPartStaffContext = \translator {
 	\consists "Bar_number_engraver";
 };
 
-OrchestralScoreContext= \translator {
+
+ScoreContext = \translator {
 	\type Score_engraver;
 	\name Score;
-	barScriptPadding = "2.0";	% dimension \pt
-	markScriptPadding = "4.0";
-	barColumnPriority = "-4";
-	markBreakPriority = "-4";
-	defaultClef = treble;
 
 	\consists "Timing_engraver";
 
-	\consists "Bar_number_engraver";
-	\consists "Mark_engraver";
 	\consists "Span_score_bar_engraver";
 	\consists "Score_priority_engraver";
-
 	\consists "Vertical_align_engraver";
+	alignmentReference = \down;
+	defaultClef = treble;
 
-	\accepts "ChoirStaff";
+	\accepts "Staff";
 	\accepts "StaffGroup";
-	\accepts "HaraKiriStaff";
 	\accepts "RhythmicStaff";	
 	\accepts "Lyrics";
 	\accepts "ChordNames";
 	\accepts "GrandStaff";
+	\accepts "ChoirStaff";
 	\accepts "PianoStaff";
+};
+
+\translator { \ScoreContext }
+
+OrchestralScoreContext= \translator {
+	\ScoreContext
+
+	barScriptPadding = "2.0";	% dimension \pt
+	markScriptPadding = "4.0";
 	
+
+
+	\consists "Bar_number_engraver";
+	\consists "Mark_engraver";
+
+	\accepts "HaraKiriStaff";
 };

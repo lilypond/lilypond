@@ -171,7 +171,7 @@ bassdux = \type Voice=three \notes \relative c' {
 
 \score {
  
-    \type GrandStaff < 
+    \type PianoStaff < 
 	\type Staff = treble < 
 	    \global 
 	    \dux
@@ -189,11 +189,6 @@ bassdux = \type Voice=three \notes \relative c' {
 	textheight = 295.\mm;
 
 	\translator{ \OrchestralScoreContext }
-	\translator{ 
-	    \GrandStaffContext
-	    minVerticalAlign = 3.0*\staffheight;
-	    maxVerticalAlign = 3.0*\staffheight;
-	}
     }
     \header{
 	opus = "BWV 847";

@@ -10,19 +10,21 @@
 #ifndef VERTICAL_ALIGN_ITEM_HH
 #define VERTICAL_ALIGN_ITEM_HH
 
-#include "score-element.hh"
+#include "axis-group-element.hh"
 #include "interval.hh"
 #include "direction.hh"
 #include "axes.hh"
+#include "hash-table.hh"
 
 /**
   Order elements top to bottom/left to right/right to left etc..
 
   TODO: implement padding.
+
+  document usage of this.
  */
-class Align_element : virtual public Score_element {
-  Link_array<Score_element> elem_l_arr_;
-  Array<int> priority_i_arr_;
+class Align_element : public virtual Axis_group_element {
+  Hash_table<Score_element*,int> priority_i_hash_;
   void sort_elements ();
 public:
   Interval threshold_interval_ ;
@@ -34,21 +36,25 @@ public:
   Direction stacking_dir_;
 
   /**
-     Which side to align? 
-     -1: left side, 0: centered (around center_l_ if not nil), 1: right side
+     Which side to align?  -1: left side, 0: centered (around
+     center_l_ if not nil, or around center of width), 1: right side
+
+     URG. Unintuitive if stacking_dir_ == -1 
   */
 
   Direction align_dir_;
   
-  Axis axis_;
+  Axis axis () const;
   Score_element * center_l_;
   
   Align_element ();
+  void set_axis (Axis);
   void add_element (Score_element*);
   void add_element_priority (Score_element*, int);
   bool contains_b (Score_element const*) const;
 
   Score_element *get_elt_by_priority (int) const;
+  int get_priority (Score_element*) const;
 protected:
   virtual void do_print() const;
   virtual void do_substitute_element_pointer (Score_element*,Score_element*);

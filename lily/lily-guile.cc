@@ -88,3 +88,14 @@ ly_display_scm (SCM s)
   gh_display (s);
   gh_newline ();
 }
+
+String
+ly_scm2string (SCM s)
+{
+  int len; 
+  char * p = gh_scm2newstr (s , &len);
+  
+  String r (p);
+  delete p;
+  return r;
+}

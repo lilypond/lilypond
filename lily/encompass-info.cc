@@ -16,6 +16,7 @@
 #include "staff-symbol.hh"
 #include "note-head.hh"
 #include "debug.hh"
+#include "align-element.hh"
 
 Encompass_info::Encompass_info ()
 {
@@ -62,20 +63,36 @@ Encompass_info::Encompass_info (Note_column const* note, Direction dir, Slur con
   if (stem_l->dir_ != dir)
     o_.y () += 1.0 * internote * dir;
 
-  if (slur_l->encompass_arr_.size ()
-      && stem_l->staff_symbol_l () != slur_l->encompass_arr_[0]->stem_l_->staff_symbol_l ())
+
+  Dimension_cache *common = note->common_group (slur_l, Y_AXIS);
+  Align_element * align = dynamic_cast<Align_element*> (common->element_l ());
+  if (align && align->axis() == Y_AXIS)
     {
-      if (slur_l->vertical_align_drul_[MIN] != 
-	  slur_l->vertical_align_drul_[MAX])
-	warning (_ ("minVerticalAlign != maxVerticalAlign: interstaff slurs may be broken"));
-      interstaff_f_ = slur_l->vertical_align_drul_[MIN];
-      /* urg, guess staff order */
-      int d = note->head_l_arr_.top ()->position_i_
-	- slur_l->encompass_arr_[0]->head_l_arr_[0]->position_i_;
-      if (abs (d > 3))
-	interstaff_f_ *= sign (d);
-      else if (stem_l->chord_start_f () >
-	       slur_l->encompass_arr_[0]->stem_l_->chord_start_f ())
+      if (align->threshold_interval_[MIN] != 
+	  align->threshold_interval_[MAX])
+	warning (_ ("minVerticalAlign != maxVerticalAlign: interstaff beams/slurs may be broken"));
+
+      interstaff_f_ = align->threshold_interval_[MIN];
+
+      Dimension_cache * slur_refpoint = &slur_l->dim_cache_[Y_AXIS];
+      Dimension_cache * note_refpoint = &note->dim_cache_[Y_AXIS];
+
+      while (slur_refpoint->parent_l_ != common)
+	slur_refpoint = slur_refpoint->parent_l_;
+      while (note_refpoint->parent_l_ != common)
+	note_refpoint = note_refpoint->parent_l_;
+
+
+      int slur_prio =
+	align->get_priority (dynamic_cast<Score_element*> (slur_refpoint->element_l ()));
+      int stem_prio =
+	align->get_priority (dynamic_cast<Score_element*> (note_refpoint->element_l ()));
+
+      /*
+	our staff is lower -> interstaff_f_ *= -1
+       */
+      // ? Is this OK?
+      if (slur_prio < stem_prio)
 	interstaff_f_ *= -1;
       o_.y () += interstaff_f_;
     }

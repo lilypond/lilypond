@@ -16,16 +16,17 @@
 /**
   Base class for anything that looks like a slur.
   Anybody with a better name?
+
+  UGH. Fixme.  Should junk
+
+    dy_f_drul_ , dx_f_drul_
+  
   */
 class Bow : public Directional_spanner
 {
 public:
   Bow ();
   Offset center () const;  
-
-  int dash_i_;
-  Real interstaff_f_;
-  Drul_array<Real> vertical_align_drul_;
 
 protected:
   virtual Molecule* do_brew_molecule_p () const;

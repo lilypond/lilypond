@@ -24,7 +24,7 @@ SCM ly_eval (SCM a);
 SCM ly_func_o (char const* name);
 SCM ly_quote_scm (SCM s);
 void ly_display_scm (SCM s);
-
+String ly_scm2string (SCM s);
 
 #include "array.hh"
 #include "scalar.hh"

@@ -11,6 +11,7 @@
 #include "misc.hh"
 #include "debug.hh"
 
+#include "align-element.hh"
 #include "stem.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
@@ -22,15 +23,14 @@ Stem_info::Stem_info ()
 {
 }
 
-Stem_info::Stem_info (Stem*s)
+Stem_info::Stem_info (Stem*s, int mult)
 {
+  mult_i_ =mult;
   stem_l_ = s;
   x_ = stem_l_->hpos_f ();
   dir_ = stem_l_->dir_;
   SCM bd = stem_l_->remove_elt_property (beam_dir_scm_sym);
   beam_dir_ = gh_scm2int (SCM_CDR(bd));
-  
-  mult_i_ = stem_l_->mult_i_;
   interstaff_f_ = 0;
 
   Paper_def* paper_l = stem_l_->paper_l ();
@@ -106,21 +106,37 @@ Stem_info::Stem_info (Stem*s)
   idealy_f_ = miny_f_ >? idealy_f_;
 
   // interstaff beam
-  Beam* beam_l_ = stem_l_->beam_l_;
-  if (beam_l_->sinfo_.size ()
-      && stem_l_->staff_symbol_l () != beam_l_->sinfo_[0].stem_l_->staff_symbol_l ())
+  Beam* beam_l = stem_l_->beam_l_;
+  Dimension_cache *common = stem_l_->common_group (beam_l, Y_AXIS);
+  Align_element * align = dynamic_cast<Align_element*> (common->element_l ());
+  if (align && align->axis() == Y_AXIS)
     {
-	{
-	  //	  warning (_ ("invalid dimension cache: guessing staff position"));
-	  if (beam_l_->vertical_align_drul_[MIN] != 
-	      beam_l_->vertical_align_drul_[MAX])
-	    warning (_ ("minVerticalAlign != maxVerticalAlign: interstaff slurs may be broken"));
-	  interstaff_f_ = beam_l_->vertical_align_drul_[MIN] / internote_f;
-	  // urg, guess staff order:
-	  // if our stem ends higher, our staff is probably lower...
-	  if (idealy_f_ * beam_dir_ > beam_l_->sinfo_[0].idealy_f_ * beam_dir_)
-	    interstaff_f_ *= -1;
-	}
+      if (align->threshold_interval_[MIN] != 
+	  align->threshold_interval_[MAX])
+	warning (_ ("minVerticalAlign != maxVerticalAlign: interstaff beams/slurs may be broken"));
+
+      interstaff_f_ = align->threshold_interval_[MIN] / internote_f;
+
+      Dimension_cache * beam_refpoint = &beam_l->dim_cache_[Y_AXIS];
+      Dimension_cache * stem_refpoint = &stem_l_->dim_cache_[Y_AXIS];
+
+      while (beam_refpoint->parent_l_ != common)
+	beam_refpoint = beam_refpoint->parent_l_;
+      while (stem_refpoint->parent_l_ != common)
+	stem_refpoint = stem_refpoint->parent_l_;
+
+
+      int beam_prio =
+	align->get_priority (dynamic_cast<Score_element*> (beam_refpoint->element_l ()));
+      int stem_prio =
+	align->get_priority (dynamic_cast<Score_element*> (stem_refpoint->element_l ()));
+
+      /*
+	our staff is lower -> interstaff_f_ *= -1
+       */
+      if (beam_prio < stem_prio)
+	interstaff_f_ *= -1;
+      
       idealy_f_ += interstaff_f_ * beam_dir_;
       miny_f_ += interstaff_f_ * beam_dir_;
       maxy_f_ += interstaff_f_ * beam_dir_;

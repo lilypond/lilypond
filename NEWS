@@ -1,3 +1,31 @@
+
+	- diamond heads (probably really ugly).
+	- cross head.
+	- tweaked harmonic head a bit.
+	- property noteHeadStyle
+
+pl 36.mb2
+	- bf: timeSignatureStyle
+	- Added dynamic fz (forzando) to Lilypond
+	- bf: N.W.Gade, sfz -> fz
+
+pl 36.hwn1
+	- debian fixes.
+	- don't insert extra alignment space for empty stuff.
+	- Align_element derives from Axis_group_element
+	- junk all *{horizontal,vertical}* Score_element derived classes.
+	- G_staff_side_item::padding_f_ now generic property.
+	- some tweaking of beam & stem. 
+	- junk pointerlist in Sources
+	- junk Stem::mult_i_, Stem::beam_gap_i_, G_staff_side_item::padding
+	Bar::at_line_start_b_, Key_item::c_position_, Note_head::type_str_,
+	Note_head::staff_size, Stem::xdir_
+	
+pl 36.mb1
+	- bf: N.W.Gade
+
+**************
+
 pl 35.uu1
 	- more memory tweaks: don't do Score_element::line_l () when deleting lines.
 	- more generic properties.
@@ -10,6 +38,7 @@ pl 35.uu1
 pl 35.jcn1
 	- some ps fixes
 
+************
 pl 35
 
 pl 34.hwn2

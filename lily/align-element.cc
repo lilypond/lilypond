@@ -10,9 +10,10 @@
 #include "interval.hh"
 #include "direction.hh"
 #include "debug.hh"
+#include "hash-table-iter.hh"
 
 struct Align_element_content {
-  Score_element * elem_l_;
+  Graphical_element * elem_l_;
   int priority_i_;
   
   static int compare (Align_element_content const &h1, 
@@ -20,7 +21,7 @@ struct Align_element_content {
     {
       return h1.priority_i_ - h2.priority_i_;
     }
-  Align_element_content (Score_element *elem_l, int p) 
+  Align_element_content (Graphical_element *elem_l, int p) 
     {
       priority_i_ = p;
       elem_l_ = elem_l;
@@ -36,7 +37,7 @@ struct Align_element_content {
 void
 Align_element::add_element (Score_element*el_l)
 {
-  int p = priority_i_arr_.size ();
+  int p = elem_l_arr_.size ();
   add_element_priority (el_l, p);
 }
 
@@ -44,8 +45,8 @@ void
 Align_element::add_element_priority (Score_element *el, int p)
 {
   assert (! contains_b (el));
-  elem_l_arr_.push (el);
-  priority_i_arr_.push (p);
+  Axis_group_element::add_element (el);
+  priority_i_hash_[el] = p;
   add_dependency (el);
 }
 
@@ -53,30 +54,32 @@ void
 Align_element::do_substitute_element_pointer (Score_element*o,
 					      Score_element*n)
 {
-  int i;
-  while ((i = elem_l_arr_.find_i (o))>=0) 
-    if (n) 
-      elem_l_arr_[i] = n;
-    else
-      elem_l_arr_.del (i);
-
+  Axis_group_element :: do_substitute_element_pointer (o,n);
   if (o == center_l_)
     {
       center_l_ = n;
+    }
+  if (priority_i_hash_.elem_b (o))
+    {
+      priority_i_hash_[n] = priority_i_hash_[o];
+      /*
+	Huh? It seems the old pointers are still used.  Why?
+       */
+      // priority_i_hash_.remove (o);
     }
 }
 
 void
 Align_element::do_post_processing()
 {
-  if (axis_ == Y_AXIS)
+  if (axis () == Y_AXIS)
     do_side_processing ();
 }
 
 void
 Align_element::do_pre_processing ()
 {
-  if (axis_ == X_AXIS)
+  if (axis () == X_AXIS)
     do_side_processing ();
 }
 
@@ -85,19 +88,22 @@ Align_element::do_side_processing ()
 {
   sort_elements ();
   Array<Interval> dims;
-  
+
+  Link_array<Score_element> elems;
   for (int i=0; i < elem_l_arr_.size(); i++) 
     {
-      Interval y = elem_l_arr_[i]->extent(axis_) ;
-      if (y.empty_b())
-	y = Interval (0,0);
-	
-      dims.push (y);
+      Interval y = elem_l_arr_[i]->extent(axis ());
+      if (!y.empty_b())
+	{
+	  dims.push (y);
+	  Score_element *e =dynamic_cast<Score_element*>(elem_l_arr_[i]);
+	  elems.push (e);
+	}
     }
 
   Real where_f=0;
   Real center_f = 0.0;
-  for (int i=0 ;  i < elem_l_arr_.size(); i++) 
+  for (int i=0 ;  i < elems.size(); i++) 
     {
       Real dy = - stacking_dir_ * dims[i][-stacking_dir_];
       if (i)
@@ -109,33 +115,48 @@ Align_element::do_side_processing ()
 	    <? threshold_interval_[BIGGER];
 	}
 
-      
       if (!i && align_dir_ == LEFT)
 	center_f = where_f;
-      else if (align_dir_ == CENTER && elem_l_arr_[i] == center_l_)
+      else if (align_dir_ == CENTER && elems[i] == center_l_)
 	center_f = where_f;
 
       where_f += stacking_dir_ * dy;
-      elem_l_arr_[i]->translate_axis (where_f, axis_);
+      elems[i]->translate_axis (where_f, axis ());
     }
 
+  if (dims.size ())
+    where_f += dims.top ()[stacking_dir_];
   if (align_dir_ == RIGHT)
     center_f = where_f;
-  
+  else if (align_dir_ == CENTER && !center_l_)
+    center_f = where_f / 2;
+    
   if (center_f)
-    for  (int i=0 ;  i < elem_l_arr_.size(); i++)
-      elem_l_arr_[i]->translate_axis (- center_f, axis_);
+    translate_axis ( - center_f, axis ());
+
+  dim_cache_[axis ()].invalidate ();
 }
 
 Align_element::Align_element()
 {
+  ordered_b_ = true;
   threshold_interval_ = Interval (0, Interval::infinity ());
-  set_elt_property (transparent_scm_sym, SCM_BOOL_T);
-  set_empty (true);
   stacking_dir_ = DOWN;
-  align_dir_ = LEFT;
-  axis_ = X_AXIS;
+  align_dir_ = CENTER;
   center_l_ =0;
+  priority_i_hash_.hash_func_ = pointer_hash;
+}
+
+Axis
+Align_element::axis () const
+{
+  return axes_[0];
+}
+
+void
+Align_element::set_axis (Axis a)
+{
+  set_axes (a,a);
 }
 
 
@@ -149,17 +170,21 @@ void
 Align_element::sort_elements ()
 {
   Array<Align_element_content> content;
-  for  (int i =0; i < elem_l_arr_.size(); i++) 
-    content.push (Align_element_content (elem_l_arr_[i], priority_i_arr_[i]));
+  for  (int i =0; i < elem_l_arr_.size(); i++)
+    {
+      Score_element * e = dynamic_cast<Score_element*> (elem_l_arr_[i]);
+      assert (priority_i_hash_.elem_b (e));
+      int p = priority_i_hash_[e];
+      content.push (Align_element_content (e, p));
+    }
   content.sort (Align_element_content::compare);
   
   elem_l_arr_.clear();
-  priority_i_arr_.clear();
+  priority_i_hash_.clear();
 
   for  (int i =0; i < content.size(); i++) 
     {
       elem_l_arr_.push (content[i].elem_l_);
-      priority_i_arr_.push (content[i].priority_i_);
     }
 }
 
@@ -176,10 +201,19 @@ Align_element::do_print () const
 Score_element*
 Align_element::get_elt_by_priority (int p) const
 {
-  for (int i=0; i < priority_i_arr_.size (); i++)
+  for (Hash_table_iter<Score_element*, int>  i(priority_i_hash_); i.ok (); i++)
     {
-      if (priority_i_arr_[i] == p)
-	return elem_l_arr_[i];
+      if (i.val () == p)
+	return i.key();
     }
   return 0;
+}
+
+int
+Align_element::get_priority (Score_element* e) const
+{
+  if ( priority_i_hash_.elem_b (e))
+    return priority_i_hash_[e];
+  else
+    return elem_l_arr_.find_i (e);
 }

@@ -10,8 +10,17 @@ Grep for TODO and ugh/ugr/urg.
 
 .* BUGS
 . * header for PS enteredby = "bla <bla@bar.com>"
+. * Hash_table::remove ().
+. * 1.  With "lilypond -f ps": The black notes with ledger lines seem to
+> have extra "blobs" over and to the left of them and all the ledger
+> lines from the staff to the note will have a blob too.  For example,
+> with the note "a4" there will be a black note at the ledger line where
+> "c" would be too.  However, only the "a4" will have the extra blob.
+
 . * ps/lily.ps
 . * AFM for BlueSky AFM files.
+. * devise standard for functioning of Vertical_align_element.
+. * fix interstaff slurs & beams.
 . * staff size for post/prebreaks
 . * .ly files
 .  * input/star-spangled-banner
@@ -49,7 +58,7 @@ Grep for TODO and ugh/ugr/urg.
   }
 }
 . * midi key.
-. *P.P.S. It can be cool in mudela-book to distinguish in pre,postMudelaExample,
+. * P.P.S. It can be cool in mudela-book to distinguish in pre,postMudelaExample,
 whether MudelaExample is epsed or not: ( if this fragment is floating eps, than 1,
 otherwise 2). say preMudelaExample[eps]{}, and change it in document body sometimes.
 . * fix singleStaffBracket
@@ -61,7 +70,7 @@ otherwise 2). say preMudelaExample[eps]{}, and change it in document body someti
 . * fix height of / collisions with lyrics (chords), 
     see input/test/vertical-text.ly; input/test/repeat.ly
 . * We need feta-din*.mf files for more sizes than 10.
-. * latex bla.tex broken (titles / \lilyfooter stuff?)
+. * latex bla.tex broken (titles / \lilyfooter stuff?
 . * fix dynamics decently, ie. use kerning & ligatures.  
 . * support_l_arr_ empty in staff-margin's G_staff_side_item
 . * minVerticalAlign for StaffGroups.
@@ -108,7 +117,6 @@ specify the third.  Should there be?
 .  * make "in-between" engraver (Tie, Extender)
 .  * make wide_spanner_engraver (line_group_spanne,r staff_symbol)
 . * remove Interval dim_ from Dimension_cache and rename the struct.
-.  * merge align_element  and axis_element_group.
 . * do scaled fonts generally 
 . * The Lilypond accidental symbols are available through the TeX macros, 
 \textflat, \textsharp and \textnatural defined in the init file
@@ -124,7 +132,7 @@ compilation.
 . * junk Script_def
 . * include examples in RPM.
 . * fix partial measures in meaningful way.
-. * working notehead style.
+
 . * add scripts to bars eg.  |^"bla" 
 . * relative mode for mi2mu
 . * uniformise recent feta contributions.
@@ -145,8 +153,6 @@ general length.  Of course, in the example above I can use \breve.
 But what if I want a chord that lasts for 3 whole notes?  Or what
 about 2.5 whole notes?  Is there a mechanism for getting this kind of
 length?  
-
-
 
 . * fractional chord durs.
 . * hang Item on Spanner
@@ -206,7 +212,6 @@ length?
 . * strip EXEs before installing
 . * zip target for binary windows dist (JBR)
 . * junking \skip req in lyrics
-. * percussion note heads
 . * mi2mu empty staffs.
 . * horizontal centering of dynamics 
 . * $DEPENDENCIES_OUTPUT support
@@ -222,7 +227,6 @@ gs: Operand stack:
 	organ you want to be able to give stop indications on the way
 	through, so the \property Voice.Instrument would be a stop,
 	and \property GrandStaff.instrument would be PipeOrgan...)
-. * revise the Score_priority_align_engraver concept.  It sucks. 
 . * *.yo: fix pod manpage layout legacy
 . * text-items clash with stems/beams
 . * --include, -I option for ly2dvi (pass on to lily)
@@ -537,6 +541,7 @@ hesitate to ask.
 .  * specify number of lines
 
 .* INPUTLANGUAGE
+. * \rhythms 4 16 16 16 16; c c c c c -> c4 c16 etc. 
 . * Language:
 .  * \type -> \context ?
 .  * \translator -> ?

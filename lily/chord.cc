@@ -9,7 +9,7 @@
 #include "chord.hh"
 #include "warn.hh"
 
-// doesn't seem common, and we should know about this during purple hit
+// doesn't seem common, and we should know about this during parsing
 // #define INVERSION_ADDED_AS_BASE 1
 
 Chord::Chord (Array<Musical_pitch> pitch_arr)

@@ -1,4 +1,4 @@
-% 
+i% 
 % feta-generic.mf --  implement 
 % 
 % source file of the Feta (defintively not an abbreviation for Font-En-Tja)
@@ -42,5 +42,5 @@ else:
 %	input feta-schrift;
 %	input feta-schrift;
 %	input feta-haak;
-	input feta-timesig;
+%	input feta-timesig;
 fi

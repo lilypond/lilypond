@@ -11,19 +11,22 @@
 
 /*
   [TODO]
-    * centre beam symbol
+    * center beam symbol
     * less hairy code
     * redo grouping 
- */
+
+TODO:
+
+The relationship Stem <-> Beam is way too hairy.  Let's figure who
+needs what, and what information should be available when.
+
+    */
 
 #include <math.h>
 
-#include "p-col.hh"
-#include "array.hh"
 #include "proto.hh"
 #include "dimensions.hh"
 #include "beam.hh"
-#include "abbreviation-beam.hh"
 #include "misc.hh"
 #include "debug.hh"
 #include "molecule.hh"
@@ -39,13 +42,17 @@ Beam::Beam ()
   left_y_ = 0;
   quantisation_ = NORMAL;
   multiple_i_ = 0;
-  vertical_align_drul_[MIN] = 0;
-  vertical_align_drul_[MAX] = -1;
 }
 
 void
 Beam::add_stem (Stem*s)
 {
+#if 0
+  if (!stems_.size ())
+    {
+      dim_cache_[Y_AXIS].parent_l_ = &s->dim_cache_[Y_AXIS];
+    }
+#endif
   stems_.push (s);
   s->add_dependency (this);
   s->beam_l_ = this;
@@ -54,6 +61,19 @@ Beam::add_stem (Stem*s)
     set_bounds (LEFT,s);
   else
     set_bounds (RIGHT,s);
+}
+
+Stem_info
+Beam::get_stem_info (Stem *s)
+{
+  Stem_info i;
+  for (int i=0; i < sinfo_.size (); i++)
+    {
+      if (sinfo_[i].stem_l_ == s)
+	return sinfo_[i];
+    }
+  assert (false);
+  return i;
 }
 
 Molecule*
@@ -81,7 +101,7 @@ Beam::do_brew_molecule_p () const
 
   // correct if last note (and therefore reference point of beam)
   // is on different staff
-  Stem_info si =   sinfo_.top ();
+  Stem_info si = sinfo_.top ();
   mol_p->translate_axis (-si.interstaff_f_ * si.stem_l_->staff_line_leading_f ()/2,
 			 Y_AXIS);
 
@@ -94,7 +114,7 @@ Beam::center () const
   Stem_info si = sinfo_[0];
   
   Real w= (si.stem_l_->note_delta_f () + extent (X_AXIS).length ())/2.0;
-  return Offset (w, (left_y_ + w* slope_f_) *
+  return Offset (w, ( w* slope_f_) *
 		 si.stem_l_->staff_line_leading_f ()/2);
 }
 
@@ -216,9 +236,6 @@ Beam::set_default_dir ()
 void
 Beam::solve_slope ()
 {
-  /*
-    should use minimum energy formulation (cf linespacing)
-  */
   assert (sinfo_.size () > 1);
   DOUT << "Beam::solve_slope: \n";
 
@@ -284,7 +301,7 @@ Beam::set_steminfo ()
   for (int i=0; i < stems_.size (); i++)
     {
       Stem *s = stems_[i];
-      s->mult_i_ = multiple_i_;
+
       s->set_default_extents ();
       if (s->invisible_b ())
 	continue;
@@ -306,7 +323,7 @@ Beam::set_steminfo ()
       if (s->invisible_b ())
 	continue;
 
-      Stem_info info (s);
+      Stem_info info (s, multiple_i_);
       if (leftx == 0)
 	leftx = info.x_;
       info.x_ -= leftx;
@@ -669,9 +686,13 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       a.translate_axis( - stemdx/2, X_AXIS);
       int j = 0;
       Real gap_f = 0;
-      if (here->beam_gap_i_)
+
+      SCM gap = get_elt_property (beam_gap_scm_sym);
+      if (gap != SCM_BOOL_F)
 	{
-	  int nogap = rwholebeams - here->beam_gap_i_;
+	  int gap_i = gh_scm2int (gap);
+	  int nogap = rwholebeams - gap_i;
+	  
 	  for (; j  < nogap; j++)
 	    {
 	      Molecule b (a);

@@ -24,11 +24,9 @@ toeter_ii = \notes \relative c {
 	g g g g
 }
 
-toeters = \type StaffGroup = xtoeters <
-	\type Staff = toeters <
+toeters = \type Staff = toeters <
 	\toeter_i
 	\toeter_ii
-	>
 >
  
 zager = \type Staff = zager \notes \relative c {
