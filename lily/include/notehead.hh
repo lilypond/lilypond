@@ -26,6 +26,7 @@ public:
     int position;
     /// -1 = lowest, 0 = inside, 1 = top
     int extremal;
+    
     /// needed for the help-lines
     int staff_size;
     int dots;
