@@ -1,3 +1,51 @@
+1.3.48.uu1
+==========
+
+* Small fixes for \cresc and \endcresc
+
+* Release properties of unbroken spanners & items after doing
+handle_broken_smobs (); should conserve a little memory.
+
+* Fixed handling of orphaned score-elements. Any element that does
+not have its Line_of_score as a ancestor in both directions, is silently
+removed from the output.  This guarantees that programming errors
+don't result in coredumps from Dimension_cache::common_refpoint ():
+element->line_l () is always a common reference point.
+
+* Bugfix: set visibility-lambda of clef and octavation-8 explicitly
+for default case.  Now the octavation 8 is not printed at every
+barline.
+
+1.3.48.mb1
+===========
+
+* Changed noteHeadStyle properties to symbols, for example
+  \property Voice.noteHeadStyle = #'cross
+
+1.3.47.jcn3
+===========
+
+* Rewrite of chord-name production in scheme.  There are two major styles
+  now, banter and american.  To get american style, use
+
+      \property ChordNames.chordNameStyle = "american"
+ 
+  Most anything should be possible now.  See input/test/american-chords.ly
+
+* Added isinf check to configure.in, and isinf macro from guile to
+  bezier.cc; solaris has no isinf ().
+
+* Fixed star-spangled-banner with not-so-nice \bar "|." fix.  Almost
+  perfect now.
+
+* Added output property to regression test.
+
+* Fixed warning of creating existing outdir.
+
+* Added `Mark' interface to text-items that are marks (thanks, HW).
+
+1.3.48
+======
 1.3.47.mb2
 ===========
 
@@ -10,9 +58,6 @@
   "harmonic" and added "baroque" (normal note shapes except for 
   brevis and longa which are square).
 
-1.3.47.mb1
-===========
-
 * Simplified ly2dvi using the power of the geometry package.
 
 * Improved heuristic size calculation of TeX macros. Handles e.g.
@@ -22,6 +67,8 @@
 ===========
 
 * Bugfix: don't hang on zero-duration.
+
+* Various glossary updates (thanks, Christian)
 
 1.3.47
 ======
