@@ -19,16 +19,16 @@
 struct Idclass : Identifier {\
     virtual const char *classname() { return #Class; }\
     Idclass(String s, Class*st):Identifier(s) { data = st; }\
-    virtual Class* accessor(bool copy=false) {\
+    virtual Class* accessor(bool copy) {\
 	if (copy)\
 	    return new Class(* (Class*) data);\
 	else\
 	    return (Class*) data;\
     }\
-    ~Idclass() { delete accessor(); }\
+    ~Idclass() { delete accessor(false); }\
 }\
 
-
+make_id_class(Real_id, Real, real);
 make_id_class(Script_id, Script_def, script);
 make_id_class(Lookup_id, Lookup, lookup);
 make_id_class(Symtables_id, Symtables, symtables);
