@@ -51,8 +51,8 @@ Tuplet_engraver::do_try_music (Music *r)
 	  stop_moments_.push (m);
 
 	  SCM s = get_property ("tupletSpannerDuration");
-	  if (SMOB_IS_TYPE_B(Moment, s))
-	    m = m <? (now_mom () + *SMOB_TO_TYPE(Moment,s));
+	  if (unsmob_moment(s))
+	    m = m <? (now_mom () + *unsmob_moment (s));
 	  
 	  span_stop_moments_.push (m);
 	}
@@ -116,8 +116,8 @@ Tuplet_engraver::do_post_move_processing ()
 
   Moment tsd;
   SCM s = get_property ("tupletSpannerDuration");
-  if (SMOB_IS_TYPE_B(Moment, s))
-    tsd = *SMOB_TO_TYPE(Moment,s);
+  if (unsmob_moment (s))
+    tsd = *unsmob_moment (s);
 
   for (int i= started_span_p_arr_.size (); i--; )
     {
