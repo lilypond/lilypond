@@ -1,3 +1,5 @@
 
-pfa: $(PFA_FILES)
+pfa: $(PFA_FILES) mfplain.mem
 
+mfplain.mem:
+	inimpost mfplain.ini
