@@ -9,12 +9,15 @@
 #include "scalar.hh"
 #include "varray.hh"
 
-struct Clef {
-    int c0_pos;
-    String clef_type;
+/// where is c-0 in the staff?
+class Clef {
+
+public:
+    int c0_position_i_;
+    String clef_type_str_;
 
     Clef();
-    void read(Array<Scalar> args);    
+    void set_type(String);
 };
 #endif // CLEF_HH
 
