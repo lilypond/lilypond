@@ -1,3 +1,8 @@
+2004-10-18  Werner Lemberg  <wl@gnu.org>
+
+	* scripts/lilypond-book.py (Snippet, Include_snippet)
+	[replacement_text]: Use group `match'.
+
 2004-10-17  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/user/macros.itexi: Use @ref instead of @inforef
@@ -25,7 +30,7 @@
 
 2004-10-16  Werner Lemberg  <wl@gnu.org>
 
-	* scripts/lilypond-book.ly (snippet_res): Define group `match'
+	* scripts/lilypond-book.py (snippet_res): Define group `match'
 	everywhere.
 	Accept more spaces between commands and its arguments and options.
 	Fix some regexps.
