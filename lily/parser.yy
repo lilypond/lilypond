@@ -1138,9 +1138,9 @@ Prefix_composite_music:
 		scm_gc_unprotect_object (p->self_scm ());
 	}
 	| mode_changing_head Grouped_music_list {
-		if ($1 == ly_symbol2scm ("figures"))
+		if ($1 == ly_symbol2scm ("chords"))
 		{
-		  Music *chm = MY_MAKE_MUSIC ("UntransposableMusic");
+		  Music *chm = MY_MAKE_MUSIC ("UnrelativableMusic");
 		  chm->set_property ("element", $2->self_scm ());
 		  $$ = chm;
 		  scm_gc_unprotect_object ($2->self_scm ());
@@ -1154,9 +1154,9 @@ Prefix_composite_music:
 	| mode_changing_head_with_context optional_context_mod Grouped_music_list {
 		$$ = context_spec_music ($1, get_next_unique_context (),
 					 $3, $2);
-		if ($1 == ly_symbol2scm ("FiguredBass"))
+		if ($1 == ly_symbol2scm ("ChordNames"))
 		{
-		  Music *chm = MY_MAKE_MUSIC ("UntransposableMusic");
+		  Music *chm = MY_MAKE_MUSIC ("UnrelativableMusic");
 		  chm->set_property ("element", $$->self_scm ());
 		  scm_gc_unprotect_object ($$->self_scm ());
 		  $$ = chm;

@@ -1,5 +1,10 @@
 2004-10-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/parser.yy (Prefix_composite_music): 
+	oops. Chords should be unrelativable, not bass figures untransposable.
+
+	* VERSION: 2.3.26 released.
+	
 	* lily/completion-note-heads-engraver.cc (try_music): only return
 	something when is_first_ is true. Fixes lyrics with completion_heads. 
 

@@ -26,5 +26,5 @@
     (head-slur-distance-max-ratio . 3)
     (head-slur-distance-factor . 10)
     (absolute-closeness-measure . 0.3)
-    (edge-slope-exponent . 2)
+    (edge-slope-exponent . 1.7)
     ))

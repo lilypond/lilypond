@@ -155,6 +155,7 @@ scrollkeeper-update
 %{_bindir}/midi2ly
 %{_bindir}/lilypond-book
 %{_bindir}/mup2ly
+%{_bindir}/ps2png
 
 %doc THANKS
 %doc COPYING
@@ -176,6 +177,7 @@ scrollkeeper-update
 %{_mandir}/man1/midi2ly.1.gz
 %{_mandir}/man1/lilypond-book.1.gz
 %{_mandir}/man1/mup2ly.1.gz
+%{_mandir}/man1/ps2png.1.gz
 
 %{_datadir}/lilypond/@TOPLEVEL_VERSION@/
 %{_datadir}/locale/*/LC_MESSAGES/lilypond.mo
