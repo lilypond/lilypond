@@ -5,7 +5,7 @@ enteredby =	 "HWN,JCN";
 copyright =	 "public domain";
 Tested =	 "test the Collision resolution ";
 }
-\version "1.1.52";
+\version "1.1.66";
 
 twovoice = \context Staff \notes < 
 	\context Voice=i { \stemdown c4 d e f g2~  g4 a [c8 d e f] c2| }
@@ -33,11 +33,39 @@ chordstest = \context Staff \notes <
 	}
 >
 
+hairyChord = \context Staff \notes\relative c' <
+     \context Voice=one {
+	\property Voice.horizontalNoteShift=0
+	\stemup 
+	e4 
+     }
+     
+     \context Voice=two {
+	\stemup
+	\property Voice.horizontalNoteShift=1
+	cis
+     }
+     
+     \context Voice=three {
+	\property Voice.horizontalNoteShift=2
+	\stemup 
+	ais
+     }
+     
+     \context Voice=four {
+        \stemdown
+	\property Voice.horizontalNoteShift=-1
+	fis
+     }
+>
+
+
 \score{
 	\notes \transpose c'' {  \twovoice  
 	\twovoicesteminvert 
-	\threevoice
-	\break \chordstest
+	\threevoice \break
+	 \chordstest
+	 \hairyChord
 	}
 	
 %	\midi { \tempo 4:80 }

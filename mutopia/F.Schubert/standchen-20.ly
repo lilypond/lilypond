@@ -10,7 +10,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 } 
 
-\version "1.1.52";
+\version "1.1.66";
 
 % fool make-website
 % \include "standchen.ly";

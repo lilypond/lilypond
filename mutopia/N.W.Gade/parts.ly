@@ -11,7 +11,7 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
 % Process with 'ly2dvi -s parts.ly' to get the separate parts.
 
 
-\version "1.1.52";
+\version "1.1.66";
 
 \include "global.ly"
 \include "wood.ly"

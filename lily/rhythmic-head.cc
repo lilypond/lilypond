@@ -35,8 +35,6 @@ Rhythmic_head::do_post_processing ()
 {
   if (dots_l_)
     {
-      if (stem_l_)
-	dots_l_->resolve_dir_ = stem_l_->dir_;
       dots_l_->position_i_ = position_i_;
     }
 }

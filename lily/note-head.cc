@@ -74,6 +74,8 @@ Note_head::do_brew_molecule_p() const
   
   Molecule*  out = new Molecule (lookup_l()->notehead (balltype_i_, type));
 
+  Box b = out->dim_;
+
   if (streepjes_i) 
     {
       Direction dir = sign (position_i_);
@@ -94,7 +96,8 @@ Note_head::do_brew_molecule_p() const
 	  out->add_molecule (s);
 	}
     }
-  
+
+  out->dim_ = b;
   out->translate_axis (inter_f*position_i_, Y_AXIS);
   return out;
 }

@@ -15,7 +15,7 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.1.55";
+\version "1.1.66";
 
 \include "courante-urtext.ly";
 

@@ -1,4 +1,4 @@
-\version "1.1.52";
+\version "1.1.66";
 
 \score{
 	\notes{
@@ -7,7 +7,7 @@
 		c( d e )c |
 		\slurnormal
 		c( d e )c |
-		\property Voice.slurdash = 3
+		\property Voice.slurDash = 3
 		c( d e )c |
 		\slurnormal
 		c( d e )c |

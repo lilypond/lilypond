@@ -12,13 +12,13 @@
 #include "debug.hh"
 #include "warn.hh"
 #include "dimensions.hh"
+#include "dimension-cache.hh"
 
 Staff_side_element::Staff_side_element ()
 {
   dir_ = CENTER;
   to_position_l_ = 0;
   set_elt_property (transparent_scm_sym, SCM_BOOL_T);
-  staff_support_b_ = true;
   axis_ = Y_AXIS;
 }
 
@@ -103,14 +103,23 @@ Staff_side_element::position_self ()
     ? to_position_l_->extent (axis_)
     : Interval(0,0);
 
-  Real off = dim_cache_[axis_]->relative_coordinate (common);
+  Real off =  dim_cache_[axis_]->relative_coordinate (common);
+ 
+
 
   SCM pad = remove_elt_property (padding_scm_sym);
   if (pad != SCM_BOOL_F)
     {
       off += gh_scm2double (SCM_CDR(pad)) * dir_;
     }
-  Real total_off = dim[dir_] - sym_dim[-dir_] + off;
+  Real total_off = dim[dir_] + off;
+
+  /*
+    no_staff_support_scm_sym is ugh bugfix to get staccato dots right.
+   */
+  if (to_position_l_ && to_position_l_->get_elt_property (no_staff_support_scm_sym) == SCM_BOOL_F)
+     total_off += - sym_dim[-dir_];
+  
   dim_cache_[axis_]->set_offset (total_off);
   if (fabs (total_off) > 100 CM)
     programming_error ("Huh ? Improbable staff side dim.");
@@ -127,7 +136,7 @@ Staff_side_element::do_post_processing ()
 void
 Staff_side_element::do_add_processing ()
 {
-  if (staff_support_b_
+  if (get_elt_property (no_staff_support_scm_sym) == SCM_BOOL_F
       && axis_ == Y_AXIS && staff_symbol_l ())
     {
       add_support (staff_symbol_l ());

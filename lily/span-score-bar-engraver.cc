@@ -10,6 +10,7 @@
 #include "span-bar.hh"
 #include "span-score-bar-engraver.hh"
 #include "paper-def.hh"
+#include "dimension-cache.hh"
 
 Span_bar*
 Span_score_bar_engraver::get_span_bar_p () const

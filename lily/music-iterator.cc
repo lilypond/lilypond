@@ -21,7 +21,7 @@
 #include "time-scaled-music-iterator.hh"
 #include "time-scaled-music.hh"
 #include "context-specced-music.hh"
-#include "new-repeated-music.hh"
+#include "repeated-music.hh"
 #include "folded-repeat-iterator.hh"
 #include "unfolded-repeat-iterator.hh"
 #include "grace-iterator.hh"

@@ -33,4 +33,4 @@ source = "Petits Preludes et Fugues.  Urtext. Editions Henry Lemoine, Paris.";
 }
 }
 
-\version "1.1.52"; 
+\version "1.1.66"; 

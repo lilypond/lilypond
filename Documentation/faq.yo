@@ -507,7 +507,39 @@ is by no means finished.  Patches appreciated.
 
 sect(Copyright)
 
-COMMENT(look out: can't have line breaks in subsect() macro)
+
+question(What is Urtext?  Critical Edition?)
+
+Peter Chubb <peterc@aurema.com> writes:
+
+An Urtext is a reconstruction of the earliest form of a text,
+including mistakes the original author wrote.  Where there is no
+available facsimile of the original, creating this can involve some
+inspired detective work (in comparing various later editions and
+trying to deduce what the original form was).  As far as copyright
+goes, my guess is that, for works that are otherwise out of copyright,
+an Urtext is copyright to the person who reconstructed it, as a
+derived work from the editions s/he consulted.  If the edition is
+created directly from a facsimile, as would be the case for most
+Urtext editions of music, then the amount of new (copyright) material
+is minimal.
+
+A critical edition is an edition that is designed for critical
+study of a text.  It'll usually have lots of footnotes, alternative
+readings, possible realisations of bass parts and harmonies, etc.  It
+aims to elucidate the author's original intentions, as opposed to
+reproduce exactly what was written.  The critical apparatus will be
+copyright to its author.
+
+A playing edition is one that has been edited for modern usage.
+It'll have fewer or no alternative readings, it'll be in modern
+notation, it may have additional editorial marks (phrase marks, slurs,
+etc.) will often have a fully realised basso continuo part (if oone
+was present in the original) and may have had key changes, time
+signature changes, time compression (original in 4/1, playing edition
+in 4/4, for example, with all semibreves replaced with crotchets)
+Copyright is in the arranger/editor.
+
 question(How does copyright for sheet music work? Can I enter and spread my newly bought Bach urtext?) 
 
 Silas S. Brown <ssb22@hermes.cam.ac.uk>:
@@ -599,6 +631,7 @@ pages which don't contain editorial stuff which is probably
 copyrighted.
 
 A very unfortunate situation for the publishers.
+
 
 
 

@@ -58,6 +58,9 @@ find_notename_i (Array<Musical_pitch> const* pitch_arr_p, Musical_pitch p)
   return i;
 }
 
+/*
+  trap (NL) != trap(english)
+ */
 static int
 trap_i (Musical_pitch tonic, Musical_pitch p)
 {

@@ -9,6 +9,7 @@
 
 #include "grace-align-item.hh"
 #include "lookup.hh"
+#include "paper-column.hh"
 
 Grace_align_item::Grace_align_item ()
 {
@@ -21,6 +22,8 @@ Grace_align_item::do_pre_processing ()
 {
   Real nhw = lookup_l ()->notehead (2, "").dim_[X_AXIS].length();
   threshold_interval_[MIN] = nhw* 1.5;
+  column_l ()->set_elt_property (contains_grace_scm_sym, SCM_BOOL_T);
+
   
   Axis_align_item::do_pre_processing ();
   Note_head_side::do_pre_processing ();
@@ -33,4 +36,8 @@ Grace_align_item::do_substitute_element_pointer (Score_element*o, Score_element*
 {
   Axis_align_item::do_substitute_element_pointer (o,n);
   Note_head_side::do_substitute_element_pointer( o,n);
+}
+void
+Grace_align_item::do_add_processing ()
+{
 }

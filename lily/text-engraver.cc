@@ -6,6 +6,7 @@
   (c) 1998--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
+#include "dimension-cache.hh"
 
 #include "engraver.hh"
 #include "staff-side.hh"

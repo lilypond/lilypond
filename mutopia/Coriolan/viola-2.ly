@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.1.52";
+\version "1.1.66";
 
 viola2 = \notes \relative c {
 	% starts on (actualy, most part is on) same staff as viola1

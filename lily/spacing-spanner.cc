@@ -69,7 +69,7 @@ Spacing_spanner::do_measure (int col1, int col2) const
 
   Array<Spring> meas_springs;
 
-  Real non_musical_space_strength = paper_l ()->get_var ("non_musical_space_strength");
+  Real non_musical_space_strength = paper_l ()->get_var ("breakable_column_space_strength");
   for (int i= col1; i < col2; i++)
     {
       Item * l = scol(i);
@@ -112,15 +112,20 @@ Spacing_spanner::do_measure (int col1, int col2) const
 	    }
 
 	  s.distance_f_ = left_distance;
+
 	  /*
-	    Only do tight spaces *after* barlines, not before.
+	    Only do tight spaces *after* barlines (breakable columns),
+	    not before.
 
 	    We want the space before barline to be like the note
 	    spacing in the measure.
 	  */
-	  if (!lc->musical_b ())
+	  if (lc->breakable_b () || lc->original_l_)
 	    s.strength_f_ = non_musical_space_strength;
+	  else if (!lc->musical_b ())
+	    left_distance *= paper_l ()->get_var ("decrease_nonmus_spacing_factor");
 
+	  
 	  Real right_dist = 0.0;
 	  if (next_hint != SCM_BOOL_F)
 	    {
@@ -137,8 +142,15 @@ Spacing_spanner::do_measure (int col1, int col2) const
 	    don't want to create too much extra space for accidentals
 	  */
 	  if (lc->musical_b () && rc->musical_b ())
-	    right_dist /= 2.0;
+	    {
+	      if (rc->get_elt_property (contains_grace_scm_sym) == SCM_BOOL_F)
+		right_dist *= paper_l ()->get_var ("musical_to_musical_left_spacing_factor");
+	    }
 
+	  if (rc->musical_b () && rc->get_elt_property (contains_grace_scm_sym) != SCM_BOOL_F)
+	    right_dist *= paper_l ()->get_var ("before_grace_spacing_factor");
+ 
+ 
 	  s.distance_f_ = left_distance + right_dist;
 	    
 	  Real stretch_dist = 0.;

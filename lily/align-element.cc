@@ -11,6 +11,7 @@
 #include "direction.hh"
 #include "debug.hh"
 #include "hash-table-iter.hh"
+#include "dimension-cache.hh"
 
 struct Align_element_content {
   Graphical_element * elem_l_;

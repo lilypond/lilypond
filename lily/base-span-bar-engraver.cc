@@ -6,6 +6,7 @@
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "dimension-cache.hh"
 #include "lily-guile.hh"
 #include "span-bar.hh"
 #include "base-span-bar-engraver.hh"

@@ -9,22 +9,8 @@ Most of the items are marked in the code as well
 Grep -i for TODO, FIXME and ugh/ugr/urg.  
 
 .* TODO before 1.2
-. * align left edge of broken (de)cresc/slur/tie/tuplet/volta
-. * auto-staff-switching.
-. * staccato-dot placement/quantisation is broken again
-. * warning if feta-nummer.tfm not found
-. * broken examples:
-input/star-spangled-banner.ly: hw?
-. * spacing of accidentals
-. * key restorations & repeats
-. * rename \paper?
-. * Grace_slur_engraver.
-. * paperXX.ly \quartwidth, font setting not up to date. (Should read from AFM?)
-. * input/star-spangled-banner.ly: fold for lyrics?
 . * Break_req handling is silly (break_forbid () + \break fucks up.)
-. * account for accidentals in spacing.
-. * We need feta-din*.mf files for more sizes than 10.
-. * fix dynamics decently, ie. use kerning & ligatures.
+. * chord names.
 
 .* Cleanups needed
 . * \$ and $ identifier syntax in examples.
@@ -55,7 +41,12 @@ input/star-spangled-banner.ly: hw?
 > >
 
 .* STUFF
-. * auto melismaBusy for beams.
+. * We need feta-din*.mf files for more sizes than 10.
+. * align left edge of broken (de)cresc/slur/tie/tuplet/volta
+. * fix dynamics decently, ie. use kerning & ligatures.
+. * key restorations & repeats
+. * paperXX.ly \quartwidth, font setting not up to date. (Should read from AFM?)
+. * * auto melismaBusy for beams.
 . *In Caro Mio Ben, bar 8, there's a syllable that starts on a note, and
 ends on a pair of grace notes.  Standard practice is to mark this with
 a slur starting on the main note and ending on the grace note, so a
@@ -276,8 +267,6 @@ spec. Is this a bug in afm2tfm?)
 	  f = fopen ("/dev/null", "r")
 	  assert (feof (f))
 . * tetex: mfplain.mem
-. * timesig: sometimes bottom digit  too high: Xdvi doesn't handle
-    newly created fonts correctly.
 
 .* PROJECTS
 . * Scripts:

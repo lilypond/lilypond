@@ -8,9 +8,10 @@ $(outdir)/%.dvi: $(outdir)/%.tex
 $(outdir)/%.dvi: $(outdir)/%.latex
 	(cd $(outdir)&& \
 	  latex \\nonstopmode \\input $(<F)&&\
-	  (bibtex $(basename $(<F) || true)&&\
+	  (bibtex $(basename $(<F)) || true) && \
+	  (makeindex $(basename $(<F)) || true) && \
 	  latex \\nonstopmode \\input $(<F)&&\
-	  latex \\nonstopmode \\input $(<F) ))
+	  latex \\nonstopmode \\input $(<F) )
 
 $(outdir)/%.ps: $(outdir)/%.dvi
 	dvips -ta4 -o $@ $<

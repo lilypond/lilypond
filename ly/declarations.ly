@@ -8,8 +8,6 @@ longa = \duration { -2 0 }
 \include "script.ly"
 
 
-Gourlay = 1.0
-Wordwrap = 0.0
 % declarations for standard directions
 left = -1
 right = 1

@@ -40,7 +40,7 @@
 #include "lyric-combine-music.hh"
 #include "transposed-music.hh"
 #include "time-scaled-music.hh"
-#include "new-repeated-music.hh"
+#include "repeated-music.hh"
 #include "mudela-version.hh"
 #include "grace-music.hh"
 
@@ -231,7 +231,7 @@ yylex (YYSTYPE *s,  void * v_l)
 
 %type <pitch_arr>	pitch_list
 %type <music>	chord
-%type <pitch_arr>	chord_additions chord_subtractions chord_notes chord_step
+%type <pitch_arr>	chord_additions chord_substractions chord_notes chord_step
 %type <pitch>	chord_note chord_inversion
 %type <midi>	midi_block midi_body
 %type <duration>	duration_length
@@ -719,7 +719,7 @@ Repeated_music:
 		Repeated_music * r = new Repeated_music ($4, $3 >? 1, m);
 		$$ = r;
 		r->fold_b_ = (*$2 == "fold");
-		r->semi_fold_b_ =  (*$2 == "semi");
+		r->volta_fold_b_ =  (*$2 == "volta");
 		delete $2;
 		r->set_spot ($4->spot  ());
 	}
@@ -1447,7 +1447,7 @@ simple_element:
 	;
 
 chord:
-	steno_tonic_pitch optional_notemode_duration chord_additions chord_subtractions chord_inversion {
+	steno_tonic_pitch optional_notemode_duration chord_additions chord_substractions chord_inversion {
                 $$ = THIS->get_chord (*$1, $3, $4, $5, *$2);
         };
 
@@ -1470,7 +1470,7 @@ chord_notes:
 	}
 	;
 
-chord_subtractions: 
+chord_substractions: 
 	{
 		$$ = new Array<Musical_pitch>;
 	} 
@@ -1479,10 +1479,6 @@ chord_subtractions:
 	}
 	;
 
-
-/*
-	forevery : X : optional_X sucks. Devise  a solution.
-*/
 
 chord_inversion:
 	{
@@ -1522,7 +1518,7 @@ chord_note:
 		$$->octave_i_ = $1 > 7 ? 1 : 0;
 		$$->accidental_i_ = 1;
 	}
-	| unsigned '-' {
+	| unsigned CHORD_MINUS {
 		$$ = new Musical_pitch;
 		$$->notename_i_ = ($1 - 1) % 7;
 		$$->octave_i_ = $1 > 7 ? 1 : 0;

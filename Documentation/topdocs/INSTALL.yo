@@ -92,9 +92,8 @@ the proper paths for the bourne and C-shell respectively are generated in
 file(buildscripts/out/lilypond-profile) and
 file(buildscripts/out/lilypond-login) during compilation. 
 
-LilyPond is a hideously slow program.  A fast CPU and plenty of RAM is
-recommended for comfortable use.
-
+LilyPond is a hiddeously big, slow and bloated program.  A fast CPU
+and plenty of RAM is recommended for comfortable use.
 
 sect(WEBSITE)
 
@@ -133,7 +132,7 @@ man2html can be had from lurl(http://askdonald.ask.uni-karlsruhe.de/hppd/hpux/Ne
 The website will build without this utility, but you will not see our
 hypertextified bibliography.
 
-    TeTeX users should not forget to rerun texhash.
+
 )
 
 You also have to install file(buildscripts/out/ps-to-gifs) in a
@@ -265,38 +264,6 @@ it()The -O2 option  triggers  bugs on various platforms (PowerPC, Alpha).
 it() On PPC you need at least EGCS-1.1.2f.
 )
 
-nsect(EXAMPLE)
-
-This is what I type in my xterm:
-
-verb(
-	lilypond someinput.ly
-	tex someinput.tex
-	xdvi someinput&
-)
-
-This is what the output looks like over here:
-
-verb(
-	GNU LilyPond 0.0.78 #4/FlowerLib 1.1.24 #0
-	Parsing ... [/home/hw/share/lilypond/init//
-		<..etc..>
-		init//performer.ly]]][input/kortjakje.ly]
-	Creating elements ...[8][16][24][25]
-	Preprocessing elements... 
-	Calculating column positions ... [14][25]
-	Postprocessing elements...
-	TeX output to someinput.tex ...
-	Creating MIDI elements ...MIDI output to someinput.midi ...
-
-
-	hw:~/musix/spacer$ xdvi someinput&
-	[1] 855
-)
-
-Check out the input files, some of them have comments
-Please refer to the man page for more information.
-
 sect(REDHAT LINUX)
 
 RedHat Linux users can compile an RPM. A spec file is in
@@ -310,8 +277,7 @@ verb(
 )
 
 Precompiled i386 RedHat RPMS are available from
-lurl(http://linux.umbc.edu/software/lilypond/rpms/).
-
+lurl(ftp://freshmeat.net/pub/rpms/lilypond/).
 
 
 sect(DEBIAN GNU/LINUX)
@@ -333,6 +299,8 @@ sect(AUTHORS)
 nemail(Han-Wen Nienhuys)(hanwen@cs.uu.nl)
 
 nemail(Jan Nieuwenhuizen)(janneke@gnu.org)
+
+In case of problems, please use the mailing list for help.
 
 
 Have fun!

@@ -1,5 +1,5 @@
 /*   
-  new-repeated-music-iterator.cc --  implement Folded_repeat_iterator
+  repeated-music-iterator.cc --  implement Folded_repeat_iterator
   
   source file of the GNU LilyPond music typesetter
   
@@ -8,7 +8,7 @@
  */
 
 #include "folded-repeat-iterator.hh"
-#include "new-repeated-music.hh"
+#include "repeated-music.hh"
 #include "music-list.hh"
 #include "simultaneous-music-iterator.hh"
 #include "translator-group.hh"

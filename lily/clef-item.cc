@@ -14,6 +14,7 @@
 #include "lookup.hh"
 #include "text-item.hh"
 #include "paper-score.hh"
+#include "dimension-cache.hh"
 
 void
 Clef_item::do_pre_processing()

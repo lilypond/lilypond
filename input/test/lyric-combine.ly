@@ -7,7 +7,7 @@ enteredby =	 "HWN, chords by Johan Vromans";
 copyright =	 "public domain";
 }
 
-\version "1.1.52";
+\version "1.1.66";
 
 m =\notes  \relative c'' {
 	\property Staff.automaticMelismas = "1"

@@ -25,7 +25,7 @@ needs what, and what information should be available when.
 #include <math.h>
 
 #include "chord-tremolo.hh"
-#include "new-beaming.hh"
+#include "beaming.hh"
 #include "proto.hh"
 #include "dimensions.hh"
 #include "beam.hh"

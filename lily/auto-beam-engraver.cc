@@ -6,7 +6,7 @@
   (c) 1999 Jan Nieuwenhuizen <janneke@gnu.org>
   
  */
-#include "new-beaming.hh"
+#include "beaming.hh"
 #include "auto-beam-engraver.hh"
 #include "musical-request.hh"
 #include "bar.hh"

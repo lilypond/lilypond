@@ -1,5 +1,5 @@
 /*   
-  new-repeated-music.cc --  implement Repeated_music
+  repeated-music.cc --  implement Repeated_music
   
   source file of the GNU LilyPond music typesetter
   
@@ -7,7 +7,7 @@
   
  */
 
-#include "new-repeated-music.hh"
+#include "repeated-music.hh"
 #include "music-list.hh"
 #include "musical-pitch.hh"
 #include "debug.hh"
@@ -18,7 +18,7 @@ Repeated_music::Repeated_music(Music *beg, int times, Music_sequence * alts)
   fold_b_ = false;
   repeats_i_ = times;
   alternatives_p_ = alts;
-  semi_fold_b_ = true;
+  volta_fold_b_ = true;
   if (alts)
     alts->music_p_list_p_->truncate (times);
 }
@@ -28,7 +28,7 @@ Repeated_music::Repeated_music (Repeated_music const &s)
 {
   repeats_i_ = s.repeats_i_;
   fold_b_ = s.fold_b_;
-  semi_fold_b_ = s.semi_fold_b_;
+  volta_fold_b_ = s.volta_fold_b_;
   
   repeat_body_p_ = s.repeat_body_p_ ? s.repeat_body_p_->clone () : 0;
   alternatives_p_ = s.alternatives_p_
@@ -122,7 +122,7 @@ Repeated_music::length_mom () const
   else
     {
       Moment beg = (repeat_body_p_) ? repeat_body_p_->length_mom () : Rational(0);
-      if (!semi_fold_b_)
+      if (!volta_fold_b_)
 	beg *=  Rational (repeats_i_);
       m += beg;
     }

@@ -4,7 +4,7 @@
 	piece = "Allemande";
 }
 
-\version "1.1.52";
+\version "1.1.66";
 
 global = \notes{
 	\time 4/4;

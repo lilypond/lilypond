@@ -11,6 +11,7 @@
 #include "note-head.hh"
 #include "paper-def.hh"
 #include "ly-symbols.hh"
+#include "tuple.hh"
 
 Collision::Collision()
 {
@@ -25,6 +26,26 @@ Collision::add_column (Note_column* ncol_l)
   add_dependency (ncol_l);
 }
 
+void
+Collision::do_pre_processing()
+{
+  Array<Shift_tup> autos (automatic_shift ());
+  Array<Shift_tup> hand (forced_shift ());
+  Link_array<Note_column> done;
+  
+  Real wid = paper_l ()->note_width ();
+  for (int i=0; i < hand.size (); i++)
+    {
+      hand[i].e1_->translate_axis (hand[i].e2_ *wid, X_AXIS);
+      done.push (hand[i].e1_);
+    }
+
+  for (int i=0; i < autos.size (); i++)
+    {
+      if (!done.find_l (autos[i].e1_))
+	autos[i].e1_->translate_axis (autos[i].e2_ * wid, X_AXIS);
+    }
+}
 
 /** This complicated routine moves note columns around horizontally to
   ensure that notes don't clash.
@@ -34,11 +55,13 @@ Collision::add_column (Note_column* ncol_l)
   TODO: forced hshift
   
   */
-void
-Collision::do_pre_processing()
+Array< Shift_tup >
+Collision::automatic_shift ()
 {
   Drul_array<Link_array<Note_column> > clash_groups;
   Drul_array<Array<int> > shifts;
+  Array<Shift_tup>  tups;
+
   
   for (int i=0; i < clash_l_arr_.size(); i++)
     {
@@ -70,7 +93,7 @@ Collision::do_pre_processing()
 	  if (shift[i-1] == shift[i])
 	    {
 	      warning (_ ("Too many clashing notecolumns. Ignoring them."));
-	      return;
+	      return tups;
 	    }
 	}
     }
@@ -136,29 +159,34 @@ Collision::do_pre_processing()
 	  }
 	  while ((flip (&d))!= UP);
     }
+
+
   do
     {
       for (int i=0; i < clash_groups[d].size (); i++)
-	{
-	  SCM force =  clash_groups[d][i]->remove_elt_property (force_hshift_scm_sym);
-	  if (force != SCM_BOOL_F)
-	    {
-	      force = SCM_CDR (force);
-	      offsets[d][i] = gh_scm2double (force);
-	    }
-	}
-    }
-  while ((flip (&d))!= UP);
-  
-  Real wid_f = paper_l ()->note_width ();
-  do
-    {
-      for (int i=0; i < clash_groups[d].size (); i++)
-	{
-	  clash_groups[d][i]->translate_axis (offsets[d][i]*wid_f, X_AXIS);
-	}
+	tups.push (Shift_tup (clash_groups[d][i], offsets[d][i]));
     }
   while (flip (&d) != UP);
+  return tups;
+}
+
+
+Array <Shift_tup>
+Collision::forced_shift ()
+{
+  Array<Shift_tup> tups;
+  
+  for (int i=0; i < clash_l_arr_.size (); i++)
+    {
+      SCM force =  clash_l_arr_[i]->remove_elt_property (force_hshift_scm_sym);
+      if (force != SCM_BOOL_F)
+	{
+	  force = SCM_CDR (force);
+	  tups. push (Shift_tup (clash_l_arr_[i],
+						 gh_scm2double (force)));
+	}
+    }
+  return tups;
 }
 
 

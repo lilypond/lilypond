@@ -133,17 +133,17 @@ Dynamic_engraver::do_process_requests()
 	      staff_side_p_->dir_ = (Direction) (int) prop;
 	    }
 
-     prop = get_property ("dynamicPadding", 0);
-         if (prop.isnum_b ())
-           {
-             staff_side_p_->set_elt_property (padding_scm_sym, 
-                                              gh_double2scm(Real(prop)));
-           }
+	  prop = get_property ("dynamicPadding", 0);
+	  if (prop.isnum_b ())
+	    {
+	      staff_side_p_->set_elt_property (padding_scm_sym, 
+					       gh_double2scm(Real(prop)));
+	    }
 	  announce_element (Score_element_info (text_p_, absd));
 	  announce_element (Score_element_info (staff_side_p_, absd));
 	}
       else if (Span_req *span_l
-	       	       = dynamic_cast <Span_req *> (dynamic_req_l_arr_[i]))
+	       = dynamic_cast <Span_req *> (dynamic_req_l_arr_[i]))
 	{
 	  if (span_l->span_dir_ == STOP)
 	    {

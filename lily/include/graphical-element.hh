@@ -14,9 +14,6 @@
 #include "lily-proto.hh"
 #include "interval.hh"
 #include "virtual-methods.hh"
-#include "dimension-cache.hh"
-
-
 
 /** The 2d geometric aspects of a score-element.  It was put in a
   separate class, because Score_element got quite big.

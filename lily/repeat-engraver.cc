@@ -14,7 +14,7 @@
 #include "command-request.hh"
 #include "time-description.hh"
 #include "engraver-group-engraver.hh"
-#include "new-repeated-music.hh"
+#include "repeated-music.hh"
 #include "time-description.hh"
 #include "volta-spanner.hh"
 #include "note-column.hh"
@@ -31,7 +31,7 @@ Repeat_engraver::do_try_music (Music* m)
       if (repeated_music_l_)
 	return false;
       
-      if (r->semi_fold_b_)
+      if (r->volta_fold_b_)
 	{
 	  repeated_music_l_ = r;
 	}

@@ -9,6 +9,7 @@
 #include "note-column.hh"
 #include "collision-engraver.hh"
 #include "collision.hh"
+#include "dimension-cache.hh"
 
 void
 Collision_engraver::process_acknowledged ()

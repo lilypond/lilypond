@@ -11,7 +11,7 @@ copyright =	 "Public Domain";
 %{
 TODO: use autobeaming.	
 %}
-\version "1.1.52";
+\version "1.1.66";
 
 
 tenor =
