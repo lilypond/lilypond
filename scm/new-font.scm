@@ -1,6 +1,14 @@
 ;; As an excercise, do it with records.
 ;; Should use GOOPS, really.
 
+;; TODO:
+;;
+;; lookup-font should be written in  C.
+;;
+;; should dump tree to .texi as internal documentation
+;; 
+
+
 (define font-tree-record
   (make-record-type
    "font-tree-node"
@@ -114,6 +122,8 @@
 		   (lookup-font (hashq-ref (font-tree-children node)
 					   def) alist-chain)))
 	 )
+      (if (equal? (chain-assoc-get  'font-family alist-chain) 'sans)
+	  (display (list "...........\n" node alist-chain)))
       
       font))
    (else node))
@@ -170,9 +180,9 @@
        (add-font
 	n
 	`((font-encoding . text)
-	  (font-series . ,(vector-ref (car x) 0))
+	  (font-series . ,(vector-ref (car x) 2))
 	  (font-shape . ,(vector-ref (car x) 1))
-	  (font-family . ,(vector-ref (car x) 2)))
+	  (font-family . ,(vector-ref (car x) 0)))
 	(cons (* factor (cadr x))
 	      (cddr x))
        ))
@@ -221,6 +231,8 @@
 		  )))
        ))
     n))
+
+(display-font-node (make-font-tree 1.0))
 
 (define-public (magstep x)
   (exp (* (/ x 6) (log 2))))

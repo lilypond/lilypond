@@ -178,7 +178,7 @@ Dynamic_engraver::process_music ()
 	  cresc_ = 0;
 	  current_cresc_ev_ = 0;
 	}
-      else if (accepted_spanreqs_drul_[STOP] )
+      else if (accepted_spanreqs_drul_[STOP])
 	{
 	  accepted_spanreqs_drul_[STOP]->origin ()->warning (_ ("can't find start of (de)crescendo"));
 	  stop_ev = 0;

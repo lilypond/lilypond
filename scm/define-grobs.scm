@@ -310,7 +310,7 @@
 			  (print-function . ,Percent_repeat_item_interface::double_percent)
 			  (breakable . #t)
 			  (slope . 1.0)
-			  (font-family . music)
+			  (font-encoding . music)
 			  (width . 2.0)
 			  (thickness . 0.48)
 			  (break-align-symbol . staff-bar)
@@ -330,7 +330,7 @@
 	(no-spacing-rods . #t)
 	(script-priority . 100)
 	(font-series . bold)
-	(font-family . dynamic)
+	(font-encoding . dynamic)
 	(font-shape . italic)
 	(self-alignment-Y . 0)
 	(meta . ((interfaces . (font-interface text-interface self-alignment-interface  dynamic-interface script-interface item-interface))))
@@ -375,20 +375,23 @@
 	(self-alignment-X . 0)
 	(self-alignment-Y . 0)
 	(script-priority . 100)
-	(font-family . number)
+	(font-encoding . number)
 	(font-size . -5) 		; don't overlap when next to heads.
 	(font-shape . upright)
 	(meta . ((interfaces . (finger-interface font-interface text-script-interface text-interface side-position-interface self-alignment-interface item-interface ))))
 	))
 
-
-    (RemoveEmptyVerticalGroup
+    (Glissando
      . (
-	(Y-offset-callbacks . (,Hara_kiri_group_spanner::force_hara_kiri_callback))
-	(Y-extent-callback . ,Hara_kiri_group_spanner::y_extent)
-	(remove-first . #t)
-	(axes . (1))
-	(meta . ((interfaces . (axis-group-interface hara-kiri-group-interface item-interface  spanner-interface))))
+	(style . line)
+	(gap . 0.5)
+	(zigzag-width . 0.75)
+	(breakable . #t)
+	(X-extent-callback . #f)
+	(Y-extent-callback . #f)			 
+	(after-line-breaking-callback . ,Line_spanner::after_line_breaking)
+	(print-function . ,Line_spanner::print)
+	(meta . ((interfaces . (line-spanner-interface spanner-interface))))
 	))
 
     (Hairpin
@@ -430,7 +433,6 @@
 	(break-align-symbol . instrument-name)
 	(break-visibility . ,begin-of-line-visible)
 	(baseline-skip . 2)
-	(font-family . roman)
 	(meta . ((interfaces . (font-interface self-alignment-interface side-position-interface text-interface break-aligned-interface item-interface ))))
 	))
     
@@ -445,7 +447,6 @@
 	(break-align-symbol . clef)
 	(break-visibility . ,begin-of-line-visible)
 	(baseline-skip . 2)
-	(font-family . roman)
 	(meta . ((interfaces . (font-interface
 				self-alignment-interface
 				side-position-interface text-interface
@@ -511,9 +512,7 @@
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_parent))
 	(self-alignment-X . 0)
 	(word-space . 0.6)
-	(font-family . roman)
 	(font-series . bold-narrow)
-	(font-shape . upright)
 	(font-size . 1.0)
 	(meta . ((interfaces . (rhythmic-grob-interface lyric-syllable-interface self-alignment-interface text-interface font-interface item-interface ))))
 	))
@@ -537,7 +536,6 @@
 	(direction . 1)
 	(breakable . #t)
 	(font-size . 2)
-	(font-family . roman)
 	(baseline-skip . 2)
 	(break-visibility . ,end-of-line-invisible)
 	(padding . 0.8)
@@ -549,7 +547,6 @@
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))	
 	(direction . 1)
 	(breakable . #t)
-	(font-family . roman)
 	(break-visibility . ,end-of-line-invisible)
 	(padding . 0.8)
 	(meta . ((interfaces . (text-interface side-position-interface font-interface metronome-mark-interface item-interface))))
@@ -588,7 +585,7 @@
 	(direction . 1)
 	(padding . 1.3)
 	(staff-padding . 1.3)
-	(font-family . number)
+	(font-encoding . number)
 	(meta . ((interfaces . (side-position-interface multi-measure-interface self-alignment-interface font-interface spanner-interface text-interface))))
 	))
     (MultiMeasureRestText
@@ -601,7 +598,6 @@
 	(direction . 1)
 	(padding . 1.5)
 	(staff-padding . 1.5)
-	(font-family . roman)
 	(meta . ((interfaces . (side-position-interface multi-measure-interface self-alignment-interface font-interface spanner-interface text-interface))))
 	))
  (NoteCollision
@@ -633,17 +629,15 @@
 	(meta . ((interfaces . (rhythmic-grob-interface rhythmic-head-interface font-interface note-head-interface staff-symbol-referencer-interface item-interface ))))
 	))
 
-    (Glissando
+    (NoteSpacing
      . (
-	(style . line)
-	(gap . 0.5)
-	(zigzag-width . 0.75)
-	(breakable . #t)
-	(X-extent-callback . #f)
-	(Y-extent-callback . #f)			 
-	(after-line-breaking-callback . ,Line_spanner::after_line_breaking)
-	(print-function . ,Line_spanner::print)
-	(meta . ((interfaces . (line-spanner-interface spanner-interface))))
+	(stem-spacing-correction . 0.5)
+
+	;; Changed this from 0.75.
+	;; If you ever change this back, please document! --hwn
+	(knee-spacing-correction . 1.0)
+	
+	(meta . ((interfaces . (spacing-interface note-spacing-interface item-interface ))))
 	))
 
     (VoiceFollower
@@ -661,7 +655,6 @@
     (NoteName
      . (
 	(print-function . ,Text_item::print)
-	(font-family . roman)
 	(meta . ((interfaces . (note-name-interface
 				text-interface font-interface item-interface ))))
 	))
@@ -677,7 +670,6 @@
 	(padding . 0.4)
 	(staff-padding . 0.2)
 	(font-size . -4)
-	(font-family . roman)
 	(meta . ((interfaces . (text-interface self-alignment-interface side-position-interface font-interface item-interface ))))
 	))
 
@@ -735,14 +727,13 @@
 	(print-function . ,Multi_measure_rest::percent)
 	(slope . 1.0)
 	(thickness . 0.48)
-	(font-family . music)
+	(font-encoding . music)
 	(meta . ((interfaces . (multi-measure-rest-interface  spanner-interface font-interface percent-repeat-interface))))
 	))
 
     (PianoPedalBracket   ;; an example of a text spanner
      . (
 	(print-function . ,Piano_pedal_bracket::print)
-	(font-family . roman)
 	(style . line)
 	(if-text-padding . 1.0)
 	(direction . -1)
@@ -751,6 +742,16 @@
 	(shorten-pair . (0.0 . 0.0))
 	(thickness .  1.0)
 	(meta . ((interfaces . (line-interface piano-pedal-interface piano-pedal-bracket-interface spanner-interface))))
+	))
+
+
+    (RemoveEmptyVerticalGroup
+     . (
+	(Y-offset-callbacks . (,Hara_kiri_group_spanner::force_hara_kiri_callback))
+	(Y-extent-callback . ,Hara_kiri_group_spanner::y_extent)
+	(remove-first . #t)
+	(axes . (1))
+	(meta . ((interfaces . (axis-group-interface hara-kiri-group-interface item-interface  spanner-interface))))
 	))
 
     (RepeatSlash
@@ -796,7 +797,7 @@
 	;; (script-priority . 0) priorities for scripts, see script.scm
 	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent))
 	(before-line-breaking-callback . ,Script_interface::before_line_breaking)
-	(font-family . music)
+	(font-encoding . music)
 	(meta . ((interfaces . (script-interface side-position-interface font-interface item-interface ))))
 	))
 
@@ -866,7 +867,6 @@
 
     (StanzaNumber
      . ((print-function . ,Text_item::print)		
-	(font-family . roman)
 	(font-series . bold)
 	(padding . 1.0)
 	(X-offset-callbacks . (,Side_position_interface::aligned_side))
@@ -881,16 +881,6 @@
 
 	(meta . ((interfaces . (spacing-interface staff-spacing-interface item-interface ))))
 	))
-    (NoteSpacing
-     . (
-	(stem-spacing-correction . 0.5)
-
-	;; Changed this from 0.75.
-	;; If you ever change this back, please document! --hwn
-	(knee-spacing-correction . 1.0)
-	
-	(meta . ((interfaces . (spacing-interface note-spacing-interface item-interface ))))
-	))
 
     (SostenutoPedal
      . (
@@ -899,7 +889,6 @@
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(no-spacing-rods . #t)
 	(padding . 0.0) ;; padding relative to SostenutoPedalLineSpanner
-	(font-family . roman)
 	(font-shape . italic)
 	(self-alignment-X . 0)
 	(meta . ((interfaces . (text-interface  self-alignment-interface font-interface item-interface))))
@@ -972,8 +961,7 @@
 	(X-extent-callback . ,Stem::dim_callback)	
 	(Y-extent-callback . ,Stem::height)
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
-	(font-family . music)	   
-	(meta . ((interfaces . (stem-interface  font-interface item-interface ))))
+	(meta . ((interfaces . (stem-interface font-interface item-interface ))))
 	))
 
     (StemTremolo
@@ -1037,7 +1025,7 @@
 	(glyph . "brace")
 	(print-function . ,System_start_delimiter::print)
 	(collapse-height . 5.0)
-	(font-family . braces)
+	(font-encoding . braces)
 	(Y-extent-callback . #f)
 	(meta . ((interfaces . (system-start-delimiter-interface font-interface))))
 	))
@@ -1076,8 +1064,6 @@
 	(staff-padding . 0.5)
 	(script-priority . 200)
 	;; todo: add X self alignment?
-	(baseline-skip . 2)
-	(font-family . roman)
 	(meta . ((interfaces . (text-script-interface text-interface side-position-interface font-interface item-interface ))))
 	))
     (CombineTextScript
@@ -1093,14 +1079,12 @@
 	(script-priority . 200)
 	;; todo: add X self alignment?
 	(baseline-skip . 2)
-	(font-family . roman)
 	(font-series . bold)
 	(meta . ((interfaces . (text-script-interface text-interface  side-position-interface font-interface item-interface ))))
 	))
     (TextSpanner
      . (
 	(print-function . ,Text_spanner::print)
-	(font-family . roman)
 	(font-shape . italic)
 	(style . dashed-line)
 	(staff-padding . 0.1)
@@ -1118,7 +1102,6 @@
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(print-function . ,Ottava_bracket::print)
 	(font-shape . italic)
-	(font-family . roman)
 	(shorten-pair . (0.0 . -0.6))
 	(staff-padding . 1.0)
 	(padding  . 0.5)
@@ -1133,7 +1116,6 @@
     
     (TabNoteHead
      . (
-	(font-family . roman)
 	(style . default)
 	(print-function . ,Text_item::print)
 	(Y-offset-callbacks  . (,Staff_symbol_referencer::callback))
@@ -1182,7 +1164,7 @@
 	(breakable . #t)
 	(style . C)
 ;	(text . (,time-signature-glue-markup)) 
-	(font-family . number)
+	(font-encoding . number)
 	(meta . ((interfaces . (time-signature-interface break-aligned-interface font-interface item-interface ))))
 	))
 
@@ -1196,7 +1178,6 @@
 	(before-line-breaking-callback . ,Tuplet_bracket::before_line_breaking)
 	(after-line-breaking-callback . ,Tuplet_bracket::after_line_breaking)
 	(print-function . ,Tuplet_bracket::print)
-	(font-family . roman)
 	(font-shape . italic)
 	(font-series . bold)
 
@@ -1207,7 +1188,6 @@
     (UnaCordaPedal
      . (
 	(print-function . ,Text_item::print)
-	(font-family . roman)
 	(font-shape . italic)
 	(no-spacing-rods . #t)
 	(self-alignment-X . 0)
@@ -1243,12 +1223,11 @@
 	(print-function . ,Volta_bracket_interface::print)
 	(direction . 1)
 	(padding . 1)
-	(font-family . number)
+	(font-encoding . number)
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(thickness . 1.6)  ;  linethickness
 	(height . 2.0) ; staffspace;
 	(minimum-space . 5)
-	(font-family . number)
 	(font-size . -4)
 	(meta . ((interfaces . (volta-bracket-interface line-interface text-interface side-position-interface font-interface spanner-interface))))
 	))

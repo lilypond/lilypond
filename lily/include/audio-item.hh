@@ -25,9 +25,7 @@ class Audio_item : public Audio_element
 {
 public:
   Audio_item ();
-
   Audio_column* audio_column_;
-
   
 private:
   Audio_item (Audio_item const&);

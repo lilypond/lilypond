@@ -625,16 +625,22 @@ all three mechanisms work for every object that supports
 
 
 @itemize @bullet
+@item @code{font-encoding}
+is a symbol that sets layout of the glyphs. Choices include
+@code{text} for normal text, @code{braces} (for piano staff braces),
+@code{music} (the standard music font, including ancient glyphs),
+@code{dynamic} (for dynamic signs) and @code{number} for the number
+font.
+
+
 @item @code{font-family}
  is a symbol indicating the general class of the typeface.  Supported are
-@code{roman} (Computer Modern), @code{braces} (for piano staff
-braces), @code{music} (the standard music font, including ancient
-glyphs), @code{dynamic} (for dynamic signs) and @code{typewriter}.
+@code{roman} (Computer Modern), @code{sans} and @code{typewriter}
   
 @item @code{font-shape}
-  is a symbol indicating the shape of the font, there are typically several
-  font shapes available for each font family. Choices are @code{italic},
-  @code{caps} and @code{upright}.
+  is a symbol indicating the shape of the font, there are typically
+several font shapes available for each font family. Choices are
+@code{italic}, @code{caps} and @code{upright}.
 
 @item @code{font-series}
 is a  symbol indicating the series of the font. There are typically several

@@ -106,7 +106,6 @@ Span_dynamic_performer::process_music ()
       dynamic_tuples_.push (a);
     }
 
-
   if (span_events_[STOP])
     { 
       finished_dynamic_tuples_.top ().audio_->volume_ = last_volume_;
@@ -116,7 +115,7 @@ Span_dynamic_performer::process_music ()
     {
       dynamic_tuples_[0].audio_->volume_ = last_volume_;
     }
-  span_start_event_ = 0;
+
   span_events_[START] = 0;
   span_events_[STOP] = 0;
 }
