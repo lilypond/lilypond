@@ -31,6 +31,7 @@ upperVoice =  \context Staff = upperVoice <
 	\property Voice.Porrectus \override #'solid = ##t
 	\property Voice.Porrectus \override #'add-stem = ##t
 	\property Voice.Porrectus \override #'stem-direction = #-1
+	\property Voice.Porrectus \override #'line-thickness = #0.5
 	\key es \major
 	\clef "vaticana_fa2"
 	c!1 des! e! f! ges!
@@ -44,7 +45,7 @@ upperVoice =  \context Staff = upperVoice <
 	a! b!
 	\property Staff.BarLine \override #'bar-size = #3.0 \bar "|"
 	\property Voice.NoteHead \override #'style = #'vaticana_virga
-	ces' b! ces'! \~ ges! \~ fes!
+	ces' b! des'! \~ ges! \~ fes!
 	\breathe
 	\clef "vaticana_fa1"
 	\property Voice.NoteHead \override #'style = #'vaticana_quilisma
@@ -129,7 +130,8 @@ lowerVoice =  \context Staff = lowerNotes <
 	\property Voice.Porrectus \override #'add-stem = ##t
 	\property Voice.Porrectus \override #'stem-direction = #1
 	\property Voice.Porrectus \override #'line-thickness = #0.7
-	% \property Voice.Porrectus \override #'porrectus-width = #3.0
+%	\property Voice.Porrectus \override #'auto-properties = ##t
+%	\property Voice.Porrectus \override #'porrectus-width = #3.0
 	\key a \major
 
 	% IMPORTANT NOTE:
@@ -185,11 +187,6 @@ lowerVoice =  \context Staff = lowerNotes <
 	\clef "mensural_f"
 	e2 f g
 	\clef "mensural_g"
-
-	% FIXME: In the second and all subsequent lines of score, the
-	% stems and accidentals of the junked notes keep visible on
-	% porrectus grobs.  Is this an initialization bug in the line
-	% breaking algorithm?
 
 	bes'! \~ as'! \~ cis''!
 	bes'! \~ fis'! as'! \~ ges'!

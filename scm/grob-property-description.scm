@@ -55,6 +55,7 @@ terms of note head bounding box.")
 '(LEFT-offset . RIGHT-offset).  This offset is added to the
 attachments to prevent ugly slurs.  [fixme: we need more documentation here].
 .")
+(grob-property-description 'auto-properties boolean? "if true, as many properties of this grob as possible will be determined automatically from the musical context.")
 (grob-property-description 'auto-knee-gap number-or-boolean? "the minimal smallest gap between two adjacent beamed chords for which beam will create auto-knees.  Set to false for no auto knees." )
 (grob-property-description 'axes list? "list of axis numbers.
 In the case of alignment grobs, this should contain only one number.")
