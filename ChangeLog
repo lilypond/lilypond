@@ -1,5 +1,10 @@
 2004-08-25  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/slur-quanting.cc (score_extra_encompass): avoid other slurs
+	too.
+
+	* input/regression/phrasing-slur-slur-avoid.ly: new file.
+
 	* lily/ottava-bracket.cc (print): always start from right edge of
 	a broken bound. This fixes ottava-clef.ps 
 
