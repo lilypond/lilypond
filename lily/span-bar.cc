@@ -130,8 +130,9 @@ MAKE_SCHEME_CALLBACK (Span_bar,before_line_breaking,1);
 SCM
 Span_bar::before_line_breaking (SCM smob)
 {
-  evaluate_empty (unsmob_grob (smob));
-  evaluate_glyph (unsmob_grob (smob));
+  Grob * g = unsmob_grob (smob);
+  evaluate_empty (g);
+  evaluate_glyph (g);
 
   /* No need to call Bar_line::before_line_breaking (), because the info
      in ELEMENTS already has been procced by

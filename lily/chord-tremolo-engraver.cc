@@ -206,9 +206,15 @@ Chord_tremolo_engraver::start_translation_timestep ()
 void
 Chord_tremolo_engraver::stop_translation_timestep ()
 {
-  typeset_beam ();
+  if (stem_tremolo_)
+    {
+      repeat_ = 0;
+      if (beam_)
+	programming_error ("Huh, beam and stem tremolo?");
+      stem_tremolo_ = 0;
+    }
 
-  stem_tremolo_ = 0;
+  typeset_beam ();
 }
 
 

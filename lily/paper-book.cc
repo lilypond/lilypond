@@ -328,8 +328,11 @@ Paper_book::lines ()
       if (!title.is_empty ())
 	lines_ = scm_cons (stencil2line (title, true), lines_);
 
-      SCM line_list = scm_vector_to_list (score_lines_[i].lines_); // guh.
-      lines_ = scm_append (scm_list_2 (scm_reverse (line_list), lines_));
+      if (scm_vector_p (score_lines_[i].lines_) == SCM_BOOL_T)
+	{
+	  SCM line_list = scm_vector_to_list (score_lines_[i].lines_); // guh.
+	  lines_ = scm_append (scm_list_2 (scm_reverse (line_list), lines_));
+	}
     }
   
   lines_ = scm_reverse (lines_);
