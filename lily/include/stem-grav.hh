@@ -20,9 +20,11 @@ class Stem_engraver : public Engraver
   Direction dir_;
   Stem *stem_p_;
   Rhythmic_req *rhythmic_req_l_;
+  Abbreviation_req* abbrev_req_l_;
 protected:
   virtual void acknowledge_element (Score_elem_info);
   virtual void do_pre_move_processing ();
+  virtual bool do_try_request (Request*);
   virtual void set_feature (Feature dir_i_);
 
 public:

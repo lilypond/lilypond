@@ -12,7 +12,7 @@ copyright		public domain
 Tested Features		lyrics and chords
 %}
 
-\version "0.1.1";
+\version "0.1.2";
 
 melodie = \melodic {
         \clef"violin";

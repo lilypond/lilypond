@@ -11,7 +11,7 @@ copyright	public domain
 Tested Features: cadenza mode
 %}
 
-\version "0.1.1";
+\version "0.1.2";
 
 
 cad = \melodic  {\id "Staff" "french horn";

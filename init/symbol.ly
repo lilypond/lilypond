@@ -1,6 +1,6 @@
 % symbol.ly
   
-\version "0.1.1";
+\version "0.1.2";
   
 breve = \duration { -1 0 }
 longa = \duration { -2 0 }

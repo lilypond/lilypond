@@ -12,7 +12,7 @@ has to be revised for 0.1.12
 
 
 
-\version "0.1.1";
+\version "0.1.2";
 
 ritme = \melodic{ %\octave ;
 	\partial 8;

@@ -19,7 +19,7 @@ paper_twenty = \paper {
         arithmetic_multiplier = 6.\pt;
 	
 	%
-	interbeam = 2.667\pt;
+	interbeam = 3.333\pt;
 	gourlay_energybound = 100000.;
 	gourlay_maxmeasures = 12.;
 	

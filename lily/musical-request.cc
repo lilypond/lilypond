@@ -37,6 +37,8 @@ Span_req::do_print() const
 #endif
 }
 
+IMPLEMENT_IS_TYPE_B1(Spacing_req,Request);
+
 Spacing_req::Spacing_req()
 {
   next = 0;
@@ -44,13 +46,26 @@ Spacing_req::Spacing_req()
   strength = 0;
 }
 
-IMPLEMENT_IS_TYPE_B1(Spacing_req,Request);
-
 void
 Spacing_req::do_print() const
 {
 #ifndef NPRINT
   DOUT << "next " << next << "dist " << distance << "strength\n";
+#endif
+}
+
+IMPLEMENT_IS_TYPE_B1 (Abbreviation_req, Musical_req);
+
+Abbreviation_req::Abbreviation_req ()
+{
+  type_i_ = 0;
+}
+
+void
+Abbreviation_req::do_print() const
+{
+#ifndef NPRINT
+  DOUT << "type " << type_i_ << "\n";
 #endif
 }
 
@@ -243,21 +258,41 @@ Rest_req::do_print() const
 }
 
 /* *************** */
+
+IMPLEMENT_IS_TYPE_B1(Beam_req,Span_req);
+
 Beam_req::Beam_req()
 {
   nplet = 0;
 }
 
-IMPLEMENT_IS_TYPE_B1(Beam_req,Span_req);
 void
-Beam_req::do_print() const{}
+Beam_req::do_print() const
+{
+}
+
 /* *************** */
+
+IMPLEMENT_IS_TYPE_B1 (Abbreviation_beam_req, Span_req);
+
+Abbreviation_beam_req::Abbreviation_beam_req ()
+{
+  type_i_ = 0;
+}
+
+void
+Abbreviation_beam_req::do_print () const
+{
+}
 
 IMPLEMENT_IS_TYPE_B1(Slur_req,Span_req);
-void
-Slur_req::do_print() const{}
-/* *************** */
 
+void
+Slur_req::do_print() const
+{
+}
+
+/* *************** */
 
 bool
 Span_req:: do_equal_b (Request*r) const

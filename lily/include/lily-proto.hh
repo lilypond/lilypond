@@ -12,6 +12,9 @@
 
 
 struct Absolute_dynamic_req;
+struct Abbreviation_req;
+struct Abbreviation_beam_req;
+struct Abbreviation_beam_engraver;
 struct Axis_group_element;
 struct Axis_group;
 struct Translator;
@@ -33,6 +36,7 @@ struct Bar_engraver;
 struct Bar_req;
 struct Barcheck_req;
 struct Beam;
+struct Beam_engraver;
 struct Beam_req;
 struct Blank_req;
 struct Box;

@@ -20,7 +20,8 @@ staff_engraver = \requesttranslator {
 			  \alias "Voice_group";
 			  \consists "Dynamic_engraver";
 			  \consists "Stem_engraver";
-			\consists "Beam_engraver";
+			  \consists "Beam_engraver";
+			  \consists "Abbreviation_beam_engraver";
 			  \consists "Script_engraver";
 			  \consists "Note_column_engraver";
 			  \consists "Slur_engraver";

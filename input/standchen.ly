@@ -13,7 +13,7 @@ copyright	public domain
 multiple \paper{}s in one \score 
 %}
 
-\version "0.1.1";
+\version "0.1.2";
 
 commands = \melodic{
 	\skip 2.*4;

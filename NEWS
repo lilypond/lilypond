@@ -1,3 +1,10 @@
+pl 12.jcn2
+	- typesetting abbreviation beams; abbreviation-*
+	- some simple abbrev fixes + code cleanup (dank je, lieverd)
+
+pl 12.jcn1
+	- typesetting simple abbreviations: c4:16 === [c16 c c c]
+
 pl 12
 	- bf: don't redefine tex primitives like \textfont and  \mathfont
 	- nicer broken slurs (?)

@@ -12,7 +12,7 @@
 #include <iostream.h>
 
 // mmm
-#define MUDELA_VERSION "0.1.1"
+#define MUDELA_VERSION "0.1.2"
 
 #include "script-def.hh"
 #include "symtable.hh"
@@ -68,6 +68,7 @@
     Interval *interval;
     Lookup*lookup;
     Melodic_req * melreq;
+    Musical_req* musreq;
     Music_output_def * outputdef;
     Midi_def* midi;
     Moment *moment;
@@ -188,8 +189,10 @@ yylex(YYSTYPE *s,  void * v_l)
 %type <header> 	mudela_header mudela_header_body
 %type <box>	box
 %type <c>	open_request_parens close_request_parens
+%type <c>	open_abbrev_parens
 %type <c>	open_plet_parens close_plet_parens
 %type <music>	simple_element music_elt full_element lyrics_elt command_elt
+%type <i>	abbrev_type
 %type <i>	int
 %type <i>	script_dir
 %type <id>	identifier_init
@@ -210,8 +213,8 @@ yylex(YYSTYPE *s,  void * v_l)
 %type <paper>	paper_block paper_body
 %type <real>	dim real
 %type <real>	unit
-%type <request>	post_request pre_request command_req verbose_command_req
 %type <request> abbrev_command_req
+%type <request>	post_request pre_request command_req verbose_command_req
 %type <request>	script_req  dynamic_req
 %type <score>	score_block score_body
 %type <script>	script_definition script_body mudela_script gen_script_def
@@ -815,6 +818,18 @@ close_request_parens:
 	}
 	;
 
+open_abbrev_parens:
+	'[' ':' INT {
+		$$ = '[';
+		if (!Duration::duration_type_b ($3))
+			THIS->parser_error ("Not a duration");
+		else if ($3 < 8)
+			THIS->parser_error ("Can't abbreviate");
+		else
+			THIS->set_abbrev_beam ($3);
+	}
+	;
+
 open_plet_parens:
 	'[' INT '/' INT {
 		$$ = '[';
@@ -832,6 +847,8 @@ open_request_parens:
 	}
 	| '['	{
 		$$='[';
+	}
+	| open_abbrev_parens {
 	}
 	| open_plet_parens {
 	}
@@ -1012,12 +1029,35 @@ explicit_steno_duration:
 	;
 
 
+abbrev_type: 
+	/* */
+		{
+		$$ = THIS->default_abbrev_type_i_;
+	}
+	| ':' int {
+		if (!Duration::duration_type_b ($2))
+			THIS->parser_error ("Not a duration");
+		else if ($2 < 8)
+			THIS->parser_error ("Can't abbreviate");
+		else
+			THIS->set_last_abbrev ($2);
+		$$ = THIS->default_abbrev_type_i_;
+	}
+	;
+
 music_elt:
-	steno_note_req notemode_duration 		{
-		if (!THIS->lexer_p_->note_state_b())
-			THIS->parser_error("have to be in Note mode for notes");
+	steno_note_req notemode_duration abbrev_type {
+		if (!THIS->lexer_p_->note_state_b ())
+			THIS->parser_error ("have to be in Note mode for notes");
 		$1->set_duration (*$2);
-		$$ = THIS->get_note_element($1, $2);
+		int durlog_i = $2->durlog_i_;
+		Chord* c = THIS->get_note_element ($1, $2);
+		$$ = c;
+		if ($3) {
+			Abbreviation_req* a = new Abbreviation_req;
+			a->type_i_ = $3;
+			c->add (a);
+		}
 	}
 	| RESTNAME notemode_duration		{
 		$$ = THIS->get_rest_element(*$1, $2);
