@@ -19,7 +19,7 @@ fi
 
 # remove possibly stale .pk/.tfm files 
 echo> /tmp/cleaning-font-dummy
-FILES=`find $TEXDIR -name "feta*$WHAT*tfm" -or -name "feta*$WHAT*pk"`
+FILES=`find .  $TEXDIR -name "feta*$WHAT*tfm" -or -name "feta*$WHAT*pk"`
 
 echo removing $FILES
 rm  -f $FILES /tmp/cleaning-font-dummy

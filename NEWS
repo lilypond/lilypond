@@ -1,6 +1,28 @@
+pl 11.uu2
+	- added Transposed_music for mixing transposition and relative 
+
+pl 11.jcn1
+	- bf: config.make striproff
+	- texinfo
+pl 11.mb2
+ 	- feta-timesig.mf: Added some flesh on C and C2,
+ 	  added old-style mensuration marks.
+ 
+pl 11.mb1
+ 	- Added feta-timesig.mf, font for C and alla breve.
+
+
+pl 11.uu1
+	- new \property: meterSignatureStyle for C and C2 time sigs
+	- bf: BIBINPUTS
+	- stepmake 53
+	- bf: gif vs. png stuff
+
+*******
+pl 11
 
 pl 10.uu2
-	- plet-spanner fix.
+	- plet-spanner fix. 
 	- large doc patch (thanks Adrian)
 
 pl 10.jbr1
