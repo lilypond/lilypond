@@ -4,4 +4,4 @@
 design_size:=8; % feta16 = 16pt
 
 input feta-nummer.mf;
-
+end.
