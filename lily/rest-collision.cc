@@ -196,7 +196,11 @@ Rest_collision::do_shift (Grob *me, SCM elts)
 	}
       Grob * rcol = rests[0];
       Direction dir = Note_column::dir (rests[0]);
- 
+
+      if (!dir)
+	{
+	  dir = - Note_column::dir (notes[0]);
+	}
       Grob * r = unsmob_grob (rcol->get_grob_property ("rest"));
       Interval restdim = r->extent (r, Y_AXIS);	// ??
 

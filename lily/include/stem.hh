@@ -32,7 +32,7 @@ public:
   static int type_i (Grob *) ;
   static void set_stemend (Grob *,Real);
   static Direction get_default_dir (Grob *) ;
-  static int get_center_distance (Grob *,Direction) ;
+
   static int heads_i (Grob *) ;
   static bool invisible_b (Grob *) ;
   static Interval head_positions (Grob *) ;

@@ -179,8 +179,9 @@ Beam::get_default_dir (Grob *me)
     do {
       Grob *s = stems[i];
       Direction sd = Directional_element_interface::get (s);
-      int current = sd	? (1 + d * sd)/2
-	: Stem::get_center_distance (s, (Direction)-d);
+
+      int center_distance = int(- d * Stem::head_positions (s) [-d]) >? 0;
+      int current = sd	? (1 + d * sd)/2 : center_distance;
 
       if (current)
 	{
@@ -558,7 +559,7 @@ Beam::score_stem_lengths (Link_array<Grob>stems,
       demerit_score += 5 * shrink_extra_weight (d * current_y  - info.ideal_y);
     }
 
-  demerit_score *= 2.0  /stems.size (); 
+  demerit_score *= 2.0 / stems.size (); 
 
   return demerit_score;
 }

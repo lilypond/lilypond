@@ -7,6 +7,13 @@
 	
 2002-04-13  Han-Wen  <hanwen@cs.uu.nl>
 
+	* lily/stem.cc (get_default_dir): set direction to CENTER if
+	invisible. Various other fixes to deal with invisible stems and
+	stem-direction == CENTER.
+
+	* lily/rest-collision.cc (do_shift): take direction from note if
+	not set.
+
 	* input/regression/tie-grace.ly: new file.
 
 	* lily/tie-engraver.cc (create_grobs): fix tied graces.
