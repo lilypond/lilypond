@@ -98,8 +98,12 @@
 	;; todo: clean this up a bit: the list is getting
 	;; rather long.
 	(molecule-callback . ,Beam::brew_molecule)
+;;	(concaveness . 0.8)
+	(concaveness . 0.08)
+	(concaveness-no-slope . #t)
+	(concaveness-square . #t)
 	(y-dy-callbacks . (,Beam::least_squares
-			   ,Beam::cancel_suspect_slope
+			   ,Beam::check_concave
 			   ,Beam::slope_damping
 			   ,Beam::quantise_dy
 			   ,Beam::user_override

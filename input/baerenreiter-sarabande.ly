@@ -17,11 +17,7 @@ the spacing is almost identical. With a line-break forced before
 measure 25, we get back the linebreaking of Baerenreiter.
 
 This file used to show spacing weaknesses. Now it shows weaknesses in
-beam and slur handling.
-
-Note that the Barenreiter edition contains a mistake. The second line
-begins with measure 6, not 5.  "
-
+beam and slur handling."
 
 }
 
@@ -35,13 +31,13 @@ sarabandeA =  \context Voice \notes \relative c {
 	  { d4 a2 } >
 	f4.  [e8 d c] |
 	[bes g'] [f e16(f] [g a bes)d,] |
-	cis4.-\trill b8 a g |
+	cis4.-\trill [b8 a g] |
 
 % check spacing without accs: 
 %	c4.-\trill [bes8 a g] |
 	
 	< { d'8. e16 f4.-\trill d16 e |
-	    f4. d8 e f }
+	    f4. [d8 e f] }
 	  \\
 	  { <a,4 f> a2 <a4. d,4.>  } > |
 	%5
@@ -67,7 +63,7 @@ sarabandeA =  \context Voice \notes \relative c {
 	fis8.-\trill es16 d8 c |
 	[bes g'] [a, fis'] [es' d] |
 	%16
-	< bes4.-\trill d, g, > a8 g f! |
+	< bes4.-\trill d, g, > [a8 g f!] |
 	e bes a f' g a |
 	d, as g es' f g |
 	[cis, bes'] [a g16 f] [e!8 f16 d] |
@@ -88,7 +84,7 @@ sarabandeA =  \context Voice \notes \relative c {
 	  \\
 	  { f,4 fis4. s8 |
 	    <d4 g,> gis4.   } >
-	d16(cis)d f,  a,8 e' d' cis |
+	d16(cis)d f,  [a,8 e'] [d' cis] |
 	d4 d,,2 |
 }
 

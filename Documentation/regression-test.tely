@@ -124,6 +124,8 @@ Grace note do weird things with timing. Fragile.
 
 @lilypondfile[printfilename]{beaming.ly}
 
+@lilypondfile[printfilename]{beam-concave.ly}
+
 @lilypondfile[printfilename]{beam-extreme.ly}
 
 @lilypondfile[printfilename]{beam-position.ly}
