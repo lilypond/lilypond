@@ -1,7 +1,16 @@
 2002-08-12  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION: 1.5.72 released
+	
+	* lily/lily-guile.cc (to_dir): return CENTER if not a direction.
+
+	* lily/include/grob.hh: remove remove_grob_property()
+
+	* lily/stem-engraver.cc (stop_translation_timestep): remove
+	dir-forced grob property
+
 	* Documentation/user/refman.itely (Grace notes): explain grace
-	after  main note.
+	after main note.
 
 	* input/test/ : small convert-ly mishaps.
 

@@ -103,10 +103,10 @@ Side_position_interface::general_side_position (Grob * me, Axis a, bool use_exte
   Direction dir = Side_position_interface::get_direction (me);
     
   Real off =  me->get_parent (a)->relative_coordinate (common, a);
-  SCM minimum = me->remove_grob_property ("minimum-space");
+  SCM minimum = me->get_grob_property ("minimum-space");
 
   Real total_off = dim.linear_combination (dir) - off;
-  SCM padding = me->remove_grob_property ("padding");
+  SCM padding = me->get_grob_property ("padding");
   if (gh_number_p (padding))
     {
       total_off += gh_scm2double (padding) * dir;

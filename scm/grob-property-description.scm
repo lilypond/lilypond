@@ -150,7 +150,6 @@ square of the inner notes involved.")
 (grob-property-description 'neutral-position number? "Position (in half staff spaces) where to flip the direction of stems: by default, custodes above this position get their stems downwards; custodes below this position get their stems upwards.  A value of 0 designates the center of the staff.  Use property neutral-direction to control the behaviour of stems on the neutral position itself.  (Note: currently, neutral-position is supported only for custodes; for stems of note heads, neutral-position is currently fixed to 0, i.e. the middle of the staff.)")
 (grob-property-description 'dependencies grob-list? "list of score-grob pointers that indicate who to compute first for certain global passes.")
 (grob-property-description 'details list? "alist of parameters for detailed grob behavior.")
-(grob-property-description 'dir-forced boolean? "set if direction has been forced; read by Beam.")
 (grob-property-description 'dir-function procedure? "function of type (count total)->direction.  Default value: beam-dir-majority, also available: beam-dir-mean, beam-dir-median.
 
 The ways to calculate the direction of a beam work as follows:
