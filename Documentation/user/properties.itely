@@ -589,6 +589,19 @@ r1 r1*3 R1*3\property Score.skipBars=1 r1*3 R1*3
 @end mudela
     @end quotation
 
+@item @code{breakAlignOrder}@indexcode{breakAlignOrder} @propertytype{list of string}
+
+   Defines the order in which prefatory matter (clefs, key signatures) appears, eg. this puts the key signatures after the bar lines:
+@example
+	\property Score.breakAlignOrder = #'(
+	  "Span_bar"
+	  "Breathing_sign"
+	  "Clef_item"
+	  "Staff_bar"
+	  "Key_item"
+	  "Time_signature"
+	)
+@end example
 @end table
 
 
