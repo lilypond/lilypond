@@ -2,6 +2,7 @@
 
 	* lilypond.vim: Do not fontify cises, desis, etc.
 
+	* vimrc: view dvi with <S-F6>
 
 2002-11-08  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
