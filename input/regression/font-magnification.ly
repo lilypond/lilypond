@@ -1,4 +1,4 @@
-#(ly:set-option 'old-relative)
+
 \version "1.9.1"
 \header { texidoc = "The magnification can be set for any font. Note
 that this doesn't change variable symbols such as beams or slurs. " }

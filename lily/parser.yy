@@ -210,72 +210,73 @@ yylex (YYSTYPE *s,  void * v)
 
 %pure_parser
 
-/* tokens which are not keywords */
-%token AUTOCHANGE
+
+%token ACCEPTS
+%token ADDLYRICS
 %token ALIAS
+%token ALTERNATIVE
+%token APPLY
 %token APPLYCONTEXT
 %token APPLYOUTPUT
-%token APPLY
-%token ACCEPTS
-%token ALTERNATIVE
+%token AUTOCHANGE
 %token BAR
 %token BREATHE
 %token CHORDMODIFIERS  
 %token CHORDS
+%token CHORD_CLOSE
+%token CHORD_OPEN
 %token CLEF
+%token COMMANDSPANREQUEST
 %token CONSISTS
-%token DURATION
-%token SEQUENTIAL
-%token GROBDESCRIPTIONS
-%token SIMULTANEOUS
 %token CONSISTSEND
+%token CONTEXT
+%token DEFAULT
 %token DENIES
 %token DESCRIPTION
+%token DURATION
 %token EXTENDER
 %token FIGURES FIGURE_OPEN FIGURE_CLOSE
 %token FIGURE_BRACKET_CLOSE FIGURE_BRACKET_OPEN
 %token GRACE 
+%token GROBDESCRIPTIONS
 %token HEADER
 %token HYPHEN
 %token INVALID
 %token KEY
 %token LYRICS
 %token MARK
-%token MULTI_MEASURE_REST
 %token MIDI
-%token PITCH
-%token DEFAULT
+%token MULTI_MEASURE_REST
 %token NAME
-%token PITCHNAMES
+%token NEWCONTEXT
 %token NOTES
+%token OCTAVE
 %token ONCE
-%token PAPER
-%token PARTIAL
-%token PROPERTY
+%token OUTPUTPROPERTY
 %token OVERRIDE SET REVERT 
+%token PAPER
+%token PARTCOMBINE
+%token PARTIAL
+%token PITCH
+%token PITCHNAMES
+%token PROPERTY
 %token RELATIVE
 %token REMOVE
 %token REPEAT
-%token ADDLYRICS
-%token PARTCOMBINE
+%token REST
 %token SCM_T
 %token SCORE
+%token SEQUENTIAL
+%token SIMULTANEOUS
 %token SKIP
 %token SPANREQUEST
-%token COMMANDSPANREQUEST
 %token TEMPO
-%token OUTPUTPROPERTY
-%token OCTAVE
-%token TIME_T
 %token TIMES
+%token TIME_T
 %token TRANSLATOR
 %token TRANSPOSE
 %token TYPE
 %token UNSET
-%token CONTEXT
-%token REST
-%token CHORD_OPEN
-%token CHORD_CLOSE
 
 
 /* escaped */
@@ -964,6 +965,21 @@ Composite_music:
 		csm->set_mus_property ("context-type", $2);
 		csm->set_mus_property ("context-id", $4);
 
+		$$ = csm;
+	}
+	| NEWCONTEXT string Music {
+		static int new_context_count;
+
+		Music * csm = MY_MAKE_MUSIC("ContextSpeccedMusic");
+
+		csm->set_mus_property ("element", $3->self_scm ());
+		scm_gc_unprotect_object ($3->self_scm ());
+
+		csm->set_mus_property ("context-type", $2);
+
+		SCM new_id = scm_number_to_string (gh_int2scm (new_context_count ++),
+					gh_int2scm (10));
+		csm->set_mus_property ("context-id", new_id);
 		$$ = csm;
 	}
 	| TIMES {

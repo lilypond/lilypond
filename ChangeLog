@@ -1,5 +1,13 @@
 2003-08-26  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/regression/bar-number.ly: remove unnecessary old-relative
+	options.
+	
+	* Documentation/user/internals.itely (Creating contexts): document
+	\newcontext
+
+	* lily/parser.yy (Composite_music): add \newcontext
+
 	* Documentation/user/refman.itely (MIDI block): add note about
 	dotted tempos.
 

@@ -9,7 +9,7 @@
 
 \include "declarations-init.ly"
 
-#(ly:set-option 'old-relative #t)
+#(ly:set-option 'new-relative)
 #(ly:set-point-and-click #f)
 
 \maininput
