@@ -1,5 +1,5 @@
 /*
-  register.cc -- implement  Staff_elem_info, Request_register
+  register.cc -- implement Request_register
 
   Sourcefile of LilyPond musictypesetter
 
@@ -14,27 +14,7 @@
 #include "localkeyitem.hh"
 #include "complexstaff.hh"
 
-Staff_elem_info::Staff_elem_info(Staff_elem*s_l, Request*r_l,
-				 Request_register *reg_l)
-{
-    elem_p_ = s_l;
-    voice_l_ =  (r_l)?r_l->elt_l_->voice_l_:0;
-    req_l_ = r_l;
-    group_regs_l_ = 0;
-    origin_reg_l_ = reg_l;
-}
 
-Staff_elem_info::Staff_elem_info()
-{
-    elem_p_ = 0;
-    voice_l_ = 0;
-
-    group_regs_l_ = 0;
-    origin_reg_l_ = 0;
-    req_l_ = 0;
-}
-
-/* *************** */
 bool
 Request_register::try_request(Request*)
 {
@@ -93,3 +73,8 @@ Request_register::typeset_breakable_item(Item * pre_p , Item * nobreak_p,
     walk_l_->typeset_breakable_item(pre_p,  nobreak_p,post_p);
 }
 
+bool
+Request_register::acceptable_request_b(Request*)const
+{
+    return false;
+}

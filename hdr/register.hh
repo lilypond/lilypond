@@ -18,14 +18,14 @@
    Hungarian postfix: reg
   */
 class Request_register {
-public:
-    Complex_walker * walk_l_;
-    Array<Request*> accepted_req_arr_;
-    
     /**
       Warning: you can't copy a #Request_register#
       */
     Request_register(Request_register const &);
+public:
+    Complex_walker * walk_l_;
+    Array<Request*> accepted_req_arr_;
+    
     Request_register(Complex_walker*);
     Request_register();
     virtual ~Request_register(){}
@@ -59,7 +59,7 @@ public:
     void pre_move_processing();
     /// reset any appropriate data.
     void post_move_processing();
-    
+    virtual bool acceptable_request_b(Request*) const;    
     virtual void set_dir(int){}
 protected:
     /// utility
