@@ -39,6 +39,8 @@
       
 (define-class <gnome-outputter> ()
   (name #:init-value "untitled" #:init-keyword #:name #:accessor name)
+  (dragging #:init-value #f #:accessor dragging)
+  (drag-origin #:init-value #f #:accessor drag-origin)
   (page-stencils ;;#:init-value '#()
    #:init-keyword #:page-stencils #:accessor page-stencils)
   (window #:init-value (make <gtk-window> #:type 'toplevel) #:accessor window)
@@ -225,9 +227,9 @@
 (define-method (tweak (go <gnome-outputter>) item offset)
   (let* ((grob (hashq-ref (item-grobs go) item #f))
 	 (extra-offset (ly:grob-property grob 'extra-offset))
-	 (origin (hashq-ref (grob-tweaks go) grob
-			    (cons (car extra-offset)
-				  (- 0 (cdr extra-offset))))))
+	 (origin (if (null? extra-offset) '(0 . 0)
+		     (cons (car extra-offset)
+					(- 0 (cdr extra-offset))))))
     (if grob
 	(hashq-set! (grob-tweaks go) grob (cons (+ (car origin) (car offset))
 						(+ (cdr origin) (cdr offset)))))
@@ -248,18 +250,41 @@
 
 ;;;(define (item-event go grob item event)
 (define (item-event go item event)
+  ;;(stderr "EVENT: ~S\n" event)
+  ;;(stderr "TYPE: ~S\n" (gdk-event:type event))
   (case (gdk-event:type event)
     ((enter-notify) (gobject-set-property item 'fill-color "red"))
     ((leave-notify) (gobject-set-property item 'fill-color "black"))
+    ((motion-notify) (if (ly:grob? (dragging go))
+			 ;; FIXME: wrap gdk-event-motion:*
+			 ;;(stderr "MOVE TO: \n")))
+			 #t))
+    ((button-release) (if (ly:grob? (dragging go))
+			  (let ((x (gdk-event-button:x event))
+				(y (gdk-event-button:y event))
+				(s (pixels-per-unit go))
+				(o (drag-origin go)))
+			    (stderr "RELEASE at: ~S ~S\n" x y)
+			    (set! (dragging go) #f)
+			    (tweak go item (cons (/ (- x (car o)) s)
+						 (/ (- y (cdr o)) s))))))
     ((button-press)
      (let ((button (gdk-event-button:button event)))
        (cond
 	((= button 1)
-	 (and-let* ((grob (hashq-ref (item-grobs go) item #f))
-		    (location (get-location grob)))
-		   (location-callback location)))
+	 ;; FIXME: wrap gdk-event-button:state (== modifiers)
+	 ;;(if (null? (gdk-event-button:state event))
+	     (let ((x (gdk-event-button:x event))
+		   (y (gdk-event-button:y event)))
+	       (stderr "CLICK at: ~S ~S\n" x y)
+	       (set! (dragging go) (hashq-ref (item-grobs go) item #f))
+	       (set! (drag-origin go) (cons x y))))
+	((= button 3)
+	     ;; some modifier, do jump to source
+	     (and-let* ((grob (hashq-ref (item-grobs go) item #f))
+			(location (get-location grob)))
+		       (location-callback location)))
 	((= button 2)
-
 	 (and-let*
 	  ((grob (hashq-ref (item-grobs go) item #f)))
 	  
@@ -388,4 +413,3 @@
       
       (if (is-a? result <gnome-canvas-text>)
 	  (set! (text-items go) (cons result (text-items go))))))))
-
