@@ -5,10 +5,11 @@
 ;;;  
 ;;; (c) 1999--2001 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;; 
-;;; Changed 2001 Heikki Junes <heikki.junes@hut.fi>
+;;; Changed 2001--2002 Heikki Junes <heikki.junes@hut.fi>
 ;;;    * Add PS-compilation, PS-viewing and MIDI-play (29th Aug 2001)
 ;;;    * Keyboard shortcuts (12th Sep 2001)
 ;;;    * Inserting tags, inspired on sgml-mode (11th Oct 2001)
+;;;    * Autocompletion & Info (23rd Nov 2002)
 ;;;
 ;;; Changed 2002 Carlos Betancourt <carlos.betancourt@chello.be>
 ;;;    * Added spanish-note-replacements
@@ -841,8 +842,8 @@ command."
 
 
 (easy-menu-define LilyPond-command-menu
-    LilyPond-mode-map
-    "Menu used in LilyPond mode."
+  LilyPond-mode-map
+  "Menu used in LilyPond mode."
   (append '("Command")
 	  '(("Command on"
 	     [ "Master File" LilyPond-command-select-master
@@ -857,18 +858,18 @@ command."
 ;	  (let ((file 'LilyPond-command-on-current))
 ;	    (mapcar 'LilyPond-command-menu-entry LilyPond-command-alist))
 ;;; Some kind of mapping which includes :keys might be more elegant
-	  '([ "LilyPond" (LilyPond-command (LilyPond-command-menu "LilyPond") 'LilyPond-master-file) :keys "C-c C-l"])
+	  '([ "LilyPond" LilyPond-command-lilypond t])
 	  '([ "TeX" (LilyPond-command (LilyPond-command-menu "TeX") 'LilyPond-master-file) ])
-	  '([ "2Dvi" (LilyPond-command (LilyPond-command-menu "2Dvi") 'LilyPond-master-file) :keys "C-c C-d"])
-	  '([ "2PS" (LilyPond-command (LilyPond-command-menu "2PS") 'LilyPond-master-file) :keys "C-c C-f"])
+	  '([ "2Dvi" LilyPond-command-formatdvi t])
+	  '([ "2PS" LilyPond-command-formatps t])
 	  '([ "2Midi" (LilyPond-command (LilyPond-command-menu "2Midi") 'LilyPond-master-file)])
 	  '([ "Book" (LilyPond-command (LilyPond-command-menu "Book") 'LilyPond-master-file) ])
 	  '([ "LaTeX" (LilyPond-command (LilyPond-command-menu "LaTeX") 'LilyPond-master-file) ])
-	  '([ "SmartView" (LilyPond-command (LilyPond-command-menu "SmartView") 'LilyPond-master-file) :keys "C-c C-s"])
-	  '([ "View" (LilyPond-command (LilyPond-command-menu "View") 'LilyPond-master-file) :keys "C-c C-v"])
-	  '([ "ViewPS" (LilyPond-command (LilyPond-command-menu "ViewPS") 'LilyPond-master-file) :keys "C-c C-p"])
-	  '([ "Midi (off)" (LilyPond-command-next-midi) :keys "C-c C-m"])
-	  '([ "Midi all" (LilyPond-command-all-midi)])
+	  '([ "SmartView" LilyPond-command-smartview t])
+	  '([ "View" LilyPond-command-view t])
+	  '([ "ViewPS" LilyPond-command-viewps t])
+	  '([ "Midi (off)" LilyPond-command-next-midi t])
+	  '([ "Midi all" LilyPond-command-all-midi t])
 	  ))
 
 (easy-menu-define LilyPond-mode-menu
