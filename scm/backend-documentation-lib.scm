@@ -42,16 +42,48 @@ Interfaces:
     
     (string-append
      desc
+     "\n\n"
      (description-list->texi propdocs))
 
     ))
+
+(define iface->grob-table (make-vector 61 '()))
+
+(map
+ (lambda (x)
+   (let*
+       (
+	(metah (assoc 'meta (cdr x)))
+	(meta (cdr metah))
+	(ifaces (cdr (assoc 'interfaces meta)))
+	)
+
+     (map (lambda (iface)
+	    (hashq-set!
+	     iface->grob-table iface
+	     (cons (car x)
+		   (hashq-ref iface->grob-table iface '())
+		   )))
+	  ifaces)
+     ))
+ all-grob-descriptions)
 
 ;; First level Interface description
 (define (interface-doc interface)
   (let ((name (symbol->string (car interface))))
     (make <texi-node>
       #:name name
-      #:text (interface-doc-string (cdr interface) #f))))
+      #:text (string-append
+	      (interface-doc-string (cdr interface) #f)
+	      "\n\n"
+	      "This grob interface is used in the following graphical objects: "
+
+	      (human-listify
+	       (map ref-ify
+		    (map symbol->string
+			 (hashq-ref iface->grob-table (car interface) '() )))))
+
+      )))
 
 (define (grob-doc description)
   (let*
@@ -62,7 +94,16 @@ Interfaces:
        (name (cdr (assoc 'name meta)))
        (ifaces (map lookup-interface (cdr (assoc 'interfaces meta))))
        (ifacedoc (map (lambda (iface)
-			(interface-doc-string iface description))
+			(string-append
+"@html
+<hr>
+@end html
+
+@subsubheading "
+(ref-ify (symbol->string (car iface)))
+
+"\n\n"
+			(interface-doc-string iface description)))
 		      (reverse ifaces)))
        (engravers (filter-list
 		   (lambda (x) (engraver-makes-grob? name x)) all-engravers-list))
