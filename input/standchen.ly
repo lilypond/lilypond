@@ -4,86 +4,64 @@
 % Franz Schubert (1797-1828)
 % Text by Ludwig Rellstab (1799-1860)
 %
-% Copyright (c) 1995,1996,1997 Jan Nieuwenhuizen <jan@digicash.com>
+% Copyright (c) 1995,1996,1997 Jan Nieuwenhuizen <jandigicash.com>
 % 
 % The purpose of this file is to demonstrate features of LilyPond.
 % (there is an accompanying LaTeX file, standchen.tex)
 %
-% comments with # note missing stuff
-% heu, make that %#%
-%
 % thanks to \music group changing, all notes 
 % (except for grace notes) are printed
 %
-
-%#%%
-%#%\title{St\"andchen}
-%#%\subtitle{Serenade}
-%#%%
-%#%\composer{Franz Schubert}
-%#%\tempo{M\"a\ss ig}
-%#%%
-%#%\meter{3/4}
-%#%\key\F
-%#%\clef\treble
-%#%%
-%#%\barnumbering5
-%#%%\staffnumbers
-%#%\barnumberstyle\boxed
-%#%%
-%#%\staffseparation{12}
-%#%%
-%#%\duration8
 %%1
-melodie = music { $ \clef\violin
+melodie = \music {  \clef\violin
 	\key{bes}
-	\duration{ 8 }
-	r\pp { [ d `a-| } f-| { d `a-| } f-| { d `a-| ] } |
+	\meter{3/4}\duration{ 8 }
+	r pp < [ d `a-| > f-| < d `a-| > f-| < d `a-| ] > |
 %%2
-	r { [ d `bes-| } f-| { d `bes-| } f-| { d `bes-| ] } |
+	r < [ d `bes-| > f-| < d `bes-| > f-| < d `bes-| ] > |
 %%3
 	\textstyle "italic"
-	r_"simile" { [ d `bes } e { d `bes } e { d `bes ] }
+	r_"simile" < [ d `bes > e < d `bes > e < d `bes ] >
 	\textstyle "roman" |
 %%4
-	r { [ `a cis } e { `a cis } e { `a cis ] } |
+	r < [ `a cis > e < `a cis > e < `a cis ] > |
 %#%:|
 %%5
-	[ a()bes a ]2/3  'd4. a |
+	[ a()bes a ]2/3  d'4. a |
 %%6
-	[ g()a g ]2/3  'd4 g r |
-%#%\tighten
-%#%\newline
+	[ g()a g ]2/3  d'4 g r |
+
 %%7
 	a4.^> g  [ g()f e ]2/3  |
 %%8
 	f2 r4 |
 %%9
-%	{ \music{ 'a4.( )'g  [ 'g( 'f )'e ]2/3  } \music{ 'cis4. 'e_"dolce"  [ 'e ] 2/3 } } |
-	{ \music{ 'a4.( )'g  [ 'g( 'f )'e ]2/3  } \music{ 'cis4. 'e_"dolce"  \plet{ 2/3 } 'e \plet{ 1/1 } } } |
+
+	< { a'4.( )g'  [ g'( f' )e' ]2/3  }
+	{ cis'4. e'_"dolce"  \plet{ 2/3 } e' \plet{ 1/1 } } > |
 %%10
-	{ 'f2. 'd2. } |
+	< f'2. d'2. > |
 %%11
-	[ a\pp( )bes a ]2/3  'f4. a |
+	[ a pp( )bes a ]2/3  f'4. a |
 %%12
-	[ g( ) a g ]2/3  'e4. 'd |
+	[ g( ) a g ]2/3  e'4. d' |
 %%13
-	'c4. bes  [ bes( ) a g ]2/3  |
+	c'4. bes  [ bes( ) a g ]2/3  |
 %%14
 	a2 r 
-%	{ \music{ 'd( | )'c4. g  [ bes a g ]2/3  } \music{ f\p( | )e4._"dolce" bes  [ g ]2/3  } } |
-	{ \music{ 'd( | )'c4. g  [ bes a g ]2/3  } \music{ f\p( | )e4._"dolce" bes  \plet{ 2/3 } g \plet{ 1/1 }  } } |
+	< { d'( | )c'4. g  [ bes a g ]2/3  }
+	{ f p ( | )e4._"dolce" bes  \plet{ 2/3 } g \plet{ 1/1 }  } > |
 %%16
-	{ a2. f2. } |
+	< a2. f2. > |
 %%17
 	\textstyle "italic"
-	[ a8._"cresc." 'cis16 ] 'f4. 'e
+	[ a8._"cresc." cis'16 ] f'4. e'
 	\textstyle "roman" |
 %%18
-	[ 'd8. a16 ] f4. d |
+	[ d'8. a16 ] f4. d |
 %%19
-%#%	'c\grace\stemup
-	[ bes\pp( ) a bes ]2/3  'd4. bes |
+%#%	c'\grace\stemup
+	[ bes pp( ) a bes ]2/3  d'4. bes |
 %%20
 	a2. |
 %%21
@@ -93,109 +71,100 @@ melodie = music { $ \clef\violin
 %#%	=f2. |
 	f2. |
 %%23
-	[ a8.\mf 'cis16 ] 'f4. 'e |
+	[ a8. mf cis'16 ] f'4. e' |
 %%24
-	[ 'd8. a16 ] fis4. d |
+	[ d'8. a16 ] fis4. d |
 %%25
-%#%	'cis\grace\stemup
-	[ b\mf( ) ais b ]2/3 'd4. b |
+	[ b mf( ) ais b ]2/3 d'4. b |
 %%26
-	{ a2. fis2. } |
-%#%\tighten\newline
+	< a2. fis2. > |
 %%27
-	[ 'e\df( )'dis 'e ]2/3 'g4. 'cis |
+	[ e' df( )dis' e' ]2/3 g'4. cis' |
 %%28
-	{ 'd2. fis2. } |
+	< d'2. fis2. > |
 %#%\volta1
 %%29
-	{ \music { bes2( [ 'd8.( ))g16 ] } \music{ g2\mf [ bes8. bes16 ] } } |
+	<  { bes2( [ d'8.( ))g16 ] }
+	{ g2 mf [ bes8. bes16 ] } > |
 %%30
-	{ \music{ a4. [ a-. a-. a-. ] } \music{ fis4. [ fis-.( fis-. )fis-. ] } } |
+	< { a4. [ a-. a-. a-. ] }
+	{ fis4. [ fis-.( fis-. )fis-. ] } > |
 %%31  
-	{ \music{ a4. [ a-. a-. a-. ] } \music{ g4. [ cis-.( e-. )g-. ] } } |
+	< { a4. [ a-. a-. a-. ] }
+	{ g4. [ cis-.( e-. )g-. ] } > |
 %%32
-	{ a2 fis2\pp } { a4 fis4 } |
+	< a2 fis2 pp > < a4 fis4 > |
 %%33
-%#%	{ b2(^ g2 } [v { 'd8.( b8. } { b16 ) ) g16 } ] |
-	{ \music{ b2( [ 'd8.( ) )g16 ] } \music{ g2 [ b8. b16 ] } } |
+	< { b2( [ d'8.( ) )g16 ] }
+	{ g2 [ b8. b16 ] } > |
 %%34
-%#%	{ a4. fis4. } [ { a-. fis-.( } { a-. fis-. } { a-. ) fis-. } ] |
-%	{ a4. fis4. } { [ a-. fis-. } { a-. fis-. } { a-. fis-. ] } |
-	{ \music{ a4. [ a-. a-. a-. ] } \music{ fis4. [ fis-.( fis-. )fis-. ] } } |
+	< { a4. [ a-. a-. a-. ] }
+	{ fis4. [ fis-.( fis-. )fis-. ] } > |
 %%35
-%#%	{ a4. g4. } [ { a cis-.( } { a e-. } { a )- g-. } ] |
-%	{ a4. g4. } { [ a cis-. } { a e-. } { a g-. ] } |
-	{ \music{ a4. [ a-. a-. a-. ] } \music{ g4. [ cis-.( e-. )g-. ] } } |
+	< { a4. [ a-. a-. a-. ] }
+	{ g4. [ cis-.( e-. )g-. ] } > |
 %%36
-	{ a2. fis2. } |
+	< a2. fis2. > |
 %#%\volta2
 %#%:|
 %%37
-	[ a8. a16 ] [ 'cis8. 'cis16 ] [ 'e8. 'e16 ] |
+	[ a8. a16 ] [ cis'8. cis'16 ] [ e'8. e'16 ] |
 %%38
-	'd4( )'cis4 r4 |
+	d'4( )cis'4 r4 |
 %%39
-%#%	> a4. [ 'cis 'e8. >! 'd16 ] |
-	a4. [ 'cis 'e8. 'd16 ] |
+%#%	> a4. [ cis' e'8. >! d'16 ] |
+	a4. [ cis' e'8. d'16 ] |
 %%40
-	'cis2 r4 |
+	cis'2 r4 |
 %%41
-%#%	{ > 'fis4. 'cis4._f } 'e [ 'e( ) 'd >! 'cis ]  |
-	{ 'fis4. 'cis4.\df } 'e  [ 'e( )'d 'cis ]2/3  |
+	< fis'4. cis'4. df > e'  [ e'( )d' cis' ]2/3  |
 %%42
-	[ b8. 'cis16 ] 'd4^> b r |
+	[ b8. cis'16 ] d'4^> b r |
 %%43
-%#%	[^ { b8._{ }_{ }_{ }_{ }_{ }_f g2. } 'cis16 ] 'd4^> b r |
-	[ b8.\df 'cis16 ] 'd4^> b r |
+
+	[ b8. df cis'16 ] d'4^> b r |
 %%44
-%#%	[^ { > b8. fis2 } 'cis16 ] 'd4^> b >! r |
-	[ b8. 'cis16 ] 'd4^> b r |
+	[ b8. cis'16 ] d'4^> b r |
 %%45
-%#%	'cis\grace\stemup
-	[ b\p( )ais b ]2/3  'd4. b |
+	[ b p ( )ais b ]2/3  d'4. b |
 %%46
 %#%	{ =a2. fis2. } |
-	{ a2. fis2. } |
+	< a2. fis2. > |
 %%47
-	[ 'e\df( )'dis 'e ]2/3  'g4.^> 'cis |
+	[ e' df( )dis' e' ]2/3  g'4.^> cis' |
 %%48
-%#%	{ fis2.(v ='d2.\stemup(^ }
-%	{ fis2. 'd2. } |
-%%49
-%#%	{ ) 'd4 ) =f2._> } { r4 s4_{decr} } 'd4\stemup
 	\textstyle "italic"
-	{ \multivoice \music{ \stem{ 1 } fis2.( | \stem{ -1 } )f2. } \music { \stem{ 1 } 'd2.( | \stem{ 1 } )'d4 r4_"decresc." 'd4 } }
+	< \multivoice { \stem{ 1 } fis2.( | \stem{ -1 } )f2. }
+	{ \stem{ 1 } d'2.( | \stem{ 1 } )d'4 r4_"decresc." d'4 } >
 	\textstyle "roman" |
 %%50
-	{ bes2. e2. } |
+	< bes2. e2. > |
 %%51
-	{ a2. cis2. } |
+	< a2. cis2. > |
 %%52
-	{ fis2 d2 } { a4 fis4\pp } |
+	< fis2 d2 > < a4 fis4 pp > |
 %%53
-%#%	{ bes2 g2 } [ { 'd8.^>( bes8. } { ) bes16 g16 } ] |
-	{ bes2 g2 } { [ 'd8.^> bes8. } { bes16 g16 ] } |
+
+	< bes2 g2 > < [ d'8.^> bes8. > < bes16 g16 ] > |
 %%54
-%#%	{ a4. fis4. } [ { a-. fis-.( } { a-. fis-. } { a-. ) fis-. } ] |
-%	{ a4. fis4. } { [ a-. fis-. } { a-. fis-. } { a-. fis-. ] } |
-	{ \music{ a4. [ a-. a-. a-. ] } \music{ fis4. [ fis-.( fis-. )fis-.] } } |
+	< { a4. [ a-. a-. a-. ] }
+	{ fis4. [ fis-.( fis-. )fis-.] } > |
 %%55
-%#%	{ a4. g4. } [ { a cis-.( } { a e-. } { a )- g-. } ]  |
-%	{ a4. g4. } { [ a cis-. } { a e-. } { a g-. ] } |
-	{ \music{ a4. [ a-. a-. a-. ] } \music{ g4. [ cis-.( e-. )g-. ] } } |
+	< { a4. [ a-. a-. a-. ] }
+	{ g4. [ cis-.( e-. )g-. ] } > |
 %%56
 	\textstyle "italic"
-	{ a2. fis2._"dim." }
+	< a2. fis2._"dim." >
 	\textstyle "roman" |
 %%57
-	{ a2. fis2. } |
+	< a2. fis2. > |
 %%58
-	{ a2.^\fermata fis2. } |
+	< a2.^\fermata fis2. > |
 %#%\tighten
-$ }
+ }
 
-begeleiding = music { $
-	\key{bes}
+begeleiding = \music { 
+	\key{bes}\meter{3/4}
 	\clef\bass
 	\duration{2}
 	`d r4 |
@@ -209,60 +178,71 @@ begeleiding = music { $
 	``a r4 |
 %#%:|
 %%5
-%#%\stemlength2
 \duration{ 8 }
-%#%	{ =`f `d2 } `a d `a { d r4 } `a
- 	{ \multivoice \music{ \stem{ 1 } [ `f `a d `a d `a ] } \music { \stem{ -1 } `d2 r4 } } |
+ 	< \multivoice { \stem{ 1 } [ `f `a d `a d `a ] }
+	{ \stem{ -1 } `d2 r4 } > |
 %%6
- 	{ \multivoice \music{ \stem{ 1 } [ `d `e `g `e `g `e ] } \music { \stem{ -1 } ``bes2 r4 } } |
+ 	< \multivoice { \stem{ 1 } [ `d `e `g `e `g `e ] }
+	{ \stem{ -1 } ``bes2 r4 } > |
 %%7 
-	{ \multivoice \music{ \stem{ 1 } [ `cis `e `g `e `g e ] } \music { \stem{ -1 } ``a2 r4 } } |
-%%8
-	{ \multivoice \music{ \stem{ 1 } [ `d `a d `a d `a ] } \music { \stem{ -1 } `d2 r4 } } |
+	< \multivoice { \stem{ 1 } [ `cis `e `g `e `g e ] }
+	{ \stem{ -1 } ``a2 r4 } > |
+ %%8
+	< \multivoice { \stem{ 1 } [ `d `a d `a d `a ] }
+	{ \stem{ -1 } `d2 r4 } > |
 %%9
 	[ `a e g e g e ] |
 %%10
 	[ `d `a d `a d `a ] |
 %%11
-	{ \multivoice \music{ \stem{ 1 } [ `f `a d `a d `a ] } \music { \stem{ -1 } `d2 r4 } } |
+	< \multivoice { \stem{ 1 } [ `f `a d `a d `a ] }
+	{ \stem{ -1 } `d2 r4 } > |
 %%12 == 6
-	{ \multivoice \music{ \stem{ 1 } [ `d `e `g `e `g `e ] } \music { \stem{ -1 } ``bes2 r4 } } |
+	< \multivoice { \stem{ 1 } [ `d `e `g `e `g `e ] }
+	{ \stem{ -1 } ``bes2 r4 } > |
 %13
-	{ \multivoice \music{ [ `e `g `bes `g `bes `g ] } \music { \stem{ -1 } `c2 r4 } } |
+	< \multivoice { [ `e `g `bes `g `bes `g ] }
+	{ \stem{ -1 } `c2 r4 } > |
 %%14
-	{ \multivoice \music{ \stem{ 1 } [ `a c f c f c ] } \music { \stem{ -1 } `f2 r4 } } |
+	< \multivoice { \stem{ 1 } [ `a c f c f c ] }
+	{ \stem{ -1 } `f2 r4 } > |
 %%15
 	[ `c `g `bes `g `bes `g ] |
 %%16
 	[ ``f `c `f `c `f `c ] |
 %%17
-	{ \multivoice \music{ \stem{ 1 } [ ``a `e `g `e `g `e ] } \music { \stem{ -1 } ``a2 r4 } } |
+	< \multivoice { \stem{ 1 } [ ``a `e `g `e `g `e ] }
+	{ \stem{ -1 } ``a2 r4 } > |
 %%18
-	{ \multivoice \music{ \stem{ 1 } [ `d `a d `a d `a ] } \music { \stem{ -1 } `d2 r4 } } |
+	< \multivoice { \stem{ 1 } [ `d `a d `a d `a ] }
+	{ \stem{ -1 } `d2 r4 } > |
 %%19
-	{ \multivoice \music{ \stem{ 1 } [ ``bes `f `bes `f `bes `f ] } \music { \stem{ -1 } ``bes2 r4 } } |
+	< \multivoice { \stem{ 1 } [ ``bes `f `bes `f `bes `f ] }
+	{ \stem{ -1 } ``bes2 r4 } > |
 %%20
-	{ \multivoice \music{ \stem{ 1 } [ ``f `c `f `c `f `c ] } \music { \stem{ -1 } ``f2 r4 } } |
+	< \multivoice { \stem{ 1 } [ ``f `c `f `c `f `c ] }
+	{ \stem{ -1 } ``f2 r4 } > |
 %%21
-%#%	s8		 % skip space of grace note
-	{ [ `e `c } `g c `g c `g ] |
+	< [ `e `c > `g c `g c `g ] |
 %%22
 	[ `f `a c `a `f `c ] |
 %%23
-	{ \multivoice \music{ \stem{ 1 } [ ``a `e `g `e `g `e ] } \music { \stem{ -1 } ``a2 r4 } } |
+	< \multivoice { \stem{ 1 } [ ``a `e `g `e `g `e ] }
+	{ \stem{ -1 } ``a2 r4 } > |
 %%24
-	{ \multivoice \music{ \stem{ 1 } [ `d `fis `a `fis `a `fis ] } \music { \stem{ -1 } `d2 r4 } } |
+	< \multivoice { \stem{ 1 } [ `d `fis `a `fis `a `fis ] }
+	{ \stem{ -1 } `d2 r4 } > |
 %%25
-%#%	s8		 % skip space of grace note
-	{ \multivoice \music{ \stem{ 1 } [ ``g `d `b `d `b `d ] } \music { \stem{ -1 } ``g2 r4 } } |
+	< \multivoice { \stem{ 1 } [ ``g `d `b `d `b `d ] }
+	{ \stem{ -1 } ``g2 r4 } > |
 %%26
-	{ \multivoice \music{ \stem{ 1 } [ `d `a d `a d `a ] } \music { \stem{ -1 } `d2 r4 } } |
+	< \multivoice { \stem{ 1 } [ `d `a d `a d `a ] }
+	{ \stem{ -1 } `d2 r4 } > |
 %%27
-	{ [ `cis ``a } `e `a `e `a `e ] |
+	< [ `cis ``a > `e `a `e `a `e ] |
 %%28
 	[ `d `a d `a d `a ] |
 %%29
-%#%	[ `d `g @ `bes `g `bes `g ] |
 	[ `d `g `bes `g `bes `g ] |
 %#%\volta1
 %%30 
@@ -284,26 +264,27 @@ begeleiding = music { $
 %%37
 	[ ``a `e `g `e ``bes^> `e ] |
 %%38
-	[ ``a { e cis `a } { e cis `a } { e cis `a } { e cis `a } { e cis `a ] }  |
+	[ ``a < e cis `a > < e cis `a > < e cis `a > < e cis `a > < e cis `a ] >  |
 %%39
 	[ ``a `e `g `e ``bes^> `e ] |
 %%40
-	[ ``a { e cis `a } { e cis `a } { e cis `a } { e cis `a } { e cis `a ] }  |
+	[ ``a < e cis `a > < e cis `a > < e cis `a > < e cis `a > < e cis `a ] >  |
 %%41
 	[ ``ais `e `fis `e `fis `e ] |
 %%42
-	{ [ `d ``b } `fis `b `fis `b `fis ] |
+	< [ `d ``b > `fis `b `fis `b `fis ] |
 %%43
-	{ [ `e ``b } `g `b `g `b `g ] |
+	< [ `e ``b > `g `b `g `b `g ] |
 %%44
-	{ [ `d ``b } `fis `b `fis `b `fis ] |
+	< [ `d ``b > `fis `b `fis `b `fis ] |
 %%45
-%#%	s8		 % skip space of grace note
-	{ \multivoice \music{ \stem{ 1 } [ ``g `d `b `d `b `d ] } \music { \stem{ -1 } ``g2 r4 } } |
+	< \multivoice { \stem{ 1 } [ ``g `d `b `d `b `d ] }
+	{ \stem{ -1 } ``g2 r4 } > |
 %%46
-	{ \multivoice \music{ \stem{ 1 } [ `d `a d `a d `a ] } \music { \stem{ -1 } `d2 r4 } } |
+	< \multivoice { \stem{ 1 } [ `d `a d `a d `a ] }
+	{ \stem{ -1 } `d2 r4 } > |
 %%47
-	{ [ `cis ``a } `e `a `e `a `e ] |
+	< [ `cis ``a > `e `a `e `a `e ] |
 %%48
 	[ `d `fis `a `fis `a `fis ] |
 %%49
@@ -325,12 +306,12 @@ begeleiding = music { $
 %%57
 	[ ``d ``a `d ``a `d ``a ]
 %%58
-	{ `d2.^\fermata ``d2. } |
-$ }
+	< `d2.^\fermata ``d2. > |
+ }
 
 
-tekst1 = music {
-	@
+tekstI = \lyrics {
+	\meter{3/4}
 	\duration{4}
 	_ _ _
 	_ _ _
@@ -393,11 +374,11 @@ tekst1 = music {
 	_ _ _ _ _ _
 % 57
 	_ _ _ _ _ _ 
-	@
+	
 }
 
-tekst2 = music {
-        @
+tekstII= \lyrics {
+        \meter{3/4}
 	\duration{4}
 	_ _ _
 	_ _ _
@@ -457,36 +438,35 @@ tekst2 = music {
 %	_ _ _ _ _ _
 % 57
 %	_ _ _ _ _ _ 
-	@
+	
 }
 
-score {
-	staff { 
+\score {
+	\staff { 
 		lyric 
-	music { tekst1 }
-	music { tekst2 }
+	\music { tekstI }
+	\music { tekstII }
 	}
-	staff { 
-	 	melodic 
-		music { melodie }
+% Setting up music ...lilypond: ../flower/include/cursor.inl:98: class Cursor<void *> Cursor<void *>::operator ++(int): Assertion `pointer_' failed.
+%IOT trap/Abort
+% als geen music in staff
+	\staff { 
+	 	\melodic 
+		\music { melodie }
 	}
-	staff { 
-		melodic 
-		music { begeleiding }
+	\staff { 
+		\melodic 
+		\music { begeleiding }
 	}
-	commands { 
-		meter {3*4}
-	}
-	paper {
-		symboltables { table_sixteen }
-		width 195mm
+	\paper {
+		\width 195\mm
 
 		% on two pages...
-		unitspace 9mm
-		geometric 1.2
-		output "standchen.out"
+		\unitspace 9\mm
+		\geometric 1.2
+		\output "standchen.out"
 	}
-	midi {
-		tempo 4:54
+	\midi {
+		\tempo 4:54
 	}
 }
