@@ -9,7 +9,7 @@
 #include "chord-name.hh"
 #include "molecule.hh"
 #include "paper-def.hh"
-#include "font-metric.hh"
+#include "font-interface.hh"
 #include "score-element.hh"
 #include "paper-column.hh"
 #include "line-of-score.hh"

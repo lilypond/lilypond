@@ -17,7 +17,7 @@
 #include "debug.hh"
 #include "paper-def.hh"
 #include "rhythmic-head.hh"
-#include "font-metric.hh"
+#include "font-interface.hh"
 #include "molecule.hh"
 #include "paper-column.hh"
 #include "misc.hh"
@@ -414,10 +414,10 @@ Stem::flag (Score_element*me)
     }
 
   char c = (get_direction (me) == UP) ? 'u' : 'd';
-  Molecule m = me->get_default_font ()->find_by_name (String ("flags-") + to_str (c) + 
+  Molecule m = Font_interface::get_default_font (me)->find_by_name (String ("flags-") + to_str (c) + 
 				      to_str (flag_i (me)));
   if (!style.empty_b ())
-    m.add_molecule(me->get_default_font ()->find_by_name (String ("flags-") + to_str (c) + style));
+    m.add_molecule(Font_interface::get_default_font (me)->find_by_name (String ("flags-") + to_str (c) + style));
   return m;
 }
 

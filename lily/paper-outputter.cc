@@ -200,16 +200,6 @@ Paper_outputter::output_version ()
 
 
 
-void
-Paper_outputter::output_font_def (int i, String str)
-{
-  SCM scm = gh_list (ly_symbol2scm ("font-def"),
-		     gh_int2scm (i),
-		     ly_str02scm (str.ch_l ()),
-		     SCM_UNDEFINED);
-
-  output_scheme (scm);
-}
 
 void
 Paper_outputter::output_Real_def (String k, Real v)

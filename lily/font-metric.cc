@@ -17,7 +17,7 @@
 #include "string.hh"
 
 Box
-Font_metric::text_dimension (String text, Real mag) const
+Font_metric::text_dimension (String text) const
 {
   Interval ydims;
   Real w=0.0;
@@ -39,11 +39,11 @@ Font_metric::text_dimension (String text, Real mag) const
 	  break;
 	
 	default: 
-	  Box b = get_char ((unsigned char)text[i],mag);
+	  Box b = get_char ((unsigned char)text[i]);
 	  
 	  // Ugh, use the width of 'x' for unknown characters
 	  if (b[X_AXIS].length () == 0) 
-	    b = get_char ((unsigned char)'x',mag);
+	    b = get_char ((unsigned char)'x');
 	  
 	  w += b[X_AXIS].length ();
 	  ydims.unite (b[Y_AXIS]);
@@ -58,11 +58,11 @@ Font_metric::text_dimension (String text, Real mag) const
 
 
 Box
-Scaled_font_metric::text_dimension (String t,Real mag) const
+Scaled_font_metric::text_dimension (String t) const
 {
   Box b (orig_l_->text_dimension (t));
 
-  b.scale (magnification_f_ * mag);
+  b.scale (magnification_f_);
   return b;
 }
 
@@ -72,7 +72,7 @@ Font_metric::~Font_metric ()
 
 Font_metric::Font_metric ()
 {
-  name_ = SCM_EOL;
+  description_ = SCM_EOL;
 
   smobify_self ();
 }
@@ -83,15 +83,9 @@ Font_metric::Font_metric (Font_metric const &)
 
 
 Box 
-Font_metric::get_char (int, Real )const
+Font_metric::get_char (int )const
 {
   return Box (Interval(0,0),Interval (0,0));
-}
-
-SCM
-Font_metric::description () const
-{
-  return gh_cons (name_, gh_int2scm (0));
 }
 
 
@@ -99,7 +93,7 @@ SCM
 Font_metric::mark_smob (SCM s)
 {
   Font_metric * m = (Font_metric*) SCM_CELL_WORD_1(s);
-  return m->name_;
+  return m->description_;
 }
 
 int
@@ -107,7 +101,7 @@ Font_metric::print_smob (SCM s, SCM port, scm_print_state * )
 {
   Font_metric *m = unsmob_metrics (s);
   scm_puts ("#<Font_metric ", port);
-  scm_display (m->name_, port);
+  scm_write (m->description_, port);
   scm_puts (">", port);
   return 1;
 }
@@ -119,7 +113,10 @@ IMPLEMENT_DEFAULT_EQUAL_P(Font_metric);
 IMPLEMENT_TYPE_P (Font_metric, "font-metric?");
 
 Molecule
-Font_metric::find_by_name (String, Real mag ) const
+Font_metric::find_by_name (String) const
 {
   assert (false);
 }
+
+
+

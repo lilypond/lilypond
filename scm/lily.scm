@@ -4,12 +4,10 @@
 ; 
 ; (c) 1998 Jan Nieuwenhuizen <janneke@gnu.org>
 
-
 ;
 ; This file contains various routines in Scheme that are easier to 
 ; do here than in C++.  At present it is an unorganised mess. Sorry. 
 ;
-
 
 ; We should repartition the entire scm side of lily in a
 ; more sane way, using namesspaces/modules?
@@ -22,6 +20,29 @@
 
 (define (number-pair?  x)
   (and (pair? x) (number? (car x)) (number? (cdr x))))
+
+(define (object-type obj)
+  (cond
+   ((dir? obj) "direction")
+   ((number-pair? obj) "pair of numbers")
+   ((ly-input-location? obj) "input location")   
+   ((ly-element? obj) "graphic element")
+   ((pair? obj) "pair")
+   ((integer? obj) "integer")
+   ((list? obj) "list")
+   ((symbol? obj) "symbol")
+   ((string? obj) "string")
+   ((boolean? obj) "boolean")
+   ((moment? obj) "moment")
+   ((number? obj) "number")
+   ((char? obj) "char")
+   ((input-port? obj) "input port")
+   ((output-port? obj) "output port")   
+   ((vector? obj) "vector")
+   ((procedure? obj) "procedure") 
+   (else "unknown type")
+  ))
+
 
 (define (type-name  predicate)
   (cond
@@ -122,34 +143,11 @@
 		   (if (< duration 0) "mensural" "")))
    ((default) (number->string duration))
    (else
-    (string-append (number->string duration) (symbol->string style)))))
+    (string-append (number->string duration) (symbol->string style))))
+  )
 
 
 ;;;;;;;; TeX
-
-;; this is silly, can't we use something like
-;; roman-0, roman-1 roman+1 ?
-(define cmr-alist 
-  '(("bold" . "cmbx") 
-    ("brace" . "feta-braces")
-    ("default" . "cmr10")
-    ("dynamic" . "feta-din") 
-    ("feta" . "feta") 
-    ("feta-1" . "feta") 
-    ("feta-2" . "feta") 
-    ("typewriter" . "cmtt") 
-    ("italic" . "cmti") 
-    ("msam" . "msam") 
-    ("roman" . "cmr") 
-    ("script" . "cmr") 
-    ("large" . "cmbx") 
-    ("Large" . "cmbx") 
-    ("mark" . "feta-nummer") 
-    ("finger" . "feta-nummer")
-    ("timesig" . "feta-nummer")
-    ("number" . "feta-nummer") 
-    ("volta" . "feta-nummer"))
-)
 
 (define (string-encode-integer i)
   (cond
@@ -158,46 +156,43 @@
    (else (string-append
 	  (make-string 1 (integer->char (+ 65 (modulo i 26))))
 	  (string-encode-integer (quotient i 26))
-	 )
+	  ))
    )
   )
-  )
 
-(define (magstep i)
-  (cdr (assoc i '((-4 . 482)
-		  (-3 . 579)
-		  (-2 . 694)
-		  (-1 . 833)
-		  (0 . 1000)
-		  (1 . 1200) 
-		  (2 . 1440)
-		  (3 . 1728)
-		  (4 . 2074))
-	      )
-       )
-  )
-	     
 (define default-script-alist '())
 
 (define font-name-alist  '())
-(define (font-command name-mag)
-    (cons name-mag
-	  (string-append  "magfont"
-			  (string-encode-integer (hashq (car name-mag) 1000000))
+(define (tex-encoded-fontswitch name-mag)
+  (let* (
+	 (iname-mag (car name-mag))
+	 (ename-mag (cdr name-mag))
+	 )
+    (cons iname-mag
+	  (cons ename-mag
+		(string-append  "magfont"
+			  (string-encode-integer
+			   (hashq (car ename-mag) 1000000))
 			  "m"
-			  (string-encode-integer (cdr name-mag)))
+			  (string-encode-integer
+			   (inexact->exact (* 1000 (cdr ename-mag))))
 
-	  )
-    )
-(define (define-fonts names)
-  (set! font-name-alist (map font-command names))
+			  )
+		)
+    )))
+
+(define (define-fonts internal-external-name-mag-pairs)
+  (set! font-name-alist (map tex-encoded-fontswitch
+			     internal-external-name-mag-pairs))
   (apply string-append
 	 (map (lambda (x)
-		(font-load-command (car x) (cdr x))) font-name-alist)
-  ))
+		(font-load-command (car x) (cdr x)))
+	      (map cdr font-name-alist)  
 
-(define (fontify name exp)
-  (string-append (select-font name)
+  )))
+
+(define (fontify name-mag-pair exp)
+  (string-append (select-font name-mag-pair)
 		 exp)
   )
 
@@ -218,18 +213,25 @@
     "%\n\\unknown%\n")
 
 
-  (define (select-font font-name-symbol)
+  (define (select-font name-mag-pair)
     (let*
 	(
-	 (c (assoc font-name-symbol font-name-alist))
+	 (c (assoc name-mag-pair font-name-alist))
 	 )
 
       (if (eq? c #f)
 	  (begin
+	    (display "FAILED\n")
+	    (display (object-type (car name-mag-pair)))
+	    (display (object-type (caaar font-name-alist)))
+
 	    (ly-warn (string-append
-		      "Programming error: No such font known " (car font-name-symbol)))
-	    "")				; issue no command
-	  (string-append "\\" (cdr c)))
+		      "Programming error: No such font known "
+		      (car name-mag-pair) " "
+		      (number->string (cdr name-mag-pair))
+		      ))
+	    "") ; issue no command
+	  (string-append "\\" (cddr c)))
       
       
       ))
@@ -258,9 +260,9 @@
   (define (font-load-command name-mag command)
     (string-append
      "\\font\\" command "="
-     (symbol->string (car name-mag))
+     (car name-mag)
      " scaled "
-     (number->string (magstep (cdr name-mag)))
+     (number->string (inexact->exact (* 1000  (cdr name-mag))))
      "\n"))
 
   (define (embedded-ps s)
@@ -299,7 +301,7 @@
 				   (ly-gulp-file "lily.ps") 'pre " %\n" 'post)
 	 (ly-gulp-file "lily.ps"))
      "}"
-     "\\input lilyponddefs \\turnOnPostScript"))
+     "\\input lilyponddefs\\newdimen\\outputscale \\outputscale=\\mudelapaperoutputscale pt\\turnOnPostScript"))
 
   (define (header creator generate) 
     (string-append
@@ -337,7 +339,7 @@
 
   (define (number->dim x)
     (string-append 
-     (ly-number->string x) " pt "))
+     (ly-number->string x) " \\outputscale "))
 
   (define (placebox x y s) 
     (string-append 
@@ -465,32 +467,24 @@
      "lilyfont"
      (make-string 1 (integer->char (+ 65 i)))))
     
-  (define (mag-to-size m)
-    (number->string (case m 
-		      (0 12)
-		      (1 12)
-		      (2 14) ; really: 14.400
-		      (3 17) ; really: 17.280
-		      (4 21) ; really: 20.736
-		      (5 24) ; really: 24.888
-		      (6 30) ; really: 29.856
-		      )))
-  
-  
-  (define (select-font font-name-symbol)
+
+  (define (select-font name-mag-pair)
     (let*
 	(
-	 (c (assoc font-name-symbol font-name-alist))
+	 (c (assoc name-mag-pair font-name-alist))
 	 )
 
       (if (eq? c #f)
 	  (begin
+	    (display name-mag-pair)
+	    (display font-name-alist)
 	    (ly-warn (string-append
-		      "Programming error: No such font known " (car font-name-symbol)))
-	    "")				; issue no command
+		      "Programming error: No such font known " (car name-mag-pair))
+		     (number->string (cdr name-mag-pair))
+		     )
+	    
+	    "")				; issue no command	  
 	  (string-append " " (cdr c) " "))
-      
-      
       ))
 
     (define (font-load-command name-mag command)
@@ -499,7 +493,7 @@
        " { /"
        (symbol->string (car name-mag))
        " findfont "
-       (number->string (magstep (cdr name-mag)))
+       (number->string (cdr name-mag))
        " 1000 div 12 mul  scalefont setfont } bind def "
        "\n"))
 
@@ -701,6 +695,7 @@
 	((string? arg) (string-append "\"" arg "\""))
 	((symbol? arg) (string-append "\"" (symbol->string arg) "\""))))
 
+; ugh: naming.
 (define (func name . args)
   (string-append 
    "(" name 
@@ -714,195 +709,6 @@
   (if (= x 0)
       1
       (if (< x 0) -1 1)))
-
-;;;; AsciiScript as
-(define (as-scm action-name)
-
-  (define (beam width slope thick)
-	  (string-append
-	   (func "set-line-char" "#")
-	   (func "rline-to" width (* width slope))
-	   ))
-
-  ; simple flat slurs
-  (define (bezier-sandwich l thick)
-	  (let (
-		(c0 (cadddr l))
-		(c1 (cadr l))
-		(c3 (caddr l)))
-	       (let* ((x (car c0))
-		      (dx (- (car c3) x))
-		      (dy (- (cdr c3) (cdr c0)))
-		      (rc (/ dy dx))
-		      (c1-dx (- (car c1) x))
-		      (c1-line-y (+ (cdr c0) (* c1-dx rc)))
-		      (dir (if (< c1-line-y (cdr c1)) 1 -1))
-		      (y (+ -1 (* dir (max (* dir (cdr c0)) (* dir (cdr c3)))))))
-		     (string-append
-		      (func "rmove-to" x y)
-		      (func "put" (if (< 0 dir) "/" "\\\\"))
-		      (func "rmove-to" 1 (if (< 0 dir) 1 0))
-		      (func "set-line-char" "_")
-		      (func "h-line" (- dx 1))
-		      (func "rmove-to" (- dx 1) (if (< 0 dir) -1 0))
-		      (func "put" (if (< 0 dir) "\\\\" "/"))))))
-
-  (define (bracket arch_angle arch_width arch_height width height arch_thick thick)
-	  (string-append
-	   (func "rmove-to" (+ width 1) (- (/ height -2) 1))
-	   (func "put" "\\\\")
-	   (func "set-line-char" "|")
-	   (func "rmove-to" 0 1)
-	   (func "v-line" (+ height 1))
-	   (func "rmove-to" 0 (+ height 1))
-	   (func "put" "/")
-	   ))
-
-  (define (char i)
-    (func "char" i))
-
-  (define (define-origin a b c ) "")
-
-  (define (end-output) 
-    (func "end-output"))
-  
-  (define (experimental-on)
-	  "")
-
-  (define (filledbox breapth width depth height)
-	  (let ((dx (+ width breapth))
-		(dy (+ depth height)))
-	       (string-append 
-		(func "rmove-to" (* -1 breapth) (* -1 depth))
-		(if (< dx dy)
-		    (string-append
-		     (func "set-line-char" 
-			   (if (<= dx 1) "|" "#"))
-		     (func "v-line" dy))
-		    (string-append
-		     (func "set-line-char" 
-			   (if (<= dy 1) "-" "="))
-		    (func "h-line" dx))))))
-
-  (define (font-load-command name-mag command)
-    (func "load-font" (car name-mag) (magstep (cdr name-mag))))
-
-  (define (header creator generate) 
-    (func "header" creator generate))
-
-  (define (header-end) 
-    (func "header-end"))
-
-  ;; urg: this is good for half of as2text's execution time
-  (define (xlily-def key val)
-	  (string-append "(define " key " " (arg->string val) ")\n"))
-
-  (define (lily-def key val)
-	  (if 
-	   (or (equal? key "mudelapaperlinewidth")
-	       (equal? key "mudelapaperstaffheight"))
-	   (string-append "(define " key " " (arg->string val) ")\n")
-	   ""))
-
-  (define (no-origin) "")
-  
-  (define (placebox x y s) 
-    (let ((ey (inexact->exact y)))
-	  (string-append "(move-to " (number->string (inexact->exact x)) " "
-			 (if (= 0.5 (- (abs y) (abs ey)))
-			     (number->string y)
-			     (number->string ey))
-			 ")\n" s)))
-		       
-  (define (select-font font-name-symbol)
-    (let* ((c (assoc font-name-symbol font-name-alist)))
-      (if (eq? c #f)
-	  (begin
-	    (ly-warn 
-	     (string-append 
-	      "Programming error: No such font known " 
-	      (car font-name-symbol)))
-	    "")				; issue no command
-	  (func "select-font" (car font-name-symbol)))))
-
-  (define (start-line height)
-	  (func "start-line" height))
-
-  (define (stop-line)
-	  (func "stop-line"))
-
-  (define (text s)
-	  (func "text" s))
-
-  (define (tuplet ht gap dx dy thick dir) "")
-
-  (define (volta h w thick vert-start vert-end)
-	  ;; urg
-	  (string-append
-	   (func "set-line-char" "|")
-	   (func "rmove-to" 0 -4)
-	   ;; definition strange-way around
-	   (if (= 0 vert-start)
-	      (func "v-line" h)
-	       "")
-	   (func "rmove-to" 1 h)
-	   (func "set-line-char" "_")
-	   (func "h-line" (- w 1))
-	   (func "set-line-char" "|")
-	   (if (= 0 vert-end)
-	       (string-append
-		(func "rmove-to" (- w 1) (* -1 h))
-		(func "v-line" (* -1 h)))
-	       "")))
-
-  (cond ((eq? action-name 'all-definitions)
-	 `(begin
-	    (define beam ,beam)
-	    (define bracket ,bracket)
-	    (define char ,char)
-	    (define define-origin ,define-origin)
-	    ;;(define crescendo ,crescendo)
-	    (define bezier-sandwich ,bezier-sandwich)
-	    ;;(define dashed-slur ,dashed-slur) 
-	    ;;(define decrescendo ,decrescendo) 
-	    (define end-output ,end-output)
-	    (define experimental-on ,experimental-on)
-	    (define filledbox ,filledbox)
-	    ;;(define font-def ,font-def)
-	    (define font-load-command ,font-load-command)
-	    ;;(define font-switch ,font-switch)
-	    (define header ,header) 
-	    (define header-end ,header-end)
-	    (define lily-def ,lily-def)
-	    ;;(define invoke-char ,invoke-char) 
-	    ;;(define invoke-dim1 ,invoke-dim1)
-	    (define no-origin ,no-origin)
-	    (define placebox ,placebox)
-	    (define select-font ,select-font)
-	    (define start-line ,start-line)
-	    ;;(define stem ,stem)
-	    (define stop-line ,stop-line)
-	    (define stop-last-line ,stop-line)
-	    (define text ,text)
-	    (define tuplet ,tuplet)
-	    (define volta ,volta)
-	    ))
-	((eq? action-name 'tuplet) tuplet)
-	;;((eq? action-name 'beam) beam)
-	;;((eq? action-name 'bezier-sandwich) bezier-sandwich)
-	;;((eq? action-name 'bracket) bracket)
-	((eq? action-name 'char) char)
-	;;((eq? action-name 'crescendo) crescendo)
-	;;((eq? action-name 'dashed-slur) dashed-slur) 
-	;;((eq? action-name 'decrescendo) decrescendo)
-	;;((eq? action-name 'experimental-on) experimental-on)
-	((eq? action-name 'filledbox) filledbox)
-	((eq? action-name 'select-font) select-font)
-	;;((eq? action-name 'volta) volta)
-	(else (error "unknown tag -- MUSA-SCM " action-name))
-	)
-  )
-
 
 (define (gulp-file name)
   (let* ((port (open-file name "r"))

@@ -74,7 +74,7 @@ Adobe_font_metric::find_char_metric (String nm, bool warn) const
 
 
 Box
-Adobe_font_metric::get_char (int code, Real mag) const
+Adobe_font_metric::get_char (int code) const
 {
   AFM_CharMetricInfo const
     * c =  find_ascii_metric (code,false);
@@ -82,7 +82,6 @@ Adobe_font_metric::get_char (int code, Real mag) const
   if (c)
     b = afm_bbox_to_box (c->charBBox);			
 
-  b.scale (mag);
   return b;
 }
 
@@ -96,7 +95,7 @@ read_afm_file (String nm)
 
   if (ok)
     {
-      error (_f ("Error parsing AFM file: %s", nm.ch_C ()));
+      error (_("Error parsing AFM file"));
       exit (2);
     }
   fclose (f);
@@ -119,8 +118,11 @@ Adobe_font_metric::~Adobe_font_metric ()
   AFM_free (font_inf_);
 }
 
+/*
+  return a molecule, without fontification 
+ */
 Molecule
-Adobe_font_metric::find_by_name (String s, Real mag) const
+Adobe_font_metric::find_by_name (String s) const
 {
   AFM_CharMetricInfo const *cm = find_char_metric (s, false);
 
@@ -135,8 +137,8 @@ Adobe_font_metric::find_by_name (String s, Real mag) const
 		      gh_int2scm (cm->code),
 		      SCM_UNDEFINED));
   
-  at= fontify_atom ((Font_metric*)this, at);
+  //  at= fontify_atom ((Font_metric*)this, at);
   Box b = afm_bbox_to_box (cm->charBBox);
-  b.scale (mag);
+
   return Molecule (b, at);
 }

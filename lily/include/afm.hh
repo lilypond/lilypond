@@ -22,7 +22,7 @@ struct Adobe_font_metric : Font_metric
 {
   AFM_Font_info * font_inf_;
 
-  Box get_char (int, Real mag =1.0) const;
+  virtual Box get_char (int) const;
   AFM_CharMetricInfo const *find_char_metric (String name, bool warn=true) const;
   AFM_CharMetricInfo const *find_ascii_metric (int, bool warn=true) const;  
 
@@ -34,7 +34,7 @@ protected:
   Array<int> ascii_to_metric_idx_;
   Dictionary<int> name_to_metric_dict_;
 
-  virtual Molecule find_by_name (String, Real mag = 1.0) const;
+  virtual Molecule find_by_name (String) const;
 
   Adobe_font_metric (AFM_Font_info*);
 };

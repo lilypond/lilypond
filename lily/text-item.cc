@@ -11,7 +11,7 @@
 #include "debug.hh"
 #include "text-item.hh"
 #include "paper-def.hh"
-#include "font-metric.hh"
+#include "font-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol-referencer.hh"
 #include "main.hh"
@@ -105,19 +105,21 @@ Text_item::string2molecule (Score_element *me, SCM text, SCM alist_chain)
   SCM proc  = gh_cdr (scm_assoc (ly_symbol2scm ("properties-to-font"), sheet));
   SCM font_name = gh_call2 (proc, fonts, alist_chain);
 
-  SCM lookup = ly_assoc_chain (ly_symbol2scm ("lookup"), alist_chain);
+#if 0   
+  SCM lookup = scm_assoc (ly_symbol2scm ("lookup"), properties);
 
   Molecule mol;
   if (gh_pair_p (lookup) && ly_symbol2string (gh_cdr (lookup)) == "name")
     mol = lookup_character (me, font_name, text);
   else
-    mol = lookup_text (me, font_name, text);
+#endif
+  Molecule mol = lookup_text (me, font_name, text);
   
   return mol;
 }
 
 Molecule
-Text_item::lookup_character (Score_element *me, SCM font_name, SCM char_name)
+Text_item::lookup_character (Score_element *, SCM font_name, SCM char_name)
 {
   Adobe_font_metric *afm = all_fonts_global_p->find_afm (ly_scm2string (font_name));
   
@@ -140,11 +142,14 @@ Text_item::lookup_text (Score_element *me, SCM font_name, SCM text)
   Font_metric* metric = 0;
   if (gh_number_p (magnification))
     {
+#if 0
       Real realmag = pow (1.2, gh_scm2int (magnification));
       metric = all_fonts_global_p->find_scaled (ly_scm2string (font_name), realmag);
+#endif
+      assert (false);
     }
   else
-    metric = all_fonts_global_p->find_font (ly_scm2string (font_name));
+    metric = me->paper_l ()->find_font (font_name, 1.0);
   
   SCM list = gh_list (ly_symbol2scm ("text"), text, SCM_UNDEFINED);
   list = fontify_atom (metric, list);
@@ -156,26 +161,32 @@ Molecule
 Text_item::markup_sentence2molecule (Score_element *me, SCM markup_sentence,
 				     SCM alist_chain)
 {
+  /*
+    FIXME
+   */
+  return Molecule ();
+  
   SCM sheet = me->paper_l ()->style_sheet_;
-  SCM f = gh_cdr (scm_assoc (ly_symbol2scm ("markup-to-properties"), sheet));
+  SCM f = gh_cdr (scm_assoc (ly_symbol2scm ("markup-abbrev-to-properties-alist"), sheet));
+  
   SCM markup = gh_car (markup_sentence);
   SCM sentence = gh_cdr (markup_sentence);
   
-  SCM p = gh_cons  (gh_call2 (f, sheet, markup), alist_chain);
+  SCM p = gh_cons  (gh_call1 (f, markup), alist_chain);
 
   Axis align = X_AXIS;
-  SCM a = ly_assoc_chain (ly_symbol2scm ("align"), p);
+  SCM a = scm_assoc (ly_symbol2scm ("align"), p);
   if (gh_pair_p (a) && gh_number_p (gh_cdr (a)))
     align = (Axis)gh_scm2int (gh_cdr (a));
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real kern = 0;
-  SCM k = ly_assoc_chain (ly_symbol2scm ("kern"), p);
+  SCM k = scm_assoc (ly_symbol2scm ("kern"), p);
   if (gh_pair_p (k) && gh_number_p (gh_cdr (k)))
     kern = gh_scm2double (gh_cdr (k)) * staff_space;
 			     
   Real raise = 0;
-  SCM r = ly_assoc_chain (ly_symbol2scm ("raise"), p);
+  SCM r = scm_assoc (ly_symbol2scm ("raise"), p);
   if (gh_pair_p (r) && gh_number_p (gh_cdr (r)))
     raise = gh_scm2double (gh_cdr (r)) * staff_space;
 

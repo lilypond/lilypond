@@ -104,7 +104,7 @@ Separating_group_spanner::add_spacing_unit (Score_element* me ,Item*i)
 
 
 void
-Separating_group_spanner::set_interface (Score_element*me)
+Separating_group_spanner::set_interface (Score_element*)
 {
 
 }

@@ -10,7 +10,7 @@
 #include "item.hh"
 #include "molecule.hh"
 #include "paper-def.hh"
-#include "font-metric.hh"
+#include "font-interface.hh"
 #include "lookup.hh"
 #include "staff-symbol-referencer.hh"
 #include "directional-element-interface.hh"
@@ -54,7 +54,7 @@ Dots::brew_molecule (SCM d)
 
   if (gh_number_p (c))
     {
-      Molecule d = sc->get_default_font ()->find_by_name (String ("dots-dot"));
+      Molecule d = Font_interface::get_default_font (sc)->find_by_name (String ("dots-dot"));
       Real dw = d.extent (X_AXIS).length ();
       //      d.translate_axis (-dw, X_AXIS);
 

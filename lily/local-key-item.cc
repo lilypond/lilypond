@@ -8,7 +8,7 @@
 #include "local-key-item.hh"
 #include "molecule.hh"
 #include "staff-symbol-referencer.hh"
-#include "font-metric.hh"
+#include "font-interface.hh"
 #include "paper-def.hh"
 #include "musical-request.hh"
 #include "rhythmic-head.hh"
@@ -60,8 +60,8 @@ Local_key_item::add_pitch (Score_element*me, Musical_pitch p, bool cautionary, b
 Molecule
 Local_key_item::parenthesize (Score_element*me, Molecule m)
 {
-  Molecule open = me->get_default_font ()->find_by_name (String ("accidentals-("));
-  Molecule close = me->get_default_font ()->find_by_name (String ("accidentals-)"));
+  Molecule open = Font_interface::get_default_font (me)->find_by_name (String ("accidentals-("));
+  Molecule close = Font_interface::get_default_font (me)->find_by_name (String ("accidentals-)"));
   m.add_at_edge(X_AXIS, LEFT, Molecule(open), 0);
   m.add_at_edge(X_AXIS, RIGHT, Molecule(close), 0);
 
@@ -111,12 +111,12 @@ Local_key_item::brew_molecule (SCM smob)
       Real dy = (gh_number_p (c0) ? gh_scm2int (c0) : 0 + p.notename_i_)
 	* note_distance;
       
-      Molecule acc (me->get_default_font ()->find_by_name (String ("accidentals-")
+      Molecule acc (Font_interface::get_default_font (me)->find_by_name (String ("accidentals-")
 					       + to_str (p.accidental_i_)));
       
       if (scm_memq (ly_symbol2scm ("natural"), gh_car (s)) != SCM_BOOL_F)
 	{
-	  Molecule prefix = me->get_default_font ()->find_by_name (String ("accidentals-0"));
+	  Molecule prefix = Font_interface::get_default_font (me)->find_by_name (String ("accidentals-0"));
 	  acc.add_at_edge(X_AXIS, LEFT, Molecule(prefix), 0);
 	}
 

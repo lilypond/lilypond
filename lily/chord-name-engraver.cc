@@ -11,7 +11,7 @@
 #include "chord.hh"
 #include "musical-request.hh"
 #include "paper-def.hh"
-#include "font-metric.hh"
+#include "font-interface.hh"
 #include "paper-def.hh"
 #include "main.hh"
 #include "dimensions.hh"

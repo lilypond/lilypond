@@ -9,7 +9,7 @@
 
 #include "debug.hh"
 #include "script.hh"
-#include "font-metric.hh"
+#include "font-interface.hh"
 #include "side-position-interface.hh"
 #include "paper-def.hh"
 #include "item.hh"
@@ -25,12 +25,12 @@ Script::get_molecule(Score_element * me, Direction d)
   SCM key = gh_car  (s);
   if (key == ly_symbol2scm ("feta"))
     {
-      return me->get_default_font ()->find_by_name ("scripts-" +
+      return Font_interface::get_default_font (me)->find_by_name ("scripts-" +
 				    ly_scm2string (index_cell (gh_cdr (s), d)));
     }
   else if (key == ly_symbol2scm ("accordion"))
     {
-      return Lookup::accordion (gh_cdr (s), me->paper_l()->get_var("staffspace"), me->get_default_font ());
+      return Lookup::accordion (gh_cdr (s), me->paper_l()->get_var("staffspace"), Font_interface::get_default_font (me));
     }
   else
     assert (false);

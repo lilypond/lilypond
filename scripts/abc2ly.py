@@ -28,9 +28,8 @@
 
 # Enhancements (Laura Conrad)
 #
-# Barring now preserved between ABC and lilypond
-# the default placement for text in abc is above the staff.
-			
+# Beaming now preserved between ABC and lilypond
+#
 # Limitations
 #
 # Multiple tunes in single file not supported
@@ -76,7 +75,6 @@ lyric_idx = -1
 part_names = 0
 default_len = 8
 length_specified = 0
-nobarlines = 0
 global_key = [0] * 7			# UGH
 names = ["One", "Two", "Three"]
 DIGITS='0123456789'
@@ -95,10 +93,6 @@ def check_clef(s):
               else:
                       state.base_octave = 0
                       voices_append("\\clef treble;\n")
-      elif re.match('^-8va', s):
-	      s = s[4:]
-	      state.base_octave = -1
-	      voices_append("\\clef \"G_8\";\n")
       elif re.match('^alto', s):
               s = s[4:]
               state.base_octave = -1
@@ -213,7 +207,6 @@ def dump_score (outf):
 
 
 def set_default_length (s):
-	global length_specified
 	m =  re.search ('1/([0-9]+)', s)
 	if m:
 		__main__.default_len = string.atoi ( m.group (1))
@@ -496,7 +489,6 @@ def slyrics_append(a):
 
 
 def try_parse_header_line (ln, state):
-	global length_specified
 	m = re.match ('^([A-Za-z]): *(.*)$', ln)
 
 	if m:
@@ -513,18 +505,15 @@ def try_parse_header_line (ln, state):
 			if a == 'C':
 				if not state.common_time:
 					state.common_time = 1
-#					voices_append ("\\property Staff.timeSignatureStyle=\"C\"\n")
-					voices_append ("\\property Staff.TimeSignature \push #\'style = #\"C\"\n")
+					voices_append ("\\property Staff.timeSignatureStyle=\"C\"\n")
 				a = '4/4'
 			if a == 'C|':
 				if not state.common_time:
 					state.common_time = 1
-					voices_append ("\\property Staff.TimeSignature \push #\'style = #\"C\"\n")
+					voices_append ("\\property Staff.timeSignatureStyle=\"C\"\n")
 				a = '2/2'
 			if not length_specified:
 				set_default_len_from_time_sig (a)
-			else:
-				length_specified = 0
 			voices_append ('\\time %s;' % a)
 			state.next_bar = ''
 		if g == 'K': # KEY
@@ -532,19 +521,11 @@ def try_parse_header_line (ln, state):
 			if a:
 				m = re.match ('^([^ \t]*) *(.*)$', a) # seperate clef info
 				if m:
-					# there may or may not be a space
-					# between the key letter and the mode
-					if key_lookup.has_key(m.group(2)[0:3]):
-						key_info = m.group(1) + m.group(2)[0:3]
-						clef_info = m.group(2)[4:]
-					else:
-						key_info = m.group(1)
-						clef_info = m.group(2)
-					__main__.global_key  = compute_key (key_info)# ugh.
-					voices_append ('\\key %s;' % lily_key(key_info))
-					check_clef(clef_info)
+					__main__.global_key  =compute_key (m.group(1))# ugh.
+					voices_append ('\\key %s;' % lily_key(m.group(1)))
+					check_clef(m.group(2))
 				else:
-					__main__.global_key  = compute_key (a)# ugh.
+					__main__.global_key  =compute_key (a)# ugh.
 					voices_append ('\\key %s \\major;' % lily_key(a))
 		if g == 'O': # Origin
 			header ['origin'] = a
@@ -586,8 +567,7 @@ def try_parse_header_line (ln, state):
 def pitch_to_mudela_name (name, acc, bar_acc, key):
 	s = ''
 	if acc == UNDEF:
-		if not nobarlines:
-			acc = bar_acc
+		acc = bar_acc
 	if acc == UNDEF:
 		acc = key
 	if acc == -1:
@@ -886,7 +866,7 @@ def try_parse_guitar_chord (str, state):
 		if str:
 			str = str[1:]
 		gc = re.sub('#', '\\#', gc)	# escape '#'s
-		state.next_articulation = ("^\"%s\"" % gc) + state.next_articulation
+		state.next_articulation = ("-\"%s\"" % gc) + state.next_articulation
 	return str
 
 def try_parse_escape (str):
@@ -913,7 +893,7 @@ bar_dict = {
 '[|' : '||',
 ':|' : ':|',
 '|:' : '|:',
-'::' : ':|:',
+'::' : '::',
 '|1' : '|',
 '|2' : '|',
 ':|2' : ':|',
@@ -1017,23 +997,6 @@ def try_parse_grace_delims (str, state):
 
 	return str
 
-def try_parse_comment (str):
-	global nobarlines
-	#debugging
-#	sys.stderr.write("str: %s \n" % str)
-
-	# for now, just do %%MIDI nobarlines
-	if (str[0] == '%'):
-		#debugging
-#		sys.stderr.write("we have %%\n")
-		if str[0:5] == '%MIDI':
-            		#debugging
-#			sys.stderr.write ("we have %%MIDI\n")
-			if (string.find(str,'nobarlines') > 0):
- 		                #debugging
-#				sys.stderr.write ("we have nobarlines\n")
-				nobarlines = 1
-	return str
 
 happy_count = 100
 def parse_file (fn):
@@ -1055,7 +1018,6 @@ def parse_file (fn):
 		m = re.match  ('^([^%]*)%(.*)$',ln)  # add comments to current voice
 		if m:
 			if m.group(2):
-				try_parse_comment(m.group(2))
 				voices_append ('%% %s\n' % m.group(2))
 			ln = m.group (1)
 

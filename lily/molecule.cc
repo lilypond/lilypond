@@ -9,7 +9,7 @@
 #include <math.h>
 #include <libc-extension.hh>
 
-#include "font-metric.hh"
+#include "font-metric.hh" 
 #include "dimensions.hh"
 #include "interval.hh"
 #include "string.hh"
@@ -125,8 +125,11 @@ Molecule::empty_b () const
 SCM
 fontify_atom(Font_metric * met, SCM f)
 {
-  return  gh_list (ly_symbol2scm ("fontify"),
-		   ly_quote_scm (met->description ()), f, SCM_UNDEFINED);
+  if (f == SCM_EOL)
+    return f;
+  else
+    return  gh_list (ly_symbol2scm ("fontify"),
+		     ly_quote_scm (met->description_), f, SCM_UNDEFINED);
 }
 
 SCM

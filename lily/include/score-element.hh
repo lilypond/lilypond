@@ -33,8 +33,6 @@ typedef void (Score_element::*Score_element_method_pointer) (void);
 */
 class Score_element  {
 public:
-  Font_metric * get_default_font ()const;
-  
   SCM immutable_property_alist_;
   SCM mutable_property_alist_;
   Score_element *original_l_;

@@ -21,7 +21,6 @@
 #include "group-interface.hh"
 #include "slur.hh"
 #include "lookup.hh"
-#include "font-metric.hh"
 #include "paper-def.hh"
 #include "note-column.hh"
 #include "stem.hh"

@@ -12,7 +12,7 @@
 #include "text-item.hh"
 #include "time-signature.hh"
 #include "paper-def.hh"
-#include "font-metric.hh"
+#include "font-interface.hh"
 
 MAKE_SCHEME_CALLBACK(Time_signature,brew_molecule,1);
 
@@ -53,12 +53,12 @@ Time_signature::special_time_signature (Score_element*me, String s, int n, int d
   // First guess: s contains only the signature style
   String symbolname = "timesig-" + s + to_str (n) + "/" + to_str (d);
   
-  Molecule m = me->get_default_font ()->find_by_name (symbolname);
+  Molecule m = Font_interface::get_default_font (me)->find_by_name (symbolname);
   if (!m.empty_b()) 
     return m;
 
   // Second guess: s contains the full signature name
-  m = me->get_default_font ()->find_by_name ("timesig-"+s);
+  m = Font_interface::get_default_font (me)->find_by_name ("timesig-"+s);
   if (!m.empty_b ()) 
     return m;
 
@@ -71,6 +71,7 @@ Molecule
 Time_signature::time_signature (Score_element*me,int num, int den)
 {
   SCM chain = gh_list (me->mutable_property_alist_, me->immutable_property_alist_, SCM_UNDEFINED);
+
   Molecule n = Text_item::text2molecule (me,
 					 ly_str02scm (to_str (num).ch_C ()),
 					 chain);

@@ -9,6 +9,7 @@ paperfile = \papersize + ".ly";
 
 staffspace = \staffheight / 4.0;
 stafflinethickness = \staffspace / 10.0;
+outputscale = \staffheight / 4.0;
 
 \translator { \NoteNamesContext }
 \translator { \ScoreContext }

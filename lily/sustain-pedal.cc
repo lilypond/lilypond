@@ -8,7 +8,7 @@
  */
 #include "score-element.hh"
 #include "molecule.hh"
-#include "font-metric.hh"
+#include "font-interface.hh"
 #include "string.hh"
 
 // update comment --hwn 
@@ -56,7 +56,7 @@ Sustain_pedal::brew_molecule (SCM smob)
 	}
       else
 	idx += String (&text.byte_C ()[i], 1);
-      Molecule m = e->get_default_font ()->find_by_name (idx);
+      Molecule m = Font_interface::get_default_font (e)->find_by_name (idx);
       if (!m.empty_b ())
 	mol.add_at_edge (X_AXIS, RIGHT, m, 0);
     }

@@ -18,11 +18,11 @@
 struct Font_metric
 {
 public:
-  SCM name_;
-  virtual SCM description () const;
-  virtual Box get_char (int ascii, Real mag) const;
-  virtual Box text_dimension (String, Real mag = 1.0)  const;
-  virtual Molecule find_by_name (String, Real mag = 1.0) const;
+  SCM description_;
+
+  virtual Box get_char (int ascii) const;
+  virtual Box text_dimension (String)  const;
+  virtual Molecule find_by_name (String) const;
 
   DECLARE_SMOBS(Font_metric,);
 private:
@@ -32,11 +32,13 @@ protected:
 };
 
 
+/*
+  Perhaps junk this, and move iface to paper_def? 
+ */
 struct Scaled_font_metric : public Font_metric
 {
-  virtual SCM description () const;
-  virtual Box text_dimension (String, Real) const;
-  virtual Molecule find_by_name (String, Real) const;
+  virtual Box text_dimension (String) const;
+  virtual Molecule find_by_name (String) const;
   static SCM make_scaled_font_metric (Font_metric*, Real);
 protected:
   Font_metric *orig_l_;

@@ -9,7 +9,7 @@
 
 #include "box.hh"
 #include "debug.hh"
-#include "font-metric.hh"
+#include "font-interface.hh"
 #include "molecule.hh"
 #include "paper-column.hh"
 #include "paper-def.hh"
@@ -23,10 +23,7 @@
 void
 Volta_spanner::set_interface (Score_element*me)
 {
-  Side_position::set_axis (me, Y_AXIS);
-  Directional_element_interface::set (me, UP);
 }
-
 
 /*
   this is too complicated. Yet another version of side-positioning,
@@ -35,7 +32,6 @@ Volta_spanner::set_interface (Score_element*me)
   --
 
   * Should look for system_start_delim to find left edge of staff.
-  
   
 */
 

@@ -310,7 +310,7 @@ Line_of_score::post_processing (bool last_line)
   /*
     font defs;
    */
-  SCM font_names = ly_quote_scm (all_fonts_global_p->font_descriptions ());  
+  SCM font_names = ly_quote_scm (paper_l()->font_descriptions ());  
   output_scheme (gh_list (ly_symbol2scm ("define-fonts"),
 					font_names,
 					SCM_UNDEFINED));

@@ -10,7 +10,6 @@
 #include "musical-request.hh"
 #include "score-element.hh"
 #include "item.hh"
-#include "font-metric.hh"
 #include "lily-guile.hh"
 #include "rhythmic-head.hh"
 #include "stem.hh"

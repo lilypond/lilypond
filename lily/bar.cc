@@ -15,7 +15,7 @@
 #include "string.hh"
 #include "molecule.hh"
 #include "paper-def.hh"
-#include "font-metric.hh"
+#include "font-interface.hh"
 #include "debug.hh"
 #include "all-font-metrics.hh"
 #include "item.hh"
@@ -61,7 +61,7 @@ Bar::compound_barline (Score_element*me, String str, Real h)
   
   Molecule thin = simple_barline (me, hair, h);
   Molecule thick = simple_barline (me, fatline, h);
-  Molecule colon = me->get_default_font ()->find_by_name ("dots-repeatcolon");  
+  Molecule colon = Font_interface::get_default_font (me)->find_by_name ("dots-repeatcolon");  
 
   Molecule m;
   

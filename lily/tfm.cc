@@ -74,10 +74,9 @@ Tex_font_metric::find_ascii (int ascii, bool warn) const
 }
 
 Box
-Tex_font_metric::get_char (int a, Real mag) const
+Tex_font_metric::get_char (int a) const
 {
   Box b = find_ascii (a)->dimensions () ;
-  b.scale (mag);
   return b;
 }
 
@@ -98,7 +97,7 @@ Tex_font_metric::str () const
 SCM
 Tex_font_metric::make_tfm (String fn)
 {
-  Tex_font_metric	* tfm_p = new Tex_font_metric;
+  Tex_font_metric * tfm_p = new Tex_font_metric;
   Tex_font_metric_reader reader (fn);
 
   tfm_p->info_ = reader.info_;

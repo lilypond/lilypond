@@ -6,6 +6,10 @@
 Scaled_font_metric::Scaled_font_metric (Font_metric* m, Real magn)
 {
   magnification_f_ = magn;
+  SCM desc = m->description_;
+
+  Real total_mag = magn * gh_scm2double (gh_cdr (desc));
+  description_ = gh_cons (gh_car (desc), gh_double2scm (total_mag));
   orig_l_ = m;
 }
 
@@ -13,23 +17,16 @@ SCM
 Scaled_font_metric::make_scaled_font_metric (Font_metric*m, Real s)
 {
   Scaled_font_metric *sfm = new Scaled_font_metric (m,s);
-  sfm->name_ = m->name_;
-  
   return sfm->self_scm ();
 }
 
-SCM
-Scaled_font_metric::description () const
-{
-  SCM od = orig_l_->description ();
-  // todo:
-  //  gh_set_cdr_x (od, gh_int2scm (magstep_i_));
-  return od;
-}
-
-
 Molecule
-Scaled_font_metric::find_by_name (String s, Real mag) const
+Scaled_font_metric::find_by_name (String s) const
 {
-  return orig_l_->find_by_name (s, magnification_f_ * mag);	// ugh.
+  Molecule m = orig_l_->find_by_name (s);
+  Box b = m.extent_box ();
+  b.scale (magnification_f_);
+  Molecule q(b,fontify_atom ((Font_metric*) this, m.get_expr ()));
+
+  return q ;
 }
