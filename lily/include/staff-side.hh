@@ -12,6 +12,7 @@
 
 #include "score-elem.hh"
 #include "interval.hh"
+#include "direction.hh"
 
 /** A symbol which sits along a staff.
 
@@ -19,9 +20,9 @@
 class Staff_side : virtual Score_elem {
     Link_array<Score_elem> support_l_arr_;
     int staff_size_i_;
-    Interval support_height()const;
+    Interval support_height() const;
     Staff_symbol* staff_sym_l_;
-    int get_position_i()const;
+    int get_position_i() const;
 
     void read_staff_sym();
 public:
@@ -29,7 +30,7 @@ public:
     /**
       Vertical dir of symbol relative to staff. -1 = below staff?
       */
-    int dir_i_;
+    Direction dir_;
     Interval sym_int_;
     
     /// follow the support inside the staff?

@@ -18,7 +18,7 @@
 
 Dynamic_engraver::Dynamic_engraver()
 {
-  dir_i_ =0;
+  dir_ = CENTER;
   do_post_move_processing();
   dynamic_p_ =0;
   to_end_cresc_p_ = cresc_p_ = 0;
@@ -36,7 +36,7 @@ Dynamic_engraver::do_try_request (Request * r)
 {
   Musical_req * m = r->musical();
   if (!m || !m->dynamic())
-	return false;
+    return false;
   dynamic_req_l_arr_.push (m->dynamic());
   return true;
 }
@@ -46,58 +46,58 @@ Dynamic_engraver::do_process_requests()
   Crescendo*  new_cresc_p=0; 
   for (int i=0; i < dynamic_req_l_arr_.size(); i++) 
     {
-	Dynamic_req *dreq_l = dynamic_req_l_arr_[i];
-	if (dreq_l->absdynamic()) 
-	  {
-	    Text_def * td_p = new Text_def;
-	    td_p->align_i_ = 0;
-	    String loud =Dynamic_req::loudness_str (
-		dreq_l->absdynamic()->loudness_);
+      Dynamic_req *dreq_l = dynamic_req_l_arr_[i];
+      if (dreq_l->absdynamic()) 
+	{
+	  Text_def * td_p = new Text_def;
+	  td_p->align_i_ = 0;
+	  String loud =Dynamic_req::loudness_str (
+						  dreq_l->absdynamic()->loudness_);
 	    
-	    td_p->text_str_ = paper()->lookup_l ()->dynamic (loud).tex;
-	    td_p->style_str_ = "dynamic";
+	  td_p->text_str_ = paper()->lookup_l ()->dynamic (loud).tex;
+	  td_p->style_str_ = "dynamic";
 
-	    assert (!dynamic_p_) ; // TODO
+	  assert (!dynamic_p_) ; // TODO
 		
-	    dynamic_p_ = new Text_item (td_p);
-	    announce_element (Score_elem_info (dynamic_p_, dreq_l));
-	  }
-	else if (dreq_l->span_dynamic()) 
-	  {
+	  dynamic_p_ = new Text_item (td_p);
+	  announce_element (Score_elem_info (dynamic_p_, dreq_l));
+	}
+      else if (dreq_l->span_dynamic()) 
+	{
 
-	    Span_dynamic_req* span_l = dreq_l->span_dynamic();
-	    if (span_l->spantype == Span_req::STOP) 
-	      {
-		if (!cresc_p_) 
-		  {
-		    span_l->warning ("Can't find cresc to end ");
-		  }
-		else 
-		  {
-		    assert (!to_end_cresc_p_);
-		    to_end_cresc_p_ =cresc_p_;
-		    cresc_p_ = 0;
-		  }
-	      }
-	    else if (span_l->spantype == Span_req::START) 
-	      {
-		cresc_req_l_ = span_l;
-		assert (!new_cresc_p);
-		new_cresc_p  = new Crescendo;
-		new_cresc_p->grow_dir_i_ = span_l->dynamic_dir_i_;
-		announce_element (Score_elem_info (new_cresc_p, span_l));
-	      }
-	  }
+	  Span_dynamic_req* span_l = dreq_l->span_dynamic();
+	  if (span_l->spantype == Span_req::STOP) 
+	    {
+	      if (!cresc_p_) 
+		{
+		  span_l->warning ("Can't find cresc to end ");
+		}
+	      else 
+		{
+		  assert (!to_end_cresc_p_);
+		  to_end_cresc_p_ =cresc_p_;
+		  cresc_p_ = 0;
+		}
+	    }
+	  else if (span_l->spantype == Span_req::START) 
+	    {
+	      cresc_req_l_ = span_l;
+	      assert (!new_cresc_p);
+	      new_cresc_p  = new Crescendo;
+	      new_cresc_p->grow_dir_ = span_l->dynamic_dir_;
+	      announce_element (Score_elem_info (new_cresc_p, span_l));
+	    }
+	}
     }
 
-  if ( new_cresc_p) 
+  if (new_cresc_p) 
     {
-	cresc_p_ = new_cresc_p;
-	cresc_p_->left_col_l_ = get_staff_info().musical_l ();
-	if (dynamic_p_) 
-	  {
-	    cresc_p_->left_dyn_b_ = true;
-	  }
+      cresc_p_ = new_cresc_p;
+      cresc_p_->set_bounds(LEFT,get_staff_info().musical_l ());
+      if (dynamic_p_) 
+	{
+	  cresc_p_->dyn_b_drul_[LEFT] = true;
+	}
     }
 }
 
@@ -107,19 +107,19 @@ Dynamic_engraver::do_pre_move_processing()
   Staff_symbol* s_l = get_staff_info().staff_sym_l_;
   if (dynamic_p_) 
     {
-	dynamic_p_->set_staffsym (s_l);
-	typeset_element (dynamic_p_);
-	dynamic_p_ = 0;
+      dynamic_p_->set_staffsym (s_l);
+      typeset_element (dynamic_p_);
+      dynamic_p_ = 0;
     }
-  if ( to_end_cresc_p_) 
+  if (to_end_cresc_p_) 
     {
-	if (dynamic_p_)
-	    to_end_cresc_p_->right_dyn_b_=true;
+      if (dynamic_p_)
+	to_end_cresc_p_->dyn_b_drul_[RIGHT]=true;
 	
-	to_end_cresc_p_->right_col_l_ = get_staff_info().musical_l ();
-	to_end_cresc_p_->set_staffsym (s_l);
-	typeset_element (to_end_cresc_p_);
-	to_end_cresc_p_ = 0;
+      to_end_cresc_p_->set_bounds(RIGHT,get_staff_info().musical_l ());
+      to_end_cresc_p_->set_staffsym (s_l);
+      typeset_element (to_end_cresc_p_);
+      to_end_cresc_p_ = 0;
     }
 }
 
@@ -127,7 +127,7 @@ void
 Dynamic_engraver::set_feature (Feature i)
 {
   if (i.type_ == "vdir")	
-	dir_i_ = i.value_;
+    dir_ = (Direction) int(i.value_);
 }
 
 
@@ -140,7 +140,7 @@ Dynamic_engraver::~Dynamic_engraver()
   delete to_end_cresc_p_;
   if (cresc_p_) 
     {
-	cresc_req_l_->warning ("unended crescendo");
+      cresc_req_l_->warning ("unended crescendo");
     }
   delete cresc_p_;
 }
@@ -149,10 +149,10 @@ Dynamic_engraver::acknowledge_element (Score_elem_info i)
 {
   if (i.elem_l_->name() == Note_column::static_name ()) 
     {
-	if (dynamic_p_) dynamic_p_->add_support (i.elem_l_);
-	if (to_end_cresc_p_)
-	    to_end_cresc_p_->add_support (i.elem_l_);
-	if (cresc_p_) 
-	    cresc_p_->add_support (i.elem_l_);
+      if (dynamic_p_) dynamic_p_->add_support (i.elem_l_);
+      if (to_end_cresc_p_)
+	to_end_cresc_p_->add_support (i.elem_l_);
+      if (cresc_p_) 
+	cresc_p_->add_support (i.elem_l_);
     }
 }
