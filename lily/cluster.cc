@@ -141,7 +141,7 @@ Cluster::print (SCM smob)
   Item *left_bound = spanner->get_bound (LEFT);
   Item *right_bound = spanner->get_bound (RIGHT);
 
-  Grob *common = left_bound->common_refpoint (right_bound, X_AXIS);
+  Grob *commonx = left_bound->common_refpoint (right_bound, X_AXIS);
   SCM cols  =me->get_property ("columns");
 
   if (!gh_pair_p (cols))
@@ -151,14 +151,14 @@ Cluster::print (SCM smob)
       
       return SCM_EOL;
     }
-  common = common_refpoint_of_list (cols, common, X_AXIS);
+  
+  commonx = common_refpoint_of_list (cols, commonx, X_AXIS);
+  Grob * commony = common_refpoint_of_list (cols, me, Y_AXIS);
   Array<Offset> bottom_points;
   Array<Offset> top_points;
 
 
-  Real left_coord = left_bound->relative_coordinate (common, X_AXIS);
-
-  Real unit = Staff_symbol_referencer::staff_space (me) *0.5;
+  Real left_coord = left_bound->relative_coordinate (commonx, X_AXIS);
 
   /*
     TODO: should we move the cluster a little to the right to be in
@@ -168,17 +168,11 @@ Cluster::print (SCM smob)
   for (SCM s = cols; gh_pair_p (s); s = ly_cdr (s))
     {
       Grob * col = unsmob_grob (ly_car (s));
+      Interval yext = col->extent (commony, Y_AXIS);
 
-      SCM posns = col->get_property ("positions");
-      
-      Slice s (0,0);
-      if (is_number_pair (posns))
-	s = Slice (gh_scm2int (gh_car (posns)),
-		   gh_scm2int (gh_cdr (posns)));
-
-      Real x = col->relative_coordinate (common, X_AXIS) - left_coord;
-      bottom_points.push (Offset (x, s[DOWN] *unit));
-      top_points.push (Offset (x, s[UP] * unit));
+      Real x = col->relative_coordinate (commonx, X_AXIS) - left_coord;
+      bottom_points.push (Offset (x, yext[DOWN]));
+      top_points.push (Offset (x, yext[UP]));
     }
 
   /*
@@ -194,18 +188,14 @@ Cluster::print (SCM smob)
 	  SCM cols = next->get_property ("columns");
 	  if (gh_pair_p (cols))
 	    {
+	      Grob *next_commony = common_refpoint_of_list (cols, next, Y_AXIS);
 	      Grob * col = unsmob_grob (ly_car (scm_last_pair (cols)));
-	      SCM posns = col->get_property ("positions");
-      
-	      Slice s (0,0);
-	      if (is_number_pair (posns))
-		s = Slice (gh_scm2int (gh_car (posns)),
-			   gh_scm2int (gh_cdr (posns)));
 
-	      Real x = right_bound->relative_coordinate (common,X_AXIS) - left_coord;
+	      Interval v = col->extent (next_commony, Y_AXIS);
+	      Real x = right_bound->relative_coordinate (commonx, X_AXIS) - left_coord;
 	      
-	      bottom_points.insert (Offset (x, s[DOWN] * unit),0);
-	      top_points.insert (Offset (x, s[UP] * unit),0);
+	      bottom_points.insert (Offset (x, v[DOWN]),0);
+	      top_points.insert (Offset (x, v[UP]),0);
 	    }
 	}
     }
@@ -214,6 +204,7 @@ Cluster::print (SCM smob)
   top_points.reverse ();
 
   Stencil out = brew_cluster_piece (me, bottom_points, top_points);
+  out.translate_axis (- me->relative_coordinate (commony, Y_AXIS), Y_AXIS);
   return out.smobbed_copy ();
 }
 
@@ -227,3 +218,30 @@ ADD_INTERFACE (Cluster,"cluster-interface",
 	       "and @code{ramp}.\n"
 ,
   "style padding columns");
+
+
+
+struct Cluster_beacon
+{
+public:
+  DECLARE_SCHEME_CALLBACK (height, (SCM, SCM));
+  static bool has_interface (Grob *);
+};
+
+MAKE_SCHEME_CALLBACK (Cluster_beacon,height,2);
+SCM
+Cluster_beacon::height (SCM g, SCM ax)
+{
+  Grob *me = unsmob_grob (g);
+
+  Interval v = robust_scm2interval (me->get_property ("positions"), Interval (0,0));
+  return ly_interval2scm (Staff_symbol_referencer::staff_space (me) * 0.5  * v);
+}
+
+
+
+ADD_INTERFACE(Cluster_beacon,
+	      "cluster-beacon-interface",
+	      "A place holder for the cluster spanner to determine the vertical "
+	      "extents of a cluster spanner at this X position.",
+	      "positions");

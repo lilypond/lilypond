@@ -1482,9 +1482,6 @@ shortest note they contain. For a beam ending rule that only applies
 to beams with 32nd notes (and no shorter notes), use @code{(end 1 32 *
 *)}.
 
-If a score ends while an automatic beam has not been ended and is still
-accepting notes, this last beam will not be typeset at all.
-
 @cindex automatic beam generation
 @cindex autobeam
 @cindex @code{autoBeaming}
@@ -1503,6 +1500,12 @@ beaming should be switched off. This is done by setting
 
 
 @refbugs
+
+If a score ends while an automatic beam has not been ended and is
+still accepting notes, this last beam will not be typeset at all. The
+same holds polyphonic voices, entered with @code{<< @dots{} \\ @dots{}
+>>}. If a polyphonic voice ends while an automatic beam is still
+accepting notes, it is not typeset.
 
 The rules for ending a beam depend on the shortest note in a beam.
 So, while it is possible to have different ending rules for eight

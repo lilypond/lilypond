@@ -9,15 +9,6 @@
 ; should include default value?
 
 
-(ly:add-interface
- 'cluster-beacon-interface
-
- "A place holder for the cluster spanner to determine the vertical
-extents of a cluster spanner at this X position.
-
- "
- '(positions)
- )
 
 (ly:add-interface
  'dynamic-interface

@@ -261,6 +261,7 @@
     (ClusterSpannerBeacon
      . (
 	(print-function . #f)
+	(Y-extent-callback . ,Cluster_beacon::height)
 	(meta . ((interfaces . (cluster-beacon-interface item-interface))))
 	))
     

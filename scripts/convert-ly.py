@@ -1917,7 +1917,7 @@ def conv (str):
 	str = re.sub (r'\\modernCautionaries', "#(set-accidental-style 'modern-cautionary)", str)
 	str = re.sub (r'\\modernVoiceAccidental', "#(set-accidental-style 'modern-voice)", str)
 	str = re.sub (r'\\modernVoiceCautionaries', "#(set-accidental-style 'modern-voice-cautionary)", str)
-	str = re.sub (r'\\pianoAccidentals', "#(set-accidental-style 'piano)' , str)", str)
+	str = re.sub (r'\\pianoAccidentals', "#(set-accidental-style 'piano)", str)
 	str = re.sub (r'\\pianoCautionaries', "#(set-accidental-style 'piano-cautionary)", str)
 	str = re.sub (r'\\forgetAccidentals', "#(set-accidental-style 'forget)", str)
 	str = re.sub (r'\\noResetKey', "#(set-accidental-style 'no-reset)", str)

@@ -93,8 +93,8 @@ touch /tmp/.lilypond-install
 rm `find /var/lib/texmf -name 'feta*pk' -or -name 'feta*tfm' -or -name 'parmesan*pk' -or -name 'parmesan*tfm' -print` /tmp/.lilypond-install
 
 %if %{info}
-/sbin/install-info %{_infodir}/lilypond.info.gz %{_infodir}/dir 
-/sbin/install-info %{_infodir}/music-glossary.info.gz %{_infodir}/dir 
+/sbin/install-info %{_infodir}/lilypond/lilypond.info.gz %{_infodir}/dir 
+/sbin/install-info %{_infodir}/lilypond/music-glossary.info.gz %{_infodir}/dir 
 %endif
 
 # chkfontpath --add=%{_datadir}/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
@@ -108,8 +108,8 @@ fi
 
 
 %if %{info}
-    /sbin/install-info --delete %{_infodir}/lilypond.info.gz %{_infodir}/dir 
-    /sbin/install-info --delete %{_infodir}/music-glossary.info.gz %{_infodir}/dir 
+    /sbin/install-info --delete %{_infodir}/lilypond/lilypond.info.gz %{_infodir}/dir 
+    /sbin/install-info --delete %{_infodir}/lilypond/music-glossary.info.gz %{_infodir}/dir 
 %endif
 
 # chkfontpath --remove=%{_datadir}/share/lilypond/@TOPLEVEL_VERSION@/fonts/type1n/
