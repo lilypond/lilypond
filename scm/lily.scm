@@ -14,7 +14,7 @@
 ; We should repartition the entire scm side of lily in a
 ; more sane way, using namesspaces/modules?
 
-;(debug-enable 'backtrace)
+(debug-enable 'backtrace)
 
 ;;; library funtions
 
