@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.3.16"
+\version "2.3.17"
 \encoding "latin1"
 \header {
     composer = "ARTHUR GRAY"
@@ -136,7 +136,7 @@ bass = \new Voice \relative c{
     <a'' eis cis>4)\arpeggio
     
     \change Staff=bass
-    \stemBoth
+    \stemNeutral
     
     r8. cis,,16(\sustainUp <fis fis,>8 <gis gis,>
     
@@ -157,7 +157,7 @@ bass = \new Voice \relative c{
     \stemDown
     <b,, b,>4
     \clef treble
-    \stemBoth
+    \stemNeutral
     <<
         %urg: staff-change: ! on dis
         <cis'' a fis dis!>\arpeggio
@@ -192,7 +192,7 @@ bass = \new Voice \relative c{
     a,8\sustainDown e'[-5(<a cis>])-2-3
     %%r b,-5 <e-3 gis-5 d'>4
     r b,-5\sustainUp\sustainDown <e gis d'>4-3-5
-    \slurBoth
+    \slurNeutral
     \once \override Fingering  #'extra-offset = #'(0 . -1) %tweak
     e,8[-5(\sustainUp
     
@@ -201,7 +201,7 @@ bass = \new Voice \relative c{
     a)-2]\sustainDown
     \slurUp
     e'[(<a cis>)] r b,\sustainUp\sustainDown <e gis d'>4
-    \slurBoth
+    \slurNeutral
     e,8[(\sustainUp
     
     | %7

@@ -1,3 +1,12 @@
+2004-09-13  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* ly/property-init.ly (hideStaffSwitch): remove turnOff.
+
+	* scripts/convert-ly.py (conv): change Both to Neutral in property
+	settings.
+
+	* ly/engraver-init.ly: increase extent of Staff. 
+
 2004-09-13  Graham Percival  <gperlist@shaw.ca>
 
 	* scm/script.scm: change behaviour of slur and accent.
@@ -27,7 +36,7 @@
 	document them.
 
 	* scm/page-layout.scm (ly:optimal-page-breaks): use new parameters
-	to get sane spaces for titles.
+ 	to get sane spaces for titles.
 
 	* ly/book-paper-defaults.ly: new parameters aftertitlespace,
 	beforetitlespace, betweentitlespace.

@@ -1,5 +1,5 @@
 
-\version "2.3.16"
+\version "2.3.17"
 \header{
 texidoc="
 Stem tremolos or rolls are tremolo signs that look like beam segments
@@ -21,7 +21,7 @@ tremolo must be centered on the note.
 		a4:32 a'4:64 
 		\stemDown
 		c,4:32 c,4:64
-		\stemBoth
+		\stemNeutral
 		c'8:16 c c c
 		a': a a: a
 		c,16:32 c: c c a16:32 a: a a

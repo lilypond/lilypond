@@ -1,5 +1,5 @@
 
-\version "2.3.16"
+\version "2.3.17"
 
 \header{
 texidoc="
@@ -31,7 +31,11 @@ in unbroken state.
     a2.)
     \stemUp
     <d='' d'>8( <c c'> \break
-    <bis f' b>)
-    
+    <bis f' b>) s2..\break
+    \stemNeutral
+    \relative  { c'8[( c c c] g2 ~ | \break
+		g1) | \break
+		\slurDown c8[( c] g4 ~ g2 ~ | \break
+		g2 ~ g2) }
 }
 

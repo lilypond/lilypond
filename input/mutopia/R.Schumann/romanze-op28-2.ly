@@ -5,7 +5,7 @@
 
 #(set-global-staff-size 16)
 
-\version "2.3.16"
+\version "2.3.17"
 
 \header {
   title = "Romanzen"
@@ -75,7 +75,7 @@ righta =  \transpose c cis' {
  \m  f,[( \u c^3 f c] \m  g,[ \u c^4] \m  a,[ \u c^2 a c8  cis16)] |
  \m  a,[( \u d^2 a d] \m  c[ \u d c' d] \m  b,[ \u  d)^3] r8 |
  \m  c16[( \u f c' f] \m  es[ \u f es' f] \m  d[ \u  f)^3] \m  f[( \u as^2] |
-  f'[  as)] \m  f[( \u as f'  as)] r8^\fermata r16 e'^2( f' g' | \stemBoth \tieBoth
+  f'[  as)] \m  f[( \u as f'  as)] r8^\fermata r16 e'^2( f' g' | \stemNeutral \tieNeutral
  as' des'^1 c'8^\markup { \finger "2-3" } h~h  c'16) \clef F  e,16[(^2 f, g,] |
  \forcedBreak
 
@@ -85,7 +85,7 @@ righta =  \transpose c cis' {
   f) f'-5( e'-5 d'-4 c'-3  f')-5 <f^4 a^5>4( <e^3 g^5>8 |
  <a, f^4>4 <g, e^3>8 f16^4 d'^5~ d'8.[ c'16^4] |
  \forcedBreak 
- << f8)^3_\pp \context Voice = another { \m  a,16[ \u c8 c16] } >> \m  g,[ \u c_3] \m  b,[^\markup { \finger "2-1" } \u c8 c16] \m  a,[ \u c]~ | \stemBoth
+ << f8)^3_\pp \context Voice = another { \m  a,16[ \u c8 c16] } >> \m  g,[ \u c_3] \m  b,[^\markup { \finger "2-1" } \u c8 c16] \m  a,[ \u c]~ | \stemNeutral
  c16 c8_4 c c16~c c8_2 c c16~ |
  c16 c8 c c16~c c8 c c16~ |
  c16 c8 c c16 r4^\fermata r8 | \bar "|."
@@ -140,7 +140,7 @@ rightb =  \transpose c cis' {
   \revert Stem #'stroke-style }
   f4) e8 |
  f g16_2 b_1 a_2 gis_1 c_2 h, c cis_1 d_2 b,_1 |
- \tieDown c4.~<f, c  >16\< \tieBoth <f h>~ < f^3 h >8[\>\! < e b^2> \!] |
+ \tieDown c4.~<f, c  >16\< \tieNeutral <f h>~ < f^3 h >8[\>\! < e b^2> \!] |
  \change Staff=mid
  \transpose c' c {
   a4^1( g8^1 b4 a8^2 |
@@ -162,7 +162,7 @@ lefta =  \transpose c cis {
    d4)^1 f8^1^\accent(~f e^. dis^1^. |
   e4^1 d8^1~d  c4)^1 |
  }
- \d \tieBoth \slurDown
+ \d \tieNeutral \slurDown
  <<
  \transpose c' c {
   g4 a8~a f g | a4 g8~g f e |
@@ -225,7 +225,7 @@ leftb =  \transpose c cis {
  fis^1 d d, d  a[ d_2] g, d g d_3  b,[_5( g_2] |
   a) c_3 f, c  c'[ f_2] b, f b f_3 d' as |
  h, as d' as h, as( f'4.)^\fermata\arpeggio_2 ~
- \d \stemDown f'8. \clef G \stemBoth \tieBoth \phrasingSlurDown
+ \d \stemDown f'8. \clef G \stemNeutral \tieNeutral \phrasingSlurDown
    \transpose c c' { e16[_4( f g]  as[ des_3]  c8[_4 <h, d f d'>)]~ |
  <h, d f d'>} \clef F <c_3 f_1>[( <b,_4 e^2>] <a,_5 eis^1>8.) h,16_4\( c d |
  \voiceTwo

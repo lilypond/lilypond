@@ -1,14 +1,14 @@
 % property-init.ly
 
-\version "2.3.16"
+\version "2.3.17"
 
 stemUp = \override Stem  #'direction = #1
 stemDown = \override Stem  #'direction = #-1 
-stemBoth= \revert Stem #'direction
+stemNeutral= \revert Stem #'direction
 
 slurUp = \override Slur  #'direction = #1
 slurDown = \override Slur  #'direction = #-1
-slurBoth = \revert Slur #'direction 
+slurNeutral = \revert Slur #'direction 
 
 % There's also dash, but setting dash period/length should be fixed.
 slurDotted = \override Slur  #'dashed = #1
@@ -17,7 +17,7 @@ slurSolid = \revert Slur #'dashed
 
 phrasingSlurUp = \override PhrasingSlur  #'direction = #1
 phrasingSlurDown = \override PhrasingSlur  #'direction = #-1
-phrasingSlurBoth = \revert PhrasingSlur #'direction 
+phrasingSlurNeutral = \revert PhrasingSlur #'direction 
 
 shiftOn = \override NoteColumn  #'horizontal-shift = #1
 shiftOnn = \override NoteColumn  #'horizontal-shift = #2
@@ -26,7 +26,7 @@ shiftOff = \revert NoteColumn #'horizontal-shift
 
 tieUp = \override Tie  #'direction = #1
 tieDown = \override Tie  #'direction = #-1
-tieBoth = \revert Tie #'direction 
+tieNeutral = \revert Tie #'direction 
 
 tieDotted = \override Tie  #'dashed = #1
 tieSolid = \revert Tie #'dashed
@@ -45,7 +45,7 @@ dynamicDown = {
   \override DynamicText  #'direction = #-1
   \override DynamicLineSpanner  #'direction = #-1
 }
-dynamicBoth = {
+dynamicNeutral = {
   \revert DynamicText #'direction
   \revert DynamicLineSpanner #'direction
 }
@@ -53,11 +53,11 @@ dynamicBoth = {
 
 dotsUp = \override Dots  #'direction = #1
 dotsDown = \override Dots  #'direction = #-1
-dotsBoth = \revert Dots #'direction 
+dotsNeutral = \revert Dots #'direction 
 
 tupletUp = \override TupletBracket  #'direction = #1
 tupletDown = \override TupletBracket  #'direction = #-1
-tupletBoth = \revert TupletBracket #'direction
+tupletNeutral = \revert TupletBracket #'direction
 
 cadenzaOn = \set Timing.timing = ##f
 cadenzaOff = {
@@ -103,13 +103,6 @@ hideStaffSwitch = \set followVoice = ##f
 
 
 
-% To remove a Volta bracket or some other graphical object,
-% set it to turnOff. Example: \set Staff.VoltaBracket = \turnOff
-
-%%
-%% DO NOT USE THIS. IT CAN LEAD TO CRASHES.
-turnOff = #(cons '() '())
-
 % For drawing vertical chord brackets with \arpeggio
 % This is a shorthand for the value of the print-function property 
 % of either Staff.Arpeggio or PianoStaff.Arpeggio, depending whether 
@@ -125,7 +118,7 @@ arpeggioDown = \sequential {
   \revert Arpeggio  #'print-function
   \override Arpeggio  #'arpeggio-direction = #-1
 }
-arpeggioBoth = \sequential {
+arpeggioNeutral = \sequential {
   \revert Arpeggio  #'print-function
   \revert Arpeggio  #'arpeggio-direction
 }

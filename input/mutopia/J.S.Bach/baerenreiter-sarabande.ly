@@ -1,4 +1,4 @@
-\version "2.3.16"
+\version "2.3.17"
 
 % #(ly:set-point-and-click 'line-column)
 
@@ -107,7 +107,7 @@ sarabandeA =  \context Voice  \relative c {
   |
   \stemUp
   d4 d,16 a'( b cis d e f g) |
-  \stemBoth
+  \stemNeutral
   \forcedLastBreak
   %%25
   << { a16(b c b) c4. b16(a) |

@@ -42,7 +42,7 @@ instrument = "Piano"
  footer = "Mutopia-2001/04/27-xx"
 } 
 
-\version "2.3.16"
+\version "2.3.17"
 
 dynamicUp = \override DynamicLineSpanner  #'direction = #1
 dynamicRevert = \revert DynamicLineSpanner #'direction
@@ -211,7 +211,7 @@ trebleVerseOne = \relative c{
 }
 
 trebleEentje =  \relative c' \context Voice {
-	\stemBoth
+	\stemNeutral
 	<e e'>2 r4 |
 	<f as!>2\(\mf <as c>8.(-> <f as>16)\) |
 	% urg: slurs with staccati are ugly
@@ -226,7 +226,7 @@ trebleEentje =  \relative c' \context Voice {
 }
 
 trebleThrough =  \relative c'{
-	\stemBoth
+	\stemNeutral
 	<e e'>2. |
 	%61
 	R2. |
