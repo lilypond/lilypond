@@ -1,6 +1,5 @@
 -*-outline-layout:(2 (-1 -1 0 :) 0);outline-stylish-prefixes:nil -*-
 
-
 * GNU LilyPond TODO
 Features you cannot find in the documentation as working, should be
 mentioned here.  This is an assorted collection of stuff that will be
@@ -11,11 +10,11 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 
 .* TODO
 . * use Rhythmic_head::position_i () for all Staff_referenced 
-. * make diff and make release should leave junk in out/, not in ../test/ 
+. * .po -> .pot.
 . * setting indent to 0 with \shape fails
+. * hara kiri _8 clef.
 . * junk -M ?
 . * mudela-book doco
-. * Depracate Wordwrap
 . * rerun profile
 . * fix or replace feta-accordion.mf
 . * fix configure with CFLAGS or LDFLAGS, try:
@@ -25,8 +24,6 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 
 . * Break_req handling is silly (break_forbid () + \break fucks up.)
 . * script engraver
-. * HaraKiriStaffContext removes bar lines and doesn't remove
-    staff margin text on removed staff lines.
 . * Chords:
 .  * Bass/inversion pitch when not part of Chord
 Sometimes a series of changing chords will be blocked out over a static tone

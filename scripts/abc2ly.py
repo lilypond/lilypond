@@ -505,12 +505,13 @@ def try_parse_header_line (ln, state):
 		if g == 'K': # KEY
 			a = check_clef(a)
 			if a:
-				__main__.global_key  =compute_key (a)# ugh.
 				m = re.match ('^([^ \t]*) *(.*)$', a) # seperate clef info
 				if m:
+					__main__.global_key  =compute_key (m.group(1))# ugh.
 					voices_append ('\\key %s;' % lily_key(m.group(1)))
 					check_clef(m.group(2))
 				else:
+					__main__.global_key  =compute_key (a)# ugh.
 					voices_append ('\\key %s;' % lily_key(a))
 		if g == 'O': # Origin
 			header ['origin'] = a
