@@ -1,16 +1,15 @@
 \version "1.7.18"
-
-% bagpipe music.
-
 \header
 {
  title="Flower of Scotland"
+ texidoc = "bagpipe music "
 }
 
-#(add-to-grace-init NoteHead 'font-relative-size -2)
-#(add-to-grace-init Stem 'stroke-style "")
-#(add-to-grace-init Stem 'length 6)
-#(add-to-grace-init Stem 'font-relative-size -2)
+#(add-to-grace-init "Voice" 'Stem 'length 6)
+#(add-to-grace-init "Voice" 'Stem 'stroke-style '())
+
+% doen't work??  
+%#(add-to-grace-init "Voice" 'Stem 'font-relative-size -)
 
 \paper {
   linewidth = 14.0 \cm
