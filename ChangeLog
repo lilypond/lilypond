@@ -4,6 +4,23 @@
 
 2004-08-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* po/nl.po: Some updates.
+
+	* scm/lily.scm (_): New function.
+	(postscript->pdf, postscript->png, lilypond-main)
+	(postscript->pdf): Use it.  Write messages to stderr.
+
+	* stepmake/stepmake/po-targets.make (ALL_PO_SOURCES): Add SCM_FILES.
+
+	* scm/GNUmakefile (XGETTEXT_FLAGS): Set language to Lisp.
+	xgettext does not recognise scheme yet.  Patch submitted.
+
+	* lily/scm-option.cc (LY_DEFINE):
+	* lily/main.cc: The program is now called lilypond (WAS: lilypond-bin).
+
+	* lily/rest-collision.cc (do_shift): Uniformise two too many rests
+	messages.
+
 	* lily/include/paper-book.hh
 	* lily/include/paper-system.hh: Finish renaming of paper-line to
 	system.  Fix users.

@@ -141,7 +141,7 @@ Rest_collision::do_shift (Grob *me)
 	if (ordered_rests[d].size () < 1)
 	  {
 	    if (ordered_rests[-d].size() > 1)
-	      ordered_rests[-d][0]->warning (_("Too many colliding rests."));
+	      ordered_rests[-d][0]->warning (_ ("too many colliding rests"));
 	  
 	    return SCM_UNSPECIFIED;
 	  }
