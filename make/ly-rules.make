@@ -9,7 +9,7 @@ $(outdir)/%.latex: %.doc
 	chmod -w $@
 
 # don't do ``cd $(outdir)'', and assume that $(outdir)/.. is the src dir.
-# it is not, for --scrdir builds
+# it is not, for --srcdir builds
 $(outdir)/%.texi: %.tely
 	rm -f $@
 	LILYPONDPREFIX=$(LILYPONDPREFIX)/..  $(PYTHON) $(script-dir)/lilypond-book.py --outdir=$(outdir) -I $(pwd) -I $(input-dir)/tricks/ -I $(input-dir)/regression/ -I $(input-dir)/test/ --dependencies --format=texi $<
