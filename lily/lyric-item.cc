@@ -8,7 +8,6 @@
 #include "source-file.hh"
 #include "source.hh"
 #include "debug.hh"
-#include "main.hh"
 
 Lyric_item::Lyric_item(Lyric_req* lreq_l, int voice_count_i)
     : Text_item(lreq_l,0)
@@ -23,5 +22,5 @@ Lyric_item::do_pre_processing()
 
     // test context-error
     if ( tdef_l()->text_str_.index_i( "Gates" ) >=0)// :-)
-    	warning( "foul word", tdef_l()->defined_ch_c_l_ );
+    	warning( "foul word", tdef_l()->defined_ch_C_ );
 }
