@@ -42,20 +42,30 @@ Engraver_group_engraver::do_announces()
   Request dummy_req;
 
   Link_array<Translator> nongroups = nongroup_l_arr ();
-  for (int j =0; j < announce_info_arr_.size(); j++)
+  while (announce_info_arr_.size ())
     {
-      Score_elem_info info = announce_info_arr_[j];
-
-      if (!info.req_l_)
-	info.req_l_ = &dummy_req;
-      for (int i=0; i < nongroups.size(); i++) 
-	{	// Is this good enough?
-	  Engraver * eng = nongroups[i]->engraver_l ();
-	  if (eng && eng!= info.origin_grav_l_arr_[0])
-	    eng->acknowledge_element (info);
+      for (int j =0; j < announce_info_arr_.size(); j++)
+	{
+	  Score_elem_info info = announce_info_arr_[j];
+	  
+	  if (!info.req_l_)
+	    info.req_l_ = &dummy_req;
+	  for (int i=0; i < nongroups.size(); i++) 
+	    {	// Is this good enough?
+	      Engraver * eng = nongroups[i]->engraver_l ();
+	      if (eng && eng!= info.origin_grav_l_arr_[0])
+		eng->acknowledge_element (info);
+	    }
 	}
+      announce_info_arr_.clear ();
+      for (int i=0; i < nongroups.size(); i++)
+	{
+	  Engraver * eng = nongroups[i]->engraver_l ();
+	  if (eng)
+	    eng->process_acknowledged ();
+	}
+
     }
-  announce_info_arr_.clear();
 }
 
 

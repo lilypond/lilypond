@@ -22,7 +22,9 @@
   Group a number of engravers. Usually delegates everything to its contents.
   Postfix: group
   */
-class Engraver_group_engraver : public Engraver, public virtual Translator_group {
+class Engraver_group_engraver : public Engraver,
+				public virtual Translator_group
+{
 protected:
   Array<Score_elem_info> announce_info_arr_;
 public:
@@ -33,7 +35,7 @@ public:
   DECLARE_MY_RUNTIME_TYPEINFO;
     
   virtual Staff_info get_staff_info() const;
-  virtual void do_announces();    
+  virtual void do_announces();
   virtual void announce_element (Score_elem_info);
 };
 
