@@ -375,7 +375,8 @@ Options:
       (begin
        (set! fonts (cons (cons "default" (generate-default-font)) fonts))
        (display "\n" (current-error-port))
-       (if (defined? 'mudelapaperlinewidth)
+       (if (and (defined? 'mudelapaperlinewidth)
+		(> mudelapaperlinewidth 0))
 	   (set! canvas-width 
 		 (inexact->exact (string->number mudelapaperlinewidth))))))
   (set! canvas-height height)

@@ -5,23 +5,24 @@
 \include "declarations-as.ly"
 
 % burp.  need to override lily.scm
-#(define cmr-alist 
-  '(("bold" . "cmbx") 
+#(define cmr-alist
+  '(("bold" . "as-dummy") 
     ("brace" . "as-braces")
-    ("dynamic" . "cmr") 
+    ("dynamic" . "as-dummy") 
     ("default" . "as-dummy") 
     ("feta" . "feta") 
     ("feta-1" . "feta") 
     ("feta-2" . "feta") 
     ("finger" . "as-number") 
-    ("typewriter" . "cmtt") 
-    ("italic" . "cmti") 
-    ("roman" . "cmr") 
-    ("script" . "cmr") 
-    ("large" . "cmbx") 
-    ("Large" . "cmbx") 
+    ("typewriter" . "as-dummy") 
+    ("italic" . "as-dummy") 
+    ("roman" . "as-dummy") 
+    ("script" . "as-dummy") 
+    ("large" . "as-dummy") 
+    ("Large" . "as-dummy") 
     ("mark" . "as-number") 
     ("number" . "as-number") 
+    ("timesig" . "as-number")
     ("volta" . "as-number"))
 )
 

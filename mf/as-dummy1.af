@@ -1,0 +1,279 @@
+	Comment as-dummy.af -- AsciiFont: sane metrics for LilyPond
+
+	Comment part of LilyPond's [ascii music font]
+
+	Comment (c) 2000 Jan Nieuwenhuizen <janneke@gnu.org>
+
+	Comment Lines that start with TAB or FF make up the .afm
+	Comment TABs are comments
+	Comment `Comment' is the afm comment prefix
+	Comment which makes `TAB Comment' an .afm comment
+
+	Comment Urg: this should be generated
+	Comment It only serves as a generic catch-all metric file
+	Comment for LilyPond
+
+	StartFontMetrics 2.0
+	FontName as-dummy
+	FontFamily as-dummy
+	StartCharMetrics 256
+
+	Comment BBox: (llx lly urx ury) * 1000
+ C 0; WX 1; N Char-0; B 0 0 1000 1000;
+ C 1; WX 1; N Char-1; B 0 0 1000 1000;
+ C 2; WX 1; N Char-2; B 0 0 1000 1000;
+ C 3; WX 1; N Char-3; B 0 0 1000 1000;
+ C 4; WX 1; N Char-4; B 0 0 1000 1000;
+ C 5; WX 1; N Char-5; B 0 0 1000 1000;
+ C 6; WX 1; N Char-6; B 0 0 1000 1000;
+ C 7; WX 1; N Char-7; B 0 0 1000 1000;
+ C 8; WX 1; N Char-8; B 0 0 1000 1000;
+ C 9; WX 1; N Char-9; B 0 0 1000 1000;
+ C 10; WX 1; N Char-10; B 0 0 1000 1000;
+ C 11; WX 1; N Char-11; B 0 0 1000 1000;
+ C 12; WX 1; N Char-12; B 0 0 1000 1000;
+ C 13; WX 1; N Char-13; B 0 0 1000 1000;
+ C 14; WX 1; N Char-14; B 0 0 1000 1000;
+ C 15; WX 1; N Char-15; B 0 0 1000 1000;
+ C 16; WX 1; N Char-16; B 0 0 1000 1000;
+ C 17; WX 1; N Char-17; B 0 0 1000 1000;
+ C 18; WX 1; N Char-18; B 0 0 1000 1000;
+ C 19; WX 1; N Char-19; B 0 0 1000 1000;
+ C 20; WX 1; N Char-20; B 0 0 1000 1000;
+ C 21; WX 1; N Char-21; B 0 0 1000 1000;
+ C 22; WX 1; N Char-22; B 0 0 1000 1000;
+ C 23; WX 1; N Char-23; B 0 0 1000 1000;
+ C 24; WX 1; N Char-24; B 0 0 1000 1000;
+ C 25; WX 1; N Char-25; B 0 0 1000 1000;
+ C 26; WX 1; N Char-26; B 0 0 1000 1000;
+ C 27; WX 1; N Char-27; B 0 0 1000 1000;
+ C 28; WX 1; N Char-28; B 0 0 1000 1000;
+ C 29; WX 1; N Char-29; B 0 0 1000 1000;
+ C 30; WX 1; N Char-30; B 0 0 1000 1000;
+ C 31; WX 1; N Char-31; B 0 0 1000 1000;
+ C 32; WX 1; N Char-32; B 0 0 1000 1000;
+ C 33; WX 1; N Char-33; B 0 0 1000 1000;
+ C 34; WX 1; N Char-34; B 0 0 1000 1000;
+ C 35; WX 1; N Char-35; B 0 0 1000 1000;
+ C 36; WX 1; N Char-36; B 0 0 1000 1000;
+ C 37; WX 1; N Char-37; B 0 0 1000 1000;
+ C 38; WX 1; N Char-38; B 0 0 1000 1000;
+ C 39; WX 1; N Char-39; B 0 0 1000 1000;
+ C 40; WX 1; N Char-40; B 0 0 1000 1000;
+ C 41; WX 1; N Char-41; B 0 0 1000 1000;
+ C 42; WX 1; N Char-42; B 0 0 1000 1000;
+ C 43; WX 1; N Char-43; B 0 0 1000 1000;
+ C 44; WX 1; N Char-44; B 0 0 1000 1000;
+ C 45; WX 1; N Char-45; B 0 0 1000 1000;
+ C 46; WX 1; N Char-46; B 0 0 1000 1000;
+ C 47; WX 1; N Char-47; B 0 0 1000 1000;
+ C 48; WX 1; N Char-48; B 0 0 1000 1000;
+ C 49; WX 1; N Char-49; B 0 0 1000 1000;
+ C 50; WX 1; N Char-50; B 0 0 1000 1000;
+ C 51; WX 1; N Char-51; B 0 0 1000 1000;
+ C 52; WX 1; N Char-52; B 0 0 1000 1000;
+ C 53; WX 1; N Char-53; B 0 0 1000 1000;
+ C 54; WX 1; N Char-54; B 0 0 1000 1000;
+ C 55; WX 1; N Char-55; B 0 0 1000 1000;
+ C 56; WX 1; N Char-56; B 0 0 1000 1000;
+ C 57; WX 1; N Char-57; B 0 0 1000 1000;
+ C 58; WX 1; N Char-58; B 0 0 1000 1000;
+ C 59; WX 1; N Char-59; B 0 0 1000 1000;
+ C 60; WX 1; N Char-60; B 0 0 1000 1000;
+ C 61; WX 1; N Char-61; B 0 0 1000 1000;
+ C 62; WX 1; N Char-62; B 0 0 1000 1000;
+ C 63; WX 1; N Char-63; B 0 0 1000 1000;
+ C 64; WX 1; N Char-64; B 0 0 1000 1000;
+ C 65; WX 1; N Char-65; B 0 0 1000 1000;
+ C 66; WX 1; N Char-66; B 0 0 1000 1000;
+ C 67; WX 1; N Char-67; B 0 0 1000 1000;
+ C 68; WX 1; N Char-68; B 0 0 1000 1000;
+ C 69; WX 1; N Char-69; B 0 0 1000 1000;
+ C 70; WX 1; N Char-70; B 0 0 1000 1000;
+ C 71; WX 1; N Char-71; B 0 0 1000 1000;
+ C 72; WX 1; N Char-72; B 0 0 1000 1000;
+ C 73; WX 1; N Char-73; B 0 0 1000 1000;
+ C 74; WX 1; N Char-74; B 0 0 1000 1000;
+ C 75; WX 1; N Char-75; B 0 0 1000 1000;
+ C 76; WX 1; N Char-76; B 0 0 1000 1000;
+ C 77; WX 1; N Char-77; B 0 0 1000 1000;
+ C 78; WX 1; N Char-78; B 0 0 1000 1000;
+ C 79; WX 1; N Char-79; B 0 0 1000 1000;
+ C 80; WX 1; N Char-80; B 0 0 1000 1000;
+ C 81; WX 1; N Char-81; B 0 0 1000 1000;
+ C 82; WX 1; N Char-82; B 0 0 1000 1000;
+ C 83; WX 1; N Char-83; B 0 0 1000 1000;
+ C 84; WX 1; N Char-84; B 0 0 1000 1000;
+ C 85; WX 1; N Char-85; B 0 0 1000 1000;
+ C 86; WX 1; N Char-86; B 0 0 1000 1000;
+ C 87; WX 1; N Char-87; B 0 0 1000 1000;
+ C 88; WX 1; N Char-88; B 0 0 1000 1000;
+ C 89; WX 1; N Char-89; B 0 0 1000 1000;
+ C 90; WX 1; N Char-90; B 0 0 1000 1000;
+ C 91; WX 1; N Char-91; B 0 0 1000 1000;
+ C 92; WX 1; N Char-92; B 0 0 1000 1000;
+ C 93; WX 1; N Char-93; B 0 0 1000 1000;
+ C 94; WX 1; N Char-94; B 0 0 1000 1000;
+ C 95; WX 1; N Char-95; B 0 0 1000 1000;
+ C 96; WX 1; N Char-96; B 0 0 1000 1000;
+ C 97; WX 1; N Char-97; B 0 0 1000 1000;
+ C 98; WX 1; N Char-98; B 0 0 1000 1000;
+ C 99; WX 1; N Char-99; B 0 0 1000 1000;
+ C 100; WX 1; N Char-100; B 0 0 1000 1000;
+ C 101; WX 1; N Char-101; B 0 0 1000 1000;
+ C 102; WX 1; N Char-102; B 0 0 1000 1000;
+ C 103; WX 1; N Char-103; B 0 0 1000 1000;
+ C 104; WX 1; N Char-104; B 0 0 1000 1000;
+ C 105; WX 1; N Char-105; B 0 0 1000 1000;
+ C 106; WX 1; N Char-106; B 0 0 1000 1000;
+ C 107; WX 1; N Char-107; B 0 0 1000 1000;
+ C 108; WX 1; N Char-108; B 0 0 1000 1000;
+ C 109; WX 1; N Char-109; B 0 0 1000 1000;
+ C 110; WX 1; N Char-110; B 0 0 1000 1000;
+ C 111; WX 1; N Char-111; B 0 0 1000 1000;
+ C 112; WX 1; N Char-112; B 0 0 1000 1000;
+ C 113; WX 1; N Char-113; B 0 0 1000 1000;
+ C 114; WX 1; N Char-114; B 0 0 1000 1000;
+ C 115; WX 1; N Char-115; B 0 0 1000 1000;
+ C 116; WX 1; N Char-116; B 0 0 1000 1000;
+ C 117; WX 1; N Char-117; B 0 0 1000 1000;
+ C 118; WX 1; N Char-118; B 0 0 1000 1000;
+ C 119; WX 1; N Char-119; B 0 0 1000 1000;
+ C 120; WX 1; N Char-120; B 0 0 1000 1000;
+ C 121; WX 1; N Char-121; B 0 0 1000 1000;
+ C 122; WX 1; N Char-122; B 0 0 1000 1000;
+ C 123; WX 1; N Char-123; B 0 0 1000 1000;
+ C 124; WX 1; N Char-124; B 0 0 1000 1000;
+ C 125; WX 1; N Char-125; B 0 0 1000 1000;
+ C 126; WX 1; N Char-126; B 0 0 1000 1000;
+ C 127; WX 1; N Char-127; B 0 0 1000 1000;
+ C 128; WX 1; N Char-128; B 0 0 1000 1000;
+ C 129; WX 1; N Char-129; B 0 0 1000 1000;
+ C 130; WX 1; N Char-130; B 0 0 1000 1000;
+ C 131; WX 1; N Char-131; B 0 0 1000 1000;
+ C 132; WX 1; N Char-132; B 0 0 1000 1000;
+ C 133; WX 1; N Char-133; B 0 0 1000 1000;
+ C 134; WX 1; N Char-134; B 0 0 1000 1000;
+ C 135; WX 1; N Char-135; B 0 0 1000 1000;
+ C 136; WX 1; N Char-136; B 0 0 1000 1000;
+ C 137; WX 1; N Char-137; B 0 0 1000 1000;
+ C 138; WX 1; N Char-138; B 0 0 1000 1000;
+ C 139; WX 1; N Char-139; B 0 0 1000 1000;
+ C 140; WX 1; N Char-140; B 0 0 1000 1000;
+ C 141; WX 1; N Char-141; B 0 0 1000 1000;
+ C 142; WX 1; N Char-142; B 0 0 1000 1000;
+ C 143; WX 1; N Char-143; B 0 0 1000 1000;
+ C 144; WX 1; N Char-144; B 0 0 1000 1000;
+ C 145; WX 1; N Char-145; B 0 0 1000 1000;
+ C 146; WX 1; N Char-146; B 0 0 1000 1000;
+ C 147; WX 1; N Char-147; B 0 0 1000 1000;
+ C 148; WX 1; N Char-148; B 0 0 1000 1000;
+ C 149; WX 1; N Char-149; B 0 0 1000 1000;
+ C 150; WX 1; N Char-150; B 0 0 1000 1000;
+ C 151; WX 1; N Char-151; B 0 0 1000 1000;
+ C 152; WX 1; N Char-152; B 0 0 1000 1000;
+ C 153; WX 1; N Char-153; B 0 0 1000 1000;
+ C 154; WX 1; N Char-154; B 0 0 1000 1000;
+ C 155; WX 1; N Char-155; B 0 0 1000 1000;
+ C 156; WX 1; N Char-156; B 0 0 1000 1000;
+ C 157; WX 1; N Char-157; B 0 0 1000 1000;
+ C 158; WX 1; N Char-158; B 0 0 1000 1000;
+ C 159; WX 1; N Char-159; B 0 0 1000 1000;
+ C 160; WX 1; N Char-160; B 0 0 1000 1000;
+ C 161; WX 1; N Char-161; B 0 0 1000 1000;
+ C 162; WX 1; N Char-162; B 0 0 1000 1000;
+ C 163; WX 1; N Char-163; B 0 0 1000 1000;
+ C 164; WX 1; N Char-164; B 0 0 1000 1000;
+ C 165; WX 1; N Char-165; B 0 0 1000 1000;
+ C 166; WX 1; N Char-166; B 0 0 1000 1000;
+ C 167; WX 1; N Char-167; B 0 0 1000 1000;
+ C 168; WX 1; N Char-168; B 0 0 1000 1000;
+ C 169; WX 1; N Char-169; B 0 0 1000 1000;
+ C 170; WX 1; N Char-170; B 0 0 1000 1000;
+ C 171; WX 1; N Char-171; B 0 0 1000 1000;
+ C 172; WX 1; N Char-172; B 0 0 1000 1000;
+ C 173; WX 1; N Char-173; B 0 0 1000 1000;
+ C 174; WX 1; N Char-174; B 0 0 1000 1000;
+ C 175; WX 1; N Char-175; B 0 0 1000 1000;
+ C 176; WX 1; N Char-176; B 0 0 1000 1000;
+ C 177; WX 1; N Char-177; B 0 0 1000 1000;
+ C 178; WX 1; N Char-178; B 0 0 1000 1000;
+ C 179; WX 1; N Char-179; B 0 0 1000 1000;
+ C 180; WX 1; N Char-180; B 0 0 1000 1000;
+ C 181; WX 1; N Char-181; B 0 0 1000 1000;
+ C 182; WX 1; N Char-182; B 0 0 1000 1000;
+ C 183; WX 1; N Char-183; B 0 0 1000 1000;
+ C 184; WX 1; N Char-184; B 0 0 1000 1000;
+ C 185; WX 1; N Char-185; B 0 0 1000 1000;
+ C 186; WX 1; N Char-186; B 0 0 1000 1000;
+ C 187; WX 1; N Char-187; B 0 0 1000 1000;
+ C 188; WX 1; N Char-188; B 0 0 1000 1000;
+ C 189; WX 1; N Char-189; B 0 0 1000 1000;
+ C 190; WX 1; N Char-190; B 0 0 1000 1000;
+ C 191; WX 1; N Char-191; B 0 0 1000 1000;
+ C 192; WX 1; N Char-192; B 0 0 1000 1000;
+ C 193; WX 1; N Char-193; B 0 0 1000 1000;
+ C 194; WX 1; N Char-194; B 0 0 1000 1000;
+ C 195; WX 1; N Char-195; B 0 0 1000 1000;
+ C 196; WX 1; N Char-196; B 0 0 1000 1000;
+ C 197; WX 1; N Char-197; B 0 0 1000 1000;
+ C 198; WX 1; N Char-198; B 0 0 1000 1000;
+ C 199; WX 1; N Char-199; B 0 0 1000 1000;
+ C 200; WX 1; N Char-200; B 0 0 1000 1000;
+ C 201; WX 1; N Char-201; B 0 0 1000 1000;
+ C 202; WX 1; N Char-202; B 0 0 1000 1000;
+ C 203; WX 1; N Char-203; B 0 0 1000 1000;
+ C 204; WX 1; N Char-204; B 0 0 1000 1000;
+ C 205; WX 1; N Char-205; B 0 0 1000 1000;
+ C 206; WX 1; N Char-206; B 0 0 1000 1000;
+ C 207; WX 1; N Char-207; B 0 0 1000 1000;
+ C 208; WX 1; N Char-208; B 0 0 1000 1000;
+ C 209; WX 1; N Char-209; B 0 0 1000 1000;
+ C 210; WX 1; N Char-210; B 0 0 1000 1000;
+ C 211; WX 1; N Char-211; B 0 0 1000 1000;
+ C 212; WX 1; N Char-212; B 0 0 1000 1000;
+ C 213; WX 1; N Char-213; B 0 0 1000 1000;
+ C 214; WX 1; N Char-214; B 0 0 1000 1000;
+ C 215; WX 1; N Char-215; B 0 0 1000 1000;
+ C 216; WX 1; N Char-216; B 0 0 1000 1000;
+ C 217; WX 1; N Char-217; B 0 0 1000 1000;
+ C 218; WX 1; N Char-218; B 0 0 1000 1000;
+ C 219; WX 1; N Char-219; B 0 0 1000 1000;
+ C 220; WX 1; N Char-220; B 0 0 1000 1000;
+ C 221; WX 1; N Char-221; B 0 0 1000 1000;
+ C 222; WX 1; N Char-222; B 0 0 1000 1000;
+ C 223; WX 1; N Char-223; B 0 0 1000 1000;
+ C 224; WX 1; N Char-224; B 0 0 1000 1000;
+ C 225; WX 1; N Char-225; B 0 0 1000 1000;
+ C 226; WX 1; N Char-226; B 0 0 1000 1000;
+ C 227; WX 1; N Char-227; B 0 0 1000 1000;
+ C 228; WX 1; N Char-228; B 0 0 1000 1000;
+ C 229; WX 1; N Char-229; B 0 0 1000 1000;
+ C 230; WX 1; N Char-230; B 0 0 1000 1000;
+ C 231; WX 1; N Char-231; B 0 0 1000 1000;
+ C 232; WX 1; N Char-232; B 0 0 1000 1000;
+ C 233; WX 1; N Char-233; B 0 0 1000 1000;
+ C 234; WX 1; N Char-234; B 0 0 1000 1000;
+ C 235; WX 1; N Char-235; B 0 0 1000 1000;
+ C 236; WX 1; N Char-236; B 0 0 1000 1000;
+ C 237; WX 1; N Char-237; B 0 0 1000 1000;
+ C 238; WX 1; N Char-238; B 0 0 1000 1000;
+ C 239; WX 1; N Char-239; B 0 0 1000 1000;
+ C 240; WX 1; N Char-240; B 0 0 1000 1000;
+ C 241; WX 1; N Char-241; B 0 0 1000 1000;
+ C 242; WX 1; N Char-242; B 0 0 1000 1000;
+ C 243; WX 1; N Char-243; B 0 0 1000 1000;
+ C 244; WX 1; N Char-244; B 0 0 1000 1000;
+ C 245; WX 1; N Char-245; B 0 0 1000 1000;
+ C 246; WX 1; N Char-246; B 0 0 1000 1000;
+ C 247; WX 1; N Char-247; B 0 0 1000 1000;
+ C 248; WX 1; N Char-248; B 0 0 1000 1000;
+ C 249; WX 1; N Char-249; B 0 0 1000 1000;
+ C 250; WX 1; N Char-250; B 0 0 1000 1000;
+ C 251; WX 1; N Char-251; B 0 0 1000 1000;
+ C 252; WX 1; N Char-252; B 0 0 1000 1000;
+ C 253; WX 1; N Char-253; B 0 0 1000 1000;
+ C 254; WX 1; N Char-254; B 0 0 1000 1000;
+ C 255; WX 1; N Char-255; B 0 0 1000 1000;
+	EndCharMetrics
+	EndFontMetrics %d

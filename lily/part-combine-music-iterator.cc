@@ -175,7 +175,7 @@ Part_combine_music_iterator::get_state (Moment)
 	    {
 	      first_durations.sort (Duration::compare);
 	      first_mom += first_durations.top ().length_mom ();
-	      if (first)
+	      if (first && !first_pitches.empty ())
 		first_until_ = first_mom + now;
 	    }
 
@@ -183,7 +183,7 @@ Part_combine_music_iterator::get_state (Moment)
 	    {
 	      second_durations.sort (Duration::compare);
 	      second_mom += second_durations.top ().length_mom ();
-	      if (first)
+	      if (first && !second_pitches.empty ())
 		second_until_ = second_mom + now;
 	    }
 	  first = false;
@@ -348,8 +348,8 @@ Part_combine_music_iterator::process (Moment m)
   first_translator->set_property ("unison", b);
   second_translator->set_property ("unison", b);
 
-  SCM b1 = (state & SOLO1)  ? SCM_BOOL_T : SCM_BOOL_F;
-  SCM b2 = (state & SOLO1)  ? SCM_BOOL_T : SCM_BOOL_F;
+  SCM b1 = (state & SOLO1) ? SCM_BOOL_T : SCM_BOOL_F;
+  SCM b2 = (state & SOLO2) ? SCM_BOOL_T : SCM_BOOL_F;
   first_translator->set_property ("solo", b1);
   second_translator->set_property ("solo", b2);
 
