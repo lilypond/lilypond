@@ -264,8 +264,8 @@ def define_triangle_shape(expr stemdir) =
 		charwy := ypart exact_right_point;
 		charwx := xpart exact_right_point;
 	else:
-		charwy := ypart exact_down_point;
-		charwx := xpart exact_down_point;
+		charwy := - ypart exact_down_point;
+		charwx := (width# - xpart exact_down_point);
 	fi
 enddef;
 
@@ -599,7 +599,7 @@ fet_beginchar("Half rehead", "s1re", "halfrehead")
   draw_solfa_note_shape;
 fet_endchar;
 
-fet_beginchar("Quart rehead", "s2ro", "rehead")
+fet_beginchar("Quart rehead", "s2re", "rehead")
   save a_b, noteshape;
   path noteshape;
   a_b = 1.54;
@@ -785,7 +785,7 @@ fet_beginchar("Half tihead", "s1ti", "halftihead")
   draw_solfa_note_shape;
 fet_endchar;
 
-fet_beginchar("Quart tihead", "2ti", "tihead")
+fet_beginchar("Quart tihead", "s2ti", "tihead")
   save a_b, noteshape;
   path noteshape;
   a_b = 1.54;
