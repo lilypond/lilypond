@@ -22,7 +22,7 @@
 (require 'easymenu)
 (require 'compile)
 
-(defconst LilyPond-version "1.7.8"
+(defconst LilyPond-version "1.7.9"
   "`LilyPond-mode' version number.")
 
 (defconst LilyPond-help-address "bug-lilypond@gnu.org"
@@ -326,9 +326,12 @@ Must be the car of an entry in `LilyPond-command-alist'."
 			     (LilyPond-check-files (concat name ".tex")
 						   (list name)
 						   LilyPond-file-extensions)
-			   (if (buffer-modified-p) 
-			       (if (y-or-n-p "Save buffer before next command? ")
-				   (LilyPond-save-buffer)))
+			   (if (verify-visited-file-modtime (current-buffer))
+			       (if (buffer-modified-p)
+				   (if (y-or-n-p "Save buffer before next command? ")
+				       (LilyPond-save-buffer)))
+			     (if (y-or-n-p "The command will be invoked to an already saved buffer. Revert it? ")
+				 (revert-buffer t t)))
 			   ;;"LilyPond"
 			   LilyPond-command-default))
 			(t LilyPond-command-default)))
