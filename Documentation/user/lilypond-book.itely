@@ -279,7 +279,7 @@ of the code is used.
 @item 20pt
 @lilypond[20pt, eps]
 \relative c' {
-  r16 [c d e][f d e c] [g'8 c][b-\prall c] |
+  r16 c[ d e] f[ d e c] g'8[ c] b[\prall c] |
 }
 @end lilypond
 
