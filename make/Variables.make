@@ -95,6 +95,7 @@ DUMMYDEPS=\
 ERROR_LOG = 2> /dev/null
 SILENT_LOG = >& /dev/null
 allexe = $(lily_bindir)/lilypond $(lily_bindir)/mi2mu
+allhh := $(shell $(FIND) -name "*.hh" $(ERROR_LOG))
 allcc := $(shell $(FIND) -name "*.cc" $(ERROR_LOG))
 allobs := $(shell $(FIND) $(outdir) -name "*.o" $(ERROR_LOG))
 allibs := $(shell $(FIND) $(libdir) -name "*.lib" $(ERROR_LOG))
@@ -121,7 +122,7 @@ CXXFLAGS = $(CFLAGS) $(USER_CXXFLAGS) $(EXTRA_CXXFLAGS)
 INCLUDES = -Iinclude -I$(outdir) -I$(include-lib) -I$(libout) -I$(include-flower) -I$(flowerout) 
 CXX_OUTPUT_OPTION = $< -o $@
 LDFLAGS = $(EXTRA_LDFLAGS)
-LOADLIBES = $(EXTRA_LIBES) $(CUSTOMLIBES) -lg++
+LOADLIBES = $(EXTRA_LIBES) $(CUSTOMLIBES)
 #
 
 # librarian:
@@ -168,3 +169,7 @@ LIBRARY = $(LIB_PREFIX)$(NAME)$(LIB_SUFFIX)
 STRIPDEBUG=true #replace to do stripping of certain objects
 
 DISTFILES=$(EXTRA_DISTFILES) Makefile $(ALL_SOURCES)
+DOCDIR=$(depth)/doc++
+
+
+progdocs=$(allhh) $(allcc) 

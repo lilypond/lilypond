@@ -17,7 +17,7 @@ class File_path : private Array<String>
 {
 public:
     /// locate a file in the search path
-    String find(String nm);
+    String find(String nm)const;
 
     /// construct using prefix. Normally argv[0].
     File_path(String);
@@ -26,7 +26,13 @@ public:
     Array<String>::push;
     void add(String str) { push(str); }
 };
-/// split path into its components
+/**  split a path into its components.
+
+  @params path
+
+  @return
+  String &  drive, String &dirs, String &filebase, String &extension
+ */
 void split_path(String path, String &drive, String &dirs, String &filebase, String &extension);
 
 #endif
