@@ -5,7 +5,7 @@
 % Copyright: none
 
 melody = \melodic{
-	\clef\violin
+	\clef\violin;
 	c4 c | g g | a a | g g |
 	f f | e e | d d8.( e16 | )c2 | % :|
 
@@ -14,12 +14,13 @@ melody = \melodic{
 
 	c c | g g | a a | g g |
 	f f | e e | d d8.( e16 | )c2 % :|
-	\bar ":|"
+	\bar ":|";
 }
 
-accompany = \melodic{
-	\clef \bass
-	\octave{'c}\duration{4}
+accompany = \melodic {
+	\clef \bass;
+	\octave'c;
+	\duration 4;
 	c4 c' | e' c' | f' c' | e' c' | 
 	d' b | c' a | f g | c2 | 
 
@@ -28,13 +29,13 @@ accompany = \melodic{
 
 	c c' | e' c' | f' c' | e' c' | 
 	d' b | c' a | f g | c2 
-	\bar ":|"
+	\bar ":|";
 }
 
-global = \melodic{
-		\meter {2 / 4}
-		\skip {2*24}
-%		\bar "||"
+global = \melodic {
+		\meter 2 / 4;
+		\skip 2*24;
+%		\bar "||";
 	}
 
 tekst = \lyric{ 
@@ -57,7 +58,7 @@ hegedraagjetekst = \lyric{
 
 texte = \lyric{ 
 	 
-	\textstyle "italic" 
+	\textstyle "italic" ;
  	Ah! vous dir- ai_- je ma man2
 	Ce qui cau- se mon tour- ment2
 	Pa- pa veut que je rai- sonne2
@@ -69,7 +70,7 @@ texte = \lyric{
 
 texti = \lyric{
 	
-	\textstyle "roman"
+	\textstyle "roman";
 	Twin- kle, twin- kle, lit- tle star,2
 	How I won- der what you are.2
 	Up a- bove the world so high,2
@@ -79,7 +80,6 @@ texti = \lyric{
 }
 
 textii = \lyric{
-	\textstyle "roman"
 	When the bla- zing sun is gone,2
 	When he no- thing shines up- on,2
 	Then you show your lit- tle light,2
@@ -91,7 +91,6 @@ textii = \lyric{
 
 textiii = \lyric{
 	
-	\textstyle "roman"
 	Then the tra- veler in the dark2
 	Thanks you for your ti- ny spark;2
 	He_could not see which way to go,2

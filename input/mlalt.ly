@@ -11,11 +11,11 @@
 % The purpose of this file is to demonstrate features of LilyPond;
 % respect the copyright.
 %
-alto = \melodic{ 
-	\duration{16}
-	\clef\alto
-	\octave{c}
-	\key{fis}
+alto = \melodic  {
+	\duration 16;
+	\clef\alto;
+	\octave c;
+	\key fis;
 %1
         [ 'b8. 'a ] [ 'g8 'b c ] |
 %2
@@ -47,10 +47,10 @@ alto = \melodic{
 %15
 	[ e8 fis8 ] [ g8 d8 ] |
 %16
-	\textstyle "italic"
+	\textstyle "italic";
 	[ c 'a 'fis 'd ] 'g4_"fine" |
-	\textstyle "roman"
-% \scoreverb{\mulooseness=-1}
+	\textstyle "roman";
+% \scoreverb \mulooseness=-1;
 % \newline
 %17
 %=1
@@ -120,7 +120,7 @@ alto = \melodic{
 %48
 	[ d e d d 'b 'g ]4/6  [ 'a8 'g8 ] |
 %theme 2
-	\duration{8}
+	\duration 8;
 %49
 	[ f e d ]2/3  f4 |
 %50
@@ -136,7 +136,7 @@ alto = \melodic{
 %55
 	[ d g 'g ]2/3   [ 'g 'a 'b ]2/3  |
 %56
-        'b4 c4 \key{bes es as} | % || \key\Es
+        'b4 c4 \key bes es as; | % || \key\Es
 %57
 	[ 'b d ] [ 'g 'b ] |
 %58
@@ -152,7 +152,7 @@ alto = \melodic{
 %63
 	[ 'g 'b ] [ es d ] |
 %64
-	[ c8. 'g32 'es32 ] 'c4 | % || \meter{6/8}
+	[ c8. 'g32 'es32 ] 'c4 | % || \meter 6/8;
 %65
 	es4.( [ )es d c ] |
 %66
@@ -170,9 +170,9 @@ alto = \melodic{
 %71
         d2.  |
 %72
-        c r4 r4. | % || \meter{2/4}
+        c r4 r4. | % || \meter 2/4;
 %73
-	\duration{8}
+	\duration 8;
 	[ 'b d ] [ 'g 'b ] |
 %74
 	[ c es ] [ 'g c ] |
@@ -191,7 +191,7 @@ alto = \melodic{
 %81
         g4 [ as g ] |
 %82
-	\duration{16}
+	\duration 16;
 	[ g f es f ] g4 |
 %83
 	[ g f e f ] g4 |
@@ -204,10 +204,10 @@ alto = \melodic{
 %87
         'b2 |
 %88
-	\textstyle "italic"
-        c2_"dacapo" \key{fis} |
-	\textstyle "roman"
-%\scoreverb{\mulooseness=1}
+	\textstyle "italic";
+        c2_"dacapo" \key fis; |
+	\textstyle "roman";
+%\scoreverb \mulooseness=1;
 %	\key\G ||
 	
 }

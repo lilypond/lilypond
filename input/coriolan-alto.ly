@@ -13,16 +13,16 @@
 
 alto = \melodic{ 
 	
-	\meter {4/4} 
-	\duration{ 8 }
-	\key {bes es as}
+	\meter 4/4; 
+	\duration  8 ;
+	\key bes es as;
 		
-	\clef "alto"
+	\clef "alto";
 	% these are chords (i.e. non-divisi)
 	
 %30     
 	< 	
-		{ \octave{ c }
+		{ \octave  c ;
 			
 			[ c c-. ] c2.( | 
 %31
@@ -31,39 +31,40 @@ alto = \melodic{
 			[ ) c c-. ] c4. c-. c4( |
 %33
 			[ ) c c-. ] c4. c-. c4 
-		\group "+bla"
-		 \stem{ 1 }[ c16^"div." c16 c16 c16 ] c4 c2 
-		\group "-"
+		\group "+bla";
+		 \stem  1 ;[ c16^"div." c16 c16 c16 ] c4 c2 
+		\group "-";
 	  	}
 %30:2
 	  	{ 
-			\octave{ 'c }
-			\textstyle "italic"
+			\octave  'c ;
+			\textstyle "italic";
 			% this should be a \dynamic, rather than text
 	  		[ c c_"cresc. \ \ - \ \ \ \ - \ \ \ \ - \ \ \ \
 				- \ \ \ \ - \ \ \ \ - \ \ \ \ - \ \ \ \
 				- \ \ \ \ - \ \ \ \ - \ \ \ \ - \ \ \ \
 				- \ \ \ \ - \ \ \ \ -" ] c2.( |  
-			\textstyle "roman"
+			\textstyle "roman";
 %31:2
 			[ ) c c-. ] c2.( | 
 %32:2
 			[ ) c c-. ] c4. c-. c4( | 
 %33:2
 			[ ) c c-. ] c4. c-. c4 |
-			\octave{c }
+			\octave c ;
 
 %34		
-			\group "+b"
+			\group "+b";
 	% these are two \voices (i.e. divisi)
 	% the c4 and c2, however are really 16th...
 	% we-ll say "simile" for now...
 	% 
-			\octave{ 'c }
-			\textstyle "italic"
-			\stem{ -1 } [ as16 ff as16 as16 as16 ] as4_"simile" as2
-			\textstyle "roman"
-			\group "-"
+			\octave  'c ;
+			\textstyle "italic";
+			\stem  -1 ;
+			[ as16 \ff as16 as16 as16 ] as4_"simile" as2
+			\textstyle "roman";
+			\group "-";
 		}
 	>
 	

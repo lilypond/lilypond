@@ -11,11 +11,11 @@
 % The purpose of this file is to demonstrate features of LilyPond;
 % respect the copyright.
 %
-cello = \melodic{ 
-	\clef"bass"
-	\octave{'c}
-	\duration{4}
-	\key{fis}
+cello = \melodic  {
+	\clef"bass";
+	\octave 'c;
+	\duration 4;
+	\key fis;
 %%1
 	g 'g |
 %%2
@@ -47,9 +47,9 @@ cello = \melodic{
 %%15
 	[ c8 e8 ] [ g8 'g8 ] |
 %%16
-	\textstyle "italic"
+	\textstyle "italic";
 	[ d8 c'8 ] b_"fine"
-	\textstyle "roman" |
+	\textstyle "roman" ;|
 % \newline
 %%17=1
 	g 'g |
@@ -77,7 +77,7 @@ cello = \melodic{
 %%28
 	) 'a d |
 %%29
- 	\duration{8}
+ 	\duration 8;
 	[ 'a a ] d4 |
 %%30
 	[ 'a a ] d4 |
@@ -87,7 +87,7 @@ cello = \melodic{
 	[ 'a a ] d4 |
 %%variant a
 %%33
-	\duration{16}
+	\duration 16;
 	[ 'g8 'g 'g ] [ 'g8 'g 'g ] |
 %%34
 	[ 'g8 'g 'g ] g4 |
@@ -104,10 +104,10 @@ cello = \melodic{
 %%40
 	'd4 'g4 |
 %%41
-	\duration{8}
-	\textstyle "italic"
+	\duration 8;
+	\textstyle "italic";
 	r_"pizz"
-	\textstyle "roman"
+	\textstyle "roman";
 	g r 'g |
 %%42
 	r g e4 |
@@ -126,10 +126,10 @@ cello = \melodic{
 	[ 'd 'g ] |
 %%theme 2
 %%49
-	\textstyle "italic"
+	\textstyle "italic";
 	r4_"arco"
 	 [ 'g 'g 'g ]2/3  |
-	\textstyle "roman"
+	\textstyle "roman";
 %%50
 	r4  [ c c c ]2/3  |
 %%51
@@ -143,7 +143,7 @@ cello = \melodic{
 %%55
 	g2 |
 %%56
-	'g4 'c4 \key{bes es as}|
+	'g4 'c4 \key bes es as;|
 % \key\'es ||
 %%57
 	g r g r |
@@ -161,7 +161,7 @@ cello = \melodic{
 	g4 'g4 |
 %%64
 	c4 'c4 |
-% \meter{6/8} ||
+% \meter 6/8; ||
 %%65
 	[ c c c ] c4.  |
 %%66
@@ -180,7 +180,7 @@ cello = \melodic{
 %%72
 	c' r4 r4. |
 %%73
-% \meter{2/4} ||
+% \meter 2/4; ||
 	g r g r |
 %%74
 	c r c r |
@@ -197,7 +197,7 @@ cello = \melodic{
 %%80
 	c4 'c4 |
 %%81
-	\duration{2}
+	\duration 2;
 	'c |
 %%82
 	'c |
@@ -212,9 +212,9 @@ cello = \melodic{
 %%87
 	d |
 %%88
-	\textstyle "italic"
-	d_"dacapo" \key{fis} |
-	\textstyle "roman"
+	\textstyle "italic";
+	d_"dacapo" \key fis; |
+	\textstyle "roman";
 % \key\'g ||
 	
 }
