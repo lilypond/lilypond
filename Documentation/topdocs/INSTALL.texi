@@ -20,15 +20,16 @@ LilyPond more often.
 @section Obtaining
 
 You can get the latest version of LilyPond at
-@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/,ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/}.  Refer to the links
-document for mirror sites.
+@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/,
+ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/}.
+
 
 @emph{If you upgrade by patching do remember to rerun autoconf after
 applying the patch}.
 
 If you do not want to download the entire archive for each version, the
 safest method for upgrading is to use @file{xdelta}, see
-@uref{ftp://ftp.xcf.berkeley.edu/pub/xdelta/}
+@uref{ftp://ftp.xcf.berkeley.edu/pub/xdelta/}.
 
 The following command produces @file{lilypond-1.1.55.tar.gz} from
 @file{lilypond-1.1.54} identical (up to compression dates) to the .55 on
@@ -95,7 +96,7 @@ following software
 @item A PostScript printer and/or viewer (such as Ghostscript) is strongly
     recommended.  Xdvi will show all embedded PostScript too if you have
     Ghostscript installed.
-@item  GUILE 1.3, check out @uref{http://www.gnu.org/programs/guile.html,http://www.gnu.org/programs/guile.html}
+@item  GUILE 1.3, check out @uref{http://www.gnu.org/programs/guile.html,http://www.gnu.org/software/guile/}
 @end itemize
 
 For running LilyPond successfully you have to help TeX and MetaFont
@@ -169,7 +170,7 @@ hypertextified bibliography.
 
 @end itemize
 
-@section configuring and compiling
+@section Configuring and compiling
 
 to install GNU LilyPond, simply type:
 @example 
@@ -263,7 +264,7 @@ everything will be compiled, but nothing will be installed.  The
 resulting binaries can be found in the subdirectories @file{out/} (which
 contain all files generated during compilation).
 
-@section configuring for multiple platforms
+@section Configuring for multiple platforms
 
 If you want to compile LilyPond with different configuration settings,
 then, you can use the @code{--enable-config} option.  Example: suppose I
@@ -343,11 +344,10 @@ A Debian package is also available; contact Anthony Fok
 
 @section Windows NT/95
 
-Separate instructions on building for W32 are available; See file
-README-W32, included with the sources.
+Separate instructions on building for W32 are available; See the files
+in @file{Documentation/ntweb/}, included with the sources.
 
 @section Problems
-
 
 For help and questions use @email{help-gnu-music@@gnu.org} and
 @email{gnu-music-discuss@@gnu.org}.  Please consult the faq before
@@ -362,28 +362,26 @@ demonstrated in @file{input/bugs/}.
 Known bugs that are not LilyPond's fault are documented here.
 
 @unnumbered All platforms
-@table @bullet
-@item GUILE 1.3.2
-Guile 1.3.2 is buggy in several respects. Do not use it for LilyPond.
-@end table
+@itemize
+@item Guile 1.3.2 is buggy in several respects. Do not use it for LilyPond.
+@end itemize
 
 @unnumbered LinuxPPC Bugs:
 
-@table @bullet
-@item R5, egcs-1.1.2-12c
-Egcs-1.1.2-12c (stock LinuxPPC R5) has a serious bug, upgrade to 
+@itemize
+@item egcs-1.1.2-12c (stock LinuxPPC R5) has a serious bug, upgrade to 
 fixed in egcs-1.1.2-12f or gcc-2.95-0a, @uref{ftp://dev.linuxppc.org/users/fsirl/R5/RPMS/ppc/}
 
-@item R4, egcs-1.0.2
-All compiling with @code{-O2} is suspect, in particular guile-1.3, and
+@item egcs-1.0.2 (LinuxPPC R4):
+all compiling with @code{-O2} is suspect, in particular guile-1.3, and
 Lily herself will break.
-@end table
+@end itemize
 
 
 
 @unnumbered Linux-i386
 
-@table @bullet
+@itemize
 @item SuSE6.2 and similar platforms (glibc 2.1, libstdc++ 2.9.0)
 
 Lily will crash during parsing (which suggests a C++ library
@@ -425,14 +423,14 @@ Typical stacktrace:
 
 This behaviour has been observed with machines that have old libg++
 versions (LinuxPPC feb '98, RedHat 4.x).  
-@end table
+@end itemize
 
 
 
 
 @unnumbered Solaris:
 
-@table @bullet
+@itemize
 @item Sparc64/Solaris 2.6, GNU make-3.77
 
 GNU make-3.77 is buggy on this platform, upgrade to 3.78.1 or newer.
@@ -441,12 +439,12 @@ GNU make-3.77 is buggy on this platform, upgrade to 3.78.1 or newer.
 @item Sparc64/Solaris 2.6, ld
 
 Not yet resolved.
-@end table
+@end itemize
 
 
 @unnumbered AIX
 
-@table @bullet
+@itemize
 @item AIX 4.3 ld
 
 The following is from the gcc install/SPECIFIC file.
@@ -469,17 +467,8 @@ add -Wl,-bbigtoc to USER_LDFLAGS, ie:
     LDFLAGS='-Wl,-bbigtoc' ./configure
 @end example
 
-@end table
+@end itemize
 
-
-@section Authors
-
-@email{hanwen@@cs.uu.nl, Han-Wen Nienhuys}
-
-@email{janneke@@gnu.org, Jan Nieuwenhuizen}
-
-In case of problems, please use the mailing list for help.
-
-Have fun!
 
 @bye
+        
