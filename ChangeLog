@@ -3,6 +3,8 @@
 	* ly/property-init.ly: fix bug in displaying ledger lines while
 	\hideNotes is on.
 
+	* Documentation/user/notation.itely: more editing.
+
 2004-09-25  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/notation.itely: more editing.
