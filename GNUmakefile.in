@@ -111,7 +111,7 @@ $(builddir)/share/lilypond-force:
 	cd $(builddir)/share/$(package) && \
 		ln -s $(abs-srcdir)/ly ly && \
 		ln -s ../../mf/$(outconfbase) dvips && \
-		ln -s ../../mf/$(outconfbase) afm && \
+		ln -s ../../mf/$(outconfbase) otf && \
 		ln -s ../../mf/$(outconfbase) tfm && \
 		ln -s $(abs-srcdir)/mf && \
 		ln -s $(abs-srcdir)/ps && \
@@ -123,7 +123,7 @@ $(builddir)/share/lilypond-force:
 		ln -s ../../../mf/$(outconfbase) mf-out
 	cd $(builddir)/share/$(package)/fonts && \
 		ln -s $(abs-srcdir)/mf source && \
-		ln -s ../../../mf/$(outconfbase) afm && \
+		ln -s ../../../mf/$(outconfbase) otf && \
 		ln -s ../../../mf/$(outconfbase) tfm && \
 		ln -s ../../../mf/$(outconfbase) type1
 	cd $(builddir)/share/$(package)/elisp && \

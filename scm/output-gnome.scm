@@ -144,12 +144,15 @@ lilypond -fgnome input/simple-song.ly
 	(string=? (substring family 0 (min (string-length family) 9))
 		  "bigcheese"))))
 
+;; FIXME
 (define-public (otf-name-mangling font family)
   ;; Hmm, family is bigcheese20/26?
   (if (string=? (substring family 0 (min (string-length family) 9))
 		"bigcheese")
       (string-append "LilyPond " (substring family 9))
-      family))
+      (if (string=? family "aybabtu")
+	  "LilyPondBraces"
+	  family)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Wrappers from guile-gnome TLA
