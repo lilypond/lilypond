@@ -45,6 +45,7 @@
 	     draw-line
 	     define-origin
 	     no-origin
+	     grob-cause
 	     ))
 
 (use-modules (ice-9 regex)
@@ -178,11 +179,25 @@
   (embedded-ps (list 'draw-line thick fx fy tx ty)))
 
 (define (define-origin file line col)
-  (if (procedure? point-and-click)
-      (string-append "\\special{src:" ;;; \\string ? 
-		     (point-and-click line col file)
-		     "}" )
-      ""))
+  "")
 
 ;; no-origin not yet supported by Xdvi
 (define (no-origin) "")
+
+(define (grob-cause grob)
+  (if (procedure? point-and-click)
+  
+  (let*
+      ((cause (ly:grob-property grob 'cause))
+       (music-origin (if (ly:music? cause)
+			 (ly:music-property cause 'origin)
+			  #f))
+       (location (if (ly:input-location? music-origin)
+		     (ly:input-location music-origin)
+		     #f)))
+
+    (if (pair? location)
+	(string-append "\\special{src:" ;;; \\string ? 
+		       (apply point-and-click location) "}")
+	""))
+  ""))

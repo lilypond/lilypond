@@ -201,24 +201,9 @@ interpret_stencil_expression (SCM expr,
       if (!ly_c_pair_p (expr))
         return;
 
-      SCM head =ly_car (expr);
-      if (unsmob_input (head))
-        {
-          Input *ip = unsmob_input (head);
-          (*func) (func_arg,
-		   scm_list_4 (ly_symbol2scm ("define-origin"),
-			       scm_makfrom0str (ip->file_string ()
-						.to_str0 ()),
-			       scm_int2num (ip->line_number ()),
-			       scm_int2num (ip->column_number ())));
-          expr = ly_cadr (expr);
-        }
-      else  if (head ==  ly_symbol2scm ("no-origin"))
-        {
-          (*func) (func_arg, scm_list_1 (head));
-          expr = ly_cadr (expr);
-        }
-      else if (head == ly_symbol2scm ("translate-stencil"))
+      SCM head = ly_car (expr);
+     
+      if (head == ly_symbol2scm ("translate-stencil"))
         {
           o += ly_scm2offset (ly_cadr (expr));
           expr = ly_caddr (expr);
@@ -229,6 +214,14 @@ interpret_stencil_expression (SCM expr,
 	    interpret_stencil_expression (ly_car (x), func, func_arg, o);
           return;
         }
+      else if (head == ly_symbol2scm ("grob-cause"))
+	{
+	  SCM grob = ly_cadr (expr);
+	  
+	  (*func) (func_arg, scm_list_2 (head, grob));
+	  interpret_stencil_expression (ly_caddr (expr), func, func_arg, o);
+	  (*func) (func_arg, scm_list_1 (ly_symbol2scm ("no-origin")));
+	}
       else
         {
           (*func) (func_arg, 

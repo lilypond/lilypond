@@ -12,6 +12,7 @@
 #(ly:set-option 'new-relative)
 #(ly:set-point-and-click #f)
 #(define  toplevel-scores '())
+#(define $globalheader #f)
 
 \maininput
 % there is a problem at the end of the input file

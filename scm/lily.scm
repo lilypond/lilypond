@@ -29,12 +29,12 @@
       (debug-enable 'backtrace)
       (read-enable 'positions)))
 
-(define-public (line-column-location line col file)
+(define-public (line-column-location file line col)
   "Print an input location, including column number ."
   (string-append (number->string line) ":"
 		 (number->string col) " " file))
 
-(define-public (line-location line col file)
+(define-public (line-location  file line col)
   "Print an input location, without column number ."
   (string-append (number->string line) " " file))
 
@@ -119,7 +119,7 @@
     ))
 
 (define-public (collect-music-for-book parser music)
-  (collect-scores-for-book parser (score (ly:music-scorify music))))
+  (collect-scores-for-book parser (ly:music-scorify music)))
   
 ;;;;;;;;;;;;;;;;
 ; alist
