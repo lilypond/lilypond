@@ -15,6 +15,13 @@ struct Lookup {
     Parametric_symbol *linestaff(int n);
     Parametric_symbol *meter(String);
     Parametric_symbol *stem();
+    Symbol streepjes(int pos);
+    /**
+      pos == 3 : 3 lines above staff (extending below note)
+
+      pos == -3: below staff
+      */
+    
     Symbol ball(int);
     Symbol flag(int);
     Symbol rest(int);
