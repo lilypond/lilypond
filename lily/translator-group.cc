@@ -343,8 +343,15 @@ Translator_group::execute_single_pushpop_property (SCM prop, SCM eltprop, SCM va
 	{
 	  SCM prev = get_property (prop);
 
-	  prev = gh_cons (gh_cons (eltprop, val), prev);
-	  set_property (prop, prev);
+  	  /*
+	    we don't tack onto SCM_UNDEFINED, because it creates
+	    errors down the line, if we do scm_assoc().
+	   */
+	  if (gh_pair_p (prev) || prev == SCM_EOL)
+	    {
+		  prev = gh_cons (gh_cons (eltprop, val), prev);
+		  set_property (prop, prev);
+	    }
 	}
       else
 	{
