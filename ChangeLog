@@ -1,3 +1,9 @@
+2002-10-01  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/backend-documentation-lib.scm (interface-doc-string):
+	crosslinks between interfaces and grobs. Headings for interfaces
+	in grob explanation.
+
 2002-09-30  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/to-xml.scm: Fixes.  input/trip.ly now parses as xml (without

@@ -95,7 +95,7 @@
 . string-to-use)
 "
   (string-append
-   "\n@table @samp\n"
+   "\n@table @asis\n"
    (apply string-append (map one-item->texi items-alist))
    "\n@end table\n"))
 
