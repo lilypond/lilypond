@@ -134,16 +134,6 @@ with magnification @varr{mag} of the string @var{text}."
                  (- size th) 0))) 
                  
 
-(define (centered-stencil stencil)
- "Center stencil @var{stencil} in both the X and Y directions"
- (let* ((output-stencil stencil))
-;     (if (= (cadr (ly:version)) 3)
-	 (begin
-	   (ly:stencil-align-to! output-stencil Y 0)
-	   (ly:stencil-align-to! output-stencil X 0)
-	   output-stencil)))
-;	 (ly:stencil-align-to (ly:stencil-align-to text-stencil X 0) Y 0))))
-
 (define (draw-dots layout props string-count fret-range size finger-code dot-position dot-radius dot-list)
   "Make dots for fret diagram."
   (let* ((scale-dot-radius (* size dot-radius))
@@ -383,8 +373,8 @@ part of the place-fret element is present, @var{finger-value} will be displayed 
              (set! fret-diagram-stencil
                    (ly:stencil-combine-at-edge fret-diagram-stencil X label-dir
                                               (label-fret layout props string-count fret-range size) label-space 0)))
-         (ly:stencil-align-to! fret-diagram-stencil X alignment)
-         fret-diagram-stencil))
+         (ly:stencil-aligned-to fret-diagram-stencil X alignment)
+	 ))
          
 (def-markup-command (fret-diagram layout props definition-string)
   (string?)

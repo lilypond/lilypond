@@ -64,12 +64,13 @@
       (let ((x (/ (- (cdr (ly:stencil-extent slur 0)) 
                      (/ (cdr (ly:stencil-extent text 0)) 2.0))
                   -2.0)))
+
+	(set! text
+	      (ly:make-stencil (ly:stencil-expr text)
+			       (cons x x)
+			       (ly:stencil-extent text Y)))
 	
-        (ly:stencil-set-extent! text 0 (cons x x))
-        (ly:stencil-align-to! text 0 1)))))
-
-;; (ly:stencil-combine-at-edge slur 1 1 text -0.6)
-
+        (ly:stencil-aligned-to text X RIGHT)))))
 
 
 (define-public guitar-tuning '(4 -1 -5 -10 -15 -20))
@@ -126,9 +127,10 @@
        (text-stencil
 	(Text_interface::interpret_markup layout props text)))
 
-    (ly:stencil-align-to! text-stencil X CENTER)
-    (ly:stencil-align-to! text-stencil Y CENTER)
-    (ly:stencil-add text-stencil circle)
+    
+    (ly:stencil-add
+     (centered-stencil text-stencil)
+     circle)
   ))
 
 

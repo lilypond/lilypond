@@ -22,6 +22,13 @@
 	  (car stils) axis dir (stack-stencils-padding-list axis dir (cdr padding) (cdr stils))
 	  (car padding)))))
 
+(define-public (centered-stencil stencil)
+  "Center stencil @var{stencil} in both the X and Y directions"
+
+  (ly:stencil-aligned-to
+   (ly:stencil-aligned-to stencil X CENTER)
+   Y CENTER))
+
 (define-public (stack-lines dir padding baseline stils)
   "Stack vertically with a baseline-skip."
   (if (null? stils)

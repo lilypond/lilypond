@@ -16,26 +16,6 @@
 /*
   TODO: naming add/combine.
 */
-/*
-  UGH. Junk all mutators.
-*/
-LY_DEFINE (ly_stencil_set_extent_x, "ly:stencil-set-extent!",
-	   3, 0, 0, (SCM stil, SCM axis, SCM np),
-	   "Set the extent of @var{stil} "
-	   "(@var{extent} must be a pair of numbers) "
-	   "in @var{axis} direction (0 or 1 for x- and y-axis respectively).")
-{
-  Stencil *s = unsmob_stencil (stil);
-  SCM_ASSERT_TYPE (s, stil, SCM_ARG1, __FUNCTION__, "stencil");
-  SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
-  SCM_ASSERT_TYPE (is_number_pair (np), np, SCM_ARG3, __FUNCTION__,
-		   "number pair");
-
-  Interval iv = ly_scm2interval (np);
-  s->dim_[Axis (scm_to_int (axis))] = iv;
-
-  return SCM_UNSPECIFIED;
-}
 
 LY_DEFINE (ly_translate_stencil_axis, "ly:stencil-translate-axis",
 	   3, 0, 0, (SCM stil, SCM amount, SCM axis),
@@ -244,19 +224,21 @@ LY_DEFINE (ly_make_stencil, "ly:make-stencil",
   return s.smobbed_copy ();
 }
 
-LY_DEFINE (ly_stencil_align_to_x, "ly:stencil-align-to!",
+LY_DEFINE (ly_stencil_aligned_to, "ly:stencil-aligned-to",
 	   3, 0, 0, (SCM stil, SCM axis, SCM dir),
 	   "Align @var{stil} using its own extents. "
 	   "@var{dir} is a number -1, 1 are left and right respectively. "
-	   "Other values are interpolated (so 0 means the center. ")
+	   "Other values are interpolated (so 0 means the center).")
 {
   SCM_ASSERT_TYPE (unsmob_stencil (stil), stil, SCM_ARG1, __FUNCTION__, "stencil");
   SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
   SCM_ASSERT_TYPE (scm_is_number (dir), dir, SCM_ARG3, __FUNCTION__, "number");
 
-  unsmob_stencil (stil)->align_to ((Axis)scm_to_int (axis),
-				   scm_to_double (dir));
-  return stil;
+  Stencil target = *unsmob_stencil (stil);
+
+  target.align_to ((Axis)scm_to_int (axis),
+		   scm_to_double (dir));
+  return target.smobbed_copy ();
 }
 
 LY_DEFINE (ly_stencil_fonts, "ly:stencil-fonts",
