@@ -23,7 +23,8 @@
 
 Pango_font::Pango_font (PangoFT2FontMap *fontmap,
 			Direction dir,
-			PangoFontDescription *description)
+			PangoFontDescription *description,
+			Real output_scale)
 {
   subfonts_ = SCM_EOL;
   PangoDirection pango_dir = (dir == RIGHT)
@@ -42,7 +43,7 @@ Pango_font::Pango_font (PangoFT2FontMap *fontmap,
 
     --hwn
    */
-  scale_ = INCH_TO_BP / (Real (PANGO_SCALE) * Real (PANGO_RESOLUTION));
+  scale_ = INCH_TO_BP / (Real (PANGO_SCALE) * Real (PANGO_RESOLUTION) * output_scale);
   
   pango_context_set_language (context_, pango_language_from_string ("en_US"));
   pango_context_set_base_dir (context_, pango_dir);
@@ -175,6 +176,14 @@ Pango_font::text_stencil (String str) const
 		      exp);
     }
   
+#if 1
+  if (!dest.extent_box ()[X_AXIS].is_empty ())
+    {
+      Stencil frame = Lookup::frame (dest.extent_box(), 0.1, 0.1);
+      dest.add_stencil (frame);
+    }
+#endif
+
   return dest;
 }
 

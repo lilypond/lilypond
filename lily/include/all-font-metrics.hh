@@ -29,7 +29,7 @@ class All_font_metrics
   Scheme_hash_table *otf_dict_;
   File_path search_path_;
 
-#ifdef HAVE_PANGO16
+#ifdef HAVE_PANGO_FT2
   PangoFT2FontMap *pango_ft2_fontmap_;
   Scheme_hash_table *pango_dict_;
   int pango_dpi_;
@@ -40,7 +40,12 @@ public:
   All_font_metrics (String search_path);
   ~All_font_metrics ();
   
-  Pango_font *find_pango_font (PangoFontDescription*description);
+#ifdef HAVE_PANGO_FT2
+  Pango_font *find_pango_font (PangoFontDescription*description,
+			       Real magnification,
+			       Real scale);
+#endif
+  
   Adobe_font_metric *find_afm (String name);
   Tex_font_metric *find_tfm (String);
   Font_metric *find_font (String name);  

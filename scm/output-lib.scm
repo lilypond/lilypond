@@ -21,6 +21,19 @@
 		;; remove 1 because list index starts at 0 and guitar string at 1. 
                 (- string 1)))))
 
+;; The 5-string banjo has got a extra string, the fifth (duh), wich
+;; starts at the fifth fret on the neck. Frets on the fifth string
+;; are referred to relative to the other frets:
+;;   the "first fret" on the fifth string is really the sixth fret
+;;   on the banjo neck.
+;; We solve this by defining a new fret-number-tablature function:
+(define-public (fret-number-tablature-format-banjo string tuning pitch)
+    (let ((fret (- (ly:pitch-semitones pitch) (list-ref tuning (- string 1)))))
+        (number->string (cond
+            ((and (> fret 0) (= string 5))
+                (+ fret 5))
+            (else fret)))))
+
 (define-public (hammer-print-function grob)
   (let* ((note-collums (ly:grob-property grob 'note-columns))
          (note-column1 (cadr note-collums))
@@ -59,7 +72,22 @@
 
 
 
-(define-public guitar-tunings '(4 -1 -5 -10 -15 -20))
+(define-public guitar-tuning '(4 -1 -5 -10 -15 -20))
+(define-public bass-tuning '(-17 -22 -27 -32))
+
+;; tunings for 5-string banjo
+(define-public banjo-open-g-tuning '(2 -1 -5 -10 7))
+(define-public banjo-c-tuning '(2 -1 -5 -12 7))
+(define-public banjo-modal-tuning '(2 0 -5 -10 7))
+(define-public banjo-open-d-tuning '(2 -3 -6 -10 9))
+(define-public banjo-open-dm-tuning '(2 -3 -6 -10 9))
+;; convert 5-string banjo tunings to 4-string tunings by
+;; removing the 5th string
+;;
+;; example:
+;; \set TabStaff.stringTunings = #(four-string-banjo banjo-open-g-tuning)
+(define-public (four-string-banjo tuning)
+  (reverse (cdr (reverse tuning))))
 
 ;;; end of tablature functions
 
