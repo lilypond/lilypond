@@ -50,6 +50,10 @@
 
 #TODO:
 #
+# * lilylib
+# * GNU style messages:  warning:FILE:LINE:
+# * l10n
+# 
 # Convert to new chord styles.
 #
 # UNDEF -> None
@@ -388,8 +392,11 @@ key_lookup = { 	# abc to lilypond key mode names
 }
 
 def lily_key (k):
+	orig = "" + k
+	# UGR
 	k = string.lower (k)
 	key = k[0]
+	#UGH
 	k = k[1:]
 	if k and k[0] == '#':
 		key = key + 'is'
@@ -401,10 +408,13 @@ def lily_key (k):
 		return '%s \\major' % key
 
 	type = k[0:3]
-	if key_lookup.has_key (type):
-		return ("%s \\%s" % ( key, key_lookup[type]))
-	sys.stderr.write ("Unknown key type `%s' ignored\n" % type)
-	return ""
+	if not key_lookup.has_key (type):
+		#ugh, use lilylib, say WARNING:FILE:LINE:
+		sys.stderr.write ("abc2ly:warning:")
+		sys.stderr.write ("ignoring unknown key: `%s'" % orig)
+		sys.stderr.write ('\n')
+		return 0
+	return ("%s \\%s" % ( key, key_lookup[type]))
 
 def shift_key (note, acc , shift):
         s = semitone_pitch((note, acc))
@@ -632,12 +642,16 @@ def try_parse_header_line (ln, state):
 					else:
 						key_info = m.group(1)
 						clef_info = m.group(2)
-					__main__.global_key  = compute_key (key_info)# ugh.
-					voices_append ('\\key %s' % lily_key(key_info))
+					__main__.global_key  = compute_key (key_info)
+					k = lily_key (key_info)
+					if k:
+						voices_append ('\\key %s' % k)
 					check_clef(clef_info)
 				else:
-					__main__.global_key  = compute_key (a)# ugh.
-					voices_append ('\\key %s \\major' % lily_key(a))
+					__main__.global_key  = compute_key (a)
+					k = lily_key (a)
+					if k:
+						voices_append ('\\key %s \\major' % k)
 		if g == 'N': # Notes
 			header ['footnotes'] = header['footnotes'] +  '\\\\\\\\' + a
 		if g == 'O': # Origin
@@ -1205,6 +1219,7 @@ def try_parse_comment (str):
 #write other kinds of appending  if we ever need them.			
 	return str
 
+lineno = 0
 happy_count = 100
 def parse_file (fn):
 	f = open (fn)
@@ -1212,6 +1227,7 @@ def parse_file (fn):
 	ls = map (lambda x: re.sub ("\r$", '', x), ls)
 
 	select_voice('default', '')
+	global lineno
 	lineno = 0
 	sys.stderr.write ("Line ... ")
 	sys.stderr.flush ()
