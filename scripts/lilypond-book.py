@@ -382,12 +382,10 @@ output_dict= {
 
 	'latex': {
 
-		'output-lilypond-fragment' : r'''\begin[eps,singleline,%s]{lilypond}
-  \context Staff <
+		'output-lilypond-fragment' : r'''\begin[singleline,%s]{lilypond}
     \context Voice{
       %s
     }
-  >
 \end{lilypond}''',
 		'output-filename' : r'''\verb+%s+:\\
 %% %s
@@ -405,7 +403,6 @@ output_dict= {
 		'output-default-post': "\\def\postLilyPondExample{}\n",
 		'output-default-pre': "\\def\preLilyPondExample{}\n",
 		'usepackage-graphics': '\\usepackage{graphics}\n',
-		'output-eps': '\\noindent\\parbox{\\lilypondepswidth{%(fn)s.eps}}{\includegraphics{%(fn)s}}',
 		'output-noinline': r'''
 %% generated: %(fn)s.eps
 ''',
@@ -908,7 +905,10 @@ def make_lilypond_file (m):
 		options = []
 	(content, nm) = find_file (m.group ('filename'))
 	options.append ("filename=%s" % nm)
-
+	(path, base) = os.path.split (nm)
+	
+	if path not in include_path:
+		include_path.append (path)
 
 	return [('lilypond', content, options)]
 	
@@ -1158,13 +1158,10 @@ def format_lilypond_block (chunk):
 	if 'noinline' in opts:
 		s = 'output-noinline'
 	elif format == 'latex':
-		if 'eps' in opts:
-			s = 'output-eps'
+		if 'quote' in opts:
+			s = 'output-latex-quoted'
 		else:
-			if 'quote' in opts:
-				s = 'output-latex-quoted'
-			else:
-				s = 'output-latex-noquote'
+			s = 'output-latex-noquote'
 	elif format == 'texi':
 		if 'quote' in opts:
 			s = 'output-texi-quoted'

@@ -1,5 +1,19 @@
 2003-09-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scripts/lilypond-book.py (output_dict): remove support for the
+	EPS option.
+
+	* scm/define-grobs.scm (all-grob-descriptions): add X-extent for
+	VerticalAlignment and VerticalAxisGroup this fixes the size
+	computations for the entire system.
+ 
+	* input/les-nereides.ly (bass): remove superfluous fontSize.
+
+	* scripts/lilypond-book.py (make_lilypond_file): \lilypondfile{}
+	causes directory of file to be added to include path.
+
+	* input/regression/beam-break.ly: test single stem beams.
+
 	* input/regression/system-start-bracket.ly: fix.
 
 	* lily/beam.cc (set_stem_lengths): single-stem-beam fix.

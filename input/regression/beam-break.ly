@@ -9,4 +9,5 @@
 
 \score { \notes \relative c''  {
     \property Score.forbidBeamBreak = ##f
-    c2. c8[ c8 \break c8 c8]   } }
+   \time 3/16 c16-[ d e \break f-] 
+}}
