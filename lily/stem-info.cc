@@ -108,14 +108,16 @@ Stem_info::Stem_info (Stem*s)
   if (beam_l_->sinfo_.size ()
       && stem_l_->staff_sym_l_ != beam_l_->sinfo_[0].stem_l_->staff_sym_l_)
     {
+#if 0 // this is nonsense..., don't issue warning
       if (stem_l_->staff_sym_l_->dim_cache_[Y_AXIS].valid_b ())
 	{
 	  interstaff_f_ = stem_l_->staff_sym_l_->absolute_coordinate (Y_AXIS)
 	    - beam_l_->sinfo_[0].stem_l_->staff_sym_l_->absolute_coordinate (Y_AXIS) / internote_f;
 	}
       else
+#endif
 	{
-	  warning (_ ("invalid dimension cache: guessing staff position"));
+	  //	  warning (_ ("invalid dimension cache: guessing staff position"));
 	  if (beam_l_->vertical_align_drul_[MIN] != 
 	      beam_l_->vertical_align_drul_[MAX])
 	    warning (_ ("minVerticalAlign != maxVerticalAlign: interstaff slurs may be broken"));

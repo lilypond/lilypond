@@ -62,8 +62,7 @@ Staff_margin_engraver::acknowledge_element (Score_element_info i)
   Text_def *td_p =new Text_def;
   td_p->align_dir_ = LEFT;
   td_p->text_str_ = string;
-  // huh?
-  script_p_->dir_ = RIGHT;
+  script_p_->dir_ = LEFT;
   script_p_->specs_p_ = td_p;
   script_p_->breakable_b_ = true;
 
