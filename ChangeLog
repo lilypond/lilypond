@@ -1,3 +1,11 @@
+2005-03-12  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* buildscripts/guile-gnome.sh: Update.
+
+	* mf/GNUmakefile (aybabtu.otf): Add dependency on .pe.
+
+	* mf/aybabtu.pe.in: Capitalize Aybabtu.
+
 2005-03-11  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/separating-group-spanner.cc (find_rods): oops. Fix the real
