@@ -76,7 +76,7 @@ rondo = \notes 	\relative c'
 	[b () e d] [c b a]
 	\mark "C"
 	g4 r8 r4 r8
-	r2. |
+	R2. |
 	%
 	r8 [g g] [g( )b b]
 	[b()d d-.] [d()g g-.]
@@ -102,7 +102,7 @@ rondo = \notes 	\relative c'
 	r4 r8 r4 c'8
 	b4()c8 b4()c8
 	bes4. ~ bes4 g8
-	a4 c8 [f () d b]
+	a4 c8 [f () d b!]
 	d4. () c8 r r
 	\mark "E"
 	R2.*9  |
@@ -110,11 +110,11 @@ rondo = \notes 	\relative c'
 	[c8 c' c] c4.~
 	[c8 c d] [e e fis] 
 	g4 r8 r4 r8
-	r2.
+	R2.
 	r8 [g, g] [g g g] |
 	es'4. ~ [es8 d c]
 	b4 r8 r4 r8
-	r2. |
+	R2. |
 	r8 [g g] [g g g]
 	es'4. ~ [es8 d c]
 	\cresc b4.  c4. d4. e4.
@@ -155,7 +155,7 @@ rondo = \notes 	\relative c'
 	
 	)c4 r8 r4 r8
 	R2.*5
-	r8 r8-\fermata d8\p [d e f]
+	r8 r8^\fermata d8\p [d e f]
 	[g ()e c] [d()e d]
 	\cresc [c  c c] [d e f]
 	[g()e c] [d()e d]

@@ -246,7 +246,6 @@
 	(molecule-callback . ,Text_item::brew_molecule)
 	(X-offset-callbacks . (,Side_position_interface::aligned_on_self))
 	(self-alignment-X . 0)
-
 	(no-spacing-rods . #t)
 	(script-priority . 100)
 	(font-series . bold)
@@ -433,11 +432,8 @@
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(staff-position . 0)
 	(expand-limit . 10)
-	(width . 5.5)
 	(thickness . 6.6)
-	(padding . 1.5) ; staffspace
 	(font-family . number)
-	(font-relative-size . 1)
 	(meta . ((interfaces . (multi-measure-rest-interface rest-interface font-interface staff-symbol-referencer-interface))))
 	))
 

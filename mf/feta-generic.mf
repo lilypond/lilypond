@@ -39,8 +39,8 @@ if test = 0:
 	input feta-solfa;
 	
 else:
-%	input feta-bolletjes;	
-%	input feta-banier;
+	input feta-bolletjes;	
+	input feta-banier;
 %	input feta-eindelijk;
 %	input feta-klef;
 %	input feta-toevallig;

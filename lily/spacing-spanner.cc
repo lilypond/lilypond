@@ -700,11 +700,14 @@ Spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
       programming_error ("can't find a ruling note at " + Paper_column::when_mom (lc).str ());
       shortest_playing_len = 1;
     }
-  
-  Moment delta_t = Paper_column::when_mom (rc) - Paper_column::when_mom (lc);
+
+  Moment lwhen = Paper_column::when_mom (lc);
+  Moment rwhen =  Paper_column::when_mom (rc);
+
+  Moment delta_t = rwhen - lwhen;
   Real dist = 0.0;
 
-  if (delta_t.main_part_)
+  if (delta_t.main_part_ && !lwhen.grace_part_)
     {
       dist = get_duration_space (me, shortest_playing_len, shortest.main_part_, expand_only);
       dist *= (double) (delta_t.main_part_ / shortest_playing_len.main_part_);

@@ -327,7 +327,6 @@ ADD_INTERFACE (Multi_measure_rest,"multi-measure-rest-interface",
   "A rest that spans a whole number of measures.  For typesetting the
 numbers, fields from font-interface may be used.
 
-padding is the space between number and rest. Measured in staffspace.
 
 ",
-  "thickness measure-count expand-limit padding");
+  "thickness measure-count expand-limit");

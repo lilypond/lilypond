@@ -55,7 +55,8 @@ allegro =
 	d4. [e16 fis] [g () fis e d] [c() b a g]
 	\endcresc
 	< a1(-\trill
-	  { s2. \grace{ [g16 a] } } >
+1	  { s2 \grace{ [g16 a] } } >
+	\mark "C"
 	)g4 r r2
 	R1*15
 	\mark "D"
@@ -125,7 +126,7 @@ allegro =
 	[c (e] )g2 \grace  { \longgrace f16(  \endlonggrace }  [)e8( d16 )c]
 
 	< d1-\trill (
-	  { s2. \grace { [c16 d] } } >
+	  { s2 \grace { [c16 d] } } >
 	
 	) c4 r r2
 	R1 |
@@ -137,11 +138,11 @@ allegro =
 	g4 r8 g'\f [a b c d]|
 
 	< d1(-\trill
-	  { s2. \grace { [c16 d] } }  >
+	  { s2 \grace { [c16 d] } }  >
 	)c4 r r2
 	R1*3
 
-	c4._"Cadenza ad lib." () d8 d4.-\trill ( [c16 )d] 
+	c4.^\fermata_"Cadenza ad lib." () d8 d4.-\trill^\fermata ( [c16 )d] 
 	c4 r r2
 	R1*8
 	r4 [c8.^"tutti"-\f c16] c4 c

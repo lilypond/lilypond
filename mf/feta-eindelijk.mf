@@ -38,6 +38,10 @@ ball_crook_balldiam =flare;
 
 save block_rest_y, block_rest_x;
 
+save breve_rest_y, breve_rest_x;
+
+breve_rest_y# =  staff_space#;
+breve_rest_x# = 3/5 staff_space#;
 block_rest_y# = 5/8 staff_space#;
 block_rest_x# = 3/2 staff_space#;
 
@@ -88,21 +92,18 @@ fet_beginchar("half rest (outside staff)", "1o", "outsidehalfrest");
 fet_endchar;
 
 
-save breve_rest_y, breve_rest_x;
-
-breve_rest_y# =  staff_space#;
-breve_rest_x# = 3/5 staff_space#;
 
 define_pixels(breve_rest_y, breve_rest_x, multi_rest_x, multi_beam_height);
 
-fet_beginchar("breve rest", "-1", "breverest");
-       set_char_box(0, breve_rest_x#, 0, breve_rest_y#);
-       draw_block ((0,0), (breve_rest_x, breve_rest_y));
-fet_endchar;
 
 fet_beginchar("longa rest", "-2", "longarest");
        set_char_box(0, breve_rest_x#, breve_rest_y#, breve_rest_y#);
-       draw_block ((0,-breve_rest_y), (breve_rest_x, breve_rest_y));
+       draw_block ((0,-floor (breve_rest_y)), (breve_rest_x, floor (breve_rest_y)));
+fet_endchar;
+
+fet_beginchar("breve rest", "-1", "breverest");
+       set_char_box(0, breve_rest_x#, 0, breve_rest_y#);
+       draw_block ((0,0), (breve_rest_x, floor (breve_rest_y)));
 fet_endchar;
 
 tracingvariables := 1;
@@ -114,9 +115,10 @@ fet_beginchar("Quarter rest","2","quartrest");
 	yshift# = -1.25 staff_space#;
 	height# = 2.8125 staff_space#;
 	define_pixels (yshift, height);
-
+	save xcenter;
+	xcenter = -0.1 staff_space;
 	
-	set_char_box(0, 27/25staff_space#,
+	set_char_box(0, 0.95 staff_space#,
 	  -yshift#,
 	  yshift# + height#);
 	
@@ -141,15 +143,15 @@ fet_beginchar("Quarter rest","2","quartrest");
 	z13=z2r+1/2rthin*ne+1/2rthin*nw;
 
 	y1r = h;
-	x1l=1/3staff_space;
+	x1l=xcenter +  1/3staff_space;
 	z2r=z1+staff_space*se;
 	z3=1/2[z2,z4];
-	x4=3/8staff_space;
+	x4= xcenter + 3/8staff_space;
 	y4= 0;
 	z5=z4l+1.3staff_space*se;
 	x6l=x4l;
 	y6l=y4r;
-	x7=2/5staff_space;
+	x7= xcenter + 2/5staff_space;
 	y7= -d;
 	
 	fill z1l{se}..{se}z10..z3l..z11{se}..{se}z5l..z5r{nw}..{nw}z12..z3r..z13{nw}..{nw}z1r.. cycle;
