@@ -1,6 +1,6 @@
 \score {
   \notes \relative c' < \context Voice {
-	\property Staff.staffLineLeading = 4
+	\property Staff.staffSpace = #10
 	\property Staff.fontSize = #-1
 	\property Voice.fontSize = #-1
 	

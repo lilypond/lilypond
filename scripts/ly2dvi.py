@@ -257,7 +257,7 @@ class TeXOutput:
 %%\\addtolength{\\topmargin}{-1cm} 
 %%\\setlength{\\textwidth}{%s} 
 %%\\setlength{\\textheight}{%s} 
-\\geometry{width=%spt, left=%spt, height=%spt, top=%spt} 
+\\geometry{width=%spt, left=%spt, height=%spt, top=%spt, nohead} 
 \\input lilyponddefs 
 \\input titledefs 
 %s 
