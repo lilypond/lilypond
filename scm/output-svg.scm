@@ -17,6 +17,15 @@
 ;;; * inkscape fails to map Feta fonts to private use area (PUA) E000
 ;;;   (sodipodi is fine).
 
+;;; * maybe we need to have a unicode mapping somehow, we could
+;;;   - use OpenType instead of Type1
+;;; http://lists.gnu.org/archive/html/lilypond-devel/2004-05/msg00098.html
+;;;
+;;;   - or fix the pangofc-afm-decoder and add it to Pango (no chance?)
+;;;     or have fontconfig read AFM files
+;;;  http://lists.gnu.org/archive/html/lilypond-devel/2004-05/msg00103.html
+
+
 (debug-enable 'backtrace)
 (define-module (scm output-svg))
 (define this-module (current-module))
