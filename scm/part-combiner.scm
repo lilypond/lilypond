@@ -26,7 +26,7 @@
   (display (events x) file)
   (display " active = " file)
   (display (span-state x) file)
-  (display "\n" file) )
+  (display "\n" file))
 
 (define-method (note-events (vs <Voice-state>))
   (define (f? x)
@@ -35,7 +35,7 @@
 
 (define-method (previous-voice-state (vs <Voice-state>))
   (let ((i (slot-ref vs 'vector-index))
-	(v (slot-ref vs 'state-vector)) )
+	(v (slot-ref vs 'state-vector)))
     (if (< 0 i)
 	(vector-ref v (1- i))
 	#f)))
@@ -57,7 +57,7 @@
   (display (configuration x) f)
   (if (synced? x)
       (display " synced "))
-  (display "\n" f) )
+  (display "\n" f))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -73,8 +73,8 @@
 				    #:tuning (cdar v)
 				    #:events (map car (cdr v))))
 				evl))))
-    (do ( (i 0 (1+ i)) )
-	( (= i (vector-length vec)) vec)
+    (do ((i 0 (1+ i)))
+	((= i (vector-length vec)) vec)
       (slot-set! (vector-ref vec i) 'vector-index i)
       (slot-set! (vector-ref vec i) 'state-vector vec))))
 
@@ -499,7 +499,7 @@ the mark when there are no spanners active."
 
 (define-public (add-quotable name mus)
   (set! noticed '())
-  (let* ((tab (eval 'musicQuotes (current-module) ))
+  (let* ((tab (eval 'musicQuotes (current-module)))
 	 (context (ly:run-translator (context-spec-music mus 'Voice)
 				     part-combine-listener))
 	 (first-voice-handle (last-pair noticed)))

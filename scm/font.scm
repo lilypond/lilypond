@@ -47,7 +47,7 @@
        (list
 	"Font-size-family: \n"
 	(slot-ref leaf 'default-size) 
-	(slot-ref leaf 'size-vector) )))
+	(slot-ref leaf 'size-vector))))
 
 (define-method (display (node <Font-tree-node>) port)
 

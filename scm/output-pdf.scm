@@ -34,7 +34,7 @@
   (moveto (+ x (car currentpoint)) (+ y (cdr currentpoint))))
 (define (lineto x y)
   (set! currentpoint (cons x y))
-  (string-append (showcp) "lst "))
+  (string-append (showcp) "l "))
 (define (lineto-pair pair)
   (lineto (car pair) (cdr pair)))
 (define (rlineto x y)

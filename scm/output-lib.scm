@@ -5,6 +5,7 @@
 ;;;; (c)  1998--2004 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
+
 ;;; Tablature functions, by Jiba (jiba@tuxfamily.org)
 
 ;; The TabNoteHead stem attachment function.
@@ -24,16 +25,16 @@
   (let* ((note-collums (ly:grob-property grob 'note-columns))
          (note-column1 (cadr note-collums))
          (note-column2 (car  note-collums))
-         (note1        (car (ly:grob-property note-column1 'note-heads)))
-         (note2        (car (ly:grob-property note-column2 'note-heads)))
-	 (text1  (ly:grob-property note1 'text))
-	 (text2  (ly:grob-property note2 'text))
-         (fret1        (if (string? text1) (string->number text1) 0))
-         (fret2        (if (string? text2) (string->number text2) 0))
-         (letter       (cond
-			((< fret1 fret2) "H")
-			((> fret1 fret2) "P")
-			(else ""))))
+         (note1 (car (ly:grob-property note-column1 'note-heads)))
+         (note2 (car (ly:grob-property note-column2 'note-heads)))
+	 (text1 (ly:grob-property note1 'text))
+	 (text2 (ly:grob-property note2 'text))
+         (fret1 (if (string? text1) (string->number text1) 0))
+         (fret2 (if (string? text2) (string->number text2) 0))
+         (letter (cond
+		  ((< fret1 fret2) "H")
+		  ((> fret1 fret2) "P")
+		  (else ""))))
     (let* ((slur
 	    ;; (Slur::print grob)
 
@@ -52,34 +53,31 @@
                   -2.0)))
 	
         (ly:stencil-set-extent! text 0 (cons x x))
-        (ly:stencil-align-to! text 0 1))) ) )
+        (ly:stencil-align-to! text 0 1)))))
 
-					;      (ly:stencil-combine-at-edge slur 1 1 text -0.6)
+;; (ly:stencil-combine-at-edge slur 1 1 text -0.6)
 
 
 
 (define-public guitar-tunings '(4 -1 -5 -10 -15 -20))
 
-					; end of tablature functions
+;;; end of tablature functions
 
 
 (define-public (make-stencil-boxer line-thick x-padding y-padding callback)
   "Makes a routine that adds a box around the grob parsed as argument"
   (define (stencil-boxer grob)
-    (let*
-	(
-	 (mol    (callback grob))
-	 (x-ext (interval-widen (ly:stencil-extent mol 0) x-padding))
-	 (y-ext (interval-widen (ly:stencil-extent mol 1) y-padding))
-	 (x-rule (make-filled-box-stencil (interval-widen x-ext line-thick)
-					  (cons 0 line-thick)))
-	 (y-rule (make-filled-box-stencil (cons 0 line-thick) y-ext)))
-
+    (let* ((mol (callback grob))
+	   (x-ext (interval-widen (ly:stencil-extent mol 0) x-padding))
+	   (y-ext (interval-widen (ly:stencil-extent mol 1) y-padding))
+	   (x-rule (make-filled-box-stencil (interval-widen x-ext line-thick)
+					    (cons 0 line-thick)))
+	   (y-rule (make-filled-box-stencil (cons 0 line-thick) y-ext)))
+      
       (set! mol (ly:stencil-combine-at-edge mol 0 1 y-rule x-padding))
       (set! mol (ly:stencil-combine-at-edge mol 0 -1 y-rule x-padding))
       (set! mol (ly:stencil-combine-at-edge mol 1 1 x-rule 0))  
       (set! mol (ly:stencil-combine-at-edge mol 1 -1 x-rule 0))
-      
       mol))
   stencil-boxer)
 
@@ -230,7 +228,7 @@ centered, X==1 is at the right, X == -1 is at the left."
 
     (if (equal? result #f)
 	(ly:warn "Unknown bar glyph: `~S'" glyph)
-	(index-cell (cdr result) dir))) )
+	(index-cell (cdr result) dir))))
 
 (define-public (shift-right-at-line-begin g)
   "Shift an item to the right, but only at the start of the line."

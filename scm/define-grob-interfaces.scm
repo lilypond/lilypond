@@ -76,7 +76,7 @@
 (ly:add-interface
  'only-prebreak-interface
  "Kill this grob after the line breaking process."
- '() )
+ '())
 
 (ly:add-interface
  'piano-pedal-interface

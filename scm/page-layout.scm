@@ -209,7 +209,7 @@ is what have collected so far, and has ascending page numbers."
 		     lines)
 		    (if (= (length lines) 1)
 			'((0 .  0))
-			'())) ))
+			'()))))
 	 (real-extents
 	  (list->vector
 	   (append
@@ -217,7 +217,7 @@ is what have collected so far, and has ascending page numbers."
 	     (lambda (sys) (ly:paper-system-extent sys Y)) lines)
 	    (if (= (length lines) 1)
 		'((0 .  0))
-		'()) )))
+		'()))))
 	 (no-systems (vector-length real-extents))
 	 (topskip (interval-end (vector-ref real-extents 0)))
 	 (space-left (- page-height

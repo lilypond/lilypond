@@ -157,7 +157,7 @@
 		    (cdr (assoc 'consists context-desc))))
 	 (props (cdr (assoc 'property-ops context-desc)))
 	 (grobs  (context-grobs context-desc))
-	 (grob-refs (map (lambda (x) (ref-ify x)) grobs)) )
+	 (grob-refs (map (lambda (x) (ref-ify x)) grobs)))
 
     (make <texi-node>
       #:name name

@@ -148,7 +148,7 @@ determines the space between each markup in @var{args}."
 
     (if (markup? m)
 	(interpret-markup layout props m)
-	(ly:make-stencil '()  '(1 . -1) '(1 . -1) ))))
+	(ly:make-stencil '()  '(1 . -1) '(1 . -1)))))
 
 
 (def-markup-command (on-the-fly layout props procedure arg) (symbol? markup?)
@@ -463,7 +463,7 @@ and/or @code{extra-offset} properties. "
                     (apply ly:stencil-add
                            (map (lambda (x)
                                   (ly:stencil-translate-axis
-                                   dot  (* (+ 1 (* 2 x)) dotwid) X) )
+                                   dot  (* (+ 1 (* 2 x)) dotwid) X))
                                 (iota dot-count 1)))))
          (flaggl (and (> log 2)
                       (ly:stencil-translate
@@ -611,7 +611,7 @@ will put extra space between A and B, on top of the space that is
 normally inserted before elements on a line.
 "
   (if (> amount 0)
-      (ly:make-stencil "" (cons 0 amount) '(-1 . 1) )
+      (ly:make-stencil "" (cons 0 amount) '(-1 . 1))
       (ly:make-stencil "" (cons amount amount) '(-1 . 1))))
 
 (def-markup-command (override layout props new-prop arg) (pair? markup?)
@@ -693,7 +693,7 @@ around the markup."
 the elements marked in @var{indices}, which is a list of numbers."
 
   (define (sublist lst start stop)
-    (take (drop lst start) (- (1+ stop) start)) )
+    (take (drop lst start) (- (1+ stop) start)))
 
   (define (stencil-list-extent ss axis)
     (cons

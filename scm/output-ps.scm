@@ -230,7 +230,7 @@
   ;; extract the hsbw for /space from the font.
   (let* ((space-length (cdar (ly:text-dimension font " "))) 
 	 (commands '())
-	 (add-command (lambda (x) (set! commands (cons x commands)))) )
+	 (add-command (lambda (x) (set! commands (cons x commands)))))
 
     (string-fold
      (lambda (chr word)

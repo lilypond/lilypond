@@ -94,7 +94,7 @@
 	  (ly:warn "Error in beam quanting found. Want ~S 0 found ~S."
 		   (procedure-name comparison) slope-sign)
 	  (set! (ly:grob-property beam 'quant-score)
-		(format "~S 0" (procedure-name comparison) )))
+		(format "~S 0" (procedure-name comparison))))
 	(set! (ly:grob-property beam 'quant-score) ""))))
 
 (define-public (check-quant-callbacks l r)

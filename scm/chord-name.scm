@@ -65,10 +65,10 @@
     (make-line-markup
      (list
       (string-append
-       (list-ref '("c" "d" "e" "f" "g" "a" "h" "b")  (car n-a) )
+       (list-ref '("c" "d" "e" "f" "g" "a" "h" "b")  (car n-a))
        (if (or (equal? (car n-a) 2) (equal? (car n-a) 5))
-	   (list-ref '( "ses"  "s" "" "is" "isis") (+ 2 (/ (cdr n-a) 2) ))
-	   (list-ref '("eses" "es" "" "is" "isis") (+ 2 (/ (cdr n-a) 2) ))))))))
+	   (list-ref '( "ses"  "s" "" "is" "isis") (+ 2 (/ (cdr n-a) 2)))
+	   (list-ref '("eses" "es" "" "is" "isis") (+ 2 (/ (cdr n-a) 2)))))))))
 
 ;; fixme we should standardize on omit-root (or the other one.)
 ;; perhaps the  default should also be reversed --hwn

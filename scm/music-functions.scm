@@ -734,7 +734,7 @@ use GrandStaff as a context. "
       ;; as cautionaries
       ((equal? style 'modern-voice-cautionary)
        (set-accidentals-properties #f
-				   '(Voice (same-octave . 0) )
+				   '(Voice (same-octave . 0))
 				   '(Voice (any-octave . 0) (same-octave . 1)
 					   Staff (same-octave . 0) (any-octave . 0) (same-octave . 1))
 				   context))
@@ -790,6 +790,6 @@ use GrandStaff as a context. "
   
   (let* ((skip
 	  (make-multi-measure-rest
-	   (ly:make-duration 0 0) '() )))
+	   (ly:make-duration 0 0) '())))
     (ly:music-compress skip (ly:music-length mus))
     skip))

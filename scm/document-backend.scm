@@ -12,8 +12,11 @@
 	 (docfunc (lambda (pr)
 		    (property->texi
 		     'backend pr grob-description)))
-	 (iprops (filter (lambda (x) (object-property x 'backend-internal) ) props))
-	 (uprops (filter (lambda (x) (not (object-property x 'backend-internal)) ) props))
+	 (iprops (filter (lambda (x) (object-property x 'backend-internal))
+			 props))
+	 (uprops (filter
+		  (lambda (x) (not (object-property x 'backend-internal)))
+		  props))
 	 (user-propdocs (map docfunc uprops))
 	 (internal-propdocs (map docfunc iprops)))
 
@@ -62,7 +65,7 @@
 	       (map ref-ify
 		    (sort 
 		     (map symbol->string
-			  (hashq-ref iface->grob-table (car interface) '() ))
+			  (hashq-ref iface->grob-table (car interface) '()))
 		     string<?)))))))
 
 (define (grob-alist->texi alist)
@@ -134,7 +137,7 @@ node."
 ;;;;;;;;;;;;;;;;
 
 (define (lookup-interface name)
-  (let* ((entry (hashq-ref (ly:all-grob-interfaces) name '() )))
+  (let* ((entry (hashq-ref (ly:all-grob-interfaces) name '())))
     (if (equal? entry #f)
 	(error "Unknown interface" name))
     entry))

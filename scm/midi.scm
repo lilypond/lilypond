@@ -56,7 +56,7 @@
 	 )
        instrument-equalizer-alist))
 
-;; (name . program+32768*(channel10 ? 1 : 0) )
+;; (name . program+32768*(channel10 ? 1 : 0))
 (define instrument-names-alist '())
 (set! instrument-names-alist
       (append

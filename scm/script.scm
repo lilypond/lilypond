@@ -75,7 +75,7 @@
 	   (direction .  1)))
 	 ("stopped" .
 	  ((script-stencil . (feta . ("stopped" . "stopped")))
-	   (direction  . 1) ))
+	   (direction  . 1)))
 	 ("staccato" .
 	  ((script-stencil . (feta . ("staccato" . "staccato")))
 	   (side-relative-direction .  -1)
@@ -98,7 +98,7 @@
 	 ("upbow" .
 	  ((script-stencil . (feta . ("upbow" . "upbow")))
 	   (inside-slur . #f)
-	   (direction  . 1) ))
+	   (direction  . 1)))
 	 ("downbow" .
 	  ((script-stencil . (feta . ("downbow" . "downbow")))
 	   (inside-slur . #f)
@@ -109,70 +109,70 @@
 	  )
 	 ("rheel" .
 	  ((script-stencil . (feta . ("dpedalheel" . "dpedalheel")))
-	   (direction  . 1) ))
+	   (direction  . 1)))
 	 ("ltoe" .
 	  ((script-stencil . (feta . ("upedaltoe" . "upedaltoe")))
-	   (direction  . -1) ))
+	   (direction  . -1)))
 	 ("rtoe" .
 	  ((script-stencil . (feta . ("dpedaltoe" . "dpedaltoe")))
-	   (direction  . 1) ))
+	   (direction  . 1)))
 	 ("turn" .
 	  ((script-stencil . (feta . ("turn" . "turn")))
-	   (direction  . 1) ))
+	   (direction  . 1)))
 	 ("open" .
 	  ((script-stencil . (feta . ("open" . "open")))
-	   (direction  . 1) ))
+	   (direction  . 1)))
 	 ("flageolet" .
 	  ((script-stencil . (feta . ("flageolet" . "flageolet")))
-	   (direction  . 1) ))
+	   (direction  . 1)))
 	 ("reverseturn" .
 	  ((script-stencil . (feta . ("reverseturn" . "reverseturn")))
-	   (direction  . 1) ))
+	   (direction  . 1)))
 	 ("trill" .
 	  ((script-stencil . (feta . ("trill" . "trill")))
 	   (direction . 1)
 	   (priority . 2000)))
 	 ("prall" .
 	  ((script-stencil . (feta . ("prall" . "prall")))
-	   (direction  . 1) ))
+	   (direction  . 1)))
 	 ("mordent" .
 	  ((script-stencil . (feta . ("mordent" . "mordent")))
-	   (direction  . 1) ))
+	   (direction  . 1)))
 	 ("prallprall" .
 	  ((script-stencil . (feta . ("prallprall" . "prallprall")))
-	   (direction  . 1) ))
+	   (direction  . 1)))
 	 ("prallmordent" .
 	  ((script-stencil . (feta . ("prallmordent" . "prallmordent")))
-	   (direction  . 1) ))
+	   (direction  . 1)))
 	 ("upprall" .
 	  ((script-stencil . (feta . ("upprall" . "upprall")))
-	   (direction  . 1) ))
+	   (direction  . 1)))
 	 ("downprall" .
 	  ((script-stencil . (feta . ("downprall" . "downprall")))
-	   (direction  . 1) ))
+	   (direction  . 1)))
 	 ("upmordent" .
 	  ((script-stencil . (feta . ("upmordent" . "upmordent")))
-	   (direction  . 1) ))
+	   (direction  . 1)))
 	 ("downmordent" .
 	  ((script-stencil . (feta . ("downmordent" . "downmordent")))
-	   (direction  . 1) ))
+	   (direction  . 1)))
 	 ("lineprall" .
 	  ((script-stencil . (feta . ("lineprall" . "lineprall")))
-	   (direction  . 1) ))
+	   (direction  . 1)))
 	 ("pralldown" .
 	  ((script-stencil . (feta . ("pralldown" . "pralldown")))
-	   (direction  . 1) ))
+	   (direction  . 1)))
 	 ("prallup" .
 	  ((script-stencil . (feta . ("prallup" . "prallup")))
-	   (direction  . 1) ))
+	   (direction  . 1)))
 	 ("segno" .
 	  ((script-stencil . (feta . ("segno" . "segno")))
-	   (direction  . 1) ))
+	   (direction  . 1)))
 	 ("coda" .
 	  ((script-stencil . (feta . ("coda" . "coda")))
-	   (direction  . 1) ))
+	   (direction  . 1)))
 	 ("varcoda" .
 	  ((script-stencil . (feta . ("varcoda" . "varcoda")))
-	   (direction  . 1) )))
+	   (direction  . 1))))
        default-script-alist)
       )

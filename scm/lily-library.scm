@@ -207,7 +207,7 @@ found."
    c))
 
 (define-public (split-list lst sep?)
-   "(display (split-list '(a b c / d e f / g) (lambda (x) (equal? x '/))) )
+   "(display (split-list '(a b c / d e f / g) (lambda (x) (equal? x '/))))
    =>
    ((a b c) (d e f) (g))
   "
