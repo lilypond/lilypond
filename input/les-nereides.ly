@@ -1,4 +1,4 @@
-\version "1.5.72"
+\version "1.6.5"
 
 \header {
     composer =   "ARTHUR GRAY"
@@ -348,7 +348,7 @@ lowerDynamics =  \context Dynamics=lower \notes{
         }
 	\translator {
 	    \GraceContext
-	    Stem \override #'flag-style = #""
+	    Stem \override #'stroke-style = #""
         }
     }
 }

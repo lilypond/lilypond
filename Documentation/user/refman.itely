@@ -1988,7 +1988,7 @@ staves, using this grace timing.
 
 
 Unbeamed eighth notes and shorter by default have a slash through the
-stem. This can be controlled with object property @code{flag-style} of
+stem. This can be controlled with object property @code{stroke-style} of
 @internalsref{Stem}. The change in formatting is accomplished by
 inserting @code{\startGraceMusic} before handling the grace notes, and
 @code{\stopGraceMusic} after finishing the grace notes. You can add to
@@ -2004,9 +2004,9 @@ Notice how the @code{\override} is carefully matched with a @code{\revert}.
 \relative c'' \context Voice {
   \grace c8 c4 \grace { [c16 c16] } c4
   \grace { 
-    \property Voice.Stem \override #'flag-style = #'() 
+    \property Voice.Stem \override #'stroke-style = #'() 
     c16 
-    \property Voice.Stem \revert #'flag-style
+    \property Voice.Stem \revert #'stroke-style
   } c4
 }
 @end lilypond
@@ -3691,10 +3691,17 @@ output.
 @node Ancient notation 
 @section Ancient notation
 
+@cindex Vaticana, Editio
+@cindex Medicaea, Editio
+@cindex hufnagel
+@cindex Petrucci
+@cindex mensural
+
 @menu
 * Ancient note heads::          
+* Ancient clefs::               
 * Custodes::                    
-* Ancient clefs ::              
+* Ligatures::                   
 * Figured bass::                
 @end menu
 
@@ -3702,7 +3709,7 @@ output.
 @node Ancient note heads
 @subsection Ancient note heads
 
- To get a longa note head, you have to use mensural note heads. This
+To get a longa note head, you have to use mensural note heads. This
 is accomplished by setting the @code{style} property of the
 NoteHead object to @code{mensural}. There is also a note head style
 @code{baroque} which gives mensural note heads for @code{\longa} and
@@ -3712,6 +3719,212 @@ NoteHead object to @code{mensural}. There is also a note head style
  \property Voice.NoteHead \set #'style = #'mensural
  a'\longa
 @end lilypond
+
+@node Ancient clefs 
+@subsection Ancient clefs
+
+LilyPond supports a variety of clefs, many of them ancient.
+
+For modern clefs, see section @ref{Clef}.  For the percussion clef, see
+section @ref{Percussion staves}.  For the @code{TAB} clef, see section
+@ref{Tablatures}.
+
+The following table shows all ancient clefs that are supported via the
+@code{\clef} command.  Some of the clefs use the same glyph, but differ
+only with respect to the line they are printed on.  In such cases, a
+trailing number in the name is used to enumerate these clefs.  Still,
+you can manually force a clef glyph to be typeset on an arbitrary line,
+as described in section @ref{Clef}.  The note printed to the right side
+of each clef denotes the @code{c'} with respect to the clef.
+
+@table @code
+
+@c --- This should go somewhere else: ---
+@c @item modern style G clef (glyph: @code{clefs-G})
+@c
+@c Supported clefs:
+@c @code{treble}, @code{violin}, @code{G}, @code{G2}, @code{french}
+@c
+@c @lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "G" c'}
+@c
+@c @item modern style F clef (glyph: @code{clefs-F})
+@c
+@c Supported clefs:
+@c @code{varbaritone}, @code{bass}, @code{F}, @code{subbass}
+@c
+@c @lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "F" c'}
+@c
+@c @item modern style C clef (glyph: @code{clefs-C})
+@c
+@c Supported clefs:
+@c @code{soprano}, @code{mezzosoprano}, @code{alto}, @code{C},
+@c @code{tenor}, @code{baritone}
+@c
+@c @lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "C" c'}
+
+@item modern style mensural C clef (glyph: @code{clefs-neo_mensural_c'})
+
+Supported clefs:
+@code{neo_mensural_c1}, @code{neo_mensural_c2},
+@code{neo_mensural_c3}, @code{neo_mensural_c4}
+
+@lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "neo_mensural_c2" c'}
+
+@item petrucci style mensural C clef (glyph: @code{clefs-petrucci_c1})
+
+Supported clefs:
+@code{petrucci_c1}
+for 1st staffline
+
+@lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "petrucci_c1" c'}
+
+@item petrucci style mensural C clef (glyph: @code{clefs-petrucci_c2})
+
+Supported clefs:
+@code{petrucci_c2}
+for 2nd staffline
+
+@lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "petrucci_c2" c'}
+
+@item petrucci style mensural C clef (glyph: @code{clefs-petrucci_c3})
+
+Supported clefs:
+@code{petrucci_c3}
+for 3rd staffline
+
+@lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "petrucci_c3" c'}
+
+@item petrucci style mensural C clef (glyph: @code{clefs-petrucci_c4})
+
+Supported clefs:
+@code{petrucci_c4}
+for 4th staffline
+
+@lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "petrucci_c4" c'}
+
+@item petrucci style mensural C clef (glyph: @code{clefs-petrucci_c5})
+
+Supported clefs:
+@code{petrucci_c5}
+for 5th staffline
+
+@lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "petrucci_c5" c'}
+
+@item petrucci style mensural F clef (glyph: @code{clefs-petrucci_f})
+
+Supported clefs:
+@code{petrucci_f}
+
+@lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "petrucci_f" c'}
+
+@item petrucci style mensural G clef (glyph: @code{clefs-petrucci_g})
+
+Supported clefs:
+@code{petrucci_g}
+
+@lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "petrucci_g" c'}
+
+@item historic style mensural C clef (glyph: @code{clefs-mensural_c'})
+
+Supported clefs:
+@code{mensural_c1}, @code{mensural_c2}, @code{mensural_c3},
+@code{mensural_c4}
+
+@lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "mensural_c2" c'}
+
+@item historic style mensural F clef (glyph: @code{clefs-mensural_f})
+
+Supported clefs:
+@code{mensural_f}
+
+@lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "mensural_f" c'}
+
+@item historic style mensural G clef (glyph: @code{clefs-mensural_g})
+
+Supported clefs:
+@code{mensural_g}
+
+@lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "mensural_g" c'}
+
+@item Editio Vaticana style do clef (glyph: @code{clefs-vaticana_do})
+
+Supported clefs:
+@code{vaticana_do1}, @code{vaticana_do2}, @code{vaticana_do3}
+
+@lilypond[26pt]{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4 \property Staff.TimeSignature \set #'transparent = ##t \clef "vaticana_do2" c'}
+
+@item Editio Vaticana style fa clef (glyph: @code{clefs-vaticana_fa})
+
+Supported clefs:
+@code{vaticana_fa1}, @code{vaticana_fa2}
+
+@lilypond[26pt]{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4 \property Staff.TimeSignature \set #'transparent = ##t \clef "vaticana_fa2" c'}
+
+@item Editio Medicaea style do clef (glyph: @code{clefs-medicaea_do})
+
+Supported clefs:
+@code{medicaea_do1}, @code{medicaea_do2}, @code{medicaea_do3}
+
+@lilypond[26pt]{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4 \property Staff.TimeSignature \set #'transparent = ##t \clef "medicaea_do2" c'}
+
+@item Editio Medicaea style fa clef (glyph: @code{clefs-medicaea_fa})
+
+Supported clefs:
+@code{medicaea_fa1}, @code{medicaea_fa2}
+
+@lilypond[26pt]{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4 \property Staff.TimeSignature \set #'transparent = ##t \clef "medicaea_fa2" c'}
+
+@item historic style hufnagel do clef (glyph: @code{clefs-hufnagel_do})
+
+Supported clefs:
+@code{hufnagel_do1}, @code{hufnagel_do2}, @code{hufnagel_do3}
+
+@lilypond[26pt]{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4 \property Staff.TimeSignature \set #'transparent = ##t \clef "hufnagel_do2" c'}
+
+@item historic style hufnagel fa clef (glyph: @code{clefs-hufnagel_fa})
+
+Supported clefs:
+@code{hufnagel_fa1}, @code{hufnagel_fa2}
+
+@lilypond[26pt]{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4 \property Staff.TimeSignature \set #'transparent = ##t \clef "hufnagel_fa2" c'}
+
+@item historic style hufnagel combined do/fa clef (glyph: @code{clefs-hufnagel_do_fa})
+
+Supported clefs:
+@code{hufnagel_do_fa}
+
+@lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "hufnagel_do_fa" c'}
+
+@c --- This should go somewhere else: ---
+@c @item modern style percussion clef (glyph: @code{clefs-percussion})
+@c
+@c Supported clefs:
+@c @code{percussion}
+@c
+@c @lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "percussion" c'}
+@c
+@c @item modern style tab clef (glyph: @code{clefs-tab})
+@c
+@c Supported clefs:
+@c @code{tab}
+@c
+@c @lilypond[26pt]{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #6 \property Staff.TimeSignature \set #'transparent = ##t \clef "tab" c'}
+
+@end table
+
+@emph{Modern style} means ``as is typeset in current editions of
+transcribed mensural music''.
+
+@emph{Petrucci style} means ``inspired by printings published by the
+famous engraver Petrucci (1466-1539)''.
+
+@emph{Historic style} means ``as was typeset or written in contemporary
+historic editions (other than those of Petrucci)''.
+
+@emph{Editio XXX style} means ``as is/was printed in Editio XXX''.
+
+Petrucci used C clefs with differently balanced left-side vertical
+beams, depending on which staffline it was printed.
 
 @node Custodes
 @subsection Custodes
@@ -3772,59 +3985,122 @@ block:
 @}
 @end example
 
-@node Ancient clefs 
-@subsection Ancient clefs
+@node Ligatures
+@subsection Ligatures
 
-LilyPond supports a variety of clefs, many of them ancient. These can
-be selected by setting @code{Staff.clefGlyph}) to one of the following
-values
+@cindex Ligatures
 
-@table @code
-@item clefs-C
- modern style C clef
-@item clefs-F
- modern style F clef
-@item clefs-G
- modern style G clef
-@item clefs-vaticana_do
- Editio Vaticana style do clef
-@item clefs-vaticana_fa
- Editio Vaticana style fa clef
-@item clefs-medicaea_do
- Editio Medicaea style do clef
-@item clefs-medicaea_fa
- Editio Medicaea style fa clef
-@item clefs-mensural1_c
- modern style mensural C clef
-@item clefs-mensural2_c
- historic style small mensural C clef
-@item clefs-mensural3_c
- historic style big mensural C clef
-@item clefs-mensural1_f
- historic style traditional mensural F clef
-@item clefs-mensural2_f
- historic style new mensural F clef
-@item clefs-mensural_g
- historic style mensural G clef
-@item clefs-hufnagel_do
- historic style hufnagel do clef
-@item clefs-hufnagel_fa
- historic style hufnagel fa clef
-@item clefs-hufnagel_do_fa
- historic style hufnagel combined do/fa clef
-@item clefs-percussion
- modern style percussion clef
-@end table
+@c TODO: Should double check if I recalled things correctly when I wrote
+@c down the following paragraph by heart.
+In musical terminology, a ligature is a coherent graphical symbol that
+represents at least two different notes.  Ligatures originally appeared
+in the manuscripts of Gregorian chant notation roughly since the 9th
+century as an allusion to the accent symbols of greek lyric poetry to
+denote ascending or descending sequences of notes.  Both, the shape and
+the exact meaning of ligatures changed tremendously during the following
+centuries: In early notation, ligatures where used for monophonic tunes
+(Gregorian chant) and very soon denoted also the way of performance in
+the sense of articulation.  With upcoming multiphony, the need for a
+metric system arised, since multiple voices of a piece have to be
+synchronized some way.  New notation systems were invented, that used
+the manifold shapes of ligatures to now denote rhythmical patterns
+(e.g. black mensural notation, mannered notation, ars nova).  With the
+invention of the metric system of the white mensural notation, the need
+for ligatures to denote such patterns disappeared.  Nevertheless,
+ligatures were still in use in the mensural system for a couple of
+decades until they finally disappeared during the late 16th / early 17th
+century.  Still, ligatures have survived in contemporary editions of
+Gregorian chant such as the Editio Vaticana from 1905/08.
 
-@emph{Modern style} means ``as is typeset in current editions.''
-@emph{Historic style} means ``as was typeset or written in contemporary
-historic editions''.  @emph{Editio XXX style} means ``as is/was printed in
-Editio XXX.''
+Syntactically, ligatures are simply enclosed by @code{\[} and @code{\]}.
+Some ligature styles (such as Editio Vaticana) may need additional input
+syntax specific for this particular type of ligature.  By default, the
+@internalsref{LigatureBracket} engraver just marks the start and end of
+a ligature by small square angles:
 
-@cindex Vaticana, Editio
-@cindex Medicaea, Editio
-@cindex hufnagel clefs
+@lilypond[singleline,verbatim]
+\score {
+    \notes \transpose c'' {
+	\[ g c a f d' \]
+	a g f
+	\[ e f a g \]
+    }
+}
+@end lilypond
 
+To select a specific style of ligatures, a proper ligature engraver has
+to be added to the @internalsref{Voice} context, as explained in the
+following subsections.  Currently, Lilypond only supports white mensural
+ligatures with certain limitations.  Support for Editio Vaticana will be
+added in the future.
+
+@menu
+* White mensural ligatures::    
+@end menu
+
+@node White mensural ligatures
+@subsubsection White mensural ligatures
+
+@cindex Mensural ligatures
+@cindex White mensural ligatures
+
+Lilypond has limited support for white mensural ligatures.  The
+implementation is still experimental; it currently may output strange
+warnings or even crash in some cases or produce weird results on more
+complex ligatures.  To engrave white mensural ligatures, in the paper
+block the @internalsref{MensuralLigature} engraver has to be put into
+the @internalsref{Voice} context (and you probably want to remove the
+@internalsref{LigatureBracket} engraver).  There is no additional input
+language to describe the shape of a white mensural ligature.  The shape
+is rather determined solely from the pitch and duration of the enclosed
+notes.  While this approach may take a new user quite a while to get
+accustomed, it has a great advantage: this way, lily has full musical
+information about the ligature.  This is not only required for correct
+MIDI output, but also allows for automatic transcription of the
+ligatures.
+
+Example:
+
+@lilypond[singleline,verbatim]
+\score {
+    \notes \transpose c'' {
+	\property Score.timing = ##f
+	\property Score.defaultBarType = "empty"
+	\property Voice.NoteHead \set #'style = #'neo_mensural
+	\property Staff.TimeSignature \set #'style = #'neo_mensural
+	\clef "petrucci_g"
+	\[ g\longa c\breve a\breve f\breve d'\longa \]
+	s4
+	\[ e1 f1 a\breve g\longa \]
+    }
+    \paper {
+	\translator {
+	    \VoiceContext
+	    \remove Ligature_bracket_engraver
+	    \consists Mensural_ligature_engraver
+	}
+    }
+}
+@end lilypond
+
+Without replacing @code{Ligature_bracket_engraver} with
+@code{Mensural_ligature_engraver}, the same music transcribes to the
+following:
+
+@lilypond[singleline,verbatim]
+\score {
+    \notes \transpose c'' {
+	\property Score.timing = ##f
+	\property Score.defaultBarType = "empty"
+	\property Voice.NoteHead \set #'style = #'neo_mensural
+	\property Staff.TimeSignature \set #'style = #'neo_mensural
+	\clef "petrucci_g"
+	\[ g\longa c\breve a\breve f\breve d'\longa \]
+	s4
+	\[ e1 f1 a\breve g\longa \]
+    }
+}
+@end lilypond
 
 @node Figured bass
 @subsection Figured bass

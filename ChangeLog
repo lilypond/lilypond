@@ -1,3 +1,17 @@
+2002-09-24  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* Documentation/user/refman.itely: corrected ancient clef
+	docu; added docu on ligatures
+
+2002-09-21  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* Documentation/user/glossary.tely,
+	Documentation/user/refman.itely, input/les-nereides.ly,
+	input/mutopia/W.A.Mozart/mozart-hrn3-defs.ly,
+	input/test/bagpipe.ly, lily/stem.cc, ly/grace-init.ly,
+	scm/grob-property-description.scm, scripts/convert-ly.py: renamed
+	Stem properties: flag-style -> stroke-style, style -> flag-style.
+
 2002-09-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/music-functions.scm (music-separator?): don't use name music

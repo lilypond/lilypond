@@ -2,11 +2,11 @@
 
 % #(set-point-and-click! 'line-column)
 
-longgrace = \property Voice.Stem \override #'flag-style = #'()
-endlonggrace = \property Voice.Stem \revert #'flag-style
+longgrace = \property Voice.Stem \override #'stroke-style = #'()
+endlonggrace = \property Voice.Stem \revert #'stroke-style
 ritenuto = \textscript #'(italic  "rit.")
 
-\version "1.5.72"
+\version "1.6.5"
 
 #(define italic-bf '((font-shape . italic) (font-series . bold)))
 
