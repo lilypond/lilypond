@@ -1,3 +1,8 @@
+2003-06-05  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond-indent.el (LilyPond-show-paren-function): introduce for
+	testing by modifying the code from FSF Emacs paren.el. Add comments.
+
 2003-06-04  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* input/test/dpncnt.ly: Transpose example to match new
