@@ -29,6 +29,7 @@ import glob
 
 # If set, LILYPONDPREFIX must take prevalence
 # if datadir is not set, we're doing a build and LILYPONDPREFIX
+
 import getopt, os, sys
 datadir = '@local_lilypond_datadir@'
 if not os.path.isdir (datadir):
@@ -310,8 +311,10 @@ def strip_extension (f, ext):
 
 def cp_to_dir (pattern, dir):
 	"Copy files matching re PATTERN from cwd to DIR"
+	
 	# Duh.  Python style portable: cp *.EXT OUTDIR
 	# system ('cp *.%s %s' % (ext, outdir), 1)
+
 	files = filter (lambda x, p=pattern: re.match (p, x), os.listdir ('.'))
 	map (lambda x, d=dir: shutil.copy2 (x, os.path.join (d, x)), files)
 
@@ -320,6 +323,7 @@ def cp_to_dir (pattern, dir):
 #
 # On most platforms, this is equivalent to
 #`normpath(join(os.getcwd()), PATH)'.  *Added in Python version 1.5.2*
+
 if os.path.__dict__.has_key ('abspath'):
 	abspath = os.path.abspath
 else:
@@ -359,6 +363,7 @@ def setup_environment ():
 		#       * clean TEXINPUTS, MFINPUTS, TFMFONTS,
 		#         as these take prevalence over $TEXMF
 		#         and thus may break tex run?
+		
 		'TEXMF' : "{%s,%s}" % (datadir, texmf) ,
 		'GS_FONTPATH' : type1_paths,
 		'GS_LIB' : datadir + '/ps',
