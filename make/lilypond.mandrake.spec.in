@@ -2,7 +2,7 @@
 
 %define name lilypond
 %define version @TOPLEVEL_VERSION@
-%define release 3mdk
+%define release 4mdk
 
 Summary:	A program for printing sheet music.
 Name:		%{name}
@@ -72,6 +72,8 @@ unset out
 
 %make MAKE_PFA_FILES=1 all
 make -C mf/ pfa
+
+make lilypond.words
 
 # make info
 make -C Documentation
@@ -212,6 +214,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_menudir}/%{name}-documentation
 
 %changelog
+* Thu Sep 01 2003 Heikki Johannes Junes <hjunes@cc.hut.fi> 1.8.4-4mdk
+- add target lilypond.words.
+
 * Sun Aug 25 2003 Torbjorn Turpeinen <tobbe@nyvalls.se> 1.8.1-3mdk
 - Fixed doc-path in menu.
 
