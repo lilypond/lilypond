@@ -32,7 +32,12 @@ Volta_spanner::Volta_spanner ()
 
 /*
   this is too complicated. Yet another version of side-positioning,
-  badly implemented.  */
+  badly implemented.
+
+  --
+
+  Should look for system_start_delim to find left edge of staff.
+*/
 Molecule 
 Volta_spanner::do_brew_molecule () const
 {
