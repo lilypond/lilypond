@@ -1,3 +1,8 @@
+2002-07-27  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
+
+	* scripts/lilypond-book.py: Handle printfilename also together
+	with {small,}verbatim
+
 2002-07-27  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* scm/output-lib.scm, lily/note-head.cc: fixed broken baroque
