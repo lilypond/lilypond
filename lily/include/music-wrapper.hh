@@ -13,6 +13,12 @@
 #include "music.hh"
 #include "musical-pitch.hh"
 
+/** A Music that modifies an existing Music.  This data structure
+  corresponds to a production that takes a single Music argument,
+  
+  Music: STUFF Music 
+
+  */
 class Music_wrapper : public Music
 {
 public:
@@ -23,7 +29,7 @@ public:
   
   VIRTUAL_COPY_CONS(Music);
   Music_wrapper (Music_wrapper const&);
-  virtual Moment  duration () const;
+  virtual Moment duration () const;
   virtual ~Music_wrapper ();
 };
 

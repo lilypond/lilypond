@@ -11,13 +11,13 @@
 #define PROPERTY_ITERATOR_HH
 
 #include "music-iterator.hh"
-
+/**
+  Iterate a property.  
+ */
 class Property_iterator : public Music_iterator
 {
-  Translation_property *property_l() const;
-  
 public:
-  
+  // construction  
 protected:
   virtual void do_process_and_next (Moment);
 };
