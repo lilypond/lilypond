@@ -70,12 +70,19 @@ archi = \context StaffGroup = archi_group <
 
 \score{
 	<
-		%%? \property Score . textStyle =  "italic"
 		\legni
 		\ottoni
 		\$timpani_g
 		\archi
 	>
+	\header{
+		title = "Coriolan";
+		subtitle = "Ouverture"; 
+		opus = "Opus 62";
+		composer = "Ludwig van Beethoven (1770-1827)";
+		enteredby = "JCN";
+		copyright = "public domain";
+	}
 	\include "coriolan-paper.ly"
 	\include "coriolan-midi.ly"
 }

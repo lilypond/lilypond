@@ -264,8 +264,11 @@ Lookup::frame (Box b, Real thick)
 
 
 /*
-   TODO: THIS IS UGLY.  Since the user has direct access to TeX
-   strings, we try some halfbaked attempt to detect TeX trickery.
+   TODO: THIS IS UGLY.
+   Since the user has direct access to TeX marcos,
+   that currently provide the  only way to do
+   font selection, accents etc,
+   we try some halfbaked attempt to detect this TeX trickery.
  */
 String
 sanitise_TeX_string (String text)
@@ -349,19 +352,42 @@ Lookup::text (String style, String text, Paper_def *paper_l)
     metric_l = all_fonts_global_p->find_font (style);
   
   
-  if (output_global_ch == "tex")
-    text = sanitise_TeX_string  (text);
-  else if (output_global_ch == "ps")
-    text = sanitise_PS_string (text);
     
 
+  int i = text.index_i ("\\n");
+  while (i >=0 )
+    {
+      text = text.left_str (i) + "\n" + text.right_str (text.length_i () - i - 2);
+      i = text.index_i ("\\n");
+    }
   
-  SCM at = (gh_list (ly_symbol2scm ("text"),
-		     ly_str02scm (text.ch_C()),
-		     SCM_UNDEFINED));
-  at = fontify_atom (metric_l,at);
-  return Molecule ( metric_l->text_dimension (text),
-		    at);
+  Array<String> lines = String_convert::split_arr (text, '\n');
+  
+  Molecule mol;
+  
+  Real kern = paper_l->get_var ("line_kern");
+  
+  for (i = 0; i< lines.size (); i++)
+    {
+      /*
+	Huh?  This way we'll still see \foo sequences in ps output.
+       */
+      String str = lines[i];
+      if (output_global_ch == "tex")
+	str = sanitise_TeX_string  (str);
+      else if (output_global_ch == "ps")
+	str = sanitise_PS_string (str);
+
+      SCM line = (gh_list (ly_symbol2scm ("text"),
+			   ly_str02scm (str.ch_C ()),
+			   SCM_UNDEFINED));
+      line = fontify_atom (metric_l, line);
+      mol.add_at_edge (Y_AXIS, DOWN,
+		       Molecule (metric_l->text_dimension (str), line),
+		       kern);
+    }
+
+  return mol;
 }
   
 
@@ -445,11 +471,12 @@ Lookup::staff_bracket (Real height, Paper_def* paper_l)
 		      gh_double2scm (paper_l->get_var("bracket_thick")),
   		      SCM_UNDEFINED));
 
-  Box b ( Interval (-height/2,height/2), Interval (0,4 PT));
-  Molecule m (b, at);
+  Real staff_space = paper_l->get_var ("interline");
+  Box b (Interval (0, 1.5 * staff_space), Interval (-height/2,height/2));
+  Molecule mol (b, at);
 
-  m.translate_axis (- 4. / 3. * m.dim_[X_AXIS].length (), X_AXIS);
-  return m;
+  mol.translate_axis (- mol.dim_[X_AXIS].length () / 2, X_AXIS);
+  return mol;
 }
 
 

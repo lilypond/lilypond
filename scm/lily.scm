@@ -328,6 +328,7 @@
      ; fixed in 1.3.4
      ;(ly-gulp-file "lily.ps")
 
+     ;; URG: now we can't use scm output without Lily
      (regexp-substitute/global #f "\n" (ly-gulp-file "lily.ps") 'pre " %\n" 'post)
      "}"
      "\\input lilyponddefs \\turnOnPostScript"))
@@ -581,6 +582,7 @@
 
   (define (header-end)
     (string-append
+     ;; URG: now we can't use scm output without Lily
      (ly-gulp-file "lilyponddefs.ps")
      " {exch pop //systemdict /run get exec} "
      (ly-gulp-file "lily.ps")
@@ -908,10 +910,13 @@
 	(close port)
 	content))
 
+;; urg: Use when standalone, do:
+;; (define (ly-gulp-file name) (scm-gulp-file name))
 (define (scm-gulp-file name)
   (set! %load-path 
-	(cons (string-append 
-	       (getenv 'LILYPONDPREFIX) "/ps") %load-path))
+	(cons (string-append (getenv 'LILYPONDPREFIX) "/ly")
+	      (cons (string-append (getenv 'LILYPONDPREFIX) "/ps")
+		    %load-path)))
   (let ((path (%search-load-path name)))
        (if path
 	   (gulp-file path)

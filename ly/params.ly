@@ -64,6 +64,9 @@ slur_ratio = 1.0 / 3.0;
 
 slur_thickness = 1.2 * \stafflinethickness;
 
+slur_force_blowfit = 0.5;
+slur_beautiful = 0.5;
+
 
 %{
 Horizontal space between centre of notehead and slur.
@@ -74,9 +77,6 @@ slur_y_gap = 0.25 * \staffspace;
 slur_y_free = 0.75 * \staffspace;
 slur_x_minimum = 1.5 * \staffspace;
 
-
-bezier_asymmetry = 1.0;
-bezier_beautiful = 2.0;
 
 % The constants that define the valid areas for the middle control points
 % Used in de_uglyfy.  Bit empirical.
@@ -90,9 +90,6 @@ bezier_pct_c3 = 0.000006;
 bezier_pct_out_max = 0.8;
 bezier_pct_in_max = 1.2;
 bezier_area_steps = 1.0;
-
-slur_force_blowfit = 0.5;
-slur_beautiful = 0.5;
 
 
 %{
@@ -126,6 +123,8 @@ method.
 gourlay_maxmeasures = 10.;
 
 
+line_kern = \staffspace;
+
 %{ Ross. page 151 lists these values, but we think that thick lines
 and kernings are too thick.
 
@@ -143,9 +142,9 @@ barthick_thick = 6.0* \stafflinethickness;
 barthick_thin = 1.6*\stafflinethickness;
 barthick_score = 1.6*\stafflinethickness;
 
-bracket_arch_thick = \staffspace / 3.0;
+bracket_arch_thick = \staffspace / 4.0;
 bracket_width = 2.0 * \staffspace;
-bracket_thick = 2.0 * \stafflinethickness;
+bracket_thick = \staffspace / 4.0;
 bracket_arch_height = 1.5 * \staffspace;
 bracket_arch_width = \bracket_arch_height;
 bracket_arch_angle = 50.0;

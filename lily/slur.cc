@@ -121,8 +121,8 @@ Slur_bezier_bow::minimise_enclosed_area (Paper_def* paper_l,
 					 Real default_height)
 {
   Real length = curve_.control_[3][X_AXIS]; 
-  Real bbc = paper_l->get_var ("bezier_beautiful");
-  Real beautiful = length * default_height / bbc;
+  Real sb = paper_l->get_var ("slur_beautiful");
+  Real beautiful = length * default_height * sb;
 
   DEBUG_OUT << to_str ("Beautiful: %f\n", beautiful);
   DEBUG_OUT << to_str ("Length: %f\n", length);

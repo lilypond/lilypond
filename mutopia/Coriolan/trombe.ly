@@ -16,8 +16,8 @@ copyright =	 "public domain";
 
 $trombe_staff = \context Staff = trombe <
 	\property Staff.midiInstrument = #"trumpet"
-	\property Staff.instrument = #"2 Trombe (C)"
-	\property Staff.instr = #"Tbe."
+	\property Staff.instrument = #"2 Trombe\n(C)"
+	\property Staff.instr = #"Tbe.\n(C)"
 	%\notes \context Voice=trombe < 
 	\notes \context Staff=trombe < 
 %		\global

@@ -11,6 +11,7 @@
 #include "timing-translator.hh"
 #include "text-item.hh"
 #include "side-position-interface.hh"
+#include "staff-symbol-referencer.hh"
 
 ADD_THIS_TRANSLATOR (Staff_margin_engraver);
 
@@ -58,6 +59,18 @@ Staff_margin_engraver::acknowledge_element (Score_element_info inf)
    */
       Interval iv(text_p_->extent (Y_AXIS));
       text_p_->translate_axis (- iv.center (),  Y_AXIS);
+
+      Real staff_space = Staff_symbol_referencer_interface (text_p_).staff_space ();
+      SCM s = get_property ("staffMarginHorizontalPadding");
+      if (gh_number_p (s))
+	{
+	  text_p_->translate_axis (gh_scm2double (s) * staff_space, X_AXIS);
+	}
+      s = get_property ("staffMarginVerticalPadding");
+      if (gh_number_p (s))
+	{
+	  text_p_->translate_axis (gh_scm2double (s) * staff_space, Y_AXIS);
+	}
     }
 }
 

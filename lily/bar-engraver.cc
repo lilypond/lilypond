@@ -44,7 +44,11 @@ Bar_engraver::create_bar ()
 #if 0
       /*
 	urg.  Why did I implement this? And did I implement this so
-	clumsily?  */
+	clumsily?
+
+	input/test/just-friends.ly
+	Maybe a staffgroup of just one staff would be a better solution.
+      */
       SCM prop = get_property ("barAtLineStart");
       if (to_boolean (prop))
 	{

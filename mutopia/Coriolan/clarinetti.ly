@@ -16,8 +16,8 @@ copyright =	 "public domain";
 
 $clarinetti_staff = \context Staff = clarinetti <
 	\property Staff.midiInstrument = #"clarinet"
-	\property Staff.instrument = #"2 Clarinetti (B\\textflat)"
-	\property Staff.instr = #"Cl. (B\\textflat)"
+	\property Staff.instrument = #"2 Clarinetti\n(B\\textflat)"
+	\property Staff.instr = #"Cl.\n(B\\textflat)"
 	% urg: can't; only My_midi_lexer:<non-static> () parses pitch?
 	%\property Staff.transposing = "bes"
 	\property Staff.transposing = #-2

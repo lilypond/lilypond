@@ -1,3 +1,18 @@
+1.3.32.jcn3
+===========
+
+* Embedded newlines in text items are now allowed.  This helps avoiding
+  TeX-hacking in some cases.  See input/test/coriolan-margin.ly
+
+* Fixed stupid x-y interchange bug for staff-bracket.  This fixes
+  placement of staff-brackets.
+
+* Fixed bracket/arch-thickness interchange bug, and made bracket a bit
+  thinner.
+
+* Fixed slur/bezier-beautiful name mismatch.  This should fix the steep
+  slurs that were apparently reintroduced in 1.3.29.
+
 1.3.32.jcn2
 ===========
 

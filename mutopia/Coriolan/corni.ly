@@ -16,8 +16,8 @@ copyright =	 "public domain";
 
 $corni_staff = \context Staff = corni <
 	\property Staff.midiInstrument = #"french horn"
-	\property Staff.instrument = #"2 Corni (E\\textflat)"
-	\property Staff.instr = #"Cor. (E\\textflat)"
+	\property Staff.instrument = #"2 Corni\n(E\\textflat)"
+	\property Staff.instr = #"Cor.\n(E\\textflat)"
 	% urg: can't; only My_midi_lexer:<non-static> () parses pitch?
 	%\property Staff.transposing = "es"
 	\property Staff.transposing = #3
