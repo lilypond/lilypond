@@ -240,51 +240,32 @@ AC_DEFUN(STEPMAKE_DATADIR, [
 	presome=${ac_default_prefix}
     fi
     
-    package_datadir=$datadir/$package
-    local_package_datadir=$package_datadir/$FULL_VERSION
     build_package_datadir=$ugh_ugh_autoconf250_builddir/share/$package
     
     DATADIR=`echo ${datadir} | sed "s!\\\${prefix}!$presome!"`
-    PACKAGE_DATADIR=`echo ${package_datadir} | sed "s!\\\${prefix}!$presome!"`
-    LOCAL_PACKAGE_DATADIR=`echo ${local_package_datadir} | sed "s!\\\${prefix}!$presome!"`
     BUILD_PACKAGE_DATADIR=`echo ${build_package_datadir} | sed "s!\\\${prefix}!$presome!"`
     
     AC_SUBST(datadir)
-    AC_SUBST(package_datadir)
-    AC_SUBST(local_package_datadir)
     AC_SUBST(build_package_datadir)
     AC_DEFINE_UNQUOTED(DATADIR, ["${DATADIR}"])
-    AC_DEFINE_UNQUOTED(PACKAGE_DATADIR, ["${PACKAGE_DATADIR}"])
-    AC_DEFINE_UNQUOTED(LOCAL_PACKAGE_DATADIR, ["${LOCAL_PACKAGE_DATADIR}"])
     AC_DEFINE_UNQUOTED(BUILD_PACKAGE_DATADIR, ["${BUILD_PACKAGE_DATADIR}"])
 ])
 
 ## ugh: cut & paste programming from datadir. 
 AC_DEFUN(STEPMAKE_LIBDIR, [
+
     if test "$libdir" = "\${exec_prefix}/lib"; then
-	    libdir='${exec_prefix}/lib'
+ 	libdir='${exec_prefix}/lib'
     fi
-    presome=${exec_prefix}
-    if test "$exec_prefix" = "NONE"; then
-	presome=${ac_default_prefix}
-    fi
-    
-    package_libdir=$libdir/$package
-    local_package_libdir=$package_libdir/$FULL_VERSION
+    presome=$exec_prefix
     build_package_libdir=$ugh_ugh_autoconf250_builddir/lib/$package
     
-    DATADIR=`echo ${libdir} | sed "s!\\\${prefix}!$presome!"`
-    PACKAGE_LIBDIR=`echo ${package_libdir} | sed "s!\\\${prefix}!$presome!"`
-    LOCAL_PACKAGE_LIBDIR=`echo ${local_package_libdir} | sed "s!\\\${prefix}!$presome!"`
-    BUILD_PACKAGE_LIBDIR=`echo ${build_package_libdir} | sed "s!\\\${prefix}!$presome!"`
+    LIBDIR=`echo ${libdir} | sed "s!\\\${exec_prefix}!$presome!"`
+    BUILD_PACKAGE_LIBDIR=`echo ${build_package_libdir} | sed "s!\\\${exec_prefix}!$presome!"`
     
     AC_SUBST(libdir)
-    AC_SUBST(package_libdir)
-    AC_SUBST(local_package_libdir)
     AC_SUBST(build_package_libdir)
     AC_DEFINE_UNQUOTED(LIBDIR, ["${LIBDIR}"])
-    AC_DEFINE_UNQUOTED(PACKAGE_LIBDIR, ["${PACKAGE_LIBDIR}"])
-    AC_DEFINE_UNQUOTED(LOCAL_PACKAGE_LIBDIR, ["${LOCAL_PACKAGE_LIBDIR}"])
     AC_DEFINE_UNQUOTED(BUILD_PACKAGE_LIBDIR, ["${BUILD_PACKAGE_LIBDIR}"])
 ])
 
@@ -552,7 +533,12 @@ AC_DEFUN(STEPMAKE_INIT, [
     AC_SUBST(package)
     AC_SUBST(PACKAGE)
     AC_SUBST(PACKAGE_NAME)
-    AC_DEFINE_UNQUOTED(PACKAGE, ["${PACKAGE_NAME}"])
+    # We don't need the upper case variant,
+    # so stick to macros are uppercase convention.
+    # AC_DEFINE_UNQUOTED(package, ["${package}"])
+    # AC_DEFINE_UNQUOTED(PACKAGE, ["${PACKAGE}"])
+    AC_DEFINE_UNQUOTED(PACKAGE, ["${package}"])
+    AC_DEFINE_UNQUOTED(PACKAGE_NAME, ["${PACKAGE_NAME}"])
     AC_DEFINE_UNQUOTED(TOPLEVEL_VERSION, ["${FULL_VERSION}"])
 
     if test -z "$package_depth"; then

@@ -1,3 +1,17 @@
+2003-02-25  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/lexer.ll: 
+	* lily/include/my-lily-lexer.hh: 
+	* lily/include/includable-lexer.hh: Add flex kludge.
+
+	* config.hh.in: 
+	* config.make.in: 
+	* stepmake/aclocal.m4 (STEPMAKE_DATADIR, STEPMAKE_LIBDIR): Junk
+	cruft.
+	
+	* stepmake/aclocal.m4 (STEPMAKE_LIBDIR): Fix casual cut and paste
+	code.
+
 2003-02-24  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* ly/spanners-init.ly (cresc, dim): Update to new markup text.

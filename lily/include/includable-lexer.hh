@@ -10,6 +10,7 @@
 #ifndef INCLUDABLE_LEXER_HH
 #define INCLUDABLE_LEXER_HH
 
+using namespace std;
 #include <FlexLexer.h>
 
 #include "string.hh"

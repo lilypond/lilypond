@@ -27,10 +27,6 @@ datadir = @datadir@
 includedir = @includedir@
 infodir = @infodir@
 libdir = @libdir@
-lilypond_datadir = @package_datadir@
-lilypond_libdir = @package_libdir@
-local_lilypond_datadir = @local_package_datadir@
-local_lilypond_libdir = @local_package_libdir@
 localedir = @localedir@
 mandir = @mandir@
 program_prefix = @program_prefix@
@@ -38,6 +34,17 @@ program_suffix = @program_suffix@
 sharedstatedir = @sharedstatedir@
 srcdir = @srcdir@
 stepmake = @stepmake@
+
+# move out of config.make.in?
+package_datadir = $(datadir)/$(package)
+package_libdir = $(libdir)/$(package)
+local_package_datadir = $(lilypond_datadir)/$(TOPLEVEL_VERSION)
+local_package_libdir = $(lilypond_libdir)/$(TOPLEVEL_VERSION)
+
+lilypond_datadir = $(package_datadir)
+lilypond_libdir = $(package_libdir)
+local_lilypond_datadir = $(local_package_datadir)
+local_lilypond_libdir = $(local_package_libdir)
 
 CC = @CC@
 GCC = @GCC@
