@@ -114,7 +114,7 @@ textxx = \lyrics {
 }}
 
 
-beginmatter = \notes {\time 3/4; \key D;  s4 | }
+beginmatter = \notes {\time 3/4; \key d;  s4 | }
 			
 
 automaticLyrics = \notes \context GrandStaff < 
