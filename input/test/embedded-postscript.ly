@@ -17,7 +17,7 @@ insert postscript directly into the output.
     s2
     a'1
   }
-  \paper { linewidth = 70 * \staffspace
+  \paper { linewidth = 70 * 5 \pt
 %	raggedright = ##t 
 	}
 }

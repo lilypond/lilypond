@@ -26,6 +26,10 @@ FIXME: episem stops one notehead too early.
 
 \include "gregorian-init.ly"
 
+\bookpaper {
+    linethickness = \staffspace / 5.0
+}
+
 \score {
   \context VaticanaVoice {
     \override Script #'padding = #-0.5
@@ -45,7 +49,6 @@ FIXME: episem stops one notehead too early.
   }
   \paper {
     linewidth = 70.0
-    linethickness = \staffspace / 5.0
     width = 60.0
     indent = 0.0
     raggedright = ##t
