@@ -1,4 +1,0 @@
-#!/bin/sh
-
-# unclobber current dir.
-rm -v *.aux *.log `grep -li "^% Creator: LilyPond" *.out` *.orig *~
