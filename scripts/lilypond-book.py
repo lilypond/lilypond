@@ -1447,10 +1447,11 @@ def main ():
 
 	file = files[0]
 	global process_cmd, format
-	format = guess_format (files[0])
+	if not format:
+		format = guess_format (files[0])
 
 	formats = 'ps'
-	if format == TEXINFO:
+	if format == TEXINFO or format == HTML: 
 		formats += ',png' 
 	if process_cmd == '':
 		process_cmd = lilypond_binary + ' --formats=%s --backend eps ' % formats
