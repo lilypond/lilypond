@@ -16,8 +16,7 @@ class Line_of_score : public Spanner
 public:
   Link_array<Paper_column> cols;
   bool error_mark_b_;
-  virtual String TeX_output_str () const;    
-    
+
   DECLARE_MY_RUNTIME_TYPEINFO;
   Line_of_score();
     
@@ -30,7 +29,10 @@ public:
   void set_breaking (Array<Col_hpositions> const&);
 
 protected:
-  virtual void do_breakable_col_processing ();
+  virtual Link_array<Score_elem> get_extra_dependencies () const;
+
+  virtual void do_unlink ();
+  virtual void do_junk_links ();
   virtual void break_into_pieces (bool);
   virtual Interval do_width() const;
   virtual void do_print() const;

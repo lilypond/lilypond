@@ -6,6 +6,8 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr
 
+	- bf: abbrevs over whole note
+
 	* use properties for:
 	- Text_style
 	- default_octave
@@ -49,8 +51,7 @@ PROJECTS
 	* \header
 	- revise lexer mode
 	- write perl script for handling it into databases
-
-	* emacs-mode for mudela
+	- write TeX macros to generate titles
 
 	* Makefile stuff:
 	- have make dist produce tarball in out/ directory.
@@ -100,7 +101,7 @@ languages:
 ******************
 
 	\score { < 
-		\melodic { \id "Staff" ""; c'4 g'4 }
+		\melodic \type Staff { c'4 g'4 }
 		\lyric {   \id "Lyric" ""; hello4 bye4 < a chord > }
 		\lyric {   \id "Lyric" ""; bye4 hello4 }
 		\melodic { \id "Staff" ""; c'4 g'4 }
@@ -337,9 +338,6 @@ SMALLISH PROJECTS
 
 IDEAS
 
-	* scoping in Lexer: do general id- assignments in mudela.
-
-	ID '=' EXPR;
 
 	* create libmudela, or liblily_frontend
 
@@ -395,7 +393,6 @@ IDEAS
 
 	* lyrics in chords still fuck up.
 
-	*
 	- rewire acknowledge_element() logic with a process_acknowledged()
 
 	* pushgroup/popgroup
@@ -405,3 +402,7 @@ IDEAS
 	* multi threading?
 	  - 1 thread per element/ 1 thread per line
 	  - 1 thread per Translator
+
+	* Use hooks/dependency graphs for properties
+
+	* Make general "spanning"-elements and "placer"-elements

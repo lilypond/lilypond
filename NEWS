@@ -1,3 +1,31 @@
+pl 14
+	- Simple but nifty mudela-mode.el for Emacs
+	- slightly better syntax for single-note-repeat, now default kept in
+Stem_engraver
+	- bf: Abbrev_beams are not the only beams (see: jcn4, stem-info, thanks, Jan)
+	- a CPU timer for Interpreting and Breaking
+	- Separate Score_elem:
+	  * invoke-once stuff in Super_elem (using function pointers; much cleaner now)
+	  * geometrical stuff into Graphical_element
+	  * Axis_group_* accept Graphical_elements iso. Score_elems
+	  * A dimension cache, hopefully this makes lily a bit faster
+	  * TeX output moved out of Score_elem, separate interface Outputter
+	
+	- < \multi 2; bla >  -> \multi 2 < bla > (mudela 0.1.6)
+	- bf: don't do \multi if \type specified
+	- Translator switching: Change_translator, Change_iterator
+	
+
+pl 12.jcn4
+	- fixed dynamic f, magstep bug
+	- gaps on abbrev-beams 
+	- bf: stem-info
+	- bf: last abbrev
+	- bf: stem: do_width
+	- bf: removed rest-column.hh
+
+*******
+sep 11
 
 pl 13
 	- big Rest/notehead rewrite:
@@ -29,6 +57,7 @@ by the parser (mudela 0.1.4)
 	- bf: move stem too when doing collisions
 	- Molecule::add_XXXX -> Molecule::add_at_edge ()
 	- doco updeet: why no midi FAQ, index, CodingStyle hungarian
+
 
 pl 12.jcn3
 	- try at better dynamic font, copied from cmbxti10: mf/*
