@@ -16,13 +16,13 @@
 class Music_wrapper_iterator : public Music_iterator
 {
   Music_iterator *child_iter_p_;
-  Music_wrapper *music_l_;
+  Music_wrapper *music_wrapper_l();
 public:
-  Music_wrapper_iterator (Music_wrapper*);
+  Music_wrapper_iterator ();
   ~Music_wrapper_iterator ();
   virtual void do_print () const;
   virtual void construct_children  () ;
-  virtual void process_and_next (Moment) ;
+  virtual void do_process_and_next (Moment) ;
   virtual Moment next_moment () const;
   virtual bool ok () const;
   DECLARE_MY_RUNTIME_TYPEINFO;

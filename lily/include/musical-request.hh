@@ -36,7 +36,8 @@ public:
   DEFAULTACCESSOR(Skip_req)
   DEFAULTACCESSOR(Dynamic_req)
   DEFAULTACCESSOR(Absolute_dynamic_req )
-  DEFAULTACCESSOR(Tie_req )
+  DEFAULTACCESSOR(Tie_req)
+  DEFAULTACCESSOR(Musical_span_req)
   DEFAULTACCESSOR(Plet_req)
   DEFAULTACCESSOR(Span_dynamic_req )
   DEFAULTACCESSOR(Abbreviation_req)
@@ -47,15 +48,14 @@ public:
 
 
 /** a request with a duration.
-  This request is used only a base class.
+  This request is used only used as a base class.
  */
 class Rhythmic_req  : public virtual Musical_req  {
 public:
   Duration duration_;
     
-  /* *************** */
-  void set_duration (Duration);
   bool do_equal_b (Request*) const;
+  void compress (Moment);
   virtual Moment duration() const;
   Rhythmic_req();
   static int compare (Rhythmic_req const&,Rhythmic_req const&);
@@ -71,7 +71,6 @@ struct Spacing_req :virtual Request {
   Moment next;
   Real distance;
   Real strength;
-  /* *************** */
   Spacing_req();
   REQUESTMETHODS(Spacing_req);
 };
@@ -95,7 +94,6 @@ public:
   /// the characteristics of the text
   Text_def *tdef_p_;
 
-  /* *************** */
   Text_req (int d, Text_def*);
   ~Text_req();
   Text_req (Text_req const&);
@@ -155,27 +153,16 @@ public:
 
 };
 
-/**
-  Requests to start or stop something.
- This type of request typically results in the creation of a #Spanner#
-*/
-class Span_req  : public virtual Musical_req  {
+class Musical_span_req : public Span_req, public virtual Musical_req
+{
 public:
-  /// should the spanner start or stop, or is it unwanted?
-  enum Spantype {
-    NOSPAN, START, STOP
-  } spantype;
-  bool do_equal_b (Request*) const;
-  REQUESTMETHODS(Span_req);
-
-  Span_req();
+  REQUESTMETHODS(Musical_span_req);
   
 };
 
 /** Start / stop a beam at this note */
-class Beam_req  : public Span_req  {
+class Beam_req  : public Musical_span_req  {
 public:
-  /* *************** */
   REQUESTMETHODS(Beam_req);
 
   Beam_req();
@@ -184,7 +171,7 @@ public:
 /** 
  Start / stop an abbreviation beam at this note. 
  */
-class Abbreviation_beam_req : public Span_req  {
+class Abbreviation_beam_req : public Musical_span_req  {
 public:
   REQUESTMETHODS (Abbreviation_beam_req);
 
@@ -202,14 +189,14 @@ public:
 };
 
 /// a slur
-class Slur_req  : public Span_req  {
+class Slur_req  : public Musical_span_req  {
 public:
   REQUESTMETHODS(Slur_req);
 
 };
 
 /// a plet (bracket with) number
-class Plet_req : public Span_req  {
+class Plet_req : public Musical_span_req  {
 public:
   int plet_i_;
 
@@ -247,7 +234,7 @@ public:
   REQUESTMETHODS(Absolute_dynamic_req);
 };
 
-class Span_dynamic_req  : public Dynamic_req, public Span_req  {
+class Span_dynamic_req  : public Dynamic_req, public Musical_span_req  {
 public:
   virtual bool do_equal_b (Request*) const;
   /// Grow or shrink the volume: 1=cresc, -1 = decresc 

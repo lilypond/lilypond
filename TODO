@@ -9,23 +9,17 @@ grep for TODO and ugh/ugr/urg
 
 
 BUGS:
+	
 
-	+
-	>      \notes{ a \< b \cr }
-	> 
-	> work but
-	>    
-	>      \notes{ a \< b \! }
-	> 
-	> give a parse error?  
+	* formatting of input stuff. 
 
+	* use real RTTI iso access_Stuff.
+
+	* \notes{ a \< b \cr } vs \notes{ a \< b \! }
 
 	* if possible, it might be nice for a warning to appear if someone does
-	> \translator with no name and without assigning it to an
-identifier.  possible, it might be nice for a warning to appear if
-someone does
-	> \translator with no name and without assigning it to an
-identifier.
+	\translator with no name and without assigning it to an
+	identifier.  
 
 	* space after bars?
 
@@ -33,21 +27,18 @@ identifier.
   
 	* I see that  \prallprall and \prallmordent are identical. I think this is a 
 	mistake, that \prallprall should not have the vertical line.
-	This can be fixex by removing  the line
-	> draw_mordent(twidth-0.5toverlap);
+	This can be fixed by removing  the line
+	draw_mordent(twidth-0.5toverlap);
 	from the definition of \prallprall in mf/feta-slag.mf (see below)
 
 	* fix singleStaffBracket
   
   	* repeat bars: need distance after ":|" and before "|:"
 
-	- The time signature warnings still remain, will be fixed later.
+	* The time signature warnings still remain, will be fixed later.
 
-	* fix \n after proccing
-
- Summary of minor spelling irregularities:
->   capitalization/use of underscores in property names
->   \lyric vs \notes  \lyric vs \type Lyrics  (\lyric should have an -s)
+	Summary of minor spelling irregularities:
+	-  capitalization/use of underscores in property names
 
 	* fix Score.skipBars
 
@@ -57,29 +48,21 @@ identifier.
 
 	* fix marks/barnumbers/marginal notes
 
-****
-
- > lbheel = \script { "bheel" 0 0 -1  0 0 }
-> rbheel = \script { "bheel" 0 0 1 0 0 }
-> lbtoe = \script { "btoe" 0 0 -1 0 0 }
-> rbtoe = \script { "btoe" 0 0 1 0 0 }
-> lfheel = \script { "fheel" 0 0 -1  0 0 }
-> rfheel = \script { "fheel" 0 0 1 0 0 }
-> lftoe = \script { "ftoe" 0 0 -1 0 0 }
-> rftoe = \script { "ftoe" 0 0 1 0 0 }
-> 
-> and also
-> 
-> portato= \script { "portato" 0 -1 0 1 0 }
+	* broken scripts:
+	lbheel = \script { "bheel" 0 0 -1  0 0 }
+	rbheel = \script { "bheel" 0 0 1 0 0 }
+	lbtoe = \script { "btoe" 0 0 -1 0 0 }
+	rbtoe = \script { "btoe" 0 0 1 0 0 }
+	lfheel = \script { "fheel" 0 0 -1  0 0 }
+	rfheel = \script { "fheel" 0 0 1 0 0 }
+	lftoe = \script { "ftoe" 0 0 -1 0 0 }
+	rftoe = \script { "ftoe" 0 0 1 0 0 }
+	
+	and also
+	
+	portato= \script { "portato" 0 -1 0 1 0 }
 
 	* MIDI spelling.
-
-	* foo = 1
-
-	 \score{
-	   \notes { a }
-	   \paper{ foo = \translator{ \StaffContext}; }
-	 }
 
 	* Align_element::padding  ?
 
@@ -88,8 +71,6 @@ identifier.
 	* ydirection <-> yDirection
 
 	* typo checks on property names?
-
-	* egcs-1.1 support
 
 	* make engraver hacking robust.
 
@@ -102,7 +83,7 @@ identifier.
 
 	* zip target for binary windows dist (JBR)
 
-	* text continuationss
+	* text continuations
 
 	* revise documentation
 
@@ -111,14 +92,6 @@ identifier.
 	* junking \skip req in lyrics
 
 	* Language:
-	- general plet mechanism.
-
-		\plet 2/3 { c8 c8 c8 }
-
-	ie.
-
-		Music: PLET int '/' int Music
-
 	- \type -> \context ?
 	- \translator -> ?
 	- fix \partial 

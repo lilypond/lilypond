@@ -27,6 +27,7 @@ struct Duration {
   bool plet_b ();
   String str () const;
   void set_plet (int,int );
+  void compress (Moment);
 
   static bool duration_type_b (int t);
   void set_ticks (int ticks_i );

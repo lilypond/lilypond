@@ -13,27 +13,18 @@
 #include "music-list.hh"
 
 
-Simultaneous_music_iterator::~Simultaneous_music_iterator()
-{
-}
-
-Simultaneous_music_iterator::Simultaneous_music_iterator (Simultaneous_music const *simultaneous_music_C)
-{
-  simultaneous_music_C_ = simultaneous_music_C;
-}
-
 void
 Simultaneous_music_iterator::construct_children()
 {
   int j = 0;
-  for (PCursor<Music*> i (simultaneous_music_C_->music_p_list_p_->top());  
+  for (PCursor<Music*> i (simultaneous_music_l ()->music_p_list_p_->top());  
        i.ok(); j++, i++) 
     {
       Music_iterator * mi = get_iterator_p (i.ptr());
       if (mi->ok()) 
 	{
-	  if  (simultaneous_music_C_->translator_type_str_.empty_b ())
-	    set_translator (mi->report_to_l()->ancestor_l (simultaneous_music_C_->multi_level_i_));
+	  if  (simultaneous_music_l ()->translator_type_str_.empty_b ())
+	    set_translator (mi->report_to_l()->ancestor_l (simultaneous_music_l ()->multi_level_i_));
 	  children_p_list_.bottom().add (mi);
 	}
       else 
@@ -54,7 +45,7 @@ Simultaneous_music_iterator::do_print() const
 }
 
 void
-Simultaneous_music_iterator::process_and_next (Moment until)
+Simultaneous_music_iterator::do_process_and_next (Moment until)
 {
   for (PCursor<Music_iterator*> i (children_p_list_.top()); i.ok ();) 
     {
@@ -67,7 +58,7 @@ Simultaneous_music_iterator::process_and_next (Moment until)
       else
 	i++;
     }
-  Music_iterator::process_and_next (until);
+  Music_iterator::do_process_and_next (until);
 }
 
 
@@ -89,4 +80,10 @@ bool
 Simultaneous_music_iterator::ok() const
 {
   return children_p_list_.size();
+}
+
+Simultaneous_music*
+Simultaneous_music_iterator::simultaneous_music_l ()const
+{
+  return (  Simultaneous_music *) music_l_;
 }

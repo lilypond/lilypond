@@ -15,10 +15,12 @@
 #include "string-convert.hh"
 #include "main.hh"
 #include "file-results.hh"
-#include "header.hh"
+#include "scope.hh"
 #include "paper-stream.hh"
 #include "tex-stream.hh"
 #include "tex-outputter.hh"
+#include "dictionary-iter.hh"
+#include "identifier.hh"
 
 Tex_lookup::Tex_lookup ()
   : Ps_lookup ()
@@ -98,16 +100,40 @@ Tex_lookup::lookup_p (Symtables const& s) const
   return new Tex_lookup (s);
 }
 
+extern char const *lily_version_number_sz ();
+
+String
+header_to_tex_string (Scope *head)
+{
+  String s;
+  String lily_id_str = "Lily was here, " +
+    String (lily_version_number_sz ());
+  s+= "\\def\\LilyIdString{"  + lily_id_str + "}";
+  
+  for (Dictionary_iter<Identifier*> i(*head); i.ok (); i++)
+    {
+      if (!i.val ()->access_String_identifier ())
+	continue;
+      
+      String val = *i.val()->access_String_identifier ()->data_p_;
+      s += "\\def\\mudela" + i.key () + "{" + val  + "}\n";
+    }
+  return s;
+}
+
+
 Paper_outputter*
-Tex_lookup::paper_outputter_p (Paper_stream* os_p, Paper_def* paper_l, Header* header_l, String origin_str) const
+Tex_lookup::paper_outputter_p (Paper_stream* os_p, Paper_def* paper_l, Scope* header_l, String origin_str) const
 {
   if (header_global_p)
-    *os_p << header_global_p->tex_string ();
+    *os_p << header_to_tex_string(header_global_p);
   
   *os_p << _ ("\n% outputting Score, defined at: ") << origin_str << '\n';
 
   if (header_l)
-    *os_p << header_l->tex_string();
+    *os_p << header_to_tex_string (header_global_p);
+  
+
   *os_p << paper_l->tex_output_settings_str ();
   
   if (experimental_features_global_b)
@@ -121,11 +147,7 @@ Tex_lookup::paper_outputter_p (Paper_stream* os_p, Paper_def* paper_l, Header* h
 Paper_stream *
 Tex_lookup::paper_stream_p () const
 {
-#if 1
   String outname = base_output_str ();
-#else
-  String outname = "lelie";
-#endif
 
   Paper_stream* p;
   if (outname != "-")

@@ -1297,12 +1297,12 @@ Lyrics consist of syllables, which are strings together with
 durations.  Previously we only entered note names, so for entering
 lyrics we have to instruct LilyPond that what we enter are not note
 names but words---or rather: strings.  This instruction is the keyword
-code(\lyric).  After entering this keyword you can enter a musical
+code(\lyrics).  After entering this keyword you can enter a musical
 construct---sequential music, simultaneous music, code(\type)
 entries, etc.--- but with syllables in stead of pitches.  For example:
-verb( \lyric { 'got8 me on my knees4, Le-8 lie! })
+verb( \lyrics { 'got8 me on my knees4, Le-8 lie! })
 
-The effect of code(\lyric) can be compared with the effect of the
+The effect of code(\lyrics) can be compared with the effect of the
 doublequote character, code("), for it also changes the lexical
 meaning of spaces and characters.  This mode is another example of a
 handy input feature of the language.
@@ -1316,14 +1316,14 @@ by a context called code(Lyrics).  You can select this context with
 the code(\type) keyword.  Here is a simple example:
 
 mudela(fragment,verbatim)(
-	\type Lyrics \lyric { 'got8 me on my knees,4 Le-8 lie! })
+	\type Lyrics \lyrics { 'got8 me on my knees,4 Le-8 lie! })
 
 The result is technically more or less correct, but without a melody it
 just doesn't work, so let's add a blob of cream:
 mudela(fragment,verbatim)(
   <
     \type Staff  { c''8. c''16 bes'8. a'16 g'4 f'8 g'4. }
-    \type Lyrics \lyric { 'got8. me16 on8. my16 knees,4 Le-8 lie!4. }
+    \type Lyrics \lyrics { 'got8. me16 on8. my16 knees,4 Le-8 lie!4. }
   >
 )
 
@@ -1340,13 +1340,13 @@ underscore instead of a space.  All these tricks are demonstrated in
 the following example:
 
 COMMENT( urg
-\type Lyrics \lyric { 'got_m\textbf{e}4 on8. m$\cal_Y$16 knees,4 Le-8 lie!4.}
-\type Lyrics \lyric { 'got_m{\bf e}4 on8. m$\cal_Y$16 knees,4 Le-8 lie!4.}
+\type Lyrics \lyrics { 'got_m\textbf{e}4 on8. m$\cal_Y$16 knees,4 Le-8 lie!4.}
+\type Lyrics \lyrics { 'got_m{\bf e}4 on8. m$\cal_Y$16 knees,4 Le-8 lie!4.}
 )
 
 mudela(fragment,verbatim)(<
   \type Staff  { c''8. c''16 bes'8. a'16 g'4 f'8 g'4. }
-  \type Lyrics \lyric { 'got_me4 on8. m$\cal_Y$16 "3s,"4 Le-8 lie!4.}
+  \type Lyrics \lyrics { 'got_me4 on8. m$\cal_Y$16 "3s,"4 Le-8 lie!4.}
 >
 )
 
@@ -1396,7 +1396,7 @@ code(\paper) definition is copied from a default definition
 The paper part also contains
 the definition of the contexts.
 
-The keyword code(\notes) is analogous to the code(\lyric) keyword.  It
+The keyword code(\notes) is analogous to the code(\lyrics) keyword.  It
 will switch the tokenizer into a mode that interprets plain words as
 note names.  If it can't recognize the words as a note name, it will
 assume that they are strings.  That is the reason why you can write

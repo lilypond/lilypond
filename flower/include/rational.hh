@@ -20,7 +20,18 @@
 #include "arithmetic-operator.hh"
 #include "fproto.hh"
 
+/**
+   Rational numbers.  Included is support for + and - infinity.
+ */
 class Rational {
+  /**
+     Sign of rational.
+     -2, .. 2
+
+     -2,2 is - and + infinity.
+     -1,1 is negative and positive.
+     0 if *this is zero.
+   */
   int sign_;
   unsigned int num_, den_;
   void normalise ();
@@ -32,12 +43,17 @@ public:
   void invert ();
   int num  () const { return sign_ * num_; }
   int den  () const { return den_; }
+  int num_i  () const { return sign_ * num_; }
+  int den_i  () const { return den_; }
   Rational truncated () const;
   void negate ();
   operator bool () const;
   operator int () const;
   operator double () const;
   Rational operator - () const;
+  /**
+     Initialize to 0. 
+   */
   Rational ();
   Rational (int, int =1);
   Rational (double);
@@ -45,9 +61,9 @@ public:
 
   Rational &operator = (Rational const &);
   Rational &operator *= (Rational);
-  Rational  &operator /= (Rational);  
-  Rational  &operator += (Rational);
-  Rational  &operator -= (Rational);
+  Rational &operator /= (Rational);  
+  Rational &operator += (Rational);
+  Rational &operator -= (Rational);
   static int compare (Rational const&, Rational const&);
   int sign () const;
   String str () const;

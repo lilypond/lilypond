@@ -15,10 +15,13 @@
 #include "string-convert.hh"
 #include "main.hh"
 #include "file-results.hh"
-#include "header.hh"
+#include "scope.hh"
 #include "paper-stream.hh"
 #include "ps-stream.hh"
 #include "ps-outputter.hh"
+#include "scope.hh"
+#include "dictionary-iter.hh"
+#include "identifier.hh"
 
 Ps_lookup::Ps_lookup ()
   : Lookup ()
@@ -123,17 +126,43 @@ Ps_lookup::lookup_p (Symtables const& s) const
 {
   return new Ps_lookup (s);
 }
+extern char const *lily_version_number_sz ();
+
+String
+header_to_ps_string (Scope *head)
+{
+  String s;
+  String lily_id_str = "Lily was here, " +
+    String (lily_version_number_sz ());
+  
+  s+= "/lily_id_string\n{" + lily_id_str + "} bind def\n";
+  
+  for (Dictionary_iter<Identifier*> i (*head); i.ok (); i++)
+    {
+      if (!i.val ()->access_String_identifier ())
+	continue;
+      
+      String val = *i.val()->access_String_identifier ()->data_p_;
+      
+      s += "/mudela" + i.key () + "{" + val + "} bind def\n";
+    }
+      
+  return s;
+}
 
 Paper_outputter*
 Ps_lookup::paper_outputter_p (Paper_stream* os_p, Paper_def* paper_l, Header* header_l, String origin_str) const
 {
   if (header_global_p)
-    *os_p << header_global_p->ps_string ();
-  
+    *os_p << header_to_ps_string (header_global_p);
+
   *os_p << _ ("\n% outputting Score, defined at: ") << origin_str << '\n';
 
   if (header_l)
-    *os_p << header_l->ps_string ();
+    {
+      *os_p << header_to_ps_string (header_l);
+    }
+
   *os_p << paper_l->ps_output_settings_str ();
 
   if (experimental_features_global_b)
@@ -145,11 +174,7 @@ Ps_lookup::paper_outputter_p (Paper_stream* os_p, Paper_def* paper_l, Header* he
 Paper_stream*
 Ps_lookup::paper_stream_p () const
 {
-#if 1
   String outname = base_output_str ();
-#else
-  String outname = "lelie";
-#endif
 
   if (outname != "-")
     outname += ".ps";

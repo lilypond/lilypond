@@ -19,7 +19,6 @@ class Dynamic_engraver : public Engraver {
   Crescendo * cresc_p_;
   Span_dynamic_req * cresc_req_l_;
   Array<Dynamic_req*> dynamic_req_l_arr_;
-  /* ************** */
 public:
   TRANSLATOR_CLONE(Dynamic_engraver);
   Dynamic_engraver();

@@ -10,7 +10,7 @@
 #include "score.hh"
 #include "string.hh"
 #include "paper-def.hh"
-#include "header.hh"
+#include "scope.hh"
 #include "debug.hh"
 #include "parray.hh"
 #include "file-path.hh"

@@ -15,7 +15,7 @@
 #include "music-iterator.hh"
 #include "music.hh"
 #include "global-translator.hh"
-#include "header.hh"
+#include "scope.hh"
 #include "cpu-timer.hh"
 #include "main.hh"
 #include "paper-def.hh"
@@ -58,10 +58,11 @@ Score::run_translator (Music_output_def *odef_l)
       return ;
     }
   *mlog << '\n' << _("Interpreting music...") << flush;
-  trans_p->last_mom_ = music_p_->time_int().max ();
+  trans_p->last_mom_ = music_p_->duration ();
 
-  Music_iterator * iter = Music_iterator::static_get_iterator_p (music_p_,
-								 trans_p);
+  Music_iterator * iter = Music_iterator::static_get_iterator_p (music_p_, trans_p);
+  
+
   iter->construct_children();
 
   if (! iter->ok())

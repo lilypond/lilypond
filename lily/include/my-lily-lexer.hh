@@ -43,7 +43,6 @@ public:
   Keyword_table * keytable_p_;
   int errorlevel_i_;
 
-  /* *************** */
 
   void start_main_input ();
   void set_notename_table(Notename_table*tab_p);

@@ -48,7 +48,7 @@ public:
   virtual Atom hairpin (Real width, bool decresc, bool continued) const = 0;
   virtual Lookup* lookup_p (Lookup const&) const = 0;
   virtual Lookup* lookup_p (Symtables const&) const = 0;
-  virtual Paper_outputter* paper_outputter_p (Paper_stream*, Paper_def*, Header*, String) const = 0;
+  virtual Paper_outputter* paper_outputter_p (Paper_stream*, Paper_def*, Scope*, String) const = 0;
   virtual Paper_stream* paper_stream_p () const = 0;
   virtual Atom plet (Real dy, Real dx, Direction dir) const = 0;
   void print () const;

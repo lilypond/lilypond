@@ -289,10 +289,10 @@ code(\notes).  In Note mode, words can only contain alphabetic
 characters.  If code(word) is encountered, LilyPond first checks for a
 notename of code(word).  If no notename is found, then code(word) is
 treated as a string.  If you mistype a notename, the parser will most
-likely complain that you should be in code(\lyric) mode to do lyrics. 
+likely complain that you should be in code(\lyrics) mode to do lyrics. 
 
 dit(Lyric mode) Lyrics mode is introduced by the keyword
-code(\lyric).  This mode is has rules that make it easy to include
+code(\lyrics).  This mode is has rules that make it easy to include
 punctuation and diacritical marks in words.  A word in Lyrics mode
 begins with: an alphabetic character, code(_),
 code(?), code(!), code(:), code('), 
@@ -513,7 +513,7 @@ mudela()(
           c''-\trill
           c''-\prall c''-\mordent c''-\prallprall  c''-\prallmordent
           c''-\upprall c''-\downprall }
-  \type Lyrics \lyric{  
+  \type Lyrics \lyrics{  
         accent      marcato      staccatissimo fermata stopped
            staccato tenuto upbow downbow lheel rheel ltoe rtoe  turn
            open  flageolet reverseturn 
@@ -676,7 +676,7 @@ See Section ref(modes) for a description of what is interpreted as a lyric.
 
 In order to instruct LilyPond to write lyrics underneath the
 staff, you must enter the lyrics context with code(\type Lyrics).  
-Lyrics should be entered in lyrics mode which is entered with code(\lyric).
+Lyrics should be entered in lyrics mode which is entered with code(\lyrics).
 
 Spaces can be introduced into a lyric either by using quotes (code("))
 or by using an underscore without quotes: code(He_could4 not4).  All
@@ -684,7 +684,7 @@ unquoted underscores are converted to spaces.  Here is a full example:
 mudela(verbatim)(\score{
   <  \notes \transpose c'' {c d e c | c d e c | e f g'2 | 
                               e'4 f g'2 \bar "|."; }
-     \type Lyrics \lyric { 
+     \type Lyrics \lyrics { 
               DOEXPAND(Fr\)`e-4 re Ja- que DOEXPAND(Fr\)`e- re Ja- que
               Dor- mez vous?2 Dor-4 mez vous?2  }
   >
@@ -939,7 +939,7 @@ dit(code(\keysignature) var(pitchseq);)
 Specify an arbitrary key signature.  The pitches from var(pitch) will
 be printed in the key signature in the order that they appear on the list.
 
-dit(code(\lyric) var(lyriclist)) Parse var(lyriclist) in lyrics mode.
+dit(code(\lyrics) var(lyriclist)) Parse var(lyriclist) in lyrics mode.
 
 dit(code(\maininput)) Internal command.  This command is used for creating init
 files like file(init.fly) that read the user file into the middle of another

@@ -1,4 +1,4 @@
-\version "1.0.6";
+\version "1.0.7";
 \score{
 	\notes\relative c'{
 		[c16 \stemdown c'' \stemboth c,, d]

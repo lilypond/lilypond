@@ -42,11 +42,12 @@ public:
   String translator_id_str_;    
 
   virtual Musical_pitch to_relative_octave (Musical_pitch);
-  virtual MInterval time_int() const;
+  virtual Moment  duration () const;
+
   virtual ~Music(){}
   void print() const;
   virtual void transpose (Musical_pitch );
-  virtual void translate (Moment dt);
+  virtual void compress (Moment);
   VIRTUAL_COPY_CONS(Music,Music);
   DECLARE_MY_RUNTIME_TYPEINFO;
   Music();

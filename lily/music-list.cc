@@ -17,21 +17,21 @@
 IMPLEMENT_IS_TYPE_B1(Sequential_music,Music_sequence);
 IMPLEMENT_IS_TYPE_B1(Simultaneous_music,Music_sequence);
 
-MInterval
-Simultaneous_music::time_int() const
+Moment
+Simultaneous_music::duration () const
 {
-  MInterval m;
+  Moment dur = 0;
   for (iter (music_p_list_p_->top(), i); i.ok (); i++)
-    m.unite (i->time_int());
+    dur = dur >? i->duration ();
 
-  return m;
+  return dur;
 }
 
 void
-Simultaneous_music::translate (Moment m)
+Music_sequence::compress (Moment m)
 {
-  for (iter (music_p_list_p_->top(), i); i.ok (); i++)
-    i->translate (m); 
+  for (PCursor<Music*>  i(music_p_list_p_->top()); i.ok (); i++)
+    i->compress (m);
 }
 
 Simultaneous_music::Simultaneous_music(Music_list *p)
@@ -43,24 +43,17 @@ Simultaneous_music::Simultaneous_music(Music_list *p)
 Sequential_music::Sequential_music(Music_list *p)
   : Music_sequence (p)
 {
-  offset_mom_ =0;
 }
 
-MInterval
-Sequential_music::time_int() const
+Moment
+Sequential_music::duration () const
 {
   Moment last=0;
   for (iter (music_p_list_p_->top(), i); i.ok (); i++) 
     {
-      MInterval interval = i->time_int();
-	
-      /*
-	c4 <> c4
-      */
-      if (!interval.empty_b())
-	last += interval.length();
+      last += i->duration ();
     }
-  return  offset_mom_ + MInterval (0,last);
+  return  last;
 }
 
 Musical_pitch
@@ -74,14 +67,6 @@ Simultaneous_music::to_relative_octave (Musical_pitch p)
 {
   return music_p_list_p_->do_relative_octave (p, true);
 }
-
-void
-Sequential_music::translate (Moment dt)
-{
-  offset_mom_ += dt;
-}
-
-
 
 
 Musical_pitch 

@@ -12,7 +12,7 @@
 #include "fproto.hh"
 
 void do_one_file (String init_str, String file_str);
-extern Header *header_global_p;
+extern Scope *header_global_p;
 extern Array<String> target_str_global_array;
 extern Array<String> inclusion_global_array;
 extern Link_array<Score> score_global_array;

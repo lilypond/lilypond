@@ -24,7 +24,7 @@ public:
   /// paper_, staffs_ and commands_ form the problem definition.
   Link_array<Music_output_def> def_p_arr_;
   Music * music_p_;
-  Header * header_p_;
+  Scope * header_p_;
 
   int errorlevel_i_;
     

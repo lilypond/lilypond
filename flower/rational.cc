@@ -41,7 +41,7 @@ Rational::truncated () const
 
 Rational::Rational ()
 {
-  sign_ = 1;
+  sign_ = 0;
   num_ = den_ = 1;
 }
 
@@ -53,6 +53,10 @@ Rational::Rational (int n, int d)
   normalise ();
 }
 
+Rational::Rational (Rational const &r)
+{
+  copy (r);
+}
 
 static
 int gcd (int a, int b)
@@ -250,11 +254,6 @@ Rational::operator = (Rational const &r)
 {
   copy (r);
   return *this;
-}
-
-Rational::Rational (Rational const &r)
-{
-  copy (r);
 }
 
 String

@@ -40,7 +40,6 @@ public:
   /// length of notes/rests in this column
   Array<Moment> durations;
     
-  /* *************** */
 
   Moment when() {  return when_; }
   Score_column (Moment when);       

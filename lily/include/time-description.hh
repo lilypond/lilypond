@@ -33,7 +33,6 @@ struct Time_description {
   /// idem
   int bars_i_;
 
-  /* *************** */
   void set_cadenza (bool);
   Moment when_mom () const { return when_; }
   void OK() const;

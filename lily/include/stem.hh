@@ -78,7 +78,6 @@ public:
   /// direction of the beam
   Direction beam_dir_;
     
-  /* *************** */
   Stem ();
     
   /// ensure that this Stem also encompasses the Notehead #n#

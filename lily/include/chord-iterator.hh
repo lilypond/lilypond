@@ -16,16 +16,14 @@
 
 class Simultaneous_music_iterator : public Music_iterator
 {
-  const Simultaneous_music *simultaneous_music_C_;
+  Simultaneous_music *simultaneous_music_l() const;
   Pointer_list<Music_iterator*> children_p_list_;
 public:
-  ~Simultaneous_music_iterator();
-  Simultaneous_music_iterator (Simultaneous_music const*);
   DECLARE_MY_RUNTIME_TYPEINFO;
 protected:
   virtual void do_print() const;
   virtual void construct_children();
-  virtual void process_and_next (Moment);
+  virtual void do_process_and_next (Moment);
   virtual Moment next_moment() const;
   virtual bool ok() const;
 };

@@ -54,10 +54,18 @@ Bar_req::do_equal_b (Request*r) const
 
 IMPLEMENT_IS_TYPE_B1(Bar_req,Command_req);
 
+IMPLEMENT_IS_TYPE_B2(Bracket_req, Command_req, Span_req);
+
 void
 Bar_req::do_print() const
 {
   DOUT << type_str_;
+}
+
+void
+Bracket_req::do_print () const
+{
+  Span_req::do_print ();
 }
 
 Bar_req::Bar_req (String s)

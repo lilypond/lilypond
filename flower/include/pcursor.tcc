@@ -5,12 +5,12 @@ void
 PCursor<T>::junk()
 {
 #if !defined (NDEBUG) && defined (PARANOID)
-  list().OK();
+  list_l()->OK();
 #endif
 
   delete ptr();
 #if !defined (NDEBUG)&&defined (PARANOID)
   thing() = 0;
-  list().OK();
+  list_l()->OK();
 #endif
 }

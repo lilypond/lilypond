@@ -55,7 +55,6 @@ public:
   bool error_mark_b_;
   bool used_b_ ;		// manual override.. 
     
-  /* *************** */
 
   /// which  one (left =0)
   int rank_i() const;

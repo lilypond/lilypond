@@ -37,8 +37,6 @@ virtual Class ## _identifier * access_ ## Class ## _identifier () { return 0; }
 
 /**
    A declarable data structure in mudela. 
-
-
    */
 struct Identifier : public Input {
   bool init_b_;

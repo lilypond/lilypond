@@ -22,12 +22,17 @@ void
 Tie_req::do_print () const{}
 
 
-/* *************** */
 
+IMPLEMENT_IS_TYPE_B1(Span_req,Request);
 
+IMPLEMENT_IS_TYPE_B2(Musical_span_req, Span_req, Musical_span_req);
 
-
-IMPLEMENT_IS_TYPE_B1 (Span_req,Musical_req);
+void
+Musical_span_req::do_print () const
+{
+  Span_req::do_print ();
+}
+	     
 
 void
 Span_req::do_print () const
@@ -77,7 +82,6 @@ Blank_req::do_print () const
 {
   Spacing_req::do_print ();
 }
-/* *************** */
 
 Melodic_req::Melodic_req ()
 {
@@ -116,7 +120,6 @@ Melodic_req::do_print () const
 pitch_.print ();
 }
 
-/* *************** */
 int
 Rhythmic_req::compare (Rhythmic_req const &r1, Rhythmic_req const &r2)
 {
@@ -131,11 +134,6 @@ Rhythmic_req::do_equal_b (Request*r) const
   return !compare (*this, *rh);
 }
 
-void
-Rhythmic_req::set_duration (Duration d)
-{
-  duration_ = d;
-}
 
 Rhythmic_req::Rhythmic_req ()
 {
@@ -158,7 +156,13 @@ Rhythmic_req::duration () const
 {
   return duration_.length ();
 }
-/* *************** */
+
+void
+Rhythmic_req::compress (Moment m)
+{
+  duration_.compress (m);
+}
+  
 
 
 
@@ -170,7 +174,6 @@ Lyric_req::do_print () const
   Rhythmic_req::do_print ();
 }
 
-/* *************** */
 
 bool
 Note_req::do_equal_b (Request*r) const
@@ -198,7 +201,6 @@ Note_req::do_print () const
   Rhythmic_req::do_print ();
 #endif
 }
-/* *************** */
 
 IMPLEMENT_IS_TYPE_B1 (Rest_req, Rhythmic_req);
 
@@ -208,7 +210,6 @@ Rest_req::do_print () const
       Rhythmic_req::do_print ();
 }
 
-/* *************** */
 
 
 
@@ -221,7 +222,6 @@ Multi_measure_rest_req::do_print () const
 }
 
 
-/* *************** */
 
 IMPLEMENT_IS_TYPE_B1 (Beam_req,Span_req);
 
@@ -234,7 +234,6 @@ Beam_req::do_print () const
 {
 }
 
-/* *************** */
 
 IMPLEMENT_IS_TYPE_B1 (Abbreviation_beam_req, Span_req);
 
@@ -266,7 +265,6 @@ Plet_req::do_print () const
 {
 }
 
-/* *************** */
 
 bool
 Span_req:: do_equal_b (Request*r) const
@@ -280,7 +278,6 @@ Span_req::Span_req ()
   spantype = NOSPAN;
 }
 
-/* *************** */
 Script_req::Script_req (Script_req const&s)
 {
   dir_ = s.dir_;
@@ -332,7 +329,6 @@ Script_req::~Script_req ()
 {
   delete scriptdef_p_;
 }
-/* *************** */
 
 
 Text_req::~Text_req ()
@@ -365,7 +361,6 @@ Text_req::do_print () const
 #endif
 }
 
-/* *************** */
 
 
 IMPLEMENT_IS_TYPE_B1 (Skip_req,Musical_req);

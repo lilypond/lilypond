@@ -23,6 +23,7 @@ StaffContext=\translator {
 	\consists "Staff_sym_engraver";
 	\consists "Collision_engraver";
 	\consists "Rest_collision_engraver";
+	\consists "Tuplet_engraver";
 %{
 	Uncomment to get bar numbers on single staff systems:
 	

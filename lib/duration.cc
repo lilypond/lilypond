@@ -38,6 +38,13 @@ Duration::duration_type_b (int t)
   return t == Duration_convert::type2_i (Duration_convert::i2_type (t));
 }
 
+void
+Duration::compress (Moment m)
+{
+  plet_.iso_i_ *= m.num_i ();
+  plet_.type_i_ *= m.den_i (); 
+}
+
 // ugh, what's this?
 // i should be called "mom ()", ... or at least "length_mom ()"
 Moment

@@ -14,7 +14,7 @@
 #include "musical-request.hh"
 #include "command-request.hh"
 #include "parser.hh"
-#include "header.hh"
+#include "scope.hh"
 #include "file-results.hh"
 #include "midi-def.hh"
 #include "paper-def.hh"
@@ -171,7 +171,7 @@ My_lily_parser::get_note_element (Note_req *rq, Duration * duration_p)
       assert (!duration_p->plet_b ());
       duration_p->set_plet (1, 2);
     }
-  rq->set_duration (*duration_p);
+  rq->duration_ = *duration_p;
   rq->set_spot (here_input ());
   delete duration_p ;
   return v;
@@ -265,7 +265,7 @@ My_lily_parser::get_parens_request (int t)
   for (int i = 0; i < reqs.size (); i++)
     if (reqs[i]->access_Musical_req ()->access_Span_dynamic_req ())
       {
-	Span_dynamic_req* s_l= (reqs[i]->access_Musical_req ()->access_Span_dynamic_req ()) ;
+	Span_dynamic_req* s_l= reqs[i]->access_Musical_req ()->access_Span_dynamic_req ();
 	s_l->dynamic_dir_ = (t == '<') ? UP:DOWN;
       }
 

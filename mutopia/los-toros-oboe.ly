@@ -8,7 +8,7 @@ enteredby =	 "jcn";
 copyright =	 "public domain";
 latexheaders=    "headers";
 } 
-\version "1.0.6";
+\version "1.0.7";
 
 %{
 Silly latex file dropped; use ly2dvi

@@ -34,7 +34,6 @@ struct Column_info {
 
   Drul_array< Array<Spacer_rod> > rods_;
   
-  /* *************** */
   Column_info();
   Column_info (Paper_column *,Real const *);
 

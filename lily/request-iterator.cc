@@ -17,14 +17,18 @@ IMPLEMENT_IS_TYPE_B1(Request_chord_iterator,Music_iterator);
 void
 Request_chord_iterator::construct_children()
 {
+  elt_duration_ =elt_l ()->duration ();
   get_req_translator_l();
 }
 
-Request_chord_iterator::Request_chord_iterator (Request_chord*el_l)
+Request_chord*
+Request_chord_iterator::elt_l () const
 {
-  elt_l_ = el_l;
-  MInterval elt_dur =el_l->time_int();
-  elt_duration_ = elt_dur.length ();
+  return (Request_chord*) music_l_;
+}
+
+Request_chord_iterator::Request_chord_iterator ()
+{
   last_b_ = false;
 }
 
@@ -55,11 +59,11 @@ Request_chord_iterator::do_print() const
 }
 
 void
-Request_chord_iterator::process_and_next (Moment mom)
+Request_chord_iterator::do_process_and_next (Moment mom)
 {
   if (first_b_)
     {
-      for (PCursor<Music*> i (elt_l_->music_p_list_p_->top ()); i.ok(); i++)
+      for (PCursor<Music*> i (elt_l ()->music_p_list_p_->top ()); i.ok(); i++)
 	{
 	  assert (i->is_type_b (Request::static_name()));
 	  Request * req_l = (Request*)i.ptr();

@@ -61,7 +61,8 @@ struct Collision;
 struct Collision_engraver;
 struct Command_req;
 struct Command_script_req;
-struct Complex_music;
+struct Compressed_music;
+struct Compressed_music_iterator;
 struct Cresc_req;
 struct Crescendo ;
 struct Decresc_req;
@@ -82,11 +83,10 @@ struct Music_output;
 struct Musical_pitch;
 struct Music_output_def;
 struct Global_translator;
-struct Group_change_req;
 struct Hara_kiri_line_group_engraver;
 struct Hara_kiri_vertical_group_spanner;
 struct Head_column;
-struct Header;
+
 struct Horizontal_align_item;
 struct Horizontal_group_element;
 struct Horizontal_group_item;
@@ -144,6 +144,7 @@ struct Multi_measure_rest_engraver;
 struct Musical_script_req;
 struct Music_list;
 struct Musical_req;
+struct Musical_span_req;
 struct Music;
 struct Music_sequence;
 struct Music_wrapper_iterator;
@@ -252,4 +253,6 @@ struct Sequential_music;
 struct Request_chord;
 
 typedef Rational Moment;
+typedef Scope Header;
+
 #endif // LILY_PROTO_HH
