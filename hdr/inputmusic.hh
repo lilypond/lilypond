@@ -16,25 +16,64 @@ struct Voice_list : public PointerList<Voice*> {
     void junk();
 };
 
-struct Vertical_music {
-    virtual Vertical_simple *simple() { return 0;}
+/// ABC for input structures
+struct Input_music {
     virtual Voice_list convert()=0;
     virtual Real length()=0;
     virtual void translate_time(Real dt)=0;
+    virtual ~Input_music();
+    virtual void print() const =0;
+    // virtual void transpose(...) const =0;
+};
+/**
+
+  Input_music is anything that can simply be regarded as/converted to
+  a set of voices "cooperating" or independant. It has some basic
+  characteristics that real music has too:
+
+  - it is rhythmic (it has a length, and can be translated horizontally)
+  - a pitch (it can be transposed)
+
+  */
+
+
+
+/// 
+struct Vertical_music : Input_music {
     virtual Vertical_music *clone() const = 0;
-    virtual ~Vertical_music() {}
-    virtual void print() const =0;
-};
 
-struct Horizontal_music {
+    /// check if it is a simple voice
+    virtual Vertical_simple *simple() { return 0;}
+};
+/**
+  chord like :
+
+  - different music forms which start at the same time ( stacked "vertically" )
+
+  This class really doesn't do very much, but it enables you to say
+
+  a Music_voice is a List<Vertical_music>
+  
+  */
+
+///
+struct Horizontal_music : Input_music {
     virtual Voice_list convert()=0;
-    virtual Real length()=0;
-    virtual void translate_time(Real dt)=0;
     virtual Horizontal_music *clone() const = 0;
-    virtual ~Horizontal_music() {}
-    virtual void print() const =0;
 };
+/**
+  voice like.
 
+  different music forms which start after each other ( concatenated,
+  stacked "horizontally )
+
+  This class really doesn't do very much, but it enables you to say
+
+  a Chord is a List<Horizontal_music>
+ 
+ */
+
+/// the most basic element of a chord: a simple voice
 struct Vertical_simple : Vertical_music {
     Voice * voice_;		// should be a  real member
     
@@ -53,6 +92,7 @@ struct Vertical_simple : Vertical_music {
     virtual void print() const ;
 };
 
+/// the only child of Horizontal_music
 struct Music_voice : Horizontal_music {
     IPointerList<Vertical_music*> voice_ ;
     
@@ -70,7 +110,7 @@ struct Music_voice : Horizontal_music {
     void concatenate(Music_voice*);
     virtual void print() const ;
 };
-
+///
 struct Music_general_chord : Vertical_music {
     IPointerList<Horizontal_music*> chord_;
 

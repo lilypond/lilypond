@@ -124,6 +124,9 @@ Beam::process()
 {
     calculate();
 
+    /*
+      quick and dirty!
+      */
     for (PCursor<Stem*> i(stems); i.ok(); i++)
 	i->beams_left = i->beams_right = intlog2(ABS(i->flag)) - 2;
 
@@ -192,7 +195,7 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)
 	
     if (next){
 	int rhalfs = here->beams_right - next->beams_left;
-	int rwholebeams = here->beams_right <? next->beams_left; // g++
+	int rwholebeams = here->beams_right <? next->beams_left; 
 
 	Real w = next->hpos() - here->hpos();
 	Atom a = paper()->lookup_->beam(sl, w + stemdx);

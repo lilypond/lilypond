@@ -174,7 +174,7 @@ Lookup::big_slur(int dy , Real &dx, int dir)
 {
     assert(dx >= convert_dimen(24,"pt"));
     Real slur_extra =ABS(dy)  /2.0 + 2; 
-    int l_dy = Real (dy)/2 + slur_extra*dir;
+    int l_dy = int(Real (dy)/2 + slur_extra*dir);
     int r_dy =  dy - l_dy;
     
     Real left_wid = dx/4.0;

@@ -75,41 +75,41 @@ Score::create_cols(Real w)
     c1->musical = false;
     c2->musical = true;
     
-    PCursor<Score_column*> scc(cols_);
+    PCursor<Score_column*> i(cols_);
 
-    for (; scc.ok(); scc++) {
-	assert(scc->when != w);
-	if (scc->when > w)
+    for (; i.ok(); i++) {
+	assert(i->when != w);
+	if (i->when > w)
 	    break;
     }
 
-    if (!scc.ok()) {
+    if (!i.ok()) {
 	cols_.bottom().add(c1);
 	cols_.bottom().add(c2);
-	scc = cols_.bottom();
-	scc --;
+	i = cols_.bottom();
+	i --;
     } else {
-	scc.insert(c1);
-	scc.insert(c2);
-	scc -= 2;
+	i.insert(c1);
+	i.insert(c2);
+	i -= 2;
     }
-    return scc;
+    return i;
 }
 
 PCursor<Score_column*>
 Score::find_col(Real w,bool mus)
 {
-    PCursor<Score_column*> scc(cols_);
-    for (; scc.ok(); scc++) {
-	if (scc->when == w && scc->musical == mus)
-	    return scc;
-	if (scc->when > w)
+    PCursor<Score_column*> i(cols_);
+    for (; i.ok(); i++) {
+	if (i->when == w && i->musical == mus)
+	    return i;
+	if (i->when > w)
 	    break;
     }
-    scc = create_cols(w);
+    i = create_cols(w);
     if (mus)
-	scc++;
-    return scc;
+	i++;
+    return i;
 }
 
 void
@@ -124,8 +124,8 @@ Real
 Score::last() const
 {    
     Real l = 0;
-    for (PCursor<Staff*> stc(staffs_); stc.ok(); stc++) {
-	l = MAX(l, stc->last());
+    for (PCursor<Staff*> i(staffs_); i.ok(); i++) {
+	l = MAX(l, i->last());
     }
     return l;
 }

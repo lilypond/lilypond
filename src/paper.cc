@@ -4,7 +4,7 @@
 #include "debug.hh"
 #include "lookup.hh"
 #include "dimen.hh"
-#include "textdb.hh"
+
 
 
 // golden ratio

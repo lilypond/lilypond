@@ -28,32 +28,35 @@ protected:
     /// stretch or shrink  array.
     void remax(int newmax) {	 
 	T* newarr = new T[newmax];
-	size = (newmax < size) ? newmax : size;
-	arrcpy(newarr, thearray, size);
+	size_ = (newmax < size_) ? newmax : size_;
+	arrcpy(newarr, thearray, size_);
 	
 	delete[] thearray;
 	thearray = newarr;
 	max = newmax;
     }
-    int size;
+    int size_;
 
 public:
     /// check invariants
     void OK() const {
-	assert(max >= size && size >=0);
+	assert(max >= size_ && size_ >=0);
 	if (max) assert(thearray);
     }
-    /// report the size. See {setsize}
-    int sz() const  { return size; }
+    /// report the size_. See {setsize_}
 
-    /// POST: sz() == 0
-    void clear() { size = 0; }
+    int size() const  { return size_; }
+    int sz() const  { return size(); }
+    
+    /// POST: size() == 0
+    void clear() { size_ = 0; }
 
-    svec() { thearray = 0; max =0; size =0; }
-    /// set the size to #s#
+    svec() { thearray = 0; max =0; size_ =0; }
+
+    /// set the size_ to #s#
     void set_size(int s) {
 	if (s >= max) remax(s);
-	size = s;    
+	size_ = s;    
     }
     /** POST: sz() == s.
     Warning: contents are unspecified */
@@ -62,8 +65,8 @@ public:
 
     /// return a  "new"ed copy of array 
     T* copy_array() const {
-	T* Tarray = new T[size];
-	arrcpy(Tarray, thearray, size);
+	T* Tarray = new T[size_];
+	arrcpy(Tarray, thearray, size_);
 	return Tarray;
     }
     // depracated
@@ -71,60 +74,60 @@ public:
 	return copy_array();	
     }
     void operator=(svec const & src) {
-	set_size (src.size);
-	arrcpy(thearray,src.thearray, size);
+	set_size (src.size_);
+	arrcpy(thearray,src.thearray, size_);
     }
     svec(const svec & src) {
 	thearray = src.copy_array();
-	max = size = src.size;	
+	max = size_ = src.size_;	
     }
 
-    /// tighten array size.
-    void precompute () { remax(size); }
+    /// tighten array size_.
+    void precompute () { remax(size_); }
 
     /// this makes svec behave like an array
     T &operator[] (const int i) const {
-	assert(i >=0&&i<size);
+	assert(i >=0&&i<size_);
 	return ((T*)thearray)[i];	
     }
 
     /// add to the end of array
     void add(T x) {
-	if (size == max)
+	if (size_ == max)
 	    remax(2*max + 1);
 
 	// T::operator=(T &) is called here. Safe to use with automatic
 	// vars
-	thearray[size++] = x;
+	thearray[size_++] = x;
     }
 
     /// junk last entry.
-    void pop() { size -- ; }
+    void pop() { size_ -- ; }
 
     /// return last entry
     T& last(int j=0) {
-	return (*this)[size-j-1];
+	return (*this)[size_-j-1];
     }
     T last(int j=0) const {
-	return (*this)[size-j-1];
+	return (*this)[size_-j-1];
     }
     void swap (int i,int j) {
 	T t((*this)[i]);
 	(*this)[i]=(*this)[j];
 	(*this)[j]=t;
     }
-    bool empty() { return !size; }
+    bool empty() { return !size_; }
     void insert(T k, int j) {
-	assert(j >=0 && j<= size);
-	set_size(size+1);
-	for (int i=size-1; i > j; i--)
+	assert(j >=0 && j<= size_);
+	set_size(size_+1);
+	for (int i=size_-1; i > j; i--)
 	    thearray[i] = thearray[i-1];
 	thearray[j] = k;
     }
     void del(int i) {
-	assert(i >=0&& i < size);
-	arrcpy(thearray+i, thearray+i+1, size-i-1);
-	size--;
+	assert(i >=0&& i < size_);
+	arrcpy(thearray+i, thearray+i+1, size_-i-1);
+	size_--;
     }
     // quicksort.
     void sort (int (*compare)(T& , T& ),
@@ -145,9 +148,17 @@ public:
 	sort(compare, last+1, lower);
     }
     void concat(svec<T> const &src) {
-	int s = size;
-	set_size(size + src.size);
-	arrcpy(thearray+s,src.thearray, src.size);	
+	int s = size_;
+	set_size(size_ + src.size_);
+	arrcpy(thearray+s,src.thearray, src.size_);	
+    }
+    svec<T> subvec(int lower, int upper) {
+	assert(lower >= 0 && lower <=upper&& upper <= size_);
+	svec<T> r;
+	int s =upper-lower;
+	r.set_size(s);
+	arrcpy(r.thearray, thearray  + lower, s);
+	return r;
     }
 };
 /**

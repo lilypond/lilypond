@@ -2,7 +2,7 @@
 % 
 % bare bones version. (written down from memory :-)
 
-melodie = music {$ \octave {c}
+melodie = music {$\octave {}
 	%%% theme
 	  c c g g	a a	g2	f f	e e	d d  c2
 	  g g	f f	e e 	d d	g g	f f	e e 	d d
@@ -12,10 +12,10 @@ melodie = music {$ \octave {c}
 $}
 
 begeleiding = $\music {
-	\octave {`c}
+	\octave { ` }
 	%%% theme
 	`c c	e c	f c	e c	d `b	c `a	`f `g	`c2
-	\octave {`c}
+	\octave { ` }
 	e `g	d `g	c `g	`b `g	e `g	d `g	c `g	`b `g
 	%%%% var 1
 	r8 e8() c  	r8 e8() c  	r8 f8()c 	r8 e8()c

@@ -1,6 +1,7 @@
 #class name		silence?
 
-yyFlexLexer		1
+My_flex_lexer		0
+yyFlexLexer		0
 PCol			0
 Score_column		1
 Ineq_constrained_qp 	1
@@ -8,8 +9,13 @@ Spacing_problem 	1
 Colinfo			1
 Mixed_qp		1
 PScore			1
-Parser			0
-Lexer			1
+
+# yydebug
+Parser			1
+
+# FlexLexer debug
+Lexer			0
+
 parse_duration		1
 parse_pitch		1
 Col_configuration	1

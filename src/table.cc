@@ -32,6 +32,7 @@ static Keyword_ent the_key_tab[]={
     "start", START_T,
     "table", TABLE,
     "symboltables", SYMBOLTABLES,
+    "notenames", NOTENAMES,
     "texid", TEXID,
     "chord", CHORD,
     "multi", MULTI,

@@ -64,7 +64,7 @@ certain parts of LilyPond: the P stands for Printer, and the P-classes
 are supposed to be more lowlevel than the others. Example:
 
 	Staff uses PStaff, PScore and PCol to do the typesetting of
-symbols. Staff is are the "brains" for PStaff
+symbols. Staff is  the "brains" for PStaff
 
 NB: in PCursor (which is part of the library) P stands for PointerCursor
 

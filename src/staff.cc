@@ -30,12 +30,12 @@ Staff::paper() const
 void
 Staff::clean_cols()
 {
-    PCursor<Staff_column *> stc(cols);
-    for(; stc.ok(); ){
-	if (!stc->score_column->used())
-	    stc.del();
+    PCursor<Staff_column *> i(cols);
+    for(; i.ok(); ){
+	if (!i->score_column->used())
+	    i.del();
 	else
-	    stc++;
+	    i++;
     }
 }
 

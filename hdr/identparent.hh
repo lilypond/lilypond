@@ -17,14 +17,16 @@ struct Identifier
     
     Identifier(String n) : name(n) { }
     virtual ~Identifier() {}
-    
-    virtual Input_staff * staff(bool = false) { assert(false); }
-    virtual Horizontal_music*hmusic(bool = false) { assert(false); }
-    virtual Vertical_music*vmusic(bool = false) { assert(false); }
-    virtual Music_voice *mvoice(bool = false) { assert(false); }
-    virtual Symtables *symtables(bool = false) { assert(false); }
-    virtual Music_general_chord *mchord(bool = false) { assert(false); }
-    virtual Lookup*lookup(bool = false) { assert(false); }
+    virtual const char*classname() { return "new Identifier"; }
+    void error();
+    virtual Input_staff * staff(bool = false) { error(); return 0; }
+    virtual Horizontal_music*hmusic(bool = false) { error(); return 0; }
+    virtual Vertical_music*vmusic(bool = false) { error(); return 0; }
+    virtual Music_voice *mvoice(bool = false) { error(); return 0; }
+    virtual Symtables *symtables(bool = false) { error(); return 0; }
+    virtual Music_general_chord *mchord(bool = false) { error(); return 0; }
+    virtual Lookup*lookup(bool = false) { error(); return 0; }
+    virtual Notename_tab*notename_tab(bool = false) { error(); return 0; }
 };
 #endif // IDENTPARENT_HH
 

@@ -8,7 +8,7 @@
 horn =
 staff {melodic
 	music{ 	$
-	\octave { 'c }
+	\octave { ' }
 	\duration { 8}
 
 % 1
@@ -20,7 +20,7 @@ staff {melodic
 % 11
 	)`b [`fis `a `b] cis4 `b4	`fis2 r2
 	cis4 d4()[d cis d e]
-\octave { c }
+	\octave { '` }
 					a4 gis2.
 	a4 b4()[b a b 'cis]		fis4 e4 cis2
 	e4 fis4 () [fis e fis gis]	cis4 `b4()`b8 r8 r4
@@ -31,7 +31,7 @@ staff {melodic
 	cis4 `b4()`b8 r8 r4		r1
 	r2 r4 r4			
 %% cut 'n paste.
-	\octave { 'c }
+	\octave { ' }
 	d2( [)d e cis `b]		`a4 [`b cis] [cis `b] `b4
 	fis2( [)fis g e d] 		cis4 [d e(] [)e fis d cis]
 	`b4 [cis d(] [)d e cis `b] 	cis2 r2

@@ -1,7 +1,9 @@
 #include "debug.hh"
 #include "inputmusic.hh"
 #include "voice.hh"
-
+Input_music::~Input_music()
+{
+}
 Vertical_simple::Vertical_simple()
 {
     voice_ = new Voice;

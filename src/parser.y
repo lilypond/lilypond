@@ -1,7 +1,7 @@
 %{ // -*-Fundamental-*-
 #include <iostream.h>
-#include "lookup.hh"
 
+#include "lookup.hh"
 #include "lexer.hh"
 #include "paper.hh"
 #include "inputstaff.hh"
@@ -14,7 +14,6 @@
 #include "parseconstruct.hh"
 #include "dimen.hh"
 #include "identifier.hh"
-
 
 #ifndef NDEBUG
 #define YYDEBUG 1
@@ -42,6 +41,7 @@ Paperdef*default_paper();
     Music_voice *mvoice; 
     int i;
     char c;
+    int ii[10];
 
     svec<String> * strvec;
     svec<Input_command*> *commandvec;
@@ -55,6 +55,7 @@ Paperdef*default_paper();
     Lookup*lookup;
     Interval *interval;
     Box *box;
+    Notename_tab *notename_tab;
 }
 
 %token VOICE STAFF SCORE TITLE  BAR NOTENAME OUTPUT
@@ -62,22 +63,23 @@ Paperdef*default_paper();
 %token GEOMETRIC START_T DURATIONCOMMAND OCTAVECOMMAND
 %token KEY CLEF VIOLIN BASS MULTI TABLE CHORD VOICES
 %token PARTIAL RHYTHMIC MELODIC MUSIC GROUPING
-
-%token END SYMBOLTABLES TEXID TABLE 
+%token END SYMBOLTABLES TEXID TABLE NOTENAMES
 
 %token <id>  IDENTIFIER
 %token <string> NEWIDENTIFIER 
-%token <string> PITCH DURATION RESTNAME
+%token <string> PITCHMOD DURATION RESTNAME
+%token <ii> NOTENAME 
 %token <real> REAL
 %token <string> STRING
 %token <i> OPEN_REQUEST_PARENS CLOSE_REQUEST_PARENS
-
+%token <i> DOTS INT
 %type <consstr> unit
+%type <intvec> pitch_list
 
 %type <id> declaration 
 %type <paper> paper_block paper_body
 %type <real> dim
-
+%type <ii> duration
 %type <el> voice_elt full_element
 %type <command> score_command staff_command skipcommand
 %type <score> score_block score_body
@@ -87,8 +89,7 @@ Paperdef*default_paper();
 %type <commandvec> score_commands_block score_commands_body
 %type <commandvec> staff_commands_block staff_commands_body
 %type <request> post_request pre_request
-%type <strvec> pitch_list
-%type <string> clef_id
+%type <string> clef_id pitchmod
 %type <vertical> vertical_music  
 %type <chord> music_chord music_chord_body
 %type <horizontal>  horizontal_music
@@ -99,7 +100,7 @@ Paperdef*default_paper();
 %type <symtable> symtable symtable_body
 %type <lookup> symtables symtables_body
 %type <symbol> symboldef
-
+%type <notename_tab> notename_tab notename_tab_body
 
 %%
 
@@ -108,6 +109,11 @@ mudela:	/* empty */
 		add_score($2);
 	}
 	| mudela add_declaration { }
+	| mudela mudela_command  {}
+	;
+
+mudela_command:
+	notename_tab			{ set_notename_tab($1); }
 	;
 
 /*
@@ -135,8 +141,27 @@ declaration:
 		$$ = new Lookup_id(*$1, $3);
 		delete $1;
 	}
+	| NEWIDENTIFIER '=' notename_tab {
+		$$ = new Notetab_id(*$1, $3);
+		delete $1;
+	}
 	;
 
+notename_tab:
+	NOTENAMES '{' notename_tab_body '}'	{ $$ = $3; }
+	;
+
+notename_tab_body:				{
+		$$ = new Notename_tab;
+	}
+	| IDENTIFIER				{
+		$$ = $1->notename_tab(true);
+	}
+	| notename_tab_body STRING int int			{
+		$$->set($3, $4, *$2);
+		delete $2;
+	}
+	;
 
 /*
 	SCORE
@@ -181,7 +206,7 @@ staff_commands_body:
 
 staff_command:
 	skipcommand
-	| KEY  pitch_list 	{/*UGH*/
+	| KEY pitch_list 	{/*UGH*/
 		$$ = get_key_interpret_command(*$2);
 		delete $2;
 	}
@@ -332,7 +357,7 @@ post_request:
 	CLOSE_REQUEST_PARENS		{ $$ = get_request($1); }
 	;
 
-pre_requests:	 
+pre_requests:
 	| pre_requests pre_request {
 		pre_reqs.add($2);
 	}
@@ -342,54 +367,68 @@ pre_request:
 	OPEN_REQUEST_PARENS		{ $$ = get_request($1); }
 	;
 
+
+
 voice_command:
-	DURATIONCOMMAND '{' DURATION '}'	{
-		set_default_duration(*$3);
-		delete $3;
+	DURATIONCOMMAND '{' duration '}'	{
+		set_default_duration($3);
 	}
-	| OCTAVECOMMAND '{' PITCH '}'	{
-		set_default_pitch(*$3);
+	| OCTAVECOMMAND '{' pitchmod '}'	{
+		set_default_octave(*$3);
 		delete $3;
 	}
 	;
 
-voice_elt:
-	PITCH DURATION 			{
-		$$ = get_note_element(*$1, *$2);
-		delete $1;
-		delete $2;
+duration:		{
+		get_default_duration($$);
 	}
-	|  RESTNAME DURATION		{
-		$$ = get_rest_element(*$1, *$2);
-		delete $1;
-		delete $2;
+	| int		{
+		get_default_duration($$);
+		$$[0] = $1;
 	}
-	| PITCH 			{ $$ = get_note_element(*$1, "");
-		delete $1;
-	}
-	|  RESTNAME		{ $$ = get_rest_element(*$1, "");
-		delete $1;
+	| int DOTS 	{
+		$$[0] = $1;
+		$$[1] = $2;
 	}
 	;
+
+pitchmod:		{ $$ = new String; }
+	|PITCHMOD	
+	;
+
+voice_elt:	
+	pitchmod NOTENAME duration 			{
+		$$ = get_note_element(*$1, $2, $3);
+		delete $1;
+	}
+	| RESTNAME duration		{
+		$$ = get_rest_element(*$1, $2);
+		delete $1;
+
+	}
+	;
+
 /*
 	UTILITIES
 */
 pitch_list:			{
-		$$ = new svec<String>;
+		$$ = new svec<int>;
 	}
-	| pitch_list PITCH	{
-		$$->add(*$2);
-		delete $2;		
+	| pitch_list NOTENAME	{
+		$$->add($2[0]);
+		$$->add($2[1]);		
 	}
+	;
 
 int:
 	REAL			{
 		$$ = int($1);
 		if (ABS($1-Real(int($$))) > 1e-8)
 			yyerror("expecting integer number");
-		
 	}
+	| INT
 	;
+
 int_list:
 	/* */ 		{
 		$$ = new svec<int>;
@@ -496,6 +535,5 @@ parse_file(String s)
 Paperdef*
 default_paper()
 {
-	return 	new Paperdef(
-		lookup_identifier("default_table")->lookup(true));
+	return new Paperdef(lookup_identifier("default_table")->lookup(true));
 }

@@ -1,5 +1,7 @@
 -*-text-*-
 
+last update: 96/12/12, 0.0.16
+
 INTRODUCTION
 
 This is a beta version of LilyPond (a music typesetter). Please send
@@ -13,16 +15,26 @@ LilyPond is updated very frequently, the latest version is always available at:
 
 PREREQUISITES
 
-TeX, the MusixTeX fonts, g++ > v2.7. The "flower" library, which
-should be available from the same source you got this from. The
-Makefile uses perl for trivial operation, but you could tinker with it
-to use sed or awk.
+Compilation:
+
+	- Unix (any decent Linux distrib is fine)
+	- GNU C++ v2.7  or better
+	- GNU make.
+	- flex
+	- bison/yacc
+	- The "flower" library
+	- which should be available from the same source you got this from.
+
+Operation:
+
+	- TeX
+	- the MusixTeX fonts
+
+The Makefile uses perl for trivial
+operations, and you could tinker with it to use sed or awk.
 
 COMPILING
 
-You will need GNU C++ v2.7 or better and GNU make.  If you actually
-want to use this, you'd better use the "speedy" compilation flags in
-the Makefile.
 Do:
 
 	tar zxf flower-1.11.9.tar.gz
@@ -32,7 +44,11 @@ Do:
 	cd lilypond-1.2.13
 	make
 
-why G++ >= 2.7? LilyPond & flower lib uses builtin bool and typeof.
+why G++ >= 2.7? LilyPond & flower lib uses:
+
+	builtin bool
+	typeof
+	operator <?, operator >?
 
 USING
 
@@ -45,23 +61,22 @@ what I type in my xterm:
 
 This is what the output looks like over here.
 
-hw:~/musix/spacer$ lilypond kortjakje.ly
-LilyPond version 0.0.9 compiled on Nov  7 1996 at 23:38:21
-Parsing ... [kortjakje.ly]
-Processing ... Calculating ... 
+hw:~/musix/spacer$ lilypond maartje.ly
+LilyPond version 0.0.16 compiled on Dec 11 1996 at 13:54:27
+Parsing ... [symbol.ini][maartje.ly]
+Processing ... Calculating ... Postprocessing ... 
 output to lelie.uit...
 
 hw:~/musix/spacer$ tex test
 This is TeX, Version 3.14159 (C version 6.1)
 (test.tex
 Hyphenation patterns for english, dutch, loaded.
-(lilyponddefs.tex) (lelie.uit) [1] )
-Output written on test.dvi (1 page, 3076 bytes).
+(lilyponddefs.tex) (lelie.uit) [1] [2] )
+Output written on test.dvi (2 pages, 8072 bytes).
 Transcript written on test.log.
 
 hw:~/musix/spacer$ xdvi test&
-[1] 1667
-
+[1] 1468
 
 PROBLEMS
 
@@ -74,8 +89,7 @@ HOW DOES IT WORK
 * Use The Source, Luke. If you don't know C++, you can try editing
 .dstreamrc for copious debugging output. (use -d)
 
-* the subdir Documentation/ contains some in depth matter on LilyPond
-algorithms
+* the subdir Documentation/ contains some more-in-depth matter on LilyPond
 
 * The source is commented in the DOC++ style.
 Check out doc++ at
