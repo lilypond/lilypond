@@ -139,6 +139,11 @@ String::ch_l()
   return strh_.ch_l();
 }
 
+bool 
+String::empty_b () const
+{
+  return !length_i ();
+}
 /**
   Do a signed comparison,  analogous to memcmp;
  */
@@ -214,7 +219,7 @@ String::index_i (char c) const
   find the substring.
 
   @return
-  index of leftmost occurrence of #searchfor#
+1  index of leftmost occurrence of #searchfor#
  */
 int
 String::index_i (String searchfor) const

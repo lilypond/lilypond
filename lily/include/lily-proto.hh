@@ -165,7 +165,6 @@ struct Engraver;
 struct Rest;
 struct Rest_collision;
 struct Rest_collision_engraver;
-struct Rest_column;
 struct Rest_req;
 struct Rhythmic_grouping;
 struct Rhythmic_head;

@@ -110,17 +110,17 @@ Stem::type_i () const
 }
 
 void
-Stem::add (Note_head *n)
+Stem::add (Rhythmic_head *n)
 {
-  n->add_dependency (this);
-  head_l_arr_.push (n);
-}
- 
-void
-Stem::add (Rest *r)
-{
-  rest_l_arr_.push (r);
-  r->add_dependency (this);	// ?
+  n->add_dependency (this);	// ?
+  if (n->is_type_b (Note_head::static_name ()))
+    {
+      head_l_arr_.push ((Note_head*)n);
+    }
+  else if (n->is_type_b (Rest::static_name ()))
+    {
+      rest_l_arr_.push ((Rest*)n);
+    }    
 }
 
 bool
@@ -210,7 +210,7 @@ Stem::set_default_extents ()
   
   if (dir_ == UP)
     stem_xdir_ = RIGHT;
-  if (head_l_arr_[0]->balltype_i_ <= 0)
+  if (invisible_b ())
     stem_xdir_ = CENTER;
 }
 
@@ -373,7 +373,9 @@ Stem::hpos_f () const
   return note_delta_f () +Item::hpos_f ();
 }
 
-
+/*
+TODO:  head_l_arr_/rest_l_arr_ in  do_substitute_dependent ()
+ */
 void
  Stem::do_substitute_dependency (Score_elem*o,Score_elem*n)
 {

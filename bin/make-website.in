@@ -1,5 +1,10 @@
-#!@PERL@ -w
-# stupid script to generate WWW site. -*-Perl-*-
+#!@PERL@ -w 
+# -*-Perl-*- 
+
+
+# stupid script to generate WWW site.  The WWW site is my 
+# test-suite for LilyPond, I usually don't distribute versions that
+# fail to make the website
 
 use FileHandle;
 use Getopt::Long;
@@ -27,9 +32,8 @@ sub get_version
     $lily_version= "$TOPLEVEL_MAJOR_VERSION.$TOPLEVEL_MINOR_VERSION.$TOPLEVEL_PATCH_LEVEL$TOPLEVEL_MY_PATCH_LEVEL";
     
     # stupid checks.
-    $lily_version= "$TOPLEVEL_MAJOR_VERSION.$TOPLEVEL_MINOR_VERSION.$TOPLEVEL_PATCH_LEVEL$TOPLEVEL_MY_PATCH_LEVEL";
-
-
+    $lily_version= $lily_version;
+    
     close V;
 }
 
@@ -77,15 +81,20 @@ sub my_system
 
 local $base="lilypond/";
 
-local @examples=("twinkle-pop", "twinkle", "multi", "wtk1-fugue2",
-		 #"standchen-16", 
-		 #"standchen-20", 
+local @examples=("twinkle-pop", 
+		 "wtk1-fugue2",
+		 "standchen-16", 
+		 "standchen-20", 
 		 "wtk1-prelude1",
 		 "toccata-fuga-E", 
 		 "scsii-menuetto",
-		 "cadenza", "scales", 
-		"rhythm", 
-		 "gallina");
+		 "cadenza", 
+		 "gallina",
+		 "twinkle", 
+		 "collisions",
+		 "scales", 
+		 "rhythm", 
+		 "multi" );
 
 
 sub gen_html

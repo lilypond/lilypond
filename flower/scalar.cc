@@ -16,7 +16,7 @@ Scalar::Scalar (Rational r)
 
 }
 
-Scalar::operator Rational()
+Scalar::operator Rational ()
 {
   int p = index_i ('/');
   if (p == -1)
@@ -25,25 +25,25 @@ Scalar::operator Rational()
   String s2 = right_str (len()-p-1);
   String s1 = left_str (p);
 
-  return Rational (s1.value_i(), s2.value_i ());
+  return Rational (s1.value_i (), s2.value_i ());
 }
 
 bool
-Scalar::isnum()
+Scalar::isnum_b () const
 {
   int conv = false;
-  if (len()) 
+  if (len ())
     {
       long l =0;
-      conv = sscanf (strh_.ch_C(), "%ld", &l);
+      conv = sscanf (strh_.ch_C (), "%ld", &l);
     }
   return len() && conv;
 }
 
 Scalar::operator Real()
 {
-  assert (isnum());
-  return value_f();
+  assert (isnum_b ());
+  return value_f ();
 }
 
 Scalar::operator int()
@@ -51,19 +51,19 @@ Scalar::operator int()
   if (!length_i ())
     return 0;			// ugh
   
-  assert (isnum());
-  return value_i();
+  assert (isnum_b());
+  return value_i ();
 }
 
 
-Scalar::operator bool() const
+Scalar::operator bool () const
 {
-  if (!len())
+  if (!len ())
     return false;
   if (*this == "0")
     return false;
   String u (*this);
-  if (u.upper_str() == "FALSE")
+  if (u.upper_str () == "FALSE")
     return false;
   return true;
 }

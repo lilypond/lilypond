@@ -18,3 +18,7 @@ Line_spacer::paper_l() const
 { 
   return paper_l_ ;
 }
+
+Line_spacer::~Line_spacer ()
+{
+}

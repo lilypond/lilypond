@@ -78,7 +78,6 @@ Spanner::set_my_columns()
 void
 Spanner::set_bounds(Direction d, Item*i)
 {
-    
   if (spanned_drul_[d])
     spanned_drul_[d]->attached_span_l_arr_.substitute(this,0);
   
@@ -164,16 +163,8 @@ Spanner::broken_b() const
 void
 Spanner::do_unlink() 
 {
-  if (spanned_drul_[LEFT]) 
-    {
-      spanned_drul_[LEFT]->attached_span_l_arr_.substitute (this,0);
-      spanned_drul_[LEFT] =0;
-    }
-  if (spanned_drul_[RIGHT]) 
-    {
-      spanned_drul_[RIGHT]->attached_span_l_arr_.substitute (this,0);
-      spanned_drul_[RIGHT] = 0;
-    }
+  set_bounds (LEFT, 0);
+  set_bounds (RIGHT, 0);
 }
 
 void

@@ -573,6 +573,7 @@ Music:
 	| Chord			{ $$ = $1; }
 	| transposed_music	{ $$ = $1; }
 	| MUSIC_IDENTIFIER 	{ $$ = $1->music (); }
+	| MUSIC_IDENTIFIER ';'	{ $$ = $1->music (); }
 	| MELODIC
 		{ THIS->lexer_p_->push_note_state (); }
 	Music

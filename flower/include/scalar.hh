@@ -24,7 +24,7 @@ struct Scalar : public String {
   Scalar (Rational);
   operator Rational();
   Scalar() {}
-  bool isnum();
+  bool isnum_b() const;
   operator Real();
   operator int();
 

@@ -32,7 +32,7 @@ Chord_iterator::construct_children()
       Music_iterator * mi = get_iterator_p (i.ptr());
       if (mi->ok()) 
 	{
-	  if  (!chord_C_->translator_type_str_)
+	  if  (chord_C_->translator_type_str_.empty_b ())
 	    set_translator (mi->report_to_l()->ancestor_l (chord_C_->multi_level_i_));
 	  children_p_list_.bottom().add (mi);
 	}

@@ -33,17 +33,17 @@
 #include "parseconstruct.hh"
 #include "main.hh"
 #include "identifier.hh"
-void strip_trailing_white(String&);
-void strip_leading_white(String&);
+void strip_trailing_white (String&);
+void strip_leading_white (String&);
 
 
 #define start_quote()	\
-	yy_push_state(quote);\
+	yy_push_state (quote);\
 	yylval.string = new String
 
 #define yylval (*(YYSTYPE*)lexval_l)
 
-#define YY_USER_ACTION	add_lexed_char(YYLeng());
+#define YY_USER_ACTION	add_lexed_char (YYLeng ());
 %}
 
 %option c++
@@ -93,7 +93,7 @@ LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
 
 <notes,incl,INITIAL,lyrics>{
   "%{"	{
-	yy_push_state(longcomment);
+	yy_push_state (longcomment);
   }
   %[^{\n].*\n	{
   }
@@ -115,84 +115,84 @@ LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
 
 	}
 	"%"+"}"		{
-		yy_pop_state();
+		yy_pop_state ();
 	}
 	<<EOF>> 	{
-		LexerError("EOF found inside a comment");
-		if (! close_input()) 
-		  yyterminate(); // can't move this, since it actually rets a YY_NULL
+		LexerError ("EOF found inside a comment");
+		if (! close_input ()) 
+		  yyterminate (); // can't move this, since it actually rets a YY_NULL
 	}
 }
 <header>{
 	[\{\}]	{
-		return YYText()[0];
+		return YYText ()[0];
 	}
 	^{WORD}		{
-		String s=YYText();
-		yylval.string = new String(s);
+		String s=YYText ();
+		yylval.string = new String (s);
 		return FIELDNAME;
 	}
 	{HORIZONTALWHITE}+{BLACK}.*\n		{
-		String s=YYText();
-		strip_leading_white(s);
-		strip_trailing_white(s);
-		yylval.string = new String(s);
+		String s=YYText ();
+		strip_leading_white (s);
+		strip_trailing_white (s);
+		yylval.string = new String (s);
 		return RECORDLINE;
 	}
 	{WHITE}* 	{
 	}
 
 	.		{
-		return YYText()[0];
+		return YYText ()[0];
 	}
 }
 
 
 <notes,INITIAL,lyrics>\\include           {
-	yy_push_state(incl);
+	yy_push_state (incl);
 }
 <incl>\"[^"]*\"   { /* got the include file name */
-	String s (YYText()+1);
-	s = s.left_str(s.length_i()-1);
+	String s (YYText ()+1);
+	s = s.left_str (s.length_i ()-1);
 	DOUT << "#include `" << s << "\'\n";
-	new_input(s,source_l_g);
-	yy_pop_state();
+	new_input (s,source_l_g);
+	yy_pop_state ();
 }
 <incl>\"[^"]*   { // backup rule
 	cerr << "missing end quote" << endl;
-	exit( 1 );
+	exit (1);
 }
 <notes>{RESTNAME} 	{
-	const char *s = YYText();
+	const char *s = YYText ();
 	yylval.string = new String (s);	
 	DOUT << "rest:"<< yylval.string;
 	return RESTNAME;
 }
 <INITIAL,lyrics,notes>\\\${BLACK}*{WHITE}	{
-	String s=YYText() + 2;
-	s=s.left_str(s.length_i() - 1);
-	return scan_escaped_word(s);
+	String s=YYText () + 2;
+	s=s.left_str (s.length_i () - 1);
+	return scan_escaped_word (s);
 }
 <INITIAL,lyrics,notes>\${BLACK}*{WHITE}		{
-	String s=YYText() + 1;
-	s=s.left_str(s.length_i() - 1);
-	return scan_bare_word(s);
+	String s=YYText () + 1;
+	s=s.left_str (s.length_i () - 1);
+	return scan_bare_word (s);
 }
 <INITIAL,lyrics,notes>\\\${BLACK}*		{ // backup rule
 	cerr << "white expected" << endl;
-	exit( 1 );
+	exit (1);
 }
 <INITIAL,lyrics,notes>\${BLACK}*		{ // backup rule
 	cerr << "white expected" << endl;
-	exit( 1 );
+	exit (1);
 }
 <notes>{
 	{ALPHAWORD}/\'	{
 		post_quotes_b_ = true;
-		return scan_bare_word(YYText());
+		return scan_bare_word (YYText ());
 	}
 	\'+		{
-		yylval.i = YYLeng();
+		yylval.i = YYLeng ();
 		if (post_quotes_b_) {
 			post_quotes_b_ = false;
 			return POST_QUOTES;
@@ -200,26 +200,26 @@ LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
 			return PRE_QUOTES;
 	}
 	{ALPHAWORD}	{
-		return scan_bare_word(YYText());
+		return scan_bare_word (YYText ());
 
 	}
 
 	{NOTECOMMAND}	{
-		return scan_escaped_word(YYText()+1);
+		return scan_escaped_word (YYText ()+1);
 	}
 
 	{INT}		{
-		yylval.i = String_convert::dec2_i( String( YYText() ) );
+		yylval.i = String_convert::dec2_i (String (YYText ()));
 		return INT;
 	}
 
 	\" {
-		start_quote();
+		start_quote ();
 	}
 }
 
 \"		{
-	start_quote();
+	start_quote ();
 }
 <quote>{
 	\\\\	{
@@ -229,11 +229,11 @@ LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
 		*yylval.string +='\"';
 	}
 	[^"]+	{
-		*yylval.string += YYText();
+		*yylval.string += YYText ();
 	}
 	\"	{
 		DOUT << "quoted string: `" << *yylval.string << "'\n";
-		yy_pop_state();
+		yy_pop_state ();
 		return STRING;
 	}
 }
@@ -241,79 +241,79 @@ LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
 <lyrics>{
 
 	\" {
-		start_quote();
+		start_quote ();
 	}
 	{INT}		{
-		yylval.i = String_convert::dec2_i( String( YYText() ) );
+		yylval.i = String_convert::dec2_i (String (YYText ()));
 		return INT;
 	}
 	{NOTECOMMAND}	{
-		return scan_escaped_word(YYText()+1);
+		return scan_escaped_word (YYText ()+1);
 	}
 	{LYRICS} {
 		/* ugr. This sux. */
-		String s (YYText()); 
+		String s (YYText ()); 
 		int i = 0;
-               	while ((i=s.index_i("_")) != -1) // change word binding "_" to " "
-			*(s.ch_l() + i) = ' ';
-		if ((i=s.index_i("\\,")) != -1)   // change "\," to TeX's "\c "
+               	while ((i=s.index_i ("_")) != -1) // change word binding "_" to " "
+			*(s.ch_l () + i) = ' ';
+		if ((i=s.index_i ("\\,")) != -1)   // change "\," to TeX's "\c "
 			{
-			*(s.ch_l() + i + 1) = 'c';
-			s = s.left_str(i+2) + " " + s.right_str(s.length_i()-i-2);
+			*(s.ch_l () + i + 1) = 'c';
+			s = s.left_str (i+2) + " " + s.right_str (s.length_i ()-i-2);
 			}
-		yylval.string = new String(s);
+		yylval.string = new String (s);
 		DOUT << "lyric : `" << s << "'\n";
 		return STRING;
 	}
 	. {
-		return yylval.c = YYText()[0];
+		return yylval.c = YYText ()[0];
 	}
 }
 
 <<EOF>> {
 	DOUT << "<<eof>>";
 
-	if (! close_input()) { 
- 	  yyterminate(); // can't move this, since it actually rets a YY_NULL
+	if (! close_input ()) { 
+ 	  yyterminate (); // can't move this, since it actually rets a YY_NULL
 	}
 }
 {WORD}	{
-	return scan_bare_word(YYText());
+	return scan_bare_word (YYText ());
 }
 {KEYWORD}	{
-	return scan_escaped_word(YYText()+1);
+	return scan_escaped_word (YYText ()+1);
 }
 {REAL}		{
 	Real r;
-	int cnv=sscanf (YYText(), "%lf", &r);
-	assert(cnv == 1);
+	int cnv=sscanf (YYText (), "%lf", &r);
+	assert (cnv == 1);
 	DOUT  << "REAL" << r<<'\n';
 	yylval.real = r;
 	return REAL;
 }
 
 {INT}	{
-	yylval.i = String_convert::dec2_i( String( YYText() ) );
+	yylval.i = String_convert::dec2_i (String (YYText ()));
 	return INT;
 }
 
 [{}]	{
 
 	DOUT << "parens\n";
-	return YYText()[0];
+	return YYText ()[0];
 }
 [*:=]		{
-	char c = YYText()[0];
+	char c = YYText ()[0];
 	DOUT << "misc char" <<c<<"\n";
 	return c;
 }
 
 <INITIAL,notes>.	{
-	return yylval.c = YYText()[0];
+	return yylval.c = YYText ()[0];
 }
 
 <INITIAL,lyrics,notes>\\. {
-    char c= YYText()[1];
+    char c= YYText ()[1];
     yylval.c = c;
     switch (c) {
     case '>':
@@ -328,65 +328,67 @@ LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
 }
 
 <*>.		{
-	LexerError( String( "illegal character: " ) +String( YYText()[0] ));
-	return YYText()[0];
+	String msg= String ("illegal character: ") +String (YYText ()[0]);
+	LexerError (msg.ch_C ());
+	return YYText ()[0];
 }
 
 %%
 
 void
-My_lily_lexer::push_note_state()
+My_lily_lexer::push_note_state ()
 {
-	yy_push_state(notes);
+	yy_push_state (notes);
 }
 
 void
-My_lily_lexer::push_lyric_state()
+My_lily_lexer::push_lyric_state ()
 {
-	yy_push_state(lyrics);
+	yy_push_state (lyrics);
 }
 void
-My_lily_lexer::pop_state()
+My_lily_lexer::pop_state ()
 {
-	yy_pop_state();
+	yy_pop_state ();
 }
 
 int
-My_lily_lexer::scan_escaped_word(String str)
+My_lily_lexer::scan_escaped_word (String str)
 {	
 	DOUT << "\\word: `" << str<<"'\n";
-	int l = lookup_keyword(str);
+	int l = lookup_keyword (str);
 	if (l != -1) {
 		DOUT << "(keyword)\n";
 		return l;
 	}
-	Identifier * id = lookup_identifier(str);
+	Identifier * id = lookup_identifier (str);
 	if (id) {
 		DOUT << "(identifier)\n";
 		yylval.id = id;
 		return id->token_code_i_;
 	}
-	if ( YYSTATE != notes ) {
-		Melodic_req * mel_l = lookup_melodic_req_l(str);
+	if (YYSTATE != notes) {
+		Melodic_req * mel_l = lookup_melodic_req_l (str);
 		if (mel_l) {
 		    DOUT << "(notename)\n";
 		    yylval.melreq = mel_l;
 		    return NOTENAME_ID;
 		}
 	}
-	LexerError( "Unknown escaped string: `" + str + "'");	
+	String msg ("Unknown escaped string: `" + str + "'");	
+	LexerError (msg.ch_C ());
 	DOUT << "(string)";
-	String *sp = new String( str);
+	String *sp = new String (str);
 	yylval.string=sp;
 	return STRING;
 }
 
 int
-My_lily_lexer::scan_bare_word(String str)
+My_lily_lexer::scan_bare_word (String str)
 {
 	DOUT << "word: `" << str<< "'\n";	
 	if (YYSTATE == notes){
-		Melodic_req * mel_l = lookup_melodic_req_l(str);
+		Melodic_req * mel_l = lookup_melodic_req_l (str);
 		if (mel_l) {
 		    DOUT << "(notename)\n";
 		    yylval.melreq = mel_l;
@@ -394,44 +396,44 @@ My_lily_lexer::scan_bare_word(String str)
 		}
 	}
 
-	yylval.string=new String( str );
+	yylval.string=new String (str);
 	return STRING;
 }
 
 bool
-My_lily_lexer::note_state_b() const
+My_lily_lexer::note_state_b () const
 {
 	return YY_START == notes;
 }
 
 bool
-My_lily_lexer::lyric_state_b() const
+My_lily_lexer::lyric_state_b () const
 {
 	return YY_START == lyrics;
 }
 
 void 
-My_lily_lexer::push_header_state() 
+My_lily_lexer::push_header_state () 
 {
-	yy_push_state(header);
+	yy_push_state (header);
 }
 
-void strip_trailing_white(String&s)
+void strip_trailing_white (String&s)
 {
 	int i=0;
-	for (;  i < s.length_i(); i++) 
-		if (!isspace(s[i]))
+	for (;  i < s.length_i (); i++) 
+		if (!isspace (s[i]))
 			break;
 
-	s = s.nomid_str(0, i);
+	s = s.nomid_str (0, i);
 }
-void strip_leading_white(String&s)
+void strip_leading_white (String&s)
 {
-	int i=s.length_i();	
+	int i=s.length_i ();	
 	while (i--) 
-		if (!isspace(s[i]))
+		if (!isspace (s[i]))
 			break;
 
-	s = s.left_str(i+1);
+	s = s.left_str (i+1);
 
 }

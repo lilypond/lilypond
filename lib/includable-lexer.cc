@@ -26,7 +26,8 @@ Includable_lexer::new_input(String s, Sources  * global_sources)
   Source_file * sl = global_sources->get_file_l(s);
   if (!sl) 
     {
-      LexerError("Can't find file `" + s+ "'");
+      String msg ="Can't find file `" + s+ "'";
+      LexerError(msg.ch_C ());
       return; 
     }
 

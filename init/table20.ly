@@ -78,8 +78,12 @@ table_twenty =
 	"tenor_change"	"\caltoclef" 	0.0\pt	16.0\pt	0.0\pt	20.0\pt
     }
 
-    % ugh what's our outdir called?
-    \include "mf/out/font-en-tja20.ly"
+    "balls" = \table {
+	"-1"	"\breveball" 	0.0\pt	7.5\pt	-2.5\pt	2.5\pt
+	"0"	"\wholeball"	0.0\pt	10.2\pt	0.0\pt	5.4\pt
+	"1"	"\halfball"	0.0\pt	6.8\pt	0.0\pt	5.4\pt
+	"2"	"\quartball"	0.0\pt	6.6\pt	0.0\pt	5.4\pt
+    }
 
     "slur" = \table {
 	"whole"	"\slurchar%{%}"	0.0\pt	0.0\pt	0.0\pt	0.0\pt
@@ -153,16 +157,16 @@ table_twenty =
     }
 
     "flags" = \table {
-	"8"	"\eighthflag"		0.0\pt	5.0\pt	0.0\pt	0.0\pt	
-	"16"	"\sixteenthflag"		0.0\pt	5.0\pt	0.0\pt	0.0\pt
-	"32"	"\thirtysecondflag"	0.0\pt	5.0\pt	0.0\pt	0.0\pt
-	"64"	"\sixtyfourthflag"	0.0\pt	5.0\pt	0.0\pt	0.0\pt
-	"128"	"\hundredtwentyeighthflag"	0.0\pt	5.0\pt	0.0\pt	0.0\pt
-	"-8"	"\deighthflag"		0.0\pt	5.0\pt	0.0\pt	0.0\pt
-	"-16"	"\dsixteenthflag"		0.0\pt	5.0\pt	0.0\pt	0.0\pt
-	"-32"	"\dthirtysecondflag"	0.0\pt	5.0\pt	0.0\pt	0.0\pt
-	"-64"	"\dsixtyfourthflag"	0.0\pt	5.0\pt	0.0\pt	0.0\pt
-	"-128"	"\dhundredtwentyeighthflag"	0.0\pt	5.0\pt	0.0\pt	0.0\pt
+	"u3"	"\eighthflag"		0.0\pt	5.0\pt	0.0\pt	0.0\pt	
+	"u4"	"\sixteenthflag"		0.0\pt	5.0\pt	0.0\pt	0.0\pt
+	"u5"	"\thirtysecondflag"	0.0\pt	5.0\pt	0.0\pt	0.0\pt
+	"u6"	"\sixtyfourthflag"	0.0\pt	5.0\pt	0.0\pt	0.0\pt
+	"u7"	"\hundredtwentyeighthflag"	0.0\pt	5.0\pt	0.0\pt	0.0\pt
+	"d3"	"\deighthflag"		0.0\pt	5.0\pt	0.0\pt	0.0\pt
+	"d4"	"\dsixteenthflag"		0.0\pt	5.0\pt	0.0\pt	0.0\pt
+	"d5"	"\dthirtysecondflag"	0.0\pt	5.0\pt	0.0\pt	0.0\pt
+	"d6"	"\dsixtyfourthflag"	0.0\pt	5.0\pt	0.0\pt	0.0\pt
+	"d7"	"\dhundredtwentyeighthflag"	0.0\pt	5.0\pt	0.0\pt	0.0\pt
      }
 
     "beamslopes" = \table {

@@ -42,7 +42,9 @@ and up-to-date definition, see \file{lily/parser.y} and
 As a related note, you should take a look at the examples and the init
 files, as this document does not cover every aspect of mudela yet, and
 may be out of date.\footnote{Ok, I am being pessimistic here.  This
-  just is a disclaimer.  Docs usually are written after the program itself.}
+  just is a disclaimer.  Docs usually are written after the program
+  itself.}  This document intends to give an idea of how it works, it
+is not a guide on how to use it.  
 
 
 \section{Basic elements}
@@ -99,6 +101,7 @@ any characters (except whitespace,
 \verb+i'm_a_weird!!!identifier+).  \verb+$+ Takes any sequence of
 characters which are not whitespace, \verb+$+ and \verb+%+.
 \verb+$i'm_a_weird!!!string+
+\def\foobar{$} % silly fontlock mode 
 
 \subsection{Nesting characters}
 
@@ -138,6 +141,15 @@ When using identifiers they have to be escaped:
 oboe = \melodic { ... }
 \score{ \melodic { \oboe }}
 \end{verbatim}
+
+The left-hand part of the assignment is really a string, so 
+\begin{verbatim}
+"Foo bar 4 2 " = \melodic { .. }
+\end{verbatim}
+
+is also a valid assignment (but you would have trouble referencing to it)
+
+
 \subsection{Hierarchical structures}
 
 The general structure consists of declarations:
@@ -177,33 +189,42 @@ and manipulating them) Mudela has a number of different input "modes":
 
 At the start of parsing, Mudela assumes normal mode.
 In Normal mode, a word is looked up in the following order:
-\begin{verbatim}
-word    string
-\word   keyword, identifier
-\end{verbatim}
-In normalmode, a word is assumed to start with an alphabetic
+\begin{description}
+\item{\verb+word+}    string
+\item{\verb|"string"|} string
+\item{\verb|\word|} keyword, identifier
+\end{description}
+In normal mode, a word is assumed to start with an alphabetic
 character, followed by alpha-numeric characters.
 
-\item[Note mode] 
-  Note mode (and thus Simple mudela) is introduced by
-  the keyword \verb+\melodic+.  In Note mode, a word is looked up in
-  the following order:
+\item[Note mode] Note mode is introduced by the keyword
+  \verb+\melodic+.  In Note mode, a word is looked up in the following
+  order:
+\begin{description}
+\item{\verb+word+} notename, string
+\item{\verb|"string"|} string
+\item{\verb|\word|} keyword, identifier
+\end{description}
 
-\begin{verbatim}
-word    notename, string
-\word   keyword, identifier
-\end{verbatim}
-In Note mode a word is considered to have alphabetic characters only.
+In Note mode a word is considered to have alphabetic characters only,
+so the underscore (\_) is illegal.  If you accidently mistype a
+notename, the parser will assume that you are entering a string (and
+it will most likely complain that you should be in \verb|\lyrics| mode to
+do lyrics)
 
-\item[Lyric mode]
-Lyrics mode (and thus Simple mudela)  is introduced by the keyword \verb+\lyrics+.
+
+\item[Lyric mode] Lyrics mode (and thus Simple mudela) is introduced
+  by the keyword \verb+\lyrics+.  Because of the various control
+  characters that can appear in lyrics, eg, ``foreign language''
+  accents, the inputting a string containing these has been made very
+  easy.
 
 In Lyrics mode, a word is looked up in the following order:
-
-\begin{verbatim}
-word    string
-\word   keyword, identifier
-\end{verbatim}
+\begin{description}
+\item{\verb+word+}    string (thus a lyric)
+\item{\verb|"string"|} string
+\item{\verb|\word|} keyword, identifier
+\end{description}
 
 In Lyric mode every sequence of non-digit and non-white characters
 starting with an alphabetic character or the \_ is considered a word.
@@ -232,12 +253,12 @@ is a A-1 pitched crotchet. The ' signifies an octave change.  A-1 is 440
 Hz concert-pitch. \verb+c'+ is also known as the central c. More examples:
 
 \begin[fragment,verbatim]{mudela}
-'a      % 110
+        'a      % 110
         a       % 220
         A       % 110, uppercase octavates down
         a'      % 440
-a''     % 880
-'as4.*2/3
+        a''     % 880
+        'as4.*2/3
 \end{mudela}
 
 The last one  is an A flat, (just below 110 Hz concert-pitch). The \verb+*2/3+
@@ -283,10 +304,10 @@ Music is able to express more. generally speaking, the other
 requests) or attached to notes (eg. accents). The former are
 implemented as START and STOP stop features and then attached to the note.
 
-\begin{verbatim}
-[]      START/STOP a beam
-()      START/STOP a slur
-\end{verbatim}
+\begin{description}
+\item{[ and ]}      start and stop a beam
+\item{( and )}      start and stop a slur
+\end{description}
 
 example: 
 \begin[verbatim,fragment]{mudela}
@@ -297,8 +318,8 @@ example:
 \end{mudela}
 
 Please note that these two characters do \emph{not} necessarrily nest,
-they should attached to the note \verb+[ <c4 c4>]+ will generate a parse
-error for this reason. 
+they should be attached to the note.  For this reason, the construct
+\verb+[ <c4 c4>]+ will generate a parse error.
   
 \subsection{Slurs and Ties}
 
@@ -320,13 +341,13 @@ a'4(  )a''4
 Symbols which can be put at either side (above or below) of a staff
 are entered as follows:
 \begin[verbatim,fragment]{mudela}
-a-^     % marcato, direction: default
+        a-^     % marcato, direction: default
         a^-     % portato, direction: above note
         a_.     % staccato, direction: below note
         a^\fermata      % predefined identifier
         c_"marcato"     % add a text
         c^"marcato"
-c-"marcato"
+        c-"marcato"
 \end{mudela}
 
 If you want to define your own scripts refer to \file{init/script.ly} for
@@ -341,7 +362,7 @@ a4 \dynamic { 0 } % 0 = fff, 7 = ppp
 Mudela defines the following dynamic identifiers:
 
 \begin{verbatim}
-ppp pp p mp mf f ff fff
+ppp pp p mp mf f ff fff sfz fz fp
 \end{verbatim}
 and the following abbreviations:
 \begin{verbatim}
@@ -453,8 +474,41 @@ The \verb+Request_chord+ is a special kind of chord which only allows
 Requests as its elements.  The examples of the previous section were
 processed with \verb+{+ and \verb+}+ enclosing the input.
 
+\subsection{Durations}
+
+A duration always starts with the duration type (1,2,4 etc), and then
+any optional multipliers/dots
+
+\subsection{Meters/groupings}
+
+A meter has this form:
+\begin{verbatim}
+\meter 3/4 ;
+\end{verbatim}
+
+Rhythmic grouping is  a concept closely associated with this. For
+example, in a 5/8 meter, the counts are grouped 2+3. In mudela this is
+entered as
+\begin{verbatim}
+\grouping  8*2 8*3 ;
+\end{verbatim}
+You can start the piece with a partial measure, the command takes the
+same syntax as grouping: 
+\begin{verbatim}
+\partial 16*3 4;
+\end{verbatim}
+
+Make the piece start with a upstep [english translation?]
+lasting 1 3/4 quarter notes.
+
+These commands are also "voice elements", and constitute ``Music''
+(consisting of stuff with duration 0).
+
 
 \subsection{Voicegroups}
+
+
+[OUTDATED]
 
 If more than one "voice" is in a staff, then you have the option of
 putting the different voices into so called voicegroups: members of
@@ -475,6 +529,7 @@ LilyPond try to set those lines as independently as possible.
 [adsolete. Has to be fixed in lily]
 
 You can set the voicegroup of a voice with the command \verb+\group+, e.g.,
+
 \begin{verbatim}        
         oboeI = \melodic { 
                 \group "oboes"; 
@@ -517,47 +572,17 @@ The construct
 \end{verbatim}
 makes a chord (all horizontal parts are in the same voicegroup). The construct
 \begin{verbatim}
-< \multi 2; { ....} { .... } >
+\multi 2 < { ....} { .... } >
 \end{verbatim}
 creates horizontal parts which behave independently. You will have to
 set voicegroup features by hand (\verb+\stem+ and \verb+\hshift+. See examples)
 
 The construct
 \begin{verbatim}
-< \multi 3; { ....} { .... } >
+\multi 3 < { ....} { .... } >
 \end{verbatim}
 creates  a chord with each part in a different staff
 
-
-\subsection{Durations}
-
-A duration always starts with the duration type (1,2,4 etc), and then
-any optional multipliers/dots
-
-\subsection{Meters/groupings}
-
-A meter has this form:
-\begin{verbatim}
-\meter 3/4 ;
-\end{verbatim}
-
-Rhythmic grouping is  a concept closely associated with this. For
-example, in a 5/8 meter, the counts are grouped 2+3. In mudela this is
-entered as
-\begin{verbatim}
-\grouping  8*2 8*3 ;
-\end{verbatim}
-You can start the piece with a partial measure, the command takes the
-same syntax as grouping: 
-\begin{verbatim}
-\partial 16*3 4;
-\end{verbatim}
-
-Make the piece start with a partial measure [english translation?]
-lasting 1 3/4 quarter notes.
-
-These commands are also "voice elements", and constitute simple mudela
-(consisting of stuff with duration 0).
 
 \subsection{Examples}
 
@@ -567,11 +592,11 @@ maintenance no long examples are included in this document.
 
 \section{History}
 
-This language has a number of roots. First and foremost, GNU LilyPond's
-predecessor mpp was the inspiration of simple Mudela.  Secondly, the
-hierarchical structure looks a lot like Rayce's (Rayce is a raytracer
-that I've written as a hobby project. ), which in turn owes a lot to
-POVRay.
+This language has a number of roots. First and foremost, GNU
+LilyPond's predecessor mpp was the inspiration of the Note-mode input.
+Secondly, the hierarchical structure looks a lot like Rayce's (Rayce
+is a raytracer that I've written as a hobby project. ), which in turn
+owes a lot to POVRay.
 
 Now, we know, musictypesetting and raytracing do not necessarily
 require the same input format, and we know that a lot more ways exist

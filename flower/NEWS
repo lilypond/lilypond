@@ -1,3 +1,5 @@
+pl 31
+	- removed String::bool () [Sigh], String::operator char const * 
 pl 30
 	- Cpu_timer
 pl 29 

@@ -63,7 +63,7 @@ Clef_engraver::read_req (Clef_change_req*c_l)
 void
 Clef_engraver::acknowledge_element (Score_elem_info info)
 {
-  if (info.elem_l_->name() == Bar::static_name () && clef_type_str_) 
+  if (info.elem_l_->name() == Bar::static_name () && clef_type_str_.length_i()) 
     {
       create_clef();
       if (!clef_req_l_)
@@ -77,7 +77,7 @@ Clef_engraver::do_creation_processing()
   Scalar def = get_property ("defaultclef");
   if (def)
     set_type (def);
-  if (clef_type_str_)
+  if (clef_type_str_.length_i ())
     create_clef();
   clef_p_->default_b_ = false;
 }

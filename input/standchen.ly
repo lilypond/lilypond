@@ -495,16 +495,12 @@ themusic =
 		% 20pt music uses whole pagewidth
 		linewidth= 195.\mm;
 
-		% we want gourlay, don't set geometric
-		% geometric= 1.4;
 		gourlay_maxmeasures = 9.;
 		\output "standchen-20.out";
 	}
 	\paper{
 		% 16pt mustn't use whole page width
 		linewidth= 160.\mm;
-		% we want gourlay, don't set geometric
-		% geometric= 1.4;
 		gourlay_maxmeasures = 9.;
 		\output "standchen-16.out";
 	}

@@ -135,7 +135,7 @@ Music_iterator::static_get_iterator_p (Music *m,
   else if (m->is_type_b (Change_translator::static_name ()))
     p = new Change_iterator((Change_translator*) m);
   
-  if (m -> translator_type_str_)
+  if (m -> translator_type_str_.length_i ())
     {
       Translator_group* a =report_l->
 	find_create_translator_l (m-> translator_type_str_, m->translator_id_str_);

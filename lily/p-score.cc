@@ -190,7 +190,7 @@ Paper_score::tex_output ()
 {
   // output
   String outname = paper_l_->outfile_str_ ;
-  if (!outname)
+  if (outname.empty_b ())
     outname = default_out_str_+ ".tex";
   
   *mlog << "TeX output to " <<  outname << " ...\n";

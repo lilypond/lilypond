@@ -24,7 +24,7 @@ const int MAXLINELEN = 200;
 
 Tex_stream::Tex_stream (String filename) 
 {
-  os = new ofstream (filename);
+  os = new ofstream (filename.ch_C ());
   if (!*os)
 	error ("can't open `" + filename+"\'");
   nest_level = 0;
@@ -51,7 +51,7 @@ Tex_stream &
 Tex_stream::operator<<(String s)
 {
   
-  for (char const *cp = s; *cp; cp++) 
+  for (char const *cp = s.ch_C (); *cp; cp++) 
     {
 	if (outputting_comment) 
 	  {

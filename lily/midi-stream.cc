@@ -62,7 +62,7 @@ Midi_stream::operator <<(int i)
 void
 Midi_stream::open()
 {
-  os_p_ = new ofstream (filename_str_);
+  os_p_ = new ofstream (filename_str_.ch_C ());
   if (!*os_p_)
     error ("can't open `" + filename_str_ + "\'");
 }

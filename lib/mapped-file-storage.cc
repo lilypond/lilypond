@@ -53,7 +53,7 @@ Mapped_file_storage::map()
 void
 Mapped_file_storage::open(String name_str)
 {
-  fildes_i_ = ::open(name_str, O_RDONLY);	
+  fildes_i_ = ::open(name_str.ch_C (), O_RDONLY);	
 	    
   if (fildes_i_ == -1) 
     {

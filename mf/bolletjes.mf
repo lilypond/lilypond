@@ -31,7 +31,7 @@ def begin_notehead =
 	save b_h,a_w;
 	enddef;
 
-def end_notehead(expr code,interline,name,id,texstr) =
+def end_notehead(expr code,interline,name) =
 	save a,b,h,w,ai,bi;
 	h#=interline;
 	2b#=h#*b_h;
@@ -42,7 +42,7 @@ def end_notehead(expr code,interline,name,id,texstr) =
 	define_pixels(a,b);
 	define_pixels(w,h);
 	define_pixels(ai,bi);
- 	fet_beginchar(code,w#,h#,0,name,id,texstr);
+ 	fet_beginchar(code,w#,h#,0,name);
 		path black,white;
 		black=distorted_ellipse(a,b,a*err_y_a,0,super);
 		white=distorted_ellipse(ai,bi,ai*err_y_ai,bi*err_x_bi,superi);
@@ -65,8 +65,6 @@ fi
 		endgroup;
 	enddef;
 		
-% fet_begingroup("noteheads");
-fet_begingroup("balls");
 % whole note
 % Wanske, p.38
 % begin_notehead(incr code,interline#,"Whole notehead");
@@ -85,7 +83,7 @@ begin_notehead;
 	superi:=0.69;
 	b_h:=1; %no rotate-> no height correction
 	a_w:=1; % no rotate-> no width correction
-	end_notehead(incr code,interline#,"Whole notehead","0","wholeball");
+	end_notehead(incr code,interline#,"Whole notehead");
 
 % half note
 % Wanske, p.39
@@ -103,7 +101,7 @@ begin_notehead;
 	superi:=0.80;
 	b_h:=0.935;
 	a_w:=1.12;
-	end_notehead(incr code,interline#,"Half notehead","1","halfball");
+	end_notehead(incr code,interline#,"Half notehead");
 
 % quarter note
 % Wanske p.38
@@ -121,13 +119,7 @@ begin_notehead;
 	superi:=0.707;
 	b_h:=0.85;
 	a_w:=1.09;
-	end_notehead(incr code,interline#,"Quarter notehead","2","quartball");
+	end_notehead(incr code,interline#,"Quarter notehead");
 
-% silly tableXX.ly fillers, for now
-fet_beginchar(incr code,2interline#,interline#,0,"Longa notehead","-2","longaball");
-endchar;
-fet_beginchar(incr code,2interline#,interline#,0,"Brevis notehead","-1","breveball");
-endchar;
-
-fet_endgroup("noteheads");
+end.
 

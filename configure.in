@@ -62,10 +62,10 @@ AC_ARG_ENABLE(tex-dir,
     [TEXDIR=$enableval],
     [TEXDIR=auto] )
 
-AC_JUNK_ARGS( AC_ARG_ENABLE(mf-dir,
+AC_ARG_ENABLE(mf-dir,
      [  mf-dir=DIR             set the directory to put LilyPond MetaFont files in. (obsolete)],
      [MFDIR=$enableval],
-     [MFDIR=auto] ))
+     [MFDIR=auto])
 
 AC_ARG_ENABLE(out-dir,
     [  out-dir                 set the directory for machine generated files. Default out or out-HOST],
@@ -152,6 +152,10 @@ if test "x$TEXPREFIX" = xauto ; then
     AC_TEX_PREFIX(TEXPREFIX)
 else
  find_texprefix=$TEXPREFIX
+fi
+
+if test "x$MFDIR" = xauto; then
+    AC_MF_SUBDIR(MFDIR)
 fi
     
 if test "x$TEXDIR" = xauto ; then

@@ -75,8 +75,7 @@ public:
   Stem ();
     
   /// ensure that this Stem also encompasses the Notehead #n#
-  void add (Note_head*n);
-  void add (Rest*);
+  void add (Rhythmic_head*n);
 
   DECLARE_MY_RUNTIME_TYPEINFO;
 

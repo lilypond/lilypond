@@ -59,7 +59,7 @@ After quarrels,  MusiXTeX has been split into two branches:
 Daniel Taupin's now maintains the branch that still carries 
 the name MusiXTeX.
 
-=item OpusTeX, http://www.inf.ethz.ch/people/achermann/opustex
+=item OpusTeX, http://www.inf.ethz.ch/personal/achermann/
 
 Andreas Egler's branch is called MusiXTeX.
 
@@ -117,6 +117,10 @@ Notation editor for W95 and Mac
 Notation editor on Acorn machines.  Their developers call it ``best
 notation program available''.
 
+=item Ikarus,
+
+The music-engraving system described by [Wanske]
+
 =item Finale
 
 =item Score
@@ -142,10 +146,7 @@ batch program (like LilyPond).  It is aimed at publishers. Its history
 is more than fifteen years and Amadeus has been running under
 different Unix clones.  It uses MIDI-keyboard input
 
-
-
 =back
-
 
 =head2 Unknown
 

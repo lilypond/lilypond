@@ -105,7 +105,7 @@ Dstream::output (String s)
   if (local_silence_b_|| !os_l_)
     return ;
   
-  for (char const *cp = s  ; *cp; cp++)
+  for (char const *cp = s.ch_C (); *cp; cp++)
     switch (*cp) 
       {
       case '{':

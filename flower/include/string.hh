@@ -83,21 +83,27 @@ public:
   Byte const* byte_C() const;
   char* ch_l();
   Byte* byte_l();
-
+#if 0
   /// deprecated; use ch_C()
   operator char const*() const { return ch_C(); }
-    
+#endif
   String &operator =(String const & source);
 
   /// concatenate s
   void operator += (char const* s) { strh_ += s; }
   void operator += (String s);
 
-  /// is the string empty?
-  operator bool () const
+  bool empty_b () const;
+#if 0
+  /** is the string empty?
+
+    Ugh-ugh-thank-you-cygnus.  W32 barfs on this
+   */
+  operator bool () const;
   {
     return length_i (); 
   }
+#endif
   void append (String);
   void prepend (String);
 

@@ -16,7 +16,5 @@ fet_beginfont("font-en-tja", 20);
 
 input bolletjes;
 
-fet_endfont("font-en-tja");
-
 end.
 

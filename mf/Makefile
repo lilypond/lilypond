@@ -15,23 +15,6 @@ MFFILES = $(wildcard *.mf)
 EXTRA_DISTFILES = $(MFFILES) $(TEXFILES) TODO
 #
 
-FONT_FILES = $(wildcard *[0-9].mf)
-TABLES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.ly))
-#
-
-all: $(TABLES)
-
-localclean:
-	rm -f $(TABLES)
-
-$(outdir)/%.log: %.mf
-	mf $<
-	mv $(@F) $@
-	rm $(shell basename $< .mf).*gf
-
-$(outdir)/%.ly: $(outdir)/%.log
-	mf-to-table -o $@ $<
-	
 localinstall:
 	$(INSTALL) -d $(MFDIR)/lilypond
 	$(INSTALL) -m 644 $(MFFILES) $(MFDIR)/lilypond/

@@ -181,18 +181,6 @@ recognizing input.
 
 =item *
 
-Gather a  moderate number of test users and hackers
-
-=item *
-
-A website on GMP
-
-=item *
-
-Libs for r/w MIDI 
-
-=item *
-
 Think about interfaces for components.
 
 =item *
@@ -217,7 +205,7 @@ The GNU Music project is a project which aims to create free software
 for music printing and composing.  It was started in november '92 by a
 core team of four members (Bryan Ford <baford@cs.utah.edu>, David Linn
 <drl@vuse.vanderbilt.edu>, Francois Pinard <pinard@iro.umontreal.ca>,
-Neil Jerram <nj104@cus.cam.ac.uk> and in January '93 Robert Strandh
+Neil Jerram <nj104@cus.cam.ac.uk>) and in January '93 Robert Strandh
 <Robert.Strandh@labri.u-bordeaux.fr> joined.
 
 After serious disputes with Robert Strandh
