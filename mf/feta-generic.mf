@@ -32,6 +32,7 @@ if test = 0:
 	input feta-schrift;
 	input feta-banier;
 	input feta-klef;
+	input feta-timesig;
 else:
 %	input feta-bolletjes;	
 %	input feta-banier;
@@ -41,4 +42,5 @@ else:
 %	input feta-schrift;
 %	input feta-schrift;
 %	input feta-haak;
+%	input feta-timesig;
 fi
