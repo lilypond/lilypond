@@ -1,0 +1,17 @@
+
+% 
+% feta-braces26.mf --  implement 
+% 
+% source file of the Feta (Font-En-Tja) music font
+% 
+% (c) 1997, 1998 Han-Wen Nienhuys <hanwen@stack.nl>
+% 
+
+font_identifier:="feta-braces26";
+font_size 26;
+mode_setup;
+
+staffsize#:=26pt#;
+input feta-beugel;
+end.
+

@@ -8,10 +8,8 @@ done, might be done, or is an idea that we want to think about.
 Most of the items are marked in the code as well
 Grep -i for TODO, FIXME and ugh/ugr/urg.  
 
-.* TODO before 1.2
+.* TODO after 1.2
 . * Break_req handling is silly (break_forbid () + \break fucks up.)
-. * chord names. -- what about?
-. * Melismas(*) --> Melismata (at least in doco)
 . * ?  -Q, --find-old-relative show all changes in relative syntax
 What's old about absolute to relative conversion?  Could maybe use for
 abc2ly, midi2ly?
