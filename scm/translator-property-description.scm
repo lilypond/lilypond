@@ -210,6 +210,9 @@ The format is (NAME . ALTER), where NAME is from 0 .. 6 and ALTER from  -1, 1.
 ")
 (translator-property-description 'keySignature list? "The current key signature. This is an alist containing (NAME . ALTER) or ((OCTAVE . NAME) . ALTER) pairs, where NAME is from 0.. 6 and ALTER from -2,-1,0,1,2 ")
 
+(translator-property-description 'lastKeySignature list? "Last key
+signature before a key signature change.")
+
 (translator-property-description 'localKeySignature list? "the key
 signature at this point in the measure.  The format is the same as for keySignature. "
 ) 

@@ -11,6 +11,7 @@
 #include "grob.hh"
 #include "group-interface.hh"
 #include "axis-group-interface.hh"
+#include "hara-kiri-group-spanner.hh"
 #include "paper-def.hh"
 
 MAKE_SCHEME_CALLBACK (Align_interface,alignment_callback,2);
@@ -50,12 +51,10 @@ Align_interface::align_to_fixed_distance (Grob *me , Axis a)
   me->set_grob_property ("alignment-done", SCM_BOOL_T);
   
   SCM d =   me->get_grob_property ("stacking-dir");
-
   
   Direction stacking_dir = gh_number_p (d) ? to_dir (d) : CENTER;
   if (!stacking_dir)
     stacking_dir = DOWN;
-
 
   SCM force = me->get_grob_property ("forced-distance");
 
@@ -74,7 +73,26 @@ Align_interface::align_to_fixed_distance (Grob *me , Axis a)
   v.set_empty ();
   Array<Real> translates;
   
-  for (int j=0 ;  j < elems.size (); j++) 
+  for (int j= elems.size (); j--; ) 
+    {
+      /*
+	This is not very elegant, in that we need special support for
+	hara kiri. Unfortunately, the generic wiring of
+	force_hara_kiri_callback () (extent and offset callback) is
+	such that we might get into a loop if we call extent() or
+	offset() the elements.
+	
+	 
+       */
+      if (a == Y_AXIS
+	  && Hara_kiri_group_spanner::has_interface (elems[j]))
+	Hara_kiri_group_spanner::consider_suicide (elems[j]);
+
+      if (!ly_pair_p (elems[j]-> immutable_property_alist_))
+	elems.del(j);
+    }
+
+  for (int j =0; j < elems.size (); j++)
     {
       where_f += stacking_dir * dy;
       translates.push (where_f);

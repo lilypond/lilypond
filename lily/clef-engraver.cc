@@ -83,16 +83,6 @@ Clef_engraver::acknowledge_grob (Grob_info info)
 	  && gh_string_p (get_property ("clefGlyph")))
 	create_clef ();
 
-      if (Key_item::has_interface (item))
-	{
-	  /*
-	    Key_item adapts its formatting to make sure that the
-	    accidentals stay in the upper half of the staff. It needs
-	    to know c0-pos for this. (?)
-	  */
-
-	  item->set_grob_property ("c0-position", get_property ("centralCPosition"));
-	}
     } 
 }
 
@@ -204,6 +194,6 @@ Clef_engraver::start_translation_timestep ()
 ENTER_DESCRIPTION(Clef_engraver,
 /* descr */       "Determine and set reference point for pitches",
 /* creats*/       "Clef OctavateEight",
-/* acks  */       "bar-line-interface key-interface",
+/* acks  */       "bar-line-interface",
 /* reads */       "clefPosition clefGlyph centralCPosition clefOctavation explicitClefVisibility",
 /* write */       "");

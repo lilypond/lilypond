@@ -13,7 +13,6 @@
 #include "lily-guile.hh"
 #include "lily-proto.hh"
 
-
 class Hara_kiri_group_spanner 
 {
 public:

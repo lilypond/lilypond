@@ -26,14 +26,12 @@ class Key_engraver : public Engraver
 {
   void create_key (bool);
   void read_req (Key_change_req const * r);
+  Key_change_req * keyreq_l_;
+  Item * item_p_;
 
 public:
   TRANSLATOR_DECLARATIONS(Key_engraver);
 
-  Key_change_req * keyreq_l_;
-  Item * item_p_;
-  Protected_scm old_accs_;	// ugh. -> property
-    
 protected:
   virtual void initialize ();
   virtual void finalize ();
@@ -48,14 +46,15 @@ protected:
 void
 Key_engraver::finalize ()
 {
-  old_accs_ = SCM_EOL;		// unprotect can not  be called from dtor.
 }
+
 
 Key_engraver::Key_engraver ()
 {
   keyreq_l_ = 0;
   item_p_ = 0;
 }
+
 
 void
 Key_engraver::create_key (bool def)
@@ -64,19 +63,17 @@ Key_engraver::create_key (bool def)
     {
       item_p_ = new Item (get_property ("KeySignature"));
 
-      item_p_->set_grob_property ("c0-position", gh_int2scm (0));
-
+      item_p_->set_grob_property ("c0-position",
+				  get_property ("centralCPosition"));
+      
       // todo: put this in basic props.
-      item_p_->set_grob_property ("old-accidentals", old_accs_);
+      item_p_->set_grob_property ("old-accidentals", get_property ("lastKeySignature"));
       item_p_->set_grob_property ("new-accidentals", get_property ("keySignature"));
 
       Staff_symbol_referencer::set_interface (item_p_);
       Key_item::set_interface (item_p_);
-
-      
       announce_grob (item_p_,keyreq_l_);
     }
-
 
   if (!def)
     {
@@ -106,6 +103,7 @@ Key_engraver::try_music (Music * req_l)
   return  false;
 }
 
+
 void
 Key_engraver::acknowledge_grob (Grob_info info)
 {
@@ -122,27 +120,28 @@ Key_engraver::acknowledge_grob (Grob_info info)
     {
       create_key (true);
     }
-
 }
+
 
 void
 Key_engraver::create_grobs ()
 {
-  if (keyreq_l_ || old_accs_ != get_property ("keySignature"))
-    {
-      create_key (false);
-    }
+  if (keyreq_l_ ||
+      get_property ("lastKeySignature") != get_property ("keySignature"))
+    create_key (false);
 }
+
 
 void
 Key_engraver::stop_translation_timestep ()
-{ 
+{
   if (item_p_) 
     {
       typeset_grob (item_p_);
       item_p_ = 0;
     }
 }
+
 
 void
 Key_engraver::read_req (Key_change_req const * r)
@@ -162,34 +161,36 @@ Key_engraver::read_req (Key_change_req const * r)
 	  n = scm_delete_x (ly_car (s), n);
 	}
     }
+  
   for (SCM s = n ; gh_pair_p (s); s = ly_cdr (s))
     if (gh_scm2int (ly_cdar (s)))
       accs = gh_cons (ly_car (s), accs);
 
-  old_accs_ = get_property ("keySignature");
+  daddy_trans_l_->set_property ("lastKeySignature",
+				get_property ("keySignature"));
   daddy_trans_l_->set_property ("keySignature", accs);
 }
+
 
 void
 Key_engraver::start_translation_timestep ()
 {
   keyreq_l_ = 0;
-  old_accs_ = get_property ("keySignature");
+  daddy_trans_l_->set_property ("lastKeySignature", get_property ("keySignature"));
 }
+
 
 void
 Key_engraver::initialize ()
 {
   daddy_trans_l_->set_property ("keySignature", SCM_EOL);
-  old_accs_ = SCM_EOL;
+  daddy_trans_l_->set_property ("lastKeySignature", SCM_EOL);
 }
-
-
 
 
 ENTER_DESCRIPTION(Key_engraver,
 /* descr */       "",
 /* creats*/       "KeySignature",
 /* acks  */       "bar-line-interface clef-interface",
-/* reads */       "keySignature explicitKeySignatureVisibility createKeyOnClefChange keyAccidentalOrder keySignature",
-/* write */       "");
+/* reads */       "keySignature lastKeySignature explicitKeySignatureVisibility createKeyOnClefChange keyAccidentalOrder keySignature",
+/* write */       "lastKeySignature");

@@ -95,7 +95,6 @@ Separating_group_spanner::set_spacing_rods (SCM smob)
       if (rb)
 	find_rods (rb, ly_cdr (s));
     }
-
   find_musical_sequences (me);
 #if 0
   /*

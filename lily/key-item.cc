@@ -95,11 +95,16 @@ Key_item::brew_molecule (SCM smob)
 
   SCM newas = me->get_grob_property ("new-accidentals");  
   Molecule mol;
+
+  SCM c0s = me->get_grob_property ("c0-position");
+  int c0p=0;
+  if (gh_number_p (c0s))
+     c0p = gh_scm2int (c0s);
+
   /*
     SCM lists are stacks, so we work from right to left, ending with
     the cancellation signature.
   */
-  int c0p = gh_scm2int (me->get_grob_property ("c0-position"));
 
   for (SCM s = newas; gh_pair_p (s); s = ly_cdr (s))
     {
@@ -153,10 +158,6 @@ Key_item::brew_molecule (SCM smob)
 
   return mol.smobbed_copy ();
 }
-
-
-
-
 
 bool
 Key_item::has_interface (Grob*m)
