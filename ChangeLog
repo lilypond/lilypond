@@ -1,5 +1,11 @@
 2003-07-03  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* make/lilypond.redhat.spec.in: require GUILE >= 1.6.4-7
+
+	* scm/new-markup.scm (box-markup): new function.
+	(box-markup): new function. Contributed by Dick Schoeller
+	<schoeller@attbi.com>
+
 	* scm/lily.scm: remove reduce-no-unit 
 	(list-insert-separator): use fold-right
 
@@ -33,8 +39,8 @@
 
 2003-07-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
-	* lily/parser.yy (Repeated_music): bug fix beam multiplicity was
-	completely borked 
+	* lily/parser.yy (Repeated_music): bug fix, beam multiplicity was
+	completely borked
 
 	* lily/chord-tremolo-engraver.cc (try_music): warnings for user-errors.
 	(try_music): bug fix: beam multiplicity was completely borked.

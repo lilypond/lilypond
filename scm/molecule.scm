@@ -54,6 +54,7 @@
       xext yext)		       
 )
 
+
 (define-public (box-grob-molecule grob)
   "Make a box of exactly the extents of the grob.  The box precisely
 encloses the contents.
@@ -66,3 +67,21 @@ encloses the contents.
 		     (box-molecule xext (cons  (cdr yext) (+ (cdr yext) thick) ))
 		     (box-molecule (cons (cdr xext) (+ (cdr xext) thick)) yext)
 		     (box-molecule (cons (- (car xext) thick) (car xext)) yext))))
+
+
+;; TODO merge this and prev function. 
+(define-public (box-molecule mol thick padding)
+  "Add a box around MOL, producing a new molecule."
+  (let* (
+	 (x-ext (widen-interval (ly:molecule-get-extent mol 0) padding))
+	 (y-ext (widen-interval (ly:molecule-get-extent mol 1) padding))
+	 (x-rule (box-molecule (widen-interval x-ext thick)
+			       (cons 0 thick)))
+	 (y-rule (box-molecule (cons 0 thick) y-ext)))
+    
+    (set! mol (ly:molecule-combine-at-edge mol 0 1 y-rule (* 0.5 padding)))
+    (set! mol (ly:molecule-combine-at-edge mol 0 -1  y-rule (* 0.5 padding)))
+    (set! mol (ly:molecule-combine-at-edge mol 1 1  x-rule 0.0))  
+    (set! mol (ly:molecule-combine-at-edge mol 1 -1 x-rule 0.0))
+    
+    mol))
