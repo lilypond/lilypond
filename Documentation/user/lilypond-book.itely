@@ -1,96 +1,22 @@
-\input texinfo @c -*-texinfo-*-
-@setfilename lilypond-book.info
-@settitle lilypond-book Manual
-@afourpaper
-@titlepage
-@title lilypond-book Manual
-@subtitle Integrating lilypond with La@TeX{} and TeXinfo
-@author Tom Cato Amundsen and  Han-Wen Nienhuys
 
-     Copyright @copyright{} 1999 by the authors
-
-@vskip 0pt plus 1filll
-
-Permission is granted to make and distribute verbatim
-copies of this manual provided the copyright notice and
-this permission notice are preserved on all copies.
-
-Permission is granted to copy and distribute modified
-versions of this manual under the conditions for
-verbatim copying, provided also that the sections
-entitled ``Copying'' and ``GNU General Public License''
-are included exactly as in the original, and provided
-that the entire resulting derived work is distributed
-under the terms of a permission notice identical to this
-one.
-
-Permission is granted to copy and distribute
-translations of this manual into another language,
-under the above conditions for modified versions,
-except that this permission notice may be stated in a
-translation approved by the Free Software Foundation.
-
-@end titlepage
-
-@ifinfo
-This file documents GNU LilyPond.
-
-Copyright 1999 Tom Cato Amundsen and  Han-Wen Nienhuys
-
-
-Permission is granted to make and distribute verbatim
-copies of this manual provided the copyright notice and
-this permission notice are preserved on all copies.
-
-@ignore
-Permission is granted to process this file through TeX
-and print the results, provided the printed document
-carries a copying permission notice identical to this
-one except for the removal of this paragraph (this
-paragraph not being relevant to the printed manual).
-
-@end ignore
-
-Permission is granted to copy and distribute modified
-versions of this manual under the conditions for
-verbatim copying, provided also that the sections
-entitled ``Copying'' and ``GNU General Public License''
-are included exactly as in the original, and provided
-that the entire resulting derived work is distributed
-under the terms of a permission notice identical to this
-one.
-
-Permission is granted to copy and distribute
-translations of this manual into another language,
-under the above conditions for modified versions,
-except that this permission notice may be stated in a
-translation approved by the Free Software Foundation.
-
-@end ifinfo
 @tex
 \def\preLilypondExample{\vspace{0.5cm}}
 @end tex
 
-@contents
-@node Top
-@top
-
-
-
-@section Introduction
+@node lilypond-book
+@chapter  lilypond-book
 
 [ The tutorial part is at the moment commented out and moved to 
 the end of this document ]
 
-
 [TODO: THIS MANUAL IS NOT FINISHED YET. FIXME.]
 
 @command{lilypond-book} is a script that helps integrating lilypond with
-La@TeX{} or TeXinfo. @command{lilypond-book} runs Lilypond on fragments
+La@TeX{} or texinfo. @command{lilypond-book} runs Lilypond on fragments
 of lilypond in your source file, and includes the results into a
-document that can be processed with La@TeX{}, @command{makeinfo}
-or @command{texi2dvi}.
-The result is a text document with formatted music integrated.
+document that can be processed with La@TeX{}, @command{makeinfo} or
+@command{texi2dvi}.  The result is a text document with formatted music
+integrated.
 
 @command{lilypond-book} will do its best to try to align the music to
 the left and right margins. Currently all papersizes, one- and
@@ -194,6 +120,7 @@ you have to write this:
 
 Simply explained, every '@{', '@}' and '@@' has to be written as '@@@{',
 '@@@}' and '@@@@'. This is how it works in plain texinfo too.
+
 
 @section La@TeX{} reference
 
@@ -384,7 +311,8 @@ Ignores almost all La@TeX{} commands that changes margins and linewidths.
 
 @email{tca@@gnu.org, Tom Cato Amundsen}
 
-@bye
+
+
 @ignore
 
 So what does this look like? Well, here is an example:

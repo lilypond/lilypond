@@ -10,6 +10,12 @@
 (define all-backend-properties '())
 
 (define (grob-property-description symbol type? description)
+  (if (not (equal? (object-property symbol 'backend-doc) #f))
+      (begin
+	(ly-warn (string-append "Redefining " (symbol->string symbol) "\n"))
+	(exit 2)
+      ))
+  
   (set-object-property! symbol 'backend-type? type?)
   (set-object-property! symbol 'backend-doc description)
   (set! all-backend-properties (cons symbol all-backend-properties))
@@ -53,8 +59,6 @@ In the case of alignment grobs, this should contain only one number.")
 (grob-property-description 'bass list? " musical-pitch, optional.")
 (grob-property-description 'beam ly-grob? "pointer to the beam, if applicable.")
 (grob-property-description 'beam-space-function procedure? "function returning space given multiplicity.")
-(grob-property-description 'beam-space-function procedure? "function returning space given multiplicity.")
-(grob-property-description 'beam-thickness number? "thickness, measured in staffspace.")
 (grob-property-description 'beam-thickness number? "thickness, measured in staffspace.")
 (grob-property-description 'beam-width number? "width of the tremolo sign.")
 (grob-property-description 'beamAuto boolean? "enable autobeaming?.")
@@ -83,7 +87,6 @@ column as start/begin point. Only columns that have grobs or act as bounds are s
 (grob-property-description 'center-element ly-grob? "grob which will
 be at the center of the group after aligning (when using
 Align_interface::center_on_element). .")
-(grob-property-description 'chordChanges boolean? "only show changes in chord scheme?.")
 (grob-property-description 'bar-line-collapse-height number? "Minimum height of system start delimiter bar-line glyphs.  If equal or smaller, the bar-line is removed.")
 (grob-property-description 'brace-collapse-height number? "Minimum height of system start delimiter brace glyphs.  If equal or smaller, the brace is removed.")
 (grob-property-description 'bracket-collapse-height number? "Minimum height of system start delimiter bracket glyphs.  If equal or smaller, the bracket is removed.")
@@ -99,8 +102,7 @@ Align_interface::center_on_element). .")
 (grob-property-description 'default-neutral-direction dir? "Where to go if we're in the middle of the staff.")
 (grob-property-description 'delta-y number? "amount of ascension.")
 (grob-property-description 'dependencies list? "list of score-grob pointers that indicate who to compute first for certain global passes.")
-(grob-property-description 'details list? "alist of parameters for the curve shape.")
-(grob-property-description 'details list? "alist containing contaning a few magic constants.")
+(grob-property-description 'details list? "alist of parameters for detailed grob behavior.")
 (grob-property-description 'dir-forced boolean? "set if direction has been forced; read by Beam.")
 (grob-property-description 'dir-function procedure? "function of type (count total)->direction.  Default value: beam-dir-majority, also available: beam-dir-mean, beam-dir-median.")
 (grob-property-description 'dir-list list? "list of stem directions, needed for optical spacing correction.")
@@ -108,8 +110,7 @@ Align_interface::center_on_element). .")
 (grob-property-description 'direction-source ly-grob? "in case side-relative-direction is set, which grob  to get the direction from .")
 (grob-property-description 'dot ly-grob? "reference to Dots object.")
 (grob-property-description 'dot-count integer? "number of dots.")
-(grob-property-description 'duration-log integer? "2-log of the notehead duration.")
-(grob-property-description 'duration-log integer? "log of the duration, ie. 0=whole note, 1 = half note, etc.")
+(grob-property-description 'duration-log integer? "2-log of the notehead duration, i.e. 0=whole note, 1 = half note, etc.")
 (grob-property-description 'dy number? "set by beam: vertical travel height")
 (grob-property-description 'edge-height pair? "a cons that specifies the heights of the vertical egdes '(LEFT-height . RIGHT-height).")
 (grob-property-description 'edge-text pair? "a cons that specifies the texts to be set at the edges '(LEFT-text . RIGHT-text).")
@@ -200,8 +201,11 @@ Grob at least this long.
 Also works as a scaling parameter for the length of hyphen. .")
 
 ;; FIXME.
-(grob-property-description 'minimum-space number-pair? "(cons LEFT RIGHT).")
-(grob-property-description 'minimum-space number? "minimum distance that the victim should move (after padding).")
+(grob-property-description 'minimum-space number? "minimum distance that the victim should move (after padding).
+
+FIXME: also pair? (cons LEFT RIGHT)
+
+")
 
 (grob-property-description 'minimum-width number? "minimum-width of rest symbol, in staffspace.")
 (grob-property-description 'molecule-callback procedure? "Function taking grob as argument, returning a Scheme encoded Molecule.")

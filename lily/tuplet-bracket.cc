@@ -23,6 +23,13 @@
 #include "directional-element-interface.hh"
 #include "spanner.hh"
 
+/*
+  TODO:
+  staff-line collisions for horizontal tuplet brackets.
+ */
+
+
+
 void
 Tuplet_bracket::set_interface (Grob*me)
 {

@@ -1258,7 +1258,6 @@ verbose_request:
                a->set_mus_property ("tremolo-type", gh_int2scm ($1));
                $$ = a;
         }
-
 	| SCRIPT STRING 	{ 
 		Articulation_req * a = new Articulation_req;
 		a->set_mus_property ("articulation-type", $2);
