@@ -102,7 +102,7 @@ Instrument_name_engraver::acknowledge_grob (Grob_info i)
     therefore the location of its refpoint won't be very useful.
     
 
-    We could also just use staffsFound, but lets keep this working
+    We could also just use stavesFound, but lets keep this working
     without staffs as well.
 
   */

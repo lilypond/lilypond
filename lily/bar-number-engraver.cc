@@ -18,7 +18,7 @@
 
 /*
   
-TODO: detect the top staff (staffsFound), and acknowledge staff-group
+TODO: detect the top staff (stavesFound), and acknowledge staff-group
 system-start-delims. If we find these, and the top staff is in the
 staff-group, add padding to the bar number.
 

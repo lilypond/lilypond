@@ -162,7 +162,8 @@ Paper_column::before_line_breaking (SCM grob)
 	  ptrptr = SCM_CDRLOC (c);
 	}
       
-      c = gh_cdr (c);
+      if (gh_pair_p(c))
+	c = gh_cdr (c);
     }
 
   me->set_grob_property ("bounded-by-me", c);

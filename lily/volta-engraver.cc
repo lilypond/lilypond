@@ -67,7 +67,9 @@ Volta_engraver::process_music ()
 	volta engraver in score context or somesuch.
 	
       */
-      if (ly_car (scm_last_pair (staffs)) != staff_)
+      if (!gh_pair_p (staffs))
+	programming_error ("Huh? Volta engraver can't find staffs?");
+      else if (ly_car (scm_last_pair (staffs)) != staff_)
 	return ;
     }
 	
