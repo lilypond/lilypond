@@ -1350,7 +1350,11 @@ stem.
 @lilypond[fragment,verbatim]
 \relative c'' {
   \grace c8 c4 \grace { [c16 c16] } c4
-  \grace { \property Grace.Stem \override #'flag-style = #'() c16 } c4
+  \grace { 
+    \property Voice.Stem \override #'flag-style = #'() 
+    c16 
+    \property Voice.Stem \revert #'flag-style
+  } c4
 }
 @end lilypond
 
@@ -1602,7 +1606,7 @@ Folded repeats offer little more over simultaneous music.  However, it
 is to be expected that more functionality -- especially for the MIDI
 backend -- will be implemented at some point in the future.
 
-Volta repeats are printed over all staffs in a score. You must turn them
+Volta repeats are printed over all staves in a score. You must turn them
 off explicitly, for example by doing
 @example
   \property Staff.VoltaBracket = \turnOff
@@ -1717,11 +1721,11 @@ with slashes, and repeating that measure with percents.
 
 
 @menu
-* Rhythmic staffs::             
+* Rhythmic staves::             
 @end menu
 
-@node Rhythmic staffs
-@subsection Rhythmic staffs
+@node Rhythmic staves
+@subsection Rhythmic staves
 
 Sometimes you might want to show only the rhythm of a melody.  This can
 be done with the rhythmic staff. All pitches of notes on such a staff
@@ -1739,9 +1743,9 @@ are squashed, and the  staff itself  looks has  a single staff line:
 @node Piano music
 @section Piano music
 
-Piano music is an odd type of notation. Piano staffs are two normal
-staffs coupled with a brace.  The staffs are largely independent, but
-sometimes voices can cross between the two staffs.  The
+Piano music is an odd type of notation. Piano staves are two normal
+staves coupled with a brace.  The staves are largely independent, but
+sometimes voices can cross between the two staves.  The
 @code{PianoStaff} is especially built to handle this cross-staffing
 behavior.  In this section we discuss the @code{PianoStaff} and some
 other pianistic peculiarities.
@@ -1792,7 +1796,7 @@ terminating too soon.
 @cindex manual staff switches
 @cindex staff switch, manual
 
-Voices can be switched between staffs manually, using the following command:
+Voices can be switched between staves manually, using the following command:
 @example
   \translator Staff = @var{staffname} @var{music}
 @end example
@@ -1858,8 +1862,8 @@ You can specify an arpeggio sign on a chord by attaching an
   \context Voice <c\arpeggio e g c>
 @end lilypond
 
-When an arpeggio crosses staffs in piano music, you attach an arpeggio
-to the chords in both staffs, and set
+When an arpeggio crosses staves in piano music, you attach an arpeggio
+to the chords in both staves, and set
 @code{PianoStaff.connectArpeggios}.
 
 @lilypond[fragment,relative,verbatim]
@@ -2370,7 +2374,7 @@ problems in orchestral music.
 * Sound output for transposing instruments::  
 * Multi measure rests::         
 * Automatic part combining::    
-* Hara kiri staffs::            
+* Hara kiri staves::            
 @end menu
 
 @c .   {Rehearsal marks}
@@ -2622,8 +2626,8 @@ measure.
 @cindex @code{Voice_engraver}
 @cindex @code{A2_engraver}
 
-@node Hara kiri staffs
-@subsection Hara kiri staffs
+@node Hara kiri staves
+@subsection Hara kiri staves
 
 In orchestral scores, staff lines that only have rests are usually removed.
 This saves some space.  LilyPond also supports this through the hara

@@ -1,5 +1,5 @@
 \header  {
-  texidoc = "grace notes in different voices/staffs are synchronized."
+  texidoc = "grace notes in different voices/staves are synchronized."
 }
 
 \score  {\notes < \context Staff  { c2

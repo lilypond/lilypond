@@ -163,7 +163,7 @@ stemRightBeamCount.
      '(BarLine)
      '(
       whichBar
-      staffsFound
+      stavesFound
       )))
 
 
@@ -172,7 +172,7 @@ stemRightBeamCount.
     (engraver-description
      "Bar_number_engraver"
      "A bar number is created whenever measurePosition is zero. It is
-put on top of all staffs, and appears only at  left side of the staff."
+put on top of all staves, and appears only at  left side of the staff."
      '(BarNumber)
      '(
       currentBarNumber
@@ -344,7 +344,7 @@ If omitted, then dots appear on top of the notes.
      '(
 
       rehearsalMark
-      staffsFound
+      stavesFound
       )))
 
 
@@ -690,7 +690,7 @@ everything in the second thread.
     'Timing_engraver
     (engraver-description
      "Timing_engraver"
-     " Responsible for synchronizing timing information from staffs. 
+     " Responsible for synchronizing timing information from staves. 
     Normally in @code{Score}.  In order to create polyrhythmic music,
     this engraver should be removed from @code{Score} and placed in
     @code{Staff}."
@@ -794,8 +794,8 @@ everything in the second thread.
 ")
 (GrandStaff . "
     Contains @code{Staff} or @code{RhythmicStaff} contexts.  It adds a
-    brace on the left side, grouping the staffs together.  The bar
-    lines of the contained staffs are connected vertically.  It can
+    brace on the left side, grouping the staves together.  The bar
+    lines of the contained staves are connected vertically.  It can
     contain @code{Staff} contexts.")
 
 (PianoStaff . "
@@ -805,13 +805,13 @@ everything in the second thread.
 
 (StaffGroup . "
     Contains @code{Staff} or @code{RhythmicStaff} contexts.  Adds a
-    bracket on the left side, grouping the staffs together.  The bar
-    lines of the contained staffs are connected vertically.  It can
+    bracket on the left side, grouping the staves together.  The bar
+    lines of the contained staves are connected vertically.  It can
     contain @code{Staff}, @code{RhythmicStaff}, @code{GrandStaff}, or
     @code{Lyrics} contexts.
 ")
 (ChoirStaff . "
-    Identical to @code{StaffGroup} except that the contained staffs
+    Identical to @code{StaffGroup} except that the contained staves
     are not connected vertically.
 ")
 (Score . "
@@ -819,7 +819,7 @@ everything in the second thread.
     contain a @code{Score} context.  This context handles the
     administration of time signatures.  It also makes sure that items
     such as clefs, time signatures, and key-signatures are aligned
-    across staffs.  It can contain @code{Lyrics}, @code{Staff},
+    across staves.  It can contain @code{Lyrics}, @code{Staff},
     @code{RhythmicStaff}, @code{GrandStaff}, @code{StaffGroup}, and
     @code{ChoirStaff} contexts.
 

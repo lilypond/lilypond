@@ -18,7 +18,7 @@ two =  \notes\relative c{
 	\midi{}
 }
 
-% A full example with two staffs
+% A full example with two staves
 %
 % Type:
 %

@@ -39,7 +39,7 @@ StaffContext=\translator {
 
 	% explicitly set instrument, so we don't get 
 	% weird effects when doing instrument names for
-	% piano staffs
+	% piano staves
 
 	instrument = ##f
 	instr = ##f

@@ -14,7 +14,7 @@
 #include "lily-proto.hh"
 
 /*
-  Braces/brackets across staffs.
+  Braces/brackets across staves.
  */
 class System_start_delimiter
 {

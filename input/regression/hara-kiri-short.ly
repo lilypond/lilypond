@@ -1,8 +1,8 @@
 \version "1.3.146"
 \header{
 texidoc="
-Hara kiri staffs kill themselves if they are empty.  This example really
-contains two staffs, but the second contains only spaces, and is
+Hara kiri staves kill themselves if they are empty.  This example really
+contains two staves, but the second contains only spaces, and is
 therefore removed.  Also, any staff brackets and braces are removed.
 "
 }

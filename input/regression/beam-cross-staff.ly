@@ -1,7 +1,7 @@
 \version "1.3.146"
 \header{
 texidoc="
-Beams can be typeset over fixed distance aligned staffs, beam
+Beams can be typeset over fixed distance aligned staves, beam
 beautification doesn't really work, but knees do. Beams should be
 behave well, wherever the switching point is.
 "

@@ -409,7 +409,7 @@ lilypond_header:
 */
 assignment:
 	STRING {
-		THIS->remember_spot ();
+		THIS->push_spot ();
 	}
 	/* cont */ '=' identifier_init  {
 
@@ -535,7 +535,7 @@ translator_spec_body:
 */
 score_block:
 	SCORE { 
-		THIS->remember_spot ();
+		THIS->push_spot ();
 	}
 	/*cont*/ '{' score_body '}' 	{
 		THIS->pop_spot ();
@@ -806,7 +806,7 @@ Composite_music:
 		chm->set_spot (*$3->origin ());
 	}
 	| GRACE Music {
-#if 0
+#if 1
 	/*
 		The other version is for easier debugging  of
 		Sequential_music_iterator in combination with grace notes.
@@ -856,7 +856,7 @@ Composite_music:
 		$$ = csm;
 	}
 	| TIMES {
-		THIS->remember_spot ();
+		THIS->push_spot ();
 	}
 	/* CONTINUED */ 
 		fraction Music 	
@@ -1076,18 +1076,19 @@ scalar:
 
 
 request_chord:
-	pre_requests simple_element post_requests	{
-		Music_sequence *l = dynamic_cast<Music_sequence*> ($2);
+	pre_requests {
+		THIS->push_spot ();
+	} /*cont */ simple_element post_requests	{
+		Music_sequence *l = dynamic_cast<Music_sequence*> ($3);
 		if (l) {
 			for (int i=0; i < $1->size (); i++)
 				l->append_music ($1->elem (i));
-			for (int i=0; i < $3->size (); i++)
-				l->append_music ($3->elem (i));
+			for (int i=0; i < $4->size (); i++)
+				l->append_music ($4->elem (i));
 			}
 		else
 			programming_error ("Need Sequence to add music to");
- 		$$ = $2;
-		
+ 		$$ = $3;
 	}
 	| command_element
 	;
@@ -1675,6 +1676,8 @@ tremolo_type:
 
 simple_element:
 	pitch exclamations questions optional_notemode_duration {
+
+		Input i = THIS->pop_spot ();
 		if (!THIS->lexer_p_->note_state_b ())
 			THIS->parser_error (_ ("Have to be in Note mode for notes"));
 
@@ -1691,40 +1694,36 @@ simple_element:
 		Simultaneous_music*v = new Request_chord (SCM_EOL);
 		v->set_mus_property ("elements", gh_list (n->self_scm (), SCM_UNDEFINED));
 		
-/*
-FIXME: location is one off, since ptich & duration don't contain origin refs. 
-*/
-		v->set_spot (THIS->here_input ());
-		n->set_spot (THIS->here_input ());
-
+		v->set_spot (i);
+		n->set_spot (i);
 		$$ = v;
 	}
 	| RESTNAME optional_notemode_duration		{
 
-		SCM e = SCM_UNDEFINED;
-		  if (ly_scm2string ($1) =="s")
-		    { /* Space */
-		      Skip_req * skip_p = new Skip_req;
-		      skip_p->set_mus_property ("duration" ,$2);
-
-		      skip_p->set_spot (THIS->here_input ());
+		Input i = THIS->pop_spot ();
+ 		SCM e = SCM_UNDEFINED;
+ 		if (ly_scm2string ($1) =="s") {
+			/* Space */
+			Skip_req * skip_p = new Skip_req;
+			skip_p->set_mus_property ("duration" ,$2);
+			skip_p->set_spot (i);
 			e = skip_p->self_scm ();
-		    }
-		  else
-		    {
-		      Rest_req * rest_req_p = new Rest_req;
-		      rest_req_p->set_mus_property ("duration", $2);
-		      rest_req_p->set_spot (THIS->here_input ());
+		  }
+		  else {
+ 			Rest_req * rest_req_p = new Rest_req;
+		      	rest_req_p->set_mus_property ("duration", $2);
+		      	rest_req_p->set_spot (i);
 			e = rest_req_p->self_scm ();
 		    }
-		  Simultaneous_music* velt_p = new Request_chord (SCM_EOL);
+ 		Simultaneous_music* velt_p = new Request_chord (SCM_EOL);
 		velt_p-> set_mus_property ("elements", gh_list (e,SCM_UNDEFINED));
-		  velt_p->set_spot (THIS->here_input ());
+		velt_p->set_spot (i);
 
-
-		  $$ = velt_p;
+ 		$$ = velt_p;
 	}
 	| MULTI_MEASURE_REST optional_notemode_duration  	{
+		Input i = THIS->pop_spot ();
+
 		Skip_req * sk = new Skip_req;
 		sk->set_mus_property ("duration", $2);
 		Span_req *sp1 = new Span_req;
@@ -1748,19 +1747,20 @@ FIXME: location is one off, since ptich & duration don't contain origin refs.
 		$$->set_mus_property ("elements", ms);
 	}
 	| STRING optional_notemode_duration 	{
+		Input i = THIS->pop_spot ();
 
 		Lyric_req* lreq_p = new Lyric_req;
                 lreq_p->set_mus_property ("text", $1);
 		lreq_p->set_mus_property ("duration",$2);
-		lreq_p->set_spot (THIS->here_input ());
+		lreq_p->set_spot (i);
 		Simultaneous_music* velt_p = new Request_chord (SCM_EOL);
 		velt_p->set_mus_property ("elements", gh_list (lreq_p->self_scm (), SCM_UNDEFINED));
 
-
 		$$= velt_p;
-
 	}
 	| chord {
+		Input i = THIS->pop_spot ();
+
 		if (!THIS->lexer_p_->chord_state_b ())
 			THIS->parser_error (_ ("Have to be in Chord mode for chords"));
 		$$ = $1;

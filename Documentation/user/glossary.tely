@@ -157,11 +157,15 @@ the duration of the long a. is proportionate to that of the main note.
 
 \property Score.TextScript \set #'font-style = #'large
 <d4_"notation" a fis> r 
-{ \property Grace.Stem \override #'flag-style = #""
-  \grace g16 }
+{ \property Voice.Stem \override #'flag-style = #""
+  \grace g16
+  \property Voice.Stem \revert #'flag-style
+   }
 fis8 e16 fis 
-{ \property Grace.Stem \override #'flag-style = #""
-  \grace a16 }
+{ \property Voice.Stem \override #'flag-style = #""
+  \grace a16
+  \property Voice.Stem \revert #'flag-style
+  }
 g8 fis16 g | a4 \bar "||" }
 \notes\relative c'' {
 <d4_"performance" a fis> r g16 () fis e fis a () g fis g | a4 \bar "||" }
@@ -321,7 +325,7 @@ ES:  llave, corchete
 I: graffa, F: accolade, D: Klammer, Klavierklammer, Akkolade, Chorklammer, NL:
 accolade, teksthaak, DK: klamme, S: klammer, N:
 
-Symbol at the start of a system connecting staffs. Curly braces are used
+Symbol at the start of a system connecting staves. Curly braces are used
 for connecting piano staves, angular brackets for connecting parts in an
 orchestral or choral score.
 
@@ -1219,7 +1223,7 @@ S: ackolad, b@"ojd klammer, N: .
 
 @w{@ar{}@strong{brace}}
 
-A combination of two staffs with a brace.  Usually used for piano music.
+A combination of two staves with a brace.  Usually used for piano music.
 
 @item grave
 ES: grave, I: grave, F: grave, D: grave, langsam, traurig, NL: grave, ernstig, DK: grave, S: grave, N:
@@ -2241,9 +2245,9 @@ notehead.
 ES: pentagrama, I: pentagramma, rigo (musicale), F: port@'ee, D: Notensystem, NL: (noten)balk;
 partij, DK: nodesystem, S: notsystem, N: .
 
-pl. staves or staffs. A series of (normally 5) horizontal lines upon and
-between which the musical notes are written, thus indicating (in connection
-with a @w{@ar{}@strong{clef}}) their pitch. Staffs for
+pl. staves. A series of (normally 5) horizontal lines upon and between
+which the musical notes are written, thus indicating (in connection
+with a @w{@ar{}@strong{clef}}) their pitch. Staves for
 @w{@ar{}@strong{percussion}} instruments may have fewer lines.
 
 @item stem

@@ -59,7 +59,7 @@ Mark_engraver::Mark_engraver ()
 void
 Mark_engraver::initialize ()
 {
-  daddy_trans_l_->set_property ("staffsFound", SCM_EOL); // ugh: sharing with barnumber grav.
+  daddy_trans_l_->set_property ("stavesFound", SCM_EOL); // ugh: sharing with barnumber grav.
 }
 
 
@@ -70,10 +70,10 @@ Mark_engraver::acknowledge_grob (Grob_info inf)
   if (Staff_symbol::has_interface (s)
       || to_boolean (s->get_grob_property ("invisible-staff")))
     {
-      SCM sts = get_property ("staffsFound");
+      SCM sts = get_property ("stavesFound");
       SCM thisstaff = inf.elem_l_->self_scm ();
       if (scm_memq (thisstaff, sts) == SCM_BOOL_F)
-	daddy_trans_l_->set_property ("staffsFound", gh_cons (thisstaff, sts));
+	daddy_trans_l_->set_property ("stavesFound", gh_cons (thisstaff, sts));
     }
   else if (text_p_ && Bar::has_interface (s))
     {
@@ -90,7 +90,7 @@ Mark_engraver::stop_translation_timestep ()
 {
   if (text_p_)
     {
-      text_p_->set_grob_property ("side-support-elements" , get_property ("staffsFound"));
+      text_p_->set_grob_property ("side-support-elements" , get_property ("stavesFound"));
       typeset_grob (text_p_);
       text_p_ =0;
     }

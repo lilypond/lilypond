@@ -3,7 +3,7 @@
 (Message vers:9)
 To: Adrian Mariano <adrian@cam.cornell.edu>
 cc: gnu-music-discuss@gnu.org
-Subject: Re: Switching from one staff to two staffs 
+Subject: Re: Switching from one staff to two staves 
 Reply-To: janneke@gnu.org
 In-reply-to: Your message of "Tue, 19 Jan 1999 12:27:10 EST."
              <199901191727.MAA29757@avalanche.cam.cornell.edu> 
@@ -13,7 +13,7 @@ From: Jan Nieuwenhuizen <jan@beavis-nt>
 On Tuesday, 19 January 1999, Adrian Mariano writes:
 
 > I want to typeset something which starts out with just one staff and then
-> harmony comes in and there are two staffs.  I can't figure out how to do
+> harmony comes in and there are two staves.  I can't figure out how to do
 > this.  I get an extra blank staff during the second section (using
 > Lily 1.1.15):
 

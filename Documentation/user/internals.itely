@@ -303,7 +303,7 @@ properties.
 
 A grob is often associated with a symbol, but some grobs do not print
 any symbols. They take care of grouping objects. For example, there is a
-separate grob that stacks staffs vertically. The @code{NoteCollision}
+separate grob that stacks staves vertically. The @code{NoteCollision}
 is also an abstract grob: it only moves around chords, but doesn't print
 anything.
 

@@ -1,5 +1,5 @@
 \header {
-texidoc="slur or long note on other staffs fool lily into extending melisma"
+texidoc="slur or long note on other staves fool lily into extending melisma"
 }
 \score {
   <

@@ -128,7 +128,7 @@ this much extra octavation. Values of 7 and -7 are common.")
 (translator-property-description 'combineParts boolean? "try to combine parts?")
 (translator-property-description 'connectArpeggios boolean? " If
 set, connect all arpeggios that are found.  In this way, you can make
-arpeggios that cross staffs.
+arpeggios that cross staves.
 ")
 (translator-property-description 'createKeyOnClefChange boolean? "Print a key signature whenever the clef is changed.")
 (translator-property-description 'crescendoText markup? "Text to print at start of non-hairpin crecscendo, ie: @samp{cresc.}")
@@ -294,7 +294,7 @@ help with debugging large scores.")
 (translator-property-description 'split-interval boolean? "set if part-combiner separated voices based on splitInterval.")
 (translator-property-description 'squashedPosition integer? " Vertical position of
 squashing for Pitch_squash_engraver.")
-(translator-property-description 'staffsFound list? "list of all staff-symbols found.")
+(translator-property-description 'stavesFound list? "list of all staff-symbols found.")
 (translator-property-description 'stanza string? "Stanza `number' to print at start of a verse. Use in LyricsVoice context.")
 
 

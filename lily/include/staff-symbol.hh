@@ -1,5 +1,5 @@
 /*
-  staffsym.hh -- declare Staff_symbol
+  staff-symbol.hh -- declare Staff_symbol
 
   source file of the GNU LilyPond music typesetter
 
@@ -7,8 +7,8 @@
 */
 
 
-#ifndef STAFFSYM_HH
-#define STAFFSYM_HH
+#ifndef STAFF_SYMBOL_HH
+#define STAFF_SYMBOL_HH
 
 #include "lily-guile.hh"
 
@@ -25,4 +25,4 @@ public:
   static bool has_interface (Grob*);
   static void set_interface (Grob*);
 };
-#endif // STAFFSYM_HH
+#endif // STAFF_SYMBOL_HH

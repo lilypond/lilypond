@@ -16,7 +16,7 @@
 
 
 /** 
-  Make arpeggios that span multiple staffs.  Catch arpeggios, and span a
+  Make arpeggios that span multiple staves.  Catch arpeggios, and span a
   Span_arpeggio over them if we find more than two arpeggios.
   */
 class Span_arpeggio_engraver : public Engraver
