@@ -18,8 +18,19 @@ void
 Spanner::do_print()const
 {
 #ifndef NPRINT
-    mtor << "Between col " << 
-	left_col_l_->rank_i() << ", " << right_col_l_->rank_i() ;
+    mtor << "Between col ";
+// huh? this does not work 
+//    mtor << ( left_col_l_ ? left_col_l_->rank_i() : "nop" );
+    if ( left_col_l_ )
+    	mtor << left_col_l_->rank_i();
+    else 
+	mtor << "nop";
+    mtor << ", ";
+//    mtor << ( right_col_l_ ? right_col_l_->rank_i() : "nop" );
+    if ( right_col_l_ )
+    	mtor << right_col_l_->rank_i();
+    else 
+	mtor << "nop";
     if (broken_into_l_arr_.size())
 	mtor << "with broken pieces\n";
 #endif

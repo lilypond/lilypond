@@ -7,8 +7,8 @@
 */
 
 
-#ifndef MIDIDEF_HH
-#define MIDIDEF_HH
+#ifndef MIDI_DEF_HH
+#define MIDI_DEF_HH
 #include "lily-proto.hh"
 #include "real.hh"
 #include "string.hh"
@@ -25,18 +25,25 @@ struct Midi_def {
     /// output file name
     String outfile_str_;
 
+    Assoc<String, Real> *real_vars_p_;
+    Input_translator* itrans_p_;
+
     /// duration of whole note
     Real whole_seconds_f_;
 
     Midi_def();
-    Midi_def(Midi_def const& midi_c_r);
+    Midi_def( Midi_def const& midi_c_r );
     ~Midi_def();
 
     Real duration_to_seconds_f(Moment);
+    Global_translator* get_global_translator_p() const;
+    Real get_var( String s ) const;
     int get_tempo_i( Moment moment );
-    void set_tempo( Moment moment, int count_per_minute_i );
     void print() const;
+    void set( Input_translator* itrans_p );
+    void set_var( String s, Real r );
+    void set_tempo( Moment moment, int count_per_minute_i );
 };
 
-#endif // MIDIDEF_HH //
+#endif // MIDI_DEF_HH
 
