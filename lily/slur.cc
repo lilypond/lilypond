@@ -23,8 +23,8 @@ Slur::Slur()
 Offset
 Slur::center() const
 {
-    int pos1 = encompass.top()->position;
-    int pos2 = encompass[0]->position;
+    int pos1 = encompass.top()->position_i_;
+    int pos2 = encompass[0]->position_i_;
 
     int dy =  pos1-pos2;
 
@@ -45,7 +45,7 @@ Slur::set_default_dir()
 {
     int sumpos=0;
     for (int i=0; i < encompass.size(); i ++) {
-	sumpos += encompass[i]->position;
+	sumpos += encompass[i]->position_i_;
     }
 
     /* should consult stems */
@@ -97,20 +97,20 @@ Slur::brew_molecule_p() const
 
     int minp=1000, maxp=-1000;	// todo    
     for (int i=0; i<encompass.size(); i++) {
-	minp = encompass[i]->position <? minp;
-	maxp = encompass[i]->position >? maxp;
+	minp = encompass[i]->position_i_ <? minp;
+	maxp = encompass[i]->position_i_ >? maxp;
     }
     assert(encompass.size()>0);	// todo
     
     Notehead *lnote_p =encompass[0];
     Notehead *rnote_p =encompass.top();
-    int lpos_i = lnote_p->position;
-    int rpos_i = rnote_p->position;
-    Offset  left_off(lnote_p->x_dir, lpos_i + 2*dir_i_);
-    Offset right_off(lnote_p->x_dir, rpos_i + 2*dir_i_);
-    if (!lnote_p->extremal)
+    int lpos_i = lnote_p->position_i_;
+    int rpos_i = rnote_p->position_i_;
+    Offset  left_off(lnote_p->x_dir_i_, lpos_i + 2*dir_i_);
+    Offset right_off(lnote_p->x_dir_i_, rpos_i + 2*dir_i_);
+    if (!lnote_p->extremal_i_)
 	left_off += Offset(0.5, -dir_i_);
-    if (!rnote_p->extremal)
+    if (!rnote_p->extremal_i_)
 	right_off+= Offset(-0.5, -dir_i_);
     
     int dy = int(right_off.y - left_off.y);

@@ -59,7 +59,13 @@ in emacs:
 		  '(lambda() (c-set-style "Stroustrup")
 		     )
 		  )
+If you like using font-lock, you can also add this to your F<.emacs>:
 
+	(setq font-lock-maximum-decoration t)
+	(setq c++-font-lock-keywords-3 
+	      (cons
+	       '("\\b\\([a-zA-Z_]+_\\)\\b" 1 font-lock-variable-name-face)
+	       c++-font-lock-keywords-3))
 
 =head2 CLASSES and TYPES:
 
