@@ -46,7 +46,7 @@ sect(Ftp)
 We will upload major releases to the following sites:
 
 description(
-dit(lurl(ftp://sunsite.unc.edu/pub/Linux/apps/sound/convert))
+dit(lurl(ftp://metalab.unc.edu/pub/Linux/apps/sound/convert))
     The GNU/Linux FTP site
 
 dit(lurl(ftp://ftp.dante.de/tex-archive/support/lilypond))
