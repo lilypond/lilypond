@@ -855,7 +855,7 @@ ADD_INTERFACE (Grob, "grob-interface",
   "X-offset-callbacks Y-offset-callbacks X-extent-callback molecule cause "
 "Y-extent-callback molecule-callback extra-offset spacing-procedure "
 "staff-symbol interfaces dependencies X-extent Y-extent extra-X-extent "
-"causes meta layer before-line-breaking-callback "
+"meta layer before-line-breaking-callback "
 "after-line-breaking-callback extra-Y-extent minimum-X-extent "
 "minimum-Y-extent transparent");
 

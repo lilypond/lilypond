@@ -46,6 +46,9 @@ HINTS FOR STYLE
 * don't refer to LilyPond in the text. The reader knows what the
 manual is about
 
+* if you do, capitalization is LilyPond.
+
+
 * don't explicitly refer to the reader/user.  There is no one else
 besides the reader and the writer.
 

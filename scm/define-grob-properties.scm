@@ -514,7 +514,6 @@ staff in a row more often, when the heights of the notes vary.
 
 (grob-property-description 'accidental-grob ly:grob? "Accidental for this note.")
 
-(grob-property-description 'causes list? "list of cause objects; these can be music objects or grobs.")
 (grob-property-description 'flag-count number? "")
 (grob-property-description 'chord-tremolo boolean? "if set, this beam is a tremolo. TODO: use interface for this!")
 (grob-property-description 'chord pair? "?")

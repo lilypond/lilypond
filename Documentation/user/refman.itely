@@ -742,7 +742,7 @@ such as keys, clefs and time signatures.
 
 Notes, dynamic signs, etc. are grouped
 with a set of horizontal lines, into a staff (plural `staves'). In our
-system, these lines are drawn using a separate graphical object called
+system, these lines are drawn using a separate layout object called
 staff symbol.  
 
 This object is created whenever a @internalsref{Staff} context is
@@ -1305,7 +1305,7 @@ Some beams should be horizontal. These are so-called concave beams.
 @cindex automatic beams, tuning
 @cindex tuning automatic beaming
 
-[TODO: use \applycontext]
+@c [TODO: use \applycontext]
 
 In normal time signatures, automatic beams can start on any note but can
 only end in a few positions within the measure: beams can end on a beat,
@@ -4076,7 +4076,7 @@ adding fermatas.
 @internalsref{MultiMeasureRestMusicGroup},
 @internalsref{MultiMeasureRest}, 
 
-The graphical object @internalsref{MultiMeasureRestNumber} is for the
+The layout object @internalsref{MultiMeasureRestNumber} is for the
 default number, and @internalsref{MultiMeasureRestText} for user
 specified texts.
 
@@ -6659,48 +6659,13 @@ affecting a whole set of objects.  Second, you can select one specific
 object, and set a object property in that object.
 
 @menu
-* Predefined variables::        
 * Tuning objects ::             
+* Constructing a tweak::        
 * Applyoutput::                 
 * Outputproperty::              
 * Font selection::              
 * Text markup::                 
 @end menu
-
-@node Predefined variables
-@subsection Predefined variables
-
-
-
-slurUp   
-slurDown 
-slurBoth 
-
-slurDotted
-slurSolid
-
-phrasingSlurUp   
-phrasingSlurDown 
-phrasingSlurBoth 
-
-shiftOn  
-shiftOnn  
-shiftOnnn  
-shiftOff  
-
-
-dynamicUp  
-dynamicDown 
-dynamicBoth 
-
-scriptUp
-scriptDown
-scriptBoth 
-
-dotsUp 
-dotsDown 
-dotsBoth 
-
 
 
 
@@ -6723,7 +6688,7 @@ in @file{scm/grob-description.scm}), includes the following definitions for
 
 
 By adding variables on top of these existing definitions, the system
-defaults is overriden, and the appearance of a graphical objects is
+defaults is overriden, and the appearance of a layout objects is
 altered.
 
 @syntax
@@ -6839,7 +6804,7 @@ work, and may cause crashes or other anomalous behavior.
 
 @internalsref{OverrideProperty}, @internalsref{RevertProperty},
 @internalsref{PropertySet}, @internalsref{backend properties},
-@internalsref{All Graphical Objects}.
+@internalsref{All layout objects}.
 
 
 @refbugs
@@ -6848,6 +6813,154 @@ The backend is not very strict in type-checking object properties.
 Cyclic references in @var{value} cause hangs and/or crashes.
 Similarly, reverting properties that are system defaults may also lead
 to crashes.
+
+@node Constructing a tweak
+@subsection Constructing a tweak
+
+
+@cindex internal documentation
+@cindex finding graphical objects
+@cindex graphical object descriptions 
+@cindex tweaking
+@cindex @code{\override}
+@cindex @code{\set}
+@cindex internal documentation
+
+
+
+Using @code{\override} and @code{\set}, requires three pieces of
+information: the name of the layout object, the context and the name
+of the property.  We demonstrate how to glean this information from
+the notation manual and the generated documentation.
+
+The generated documentation is a set of HTML pages which should be
+included if you installed a binary distribution, typically in
+@file{/usr/share/doc/lilypond}.  They are also available on the web:
+go to the @uref{LilyPond website,http://lilypond.org}, click
+``Documentation: Index'' on the side bar, look in the ``Information
+for users'' section, and click on ``Documentation of internals.''  It
+is advisable to bookmark either the local HTML files if possilbe. They
+will load faster than the ones on the web.  If you use the version
+from the web, you must check whether the documentation matches the
+program version: the documentation is generated from the definitions
+that the program uses, and therefore it is strongly tied to the
+LilyPond version.
+
+
+@c  [TODO: revise for new site.]
+
+Suppose we want to move the fingering indication in the fragment below
+@lilypond[relative=2]
+c-2
+\stemUp
+f
+@end lilypond
+
+If you visit the documentation of @code{Fingering} (in @ref{Fingering
+instructions}), you will notice that it says
+
+@quotation
+@seealso
+
+@internalsref{FingerEvent} and @internalsref{Fingering}.
+@end quotation
+
+This implies that the fingerings, once entered, are internally stored
+as @code{FingerEvent} music objects. When printed, a @code{Fingering}
+layout object is created for every @code{FingerEvent}.
+
+@ifhtml
+When we follow the link of @internalsref{Fingering},
+@end ifhtml
+@ifnothtml
+When we look up @internalsref{Fingering} in the generated
+documentation,
+@end ifnothtml
+we see a list of interfaces. The Fingering object has a number of
+different functions, and each of those is captured in an interface.
+
+The @code{Fingering} object has a fixed size
+(@internalsref{item-interface}), the symbol is a piece of text
+(@internalsref{text-interface}), whose font can be set
+(@internalsref{font-interface}).  It is centered horizontally
+(@internalsref{self-alignment-interface}), it is placed next to other
+objects (@internalsref{side-position-interface}) vertically, and its
+placement is coordinated with other scripts
+(@internalsref{text-script-interface}).  It also has the standard
+@internalsref{grob-interface} with all the variables that come with
+it.  Finally, it denotes a fingering instruction, so it has
+@internalsref{finger-interface}.
+
+For the vertical placement, we have to look under
+@code{side-position-interface}.
+@quotation
+ side-position-interface
+
+  Position a victim object (this one) next to other objects (the
+  support).  In this case, the direction signifies where to put the
+  victim object relative to the support (left or right, up or down?)
+@end quotation
+below this description, the variable @code{padding} is described as
+@quotation
+@table @code
+@item padding
+ (dimension, in staff space)
+
+   add this much extra space between objects that are next to each
+other. Default value: @code{0.6}
+@end table
+@end quotation
+
+By increasing the value of @code{padding}, we can move away the
+fingering.  The following command inserts 3 staff spaces of white
+between the note and the fingering
+@example
+\once \property Voice.Fingering \set #'padding = #3
+@end example
+
+Before the object is created, we get
+@lilypond[relative=2,fragment]
+\once \property Voice.Fingering
+  \set #'padding = #3
+c-2
+\stemUp
+f
+@end lilypond
+
+The context name @code{Voice} in the example above can be determined
+as follows. In the documentation for @internalsref{Fingering}, it says
+@quotation
+Fingering grobs are created by: @internalsref{Fingering_engraver}
+@end quotation
+
+Clicking @code{Fingering_engraver} shows the documentation of
+the module responsible for interpreting the fingering instructions and
+translating them to a @code{Fingering} object.  Such a module is called
+an @emph{engraver}.  The documentation of the @code{Fingering_engraver}
+says
+@example
+Fingering_engraver is part of contexts: Voice and TabVoice
+@end example
+so tuning the settings for Fingering should be done using either
+@example
+  \property Voice.Fingering \set @dots{}
+@end example
+or
+@example
+  \property TabVoice.Fingering \set @dots{}
+@end example
+
+Since the @code{TabVoice} is only used for tab notation, we see that
+the first guess @code{Voice} was indeed correct.
+
+Of course, the tweak may also done in a larger context than
+@code{Voice}, for example, @internalsref{Staff} or
+@internalsref{Score}.
+
+The internals document also contains alphabetical lists of
+@internalsref{All contexts}, @internalsref{All layout objects} and
+@internalsref{All music types}, so you can also find which objects to
+tweak by browsing the internals document.
 
 
 @node Applyoutput

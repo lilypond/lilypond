@@ -1,5 +1,11 @@
 2003-07-01  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/user/refman.itely (Constructing a tweak): new
+	subsection.
+
+	* Documentation/user/tutorial.itely (Fine tuning layout): add
+	common tweaks.
+
 	* scm/define-grobs.scm (TextScript): use new brewer.
 
 2003-06-30  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
