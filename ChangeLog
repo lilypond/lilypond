@@ -1,5 +1,11 @@
 2003-09-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/beam.cc (set_stem_lengths): only lengthen stems
+	for gapped beams.
+
+	* lily/beam-quanting.cc (score_forbidden_quants): divide demerit
+	by beamcount.
+
 	* buildscripts/lilypond-profile.sh (Error): more zsh stuff: print
 	a warning that the warning may erroneous.
 
