@@ -47,7 +47,7 @@ c8
 	$}
 
 	commands {
-%	skip 0:0.125
+
 	skip 3:0%BUG
 	key $ fis cis gis $
 	skip 2:0
@@ -67,8 +67,9 @@ score {
 	commands {
 		meter 4 4
 		partial 8
-		skip 1:0
-		skip 2:0		
+		skip 1:2
+		bar ":|:"
+		skip 2:0
 		meter 2 4
 		skip 19:0
 	}

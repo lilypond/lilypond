@@ -1,6 +1,7 @@
 #include "staffcommands.hh"
 #include "debug.hh"
 #include "parseconstruct.hh"
+#include "getcommand.hh"
 
 Moment
 Staff_commands_at::when()
@@ -22,10 +23,12 @@ Staff_commands_at::print() const
 void
 Staff_commands_at::OK()const
 {
+#ifndef NDEBUG
     iter_top(*this,i);
     for (; i.ok() && (i+1).ok(); i++)
 	if (!i->isbreak() && !(i+1)->isbreak())
 	    assert(i->priority >= (i+1)->priority);
+#endif
 }
 
 Staff_commands_at::Staff_commands_at(Time_description m)
@@ -48,7 +51,7 @@ Staff_commands_at::is_breakable()
 void
 Staff_commands_at::set_breakable()
 {
-    assert(!is_breakable());
+    if (is_breakable()) return;
     
     Command k;
     k.code = BREAK_PRE;
@@ -123,9 +126,11 @@ Staff_commands_at::add(Command c)
 	Command typeset;	// kut met peren
 	typeset.code = TYPESET;
 	typeset.args = c.args;
-	if (c.args[0] == "BAR") {
-	    typeset.priority = 100;
+	if (c.args[0] == "NEWMEASURE") {
+	    add(get_defaultbar_command());
+	} else if (c.args[0] == "BAR") {
 	    add(typeset);
+	    c.code= NOP;	// no INTERPRET (BAR) commands
 	} else if (c.args[0] == "KEY") {
 	    typeset.priority = 70;
 	    add(typeset);
@@ -145,8 +150,8 @@ Staff_commands_at::add(Command c)
 	if (c.args[0] == "BAR") {
 	    set_breakable();
 	    encapsulate = true;
-	    mid = c;
-	    pre = c;
+	    split_bar_command(pre,mid,post, c.args[1]);
+
 	    { /* every line a currentkey. */
 		Command kc;
 		kc.code =TYPESET;
@@ -198,73 +203,3 @@ Staff_commands_at::add(Command c)
     }
 }
 
-
-/****************************************************************/
-
-void
-Staff_commands::OK() const
-{
-#ifndef NDEBUG
-    for (iter_top(*this,i); i.ok() && (i+1).ok(); i++) {
-	assert(i->tdescription_.when <= (i+1)->tdescription_.when);
-	i->OK();
-    }
-#endif
-}
-
-void
-Staff_commands::print() const
-{
-#ifndef NPRINT
-    for (iter_top(*this,i); i.ok() ; i++) {
-	i->print();
-    }
-#endif
-}
-
-Staff_commands_at*
-Staff_commands::find(Moment w)
-{
-    PCursor<Staff_commands_at*> i(bottom());
-    for (; i.ok() ; i--) {
-	if (i->tdescription_.when == w)
-	    return i;
-	if (i->tdescription_.when < w)
-	    break;
-    }
-    return 0;
-}
-
-void
-Staff_commands::add(Staff_commands_at*p)
-{
-    PCursor<Staff_commands_at*> i(bottom());
-    for (; i.ok() ; i--) {
-	if (i->tdescription_.when < p->tdescription_.when)
-	    break;
-    }
-    if (!i.ok()) 
-	i.insert(p);
-    else {
-	i.add(p);
-	i++;
-    }
-}
-
-void
-Staff_commands::clean(Moment l)
-{
-    PCursor<Staff_commands_at*> i(bottom());
-    for (; i->tdescription_.when > l; i=bottom()) {
-	remove(i);
-    }
-    
-    Staff_commands_at*p = find(l);
-    if (!p) {
-	p = new Staff_commands_at(Time_description(l - i->when(), &i->tdescription_));
-	add(p);
-    }
-    if (!p->is_breakable()) {
-	p->set_breakable();
-    }
-}
