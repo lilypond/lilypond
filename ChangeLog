@@ -1,3 +1,33 @@
+2002-01-30  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* input/bugs/first-tie.ly: New file.
+
+	* input/bugs/spacing-clash.ly: New file.
+
+2002-01-29  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* po: regenerate.
+
+2002-1-24 Chris Jackson <chris@fluffhouse.org.uk>
+
+	* lilypond-indent.el: New file providing indentation for
+	parenthesised blocks of lilypond code in Emacs
+	
+	* lilypond-font-lock.el: Changes to the syntax table to facilitate
+	indentation and handle block comments properly. Distinguish
+	accents from close-brackets in fontification.
+
+	* lilypond-mode.el: LilyPond-indent-command set appropriately.
+
+2002-01-22  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/windows/installing.texi: 
+	* Documentation/windows/compiling.texi: Include from 1.4.10.
+
+	* Documentation/windows/gs-profile.sh: previously lily-gs.sh
+
+	* input/bugs/first-midi-tie.ly: New file.
+
 2001-12-29  Han-Wen  <hanwen@cs.uu.nl>
 	
 	* VERSION: 1.5.28 released

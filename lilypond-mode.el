@@ -20,14 +20,15 @@
 ;;; 
 
 (load-library "lilypond-font-lock")
+(load-library "lilypond-indent")
 
 (require 'easymenu)
 (require 'compile)
 
-(defconst LilyPond-version "1.3.143"
+(defconst LilyPond-version "1.5.28"
   "`LilyPond-mode' version number.")
 
-(defconst LilyPond-help-address "bug-gnu-music@gnu.org"
+(defconst LilyPond-help-address "bug-lilypond@gnu.org"
   "Address accepting submission of bug reports.")
 
 (defvar LilyPond-mode-hook nil
@@ -633,8 +634,8 @@ LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
   (setq block-comment-end   "%}")
 
   (make-local-variable 'indent-line-function)
-  (setq indent-line-function 'indent-relative-maybe)
- 
+  (setq indent-line-function 'LilyPond-indent-line)
+
     (set-syntax-table LilyPond-mode-syntax-table)
   (setq major-mode 'LilyPond-mode)
   (setq mode-name "LilyPond")
