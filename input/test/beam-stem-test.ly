@@ -4,7 +4,7 @@
 \header {
   texidoc="@cindex Beam Stem Test
 Beam-stem attachment test.  Helper file for ps/dvips problems.
-" }
+REGRESSION or DELETE. " }
 	
 \score {
   \context RhythmicStaff \notes {

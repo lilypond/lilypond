@@ -2,7 +2,8 @@
 % TODO: move to regression or remove?
 
 \header{
-texidoc = 	 "This file tests  slurs"
+%texidoc = 	 "This file tests  slurs"
+texidoc = "DELETE, or possibly REGRESSION. "
 }
 
 %% todo: this is very old, still talks about "feta embedded" slurs? 

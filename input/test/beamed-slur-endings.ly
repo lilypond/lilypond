@@ -1,8 +1,8 @@
 \version "1.7.18"
-% this looks like an example of slurs, not beaming.  But we
-% already have lots of examples of slurs.  candidate for
-% future remove-ing.
+% this looks like an example of slurs, not beaming.  And it
+% looks like regression.
 % possible rename to slur-something.
+\header { texidoc = "REGRESSION or DELETE " }
 \score{
 	\notes \relative c''{
 		\slurUp c8-(-( c-)-( c4-)-)

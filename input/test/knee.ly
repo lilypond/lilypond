@@ -1,6 +1,6 @@
 \version "1.7.18"
 % candidate for regression?  -gp
-\header { texidoc = ""}
+\header { texidoc = "REGRESSION or DELETE "}
 \score{
 	\notes\relative c'{
 	        \property Voice.Beam \override #'auto-knee-gap = ##f

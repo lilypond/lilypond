@@ -1,6 +1,6 @@
 \version "1.7.18"
 %  candidate for regression.  -gp
-\header { texidoc = "" }
+\header { texidoc = "REGRESSION or DELETE " }
 \score{
     \notes\relative c'{
 	 a8-[ b'' a,, b'']

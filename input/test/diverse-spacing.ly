@@ -1,6 +1,6 @@
 \version "1.7.18"
 % I think this one could be removed or regression'd.
-
+\header{texidoc="REGRESSION or DELETE " }
 % a few 32nds shouldn't stretch spacing enormously.
 \score {
 \notes { \time 3/4

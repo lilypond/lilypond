@@ -1,6 +1,6 @@
 \version "1.7.18"
-
-
+% looks like another lyric test.  regression.  -gp
+\header { texidoc="DELETE or REGRESSION. "}
 somewhatLong =  \lyrics{
 	\property Lyrics . LyricText \set #'font-style = #'roman 
 	AaaaaaA2
