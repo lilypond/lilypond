@@ -1,5 +1,5 @@
 /*
-  p-score.hh -- declare PScore
+  p-score.hh -- declare Paper_score
 
   source file of the GNU LilyPond music typesetter
 
@@ -16,11 +16,11 @@
 #include "plist.hh"
 
 /** all stuff which goes onto paper. notes, signs, symbols in a score
-     #PScore# contains the items, the columns.
+     #Paper_score# contains the items, the columns.
     
     */
 
-class PScore {
+class Paper_score {
 public:
     Paper_def *paper_l_;
 
@@ -41,7 +41,7 @@ public:
     /* *************** */
     /* CONSTRUCTION */
     
-    PScore(Paper_def*);
+    Paper_score(Paper_def*);
     /// add a line to the broken stuff. Positions given in #config#
     void set_breaking(Array<Col_hpositions> const &);
 
@@ -49,9 +49,9 @@ public:
        add the item in specified containers. If breakstatus is set
        properly, add it to the {pre,post}break of the pcol.
        */
-    void typeset_item(Item *item_p,  PCol *pcol_l,int breakstatus=0);
+    void typeset_item(Item *item_p,  PCol *pcol_l);
 
-    ///    add to bottom of pcols
+    /// add to bottom of pcols
     void add(PCol*);
 
     /**
@@ -75,7 +75,7 @@ public:
     /* STANDARD ROUTINES */
     void OK()const;
     void print() const;
-    ~PScore();
+    ~Paper_score();
     void typeset_element(Score_elem*);
     void typeset_broken_spanner(Spanner*);
     /// add a Spanner
