@@ -17,7 +17,7 @@ void
 Spanner::do_print()const
 {
     if (broken_into_l_arr_.size())
-	mtor << "Spanner with broken pieces\n";
+	mtor << "with broken pieces\n";
 }
 
 void
@@ -25,35 +25,35 @@ Spanner::break_into_pieces()
 {
     PCol * left = left_col_l_;
     PCol * right = right_col_l_;
-    if (left->daddy_l_)
-	left = left->daddy_l_;
-    if (right->daddy_l_)
-	right = right->daddy_l_;
+    if(left->daddy_l_) left = left->daddy_l_;
+    if(right->daddy_l_) right = right->daddy_l_;
     
-    Link_array<PCol> all_cols = pscore_l_->col_range(left, right);
     
-    Line_of_score *line = left->line_l_;
-    if (!line) {
-	left  = left->postbreak_p_;
-	line = left->line_l_;
+    Link_array<PCol> break_cols = pscore_l_->broken_col_range(left,right);
+    Link_array<Spanner> broken_into_l_arr;
+
+    break_cols.insert(left,0);
+    break_cols.push(right);
+
+    for (int i=1; i < break_cols.size(); i++) {
+	Spanner* span_p = clone();
+	left = break_cols[i-1];
+	right = break_cols[i];
+	if (!right->line_l_)
+	    right = right->prebreak_p_;
+	if (!left->line_l_)
+	    left = left->postbreak_p_;
+
+	assert(left&&right && left->line_l_ == right->line_l_);
+
+	span_p->left_col_l_  = left;
+	span_p->right_col_l_ = right;
+	
+	pscore_l_->typeset_broken_spanner(span_p);
+	broken_into_l_arr.push( span_p );
     }
     
-    for (int i=1; i < all_cols.size(); i++) {
-	if (!all_cols[i]->line_l_) {
-
-	    Spanner* span_p = clone();
-	    right =  all_cols[i]->prebreak_p_;
-	    assert(left&&right && left->line_l_ == right->line_l_);
-
-	    span_p->left_col_l_  = left;
-	    span_p->right_col_l_ = right;
-	    left = all_cols[i]->postbreak_p_;
-	    line = left->line_l_;
-	    
-	    pscore_l_->typeset_broken_spanner(span_p);
-	    broken_into_l_arr_.push( span_p );
-	}
-    }
+    broken_into_l_arr_ = broken_into_l_arr;
 }
 
 void
