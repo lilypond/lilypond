@@ -4519,27 +4519,24 @@ voices, and stem directions are set automatically.  Also, solo and
 The syntax for part combining is
 
 @example
-  \partcombine @var{context} @var{musicexpr1} @var{musicexpr2}
+  \newpartcombine @var{musicexpr1} @var{musicexpr2}
 @end example
-where the pieces of music @var{musicexpr1} and @var{musicexpr2} will be
-combined into one context of type @var{context}.  The music expressions
-must be interpreted by contexts whose names should start with @code{one}
-and @code{two}.
+
+The music expressions will be interpreted as @internalsref{Voice}
+contexts.
 
 The following example demonstrates the basic functionality of the part
 combiner: putting parts on one staff, and setting stem directions and
 polyphony:
 
-@lilypond[verbatim,singleline,fragment]
-  \context Staff <<
-    \context Voice=one \partcombine Voice
-      \context Thread=one \relative c'' {
+@lilypond[verbatim,singleline,fragment,relative 1]
+  \new Staff \newpartcombine 
+      {
         g a( b) r
       }
-      \context Thread=two \relative c'' {
+      {
         g r4 r f
       }
-  >>
 @end lilypond
 
 The first @code{g} appears only once, although it was
@@ -4553,51 +4550,31 @@ If you just want the merging parts, and not the textual markings, you
 may set the property @var{soloADue} to false:
 
 @lilypond[verbatim,singleline,fragment]
-  \context Staff <<
+   \new Staff <<
     \property Staff.soloADue = ##f
-    \context Voice=one \partcombine Voice
-      \context Thread=one \relative c'' {
-        b4 a c g
+    \newpartcombine 
+      {
+        g a( b) r
       }
-      \context Thread=two \relative c'' {
-        d,2 a4 g'
-      }
-  >>
+      {
+        g r4 r f
+      } >>
 @end lilypond
 
 @seealso
 
 Internals: @internalsref{PartCombineMusic},
-@internalsref{Thread_devnull_engraver}, and
-@internalsref{Voice_devnull_engraver} and @internalsref{A2_engraver}.
+@internalsref{SoloOneEvent}, and
+@internalsref{SoloTwoEvent}, and
+@internalsref{UnisonoEvent}.
 
 @refbugs
-
-The syntax for naming contexts in inconsistent with the syntax for
-combining stanzas.
 
 In @code{soloADue} mode, when the two voices play the same notes on and
 off, the part combiner may typeset @code{a2} more than once in a
 measure:
 
-@lilypond[fragment,singleline]
-  \context Staff <<
-    \context Voice=one \partcombine Voice
-      \context Thread=one \relative c'' {
-        c b c b c a c a
-      }
-      \context Thread=two \relative c'' {
-        b b b b f a f a
-      }
-  >>
-@end lilypond
 
-The part combiner is rather buggy, and it will be replaced by a better
-mechanism in the near future.
-
-@cindex @code{Thread_devnull_engraver}
-@cindex @code{Voice_engraver}
-@cindex @code{A2_engraver}
 
 @node Hiding staves
 @subsection Hiding staves
