@@ -2,6 +2,8 @@
 \version "2.2.0"
 \header { texidoc = "Each clef have own accidental placing rules. " }
 
+#(set-global-staff-size 16)
+
 \score { \notes
   \relative cis' {
 
@@ -21,8 +23,6 @@
 \clef bass
 \key cis \major cis \key ces \major  ces
 }
-
-	\paper{\paperSixteen}
 
 }
 

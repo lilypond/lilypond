@@ -101,6 +101,7 @@ violoncello = \notes \relative c' {
 }
 
 
+#(set-global-staff-size 16)
 \score {
   << 
     \context StaffGroup ="legni" << 
@@ -131,7 +132,6 @@ violoncello = \notes \relative c' {
     >>
   >>
   \paper {
-      \paperSixteen
       indent=100.0\mm
       linewidth=150.0\mm
       \context {
