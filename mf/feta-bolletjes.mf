@@ -330,16 +330,28 @@ fet_endchar;
 endgroup;
 
 %%% Editable values:
-slope := 1.7; % slope of slash. From scm/grob-description.scm. How to auto-copy?
+
+slash_slope := 1.7; % slope of slash. From scm/grob-description.scm. How to auto-copy?
 slt# := 2/3*0.48staff_space#; % thickness of lines. quarter notes get 1.5slt width.
 slh# := 2staff_space#; % height of char.
 
 %%% Calculated values:
 sxa# := 0; % how much the char exceeds the boundingbox horizontally:
-slxt# := sqrt(slt#*slt#+(slt#/slope)*(slt#/slope)); % Width of hor. pen - with thanks to Pythagoras
-slw# := slh#/slope; % width of sloping part of slash:
+
+ % Width of hor. pen - with thanks to Pythagoras
+slxt# := sqrt(slt#*slt#+(slt#/slash_slope)*(slt#/slash_slope));
+slw# := slh#/slash_slope; % width of sloping part of slash:
 
 define_pixels(slt,slh,sxa,slxt,slw);
+
+
+%
+%
+% UUGGGH! FIXME -- get rid of those sharp corners. 
+%
+%
+%
+
 
 def draw_slash(expr hwid_hash) =
 	wid# := slw#+2slxt#+hwid_hash;

@@ -125,6 +125,10 @@ def distorted_ellipse(expr a,b,err_y,err_x,super) =
 
 
 
+%
+% draw an axis aligned block making sure that edges are on pixels.
+%
+
 def draw_rounded_block (expr bottom_left, top_right, roundness) =
        save round;
        round = floor min(roundness,xpart (top_right-bottom_left),

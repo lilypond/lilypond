@@ -1,3 +1,47 @@
+2002-03-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* mf/feta-eindelijk.mf: new 8th rest.
+
+	* mf/feta-toevallig.mf: small fixes for the sharp symbol. Don't
+	stick out of staffline
+
+	* scripts/lilypond-book.py: fixes for texi regular expressions.
+
+2002-03-14  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/include/new-beam.hh:
+	* lily/new-beam.cc: New file.
+
+	* flower/include/interval.hh: 
+	* flower/include/interval.tcc (delta): New method.
+	(swap): Now public (previously private).
+	
+	* scm/beam.scm (default-beam-y-quants): Bugfix: lower beam-sit by
+	1 staff-line-thickness.  Sadly, this makes dy quanting problems
+	(dy quants allowed should depend on actual left y) more visible.
+
+2002-03-13  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/beam.cc (quantise_dy): Bugfix: sign (0) = 0.  Hmm.
+
+	* scm/grob-property-description.scm (concaveness-threshold): Add
+	typecheck and description.
+
+	* scm/grob-description.scm (Beam): Remove obsolete properties, add
+	concaveness-threshold (previously concaveness).
+
+	* lily/beam.cc (check_concave): Remove choices and debugging
+	stuff: use best concaveness calculation.
+	(quantise_dy): Remove choice.  Try to never make a slope steeper
+	by quantising, but certainly never quantise a slope away.
+	(check_stem_length_f): Remove choice.  In case of lengthening
+	alowed, always lengthen to ideal length.
+
+	* Documentation/index.texi: Fix FAQ url.
+
+	* Documentation/topdocs/INSTALL.texi: Add information about fink,
+	compile fix and 1.4 specific fix that doesn't hurt 1.5.
+
 2002-03-13  Han-Wen  <hanwen@cs.uu.nl>
 
 	* VERSION: 1.5.39 released
