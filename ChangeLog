@@ -14,6 +14,8 @@
 	in LilyPond-insert-tag-notes. LilyPond-insert-between, new function.
 	Get rid of skeleton.el-dependency.
 
+	* Documentation/topdocs/INSTALL.texi: tell how to get syntax-highlight.
+
 2002-11-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/beam-engraver.cc (stop_translation_timestep): reset now_stop_ev_
