@@ -19,20 +19,6 @@ title="Marques des agr\\'ements et leur signification"
 invisible = \property Voice.NoteHead \override #'transparent = ##t
 visible = \property Voice.NoteHead \revert #'transparent
 
-% Ugly hack to get reasonable position of the pincé and Cheute
-startHorizScript = {
-  \property Voice.scriptHorizontal = ##t
-  \property Voice.Script \override #'padding = #0.3
-  \property Voice.Script \override #'extra-offset = #'(-.6 . 0)
-  % Avoid collision with the dots of dotted notes
-  \property Voice.Dots \override #'extra-X-extent = #'(-0.7 . 0)
-}
-endHorizScript = {
-  \property Voice.scriptHorizontal \unset
-  \property Voice.Dots \revert #'padding
-  \property Voice.Script \revert #'padding
-  \property Voice.Script \revert #'extra-offset
-}
 
 
 \score {
@@ -55,8 +41,8 @@ endHorizScript = {
 	{ 
 	   \property Voice.Script \override #'extra-offset = #'(-0.8 . 2.0)
 	   b_\turn}>>
-	\startHorizScript
 %{ FIXME  \comma does not exist
+	\startHorizScript
  
 	c^\comma
 	\time 3/8
@@ -64,8 +50,8 @@ endHorizScript = {
 	b8 c4_\comma 
 	c8 b4_\comma
 	b8 c4^\comma _\comma
-%}
 	\endHorizScript
+%}
         \time  2/2 \slurDown
 	<<{c2}{s4 \invisible d1*1/4 ( \visible }>>  e2)
 	<<{a,2}{s4 \invisible b1*1/4 ( \visible }>>  d2)

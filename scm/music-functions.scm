@@ -866,6 +866,7 @@ Rest can contain a list of beat groupings
       (if (equal? (ly:get-mus-property ev 'name) 'NoteEvent)
 	  (assoc-remove!  active 'tie)
 	  active) )
+    
     (define (active<? a b)
       (cond
        ((symbol<? (car a) (car b)) #t)
@@ -924,7 +925,6 @@ Rest can contain a list of beat groupings
 	))
 	
 
-;    (display (list i1 i2 ri active1 active2 (vector-length ev1) (vector-length ev2) (vector-length result)  "\n"))
     (cond
      ((= ri (vector-length result)) '())
      ((= i1 (vector-length ev1)) (put 'apart))
@@ -938,10 +938,16 @@ Rest can contain a list of beat groupings
 ;	   (x (display "oked"))
 	   (evs1 (map car (what ev1 i1)))
 	   (evs2 (map car (what ev2 i2)))
-	   
 	   (new-active1 (analyse-events active1 evs1))
 	   (new-active2 (analyse-events active2 evs2))
 	   )
+
+	
+	(or #t (display (list (when result ri) i1 i2 ri
+		       active1 "->" new-active1
+		       active2 "->" new-active2
+		       (vector-length ev1) (vector-length ev2) (vector-length result)  "\n")))
+    
 	
 	(if (not (or (equal? m1 (when result ri))
 		     (equal? m2 (when result ri))))
@@ -955,24 +961,32 @@ Rest can contain a list of beat groupings
 	 ((ly:moment<? m1 m2)
 	  (put 'apart)
 	  (if (> ri 0) (put 'apart (1- ri)))
-	  (analyse-time-step (1+ i1) i2 (1+ ri) new-active1 new-active2))
+	  (analyse-time-step (1+ i1) i2 (1+ ri) new-active1 active2))
 	 ((ly:moment<? m2 m1)
 	  (put 'apart)
 	  (if (> ri 0) (put 'apart (1- ri)))
-	  (analyse-time-step i1 (1+ i2) (1+ ri) new-active1 new-active2))
+	  (analyse-time-step i1 (1+ i2) (1+ ri) active1 new-active2))
 	 (else
 	  (if (and (equal? active1 active2) (equal? new-active2 new-active1))
 	      (let*
 		  ((notes1 (get-note-evs ev1 i1))
+		   (durs1     (sort (map (lambda (x) (ly:get-mus-property x 'duration)) notes1) ly:duration<?))
 		   (pitches1 (sort
 			      (map (lambda (x) (ly:get-mus-property x 'pitch)) notes1) ly:pitch<?))
 		   (notes2 (get-note-evs ev2 i2))
+		   (durs2     (sort (map (lambda (x) (ly:get-mus-property x 'duration)) notes2) ly:duration<?))
 		   (pitches2 (sort
 			      (map (lambda (x) (ly:get-mus-property x 'pitch)) notes2) ly:pitch<?))
 		   )
 		(cond
 		 ((> (length notes1) 1) (put 'apart))
 		 ((> (length notes2) 1) (put 'apart))
+		 ((and
+		   (= (length durs1) 1)
+		   (= (length durs2) 1)
+		   (not (equal? (car durs1) (car durs2))))
+
+		  (put 'apart))
 		 (else
 		  (if
 		   (and (= (length pitches1) 1) (= (length pitches2) 1) 
