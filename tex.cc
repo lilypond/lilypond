@@ -1,28 +1,32 @@
-
+#include "dimen.hh"
 #include "tex.hh"
 #include "symbol.hh"
 #include "const.hh"
-/*
-    #TeXstring# should generate a TeX string to typeset the object in
-  a hbox or vbox of exactly the objects' dimension.
-*/
 
-
-/// #h# is in points
 String
 vstrut(Real h)
 {
-    return String("\\vrule height ") + h + "pt depth 0pt width 0pt";
+    return String("\\vrule height ") + print_dimen(h) + "depth 0pt width 0pt";
 }
 
 
-/// the staff with five lines.
- struct  Fiveline_staff: Stretchable_symbol {
-     String operator()(Real width) {
- 	String s("\\normalebalk{ ");
-	s+=width * HOR_TO_PT;
-	s+= "pt}";
-	return s;
-    }    
-};
+static void
+substitute_arg(String& r, String arg)
+{
+    int p = r.pos('%');
+    if (!p ) return ;
+    else p--;
+    r = r.left(p) + arg + r.right(r.len() - p -1);
+}
 
+
+String
+substitute_args(String source, svec<String> args)    
+{
+    String retval (source);
+    for (int i = 0 ; i < args.sz(); i++)
+        substitute_arg(retval, args[i]);
+    while (retval.pos('%'))
+        substitute_arg(retval, "");
+    return retval;
+}
