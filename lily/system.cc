@@ -212,29 +212,21 @@ set_loose_columns (System* which, Column_x_positions const *posns)
 	right side.  At the moment,  FIXME  */
       Grob *common = right->common_refpoint (left, X_AXIS);
       
-      Real rx =	right->extent (common, X_AXIS)[LEFT];
-      Real lx = left->extent (common, X_AXIS)[RIGHT];
-      Real total_dx = rx - lx;
-      Interval cval = col->extent (col, X_AXIS);
+      Real right_point = right->extent (common, X_AXIS)[LEFT];
+      Real left_point = left->extent (common, X_AXIS)[RIGHT];
+      Interval my_extent = col->extent (col, X_AXIS);
 
-      /* Put it in the middle.  This is not an ideal solution -- the
-	 break alignment code inserts a fixed space before the clef
-	 (about 1 SS), while the space following the clef is flexible.
-	 In tight situations, the clef will almost be on top of the
-	 following note.  */
-      Real dx = rx - lx - cval.length ();
-      if (total_dx < 2* cval.length ())
-	{
-	  /* TODO: this is discontinuous. I'm too tired to
-	    invent a sliding mechanism.  Duh. */
-	  dx *= 0.25;
-	}
-      else
-	dx *= 0.5;
+      Real space_left = (right_point - left_point)
+	- (my_extent.is_empty() ? 0.0 : my_extent.length ());
+
+      Real padding = (space_left / 2) <? 1.0;
+      /*
+	Put it just left of the right column, with a bit of extra space 
+       */
+      Real my_offset = right_point - my_extent[RIGHT] - padding;
 
       col->system_ = which;
-      col->translate_axis (-col->relative_coordinate (common, X_AXIS), X_AXIS);
-      col->translate_axis (lx + dx - cval[LEFT], X_AXIS); 
+      col->translate_axis (my_offset - col->relative_coordinate (common, X_AXIS), X_AXIS);
     }
 }
 
