@@ -10,6 +10,9 @@ copyright =	 "public domain";
 \version "1.3.4";
 
 flauto1 = \notes \relative c {
+	% do silly bar request to fix Staff_margin_engraver
+	\bar ".|";
+
 	R1 *2 |
 	c'''4-.\ff r r2 |
 	R1 *3 |

@@ -305,6 +305,12 @@ HaraKiriStaffContext = \translator {
 	\consists "Staff_margin_engraver";
 	\accepts "Voice";
 };
+%{
+  The HaraKiriStaffContexts doesn't override \name,
+  so it is still named `Staff'.
+
+  %\translator { \HaraKiriStaffContext }
+%}
 
 OrchestralPartStaffContext = \translator {
 	\StaffContext

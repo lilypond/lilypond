@@ -24,6 +24,7 @@ $corni_staff = \context Staff = corni <
 	%\notes \context Voice=corni < 
 	\notes \context Staff=corni < 
 		\time 4/4;
+		\skip 1*341; \bar "|.";
 		\context VoiceOne=cornoi
 			\$corno1
 		\context VoiceTwo=cornoii

@@ -14,6 +14,6 @@ copyright =	 "public domain";
 global = \notes {
 	\time 4/4;
 	\key es;
-	\skip 1*314;
+	\skip 1*314; \bar "|.";
 }
 

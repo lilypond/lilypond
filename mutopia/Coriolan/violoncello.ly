@@ -19,7 +19,7 @@ violoncello = \notes \relative c {
 	c'1\ff ~ |
 	c |
 	f,4-. r r2 |
-	\property Staff.instr = #"Vc. \& Cb."
+	\property Staff.instr = #"Vc. \\& Cb."
 	r1 |
 	c'1\ff ~ |
 	c |
