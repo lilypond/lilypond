@@ -39,7 +39,7 @@ clusterSneeuwbal =\notes {
     \property Voice.Stem \set #'french-beaming =  ##t
 \property Voice.Beam \set #'thickness = #0.3
 \property Voice.Stem \set #'thickness = #4.0
-    [g'16 b16 fis16 g16]
+    g'16-[ b16 fis16 g16]
 < { \clusterSneeuwbal
     as16-\startCluster <<as b>>
     <<g b>>
