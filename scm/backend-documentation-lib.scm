@@ -135,18 +135,6 @@
 
 (use-modules (ice-9 string-fun))
 
-(define interface-file-str (string-append (ly-gulp-file "interface-description.scm") "\n(define "))
-
-;;(define (list-interface-names)
-(define (ugh-standalone-list-interface-names)
-  (let* ((text interface-file-str)
-	 (t1 (regexp-substitute/global #f "\n" text 'pre 'post))
-	 (t (regexp-substitute/global #f "[^\t ]define[ \t]*([a-z-]+interface)" 
-				      t1 1 " " 'post))
-	 (ugh (regexp-substitute/global #f "  .*" t 'pre 'post))
-	 (l (separate-fields-discarding-char #\  ugh list)))
-    (reverse (cdr (reverse l)))))
-
 (if standalone
   (begin
     (display "(define (list-interface-names) '") 
@@ -154,20 +142,10 @@
     (display ")")
     (exit 0)))
 
-;; Ugh
-;; This list is generated manually, by doing:
-;; guile
-;; guile> (load "backend-documentation-lib.scm")
-;; For some reason, this can't be generated when lilypond is loaded;
-;; the regexp stuff behaves weird.
-(define (list-interface-names) '("general-grob-interface" "beam-interface" "clef-interface" "axis-group-interface" "note-column-interface" "stem-interface" "slur-interface" "side-position-interface" "accidentals-interface" "line-of-score-interface" "note-head-interface" "note-name-interface" "rhythmic-head-interface" "rest-interface" "tuplet-bracket-interface" "align-interface" "aligned-interface" "break-aligned-interface" "chord-name-interface" "time-signature-interface" "bar-line-interface" "hairpin-interface" "arpeggio-interface" "note-collision-interface" "custos-interface" "dot-interface" "font-interface" "text-interface" "dot-column-interface" "dynamic-interface" "finger-interface" "separation-spanner-interface" "text-script-interface" "grace-alignment-interface" "hara-kiri-group-interface" "line-spanner-interface" "lyric-hyphen-interface" "key-signature-interface" "lyric-extender-interface" "lyric-syllable-interface" "mark-interface" "multi-measure-rest-interface" "paper-column-interface" "spaceable-element-interface" "rest-collision-interface" "script-interface" "script-column-interface" "spacing-spanner-interface" "staff-symbol-interface" "stem-tremolo-interface" "separation-item-interface" "sustain-pedal-interface" "system-start-delimiter-interface" "text-spanner-interface" "tie-interface" "tie-column-interface" "volta-bracket-interface" "span-bar-interface"))
-
-
-(eval-string (ly-gulp-file "interface-description.scm"))
 
 (define interface-description-alist
   (map (lambda (x) (cons (string->symbol x) (eval-string x)))
-	     (list-interface-names)))
+	     (interface-names)))
 
 (set! interface-description-alist (sort interface-description-alist alist<?))
 
