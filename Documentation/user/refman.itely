@@ -694,11 +694,10 @@ r1 r2 r4 r8 r16 r32 r64 r64
     loose_column_distance = 2.5 * \interline;
     linewidth = -1.0;
     \translator {
-      \type "Score_engraver";
-      \name "Score";
-      \consists "Rest_engraver";
-      \consists "Stem_engraver";
-      \consists "Rhythmic_column_engraver";
+	\StaffContext
+	\remove "Clef_engraver";
+	\remove "Staff_symbol_engraver";
+	\remove "Bar_engraver";
     }
   }
 }
