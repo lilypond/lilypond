@@ -84,6 +84,7 @@ For chord inversions, this is negative.")
 			  "Do these operations for instantiating the context.")
      (predicate ,procedure? "the predicate of a \\outputproperty.")
      (quoted-events ,vector? "A vector of with moment/event-list entries.")
+     (quoted-music-name ,string? "The name of the voice to quote.")
      (type ,symbol? "The type of this music object. Determines iteration in some cases.")
      (types ,list? "The types of this music
 object; determines by what engraver this music expression is

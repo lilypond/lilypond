@@ -680,19 +680,7 @@ score_body:
 	| score_body Music {
 		SCM m = $2->self_scm ();
 		scm_gc_unprotect_object (m);
-	
-		/*
-			guh.
-		*/
-		SCM check_funcs = ly_scheme_function ("toplevel-music-functions");
-		for (; ly_c_pair_p (check_funcs); check_funcs = ly_cdr (check_funcs))
-			m = scm_call_1 (ly_car (check_funcs), m);
-		if (unsmob_music ($$->music_))
-		{
-			THIS->parser_error (_("Already have music in score"));
-			unsmob_music ($$->music_)->origin ()->error (_("This is the previous music"));
-		}
-		$$->music_ = m;
+		$$->set_music (m, THIS->self_scm ());
 	}
 	| score_body lilypond_header 	{
 		$$->header_ = $2;
@@ -1527,24 +1515,11 @@ command_element:
 		$$ = skip;
 	}
 	| QUOTE STRING duration_length {
-		SCM tab = THIS->lexer_->lookup_identifier ("musicQuotes");
-		SCM evs = SCM_EOL;
-		if (scm_hash_table_p (tab) == SCM_BOOL_T)
-		{
-			SCM key = $2; // use symbol?
-			evs = scm_hash_ref (tab, key, SCM_BOOL_F);
-		}
-		Music *quote = 0;
-		if (ly_c_vector_p (evs))
-		{
-			quote = MY_MAKE_MUSIC ("QuoteMusic");
-			quote->set_property ("duration", $3);
-			quote->set_property ("quoted-events", evs);
-		} else {
-			THIS->here_input ().warning (_f ("Can\'t find music"));
-			quote = MY_MAKE_MUSIC ("Event");
-		}
+		Music *quote = MY_MAKE_MUSIC ("QuoteMusic");
+		quote->set_property ("duration", $3);
+		quote->set_property ("quoted-music-name", $2);
 		quote->set_spot (THIS->here_input ());
+
 		$$ = quote;
 	}
 	| OCTAVE { THIS->push_spot (); }

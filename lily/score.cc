@@ -8,8 +8,8 @@
 
 #include <stdio.h>
 
+#include "lily-parser.hh"
 #include "book.hh"
-
 #include "cpu-timer.hh"
 #include "global-context.hh"
 #include "ly-module.hh"
@@ -292,9 +292,32 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
      itself. */
   score_def->parent_ = od;
   
-  SCM context = ly_run_translator (sc->music_, score_def->self_scm ());
+  SCM context = ly_run_translator (sc->get_music (), score_def->self_scm ());
   SCM lines = ly_format_output (context, scm_makfrom0str ("<embedded>"));
   
   scm_remember_upto_here_1 (prot);
   return lines;
+}
+
+void
+Score::set_music (SCM music, SCM parser)
+{
+  /* URG? */
+  SCM check_funcs = ly_scheme_function ("toplevel-music-functions");
+  for (; ly_c_pair_p (check_funcs); check_funcs = ly_cdr (check_funcs))
+    music = scm_call_2 (ly_car (check_funcs), music, parser);
+
+  if (unsmob_music (music_))
+    {
+      unsmob_music (music)->origin ()->error (_("Already have music in score"));
+      unsmob_music (music_)->origin ()->error (_("This is the previous music"));
+    }
+	
+  this->music_ = music;
+}
+
+SCM
+Score::get_music () const
+{
+  return music_;
 }

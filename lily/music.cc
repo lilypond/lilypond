@@ -379,21 +379,17 @@ LY_DEFINE (ly_music_compress, "ly:music-compress",
 }
 
 LY_DEFINE (ly_music_scorify, "ly:music-scorify",
-	   1, 0, 0,
-	   (SCM music),
+	   2, 0, 0,
+	   (SCM music, SCM parser),
 	   "Return MUSIC encapsulated in SCORE.")
 {
 #if 0
   SCM_ASSERT_TYPE (ly_c_music_p (music), music, SCM_ARG1, __FUNCTION__, "music");
 #endif
   Score *score = new Score;
-  
-  /* URG? */
-  SCM check_funcs = ly_scheme_function ("toplevel-music-functions");
-  for (; ly_c_pair_p (check_funcs); check_funcs = ly_cdr (check_funcs))
-    music = scm_call_1 (ly_car (check_funcs), music);
-  
-  score->music_ = music;
+
+  score->set_music (music, parser);
+
   scm_gc_unprotect_object (score->self_scm ());
   return score->self_scm ();
 }

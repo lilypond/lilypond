@@ -20,11 +20,13 @@ class Score : public Input
 {
   DECLARE_SMOBS (Score, foo);
 
+  SCM music_;
 public:
   Link_array<Output_def> defs_;
-  SCM music_;
   SCM header_;
-    
+
+  SCM get_music () const;
+  void set_music (SCM music, SCM parser);
   Score ();
   Score (Score const&);
   SCM book_rendering (String, Output_def*, Output_def*);

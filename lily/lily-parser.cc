@@ -118,10 +118,6 @@ Lily_parser::parse_file (String init, String name, String out_name)
 void
 Lily_parser::parse_string (String ly_code)
 {
-#if 0
-  SCM parent_prot = lexer_ ? lexer_->self_scm () : SCM_EOL;
-#endif
-
   Lily_lexer * parent = lexer_;
   lexer_ = (parent == 0 ? new Lily_lexer (sources_)
 	    : new Lily_lexer (*parent));
@@ -150,24 +146,6 @@ Lily_parser::parse_string (String ly_code)
 
   error_level_ = error_level_ | lexer_->error_level_;
 
-#if 0
-  if (Lily_lexer::unsmob (parent_prot))
-    {
-      /*
-	what the fuck is this good for?
-       */
-      parent->encoding_ = lexer_->encoding_;
-      parent->chordmodifier_tab_ = lexer_->chordmodifier_tab_;
-      parent->pitchname_tab_stack_ = lexer_->pitchname_tab_stack_;
-      parent->sources_ = lexer_->sources_;
-      parent->scopes_ = lexer_->scopes_;
-      parent->error_level_ = lexer_->error_level_; 
-      parent->main_input_b_ = lexer_->main_input_b_;
-    }
-  
-  scm_remember_upto_here_1 (parent_prot);
-#endif
-  
   scm_set_current_module (oldmod);
   lexer_ = 0;
 }
@@ -456,14 +434,14 @@ LY_DEFINE (ly_parser_print_score, "ly:parser-print-score",
   SCM os = scm_makfrom0str (outname.to_string ().to_str0 ());
   SCM bookpaper = get_bookpaper (parser)->self_scm ();
   for (int i = 0; i < score->defs_.size (); i++)
-    default_rendering (score->music_, score->defs_[i]->self_scm (),
+    default_rendering (score->get_music (), score->defs_[i]->self_scm (),
 		       bookpaper,
 		       header, os);
 
   if (score->defs_.is_empty ())
     {
       Output_def *paper = get_paper (parser);
-      default_rendering (score->music_, paper->self_scm (),
+      default_rendering (score->get_music(), paper->self_scm (),
 			 get_bookpaper (parser)->self_scm (),
 			 header, os);
       scm_gc_unprotect_object (paper->self_scm ());

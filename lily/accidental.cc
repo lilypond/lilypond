@@ -196,6 +196,9 @@ Accidental_interface::print (SCM smob)
   if (smaller)
     {
       SCM ac = Font_interface::music_font_alist_chain (me);
+      /*
+	TODO: should calc font-size by adding -2 to current font-size
+      */
       ac = scm_cons (scm_list_1 (scm_cons
 				 (ly_symbol2scm ("font-size"),
 				  scm_int2num (-2))),
