@@ -10,12 +10,12 @@
 (eval-string (ly-gulp-file "translator-description.scm"))
 
 ;; alist of translater descriptions
-(define (document-translator-property prop-desc)
+(define (document-translator-property sym)
    (cons
     (string-append
-     "@code{" (car prop-desc) "} "
-     "(" (type-name (cadr prop-desc)) "):")
-    (caddr prop-desc)))
+     "@code{" (symbol->string sym) "} "
+     "(" (type-name (object-property sym 'translation-type?)) "):")
+    (object-property sym 'translation-doc)))
 
 ;; First level Engraver description and
 ;; second level Context description
@@ -131,8 +131,11 @@
      (texi-section 2 (context-name name) #f)
       doc)))
 
+
 (define (document-paper name)
-  (let* ((paper-alist (My_lily_parser::paper_description))
+  (let* ((paper-alist
+	  (sort (My_lily_parser::paper_description)
+		(lambda (x y) (string<? (car x) (car y)))))
 	 (names (sort (map car paper-alist) string<?))
 	 (contexts (map cdr paper-alist))
 	 (doc (apply string-append
@@ -155,3 +158,17 @@
 			       names))
      doc)))
 
+(define (document-all-engraver-properties name)
+  (let*
+    (
+     (ps (sort (map symbol->string all-translation-properties) string<?))
+     (sortedsyms (map string->symbol ps))
+     (propdescs (map document-translator-property sortedsyms))
+     (texi (description-list->texi propdescs))
+     )
+     
+  (string-append
+	  (node name)
+	  (texi-section 1 name #f)
+	  texi
+   )))
