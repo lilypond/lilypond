@@ -26,7 +26,7 @@ save slash_thick, slash_slope, overdone_heads;
 numeric black_notehead_width, noteheight, slash_thick;
 
 
-fet_begingroup("noteheads");
+fet_begingroup ("noteheads");
 
 
 % Slope of slash.  From scm/grob-description.scm.  How to auto-copy?
@@ -399,7 +399,7 @@ fet_beginchar ("Quart trianglehead", "u2triangle")
 fet_endchar;
 
 
-fet_beginchar("Quart trianglehead", "d2triangle")
+fet_beginchar ("Quart trianglehead", "d2triangle")
 	draw_closed_triangle_head (-1);
 fet_endchar;
 
@@ -516,7 +516,7 @@ def draw_cross (expr thick) =
 	z1 = whatever * ne_dir
 	     + thick / 2 * stafflinethickness# * (ne_dir rotated -90);
 
-	labels (1, 2, 3, 4, 5, 6);
+	% labels (1, 2, 3, 4, 5, 6);
 
 	nw_dir = unitvector (z3 - z4);
 
@@ -1128,7 +1128,7 @@ fet_beginchar ("Quart down tihead", "d2ti")
 fet_endchar;
 
 
-fet_endgroup("noteheads");
+fet_endgroup ("noteheads");
 
 
 %

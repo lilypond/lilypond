@@ -1,3 +1,94 @@
+2005-01-03  Werner Lemberg  <wl@gnu.org>
+
+	Prepare glyph shapes for mf2pt1 conversion.
+
+	* mf/feta-accordion.mf (accreg_pen): Removed.  No longer used.
+	(accDiscant, accFreebase, accStdbase): Replace `draw' with
+	`penstroke'.
+	(accDot): Use `drawdot'.
+	(accBayanbase): Replace `draw' with `draw_gridline'.
+	(print_penpos): Moved to feta-macros.mf.
+	(accOldEE): Replace `filldraw' with `penstroke'.
+	Replace `draw' with `penstroke' and `drawdot'.
+
+	* mf/feta-banier.mf: Code clean-up.
+	("grace dash (up)", "grace dash (down)"): Replace `draw' with
+	`fill'.
+
+	* mf/feta-bolletjes (draw_cross): Remove call to `labels'.
+
+	* mf/feta-eindelijk.mf (draw_rest_bulb, draw_eigth_rest): Add
+	paremeter to control drawing of labels.  Update all callers.
+
+	* mf/feta-klef.mf (draw_c_clef): Use `&' not `..' to connect paths.
+	(new_bulb): Return a bulb as a single path.  To do that, it now
+	takes some more parameters.  Updated all callers.
+	(draw_gclef): Major clean-up.  `draw' has been replaced with
+	`penstroke', unnecessary outlines have been removed.
+	Remove (unused) gnome-canvas code.
+
+	* mf/feta-macros.mf (print_penpos): New macro (from
+	feta-accordion.mf).
+	Other minor fixes.
+
+	* mf/feta-pendaal.mf ("Pedal asterisk"): Use `undrawdot'.
+	("Pedal dot"): Use `drawdot'.
+	(draw_pedal_P): Add parameter to control drawing of labels.  Update
+	all callers.
+	Fix shape at top.
+	(draw_pedal_e): Add parameter to control drawing of labels.  Update
+	all callers.
+	(draw_pedal_d): Add parameter to control drawing of labels.  Update
+	all callers.
+	Revert drawing direction.
+
+	* mf/feta-schrift.mf (draw_fermata): Use single path.
+	(draw_short_fermata): Replace `filldraw' with `fill'.
+	(draw_long_fermata, draw_very_long_fermata): Replace calls to
+	`draw_rounded_block' with a single path.
+	("Thumb"): Draw full circle instead of mirroring segments.
+	(draw_accent): New macro.
+	("> accent", "espr"): Use it.
+	(draw_marcato): Replace `filldraw' and `draw' with `fill'.
+	("open (unstopped)"): Draw full circle instead of mirroring
+	segments.
+	(draw_vee): Removed.
+	("Upbow"): Use `draw_accent' instead of `draw_vee'.
+	("Downbow"): Replace calls to `draw_rounded_block' with a single
+	path.
+	("Trill (`tr')"): Replace overlapping loop drawn with `draw' with
+	partial pieces drawn with `fill' -- these do still overlap with the
+	stem of the `t' but just once, not multiple times so that fontforge
+	can handle it gracefully.
+	Change other parts of the glyph so that fontforge's overlapping
+	algorithm reliably works.
+	(draw_heel): Replace `draw' with `fill'.
+	(draw_toe): Use `draw_accent' instead of `draw_vee'.
+	("Flageolet"): Replace `draw' with `penstroke'.
+	("Segno"): Replace `filldraw' with `penstroke'.
+	Replace `draw' with `drawdot'.
+	("Coda"): Replace `fill' with `penstroke', using a single path.
+	("Varied Coda"): Use less overlapping paths.
+	(draw_arpeggio_arrow): Replace `filldraw' with `fill', using a
+	single path.
+
+	* mf/feta-slag.mf (draw_trillelement): Put `clearxy' outside of
+	group to better control the `labels' command.
+	Rename argument to `offset' and use it actually.  Update all
+	callers.
+	Replace `filldraw' with `fill'.
+	("mordent", "prallmordent", "upmordent", "downmordent",
+	"lineprall"): Replace `draw' with `draw_gridline'.
+	("upprall", "downprall"): Replace `draw' with `fill'.
+
+	* mf/feta-timesig.mf: Formatting.
+
+	* mf feta-toevallig.mf (draw_meta_flag): Move code to draw labels
+	to...
+	("Flat"): Here.
+	(draw_paren): Move code to draw labels to...
+	("Right Parenthesis"): Here.
+
 2005-01-02  Graham Percival <gperlist@shaw.ca>
 
 	* Documentation/user/notation.itely: add example of \setTextDecresc
