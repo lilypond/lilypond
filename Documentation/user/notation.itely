@@ -3305,9 +3305,42 @@ The associated object is @internalsref{VoiceFollower}.
 @node Vocal music
 @section Vocal music
 
-This section discusses how to enter and print lyrics.
+
+The easiest way to add lyrics to a melody, is by appending
+
+
+@cindex \newlyrics
+@example
+  \newlyrics @{ @var{the lyrics} @} 
+@end example
+
+to a melody. Here is an example,
+
+@lilypond[raggedright]
+  \relative { \time 3/4 c2 e4 g2. }
+  \newlyrics { play the game } 
+@end lilypond
+
+More stanzas can be added by adding more
+@code{\newlyrics} sections 
+
+@lilypond[raggedright]
+  \relative { \time 3/4 c2 e4 g2. }
+  \newlyrics { play the game } 
+  \newlyrics { speel het spel } 
+  \newlyrics { joue le jeu } 
+@end lilypond
+
+The @code{\newlyrics} keyword has three functions: it interprets the
+following words as texts instead of notes, it sets up a context for
+printing texts (the @code{Lyrics} context), and it couples the melody
+with the lyrics, so that the durations of both are aligned.
+
+These three functions can be controlled separately, and that is what
+the following sections are about.
 
 @menu
+* Easy lyrics entry
 * Entering lyrics::             
 * The Lyrics context::          
 * More stanzas::                
@@ -3323,9 +3356,9 @@ This section discusses how to enter and print lyrics.
 @cindex punctuation
 
 Lyrics are entered in a special input mode. This mode is is introduced
-by the keyword @code{\lyrics}.  In this mode you can enter lyrics, with
-punctuation and accents without any hassle.  Syllables are entered like
-notes, but with pitches replaced by text.  For example,
+by the keyword @code{\lyrics}.  In this mode you can enter lyrics,
+with punctuation and accents without any hassle.  Syllables are
+entered like notes, but with pitches replaced by text.  For example,
 @example
   \lyrics @{ Twin-4 kle4 twin- kle litt- le star2 @}
 @end example
@@ -3360,16 +3393,18 @@ property commands
 Any @code{_} character which appears in an unquoted word is converted
 to a space.  This provides a mechanism for introducing spaces into words
 without using quotes.  Quoted words can also be used in Lyrics mode to
-specify words that cannot be written with the above rules
+specify words that cannot be written with the above rules. The
+following example incorporates double quotes
 
 @example
   \lyrics @{ He said: "\"Let" my peo ple "go\"" @}
 @end example
-However, at least for english texts, you should use 
+
+This example is slightly academic, since it gives better looking
+results to use matched single quotes, @code{``} and @code{''}
 @example
   \lyrics @{ He said: ``Let my peo ple go'' @}
 @end example
-to get the correct shape of the starting and ending quote.
 
 @cindex hyphens
 

@@ -44,8 +44,8 @@ entering numbers, lists, strings and symbols in Scheme.
 
 
 @menu
-* Scheme tutorial::
-* File structure::
+* Scheme tutorial::             
+* File structure::              
 * Interpretation contexts::     
 * Tuning output::               
 * Fonts::                       
@@ -231,7 +231,7 @@ respectively,
 @node File structure
 @section File structure
 
-The following items may be present in a file at toplevel
+The following items may be present in a @file{.ly} file at toplevel
 
 @itemize @bullet
 @item An output definition, such as @code{\bookpaper}, @code{\midi}
@@ -276,7 +276,7 @@ defined in the init file @file{scm/lily.scm}.
 
 The following example shows three things which may be entered at
 toplevel
-@example
+@verbatim
    \paper  {
      % movements are non-justified by default    
      raggedright = ##t
@@ -287,7 +287,7 @@ toplevel
    }
    
    { c'4 d' e2 }
-@end example
+@end verbatim
 
 
 At any point in a file, any of the following lexical instructions can
@@ -298,7 +298,7 @@ be entered:
 @item @code{\include}
 @item @code{\encoding}
 @item @code{\renameinput}
-@item 
+@end itemize 
 
 
  
@@ -2087,7 +2087,7 @@ The header block for a book supports the following
 
 This is a demonstration of the fields available, 
 
-@lilypond
+@lilypond[verbatim]
 \book {
   \header {
     title = "Title"
@@ -2101,10 +2101,18 @@ This is a demonstration of the fields available,
     instrument = "Instrument"
     piece = "Piece"
   }
+
   \score {
     \header {
-      piece = "piece"
-      opus = "opus" 
+      piece = "piece1"
+      opus = "opus1" 
+    }
+    { c'1 }
+  }
+  \score {
+    \header {
+      piece = "piece2"
+      opus = "opus2" 
     }
     { c'1 }
   }
@@ -2201,7 +2209,7 @@ The default layout responds to the following settings in the
  Distance between top-most music system and the page header
 @item foot-sep
  Distance between bottom-most music system and the page footer
-@end itemize
+@end table
 
 The default page header puts the page number and the @code{instrument}
 field from the @code{\header} block on a line.
@@ -2211,7 +2219,7 @@ field from the @code{\header} block on a line.
 
 The default footer is empty, except for the first page, where it the
 @code{copyright} field from @code{\header} is inserted, and the last
-page, where  @code{tagline} from  @code{\header} is added (the default
+page, where @code{tagline} from @code{\header} is added. The default
 tagline is ``Engraved by LilyPond (@var{version})''.
 
 The header and footer are created by the functions @code{make-footer}
@@ -2226,7 +2234,7 @@ page, the latter creates the actual page given the system to put on it.
 
 @seealso
 
-Examples: TODO
+Examples: @inputfileref{input/test/,page-breaks.ly}
 
 
 

@@ -213,16 +213,12 @@ information.
 @c
 Output format for sheet music. Choices are @code{tex} (for @TeX{}
 output, to be processed with La@TeX{}, or through @code{lilypond}),
-@code{pdftex} for PDF@TeX{} input, @code{ps} (for PostScript),
-@code{scm} (for a Scheme dump), @code{sk} (for Sketch).
+and @code{ps} for PostScript.
 
-@strong{This option is only for developers}. Only the @TeX{} output of
-these is usable for real work.
+Other output options are intended for developers.
 
 
 @cindex output format, setting
-@cindex Sketch output
-@cindex PDFTeX output
 @cindex PostScript output
 @cindex Scheme dump
 

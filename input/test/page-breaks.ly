@@ -1,7 +1,11 @@
 \version "2.2.0"
 
 \header {
-    texidoc = "Stress optimal page breaking.  This should look nice on 4 a6 pages."
+
+texidoc = "Stress optimal page breaking.  This should look
+    nice on 4 a6 pages. "
+
+    
     copyright = "Copyright by /me"
     
     title = "Title"

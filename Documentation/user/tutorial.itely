@@ -53,7 +53,7 @@ reference.
 * Printing lyrics::             
 * A lead sheet::                
 * Listening to output::         
-* Titling::                     
+* Adding titles::               
 * Single staff polyphony::      
 * Piano staves::                
 * Organizing larger pieces::    
@@ -562,7 +562,7 @@ one.  For example, @samp{c f} goes up while @samp{c g} goes down
 
 @lilypond[quote,notime,fragment,verbatim]
 \relative {
-  c'' f c g c
+  c' f c g c
 }
 @end lilypond
 
@@ -1213,8 +1213,8 @@ added
 @cindex paper block
 
 
-@node Titling
-@section Titling
+@node Adding titles
+@section Adding titles
 
 Bibliographic information is entered in a separate block, the
 @code{\header} block.  The name of the piece, its composer, etc., are
