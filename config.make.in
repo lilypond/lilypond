@@ -21,6 +21,7 @@ exec_prefix = @exec_prefix@
 
 builddir = @ugh_ugh_autoconf250_builddir@
 build_lilypond_datadir = @build_package_datadir@
+build_lilypond_libdir = @build_package_libdir@
 bindir = @bindir@
 datadir = @datadir@
 includedir = @includedir@
@@ -28,6 +29,7 @@ infodir = @infodir@
 libdir = @libdir@
 lilypond_datadir = @package_datadir@
 local_lilypond_datadir = @local_package_datadir@
+local_lilypond_libdir = @local_package_libdir@
 localedir = @localedir@
 mandir = @mandir@
 program_prefix = @program_prefix@

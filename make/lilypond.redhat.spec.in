@@ -43,6 +43,7 @@ Documentation and example files of LilyPond. An index is available at
 ./configure --disable-checking --prefix=%{_prefix} --enable-optimising
 
 make MAKE_PFA_FILES=1 all
+make -C mf/ pfa
 
 # make info
 make -C Documentation
@@ -89,7 +90,6 @@ rm `find /var/lib/texmf -name 'feta*pk' -or -name 'feta*tfm' -or -name 'parmesan
 /sbin/install-info %{_infodir}/lilypond.info.gz %{_infodir}/dir 
 %endif
 
-/usr/X11R6/bin/mkfontdir %{_datadir}/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
 chkfontpath --add=%{_datadir}/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
 
 echo 'Please logout first before using LilyPond.'
@@ -102,7 +102,6 @@ if [ $1 = 0 ]; then
 fi
 %endif
 
-rm -f %{_datadir}/lilypond/@TOPLEVEL_VERSION@/fonts/type1/fonts.dir
 chkfontpath --remove=%{_datadir}/share/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
 
 %files

@@ -259,6 +259,36 @@ AC_DEFUN(STEPMAKE_DATADIR, [
     AC_DEFINE_UNQUOTED(BUILD_PACKAGE_DATADIR, ["${BUILD_PACKAGE_DATADIR}"])
 ])
 
+## ugh: cut & paste programming from datadir. 
+AC_DEFUN(STEPMAKE_LIBDIR, [
+    if test "$datadir" = "\${prefix}/lib"; then
+	    datadir='${prefix}/lib'
+    fi
+    presome=${prefix}
+    if test "$prefix" = "NONE"; then
+	presome=${ac_default_prefix}
+    fi
+    
+    package_libdir=$libdir/$package
+    
+    local_package_libdir=$package_libdir/$FULL_VERSION
+    build_package_libdir=$ugh_ugh_autoconf250_builddir/lib/$package
+    
+    DATADIR=`echo ${libdir} | sed "s!\\\${prefix}!$presome!"`
+    PACKAGE_LIBDIR=`echo ${package_libdir} | sed "s!\\\${prefix}!$presome!"`
+    LOCAL_PACKAGE_LIBDIR=`echo ${local_package_libdir} | sed "s!\\\${prefix}!$presome!"`
+    BUILD_PACKAGE_LIBDIR=`echo ${build_package_libdir} | sed "s!\\\${prefix}!$presome!"`
+    
+    AC_SUBST(libdir)
+    AC_SUBST(package_libdir)
+    AC_SUBST(local_package_libdir)
+    AC_SUBST(build_package_libdir)
+    AC_DEFINE_UNQUOTED(LIBDIR, ["${LIBDIR}"])
+    AC_DEFINE_UNQUOTED(PACKAGE_LIBDIR, ["${PACKAGE_LIBDIR}"])
+    AC_DEFINE_UNQUOTED(LOCAL_PACKAGE_LIBDIR, ["${LOCAL_PACKAGE_LIBDIR}"])
+    AC_DEFINE_UNQUOTED(BUILD_PACKAGE_LIBDIR, ["${BUILD_PACKAGE_LIBDIR}"])
+])
+
 
 AC_DEFUN(STEPMAKE_END, [
     AC_SUBST(OPTIONAL)
@@ -609,6 +639,7 @@ AC_DEFUN(STEPMAKE_INIT, [
     AC_SUBST(ROOTSEP)
   
     STEPMAKE_DATADIR
+    STEPMAKE_LIBDIR
 ])
 
     
