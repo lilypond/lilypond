@@ -61,8 +61,7 @@ interscoreline = 4. \mm
 	(font-series . medium)
 	))
 
-%% How to override this?
-#(define-public style-alist
+#(define style-alist
       '((finger . ((font-family . number) (font-relative-size . -3)))
 	(volta . ((font-family . number) (font-relative-size . -2)))
 	(tuplet . ((font-family . roman) (font-shape . italic) (font-relative-size . -1)))
