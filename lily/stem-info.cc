@@ -10,7 +10,7 @@
 #include "proto.hh"
 #include "misc.hh"
 #include "cross-staff.hh"
-
+#include "debug.hh"
 #include "stem.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
@@ -41,8 +41,16 @@ Stem_info::Stem_info (Stem*s, int mult)
   set_direction (stem_l_->get_direction ());
   SCM bd = stem_l_->remove_elt_property ("beam-dir");
   
-  beam_dir_ = gh_scm2int (bd);
-
+  if (gh_number_p (bd))
+    {
+      beam_dir_ = gh_scm2int (bd);
+    }
+  else
+    {
+      programming_error ("Beam direction not set."); 
+      beam_dir_ = UP;		//  GURAUGRNAGURAGU! urg !
+    }
+  
   Paper_def* paper_l = stem_l_->paper_l ();
   Real internote_f = stem_l_->staff_line_leading_f ()/2;
   Real interbeam_f = paper_l->interbeam_f (mult_i_);
