@@ -1,3 +1,13 @@
+2004-09-19  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* input/mutopia/E.Satie/petite-ouverture-a-danser.ly: 
+	* input/mutopia/R.Schumann/romanze-op28-2.ly:
+	* input/mutopia/F.Schubert/standchen.ly: Remove obsolete
+	#'Slur.attachment setting.
+
+	* elisp/lilypond-mode.el (LilyPond-command-alist): Use -ftex,
+	friendlier for point and click.
+
 2004-09-19  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* ly/init.ly: reverse collected scores.

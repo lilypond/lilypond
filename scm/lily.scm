@@ -64,8 +64,10 @@
 (define ifdef "First run this through cpp.")
 (define ifndef "First run this through cpp.")
 
-;; gettext wrapper
-(define-public _ ly:gettext)
+;; gettext wrapper for guile < 1.7.2
+(if (defined? 'gettext)
+    (define-public _ gettext)
+    (define-public _ ly:gettext))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

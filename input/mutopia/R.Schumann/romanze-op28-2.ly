@@ -38,7 +38,6 @@ global =  { \key fis \major \time 6/8
 righta =  \transpose c cis' {
  % \stemUp \slurUp \tieUp
  \stemUp
- \override Slur   #'attachment = #'(stem . stem)
  \repeat volta 2 {
   \override TextScript   #'extra-offset = #'(-8.0 . 2.5)
   \m  a,16[^\p( \u c^\markup {

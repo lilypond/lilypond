@@ -193,14 +193,12 @@ trebleVerseOne = \relative c{
 	r8\pp <es as c> <as c es> <es as c> <as c es> <es as c> |
 	%20
 	r8 <es g bes> <g bes es> <es g bes> <g bes es> <es g bes> |
-	\override Slur   #'attachment = #'(stem . stem)
 	\grace {
   \override Stem   #'stroke-style = #"grace"
     as'32[( bes ] 
   \revert Stem #'stroke-style }
 
 	\times 2/3 {  as8[)( g as] } c4.->  as8) |
-	\revert Slur #'attachment
 	g2. |
 	r8 <f, g> <g b> <f g> <g b> <f g> |
 	r8 <e g> <g c> <e g> <g c> <e g> |

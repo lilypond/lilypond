@@ -19,7 +19,7 @@
 (require 'easymenu)
 (require 'compile)
 
-(defconst LilyPond-version "1.9.9"
+(defconst LilyPond-version "2.3.17"
   "`LilyPond-mode' version number.")
 
 (defconst LilyPond-help-address "bug-lilypond@gnu.org"
@@ -411,7 +411,7 @@ in LilyPond-include-path."
   ;; Should expand this to include possible keyboard shortcuts which
   ;; could then be mapped to define-key and menu.
   `(
-    ("LilyPond" . ("lilypond %s" "%s" "%l" "ViewPS"))
+    ("LilyPond" . ("lilypond -ftex %s" "%s" "%l" "View"))
     ("TeX" . ("tex '\\nonstopmode\\input %t'" "%t" "%d" "View"))
 
     ("2Dvi" . ("lilypond -f tex %s" "%s" "%d" "LaTeX"))
