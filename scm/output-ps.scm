@@ -1,4 +1,4 @@
-;;;; ps.scm -- implement Scheme output routines for PostScript
+;;;; output-ps.scm -- implement Scheme output routines for PostScript
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
