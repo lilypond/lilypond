@@ -1,5 +1,6 @@
 \header {
-    texidoc = "Absolute dynamics have effect in MIDI files."
+    texidoc = "@cindex Absolute dynamics
+Absolute dynamics have effect in MIDI files."
 }
 
 \version "1.7.18"

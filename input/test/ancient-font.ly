@@ -2,6 +2,9 @@
 \header {
     title	= "ancient font test"
     date	= "2002"
+texidoc = "@cindex Ancient Font
+Here is a display of many (all?) symbols that are
+included in Lilypond's support of ancient notation."
 }
 
 \include "paper26.ly"
@@ -177,6 +180,7 @@ lowerStaff =  \context MensuralStaff = lowerStaff <
 	% segmentation fault on r8/r16/r32.  (Strange: what has
 	% Voice.Stem flag-style to do with mensural rests?)
 	\property Voice.Stem \override #'flag-style = #'neo_mensural
+	% FIXME: produces warnings about "flag `neo_mensurald4' (or 3) not found".
 	r2 r4 r8 r16 r16
 	\property Voice.Stem \override #'flag-style = #'mensural
 	\property Staff.forceClef = ##t
