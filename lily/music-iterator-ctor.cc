@@ -8,6 +8,7 @@
  */
 
 #include "music-iterator-ctor.hh"
+#include "ly-smobs.icc"
 
 static long callback_tag;
 
