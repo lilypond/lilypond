@@ -425,10 +425,10 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 	= (head_posns[LEFT][DOWN] > head_posns[RIGHT][UP]) ? RIGHT : LEFT;
 
       Real delta = head_posns[-lowest][DOWN] - head_posns[lowest][UP];
-      Real corr = robust_scm2double (me->get_property ("stem-spacing-correction"), 0);
-      corr = (delta <= 1) ? 0.0 : 0.25;
-
-      correction = -lowest * corr;
+      Real corr = robust_scm2double (me->get_property ("same-direction-correction"), 0);
+      
+      if (delta > 1)
+	correction = -lowest * corr;
     }
 
   *space += correction;
