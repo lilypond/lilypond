@@ -407,7 +407,8 @@ Stem::position_noteheads (Grob*me)
 	{
 	  if (parity)
 	    {
-	      Real l = heads[i]->extent (heads[i], X_AXIS).length ();
+	      Real l = Note_head::head_extent (heads[i], X_AXIS).length ();
+
 	      heads[i]->translate_axis (l * get_direction (me), X_AXIS);
 	    }
 	  parity = !parity;
