@@ -17,16 +17,10 @@
 
 (define-module (scm output-ps)
   #:re-export (quote)
-
-  ;; FIXME
-  ;;; <unnamed port>: Wrong type argument in position 2 (expecting SYMBOLP): (append (ly:all-stencil-expressions) (ly:all-output-backend-commands))
-  ;;#:export ,(append (ly:all-stencil-expressions)
-  ;;  (ly:all-output-backend-commands)))
-
-;   ;; UGHXr 
   #:export (unknown
 	     blank
 	     dot
+	     white-dot
 	     beam
 	     bracket
 	     dashed-slur
@@ -153,6 +147,18 @@
    " "
    (ly:numbers->string
     (list x y radius)) " draw_dot"))
+
+(define (white-dot x y radius)
+  (string-append
+   " "
+   (ly:numbers->string
+    (list x y radius)) " draw_white_dot"))
+
+(define (white-dot x y radius)
+  (string-append
+   " "
+   (ly:numbers->string
+    (list x y radius)) " draw_white_dot"))
 
 (define (draw-line thick x1 y1 x2 y2)
   (string-append 
