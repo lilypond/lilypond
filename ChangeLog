@@ -7,6 +7,8 @@
 	feature.
 	Sort options.
 
+	* Documentation/user/lilypond-book.itely: Finish update.
+
 2004-11-17  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/user/macros.itexi: Add comment about \command.

@@ -15,7 +15,7 @@ TODO: cleanup
 
 @c Note: keep this node named so that `info lilypond-book' brings you here.
 @node LilyPond-book
-@chapter LilyPond-book: Integrating text and music
+@chapter @command{lilypond-book}: Integrating text and music
 
 If you want to add pictures of music to a document, you can simply do it
 the way you would do with other types of pictures.  The pictures are
@@ -31,13 +31,13 @@ the music are adjusted to match the layout of your document.
 This procedure may be applied to La@TeX{}, HTML or Texinfo documents.
 
 @menu
-* An example of a musicological document::  
-* Integrating LaTeX and music::  
-* Integrating Texinfo and music::  
-* Integrating HTML and music::  
-* Music fragment options::      
-* Invoking lilypond-book::      
-* Filename extensions::         
+* An example of a musicological document::
+* Integrating LaTeX and music::
+* Integrating Texinfo and music::
+* Integrating HTML and music::
+* Music fragment options::
+* Invoking lilypond-book::
+* Filename extensions::
 @end menu
 
 
@@ -535,18 +535,12 @@ a link.
 @node Invoking lilypond-book
 @section Invoking @command{lilypond-book}
 
-Running @command{lilypond-book} generates lots of small files that
-LilyPond will process.  To avoid all that garbage in the source
-directory use the @option{--output} command line option, and change to
-that directory before running La@TeX{} or @file{makeinfo}:
+@command{lilypond-book} produces a file with one of the following
+extensions: @file{.tex}, @file{.texi}, or @file{.html}, depending on the
+output format.  Both @file{.tex} and @file{.texi} files need further
+processing.
 
-@example
-lilypond-book --output=out yourfile.lytex
-cd out
-@end example
-
-This will produce a @file{.tex} or @file{.texi} file.  To produce pdf
-output from the @file{.tex} file, you should do
+To produce PDF output from the @file{.tex} file, you should do
 
 @example
 latex yourfile.tex
@@ -555,57 +549,76 @@ ps2pdf yourfile.ps
 @end example
 
 To produce a Texinfo document (in any output format), follow the normal
-procedures for Texinfo.
+procedures for Texinfo (this is, either call @command{texi2dvi} or
+@command{makeinfo}, depending on the output format you want to create).
+@xref{Format with texi2dvi, , , texinfo, GNU Texinfo}, and @ref{Creating
+an Info File, , , texinfo, GNU Texinfo}.
 
 @command{lilypond-book} accepts the following command line options:
 
 @table @code
-@item @option{-f @var{format}}, @option{--format=@var{format}}
+@item -f @var{format}
+@itemx --format=@var{format}
 Specify the document type to process: @code{html}, @code{latex}, or
-@code{texi} (the default).  @command{lilypond-book} figures this
-out automatically.
+@code{texi} (the default).  If this option is missing,
+@command{lilypond-book} tries to detect the format automatically.
 
 The @code{texi} document type produces a Texinfo file with music
-fragments in the DVI output only. For getting images in the HTML
-version, the format
-@code{texi-html} must be used.
+fragments in the DVI output only.  For getting images in the HTML
+version, the format @code{texi-html} must be used instead.
 
-@item @option{-F @var{filter}}, @option{--filter=@var{filter}}
+[Note: Currently, @code{texi} is the same as @code{texi-html}.]
+
+@item -F @var{filter}
+@itemx --filter=@var{filter}
 Pipe snippets through @var{filter}.
 
-For example:
+Example:
 @example
-  lilypond-book --filter='convert-ly --from=2.0.0' my-book.tely
+lilypond-book --filter='convert-ly --from=2.0.0' my-book.tely
 @end example
 
-@item @option{--help}
+@item -h
+@itemx --help
 Print a short help message.
 
-@item @option{-I @var{dir}}, @option{--include=@var{dir}}
-Add @var{DIR} to the include path.
+@item -I @var{dir}
+@itemx --include=@var{dir}
+Add @var{dir} to the include path.
 
-@item @option{-o @var{dir}}, @option{--output=@var{dir}}
-Place generated files in @var{dir}.
+@item -o @var{dir}
+@itemx --output=@var{dir}
+Place generated files in directory @var{dir}.  Running
+@command{lilypond-book} generates lots of small files that LilyPond will
+process.  To avoid all that garbage in the source directory use the
+@option{--output} command line option, and change to that directory
+before running @command{latex} or @command{makeinfo}:
 
-@item @option{-P @var{process}}, @option{--process=@var{COMMAND}}
+@example
+lilypond-book --output=out yourfile.lytex
+cd out
+...
+@end example
+
+@item -P @var{process}
+@itemx --process=@var{command}
 Process LilyPond snippets using @var{command}.  The default command is
 @code{lilypond}.
 
-@item @option{--verbose}
+@item -V
+@itemx --verbose
 Be verbose.
 
-@item @option{--version}
+@item -v
+@itemx --version
 Print version information.
 @end table
 
-For La@TeX{} input, the file to give to La@TeX{} has the extension
-@file{.latex}.  Texinfo input will be written to a file with the extension
-@file{.texi}.
-
 @refbugs
 
-The Texinfo command @code{pagesize} is not interpreted. Almost all
-La@TeX{} commands that change margins and line widths are ignored.
+The Texinfo command @code{@@pagesizes} is not interpreted.  Similarly,
+La@TeX{} commands that change margins and line widths after the preamble
+are ignored.
 
 Only the first @code{\score} of a LilyPond block is processed.
 
@@ -618,19 +631,24 @@ use @code{\lilypondfile}.
 @node Filename extensions
 @section Filename extensions
 
-You can use any filename extension, but if you do not use the
-recommended extension, you may need to manually specify what output
-format you want.  See @ref{Invoking lilypond-book} for details.
+You can use any filename extension for the input file, but if you do not
+use the recommended extension for a particular format you may need to
+manually specify the output format.  @xref{Invoking lilypond-book}, for
+details.  Otherwise, @command{lilypond-book} automatically selects the
+output format based on the input filename's extension.
 
-@command{lilypond-book} automatically selects the output format based
-on the filename.
-
-@table @code
-
-@item @file{.html} produces html output
-
-@item @file{.itely} produces texinfo output
-
-@item @file{.lytex} produces latex output
-
-@end table
+@quotation
+@multitable @columnfractions .2 .5
+@item @strong{extension} @tab @strong{output format}
+@item
+@item @file{.html} @tab HTML
+@item @file{.itely} @tab Texinfo
+@item @file{.latex} @tab La@TeX{}
+@item @file{.lytex} @tab La@TeX{}
+@item @file{.tely} @tab Texinfo
+@item @file{.tex} @tab La@TeX{}
+@item @file{.texi} @tab Texinfo
+@item @file{.texinfo} @tab Texinfo
+@item @file{.xml} @tab HTML
+@end multitable
+@end quotation
