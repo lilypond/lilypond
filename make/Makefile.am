@@ -1,6 +1,4 @@
-# Automatically generated from ./lilypond-0.1.49/make/Makefile.am.wild by bin/autowild
-# Do not edit
-# project  LilyPond -- the musical typesetter
+# Generated automatically by wild-perl 0.1# project  LilyPond -- the musical typesetter
 # title	   zucht
 # file	   make/Makefile.am.dist
 #
@@ -34,3 +32,5 @@ lilypond.spec: lilypond.spec.in ../VERSION
 %.lsm: %.lsm.in ../VERSION
 	cat $< | $(SED_VERSION) | $(SED_DATE) > $@
 
+$(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
+	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@

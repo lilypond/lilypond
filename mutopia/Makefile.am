@@ -1,6 +1,4 @@
-# Automatically generated from ./lilypond-0.1.49/mutopia/Makefile.am.wild by bin/autowild
-# Do not edit
-# mutopia/Makefile.am.wild
+# Generated automatically by wild-perl 0.1# mutopia/Makefile.am.wild
 
 SUBDIRS = J.S.Bach
 
@@ -12,3 +10,5 @@ EXTRA_DIST = Makefile.am.wild TODO $(LYFILES) $(TEXFILES) $(M4FILES)
 OUTFILES = $(M4FILES:%.m4=%)
 
 default: all $(OUTFILES)
+$(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
+	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@

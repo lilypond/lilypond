@@ -9,6 +9,8 @@ sub ignore_query
     return !grep(/$testfile/, @ignorestuff);
 }
 
+print "# Generated automatically by wild-perl 0.1\n";
+
 while (<>) {
 	$line = $_;
 	if ($line =~ /^ *nowildcard: *(.*)$/) {
@@ -32,3 +34,8 @@ while (<>) {
 	    print $line;
 	}
 }
+
+
+print "\$(srcdir)/Makefile.am: \$(srcdir)/Makefile.am.wild\n" .
+    "\t\$(PERL) \$(top_srcdir)/bin/wild-perl < \$< > \$@";
+
