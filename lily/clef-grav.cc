@@ -1,5 +1,5 @@
 /*
-  clef.cc -- implement  Clef_engraver
+  clef.cc -- implement Clef_engraver
 
   source file of the GNU LilyPond music typesetter
 
@@ -60,10 +60,17 @@ Clef_engraver::read_req (Clef_change_req*c_l)
   if (!set_type (c_l->clef_str_))
     c_l->error (_("unknown clef type "));
 }
+
+
+/** 
+  Generate a clef at the start of a measure. (when you see a Bar,
+  ie. a breakpoint) 
+  */
 void
 Clef_engraver::acknowledge_element (Score_elem_info info)
 {
-  if (info.elem_l_->name() == Bar::static_name () && clef_type_str_.length_i())
+  if (info.elem_l_->is_type_b (Bar::static_name ()) 
+      && clef_type_str_.length_i())
     {
       create_clef();
       if (!clef_req_l_)
