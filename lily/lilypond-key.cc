@@ -212,7 +212,6 @@ Lilypond_general_key::do_compare (Object_key const* key)const
   if (c)
     return c;
 
-v  
   c = sign (disambiguation_count_ - other->disambiguation_count_);
   if (c)
     return c;

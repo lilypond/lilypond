@@ -293,22 +293,35 @@
 	 (origin (if (null? extra-offset) '(0 . 0)
 		     (cons (car extra-offset)
 			   (- 0 (cdr extra-offset))))))
-    (if grob (hashq-set! (grob-tweaks go) grob
-			 (cons
-			  'extra-offset
-			  (list
-			   (cons (+ (car origin) (car offset))
-				 (- 0 (+ (cdr origin) (cdr offset))))))))))
+    
+    (if grob
+	(hashq-set! (grob-tweaks go) grob
+		    (cons
+		     'extra-offset
+		     (list
+		      (cons (+ (car origin) (car offset))
+			    (- 0 (+ (cdr origin) (cdr offset))))))))))
 
 ;; FIXME: this only saves new tweaks, old tweaks are lost.
 (define-method (save-tweaks (go <gnome-outputter>))
-  (let ((tweaks (hash-fold
-		 (lambda (key value seed)
-		   (cons (cons (ly:grob-id key) value) seed))
-		 '() (grob-tweaks go))))
+  (let*
+      ((dumper (ly:make-dumper))
+       (tweaks (hash-fold
+		(lambda (grob value seed)
+		  (cons
+		   (list 'set-property
+			 (list
+			  'key
+			  (ly:dumper-key-serial dumper (ly:grob-key grob)))
+			 value)
+		   seed))
+		'() (grob-tweaks go))))
+    
     (if (not (null? tweaks))
 	(let ((file (open-file (string-append (name go) ".twy") "w")))
-	  (format file ";;; TWEAKS \n'~S\n" tweaks)))))
+	  (format file ";;; KEYS\n`~S\n;;; TWEAKS \n`~S\n"
+		  (ly:dumper-definitions dumper)
+		  tweaks)))))
 
 ;;;(define (item-event go grob item event)
 (define (item-event go item event)

@@ -602,7 +602,7 @@ Grob::mark_smob (SCM ses)
 {
   Grob *s = (Grob*) SCM_CELL_WORD_1 (ses);
   scm_gc_mark (s->immutable_property_alist_);
-
+  scm_gc_mark (s->key_->self_scm ());
   for (int a = 0 ; a < 2; a++)
     {
       scm_gc_mark (s->dim_cache_[a].offset_callbacks_);
