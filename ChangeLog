@@ -1,3 +1,12 @@
+2002-12-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* python/GNUmakefile (INSTALLATION_DIR1): install Python module
+	into libdir
+
+	* autogen.sh (srcdir): copy aclocal.m4 if newer. 
+
+	* stepmake/aclocal.m4: STEPMAKE_LIBDIR.
+
 2002-12-04  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lilypond.words: take \words from Info-index.
