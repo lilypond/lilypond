@@ -1574,6 +1574,13 @@ set to code(\down) to print marks below the staff.
 dit(code(articulationScriptPadding)) Determines the extra space added 
 between articulation marks, such as staccato, tenuto, trill, up/down 
 bow or fermata, and the closest staff line or note.
+
+
+dit(code(articulationScriptVerticalDirection)) Determines the location
+of articulation marks. Set to code(\up) to print marks above the
+staff; set to code(\down) to print marks below the staff. This
+property does not override explicit directions marked with code(^) or
+code(_) in the mudela file.
 )
 
 subsubsubsect(Staff properties)
