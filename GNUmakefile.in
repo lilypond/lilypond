@@ -117,7 +117,8 @@ $(tree-prefix)/lilypond-force: GNUmakefile
 		ln -s $(abs-srcdir)/mf && \
 		ln -s $(abs-srcdir)/ps && \
 		ln -s ../../../python/$(outconfbase) python && \
-		ln -s $(abs-srcdir)/scm
+		ln -s $(abs-srcdir)/scm && \
+		ln -s $(abs-srcdir)/scripts scripts
 	cd $(tree-prefix)/dvips && \
 		ln -s ./../../mf/$(outconfbase) mf-out && \
 		ln -s $(abs-srcdir)/ps
