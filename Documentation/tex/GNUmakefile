@@ -6,6 +6,8 @@ DATA_FILES = $(wildcard *.data)
 datafiles = $(addprefix $(outdir)/,$(DATA_FILES:.data=.html))
 DOC_FILES = $(wildcard *.doc)
 DVI_FILES = $(addprefix $(outdir)/,$(DOC_FILES:.doc=.dvi) $(YO_FILES:.yo=.dvi))
+OUT_BIB_FILES = $(addprefix $(outdir)/, $(BIB_FILES))
+
 OUTDOC_FILES = $(addprefix $(outdir)/, $(DOC_FILES))
 EL_FILES = $(wildcard *.el)
 BIB_FILES= $(wildcard *.bib)
@@ -15,11 +17,13 @@ PS_FILES = $(DVI_FILES:.dvi=.ps)
 
 STEPMAKE_TEMPLATES=documentation
 LOCALSTEPMAKE_TEMPLATES=lilypond mudela
+export BIBINPUTS="$(topdir)/Documentation/tex//"#huh?
 
 
 include $(depth)/make/stepmake.make 
 
-dvi: $(DVI_FILES)
+dvi: $(OUT_BIB_FILES) $(DVI_FILES)
+
 
 ps: $(PS_FILES)
 

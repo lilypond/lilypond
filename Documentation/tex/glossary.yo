@@ -17,11 +17,15 @@ in stead <-> instead
 htmlbodyopt(bgcolor)(white)
 htmlcommand(<font color=black>)
 
-latexpackage()(a4wide) COMMENT(UGH)
 latexlayoutcmds(
-%\usepackage[latin1]{inputenc}
-\input mudela-book
+\setlength{\topmargin}{-0.25in}
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{5.875in} 
+\setlength{\oddsidemargin}{0.25in}   
+\setlength{\evensidemargin}{0.25in}
 )
+
+latexpackage()(a4wide) COMMENT(UGH)
 
 whenlatex(notableofcontents())
 whentexinfo(notableofcontents())
@@ -76,19 +80,4 @@ whenlatex(latexcommand(
 whenhtml(
     includeverbatim(DOEXPAND(outdir)/glossary-table.html)
 )
-
-whenlatex(latexcommand(
-    \bibliographystyle{plain}
-    \bibliography{engraving}
-))
-
-
-COMMENT(The bib stuff is somewhere else on the WWW site)
-COMMENT(
-setchapterstring{}
-
-whenhtml{
-    nchapter{Bibliography}
-    includeverbatim{out-www/engraving.html}
-})
 
