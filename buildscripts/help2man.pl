@@ -42,7 +42,7 @@ EOT
 my $help_info = <<EOT;
 `$this_program' generates a man page out of `--help' and `--version' output.
 
-Usage: $this_program [OPTION]... EXECUTABLE
+Usage: $this_program [OPTIONS]... EXECUTABLE
 
  -n, --name=STRING       description for the NAME paragraph
  -s, --section=SECTION   section number for manual page (1, 6, 8)
@@ -182,7 +182,7 @@ for my $hash (\(%include, %append))
     for (keys %$hash) { $hash->{$_} =~ s/\n+$/\n/ }
 }
 
-# Turn off localisation of executable's ouput.
+# Turn off localisation of executable's output.
 @ENV{qw(LANGUAGE LANG LC_ALL)} = ('C') x 3;
 
 # Turn off localisation of date (for strftime).

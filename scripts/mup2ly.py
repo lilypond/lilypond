@@ -67,7 +67,7 @@ except:
 
 
 program_name = 'mup2ly'
-help_summary = _ ("Convert mup to LilyPond source")
+help_summary = _ ("Convert mup to LilyPond source.")
 
 option_definitions = [
 	('', 'd', 'debug', _ ("debug")),
@@ -217,7 +217,7 @@ def options_help_str (opts):
 	return str
 
 def help ():
-	ls = [(_ ("Usage: %s [OPTION]... FILE") % program_name),
+	ls = [(_ ("Usage: %s [OPTIONS]... FILE") % program_name),
 		('\n\n'),
 		(help_summary),
 		('\n\n'),

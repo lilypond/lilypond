@@ -134,7 +134,7 @@ option_definitions = [
 	 _ ("keep all output, output to directory %s.dir") % program_name),
 	('', '', 'no-lily', _ ("don't run LilyPond")),
 	('', 'm', 'no-paper', _ ("produce MIDI output only")),
-	(_ ("FILE"), 'o', 'output', _ ("write ouput to FILE")),
+	(_ ("FILE"), 'o', 'output', _ ("write output to FILE")),
 	(_ ("FILE"), 'f', 'find-pfa', _ ("find pfa fonts used in FILE")),
 	(_ ('RES'), '', 'preview-resolution',
 	 _ ("set the resolution of the preview to RES")),

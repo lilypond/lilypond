@@ -88,7 +88,7 @@ msgstr "Avslutar... "
 
 #: lilylib.py:194 midi2ly.py:224 mup2ly.py:220
 #, python-format
-msgid "Usage: %s [OPTION]... FILE"
+msgid "Usage: %s [OPTIONS]... FILE"
 msgstr "Användning: %s [FLAGGA]... FIL"
 
 #: lilylib.py:198 midi2ly.py:228 mup2ly.py:224 main.cc:166
@@ -714,7 +714,7 @@ msgid "produce MIDI output only"
 msgstr "skapa enbart MIDI-utdata"
 
 #: ly2dvi.py:135 midi2ly.py:102
-msgid "write ouput to FILE"
+msgid "write output to FILE"
 msgstr "skriv utdata till FIL"
 
 #: ly2dvi.py:136
@@ -957,7 +957,7 @@ msgstr "%s skrivet till \"%s\"..."
 #. original_dir = os.getcwd ()
 #. keep_temp_dir_p = 0
 #: midi2ly.py:94
-msgid "Convert MIDI to LilyPond source"
+msgid "Convert MIDI to LilyPond source."
 msgstr ""
 
 #: midi2ly.py:97
@@ -1102,8 +1102,8 @@ msgstr "inga filer angivna på kommandoraden."
 #. if datadir is not set, we're doing a build and LILYPONDPREFIX
 #: mup2ly.py:70
 #, fuzzy
-msgid "Convert mup to LilyPond source"
-msgstr "Konvertera mup till ly"
+msgid "Convert mup to LilyPond source."
+msgstr "Konvertera mup till ly."
 
 #: mup2ly.py:73
 msgid "debug"
@@ -1698,7 +1698,7 @@ msgstr "hindra namngivning av filutdata och exportering"
 #. No version number or newline here. It confuses help2man.
 #: main.cc:155
 #, c-format
-msgid "Usage: %s [OPTION]... FILE..."
+msgid "Usage: %s [OPTIONS]... FILE..."
 msgstr "Användning: %s [FLAGGA]... FIL..."
 
 #: main.cc:157
@@ -2604,7 +2604,7 @@ msgstr "Fundera på att konvertera indata med skriptet \"convert-ly\""
 #~ msgid "assume no double dotted notes"
 #~ msgstr "anta inga dubbelpunkterade noter"
 
-#~ msgid "Usage: %s [OPTION]... [FILE]"
+#~ msgid "Usage: %s [OPTIONS]... [FILE]"
 #~ msgstr "Användning: %s [FLAGGA]... [FIL]"
 
 #~ msgid "Translate MIDI-file to lilypond"

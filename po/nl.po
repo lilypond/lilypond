@@ -97,7 +97,7 @@ msgstr "Beëidigen ..."
 
 #: lilylib.py:194 midi2ly.py:224 mup2ly.py:220
 #, python-format
-msgid "Usage: %s [OPTION]... FILE"
+msgid "Usage: %s [OPTIONS]... FILE"
 msgstr "Gebruik: %s [OPTIE]... BESTAND"
 
 #: lilylib.py:198 midi2ly.py:228 mup2ly.py:224 main.cc:166
@@ -720,7 +720,7 @@ msgid "produce MIDI output only"
 msgstr "produceer alleen MIDI uitvoer"
 
 #: ly2dvi.py:135 midi2ly.py:102
-msgid "write ouput to FILE"
+msgid "write output to FILE"
 msgstr "schrijf uitvoer naar BESTAND"
 
 #: ly2dvi.py:136
@@ -958,7 +958,7 @@ msgstr "%s uitvoer naar `%s'..."
 #. original_dir = os.getcwd ()
 #. keep_temp_dir_p = 0
 #: midi2ly.py:94
-msgid "Convert MIDI to LilyPond source"
+msgid "Convert MIDI to LilyPond source."
 msgstr ""
 
 #: midi2ly.py:97
@@ -1101,8 +1101,8 @@ msgstr "geen bestanden gespecificeerd op de commandoregel."
 #. if datadir is not set, we're doing a build and LILYPONDPREFIX
 #: mup2ly.py:70
 #, fuzzy
-msgid "Convert mup to LilyPond source"
-msgstr "Converteer mup naar ly"
+msgid "Convert mup to LilyPond source."
+msgstr "Converteer mup naar ly."
 
 #: mup2ly.py:73
 msgid "debug"
@@ -1693,7 +1693,7 @@ msgstr "verbied naamgeving van uitvoerbestand en exportering"
 #. No version number or newline here. It confuses help2man.
 #: main.cc:155
 #, c-format
-msgid "Usage: %s [OPTION]... FILE..."
+msgid "Usage: %s [OPTIONS]... FILE..."
 msgstr "Gebruik: %s [OPTIE]... BESTAND..."
 
 #: main.cc:157
@@ -2597,7 +2597,7 @@ msgstr "Overweeg de invoer te converteren met het convert-ly script"
 #~ msgid "assume no double dotted notes"
 #~ msgstr "ga niet uit van dubbel gepunteerde noten"
 
-#~ msgid "Usage: %s [OPTION]... [FILE]"
+#~ msgid "Usage: %s [OPTIONS]... [FILE]"
 #~ msgstr "Gebruik: %s [OPTIE]... [BESTAND]"
 
 #~ msgid "Translate MIDI-file to lilypond"

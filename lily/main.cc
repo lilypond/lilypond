@@ -152,7 +152,7 @@ usage ()
 {
   printf ("\n");
   /* No version number or newline here. It confuses help2man.  */
-  printf (_f ("Usage: %s [OPTION]... FILE...", "lilypond").to_str0 ());
+  printf (_f ("Usage: %s [OPTIONS]... FILE...", "lilypond").to_str0 ());
   printf ("\n\n");
   printf (_ ("Typeset music and or play MIDI from FILE.").to_str0 ());
   printf ("\n\n");

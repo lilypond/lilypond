@@ -19,13 +19,14 @@ import getopt
 program_name = 'lys-to-tely'
 
 def help ():
-	sys.stdout.write (r"""Usage: lys-to-tely [OPTION]... LY-FILE...
+	sys.stdout.write (r"""Usage: lys-to-tely [OPTIONS]... LY-FILE...
 Construct tely doc from LY-FILEs.
 
 Options:
   -h, --help                print this help
-  -o,output=NAME            write tely doc to NAME
-  -t,title=TITLE            set tely tely doc title TITLE
+  -o, --output=NAME         write tely doc to NAME
+  -t, --title=TITLE         set tely doc title TITLE
+
 """)
 	sys.exit (0)
 

@@ -38,7 +38,7 @@ timestamp='2002-03-20'
 me=`echo "$0" | sed -e 's,.*/,,'`
 
 usage="\
-Usage: $0 [OPTION]
+Usage: $0 [OPTIONS]
 
 Output the configuration name of the system \`$me' is run on.
 

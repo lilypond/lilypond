@@ -15,25 +15,26 @@ if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
 
 
 def help ():
-	print """Usage: wiki-slurp.py [OPTION]... ENTRY-PATTERN...
+	print """Usage: wiki-slurp.py [OPTIONS]... ENTRY-PATTERN...
 
 Download a WikiWiki site and convert to local html.
 
 Example: wiki-slurp.py -d /tmp/output 'http://c2.com/cgi-bin/wiki?'
 
 Options:
-  -h,--help          this help
-  -m,--mangle        mangle file names to be shorter 
-  -d,--outdir=DIR    set output directory to DIR
-  -v,--version       version information
+  -h, --help         show this help
+  -m, --mangle       mangle file names to be shorter 
+  -d, --outdir=DIR   set output directory to DIR
+  -v, --version      show version information
 
 Warning: downloading an entire Wiki site generates a huge amount of
 traffic and server load.  Consider asking for a copy of the database.
-See also http://c2.com/cgi-bin/wiki?WikiSlurp
+See also http://c2.com/cgi-bin/wiki?WikiSlurp.
 
 Report bugs to bug-lilypond@gnu.org.
 
-Written by Han-Wen Nienhuys <hanwen@cs.uu.nl>
+Written by Han-Wen Nienhuys <hanwen@cs.uu.nl>.
+
 """
 
 def print_version ():

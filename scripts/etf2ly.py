@@ -1113,7 +1113,7 @@ def identify():
 	sys.stderr.write ("%s from LilyPond %s\n" % (program_name, version))
 
 def help ():
-	sys.stdout.write("""Usage: etf2ly [OPTION]... ETF-FILE
+	sys.stdout.write("""Usage: etf2ly [OPTIONS]... ETF-FILE
 
 Convert ETF to LilyPond.
 
@@ -1128,7 +1128,8 @@ ready-to-use lilypond file.
 
 Report bugs to bug-lilypond@gnu.org.
 
-Written by  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+Written by  Han-Wen Nienhuys <hanwen@cs.uu.nl>.
+
 """)
 
 def print_version ():

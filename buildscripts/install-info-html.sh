@@ -21,14 +21,14 @@ help ()
 $name $version
 Install HTML info document.
 
-Usage: $name [OPTION]... [DOCUMENT-DIR]...
+Usage: $name [OPTIONS]... [DOCUMENT-DIR]...
 
 Options:
-  -a,--all             assume all subdirectories of index to be DOCUMENT-DIRs
-  -d,--dir=DIR         set index directory to DIR (default=.)
-  -D,--debug           print debugging info
-  -h,--help            this help text
-  -v,--version         show version
+  -a, --all            assume all subdirectories of index to be DOCUMENT-DIRs
+  -d, --dir=DIR        set index directory to DIR (default=.)
+  -D, --debug          print debugging info
+  -h, --help           show this help text
+  -v, --version        show version
 EOF
 }
  

@@ -55,8 +55,8 @@ timestamp='2002-03-07'
 me=`echo "$0" | sed -e 's,.*/,,'`
 
 usage="\
-Usage: $0 [OPTION] CPU-MFR-OPSYS
-       $0 [OPTION] ALIAS
+Usage: $0 [OPTIONS] CPU-MFR-OPSYS
+       $0 [OPTIONS] ALIAS
 
 Canonicalize a configuration name.
 

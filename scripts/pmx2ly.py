@@ -785,7 +785,7 @@ Huh? Unknown directive `%s', before `%s'""" % (c, left[:20] ))
 
 def help ():
 	sys.stdout.write (
-"""Usage: pmx2ly [OPTION]... PMX-FILE
+"""Usage: pmx2ly [OPTIONS]... PMX-FILE
 
 Convert PMX to LilyPond.
 
@@ -795,11 +795,12 @@ Options:
   -v, --version       shown version information
 
 PMX is a Musixtex preprocessor written by Don Simons, see
-http://www.gmd.de/Misc/Music/musixtex/software/pmx/
+http://www.gmd.de/Misc/Music/musixtex/software/pmx/.
 
 Report bugs to bug-lilypond@gnu.org.
 
-Written by Han-Wen Nienhuys <hanwen@cs.uu.nl>
+Written by Han-Wen Nienhuys <hanwen@cs.uu.nl>.
+
 """)
 
 

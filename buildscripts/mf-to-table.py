@@ -210,16 +210,19 @@ def write_deps (file, deps, targets):
 	file.write ('\n')
 
 def help():
-    sys.stdout.write(r"""Usage: mf-to-table [options] LOGFILEs
-Generate feta metrics table from preparated feta log\n
+    sys.stdout.write(r"""Usage: mf-to-table [OPTIONS] LOGFILEs
+Generate feta metrics table from preparated feta log.
+
 Options:
-  -a, --afm=FILE         .afm file
+  -a, --afm=FILE         specify .afm file
   -d, --dep=FILE         print dependency info to FILE
   -h, --help             print this help
   -l, --ly=FILE          name output table
   -o, --outdir=DIR       prefix for dependency info
   -p, --package=DIR      specify package
-  -t, --tex=FILE         name output tex chardefs"""
+  -t, --tex=FILE         name output tex chardefs
+
+  """
 )
     sys.exit (0)
 

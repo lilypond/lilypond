@@ -62,7 +62,7 @@ def gulp_file (f):
 	return s
 
 def help ():
-	sys.stdout.write (r"""Usage: add-html-footer [OPTION]... HTML-FILE
+	sys.stdout.write (r"""Usage: add-html-footer [OPTIONS]... HTML-FILE
 Add header, footer and top of ChangLog file (up to the ********) to HTML-FILE
 
 Options:
@@ -73,6 +73,7 @@ Options:
   --index=URL               set homepage to URL
   --name=NAME               set package_name to NAME
   --version=VERSION         set package version to VERSION
+
 """)
 	sys.exit (0)
 

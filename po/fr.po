@@ -87,8 +87,8 @@ msgstr "Fin d'exécution (%d)... "
 
 #: lilylib.py:194 midi2ly.py:224 mup2ly.py:220
 #, python-format
-msgid "Usage: %s [OPTION]... FILE"
-msgstr "Usage: %s [OPTION]... FICHIER"
+msgid "Usage: %s [OPTIONS]... FILE"
+msgstr "Usage: %s [OPTIONS]... FICHIER"
 
 #: lilylib.py:198 midi2ly.py:228 mup2ly.py:224 main.cc:166
 msgid "Options:"
@@ -701,7 +701,7 @@ msgid "produce MIDI output only"
 msgstr "produire une sortie MIDI seulement"
 
 #: ly2dvi.py:135 midi2ly.py:102
-msgid "write ouput to FILE"
+msgid "write output to FILE"
 msgstr "produire la sortie dans le FICHIER"
 
 #: ly2dvi.py:136
@@ -938,8 +938,8 @@ msgstr "%s sortie vers  %s..."
 #. original_dir = os.getcwd ()
 #. keep_temp_dir_p = 0
 #: midi2ly.py:94
-msgid "Convert MIDI to LilyPond source"
-msgstr "Convertir de MIDI en source LilyPond"
+msgid "Convert MIDI to LilyPond source."
+msgstr "Convertir de MIDI en source LilyPond."
 
 #: midi2ly.py:97
 msgid "print absolute pitches"
@@ -1080,8 +1080,8 @@ msgstr "aucun fichier spéficié sur la ligne de commande."
 #. if set, LILYPONDPREFIX must take prevalence
 #. if datadir is not set, we're doing a build and LILYPONDPREFIX
 #: mup2ly.py:70
-msgid "Convert mup to LilyPond source"
-msgstr "Conversion de mup en source LilyPond"
+msgid "Convert mup to LilyPond source."
+msgstr "Conversion de mup en source LilyPond."
 
 #: mup2ly.py:73
 msgid "debug"
