@@ -24,7 +24,7 @@ public:
   Spanner* elt_l_;
   Hyphen_spanner  (Spanner*);
   void set_textitem (Direction, Item*);
-  static SCM scheme_molecule (SCM);
+  static SCM brew_molecule (SCM);
 };
 
 #endif // HYPHEN_SPANNER_HH

@@ -23,13 +23,15 @@ class Script : public Item
   Molecule get_molecule (Direction d) const;
 public:
   Script (SCM);
-   static SCM scheme_molecule (SCM);
+   static SCM brew_molecule (SCM);
   
 
-protected:
-  virtual void before_line_breaking ();
-  virtual void after_line_breaking ();
-  Molecule do_brew_molecule () const;
+
+  SCM member_before_line_breaking ();
+  static SCM before_line_breaking (SCM);
+  SCM member_after_line_breaking ();
+  static SCM after_line_breaking (SCM);
+  SCM member_brew_molecule () const;
 };
 
 #endif /* Stem_SCRIPT_HH */

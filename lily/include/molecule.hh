@@ -80,7 +80,7 @@ public:
 
 SCM fontify_atom (Font_metric*, SCM atom);
 
-Molecule create_molecule (SCM scheme_molecule);
+Molecule create_molecule (SCM brew_molecule);
 
 
 

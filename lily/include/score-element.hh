@@ -152,7 +152,7 @@ public:
 
      #funcptr# is the function to call to update this element.
    */
-  void calculate_dependencies (int final, int busy, Score_element_method_pointer funcptr);
+  void calculate_dependencies (int final, int busy, SCM funcname);
 
 
   static SCM handle_broken_smobs (SCM, SCM criterion);
@@ -163,10 +163,6 @@ public:
   virtual void do_space_processing ();
   virtual void discretionary_processing ();
   virtual void do_derived_mark ();
-  /// do calculations before determining horizontal spacing
-  virtual void before_line_breaking ();
-  /// do calculations after determining horizontal spacing
-  virtual void after_line_breaking ();
 
   Molecule get_molecule () const;
   void suicide ();
@@ -176,7 +172,6 @@ public:
   static Interval molecule_extent (Score_element const*,Axis);
 
 protected:
-
   /**
     Junk score element. This is protected because this is supposed to
     be handled by GUILE gc.  */
@@ -184,14 +179,14 @@ protected:
   
   ///executed directly after the item is added to the Paper_score
   virtual void do_add_processing ();
-  Molecule do_brew_molecule ()const;
-  
   static Interval dim_cache_callback (Dimension_cache const*);
   
 public:
+  SCM member_brew_molecule ()const;
+  
   static SCM ly_set_elt_property (SCM, SCM,SCM);
   static SCM ly_get_elt_property (SCM, SCM);  
-  static SCM scheme_molecule (SCM);
+  static SCM brew_molecule (SCM);
   virtual void handle_broken_dependencies ();
   virtual void handle_prebroken_dependencies ();
 
@@ -245,26 +240,24 @@ public:
 
 Score_element * unsmob_element (SCM);
 
-#define MAKE_SCHEME_SCORE_ELEMENT_NON_DEFAULT_CALLBACKS(TYPE) 				\
+#define MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(TYPE, FUNC) \
 void								\
-TYPE ## __init_functions ()					\
+TYPE ## _ ## FUNC ## _init_functions ()					\
 {								\
-  scm_make_gsubr (#TYPE "::scheme_molecule", 1, 0, 0,		\
-  (SCM(*)(...))TYPE::scheme_molecule); 				\
+  scm_make_gsubr (#TYPE "::" #FUNC, 1, 0, 0,		\
+  (SCM(*)(...))TYPE :: FUNC); 				\
 }								\
 								\
-ADD_SCM_INIT_FUNC(TYPE ## _molecule, TYPE ## __init_functions);	\
+ADD_SCM_INIT_FUNC(TYPE ## _ ## FUNC ## _scelt, TYPE ## _ ## FUNC ## _init_functions);	\
 
-#define MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(TYPE) 				\
-MAKE_SCHEME_SCORE_ELEMENT_NON_DEFAULT_CALLBACKS(TYPE);\
-SCM								\
-TYPE::scheme_molecule (SCM smob)				\
-{								\
+#define GLUE_SCORE_ELEMENT(TYPE, FUNC) \
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(TYPE,FUNC);\
+SCM \
+TYPE::FUNC (SCM smob) \
+{  \
   TYPE * b = dynamic_cast<TYPE*> (unsmob_element (smob));	\
-  return b ?  b->do_brew_molecule ().create_scheme () : SCM_EOL; \
-}								\
-								\
-
+  return b ?   b->member_ ## FUNC () : SCM_UNDEFINED; \
+}  \
 
 
 #endif // STAFFELEM_HH

@@ -22,12 +22,9 @@ public:
   int steps_i() const;
   int line_count () const;
   Staff_symbol (SCM s);
-   static SCM scheme_molecule (SCM);
-  
-
-protected:
+   static SCM brew_molecule (SCM);
   VIRTUAL_COPY_CONS(Score_element);
-  Molecule do_brew_molecule() const;
+  SCM member_brew_molecule() const;
 
 };
 #endif // STAFFSYM_HH
