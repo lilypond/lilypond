@@ -83,6 +83,7 @@ if env['optimising']:
 if env['warnings']:
 	env.Append (CFLAGS = '-W ')
 	env.Append (CFLAGS = '-Wall')
+	# what about = ['-W', '-Wall', ...]?
 	env.Append (CXXFLAGS = '-W')
 	env.Append (CXXFLAGS = '-Wall')
 	env.Append (CXXFLAGS = '-Wconversion')
@@ -126,7 +127,7 @@ for i in functions:
 
 
 key = 'zHAVE_FLEXLEXER_YY_CURRENT_BUFFER'
-defines[key] = conf.TryCompile("""using namespace std;
+defines[key] = conf.TryCompile ("""using namespace std;
 #include <FlexLexer.h>
 class yy_flex_lexer: public yyFlexLexer
 {
@@ -141,7 +142,7 @@ if conf.CheckLib ('dl'):
 	pass
 
 if conf.CheckLib ('kpathsea'):
-	defines['KPATHSEA'] = '1'
+	defines['zKPATHSEA'] = '1'
 
 # huh? 
 if conf.CheckLib ('kpathsea', 'kpse_find_file'):
@@ -171,7 +172,7 @@ config.close ()
 
 os.system (sys.executable \
 	   + ' ./stepmake/bin/make-version.py VERSION > '\
-	   + os.path.join (build, 'version.hh'))
+	   + os.path.join (outdir, 'version.hh'))
 
 if os.path.exists ('parser'):
 	env.Append (LIBPATH = ['#/flower', '#/lily', '#/parser', '#/gui',],
