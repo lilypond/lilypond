@@ -6,8 +6,8 @@ depth = ..
 NAME = lilypond
 SUBDIRS = include
 
-MODULE_LIBS=$(depth)/lib $(depth)/flower 
-MODULE_INCLUDES=$(depth)/lib/include $(depth)/flower/include 
+MODULE_LIBS=$(depth)/flower 
+MODULE_INCLUDES= $(depth)/flower/include 
 MODULE_CXXFLAGS=
 HELP2MAN_EXECS = lilypond
 
