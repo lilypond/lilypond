@@ -159,7 +159,8 @@ verbose_p = 0
 #
 environment = {
 	'MFINPUTS' : datadir + '/mf' + ':',
-	'TEXINPUTS': datadir + '/tex:' + datadir + '/ps:' + os.getcwd() + ':',
+	'TEXINPUTS': datadir + '/tex:' + datadir + '/ps:' + '.:'
+		+ os.getcwd() + ':',
 	'TFMFONTS' : datadir + '/tfm' + ':',
 	'GS_FONTPATH' : datadir + '/afm:' + datadir + '/pfa',
 	'GS_LIB' : datadir + '/ps',

@@ -1,5 +1,9 @@
-1.5.12.jcn1
+1.5.12.jcn2
 ===========
+
+* half-baken --with-kpathsea configuration fix.
+
+* ly2dvi: add `.' to TEXINPUTS to catch broken TEXINPUTS settings.
 
 * guile-1.4 compile fix.
 
