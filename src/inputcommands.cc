@@ -6,6 +6,7 @@
 #include "command.hh"
 #include "stcol.hh"
 #include "staff.hh"
+#include "assoc.hh"
 
 void
 Commands_at::print() const
@@ -18,15 +19,17 @@ Commands_at::print() const
     mtor << "}\n";
 #endif
 }
+
 Moment
 Commands_at::when()
 {
     return tdescription_.when;
 }
+
 Commands_at::Commands_at(Moment dt, Commands_at* prev)
     : tdescription_(dt, (prev)? &prev->tdescription_ : 0)
 {
-    if (prev&& !tdescription_.whole_in_measure) {
+    if (prev && !tdescription_.whole_in_measure) {
 	bottom().add(get_newmeasure_command());
     }
 }
@@ -42,7 +45,6 @@ Commands_at::add(Input_command *i)
 	int o = i->args[2];
 	tdescription_.set_meter(l,o);
 	bottom().add(get_grouping_command( get_default_grouping(l)));
-
     }
 }
 
@@ -88,7 +90,10 @@ Input_cursor::find_moment(Moment w)
     while  (1) {
 	if (! ok() ) {
 	    *this = list().bottom();
-	    Moment dt = (w - when()) <? ptr()->barleft();
+	    
+	    Moment dt = (w - when());
+	    if ( !ptr()->tdescription_.cadenza_b_ )
+		dt = dt <? ptr()->barleft();
 
 	    Commands_at * c = new Commands_at(dt, *this);
 	    assert(c->when() <= w);
@@ -113,6 +118,7 @@ Input_cursor::find_moment(Moment w)
 
 
 /****************/
+
 Input_commands::Input_commands(Input_commands const&src)
     : ptr(src.ptr)
 {
@@ -145,25 +151,35 @@ Input_commands::do_skip(int bars, Moment wholes)
 
 
 void
-Input_commands::add(Input_command c)
-{    
-    if (c.args[0] == "PARTIAL") {	
+Input_commands::add(Input_command c, Assoc<String,Moment> &marks_assoc_r)
+{
+    String s(c.args[0]);
+    if (s == "CADENZA") {
+	ptr->tdescription_.set_cadenza(c.args[1]);
+    } if (s == "PARTIAL") {	
 	ptr->setpartial(c.args[1]);
-    } else if (c.args[0] == "GROUPING") {
+    } else if (s == "GROUPING") {
 	Input_command *ic = new Input_command(c);
 	ic->args.insert(ptr->tdescription_.one_beat, 1);
 	ptr->add(ic);
-    } else if (c.args[0] == "METER") {
+    } else if (s == "METER") {
 	int beats_per_meas = c.args[1];
 	int one_beat = c.args[2];
 	Input_command *ch = get_meterchange_command(beats_per_meas, one_beat);
 	ptr->add(ch);		
-    } else if (c.args[0] == "SKIP") {
+    } else if (s == "SKIP") {
 	int bars = c.args[1] ;
 	Moment wholes= c.args[2];
 	do_skip(bars, wholes);
-    } else if (c.args[0] == "RESET") {
+    } else if (s == "RESET") {
 	ptr= top();
+    } else if (s=="GOTO") {
+	ptr = top();
+	String m(c.args[1]);
+	if (!marks_assoc_r.elt_query(m))
+	    error("Unknown marker: `" +m + "\'");
+	
+	ptr.find_moment(marks_assoc_r[m]);
     } else {
 	Input_command *ic = new Input_command(c);
 	ptr->add(ic);
@@ -185,13 +201,6 @@ Input_commands::parse(Staff * staff_l) const
 	
 	if (!i->when()) {   /* all pieces should start with a breakable. */
 	    com_l->set_breakable();
-	    #if 0
-	    Command c;//(0.0);
-	    c.code = INTERPRET;
-	    c.args.add("BAR");
-	    c.args.add("empty");
-	    com_l->add(c);
-	    #endif
 	}
 
 	i->parse(com_l);
