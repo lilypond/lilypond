@@ -83,7 +83,7 @@ preview_resolution = 90
 ## ly2dvi: silly name?
 ## do -P or -p by default?
 ##help_summary = _ ("Run LilyPond using LaTeX for titling")
-help_summary = _ ("Process LilyPond snippest in hybrid html, LaTeX or texinfo document")
+help_summary = _ ("Process LilyPond snippets in hybrid html, LaTeX or texinfo document")
 copyright = ('Tom Cato Amundsen <tca@gnu.org>',
 	     'Han-Wen Nienhuys <hanwen@cs.uu.nl>')
 
