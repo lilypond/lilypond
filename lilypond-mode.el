@@ -1073,12 +1073,17 @@ LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
   (setq local-abbrev-table LilyPond-mode-abbrev-table)
   (use-local-map LilyPond-mode-map)
 
+  ;; In Emacs blink-...-on-screen needs to be declared (, not in XEmacs).
+  (make-local-variable 'blink-matching-paren-on-screen)
+  (setq blink-matching-paren-on-screen t)
+
   (make-local-variable 'imenu-generic-expression)
   (setq imenu-generic-expression LilyPond-imenu-generic-expression)
   (imenu-add-to-menubar "Index")
 
-  (easy-menu-add LilyPond-mode-menu)    ; automatically added in Emacs, but
-  (easy-menu-add LilyPond-command-menu) ; explicitly added in XEmacs
+  ;; In XEmacs one needs to use 'easy-menu-add' (, not in Emacs).
+  (easy-menu-add LilyPond-mode-menu)
+  (easy-menu-add LilyPond-command-menu)
 
   ;; run the mode hook. LilyPond-mode-hook use is deprecated
   (run-hooks 'LilyPond-mode-hook))
