@@ -64,7 +64,7 @@ reference.
 @section First steps
 
 The first example demonstrates how to enter the most elementary piece
-of music, a @rglos{scale}.  A rglos{note} can be entered by typing its
+of music, a @rglos{scale}.  A @rglos{note} can be entered by typing its
 name, from @samp{a} through @samp{g}.  So, if you enter
 
 @example
@@ -79,8 +79,8 @@ c d e f g a b
 @end lilypond
 
 The @rglos{duration} of a note is specified by a number after the note
-name.  @samp{1} for a @rglos{whole note}, @samp{2} for a @rglos{half
-note}, @samp{4} for a @rglos{quarter note} and so on
+name.  @samp{1} for a @rglos{whole note}, @samp{2} for a @rglos{half note},
+@samp{4} for a @rglos{quarter note} and so on
 
 @example
 a1 a2 a4 a16 a32
