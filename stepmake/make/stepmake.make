@@ -10,7 +10,7 @@ endif
 
 # Use alternate configurations alongside eachother:
 #
-#     ./configure --enable-configsuffix=debug
+#     ./configure --enable-config=debug
 #     make conf=debug
 #
 # uses config-debug.make and config-debug.h; output goes to out-debug.

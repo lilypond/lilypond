@@ -300,9 +300,9 @@ and for the profiling version, I specify a different configuration.
 
 @example 
 
-      ./configure --prefix=~ --enable-profiling --enable-config=optprof --enable-optimise --disable-checking
-      make config=optprof
-      make config=optprof install
+      ./configure --prefix=~ --enable-profiling --enable-config=prof --enable-optimise --disable-checking
+      make config=prof
+      make config=prof install
  
 @end example 
 
@@ -350,6 +350,7 @@ in addition to the those needed for running:
 @item flex
 @item bison
 @item texinfo
+@item tetex-devel
 @end itemize
 
 @section Debian GNU/linux
@@ -357,7 +358,33 @@ in addition to the those needed for running:
 A Debian package is also available; see
 @uref{http://packages.debian.org/lilypond,http://packages.debian.org/lilypond}
 or contact Anthony Fok @email{foka@@debian.org} for more information.
-The build scripts are in the subdirectory @file{debian/}.
+
+The build scripts are in the subdirectory @file{debian/}; you can
+make the .deb by doing
+
+@example 
+
+	tar xzf lilypond-x.y.z.tar.gz
+	cd lilypond-x.y.z
+	dpkg-buildpackage
+	dpkg -i ../lilypond_x.y.z*deb
+ 
+@end example 
+
+For compilation on a Debian GNU/Linux system you need these packages,
+in addition to the those needed for running:
+@itemize @bullet
+@item libc6-dev
+@item libstdc++<your-libstdc++-version-here>-dev
+@item libguile<your-libguile-version-here>-dev
+@item flex
+@item bison
+@item gettext
+@item texinfo
+@item tetex-dev
+@item debhelper
+@end itemize
+
 
 @section Windows NT/95
 
