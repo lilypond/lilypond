@@ -1,13 +1,48 @@
 \version "1.5.68"
+\header
+{
+    texidoc =  "
+IMPORTANT NOTE: The current selection scheme for time signature
+symbols is not flexible enough for future extensions such as various
+flavours of early mensural notation or complex signatures as in
+contemporary music.  Therefore, the semantics of time-signature
+properties will quite definitely change, and maybe the syntax of the
+\time request will possibly be extended. See the input file for TODOs.
+    
+"
+}
+
+
+%{
+
+two examples what might be expected.  -- jr
+
+TODO: The former "old6/8alt" is currently not addressable.  This will
+be fixed by introducing an additional style property that switches
+between various mensural diminution styles.  -- jr
+
+TODO: Style "1xxx" really should be a special case of style
+"numbered".  In other words, style "1xxx" should be removed, and a new
+property "denominator-style" should be introduced, with values
+"numbered" (which should be equivalent to the current "numbered"
+style), "none" (which should be equivalent to the current "1xxx"
+style), and "notehead" (which should place a proper notehead to the
+right side of the nominator).  -- jr
+
+
+%}
 
 \score { 
   \context Voice \notes\relative c {
-    \property Staff.TimeSignature \override #'style = #'C
+    % Lilypond doesn't understand 'default => it does what you want
+    \property Staff.TimeSignature \override #'style = #'default
     \time 1/1
-    c''1^"TimeSignature style = \#'C" 
+    c''1^"TimeSignature style = \#'default" 
     \time 2/2 
     c1 
     \time 2/4 
+    c2 
+    \time 4/8 
     c2 
     \time 3/4 
     c2. 
@@ -26,12 +61,14 @@
     \time 9/4 
     c2. c2. c2. 
     \break
-    \property Staff.TimeSignature \set #'style = #'old
+    \property Staff.TimeSignature \set #'style = #'mensural
     \time 1/1 
-    c1^"TimeSignature style = \#'old" 
+    c1^"TimeSignature style = \#'mensural" 
     \time 2/2 
     c1 
     \time 2/4 
+    c2 
+    \time 4/8 
     c2 
     \time 3/4 
     c2. 
@@ -54,13 +91,44 @@
     \time 9/8 
     c4. c4. c4. 
     \break
-    % Lilypond doesn't understand 'default => it does what you want
-    \property Staff.TimeSignature \set #'style = #'default
+    \property Staff.TimeSignature \set #'style = #'neo_mensural
     \time 1/1 
-    c1^"TimeSignature style = \#'default"
+    c1^"TimeSignature style = \#'neo\_mensural" 
+    \time 2/2 
+    c1 
+    \time 2/4 
+    c2 
+    \time 4/8 
+    c2 
+    \time 3/4 
+    c2. 
+    \time 4/4 
+    c1 
+    \time 5/4 
+    c2. c2 
+    \time 6/4 
+    c1. 
+    \time 3/2 
+    c1. 
+    \time 7/4 
+    c1 c2. 
+    \time 8/4 
+    c\breve 
+    \time 9/4 
+    c2. c2. c2. 
+    \time 6/8 
+    c2. 
+    \time 9/8 
+    c4. c4. c4. 
+    \break
+    \property Staff.TimeSignature \set #'style = #'numbered
+    \time 1/1 
+    c1^"TimeSignature style = \#'numbered"
     \time 2/2 
     c1
     \time 2/4 
+    c2 
+    \time 4/8 
     c2 
     \time 3/4 
     c2.
@@ -87,6 +155,8 @@
     c1
     \time 2/4 
     c2 
+    \time 4/8 
+    c2 
     \time 3/4 
     c2.
     \time 4/4 
@@ -103,45 +173,6 @@
     c\breve 
     \time 9/4 
     c2. c2. c2. 
-    \break
-    \property Staff.TextScript \override #'self-alignment-X = #1
-    \property Staff.TimeSignature \set #'style = #'old9/8
-    \time 1/1 
-    c1^"old9/8" 
-    \property Staff.TimeSignature \set #'style = #'old6/8
-    \time 1/1 
-    c1^"old6/8" 
-    \property Staff.TimeSignature \set #'style = #'old6/8alt
-    \time 1/1 
-    c1^"old6/8alt" 
-    \property Staff.TimeSignature \set #'style = #'old9/4
-    \time 1/1 
-    c1^"old9/4" 
-    \property Staff.TimeSignature \set #'style = #'old6/4
-    \time 1/1 
-    c1^"old6/4" 
-    \property Staff.TimeSignature \set #'style = #'old3/2
-    \time 1/1 
-    c1^"old3/2" 
-    \property Staff.TimeSignature \set #'style = #'old4/4
-    \time 1/1 
-    c1^"old4/4" 
-    \property Staff.TimeSignature \set #'style = #'old2/2
-    \time 1/1 
-    c1^"old2/2"
-    \property Staff.TimeSignature \set #'style = #'old2/4
-    \time 1/1 
-    c1^"old2/4" 
-    \property Staff.TimeSignature \set #'style = #'old4/8
-    \time 1/1 
-    c1^"old4/8"
-    \property Staff.TimeSignature \set #'style = #'C4/4
-    \time 1/1 
-    c1^"C4/4" 
-    \property Staff.TimeSignature \set #'style = #'C2/2
-    \time 1/1 
-    c1^"C2/2" 
-    
   }
   \paper { }  
   \midi { }

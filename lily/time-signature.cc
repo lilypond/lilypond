@@ -40,15 +40,15 @@ Time_signature::brew_molecule (SCM smob)
       String style (ly_scm2string (scm_symbol_to_string (st)));
       if (style[0]=='1')
 	{
-	  m = time_signature (me, n, 0);
+	  m = numbered_time_signature (me, n, 0);
 	}
       else
 	{
-	  m = special_time_signature (me, style, n, d);
+	  m = special_time_signature (me, st, n, d);
 	}
     }
   else
-    m = time_signature (me, n,d);
+    m = numbered_time_signature (me, n,d);
 
   if (Staff_symbol_referencer::line_count (me) % 2 == 0)
     m.translate_axis (Staff_symbol_referencer::staff_space (me)/2 , Y_AXIS);
@@ -57,49 +57,38 @@ Time_signature::brew_molecule (SCM smob)
 }
 
 Molecule
-Time_signature::special_time_signature (Grob*me, String s, int n, int d)
+Time_signature::special_time_signature (Grob *me, SCM style, int n, int d)
 {
-  /*
-    Randomly probing the font sucks?
-  */
-  
-  SCM alist_chain = Font_interface::font_alist_chain (me);
-  
-  SCM style_chain =
-    Font_interface::add_style (me, ly_symbol2scm ("timesig-symbol"),
-			       alist_chain);
+  String st = ly_scm2string (scm_symbol_to_string (style));
+  SCM scm_n = gh_int2scm (n);
+  SCM scm_d = gh_int2scm (d);
+  SCM exp = scm_list_n (ly_symbol2scm ("find-timesig-symbol"),
+			scm_n, scm_d, ly_quote_scm (style),
+			SCM_UNDEFINED);
+  SCM scm_pair = scm_primitive_eval (exp);
+  SCM scm_font_char = ly_car (scm_pair);
+  SCM scm_font_family = ly_cdr (scm_pair);
+  String font_char = ly_scm2string (scm_font_char);
+  String font_family = ly_scm2string (scm_font_family);
+  me->set_grob_property("font-family", ly_symbol2scm (font_family.to_str0 ()));
 
-  Font_metric *feta = Font_interface::get_font (me, style_chain);
-
-  /*
-    First guess: s contains only the signature style, append fraction.
-  */
-  String symbolname = "timesig-" + s + to_string (n) + "/" + to_string (d);
-  
-  Molecule m = feta->find_by_name (symbolname);
+  Molecule m =
+    Font_interface::get_default_font (me)->find_by_name ("timesig-" + font_char);
   if (!m.empty_b ())
-    return m;
-
-  /*
-    Second guess: s contains the full signature name
-  */
-  m = feta->find_by_name ("timesig-" + s);
-  m.align_to (X_AXIS, LEFT);
-  if (!m.empty_b ()) 
     return m;
 
   /*
     If there is no such symbol, we default without warning to the
     numbered style.
    */
-  return time_signature (me, n, d);
+  return numbered_time_signature (me, n, d);
 }
 
-
 Molecule
-Time_signature::time_signature (Grob*me,int num, int den)
+Time_signature::numbered_time_signature (Grob*me,int num, int den)
 {
   SCM chain = Font_interface::font_alist_chain (me);
+  me->set_grob_property("font-family", ly_symbol2scm ("number"));
 
   Molecule n = Text_item::text2molecule (me,
 					 scm_makfrom0str (to_string (num).to_str0 ()),
@@ -125,8 +114,6 @@ Time_signature::time_signature (Grob*me,int num, int den)
   
   return m;
 }
-
-
 
 ADD_INTERFACE (Time_signature,"time-signature-interface",
   "A time signature, in different styles.

@@ -157,6 +157,6 @@ $(config_h): configure
 #
 	@echo
 	@echo ' *** config.h file is out of date'
-	@echo ' *** Rerun configure or autogen.sh'
+	@echo ' *** Remove it, and rerun configure or autogen.sh'
 	@echo
 	@false

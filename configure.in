@@ -49,8 +49,8 @@ AC_CHECK_FUNCS(memmem snprintf vsnprintf gettext isinf)
 STEPMAKE_GUILE(OPTIONAL)
 # perl for help2man.
 STEPMAKE_PERL(OPTIONAL)
-# pktrace for generating pfa's, pfb's
-STEPMAKE_PROGS(PKTRACE, pktrace, OPTIONAL, 1.0.3)
+# mftrace for generating pfa's, pfb's
+STEPMAKE_PROGS(MFTRACE, pktrace mftrace, OPTIONAL, 1.0.3)
 # new makeinfo for multi-page website docs
 STEPMAKE_PROGS(MAKEINFO, makeinfo, OPTIONAL, 4.1)
 

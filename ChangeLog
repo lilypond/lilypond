@@ -1,3 +1,16 @@
+2002-08-10  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+
+	* stepmake/stepmake/metafont-rules.make: pktrace -> mftrace name change.
+	* configure.in: idem
+
+2002-08-10  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* mf/parmesan-timesig.mf, scm/output-lib.scm,
+	lily/include/time-signature.hh, lily/time-signature.cc,
+	input/test/time.ly: fixed broken time-signature by setting grob
+	property font-family automatically.
+
 2002-08-10  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/user/tutorial.itely (Running LilyPond): Mention
