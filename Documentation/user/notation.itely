@@ -708,11 +708,12 @@ This can be used to skip over the parts of a score that have already
 been checked for errors
 
 @lilypond[quote,fragment,raggedright,verbatim]
-\relative c'' { c8 d
-\set Score.skipTypesetting = ##t
-e f g a g c, f e d
-\set Score.skipTypesetting = ##f
-c d b bes a g c2 } 
+\relative c'' {
+  c8 d
+  \set Score.skipTypesetting = ##t
+  e f g a g c, f e d
+  \set Score.skipTypesetting = ##f
+  c d b bes a g c2 }
 @end lilypond
 
 @node Automatic note splitting
@@ -724,7 +725,7 @@ by replacing the @internalsref{Note_heads_engraver} by the
 In the following examples, notes crossing the bar line are split and tied.
 
 
-@lilypond[quote,fragment,noindent,verbatim,relative=2,raggedright]
+@lilypond[quote,fragment,verbatim,relative=2,raggedright]
 \new Voice \with {
   \remove "Note_heads_engraver"
   \consists "Completion_heads_engraver"
