@@ -375,8 +375,8 @@ direction manually
 @code{\dotsUp}, 
 @cindex @code{\dotsDown}
 @code{\dotsDown}, 
-@cindex @code{\dotsBoth}
-@code{\dotsBoth}.
+@cindex @code{\dotsNeutral}
+@code{\dotsNeutral}.
 
 @seealso
 
@@ -418,8 +418,8 @@ made invisible.
 @code{\stemUp}, 
 @cindex @code{\stemDown}
 @code{\stemDown}, 
-@cindex @code{\stemBoth}
-@code{\stemBoth}. 
+@cindex @code{\stemNeutral}
+@code{\stemNeutral}. 
 
 
 @node Ties
@@ -472,8 +472,8 @@ lines.
 @code{\tieUp}, 
 @cindex @code{\tieDown}
 @code{\tieDown}, 
-@cindex @code{\tieBoth}
-@code{\tieBoth}, 
+@cindex @code{\tieNeutral}
+@code{\tieNeutral}, 
 @cindex @code{\tieDotted}
 @code{\tieDotted}, 
 @cindex @code{\tieSolid}
@@ -547,8 +547,8 @@ instead.
 @code{\tupletUp}, 
 @cindex @code{\tupletDown}
 @code{\tupletDown}, 
-@cindex @code{\tupletBoth}
-@code{\tupletBoth}.
+@cindex @code{\tupletNeutral}
+@code{\tupletNeutral}.
 
 @seealso
 
@@ -2018,8 +2018,8 @@ be achieved in LilyPond, by setting @code{doubleSlurs},
 @code{\slurUp}, 
 @cindex @code{\slurDown}
 @code{\slurDown}, 
-@cindex @code{\slurBoth}
-@code{\slurBoth}, 
+@cindex @code{\slurNeutral}
+@code{\slurNeutral}, 
 @cindex @code{\slurDotted}
 @code{\slurDotted}, 
 @cindex @code{\slurSolid}
@@ -2048,9 +2048,9 @@ Typographically, the phrasing slur behaves almost exactly like a
 normal slur.  However, they are treated as different objects.  A
 @code{\slurUp} will have no effect on a phrasing slur; instead, use
 @code{\phrasingSlurUp}, @code{\phrasingSlurDown}, and
-@code{\phrasingSlurBoth}.
+@code{\phrasingSlurNeutral}.
 
-The commands @code{\slurUp}, @code{\slurDown}, and @code{\slurBoth}
+The commands @code{\slurUp}, @code{\slurDown}, and @code{\slurNeutral}
 will only affect normal slurs and not phrasing slurs.
 
 @refcommands
@@ -2059,8 +2059,8 @@ will only affect normal slurs and not phrasing slurs.
 @code{\phrasingSlurUp}, 
 @cindex @code{\phrasingSlurDown}
 @code{\phrasingSlurDown}, 
-@cindex @code{\phrasingSlurBoth}
-@code{\phrasingSlurBoth}.
+@cindex @code{\phrasingSlurNeutral}
+@code{\phrasingSlurNeutral}.
 
 @seealso
 
@@ -2712,8 +2712,8 @@ You can also supply your own texts
 @code{\dynamicUp}, 
 @cindex @code{\dynamicDown}
 @code{\dynamicDown}, 
-@cindex @code{\dynamicBoth}
-@code{\dynamicBoth}.
+@cindex @code{\dynamicNeutral}
+@code{\dynamicNeutral}.
 
 @cindex direction, of dynamics
 
@@ -3567,8 +3567,8 @@ arpeggiate the chord
 @code{\arpeggioUp},
 @cindex @code{\arpeggioDown}
 @code{\arpeggioDown},
-@cindex @code{\arpeggioBoth}
-@code{\arpeggioBoth},
+@cindex @code{\arpeggioNeutral}
+@code{\arpeggioNeutral},
 @cindex @code{\arpeggioBracket}
 @code{\arpeggioBracket}.
 
