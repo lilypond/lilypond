@@ -1,3 +1,8 @@
+2002-10-30  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* make/lilypond.mandrake.spec.in: Repair info. Comment out menu.
+	Use default paths. Refresh description.
+
 2002-10-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/regression/finger-chords.ly (texidoc): new file.
