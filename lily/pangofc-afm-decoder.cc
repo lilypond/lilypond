@@ -234,7 +234,7 @@ pango_fc_afm_add_decoder (char const *family_name)
 #include <pango/pangox.h>
 #include <pango/pangoxft.h>
 
-#include "pangofc-afm-decoder.h"
+#include "pangofc-afm-decoder.hh"
 
 #define CANVAS_WIDTH 600
 #define CANVAS_HEIGHT 300

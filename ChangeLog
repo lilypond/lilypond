@@ -3,7 +3,7 @@
 	* lily/lily-guile.cc: 
 	* lily/pangofc-afm-decoder.cc:
 	* lily/include/pangofc-afm-decoder.hh: Use #if HAVE_* iso #ifdef.
-	Fixes build without Pango CVS.
+	Fixes build without Pango CVS.  Use "pangofc-afm-decoder.hh".
 
 	* Documentation/topdocs/NEWS.texi (Top): Mention GNOME backend for
 	developers.
