@@ -17,15 +17,11 @@
 ;; organization, is hereby granted, provided that the above copyright
 ;; notice and this paragraph appear in all copies.
 
-;; Sigh
-
-;; This is a cannabalised version of python-mode.el (HWN)
-;; Added lily-eval-buffer -- jcn
+;; This started out as a cannabalised version of python-mode.el, by hwn
+;; For changes see the LilyPond ChangeLog
 ;;
 ;; TODO: 
 ;; * lily/ly/lilypond?
-;; * fix lily-keymap 
-;; * mail Tim Peters about silly copyright (notice)?
 ;; * syntax
 ;;   - should handle block comments too.
 ;;   - handle lexer modes (\header, \melodic, \lyric) etc.
@@ -185,12 +181,14 @@
 (defun lily-eval-region (start end)
   "Run LilyPond on region."
   (interactive "r")
-  ;;  (message "saving current buffer to temporary file ...")
-  ;;  (write-file tmp-file-with-directory)
-  ;;(lily-compile-file lily-command "--init=init.fly" "-")
-  (let ((basename "emacs-lily"))
-    (write-region start end (concat basename ".fly") nil 'nomsg)
-    (lily-compile-file lily-command lily-parameters basename)))
+  (let ((basename "emacs-lily")
+	(suffix (if (string-match "^[\\]score" (buffer-substring start end))
+		    ".ly"
+		  (if (> 50 (abs (- start end)))
+		      ".fly")
+		      ".sly")))
+    (write-region start end (concat basename suffix) nil 'nomsg)
+    (lily-compile-file lily-command lily-parameters (concat basename suffix))))
 
 (defun lily-running ()
   (let ((process (get-process "lilypond")))
@@ -293,16 +291,18 @@
 (defvar lily-mode-map ()
   "Keymap used in `lilypond-mode' buffers.")
 
+;; Note:  if you make changes to the map, you must do
+;;    M-x set-variable lily-mode-map nil
+;;    M-x eval-buffer
+;;    M-x lilypond-mode
+;; to let the changest take effect
 (if lily-mode-map
     ()
   (setq lily-mode-map (make-sparse-keymap))
-  ;; this doesn't work, here
-  ;; I would very much like to have [f9], globally defined as 'compile,
-  ;; being overidden to 'lily-eval-buffer for LilyPond buffers
-  (define-key lily-mode-map [C-f9] 'lily-eval-buffer)
-  ;; urg
-  ;; add to .emacs:
-  ;; (global-set-key [C-f9] 'lily-eval-buffer)
+  (define-key lily-mode-map [f9] 'lily-eval-buffer)
+  (define-key lily-mode-map [f10] 'lily-xdvi-buffer)
+  (define-key lily-mode-map [S-f9] 'lily-eval-region)
+  (define-key lily-mode-map [S-f10] 'lily-xdvi-region)
   ) 
 
 (defun lilypond-mode ()
