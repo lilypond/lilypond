@@ -4,7 +4,7 @@
 #include "lookup.hh"
 #include "misc.hh"
 #include "lexer.hh"
-#include "paper.hh"
+#include "paperdef.hh"
 #include "inputscore.hh"
 #include "main.hh"
 #include "keyword.hh"
