@@ -82,18 +82,19 @@ get_note_element(String pitch, int * notename, int * duration )
     
     int dur = duration[0];
     int dots=duration[1];
-    
-    Note_req * rq = new Note_req;
 
     if (dur >= 2) {
-	Stem_req * st = new Stem_req(dur);
+	Stem_req * st = new Stem_req(dur,dots);
+	st->plet_factor = Moment(default_plet_dur, default_plet_type);
 	v->add(st);
     }
+    
+    Note_req * rq = new Note_req;
     
     int oct;
     bool forceacc;
     parse_pitchmod(pitch, i, oct, forceacc);
-    rq->name =notename[0];
+    rq->notename =notename[0];
     rq->accidental = notename[1];
     rq->octave = oct;
     rq->forceacc = forceacc;
@@ -174,6 +175,7 @@ get_request(char c)
     case '|':
 	ret = new Barcheck_req;
 	break;
+
     case '[':
     case ']':
     {
@@ -183,6 +185,7 @@ get_request(char c)
 	ret = b;
     }
 	break;
+
 
     case ')':
     case '(':
@@ -204,7 +207,6 @@ get_request(char c)
 	break;
 	
     default:
-
 	break;
     }
 
