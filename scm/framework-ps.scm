@@ -71,7 +71,6 @@
    ))
 
 
-
 (define (load-fonts paper)
   (let* ((fonts (ly:paper-fonts paper))
 	 (font-names (uniq-list (sort (map ly:font-file-name fonts) string<?)))

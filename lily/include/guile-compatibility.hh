@@ -41,6 +41,7 @@ inline SCM scm_cadar (SCM x) { return SCM_CADAR (x); }
 #define scm_is_integer(x) SCM_INUMP (x)
 #define scm_is_string(x) SCM_STRINGP (x)
 #define scm_hash_table_p scm_vector_p
+#define scm_from_locale_stringn(s, n) scm_mem2string (s, n)
 #define scm_i_string_chars(x) SCM_STRING_CHARS (x)
 #define scm_i_string_length(x) SCM_STRING_LENGTH (x)
 inline bool ly_c_number_p (SCM x) { return SCM_NUMBERP (x); }

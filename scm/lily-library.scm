@@ -354,9 +354,12 @@ possibly turned off."
        ;; FIXME: bigcheese says FontSpecific
        (else (if (string=? (font-family font) "bigcheese20")
 		 ;;#xf000 0)))
+		 ;; FIXME: hmm, why does name_to_index not return actual
+		 ;; unicode mapping?
+
 		 ;; ugh, we must know which font from bigcheese;
-		 ;; feta-proper starts at 0xe0e3
+		 ;; feta-proper starts at 0xefc
 		 ;; but we cannot display feta-nummer or feta-din characters
 		 ;; this way
-		 #xe0e3 0)))
+		 #xe0fc 0)))
      (char->integer char)))
