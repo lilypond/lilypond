@@ -34,8 +34,9 @@ SUBDIRS = bin flower lib lily mf mi2mu debian\
 # list of distribution files:
 #
 SCRIPTS = configure configure.in install-sh aclocal.m4
-README_FILES = BUGS DEDICATION ANNOUNCE-0.1 ANNOUNCE  COPYING ONEWS NEWS README TODO \
-	INSTALL.txt AUTHORS.txt
+README_FILES = BUGS DEDICATION ANNOUNCE-0.1 ANNOUNCE \
+ COPYING ONEWS NEWS README TODO \
+ INSTALL.txt AUTHORS.txt PATCHES.txt
 EXTRA_DISTFILES = .dstreamrc mudela-mode.el VERSION $(README_FILES) $(SCRIPTS) $(SYMLINKS)
 
 # do not dist ./Makefile (is copied from make/Toplevel.make)
@@ -54,7 +55,6 @@ localdist: configure
 INSTALL.txt: check-doc-deps check-mf-deps
 	rm -f INSTALL.txt
 	ln `$(FIND) ./ -name INSTALL.txt -print |head -1` .
-
 
 # all machine generated junk resides in out/
 distclean: 
