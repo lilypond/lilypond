@@ -27,8 +27,8 @@ upperVoice =  \context Staff = upperVoice <
 	\property Staff.Clef \set #'font-family = #'ancient
 	\property Staff.KeySignature \set #'font-family = #'ancient
 	\property Staff.KeySignature \override #'style = #'vaticana
-	\property Staff.Accidentals \set #'font-family = #'ancient
-	\property Staff.Accidentals \override #'style = #'vaticana
+	\property Staff.Accidental \set #'font-family = #'ancient
+	\property Staff.Accidental \override #'style = #'vaticana
 	\property Staff.Custos \set #'font-family = #'ancient
 	\property Staff.Custos \override #'style = #'vaticana
 	\property Staff.Custos \override #'neutral-position = #4
@@ -79,7 +79,7 @@ upperVoice =  \context Staff = upperVoice <
 	es f
 
 	\property Staff.KeySignature \override #'style = #'medicaea
-	\property Staff.Accidentals \override #'style = #'medicaea
+	\property Staff.Accidental \override #'style = #'medicaea
 	\property Staff.Custos \override #'style = #'medicaea
 	\property Voice.NoteHead \override #'style = #'medicaea_punctum
 	\clef "medicaea_fa2"
@@ -98,7 +98,7 @@ upperVoice =  \context Staff = upperVoice <
 	e! des! ces!
 
 	\property Staff.KeySignature \override #'style = #'hufnagel
-	\property Staff.Accidentals \override #'style = #'hufnagel
+	\property Staff.Accidental \override #'style = #'hufnagel
 	\property Staff.Custos \override #'style = #'hufnagel
 	\property Voice.NoteHead \override #'style = #'hufnagel_punctum
 	\clef "hufnagel_fa2"
@@ -132,8 +132,8 @@ lowerVoice =  \context Staff = lowerNotes <
 	\property Staff.Clef \set #'font-family = #'ancient
 	\property Staff.KeySignature \set #'font-family = #'ancient
 	\property Staff.KeySignature \override #'style = #'mensural
-	\property Staff.Accidentals \set #'font-family = #'ancient
-	\property Staff.Accidentals \override #'style = #'mensural
+	\property Staff.Accidental \set #'font-family = #'ancient
+	\property Staff.Accidental \override #'style = #'mensural
 	\property Staff.Custos \set #'font-family = #'ancient
 	\property Staff.Custos \override #'style = #'mensural
 	\property Staff.Custos \override #'neutral-position = #3

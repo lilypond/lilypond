@@ -103,7 +103,6 @@ local-WWW-clean: top-WWW-clean
 WWW-clean:
 	$(MAKE) -C Documentation WWW-clean
 	$(MAKE) -C input WWW-clean
-	$(MAKE) -C mutopia WWW-clean
 
 top-WWW-clean:
 	cd $(depth)/$(builddir) && rm -f $(TOP_HTMLS) lily-[0-9]*.png
