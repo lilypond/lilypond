@@ -14,7 +14,7 @@ lower = \notes\relative c {
 
 \score {
   \context PianoStaff <<
-    %\time 4/4
+    \set PianoStaff.instrument = "Piano  " % set instrument name.
     \context Staff = upper \upper
     \context Staff = lower <<
       \clef bass

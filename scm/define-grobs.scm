@@ -695,7 +695,7 @@
 	(before-line-breaking-callback . ,Paper_column::before_line_breaking)
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
 
-;	        (print-function . ,Paper_column::print) (font-name . "cmr8") (Y-extent-callback . #f)
+;ppp	        (print-function . ,Paper_column::print) (font-name . "cmr8") (Y-extent-callback . #f)
 	(meta . ((interfaces . (paper-column-interface axis-group-interface spaceable-grob-interface item-interface ))))
 	))
 

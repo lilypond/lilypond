@@ -1012,6 +1012,7 @@ collisions, and slurs, and ties and beams can be attached to it.
 
 @cindex transparent objects
 @cindex removing objects
+@cindex hiding objects
 @cindex invisible objects
 The following example demonstrates how to connect different voices
 using ties. Normally, ties only connect two notes in the same
