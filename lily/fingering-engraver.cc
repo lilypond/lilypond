@@ -185,8 +185,17 @@ Fingering_engraver::make_script (Direction d, Music *r,Axis a,  int i)
       
   fingering->add_offset_callback (Self_alignment_interface::aligned_on_self_proc, other);
   fingering->add_offset_callback (Self_alignment_interface::centered_on_parent_proc, other);
-  fingering->set_grob_property ("script-priority",
-				gh_int2scm (100 + d* i));
+
+  // Hmm
+  int priority = 200;
+  SCM s = fingering->get_grob_property ("script-priority");
+  if (gh_number_p (s))
+    priority = gh_scm2int (s);
+  
+  /* Make sure they're in order of user input by adding index i. */
+  priority += d*i;
+
+  fingering->set_grob_property ("script-priority", gh_int2scm (priority));
 
 
   if (!ly_dir_p (fingering->get_grob_property ("direction")))

@@ -1,8 +1,22 @@
+2002-06-21  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* input/test/script-priority.ly: New file.
+
 2002-06-20  Han-Wen  <hanwen@cs.uu.nl>
 
 	* lily/system.cc (output_lines): kill grobs that are only for spacing.
 
 2002-06-20  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/fingering-engraver.cc (make_script): 
+	* lily/script-engraver.cc (process_music): 
+	* lily/text-engraver.cc: 
+	(process_acknowledged_grobs): Remove hard coded script-priority.
+
+	* flower/warn.cc: Cleanup.
+
+	* lily/voice-devnull-engraver.cc: Also eat multi-measure rest, a
+	spanner now.
 
 	* aclocal.m4: Regenerate.
 

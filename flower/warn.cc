@@ -1,3 +1,11 @@
+/*
+  warn.cc -- implement warnings
+
+  source file of the Flower Library
+
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+*/
+
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -5,33 +13,34 @@
 
 
 void
-error (String s)
+message (String s)
 {
-  fputs ( _f("error: %s\n", s.ch_C()).ch_C(), stderr);  
-  exit (1);
+  fputs (s.ch_C (), stderr);
+}
+
+void
+warning (String s)
+{
+  message (_f ("warning: %s\n", s.ch_C ()));
 }
 
 void
 non_fatal_error (String s)
 {
-  fputs ( _f("error: %s\n", s.ch_C()).ch_C(), stderr);  
+  message (_f ("error: %s\n", s.ch_C ()));
 }
 
 void
-warning (String m)
+error (String s)
 {
-  fputs ( _f("warning: %s\n", m.ch_C()).ch_C(), stderr);
-}
-
-void
-message (String m)
-{
-  fprintf (stderr, "%s\n",m.ch_C());
+  non_fatal_error (s);
+  exit (1);
 }
 
 void
 programming_error (String s)
 {
-  fputs ( _f("programming error: %s (Continuing; cross thumbs)\n", s.ch_C()).ch_C(), stderr);  
+  message (_f ("programming error: %s (Continuing; cross thumbs)\n",
+	       s.ch_C ()));
 }
 

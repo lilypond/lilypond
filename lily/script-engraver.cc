@@ -83,7 +83,14 @@ Script_engraver::process_music ()
 	force_dir = ly_car (art);
       
       art = ly_cdr (art);
-      SCM priority = ly_car (art);
+      int priority = gh_scm2int (ly_car (art));
+
+      SCM s = p->get_grob_property ("script-priority");
+      if (gh_number_p (s))
+	priority = gh_scm2int (s);
+
+      /* Make sure they're in order of user input by adding index i. */
+      priority += i * (to_dir (force_dir) ? to_dir (force_dir) : 1);
 
       if (ly_dir_p (force_dir) && to_dir (force_dir))
 	p->set_grob_property ("direction", force_dir);
@@ -105,7 +112,7 @@ Script_engraver::process_music ()
 	p->add_offset_callback (Side_position_interface::quantised_position_proc, Y_AXIS);
       
       
-      p->set_grob_property ("script-priority", priority);
+      p->set_grob_property ("script-priority", gh_int2scm (priority));
   
       script_p_arr_.push (p);
       
