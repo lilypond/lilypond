@@ -15,7 +15,9 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-root
 
 
 Buildrequires: t1utils bison flex mftrace
-Buildrequires: texinfo >= 4.6
+
+#  require texinfo >= 4.6 really, otherwise the info files fuck up.
+Buildrequires: texinfo
 Requires: tetex  tetex-latex libstdc++ python 
 Requires: guile >= 1.6.4-7
 
