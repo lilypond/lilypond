@@ -66,11 +66,6 @@ Lyric_engraver::do_process_requests()
 }
 
 void
-Lyric_engraver::do_post_move_processing()
-{
-}
-
-void
 Lyric_engraver::do_pre_move_processing()
 {
   for (int i=0; i < text_p_arr_.size (); i++)

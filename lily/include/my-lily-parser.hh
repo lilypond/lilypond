@@ -27,6 +27,7 @@ class My_lily_parser {
   void add_requests (Simultaneous_music*v);
 
   Simultaneous_music * get_note_element (Note_req * ,Duration *);
+  Simultaneous_music * get_chord (Musical_pitch, Array<Musical_pitch>*, Array<Musical_pitch>*, Duration);
   Simultaneous_music* get_rest_element (String, Duration *);
   Simultaneous_music* get_word_element (String, Duration*);
   Melodic_req* get_melodic_req (Melodic_req* melodic, int quotes);

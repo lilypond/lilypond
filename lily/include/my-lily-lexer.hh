@@ -50,6 +50,7 @@ public:
   Identifier*lookup_identifier (String s);
   Musical_pitch lookup_pitch (String s);
   void push_note_state();
+  void push_chord_state();
   void push_lyric_state();
   void pop_state();
   void LexerError (char const *);
@@ -60,6 +61,7 @@ public:
   void print_declarations (bool init_b) const;
   void add_notename (String, Musical_pitch);
   bool note_state_b() const;
+  bool chord_state_b() const;
   bool lyric_state_b() const;
 };
 

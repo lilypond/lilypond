@@ -163,6 +163,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token BAR
 %token BEAMPLET
 %token CADENZA
+%token CHORDS
 %token CLEF
 %token CM_T
 %token CONSISTS
@@ -264,6 +265,9 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <pitch>   explicit_musical_pitch steno_musical_pitch musical_pitch absolute_musical_pitch
 %type <notereq>	steno_notepitch
 %type <pitch_arr>	pitch_list
+%type <music>	chord
+%type <pitch_arr>       chord_additions chord_subtractions
+%type <pitch>           chord_note
 %type <midi>	midi_block midi_body
 %type <duration>	duration_length
 
@@ -807,7 +811,13 @@ Composite_music:
 		{ $$ = $3;
 		  THIS->lexer_p_->pop_state ();
 		}
-
+	| CHORDS
+		{ THIS->lexer_p_->push_chord_state (); }
+	Music
+		{
+		  $$ = $3;
+		  THIS->lexer_p_->pop_state ();
+	}
 	| LYRICS
 		{ THIS->lexer_p_->push_lyric_state (); }
 	Music
@@ -1400,7 +1410,8 @@ abbrev_type:
 
 simple_element:
 	steno_notepitch notemode_duration  {
-		if (!THIS->lexer_p_->note_state_b ())
+		if (!THIS->lexer_p_->note_state_b ()
+		  && !THIS->lexer_p_->chord_state_b ())
 			THIS->parser_error (_ ("have to be in Note mode for notes"));
 		$1->duration_ = *$2;
 		$$ = THIS->get_note_element ($1, $2);
@@ -1425,8 +1436,61 @@ simple_element:
 		$$ = THIS->get_word_element (*$1, $2);
 		delete $1;
 	}
+	| '@' chord ';'	{
+		if (!THIS->lexer_p_->chord_state_b ())
+			THIS->parser_error (_ ("have to be in Chord mode for chords"));
+		$$ = $2;
+	}
 	;
 
+
+chord:
+        NOTENAME_PITCH chord_additions chord_subtractions {
+		Duration d;
+		d.durlog_i_ = 0;
+                $$ = THIS->get_chord (*$1, $2, $3, d);
+        };
+
+chord_additions:
+	{
+		$$ = new Array<Musical_pitch>;
+	} 
+	| chord_additions chord_note {
+		$1->push (*$2);
+		$$ = $1;
+	}
+	;
+
+chord_note:
+        UNSIGNED {
+		$$ = new Musical_pitch;
+		$$->notename_i_ = ($1 - 1) % 8;
+		$$->octave_i_ = $1 > 7 ? 1 : 0;
+		$$->accidental_i_ = 0;
+        } 
+	| UNSIGNED '+' {
+		$$ = new Musical_pitch;
+		$$->notename_i_ = ($1 - 1) % 8;
+		$$->octave_i_ = $1 > 7 ? 1 : 0;
+		$$->accidental_i_ = 1;
+	}
+	| UNSIGNED '-' {
+		$$ = new Musical_pitch;
+		$$->notename_i_ = ($1 - 1) % 8;
+		$$->octave_i_ = $1 > 7 ? 1 : 0;
+		$$->accidental_i_ = -1;
+	}
+        ;
+
+chord_subtractions:
+	{
+		$$ = new Array<Musical_pitch>;
+	}
+	| '^' chord_subtractions chord_note {
+		$2->push (*$3);
+		$$ = $2;
+	}
+	;
 
 /*
 	UTILITIES

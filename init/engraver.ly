@@ -68,6 +68,7 @@ StaffContext=\translator {
 	\accepts "RhythmicStaff";
 	\accepts "GrandStaff";
 	\accepts "Lyrics";
+	\accepts "ChordNames";
 }
 
 
@@ -132,6 +133,7 @@ GrandStaffContext=\translator{
 	\accepts "RhythmicStaff";
 	\accepts "GrandStaff";
 	\accepts "Lyrics";
+	\accepts "ChordNames";
 }
 
 \translator{
@@ -152,6 +154,21 @@ GrandStaffContext=\translator{
 	\accepts "LyricVoice";
 }
 
+\translator{
+	\type "Line_group_engraver_group";
+
+	\name ChordNameVoice ;
+	\consists "Separating_line_group_engraver";
+	\consists "Chord_name_engraver";
+}
+
+\translator {
+	\type "Line_group_engraver_group";
+	\name ChordNames;
+	\consists "Vertical_align_engraver";
+	\accepts "ChordNameVoice";
+}
+
 ScoreContext = \translator {
 	\type Score_engraver;
 	\name Score;
@@ -169,6 +186,7 @@ ScoreContext = \translator {
 	\accepts "Staff";
 	\accepts "RhythmicStaff";	
 	\accepts "Lyrics";
+	\accepts "ChordNames";
 	\accepts "GrandStaff";
 	\accepts "ChoirStaff";
 };
@@ -259,5 +277,6 @@ OrchestralScoreContext= \translator {
 	\accepts "Staff";
 	\accepts "RhythmicStaff";	
 	\accepts "Lyrics";
+	\accepts "ChordNames";
 	\accepts "GrandStaff";
 };

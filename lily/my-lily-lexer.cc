@@ -28,6 +28,7 @@ static Keyword_ent the_key_tab[]={
   {"alternative", ALTERNATIVE},
   {"bar", BAR},
   {"cadenza", CADENZA},
+  {"chords", CHORDS},
   {"clef", CLEF},
   {"cm", CM_T},
   {"consists", CONSISTS},

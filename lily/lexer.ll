@@ -62,6 +62,7 @@ LYRICS		({AA}|{TEX})[^0-9 \t\n\f]*
 %option never-interactive 
 %option warn
 
+%x chords
 %x incl
 %x lyrics
 %x notes
@@ -102,7 +103,7 @@ EXTENDER	[_][_]
 	// windows-suck-suck-suck
 }
 
-<notes,incl,INITIAL,lyrics>{
+<INITIAL,chords,incl,lyrics,notes>{
   "%{"	{
 	yy_push_state (longcomment);
   }
@@ -136,11 +137,11 @@ EXTENDER	[_][_]
 }
 
 
-<notes,INITIAL,lyrics>\\maininput           {
+<INITIAL,chords,lyrics,notes>\\maininput           {
 	start_main_input ();
 }
 
-<notes,INITIAL,lyrics>\\include           {
+<INITIAL,chords,lyrics,notes>\\include           {
 	yy_push_state (incl);
 }
 <incl>\"[^"]*\";?   { /* got the include file name */
@@ -184,29 +185,27 @@ EXTENDER	[_][_]
 <notes>R		{
 	return MEASURES;
 }
-<INITIAL,lyrics,notes>\\\${BLACK}*{WHITE}	{
+<INITIAL,chords,lyrics,notes>\\\${BLACK}*{WHITE}	{
 	String s=YYText () + 2;
 	s=s.left_str (s.length_i () - 1);
 	return scan_escaped_word (s); 
 }
-<INITIAL,lyrics,notes>\${BLACK}*{WHITE}		{
+<INITIAL,chords,lyrics,notes>\${BLACK}*{WHITE}		{
 	String s=YYText () + 1;
 	s=s.left_str (s.length_i () - 1);
 	return scan_bare_word (s);
 }
-<INITIAL,lyrics,notes>\\\${BLACK}*		{ // backup rule
+<INITIAL,chords,lyrics,notes>\\\${BLACK}*		{ // backup rule
 	cerr << _ ("white expected") << endl;
 	exit (1);
 }
-<INITIAL,lyrics,notes>\${BLACK}*		{ // backup rule
+<INITIAL,chords,lyrics,notes>\${BLACK}*		{ // backup rule
 	cerr << _ ("white expected") << endl;
 	exit (1);
 }
 <notes>{
-
 	{ALPHAWORD}	{
 		return scan_bare_word (YYText ());
-
 	}
 
 	{NOTECOMMAND}	{
@@ -249,7 +248,6 @@ EXTENDER	[_][_]
 }
 
 <lyrics>{
-
 	\" {
 		start_quote ();
 	}
@@ -276,6 +274,18 @@ EXTENDER	[_][_]
 		yylval.string = new String (s);
 		DOUT << "lyric : `" << s << "'\n";
 		return STRING;
+	}
+	. {
+		return yylval.c = YYText ()[0];
+	}
+}
+<chords>{
+	{ALPHAWORD}	{
+		return scan_bare_word (YYText ());
+	}
+	{UNSIGNED}		{
+		yylval.i = String_convert::dec2_i (String (YYText ()));
+		return UNSIGNED;
 	}
 	. {
 		return yylval.c = YYText ()[0];
@@ -364,10 +374,17 @@ My_lily_lexer::push_note_state ()
 }
 
 void
+My_lily_lexer::push_chord_state ()
+{
+	yy_push_state (chords);
+}
+
+void
 My_lily_lexer::push_lyric_state ()
 {
 	yy_push_state (lyrics);
 }
+
 void
 My_lily_lexer::pop_state ()
 {
@@ -389,7 +406,7 @@ My_lily_lexer::scan_escaped_word (String str)
 		yylval.id = id;
 		return id->token_code_i_;
 	}
-	if (YYSTATE != notes) {
+	if ((YYSTATE != notes) && (YYSTATE != chords)) {
 		if (notename_b (str))
 			{
 			yylval.pitch = new Musical_pitch (lookup_pitch (str));
@@ -412,7 +429,7 @@ int
 My_lily_lexer::scan_bare_word (String str)
 {
 	DOUT << "word: `" << str<< "'\n";	
-	if (YYSTATE == notes){
+	if ((YYSTATE == notes) || (YYSTATE == chords)) {
 		if (notename_b (str)) {
 		    DOUT << "(notename)\n";
 		    yylval.pitch = new Musical_pitch (lookup_pitch (str));
@@ -430,6 +447,12 @@ bool
 My_lily_lexer::note_state_b () const
 {
 	return YY_START == notes;
+}
+
+bool
+My_lily_lexer::chord_state_b () const
+{
+	return YY_START == chords;
 }
 
 bool

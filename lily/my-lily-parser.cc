@@ -158,6 +158,108 @@ My_lily_parser::get_rest_element (String s,  Duration * duration_p)
 }
 
 Simultaneous_music *
+My_lily_parser::get_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p, Array<Musical_pitch>* sub_arr_p, Duration d)
+{
+  Simultaneous_music*v = new Request_chord;
+  v->set_spot (here_input ());
+
+  Note_req* n = new Note_req;
+  n->pitch_ = tonic;
+  n->duration_ = d;
+  v->add_music (n);
+
+  for (int i = 0; i < add_arr_p->size (); i++)
+    {
+      Musical_pitch p = tonic;
+      p.transpose ((*add_arr_p)[i]);
+      (*add_arr_p)[i] = p;
+    }
+  add_arr_p->sort (Musical_pitch::compare);
+  for (int i = 0; i < sub_arr_p->size (); i++)
+    {
+      Musical_pitch p = tonic;
+      p.transpose ((*sub_arr_p)[i]);
+      (*sub_arr_p)[i] = p;
+    }
+  sub_arr_p->sort (Musical_pitch::compare);
+
+  Musical_pitch third;
+  third.notename_i_ = 2;
+
+  Musical_pitch mthird;
+  mthird.notename_i_ = 2;
+  mthird.accidental_i_ = -1;
+
+  Musical_pitch missing;
+  missing = tonic;
+  missing.transpose (third);
+
+  Musical_pitch p;
+  p = tonic;
+  p.transpose (third);
+  p.transpose (mthird);
+
+  /*
+   must have minimum at 5 (3 is added automatically as missing)
+   */
+  if (!add_arr_p->size () 
+    || ((add_arr_p->size () == 1) && 
+         ((add_arr_p->top ().notename_i_ != p.notename_i_)
+           || (add_arr_p->top () < p))))
+    add_arr_p->push (p);
+
+  Array<Musical_pitch> triads;
+  triads.push (third);   // c e 
+  triads.push (mthird);  // d f 
+  triads.push (mthird);  // e g 
+  triads.push (third);   // f a 
+  triads.push (third);   // g b 
+  triads.push (mthird);  // a c 
+  triads.push (mthird);  // b d 
+
+  /*
+   add missing triads
+   */
+  for (int i = 0; i < add_arr_p->size (); i++)
+    {
+      Musical_pitch p = (*add_arr_p)[i];
+      if ((p > missing) && (p.notename_i_ != missing.notename_i_))
+        while ((p > missing) && (p.notename_i_ != missing.notename_i_))
+	  {
+	    add_arr_p->insert (missing, i++);
+	    missing.transpose (triads[(missing.notename_i_ - tonic.notename_i_ + 8) % 8]);
+	  }
+	else
+	  i++;
+    }
+
+  /*
+   add all that aren't subtracted
+   */
+  for (int i = 0; i < add_arr_p->size (); i++)
+    {
+      Musical_pitch p = (*add_arr_p)[i];
+      Note_req* n = new Note_req;
+      n->pitch_ = p;
+      n->duration_ = d;
+      for (int j = 0; j < sub_arr_p->size (); j++)
+        {
+	  if (p == (*sub_arr_p)[j])
+	    {
+	      delete n;
+	      n = 0;
+	      break;
+	    }
+	}
+      if (n)
+	v->add_music (n);
+    }
+
+  v->set_spot (here_input ());
+  return v;
+}
+
+Simultaneous_music *
 My_lily_parser::get_note_element (Note_req *rq, Duration * duration_p)
 {
   Simultaneous_music*v = new Request_chord;
