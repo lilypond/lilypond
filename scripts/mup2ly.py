@@ -55,9 +55,10 @@ errorport = sys.stderr
 keep_temp_dir_p = 0
 verbose_p = 0
 
+localedir = '@localedir@'
 try:
 	import gettext
-	gettext.bindtextdomain ('lilypond', '@localedir@')
+	gettext.bindtextdomain ('lilypond', localedir)
 	gettext.textdomain ('lilypond')
 	_ = gettext.gettext
 except:

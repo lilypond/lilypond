@@ -89,7 +89,7 @@ errorport = sys.stderr
 verbose_p = 0
 
 
-
+localedir = '@localedir@'
 try:
 	import gettext
 	gettext.bindtextdomain ('lilypond', localedir)

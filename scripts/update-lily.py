@@ -53,10 +53,10 @@ release_dir = build_root + '/releases'
 patch_dir = build_root + '/patches'
 
 
-
+localedir = '@localedir@'
 try:
 	import gettext
-	gettext.bindtextdomain ('lilypond', '@localedir@')
+	gettext.bindtextdomain ('lilypond', localedir)
 	gettext.textdomain ('lilypond')
 	_ = gettext.gettext
 except:

@@ -90,6 +90,7 @@ try:
 except:
        pass
 
+localedir = '@localedir@'
 try:
 	import gettext
 	gettext.bindtextdomain ('lilypond', localedir)
@@ -249,7 +250,7 @@ def system (cmd, ignore_error = 0, quiet =0):
 		name = re.match ('[ \t]*([^ \t]*)', cmd).group (1)
 		msg = name + ': ' + _ ("command exited with value %d") % st
 		if ignore_error:
-			if not quiet:
+			if not quiet or verbose_p:
 				warning (msg + ' ' + _ ("(ignored)") + ' ')
 		else:
 			error (msg)
@@ -399,20 +400,6 @@ dependency_files = []
 
 
 
-kpse = os.popen ('kpsexpand \$TEXMF').read()
-kpse = re.sub('[ \t\n]+$','', kpse)
-type1_paths = os.popen ('kpsewhich -expand-path=\$T1FONTS').read ()
-
-environment = {
-	# TODO: * prevent multiple addition.
-	#       * clean TEXINPUTS, MFINPUTS, TFMFONTS,
-	#         as these take prevalence over $TEXMF
-	#         and thus may break tex run?
-	'TEXMF' : "{%s,%s}" % (datadir, kpse) ,
-	'GS_FONTPATH' : type1_paths,
-	'GS_LIB' : datadir + '/ps',
-}
-
 # tex needs lots of memory, more than it gets by default on Debian
 non_path_environment = {
 	'extra_mem_top' : '1000000',
@@ -420,7 +407,53 @@ non_path_environment = {
 	'pool_size' : '250000',
 }
 
+def command_name (cmd):
+	return re.match ('^[ \t]*([^ \t]*)', cmd).group (1)
+
+def error_log (name):
+	return os.path.join (__main__.temp_dir, '%s.errorlog' % name)
+
+def read_pipe (cmd, mode = 'r'):
+	redirect = ''
+	if verbose_p:
+		progress (_ ("Opening pipe `%s\'") % cmd)
+		redirect = ' 2>%s' % error_log (command_name (cmd))
+	pipe = os.popen (cmd + redirect, mode)
+	output = pipe.read ()
+	status = pipe.close ()
+	# successful pipe close returns 'None'
+	if not status:
+		status = 0
+	signal = 0x0f & status
+	exit_status = status >> 8
+
+	if status:
+		sys.stderr.write (_ ("`%s\' failed (%d)") % (cmd, exit_status))
+		if not verbose_p:
+			sys.stderr.write (_ ("The error log is as follows:"))
+			sys.stderr.write (open (error_log (command_name (cmd)).read ()))
+		sys.exit (status)
+	if __main__.verbose_p:
+		progress ('\n')
+	return output
+
 def setup_environment ():
+	global environment
+
+	kpse = read_pipe ('kpsexpand \$TEXMF')
+	texmf = re.sub ('[ \t\n]+$','', kpse)
+	type1_paths = read_pipe ('kpsewhich -expand-path=\$T1FONTS')
+	
+	environment = {
+		# TODO: * prevent multiple addition.
+		#       * clean TEXINPUTS, MFINPUTS, TFMFONTS,
+		#         as these take prevalence over $TEXMF
+		#         and thus may break tex run?
+		'TEXMF' : "{%s,%s}" % (datadir, texmf) ,
+		'GS_FONTPATH' : type1_paths,
+		'GS_LIB' : datadir + '/ps',
+		}
+	
 	# $TEXMF is special, previous value is already taken care of
 	if os.environ.has_key ('TEXMF'):
 		del os.environ['TEXMF']
@@ -1002,8 +1035,8 @@ if files:
 	if outdir != '.' and (track_dependencies_p or targets):
 		mkdir_p (outdir, 0777)
 
-	setup_environment ()
 	tmpdir = setup_temp ()
+	setup_environment ()
 
 	# to be sure, add tmpdir *in front* of inclusion path.
 	#os.environ['TEXINPUTS'] =  tmpdir + ':' + os.environ['TEXINPUTS']

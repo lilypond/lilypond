@@ -1,3 +1,17 @@
+2002-11-03  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* stepmake/stepmake/po-targets.make: Remove --c++ option.
+
+	* scripts/midi2ly.py: Fix global syntax warnings.
+
+	* GNUmakefile.in: Generate builddir locale tree too.
+
+	* scripts/ly2dvi.py:
+	* scripts/midi2ly.py: 
+	* scripts/mup2ly.py: 
+	* scripts/update-lily.py:
+	* lily/main.cc (setup_paths): Fix for locales setup.
+
 2002-10-29  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/windows/installing.texi: Soften wording about
