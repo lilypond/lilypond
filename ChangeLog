@@ -3,7 +3,7 @@
 	* Documentation/user/changing-defaults.itely, 
 	Documentation/user/lilypond.tely: few fixes. Place no comma between
 	two options: a and b, but commas between three options: a, b, and c.
-	By this manner, grouping is possible: a and b, c and d.
+	By this manner, grouping is possible: a and b, and c and d.
 
 2004-03-29  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
