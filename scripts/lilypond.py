@@ -2,23 +2,23 @@
 #
 # lilypond.py -- Run LilyPond, add titles to bare score, generate printable
 #              document
-#              Invokes: lilypond, latex (or pdflatex), dvips, ps2pdf, gs
+#              Invokes: lilypond-bin, latex (or pdflatex), dvips, ps2pdf, gs
 # 
 # source file of the GNU LilyPond music typesetter
 # 
 # (c)  1998--2003  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 #                 Jan Nieuwenhuizen <janneke@gnu.org>
 
-# This is the third incarnation of lilypond, now renamed lilypond.
+# This is the third incarnation of ly2dvi, now renamed lilypond.
 #
 # Earlier incarnations of lilypond were written by
 # Jeffrey B. Reed<daboys@austin.rr.com> (Python version)
 # Jan Arne Fagertun <Jan.A.Fagertun@@energy.sintef.no> (Bourne shell script)
 #
 
-# Note: gettext work best if we use ' for docstrings and "
+# Note: gettext work best if we use ' for program/docstrings and "
 #       for gettextable strings.
-#       --> DO NOT USE ''' for docstrings.
+#       USE ''' for docstrings.
 
 
 '''
