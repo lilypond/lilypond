@@ -17,7 +17,7 @@
 ;;;    * in syntax-highlighting slurs are not always highlighted the right way
 ;;;      e.g. opening slurs are found found better in "#( ( ) ( ) )" than
 ;;;      opening slurs
-;;;    * should make Lilypond-show-paren-mode instead of using show-paren-mode
+;;;    * XEmacs: should make Lilypond-paren-mode instead of using paren-mode
 
 (defcustom LilyPond-indent-level 4
   "*Indentation of lilypond statements with respect to containing block.")
@@ -574,7 +574,7 @@ in XEmacs' paren-highlight."
 ;; Find the place to show, if there is one,
 ;; and show it until input arrives.
 (defun LilyPond-show-paren-function ()
-  (if show-paren-mode
+  (if LilyPond-show-paren-mode
       (let (pos dir mismatch face (oldpos (point)))
 	(cond ((eq (char-syntax (preceding-char)) ?\))
 	       (setq dir -1))
@@ -769,3 +769,48 @@ and the following faces:
 					    nil
 					    paren-blink-interval))))))
 	))))
+
+(if (not (string-match "XEmacs\\|Lucid" emacs-version))
+;;; EMACS' Lilypond-show-paren-mode definition
+(define-minor-mode LilyPond-show-paren-mode
+  "Toggle Show Paren mode.
+With prefix ARG, turn Show Paren mode on if and only if ARG is positive.
+Returns the new status of Show Paren mode (non-nil means on).
+
+When Show Paren mode is enabled, any matching parenthesis is highlighted
+in `show-paren-style' after `show-paren-delay' seconds of Emacs idle time."
+  :global t :group 'LilyPond-paren-showing
+    ;; Turn off the usual paren-matching method
+    ;; when this one is turned on.
+    (if (local-variable-p 'LilyPond-show-paren-mode)
+	(make-local-variable 'blink-matching-paren-on-screen)
+      (kill-local-variable 'blink-matching-paren-on-screen))
+    (setq blink-matching-paren-on-screen (not LilyPond-show-paren-mode))
+    ;; Now enable or disable the mechanism.
+    ;; First get rid of the old idle timer.
+    (if show-paren-idle-timer
+	(cancel-timer show-paren-idle-timer))
+    (if (boundp 'LilyPond-show-paren-idle-timer)
+	(cancel-timer LilyPond-show-paren-idle-timer))
+    (setq LilyPond-show-paren-idle-timer nil)
+    ;; If show-paren-mode is enabled in some buffer now,
+    ;; set up a new timer.
+    (when (memq t (mapcar (lambda (buffer)
+			    (or (with-current-buffer buffer
+				  show-paren-mode)
+				(with-current-buffer buffer
+				  LilyPond-show-paren-mode)))
+			  (buffer-list)))
+      (setq LilyPond-show-paren-idle-timer (run-with-idle-timer
+					    show-paren-delay t
+					    'LilyPond-show-paren-function)))
+    (unless show-paren-mode
+      (and show-paren-overlay
+	   (eq (overlay-buffer show-paren-overlay) (current-buffer))
+	   (delete-overlay show-paren-overlay))
+      (and show-paren-overlay-1
+	   (eq (overlay-buffer show-paren-overlay-1) (current-buffer))
+	   (delete-overlay show-paren-overlay-1))))
+;;; XEMACS' Lilypond-paren-mode definition
+(progn ; TODO
+))

@@ -22,7 +22,7 @@
 (require 'easymenu)
 (require 'compile)
 
-(defconst LilyPond-version "1.7.21"
+(defconst LilyPond-version "1.7.24"
   "`LilyPond-mode' version number.")
 
 (defconst LilyPond-help-address "bug-lilypond@gnu.org"
@@ -999,6 +999,13 @@ command."
 	     ["(Un)comment Region" LilyPond-comment-region t]
 	     ["Refontify buffer" font-lock-fontify-buffer t]
 	     ["Add index menu" LilyPond-add-imenu-menu]
+	     ["LilyPond Paren Mode" 
+	      (if (not (string-match "XEmacs\\|Lucid" emacs-version))
+		  (LilyPond-show-paren-mode (not LilyPond-show-paren-mode))
+		(paren-set-mode (and (not paren-mode) 'paren)))
+	      :style toggle :selected 
+	      (if (not (string-match "XEmacs\\|Lucid" emacs-version))
+		  LilyPond-show-paren-mode paren-mode)]
  	     ))
 	  '(("Info"
 	     ["LilyPond" LilyPond-info t]
@@ -1111,29 +1118,6 @@ LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
   (setq local-abbrev-table LilyPond-mode-abbrev-table)
   (use-local-map LilyPond-mode-map)
 
-  ;; In Emacs blink-...-on-screen needs to be declared.
-  (if (not (string-match "XEmacs\\|Lucid" emacs-version))
-      (progn
-	(make-local-variable 'show-paren-mode)
-	(setq show-paren-mode t))
-    (paren-set-mode 'paren))
-
-  (if (not (string-match "XEmacs\\|Lucid" emacs-version))
-      (progn
-	;; (make-local-variable 'show-paren-function) ; possible?
-	;; (setq show-paren-function 'LilyPond-show-paren-function) ; possible?
-	;;  don't redefine emacs functions. It breaks other modes.
-	;;  should have an own idle-timer instead
-	;; (defun show-paren-function () (LilyPond-show-paren-function)) ; for testing
-	)
-    (progn
-      ;; (make-local-variable 'paren-highlight) ; possible?
-      ;; (setq paren-highlight 'LilyPond-paren-highlight) ; possible?
-      ;;  don't redefine Xemacs functions. It breaks other modes.
-      ;;  should have an own idle-timer instead
-      ;; (defun paren-highlight () (LilyPond-paren-highlight)) ; for testing
-      ))
-
   ;; In XEmacs imenu was synched up with: FSF 20.4
   (make-local-variable 'imenu-generic-expression)
   (setq imenu-generic-expression LilyPond-imenu-generic-expression)
@@ -1149,6 +1133,21 @@ LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
   (if (string-match "XEmacs\\|Lucid" emacs-version)
       (setq zmacs-regions nil)
     (setq mark-even-if-inactive t))
+
+  ;; In Emacs blink-...-on-screen needs to be declared.
+  (if (not (string-match "XEmacs\\|Lucid" emacs-version))
+      (progn
+	(make-local-variable 'show-paren-mode)
+	(show-paren-mode nil)
+	(make-local-variable 'LilyPond-show-paren-mode)
+	(LilyPond-show-paren-mode t))
+    (progn 
+      (make-local-variable 'show-paren-mode)
+      (paren-set-mode 'paren)
+      ;;  don't redefine Xemacs functions. It breaks other modes.
+      ;;  should have an own idle-timer instead
+      ;; (defun paren-highlight () (LilyPond-paren-highlight)) ; for testing
+      ))
 
   ;; run the mode hook. LilyPond-mode-hook use is deprecated
   (run-hooks 'LilyPond-mode-hook))

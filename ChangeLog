@@ -1,3 +1,12 @@
+2003-07-10  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond-indent.el (LilyPond-show-paren-mode): From Emacs' paren.el:
+	Disable buffer-locally default paren idle timer and make a new one. 
+
+	* lilypond-mode.el: Turn off locally show-paren-mode, but turn on
+	locally LilyPond-show-paren-mode. Add to menu a toggle for
+	LilyPond-show-paren-function.
+
 2003-07-08  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/template/jazz-combo.ly (drumNotes): 1.7 fixes 
