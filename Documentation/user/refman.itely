@@ -3558,10 +3558,12 @@ To apply, add the @internalsref{Ambitus_engraver} to the
 @internalsref{Voice} context, i.e.
 
 @example
-  \paper @{ \translator @{
+  \paper @{
+    \translator @{
       \VoiceContext
       \consists Ambitus_engraver
-    @} @}
+    @}
+  @}
 @end example
 
 For example,
@@ -3586,8 +3588,71 @@ lower = \notes \relative c {
   }
   \paper {
     \translator {
-      \VoiceContext
+      \StaffContext
       \consists Ambitus_engraver
+    }
+  }
+}
+@end lilypond
+
+If you have multiple voices in a single staff, and you want a single
+ambitus per staff rather than per each voice, then add the
+@internalsref{Ambitus_engraver} to the @internalsref{Staff} context
+rather than to the @internalsref{Voice} context.
+
+If you have a score with multiple staves and you want the ambitus to
+appear only in some of the staves, then you have to declare a new
+context type derived from the @internalsref{Voice} context or
+@internalsref{Staff} context.  The derived context must consist of the
+@internalsref{Ambitus_engraver} and it must be accepted by a proper
+parent context, in the below example the @internalsref{Staff} context
+or @internalsref{Score} context, respectively.  The original context
+and the derived context can then be used in parallel in the same
+score.
+
+@lilypond[singleline]
+voiceA = \notes \transpose c c'' {
+  c4 d e c e f g2
+}
+voiceB = \notes \transpose c c' {
+  e4 f g2 g8 a g f e4 c
+}
+\score {
+  \context ChoirStaff <<
+    \new Staff <<
+      \new VoiceWithAmbitus { \stemUp \voiceA }
+      \new VoiceWithAmbitus { \stemDown \voiceB }
+    >>
+    \new StaffWithAmbitus <<
+      \new Voice { \stemUp \voiceA }
+      \new Voice { \stemDown \voiceB }
+    >>
+    \new Staff <<
+      \new Voice { \stemUp \voiceA }
+      \new Voice { \stemDown \voiceB }
+    >>
+  >>
+  \paper {
+    raggedright = ##t
+    \translator {
+      \VoiceContext
+      \name "VoiceWithAmbitus"
+      \alias "Voice"
+      \consists Ambitus_engraver
+    }
+    \translator {
+      \StaffContext
+      \name "StaffWithAmbitus"
+      \alias "Staff"
+      \consists Ambitus_engraver
+    }
+    \translator {
+      \StaffContext
+      \accepts "VoiceWithAmbitus"
+    }
+    \translator {
+      \ScoreContext
+      \accepts "StaffWithAmbitus"
     }
   }
 }
@@ -3597,6 +3662,13 @@ lower = \notes \relative c {
 @seealso
 
 @internalsref{Ambitus}, and @inputfileref{input/regression,ambitus.ly}.
+
+@refbugs
+
+There is no collision handling in the case of multiple per-voice
+ambitus.  To avoid collision, multiple ambitus in a single staff
+should be printed horizontally one after the other rather than on top
+of each other in the same horizontal position.
 
 @node Tablatures
 @section Tablatures
