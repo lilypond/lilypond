@@ -16,8 +16,8 @@
 
 (if (or (equal? (minor-version) "4")
 	(equal? (minor-version) "3.4"))
-    (define-public (ps-output-expression expr)
-      (display (eval-in-module expr this-module)))
+    (define-public (ps-output-expression expr port)
+      (display (eval-in-module expr this-module) port))
 
     (define-public (ps-output-expression expr port)
       (display (eval expr this-module) port)))
