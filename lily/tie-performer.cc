@@ -32,15 +32,12 @@ public:
   TRANSLATOR_DECLARATIONS (Tie_performer);
 };
 
-
-
 Tie_performer::Tie_performer ()
 {
   event_ = 0;
   last_event_  = 0;
   ties_created_ = false;
 }
-
 
 bool
 Tie_performer::try_music (Music *mus)
@@ -75,7 +72,7 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
 
 	  if (right_mus && left_mus
 	      && ly_c_equal_p (right_mus->get_property ("pitch"),
-			     left_mus->get_property ("pitch")))
+			       left_mus->get_property ("pitch")))
 	    {
 	      an->tie_to (th);
 	      ties_created_ = true;  
@@ -88,7 +85,7 @@ void
 Tie_performer::start_translation_timestep ()
 {
   context ()->set_property ("tieMelismaBusy",
-			      ly_bool2scm (heads_to_tie_.size ()));
+			    ly_bool2scm (heads_to_tie_.size ()));
       
 }
 
@@ -99,6 +96,7 @@ Tie_performer::stop_translation_timestep ()
     {
       heads_to_tie_.clear ();
       last_event_ = 0;
+      ties_created_ = false;
     }
   
   if (event_)
