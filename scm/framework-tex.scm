@@ -162,23 +162,27 @@
    "\\lilypondspecial\n"
    "\\lilypondpostscript\n"))
 
-(define (dump-page putter page last?)
+(define (dump-page putter page last? with-extents?)
   (ly:outputter-dump-string
    putter
    (format "\\vbox to ~a\\outputscale{%\n\\leavevmode\n\\lybox{0}{0}{0}{0}{%\n"
-	   (interval-length (ly:stencil-extent page Y))
-	   ))
+	   (if with-extents?
+	       (- (interval-start (ly:stencil-extent page Y)))
+	       	       0.0
+	       )))
   (ly:outputter-dump-stencil putter page)
   (ly:outputter-dump-string
    putter
    (if last?
-       "}\\vss\n}\n\\vss\n"
-       "}\\vss\n}\n\\vss\\lilypondpagebreak\n")))
+       "}\\vss\n}\n\\vfill\n"
+       "}\\vss\n}\n\\vfill\\lilypondpagebreak\n")))
 
 (define-public (output-framework outputter book scopes fields basename )
   (let* ((bookpaper (ly:paper-book-book-paper book))
 	 (pages (ly:paper-book-pages book))
 	 (last-page (car (last-pair pages)))
+	 (with-extents
+	  (eq? #t (ly:output-def-lookup bookpaper 'dump-extents)))
 	 )
     (for-each
      (lambda (x)
@@ -187,9 +191,9 @@
       (header bookpaper (length pages) #f)
       (define-fonts bookpaper)
       (header-end)))
-    
+    (ly:outputter-dump-string outputter "\\nopagebreak")
     (for-each
-     (lambda (page) (dump-page outputter page (eq? last-page page)))
+     (lambda (page) (dump-page outputter page (eq? last-page page) with-extents))
      pages)
     (ly:outputter-dump-string outputter "\\lilypondend\n")))
 
