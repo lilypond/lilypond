@@ -1,0 +1,271 @@
+@c -*-texinfo-*-
+
+@node Conversion tools
+@chapter Converting to LilyPond format.
+
+
+@menu
+* midi2ly::                     
+* etf2ly::                      
+* abc2ly::                      
+* pmx2ly::                      
+* musedata2ly::                 
+* mup2ly::                      
+@end menu
+
+@node midi2ly
+@section midi2ly
+
+Midi2ly translates a MIDI input file to a LilyPond source file. MIDI
+(Music Instrument Digital Interface) is a standard for digital
+instruments: it specifies cabling, a serial protocol and a file format.
+
+It is possible to record a MIDI file using a digital keyboard, and then
+convert it to @file{.ly}. However, human players can not rhythmically
+exact enough to make a MIDI to .ly conversion trivial.  midi2ly tries to
+compensate for these timing errors, but is not very good at this. It is
+therefore not recommended to use midi2ly for human-generated midi
+files. Correcting the quantization mistakes of the human player takes a
+lot of time.
+
+Hackers who know about signal processing are invited to write  a more
+robust midi2ly.
+
+MIDI is also a de facto standard format for exporting music from other
+programs, so this capability may come in useful when you want to import
+files from a program that has no converter for its native format.
+
+@subsection Invoking midi2ly
+
+@example
+        midi2ly [OPTION]... MIDI-FLIE
+@end example
+
+@unnumberedsubsec Options
+
+@table @code
+@item -b, --no-quantify,
+    Write exact durations, e.g.: `a4*385/384'.
+@item -D, --debug,
+    Print lots of debugging stuff.
+@item -h, --help,
+    Show a summary of usage.
+@item -I, --include=@file{DIR},
+    Add DIR to search path.
+@item -k, --key=ACC[:MINOR],
+    Set default key.  ACC > 0 sets number of sharps; ACC < 0 sets number 
+    of flats.  A minor key is indicated by ":1".
+@item -n, --no-silly,
+    Assume no plets or double dots, assume smallest (reciprocal) duration 16.
+@item -o, --output=@file{FILE},
+    Set @file{FILE} as default output.
+@item -p, --no-plets,
+    Assume no plets.
+@item -q, --quiet,
+    Be quiet.
+@item -s, --smallest=N,
+    Assume no shorter (reciprocal) durations than N.
+@item -v, --verbose,
+    Be verbose.
+@item -w, --warranty,
+    Show the warranty with which midi2ly comes. (It comes with @strong{NO WARRANTY}!)
+@item -x, --no-double-dots,
+    Assume no double dotted notes.
+@end table
+
+
+Report bugs to @email{bug-gnu-music@@gnu.org}.
+
+
+Written by @email{Jan Nieuwenhuizen, janneke@@gnu.org}.
+
+
+@node etf2ly
+@section etf2ly
+
+
+ETF (Enigma Transport Format) is a format used by Coda Music
+Technology's Finale product. This program will convert part of an ETF
+file to a ready-to-use LilyPond file.
+
+@subsection Invoking etf2ly
+Usage:
+
+@example
+        etf2ly [OPTION]... ETF-FILE
+@end example
+
+Convert ETF to LilyPond.
+
+@unnumberedsubsec Options
+@table @code
+@item   -h,--help
+this help
+@item  -o,--output=FILE
+set output filename to FILE
+@item  -v,--version
+version information
+@end table
+
+
+@refbugs
+
+Known: articulation scripts are buggy.  Empty measures confuse etf2ly.
+Report bugs to @email{bug-gnu-music@@gnu.org}.
+
+Written by @email{Han-Wen Nienhuys,hanwen@@cs.uu.nl}.
+
+
+Report bugs to @email{bug-gnu-music@@gnu.org}.
+
+@node abc2ly
+@section abc2ly
+
+ABC is a fairly simple ASCII based format. It is described at
+@uref{http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt}.
+
+@subsection Invoking abc2ly
+
+@example
+        abc2ly [OPTION]... ABC-FILE
+@end example
+
+Convert ABC to LilyPond.
+
+@unnumberedsubsec Options
+@table @code
+@item   -h,--help
+this help
+@item  -o,--output=FILE
+set output filename to FILE
+@item  -v,--version
+version information
+@end table
+
+@refbugs
+
+The ABC standard is not very "standard". For extended features
+(eg. polyphonic music) different conventions exist. 
+
+
+Written by @email{Han-Wen Nienhuys,hanwen@@cs.uu.nl}.
+
+
+Report bugs to @email{bug-gnu-music@@gnu.org}.
+
+@node pmx2ly
+@section pmx2ly
+
+PMX is a Musixtex preprocessor written by Don Simons, see
+@uref{http://www.gmd.de/Misc/Music/musixtex/software/pmx/}.
+
+Report bugs to @email{bug-gnu-music@@gnu.org}.
+
+@subsection Invoking pmx2ly
+
+@example
+        pmx2ly [OPTION]... PMX-FILE
+@end example
+
+Convert PMX to LilyPond.
+
+@unnumberedsubsec Options
+
+@table @code
+@item   -h,--help
+this help
+@item  -o,--output=FILE
+set output filename to FILE
+@item  -v,--version
+version information
+@end table
+
+Report bugs to @email{bug-gnu-music@@gnu.org}.
+
+Written by @email{Han-Wen Nienhuys,hanwen@@cs.uu.nl}.
+
+
+@node musedata2ly
+@section musedata2ly
+
+ Musedata (@uref{http://www.musedata.org/}) is an electronic library of
+classical music scores, currently comprising about 800 composition
+dating from 1700 to 1825.  The music is encoded in so-called Musedata
+format
+(@uref{http://www.ccarh.org/publications/books/beyondmidi/online/musedata}).
+musedata2ly converts a set of musedata files to one .ly file, and will
+include a \header field if a .ref file is supplied
+
+@subsection Invoking musedata2ly
+
+@example
+        musedata2ly [OPTION]... MUSEDATA-FILE
+@end example
+
+Convert Musedata to LilyPond.
+
+@unnumberedsubsec Options
+
+@table @code
+@item   -h,--help
+print help
+@item  -o,--output=@var{file}
+set output filename to @var{file}
+@item  -v,--version
+version information
+@item  -r,--ref=@var{reffile}
+ read background information from ref-file
+@var{REFFILE}
+@end table
+
+Report bugs to @email{bug-gnu-music@@gnu.org}.
+
+Written by @email{Han-Wen Nienhuys,hanwen@@cs.uu.nl}.
+
+
+@node mup2ly
+@section mup2ly
+
+MUP (Music Publisher) is a shareware music notation program by Arkkra
+Enterprises.  It is also the name of the input format.  Mup2ly will
+convert part of a Mup file to a ready-to-use LilyPond file.
+
+@subsection Invoking mup2ly
+
+@example
+        mup2ly [OPTION]... MUP-FILE
+@end example
+
+Convert Mup to LilyPond.
+
+@unnumberedsubsec Options
+
+@table @code
+@item   -d,--debug
+show what constructs are not converted, but skipped.
+@item D, --define=@var{NAME}[=@code{EXP}]
+define macro @var{NAME} with opt expansion @code{EXP}
+@item   -E,--pre-process
+only run the pre-processor
+@item   -h,--help
+print help
+@item  -o,--output=FILE
+write output to @var{FILE}
+@item  -v,--version
+version information
+@item  -w,--warranty
+print warranty and copyright.  Mup2ly comes with absolutlely @strong{NO WARRANTY}.
+@end table
+
+
+@refbugs
+
+Currently, only plain notes (pitches, durations), voices and staffs are
+converted.
+
+Written by @email{Jan Nieuwenhuizen,janneke@@gnu.org}, based on pmx2ly.
+
+Report bugs to @email{bug-gnu-music@@gnu.org}.
+
+
+
