@@ -503,17 +503,7 @@ AncientRemoveEmptyStaffContext = \context {
     is the proper order.
     
     %}
-    breakAlignOrder = #'(
-    instrument-name
-    left-edge
-    ambitus
-    breathing-sign
-    clef
-    key-signature
-    staff-bar
-    time-signature
-    custos
-    )
+    
     barCheckSynchronize = ##f
     
     %% chord names:

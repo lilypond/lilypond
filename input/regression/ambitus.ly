@@ -25,7 +25,7 @@ paper block:
 @example
 \context @{
   \ScoreContext
-  breakAlignOrder = #'(
+\override BreakAlignment #'break-align-orders = #(make-vector 3 '(
     instrument-name
     left-edge
     span-bar
@@ -36,7 +36,7 @@ paper block:
     staff-bar
     time-signature
     custos
-  )
+  ))
 @}
 @end example
 
@@ -52,7 +52,7 @@ paper block:
 
 
  %}
-\version "2.1.30"
+\version "2.1.33"
 
 upper = \notes \relative c {
 	\clef "treble"
@@ -78,7 +78,7 @@ lower = \notes \relative c {
 	\paper {
 	       \context {
 			\ScoreContext
-			breakAlignOrder = #'(
+\override BreakAlignment #'break-align-orders = #(make-vector 3 '(
 				instrument-name
 				left-edge
 				ambitus
@@ -89,7 +89,7 @@ lower = \notes \relative c {
 				staff-bar
 				time-signature
 				custos
-			)
+			))
 		}
 		\context {
 			\VoiceContext

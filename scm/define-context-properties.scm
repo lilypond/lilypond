@@ -107,21 +107,6 @@ list of @code{BassFigureEvent}s, a context, and the grob to format.")
 		   "List of beatgroups. Eg. in 5/8 time @code{'(2 3)}.")
 
 
-     (breakAlignOrder ,list? "Defines the order in which
-prefatory matter (clefs, key signatures) appears, eg. this puts the
-key signatures after the bar lines:
-
-@example
-	\\property Score.breakAlignOrder = #'(
-	  span-bar
-	  breathing-sign
-	  clef
-	  staff-bar
-	  key
-	  time-signature
-	)
-@end example
-")
 
      (middleCPosition ,number? "Place of the middle C, measured in half
 staffspaces.  Usually determined by looking at @code{clefPosition} and

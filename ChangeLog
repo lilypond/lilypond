@@ -1,5 +1,15 @@
 2004-03-21  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scripts/convert-ly.py (conv): add rule for breakAlignOrder.
+
+	* scm/define-grobs.scm (all-grob-descriptions): add  property break-align-orders
+
+	* lily/global-context.cc (get_default_interpreter): new
+	function. Override from base class, so no new Score contexts are
+	created.
+
+	* lily/include/stencil.hh (class Stencil): document origin field.
+
 	* lily/staff-symbol.cc (print): span staff-symbol on column
 	extents for non-broken columns. 
 

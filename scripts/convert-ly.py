@@ -2013,12 +2013,23 @@ ly:translator-find -> ly:context-find
 ly:get-stencil-extent -> ly:stencil-extent
 '''))
 
+
 def conv (str):
 	str = re.sub (r'\\alias\s*"?Timing"?', '', str)
 	return str
 
 conversions.append (((2,1,31), conv,
 		     '''remove \\alias Timing'''))
+
+def conv (str):
+	str = re.sub (r"(\set)?\s+(?P<context>(Score\.)?)breakAlignOrder\s*=\s*#'(?P<list>[^\)]+)",
+		      r"\n\\override \g<context>BreakAlignment #'break-align-orders = "
+		      + "#(make-vector 3 '\g<list>)", str)
+		      
+	return str
+
+conversions.append (((2,1,33), conv,
+		     '''breakAlignOrder -> break-align-orders.'''))
 
 ################################
 #	END OF CONVERSIONS	

@@ -188,3 +188,12 @@ Global_context::previous_moment () const
 {
   return prev_mom_;
 }
+
+Context *
+Global_context::get_default_interpreter ()
+{
+  if (get_score_context ())
+    return get_score_context ()->get_default_interpreter ();
+  else
+    return Context::get_default_interpreter ();
+}

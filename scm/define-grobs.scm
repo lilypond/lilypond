@@ -189,6 +189,18 @@
      . (
 	(breakable . #t)
 	(stacking-dir . 1)
+	(break-align-orders . #((instrument-name left-edge ambitus breathing-sign
+						 clef key-signature staff-bar
+						 time-signature custos)
+				(instrument-name left-edge ambitus breathing-sign
+						 clef  staff-bar key-signature
+						 staff
+						 time-signature custos)
+				(instrument-name left-edge ambitus breathing-sign
+						 clef key-signature staff-bar
+						 time-signature custos)
+
+				))
 	(axes . (0))
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(meta . ((interfaces . (break-alignment-interface item-interface axis-group-interface)))))

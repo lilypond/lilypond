@@ -48,24 +48,11 @@ Break_align_engraver::finalize ()
 void
 Break_align_engraver::stop_translation_timestep ()
 {
-  SCM order = get_property ("breakAlignOrder");
-  for (; gh_pair_p (order); order = ly_cdr (order))
-    {
-      SCM p = scm_assoc (ly_car (order), column_alist_);
-      if (gh_pair_p (p))
-	{
-	  add_column (ly_cdr (p));
-	  column_alist_ = scm_assoc_remove_x (column_alist_, ly_car (order));
-	}
-    }
-
   for (SCM p = column_alist_; gh_pair_p (p); p = ly_cdr (p))
     {
       SCM pair = ly_car (p);
       add_column (ly_cdr (pair));
     }
-
-  
   column_alist_ = SCM_EOL;
 
   if (align_)
@@ -153,5 +140,5 @@ ENTER_DESCRIPTION (Break_align_engraver,
 /* creats*/       "BreakAlignment BreakAlignGroup LeftEdge",
 /* accepts */     "",
 /* acks  */       "break-aligned-interface"
-,/* reads */       "breakAlignOrder",
+,/* reads */       "",
 /* write */       "");
