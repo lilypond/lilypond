@@ -109,12 +109,12 @@ LY_DEFINE (ly_run_translator, "ly:run-translator",
   Cpu_timer timer;
   
   Global_context *trans = new Global_context (odef, music->get_length ());
-  
   if (!trans)
     {
       programming_error ("no toplevel translator");
       return SCM_BOOL_F;
     }
+
   progress_indication (_ ("Interpreting music... "));
   
   SCM protected_iter = Music_iterator::get_static_get_iterator (music);

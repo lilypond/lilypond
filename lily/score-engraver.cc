@@ -50,11 +50,11 @@ Score_engraver::make_columns ()
 	= updated_grob_properties (context (),
 				   ly_symbol2scm ("NonMusicalPaperColumn"));
 
-      Object_key const *key1 = get_grob_key ("NonMusicalPaperColumn");
+      Object_key const *key1 = context()->get_grob_key ("NonMusicalPaperColumn");
       
       SCM pc = updated_grob_properties (context (),
 					ly_symbol2scm ("PaperColumn"));
-      Object_key const *key2 = get_grob_key ("PaperColumn");      
+      Object_key const *key2 = context()->get_grob_key ("PaperColumn");      
       set_columns (new Paper_column (nmp, key1), new Paper_column (pc, key2));
 
 
@@ -122,7 +122,7 @@ Score_engraver::initialize ()
 
   SCM props = updated_grob_properties (context (), ly_symbol2scm ("System"));
 
-  Object_key const *sys_key = get_grob_key ("System");
+  Object_key const *sys_key = context()->get_grob_key ("System");
   pscore_->typeset_line (new System (props, sys_key));
   scm_gc_unprotect_object (sys_key->self_scm ());
   

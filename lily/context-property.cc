@@ -202,7 +202,7 @@ make_item_from_properties (Engraver *tr, SCM x, SCM cause, const char * name)
   
   SCM props = updated_grob_properties (context, x);
 
-  Object_key const*key = tr->get_grob_key (name);
+  Object_key const*key = context->get_grob_key (name);
   Item *it = new Item (props, key);
   scm_gc_unprotect_object (key->self_scm ());
 
@@ -217,10 +217,10 @@ make_item_from_properties (Engraver *tr, SCM x, SCM cause, const char * name)
 Spanner*
 make_spanner_from_properties (Engraver *tr, SCM x, SCM cause, const char *name)
 {
-  Context *tg = tr->context ();
+  Context *context = tr->context ();
 
-  SCM props = updated_grob_properties (tg, x);
-  Spanner *it = new Spanner (props, tr->get_grob_key (name));
+  SCM props = updated_grob_properties (context, x);
+  Spanner *it = new Spanner (props, context->get_grob_key (name));
 
   dynamic_cast<Engraver*>(tr)->announce_grob (it, cause);
 

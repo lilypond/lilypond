@@ -21,7 +21,7 @@
 Global_context::Global_context (Output_def *o, Moment final)
   : Context (new Lilypond_context_key(0,
 				      Moment(0),
-				      "Global", ""))
+				      "Global", "", 0))
 {
   scm_gc_unprotect_object (key_->self_scm());
   
@@ -80,8 +80,10 @@ Global_context::prepare (Moment m)
   prev_mom_  = now_mom_;
   now_mom_ = m;
 
+  clear_key_disambiguations ();
   if (get_score_context ())
     get_score_context ()->prepare (m);
+  
 }
 
 Moment
@@ -161,8 +163,7 @@ Global_context::run_iterator_on_me (Music_iterator * iter)
 	  if (!t)
 	    error (_f ("can't find `%s' context", "Score"));
 
-	  Object_key *key = new Lilypond_context_key (get_key(), now_mom(),
-						      "Score", "");
+	  Object_key const *key = get_context_key ("Score", "");
 	  Context *c = t->instantiate (SCM_EOL, key);
 	  add_context (c);
 	  scm_gc_unprotect_object (key->self_scm());

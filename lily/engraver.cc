@@ -67,17 +67,6 @@ Engraver::get_score_engraver () const
 }
 
 
-Object_key const*
-Engraver::get_grob_key (String name) const
-{
-  Object_key * k = new Lilypond_grob_key (context()->get_key(),
-					  now_mom(),
-					  name);
-
-  return k;					  
-}
-
-
 ENTER_DESCRIPTION (Engraver,
 		   "", "",
 		  "",

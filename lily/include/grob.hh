@@ -74,8 +74,6 @@ public:
   DECLARE_SCHEME_CALLBACK (stencil_extent, (SCM smob, SCM axis));
  
   String name () const;
-
-
   /*
     Properties
    */

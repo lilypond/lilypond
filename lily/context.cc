@@ -149,10 +149,7 @@ Context::find_create_context (SCM n, String id, SCM operations)
 	      this_id = id;
 	    }
 	  
-	  Object_key * key = new Lilypond_context_key (current->get_key(),
-						       now_mom(),
-						       ly_symbol2string (path[i]->get_context_name()),
-						       this_id);
+	  Object_key const *key = get_context_key (ly_symbol2string (path[i]->get_context_name()), this_id);
 							
 	  Context * new_group
 	    = path[i]->instantiate (ops, key);
@@ -183,6 +180,46 @@ Context::find_create_context (SCM n, String id, SCM operations)
     }
   return ret;
 }
+
+Object_key const*
+Context::get_context_key (String type, String id)
+{
+  String now_key = type + "@" + id;
+
+  int disambiguation_count = 0;
+  if (context_counts_.find (now_key) != context_counts_.end ())
+    {
+      disambiguation_count = context_counts_[now_key];
+    }
+
+  context_counts_[now_key] = disambiguation_count + 1;
+  
+  
+  return new Lilypond_context_key (get_key (),
+				   now_mom(),
+				   type, id,
+				   disambiguation_count);
+}
+
+Object_key const*
+Context::get_grob_key (String name) 
+{
+  int disambiguation_count = 0;
+  if (grob_counts_.find (name) != grob_counts_.end ())
+    {
+      disambiguation_count = grob_counts_[name];
+    }
+  grob_counts_[name] = disambiguation_count + 1;
+
+  Object_key * k = new Lilypond_grob_key (get_key(),
+					  now_mom(),
+					  name,
+					  disambiguation_count);
+
+  return k;					  
+}
+
+
 
 /*
   Default child context as a SCM string, or something else if there is
@@ -219,10 +256,7 @@ Context::get_default_interpreter ()
 	  t = unsmob_context_def (this->definition_);
 	}
 
-      Object_key *key = new Lilypond_context_key (get_key(),
-						  now_mom(),
-						  name,
-						  "");
+      Object_key const *key = get_context_key (name, "");
       
       Context *tg = t->instantiate (SCM_EOL, key);
       add_context (tg);
@@ -474,4 +508,15 @@ Translator_group*
 Context::implementation () const
 {
   return dynamic_cast<Translator_group*> (unsmob_translator (implementation_));
+}
+
+void
+Context::clear_key_disambiguations ()
+{
+  grob_counts_.clear();
+  context_counts_.clear();
+  for (SCM s = context_list_; scm_is_pair (s); s = scm_cdr (s))
+    {
+      unsmob_context (scm_car (s))->clear_key_disambiguations();
+    }
 }
