@@ -283,10 +283,12 @@
 
 (define-public (convert-to-dvi book name)
   (let*
-      ((cmd (string-append "latex \\\\nonstopmode \\\\input " name)))
+      ((curr-extra-mem (string->number (regexp-substitute/global #f " *%.*\n?"
+								 (ly:kpathsea-expand-variable "$extra_mem_top")
+								 'pre "" 'post)))
+       (cmd (string-append "latex \\\\nonstopmode \\\\input " name)))
 
-    (if (not (string? (getenv "extra_mem_top")))
-	(setenv "extra_mem_top" "1000000"))
+    (setenv "extra_mem_top" (number->string (max curr-extra-mem 1024000)))
     (newline (current-error-port))
     (display (format #f (_ "Invoking ~S") cmd) (current-error-port))
     (newline (current-error-port))

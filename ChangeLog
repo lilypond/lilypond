@@ -1,5 +1,8 @@
 2004-10-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/framework-tex.scm (convert-to-dvi): use max of current
+	extra_mem_top and 1M.
+
 	* lily/kpath.cc (LY_DEFINE): ly_kpathsea_expand_variable. New
 	function.
 
