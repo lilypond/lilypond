@@ -1,5 +1,7 @@
 2003-09-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/regression/system-start-bracket.ly: fix.
+
 	* lily/beam.cc (set_stem_lengths): single-stem-beam fix.
 
 	* stepmake/stepmake/c-rules.make ($(outdir)/%.c): use -o for flex.
