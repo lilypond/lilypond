@@ -1,3 +1,11 @@
+2002-10-05  Werner Lemberg  <wl@gnu.org>
+
+	* scripts/lilypond-book.py (output_dict) <latex>: `output_tex'
+	renamed to `output_latex_quoted'.
+	Added `output_latex_noquote'.
+	(schedule_lilypond_block): Implement `noquote' option for LaTeX
+	mode.
+
 2002-10-04  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/grob-description.scm (minimum-beam-collision-distance): 0.75

@@ -422,7 +422,13 @@ output_dict= {
 		'output-noinline': r'''
 %% generated: %(fn)s.eps
 ''',
-		'output-tex': '{\\preLilypondExample \\input %(fn)s.tex \\postLilypondExample\n}',
+		'output-latex-quoted': r'''{\preLilypondExample
+\input %(fn)s.tex
+\postLilypondExample}''',
+		'output-latex-noquote': r'''{\parindent 0pt
+\preLilypondExample
+\input %(fn)s.tex
+\postLilypondExample}''',
 		'pagebreak': r'\pagebreak',
 		},
 
@@ -1091,7 +1097,10 @@ def schedule_lilypond_block (chunk):
 		if 'eps' in opts:
 			s = 'output-eps'
 		else:
-			s = 'output-tex'
+			if 'noquote' in opts:
+				s = 'output-latex-noquote'
+			else:
+				s = 'output-latex-quoted'
 	elif format == 'texi':
 		if 'noquote' in opts:
 			s = 'output-texi-noquote'
