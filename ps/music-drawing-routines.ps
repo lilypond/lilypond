@@ -4,15 +4,15 @@
 
 
 /set_tex_dimen {
-	cvr def     
+	cvr def
 } bind def
 
 
 
-/euclidean_length  
-{ 
-	1 copy mul exch 1 copy mul add sqrt 
-} bind def 
+/euclidean_length
+{
+	1 copy mul exch 1 copy mul add sqrt
+} bind def
 
 % FIXME.  translate to middle of box.
 % Nice rectangle with rounded corners
@@ -79,7 +79,7 @@
 % Nice beam with rounded corners
 /draw_beam % slope width thick  blot
 {
-	/blot exch def 
+	/blot exch def
 	blot setlinewidth
 
  	0 setlinecap
@@ -101,7 +101,7 @@
 	}{
 		closepath gsave stroke grestore fill
 	} ifelse
-} bind def 
+} bind def
 
 /draw_polygon % x(n) y(n) x(n-1) y(n-1) ... x(1) y(1) n blot
 {
@@ -132,7 +132,7 @@
 	/slope exch def
 	/width exch def
 	beamthick beamthick slope div euclidean_length
-	  /xwid exch def 
+	  /xwid exch def
 	0 0 moveto
 	xwid 0  rlineto
 	width slope width mul rlineto
@@ -158,7 +158,7 @@
 /draw_ez_ball % ch letter_col ball_col font
 {
 	% font
-	findfont 0.7 scalefont setfont 
+	findfont 0.7 scalefont setfont
 	0.1 setlinewidth
 	0 0 moveto
 	0 setgray
@@ -169,7 +169,7 @@
 		1 setgray
 		0.5 0 0.4 0 360 arc closepath
 		fill stroke
-	} if 
+	} if
 	% letter_col
 	setgray
 	% 0.25 is empiric centering. Change to taste
@@ -207,22 +207,22 @@
 	show
 } bind def
 
-% this is for drawing slurs. 
-/draw_bezier_sandwich  % thickness controls 
+% this is for drawing slurs.
+/draw_bezier_sandwich  % thickness controls
 {
     % round ending and round beginning
     1 setlinejoin 1 setlinecap
-	setlinewidth 
-	moveto 
-	curveto 
-	lineto 
+	setlinewidth
+	moveto
+	curveto
+	lineto
 	curveto
 	closepath
-	gsave 
-	fill 
-	grestore 
-	stroke 
-} bind def 
+	gsave
+	fill
+	grestore
+	stroke
+} bind def
 
 /draw_dot % x1 y2 R
 {
@@ -233,36 +233,36 @@
 /draw_white_dot % x1 y2 R
 {
 %	0 360 arc fill stroke
-	0 360 arc closepath % fill stroke 
+	0 360 arc closepath % fill stroke
 gsave
- 1 setgray fill 
-grestore 
-%	0 360 arc closepath % fill stroke 
+ 1 setgray fill
+grestore
+%	0 360 arc closepath % fill stroke
   0.05 setlinewidth 0 setgray stroke
 } bind def
 
 /draw_dashed_line % dash thickness dx dy
-{ 
-	1 setlinecap 
-	1 setlinejoin 
-	setdash 
-	setlinewidth 
+{
+	1 setlinecap
+	1 setlinejoin
+	setdash
+	setlinewidth
 	0 0 moveto
 	lineto
-	stroke 
-} bind def 
+	stroke
+} bind def
 
 /draw_dashed_slur % dash thickness controls
-{ 
-	1 setlinecap 
-	1 setlinejoin 
-	setdash 
-	setlinewidth 
-	8 -2 roll 
-	moveto 
-	curveto 
-	stroke 
-} bind def 
+{
+	1 setlinecap
+	1 setlinejoin
+	setdash
+	setlinewidth
+	8 -2 roll
+	moveto
+	curveto
+	stroke
+} bind def
 
 
 % a b c d subvec  ==  a-c b-d
@@ -277,7 +277,7 @@ grestore
 /draw_zigzag_line {
   newpath
   6 dict begin
- 
+
   4 2 roll % zzuw zzh th x1 y1 x0 y0
   2 copy
   moveto
@@ -310,60 +310,60 @@ grestore
  end
 } bind def
 
-/bracket_traject 
-{ 
-	/traject_ds exch def 
-	/traject_alpha exch def 
-	traject_ds traject_alpha sin mul add 
-	exch 
-	traject_ds traject_alpha cos mul add 
-	exch 
-} bind def 
+/bracket_traject
+{
+	/traject_ds exch def
+	/traject_alpha exch def
+	traject_ds traject_alpha sin mul add
+	exch
+	traject_ds traject_alpha cos mul add
+	exch
+} bind def
 
 
 
 /half_bracket
-{ 
-%6 
-	0 0 
-%5a 
-	bracket_thick arch_height add half_height arch_thick sub arch_width add 
-	arch_angle arch_height -0.15 mul bracket_traject 
-%5b 
-	bracket_thick 0.5 mul half_height 
-	0 arch_height 0.5 mul bracket_traject 
-%5c 
-	0 half_height 
-%4a 
-	bracket_thick half_height arch_thick sub 
-	0 arch_height 0.4 mul bracket_traject 
-%4b 
-	bracket_thick arch_height add half_height arch_thick sub arch_width add 
-	arch_angle arch_height -0.25 mul bracket_traject 
-%4c 
-	bracket_thick arch_height add half_height arch_thick sub arch_width add 
-%3 
-	bracket_thick half_height arch_thick sub 
-%2 
-	bracket_thick 0 
-%1 
-	0 0 
-} bind def 
+{
+%6
+	0 0
+%5a
+	bracket_thick arch_height add half_height arch_thick sub arch_width add
+	arch_angle arch_height -0.15 mul bracket_traject
+%5b
+	bracket_thick 0.5 mul half_height
+	0 arch_height 0.5 mul bracket_traject
+%5c
+	0 half_height
+%4a
+	bracket_thick half_height arch_thick sub
+	0 arch_height 0.4 mul bracket_traject
+%4b
+	bracket_thick arch_height add half_height arch_thick sub arch_width add
+	arch_angle arch_height -0.25 mul bracket_traject
+%4c
+	bracket_thick arch_height add half_height arch_thick sub arch_width add
+%3
+	bracket_thick half_height arch_thick sub
+%2
+	bracket_thick 0
+%1
+	0 0
+} bind def
 
-/draw_half_bracket { 
-	moveto 
-	lineto 
-	lineto 
-	curveto 
-	curveto 
-	lineto 
-	gsave 
-	fill 
-	grestore 
-} bind def 
+/draw_half_bracket {
+	moveto
+	lineto
+	lineto
+	curveto
+	curveto
+	lineto
+	gsave
+	fill
+	grestore
+} bind def
 
 /draw_bracket % arch_angle arch_width arch_height bracket_height arch_thick bracket_thick
-{ 
+{
 	% urg
 
 	/bracket_thick exch def
@@ -373,18 +373,18 @@ grestore
 	/arch_width exch def
 	/arch_angle exch def
 
-	bracket_height 2 div bracket_thick add /half_height exch def 
+	bracket_height 2 div bracket_thick add /half_height exch def
 	bracket_thick 0.5 mul setlinewidth
-	1 setlinecap 
-	1 setlinejoin 
-	half_bracket 
-	20 copy 
-	1 -1 scale 
-	draw_half_bracket 
-	stroke 
-	1 -1 scale 
-	draw_half_bracket 
-	stroke 
-} bind def 
+	1 setlinecap
+	1 setlinejoin
+	half_bracket
+	20 copy
+	1 -1 scale
+	draw_half_bracket
+	stroke
+	1 -1 scale
+	draw_half_bracket
+	stroke
+} bind def
 
 %end music-drawing-routines.ps

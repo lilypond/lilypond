@@ -19,14 +19,14 @@
   	.1 setlinewidth
   	clippath pathbbox newpath
   	/vsize exch def
-  	/hsize exch def pop pop pop 
+  	/hsize exch def pop pop pop
  	% FIXME
  	/top-margin 2 def
 	hsize line-width sub 2 div /left-margin exch def
  	grestore
 } bind def
 
-  
+
 /place-box
 {
 	/object exch def
@@ -72,7 +72,7 @@
 } bind def
 
 /stop-system
-{ 
+{
     /the-line exch def
     the-line stroke grestore
 } bind def
@@ -86,7 +86,7 @@ staff-line-thickness setlinewidth
 
 
 staff-height init-paper
- 
+
 pstack
 
 % end lilyponddefs.ps
