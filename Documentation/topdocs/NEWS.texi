@@ -8,6 +8,9 @@
 
 @itemize @bullet
 
+@item In the LilyPond  emacs mode, the @code{|} will now display the
+  current beat within the measure. 
+
 @item Colliding notes are now correctly aligned relative to notes in other staves.
 
 @item An experimental GNOME output backend is available for developers.
