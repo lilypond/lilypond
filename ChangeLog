@@ -1,5 +1,12 @@
 2004-04-20  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/stem-tremolo.cc (print): If stem direction == CENTER, move
+	tremolo beams up.
+
+	* lily/stem.cc (chord_start_y): Return 0 if no heads.
+	(get_default_stem_end_position): No tremolo head juggling if no
+	heads.  Fixes tremolo crash on rests (backportme).
+
 	* scripts/abc2ly.py: Oops use [\]proper[ty] 2.2 syntax.
 
 2004-04-19  Jan Nieuwenhuizen  <janneke@gnu.org>
