@@ -1,5 +1,5 @@
 /*
-  memory-stream.hh -- declare
+  memory-stream.hh -- declare Memory_out_stream
 
   source file of the GNU LilyPond music typesetter
 
@@ -13,10 +13,6 @@
 #include <stdio.h>
 #include <unistd.h>
 
-
-/*
-  TODO: read support as well.
- */
 class Memory_out_stream
 {
   char *buffer_;

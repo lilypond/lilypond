@@ -1,3 +1,9 @@
+2005-02-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/topdocs/NEWS.tely: add inputfileref macro.
+
+	* scm/framework-ps.scm (supplies-or-needs): uniq font name list.
+
 2005-02-20  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* input/regression/stanza-number.ly:

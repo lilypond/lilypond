@@ -13,6 +13,10 @@
 #include <libio.h>
 #include "memory-stream.hh"
 
+
+/*
+  TODO: add read support as well.
+*/
 const int Memory_out_stream::block_size_ = 1024;
 
 cookie_io_functions_t

@@ -155,11 +155,11 @@
 		    "%%DocumentSuppliedResources: font ~a\n"
 		    "%%DocumentNeededResources: font ~a\n")
 		   f))
-		names))))
+		(uniq-list (sort names string<?))))))
 
 (define (eps-header paper bbox load-fonts?)
     (string-append "%!PS-Adobe-2.0 EPSF-2.0\n"
-		 "%%Creator: creator time-stamp\n"
+		 "%%Creator: LilyPond\n"
 		 "%%BoundingBox: "
 		 (string-join (map ly:number->string bbox) " ") "\n"
 		 "%%Orientation: "
@@ -171,7 +171,7 @@
 
 (define (page-header paper page-count load-fonts?)
   (string-append "%!PS-Adobe-3.0\n"
-		 "%%Creator: creator time-stamp\n"
+		 "%%Creator: LilyPond\n"
 		 "%%Pages: " (number->string page-count) "\n"
 		 "%%PageOrder: Ascend\n"
 		 "%%Orientation: "
