@@ -114,7 +114,7 @@ Line_spanner::line_stencil (Grob *me,
     {
       SCM alist_chain = Font_interface::text_font_alist_chain (me);
       SCM style_alist = scm_list_n (scm_cons (ly_symbol2scm ("font-encoding"),
-					     ly_symbol2scm ("music")),
+					     ly_symbol2scm ("fetaMusic")),
 				    SCM_UNDEFINED);
       
       Font_metric *fm = select_font (me->get_paper (),

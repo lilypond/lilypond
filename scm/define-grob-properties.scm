@@ -228,8 +228,10 @@ flag.")
      (stroke-style ,string? "set to \"grace\" to turn stroke through flag on.")
      (flag-width-function ,procedure? "Procedure that computes the width of a half-beam (a non-connecting beam.).")
      (font-family ,symbol? "The font family is the broadest category for selecting text fonts. Options include: @code{sans}, @code{roman} ")
-     (font-encoding ,symbol? "The font encoding is the broadest category for selecting a font. Options include: @code{music}, @code{number}, @code{text},
-@code{math}, @code{braces}, @code{dynamic}")
+     (font-encoding ,symbol? "The font encoding is the broadest
+category for selecting a font. Options include: @code{fetaMusic},
+@code{fetaNumber}, @code{TeX-text}, @code{TeX-math}, @code{fetaBraces},
+@code{fetaDynamic}")
      (font-name ,string? "Specifies a file name (without extension) of
 the font to load.  This setting override selection using
 @code{font-family}, @code{font-series} and @code{font-shape}.")

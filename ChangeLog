@@ -1,3 +1,15 @@
+2004-04-10  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/font.scm (add-cmr-fonts): add sauter fonts under latin1
+	font-encoding.
+
+	* scm/define-grobs.scm (all-grob-descriptions): idem.
+
+	* lily/time-signature.cc (numbered_time_signature): idem.
+
+	* scm/font.scm (add-cmr-fonts): use real encoding names for
+	font-encoding.
+
 2004-04-10  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/paper-book.cc (classic_output): 

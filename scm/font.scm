@@ -144,21 +144,21 @@
 	       (list (cons 'font-encoding (car x)))
 	       (cons (* factor (cadr x))
 		     (caddr x))))
-   `((number 10
+   `((fetaNumber 10
 	     #(,(delay (ly:font-load "feta-nummer4"))
 	       ,(delay (ly:font-load "feta-nummer6"))
 	       ,(delay (ly:font-load "feta-nummer8"))
 	       ,(delay (ly:font-load "feta-nummer10"))
 	       ,(delay (ly:font-load "feta-nummer12"))
 	       ,(delay (ly:font-load "feta-nummer16"))))
-     (dynamic 14.0  #(,(delay (ly:font-load "feta-din6"))
+     (fetaDynamic 14.0  #(,(delay (ly:font-load "feta-din6"))
 		      ,(delay (ly:font-load "feta-din8"))
 		      ,(delay (ly:font-load "feta-din10"))
 		      ,(delay (ly:font-load "feta-din12"))
 		      ,(delay (ly:font-load "feta-din14"))
 		      ,(delay (ly:font-load "feta-din17"))
 		      ))
-     (music 20.0
+     (fetaMusic 20.0
 	    #(,(delay (ly:make-virtual-font
 		       (ly:font-load "feta11")
 		       (ly:font-load "parmesan11")))
@@ -185,7 +185,7 @@
 		       (ly:font-load "parmesan26")))
 	      ))
      
-     (braces 15 #(,(delay
+     (fetaBraces 15 #(,(delay
 		     (ly:make-virtual-font
 		      (ly:font-load "feta-braces-a")
 		      (ly:font-load "feta-braces-b")
@@ -202,14 +202,14 @@
 (define-public (add-cmr-fonts node factor)
   (add-font
    node
-   '((font-encoding . math))
+   '((font-encoding . TeX-math))
    `(,(* factor 10) . #(,(delay (ly:font-load "msam10")))))
   
   (for-each
    (lambda (x)
      (add-font
       node
-      `((font-encoding . text)
+      `((font-encoding . TeX-text)
 	(font-series . ,(vector-ref (car x) 2))
 	(font-shape . ,(vector-ref (car x) 1))
 	(font-family . ,(vector-ref (car x) 0)))
@@ -258,8 +258,64 @@
       (10.0 . #(,(delay (ly:font-load "cmtt8"))
 		,(delay (ly:font-load "cmtt10"))
 		,(delay (ly:font-load "cmtt12"))
+		)))))
+
+  (for-each
+   (lambda (x)
+     (add-font
+      node
+      `((font-encoding . latin1)
+	(font-series . ,(vector-ref (car x) 2))
+	(font-shape . ,(vector-ref (car x) 1))
+	(font-family . ,(vector-ref (car x) 0)))
+      (cons (* factor (cadr x))
+	    (cddr x))
+      ))
+   `((#(roman upright medium) .
+      (10.0 . #(,(delay (ly:font-load "ecrm6"))
+		,(delay (ly:font-load "ecrm8")) 
+		,(delay (ly:font-load "ecrm10"))
+		,(delay (ly:font-load "ecrm17"))
+		)))
+
+     (#(roman upright bold) .
+      (10.0 . #(,(delay (ly:font-load "ecbx6"))
+		,(delay (ly:font-load "ecbx8"))
+		,(delay (ly:font-load "ecbx10"))
+		,(delay (ly:font-load "ecbx12"))
+		)))
+     
+     (#(roman italic medium) .
+      (10.0 . #(,(delay (ly:font-load "ecti7"))
+		,(delay (ly:font-load "ecti10"))
+		,(delay (ly:font-load "ecti12"))
+		)))
+     (#(roman italic bold) .
+      (10.0 . #(,(delay (ly:font-load "ecbxti8"))
+		,(delay (ly:font-load "ecbxti10"))
+		,(delay (ly:font-load "ecbxti14"))
+		)))
+     
+     (#(roman caps medium) .
+      (10.0 . #(,(delay (ly:font-load "eccsc10")))))
+
+     (#(roman upright bold-narrow ) .
+      (10.0 . #(,(delay (ly:font-load "ecb10"))
+		)))
+     
+     (#(sans upright medium) .
+      (10.0  . #(,(delay (ly:font-load "ecss8"))
+		 ,(delay (ly:font-load "ecss10"))
+		 ,(delay (ly:font-load "ecss12"))
+		 ,(delay (ly:font-load "ecss17"))
+		 )))
+     (#(typewriter upright medium) .
+      (10.0 . #(,(delay (ly:font-load "ectt8"))
+		,(delay (ly:font-load "ectt10"))
+		,(delay (ly:font-load "ectt12"))
 		)))
      )))
+  
 
 ;; (display (make-font-tree 1.0))
 
@@ -270,28 +326,28 @@
 	    '((font-family . roman)
 	      (font-shape . upright)
 	      (font-series . medium)
-	      (font-encoding . text))
+	      (font-encoding . latin1))
 	    `(10.0 . #(,(delay (ly:font-load "c059013l")))))
   
   (add-font node
 	    '((font-family . roman)
 	      (font-shape . italic)
 	      (font-series . medium)
-	      (font-encoding . text))
+	      (font-encoding . latin1))
 	    `(10.0 . #(,(delay (ly:font-load "c059033l")))))
   
   (add-font node
 	    '((font-family . roman)
 	      (font-shape . upright)
 	      (font-series . bold)
-	      (font-encoding . text))
+	      (font-encoding . latin1))
 	    `(10.0 . #(,(delay (ly:font-load "c059016l")))))
   
   (add-font node
 	    '((font-family . roman)
 	      (font-shape . italic)
 	      (font-series . bold)
-	      (font-encoding . text))
+	      (font-encoding . latin1))
 	    `(10.0 . #(,(delay (ly:font-load "c059036l")))))
   )
 

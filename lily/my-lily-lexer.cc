@@ -247,5 +247,8 @@ My_lily_lexer::prepare_for_next_token ()
 void
 My_lily_lexer::set_encoding (String s)
 {
-  encoding_ = ly_symbol2scm (s.to_str0 ());
+  if (s.length ())
+    encoding_ = ly_symbol2scm (s.to_str0 ());
+  else
+    encoding_ = SCM_EOL;
 }
