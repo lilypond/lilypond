@@ -67,6 +67,7 @@ Beam_engraver::do_process_requests ()
 	  return;
 	}
 
+      prev_start_req_ = reqs_drul_[START];
       beam_p_ = new Beam;
       grouping_p_ = new Rhythmic_grouping;
 
@@ -113,11 +114,7 @@ Beam_engraver::typeset_beam ()
 void
 Beam_engraver::do_post_move_processing ()
 {
-  if (reqs_drul_[START])
-    {
-      prev_start_req_ = reqs_drul_[START];
-      reqs_drul_ [START] =0;
-    }      
+  reqs_drul_ [START] =0;
 }
 
 void
@@ -165,7 +162,7 @@ Beam_engraver::acknowledge_element (Score_element_info info)
 	if (rhythmic_req->duration_.durlog_i_<= 2)
 	  {
 	    rhythmic_req->warning (_ ("stem doesn't fit in beam"));
-	    reqs_drul_[LEFT]->warning (_ ("beam was started here"));
+	    prev_start_req_->warning (_ ("beam was started here"));
 	    return;
 	  }
 
