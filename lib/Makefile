@@ -41,10 +41,6 @@ DISTFILES = Makefile $(ALL_SOURCES)
 #
 
 # list of custom libraries:
-#
-# yes, i know about the -L and -l options,
-# but these libraries get rebuild when needed.
-CUSTOMLIBES = \
 
 LOADLIBES +=
 #
@@ -54,7 +50,7 @@ LOADLIBES +=
 # MAINTARGET = $(EXECUTABLE)
 # MAINTARGET = $(LIBRARY)
 # MAINTARGET = $(bindir)/$(EXECUTABLE)# huh?
-MAINTARGET = $(libdir)/$(LIBRARY)# huh?
+MAINTARGET = $(outdir)/$(LIBRARY)# huh?
 
 default: $(MAINTARGET)
 #
