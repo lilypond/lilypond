@@ -231,7 +231,7 @@ r1 r1*3 R1*3  \\\\property Score.skipBars= ##t r1*3 R1*3
 "translates to the car of grob-property 'attachment of NoteColumn. See
 @ref{Slur}.")
 
-(translator-property-description 'slurEndAttachment symbol? "translates to the cdr of grob-property 'attachment of NoteColumn. See @ref{1Slur}.")
+(translator-property-description 'slurEndAttachment symbol? "translates to the cdr of grob-property 'attachment of NoteColumn. See @ref{Slur}.")
 (translator-property-description 'slurMelismaBusy boolean? "Signal a slur if automaticMelismata is set.")
 (translator-property-description 'solo boolean? "set if solo is detected by the part combiner.")
 (translator-property-description 'soloADue boolean? "set Solo/A due texts in the part combiner?.")

@@ -32,9 +32,9 @@ terms}, includes translations.  Also available in @uref{../user/out-www/glossary
 @item @uref{../user/out-www/lilypond-book.html,lilypond-book}, a tool for
 integrating text and music in LaTeX and texinfo; also available in
 @uref{../user/out-www/lilypond-book.ps.gz,Postscript}
-@item @uref{../user/out-www/lilypond/Ly2dvi.html#Ly2dvi,ly2dvi}  does page layout for
+@item @uref{../user/out-www/lilypond/ly2dvi.html#ly2dvi,ly2dvi}  does page layout for
 LilyPond printout.
-@item @uref{../user/out-www/lilypond/Midi2ly.html#Midi2ly,midi2ly} 
+@item @uref{../user/out-www/lilypond/midi2ly.html#midi2ly,midi2ly} 
 converts MIDI files to LilyPond input
 @item @uref{regression-test.html, LilyPond test document}
 Also available in @uref{regression-test.ps.gz,Postscript}
