@@ -1,3 +1,8 @@
+2002-12-18  Heikki Junes <hjunes@cc.hut.fi>
+
+	* lilypond-mode.el (LilyPond-command): propose 2midi if midi is
+	invoked for old midi, wait for killing.
+
 2002-12-16  Heikki Junes <hjunes@cc.hut.fi>
 
 	* Documentation/user/music-glossary.tely: Finnishing.
