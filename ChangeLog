@@ -1,5 +1,7 @@
 2003-07-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/header.html.in: prune.
+
 	* GNUmakefile.in: clean up web building.
 
 	* stepmake/stepmake/generic-targets.make (WWW): add WWW as generic
