@@ -267,7 +267,9 @@
   (let* ((defs (ly:paper-book-paper book))
 	 (resolution (ly:output-def-lookup defs 'pngresolution)))
     (postscript->png
-     (if (number? resolution) resolution 90)
+     (if (number? resolution)
+	 resolution
+	 (ly:get-option 'preview-resolution))b
      (string-append (basename name ".tex") ".ps"))))
 
 (define-public (convert-to-ps book name)

@@ -289,7 +289,9 @@
   (let* ((defs (ly:paper-book-paper book))
 	 (resolution (ly:output-def-lookup defs 'pngresolution)))
 
-    (postscript->png (if (number? resolution) resolution 90)
+    (postscript->png (if (number? resolution) resolution
+
+			 (ly:get-option 'preview-resolution))
 		     name)))
 
 (define-public (convert-to-dvi book name)
