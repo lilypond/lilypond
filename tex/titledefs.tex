@@ -1,88 +1,44 @@
 %
-% ideally, we should create a LaTeX/TeX class
-% for setting music in different sizes.
+% LilyPond titling for LaTeX
 %
-% Version 0.1
-%
-\def\thetitle{}
-\def\thesubtitle{}
-\def\thesubsubtitle{}
-\def\thecomposer{}
-\def\thearranger{}
-\def\theinstrument{}
-\def\theopus{}
-\def\thepiece{}
-\def\themeter{}
-\def\thepoet{}
-\def\theheader{}
-\def\thefooter{}
-\def\theorchestralinstrument{}
-%
-% duh.  LaTeX has a \title too.
-\renewcommand*{\title}[1]{\def\thetitle{#1}}
-\newcommand*{\subtitle}[1]{\def\thesubtitle{#1}}
-\newcommand*{\subsubtitle}[1]{\def\thesubsubtitle{#1}}
-\newcommand*{\composer}[1]{\def\thecomposer{#1}}
-\newcommand*{\arranger}[1]{\def\thearranger{#1}}
-\newcommand*{\instrument}[1]{\def\theinstrument{#1}}
-\newcommand*{\opus}[1]{\def\theopus{#1}}
-\newcommand*{\piece}[1]{\def\thepiece{#1}}
-\newcommand*{\meter}[1]{\def\themeter{#1}}
-\newcommand*{\poet}[1]{\def\thepoet{#1}}
-%
-\newcommand*{\lilypondtitle}[1]{\def\thetitle{#1}}
-\newcommand*{\lilypondsubtitle}[1]{\def\thesubtitle{#1}}
-\newcommand*{\lilypondsubsubtitle}[1]{\def\thesubsubtitle{#1}}
-\newcommand*{\lilypondfooter}[1]{\def\thefooter{#1}}
-\newcommand*{\lilypondhead}[1]{\def\theheader{#1}}
-\newcommand*{\lilypondcomposer}[1]{\def\thecomposer{#1}}
-\newcommand*{\lilypondarranger}[1]{\def\thearranger{#1}}
-\newcommand*{\lilypondinstrument}[1]{\def\theinstrument{#1}}
-\newcommand*{\lilypondopus}[1]{\def\theopus{#1}}
-\newcommand*{\lilypondpiece}[1]{\def\thepiece{#1}}
-\newcommand*{\lilypondmetre}[1]{\def\themeter{#1}}
-\newcommand*{\lilypondmeter}[1]{\def\themeter{#1}}
-\newcommand*{\lilypondpoet}[1]{\def\thepoet{#1}}
-%
-%
-\def\lilypondnull{}%
-%
-\def\makelilytitle{%
+\def\makelilypondtitle
+{
   \begin{center}
         \bfseries
-        \ifx\lilypondnull\thetitle\else{\huge\thetitle}\\ \fi
-        \ifx\lilypondnull\thesubtitle\else{\Large\thesubtitle}\\ \fi
-        \ifx\lilypondnull\thesubsubtitle\else{\large\thesubsubtitle}\\ \fi
+        \ifx\lilypondtitle\undefined\else{\huge\lilypondtitle}\\ \fi
+        \ifx\lilypondsubtitle\undefined\else{\Large\lilypondsubtitle}\\ \fi
+        \ifx\lilypondsubsubtitle\undefined\else{\large\lilypondsubsubtitle}\\ \fi
   \end{center}
   \bigskip
   % urg
   \edef\saveparskip{\parskip}\parskip-5mm
   \begin{minipage}[t]{0.45\textwidth}
-        \ifx\lilypondnull\thepoet\else{\thepoet}\\ \fi
-        \ifx\lilypondnull\themeter\else{\themeter}\\ \fi
+        \ifx\lilypondpoet\undefined\else{\lilypondpoet}\\ \fi
+        \ifx\lilypondmeter\undefined\else{\lilypondmeter}\\ \fi
   \end{minipage}\hspace*{\fill}
   \begin{minipage}[t]{0.45\textwidth}
       \begin{flushright}
-          \ifx\lilypondnull\thecomposer\else{\large\normalfont\scshape\thecomposer}\\ \fi
-          \ifx\lilypondnull\theopus\else{\theopus}\\ \fi
-          \ifx\lilypondnull\thearranger\else{\thearranger}\\ \fi
+          \ifx\lilypondcomposer\undefined\else{\large\normalfont\scshape\lilypondcomposer}\\ \fi
+          \ifx\lilypondopus\undefined\else{\lilypondopus}\\ \fi
+          \ifx\lilypondarranger\undefined\else{\lilypondarranger}\\ \fi
         \end{flushright}%
   \end{minipage}\par
   \parskip\saveparskip
-  {\center{\large\theinstrument}\par}
-  {\flushleft{\large\normalfont\scshape\thepiece}\par}
+  \ifx\lilypondinstrument\undefined\else{\center{\large\lilypondinstrument}\par}\fi
+  \ifx\lilypondpiece\undefined\else{\flushleft{\large\normalfont\scshape\lilypondpiece}\par}\fi
 %  \leavevmode
-  \global\let\theopus\relax%
-  \global\let\thepiece\relax%
+  \global\let\lilypondopus\relax%
+  \global\let\lilypondpiece\relax%
 }
-\def\makelilypiecetitle
+%
+\def\makelilypondpiecetitle
 {
   \bigskip\myfilbreak
-  {\flushright{\theopus}\par}
-  {\flushleft{\large\normalfont\scshape\thepiece}\par}
+  \ifx\lilypondopus\undefined\else{\flushright{\lilypondopus}\par}\fi
+  \ifx\lilypondpiece\undefined\else{\flushleft{\large\normalfont\scshape\lilypondpiece}\par}\fi
   \nopagebreak%
-  \global\let\theopus\relax%
-  \global\let\thepiece\relax%
+  \global\let\lilypondopus\relax%
+  \global\let\lilypondpiece\relax%
 }
 \endinput
 
