@@ -26,8 +26,8 @@ upper =  \context Staff \notes\relative c
 		{
 			
 			\property Voice.TextScript \set #'font-style = #'roman
-			c4-\mordent^\markup { \musicglyph  "accidentals-1" } r r |
-			c4-\mordent^\markup { \musicglyph  "accidentals-1" } r r
+			c4-\mordent^\markup { \musicglyph #"accidentals-1" } r r |
+			c4-\mordent^\markup { \musicglyph #"accidentals-1" } r r
 			\property Voice.TextScript \set #'font-style = #'italic
 		} \\
 		{ a4 r r | a4 r r }
@@ -119,7 +119,7 @@ lower =  \context Staff \notes\relative c{
 	fis,4 r r 
 	d  fis d |
 	\property Voice.TextScript \set #'font-style = #'roman
-	g4-\mordent^\markup { \musicglyph  "accidentals-1" } r r8 f!8 |
+	g4-\mordent^\markup { \musicglyph #"accidentals-1" } r r8 f!8 |
 	\property Voice.TextScript \set #'font-style = #'italic
 	e4-\prall r r |
 	f4-\mordent r r8 e |
@@ -193,6 +193,9 @@ global =  \notes{
 	>
 	\paper{
 		linewidth = 18.0 \cm  
+		\translator {\PianoStaffContext
+			     VerticalAlignment \set #'forced-distance = #10
+			 }
 
 	}
 	\midi{ \tempo 4 = 90 }

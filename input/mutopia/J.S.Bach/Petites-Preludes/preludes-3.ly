@@ -148,7 +148,10 @@ global  = \notes{
 		>
 	>
 	\paper{
-		\translator {\OrchestralScoreContext }
+		\translator {\PianoStaffContext
+			     VerticalAlignment \set #'forced-distance = #10
+			 }
+		
 	}
 	\midi{ \tempo 4 = 100 }
 	\header{

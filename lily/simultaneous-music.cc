@@ -41,6 +41,7 @@ Simultaneous_music::to_relative_octave (Pitch p)
 	}
     }
 
+#if 0
   if (count && first != last)
     {
       String str = _("Changing relative definition may cause octave change.");
@@ -51,6 +52,9 @@ Simultaneous_music::to_relative_octave (Pitch p)
     }
 
   return last;
+#else
+  return first;
+#endif
 }
 
 ADD_MUSIC (Simultaneous_music);

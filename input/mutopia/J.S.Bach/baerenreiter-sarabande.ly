@@ -51,6 +51,8 @@ half way in measure 13 has been forgotten.
 
 sarabandeA =  \context Voice \notes \relative c {
   \property Staff.NoteCollision \set #'merge-differently-dotted = ##t
+
+  
   < { d8. e16 e4.-\trill d16 e } \\
     { d4 a2 } >
   <<d, a' f'>>4.  e'8-[ d c] |
@@ -60,19 +62,19 @@ sarabandeA =  \context Voice \notes \relative c {
   %% check spacing without accs: 
   %%	c4.-\trill bes8-[ a g] |
   
-  < { d'8. e16 e4.-\trill d16 e |
+  \relative c < { d'8. e16 e4.-\trill d16 e |
       f4. d8-[ e f] }
     \\
     { <<a, f>>4 a2 <<a d,>>4.  } > |
 
   %%7
   g8 bes16(a-) c(bes-) a(g-) d'8 f, |
-  <  e4.-\trill
-  \\ <<c, g'>>4 >
+  \relative c <  e4.-\trill
+    \\ <<c, g'>>4 >
   d8-[ c bes]
 
   %%9
-  < { f'8 g16(a-) a4. g16(f-)  |
+  \relative c < { f8 g16(a-) a4. g16(f-)  |
       g8 a16(bes-) bes4. c16(d-) }
     \\
     { a,4 <<bes d >>4. r8 bes4 <<g f'>>2  }
@@ -80,7 +82,7 @@ sarabandeA =  \context Voice \notes \relative c {
   \forcedBreak
 
   %% 11
-  e,8-[ f] c,-[ g'] f'-[ e] |
+  e'8-[ f] c,-[ g'] f'-[ e] |
   f4 f,2 |
   < {  a'4 a4.-\trill bes8 
        c bes16 a } \\
@@ -113,13 +115,13 @@ sarabandeA =  \context Voice \notes \relative c {
   \stemBoth
   \forcedLastBreak
   %%25
-  < { a16(b c b-) c4. b16(a-) |
+  \relative c' < { a16(b c b-) c4. b16(a-) |
       b cis d cis d4. e16(f-) | }
     \\
     { f,4 fis4. s8 |
       <<d g,>>4 gis4.   } >
   \voiceOne
-  d16(cis  d-) f,
+  d'16(cis  d-) f,
   a,8-[ e']
   \oneVoice
   d'-[ cis] |
