@@ -636,10 +636,8 @@ format2ext = {
 	}
 
 def do_file (input_filename):
-
-	print 'do_file: ' + input_filename
+	#ugh
 	global format
-	
 	if not format:
 		e = os.path.splitext (input_filename)[1]
 		if e in ext2format.keys ():
@@ -712,7 +710,6 @@ def do_file (input_filename):
 		h.close ()
 
 	def process_include (snippet):
-		print 'type: ' + snippet.type
 		os.chdir (original_dir)
 		name = snippet.substring ('filename')
 		ly.progress (_ ('Processing include: %s') % name)
