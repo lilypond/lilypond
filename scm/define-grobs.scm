@@ -266,7 +266,7 @@
 			(right-edge . (extra-space . 0.1))
 			))
 	(print-function . ,Text_interface::print)
-	(text . ,(make-musicglyph-markup "scripts-rcomma"))
+	(text . ,(make-musicglyph-markup "scripts.rcomma"))
 	(Y-offset-callbacks . (,Breathing_sign::offset_callback))
 	(break-visibility . ,begin-of-line-invisible)
 	(meta . ((interfaces . (break-aligned-interface breathing-sign-interface text-interface font-interface item-interface ))))
@@ -1186,7 +1186,7 @@
     (TrillSpanner
      . (
 	(print-function . ,Dynamic_text_spanner::print)
-	(edge-text . ,(cons (make-musicglyph-markup "scripts-trill")
+	(edge-text . ,(cons (make-musicglyph-markup "scripts.trill")
 			    ""))
 	(style . trill)
 	(staff-padding . 1.0)

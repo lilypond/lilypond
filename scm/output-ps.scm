@@ -221,7 +221,7 @@
       ;; ugh, we should find a better way to
       ;; extract the hsbw for /space from the font.
       
-      ((space-length (cdar (ly:text-dimension font "t"))) 
+      ((space-length (cdar (ly:text-dimension font " "))) 
        (commands '())
        (add-command (lambda (x) (set! commands (cons x commands)))) )
 
@@ -249,7 +249,7 @@
 
 (define (new-text font s)
   (let*
-      ((space-length (cdar (ly:text-dimension font "t")))
+      ((space-length (cdar (ly:text-dimension font " ")))
        (space-move (string-append (number->string space-length) " 0.0 rmoveto "))
        
        (input-enc (assoc-get 'input-name

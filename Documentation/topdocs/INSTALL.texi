@@ -69,7 +69,11 @@ You need the following packages to compile LilyPond:
 
 @itemize
 
-@item @uref{http://www.xs4all.nl/~hanwen/mftrace/,mftrace} (1.0.17 or
+@item @uref{http://www.freetype.org/,Freetype} version 2.
+
+@item @uref{http://fontforge.sf.net/,FontForge} 20041211 or newer.
+
+@item @uref{http://www.xs4all.nl/~hanwen/mftrace/,mftrace} (1.0.33 or
 newer),
 
   You will need to install some additional packages to get mftrace to

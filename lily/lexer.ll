@@ -186,6 +186,10 @@ HYPHEN		--
 	yy_pop_state ();
 	if (!is_valid_version (s))
 		return INVALID;
+
+	SCM top_scope = scm_car (scm_last_pair (scopes_));
+	scm_module_define (top_scope, ly_symbol2scm ("version-seen?"), SCM_BOOL_T);
+
 }
 <renameinput>\"[^"]*\"     {
 	String s (YYText () + 1);

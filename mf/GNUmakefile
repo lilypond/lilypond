@@ -58,7 +58,7 @@ $(outdir)/%.otf: $(outdir)/%.pe
 	(cd $(outdir) && fontforge -script $(notdir $<)) 
 
 $(outdir)/%.otf-table: $(outdir)/%.lisp
-	cat $< $(subst parmesan,feta,$<) $(subst feta-alphabet,feta,$<) > $@
+	cat $< $(wildcard $(subst feta,parmesan,$<)) $(wildcard $(subst feta,feta-alphabet,$<)) > $@
 
 $(outdir)/aybabtu.otf: $(outdir)/aybabtu.subfonts $(outdir)/aybabtu.otf-table $(outdir)/aybabtu.otf-gtable
 
