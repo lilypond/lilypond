@@ -124,6 +124,10 @@ def draw_neo_longa (expr wid) =
 	penlabels(6,7);
 enddef;
 
+fet_beginchar("Left stemmed notehead", "lneo_mensural", "mensuralleftstemmedhead");
+	draw_neo_left_stemmed_head (2 staff_space#);
+fet_endchar;
+
 %
 % En wij presenteren U: de opvolgster van Emily
 %
@@ -215,9 +219,16 @@ enddef;
 
 def draw_left_stemmed_head (expr wid) =
 	draw_brevis(wid);
-	save theta;
-
 	x6 = x7 = stem_width/2;
+	y6 = y5;
+	y7 = y5 - 2.25staff_space;
+	pickup pencircle scaled stem_width;
+	draw z6 .. z7;
+enddef;
+
+def draw_longa (expr wid) =
+	draw_brevis(wid);
+	x6 = x7 = head_width - stem_width/2;
 	y6 = y5;
 	y7 = y5 - 2.25staff_space;
 	pickup pencircle scaled stem_width;
@@ -227,16 +238,6 @@ enddef;
 fet_beginchar("Left stemmed notehead", "lmensural", "mensuralleftstemmedhead");
 	draw_left_stemmed_head (staff_space#)
 fet_endchar;
-
-def draw_longa (expr wid) =
-	draw_brevis(wid);
-
-	x6 = x7 = head_width - stem_width/2;
-	y6 = y5;
-	y7 = y5 - 2.25staff_space;
-	pickup pencircle scaled stem_width;
-	draw z6 .. z7;
-enddef;
 
 fet_beginchar("Maxima notehead", "-3mensural", "mensuralmaximahead");
 	draw_longa (2.0 staff_space#)
@@ -254,7 +255,6 @@ def draw_diamond_head (expr head_h, pen_w, pen_h, angle, open) =
       save head_width, head_height;
       head_height# = head_h;
       head_width# / head_height# = tand(angle);
-      define_pixels(head_width, head_height);
 
       set_char_box (0, head_width#,
 	head_height#/2, head_height#/2);
@@ -262,9 +262,10 @@ def draw_diamond_head (expr head_h, pen_w, pen_h, angle, open) =
       charwx := head_width# / 2;
       charwy := head_height# / 2 - linethickness#;
 
+      define_pixels(head_width, head_height);
       pickup pencircle
-	     xscaled (min(blot_diameter, pen_w * head_width))
-	     yscaled (min(blot_diameter, pen_h * head_width))
+	     xscaled (max(blot_diameter, pen_w * head_width))
+	     yscaled (max(blot_diameter, pen_h * head_width))
 	     rotated -angle;
 
       %% FIXME: replace "xpart (top z2)" (and, analogously,

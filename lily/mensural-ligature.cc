@@ -140,13 +140,13 @@ internal_brew_primitive (Grob *me)
 	out = brew_flexa (me, delta_pitch, false,
 			  flexa_width, thickness, true, DOWN);
 	break;
-      case MLP_sc:
+      case MLP_sc: // mensural brevis head with right cauda
 	out = Font_interface::get_default_font (me)->find_by_name ("noteheads--2mensural");
 	break;
-      case MLP_ss:
+      case MLP_ss: // mensural brevis head
 	out = Font_interface::get_default_font (me)->find_by_name ("noteheads--1mensural");
 	break;
-      case MLP_cs:
+      case MLP_cs: // mensural brevis head with left cauda
 	out = Font_interface::get_default_font (me)->find_by_name ("noteheads-lmensural");
 	break;
       case MLP_SS:
