@@ -1,3 +1,13 @@
+2003-03-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+	
+	* lily/parser.yy (scalar): DIGIT is also a scalar.
+
+	* lily/scm-hash.cc (remove): prevent underflow of elt_count_. This
+	fixes crashes while dumping MIDI.
+
+	* ly/performer-init.ly (FiguredBassContext): add Figured bass for
+	midi
+
 2003-03-11  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* Documentation/user/refman.itely (Printing named chords): add

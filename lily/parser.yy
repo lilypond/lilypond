@@ -1162,6 +1162,7 @@ scalar:
         string          { $$ = $1; }
         | bare_int      { $$ = gh_int2scm ($1); }
         | embedded_scm  { $$ = $1; }
+	| DIGIT  { $$ = gh_int2scm ($1); } 
         ;
 
 
