@@ -1,5 +1,15 @@
-1.3.60.jcn1
-===========
+1.3.62
+======
+
+* Made callbacks from Score_element::before_line_breaking() and
+Score_element::after_line_breaking()
+
+* Fixed website; backlinks should work again.
+
+* Removed --ignore-version option. Added --verbose option.
+
+1.3.61
+======
 
 * Webpage hacking
 

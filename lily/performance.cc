@@ -52,7 +52,8 @@ Performance::output (Midi_stream& midi_stream)
   for (int i =0; i < audio_staff_l_arr_.size (); i++)
     {
       Audio_staff *s = audio_staff_l_arr_[i];
-      progress_indication ("[" + to_str (i)) ;
+      if(verbose_global_b)
+	progress_indication ("[" + to_str (i)) ;
 
       /*
 	Aargh, let's hear it for the MIDI standard.
@@ -62,7 +63,8 @@ Performance::output (Midi_stream& midi_stream)
       if (channel == 9)
 	channel++;
       s->output (midi_stream, channel++);
-      progress_indication ("]");
+      if(verbose_global_b)
+	progress_indication ("]");
     }
 }
 
