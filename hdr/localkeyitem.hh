@@ -15,15 +15,17 @@ struct Local_acc {
 };
 
 struct Local_key_item : Item {
+    const char * name() const;
     Array<Local_acc> accs;
-    Array<Notehead*> group;
+    Array<Item*> group;
     int c0_position;		// move into walker
 
     /****************/
     
     Local_key_item(int c0position);
-    void add(int oct, int pitch, int acc, Notehead*);
-
+    void add(Item*);
+    void add(int oct, int pitch, int acc);
+    void add(Melodic_req*);
     void do_pre_processing();    
     Molecule* brew_molecule_p()const;
 };
