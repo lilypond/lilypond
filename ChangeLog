@@ -16,6 +16,10 @@
 
 	* lilypond-mode.el, lilypond-indent.el: fix XEmacs paren-match.
 	
+	* lilypond-mode.el (LilyPond-add-imenu-menu): new function,
+	imenu is not added by default; adapted from f90.el,
+	makes Help-menu, which does not fit, visible in XEmacs.
+	
 2003-06-16  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el: Set show-paren-mode local; minor-mode
