@@ -290,17 +290,17 @@ Argument LIM limit."
   `( ( ?<  .  ?> )    
      ( ?{  .  ?} )    
      ( ?[  .  ?] )
-     ;; ( "\\["  .  "\\]" )
+     ( "\\["  .  "\\]" )
      ( ?\(  .  ?\) )
-     ;; ( "\\("  .  "\\)" )
+     ( "\\("  .  "\\)" )
      ))
 
 
 (defun LilyPond-matching-paren (bracket-type)
   "Returns the open corresponding to the close specified by bracket-type, or vice versa"
-  (cond ( (memq bracket-type (mapcar 'car LilyPond-parens-alist))
+  (cond ( (member bracket-type (mapcar 'car LilyPond-parens-alist))
 	  (cdr (assoc bracket-type LilyPond-parens-alist)) )
-	( (memq bracket-type (mapcar 'cdr LilyPond-parens-alist))
+	( (member bracket-type (mapcar 'cdr LilyPond-parens-alist))
 	  (car (rassoc bracket-type LilyPond-parens-alist)) )
 	nil))
 
@@ -327,7 +327,7 @@ slur-paren-p defaults to nil.
       (if slur-paren-p
 	  ;; expressional slurs  '\( ... \)' are not taken into account
 	  (setq regexp-alist (cons '( ?\) . ("\\([^\\]\\([\\][\\]\\)*\\|^\\)(" . "\\([^\\]\\([\\][\\]\\)*\\|^\\))")) regexp-alist)))
-      (if (memq bracket-type (mapcar 'car regexp-alist))
+      (if (member bracket-type (mapcar 'car regexp-alist))
 	  (progn (setq paren-regexp (cdr (assoc bracket-type regexp-alist)))
 		 (setq paren-regexp (concat (car paren-regexp) "\\|" (cdr paren-regexp))))
 	(setq paren-regexp (concat (mapconcat 'car (mapcar 'cdr regexp-alist) "\\|") "\\|"
