@@ -4,11 +4,8 @@ $(outdir)/%.pfa: %.mf
 # i've got no idea what this scaling could be for, on both sides...
 # it seems that 'low_res', which should be all we ever need according
 # to the metapost mfplain guru, really does 200dpi, iso 600dpi (minimun)
-	-$(METAPOST) "&mfplain \mode=lowres; \mag=100.0; batchmode; input $<"
-#	-mp "&mfmp \mode=ljfour; \mag=100.0; batchmode; input $<"
-#	-mp "&mfplain modes \mode=ljfour; \mag=100.0; batchmode; \\input $<"
-#	-mp "&mfplain \mode=lowres; \mag=10.0; batchmode; input $<"
-#	-mp "&mfplain \mode=lowres; \mag=1.0; batchmode; input $<"
+	$(METAPOST) "&mfplain \mode=lowres; \mag=100.0; batchmode; input $<"
+#	-$(METAPOST) "&mfmp \mode=ljfour; \mag=100.0; batchmode; input $<"
 	$(PYTHON) $(depth)/buildscripts/ps-to-pfa.py $<
 	rm -f $(basename $(@F)).[0-9]*
 	rm -f $(basename $<).log $(basename $<).tfm

@@ -394,7 +394,7 @@ AC_DEFUN(AC_STEPMAKE_MSGFMT, [
     fi
 ])
 
-AC_DEFUN(AC_STEPMAKE_TEXMF, [
+AC_DEFUN(AC_STEPMAKE_TEXMF_DIRS, [
     AC_ARG_ENABLE(tex-prefix,
     [  enable-tex-prefix=DIR   set the tex-directory to find TeX subdirectories. (default: PREFIX)],
     [TEXPREFIX=$enableval],
@@ -423,10 +423,27 @@ AC_DEFUN(AC_STEPMAKE_TEXMF, [
     if test "x$TEXDIR" = xauto ; then
 	AC_TEX_SUBDIR(TEXDIR)
     fi
-
     AC_SUBST(TEXPREFIX)
     AC_SUBST(TEXDIR)
     AC_SUBST(MFDIR)
+])
+
+AC_DEFUN(AC_STEPMAKE_TEXMF, [
+    # urg, never know what names these teTeX guys will think up
+    AC_CHECK_PROGS(METAFONT, mf, no)
+    if test "x$METAFONT" = "xno"; then
+	AC_CHECK_PROGS(MFONT, mfont, -echo no mf or mfont)
+	METAFONT=$MFONT
+    fi
+
+    AC_CHECK_PROGS(METAPOST, mp, no)
+    if test "x$METAPOST" = "xno"; then
+	AC_CHECK_PROGS(MPOST, mpost, -echo no mp or mpost)
+	METAPOST=$MPOST
+    fi
+
+    AC_SUBST(METAFONT)
+    AC_SUBST(METAPOST)
 ])
 
 AC_DEFUN(AC_STEPMAKE_WARN, [
