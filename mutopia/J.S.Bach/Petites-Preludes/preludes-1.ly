@@ -18,17 +18,19 @@ copyright =	 "public domain";
 % howto get rid of these ridiculous dimensions????
 % to view the output, subsitute 0.0 with 0.0 in the .tex file...
 
-% one = \type Voice=one \notes\relative c {
-% one = \notes\relative c {
-one = \type Staff=treble \notes\relative c {
+one = \type Voice=one \notes\relative c {
 	\property Voice . textstyle =  "italic"
-	r16\p_"legato"\< [g''-1( c-3 )e-5] r [g,-1( c )e]
+% rediculous dim...
+%	r16\p_"legato"\< [g''-1( c-3 )e-5] r [g,-1( c )e]
+	r16\p\< [g''-1( c-3 )e-5] r [g,-1( c )e]
 	r [g,( c )d] r [b-1( d-2 \!)g-5] |
-	r\mf [a,( d-2 ) g-5] r [a,(\< d )f-4]
+	r16\mf [a,( d-2 ) g-5] r [a,(\< d )f-4]
 	r [a,( d )e-3] r [c-1( e-2 \!)a-5] |
-	r\f [b, e a-5] r [b, e-3 g-5] 
+	r16\f [b, e a-5] r [b, e-3 g-5] 
 	r [c,-1 e-3 f-4] r [g, d'-3 f-5] |
-	r [g,-"poco a poco dim." d'-4 e] r [g, c-2 e]
+% all text is fat currently...
+%	r [g,-"poco a poco dim." d'-4 e] r [g, c-2 e]
+	r [g, d'-4 e] r [g, c-2 e]
 	r [a,-1 c-3 d-4] r [e, b'-3 d-5] |
 	r [e, b' c-4] r [e, a-2 c]
 	r [f,-1 a-3 bes-4] r [c, g'-3 bes-5] |
@@ -39,17 +41,13 @@ one = \type Staff=treble \notes\relative c {
 	r [b, d a'-5] r [b, d g-4]
 	r [a, c g'-5] r [a, c f!-4] |
 	% ugh arpeggio
-	<
+	\type Staff=treble <
 		{ \voiceone  f4 r }
 		{ \voicetwo  <g,4 d'> r }
 	>
 	\onevoice 
 	% s
 	% ugh beam across staffs slur starts at lower staff
-%	r16 [g,-1( b d] |
-%	\voiceone 
-%	)b s4 [g'16-1( b-2 d] )b s s s [f'-2 g-3 b-5 f-2] |
-%	\onevoice 
 	\translator Staff=bass\stemup
 	r16 [g,,-5( b-4 d ] 
 	[f-1 \translator Staff=treble\stemdown g16-1 b d] | \stemup )b
@@ -78,39 +76,30 @@ one = \type Staff=treble \notes\relative c {
 	[d c'-5 b-4 a] [b-4 g-2 d'-5 f,-1] |
 	[g-4 e-2 f-1 d'-5] [c-4 b a g]
 	[f'-5 d-3 es-4 c-2] [fis,-1 es'-4 d-3 c-2] |
-	[b-1 d-5 b-3 g-1] [as-4-"cresc. e rall." f-2 g-3 d-1]
+%	[b-1 d-5 b-3 g-1] [as-4-"cresc. e rall." f-2 g-3 d-1]
+	[b-1 d-5 b-3 g-1] [as-4 f-2 g-3 d-1]
 	[es-2 fis-3 a-4 c-5] 
-	< 
+	\type Staff=treble < 
 		{ \voiceone  r [c8 b16] }
-		%%% urg urg ?{ \voicetwo  [d,8 f-2] }
+		{ \voicetwo  [d,8 f-2] }
 	>
 	\onevoice  |
 	<c1\mf g e>
 	\bar "|.";
 }
 
-% two = \notes\relative c{
-% two = \type Voice=three \notes\relative c{
-two = \type Staff=bass \notes\relative c{
+two = \type Voice=three \notes\relative c{
 	\property Voice . textstyle =  "roman"
 	c4-5 e-3 g-\mordent^"(\\textsharp)" g,4 |
-	d'-\mordent-5 f-3 a-\mordent^"(\\textsharp)" a,4 |
+	d'4-\mordent-5 f-3 a-\mordent^"(\\textsharp)" a,4 |
  	e'-5 e'-\mordent-1 a,-4 b-\upprall |
  	c4 e,-4 fis gis-\downprall |
 	a4 c,-4 d e-\upprall |
 	f4-1 e d-3-\prall c |
 	g'-\mordent^"(\\textsharp)" g, g'-\mordent g, |
 	g'-\mordent g, g'-\mordent g, |
-%	% ugh f should be at upper staff
-%	g'-\mordent r r16 [g,-5( b-4 d] )f-1 s s s |
-%	g'-\mordent r r16 [g,-5( b-4 d \translator Staff=treble )f-1 ] s s s |
-%	\translator Staff=bass
-%	s [g-5( b-4 d-2] )f-1 s s s s \clef "violin"; [g-4 b-2 d-1] 
-%	s s s s \clef bass; |
 	g' r s s | s s s s \clef bass; |
-	<
-%		{ \voiceone  g,,1 ~ g ~ g ~ g ~ g ~ g ~ g }
-%		{ \voicetwo  g,1 ~ g ~ g ~ g ~ g ~ g ~ g }
+	\type Staff=bass <
 		{ \voicethree  g1 ~ g ~ g ~ g ~ g ~ g ~ g }
 		{ \voicefour  g,1 ~ g ~ g ~ g ~ g ~ g ~ g }
 	>
@@ -128,7 +117,6 @@ treble_staff = \type Staff = treble <
 >
 
 bass_staff = \type Staff = bass <
-% bass = Staff <
 	\clef "bass";
 	\global
 	\two

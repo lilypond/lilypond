@@ -1,23 +1,25 @@
 \score{
 	\type GrandStaff <
 	\type Staff=one \notes\relative c'{
-		\stemup c8( c \translator Staff=two \stemup c )c
-		r2
+		\stemup c4( c \translator Staff=two c )c
 		\translator Staff=one
-		\stemdown c8( c \translator Staff=two \stemup c )c
-		r2
-		\stemdown c8( c \translator Staff=one \stemdown c )c
+		\stemup c4( c \translator Staff=two c )c
+		\stemup c4( c \translator Staff=one c )c
+		\translator Staff=two
+		\stemup c4( c \translator Staff=one c )c
+		\translator Staff=two
+		\stemup c4( \translator Staff=one c c )c
 		r2
 		\translator Staff=two
-		\stemup c8( c \translator Staff=one \stemdown c )c
+		\stemup c4( \translator Staff=one c \break c )c
 		r2
+		r1
+		r1
+		r1
 	}
 	\type Staff=two \notes\relative c'{
 		\clef bass;
-		s1
-		s1
-		s1
-		s1
+		s1 s1 s1 s1 s1 s1 s1 s1 s1 s1
 	}
 	>
 	\paper{
@@ -28,6 +30,6 @@
 			minVerticalAlign = 3.0*\staffheight;
 			maxVerticalAlign = 3.0*\staffheight;
 		}
-		linewidth=-1.;
+		%linewidth=100.\mm;
 	}
 }

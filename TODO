@@ -50,7 +50,7 @@ BUGS:
 
 	* fix:  cello suites
 
-	* fix:  petites preludes (rediculous dims)
+	* fix:  text on rests: rediculous dims
 
 	* fix extender
 
@@ -71,7 +71,7 @@ BUGS:
 	* gallina barlines.
 
 	* fix height of / collisions with lyrics (chords), 
-	   see input/test/vertical-text.ly
+	   see input/test/vertical-text.ly; input/test/repeat.ly
 
 	* repeat/volta:
 	  - one volta spanner per score
