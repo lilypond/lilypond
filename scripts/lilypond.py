@@ -508,7 +508,7 @@ leaving a PS file in OUTBASE.ps
 				pass
 
 		if pfa_file:
-			opts = opts + ' -Ppdf -G0 -u +lilypond.map'
+			opts = opts + ' -Ppdf -G0 -u lilypond.map -u +lilypond.map'
 		else:
 			ly.warning (_ ('''Trying create PDF, but no PFA fonts found.
 Using bitmap fonts instead. This will look bad.'''))
@@ -519,7 +519,7 @@ Using bitmap fonts instead. This will look bad.'''))
 	if preview_p:
 		for score in find_tex_files (files, extra):
 			preview_base = ly.strip_extension (score[0], '.tex')
-			cmd = 'dvips -E -Ppdf -u+lilypond.map -o%s %s' \
+			cmd = 'dvips -E -Ppdf -u+sauter-mftrace.map -u+lilypond.map -o%s %s' \
 			      % (preview_base + '.preview.ps',
 				 preview_base + '.preview.dvi')
 			ly.system (cmd)

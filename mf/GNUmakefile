@@ -38,7 +38,12 @@ MFTRACE_FLAGS=$(if $(ENCODING_FILE),--encoding $(ENCODING_FILE),)
 #
 # 2. are not included with teTeX
 #
-SAUTER_FONTS = cmbxti8 ecbm14 ecrm12
+
+
+## use separate package sauter-fonts-mftraced.
+SAUTER_FONTS = 
+
+#cmbxti8 ecbm14 ecrm12
 
 MORE_SAUTER_FONTS = cmbx14 cmbx17 \
 	 cmbxti12 cmbxti14 \
