@@ -107,11 +107,10 @@ local-clean:
 backdoc-WWW: $(outdir)/lilypond-internals/lilypond-internals.html
 	$(SHELL) $(buildscript-dir)/install-info-html.sh --dir=$(outdir) lilypond lilypond-internals
 
-#ugh. lily/OUT/lilypond hardcoded.
 # when cross-compiling, we don't have lilypond
 ifneq ($(CROSS),yes)
 $(outdir)/lilypond-internals.nexi $(outdir)/lilypond-internals.texi:
-	cd $(outdir) && ../$(depth)/$(builddir)/lily/out/lilypond ../$(src-depth)/ly/generate-documentation
+	cd $(outdir) && ../$(depth)/$(builddir)/lily/$(outconfbase)/lilypond ../$(src-depth)/ly/generate-documentation
 	-ln $(outdir)/lilypond-internals.texi $(outdir)/lilypond-internals.nexi
 else
 $(outdir)/lilypond-internals.nexi $(outdir)/lilypond-internals.texi:

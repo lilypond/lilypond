@@ -387,6 +387,17 @@ main_prog (int, char**)
   exit (exit_status_global);
 }
 
+static int
+sane_putenv (char const* key, char const* value)
+{
+  /*
+    putenv is POSIX, setenv is BSD 4.3
+    Urg, but putenv blindly overwrites environment settings.
+  */
+  if (!getenv (key))
+    return putenv ((char*)((String (key) + "=" + value).ch_C ()));
+  return -1;
+}
 
 int
 main (int argc, char **argv)
@@ -394,13 +405,18 @@ main (int argc, char **argv)
   debug_init ();		// should be first (can see that; but Why?)
   setup_paths ();
 
-  /*
-    prepare guile for heavy mem usage.
+  /* Prepare GUILE for heavy memory usage.  If you have plenty memory,
+     this may speed up GUILE a bit.  If you're short on memory, these
+     settings
+    
+	 export GUILE_INIT_SEGMENT_SIZE_1=36000
+         export GUILE_MAX_SEGMENT_SIZE=576000
 
-    putenv is POSIX, setenv is BSD 4.3
-   */
-  putenv ("GUILE_INIT_SEGMENT_SIZE_1=4194304");
-  putenv ("GUILE_MAX_SEGMENT_SIZE=8388608");
+     may considerably decrease memory footprint (~*0.85), with a small
+     execution time penalty (~*1.10).  */
+  
+  sane_putenv ("GUILE_INIT_SEGMENT_SIZE_1", "4194304");
+  sane_putenv ("GUILE_MAX_SEGMENT_SIZE", "8388608");
 
   ly_init_kpath (argv[0]);
   

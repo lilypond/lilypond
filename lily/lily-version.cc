@@ -10,12 +10,13 @@
 #include "version.hh"
 #include "lily-version.hh"
 
-#define VERSION MAJOR_VERSION "." MINOR_VERSION "."  PATCH_LEVEL "." MY_PATCH_LEVEL
-
 String
 version_str ()
 {
-  String str = VERSION;
+  String str (MAJOR_VERSION "." MINOR_VERSION "."  PATCH_LEVEL);
+  String mpl ("." MY_PATCH_LEVEL);
+  if (mpl != ".")
+    str += mpl;
   return str;
 }
 

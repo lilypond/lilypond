@@ -25,29 +25,24 @@ AC_DEFUN(AC_STEPMAKE_COMPILE, [
     debug_b=yes
 
     AC_ARG_ENABLE(checking,
-    [  enable-checking         set runtime checks (assert calls). Default: on],
+    [  --enable-checking       set runtime checks (assert calls).  Default: on],
     [checking_b=$enableval] )
 
-    # actually, the default is: tja='-O' to get inlining...
-    # off=''  --jcn
+    AC_ARG_ENABLE(debugging,
+    [  --enable-debugging      compile with debugging info.  Default: on],
+    [debug_b=$enableval])
 
-    #actually, that sucks.
-    #  tja looks like a typo.  Default is optimisation off. --hwn
-    
     AC_ARG_ENABLE(optimise,
-    [  enable-optimise         use maximal speed optimisations. Default: off],
+    [  --enable-optimise       use maximal speed optimisations.  Default: off],
     [optimise_b=$enableval])
     
     AC_ARG_ENABLE(profiling, 
-    [  enable-profiling        compile with gprof support. Default: off],
+    [  --enable-profiling      compile with gprof support.  Default: off],
     [profile_b=$enableval])
     
-    AC_ARG_ENABLE(debugging,
-    [  enable-debugging        set debug info. Default: on],
-    [debug_b=$enableval])
-
     AC_ARG_ENABLE(mingw-prefix,
-    [  enable-mingw-prefix=DIR set the mingw32 directory (standalone windows32 exes)],
+    [  --enable-mingw-prefix=DIR
+                          set the mingw32 directory (standalone windows32 exes)],
     [MINGWPREFIX=$enableval],
     [MINGWPREFIX=no])
 
@@ -333,7 +328,8 @@ AC_DEFUN(AC_STEPMAKE_INIT, [
 
     CONFIGSUFFIX=
     AC_ARG_ENABLE(config,
-    [  enable-config=FILE      put configure settings in config-FILE.make],
+    [  --enable-config=CONF    put settings in config-CONF.make and config-CONF.h;
+                            do \`make conf=CONF' to get output in ./out-CONF],
     [CONFIGSUFFIX=-$enableval])
 
     CONFIGFILE=config$CONFIGSUFFIX
@@ -434,8 +430,8 @@ dnl    fi
 AC_DEFUN(AC_STEPMAKE_KPATHSEA, [
 
     kpathsea_b=yes
-    AC_ARG_ENABLE(kpathsea,
-    [  enable-kpathsea         use kpathsea lib.  Default: on],
+    AC_ARG_WITH(kpathsea,
+    [  --with-kpathsea         use kpathsea lib.  Default: on],
     [kpathsea_b=$enableval])
 
     if test $kpathsea_b = yes; then	
@@ -516,12 +512,13 @@ AC_DEFUN(AC_STEPMAKE_LOCALE, [
 
     # with/enable ??
     AC_ARG_WITH(localedir,
-    [  with-localedir=LOCALE   use LOCALE as locale dir. Default: PREFIX/share/locale ],
+    [  --with-localedir=LOCALE use LOCALE as locale dir.  Default:
+                            PREFIX/share/locale ],
     localedir=$with_localedir,
     localedir='${prefix}/share/locale')
 
     AC_ARG_WITH(lang,
-    [  with-lang=LANG          use LANG as language to emit messages],
+    [  --with-lang=LANG        use LANG as language to emit messages],
     language=$with_lang,
     language=English)
 
@@ -586,17 +583,18 @@ AC_DEFUN(AC_STEPMAKE_MSGFMT, [
 #why has this been dropped?
 AC_DEFUN(XXAC_STEPMAKE_TEXMF_DIRS, [
     AC_ARG_ENABLE(tex-prefix,
-    [  enable-tex-prefix=DIR   set the tex-directory to find TeX subdirectories.  Default: PREFIX],
+    [  --enable-tex-prefix=DIR   set the tex-directory to find TeX
+                               subdirectories.  Default: PREFIX],
     [TEXPREFIX=$enableval],
     [TEXPREFIX=auto] )
     
     AC_ARG_ENABLE(tex-dir,
-    [  enable-tex-dir=DIR      set the directory to put $PACKAGE_NAME TeX files in. ],
+    [  --enable-tex-dir=DIR      set the directory to put $PACKAGE_NAME TeX files in. ],
     [TEXDIR=$enableval],
     [TEXDIR=auto] )
 
     AC_ARG_ENABLE(mf-dir,
-    [  enable-mf-dir=DIR       set the directory to put $PACKAGE_NAME MetaFont files in. ],
+    [  --enable-mf-dir=DIR       set the directory to put $PACKAGE_NAME MetaFont files in. ],
     [MFDIR=$enableval],
     [MFDIR=auto])
 
@@ -620,7 +618,8 @@ AC_DEFUN(XXAC_STEPMAKE_TEXMF_DIRS, [
 
 AC_DEFUN(AC_STEPMAKE_TEXMF_DIRS, [
     AC_ARG_ENABLE(tfm-path,
-    [  enable-tfm-path=PATH    set path of tex directories where tfm files live, esp.: cmr10.tfm.  Default: use kpsewhich],
+    [  --enable-tfm-path=PATH  set path of tex directories where tfm files live,
+                            esp.: cmr10.tfm.  Default: use kpsewhich],
     [tfm_path=$enableval],
     [tfm_path=auto] )
 

@@ -5,7 +5,7 @@ default:
 local-WWW: $(OUTHTML_FILES) footify
 
 local-web:
-	$(MAKE) CONFIGSUFFIX=www local-WWW
+	$(MAKE) out=www local-WWW
 
 footify:
 	$(footify) $(sort $(wildcard $(outdir)/*.html out/*.html out-www/*.html))
