@@ -9,7 +9,9 @@
 
 
 (use-modules (ice-9 regex)
-	     (srfi srfi-1))
+	     (srfi srfi-1)		;lists
+	     (srfi srfi-13)		;strings
+	     )
 
 ;;; General settings
 ;; debugging evaluator is slower.
@@ -235,20 +237,6 @@ L1 is copied, L2 not.
   
   )))
 
-;;;;;;;;;;;;;;;;
-; strings.
-
-
-;; TODO : make sep optional.
-(define-public (string-join str-list sep)
-  "append the list of strings in STR-LIST, joining them with SEP"
-  
-  (apply string-append (list-insert-separator str-list sep))
-  )
-
-(define-public (pad-string-to str wid)
-  (string-append str (make-string (max (- wid (string-length str)) 0) #\ ))
-  )
 
 ;;;;;;;;;;;;;;;;
 ; other

@@ -6,7 +6,9 @@
 ;;; (c)  2000--2003 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;; Jan Nieuwenhuizen <janneke@gnu.org>
 
-(use-modules (oop goops))
+(use-modules (oop goops)
+	     (srfi srfi-13)
+	     )
 
 (define-class <texi-node> ()
   (children #:init-value '() #:accessor node-children #:init-keyword #:children)
@@ -114,7 +116,7 @@
   (apply string-append
 	 (map (lambda (x)
 		(string-append
-		(pad-string-to 
+		(string-pad-right 
 		 (string-append "\n* " (car x) ":: ")
 		 (+ maxwid 8)
 		 )
