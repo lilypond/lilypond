@@ -1,5 +1,10 @@
 2003-08-26  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION (PACKAGE_NAME): released 1.9.1 
+
+	* ly/engraver-init.ly (RemoveEmptyStaffContext): don't add
+	Instrument_name_engraver
+
 	* lily/tie-performer.cc (create_audio_elements): bugfix
 
 	* Documentation/user/music-glossary.tely (Top): comment out

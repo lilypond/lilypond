@@ -133,7 +133,6 @@ scrollkeeper-update
 %{_bindir}/musedata2ly
 %{_bindir}/pmx2ly
 
-%doc buildscripts/out/convert-new-chords
 %doc THANKS
 %doc COPYING
 %doc DEDICATION
