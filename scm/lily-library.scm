@@ -249,6 +249,10 @@ L1 is copied, L2 not.
       )))
 
 
+(define-public (offset-add a b)
+  (cons (+ (car a) (car b))
+	(+ (cdr a) (cdr b)))) 
+
 (define-public (interval-length x)
   "Length of the number-pair X, when an interval"
   (max 0 (- (cdr x) (car x)))

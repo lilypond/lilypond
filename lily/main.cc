@@ -255,15 +255,15 @@ prepend_load_path (String dir)
 static void
 determine_output_options ()
 {
-  
+  bool found_gnome = false;
   bool found_tex = false;
   SCM formats = ly_output_formats ();
   for (SCM s = formats; scm_is_pair (s); s = scm_cdr (s)) 
     {
       found_tex = found_tex || (ly_scm2string (scm_car (s)) == "tex");
+      found_gnome = found_gnome || ly_scm2string(scm_car (s)) == "gnome";
     }
 
-      
   if (make_pdf || make_png)
     {
       make_ps = true;
@@ -276,11 +276,12 @@ determine_output_options ()
     {
       make_tex = true;
     }
-  if (!(make_dvi
-	|| make_tex
-	|| make_ps
-	|| make_png
-	|| make_pdf))
+  if (!found_gnome
+      && !(make_dvi
+	   || make_tex
+	   || make_ps
+	   || make_png
+	   || make_pdf))
     {
       make_pdf = true;
       make_ps = true;
@@ -291,6 +292,8 @@ determine_output_options ()
 	}
     }
 }
+
+void init_global_tweak_registry();
 
 static void
 main_with_guile (void *, int, char **)
@@ -309,7 +312,9 @@ main_with_guile (void *, int, char **)
 
   ly_c_init_guile ();
   call_constructors ();
-
+  
+  init_global_tweak_registry ();
+  
   determine_output_options ();  
   all_fonts_global = new All_font_metrics (global_path.to_string ());
 

@@ -25,7 +25,7 @@ Tweak_registry::clear ()
 }
 
 void
-Tweak_registry::insert_tweak (SCM tweak)
+Tweak_registry::insert_tweak_from_file (SCM tweak)
 {
   SCM skey = scm_car (tweak);
 
@@ -40,6 +40,20 @@ Tweak_registry::insert_tweak (SCM tweak)
 
   tweaks_[key] = scm_cons (scm_cdr (tweak), tweaks_[key]);
 }
+
+
+void
+Tweak_registry::insert_grob_tweak (Grob *g, SCM tweak)
+{
+  Object_key const * key =  g->get_key ();
+  if (tweaks_.find (key) == tweaks_.end())
+    {
+      tweaks_[key] = SCM_EOL;
+    }
+
+  tweaks_[key] = scm_cons (tweak, tweaks_[key]);
+}
+
 
 SCM
 Tweak_registry::get_tweaks (Grob *g) 
@@ -75,7 +89,7 @@ Tweak_registry::list_tweaks ()
       const Object_key *  key = (*i).first;
       for (SCM t = (*i).second; scm_is_pair (t); t = scm_cdr (t))
 	{
-	  retval = scm_cons (key->self_scm(), scm_car (t));
+	  retval = scm_cons (scm_cons (key->self_scm(), scm_car (t)), retval);
 	}
     }
 
@@ -95,9 +109,11 @@ Tweak_registry::mark_smob (SCM smob)
       scm_gc_mark ((*i).second);
     }
 
-  return me->undumper_ ? me->undumper_->self_scm() : SCM_EOL;
+  if (me->undumper_)
+    scm_gc_mark (me->undumper_->self_scm());
+		      
+  return SCM_EOL;
 }
-
 
 int
 Tweak_registry::print_smob (SCM smob, SCM port, scm_print_state*)
@@ -121,12 +137,11 @@ Tweak_registry  * global_registry_;
 void
 init_global_tweak_registry()
 {
-  //  global_registry_ = new Tweak_registry();
+  global_registry_ = new Tweak_registry();
 }
 
-ADD_SCM_INIT_FUNC(init_global_tweak_registry,init_global_tweak_registry);
 
-LY_DEFINE(ly_clear_tweak_registry, "ly:clear-tweak-registry",
+LY_DEFINE(ly_clear_tweak_registry, "ly:tweak-clear-registry",
 	  0,0,0,(),
 	  "Clear global tweak registry"
 	  )
@@ -135,8 +150,24 @@ LY_DEFINE(ly_clear_tweak_registry, "ly:clear-tweak-registry",
   return SCM_UNSPECIFIED;
 }
 
+LY_DEFINE(ly_insert_tweak, "ly:insert-tweak",
+	  2,0,0,
+	  (SCM grob, SCM tweak),
+	  "add new tweak for grob."
+	  )
+{
+  Grob *gr = unsmob_grob (grob);
+  SCM_ASSERT_TYPE(gr, grob, SCM_ARG1, __FUNCTION__, "Grob");
+  SCM_ASSERT_TYPE(scm_list_p (tweak) == SCM_BOOL_T
+		  && ly_c_procedure_p (scm_car (tweak)),
+		  tweak, SCM_ARG2, __FUNCTION__, "Tweak");
+  
+  global_registry_->insert_grob_tweak (gr, tweak);
+  return SCM_UNSPECIFIED;
+}
 
-LY_DEFINE(ly_tweak_read_keys, "ly:tweak-read-keys",
+
+LY_DEFINE(ly_tweak_read_keys, "ly:tweak-define-keys",
 	  1,0,0,(SCM keys),
 	  "Read keys"
 	  )
@@ -145,14 +176,24 @@ LY_DEFINE(ly_tweak_read_keys, "ly:tweak-read-keys",
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE(ly_tweak_read_tweaks, "ly:tweak-read-tweaks",
+
+LY_DEFINE(ly_all_tweaks, "ly:all-tweaks",
+	  0,0,0,(),
+	  "all tweaks"
+	  )
+{
+  return global_registry_->list_tweaks();
+}
+
+
+LY_DEFINE(ly_tweak_read_tweaks, "ly:tweak-define-tweaks",
 	  1,0,0,(SCM tweaks),
 	  "Read  tweaks"
 	  )
 {
   for (SCM s = tweaks; scm_is_pair (s); s = scm_cdr (s))
     {
-      global_registry_->insert_tweak (scm_car (s));
+      global_registry_->insert_tweak_from_file (scm_car (s));
     }
   return SCM_UNSPECIFIED;
 }

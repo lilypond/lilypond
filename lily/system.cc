@@ -25,6 +25,7 @@
 #include "staff-symbol-referencer.hh"
 #include "paper-book.hh"
 #include "paper-system.hh"
+#include "tweak-registration.hh"
 
 
 System::System (System const &src, int count)
@@ -278,6 +279,21 @@ System::add_column (Paper_column*p)
 }
 
 void
+apply_tweaks (Grob *g, bool broken)
+{
+  if (bool (g->original_) == broken)
+    {
+      SCM tweaks = global_registry_->get_tweaks (g);
+      for (SCM s = tweaks; scm_is_pair (s); s = scm_cdr (s))
+	{
+	  SCM proc = scm_caar (s);
+	  SCM rest = scm_cdar (s);
+	  scm_apply_1 (proc, g->self_scm(), rest);
+	}
+    }
+}
+
+void
 System::pre_processing ()
 {
   for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
@@ -290,7 +306,11 @@ System::pre_processing ()
     unsmob_grob (scm_car (s))->handle_prebroken_dependencies ();
   
   fixup_refpoints (get_property ("all-elements"));
+
   
+  for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
+    apply_tweaks (unsmob_grob (scm_car (s)), false);
+
   for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
     {
       Grob *sc = unsmob_grob (scm_car (s));
@@ -315,6 +335,9 @@ System::post_processing ()
   for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
     {
       Grob *g = unsmob_grob (scm_car (s));
+      
+      apply_tweaks (g, true);
+
       g->calculate_dependencies (POSTCALCED, POSTCALCING,
           ly_symbol2scm ("after-line-breaking-callback"));
     }

@@ -1,3 +1,8 @@
+2004-11-15  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/system.cc (apply_tweaks): new function. Run tweaks on all
+	grobs that have tweaks specced.
+	
 2004-11-14  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* Documentation/user/sound-output.itexi: add code snippets for MIDI.
