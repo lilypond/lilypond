@@ -105,13 +105,6 @@ wins. In case of draw, a normal accidental is typeset.
     still counted.  Bar generation will resume according to that
     count if this property is set to zero.
 ")
-(translator-property-description 'automaticPhrasing boolean? " If set,
-the @ref{Lyric_phrasing_engraver} will match note heads of context
-called Voice X to syllables from LyricsVoice called
-X-<something>. This feature is turned on by default. See the example
-file @file{lyrics-multi-stanza.ly}.
-")
-
 
 (translator-property-description 'barAlways boolean? "If set to true a bar line is drawn after each note.
 ")
@@ -350,9 +343,6 @@ that indicates how to print sustain pedals: text, bracket or mixed
 (translator-property-description 'pedalUnaCordaStyle symbol? "see pedalSustainStyle.")
 (translator-property-description 'pedalSostenutoStyle symbol? "see pedalSustainStyle.")
 
-(translator-property-description 'phrasingPunctuation string?
-				 "A string of characters that are considered
-lyric punctuation")
 (translator-property-description 'rehearsalMark number-or-string? "The
 last rehearsal mark printed.")
 (translator-property-description 'repeatCommands list? "This property is read to find any command of the form (volta . X), where X is a string or #f")

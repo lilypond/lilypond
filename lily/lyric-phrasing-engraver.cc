@@ -28,7 +28,6 @@ struct Phrasing_association
   {
     melisma_ = false;
   }
-  
 };
 
 class Lyric_phrasing_engraver : public Engraver
@@ -206,6 +205,6 @@ ENTER_DESCRIPTION(Lyric_phrasing_engraver,
 		  "",
 		  "",
 		  "lyric-syllable-interface note-head-interface lyric-extender-interface",
-		  "automaticPhrasing associatedVoice",
+		  "associatedVoice",
 		  "");
 

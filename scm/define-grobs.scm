@@ -491,9 +491,6 @@
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_parent))
 	(self-alignment-X . 0)
 	(word-space . 0.6)
-	(ignore-length-mismatch . #f)
-	(begin-alignment . 4)
-	(end-alignment . 2)
 	(font-family . roman)
 	(font-shape . upright)
 	
@@ -853,7 +850,7 @@
 	(padding . 1.5)
 	(X-offset-callbacks . (,Side_position_interface::aligned_side))
 	(direction . ,LEFT) 
-	(meta . ((interfaces . (text-interface font-interface item-interface ))))		
+	(meta . ((interfaces . (side-position-interface text-interface font-interface item-interface ))))		
 	))
 
     (StaffSpacing

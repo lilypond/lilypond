@@ -156,11 +156,5 @@ pianoLH = \notes \relative c'' \repeat volta 2 {
 	\translator {  \PianoStaffContext
 		VerticalAlignment \override #'forced-distance = #10
 		}
-	\translator {
-	     \ScoreContext
-	     \remove "Lyric_phrasing_engraver"
-	     \consists "New_phrasing_engraver"
-	 }
-
 }
 }
