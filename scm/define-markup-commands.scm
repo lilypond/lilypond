@@ -122,6 +122,7 @@ some punctuation. It doesn't have any letters.  "
   (interpret-markup paper (prepend-alist-chain 'font-size -3 props) arg))
 
 (def-markup-command (caps paper props arg) (markup?)
+  "Set font shape to @code{caps}."
   (interpret-markup paper (prepend-alist-chain 'font-shape 'caps props) arg))
 
 (def-markup-command (dynamic paper props arg) (markup?)
