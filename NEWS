@@ -87,7 +87,7 @@ without the proper line breaking and horizontal spacing.
 
 ** Clusters may now be printed. The syntax is:
 
-	\apply #clusters-to-notes { NOTE NOTE .. }
+	\apply #notes-to-clusters { NOTE NOTE .. }
 
 ** For irregular meters, beat grouping marks can be printed. The
 syntax for this is

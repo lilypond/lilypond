@@ -51,10 +51,7 @@ For example, consider the following input
 @lilypond[relative 1,singleline,verbatim,intertext="with the following output"]
   c'^\markup { \bold \huge { Click on this image! } }
 @end lilypond
-If you click it, you can see that the input shown is simplified a
-little. This has been done for reasons of space and clarity. If you
-want to fiddle, you need the full input, otherwise LilyPond will not
-accept it.
+
 @end ifhtml
 By cutting and pasting the full input into a test file, you have a
 starting template for experiments. If you like learning in this way,
