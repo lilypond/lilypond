@@ -10,14 +10,17 @@
 #ifndef COLLISION_HH
 #define COLLISION_HH
 #include "lily-proto.hh"
-#include "item.hh"
+#include "elem-group-item.hh"
 
-/** TODO 
+/**
+  Resolve conflicts between various Note_columns (chords).
+  
+  TODO 
 
   multistaff support (see Chlapik: equal noteheads should be on the
   same hpos.)  
 */
-class Collision : public Item {
+class Collision : public Horizontal_vertical_group_item {
 protected:
     virtual void do_substitute_dependency(Score_elem*,Score_elem*);
     virtual void do_pre_processing();
@@ -26,6 +29,5 @@ public:
     DECLARE_MY_RUNTIME_TYPEINFO;
     void add (Note_column*ncol_l);
     Collision();
-    
 };
 #endif // COLLISION_HH
