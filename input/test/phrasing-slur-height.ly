@@ -1,7 +1,8 @@
 
 \version "2.1.26"
 \header{ texidoc="@cindex Phrasing Slur Height
-Make PhrasingSlur higher, to avoid colission from other slurs. "
+The @code{PhrasingSlur} can be made higher in order to avoid collision 
+with other slurs. "
 }
 
 \score {

@@ -6,14 +6,17 @@
 
 @cindex scaling durations
 
-You can have multiple time signatures occuring at the same time, with
-different durations aligned.  This is done by 1. compressing one of
-the lines, analogous to \times, but without the bracket, and
-2. manually setting timeSignatureFraction to the desired fraction.
+It is possible to have multiple time signatures, each one in an own staffs, 
+at the same time, and have even a proper vertical alignment of the different 
+durations.  This is done, firstly, by setting a common time signature for
+each staff but replacing it manually using @code{timeSignatureFraction} to 
+the desired fraction, and secondly, by scaling the printed durations to
+the actual, polymetric durations.
 
-This example puts 3/4, 9/8 and 10/8 in parallel. The last staff shows
-what happens on the inside: a 3/4 time signature is combined with a
-3/5 tuplet yielding the equivalent of a 10/8.
+In this example, music with the time signatures of 3/4, 9/8 and 10/8 are
+used in parallel. In the second staff, shown durations are multiplied by 
+2/3, so that 2/3 * 9/8 = 3/4, and in the third staff, shown durations are 
+multiplied by 3/5, so that 3/5 * 10/8 = 3/4.
 
 "
 

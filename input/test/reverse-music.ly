@@ -2,7 +2,10 @@
 \version "2.1.26"
 % possible rename to scheme-something.
 \header { texidoc="@cindex Scheme Reverse Music
-Simple customised music apply. "
+Symmetric, or palindromical music can be produced, first, by printing
+some music, and second, by printing the same music applying a Scheme
+function to reverse the syntax.
+"
 }
 
 music = \notes \relative c'' { c4 d4( e4 f4 }

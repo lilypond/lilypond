@@ -4,8 +4,8 @@
 
 @cindex shorter volta bracket
 
-By setting @code{voltaSpannerDuration} the length of a volta bracket
-can be shortened.
+By setting @code{voltaSpannerDuration}, the horizontal length of a volta 
+bracket can be shortened.
 
 "
 

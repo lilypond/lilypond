@@ -1,3 +1,8 @@
+2004-02-28  Heikki Junes <hjunes@cc.hut.fi>
+
+	* input/test/[p-r]*.ly: use more verbose texidocs. add comments
+	of missing features.
+
 2004-02-27  Heikki Junes <hjunes@cc.hut.fi>
 
 	* input/test/[j-o]*.ly: update texidocs.

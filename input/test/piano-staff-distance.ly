@@ -2,9 +2,9 @@
 \header
 {
 
- texidoc = "It is possible to have different staff distances across
-piano systems, but it requires some advanced magic. Kids don't try
-this at home.  "
+ texidoc = "It is possible to have different staff distances between
+the staffs of a piano system, but it requires some advanced Scheme code. 
+Currently, this is for testing purposes.  "
 
 }
 

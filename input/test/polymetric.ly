@@ -7,11 +7,14 @@
 You can have multiple time signatures occuring at the same time.
 
 This is done by moving the timing engraver to staff context. Also,
-Staff should be given the alias @code{Timing} to make @code{\\time}
-command work correctly. Barlines distort the regular spacing, though.
-
+@code{Staff} should be given the alias @code{Timing} to make @code{\\time}
+command work correctly. The spacing is aligned vertically, although the bar 
+lines seem to distort the regular spacing.
 
 " }
+
+%% Multiple time signatures seem not to be printed, however.
+%% Should print bar lines according to the time signature of each staff. -HJJ
 
 \score{
     \notes \relative c'  <<

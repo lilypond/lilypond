@@ -3,7 +3,7 @@
 \header {
     texidoc = "@cindex Rests
 
-Rests in various styles.
+Rests may be used in various styles.
 
 "
 }

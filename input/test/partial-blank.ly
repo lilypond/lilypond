@@ -2,10 +2,10 @@
 \version "2.1.26"
 % check with invisible-notes or blank-notes.  possible rename. -gp
 \header{ texidoc = "@cindex Partial Blank
-When entering half music (i.e. for students to complete by hand)
-you need the spacing to correspond to the timing -- all measures
-same length, etc.  This thing implements it by adding invisible
-staff with lots of fast notes. "
+When entering partially typeset music (i.e. for students to be 
+completed by hand), you may need the spacing that correspond to the 
+timing of notes: all measures have same length, etc.  It can be
+implemented by adding an invisible staff with a lot of fast notes. "
 }
 
 quickmeasure = \notes {
