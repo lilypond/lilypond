@@ -4,12 +4,17 @@ Internally markup is stored as lists, whose head is a function.
 
   (FUNCTION ARG1 ARG2 ... )
 
-When it is applied, then FUNCTION is called as follows
+When the markup is formatted, then FUNCTION is called as follows
 
   (FUNCTION GROB PROPS ARG1 ARG2 ... ) 
 
+GROB is the current grob, PROPS is a list of alists, and ARG1.. are
+the rest of the arguments.
+
 The function should return a molecule (i.e. a formatted, ready to
 print object).
+
+
 
 To add a function,
 
@@ -20,6 +25,8 @@ signature. This is to allow the parser to figure out how many
 arguments to expect:
 
   (set-object-property! COMMAND-markup  scm0-markup1)
+
+(insert in the list below).
 
 3. The command is now available in markup mode, e.g.
 
