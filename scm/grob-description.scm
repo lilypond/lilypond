@@ -515,7 +515,6 @@
 	(molecule-callback . ,tablature-molecule-callback)
 	(Y-offset-callbacks  . (,Staff_symbol_referencer::callback))
 	(stem-attachment-function . ,tablature-stem-attachment-function)
-  (string-tunings . (-8 -3 2 7 11 16))
 	(meta . ((interfaces . (rhythmic-head-interface font-interface note-head-interface staff-symbol-referencer-interface))))
 	))
 
@@ -816,6 +815,7 @@
 	(adjust-if-on-staffline . #t)
 	(font-family . music)	   
 	(avoid-note-head . #f)
+	(up-to-staff . #f)
 	(meta . ((interfaces . (stem-interface  font-interface))))
 	))
 

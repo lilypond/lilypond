@@ -19,14 +19,13 @@ export GS_LIB
 # same purpose, but is more likely to be correct (think multiple
 # versions of lilypond).
 # LILYPONDPREFIX="$datadir"
+# export LILYPONDPREFIX
 
 # Add the installation directory to the teTeX system tree, 
 # see Documentation/misc/fontinstallation
 TEXMF="{$datadir,"`kpsexpand  \\$TEXMF`"}"
 export TEXMF
 
-# LILYPONDPREFIX="$datadir"
-# export LILYPONDPREFIX
 
 # For direct ps output fonts. Add all available TeX Type1 fonts
 GS_FONTPATH=`kpsewhich -expand-path=\\$T1FONTS`:${GS_FONTPATH:=""}

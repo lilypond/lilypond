@@ -274,6 +274,16 @@ Stem::get_default_dir (Grob*me)
 Real
 Stem::get_default_stem_end_position (Grob*me) 
 {
+  SCM up_to_staff = me->get_grob_property ("up-to-staff");
+  if (to_boolean(up_to_staff))
+    {
+      int line_count = Staff_symbol_referencer::line_count (me);
+    
+      Direction dir = get_direction (me);
+    
+      return dir*  (line_count + 1.5);
+    }
+  
   bool grace_b = to_boolean (me->get_grob_property ("grace"));
   SCM s;
   Array<Real> a;
@@ -750,6 +760,27 @@ Stem::beam_l (Grob*me)
 Stem_info
 Stem::calc_stem_info (Grob*me) 
 {
+  SCM up_to_staff = me->get_grob_property ("up-to-staff");
+  if (gh_scm2bool(up_to_staff)) {
+    
+    // Up-to-staff : the stem end out of the staff.
+
+    /*
+      FIXME: duplicate code.
+     */
+    int line_count = Staff_symbol_referencer::line_count (me);
+    
+    Stem_info si ;
+    
+    Direction dir = get_direction (me);
+    
+    si.ideal_y_ = dir*  (line_count + 1.5);
+    si.dir_ = dir;
+    si.shortest_y_ = si.ideal_y_; 
+    
+    return si;
+  }
+  
   SCM scm_info = me->get_grob_property ("stem-info");
 
   if (gh_pair_p (scm_info ))
@@ -884,5 +915,5 @@ Stem::calc_stem_info (Grob*me)
 
 ADD_INTERFACE (Stem,"stem-interface",
   "A stem",
-  "avoid-note-head adjust-if-on-staffline thickness stem-info beamed-lengths beamed-minimum-lengths lengths beam stem-shorten duration-log beaming neutral-direction stem-end-position support-head note-heads direction length style no-stem-extend flag-style dir-forced");
+  "up-to-staff avoid-note-head adjust-if-on-staffline thickness stem-info beamed-lengths beamed-minimum-lengths lengths beam stem-shorten duration-log beaming neutral-direction stem-end-position support-head note-heads direction length style no-stem-extend flag-style dir-forced");
 

@@ -17,20 +17,22 @@
 (define (tablature-molecule-callback grob)
   (let ((molecule (fontify-text
                    (ly-get-default-font grob)
-                   (string-append
-                    (number->string
-                     (- (pitch-semitones (ly-get-mus-property (ly-get-grob-property grob 'cause) 'pitch))
-                        (list-ref
-                         (ly-get-grob-property grob 'string-tunings)
-                         (- (ly-get-grob-property grob 'tab-string)
-                            1 ; remove 1 because list index starts at 0 and guitar string at 1.
-                            ))
-                        )
-                     )
-                    )
+                   (ly-get-grob-property grob 'text)
                    )))
     molecule ; return the molecule.
     )
+  )
+
+; The TabNoteHead tablatureFormat callback.
+; Compute the text grob-property
+(define (fret-number-tablature-format string tuning pitch)
+  (number->string
+   (- (pitch-semitones pitch)
+      (list-ref tuning
+                (- string 1) ; remove 1 because list index starts at 0 and guitar string at 1.
+                )
+      )
+   )
   )
 
 ; end of tablature functions
