@@ -8,7 +8,7 @@
 ;;;;
 ;;;; * Get mftrace 1.0.12 or newer
 ;;;;
-;;;; * Get sodipodi-cvs from 2002-11-23 or newer
+;;;; * Get sodipodi-0.28 or newer
 ;;;;
 ;;;; * Link/copy mf/out/private-fonts to ~/.sodipodi/private-fonts 
 
@@ -78,7 +78,6 @@
 ;; Global vars
 
 (define output-scale 1)
-(define system-x 1)
 (define system-y 0)
 (define line-thickness 0.1)
 (define half-lt (/ line-thickness 2))
@@ -125,8 +124,9 @@
 
 (define (control->string c)
   (string-append
-   (number->string (* output-scale (car c))) ","
-   (number->string (* -1 (* output-scale (cdr c)))) " "))
+   (number->string (car c)) ","
+   ;; loose the -1
+   (number->string (* -1 (cdr c))) " "))
 
 (define (control-flip-y c)
   (cons (car c) (* -1 (cdr c))))
@@ -144,7 +144,13 @@
     (string-append
      "M " (control->string c0)
      "C " (apply string-append (map control->string c123)))))
-     
+
+;; URG
+(define (svg-close l)
+  (let* ((c0 (car (list-tail l 3))))
+    (string-append
+     "M " (control->string c0))))
+	 
 	 
 (define xml-header
 "<?xml version='1.0' standalone='no'?>
@@ -173,7 +179,7 @@
      id='defs3' />
   <sodipodi:namedview
      id='base' />
-  <g tranform='translate(50,-250)'>
+  <g transform='translate(10,10) scale (1.0)'>
   ")
 
 
@@ -190,15 +196,15 @@
     (tagify "rect" ""
 
 	  '(style . "fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;")
-	  `(x . ,(number->string (* output-scale half-lt)))
-	  `(y . ,(number->string (* output-scale (- half-lt (/ thick 2)))))
-	  `(width . ,(number->string (* output-scale width)))
-	  `(height . ,(number->string (* output-scale thick)))
-;;	  `(ry . ,(number->string (* output-scale half-lt)))
+	  `(x . ,(number->string half-lt))
+	  `(y . ,(number->string (- half-lt (/ thick 2))))
+	  `(width . ,(number->string width))
+	  `(height . ,(number->string thick))
 	  `(ry . ,(number->string line-thickness))
-	  `(transform . ,(format #f "matrix(~f,~f,0,1,0,0)"
+	  `(transform . ,(format #f "matrix(~f,~f,0,1,0,0) scale (~f,~f)"
 				 (/ x z)
-				 (* -1 (/ y z)))))))
+				 (* -1 (/ y z))
+				 output-scale output-scale)))))
 
 ;; TODO: bezier-ending, see ps.scm
 (define (bezier-bow l thick)
@@ -208,14 +214,13 @@
   (let* ((urg (eval l this-module))
 	 (first (list-tail urg 4))
 	 (second (list-head urg 4)))
-    (string-append
-     "<path\n"
-     "style='stroke-width:"
-     (number->string (* output-scale line-thickness)) ";'\n"
-     "d='"
-     (svg-bezier first)
-     (svg-bezier second)
-     "'/>\n")))
+    (tagify "path" ""
+	    `(style . ,(format #f "stroke-width:~f;" line-thickness))
+	    `(transform . ,(format #f "scale (~f,~f)"
+				   output-scale output-scale))
+	    `(d . ,(string-append (svg-bezier first)
+				  (svg-bezier second)
+				  (svg-close first))))))
   
 (define (char i)
   (if #t
@@ -287,6 +292,9 @@
 (define (lily-def key val)
   (if (equal? key "lilypondpaperoutputscale")
       ;; ugr
+      ;; If we just use transform scale (output-scale),
+      ;; all fonts come out scaled too (ie, much too big)
+      ;; So, we manually scale all other stuff.
       (set! output-scale (* scale-to-unit (string->number val))))
   "")
 
@@ -300,12 +308,9 @@
 		      ,(string-append
 			"translate("
 			;; urg
-			;; (number->string (* output-scale x))
-			(number->string (* output-scale (+ system-x x)))
+			(number->string (* output-scale x))
 			","
-			;; urg
-			;; (number->string (- 0 (* output-scale y)))
-			(number->string (* output-scale (- system-y y)))
+			(number->string (- 0 (* output-scale y)))
 			")"))))
 
 (define (roundfilledbox breapth width depth height blot-diameter)
@@ -324,15 +329,14 @@
 ;; TODO: use height, set scaling?
 (define (start-system width height)
   (let ((y system-y))
-    ;;"<g tranform='translate(50,-250)'>
-  (set! system-y (+ system-y height))
-  ;;(format #f "<g tranform='translate(0,~1,'~f)'>" y)))
-  (string-append
-   "\n"
-   (comment "start-system")
-   (comment "URG, transform does not work!")
-   (format #f "<g tranform='translate(0.0,~f)'>\n" (* output-scale y)))))
-  
+    ;;"<g transform='translate(50,-250)'>
+    (set! system-y (+ system-y height))
+    ;;(format #f "<g transform='translate(0,~1,'~f)'>" y)))
+    (string-append
+     "\n"
+     (comment "start-system")
+     (format #f "<g transform='translate(0.0,~f)'>\n" (* output-scale y)))))
+
 (define (stop-system)
   (string-append
    "\n"
