@@ -60,7 +60,7 @@ ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(AFM_FILES) $(TFM_FILES) $(LOG_FILES) 
 INSTALLATION_DIR=$(local_lilypond_datadir)/fonts/source
 INSTALLATION_FILES=$(MF_FILES) $(AF_FILES)
 
-INSTALLATION_OUT_SUFFIXES=1 2 3 4 5 6
+INSTALLATION_OUT_SUFFIXES=1 2 3 4 5 6 7
 
 INSTALLATION_OUT_DIR1=$(local_lilypond_datadir)/tex
 INSTALLATION_OUT_FILES1=$(TEXTABLES)
@@ -79,6 +79,9 @@ INSTALLATION_OUT_FILES5=$(PFA_FILES) $(outdir)/fonts.scale $(outdir)/Fontmap $(o
 
 INSTALLATION_OUT_DIR6=$(local_lilypond_datadir)/dvips/
 INSTALLATION_OUT_FILES6=$(outdir)/lilypond.map
+
+INSTALLATION_OUT_DIR7=$(local_lilypond_datadir)/ps/
+INSTALLATION_OUT_FILES7=$(ENC_FILES)
 
 export MFINPUTS:=.:$(MFINPUTS)
 
