@@ -72,12 +72,10 @@ Note_head::brew_ledger_lines (Grob *me,
 {
   Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
   Real inter_f = Staff_symbol_referencer::staff_space (me)/2;
-  int line_count = (abs (pos) < interspaces)
-    ? 0
-    : (abs (pos) - interspaces) / 2;
-  Stencil stencil = Stencil ();
-
-
+  int line_count = ((abs (pos) < interspaces)
+		    ? 0
+		    : (abs (pos) - interspaces) / 2);
+  Stencil stencil;
   if (line_count)
     {
       Real ledgerlinethickness =

@@ -17,8 +17,22 @@
 #include "stencil.hh"
 #include "warn.hh"
 
-// JUNKME.
-extern SCM stencil2line (Stencil* stil, bool is_title = false);
+// JUNKME
+SCM
+stencil2line (Stencil* stil, bool is_title = false)
+{
+  static SCM z;
+  if (!z)
+    z = scm_permanent_object (ly_offset2scm (Offset (0, 0)));
+  Offset dim = Offset (stil->extent (X_AXIS).length (),
+		       stil->extent (Y_AXIS).length ());
+  Paper_line *pl = new Paper_line (dim, scm_cons (stil->smobbed_copy (),
+						  SCM_EOL),
+				   -10001 * is_title, is_title);
+
+  return scm_gc_unprotect_object (pl->self_scm ());
+}
+
 
 Paper_book::Paper_book ()
 {
@@ -73,6 +87,7 @@ void
 Paper_book::output (String outname)
 {
   if (!papers_.size ())
+    // FIXME: no end-output?
     return;
     
   /* Generate all stencils to trigger font loads.  */
@@ -83,11 +98,15 @@ Paper_book::output (String outname)
   int page_count = scm_ilength (pages);
   out->output_header (paper, scopes (0), page_count, false);
 
-  for (SCM s = pages; ly_c_pair_p (s); s = ly_cdr (s))
-    unsmob_page (ly_car (s))->output (out, ly_c_pair_p (ly_cdr (s)));
+  for (SCM s = pages; s != SCM_EOL; s = ly_cdr (s))
+    {
+      Page *p = unsmob_page (ly_car (s));
+      progress_indication ("[" + to_string (p->number_));
+      out->output_page (p, ly_cdr (s) == SCM_EOL);
+      progress_indication ("]");
+    }
 
   out->output_scheme (scm_list_1 (ly_symbol2scm ("end-output")));
-
   progress_indication ("\n");
 }
 

@@ -26,6 +26,7 @@ public:
   Book ();
   Book (Book const&);
   void process (String outname, Music_output_def*, SCM header);
+  SCM to_stencil (Music_output_def*, SCM header);
 };
 DECLARE_UNSMOB (Book,book); 
 

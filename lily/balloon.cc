@@ -80,7 +80,7 @@ Balloon_interface::print (SCM smob)
   text_stil->translate (z2);
   fr.add_stencil (*text_stil);
  
-  fr = Stencil (orig_extent, fr.get_expr ());
+  fr = Stencil (orig_extent, fr.expr ());
   return fr.smobbed_copy ();
 }
 

@@ -71,7 +71,7 @@ vaticana_brew_flexa (Grob *me,
 		     Real line_thickness)
 {
   Real staff_space = Staff_symbol_referencer::staff_space (me);
-  Stencil stencil = Stencil ();
+  Stencil stencil;
   Real right_height = 0.6 * staff_space;
 
   Real interval;

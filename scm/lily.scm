@@ -98,6 +98,9 @@
 
 (define-public safe-mode? #f)
 
+;; Hmm
+(define-public page-to-stencil ly:page-header-lines-footer-stencil)
+
 ;; parser stuff.
 (define-public (print-music-as-book parser music)
   (let* ((score (ly:music-scorify music))

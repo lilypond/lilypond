@@ -91,8 +91,3 @@ Offset::length () const
 {
   return sqrt (sqr (coordinate_a_[X_AXIS]) + sqr (coordinate_a_[Y_AXIS]));
 }
-void
-Offset::mirror (Axis a)
-{
-  coordinate_a_[a] = - coordinate_a_[a];
-}

@@ -78,7 +78,7 @@ Paper_line::stencils () const
 SCM
 Paper_line::to_stencil () const
 {
-  Stencil stencil = Stencil ();
+  Stencil stencil;
   for (SCM s = stencils_; ly_c_pair_p (s); s = ly_cdr (s))
     stencil.add_stencil (*unsmob_stencil (ly_car (s)));
   return stencil.smobbed_copy ();

@@ -169,12 +169,13 @@ System_start_delimiter::staff_brace (Grob*me, Real y)
 	lo = cmp;
     }
   while (hi - lo > 1);
-      
-  Stencil m (fm->get_indexed_char_stencil (lo)); // ugh.  ascii?
-  b=m.extent_box ();
-  b[X_AXIS] = Interval (0,0);
 
-  return Stencil (b, m.get_expr ());
+  /* FIXME: ascii? */
+  Stencil stil (fm->get_indexed_char_stencil (lo));
+  b = stil.extent_box ();
+  b[X_AXIS] = Interval (0, 0);
+
+  return Stencil (b, stil.expr ());
 }
   
 

@@ -18,6 +18,7 @@
 #include "music-output-def.hh"
 #include "music-output.hh"
 #include "music.hh"
+#include "page.hh"
 #include "paper-book.hh"
 #include "paper-def.hh"
 #include "score.hh"
@@ -96,4 +97,30 @@ Book::process (String outname, Music_output_def *default_def, SCM header)
     }
   paper_book->output (outname);
   scm_gc_unprotect_object (paper_book->self_scm ());
+}
+
+/* FIXME: WIP, this is a hack.  Return first page as stencil.  */
+SCM
+Book::to_stencil (Music_output_def *default_def, SCM header)
+{
+  Paper_book *paper_book = new Paper_book ();
+  int score_count = scores_.size ();
+  for (int i = 0; i < score_count; i++)
+    {
+      Paper_def *paper = 0;
+      SCM systems = scores_[i]->book_rendering ("", default_def, &paper);
+      if (systems != SCM_UNDEFINED)
+	{
+	  if (paper)
+	    paper_book->papers_.push (paper);
+	  paper_book->scores_.push (systems);
+	  paper_book->headers_.push (header);
+	}
+    }
+
+  SCM pages = paper_book->pages ();
+  scm_gc_unprotect_object (paper_book->self_scm ());
+  if (pages != SCM_EOL)
+    return unsmob_page (ly_car (pages))->to_stencil ();
+  return SCM_EOL;
 }

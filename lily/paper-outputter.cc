@@ -18,6 +18,7 @@
 #include "lily-version.hh"
 #include "ly-module.hh"
 #include "main.hh"
+#include "page.hh"
 #include "paper-book.hh"
 #include "paper-def.hh"
 #include "paper-line.hh"
@@ -28,6 +29,8 @@
 #include "string-convert.hh"
 #include "warn.hh"
 
+// JUNKME
+extern SCM stencil2line (Stencil* stil, bool is_title = false);
 
 Paper_outputter::Paper_outputter (String filename)
 {
@@ -171,7 +174,8 @@ Paper_outputter::output_line (SCM line, Offset *origin, bool is_last)
   Offset dim = p->dim ();
   if (dim[Y_AXIS] > 50 CM)
     {
-      programming_error ("Improbable system height.");
+      programming_error (to_string ("Improbable line height: %f",
+				    dim[Y_AXIS]));
       dim[Y_AXIS] = 50 CM;
     }
 
@@ -179,15 +183,92 @@ Paper_outputter::output_line (SCM line, Offset *origin, bool is_last)
 			     ly_quote_scm (ly_offset2scm (*origin)),
 			     ly_quote_scm (ly_offset2scm (dim))));
 
-#if 0 /* FIXME: how stupid is this wrt memory management?  */
-  for (SCM s = p->stencils (); ly_c_pair_p (s); s = ly_cdr (s))
-    output_expr (unsmob_stencil (ly_car (s))->get_expr (), Offset (0, 0));
-#else
+#if 1 /* FIXME: how stupid is this memorywise?  */
   output_stencil (unsmob_stencil (p->to_stencil ()));
+#else
+  for (SCM s = p->stencils (); ly_c_pair_p (s); s = ly_cdr (s))
+    output_expr (unsmob_stencil (ly_car (s))->expr (), Offset (0, 0));
 #endif
 
+  (*origin)[Y_AXIS] += dim[Y_AXIS];
   output_scheme (scm_list_2 (ly_symbol2scm ("stop-system"),
 			     ly_bool2scm (is_last)));
+}
+
+void
+Paper_outputter::output_page (Page *p, bool is_last)
+{
+  output_scheme (scm_list_1 (ly_symbol2scm ("start-page")));
+
+#if 0 /* FIXME: how stupid is this, memorywise?  */
+  
+  output_scheme (scm_list_3 (ly_symbol2scm ("start-system"),
+			     ly_quote_scm (ly_offset2scm (Offset (0, 0))),
+			     ly_quote_scm (ly_offset2scm (Offset (0, 0)))));
+
+  output_stencil (unsmob_stencil (p->to_stencil ()));
+
+  output_scheme (scm_list_2 (ly_symbol2scm ("stop-system"), SCM_BOOL_T));
+#else
+  Offset o (p->left_margin_, p->top_margin_);
+  Real vfill = (p->line_count_ > 1
+		? (p->text_height () - p->height_) / (p->line_count_ - 1)
+		: 0);
+
+  Real coverage = p->height_ / p->text_height ();
+  if (coverage < p->MIN_COVERAGE_)
+    /* Do not space out a badly filled page.  This is too simplistic
+       (ie broken), because this should not vary too much between
+       (subsequent?) pages in a book.  */
+    vfill = 0;
+
+  if (unsmob_stencil (p->header_))
+    {
+      output_line (stencil2line (unsmob_stencil (p->header_)), &o, false);
+      o[Y_AXIS] += p->head_sep_;
+    }
+  for (SCM s = p->lines_; s != SCM_EOL; s = ly_cdr (s))
+    {
+      SCM line = ly_car (s);
+      output_line (line, &o,
+		   is_last && ly_cdr (s) != SCM_EOL
+		   && !unsmob_stencil (p->copyright_)
+		   && !unsmob_stencil (p->tagline_)
+		   && !unsmob_stencil (p->footer_));
+      
+      /* Do not put vfill between title and its music, */
+      if (scm_pair_p (ly_cdr (s))
+	  && (!unsmob_paper_line (line)->is_title () || vfill < 0))
+	o[Y_AXIS] += vfill;
+      /* rather put extra just before the title.  */
+      if (ly_cdr (s) != SCM_EOL
+	  && (unsmob_paper_line (ly_cadr (s))->is_title () && vfill > 0))
+	o[Y_AXIS] += vfill;
+    }
+
+  o[Y_AXIS] = p->vsize_ - p->bottom_margin_;
+  if (unsmob_stencil (p->copyright_))
+    o[Y_AXIS] -= unsmob_stencil (p->copyright_)->extent (Y_AXIS).length ();
+  if (unsmob_stencil (p->tagline_))
+    o[Y_AXIS] -= unsmob_stencil (p->tagline_)->extent (Y_AXIS).length ();
+  if (unsmob_stencil (p->footer_))
+    o[Y_AXIS] -= unsmob_stencil (p->footer_)->extent (Y_AXIS).length ();
+
+  if (unsmob_stencil (p->copyright_))
+    output_line (stencil2line (unsmob_stencil (p->copyright_)), &o,
+		 is_last
+		 && !unsmob_stencil (p->tagline_)
+		 && !unsmob_stencil (p->footer_));
+  if (unsmob_stencil (p->tagline_))
+    output_line (stencil2line (unsmob_stencil (p->tagline_)), &o,
+		      is_last && !unsmob_stencil (p->footer_));
+  if (unsmob_stencil (p->footer_))
+    output_line (stencil2line (unsmob_stencil (p->footer_)), &o, is_last);
+#endif
+  
+  output_scheme (scm_list_2 (ly_symbol2scm ("stop-page"),
+			     ly_bool2scm (is_last
+					  && !unsmob_stencil (p->footer_))));
 }
 
 void
@@ -200,7 +281,7 @@ Paper_outputter::output_music_output_def (Music_output_def *odef)
 void
 Paper_outputter::output_stencil (Stencil *stil)
 {
-  output_expr (stil->get_expr (), stil->origin ());
+  output_expr (stil->expr (), stil->origin ());
 }
 
 /* TODO: replaceme/rewriteme, see output-ps.scm: output-stencil  */
