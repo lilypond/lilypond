@@ -1,6 +1,6 @@
 %{ // -*-Fundamental-*-
 /*
-  lexer.l -- implement the Flex lexer
+  lexer.ll -- implement the Flex lexer
 
   source file of the LilyPond music typesetter
 
@@ -25,6 +25,10 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <errno.h>
+
+/* Flex >= 2.5.29 fix; FlexLexer.h's multiple include bracing breaks
+   when building the actual lexer.  */
+#define LEXER_CC
 
 #include <iostream>
 using namespace std;
@@ -783,6 +787,8 @@ scan_fraction (String frac)
 	return gh_cons (gh_int2scm (n), gh_int2scm (d));
 }
 
+// Breaks for flex 2.5.31
+#if 0
 /* avoid silly flex induced gcc warnings */
 static void yy_push_state (int) {;}
 static void yy_pop_state () {;}
@@ -799,6 +805,7 @@ avoid_silly_flex_induced_gcc_warnings ()
 	yy_top_state ();
 	avoid_silly_flex_induced_gcc_warnings ();
 }
+#endif
 
 SCM
 lookup_markup_command (String s)

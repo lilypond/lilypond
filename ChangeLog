@@ -1,5 +1,22 @@
 2003-04-13  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* flex-2.5.31 hits Debian/unstable.  Fixes below.
+	
+	* lily/lexer.ll (avoid_silly_flex_induced_gcc_warnings): Disable.
+
+	* lily/includable-lexer.cc [!HAVE_FLEXLEXER_YY_CURRENT_BUFFER]
+	(yy_current_buffer): New macro, compile hacks for flex 2.5.29.
+
+	* lily/include/includable-lexer.hh: 
+	* lily/lexer.ll: Hack for multiple include of FlexLexer.h.
+
+	* config.hh.in (HAVE_FLEXLEXER_YY_CURRENT_BUFFER): Add.
+
+	* aclocal.m4: Regenerate.
+
+	* stepmake/aclocal.m4 (STEPMAKE_FLEXLEXER): Check for
+	yyFlexLexer.yy_current_buffer, which was removed in flex-2.5.29.
+
 	* scm/pdf.scm (use-modules): Include lily.
 
 	* scm/pdftex.scm (start-system): Bugfix: add closing brace (Beernd
