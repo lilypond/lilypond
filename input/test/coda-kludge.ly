@@ -1,6 +1,6 @@
 \version "1.7.18"
 % TODO: rethink name and whole file -- possible delete or major
-% changes.
+% changes.  See repeat-manual.ly
 \header{
 	texidoc="@cindex Coda Kludge"
 }

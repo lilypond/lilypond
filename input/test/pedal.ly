@@ -1,11 +1,9 @@
 \version "1.7.18"
-\header{
-    texidoc = "Piano pedal symbols merge stop and start.  The strings are configurable. 
+
+\header{ texidoc = "@cindex Pedal
+Piano pedal symbols merge stop and start.  The strings are configurable. 
 Text style, bracket style, and a mixture of both are supported.  "
 }
-
-
-
 
 \score{
     \context Staff \notes\relative c'{
@@ -29,12 +27,6 @@ Text style, bracket style, and a mixture of both are supported.  "
 	c4 d \unaCorda e f g
 	b \treCorde c
 
-
-    }
-    \paper{
-    }
-    \midi{
-	\tempo 4 = 60
     }
 }
 %% new-chords-done %%

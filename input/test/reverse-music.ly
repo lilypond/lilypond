@@ -1,9 +1,7 @@
 \version "1.7.18"
-
-\header {
-texidoc="
-Simple customised music apply.
-"
+% possible rename to scheme-something.
+\header { texidoc="@cindex Scheme Reverse Music
+Simple customised music apply. "
 }
 
 music = \notes \relative c'' { c4 d4( e4 f4 }

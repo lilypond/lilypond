@@ -1,7 +1,7 @@
 \version "1.7.18"
-\header {
-    texidoc = "Polymetric music with aligned note values can be written
- by moving the timing engraver to staff context."
+\header { texidoc = "@cindex Poly Metric
+Polymetric music with aligned note values can be written
+by moving the timing engraver to staff context. "
 }
 
 \score {
@@ -24,11 +24,11 @@
 
     \paper{
     \translator{ \ScoreContext
-    \remove "Timing_engraver" }
+	    \remove "Timing_engraver" }
     \translator{ \StaffContext
-    \consists "Timing_engraver"
-    \alias Timing
-}
-}
+	    \consists "Timing_engraver"
+	    \alias Timing }
+	raggedright= ##t
+	}
 }
 %% new-chords-done %%

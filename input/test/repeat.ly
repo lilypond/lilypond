@@ -1,4 +1,8 @@
 \version "1.7.18"
+% possible rename to lyric-repeat or repeat-lyric.
+\header{ texidoc = "@cindex Repeat Lyrics
+You can use alternate lyrics as well as alternate notes for repeats. "
+}
 
 \score{
 	<
@@ -17,5 +21,6 @@
 			  en dan nog dit er ach- ter aan
 		  }
 	>
+	\paper{raggedright=##t}
 }
 %% new-chords-done %%

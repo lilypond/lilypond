@@ -1,9 +1,7 @@
 \version "1.7.18"
-\header {
-
-texidoc = "Grob extents may be hard coded using grob
-    properties.  This requires Grob::preset_extent () function.
-" 
+\header { texidoc = "@cindex Preset Extent
+Grob extents may be hard coded using grob properties.  This
+requires Grob::preset_extent () function. " 
 }
 
 \score {

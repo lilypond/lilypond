@@ -21,6 +21,8 @@
 
 	* input/test/hymn.ly: change comments.
 
+	* input/test/[p-r]*.ly: add texidoc index.
+
 2003-06-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/mutopia/J.S.Bach/Petites-Preludes/*.ly (opus): update
