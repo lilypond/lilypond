@@ -14,7 +14,7 @@ Output: DVI file
 """
 
 name = 'ly2dvi'
-version = '0.0.6'
+version = '0.0.7'
 errorlog = ''
 
 import sys
@@ -422,7 +422,9 @@ class Properties:
         else:
             p=os.path.split(sys.argv[0])
             p=os.path.split(p[0])
-            this.setRoot(p[0],'init')
+	    # bit silly. for ly2dvi, overrules compiled-in datadir...
+	    # how to do this better (without running lily, of course?
+            this.setRoot(p[0] + '/share/lilypond', 'init')
 
         if not os.environ.has_key('HOME'):
             if os.environ.has_key('HOMEDRIVE') and \

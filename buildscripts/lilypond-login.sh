@@ -6,6 +6,7 @@
 setenv GS_LIB "@datadir@/afm"
 setenv GS_FONTPATH "@datadir@/ps"
 setenv LILYINCLUDE "@datadir@/ly:@datadir@/afm"
+setenv LILYPONDPREFIX "@datadir@"
 
 # include an empty path component for the system wide includes.
 setenv MFINPUTS "@datadir@/mf:$MFINPUTS::"
