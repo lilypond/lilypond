@@ -1,7 +1,6 @@
 #ifndef PAPER_STREAM_HH
 #define PAPER_STREAM_HH
 
-#include <iostream.h>
 #include "string.hh"
 
 /** Paper output

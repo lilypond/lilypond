@@ -21,7 +21,6 @@ TODO:
 #include "note-head.hh"
 #include "local-key-item.hh"
 
-#include <iostream.h>
 
 Breathing_sign_engraver::Breathing_sign_engraver()
 {

@@ -6,7 +6,7 @@
 % 16' = S
 %
 
-#(primitive-load-path "accordion-script.scm")
+\scmfile "accordion-script.scm";
 
 accDiscant = \script "accDiscant"
 accDiscantF = \script "accDiscantF"

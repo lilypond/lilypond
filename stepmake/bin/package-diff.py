@@ -52,9 +52,23 @@ def help ():
 		'  -T, --dir-to=TO      diff to directory TO\n'  
 		)
 
+def cleanup ():
+	global from_diff, to_diff, prev_cwd
+	os.chdir ('/tmp/package-diff')
+	sys.stderr.write ('Cleaning ... ')
+	os.system ('rm -fr %s %s' % (from_diff, to_diff))
+	sys.stderr.write ('\n')
+	os.chdir (prev_cwd)
+
 def untar (fn):
 	# os.system ('pwd');
-	sys.stderr.write ('untarring ' + fn + '\n')
+	try:
+		open (fn)
+	except:
+		sys.stderr.write ("Can't find tarball: %s\n" % fn)
+		cleanup ()
+		sys.exit (1)
+	sys.stderr.write ("Untarring: %s\n" % fn)
 	os.system ('gzip --quiet -dc ' + fn + '| tar xf - ')
 	sys.stderr.flush ()
 
@@ -62,8 +76,13 @@ def remove_automatic (dirnames):
 	files = []
 
 	for d in dirnames:
-		for p in pats:
-			files = files + find.find (p, d)
+		try:
+			for p in pats:
+				files = files + find.find (p, d)
+		except:
+			sys.stderr.write ("Can't find dir: %s\n" % d)
+			cleanup ()
+			sys.exit (1)
 
 	dirs = map (lambda d: find.find ('out', d), dirnames)
 	dirs = reduce (lambda x,y:  x + y, dirs)
@@ -271,10 +290,5 @@ else:
 os.chdir (to_diff)
 makediff (from_diff, to_diff, patch_name) 
 
-os.chdir ('/tmp/package-diff')
-sys.stderr.write ('cleaning ... ')
-os.system ('rm -fr %s %s' % (from_diff, to_diff))
-sys.stderr.write ('\n')
-os.chdir (prev_cwd)
-
+cleanup ()
 

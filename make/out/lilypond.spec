@@ -1,9 +1,9 @@
 Name: lilypond
-Version: 1.2.15
+Version: 1.2.16
 Release: 1
 Copyright: GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.2.15.tar.gz
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.2.16.tar.gz
 Summary: A program for printing sheet music.
 URL: http://www.cs.uu.nl/~hanwen/lilypond
 Packager: Han-Wen Nienhuys <hanwen@cs.uu.nl>
@@ -22,10 +22,7 @@ Group: Applications/Publishing
 %description documentation
 
 
-The documentation package is rather big, due to the many pictures and
-different documentation formats.  It is really a rip-off from the
-LilyPond website.  If you have direct internet access, you may always
-read the documentation documentation there: http://www.lilypond.org.
+The documentation of LilyPond, both in HTML and PostScript.
 
 %prep
 %setup

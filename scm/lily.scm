@@ -8,6 +8,9 @@
 ;(debug-enable 'backtrace)
 
 ;;; library funtions
+
+; :use-module (ice-9 regex))
+
 (define
   (xnumbers->string l)
   (string-append 

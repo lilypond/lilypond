@@ -60,6 +60,7 @@ except:
 	pass
 os.link(orig,  os.path.join (package.release_dir, tarball))
 
+# urg: howto check exit code?
 os.system(sys.executable + ' ' + package.topdir + '/stepmake/bin/package-diff.py --package=' + topdir)
 
 diffname = pn + '.diff.gz'
@@ -67,6 +68,10 @@ rel_pn = package.patch_dir + diffname
 
 diffname = os.path.join (outdir, diffname)
 
-os.rename(diffname, rel_pn)
+try:
+	os.rename(diffname, rel_pn)
+except:
+	sys.stderr.write ("Can't find diff: %s\n" % diffname)
+	sys.exit (1)
 os.link(rel_pn, diffname)
 

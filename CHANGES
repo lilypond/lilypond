@@ -1,19 +1,32 @@
-pl 15.jcn4
-	- direct #... to scm parser  (Tanks to Gary Houston)
+pl 15.hwn1
+	- reverted MIDI unfold patches.
+	- bf: cross staff beam, cross staff slur (2x)
+	- doco  updates:
+	  * metadoc/ -> programmer/ ,
+	  * FAQ
+	  * hacking
+	  * index with logo
 
 pl 15.jcn3
-	- bf: smob fix?
+	- bf: smob fix
 	- mutopia/doc target 'local-web':
 	  shorthand for 'CONFIGSUFFIX=www local-WWW'
 
+pl 15.lu2
+	- bf: close comments in website footer
+	- error messages for release didn't make it into .lu1?
 pl 15.jcn2
 	- small website fixes
-
 pl 15.jcn1
 	- bfs: initialise members of Column-x-positions and Break_node
 	- bf: Documentation/misc: don't include backups
 	- bf:  .gdbinit
+pl 15.lu1
+	- error messages for failing diff/release
+	- \property noStemExtend: don't extend normal or beamed stems to
+	  middle staff line: input/test/no-stem-extend.fly
 
+******
 pl 15  (Oct 18)
 
 14.jcn1

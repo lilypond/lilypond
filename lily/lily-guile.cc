@@ -33,41 +33,6 @@ ly_ch_C_eval_scm (char const*c)
   return gh_eval_str ((char*)c);
 }
 
-  
-/*
-  Pass string to scm parser, evaluate one expression.
-  Return result value and #chars read.
-
-  Thanks to Gary Houston <ghouston@freewire.co.uk>
-
-  Need guile-1.3.4 (>1.3 anyway) for ftell on str ports -- jcn
-*/
-SCM
-ly_parse_scm (char const* s, int* n)
-{
-  SCM str = gh_str02scm ((char*)s);
-  SCM port = scm_mkstrport (SCM_INUM0, str, SCM_OPN | SCM_RDNG,
-                            "scm_eval_0str");
-  SCM from = scm_ftell (port);
-
-  SCM form;
-  SCM answer = SCM_UNSPECIFIED;
-
-  /* Read expression from port */
-  if (!SCM_EOF_OBJECT_P (form = scm_read (port)))
-    answer = scm_eval_x (form);
-
-  SCM to = scm_ftell (port);
-  *n = gh_scm2int (to) - gh_scm2int (from);
-
-  /* Don't close the port here; if we re-enter this function via a
-     continuation, then the next time we enter it, we'll get an error.
-     It's a string port anyway, so there's no advantage to closing it
-     early.  */
-
-  return answer;
-}
-
 /*
   scm_m_quote doesn't use any env, but needs one for a good signature in GUILE.
 */
@@ -164,7 +129,7 @@ ly_scm2string (SCM s)
   char * p = gh_scm2newstr (s , &len);
   
   String r (p);
-  //  delete p;
+
   free (p);
   return r;
 }

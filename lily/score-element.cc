@@ -70,7 +70,7 @@ Score_element::Score_element (Score_element const&s)
 
 Score_element::~Score_element()
 {
-  delete output_p_; 
+  assert (!output_p_);
   assert (status_i_ >=0);
   status_i_  = -1;
 }
@@ -446,7 +446,11 @@ Score_element::smobify_self ()
 {
   if (self_scm_ != SCM_EOL)
     return self_scm_;
-  
+
+  /*
+    This is local. We don't assign to self_scm_ directly, to assure
+    that S isn't GC-ed from under us.
+   */
   SCM s;
 
   SCM_NEWCELL(s);
@@ -467,7 +471,14 @@ Score_element::mark_smob (SCM ses)
   void * mp = (void*) SCM_CDR(ses);
   Score_element * s = (Score_element*) mp;
 
-  assert (s->self_scm_ == ses);
+  if (s->self_scm_ != ses)
+    {
+      programming_error ("Score_element::mark_smob(): self_scm_ != ses; this will probably crash");
+      cout << "ses == " << ses << endl;
+      cout << "name == " << s->name() << endl;
+      gh_display (s->element_property_alist_);
+      gh_newline ();
+    }
   return s->element_property_alist_;
 }
 

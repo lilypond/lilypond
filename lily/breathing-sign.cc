@@ -18,7 +18,6 @@ TODO: --> see breathing-sign-engraver.cc
 #include "dimensions.hh"
 #include "direction.hh"
 
-#include <iostream.h>
 
 Breathing_sign::Breathing_sign ()
 {

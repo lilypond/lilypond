@@ -1,5 +1,5 @@
 
-#(primitive-load-path "script.scm")
+\scmfile "script.scm";
 
 "dash-hat" = "marcato"
 "dash-plus" = "stopped"

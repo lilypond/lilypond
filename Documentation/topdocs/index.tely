@@ -6,10 +6,21 @@
 @top
 
 
-
 @unnumbered LilyPond -- The @uref{http://www.fsf.org/gnu/gnu-history.html,GNU Project} Music Typesetter
 
+
+@html
+<img src="Documentation/pictures/out-www/lelie-logo.png">
+@end html
+
 @c something breaks on 3.12 f
+
+
+
+LilyPond is a music typesetter.  It produces beautiful sheet music
+using a high level description file as input.  LilyPond is part of 
+the GNU Project.
+
 
 @c @center
 @quotation
@@ -18,15 +29,6 @@
 @end mudela 
 @end quotation
 @c @end center
-
-@c include BLURB?
-
-LilyPond is a music typesetter.  It produces beautiful sheet music
-using a high level description file as input.  LilyPond is part of 
-the GNU Project.
-
-@c include screenshot
-
 
 
 @unnumberedsec Sheet music

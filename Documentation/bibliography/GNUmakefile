@@ -33,7 +33,7 @@ $(outdir)/%.bib: %.bib
 # ignore result since bib2html is nonstandard. Errors would halt the RPM build.j  
 $(outdir)/%.html: %.bib
 	-bib2html $< $@
-	$(footify) $@
+#	$(footify) $@
 
 localclean:
 	rm -f fonts.aux fonts.log feta*.tfm feta*.*pk

@@ -48,9 +48,6 @@ accompany = \notes \relative c {
 	d b | c a | f g | c,2 
 }
 
-global = \notes {
-	\time 2/4;
-}
 
 tekst = \lyrics{ 
  	Al -- tijd is Kort -- jak -- je ziek, " "
@@ -120,14 +117,16 @@ textiii = \lyrics{
 		\context Staff=i s1
 		\context Lyrics=top s1
 		\context GrandStaff <
-			\context Staff=ii \repeat semi 2 < \global\melody >
-			\context Staff=iii \repeat semi 2 < \global\accompany >
+			\context Staff=ii \repeat volta 2 <
+			  \time 2/4;
+			  \melody >
+			\context Staff=iii \repeat volta 2 <
+			  \accompany >
 		>
 		\context Lyrics=bottom s1
 		% ugh, \repeat in \addlyrics dumps core
 		\addlyrics
-			% \context Staff = i \repeat semi 2 <\global\melody>
-			\context Staff = i <\global\melody>
+			\context Staff = i < \melody>
 			< 
 				%\repeat fold 2 {} 
 				%\alternative { 

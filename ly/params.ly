@@ -225,7 +225,7 @@ mmrest_x_minimum = 1.4*\staffheight;
 % chop off this much when next to pp / ff sign.
 crescendo_shorten = 4.0 * \interline;
 crescendo_thickness   = \stafflinethickness;
-crescendo_height = 1.5 * \interline;
+crescendo_height = 0.666 * \interline;
 
 % in internote.
 restcollision_minimum_dist = 3.0;
