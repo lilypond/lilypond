@@ -559,10 +559,6 @@ AncientRemoveEmptyStaffContext = \context {
     
 }
 
-OrchestralScoreContext = \context {
-	\Score
-}
-
 EasyNotation = \context {	% TODO: why \context override? 
 	\Score
 	\override NoteHead #'print-function = #Note_head::brew_ez_stencil

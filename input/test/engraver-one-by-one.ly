@@ -31,7 +31,7 @@ Staff context.
 % setup for Request->Element conversion. Guru-only
 %
 
-MyStaffContext=\context {
+MyStaff =\context {
 	\type "Engraver_group_engraver"
 	\name Staff
 
@@ -72,7 +72,7 @@ MyStaffContext=\context {
 }
 
 
-MyVoiceContext = \context {
+MyVoice = \context {
 	\type "Engraver_group_engraver"
 	\name Voice
 
@@ -135,7 +135,7 @@ MyVoiceContext = \context {
 }
 
 
-MyStaffContext = \context {
+MyStaff = \context {
     \MyStaff
     \consists "Staff_symbol_engraver"
 }
@@ -148,7 +148,7 @@ MyStaffContext = \context {
             }
 }
 
-MyStaffContext = \context {
+MyStaff = \context {
     \MyStaff
       \consists "Clef_engraver"
     \remove "Pitch_squash_engraver"
@@ -162,7 +162,7 @@ MyStaffContext = \context {
             }
 }
 
-MyVoiceContext = \context {
+MyVoice = \context {
     \MyVoice
     \consists "Stem_engraver"
     }
@@ -175,7 +175,7 @@ MyVoiceContext = \context {
             }
 }
 
-MyVoiceContext = \context {
+MyVoice = \context {
     \MyVoice
     	\consists "Beam_engraver"
 }
@@ -188,7 +188,7 @@ MyVoiceContext = \context {
             }
 }
 
-MyVoiceContext= \context {
+MyVoice= \context {
     \MyVoice
     \consists "Phrasing_slur_engraver"
     \consists "Slur_engraver"
@@ -204,7 +204,7 @@ MyVoiceContext= \context {
             }
 }
 
-MyStaffContext = \context {
+MyStaff = \context {
     \MyStaff
  \consists "Bar_engraver"
     \consists "Time_signature_engraver"
@@ -219,10 +219,10 @@ MyStaffContext = \context {
             }
 }
 
-MyStaffContext = \context
- { \MyStaff
- \consists "Accidental_engraver"    
-     \consists "Key_engraver"
+MyStaff = \context {
+    \MyStaff
+    \consists "Accidental_engraver"    
+    \consists "Key_engraver"
 }
 \score {
   \topVoice

@@ -173,5 +173,5 @@ Rest::polyphonic_offset_callback (SCM smob, SCM)
 
 ADD_INTERFACE (Rest,"rest-interface",
   "A rest symbol.",
-  "style minimum-distance");
+  "style direction minimum-distance");
 
