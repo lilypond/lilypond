@@ -17,6 +17,11 @@
 
 (translator-property-description 'extraVerticalExtent
 				 number-pair? "extra vertical extent, same format as  MinimumVerticalExtent")
+
+(translator-property-description
+ 'majorSevenSymbol markup?
+ "How should the major7 be formatted in a chord name?")
+
 (translator-property-description 'minimumVerticalExtent number-pair?
 				 "minimum vertical extent, same format as VerticalExtent")
 (translator-property-description 'verticalExtent number-pair?
@@ -171,6 +176,11 @@ into one staff.")
 (translator-property-description
  'chordNameExceptions list?
  "Alist of chord exceptions. Contains (CHORD . MARKUP) entries.")
+(translator-property-description
+ 'chordNameSeparator markup?
+ "The markup object used to separate parts of a chord name.")
+
+
 (translator-property-description 'chordChanges boolean? "Only show changes in chords scheme?")
 (translator-property-description 'clefGlyph string? "Name of the symbol within the music font")
 (translator-property-description 'clefOctavation integer? "Add

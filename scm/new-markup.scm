@@ -45,10 +45,6 @@ for the reader.
 
 " ; " 
 
-;; debugging.
-
-(define (mydisplay x) (display x) (newline) x)
-
 (define-public (simple-markup grob props . rest)
   (Text_item::text_to_molecule grob props (car rest))
   )
@@ -541,6 +537,16 @@ against SIGNATURE, reporting MAKE-NAME as the user-invoked function.
 	
 	(apply func (cons grob (cons props args)) )
 	)))
+
+
+;;;;;;;;;;;;;;;;
+;; utility
+
+(define (markup-join markups sep)
+  "Return line-markup of MARKUPS, joining them with markup SEP"
+  (if (pair? markups)
+      (make-line-markup (list-insert-separator markups sep))
+      empty-markup))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

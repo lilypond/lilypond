@@ -18,15 +18,6 @@ Pitch::Pitch (int o, int n, int a)
   notename_ = n;
   alteration_ = a;
   octave_ = o;
-
-  if (n < 0 || n >= 7 ||
-      a < -2 || a > 2)
-    {
-      String s = _ ("Pitch arguments out of range");
-      s += ": alteration = " + to_string (a);
-      s += ", notename = " + to_string (n);
-      warning (s);
-    }
   normalise ();
 }
 
@@ -366,21 +357,29 @@ LY_DEFINE(pitch_semitones,  "ly:pitch-semitones", 1, 0, 0,
 LY_DEFINE(pitch_less, "ly:pitch<?", 2,0,0, (SCM p1, SCM p2),
 	  "Is @var{p1} lower than @var{p2}? This uses lexicographic ordening.")
 {
-  return Pitch::less_p (ly_car (p1),  ly_car (p2));
-}
+  Pitch *a = unsmob_pitch (p1);
+  Pitch *b = unsmob_pitch (p2);
+  
+  SCM_ASSERT_TYPE(a, p1, SCM_ARG1, __FUNCTION__, "Pitch");
+  SCM_ASSERT_TYPE(b, p2, SCM_ARG2, __FUNCTION__, "Pitch");
 
+  if (Pitch::compare (*a, *b) < 0)
+    return SCM_BOOL_T;
+  else
+    return SCM_BOOL_F;
+}
 
 LY_DEFINE(ly_pitch_diff, "ly:pitch-diff", 2 ,0 ,0,
 	  (SCM pitch, SCM  root),
-	  "Return pitch with value DELTA =  PITCH - ROOT, ie,
-ROOT == (ly:pitch-transpose root delta).")
+	  "Return pitch with value DELTA =  PITCH - ROOT, ie, "
+"ROOT == (ly:pitch-transpose root delta).")
 {
   Pitch *p = unsmob_pitch (pitch);
   Pitch *r = unsmob_pitch (root);
   SCM_ASSERT_TYPE(p, pitch, SCM_ARG1, __FUNCTION__, "Pitch");
   SCM_ASSERT_TYPE(r, root, SCM_ARG2, __FUNCTION__, "Pitch");
 
-  return interval (*p, *r ).smobbed_copy();
+  return interval (*r,  *p).smobbed_copy();
 }
 
 	  

@@ -40,7 +40,8 @@ protected:
 public:
   void execute_single_pushpop_property (SCM prop, SCM sym, SCM val);
   SCM internal_get_property (SCM name_sym) const;
-
+  SCM properties_as_alist () const;
+  
   void unset_property (SCM var_sym);
   void internal_set_property (SCM var_sym, SCM value);  
   Translator_group *where_defined (SCM name_sym) const;

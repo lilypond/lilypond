@@ -18,6 +18,7 @@
 #include "item.hh"
 #include "pitch.hh"
 #include "protected-scm.hh"
+#include "translator-group.hh"
 
 class New_chord_name_engraver : public Engraver 
 {
@@ -74,10 +75,9 @@ New_chord_name_engraver::process_music ()
 
   pitches = scm_sort_list (pitches, Pitch::less_p_proc);
 
-
   SCM name_proc = get_property ("chordNameFunction");
-  SCM exceptions = get_property ("chordNameExceptions");
-  SCM markup = scm_call_4 (name_proc, pitches, bass, inversion, exceptions);
+  SCM markup = scm_call_4 (name_proc, pitches, bass, inversion,
+			   daddy_trans_->self_scm());
 
   /*
     Ugh. 

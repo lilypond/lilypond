@@ -444,8 +444,12 @@ ScoreContext = \translator {
 	  custos
 	)
 	barCheckSynchronize = ##t
-	chordNameFunction = #chord->markup-banter
-	chordNameExceptions = #chord::exception-alist-banter
+
+	%% chord names:
+	chordNameFunction = #ignatzek-chord-names
+	majorSevenSymbol = #whiteTriangleMarkup
+	chordNameSeparator = #(make-simple-markup  "/")
+	chordNameExceptions = #(sequential-music-to-chord-exceptions ignatzekExceptionMusic)
 
 	\grobdescriptions #all-grob-descriptions
 }

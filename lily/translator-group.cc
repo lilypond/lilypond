@@ -451,3 +451,10 @@ Translator_group::try_music_on_nongroup_children (Music *m )
     }
   return false;
 }
+
+SCM
+Translator_group::properties_as_alist () const
+{
+  return properties_dict()->to_alist();
+}
+  
