@@ -97,27 +97,13 @@ grace_forced_stem_shorten3 = \grace_forced_stem_shorten2;
 %
 
 #'beam-dir-algorithm = #'majority	%urg.
+
+
 #'Stem_tremolo::beam-width = 1.5 * \quartwidth ; 
-
-% The beams should be prevented to conflict with the stafflines, 
-% especially at small slopes.
-#'slope-quantisation = #'normal
-
-
 
 #'Clef_item::visibility-lambda = #postbreak-only-visibility
 #'Key_item::visibility-lambda = #postbreak-only-visibility
 #'Breathing_sign::visibility-lambda = #non-postbreak-visibility
-
-
-%{
-dit(code(beam_dir_algorithm)) Specify algorithm for determining
-whether beams go up or down.  It is real valued.  If set to 2.0 then
-majority selection is used.  If set to 3.0, then mean selection is
-used based on the mean center distance.  If set to 4.0 then median
-selection is used, based on the median center distance.
-%}
-
 
 % catch suspect beam slopes, set slope to zero if
 % outer stem is lengthened more than

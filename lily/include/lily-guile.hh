@@ -46,6 +46,16 @@ unsigned int ly_scm_hash (SCM s);
 SCM index_cell (SCM cellp, Direction d);
 SCM index_set_cell (SCM cellp, Direction d, SCM val);
 
+template<class T>SCM array_to_scm (Array<T> arr);
+template<class T>void scm_to_array (SCM s, Array<T>* arr);
+
+//URG how templates suck!
+SCM to_scm (int i);
+void scm_to (SCM s, int* i);
+
+SCM to_scm (Real r);
+void scm_to (SCM s, Real* r);
+
 /*
   snarfing.
  */
@@ -60,7 +70,5 @@ public:\
   }						\
 } _ ## name ## _scm_initter;			\
 /* end define */
-
-
 
 #endif // LILY_GUILE_HH

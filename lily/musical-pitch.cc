@@ -10,6 +10,26 @@
 #include "debug.hh"
 #include "main.hh"
 
+SCM
+to_scm (Musical_pitch p)
+{
+  return gh_list (gh_int2scm (p.notename_i_),
+		  gh_int2scm (p.accidental_i_),
+		  gh_int2scm (p.octave_i_),
+		  SCM_UNDEFINED);
+}
+
+/*
+  TODO: check -- is_pitch () ?
+ */
+void
+scm_to (SCM s, Musical_pitch* p)
+{
+  *p = Musical_pitch (gh_scm2int (gh_car (s)),
+		      gh_scm2int (gh_cadr (s)),
+		      gh_scm2int (gh_caddr (s)));
+}
+
 Musical_pitch::Musical_pitch (int n, int a, int o)
 {
   notename_i_ = n;

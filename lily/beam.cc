@@ -27,6 +27,7 @@
 #include "group-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "cross-staff.hh"
+#include "lily-guile.icc"
 
 Beam::Beam ()
 {
@@ -249,10 +250,10 @@ Beam::set_stem_shorten ()
     return;
 
   int multiplicity = get_multiplicity ();
-  SCM shorten = scm_eval (scm_listify (
-    ly_symbol2scm ("beamed-stem-shorten"),
-    gh_int2scm (multiplicity), 
-    SCM_UNDEFINED));
+  SCM shorten = scm_eval (gh_list (
+				   ly_symbol2scm ("beamed-stem-shorten"),
+				   gh_int2scm (multiplicity),
+				   SCM_UNDEFINED));
   Real shorten_f = gh_scm2double (shorten) 
     * Staff_symbol_referencer_interface (this).staff_space ();
 
@@ -482,6 +483,10 @@ Beam::check_stem_length_f (Real y, Real dy) const
     return lengthen * get_direction ();
 }
 
+/*
+  Hmm.  At this time, beam position and slope are determined.  Maybe,
+  stem directions and length should set to relative to the chord's
+  position of the beam.  */
 void
 Beam::set_stem_length (Real y, Real dy)
 {
@@ -502,39 +507,30 @@ Beam::set_stem_length (Real y, Real dy)
 
 /*
   [Ross] (simplification of)
-  Try to set dy complying with:
+  Set dy complying with:
     - zero
     - thick / 2 + staffline_f / 2
     - thick + staffline_f
   + n * staff_space
-
-  TODO: get allowed-positions as scm list (aarg: from paper block)
 */
 Real
 Beam::quantise_dy_f (Real dy) const
 {
-  SCM s = get_elt_property ("slope-quantisation");
-  
-  if (s == ly_symbol2scm ("none"))
+  SCM quants = ly_eval_str ("beam-height-quants");
+
+  Array<Real> a;
+  scm_to_array (quants, &a);
+  if (a.size () <= 1)
     return dy;
 
   Staff_symbol_referencer_interface st (this);
   Real staff_space = st.staff_space ();
   
-  Real staffline_f = paper_l ()->get_var ("stafflinethickness");
-  Real thick = gh_scm2double (get_elt_property ("beam-thickness"));;
-
-  Array<Real> allowed_fraction (3);
-  allowed_fraction[0] = 0;
-  allowed_fraction[1] = (thick / 2 + staffline_f / 2);
-  allowed_fraction[2] = (thick + staffline_f);
-
-  allowed_fraction.push (staff_space);
-  Interval iv = quantise_iv (allowed_fraction,  abs (dy));
+  Interval iv = quantise_iv (a, abs (dy)/staff_space) * staff_space;
   Real q = (abs (dy) - iv[SMALLER] <= iv[BIGGER] - abs (dy))
     ? iv[SMALLER]
     : iv[BIGGER];
-
+  
   return q * sign (dy);
 }
 
@@ -542,75 +538,28 @@ Beam::quantise_dy_f (Real dy) const
   Prevent interference from stafflines and beams.
   See Documentation/tex/fonts.doc
 
-  TODO: get allowed-positions as scm list (aarg: from paper block)
+  We only need to quantise the (left) y-position of the beam,
+  since dy is quantised too.
+  if extend_b then stems must *not* get shorter
  */
 Real
 Beam::quantise_y_f (Real y, Real dy, int quant_dir)
 {
-   /*
-    We only need to quantise the (left) y-position of the beam,
-    since dy is quantised too.
-    if extend_b then stems must *not* get shorter
-   */
-  SCM s = get_elt_property ("slope-quantisation");
-  if (s == ly_symbol2scm ("none"))
-    return y;
-
-  /*
-    ----------------------------------------------------------
-                                                   ########
-	                                ########
-                             ########
-    --------------########------------------------------------
-       ########
-
-       hang       straddle   sit        inter      hang
-   */
-
+  int multiplicity = get_multiplicity ();
   Staff_symbol_referencer_interface st (this);
   Real staff_space = st.staff_space ();
-  Real staffline_f = paper_l ()->get_var ("stafflinethickness");
-  Real thick = gh_scm2double (get_elt_property ("beam-thickness"));;
+  SCM quants = scm_eval (gh_list (
+				  ly_symbol2scm ("beam-vertical-position-quants"),
+				  gh_int2scm (multiplicity),
+				  gh_double2scm (dy/staff_space),
+				  SCM_UNDEFINED));
+  Array<Real> a;
+  scm_to_array (quants, &a);
+  if (a.size () <= 1)
+    return y;
 
-  Real straddle = 0;
-  Real sit = thick / 2 - staffline_f / 2;
-  Real hang = staff_space - thick / 2 + staffline_f / 2;
-
-  /*
-    Put all allowed positions into an array.
-    Whether a position is allowed or not depends on 
-    strictness of quantisation, multiplicity and direction.
-
-    For simplicity, we'll assume dir = UP and correct if 
-    dir = DOWN afterwards.
-   */
-  
-  int multiplicity = get_multiplicity ();
-
-
-  Array<Real> allowed_position;
-  if (s == ly_symbol2scm ("normal"))
-    {
-      if ((multiplicity <= 2) || (abs (dy) >= staffline_f / 2))
-	allowed_position.push (straddle);
-      if ((multiplicity <= 1) || (abs (dy) >= staffline_f / 2))
-	allowed_position.push (sit);
-      allowed_position.push (hang);
-    }
-  else if (s == ly_symbol2scm ("traditional"))
-    {
-      // TODO: check and fix TRADITIONAL
-      if ((multiplicity <= 2) || (abs (dy) >= staffline_f / 2))
-	allowed_position.push (straddle);
-      if ((multiplicity <= 1) && (dy <= staffline_f / 2))
-	allowed_position.push (sit);
-      if (dy >= -staffline_f / 2)
-	allowed_position.push (hang);
-    }
-
-  allowed_position.push (staff_space);
   Real up_y = get_direction () * y;
-  Interval iv = quantise_iv (allowed_position, up_y);
+  Interval iv = quantise_iv (a, up_y/staff_space) * staff_space;
 
   Real q = up_y - iv[SMALLER] <= iv[BIGGER] - up_y 
     ? iv[SMALLER] : iv[BIGGER];

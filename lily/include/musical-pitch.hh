@@ -12,6 +12,7 @@
 
 #include "lily-proto.hh"
 #include "input.hh"
+#include "lily-guile.hh" // we need SCM
 
 /** A "tonal" pitch. This is a pitch as it figures in diatonal western
    music (12 semitones in an octave), as opposed to a frequence in Hz
@@ -42,6 +43,9 @@ struct Musical_pitch : public Input
   String str () const;
   void print () const;
 };
+
+SCM to_scm (Musical_pitch p);
+void scm_to (SCM s, Musical_pitch* p);
 
 #include "compare.hh"
 INSTANTIATE_COMPARE(Musical_pitch, Musical_pitch::compare);

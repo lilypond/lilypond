@@ -13,40 +13,7 @@
 #include "molecule.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
-
-SCM
-to_scm (Musical_pitch p)
-{
-  return gh_list (gh_int2scm (p.notename_i_), gh_int2scm (p.accidental_i_), gh_int2scm (p.octave_i_), SCM_UNDEFINED);
-}
-
-Musical_pitch
-from_scm (SCM s)
-{
-  return Musical_pitch (gh_scm2int (gh_car (s)),
-			gh_scm2int (gh_cadr (s)),
-			gh_scm2int (gh_caddr (s)));
-}
-  
-template<class T>SCM
-array_to_scm (Array<T> arr)
-{
-  SCM list = SCM_EOL;
-  for (int i = arr.size (); i--;)
-    list =  gh_cons (to_scm (arr[i]), list);
-  return list;
-}
-
-/*
-  Silly templates
-  Array<T> scm_to_array (SCM s)
- */
-template<class T>void
-scm_to_array (SCM s, Array<T>* arr)
-{
-  for (; gh_pair_p (s); s= gh_cdr (s))
-    arr->push (from_scm (gh_car (s)));
-}
+#include "lily-guile.icc"
 
 /*
   ugh, move to chord-name-engraver
@@ -63,6 +30,10 @@ Chord_name::set (Chord const& c)
   if (c.bass_b_)
     set_elt_property ("bass", to_scm (c.bass_pitch_));
 }
+
+/*
+  junkme
+ */
 
 SCM
 notename2scm (Musical_pitch p)
@@ -307,7 +278,9 @@ Chord_name::do_brew_molecule_p () const
   if (s != SCM_UNDEFINED)
     {
       name.inversion_mol = lookup_l ()->text ("", "/", paper_l ());
-      Molecule mol = pitch2molecule (from_scm (s));
+      Musical_pitch p;
+      scm_to (s, &p);
+      Molecule mol = pitch2molecule (p);
       name.inversion_mol.add_at_edge (X_AXIS, RIGHT, mol, 0);
     }
 
@@ -315,7 +288,9 @@ Chord_name::do_brew_molecule_p () const
   if (s != SCM_UNDEFINED)
     {
       name.bass_mol = lookup_l ()->text ("", "/", paper_l ());
-      Molecule mol = pitch2molecule (from_scm (s));
+      Musical_pitch p;
+      scm_to (s, &p);
+      Molecule mol = pitch2molecule (p);
       name.bass_mol.add_at_edge (X_AXIS, RIGHT, mol, 0);
     }
 

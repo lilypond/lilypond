@@ -142,10 +142,6 @@
 	       '(minimum-space 0.0)))))
   
 
-;; Measured in interlines (urg: how to say #interline?)
-(define (stem-shorten flags) 0.5)
-(define (beamed-stem-shorten multiplicity) 0.5)
-
 
 ;;;;;;;; TeX
 
