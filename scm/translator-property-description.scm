@@ -132,6 +132,8 @@ using barchecks in polyphonic music.")
 (translator-property-description 'barNumberVisibility procedure? "Procedure that takes an int and returns whether the corresponding bar number should be printed")
 (translator-property-description 'beamMelismaBusy boolean? "Signal if a beam is set when automaticMelismata is set")
 (translator-property-description 'beatLength ly:moment? "The length of one beat in this time signature.")
+(translator-property-description 'beatGrouping list?
+				 "List of beatgroups. Eg. in 5/8 time #(list 2 3).")
 (translator-property-description 'breakAlignOrder list? "Defines the order in which
 prefatory matter (clefs, key signatures) appears, eg. this puts the
 key signatures after the bar lines:

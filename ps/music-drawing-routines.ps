@@ -47,6 +47,19 @@
 	} ifelse
 } bind def
 
+
+/draw_symmetric_x_triangle %  th w h
+{
+    setlinewidth
+    0 0 moveto
+    dup
+    0 rlineto
+    2 div
+    exch rlineto
+    0 0 lineto
+    stroke
+} bind def
+
 /draw_round_box % breapth width depth height blot
 {
 	/blot exch def

@@ -530,7 +530,17 @@
 	(padding . 0.8)
 	(meta . ((interfaces . (text-interface side-position-interface font-interface mark-interface self-alignment-interface item-interface ))))
 	))
-
+    
+    (MeasureGrouping
+     . (
+	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(molecule-callback . ,Measure_grouping::brew_molecule)
+	(meta . ((interfaces . (spanner-interface measure-grouping-interface))))
+	(padding . 2)
+	(direction . 1)
+	(thickness . 1)
+	(height . 2.0)
+	))
     (MultiMeasureRest
      . (
 	(spacing-procedure . ,Multi_measure_rest::set_spacing_rods)
