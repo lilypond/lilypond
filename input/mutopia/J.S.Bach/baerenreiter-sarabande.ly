@@ -54,7 +54,6 @@ sarabandeA =  \context Voice  \relative c {
     { d4 a2 } >>
   <d, a' f'>4.  e'8[ d c] |
   bes[ g'] f[
-     \once \override Slur #'excentricity = #2.5
      e16(f] g[ a bes d,)] |
   cis4.\trill b8[ a g] |
 
@@ -176,6 +175,8 @@ baerPaper = \paper {
 
 \bookpaper {
   raggedbottom = ##t
+  betweensystemspace = 25\mm 
+  betweensystempadding = 0\mm 
 }
 \score{
   \sarabandeCelloStaff

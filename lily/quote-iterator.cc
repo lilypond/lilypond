@@ -187,7 +187,6 @@ Quote_iterator::process (Moment m)
 		  SCM copy = ly_deep_mus_copy (mus->self_scm ());
 		  mus = unsmob_music (copy);
 		  transposed_musics_ = scm_cons (copy, transposed_musics_);
-		  scm_gc_unprotect_object (copy);
 
 		  
 		  mus->transpose (diff);
