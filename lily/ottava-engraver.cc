@@ -49,7 +49,7 @@ Ottava_spanner_engraver::process_music ()
       span_ = 0;
       if (gh_string_p (ott))
 	{
-	  span_  = new Spanner (get_property ("OttavaSpanner"));
+	  span_  = new Spanner (get_property ("OttavaBracket"));
 	  span_->set_grob_property ("text", ott);
 	  announce_grob (span_, SCM_EOL);
 

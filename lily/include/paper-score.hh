@@ -43,7 +43,6 @@ public:
 protected:
     /* MAIN ROUTINES */
   virtual void process (String);
-
 private:
   /// before calc_breaking
   void preprocess ();

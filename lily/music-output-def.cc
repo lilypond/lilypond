@@ -113,7 +113,9 @@ int
 Music_output_def::print_smob (SCM s, SCM p, scm_print_state *)
 {
   Music_output_def * def = unsmob_music_output_def (s);
-  scm_puts ("#<Music_output_def ", p);
+  scm_puts ("#< ", p);
+  scm_puts (classname (def), p);
+  
   (void)def;
   scm_puts (">", p);
   return 1;

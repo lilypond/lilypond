@@ -13,6 +13,8 @@
 	     (srfi srfi-13)		;strings
 	     )
 
+(define-public (myd k v) (display k) (display ": ") (display v) (display ", "))
+
 ;;; General settings
 ;;; debugging evaluator is slower.  This should
 ;;; have a more sensible default.

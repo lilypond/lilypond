@@ -1,9 +1,30 @@
+2004-01-19  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/tuplet-bracket.cc (calc_position_and_height): check musical
+	slope against graphical slope.
+
+	* lily/ottava-bracket.cc (brew_molecule): support minimum-length
+	for ottava bracket.
+
+	* lily/side-position-interface.cc (general_side_position):
+	opps. reinstate *dir.
+
+	* lily/parser.yy: plug many memory leaks. We're down to 4 for each
+	parser run.
+
+	* lily/tuplet-bracket.cc: remove calc_dy ().
+
+	* Documentation/user/refman.itely (Balloon help): document balloon
+	help
+
 2004-01-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/document-backend.scm (check-dangling-properties): Grob
 	properties are defined define-grob-properties.scm.
-
+	
 2004-01-19  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+	
+	* VERSION: release 2.1.12
 
 	* scm/define-grobs.scm (all-grob-descriptions): larger font for
 	ChordName

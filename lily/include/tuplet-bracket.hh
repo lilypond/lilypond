@@ -26,7 +26,6 @@ public:
   static void add_column (Grob*me,Item*);
   static void add_beam (Grob*me,Grob*);
   static Grob *parallel_beam (Grob *me, Link_array<Grob> const&cols, bool *equally_long);
-  static void calc_dy (Grob*,Real *) ;
   static void calc_position_and_height (Grob*,Real*,Real *dy);
   
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM ));

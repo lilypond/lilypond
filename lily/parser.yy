@@ -464,10 +464,13 @@ toplevel_expression:
 		scm_gc_unprotect_object (sc->self_scm());
 	}
 	| output_def {
+		SCM id = SCM_EOL;
 		if (dynamic_cast<Paper_def*> ($1))
-			THIS->lexer_->set_identifier (scm_makfrom0str ("$defaultpaper"), $1->self_scm ());
+			id = scm_makfrom0str ("$defaultpaper");
 		else if (dynamic_cast<Midi_def*> ($1))
-			THIS->lexer_->set_identifier (scm_makfrom0str ("$defaultmidi"), $1->self_scm ());
+			id = scm_makfrom0str ("$defaultmidi");
+		THIS->lexer_->set_identifier (id,   $1->self_scm ());
+		scm_gc_unprotect_object ($1->self_scm ());
 	}
 	;
 
@@ -645,7 +648,7 @@ score_body:
 
 	}
 	| SCORE_IDENTIFIER {
-		$$ = unsmob_score ($1);
+		$$ = new Score ( *unsmob_score ($1));
 		$$->set_spot (THIS->here_input ());
 	}
 	| score_body lilypond_header 	{
@@ -653,6 +656,7 @@ score_body:
 	}
 	| score_body output_def {
 		$$->defs_.push ($2);
+		scm_gc_unprotect_object ($2->self_scm ());
 	}
 	| score_body error {
 
@@ -724,6 +728,7 @@ music_output_def_body:
 		Midi_def * md = dynamic_cast<Midi_def*> ($$);
 		if (md)
 			md->set_tempo (d->get_length (), m);
+		scm_gc_unprotect_object ($2->self_scm ());
 	}
 	| music_output_def_body error {
 
@@ -1992,6 +1997,8 @@ simple_element:
  		Music * velt = MY_MAKE_MUSIC("EventChord");
 		velt->set_mus_property ("elements", scm_list_n (ev->self_scm (),SCM_UNDEFINED));
 		velt->set_spot (i);
+
+		scm_gc_unprotect_object (ev->self_scm());
 
  		$$ = velt;
 	}

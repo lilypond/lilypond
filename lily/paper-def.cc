@@ -85,7 +85,7 @@ Paper_def::get_paper_outputter (String outname)  const
 
 
 /*
-  todo: use symbols and hashtable idx?
+  Todo: use symbols and hashtable idx?
 */
 Font_metric *
 Paper_def::find_font (SCM fn, Real m)
@@ -103,7 +103,10 @@ Paper_def::find_font (SCM fn, Real m)
   Font_metric*  f=0;
   if (gh_list_p (fn))
     {
-      f = new Virtual_font_metric (fn, m, this);
+      f = new Virtual_font_metric (fn, m, this); // TODO: GC protection.
+      
+      scaled_fonts_ = scm_acons (key, f->self_scm (), scaled_fonts_);
+      scm_gc_unprotect_object (f->self_scm ());
     }
   else
     {
@@ -132,6 +135,9 @@ Paper_def::font_descriptions ()const
   for (SCM s = scaled_fonts_; gh_pair_p (s); s = ly_cdr (s))
     {
       SCM desc = ly_caar (s);
+      if (!gh_string_p (gh_car (desc)))
+	continue ;
+
       SCM mdesc = unsmob_metrics (ly_cdar (s))->description_;
 
       l = gh_cons (gh_cons (mdesc, desc), l);

@@ -397,7 +397,6 @@
 	(spacing-procedure . ,Spanner::set_spacing_rods)
 	(minimum-length . 2.0)
 	(if-text-padding . 1.0)
-	(width-correct . -1.0)
 	(dash-length . 4.0)
 	(self-alignment-Y . 0)
 	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
@@ -724,7 +723,6 @@
 	(font-family . roman)
 	(style . line)
 	(if-text-padding . 1.0)
-	(width-correct . 0)
 	(enclose-bounds . #t)
 	(direction . -1)
 	(bracket-flare . (0.5 . 0.5))
@@ -1067,14 +1065,13 @@
 
 	;; urg, only for (de)cresc. text spanners
 	(if-text-padding . 1.0)
-	(width-correct . -1)
 	(dash-fraction . 0.2)
 	(dash-period . 3.0)
 	(direction . 1)
 	(meta . ((interfaces . (text-spanner-interface side-position-interface font-interface spanner-interface))))		
 	))
     
-    (OttavaSpanner
+    (OttavaBracket
      . (
 	(Y-offset-callbacks . (,Side_position_interface::out_of_staff
 			       ,Side_position_interface::aligned_side))
@@ -1086,8 +1083,7 @@
 	(staff-padding . 1.0)
 	(padding  . 1.0)
 	(enclose-bounds . #t)
-	(width-correct . 0.0)
-	(style . dashed-line)
+	(minimum-length . 1.0)
 	(dash-fraction . 0.3)
 	(edge-height . (0 . 1.2))
 	(direction . 1)

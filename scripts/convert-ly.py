@@ -1687,6 +1687,13 @@ conversions.append (((2,1,11), conv, """\\include "paper16.ly" -> #(set-staff-si
 """))
 
 
+def conv (str):
+	str =re.sub (r"OttavaSpanner", r"OttavaBracket", str)
+	return str
+
+conversions.append (((2,1,12), conv, """OttavaSpanner -> OttavaBracket"""))
+
+
 ################################
 #	END OF CONVERSIONS	
 ################################

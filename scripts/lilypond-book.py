@@ -1414,7 +1414,8 @@ def compile_all_files (chunks):
 		ly.system ("dvips -Ppdf -u+lilypond.map -E -o %s.eps %s" % (file, file))
 	map (to_eps, eps)
 
-	map (ly.make_ps_images, map (lambda x: x + '.eps', png))
+	for p in png:
+		ly.make_ps_images (p + '.eps', resolution=110)
 	os.chdir (d)
 
 

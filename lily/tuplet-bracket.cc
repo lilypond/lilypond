@@ -318,8 +318,20 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
       Interval lv =columns[l]->extent (commony, Y_AXIS);
       rv.unite (staff);
       lv.unite (staff);
+      Real graphical_dy =  rv[dir] - lv[dir];
+
+      Slice ls = Note_column::head_positions_interval (columns[l]);
+      Slice rs = Note_column::head_positions_interval (columns[r]);
       
-      *dy =  rv[dir] - lv[dir];
+      Interval musical_dy;
+      musical_dy[UP] = rs[UP] - ls[UP];
+      musical_dy[DOWN] = rs[DOWN] - ls[DOWN];
+      if (sign (musical_dy[UP]) != sign (musical_dy[DOWN]))
+	*dy = 0.0;
+      else if (sign (graphical_dy) != sign (musical_dy[DOWN]))
+	*dy = 0.0;
+      else
+	*dy = graphical_dy;
     }
   else
     * dy = 0;
@@ -379,22 +391,6 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
   
 }
 
-/*
-  use first -> last note for slope,
-*/
-void
-Tuplet_bracket::calc_dy (Grob*me,Real * dy)
-{
-  Link_array<Grob> columns=
-    Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-columns");
-
-  /*
-    ugh. refps.
-   */
-  Direction d = get_grob_direction (me);
-  *dy = columns.top ()->extent (columns.top (), Y_AXIS) [d]
-    - columns[0]->extent (columns[0], Y_AXIS) [d];
-}
 
 
 /*
