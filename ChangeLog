@@ -4,6 +4,10 @@
 
 2004-02-17  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/accidental-engraver.cc (process_acknowledged_grobs): use
+	properties from Voice context. This fixes staff-switches during
+	grace contexts.
+
 	* lily/note-collision.cc (check_meshing_chords): only wipe heads
 	if necessary. Else, simply wipe dots.
 
