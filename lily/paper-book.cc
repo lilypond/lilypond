@@ -90,12 +90,14 @@ Paper_book::Paper_book ()
 void
 Paper_book::output (String outname)
 {
-  Paper_outputter *out = papers_.top ()->get_paper_outputter (outname);
-
-  out->output_metadata (get_scopes (0), papers_.top ());
-  out->output_header (papers_.top ());
-
+  /* Generate all stencils to trigger font loads.  */
   Link_array<Page> *pages = get_pages ();
+
+  Paper_def *paper = papers_[0];
+  Paper_outputter *out = paper->get_paper_outputter (outname);
+  out->output_metadata (get_scopes (0), paper);
+  out->output_header (paper);
+
   int page_count = pages->size ();
   for (int i = 0; i < page_count; i++)
     (*pages)[i]->output (out, i + 1 == page_count);
@@ -125,7 +127,8 @@ Paper_book::get_title (int i)
   SCM s = ly_modules_lookup (get_scopes (i), field); 
   if (s != SCM_UNDEFINED && scm_variable_bound_p (s) == SCM_BOOL_T)
     return unsmob_stencil (gh_call2 (make_title,
-				     papers_[i]->self_scm (),
+				     // papers_[i]->self_scm (),
+				     papers_[0]->self_scm (),
 				     scm_variable_ref (s)));
   return 0;
 }
@@ -154,7 +157,6 @@ Paper_book::get_pages ()
   Real book_height = 0;
   for (int i = 0; i < score_count; i++)
     {
-      //SCM lines = scores_[i];
       Stencil *title = get_title (i);
       if (title)
 	book_height += title->extent (Y_AXIS).length ();
@@ -167,7 +169,8 @@ Paper_book::get_pages ()
 	}
     }
 
-  Page *page = new Page (papers_.top ());
+  Paper_def *paper = papers_[0];
+  Page *page = new Page (paper);
   fprintf (stderr, "book_height: %f\n", book_height);
   fprintf (stderr, "vsize: %f\n", page->vsize_);
   fprintf (stderr, "pages: %f\n", book_height / page->text_height ());
@@ -191,7 +194,7 @@ Paper_book::get_pages ()
 	  if (page->height_ + h > text_height)
 	    {
 	      pages->push (page);
-	      page = new Page (papers_.top ());
+	      page = new Page (paper);
 	    }
 	  if (page->height_ + h <= text_height || page->height_ == 0)
 	    {
