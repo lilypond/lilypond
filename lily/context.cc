@@ -233,7 +233,7 @@ Context::where_defined (SCM sym) const
 SCM
 Context::internal_get_property (SCM sym) const
 {
-  SCM val =SCM_EOL;
+  SCM val = SCM_EOL;
   if (properties_dict ()->try_retrieve (sym, &val))
     return val;
 

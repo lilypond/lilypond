@@ -1,5 +1,12 @@
 2004-11-11  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/context-selector.cc (set_tweaks): New function.
+	* lily/grob-selector.cc (set_tweaks): (Re)set hash table.  Fixes
+	web with -DTWEAK.
+
+	* Documentation/user/introduction.itely (Automated engraving):
+	Remove fragment option.  Fixes web.
+
 	* lily/context-property.cc (make_item_from_properties):
 	* lily/context.cc (add_context)[TWEAK]: Tweak registration behind
 	#ifdef.

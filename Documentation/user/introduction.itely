@@ -224,7 +224,7 @@ with accents and arpeggio.  In the first chord, the graphical objects
 have all directions down (or left).  The second chord has all
 directions up (right).
 
-@lilypond[quote,raggedright,relative=1,fragment]
+@lilypond[quote,raggedright,relative=1]
 \new Score \with {
    \override SpacingSpanner #'spacing-increment = #3
    \override TimeSignature #'transparent = ##t
