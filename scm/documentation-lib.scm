@@ -27,9 +27,7 @@
 (define (dump-node node port level)
   (display
    (string-append
-    "\n@html"
-    "\n<hr>"
-    "\n@end html\n@node "
+    "\n@node "
     (node-name node)
     "\n\n"
     (texi-section-command level) " "

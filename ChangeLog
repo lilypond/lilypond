@@ -1,5 +1,8 @@
 2003-07-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/document-backend.scm (grob-doc): remove <hr> from
+	lilypond-internals
+
 	* Documentation/topdocs/INSTALL.texi (Top): bump GUILE
 	reqd version to 1.6.4 
 
