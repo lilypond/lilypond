@@ -17,13 +17,15 @@ as from a musical performing point of view.
 
 The Musical Definition Language (Mudela) S<version 2>, has a logical
 structure, making use of typing and naming (using identifiers), that
-allows for flexible input, and definition reuse.
+allows for flexible input, and definition reuse. See MANIFESTO for
+reasons and design considerations.
 
 The below included for explanatory purposes only (i.e., for a complete
 and up-to-date definition, see F<lily/parser.y> and F<lily/lexer.l>):
 
 As a related note, you should take a look at the examples and the init
-file, as this document does not cover every aspect of mudela yet.
+file, as this document does not cover every aspect of mudela yet, and
+may be out of date.
 
 =head2 Files
 
@@ -34,7 +36,7 @@ entering C<include> at the start of a line:
 
 =head2 Comments
 
-Line comments are introduced by a C<%>
+Line comments are introduced by a C<%>.
 
 =head2 Versions
 
@@ -44,6 +46,9 @@ incompatibilities, you can specify the Mudela version for which the
 inputfile was written,
 
 	\version "0.0.50";
+
+A perl-script which tries to convert to newer versions
+(F<convert-mudela.pod>) is included in the LilyPond distribution.
 
 =head2 Words
 
@@ -173,7 +178,7 @@ another example:
 
 This is an A flat, (just below 110 Hz concert-pitch). The C<*2/3>
 signifies that this note is part of a triplet (3 in stead of 2). The
-duration is one and a half quaver (C<4.>) times 2/3. 
+duration is one and a half quaver (C<4.>) times 2/3.
 
 
 Notenames are just a special kind of identifiers, and can be declared
@@ -228,9 +233,10 @@ example:
 Please note that these two characters do I<not> necessarrily nest, eg:
 
 	[c8 e8(] [)g8 c'8]
+	[c8 c8 c8]2/3		% a triplet
 
-
-Symbols which can be put at either side of a staff are entered as follows:
+Symbols which can be put at either side (above or below) of a staff
+are entered as follows:
 
 	a-^	% marcato, direction: default
 	a^-	% portato, direction: above note
@@ -324,7 +330,20 @@ Mudela reads left to right, but you can still stack voices and
 Voice_elements which are produced in two directions: horizontal
 (voice like) and vertical (chord like)
 
-You can start horizontal music by enclosing a sequence of notes with { and }
+A sequence of notes (horizontal) is called simple horizontal, eg
+
+	c4 c4 g4 g4
+
+
+You can also glue two pieces of simple horizontal music together with the
+concatenation operator:
+
+	horOne = \melodic { c c g g }
+	horTwo = \melodic { a a g2 }
+	twinkle = \melodic { \horOne ++ \horTwo }
+
+If you enclose simple horizontal music in braces ( { } ), then you get
+horizontal music:
 
 	{ c c g g a a g2 }	% twinkle twinkle
 
@@ -347,20 +366,20 @@ The duration of a chord equals the union of the durations of each of
 its elements.  The C<\multivoice> is a construct which is explained
 below.
 
-You can also glue two horizontal pieces music together with
-concatenation operator:
-
-	\horOne = \melodic { c c g g }
-	\horTwo = \melodic { a a g2 }
-	\twinkle = \melodic { \horOne ++ \horTwo }
 
 =head2 Transposition
 
 You can transpose horizontal music in the following way:
 
-	\transpose {	d	% from c to d that's one octave up.
-		{ e4 f4 }	% the horizontal music
+	
+	\melodic {
+		c4 ++ \transpose { 
+			d		% from c to the d that's one octave down 
+			{ e4 f4 }	% the horizontal music
+		} ++ g4
 	}
+
+The result is, as you can see, simple horizontal music again
 
 =head2 Rhythms
 
@@ -376,15 +395,21 @@ any optional multipliers/dots
 
 A meter has this form:
 
-	\meter { 3/4 }
+	\meter 3/4 ;
 
 Rhythmic grouping is  a concept closely associated with this. For
 example, in a 5/8 meter, the counts are grouped 2+3. In mudela this is
 entered as
 
-	\grouping { 8*2 8*3 }
+	\grouping  8*2 8*3 ;
 
+You can start the piece with a partial measure, the command takes the
+same syntax as grouping: 
 
+	\partial 16*3 4;
+
+Make the piece start with a partial measure [transl?]  lasting 1 3/4
+quaver.
 
 =head1 STRUCTURE
 
@@ -396,11 +421,10 @@ In concrete, a piece of Mudela has the following structure:
 
 	% instantiate (=create tex, midi output) the score:
 	\score{ 
-		\staff{ melody }
-		\staff{ accompany }
-		\commands{ <score global commands> }
+		\staff{ melodicregs melody }
+		\staff{ melodicregs accompany }
 		\midi{ <midi definitions> }
-		\paper{ <paper and layout definitions }
+		\paper{ <paper and layout definitions> }
 	}
 
 =head2 Examples
@@ -464,12 +488,29 @@ In music typesetting, the user might want to cram a lot more symbols
 on the paper than actually fits. To reflect this idea (the user asks
 more than we can do), the container for this data is called Request.
 
-A request is done to
-the C<Staff> which contains the C<Voice_element>. The staff decides
-whether to to honor the request, ignore it, or merge it with other
-requests. Merging of requests is preferably done with other requests
-done by members of the same voicegroups (beams, brackets, stems)
+A request is done to the C<Staff> which contains the
+C<Voice_element>. The staff decides whether to to honor the request,
+ignore it, or merge it with other requests. Merging of requests is
+preferably done with other requests done by members of the same
+voicegroups (beams, brackets, stems)
 
+=head2 Staff
+
+The staff is a simple container (containing Voices). The so-called
+"registers" determine the characteristics of the Staff. At this time,
+LilyPond supports the following personalities:
+
+=over 4
+
+=item melodicregs
+
+This makes the staff into a single five line melodic staff.
+
+=item lyricregs
+
+This makes the staff into a staff which will only set Lyric_requests.
+
+=back
 
 
 =head1 HISTORY

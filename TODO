@@ -1,12 +1,19 @@
 IMPORTANT
+	* resolve notehead/rest ambiguities and bugs. [HWN]
+ 	eg, [c8 r8 c8] 
+
+
+	* mi2mu man page
+
+	* use Real for y positions.
 
 	* update 20 pt table
-	
+
 	* rename mf fonts to avoid conflicts with musixtex
 
 	* decent TeX page layout
 
-	* per-pstaff item-widths
+	* per-pstaff item-widths [JCN]
 
 	* script priority
 
@@ -16,7 +23,9 @@ IMPORTANT
 
 	* check return status in make_website
 
-	* tutorial
+	* plet.ly
+
+	* a Hands on tutorial [HKN]
 
 This is an assorted collection of stuff that will be done, might be
 done, or is an idea that I want to think about
@@ -28,7 +37,10 @@ BUGS
 
 	* detect -pipe
 	
-	* redo timing stuff <-> pulk to allow \meter 2/4; e2. to work out correctly
+	* redo timing stuff <-> pulk to allow \meter 2/4; e2. to work
+	out correctly
+
+	* key transposition.
 
 	* hairpin width
 
@@ -40,7 +52,6 @@ BUGS
 
 	* lilypond - -> crash
 
-	* wohltemperirt.ly
 
 SEVERELY LACKING:
 
