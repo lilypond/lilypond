@@ -37,10 +37,12 @@ TODO:
 happen earlier (during interpreting), brew-molecule () should only
 dump reinterpret the markup as a molecule.
 
- [* naming chord::... ; this is scheme not C++]
- (yes - constructive naming suggestion here)
+  *  chord:: prefix is a poor-man's namespace device.
+  We have a module system to prevent export to userland.
+  Nested functions can take care of many other clashes. --hwn.
 
- * easier tweakability:
+   * easier tweakability:
+
     - split chord::names-alists up into logical bits,
       such as chord::exceptions-delta, exceptions-oslash
     - iso just the 'style parameter, use a list, eg:
@@ -122,6 +124,7 @@ dump reinterpret the markup as a molecule.
 			    (string-append "accidentals-"
 					   (number->string acc))))))
 
+; unused.
 (define (accidental->markupp acc pos)
 
   (if (= acc 0)
@@ -138,10 +141,13 @@ dump reinterpret the markup as a molecule.
 	      (make-line-markup (list (make-sub-markup acc-markup))))))))
 
 
+; unused.
+
 ;; FIXME: possibly to be used for american/jazz style
 ;; However, only pos == columns is used, which seems to do
 ;; exactly what accidental->markup does...
 (define (amy-accidental->text acc) (accidental->textp acc 'columns))
+
 
 ;; These not used
 ;;;(define (accidental->text-super acc) (accidental->textp acc 'simple-super))

@@ -76,6 +76,9 @@ Includable_lexer::new_input (String s, Sources  * global_sources)
 
 }
 
+/*
+  Unused.
+ */
 void
 Includable_lexer::new_input (String name, String data, Sources* sources)
 {
