@@ -7,50 +7,26 @@
   
  */
 
+#include "staff-side.hh"
 #include "note-head-side.hh"
-
 void
 Note_head_side::add_support (Item*head_l)
 {
-  if (support_l_arr_.find_l(head_l))
-    return ;
-  support_l_arr_.push (head_l);
-  add_dependency (head_l);
+  Side_position_interface s (this);
+  s.add_support (head_l);
 }
 
-void
-Note_head_side::do_pre_processing ()
+
+Note_head_side::Note_head_side()
 {
-  Interval x_int;
-  for (int i=0; i < support_l_arr_.size(); i++) 
-    {
-      Graphical_element *common = 
-	common_refpoint (support_l_arr_[i], X_AXIS);
-      Real x = support_l_arr_[i]->relative_coordinate (common, X_AXIS)
-	- relative_coordinate (common, X_AXIS);
-
-      x_int.unite (x + support_l_arr_[i]->extent (X_AXIS));
-    }
-
-  if (x_int.empty_b ())
-    x_int = Interval(0,0);
-  
-  translate_axis (-extent(X_AXIS)[-notehead_align_dir_] + x_int[notehead_align_dir_], X_AXIS);
+  Side_position_interface s(this);
+  s.set_axis (X_AXIS);
+  s.set_direction (LEFT);
 }
 
-void
-Note_head_side::do_substitute_element_pointer (Score_element*o,Score_element*n)
-{
-  if (Item* o_l = dynamic_cast <Item *> (o))
-    support_l_arr_.substitute (o_l,dynamic_cast <Item *> (n));
-}
-
-Note_head_side:: Note_head_side()
-{
-  notehead_align_dir_ = LEFT;
-}
 bool
 Note_head_side::supported_b ()const
 {
-  return support_l_arr_.size ();
+  Side_position_interface s(this);
+  return s.supported_b ();
 }

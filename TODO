@@ -9,9 +9,11 @@ Most of the items are marked in the code as well
 Grep -i for TODO, FIXME and ugh/ugr/urg.  
 
 .* TODO
-. * agressive type-checking for SCM stuff. 
+. * use hash tabs iso. alist_ for elt property?
+. * agressive type-checking for SCM stuff.
+
 . * TODO^2:
-.   *make  a TODO.texi, like http://www.gnu.org/software/guile/ideas.html
+.  * make  a TODO.texi, like http://www.gnu.org/software/guile/ideas.html
 .  * make this file understandable for 3rd parties.
 . * \accepts -> \acceptedby 
 . * context in embedded SCM errors.
@@ -34,7 +36,6 @@ it's some sort of a numerical (truncation/roundoff) problem.
 John
 . * fix #'margin-shape;  setting indent to 0 with \shape fails
 . * Fixed size staff/system heights;
-. * 
 . * ly2dvi : don't repeat opus if same. 
 . * hara kiri _8 clef. 
 . * junk -M ? 
@@ -443,13 +444,8 @@ hesitate to ask.
 .  * account for rhythmic position in measure
 .  * etc.
 
-. * Output class, handles : (smallish)
-.  * help text /(c) notice?
-.  * version line
-.  * warning /errors/progress
-.  * abort on error/warning; exit status
-.  * quiet/ignore-version options
-.  * logfile output
+
+. * logfile output?
 
 . * PS 
 .  * speed up PS code.

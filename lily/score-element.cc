@@ -24,7 +24,7 @@
 #include "misc.hh"
 #include "paper-outputter.hh"
 #include "dimension-cache.hh"
-
+#include "staff-side.hh"
 
 Interval
 Score_element::dim_cache_callback (Dimension_cache const*c)
@@ -34,30 +34,6 @@ Score_element::dim_cache_callback (Dimension_cache const*c)
     return e->do_width ();
   else
     return e->do_height ();
-}
-
-
-
-Real
-set_alignment_callback (Dimension_cache const *c)
-{
-  String s ("self-alignment-");
-  Axis ax = c->axis ();
-  s +=  (ax == X_AXIS) ? "X" : "Y";
-  Score_element *elm = dynamic_cast<Score_element*> (c->element_l ());
-  SCM align (elm->get_elt_property (s));
-  if (isdir_b (align))
-    {
-      Direction d = to_dir (align);
-      Interval ext(elm->extent (ax));
-      if (d)
-	{
-	  return - ext[d];
-	}
-      return - ext.center ();
-    }
-  else
-    return 0.0;
 }
 
 
@@ -84,6 +60,10 @@ Score_element::Score_element (Score_element const&s)
   self_scm_ = SCM_EOL;
   used_b_ = true;
   original_l_ =(Score_element*) &s;
+
+  /*
+    should protect because smobify_self () might trigger GC.
+   */
   element_property_alist_ = scm_protect_object (scm_list_copy (s.element_property_alist_));
   dependency_arr_ = s.dependency_arr_;
   output_p_ =0;
@@ -231,15 +211,23 @@ Score_element::add_processing()
     return;
   status_i_ ++;
 
-  if (get_elt_property ("self-alignment-X") != SCM_UNDEFINED)
+#if 0
+    /*
+    UGH. UGH. UGH.
+   */
+  if (get_elt_property ("self-alignment-X") != SCM_UNDEFINED
+      && !dim_cache_[X_AXIS]->off_callback_l_)
     {
-      dim_cache_[X_AXIS]->set_offset_callback (set_alignment_callback);
+      dim_cache_[X_AXIS]->off_callbacks_.push (Side_position_interface::self_alignment);
     }
   
-  if (get_elt_property ("self-alignment-Y") != SCM_UNDEFINED)
+  if (get_elt_property ("self-alignment-Y") != SCM_UNDEFINED
+      && !dim_cache_[X_AXIS]->off_callback_l_)
+      
     {
-      dim_cache_[Y_AXIS]->set_offset_callback (set_alignment_callback);
+      dim_cache_[Y_AXIS]->set_offset_callback (Side_position_interface::self_alignment);
     }
+#endif
   
   do_add_processing();
 }
@@ -263,8 +251,6 @@ Score_element::calculate_dependencies (int final, int busy,
   for (int i=0; i < extra.size(); i++)
     extra[i]->calculate_dependencies (final, busy, funcptr);
   
-  invalidate_cache (X_AXIS);
-  invalidate_cache (Y_AXIS);
   (this->*funcptr)();
   status_i_= final;
 }
@@ -376,30 +362,46 @@ Score_element::substitute_dependency (Score_element* old, Score_element* new_l)
 
 
 /**
-   Do break substitution, and return new value.
- */
-SCM 
-Score_element::handle_broken_smobs (SCM s, Line_of_score * line)
+      Do break substitution in S, using CRITERION. Return new value.
+         CRITERION is either a SMOB pointer to the desired line, or a number
+	 representing the break direction.  */
+SCM
+Score_element::handle_broken_smobs (SCM s, SCM criterion)
 {
   if (SMOB_IS_TYPE_B (Score_element, s))
     {
       Score_element *sc = SMOB_TO_TYPE (Score_element, s);
-      Score_element * br =0;
-      if (sc->line_l () != line)
-	{
-	  br = sc->find_broken_piece (line);
-	}
 
-      if (br)
-	return br->self_scm_;
+      if (gh_number_p (criterion))
+	{
+	  Item * i = dynamic_cast<Item*> (sc);
+	  Direction d = to_dir (criterion);
+	  if (i && i->break_status_dir () != d)
+	    {
+	      Item *br = i->find_broken_piece (d);
+	      return  (br) ? br->self_scm_ : SCM_UNDEFINED;
+	    }
+	}
+      else
+	{
+	  Score_element * ln = SMOB_TO_TYPE (Score_element, criterion);
+	  Line_of_score * line = dynamic_cast<Line_of_score*> (ln);
+	  Score_element * br =0;
+	  if (sc->line_l () != line)
+	    {
+	      br = sc->find_broken_piece (line);
+	      return  (br) ?  br->self_scm_ : SCM_UNDEFINED;
+	    }
+
+	}
     }
   else if (gh_pair_p (s))
     {
       /*
 	UGH! breaks on circular lists.
-       */
-      gh_set_car_x (s, handle_broken_smobs (gh_car (s), line));
-      gh_set_cdr_x (s, handle_broken_smobs (gh_cdr (s), line));
+      */
+      gh_set_car_x (s, handle_broken_smobs (gh_car (s), criterion));
+      gh_set_cdr_x (s, handle_broken_smobs (gh_cdr (s), criterion));
     }
   return s;
 }
@@ -411,7 +413,8 @@ Score_element::handle_broken_dependencies()
   if (!line)
     return;
 
-  element_property_alist_ = handle_broken_smobs (element_property_alist_, line);
+  element_property_alist_ = handle_broken_smobs (element_property_alist_,
+						 line->self_scm_);
 
   Link_array<Score_element> new_deps;
 
@@ -438,8 +441,12 @@ Score_element::handle_broken_dependencies()
 void
 Score_element::handle_prebroken_dependencies()
 {
-  element_property_alist_
-    = handle_broken_smobs (element_property_alist_, line_l ());
+  if (Item*i =dynamic_cast<Item*> (this))
+    {
+      element_property_alist_
+	= handle_broken_smobs (element_property_alist_,
+			       gh_int2scm (i->break_status_dir ()));
+    }
 
   Link_array<Score_element> old_arr, new_arr;
   

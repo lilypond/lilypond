@@ -1,3 +1,15 @@
+pl 8.hwn2
+	- staff-support for Crescendi.
+	- padding for accidentals.
+	- cascading offset callbacks
+
+pl 8.hwn1
+	- note-head-side 
+	- naming Staff_sidify -> Side_position_interface
+
+
+
+***********
 pl7.mb1
 	- bf: timeSignatureStyle works again
 

@@ -7,11 +7,6 @@
   
  */
 
-/*
-
-  TODO: Quantisation support (staccato dots between stafflines)
-
-*/
 #include "debug.hh"
 #include "script.hh"
 #include "lookup.hh"
@@ -56,18 +51,9 @@ Script::do_pre_processing ()
 void
 Script::do_post_processing ()
 {
-  Direction d =  Staff_sidify (this).get_direction ();
+  Direction d =  Side_position_interface (this).get_direction ();
   Molecule m (get_molecule(d));
-
-  /*
-    UGH UGH UGH
-   */
-#if 0
-  if (staff_side_l_->get_elt_property ("no-staff-support") == SCM_UNDEFINED) 
-    translate_axis (- m.dim_[Y_AXIS][Direction (-d)], Y_AXIS);
-#endif
 }
-
 
 Molecule*
 Script::do_brew_molecule_p () const

@@ -101,7 +101,8 @@ public:
      #funcptr# is the function to call to update this element.
    */
   void calculate_dependencies (int final, int busy, Score_element_method_pointer funcptr);
-  static SCM handle_broken_smobs (SCM, Line_of_score*);
+
+  static SCM handle_broken_smobs (SCM, SCM criterion);
 
   virtual Score_element *find_broken_piece (Line_of_score*) const;
 protected:

@@ -64,17 +64,6 @@ project.  The webpages for the stable version reside at GNU.
 has the development pages.
 @end itemize
 
-@ignore
-@unnumberedsec NEWS
-    
-
-This is what the latest version brings:
-@example 
-
-top_of_NEWS
- 
-@end example 
-@end ignore
 
 @unnumberedsec Download
 
@@ -92,7 +81,6 @@ binary RPMs:  @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/RPMS/}
 @item Debian binary @uref{ftp://ftp.debian.org/pub/debian/dists/unstable/main/binary-i386/tex} 
 @item Windows NT:  @uref{http://home.austin.rr.com/jbr/jeff/lilypond/} 
 @item i386 RPM: @uref{http://linux.umbc.edu/software/lilypond/rpms/} 
-@item i386 RPM: @uref{ftp://ftp.freshmeat.net/pub/rpms/lilypond/} 
 @item Windows NT: @uref{http://home.austin.rr.com/jbr/jeff/lilypond/}
 @end itemize
 

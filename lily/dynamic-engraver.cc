@@ -113,7 +113,9 @@ Dynamic_engraver::do_process_requests()
 	  text_p_->set_elt_property ("style", gh_str02scm ("dynamic"));
 	  text_p_->set_elt_property ("script-priority",
 				     gh_int2scm (100));
-	  Staff_sidify (text_p_).set_axis (Y_AXIS);
+	  text_p_->set_elt_property ("staff-support", SCM_BOOL_T);
+	  
+	  Side_position_interface (text_p_).set_axis (Y_AXIS);
 
 	  
 	  if (absd->get_direction ())
@@ -133,7 +135,6 @@ Dynamic_engraver::do_process_requests()
 
 	  if (isdir_b (prop) && to_dir (prop))
 	    text_p_->set_elt_property ("direction", prop);
-
 
 	  prop = get_property ("dynamicPadding", 0);
 	  if (gh_number_p(prop))
@@ -165,8 +166,10 @@ Dynamic_engraver::do_process_requests()
 	      assert (!new_cresc_p);
 	      new_cresc_p  = new Crescendo;
 	      new_cresc_p->grow_dir_ = (span_l->span_type_str_ == "crescendo")  ? BIGGER : SMALLER;
+	      new_cresc_p->set_elt_property ("staff-support", SCM_BOOL_T);
 
-	      Staff_sidify (new_cresc_p).set_axis (Y_AXIS);
+
+	      Side_position_interface (new_cresc_p).set_axis (Y_AXIS);
 	      announce_element (Score_element_info (new_cresc_p, span_l));
 	    }
 	}
@@ -177,6 +180,8 @@ Dynamic_engraver::do_process_requests()
       if (cresc_p_)
 	{
 	  ::warning (_ ("Too many crescendi here"));
+
+
 	  typeset_element (cresc_p_);
 
 	  cresc_p_ = 0;
@@ -223,7 +228,6 @@ Dynamic_engraver::typeset_all ()
   if (to_end_cresc_p_)
     {
       to_end_cresc_p_->set_bounds(RIGHT,get_staff_info().musical_pcol_l ());
-
       typeset_element (to_end_cresc_p_);
 
       to_end_cresc_p_ =0;
@@ -246,13 +250,13 @@ Dynamic_engraver::acknowledge_element (Score_element_info i)
       )
     {
       if (text_p_)
-	Staff_sidify (text_p_).add_support (i.elem_l_);
+	Side_position_interface (text_p_).add_support (i.elem_l_);
 
       if (to_end_cresc_p_)
-	Staff_sidify (to_end_cresc_p_).add_support (i.elem_l_);
+	Side_position_interface (to_end_cresc_p_).add_support (i.elem_l_);
 
       if (cresc_p_)
-	Staff_sidify(cresc_p_).add_support (i.elem_l_);
+	Side_position_interface(cresc_p_).add_support (i.elem_l_);
     }
 }
 

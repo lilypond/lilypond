@@ -34,12 +34,7 @@ Grace_align_item::do_pre_processing ()
   translate_axis (-0.5* nhw, X_AXIS); // ugh.
 }
 
-void
-Grace_align_item::do_substitute_element_pointer (Score_element*o, Score_element*n)
-{
-  Axis_align_item::do_substitute_element_pointer (o,n);
-  Note_head_side::do_substitute_element_pointer( o,n);
-}
+
 void
 Grace_align_item::do_add_processing ()
 {

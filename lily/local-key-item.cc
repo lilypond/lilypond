@@ -44,9 +44,14 @@ Local_key_item::do_pre_processing()
 }
 
 Molecule
-Local_key_item::accidental (int j, bool cautionary) const
+Local_key_item::accidental (int j, bool cautionary, bool natural) const
 {
   Molecule m (lookup_l ()->afm_find (String ("accidentals-") + to_str (j)));
+  if (natural)
+    {
+	  Molecule prefix = lookup_l ()->afm_find (String ("accidentals-0"));
+	  m.add_at_edge(X_AXIS, LEFT, Molecule(prefix), 0);
+	}
   if (cautionary) 
     {
       Molecule open = lookup_l ()->afm_find (String ("accidentals-("));
@@ -87,7 +92,9 @@ Local_key_item::do_brew_molecule_p() const
 	(c0_position_i_ + p.notename_i_)
 	* note_distance;
       
-      Molecule m (accidental (p.accidental_i_, accidental_arr_[i].cautionary_b_));
+      Molecule m (accidental (p.accidental_i_,
+	                          accidental_arr_[i].cautionary_b_,
+	                          accidental_arr_[i].natural_b_));
 
       m.translate_axis (dy, Y_AXIS);
       octave_mol_p->add_at_edge (X_AXIS, RIGHT, m, 0);
@@ -103,18 +110,26 @@ Local_key_item::do_brew_molecule_p() const
   
  if (accidental_arr_.size()) 
     {
-      Box b(Interval (0, 0.6 * note_distance), Interval (0,0));
-      Molecule m (lookup_l ()->fill (b));
-      output->add_at_edge (X_AXIS, RIGHT, m, 0);
+      Drul_array<SCM> pads;
+
+      /*
+	Use a cons?
+       */
+      pads[RIGHT] = get_elt_property ("right-padding");
+      pads[LEFT] = get_elt_property ("left-padding");
+
+      Direction d = LEFT;
+      do {
+	if (!gh_number_p (pads[d]))
+	  continue;
+
+	Box b(Interval (0, gh_scm2double (pads[d]) * note_distance),
+	      Interval (0,0));
+	Molecule m (lookup_l ()->fill (b));
+	output->add_at_edge (X_AXIS, d, m, 0);
+      } while ( flip (&d)!= LEFT);
     }
 
   return output;
 }
 
-void
-Local_key_item::do_substitute_element_pointer (Score_element *o, Score_element*n)
-{
-  Note_head_side::do_substitute_element_pointer (o,n);
-  Staff_symbol_referencer::do_substitute_element_pointer (o,n);
-  
-}

@@ -46,7 +46,7 @@ class Dimension_cache
 
   void init ();
 public:
-  Offset_cache_callback off_callback_l_;
+  Array<Offset_cache_callback> off_callbacks_;
   
   Axis axis () const;
   Real get_offset () const;

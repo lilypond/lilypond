@@ -43,14 +43,13 @@ struct Local_key_cautionary_tuple
 class Local_key_item : public Note_head_side, public Staff_symbol_referencer {
   Array<Local_key_cautionary_tuple> accidental_arr_;
 
-  Molecule accidental (int,bool) const;
+  Molecule accidental (int,bool,bool) const;
 public:
   int c0_position_i_;
   Local_key_item ();
   void add_pitch (Musical_pitch, bool cautionary, bool natural);
 protected:
   virtual void do_pre_processing();
-  virtual void do_substitute_element_pointer (Score_element*,Score_element*);
   virtual Molecule* do_brew_molecule_p() const;
 };
 #endif // LOCALKEYITEM_HH

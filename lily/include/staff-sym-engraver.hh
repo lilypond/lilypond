@@ -7,8 +7,8 @@
 */
 
 
-#ifndef STAFF_SYM_GRAV_HH
-#define STAFF_SYM_GRAV_HH
+#ifndef STAFF_SYMBOL_GRAV_HH
+#define STAFF_SYMBOL_GRAV_HH
 #include "engraver.hh"
 #include "moment.hh"
 
@@ -29,4 +29,4 @@ protected:
   virtual void do_creation_processing();
 	
 };
-#endif // STAFF_SYM_GRAV_HH
+#endif // STAFF_SYMBOL_GRAV_HH

@@ -12,6 +12,7 @@
 #include "paper-column.hh"
 #include "staff-symbol-referencer.hh"
 #include "paper-def.hh"
+#include "staff-side.hh"
 
 Staff_symbol_engraver::~Staff_symbol_engraver()
 {
@@ -60,6 +61,14 @@ Staff_symbol_engraver::acknowledge_element (Score_element_info s)
   if (Staff_symbol_referencer * st = dynamic_cast<Staff_symbol_referencer*> (s.elem_l_))
     {
       st->set_staff_symbol (span_p_);      
+    }
+  
+  SCM ss =s.elem_l_->remove_elt_property ("staff-support");
+  if (gh_boolean_p (ss) && gh_scm2bool (ss))
+    {
+      Side_position_interface si (s.elem_l_);
+      if (si.is_staff_side_b ())
+	si.add_support (span_p_);
     }
 }
 
