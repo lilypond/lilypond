@@ -82,9 +82,8 @@ Time_description::set_meter(int l, int o)
     assert(o);
     one_beat_ = Rational(1)/Moment(o);
     whole_per_measure_ = Moment(l) * one_beat_;
-    if(whole_in_measure_)
-	error_t("Meterchange should be at start of measure", *this);
 }
+
 bool
 Time_description::allow_meter_change_b()
 {
@@ -99,8 +98,6 @@ Time_description::allow_meter_change_b()
 String
 Time_description::try_set_partial_str(Moment p)const
 {
-      if (when_)
-	return ("Partial measure only allowed at beginning.");
     if (p<Rational(0))
 	return ("Partial must be non-negative");
     if (p > whole_per_measure_)
