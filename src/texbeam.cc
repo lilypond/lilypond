@@ -34,7 +34,7 @@ static int
 slope_index(Real &s)
 {
     if (abs(s) > 0.5) {
-	WARN << "beam steeper than 0.5";
+	WARN << "beam steeper than 0.5\n";
 	s = sign(s) * 0.5;
     }
 

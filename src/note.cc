@@ -1,4 +1,7 @@
-#include <ctype.h>
+/*
+  could use cleanup
+ */
+  #include <ctype.h>
 #include "lexer.hh"
 #include "string.hh"
 #include "real.hh"
@@ -9,11 +12,27 @@
 #include "identparent.hh"
 #include "varray.hh"
 #include "textdef.hh"
-
+#include "parseconstruct.hh"
 
 int default_duration = 4, default_dots=0, default_octave=0;
 int default_plet_type = 1, default_plet_dur = 1;
 String textstyle="roman";		// in lexer?
+
+bool last_duration_mode = false;
+
+void
+set_duration_mode(String s)
+{
+    s.upper();
+    last_duration_mode = (s== "LAST");
+}
+
+void
+last_duration(int n)
+{
+    if (last_duration_mode)
+	default_duration = n;
+}
 
 /* triplet is '2/3' */
 void set_plet(int num,int den)
@@ -29,6 +48,7 @@ get_text(String s) return t;
     t= new Text_def;
     t->text_str_= s;
     t->style_str_ = textstyle;
+    t->defined_ch_c_l_m = defined_ch_c_l;
     return t;
 }
 
@@ -89,6 +109,9 @@ get_note_element(String pitch, int * notename, int * duration )
 	v->add(st);
     }
     
+    if ( !defined_ch_c_l )
+        defined_ch_c_l = lexer->here_ch_c_l();
+
     Note_req * rq = new Note_req;
     
     int oct;
@@ -101,9 +124,11 @@ get_note_element(String pitch, int * notename, int * duration )
     rq->balltype = dur;
     rq->dots = dots;
     rq->plet_factor = Moment(default_plet_dur, default_plet_type);
+    rq->defined_ch_c_l_m = defined_ch_c_l;
     rq->print();
 
     v->add(rq);
+    v->defined_ch_c_l_m = defined_ch_c_l;
 
     return v;
 }
@@ -117,6 +142,13 @@ get_word_element(Text_def* tdef_p, int* duration)
     int dur = duration[0];
     int dots=duration[1];
     
+    tdef_p->defined_ch_c_l_m = defined_ch_c_l;
+#if 0
+    char buf[ 21 ];
+    strncpy( buf, tdef_p->defined_ch_c_l_m, 20 );
+    buf[ 20 ] = 0;
+    cout << hex << (void*)tdef_p->defined_ch_c_l_m << dec << buf << endl;
+#endif
     Lyric_req* lreq_p = new Lyric_req(tdef_p);
 
     lreq_p->balltype = dur;
@@ -147,7 +179,7 @@ get_rest_element(String,  int * duration )
 void
 get_default_duration(int *p)
 {
-   *p++ = default_duration;
+    *p++ = default_duration;
     *p = default_dots;
 }
 
@@ -170,10 +202,10 @@ set_default_octave(String d)
 Request*
 get_request(char c)
 {
-    Request* ret=0;
+    Request* req_p=0;
     switch (c) {
     case '|':
-	ret = new Barcheck_req;
+	req_p = new Barcheck_req;
 	break;
 
     case '[':
@@ -182,14 +214,14 @@ get_request(char c)
 	Beam_req*b = new Beam_req;
 	if (default_plet_type != 1)
 	    b->nplet = default_plet_type;
-	ret = b;
+	req_p = b;
     }
 	break;
 
 
     case ')':
     case '(':
-	ret = new Slur_req;
+	req_p = new Slur_req;
 	break;
     default:
 	assert(false);
@@ -199,18 +231,19 @@ get_request(char c)
     switch (c) {
     case '(':
     case '[':
-	ret->span()->spantype = Span_req::START;
+	req_p->span()->spantype = Span_req::START;
 	break;
     case ')':
     case ']':
-	ret->span()->spantype = Span_req::STOP;
+	req_p->span()->spantype = Span_req::STOP;
 	break;
 	
     default:
 	break;
     }
 
-    return ret;
+    req_p->defined_ch_c_l_m = req_defined_ch_c_l;
+    return req_p;
 }
 
 void
@@ -280,5 +313,15 @@ get_barcheck_element()
     Voice_element*v_p = new Voice_element;
     v_p->add( new Barcheck_req);
     
+    return v_p;
+}
+
+Voice_element*
+get_stemdir_element(int d)
+{
+    Voice_element*v_p = new Voice_element;
+    Group_feature_req * gfreq_p = new Group_feature_req;
+    gfreq_p->stemdir_i_ =d; 
+    v_p->add(gfreq_p);
     return v_p;
 }

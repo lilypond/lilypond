@@ -9,8 +9,10 @@
 
 #include "proto.hh"
 #include "string.hh"
+
+/* boolean argument to accesor is copy_b..*/
 #define IDACCESSOR( Input_staff, staff)\
-    virtual Input_staff * staff(bool = false) { error(#Input_staff); return 0; }
+    virtual Input_staff * staff(bool) { error(#Input_staff); return 0; }
 
 struct Identifier {
     void *data;
@@ -27,6 +29,7 @@ struct Identifier {
     IDACCESSOR(Symtables, symtables)
     IDACCESSOR(Music_general_chord, mchord)
     IDACCESSOR(Lookup,lookup)
+    IDACCESSOR(Real,real)
     IDACCESSOR(Notename_tab, notename_tab)
 private:
     Identifier(Identifier const&){}

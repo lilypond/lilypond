@@ -7,6 +7,7 @@
 #include "inputcommands.hh"
 #include "molecule.hh"
 #include "staffcommands.hh"
+#include "sourcefile.hh"
 
 
 #include "plist.tcc"
@@ -19,3 +20,4 @@ IPL_instantiate(Commands_at);
 IPL_instantiate(Staff_commands_at);
 IPL_instantiate(Input_staff);
 IPL_instantiate(Input_music);
+IPL_instantiate(Source_file);

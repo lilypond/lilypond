@@ -11,14 +11,13 @@
 #include "item.hh"
   
 struct Text_item : Item {
-    const char * name() const;
     int pos_i_;
     int staffsize_i_;
     int dir_i_;
     Text_def* tdef_l_;
     
     /****************/
-    
+    const char * name() const;    
     virtual void set_default_pos();
     Molecule* brew_molecule_p() const;
     void do_pre_processing();

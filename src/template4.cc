@@ -1,3 +1,4 @@
+#include "proto.hh"
 #include "list.tcc"
 #include "cursor.tcc"
 

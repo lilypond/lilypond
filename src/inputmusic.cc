@@ -1,6 +1,7 @@
 #include "debug.hh"
 #include "inputmusic.hh"
 #include "voice.hh"
+#include "request.hh"
 
 void
 Simple_music::add(Voice_element*v)
@@ -9,7 +10,7 @@ Simple_music::add(Voice_element*v)
 }
 
 Moment
-Simple_music::length()
+Simple_music::length()const
 {
     return voice_.last();
 }
@@ -20,7 +21,7 @@ Simple_music::translate_time(Moment t)
 }
 
 Voice_list
-Simple_music::convert()
+Simple_music::convert()const
 {
     Voice_list l;
     l.bottom().add(new Voice(voice_));
@@ -67,7 +68,12 @@ Complex_music::Complex_music(Complex_music const&s)
     for (iter_top(s.elts,i); i.ok(); i++)
 	add(i->clone());
 }
-
+void
+Complex_music::set_default_group(String g)
+{
+    for (iter_top(elts,i); i.ok(); i++)
+	    i->set_default_group(g);
+}
 /****************************************************************/
 
 void
@@ -94,9 +100,9 @@ Music_voice::add_elt(Voice_element*v)
 }
 
 Moment
-Music_voice::length()
+Music_voice::length()const
 {
-    Moment l = 0.0;
+    Moment l = 0;
     
     for (iter_top(elts,i); i.ok(); i++)
 	l += i->length();
@@ -105,10 +111,10 @@ Music_voice::length()
 
     
 Voice_list
-Music_voice::convert()
+Music_voice::convert()const
 {
     Voice_list l;
-    Moment here = 0.0;
+    Moment here = 0;
     
     for (iter_top(elts,i); i.ok(); i++) {
 	Moment len = i->length();	
@@ -154,7 +160,7 @@ Music_general_chord::translate_time(Moment t)
 }
 
 Moment
-Music_general_chord::length()
+Music_general_chord::length()const
 {
     Moment l =0.0;
     
@@ -164,7 +170,7 @@ Music_general_chord::length()
 }
 
 Voice_list
-Music_general_chord::convert()
+Music_general_chord::convert()const
 {
     Voice_list l;
     for (iter_top(elts,i); i.ok(); i++) {
@@ -172,6 +178,18 @@ Music_general_chord::convert()
 	l.concatenate(k);
     }
     return l;
+}
+
+/****************/
+
+void
+Multi_voice_chord::set_default_group(String g)
+{
+    int j=0;
+    for (iter_top(elts, i); i.ok(); i++) {
+	i->set_default_group(g + String(j));
+	j++;
+    }
 }
 
 

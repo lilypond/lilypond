@@ -15,7 +15,8 @@ public:
     File_path(String);
 
     /// add to end of path.
-    Array<String>:: push;
+    Array<String>::push;
+    void add(String str) { push(str); }
 };
 /**
 

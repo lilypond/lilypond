@@ -12,11 +12,10 @@
 
 horn =
 staff {
-%	melodic
-	complex
+	melodic
 	music{ 	$
 	\octave { ' }
-	\duration { 8}
+	\duration { 8 }
 
 % 1
 	d2(( [)d e cis `b]		|	
@@ -118,7 +117,6 @@ score {
 		bar "|:"
 		skip 10:0
 		bar ":|"
-		meter 4* 4
 		skip 13:0
 		bar "||"
 	}

@@ -5,3 +5,4 @@
 #include "plist.tcc"
 
 IPL_instantiate(Voice_registers);
+IPL_instantiate(Voice_group_registers);

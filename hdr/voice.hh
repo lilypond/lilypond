@@ -17,6 +17,7 @@ struct Voice {
     Voice(Voice const&);
     void add(Voice_element*);
     void print() const;
+    void set_default_group(String id);
 };
 /**
 
@@ -28,6 +29,7 @@ struct Voice {
 /// one horizontal bit. 
 struct Voice_element {
     Moment duration;
+    char const* defined_ch_c_l_m;
     const Voice *voice_l_;
     IPointerList<Request*> reqs;
 
@@ -37,6 +39,7 @@ struct Voice_element {
     Voice_element();
     Voice_element(Voice_element const & src );
     void print ()const;
+    void set_default_group(String id);
 };
 /** Apart from being a container for the requests, Voice_element is nothing
     */

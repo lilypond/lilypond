@@ -8,5 +8,5 @@
 
 const Real EPS=1e-7;		// qlpsolve.hh
 const int MAXITER=100;		// qlpsolve.hh
-const Real INFTY=HUGE;
+const Real INFTY=HUGE_VAL;
 #endif

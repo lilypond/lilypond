@@ -13,7 +13,8 @@ void kill_lexer();
 void set_lexer();
 
 struct Input_file {
-	istream*is;
+	istream* is;
+	Source_file* sourcefile_l_;
 	int line;
 	String name;
 
@@ -29,9 +30,11 @@ struct My_flex_lexer : yyFlexLexer {
     Assoc<String, Identifier*> *the_id_tab;
     Keyword_table * keytable;
     Notename_tab * defaulttab;
-
+    char const* data_ch_c_l_m;
+    int errorlevel_i_;
     /****************/
-    
+    int ret_notename(int *p, String text, int octave_mod);    
+    char const* here_ch_c_l();
     void set(Notename_tab *n);
     int lookup_keyword(String);
     void lookup_notename(int &large, int &small, String s);

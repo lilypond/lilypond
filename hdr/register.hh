@@ -12,11 +12,10 @@
 /// data container.
 struct Staff_elem_info {
     Staff_elem * elem_p_;
-//    Array<const Request*> requestor_l_arr_;
     Request*req_l_;
     const Voice * voice_l_;
     Voice_group_registers * group_regs_l_;
-    int group;
+ 
     Request_register * origin_reg_l_;
 
     /****/
@@ -49,7 +48,7 @@ struct Request_register {
       RETURN
       false: request noted, but not taken.
 
-      true: request swallowed, now owned by this
+      true: request swallowed. Don't try to put elsewhere
 
       (may be we could use C++ exceptions.. :-)
       */
@@ -71,7 +70,7 @@ protected:
   */
 
 struct Notehead_register : Request_register {
-    Item* note_l_;
+    Item* note_p_;
     /****************/
     Notehead_register(Complex_walker*);
     virtual bool try_request(Request *req_l) ;
@@ -80,10 +79,10 @@ struct Notehead_register : Request_register {
 };
 
 struct Slur_register : Request_register {
+    sstack<Slur_req*> requests_arr_;
     sstack<Slur *> slur_l_stack_;
     Array<Slur*> end_slur_l_arr_;
-
-
+    
     /****************/
     ~Slur_register();
     Slur_register(Complex_walker*);
@@ -98,12 +97,15 @@ struct Stem_beam_register : Request_register {
     Beam * beam_p_;
     Beam_req * beam_req_l_;
     Stem_req * stem_req_l_;
+    Beam_req * start_req_l_;
     bool end_beam_b_;
     Rhythmic_grouping *current_grouping;
-
+    int default_dir_i_;
+    
     /****************/
     Stem_beam_register(Complex_walker*);
     ~Stem_beam_register();
+    void set_dir(int dir_i_);
     virtual bool try_request(Request*);
     virtual void process_request();
     virtual void acknowledge_element(Staff_elem_info);
@@ -111,10 +113,11 @@ struct Stem_beam_register : Request_register {
     virtual void do_post_move_process();
 };
 
-#if 0
 struct   Script_register : Request_register {
     Script * script_p_;
+    
     /****************/
+    void set_dir(int dir_i_);
     Script_register(Complex_walker*);
     virtual bool try_request(Request*);
     virtual void process_request();
@@ -122,17 +125,17 @@ struct   Script_register : Request_register {
     virtual void do_pre_move_process();
 };
 
-struct Text_register:Request_register{
+struct Text_register : Request_register{
     Text_item * text_p_;
 
     /****************/
+    void set_dir(int dir_i_);
     Text_register(Complex_walker*);
     virtual bool try_request(Request*);
     virtual void process_request();
-    virtual void acknowledge_element(Staff_elem_info);
     virtual void do_pre_move_process();
 };
-#endif
+
 
 struct Local_key_register : Request_register {
     Local_key_item* key_item_p_;

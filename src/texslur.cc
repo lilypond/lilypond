@@ -50,7 +50,7 @@ Lookup::half_slur_middlepart(Real &dx, int dir)
 	idx += 128;
 
 
-    f+=String( "{" ) + idx + "}";
+    f+=String( "{" ) + String( idx ) + "}";
     s.tex = f;
     Atom a(s);
     a.translate(Offset(dx/2,0));
@@ -99,7 +99,7 @@ Lookup::half_slur(int dy, Real &dx, int dir, int xpart)
     if (xpart < 0)
 	idx += 128;
     
-    f+=String( "{" ) + idx + "}";
+    f+=String( "{" ) + String( idx ) + "}";
 
     
     s.tex = f;
@@ -144,7 +144,7 @@ Lookup::slur (int dy , Real &dx, int dir)
     s.dim.x = Interval(0,dx);
     s.dim.y = Interval(min(0,dy), max(0,dy));
 
-    String f = String("\\slurchar") + direction_char(y_sign);
+    String f = String("\\slurchar") + String( direction_char(y_sign) );
 
     int idx=-1;
     if (y_sign) {	
@@ -159,7 +159,7 @@ Lookup::slur (int dy , Real &dx, int dir)
 	    idx += 54;		
     }
     
-    f+=String( "{" ) + idx + "}";
+    f+=String( "{" ) + String( idx ) + "}";
     s.tex = f;
 
     Atom a(s);

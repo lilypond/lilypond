@@ -1,3 +1,29 @@
+pl 27
+	- preliminary WIN32 support (JN)
+Features
+	- errors converted to warnings (JN)
+	- context errors (JN)
+	- As vs. as  notename.
+	- WARNING: "melodic" stafftype will create the new Complex_staff!
+Examples
+	- Lohman's Viola Quartet (JN)
+	- JS Bach Solo Cello suite II menuet (JN)
+
+
+pl pre27
+
+Features	
+	- option --init
+	- last_duration_mode: default_duration is last duration entered
+	(\duration{\last})
+	- syntax: grouping 2*4 3*8
+	- preliminary multivoice support
+Examples
+	- JS Bach's WTK example added.
+
+Internal:
+	- Text_reg and Script_reg
+
 pl 26
 	- Documentation/lelie_logo.png
 	- 8-bit chars for input (see ltest.tex) (MB)

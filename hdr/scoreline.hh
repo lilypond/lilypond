@@ -6,8 +6,8 @@
 
 #ifndef SCORELINE_HH
 #define SCORELINE_HH
-#include "plist.hh"
 #include "proto.hh"
+#include "plist.hh"
 #include "varray.hh"
 
 /// the columns of a score that form one line.

@@ -1,0 +1,23 @@
+\documentclass{article}         %UGH
+\usepackage{a4}
+\oddsidemargin-1in\advance\oddsidemargin7.5mm
+\evensidemargin\oddsidemargin
+\textwidth\hsize\advance\textwidth-15mm
+\topmargin-1in\advance\topmargin5mm
+\vsize297mm % so what does a4 do, anyway?
+\textheight\vsize\advance\textheight-30mm
+\pagestyle{empty}
+\begin{document}
+\input lilyponddefs
+\input titledefs
+%\def\interstaffline{\vskip10pt}
+%\def\interscoreline{\vskip12pt}
+\def\interstaffline{\vskip1mm}
+\def\interscoreline{\vskip2mm}
+\vbox to 10mm{\vss}
+\title{Viola Quartet}
+\composer{Martien Lohman}
+\instrument{}
+\maketit
+\input martien.out
+\end{document}

@@ -2,6 +2,11 @@
 #include "lexer.hh"
 #include "moment.hh"
 #include "timedescription.hh"
+#include "proto.hh"
+#include "plist.hh"
+#include "sourcefile.hh"
+#include "source.hh"
+#include "main.hh"
 
 ostream &warnout (cerr);
 ostream *mlog(&cerr);
@@ -32,10 +37,39 @@ error_t(const String& s, const Moment& r)
     error(e);
 }
 
-
 void
 error_t(const String& s, Time_description const &t_tdes)
 {
-    String e=s+ " (at t=" + t_tdes.bars + ": " + t_tdes.whole_in_measure + ")\n";
+    String e=s+ " (at t=" + String(t_tdes.bars) + ": " + String(t_tdes.whole_in_measure) + ")\n";
     error(e);
+}
+
+void
+message( String message_str, char const* context_ch_c_l )
+{
+    String str = "lilypond: ";
+    Source_file* sourcefile_l = source_l->sourcefile_l( context_ch_c_l );
+    if ( sourcefile_l ) {
+	str += sourcefile_l->name_str() + ": ";
+	str += String( sourcefile_l->line_i( context_ch_c_l ) ) + ": ";
+    }
+    str += message_str;
+    if ( sourcefile_l ) {
+	str += "\n";
+	str += sourcefile_l->error_str( context_ch_c_l );
+    }
+    cerr << endl << str << endl;
+}
+
+void
+warning( String message_str, char const* context_ch_c_l )
+{
+    message( "warning: " + message_str, context_ch_c_l );
+}
+
+void
+error( String message_str, char const* context_ch_c_l )
+{
+    message( message_str, context_ch_c_l );
+    exit( 1 );
 }

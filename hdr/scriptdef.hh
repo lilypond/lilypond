@@ -15,6 +15,7 @@ struct Script_def{
     String symidx;
 
     /****************/
+    int compare(Script_def const &);
     void print() const;
     Script_def(String, int, int ,bool);
 };

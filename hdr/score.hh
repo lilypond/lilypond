@@ -17,6 +17,7 @@ struct Score {
     PScore *pscore_p_;
 
     String define_spot_str_;
+    int errorlevel_i_;
     
     Assoc<String, Moment> markers_assoc_;
     /****************************************************************/

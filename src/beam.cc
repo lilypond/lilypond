@@ -1,3 +1,5 @@
+#include "varray.hh"
+
 #include "dimen.hh"
 #include "beam.hh"
 #include "misc.hh"
@@ -72,8 +74,8 @@ Beam::set_default_dir()
     int dirs[2];
     dirs[0]=0; dirs[1] =0;
     for (iter_top(stems,i); i.ok(); i++) {
-	i->set_default_dir();
-	dirs[(i->dir+1)/2] ++;
+	int d = i->get_default_dir();
+	dirs[(d+1)/2] ++;
     }
     dir =  (dirs[0] > dirs[1]) ? -1 : 1;
     for (iter_top(stems,i); i.ok(); i++) {

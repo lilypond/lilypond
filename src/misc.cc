@@ -11,7 +11,7 @@ wholes(int dur, int dots)
 	return 0.0;
 
     // stupid Intel: doesn't crash if !dur
-    Moment f = 1/Moment(dur);
+    Moment f = Rational(1)/Moment(dur);
     Moment delta = f;
 
     while (dots--) {

@@ -5,7 +5,7 @@ cat << HERE
 /*
   $1 -- part of LilyPond
 
-  (c) 1996,1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1997 $USERNAME <$MAILADRESS>
 */
 
 #ifndef $def

@@ -70,9 +70,11 @@ Staff_commands_at::insert_between(Command victim, PCursor<Command*> firstc,
 				  PCursor<Command*> last)
 {
     PCursor<Command*> c(firstc+1);
-    assert(firstc < last&&last.ok());
+//    assert(firstc < last&&last.ok());
+    assert(firstc->code < last->code && last.ok());
     
-    while (c < last) { 
+//    while (c < last) { 
+    while (c->code < last->code ) { 
 	if (c->priority <= victim.priority) {
 	    c.insert(new Command(victim));
 	    return;

@@ -24,11 +24,11 @@ Script::set_support(Item*i)
 Script::Script(Script_req* rq, int staflen)
 {    
     staffsize =staflen;
-    specs_l_ = rq->scriptdef;
+    specs_l_ = rq->scriptdef_p_;
     stem_l_ = 0;
     pos = 0;
     symdir=1;
-    dir =rq->dir;
+    dir =rq->dir_i_;
 }
 
 void

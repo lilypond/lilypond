@@ -1,6 +1,6 @@
 =head1 NAME
 
-Lilypond - a music typesetter
+LilyPond - a music typesetter
 
 =head1 SYNOPSIS
 
@@ -29,8 +29,11 @@ multiple stafftypes (melodic, rhythmic)
 
 =item *
 beams, slurs, chords, super/subscripts (accents and text),
-triplets,  general n-plet (triplet,
-quadruplets, etc.), lyrics
+triplets, general n-plet (triplet, quadruplets, etc.), lyrics
+
+=item *
+multiple voices within one staff; beams optionally shared
+between voices.
 
 =item *
 multiple scores within one input file. Each score is output to
@@ -136,6 +139,13 @@ Set the default output file to F<FILE>.
 
 Show a summary of usage
 
+=item 	B<--init, -i>
+
+set init file (default: symbol.ini)
+
+=item B<--include, -I>
+add to file search path.
+
 =back
 
 =head1 
@@ -196,8 +206,6 @@ The MusixTeX fonts. (I use version T.59)
 Do:
 
 	tar zxf flower-1.11.9.tar.gz
-	mv flower-1.11.9 flower
-	cd flower; make; cd ..
 	tar zxf lilypond-1.2.13.tar.gz
 	cd lilypond-1.2.13
 	configure
@@ -236,8 +244,8 @@ named return values
 Han-Wen Nienhuys <hanwen@stack.nl>, Main author
 
 =item *
-Jan Nieuwenhuizen <jan@digicash.com>, Lyrics, bits of
-FlowerLib, general comments.
+Jan Nieuwenhuizen <jan@digicash.com>, Context errors, Lyrics,
+bits of FlowerLib, general comments.
 
 =item *
 Mats Bengtsson <matsb@s3.kth.se>, bugfixes, testing, general comments.
@@ -260,11 +268,10 @@ discouraged; this is what I type in my xterm:
 
 This is what the output looks like over here:
 
-	hw:~/musix/spacer$ lilypond input/maartje
-	LilyPond 0.0.23/FlowerLib 1.0.20. Compile: Jan 20 1997, 00:51:06 (g++ 2.7.2)
+	hw:~/musix/spacer$ lilypond input/maartje.ly
+	LilyPond 0.0.27/FlowerLib 1.0.23. Compile: Feb  5 1997, 00:28:13 (g++ 2.7.2)
 	Parsing ... [./init//symbol.ini[./init/dutch.ini][./init/script.ini][./init/table_sixteen.ini]][./input/maartje.ly]
-	Processing music ... warning: process_requests(): beamed note should have a stem (t = 5/8)
-	Preprocessing ... Calculating ... Postprocessing ... 
+	Processing music ... Preprocessing ... Calculating ... Postprocessing ... 
 	output to lelie.out...
 
 	hw:~/musix/spacer$ tex test
@@ -345,9 +352,9 @@ failed, obviously).
 After long and hard thinking, I came up with an algorithm for the
 horizontal spacing of multiple staffs (april 1996) I coded it (and did
 not test it). After starting with this fundamental piece, I slowly
-added the stages which come before spacing, and after a few months, I
-had a first working version, (october 1996).  I announced Patchlevel 0.0.7
-(or 8) to the mutex list after asking some technical details on
-spacing; it was downloaded approximately 4 times.  Then I got the hang
-of it, and in the subsequent two months, I coded until it had
-doubled in size (pl 23).
+added the stages which come before spacing, and after.  A half year
+later later, I had a first working version, (october 1996).  I
+announced Patchlevel 0.0.7 (or 8) to the mutex list after asking some
+technical details on spacing; it was downloaded approximately 4 times.
+Then I got the hang of it, and in the subsequent two months, I coded
+until it had doubled in size (pl 23).

@@ -39,7 +39,8 @@ Stem::set_stemend(Real se)
 {
 
     // todo: margins
-    assert((dir > 0 && se >= maxnote) || (se <= minnote && dir <0));
+    if (!  ((dir > 0 && se >= maxnote) || (se <= minnote && dir <0))  )	
+ 	WARN << "Weird stem size; check for narrow beams.\n";
     
     top = (dir < 0) ? maxnote           : se;
     bot = (dir < 0) ? se  : minnote;
@@ -63,13 +64,19 @@ Stem::add(Notehead *n)
 }
 
 
+int
+Stem::get_default_dir()
+{
+    if (dir)
+	return dir;
+    Real mean = (minnote+maxnote)/2;
+    return (mean > staff_center) ? -1: 1;
+}
 void
 Stem::set_default_dir()
 {
-    Real mean = (minnote+maxnote)/2;
-    dir = (mean > staff_center) ? -1: 1;
+    dir = get_default_dir();
 }
-
 void
 Stem::set_default_stemlen()
 {

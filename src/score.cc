@@ -160,6 +160,7 @@ Score::Score(Paperdef*p)
 {
     pscore_p_=0;
     paper_p_ = p;		// ?? safe?
+    errorlevel_i_ = 0;
 }
 
 Score::~Score()
@@ -175,6 +176,12 @@ Score::output(String s)
     if (paper_p_->outfile=="")
 	paper_p_->outfile = s;
     
+    if ( errorlevel_i_ ) { 
+	*mlog << "lilypond: warning: no output to: " << paper_p_->outfile 
+	<< " (errorlevel=" << errorlevel_i_ << ")" << endl;
+        return;
+    }
+
     *mlog << "output to " << paper_p_->outfile << "...\n";
     
     Tex_stream the_output(paper_p_->outfile);

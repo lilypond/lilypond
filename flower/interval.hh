@@ -19,7 +19,7 @@ struct Interval_t {
 
     /****************/
     
-    T center() { return (left + right) /2;}
+    T center() { return (left + right) / T(2);}
     void translate(T t) {
 	left += t;
 	right += t;

@@ -142,7 +142,8 @@ Staff::setup_staffcols()
 	    Staff_column *s_l=get_col(now,true);
 	    s_l->add(j);
 	    now += j->duration;	    
-	}	
+	}
+	
     }
     set_time_descriptions();
 }

@@ -1,2 +1,4 @@
+pl 23
+	- win32 patches (JN)
 pl 22:
 	- Array::add -> Array::push

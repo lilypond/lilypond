@@ -1,11 +1,14 @@
 #ifndef MISC_HH
 #define MISC_HH
 
+#include "proto.hh"
 #include "real.hh"
 #include "moment.hh"
+#include "scalar.hh"
 
 Moment wholes(int dur, int dots);
-    
+
+Rhythmic_grouping parse_grouping(const Array<Scalar> &a);    
 double log_2(double x) ;
 int intlog2(int d);
 inline int

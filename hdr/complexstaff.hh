@@ -16,7 +16,9 @@
 /// column of Complex_staff: store one request
 struct Complex_column : Staff_column {
 
-    Array<Request*> todo_l_arr_;
+    Array<Request*> first_l_arr_;
+    Array<Request*> second_l_arr_;
+
     Complex_staff* staff_l_;
     
     /****************/

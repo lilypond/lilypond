@@ -32,7 +32,7 @@ In musicmode, eg,
 
 and in lyricmode, eg,
 
-	Twink- le, twink- le litt- le star,2
+	Twin- kle, twin- kle lit- tle star,2
 
 a lot of characters parse differently
 than in "command" mode, eg,

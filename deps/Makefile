@@ -7,4 +7,4 @@ dist:
 	ln $(DISTFILES) $(DDIR)/$(SUBDIR)
 
 clean:
-	rm -f *.dep
+	true

@@ -10,6 +10,7 @@
 struct Input_score {
     /// defined where?    
     String define_spot_str_;
+    int errorlevel_i_;
     
     /// paper_, staffs_ and commands_ form the problem definition.
     Paperdef *paper_;

@@ -59,6 +59,7 @@ struct Stem : Item {
     Real hpos()const;
     void do_print() const;
     void set_stemend(Real);
+    int get_default_dir();
     void set_default_dir();
     void set_default_stemlen();
     void set_default_extents();

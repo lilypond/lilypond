@@ -53,12 +53,18 @@ Voice_registers::process_requests()
     slur_reg_.process_request();
 }
 
+bool
+Voice_registers::acceptable_request(Request*r)
+{
+    return (r->rest() || r->note() || r->slur());
+    
+}
 /****************/
 
 Notehead_register::Notehead_register(Complex_walker*w_l)
     :Request_register(w_l)
 {
-    note_l_ = 0;
+    note_p_ = 0;
 }
 
 bool
@@ -75,34 +81,36 @@ Notehead_register::try_request(Request *req_l)
 void
 Notehead_register::process_request()
 {
+    if (!accepted_req_arr_.size())
+	return;
+    
     Request* req_l = accepted_req_arr_.last();
     if (req_l->note()) {
 	Notehead*n_p = new Notehead(8);	// ugh
-	note_l_ = n_p;
+	note_p_ = n_p;
 	n_p->set_rhythmic(req_l->rhythmic());
 	n_p->position = req_l->note()->height() + -2;
     } else {
-	note_l_ = new Rest ( req_l->rhythmic()->balltype,
+	note_p_ = new Rest ( req_l->rhythmic()->balltype,
 			     req_l->rhythmic()->dots);
 	if (req_l->rhythmic()->balltype <= 2)
-	    note_l_->translate(
+	    note_p_->translate(
 		Offset(0,
-		       5 * walk_l_->staff()->paper()->internote()));
+		       6 * walk_l_->staff()->paper()->internote()));
     }
-    Staff_elem_info itinf(note_l_,req_l,this);
+    Staff_elem_info itinf(note_p_,req_l,this);
     walk_l_->announce_element(itinf);
 }
 
 void
 Notehead_register::do_pre_move_process()
 {
-    if (note_l_) {
-	walk_l_->typeset_element(note_l_);
-	note_l_ = 0;
+    if (note_p_) {
+	walk_l_->typeset_element(note_p_);
+	note_p_ = 0;
     }
 }
 
-/****************/
 /****************/
 
 Slur_register::Slur_register(Complex_walker* w)
@@ -131,21 +139,29 @@ Slur_register::acknowledge_element(Staff_elem_info info)
 	    end_slur_l_arr_[i]->add(head_p);
     }
 }
-
+/*
+  abracadabra
+  */
 void
 Slur_register::process_request()
 {
     Array<Slur*> start_slur_l_arr_;
     for (int i=0; i< accepted_req_arr_.size(); i++) {
 	Slur_req* slur_req_l = accepted_req_arr_[i]->slur();
+	// end slur: move the slur to other array
 	if (slur_req_l->spantype == Span_req::STOP) {
 	    if (slur_l_stack_.empty())
-		error_t("can't find slur to end; ", 
-			*walk_l_->col()->tdescription_);
-	    end_slur_l_arr_.push(slur_l_stack_.pop());
-	    
+		warning("can't find slur to end; ",
+		      slur_req_l->defined_ch_c_l_m);
+	    else {
+		end_slur_l_arr_.push(slur_l_stack_.pop());
+		requests_arr_.pop();
+	    }
 	} else  if (slur_req_l->spantype == Span_req::START) {
+	    // push a new slur onto stack.
+	    //(use temp. array to wait for all slur STOPs)
 	    Slur * s_p =new Slur;
+	    requests_arr_.push(slur_req_l);
 	    start_slur_l_arr_.push(s_p);
 	    walk_l_->announce_element(Staff_elem_info(s_p, slur_req_l, this));
 	}
@@ -164,6 +180,7 @@ Slur_register::do_pre_move_process()
 
 Slur_register::~Slur_register()
 {
-    if (slur_l_stack_.size())
-	error("unterminated slur");
+    for (int i=0; i < requests_arr_.size(); i++) {
+	warning("unterminated slur: ", requests_arr_[i]->defined_ch_c_l_m);
+    }
 }

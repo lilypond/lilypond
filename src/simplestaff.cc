@@ -37,7 +37,8 @@ Simple_column::setup_requests()
 	    Request *rq= j;
 	    if (rq->barcheck()) {
 		if (tdescription_->whole_in_measure) {
-		    error("Barcheck failed, " + tdescription_->str());
+//		    error("Barcheck failed, " + tdescription_->str());
+		    error( "Barcheck failed", rq->defined_ch_c_l_m );
 		}
 	    }
 	    if (rq->rhythmic()){
