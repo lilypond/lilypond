@@ -22,6 +22,14 @@
 class Musical_req  : public virtual Request  {
 public:
     
+    virtual Lyric_req* lreq_l() { return 0; }
+    virtual Note_req *note() { return 0;}
+    virtual Stem_req *stem() { return 0;}
+    virtual Melodic_req *melodic() { return 0; }
+    virtual Slur_req *slur() { return 0 ; }
+    virtual Beam_req *beam() { return 0 ; }
+    virtual Rhythmic_req*rhythmic() { return 0; }
+    virtual Musical_script_req*musicalscript() { return 0; }
     virtual Skip_req* skip() { return 0; }
     virtual Dynamic_req* dynamic() { return 0; }
     virtual Absolute_dynamic_req * absdynamic() { return 0; }
@@ -167,21 +175,6 @@ public:
   
 };
 
-/** 
- request for backward plet generation.
-
- ugr. Place in hierarchy?
- */
-class Plet_req  : public virtual Request  {
-public:
-     char type_c_;
-     int dur_i_;
-     int type_i_;
-     Plet_req();
- 
-     REQUESTMETHODS(Plet_req,plet);
-};
-
 /** Start / stop a beam at this note.  if #nplet# is set, the staff
 will try to put an appropriate number over the beam */
 class Beam_req  : public Span_req  {
@@ -209,22 +202,11 @@ public:
 
 };
 
-
-/** Put a script above or below this ``note''. eg upbow, downbow. Why
-  a request? These symbols may conflict with slurs and brackets, so
-  this also a request */
-class Script_req  : public Musical_req  {
+class Musical_script_req : public Musical_req,  public Script_req {
 public:
-    int dir_i_;
-    Script_def *scriptdef_p_;
-
-    /* *************** */
-    static int compare(const Script_req &, const Script_req &);
-    Script_req(int d, Script_def*);
-    REQUESTMETHODS(Script_req,script);
-    ~Script_req();
-    Script_req(Script_req const&);
+    REQUESTMETHODS(Musical_script_req, musicalscript);
 };
+
 
 /** A helper in the hierarchy. Each dynamic is bound to one note ( a
     crescendo spanning multiple notes is thought to be made of two
