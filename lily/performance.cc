@@ -29,12 +29,6 @@ Performance::Performance ()
   audio_elem_p_list_ = 0;
 }
 
-void
-Performance::add_column (Audio_column* p)
-{
-  p->performance_l_ = this;
-  add_element (p);
-}
 
 Performance::~Performance()
 {
@@ -51,18 +45,19 @@ Performance::output (Midi_stream& midi_stream)
 
   midi_stream << Midi_header (1, tracks_i, clocks_per_4_i);
   output_header_track (midi_stream);
-  int n = 1;
+  int channel = 1;
   for (int i =0; i < audio_staff_l_arr_.size (); i++)
     {
       Audio_staff *s = audio_staff_l_arr_[i];
+
       /*
 	Aargh, let's hear it for the MIDI standard.
 	MIDI players tend to ignore instrument settings on
 	channel 10, the percussion channel by default.
        */
-      if (n == 10)
-	n++;
-      s->output (midi_stream, n++);
+      if (channel == 10)
+	channel++;
+      s->output (midi_stream, channel++);
     }
 }
 
@@ -111,14 +106,16 @@ Performance::output_header_track (Midi_stream& midi_stream)
 }
 
 void
-Performance::add_staff (Audio_staff* l)
-{
-  audio_staff_l_arr_.push (l);
-}
-
-void
 Performance::add_element (Audio_element *p)
 {
+  if (Audio_staff*s=dynamic_cast<Audio_staff *> (p)) 
+    {
+      audio_staff_l_arr_.push (s);
+    }
+  else if (Audio_column *c = dynamic_cast<Audio_column*>(p))
+    {
+      c->performance_l_ = this;
+    }
   audio_elem_p_list_ = new Killing_cons<Audio_element> (p, audio_elem_p_list_);
 }
 
