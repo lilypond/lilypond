@@ -46,6 +46,8 @@ private:
 
   Grob *last_bound_;
 
+  void override_molecule_callback ();
+  void revert_molecule_callback ();
 };
 
 #endif // LIGATURE_ENGRAVER_HH

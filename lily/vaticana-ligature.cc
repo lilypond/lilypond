@@ -23,25 +23,52 @@
  */
 Molecule
 vaticana_brew_flexa (Grob *me,
-		     Real interval,
 		     bool solid,
-		     Real width,
 		     Real thickness,
-		     bool add_stem,
 		     Direction stem_direction)
 {
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
+  Molecule molecule = Molecule ();
+  Real right_height = 0.6 * staff_space;
+
+  Real interval;
+  SCM flexa_height_scm = me->get_grob_property ("flexa-height");
+  if (flexa_height_scm != SCM_EOL)
+    {
+      interval = gh_scm2int (flexa_height_scm);
+    }
+  else
+    {
+      me->warning ("Vaticana_ligature: "
+		   "flexa-height undefined; assuming 0");
+      interval = 0.0;
+    }
+
   if (interval >= 0.0)
     {
       me->warning (_ ("ascending vaticana style flexa"));
     }
 
-  Real space = Staff_symbol_referencer::staff_space (me);
-  Molecule molecule = Molecule ();
-  Real right_height = 0.6 * space;
+  Real width;
+  SCM flexa_width_scm = me->get_grob_property ("flexa-width");
+  if (flexa_width_scm != SCM_EOL)
+    {
+      width = gh_scm2double (flexa_width_scm);
+    }
+  else
+    {
+      me->warning ("Vaticana_ligature:"
+		   "flexa-width undefined; assuming 2.0");
+      width = 2.0 * staff_space;
+    }
+
+  bool add_stem = to_boolean (me->get_grob_property ("add-stem"));
 
   // Compensate thickness that appears to be smaller in steep section
   // of bend.
-  Real left_height = right_height + min (0.12 * abs(interval), 0.3) * space;
+  Real left_height =
+    right_height +
+    min (0.12 * abs(interval), 0.3) * staff_space;
 
   if (add_stem)
     {
@@ -53,13 +80,13 @@ vaticana_brew_flexa (Grob *me,
 
       if (consider_interval)
 	{
-	  Real y_length = max (abs(interval)/2.0*space +
+	  Real y_length = max (abs(interval)/2.0*staff_space +
 			       (right_height-left_height),
-			       1.2*space);
+			       1.2*staff_space);
 	  stem_box_y = Interval (0, y_length);
 	}
       else
-	stem_box_y = Interval (0, space);
+	stem_box_y = Interval (0, staff_space);
 
       Real y_correction =
 	(stem_direction == UP) ?
@@ -74,9 +101,9 @@ vaticana_brew_flexa (Grob *me,
 
   // Compensate optical illusion regarding vertical position of left
   // and right endings due to curved shape.
-  Real ypos_correction = -0.1*space * sign(interval);
-  Real interval_correction = 0.2*space * sign(interval);
-  Real corrected_interval = interval*space + interval_correction;
+  Real ypos_correction = -0.1*staff_space * sign(interval);
+  Real interval_correction = 0.2*staff_space * sign(interval);
+  Real corrected_interval = interval*staff_space + interval_correction;
 
   // middle curve of flexa shape
   Bezier curve;
@@ -210,33 +237,7 @@ vaticana_brew_primitive (Grob *me, bool ledger_take_space)
 
   if (!String::compare (glyph_name, "flexa"))
     {
-      SCM flexa_height_scm = me->get_grob_property ("flexa-height");
-      if (flexa_height_scm != SCM_EOL)
-	{
-	  flexa_height = gh_scm2int (flexa_height_scm);
-	}
-      else
-	{
-	  me->warning ("Vaticana_ligature: "
-		       "flexa-height undefined; assuming 0");
-	}
-
-      Real flexa_width;
-      SCM flexa_width_scm = me->get_grob_property ("flexa-width");
-      if (flexa_width_scm != SCM_EOL)
-	{
-	  flexa_width = gh_scm2double (flexa_width_scm);
-	}
-      else
-	{
-	  me->warning ("Vaticana_ligature:"
-		       "flexa-width undefined; assuming 2.0");
-	  flexa_width = 2.0 * staff_space;
-	}
-
-      bool add_stem = to_boolean (me->get_grob_property ("add-stem"));
-      out = vaticana_brew_flexa (me, flexa_height, true,
-				 flexa_width, thickness, add_stem, DOWN);
+      out = vaticana_brew_flexa (me, true, thickness, DOWN);
     }
   else
     {
