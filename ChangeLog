@@ -1,3 +1,7 @@
+2005-01-27  Werner Lemberg  <wl@gnu.org>
+
+	* mf/feta-schrift.mf ("Trill (`tr')"): Fix typo.
+
 2005-01-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* mf/feta-schrift.mf: reverse u and d portato. Fixes:
@@ -20,8 +24,8 @@
 	* mf/feta-toevallig.mf (draw_meta_sharp): Fix shape to avoid curves
 	with inflections for the 1/2 sharp glyph.
 
-	* mf/feta-schrift.mf ("Trill"): Fix start position of connection
-	between `t' and `r'.
+	* mf/feta-schrift.mf ("Trill (`tr')"): Fix start position of
+	connection between `t' and `r'.
 	Unify bulb with the rest of `r' to avoid grazing outlines which
 	confuses the overlap removal algorithm of fontforge.
 

@@ -888,8 +888,8 @@ fet_beginchar ("Trill (`tr')", "trill");
 
 	% the connection between `t' and `r', the body of the `r',
 	% and the bulb
-	fill z7'l{z7 - z7'}
-	     -- z7l
+	fill z7'l
+	     -- z7l{z7 - z7'}
 	     .. z9l{down}
 	     -- simple_serif (z10l, z10r, -30)
 	     -- z9r{up}
