@@ -9,6 +9,10 @@
 #include "source-file.hh"
 #include "source.hh"
 
+#ifndef YY_BUF_SIZE
+#define YY_BUF_SIZE 16384
+#endif
+
 Includable_lexer::Includable_lexer()
 {
     yy_current_buffer = 0;
@@ -32,8 +36,17 @@ Includable_lexer::new_input(String s, Sources  * global_sources)
     cout << "[" << s<<flush;
     include_stack_.push(sl);    
     
-    // ugh. We'd want to create a buffer from the bytes directly.
-    yy_switch_to_buffer(yy_create_buffer( sl->istream_l(), sl->length_off() )); 
+    /*
+      ugh. We'd want to create a buffer from the bytes directly.
+
+      Whoops. The size argument to yy_create_buffer is not the
+      filelength but a BUFFERSIZE. Maybe this is why reading stdin fucks up.
+      
+      Maybe this is also the reason why LilyPond sometimes crashed
+      mysteriously in yy_create_buffer() with a libc-malloc error
+
+      */
+    yy_switch_to_buffer(yy_create_buffer( sl->istream_l(), YY_BUF_SIZE )); 
 }
 
 /** pop the inputstack.  conceptually this is a destructor, but it

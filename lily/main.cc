@@ -105,12 +105,14 @@ static File_path path;
 void
 do_one_file(String init_str, String file_str)
 {
-    if ( "" == path.find( init_str ) )
+    if ( init_str != "" && "" == path.find( init_str ) ) {
 	error ( "Can not find `" + init_str +"'");
-
-    if ( path.find( file_str ) == "" )
+	return ;
+    }
+    if ( file_str!= "" && path.find( file_str ) == "" ) {
 	error ( "Can not find `" + file_str + "'");
-	
+	return ;
+    }
     
     Sources sources;
     source_l_g = &sources; 
@@ -142,7 +144,7 @@ main (int argc, char **argv)
 
     Getopt_long oparser(argc, argv,theopts);
     cout << get_version_str() << endl;
-    String init_str("symbol.ini");
+    String init_str("symbol.ly");
     
     while (Long_option_init * opt = oparser()) {
 	switch ( opt->shortname){
