@@ -5,7 +5,7 @@
 ;;;; (c) 1998--2001 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
-;;; Library funtions
+;;; Library functions
 
 (use-modules (ice-9 regex))
 

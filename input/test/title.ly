@@ -6,6 +6,7 @@
   subtitle = "Subtitle"
   subsubtitle = "Subsubtitle"
   composer = "Composer (xxxx-yyyy)"
+  instrument = "Instrument"
   arranger = "Arranger"
   poet = "Poet"
   % ugr: warning: Identifier name is a keyword: `translator'
@@ -14,7 +15,6 @@
   copyright = "public domain"
   enteredby = "jcn"
   source =  "urtext"
-  instrument = "Instrument"
 }
 
 \score {

@@ -1,0 +1,57 @@
+
+* Mention this somewhere in documentation (Tutorial)
+
+* Better comment-out most header entries, or
+  move to template/title.ly altogether?
+
+* Naming conventions for voices/staffs
+  (think: \autochange, \partcombine)?
+
+* Add (commented-out) stuff like \time 3/4
+  \property Staff.TimeSignature \set #'style = #xxx?
+
+* Handy emacs shortcuts to (these) templates?
+
+* Mutopia headers?
+
+* Another approach would be to not include any music in the templates,
+  and standardise the naming of the music, so that you'd do:
+
+    title = 'Piano piece'
+    upper = \notes { ... }
+    lower = \notes { ... }
+
+    \include "template/piano.ly"
+
+  In this case, we'd also need one simple music example file per
+  template.  This approach can be even easier to use, but is not very
+  flexible, it only works for simple and uniform pieces.
+
+* Possibly some of you already have created something like this?  I was
+  thinking of having templates for:
+
+  single melody  = melody.ly
+  melody with lyrics = melody-lyrics.ly 
+  melody with lyrics and chords = melody-lyrics-chords.ly
+  piano = piano.ly
+  piano with several voices = piano-4-voices.ly
+  piano with lyrics (between staffs) = piano-lyrics.ly
+  piano with melody and lyrics = piano-melody-lyrics.ly
+
+TODO (Choral templates, anyone?)
+  piano with lyrics and chords
+  (string) duet 
+  (string) duet parts
+  string quartet
+  string quintet parts
+  orchestral score
+  orchestral parts
+  choral score
+  choral score with piano reduction (i.e., the piano staves have the
+          same notes as the choral parts)
+  choral score with piano accompaniment
+  choral parts
+
+
+
+

@@ -223,6 +223,11 @@ of the code is used.
 @item printfilename
     Prints the file name before the music example. Useful in conjunction
 with @code{\lilypondfile}.
+@item relative, relative @var{N}
+    Use relative octave mode. By default, notes are specified relative 
+    central C. The optional integer argument specifies how many octaves 
+    higher (positive number) or lower (negative number) to place the 
+    starting note.
 @end table
 
 @section Invocation

@@ -25,6 +25,116 @@ Span_bar::add_bar (Grob*me, Grob*b)
   me->add_dependency (b);
 }
 
+MAKE_SCHEME_CALLBACK (Span_bar,brew_molecule,1);
+
+/**
+ * Limitations/Bugs:
+ *
+ * (1) Elements from 'me->get_grob_property ("elements")' must be
+ * ordered according to their y coordinates relative to their common
+ * axis group parent.  Otherwise, the computation goes mad.  (TODO:
+ * apply a sort algorithm that ensures this precondition.)  However,
+ * until now, I have seen no case where lily has not fulfilled this
+ * precondition.
+ *
+ * (2) This method depends on bar_engraver not being removed from
+ * staff context.  If bar_engraver is removed, the size of the staff
+ * lines is evaluated as 0, which results in a solid span bar line
+ * with faulty y coordinate.
+ */
+SCM
+Span_bar::brew_molecule (SCM smobbed_me) 
+{
+  Grob *me = unsmob_grob (smobbed_me);
+  SCM first_elt = me->get_grob_property ("elements");
+  Grob *first_staff_bar = unsmob_grob (gh_car (first_elt));
+  Grob *last_staff_bar = 0;
+
+  // compute common refpoint of elements & last_staff_bar
+  Grob *refp = me;
+  for (SCM elts = first_elt;
+       gh_pair_p (elts);
+       elts = gh_cdr (elts))
+  {
+    SCM smobbed_staff_bar = gh_car (elts);
+    Grob *staff_bar = unsmob_grob (smobbed_staff_bar);
+    refp = staff_bar->common_refpoint (refp, Y_AXIS);
+    last_staff_bar = staff_bar;
+  }
+
+  // determine refp->extent, but ignore lyrics etc. above and below
+  Interval refp_extent;
+  refp_extent[LEFT] =
+    first_staff_bar->relative_coordinate (refp, (Axis)Y_AXIS) -
+    0.5 * (first_staff_bar->extent (refp, Y_AXIS)[UP] -
+	   first_staff_bar->extent (refp, Y_AXIS)[DOWN]);
+  refp_extent[RIGHT] =
+    last_staff_bar->relative_coordinate (refp, (Axis)Y_AXIS) +
+    0.5 * (last_staff_bar->extent (refp, Y_AXIS)[UP] -
+	   last_staff_bar->extent (refp, Y_AXIS)[DOWN]);
+
+  // global yoffs correction (compensate centering around refp)
+  Real yoffs = 0.5 * (refp_extent[LEFT] - refp_extent[RIGHT]);
+
+  // evaluate glyph
+  Span_bar::evaluate_glyph(me);
+  SCM glyph = me->get_grob_property (ly_symbol2scm ("glyph"));
+
+
+  /*
+    glyph may not be a string, when ME is killed by Hara Kiri in
+    between.
+  */
+  if (!gh_string_p (glyph))
+    return SCM_EOL;
+
+  String glyph_str = ly_scm2string (glyph);
+
+  // compose span_bar_mol
+  Molecule span_bar_mol = Molecule::Molecule ();
+  Grob *prev_staff_bar = 0;
+  Real prev_staff_bar_length = 0.0;
+  for (SCM elts = first_elt;
+       gh_pair_p (elts);
+       elts = gh_cdr (elts))
+  {
+    SCM smobbed_staff_bar = gh_car (elts);
+    SCM smobbed_staff_bar_molecule =
+      Bar::brew_molecule (smobbed_staff_bar);
+    Grob *staff_bar = unsmob_grob (smobbed_staff_bar);
+    Real staff_bar_length =
+      unsmob_molecule (smobbed_staff_bar_molecule)->
+      extent (Y_AXIS).length ();
+
+    if (prev_staff_bar) {
+
+      Interval l;
+      l[LEFT] = prev_staff_bar->extent (refp, Y_AXIS)[UP];
+      l[RIGHT] = staff_bar->extent (refp, Y_AXIS)[DOWN];
+
+      SCM smobbed_staff_bar = gh_car (elts);
+      Grob *staff_bar = unsmob_grob (smobbed_staff_bar);
+      SCM smobbed_interstaff_bar_molecule = 
+	Bar::compound_barline (staff_bar, glyph_str, l.length()).
+	smobbed_copy ();
+
+      Molecule *interstaff_bar_mol =
+	unsmob_molecule (smobbed_interstaff_bar_molecule);
+
+      yoffs += prev_staff_bar_length; // skip staff bar
+      yoffs += 0.5 * (l[RIGHT] - l[LEFT]); // compensate interstaff bar centering
+      interstaff_bar_mol->translate_axis (yoffs, Y_AXIS);
+      yoffs += 0.5 * (l[RIGHT] - l[LEFT]);
+
+      span_bar_mol.add_molecule (*interstaff_bar_mol);
+    }
+    prev_staff_bar = staff_bar;
+    prev_staff_bar_length = staff_bar_length;
+  }
+
+  return span_bar_mol.smobbed_copy ();
+}
+
 MAKE_SCHEME_CALLBACK (Span_bar,width_callback,2);
 SCM
 Span_bar::width_callback (SCM element_smob, SCM scm_axis)

@@ -1791,10 +1791,11 @@ chord_step:
 		$$ = gh_cons ($1, SCM_EOL);
 	}
 	| CHORDMODIFIER_PITCH {
-		$$ = gh_cons ($1, SCM_EOL);
+		$$ = gh_cons (unsmob_pitch ($1)->smobbed_copy (), SCM_EOL);
 	}
 	| CHORDMODIFIER_PITCH chord_note { /* Ugh. */
-		$$ = gh_list ($1, $2, SCM_UNDEFINED);
+		$$ = gh_list (unsmob_pitch ($1)->smobbed_copy (),
+			$2, SCM_UNDEFINED);
 	}
 	;
 

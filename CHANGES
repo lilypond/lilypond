@@ -1,39 +1,48 @@
---- ../lilypond-1.4.4.stable.jcn2/CHANGES	Sun Jul  8 18:51:34 2001
-++ b/CHANGES	Fri Jul 13 11:24:19 2001
-@@ -1,5 +1,7 @@
--1.4.4.stable.jcn2
-1.4.4.stable.jcn3
- =================
+1.4.4.mb1
+========
+  
+* Documentation fixes
+  
+1.4.4.stable.jcn4
+=================
+  
+* Website: downloadable pictures with better alt texts.
+
+* Bugfix: c:dim7 generates <c es ges beses>.
+
+* Bugfix: call <c es ges bes> Cm5-/7 in Banter style.
+
+* Bugfix: don't change value of chord modifiers.
+
+* Bugfix: size and overstrike fix for some Banter chord names.
 
 * Bugfix: text2html: escape entities inside <pre>.
- 
- * Now really included lexer-gcc-3.0.patch.
- --- ../lilypond-1.4.4.stable.jcn1/CHANGES	Fri Jun 29 18:23:09 2001
-++ b/CHANGES	Sun Jul  8 18:51:34 2001
-@@ -1,5 +1,7 @@
--1.4.4.stable.jcn1
-1.4.4.stable.jcn2
- =================
+
+* Added some template .ly's for evaluation.
+
+* Bugfix: text2html: escape entities inside <pre>.
 
 * Now really included lexer-gcc-3.0.patch.
- 
- * Added feature to ly2dvi to find feta pfa font files used in a
- postscript file to make printing of direct postscript a bit easier:1.4.4.jcn3
-==========
 
-TODO: look at other filledbox'es (stafflines and barlines don't match up).
+* Added feature to ly2dvi to find feta pfa font files used in a
+postscript file to make printing of direct postscript a bit easier:
 
-* Testing code off by default.  On: -e "(define ps-testing 1)" -fps
+    lilypond -fps input/trip.ly
+    cat $(ly2dvi -f trip.ps) trip.ps | lpr
 
-* Output via TeX/dvips still gives problems.  Use direct postscript
-output for real testing.
+* Reincluded 1.4.3.jcn2.
+
+* Website fixes.
+
+* Ly2dvi now leaves .tex and .latex output if latex fails, and cleans
+the temp dir if anything fails.
+
+* Fixes for windows scripts.
 
 * Beam and stem fixes:
- - Stems drawn in PostScript (should do all filledbox'es in PS?).
- - Fixes for draw_box and draw_beam PostScript routines.
+ - Fixes for draw-box and draw_beam PostScript routines.
  - Stems reach to top (or bottom) of beam.
- - Beam uses correct stem thickness (only right beams, left TODO).
- - testing code in effect: only outlines are drawn.
+ - Beam uses correct stem thickness.
 
 1.4.4
 =====
