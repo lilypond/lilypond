@@ -4740,7 +4740,7 @@ Fret diagrams can be added to music as a markup to the desired note. The
 markup contains information about the desired fret diagram, as shown in the
 following example
 
-@lilypond[verbatim, raggedright, quote]
+@lilypond[verbatim, quote]
 \context Voice {
   d' ^\markup \fret-diagram #"6-x;5-x;4-o;3-2;2-3;1-2;"
   fis' ^\markup \override #'(size . 0.75) {
