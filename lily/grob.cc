@@ -496,7 +496,7 @@ Grob::point_dimension_callback (SCM , SCM)
 }
 
 bool
-Grob::empty_b (Axis a)const
+Grob::is_empty (Axis a)const
 {
   return ! (gh_pair_p (dim_cache_[a].dimension_) ||
 	    gh_procedure_p (dim_cache_[a].dimension_));

@@ -1,9 +1,10 @@
 /*
-  plet-spanner.cc -- implement Tuplet_bracket
+  tuplet-bracket.cc -- implement Tuplet_bracket
 
   source file of the GNU LilyPond music typesetter
 
   (c)  1997--2003 Jan Nieuwenhuizen <janneke@gnu.org>
+  Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 /*

@@ -4,6 +4,8 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2000--2003 Jan Nieuwenhuizen <janneke@gnu.org>
+
+  Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "engraver.hh"
@@ -54,11 +56,10 @@ void
 Span_arpeggio_engraver::process_acknowledged_grobs ()
 {
   /*
-    connectArpeggios is slightly brusque; we should really read a elt
+    connectArpeggios is slightly brusque; we should really read a grob
     property of the caught non-span arpeggios. That way, we can have
 
     both non-connected and connected arps in one pianostaff.
-    
 
   */
   if (!span_arpeggio_ && arpeggios_.size () > 1

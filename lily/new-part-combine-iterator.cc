@@ -1,9 +1,9 @@
 /*   
-  part-combine-music-iterator.cc -- implement  New_pc_iterator
+  new-part-combine-music-iterator.cc -- implement New_pc_iterator
 
   source file of the GNU LilyPond music typesetter
   
-  (c) 2000--2003 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 2004 Han-Wen Nienhuys
  */
 
 #include "part-combine-music-iterator.hh"

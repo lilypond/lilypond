@@ -25,6 +25,7 @@ class Custos_engraver : public Engraver
 {
 public:
 TRANSLATOR_DECLARATIONS(  Custos_engraver);
+  virtual void start_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
   virtual void process_acknowledged_grobs ();
   virtual void stop_translation_timestep ();
@@ -47,17 +48,22 @@ Custos_engraver::Custos_engraver ()
 void
 Custos_engraver::stop_translation_timestep ()
 {
+  /*
+    delay typeset until we're at the next moment, so we can silence custodes at the end of the piece.
+   */
   for (int i = custodes_.size (); i--;)
     {
       typeset_grob (custodes_[i]);
     }
-
-  /*
-    delay clear until we're at the next moment, so we can silence
-    custodes at the end of the piece.
-   */
   pitches_.clear ();
+
   custos_permitted = false;
+}
+
+void
+Custos_engraver::start_translation_timestep ()
+{
+  custodes_.clear ();
 }
 
 
@@ -133,6 +139,7 @@ Custos_engraver::finalize ()
   for (int i = custodes_.size (); i--;)
     {
       custodes_[i]->suicide ();
+      typeset_grob (custodes_[i]);
     }
   custodes_.clear ();
 }

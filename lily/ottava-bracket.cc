@@ -1,3 +1,12 @@
+/*   
+  ottava-bracket.cc --  implement Ottava_bracket
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 2004 Han-Wen Nienhuys <hanwen@xs4all.nl>
+
+ */
+
 #include "molecule.hh"
 #include "text-item.hh"
 #include "text-spanner.hh"
@@ -66,6 +75,12 @@ Ottava_bracket::brew_molecule (SCM smob)
 
   Drul_array<Real> shorten = robust_scm2interval (me->get_grob_property ("shorten-pair"),
 						  Interval (0,0));
+
+
+  /*
+    TODO: we should check if there are ledgers, and modify length of
+    the spanner to that.
+   */
   do
     {
       Item *b = me->get_bound (d);
@@ -122,7 +137,20 @@ Ottava_bracket::brew_molecule (SCM smob)
 				       edge_height,
 				      0.0,
 				      flare, shorten);
+
+  /*
+    The vertical lines should not take space, for the following scenario:
+
+    8 -----+
+        o  |
+       |
+       |
+       
+   */
   
+  b = Molecule (Box (b.extent (X_AXIS),
+		     Interval (0.1,0.1)),
+		b.get_expr ());
   
   b.translate_axis (bracket_span_points[LEFT], X_AXIS);
   text.translate_axis (span_points[LEFT], X_AXIS);
