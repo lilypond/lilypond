@@ -19,13 +19,15 @@ must be set  a syllable too soon."
 	c4
 	\slurDotted
 	f8.[( g16])
+	a4
     }
     \new Lyrics \lyricsto "lahlah" {
-	slo -- ow
+	more slow -- ly
     }
     \new Lyrics \lyricsto "lahlah" {
 	\set ignoreMelismata = ##t % applies to "fas"
 	go fas -- ter
 	\unset ignoreMelismata
+	still
     }
 >>    
