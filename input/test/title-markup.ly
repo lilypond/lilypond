@@ -2,8 +2,10 @@
 %{
    \markup in titles is WIP.
 
-   only available when compiled with PAGE_LAYOUT is #define'd
-   see include/paper-book.hh
+   only available in direct PostScript output:
+
+   export GS_LIB=$(pwd)/mf/out:/usr/share/texmf/fonts/type1/bluesky/cm
+   lilypond-bin -fps input/title/title-markup.ly
 
 %}
 
@@ -50,22 +52,8 @@ spaceTest = \markup { "two space chars" }
     instrument = "Instrument"
     piece = "piece"
 
-%{
-    makeConditionalTitle = \markup {
-	\column <
-            #(if (defined? 'title)
-             (markup* #:fill-line (#:huge #:bigger #:bigger #:bold title))
-             (markup* ""))
-            #(if (defined? 'subtitle)
-             (markup* #:fill-line ( #:large #:bold subtitle))
-             (markup* ""))
-            #(if (defined? 'subsubtitle)
-             (markup* #:fill-line (subsubtitle))
-             (markup* ""))
-	 >
-    }
-%}
-    bookTitle = \markup {
+    %% this overrides automatic book title
+    xxbookTitle = \markup {
 	\column <
 	    %\fill-line #linewidth < \huge \bigger \bold \title >
             \override #'(baseline-skip . 4) \column <
@@ -107,7 +95,10 @@ spaceTest = \markup { "two space chars" }
 }
 
 \header {
-    scoreTitle = \markup { "Tweetje" }
+    %% override automatic score title
+    xxscoreTitle = \markup { "Tweetje" }
+    opus = "opus 1"
+    piece = "Second"
 }
 
 \score {
