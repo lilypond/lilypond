@@ -8,6 +8,10 @@
 
 @itemize @bullet
 
+@item The automatic staff changer, which is invoked with
+@code{\autochange}, now creates the @code{up} and @code{down} staff
+automatically, and uses bass clef for the bottom staff.
+
 @item There is now support for putting two slurs on chords, both above
 and below. This is switched on with the @code{doubleSlurs} property.
 

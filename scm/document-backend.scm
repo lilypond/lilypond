@@ -102,8 +102,9 @@ node."
 ;       (bla (display name))
        (ifaces (map lookup-interface (cdr (assoc 'interfaces meta))))
        (ifacedoc (map (lambda (iface)
-			(ref-ify (symbol->string (car iface)))
-			)
+			(if (pair? iface)
+			    (ref-ify (symbol->string (car iface)))
+			    (error (format "Error making doc of ~s" name))))
 		      (reverse ifaces)))
        (engravers (filter
 		   (lambda (x) (engraver-makes-grob? name x)) all-engravers-list))

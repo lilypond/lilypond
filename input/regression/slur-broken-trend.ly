@@ -15,10 +15,6 @@ in unbroken state.
 }
 
 \relative c''{
-    \override Slur #'after-line-breaking-callback = #New_slur::after_line_breaking
-    \override Slur #'print-function = #New_slur::print     
-    \override Slur #'height = ##f
-    
     e1( \break a,)
     \time 2/4
     e'2( \break a,)(\break

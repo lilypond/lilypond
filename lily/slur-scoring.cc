@@ -15,7 +15,7 @@
 #include "group-interface.hh"
 #include "libc-extension.hh"
 #include "lily-guile.hh"
-#include "new-slur.hh"
+#include "slur.hh"
 #include "note-column.hh"
 #include "output-def.hh"
 #include "pitch.hh"
@@ -357,18 +357,11 @@ get_default_dir (Grob*me)
   return d;
 }
 
-Direction
-get_slur_dir (Grob *slur)
-{
-  Direction d = get_grob_direction (slur);
-  if (d == CENTER)
-    d = get_default_dir (slur);
-  return d;
-}
 
-MAKE_SCHEME_CALLBACK (New_slur, after_line_breaking,1);
+
+MAKE_SCHEME_CALLBACK (Slur, after_line_breaking,1);
 SCM
-New_slur::after_line_breaking (SCM smob)
+Slur::after_line_breaking (SCM smob)
 {
   Spanner *me = dynamic_cast<Spanner*> (unsmob_grob (smob));
   if (!scm_ilength (me->get_property ("note-columns")))
@@ -926,10 +919,10 @@ score_extra_encompass (Grob *me, Grob *common[],
 
   for (int i = encompasses.size (); i--; )
     {
-      if (New_slur::has_interface (encompasses[i]))
+      if (Slur::has_interface (encompasses[i]))
 	{
 	  Grob * small_slur = encompasses[i];
-	  Bezier b = New_slur::get_curve (small_slur);
+	  Bezier b = Slur::get_curve (small_slur);
 
 	  Offset z = b.curve_point (0.5);
 	  z += Offset (small_slur->relative_coordinate (common[X_AXIS], X_AXIS),

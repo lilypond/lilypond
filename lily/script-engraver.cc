@@ -10,7 +10,7 @@
 #include "directional-element-interface.hh"
 #include "engraver.hh"
 #include "event.hh"
-#include "new-slur.hh"
+#include "slur.hh"
 #include "note-column.hh"
 #include "paper-column.hh"
 #include "rhythmic-head.hh"
@@ -244,7 +244,7 @@ ENTER_DESCRIPTION (Script_engraver,
 /* descr */       "Handles note scripted articulations.",
 /* creats*/       "Script",
 /* accepts */     "script-event articulation-event",
-/* acks  */       "stem-interface rhythmic-head-interface\
- new-slur-interface note-column-interface",
+/* acks  */       "stem-interface rhythmic-head-interface " 
+		  "slur-interface note-column-interface",
 /* reads */       "scriptDefinitions",
 /* write */       "");

@@ -1,5 +1,5 @@
 /* 
-  new-slur.hh -- declare New_slur
+  slur.hh -- declare Slur
   
   source file of the GNU LilyPond music typesetter
   
@@ -15,7 +15,7 @@
 
 #define DEBUG_SLUR_QUANTING 1
 
-class New_slur
+class Slur
 {
 public:
   static void add_column (Grob *me, Grob *col);
@@ -27,9 +27,6 @@ public:
   static bool has_interface (Grob *);
   static Bezier get_curve (Grob*me);
 };
-
-// zught
-Direction get_slur_dir (Grob *slur);
 
 #endif /* NEW_SLUR_HH */
 
