@@ -93,6 +93,11 @@ Translator_group::add_fresh_group_translator (Translator*t)
   trans_group_list_ = add_translator (trans_group_list_,t); 
   
   Translator_def * td = unsmob_translator_def (tg->definition_);
+
+  /*
+    this can not move before add_translator(), because \override
+    operations require that we are in the hierarchy.
+   */
   td->apply_default_property_operations (tg);
 
   t->initialize ();

@@ -48,14 +48,26 @@ Bar_check_iterator::process (Moment m)
       
       if (where->main_part_)
 	{
-	  get_music ()->origin ()->warning (_f ("barcheck failed at: %s", 
-					      where->to_string ()));
+	  bool warn =true;
 	  if (to_boolean (sync))
 	    {
 	      tr = tr->where_defined (ly_symbol2scm("measurePosition"));
 	      Moment zero;
 	      tr->set_property ("measurePosition", zero.smobbed_copy ());
 	    }
+	  else
+	    {
+	      SCM lf = tr->get_property ("barCheckLastFail");
+	      if (unsmob_moment (lf)
+		  && *unsmob_moment (lf) == *where)
+		warn = false;
+	      else
+		tr->set_property ("barCheckLastFail", mp);
+	    }
+
+	  if (warn)
+	    get_music ()->origin ()->warning (_f ("barcheck failed at: %s", 
+					      where->to_string ()));
 	}
     }
 }    

@@ -14,9 +14,7 @@ upperStaff =  \context GregorianStaff = upperStaff <<
     \property Score.timing = ##f
 %   \property Score.forceAccidental = ##t %%%%%%%% FIXME: what happened to this property?
 
-    % this is broken until further notice -- see refman
-    % \property Staff.StaffSymbol \override #'line-count = #4
-    \context Staff \applyoutput #(outputproperty-compatibility (make-type-checker 'staff-symbol-interface) 'line-count 4)
+    \property Staff.StaffSymbol \override #'line-count = #4
 
     \notes \transpose c c {
 	\property Staff.KeySignature \override #'style = #'vaticana

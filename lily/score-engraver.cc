@@ -155,7 +155,6 @@ Score_engraver::one_time_step ()
       Grob *g = announce_infos_[i].grob_;
       if (!dynamic_cast<Paper_column*> (g)) // ugh.
 	{
-      
 	  String msg= "Grob "
 	    + g->name()
 	    + " was created too late!";
