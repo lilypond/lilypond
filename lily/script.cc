@@ -65,11 +65,11 @@ Script::brew_molecule (SCM smob)
 bool
 Script::has_interface (Score_element*me)
 {
-  return me->has_interface ("script-interface");
+  return me->has_interface (ly_symbol2scm ("script-interface"));
 }
 
 void
 Script::set_interface (Score_element*me)
 {
-  return me->set_interface ("script-interface");
+  return me->set_interface (ly_symbol2scm ("script-interface"));
 }

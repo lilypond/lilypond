@@ -10,7 +10,7 @@
 #ifndef MIDI_TRACK_PARSER_HH
 #define MIDI_TRACK_PARSER_HH
 
-#include "proto.hh"
+#include "flower-proto.hh"
 #include "cons.hh"
 #include "rational.hh"
 #include "midi2ly-proto.hh"

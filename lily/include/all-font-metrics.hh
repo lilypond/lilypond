@@ -10,7 +10,7 @@
 #ifndef ALL_FONTS_HH
 #define ALL_FONTS_HH
 
-#include "dictionary.hh"
+
 #include "file-path.hh"
 #include "lily-proto.hh"
 #include "font-metric.hh"

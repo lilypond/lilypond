@@ -10,6 +10,10 @@
 
  */
 
+/*
+  TODO: aren't there standard libs?  Ideally it is better to just link
+  to a C-library.  */
+
 #ifndef TFM_HH
 #define TFM_HH
 

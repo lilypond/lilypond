@@ -6,6 +6,7 @@
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "dictionary.hh"
 #include "scope.hh"
 #include "debug.hh"
 #include "music-output-def.hh"
@@ -99,4 +100,5 @@ Music_output_def::get_default_output () const
   
   return gh_string_p (s) ? ly_scm2string (s) : String ("");
 }
+
 

@@ -10,6 +10,7 @@
 
 /*
   [TODO]
+  * shorter! (now +- 1000 lines)
     * less hairy code
     * move paper vars to scm
 

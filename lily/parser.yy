@@ -422,12 +422,12 @@ translator_spec_body:
 		$$ = tg;
 	}
 	| translator_spec_body STRING '=' embedded_scm			{
-		Translator_group* tg = dynamic_cast<Translator_group*> ($$);
+		Translator_group* tg = $$;
 		tg->set_property (ly_scm2string ($2), $4);
 	}
 	| translator_spec_body STRING '=' identifier_init semicolon	{ 
 		SCM v = gh_int2scm (0);
-		if (gh_string_p ($4) || gh_number_p ($4))
+		if (gh_string_p ($4) || gh_number_p ($4) || gh_boolean_p ($4))
 			v = $4;
 		else 
 			THIS->parser_error (_("Wrong type for property value"));
@@ -551,7 +551,7 @@ music_output_def_body:
 		delete $2;
 	}
 	| music_output_def_body bare_int '=' FONT STRING		{ // ugh, what a syntax
-		Lookup * l = new Lookup;
+		Lookup * l =unsmob_lookup (Lookup::make_lookup());
 		l->font_name_ = ly_scm2string ($5);
 		dynamic_cast<Paper_def*> ($$)->set_lookup ($2, l);
 	}

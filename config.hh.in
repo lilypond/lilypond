@@ -31,5 +31,5 @@
 #define DIRSEP '@DIRSEP@'
 #define PATHSEP '@PATHSEP@'
 
-/* define GUILE-ification */
-#undef HAVE_LIBGUILE 
+/* define if no assert */
+#define HAVE_ASSERT_H 1

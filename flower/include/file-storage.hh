@@ -10,7 +10,7 @@
 #ifndef FILE_STORAGE_HH
 #define FILE_STORAGE_HH
 
-#include "proto.hh"
+#include "flower-proto.hh"
 
 
 /**

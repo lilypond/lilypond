@@ -78,3 +78,9 @@ Music_sequence::length_i () const
 {
   return cons_list_size_i (music_p_list_p_->head_);
 }
+
+Musical_pitch
+Music_sequence::do_relative_octave (Musical_pitch p, bool b)
+{
+  return music_p_list_p_->do_relative_octave (p, b);  
+}

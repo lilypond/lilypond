@@ -8,7 +8,6 @@
 #ifndef MIDI_WALKER_HH
 #define MIDI_WALKER_HH
 
-#include "proto.hh"
 #include "pqueue.hh"
 #include "lily-proto.hh"
 #include "moment.hh"

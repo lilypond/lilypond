@@ -6,7 +6,6 @@
   (c)  1997--2000 Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
-#include "proto.hh"
 #include "debug.hh"
 #include "misc.hh"
 #include "string.hh"

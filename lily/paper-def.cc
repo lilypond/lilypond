@@ -20,32 +20,24 @@
 
 Paper_def::Paper_def ()
 {
-  lookup_p_tab_p_ = new map<int, Lookup*>;
+  lookup_alist_ = SCM_EOL;
 }
 
 
 Paper_def::~Paper_def ()
 {
-  for (map<int,Lookup*>::const_iterator ai = lookup_p_tab_p_->begin();
-       ai != lookup_p_tab_p_->end (); ai++)
-    {
-      delete (*ai).second;
-    }
-  
-  delete lookup_p_tab_p_;
 }
 
-Paper_def::Paper_def (Paper_def const&s)
-  : Music_output_def (s)
+Paper_def::Paper_def (Paper_def const&src)
+  : Music_output_def (src)
 {
-  lookup_p_tab_p_ = new map<int, Lookup*>;
-  
-  for (map<int,Lookup*>::const_iterator ai = s.lookup_p_tab_p_->begin();
-       ai != s.lookup_p_tab_p_->end (); ai++)
+  SCM n  = SCM_EOL;
+  for (SCM s = src.lookup_alist_; gh_pair_p(s); s = gh_cdr (s))
     {
-      Lookup * l = new Lookup (* (*ai).second);
-      set_lookup ((*ai).first, l);      
+      n = scm_acons (gh_caar(s), gh_cdar (s), n);
     }
+
+  lookup_alist_  = n;
 }
 
 
@@ -97,12 +89,7 @@ Paper_def::line_dimensions_int (int n) const
 void
 Paper_def::set_lookup (int i, Lookup*l)
 {
-  map<int,Lookup*> :: const_iterator it (lookup_p_tab_p_->find (i));
-  if (it != lookup_p_tab_p_->end ())
-    {
-      delete (*it).second;
-    }
-  (*lookup_p_tab_p_)[i] = l;
+  lookup_alist_ = scm_assq_set_x(lookup_alist_, gh_int2scm (i), l->self_scm_);
 }
 
 
@@ -124,24 +111,17 @@ Paper_def::print () const
 {
 #ifndef NPRINT
   Music_output_def::print ();
-  DEBUG_OUT << "Paper {";
-  for (map<int,Lookup*>::const_iterator ai = lookup_p_tab_p_->begin();
-       ai != lookup_p_tab_p_->end (); ai++)
-    {
-      DEBUG_OUT << "Lookup: " << (*ai).first
-		<< " = " << (*ai).second->font_name_ << '\n';
-    }
-  DEBUG_OUT << "}\n";
+  if (flower_dstream)
+    gh_display (lookup_alist_);
 #endif
 }
 
 Lookup const *
 Paper_def::lookup_l (int i) const
 {
-  return (*lookup_p_tab_p_)[i];
+  SCM l = scm_assq (gh_int2scm(i), lookup_alist_);
+  return l == SCM_BOOL_F ? 0 :  unsmob_lookup (gh_cdr (l));
 }
-
-
 
 int Paper_def::default_count_i_ = 0;
 
@@ -167,7 +147,6 @@ Paper_def::paper_stream_p () const
     outname += String (".") + output_global_ch;
   progress_indication (_f ("paper output to %s...",
 			   outname == "-" ? String ("<stdout>") : outname));
-		       
 
   target_str_global_array.push (outname);
   return new Paper_stream (outname);

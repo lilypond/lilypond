@@ -9,10 +9,9 @@
 #include <math.h>
 #include "misc.hh"
 #include "midi-def.hh"
-#include "translator.hh"
 #include "performance.hh"
-#include "score-performer.hh"
 #include "debug.hh"
+#include "scope.hh"
 
 Midi_def::Midi_def()
 {
@@ -24,20 +23,13 @@ Midi_def::~Midi_def()
 {
 }
 
-Real
-Midi_def::length_mom_to_seconds_f (Moment mom)
-{
-  if (!mom)
-    return 0;
-  
-  return Moment (whole_in_seconds_mom_) * mom;
-}
 
 
 int
 Midi_def::get_tempo_i (Moment one_beat_mom)
 {
-  Moment wholes_per_min = Moment(60) /Moment(whole_in_seconds_mom_);
+  Moment w = *unsmob_moment (scope_p_->scm_elem ("whole-in-seconds"));
+  Moment wholes_per_min = Moment(60) /w;
   int beats_per_min = wholes_per_min / one_beat_mom;
   return int (beats_per_min);
 }
@@ -46,19 +38,11 @@ void
 Midi_def::set_tempo (Moment one_beat_mom, int beats_per_minute_i)
 {
   Moment beats_per_second = Moment (beats_per_minute_i) / Moment (60);
-  whole_in_seconds_mom_ = Moment(1)/Moment(beats_per_second * one_beat_mom);
+
+  Moment *m = new Moment (Moment(1)/Moment(beats_per_second * one_beat_mom));
+  scope_p_->set ("whole-in-seconds", smobify (m));
 }
 
-void
-Midi_def::print() const
-{
-#ifndef NPRINT
-  DEBUG_OUT << "MIDI {\n";
-  Music_output_def::print ();
-  DEBUG_OUT << "4/min: " << Moment (60) / (whole_in_seconds_mom_ * Moment (4));
-  DEBUG_OUT << "}\n";  
-#endif
-}
 
 int Midi_def::default_count_i_=0;
 

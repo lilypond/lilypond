@@ -7,7 +7,6 @@
 */
 
 #include <limits.h>
-#include "proto.hh"
 #include "string.hh"
 #include "moment.hh"
 #include "real.hh"

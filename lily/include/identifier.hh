@@ -77,7 +77,6 @@ struct Class ## _identifier : Identifier {\
 
 DECLARE_ID_CLASS(Translator_group);
 DECLARE_ID_CLASS(Duration);
-DECLARE_ID_CLASS(General_script_def);
 DECLARE_ID_CLASS(Music);
 DECLARE_ID_CLASS(Score);
 DECLARE_ID_CLASS(Request);

@@ -14,6 +14,9 @@ struct Keyword_ent
   int     tokcode;
 };
 
+/*
+  junkme, use  hash table.
+ */
 struct Keyword_table
 {
   Keyword_ent *table;

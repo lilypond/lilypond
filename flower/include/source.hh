@@ -6,7 +6,7 @@
 #ifndef SOURCE_HH
 #define SOURCE_HH
 #include "cons.hh"
-#include "proto.hh"
+#include "flower-proto.hh"
 
 /**
    a set of sourcefiles.

@@ -36,7 +36,6 @@ public:
   static Real rest_collision_callback (Score_element *,Axis);
   Beam (SCM);
   static void add_stem (Score_element*,Score_element*);
-  static void set_grouping (Score_element*,Rhythmic_grouping def, Rhythmic_grouping current);
   static void set_beaming (Score_element*,Beaming_info_list *);
   static void set_stemlens (Score_element*);
   static int get_multiplicity (Score_element*me);

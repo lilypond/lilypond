@@ -16,13 +16,12 @@
 #include "translator.hh"
 #include "cons.hh"
 #include "parray.hh"
-#include "scm-hash.hh"
 
 
 // egcs
 typedef void (Translator::*Method_pointer)(void);
 typedef void (Translator::*Const_method_pointer)(void) const; 
-
+class Scheme_hash_table;
 /** Make some kind of Elements from Requests. Elements are made by
   hierarchically grouped Translators
   */
@@ -30,7 +29,7 @@ class Translator_group : public virtual Translator {
   Array<String> consists_str_arr_;
   Array<String> accepts_str_arr_;
   Array<String> consists_end_str_arr_;
-  Scheme_hash_table properties_dict_;
+  Scheme_hash_table *properties_dict_;
 
   int iterator_count_;
   friend class Interpretation_context_handle;

@@ -30,7 +30,7 @@
 #endif
 
 #include "string.hh"
-#include "proto.hh"
+#include "flower-proto.hh"
 #include "warn.hh"
 #include "file-storage.hh"
 

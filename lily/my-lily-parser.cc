@@ -41,7 +41,7 @@ My_lily_parser::~My_lily_parser()
 }
 
 void
-My_lily_parser::set_version_check (bool ig)
+My_lily_parser::set_version_check (bool )
 {
 }
 

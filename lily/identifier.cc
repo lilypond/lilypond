@@ -6,6 +6,7 @@
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+
 /*
   JUNKTHIS!
  */
@@ -18,6 +19,7 @@
 #include "request.hh"
 #include "translator-group.hh"
 #include "ly-smobs.icc"
+
 
 IMPLEMENT_UNSMOB(Identifier, identifier);
 IMPLEMENT_SMOBS(Identifier);

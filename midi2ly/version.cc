@@ -1,4 +1,4 @@
-#include "proto.hh"
+#include "flower-proto.hh"
 #include "string.hh"
 
 const char * midi2ly_version_sz();

@@ -4,7 +4,7 @@
   (c) 1999 Glen Prideaux <glenprideaux@iname.com>
 */
 
-#include "proto.hh"
+#include "flower-proto.hh"
 #include "musical-request.hh"
 #include "hyphen-spanner.hh"
 #include "paper-column.hh"

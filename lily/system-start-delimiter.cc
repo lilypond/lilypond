@@ -14,7 +14,7 @@
 #include "molecule.hh"
 #include "lookup.hh"
 #include "all-font-metrics.hh"
-#include "spanner.hh"
+#include "score-element.hh"
 
 Molecule
 System_start_delimiter::staff_bracket (Score_element*me,Real height)  

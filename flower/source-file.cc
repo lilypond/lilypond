@@ -12,7 +12,7 @@
 #include <strstream.h>
 
 #include "string.hh"
-#include "proto.hh"
+#include "flower-proto.hh"
 #include "warn.hh"
 #include "source-file.hh"
 #include "simple-file-storage.hh"

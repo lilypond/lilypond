@@ -5,7 +5,6 @@
        Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "proto.hh"
 #include "musical-request.hh"
 #include "multi-measure-rest.hh"
 #include "paper-column.hh"

@@ -1,5 +1,5 @@
 /*   
-  ctie-engraver.cc --  implement Tie_engraver
+  tie-engraver.cc --  implement Tie_engraver
   
   source file of the GNU LilyPond music typesetter
   
@@ -44,6 +44,9 @@ inline int compare (CHead_melodic_tuple const &a, CHead_melodic_tuple const &b)
 class Tie_engraver : public Engraver
 {
   PQueue<CHead_melodic_tuple> past_notes_pq_;
+  Moment end_mom_;
+  Moment next_end_mom_;
+
   Tie_req *req_l_;
   Array<CHead_melodic_tuple> now_heads_;
   Array<CHead_melodic_tuple> stopped_heads_;
@@ -80,6 +83,9 @@ Tie_engraver::do_try_music (Music *m)
 {
   if (Tie_req * c = dynamic_cast<Tie_req*> (m))
     {
+      /*      if (end_mom_ > now_mom ())
+       return false;
+      */
       req_l_ = c;
       SCM m = get_property ("automaticMelismata");
       bool am = gh_boolean_p (m) &&gh_scm2bool (m);
@@ -116,8 +122,6 @@ Tie_engraver::do_process_music ()
   if (req_l_)
     {
       Moment now = now_mom ();
-      Link_array<Note_head> nharr;
-      
       stopped_heads_.clear ();
       while (past_notes_pq_.size ()
 	     && past_notes_pq_.front ().end_ == now)

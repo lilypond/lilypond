@@ -14,7 +14,7 @@
 #include "compare.hh"
 #include "arithmetic-operator.hh"
 #include "flower-proto.hh"
-#include "string.hh"
+class String;
 
 /**
    Rational numbers.  Included is support for + and - infinity.

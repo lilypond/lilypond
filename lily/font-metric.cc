@@ -13,6 +13,7 @@
 
 #include "ly-smobs.icc"
 #include "font-metric.hh"
+#include "string.hh"
 
 Box
 Font_metric::text_dimension (String text) const

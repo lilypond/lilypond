@@ -4,7 +4,6 @@
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "proto.hh"
 #include "musical-request.hh"
 #include "slur-engraver.hh"
 #include "slur.hh"

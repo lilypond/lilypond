@@ -11,7 +11,7 @@
 #include "translator.hh"
 #include "debug.hh"
 #include "moment.hh"
-
+#include "scm-hash.hh"
 #include "killing-cons.tcc"
 
 Translator_group::Translator_group (Translator_group const&s)
@@ -21,19 +21,21 @@ Translator_group::Translator_group (Translator_group const&s)
   consists_end_str_arr_ = s.consists_end_str_arr_;
   accepts_str_arr_ = s.accepts_str_arr_;
   iterator_count_ =0;
-  properties_dict_ = s.properties_dict_;
+  properties_dict_ = new Scheme_hash_table (*s.properties_dict_);
 }
 
 Translator_group::~Translator_group ()
 {
   assert (removable_b());
   trans_p_list_.junk ();
+  delete properties_dict_;
 }
 
 
 Translator_group::Translator_group()
 {
   iterator_count_  = 0;
+  properties_dict_ = new Scheme_hash_table ;
 }
 
 void
@@ -356,7 +358,7 @@ Translator_group::do_print() const
   if (!flower_dstream)
     return ;
 
-  gh_display (properties_dict_.self_scm_);
+  gh_display (properties_dict_->self_scm_);
   if (status == ORPHAN)
     {
       DEBUG_OUT << "consists of: ";
@@ -432,7 +434,7 @@ Translator_group::do_add_processing ()
 Translator_group*
 Translator_group::where_defined (SCM sym) const
 {
-  if (properties_dict_.elem_b (sym))
+  if (properties_dict_->elem_b (sym))
     {
       return (Translator_group*)this;
     }
@@ -443,9 +445,9 @@ Translator_group::where_defined (SCM sym) const
 SCM
 Translator_group::get_property (SCM sym) const
 {
-  if (properties_dict_.elem_b (sym))
+  if (properties_dict_->elem_b (sym))
     {
-      return properties_dict_.get (sym);
+      return properties_dict_->get (sym);
     }
 
   if (daddy_trans_l_)
@@ -458,6 +460,6 @@ Translator_group::get_property (SCM sym) const
 void
 Translator_group::set_property (String id, SCM val)
 {
-  properties_dict_.set (ly_symbol2scm (id.ch_C()), val);
+  properties_dict_->set (ly_symbol2scm (id.ch_C()), val);
 }
 

@@ -17,7 +17,7 @@ enum Axis {
 };
 
 
-#include "string.hh"		// ugh
+class String;
 
 String axis_name_str (Axis);
 

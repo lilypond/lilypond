@@ -7,7 +7,7 @@
 #define MUDELA_STAFF_HH
 
 #include "midi2ly-proto.hh"
-#include "proto.hh"
+#include "flower-proto.hh"
 #include "cons.hh"
 #include "string.hh"
 

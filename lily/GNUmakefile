@@ -6,15 +6,16 @@ depth = ..
 NAME = lilypond
 SUBDIRS = include
 
+EXTRA_LIBES=-lkpathsea
 MODULE_LIBS=$(depth)/flower 
-MODULE_INCLUDES= $(depth)/flower/include 
+MODULE_INCLUDES= $(depth)/flower/include
 MODULE_CXXFLAGS=
 HELP2MAN_EXECS = lilypond
 
 STEPMAKE_TEMPLATES= c++ executable po help2man
 
 include $(depth)/make/stepmake.make 
-
+EXTRA_LIBES=-lkpathsea
 # force these: Make can't know these have to be generated in advance
 $(outdir)/my-lily-parser.o: $(outdir)/parser.hh
 $(outdir)/my-lily-lexer.o: $(outdir)/parser.hh

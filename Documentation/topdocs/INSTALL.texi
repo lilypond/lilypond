@@ -91,6 +91,9 @@ files.
 
 If you do not want to use PostScript output, edit @file{mf/GNUmakefile}.
 
+@item kpathsea, a library for searching (TeX) files.  @code{kpathsea} is
+usually included with your installation of TeX. 
+
 
 @end itemize
 

@@ -9,11 +9,10 @@
 #ifndef LILY_GUILE_HH
 #define LILY_GUILE_HH
 
-#include  "string.hh"
-
 #include <guile/gh.h>
 #include <libguile.h>
 #include "direction.hh"
+#include "flower-proto.hh"
 
 #ifndef SCM_PACK
 #define SCM_PACK(x) ((SCM) x)

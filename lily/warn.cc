@@ -6,7 +6,6 @@
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "proto.hh"
 #include "debug.hh"
 #include "my-lily-lexer.hh"
 #include "moment.hh"

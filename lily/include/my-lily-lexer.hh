@@ -51,8 +51,6 @@ public:
   Input here_input () const;
 
   void start_main_input ();
-  void set_chordmodifier_table (Notename_table*tab_p);
-  void set_notename_table (Notename_table*tab_p);
 
   SCM lookup_identifier (String s);
   void push_note_state();

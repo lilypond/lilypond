@@ -8,6 +8,7 @@
  */
 
 #include "direction.hh"
+#include "string.hh"
 
 String
 direction_str (Direction d, Axis a)

@@ -478,7 +478,7 @@ Slur::get_curve (Score_element*me)
 bool
 Slur::has_interface (Score_element*me)
 {
-  return me->has_interface ("slur-interface");
+  return me->has_interface (ly_symbol2scm ("slur-interface"));
 }
 
 

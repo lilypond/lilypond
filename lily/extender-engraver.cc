@@ -6,7 +6,7 @@
   
 */
 
-#include "proto.hh"
+#include "flower-proto.hh"
 #include "musical-request.hh"
 #include "lyric-extender.hh"
 #include "paper-column.hh"

@@ -10,13 +10,11 @@
 #ifndef TRANSLATOR_HH
 #define TRANSLATOR_HH
 
-#include <typeinfo>
 #include "global-ctor.hh"
 #include "string.hh"
 #include "lily-proto.hh"
 #include "virtual-methods.hh"
 #include "lily-guile.hh"
-#include "dictionary.hh"
 #include "parray.hh"
 #include "input.hh"
 

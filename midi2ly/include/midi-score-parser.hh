@@ -11,7 +11,7 @@
 #define MIDI_SCORE_PARSER_HH
 
 #include "midi-parser.hh"
-#include "proto.hh"
+#include "flower-proto.hh"
 #include "midi2ly-proto.hh"
 #include "parray.hh"
 

@@ -189,6 +189,7 @@ Simple_spacer::add_columns (Link_array<Score_element> cols)
 	}
       else
 	{
+	  programming_error ("No spring between adjacent columns");
 	  desc.hooke_f_ = 1.0;
 	  desc.ideal_f_ = default_space_f_;
 	}

@@ -11,7 +11,7 @@
 #include "killing-cons.tcc"
 #include "binary-source-file.hh"
 #include "string.hh"
-#include "proto.hh"
+#include "flower-proto.hh"
 #include "source-file.hh"
 #include "source.hh"
 #include "file-path.hh"

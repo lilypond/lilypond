@@ -1,6 +1,6 @@
 
 /*
-  fproto.hh -- typenames in flowerlib
+  fflower-proto.hh -- typenames in flowerlib
 
   (c) 1996 Han-Wen Nienhuys
 */
@@ -51,6 +51,16 @@ typedef int I32;
 typedef long long I64;
 
 typedef unsigned char Byte;
+
+struct Duration;
+struct Duration_iterator;
+struct Source_file;
+struct Binary_source_file;
+struct Sources;
+struct File_storage;
+struct Mapped_file_storage;
+struct Simple_file_storage;
+
 
 
 #endif // FPROTO_HH
