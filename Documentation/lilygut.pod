@@ -174,7 +174,9 @@ To decide on merging, C<Complex_staff> has grouped several
 registers. There are a few groups:
 
 =item *
+
 Staff wide, contains
+
 	Local_key_register
 	Bar_register
 	Key_register
@@ -182,13 +184,17 @@ Staff wide, contains
 	Clef_register
 
 =item *
+
 Voice group, contains
+
 	Stem_beam_register
 	Script_register
 	Text_register
 
 =item *
+
 Voice, contains
+	
 	Slur_register
 	Notehead_register
 
@@ -316,7 +322,7 @@ Ross, Ted. ``Teach yourself the art of music engraving and processing''
 	Miami, FL  33139
 	(305) 532-5461
 
-[This is about *engraving* i.e. professional music typesetting, and includes 
+[This is about I<engraving> i.e. professional music typesetting, and includes 
 some good spacing tables]
  
 Read, Gardner. ``Modern Rhythmic Notation.'' Indiana University Press, 1978.
