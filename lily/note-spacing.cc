@@ -277,7 +277,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	    hanging from the note.
 	   */
 	  if (d == LEFT
-	      && Stem::flag_i (stem) && !Stem::beam_l (stem))
+	      && Stem::duration_log (stem) > 2  && !Stem::beam_l (stem))
 	    {
 	      correct = false;
 	      goto exit_func;

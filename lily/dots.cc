@@ -56,6 +56,10 @@ Dots::brew_molecule (SCM d)
       /*
 	we need to add a real blank box, to assure that
 	side-positioning doth not cancel the left-most padding.  */
+
+      /*
+	TODO: this should  be handled by side-position padding.
+       */
       mol = Lookup::blank (Box (Interval (0,0),
 				Interval (0,0)));
   

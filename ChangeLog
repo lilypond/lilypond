@@ -1,3 +1,9 @@
+2002-04-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/stem.cc (duration_log): change from flag_i (); better
+	naming.
+	(get_default_stem_end_position): fix dot/flag collision code.
+
 2002-04-02  Han-Wen  <hanwen@cs.uu.nl>
 
 	* VERSION: release 1.5.50
