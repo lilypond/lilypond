@@ -9,7 +9,7 @@
 
 #(define german-Bb #f)
 
-#(define (pitch->chord-name-text-banter pitch)
+#(define (pitch->chord-name-text-banter pitch additions)
    (if (equal? (cdr pitch) '(6 -1))
      (if german-Bb
        (cons "B" (accidental->text -1))
