@@ -41,12 +41,12 @@ Active_constraints::OK()
 #ifndef NDEBUG
   H.OK();
   A.OK();
-  assert (active.size() +inactive.size () == opt->cons.size ());
+  assert (active.size() +inactive.size () == opt->cons_.size ());
   assert (H.dim() == opt->dim ());
   assert (active.size() == A.rows ());
   Array<int> allcons;
 
-  for (int i=0; i < opt->cons.size(); i++)
+  for (int i=0; i < opt->cons_.size(); i++)
     allcons.push (0);
   for (int i=0; i < active.size(); i++)
     {
@@ -79,7 +79,7 @@ Active_constraints::add (int k)
   inactive.swap (k,inactive.size()-1);
   inactive.pop();
 
-  Vector a (opt->cons[cidx]);
+  Vector a (opt->cons_[cidx]);
   // update of matrices
   Vector Ha = H*a;
   Real aHa = a*Ha;
@@ -123,10 +123,10 @@ Active_constraints::drop (int k)
       /*
 
        */
-      Real q = a*opt->quad*a;
+      Real q = a*opt->quad_*a;
       Matrix aaq (a,a/q);
       H += aaq;
-      A -= A*opt->quad*aaq;
+      A -= A*opt->quad_*aaq;
     }else
       WARN << _("degenerate constraints");
 #ifndef NDEBUG
@@ -143,9 +143,9 @@ Active_constraints::Active_constraints (Ineq_constrained_qp const *op)
 	  H(op->dim()),
 	  opt (op)
 {
-  for (int i=0; i < op->cons.size(); i++)
+  for (int i=0; i < op->cons_.size(); i++)
     inactive.push (i);
-  Choleski_decomposition chol (op->quad);
+  Choleski_decomposition chol (op->quad_);
 
   /*
     ugh.

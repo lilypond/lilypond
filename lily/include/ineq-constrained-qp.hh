@@ -18,12 +18,12 @@
 class Ineq_constrained_qp {
     friend class Active_constraints;
 
-    Array<Vector> cons;
-    Array<Real> consrhs;
+    Array<Vector> cons_;
+    Array<Real> consrhs_;
 public:
-    Matrix quad;
-    Vector lin;
-    Real const_term;
+    Matrix quad_;
+    Vector lin_;
+    Real const_term_;
 
 
     /**
@@ -40,9 +40,7 @@ public:
     /**
       @return the number of variables in the problem
       */
-    int dim() const{
-	return lin.dim();
-    }
+    int dim() const;
 
     /**
       add a constraint
