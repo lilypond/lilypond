@@ -81,6 +81,8 @@ Paper_book::output ()
      * some page breaking algorithm
      * header / footer (generate per Page, with page#)
      * override: # pages, or pageBreakLines= #'(3 3 4), ?
+     * what about between-system-breaking, can we junk that?
+     
 */
 Link_array<Page>*
 Paper_book::get_pages ()
