@@ -214,6 +214,8 @@ procedure? "visibility-lambda function for explicit Key changes;
 extra natural sign before accidentals changing from a non-natural to 
 another non-natural.
 ")
+
+(translator-property-description 'finalizations list? "List of expressions to evaluate before proceeding to next time step. Internal variable.")
 (translator-property-description 'followVoice boolean?
 				 "if set, note heads are tracked  across staff switches by a thin line")
 (translator-property-description 'fontSize integer?
