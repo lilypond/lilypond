@@ -24,7 +24,7 @@ public:
     bool change;
 
     /* *************** */
-NAME_MEMBERS(Clef_item);
+NAME_MEMBERS();
     Clef_item();
     void read(Clef_register const&);
     void read(String);

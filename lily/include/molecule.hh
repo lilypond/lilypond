@@ -4,27 +4,6 @@
 #include "lily-proto.hh"
 #include "plist.hh"
 #include "boxes.hh"
-#include "symbol.hh"
-
-/// a symbol which can be translated, and freely copied
-struct Atom {
-    Offset off;
-    Symbol sym;
-
-    /* *************** */
-    
-    void translate(Offset o) {
-	off += o;
-    }
-    
-    /// how big is #this#?
-    Box extent() const;
-    Atom(Symbol s);
-
-    void print() const;
-
-    String TeX_string() const;
-};
 
 
 /** a group of individually translated symbols. You can add molecules
@@ -35,7 +14,7 @@ struct Molecule {
     /* *************** */
     
     Molecule() { }
-    Molecule(Atom a) { add(a) ; }
+    Molecule(Atom const &a) { add(a) ;}
 
     void add_right(const Molecule &m);
     void add_left(const Molecule &m);
@@ -43,7 +22,7 @@ struct Molecule {
     void add_bottom(const Molecule &m);
     void add(Molecule const &m);
     void translate(Offset);
-    void add(Atom a) { ats.bottom().add(new Atom(a)); }
+    void add(Atom const & a) ;
     /// how big is #this#? 
     Box extent() const;
 

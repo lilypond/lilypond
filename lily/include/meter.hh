@@ -23,7 +23,7 @@ protected:
     Molecule*brew_molecule_p() const;
 public:
     Meter(Array<Scalar> args) ;
-    NAME_MEMBERS(Meter);
+    NAME_MEMBERS();
 };
 #endif // METER_HH
 

@@ -32,6 +32,6 @@ protected:
     virtual void post_move_processing();
 public:
     Note_column_register();
-    NAME_MEMBERS(Note_column_register);
+    NAME_MEMBERS();
 };
 #endif // NOTE_COLUMN_REG_HH

@@ -14,7 +14,7 @@ class Bar:public Item {
 public:
     String type;
     
-    NAME_MEMBERS(Bar);
+    NAME_MEMBERS();
     Bar(String type);
 private:
     void do_print() const;
