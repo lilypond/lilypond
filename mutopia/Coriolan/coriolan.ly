@@ -1,24 +1,15 @@
 %{
  run this through:
  ly2dvi -K coriolan.tex
- dvips -O 5mm,0mm -o coriolan.ps coriolan
+ dvips -O 5mm,0mm -o coriolan.ps coriolan 2> /dev/null
 %}
 
-#(set point-and-click #t)
-
-\header{
-filename = 	 "coriolan.ly";
-%title = 	 "Ouverture"; 
-subtitle =  "Coriolan";
-opus =  "Op. 62";
-composer = 	 "Ludwig van Beethoven (1770-1827)";
-enteredby = 	 "JCN";
-copyright = 	 "public domain";
-}
 
 \version "1.3.120";
 
+\include "header.ly"
 \include "global.ly"
+
 \include "paper16.ly"
 
 \include "bassi.ly"
@@ -29,7 +20,7 @@ copyright = 	 "public domain";
 \include "oboi.ly"
 \include "timpani.ly"
 \include "trombe.ly"
-\include "violi.ly"
+\include "viole.ly"
 \include "violino-1.ly"
 \include "violino-2.ly"
 
@@ -49,7 +40,7 @@ ottoniGroup =  \context StaffGroup = otonni_group <
 timpaniGroup =  \context StaffGroup = timpani_group <
 	\timpaniStaff
 	% Force a staff bracket (?)
-	\context Staff = timpany { \skip 1*314; }
+	\context Staff = timpany \End
 >
 
 violiniGroup =  \context GrandStaff = violini_group <
@@ -59,7 +50,7 @@ violiniGroup =  \context GrandStaff = violini_group <
 
 archiGroup =  \context StaffGroup = archi_group <
 	\violiniGroup
-	\violiGroup
+	\violeGroup
 	\bassiGroup
 >
 

@@ -1,7 +1,4 @@
-\header{
-instrument="Alto";
-}
-
-instrument="viola"
+instr="viola"
+instrument="Viola"
 \include "solo-cello-suite-ii.ly"
 

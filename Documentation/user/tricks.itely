@@ -2,6 +2,10 @@
 @ignore
 
 TODO
+  * cue notes
+  * different staff sizes
+  * font selection
+
   * move some stuff to refman
   * merge some stuff with refman entries
   
@@ -390,6 +394,24 @@ No staff, no clef, squash pitches
 
 @node Markup text
 @section Markup text
+
+
+@ignore
+
+
+#(define text-flat '((font-relative-size . -2 ) (music "accidentals--1")))
+
+  \property VoiceCombineStaff.instrument = #`((kern . 0.5) (lines
+    "2 Clarinetti" (rows "     (B" ,text-flat ")")))
+
+    % Ugh, markup burps
+    \property StaffCombineStaff.instrument = #'((kern . 0.5)
+    (lines "Violoncello" (rows "     e") (rows "Contrabasso")))
+
+
+@end ignore
+
+
 
 Metrome hack...
 

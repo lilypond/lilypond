@@ -5,15 +5,17 @@ texidoc="Template for part-combining orchestral scores";
 \include "paper16.ly"; 
 % \include "mutopia/Coriolan/coriolan-paper.ly";
 
+#(define text-flat '((font-relative-size . -2 ) (music "accidentals--1")))
 
+End = { \skip 1*9; \bar "|."; }
 
 flautoI = \notes\relative c'' {
   c4\pp d e f
   b,4 d c d
   r2 e4 f
   \break
- \context Score \outputproperty #(make-type-checker 'paper-column-interface)
- #'between-system-string = #"\\eject"
+  \context Score \outputproperty #(make-type-checker 'paper-column-interface)
+  #'between-system-string = #"\\eject"
 
   c4 d e f
   c4 r e f
@@ -38,8 +40,15 @@ flautoII = \notes\relative c'' {
           
 flautiStaff =  \notes \context VoiceCombineStaff = flauti <
   \property VoiceCombineStaff.midiInstrument = #"flute"
-  \property VoiceCombineStaff.instrument = #"2 Flauti"
-  \property VoiceCombineStaff.instr = #"Fl."
+%  \property VoiceCombineStaff.instrument = #"2 Flauti"
+%  \property VoiceCombineStaff.instr = #"Fl."
+
+  \property VoiceCombineStaff.instrument = #`((kern . 0.5) (lines
+    "2 Clarinetti" (rows "(B" ,text-flat ")")))
+
+  \property VoiceCombineStaff.instr = #`((kern . 0.5) (lines
+    "Cl."  (rows "(B" ,text-flat ")")))
+
   %\global
   \context VoiceCombineVoice=one \partcombine VoiceCombineVoice
     \context VoiceCombineThread=one \flautoI
@@ -82,7 +91,7 @@ violinoIStaff =  \context Staff = oneViolini <
   \property Staff.instrument = #"Violino I"
   \property Staff.instr = #"Vl. I"
   \violinoI
-  { \skip 1*9; \bar "|."; }
+  \End
 >
 
 violinoIIStaff =  \context Staff = twoViolini <
@@ -92,7 +101,7 @@ violinoIIStaff =  \context Staff = twoViolini <
   \property Staff.instrument = #"Violino II"
   \property Staff.instr = #"Vl. II"
   \violinoII
-  { \skip 1*9; \bar "|."; }
+  \End
 >
 
 violaI = \notes\transpose c, \violinoI
@@ -108,7 +117,7 @@ violeGroup =  \notes \context VoiceCombineStaff = oneViole <
   \property VoiceCombineStaff.clefGlyph = #"clefs-C"
   \property VoiceCombineStaff.clefPosition = #0
   \key f \major;
-  { \skip 1*9; \bar "|."; }
+  \End
 
   \context VoiceCombineVoice=oneViole \partcombine VoiceCombineVoice
     \context VoiceCombineThread=oneViole \violaI
@@ -135,8 +144,11 @@ contrabasso = \notes\relative c {
 bassiGroup =  \context PianoStaff = bassi_group \notes <
   \context StaffCombineStaff=oneBassi {
     \property StaffCombineStaff.midiInstrument = #"cello"
-    %\property StaffCombineStaff.instrument = #"Violoncello\ne\nContrabasso"
-    \property StaffCombineStaff.instrument = #'(lines "Violoncello" "e" "Contrabasso")
+
+    % Ugh, markup burps
+    \property StaffCombineStaff.instrument = #'((kern . 0.5)
+    (lines "Violoncello" (rows "    e") (rows "Contrabasso")))
+
     \property StaffCombineStaff.instr = #"Vc."
     
     %\clef "bass";
@@ -145,8 +157,7 @@ bassiGroup =  \context PianoStaff = bassi_group \notes <
     \property StaffCombineStaff.clefPosition = #2
 
     \key es \major;
-    \skip 1*9; 
-    \bar "|.";
+    \End
   }
   \context StaffCombineStaff=twoBassi {
     \property StaffCombineStaff.midiInstrument = #"contrabass"
@@ -159,8 +170,7 @@ bassiGroup =  \context PianoStaff = bassi_group \notes <
     \property StaffCombineStaff.clefPosition = #2
     
     \key as \major;
-    \skip 1*9; 
-    \bar "|.";
+    \End
   }
 
   \context StaffCombineStaff=oneBassi \partcombine StaffCombineStaff
@@ -267,10 +277,8 @@ archiGroup =  \context StaffGroup = archi_group <
       \OrchestralScoreContext
       \accepts "VoiceCombineStaff";
       \accepts "StaffCombineStaff";
+      TimeSignature \override #'style = #'C
       skipBars = ##t 
-
-      markScriptPadding = #4.0
-
       BarNumber \override #'padding = #3
       RestCollision \override #'maximum-rest-count = #1
     }

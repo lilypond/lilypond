@@ -71,9 +71,7 @@
 		\accepts "VoiceCombineStaff";
 		\accepts "StaffCombineStaff";
 		skipBars = ##t 
-
-		markScriptPadding = #4.0
-
+		TimeSignature \override #'style = #'C
 		BarNumber \override #'padding = #3
 		RestCollision \override #'maximum-rest-count = #1
 	}

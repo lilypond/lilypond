@@ -1,11 +1,3 @@
-\header{
-filename = 	 "violoncello.ly";
-%title = 	 "Ouvert\\"ure zu Collins Trauerspiel \\"Coriolan\\" Opus 62";
-description = 	 "";
-composer = 	 "Ludwig van Beethoven (1770-1827)";
-enteredby = 	 "JCN";
-copyright = 	 "public domain";
-}
 
 \version "1.3.120";
 
@@ -313,7 +305,7 @@ violoncello =  \notes \relative c {
 
 	%200
 	[b8\<( fis' dis fis ][b fis dis )b!~] |
-	[b8\p( g' e g][e g e )g] |
+	[b8( g' e g][e g e )g] |
 	[f(g f g][f g f)g] |
 	\!es!4\fp r e r |
 	f r g r |

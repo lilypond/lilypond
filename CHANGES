@@ -1,3 +1,17 @@
+1.3.126.jcn1
+============
+
+* Coriolan fixes and updates.
+
+* Bugfix: a2-engraver and *devnull_engraver recognise alternative
+'oneXXX' 'twoXXX' naming convention.
+
+* Enabled markup text to be used for instrument names.
+
+* Bugfix: interface description of System_start_delimiter
+
+* Slur attachment fix (thanks, Han-Wen)
+
 1.3.126
 =======
 * Doco:

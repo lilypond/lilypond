@@ -34,7 +34,7 @@ static char const *eat_spanners[] = {
 bool
 Voice_devnull_engraver::try_music (Music *m)
 {
-  if (daddy_trans_l_->id_str_ == "two"
+  if (daddy_trans_l_->id_str_.left_str (3) == "two"
       && (to_boolean (get_property ("unison"))
 	  || to_boolean (get_property ("unisilence"))))
     {
@@ -69,7 +69,7 @@ static char const *junk_interfaces[] = {
 void
 Voice_devnull_engraver::acknowledge_grob (Grob_info i)
 {
-  if (daddy_trans_l_->id_str_ == "two"
+  if (daddy_trans_l_->id_str_.left_str (3) == "two"
       && (to_boolean (get_property ("unison"))
 	  || to_boolean (get_property ("unisilence"))))
     for (char const **p = junk_interfaces; *p; p++)

@@ -77,7 +77,7 @@ Instrument_name_engraver::acknowledge_grob (Grob_info i)
       /*
 	FIXME: use markup_p () to check type.
       */
-      if (gh_string_p (s))
+      if (gh_string_p (s) || gh_pair_p (s))
 	create_text (s);
 	  
     }

@@ -1,11 +1,3 @@
-\header{
-filename = 	 "fagotto-1.ly";
-%title = 	 "Ouvert\\"ure zu Collins Trauerspiel \\"Coriolan\\" Opus 62";
-description = 	 "";
-composer = 	 "Ludwig van Beethoven (1770-1827)";
-enteredby = 	 "JCN";
-copyright = 	 "public domain";
-}
 
 \version "1.3.120";
 
@@ -216,11 +208,11 @@ fagottoI =  \notes \relative c {
 	a2\ff g|
 	fis b~|
 	b1\p~|
-	b~|
+	b\<~|
 	b~|
 	b|
-	c2.()bes4|
-	bes\p(as2)g4|
+	\!c2.\f\>()bes4|
+	\!bes\p(as2)g4|
 	g'4(f2)es4|
 	es(d es)c|
 	b r8 d\p d4. d8|

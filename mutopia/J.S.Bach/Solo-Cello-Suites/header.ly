@@ -12,20 +12,22 @@ information is taken to the extreme.
 
 \header{
   title =	 "Solo Cello Suites";
-  subtitle = "Suite II";
+  subtitle =	 "Suite II";
   opus =	 "BWV 1008";
   composer =	 "Johann Sebastian Bach (1685-1750)";
   enteredby =	 "JCN";
+  instrument =	 \instrument;
 
   % mutopia headers.
   mutopiatitle = "Solo Cello Suites, Suite II";
   mutopiacomposer = "J.S.Bach";
-  mutopiaopus = "BWV1008";
+  mutopiaopus =	"BWV1008";
   style = "baroque";
   maintainername = "Jan Nieuwenhuizen";
     
-  copyright =    "\\\\This music is part of the Mutopia project, http://sca.uwaterloo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by " +  \maintainername + ".\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!";
-  maintainer = "janneke@gnu.org";
+  copyright =    "\\\\This music is part of the Mutopia project, http://www.mutopiaproject.org/\\\\It has been typeset and placed in the public domain by " +  \maintainername + ".\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!";
+  maintainer =	"janneke@gnu.org";
 
-  lastupdated = "2001/Jan/28";
+  tagline =	 \copyright;
+  lastupdated =	 "2001/Jan/28";
 }

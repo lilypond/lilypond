@@ -1019,10 +1019,11 @@ large files: if you're digitizing existing music, you have to
 synchronize the .ly file, the sheet music on your lap and the sheet
 music on the screen.  The point-and-click mechanism makes it easy to
 find the origin of an error in the .ly file: @footnote{This feature is
-presently only available on X-windows using  patched versions of Xdvi
-and emacs} when you view the file with Xdvi and click on a note using
-control-right button, [checkme], you editor will jump to the spot where
-that note was entered.
+presently only available on X-windows using patched versions of Xdvi and
+emacs} when you view the file with Xdvi and click on a note using
+control-mousebutton 1@footnote{If you're using a patched xdvik, the
+command is control-mousebutton-2}, your editor will jump to the spot
+where that note was entered.
 
 More information is in in @ref{Point and click} 
 

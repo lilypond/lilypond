@@ -15,6 +15,7 @@
 #include "side-position-interface.hh"
 #include "directional-element-interface.hh"
 
+
 class A2_engraver : public Engraver
 {
 public:
@@ -51,7 +52,7 @@ A2_engraver::create_grobs ()
       if (solo_adue == SCM_BOOL_T
 	  && ((solo == SCM_BOOL_T && state_ != SOLO)
 	      || (unison == SCM_BOOL_T && state_ != UNISON
-		  && daddy_trans_l_->id_str_ == "one")))
+		  && daddy_trans_l_->id_str_.left_str (3) == "one")))
 	{
 	  text_p_ = new Item (get_property ("TextScript"));
 	  Side_position::set_axis (text_p_, Y_AXIS);
@@ -62,7 +63,7 @@ A2_engraver::create_grobs ()
 	  if (solo == SCM_BOOL_T)
 	    {
 	      state_ = SOLO;
-	      if (daddy_trans_l_->id_str_ == "one")
+	      if (daddy_trans_l_->id_str_.left_str (3) == "one")
 		{
 		  text = get_property ("soloText");
 		}
@@ -75,7 +76,7 @@ A2_engraver::create_grobs ()
 	  else if (unison == SCM_BOOL_T)
 	    {
 	      state_ = UNISON;
-	      if (daddy_trans_l_->id_str_ == "one")
+	      if (daddy_trans_l_->id_str_.left_str (3) == "one")
 		text = get_property ("aDueText");
 	    }
 	  
@@ -131,8 +132,14 @@ A2_engraver::acknowledge_grob (Grob_info i)
 	  
   if (Stem::has_interface (i.elem_l_)
       || Slur::has_interface (i.elem_l_)
-      // || Text_item::has_interface (i.elem_l_)
-      //|| Hairpin::has_interface (i.elem_l_)
+      /*
+	Usually, dynamics are removed by *_devnull_engravers for the
+	second voice.  We don't want all dynamics for the first voice
+	to be placed above the staff.  */
+#if 0
+      || i.elem_l_->has_interface (ly_symbol2scm ("dynamic-interface"))
+      || i.elem_l_->has_interface (ly_symbol2scm ("text-interface"))
+#endif
       )
     {
       /*
@@ -144,11 +151,11 @@ A2_engraver::acknowledge_grob (Grob_info i)
 	  || (unirhythm == SCM_BOOL_T && split_interval == SCM_BOOL_T
 	      && (unison != SCM_BOOL_T || solo_adue != SCM_BOOL_T)))
 	{
-	  if (daddy_trans_l_->id_str_ == "one")
+	  if (daddy_trans_l_->id_str_.left_str (3) == "one")
 	    {
 	      i.elem_l_->set_grob_property ("direction", gh_int2scm (1));
 	    }
-	  else if (daddy_trans_l_->id_str_ == "two")
+	  else if (daddy_trans_l_->id_str_.left_str (3) == "two")
 	    {
 	      i.elem_l_->set_grob_property ("direction", gh_int2scm (-1));
 	    }

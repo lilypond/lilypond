@@ -1,12 +1,3 @@
-\header{
-filename = 	 "c-midi.ly";
-%title = 	 "Ouverture"; 
-subtitle =  "Coriolan";
-opus =  "Op. 62";
-composer = 	 "Ludwig van Beethoven (1770-1827)";
-enteredby = 	 "JCN";
-copyright = 	 "public domain";
-}
 
 
 %%
@@ -83,7 +74,7 @@ copyright = 	 "public domain";
 		\violinoI
 		\violinoII
 	>
-	\context Staff=violi <
+	\context Staff=viole <
 		\property VoiceCombineStaff.midiInstrument = #"viola"
 		\violaI
 		\violaII

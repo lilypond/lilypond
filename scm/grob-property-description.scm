@@ -84,10 +84,9 @@ column as start/begin point. Only columns that have grobs or act as bounds are s
 be at the center of the group after aligning (when using
 Align_interface::center_on_element). .")
 (grob-property-description 'chordChanges boolean? "only show changes in chord scheme?.")
+(grob-property-description 'bar-line-collapse-height number? "Minimum height of system start delimiter bar-line glyphs.  If equal or smaller, the bar-line is removed.")
 (grob-property-description 'brace-collapse-height number? "Minimum height of system start delimiter brace glyphs.  If equal or smaller, the brace is removed.")
 (grob-property-description 'bracket-collapse-height number? "Minimum height of system start delimiter bracket glyphs.  If equal or smaller, the bracket is removed.")
-(grob-property-description 'bar-line-collapse-height number? "Minimum height of system start delimiter bar-line glyphs.  If equal or smaller, the bar-line is removed.")
-(grob-property-description 'brace-collapse-height number? "Minimum height of system start delimiter brace glyph.  If equal or smaller, the brace is removed.")
 (grob-property-description 'column-space-strength number? "relative strength of space following breakable columns (eg. prefatory matter).")
 (grob-property-description 'columns list? "list of grobs, typically containing paper-columns, list of note-columns.")
 (grob-property-description 'contains-grace boolean? "Used to widen entries for grace notes.")

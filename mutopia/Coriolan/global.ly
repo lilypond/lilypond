@@ -1,17 +1,16 @@
-\header{
-filename = 	 "global.ly";
-%title = 	 "Ouvert\\"ure zu Collins Trauerspiel \\"Coriolan\\" Opus 62";
-description = 	 "";
-composer = 	 "Ludwig van Beethoven (1770-1827)";
-enteredby = 	 "JCN";
-copyright = 	 "public domain";
-}
 
 \version "1.3.120";
 
-global =  \notes {
-	\time 4/4;
-	\key es \major;
-	\skip 1*314; \bar "|.";
+Time = \time 4/4;
+Key = \notes { \key es \major; }
+End = { \skip 1*314; \bar "|."; }
+
+global = \notes {
+	\Time
+	\Key
+	\End
 }
+
+#(set! point-and-click #t)
+#(define text-flat '((font-relative-size . -2) (music "accidentals--1")))
 

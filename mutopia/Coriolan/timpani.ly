@@ -1,11 +1,3 @@
-\header{
-filename = 	 "timpani.ly";
-%title = 	 "Ouvert\\"ure zu Collins Trauerspiel \\"Coriolan\\" Opus 62";
-description = 	 "";
-composer = 	 "Ludwig van Beethoven (1770-1827)";
-enteredby = 	 "JCN";
-copyright = 	 "public domain";
-}
 
 \version "1.3.120";
 
@@ -145,14 +137,13 @@ timpani =  \notes \relative c {
 
 timpaniStaff =  \context Staff = timpani <
 	\property Staff.midiInstrument = #"timpani"
-	\property Staff.instrument = #"2 Timpani\n(C-G)"
+	\property VoiceCombineStaff.instrument = #'((kern . 0.5)
+	(lines "2 Timpani" "(C-G)"))
 	\property Staff.instr = #"Timp."
 	\clef "bass";
-	\notes< 
-%		\global
-		\time 4/4;
-		\context Voice=timpani
-			\timpani
-	>
+	\Time
+	\notes { \key c \major; }
+	\context Voice=timpani
+	\timpani
 >
 

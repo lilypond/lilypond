@@ -1,27 +1,24 @@
-\header{
-filename = 	 "corni.ly";
-%title =	 "Ouvert\\"ure zu Collins Trauerspiel \\"Coriolan\\" Opus 62";
-description = 	 "";
-composer = 	 "Ludwig van Beethoven (1770-1827)";
-enteredby = 	 "JCN";
-copyright = 	 "public domain";
-}
 
 \version "1.3.120";
 
 \include "corno-1.ly"
 \include "corno-2.ly"
 
-corniStaff =  \context VoiceCombineStaff = corni <
+corniStaff = \context VoiceCombineStaff = corni <
 	\property VoiceCombineStaff.midiInstrument = #"french horn"
-	\property VoiceCombineStaff.instrument = #"2 Corni\n(E\\textflat)"
-	\property VoiceCombineStaff.instr = #"Cor.\n(E\\textflat)"
+
+	\property VoiceCombineStaff.instrument = #`((kern . 0.5)
+	(lines "2 Corni" (rows "(E" ,text-flat ")")))
+	
+	\property VoiceCombineStaff.instr = #`((kern . 0.5)
+	(lines "Cor."  (rows "(E" ,text-flat ")")))
 
 	% urg: can't; only My_midi_lexer:<non-static> () parses pitch?
 	%\property VoiceCombineStaff.transposing = "es"
 	\property VoiceCombineStaff.transposing = #3
-	\time 4/4;
-	\skip 1*314; \bar "|.";
+	\Time
+	\notes { \key c \major; }
+	\End
 	\context VoiceCombineVoice=one \partcombine VoiceCombineVoice
 		\context VoiceCombineThread=one \cornoI
 		\context VoiceCombineThread=two \cornoII

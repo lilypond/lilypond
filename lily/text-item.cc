@@ -50,8 +50,10 @@
    or even entries like
 
    (tag . (argcount function-to-handle-the-tag  ))
-  
- */
+
+   use baselineskip for setting (lines ...)
+
+*/
 
 Molecule
 Text_item::text2molecule (Grob *me, SCM text, SCM alist_chain) 

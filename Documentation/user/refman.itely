@@ -1834,9 +1834,17 @@ style.
 To create tremolo beams on a single note, simply attach
 `@code{:}@var{length}' to the note itself.
 
-@lilypond[fragment,verbatim,center]
-  \repeat "tremolo" 8 { c16 d16 }
-  \repeat "tremolo" 4 { c16 d16 }    
+@lilypond[verbatim,center]
+\score { 
+  \context Voice \notes\relative c' {
+    \repeat "tremolo" 8 { c16 d16 }
+    \repeat "tremolo" 4 { c16 d16 }    
+    \repeat "tremolo" 2 { c16 d16 }    
+  }
+  \paper {
+    linewidth = 40*\staffspace;
+  }  
+}
 @end lilypond
 @cindex @code{__}
 
