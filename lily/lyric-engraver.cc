@@ -7,31 +7,34 @@
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
+#include "context.hh"
 #include "engraver.hh"
 #include "event.hh"
-#include "item.hh"
-#include "context.hh"
 #include "font-metric.hh"
+#include "item.hh"
+#include "multi-measure-rest.hh"
 #include "note-head.hh"
+#include "rest.hh"
 
 /**
-   Generate texts for lyric syllables.  We only do one lyric at a time.  
+   Generate texts for lyric syllables.  We only do one lyric at a time.
    Multiple copies of this engraver should be used to do multiple voices.
  */
-class Lyric_engraver : public Engraver 
+class Lyric_engraver : public Engraver
 {
 protected:
   virtual void stop_translation_timestep ();
   virtual bool try_music (Music *);
   virtual void process_music ();
-  
+
 public:
   TRANSLATOR_DECLARATIONS (Lyric_engraver);
-private:
-  Music * event_;
-  Item* text_;
 
-  Context* get_voice_context ();
+private:
+  Music *event_;
+  Item *text_;
+
+  Context *get_voice_context ();
 };
 
 Lyric_engraver::Lyric_engraver ()
@@ -43,10 +46,12 @@ Lyric_engraver::Lyric_engraver ()
 bool
 Lyric_engraver::try_music (Music*r)
 {
-  if (event_)
-    return false;
-  event_ =r;
-  return true;
+  if (!event_)
+    {
+      event_ = r;
+      return true;
+    }
+  return false;
 }
 
 void
@@ -54,8 +59,7 @@ Lyric_engraver::process_music ()
 {
   if (event_)
     {
-      text_=  make_item ("LyricText",event_->self_scm ());
-      
+      text_ = make_item ("LyricText", event_->self_scm ());
       text_->set_property ("text", event_->get_property ("text"));
     }
 }
@@ -81,7 +85,7 @@ get_voice_to_lyrics (Context *lyrics)
     }
 
   Context *parent = lyrics;
-  Context *voice = 0; 
+  Context *voice = 0;
   while (parent && !voice)
     {
       voice = find_context_below (parent, ly_symbol2scm ("Voice"), nm);
@@ -92,7 +96,7 @@ get_voice_to_lyrics (Context *lyrics)
     return voice;
 
   parent = lyrics;
-  voice = 0; 
+  voice = 0;
   while (parent && !voice)
     {
       voice = find_context_below (parent, ly_symbol2scm ("Voice"), "");
@@ -103,19 +107,36 @@ get_voice_to_lyrics (Context *lyrics)
 }
 
 Grob *
-get_current_note_head (Context * voice)
+get_current_note_head (Context *voice)
 {
   for (SCM s = voice->get_property ("busyGrobs");
        ly_c_pair_p (s); s = ly_cdr (s))
     {
-      Item*g = dynamic_cast<Item*> (unsmob_grob (ly_cdar (s)));
-	  
+      Item *g = dynamic_cast<Item*> (unsmob_grob (ly_cdar (s)));
+	
       if (g && !g->get_column ()
 	  && Note_head::has_interface (g))
 	return g;
     }
-	  
-  return 0;  
+	
+  return 0;
+}
+
+Grob *
+get_current_rest (Context *voice)
+{
+  for (SCM s = voice->get_property ("busyGrobs"); ly_c_pair_p (s);
+       s = ly_cdr (s))
+    {
+      Item *g = dynamic_cast<Item*> (unsmob_grob (ly_cdar (s)));
+	
+      if (g && !g->get_column ()
+	  && (Rest::has_interface (g)
+	      || Multi_measure_rest::has_interface (g)))
+	return g;
+    }
+
+  return 0;
 }
 
 void
@@ -123,7 +144,7 @@ Lyric_engraver::stop_translation_timestep ()
 {
   if (text_)
     {
-      Context * voice = get_voice_to_lyrics (context ());
+      Context *voice = get_voice_to_lyrics (context ());
 
       if (voice)
 	{
@@ -133,13 +154,13 @@ Lyric_engraver::stop_translation_timestep ()
 	    {
 	      text_->set_parent (head, X_AXIS);
 	      if (melisma_busy (voice))
-		text_->set_property ("self-alignment-X", scm_int2num (LEFT)); 
+		text_->set_property ("self-alignment-X", scm_int2num (LEFT));
 	    }
 	}
-      
-      text_ =0;
+
+      text_ = 0;
     }
-  event_ =0;
+  event_ = 0;
 }
 
 

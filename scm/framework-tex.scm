@@ -266,6 +266,7 @@
   (let*
       ((cmd (string-append "latex \\\\nonstopmode \\\\input " name)))
 
+    (newline (current-error-port))
     (display (format #f (_ "Invoking ~S") cmd) (current-error-port))
     (newline (current-error-port))
 

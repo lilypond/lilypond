@@ -146,7 +146,7 @@ public:
   /// access element
   T &elem_ref (int i) const 
     {
-      assert (i >=0&&i<size_);
+      assert (i >=0 && i < size_);
       return ((T*)array_)[i];	
     }
   /// access element

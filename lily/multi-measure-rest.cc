@@ -150,7 +150,7 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
 
 	  s.translate_axis ((space - s.extent (X_AXIS).length ())/2, X_AXIS);
       
-	  return s ;
+	  return s;
 	}
       else
 	{
@@ -207,14 +207,12 @@ Multi_measure_rest::big_rest (Grob *me, Real width)
   Kirchenpause (?)
  */
 Stencil
-Multi_measure_rest::church_rest (Grob*me, Font_metric *musfont, int measures,
+Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measures,
 				 Real space)
 {
   SCM mols = SCM_EOL; 
 
-  /*
-   see Wanske pp. 125
-  */
+  /* See Wanske pp. 125  */
   int l = measures;
   int count = 0;
   Real symbols_width = 0.0;
@@ -228,7 +226,7 @@ Multi_measure_rest::church_rest (Grob*me, Font_metric *musfont, int measures,
 	  int k;
 	  if (l >= 2)
 	    {
-	      l-=2;
+	      l -= 2;
 	      k = -2;
 	    }
 	  else
@@ -246,7 +244,7 @@ Multi_measure_rest::church_rest (Grob*me, Font_metric *musfont, int measures,
 	  int k;
 	  if (l >= 4)
 	    {
-	      l-=4;
+	      l -= 4;
 	      k = -2;
 	    }
 	  else if (l>= 2)
@@ -257,7 +255,7 @@ Multi_measure_rest::church_rest (Grob*me, Font_metric *musfont, int measures,
 	  else
 	    {
 	      k = 0;
-	      l --;
+	      l--;
 	    }
 
 	  Stencil r (musfont->find_by_name ("rests-" + to_string (k)));
@@ -273,83 +271,77 @@ Multi_measure_rest::church_rest (Grob*me, Font_metric *musfont, int measures,
     }
 
   
-
-  Real outer_padding_factor = 1.5; //     make outer padding this much bigger.
-  Real inner_padding = (space - symbols_width) / (2 * outer_padding_factor + (count-1)); 
+ /* Make outer padding this much bigger.  */
+  Real outer_padding_factor = 1.5;
+  Real inner_padding = (space - symbols_width)
+    / (2 * outer_padding_factor + (count-1)); 
   if (inner_padding < 0)
-    {
-      inner_padding = 1.0;
-    }
+    inner_padding = 1.0;
   
   Stencil mol; 
   for (SCM  s = mols; ly_c_pair_p (s); s = ly_cdr (s))
-    {
-      mol.add_at_edge (X_AXIS, LEFT, *unsmob_stencil (ly_car (s)), inner_padding, 0);
-    }
+      mol.add_at_edge (X_AXIS, LEFT, *unsmob_stencil (ly_car (s)),
+		       inner_padding, 0);
   mol.align_to (X_AXIS, LEFT);
-  mol.translate_axis (outer_padding_factor *  inner_padding, X_AXIS);
+  mol.translate_axis (outer_padding_factor * inner_padding, X_AXIS);
 
   return mol;
 }
 
 void
-Multi_measure_rest::add_column (Grob*me,Item* c)
+Multi_measure_rest::add_column (Grob *me, Item *c)
 {
-  add_bound_item (dynamic_cast<Spanner*> (me),c);
+  add_bound_item (dynamic_cast<Spanner*> (me), c);
 }
 
-
-MAKE_SCHEME_CALLBACK (Multi_measure_rest, set_spacing_rods,1);
+MAKE_SCHEME_CALLBACK (Multi_measure_rest, set_spacing_rods, 1);
 SCM
 Multi_measure_rest::set_spacing_rods (SCM smob)
 {
-  Grob*me = unsmob_grob (smob);
+  Grob *me = unsmob_grob (smob);
 
   Spanner*sp = dynamic_cast<Spanner*> (me);
-  if (! (sp->get_bound (LEFT) && sp->get_bound (RIGHT)))
+  if (!(sp->get_bound (LEFT) && sp->get_bound (RIGHT)))
     {
       programming_error ("Multi_measure_rest::get_rods (): I am not spanned!");
       return SCM_UNSPECIFIED;
     }
 
-  Item * l = sp->get_bound (LEFT)->get_column ();
-  Item * r = sp->get_bound (RIGHT)->get_column ();
-  Item * lb = l->find_prebroken_piece (RIGHT);
-  Item * rb = r->find_prebroken_piece (LEFT);      
+  Item *li = sp->get_bound (LEFT)->get_column ();
+  Item *ri = sp->get_bound (RIGHT)->get_column ();
+  Item *lb = li->find_prebroken_piece (RIGHT);
+  Item *rb = ri->find_prebroken_piece (LEFT);      
   
-  Item* combinations[4][2] = {{l,r},
-			      {lb,r},
-			      {l,rb},
+  Item *combinations[4][2] = {{li,ri},
+			      {lb,ri},
+			      {li,rb},
 			      {lb,rb}};
 
   Real sym_width = symbol_stencil (me, 0.0).extent (X_AXIS).length ();
   
   for (int i=0; i < 4; i++)
     {
-      Item *l = combinations[i][0];
-      Item *r = combinations[i][1];
+      Item *li = combinations[i][0];
+      Item *ri = combinations[i][1];
 
-      if (!l || !r)
+      if (!li || !ri)
 	continue;
 
       Rod rod;
-      rod.item_l_drul_[LEFT] = l;
-      rod.item_l_drul_[RIGHT] = r;
+      rod.item_l_drul_[LEFT] = li;
+      rod.item_l_drul_[RIGHT] = ri;
 
-      
-      rod.distance_ = l->extent (l, X_AXIS)[BIGGER] - r->extent (r, X_AXIS)[SMALLER]
-	+ sym_width  + 2.0;			// 2.0 = magic!
+      rod.distance_ = li->extent (li, X_AXIS)[BIGGER]
+	- ri->extent (ri, X_AXIS)[SMALLER]
+	/* 2.0 = magic! */
+	+ sym_width  + 2.0;
   
-      Real minlen  = robust_scm2double (me->get_property ("minimum-length"), 0.0);
-      rod.distance_ = max (rod.distance_,
-			  minlen);
+      Real minlen = robust_scm2double (me->get_property ("minimum-length"), 0);
+      rod.distance_ = max (rod.distance_, minlen);
       rod.add_to_cols ();
     }
   return SCM_UNSPECIFIED;
 }
-
-
-
 
 ADD_INTERFACE (Multi_measure_rest,"multi-measure-rest-interface",
 	       "A rest that spans a whole number of measures.",
