@@ -84,20 +84,13 @@
 	(fivedown	  de	,(ly:make-pitch -1 2 0))
 ))
 
-(define-public (set-drum-kit kit value)
-  (set! percussive-instrument-settings
-	(assoc-set! percussive-instrument-settings kit value)))
-  
-(define-public (get-drum-kit kit)
-  (assoc-get-default kit percussive-instrument-settings '()))
-
 ;;
 ;; all settings for percussive instruments.
 ;; public so people can add their own stuff.
 ;;
 
 (define-public
-  percussive-instrument-settings
+  percussive-instrument-init-settings
   `((drums
     . (
 	   (acousticbassdrum default 	#f	  ,(ly:make-pitch -1 4 0))
@@ -182,6 +175,20 @@
       ))
   ))
 
+
+(define percussive-instrument-settings percussive-instrument-init-settings)
+
+;; don't use assoc-set!, since this will overwrite Scheme defaults, and leak
+;; into other files.
+(define-public (set-drum-kit kit value)
+  (set! percussive-instrument-settings
+	(acons kit value  percussive-instrument-settings)))
+
+(define-public (reset-drum-kit)
+  (set! percussive-instrument-settings percussive-instrument-init-settings))
+
+(define-public (get-drum-kit kit)
+  (assoc-get-default kit percussive-instrument-settings '()))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -321,3 +328,5 @@
         ))))
    music
   ))
+
+

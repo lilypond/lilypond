@@ -1,5 +1,11 @@
 2003-07-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/drums.scm (reset-drum-kit): new function.
+
+	* Documentation/GNUmakefile (SUBDIRS): remove misc/ directory.
+
+	* scripts/update-lily.py: remove
+	
 	* VERSION: release 1.7.25
 	
 	* Documentation/user/introduction.itely (Introduction): rewrite

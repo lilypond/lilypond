@@ -3,6 +3,8 @@
 #(define-public point-and-click #f)
 #(define-public midi-debug #f)
 
+#(reset-drum-kit)
+
 \version "1.7.18"
 
 \include "declarations-init.ly"
