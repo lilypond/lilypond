@@ -18,16 +18,26 @@ import os
 out='out-scons'
 optimising=0
 debugging=1
-prefix=os.getcwd ()
-
+gui=1
+os.path.join (os.getcwd (), '=install')
 
 '''
 
 
 # TODO:
-#   * mf: pfa
-#   *, Documentation, ly etc.
-
+#   * running from build-dir, without installing?
+#     - scons will not install, if PREFIX lives outside of CWD
+#     - build symlink tree
+#       + mimicking regular installation setup?
+#       + use tweaked scons 'install' target?
+#   * commandline targets:
+#      - clean => -c
+#      - dist, tar => env.Tar
+#   * Documentation, scripts
+#   * env.Tar
+#   * more fine-grained config.h -- move lilypondprefix to version.hh?
+#     - config.h:   changes after system upgrades, affects all files
+#     - version.hh:  prefix, version etc?  affects few
 
 import re
 import glob
@@ -53,6 +63,10 @@ opts.AddOptions (
 		    0),
 	BoolOption ('static', 'build static libraries',
 		    1),
+	BoolOption ('gui', 'build with GNOME backend (EXPERIMENTAL)',
+		    1),
+	BoolOption ('verbose', 'run commands with verbose flag',
+		    0),
 	)
 
 Help (opts.GenerateHelpText (env))
@@ -70,8 +84,13 @@ env['version'] = packagepython.version_tuple_to_str (package.version)
 env['bindir'] = os.path.join (env['prefix'], 'bin')
 env['sharedir'] = os.path.join (env['prefix'], 'share')
 env['libdir'] = os.path.join (env['prefix'], 'lib')
-env['lilypondprefix'] = os.path.join (env['sharedir'], 'lilypond',
-				      env['version'])
+env['localedir'] = os.path.join (env['sharedir'], 'locale')
+
+env['sharedir_package'] = os.path.join (env['sharedir'], package.name)
+env['sharedir_package_version'] = os.path.join (env['sharedir_package'],
+						 env['version'])
+env['lilypondprefix'] = os.path.join (env['sharedir_package_version'])
+
 
 if env['debugging']:
 	env.Append (CFLAGS = '-g')
@@ -92,41 +111,44 @@ env['MFMODE'] = 'ljfour'
 
 conf = Configure (env)
 
-#ugh -- hardcode territory
 defines = {
-   '0DIRSEP' : "'/'",
-   '1PATHSEP' : "':'",
-
-   '2PACKAGE': '"lilypond"',
-   '3TOPLEVEL_VERSION' : '"2.3.6"',
-   '4DATADIR' : '"' + os.getcwd () + '/share"',
-   '5PACKAGE_DATADIR': 'DATADIR "/" PACKAGE',
-   '6LILYPOND_DATADIR' : 'PACKAGE_DATADIR',
-   '7LOCAL_PACKAGE_DATADIR' : 'PACKAGE_DATADIR "/" TOPLEVEL_VERSION',
-   '8LOCAL_LILYPOND_DATADIR' : 'LOCAL_PACKAGE_DATADIR',
-   '9LOCALEDIR' : '"' + os.getcwd () + '/share/locale"',
+   'DIRSEP' : "'/'",
+   'PATHSEP' : "':'",
+   'TOPLEVEL_VERSION' : '"' + env['version'] + '"',
+   'PACKAGE': '"' + package.name + '"',
+   'DATADIR' : '"' + env['sharedir'] + '"',
+   'LILYPOND_DATADIR' : '"' + env['sharedir_package'] + '"',
+   'LOCAL_LILYPOND_DATADIR' : '"' + env['sharedir_package_version'] + '"',
+   'LOCALEDIR' : '"' + env['localedir'] + '"',
 }
 
-headers = ('sys/stat.h', 'assert.h', 'kpathsea/kpathsea.h')
+
+command = r"""python -c 'import sys; sys.stdout.write ("%s/include/python%s" % (sys.prefix, sys.version[:3]))'""" #"
+print command
+PYTHON_INCLUDE = os.popen (command).read ()
+env.Append (CPPPATH = PYTHON_INCLUDE)
+
+
+headers = ('sys/stat.h', 'assert.h', 'kpathsea/kpathsea.h', 'Python.h')
 for i in headers:
 	if conf.CheckCHeader (i):
-       		key = re.sub ('[./]', '_', 'zHAVE_' + string.upper (i))
+       		key = re.sub ('[./]', '_', 'HAVE_' + string.upper (i))
                 defines[key] = '1'
 
 ccheaders = ('sstream',)
 for i in ccheaders:
 	if conf.CheckCXXHeader (i):
-       		key = re.sub ('[./]', '_', 'zHAVE_' + string.upper (i))
+       		key = re.sub ('[./]', '_', 'HAVE_' + string.upper (i))
                 defines[key] = '1'
 
 functions = ('gettext', 'isinf', 'memmem', 'snprintf', 'vsnprintf')
 for i in functions:
 	if 0 or conf.CheckFunc (i):
-       		key = re.sub ('[./]', '_', 'zHAVE_' + string.upper (i))
+       		key = re.sub ('[./]', '_', 'HAVE_' + string.upper (i))
                 defines[key] = '1'
 
 
-key = 'zHAVE_FLEXLEXER_YY_CURRENT_BUFFER'
+key = 'HAVE_FLEXLEXER_YY_CURRENT_BUFFER'
 defines[key] = conf.TryCompile ("""using namespace std;
 #include <FlexLexer.h>
 class yy_flex_lexer: public yyFlexLexer
@@ -142,18 +164,30 @@ if conf.CheckLib ('dl'):
 	pass
 
 if conf.CheckLib ('kpathsea'):
-	defines['zKPATHSEA'] = '1'
+	defines['KPATHSEA'] = '1'
 
 # huh? 
 if conf.CheckLib ('kpathsea', 'kpse_find_file'):
-	defines['zHAVE_KPSE_FIND_FILE'] = '1'
-
-env = conf.Finish ()
-
-Export ('env')
+	defines['HAVE_KPSE_FIND_FILE'] = '1'
+if conf.CheckLib ('kpathsea', 'kpse_find_tfm'):
+	defines['HAVE_KPSE_FIND_TFM'] = '1'
 
 #this could happen after flower...
 env.ParseConfig ('guile-config compile')
+
+#this could happen only for compiling pango-*
+if env['gui']:
+	env.ParseConfig ('pkg-config --cflags --libs gtk+-2.0')
+	env.ParseConfig ('pkg-config --cflags --libs pango')
+	if conf.CheckCHeader ('pango/pangofc-fontmap.h'):
+		defines['HAVE_PANGO_PANGOFC_FONTMAP_H'] = '1'
+
+	if conf.CheckLib ('pango-1.0',
+			  'pango_fc_font_map_add_decoder_find_func'):
+		defines['HAVE_PANGO_CVS'] = '1'
+		defines['HAVE_PANGO_FC_FONT_MAP_ADD_DECODER_FIND_FUNC'] = '1'
+
+env = conf.Finish ()
 
 build = env['build']
 out = env['out']
@@ -163,11 +197,14 @@ outdir = os.path.join (env['build'], reldir, env['out'])
 if not os.path.exists (outdir):
 	os.mkdir (outdir)
 
+def list_sort (lst):
+	sorted = lst
+	sorted.sort ()
+	return sorted
+	
 config = open (os.path.join (outdir, 'config.h'), 'w')
-sort_helper = defines.keys ()
-sort_helper.sort ()
-for i in sort_helper:
-	config.write ('#define %s %s\n' % (i[1:], defines[i]))
+for i in list_sort (defines.keys ()):
+	config.write ('#define %s %s\n' % (i, defines[i]))
 config.close ()
 
 os.system (sys.executable \
@@ -181,38 +218,69 @@ else:
 	env.Append (LIBPATH = ['#/flower/' + out,],
 		    CPPPATH = [outdir, '#',])
 
+vre = re.compile ('^.*[^-.0-9]([0-9][0-9]*\.[0-9][.0-9]*).*$', re.DOTALL)
 def get_version (program):
 	command = '(%(program)s --version || %(program)s -V) 2>&1' % vars ()
-	output = os.popen (command).readline ()[:-1]
-	v = re.sub ('^.*[^-.0-9]([0-9][0-9]*\.[0-9][.0-9]*).*$', '\\1', output)
+	output = os.popen (command).read ()
+	v = re.sub (vre, '\\1', output)
 	return string.split (v, '.')
 
-def assert_version (program, minimal, description, package):
+def assert_version (lst, program, minimal, description, package):
 	global required
 	sys.stdout.write ('Checking %s version... ' % program)
 	actual = get_version (program)
 	sys.stdout.write (string.join (actual, '.'))
 	sys.stdout.write ('\n')
 	if actual < string.split (minimal, '.'):
-		required.append ((description, package,
-				  string.join (minimal, '.'),
-				  program,
-				  string.join (actual, '.')))
+		lst.append ((description, package, minimal, program,
+			     string.join (actual, '.')))
 
 required = []
-assert_version ('gcc', '3.0.5', 'GNU C compiler', 'gcc')
-assert_version ('makeinfo', '4.7', 'Makeinfo tool', 'texinfo')
+assert_version (required, 'gcc', '2.8', 'GNU C compiler', 'gcc')
+assert_version (required, 'g++', '3.0.5', 'GNU C++ compiler', 'g++')
+assert_version (required, 'python', '2.1', 'Python (www.python.org)', 'python')
+assert_version (required, 'guile-config', '1.6', 'GUILE development',
+		'libguile-dev or guile-devel')
+# Do not use bison 1.50 and 1.75.
+assert_version (required, 'bison', '1.25', 'Bison -- parser generator',
+		'bison')
+assert_version (required, 'flex', '0.0', 'Flex -- lexer generator', 'flex')
+
+
+optional = []
+assert_version (optional, 'makeinfo', '4.7', 'Makeinfo tool', 'texinfo')
+assert_version (optional, 'guile', '1.6', 'GUILE scheme',
+		'libguile-dev or guile-devel')
+assert_version (optional, 'mftrace', '1.0.27', 'Metafont tracing Type1',
+		'mftrace')
+assert_version (optional, 'perl', '4.0',
+		'Perl practical efficient readonly language', 'perl')
 
 if required:
 	print
 	print '********************************'
 	print 'Please install required packages'
-for i in required:
-	print '%s:	%s-%s or newer (found: %s-%s)' % i
+	for i in required:
+		print '%s:	%s-%s or newer (found: %s-%s)' % i
 
-#subdirs = ('mf',)
-#subdirs = ('flower', 'lily', 'parser', 'gui', 'main',)
-subdirs = ('flower', 'lily', 'mf')
+if optional:
+	print
+	print '*************************************'
+	print 'Consider installing optional packages'
+	for i in optional:
+		print '%s:	%s-%s or newer (found: %s-%s)' % i
+
+#env['tarball'] = os.path.join (outdir,
+#			       package.name + '-' + env['version'] + '.tar.gz')
+
+env['tarball'] = os.path.join ('~/tmp',
+			       package.name + '-' + env['version'] + '.tar.gz')
+
+Export ('env')
+
+#subdirs = ['mf',]
+#subdirs = ['flower', 'lily', 'parser', 'gui', 'main',]
+subdirs = ['flower', 'lily', 'mf', 'scm', 'ly']
 for d in subdirs:
 	b = os.path.join (build, d, out)
 	# Support clean sourctree build (srcdir build)
@@ -222,4 +290,14 @@ for d in subdirs:
 	   or (out and out != '.'):
 		env.BuildDir (b, d, duplicate=0)
 	SConscript (os.path.join (b, 'SConscript'))
+
+
+readmes = ['AUTHORS.txt', 'ChangeLog', 'NEWS.txt']
+
+#testing
+env.Append (TARFLAGS = '-z --owner=0 --group=0')
+env.Append (GZIPFLAGS = '-9')
+all_sources = ['SConstruct',] + readmes + subdirs
+x = env.Tar (env['tarball'], all_sources)
+
 
