@@ -1,3 +1,15 @@
+pl 35.uu1
+	- more memory tweaks: don't do Score_element::line_l () when deleting lines.
+	- more generic properties.
+	- change ridic. dims assert into warning.
+	- tex/ midi fixes (thanks, Mats).
+	- bf: don't crash when no Stem_infos are set.
+	- extender-spanner simplification
+	- working MIDI chords (Thanks Dscho)
+
+pl 35.jcn1
+	- some ps fixes
+
 pl 35
 
 pl 34.hwn2

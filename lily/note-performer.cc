@@ -16,22 +16,22 @@ ADD_THIS_TRANSLATOR (Note_performer);
 
 Note_performer::Note_performer ()
 {
-  note_req_l_ = 0;
 }
 
 void 
 Note_performer::do_print () const
 {
 #ifndef NPRINT
-  if (note_req_l_) 
-    note_req_l_->print ();
+  if (note_req_l_.size()>0)
+    for(int i=0;i<note_req_l_.size();i++)
+      note_req_l_[i]->print ();
 #endif
 }
 
 void 
 Note_performer::do_process_requests () 
 {
-  if (note_req_l_)
+  if (note_req_l_.size()>0)
     {
       int transposing_i = 0;
       //urg
@@ -39,22 +39,18 @@ Note_performer::do_process_requests ()
       if (!prop.empty_b () && prop.isnum_b ()) 
 	transposing_i = prop;
 
+      while(note_req_l_.size()>0)
+	play (new Audio_note (note_req_l_.pop(), transposing_i));
 
-      play (new Audio_note (note_req_l_, transposing_i));
-
-      note_req_l_ = 0;
     }
 }
 
 bool 
 Note_performer::do_try_music (Music* req_l)
 {
-  if (note_req_l_)
-    return false;
-  
   if (Note_req *nr = dynamic_cast <Note_req *> (req_l))
     {
-      note_req_l_ = nr;
+      note_req_l_.push(nr);
       return true;
     }
   return false;
