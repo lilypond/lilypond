@@ -32,9 +32,15 @@ Context_specced_music_iterator::construct_children ()
   Context * a
     = get_outlet ()->find_create_context (ct, c_id, ops);
 
+  if (a
+      && to_boolean (get_music ()->get_property ("descend-only"))
+      && !is_child_context (get_outlet (), a))
+    a = 0;
+  
   if (a)
     set_translator (a);
 
   Music_wrapper_iterator::construct_children ();
 }
+
 IMPLEMENT_CTOR_CALLBACK (Context_specced_music_iterator);

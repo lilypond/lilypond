@@ -117,6 +117,7 @@ private:
   Music  * music_;
 };
 
+bool is_child_context (Context *me, Context *child);
 
 #define IMPLEMENT_CTOR_CALLBACK(Class)		\
 LY_DEFINE_MEMBER_FUNCTION(Class,constructor, #Class "::constructor",\

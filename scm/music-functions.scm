@@ -211,6 +211,13 @@ i.e.  this is not an override"
 	(set! (ly:music-property cm 'context-id) id))
     cm))
 
+
+(define*-public (descend-to-context m context)
+  "Like context-spec-music, but only descending. "
+  (let ((cm (context-spec-music m context)))
+    (ly:music-set-property! cm 'descend-only #t)
+    cm))
+
 (define-public (make-apply-context func)
   (make-music 'ApplyContext
 	      'procedure func))
@@ -304,9 +311,7 @@ OTTAVATION to `8va', or whatever appropriate."
 
 (define-public (make-time-signature-set num den . rest)
   " Set properties for time signature NUM/DEN.
-Rest can contain a list of beat groupings 
-
-"
+Rest can contain a list of beat groupings "
   (let* ((set1 (make-property-set 'timeSignatureFraction (cons num den)))
 	 (beat (ly:make-moment 1 den))
 	 (len  (ly:make-moment num den))
@@ -316,7 +321,7 @@ Rest can contain a list of beat groupings
 						    (car rest)
 						    '())))
 	 (basic	 (list set1 set2 set3 set4)))
-    (context-spec-music
+    (descend-to-context
      (context-spec-music (make-sequential-music basic) 'Timing) 'Score)))
 
 (define-public (make-mark-set label)
