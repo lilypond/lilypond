@@ -107,7 +107,8 @@ for the reader.
   (font-markup 'font-series 'bold))
 (define-public number-markup
   (font-markup 'font-family 'number))
-
+(define-public roman-markup
+  (font-markup 'font-family 'roman))
 
 (define-public huge-markup
   (font-markup 'font-relative-size 2))
@@ -131,6 +132,18 @@ for the reader.
    -1 0.0 (cdr (chain-assoc 'baseline-skip props))
    (map (lambda (x) (interpret-markup grob props x)) (car rest)))
   )
+
+(define-public (center-markup grob props . rest)
+  (let*
+    (
+     (mols (map (lambda (x) (interpret-markup grob props x)) (car rest)))
+     (cmols (map (lambda (x) (ly:align-to! x X CENTER)) mols))
+     )
+    
+    (stack-lines
+     -1 0.0 (cdr (chain-assoc 'baseline-skip props))
+     mols)
+    ))
 
 (define-public (musicglyph-markup grob props . rest)
   (ly:find-glyph-by-name
@@ -355,7 +368,6 @@ for the reader.
 ;; 
 (define markup?  cheap-markup?)
 
-
 (define markup-function-list
   (list
 
@@ -381,16 +393,16 @@ for the reader.
    
    (cons bold-markup (list markup?))
    (cons italic-markup (list markup?))
-   
+   (cons roman-markup (list markup?))
    (cons number-markup (list markup?))
    
    (cons column-markup (list markup-list?))
+   (cons center-markup (list markup-list?))
    (cons line-markup  (list markup-list?))
 
    (cons combine-markup (list markup? markup?))
    (cons simple-markup (list string?))
    (cons musicglyph-markup (list scheme?))
-   
    (cons translate-markup (list number-pair? markup?))
    (cons override-markup (list pair? markup?))
    (cons char-markup (list integer?))

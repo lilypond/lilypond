@@ -152,10 +152,19 @@ Music::print_smob (SCM s, SCM p, scm_print_state*)
 {
   scm_puts ("#<Music ", p);
   Music* m = unsmob_music (s);
-  scm_puts (classname (m),p);
 
+  SCM nm = m->get_mus_property ("name");
+  if (gh_symbol_p (nm) || gh_string_p (nm))
+    {
+      scm_display (nm, p);
+    }
+  else
+    {
+      scm_puts (classname (m),p);
+    }
+  
   /*
-    Printing these takes a lot of time, especially during backtraces.
+    Printing properties takes a lot of time, especially during backtraces.
     For inspecting, it is better to explicitly use an inspection
     function.
    */

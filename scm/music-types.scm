@@ -332,6 +332,16 @@ Syntax: @code{\property @var{context}.@var{prop} = @var{scheme-val}}.")
 	(iterator-ctor . ,Sequential_music_iterator::constructor)
 	(types . (general-music sequential-music))
 	))
+    
+    (MultiMeasureRestMusicGroup
+     . (
+	(description .  "Like sequential-music, but specifically intended
+to group start-mmrest, skip, stop-mmrest sequence. Syntax @code{R2.*5} for 5 measures in 3/4 time.")
+	(internal-class-name . "Sequential_music")
+	(iterator-ctor . ,Sequential_music_iterator::constructor)
+	(types . (general-music sequential-music))
+	))
+    
     (SimultaneousMusic
      . (
 	(description .  "Music playing together. Syntax: \\simultaneous @{ .. @} or < .. >.")
@@ -388,8 +398,7 @@ individually. Syntax @code{\\outputproperty @var{predicate} @var{prop}
     (TimeScaledMusic
      . (
 	(description .  "Multiply durations, as in tuplets. Syntax @code{\\times @var{fraction} @var{music}}, e.g.
-@code{\\times 2/3 { ... }} for triplets.
-
+@code{\\times 2/3 @{ ... @}} for triplets.
  ")
 	(internal-class-name . "Time_scaled_music")
 	(iterator-ctor . ,Time_scaled_music_iterator::constructor)

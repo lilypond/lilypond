@@ -1,3 +1,22 @@
+2003-03-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/music-functions.scm (glue-mm-rest-texts): automatically
+	convert MMREST-TEXT to MultiMeasureRestNumber settings.
+
+	* ly/engraver-init.ly (ScoreContext): move tablature settings to
+	ScoreContext
+
+	* scm/new-markup.scm (center-markup): \center markup.
+
+	* scm/music-functions.scm: remove pitchify scripts.
+
+	* lily/music.cc (print_smob): display music name if available 
+
+2003-03-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/refman.itely (Instrument names): remove
+	\turnOff doco.
+
 2003-03-01  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/score.cc (mark_smob): bugfix.

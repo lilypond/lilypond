@@ -222,7 +222,7 @@ a2 s4 a4 \skip 1 a4
 
 @c FIXME: in Lyrics mode, we have " " and _
 
-In Lyrics mode, invisible rests are entered using either `@code{" "}' 
+In Lyrics mode, you can make invisible syllables by entering `@code{" "}' 
 or `@code{_}':
 @lilypond[singleline,verbatim]
 <
@@ -230,6 +230,9 @@ or `@code{_}':
   \notes\relative c'' { a2 a4 a a2 a4 a }
 >
 @end lilypond
+In this case, syllables containing a space will be printed. In the
+case that you really need an invisible space (i.e. something taking up
+time, but not space), you should use @code{\skip}.
 
 Note that the @code{s} syntax is only available in Note mode and Chord
 mode.  In other situations, you should use the @code{\skip} command,
@@ -2239,6 +2242,12 @@ want several marks during one note, you have to use spacer notes.
   c'' \< \! c''   d'' \decr e'' \rced 
   < f''1 { s4 s4 \< \! s4 \> \! s4 } >
 @end lilypond
+This may give rise to very short hairpins. Use @code{minimum-length}
+in Voice.HairPin to lengthen these, e.g.
+
+@example
+ \property Staff.Hairpin \override #'minimum-length = #5
+@end example
 
 You can also use a text saying @emph{cresc.} instead of hairpins. Here
 is an example how to do it:
@@ -3057,6 +3066,13 @@ See also the sections on @ref{Slurs} and @ref{Breath marks}.
 
 [TODO: Write subsection upon usage of ChoirStaff.]
 
+For entering quotes in Lyrics mode, use the following
+@example
+"\"God\"" is "`King'"
+@end example
+
+
+
 @menu
 * Ambitus::
 @end menu
@@ -3841,6 +3857,20 @@ rest centered in the measure, regardless of the time signature.
 [ add note about breves.]
  
 
+@cindex text on multi-measure rest
+@cindex script on multi-measure rest
+@cindex fermata on multi-measure rest
+
+Texts can be added to multi-measure rests by using the
+@var{note}-@code{markup} syntax.  An identifier
+is provided for a fermata.
+
+@lilypond[verbatim,fragment]
+  \time 3/4
+  R2._\markup { \roman "Ad lib" }
+  R2.^\fermataMarkup
+@end lilypond
+
 @cindex whole rests for a full measure 
 
 The object for this object is @internalsref{MultiMeasureRest}, and
@@ -3848,26 +3878,19 @@ The object for this object is @internalsref{MultiMeasureRest}, and
 
 @refbugs
 
+Only one text can be put on a multi-measure rest with
+@var{note}-@var{text} syntax, since this is internally converted to
+setting @code{#'text} in @internalsref{MultiMeasureRestNumber}. It is
+not possible to use fingerings (e.g. @code{R1-4}) to put numbers over
+multi-measure rests.
+
+
+@cindex condensing rests
+
 Currently, there is no way to automatically condense multiple rests
 into a single multimeasure rest. Multi measure rests do not take part
 in rest collisions.
 
-Multi-measure rests do not accept @var{note}-@code{text} syntax for
-putting texts and scripts on the rest.  This has to be done by setting
-@code{#'text} in @internalsref{MultiMeasureRestNumber}. An identifier is
-provided for a fermata:
-
-@cindex text on multi-measure rest
-@cindex script on multi-measure rest
-@cindex fermata on multi-measure rest
-
-@lilypond[verbatim,fragment]
-  \time 3/4
-  \setMmRestFermata R2.
-@end lilypond
-
-
-@cindex condensing rests
 
 @node Automatic part combining
 @subsection Automatic part combining
@@ -4621,30 +4644,14 @@ context property.  By assigning to that property (using plain
 @code{\property}), you can change the resulting objects.
 
 @lilypond[verbatim, fragment]
-c'4 \property Voice.Stem  = #'()
+c'4 \property Voice.NoteHead  = #'() c'4
 @end lilypond
-
-The @code{\property} assignment effectively empties the definition of
-the Stem object. One of the effects is that the recipe of how it should be
-printed is erased, with the effect of rendering it invisible.  The above
-assignment is available as a standard identifier, for the case that you
-find this useful:
-
-@example
-  \property Voice.Stem = \turnOff
-@end example
-
-@cindex \override
-@cindex \revert
-@cindex \set
-
 This mechanism is fairly crude, since you can only set, but not modify,
-the definition of a object. For this reason, there is a more advanced
-mechanism.
+the definition of an object. Also, it will thoroughly confuse LilyPond.
 
-The definition of a object is actually a list of default object
-properties. For example, the definition of the Stem object (available in
-@file{scm/grob-description.scm}), defines the following values for
+The definition of an object is actually a list of default object
+properties. For example, the definition of the Stem object (available
+in @file{scm/grob-description.scm}), includes the following definitions for
 @internalsref{Stem}
 
 @example
@@ -5072,12 +5079,16 @@ In markup mode you can compose expressions, similar to mathematical
 expressions, XML documents and music expressions.  The braces group
 notes into horizontal lines. Other types of lists also exist: you can
 stack expressions grouped with @code{<<}, and @code{>>} vertically with
-the command @code{\column}.
+the command @code{\column}. Similarly, @code{\center} aligns texts by
+their center lines. 
 
 @lilypond[verbatim,fragment,relative=1]
- c1^\markup { \column << a b c >> }
+ c1^\markup { \column << a bbbb c >> }
+ c1^\markup { \center << a bbbb c >> }
  c1^\markup { \line << a b c >> }
 @end lilypond
+
+
 
 The markup mechanism is very flexible and extensible.  Refer to
 @file{scm/new-markup.scm} for more information on extending the markup

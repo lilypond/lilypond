@@ -7,8 +7,6 @@ are not expanded when you set @code{Score.skipBars}.  Although the
 multi-measure-rest is a Spanner, minimum distances are set to keep it
 colliding from barlines. 
 
-Texts may be added to the rests by setting @code{text} in
-@code{MultiMeasureRestNumber.}
 
 Rests over measures during longer than 2 wholes use breve rests.
 "
@@ -19,8 +17,7 @@ Rests over measures during longer than 2 wholes use breve rests.
 \score { \notes {
     \time 3/4 \key cis \major
     R2.*15
-    R2.
- \once \property Staff.MultiMeasureRestNumber \set #'text = #'(music "scripts-ufermata")
+  
     R2.
     R2.*3
     R2.*27

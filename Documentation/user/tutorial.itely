@@ -967,8 +967,6 @@ polyphonic music, and integrating text and music.
 
 
 
-
-
 @node Printing lyrics
 @section Printing lyrics
 @cindex lyrics
@@ -2217,6 +2215,9 @@ these ties: whenever we need such a tie, we insert a notehead in a
 different voice, and blank the stem.  This is done in the following
 snippet of code.
 
+@cindex transparent objects
+@cindex removing objects
+@cindex invisible objects
 @example
 \property Voice.Stem \set #'transparent = ##t
 d'
