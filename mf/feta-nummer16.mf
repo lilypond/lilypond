@@ -1,2 +1,0 @@
-design_size := 16;
-input feta-nummer;

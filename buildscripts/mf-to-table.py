@@ -163,9 +163,9 @@ def write_otf_lisp_table (file, global_info, charmetrics):
 
 	def conv_char_metric (charmetric):
 		f = 1.0
-		s = """((%s .
-(bbox . (%f %f %f %f))
-(attachment . (%f %f))))
+		s = """(%s .
+((bbox . (%f %f %f %f))
+ (attachment . (%f . %f))))
 """ %(charmetric['name'],
 		 -charmetric['breapth'] * f,
 		 -charmetric['depth'] * f,

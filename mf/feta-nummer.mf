@@ -15,41 +15,9 @@ input feta-macros;
 
 %blot_diameter# = .4pt#;
 
-fet_beginfont("feta-nummer", design_size, "fetaNumber");
+fet_beginfont("feta-nummer", numberdesignsize/2, "fetaNumber");
 mode_setup;
 
-height#:=designsize;
-space# := design_size/2;
-
-font_x_height height#;
-font_normal_space space#;
-
-
-%
-% DOCME!
-%ugh. b and h are reused.
-%
-
-save b,h; 4h+b=1.15; 10h+b=1;
-fatten:=designsize*h+b;
-
-save b,h; 4h+b=1.05; 10h+b=1;
-widen:=designsize*h+b;
-
-tense=0.85;
-thick#:=7/30height#*fatten;
-thin#:=thick#/4*fatten  + max(.1 (height# / 10 - 1), 0);
-
-%% sqrt(.8 * blot_diameter#* thin#) ;
-hair#:= thin# * .8 ;
-
-
-flare#:=9/8 thick# + .75 (height# / 10 - 1);
-
-save b,h; 4h+b=1/8; 10h+b=1/6;
-kuulleke#:=thick#*designsize*h+b;
-foot_top#:=thick#;
-foot_width#:=9/4thick#;
 
 input feta-nummer-code;
 

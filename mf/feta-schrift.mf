@@ -1042,14 +1042,14 @@ def draw_arpeggio_arrow =
 	filldraw z3 -- z12 {dir -130} ..  {dir -110} z10 {dir 110} ..  {dir 130} z11 -- cycle;
 enddef;
 
-fet_beginchar("Arpeggio arrow down", "arpeggio-arrow--1", "arpeggioarrowdown");
+fet_beginchar("Arpeggio arrow down", "arpeggio.arrow.M1", "arpeggioarrowdown");
 	draw_arpeggio_arrow;
 fet_endchar;
 
 
-fet_beginchar("Arpeggio arrow up", "arpeggio-arrow-1", "arpeggioarrowup");
+fet_beginchar("Arpeggio arrow up", "arpeggio.arrow.1", "arpeggioarrowup");
         draw_arpeggio_arrow;
-        currentpicture := currentpicture scaled -1 shifted (0.8staff_space, staff_space);
+        currentpicture := currentpicture scaled -1 shifted (0.8 staff_space, staff_space);
 fet_endchar;
 
 
