@@ -86,8 +86,8 @@ or
      (10.0 . #((10.0 . "cmcsc10"))))
 
     (#(* * dynamic) .
-     (14.0 .  #((6.0 . "feta-din6"
-		 8.0 . "feta-din8")
+     (14.0 .  #((6.0 . "feta-din6")
+		(8.0 . "feta-din8")
 		(10.0 . "feta-din10")
 		(12.0 . "feta-din10")
 		(14.0 . "feta-din14")
