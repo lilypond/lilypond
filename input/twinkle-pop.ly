@@ -1,4 +1,3 @@
-#(ly:set-option 'old-relative)
 \version "2.4.0"
 \header{
 filename = 	 "twinkle-pop.ly"
@@ -64,7 +63,7 @@ text = \lyricmode{
            \context Lyrics \text
         >>
 	\header{
-		piece = "clarinet in B$\flat$"
+	  piece = \markup  { "clarinet in B" \flat }
 	}
         \layout {  }
 }

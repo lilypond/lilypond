@@ -19,7 +19,7 @@ int
 copy_scm_hashes (SCM dest, SCM src)
 {
   int k = 0;
-  for (int i = SCM_VECTOR_LENGTH (src); i--;)
+  for (int i = scm_c_vector_length (src); i--;)
     for (SCM s = scm_vector_ref (src, scm_from_int (i)); scm_is_pair (s); s = scm_cdr (s))
       {
 	scm_hashq_set_x (dest, scm_caar (s), scm_cdar (s));
@@ -115,7 +115,7 @@ Scheme_hash_table::set (SCM k, SCM v)
   /*
     resize if getting too large.
   */
-  if (elt_count_ > 2 * SCM_VECTOR_LENGTH (hash_tab_))
+  if (elt_count_ > 2 * scm_c_vector_length (hash_tab_))
     {
       SCM nh = scm_make_vector (scm_int2num (3* elt_count_+1), SCM_EOL);
       elt_count_ = copy_scm_hashes (nh, hash_tab_);
@@ -145,7 +145,7 @@ SCM
 Scheme_hash_table::to_alist () const
 {
   SCM lst = SCM_EOL;
-  for (int i = SCM_VECTOR_LENGTH (hash_tab_); i--;)
+  for (int i = scm_c_vector_length (hash_tab_); i--;)
     for (SCM s = scm_vector_ref (hash_tab_, scm_int2num (i)); scm_is_pair (s);
 	 s = scm_cdr (s))
       lst = scm_acons (scm_caar (s), scm_cdar (s), lst);

@@ -74,14 +74,14 @@ int
 binsearch_scm_vector (SCM vec, SCM key, bool (*is_less)(SCM a,SCM b))
 {
   int lo = 0;
-  int hi = SCM_VECTOR_LENGTH (vec);
+  int hi = scm_c_vector_length (vec);
 
   /* binary search */
   do
   {
     int cmp = (lo + hi) / 2;
 
-      SCM when = scm_caar (SCM_VECTOR_REF (vec, cmp));
+      SCM when = scm_caar (scm_c_vector_ref (vec, cmp));
       bool result =  (*is_less) (key, when);
       if (result)
           hi = cmp;
@@ -171,7 +171,7 @@ Quote_iterator::pending_moment () const
 Moment
 Quote_iterator::vector_moment (int idx) const
 {
-  SCM entry = SCM_VECTOR_REF (event_vector_, idx);
+  SCM entry = scm_c_vector_ref (event_vector_, idx);
   return *unsmob_moment (scm_caar (entry));
 }
 
@@ -212,7 +212,7 @@ Quote_iterator::process (Moment m)
 
   if (quote_ok ())
     {
-      SCM entry = SCM_VECTOR_REF (event_vector_, event_idx_);
+      SCM entry = scm_c_vector_ref (event_vector_, event_idx_);
       Pitch * quote_pitch = unsmob_pitch (scm_cdar (entry));
 
       /*
