@@ -1,5 +1,12 @@
 2003-08-26  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/define-music-types.scm (music-descriptions): idem.
+
+	* lily/beam-engraver.cc: move new-beam-event to beam-event
+
+	* lily/tie-engraver.cc (class Tie_engraver): move New_tie_engraver
+	to Tie_engraver
+
 	* input/regression/bar-number.ly: remove unnecessary old-relative
 	options.
 	

@@ -300,9 +300,9 @@ New_fingering_engraver::New_fingering_engraver()
 }
 
 ENTER_DESCRIPTION(New_fingering_engraver,
-/* descr */       "Create fingering-scripts for notes in a New Chord.",
+/* descr */       "Create fingering-scripts for notes in a new chord.",
 /* creats*/       "Fingering",
-/* accepts */     "text-script-event",
+/* accepts */     "",
 /* acks  */       "rhythmic-head-interface stem-interface",
 /* reads */       "fingerHorizontalDirection",
 /* write */       "");

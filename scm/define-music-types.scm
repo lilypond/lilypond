@@ -87,14 +87,6 @@ is an articulation (such as @code{-.}, @code{->}, @code{\\tenuto},
      . (
    (description .  "Starts or stops a beam.  Syntax for manual control:
 c8-[ c c-] c8")
-
-	(internal-class-name . "Event")
-	(types . (general-music event beam-event span-event))
-	))
-    (NewBeamEvent
-     . (
-   (description .  "Starts or stops a beam.  Syntax for manual control:
-c8-[ c c-] c8")
 	(internal-class-name . "Event")
 	(types . (general-music event new-beam-event span-event))
 	))
@@ -572,12 +564,6 @@ For example, transposed music.")
 	(types . (general-music script-event text-script-event event))
 	)) 
     (TieEvent
-     . (
-	(description .  "A tie.  Entered as @code{~}.")
-	(internal-class-name . "Event")
-	(types . (general-music tie-event event))
-	))
-    (NewTieEvent
      . (
 	(description .  "A tie.  Entered as @var{note}-~.")
 	(internal-class-name . "Event")

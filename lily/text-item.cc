@@ -40,11 +40,18 @@ Text_item::interpret_markup (SCM grob, SCM props, SCM markup)
       Box b = fm->text_dimension (ly_scm2string (markup));
       return Molecule (b, list).smobbed_copy();
     }
-  else
+  else if (gh_pair_p (markup))
     {
       SCM func = gh_car (markup);
       SCM args = gh_cdr (markup);
+      if (!markup_p (markup))
+	programming_error ("Markup head has no markup signature.");
+      
       return scm_apply_2 (func, grob, props, args);
+    }
+  else
+    {
+      return SCM_EOL;
     }
 }
 
