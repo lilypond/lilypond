@@ -67,58 +67,27 @@ Line_of_score::Line_of_score()
 }
 
 
-void
-Line_of_score::do_substitute_dependency(Score_elem*o, Score_elem*n)
-{
-    Spanner_elem_group::do_substitute_dependency(o,n);
-    
-    int i;
-    while ((i =line_arr_.find_i((Spanner_elem_group*)o->spanner())) >=0)
-	if (n)
-	    line_arr_[i] = (Spanner_elem_group*)n->spanner();
-	else 
-	    line_arr_.del(i);
-}
 
-
-void
-Line_of_score::do_post_processing()
-{
-    Real y_pos=0;
-    for (int i=line_arr_.size(); i--; ) {
-	Interval y = line_arr_[i]->height() ;
-	if (y.empty_b())
-	    continue;
-	line_arr_[i]->translate(Offset(0, -y[-1] + y_pos));
-	y_pos += y.length();
-    }
-    translate(Offset(0, -y_pos));
-}
 
 IMPLEMENT_STATIC_NAME(Line_of_score);
+IMPLEMENT_IS_TYPE_B2(Line_of_score,Spanner,Vertical_align_elem);
 
 void
-Line_of_score::add_line(Spanner_elem_group*e)
+Line_of_score::add(Score_elem*e)
 {
-    add_element(e);
-    line_arr_.push(e);
+    if (e->is_type_b( Line_of_staff::static_name()) 
+	    && ! Vertical_align_elem::contains_b( e) ) 
+	    
+	Vertical_align_elem::add(e);
+    else { 
+	add_dependency(e);
+    }
 }
 
 bool
 Line_of_score::contains_b(PCol const* c)const
 {
     return cols.find_l((PCol*)c);
-}
-
-void
-Line_of_score::do_pre_processing()
-{
-    left_col_l_ = pscore_l_->cols.top();
-    right_col_l_ = pscore_l_->cols.bottom();
-    for (int i=0; i < line_arr_.size(); i++){
-	line_arr_[i]->left_col_l_ = left_col_l_;
-	line_arr_[i]->right_col_l_ = right_col_l_;
-    }
 }
 
 void
@@ -132,32 +101,66 @@ Line_of_score::set_breaking(Array<Col_hpositions> const &breaking)
 	for (int i=0; i < errors.size(); i++)
 	    errors[i]->error_mark_b_ = true;
 
-	Line_of_score *line_p = (Line_of_score*)clone();
+	Line_of_score *line_l=0;
+	Line_of_score *line_p =0;
+	
+	if (breaking.size() >1) {
+	    line_p = (Line_of_score*)clone()->spanner();
+	    line_l = line_p;
+	} else 
+	    line_l =  this;
+	
+	((Array<PCol*> &)line_l->cols) = curline;
+	line_l->left_col_l_ =  curline[0];
+	line_l->right_col_l_= curline.top();
+	
+	if (line_p) {  
+	    pscore_l_->typeset_broken_spanner(line_p);
+	    broken_into_l_arr_.push(line_p);
+	}
+	
 	for (int i=0; i < curline.size(); i++){
 	    curline[i]->hpos = config[i];
-	    curline[i]->line_l_ = (Line_of_score*)line_p;
+	    curline[i]->line_l_ = (Line_of_score*)line_l;
 	}
-	((Array<PCol*> &)line_p->cols) = curline;
-	line_p->left_col_l_ =  curline[0];
-	line_p->right_col_l_= curline.top();
-	pscore_l_->typeset_broken_spanner(line_p);
-	broken_into_l_arr_.push(line_p);
     }
 }
 
 void
 Line_of_score::break_into_pieces()
 {
-    
 }
 
 Link_array<Line_of_score>
 Line_of_score::get_lines()const
 {
     Link_array<Line_of_score> ret;
-    assert(broken_into_l_arr_.size());
-    for (int i=0; i < broken_into_l_arr_.size(); i++) {
-	ret.push((Line_of_score*)broken_into_l_arr_[i]);
-    }
+
+    if(broken_into_l_arr_.size())
+	for (int i=0; i < broken_into_l_arr_.size(); i++) {
+	    ret.push((Line_of_score*)broken_into_l_arr_[i]);
+	}
+    else 
+	ret.push((Line_of_score*)this);	// ugh
+    
     return ret;
+}
+
+void
+Line_of_score::do_print()const
+{
+    Spanner::do_print();
+}
+
+Interval
+Line_of_score::do_width()const
+{ 
+    return Spanner::do_width();
+}
+
+void
+Line_of_score::do_substitute_dependency(Score_elem*o,Score_elem*n)
+{
+    Spanner::do_substitute_dependency(o,n);
+    Vertical_align_elem::do_substitute_dependency(o,n);
 }

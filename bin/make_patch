@@ -40,7 +40,18 @@ for a in lilypond.lsm INSTALL.text AUTHORS.text lilypond.spec configure; do
     rm `find  $nm$old $nm$new  -name $a`
 done    
 
-echo 'use cd source-dir; patch -E -p0 < this_patch'> patch-$new
+cat <<EOF > patch-$new
+Generated with 
+
+	make_patch $1 $2 $3
+
+usage 
+
+	cd lilypond-source-dir; patch -E -p0 < patch-$new
+	
+Patches do not contain automatically generated files, 
+i.e. you should rerun configure
+EOF
 
 (cd $nm$new; diff -urN  ../$nm$old . >> ../patch-$new)
 rm -rf $nm$old $nm$new

@@ -18,7 +18,7 @@ class Rest_collision_register : public Request_register {
     Array< Collision *> collision_l_arr_;
 protected:
     virtual void acknowledge_element(Score_elem_info);
-    virtual void pre_move_processing();
+    virtual void do_pre_move_processing();
 public:
     Rest_collision_register();
     NAME_MEMBERS();

@@ -12,7 +12,8 @@
 
 EndMudelaHeader
 %}
-\version "0.0.58";
+\version "0.0.59";
+
 %% Stuff from MPP version
 % \lefttitle{Menuetto}
 % \tempo{Moderato}
@@ -24,7 +25,7 @@ EndMudelaHeader
 % \stemlength3		% shorter \stemlength
 %		% because piece is set very tightly
 
-ii_menuetto = \melodic{
+IImenuetto = \melodic{
 	\clef"alto";
 	\meter 3/4;
 	\key bes;
@@ -58,14 +59,14 @@ ii_menuetto = \melodic{
 %%10
 	< [ e' g > d' cis'_"2" e' a~  g ] |
 %%11
-	< \multivoice  
+	< \multi 2;  
 		{\stem 1; a4~  d'4 cis'4-. }
 		{ \stem -1; f2 e4 } > |
 %%12
 	< [ g'^"4" d > f' e' f' d'^"3"~   c' ] |
 %%13
 	\clef "alto";
-	< \multivoice
+	< \multi 2;
 		 { \stem 1; bes2 c'4 }
 		 { \stem -1; g4~  f4 e4 }% ugh
 	> |
@@ -84,7 +85,7 @@ ii_menuetto = \melodic{
 %%20
 	< { [ c'( bes a )bes g~  bes ] } { [ d ] } { [ g ] } > |
 %%21
-	< \multivoice  
+	< \multi 2;  
 		{\stem 1;  d'4 (\stem 1; ) cis'4 d'4 }  
 		{ \stem -1; g2 f4 } 
 	> |
@@ -100,11 +101,11 @@ ii_menuetto = \melodic{
 }
 
 \score{
-	\staff{ melodicregs ii_menuetto }
+	\melodic { \IImenuetto }
 	\paper{
-		\width 195\mm
-		\unitspace 9\mm  % to get lily to use only three lines
-		\geometric 1.4
+		\width 195.0\mm
+		\unitspace 9.0\mm  % to get lily to use only three lines
+		\geometric 1.40
 		\output "scsii-menuetto.out"
 	}
 	\midi{ 

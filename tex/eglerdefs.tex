@@ -1,0 +1,118 @@
+%
+% Has to be fixed. Exercise for the reader.
+%
+
+
+\def\musixtwentyfonts{
+  \font\textfont=cmr10
+        \font\meterfont=cmbx12
+        \font\slurufont=oslu20
+        \font\slurdfont=osld20
+        \font\slurhfont=oslz20
+        \font\hslurufont=oslhu20
+        \font\hslurdfont=oslhd20
+        \font\hslurhfont=oslhz20
+        \font\musicfnt=opus20
+        \font\musicdraw=opussps
+        \font\italicfont=cmti10
+        \font\dynfont=cmbxti10 scaled \magstep1
+        \font\mathfont=cmsy10
+}
+
+
+\def\musixsixteenfonts{
+        \font\textfont=cmr8
+        \font\meterfont=cmbx12
+        \font\italicfont=cmti8
+        \font\slurufont=oslu16
+        \font\slurdfont=osld16
+        \font\slurhfont=oslz20 % sigh
+        \font\hslurufont=oslhu16
+        \font\hslurdfont=oslhd16
+        \font\hslurhfont=oslhz20
+        \font\musicfnt=opus16
+        \font\dynfont=cmbxti12
+        \font\musicdraw=opussps
+        \font\mathfont=cmsy8
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% provide interface to musixtex fonts 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mdef\quartball{26}
+\mdef\halfball{27}
+\mdef\wholeball{28}
+\mdef\halfrest{13}
+\mdef\wholerest{12}
+\mdef\quartrest{14}
+\mdef\eighthrest{15}
+\mdef\sixteenthrest{16}
+\mdef\thirtysecondrest{17}
+\mdef\sixtyfourthrest{18}
+%\mdef\hundredtwentyeighthrest{67}
+\mdef\sharp{93}
+\mdef\flat{91}
+\mdef\natural{95}
+\mdef\sharpsharp{94}
+\mdef\flatflat{92}
+
+\mdef\singledot{'00}
+\mdef\doubledot{'01}
+\mdef\tripledot{'02}
+\mdef\mussepline{155}
+
+\mdef\violinclef{65}
+\mdef\bassclef{67}
+\mdef\altoclef{69}
+\mdef\cviolinclef{66}
+\mdef\cbassclef{68}
+\mdef\caltoclef{70}
+
+\mdef\deighthflag{32}
+\mdef\dsixteenthflag{46}
+\mdef\dthirtysecondflag{47}
+\mdef\dsixtyfourthflag{48}
+\mdef\dhundredtwentyeighthflag{49}
+
+% pointing up
+\mdef\ueighthflag{40}
+\mdef\usixteenthflag{41}
+\mdef\uthirtysecondflag{42}
+\mdef\usixtyfourthflag{43}
+\mdef\uhundredtwentyeighthflag{44}
+
+\maccentdef\repeatcolon{55}{2/1}
+\def\eighthflag{\topalign{\ueighthflag}}
+\def\sixteenthflag{\topalign{\usixteenthflag}}
+\def\thirtysecondflag{\topalign{\uthirtysecondflag}}
+\def\sixtyfourthflag{\topalign{\usixtyfourthflag}}
+\def\hundredtwentyeighthflag{\topalign{\uhundredtwentyeighthflag}}
+
+\def\cquartrest{\vertcenter\quartrest}
+\def\ceighthrest{\vertcenter\eighthrest}
+\def\csixteenthrest{\vertcenter\sixteenthrest}
+\def\cthirtysecondrest{\vertcenter\thirtysecondrest}
+\def\csixtyfourthrest{\vertcenter\sixtyfourthrest}
+\def\chundredtwentyeighthrest{\vertcenter\hundredtwentyeighthrest}
+
+\def\lsingledot{\kern-\notewidth\singledot}
+\def\ldoubledot{\kern-\notewidth\doubledot}
+\def\ltripledot{\kern-\notewidth\tripledot}
+
+\maccentdef\sforzato{30}{-3/2}
+\maccentdef\marcato{20}{-1/1}
+\maccentdef\imarcato{21}{1/1}
+\maccentdef\staccato{24}{-1/3}
+\maccentdef\istaccato{25}{1/3}
+\maccentdef\staccatissimo{28}{-5/5}
+\maccentdef\istaccatissimo{29}{2/5}
+\maccentdef\portato{18}{-6/5}
+\maccentdef\iportato{19}{3/5}
+\maccentdef\tenuto{26}{-1/1}
+\maccentdef\itenuto{27}{1/1}
+\maccentdef\fermata{80}{-1/1}
+\maccentdef\ifermata{81}{1/1}
+
+\mdef\spicato{28}
+\mdef\ispicato{29}
+\mdef\upbow{23}
+\mdef\downbow{22}

@@ -16,6 +16,7 @@
  */
 #define NAME_MEMBERS()	\
 static char const *static_name();\
+virtual bool is_type_b(const char *)const; \
 virtual char const *name() const{ return static_name(); } \
 int a_stupid_nonexistent_function_to_allow_the_semicolon_come_out()
 
@@ -25,5 +26,21 @@ int a_stupid_nonexistent_function_to_allow_the_semicolon_come_out()
 #define VIRTUAL_COPY_CONS(T, R)\
   virtual R *clone() const { return  new T(*this); } \
 
-    
+#define IMPLEMENT_IS_TYPE_B(D) 							   \
+  bool D::is_type_b(const char *s)	const					   \
+{ 										   \
+    return s == static_name();							   \
+}										   
+										   
+#define IMPLEMENT_IS_TYPE_B1(D,B) 						   \
+  bool D::is_type_b(const char *s)const						   \
+{ 										   \
+    return s == static_name() || B::is_type_b(s);				   \
+}										   
+#define IMPLEMENT_IS_TYPE_B2(D, BA, BB) 						   \
+  bool D::is_type_b(const char *s)	const					   \
+{ 										   \
+    return s == static_name() || BA::is_type_b(s) || BB::is_type_b(s); \
+}
+
 #endif // CLASS-NAME_HH

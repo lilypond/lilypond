@@ -15,13 +15,11 @@
 #include "command-request.hh"
 #include "musical-request.hh"
 #include "p-score.hh"
-#include "staff.hh"
 #include "midi-walker.hh"
 #include "midi-item.hh"
 #include "midi-stream.hh"
 #include "debug.hh"
-#include "staff-column.hh"
-
+#if 0
 Midi_walker::Midi_walker(Staff *st_l, Midi_track* track_l)
     : PCursor<Staff_column*>(st_l->cols_)
 {
@@ -86,7 +84,7 @@ Midi_walker::output_event(Midi_item &i, Moment now)
 }
 
 void
-Midi_walker::process_requests()
+Midi_walker::do_process_requests()
 {
     do_stop_notes(ptr()->when());
 
@@ -130,3 +128,4 @@ compare(Note_event const&e1, Note_event const&e2)
 {
     return sign(e1.key - e2.key);
 }
+#endif

@@ -75,10 +75,8 @@ of use and power.
 
 =item A set of music fonts
 
-Preferably in Metafont, suited to both screen display and use on paper
-
-The copyright heritage of Musixtex is unclear.
-
+Preferably in Metafont, suited to both screen display and use on
+paper;  This is because the copyright heritage of {Opus,Musix}tex is unclear.
 
 =item A typesetting engine. 
 

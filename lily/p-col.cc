@@ -23,6 +23,19 @@ PCol::width() const
     return w;
 }
 
+void
+PCol::clean_breakable_items()
+{
+    if (!line_l_) {
+	for(iter(its.top(), j); j.ok(); ) {
+	    j->unlink();
+	    j.del();
+	}
+    }
+    if (prebreak_p_) prebreak_p_->clean_breakable_items();
+    if (postbreak_p_) postbreak_p_->clean_breakable_items();
+}
+
 int
 PCol::rank_i() const
 {
@@ -91,6 +104,12 @@ PCol::set_breakable()
     postbreak_p_ = new PCol(this);
     prebreak_p_->pscore_l_ = pscore_l_;
     postbreak_p_->pscore_l_ = pscore_l_;
+}
+
+bool
+PCol::breakpoint_b() const
+{
+    return !line_l_;
 }
 
 bool

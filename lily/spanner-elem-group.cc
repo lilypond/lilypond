@@ -1,5 +1,5 @@
 /*
-  spanner-elem-group.cc -- implement 
+  spanner-elem-group.cc -- implement Spanner_elem_group
 
   source file of the GNU LilyPond music typesetter
 
@@ -11,6 +11,7 @@
 
 
 IMPLEMENT_STATIC_NAME(Spanner_elem_group);
+IMPLEMENT_IS_TYPE_B2(Spanner_elem_group,Spanner,Horizontal_vertical_group);
 
 Interval
 Spanner_elem_group::do_width() const
@@ -21,6 +22,6 @@ Spanner_elem_group::do_width() const
 void
 Spanner_elem_group::do_print() const
 {
-    Element_group::do_print();
+    Horizontal_vertical_group::do_print();
 }
 

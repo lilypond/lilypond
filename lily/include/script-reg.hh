@@ -21,11 +21,11 @@ public:
     NAME_MEMBERS();
     Script_register();
 protected:
-    virtual bool try_request(Request*);
-    virtual void process_requests();
+    virtual bool do_try_request(Request*);
+    virtual void do_process_requests();
     virtual void acknowledge_element(Score_elem_info);
-    virtual void pre_move_processing();
-    virtual void post_move_processing();
+    virtual void do_pre_move_processing();
+    virtual void do_post_move_processing();
 
 };
 

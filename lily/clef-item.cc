@@ -14,10 +14,21 @@
 #include "clef-reg.hh"
 
 
+void
+Clef_item::do_pre_processing()
+{
+    change_b_ = ! (break_status_i() == 1);
+
+    if (default_b_){
+	empty_b_ = (break_status_i() != 1);
+	transparent_b_ = (break_status_i() != 1);
+    }
+}
 
 Clef_item::Clef_item()
 {
-    change = true;
+    default_b_ = false;
+    change_b_ = true;
     read("violin");
 }
 
@@ -44,12 +55,13 @@ Molecule*
 Clef_item::brew_molecule_p()const
 {
     String t = type_;
-    if  (change)
+    if  (change_b_)
 	t += "_change";
     Symbol s = paper()->lookup_l()->clef(t);
     Molecule*output = new Molecule(Atom(s));
-    output->translate(Offset(0, paper()->internote_f() * y_off));
+    output->translate_y( paper()->internote_f() * y_off);
     return output;
 }
 
 IMPLEMENT_STATIC_NAME(Clef_item);
+IMPLEMENT_IS_TYPE_B1(Clef_item,Item);

@@ -10,7 +10,7 @@
 #include "tie.hh"
 #include "note-head.hh"
 #include "musical-request.hh"
-#include "voice-element.hh"
+#include "music-list.hh"
 
 Tie_register::Tie_register()
 {
@@ -31,7 +31,7 @@ Tie_register::sync_features()
     
 
 void
-Tie_register::post_move_processing()
+Tie_register::do_post_move_processing()
 {
     if (tie_p_ && get_staff_info().when() == end_mom_) {
 	end_tie_p_ = tie_p_;
@@ -50,7 +50,7 @@ Tie_register::acceptable_request_b(Request*r)
 }
 
 bool
-Tie_register::try_request(Request*r)
+Tie_register::do_try_request(Request*r)
 {
     if(!acceptable_request_b(r))
 	return false;
@@ -58,12 +58,13 @@ Tie_register::try_request(Request*r)
 	return false;
     }
     req_l_ = r->musical()->tie();
-    end_mom_ = r->elt_l_->duration_ + get_staff_info().when();
+    end_mom_ = r->parent_music_l_->time_int().length()
+	+ get_staff_info().when();
     return true;
 }
 
 void
-Tie_register::process_requests()
+Tie_register::do_process_requests()
 {
     if (req_l_ && ! tie_p_) {
 	tie_p_ = new Tie;
@@ -89,7 +90,7 @@ Tie_register::acknowledge_element(Score_elem_info i)
 }
 
 void
-Tie_register::pre_move_processing()
+Tie_register::do_pre_move_processing()
 {
     if (end_tie_p_) {
 	if (dir_i_)
@@ -118,4 +119,5 @@ Tie_register::set_feature(Feature f)
 }
 
 IMPLEMENT_STATIC_NAME(Tie_register);
+IMPLEMENT_IS_TYPE_B1(Tie_register,Request_register);
 ADD_THIS_REGISTER(Tie_register);

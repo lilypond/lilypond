@@ -92,3 +92,4 @@ Tie::do_substitute_dependency(Score_elem*o, Score_elem*n)
 
 
 IMPLEMENT_STATIC_NAME(Tie);
+IMPLEMENT_IS_TYPE_B1(Tie,Bow);

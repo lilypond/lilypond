@@ -1,7 +1,7 @@
 %{ // -*-Fundamental-*-
 #include <iostream.h>
 
-#define MUDELA_VERSION "0.0.58"
+#define MUDELA_VERSION "0.0.59"
 
 #include "script-def.hh"
 #include "symtable.hh"
@@ -11,9 +11,6 @@
 #include "paper-def.hh"
 #include "midi-def.hh"
 #include "main.hh"
-#include "input-score.hh"
-#include "input-staff.hh"
-#include "input-music.hh"
 #include "keyword.hh"
 #include "debug.hh"
 #include "parseconstruct.hh"
@@ -21,10 +18,11 @@
 #include "identifier.hh"
 #include "command-request.hh"
 #include "musical-request.hh"
-#include "voice-element.hh"
 #include "my-lily-parser.hh"
 #include "text-def.hh"
 #include "input-register.hh"
+#include "score.hh"
+#include "music-list.hh"
 
 #ifndef NDEBUG
 #define YYDEBUG 1
@@ -46,31 +44,28 @@
     Array<String> * strvec;
     Array<int> *intvec;
     Box *box;
+    Chord * chord;
     Duration *duration;
     Identifier *id;    
     Input_register * iregs;
-    Input_music *music;
-    Input_score *score;
-    Input_staff *staff;    
+    Music *music;
+    Music_list *musiclist;
+    Score *score;
     Interval *interval;
     Lookup*lookup;
     Melodic_req * melreq;
     Midi_def* midi;
     Moment *moment;
-    Music_general_chord *chord;
-    Music_voice *mvoice;
     Note_req *notereq;
     Paper_def *paper;
     Real real;
     Request * request;
-    Script_def * script;
+    General_script_def * script;
     String *string;
     Symbol * symbol;
     Symtable * symtable;
     Symtables * symtables;
     Text_def * textdef;
-    Voice *voice;    
-    Voice_element *el;	
     char c;
     const char *consstr;
     int i;
@@ -100,10 +95,14 @@ yylex(YYSTYPE *s,  void * v_l)
 /* tokens which are not keywords */
 %token CONCAT
 
+%token ALIAS
 %token BAR
 %token CADENZA
 %token CLEAR
 %token CLEF
+%token CONTAINS
+%token CONSISTS
+%token ACCEPTS
 %token CM_T
 %token DURATIONCOMMAND
 %token ABSDYNAMIC
@@ -111,9 +110,10 @@ yylex(YYSTYPE *s,  void * v_l)
 %token GEOMETRIC
 %token GROUPING
 %token GROUP
-%token INPUT_REGS
+%token REQUESTREGISTER
 %token HSHIFT
 %token IN_T
+%token ID
 %token INIT_END
 %token LYRIC
 %token KEY
@@ -122,7 +122,7 @@ yylex(YYSTYPE *s,  void * v_l)
 %token METER
 %token MIDI
 %token MM_T
-%token MULTIVOICE
+%token MULTI
 %token NOTE
 %token NOTENAMES
 %token OCTAVECOMMAND
@@ -152,18 +152,18 @@ yylex(YYSTYPE *s,  void * v_l)
 /* escaped */
 %token E_EXCLAMATION E_SMALLER E_BIGGER E_CHAR
 
-%token <i>	DOTS
+%type <i>	dots
 %token <i>	INT
 %token <melreq>	NOTENAME_ID
-%token <id>	REGS_IDENTIFIER
 %token <id>	IDENTIFIER
 %token <id>	MELODIC_REQUEST_IDENTIFIER 
-%token <id>	CHORD_IDENTIFIER
+%token <id>	MUSIC_IDENTIFIER
 %token <id>	VOICE_IDENTIFIER
 %token <id>	POST_REQUEST_IDENTIFIER
 %token <id>	SCRIPT_IDENTIFIER
 %token <id>	STAFF_IDENTIFIER
 %token <id>	REAL_IDENTIFIER
+%token <id>	INT_IDENTIFIER
 %token <id>	SCORE_IDENTIFIER
 %token <id>	REQUEST_IDENTIFIER
 %token <real>	REAL 
@@ -176,8 +176,7 @@ yylex(YYSTYPE *s,  void * v_l)
 %type <box>	box
 %type <c>	open_request_parens close_request_parens
 %type <c>	open_plet_parens close_plet_parens
-%type <chord>	music_chord music_chord_body  init_music_chord
-%type <el>	voice_elt full_element lyrics_elt command_elt
+%type <music>	simple_element music_elt full_element lyrics_elt command_elt
 %type <i>	int
 %type <i>	script_dir
 %type <id>	declaration
@@ -190,30 +189,26 @@ yylex(YYSTYPE *s,  void * v_l)
 %type <melreqvec>	pitch_list 
 %type <midi>	midi_block midi_body
 %type <moment>	duration_length
-%type <music>	init_music
-%type <mvoice>	 simple_horizontal_music horizontal_music  horizontal_music_body
-%type <mvoice>	 transposed_music_voice init_lyrics_voice
-%type <mvoice>	music_voice_body init_music_voice  
+%type <music>	init_melodic init_lyrics init_music
+%type <music>	Music transposed_music
+%type <musiclist> Voice Voice_body 
+%type <chord>	Chord Chord_body
 %type <paper>	paper_block paper_body
 %type <real>	dim real
 %type <real>	unit
 %type <request>	post_request pre_request command_req verbose_command_req abbrev_command_req
-%type <request>	pure_post_request pure_post_request_choice
-%type <request>	script_req textscript_req dynamic_req 
+%type <request>	script_req  dynamic_req 
 %type <score>	score_block score_body
-%type <script>	script_definition script_body mudela_script
-%type <staff>	staff_block staff_init staff_body
+%type <script>	script_definition script_body mudela_script gen_script_def
+%type <textdef> text_def
 %type <string>	declarable_identifier
 %type <string>	script_abbreviation
 %type <id>	old_identifier
 %type <symbol>	symboldef
 %type <symtable>	symtable symtable_body
-%type <textdef>	mudela_text
-%type <iregs>	input_regs input_regs_body
+%type <iregs>	input_register_spec input_register_spec_body
 
 %left PRIORITY
-
-%expect 1	/* have to fix this. */
 
 %%
 
@@ -226,6 +221,7 @@ mudela:	/* empty */
 	| mudela check_version { } 
 	| mudela add_notenames { }
 	| mudela init_end	{}
+	| mudela input_register_spec { add_global_input_register($2); }
 	;
 
 init_end: INIT_END ';'		{
@@ -287,15 +283,11 @@ declarable_identifier:
 old_identifier:
 	IDENTIFIER
 	|	MELODIC_REQUEST_IDENTIFIER 
-	|	CHORD_IDENTIFIER
-	|	VOICE_IDENTIFIER
 	|	POST_REQUEST_IDENTIFIER
 	|	SCRIPT_IDENTIFIER
-	|	STAFF_IDENTIFIER
 	|	REAL_IDENTIFIER
 	|	SCORE_IDENTIFIER
 	|	REQUEST_IDENTIFIER
-	|	REGS_IDENTIFIER
 	;
 
 declaration:
@@ -303,24 +295,12 @@ declaration:
 		$$ = new Score_id(*$1, $3, SCORE_IDENTIFIER);
 		delete $1;
 	}
-	| declarable_identifier '=' staff_block  {
-		$$ = new Staff_id(*$1, $3, STAFF_IDENTIFIER);
-		delete $1; 
-	}
-	| declarable_identifier '=' init_music_voice {
-		$$ = new M_voice_id(*$1, $3, VOICE_IDENTIFIER);
-		delete $1;
-	}
-	| declarable_identifier '=' init_lyrics_voice {
-		$$ = new M_voice_id(*$1, $3, VOICE_IDENTIFIER);
-		delete $1;
-	}
 	| declarable_identifier '=' script_definition {
 		$$ = new Script_id(*$1, $3, SCRIPT_IDENTIFIER);
 		delete $1;
 	}
-	| declarable_identifier '=' init_music_chord  {
-		$$ = new M_chord_id(*$1, $3, CHORD_IDENTIFIER);
+	| declarable_identifier '=' init_music  {
+		$$ = new Music_id(*$1, $3, MUSIC_IDENTIFIER);
 		delete $1;
 	}
 	| declarable_identifier '=' symtables {
@@ -332,7 +312,7 @@ declaration:
 		delete $1;
 	}
 	
-	| declarable_identifier '=' pure_post_request {
+	| declarable_identifier '=' post_request {
 		$$ = new Request_id(*$1, $3, POST_REQUEST_IDENTIFIER);
 		delete $1;
 	}
@@ -340,36 +320,33 @@ declaration:
 		$$ = new Request_id(*$1, $3, MELODIC_REQUEST_IDENTIFIER);
 		delete $1;
 	}
-	| declarable_identifier '=' input_regs	{
-		$$ = new Input_regs_id(*$1, $3, REGS_IDENTIFIER);
+	;
+
+
+
+input_register_spec:
+	REQUESTREGISTER '{' input_register_spec_body '}'
+		{ $$ = $3; }
+	;
+
+input_register_spec_body:
+	STRING	{ 
+		$$ = new Input_register; 
+		$$->name_str_ =*$1;
 		delete $1;
 	}
-	;
-
-
-input_regs:
-	INPUT_REGS
-		{ THIS->remember_spot(); }
-	'{' input_regs_body '}'
-	{
-		$$ = $4;
-		$$->set_spot(THIS->pop_spot());
+	| input_register_spec_body ALIAS STRING ';' {
+		$$-> alias_str_arr_.push(*$3);
+		delete $3;
+	}
+	| input_register_spec_body CONSISTS STRING ';'	{
+		$$-> consists_str_arr_.push(*$3);
+		delete $3;
+	}
+	| input_register_spec_body CONTAINS input_register_spec {
+		$$->add($3);
 	}
 	;
-
-input_regs_body:
-	REGS_IDENTIFIER 	{
-		$$ = $1->iregs(true);
-	}
-	|STRING	{ 
-		$$ = new Input_register;
-		$$->name_str_ = *$1;
-	}
-	| input_regs_body input_regs {
-		$$->add($2);
-	}
-	;
-
 /*
 	SCORE
 */
@@ -388,14 +365,20 @@ score_block:
 	;
 
 score_body:		{ 
-		$$ = new Input_score; 
+		$$ = new Score; 
 	}
 	| SCORE_IDENTIFIER {
 		$$ = $1->score(true);
 	}
-	| score_body staff_block	{ $$->add($2); }
-	| score_body paper_block		{ $$->set($2);	}
-	| score_body midi_block		{ $$->set($2);	}
+	| score_body init_music	{
+		$$->music_p_ = $2;
+	}
+	| score_body paper_block		{
+		$$->paper_p_ = $2;	
+	}
+	| score_body midi_block		{ 
+		$$->midi_p_ = $2;
+	}
 	| score_body error {
 
 	}
@@ -458,179 +441,112 @@ midi_body: {
 	}
 	;
 
-/*
-	STAFFs
-*/
-staff_block:
-	STAFF 	{ THIS->remember_spot(); }
-/*cont*/	'{' staff_body '}' 	{
-		$$ = $4; 
-		$$-> set_spot(THIS->pop_spot());
-	}
-	| { THIS->remember_spot(); }
-/*cont*/	STAFF_IDENTIFIER	{ 
-		$$ = $2->staff(true); 
-		$$-> set_spot(THIS->pop_spot());
-	}
-	;
 
-
-
-staff_init:
-	 STAFF_IDENTIFIER {
-		$$ = $1->staff(true);
-	}
-	| REGS_IDENTIFIER {
-		$$ = new Input_staff;
-		$$->ireg_p_ = $1->iregs(true);
-	}
-	| input_regs	{
-		$$ = new Input_staff;
-		$$->ireg_p_ = $1;
-	}
-	;
-
-staff_body:
-	staff_init
-	| staff_body init_music	{
-		$$ = $1;
-		$2->set_default_group( "staff_music" + String($$->music_.size()));
-		$$->add($2);
-	}
-	| staff_body error {
-	}
-	;
 
 /*
 	let the lexer switch mode.
 */
 init_music:
-	init_music_voice	{ $$ = $1; }
-	| init_music_chord	{ $$ = $1; }
-	| init_lyrics_voice	{ $$ = $1; }
-	| VOICE_IDENTIFIER	{ 
-		$$ = $1->mvoice(true);
-	}
+	init_melodic	{ $$ = $1; }
+	| init_lyrics	{ $$ = $1; }
 	;
 
-init_lyrics_voice:
-	LYRIC { THIS->lexer_p_->push_lyric_state(); } 
-	horizontal_music { $$ = $3; THIS->lexer_p_->pop_state(); }
+init_lyrics:
+	LYRIC 
+		{ THIS->lexer_p_->push_lyric_state(); } 
+	Music
+		{ $$ = $3; THIS->lexer_p_->pop_state(); }
 	;
 
-init_music_voice:
-	MELODIC { THIS->lexer_p_->push_note_state(); } 
-	/* cont*/ horizontal_music
+init_melodic:
+	MELODIC 
+		{ THIS->lexer_p_->push_note_state(); } 
+	Music
 		{ $$=$3; THIS->lexer_p_->pop_state(); }
 	;
 
-init_music_chord:
-	{ THIS->lexer_p_->push_note_state(); } 
-	/* cont*/ music_chord
-		  { $$=$2; THIS->lexer_p_->pop_state(); }
-	;
 /*
 	MUSIC
 */
 
-horizontal_music:
-	'{' horizontal_music_body '}'	{
+Voice:
+	'{' Voice_body '}'	{
 		$$ = $2;
 	}
 	;
 
-horizontal_music_body:
-	simple_horizontal_music 			{
-		$$ = $1;
+Voice_body:
+	/**/		{
+		$$ = new Voice;
 	}
-	| horizontal_music_body CONCAT simple_horizontal_music	{
-		$$->add($3);/* niet echt */
+	| Voice_body ID STRING STRING ';'	{
+		$$ = new Voice;
+		$$->type_str_ = *$3;	
+		$$->id_str_ = *$4;
+		delete $3;
+		delete $4;
+	}
+	| Voice_body Music		{
+		$$->add($2);
 	}
 	;
 
+Music:
+	full_element		{ $$ = $1; }
+	| Voice		{ $$ = $1; }
+	| Chord			{ $$ = $1; }
+	| transposed_music	{ $$ = $1; }
+	| MUSIC_IDENTIFIER 	{ $$ = $1->music(true); }
+	; 
 
-simple_horizontal_music:
-	TRANSPOSE '{' transposed_music_voice '}' {
+Chord:
+	'<' Chord_body '>'	{ $$  = $2; }
+	;
+
+Chord_body:
+	/**/	{
+		$$ = new Chord;
+		$$-> multi_level_i_ = 1;
+	}
+	| Chord_body MULTI INT ';' {
+		$$->multi_level_i_=$3;
+	}
+	| Chord_body ID STRING STRING ';'	{
+		$$->type_str_ = *$3;	
+		$$->id_str_ = *$4;
+		delete $4; 
+		delete $3;
+	}
+	| Chord_body Music {
+		$$->add($2);
+	}
+	;
+
+transposed_music:
+	TRANSPOSE steno_melodic_req Music {
 		$$ = $3;
-	}
-	| VOICE_IDENTIFIER {
-		$$ = $1->mvoice(true);
-	}
-	| music_voice_body  	{
-		$$ = $1;
+		$$ -> transpose($2);
+		delete $2;
 	}
 	;
 
-
-transposed_music_voice:
-	steno_melodic_req horizontal_music { 
-		$$ = $2;
-		$$->transpose(*$1);
-		delete $1;
-	}
-	;
-
-
-music_voice_body:
-	 /* */ 	{
-		$$ = new Music_voice;
-	}
-	| music_voice_body full_element {
-		$$->add_elt($2);
-	}
-	| music_voice_body voice_command ';' {
-	}
-	| music_voice_body music_chord	{
-		$$->add($2);
-	}
-	| music_voice_body error {
-	}
-	| music_voice_body '>' {
-		THIS->fatal_error_i_ = 1;
-		THIS->parser_error("Confused by errors: bailing out");
-	}
-	;
-
-music_chord:  '<' music_chord_body '>'	{ $$ = $2; }
-	;
-
-music_chord_body:
-	CHORD_IDENTIFIER {
-		$$=$1->mchord(true);
-	}
-	| /* */	{
-		$$ = new Voice_group_chord;
-	}
-	| MULTIVOICE {
-		$$ = new Multi_voice_chord;
-	}
-	| music_chord_body horizontal_music {
-		$$->add($2);
-	}
-	| music_chord_body full_element {
-		$$ ->add_elt($2);
-	}
-	| music_chord_body '}' {
-		THIS->fatal_error_i_ = 1;
-		THIS->parser_error("Confused by errors: bailing out");
-	}
-	| music_chord_body error {
-	}
-	;
 
 /*
 	VOICE ELEMENTS
 */
-full_element:	pre_requests voice_elt post_requests {
-		THIS->add_requests($2);
-		$$ = $2;
-	}
- 	| pre_requests lyrics_elt post_requests {
-	 	THIS->add_requests($2);
+full_element:
+	pre_requests simple_element post_requests	{
+	 	THIS->add_requests((Chord*)$2);//ugh
  		$$ = $2;
-        }
-	| command_elt
+	}
+	| voice_command ';'	{ $$ = 0; }
 	;	
+
+simple_element:
+	music_elt 
+ 	| lyrics_elt
+	| command_elt
+	;
 
 command_elt:
 /* empty */ 	{
@@ -640,8 +556,15 @@ command_elt:
 /* cont: */
 	command_req {
 		$2-> set_spot( THIS->here_input());
-		$$->add($2);
+		((Chord*)$$) ->add($2);//ugh
 
+	}
+	| GROUP STRING ';' { // ugh ugh ugh
+		Change_reg *chr_p = new Change_reg;
+		$$ = chr_p;
+		chr_p-> type_str_ = "Voice_group_registers"; //ugh
+		chr_p-> id_str_ = *$2;
+		delete $2;
 	}
 	;
 
@@ -674,7 +597,10 @@ verbose_command_req:
 	}
 	| SKIP duration_length {
 		Skip_req * skip_p = new Skip_req;
-		skip_p->duration_ = *$2;
+		skip_p->duration_ = Duration(1,0);
+		skip_p->duration_.set_plet($2->numerator().as_long(), 
+			$2->denominator().as_long());
+		
 		delete $2;
 		$$ = skip_p;
 	}
@@ -704,11 +630,7 @@ verbose_command_req:
 	| GROUPING intastint_list {
 		$$ = get_grouping_req(*$2); delete $2;
 	}
-	| GROUP STRING		{
-		$$ = new Group_change_req;
-		$$ -> command()->groupchange()->newgroup_str_ = *$2;
-		delete $2;
-	}
+	
 	;
 
 post_requests:
@@ -721,26 +643,15 @@ post_requests:
 	}
 	;
 
+
 post_request:
-	pure_post_request
-	| POST_REQUEST_IDENTIFIER	{
-		$$ = $1->request(false)->clone();
+	POST_REQUEST_IDENTIFIER	{
+		$$ = (Request*)$1->request(true);
 	}
-	;
-
-pure_post_request: 
-	pure_post_request_choice	{
-		$$ = $1;
-		$$->set_spot( THIS->here_input());
-	}
-	;
-
-pure_post_request_choice:
-	close_request_parens	{ 
+	|close_request_parens	{ 
 		$$ = THIS->get_parens_request($1); 
 	}
 	| script_req
-	| textscript_req
 	| dynamic_req
 	;
 
@@ -816,6 +727,7 @@ close_request_parens:
 		$$ = ']';
 	}
 	| close_plet_parens {
+		$$ = ']';
 	}
 	| E_SMALLER {
 		$$ = '<';
@@ -824,7 +736,7 @@ close_request_parens:
 		$$ = '>';
 	}
 	;
-  
+
 open_plet_parens:
 	'[' INT '/' INT {
 		$$ = '[';
@@ -854,30 +766,39 @@ script_definition:
 
 script_body:
 	STRING int int int int 		{
-		$$ = new Script_def;
-		$$->set_from_input(*$1,$2, $3,$4,$5);
+		Script_def *s = new Script_def;
+		s->set_from_input(*$1,$2, $3,$4,$5);
+		$$  = s;
 		delete $1;
 	}	
 	;
 
-textscript_req:
-	script_dir mudela_text		{ $$ = get_text_req($1,$2); }
-	;
-
-mudela_text:
-	STRING			{ 
-		$$ = new Text_def;
-		$$->text_str_ = *$1; 
-		delete $1;
-		$$->style_str_ = THIS->textstyle_str_;
-	}
-	;
-
 script_req:
-	script_dir mudela_script	{ 
-		$$ = get_script_req($1, $2);
+	script_dir gen_script_def		{ 
+		Musical_script_req *m = new Musical_script_req;
+		$$ = m;	
+		m-> scriptdef_p_ = $2;
+		m-> set_spot ( THIS->here_input() );
+		m-> dir_i_  = $1;
 	}
 	;
+
+gen_script_def:
+	text_def	{ $$ = $1; }
+	| mudela_script	
+	;
+
+text_def:
+	STRING { 
+		Text_def *t  = new Text_def;
+		$$ = t;
+		t->text_str_ = *$1; 
+		delete $1;
+		t->style_str_ = THIS->textstyle_str_;
+		$$->set_spot( THIS->here_input() );
+	}
+	;
+
 script_abbreviation:
 	'^'		{ $$ = get_scriptdef('^'); }
 	| '+'		{ $$ = get_scriptdef('+'); }
@@ -885,9 +806,7 @@ script_abbreviation:
  	| '|'		{ $$ = get_scriptdef('|'); }
 	| 'o'		{ $$ = get_scriptdef('o'); }
 	| '>'		{ $$ = get_scriptdef('>'); }
-	| DOTS 		{
-		if ( $1 > 1 ) 
-		    THIS->here_input().warning( "too many staccato dots"  );
+	| '.' 		{
 		$$ = get_scriptdef('.');
 	}
 	;
@@ -953,7 +872,7 @@ voice_command:
 	;
 
 duration_length:	
-	 {
+	{
 		$$ = new Moment(0,1);
 	}
 	| duration_length explicit_duration		{	
@@ -961,13 +880,18 @@ duration_length:
 	}
 	;
 
+dots:
+	'.'		{ $$ = 1; }
+	| dots '.'	{ $$ ++; }
+	;
+
 notemode_duration:
 	/* */		{ 
 		$$ = new Duration(THIS->default_duration_);
 	}
-	| DOTS		{
+	| dots		{
 		$$ = new Duration(THIS->default_duration_);
-		$$->dots_i_ = $1;
+		$$->dots_i_  = $1;
 	}
 	| explicit_duration	{
 		THIS->set_last_duration($1);
@@ -985,8 +909,8 @@ explicit_duration:
 			$$->set_plet(THIS->default_duration_);
 		     }
 	}
-	| explicit_duration DOTS 	{
-		$$->dots_i_ = $2;
+	| explicit_duration '.' 	{
+		$$->dots_i_ ++;
 	}
 	| explicit_duration '*' int  {
 		$$->plet_.iso_i_ *= $3; 
@@ -997,7 +921,7 @@ explicit_duration:
 	;
 
 
-voice_elt:
+music_elt:
 	steno_note_req notemode_duration 		{
 		if (!THIS->lexer_p_->note_state_b())
 			THIS->parser_error("have to be in Note mode for notes");
@@ -1011,7 +935,7 @@ voice_elt:
 	;
 
 lyrics_elt:
-	mudela_text notemode_duration 			{
+	text_def notemode_duration 			{
 		if (!THIS->lexer_p_->lyric_state_b())
 			THIS->parser_error("Have to be in Lyric mode for lyrics");
 		$$ = THIS->get_word_element($1, $2);
@@ -1030,18 +954,17 @@ pitch_list:			{
 	;
 
 int:
-	real			{
-		$$ = int($1);
-		if ( distance($1,Real(int($$)) ) > 1e-8)
-			yyerror( "integer expected" );
+	INT			{
+		$$ = $1;
+	}
+	| INT_IDENTIFIER	{
+		$$ = * $1->intid(0);
 	}
 	;
 
+
 real:
-	INT			{
-		$$ = Real($1);
-	}
-	| REAL		{
+	REAL		{
 		$$ = $1;
 	}
 	| REAL_IDENTIFIER		{

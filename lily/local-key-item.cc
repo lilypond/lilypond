@@ -66,7 +66,7 @@ Local_key_item::brew_molecule_p()const
 	if (accs[i].octave_i_ != lastoct) {
 	    if (octmol){
 		Real dy =lastoct*7*paper()->internote_f();
-		octmol->translate(Offset(0, dy));
+		octmol->translate_y( dy);
 		output->add(*octmol);
 		delete octmol;
 	    }
@@ -76,20 +76,20 @@ Local_key_item::brew_molecule_p()const
 	Symbol s =paper()->lookup_l()->accidental(accs[i].accidental_i_);   
 	Atom a(s);
 	Real dy = (accs[i].name_i_ + c0_position) * paper()->internote_f();
-	a.translate(Offset(0,dy));
+	a.translate_y(dy);
 
 	octmol->add_right(a);
     }
 
     if (octmol){
 	Real dy =lastoct*7*paper()->internote_f();
-	octmol->translate(Offset(0, dy));
+	octmol->translate_y( dy);
 	output->add(*octmol);
 	delete octmol;
     }
 
     Interval head_width=itemlist_width(support_items_);
-    output->translate(Offset(-output->extent().x.right + head_width.left ,0));
+    output->translate_x(-output->extent().x.right + head_width.left );
     
     return output;
 }
@@ -105,6 +105,7 @@ Local_acc::compare(Local_acc&a, Local_acc&b)
     return a.accidental_i_ - b.accidental_i_;
 };
 IMPLEMENT_STATIC_NAME(Local_key_item);
+IMPLEMENT_IS_TYPE_B1(Local_key_item,Item);
 
 void
 Local_key_item::do_substitute_dependency(Score_elem*o,Score_elem*n)

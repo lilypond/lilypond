@@ -7,17 +7,16 @@
 #include "script-reg.hh"
 #include "script.hh"
 #include "musical-request.hh"
-#include "complex-walker.hh"
 #include "stem.hh"
 #include "staff-sym.hh"
 
 Script_register::Script_register()
 {
-    post_move_processing();
+    do_post_move_processing();
 }
 
 bool
-Script_register::try_request(Request *r_l)
+Script_register::do_try_request(Request *r_l)
 {
     if (!r_l->musical() || ! r_l->musical()->musicalscript())
 	return false ;
@@ -33,7 +32,7 @@ Script_register::try_request(Request *r_l)
 }
 
 void
-Script_register::process_requests()
+Script_register::do_process_requests()
 {
     for (int i=0; i < script_req_l_arr_.size(); i++){
 	Script_req* l=script_req_l_arr_[i];
@@ -65,7 +64,7 @@ Script_register::acknowledge_element(Score_elem_info info)
 }
 
 void
-Script_register::pre_move_processing()
+Script_register::do_pre_move_processing()
 {
     Staff_symbol* s_l = get_staff_info().staff_sym_l_;
     for (int i=0; i < script_p_arr_.size(); i++) {
@@ -78,10 +77,11 @@ Script_register::pre_move_processing()
 }
 
 void
-Script_register::post_move_processing()
+Script_register::do_post_move_processing()
 {
     script_req_l_arr_.set_size(0);
 }
 
 IMPLEMENT_STATIC_NAME(Script_register);
+IMPLEMENT_IS_TYPE_B1(Script_register,Request_register);
 ADD_THIS_REGISTER(Script_register);

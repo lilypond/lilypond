@@ -17,14 +17,14 @@
  */
 class Staff_sym_register : public Request_register { 
     Staff_symbol *span_p_;
-    Moment last_mom_;
 public:
     Staff_sym_register();
     NAME_MEMBERS();
 protected:
-    virtual void process_requests();
-    ~Staff_sym_register();
-    virtual void pre_move_processing();
-    virtual void post_move_processing();
+    virtual void do_process_requests();
+    virtual void fill_staff_info(Staff_info&);
+    virtual void do_removal_processing();
+    virtual void do_creation_processing();
+	
 };
 #endif // STAFF_SYM_REG_HH

@@ -12,7 +12,6 @@
 #include "key-reg.hh"
 #include "key-item.hh"
 #include "command-request.hh"
-#include "staff-column.hh"
 #include "local-key-reg.hh"
 #include "musical-request.hh"
 #include "local-key-item.hh"
@@ -21,17 +20,18 @@
 
 Key_register::Key_register()
 {
-    post_move_processing();
+    do_post_move_processing();
 }
 
 bool
-Key_register::try_request(Request * req_l)
+Key_register::do_try_request(Request * req_l)
 {
     Command_req* creq_l= req_l->command();
     if (!creq_l|| !creq_l->keychange())
 	return false;
      
-    assert(!keyreq_l_);		// todo
+    if (keyreq_l_)
+	return false;		// TODO
     keyreq_l_ = creq_l->keychange();
     change_key_b_ = true;
     read_req(keyreq_l_);
@@ -41,44 +41,46 @@ Key_register::try_request(Request * req_l)
 void
 Key_register::acknowledge_element(Score_elem_info info)
 {
-    Command_req * r_l = info.req_l_->command() ;
+    int c0_i= *get_staff_info().c0_position_i_l_;	
+	 Command_req * r_l = info.req_l_->command() ;
     if (r_l && r_l->clefchange()) {
-	change_key_b_ = true;
+
+	 if (!kit_p_) {
+	    kit_p_ = new Key_item(c0_i);
+	    announce_element(Score_elem_info(kit_p_,0));
+	 }
+	 change_key_b_ = true;
     }
     
-    if (info.elem_l_->name() == Bar::static_name()) 
+    if (info.elem_l_->name() == Bar::static_name()) {
 	default_key_b_ = true;
+	 if (!kit_p_) {
+	    kit_p_ = new Key_item(c0_i);
+	    announce_element(Score_elem_info(kit_p_,0));
+	 }
+    }
 
 }
 
 void
-Key_register::process_requests()
+Key_register::do_process_requests()
 {
     int c0_i= *get_staff_info().c0_position_i_l_;
 
     if (key_.multi_octave_b_)
 	assert(false); // TODO . 
-    else 
+    else if (keyreq_l_) {
 	kit_p_ = new Key_item(c0_i);
-    kit_p_->read(*this);
-    announce_element(Score_elem_info(kit_p_, keyreq_l_));
+	kit_p_->read(*this);
+	announce_element(Score_elem_info(kit_p_, keyreq_l_));
+    }
 }
 
 void
-Key_register::pre_move_processing()
+Key_register::do_pre_move_processing()
 { 
-    Time_description const * time_C_ = get_staff_info().time_C_;
-    if ( time_C_->whole_in_measure_&& default_key_b_ && ! change_key_b_ ) {
-	delete kit_p_ ;
-	kit_p_ =0;
-    }
-    
     if (kit_p_) {
-	if (change_key_b_) 
-	    typeset_breakable_item(
-		new Key_item(*kit_p_), kit_p_, new Key_item(*kit_p_));
-	else 
-	    typeset_breakable_item(0,0,kit_p_);
+	typeset_breakable_item( kit_p_);
 	kit_p_ = 0;
     }
 }
@@ -104,7 +106,7 @@ Key_register::read_req(Key_change_req * r)
 }
 
 void
-Key_register::post_move_processing()
+Key_register::do_post_move_processing()
 {
     keyreq_l_ = 0;
     default_key_b_ = false;
@@ -112,4 +114,5 @@ Key_register::post_move_processing()
     change_key_b_ = false;
 }
 IMPLEMENT_STATIC_NAME(Key_register);
+IMPLEMENT_IS_TYPE_B1(Key_register,Request_register);
 ADD_THIS_REGISTER(Key_register);

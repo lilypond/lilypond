@@ -74,11 +74,12 @@ Script::brew_molecule_p() const
     Real dy = paper()->internote_f();
     
     Molecule*out = new Molecule(specs_l_->get_atom(paper(), dir_i_));
-    out->translate(Offset(0,dy * pos_i_));
+    out->translate_y(dy * pos_i_);
     return out;
 }
 
 IMPLEMENT_STATIC_NAME(Script);
+IMPLEMENT_IS_TYPE_B2(Script,Item,Staff_side);
 
 int 
 Script::compare(Script  *const&l1, Script *const&l2) 

@@ -13,6 +13,7 @@
 #include "stem.hh"
 
 IMPLEMENT_STATIC_NAME(Note_column);
+IMPLEMENT_IS_TYPE_B1(Note_column,Script_column);
 
 void
 Note_column::add(Stem*stem_l)

@@ -1,4 +1,3 @@
-
 /*
   scoreline.hh -- part of GNU LilyPond
 
@@ -10,23 +9,26 @@
 
 #include "colhpos.hh"
 #include "spanner-elem-group.hh"
+#include "vertical-align-elem.hh"
 
 /// the columns of a score that form one line.
-class Line_of_score : public Spanner_elem_group {
+class Line_of_score : public Spanner, public Vertical_align_elem {
 public:
-    Link_array<Spanner_elem_group> line_arr_;
-    Link_array<PCol > cols;
+    Link_array<PCol> cols;
     bool error_mark_b_;
     virtual String TeX_string() const;    
     
-    /* *************** */
+
     NAME_MEMBERS();
     Line_of_score();
     
-    void add_line(Spanner_elem_group *);
+    void add(Score_elem *);
 
     /// is #c# contained in #*this#?
     bool contains_b(PCol const *c)const;
+    bool contains_b(Score_elem const*e) const {  
+	return Vertical_align_elem::contains_b(e); 
+    }
     
     Link_array<Line_of_score> get_lines()const;
     void set_breaking(Array<Col_hpositions> const&);
@@ -34,11 +36,9 @@ public:
 protected:
     virtual void break_into_pieces();
     virtual void do_substitute_dependency(Score_elem*,Score_elem*);
-    virtual void do_pre_processing();
-    virtual void do_post_processing();
-
-
-    SPANNER_CLONE(Line_of_score)
+    virtual Interval do_width()const;
+    virtual void do_print() const;
+    SCORE_ELEM_CLONE(Line_of_score)
 };
 
 #endif

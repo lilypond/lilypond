@@ -13,6 +13,7 @@
 #include "stem.hh"
 
 IMPLEMENT_STATIC_NAME(Script_column);
+IMPLEMENT_IS_TYPE_B1(Script_column,Horizontal_vertical_group_item);
 
 
 void
@@ -29,12 +30,12 @@ Script_column::do_print()const
     mtor << "scripts: " << script_l_arr_.size() << '\n'; 
 }
 
-
 void
 Script_column::do_pre_processing()
 {
     if (!script_l_arr_.size()) 
 	return;
+    
     /* up+outside, up+inside, down+outside, down+inside */
     Array<Script*> placed_l_arr_a[4];
     for (int i=0; i < script_l_arr_.size(); i++) {
@@ -86,7 +87,7 @@ Script_column::add_support(Item*i_l)
 void
 Script_column::do_substitute_dependency(Score_elem*o,Score_elem*n)
 {
-    Element_group::do_substitute_dependency(o,n);
+    Horizontal_vertical_group::do_substitute_dependency(o,n);
     if (o->item()) {
 	script_l_arr_.substitute((Script*)o->item(),(Script*) (n?n->item():0));
 	support_l_arr_.substitute(o->item(), (n?n->item():0));

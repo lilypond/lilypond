@@ -18,7 +18,7 @@ Text_def::width(Paper_def * p) const
 {
     Atom a = get_atom(p,0);
 
-    Real guess_width_f = text_str_.length_i() * a.sym.dim.x.length(); // ugh
+    Real guess_width_f = text_str_.length_i() * a.sym_.dim.x.length(); // ugh
     Interval i(0, guess_width_f);
     i += - (align_i_ + 1)* i.center();
     return i;
@@ -50,3 +50,4 @@ Text_def::print() const
 	style_str_ << "align " << align_i_ << '\n';
 }
 IMPLEMENT_STATIC_NAME(Text_def);
+IMPLEMENT_IS_TYPE_B1(Text_def,General_script_def);

@@ -17,28 +17,18 @@
  */
 class Voice_group_registers  : public Register_group_register {
     Moment termination_mom_;
-    Input_register const *ireg_C_;
     int dir_i_;
 
 protected:
     virtual void do_print() const;
-    virtual void set_feature(Feature);
     virtual Scalar get_feature(String);
-    virtual void post_move_processing();
-    virtual bool try_request(Request*);
+    virtual void do_post_move_processing();
+    virtual bool do_try_request(Request*);
 public:
-    void OK() const;
-    virtual Request_register * get_register_p(Request_register  * reg_l);
-    /// each group in a staff has an unique ID.
-    String group_id_str_;
-
-    /// The pointers are in the base class. This is just administration
-    Array<Voice_registers*> voice_reg_l_arr_;
-    /* *************** */
+    
     
     NAME_MEMBERS();
     static bool static_acceptable_request_b(Request*);
-    virtual void add(Request_register*);
-    Voice_group_registers(String id, Input_register const *);
+    Voice_group_registers();
 };
 #endif // VOICEGROUPREGS_HH

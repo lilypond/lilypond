@@ -49,7 +49,7 @@ public:
        add the item in specified containers. If breakstatus is set
        properly, add it to the {pre,post}break of the pcol.
        */
-    void typeset_item(Item *item_p,  PCol *pcol_l,int breakstatus=1);
+    void typeset_item(Item *item_p,  PCol *pcol_l,int breakstatus=0);
 
     ///    add to bottom of pcols
     void add(PCol*);

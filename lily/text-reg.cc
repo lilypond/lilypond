@@ -12,20 +12,21 @@ Text_register::Text_register()
 {
     text_p_ = 0;
     dir_i_ =0;
-    post_move_processing();
+    do_post_move_processing();
 }
 
 bool
-Text_register::try_request(Request*req_l)
+Text_register::do_try_request(Request*req_l)
 {
-    if (!req_l->text())
+    Musical_req *m = req_l->musical();
+    if (!m || ! m->text())
 	return false;
     if (text_req_l_ &&
-	Text_req::compare(*req_l->text(), *text_req_l_))
+	Text_req::compare(*m->text(), *text_req_l_))
 
 	return false;
 
-    text_req_l_ = req_l->text();
+    text_req_l_ = m->text();
     return true;
 }
 void
@@ -36,7 +37,7 @@ Text_register::acknowledge_element(Score_elem_info i)
     }
 }
 void
-Text_register::process_requests()
+Text_register::do_process_requests()
 {
     if (text_req_l_) {
 	text_p_ = new Text_item(text_req_l_->tdef_p_, text_req_l_->dir_i_); // ugh
@@ -44,7 +45,7 @@ Text_register::process_requests()
     }
 }
 void
-Text_register::pre_move_processing()
+Text_register::do_pre_move_processing()
 {
     if (text_p_) {
 	if (dir_i_ && !text_p_->dir_i_)
@@ -63,9 +64,10 @@ Text_register::set_feature(Feature i)
 	dir_i_ = i.value_;
 }
 void
-Text_register::post_move_processing()
+Text_register::do_post_move_processing()
 {
     text_req_l_ = 0;
 }
 IMPLEMENT_STATIC_NAME(Text_register);
+IMPLEMENT_IS_TYPE_B1(Text_register,Request_register);
 ADD_THIS_REGISTER(Text_register);

@@ -30,7 +30,7 @@ include ./$(depth)/make/out/Site.make
 # dependency list of executable:
 #
 
-$(EXECUTABLE): $(build) $(OFILES)
+$(EXECUTABLE): $(build) $(OFILES) $(outdir)/version.hh
 	$(MAKE) $(MODULE_LIBDEPS) 
 	$(INCREASE_BUILD)
 	$(MAKE) -S $(OFILES)  $(SILENT_LOG)
@@ -223,12 +223,15 @@ $(LIBLILY): dummy
 
 # RedHat rpm package:
 #
-rpm: $(doc-dir)/$(outdir)/lelie_icon.xpm
+rpm: check-rpm-doc-deps
 	-cp $(depth)/lilypond-$(TOPLEVEL_VERSION).tar.gz $(rpm-sources)
 	-cp $< $(rpm-sources)
 	$(MAKE) -C $(make-dir) spec
 	rpm -ba $(makeout)/lilypond.spec
 #
+check-rpm-doc-deps: 
+	$(MAKE) -C $(depth)/Documentation/ xpms
+
 
 installexe:
 	$(INSTALL) -d $(bindir)

@@ -20,19 +20,18 @@ EndMudelaHeader
 %}
 
 
-\version "0.0.58";
+\version "0.0.59";
 
 toccata_commands = \melodic{
 	\meter 4/4;
 	\key fis cis gis dis; % E-major
 }
 
-%toccata_right = \melodic \$toccata_commands { 
 toccata_right = \melodic{ 
-	\$toccata_commands ++
+	\$toccata_commands 
 	% 13 -- how to type -- where to split -- this more neatly ?
 	\octave c';
-	<\multivoice 
+	<\multi 2;
 	 	{ \stem 1; r4 dis'4 e'4.-. e'8( | \hshift 1; )e'4 [d'8 fis'8] \hshift 0; gis'4 [gis'8 fis'16 e'16] | fis'4~  [fis'8 e'16 dis'16] e'4 r8 e'8 }
 		{ \stem 1; \hshift 1; r4 bis4 cis'4-. cis'4 | \hshift 0; a'4~  [a'16 gis'16 a'16 b'16] \hshift 1; dis'4 cis'4~  [cis'8 dis'16 a16] bis4 cis'4 r8 b8 }
 		{ \stem -1; r4 < gis4 fis4 dis4 > gis4-. gis4 | a4. cis'8 gis2 | fis4 gis4 gis4 r8 e8 }
@@ -41,11 +40,11 @@ toccata_right = \melodic{
 }
 
 toccata_left = \melodic{ 
-	\$toccata_commands ++
+	\$toccata_commands  
 	\octave c;
 	\clef bass;
 	% 13
-	<\multivoice
+	<\multi 2;
 		{ \stem 1; bis2 cis'4-. cis'4~  [cis'8 a8 d'8 cis'8] [bis8 gis8] cis'4 | dis'2 cis'4 r8 cis'8 }
 		{ \stem 1; \hshift 1; r4 gis4. gis8~  gis4 | \stem -1; \hshift 0; a4. fis8 gis4. a8~  a4 gis4-. gis4 r8 gis8 }
 		{ \stem -1; r4 < dis4 fis4 > < cis4 e4 > }
@@ -54,7 +53,7 @@ toccata_left = \melodic{
 }
 
 toccata_pedal = \melodic{
-	\$toccata_commands ++
+	\$toccata_commands  
 	\octave c;
 	\clef bass;
 	% 13
@@ -72,10 +71,10 @@ fuga2_commands = \melodic{
 }
 
 fuga2_right = \melodic{
-	\$fuga2_commands ++
+	\$fuga2_commands  
 	% 15
 	\octave c';
-	<\multivoice
+	<\multi 2;
 		{ \stem 1; [b8 fis8] b4 }
 		{ \stem -1; fis2 }
 	>
@@ -87,14 +86,14 @@ fuga2_right = \melodic{
            |x
            |
 	%}
-	< \multivoice
+	< \multi 2;
 		{ \stem 1; \hshift 0; e'4 }
 		{ \stem 1; \hshift 1; cis'4 }
 		{ \stem 1; \hshift 2; ais4 }
 		{ \stem -1; fis4 }
 	> |
 	% 16
-	<\multivoice
+	<\multi 2;
 		{ \stem 1; dis'2 dis'4 | cis'2 cis'4 | b4~  [b8 cis'8 dis'8 e'8] }
 		{ \stem 1; \hshift 1; [b8 fis8] b2~  [b8 a16 g16] a2 | a4 gis2 }
 		{ \stem -1; fis2.~  fis2.~  fis4 e2 }
@@ -103,12 +102,12 @@ fuga2_right = \melodic{
 }
 
 fuga2_left = \melodic{
-	\$fuga2_commands ++
+	\$fuga2_commands  
 	\octave c;
 	\clef bass;
 	% 15
 	b2 
-	<\multivoice 
+	<\multi 2; 
 		{ \stem 1; ais4 | bes2. }
 		{ \stem -1; e4  | fis2 fis4 }
 	>
@@ -119,7 +118,7 @@ fuga2_left = \melodic{
 }
 
 fuga2_pedal = \melodic{
-	\$fuga2_commands ++
+	\$fuga2_commands  
 	\octave c;
 	\clef bass;
 	% 15
@@ -136,28 +135,13 @@ break = \melodic{ \meter 4/4; r1 }
 
 % these should be two separate scores...
 \score{
-	\staff{ melodicregs 
-		% why the extra "\melodic" (silly)
-		% let "[ x ]" be "dimension of x":
-		%     [ melodic ++ melodic ] == [ simple-mudela ]
-		%     [ \melodic{ melodic ++ melodic } ] == [ melodic ]
-		% ?
-		\melodic{ 
-			\$toccata_right ++ \break ++ \$fuga2_right 
-		}
-	}
-	\staff{ melodicregs 
-		\melodic{ 
-			\$toccata_left ++ \break ++ \$fuga2_left 
-		}
-	}
-	\staff{ melodicregs 
-		\melodic{ 
-			\$toccata_pedal 
-			++ \break 
-			++ \$fuga2_pedal 
-		}
-	}
+	\melodic < \multi 3;
+		{ \$toccata_right   \break   \$fuga2_right }
+		{	\$toccata_left   \break   \$fuga2_left }
+	
+		{ \$toccata_pedal   \break   \$fuga2_pedal }
+		
+	>
 	\paper{}
 	\midi{
 		\tempo 4:96

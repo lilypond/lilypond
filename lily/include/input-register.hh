@@ -14,32 +14,29 @@
 #include "string.hh"
 #include "lily-proto.hh"
 #include "input.hh"
+#include "string.hh"
+#include "varray.hh"
 
 struct Input_register : Input { 
-    Pointer_list<Input_register*> ireg_list_;
+    Pointer_list<Input_register*> contains_ireg_p_list_;
+    Array<String> consists_str_arr_;
+    Array<String> alias_str_arr_;
     String name_str_;
-    
-    void add(Input_register*);
-    Input_register();
-    bool group_b() const;
-    ~Input_register();
-    /** Get an Input_register with a certain name
 
-      @return 0 if not found.
-      */
-    Input_register *get_ireg_l(String name) const;
-    Input_register(Input_register const&);
-    /** 
-      The names of all non -groups.
-      */
-    Array<String> get_nongroups_str_arr() const;
+    void add(Input_register *);
+    
+    bool accept_req_b();
+    bool accepts_b(String);
     void print() const;
-    /**
-      Construct the registers.
-     */
-    Array<Request_register*> get_nongroup_p_arr()const;
+    Register_group_register * get_group_register_p();
+    Input_register * get_default_ireg_l();
+    Input_register * recursive_find(String nm);
+    Input_register * find_ireg_l(String nm);    
 };
 
-Request_register * get_nongroup_register_p(String);
+
+void add_global_input_register(Input_register* ireg_p);
+Input_register*lookup_reg(String);
+Request_register*get_register_p(String s);
 
 #endif // INPUT_REGISTER_HH

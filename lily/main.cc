@@ -81,6 +81,7 @@ notice()
 	"  Jan Nieuwenhuizen <jan@digicash.com>\n"
 	"Contributors\n"
 	"  Mats Bengtsson <matsb@s3.kth.se>\n"
+	"  Werner Lemberg <xlwy01@uxp1.hrz.uni-dortmund.de>\n"
 	"\n"
 	"    This program is free software; you can redistribute it and/or\n"
 	"modify it under the terms of the GNU General Public License version 2\n"

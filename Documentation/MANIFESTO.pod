@@ -51,7 +51,6 @@ GNU LilyPond uses MusiXTeX fonts and TeX for its output. This is not a key
 issue: in a future version, GNU LilyPond might bypass TeX, but at the moment
 TeX is very convenient for producing output.
 
-
 =item *
 
 GNU LilyPond does not display notes directly, nor will it be rehacked to be
@@ -84,16 +83,22 @@ ongoing process, the most important criteria being:
 
 =item *
 
-define the (musical) message of the composer as unambiguously as possible,
+define the (musical) message of the composer as unambiguously as possible.
+
+This means that, given a piece Mudela, it should be possible for a
+program to play a reasonable interpretation of the piece.
+
+It also means that, given a piece of Mudela, it should be possible for a
+program to print a score of the piece.
 
 =item *
 
-be intuitive, and easily readable 
-(compared to, say, Musi*TeX input, or MIDI :-),
+be intuitive, and easily readable (compared to, say, Musi*TeX input,
+or MIDI :-),
 
 =item *
 
-be writable in ASCII with a simple texteditor, yfte(TM).
+be easily writable in ASCII with a simple texteditor, yfte(TM).
 
 =back
 
@@ -159,6 +164,6 @@ Bach multivoice organ pieces,
 
 =item *
 
-short excerpts to be used in musicological publications.
+Short excerpts to be used in musicological publications.
 
 =back

@@ -7,11 +7,14 @@
 #ifndef MIDIWALKER_HH
 #define MIDIWALKER_HH
 
+#if 0
 #include "lily-proto.hh"
 #include "grouping.hh"
 #include "staff-walker.hh"
 #include "pcursor.hh"
 #include "pqueue.hh"
+
+
 struct Note_event : PQueue_ent<Moment,Melodic_req*>
 {
     bool ignore_b_;
@@ -42,10 +45,10 @@ class Midi_walker : public PCursor<Staff_column*>
 public:
     
     Midi_walker(Staff*, Midi_track*);
-    void process_requests();
+    void do_process_requests();
     ~Midi_walker();
 };
-
+#endif
 
 #endif // MIDIWALKER_HH
 

@@ -11,22 +11,16 @@
 #define VOICEREGS_HH
 
 #include "register-group.hh"
+#include "interpreter.hh"
 
-class Voice_registers : public Register_group_register {
-    Input_register const *ireg_C_;
-    bool terminate_b_;
+class Voice_registers : public Interpreter, public Register_group_register {
 public:
-    Voice *voice_l_;
-    /* *************** */
-
-    Voice_registers(Voice*, Input_register const*);
+    Voice_registers();
     NAME_MEMBERS();
 
 protected:
-    virtual void pre_move_processing();
-    virtual bool acceptable_request_b(Request*);
-    virtual void acknowledge_element(Score_elem_info info);
-    virtual bool try_request(Request*);
+    virtual bool interpret_request_b(Request*);
+    virtual Interpreter* interpreter_l() { return this; }
     virtual void do_print() const;
 };
 

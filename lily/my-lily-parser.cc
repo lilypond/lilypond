@@ -10,7 +10,7 @@
 #include "my-lily-lexer.hh"
 #include "debug.hh"
 #include "main.hh"
-#include "voice-element.hh"
+#include "music-list.hh"
 #include "musical-request.hh"
 #include "command-request.hh"
 #include "parser.hh"
@@ -109,13 +109,13 @@ void
 My_lily_parser::set_duration_mode(String s)
 {
     s = s.upper_str();
-    last_duration_mode = (s== "LAST");
+    last_duration_mode_b_ = (s== "LAST");
 }
 
 void
 My_lily_parser::set_default_duration(Duration const *d)
 {
-    last_duration_mode = false;
+    last_duration_mode_b_ = false;
     default_duration_ = *d;
 }
 
@@ -123,15 +123,15 @@ My_lily_parser::set_default_duration(Duration const *d)
 void
 My_lily_parser::set_last_duration(Duration const *d)
 {
-    if (last_duration_mode)
+    if (last_duration_mode_b_)
 	default_duration_ = *d;
 }
 
 
-Voice_element*
+Chord*
 My_lily_parser::get_word_element(Text_def* tdef_p, Duration * duration_p)
 {
-    Voice_element* velt_p = new Voice_element;
+    Chord* velt_p = new Voice_element;
     
     Lyric_req* lreq_p = new Lyric_req(tdef_p);
 
@@ -144,15 +144,16 @@ My_lily_parser::get_word_element(Text_def* tdef_p, Duration * duration_p)
     return velt_p;
 }
 
-Voice_element *
+Chord *
 My_lily_parser::get_rest_element(String s,  Duration * duration_p )
 {    
-    Voice_element* velt_p = new Voice_element;
+    Chord* velt_p = new Voice_element;
     velt_p->set_spot( here_input());
 
     if (s=="s") { /* Space */
 	Skip_req * skip_p = new Skip_req;
-	skip_p->duration_ = duration_p->length();
+	skip_p->duration_ = *duration_p;
+
 	skip_p->set_spot( here_input());
 	velt_p->add(skip_p);
     }
@@ -172,10 +173,10 @@ My_lily_parser::get_rest_element(String s,  Duration * duration_p )
     return velt_p;
 }
 
-Voice_element *
+Chord *
 My_lily_parser::get_note_element(Note_req *rq, Duration * duration_p )
 {
-    Voice_element*v = new Voice_element;
+    Chord*v = new Voice_element;
     v->set_spot( here_input());
 
     v->add(rq);
@@ -264,12 +265,12 @@ My_lily_parser::My_lily_parser(Sources * source_l)
     default_octave_i_ = 0;
     textstyle_str_="roman";		// in lexer?
     error_level_i_ = 0;
-    last_duration_mode = false;
+    last_duration_mode_b_ = true;
     fatal_error_i_ = 0;
 }
 
 void
-My_lily_parser::add_requests(Voice_element*v)
+My_lily_parser::add_requests(Chord*v)
 {
     for (int i = 0; i < pre_reqs.size(); i++) {
 	v->add(pre_reqs[i]);

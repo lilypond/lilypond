@@ -12,12 +12,15 @@
  */
 class Bar:public Item {
 public:
-    String type;
+    String type_str_;
     
     NAME_MEMBERS();
-    Bar(String type);
+    SCORE_ELEM_CLONE(Bar)
+    Bar();
 private:
     void do_print() const;
+protected:
+    virtual void do_pre_processing();
     Molecule*brew_molecule_p()const;
 };
 #endif // BAR_HH

@@ -64,6 +64,13 @@ resources on music typesetting
 >
 
 =item *
+<a href=other-packages.html
+>
+Other packages for printing music.
+</a
+>
+
+=item *
 <a href=mi2mu.html
 >
 manual page for mi2mu, the MIDI convertor.

@@ -20,9 +20,9 @@ struct Local_key_register : Request_register {
     Link_array<Item  > forced_l_arr_;
     Link_array<Item > tied_l_arr_;
     /* *************** */
-    virtual void process_requests();
+    virtual void do_process_requests();
     virtual void acknowledge_element(Score_elem_info);
-    virtual void pre_move_processing();
+    virtual void do_pre_move_processing();
     Local_key_register();
     NAME_MEMBERS();
 };

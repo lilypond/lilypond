@@ -24,6 +24,7 @@ protected:
 public:
     Meter(Array<Scalar> args) ;
     NAME_MEMBERS();
+    SCORE_ELEM_CLONE(Meter)
 };
 #endif // METER_HH
 

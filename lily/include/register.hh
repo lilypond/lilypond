@@ -16,6 +16,9 @@
 #include "score-elem-info.hh"
 #include "staff-info.hh"
 
+
+
+
 /**
   a struct which processes requests, and creates the #Score_elem#s.
   It may use derived classes. Hungarian postfix: register
@@ -26,46 +29,43 @@ class Request_register {
       You cannot copy a Request_register
      */
     Request_register(const Request_register&){}
+
+    enum { 
+	VIRGIN,
+	CREATION_INITED,
+	MOVE_INITED,
+	ACCEPTED_REQS,
+	PROCESSED_REQS,
+	ACKED_REQS,
+	MOVE_DONE
+    } status;
+
 protected:
     
 
     /// utility
     virtual Paper_def * paper() const;
 
-    /**
-      try to fit the request in this register
-
-      @return
-      false: not noted,  not taken.
-
-      true: request swallowed. Don't try to put the request elsewhere.
-
-
-      Default: always return false
-      */
-    virtual bool try_request(Request *req_l);
     
     /// make items/spanners with the requests you got
-    virtual void process_requests(){}
+    virtual void do_process_requests(){}
 
     /** typeset any items/spanners. Default: do nothing
      */
-    virtual void pre_move_processing(){}
+    virtual void do_pre_move_processing(){}
     /** reset any appropriate data. Default: do nothing
      */
-    virtual void post_move_processing(){}
+    virtual void do_post_move_processing(){}
    
-    /**
-      Is this request eligible to be processed? Default: return false.
-     */
-    virtual bool acceptable_request_b(Request*) const;
+
+    virtual void do_creation_processing () {}
+    virtual void do_removal_processing() {}
 
     /**
       typeset a "command" item. Default: pass on to daddy.
       If the column is not breakable, #pre_p# and #post_p# are junked
       */
-    virtual void typeset_breakable_item(Item * pre_p ,
-					Item * nobreak_p, Item * post_p);
+    virtual void typeset_breakable_item(Item * nobreak_p);
     /**
       Invoke walker method to typeset element. Default: pass on to daddy.
       */
@@ -95,18 +95,38 @@ protected:
      */
 
     virtual void sync_features() {}
-    
+   
     virtual bool contains_b(Request_register*reg_l)const;
     /**
       Get information on the staff. Default: ask daddy.
       */
-    virtual Staff_info get_staff_info();
+    virtual Staff_info get_staff_info()const;
+    virtual void fill_staff_info(Staff_info&);
 
 
     virtual void do_print()const;  
+    /*    
+	  @see{try_request}
+	  Default: always return false
+      */
+    virtual bool do_try_request(Request *req_l);
 public:
-    /** Every Request_register (except for the 'top' which is directly
-      inside the Staff_walker, is a element of a group.  */
+    void pre_move_processing();
+    void process_requests();
+    /**
+      try to fit the request in this register
+
+      @return
+      false: not noted,  not taken.
+
+      true: request swallowed. Don't try to put the request elsewhere.
+
+      */
+    bool try_request(Request*);
+
+    void post_move_processing();
+    virtual Interpreter * interpreter_l() { return 0; }
+    
     Register_group_register * daddy_reg_l_;
 
     Request_register();

@@ -38,7 +38,7 @@ add_request_register(String s, Reg_ctor f)
 
 
 Request_register*
-get_nongroup_register_p(String s)
+get_register_p(String s)
 {
     for (int i=0; i < reg_table->size(); i++) {
 	if ((*reg_table)[i].name_str_ == s)

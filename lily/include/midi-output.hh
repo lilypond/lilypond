@@ -13,6 +13,7 @@
 
 
 struct Midi_output {
+    #if 0
     Midi_output(Score* score_l, Midi_def* );
 
     void do_staff(Staff*st_l, int count);
@@ -22,6 +23,7 @@ struct Midi_output {
     Score* score_l_;
     Midi_def* midi_l_;
     Midi_stream* midi_stream_l_;
+#endif
 };
 
 #endif // MIDIOUTPUT_HH

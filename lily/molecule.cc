@@ -43,6 +43,18 @@ Molecule::translate(Offset o)
 }
 
 void
+Molecule::translate_x(Real x)
+{
+    translate(Offset(x,0));
+}
+
+void
+Molecule::translate_y(Real y)
+{
+    translate(Offset(0,y));
+}
+
+void
 Molecule::add(Molecule const &m)
 {
     for (iter_top(m.ats,c); c.ok(); c++) {
@@ -86,7 +98,7 @@ Molecule::add_top(Molecule const &m)
     }
   Real yof=extent().y.right - m.extent().y.left;
     Molecule toadd(m);
-    toadd.translate(Offset(0,yof));
+    toadd.translate_y(yof);
     add(toadd);
 }
 
@@ -99,7 +111,7 @@ Molecule::add_bottom(Molecule const &m)
     }
     Real yof=extent().y.left- m.extent().y.right;
     Molecule toadd(m);
-    toadd.translate(Offset(0,yof));
+    toadd.translate_y(yof);
     add(toadd);
 }
 

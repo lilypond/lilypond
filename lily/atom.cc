@@ -18,20 +18,20 @@
 void
 Atom::print() const
 {
-    mtor << "texstring: " <<sym.tex<<"\n";    
+    mtor << "texstring: " <<sym_.tex<<"\n";    
 }
 
 Box
 Atom::extent() const
 {
-    Box b( sym.dim);
-    b.translate(off);
+    Box b( sym_.dim);
+    b.translate(off_);
     return b;
 }
 
 Atom::Atom(Symbol s)
 {
-    sym=s;
+    sym_=s;
 }
 
 
@@ -39,14 +39,14 @@ String
 Atom::TeX_string() const
 {
     /* infinity checks. */
-    assert( abs(off.x) < 100 CM);
-    assert( abs(off.y) < 100 CM);
+    assert( abs(off_.x) < 100 CM);
+    assert( abs(off_.y) < 100 CM);
     
     // whugh.. Hard coded...
     String s("\\placebox{%}{%}{%}");
     Array<String> a;
-    a.push(print_dimen(off.y));
-    a.push(print_dimen(off.x));
-    a.push(sym.tex);
+    a.push(print_dimen(off_.y));
+    a.push(print_dimen(off_.x));
+    a.push(sym_.tex);
     return substitute_args(s, a);
 }

@@ -7,22 +7,13 @@
 #include "proto.hh"
 #include "plist.hh"
 #include "musical-request.hh"
-#include "complex-walker.hh"
 #include "slur-reg.hh"
 #include "slur.hh"
 #include "debug.hh"
 #include "note-column.hh"
 
 bool
-Slur_register::acceptable_request_b(Request*req_l)
-{
-   Musical_req *mus_l = req_l->musical();
-    
-    return mus_l && mus_l->slur();
-}
-
-bool
-Slur_register::try_request(Request *req_l)
+Slur_register::do_try_request(Request *req_l)
 {
     Musical_req *mus_l = req_l->musical();
     if(!mus_l || !mus_l->slur())
@@ -59,7 +50,7 @@ Slur_register::Slur_register()
     dir_i_ =0;
 }
 void
-Slur_register::process_requests()
+Slur_register::do_process_requests()
 {
     Array<Slur*> start_slur_l_arr_;
     for (int i=0; i< new_slur_req_l_arr_.size(); i++) {
@@ -87,7 +78,7 @@ Slur_register::process_requests()
 }
 
 void
-Slur_register::pre_move_processing()
+Slur_register::do_pre_move_processing()
 {
     for (int i = 0; i < end_slur_l_arr_.size(); i++) {
 	if (dir_i_)
@@ -98,7 +89,7 @@ Slur_register::pre_move_processing()
 }
 
 void
-Slur_register::post_move_processing()
+Slur_register::do_post_move_processing()
 {
     new_slur_req_l_arr_.set_size(0);
 }
@@ -109,4 +100,5 @@ Slur_register::~Slur_register()
     }
 }
 IMPLEMENT_STATIC_NAME(Slur_register);
+IMPLEMENT_IS_TYPE_B1(Slur_register,Request_register);
 ADD_THIS_REGISTER(Slur_register);

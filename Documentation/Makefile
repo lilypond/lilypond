@@ -67,3 +67,5 @@ localinstall: $(outdir)/lilypond.1 $(outdir)/mudela.5
 localuninstall:
 	rm -f $(mandir)/man1/lilypond.1
 	rm -f $(mandir)/man1/convert-mudela.1
+
+xpms:

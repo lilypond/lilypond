@@ -10,7 +10,7 @@
 EndMudelaHeader
 %}
 
-\version "0.0.58";
+\version "0.0.59";
 
 
 cad = \melodic  {
@@ -56,10 +56,10 @@ cad = \melodic  {
 	}
 
 \score {
-	\staff { melodicregs cad }
+	\melodic{ \cad }
 	\paper {
 	
-		\unitspace 14\mm
+		\unitspace 14.0\mm
 		\geometric 1.4}
 	\midi { \tempo 4:90 }
 }

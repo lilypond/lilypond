@@ -56,6 +56,8 @@ public:
 
     /// does this column have items
     bool used_b() const;
+    bool breakpoint_b() const;
+    void clean_breakable_items();
     
     void add(Item *i);
 

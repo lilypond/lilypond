@@ -10,27 +10,28 @@
 #ifndef STAFF_INFO_HH
 #define STAFF_INFO_HH
 
+#include "lily-proto.hh"
+
 /// struct to pass staff info along a Request_register hierarchy.
 struct Staff_info {
     int *c0_position_i_l_;
-    Staff_walker *walk_l_;
     Staff_symbol*staff_sym_l_;
     
     /// when is now?
     Time_description const *time_C_;
     Rhythmic_grouping const *rhythmic_C_;
+    Score_column *musical_l_;
+    Score_column *command_l_;
 
     ///
     bool break_allowed_b_;
-
+    Score * score_l_;
     Moment when();
-    Staff * staff_l();
     Score *score_l();
     PCol * command_pcol_l();
-    PCol * musical_pcol_l();
-    Staff_column *column_l();
-    Score_column *musical_l();
+    Score_column* musical_l();
     Score_column *command_l();
+    PCol * musical_pcol_l();
     Staff_info();
 };
 

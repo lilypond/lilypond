@@ -8,16 +8,12 @@
 #include "swallow-reg.hh"
 
 IMPLEMENT_STATIC_NAME(Swallow_register);
+IMPLEMENT_IS_TYPE_B1(Swallow_register,Request_register);
 ADD_THIS_REGISTER(Swallow_register);
 
-bool
-Swallow_register::acceptable_request_b(Request*) const
-{
-    return true;
-}
 
 bool
-Swallow_register::try_request(Request*) 
+Swallow_register::do_try_request(Request*) 
 {
     return true;
 }

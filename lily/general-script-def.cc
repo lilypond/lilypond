@@ -68,3 +68,4 @@ General_script_def::get_atom(Paper_def*, int)const
     return Atom(s);
 }
 IMPLEMENT_STATIC_NAME(General_script_def);
+IMPLEMENT_IS_TYPE_B(General_script_def);

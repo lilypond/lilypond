@@ -23,7 +23,7 @@ Includable_lexer::new_input(String s, Sources  * global_sources)
     if (!sl) {
 	LexerError("Can't find file `" + s+ "'");
 	return; 
-    } else
+    }
 
     
     char_count_stack_.push(0);
@@ -45,8 +45,8 @@ Includable_lexer::close_input()
     char_count_stack_.pop();
     cout << "]"<<flush;
     yy_delete_buffer(yy_current_buffer );
+    yy_current_buffer = 0;
     if (state_stack_.empty()) {
-	yy_current_buffer = 0;
 	return false;
     }else {
 	yy_switch_to_buffer(state_stack_.pop());

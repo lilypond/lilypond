@@ -6,6 +6,7 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>, Jan Nieuwenhuizen <jan@digicash.com> 
 */
 
+#if 0
 #include "time.h"
 #include "main.hh"
 #include "source.hh"
@@ -15,7 +16,6 @@
 #include "string-convert.hh"
 #include "debug.hh"
 #include "score.hh"
-#include "staff.hh"
 #include "main.hh"
 #include "midi-stream.hh"
 #include "midi-def.hh"
@@ -58,7 +58,7 @@ Midi_output::do_staff(Staff*st_l,int track_i)
     midi_track.add( Moment( 0 ), &midi_tempo );
 
     for (Midi_walker w (st_l, &midi_track); w.ok(); w++)
-	w.process_requests();
+	w.do_process_requests();
 
     *midi_stream_l_  << midi_track;
 }  
@@ -115,3 +115,4 @@ Midi_output::staffs()
 	do_staff(i, track_i++);
 }
 
+#endif

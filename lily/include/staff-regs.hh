@@ -14,28 +14,24 @@
 
 /**
   Registers which manage a Staff (one 5-line linestaff)
+  
  */
 class Staff_registers : public Register_group_register {
-    int c0_position_i_;    
-    Input_register const *ireg_C_;
-    int base_position_i_;
-    Array<Voice_group_registers*> group_l_arr_;
-    Staff_symbol * staff_sym_l_;
+    Line_of_staff *staffline_p_;   
+    Link_array<Score_elem> staff_elem_l_arr_;
+
+    void group_staff_elems();
 protected:
-    virtual bool try_request(Request * r);
-    virtual Staff_info get_staff_info();
-    virtual bool acceptable_request_b(Request*) const ;
-    virtual void acknowledge_element(Score_elem_info);
+    virtual void do_pre_move_processing();
+    virtual void do_creation_processing();
+    virtual void do_removal_processing();
+    virtual void typeset_element(Score_elem*);
+    virtual void typeset_breakable_item( Item * it_p);
+
 public:
     
-    /* *************** */
     NAME_MEMBERS();
-    void change_group(Group_change_req * greq_l,
-		      Voice_registers *voice_regs_l,
-		      Voice_group_registers * old_group);
-    Voice_group_registers * get_group(String id);
-    void terminate_register(Request_register * reg);
-    Staff_registers(Input_register const*);
+    Staff_registers();
 };
 
 #endif // STAFF_REGS_HH

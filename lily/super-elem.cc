@@ -54,3 +54,4 @@ Super_elem::do_add_processing()
 
 
 IMPLEMENT_STATIC_NAME(Super_elem);
+IMPLEMENT_IS_TYPE_B1(Super_elem,Score_elem);

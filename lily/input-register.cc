@@ -5,74 +5,102 @@
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
+
 #include "debug.hh"
 #include "register.hh"
 #include "input-register.hh"
-Input_register::~Input_register()
-{}
-
-Input_register::Input_register()
-{
-}
-
-bool
-Input_register::group_b()const
-{
-    return ireg_list_.size();
-}
-
-Array<String>
-Input_register::get_nongroups_str_arr()const
-{
-    Array<String> s_arr;
-    for (iter_top(ireg_list_, i); i.ok(); i++) {
-	if (!i->group_b())
-	    s_arr.push(i->name_str_);
-    }
-    return s_arr;
-}
-
-Input_register*
-Input_register::get_ireg_l(String nm)const
-{
-    for (iter_top(ireg_list_, i); i.ok(); i++) {
-	if (i->name_str_ == nm)
-	    return i;
-    }
-    return 0;
-}
-Array<Request_register*>
-Input_register::get_nongroup_p_arr() const 
-{
-    Array <Request_register*>a;
-    Array<String> sa(get_nongroups_str_arr());
-    for (int i=0; i < sa.size(); i++)
-	a.push(get_nongroup_register_p(sa[i]));
-    return a;
-}
-
-void
-Input_register::add(Input_register *p)
-{
-    ireg_list_.bottom().add(p);
-}
+#include "parray.hh"
+#include "input-register.hh"
+#include "register-group.hh"
 
 void
 Input_register::print() const
 {
 #ifndef NPRINT
-    mtor << name_str_ << " { ";
-    for (iter_top(ireg_list_, i); i.ok(); i++)
+    mtor << "name " << name_str_;
+    mtor << "Consists of ";
+    for (int i=0; i< consists_str_arr_.size(); i++)
+	mtor << consists_str_arr_[i] << ',';
+    mtor << "contains " ;
+    for (iter(contains_ireg_p_list_.top(), i); i.ok(); i++) 
 	i->print();
-    mtor <<" }\n";
 #endif 
 }
-	
 
-Input_register::Input_register(Input_register const&s)
-    : Input(s)
+/*
+  UGH. Global.
+ */
+Link_array<Input_register> iregs_p_arr;
+
+void
+add_global_input_register(Input_register *reg_p)
 {
-    name_str_ = s.name_str_;
-    for (iter_top(s.ireg_list_, i); i.ok(); i++)
-	add(new Input_register(*i.ptr()));
+    iregs_p_arr.push(reg_p);
+}
+
+Input_register *
+lookup_reg(String nm)
+{
+    for (int i=0; i < iregs_p_arr.size(); i++)
+	if (iregs_p_arr[i]->name_str_ == nm)
+	    return iregs_p_arr[i];
+
+    error("can't find reg `" + nm + "'");
+}
+
+Input_register *
+Input_register::recursive_find(String nm)
+{
+    if ( nm == name_str_)
+	return this;
+
+    Input_register * r =0;
+    for (iter(contains_ireg_p_list_.top(), i); !r &&i.ok(); i++)
+	r = i->recursive_find(nm);
+
+    return r;
+}
+Input_register *
+Input_register::find_ireg_l(String nm)
+{
+    for (iter(contains_ireg_p_list_.top(), i); i.ok(); i++)
+	if (i->name_str_ == nm)
+	    return i;
+
+    return 0;
+}
+
+
+Register_group_register *
+Input_register::get_group_register_p()
+{
+    Register_group_register * reg_p = (Register_group_register*)
+	get_register_p(name_str_);
+
+    
+     
+    for (int i=0; i < consists_str_arr_.size(); i++) {
+	reg_p->add( get_register_p( consists_str_arr_[i]) );
+    }
+    reg_p -> ireg_l_ = this;
+    return reg_p;
+}
+
+
+bool
+Input_register::accept_req_b()
+{
+    return ! contains_ireg_p_list_.size();
+}
+
+void
+Input_register::add(Input_register *ip)
+{
+    contains_ireg_p_list_.bottom().add(ip);
+}
+
+Input_register*
+Input_register::get_default_ireg_l()
+{
+    return contains_ireg_p_list_.top();
 }

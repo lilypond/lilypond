@@ -11,10 +11,10 @@
 #include "debug.hh"
 #include "script-def.hh"
 #include "text-def.hh"
-#include "voice.hh"
-#include "voice-element.hh"
+#include "music-list.hh"
 
 IMPLEMENT_STATIC_NAME(Stem_req);
+IMPLEMENT_IS_TYPE_B1(Stem_req,Rhythmic_req);
 void
 Stem_req::do_print() const
 {
@@ -31,30 +31,19 @@ Stem_req::Stem_req()
 
 /* ************** */
 IMPLEMENT_STATIC_NAME(Musical_req);
+IMPLEMENT_IS_TYPE_B1(Musical_req,Request);
 void
 Musical_req::do_print()const{}
 void
 Tie_req::do_print()const{}
 
-IMPLEMENT_STATIC_NAME(Request);
-
-void Request::do_print() const{}
 
 /* *************** */
-
-void
-Request::print() const
-{
-#ifndef NPRINT
-    mtor << name() << " {";
-    do_print();
-    mtor << "}\n";
-#endif
-}
-     
+   
 
 
 IMPLEMENT_STATIC_NAME(Span_req);
+IMPLEMENT_IS_TYPE_B1(Span_req,Musical_req);
 
 void
 Span_req::do_print() const    
@@ -64,16 +53,6 @@ Span_req::do_print() const
 #endif
 }
 
-Request::Request()
-{
-    elt_l_ = 0;
-}
-Request::Request(Request const&src)
-    :Input(src)
-{
-    elt_l_ = 0;
-}
-/* *************** */
 Spacing_req::Spacing_req()
 {
     next = 0;
@@ -81,6 +60,7 @@ Spacing_req::Spacing_req()
     strength = 0;
 }
 IMPLEMENT_STATIC_NAME(Spacing_req);
+IMPLEMENT_IS_TYPE_B1(Spacing_req,Request);
 
 void
 Spacing_req::do_print()const
@@ -91,6 +71,7 @@ Spacing_req::do_print()const
 }
 
 IMPLEMENT_STATIC_NAME(Blank_req);
+IMPLEMENT_IS_TYPE_B2(Blank_req,Spacing_req,Rhythmic_req);
 
 void
 Blank_req::do_print()const
@@ -126,6 +107,7 @@ Melodic_req::transpose(Melodic_req const & delta)
 }
 
 IMPLEMENT_STATIC_NAME(Melodic_req);
+IMPLEMENT_IS_TYPE_B1(Melodic_req,Musical_req);
 
 int
 Melodic_req::compare(Melodic_req const&m1, Melodic_req const&m2)
@@ -182,6 +164,7 @@ Rhythmic_req::Rhythmic_req()
 }
 
 IMPLEMENT_STATIC_NAME(Rhythmic_req);
+IMPLEMENT_IS_TYPE_B1(Rhythmic_req,Musical_req);
 
 void
 Rhythmic_req::do_print() const
@@ -206,6 +189,7 @@ Lyric_req::Lyric_req(Text_def* def_p)
 }
 
 IMPLEMENT_STATIC_NAME(Lyric_req);
+IMPLEMENT_IS_TYPE_B2(Lyric_req,Musical_req,Rhythmic_req);
 
 void
 Lyric_req::do_print() const
@@ -220,6 +204,7 @@ Note_req::Note_req()
     forceacc_b_ = false;
 }
 IMPLEMENT_STATIC_NAME(Note_req);
+IMPLEMENT_IS_TYPE_B2(Note_req,Melodic_req,Rhythmic_req);
 
 void
 Note_req::do_print() const
@@ -234,6 +219,7 @@ Note_req::do_print() const
 }
 /* *************** */
 IMPLEMENT_STATIC_NAME(Rest_req);
+IMPLEMENT_IS_TYPE_B1(Rest_req,Rhythmic_req);
 
 void
 Rest_req::do_print() const
@@ -247,10 +233,12 @@ Beam_req::Beam_req()
     nplet = 0;
 }
 IMPLEMENT_STATIC_NAME(Beam_req);
+IMPLEMENT_IS_TYPE_B1(Beam_req,Span_req);
 void
 Beam_req::do_print()const{}
 /* *************** */
 IMPLEMENT_STATIC_NAME(Slur_req);
+IMPLEMENT_IS_TYPE_B1(Slur_req,Span_req);
 void
 Slur_req::do_print()const{}
 /* *************** */
@@ -286,6 +274,7 @@ Script_req::Script_req()
 }
 
 IMPLEMENT_STATIC_NAME(Script_req);
+IMPLEMENT_IS_TYPE_B1(Script_req,Request);
 
 void
 Script_req::do_print() const
@@ -299,6 +288,7 @@ Musical_script_req::do_print() const
 {}
 
 IMPLEMENT_STATIC_NAME(Musical_script_req);
+IMPLEMENT_IS_TYPE_B2(Musical_script_req,Musical_req, Script_req);
 
 
 Script_req::~Script_req()
@@ -332,6 +322,7 @@ Text_req::Text_req(int dir_i, Text_def* tdef_p)
 }
 
 IMPLEMENT_STATIC_NAME(Text_req);
+IMPLEMENT_IS_TYPE_B1(Text_req,Musical_req);
 
 void
 Text_req::do_print() const
@@ -345,13 +336,8 @@ Text_req::do_print() const
 
 /* *************** */
 
-Moment
-Skip_req::duration() const
-{
-    return duration_;
-}
-
 IMPLEMENT_STATIC_NAME(Skip_req);
+IMPLEMENT_IS_TYPE_B1(Skip_req,Musical_req);
 
 void
 Skip_req::do_print() const
@@ -365,14 +351,15 @@ Skip_req::do_print() const
 Voice *
 Request::voice_l()
 {
-    if (!elt_l_)
+    if (!parent_music_l_)
 	return 0;
     else
-	return (Voice*)elt_l_->voice_C_;
+	return (Voice*)parent_music_l_;
 }
 /* *************** */
 
 IMPLEMENT_STATIC_NAME(Subtle_req);
+IMPLEMENT_IS_TYPE_B1(Subtle_req,Musical_req);
 
 void
 Subtle_req::do_print() const
@@ -383,6 +370,7 @@ Subtle_req::do_print() const
 }
 
 IMPLEMENT_STATIC_NAME(Dynamic_req);
+IMPLEMENT_IS_TYPE_B1(Dynamic_req,Musical_req);
 
 void
 Dynamic_req::do_print() const
@@ -391,6 +379,7 @@ Dynamic_req::do_print() const
 }
 
 IMPLEMENT_STATIC_NAME(Absolute_dynamic_req);
+IMPLEMENT_IS_TYPE_B1(Absolute_dynamic_req,Musical_req);
 
 void
 Absolute_dynamic_req::do_print() const
@@ -428,6 +417,7 @@ Span_dynamic_req::Span_dynamic_req()
 }
 
 IMPLEMENT_STATIC_NAME(Span_dynamic_req);
+IMPLEMENT_IS_TYPE_B1(Span_dynamic_req,Musical_req);
 
 void
 Span_dynamic_req::do_print()const
@@ -439,5 +429,6 @@ Span_dynamic_req::do_print()const
 }
 
 IMPLEMENT_STATIC_NAME(Tie_req);
+IMPLEMENT_IS_TYPE_B1(Tie_req,Musical_req);
 
 

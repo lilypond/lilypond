@@ -29,6 +29,6 @@ public:
 
     Tie();
     NAME_MEMBERS();
-    SPANNER_CLONE(Tie)
+    SCORE_ELEM_CLONE(Tie)
 };
 #endif // TIE_HH

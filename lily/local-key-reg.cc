@@ -8,12 +8,12 @@
 #include "command-request.hh"
 #include "local-key-reg.hh"
 #include "local-key-item.hh"
-#include "complex-walker.hh"
 #include "key-reg.hh"
 #include "debug.hh"
 #include "key-item.hh"
 #include "tie.hh"
 #include "note-head.hh"
+#include "time-description.hh"
 
 Local_key_register::Local_key_register()
 {
@@ -21,7 +21,7 @@ Local_key_register::Local_key_register()
 }
 
 void
-Local_key_register::pre_move_processing()
+Local_key_register::do_pre_move_processing()
 {
     Local_key_item *key_item_p = 0;
     if (mel_l_arr_.size()) {
@@ -91,16 +91,17 @@ Local_key_register::acknowledge_element(Score_elem_info info)
 }
 
 void
-Local_key_register::process_requests()
+Local_key_register::do_process_requests()
 {
     Time_description const * time_C_ = get_staff_info().time_C_;
     if (! time_C_->whole_in_measure_){
 	if (key_C_)
 	    local_key_= *key_C_;
-	else if( time_C_->when_ >Moment(0))
+	else if(0&& time_C_->when_ >Moment(0))
 	    warning ("Help me! can't figure out current key");
     }
 }
 
 IMPLEMENT_STATIC_NAME(Local_key_register);
+IMPLEMENT_IS_TYPE_B1(Local_key_register,Request_register);
 ADD_THIS_REGISTER(Local_key_register);

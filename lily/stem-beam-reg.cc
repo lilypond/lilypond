@@ -10,14 +10,14 @@
 #include "stem.hh"
 #include "grouping.hh"
 #include "text-spanner.hh"
-#include "complex-walker.hh"
 #include "debug.hh"
 #include "grouping.hh"
 #include "note-head.hh"
+#include "time-description.hh"
 
 Stem_beam_register::Stem_beam_register()
 {
-    post_move_processing();
+    do_post_move_processing();
 
     current_grouping = 0;
     beam_p_ = 0;
@@ -26,7 +26,7 @@ Stem_beam_register::Stem_beam_register()
 }
 
 bool
-Stem_beam_register::try_request(Request*req_l)
+Stem_beam_register::do_try_request(Request*req_l)
 {
     
     Musical_req* mus_l = req_l->musical();
@@ -65,7 +65,7 @@ Stem_beam_register::try_request(Request*req_l)
 }
 
 void
-Stem_beam_register::process_requests()
+Stem_beam_register::do_process_requests()
 {
     if (beam_req_l_) {
 	if (beam_req_l_->spantype == Span_req::STOP) {
@@ -74,7 +74,7 @@ Stem_beam_register::process_requests()
 	} else {
 	    beam_p_ = new Beam;
 	    start_req_l_ = beam_req_l_;
-
+	    beam_p_->left_col_l_ = get_staff_info().musical_pcol_l();
 	    current_grouping = new Rhythmic_grouping;
 	    if (beam_req_l_->nplet) {
 		Text_spanner* t = new Text_spanner();
@@ -127,7 +127,7 @@ Stem_beam_register::acknowledge_element(Score_elem_info info)
     }
 }
 void
-Stem_beam_register::pre_move_processing()
+Stem_beam_register::do_pre_move_processing()
 {
     if (stem_p_) {
 	if (default_dir_i_)
@@ -140,6 +140,7 @@ Stem_beam_register::pre_move_processing()
 	Rhythmic_grouping const * rg_C = get_staff_info().rhythmic_C_;
 	rg_C->extend(current_grouping->interval());
 	beam_p_->set_grouping(*rg_C, *current_grouping);
+	beam_p_->right_col_l_ = get_staff_info().musical_pcol_l();
 	typeset_element(beam_p_);
 	delete current_grouping;
 	current_grouping = 0;
@@ -148,7 +149,7 @@ Stem_beam_register::pre_move_processing()
     end_beam_b_ = false;
 }
 void
-Stem_beam_register::post_move_processing()
+Stem_beam_register::do_post_move_processing()
 {
     stem_p_ = 0;
     beam_req_l_ = 0;
@@ -170,4 +171,5 @@ Stem_beam_register::set_feature(Feature i)
 }
 
 IMPLEMENT_STATIC_NAME(Stem_beam_register);
+IMPLEMENT_IS_TYPE_B1(Stem_beam_register,Request_register);
 ADD_THIS_REGISTER(Stem_beam_register);

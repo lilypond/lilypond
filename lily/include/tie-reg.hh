@@ -25,12 +25,12 @@ class Tie_register : public Request_register {
 protected:
     virtual ~Tie_register();
     virtual void acknowledge_element(Score_elem_info);
-    virtual bool try_request(Request*);
+    virtual bool do_try_request(Request*);
     virtual bool acceptable_request_b(Request*);
     virtual void sync_features();
-    virtual void process_requests();
-    virtual void post_move_processing();
-    virtual void pre_move_processing();
+    virtual void do_process_requests();
+    virtual void do_post_move_processing();
+    virtual void do_pre_move_processing();
     virtual void set_feature(Feature);
 public:
     Tie_register();

@@ -8,6 +8,7 @@
 
 
 #include "music.hh"
+#include "music-list.hh"
 #include "debug.hh"
 
 MInterval
@@ -18,12 +19,13 @@ Music::time_int() const
 void
 Music::print()const
 {
-    #ifndef NPRINT
+#ifndef NPRINT
     mtor << name() << "{" ;
     do_print();
     mtor << "}\n";
-    #endif
+#endif
 }
+
 void
 Music::transpose(Melodic_req const*)
 {
@@ -41,7 +43,15 @@ Music::do_print()const
 }
 
 IMPLEMENT_STATIC_NAME(Music);
+IMPLEMENT_IS_TYPE_B(Music);
+
 
 
     
-Music::Music(){}
+Music::Music()
+{
+    parent_music_l_ =0;
+}
+
+IMPLEMENT_IS_TYPE_B1(Change_reg,Music)
+IMPLEMENT_STATIC_NAME(Change_reg);

@@ -12,6 +12,9 @@
   
 */
 
+#include <math.h>
+
+#include "p-col.hh"
 #include "varray.hh"
 #include "proto.hh"
 #include "dimen.hh"
@@ -21,7 +24,6 @@
 #include "symbol.hh"
 #include "molecule.hh"
 #include "leastsquares.hh"
-#include "p-col.hh"
 #include "stem.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
@@ -79,16 +81,30 @@ Beam::add(Stem*s)
 void
 Beam::set_default_dir()
 {
-    int dirs_single = 0, dirs_chord = 0;
+    int up = 0, down = 0;
+    int up_count = 0, down_count = 0;
+
     for (int i=0; i <stems.size(); i++) {
 	Stem *sl = stems[i];
-	if (sl->chord_b())
-	    dirs_chord += sl->get_default_dir();
-	else
-	    dirs_single += sl->get_center_distance();
+	int cur_down = sl->get_center_distance_from_top();
+	int cur_up = sl->get_center_distance_from_bottom();
+	if (cur_down) {
+	    down += cur_down;
+	    down_count++;
+	}
+	if (cur_up) {
+	    up += cur_up;
+	    up_count++;
+	}
     }
-    dirs_single = -sign(dirs_single);
-    dir_i_ = (dirs_single + dirs_chord > 0) ? 1 : -1;
+    if (!down)
+	down_count = 1;
+    if (!up)
+	up_count = 1;
+
+    // the following relation is equal to
+    //        up / up_count > down / down_count
+    dir_i_ = (up * down_count > down * up_count) ? 1 : -1;
 
    for (int i=0; i <stems.size(); i++) {
 	Stem *sl = stems[i];
@@ -103,7 +119,7 @@ void
 Beam::solve_slope()
 {
     Array<Stem_info> sinfo;
-  for (int j=0; j <stems.size(); j++) {
+    for (int j=0; j <stems.size(); j++) {
 	Stem *i = stems[j];
 
 	i->set_default_extents();
@@ -131,7 +147,9 @@ Beam::solve_slope()
     }
     left_pos += dy;
     left_pos *= dir_i_;    
+
     slope *= dir_i_;
+    slope = 0.6 * tanh(slope);  // damping
 
 				// ugh
     Real sl = slope*paper()->internote_f();
@@ -195,8 +213,6 @@ Beam::set_grouping(Rhythmic_grouping def, Rhythmic_grouping cur)
 void
 Beam::do_pre_processing()
 {
-    left_col_l_ = stems[0]   ->pcol_l_;
-    right_col_l_ = stems.top()->pcol_l_;    
     assert(stems.size()>1);
     if (!dir_i_)
 	set_default_dir();
@@ -239,7 +255,7 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 	a.translate(Offset (-w, -w * sl));
 	for (int j = 0; j  < lhalfs; j++) {
 	    Atom b(a);
-	    b.translate(Offset(0, -dir_i_ * dy * (lwholebeams+j)));
+	    b.translate_y( -dir_i_ * dy * (lwholebeams+j));
 	    leftbeams.add( b );
 	}
     }
@@ -254,7 +270,7 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 	int j = 0;
 	for (; j  < rwholebeams; j++) {
 	    Atom b(a);
-	    b.translate(Offset(0, -dir_i_ * dy * j));
+	    b.translate_y( -dir_i_ * dy * j);
 	    rightbeams.add( b ); 
 	}
 
@@ -264,7 +280,7 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 	
 	for (; j  < rwholebeams + rhalfs; j++) {
 	    Atom b(a);
-	    b.translate(Offset(0, -dir_i_ * dy * j));
+	    b.translate_y( -dir_i_ * dy * j);
 	    rightbeams.add(b ); 
 	}
 	
@@ -291,11 +307,12 @@ Beam::brew_molecule_p() const
 	sb.translate(Offset(x, (x * slope  + left_pos)* inter));
 	out->add(sb);
     }
-    out->translate(Offset(x0 - left_col_l_->hpos,0));
+    out->translate_x(x0 - left_col_l_->hpos);
     return out;
 }
 
 IMPLEMENT_STATIC_NAME(Beam);
+IMPLEMENT_IS_TYPE_B1(Beam, Spanner);
 
 void
 Beam::do_print()const

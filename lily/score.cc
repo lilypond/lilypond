@@ -9,77 +9,81 @@
 #include "score.hh"
 #include "score-column.hh"
 #include "p-score.hh"
-#include "staff.hh"
 #include "debug.hh"
 #include "paper-def.hh"
 #include "main.hh"
 #include "source.hh"
 #include "source-file.hh"
-#include "score-walker.hh"
 #include "midi-output.hh"
 #include "midi-def.hh"
-#include "pulk-voices.hh"
-#include "request-column.hh"
 #include "p-col.hh"
+#include "score-reg.hh"
+#include "music-iterator.hh"
+#include "music.hh"
+#include "music-list.hh"
+#include "input-register.hh"
 
 extern String default_out_fn;
+
+Score::Score(Score const &s)
+{
+    assert(!pscore_p_);
+    music_p_ = s.music_p_->clone();
+    midi_p_ = new Midi_def(*s.midi_p_);
+    paper_p_ = new Paper_def(*s.paper_p_);
+}
 
 void
 Score::setup_music()
 {
     *mlog << "\nSetting up requests..." << flush;
     
-    Pulk_voices pulk(staffs_); 
+    Score_register * score_reg =  
+	(Score_register*)lookup_reg("Score_register")->get_group_register_p();
 
-    Moment l_mom = pulk.last_;
-    if (l_mom == Moment(0)) {
-	errorlevel_i_ |= 1;
-	input_.error("Need to have music in a score.");
-    }
-    
-    Moment previous_mom = -1;
-    while (pulk.ok()) {
+    score_reg->set_score (this);
+    Music_iterator * iter = Music_iterator::static_get_iterator_p(music_p_, 
+								  score_reg);
+    iter->construct_children();
 
-	Moment w= pulk.next_mom();
-	assert(w > previous_mom);
-	Request_column* rcol_p = new Request_column( staffs_ );
+    while ( iter->ok() || score_reg->extra_mom_pq_.size() ) {
+	Moment w = INFTY;
+	if (iter->ok() ) 
+	    w = iter->next_moment();
+	
+	if (score_reg->extra_mom_pq_.size() && 
+	    score_reg->extra_mom_pq_.front() <= w)
+	    
+	    w = score_reg->extra_mom_pq_.get();
+
+	mtor << "processing moment " << w << "\n";
 
 	Score_column* c1 = new Score_column(w);
 	Score_column* c2 = new Score_column(w);
-	if (w == Moment(0) || w == l_mom) {
-	    c1->set_breakable();
-	}
-		
+	
 	c1->musical_b_ = false;
 	c2->musical_b_ = true;
 	
 	cols_.bottom().add(c1);
 	cols_.bottom().add(c2);
-	rcol_p->set_score_cols(c1, c2);
-	rcols_.bottom().add(rcol_p);
-	pulk.get_aligned_request( rcol_p );
-	previous_mom =w;
+	score_reg->set_cols(c1,c2);
+	
+	score_reg->post_move_processing();
+	iter->next( w );
+	
+	score_reg->process_requests();
+	score_reg->do_announces();
+	score_reg->pre_move_processing();
     }
-
-    errorlevel_i_ |= pulk.time_checks_failed_b(); 
-}
-
-void
-Score::process_music()
-{
-    *mlog << "Processing requests ..." << flush;
-    for (Score_walker w(this); w.ok(); w++) {
-	w.process();
-   }
+    delete iter;
+    score_reg->do_removal_processing();
+    delete score_reg;
 }
 
 void
 Score::process()
 {
-    setup_music();
-
     paper();
-    midi();
 }
 
 void
@@ -87,19 +91,16 @@ Score::paper()
 {
     if (!paper_p_)
 	return;
+
     if( errorlevel_i_){
 	// should we? hampers debugging. 
 	warning("Errors found, /*not processing score*/");
 //	return;
     }
     pscore_p_ = new PScore(paper_p_);
+    setup_music();
     do_cols();
     
-    for (iter_top(staffs_,i); i.ok(); i++) 
-	i->set_output(pscore_p_);
-
-    
-    process_music();
     clean_cols();    // can't move clean_cols() farther up.
     print();
     calc_idealspacing();
@@ -121,18 +122,6 @@ void
 Score::clean_cols()
 {
 #if 1
-    for (iter_top(staffs_,i); i.ok(); i++)
-	i->clean_cols();
-
-    for (iter_top(rcols_,i); i.ok(); i++) {
-	i->when();		// update cache, ugh
-	if (!i->command_column_l_->used_b()) {
-	    i->command_column_l_ = 0;
-	}
-	if (!i->musical_column_l_->used_b())
-	    i->musical_column_l_ = 0;
-    }
-    
     for (iter_top(cols_,c); c.ok(); ) {
 	if (!c->pcol_l_->used_b()) {
 	    delete c.remove_p();
@@ -172,9 +161,7 @@ Moment
 Score::last() const
 {    
     Moment l = 0;
-    for (iter_top(staffs_,i); i.ok(); i++) {
-	l = l>? i->last();
-    }
+    // TODO
     return l;
 }
 
@@ -196,11 +183,6 @@ void
 Score::OK() const
 {
 #ifndef NDEBUG
-    for (iter_top(staffs_,i); i.ok(); i++) {
-	i->OK();
-	assert(i->score_l_ == this);
-    }
-    staffs_.OK();
     cols_.OK();
     for (iter_top(cols_,cc); cc.ok() && (cc+1).ok(); cc++) {
 	assert(cc->when() <= (cc+1)->when());
@@ -214,9 +196,7 @@ Score::print() const
 {
 #ifndef NPRINT
     mtor << "score {\n"; 
-    for (iter_top(staffs_,i); i.ok(); i++) {
-	i->print();
-    }
+    music_p_->print();
     for (iter_top(cols_,i); i.ok(); i++) {
 	i->print();
     }
@@ -239,6 +219,7 @@ Score::Score()
 
 Score::~Score()
 {
+    delete music_p_;
     delete pscore_p_;
     delete paper_p_;
     delete midi_p_;
@@ -261,7 +242,7 @@ Score::paper_output()
     Tex_stream the_output(paper_p_->outfile);
     
     the_output << "% outputting Score, defined at: " <<
-	input_.location_str() << "\n";
+	location_str() << "\n";
     pscore_p_->output(the_output);
     
 }
@@ -269,6 +250,7 @@ Score::paper_output()
 void
 Score::midi()
 {
+#if 0
     if (!midi_p_)
 	return;
 
@@ -277,11 +259,6 @@ Score::midi()
     
     *mlog << "midi output to " << midi_p_->outfile_str_ << " ...\n";    
     Midi_output(this, midi_p_);
+#endif
 }
 
-void
-Score::add(Staff*s)
-{
-    s->score_l_ = this;
-    staffs_.bottom().add(s);
-}

@@ -19,7 +19,7 @@
 class Swallow_register : public Request_register {
 protected:
     bool acceptable_request_b(Request*) const;
-    bool try_request(Request*) ;
+    bool do_try_request(Request*) ;
 public:
     NAME_MEMBERS();
 };

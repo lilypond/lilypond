@@ -21,10 +21,11 @@ void
 Rest_column::translate_y(Real dy_f)
 {
     for (int i=0; i < head_l_arr_.size(); i++)
-	head_l_arr_[i]->translate(Offset(0,dy_f));
+	head_l_arr_[i]->translate_y(dy_f);
 }
 
 IMPLEMENT_STATIC_NAME(Rest_column);
+IMPLEMENT_IS_TYPE_B1(Rest_column,Item);
 
 Rest_column::Rest_column()
 {

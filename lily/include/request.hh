@@ -8,33 +8,33 @@
 
 #ifndef REQUEST_HH
 #define REQUEST_HH
-// GNU LilyPond's second egg of columbus!
 
 #include "glob.hh"
 #include "string.hh"
 #include "moment.hh"
 #include "virtual-methods.hh"
 #include "input.hh"
+#include "music.hh"
 
 /**
  a voice element wants something printed.
  Hungarian postfix: req
  @see lilygut manpage
  */
-class Request : public Input {
+class Request : public Music {
+
 public:
-    Voice_element*elt_l_;
+    Voice  * voice_l();
     
     /* *************** */
-    Voice  * voice_l();
-    Request();
-    Request(Request const&);
+
     virtual ~Request(){}
 
     NAME_MEMBERS();
-    virtual Request* clone() const { return new Request(*this); }
-    void print()const ;
+    VIRTUAL_COPY_CONS(Request,Music)
     
+    void print()const ;
+    virtual MInterval time_int() const;
     virtual void transpose(Melodic_req const &){}
     virtual Moment duration() const { return 0; }
 
@@ -43,8 +43,6 @@ public:
      */
     virtual Barcheck_req *barcheck() { return 0; }
     virtual Script_req *script() { return 0;}
-    virtual Text_req*text() { return 0; }
-    virtual Rest_req *rest() { return 0; }
     virtual Span_req *span() { return 0; }
     virtual Spacing_req * spacing() { return 0; }
     virtual Blank_req * blank() { return 0; }

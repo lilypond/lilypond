@@ -56,3 +56,4 @@ Bow::brew_molecule_p() const
 }
 
 IMPLEMENT_STATIC_NAME(Bow);
+IMPLEMENT_IS_TYPE_B1(Bow,Directional_spanner);

@@ -141,7 +141,7 @@ if test $checking_b = no; then
 fi
 
 # however, C++ support in mingw32 v 0.1.4 is still flaky
-if test $MINGWPREFIX != no; then // huh?
+if test x$MINGWPREFIX != xno; then 
     ICFLAGS="-I$MINGWPREFIX/include"
     ILDFLAGS="-$MINGWPREFIX/lib"
 fi
@@ -165,6 +165,8 @@ if test FIND = error; then
    AC_MSG_WARN(Couldn't find \`find'.  Please use --enable-tex-dir)
 fi
     
+AC_SUBST(CXXFLAGS)
+AC_SUBST(CPPFLAGS)
 AC_SUBST(CXX)
 AC_SUBST(ICFLAGS)
 AC_SUBST(ILDFLAGS)
