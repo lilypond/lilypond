@@ -117,6 +117,11 @@ Timing_translator::start_translation_timestep ()
       programming_error ("Moving backwards in time");
       dt = 0;
     }
+  else if (dt.main_part_.is_infinity ())
+    {
+      programming_error ("Moving infinitely to future");
+      dt = 0;
+    }
   
   if (!dt.to_bool ())
     return;

@@ -105,7 +105,8 @@ Simultaneous_music_iterator::process (Moment until)
   while(gh_pair_p (*proc))
     {
       Music_iterator * i = unsmob_iterator (gh_car (*proc));
-      if (i->pending_moment () == until) 
+      if (i->run_always ()
+	  || i->pending_moment () == until) 
 	{
 	  i->process (until);
 	}
@@ -151,16 +152,24 @@ Simultaneous_music_iterator::pending_moment () const
   next.set_infinite (1);
   
   for (SCM s = children_list_; gh_pair_p (s); s = gh_cdr(s))
-    next = next <? unsmob_iterator (gh_car (s))->pending_moment () ;
+    {
+      Music_iterator * it = unsmob_iterator (gh_car (s));
+      if (!it-> run_always ())
+	next = next <? it->pending_moment ();
+    }
   return next;
 }
-
-
 
 bool
 Simultaneous_music_iterator::ok () const
 {
-  return gh_pair_p (children_list_);
+  for (SCM s = children_list_; gh_pair_p (s); s = gh_cdr(s))
+    {
+      Music_iterator * it = unsmob_iterator (gh_car (s));
+      if (!it->run_always ())
+	return true;
+    }
+  return false;
 }
 
 Music_iterator*

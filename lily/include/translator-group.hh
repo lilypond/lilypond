@@ -56,15 +56,12 @@ public:
   void add_fresh_group_translator (Translator *trans);
   void add_used_group_translator (Translator *trans);
   
-  /// Score_register = 0, Staff_registers = 1, etc)
-  Translator_group* get_ancestor (int l=1);
   int get_depth () const;
   bool is_bottom_translator_b () const;
   bool is_removable () const;
   void terminate_translator (Translator*r);
   Translator *remove_translator (Translator*trans);
   void check_removal ();
-  // Translator *get_simple_translator (String) const;
   Translator_group *find_existing_translator (SCM context_name, String id);
   Translator_group *find_create_translator (SCM context_name, String id, SCM ops);
   Link_array<Translator_group> path_to_acceptable_translator (SCM alias,

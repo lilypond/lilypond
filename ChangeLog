@@ -1,3 +1,19 @@
+2004-01-13  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* mf/feta18.mf: design size is 18 not 22.5
+
+	* lily/new-lyric-combine-music-iterator.cc (process): new file.
+	Add a single LyricsVoice to a melody. Melismata may be set
+	individually.
+
+	* input/regression/lyric-combine-new.ly: new file. Demo \newaddlyrics.
+
+	* lily/dot-column.cc: add stdio.h
+
+2004-01-12  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/item.cc: documentation for break-visibility (Thanks, John).
+
 2004-01-11  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/bar-line.cc (compound_barline): add bartype :  (dotted).

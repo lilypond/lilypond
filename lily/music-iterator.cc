@@ -230,3 +230,9 @@ void
 Music_iterator::do_quit()
 {
 }
+
+bool
+Music_iterator::run_always ()const
+{
+  return false;
+}

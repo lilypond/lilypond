@@ -188,15 +188,6 @@ Translator_group::get_depth () const
   return (daddy_trans_) ? daddy_trans_->get_depth ()  + 1 : 0;
 }
 
-Translator_group*
-Translator_group::get_ancestor (int level)
-{
-  if (!level || !daddy_trans_)
-    return this;
-
-  return daddy_trans_->get_ancestor (level-1);
-}
-
 void
 Translator_group::terminate_translator (Translator*r)
 {

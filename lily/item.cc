@@ -212,5 +212,18 @@ ADD_INTERFACE(Item,
 	      "the outcome of the @code{break-visibility}. This grob property is a\n"
 	      "function taking a direction (-1, 0 or 1) as argument. It returns a\n"
 	      "cons of booleans, signifying whether this grob should be transparent\n"
-	      "and have no extent.\n",
+	      "and have no extent.\n"
+	      "\n"
+	      "The following variables for break-visibility are predefined:\n"
+	      "@example\n"
+	      "           grob will show:   before  no     after\n"
+	      "                             break   break  break\n"
+	      "  all-invisible              no      no     no\n"
+	      "  begin-of-line-visible      no      no     yes\n"
+	      "  end-of-line-visible        yes     no     no\n"
+	      "  all-visible                yes     yes    yes\n"
+	      "  begin-of-line-invisible    yes     yes    no\n"
+	      "  end-of-line-invisible      no      yes    yes\n"
+	      "@end example\n"
+	      ,
 	      "no-spacing-rods break-visibility breakable")

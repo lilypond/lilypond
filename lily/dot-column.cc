@@ -6,7 +6,7 @@
   (c)  1997--2003 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include <set>
+#include <stdio.h>
 #include <map>
 
 #include "dots.hh"
@@ -18,8 +18,6 @@
 #include "side-position-interface.hh"
 #include "axis-group-interface.hh"
 #include "stem.hh"
-
-using std::set;
 
 /*
   TODO: let Dot_column communicate with stem via Note_column.

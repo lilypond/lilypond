@@ -112,6 +112,13 @@ c8-[ c c-] c8")
 	(internal-class-name . "Event")
 	(types . (general-music event busy-playing-event))
 	))
+    (StartPlayingEvent
+     . (
+	(description .  "Used internally to signal beginning of notes.")
+
+	(internal-class-name . "Event")
+	(types . (general-music event start-playing-event))
+	))
     
     (ClusterNoteEvent
      . (
@@ -214,6 +221,16 @@ Syntax @var{\\addlyrics }@var{music} @var{lyrics}.")
 	(internal-class-name . "Lyric_combine_music")
 	(types . (general-music lyric-combine-music))
 	(iterator-ctor . ,Lyric_combine_music_iterator::constructor)
+	))
+    
+    (NewLyricCombineMusic
+     . (
+	(description .  "Align lyrics to the start of notes.
+Syntax @var{\\addlyrics }@var{music} @var{lyrics}.")
+	(internal-class-name . "Music")
+	(length . ,(ly:make-moment 0 1))
+	(types . (general-music lyric-combine-music))
+	(iterator-ctor . ,New_lyric_combine_music_iterator::constructor)
 	))
 
     (LyricEvent

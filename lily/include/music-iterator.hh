@@ -95,6 +95,8 @@ void quit ();
   
   virtual Moment pending_moment () const;
   virtual bool ok () const;
+
+  virtual bool run_always () const; 
   virtual SCM get_pending_events (Moment until)const;
   virtual void process (Moment until);
   virtual void skip (Moment until);

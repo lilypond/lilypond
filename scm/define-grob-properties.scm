@@ -459,6 +459,10 @@ Like @code{bracket-visibility}, but for the number.")
 (grob-property-description 'break-visibility procedure? "a function
 that takes the break direction and returns a cons of booleans
 containing (TRANSPARENT . EMPTY).
+The following variables are predefined: @code{all-visible},
+@code{begin-of-line-visible}, @code{end-of-line-visible},
+@code{begin-of-line-invisible}, @code{end-of-line-invisible},
+@code{all-invisible}.
 ")
 
 (grob-property-description 'virga boolean? "is this neume a virga?.")
