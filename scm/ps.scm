@@ -14,7 +14,8 @@
 
 (debug-enable 'backtrace)
 
-(if (or (equal? (minor-version) "4")
+(if (or (equal? (minor-version) "4.1")
+	(equal? (minor-version) "4")
 	(equal? (minor-version) "3.4"))
     (define-public (ps-output-expression expr port)
       (display (eval-in-module expr this-module) port))

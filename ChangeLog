@@ -1,3 +1,12 @@
+2002-05-29  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/sketch.scm: 
+	* scm/ps.scm: 
+	* scm/pdftex.scm: 
+	* scm/pdf.scm: 
+	* scm/tex.scm: Add check for Guile-1.4.1.  Guile includes
+	patch-level of version in minor-version string.  Arg.
+
 2002-05-29  Han-Wen  <hanwen@cs.uu.nl>
 
 	* ly/engraver-init.ly (TabStaffContext): 
