@@ -162,8 +162,8 @@
       (setq defaults (cons '( ?\( . "." ) (cons '( ?\) . "." ) defaults))))
     ;; In LilyPond the following chars serve as escape chars, e.g., c^> d-) e_( , 
     ;; but they may be set to punctuation chars, since inside strings they should not act as escape chars
-    (setq defaults (cons (if (memq ?\- not-punct) '( ?\- . "\\" ) '( ?\- . "." ) ) defaults))
-    (setq defaults (cons (if (memq ?\^ not-punct) '( ?\^ . "\\" ) '( ?\^ . "." ) ) defaults))
+    (setq defaults (cons (if (memq ?- not-punct) '( ?\- . "\\" ) '( ?\- . "." ) ) defaults))
+    (setq defaults (cons (if (memq ?^ not-punct) '( ?^ . "\\" ) '( ?^ . "." ) ) defaults))
     (setq defaults (cons (if (memq ?\_ not-punct) '( ?\_ . "\\" ) '( ?\_ . "." ) ) defaults))
     (mapcar (function
 	     (lambda (x) (modify-syntax-entry
