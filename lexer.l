@@ -92,11 +92,17 @@ REAL		[0-9]+(\.[0-9]*)?
 }
 {WORD}		{
 	int l = lookup_keyword(YYText());
-	if (l == -1){
-            yylval.id = lookup_identifier(YYText());
-	    return IDENTIFIER;
-        } else
-            return l;
+	if (l != -1)
+		return l;
+	Identifier * id = lookup_identifier(YYText());
+	if (id) {		
+		yylval.id = id;
+		return IDENTIFIER;
+	}
+	String *sp = new String( YYText());
+	mtor << "new id: " << *sp;
+	yylval.string=sp;
+	return NEWIDENTIFIER;
 }
 
 {REAL}		{
@@ -113,7 +119,7 @@ REAL		[0-9]+(\.[0-9]*)?
 	mtor << "parens\n";
 	return YYText()[0];
 }
-[:]		{
+[:=]		{
 	char c = YYText()[0];
 	mtor << "misc char" <<c<<"\n";
 	return c;
