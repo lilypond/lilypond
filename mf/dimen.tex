@@ -2,7 +2,7 @@
 % A tex file to help determine dims.
 %
 
-\font\musicfont=musix16
+\font\musicfont=opus20 %musix16
 \font\slurfont=xslu16
 \font\specfont=musixspx
 \def\thefont{\musicfont}
@@ -35,16 +35,16 @@
         \repeat%
 }
 \def\twhrul{\hbox to 0pt{\hbox{\hruler{20}%
-	\vrule width0.1pt height 2pt depth 2pt}}}
+        \vrule width0.1pt height 2pt depth 2pt}}}
 \def\twvrul{\vbox to0pt{\vss\hbox to0pt{\hss\vruler{12}}\vss}%
-	\kern-1pt\vrule width4pt height 0.1pt}%
-	
+        \kern-1pt\vrule width4pt height 0.1pt}%
+        
  
 \def\doitem#1{
         #1%
         \vbox to12pt{\vfill\hbox to0pt{\qquad\kern-1pt\twvrul\hss}}%
         \hbox to50pt{\qquad\twhrul\mb{#1}\hss}%
-	\setbox0=\hbox{\mb{#1}} width \the\wd0\ depth \the\dp0 \ height \the\ht0}
+        \setbox0=\hbox{\mb{#1}} width \the\wd0\ depth \the\dp0 \ height \the\ht0}
 
 \newcount\n
 \def\charn{\n=-1
