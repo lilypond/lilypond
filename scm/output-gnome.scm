@@ -323,9 +323,9 @@ lilypond -fgnome input/simple-song.ly
 
 (define (named-glyph font name)
   (debugf "glyph:~S\n" name)
-  (debugf "index:~S\n" (ly:font-get-glyph-index font name))
+  (debugf "index:~S\n" (ly:font-glyph-name-to-charcode font name))
   (debugf "font:~S\n" (font-family font))
-  (text font (integer->char (ly:font-get-glyph-index font name))))
+  (text font (integer->char (ly:font-glyph-name-to-charcode font name))))
 
 (define (polygon coords blotdiameter)
   (let*
@@ -360,11 +360,12 @@ lilypond -fgnome input/simple-song.ly
 
 (define (text font s)
   (define (pango-font-name font)
+    (stderr "FONT-NAME:~S\n" (ly:font-name font))
+    
     (let ((family (font-family font)))
       ;; Hmm, family is bigcheese20?
       (if (string=? family "bigcheese20")
-	  (begin (debugf "BIGCHEESE\n")
-	  "LilyPond, 20")
+	  (format #f "~S, ~S" (ly:font-name font) (ly:font-design-size font))
 	  family)))
   
   (define (pango-font-size font)

@@ -30,6 +30,7 @@ public:
   virtual Offset attachment_point (String) const;
   virtual Box get_indexed_char (int) const;
   virtual int name_to_index (String) const;
+  virtual unsigned index_to_charcode (int) const;
   virtual void derived_mark () const;
 #if 0
   virtual int count () const;
