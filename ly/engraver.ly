@@ -11,8 +11,6 @@ StaffContext=\translator {
 	Generic_property_list = #generic-staff-properties
 	\consists "Property_engraver"
 	
-	\consists "Multi_measure_rest_engraver"
-
 	\consists "Bar_engraver"
  % Bar_engraver must be first so default bars aren't overwritten
 % with empty ones.
@@ -32,20 +30,11 @@ StaffContext=\translator {
 	\consists "Rest_collision_engraver"
 	\consists "Local_key_engraver"
 	\consists "Piano_pedal_engraver"
-
-%{
-	The Instrument_name_engravei puts the name of the instrument
-	(\property Staff.instrument Staff.instr for subsequent lines)
-	to the left of a staff.
-
-	This is commented out, so you don't get funny things on the
-	PianoStaff	
 	\consists "Instrument_name_engraver"
-%}
 
 	\consistsend "Axis_group_engraver"
 	
-	MinimumVerticalExtent = ##f
+	MinimumVerticalExtent = #'(-4 . 4)
 	ExtraVerticalExtent = ##f
 	VerticalExtent = ##f 
 
@@ -134,7 +123,7 @@ VoiceContext = \translator {
 	\consists "Voice_devnull_engraver"
 	\consists "Output_property_engraver"	
 	\consists "Arpeggio_engraver"
-
+	\consists "Multi_measure_rest_engraver"
 	\consists "Text_spanner_engraver"
 	\consists "Property_engraver"
 	
@@ -250,10 +239,11 @@ PianoStaffContext = \translator{
 
 	\consists "Vertical_align_engraver"
 
-	alignmentReference = #0
+	
+	
 	verticalAlignmentChildCallback = #Align_interface::fixed_distance_alignment_callback
 	VerticalAlignment \override #'forced-distance = #12
-
+	VerticalAlignment \override #'self-alignment-Y = #0
 %	\consistsend "Axis_group_engraver"
 }
 
@@ -411,8 +401,6 @@ ScoreContext = \translator {
 	soloADue = ##t
 	splitInterval = #'(0 . 1)
 	changeMoment = #`(,(make-moment 0 0) . ,(make-moment 1 512))
-
-	StaffMinimumVerticalExtent = #(cons -4.0 4.0)
 
 	barAuto = ##t
 	voltaVisibility = ##t

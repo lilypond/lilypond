@@ -30,7 +30,7 @@ Rest::after_line_breaking (SCM smob)
   if (d && bt > 4) // UGH.
     {
       d->set_grob_property ("staff-position",
-			   gh_int2scm ((bt == 7) ? 4 : 3));
+			    gh_int2scm ((bt == 7) ? 4 : 3));
     }
 
   return SCM_UNSPECIFIED;

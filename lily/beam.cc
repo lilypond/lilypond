@@ -11,8 +11,10 @@
 /*
   [TODO]
 
-  * shorter! (now +- 1000 lines)
-  * less hairy code
+  -* shorter! (now +- 1000 lines)
+  
+  -* less hairy code
+  
   */
 
 
@@ -135,7 +137,7 @@ Beam::get_default_dir (Grob*me)
   /*
     If dir is not determined: get default
   */
-  return to_dir (me->get_grob_property ("default-neutral-direction"));
+  return to_dir (me->get_grob_property ("neutral-direction"));
 }
 
 
@@ -495,7 +497,7 @@ Beam::user_override (SCM smob)
   SCM s = me->get_grob_property ("staff-position");
   if (gh_number_p (s))
     {
-      Real y = gh_scm2double (s) * staff_space;
+      Real y = gh_scm2double (s) * staff_space * 0.5;
       me->set_grob_property ("y", gh_double2scm (y));
     }
 
@@ -503,7 +505,7 @@ Beam::user_override (SCM smob)
   s = me->get_grob_property ("height");
   if (gh_number_p (s))
     {
-      Real dy = gh_scm2double (s) * staff_space;
+      Real dy = gh_scm2double (s) * staff_space * 0.5;
       me->set_grob_property ("dy", gh_double2scm (dy));
     }
   
@@ -772,11 +774,13 @@ Beam::stem_beams (Grob*me,Item *here, Item *next, Item *prev,
   Real bdy = interbeam_f;
   Real stemdx = staffline_f;
 
+#if 0
     // ugh -> use commonx
   Real dx = visible_stem_count (me) ?
     last_visible_stem (me)->relative_coordinate (0, X_AXIS) - first_visible_stem (me)->relative_coordinate (0, X_AXIS)
     : 0.0;
-
+#endif
+  
   Molecule leftbeams;
   Molecule rightbeams;
 

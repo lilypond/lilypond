@@ -706,7 +706,7 @@ if 1:
 		def regularize_assignment (match):
 			return '\n' + regularize_id (match.group (1)) + ' = '
 		str = re.sub ('\$([^\t\n ]+)', regularize_dollar_reference, str)
-		str = re.sub ('\n([^ \t\n]+) = ', regularize_assignment, str)
+		str = re.sub ('\n([^ \t\n]+)[ \t]*= *', regularize_assignment, str)
 		return str
 	
 	conversions.append (((1,3,117), conv, 'identifier names: $!foo_bar_123 -> xfooBarABC'))
@@ -800,12 +800,23 @@ if 1:
 		str = re.sub ('\\\\key[ \t]*;', '\\key \\default;', str)
 		str = re.sub ('\\\\mark[ \t]*;', '\\mark \\default;', str)
 
-		# only remove ; that are directly after words.
-		# otherwise  we interfere with Scheme comments, which is badbadbad.
-		str = re.sub ("([^ \t]);", "\\1", str)
+		# Make sure groups of more than one ; have space before
+		# them, so that non of them gets removed by next rule
+		str = re.sub ("([^ \n\t;]);(;+)", "\\1 ;\\2", str)
+		
+		# Only remove ; that are not after spaces, # or ;
+		# Otherwise  we interfere with Scheme comments,
+		# which is badbadbad.
+		str = re.sub ("([^ \t;#]);", "\\1", str)
 
 		return str
 	conversions.append (((1,3,146), conv, 'semicolons removed'))
+
+if 1:
+	def conv (str):
+		str = re.sub ('default-neutral-direction', 'neutral-direction',str)
+		return str
+	conversions.append (((1,3,147), conv, 'default-neutral-direction -> neutral-direction'))
 
 ################################
 #	END OF CONVERSIONS	
@@ -943,6 +954,8 @@ identify ()
 for f in files:
 	if f == '-':
 		f = ''
+	if not os.path.isfile (f):
+		continue
 	try:
 		do_one_file (f)
 	except UnknownVersion:

@@ -45,7 +45,7 @@ texidoc = "overriding the molecule callback can also be used to draw a
  )
 
 
- \score { \notes  {
+ \score { \notes \relative c''  {
 
  \property Voice.TextScript \override #'molecule-callback =
    #(make-molecule-boxer Text_item::brew_molecule)
@@ -55,5 +55,11 @@ texidoc = "overriding the molecule callback can also be used to draw a
 \property Voice.Stem \override #'molecule-callback =
    #(make-molecule-boxer Stem::brew_molecule)
 
-      c''8
+\property Score.RehearsalMark \override #'molecule-callback =
+   #(make-molecule-boxer Text_item::brew_molecule)
+
+      c8
+\property Voice.Stem \revert #'molecule-callback
+
+      c4. c4 \mark "F" c1 
    }}
