@@ -6,6 +6,11 @@
 
 ;;;; http://www.w3.org/TR/SVG11
 
+;;;; TODO:
+;;;;  * missing stencils: line, dashed-line ...
+;;;;  * rounded corners on stencils: rect, bezier (inkscape bug?)
+;;;;  * inkscape page/pageSet support
+
 (debug-enable 'backtrace)
 (define-module (scm output-svg))
 (define this-module (current-module))
@@ -19,9 +24,20 @@
 ;; FIXME: 2?
 (define output-scale (* 2 scale-to-unit))
 
-(define (stderr string . rest)
-  (apply format (cons (current-error-port) (cons string rest)))
-  (force-output (current-error-port)))
+(define indent-level 0)
+(define (indent s . add) s)
+
+;;(define (indentation indent str)
+;;   (regexp-substitute/global #f "\(\n\)[ \t]*" str 'pre 1 indent 'post))
+
+(define (indent s . add)
+  (let ((before indent-level)
+	(after (apply + (cons indent-level add)))
+	(after? (and (not (null? add)) (> (car add) 0))))
+    (set! indent-level after)
+    (if after?
+      (string-append (make-string before #\ ) s)
+      (string-append (make-string after #\ ) s))))
 
 (define (debugf string . rest)
   (if #f
@@ -47,13 +63,13 @@
 	      attributes-alist)))
 
 (define-public (eo entity . attributes-alist)
-  (format #f "<~S~a>\n" entity (attributes attributes-alist)))
+  (indent (format #f "<~S~a>\n" entity (attributes attributes-alist)) 2))
 
 (define-public (eoc entity . attributes-alist)
-  (format #f "<~S~a/>\n" entity (attributes attributes-alist)))
+  (indent (format #f "<~S~a/>\n" entity (attributes attributes-alist))))
 
 (define-public (ec entity)
-  (format #f "</~S>\n" entity))
+  (indent (format #f "</~S>\n" entity) -2))
 
 (define-public (entity entity string . attributes-alist)
   (if (equal? string "")
@@ -117,9 +133,9 @@
   (let* ((encoding (ly:font-encoding font))
 	 (anchor (if (memq encoding '(fetaMusic fetaBraces)) 'start 'start))
 	 (family (font-family font)))
-   (format #f "font-family:~a;font-weight:~a;font-size:~a;text-anchor:~S;"
+   (format #f "font-family:~a;font-style:~a;font-size:~a;text-anchor:~S;"
 	   (otf-name-mangling font family)
-	   (otf-weight-mangling font family)
+	   (otf-style-mangling font family)
 	   (font-size font) anchor)))
 
 (define (fontify font expr)
@@ -135,7 +151,7 @@
 	  "LilyPondBraces"
 	  family)))
 
-(define-public (otf-weight-mangling font family)
+(define-public (otf-style-mangling font family)
   ;; Hmm, family is bigcheese20/26?
   (if (string=? (substring family 0 (min (string-length family) 9))
 		"bigcheese")
