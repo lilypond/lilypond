@@ -83,8 +83,16 @@ Real
 Beam::get_beam_translation (Grob *me)
 {
   SCM func = me->get_grob_property ("space-function");
-  SCM s = gh_call2 (func, me->self_scm (), scm_int2num (get_beam_count (me)));
-  return gh_scm2double (s);
+
+  if (gh_procedure_p (func))
+    {
+      SCM s = gh_call2 (func, me->self_scm (), scm_int2num (get_beam_count (me)));
+      return gh_scm2double (s);
+    }
+  else
+    {
+      return 0.81;
+    }
 }
 
 /* Maximum beam_count. */

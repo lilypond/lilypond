@@ -80,6 +80,13 @@ extents of a cluster spanner at this X position.
 are interesting enough to maintain a hara-kiri staff."
  '()
  )
+
+(ly:add-interface
+ 'stanza-number-interface
+ ""
+ '()
+ )
+
 ;;; todo: this is not typesetting info. Move to interpretation.
 (ly:add-interface
  'tablature-interface

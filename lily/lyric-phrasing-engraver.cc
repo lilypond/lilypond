@@ -14,6 +14,7 @@ source file of the GNU LilyPond music typesetter
 #include "lyric-extender.hh"
 #include "item.hh"
 #include "group-interface.hh"
+#include "side-position-interface.hh"
 
 struct Phrasing_association
 {
@@ -22,6 +23,8 @@ struct Phrasing_association
   Link_array<Grob> heads_;
   Link_array<Spanner> past_extenders_;
   Link_array<Spanner> new_extenders_;
+  Link_array<Grob> stanza_numbers_;
+
   
   bool melisma_;
   
@@ -45,6 +48,7 @@ private:
   void add_lyric_phrasing (Grob_info);
   void add_voice_phrasing (Grob_info);
   void add_lyric_extender (Grob_info);
+  void add_stanza_number (Grob_info);
   Phrasing_association *get_phrasing_assoc (String nm);
   String get_voice_name_for_lyric (Translator_group*tr);
   Link_array<Phrasing_association> assocs_;
@@ -65,6 +69,8 @@ Lyric_phrasing_engraver::acknowledge_grob (Grob_info i)
     add_lyric_phrasing (i);
   else if (Lyric_extender::has_interface (h))
     add_lyric_extender (i);
+  else if (h->internal_has_interface (ly_symbol2scm ("stanza-number-interface")))
+    add_stanza_number (i);
 }
 
 Phrasing_association *
@@ -127,6 +133,19 @@ Lyric_phrasing_engraver::add_lyric_extender (Grob_info inf)
   a->new_extenders_.push (dynamic_cast<Spanner*> (inf.grob_));  
 }
 
+void
+Lyric_phrasing_engraver::add_stanza_number  (Grob_info inf)
+{
+  Translator_group * tr = inf.origin_trans_->daddy_trans_;
+  while (tr && !tr->is_alias (ly_symbol2scm ("LyricsVoice")))
+    tr = tr->daddy_trans_;
+
+  if (!tr)
+    return;
+
+  Phrasing_association *a =  get_phrasing_assoc (get_voice_name_for_lyric (tr));
+  a->stanza_numbers_.push (inf.grob_);
+}
 
 void
 Lyric_phrasing_engraver::add_voice_phrasing (Grob_info inf)
@@ -162,12 +181,28 @@ Lyric_phrasing_engraver::add_lyric_phrasing (Grob_info inf)
 void
 Lyric_phrasing_engraver::stop_translation_timestep ()
 {
+  Link_array<Grob> stzs;
+  Link_array<Grob> lyrs;
   for (int i = assocs_.size ();  i--; )
     {
-      assocs_[i]->heads_.clear ();
-      assocs_[i]->lyrics_.clear ();
-      assocs_[i]->past_extenders_.concat (assocs_[i]->new_extenders_) ;
-      assocs_[i]->new_extenders_.clear ();
+      Phrasing_association * a = assocs_[i];
+      stzs.concat (a->stanza_numbers_);
+      lyrs.concat (a->lyrics_);
+    }
+
+  for(int i= lyrs.size(); i--;)
+    for (int j = stzs.size (); j--;)
+      Side_position_interface::add_support (stzs[j], lyrs[i]);
+    
+  for (int i = assocs_.size ();  i--; )
+    {
+      Phrasing_association * a = assocs_[i];
+
+      a->stanza_numbers_.clear ();
+      a->heads_.clear ();
+      a->lyrics_.clear ();
+      a->past_extenders_.concat (assocs_[i]->new_extenders_) ;
+      a->new_extenders_.clear ();
     }
 }
 
@@ -211,7 +246,8 @@ ENTER_DESCRIPTION(Lyric_phrasing_engraver,
 		  "This engraver combines note heads and lyrics for alignment. ",
 		  "",
 		  "",
-		  "lyric-syllable-interface note-head-interface lyric-extender-interface",
+		  "stanza-number-interface lyric-syllable-interface "
+		  "note-head-interface lyric-extender-interface",
 		  "associatedVoice",
 		  "");
 

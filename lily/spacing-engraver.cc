@@ -78,7 +78,7 @@ Spacing_engraver::process_music ()
 {
   if (!spacing_)
     {
-      spacing_  =make_spanner ("SpacingSpanner");
+      spacing_ = make_spanner ("SpacingSpanner");
       spacing_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));  
       announce_grob(spacing_, SCM_EOL);
     }

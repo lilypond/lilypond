@@ -129,14 +129,17 @@ Stem_tremolo::brew_molecule (SCM grob)
   Grob *stem = unsmob_grob (me->get_grob_property ("stem"));
   Grob *beam = Stem::get_beam (stem);
   Direction stemdir = Stem::get_direction (stem);
-  Real beam_translation = beam ? Beam::get_beam_translation (beam) : 0.81;
+  Real beam_translation
+    = (beam && beam->live ())
+    ? Beam::get_beam_translation (beam)
+    : 0.81;
 
   Molecule mol = raw_molecule (me);
   Interval mol_ext = mol.extent (Y_AXIS);
   Real ss = Staff_symbol_referencer::staff_space (me);
 
   // ugh, rather calc from Stem_tremolo_req
-  int beam_count = (beam) ? (Stem::beam_multiplicity (stem).length ()+ 1): 0;
+  int beam_count = (beam) ? (Stem::beam_multiplicity (stem).length () + 1): 0;
 
   /*
     TODO.
