@@ -308,4 +308,605 @@ fet_beginchar("G clef", "G_change", "ctrebleclef")
 	draw_gclef((1.3 staff_space#,0), .8);
 fet_endchar;
 
+%%%%%%%%
+%
+%
+%
+% Editio Vaticana
+%
+%
+%
+def draw_vaticana_do_clef(expr exact_center, reduction) = 
+	save reduced_il;
+
+	reduced_il# = staff_space# * reduction;
+	
+	set_char_box(0.4reduced_il#, 0.4reduced_il#, 0, reduced_il#);
+
+	define_pixels(reduced_il);
+
+	pickup pencircle xscaled stafflinethickness yscaled 0.6reduced_il;
+
+	save za, zb, zc, zd, ze, zf;
+	pair za, zb, zc, zd, ze, zf;
+
+	za = exact_center + (-0.0reduced_il, -.45reduced_il);
+	zb = exact_center + (-0.2reduced_il, -.50reduced_il);
+	zc = exact_center + (-0.4reduced_il, -.25reduced_il);
+	zd = exact_center + (-0.4reduced_il, +.25reduced_il);
+	ze = exact_center + (-0.2reduced_il, +.50reduced_il);
+	zf = exact_center + (-0.0reduced_il, +.45reduced_il);
+	draw za .. zb .. zc --	% lower punctum
+	     zd .. ze .. zf;	% upper punctum
+enddef;
+
+
+fet_beginchar("Ed. Vat. do clef", "vaticana_do", "vatdoclef")
+	if test = 1:
+		draw_staff(-1,3, 0.0);
+	fi;
+	draw_vaticana_do_clef((0,0), 1.0);
+fet_endchar;
+fet_beginchar("Ed. Vat. do clef", "vaticana_do_change", "vatcdoclef")
+	draw_vaticana_do_clef((0,0), 1.0); % no reduction
+fet_endchar;
+
+
+def draw_vaticana_fa_clef(expr exact_center, reduction) = 
+
+	save reduced_il, z;
+	reduced_il# = staff_space# * reduction;
+	define_pixels(reduced_il);
+
+	save za, zb, zc, zd, ze;
+	pair za, zb, zc, zd, ze;
+
+	%stem
+	pickup pencircle scaled stafflinethickness;
+	xpart za = xpart zb =
+		xpart exact_center + 0.4reduced_il;
+	ypart za = ypart exact_center = ypart zb + 1.5reduced_il;
+	draw za .. zb;
+
+	%left-handed punctum
+	pickup pencircle xscaled stafflinethickness yscaled 0.5reduced_il;
+	zc = exact_center +
+		(+0.4reduced_il, -0.05reduced_il);
+	zd = exact_center +
+		(+0.2reduced_il, +0.05reduced_il);
+	ze = exact_center +
+		(+0.0reduced_il, +0.00reduced_il);
+	draw zc .. zd .. ze;
+
+	%right-handed puncta as in do clef
+	draw_vaticana_do_clef(
+		exact_center +
+		(+0.8reduced_il + 1.25stafflinethickness, 0),
+		reduction);
+
+	set_char_box(0.5reduced_il#, 1.5reduced_il#, 0, reduced_il#);
+enddef;
+
+
+fet_beginchar("Ed. Vat. fa clef", "vaticana_fa", "vatfaclef")
+	if test = 1:
+		draw_staff(-1,3, 0.0);
+	fi;
+	draw_vaticana_fa_clef((0,0), 1.0);
+fet_endchar;
+fet_beginchar("Ed. Vat. fa clef", "vaticana_fa_change", "vatcfaclef")
+	draw_vaticana_fa_clef((0,0), 1.0); % no reduction
+fet_endchar;
+
+%%%%%%%%
+%
+%
+%
+% Editio Medicaea
+%
+%
+%
+def draw_medicaea_do_clef(expr exact_center, reduction) = 
+	save reduced_il, reduced_slt;
+	reduced_il# = staff_space# * reduction;
+	reduced_slt# = stafflinethickness# * reduction;
+	define_pixels(reduced_il);
+	define_pixels(reduced_slt);
+
+	save flag_height;
+	flag_height# = 0.5 reduced_il#;
+	define_pixels(flag_height);
+
+	%lower flag
+	save za, zb;
+	pair za, zb;
+	pickup pencircle xscaled reduced_slt yscaled flag_height;
+	xpart exact_center
+		= xpart za + 0.5 reduced_il
+		= xpart zb - 0.5 reduced_il;
+	ypart za = ypart exact_center - 0.5 flag_height
+			- 0.5 (staff_space - reduced_il);
+	ypart zb = ypart za - reduced_il + flag_height;
+	draw za .. zb;
+
+	%upper flag
+	save za, zb;
+	pair za, zb;
+	pickup pencircle xscaled reduced_slt yscaled flag_height;
+	xpart exact_center
+		= xpart za + 0.5 reduced_il
+		= xpart zb - 0.5 reduced_il;
+	ypart za = ypart exact_center - 0.5 flag_height
+			- 0.5 (staff_space - reduced_il)
+			+ staff_space;
+	ypart zb = ypart za - reduced_il + flag_height;
+	draw za .. zb;
+
+	%stem
+	save za, zb;
+	pair za, zb;
+	pickup pencircle scaled reduced_slt;
+	xpart za = xpart zb = xpart exact_center - 0.5 reduced_il;
+	ypart exact_center
+		= ypart za + 1.5 reduced_il
+		= ypart zb - 1.5 reduced_il;
+	draw za .. zb;
+
+	set_char_box(0.5reduced_il#, 1.5reduced_il#,
+		     1.5reduced_il#, 1.5reduced_il#);
+enddef;
+
+
+fet_beginchar("Ed. Med. do clef", "medicaea_do", "meddoclef")
+	if test = 1:
+		draw_staff(-1,3, 0.0);
+	fi;
+	draw_medicaea_do_clef((0,0), 1.0);
+fet_endchar;
+fet_beginchar("Ed. Med. do clef", "medicaea_do_change", "cmeddoclef")
+	draw_medicaea_do_clef((0,0), .8);
+fet_endchar;
+
+
+def draw_medicaea_fa_clef(expr exact_center, reduction) = 
+	% inspired by Regensburger Edition of Medicaea (1885/86), in:
+	% MGG, volume 2, col. 1327 ("Choralreform"), fig. 2.
+
+	save reduced_il, reduced_slt;
+	reduced_il# = staff_space# * reduction;
+	reduced_slt# = stafflinethickness# * reduction;
+	define_pixels(reduced_il);
+	define_pixels(reduced_slt);
+
+	save za, zb, zc, zd, ze;
+	pair za, zb, zc, zd, ze;
+
+	%stem
+	pickup pencircle scaled stafflinethickness;
+	xpart za = xpart zb =
+		xpart exact_center + 0.4reduced_il;
+	ypart za = ypart exact_center = ypart zb + 1.5reduced_il;
+	draw za -- zb;
+
+	%left-handed punctum
+	pickup pencircle xscaled reduced_slt yscaled reduced_il;
+	zc = exact_center +
+		(+0.4reduced_il, 0);
+	zd = exact_center +
+		(+0.0reduced_il, 0);
+	draw zc -- zd;
+
+	%right-handed puncta as in do clef
+	draw_medicaea_do_clef(
+		exact_center +
+		(+1.1reduced_il + 1.25stafflinethickness, 0),
+		reduction);
+
+	set_char_box(reduced_il#/2, 2.6reduced_il#, 0, reduced_il#);
+enddef;
+
+
+fet_beginchar("Ed. Med. fa clef", "medicaea_fa", "medfaclef")
+	if test = 1:
+		draw_staff(-1,3, 0.0);
+	fi;
+	draw_medicaea_fa_clef((0,0), 1.0);
+fet_endchar;
+fet_beginchar("Ed. Med. fa clef", "medicaea_fa_change", "cmedfaclef")
+	draw_medicaea_fa_clef((0,0), .8);
+fet_endchar;
+
+
+%%%%%%%%
+%
+%
+%
+% Mensural Notation
+%
+%
+%
+brevis_wid# := 2 staff_space#;
+
+def draw_brevis(expr exact_center, reduction, small_width, small_height) =
+	%
+	% inspired by function draw_brevis of
+	% feta-bolletjes.mf
+	%
+	save reduced_slt, reduced_nht;
+	save stem_width, head_width;
+	save serif_size, serif_protrude;
+	save holeheight, beamheight;
+
+	reduced_slt# = stafflinethickness# * reduction;
+	reduced_nht# = noteheight# * reduction;
+	stem_width# = 1.4 reduced_slt#;
+	if small_width:
+		head_width# = 0.5brevis_wid# * reduction;
+	else:
+		head_width# = brevis_wid# * reduction;
+	fi;
+	if small_height:
+		serif_size# = 0.64 reduced_slt#;
+		serif_protrude# = 0.96 serif_size#;
+		holeheight# = 3 reduced_slt#;
+		beamheight# = 0.32(reduced_nht# - holeheight#);
+	else:
+		serif_size# = 1.0 reduced_slt#;
+		serif_protrude# = 1.5 serif_size#;
+		holeheight# = 3 reduced_slt#;
+		beamheight# = 0.5(reduced_nht# - holeheight#);
+	fi;
+	define_pixels(reduced_slt);
+	define_pixels(stem_width);
+	define_pixels(head_width);
+	define_pixels(serif_size);
+	define_pixels(serif_protrude);
+	define_pixels(beamheight);
+
+	penpos1(stem_width, 0);
+	penpos2(stem_width, 0);
+	penpos3(beamheight, 90);
+	penpos4(beamheight, 90);
+	penpos5(stem_width, 180);
+
+	z1l = exact_center;
+	z2l = z1l + (0, -reduced_slt/2);
+	z3r = z2r + serif_size*(1,-1);
+	y4r = y3r;
+	x4l = x1l + head_width/2;
+	z5l = z3l + (-serif_size, -serif_protrude);
+
+	penlabels(1,2,3,4,5);
+	fill z1r -- z1l -- z5r{down} .. z5l{up} .. z3l{right}
+		-- z4l -- z4r -- z3r{left} .. z2r{up} -- cycle;
+enddef;
+
+
+def draw_mensural_i_c_clef(expr exact_center, reduction) = 
+	draw_brevis(exact_center, reduction, false, false);
+
+	save reduced_il, reduced_slt;
+	save stem_width;
+
+	reduced_il# = staff_space# * reduction;
+	reduced_slt# = stafflinethickness# * reduction;
+	stem_width# = 1.4 reduced_slt#;
+
+	define_pixels(reduced_il);
+	define_pixels(reduced_slt);
+	define_pixels(stem_width);
+
+	penpos6(stem_width, 0);
+	penpos7(stem_width, 0);
+	z6l = exact_center;
+	z7l = z6l + (0, -2reduced_il);
+	fill z6l -- z7l -- z7r -- z6r -- cycle;
+	penpos8(stem_width, 0);
+	penpos9(stem_width, 0);
+	z8l = z6l + (-3reduced_slt, 0);
+	z9l = z8l + (0, -2reduced_il);
+	fill z8l -- z9l -- z9r -- z8r -- cycle;
+
+	addto currentpicture also currentpicture
+		yscaled -1 shifted (0, 2*(ypart exact_center));
+	addto currentpicture also currentpicture 
+		xscaled -1 shifted (2x4l,0);
+
+	set_char_box(0, 2head_width#,
+		     6reduced_slt#*reduction, 6reduced_slt#*reduction);
+enddef;
+
+
+fet_beginchar("mensural c clef", "mensural1_c", "mens1cclef")
+	if test = 1:
+		draw_staff(-1,3, 0.0);
+	fi;
+	draw_mensural_i_c_clef((0,0), 1.0);
+fet_endchar;
+fet_beginchar("mensural c clef", "mensural1_c_change", "cmens1cclef")
+	draw_mensural_i_c_clef((1.3 staff_space#,0), .8);
+fet_endchar;
+
+
+def draw_mensural_ii_c_clef(expr exact_center, reduction) = 
+	draw_brevis(exact_center, reduction, false, true);
+
+	save reduced_il, reduced_slt;
+	save stem_width, interline;
+
+	reduced_il# = staff_space# * reduction;
+	reduced_slt# = stafflinethickness# * reduction;
+	stem_width# = 1.4 reduced_slt#;
+	interline# = staff_space#;
+
+	define_pixels(reduced_il);
+	define_pixels(reduced_slt);
+	define_pixels(stem_width);
+	define_pixels(interline);
+
+	penpos6(stem_width, 0);
+	penpos7(stem_width, 0);
+	z6l = exact_center + (0, -interline/2);
+	z7l = z6l + (0, -1.5reduced_il);
+	fill z6l -- z7l -- z7r -- z6r -- cycle;
+
+	addto currentpicture also currentpicture
+		yscaled -1 shifted (0, 2*(ypart exact_center) - interline);
+	addto currentpicture also currentpicture
+		yscaled -1 shifted (0, 4*(ypart exact_center));
+	addto currentpicture also currentpicture 
+		xscaled -1 shifted (2x4l,0);
+
+	set_char_box(0, 2head_width#,
+		     noteheight#*4*reduction, noteheight#*4*reduction);
+enddef;
+
+
+fet_beginchar("mensural c clef", "mensural2_c", "mens2cclef")
+	if test = 1:
+		draw_staff(-1,3, 0.0);
+	fi;
+	draw_mensural_ii_c_clef((0,0), 1.0);
+fet_endchar;
+fet_beginchar("mensural c clef", "mensural2_c_change", "cmens2cclef")
+	draw_mensural_ii_c_clef((1.3 staff_space#,0), .8);
+fet_endchar;
+
+
+def draw_mensural_iii_c_clef(expr exact_center, reduction) =
+	% inspired by Ockeghem, "Missa Prolationum", in: MGG, volume
+	% 9, table 94.
+	draw_mensural_ii_c_clef(exact_center, reduction);
+
+	addto currentpicture also currentpicture
+		shifted (0, -interline);
+
+	set_char_box(0, 2head_width#,
+		     noteheight#*6*reduction, noteheight#*6*reduction);
+enddef;
+
+
+fet_beginchar("mensural c clef", "mensural3_c", "mens3cclef")
+	if test = 1:
+		draw_staff(-1,3, 0.0);
+	fi;
+	draw_mensural_iii_c_clef((0,0), 1.0);
+fet_endchar;
+fet_beginchar("mensural c clef", "mensural3_c_change", "cmens3cclef")
+	draw_mensural_iii_c_clef((0,0), .8);
+fet_endchar;
+
+def draw_diamond(expr exact_center, reduction) =
+	save stem_width, reduced_il, reduced_nht, holeheight, beamheight;
+	save rh_height, rh_width;
+
+	stem_width# = 1.4 reduced_slt#;
+	reduced_il# = staff_space# * reduction;
+	reduced_nht# = noteheight# * reduction;
+	holeheight# = 3 reduced_slt#;
+	beamheight# = 0.4(reduced_nht# - holeheight#);
+
+	rh_height# = 1.2reduced_il#;
+	rh_width# / rh_height# = 0.58; % tan(30)
+
+	define_pixels(beamheight);
+	define_pixels(stem_width);
+	define_pixels(rh_height);
+	define_pixels(rh_width);
+
+	pickup pencircle
+		xscaled beamheight
+		yscaled stem_width
+		rotated 45;
+
+	draw
+		exact_center + (-rh_width/2, 0) --
+		exact_center + (0, rh_height/2) --
+		exact_center + (+rh_width/2, 0) --
+		exact_center + (0, -rh_height/2) --
+		cycle;
+enddef;
+
+def draw_mensural_f_clef(expr exact_center, reduction) =
+	%
+	% inspired by Gaspar van Weerbeke, "Virgo Maria" (1502), in:
+	% MGG, volume 9, col. 653 ("Motette"), fig. 3.; also by
+	% Andr'e Campra, "Entr'ee des s'er'enades" (1710), in: MGG,
+	% volume 2, col. 1649 ("Contredanse"), fig. 2.
+	%
+	draw_brevis(exact_center, reduction, true, false);
+
+	save reduced_il, reduced_slt;
+	save stem_width, interline;
+
+	reduced_il# = staff_space# * reduction;
+	reduced_slt# = stafflinethickness# * reduction;
+	stem_width# = 1.4 reduced_slt#;
+	interline# = staff_space#;
+
+	define_pixels(reduced_il);
+	define_pixels(reduced_slt);
+	define_pixels(stem_width);
+	define_pixels(interline);
+
+	addto currentpicture also currentpicture
+		yscaled -1 shifted (0, 2*(ypart exact_center));
+	addto currentpicture also currentpicture 
+		xscaled -1 shifted (2x4l,0);
+
+	penpos6(stem_width, 0);
+	penpos7(stem_width, 0);
+	z6r = exact_center + (2x4l, 0);
+	z7r = z6r + (0, -4reduced_il);
+	fill z6l -- z7l -- z7r -- z6r -- cycle;
+
+	draw_diamond(exact_center +
+		     (1.6interline*reduction, interline/2), reduction);
+	%% some editions put a stem on top of the upper note head:
+	% penpos8(stem_width, 0);
+	% penpos9(stem_width, 0);
+	% z8l = exact_center + (1.6interline*reduction, interline*reduction);
+	% z9l = z8l + (0, 1.5interline*reduction);
+	% fill z8l -- z9l -- z9r -- z8r -- cycle;
+
+	draw_diamond(exact_center +
+		     (1.6interline*reduction, -interline/2), reduction);
+	penpos10(stem_width, 0);
+	penpos11(stem_width, 0);
+	z10r = exact_center + (1.6interline*reduction, -interline*reduction);
+	z11r = z10r + (0, -3.5interline*reduction);
+	fill z10l -- z11l -- z11r -- z10r -- cycle;
+
+	set_char_box(0, 3head_width#,
+		     3.5noteheight#*reduction, 1.5noteheight#*reduction);
+enddef;
+
+
+fet_beginchar("mensural f clef", "mensural_f", "mensfclef")
+	if test = 1:
+		draw_staff(-1,3, 0.0);
+	fi;
+	draw_mensural_f_clef((0,0), 1.0);
+fet_endchar;
+fet_beginchar("mensural f clef", "mensural_f_change", "cmensfclef")
+	draw_mensural_f_clef((0,0), .8);
+fet_endchar;
+
+
+%%%%%%%%
+%
+%
+%
+% Hufnagel
+%
+%
+%
+def draw_hufnagel_do_clef(expr exact_center, reduction) =
+	%
+	% inspired by Graduale of Friedrich Zollner (1442), in: MGG,
+	% volume 9, col. 1413 ("Neustift"), fig. 1.
+	%
+	save reduced_il;
+
+	reduced_il# = staff_space# * reduction;
+
+	define_pixels(reduced_il);
+
+	pickup pencircle
+		xscaled (0.60reduced_il)
+		yscaled (0.10reduced_il)
+		rotated 40;
+	save za, zb, zc, zd, ze, zf;
+	pair za, zb, zc, zd, ze, zf;
+
+	za = exact_center + (+0.30reduced_il, +.45reduced_il);
+	zb = exact_center + (+0.20reduced_il, +.45reduced_il);
+	zc = exact_center + (-0.10reduced_il, +.60reduced_il);
+	zd = exact_center + (-0.40reduced_il, +.45reduced_il);
+	ze = exact_center + (-0.40reduced_il, -.45reduced_il);
+	zf = exact_center + (-0.20reduced_il, -.55reduced_il);
+	draw za .. zb .. zc -- zd -- ze -- zf;
+
+	set_char_box(0.5reduced_il#, 0.5reduced_il#, 0, reduced_il#);
+enddef;
+
+
+fet_beginchar("Hufnagel do clef", "hufnagel_do", "hufnageldoclef")
+	if test = 1:
+		draw_staff(-1,3, 0.0);
+	fi;
+	draw_hufnagel_do_clef((0,0), 1.0);
+fet_endchar;
+fet_beginchar("Hufnagel do clef", "hufnagel_do_change", "chufnageldoclef")
+	draw_hufnagel_do_clef((1.3 staff_space#,0), .8);
+fet_endchar;
+
+
+def draw_hufnagel_fa_clef(expr exact_center, reduction) =
+	%
+	% inspired by Bamberger Manuscript (15th century), in:
+	% MGG, volume 2, table 59.
+	%
+	save reduced_il;
+
+	reduced_il# = staff_space# * reduction;
+
+	define_pixels(reduced_il);
+
+	pickup pencircle
+		xscaled (0.60reduced_il)
+		yscaled (0.10reduced_il)
+		rotated 40;
+	save za, zb, zc, zd, ze, zf;
+	pair za, zb, zc, zd, ze, zf;
+
+	za = exact_center + (+0.30reduced_il, +0.70reduced_il);
+	zb = exact_center + (+0.20reduced_il, +0.70reduced_il);
+	zc = exact_center + (-0.10reduced_il, +0.85reduced_il);
+	zd = exact_center + (-0.40reduced_il, +0.70reduced_il);
+	ze = exact_center + (-0.40reduced_il, -1.10reduced_il);
+	draw za .. zb .. zc -- zd -- ze;
+
+	save zg, zh, zi, zj;
+	pair zg, zh, zi, zj;
+
+	zg = exact_center + (+0.30reduced_il, -0.05reduced_il);
+	zh = exact_center + (+0.20reduced_il, -0.05reduced_il);
+	zi = exact_center + (-0.10reduced_il, +0.10reduced_il);
+	zj = exact_center + (-0.40reduced_il, -0.05reduced_il);
+	draw zg .. zh .. zi -- zj;
+
+	set_char_box(0.5reduced_il#, 0.5reduced_il#, 0, reduced_il#);
+enddef;
+
+
+fet_beginchar("Hufnagel fa clef", "hufnagel_fa", "hufnagelfaclef")
+	if test = 1:
+		draw_staff(-1,3, 0.0);
+	fi;
+	draw_hufnagel_fa_clef((0,0), 1.0);
+fet_endchar;
+fet_beginchar("Hufnagel fa clef", "hufnagel_fa_change", "chufnagelfaclef")
+	draw_hufnagel_fa_clef((0,0), .8);
+fet_endchar;
+
+
+def draw_hufnagel_do_fa_clef(expr exact_center, reduction) =
+	draw_hufnagel_do_clef(exact_center, reduction);
+	draw_hufnagel_fa_clef(exact_center + (0, -2staff_space), reduction);
+enddef;
+
+
+fet_beginchar("Hufnagel do/fa clef", "hufnagel_do_fa", "hufnageldofaclef")
+	if test = 1:
+		draw_staff(-1,3, 0.0);
+	fi;
+	draw_hufnagel_do_fa_clef((0,0), 1.0);
+fet_endchar;
+fet_beginchar("Hufnagel do/fa clef", "hufnagel_do_fa_change",
+	      "chufnageldofaclef")
+	draw_hufnagel_do_fa_clef((0,0), .8);
+fet_endchar;
+
+
 fet_endgroup("clefs");
