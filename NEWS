@@ -1,3 +1,6 @@
+pl 39.jcn1
+	- Musical_pitch::str (): use names from notename table
+
 pl 39
 	- \property textstyle -> textStyle
 

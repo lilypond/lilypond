@@ -260,8 +260,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <tempo> 	tempo_request
 %type <notenametab> notenames_body notenames_block chordmodifiers_block
 
-
-
+%expect 8
 
 %left '-' '+'
 %left '*' '/'
@@ -349,7 +348,9 @@ notenames_body:
 	}
 	| notenames_body STRING '=' explicit_musical_pitch {
 		(*$$)[*$2] = *$4;
-
+		int n = ($4->notename_i_ + 10 * 7) % 7;
+		int a = $4->accidental_i_ + 2;
+		Musical_pitch::name_str_arr_arr_[n][a] = *$2;
 		delete $4;
 		delete $2;
 	}
