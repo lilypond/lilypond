@@ -14,11 +14,12 @@ copyright	public domain
 Tested Features: lyrics
 
 %}
-\version "0.1.5";
+\version "0.1.6";
 
 melody = \melodic{
 	\clef violin;
 	\octave c';
+	
 	c4 c | g g | a a | g g |
 	f f | e e | d d8.( e16 | )c2 | % :|
 
@@ -121,12 +122,11 @@ textiii = \lyric{
 
 \score{
 	< 
-		\melodic <
-			\type Grandstaff
-			< \multi 2; \global 
-				\melody >
+		\type Grandstaff <
 			< \global 
-				\accompany >
+			  \melody >
+			< \global 
+			\accompany >
 		>
 		
 		% ugh
