@@ -84,6 +84,10 @@
 	(fivedown	  de	,(ly:make-pitch -1 2 0))
 ))
 
+(define-public (set-drum-kit kit value)
+  (set! percussive-instrument-settings
+	(assoc-set! percussive-instrument-settings kit value)))
+  
 (define-public (get-drum-kit kit)
   (assoc-get-default kit percussive-instrument-settings '()))
 

@@ -1,6 +1,8 @@
 \version "1.7.18"
-% looks pretty, but it's for regression.  -gp
-\header { texidoc = "REGRESSION?  or DELETE. "}
+\header {
+    texidoc = "Slurs become flatter as they grow longer. "
+
+}
 
 x = {
   \outputproperty #(make-type-checker 'note-head-interface) 
@@ -38,7 +40,6 @@ x = {
     \context Voice=wa { \x d(s4*26d-) }
   >
   \paper {
-    indent=0.0\mm
     raggedright = ##t
     \translator{
       \VoiceContext
