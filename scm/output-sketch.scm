@@ -106,12 +106,6 @@
 
 ;;(define output-scale 2.83464566929134)
 
-(define scale-to-unit
-  (cond
-   ((equal? (ly:unit) "mm") (/ 72.0  25.4))
-   ((equal? (ly:unit) "pt") (/ 72.0  72.27))
-   (else (error "unknown unit" (ly:unit)))
-   ))
 
 (define (mul-scale x) (* scale-to-unit output-scale x))
 

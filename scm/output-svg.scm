@@ -27,9 +27,13 @@
  (lily)
  (srfi srfi-13))
 
-;; GLobals
-;; FIXME: 2?
-(define output-scale (* 2 scale-to-unit))
+
+(if #t
+    (begin
+      (debug-enable 'debug)
+      (debug-enable 'backtrace)
+      (read-enable 'positions)))
+(define lily-unit-length 1.75)
 
 (define (dispatch expr)
   (let ((keyword (car expr)))
@@ -91,24 +95,51 @@
   (apply string-append
 	 (map (lambda (x) (char->entity x)) (string->list string))))
 
+(define pango-description-regexp
+  (make-regexp "^([^,]+)+, ?([-a-zA-Z_]*) ([0-9.]+)$"))
+
+(define (pango-description-to-svg-font str)
+  (let*
+      ((size 4.0)
+       (family "Helvetica")
+       (style #f)
+       (match (regexp-exec pango-description-regexp str)))
+
+    (if (regexp-match? match)
+	(begin
+	  (set! family (match:substring match 1))
+	  (if (< 0 (string-length (match:substring match 2)))
+	      (set! style (match:substring match 2)))
+	  (set! size
+		(string->number (match:substring match 3))))
+
+	(display (format "Cannot decypher Pango description:  ~a\n" str)))
+
+    (set! style
+	  (if (string? style)
+	      (format "font-style:~a;" style)
+	      ""))
+    
+    (format "font-family:~a;~afont-size:~a;text-anchor:west"
+	    family
+	    style
+	    (/ size lily-unit-length))
+    ))
+
 ;;; FONT may be font smob, or pango font string
 (define (svg-font font)
-  (let ((name-style (if (string? font)
-			(list font "Regular")
-			(font-name-style font)))
-	    (size (svg-font-size font))
-	    (anchor "west"))
-	(format #f "font-family:~a;font-style:~a;font-size:~a;text-anchor:~a;"
-		(car name-style) (cadr name-style) size anchor)))
-
-;;; FONT may be font smob, or pango font string
-(define (svg-font-size font)
   (if (string? font)
-      12
-      (* output-scale (font-size font))))
+      (pango-description-to-svg-font font)
+      (let ((name-style (font-name-style font))
+	    (size (modified-font-metric-font-scaling font))
+	    (anchor "west"))
+
+	(format #f "font-family:~a;font-style:~a;font-size:~a;text-anchor:~a;"
+		(car name-style) (cadr name-style)
+		size anchor))))
 
 (define (fontify font expr)
-   (entity 'text expr (cons 'style (svg-font font))))
+  (entity 'text expr (cons 'style (svg-font font))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; stencil outputters
@@ -140,10 +171,8 @@
 	    `(width . ,width)
 	    `(height . ,(+ thick (* (abs z) (/ thick 2))))
 	    `(rx . ,(/ blot-diameter 2))
-	    `(transform . ,(string-append
-			    (format #f "matrix (1, ~f, 0, 1, 0, 0)" (- z))
-			    (format #f " scale (~f, ~f)"
-				    output-scale output-scale))))))
+	    `(transform . ,(format #f "matrix (1, ~f, 0, 1, 0, 0)" (- z))
+			   ))))
 
 (define (beam width slope thick blot-diameter)
   (let* ((b blot-diameter)
@@ -162,8 +191,7 @@
 				    (cons (+ w (/ b 2)) (+ h (/ t 2)))
 				    (cons (+ w (/ b 2)) (+ h (- (/ t 2))))
 				    (cons (/ b 2) (- (/ t 2)))))))
-	    `(transform
-	      . ,(format #f "scale (~f, -~f)" output-scale output-scale)))))
+	    )))
 
 (define (path-beam width slope thick blot-diameter)
   (let* ((b blot-diameter)
@@ -182,8 +210,7 @@
 			   0 (- t)
 			   (- w) h
 			   0 t))
-	  `(transform
-	    . ,(format #f "scale (~f, ~f)" output-scale output-scale)))))
+	  )))
 
 (define (bezier-sandwich lst thick)
   (let* ((first (list-tail lst 4))
@@ -197,8 +224,7 @@
 	    '(fill . "black")
 	    `(d . ,(string-append (svg-bezier first #f)
 				  (svg-bezier second first-c0)))
-	  `(transform
-	    . ,(format #f "scale (~f, -~f)" output-scale output-scale)))))
+	  )))
 
 (define (char font i)
   (dispatch
@@ -221,8 +247,7 @@
 	  `(y1 . ,y1)
 	  `(x2 . ,x2)
 	  `(y2 . ,y2)
-	  `(transform
-	    . ,(format #f "scale (~f, -~f)" output-scale output-scale))))
+	  ))
 
 ;; WTF is this in every backend?
 (define (horizontal-line x1 x2 th)
@@ -243,8 +268,8 @@
 	  ;;(dispatch expr)
 	  expr
 	  `(transform . ,(format #f "translate (~f, ~f)"
-				 (* output-scale x)
-				 (- (* output-scale y))))))
+				 x
+				 (-  y)))))
 
 (define (polygon coords blot-diameter)
   (entity 'polygon ""
@@ -255,8 +280,7 @@
 	  ;;'(fill . "black")
 	  `(points . ,(string-join
 		       (map offset->point (ly:list->offsets '() coords))))
-	  `(transform
-	    . ,(format #f "scale (~f, -~f)" output-scale output-scale))))
+  ))
 
 (define (round-filled-box breapth width depth height blot-diameter)
   (entity 'rect ""
@@ -273,8 +297,7 @@
 	  `(width . ,(+ breapth width))
 	  `(height . ,(+ depth height))
 	  `(ry . ,(/ blot-diameter 2))
-	  `(transform
-	    . ,(format #f "scale (~f, ~f)" output-scale output-scale))))
+	  ))
 
 (define (text font string)
   (dispatch `(fontify ,font ,(entity 'tspan (string->entities string)))))

@@ -96,7 +96,7 @@ pianoRH =  \relative c''' \repeat volta 2\new Voice {
 pianoLH =  \relative c'' \repeat volta 2\new Voice {
     #(set-accidental-style 'modern)
     \voiceTwo
-    g16(_\p fis a g fis g
+    g16( fis a g fis g
 
     f e d c b
 

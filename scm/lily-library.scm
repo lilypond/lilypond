@@ -307,11 +307,15 @@ possibly turned off."
 (define-public (!= lst r)
   (not (= lst r)))
 
-(define-public scale-to-unit
+(define-public lily-unit->bigpoint-factor
   (cond
    ((equal? (ly:unit) "mm") (/ 72.0 25.4))
    ((equal? (ly:unit) "pt") (/ 72.0 72.27))
    (else (error "unknown unit" (ly:unit)))))
+
+
+(define-public lily-unit->mm-factor
+  (* 25.4 (/ lily-unit->bigpoint-factor 72)))
 
 ;;; FONT may be font smob, or pango font string...
 (define-public (font-name-style font)
@@ -327,7 +331,7 @@ possibly turned off."
 	    name-style
 	    (append name-style '("Regular"))))))
 
-(define-public (font-size font)
+(define-public (modified-font-metric-font-scaling font)
   (let* ((designsize (ly:font-design-size font))
 	 (magnification (* (ly:font-magnification font)))
 	 (scaling (* magnification designsize)))

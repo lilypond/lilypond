@@ -1,3 +1,16 @@
+2005-03-11  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/framework-svg.scm (output-framework): put scaling in
+	document header. Apply scaling only once.
+
+	* scm/lily-library.scm (modified-font-metric-font-scaling): rename
+	from font-size.
+
+	* lily/paper-outputter-scheme.cc (LY_DEFINE):
+	ly:outputter-output-scheme, new function.
+
+	* scm/output-svg.scm (pango-description-to-svg-font): new function
+
 2005-03-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/user/GNUmakefile (deep-symlinks): remove outimages

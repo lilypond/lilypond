@@ -176,9 +176,9 @@ Beam::before_line_breaking (SCM smob)
   We want a maximal number of shared beams, but if there is choice, we
   take the one that is closest to the end of the stem. This is for situations like
 
-  x
-  |
-  |
+       x
+      |
+      |
   |===|
   |=
   |
@@ -585,6 +585,13 @@ Beam::set_stem_directions (Grob *me, Direction d)
   anything else is possible here, since we don't know funky-beaming
   settings, or X-distances (slopes!)  People that want sloped
   knee-beams, should set the directions manually.
+
+
+  TODO:
+
+  this routine should take into account the stemlength scoring
+  of a possible knee/nonknee beam.
+  
 */
 void
 Beam::consider_auto_knees (Grob *me)
@@ -603,36 +610,36 @@ Beam::consider_auto_knees (Grob *me)
   Grob *common = common_refpoint_of_array (stems, me, Y_AXIS);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
-  Array<Interval> head_positions_array;
+  Array<Interval> head_extents_array;
   for (int i = 0; i < stems.size (); i++)
     {
       Grob *stem = stems[i];
       if (Stem::is_invisible (stem))
 	continue;
 
-      Interval head_positions = Stem::head_positions (stem);
-      if (!head_positions.is_empty ())
+      Interval head_extents = Stem::head_positions (stem);
+      if (!head_extents.is_empty ())
 	{
-	  head_positions[LEFT] += -1;
-	  head_positions[RIGHT] += 1;
-	  head_positions *= staff_space * 0.5;
+	  head_extents[LEFT] += -1;
+	  head_extents[RIGHT] += 1;
+	  head_extents *= staff_space * 0.5;
 
 	  /*
 	    We could subtract beam Y position, but this routine only
 	    sets stem directions, a constant shift does not have an
 	    influence.
 	  */
-	  head_positions += stem->relative_coordinate (common, Y_AXIS);
+	  head_extents += stem->relative_coordinate (common, Y_AXIS);
 
 	  if (to_dir (stem->get_property ("direction")))
 	    {
 	      Direction stemdir = to_dir (stem->get_property ("direction"));
-	      head_positions[-stemdir] = -stemdir * infinity_f;
+	      head_extents[-stemdir] = -stemdir * infinity_f;
 	    }
 	}
-      head_positions_array.push (head_positions);
+      head_extents_array.push (head_extents);
 
-      gaps.remove_interval (head_positions);
+      gaps.remove_interval (head_extents);
     }
 
   Interval max_gap;
@@ -671,15 +678,15 @@ Beam::consider_auto_knees (Grob *me)
 	  if (Stem::is_invisible (stem))
 	    continue;
 
-	  Interval head_positions = head_positions_array[j++];
+	  Interval head_extents = head_extents_array[j++];
 
-	  Direction d = (head_positions.center () < max_gap.center ()) ?
+	  Direction d = (head_extents.center () < max_gap.center ()) ?
 	    UP : DOWN;
 
 	  stem->set_property ("direction", scm_int2num (d));
 
-	  head_positions.intersect (max_gap);
-	  assert (head_positions.is_empty () || head_positions.length () < 1e-6);
+	  head_extents.intersect (max_gap);
+	  assert (head_extents.is_empty () || head_extents.length () < 1e-6);
 	}
     }
 }
