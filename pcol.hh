@@ -3,7 +3,7 @@
 
 #include "glob.hh"
 #include "boxes.hh"
-#include "list.hh"
+#include "plist.hh"
 #include "item.hh"
 
 /// stuff grouped vertically.

@@ -2,7 +2,7 @@
 #define PROBLEM_HH
 
 #include "glob.hh"
-#include "list.hh"
+#include "plist.hh"
 #include "vray.hh"
 #include "pcol.hh"
 #include "matrix.hh"
