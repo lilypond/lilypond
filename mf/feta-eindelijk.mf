@@ -3,37 +3,38 @@
 % part of LilyPond's pretty-but-neat music font
 %
 % source file of the Feta (not the Font-En-Tja) music font
-% 
+%
 % (c) 1997--2004 Jan Nieuwenhuizen <janneke@gnu.org>
 
-fet_begingroup("rests");
+fet_begingroup ("rests");
 
 begingroup
-
 
 save block_rest_y, block_rest_x;
 save breve_rest_y, breve_rest_x;
 
-breve_rest_y# =  staff_space#;
+breve_rest_y# = staff_space#;
 breve_rest_x# = 3/5 staff_space#;
 block_rest_y# = 5/8 staff_space#;
 block_rest_x# = 3/2 staff_space#;
 
-define_pixels(block_rest_y, block_rest_x);
+define_pixels (block_rest_y, block_rest_x);
 
 def block_rest =
-	draw_block ((0,0), (block_rest_x, block_rest_y));
-	enddef;
+	draw_block ((0, 0), (block_rest_x, block_rest_y));
+enddef;
 
-fet_beginchar("whole rest", "0");
-	set_char_box(0, block_rest_x#,
-		block_rest_y#,  0);
+
+fet_beginchar ("whole rest", "0");
+	set_char_box (0, block_rest_x#,
+		      block_rest_y#, 0);
 	block_rest;
-	currentpicture := currentpicture shifted (0,- block_rest_y);
+	currentpicture := currentpicture shifted (0, -block_rest_y);
 fet_endchar;
 
-fet_beginchar("half rest", "1");
-	set_char_box(0, block_rest_x#, 0, block_rest_y#);
+
+fet_beginchar ("half rest", "1");
+	set_char_box (0, block_rest_x#, 0, block_rest_y#);
 	block_rest;
 fet_endchar;
 
@@ -41,66 +42,68 @@ fet_endchar;
 %
 % should use ledgerline thickness?
 %
-fet_beginchar("whole rest (outside staff)", "0o")
-	set_char_box(0, block_rest_x#,
-		block_rest_y#, ledgerlinethickness#/2);
+fet_beginchar ("whole rest (outside staff)", "0o")
+	set_char_box (0, block_rest_x#,
+		      block_rest_y#, ledgerlinethickness# / 2);
 	block_rest;
-	currentpicture := currentpicture shifted (0, - block_rest_y);
+	currentpicture := currentpicture shifted (0, -block_rest_y);
 	pickup pencircle scaled ledgerlinethickness;
 
 	y5 = y6 = 0;
-	lft x5 = - b - block_rest_y;
+	lft x5 = -b - block_rest_y;
 	rt x6 = w + block_rest_y;
-	draw_gridline(z5,z6,ledgerlinethickness);
+	draw_gridline (z5, z6, ledgerlinethickness);
 fet_endchar;
 
-fet_beginchar("half rest (outside staff)", "1o");
-	set_char_box(0, block_rest_x#,
-		ledgerlinethickness#/2, block_rest_y#);
+
+fet_beginchar ("half rest (outside staff)", "1o");
+	set_char_box (0, block_rest_x#,
+		      ledgerlinethickness# / 2, block_rest_y#);
 	block_rest;
 	pickup pencircle scaled ledgerlinethickness;
+
 	y5 = y6 = 0;
-	lft x5 = - b - block_rest_y ;  
+	lft x5 = -b - block_rest_y;
 	rt x6 = w + block_rest_y;
-	draw_gridline (z5,z6,ledgerlinethickness);
+	draw_gridline (z5, z6, ledgerlinethickness);
 fet_endchar;
 
 
+define_pixels (breve_rest_y, breve_rest_x);
 
-define_pixels(breve_rest_y, breve_rest_x, multi_rest_x, multi_beam_height);
-
-fet_beginchar("maxima rest", "-3");
-	set_char_box(0, 3 breve_rest_x#, breve_rest_y#, breve_rest_y#);
-	draw_block ((0,-floor (breve_rest_y)), (breve_rest_x, floor (breve_rest_y)));
+fet_beginchar ("maxima rest", "-3");
+	set_char_box (0, 3 breve_rest_x#, breve_rest_y#, breve_rest_y#);
+	draw_block ((0, -floor (breve_rest_y)),
+		    (breve_rest_x, floor (breve_rest_y)));
 	addto currentpicture also currentpicture shifted (2 breve_rest_x, 0);
 fet_endchar;
 
-fet_beginchar("longa rest", "-2");
-	set_char_box(0, breve_rest_x#, breve_rest_y#, breve_rest_y#);
-	draw_block ((0,-floor (breve_rest_y)), (breve_rest_x, floor (breve_rest_y)));
+
+fet_beginchar ("longa rest", "-2");
+	set_char_box (0, breve_rest_x#, breve_rest_y#, breve_rest_y#);
+	draw_block ((0, -floor (breve_rest_y)),
+		    (breve_rest_x, floor (breve_rest_y)));
 fet_endchar;
 
-fet_beginchar("breve rest", "-1");
+
+fet_beginchar ("breve rest", "-1");
 	set_char_box(0, breve_rest_x#, 0, breve_rest_y#);
-	draw_block ((0,0), (breve_rest_x, floor (breve_rest_y)));
+	draw_block ((0, 0), (breve_rest_x, floor (breve_rest_y)));
 fet_endchar;
 
 
 tracingvariables := 1;
 
-fet_beginchar("Quarter rest","2");
-%	draw_staff (-2, 2, 0.0);	
+fet_beginchar ("Quarter rest", "2");
+%	draw_staff (-2, 2, 0.0);
 	save alpha, yshift, height;
 	alpha:=-50;
-
 
 	thick# := 1/4 staff_space#;
 	define_blacker_pixels(thick);
 
 	rthin := 1.25 linethickness;
-	rthick := 2 thick+rthin;
-
-
+	rthick := 2 thick + rthin;
 
 	yshift# = -1.25 staff_space#;
 	height# = 2.8125 staff_space#;
@@ -108,63 +111,82 @@ fet_beginchar("Quarter rest","2");
 	define_pixels (yshift, height);
 	save xcenter;
 	xcenter = -0.1 staff_space;
-	
-	set_char_box(0, 0.95 staff_space#,
-	  -yshift#,
-	  yshift# + height#);
-	
-	save ne,nw, se, sw; pair ne, nw, se, sw;
-	
-	se=dir alpha; nw=dir (alpha+180);
-	ne=dir (alpha+90); sw=dir (alpha-90);
-	penpos1(rthin, alpha+90);
-	penpos2(5/4rthick, alpha);
-	penpos4(5/4rthick, alpha);
-	penpos5(rthin, alpha+90);
-	penpos3(3/4rthick, alpha);
-%	penpos6(5/8rthick, alpha);
-	penpos6(2/3rthick,  alpha);
-	penpos7(1/2rthin,  alpha+90);
 
-	z10=z2l+1/2rthin*sw;
-%	z11=z4l+1/2rthin*sw;
-	z11=z4l+1/2rthin*sw+1/2rthin*se;
-	z12=z4r+1/2rthin*ne;
-%	z13=z2r+1/2rthin*ne;
-	z13=z2r+1/2rthin*ne+1/2rthin*nw;
+	set_char_box(0, 0.95 staff_space#,
+		     -yshift#,
+		     yshift# + height#);
+
+	save ne, nw, se, sw;
+	pair ne, nw, se, sw;
+
+	se = dir alpha;
+	ne = dir (alpha + 90);
+	nw = dir (alpha + 180);
+	sw = dir (alpha + 270);
+
+	penpos1 (rthin, alpha + 90);
+	penpos2 (5/4 rthick, alpha);
+	penpos4 (5/4 rthick, alpha);
+	penpos5 (rthin, alpha + 90);
+	penpos3 (3/4 rthick, alpha);
+%	penpos6 (5/8 rthick, alpha);
+	penpos6 (2/3 rthick, alpha);
+	penpos7 (1/2 rthin, alpha + 90);
+
+	z10 = z2l + 1/2 rthin * sw;
+%	z11 = z4l + 1/2 rthin * sw;
+	z11 = z4l + 1/2 rthin * sw + 1/2 rthin * se;
+	z12 = z4r + 1/2 rthin * ne;
+%	z13 = z2r + 1/2 rthin * ne;
+	z13 = z2r + 1/2 rthin * ne + 1/2 rthin * nw;
 
 	y1r = h;
-	x1l=xcenter +  1/3staff_space;
-	z2r=z1+staff_space*se;
-	z3=1/2[z2, z4];
-	x4= xcenter + 3/8staff_space;
-	y4= 0;
-	z5=z4l+1.3staff_space*se;
-	x6l=x4l;
-	y6l=y4r;
-	x7= xcenter + 2/5staff_space;
-	y7= -d;
-	
-	fill z1l{se}..{se}z10..z3l..z11{se}..{se}z5l..z5r{nw}..{nw}z12..z3r..z13{nw}..{nw}z1r.. cycle;
-	fill z5r{nw}..tension1.4..z6l..tension1.4..{se}z7l..z7r{nw}..tension1.4..z6r..tension1.4..{se}z5l..cycle;
-	penlabels(1, 2, 3, 4, 5, 6, 7);
-	penlabels(10, 11, 12, 13);
-	
+	x1l = xcenter + 1/3 staff_space;
+	z2r = z1 + staff_space * se;
+	z3 = 1/2 [z2, z4];
+	x4 = xcenter + 3/8 staff_space;
+	y4 = 0;
+	z5 = z4l + 1.3 staff_space * se;
+	x6l = x4l;
+	y6l = y4r;
+	x7 = xcenter + 2/5 staff_space;
+	y7 = -d;
+
+	save before, after;
+	path before, after;
+	before = z11{se} .. {se}z5l;
+	after = z5r{nw} ..tension1.4.. z6l;
+	(u, v) = before intersectiontimes after;
+
+	fill z1l{se} ..
+	     {se}z10 ..
+	     z3l ..
+	     subpath(0, u) of before ..
+	     subpath(v, infinity) of after ..tension1.4..
+	     {se}z7l ..
+	     z7r{nw} ..tension1.4..
+	     z6r ..tension1.4..
+	     {se}z5l ..
+	     z5r{nw} ..
+	     {nw}z12 ..
+	     z3r ..
+	     z13{nw} ..
+	     {nw}z1r .. cycle;
+
+	penlabels (1, 2, 3, 4, 5, 6, 7);
+	penlabels (10, 11, 12, 13);
 fet_endchar;
 
-def rest_crook(expr a, w) =
-	balled_crook(a, w, ball_crook_balldiam, ball_crook_stem)
-enddef;
 
 %
-% Notes about 8th rest:  
-% 
+% Notes about 8th rest:
+%
 % * 8th rest should be no wider than the black note head
 %
 % * The inside corner of the horizontal portion is usually a little blotted.
 %
 % * The top of the crook chops off the vertical brush
-% 
+%
 % * The crook widens a little
 %
 % * The bottom of the brush is slightly flat, as it has to align with
@@ -172,13 +194,13 @@ enddef;
 %
 % * The top of the brush usually is a little lower than the top of bulb.
 %
-% * The bulb can vary. Sometimes it is open (like in the clefs). Sometimes 
+% * The bulb can vary. Sometimes it is open (like in the clefs). Sometimes
 % it is closed, or even a flare.
-% 
+%
 
 % from an email to Rune Zedeler:
 %
-% 
+%
 % For example, the 8th rest was vaguely based on a book with trumpet
 % studies by Duhem, and by Baerenreiters cello suites. I included my
 % findings in a comment in the mf file.  One of the things that I tried
@@ -186,123 +208,137 @@ enddef;
 % note head. I think this looks better in polyphonic music, when the
 % rest is below a head from a different voice.
 %
-%
 
 save bulb_diam, thin, thick;
 
 bulb_diam# := 0.64 staff_space#;
 thin# := 1.4 linethickness# - 0.02 staff_space#;
 thick# :=  2.2 linethickness#;
-crook_thin := 0.5 linethickness  + 0.08 staff_space;
+crook_thin := 0.5 linethickness + 0.08 staff_space;
 
 lower_brush := 1.5 linethickness;
 
-define_pixels ( bulb_diam, thin, thick);
+define_pixels (bulb_diam, thin, thick);
+
 
 %
 % PAT is a compact way to pass the brush shape to the routine.
 %
 
-def draw_rest_bulb(expr ycenter, ycut, pat, stretch) =
+def draw_rest_bulb (expr ycenter, ycut, pat, stretch) =
 begingroup;
-	save x,y,pt;
+	save x, y, pt, res;
 	z1l = point 0 of pat;
 	z2l = point 1 of pat;
 	z2r = point 3 of pat;
 	z1r = point 4 of pat;
-	z1 = 0.5[z1l,z1r];
-	z2 = 0.5[z2l,z2r];
+	z1 = 0.5 [z1l, z1r];
+	z2 = 0.5 [z2l, z2r];
 	y10 = ycenter;
-	z10 = whatever[z2, z1] + left*bulb_diam*stretch;
+	z10 = whatever [z2, z1] + left * bulb_diam * stretch;
 
+	z3 = z10 + bulb_diam / 2.15 * dir (-72);
+	z5 = z10 + up * bulb_diam / 2 + right * linethickness / 3;
 
-	z3 = z10+bulb_diam/2.15*dir(-72) ;
-	z5 = z10 + up*bulb_diam/2 + right*linethickness/3;
-	
-	z7 = 0.5 [z4, z5] +  crook_thin * (0.45 ,0.4 ) / 1.3;
-	x8 = x10-0.4bulb_diam;
+	z7 = 0.5 [z4, z5] + crook_thin * (0.45, 0.4) / 1.3;
+	x8 = x10 - 0.4 bulb_diam;
 	y8 = y10 + 0.25 linethickness;
 
 	z6 = whatever [z1l, z2l];
-	z6 = z3 + whatever * dir(12);
+	z6 = z3 + whatever * dir (12);
 
-	z4 = z3 + whatever * (z6-z3)
-		+ 1.1 crook_thin *(unitvector (z6 -z3) rotated 90);
-	x4 = x10+bulb_diam*.62 ;
+	z4 = z3 + whatever * (z6 - z3)
+	     + 1.1 crook_thin * (unitvector (z6 - z3) rotated 90);
+	x4 = x10 + bulb_diam * .62;
 	y4 := ceiling (y4);
 
-	(pt,whatever) = pat intersectiontimes ((0,ycut)--(w,ycut));
+	(pt, whatever) = pat intersectiontimes ((0, ycut) -- (w, ycut));
 
-	fill point pt of pat {-direction pt of pat} .. tension 2
-		.. z4{left} .. tension 0.9 .. z7
-		.. z5{left} .. z8 .. z3{right}
-		.. {curl 0.2} z6 {right} .. tension 10 .. {left} point pt of pat -- cycle;
+	path res;
+	res = point pt of pat {-direction pt of pat} ..tension 2..
+	      z4{left} ..tension 0.9..
+	      z7 ..
+	      z5{left} ..
+	      z8 ..
+	      z3{right} ..
+	      {curl 0.2}z6;
 
-	labels(3, 4, 5, 6, 7, 8, 9, 10, 11);
-
+	labels (3, 4, 5, 6, 7, 8, 10);
+res
 endgroup;
 enddef;
+
 
 def draw_eighth_rest =
 	save width;
 	save ycenter;
-	save crook_dir, pat;
-	pair crook_dir;
-	path pat;
+	save pat, bulb;
+	path pat, bulb;
 
 	width# := 1.0 staff_space#;
 
 	define_pixels (width);
 	set_char_box (0, width#,
-		1.0 staff_space# + 0.5 linethickness#, 0.5 staff_space# + bulb_diam#/2);
+		      1.0 staff_space# + 0.5 linethickness#,
+		      0.5 staff_space# + bulb_diam# / 2);
 
 	penpos1 (thick, 0);
 	penpos2 (thin, 10);
 
-	y1 = - staff_space ;
+	y1 = - staff_space;
 	y2 = h -  lower_brush;
 	x2r = width;
-	z2 = z1 + whatever*dir(72);
-       	z9 = z2 + 0.5 linethickness * dir (angle(z2 - z1)- 10);
-	pat = z1l --- z2l .. z9 .. z2r --- simple_serif (z1r, z1l, -40) .. cycle;
-	fill pat;
-	
+	z2 = z1 + whatever * dir (72);
+	z9 = z2 + 0.5 linethickness * dir (angle (z2 - z1) - 10);
 
-	draw_rest_bulb (0.5 staff_space , y2r , pat , 1.0);
+	pat = z1l ---
+	      z2l ..
+	      z9 ..
+	      z2r ---
+	      z1r .. cycle;
+	bulb = draw_rest_bulb (0.5 staff_space, y2r, pat, 1.0);
+
+	fill simple_serif (z1l, z1r, 40) ---
+	     z2r ..
+	     z9 ..
+	     bulb ---
+	     z1l .. cycle;
+
 	penlabels (1, 2);
-	labels(9);
+	labels (9);
 
-	% draw_staff (-2,2,0.0);
+	% draw_staff (-2, 2, 0.0);
+enddef;
 
-	enddef;
 
-fet_beginchar("Classical quarter rest","2classical");
+fet_beginchar ("Classical quarter rest", "2classical");
 	draw_eighth_rest;
-	currentpicture := currentpicture xscaled -1 shifted (w,0);
-	fet_endchar;
+	currentpicture := currentpicture xscaled -1 shifted (w, 0);
+fet_endchar;
 
-fet_beginchar("8th rest","3");
+
+fet_beginchar ("8th rest", "3");
 	draw_eighth_rest;
-	fet_endchar;
+fet_endchar;
 
 
 %
 % TODO: the X dimensions of the rests are fucked up:
-% they can collide with augmentation dots. 
+% they can collide with augmentation dots.
 %
 
-fet_beginchar("16th rest","4");
+fet_beginchar ("16th rest", "4");
 	save width;
 	save ycenter;
-	save crook_dir, pat;
-	pair crook_dir;
-	path pat;
+	save pat, bulb_a, bulb_b;
+	path pat, bulb_a, bulb_b;
 
 	width# := 1.2 staff_space#;
 
 	define_pixels (width);
 	set_char_box (0, width#,
-		2.0 staff_space# + 0.5 linethickness#, 0.5 staff_space# + bulb_diam#/2);
+		      2.0 staff_space# + 0.5 linethickness#,
+		      0.5 staff_space# + bulb_diam# / 2);
 
 	penpos1 (thick, 0);
 	penpos2 (thin, 10);
@@ -312,122 +348,178 @@ fet_beginchar("16th rest","4");
 	x2r = width;
 	z2 = z1 + whatever*dir(74);
        	z9 = z2 + 0.5 linethickness * dir (angle(z2 - z1)- 10);
-	pat = z1l --- z2l .. z9 .. z2r --- simple_serif (z1r, z1l, -40) .. cycle;
-	fill pat;
-	
+	pat = z1l ---
+	      z2l ..
+	      z9 ..
+	      z2r ---
+	      z1r .. cycle;
+	bulb_a = draw_rest_bulb (0.5 staff_space, y2r, pat, 0.98);
+	bulb_b = draw_rest_bulb (-0.5 staff_space,
+				(-0.5 + 0.2) * staff_space, pat, 1.02);
 
-	draw_rest_bulb(0.5 staff_space , y2r , pat , 0.98);
-	draw_rest_bulb(-0.5 staff_space , (-0.5+0.2)*staff_space , pat , 1.02);
+	fill simple_serif (z1l, z1r, 40) ---
+	     z2r ..
+	     z9 ..
+	     bulb_a ---
+	     bulb_b ---
+	     z1l .. cycle;
+
 	penlabels (1, 2);
-	labels(9);
+	labels (9);
 
-	% draw_staff (-2,2,0.0);
-	fet_endchar;
+	% draw_staff (-2, 2, 0.0);
+fet_endchar;
 
-fet_beginchar("32th rest","5");
+
+fet_beginchar ("32th rest", "5");
 	save width;
 	save ycenter;
-	save crook_dir, pat;
-	pair crook_dir;
-	path pat;
+	save pat, bulb_a, bulb_b, bulb_c;
+	path pat, bulb_a, bulb_b, bulb_c;
 
 	width# := 1.3 staff_space#;
 
 	define_pixels (width);
 	set_char_box (0, width#,
-		2.0 staff_space# + 0.5 linethickness#, 1.5 staff_space# + bulb_diam#/2);
+		      2.0 staff_space# + 0.5 linethickness#,
+		      1.5 staff_space# + bulb_diam# / 2);
 
 	penpos1 (thick, 0);
 	penpos2 (thin, 10);
 
 	y1 = -2 staff_space ;
-	y2 = h -  lower_brush;
+	y2 = h - lower_brush;
 	x2r = width;
-	z2 = z1 + whatever*dir(76);
-       	z9 = z2 + 0.5 linethickness * dir (angle(z2 - z1)- 10);
-	pat = z1l --- z2l .. z9 .. z2r --- simple_serif (z1r, z1l, -40) .. cycle;
-	fill pat;
-	
+	z2 = z1 + whatever * dir (76);
+       	z9 = z2 + 0.5 linethickness * dir (angle (z2 - z1) - 10);
+	pat = z1l ---
+	      z2l ..
+	      z9 ..
+	      z2r ---
+	      z1r .. cycle;
+	bulb_a = draw_rest_bulb( 1.5 staff_space, y2r, pat, 0.96);
+	bulb_b = draw_rest_bulb( 0.5 staff_space,
+				 (0.5 + 0.2) * staff_space, pat, 1.00);
+	bulb_c = draw_rest_bulb( -0.5 staff_space,
+				 (-0.5 + 0.21) * staff_space, pat, 1.04);
 
-	draw_rest_bulb(1.5 staff_space , y2r , pat , 0.96);
-	draw_rest_bulb(0.5 staff_space , (0.5+0.2)*staff_space , pat , 1.00);
-	draw_rest_bulb(-0.5 staff_space , (-0.5+0.21)*staff_space , pat , 1.04);
+	fill simple_serif (z1l, z1r, 40) ---
+	     z2r ..
+	     z9 ..
+	     bulb_a ---
+	     bulb_b ---
+	     bulb_c ---
+	     z1l .. cycle;
+
 	penlabels (1, 2);
-	labels(9);
+	labels (9);
 
-	% draw_staff (-2,2,0.0);
-	fet_endchar;
+	% draw_staff (-2, 2, 0.0);
+fet_endchar;
 
-fet_beginchar("64th rest","6");
+
+fet_beginchar ("64th rest", "6");
 	save width;
 	save ycenter;
-	save crook_dir, pat;
-	pair crook_dir;
-	path pat;
+	save pat, bulb_a, bulb_b, bulb_c, bulb_d;
+	path pat, bulb_a, bulb_b, bulb_c, bulb_d;
 
 	width# := 1.4 staff_space#;
 
 	define_pixels (width);
 	set_char_box (0, width#,
-		3.0 staff_space# + 0.5 linethickness#, 1.5 staff_space# + bulb_diam#/2);
+		      3.0 staff_space# + 0.5 linethickness#,
+		      1.5 staff_space# + bulb_diam# / 2);
 
 	penpos1 (thick, 0);
 	penpos2 (thin, 10);
 
-	y1 = -3 staff_space ;
-	y2 = h -  lower_brush;
+	y1 = -3 staff_space;
+	y2 = h - lower_brush;
 	x2r = width;
-	z2 = z1 + whatever*dir(78);
-       	z9 = z2 + 0.5 linethickness * dir (angle(z2 - z1)- 10);
-	pat = z1l --- z2l .. z9 .. z2r --- simple_serif (z1r, z1l, -40) .. cycle;
-	fill pat;
-	
+	z2 = z1 + whatever * dir (78);
+       	z9 = z2 + 0.5 linethickness * dir (angle (z2 - z1) - 10);
+	pat = z1l ---
+	      z2l ..
+	      z9 ..
+	      z2r ---
+	      z1r .. cycle;
+	bulb_a = draw_rest_bulb (1.5 staff_space, y2r, pat, 0.94);
+	bulb_b = draw_rest_bulb (0.5 staff_space,
+				 (0.5 + 0.20) * staff_space, pat, 0.98);
+	bulb_c = draw_rest_bulb (-0.5 staff_space,
+				 (-0.5 + 0.21) * staff_space, pat, 1.02);
+	bulb_d = draw_rest_bulb (-1.5 staff_space,
+				 (-1.5 + 0.22) * staff_space, pat, 1.06);
 
-	draw_rest_bulb(1.5 staff_space , y2r , pat , 0.94);
-	draw_rest_bulb(0.5 staff_space , (0.5+0.20)*staff_space , pat , 0.98);
-	draw_rest_bulb(-0.5 staff_space , (-0.5+0.21)*staff_space , pat , 1.02);
-	draw_rest_bulb(-1.5 staff_space , (-1.5+0.22)*staff_space , pat , 1.06);
+	fill simple_serif (z1l, z1r, 40) ---
+	     z2r ..
+	     z9 ..
+	     bulb_a ---
+	     bulb_b ---
+	     bulb_c ---
+	     bulb_d ---
+	     z1l .. cycle;
+
+
 	penlabels (1, 2);
-	labels(9);
+	labels (9);
 
-	% draw_staff (-2,2,0.0);
-	fet_endchar;
+	% draw_staff (-2, 2, 0.0);
+fet_endchar;
 
-fet_beginchar("128th rest","7");
+
+fet_beginchar ("128th rest", "7");
 	save width;
 	save ycenter;
-	save crook_dir, pat;
-	pair crook_dir;
-	path pat;
+	save pat, bulb_a, bulb_b, bulb_c, bulb_d, bulb_e;
+	path pat, bulb_a, bulb_b, bulb_c, bulb_d, bulb_e;
 
 	width# = 1.5 staff_space#;
 
 	define_pixels (width);
 	set_char_box (0, width#,
-		3.0 staff_space# + 0.5 linethickness#, 2.5 staff_space# + bulb_diam#/2);
+		      3.0 staff_space# + 0.5 linethickness#,
+		      2.5 staff_space# + bulb_diam# / 2);
 
 	penpos1 (thick, 0);
 	penpos2 (thin, 10);
 
-	y1 = -3 staff_space ;
-	y2 = h -  lower_brush;
+	y1 = -3 staff_space;
+	y2 = h - lower_brush;
 	x2r = width;
-	z2 = z1 + whatever*dir(80);
-       	z9 = z2 + 0.5 linethickness * dir (angle(z2 - z1)- 10);
-	pat = z1l --- z2l .. z9 .. z2r --- simple_serif (z1r, z1l, -40) .. cycle;
-	fill pat;
-	
+	z2 = z1 + whatever * dir (80);
+       	z9 = z2 + 0.5 linethickness * dir (angle (z2 - z1)- 10);
+	pat = z1l ---
+	      z2l ..
+	      z9 ..
+	      z2r ---
+	      z1r .. cycle;
+	bulb_a = draw_rest_bulb (2.5 staff_space, y2r, pat, 0.92);
+	bulb_b = draw_rest_bulb (1.5 staff_space,
+				 (1.5 + 0.20) * staff_space, pat, 0.96);
+	bulb_c = draw_rest_bulb (0.5 staff_space,
+				 (0.5 + 0.21) * staff_space, pat, 1.0);
+	bulb_d = draw_rest_bulb (-0.5 staff_space,
+				 (-0.5 + 0.22) * staff_space, pat, 1.04);
+	bulb_e = draw_rest_bulb (-1.5 staff_space,
+				 (-1.5 + 0.23) * staff_space, pat, 1.08);
 
-	draw_rest_bulb(2.5 staff_space , y2r , pat , 0.92);
-	draw_rest_bulb(1.5 staff_space , (1.5+0.20)*staff_space , pat , 0.96);
-	draw_rest_bulb(0.5 staff_space , (0.5+0.21)*staff_space , pat , 1.0);
-	draw_rest_bulb(-0.5 staff_space , (-0.5+0.22)*staff_space , pat , 1.04);
-	draw_rest_bulb(-1.5 staff_space , (-1.5+0.23)*staff_space , pat , 1.08);
+	fill simple_serif (z1l, z1r, 40) ---
+	     z2r ..
+	     z9 ..
+	     bulb_a ---
+	     bulb_b ---
+	     bulb_c ---
+	     bulb_d ---
+	     bulb_e ---
+	     z1l .. cycle;
+
 	penlabels (1, 2);
-	labels(9);
+	labels (9);
 
-	% draw_staff (-2,2,0.0);
-	fet_endchar;
+	% draw_staff (-2, 2, 0.0);
+fet_endchar;
 
 
 endgroup;
