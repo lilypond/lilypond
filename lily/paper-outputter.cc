@@ -131,10 +131,8 @@ Paper_outputter::output_metadata (Paper_def *paper, SCM scopes)
 		 fields);
   output_scheme (scm_list_n (ly_symbol2scm ("output-scopes"),
 			     paper->self_scm (),
-			     scm_list_n (ly_symbol2scm ("quote"),
-					 scopes, SCM_UNDEFINED),
-			     scm_list_n (ly_symbol2scm ("quote"),
-					 fields, SCM_UNDEFINED),
+			     ly_quote_scm (scopes),
+			     ly_quote_scm (fields),
 			     scm_makfrom0str (basename_.to_str0 ()), 
 			     SCM_UNDEFINED));
 }

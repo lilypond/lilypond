@@ -36,6 +36,8 @@ public:
   virtual void finish ();
   virtual Music_output_def* get_output_def () const; 
   virtual Moment now_mom () const;
+  virtual Context *get_default_interpreter ();
+
 
   Moment previous_moment () const;
 protected:

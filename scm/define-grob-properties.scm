@@ -110,6 +110,21 @@ potential line breaks.")
      (bracket-thick ,number? "width of a system start bracket.")
      (break-align-symbol ,symbol? "This key is used for aligning and
 spacing breakable items.")
+     (break-align-orders ,vector? " Defines the order in which
+prefatory matter (clefs, key signatures) appears. The format is a
+vector of length 3. Each element is an order for (end-of-line, middle
+of line, and start-of-line). The order is a list of  symbols.
+Clefs are put after key signatures by setting 
+
+@example
+	\\property Score.breakAlignOrder = #(make-vector  3
+	  '(span-bar
+	  breathing-sign
+	  staff-bar
+	  key
+	  clef
+	  time-signature))
+@end example")
      (break-glyph-function ,procedure? "This function determines the
 appearance of a barline at the line break.  It takes a glyph and
 break-direction and returns the glyph at a line break.")

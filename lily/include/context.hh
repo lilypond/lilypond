@@ -60,7 +60,7 @@ public:
 					    String id, SCM ops);
   Link_array<Context> path_to_acceptable_context (SCM alias,
 						  Music_output_def*) const;
-  Context *get_default_interpreter ();
+  virtual Context *get_default_interpreter ();
   String id_string_;
 
   SCM implementation_;
