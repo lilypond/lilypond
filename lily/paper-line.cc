@@ -11,7 +11,15 @@
 #include "string.hh"
 #include "virtual-methods.hh"
 
+#include "ly-smobs.icc"
+
+IMPLEMENT_SMOBS (Paper_line);
+IMPLEMENT_TYPE_P (Paper_line, "ly:paper-line?");
+IMPLEMENT_DEFAULT_EQUAL_P (Paper_line);
+
+
 #define TITLE_PENALTY -1
+
 
 Paper_line::Paper_line (Offset o, SCM stencils, int penalty, bool is_title)
 {
@@ -39,11 +47,6 @@ Paper_line::Paper_line (Offset o, SCM stencils, int penalty, bool is_title)
 Paper_line::~Paper_line ()
 {
 }
-
-#include "ly-smobs.icc"
-IMPLEMENT_SMOBS (Paper_line);
-IMPLEMENT_TYPE_P (Paper_line, "ly:paper-line?");
-IMPLEMENT_DEFAULT_EQUAL_P (Paper_line);
 
 SCM
 Paper_line::mark_smob (SCM smob)

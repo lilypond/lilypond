@@ -3540,6 +3540,8 @@ linked. This can be achieved either by using @code{\lyricsto} or by
 setting corresponding names for both contexts. The latter is explained
 in @ref{More stanzas}.
 
+@c TODO: document \new Staff << Voice \lyricsto >> bug
+
 @node More stanzas
 @subsection More stanzas
 

@@ -73,6 +73,9 @@ TOPLEVEL_VERSION=$(TOPLEVEL_MAJOR_VERSION).$(TOPLEVEL_MINOR_VERSION).$(TOPLEVEL_
 endif
 
 
+# no local settings in the build process.
+LANG=
+export LANG
 
 # clean file lists:
 #
