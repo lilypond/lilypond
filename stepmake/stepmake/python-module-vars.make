@@ -1,0 +1,7 @@
+SHARED_LIB_SUFFIX = .so
+
+PYTHON_MODULE = $(outdir)/$(NAME)$(SHARED_LIB_SUFFIX)
+INSTALL_SHARED_LIBRARY = $(SHARED_LIB_PREFIX)$(NAME)$(SHARED_LIB_SUFFIX)
+
+LO_FILES += $(addprefix $(outdir)/, $(Y_FILES:.y=.lo) $(C_FILES:.c=.lo) $(L_FILES:.l=.lo))
+

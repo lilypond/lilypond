@@ -10,7 +10,7 @@ depth = .
 # 
 SUBDIRS = buildscripts scripts flower lily \
 	mf ly tex ps scm \
-	midi2ly po make intl \
+	modules midi2ly po make intl \
 	debian $(builddir)/stepmake \
 	Documentation input \
 	mutopia ports

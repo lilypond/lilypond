@@ -1,4 +1,6 @@
 
+include $(stepdir)/compile-vars.make
+
 # added two warnings that are treated by cygwin32's gcc 2.7.2 as errors.
 # huh, but still, no warnings even provoced with linux's gcc 2.7.2.1?
 
@@ -7,8 +9,6 @@
 EXTRA_CXXFLAGS= -Wall  -W -Wmissing-prototypes -Wconversion
 
 CXXFLAGS = $(ICFLAGS) $(DEFINES) $(addprefix -I,$(INCLUDES)) $(USER_CFLAGS) $(EXTRA_CFLAGS) $(MODULE_CFLAGS) $($(PACKAGE)_CFLAGS) $($(PACKAGE)_CXXFLAGS) $(USER_CXXFLAGS) $(EXTRA_CXXFLAGS) $(MODULE_CXXFLAGS)
-CXX_OUTPUT_OPTION = $< -o $@
-DO_CXX_COMPILE=$(DODEP) $(CXX) -c $(CXXFLAGS) $(CXX_OUTPUT_OPTION)
 
 # template files:
 TCC_FILES := $(wildcard *.tcc)

@@ -1,0 +1,1 @@
+default: $(PYTHON_MODULE)
