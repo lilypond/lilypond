@@ -1,5 +1,9 @@
 2003-09-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION: release 2.0.0
+
+	* GNUmakefile.in (rsync-web): version independent rsync target.
+
 	* input/test/+.ly (texidoc): idem.
 
 	* input/regression/+.ly: print version number.

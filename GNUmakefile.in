@@ -151,5 +151,5 @@ rsync-web:
 	chgrp -R lilypond . && \
 	chmod -R g+w .  && \
 	chmod 2775 `find -type d` . && \
-	rsync --delete --stats --progress -gorltvu -e ssh . x:/var/www/lilypond/doc/v1.9/
+	rsync --delete --stats --progress -gorltvu -e ssh . x:/var/www/lilypond/doc/v$(MAJOR_VERSION).$(MINOR_VERSION)/
 	cd out-www && rm -rf web/
