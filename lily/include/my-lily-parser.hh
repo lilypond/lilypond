@@ -80,5 +80,6 @@ SCM ly_parser_bookify (SCM, SCM);
 SCM ly_parser_scorify (SCM, SCM);
 
 Music_output_def *get_paper (My_lily_parser *parser);
+Book_paper_def *get_bookpaper (My_lily_parser *parser);
 
 #endif /* MY_LILY_PARSER_HH */

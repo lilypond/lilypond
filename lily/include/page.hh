@@ -18,9 +18,10 @@ class Page
   DECLARE_SMOBS (Page, );
 
 public:
+  Paper_def *paper_;		// todo: make private? 
+  Book_paper_def * bookpaper () const;
   static int page_count_;
   static Real MIN_COVERAGE_;
-  Paper_def *paper_;
   int number_;
   int line_count_;
   SCM lines_;

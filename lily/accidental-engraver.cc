@@ -169,20 +169,27 @@ number_accidentals_from_sig (bool *different,
     }
   
 
-  int p = 0; 
+  SCM prev_acc = scm_int2num (0);
   for (int i= 0; i < prev_idx; i++)
     {
       if (accbarnum < 0
 	  || (ly_c_number_p (lazyness)
 	      && curbarnum > accbarnum + ly_scm2int (lazyness)))
 	{
-	  p = ly_scm2int (ly_cdr (prevs[i]));
+	  prev_acc = ly_cdr (prevs[i]);
 	  break;
 	}
     }
 
+  /*
+    UGH. prev_acc can be #t in case of ties. What is this for?
+    
+   */
+  int p = ly_c_number_p (prev_acc) ? ly_scm2int (prev_acc) : 0;
+
+
   int num;
-  if (a == p)
+  if (a == p && ly_c_number_p (prev_acc))
     num = 0;
   else if ( (abs (a)<abs (p) || p*a<0) && a != 0 )
     num = 2;
@@ -416,7 +423,7 @@ Accidental_engraver::stop_translation_timestep ()
       int n = pitch->get_notename ();
       int o = pitch->get_octave ();
       int a = pitch->get_alteration ();
-      SCM on_s = scm_cons (scm_int2num (o), scm_int2num (n));
+      SCM key = scm_cons (scm_int2num (o), scm_int2num (n));
 
       while (origin && origin->where_defined (ly_symbol2scm ("localKeySignature")))
 	{
@@ -432,7 +439,7 @@ Accidental_engraver::stop_translation_timestep ()
 		that of the tied note and of the key signature.
 	      */
 	      localsig = ly_assoc_front_x
-		(localsig, on_s, scm_cons (SCM_BOOL_T, scm_int2num (barnum)));
+		(localsig, key, scm_cons (SCM_BOOL_T, scm_int2num (barnum)));
 
 	      change = true;
 	    }
@@ -443,7 +450,7 @@ Accidental_engraver::stop_translation_timestep ()
 		noteheads with the same notename.
 	      */
 	      localsig = ly_assoc_front_x
-		(localsig, on_s, scm_cons (scm_int2num (a), scm_int2num (barnum)));
+		(localsig, key, scm_cons (scm_int2num (a), scm_int2num (barnum)));
 
 	      change = true;
 	    }
