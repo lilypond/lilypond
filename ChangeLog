@@ -1,3 +1,15 @@
+2004-04-06  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/text-item.cc (interpret_markup): whoops, variable
+	shadowing fixed.
+
+2004-04-06  Michael Welsh Duggan  <mwd@sei.cmu.edu>
+
+	* lily/piano-pedal-performer.cc (try_music): Compare symbols to
+	symbols, not symbols to strings.
+	* lily/piano-pedal-engraver.cc (try_music): Compare symbols to
+	symbols, not symbols to strings.
+
 2004-04-06  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/kpath.cc (kpathsea_gulp_file_to_string): 
