@@ -222,6 +222,12 @@ Folded.  This doesn't make sense without alternatives, but it works.
 
 @mudelafile{repeat-fold.ly}
 
+Across linebreaks, first and second bracket should be equal
+
+@mudelafile{repeat-line-break.ly}
+
+
+
 @section Lyrics
 
 Lyrics can be set to a melody automatically.  Excess lyrics will be

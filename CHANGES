@@ -1,6 +1,37 @@
-* Bugfix in smob handling.  Delete the C-part of freed smobs. Be
-honest about amount of allocation and deletion, so GUILE doesn't
-overestimate the amount of memory.
+1.3.53
+======
+* Small cleanups in Molecule interface 
+
+* Spacing related elements perform suicide after calculating
+distances.  This saves a some memory, approximately 2 to 5 % ?
+
+* Small cleanups in line breaking: Paper_column stores springs and
+rods in only one place now.  All fields relating to energy have been
+removed
+
+* Don't generate all output Scheme in memory, but evaluate to output
+file immediately.  This will reduce memory usage a little.
+
+* Use STL's map  for Dictionary template
+
+* Substitute pointers on element properties of the root Line_of_score
+as well.
+
+* Added toplevel doc target, to support building doc with --srcdir
+
+* Removed cygwin build stuff; updated versions at:
+
+     http://appel.dyndns.org/lilypond/gnu-windows/cross
+
+* Fixed lily.scm to handle incipits (thanks, Mats)
+
+
+1.3.52
+======
+
+* Made bugfix in smob handling: delete the C-part of freed smobs and
+be honest about amount of allocation and deletion, so that GUILE
+doesn't overestimate the amount of memory available.
 
 * Faq update: nicer blank note paper, courtesy Mats Bengtsson.
 
