@@ -158,18 +158,24 @@ get_bar_command(String w)
 }
 
 Array<int>
-get_default_grouping(int count)
+get_default_grouping(int count, int one_beat_note)
 {
     Array<int> s;
     if (!(count % 3 )) {
-	for (int i=0; i < count/3; i++)
+	for (int i=0; i < count/3; i++) {
 	    s.push(3);
+	    s.push(one_beat_note);
+	}
     } else if (!(count %2)) {
-	for (int i=0; i < count/2; i++)
+	for (int i=0; i < count/2; i++) {
 	    s.push(2);
+	    s.push(one_beat_note);
+	}
+	    
     }else {
 	s.push(2);
-	s.concat(get_default_grouping(count-2));
+	s.push(one_beat_note);
+	s.concat(get_default_grouping(count-2, one_beat_note));
     }
     return s;
 }
