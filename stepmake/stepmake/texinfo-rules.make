@@ -7,7 +7,6 @@ $(outdir)/%.info: $(outdir)/%.texi
 
 $(outdir)/%.html:	$(outdir)/%.texi
 	-makeinfo --force --output=$@ --html --no-headers $< 
-	$(footify) $@
 
 $(outdir)/%.dvi:	$(outdir)/%.texi
 # --clean only in >= 3.12s
