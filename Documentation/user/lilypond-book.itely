@@ -161,7 +161,7 @@ sciences.  It is built on top of the @TeX{} typesetting engine, providing
 the best typography available anywhere.
  
 See @uref{http://@/www@/.ctan@/.org/@/tex@/-archive/@/info/@/lshort/@/english/,
-The not so Short Introduction to La@TeX{}} for an overview on how to use
+The Not So Short Introduction to La@TeX{}} for an overview on how to use
 La@TeX{}.
 
 Music is entered using
@@ -185,6 +185,7 @@ or
 @example
 \lilypond@{ YOUR LILYPOND CODE @}
 @end example
+
 
 Running @command{lilypond-book} yields a file that can be further processed
 with La@TeX{}.
@@ -214,6 +215,10 @@ The short version
 produces
 
 @lilypond[quote,fragment,staffsize=11]{<c' e' g'>}
+
+@noindent
+You cannot include @{ or @} in the short version of @code{\lilypond@{@}},
+so it is only useful with the @code{fragment} option.
 
 The default linewidth of the music will be adjusted by examining the
 commands in the document preamble, the part of the document before
