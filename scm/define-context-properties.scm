@@ -99,7 +99,9 @@ when finding a barcheck.")
 
      (barNumberVisibility ,procedure? "Procedure that takes an int and
 returns whether the corresponding bar number should be printed")
-     (bassFigureFormatFunction ,procedure? "Procedure that produces a markup text. It takes a list of @code{BassFigureEvent}s, and a context.")
+     (bassFigureFormatFunction ,procedure? "Procedure that is called
+to produce the formatting for a @code{BassFigure} grob. It takes a
+list of @code{BassFigureEvent}s, a context, and the grob to format.")
      (beatLength ,ly:moment? "The length of one beat in this time signature.")
      (beatGrouping ,list?
 		   "List of beatgroups. Eg. in 5/8 time @code{'(2 3)}.")

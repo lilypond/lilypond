@@ -576,3 +576,92 @@ FIXME: is this working?
  (skipping I), and continues with double letters."
  
    (Text_item::interpret_markup paper props (number->markletter-string num)))
+
+
+
+
+(def-markup-command (bracketed-y-column paper props indices args)
+  (list? markup-list?)
+  "Make a column of the markups in @var{args}, putting brackets around
+the elements marked in @var{indices}, which is a list of numbers."
+
+    (define (sublist l start stop)
+    (take (drop l start)  (- (1+ stop) start)) )
+
+  (define (stencil-list-extent ss axis)
+    (cons
+     (apply min (map (lambda (x) (car (ly:stencil-extent x axis))) ss))
+     (apply max (map (lambda (x) (cdr (ly:stencil-extent x axis))) ss))))
+	    
+  (define (stack-stencils stencils bskip last-stencil)
+    (cond
+     ((null? stencils) '())
+     ((not last-stencil)
+      (cons (car stencils)
+	    (stack-stencils (cdr stencils) bskip (car stencils))))
+     (else
+      (let*
+	  ((orig (car stencils))
+	   (handle  (chain-assoc 'direction  props))
+	   (dir (if (and (pair? handle) (ly:dir? (cdr handle)))
+		    (cdr handle)
+		    DOWN))
+	   (new (ly:stencil-moved-to-edge last-stencil Y dir
+					  orig
+					  0.1 bskip))
+	   )
+
+	(cons new (stack-stencils (cdr stencils) bskip new))))
+    ))
+
+  (define (make-brackets stencils indices acc)
+    (if (and stencils
+	     (pair? indices)
+	     (pair? (cdr indices)))
+	(let*
+	    ((encl (sublist stencils (car indices) (cadr indices)))
+	     (x-ext (stencil-list-extent encl X))
+	     (y-ext (stencil-list-extent encl Y))
+	     (thick 0.10)
+	     (pad 0.35)
+	     (protusion (* 2.5 thick))
+	     (lb
+	      (ly:stencil-translate-axis 
+	       (ly:bracket Y y-ext thick protusion)
+	       (- (car x-ext) pad) X))
+	     (rb (ly:stencil-translate-axis
+		  (ly:bracket Y y-ext thick (- protusion))
+		  (+ (cdr x-ext) pad) X))
+	     )
+
+	  (make-brackets
+	   stencils (cddr indices)
+	   (append
+	    (list lb rb)
+	     acc)))
+	acc))
+
+  (let*
+      ((stencils
+	(map (lambda (x)
+	       (interpret-markup
+		paper
+		props
+		x)) args))
+       (leading
+	(cdr (chain-assoc 'baseline-skip props)))
+       (stacked (stack-stencils stencils 1.25 #f))
+       (brackets (make-brackets stacked indices '()))
+       )
+
+    (apply ly:stencil-add
+	   (append stacked brackets)
+	   )))
+
+
+	     
+
+  
+  
+
+     

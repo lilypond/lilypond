@@ -90,11 +90,11 @@
 					      paper 'linewidth))
 			       (font-family . roman))
 			     (ly:paper-lookup paper 'font-defaults)))))
-  (interpret-markup paper props
-		    (markup #:fill-line
-			    ;; FIXME: font not found
-			    ;; ("" #:bold (number->string page-number))))))
-			    ("" (number->string page-number))))))
+    (interpret-markup paper props
+		      (markup #:fill-line
+			      ;; FIXME: font not found
+			      ;; ("" #:bold (number->string page-number))))))
+			      ("" (number->string page-number))))))
 
 (define-public (make-footer paper page-number)
   (let ((props (list (append `((linewidth . ,(ly:paper-get-number

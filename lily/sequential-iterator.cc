@@ -11,7 +11,6 @@
 #include "sequential-iterator.hh"
 #include "music-list.hh"
 
-Grace_fixup *copy_grace_fixups (Grace_fixup* src);
 Grace_fixup *get_grace_fixups (SCM cursor);
 
 /*
@@ -42,7 +41,7 @@ Sequential_iterator::Sequential_iterator ()
   list_ = SCM_EOL;
   cursor_ = SCM_EOL; 
   grace_fixups_ = 0;
-  iter_ =0;
+  iter_ = 0;
 }
 
 SCM 
@@ -80,7 +79,7 @@ Sequential_iterator::derived_substitute (Context *f,Context *t)
 }
 
 Grace_fixup *
-get_grace_fixups (SCM cursor)
+create_grace_fixup_list (SCM cursor)
 {
   Moment here;
   Moment last (-1);
@@ -89,15 +88,15 @@ get_grace_fixups (SCM cursor)
 
   for (; gh_pair_p (cursor); cursor = ly_cdr (cursor))
     {
-      Music * mus = unsmob_music (ly_car (cursor));
+      Music *mus = unsmob_music (ly_car (cursor));
       Moment s = mus->start_mom ();
-      Moment l =mus->get_length () - s;
+      Moment l = mus->get_length () - s;
 
       if (s.grace_part_)
 	{
 	  if (last != Moment (-1))
 	    {
-	      Grace_fixup *p =new Grace_fixup;
+	      Grace_fixup *p = new Grace_fixup;
 	      p->start_ = last;
 	      p->length_ = here - last;
 	      p->grace_start_ = s.grace_part_;
@@ -115,22 +114,7 @@ get_grace_fixups (SCM cursor)
 	  here += l;
 	}
     }
-  return  head;
-}
-
-Grace_fixup *
-copy_grace_fixups (Grace_fixup* src)
-{
-  Grace_fixup * head = 0;
-  Grace_fixup **dest = &head;
-
-  while (src)
-    {
-      *dest = new Grace_fixup (*src);
-      dest = & (*dest)->next_;
-      src = src ->next_;
-    }
-
+  
   return head;
 }
 
@@ -153,7 +137,7 @@ Sequential_iterator::construct_children ()
     }
 
   here_mom_ = get_music ()->start_mom ();
-  grace_fixups_ = get_grace_fixups (cursor_);
+  grace_fixups_ = create_grace_fixup_list (cursor_);
 
   /*
     iter_->ok () is tautology, but what the heck.
@@ -173,15 +157,15 @@ Sequential_iterator::next_element (bool)
   Moment len =iter_->music_get_length () - iter_->music_start_mom ();
   assert (!grace_fixups_  || grace_fixups_->start_ >= here_mom_);
   
-  if (len.main_part_ && grace_fixups_ &&
-      grace_fixups_->start_ == here_mom_)
+  if (len.main_part_
+      && get_grace_fixup ())
     {
-      here_mom_ += grace_fixups_->length_;
-      here_mom_.grace_part_ += grace_fixups_->grace_start_;
+      Grace_fixup *gf = get_grace_fixup ();
+      
+      here_mom_ += gf->length_;
+      here_mom_.grace_part_ += gf->grace_start_;
 
-      Grace_fixup * n =grace_fixups_->next_;
-      delete grace_fixups_;
-      grace_fixups_ = n;
+      next_grace_fixup ();
     }
   else if (len.grace_part_ && !len.main_part_)
     {
@@ -221,7 +205,7 @@ Sequential_iterator::descend_to_child ()
   Context * c = child_report;
   while (c && c != me_report)
     {
-      c= c->daddy_context_;
+      c = c->daddy_context_;
     }
   
   if (c == me_report)
@@ -235,10 +219,10 @@ Sequential_iterator::process (Moment until)
 {
   while (iter_)
     {
-      if (grace_fixups_ &&
-	  grace_fixups_->start_ == here_mom_
-	  && (grace_fixups_->start_ + grace_fixups_->length_
-	      + Moment (Rational (0), grace_fixups_->grace_start_) == until))
+      Grace_fixup * gf = get_grace_fixup ();
+      if (gf
+	  && gf->start_ + gf->length_
+	      + Moment (Rational (0), gf->grace_start_) == until)
 	{
 	  /*
 	    do the stuff/note/rest preceding a grace.
@@ -248,7 +232,6 @@ Sequential_iterator::process (Moment until)
       else
 	{
 	  Moment w = until - here_mom_ + iter_->music_start_mom ();
-	  //	  if (w >= Moment (0)) 
 	  iter_->process (w);
 	}
       
@@ -274,10 +257,11 @@ Sequential_iterator::pending_moment () const
   /*
     Fix-up a grace note halfway in the music.
   */
-  if (grace_fixups_ && here_mom_ == grace_fixups_->start_
-      && grace_fixups_->length_ + iter_->music_start_mom () == cp)
+  Grace_fixup * gf = get_grace_fixup ();
+  if (gf
+      && gf->length_ + iter_->music_start_mom () == cp)
     {
-      return here_mom_ + grace_fixups_->length_ + Moment (0, grace_fixups_->grace_start_);
+      return here_mom_ + gf->length_ + Moment (0, gf->grace_start_);
     }
 
   /*
@@ -305,4 +289,22 @@ bool
 Sequential_iterator::run_always () const
 {
   return iter_ ? iter_->run_always () : false; 
+}
+
+void
+Sequential_iterator::next_grace_fixup ()
+{
+  Grace_fixup * n = grace_fixups_->next_;
+  delete grace_fixups_;
+  grace_fixups_ = n;
+}
+
+
+Grace_fixup*
+Sequential_iterator::get_grace_fixup () const
+{
+  if (grace_fixups_ && grace_fixups_->start_ == here_mom_)
+    return grace_fixups_;
+  else
+    return 0;
 }

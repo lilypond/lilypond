@@ -51,8 +51,6 @@ struct Grace_fixup
 class Sequential_iterator :  public Music_iterator
 {
 public:
-  Grace_fixup * grace_fixups_;
-  
   DECLARE_SCHEME_CALLBACK(constructor, ());
   Sequential_iterator ();
   Sequential_iterator (Sequential_iterator const&);
@@ -70,14 +68,21 @@ protected:
   virtual Music_iterator *try_music_in_children (Music *) const;
   virtual bool run_always () const;
 protected:
-  Moment here_mom_;
   Music_iterator * iter_;
-  SCM  list_;
-  SCM cursor_;
-  
-  virtual void next_element (bool side_effect);
-  virtual void descend_to_child ();
   virtual SCM get_music_list ()const;
+  virtual void next_element (bool side_effect);
+
+
+  Grace_fixup *get_grace_fixup () const;
+  void next_grace_fixup ();
+  
+private:
+  Moment here_mom_;
+  SCM list_;
+  SCM cursor_;
+  Grace_fixup * grace_fixups_;
+  
+  virtual void descend_to_child ();
 };
 
 #endif /* SEQUENTIAL_ITERATOR_HH */

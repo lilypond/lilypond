@@ -8,6 +8,10 @@
 @chapter New features in 2.1 since 2.0
 
 @itemize @bullet
+@item The pmx2ly script has been removed from the distribution.
+
+@item Pedal brackets will now run to the last bar of a piece if they are not
+explicitly ended.
 
 @item Context definitions now use the word @code{\context} instead of @code{\translator}.
 

@@ -32,7 +32,11 @@ internal_ly_parse_scm (Parse_start * ps, bool safe)
     {
       if (safe)
 	{
-	  SCM safe_module = scm_primitive_eval (ly_symbol2scm ("safe-module"));
+	  static SCM safe_module;
+	  if (!safe_module)
+	    safe_module = scm_primitive_eval (ly_symbol2scm ("safe-module"));
+
+	  
 	  answer = scm_eval (form, safe_module);
 	}
       else

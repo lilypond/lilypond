@@ -5,24 +5,9 @@
  "A bass figure, including bracket"
  '())
 
-(define  (recursive-split-at pred? l)
-  (if (null? l)
-      '()
-      (let*
-	  ((x (split-at-predicate pred? l)))
-	(set-cdr! x (recursive-split-at pred? (cdr x)))
-	x
-	)))
 
-(define-public (make-bass-figure-markup figures context)
-  
-  (define (no-end-bracket? f1 f2)
-    (eq? (ly:music-property f1 'bracket-stop) '())
-    )
-  (define (no-start-bracket? f1 f2)
-    (eq? (ly:music-property f2 'bracket-start) '())
-    )
 
+(define-public (format-bass-figure figures context grob)
   ;; TODO: support slashed numerals here.
   (define (fig-to-markup fig-music)
     (let*
@@ -44,22 +29,25 @@
 				  (alteration->text-accidental-markup acc)))
 	  fig-markup)
       ))
-  
-  (define (fig-seq-to-markup figs)
-    (let*
-	(
-	 (c (make-dir-column-markup (map fig-to-markup figs)))
-	 )
-      (if (eq? (ly:music-property (car figs) 'bracket-start) #t)
-	  (make-bracket-markup c)
-	  c
-	  )))
-  
-  (let*
-      (
-       (ends (recursive-split-at no-end-bracket? (reverse figures)))
-       (starts (map (lambda (x) (recursive-split-at no-start-bracket? x)) ends))
-       )
-    (make-dir-column-markup (map fig-seq-to-markup (apply append starts)))
-    ))
 
+  (define (filter-brackets i figs acc)
+    (cond
+     ((null? figs) acc)
+     (else
+      (filter-brackets (1+ i) (cdr figs)
+
+		       (append
+			(if  (eq? (ly:music-property (car figs) 'bracket-start) #t)
+			     (list i)
+			     '())
+			(if  (eq? (ly:music-property (car figs) 'bracket-stop) #t)
+			     (list i)
+			     '())
+			
+			acc)))))
+
+  (set! (ly:grob-property grob 'text)
+	(make-bracketed-y-column-markup
+	 (sort (filter-brackets 0 figures '()) <)
+	 (map fig-to-markup figures)
+	 )))

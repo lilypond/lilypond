@@ -64,6 +64,9 @@ spaceTest = \markup { "two space chars" }
     \context Staff \notes \relative c' {
 	c2-\sizeTest c2-\spaceTest
     }
+    \paper {
+	#(paper-set-staff-size (* 11.0 pt)) 
+	}
 }
 
 \header {

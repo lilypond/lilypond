@@ -42,7 +42,8 @@
 class Stencil
 {
   friend SCM ly_stencil_set_extent_x (SCM, SCM, SCM);
-  
+
+  Offset origin_;
   Box dim_;
   SCM expr_;
   
@@ -50,14 +51,17 @@ class Stencil
 public:
   Stencil (Box, SCM s);
   Stencil ();
-
-
+  
+  Offset origin () const;
   SCM smobbed_copy () const;
   SCM get_expr () const;
 
   /**
      Set dimensions to empty, or to (Interval (0,0),Interval (0,0) */
   void set_empty (bool);
+  Stencil moved_to_edge (Axis a, Direction d, const Stencil &m, Real padding,
+			 Real minimum) const;
+
   void add_at_edge (Axis a, Direction d, const Stencil &m, Real padding,
 		    Real minimum);
   void add_stencil (Stencil const &m);
