@@ -19,6 +19,8 @@ paper_twenty = \paper {
         arithmetic_multiplier = 6.\pt;
 	texsetting = "\\input lilyponddefs \\musixtwentydefs ";
 	pssetting = "(lilyponddefs.ps) findlibfile {exch pop //systemdict /run get exec} { /undefinedfilename signalerror } ifelse\n";
+	% urg, debugging only
+	scmsetting = "(lilyponddefs.ps) findlibfile {exch pop //systemdict /run get exec} { /undefinedfilename signalerror } ifelse\n";
 
 	-2 = \symboltables { \table_thirteen }	
 	-1 = \symboltables { \table_sixteen }

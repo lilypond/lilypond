@@ -85,8 +85,7 @@ Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
       if (!i->lambda_)
         {
 	  // urg
-	  i->lambda_ = 
-	    ly_append (ly_lambda_o (), 
+	  i->lambda_ = ly_append (ly_lambda_o (), 
 	    ly_list1 (ly_func_o ("empty")));
 	}
 
@@ -137,6 +136,15 @@ Paper_outputter::output_scheme (SCM scm)
       gh_display (scm); gh_newline ();
     }
 #endif
+  // urg; temporary hack to debug scheme error #unknown
+  if (String (output_global_ch) == "scm")
+    {
+//      char* c = gh_scm2newstr (scm, NULL);
+//      *outstream_l_ << c << "\n";
+//      free (c);
+	gh_display (scm); gh_newline ();
+      return;
+    }
   SCM str_scm = gh_call1 (ly_eval (scm), gh_eval_str (o.ch_l ()));
   char* c = gh_scm2newstr (str_scm, NULL);
 #ifndef NPRINT
