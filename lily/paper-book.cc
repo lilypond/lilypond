@@ -77,9 +77,10 @@ Paper_book::output ()
   TODO:
      * get dimensions
      * title: bookTitle vs scoreTitle
-     * header / footer (generate per Page, with page#)
      * start-page / stop-page in output-* interface
      * some page breaking algorithm
+     * header / footer (generate per Page, with page#)
+     * override: # pages, or pageBreakLines= #'(3 3 4), ?
 */
 Link_array<Page>*
 Paper_book::get_pages ()
