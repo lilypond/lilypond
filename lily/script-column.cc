@@ -27,8 +27,11 @@ Script_column::add(Script*s_l)
 void
 Script_column::do_print()const
 {
+#ifndef NPRINT
     mtor << "scripts: " << script_l_arr_.size() << '\n'; 
+#endif
 }
+
 static int
 idx(bool inside, int dir)
 {

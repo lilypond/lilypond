@@ -12,17 +12,18 @@
 struct Idealspacing {
 
     /// the ideal distance
-    Real space;
+    Real space_f_;
 
     /// Hooke's constant: how strong are the "springs" attached to columns
-    Real hooke;
+    Real hooke_f_;
 
     /// the two columns
-    PCol const *left, *right;
+    int left_i_;
+    int right_i_;
     
     void print()const;
     void OK() const ;
-    Idealspacing(PCol const *left,PCol const *right);    
+    Idealspacing();
 };
 
 

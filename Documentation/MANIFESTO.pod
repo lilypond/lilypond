@@ -53,9 +53,12 @@ TeX is convenient for producing output.
 
 =item *
 
-GNU LilyPond does not display notes directly, nor will it be rehacked to be
-used interactively. GNU LilyPond writes output to a file.  It will not be
-extended to play music, or to recognize music.
+GNU LilyPond does not display notes directly, nor will it be rehacked
+to be used interactively. GNU LilyPond writes output to a file.  It
+will not be extended to play music, or to recognize music.
+
+[As an aside, I am contemplating to create a library for rendering
+music, which is "X-capable", so that others can create interactive tools]
 
 =item *
 
@@ -65,7 +68,8 @@ be portable to any platform which can run TeX and the GNU tools
 =item *
 
 GNU LilyPond is free. Commercial windows packages for setting music are
-abundant. Free musicprinting software is scarce.
+abundant. Free musicprinting software is scarce. For more thoughts on
+this, please consult the F<gnu-music> documentation.
 
 =item *
 
@@ -98,7 +102,7 @@ or MIDI :-),
 
 =item *
 
-be easily writable in ASCII with a simple texteditor, yfte(TM).
+be easily writable in ASCII with a simple texteditor
 
 =back
 
@@ -123,10 +127,9 @@ as well as the scores for all individual instruments,
 
 =item *
 
-provide simple musical manipulations, such as 
-S<(i) extracting> a slice of music from a previously defined piece, 
-S<(ii) extracting> only the rhythm from a piece of music, 
-S<(iii) transposing>, etc.,
+provide simple musical manipulations, such as S<(i) extracting> a
+slice of music from a previously defined piece, S<(ii) extracting>
+only the rhythm from a piece of music, S<(iii) transposing>, etc.,
 
 =item *
 
@@ -144,11 +147,11 @@ Musical pieces could be
 
 =item *
 
-Mahlerian orchestral scores,
+Orchestral scores, (eg Mahler)
 
 =item *
 
-piano pieces (Schubertian, Rachmaninovian),
+piano pieces (eg. Schubert, Rachmaninov),
 
 =item *
 
@@ -156,7 +159,7 @@ pop songs (lyrics and chords),
 
 =item *
 
-gregorian chants,
+Gregorian chants,
 
 =item *
 

@@ -23,7 +23,7 @@ Jan Nieuwenhuizen <jan@digicash.com>, http://www.digicash.com/~jan
 lily/midi-*, mi2mu/*, parts flower/string*.cc, make/*.make, */Makefile
 parts of Documentation/mudela.pod, lib/*source-file*, lib/duration.cc,
 lib/source, flower/*{list,cursor}*,  lily/rest-collision*, conflily,
-cygnus w32 stuff
+cygnus w32 stuff, lily/*perf*
 
 and corresponding header files.
 
@@ -44,4 +44,9 @@ Werner Lemberg <xlwy01@uxp1.hrz.uni-dortmund.de>, misc bugfixes, some
 Beam and Stem code. 
 
 =back
+
+Your name could be here! If you want to help, then take a look at the
+SMALLISH PROJECTS section of in the file F<TODO>. Some do not involve
+coding C++
+
 

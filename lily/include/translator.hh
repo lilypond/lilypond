@@ -23,6 +23,7 @@ public:
     virtual Global_translator *global_l() { return 0; }
 
     /// Score_register = 0, Staff_registers = 1, etc)
+    virtual void print()const;
     virtual int depth_i()const=0;
     virtual bool is_bottom_engraver_b() const { return false; }
     virtual bool try_request(Request*);

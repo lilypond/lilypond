@@ -57,7 +57,8 @@ Bar::do_pre_processing()
 	if (bar_breaks[i][1] == type_str_)
 	    type_str_ = bar_breaks[i][break_status_i()+1];
     }
-    
-    transparent_b_ = empty_b_ = (type_str_ == "");
+  
+    // span_score_bar needs dims.
+//    transparent_b_ = empty_b_ = (type_str_ == "");
 }
     

@@ -65,6 +65,8 @@ Score::run_translator(Global_translator * trans_l)
 	}
 	trans_l->modify_next( w );
 	trans_l->prepare(w);
+	trans_l->print();
+
 	iter->process_and_next( w );
 	trans_l->process();
     }
@@ -85,7 +87,7 @@ Score::midi()
     if ( !midi_p_ )
 	return;
     
-    *mlog << "\nCreating elements ..." << flush;
+    *mlog << "\nCreating MIDI elements ..." << flush;
     
     Global_translator* score_trans=  midi_p_->get_global_translator_p();
     run_translator( score_trans );
@@ -118,14 +120,10 @@ Score::paper()
 	warning("Errors found, /*not processing score*/");
 //	return;
     }
-    do_cols();
     
-    clean_cols();    // can't move clean_cols() farther up.
     print();
-    calc_idealspacing();
 
     // debugging
-    OK();
     *mlog << endl;
     pscore_p_->process();
 
@@ -133,45 +131,6 @@ Score::paper()
     paper_output();
 }
 
-/**
-  Remove empty cols, preprocess other columns.
-  */
-void
-Score::clean_cols()
-{
-    for (iter_top(cols_,c); c.ok(); ) {
-	if (!c->pcol_l_->used_b()) {
-	    delete c.remove_p();
-	} else {
-	    c->preprocess();
-	    c++;
-	}
-    }
-}
-
-PCursor<Score_column*>
-Score::find_col(Moment w, bool mus)
-{
-    iter_top( cols_,i);
-    
-    for (; i.ok(); i++) {
-	if (i->when() == w && i->musical_b_ == mus)
-	    return i;
-	if (i->when() > w)
-	    break;
-    }
-    assert(false);
-    return i;
-}
-
-void
-Score::do_cols()    
-{
-    iter_top(cols_,i);
-    for (; i.ok(); i++) {
-	pscore_p_->add(i->pcol_l_);
-    }
-}
 
 void
 Score::set(Paper_def *pap_p)
@@ -187,16 +146,6 @@ Score::set(Midi_def* midi_p)
     midi_p_ = midi_p;
 }
 
-void
-Score::OK() const
-{
-#ifndef NDEBUG
-    cols_.OK();
-    for (iter_top(cols_,cc); cc.ok() && (cc+1).ok(); cc++) {
-	assert(cc->when() <= (cc+1)->when());
-    }
-#endif    
-}
 
 
 void
@@ -205,11 +154,6 @@ Score::print() const
 #ifndef NPRINT
     mtor << "score {\n"; 
     music_p_->print();
-    for (iter_top(cols_,i); i.ok(); i++) {
-	i->print();
-    }
-    if (pscore_p_)
-	pscore_p_->print();
     if (midi_p_)
 	midi_p_->print();
     

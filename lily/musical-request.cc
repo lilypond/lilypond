@@ -363,24 +363,13 @@ Request::voice_l()
 }
 /* *************** */
 
-IMPLEMENT_STATIC_NAME(Subtle_req);
-IMPLEMENT_IS_TYPE_B1(Subtle_req,Musical_req);
-
-void
-Subtle_req::do_print() const
-{
-#ifndef NPRINT
-	mtor << " subtime " <<  subtime_;
-#endif
-}
-
 IMPLEMENT_STATIC_NAME(Dynamic_req);
 IMPLEMENT_IS_TYPE_B1(Dynamic_req,Musical_req);
 
 void
 Dynamic_req::do_print() const
 {
-    Subtle_req::do_print();
+    Musical_req::do_print();
 }
 
 IMPLEMENT_STATIC_NAME(Absolute_dynamic_req);
@@ -389,8 +378,10 @@ IMPLEMENT_IS_TYPE_B1(Absolute_dynamic_req,Musical_req);
 void
 Absolute_dynamic_req::do_print() const
 {
+#ifndef NPRINT
     Dynamic_req::do_print();
-    mtor << " loudness " <<loudness_;
+    mtor << " loudness " <<loudness_str(loudness_);
+#endif
 }
 
 String

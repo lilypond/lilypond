@@ -47,7 +47,7 @@ Score_elem::dependent_size() const
 String
 Score_elem::TeX_string() const
 {
-    assert( status > POSTCALCED);
+    assert( status_ > POSTCALCED);
     if (transparent_b_ )
 	return "";
     String s( "\\placebox{%}{%}{%}");
@@ -79,7 +79,7 @@ Score_elem::Score_elem(Score_elem const&s)
     copy_edges_out(s);
     x_group_element_i_ = 0;
     y_group_element_i_ = 0;    
-    status = s.status;
+    status_ = s.status_;
     assert(!s.output);
     output = 0;
     pscore_l_ = s.pscore_l_;
@@ -89,9 +89,9 @@ Score_elem::Score_elem(Score_elem const&s)
 Score_elem::~Score_elem()
 {
     // some paranoia to prevent weird segv's
-    assert(status < DELETED);
+    assert(status_ < DELETED);
     delete output;
-    status = DELETED;
+    status_ = DELETED;
     output = 0;
     assert(!x_group_element_i_ && !y_group_element_i_);
 }
@@ -197,7 +197,7 @@ Score_elem::Score_elem()
     pscore_l_=0;
     offset_ = Offset(0,0);
     output = 0;
-    status = ORPHAN;
+    status_ = ORPHAN;
 }
 
 
@@ -211,61 +211,61 @@ Score_elem::paper()  const
 void
 Score_elem::add_processing()
 {
-    if (status >= VIRGIN)
+    if (status_ >= VIRGIN)
 	return;
-    status = VIRGIN;
+    status_ = VIRGIN;
     do_add_processing();
 }
 
 void
 Score_elem::pre_processing()
 {
-    if (status >= PRECALCED )
+    if (status_ >= PRECALCED )
 	return;
 
-    assert(status != PRECALCING); // cyclic dependency
-    status = PRECALCING;
+    assert(status_ != PRECALCING); // cyclic dependency
+    status_ = PRECALCING;
 
     for (int i=0; i < dependency_size(); i++)
 	dependency(i)->pre_processing();
 
     
     do_pre_processing();
-    status = PRECALCED;
+    status_ = PRECALCED;
 }
 
 void
 Score_elem::breakable_col_processing()
 {
-    if (status >= PREBROKEN )
+    if (status_ >= PREBROKEN )
 	return;
 
-    assert(status != PREBREAKING); // cyclic dependency
-    status = PREBREAKING;
+    assert(status_ != PREBREAKING); // cyclic dependency
+    status_ = PREBREAKING;
 
     for (int i=0; i < dependency_size(); i++)
 	dependency(i)->breakable_col_processing();
 
     
     do_breakable_col_processing();
-    status = PREBROKEN;
+    status_ = PREBROKEN;
 }
 
 void
 Score_elem::break_processing()
 {
-    if (status >= BROKEN )
+    if (status_ >= BROKEN )
 	return;
 
-    assert(status != BREAKING); // cyclic dependency
-    status = BREAKING;
+    assert(status_ != BREAKING); // cyclic dependency
+    status_ = BREAKING;
 
     for (int i=0; i < dependency_size(); i++)
 	dependency(i)->break_processing();
 
     
     do_break_processing();
-    status = BROKEN;
+    status_ = BROKEN;
 }
 
 void
@@ -278,24 +278,30 @@ Score_elem::do_break_processing()
 void
 Score_elem::post_processing()
 {
-    if (status >= POSTCALCED)
+    if (status_ >= POSTCALCED)
 	return;
-    assert(status != POSTCALCING);// cyclic dependency
-    status=POSTCALCING;	
+    assert(status_ != POSTCALCING);// cyclic dependency
+    status_=POSTCALCING;	
 
   
     for (int i=0; i < dependency_size(); i++)
 	dependency(i)->post_processing();
     do_post_processing();
-    status=POSTCALCED;
+    status_=POSTCALCED;
+}
+
+Score_elem::Status
+Score_elem::status()const
+{
+    return status_;
 }
 
 void 
 Score_elem::molecule_processing()
 {
-    if (status >= OUTPUT)
+    if (status_ >= OUTPUT)
 	return;
-    status = OUTPUT;		// do it only once.
+    status_ = OUTPUT;		// do it only once.
   
     for (int i=0; i < dependency_size(); i++)
 	dependency(i)->molecule_processing();
@@ -333,7 +339,8 @@ Score_elem::do_substitute_dependency(Score_elem*,Score_elem*)
 }
 void
 Score_elem::do_substitute_dependent(Score_elem*,Score_elem*)
-{}
+{
+}
 
 
 IMPLEMENT_STATIC_NAME(Score_elem);
@@ -365,8 +372,7 @@ void
 Score_elem::remove_dependency(Score_elem*e)
 {
     remove_edge_out(e);
-    e->do_substitute_dependent(this, 0);
-    do_substitute_dependency(e, 0);
+    substitute_dependency(e, 0);
 }
 
 void
@@ -374,7 +380,12 @@ Score_elem::add_dependency(Score_elem*e)
 {
     Directed_graph_node::add(e);
 }
-
+void
+Score_elem::substitute_dependency(Score_elem* old, Score_elem* new_l)
+{
+    do_substitute_dependency(old,new_l);
+    old->do_substitute_dependent(this, 0);
+}
 
 void
 Score_elem::handle_broken_dependencies()
@@ -390,13 +401,13 @@ Score_elem::handle_broken_dependencies()
 	    if (elt->spanner()) {
 		Spanner * sp = elt->spanner();
 		Spanner * broken = sp->find_broken_piece(line);
-		do_substitute_dependency(sp, broken);
+		substitute_dependency(sp, broken);
 
 		add_dependency(broken);
 	    } else if (elt->item() && elt->item()->pcol_l_->breakpoint_b()
 		       && elt->item()->break_status_i() == 0) {
 		Item * my_item = elt->item()->find_prebroken_piece(line);
-		do_substitute_dependency( elt, my_item);
+		substitute_dependency( elt, my_item);
 		if (my_item)
 		    add_dependency( my_item);
 	    }
@@ -412,8 +423,8 @@ Score_elem::handle_broken_dependencies()
 
     /* Reset this. If we are a (broken) copy of a spanner, then
       break_processing() was not called on us (and we are not breaking).  */
-    if (status < BROKEN)
-	status = BROKEN;
+    if (status_ < BROKEN)
+	status_ = BROKEN;
 }
 
 /*
@@ -460,8 +471,8 @@ Score_elem::handle_prebroken_dependencies()
     /*
       see comment at handle_broken_dependencies()
      */
-    if (status < PREBROKEN)
-	status = PREBROKEN;
+    if (status_ < PREBROKEN)
+	status_ = PREBROKEN;
 }
 
 

@@ -37,7 +37,7 @@ protected:
     virtual void set_default_dir();
     virtual void do_pre_processing();
     virtual void do_post_processing();
-    virtual void do_substitute_dependency(Score_elem*, Score_elem*);
+    virtual void do_substitute_dependent(Score_elem*, Score_elem*);
 
     virtual void do_print() const;
 

@@ -20,7 +20,7 @@ EndMudelaHeader
 %}
 
 
-\version "0.0.61";
+\version "0.1.0";
 
 toccata_commands = \melodic{
 	\meter 4/4;
@@ -131,16 +131,22 @@ fuga2_pedal = \melodic{
 	dis4-\rtoe e4-\rheel 'e4-\ltoe |
 }
 
-break = \melodic{ \meter 4/4; r1 }
+break = \melodic{ 
+	%\meter 4/4;
+	r1
+}
 
 % these should be two separate scores...
 \score{
-	\melodic < \multi 3;
+	\melodic < \multi 1;
 
-		 {\$toccata_right     \break   \$fuga2_right }
-		 {\$toccata_left  \break   \$fuga2_left }
+		 < \id Piano ""; \multi 3;
+		   {\$toccata_right     \break   \$fuga2_right }
+		   { \$toccata_left  \break   \$fuga2_left }
+		> 
 	
-		 {\$toccata_pedal    \break   \$fuga2_pedal }
+		 {  \$toccata_pedal    \break   \$fuga2_pedal }
+		
 		
 	>
 	\paper{}

@@ -10,28 +10,10 @@
 #include "p-col.hh"
 #include "score-column.hh"
 
-int
-Score_column::compare(Score_column & c1, Score_column &c2)
-{
-	return sign(c1.when_ - c2.when_);
-}
-
-void
-Score_column::set_breakable()
-{
-    pcol_l_->set_breakable();
-}
-
 Score_column::Score_column(Moment w)
 {
     when_ = w;
-    pcol_l_ = new PCol(0);
     musical_b_ = false;
-}
-
-bool
-Score_column::used_b() {
-    return pcol_l_->used_b();
 }
 
 void
@@ -43,15 +25,15 @@ Score_column::print() const
     for (int i=0; i < durations.size(); i++)
 	mtor << durations[i] << " ";
     mtor << "]\n";
-    pcol_l_->print();
+    PCol::print();
     mtor << "}\n";
 #endif
 }
 
 int
-Moment_compare(Moment &a , Moment& b)
+Moment_compare(Moment const &m1, Moment const &m2)
 {
-    return sign(a-b);
+    return sign(m1-m2);
 }
 
 void
@@ -59,6 +41,7 @@ Score_column::preprocess()
 {
     durations.sort(Moment_compare);
 }
+
 void
 Score_column::add_duration(Moment d)
 {
@@ -70,8 +53,15 @@ Score_column::add_duration(Moment d)
     durations.push(d);
 }
 
-bool
-Score_column::breakable_b()
+void
+Score_column::do_set_breakable()
 {
-    return pcol_l_->breakable_b();
+    Score_column *c1 = new Score_column(when_);
+    Score_column *c2 = new Score_column(when_);
+    prebreak_p_ =c1;
+    postbreak_p_ = c2;
+    c1->durations = durations;
+    c2->durations = durations;
+    c1->musical_b_ 
+	= c2->musical_b_ = musical_b_;
 }

@@ -26,9 +26,6 @@ public:
     Paper_def *paper_p_;
     Midi_def *midi_p_;
     Music * music_p_;
-    
-    
-    Pointer_list<Score_column*> cols_;
     PScore *pscore_p_;
 
     int errorlevel_i_;
@@ -51,16 +48,13 @@ public:
     ///
     void set(Paper_def* midi_p);
 
-    // standard
-    void OK() const;
     void print() const;
 
-    /// find a column.
-    PCursor<Score_column *> find_col(Moment,bool);
-    
     Score(Score const&);
-
 private:
+
+
+
     void run_translator(Global_translator*);
     void midi_output();
     void paper_output();

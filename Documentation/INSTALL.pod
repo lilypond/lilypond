@@ -6,15 +6,6 @@ INSTALL - installing GNU LilyPond
 
 This page documents installation  and compilation of GNU LilyPond
 
-=head1 IMPORTANT
-
-if you have downloaded a
-
-	*.pre*
-
-version, then this is version is I<not> meant for producing nice
-output, but to keep your patchsets up to date.  It might not even compile.
-
 =head1 PREREQUISITES
 
 For compilation you need.
@@ -48,7 +39,33 @@ Bison. (Version 1.25 or better)
 
 =back
 
+=head1 RUNNING
+
+GNU LilyPond does use a lot of resources. For operation you need the following:
+
+
+=over 5
+
+=item *
+
+TeX
+
+=item *
+
+The MusixTeX fonts (I included those found in MusixTeX T.73). Beware,
+the clef symbol seems to have changed its position in some versions,
+(notably Egler's, a.k.a. OpusTeX). The MusixTeX fonts are included in
+MusixTeX T.73, which can be had from any CTAN site, eg at
+
+	ftp://ftp.shsu.edu/tex-archive/macros/musixtex/taupin
+	ftp://ftp.tex.ac.uk/tex-archive/macros/musixtex/taupin
+	ftp://ftp.dante.de/tex-archive/macros/musixtex/taupin
+
+You only need the contents of the F<mf/> subdirectory of the package.
+
 =head1 RECOMMENDED
+
+Although not strictly necessary, these are recommended to have.
 
 =over 5
 
@@ -61,7 +78,15 @@ with the perl's Plain Old Documentation.
 
 (GNU) find
 
+
+=item *
+
+A fast computer (a full page of music typically takes 1 minute
+on my 486/133, using the B<--enable-checking> compile. It's lot slower
+than most MusiXTeX preprocessors)
+
 =back
+
 
 =head1 CONFIGURING and COMPILING
 
@@ -80,7 +105,6 @@ This will install the following files:
 	/usr/local/bin/mi2mu
 	/usr/local/share/lilypond/*
 	/usr/lib/texmf/texmf/tex/lilypond/* 
-	/usr/lib/texmf/texmf/fonts/source/lilypond/* 
 
 The TeX include directory is detected dynamically, but it can be
 adjusted with B<--enable-tex-prefix> and B<--enable-tex-dir>. The
@@ -98,7 +122,7 @@ B<--help>. If you are not root, you will probably have to make it with
 
 	configure --prefix=/home/me_myself_and_I/
 
-In this case, you will have to set MFINPUTS, and TEINPUTS accordingly.
+In this case, you will have to set MFINPUTS, and TEXINPUTS accordingly.
 
 If you want to install GNU LilyPond in F</usr/local>, and your TeX has
 no default hooks for local stuff (mine is broken too), you can do:
@@ -140,7 +164,7 @@ Set then directory tex input is in (detected as a subdir of tex-prefix)
 
 =item --enable-mf-dir
 
-Set then directory tex input is in (idem)
+Set then directory mf input is in (idem)
 
 =back
 
@@ -164,8 +188,6 @@ If you have done a successful C<make>, then a simple
 
 should do the trick. 
 
-[todo. Obsolete; fonts are in distribution now.]
-
 Install the musixtex fonts in a directory which TeX and MF knows (if
 you are root, look for a directory which contains the directories with
 AMS and CM source (*.mf) files. Create a subdir lilypond or musixtex
@@ -174,7 +196,10 @@ applicable)
 
 Example: my fonts are in F</usr/local/lib/texfonts/musixtex/>, and I
 have a symlink pointing to that in
-F</usr/lib/texmf/texmf/fonts/source/public/>
+F</usr/lib/texmf/texmf/fonts/source/public/>. After I copied the
+files, I ran "texhash"
+
+ftp://hprib.lps.u-psud.fr/pub/music_zips/musixtex.zip
 
 =head1 CAVEATS
 
@@ -189,33 +214,9 @@ should turn off this flag for this file.
 
 =back
 
-=head1 RUNNING
+=head1 EXAMPLE
 
-GNU LilyPond does use a lot of resources. For operation you need the following:
-
-
-=over 5
-
-=item *
-
-A fast computer (a full page of music typically takes 1 minute
-on my 486/66, using the B<--enable-checking> compile. It's lot slower
-than most MusiXTeX preprocessors)
-
-=item *
-
-TeX
-
-=item *
-
-The MusixTeX fonts (I included those found in MusixTeX T.73). Beware,
-the clef symbol has changed position in the Egler version,
-a.k.a. OpusTeX)
-
-=back
-
-At this time, GNU LilyPond output looks nice, but is not of production
-quality. If you're not discouraged; this is what I type in my xterm:
+This is what I type in my xterm:
 
 	lilypond someinput.ly
 	tex lelie.tex
@@ -250,9 +251,10 @@ Please refer to the man page for more information.
 =head1 REDHAT LINUX
 
 RedHat Linux users should be able to get a RPM. A spec file is in
-F<make/lilypond.spec>. You should be able to create an rpm as a normal
+F<make/out/lilypond.spec>. You should be able to create an rpm as a normal
 user. Be sure you have a ~/.rpmrc, and edit the RPM-dir in
-F<Variables.make>
+F<Variables.make>. (If you create the RPM as a normal user the
+permissions will not be set correctly, unfortunately)
 
 
 =head1 WINDOZE
@@ -266,21 +268,6 @@ to make GNU LilyPond under, brr, aargh, well, simply type:
 
 	bash configure
 	make windows32
-
-=head1 PLATFORMS
-
-GNU LilyPond (pl 0.0.39) is known to compile on the following platforms:
-
-Unix:
-
-	* gnu/linux 2.0.x, g++ 2.7.2[.1]
-	* aix 4.1, g++ 2.7.2
-	* solaris 2.5, g++ 2.7.2
-
-Other:
-
-	* windows-nt 4.0, cygnus gnu-windows32 beta17.1 (~=g++ 2.7.2)
-	* gnu/linux 2.0.28 X to doze, gcc-go32 (~=g++ 2.7.2) [exec. untested]
 
 =head1 AUTHORS
 

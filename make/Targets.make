@@ -180,7 +180,7 @@ endif
 #
 
 $(outdir)/version.hh: .version
-	./$(lily_bindir)/make_version > $@
+	./$(lily_bindir)/make-version > $@
 
 
 # should this be in Rules?

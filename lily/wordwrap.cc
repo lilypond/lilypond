@@ -6,21 +6,24 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
-#include "break.hh"
+#include "word-wrap.hh"
 #include "p-score.hh"
 #include "debug.hh"
 #include "p-col.hh"
+#include "spring-spacer.hh"
+
+
 /** el stupido. This should be done more accurately:
 
    It would be nice to have a Dynamic Programming type of algorithm
    similar to TeX's
    
-    */
+   */
 Array<Col_hpositions>
 Word_wrap::do_solve()const
 {
     problem_OK();
-    iter_top(pscore_.cols,curcol);
+    iter_top(pscore_l_->col_p_list_,curcol);
     Array<Col_hpositions> breaking;
     Line_of_cols breakpoints(find_breaks());
     assert(breakpoints.size()>=2);
@@ -87,4 +90,5 @@ Word_wrap::do_solve()const
 Word_wrap::Word_wrap(PScore&ps)
     : Break_algorithm(ps)
 {
+    get_line_spacer = Spring_spacer::constructor;
 }

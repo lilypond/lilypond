@@ -1,5 +1,5 @@
 /*
-  staff-gravs.hh -- declare Staff_engravers
+  staff-gravs.hh -- declare Line_group_engraver
 
   source file of the GNU LilyPond music typesetter
 
@@ -14,24 +14,19 @@
 
 /**
   Engravers which manage a Staff (one 5-line linestaff)
-  
- */
-class Staff_engravers : public Engraver_group_engraver {
+  */
+class Line_group_engraver : public Engraver{
     Line_of_staff *staffline_p_;   
     Link_array<Score_elem> staff_elem_l_arr_;
 
-    void group_staff_elems();
 protected:
-    virtual void do_pre_move_processing();
     virtual void do_creation_processing();
     virtual void do_removal_processing();
-    virtual void typeset_element(Score_elem*);
-    virtual void typeset_breakable_item( Item * it_p);
+    virtual void acknowledge_element(Score_elem_info);
 
 public:
-    
     NAME_MEMBERS();
-    Staff_engravers();
+    Line_group_engraver();
 };
 
 #endif // STAFF_GRAVS_HH

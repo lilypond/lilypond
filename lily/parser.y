@@ -12,7 +12,7 @@
 #include <iostream.h>
 
 // mmm
-#define MUDELA_VERSION "0.0.61"
+#define MUDELA_VERSION "0.1.0"
 
 #include "script-def.hh"
 #include "symtable.hh"
@@ -170,6 +170,7 @@ yylex(YYSTYPE *s,  void * v_l)
 %token <id>	SCRIPT_IDENTIFIER
 %token <id>	STAFF_IDENTIFIER
 %token <id>	REAL_IDENTIFIER
+%token <id>	INPUT_TRANS_IDENTIFIER
 %token <id>	INT_IDENTIFIER
 %token <id>	SCORE_IDENTIFIER
 %token <id>	MIDI_IDENTIFIER
@@ -283,6 +284,7 @@ declarable_identifier:
 
 old_identifier:
 	IDENTIFIER
+	|	INPUT_TRANS_IDENTIFIER
 	|	MELODIC_REQUEST_IDENTIFIER 
 	|	POST_REQUEST_IDENTIFIER
 	|	SCRIPT_IDENTIFIER
@@ -332,6 +334,10 @@ declaration:
 		$$ = new Request_id(*$1, $3, MELODIC_REQUEST_IDENTIFIER);
 		delete $1;
 	}
+	| declarable_identifier '=' input_translator_spec {
+		$$ = new Input_translator_id ( *$1, $3, INPUT_TRANS_IDENTIFIER);
+		delete $1;
+	}
 	;
 
 
@@ -342,7 +348,11 @@ input_translator_spec:
 	;
 
 input_translator_spec_body:
-	STRING STRING	{ 
+	INPUT_TRANS_IDENTIFIER	{
+		$$ = $1->input_translator(true);
+		$$-> set_spot( THIS->here_input() );
+	}
+	| STRING STRING	{ 
 		$$ = new Input_translator; 
 		$$->base_str_ = *$1;
 		$$->type_str_ =*$2;

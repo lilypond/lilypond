@@ -69,6 +69,13 @@ IMPLEMENT_IS_TYPE_B1(Command_req,Request);
 
 void
 Command_req::do_print()const{}
+
+IMPLEMENT_IS_TYPE_B1(Disallow_break_req,Command_req);
+IMPLEMENT_STATIC_NAME(Disallow_break_req);
+void
+Disallow_break_req::do_print()const
+{
+}
 /* *************** */
 IMPLEMENT_STATIC_NAME(Barcheck_req);
 IMPLEMENT_IS_TYPE_B1(Barcheck_req,Timing_req);

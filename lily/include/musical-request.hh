@@ -36,7 +36,6 @@ public:
     virtual Dynamic_req* dynamic() { return 0; }
     virtual Absolute_dynamic_req * absdynamic() { return 0; }
     virtual Tie_req * tie() { return 0; }
-    virtual Subtle_req * subtle() { return 0; }
     virtual Span_dynamic_req * span_dynamic() { return 0; }
     REQUESTMETHODS(Musical_req, musical);
 };
@@ -207,21 +206,7 @@ public:
 };
 
 
-/** A helper in the hierarchy. Each dynamic is bound to one note ( a
-    crescendo spanning multiple notes is thought to be made of two
-    "dynamics": a start and a stop).  Dynamic changes can occur in a
-    smaller time than the length of its note, therefore fore each
-    Dynamic request carries a time, measured from the start of its
-    note.
- */
-class Subtle_req  : public virtual Musical_req  {
-public:
-    /// the time relative to Voice_element start.
-    Moment subtime_;
-    REQUESTMETHODS(Subtle_req, subtle);
-};
-
-class Dynamic_req  : public Subtle_req  {
+class Dynamic_req  : public virtual Musical_req  {
 public:
     /// for absolute dynamics
     enum Loudness {

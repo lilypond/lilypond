@@ -366,7 +366,7 @@ Beam::brew_molecule_p() const
 	sb.translate(Offset(x, (x * slope  + left_pos)* inter_f));
 	mol_p->add(sb);
     }
-    mol_p->translate_x(x0 - left_col_l_->hpos);
+    mol_p->translate_x(x0 - left_col_l_->hpos_f_);
     return mol_p;
 }
 
@@ -381,11 +381,9 @@ Beam::do_print()const
     Spanner::do_print();
 #endif
 }
-/*
-  duh. The stem is not a dependency but a dependent
- */
+
 void
-Beam::do_substitute_dependency(Score_elem*o,Score_elem*n)
+Beam::do_substitute_dependent(Score_elem*o,Score_elem*n)
 {
     if (o->is_type_b( Stem::static_name() )) {
 	stems.substitute( (Stem*)o->item(),  n?(Stem*) n->item():0);

@@ -15,6 +15,7 @@
 IMPLEMENT_STATIC_NAME(Music_iterator);
 IMPLEMENT_IS_TYPE_B(Music_iterator);
 
+Chord_iterator::~Chord_iterator(){}
 void
 Music_iterator::do_print()const
 {
@@ -122,8 +123,6 @@ Music_iterator::static_get_iterator_p(Music *m,
 	p =  new Chord_iterator( (Chord*) m);
     else if (m->is_type_b( Voice::static_name())) 
 	p =  new Voice_iterator(  (Voice*) m);
-    else if (m->is_type_b( Request::static_name() ))
-	p =  new Request_iterator(  (Request*) m );
     
      if ( m->is_type_b( Music_list::static_name())) {
 	Music_list* ml = (Music_list*) m;
@@ -304,52 +303,6 @@ Voice_iterator::ok()const
 
 /* ***************** */
 
-void
-Request_iterator::do_print()const
-{
-    mtor << req_l_->name() ;
-}
-
-Request_iterator::Request_iterator(Request const*c)
-{
-    req_l_ = (Request*)c;
-    last_b_ = false;
-}
-
-void
-Request_iterator::process_and_next(Moment m)
-{
-    if ( first_b_ ) {
-	bool gotcha = daddy_iter_l_->report_to_l()->try_request(req_l_);
-	if (!gotcha)
-	    req_l_->warning("Junking request: " + String(req_l_->name()));
-	first_b_ = false;
-    }
-
-    if ( m >= req_l_->duration() )
-	last_b_ = true;
-}
-
-Moment
-Request_iterator::next_moment()const
-{
-
-    Moment m(0);
-    if  (!first_b_) 
-	m = req_l_->duration();
-    return m;
-}
-
-bool
-Request_iterator::ok()const
-{
-    return (req_l_->duration() && !last_b_) || first_b_; // ugh
-}
-
-IMPLEMENT_STATIC_NAME(Request_iterator);
-IMPLEMENT_IS_TYPE_B1(Request_iterator, Music_iterator);
-
-/* ****************** */
 
 Change_iterator::Change_iterator(Change_reg * ch)
 {
@@ -384,17 +337,61 @@ Change_iterator::process_and_next(Moment mom)
 /* ******************** */
 
 IMPLEMENT_STATIC_NAME(Voice_element_iterator);
-IMPLEMENT_IS_TYPE_B1(Voice_element_iterator,Chord_iterator);
+IMPLEMENT_IS_TYPE_B1(Voice_element_iterator,Music_iterator);
 
 void
 Voice_element_iterator::construct_children()
 {
     get_req_translator_l();
-    Chord_iterator::construct_children();
 }
 
 Voice_element_iterator::Voice_element_iterator(Voice_element*el_l)
-    : Chord_iterator(el_l)
 {
-    
+    elt_l_ = el_l;
+    elt_duration_ = el_l->time_int().length(); 
+    last_b_ = false;
+}
+
+
+bool
+Voice_element_iterator::ok()const
+{
+    return (elt_duration_ && !last_b_) || first_b_; 
+}
+
+
+
+Moment
+Voice_element_iterator::next_moment()const
+{
+    Moment m(0);
+    if  (!first_b_) 
+	m = elt_duration_;
+    return m;
+}
+
+void
+Voice_element_iterator::do_print() const
+{
+#ifndef NPRINT
+    mtor << "duration: " << elt_duration_;
+#endif
+}
+void
+Voice_element_iterator::process_and_next(Moment mom)
+{
+    if ( first_b_ ) {
+	for (PCursor<Music*> i(elt_l_->music_p_list_); i.ok(); i++) {
+	    assert(i->is_type_b(Request::static_name()));
+	    Request * req_l = (Request*)i.ptr();
+	    bool gotcha = report_to_l()->try_request(req_l);
+	    if (!gotcha)
+		req_l->warning("Junking request: " + String(req_l->name()));
+
+	}
+	first_b_ = false;
+    }
+
+    if ( mom >= elt_duration_ )
+	last_b_ = true;  
 }

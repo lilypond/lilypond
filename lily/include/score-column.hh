@@ -13,7 +13,7 @@
 #include "lily-proto.hh"
 #include "varray.hh"
 #include "moment.hh"
-
+#include "p-col.hh"
 
 /**
 
@@ -25,17 +25,13 @@
 
     */
 
-class Score_column {
+class Score_column : public PCol {
     friend class Score;
     friend class Score_engraver;
 
     bool musical_b_;
     Moment when_;
-    void set_breakable();
 public:
-    /// indirection to column
-    PCol * pcol_l_;
-
     /// length of notes/rests in this column
     Array<Moment> durations;
     
@@ -43,20 +39,14 @@ public:
 
     Moment when() {  return when_; }
     Score_column(Moment when);       
-    static int compare(Score_column & c1, Score_column &c2);
     void add_duration(Moment );
     void preprocess();
-    bool breakable_b();
     bool musical_b() { return musical_b_; }
-    bool used_b();
     void print() const;
+    virtual void do_set_breakable();
 
 
 };
-
-#include "compare.hh"
-
-instantiate_compare(Score_column&, Score_column::compare);
 
 #endif // SCORE_COLUMN_HH
 

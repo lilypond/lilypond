@@ -12,7 +12,7 @@ You should use doc++ to take a peek at the sources.
 
 This should become a Hacking-HOWTO. If you find any confusing stuff
 here, let me know.  I am a hacker, and don't spend enough time doccing
-what I write.
+what I write. (Most stuff here which refers to the code is slightly outdated)
 
 If you finally have mastered some internal piece of lily, your
 explanation could be added here.
@@ -41,16 +41,22 @@ Performers), which swallow requests, broadcast them and couple
 different elements.
 
 In this step data-structures for the next steps are created and filled
-with data: PScore, PCol.
+with data: Score_elements, PScore, PCol.
+
+=item Prebreaking
+
+Breakable stuff (eg. clefs and bars) are copied into pre and postbreaks. 
 
 =item Preprocessing
 
 Some dependencies are resolved, such as the direction of stems, beams,
 
-=item Calculation:
+=item Break calculation:
 
-This step uses structures which have names starting with 'P'.
-linebreaks and horizontal positions of PCols are determined. 
+The lines and horizontal positions of the columns are determined
+
+=item Breaking
+
 
 Through some magical interactions with Line_of_score and Super_elem
 (check out the source) the "lines" are produced. 
@@ -67,12 +73,11 @@ are determined.
 
 =item Output paper
 
-Very simple, just walk all Line_of_* and follow the links over there
 
 =item Output midi
 
-The columns of requests (from the Setting up step) are used to
-determine what to output when.
+The music is run through a translator (called Performer) which 
+creates midi-items from the requests.
 
 =back
 
@@ -87,22 +92,16 @@ In music typesetting, the user might want to cram a lot more symbols
 on the paper than actually fits. To reflect this idea (the user asks
 more than we can do), the container for this data is called Request.
 
-A request is done to the C<Staff> which contains the
-C<Voice_element>. The staff decides whether to to honor the request,
-ignore it, or merge it with other requests. Merging of requests is
-preferably done with other requests done by members of the same
-voicegroups (beams, brackets, stems)
+The music (requests) are read/interpreted by a set of objects
+(translators), the Performers/Engravers.  The engraver which agrees to
+handle a request decides whether to to honor the request, ignore it,
+or merge it with other requests. Merging of requests is preferably
+done with other requests done by members of the same voicegroups
+(beams, brackets, stems).
 
 The result of a request will be an C<Item> or a C<Spanner>, which
-will be put on a C<PStaff>. Note that the C<PStaff> and the original
-C<Staff> need not have anything in common. For example, the
-``double'' piano Staff could interpret commands which juggle
-melodies across the left and right hand, and may put the result in
-two five-line PStaffs (maybe with extra PStaffs to carry the dynamic
-signs and any lyric.
+will be put on the score.
 
-The class C<Staff> should be thought as a container for the
-C<Voice>s, and an interpreter for C<Request>s.
 Different staffs can produce different outputs; a melodious voice
 which is put into a percussion-Staff, will be typeset as the rythm of
 that voice.
@@ -122,13 +121,13 @@ some voice elts.
 
 =item C<Note_req>
 
-Staff has to decide if the ball should be hanging left or right. This
-influences the horizontal dimensions of a column, and this  is why
-request processing should be done before horizontal spacing.
+LilyPond has to decide if the ball should be hanging left or
+right. This influences the horizontal dimensions of a column, and this
+is why request processing should be done before horizontal spacing.
 
 Other voices' frivolities may cause the need for accidentals, so this
-is also for the  C<Staff> to decide. The  C<Staff> can decide on positioning
-based on ottava commands and the appropriate clef.
+is also for the to decide. The engraver can decide on positioning based on
+ottava commands and the appropriate clef.
 
 =item C<Rest_req>
 
@@ -142,7 +141,7 @@ This type of request typically results in the creation of a C<Spanner>
 
 Start/stop a beam.
 
-Staff has to combine this request with the stem_request, since the
+Engraver has to combine this request with the stem_request, since the
 number of flags that a stem wants to carry will determine the
 number of beams.
 
@@ -176,19 +175,19 @@ Voice_group), so they should share the beams, and the two [ ] pairs
 should be merged. The slurs OTOH are specific for each voice, so they
 should not be shared.
 
-The judge in this "allocation" problem is Staff (actually, it's child
-C<Complex_staff>). It uses the C<Request_engraver> to do most of the
-work.  For each request C<Complex_staff> queries so-called
-C<Request_engraver>s if they want to accept a request eg, the
-C<Notehead_engraver> will accept C<Note_req>s, and turn down
-C<Slur_req>s. If C<Complex_staff> cannot find a engraver that wants
-the request, it is junked (with a warning message).
+The judge in this "allocation" problem a set of broker. It uses the
+C<Request_engraver> to do most of the work.  For each request
+C<Complex_staff> queries so-called C<Request_engraver>s if they want
+to accept a request eg, the C<Notehead_engraver> will accept
+C<Note_req>s, and turn down C<Slur_req>s. If the Music_iterator
+cannot find a engraver that wants the request, it is junked (with a
+warning message).
 
 After all requests have been either assigned, or junked, the Engraver
 will process the requests (which usually means creating an C<Item> or
 C<Spanner>). If a C<Request_engraver> creates something, it tells
-C<Complex_staff>. If all requests have been processed, then each
-Engraver is notified of any created Staff_element.
+If all requests have been processed, then each Engraver is notified
+of any created Score_element, via a broadcasting system.
 
 =head2 example:
 
@@ -202,41 +201,13 @@ produces:
 note_request will be taken by a C<Notehead_engraver>, stem_request
 will be taken by a C<Stem_beam_engraver>. C<Notehead_engraver> creates
 a C<Notehead>, C<Stem_beam_engraver> creates a C<Stem>. Both announce
-this to the Staff. Staff will tell C<Stem_beam_engraver> about the
-C<Notehead>, which will add the C<Notehead> to the C<Stem> it just
-created.
+this to the Staff_engraver. Staff_engraver will tell
+C<Stem_beam_engraver> about the C<Notehead>, which will add the
+C<Notehead> to the C<Stem> it just created.
 
 To decide on merging, C<Complex_staff> has grouped several
-engravers. There are a few groups:
+engravers. Please check init/engraver.ini.
 
-=over 4
-
-=item *
-
-Staff wide, contains
-
-	Local_key_engraver
-	Bar_engraver
-	Key_engraver
-	Meter_engraver
-	Clef_engraver
-
-=item *
-
-Voice group, contains
-
-	Stem_beam_engraver
-	Script_engraver
-	Text_engraver
-
-=item *
-
-Voice, contains
-	
-	Slur_engraver
-	Notehead_engraver
-
-=back
 
 =head1 ITEMS and SPANNERS
 
@@ -346,8 +317,12 @@ uses the concept of pre- and post-breaks.
 minimum distance to other columns, to prevent symbols from running
 into symbols of other columns.)
 
+
+=head1 SPACING 2
+
+
 This of course does not solve the problem of generating the
 springs. This is an area that needs a lot of work, and the optimal
 solution to find is not of a mathematical nature.
 
-
+Gourlay's solution is used.

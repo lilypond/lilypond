@@ -11,16 +11,25 @@ LaTeX) output from file input.
 
 As a bonus, you can also output a MIDI file of what you typed.
 
+=head2 Examples
+
+
 <a href=example_output.html
 >
 examples of what LilyPond can do: MIDI, PS, .gif and input.
 </a
 >
 
-=head1 DOCUMENTATION
+=head2 Documentation
 
 =over 4
 
+=item *
+<a href=faq.html
+>
+FAQs
+</a
+>
 
 =item *
 <a href=INSTALL.html
@@ -30,47 +39,12 @@ The installation instructions.
 >
 
 =item *
-<a href=MANIFESTO.html
+<a href=tex_manuals.html
 >
-Design criteria
+PS documents about LilyPond
 </a
 >
 
-=item *
-<a href=AUTHORS.html
->
-AUTHORS
-</a
->
-
-
-=item *
-<a href=lilypond.html
->
-The manual page
-</a
->
-
-=item *
-<a href=lilygut.html
->
-internal structures.
-</a
->
-
-=item *
-<a href=lilyliterature.html
->
-Papers, books and online-resources on music typesetting
-</a
->
-
-=item *
-<a href=other-packages.html
->
-Other packages for printing music.
-</a
->
 
 =item *
 <a href=mi2mu.html
@@ -80,9 +54,9 @@ manual page for mi2mu, the MIDI convertor.
 >
 
 =item *
-<a href=mudela.html
+<a href=lilypond.html
 >
-Mudela, the input format
+The manual page
 </a
 >
 
@@ -93,11 +67,10 @@ The mudela convertor: convert-mudela
 </a
 >
 
-
 =item *
-<a href=faq.html
+<a href=mudela-book.html
 >
-FAQs
+mudela in TeX: mudela-book
 </a
 >
 
@@ -105,6 +78,20 @@ FAQs
 <a href=error.html
 >
 errors
+</a
+>
+
+
+=back
+
+=head2 Background information
+
+=over 4
+
+=item *
+<a href=MANIFESTO.html
+>
+Design criteria
 </a
 >
 
@@ -124,6 +111,22 @@ The lilypond logo (medium size, format: .gif)
 
 
 =item *
+<a href=gnu-music.html
+>
+The GNU Music project
+</a
+>
+
+=back
+
+
+=head2 The program
+
+
+=over 5
+
+
+=item *
 <a href=TODO.txt
 >
 The TODO list.
@@ -138,16 +141,16 @@ The Change log
 >
 
 =item *
-<a href=CodingStyle.html
+<a href=lilygut.html
 >
-The coding standards of the lilypond project.
+internal structures.
 </a
 >
 
 =item *
-<a href=gnu-music.html
+<a href=CodingStyle.html
 >
-The GNU Music project
+The coding standards of the lilypond project.
 </a
 >
 
@@ -158,9 +161,35 @@ The DOC++ documentation of the C++ sources.
 </a
 >
 
+=item *
+<a href=AUTHORS.html
+>
+AUTHORS
+</a
+>
+
+=back
+
+=head2 Links
+
+=over 5
 
 =item *
-Get it at ftp://pcnov095.win.tue.nl/pub/lilypond !
+<a href=lilyliterature.html
+>
+Papers, books and online-resources on music typesetting
+</a
+>
+
+=item *
+<a href=other-packages.html
+>
+Other packages for printing music.
+</a
+>
+
+=item *
+Get LilyPond at ftp://pcnov095.win.tue.nl/pub/lilypond !
 
 
 =item *

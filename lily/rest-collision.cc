@@ -98,9 +98,10 @@ Rest_collision::do_pre_processing()
     // meisjes met meisjes
     if (!ncol_l_arr_.size()) {
 	int dy = rest_l_arr_.size() > 2 ? 6 : 4;
-	rest_l_arr_[0]->translate_heads(dy);	
+	
+	rest_l_arr_[0]->translate_heads(rest_l_arr_[0]->dir_i_ *dy);	
 	// top is last element...
-	rest_l_arr_.top()->translate_heads(-dy);	
+	rest_l_arr_.top()->translate_heads(rest_l_arr_.top()->dir_i_* dy);	
     }
     // meisjes met jongetjes
     else {

@@ -6,7 +6,7 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
-
+#include "dimen.hh"
 #include "span-bar.hh"
 #include "lookup.hh"
 #include "symbol.hh"
@@ -41,7 +41,16 @@ Span_bar::do_substitute_dependency(Score_elem*o, Score_elem*n)
     }
     
     spanning_l_arr_.substitute( bold , b);
+}
 
+/*
+  A no-op if not yet output: the span_bar slavish follows what it spans
+ */
+void
+Span_bar::translate_y(Real y)
+{
+    if (status() == OUTPUT)
+	Score_elem::translate_y(y);
 }
 
 void
@@ -51,6 +60,11 @@ Span_bar::set(Vertical_align_element *a)
 }
     
 
+Interval
+Span_bar::do_width() const
+{
+    return paper()->lookup_l()->bar(type_str_, 40 PT).dim.x; // ugh
+}
 void
 Span_bar::do_pre_processing()
 {
@@ -58,12 +72,19 @@ Span_bar::do_pre_processing()
 	transparent_b_ = true;
 	empty_b_ =true;
     } else {
-	type_str_ = spanning_l_arr_[0]->type_str_;
+	if  (type_str_ == "")
+	    type_str_ = spanning_l_arr_[0]->type_str_;
 	if (type_str_ =="") {
 	    transparent_b_=true;
 	    empty_b_ = true;
 	}
     }
+}
+
+Symbol
+Span_bar::get_bar_sym(Real dy) const
+{
+    return paper()->lookup_l()->bar(type_str_, dy);
 }
 
 Molecule*
@@ -72,7 +93,7 @@ Span_bar::brew_molecule_p()const
     Interval y;
     for (int i=0; i < spanning_l_arr_.size(); i++)
 	y.unite( spanning_l_arr_[i]->height() );
-    Symbol s = paper()->lookup_l()->bar(type_str_, y.length());
+    Symbol s = get_bar_sym(y.length());
         Molecule*output = new Molecule(Atom(s));
     output->translate_y (  y[-1] );
 

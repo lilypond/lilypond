@@ -53,6 +53,7 @@ Local_key_engraver::do_pre_move_processing()
 	for(int i=0; i < support_l_arr_.size(); i++)
 	    key_item_p->add_support(support_l_arr_[i]);
 	
+	announce_element(Score_elem_info(key_item_p, 0)); // ugh ugh ugh
 	typeset_element(key_item_p);
     }
     

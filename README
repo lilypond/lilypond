@@ -1,4 +1,11 @@
-IMPORTANT:
+This is the toplevel README to LilyPond
+
+
+GNU LilyPond which converts music definition files into visual or
+audio output: it can typeset formatted sheet music in TeX and 
+and (mechanical) perfomances to MIDI files.
+
+1. VERSIONING
 
 if you have downloaded a
 
@@ -7,7 +14,19 @@ if you have downloaded a
 version, then this is version is *not* meant for producing nice output
 (but to keep your patchsets up to date). It might not even compile.
 
-====================
+2. REQUIREMENTS
+
+For the compilation and running of LilyPond you need some additional
+packages. The most unusual one of this are the mf sources to
+MusixTeX. Please refer to the installation instructions on how to
+obtain and install them.
+
+3. INSTALLATINON
+
+For your convenience, a formatted copy of the INSTALL instructions are
+in the toplevel directory, as INSTALL.text
+
+4. DOCUMENTATION
 
 Please refer to the directory Documentation/ for the real doco.
 
@@ -16,14 +35,9 @@ and then do this:
 
 	make doc
 
-You can also simply read the .pod sources. It is ASCII text. For your
-convenience, a copy of the formatted INSTALL instructions are in
-the toplevel directory, as INSTALL.text 
+You can also simply read the .pod sources. They are ASCII text. 
 
-
-======================
-
-NOTE:
+5. COMMENTS
 
 LilyPond is a long way from finished and polished. I do appreciate
 criticism, comments, bugreports, patches, etc. Please send e-mail to
@@ -40,6 +54,6 @@ to us: hanwen@stack.nl, jan@digicash.com.
 
 
 	
-	
+
 Have fun!
 

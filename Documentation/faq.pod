@@ -12,7 +12,8 @@ Q: I get all kinds of errors while  compiling parser.cc
 
 A: LilyPond uses features of bison version 1.25. Please confirm that
 you are using a version 1.25 or better. Don't forget to do "make
-clean" after installing it
+clean" after installing it. Don't forget to remove the stale
+bison.simple as well.
 
 If the problem persists, then please mail me.
 
@@ -124,13 +125,6 @@ specify
 
 	a()a()a
 
-Q: Why shouldn't I put all commands (\clef, \meter) inside the music?
-
-A: You should do what you like, but at some time we will enable
-quoting of music ("Stichnoten"). Besides if you are going to type an
-orchestral score, then you'd probably want to enter most of the meter,
-repeat commands only once.
-
 Q: I want to insert some TeX commands
 
 A: You shouldn't: it's against LilyPond philosophy to have typesetting
@@ -186,35 +180,7 @@ Q: Why do I need g++ >= 2.7?
 
 A: By using g++, GNU LilyPond is portable to all platforms which support
 g++ (there are quite a few). Not having to support other compilers
-saves us a I<lot> of trouble. GNU LilyPond and FlowerLib use:
-
-=over 4
-
-=item *
-
-builtin bool
-
-=item *
-
-64 bit integral type long long
-
-=item *
-
-typeof
-
-=item *
-
-operator <?, operator >?
-
-=item *
-
-the new for-scope
-
-=item	 *
-
-class Rational (libg++)
-
-=back
+saves us a I<lot> of trouble. 
 
 =head2 Running
 

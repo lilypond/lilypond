@@ -63,6 +63,8 @@ include ./$(depth)/make/Rules.make
 
 # auto dependencies:
 #
--include $(DEPFILES)
+ifdef DEPFILES
+include $(DEPFILES)
+endif
 #
 

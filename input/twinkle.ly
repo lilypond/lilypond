@@ -14,7 +14,7 @@
  Tested Features: lyrics
 EndMudelaHeader
 %}
-\version "0.0.61";
+\version "0.1.0";
 
 melody = \melodic{
 	\clef violin;
@@ -115,13 +115,19 @@ textiii = \lyric{
 
 \score{
 	< \multi 3;
-		\melodic <\global \melody >
+		\melodic <
+			\id "Piano" "";\multi 3;
+			< \global 
+				\melody >
+			< \global 
+				\accompany >
+		>
 		
 		% ugh
 		\lyric < \id "Lyric" "1"; \global \tekst \hegedraagjetekst >
 %		\lyric < \id "Lyric" "2";  \global \texte >
 %		\lyric < \id "Lyric" "3"; \global \texti \textii \textiii >
-		\melodic < \global \accompany >
+		
 	>
 	\paper{
 		unitspace= 2.5\cm;

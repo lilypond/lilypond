@@ -9,7 +9,7 @@
 
 %}
 
-\version "0.0.61";
+\version "0.1.0";
 
                                     % should add \need{dutch.ini} for
                                     % correct parsing of note names
@@ -160,7 +160,8 @@ bassdux =
 
         
 \score {
-    \melodic < \multi 1;
+    \melodic < \id "Piano" ""; 
+	       \multi 1;
                  < \multi 2; 
                        \global 
                        \dux
@@ -172,7 +173,10 @@ bassdux =
                  >
              >
 
-    \paper{}
+    \paper{
+%	unitspace = 40.0\pt;	geometric = 1.6;
+	geometric= 1.4; unitspace= 34.\pt;
+    }
     \midi {
         \tempo 4:84;
     }

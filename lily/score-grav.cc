@@ -17,6 +17,7 @@
 #include "score.hh"
 #include "musical-request.hh"
 #include "score-column.hh"
+#include "command-request.hh"
 
 
 void
@@ -28,28 +29,29 @@ Score_engraver::set_score(Score *s)
 
 Score_engraver::Score_engraver()
 {
+    disallow_break_b_ = false;
     scoreline_l_ =0;
     command_column_l_ =0;
     musical_column_l_ =0;
+    breaks_i_ =0;
 }
 
  
 void
 Score_engraver::prepare(Moment w)
 {
-    Score_column* c1 = new Score_column(w);
-    Score_column* c2 = new Score_column(w);
+    command_column_l_ = new Score_column(w);
+    musical_column_l_ = new Score_column(w);
     
-    c1->musical_b_ = false;
-    c2->musical_b_ = true;
+    command_column_l_->musical_b_ = false;
+    musical_column_l_->musical_b_ = true;
     
-    score_l_->cols_.bottom().add(c1);
-    score_l_->cols_.bottom().add(c2);
-    set_cols(c1,c2);
-
-
+    score_l_->pscore_p_->add(command_column_l_);
+    score_l_->pscore_p_->add(musical_column_l_);
+    disallow_break_b_ = false;
     post_move_processing();
 }
+
 void
 Score_engraver::finish()
 {
@@ -63,13 +65,6 @@ Score_engraver::do_creation_processing()
     scoreline_l_->left_col_l_ = get_staff_info().command_pcol_l();
     scoreline_l_->left_col_l_ ->set_breakable();
     Engraver_group_engraver::do_creation_processing();
-}
-
-void
-Score_engraver::set_cols(Score_column*c1,Score_column*c2)
-{
-    command_column_l_ = c1;
-    musical_column_l_ = c2;
 }
 
 void
@@ -93,12 +88,9 @@ Score_engraver::process()
 void
 Score_engraver::announce_element(Score_elem_info info)
 {
-    info.origin_grav_l_arr_.push(this);
-    if (info.elem_l_->name() == Bar::static_name()) {
-	get_staff_info().command_pcol_l()->set_breakable();
-    } 
-        
     announce_info_arr_.push(info);
+    info.origin_grav_l_arr_.push(this);
+        
 }
 void
 Score_engraver::do_announces()
@@ -118,7 +110,7 @@ Score_engraver::do_announces()
 	     */
 	    if (announce_info_arr_[i].req_l_) {
 		Musical_req *m = announce_info_arr_[i].req_l_->musical();
-		if (m&&m->rhythmic()) {
+		if (m && m->rhythmic()) {
 		    musical_column_l_->add_duration( m->duration());
 		}
 	    }
@@ -172,6 +164,12 @@ Score_engraver::typeset_all()
 void
 Score_engraver::do_pre_move_processing()
 {
+    if ( !disallow_break_b_ ){ 
+	get_staff_info().command_pcol_l()->set_breakable();
+	breaks_i_ ++;
+	if ( ! (breaks_i_%8))
+	    *mlog << "[" << breaks_i_ << "]" << flush;
+    }
     // this generates all items.
     Engraver_group_engraver::do_pre_move_processing();
     
@@ -204,6 +202,8 @@ Score_engraver::do_try_request(Request*r)
     for ( int i =0; !gotcha && i < nongroup_l_arr_.size() ; i++)
 	gotcha = nongroup_l_arr_[i]->try_request(r);
   
+    if ( r->command() && r->command()->disallowbreak())
+	    disallow_break_b_ = true;
     return gotcha;
 }
 

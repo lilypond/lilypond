@@ -21,9 +21,9 @@
   
   */
 class Break_algorithm {
-    void generate_spacing_problem(Line_of_cols,Spacing_problem&)const;
+    Line_spacer* generate_spacing_problem(Line_of_cols)const;
 protected:
-    PScore &pscore_;
+    PScore *pscore_l_;
     Real linelength;
 
     /// search all pcols which are breakable.
@@ -41,18 +41,15 @@ protected:
     Col_hpositions stupid_solution(Line_of_cols) const;
     virtual Array<Col_hpositions> do_solve()const=0;
 public:
+    Line_spacer* (*get_line_spacer)();
+    
     Break_algorithm(PScore&);
 
     /// check if the spacing/breaking problem is well-stated
     void problem_OK()const;
-
+    void OK()const;
     Array<Col_hpositions> solve()const;
 };
 
-/// wordwrap type algorithm: move to next line if current is optimal.
-struct Word_wrap : Break_algorithm {
-    virtual Array<Col_hpositions> do_solve()const;
-    Word_wrap(PScore&);
-};
 #endif // BREAK_HH
 

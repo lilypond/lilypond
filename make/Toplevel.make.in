@@ -26,14 +26,14 @@ include ./$(depth)/make/Variables.make
 
 # descent order into subdirectories:
 #
-SUBDIRS = mf flower lib lily mi2mu \
+SUBDIRS = flower lib lily mi2mu \
 	Documentation bin init input tex make
 #
 
 # list of distribution files:
 #
 SCRIPTS = configure configure.in install-sh
-README_FILES = ANNOUNCE COPYING NEWS README TODO INSTALL.text AUTHORS.text
+README_FILES = BUGS DEDICATION ANNOUNCE COPYING NEWS README TODO INSTALL.text AUTHORS.text
 EXTRA_DISTFILES=  .dstreamrc .version $(README_FILES) $(SCRIPTS) $(SYMLINKS)
 
 # do not dist ./Makefile (is copied from make/Toplevel.make)

@@ -15,7 +15,6 @@
 void
 Engraver::post_move_processing()
 {
-        
     if (status < CREATION_INITED) {
 	do_creation_processing();
 	status = CREATION_INITED;

@@ -17,6 +17,8 @@ class Score_engraver :
     public Engraver_group_engraver, public Global_translator 
 {
     Line_of_score * scoreline_l_;
+    bool disallow_break_b_;
+    int breaks_i_;
 
     
     Array<Item*> nobreak_item_p_arr_;

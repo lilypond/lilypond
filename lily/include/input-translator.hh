@@ -21,6 +21,7 @@ struct Input_translator_list : public Pointer_list<Input_translator*>
 {
     Input_translator_list(Input_translator_list const &);
     Input_translator_list(){}
+    ~Input_translator_list(){}
 };
 
 struct Input_translator : Input { 

@@ -55,7 +55,6 @@ void
 Rest_collision_engraver::do_print() const
 {
 #ifndef NPRINT
-    mtor << "collisions: " << collision_l_arr_.size();
     if ( rest_collision_p_ )
 	rest_collision_p_->print();
 #endif

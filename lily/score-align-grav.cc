@@ -31,14 +31,15 @@ void
 Score_align_engraver::acknowledge_element(Score_elem_info inf)
 {
     if (inf.elem_l_->is_type_b(type_ch_C_ )) {
-	
-	if (! align_p_ ) {
+    
+	if (!align_p_ ) {
 	    align_p_ = new Horizontal_group_item;
 	    announce_element(Score_elem_info(align_p_,0));
 	}
 	
 	align_p_->add_element(inf.elem_l_);
     }
+    
 }
 
 IMPLEMENT_STATIC_NAME(Score_align_engraver)

@@ -9,8 +9,7 @@ mi2mu - convert MIDI to mudela(5)
 =head1 DESCRIPTION
 
 Mi2mu translates a MIDI input file to Mudela (GNU LilyPond source
-format).
-Mi2mu is part of the GNU LilyPond music typesetting package.
+format).  Mi2mu is part of the GNU LilyPond music typesetting package.
 
 =head1 OPTIONS
 

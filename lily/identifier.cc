@@ -63,11 +63,11 @@ class Class
 
 DEFAULT_PRINT(Script_id, General_script_def, script);
 DEFAULT_PRINT(Lookup_id, Lookup, lookup);
+DEFAULT_PRINT(Input_translator_id, Input_trans, input_translator);
 DEFAULT_PRINT(Symtables_id, Symtables, symtables);
 DEFAULT_PRINT(Music_id,Music , music);
 DEFAULT_PRINT(Request_id, Request, request);
 DEFAULT_PRINT(Score_id, Score, score);
-DEFAULT_PRINT(Input_trans_id, Input_translator, itrans);
 DEFAULT_PRINT(Midi_def_id,Midi_def, mididef);
 DEFAULT_PRINT(Paper_def_id,Paper_def, paperdef);
 
@@ -112,7 +112,7 @@ Idclass::~Idclass() { delete accessor(false); }\
 Idclass::Idclass(String s, Class*st, int code):Identifier(s,code) { data = st; }\
 
 
-
+implement_id_class(Input_translator_id, Input_translator, input_translator);
 implement_id_class(Int_id, int, intid);
 implement_id_class(Real_id, Real, real);
 implement_id_class(Script_id, General_script_def, script);
@@ -121,7 +121,6 @@ implement_id_class(Symtables_id, Symtables, symtables);
 implement_id_class(Music_id, Music, music);
 implement_id_class(Score_id, Score, score);
 implement_id_class(Request_id, Request, request);
-implement_id_class(Input_trans_id, Input_translator, itrans);
 implement_id_class(Midi_def_id, Midi_def, mididef);
 implement_id_class(Paper_def_id, Paper_def, paperdef);
 
@@ -129,7 +128,7 @@ Identifier::Identifier(Identifier const&)
 {
     assert(false);
 }
-
+default_accessor(Input_translator_id,Input_translator, input_translator);
 default_accessor(Int_id, int, intid);
 default_accessor(Real_id, Real, real);
 virtual_accessor(Script_id, General_script_def, script);
@@ -138,6 +137,5 @@ default_accessor(Symtables_id, Symtables, symtables);
 virtual_accessor(Music_id, Music, music);
 default_accessor(Score_id, Score, score);
 virtual_accessor(Request_id, Request, request);
-default_accessor(Input_trans_id, Input_translator, itrans);
 default_accessor(Midi_def_id, Midi_def, mididef);
 default_accessor(Paper_def_id, Paper_def, paperdef);

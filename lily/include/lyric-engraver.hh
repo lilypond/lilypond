@@ -15,7 +15,10 @@
 #include "lily-proto.hh"
 
 class Lyric_engraver : public Engraver {
-    Array<Lyric_req*> lreq_arr_;
+    Lyric_req* lreq_l_;
+    Text_item *lyric_item_p_;
+protected:
+    virtual void do_pre_move_processing();
     virtual bool do_try_request(Request*);
     virtual void do_process_requests();
     virtual void do_post_move_processing();

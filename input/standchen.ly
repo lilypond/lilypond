@@ -13,7 +13,7 @@
 EndMudelaHeader
 %}
 
-\version "0.0.61";
+\version "0.1.0";
 
 commands = \melodic{
 	\skip 2.*4;
@@ -465,12 +465,14 @@ tekstII = \lyric{
 }
 
 \score{
-	<	\multi 3; 
+	<	
 		{ \id "Lyric" "1"; \tekstI } % ugh
 		{ \id "Lyric" "2"; \tekstII }
-
-		\melodic < \melodie \commands >
-		\melodic < \begeleiding \commands >
+		< \id "Piano" "";
+			\multi 2;
+			\melodic < \melodie \commands >
+			\melodic < \begeleiding \commands >
+		>
 	>
 	\paper{
 		linewidth= 195.\mm;

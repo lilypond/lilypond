@@ -21,8 +21,15 @@ public:
     SCORE_ELEM_CLONE(Span_bar);
     void add(Bar* );
     void set( Vertical_align_element *);
-    void do_pre_processing();
-    void do_substitute_dependency(Score_elem*,Score_elem*);
-    Molecule * brew_molecule_p()const;
+
+protected:
+    virtual Interval do_width()const;
+    virtual void do_pre_processing();
+    virtual void translate_y(Real y);
+    
+    virtual void do_substitute_dependency(Score_elem*,Score_elem*);
+    virtual Molecule * brew_molecule_p()const;
+    virtual Symbol get_bar_sym(Real dy) const;
 };
+
 #endif // SPAN_BAR_HH

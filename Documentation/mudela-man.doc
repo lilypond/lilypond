@@ -1,0 +1,565 @@
+% -*-latex-*-
+\documentclass{article}
+\usepackage{a4wide}
+\title{GNU LilyPond input format 0.1}
+\author{Han-Wen Nienhuys}
+
+\begin{document}
+\maketitle
+\def\interexample{\par Produces the following:\par}
+\def\preexample{\par\medskip}
+\def\postexample{\par\medskip}
+\def\file#1{{\texttt{#1}}}
+
+\section{Introduction}
+
+This document describes the the GNU LilyPond input format, which is an
+effective language for defining music.  We call this language
+(rather arrogantly) The Musical Definition Language (Mudela 0.1).
+
+[If anybody comes up with a better name, we'd gladly take
+this. Gourlay already uses Musical Description Language, GSharp Score
+Definition Language. We're not being original here]
+
+The first aim of Mudela is to define a piece of music, 
+being complete from both from a musical typesetting, 
+as from a musical performing point of view.
+
+
+The Musical Definition Language (Mudela) version 2, has a logical
+structure, making use of typing and naming (using identifiers), that
+allows for flexible input, and definition reuse. See MANIFESTO for
+reasons and design considerations.
+
+The below included for explanatory purposes only (i.e., for a complete
+and up-to-date definition, see \file{lily/parser.y} and
+\file{lily/lexer.l}):
+
+As a related note, you should take a look at the examples and the init
+files, as this document does not cover every aspect of mudela yet, and
+may be out of date.
+
+
+\subsection{Files}
+
+The de-facto extension of Mudela is \file{.ly}. Files may be included by
+entering \verb+include+ at the start of a line:
+
+\begin{verbatim}
+\include "a_file.ly"
+\end{verbatim}
+
+
+\subsection{Comments}
+
+Line comments are introduced by a \verb+%+. Block comments are delimited
+by \verb+%{+ and \verb+%}+. They do not nest.
+
+\subsection{Versions}
+
+Occasionally, small changes in syntax across different versions of
+Mudela might give syntax errors. To warn you about possible
+incompatibilities, you can specify the Mudela version for which the
+inputfile was written,
+\begin{verbatim}
+\version "0.0.50";
+\end{verbatim}
+
+A perl-script which tries to convert to newer versions
+(\file{convert-mudela}) is included in the LilyPond distribution.
+
+\subsection{Words}
+
+Keywords are preceded by a backslash: \verb+\+. They contain
+alphabetic characters only.
+
+Identifiers in their normal form consist start with a backslash, a
+alpha character, followed by alpha-numerics. Identifiers can contain
+any characters (except whitespace, \verb+$+ and \verb+%+), if you use this
+construct:
+
+\begin{verbatim}
+\$i'm_a_weird!!!identifier
+\end{verbatim}
+
+(which is the identifier with the name
+\verb+i'm_a_weird!!!identifier+).  \verb+$+ Takes any sequence of
+characters which are not whitespace, \verb+$+ and \verb+%+.
+\verb+$i'm_a_weird!!!string+
+
+\subsection{Nesting characters}
+
+Mudela uses the brace (\verb+{+ and \verb+}+) for most hierarchical
+structures.  For chords the \verb+<+ and the \verb+>+ are used as
+nesting braces.
+
+\subsection{Constants}
+
+Please note that -.5 is not a Real.
+
+\begin{verbatim}
+"I am a string"
+-1.2e3          % a real
+12              % an int
+\end{verbatim}
+
+        
+\subsection{Identifiers}
+
+When assigning identifiers you use
+
+\begin{verbatim}
+string = ...
+\oldidentifier = ..
+\end{verbatim}
+
+When using identifiers they have to be escaped:
+
+\begin{verbatim}
+oboe = \melodic { ... }
+\score{ \melodic { \oboe }}
+\end{verbatim}
+\subsection{Hierarchical structures}
+
+The general structure consists of declarations:
+\begin{verbatim}
+IDENTIFIER = \TYPE{
+        <type specific data>
+}
+\end{verbatim}
+and instantiations:
+
+\begin{verbatim}
+\TYPE{ <type specific data> }
+\end{verbatim}
+
+(Currently, \verb+\score+ is the only type that can be instantiated
+at top level. Currently declarations can only be done at top level)
+
+Most instantiations that use an IDENTIFIER are specified as follows:
+
+\begin{verbatim}
+\TYPE{ IDENTIFIER [...] }
+\end{verbatim}
+
+Some exceptions on this rule have been made to prevent inputting
+Mudela becoming tedious
+
+
+\subsection{Modes:}
+
+To simplify different aspects of music definition (entering the notes
+and manipulating them) Mudela has a number of different input "modes":
+
+\begin{description}
+
+
+\item[Normal mode]
+
+At the start of parsing, Mudela assumes normal mode.
+In Normal mode, a word is looked up in the following order:
+\begin{verbatim}
+word    string
+\word   keyword, identifier
+\end{verbatim}
+In normalmode, a word is assumed to start with an alphabetic
+character, followed by alpha-numeric characters.
+
+\item[Note mode] 
+  Note mode (and thus Simple mudela) is introduced by
+  the keyword \verb+\melodic+.  In Note mode, a word is looked up in
+  the following order:
+
+\begin{verbatim}
+word    notename, string
+\word   keyword, identifier
+\end{verbatim}
+In Note mode a word is considered to have alphabetic characters only.
+
+\item[Lyric mode]
+Lyrics mode (and thus Simple mudela)  is introduced by the keyword \verb+\lyrics+.
+
+In Lyrics mode, a word is looked up in the following order:
+
+\begin{verbatim}
+word    string
+\word   keyword, identifier
+\end{verbatim}
+
+In Lyric mode every sequence of non-digit and non-white characters
+starting with an alphabetic character or the \_ is considered a word.
+
+\begin{verbatim}
+a&@&@&TSI|{[    % a word
+1THtrhortho     % not a "word"
+Leise Fl\"u\ss{}teren meine Sapfe       % 4 words
+_ _ _ _         % 4 words: 4 spaces
+\end{verbatim}
+\end{description}
+
+These modes are of a lexical nature. Normal and Note mode largely
+resemble each other, save the possibility of entering Reals, 
+meaning of \verb+_+ and the resolution of words
+
+\subsection{Notes}
+
+You enter a note by giving the name and the reciprocal of the duration:
+
+\begin[fragment,verbatim]{mudela}
+a'4     % dutch names
+\end{mudela}
+
+is a A-1 pitched quaver. The ' signifies an octave change.  A-1 is 440
+Hz concert-pitch. \verb+c'+ is also known as the central c. More examples:
+
+\begin[fragment,verbatim]{mudela}
+'a      % 110
+        a       % 220
+        A       % 110, uppercase octavates down
+        a'      % 440
+a''     % 880
+'as4.*2/3
+\end{mudela}
+
+The last one  is an A flat, (just below 110 Hz concert-pitch). The \verb+*2/3+
+signifies that this note is part of a triplet (3 in stead of 2). The
+duration is one and a half quaver (\verb+4.+) times 2/3.
+
+Notenames are just a special kind of identifiers, and can be declared
+for any language appropriate (see \file{dutch.ini}).  The default language
+for notenames is defined to be dutch. In dutch, the notenames are
+a,b,c,d,e,f and g. Sharps are formed by adding the extension "is",
+flats by adding ``es''
+
+\begin{verbatim}
+% double sharp
+cisis disis eisis fisis gisis aisis bisis
+% sharps
+cis dis eis fis gis ais bis
+% naturals
+c d e f g a b 
+% flats
+ces des es fes ges as bes
+% double flats
+ceses deses eses feses geses ases beses
+\end{verbatim}
+
+Rests are named r or s
+\begin{verbatim}
+r       % print a rest
+s       % a "space" rest, nothing is printed.
+\end{verbatim}
+
+These notenames along with duration are enough material to construct
+simple melodies:
+
+\begin[verbatim,fragment]{mudela}
+\octave c';
+c4 c4 g4 g4 a4 a4 g2
+f4 f4 e4 e4 d4 d4 c2
+\end{mudela}
+
+Music is able to express more. generally speaking, the other
+'features' are either connected between notes (slurs, beams: spanning
+requests) or attached to notes (eg. accents). The former are
+implemented as START and STOP stop features and then attached to the note.
+
+\begin{verbatim}
+[]      START/STOP a beam
+()      START/STOP a slur
+\end{verbatim}
+
+example: 
+\begin[verbatim,fragment]{mudela}
+  \octave c';
+  [c8 () d8 () e8  
+  e8(] [)g8 <c'8] e'8>              % NO nesting!
+  [2/3 c8 c8 c8]1/1       % a triplet
+\end{mudela}
+
+Please note that these two characters do \emph{not} necessarrily nest,
+they should attached to the note \verb+[ <c4 c4>]+ will generate a parse
+error for this reason. 
+  
+\subsection{Slurs and Ties}
+
+Ties connect the noteheads of adjecent notes. They are entered as follows:
+
+\begin[fragment]{mudela}
+a4 ~ a4
+\end{mudela}
+
+Slurs connect whole chords, and try to avoid crossing stems. They are
+entered as follows:
+\begin{verbatim}
+
+\begin[fragment]{mudela}
+a4(  )a4
+\end{mudela}
+
+\subsection{Scripts}
+
+Symbols which can be put at either side (above or below) of a staff
+are entered as follows:
+\begin[fragment]{mudela}
+a-^     % marcato, direction: default
+        a^-     % portato, direction: above note
+        a_.     % staccato, direction: below note
+        a^\fermata      % predefined identifier
+        c_"marcato"     % add a text
+        c^"marcato"
+c-"marcato"
+\end{mudela}
+
+If you want to define your own scripts refer to \file{script.ini} for
+details.
+
+
+Dynamics can be put after the notename:
+\begin{verbatim}
+a4 \dynamic { 0 } % 0 = fff, 7 = ppp
+\end{verbatim}
+
+Mudela defines the following dynamic identifiers:
+
+\begin{verbatim}
+ppp pp p mp mf df ff fff        % df iso f, f is a notename.
+\end{verbatim}
+and the following abbreviations:
+\begin{verbatim}
+\<      %start crescendo
+\>      % start decrescendo
+\!      % end crescendo/decrescendo
+\end{verbatim}
+
+\subsection{Defaults}
+
+If omit the duration of a note, a default value is substituted. For
+this default value mudela uses the last duration explicitly entered.
+
+Thus the following inputs are  equivalent
+\begin{verbatim}
+c4 c4 c16 c16 c16 s16 c4 c16
+c4 c c16 c c c c4 c16
+\end{verbatim}
+
+If you are typing music which does not lie in the "small" and "large"
+octave, you can prevent having to type \verb+'+ all the time by using the
+\verb+\octave+ command: These two lines have the same pitch.
+\begin{verbatim}
+c'' d'' e'' c d e c d e
+
+\octave c''; c d e ''c ''d ''e \octave c; c d e
+\end{verbatim}
+
+By default the setting of \verb+\octave+ is 0.
+
+\subsection{Lyrics}
+
+Lyrics in Mudela resemble Simple mudela a lot, with notes substituted
+by text. 
+
+All syllables are entered separately, separated by whitespace 
+\begin{verbatim}
+Twin-4 kle4 twin-4 kle4 ... 
+\end{verbatim}
+
+Two syllables or words that compose a single
+duration entry are bound together using an underscore 
+\begin{verbatim}
+He_could4 not4
+\end{verbatim}
+
+\subsection{ Music direction}
+
+Mudela reads left to right, but you can still stack voices and
+Voice\_elements which are produced in two directions: horizontal
+(voice like) and vertical (chord like)
+
+A note is a prime example of a Music-element is the note:
+\begin{verbatim}
+c4 
+\end{verbatim}
+
+If you enclose a sequence of Music-elements in braces ( { } ), then you form
+another kind of Music-element (Voice) with those pieces
+\begin{verbatim}
+        { c c g g a a g2 }      % twinkle twinkle
+        { { c c g g} { a a g2 } }
+
+        horOne = \melodic { c c g g }
+        horTwo = \melodic { a a g2 }
+        twinkle = \melodic { \horOne \horTwo }
+\end{verbatim}
+        
+You can stack Music-elements by enclosing a sequence Music-elements of
+notes with < and >. Example:
+\begin{verbatim}
+<a cis e'>      % a-major chord
+\end{verbatim}
+You can also put vertical music inside horizontal music:
+\begin{verbatim}
+{ c <c e> <c e g> <c e g c'> }  % 4 increasing chords
+\end{verbatim}
+And vice versa
+\begin{verbatim}
+< \multi 2;
+          {c c g g a a g2}              
+  {r2  r2  c c g g a a g2} >    % a canon
+\end{verbatim}
+
+The duration of a chord equals the union of the durations of each of
+its elements.  The \verb+\multi 2+ is a construct which is explained
+below.
+
+You can also create a Music-element by transposing a Music-element:
+\begin{verbatim}
+\transpose  
+                d       % from c to the d that's one octave down
+                { e4 f4 }       % the horizontal music
+        
+\end{verbatim}
+
+\subsection{Voicegroups}
+
+If more than one "voice" is in a staff, then you have the option of
+putting the different voices into so called voicegroups: members of
+the same voicegroup share certain characteristics, among others:
+
+        - dynamics
+        - text
+        - beams and stems
+        - scripts
+
+For the actual list, see the init file \file{register.ini}
+
+Putting different musical lines in to the same voicegroup effectively
+makes LilyPond try to form chords of all those lines. Putting
+different musical lines in to different voicegroups effectively makes
+LilyPond try to set those lines as independently as possible. 
+
+You can set the voicegroup of a voice with the command \verb+\group+, e.g.,
+\begin{verbatim}        
+        oboeI = \melodic { 
+                \group "oboes"; 
+                [e8 f8
+                \group "+solo";
+                [g16 a16 g16 fis16]
+                \group "-";
+                g8 f8
+        }
+        oboeII = \melodic { \group "oboes";
+                c8 d8]
+                e4
+                e8 d8
+        }
+        ///     ...
+
+        \staff { 
+                melodicregs \melodic{ oboeI }
+                \melodic { oboeII}
+}
+\end{verbatim}
+In this example, the two oboe voices share one staff and are initially
+in the voicegroup called "oboes". They will share beams, dynamics etc.
+After two quavers, oboeI "pushes" its group: a new voicegroup is
+created, called "oboes+solo". The \verb+\group "-"+ command makes the
+voice enter "oboes" again.
+
+Please do note that [] are voicegroup wide; the previous input is
+valid: the beam, started in oboeI, voicegroup "oboes" is also ended in
+voicegroup "oboes", albeit not in oboeI but oboeII
+
+This concept may seem contorted, but it allows you to set the separate
+oboe parts without changing the \verb+oboeI+ and \verb+oboeII+ (assuming that
+you edit the [] in the example.)
+
+The construct
+\begin{verbatim}
+< { .... } {......} >
+\end{verbatim}
+makes a chord (all horizontal parts are in the same voicegroup). The construct
+\begin{verbatim}
+< \multi 2; { ....} { .... } >
+\end{verbatim}
+creates horizontal parts which behave independently. You will have to
+set voicegroup features by hand (\verb+\stem+ and \verb+\hshift+. See examples)
+
+The construct
+\begin{verbatim}
+< \multi 3; { ....} { .... } >
+\end{verbatim}
+creates  a chord with each part in a different staff
+
+
+\subsection{Durations}
+
+A duration always starts with the duration type (1,2,4 etc), and then
+any optional multipliers/dots
+
+\subsection{Meters/groupings}
+
+A meter has this form:
+\begin{verbatim}
+\meter 3/4 ;
+\end{verbatim}
+
+Rhythmic grouping is  a concept closely associated with this. For
+example, in a 5/8 meter, the counts are grouped 2+3. In mudela this is
+entered as
+\begin{verbatim}
+\grouping  8*2 8*3 ;
+\end{verbatim}
+You can start the piece with a partial measure, the command takes the
+same syntax as grouping: 
+\begin{verbatim}
+\partial 16*3 4;
+\end{verbatim}
+
+Make the piece start with a partial measure [transl?]  lasting 1 3/4
+quaver.
+
+These commands are also "voice elements", and constitute simple mudela
+(consisting of stuff with duration 0).
+
+\section{STRUCTURE}
+
+In concrete, a piece of Mudela has the following structure:
+\begin{verbatim}
+% declare pieces of music:
+        melody = \music{ <simple mudela> }
+        accompany = \music{ <simple mudela> }
+
+        % instantiate (=create tex, midi output) the score:
+        \score{ 
+                \melodic <
+                        \multi 3;
+                        \melody 
+                          \accompany 
+                >
+                \midi{ <midi definitions> }
+                \paper{ <paper and layout definitions> }
+}
+\end{verbatim}
+
+\subsection{Examples}
+
+Examples are included with the GNU LilyPond distribution. For the sake of
+maintenance no long examples are included in this document.
+
+
+\section{HISTORY}
+
+This language has a number of roots. First and foremost, GNU LilyPond's
+predecessor mpp was the inspiration of simple Mudela.  Secondly, the
+hierarchical structure looks a lot like Rayce's (Rayce is a raytracer
+that I've written as a hobby project. ), which in turn owes a lot to
+POVRay.
+
+Now, we know, musictypesetting and raytracing do not necessarily
+require the same input format, and we know that a lot more ways exist
+to convert music to ASCII, but we did give this language some
+thoughts. As always suggestions are appreciated.
+
+\end{document}
+

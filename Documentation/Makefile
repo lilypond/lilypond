@@ -19,22 +19,20 @@ include ./$(depth)/make/Files.make
 #
 
 #
-
+DOCFILES = $(wildcard *.doc)
 OUTPODFILES = $(addprefix $(outdir)/,$(PODFILES))
 TEXTFILES = $(OUTPODFILES:.pod=.text)
 GROFFFILES = $(OUTPODFILES:.pod=.1)
 HTMLFILES = $(OUTPODFILES:.pod=.html)
-#
+DVIFILES = $(addprefix $(outdir)/, $(DOCFILES:.doc=.dvi))
 
+#
 # list of distribution files:
 #
-EXTRA_DISTFILES = lelie_icon.gif lelie_logo.gif
-#
-
+EXTRA_DISTFILES = lelie_icon.gif lelie_logo.gif  $(DOCFILES)
 default: do-doc
-	true
 
-do-doc: $(TEXTFILES)
+do-doc: $(TEXTFILES) $(DVIFILES)
 
 html: $(HTMLFILES)
 
@@ -52,17 +50,17 @@ localclean:
 	rm -f out/*
 	rm -f $(TEXTFILES) $(HTMLFILES) $(GROFFFILES)
 
-MAN1FILES = lilypond convert-mudela mi2mu
+MAN1FILES = lilypond convert-mudela mi2mu mudela-book
 MAN1GROFF = $(addprefix $(outdir)/, $(addsuffix .1,$(MAN1FILES)))
 
 localinstall: $(outdir)/lilypond.1 $(outdir)/mudela.5
 	$(INSTALL) -d $(mandir)/man5
 	$(INSTALL) -d $(mandir)/man1
 	$(INSTALL) -m 755 $(MAN1GROFF) $(mandir)/man1
-	$(INSTALL) -m 755 $(outdir)/mudela.5 $(mandir)/man5
+
 
 localuninstall:
-	rm -f $(mandir)/man1/lilypond.1
-	rm -f $(mandir)/man1/convert-mudela.1
+	(cd  $(mandir)/man1/; rm -f $(MAN1GROFF))
 
-xpms:
+
+

@@ -589,9 +589,9 @@ if test "${enable_profiling+set}" = set; then
 fi
 
     
-# Check whether --enable-mingw32 or --disable-mingw32 was given.
-if test "${enable_mingw32+set}" = set; then
-  enableval="$enable_mingw32"
+# Check whether --enable-mingw-prefix or --disable-mingw-prefix was given.
+if test "${enable_mingw_prefix+set}" = set; then
+  enableval="$enable_mingw_prefix"
   MINGWPREFIX=$enableval
 else
   MINGWPREFIX=no
@@ -1698,38 +1698,28 @@ cat << EOF > lib/out/config.hh
 
 EOF
 
-CXX="$ac_cv_prog_CXX" bin/make_version >> lib/out/config.hh
+CXX="$ac_cv_prog_CXX" bin/make-version >> lib/out/config.hh
 
 touch make/out/Site.make
 
 # ugr
-(cd mi2mu; CXX="$ac_cv_prog_CXX" ../bin/make_version > out/version.hh
+(cd mi2mu; CXX="$ac_cv_prog_CXX" ../bin/make-version > out/version.hh
 )
 # rgu
 sed 's/TOPLEVEL_//g' <  .version >  lily/.version
-(cd lily; CXX="$ac_cv_prog_CXX" ../bin/make_version > out/version.hh
+(cd lily; CXX="$ac_cv_prog_CXX" ../bin/make-version > out/version.hh
 )
 
-$MAKE -f make/Toplevel.make.in Makefile
+echo '# WARNING : Automatically generated from make/Toplevel.make.in' | cat -  make/Toplevel.make.in > Makefile
 
 cat << END
-Finished configuring. For making everything, do:
+For making everything, do:
 
-	make all
-
-If you only want help on the make targets, do a
-
-	make help
-
-assuming that \`make' is GNU make, of course.
+    make		# GNU make
 
 If you want to make site-wide extensions to the makefiles, please use
 
     make/out/Site.make
-
-If you can't find a toplevel makefile, please execute
-
-    make -f make/Toplevel.make.in Makefile              # GNU make, of course
     
 END
 

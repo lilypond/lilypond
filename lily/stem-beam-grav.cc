@@ -84,8 +84,10 @@ Stem_beam_engraver::do_process_requests()
 		defp->text_str_ = beam_req_l_->nplet;
 		defp->style_str_="italic";
 		t->spec_p_  = defp;
+		announce_element(Score_elem_info(t,0));
 		typeset_element(t);
 	    }
+	    announce_element ( Score_elem_info(beam_p_, 0));
 	     
 	}
     }

@@ -44,7 +44,7 @@ public:
     /** if lines are broken then this column x-coord #hpos# if not
       known, then hpos == -1.(ugh?)  */
 
-    Real hpos;			// should use ptr?
+    Real hpos_f_;			// should use ptr?
 
     bool error_mark_b_;
     bool used_b_ ;		// manual override.. 
@@ -66,8 +66,8 @@ public:
     bool breakable_b()const;
     
     Interval width() const;
-    ~PCol();
-    PCol(PCol * parent);
+    virtual ~PCol();
+    PCol();
 
     /**
       which col comes first?.
@@ -79,7 +79,8 @@ public:
     void set_rank(int);
 
     void OK() const;
-    void set_breakable();
+ void set_breakable();
+    virtual void do_set_breakable();
     void print()const;
 private:
     

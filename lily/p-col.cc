@@ -98,11 +98,19 @@ PCol::set_breakable()
     if (breakable_b())
 	return;
 
-    prebreak_p_ = new PCol(this);
-    postbreak_p_ = new PCol(this);
+    do_set_breakable();
     prebreak_p_->pscore_l_ = pscore_l_;
     postbreak_p_->pscore_l_ = pscore_l_;
+
+    prebreak_p_->daddy_l_ = postbreak_p_->daddy_l_ = this;
 }
+void
+PCol::do_set_breakable()
+{
+     prebreak_p_ = new PCol;
+    postbreak_p_ = new PCol;
+}
+  
 
 bool
 PCol::breakpoint_b() const
@@ -116,15 +124,15 @@ PCol::breakable_b() const
     return prebreak_p_||postbreak_p_;
 }
 
-PCol::PCol(PCol *parent)
+PCol::PCol()
 {
     used_b_ = false;
     error_mark_b_ = false;
-    daddy_l_ = parent;
+    daddy_l_ = 0;
     prebreak_p_=0;
     postbreak_p_=0;
     line_l_=0;
-    hpos = -1.0;
+    hpos_f_ = -1.0;
     pscore_l_ = 0;
     rank_i_ = -1;
 }
@@ -132,7 +140,7 @@ PCol::PCol(PCol *parent)
 PCol::~PCol()
 {
     delete prebreak_p_;
-    delete postbreak_p_;	
+    delete postbreak_p_;
 }
 
 void
@@ -145,5 +153,5 @@ PCol::add( Item *i)
 bool
 PCol::used_b()const
 {
-    return breakable_b() || its.size()|| used_b_;
+    return daddy_l_ || breakable_b() || its.size()|| used_b_;
 }
