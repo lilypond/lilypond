@@ -1,5 +1,5 @@
 /*
-  volta-spanner.cc -- implement Volta_spanner
+  volta-bracket.cc -- implement Volta_bracket_interface
 
   source file of the GNU LilyPond music typesetter
 
@@ -15,16 +15,11 @@
 #include "paper-column.hh"
 #include "paper-def.hh"
 #include "text-item.hh"
-#include "volta-spanner.hh"
+#include "volta-bracket.hh"
 #include "group-interface.hh"
 #include "side-position-interface.hh"
 #include "directional-element-interface.hh"
 
-
-void
-Volta_spanner::set_interface (Grob*)
-{
-}
 
 /*
   this is too complicated. Yet another version of side-positioning,
@@ -36,9 +31,9 @@ Volta_spanner::set_interface (Grob*)
   
 */
 
-MAKE_SCHEME_CALLBACK (Volta_spanner,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Volta_bracket_interface,brew_molecule,1);
 SCM
-Volta_spanner::brew_molecule (SCM smob) 
+Volta_bracket_interface::brew_molecule (SCM smob) 
 {
   Grob *me = unsmob_grob (smob);
   Link_array<Item> bar_arr
@@ -104,7 +99,8 @@ Volta_spanner::brew_molecule (SCM smob)
   Box b (Interval (0, w), Interval (0, h));
   Molecule mol (b, at);
   SCM text = me->get_grob_property ("text");
-  SCM properties = scm_list_n (me->mutable_property_alist_, me->immutable_property_alist_,SCM_UNDEFINED);
+  SCM properties = scm_list_n (me->mutable_property_alist_,
+			       me->immutable_property_alist_,SCM_UNDEFINED);
   Molecule num = Text_item::text2molecule (me, text, properties);
 
   mol.add_at_edge (X_AXIS, LEFT, num, - num.extent (X_AXIS).length ()
@@ -115,7 +111,7 @@ Volta_spanner::brew_molecule (SCM smob)
 
 
 void
-Volta_spanner::add_bar (Grob *me, Item* b)
+Volta_bracket_interface::add_bar (Grob *me, Item* b)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("bars"), b);
   Side_position_interface::add_support (me,b);
@@ -123,7 +119,12 @@ Volta_spanner::add_bar (Grob *me, Item* b)
 }
 
 void
-Volta_spanner::add_column (Grob*me, Grob* c)
+Volta_bracket_interface::add_column (Grob*me, Grob* c)
 {
   Side_position_interface::add_support (me,c);
 }
+
+ADD_INTERFACE (Volta_bracket_interface,"volta-bracket-interface",
+  "Volta bracket with number",
+  "bars thickness height");
+
