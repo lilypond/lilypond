@@ -339,7 +339,7 @@ File/Print inside your viewing program.
 
 On Windows, the same procedure should work.  The terminal is started by
 clicking on the LilyPond or Cygwin icon.  Any text editor (such as
-NotePad, Emacs or Vim) may be used to edit the LilyPond file.
+Notepad, Emacs or Vim) may be used to edit the LilyPond file.
 
 To view the PDF file, try the following:
 @itemize
@@ -1390,7 +1390,7 @@ More information on formatting piano music is in @ref{Piano music}.
 When the music is converted from notes to print it is interpreted
 in left-to-right order. This is similar to what happens when we read
 music. During this step context-sensitive information such as the
-accidentals to print, and where barlines must be placed, are stored in
+accidentals to print, and where bar lines must be placed, are stored in
 variables. These variables are called @emph{context properties}.
 The properties can also be manipulated from input files. Consider this input:
 @example
@@ -1644,7 +1644,7 @@ places. The following example uses the above variables:
 @end example
 
 More information on the possible uses of identifiers is in the
-technical manual, in @ref{Scheme datatypes}.
+technical manual, in @ref{Scheme data types}.
 
 
 @node An orchestral part

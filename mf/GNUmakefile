@@ -31,7 +31,16 @@ FETA_LIST_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%list.ly)
 ENCODING_FILE=$(findstring $(<:.mf=.enc), $(FETA_MF_FILES:.mf=.enc))
 MFTRACE_FLAGS=$(if $(ENCODING_FILE),--encoding $(ENCODING_FILE),)
 
-SAUTER_FONTS = cmbx14 cmbx17 \
+
+# only for fonts which
+#
+# 1. are mentioned in font.scm
+#
+# 2. are not included with teTeX
+#
+SAUTER_FONTS = cmbxti8
+
+MORE_SAUTER_FONTS = cmbx14 cmbx17 \
 	 cmbxti12 cmbxti14 \
 	 cmbxti6 cmbxti7 cmbxti8 \
 	 cmcsc12 cmcsc7 cmcsc8 \

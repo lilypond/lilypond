@@ -100,10 +100,8 @@ echo 'Please logout first before using LilyPond.'
 
 
 %if %{info}
-if [ $1 = 0 ]; then
     /sbin/install-info --delete %{_infodir}/lilypond.info.gz %{_infodir}/dir 
     /sbin/install-info --delete %{_infodir}/music-glossary.info.gz %{_infodir}/dir 
-fi
 %endif
 
 # chkfontpath --remove=%{_datadir}/share/lilypond/@TOPLEVEL_VERSION@/fonts/type1/

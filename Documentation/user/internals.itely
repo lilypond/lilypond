@@ -516,7 +516,7 @@ When it is installed, the following link should take you to its manual
 @menu
 * Inline Scheme::
 * Input variables and Scheme::
-* Scheme datatypes::
+* Scheme data types::
 * Assignments::
 @end menu
 
@@ -602,8 +602,8 @@ written as
 
 
 
-@node Scheme datatypes
-@subsection Scheme datatypes
+@node Scheme data types
+@subsection Scheme data types
 
 Scheme is used to glue together different program modules. To aid this
 glue function, many LilyPond specific object types can be passed as

@@ -22,7 +22,6 @@ Global_context::Global_context (Music_output_def*o)
   output_def_ = o;
   definition_ = o->find_context_def (ly_symbol2scm ("Global"));
   unsmob_context_def (definition_)->apply_default_property_operations (this);
-  
 }
 
 Music_output_def* 
