@@ -2098,7 +2098,7 @@ getting the motive in a wrong octave.
 	c8
 	\translator Staff = up
 	\stemDown
-	c'8 }
+	c'8 @}
 @end example
 Voices can switch between staves. Here you see two staff switching
 commands. The first one moves to the lower staff, the second one to
@@ -2181,14 +2181,32 @@ entered using @code{\p}, @code{\mf}, etc.
 Fingering indications are entered quite simply using @code{-@var{N}},
 where @var{N} is a digit. 
 
-@lilypondfile{brahms-tweaked.ly}
+Now that we have the basic piece of music entered, we want to fine
+tune it, so we get something that resembles the original printed
+edition by Schott/Universal Edition. The basic process that we follow
+is that we override defaults in the printing system. We do this by
+setting variables in so-called grobs.  Printed symbols are internally
+represented by Graphical Objects (Grobs).  Each grob is described by a
+bunch of settings. These setting determine the fonts, offsets,
+sub-routines to be called on the grob, etc.  The initial values of
+these settings are set in the Scheme file
+@file{scm/grob-description.scm}.
 
-Printed symbols are internally represented by so-called Graphical
-Objects (more colloquially: Grobs).  These statements concern the
-grob called `Stem'. Each grob is described by a bunch of settings. These
-setting determine the fonts, offsets, sub-routines to be called on the
-grob, etc.  The initial values of these settings are set in the Scheme
-file @file{scm/grob-description.scm}.
+We start with the slur: the slur in the upper part, running from the F
+sharp to the A, runs from stem to stem in the printed edition, while
+ours starts from the note head at the left. The following property
+setting forces all slurs to run from stem to stem (and not from or to
+note head)
+
+@example
+  \property Voice.Slur \set #'attachment = #'(stem . stem)
+@end example
+
+More precisely, this command extends the definition of the @code{Slur}
+object in the current @code{Voice}. In this, the variable
+@code{attacment} is set to the pair of symbols @code{'(stem . stem)}.
+
+@lilypondfile{brahms-tweaked.ly}
 
 
 @separate
