@@ -1,0 +1,47 @@
+	Comment as-number1.af -- AsciiFont: numerals of height 1
+
+	Comment part of LilyPond's [ascii music font]
+
+	Comment (c) 2000 Jan Nieuwenhuizen <janneke@gnu.org>
+
+	Comment Lines that start with TAB or FF make up the .afm
+	Comment TABs are comments
+	Comment `Comment' is the afm comment prefix
+	Comment which makes `TAB Comment' an .afm comment
+
+	StartFontMetrics 2.0
+	FontName as-number 1
+	FontFamily as-number
+	StartCharMetrics 14
+
+	Comment BBox: (llx lly urx ury) * 1000
+ C 44; WX 1; N Comma; B 0 0 1000 1000;
+,
+ C 45; WX 1; N Dash; B 0 0 1000 1000;
+-
+ C 46; WX 1; N Dot; B 0 0 1000 1000;
+.
+ C 47; WX 1; N Slash; B 0 0 1000 1000;
+/
+ C 48; WX 1; N Numeral-0; B 0 0 1000 1000;
+0
+ C 49; WX 1; N Numeral-1; B 0 0 1000 1000;
+1
+ C 50; WX 1; N Numeral-2; B 0 0 1000 1000;
+2
+ C 51; WX 1; N Numeral-3; B 0 0 1000 1000;
+3
+ C 52; WX 1; N Numeral-4; B 0 0 1000 1000;
+4
+ C 53; WX 1; N Numeral-5; B 0 0 1000 1000;
+5
+ C 53; WX 1; N Numeral-6; B 0 0 1000 1000;
+6
+ C 53; WX 1; N Numeral-7; B 0 0 1000 1000;
+7
+ C 53; WX 1; N Numeral-8; B 0 0 1000 1000;
+8
+ C 53; WX 1; N Numeral-9; B 0 0 1000 1000;
+9
+	EndCharMetrics
+	EndFontMetrics %d

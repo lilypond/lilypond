@@ -1,0 +1,201 @@
+	Comment as5.af -- AsciiFont: music font of height 5
+
+	Comment part of LilyPond's [ascii music font]
+
+	Comment (c) 2000 Jan Nieuwenhuizen <janneke@gnu.org>
+
+	Comment Lines that start with TAB or FF make up the .afm
+	Comment TABs are comments
+	Comment `Comment' is the afm comment prefix
+	Comment which makes `TAB Comment' an .afm comment
+
+	StartFontMetrics 2.0
+	FontName as 5
+	FontFamily as
+	StartCharMetrics 56
+
+	Comment BBox: (llx lly urx ury) * 1000
+ C 0; WX 7; N rests-0; B 0 0 1000 1000;
+R
+ C 1; WX 7; N rests-1; B 0 0 1000 1000;
+R
+ C 7; WX 5; N rests-2; B 0 0 1000 1000;
+R
+ C 8; WX 6; N rests-3; B 0 0 1000 1000;
+r
+ C 9; WX 7; N rests-4; B 0 0 1000 1000;
+r
+ C 10; WX 8; N rests-5; B 0 0 1000 1000;
+r
+ C 10; WX 8; N rests-5; B 0 0 1000 1000;
+r
+ C 11; WX 9; N rests-6; B 0 0 1000 1000;
+r
+ C 16; WX 5; N accidentals-1; B 0 0 1000 1000;
+#
+ C 17; WX 3; N accidentals-0; B 0 0 1000 1000;
+H
+ C 18; WX 4; N accidentals--1; B 0 0 1000 1000;
+b
+ C 19; WX 7; N accidentals--2; B 0 0 1000 1000;
+bb
+ C 20; WX 5; N accidentals-2; B 0 0 1000 1000;
+x
+ C 21; WX 3; N accidentals-); B 0 -5000 3000 5000;
+(
+ C 22; WX 3; N accidentals-(; B -3000 -5000 0 5000;
+)
+ C 23; WX 2; N dots-dot; B 0 0 1000 1000;
+.
+ C 24; WX 1; N dots-repeatcolon; B 0 1000 1000 4000;
+:
+ C 31; WX 5; N noteheads-ledgerending; B -1500 -500 1500 500;
+-
+ C 33; WX 9; N noteheads-0; B 0 -500 1000 500;
+O
+ C 34; WX 6; N noteheads-1; B -1000 -500 0 500;
+o
+ C 35; WX 6; N noteheads-2; B -1000 -500 0 500;
+*
+ C 36; WX 9; N noteheads-0diamond; B 0 -2750 9900 2750;
+V
+ C 37; WX 7; N noteheads-1diamond; B 0 -2750 7081 2750;
+v
+ C 38; WX 6; N noteheads-2diamond; B 0 -2750 6605 2750;
+v
+ C 39; WX 6; N noteheads-2cross; B 0 -2750 6605 2750;
+x
+ C 40; WX 13; N scripts-ufermata; B -6625 -375 6625 7250;
+ _
+/.\
+ C 41; WX 13; N scripts-dfermata; B -6625 -7250 6625 375;
+ .
+\_/
+ C 43; WX 8; N scripts-sforzato; B -4499 -2500 4499 2500;
+>
+ C 44; WX 1; N scripts-staccato; B 0 0 1000 1000;
+.
+ C 45; WX 2; N scripts-ustaccatissimo; B -1000 -200 1000 5000;
+^
+ C 46; WX 2; N scripts-dstaccatissimo; B -1000 -5000 1000 200;
+v
+ C 47; WX 6; N scripts-tenuto; B -3000 -350 3000 350;
+---
+ C 48; WX 5; N scripts-umarcato; B -2500 0 2500 5500;
+|
+ C 49; WX 5; N scripts-dmarcato; B -2500 -5500 2500 0;
+|
+ C 50; WX 4; N scripts-open; B -2000 -2500 2000 2500;
+o
+ C 51; WX 5; N scripts-stopped; B -2750 -2750 2750 2750;
++
+ C 52; WX 6; N scripts-upbow; B -3250 0 3250 10400;
+\/
+ C 53; WX 7; N scripts-downbow; B -3750 0 3750 6666;
+ _
+| |
+ C 56; WX 10; N scripts-trill; B -5000 0 5000 11250;
+\/\
+ C 61; WX 5; N scripts-flageolet; B -2666 -2666 2666 2666;
+o
+ C 81; WX 6; N flags-u3; B 1000 -1000 3000 -1000;
+\
+ )
+ C 82; WX 6; N flags-u4; B 1000 -2000 3000 0;
+\
+\)
+ C 83; WX 6; N flags-u5; B 0 0 3000 5000;
+\
+\)
+ C 84; WX 6; N flags-u6; B 0 0 3000 5000;
+\
+))
+ C 86; WX 7; N flags-d3; B 1000 5000 3000 0;
+ )
+/
+ C 87; WX 7; N flags-d4; B 1000 5000 3000 0;
+))
+/
+ C 88; WX 7; N flags-d5; B 1000 5000 3000 0;
+))
+/
+ C 89; WX 7; N flags-d6; B 1000 5000 3000 0;
+))
+/
+ C 91; WX 13; N clefs-C; B 0 7000 7000 -3000;
+|__
+| _)
+|<_
+|__)
+|
+ C 92; WX 10; N clefs-C_change; B 0 7000 7000 -3000;
+B:
+ C 93; WX 10; N clefs-F; B 0 -3000 5000 2000;
+ __
+(, ):
+  /
+_/
+ C 94; WX 8; N clefs-F_change; B 0 7000 7000 -3000;
+F:
+ C 95; WX 1; N clefs-G; B 0 -2000 6000 5000;
+   |\
+   |/
+  /|
+ / |_
+| /| \
+ \_|_/
+ *_|
+ C 96; WX 10; N clefs-G_change; B 0 7000 7000 -3000;
+G:
+ C 97; WX 17; N timesig-C4/4; B 0 7000 7000 -3000;
+C
+ C 98; WX 17; N timesig-C2/2; B 0 7000 7000 -3000;
+C|
+	EndCharMetrics
+	EndFontMetrics %d
+
+	Comment Missing characters
+C 2; WX 7; N rests-0o; B 0 -3125 7500 500;
+C 3; WX 7; N rests-1o; B 0 -500 7500 3125;
+C 4; WX 3; N rests--1; B 0 0 3000 5000;
+C 5; WX 3; N rests--2; B 0 -5000 3000 5000;
+C 6; WX 40; N rests--4; B -20000 -5000 20000 5000;
+C 12; WX 10; N rests-7; B 0 -15000 10447 14208;
+C 54; WX 10; N scripts-reverseturn; B -5468 -2647 5468 2647;
+C 55; WX 10; N scripts-turn; B -5468 -2647 5468 2647;
+C 13; WX 4; N rests-2mensural; B 0 0 4000 4000;
+C 14; WX 4; N rests-3mensural; B 0 0 4000 4000;
+C 15; WX 4; N rests-4mensural; B 0 0 4000 5000;
+C 32; WX 9; N noteheads--1; B 0 -2750 9900 2750;
+C 62; WX 10; N scripts-repeatsign; B -5000 -5000 5000 5000;
+C 63; WX 10; N scripts-segno; B -5000 -7500 5000 7500;
+C 64; WX 10; N scripts-coda; B -5083 -6750 5083 6750;
+C 65; WX 4; N scripts-trilelement; B -3333 -2500 1306 2500;
+C 66; WX 11; N scripts-prall; B -5653 -2500 5653 2500;
+C 67; WX 11; N scripts-mordent; B -5653 -2500 5653 2500;
+C 68; WX 15; N scripts-prallprall; B -7973 -2500 7973 2500;
+C 69; WX 15; N scripts-prallmordent; B -7973 -2500 7973 2500;
+C 70; WX 15; N scripts-upprall; B -7973 -2500 7973 2500;
+C 71; WX 15; N scripts-downprall; B -7973 -2500 7973 2500;
+C 72; WX 15; N scripts-accDiscant; B -7500 0 7500 15000;
+C 73; WX 5; N scripts-accDot; B -2500 0 2500 0;
+C 74; WX 10; N scripts-accFreebase; B -5000 0 5000 10000;
+C 75; WX 20; N scripts-accStdbase; B -10000 0 10000 20000;
+C 76; WX 10; N scripts-accBayanbase; B -5000 0 5000 15000;
+C 77; WX 15; N scripts-accSB; B -7999 0 7999 11999;
+C 78; WX 15; N scripts-accBB; B -7999 0 7999 11999;
+C 79; WX 10; N scripts-accOldEE; B -5000 0 5000 10000;
+C 80; WX 10; N scripts-accOldEES; B -5000 0 5000 10000;
+C 85; WX 9; N flags-ugrace; B -3512 -10800 6169 -5000;
+C 90; WX 10; N flags-dgrace; B -3907 4950 6827 10260;
+C 99; WX 17; N timesig-old4/4; B -8750 -3750 8750 3750;
+C 100; WX 17; N timesig-old2/2; B -8750 -5000 8750 5000;
+C 101; WX 17; N timesig-old3/2; B -8750 -3750 8750 3750;
+C 102; WX 17; N timesig-old6/4; B -8750 -3750 8750 3750;
+C 103; WX 17; N timesig-old9/4; B -8750 -3750 8750 3750;
+C 104; WX 17; N timesig-old3/4; B -8750 -5000 8750 5000;
+C 105; WX 17; N timesig-old6/8; B -8750 -5000 8750 5000;
+C 106; WX 17; N timesig-old9/8; B -8750 -5000 8750 5000;
+C 107; WX 17; N timesig-old4/8; B -8750 -3750 8750 3750;
+C 108; WX 17; N timesig-old6/8alt; B -8750 -3750 8750 3750;
+C 109; WX 17; N timesig-old2/4; B -8750 -5000 8750 5000;

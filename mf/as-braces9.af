@@ -1,0 +1,126 @@
+	Comment as-braces9.af -- AsciiFont: braces for height 9
+
+	Comment part of LilyPond's [ascii music font]
+
+	Comment (c) 2000 Jan Nieuwenhuizen <janneke@gnu.org>
+
+	Comment Lines that start with TAB or FF make up the .afm
+	Comment TABs are comments
+	Comment `Comment' is the afm comment prefix
+	Comment which makes `TAB Comment' an .afm comment
+
+	StartFontMetrics 2.0
+	FontName as-braces 9
+	FontFamily as-braces
+	StartCharMetrics 10
+
+	Comment BBox: (llx lly urx ury) * 1000
+ C 0; WX 1; N Brace-9; B 0 -4500 1000 4500;
+/
+|
+|
+|
+|
+|
+|
+|
+|
+|
+\
+ C 1; WX 1; N Brace-10; B 0 -5000 1000 5000;
+/
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+\
+ C 2; WX 1; N Brace-11; B 0 -5500 1000 5500;
+/
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+\
+ C 3; WX 1; N Brace-12; B 0 -6000 1000 6000;
+/
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+\
+ C 4; WX 1; N Brace-13; B 0 -6500 1000 6500;
+/
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+\
+ C 5; WX 1; N Brace-14; B -1000 -3000 1000 14000;
+X5
+ C 6; WX 1; N Brace-15; B -1000 -3000 1000 14000;
+X6
+ C 7; WX 1; N Brace-16; B -1000 -3000 1000 14000;
+/
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+\
+ C 8; WX 1; N Brace-17; B -1000 -3000 1000 14000;
+X8
+ C 9; WX 1; N Brace-18; B -1000 -3000 1000 14000;
+X9
+	EndCharMetrics
+	EndFontMetrics %d
+
