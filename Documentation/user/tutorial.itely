@@ -48,7 +48,7 @@ reference.
 * More staves::                 
 * Adding articulation marks to notes::  
 * Combining notes into chords::  
-* Basic rhythmical commands::   
+* Advanced rhythmic commands::   
 * Commenting input files::      
 * Printing lyrics::             
 * A lead sheet::                
@@ -867,8 +867,8 @@ r4 <c e g>8\>( <c e g> <c e g> <c f a>8\!)
 
 
 
-@node Basic rhythmical commands
-@section Basic rhythmical commands
+@node Advanced rhythmic commands
+@section Advanced rhythmic commands
 
 @cindex pickup
 @cindex anacruse
@@ -938,7 +938,7 @@ ignored.  The following fragment shows possible uses for comments
 
 @example
 % notes for twinkle twinkle follow
-c4 c g' g a a
+c4 c g' g a a g2
 
 %@{
     This line, and the notes below
@@ -948,6 +948,11 @@ c4 c g' g a a
     g g f f e e d d c2 
 %@}
 @end example
+
+@c  FIXME
+@c   This is good info, but I wouldn't call it a comment.  IMO it should
+@c   be moved somewhere else.  I don't know exactly where yet, but I'll
+@c   resolve it soon.  -GP
 
 @cindex versioning
 
@@ -961,7 +966,7 @@ To mark a file for version 2.1.17, use
 
 @noindent
 These annotations make future upgrades of LilyPond go more
-smoothly. Changes in the syntax are handled with a special program,
+smoothly.  Changes in the syntax are handled with a special program,
 @file{convert-ly} (see @ref{Invoking convert-ly}), and it uses
 @code{\version} to determine what rules to apply.
 

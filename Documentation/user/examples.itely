@@ -298,7 +298,7 @@ c4 c g c
 bassWords = \lyrics { ho4 ho ho ho }
 
 \score { 
-	  \context StaffGroup <<
+	  \context ChoirStaff <<
 	      \context Lyrics = sopranos { s1 }
 	      \context Staff = women <<
 		  \context Voice = sopranos { \voiceOne << \global \sopMusic >> }
@@ -692,10 +692,20 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 }
 
 \score {
-   {
-  c'4
-  }
-} 
+   \header {
+      piece = "piece1"
+      opus = "opus1"
+    }
+  { c'4 }
+}
+
+\score {
+   \header {
+      piece = "piece2"
+      opus = "opus2"
+    }
+  { c'4 }
+}
 
 @end lilypond
 
