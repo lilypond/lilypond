@@ -1,3 +1,37 @@
+
+
+pl5.szmulewicz1
+	- rtti stuff
+	- bf's: lily.scm
+
+pl5.mb1
+	- bf: array.hh, don't make copy if resized to the same size
+	- bf: feta.tex
+
+pl5.jcn4
+	- scm additions: plet, hairpin
+	- website fixes
+
+pl5.jcn3
+	- website fixes
+
+pl5.jcn2
+	- extender-*, see input/test/extender.ly
+	- bf: half-beam length (urg)
+	- fixes: standchen, star
+
+pl5.jcn1
+	- tex/lily-ps-defs.tex fixes
+	- lily.ps 
+
+pl 5.hwn1
+	- Tuplet_engraver
+	- lily.ps fix.
+	- junked MY_RTTI stuff, simpler VIRTUAL_COPY_CONS
+
+********
+1.1.5
+
 pl4.jcn4
 	- fixes; preludes, finger
 
