@@ -137,10 +137,11 @@ music expressions.  Consider the following example.
 @noindent
 The sequential music is interpreted by the Score context initially,
 but when a note is encountered, contexts are setup to accept that
-note.  In this case, a Thread, Voice, and Staff context are created.
-The rest of the sequential music is also interpreted with the same
-Thread, Voice, and Staff context, putting the notes on the same staff,
-in the same voice.
+note.  In this case, a @code{Thread},@code{Voice}, and @code{Staff}
+context are created.  The rest of the sequential music is also
+interpreted with the same @code{Thread}, @code{Voice}, and
+@code{Staff} context, putting the notes on the same staff, in the same
+voice.
 
 @node Context properties
 @subsection Context properties
@@ -333,14 +334,14 @@ example, a very simple Staff context is created: one that will put
 note heads on a staff symbol.
 
 @example
-\translator @code{
+\translator @{
   \type "Engraver_group_engraver"
   \name "SimpleStaff"
   \alias "Staff"
   \consists "Staff_symbol_engraver"
   \consists "Note_head_engraver"
   \consistsend "Axis_group_engraver"
-}@
+@}
 @end example
 
 @noindent
@@ -598,7 +599,7 @@ always be the first item in a block.
 @section Music storage format
 
 Music in LilyPond is entered as music expressions. This section
-discusses different types of music expressions, and explains
+discusses different types of music expressions, and explains how
 information is stored internally. This internal storage is accessible
 through the Scheme interpreter, so music expressions may be
 manipulated using Scheme functions. 
@@ -739,10 +740,7 @@ and @internalsref{GraceMusic} has its single argument in
 @subsection Manipulating music expressions
 
 Music objects and their properties can be accessed and manipulated
-directly, through the @code{\apply} mechanism.  Scheme functions can
-read and write properties using the functions
-@code{ly:get-music-property} and @code{ly:set-music-property!}.
-
+directly, through the @code{\apply} mechanism.  
 The syntax for @code{\apply} 
 @example
 \apply #@var{func} @var{music}
@@ -751,7 +749,9 @@ The syntax for @code{\apply}
 @noindent
 This means that the scheme function @var{func} is called with
 @var{music} as its argument.  The return value of @var{func} is the
-result of the entire expresssion.
+result of the entire expresssion.  @var{func} may read and write music
+properties using the functions @code{ly:get-music-property} and
+@code{ly:set-music-property!}.
 
 An example is a function that reverses the order of elements in
 its argument:
@@ -764,18 +764,18 @@ its argument:
 @end example
 
 The use of such a function is very limited. The effect of this
-function is void,  when it is applied to an argument which is does not
-have multiple  children, for example
+function is void when applied to an argument which is does not have
+multiple children.  The following function application has no effect:
 
 @example
   \apply #rev-music-1 \grace @{ c4 d4 @}
 @end example
 
 @noindent
-does not do anything: @code{\grace} is stored as
-@internalsref{GraceMusic}, which has no @code{elements}, only a single
-@code{element}. Every generally applicable function for @code{\apply}
-must --like music expressions themselves-- be recursive.
+In this case, @code{\grace} is stored as @internalsref{GraceMusic}, which has no
+@code{elements}, only a single @code{element}. Every generally
+applicable function for @code{\apply} must --like music expressions
+themselves-- be recursive.
 
 The following example is such a recursive function: it first extracts
 the @code{elements} of an expression, reverses them and puts them
@@ -811,7 +811,7 @@ is actually  implemented as a recursive function that replaces the
 above by the internal equivalent of
 @example
   < \context Voice = "1" @{ \voiceOne a @}
-    \context Voice = "2" @{ \voiceTwo a @} >
+    \context Voice = "2" @{ \voiceTwo b @} >
 @end example
 
 Other applications of @code{\apply} are writing out repeats
@@ -831,12 +831,7 @@ LilyPond input to other formats  (@inputfileref{input/test,to-xml.ly})
 @node Lexical details
 @section Lexical details
 
-@menu
-* Strings::                     
-@end menu
 
-@node Strings
-@subsection Strings
 @cindex string
 @cindex concatenate
 

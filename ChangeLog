@@ -1,3 +1,9 @@
+2003-07-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/test/bar-number-regular-interval.ly: rename.
+
+	* Documentation/user/*: various fixes. 
+
 2003-07-24  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* Documentation/{ many }: polish for update-all-menus. typos.

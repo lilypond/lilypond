@@ -1,4 +1,4 @@
-\version "1.7.18"
+\version "1.7.28"
 \header{
 texidoc = "Piano pedal symbols merge stop and start.  The strings are configurable. 
 Text style, bracket style, and a mixture of both are supported.
@@ -24,13 +24,13 @@ c4 d e f g
   c, -\sustainDown d e -\sustainUp -\sustainDown f
   -\sustainUp g b 
 
-  \property Staff.UnaCordaPedal \override #'pedal-type = #'mixed
+  \property Staff.pedalUnaCordaStyle = #'mixed
   d \unaCorda e f g
   \break
    | b b b  \treCorde c |
 
 
-\property Staff.SustainPedal \override #'pedal-type = #'bracket
+\property Staff.pedalSustainStyle = #'bracket
 
 c4 d e -\sustainDown b c c, -\sustainUp -\sustainDown  d8-[ c]  e8-[ e -\sustainUp -\sustainDown] f4 d
 -\sustainUp g -\sustainDown b b, -\sustainUp c'

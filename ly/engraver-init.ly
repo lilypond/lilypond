@@ -548,7 +548,9 @@ TabVoiceContext =   \translator {
       \name "TabVoice"
       \denies "Thread"
       \consists "Tab_note_heads_engraver"
-
+      \remove "Fingering_engraver"
+      \remove "New_fingering_engraver"
+      
       Slur \override #'font-family       = #'roman
       Slur \override #'molecule-callback = #hammer-molecule-callback
       Slur \override #'direction    = #-1

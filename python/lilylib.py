@@ -204,6 +204,8 @@ def lilypond_version (binary):
 	x = []
 	def catch_version (match):
 		x.append (match.group (1))
+		return ''
+	
 	re.sub ('GNU LilyPond ([^\n]+)\n', catch_version, p)
 	x.append ('not found')
 	
