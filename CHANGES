@@ -1,3 +1,7 @@
+pl 9.jcn1
+	- included last Localisation.texi
+	- set-lily: de catalog too
+
 pl 8.hwn1
 	- Erwin Dieterich: german translation.
 	- dependency helper funcs simplified.
