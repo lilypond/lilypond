@@ -36,9 +36,11 @@ void Request::do_print() const{}
 void
 Request::print() const
 {
+#ifndef NPRINT
     mtor << name() << " {";
     do_print();
     mtor << "}\n";
+#endif
 }
      
 
@@ -87,13 +89,30 @@ Melodic_req::Melodic_req()
     notename_i_ = 0;
     octave_i_ = 0;
     accidental_i_ = 0;
-    forceacc_b_ = false;
+}
+
+void
+Melodic_req::transpose(Melodic_req const & delta)
+{
+    octave_i_ += delta.octave_i_;
+    notename_i_ += delta.notename_i_;
+    while  (notename_i_ >= 7 ) {
+	notename_i_ -= 7;
+	octave_i_ ++;
+    }
+    accidental_i_ += delta.accidental_i_;
+    if (abs(accidental_i_) > 2) {
+	warning("transposition makes accidental larger than 2", 
+		delta.defined_ch_c_l_);
+    }
 }
 
 void
 Melodic_req::do_print() const
 {
-    mtor << "notename: " << notename_i_ << " acc: " <<accidental_i_<<" oct: "<< octave_i_;
+#ifndef NPRINT
+	mtor << "notename: " << notename_i_ << " acc: " <<accidental_i_<<" oct: "<< octave_i_;
+#endif
 }
 
 int
@@ -123,12 +142,14 @@ Plet_req::Plet_req()
 void
 Plet_req::do_print() const
 {
+#ifndef NPRINT
     mtor << "plet: " << type_c_ << ": " << dur_i_ << "/" << type_i_;
+#endif
 }
 
 /* *************** */
 int
-Rhythmic_req::compare(const Rhythmic_req &r1, const Rhythmic_req &r2)
+Rhythmic_req::compare(Rhythmic_req const &r1, Rhythmic_req const &r2)
 {
     return sign(r1.duration() - r2.duration());
 }
@@ -149,12 +170,14 @@ Rhythmic_req::Rhythmic_req()
 void
 Rhythmic_req::do_print() const
 {
+#ifndef NPRINT
     mtor << "ball: " << balltype ;
     int d =dots;
     while (d--)
 	mtor << '.';
     
     mtor<<", plet factor"<<plet_factor<<"\n";
+#endif
 }
 
 
@@ -177,12 +200,20 @@ Lyric_req::do_print() const
     Rhythmic_req::do_print();
     Text_req::do_print();
 }
+
 /* *************** */
+Note_req::Note_req()
+{
+    forceacc_b_ = false;
+}
 void
 Note_req::do_print() const
 {
+#ifndef NPRINT
+    mtor << " forceacc_b_ " << forceacc_b_ << '\n';
     Melodic_req::do_print();
     Rhythmic_req::do_print();
+#endif
 }
 /* *************** */
 void
@@ -202,7 +233,7 @@ void Beam_req::do_print()const{}
 void Slur_req::do_print()const{}
 /* *************** */
 int
-Span_req:: compare(const Span_req &r1, const Span_req &r2)
+Span_req:: compare(Span_req const &r1, Span_req const &r2)
 {
      return r1.spantype - r2.spantype;
 }
@@ -220,7 +251,7 @@ Script_req::Script_req(int d , Script_def*def)
 }
 
 int
-Script_req::compare(const Script_req &d1, const Script_req &d2)
+Script_req::compare(Script_req const &d1, Script_req const &d2)
 {
     return d1.dir_i_ == d2.dir_i_ &&
 	d1.scriptdef_p_->compare(*d2.scriptdef_p_);
@@ -247,7 +278,7 @@ Script_req::~Script_req()
 }
 /* *************** */
 int
-Text_req:: compare(const Text_req &r1, const Text_req &r2)
+Text_req:: compare(Text_req const &r1, Text_req const &r2)
 {
     bool b1 = (r1.dir_i_ == r2.dir_i_);
     bool b2 = (r1.tdef_p_ ->compare(*r2.tdef_p_));
@@ -274,8 +305,11 @@ Text_req::Text_req(int dir_i, Text_def* tdef_p)
 void
 Text_req::do_print() const
 {
+#ifndef NPRINT
+
     mtor << " dir " << dir_i_ ;
     tdef_p_->print();
+#endif
 }
 
 /* *************** */
@@ -289,7 +323,10 @@ Skip_req::duration() const
 void
 Skip_req::do_print() const
 {
+#ifndef NPRINT
+
     mtor << "duration: " << duration();
+#endif
 }
 
 Voice *
@@ -305,7 +342,9 @@ Request::voice_l()
 void
 Subtle_req::do_print() const
 {
-    mtor << " subtime " <<  subtime_;
+#ifndef NPRINT
+	mtor << " subtime " <<  subtime_;
+#endif
 }
 
 void

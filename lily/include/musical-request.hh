@@ -96,11 +96,11 @@ struct Melodic_req :virtual Musical_req
     /// 0 natural, 1 sharp, etc
     int accidental_i_;
 
-    /// force/supress printing of accidental.
-    bool forceacc_b_;
-
     /// return height from central c (in halflines)
-    int height()const; 
+    int height()const;
+
+    /// transpose. #delta# is relative to central c.
+    void transpose(Melodic_req const &delta);
     /// return pitch from central c (in halfnotes)
     int pitch()const; 
     Melodic_req();
@@ -111,7 +111,9 @@ struct Melodic_req :virtual Musical_req
 /// Put a note of specified type, height, and with accidental on the staff.
 struct Note_req : Rhythmic_req, virtual Melodic_req {
     
-
+    /// force/supress printing of accidental.
+    bool forceacc_b_;
+    Note_req();
     Rhythmic_req* rhythmic() { return Rhythmic_req::rhythmic(); }
     REQUESTMETHODS(Note_req, note);
  };
@@ -214,7 +216,7 @@ struct Subtle_req : virtual Musical_req {
 struct Dynamic_req : Subtle_req {
     /// for absolute dynamics
     enum Loudness {
-	FFF, FF, F, MF, MP, P, PP, PPP
+ 	FFF, FF, F, MF, MP, P, PP, PPP
     };
     static String loudness_str(Loudness);
     REQUESTMETHODS(Dynamic_req, dynamic);

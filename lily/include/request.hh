@@ -35,6 +35,7 @@ public:
     virtual Request* clone() const { return new Request(*this); }
     void print()const ;
     
+    virtual void transpose(Melodic_req const &){}
     virtual Moment duration() const { return 0; }
 
     /*  accessors for children

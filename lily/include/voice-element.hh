@@ -19,11 +19,11 @@
 struct Voice_element {
     Moment duration;
     char const* defined_ch_c_l_;
-    const Voice *voice_l_;
+    Voice const *voice_l_;
     IPointerList<Request*> reqs;
 
     /* *************** */
-    
+    void transpose(Melodic_req const &)const;
     Voice_element();
     Voice_element(Voice_element const & src );
 

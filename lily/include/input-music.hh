@@ -37,7 +37,7 @@ struct Input_music {
     virtual void set_default_group(String)=0;
     virtual bool find_plet_start_bo(char c, Moment& moment_r) = 0;
     virtual void set_plet_backwards(Moment& now_moment_r, Moment until_moment, int num_i, int den_i) = 0;
-    // virtual void transpose(...) const =0;
+    virtual void transpose(Melodic_req const&) const =0;
     
     
     virtual Input_music *clone() const = 0;
@@ -49,6 +49,8 @@ struct Simple_music : Input_music {
     Voice voice_;
 
     /* *** */
+    virtual void transpose(Melodic_req const&) const ;
+
     virtual Simple_music*simple() { return this; }  
     void add(Voice_element*);
     virtual void set_default_group(String g) { voice_.set_default_group(g); }
@@ -67,6 +69,7 @@ struct Simple_music : Input_music {
 struct Complex_music : Input_music {
     IPointerList<Input_music*> elts;
     /* *************** */
+    virtual void transpose(Melodic_req const&) const ;
     virtual void set_default_group(String g);
     void add(Input_music*);
     Complex_music();
