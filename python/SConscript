@@ -1,0 +1,13 @@
+# -*-python-*-
+
+Import ('env', 'install', 'src_glob')
+py = src_glob ('*.py')
+c = src_glob ('*.c')
+
+pym = env.AT_COPY (py)
+cm = env.SharedObject (c)
+
+pym
+cm
+
+install ([cm, pym], env['sharedir_package_version'] + '/python')

@@ -184,14 +184,6 @@ if env['checksums']:
 	SetOption ('max_drift', 0)
 	TargetSignatures ("content")
 
-# build web in out-www, so that scons is a drop-in replacement for make
-# we can revise the entire web building when web is built with scons.
-web_kluts = ''
-# Hmm:  scons: *** maximum recursion limit exceeded
-if 0 and 'web' in COMMAND_LINE_TARGETS:
-	web_kluts = 'out-scons' #env['out']
-	env['out'] = 'out-www'
-
 absbuild = Dir (env['build']).abspath
 outdir = os.path.join (Dir (env['build']).abspath, env['out'])
 run_prefix = os.path.join (absbuild, os.path.join (env['out'], 'usr'))
@@ -750,18 +742,24 @@ env.Command (web_list,
 	     '#/VERSION',
 	     ['$PYTHON buildscripts/mutopia-index.py -o examples.html ./',
 	      'cd $absbuild && $footify $$(find . -name "*.html" -print)',
-	      # uhg?
 	      'cd $absbuild && rm -f $$(find . -name "*.html~" -print)',
 	      'cd $absbuild && find Documentation input $web_path \
 	      > $TARGET',
 	      '''echo '<META HTTP-EQUIV="refresh" content="0;URL=Documentation/out-www/index.html">' > $absbuild/index.html''',
 	      '''echo '<html><body>Redirecting to the documentation index...</body></html>' >> $absbuild/index.html''',
-	      # UGHR?  all .html cruft in cwd goes into the web ball?
 	      'cd $absbuild && ls *.html >> $TARGET',])
 env.Command (web_ball, web_list,
 	     ['cat $SOURCE | tar -C $absbuild -czf $TARGET -T -',])
-env.Alias ('web', web_ball)
-env.Alias ('roll-web', web_ball)
+#env.Alias ('web', web_ball)
+www_base = os.path.join (outdir, 'www')
+www_ball = www_base + '.tar.gz'
+env.Command (www_ball, web_ball,
+	     ['rm -rf $out/tmp',
+	      'mkdir -p $absbuild/$out/tmp',
+	      'tar -C $absbuild/$out/tmp -xzf $SOURCE',
+	      'cd $absbuild/$out/tmp && for i in $$(find . -name "$out"; do mv $i out-www; done',
+	      'tar -C $absbuild/$out/tmp -czf $TARGET .'])
+env.Alias ('web', www_ball)
 
 #### tags
 env.Append (
@@ -780,9 +778,5 @@ for d in subdirs:
 		# and ./out build.
 		if os.path.abspath (b) != os.path.abspath (d):
 			env.BuildDir (b, d, duplicate = 0)
-		if web_kluts:
-			# look in out-scons 
-			env.Repository (os.path.join (env['build'], d,
-						      web_kluts))
        		SConscript (os.path.join (b, 'SConscript'))
 
