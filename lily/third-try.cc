@@ -160,13 +160,40 @@ Third_spacing_spanner::prune_loose_colunms (Link_array<Grob> *cols)
 	  c->set_grob_property ("between-cols", gh_cons (lns,
 							 rns));
 
-
 	  /*
-	    TODO: we should have distance constraints for loose
-	    columns anyway, and the placement could be improved. Clefs
-	    easily run into their neigbhors when folded into too
-	    little space.
+	    Set distance constraints for loose columns
 	  */
+	  Drul_array<Grob*> next_door;
+	  next_door[LEFT] =cols->elem (i - 1);
+	  next_door[RIGHT] =cols->elem (i + 1);	  
+	  Direction d = LEFT;
+	  Drul_array<Real> dists(0,0);
+
+	  do
+	    {
+	      dists[d] = 0.0;
+	      Grob *lc = d == LEFT  ? lc : c;
+	      Grob *rc = d == LEFT  ? c : rc;	      
+	      
+	      for (SCM s = lc->get_grob_property ("spacing-wishes");
+		   gh_pair_p (s); s = gh_cdr (s))
+		{
+		  Grob *sp = unsmob_grob (gh_car (s));
+		  if (Note_spacing::left_column (sp) != lc
+		      || Note_spacing::right_column (sp) != rc)
+		    continue;
+
+		  dists[d] = dists[d] >? Note_spacing::get_spacing (sp);
+		}
+	    }
+	  while (flip (&d) != LEFT);
+
+	  Rod r;
+	  r.distance_f_ = dists[LEFT] + dists[RIGHT];
+	  r.item_l_drul_[LEFT] = dynamic_cast<Item*> (cols->elem(i-1));
+	  r.item_l_drul_[RIGHT] = dynamic_cast<Item*> (cols->elem (i+1));
+
+	  r.add_to_cols ();
 	}
       else
 	{
