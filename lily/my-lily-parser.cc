@@ -36,7 +36,7 @@ My_lily_parser::My_lily_parser (Sources *sources)
   last_beam_start_ = SCM_EOL;
   header_ = SCM_EOL;
 
-  header_ = ly_make_anonymous_module (safe_global_b);
+  header_ = ly_make_anonymous_module (false);
   smobify_self ();
 }
 
@@ -176,12 +176,13 @@ My_lily_parser::here_input () const
     Parsing looks ahead , so we really want the previous location of the
     lexer, not lexer_->here_input ().
   */
+  
   /*
     Actually, that gets very icky when there are white space, because
     the line-numbers are all wrong.  Let's try the character before
-    the current token. That gets the right result for
-    note/duration stuff, but doesn't mess up for errors in the 1st token of the line. 
-    
+    the current token. That gets the right result for note/duration
+    stuff, but doesn't mess up for errors in the 1st token of the
+    line.
   */
   Input hi (lexer_->here_input ());
 
@@ -212,9 +213,9 @@ LY_DEFINE (ly_set_point_and_click, "ly:set-point-and-click", 1, 0, 0,
   /* UGH. */
   SCM val = SCM_BOOL_F;
   if (ly_symbol2scm ("line-column") == what)
-    val = scm_c_eval_string ("line-column-location");
+    val = ly_scheme_function ("line-column-location");
   else if (what == ly_symbol2scm ("line"))
-    val = scm_c_eval_string ("line-location");
+    val = ly_scheme_function ("line-location");
 
   scm_module_define (global_lily_module, ly_symbol2scm ("point-and-click"),
 		     val);

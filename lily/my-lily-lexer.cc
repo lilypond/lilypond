@@ -104,7 +104,7 @@ My_lily_lexer::My_lily_lexer (Sources *sources)
   error_level_ = 0; 
   main_input_b_ = false;
   
-  add_scope (ly_make_anonymous_module (safe_global_b));
+  add_scope (ly_make_anonymous_module (false));
 }
 
 My_lily_lexer::My_lily_lexer (My_lily_lexer const &src)

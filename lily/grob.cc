@@ -36,7 +36,6 @@ remove dynamic_cast<Spanner,Item> and put this code into respective
   subclass.
 */
 
-//#define HASHING_FOR_MUTABLE_PROPS
 #define HASH_SIZE 3
 #define INFINITY_MSG "Infinity or NaN encountered"
 
@@ -60,9 +59,6 @@ Grob::Grob (SCM basicprops)
   smobify_self ();
 
 
-#ifdef HASHING_FOR_MUTABLE_PROPS
-  mutable_property_alist_ = scm_c_make_hash_table (HASH_SIZE);
-#endif
   
   SCM meta = get_property ("meta");
   if (ly_c_pair_p (meta))
@@ -138,10 +134,6 @@ Grob::Grob (Grob const&s)
   pscore_ = 0;
 
   smobify_self ();
-
-#ifdef HASHING_FOR_MUTABLE_PROPS
-  mutable_property_alist_ = scm_c_make_hash_table (HASH_SIZE);
-#endif
 }
 
 Grob::~Grob ()
@@ -233,37 +225,31 @@ Grob::get_uncached_stencil ()const
   if (ly_c_procedure_p (proc)) 
     mol = scm_apply_0 (proc, scm_list_n (this->self_scm (), SCM_UNDEFINED));
   
-  Stencil *m = unsmob_stencil (mol);
-  
-  if (unsmob_stencil (mol))
-    {
-      SCM origin = ly_symbol2scm ("no-origin");
+  if (Stencil *m = unsmob_stencil (mol))
+     {
+      if (to_boolean (get_property ("transparent")))
+	mol = Stencil (m->extent_box (), SCM_EOL).smobbed_copy ();
+    else
+      {
+	SCM origin = ly_symbol2scm ("no-origin");
       
-      if (store_locations_global_b)
-	{
-	  SCM cause = get_property ("cause");
-	  if (Music*m = unsmob_music (cause))
-	    {
-	      SCM music_origin = m->get_property ("origin");
-	      if (unsmob_input (music_origin))
-		origin = music_origin;
-	    }
+	if (store_locations_global_b)
+	  {
+	    SCM cause = get_property ("cause");
+	    if (Music*m = unsmob_music (cause))
+	      {
+		SCM music_origin = m->get_property ("origin");
+		if (unsmob_input (music_origin))
+		  origin = music_origin;
+	      }
+	  }
+
+	// ugr.
+	mol = Stencil (m->extent_box (),
+		       scm_list_n (origin, m->expr (), SCM_UNDEFINED)
+		       ). smobbed_copy ();
       }
-
-      // ugr.
-      
-      mol = Stencil (m->extent_box (),
-		      scm_list_n (origin, m->expr (), SCM_UNDEFINED)
-		      ). smobbed_copy ();
-
-      m = unsmob_stencil (mol);
-    }
-  
-  /*
-    transparent retains dimensions of element.
-   */
-  if (m && to_boolean (get_property ("transparent")))
-    mol = Stencil (m->extent_box (), SCM_EOL).smobbed_copy ();
+    }  
 
   return mol;
 }
@@ -356,9 +342,6 @@ Grob::suicide ()
   if (!live ())
     return; 
 
-#if 0 // see below. 
-   String nm = name ();
-#endif
   
   mutable_property_alist_ = SCM_EOL;
   immutable_property_alist_ = SCM_EOL;
@@ -371,19 +354,6 @@ Grob::suicide ()
       dim_cache_[a].offset_callbacks_ = SCM_EOL;
       dim_cache_[a].offsets_left_ = 0;
     }
-
-#if 0
-  /*
-    This can make debugging a little easier: we can still know what
-    the object used to be. However, since all its links have been
-    broken, it's usually more convenient to set a conditional
-    breakpoint in GDB before the property lists are wiped.
-   */
-  mutable_property_alist_ = scm_acons (ly_symbol2scm ("name"),
-				       scm_makfrom0str (nm.to_str0()),
-				       mutable_property_alist_
-				       );
-#endif
 }
 
 void

@@ -7,17 +7,20 @@
 @unnumbered New features in 2.3 since 2.2
 
 @itemize @bullet
-
+@item The @code{--safe} mode has been revisited: it makes the basic
+ly: interface available, and makes prevents Scheme or @TeX{} code.
 
 @item Music syntax can now be extended seamlessly. As an example,
-here is the new implementation @code{\apply},
+here is the new implementation @code{\applymusic},
 
 @example
-  apply = #(ly:make-music-function
+  applymusic = #(ly:make-music-function
      (list procedure? ly:music?) ; signature
      (lambda (where func music)  ; the function
        (func music)))
 @end example
+
+@item @code{\apply} has been renamed to @code{\applymusic}.
 
 @item Music can be used as a markup.
 When inserting a @code{score} block as part of a @code{\markup},
@@ -29,10 +32,9 @@ it produces a rendered markup of the music.
 
 
 @item LilyPond expressions can be embedded into Scheme. The syntax for
-this is @code{#@{ ... #@}}. Within such a block, Scheme forms, for
-instance variable names, can be introduced thanks to a @code{$}
-character (@code{$$} results in a single `$' character).  These forms
-are then printed in the pattern.
+this is @code{#@{ ... #@}}. Within such a block, Scheme forms can be
+introduced using a @code{$} character (@code{$$} results in a single
+`$' character).  These forms are then printed in the pattern.
 
 @example
 #(define (textoffset dx dy)
@@ -50,16 +52,7 @@ are then printed in the pattern.
 @}
 @end example
 
-@c FIXME: un-geekify
-@item Music lists are allowed at toplevel, and are handled by
-@code{default-toplevel-music-handler}.  Similarly, a @code{score} block
-at toplevel is handled by @code{default-toplevel-score-handler} an a
-@code{book} at toplevel is handled by @code{default-toplevel-book-handler}.
-
-These default handlers have the following effect.  A Music list at
-toplevel is encapsulated in a @code{score} block, and a @code{score}
-block at toplevel is encapsulated in a @code{book} block.  A
-@code{book} block at toplevel generates printed output.
+@item Music lists are allowed at toplevel.
 
 @example
 \header @{ title = "The Title" @}
@@ -76,6 +69,22 @@ is the same as
   @}
 @}    
 @end example
+
+These toplevel forms are handled by
+@code{default-toplevel-music-handler}.  Similarly, a @code{score}
+block at toplevel is handled by @code{default-toplevel-score-handler}
+an a @code{book} at toplevel is handled by
+@code{default-toplevel-book-handler}.
+
+@ignore
+
+@c FIXME: un-geekify
+These default handlers have the following effect.  A Music list at
+toplevel is encapsulated in a @code{score} block, and a @code{score}
+block at toplevel is encapsulated in a @code{book} block.  A
+@code{book} block at toplevel generates printed output.
+@end ignore
+
 
 @item Start pitch for @code{relative} music is optional for music lists.
 The default value is one octave below middle C.

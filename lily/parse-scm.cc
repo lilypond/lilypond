@@ -29,6 +29,10 @@ internal_ly_parse_scm (Parse_start * ps)
   /* Read expression from port */
   if (!SCM_EOF_OBJECT_P (form = scm_read (port)))
     {
+      if (ps->safe_)
+	answer = scm_eval  (form,
+			    scm_call_0 (ly_scheme_function ("make-safe-lilypond-module")));
+      else
 	answer = scm_primitive_eval (form);
     }
  
@@ -51,13 +55,7 @@ SCM
 catch_protected_parse_body (void *p)
 {
   Parse_start *ps = (Parse_start*) p;
-  return internal_ly_parse_scm (ps);
-}
-
-SCM
-safe_catch_protected_parse_body (void *p)
-{
-  Parse_start *ps = (Parse_start*) p;
+  
   return internal_ly_parse_scm (ps);
 }
 
@@ -111,7 +109,8 @@ ly_parse_scm (char const* s, int *n, Input i, bool safe)
   Parse_start ps ;
   ps.str = s;
   ps.start_location_ = i;
-
+  ps.safe_ = safe;
+  
   SCM ans = parse_protect_global ? protected_ly_parse_scm (&ps)
     : internal_ly_parse_scm (&ps);
   *n = ps.nchars;
