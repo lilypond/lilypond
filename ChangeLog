@@ -1,3 +1,8 @@
+2003-07-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* make/lilypond.redhat.spec.in (Group): change ftp.cs.uu.nl to
+	ftp.lilypond.org everywhere.
+
 2003-07-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/text-item.cc (interpret_new_markup): do only if new-markup

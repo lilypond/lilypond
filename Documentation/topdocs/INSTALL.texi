@@ -41,12 +41,9 @@ packages if these are available for your platform.
 @item Download development releases from
 @c Hmm, these won't show up in lilypond.org/stats
 @c Otoh, lilypond.org is not updated when release mail arrives
-@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/} by FTP and
-@uref{http://ftp.cs.uu.nl/pub/GNU/LilyPond/}, by HTTP.
-@item @uref{ftp://sca.uwaterloo.ca/pub/} by FTP (Canadian mirror)
-@item at @code{lilypond.org} 
 @uref{ftp://ftp.lilypond.org/pub/LilyPond/} by FTP and
 @uref{http://www.lilypond.org/ftp/} by HTTP.
+@item @uref{ftp://sca.uwaterloo.ca/pub/} by FTP (Canadian mirror)
 @end itemize
 
 

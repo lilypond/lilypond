@@ -58,13 +58,7 @@ protected:
   virtual void finalize ();
 public:
 
-  /*
-    TODO -> property.
-    
-    This is not a property, and it is not protected.  This poses a
-    very small risk of the value being GC'd from under us.
-  */
-  SCM last_keysig_;
+  Protected_scm last_keysig_;
 
   /*
     Urgh. Since the accidentals depend on lots of variables, we have to
@@ -83,7 +77,8 @@ public:
 };
 
 
-static void set_property_on_children (Translator_group * trans, const char * sym, SCM val)
+static void
+set_property_on_children (Translator_group * trans, const char * sym, SCM val)
 {
   trans->set_property (sym, val);
   for (SCM p = trans -> trans_group_list_; gh_pair_p (p); p = ly_cdr(p)) {

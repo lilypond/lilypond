@@ -11,7 +11,7 @@ Release:	%{release}
 License:	GPL
 Group:		Applications/Publishing
 URL:		http://www.lilypond.org/
-Source0:	ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-%{version}.tar.gz
+Source0:	ftp.lilypond.org:/pub/LilyPond/development/lilypond-%{version}.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-buildroot
 BuildRequires:	t1utils bison flex mftrace texinfo
 Requires:	tetex tetex-latex python chkfontpath info-install XFree86
