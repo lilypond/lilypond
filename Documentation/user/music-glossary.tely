@@ -161,7 +161,6 @@ they look too intrusive (says Han-Wen).
 @item DK - Danish
 @item S - Swedish
 @item FI - Finnish
-@item N - Norwegian
 @end itemize
 
 This is an example reference, that points you to the @aref{accent}
@@ -4164,17 +4163,17 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 @multitable @columnfractions .1 .1 .1 .1 .1 .1 .1 .1 .1 .1
 
 @item @tab @strong{UK} @tab @strong{I} @tab @strong{F} @tab @strong{D} @tab
-@strong{NL} @tab @strong{DK} @tab @strong{S} @tab @strong{FI} @tab @strong{N}
+@strong{NL} @tab @strong{DK} @tab @strong{S} @tab @strong{FI}
 
 @item
 
 @item @strong{longa} @tab longa @tab longa @tab longa @tab Longa @tab longa
-@tab longa @tab longa @tab longa @tab longa
+@tab longa @tab longa @tab longa
 
 @item
 
 @item @strong{breve} @tab breve @tab breve @tab br@`eve @tab Brevis @tab
-brevis @tab brevis @tab brevis @tab brevis @tab brevis
+brevis @tab brevis @tab brevis @tab brevis
 
 @item
 
@@ -4228,60 +4227,59 @@ sextio@-fj@"arde@-del @tab kuudeskymmenesnelj@"asosa- @tab
 
 @item @tab @strong{I} @tab @strong{F} @tab @strong{D} @tab
 @strong{NL} @tab @strong{DK} @tab @strong{S} @tab @strong{FI} 
-@tab @strong{N}
 
 @item
 
-@item @strong{c} @tab do @tab ut @tab C @tab c @tab c @tab c @tab C @tab c
+@item @strong{c} @tab do @tab ut @tab C @tab c @tab c @tab c @tab c
 
 @item
 
 @item @strong{c-sharp} @tab do diesis @tab ut di@`ese @tab Cis @tab cis @tab
-cis @tab cis @tab Cis @tab cis
+cis @tab cis @tab cis
 
 @item
 
 @item @strong{d-flat} @tab re bemolle @tab r@'e b@'emol @tab Des @tab des @tab
-des @tab des @tab Des @tab des
+des @tab des @tab des
 
 @item
 
-@item @strong{d} @tab re @tab r@'e @tab D @tab d @tab d @tab d @tab D @tab d
+@item @strong{d} @tab re @tab r@'e @tab D @tab d @tab d @tab d @tab d
 
 @item
 
-@item @strong{e} @tab mi @tab mi @tab E @tab e @tab e @tab e @tab E @tab e
+@item @strong{e} @tab mi @tab mi @tab E @tab e @tab e @tab e @tab e
 
 @item
 
-@item @strong{f} @tab fa @tab fa @tab F @tab f @tab f @tab f @tab F @tab f
+@item @strong{f} @tab fa @tab fa @tab F @tab f @tab f @tab f @tab f
 
 @item
 
-@item @strong{g} @tab sol @tab sol @tab G @tab g @tab g @tab g @tab G @tab g
+@item @strong{g} @tab sol @tab sol @tab G @tab g @tab g @tab g @tab g
 
 @item
 
 @item @strong{a-flat} @tab la bemolle @tab la b@'emol @tab As @tab as @tab as
-@tab as @tab As @tab as
+@tab as @tab as
 
 @item
 
-@item @strong{a} @tab la @tab la @tab A @tab a @tab a @tab a @tab A @tab a
+@item @strong{a} @tab la @tab la @tab A @tab a @tab a @tab a @tab a
 
 @item
 
 @item @strong{a-sharp} @tab la diesis @tab la di@`ese @tab Ais @tab ais @tab
-ais @tab ais @tab Ais @tab ais
+ais @tab ais @tab ais
 
 @item
 
 @item @strong{b-flat} @tab si bemolle @tab si b@'emol @tab B @tab bes @tab b
-@tab b @tab B @tab b
+@tab b @tab b
 
 @item
 
-@item @strong{b} @tab si @tab si @tab H @tab b @tab h @tab h @tab H @tab h
+@item @strong{b} @tab si @tab si @tab H @tab b @tab h @tab h @tab h
 
 @end multitable
 
