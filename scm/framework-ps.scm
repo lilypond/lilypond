@@ -234,10 +234,12 @@
 		       ((and bare-file-name
 			     (string-match "\\.(otf|cff)" bare-file-name))
 
+			; replace with the CFF.ps, which lives in a
+			; separate subdir.
 			(for-each (lambda (tup)  (set! bare-file-name
 						       (string-regexp-substitute (car tup) (cdr tup) bare-file-name)))
 				  '(("/fonts/otf/" . "/ps/")
-				    ("/fonts/cff/" . "/cff/")
+				    ("/fonts/cff/" . "/ps/")
 				    ("\\.(otf|cff)" . ".cff.ps")))
 
 			(cached-file-contents bare-file-name))
