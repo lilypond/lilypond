@@ -115,6 +115,7 @@ get_paper_outputter (String outname, String f)
 {
   progress_indication (_f ("Layout output to `%s'...",
 			   outname == "-" ? String ("<stdout>") : outname));
+  progress_indication ("\n");
   return new Paper_outputter (outname, f);
 }
 

@@ -47,9 +47,9 @@ Performance::output (Midi_stream& midi_stream)
   midi_stream << Midi_header (1, tracks_i, clocks_per_4_i);
   output_header_track (midi_stream);
   progress_indication ("\n");
-  progress_indication (_ ("Track ... "));
+  progress_indication (_ ("Track...") + " ");
   int channel = 0;
-  for (int i =0; i < audio_staffs_.size (); i++)
+  for (int i = 0; i < audio_staffs_.size (); i++)
     {
       Audio_staff *s = audio_staffs_[i];
       if (verbose_global_b)
