@@ -84,7 +84,6 @@ CL::smobify_self ()								\
 {										\
   SCM s = unprotected_smobify_self ();\
   scm_gc_protect_object (s);\
-  return s;\
 }\
 SCM										\
 CL::unprotected_smobify_self ()								\
