@@ -229,8 +229,17 @@ e.g. @code{\\mark \"A\"}.")
 	(description . "Rests that may be compressed into Multi rests. Syntax
 @code{R2.*4} for 4 measures in 3/4 time. Note the capital R.")
 	(internal-class-name . "Event")
-	(types . (general-music event multi-measure-rest-event))
+	(types . (general-music event span-event multi-measure-rest-event))
 	))
+    
+    (MultiMeasureTextEvent
+     . (
+	(description . "Texts on mm rests. Syntax
+@code{R-\\markup { \\roman \"bla\"}. Note the explicit font switch.")
+	(internal-class-name . "Event")
+	(types . (general-music event multi-measure-text-event))
+	))
+
     (Music
      . (
 	(description .  "Generic type for music expressions.")

@@ -582,9 +582,19 @@
 	(font-family . number)
 	(meta . ((interfaces . (side-position-interface self-alignment-interface font-interface spanner-interface text-interface))))
 	))
-
-
-    (NoteCollision
+    (MultiMeasureRestText
+     . (
+	(molecule-callback . ,brew-new-markup-molecule)
+	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
+			       ,Self_alignment_interface::centered_on_other_axis_parent))
+	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(self-alignment-X . 0)
+	(direction . 1)
+	(padding . 2)
+	(font-family . roman)
+	(meta . ((interfaces . (side-position-interface self-alignment-interface font-interface spanner-interface text-interface))))
+	))
+ (NoteCollision
      . (
 	(axes . (0 1))
 	;; Ugh, should not be hard-coded. 

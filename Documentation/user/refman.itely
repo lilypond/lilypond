@@ -3855,7 +3855,7 @@ effect music that appears inside a @code{\transpose}.
 Multi measure rests are entered using `@code{R}'. It is specifically
 meant for full bar rests and for entering parts: the rest can expand to
 fill a score with rests, or it can be printed as a single multimeasure
-rest This expansion is controlled by the property
+rest. This expansion is controlled by the property
 @code{Score.skipBars}. If this is set to true, Lily will not expand
 empty measures, and the appropriate number is added automatically.
 
@@ -3894,26 +3894,20 @@ is provided for a fermata.
 
 @lilypond[verbatim,fragment]
   \time 3/4
-  R2._\markup { \roman "Ad lib" }
+  R2._\markup { "Ad lib" }
   R2.^\fermataMarkup
 @end lilypond
 
-By default, the multi-measure rest uses the number font, which does
-not contain any letters. This is the reason for the explicit
-@code{\roman} in the above example.
-
 @cindex whole rests for a full measure 
 
-The object for this object is @internalsref{MultiMeasureRest}, and
-@internalsref{MultiMeasureRestNumber}.
+The object for this object is @internalsref{MultiMeasureRest},
+@internalsref{MultiMeasureRestNumber} (for the default number), and
+@internalsref{MultiMeasureRestText} (for user specified texts).
 
 @refbugs
 
-Only one text can be put on a multi-measure rest with
-@var{note}-@var{text} syntax, since this is internally converted to
-setting @code{#'text} in @internalsref{MultiMeasureRestNumber}. It is
-not possible to use fingerings (e.g. @code{R1-4}) to put numbers over
-multi-measure rests.
+It is not possible to use fingerings (e.g. @code{R1-4}) to put numbers
+over multi-measure rests.
 
 
 @cindex condensing rests
