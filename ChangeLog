@@ -1,3 +1,9 @@
+2002-04-10  Han-Wen  <hanwen@cs.uu.nl>
+
+	* mf/feta-din-code.mf: tweaks for p, s. New dynamic r sign. 
+
+	* mf/feta-eindelijk.mf: tweak for eighth rest: move bulb up.
+
 2002-04-09  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/tuplet-bracket.cc (after_line_breaking): bugfix for forced
