@@ -74,7 +74,11 @@ lily: lily/$(outdir)/lilypond
 lily/$(outdir)/lilypond:
 	$(MAKE) -C lily
 
-local-web: $(TOP_HTMLS:%.html=%) footify do-top-doc top-web
+topdocs-web:
+	$(MAKE) out=www LILYPOND_BOOK_FORMAT=texi-html -C Documentation/topdocs WWW
+	$(MAKE) footify
+
+local-web: topdocs-web $(TOP_HTMLS:%.html=%) footify do-top-doc top-web
 
 
 web-ext = gz html midi pdf png txt ly
