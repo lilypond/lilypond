@@ -1,3 +1,14 @@
+pl 1.1.7
+	- PQueue blondification.
+	- String_convert::i2hex_str fix, unsigned eqvs introduced
+	- long long deprecioated, now named I64
+	- type I32 introduced. should be used iso int where 32 bits are 
+	  needed(or, brr, assumed...)
+
+pl 1.1.6-2
+Bugfix
+	- silly String( int... ) -> String( (char)... ) fix
+	  really should junk ambiguous constructor overload
 pl 1.1.6-1	
 
 Bugfix
