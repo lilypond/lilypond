@@ -22,7 +22,7 @@
 @end itemize
 
 @html
-<a name="new-users">
+<a name="newbies">
 @end html
 
 
@@ -30,7 +30,7 @@
 
 @itemize @bullet
 @item @uref{../../index.html,index} What is Lilypond?
-@item @uref{../topdocs/out-www/README.html, README} general information
+@item @uref{../topdocs/out-www/README.html, README} General information.
 @item @uref{../topdocs/out-www/INSTALL.html, INSTALL}
   How install on Unix.
 @item @uref{../windows/out-www/installing.html, WINDOWS}
@@ -38,21 +38,21 @@ How to install on Windows.
 @item @uref{http://www.lilypond.org/wiki?LilyPondFaqs,FAQ} Frequently
 asked questions, with answers.
 @item @uref{http://www.lilypond.org/wiki?MailingLists,MailingLists} Subscribe to
-the mailing lists
+the mailing lists.
 @item @uref{../user/out-www/lilypond/Tutorial.html,Tutorial} Learn how to use LilyPond.
 @end itemize
 
 
 
 @html
-<a name="other-users">
+<a name="users">
 @end html
 
 @unnumberedsubsec Information for users
 
 
 @itemize @bullet
-@item @uref{CHANGES.html, CHANGES} things recently done
+@item @uref{CHANGES.html, CHANGES} Things recently done.
 
 @c download sites?
 
@@ -62,7 +62,7 @@ the mailing lists
 Documentation of internals, generated from the sources. If you want to
 fine-tune output, you need the information in this document.
 @item @uref{../user/out-www/lilypond/lilypond.html,lilypond}
-  The user manual, (in @uref{../user/out-www/lilypond.ps.gz,PostScript})
+  The user manual, (in @uref{../user/out-www/lilypond.ps.gz,PostScript}).
 @item @uref{../user/out-www/glossary.html,glossary} A glossary of musical
 terms, including translations.  (in
 @uref{../user/out-www/glossary.ps.gz,Postscript})
@@ -76,11 +76,13 @@ terms, including translations.  (in
 
 @unnumberedsubsec Information for developers
 
+@c Han-Wen's site?
+@c Jan's site?
 
 @itemize @bullet
-@item @uref{../out-www/regression-test.html,regression-test} A glossary
-of musical terms, including translations.  (in
-@uref{../out-www/regression-test.ps.gz,Postscript})
+@item @uref{../out-www/regression-test.html,regression-test}
+A large document that tests all kinds of features (in
+@uref{../out-www/regression-test.ps.gz,Postscript}).
 @item
 @uref{http://www2.iro.umontreal.ca/~pinard/po/registry.cgi?domain=lilypond">Translations,lilypond
 textual domain

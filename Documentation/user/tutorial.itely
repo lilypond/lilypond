@@ -48,7 +48,7 @@ produce most complex music with LilyPond.
 @c @section Music language of LilyPond
 
 This section shows how easy writing music with LilyPond actually is.  If
-you have not used LilyPond before, this section is for you.
+you have not seen LilyPond input source before, this section is for you.
 
 You get a simple note by typing its note name, from @code{a} through
 @code{g}:
@@ -207,7 +207,19 @@ enclosing them in ``@code{\score @{ ... @}}''.  This is what a full
 LilyPond source file looks like:
 
 @quotation
-@lilypond[verbatim]
+@example
+\score @{
+  \notes @{
+     \time 3/4
+     \clef bass
+     c2 e4 g2.
+     f4 e d c2.
+  @}
+  \paper @{ @}
+@}
+@end example
+
+@lilypond
 \score {
   \notes {
      \time 3/4
@@ -215,7 +227,7 @@ LilyPond source file looks like:
      c2 e4 g2.
      f4 e d c2.
   }
-  \paper { }
+  \paper { linewidth = 60 * \staffspace }
 }
 @end lilypond
 @end quotation
@@ -232,6 +244,7 @@ r2 r4 r8 r16
 
 @lilypond[fragment]
 \property Score.timing = ##f
+\property Staff.Clef = \turnOff
 \property Staff.TimeSignature = \turnOff
 r2 r4 r8 r16
 s16_" "
@@ -239,7 +252,7 @@ s16_" "
 @end quotation
 @separate
 
-A tie is created by entering a tilde ``@code{~})'' between the notes to
+A tie is created by entering a tilde ``@code{~}'' between the notes to
 be tied.  A tie between two notes means that the second note must not be
 played separately, but just makes the first note sound longer:
 
@@ -252,7 +265,15 @@ g'4 ~ g' a'2 ~ a'4
 
 The key signature is set with the command ``@code{\key}'':
 @quotation
-@lilypond[fragment,verbatim]
+@example
+\key d \major
+g'1
+\key c \minor
+g'
+@end example
+
+@lilypond[fragment]
+\property Staff.TimeSignature = \turnOff
 \key d \major
 g'1
 \key c \minor
@@ -279,29 +300,48 @@ c'4 c'' c''' \clef bass c c,
 @separate
 
 @c bit on the long/complex/scary taste
+@c cheating a bit: two lines makes for a friendlier look
 This example shows notes, ties, octave marks, and rests in action.
 Don't worry about all the quotes.
 
 @quotation
-@lilypond[verbatim]
+@example
+\score @{
+  \notes @{
+    \time 4/4
+    \clef treble
+    \key d \minor
+    r4 r8 d''8 cis''4 e''
+    d''8 a'4. ~ a' b'8
+    cis''4 cis''8 cis'' bis'4 d''8 cis'' ~
+    cis''2 r2
+  @}
+  \paper @{ @}
+@}
+@end example
+
+@lilypond
 \score {
   \notes {
     \time 4/4
     \clef treble
     \key d \minor
     r4 r8 d''8 cis''4 e''
-    d''8 a'4. ~ a'  b'8
+    d''8 a'4. ~ a' b'8
     cis''4 cis''8 cis'' bis'4 d''8 cis'' ~
     cis''2 r2
   }
-  \paper { }
+  \paper { linewidth = 50*\staffspace }
 }
 @end lilypond
 @end quotation
 
-There is one interesting point to note in this example: accidentals
-don't have to be marked explicitly.  You just enter the pitch, and
-LilyPond determines wether or not to print an accidental.
+There are some interesting points to note in this example.  Firstly,
+accidentals don't have to be marked explicitly: you just enter the
+pitch, and LilyPond determines whether or not to print an accidental.
+Secondly, bar lines and beams are drawn automatically.  Thirdly,
+LilyPond calculates line breaks for you; it doesn't matter where you
+make new lines in the source file.
 
 The example also indicates that a piece of music written in a high
 register needs lots of quotes.  This makes the input a bit unreadable,
@@ -323,10 +363,19 @@ You must also give a note from which relative starts, in this case
 
 If you type no octaviation quotes, relative mode chooses the note that
 is closest to the previous one, which is often just the one you need.
-For example, @code{c f} goes up, and @code{c g} goes down:
+@c don't use commas or quotes in this sentence
+For example: @code{c f} goes up; @code{c g} goes down:
 
 @quotation
-@lilypond[verbatim]
+@example
+\relative c'' @{
+  c f c g c
+@}
+@end example
+
+@lilypond[fragment]
+\property Score.timing = ##f
+\property Staff.TimeSignature = \turnOff
 \relative c'' {
   c f c g c
 }
@@ -334,11 +383,20 @@ For example, @code{c f} goes up, and @code{c g} goes down:
 @end quotation
 @separate
 
-You can make a large interval by adding octaviation quotes.  For example,
-@code{c f,} goes down, and @code{c g'} goes up:
+You can make a large interval by adding octaviation quotes.
+@c don't use commas or quotes in this sentence
+For example: @code{c f,} goes down; @code{c g'} goes up:
 
 @quotation
-@lilypond[verbatim]
+@example
+\relative c'' @{
+  c f, f c' c g' c,
+@}
+@end example
+
+@lilypond[fragment]
+\property Score.timing = ##f
+\property Staff.TimeSignature = \turnOff
 \relative c'' {
   c f, f c' c g' c,
 }
@@ -394,7 +452,7 @@ be grouped inside @code{<} and @code{>}, as is demonstrated here:
 
 In this example, @code{staffA} and @code{staffB} are names that are
 given to the staffs.  For now, it doesn't matter what names you give, as
-long as each staffs has a unique name.
+long as each staff has a unique name.
 
 @separate
 
@@ -459,8 +517,8 @@ happens at the same time, like in chords, or (like in the two-staff
 example above) in a bunch of stacked staffs.
 @end ignore
 
-Of course, you can combine beams and ties with chords.  Notice where the
-beam and tie markings are places:
+Of course, you can combine beams and ties with chords.  Notice that
+beam and tie markings are placed outside the chord markers:
 @quotation
 @lilypond[relative 0, fragment,verbatim]
 r4 [<c8 e g> <c8 f a>] ~ <c8 f a>
@@ -529,21 +587,22 @@ fine tuning output, polyphonic music, and integrating text and music.
 @node Running LilyPond
 @section Running LilyPond
 
-You make music notation with LilyPond as follows: first you edit a text
-file containing a description of the notes. Then you run LilyPond on the
+You write music with LilyPond as follows: first you edit a text file
+containing a description of the notes.  Then you run LilyPond on the
 file. This leaves you with an output file, which you can view or print.
 
 In this section we explain how to run LilyPond, and view or print the
-output.  If you want to test your setup of LilyPond, or try to run an
-example file yourself, then read this section. Otherwise, you can skip
-to the next section, which explains how to
-write LilyPond input.
+output.  If you have not used LilyPond before, want to test your setup
+of LilyPond, or try to run an example file yourself, then read this
+section.
 
-The instructions that follow are for Unix. Windows instructions are
-given at the end of this section. Start with opening a terminal window,
-and start up a text editor.  For example, start an xterm and execute
-@code{joe}.  Enter the following input, and save the file as
-@file{test.ly}.
+The instructions that follow are for running LilyPond on Unix-like
+systems.  Some additional instructions for running LilyPond on Windows
+are given at the end of this section.
+
+You begin with opening a terminal window, and start up a text editor.
+For example, open an xterm and execute @code{joe}.  In your text editor,
+enter the following input, and save the file as @file{test.ly}:
 
 @quotation
 @example
@@ -620,7 +679,7 @@ at @uref{http://www.ghostscript.com}.
 @cindex Printing output
 @cindex PostScript
 
-
+@unnumberedsubsec Windows users
 Windows users start the terminal by clicking on the LilyPond icon.
 Notepad is sufficient for editing the LilyPond file. Viewing the PS file
 can be done with @code{gsview32 test.ps}.  Viewing DVI files can be done
@@ -1415,7 +1474,7 @@ The first thing it does, is running LilyPond on the input file. After
 some calculations, a @file{.tex} is produced. The contents
 of this file are very  low-level instructions.
 
-For example,  the following file (@file{miniatures.ly}) 
+For example, the following file (@file{miniatures.ly}) 
 
 @example
 \version "1.3.124"

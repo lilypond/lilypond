@@ -41,8 +41,8 @@ which substitutes some @AT_VARIABLES@ as well.
       </td></tr>
       <tr><td><font size=-1>
     	<a href="@TOP@Documentation/out-www/index.html#everyone">General information</a><br>
-    	<a href="@TOP@Documentation/out-www/index.html#new-users">For new users</a><br>
-    	<a href="@TOP@Documentation/out-www/index.html#other-users">For users</a><br>
+    	<a href="@TOP@Documentation/out-www/index.html#newbies">For new users</a><br>
+    	<a href="@TOP@Documentation/out-www/index.html#users">For users</a><br>
     	<a href="@TOP@Documentation/out-www/index.html#developers">For developers</a><br>
     	<a href="@TOP@Documentation/out-www/index.html#background">Background information</a><br>
       </td></tr>
