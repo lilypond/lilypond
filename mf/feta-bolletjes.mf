@@ -179,11 +179,16 @@ fet_beginchar("Half notehead", "1", "halfhead")
 fet_endchar;
 	
 fet_beginchar("Quart notehead", "2", "quarthead")
-	draw_outside_ellipse (1.54 - puff_up_factor / 2.0, 32, 0.707, 0);
+	draw_outside_ellipse (1.42 - puff_up_factor / 3.0, 32, 0.707, 0);
 	black_notehead_width# := charwd;
 fet_endchar;
 
 %%%%%%%%%%%%%%%%
+
+%% testing shapes.
+
+if 0 = 1 : 
+
 
 fet_beginchar("Quart noteheadPQ", "2PQ", "quartheadPQ")
 	draw_outside_ellipse (1.0 - puff_up_factor / 2.0, 32, 0.707, 0);
@@ -263,6 +268,8 @@ fet_endchar;
 fet_beginchar("Quart noteheadCD", "2CG", "quartheadCD")
 	draw_outside_ellipse (1.65 - puff_up_factor / 2.0, 40, 0.707, 0);
 fet_endchar;
+
+fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

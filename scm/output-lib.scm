@@ -248,3 +248,4 @@ centered, X==1 is at the right, X == -1 is at the left."
 	 (index-cell (cdr result) dir))
      ) )
      
+

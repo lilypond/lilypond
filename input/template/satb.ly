@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.10"
 \header {
 
     texidoc = "
@@ -35,10 +35,10 @@ bassWords = \lyrics { ho4 ho ho ho }
 	      \context LyricsVoice = basses { s1 }
 
 	      
-	      \context LyricsVoice = sopranos \newaddlyrics sopranos \sopWords
-	      \context LyricsVoice = altos \newaddlyrics altos \altoWords
-	      \context LyricsVoice = tenors \newaddlyrics tenors \tenorWords
-	      \context LyricsVoice = basses \newaddlyrics basses \bassWords
+	      \context LyricsVoice = sopranos \lyricsto sopranos \sopWords
+	      \context LyricsVoice = altos \lyricsto altos \altoWords
+	      \context LyricsVoice = tenors \lyricsto tenors \tenorWords
+	      \context LyricsVoice = basses \lyricsto basses \bassWords
 	  
 	  >>
   \paper {

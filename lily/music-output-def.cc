@@ -160,3 +160,33 @@ LY_DEFINE(ly_paper_lookup,
   else
     return SCM_EOL;
 }
+
+LY_DEFINE(ly_output_def_scope,
+	  "ly:output-def-scope",
+	  1, 0,0,
+	  (SCM def),
+	  "Get the scope inside @var{def}."
+	  )
+{
+  Music_output_def *op = unsmob_music_output_def (def);
+  SCM_ASSERT_TYPE (op, def, SCM_ARG1, __FUNCTION__, "Output definition");
+
+  return op->scope_;
+}
+
+
+LY_DEFINE(ly_output_def_clone,
+	  "ly:output-def-clone",
+	  1, 0,0,
+	  (SCM def),
+	  "Clone @var{def}."
+	  )
+{
+  Music_output_def *op = unsmob_music_output_def (def);
+  SCM_ASSERT_TYPE (op, def, SCM_ARG1, __FUNCTION__, "Output definition");
+
+  SCM s = op->clone ()->self_scm ();
+  scm_gc_unprotect_object (s);
+  return s;
+}
+

@@ -1,8 +1,8 @@
-\version "2.1.7"
+\version "2.1.10"
 \header {
 
 texidoc ="Polyphonic rhythms and rests don't disturb
-@code{\newaddlyrics}."
+@code{\lyricsto}."
 
 }
 
@@ -21,10 +21,10 @@ texidoc ="Polyphonic rhythms and rests don't disturb
 	      \voiceTwo
 	      ees'8 r8 r8 r8 ees' r8 r8 r8 
           }
-          \newaddlyrics "two" \lyrics \new LyricsVoice {
+          \lyricsto "two" \lyrics \new LyricsVoice {
              Do na
          }
-	 \lyrics  \newaddlyrics "one" \new LyricsVoice
+	 \lyrics  \lyricsto "one" \new LyricsVoice
 	   {
 	       Do mi nus ex
 	   }

@@ -27,7 +27,7 @@ lower = \notes\relative c {
 	  \autoBeamOff
 	  \melody
       }
-      \newaddlyrics mel \new LyricsVoice \text
+      \lyricsto mel \new LyricsVoice \text
 
       \context PianoStaff <<
 	  \context Staff = upper \upper

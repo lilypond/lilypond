@@ -233,8 +233,8 @@ a\> a a\!
 @tab lyric hyphen 
 @tab
 @lilypond[fragment,relative 1]
-\addlyrics \notes { g'4 g }
-  \context Lyrics \lyrics {  twin -- kle }
+ \notes { g'4 g }
+  \lyricsto "" \new LyricsVoice \lyrics {  twin -- kle }
 @end lilypond 
 
 @item @code{\chords @{ c:dim f:maj7 @}}

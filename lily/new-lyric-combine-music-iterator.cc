@@ -189,6 +189,8 @@ void
 New_lyric_combine_music_iterator::process (Moment )
 {
   find_thread ();
+  if (!music_context_)
+    return ;
   
   if (!music_context_->daddy_trans_)
     {

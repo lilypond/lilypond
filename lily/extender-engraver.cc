@@ -68,18 +68,41 @@ Extender_engraver::try_music (Music* r)
 }
 
 void
+completize_extender (Spanner* sp)
+{
+  if (!sp->get_bound (RIGHT))
+    {
+      SCM heads = sp->get_grob_property ("heads");
+      if (gh_pair_p (heads))
+	{
+	  Item* it = dynamic_cast<Item*> (unsmob_grob (gh_car (heads)));
+	  if (it)
+	    sp->set_bound (RIGHT, it);
+	}
+    }
+}
+
+  
+
+void
 Extender_engraver::finalize ()
 {
   if (extender_)
     {
-      extender_->warning (_ ("unterminated extender"));
+      completize_extender (extender_);
+
+      if (!extender_->get_bound (RIGHT))
+	extender_->warning (_ ("unterminated extender"));
       typeset_grob (extender_);
       extender_ = 0;
     }
 
   if (finished_extender_)
     {
-      finished_extender_->warning (_("unterminated extender"));
+      completize_extender (finished_extender_);
+
+      if (!finished_extender_->get_bound (RIGHT))
+	  finished_extender_->warning (_("unterminated extender"));
       typeset_grob (finished_extender_);
       finished_extender_ =0;
     }

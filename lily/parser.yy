@@ -385,7 +385,7 @@ yylex (YYSTYPE *s,  void * v)
 %type <music>	music_property_def context_change 
 %type <scm> Music_list
 %type <scm> property_operation context_mod translator_mod optional_context_mod
-%type <outputdef>  music_output_def_body
+%type <outputdef>  music_output_def_body music_output_def_head
 %type <music> shorthand_command_req
 %type <music>	post_event tagged_post_event
 %type <music> command_req verbose_command_req
@@ -670,8 +670,8 @@ output_def:
 	}
 	;
 
-music_output_def_body:
-	MIDI '{'    {
+music_output_def_head:
+	MIDI    {
 		Music_output_def *id = unsmob_music_output_def (THIS->lexer_->lookup_identifier ("$defaultmidi"));
 
 
@@ -684,7 +684,7 @@ music_output_def_body:
 		$$ = p;
 		THIS->lexer_->add_scope (p->scope_);
 	}
-	| PAPER '{' 	{
+	| PAPER 	{
 		Music_output_def *id = unsmob_music_output_def (THIS->lexer_->lookup_identifier ("$defaultpaper"));
 		  Paper_def *p = 0;
 		if (id)
@@ -695,16 +695,17 @@ music_output_def_body:
 		THIS->lexer_->add_scope (p->scope_);
 		$$ = p;
 	}
-	| PAPER '{' MUSIC_OUTPUT_DEF_IDENTIFIER 	{
-		Music_output_def * o =  unsmob_music_output_def ($3);
-		$$ =o;
+	;
 
-		THIS->lexer_->add_scope (o->scope_);
+
+music_output_def_body:
+	music_output_def_head '{' { 
+		
 	}
-	| MIDI '{' MUSIC_OUTPUT_DEF_IDENTIFIER 	{
+	| music_output_def_head '{' MUSIC_OUTPUT_DEF_IDENTIFIER 	{
 		Music_output_def * o =  unsmob_music_output_def ($3);
 		$$ = o;
-
+		THIS->lexer_->remove_scope ();
 		THIS->lexer_->add_scope (o->scope_);
 	}
 	| music_output_def_body assignment  {
@@ -712,7 +713,6 @@ music_output_def_body:
 	}
 	| music_output_def_body translator_spec_block	{
 		$$->assign_translator ($2);
-
 	}
 	| music_output_def_body tempo_event  {
 		/*

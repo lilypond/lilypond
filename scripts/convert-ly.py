@@ -1652,6 +1652,19 @@ def conv (str):
 
 conversions.append (((2,1,7), conv, """\\translator Staff -> \\change Staff"""))
 
+def conv (str):
+	str =re.sub (r"\\newaddlyrics", r"\\lyricsto", str)
+	return str
+
+conversions.append (((2,1,10), conv, """\\newaddlyrics -> \\lyricsto"""))
+
+def conv (str):
+	str = re.sub (r'\\include\s*"paper([0-9]+)(-init)?.ly"',
+		      r"#(set-staff-size \1)", str)
+	return str
+
+conversions.append (((2,1,11), conv, """\\include "paper16.ly" -> #(set-staff-size 16) """))
+
 
 ################################
 #	END OF CONVERSIONS	

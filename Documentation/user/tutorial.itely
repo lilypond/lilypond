@@ -1063,9 +1063,9 @@ surrounding them with @code{\lyrics @{ @dots{} @}}, for example,
 
 Like notes, lyrics are also a form of music, but they must not be
 printed on a staff, which is the default way to print music. To print
-them as lyrics, they must be marked with @code{ \new Lyrics}:
+them as lyrics, they must be marked with @code{ \new LyricsVoice}:
 @example
-  \new Lyrics  \lyrics @{ I want to break free @}
+  \new LyricsVoice  \lyrics @{ I want to break free @}
 @end example
 The melody for this song is as follows:
 
@@ -1076,25 +1076,25 @@ The melody for this song is as follows:
 @end lilypond
 
 The lyrics can be set to these notes, combining both with the
-@code{\addlyrics} keyword:
+@code{\lyricsto} keyword:
 @example
- \addlyrics
-    \notes @{ @dots{} @}
-    \new Lyrics @dots{}
+  \lyricsto "@var{name}" \new LyricsVoice @dots{}
 @end example
+where @var{name} identifies to which melody the lyrics should be
+aligned. In this case, there is only one melody, so we can leave it
+empty.
 
 The final result is 
 @lilypond[verbatim,linewidth=6.0cm]
 \score  {
- \notes {
-  \addlyrics
-   \relative c' {
+ \notes <<
+   \relative c' \new Voice {
      \partial 8
      c8
      \times 2/3 { f g g } \times 2/3 { g4( a2) }
    }
-   \new Lyrics  \lyrics { I want to break free }
- }
+   \lyricsto "" \new LyricsVoice \lyrics { I want to break free }
+ >>
  \paper{ }
 }
 @end lilypond
@@ -1110,20 +1110,14 @@ line}. It is entered as two underscores, i.e.
 @end example 
 @lilypond[]
 \score  {
- \notes {
-  \addlyrics
-   \relative c' {
-   \partial 8
+ \notes <<
+   \relative c' \new Voice {
+     \partial 8
      c8
-     \times 2/3 { f g g } \times 2/3 { g4( a2) }
-
-     %% ugh, this is to deal with bugs in the extender implementation
-     \hideNotes
-     c32
-   }
-   \new Lyrics  \lyrics { I want to break free __ }
- }
- \paper{ linewidth = 9.0 \cm }
+     \times 2/3 { f g g } \times 2/3 { g4( a2) } }
+   \lyricsto "" \new LyricsVoice \lyrics { I want to break free __ }
+   >>
+ \paper{ }
 }
 @end lilypond
 
@@ -1134,13 +1128,12 @@ resulting in a centered hyphen between two syllables:
 @end example
 @lilypond[singleline]
 \score {
-  \addlyrics \notes \relative f' { \time 2/4
+  << \notes \relative f' { \time 2/4
     f4 f c' c' }
-    \new Lyrics \lyrics { Twin -- kle twin -- kle
+    \new Lyrics \lyrics { Twin -- kle twin -- kle }
+  >>
+  \paper { raggedright = ##t }
  }
-\paper { linewidth = 6.0 \cm }
- }
- 
 @end lilypond
 
 More options, like putting multiple lines of lyrics below a melody are
@@ -1195,9 +1188,8 @@ a lead sheet, for example,
 \score @{
   <<
     \context ChordNames \chords @{ @emph{chords} @}
-    \addlyrics
-      \notes @emph{the melody}
-      \context Lyrics \lyrics @{ @emph{the text} @}
+    \notes @emph{the melody}
+    \lyricsto "" \new LyricsVoice \lyrics @{ @emph{the text} @}
   >>
   \paper @{ @}
 @}
@@ -1206,12 +1198,11 @@ a lead sheet, for example,
 \score  {
   << 
    \context ChordNames \chords { r8 c2:sus4 f } 
-   \addlyrics
     \notes \relative c' {
      \partial 8
      c8
      \times 2/3 { f g g } \times 2/3 { g4( a2) } }
-   \context Lyrics  \lyrics { I want to break free __ }
+   \new LyricsVoice \lyricsto "" \lyrics { I want to break free __ }
   >>
  \paper{ raggedright = ##t }
 }

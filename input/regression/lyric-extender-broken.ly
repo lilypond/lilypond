@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.10"
 \header{
     texidoc =
 
@@ -19,7 +19,7 @@ Aaaaa __ aaaaaah
 <<
     
   \context Voice = "foo" \sopran
-  \context LyricsVoice \newaddlyrics foo \text
+  \context LyricsVoice \lyricsto foo \text
 >>
 \paper { linewidth = 5.0\cm
 }

@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.10"
 
 \header {
   texidoc ="Lyrics between two staffs."
@@ -21,7 +21,7 @@ text = \lyrics {
     \context Staff = upper {
 	\context Voice = singer \upper
     }
-    \newaddlyrics "singer" \new LyricsVoice \text
+    \lyricsto "singer" \new LyricsVoice \text
     \context Staff = lower <<
       \clef bass
       \lower
