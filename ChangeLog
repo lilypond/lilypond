@@ -1,3 +1,8 @@
+2002-06-12  Heikki Junes  <heikki.junes@hut.fi>
+
+	* lilypond-mode.el: Propose saving before applying a command:
+	for saved buffer set default command to LilyPond.
+
 2002-06-11  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* buildscripts/mutopia-index.py (headertext_nopics): Add missing
