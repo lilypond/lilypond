@@ -1,3 +1,4 @@
+	* PointerList<T>:List<T> -> PointerList<T>:List<T*>
 
 	* efficient copy cons for List
 
