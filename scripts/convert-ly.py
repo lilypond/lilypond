@@ -2443,6 +2443,20 @@ conversions.append (((2, 5, 13),
 		     '\\encoding: smart recode latin1..utf-8. Remove ly:point-and-click'))
 
 
+def conv (str):
+	if re.search ("ly:stencil-set-extent!", str):
+		sys.stderr.write ('\n')
+		sys.stderr.write (NOT_SMART % "ly:stencil-set-extent!")
+		sys.stderr.write ('\n')
+		sys.stderr.write ('use (set! VAR (ly:make-stencil (ly:stencil-expr VAR) X-EXT Y-EXT))\n')
+		raise FatalConversionError ()
+	return str
+
+conversions.append (((2, 5, 17),
+		     conv,
+		     'ly:stencil-set-extent! removed'))
+		    
+
 ################################
 #	END OF CONVERSIONS
 ################################

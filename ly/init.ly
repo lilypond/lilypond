@@ -1,5 +1,9 @@
 %% Toplevel initialisation file. 
 
+% switch on debugging.
+#(if (and #t (defined? 'set-debug-cell-accesses!))
+  (set-debug-cell-accesses! 5000))
+
 #(define-public midi-debug  #f)
 
 
@@ -12,8 +16,6 @@
 #(define toplevel-scores '())
 #(define $globalheader #f)
 #(define version-seen? #f)
-
-#(if (defined? 'set-debug-cell-accesses!) (set-debug-cell-accesses 5000))
 
 \maininput
 %% there is a problem at the end of the input file

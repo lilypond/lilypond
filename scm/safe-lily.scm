@@ -126,12 +126,11 @@
    ly:spanner-get-bound
    ly:spanner?
    ly:stencil-add
-   ly:stencil-align-to!
+   ly:stencil-aligned-to
    ly:stencil-combine-at-edge
    ly:stencil-expr
    ly:stencil-extent
    ly:stencil-moved-to-edge
-   ly:stencil-set-extent!
    ly:stencil-translate
    ly:stencil-translate-axis
    ly:stencil?

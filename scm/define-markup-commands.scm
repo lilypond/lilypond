@@ -47,11 +47,10 @@ the PDF backend."
 	(begin
 	  (ly:warn "No systems found in \\score markup. Did you forget \\layout?")
 	  empty-markup)
-	(begin
-	  (let* ((stencil (ly:paper-system-stencil (vector-ref systems 0)))) 
-
-	    (ly:stencil-align-to! stencil Y CENTER)
-	    stencil)))))
+	(let* ((stencil (ly:paper-system-stencil (vector-ref systems 0)))) 
+	  
+	  (ly:stencil-aligned-to stencil Y CENTER)
+	  ))))
 
 (def-markup-command (simple layout props str) (string?)
   "A simple text string; @code{\\markup @{ foo @}} is equivalent with
@@ -393,46 +392,41 @@ of the @code{#'direction} layout property."
 (def-markup-command (center-align layout props args) (markup-list?)
   "Put @code{args} in a centered column. "
   (let* ((mols (map (lambda (x) (interpret-markup layout props x)) args))
-         (cmols (map (lambda (x) (ly:stencil-align-to! x X CENTER)) mols)))
+         (cmols (map (lambda (x) (ly:stencil-aligned-to x X CENTER)) mols)))
     (stack-lines -1 0.0 (chain-assoc-get 'baseline-skip props) cmols)))
 
 (def-markup-command (vcenter layout props arg) (markup?)
   "Align @code{arg} to its Y center. "
   (let* ((mol (interpret-markup layout props arg)))
-    (ly:stencil-align-to! mol Y CENTER)
-    mol))
+    (ly:stencil-aligned-to mol Y CENTER)
+    ))
 
 (def-markup-command (hcenter layout props arg) (markup?)
   "Align @code{arg} to its X center. "
   (let* ((mol (interpret-markup layout props arg)))
-    (ly:stencil-align-to! mol X CENTER)
-    mol))
+    (ly:stencil-aligned-to mol X CENTER)))
 
 (def-markup-command (right-align layout props arg) (markup?)
   "Align @var{arg} on its right edge. "
   (let* ((m (interpret-markup layout props arg)))
-    (ly:stencil-align-to! m X RIGHT)
-    m))
+    (ly:stencil-aligned-to m X RIGHT)))
 
 (def-markup-command (left-align layout props arg) (markup?)
   "Align @var{arg} on its left edge. "
   (let* ((m (interpret-markup layout props arg)))
-    (ly:stencil-align-to! m X LEFT)
-    m))
+    (ly:stencil-aligned-to m X LEFT)))
 
 (def-markup-command (general-align layout props axis dir arg)  (integer? number? markup?)
   "Align @var{arg} in @var{axis} direction to the @var{dir} side."
   (let* ((m (interpret-markup layout props arg)))
-    (ly:stencil-align-to! m axis dir)
-    m))
+    (ly:stencil-aligned-to m axis dir)))
 
 (def-markup-command (halign layout props dir arg) (number? markup?)
   "Set horizontal alignment. If @var{dir} is @code{-1}, then it is
 left-aligned, while @code{+1} is right. Values in between interpolate
 alignment accordingly."
   (let* ((m (interpret-markup layout props arg)))
-    (ly:stencil-align-to! m X dir)
-    m))
+    (ly:stencil-aligned-to m X dir)))
 
 (def-markup-command (musicglyph layout props glyph-name) (string?)
   "This is converted to a musical symbol, e.g. @code{\\musicglyph
@@ -477,15 +471,17 @@ and/or @code{extra-offset} properties. "
   "Make a fraction of two markups."
   (let* ((m1 (interpret-markup layout props arg1))
          (m2 (interpret-markup layout props arg2)))
-    (ly:stencil-align-to! m1 X CENTER)
-    (ly:stencil-align-to! m2 X CENTER)    
+    (set! m1 (ly:stencil-aligned-to m1 X CENTER))
+    (set! m2 (ly:stencil-aligned-to m2 X CENTER))
     (let* ((x1 (ly:stencil-extent m1 X))
            (x2 (ly:stencil-extent m2 X))
            (line (ly:round-filled-box (interval-union x1 x2) '(-0.05 . 0.05) 0.0))
            ;; should stack mols separately, to maintain LINE on baseline
            (stack (stack-lines -1 0.2 0.6 (list m1 line m2))))
-      (ly:stencil-align-to! stack Y CENTER)
-      (ly:stencil-align-to! stack X LEFT)
+      (set! stack
+	    (ly:stencil-aligned-to stack Y CENTER))
+      (set! stack
+	    (ly:stencil-aligned-to stack X LEFT))
       ;; should have EX dimension
       ;; empirical anyway
       (ly:stencil-translate-axis stack 0.75 Y))))
@@ -737,8 +733,9 @@ thickness and padding around the markup."
 (def-markup-command (strut layout props) ()
   "Create a box of the same height as the space in the current font."
   (let ((m (Text_interface::interpret_markup layout props " ")))
-    (ly:stencil-set-extent! m X '(1000 . -1000))
-    m))
+    (ly:make-stencil (ly:stencil-expr m)
+		     (ly:stencil-extent m X)
+		     '(1000 . -1000))))
 
 (define number->mark-letter-vector (make-vector 25 #\A))
 

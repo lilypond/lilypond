@@ -7,6 +7,13 @@
 
 2005-03-29  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/stencil-scheme.cc (LY_DEFINE): change to
+	ly:stencil-aligned-to, non mutating.
+
+	* scm/safe-lily.scm (lambda): remove ly:stencil-set-extent!
+
+	* lily/stencil-scheme.cc: remove ly:stencil-set-extent!
+
 	* lily/quote-iterator.cc (derived_mark): call
 	Music_wrapper_iterator::derived_mark() too.
 
