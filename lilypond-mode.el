@@ -15,20 +15,13 @@
 
 ;;; Inspired on auctex
 
-;;;
-;;; Add this to your ~/.emacs or ~/.emacs.el
-;;;     (load-library "lilypond-mode.el")
-;;;     (setq auto-mode-alist
-;;;      (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
-;;; 
-
 (load-library "lilypond-font-lock")
 (load-library "lilypond-indent")
 
 (require 'easymenu)
 (require 'compile)
 
-(defconst LilyPond-version "1.7.6"
+(defconst LilyPond-version "1.7.8"
   "`LilyPond-mode' version number.")
 
 (defconst LilyPond-help-address "bug-lilypond@gnu.org"
@@ -717,7 +710,7 @@ command."
  	     ))
 	  ))
 
-(defconst LilyPond-imenu-generic-re "^\\([a-zA-Z_][a-zA-Z0-9_]*\\) *="
+(defconst LilyPond-imenu-generic-re "^\\([a-zA-Z]+\\) *="
   "Regexp matching Identifier definitions.")
 
 (defvar LilyPond-imenu-generic-expression
