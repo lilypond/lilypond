@@ -2200,7 +2200,7 @@ fold \new FooContext \foomode into \foo.'''))
 def conv (str):
 	str = re.sub (r'(slur|stem|phrasingSlur|tie|dynamic|dots|tuplet|arpeggio|)Both', r'\1Neutral', str)
 	str = re.sub (r"\\applymusic\s*#\(remove-tag\s*'([a-z-0-9]+)\)",
-		      r"\\removeTag #'\1", str)
+		      r"\\removeWithTag #'\1", str)
 	return str
 
 conversions.append (((2, 3, 17), conv,
