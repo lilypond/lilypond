@@ -1,3 +1,13 @@
+2004-08-18  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* scm/framework-tex.scm (output-preview-framework) 
+	(output-classic-framework): 
+	* scm/framework-ps.scm (output-preview-framework):
+	s/ly:paper-book-lines/ly:paper-book-systems/g
+
+	* scm/fret-diagrams.scm (ss-font-encoding):
+	s/my-font-encoding/ss-font-encoding
+
 2004-08-18  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* scm/music-functions.scm (direction-polyphonic-grobs): Set

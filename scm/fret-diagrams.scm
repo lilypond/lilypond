@@ -5,7 +5,7 @@
 ;;;; (c) 2004 Carl D. Sorensen <c_sorensen@byu.edu>
 
 (define ly:paper-lookup ly:output-def-lookup) ; compat for 2.3, remove  when using 2.2
-(define my-font-encoding 'ec )
+(define ss-font-encoding 'ec )
 
 (define (fret-parse-marking-list marking-list fret-count)
    (let* ((fret-range (list 1 fret-count))

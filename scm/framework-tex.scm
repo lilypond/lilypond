@@ -185,7 +185,7 @@
 (define-public (output-classic-framework
 		outputter book scopes fields basename)
   (let* ((bookpaper (ly:paper-book-book-paper book))
-	 (lines (ly:paper-book-lines book))
+	 (lines (ly:paper-book-systems book))
 	 (last-line (car (last-pair lines))))
     (for-each
      (lambda (x)
@@ -206,7 +206,7 @@
 (define-public (output-preview-framework
 		outputter book scopes fields basename )
   (let* ((bookpaper (ly:paper-book-book-paper book))
-	 (lines (ly:paper-book-lines book)))
+	 (lines (ly:paper-book-systems book)))
     (for-each
      (lambda (x)
        (ly:outputter-dump-string outputter x))
