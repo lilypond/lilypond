@@ -11,6 +11,7 @@
 #include "music-list.hh"
 #include "pitch.hh"
 #include "debug.hh"
+#include "music-sequence.hh"
 
 Music *
 Repeated_music::body ()const
@@ -166,4 +167,34 @@ Repeated_music::Repeated_music ()
   : Music (SCM_EOL)
 {
  set_mus_property ("type", ly_symbol2scm ("repeated-music"));
+}
+
+
+MAKE_SCHEME_CALLBACK (Repeated_music,minimum_start, 1);
+MAKE_SCHEME_CALLBACK (Repeated_music,first_start, 1);
+
+SCM
+Repeated_music::minimum_start (SCM m)
+{
+  Music * me = unsmob_music (m);
+  Music * body = unsmob_music (me->get_mus_property ("element"));
+
+  if (body)
+    return body->start_mom ().smobbed_copy();
+  else
+    {
+      return Music_sequence::minimum_start (me->get_mus_property ("elements")).smobbed_copy();
+    }
+}
+
+SCM
+Repeated_music::first_start (SCM m)
+{
+  Music * me = unsmob_music (m);
+  Music * body = unsmob_music (me->get_mus_property ("element"));
+
+  Moment rv =  (body) ? body->start_mom () :
+    Music_sequence::first_start (me->get_mus_property ("elements"));
+
+  return rv.smobbed_copy ();
 }

@@ -986,20 +986,19 @@ def system (cmd):
 
 
 def get_bbox (filename):
-	f = open (filename)
+	system ('gs -sDEVICE=bbox -q  -sOutputFile=- -dNOPAUSE %s -c quit > %s.bbox 2>&1 ' % (filename, filename))
+
+	box = open (filename + '.bbox').read()
+	m = re.match ('^%%BoundingBox: ([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)', box)
 	gr = []
-	while 1:
-		l =f.readline ()
-		m = re.match ('^%%BoundingBox: ([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)', l)
-		if m:
-			gr = map (string.atoi, m.groups ())
-			break
+	if m:
+		gr = map (string.atoi, m.groups ())
 	
 	return gr
 
 def make_pixmap (name):
 	bbox = get_bbox (name + '.eps')
-	margin = 3
+	margin = 0
 	fo = open (name + '.trans.eps' , 'w')
 	fo.write ('%d %d translate\n' % (-bbox[0]+margin, -bbox[1]+margin))
 	fo.close ()

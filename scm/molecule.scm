@@ -55,16 +55,18 @@
 
 
 (define (box-grob-molecule grob)
-  "Make a box of exactly the extents of the grob."
+  "Make a box of exactly the extents of the grob.  The box precisely
+encloses the contents.
+"
   (let* ((xext (ly-get-extent grob grob 0))
 	 (yext (ly-get-extent grob grob 1))
 	 (mol (ly-make-molecule '() '(10000 . -10000) '(10000 . -10000)))
 	 (thick 0.1)
 	 )
-    (display "hoi")
-    (set! mol (ly-add-molecule mol (box-molecule xext (cons (car yext) (+ (car yext) thick)))))
-    (set! mol (ly-add-molecule mol (box-molecule xext (cons (- (cdr yext) thick) (cdr yext)))))
-    (set! mol (ly-add-molecule mol (box-molecule (cons (car xext) (+ (car xext) thick)) yext)))
-    (set! mol (ly-add-molecule mol (box-molecule (cons (- (cdr xext) thick) (cdr xext)) yext)))
+
+    (set! mol (ly-add-molecule mol (box-molecule xext (cons (- (car yext) thick) (car yext) ))))
+    (set! mol (ly-add-molecule mol (box-molecule xext (cons  (cdr yext) (+ (cdr yext) thick) ))))
+    (set! mol (ly-add-molecule mol (box-molecule (cons (cdr xext) (+ (cdr xext) thick)) yext)))
+    (set! mol (ly-add-molecule mol (box-molecule (cons (- (car xext) thick) (car xext)) yext)))
     mol
   ))

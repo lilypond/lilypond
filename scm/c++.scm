@@ -136,14 +136,19 @@ is the  first to satisfy CRIT "
   (let*
       ((supported-reps
 	`(("volta" . ((iterator-ctor . ,Volta_repeat_iterator::constructor)
+		      (start-moment-function .  ,Repeated_music::first_start)
 		      (length . ,Repeated_music::volta_music_length)))
 	    ("unfold" . ((iterator-ctor . ,Unfolded_repeat_iterator::constructor)
-		       (length . ,Repeated_music::unfolded_music_length)))
+			 (start-moment-function .  ,Repeated_music::first_start)			 
+			 (length . ,Repeated_music::unfolded_music_length)))
 	    ("fold" . ((iterator-ctor  . ,Folded_repeat_iterator::constructor)
+		       (start-moment-function .  ,Repeated_music::minimum_start)			 
 		       (length . ,Repeated_music::folded_music_length)))
 	    ("percent" . ((iterator-ctor . ,Percent_repeat_iterator::constructor)
+			  (start-moment-function .  ,Repeated_music::first_start)
 			  (length . ,Repeated_music::unfolded_music_length)))
 	    ("tremolo" . ((iterator-ctor . ,Chord_tremolo_iterator::constructor)
+			  (start-moment-function .  ,Repeated_music::first_start)			  
 			  (length . ,Repeated_music::unfolded_music_length)))))
 	  
        (handle (assoc name supported-reps)))

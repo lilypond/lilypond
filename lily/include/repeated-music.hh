@@ -63,6 +63,8 @@ public:
   DECLARE_SCHEME_CALLBACK (unfolded_music_length, (SCM));
   DECLARE_SCHEME_CALLBACK (volta_music_length, (SCM));
   DECLARE_SCHEME_CALLBACK (folded_music_length, (SCM));    
+  DECLARE_SCHEME_CALLBACK (minimum_start, (SCM));
+  DECLARE_SCHEME_CALLBACK (first_start, (SCM));    
   
   /// Transpose, with the interval central C to #p#
   virtual void transpose (Pitch p);

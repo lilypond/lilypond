@@ -430,6 +430,12 @@ Spacing_spanner::find_shortest (Link_array<Grob> const &cols)
   return d;
 }
 
+/*
+  Generate spacing for a single measure. We used to have code that did
+  per-measure spacing. Now we have piecewise spacing. We should fix
+  this to support "spacing-regions": some regions have different notes
+  (different time sigs) than others, and should be spaced differently.
+ */
 void
 Spacing_spanner::do_measure (Rational shortest, Grob*me, Link_array<Grob> *cols) 
 {
@@ -475,6 +481,10 @@ Spacing_spanner::do_measure (Rational shortest, Grob*me, Link_array<Grob> *cols)
     }    
 }
 
+
+/*
+  Generate the space between two musical columns LC and RC, given spacing parameters INCR and SHRTEST.
+ */
 void
 Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real increment, Rational shortest)
 {

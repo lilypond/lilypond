@@ -12,7 +12,7 @@ numbers, like @code{<4 6+>}.
  \context FiguredBass {
    \figures {
 	<_! 3+ 5- _ 7! 9 >4
-	< 4 6 >
+	< [4 6] >
    }
  }
 

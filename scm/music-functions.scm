@@ -20,6 +20,8 @@ written by Rune Zedeler. "
         (begin
           (ly-set-mus-property
            music 'length Repeated_music::unfolded_music_length)
+	  (ly-set-mus-property
+	   music 'start-moment-function Repeated_music::first_start)
           (ly-set-mus-property
            music 'iterator-ctor Unfolded_repeat_iterator::constructor)))
 
@@ -35,6 +37,10 @@ written by Rune Zedeler. "
 
 
     music))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define  (pitchify-scripts music)
   "Copy the pitch fields of the Note_requests into  Text_script_requests, to aid

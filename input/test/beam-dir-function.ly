@@ -2,6 +2,7 @@
 
 \header{
 texidoc="
+
 There are several ways to calculate the direction of a beam
 
 @table @samp
@@ -23,8 +24,7 @@ We should see:
 
 \score {
   \notes \relative c'' {
-    % the default
-    %\property Voice.Beam \set #'dir-function = #beam-dir-majority
+    \property Voice.Beam \set #'dir-function = #beam-dir-majority
     [d8 a]
     \property Voice.Beam \set #'dir-function = #beam-dir-mean
     [d a] 
