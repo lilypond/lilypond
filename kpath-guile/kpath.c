@@ -19,37 +19,33 @@
 #include <stdio.h>
 #include <string.h>
 
-/*
+/* The (?) problem, as far as I (?) can tell, is that MacOS X has its
+   getopt prototype in <unistd.h>, while I think other operating
+   systems have it in other places. <unistd.h> is included by
+   kpathsea.h, so you end up renaming both conflicting prototypes to
+   KPATHSEA_HAS_GETOPT_PROTOTYPE_PROBLEM.
 
-The problem, as far as I can tell, is that MacOS X has its getopt
-prototype in <unistd.h>, while I think other operating systems have it
-in other places. <unistd.h> is included by kpathsea.h, so you end up
-renaming both conflicting prototypes to YAKLUDGE.
-
-I found a somewhat more elegant patch for this: Just #include
-<unistd.h> before defining YAKLUDGE.
-
-*/
+   I (?) found a somewhat more elegant patch for this: Just #include
+   <unistd.h> before defining KPATHSEA_HAS_GETOPT_PROTOTYPE_PROBLEM.  */
 
 #include <unistd.h>	
 
-#if !HAVE_DYNAMIC_LIBKPATHSEA
+#define popen KPATHSEA_HAS_POPEN_PROTOTYPE_PROBLEM
+#define pclose KPATHSEA_HAS_PCLOSE_PROTOTYPE_PROBLEM
+#define getopt KPATHSEA_HAS_GETOPT_PROTOTYPE_PROBLEM
 
-#define popen REALLYUGLYKLUDGE
-#define pclose ANOTHERREALLYUGLYKLUDGE
-#define getopt YAKLUDGE
-
+#if HAVE_KPATHSEA_KPATHSEA_H
 #include <kpathsea/kpathsea.h>
 #include <kpathsea/tex-file.h>
 #endif
 
-static  void *kpathsea_handle = 0;
-static  char *(*dl_kpse_find_file) (char const*, kpse_file_format_type, boolean) = 0;
-static  void (*dl_kpse_maketex_option) (char const*, boolean) = 0;
-static  void (*dl_kpse_set_program_name) (char const*, char const*) = 0;
-static  char const *(*dl_kpse_init_format) (kpse_file_format_type) = 0;
-static  char *(*dl_kpse_var_expand) (char const*) = 0;
-static  kpse_format_info_type (*dl_kpse_format_info)[kpse_last_format] = 0;
+static void *kpathsea_handle = 0;
+static char *(*dl_kpse_find_file) (char const*, kpse_file_format_type, boolean) = 0;
+static void (*dl_kpse_maketex_option) (char const*, boolean) = 0;
+static void (*dl_kpse_set_program_name) (char const*, char const*) = 0;
+static char const *(*dl_kpse_init_format) (kpse_file_format_type) = 0;
+static char *(*dl_kpse_var_expand) (char const*) = 0;
+static kpse_format_info_type (*dl_kpse_format_info)[kpse_last_format] = 0;
 
 kpse_file_format_type
 kpathsea_find_format (const char* name)
@@ -78,26 +74,25 @@ kpathsea_find_format (const char* name)
 //	   "Return the absolute file name of @var{name}, "
 //	   "or @code{#f} if not found.")
 SCM
-ly_kpathsea_find_file(SCM name)
+ly_kpathsea_find_file (SCM name)
 {
   SCM_ASSERT_TYPE (scm_is_string (name), name, SCM_ARG1, __FUNCTION__, "string");
 
-  char const * nm = scm_i_string_chars (name);
-  char *p = (*dl_kpse_find_file) (nm, kpathsea_find_format (nm),
-				  true);
+  char const *nm = scm_i_string_chars (name);
+  char *p = (*dl_kpse_find_file) (nm, kpathsea_find_format (nm), true);
   if (p)
     return scm_makfrom0str (p);
   return SCM_BOOL_F;
 }
 
 //   "Return the expanded version  @var{var}.")
-SCM ly_kpathsea_expand_variable(SCM var)
+SCM ly_kpathsea_expand_variable (SCM var)
 {
   SCM_ASSERT_TYPE (scm_is_string (var), var, SCM_ARG1, __FUNCTION__, "string");
 
-  char const * nm = scm_i_string_chars (var);
-  char *result =  kpse_var_expand (nm);
-  SCM ret =  scm_makfrom0str (result);
+  char const *nm = scm_i_string_chars (var);
+  char *result = (*dl_kpse_var_expand) (nm);
+  SCM ret = scm_makfrom0str (result);
   free (result);
 
   return ret;
@@ -109,7 +104,7 @@ static char const* LIBKPATHSEA = "libkpathsea.so";
 int
 open_library ()
 {
-#if HAVE_DYNAMIC_LIBKPATHSEA
+#if HAVE_LIBKPATHSEA_SO
   struct
   {
     void **func_pointer;

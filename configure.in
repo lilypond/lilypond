@@ -19,12 +19,6 @@ AC_CONFIG_SRCDIR([lily/main.cc])
 # Move to aclocal.m4?
 AC_CONFIG_HEADER([$CONFIGFILE.hh:config.hh.in])
 
-AC_C_BIGENDIAN(CFLAGS="$CFLAGS -DBIGENDIAN",
-               CFLAGS="$CFLAGS -DSMALLENDIAN")
-	       
-	       
-
-
 # Uncomment the configuration options your package needs.
 
 
@@ -64,7 +58,7 @@ STEPMAKE_PATH_PROG(FONTFORGE, fontforge, REQUIRED, 20041208)
 
 AC_CHECK_HEADERS([assert.h libio.h sys/stat.h])
 AC_LANG_PUSH(C++)
-1AC_CHECK_HEADERS([sstream])
+AC_CHECK_HEADERS([sstream])
 AC_LANG_POP(C++)
 AC_HEADER_STAT
 AC_FUNC_MEMCMP
@@ -78,6 +72,11 @@ fi
 
 STEPMAKE_FREETYPE2
 STEPMAKE_PANGO_FT2
+
+## TTFTOOL stuff
+AC_C_BIGENDIAN(TTFTOOL_ENDIAN="-DBIGENDIAN",
+               TTFTOOL_ENDIAN="-DSMALLENDIAN")
+AC_SUBST(TTFTOOL_ENDIAN)
 
 ## Optional tools for building documentation, website, extra fonts.
 
