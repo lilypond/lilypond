@@ -463,7 +463,7 @@ def one_latex_definition (defn, first):
 	else:
 		s = s + '\\def\\mustmakelilypondpiecetitle{}\n'
 		
-	s = s + '\\input %s' % defn[0]
+	s = s + '\\input %s\n' % defn[0] # The final \n seems important here. It ensures that the footers and taglines end up on the right page.
 	return s
 
 
@@ -521,7 +521,7 @@ lily output file in TFILES after that, and return the Latex file constructed.  '
 		linewidth = '597'
 	else:
 		linewidth = maxlw
-	s = s + '\geometry{width=%spt%s,headheight=2mm,headsep=0pt,footskip=2mm,%s}\n' % (linewidth, textheight, orientation)
+	s = s + '\geometry{width=%spt%s,headheight=2mm,footskip=2mm,%s}\n' % (linewidth, textheight, orientation)
 
 	if extra['latexoptions']:
 		s = s + '\geometry{twosideshift=4mm}\n'
@@ -561,7 +561,15 @@ lily output file in TFILES after that, and return the Latex file constructed.  '
 %% this again. -- jcn
 % the \mbox{} helps latex if people do stupid things in tagline
 \makeatletter
-\renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\makelilypondtagline}}%
+\if@twoside
+  \ifodd\thepage
+   \renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\makelilypondtagline}}%
+  \else
+   \renewcommand{\@evenfoot}{\parbox{\textwidth}{\mbox{}\makelilypondtagline}}%
+  \fi
+ \else
+  \renewcommand{\@thefoot}{\parbox{\textwidth}{\mbox{}\makelilypondtagline}}%
+\fi
 \makeatother
 '''
 	s = s + '\\end{document}'

@@ -27,9 +27,8 @@ GS_LIB="$datadir/ps"
 MFINPUTS="$datadir/mf:"${MFINPUTS:=":"}
 TEXINPUTS="$datadir/tex:$datadir/ps:"${TEXINPUTS:=":"}
 TFMFONTS="$datadir/tfm:"${TFMFONTS:=":"}
-LILYPONDPREFIX="$datadir"
 
-export MFINPUTS TEXINPUTS TFMFONTS GS_LIB GS_FONTPATH LILYPONDPREFIX
+export MFINPUTS TEXINPUTS TFMFONTS GS_LIB GS_FONTPATH
 
  	
 
