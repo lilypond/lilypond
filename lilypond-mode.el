@@ -661,7 +661,8 @@ command."
   (setq i 0)
   (setq ch (char-before (- (point) i)))
   (while (or (and (>= ch 65) (<= ch 90)) 
-	     (and (>= ch 97) (<= ch 122))) ; add [A-Z,a-z] until non-alpha
+	     (and (>= ch 97) (<= ch 122)) 
+	     (= ch 92)) ; add [A-Za-z\\] until non-alpha
     (setq beg (concat (char-to-string ch) beg))
     (setq i (+ i 1))
     (setq ch (char-before (- (point) i)))
