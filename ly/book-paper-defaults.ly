@@ -32,7 +32,7 @@
       '((font-encoding . fetaMusic)))
 
     #(define text-font-defaults
-      '((font-encoding . latin1)
+      '((font-encoding . ec)
 	(baseline-skip . 2)
 	(word-space . 0.6)))
 

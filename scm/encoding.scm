@@ -88,7 +88,8 @@ vector of symbols."
 	 ;; aliases
 	 ("T1" . "tex256.enc")
 	 ("adobe" . "8a.enc")
-	 ("latin1" . "cork.enc")
+	 ("latin1" . "latin1.enc")
+	 ("ec" . "EC.enc")
 	 
 	 ;; LilyPond.
 	 ("fetaBraces" . "feta-braces-a.enc")

@@ -42,19 +42,21 @@ cd test
 
 ## 2.  get pango CVS
 
+if [ ! -d $HOME/usr/pkg/pango ] ; then
 
-mkdir -p gnome/CVS
-cd gnome
-echo ":pserver:anonymous@anoncvs.gnome.org:/cvs/gnome" > CVS/Root
-echo "." > CVS/Repository
-cvs -z3 checkout -P pango
-cd pango
-rm -rf $OPT/pango
-./autogen.sh --help
-./configure --prefix=$OPT/pango --enable-maintainer-mode --enable-gtk-doc
-make XFT_LIBS="-L/usr/lib -lXft -L/usr/X11R6/lib -lfreetype -lz -lXrender -lX11 -lfontconfig" install
+	mkdir -p gnome/CVS
+	cd gnome
+	echo ":pserver:anonymous@anoncvs.gnome.org:/cvs/gnome" > CVS/Root
+	echo "." > CVS/Repository
+	cvs -z3 checkout -P pango
+	cd pango
+	rm -rf $OPT/pango
+	./autogen.sh --help
+	./configure --prefix=$OPT/pango --enable-maintainer-mode --enable-gtk-doc
+	make XFT_LIBS="-L/usr/lib -lXft -L/usr/X11R6/lib -lfreetype -lz -lXrender -lX11 -lfontconfig" install
 
-cd ../..
+	cd ../..
+fi 
 
 export PKG_CONFIG_PATH=$OPT/pango/lib/pkgconfig:$PKG_CONFIG_PATH
 
