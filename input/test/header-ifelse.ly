@@ -5,7 +5,7 @@
     (list-head (ly:version) 3))
 
 #(if (not (defined? 'pieceTagLine))
-    (define pieceTagLine (string-append "Jeremie " (numbers->string (my-ly-version)) " was here")))
+    (define pieceTagLine (string-append "Jeremie " (ly:numbers->string (my-ly-version)) " was here")))
 
 \header{
 tagline = \pieceTagLine
