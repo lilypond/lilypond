@@ -534,15 +534,15 @@ command."
 	'(("eeses" "eses") ("ees" "es") ("aeses" "asas") ("aes" "as") ("b" "h")
 	  ("beses" "heses") ("bes" "b") ("bis" "his") ("bisis" "hisis")))
 			      ; add more translations of the note names
-  (setq other-keys "()<>~")
+  (setq other-keys "()<>~}")
   (setq accid 0) (setq octav 0) (setq durat "") (setq dots 0)
 
   (message "Press h for help.") (sit-for 0 750 1)
 
   (setq note-replacements dutch-note-replacements)
   (while (not (= 27 ; esc to quit
-    (setq x (read-char 
-	     (format " | a[_]s[_]d | f[_]j[_]k[_]l | r with ie ,' 12345678 . 0 (<~>)\\b\\n Esc \n | c | d | e | f | g | a | %s | r with %s%s%s%s"
+    (setq x (read-char-exclusive 
+	     (format " | a[_]s[_]d | f[_]j[_]k[_]l | r with ie ,' 12345678 . 0 (<~>)/}\\b\\n Esc \n | c | d | e | f | g | a | %s | r with %s%s%s%s"
 		     (if (string= (car(cdr(assoc "b" note-replacements))) "h")
 			 "h" "b")
 		     (nth (+ accid 2) dutch-note-ends)
@@ -560,6 +560,13 @@ command."
       (progn (setq durat (int-to-string (expt 2 (- (string-to-int x) 1))))
 	     (setq dots 0)))
      ((string= x " ") (insert " "))
+     ((string= x "/") (progn (insert "\\times ")
+			     (while (not (and (string< x "9") (string< "0" x)))
+			       (setq x (char-to-string (read-char-exclusive "Insert a number for the denominator (\"x/\")"))))
+			     (insert (format "%s/" x)) (setq x "/")
+			     (while (not (and (string< x "9") (string< "0" x)))
+			       (setq x (char-to-string (read-char-exclusive "Insert a number for the numerator (\"/y\")"))))
+			     (insert (format "%s { " x))))
      ((string= x "0") (progn (setq accid 0) (setq octav 0) 
 			     (setq durat "") (setq dots 0)))
      ((string= x "i") (setq accid (if (= accid 2) 0 (max (+ accid 1) 1))))
@@ -592,7 +599,12 @@ command."
 			     (sit-for 0 750 1))) ; n
 			      ; add more translations of the note names
      ((string= x "h") 
-      (progn (message "Insert notes with fewer key strokes. For example \"i,5.f\" produces \"fis,32. \".") (sit-for 5 0 1) (message "Add also \"a ~ a\"-ties, \"a ( ) b\"-slurs and \"< a b >\"-chords.") (sit-for 5 0 1) (message "Note names are in Du(t)ch by default. Hit 'n' for Fin(n)ish/Deutsch note names.") (sit-for 5 0 1) (message "Backspace deletes last note, return starts a new indented line and Esc quits.") (sit-for 5 0 1) (message "Backspace deletes last note, return starts a new indented line and Esc quits.") (sit-for 5 0 1) (message "Remember to add all other details as well.") (sit-for 5 0 1)))
+      (progn (message "Insert notes with fewer key strokes. For example \"i,5.f\" produces \"fis,32. \".") (sit-for 5 0 1) 
+	     (message "Add also \"a ~ a\"-ties, \"a ( ) b\"-slurs and \"< a b >\"-chords.") (sit-for 5 0 1) 
+	     (message "Note names are in Du(t)ch by default. Hit 'n' for Fin(n)ish/Deutsch note names.") (sit-for 5 0 1) 
+	     (message "Backspace deletes last note, return starts a new indented line and Esc quits.") (sit-for 5 0 1) 
+	     (message "Insert note triplets \"\\times 2/3 { a b } \" by typing \"/23ab}\".") (sit-for 5 0 1) 
+	     (message "Remember to add all other details as well.") (sit-for 5 0 1)))
     )))
 
 (define-skeleton LilyPond-insert-tag-notes
