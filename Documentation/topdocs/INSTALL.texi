@@ -142,9 +142,7 @@ distribution supports g++ 3.x and flex.
 @item Python (version 1.5 or newer).
 Check out @uref{http://www.python.org, the python website}.
 
-@item GUILE (version 1.4 or newer), --without-threads.
-Using guile, ./configure'd --with-threads may give nasty memory
-corruption errors on large scores.
+@item GUILE (version 1.4 or newer).
 Check out
 @uref{http://www.gnu.org/software/guile/guile.html,the GUILE webpage}.
 
@@ -210,9 +208,7 @@ following software
 @itemize @bullet
 @item @TeX{}.
 @item Xdvi and Ghostscript
-@item GUILE 1.4, or newer, --without-threads.
-Using guile, ./configure'd --with-threads may give nasty memory
-corruption errors on large scores.
+@item GUILE 1.4, or newer.
 Check out
 @uref{http://www.gnu.org/software/guile.html,the GUILE webpage}
 @end itemize

@@ -1,3 +1,8 @@
+2002-07-01  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/topdocs/INSTALL.texi (Top): Remove generic Guile
+	threads warning.
+
 2002-07-01  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* VERSION (MAJOR_VERSION): 1.5.64
