@@ -1,4 +1,3 @@
-
 /*
   key-item.cc -- implement Key_signature_interface
 
@@ -34,6 +33,13 @@ struct Key_signature_interface
 const int FLAT_TOP_PITCH=2; /* fes,ges,as and bes typeset in lower octave */
 const int SHARP_TOP_PITCH=4; /*  ais and bis typeset in lower octave */
 
+/*
+  TODO: look this up. I'm not sure where the naturals ought to go. 
+ */
+const int NATURAL_TOP_PITCH = 4;  
+
+
+
 
 /*
   FIXME: key-item should just get a list of (position, acc), and leave
@@ -60,9 +66,9 @@ alteration_pos  (SCM what, int alter, int c0p)
   int c0 = from_bottom_pos - 4;
 
     
-  if ((alter <0 && ((p>FLAT_TOP_PITCH) || (p+c0>4)) && (p+c0>1)) 
-      ||
-      (alter >0 && ((p>SHARP_TOP_PITCH) || (p+c0>5)) && (p+c0>2))) 
+  if ((alter <0 && ((p>FLAT_TOP_PITCH) || (p+c0>4)) && (p+c0>1))
+      || (alter >0 && ((p > SHARP_TOP_PITCH) || (p+c0>5)) && (p+c0>2))
+      || (alter == 0 && ((p > NATURAL_TOP_PITCH) || (p + c0>5)) && (p + c0>2)))
     {
       p -= 7; /* Typeset below c_position */
     }
@@ -163,7 +169,13 @@ Key_signature_interface::brew_molecule (SCM smob)
 	      Molecule m = natural;
               m.translate_axis (pos* inter, Y_AXIS);
 
-	      mol.add_at_edge (X_AXIS, LEFT, m, 0);
+	      /*
+		The natural sign (unlike flat & sharp)
+		has vertical edges on both sides. A little padding is
+		needed to prevent collisions.
+	       */
+	      Real padding = 0.1 ;
+	      mol.add_at_edge (X_AXIS, LEFT, m, padding);
             }
         }
     }
@@ -174,5 +186,5 @@ Key_signature_interface::brew_molecule (SCM smob)
 }
 
 ADD_INTERFACE (Key_signature_interface, "key-signature-interface",
-  "A group of  accidentals.",
+  "A group of accidentals, to be printed as signature sign.",
   "c0-position old-accidentals new-accidentals");
