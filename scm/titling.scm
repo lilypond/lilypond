@@ -44,11 +44,11 @@ page:last?, page:page-number-string and page:page-number
 	       (list
 		(cons 'header:tagline (if (markup? tagline)
 					  tagline
-					  TAGLINE)))
+					  TAGLINE))
 		(cons 'page:last? last?)
 		(cons 'page:page-number-string
 		      (number->string page-number))
-		(cons 'page:page-number  page-number))
+		(cons 'page:page-number  page-number)))
 	     (props (append
 		     (list pgnum-alist)
 		     prefixed-alists
