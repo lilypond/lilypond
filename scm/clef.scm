@@ -88,7 +88,7 @@
   )
 )
 
-(define (clef-name-to-properties cl)
+(define-public (clef-name-to-properties cl)
   (let ((e '())
 	(c0 0)
 	(oct 0)

@@ -13,13 +13,17 @@
 	     (ice-9 string-fun)
 	     (ice-9 format)
 	     (guile)
+	     (lily)
 	     )
 
 (define this-module (current-module))
 
 ;;;;;;;;
 ;;;;;;;; DOCUMENT ME!
-;;;;;;;; 
+;;;;;;;;
+
+(define font-name-alist  '())
+
 (define (tex-encoded-fontswitch name-mag)
   (let* ((iname-mag (car name-mag))
 	 (ename-mag (cdr name-mag)))

@@ -221,6 +221,8 @@ beaming style: stems stop at innermost beams.")
 
 (grob-property-description 'glyph string? "a string determining what (style) of  glyph is typeset. Valid choices depend on the function that is reading this property. .")
 (grob-property-description 'glyph-name string? "a name of character within font.")
+(grob-property-description 'glyph-name-procedure procedure? "Return
+name of character within font.")
 
 (grob-property-description 'gap number? "Size of a gap in a variable symbol.")
 

@@ -135,6 +135,10 @@ Midi_instrument::string () const
 {
   Byte program_byte = 0;
   bool found = false;
+
+  /*
+    UGH. don't use eval.
+   */
   SCM proc = scm_primitive_eval (ly_symbol2scm ("midi-program")); 
   SCM program = gh_call1 (proc, ly_symbol2scm (audio_->str_.to_str0 ()));
   found = (program != SCM_BOOL_F);

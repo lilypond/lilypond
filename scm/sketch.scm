@@ -183,7 +183,7 @@
 ;; what the heck is this interface ?
 (define (dashed-slur thick dash l)
   (string-append 
-   (apply string-append (map control->string l)) 
+   (apply string-append (map number-pair->string l)) 
    (ly-number->string thick) 
    " [ "
    (ly-number->string dash)

@@ -26,7 +26,7 @@
 	)
       absolute-volume-alist))
 
-(define (default-dynamic-absolute-volume s)
+(define-public (default-dynamic-absolute-volume s)
   (let ((entry (assoc s absolute-volume-alist)))
     (if entry
 	(cdr entry))))
@@ -246,22 +246,26 @@
 )
 
 
-(define (default-instrument-equalizer s)
+(define-public (default-instrument-equalizer s)
   (let ((entry (assoc s instrument-equalizer-alist)))
     (if entry
 	(cdr entry))))
 
-;; returns whether the instrument should use midi channel 9
-(define (percussion-p instrument)
+
+(define-public (percussion? instrument)
+  "
+returns whether the instrument should use midi channel 9
+"
   (let* ((inst  (symbol->string instrument))
          (entry (assoc inst instrument-names-alist))
 	)
      (and entry (>= (cdr entry) 32768))
   )
 )
-
-;; returns the program of the instrument
-(define (midi-program instrument)
+(define-public (midi-program instrument)
+"
+returns the program of the instrument
+"
   (let* ((inst  (symbol->string instrument))
          (entry (assoc inst instrument-names-alist))
 	)
@@ -271,16 +275,17 @@
 
 ;; 90 == 90/127 == 0.71 is supposed to be the default value
 ;; urg: we should set this at start of track
-(define dynamic-default-volume 0.71)
+(define-public dynamic-default-volume 0.71)
 
-;; Count number of sharps minus number of flats
-(define (accidentals-in-key pitch-list)
+(define-public (accidentals-in-key pitch-list)
+  "Count number of sharps minus number of flats"
   (apply + (map cdr pitch-list)))
 
-;; Characterise the key as major if the alteration of the 
-;; third scale note is the same as that of the main note.
-;; Note: MIDI cannot handle other tonalities than major/minor.
-(define (major-key pitch-list)
+(define-public (major-key pitch-list)
+  "Characterise the key as major if the alteration of the 
+third scale note is the same as that of the main note.
+Note: MIDI cannot handle other tonalities than major/minor.
+"
   ;; This charactersition is only true for a scale that starts at `c'.
   (if (not (equal? (car pitch-list) '(0 . 0)))
       (begin

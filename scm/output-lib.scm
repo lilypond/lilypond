@@ -117,7 +117,7 @@
 ;; do nothing in .scm output
 (define (comment s) "")
 
-(define (numbers->string l)
+(define-public (numbers->string l)
   (apply string-append (map ly-number->string l)))
 
 ; (define (chop-decimal x) (if (< (abs x) 0.001) 0.0 x))
@@ -131,12 +131,12 @@
      (number->string n8)
      (number->string (remainder (- n (+ (* n64 64) (* n8 8))) 8)))))
 
-(define (inexact->string x radix)
+(define-public (inexact->string x radix)
   (let ((n (inexact->exact x)))
     (number->string n radix)))
 
 
-(define (control->string c)
+(define-public (number-pair->string c)
   (string-append (number->string (car c)) " "
 		 (number->string (cdr c)) " "))
 
@@ -150,7 +150,7 @@
 
 
 ;; silly, use alist? 
-(define (find-notehead-symbol duration style)
+(define-public (find-notehead-symbol duration style)
   (case style
    ((xcircle) "2xcircle")
    ((harmonic) "0neo_mensural")
@@ -213,7 +213,7 @@ centered, X==1 is at the right, X == -1 is at the left."
      '(1.0 . 0.0)
      )))
 
-(define (string-encode-integer i)
+(define-public (string-encode-integer i)
   (cond
    ((= i  0) "o")
    ((< i 0)   (string-append "n" (string-encode-integer (- i))))

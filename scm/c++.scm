@@ -7,30 +7,30 @@
 
 ;;; Note: this file can't be used without LilyPond executable
 
-(define (number-pair?  x)
+(define-public (number-pair?  x)
   (and (pair? x)
        (number? (car x)) (number? (cdr x))))
-(define (number-or-grob? x)
+(define-public (number-or-grob? x)
   (or (ly-grob? x) (number? x))
   )
 
-(define (grob-list? x)
+(define-public (grob-list? x)
   (list? x))
 
-(define (moment-pair?  x)
+(define-public (moment-pair?  x)
   (and (pair? x)
        (moment? (car x)) (moment? (cdr x))))
 
-(define (boolean-or-symbol? x)
+(define-public (boolean-or-symbol? x)
   (or (boolean? x) (symbol? x)))
 
-(define (number-or-string? x)
+(define-public (number-or-string? x)
   (or (number? x) (string? x)))
 
-(define (markup? x)
+(define-public (markup? x)
   (or (string? x) (list? x)))
 
-(define (scheme? x) #t)
+(define-public (scheme? x) #t)
 
 (define type-p-name-alist
   `(
@@ -120,7 +120,7 @@ is the  first to satisfy CRIT "
 
 
 ; Make a function that checks score element for being of a specific type. 
-(define (make-type-checker symbol)
+(define-public (make-type-checker symbol)
   (lambda (elt)
     ;;(display  symbol)
     ;;(eq? #t (ly-get-grob-property elt symbol))
@@ -132,7 +132,7 @@ is the  first to satisfy CRIT "
       (cdr cell)
       (car cell)))
 
-(define (repeat-name-to-ctor name)
+(define-public (repeat-name-to-ctor name)
   (let*
       ((supported-reps
 	`(("volta" . ((iterator-ctor . ,Volta_repeat_iterator::constructor)
