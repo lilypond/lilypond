@@ -1,5 +1,8 @@
 2004-10-26  Carl Sorensen  <carldsorensen@comcast.net>
 
+	* input/test/fret-diagram.ly: insert breaks, remove raggedright to
+	improve fret diagram spacing in printed output.
+
 	* Documentation/user/notation.itely (Fret diagrams): Remove raggedright
 	from options for the example so fret-diagrams won't overlap
 	one another.
