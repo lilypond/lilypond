@@ -18,7 +18,7 @@ copyright = 	 "Public Domain";
 \score{
   \violoncelloIStaff
   \paper{
-    \translator { \BarNumberingStaffContext }
+    %\translator { \BarNumberingStaffContext }
   }
   \midi{
 %urg, real/duration
@@ -36,7 +36,7 @@ copyright = 	 "Public Domain";
   \violoncelloIiStaff
   \paper{
     %castingalgorithm=0.;
-    \translator { \BarNumberingStaffContext }
+    %\translator { \BarNumberingStaffContext }
   }
   \midi{
 %    \tempo 2 = 96;

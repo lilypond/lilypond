@@ -18,7 +18,7 @@ copyright = 	 "Public Domain";
 \score{
   \violinoIStaff
   \paper{
-    \translator { \BarNumberingStaffContext }
+    %\translator { \BarNumberingStaffContext }
   }
   \midi{
 %    \tempo 4. = 69;
@@ -34,7 +34,7 @@ copyright = 	 "Public Domain";
 \score{
   \violinoIiStaff
   \paper{
-    \translator { \BarNumberingStaffContext }
+    %\translator { \BarNumberingStaffContext }
 %    castingalgorith=0;
   }
   \midi{

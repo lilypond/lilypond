@@ -12,6 +12,6 @@
 			 f4-\ff^""^"Largo" \mark "B"; g 
 	}
 	\paper { linewidth = -1.0;
-	\translator { \BarNumberingStaffContext}
+	% \translator {\BarNumberingStaffContext} }
 	}
 }
