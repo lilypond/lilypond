@@ -47,12 +47,12 @@
     (ExtenderEvent
      . (
 	(internal-class-name . "Request")
-	(types . (general-music event))
+	(types . (general-music extender-event event))
 	))   
     (GlissandoEvent
      . (
 	(internal-class-name . "Request")
-	(types . (general-music event))
+	(types . (general-music glissando-event event))
 	)) 
     (GraceMusic
      . (
@@ -63,7 +63,7 @@
    (HyphenEvent
      . (
 	(internal-class-name . "Request")
-	(types . (general-music event))
+	(types . (general-music hyphen-event event))
 	))   
     (KeyChangeEvent
      . (
@@ -88,12 +88,12 @@
 	))  
     (MelismaEvent
      . (
-	(internal-class-name . "Melisma_playing_req")
+	(internal-class-name . "Request")
 	(types . (general-music span-event melisma-playing-event event))
 	)) 
     (MelismaPlayingEvent
      . (
-	(internal-class-name . "Melisma_req")
+	(internal-class-name . "Request")
 	(types . (general-music event))
 	))
     (Music
