@@ -51,7 +51,7 @@ Text_item::do_pre_processing()
 void
 Text_item::do_post_processing()
 {
-        set_default_index();
+    set_default_index();
 }
 
     

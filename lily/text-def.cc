@@ -19,7 +19,7 @@ Text_def::width() const
 
 Text_def::Text_def()
 {   
-    align_i_ = -1;			// right
+    align_i_ = 1;			// right
     pdef_l_ = 0;
     style_str_ = "roman";
 }
