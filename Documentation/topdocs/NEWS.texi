@@ -17,8 +17,17 @@ than @TeX{}. A font may be selected by using a FontConfig name,
 \override TextScript #'font-name = #"Serif"
 @end example
 
-Input strings encoded in UTF-8 are then rendered properly through
-Pango.
+
+@noindent
+or by setting individual properties,
+
+@example
+\override TextScript #'font-family = #'Times
+\override TextScript #'font-series = #'bold
+@end example
+
+@noindent
+Input strings encoded in UTF-8 are then rendered through Pango.
 
 @item
 Metrics of blocks of text can be retrieved from (La)@TeX{} directly,
