@@ -1,8 +1,8 @@
 
 #(set! point-and-click line-column-location)
 
-%%forcedBreak = \notes { }
-forcedBreak = \notes { \break }
+forcedBreak = \notes { }
+%%forcedBreak = \notes { \break }
 forcedLastBreak = \notes { \break }
 %%forcedLastBreak = \notes { }
 
