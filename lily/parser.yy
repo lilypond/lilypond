@@ -659,7 +659,7 @@ Alternative_music:
 
 
 Repeated_music:
-	REPEAT STRING bare_unsigned Music Alternative_music
+	REPEAT string bare_unsigned Music Alternative_music
 	{
 		Music_sequence* alts = dynamic_cast <Music_sequence*> ($5);
 		if (alts && $3 < alts->length_i ())
