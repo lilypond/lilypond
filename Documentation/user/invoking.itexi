@@ -24,12 +24,12 @@ This chapter details the technicalities of running LilyPond.
 The @code{lilypond} may be called as follows from the command line.
 
 @example
-        lilypond [@var{option}]@dots{} @var{file}@dots{}
+  lilypond [@var{option}]@dots{} @var{file}@dots{}
 @end example
 
 
 When invoked with a filename that has no extension, the @file{.ly}
-extension is tried first.  To read input from  stdin, use a
+extension is tried first.  To read input from stdin, use a
 dash @code{-} for @var{file}.
 
 When @file{filename.ly} is processed it will produce
@@ -82,12 +82,12 @@ Set init file to @var{file} (default: @file{init.ly}).
 @item --ps
     Generate PostScript.
 @item --dvi
-    Generate DVI files. In this case, the @TeX{} backend  should be
+    Generate DVI files.  In this case, the @TeX{} backend should be
     specified, i.e. @code{-f tex}.
 @item --png
     Generate pictures of each page, in PNG format.  This implies @code{--ps}.
 @item --pdf
-    Generate PDF. This implies @code{--ps}.
+    Generate PDF.  This implies @code{--ps}.
 @item --preview
     Generate an output file containing the titles and the first system
 of the score.
@@ -95,7 +95,7 @@ of the score.
 @item -s,--safe
 Do not trust the @code{.ly} input. 
 
-When LilyPond formatting available through a web server, the
+When LilyPond formatting is available through a web server, the
 @code{--safe} @b{MUST} be passed.  This will prevent inline Scheme
 code from wreaking havoc, for example 
 
@@ -107,9 +107,9 @@ code from wreaking havoc, for example
 @end verbatim
 
 The @code{--safe} option works by evaluating in-line Scheme
-expressions in a special safe module. This safe module is derived from
+expressions in a special safe module.  This safe module is derived from
 GUILE @file{safe-r5rs} module, but adds a number of functions of the
-LilyPond API. These functions are listed in @file{scm/safe-lily.scm}.
+LilyPond API.  These functions are listed in @file{scm/safe-lily.scm}.
 
 In addition, @code{--safe} disallows @code{\include} directives and
 disables the use of backslashes in @TeX{} strings.
@@ -120,7 +120,7 @@ into Scheme.
 @item -v,--version
 Show version information.
 @item -V,--verbose
-Be verbose: show full paths of all  files read, and give timing
+Be verbose: show full paths of all files read, and give timing
 information.
 
 @item -w,--warranty
@@ -141,7 +141,7 @@ do this:
 @item  @file{buildscripts/out/lilypond-login} (for C-shells)
 @end itemize
 
-They should normally be sourced as part of the login process. If these
+They should normally be sourced as part of the login process.  If these
 scripts are not run from the system wide login process, then you must
 run it yourself.
 
@@ -168,7 +168,7 @@ These scripts set the following variables:
  To make sure that @TeX{} and lilypond find data files (among
 others @file{.tex}, @file{.mf} and @file{.tfm}),
 you have to set @code{TEXMF} to point to the lilypond data
-file tree. A typical setting would be
+file tree.  A typical setting would be
 @example
 @{/usr/share/lilypond/1.6.0,@{!!/usr/share/texmf@}@}
 @end example
@@ -180,11 +180,11 @@ file tree. A typical setting would be
 @cindex TEXMF
 @cindex printing postscript
 
-The  binary itself recognizes the following environment variables:
+The binary itself recognizes the following environment variables:
 @table @code
 @item LILYPONDPREFIX
 This specifies a directory where locale messages and
-data files will be looked up by default. The directory should contain
+data files will be looked up by default.  The directory should contain
 subdirectories called @file{ly/}, @file{ps/}, @file{tex/}, etc.
 
 @item LANG
@@ -204,7 +204,7 @@ Different error messages can appear while compiling a file:
 @cindex warning
 
 @item Warning
-  Something looks suspect. If you are requesting something out of the
+  Something looks suspect.  If you are requesting something out of the
 ordinary then you will understand the message, and can ignore it.
 However, warnings usually indicate that something is wrong with the
 input file.
@@ -217,28 +217,28 @@ be skipped.
 @cindex error
 @cindex fatal error
 @item Fatal error
-Something is definitely wrong, and LilyPond cannot continue. This
-happens rarely. The most usual cause is misinstalled fonts.
+Something is definitely wrong, and LilyPond cannot continue.  This
+happens rarely.  The most usual cause is misinstalled fonts.
 
 @cindex trace, Scheme
 @cindex call trace
 @cindex Scheme error
 @item Scheme error
 Errors that occur while executing Scheme code are caught by the Scheme
-interpreter. If running with the verbose option (@code{-V} or
+interpreter.  If running with the verbose option (@code{-V} or
 @code{--verbose}) then a call trace is printed of the offending
 function call.
 
 @cindex Programming error
 @item Programming error
-There was some internal inconsistency. These error messages are
-intended to help the programmers and debuggers. Usually, they can be
-ignored. Sometimes, they come in such big quantities that they obscure
-other output. In this case, file a bug-report.
+There was some internal inconsistency.  These error messages are
+intended to help the programmers and debuggers.  Usually, they can be
+ignored.  Sometimes, they come in such big quantities that they obscure
+other output.  In this case, file a bug-report.
 
 @item Aborted (core dumped)
 This signals a serious programming error that caused the program to
-crash. Such errors are considered critical. If you stumble on one,
+crash.  Such errors are considered critical.  If you stumble on one,
 send a bugreport.
 
 
@@ -255,13 +255,19 @@ following form
 @end example 
 
 A line-break is inserted in offending line to indicate the column
-where the error was found. For example, 
+where the error was found.  For example, 
 
 @example
 test.ly:2:19: error: not a duration: 5:
   @{ c'4 e'5 
              g' @}
 @end example
+
+These locations are LilyPond's best guess about where the warning or
+error occured, but (by their very nature) warning and errors occur
+when something unexpected happens.  If you can't see an error in the
+indicated line of your input file, try checking one or two lines
+above the indicated position.
 
 
 @node Reporting bugs
@@ -271,12 +277,42 @@ test.ly:2:19: error: not a duration: 5:
 @cindex reporting bugs
 
 If you have input that results in a crash or an erroneous output, then
-that is a bug. We try respond to bug-reports promptly, and fix them as
+that is a bug.  We try respond to bug-reports promptly, and fix them as
 soon as possible.  Help us by sending a defective input file, so we can
-reproduce the problem. Make it small, so we can easily debug the
-problem. Don't forget to tell which version you use, and on which
+reproduce the problem.  Make it small, so we can easily debug the
+problem.  Don't forget to tell which version you use, and on which
 platform you run it.  Send the report to
 @email{bug-lilypond@@gnu.org}.
+
+FIXME: devel bug reports go to...?
+
+@c yeah, normally these go in comments, but they'll be fixed -very- soon,
+@c  and I wanted to make it clear to people reading the devel docs that
+@c  these facts need clarification.  -gp
+FIXME: does bug-lilypond get archived?
+
+@c  TODO: make a link to the archive/search for html output
+When you've found a bug, do a few searches on the mailing list for
+the bug.  Sometimes the bug will have already been reported and a fix
+or workaround is already known.
+
+@c  I'm not going to mention the bug CVS.  Newbies won't know how to
+@c  use it, and it would only scare them.  Besides, Erik says he doesn't
+@c  mind getting multiple bug reports, so who cares if it makes more work
+@c  for him?  :)     (in addition, multiple bug reports about the same
+@c  thing could be useful in judging the severity of a problem)   -gp
+
+Here's an example of a good bug report:
+
+@example
+% LilyPond 2.3.11, Mac OSX 10.3.4, fink package lilypond-unstable
+% slur does not look at accidentals
+\score @{
+\relative c''@{
+a1 a a a a
+a2. g16( b d fis)
+@}@}
+@end example
 
 @node Editor support
 @section Editor support
@@ -288,7 +324,7 @@ platform you run it.  Send the report to
 @cindex syntax coloring
 @cindex coloring, syntax
 
-There is support from different editors  for LilyPond.
+There is support from different editors for LilyPond.
 
 @table @asis
 @item Emacs
@@ -303,12 +339,11 @@ platform, then read the
 @ifnothtml
 installation instructions.
 @end ifnothtml
-for more information.
 
 @item VIM
 
 For @uref{http://www.vim.org,VIM}, a @file{vimrc} is supplied, along with
-syntax coloring tools. For more information, refer to the
+syntax coloring tools.  For more information, refer to the
 @ifhtml
 @uref{../../../topdocs/out-www/INSTALL.html,installation instructions}.
 @end ifhtml
@@ -319,14 +354,14 @@ installation instructions.
 
 @item JEdit
 
-There exists a plugin for @uref{http://www.jedit.org/,jEdit}. Refer to
+There exists a plugin for @uref{http://www.jedit.org/,jEdit}.  Refer to
 the @uref{http://lily4jedit.sourceforge.net,plugin website} for more
 information.
 
 @end table
 
 For both VIM and Emacs editors, there is also a facility to jump in
-the input file to the source of errors in the graphical output. See
+the input file to the source of errors in the graphical output.  See
 @ref{Point and click}.
 
 
@@ -337,8 +372,8 @@ the input file to the source of errors in the graphical output. See
 
 Before LilyPond 3.0, the @code{lilypond} program only generated music
 notation.  Titles and page layout was done in a separate wrapper
-program. For compatibility with older files, this wrapper program has
-been retained as @code{lilypond-latex}. It uses the LilyPond program
+program.  For compatibility with older files, this wrapper program has
+been retained as @code{lilypond-latex}.  It uses the LilyPond program
 and La@TeX{} to create a nicely titled piece of sheet music.  Use of
 this program is only necessary if the input file contains special
 La@TeX{} options or formatting codes in markup texts.
@@ -357,7 +392,7 @@ To have @code{lilypond-latex} read from stdin, use a dash @code{-} for
 @table @code
 @item -k,--keep
     Keep the temporary directory with all output
-files. The temporary directory is created in the current directory as @code{@code{lilypond}.dir}.
+files.  The temporary directory is created in the current directory as @code{@code{lilypond}.dir}.
 @item -h,--help
     Print usage help.
 @item -I,--include=@var{dir}
@@ -378,17 +413,17 @@ files. The temporary directory is created in the current directory as @code{@cod
     
 @item -s,--set=@var{key}=@var{val}
     Add @var{key}= @var{val} to the settings, overriding those specified
-in the files. Possible keys: @code{language}, @code{latexheaders},
+in the files.  Possible keys: @code{language}, @code{latexheaders},
 @code{latexpackages}, @code{latexoptions}, @code{papersize},
 @code{linewidth}, @code{orientation},
 @code{textheight}.
 @item -v,--version
 Show version information.
 @item -V,--verbose
-Be verbose. This prints out commands as they are executed, and more
+Be verbose.  This prints out commands as they are executed, and more
 information about the formatting process is printed.
 @item --debug
-Print even more information. This is useful when generating bug reports.
+Print even more information.  This is useful when generating bug reports.
 @item -w,--warranty
 Show the warranty with which GNU LilyPond comes. (It comes with 
 @strong{NO WARRANTY}!)
@@ -399,7 +434,7 @@ Show the warranty with which GNU LilyPond comes. (It comes with
 @subsection Additional parameters
 
 The @code{lilypond} program responds to several parameters specified
-in a @code{\paper} section of the input file. They can be overridden
+in a @code{\paper} section of the input file.  They can be overridden
 by supplying a @code{--set} command line option.
 
 @table @code
@@ -411,35 +446,35 @@ included.  Default: unset.
 
 @item latexheaders
     Specify additional La@TeX{} headers file.
-        Normally read from the @code{\header} block. Default value: empty.
+        Normally read from the @code{\header} block.  Default value: empty.
 
 @item latexpackages
-    Specify additional La@TeX{} packages file. This works cumulative,
+    Specify additional La@TeX{} packages file.  This works cumulative,
 so you can add multiple packages using multiple @code{-s=latexpackages} options.
-       Normally read from the @code{\header} block. Default value:
+       Normally read from the @code{\header} block.  Default value:
 @code{geometry}.
 
 @item latexoptions
     Specify additional options for the La@TeX{}
-@code{\documentclass}. You can put any valid value here. This was
+@code{\documentclass}.  You can put any valid value here.  This was
 designed to allow @code{lilypond} to produce output for double-sided
-paper, with balanced margins and page numbers on alternating sides. To
+paper, with balanced margins and page numbers on alternating sides.  To
 achieve this specify @code{twoside}.
 
 @item orientation
-    Set orientation. Choices are @code{portrait} or @code{landscape}. Is
+    Set orientation.  Choices are @code{portrait} or @code{landscape}.  Is
 read from the @code{\paper} block, if set.
         
 @item textheight
-    The vertical extension of the music on the page. It is normally 
+    The vertical extension of the music on the page.  It is normally 
     calculated automatically, based on the paper size.
 
 @item linewidth
-        The music line width. It is normally read from the @code{\paper}
+        The music line width.  It is normally read from the @code{\paper}
 block.
 
 @item papersize
-   The paper size (as a name, e.g. @code{a4}). It is normally read from
+   The paper size (as a name, e.g. @code{a4}).  It is normally read from
 the @code{\paper} block.
   
 @item fontenc

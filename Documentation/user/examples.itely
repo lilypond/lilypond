@@ -5,14 +5,8 @@ This section of the manual contains templates with the LilyPond score
 already set up for you.  Just add notes, run LilyPond, and enjoy
 beautiful printed scores!
 
-Note that all templates contain a @code{\version "x.y.z"} string.  We
-highly recommend that you always include the @code{\version}, no matter
-how small your file is.  Speaking from personal experience, it's
-quite frustrating to try to remember which version of LilyPond you were
-using a few years ago.  @code{convert-ly} requires you to declare
-which version of LilyPond you used.
-
 @menu
+* Suggestions for writing LilyPond files::
 * Single staff::
 * Piano templates::
 * Small ensembles::
@@ -20,11 +14,53 @@ which version of LilyPond you used.
 * Other templates::
 @end menu
 
-@c   more sections to come soon.
-@c  make a note about the \score{} stuff?  It might make more sense
-@c  to note that in the tutorial, and reserve this section purely
-@c  for templates.  -GP
+@c TODO explain \score{} ?  Maybe add a note to the tutorial?
 
+@node Suggestions for writing LilyPond files
+@section Suggestions for writing LilyPond files
+
+Now you're ready to begin writing bigger LilyPond files -- not just the
+little examples in the tutorial, but whole pieces.  But how should you
+go about doing it?
+
+The best answer is ``however you want to do it''.  As long as LilyPond
+can understand your files and produces the output that you want, it
+doesn't matter what your files look like.  That said, sometimes we
+make mistakes when writing files.  If LilyPond can't understand your
+files, or produces output that you don't like, how do you fix the
+problem?
+
+Here are a few suggestions that can help you in avoiding or fixing
+problems:
+
+@itemize @bullet
+@item Include @code{\version} numbers in every file.  Note that all
+templates contain a @code{\version "x.y.z"} string.  We
+highly recommend that you always include the @code{\version}, no matter
+how small your file is.  Speaking from personal experience, it's
+quite frustrating to try to remember which version of LilyPond you were
+using a few years ago.  @code{convert-ly} requires you to declare
+which version of LilyPond you used.
+
+@item Include checks:  See @ref{Bar check} and @ref{Octave check}.  If you
+include checks every so often, then if you make a mistake, you can pinpoint
+it quicker.  How often is ``every so often''?  It depends on the complexity
+of the music.  For very simple music, perhaps just once or twice.  For
+very complex music, every bar.
+
+@item One bar per line.  If there's anything complicated, either in the music
+itself or in the output you desire, it's often good to write only one bar
+per line.  Saving screen space by cramming eight bars per line just isn't
+worth it if you have to `debug' your files.
+
+@item Comment your files, with either bar numbers (every so often) or
+references to musical themes (``second theme in violins'', ``fourth
+variation'').  You may not need it when you're writing the piece for
+the first time, but if you want to go back and change something two
+or three years later, you won't know how your file is structured if you
+don't comment the file.
+
+@end itemize
 
 @node Single staff
 @section Single staff
@@ -38,17 +74,17 @@ add notes, and you're finished!
 
 \version "2.3.11"
 melody = \relative c' {
-\clef treble
-\key c \major
-\time 4/4
+   \clef treble
+   \key c \major
+   \time 4/4
 
-  a4 b c d
+   a4 b c d
 }
 
 \score{
-  \new Staff \melody
-  \paper { }
-  \midi { \tempo 4=60 }
+   \new Staff \melody
+   \paper { }
+   \midi { \tempo 4=60 }
 }
 
 @end lilypond
@@ -65,27 +101,27 @@ line.
 
 \version "2.3.11"
 melody = \relative c' {
-\clef treble
-\key c \major
-\time 4/4
+   \clef treble
+   \key c \major
+   \time 4/4
 
-  a4 b c d
+   a4 b c d
 }
 
 text = \lyrics {
-  Aaa Bee Cee Dee
+   Aaa Bee Cee Dee
 }
 
 \score{
-  <<
-    \context Voice = one {
-      \autoBeamOff
-      \melody
+   <<
+      \context Voice = one {
+         \autoBeamOff
+         \melody
       }
-    \lyricsto "one" \new Lyrics \text
-  >>
-  \paper { }
-  \midi { \tempo 4=60 }
+      \lyricsto "one" \new Lyrics \text
+   >>
+   \paper { }
+   \midi { \tempo 4=60 }
 }
 
 @end lilypond
@@ -98,29 +134,29 @@ Want to prepare a lead sheet with a melody and chords?  Look no farther!
 
 \version "2.3.11"
 melody =  \relative c' {
-\clef treble
-\key c \major
-\time 4/4
+   \clef treble
+   \key c \major
+   \time 4/4
 
-  f4 e8[ c] d4 g |
-  a2 ~ a2 |
+   f4 e8[ c] d4 g |
+   a2 ~ a2 |
 }
 
 harmonies = \chords {
-  c4:m f:min7 g:maj c:aug d2:dim b:sus
+   c4:m f:min7 g:maj c:aug d2:dim b:sus
 }
 
 \score {
    <<
-    \context ChordNames {
-        \set chordChanges = ##t
-        \harmonies
-    }
-    \context Staff = one \melody
-  >>
+      \context ChordNames {
+         \set chordChanges = ##t
+         \harmonies
+      }
+   \context Staff = one \melody
+   >>
 
-  \paper{ }
-  \midi  { \tempo 4=60}
+   \paper{ }
+   \midi  { \tempo 4=60}
 }
 
 @end lilypond
@@ -133,35 +169,35 @@ This template allows you to prepare a song with melody, words, and chords.
 
 \version "2.3.11"
 melody =  \relative c' {
-\clef treble
-\key c \major
-\time 4/4
+   \clef treble
+   \key c \major
+   \time 4/4
 
-    a b c d
+   a b c d
 }
 
 text = \lyrics {
-    Aaa Bee Cee Dee
+   Aaa Bee Cee Dee
 }
 
 harmonies = \chords {
-    a2 c2
+   a2 c2
 }
 
 \score {
-  <<
-    \context ChordNames {
-        \set chordChanges = ##t
-        \harmonies
-    }
-    \context Voice = one {
-	\autoBeamOff
-        \melody
-    }
-    \lyricsto "one" \new Lyrics \text
-  >>
-  \paper { }
-  \midi  { \tempo 4=60}
+   <<
+      \context ChordNames {
+         \set chordChanges = ##t
+         \harmonies
+      }
+   \context Voice = one {
+      \autoBeamOff
+      \melody
+   }
+   \lyricsto "one" \new Lyrics \text
+   >>
+   \paper { }
+   \midi  { \tempo 4=60}
 }
 
 @end lilypond
@@ -176,29 +212,29 @@ Here's a simple piano staff.
 
 \version "2.3.11"
 upper = \relative c'' {
-\clef treble
-\key c \major
-\time 4/4
+   \clef treble
+   \key c \major
+   \time 4/4
 
-  a b c d
+   a b c d
 }
 
 lower = \relative c {
-\clef bass
-\key c \major
-\time 4/4
+   \clef bass
+   \key c \major
+   \time 4/4
 
-  a2 c
+   a2 c
 }
 
 \score {
-  \context PianoStaff <<
-    \set PianoStaff.instrument = "Piano  "
-    \context Staff = upper \upper
-    \context Staff = lower \lower
-    >>  
-  \paper { }  
-  \midi { \tempo 4=60 }  
+   \context PianoStaff <<
+      \set PianoStaff.instrument = "Piano  "
+      \context Staff = upper \upper
+      \context Staff = lower \lower
+   >>  
+   \paper { }  
+   \midi { \tempo 4=60 }  
 }
 
 @end lilypond
@@ -212,50 +248,50 @@ piano accompaniment underneath.
 
 \version "2.3.11"
 melody =  \relative c'' {
-\clef treble
-\key c \major
-\time 4/4
+   \clef treble
+   \key c \major
+   \time 4/4
 
-  a b c d
+   a b c d
 }
 
 text = \lyrics {
-  Aaa Bee Cee Dee
+   Aaa Bee Cee Dee
 }
 
 upper = \relative c'' {
-\clef treble
-\key c \major
-\time 4/4
+   \clef treble
+   \key c \major
+   \time 4/4
 
-  a b c d
+   a b c d
 }
 
 lower = \relative c {
-\clef bass
-\key c \major
-\time 4/4
+   \clef bass
+   \key c \major
+   \time 4/4
 
-  a2 c
+   a2 c
 }
 
 \score {
-  <<
+   <<
       \context Voice = mel {
-	  \autoBeamOff
-	  \melody
+          \autoBeamOff
+          \melody
       }
       \lyricsto mel \new Lyrics \text
 
       \context PianoStaff <<
-	  \context Staff = upper \upper
-	  \context Staff = lower \lower
+         \context Staff = upper \upper
+         \context Staff = lower \lower
       >>
-  >>
-  \paper {
+   >>
+   \paper {
       \context { \RemoveEmptyStaffContext }
-  }  
-  \midi { \tempo 4=60}
+   }  
+   \midi { \tempo 4=60}
 }
 
 @end lilypond
@@ -273,61 +309,65 @@ always the same for all parts.
 
 \version "2.3.11"
 global = {
-\key c \major
-\time 4/4
+   \key c \major
+   \time 4/4
 }
 
 sopMusic = \relative c'' {
-c4 c c8[( b)] c4
+   c4 c c8[( b)] c4
 }
-sopWords = \lyrics { hi4 hi hi hi  }
+sopWords = \lyrics {
+   hi hi hi hi
+}
 
 altoMusic = \relative c' {
-e4 f d e 
+   e4 f d e 
 }
-altoWords =\lyrics { ha4 ha ha ha }
+altoWords =\lyrics {
+   ha ha ha ha
+}
 
 tenorMusic = \relative c' {
-g4 a f g
+   g4 a f g
 }
-tenorWords = \lyrics { hu4 hu hu hu }
+tenorWords = \lyrics {
+   hu hu hu hu
+}
 
 bassMusic = \relative c {
-c4 c g c
+   c4 c g c
 }
-bassWords = \lyrics { ho4 ho ho ho }
+bassWords = \lyrics {
+   ho ho ho ho
+}
 
 \score { 
-	  \context ChoirStaff <<
-	      \context Lyrics = sopranos { s1 }
-	      \context Staff = women <<
-		  \context Voice = sopranos { \voiceOne << \global \sopMusic >> }
-		  \context Voice = altos { \voiceTwo << \global \altoMusic >> }
-	      >>
-	      \context Lyrics = altos { s1 }
-	      \context Lyrics = tenors { s1 }
-	      \context Staff = men <<
-		  \clef bass
-		  \context Voice = tenors { \voiceOne <<\global \tenorMusic >> }
-		  \context Voice = basses { \voiceTwo <<\global \bassMusic >> }
-	      >>
-	      \context Lyrics = basses { s1 }
+   \context ChoirStaff <<
+      \context Lyrics = sopranos { s1 }
+      \context Staff = women <<
+         \context Voice = sopranos { \voiceOne << \global \sopMusic >> }
+         \context Voice = altos { \voiceTwo << \global \altoMusic >> }
+      >>
+      \context Lyrics = altos { s1 }
+      \context Lyrics = tenors { s1 }
+      \context Staff = men <<
+         \clef bass
+         \context Voice = tenors { \voiceOne <<\global \tenorMusic >> }
+         \context Voice = basses { \voiceTwo <<\global \bassMusic >> }
+      >>
+      \context Lyrics = basses { s1 }
+      \context Lyrics = sopranos \lyricsto sopranos \sopWords
+      \context Lyrics = altos \lyricsto altos \altoWords
+      \context Lyrics = tenors \lyricsto tenors \tenorWords
+      \context Lyrics = basses \lyricsto basses \bassWords
+   >>
 
-	      
-	      \context Lyrics = sopranos \lyricsto sopranos \sopWords
-	      \context Lyrics = altos \lyricsto altos \altoWords
-	      \context Lyrics = tenors \lyricsto tenors \tenorWords
-	      \context Lyrics = basses \lyricsto basses \bassWords
-	  
-	  >>
-  \paper {
-    \context {
-
-	% a little smaller so lyrics can be closer to the staff. 
-	\Staff
-	minimumVerticalExtent = #'(-3 . 3) 
-    }
-  }
+   \paper {
+      \context {
+         % a little smaller so lyrics can be closer to the staff. 
+         \Staff minimumVerticalExtent = #'(-3 . 3) 
+      }
+   }
 }
 
 @end lilypond
@@ -341,40 +381,40 @@ section for time and key signatures.
 
 \version "2.3.11"
 global = {
-\time 4/4
-\key c \major
+   \time 4/4
+   \key c \major
 }
 violinOne = \relative c''{
-\set Staff.instrument = "Violin 1  "
-c2 d
-e1
+   \set Staff.instrument = "Violin 1  "
+   c2 d
+   e1
 }
 violinTwo = \relative c''{
-\set Staff.instrument = "Violin 2  "
-g2 g
-g1
+   \set Staff.instrument = "Violin 2  "
+   g2 g
+   g1
 }
 viola = \relative c'{
-\set Staff.instrument = "Viola  "
-\clef alto
-e2 d
-c1
+   \set Staff.instrument = "Viola  "
+   \clef alto
+   e2 d
+   c1
 }
 cello = \relative c'{
-\set Staff.instrument = "Cello  "
-\clef bass
-c2 g
-c,1
+   \set Staff.instrument = "Cello  "
+   \clef bass
+   c2 g
+   c,1
 }
 \score {
-  \new StaffGroup <<
-    \new Staff << \global \violinOne >>
-    \new Staff << \global \violinTwo >>
-    \new Staff << \global \viola >>
-    \new Staff << \global \cello >>
-  >>
-  \paper { }
-  \midi { \tempo 4=60}
+   \new StaffGroup <<
+      \new Staff << \global \violinOne >>
+      \new Staff << \global \violinTwo >>
+      \new Staff << \global \viola >>
+      \new Staff << \global \cello >>
+   >>
+   \paper { }
+   \midi { \tempo 4=60}
 }
 
 @end lilypond
@@ -387,7 +427,7 @@ instruments are notated @code{\key c \major}.  This refers to the key in
 concert pitch; LilyPond will automatically transpose the key if the music
 is within a @code{\transpose} section.
 
-@c TODO must clean up this example.
+@c TODO must clean up this jazz combo example
 @c   - transpositions stated in names (ie "trumpet in Bb" or whatever)
 @c   - one global section, instead of "global" (time) and "key"
 @c   - does it need those wierd macros?  sl, nsl, etc.
@@ -665,46 +705,46 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 
 \version "2.3.11"
 \header {
-  dedication = "dedication"
-  title = "Title"
-  subtitle = "Subtitle"
-  subsubtitle = "Subsubtitle"
-  composer = "Composer (xxxx-yyyy)"
-  opus = "Opus 0"
-  piece = "Piece I"
-  instrument = "Instrument"
-  arranger = "Arranger"
-  poet = "Poet"
-  texttranslator = "Translator"
-  copyright = "public domain"
+   dedication = "dedication"
+   title = "Title"
+   subtitle = "Subtitle"
+   subsubtitle = "Subsubtitle"
+   composer = "Composer (xxxx-yyyy)"
+   opus = "Opus 0"
+   piece = "Piece I"
+   instrument = "Instrument"
+   arranger = "Arranger"
+   poet = "Poet"
+   texttranslator = "Translator"
+   copyright = "public domain"
 
-%   These are headers used by the Mutopia Project  http://www.mutopiaproject.org/
- mutopiatitle = ""
-  mutopiacomposer = ""
-  mutopiapoet = ""
-  mutopiainstrument = ""
-  date = "composer's dates"
-  source = "urtext "
-  maintainer = "your name here"
-  maintainerEmail = "your email here"
-  maintainerWeb = "your home page"
-  lastupdated = "2004/Aug/26"
+% These are headers used by the Mutopia Project  http://www.mutopiaproject.org/
+   mutopiatitle = ""
+   mutopiacomposer = ""
+   mutopiapoet = ""
+   mutopiainstrument = ""
+   date = "composer's dates"
+   source = "urtext "
+   maintainer = "your name here"
+   maintainerEmail = "your email here"
+   maintainerWeb = "your home page"
+   lastupdated = "2004/Aug/26"
 }
 
 \score {
    \header {
       piece = "piece1"
       opus = "opus1"
-    }
-  { c'4 }
+   }
+   { c'4 }
 }
 
 \score {
    \header {
       piece = "piece2"
       opus = "opus2"
-    }
-  { c'4 }
+   }
+   { c'4 }
 }
 
 @end lilypond
@@ -716,26 +756,25 @@ music.  Gregorian music has no measure, no stems; it uses only half and
 quarter notes, and two types of barlines, a short one indicating a rest,
 and a second one indicating a breath mark.
 
-
 @lilypond[verbatim,raggedright]
 
-barOne =  { \once \override Staff.BarLine  #'bar-size = #2
-	\bar "|" }
-barTwo =  { \once \override Staff.BarLine  #'extra-offset = #'(0 . 2)
-	\once \override Staff.BarLine  #'bar-size = #2
-	\bar "|" }
+barOne = { \once \override Staff.BarLine  #'bar-size = #2
+   \bar "|" }
+barTwo = { \once \override Staff.BarLine  #'extra-offset = #'(0 . 2)
+   \once \override Staff.BarLine  #'bar-size = #2
+   \bar "|" }
 chant = \relative c' {
-\set Score.timing = ##f
-\override Staff.Stem  #'transparent = ##t
+   \set Score.timing = ##f
+   \override Staff.Stem  #'transparent = ##t
 
-f4 a2 \barTwo
-g4 a2 f2 \barOne
-g4( f) f( g) a2
+   f4 a2 \barTwo
+   g4 a2 f2 \barOne
+   g4( f) f( g) a2
 }
 \score {
-  \chant
-  \paper{ }
-  \midi { \tempo 4=60 }
+   \chant
+   \paper{ }
+   \midi { \tempo 4=60 }
 }
 
 @end lilypond
@@ -747,6 +786,8 @@ LilyPond, compared to graphical score editors: in LilyPond, you can
 very easily reuse small segments of music without writing them out
 completely.  This template defines a large number of small segments
 (@code{taor, grip, thrd,} etc), which can be reused easily.
+
+TODO - replace Bagpipe template with Andrew McNabb's work?
 
 @lilypond[verbatim,raggedright]
 
@@ -811,8 +852,5 @@ gcdg = { \grace { g'32[ c' d']  } }
 }
 
 @end lilypond
-
-
-
 
 

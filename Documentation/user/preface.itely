@@ -49,14 +49,14 @@ Han-Wen and Jan
 Utrecht/Eindhoven, The Netherlands, July 2002.
 
 @menu
-* Notes to version 2.2::        
+* Notes for version 3.0::
 @end menu
 
-@node Notes to version 2.2
-@unnumberedsec Notes to version 3.0
+@node Notes for version 3.0
+@unnumberedsec Notes for version 3.0
 
-The most important developments in 3.0 are related. In LilyPond 3.0,
-@TeX{} is no longer strictly necessary to engrave music. This is
+The most important developments in 3.0 are related.  In LilyPond 3.0,
+@TeX{} is no longer strictly necessary to engrave music.  This is
 because LilyPond can now also layout pages and determine page breaks.
 Another notable feature is the syntax, which has been simplified even
 further compared to previous versions.
