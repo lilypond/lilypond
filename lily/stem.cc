@@ -551,37 +551,13 @@ Stem::flag (Grob *me)
     */
     {
       if (adjust)
-        {
-	  /* Urrgh!  We have to detect wether this stem ends on a staff
-	     line or between two staff lines.  But we can not call
-	     stem_end_position (me) or get_default_stem_end_position (me),
-	     since this encounters the flag and hence results in an
-	     infinite recursion.  However, in pure mensural notation,
-	     there are no multiple note heads attached to a single stem,
-	     neither is there usually need for using the stem_shorten
-	     property (except for 32th and 64th notes, but that is not a
-	     problem since the stem length in this case is augmented by
-	     an integral multiple of staff_space).  Hence, it should be
-	     sufficient to just take the first note head, assume it's
-	     the only one, look if it's on a staff line, and select the
-	     flag's shape accordingly.  In the worst case, the shape
-	     looks slightly misplaced, but that will usually be the
-	     programmer's fault (e.g. when trying to attach multiple
-	     note heads to a single stem in mensural notation).
-	  */
-
-	  /*
-	    perhaps the detection whether this correction is needed should
-	    happen in a different place  to avoid the recursion.
-	
-	    --hwn.
-	  */
-	  int p = Staff_symbol_referencer::get_rounded_position (me);
-	  staffline_offs = Staff_symbol_referencer::on_staffline (me, p)
-	    ? "1" : "0";
+	{
+	  int p = (int)(rint (stem_end_position (me)));
+	  staffline_offs =
+	    Staff_symbol_referencer::on_staffline (me, p) ? "0" : "1";
 	}
       else
-        {
+	{
 	  staffline_offs = "2";
 	}
     }
