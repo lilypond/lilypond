@@ -57,7 +57,8 @@ Includable_lexer::new_input (String s, Sources  * global_sources)
   char_count_stack_.push (0);
   if (yy_current_buffer)
     state_stack_.push (yy_current_buffer);
-  *mlog << "[" << s<< flush;
+	progress_indication (String ("[") + s);
+	
   include_stack_.push (sl);
 
   /*
@@ -80,7 +81,7 @@ Includable_lexer::new_input (String name, String data, Sources* sources)
   char_count_stack_.push (0);
   if (yy_current_buffer)
     state_stack_.push (yy_current_buffer);
-  *mlog << "[" << name << flush;
+	progress_indication (String ("[") + name);
   include_stack_.push (file);
 
   yy_switch_to_buffer (yy_create_buffer (file->istream_l (), YY_BUF_SIZE));
@@ -93,7 +94,7 @@ Includable_lexer::close_input ()
 {
   include_stack_.pop ();
   char_count_stack_.pop ();
-  *mlog << "]"<<flush;
+  progress_indication ("]");
   yy_delete_buffer (yy_current_buffer);
   yy_current_buffer = 0;
   if (state_stack_.empty ())

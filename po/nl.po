@@ -26,7 +26,7 @@ msgstr "onvoldoende velden in Dstream init"
 
 #: flower-debug.cc:17
 msgid "Debug output disabled.  Compiled with NPRINT."
-msgstr "Ontluis berichten zijn uitgeschakeld.  Vertaald met NPRINT."
+msgstr "Ontluisberichten zijn uitgeschakeld.  Vertaald met NPRINT."
 
 #: getopt-long.cc:141
 #, c-format
@@ -87,10 +87,6 @@ msgstr "programmeerfout: "
 msgid " (Continuing; cross thumbs)"
 msgstr " (Ga verder; duim maar)"
 
-#: warn.cc:40
-msgid "programming warning: "
-msgstr "programmeerwaarschuwing: "
-
 #: afm.cc:129
 #, c-format
 msgid "Can't find character called: `%s'"
@@ -129,8 +125,8 @@ msgid "no beam to end"
 msgstr "geen balk te beëindigen"
 
 #: beam-engraver.cc:87
-msgid "Already have a Beam"
-msgstr "Heb al een Balk"
+msgid "Already have a beam"
+msgstr "Heb al een balk"
 
 #: beam-engraver.cc:149
 msgid "unfinished beam"
@@ -335,19 +331,6 @@ msgstr "Kan bestand niet vinden: `%s'"
 msgid "(search path: `%s')"
 msgstr "(zoekpad: `%s')"
 
-#: ineq-constrained-qp.cc:169
-#, c-format
-msgid "Ineq_constrained_qp::solve (): Constraint off by %f"
-msgstr "Ineq_constrained_qp::solve (): voorwaarde zit er %f naast"
-
-#: ineq-constrained-qp.cc:233
-msgid "Didn't converge!"
-msgstr "Convergeerde niet!"
-
-#: ineq-constrained-qp.cc:235
-msgid "too much degeneracy"
-msgstr "te veel degenaratie"
-
 #: key-def.cc:31
 msgid "No key name, assuming `C'"
 msgstr "Geen toonsoort, ga uit van `C'"
@@ -461,7 +444,7 @@ msgstr "verbied naamgeving van uitvoer bestand en exportering"
 
 #: main.cc:81 main.cc:99
 msgid "don't timestamp the output"
-msgstr "geen tijdstempel in de uitvoer"
+msgstr "geen tijdsstempel in de uitvoer"
 
 #: main.cc:82
 msgid "switch on experimental features"
@@ -477,7 +460,7 @@ msgstr "druk versienummer af"
 
 #: main.cc:85 main.cc:102
 msgid "show warranty and copyright"
-msgstr "toon garantie en copyright"
+msgstr "toon garantie en auteursrechten"
 
 #: main.cc:92
 #, c-format
@@ -546,8 +529,8 @@ msgstr ""
 "versie 2, zoals gepubliceerd door de Free Software Foundation.\n"
 "\n"
 "    Dit programma wordt verspreid in de hoop dat het nuttig zal zijn,\n"
-"maar ZONDER ENIGE GARANTIE; zelfs zonder de impliciete garantie voor\n"
-"het UITBATEN of als zijnde GESCHIKT VOOR EEN BEPAALD DOEL.  Zie de GNU\n"
+"maar ZONDER ENIGE GARANTIE; zelfs zonder impliciete garantie voor\n"
+"UITBATING of als zijnde GESCHIKT VOOR EEN BEPAALD DOEL.  Zie de GNU\n"
 "Algemene Openbare Licentie voor details.\n"
 "\n"
 "    Als het goed is, heeft u bij dit programma een exemplaar (zie het\n"
@@ -1061,7 +1044,7 @@ msgstr "zet BESTAND als verstek uitvoer"
 
 #: main.cc:96
 msgid "assume no tuplets"
-msgstr "ga niet uit van n-olen"
+msgstr "gebruik geen antimetrische figuren"
 
 #: main.cc:97
 msgid "be quiet"
@@ -1081,7 +1064,7 @@ msgstr "wees breedsprakig"
 
 #: main.cc:103
 msgid "assume no double dotted notes"
-msgstr "ga niet uit van dubbel gepunkteerde noten"
+msgstr "ga niet uit van dubbel gepunteerde noten"
 
 #: main.cc:110
 #, c-format
@@ -1094,7 +1077,7 @@ msgstr "Vertaal MIDI-bestand naar mudela"
 
 #: midi-parser.cc:64
 msgid "zero length string encountered"
-msgstr "nul-lengte string tegengekomen"
+msgstr "string van lengte nul tegengekomen"
 
 #: midi-score-parser.cc:44
 msgid "MIDI header expected"
@@ -1127,7 +1110,7 @@ msgstr "ongeldige lopende status"
 
 #: midi-track-parser.cc:328
 msgid "unimplemented MIDI meta-event"
-msgstr "ongeïmplementeerde MIDI meta-gebeurtenis"
+msgstr "MIDI meta-gebeurtenis niet geïmplementeerd"
 
 #: midi-track-parser.cc:333
 msgid "invalid MIDI event"

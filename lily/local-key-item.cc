@@ -17,7 +17,6 @@
 
 Local_key_item::Local_key_item ()
 {
-  c0_position_i_ = 0;
 }
 
 void
@@ -90,8 +89,9 @@ Local_key_item::do_brew_molecule_p() const
 	}
       
       lastoct = p.octave_i_;
-      Real dy =
-	(c0_position_i_ + p.notename_i_)
+
+      SCM c0 =  get_elt_property ("c0-position");
+      Real dy = (gh_number_p (c0) ? gh_scm2int (c0) : 0 + p.notename_i_)
 	* note_distance;
       
       Molecule m (accidental (p.accidental_i_,

@@ -30,11 +30,11 @@ Line_of_score::output_lines ()
     {
       Line_of_score *line_l = dynamic_cast<Line_of_score*> (broken_into_l_arr_[i]);
 
-      *mlog << '[' << flush;
+      progress_indication ("[");
       line_l->post_processing ();
-      *mlog << i << flush;
+      progress_indication (to_str (i));
       line_l->output_line (i + 1 == broken_into_l_arr_.size ());
-      *mlog << ']' << flush;
+      progress_indication ("]");
     }
 }
 

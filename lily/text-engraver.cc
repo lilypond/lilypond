@@ -96,7 +96,8 @@ Text_engraver::do_process_requests ()
       if (r->get_direction ())
 	stafy.set_direction (r->get_direction ());
       
-      text->text_str_ = r->text_str_;
+      text->set_elt_property ("text",
+			      ly_str02scm ( r->text_str_.ch_C ()));
       
       if (r->style_str_.length_i ())
 	text->set_elt_property ("style", ly_str02scm (r->style_str_.ch_C()));

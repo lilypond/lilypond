@@ -4,8 +4,14 @@ Properties are Scheme values, so they have a type.  The type of a
 property is listed in parentheses after the property name.
 
 @macro propertytype{t}
- (/t/)
+ (\t\)
 @end macro
+
+@table @samp
+  @item @code{Generic_property_list} Defines names and types for
+generic properties. These are properties than can be plugged into the
+backend directly. See the init file @file{generic-property.scm} for
+details.  For internal use only.
 
 @cindex properties!Lyrics
 
@@ -30,8 +36,7 @@ property is listed in parentheses after the property name.
     @code{diamond}, @code{harmonic}, @code{transparent}, and @code{""}. 
     They are shown in that order below.
 
-    @mudela[center]
-
+    @mudela[center,verbatim]
       \score {
         \notes { 
           \property Staff.barNonAuto = 1
@@ -60,10 +65,14 @@ property is listed in parentheses after the property name.
 
  
 @table @samp  
-  @item @code{stemStyle}@indexcode{stemStyle} @propertytype{string}
+  @item @code{stemStyle}@indexcode{flagStyle} @propertytype{string}
     By default set to @code{"grace"} meaning that all unbeamed 
     notes with flags are typeset with a slash through the flag. 
     Setting to @code{""} gives standard flags.
+
+@mudela[verbatim]
+c'8 \property Voice.flagStyle = "grace" c'8
+@end mudela
 @end table
 
 
@@ -88,17 +97,19 @@ property is listed in parentheses after the property name.
     below the staff.  This property does not override explicit
     directions marked with `@code{^}' or `@code{_}' in the mudela file.
     
-  @item @code{noAutoBeaming}@indexcode{beamAuto}  
+  @item @code{noAutoBeaming}@indexcode{beamAuto}  @propertytype{boolean}
     If set to 1 then beams are not generated automatically.
 
-  @item @code{beamAutoEnd}@indexcode{beamAutoEnd}  
+  @item @code{beamAutoEnd}@indexcode{beamAutoEnd}  @propertytype{?}
     Specifies when automatically generated beams can end.  See
     section XREF-autobeam [FIXME].
 
-  @item @code{beamAutoBegin}@indexcode{beamAutoBegin}  
+  @item @code{beamAutoBegin}@indexcode{beamAutoBegin}  @propertytype{?}
     Specifies when automatically generated beams can start.  See
     section XREF-autobeam [FIXME].
 
+
+[outdated FIXME]
   @item @code{beamQuantisation}@indexcode{beamQuantisation} @propertytype{symbol}
     Set to @code{\none} for no quantization.  Set to @code{\normal} to
     quantize position and slope.  Set to @code{\traditional} to avoid
@@ -122,17 +133,24 @@ property is listed in parentheses after the property name.
     the staff.
 
   @item @code{dynamicStyle}@indexcode{dynamicStyle} @propertytype{string}
-    Set the text style for dynamics.  
+    Set the text style for dynamics.
 
   @item @code{fontSize}@indexcode{fontSize} @propertytype{number}
     Can be used to select smaller font sizes for music.  The normal
     font size is 0, and the two smaller sizes are -1
     and -2.
 
+@mudela[verbatim]
+c''16 \property Staff.fontSize = -2 c''16
+@end mudela
+
    @item @code{forceHorizontalShift}@indexcode{forceHorizontalShift}  
     Force horizontal shift for collision resolution.  It overrides
     automatic collision resolution.  The value is the shift amount
     expressed in @code{note_width}, as set in the paper section.
+
+@mudelafile[verbatim]{force-hshift.sly}
+
 
 [FIXME: this should be moved]
 
@@ -164,7 +182,7 @@ done, with values of @code{horizontalNoteShift} printed over and under
 the notes. In this case the chords are just simple notes.
 
 @c URG : mudela book bug.
-@mudela[singleline]
+@mudela[singleline,verbatim]
 \score {
         \notes \context Staff <
         	\context Voice  = VA { \stemup f''4^"0" }
@@ -196,14 +214,14 @@ Then you can set the force property to a suitable value before each note
 that really needs it (unisons and seconds), and reset it to 0.0 after
 the note.  
 
-  @item @code{horizontalNoteShift}@indexcode{horizontalNoteShift}  
+  @item @code{horizontalNoteShift}@indexcode{horizontalNoteShift}  @property{integer}
     Enable LilyPond to shift notes horizontally if they collide with
     other notes.  This is useful when typesetting many voices on one
     staff.  The identifier @code{\shift}@keyindex{shift} is defined to
     enable this.  Traditionally, the outer chords (the upmost and
     downmost voices), should have no @code{horizontalNoteShift}.
 
-  @item @code{markScriptPadding}@indexcode{markScriptPadding}  
+  @item @code{markScriptPadding}@indexcode{markScriptPadding}  @propertytype{number}
     Determines the extra space added between the mark and the closest
     staff line or note.
 
@@ -224,7 +242,12 @@ the note.
     Currently, the standard layout @code{""} and mensural notation
     @code{"mensural"} are available. Mensural rests of duration
     32 or shorter are not available.
-    
+@mudela[verbatim]
+r\longa r\breve r1 r2 r4 r8 r16 r32 r64 r128 r128 
+\property Staff.restStyle = "mensural"
+r\longa r\breve r1 r2 r4 r8 r16 r32 r64 r128 r128 
+@end mudela
+
   @item @code{scriptHorizontal}@indexcode{scriptHorizontal} @propertytype{boolean}
     Put scripts left or right of note heads.  Support for this is
     limited.  Accidentals will collide with scripts.
@@ -237,15 +260,24 @@ the note.
     @code{\slurboth}@keyindex{slurboth} are available.
 
   @item @code{slurDash}@indexcode{slurDash} @propertytype{number}
-    Set to 0 for normal slurs, 1 for dotted slurs, and a
+    Set to NIL for normal slurs, 1 for dotted slurs, and a
     larger value for dashed slurs.  Identifiers
     @code{\slurnormal}@keyindex{slurnormal} and
     @code{\slurdotted}@keyindex{slurdotted} are predefined to set the
     first two settings.
 
+@mudela[verbatim]
+		c4( )d
+		\property Voice.slurDash = 3
+		c ( )e
+@end mudela		
+
 @item @code{stemLength}@indexcode{stemLength}  
     Set length of stems.  Unit is `@code{interline}/2', so
     @code{stemLength} defaults to 7.
+@mudela[verbatim]
+g''4 \property Voice.stemLength = #14  g4 \property Voice.stemLength = #3 g4  g,,4  
+@end mudela
 
   @item @code{stemLeftBeamCount}@indexcode{stemLeftBeamCount} @propertytype{integer}
     Specify the number of beams to draw on the left side of the next
@@ -256,6 +288,7 @@ the note.
     Specify the number of beams to draw on the right side of the next
     note.  Overrides automatic beaming.  The value is only used once,
     and then it is erased.
+
   @item @code{tieVerticalDirection}@indexcode{tieVerticalDirection} @propertytype{direction}
     Set to @code{\free} for free choice of tie direction, set to
     @code{\up} to force ties up, set to @code{\down} to force ties
@@ -266,14 +299,19 @@ the note.
     half-steps to transpose by.
 
   @item @code{textEmptyDimension}@indexcode{textEmptyDimension} @propertytype{boolean}
-    If set to 1 then text placed above or below the staff is
-    assumed to have zero width.
-  
+    If set to true then text placed above or below the staff is
+    assumed to have zero width.  @code{fatText} and @code{emptyText}
+are predefined settings.
+
+@mudela[verbatim]
+c4^"foo"  \emptyText c4^"foo" c4
+@end mudela
+
   @item @code{textStyle}@indexcode{textStyle} @propertytype{string}
     Set the text style for superscripts and subscripts.  See above
     for list of text styles.
 
-  @item @code{textScriptPadding}@indexcode{textScriptPadding}  
+  @item @code{textScriptPadding}@indexcode{textScriptPadding}  @propertytype{number}
     Determines the extra space added between superscripted resp.
     subscripted text and the closest staff line or note.
 
@@ -292,8 +330,9 @@ the note.
     @code{\down} to force them below the staff, @code{\up} to force
     them above, or @code{\free} to let LilyPond decide.
 
-  @item @code{tupletVisibility}@indexcode{tupletVisibility}  (number) [FIXME]
-    Determines whether tuplets of notes are labelled.  Setting
+  @item @code{tupletVisibility}@indexcode{tupletVisibility} @propertytype{number}
+    [deprecate this, FIXME]
+    Determines whether tuplets of notes are labeled.  Setting
     to 0 shows nothing; setting to 1 shows a number;
     setting to 2 shows a number and a bracket if there is no
     beam; setting to 3 shows a number, and if there is no beam
@@ -309,7 +348,7 @@ the note.
 @table @samp
  
   @item @code{barNonAuto}@indexcode{barNonAuto} @propertytype{boolean}
-    If set to 1 then bar lines will not be printed
+    If set to true then bar lines will not be printed
     automatically; they must be explicitly created with @code{\bar}
     keywords.  Unlike with the @code{\cadenza} keyword, measures are
     still counted.  Bar generation will resume according to that
@@ -325,10 +364,15 @@ the note.
   @item @code{barSize}@indexcode{barSize}  
     Specify the height of the bar lines if it should be different
     than the staff height.
+@mudela[verbatim]
+c1 c1 \property Staff.barSize = 20 c1 c1 
+@end mudela
 
   @item @code{barAtLineStart}@indexcode{barAtLineStart} @propertytype{boolean}
-    Set to 1 to produce a bar line after the clef at the start
+    Set to true to produce a bar line after the clef at the start
     of each line (but not at the beginning of the music).
+
+	[BROKEN]
 
   @item @code{clefStyle}@indexcode{clefStyle} @propertytype{string}
     Determines how clefs are typeset.  If set to @code{transparent},
@@ -337,17 +381,20 @@ the note.
     typeset with a full size clef.  By default, clef changes are
     typeset in smaller size.
 
-  @item @code{createKeyOnClefChange}@indexcode{createKeyOnClefChange} @propertytype{boolean}
-    Set to a nonempty string if you want key signatures to be printed
-    when the clef changes.  Set to the empty string if you do not
-    want key signatures printed.
+  @item @code{supportedClefTypes}@indexcode{supportedClefTypes} @propertytype{alist}
 
-  @item @code{createInitdefaultClef}@indexcode{createInitdefaultClef} @propertytype{boolean}
-    Specify whether clefs are created on default? @propertytype{Doesn't seem to
-    do anything.}
+	Clef settings supported. The value is an association list clef
+descriptions indexed by clef name (alto, baritone, etc.).  A clef
+description is a list with the glyph name, and the staff position
+where it should go. For internal use.
 
+  @item @code{clefPitches}@indexcode{clefPitches} @propertytype{alist}
+    Settings for the position of the central C, relative to this clef
+    symbol.  For internal use.
+   
   @item @code{defaultClef}@indexcode{defaultClef} @propertytype{string}
-    Determines the default clef.  See @code{\clef} keyword.
+	Clef setting to use when this context is created.  If unset,
+no clef is printed upon creation.
 
   @item @code{marginDirection}@indexcode{marginDirection} @propertytype{direction}
     Set to @code{\left} or @code{\right} to specify location of
@@ -365,13 +412,13 @@ the note.
     be printed only once and are in effect until overridden, possibly
     many measures later.
 
-  @item @code{staffLineLeading}@indexcode{staffLineLeading}  
+  @item @code{staffSpace}@indexcode{staffLineLeading}   @propertytype{number}	
     Specifies the distance (in points) between lines of the staff.
 
   @item @code{numberOfStaffLines}@indexcode{numberOfStaffLines} @propertytype{integer}
     Specifies the number of staff lines.  The default is 5.
 
-  @item @code{postBreakPadding}@indexcode{postBreakPadding}  
+  @item @code{postBreakPadding}@indexcode{postBreakPadding}   @propertytype{number}
     Extra space in points to be added after the clef, time signature
     and key signature on the staff.  Deprecated, do not use.
 
@@ -381,13 +428,13 @@ the note.
 
  
   @item @code{barAlways}@indexcode{barAlways} @propertytype{boolean}
-    If set to 1 a bar line is drawn after each note.
+    If set to true a bar line is drawn after each note.
 
   @item @code{defaultBarType}@indexcode{defaultBarType} @propertytype{string}
     Sets the default type of bar line. See Section XREF-barlines [FIXME] 
     for a list of available bar types.
 
-  @item @code{instrument}, @code{instr}
+  @item @code{instrument}, @code{instr} @propertytype{string}
     @indexcode{instrument}@indexcode{instr}  
     If @code{Staff_margin_engraver}
 @cindex Staff_margin_engraver
@@ -399,8 +446,8 @@ the note.
     is used to determine the instrument for MIDI output.
 
   @item @code{keyOctaviation}@indexcode{keyOctaviation} @propertytype{boolean}
-    If set to 1, then keys are the same in all octaves.  If set
-    to 0 then the key signature for different octaves can be
+    If set to TRUE, then keys are the same in all octaves.  If set
+    to FALSE then the key signature for different octaves can be
     different and is specified independently:
 
     @example
@@ -437,7 +484,7 @@ the note.
     The different time signature characters are shown below with its
     names:
 
-    @mudela[center]
+    @mudela[center,verbatim]
 
       \score {
         \notes\relative c'' {
@@ -488,15 +535,16 @@ the note.
 @cindex properties!GrandStaff
 
 @table @samp 
-  @item @code{alignmentReference}@indexcode{alignmentReference}  
+  @item @code{alignmentReference}@indexcode{alignmentReference}
+@propertytype{direction}
     Set to @code{\center} for vertical alignment reference point to be
     in the center of the vertical group.  Set to @code{\up} to put the
     reference point at the top of the group.
 
-  @item @code{maxVerticalAlign}@indexcode{maxVerticalAlign}  
+  @item @code{maxVerticalAlign}@indexcode{maxVerticalAlign}  @propertytype{number}
     Set the maximum vertical distance between staffs.
 
-  @item @code{minVerticalAlign}@indexcode{minVerticalAlign}  
+  @item @code{minVerticalAlign}@indexcode{minVerticalAlign}  @propertytype{number}
     Set the minimum vertical distance between staffs.  
 @end table
 

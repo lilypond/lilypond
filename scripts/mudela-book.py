@@ -42,7 +42,7 @@ latex_linewidths = {
 	 'executive':{10: 167, 11: 175, 12: 184}}}
 
 
-options = [
+option_definitions = [
   ('DIM',  '', 'default-mudela-fontsize', 'default fontsize for music.  DIM is assumed to in points'),
   ('EXT', 'f', 'format', 'set format.  EXT is one of texi and latex.'),
   ('', 'h', 'help', 'print help'),
@@ -773,6 +773,7 @@ def options_help_str (opts):
 	w = 0
 	strs =[]
 	helps = []
+
 	for o in opts:
 		s = option_help_str (o)
 		strs.append ((s, o[3]))
@@ -789,7 +790,7 @@ def help():
 Generate hybrid LaTeX input from Latex + mudela
 Options:
 """)
-	sys.stdout.write (options_help_str (options))
+	sys.stdout.write (options_help_str (option_definitions))
 	sys.stdout.write (r"""Warning all output is written in the CURRENT directory
 
 
@@ -828,7 +829,7 @@ NO WARRANTY.
 
 outname = ''
 try:
-	(sh, long) = getopt_args (__main__.options)
+	(sh, long) = getopt_args (__main__.option_definitions)
 	(options, files) = getopt.getopt(sys.argv[1:], sh, long)
 except getopt.error, msg:
 	sys.stderr.write("error: %s" % msg)

@@ -5,6 +5,8 @@
 
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+#include <math.h>		// ceil.
+
 #include "beam.hh"
 #include "debug.hh"
 #include "rest-collision.hh"

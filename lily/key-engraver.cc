@@ -5,7 +5,7 @@
 
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   */
-
+// clean me up 
 #include "key-engraver.hh"
 #include "key-item.hh"
 #include "command-request.hh"
@@ -39,7 +39,9 @@ Key_engraver::create_key ()
       
       item_p_->set_elt_property ("break-aligned", SCM_BOOL_T); // ugh
       
-      item_p_->multi_octave_b_ = key_.multi_octave_b_;
+      item_p_->set_elt_property ("multi-octave",
+				 gh_bool2scm (key_.multi_octave_b_));
+      
       announce_element (Score_element_info (item_p_,keyreq_l_));
       
 

@@ -2,6 +2,7 @@
   
 breve = \duration { -1 0 }
 longa = \duration { -2 0 }
+maxima = \duration { -3 0 }
 
 #(eval-string (ly-gulp-file "generic-property.scm"))
 

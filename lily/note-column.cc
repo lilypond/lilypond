@@ -5,6 +5,9 @@
 
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+#include <math.h>		// ceil
+
+
 #include "dot-column.hh"
 #include "note-column.hh"
 #include "beam.hh"
@@ -141,7 +144,6 @@ Note_column::set_dotcol (Dot_column *d)
   Should lookup
     
     rest -> stem -> beam -> interpolate_y_position ()
-    
 */
 
 void

@@ -97,7 +97,7 @@ Rhythmic_column_engraver::acknowledge_element (Score_element_info i)
 	end slurs starting on grace notes
        */
       
-      if (s->get_elt_property ("grace") != SCM_UNDEFINED)
+      if (to_boolean (s->get_elt_property ("grace")))
 	grace_slur_endings_.push (s);
    }
 }

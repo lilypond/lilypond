@@ -22,12 +22,14 @@
 
 Volta_spanner::Volta_spanner ()
 {
-  last_b_ = false;
   dim_cache_ [Y_AXIS]->set_callback (dim_callback);
   set_elt_property ("bars", SCM_EOL);
   set_elt_property ("note-columns", SCM_EOL);
 }
 
+/*
+  FIXME: too complicated.
+ */
 Molecule*
 Volta_spanner::do_brew_molecule_p () const
 {
@@ -43,14 +45,18 @@ Volta_spanner::do_brew_molecule_p () const
     = Group_interface__extract_elements (this, (Score_element*)0, "note-columns");
   
   bool no_vertical_start = false;
-  bool no_vertical_end = last_b_;
+  bool no_vertical_end = to_boolean (get_elt_property ("last-volta"));
   Spanner *orig_span =  dynamic_cast<Spanner*> (original_l_);
   if (orig_span && (orig_span->broken_into_l_arr_[0] != (Spanner*)this))
     no_vertical_start = true;
   if (orig_span && (orig_span->broken_into_l_arr_.top () != (Spanner*)this))
     no_vertical_end = true;
-  if (bar_arr.top ()->type_str_.length_i () > 1)
+
+#if 0
+  // FIXME
+  if (bar_arr.top ()->get_elt_property (type_str_.length_i () > 1)
     no_vertical_end = false;
+#endif
 
   Real staff_space = paper_l ()->get_var ("interline");
   Real half_staff_space = staff_space/2;
@@ -62,11 +68,18 @@ Volta_spanner::do_brew_molecule_p () const
   Molecule volta (lookup_l ()->volta (h, w, t, no_vertical_start, no_vertical_end));
 
   
-  Molecule num (lookup_l ()->text ("volta", number_str_, paper_l ()));
-  Real dy = bar_arr.top ()->extent (Y_AXIS) [UP] > 
+  Molecule num (lookup_l ()->text ("volta",
+				   ly_scm2string (get_elt_property("text")),
+				   paper_l ()));
+  Real dy = bar_arr.top ()->extent (Y_AXIS) [UP] >? 
      bar_arr[0]->extent (Y_AXIS) [UP];
   dy += 2 * h;
 
+
+  /*
+    CODE DUPLICATION.
+    FIXME (see axis-group-elt, side-pos interface.)
+   */
   for (int i = 0; i < note_column_arr.size (); i++)
     dy = dy >? note_column_arr[i]->extent (Y_AXIS)[BIGGER];
   dy -= h;
@@ -116,7 +129,6 @@ Volta_spanner::dim_callback (Dimension_cache const *c)
 void
 Volta_spanner::do_post_processing ()
 {
-
   Link_array<Bar> bar_arr
     = Group_interface__extract_elements (this, (Bar*)0, "bars");
   
@@ -124,8 +136,6 @@ Volta_spanner::do_post_processing ()
     translate_axis (bar_arr[0]->extent (Y_AXIS)[UP], Y_AXIS);
   translate_axis (get_broken_left_end_align (), X_AXIS);
 }
-
-
   
 void
 Volta_spanner::add_bar  (Bar* c)

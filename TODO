@@ -10,7 +10,13 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 
 .* TODO
 . * use hash tabs iso. alist_ for elt property?
+. * tremolos.
+. * internationalize GUILE msgs.
+. * unbroken marks.
+. * put  property test  files in refman.
+. * fix slurdotted
 . * alignment within @itemize
+. * slur dashing.
 . * junk dstream output.
 . * agressive type-checking for SCM stuff.
 . * script columns

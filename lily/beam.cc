@@ -14,6 +14,8 @@
     * move paper vars to scm
 
 */
+#include <math.h>		// tanh.
+
 #include "directional-element-interface.hh"
 #include "beaming.hh"
 #include "dimensions.hh"

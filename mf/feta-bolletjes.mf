@@ -20,6 +20,16 @@ fet_begingroup("noteheads");
 
 noteheight#:=interline#+ (1 + overdone_heads) *stafflinethickness#;
 define_pixels(noteheight);
+
+
+%%%%%%%%
+%
+%
+%
+% MENSURAL NOTATION
+%
+%
+%
 brevis_wid# := 2 interline#;
 
 def draw_brevis(expr brevwid) =
@@ -63,6 +73,99 @@ def draw_brevis(expr brevwid) =
 enddef;
 
 
+%
+% Some sources (eg Musix/OpusTeX think that the appendage should be on
+% the left, some say right. Right wins democratically.
+%
+def draw_longa (expr wid) =
+	draw_brevis(wid);
+	save theta;
+
+	x7r = head_width;
+	y7 = y5;
+%	z7 = z5;
+	z6 - z7 = (stem_width/2, -interline);
+	theta = angle(z6-z7)+ 90;
+	penpos7(stem_width, theta);
+	penpos6(1.2 stem_width, theta);
+	
+	fill z7r .. z6r{z6-z7} .. {z7-z6} z6l -- z7l -- cycle;
+	penlabels(6,7);
+enddef;
+
+%
+% En wij presenteren U: de opvolgster van Emily
+%
+% (ze is wel breed)
+% 
+fet_beginchar("Maxima notehead", "-3mensural", "mensuralmaximahead");
+	draw_longa (1.3 brevis_wid#)
+fet_endchar;
+
+fet_beginchar("Longa notehead", "-2mensural", "mensurallongahead");
+	draw_longa (brevis_wid#)
+fet_endchar;
+
+fet_beginchar("Brevis notehead", "-1mensural", "mensuralbrevishead")
+	draw_brevis(brevis_wid#);
+fet_endchar;
+
+def draw_mensural_black_head (expr wid) =
+	save head_width;
+	head_width# = wid;
+	set_char_box (0, head_width#, noteheight#/2, noteheight#/2);
+
+
+	y3 = y1 =0;
+	x2 = x4 = (x1 + x3) /2;
+	define_pixels (head_width);
+	pickup pencircle scaled blot_diameter;
+	top y2 = h;
+	bot y4 = -d;
+	lft x1 = 0;
+	rt x3 = w;
+
+	filldraw z1 -- z2 -- z3 -- z4 -- cycle;
+enddef;
+
+def draw_mensural_open_head (expr wid)=
+	draw_mensural_black_head (wid);
+	save diamNW, diamSW;
+	diamNW = length (z2 - z1) + blot_diameter;
+	diamSW = length (z4 - z1) + blot_diameter;
+	
+	save hole_widthNW, hole_widthSW;
+	hole_widthNW = 0.34 diamNW ;
+	hole_widthSW + 2.6 stafflinethickness = diamSW;
+
+	(z7 + z5)/2 = (w/2, 0);
+	(z8 + z6)/2 = (w/2, 0);
+	(z6 - z5) = hole_widthNW * unitvector (z2 - z1);
+	(z7 - z6) = hole_widthSW * unitvector (z4 - z1);
+
+	labels (1,2,3,4,5,6,7,8);
+
+	unfill z5 -- z6 -- z7 -- z8 --cycle;
+enddef;
+
+fet_beginchar("Mensural open head","0mensural","mensuralminimhead")
+	draw_mensural_open_head (interline#);
+fet_endchar;
+
+fet_beginchar("Mensural open head","1mensural","mensuralsemiminimhead")
+	draw_mensural_open_head (interline#);
+fet_endchar;
+
+fet_beginchar("Mensural black head","2mensural","fusahead")
+	draw_mensural_black_head (interline#);
+fet_endchar;
+
+
+%%%%%%%%%%%%
+%
+%
+% ledger (leger) lines
+%
 fet_beginchar("Ledger ending", "ledgerending", "ledgerending")
 set_char_box (5/2 ledgerlinethickness#, 5/2 ledgerlinethickness#,
   		ledgerlinethickness#/2,ledgerlinethickness#/2);
@@ -81,28 +184,14 @@ set_char_box (5/2 ledgerlinethickness#, 5/2 ledgerlinethickness#,
 	filldraw z1 --- z2 --- z3 --- z4 --- cycle ;
 fet_endchar;
 
-fet_beginchar("Brevis notehead", "-1", "brevishead")
-	draw_brevis(brevis_wid#);
-fet_endchar;
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% Some sources (eg Musix/OpusTeX think that the appendage should be on
-% the right, my only other ref [Willemze], shows an appendage to the left
 %
-fet_beginchar("Longa notehead", "-2", "longahead");
-	draw_brevis(brevis_wid#);
-	save theta;
-	z7 = z5;
-	z6 - z7 = (-stem_width/2, -interline);
-	theta = angle(z6-z7)+ 90;
-	penpos7(stem_width, theta);
-	penpos6(1.2 stem_width, theta);
-	
-	fill z7r .. z6r{z6-z7} .. {z7-z6} z6l -- z7l -- cycle;
-	penlabels(6,7);
-fet_endchar;
-
-
+%
+%
+%
 % TODO: Document these!
 
 % setup user vars
@@ -149,9 +238,7 @@ fi
 		
 	enddef;
 
-% whole note
-% Wanske, p.38
-fet_beginchar("Whole notehead", "0", "wholehead")
+def draw_whole_head =
 	setup_notehead_vars;
 	
 	a_b:=1.80;
@@ -175,6 +262,40 @@ fet_beginchar("Whole notehead", "0", "wholehead")
 	notehead_calc;
 	whole_notehead_width# := wd#;
 	notehead_draw;
+enddef;
+
+
+%
+% dimensions aren't entirely right.
+%
+fet_beginchar ("Brevis notehead", "-1", "brevishead");
+	save stemthick, fudge;
+	define_pixels (stemthick);
+	fudge = blot_diameter /2;
+	stemthick# = 2 stafflinethickness#;
+
+	draw_whole_head;
+
+	pickup pencircle scaled stemthick;
+
+	bot y1 = -d;
+	top y2 = h;
+	rt x1 - fudge = 0;
+	x1 = x2;
+
+	fudge + lft x3 = w;
+	x4 = x3;
+	y4 = y2;
+	y3 = y1;
+
+	draw z1 -- z2;
+	draw z3 -- z4;
+fet_endchar;
+
+% whole note
+% Wanske, p.38
+fet_beginchar("Whole notehead", "0", "wholehead")
+	draw_whole_head;
 fet_endchar;
 
 
@@ -317,7 +438,6 @@ fet_beginchar("Quart diamondhead", "2diamond", "diamondhead")
 	black:=black rotated tilt;
 	black:=black shifted (w/2,0);
 	fill black;
-
 fet_endchar;
 
 fet_beginchar("Crossed notehead", "2cross", "crossedhead")
@@ -332,69 +452,6 @@ fet_beginchar("Crossed notehead", "2cross", "crossedhead")
 	draw (z1 .. z2) yscaled -1;
 fet_endchar
 
-def draw_harmonic_notehead(expr harmwid) =
-	save beamheight, head_width, head_char_width;
-	save stemthick;
-	save thin, thick;
-	save ht;
-	
-	head_width# = harmwid;
-
-	define_pixels(head_width);
-	
-	head_char_width = 1.54 noteheight;
-	head_char_width# := 1.54 ht#;
-
-
-	set_char_box(0, head_width#, head_width#/2, head_width#/2);
-
-	thin = stafflinethickness - blot_diameter/2;
-	thick = 2.2 stafflinethickness - blot_diameter/2;
-	penpos1(thick, 45);
-	penpos2(thin, 315);
-	penpos3(thin, 135);
-	penpos4(thick, 55);
-	penpos5(thick, 225);
-	penpos6(thin, 135);
-	penpos7(thin, 315);
-	penpos8(thick, 235);
-
-	
-	pickup pencircle scaled blot_diameter;
-
-	lft x1l = 0;
-	y1l = 0;
-
-	z2l = z1l;
-
-	bot y3l =  -noteheight/2;
-	x3l = head_width/2;
-	z4l = z3l;
-	rt x5l = head_width;
-	y5l =  0;
-	z6l = z5l;
-
-	top y7l = noteheight/2;
-	x7l = (head_width/2); 
-	z8l = z7l;
-
- 
-	penlabels(1,2,3,4,5,6,7,8);
-	test_grid;
-	filldraw z1l -- z2r -- z7r -- z7l -- cycle;
-	filldraw z1l -- z1r -- z4r -- z4l -- cycle;
-	filldraw z3r -- z3l -- z6l -- z6r -- cycle;
-	filldraw z5r -- z5l -- z8l -- z8r -- cycle;
-enddef;
-
-harmonic_wid# := interline#;
-
-fet_beginchar("Harmonic notehead","2harmonic","harmonichead")
-	draw_harmonic_notehead(harmonic_wid#)
-fet_endchar;
-
-%fi
 
 fet_endgroup("noteheads");
-
 define_pixels(black_notehead_width);

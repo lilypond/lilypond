@@ -46,15 +46,13 @@ Performance::output (Midi_stream& midi_stream)
 
   midi_stream << Midi_header (1, tracks_i, clocks_per_4_i);
   output_header_track (midi_stream);
-  *mlog << "\n";
-  *mlog << _ ("Track ... ");
+  progress_indication ("\n");
+  progress_indication (_ ("Track ... "));
   int channel = 1;
   for (int i =0; i < audio_staff_l_arr_.size (); i++)
     {
-      *mlog << '[' << flush;
       Audio_staff *s = audio_staff_l_arr_[i];
-
-      *mlog << i << flush;
+      progress_indication ("[" + to_str (i)) ;
 
       /*
 	Aargh, let's hear it for the MIDI standard.
@@ -64,7 +62,7 @@ Performance::output (Midi_stream& midi_stream)
       if (channel == 9)
 	channel++;
       s->output (midi_stream, channel++);
-      *mlog << ']' << flush;
+      progress_indication ("]");
     }
 }
 
@@ -171,9 +169,9 @@ Performance::process()
     }
   
   Midi_stream midi_stream (out);
-  *mlog << _f ("MIDI output to %s...", out) << endl;
+  progress_indication ( _f ("MIDI output to %s...", out));
   target_str_global_array.push (out);
 
   output (midi_stream);
-  *mlog << endl;
+  progress_indication("\n");
 }

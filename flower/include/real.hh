@@ -11,11 +11,10 @@
 #define REAL_HH
 
 
-#include <math.h>
 #include <limits.h>
 
 typedef double Real;
-const Real infinity_f = HUGE_VAL;
+extern const Real infinity_f;
 
 template<class T> inline T abs (T x)
 {

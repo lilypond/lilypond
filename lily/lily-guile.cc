@@ -109,6 +109,7 @@ ly_symbol2scm(const char *s)
 String
 ly_symbol2string (SCM s)
 {
+  assert (gh_symbol_p (s));
   return String((Byte*)SCM_CHARS (s), (int) SCM_LENGTH(s));
 }
 
@@ -129,13 +130,13 @@ read_lily_scm_file (String fn)
       error (e);
     }
   else
-    *mlog << '[' << s;
+    progress_indication ("[" + s);
 
 
   Simple_file_storage f(s);
   
   ly_eval_str ((char *) f.ch_C());
-  *mlog << "]" << flush;  
+  progress_indication ("]");
 }
 
 
@@ -152,12 +153,12 @@ ly_gulp_file (SCM name)
       error (e);
     }
   else
-    *mlog << '[' << s;
+    progress_indication ("[" + s );
 
 
   Simple_file_storage f(s);
   SCM result = ly_str02scm (f.ch_C());
-  *mlog << "]";
+  progress_indication ("]");
   return result;
 }
 
@@ -171,6 +172,7 @@ ly_display_scm (SCM s)
 String
 ly_scm2string (SCM s)
 {
+  assert (gh_string_p (s));
   int len; 
   char * p = gh_scm2newstr (s , &len);
   
@@ -296,10 +298,33 @@ scm_to (SCM s, Real* r)
   // urg
   *r = gh_number_p (s) ? gh_scm2double (s) : 0;
 }
-
   
 bool
 to_boolean (SCM s)
 {
   return gh_boolean_p (s) && gh_scm2bool (s);
+}
+
+/*
+  Appendable list L: the cdr contains the list, the car the last cons
+  in the list.
+  
+ */
+
+SCM
+appendable_list ()
+{
+  SCM s = gh_cons (SCM_EOL, SCM_EOL);
+  gh_set_car_x (s, s);
+  
+  return s;
+}
+
+void
+appendable_list_append (SCM l, SCM elt)
+{
+  SCM newcons = gh_cons (elt, SCM_EOL);
+  
+  gh_set_cdr_x (gh_car (l), newcons);      
+  gh_set_car_x (l, newcons);
 }

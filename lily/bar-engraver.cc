@@ -38,17 +38,19 @@ Bar_engraver::create_bar ()
       SCM default_type = get_property ("defaultBarType", 0);
       if (gh_string_p (default_type))
 	{
-	  bar_p_->type_str_ = ly_scm2string (default_type);
+	  bar_p_->set_elt_property ("glyph", default_type); // gu.h
 	}
 
+#if 0
       /*
-	urg.  Why did I implement this?
-       */
+	urg.  Why did I implement this? And did I implement this so
+	clumsily?  */
       SCM prop = get_property ("barAtLineStart", 0);
       if (to_boolean (prop))
 	{
 	  bar_p_->set_elt_property ("at-line-start", SCM_BOOL_T);
 	}
+#endif
       announce_element (Score_element_info (bar_p_, 0));
     }
 }
@@ -73,11 +75,16 @@ Bar_engraver::request_bar (String requested_type)
     {
       return;
     }
-  else if (((requested_type == "|:") && (bar_p_->type_str_ == ":|"))
-    || ((requested_type == ":|") && (bar_p_->type_str_ == "|:")))
-    bar_p_->type_str_ = ":|:";
-  else
-    bar_p_->type_str_ = requested_type;
+
+  String current = ly_scm2string (bar_p_->get_elt_property ("glyph"));
+  
+  if ((requested_type == "|:" && current== ":|")
+    || (requested_type == ":|" && current == "|:"))
+    requested_type = ":|:";
+
+  
+  bar_p_->set_elt_property ("glyph",
+			    ly_str02scm (requested_type.ch_C ()));
 }
 
 void 
@@ -106,7 +113,7 @@ Bar_engraver::do_process_requests()
   if (which.length_i ())
     {
       create_bar();
-      bar_p_->type_str_ = which;
+      bar_p_->set_elt_property ("glyph",  ly_str02scm (which.ch_C ()));
     }
   
   if (!bar_p_)

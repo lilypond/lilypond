@@ -18,12 +18,8 @@
 class Text_item : public Item
 {
 public:
-  // junkme.
-  String text_str_;
-
   VIRTUAL_COPY_CONS (Score_element);
 protected:
-  virtual void do_print () const;
   virtual Molecule *do_brew_molecule_p () const;
 };
 

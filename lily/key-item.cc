@@ -22,7 +22,6 @@ const int SHARP_TOP_PITCH=4; /*  ais and bis typeset in lower octave */
 
 Key_item::Key_item ()
 {
-  multi_octave_b_ = false;
   set_elt_property ("breakable", SCM_BOOL_T);
   set_c_position (0);
 }
@@ -63,7 +62,7 @@ Key_item::add_old (int p, int a)
 int
 Key_item::calculate_position(int p, int a) const
 {
-  if (multi_octave_b_) 
+  if (to_boolean (get_elt_property ("multi-octave")))
     {
       return p + c0_position_;
     }

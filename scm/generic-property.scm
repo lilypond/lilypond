@@ -68,7 +68,7 @@
 (define staff-symbol-properties
   (cons "Staff_symbol" (list
 			(list 'numberOfStaffLines number? 'line-count)
-			(list 'staffLineLeading number? 'staff-space)
+			(list 'staffSpace number? 'staff-space)
 			)
 	)
   )

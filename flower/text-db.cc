@@ -1,4 +1,6 @@
+#include <iostream.h>
 #include "text-db.hh"
+
 bool
 Text_db::eof_b ()
 {
@@ -49,3 +51,8 @@ Text_db::get_record()
 }
 
 
+void
+Text_record::message (String s)
+{
+  cerr << '\n'<< filename << ": "<< line_no << s << "\n";
+}	       

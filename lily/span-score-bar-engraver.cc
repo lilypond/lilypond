@@ -16,7 +16,7 @@ Span_bar*
 Span_score_bar_engraver::get_span_bar_p () const
 {
   Span_bar*s =  new Span_bar;
-  s->type_str_ = "scorebar";
+  s->set_elt_property ("glyph",  gh_str02scm ("scorebar"));
   s->set_elt_property ("break-aligned",SCM_BOOL_T);
 
   return s;
@@ -33,7 +33,7 @@ Piano_bar_engraver::get_span_bar_p () const
 {
   Span_bar *s= new Span_bar;
   s->set_empty (X_AXIS);
-  s->type_str_ = "brace";
+  s->set_elt_property ("glyph", gh_str02scm ("brace"));
   return s;
 }
 
@@ -42,7 +42,7 @@ Staff_group_bar_engraver::get_span_bar_p () const
 {
   Span_bar *s= new Span_bar;
   s->set_empty (X_AXIS);
-  s->type_str_ = "bracket";
+  s->set_elt_property ("glyph",  gh_str02scm ("bracket"));
   return s;
 }
 
@@ -52,7 +52,8 @@ Staff_group_bar_engraver::acknowledge_element (Score_element_info i)
   Base_span_bar_engraver::acknowledge_element (i);
   if (Span_bar * b = dynamic_cast<Span_bar *> (i.elem_l_))
     {
-      if (b->type_str_ == "brace")
+      SCM gl = b->get_elt_property ("glyph");
+      if (gh_string_p (gl) && ly_scm2string (gl)  == "brace")
 	b->translate_axis ( -paper_l ()->get_var ("interline"),
 			    X_AXIS); // ugh
     }

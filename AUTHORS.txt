@@ -52,7 +52,8 @@ list is alphabetically ordered.
    * Alexandre Oliva <oliva@dcc.unicamp.br>,
      `http://sunsite.unicamp.br/~oliva/'     testing
 
-   * Francois Pinard <pinard@iro.umontreal.ca>,     parts of
+   * Francois Pinard <pinard@iro.umontreal.ca>,
+     `http://www.iro.umontreal.ca/~pinard/'     parts of
      Documentation/Vocab*, started internationalization stuff
 
    * Stephen Peters <portnoy@ai.mit.edu>, pdfTeX support

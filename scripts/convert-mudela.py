@@ -405,6 +405,13 @@ if 1:
 
 	conversions.append ((1,3,17), conv, 'stemStyle -> flagStyle')
 
+if 1:
+	def conv (str):
+		return re.sub ('staffLineLeading'
+			       'staffSpace',
+			       str)
+	conversions.append ((1,3,18), conv, "staffLineLeading -> staffSpace")
+
 ############################
 	
 

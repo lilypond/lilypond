@@ -74,14 +74,14 @@ def draw_c_clef (expr reduction) =
 	draw_flare(z7r,180,-90,hair,norm-1/2hair);
 	enddef;
 
-fet_beginchar ("C clef", "alto", "altoclef")
+fet_beginchar ("C clef", "C", "altoclef")
 	if test = 1:
 		draw_staff (-2,2);
 	fi;
 	draw_c_clef (1.0);
 fet_endchar;
 
-fet_beginchar ("C clef", "alto_change", "caltoclef")
+fet_beginchar ("C clef", "C_change", "caltoclef")
 	if test = 1:
 		draw_staff (-2,2);
 	fi;
@@ -99,7 +99,7 @@ fet_endchar;
 % [Wanske] says that the extreme x point should be exactly between 
 % the dots, but her picture shows that the extreme is ~ 0.2 ss lower
 
-def draw_bass_klef(expr exact_center, reduction) = 
+def draw_bass_clef(expr exact_center, reduction) = 
 	save reduced_il, left_tilt, left_thick, ball_to_right;
 	reduced_il# = interline# * reduction;
 	
@@ -154,14 +154,14 @@ enddef;
 
 
 
-fet_beginchar("F clef ", "bass", "bassclef")
+fet_beginchar("F clef ", "F", "bassclef")
 	if test = 1:
 		draw_staff(-3,1);
 	fi;
-	draw_bass_klef((.5 interline#, 0), 1.0);
+	draw_bass_clef((.5 interline#, 0), 1.0);
 fet_endchar;
-fet_beginchar("F clef (reduced)", "bass_change", "cbassclef")
-	draw_bass_klef((.4 interline#, 0),0.8);
+fet_beginchar("F clef (reduced)", "F_change", "cbassclef")
+	draw_bass_clef((.4 interline#, 0),0.8);
 fet_endchar;
 
 
@@ -182,6 +182,9 @@ fet_endchar;
 % Ikzelf heb bijvoorbeeld over mijn eerste gave G-sleutel
 % 35 kilobyte metafont, 12 patchlevels, 0 vriendinnen en 45 dagen gedaan
 %
+%  -- vrij naar Van Kooten & De Bie
+%
+
 def draw_gclef (expr exact_center, reduction)=
 	save reduced_il, downstroke_dir, downstroke_angle, hair, center;
 	save breapth_factor, inner_thick_end, thinness, thickness, thinnib;
@@ -295,13 +298,13 @@ def draw_gclef (expr exact_center, reduction)=
 enddef;
 
 
-fet_beginchar("G clef", "treble", "trebleclef")
+fet_beginchar("G clef", "G", "trebleclef")
 	if test = 1:
 		draw_staff(-1,3);
 	fi;
 	draw_gclef((1.7 interline#,0), 1.0);
 fet_endchar;
-fet_beginchar("G clef", "treble_change", "ctrebleclef")
+fet_beginchar("G clef", "G_change", "ctrebleclef")
 	draw_gclef((1.3 interline#,0), .8);
 fet_endchar;
 

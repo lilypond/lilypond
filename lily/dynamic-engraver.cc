@@ -109,7 +109,8 @@ Dynamic_engraver::do_process_requests()
 	  String loud = absd->text_str_;
 
 	  text_p_ = new Text_item;
-	  text_p_->text_str_ =  loud; // ugh
+	  text_p_->set_elt_property ("text",
+				     ly_str02scm (loud.ch_C()));
 	  text_p_->set_elt_property ("style", gh_str02scm ("dynamic"));
 	  text_p_->set_elt_property ("script-priority",
 				     gh_int2scm (100));
@@ -165,7 +166,10 @@ Dynamic_engraver::do_process_requests()
 	      cresc_req_l_ = span_l;
 	      assert (!new_cresc_p);
 	      new_cresc_p  = new Crescendo;
-	      new_cresc_p->grow_dir_ = (span_l->span_type_str_ == "crescendo")  ? BIGGER : SMALLER;
+	      new_cresc_p
+		->set_elt_property ("grow-direction",
+				    gh_int2scm ((span_l->span_type_str_ == "crescendo") ? BIGGER : SMALLER));
+	      
 	      new_cresc_p->set_elt_property ("staff-support", SCM_BOOL_T);
 
 
@@ -192,9 +196,11 @@ Dynamic_engraver::do_process_requests()
 
       if (text_p_)
 	{
-	  cresc_p_->dyn_b_drul_[LEFT] = true;
+	  index_set_cell (cresc_p_->get_elt_property ("dynamic-drul"),
+			  LEFT, SCM_BOOL_T);
 	  if (to_end_cresc_p_)
-	    to_end_cresc_p_->dyn_b_drul_[RIGHT] = true;
+	    index_set_cell (to_end_cresc_p_->get_elt_property ("dynamic-drul"),
+			    RIGHT, SCM_BOOL_T);
 	}
     }
 }

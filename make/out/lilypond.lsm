@@ -1,15 +1,15 @@
 Begin3
 Title: LilyPond
-Version: 1.3.17
-Entered-date: 24DEC99
+Version: 1.3.18
+Entered-date: 28DEC99
 Description: 
 Keywords: music notation typesetting midi fonts engraving
 Author: hanwen@cs.uu.nl (Han-Wen Nienhuys)
 	janneke@gnu.org (Jan Nieuwenhuizen)
 Maintained-by: hanwen@stack.nl (Han-Wen Nienhuys)
 Primary-site: sunsite.unc.edu /pub/Linux/apps/sound/convert
-	1000k lilypond-1.3.17.tar.gz 
+	1000k lilypond-1.3.18.tar.gz 
 Original-site: ftp.cs.uu.nl /pub/GNU/LilyPond/development/
-	1000k lilypond-1.3.17.tar.gz 
+	1000k lilypond-1.3.18.tar.gz 
 Copying-policy: GPL
 End

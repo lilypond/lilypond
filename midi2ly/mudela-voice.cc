@@ -43,7 +43,6 @@ Mudela_voice::get_clef () const
   if (!n)
     return "";
 
-  const int c0_pitch = 60;
   int p = n->pitch_i_;
 
   if (p < 56)

@@ -24,14 +24,6 @@ public:
  
   void add_column (Note_column*);
   void add_beam (Beam*);
-  
-  /*
-    JUNKME.
-   */
-  String  number_str_;
-
-  bool parallel_beam_b_;
-  
 protected:
   virtual Molecule* do_brew_molecule_p () const;
   VIRTUAL_COPY_CONS(Score_element);

@@ -6,6 +6,8 @@
 #ifndef MIDI2LY_GLOBAL_HH
 #define MIDI2LY_GLOBAL_HH
 
+#include <iostream.h>
+
 #include "string.hh"
 #include "proto.hh"
 

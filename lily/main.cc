@@ -16,7 +16,6 @@
 
 #include "all-font-metrics.hh"
 #include "proto.hh"
-#include "dimensions.hh"
 #include "getopt-long.hh"
 #include "misc.hh"
 #include "string.hh"
@@ -305,7 +304,7 @@ main (int argc, char **argv)
 	  break;
 	case 't':
 	  experimental_features_global_b = true;
-	  *mlog << "*** enabling experimental features, you're on your own now ***\n";
+	  progress_indication ("*** enabling experimental features, you're on your own now ***\n");
 	  break;
 	case 'o':
 	  outname_str_global = oparser_global_p->optional_argument_ch_C_;

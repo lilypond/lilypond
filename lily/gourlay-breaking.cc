@@ -5,6 +5,7 @@
 
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+#include <math.h>		// rint
 
 #include "gourlay-breaking.hh"
 #include "column-x-positions.hh"
@@ -127,14 +128,15 @@ Gourlay_breaking::do_solve () const
       optimal_paths[break_idx].line_i_ = optimal_paths[prev].line_i_ + 1;
 
       if (! (break_idx % HAPPY_DOTS_I))
-	*mlog << "[" << break_idx << "]" << flush;
+	progress_indication (String ("[") + to_str (break_idx) + "]");
     }
 
   /* do the last one */
-  if  (break_idx % HAPPY_DOTS_I) 
-    *mlog << "[" << break_idx << "]";
+  if  (break_idx % HAPPY_DOTS_I)
+	progress_indication (String ("[") + to_str (break_idx) + "]");    
 
-  *mlog << endl;
+
+  progress_indication ("\n");
 
   Array<int> final_breaks;
   Array<Column_x_positions> lines;

@@ -23,7 +23,7 @@ Rests.  Note that the dot of 8th, 16th and 32nd rests rest should be
 next to the top of the rest.  All rests except the whole rest are
 centered on the middle staff line.  
 
-@mudelafile{rest.fly}
+@mudelafile{rest.ly}
 
 Note head shapes are settable.  The stem endings should be adjusted
 per note head.  If you want different note head styles on one stem,

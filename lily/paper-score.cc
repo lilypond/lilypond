@@ -112,12 +112,12 @@ Paper_score::process ()
 {
 
   print ();
-  *mlog << _ ("Preprocessing elements...") << " " << flush;
+  progress_indication (_ ("Preprocessing elements...") + " ");
   line_l_->breakable_col_processing ();
   fixup_refpoints ();
   line_l_->pre_processing ();
   
-  *mlog << '\n' << _ ("Calculating column positions...") << " " << flush;
+  progress_indication ("\n" + _ ("Calculating column positions...") + " " );
   line_l_->space_processing ();
 
   Array<Column_x_positions> breaking = calc_breaking ();

@@ -27,6 +27,13 @@ FontBody=	\notes\transpose c''{
 		e8_. g'8-> e16^^ g'16_^ 
 		e32 _| g'32^| g''32-\ltoe g''32-\lheel
 		e64-\rtoe g'64-\rheel c4... |
+\context Voice = mensural \relative c'' {
+\property Voice . noteHeadStyle = "mensural"
+\property Voice. stemCentered = ##t
+c\maxima*1/8
+c\longa*1/4 c\breve*1/2 c1 c2 c4 c8 
+}
+			\property Voice . noteHeadStyle = "harmonic"
 
 		\transpose c'{
 			\time 4/4;
@@ -35,7 +42,6 @@ FontBody=	\notes\transpose c''{
 			c1^"1" d2^"2" e4^"3"
 			\property Voice . noteHeadStyle = "cross"
 						 f4^"4"
-			\property Voice . noteHeadStyle = "harmonic"
 						  g4^"5"
 			\property Voice . noteHeadStyle = ""
 			% Music to the Martians!

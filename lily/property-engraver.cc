@@ -68,7 +68,7 @@ Property_engraver::apply_properties (SCM p, Score_element *e)
       if (val != SCM_UNDEFINED
 	  && gh_apply (type_p, scm_listify (val, SCM_UNDEFINED))
 	  == SCM_BOOL_T)
-	e->set_elt_property (ly_scm2string (elt_prop_name), val);
+	e->set_elt_property (ly_symbol2string (elt_prop_name), val);
     }
 }
 

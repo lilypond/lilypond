@@ -3,6 +3,7 @@
 //
 // copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
 
+#include <iostream.h>
 #include <assert.h>
 #include <locale.h>
 #include "config.h"
@@ -91,9 +92,9 @@ Long_option_init long_option_init_a[] =
   {0, "debug", 'd', _i ("enable debugging output")},
   {0, "help", 'h', _i ("this help")},
   {_i ("ACC[:MINOR]"), "key", 'k', _i ("set key: ACC +sharps/-flats; :1 minor")},
-  {0, "no-silly", 'n', _i ("assume no tuplets or double dots, smallest is 32")},
+  {0, "no-silly", 'n', _i ("don't output tuplets or double dots, smallest is 32")},
   {_i ("FILE"), "output", 'o', _i ("set FILE as default output")},
-  {0, "no-tuplets", 'p', _i ("assume no tuplets")},
+  {0, "no-tuplets", 'p', _i ("don't output tuplets")},
   {0, "quiet", 'q', _i ("be quiet")},
   {_i ("DUR"), "smallest", 's', _i ("set smallest duration")},
   {0, "no-timestamps", 'T', _i ("don't timestamp the output")},

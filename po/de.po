@@ -304,18 +304,6 @@ msgstr "Kann Datei `%s' nicht finden"
 msgid "(search path: `%s')"
 msgstr "(Suchpfad: `%s')"
 
-#: ineq-constrained-qp.cc:169
-#, c-format
-msgid "Ineq_constrained_qp::solve (): Constraint off by %f"
-msgstr "Ineq_constrained_qp::solve (): Constraint um %f verfehlt"
-
-#: ineq-constrained-qp.cc:233
-msgid "didn't converge!"
-msgstr "Keine Konvergenz!"
-
-#: ineq-constrained-qp.cc:235
-msgid "Too much degeneracy. "
-msgstr "Zu viel Verkommenheit."
 
 #: key-def.cc:31
 msgid "No key name: assuming `C'"

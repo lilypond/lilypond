@@ -10,13 +10,12 @@
 #ifndef VIRTUAL_METHODS_HH
 #define VIRTUAL_METHODS_HH
 
-#include <typeinfo>
 #include "stdlib.h"		// size_t
 
-#define classname(class_ptr)   demangle_classname(typeid(*(class_ptr)).name())
+#define classname(class_ptr)   demangle_classname(typeid(*(class_ptr)))
 
 const char *
-demangle_classname (const char*);
+demangle_classname (type_info const &);
 
 /**
 

@@ -30,7 +30,9 @@ Interval
 Span_bar::width_callback (Dimension_cache const * c)
 {
   Span_bar*  s= dynamic_cast<Span_bar*> (c->element_l ());  
-  Molecule m = s->lookup_l ()->bar (s->type_str_, 40 PT, s->paper_l ());
+  String gl = ly_scm2string (s->get_elt_property ("glyph"));
+  
+  Molecule m = s->lookup_l ()->bar (gl, 40 PT, s->paper_l ());
   
   return m.extent (X_AXIS);
 }
@@ -63,24 +65,29 @@ Span_bar::evaluate_empty ()
       set_empty (X_AXIS);
       set_empty (Y_AXIS);   
     }
-  if (type_str_.empty_b ()) 
+
+  SCM gl = get_elt_property ("glyph");
+  if (!gh_string_p (gl))
     {
       set_elt_property ("transparent", SCM_BOOL_T);
       set_empty (X_AXIS);
       set_empty (Y_AXIS);   
     }
-  else if (type_str_ == "|:") 
+  else {
+    String type_str = ly_scm2string (gl);
+    if (type_str == "|:") 
     {
-      type_str_ = ".|";
+      type_str= ".|";
     }
-  else if (type_str_ == ":|")
+  else if (type_str== ":|")
     {
-      type_str_ = "|.";
+      type_str= "|.";
     }
-  else if (type_str_ == ":|:")
+  else if (type_str== ":|:")
     {
-      type_str_ = ".|.";
+      type_str= ".|.";
     }
+  }
 }
 
 Interval
@@ -121,9 +128,12 @@ Span_bar::do_brew_molecule_p () const
 {
   Interval iv (get_spanned_interval ());
   Molecule*output = new Molecule;
-  if (!iv.empty_b())
+  SCM s = get_elt_property ("glyph");
+  if (gh_string_p (s) && !iv.empty_b())
     {
-      output->add_molecule (lookup_l ()->bar (type_str_, iv.length (), paper_l ()));
+      output->add_molecule (lookup_l ()->bar (ly_scm2string (s),
+					      iv.length (),
+					      paper_l ()));
     }
   else
     {
@@ -136,7 +146,6 @@ Span_bar::do_brew_molecule_p () const
 
 Span_bar::Span_bar ()
 {
-  type_str_ = "";
   dim_cache_[X_AXIS]->set_callback (width_callback);
   dim_cache_[Y_AXIS]->set_callback (height_callback);  
 }

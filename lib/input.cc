@@ -5,6 +5,7 @@
 
  (c) 1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+#include <iostream.h>
 #include "proto.hh"
 #include "input.hh"
 #include "string.hh"

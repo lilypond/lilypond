@@ -66,8 +66,9 @@ Base_span_bar_engraver::acknowledge_element (Score_element_info i)
 	    }
 	  
 	  announce_element (Score_element_info (spanbar_p_,0));
-	  if (spanbar_p_->type_str_.empty_b ())
-	    spanbar_p_-> type_str_ = bar_l_arr_[0]->type_str_;
+	  if (!gh_string_p (spanbar_p_->get_elt_property ("glyph")))
+	    spanbar_p_-> set_elt_property ("glyph",
+					   bar_l_arr_[0]->get_elt_property ("glyph"));
 	}
     }
 }

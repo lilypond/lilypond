@@ -6,15 +6,12 @@
 #define DEBUG_HH
 
 #include <assert.h>
-#include <iostream.h>
 #include "dstream.hh"
 #include "real.hh"
 #include "lily-proto.hh"
 #include "flower-debug.hh"
 #include "warn.hh"
 
-// progress
-extern ostream *mlog;
-
+void progress_indication (String);
 
 #endif

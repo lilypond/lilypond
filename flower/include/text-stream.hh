@@ -60,12 +60,8 @@ public:
     return line_no;
   }
 
-  ~Text_stream(){
-    if (!eof_b()) 
-      cerr <<__FUNCTION__<< ": closing unended file";
-    
-    fclose (f);
-  }
+  ~Text_stream();
+  
 
   /// GNU format message.
   void message (String s); 

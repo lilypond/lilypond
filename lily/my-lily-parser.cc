@@ -58,7 +58,7 @@ My_lily_parser::parse_file (String init, String s)
   init_str_ = init;
   lexer_p_->main_input_str_ = s;
 
-  *mlog << _ ("Parsing...");
+  progress_indication (_("Parsing..."));
 
   init_parse_b_ = false;
   set_yydebug (flower_dstream &&!flower_dstream->silent_b ("Parser"));

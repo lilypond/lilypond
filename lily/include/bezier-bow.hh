@@ -34,7 +34,13 @@ class Bezier_bow
   Real alpha_;
   Offset origin_;
 public:
-  Bezier_bow (Paper_def* paper_l, Array<Offset> points, Direction dir);
+  Real  rc_factor_,
+    height_limit_,
+    ratio_;
+
+
+  Bezier_bow (Array<Offset> points, Direction dir);
+  void calculate ();
   Bezier get_curve () const;
 };
 
