@@ -15,16 +15,18 @@ Staff::add(PointerList<Voice*> &l)
 }
 
 void
-Staff::process_commands(Moment l)
+Staff::truncate_cols(Moment l)
 {
-    if (staff_commands_)
-	staff_commands_->clean(l);
+    iter_bot(cols, i);
+    for (; i->when() > l; i=cols.bottom()) {
+	i.del();
+    }
 }
 
 Paperdef*
 Staff::paper() const
 {
-    return score_->paper_;
+    return score_l_->paper_p_;
 }
 
 void
@@ -32,7 +34,7 @@ Staff::clean_cols()
 {
     iter_top(cols,i);
     for(; i.ok(); ){
-	if (!i->score_column->used())
+	if (!i->score_column_l_->used())
 	    i.del();
 	else
 	    i++;
@@ -42,18 +44,18 @@ Staff::clean_cols()
 Staff_column *
 Staff::get_col(Moment w, bool mus)
 {
-    Score_column* sc = score_->find_col(w,mus);
-    assert(sc->when == w);
+    Score_column* sc = score_l_->find_col(w,mus);
     
     iter_top(cols,i);
     for (; i.ok(); i++) {
-	if (*i->score_column > *sc) // too far
+
+	if (*i->score_column_l_ > *sc) // too far
 	    break;
-	if (sc == i->score_column)
+	if (sc == i->score_column_l_)
 	    return i;
     }
 
-    /* post: *sc > *->score_column || !i.ok() */
+    /* post: *sc > *->score_column_l_ || !i.ok() */
     Staff_column* newst = create_col(sc);
 
     if (!i.ok()) {
@@ -66,8 +68,6 @@ Staff::get_col(Moment w, bool mus)
 	return newst;
     }
 
-//  ;  assert((i-1).ok())
-    // todo!
     
     // making a fix at 2:30 am, with several beers drunk.
     // but it works :-)
@@ -97,28 +97,24 @@ Staff::setup_staffcols()
 	    now += ve->duration;	    
 	}	
     }
-
-    for (iter_top(*staff_commands_,cc); cc.ok(); cc++) {
-	Staff_column *sc=get_col(cc->tdescription_.when,false);
-	sc->s_commands = cc;
-	sc->tdescription_ = new Time_description(cc->tdescription_);
-    }
-
-    iter_top(*staff_commands_,cc);
-    for (iter_top(cols,i); i.ok(); i++) {
-	while  ((cc+1).ok() && (cc+1)->when() < i->when())
-	    cc++;
-
-	if(!i->tdescription_) {
-	    if (cc->tdescription_.when == i->when())
-		i->tdescription_ = new Time_description(cc->tdescription_);
-	    else
-		i->tdescription_ = new Time_description(
-		    i->when() - cc->when() ,&cc->tdescription_);
-	}
-    }
+    set_time_descriptions();
 }
 
+void
+Staff::set_time_descriptions()
+{
+    Time_description t(0,0);
+    for (iter_top(cols,i); i.ok(); i++) {
+	if (i->staff_commands_p_)
+	    t = i->staff_commands_p_->tdescription_;
+	else if (i->tdescription_)
+	    t = *i->tdescription_;
+	if(!i->tdescription_) {
+	    i->tdescription_ = new Time_description(i->when() - t.when ,&t);
+	}
+    }
+
+}
 void
 Staff::process()
 {
@@ -133,7 +129,7 @@ Staff::OK() const
 #ifndef NDEBUG
     cols.OK();
     voices.OK();
-    assert(score_);    
+    assert(score_l_);
 #endif    
 }
 
@@ -157,15 +153,12 @@ Staff::print() const
     for (iter_top(voices,i); i.ok(); i++) {
 	i->print();	
     }
-    if (staff_commands_)
-	staff_commands_->print();
     mtor <<"}\n";
 #endif
 }
 
 Staff::Staff()
 {    
-    staff_commands_ = 0;
-    score_ =0;
-    pscore_=0;    
+    score_l_ =0;
+    pscore_l_ =0;    
 }
