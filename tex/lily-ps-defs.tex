@@ -11,12 +11,6 @@
 %
 \def\PSsetTeXdimen#1{\expandafter\special{! /#1 (\csname #1\endcsname) set_tex_dimen}}
 \def\lilySpace{ }
-
-% PostScript PT/IN: 72/25.4
-\def\scaletounit{ 2.834645 mul }
-
-% for true printers points to postscript points: 
-%\def\scaletounit{1.00375}
 \def\turnOnPostScript{%
         % This sets CTM so that you get to the currentpoint
         % by executing a 0 0 moveto

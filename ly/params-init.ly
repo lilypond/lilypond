@@ -18,12 +18,14 @@ paperfile = \papersize + "-init.ly"
 \include \paperfile
 \include "paper-init.ly"
 
+unit = "mm"
 staffspace = \staffheight / 4.0
 stafflinethickness = \staffspace / 10.0
 outputscale = \staffheight / 4.0
 
 % blotdiameter = 0.4 \pt
 blotdiameter = 0.04 \pt
+interscoreline = 4. \mm
 
 
 \translator { \NoteNamesContext }

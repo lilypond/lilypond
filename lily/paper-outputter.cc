@@ -127,9 +127,8 @@ Paper_outputter::output_version ()
 
   output_String_def ("lilypondtagline", id_str);
   output_String_def ("LilyPondVersion", version_str ());
+  output_String_def ("lilypondpaperunit", String (INTERNAL_UNIT));  
 }
-
-
 
 
 void

@@ -23,6 +23,9 @@ const Real PT_TO_MM = (1.0/MM_TO_PT);
 #define BIGPOINT *BIGPOINT_TO_POINT
 #define CHAR *CHAR_TO_PT
 
+
+#define INTERNAL_UNIT "pt"
+
 #else	// mm
 
 #define PT  *PT_TO_PT *PT_TO_MM
@@ -31,6 +34,7 @@ const Real PT_TO_MM = (1.0/MM_TO_PT);
 #define INCH *INCH_TO_PT *PT_TO_MM
 #define BIGPOINT *BIGPOINT_TO_POINT *PT_TO_MM
 #define CHAR *CHAR_TO_PT *PT_TO_MM
+#define INTERNAL_UNIT "mm"
 
 #endif
 
