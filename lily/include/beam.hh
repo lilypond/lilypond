@@ -26,7 +26,10 @@ public:
   static void set_beaming (Grob*,Beaming_info_list *);
   static void set_stemlens (Grob*);
   static int get_beam_count (Grob*me);
+
   static Real get_beam_translation (Grob*me);
+  static Real get_thickness (Grob*me);
+
   static void connect_beams (Grob*me);
   DECLARE_SCHEME_CALLBACK (space_function, (SCM, SCM));
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM));

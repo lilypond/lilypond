@@ -1,3 +1,20 @@
+2002-09-07  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* ly/performer-init.ly (ScoreContext): add Timing alias
+
+	* lily/translator-def.cc (Translator_def): copy alias list too.
+
+	* lily/stem.cc (height): add half beam thickness for beamed stems.
+	This fixes tuplet bracket vertical offsets on beams.
+	
+	* lily/text-spanner-engraver.cc (stop_translation_timestep): small
+	cleanups; only hang spanner on paper-columns if there are no
+	note-columns to hang on. Also hang finished spanner on the last
+	note.
+
+	* lily/tuplet-bracket.cc (calc_position_and_height): only quantize
+	inside staff.
+
 2002-09-07  Rune Zedeler  <rune@zedeler.dk>
 
 	* scm/output-lib.scm: (default-bar-number-visibility) added

@@ -62,7 +62,7 @@ Translator_def::Translator_def (Translator_def const & s)
   end_consists_name_list_ = scm_list_copy (s.end_consists_name_list_);
   accepts_name_list_ = scm_list_copy (s.accepts_name_list_);
   property_ops_ = scm_list_copy (s.property_ops_);
-  type_aliases_ = s.type_aliases_;
+  type_aliases_ = scm_list_copy (s.type_aliases_);
   translator_group_type_ = s.translator_group_type_;
   type_name_ = s.type_name_;
 }

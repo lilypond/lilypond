@@ -29,7 +29,7 @@ protected:
   virtual bool try_music (Music *);
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
-  virtual void process_acknowledged_grobs ();
+  virtual void process_music ();
 
 private:
   Spanner *span_;
@@ -82,7 +82,7 @@ Text_spanner_engraver::try_music (Music *m)
 }
 
 void
-Text_spanner_engraver::process_acknowledged_grobs ()
+Text_spanner_engraver::process_music ()
 {
   if (req_drul_[STOP])
     {
@@ -93,14 +93,9 @@ Text_spanner_engraver::process_acknowledged_grobs ()
 	}
       else
 	{
-	  assert (!finished_);
-	  Grob* e = unsmob_grob (get_property ("currentMusicalColumn"));
-	  span_->set_bound (RIGHT, e);
-
 	  finished_ = span_;
 	  span_ = 0;
 	  current_req_ = 0;
-	  req_drul_[STOP] = 0;
 	}
     }
 
@@ -108,8 +103,7 @@ Text_spanner_engraver::process_acknowledged_grobs ()
     {
       if (current_req_)
 	{
-	  req_drul_[START]->origin ()->warning
- (_ ("already have a text spanner"));
+	  req_drul_[START]->origin ()->warning(_ ("already have a text spanner"));
 	}
       else
 	{
@@ -122,9 +116,6 @@ Text_spanner_engraver::process_acknowledged_grobs ()
 	  span_->set_grob_property ("width-correct", gh_double2scm (0));
 	  	    
 	  Side_position_interface::set_axis (span_, Y_AXIS);
-	  Grob *e = unsmob_grob (get_property ("currentMusicalColumn"));
-	  span_->set_bound (LEFT, e);
-	  
 	  announce_grob (span_, req_drul_[START]->self_scm());
 	  req_drul_[START] = 0;
 	}
@@ -134,10 +125,14 @@ Text_spanner_engraver::process_acknowledged_grobs ()
 void
 Text_spanner_engraver::acknowledge_grob (Grob_info info)
 {
-  if (span_ && Note_column::has_interface (info.grob_))
+  Spanner * spans[2] ={span_, finished_};
+  for (int i = 0;  i < 2 ; i++)
     {
-      Side_position_interface::add_support (span_, info.grob_);
-      add_bound_item (span_, dynamic_cast<Item*> (info.grob_));
+      if (spans[i] && Note_column::has_interface (info.grob_))
+	{
+	  Side_position_interface::add_support (spans[i], info.grob_);
+	  add_bound_item (spans[i], dynamic_cast<Item*> (info.grob_));
+	}
     }
 }
 
@@ -147,6 +142,12 @@ Text_spanner_engraver::typeset_all ()
   if (finished_)
     {
       Side_position_interface::add_staff_support (finished_);
+
+      if (!finished_->get_bound (RIGHT))
+	{
+	  Grob* e = unsmob_grob (get_property ("currentMusicalColumn"));
+	  span_->set_bound (RIGHT, e);
+	}
       typeset_grob (finished_);
       finished_ = 0;
     }
@@ -155,6 +156,12 @@ Text_spanner_engraver::typeset_all ()
 void
 Text_spanner_engraver::stop_translation_timestep ()
 {
+  if (span_ && !span_->get_bound (LEFT))
+    {
+      Grob* e = unsmob_grob (get_property ("currentMusicalColumn"));
+      span_->set_bound (LEFT, e);
+    }
+
   typeset_all ();
 }
 
@@ -171,7 +178,7 @@ Text_spanner_engraver::finalize ()
 }
 
 ENTER_DESCRIPTION(Text_spanner_engraver,
-/* descr */       "Create text spanner from a  Span_req ",
+/* descr */       "Create text spanner from a Span_req.",
 /* creats*/       "TextSpanner",
 /* acks  */       "note-column-interface",
 /* reads */       "",

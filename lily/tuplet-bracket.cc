@@ -308,7 +308,7 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
     {
       Real notey = columns[i]->extent (commony, Y_AXIS)[dir] 
 	- me->relative_coordinate (commony, Y_AXIS);
-
+      
       Real x = columns[i]->relative_coordinate (commonx, X_AXIS) - x0;
       Real tuplety =  *dy * x * factor;
 
@@ -322,11 +322,12 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
   
   /*
     horizontal brackets should not collide with staff lines.
+    
    */
-  if (*dy == 0)
+  Real ss= Staff_symbol_referencer::staff_space (me);
+  if (*dy == 0 && fabs (*offset) <  ss * Staff_symbol_referencer::staff_radius (me))
     {
       // quantize, then do collision check.
-      Real ss= Staff_symbol_referencer::staff_space (me);
       *offset *= 2 / ss;
       
       *offset = rint (*offset);

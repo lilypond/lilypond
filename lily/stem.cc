@@ -516,6 +516,12 @@ Stem::height (SCM smob, SCM ax)
   Interval iv;
   if (mol != SCM_EOL)
     iv = unsmob_molecule (mol)->extent (a);
+  if (Grob *b =get_beam (me))
+    {
+      Direction d = get_direction (me);
+      iv[d] += d * Beam::get_thickness (b) /2.0 ;
+    }
+
   return ly_interval2scm (iv);
 }
 

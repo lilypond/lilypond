@@ -115,7 +115,7 @@ ScoreContext = \translator {
 	\accepts ChoirStaff
 	\accepts RhythmicStaff
 	\accepts ChordNames
-
+	\alias "Timing"
 	\consists "Timing_translator"
 	\consists "Swallow_performer"
 	

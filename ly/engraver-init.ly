@@ -352,7 +352,7 @@ ScoreContext = \translator {
 
 	%% TODO? add this alias from Timing_engraver::initialize() ? 
 	\consists "Timing_engraver"
-	\alias Timing
+	\alias "Timing"
 	
 	\consists "Output_property_engraver"
 	\consists "System_start_delimiter_engraver"

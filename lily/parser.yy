@@ -241,7 +241,7 @@ yylex (YYSTYPE *s,  void * v)
 
 /* escaped */
 %token E_CHAR E_EXCLAMATION E_SMALLER E_BIGGER E_OPEN E_CLOSE
-%token E_LEFTSQUARE E_RIGHTSQUARE E_TILDE
+%token E_LEFTSQUARE E_RIGHTSQUARE E_TILDE E_DIGIT
 %token E_BACKSLASH
 %token CHORD_BASS CHORD_COLON CHORD_MINUS CHORD_CARET  CHORD_SLASH
 %token FIGURE_SPACE
@@ -525,7 +525,7 @@ translator_spec_body:
 	}
 	| translator_spec_body ALIAS STRING  {
 		Translator_def*td = unsmob_translator_def ($$);
-		td->type_aliases_ = gh_cons ($3, td->type_aliases_);
+		td->type_aliases_ = scm_cons ($3, td->type_aliases_);
 	}
 	| translator_spec_body GROBDESCRIPTIONS embedded_scm {
 		Translator_def*td = unsmob_translator_def($$);
@@ -688,11 +688,11 @@ The representation of a  list is the
  to have  efficient append.
 */
 Music_list: /* empty */ {
-		$$ = gh_cons (SCM_EOL, SCM_EOL);
+		$$ = scm_cons (SCM_EOL, SCM_EOL);
 	}
 	| Music_list Music {
 		SCM s = $$;
-		SCM c = gh_cons ($2->self_scm (), SCM_EOL);
+		SCM c = scm_cons ($2->self_scm (), SCM_EOL);
 		scm_gc_unprotect_object ($2->self_scm ()); /* UGH */
 		if (gh_pair_p (ly_cdr (s)))
 			gh_set_cdr_x (ly_cdr (s), c); /* append */
@@ -862,14 +862,14 @@ Composite_music:
 		SCM ms = SCM_EOL;
 		if (stopm) {
 			stopm = stopm->clone ();
-			ms = gh_cons (stopm->self_scm (), ms);
+			ms = scm_cons (stopm->self_scm (), ms);
 			scm_gc_unprotect_object (stopm->self_scm ());
 		}
-		ms = gh_cons ($2->self_scm (), ms);
+		ms = scm_cons ($2->self_scm (), ms);
 		scm_gc_unprotect_object ($2->self_scm());
 		if (startm) {
 			startm = startm->clone ();
-			ms = gh_cons (startm->self_scm () , ms);
+			ms = scm_cons (startm->self_scm () , ms);
 			scm_gc_unprotect_object (startm->self_scm ());
 		}
 
@@ -1175,7 +1175,7 @@ request_chord:
 command_element:
 	command_req {
 		$$ = new Request_chord (SCM_EOL);
-		$$->set_mus_property ("elements", gh_cons ($1->self_scm (), SCM_EOL));
+		$$->set_mus_property ("elements", scm_cons ($1->self_scm (), SCM_EOL));
   	  scm_gc_unprotect_object ($1->self_scm());
 
 		$$-> set_spot (THIS->here_input ());
@@ -1188,7 +1188,7 @@ command_element:
 		l->set_spot (THIS->here_input ());
 
 		$$ = new Request_chord (SCM_EOL);
-		$$->set_mus_property ("elements", gh_cons (l->self_scm (), SCM_EOL));
+		$$->set_mus_property ("elements", scm_cons (l->self_scm (), SCM_EOL));
   	  scm_gc_unprotect_object (l->self_scm());
 		$$->set_spot (THIS->here_input ());
 	}
@@ -1199,13 +1199,13 @@ command_element:
 		l->set_spot (THIS->here_input ());
 
 		$$ = new Request_chord (SCM_EOL);
-		$$->set_mus_property ("elements", gh_cons (l->self_scm (), SCM_EOL));
+		$$->set_mus_property ("elements", scm_cons (l->self_scm (), SCM_EOL));
 		$$->set_spot (THIS->here_input ());
 	  scm_gc_unprotect_object (l->self_scm());
 
 	}
 	| E_BACKSLASH {
-		$$ = new Music (gh_list (gh_cons (ly_symbol2scm ("name"), ly_symbol2scm ("separator")), SCM_UNDEFINED));
+		$$ = new Music (gh_list (scm_cons (ly_symbol2scm ("name"), ly_symbol2scm ("separator")), SCM_UNDEFINED));
 		$$->set_spot (THIS->here_input ());
 	}
 	| '|'      {
@@ -1245,7 +1245,7 @@ command_element:
 		for (SCM s = result ; gh_pair_p (s); s = ly_cdr (s)) {
 			Music * p = new Music (SCM_EOL);
 			set_music_properties (p, ly_car (s));
-			l = gh_cons (p->self_scm (), l);
+			l = scm_cons (p->self_scm (), l);
 			scm_gc_unprotect_object (p->self_scm ());
 		}
 		Sequential_music * seq = new Sequential_music (SCM_EOL);
@@ -1399,7 +1399,7 @@ post_request:
 TODO.
 */
 string_request:
-	'/' DIGIT  { $$ = new Text_script_req (); } 
+	E_DIGIT  { $$ = new Text_script_req (); } 
 	;
 
 request_that_take_dir:
@@ -1778,7 +1778,7 @@ multiplied_duration:
 fraction:
 	FRACTION { $$ = $1; }
 	| UNSIGNED '/' UNSIGNED {
-		$$ = gh_cons (gh_int2scm ($1), gh_int2scm ($3));
+		$$ = scm_cons (gh_int2scm ($1), gh_int2scm ($3));
 	}
 	;
 
@@ -1861,7 +1861,7 @@ figure_list:
 		$$ = SCM_EOL;
 	}
 	| figure_list br_bass_figure {
-		$$ = gh_cons ($2, $1); 
+		$$ = scm_cons ($2, $1); 
 	}
 	;
 
@@ -2044,10 +2044,10 @@ chord_bass:
 
 chord_step:
 	chord_note {
-		$$ = gh_cons ($1, SCM_EOL);
+		$$ = scm_cons ($1, SCM_EOL);
 	}
 	| CHORDMODIFIER_PITCH {
-		$$ = gh_cons (unsmob_pitch ($1)->smobbed_copy (), SCM_EOL);
+		$$ = scm_cons (unsmob_pitch ($1)->smobbed_copy (), SCM_EOL);
 	}
 	| CHORDMODIFIER_PITCH chord_note { /* Ugh. */
 		$$ = scm_list_n (unsmob_pitch ($1)->smobbed_copy (),
