@@ -2899,14 +2899,12 @@ staff.  Lilypond currently only supports the graphical ambitus notation.
 To apply, add the @internalsref{Ambitus_engraver} to the
 @internalsref{Voice} context, i.e.
 
-@verbatim
-  \paper {
-    \translator {
+@example
+  \paper @{ \translator @{
       \VoiceContext
       \consists Ambitus_engraver
-    }
-  }
-@end verbatim
+    @} @}
+@end example
 
 The result will look like this.
 @lilypond[singleline]
@@ -3311,7 +3309,8 @@ separators, e.g.
 @lilypond[fragment,verbatim]
 \context ChordNames \chords {
       c:7sus4
-      \property ChordNames.chordNameSeparator = \markup { "|" }
+      \property ChordNames.chordNameSeparator
+        = \markup { "|" }
       c:7sus4 }
 @end lilypond
 @end table
