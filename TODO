@@ -7,8 +7,11 @@ Most of the items are marked in the code as well, with full explanation.
 grep for TODO and ugh/ugr/urg
 
 0.2:
+	* do rest-collisions for Multi_measure_rests as well.
 
-	* add a Duration_convert memberr to Duration_iter to set parameters.
+	* split error/warning in error/warning/non_fatal_error
+
+	* add a Duration_convert member to Duration_iter to set parameters.
 	Junk global duration settings. 
  
 	* deps for ly2dvi
@@ -19,20 +22,21 @@ grep for TODO and ugh/ugr/urg
 
  	* minimum length second part broken tie
  
-        * lowest beam of (UP) beam must never be lower than second staffline
+	* en-,discouraged linebreaking: 
+	  - handle DISALLOW < penalty > FORCE
+	  - discourage breaking of slurs
 
-	* multibar rests
+	* multibar rest
+	  - symbol(s)
 
-	* make lily output make dependencies.
-
- 	* make sure that columns never touch
- 	  old hack at spring-spacer.cc:690 seems to be broken
- 
  	* latex mutopia/los-toros-oboe-16.tex: max memsize
  
+	* move all hard-coded constants and staffheight dependent to runtime,
+	  i.e. init/params.ly.  e.g.: stem length params, beam positions
+
  	* fix position of bar number
- 
-	* fix website.
+
+	* fix position of brace in conjunction with bracket
 
 	* libtoolize flowerlib
 
@@ -42,15 +46,12 @@ grep for TODO and ugh/ugr/urg
 
 	* robustify Beam (in case of no stems, 32nd notes)
 
-	* fix silly " "2*12 a4 (=4*12) sticky plet 
-
 	* check for groff / troff/ nroff et
 
 	* use kpsepath to find all TeX dirs
 	- configure.in 
 	- clean-fonts.sh
 
-	* mudela-convert.
 
 	* nicen examples:
 	- remove all \multi
@@ -59,8 +60,6 @@ grep for TODO and ugh/ugr/urg
 	* disable spaces in TeX stuff
 	
 	* handle ^C for tmp/file creation.
-
-	* WWW mirror/archive for the mailing lists.
 
 	* dots & rest collisions.
 
@@ -84,32 +83,22 @@ grep for TODO and ugh/ugr/urg
 
 	* the tenuto script is too long and too thin
 
+	* the bracket is ugly (wings are too parabolic, should be more circular)
+
 	* better hshift (dots, distance, head dependent)
 
 	* stem len adjustable
 
 STUFF
  	* convert-mudela:
+	- better parsing
 	- make smarter
 	- fix convert-mudela -e *.ly ;
 	- convert-mudela -e empty.ly
 	- redo in python.
 
-      * clefs (AG): The names I'd like are of the form
-
-            [FGC]n{[_^]8}   F, G or C clef, on nth line, subscripted
-                            or superscripted with an 8.
-        So:                 
-            G, G2, treble, (== current `violin') G clef on second line.
-            F, F4, bass    (== current `bass' )  F clef on fourth line
-            G_8, G2_8      G clef on 2nd line, with 8 subscript
-            G^8            G clef on 2nd line with 8 superscript
-            C1, soprano    (==current `soprano') C clef on first line.
-            C2,            (==current `mezzosoprano') C clef on second line
-            C3, alto       (==current `alto')      C clef on third line
-            C4, tenor      (==current `tenor')     C clef on fourth line
-            C5             (==current `baritone') C clef on fifth line)
-
+        * clefs (AG): The "8" should appear closer to the actual clef,
+          touching it.
 
 
 	* give Items/Spanners access to unbroken originals	
@@ -124,7 +113,6 @@ STUFF
 	this modifies \stem for the c2
 
 	* emacs mudela-mode
-
 	-  should handle block comments too.
 	-  handle lexer modes (\header, \melodic, \lyric) etc.
 	-  indentation
@@ -166,6 +154,8 @@ STUFF
 
 	* Fix profiling. gprof bugreport?
 
+	* GNU patch 2.1: hardcoded limit of 1024 to the linelength
+
 	* GNU diff 2.7: diff -rN does not see a new directory with empty file
 
 	* GNU patch 2.1: <must find simple example> if patch chokes on a
@@ -189,10 +179,6 @@ PROJECTS
 
 	* \header
 	- output header info to MIDI too.
-
-
-	* Makefile stuff:
-	- shared lib on Solaris too.
 
 	* Add mudela-output to Rosegarden.
 
@@ -473,7 +459,6 @@ IDEAS
 
 	* versioning stuff (cvt mudela, mudela, etc.)
 
-	* a real convert-mudela
 
 	* dots into separate item.
 
