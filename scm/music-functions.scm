@@ -157,7 +157,13 @@ this is not an override
       (map (lambda (x) (make-grob-property-set x 'direction
 					       (if (odd? n) -1 1)))
 	   '(Tie Slur Stem Dots))
-      (list (make-grob-property-set 'NoteColumn 'horizontal-shift (quotient n 2)))
+      (list
+       (make-grob-property-set 'NoteColumn 'horizontal-shift (quotient n 2))
+       (make-grob-property-set 'MultiMeasureRest 'staff-position
+			       (if (odd? n) -4 4)
+			       )
+       
+       )
    )
   ))
 

@@ -15,7 +15,7 @@ startGraceMusic = {
     \property Voice.Stem \override #'no-stem-extend = ##t
     \property Voice.Stem \override #'stroke-style  = #"grace"
     \property Voice.Beam \override #'thickness = #0.384
-
+    
     %% Instead of calling Beam::space_function, we should invoke
     %% the previously active beam function...
     \property Voice.Beam \override #'space-function =

@@ -586,6 +586,15 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real inc
 	}
     }
 
+  if (Paper_column::when_mom (rc).grace_part_ &&
+      !Paper_column::when_mom (lc).grace_part_)
+    {
+      /*
+	Ugh. 0.8 is arbitrary.
+       */
+      max_note_space *= 0.8; 
+    }
+  
   if (max_note_space < 0)
     {
       max_note_space = base_note_space;
@@ -602,6 +611,8 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real inc
     Maybe it should be continuous?
   */
   max_fixed_note_space = max_fixed_note_space <?  max_note_space;
+
+
 #if 0
   /*
     This doesn't make sense. For ragged right we want to have the same
@@ -707,7 +718,17 @@ Spacing_spanner::breakable_column_spacing (Grob*me, Item* l, Item *r,Moment shor
       assert (spacing_grob-> get_column () == l);
 
       Staff_spacing::get_spacing_params (spacing_grob,
-					 &space, &fixed_space);  
+					 &space, &fixed_space);
+
+      if (Paper_column::when_mom (r).grace_part_)
+	{
+	  /*
+	    Correct for grace notes.
+
+	    Ugh. The 0.8 is arbitrary.
+	   */
+	  space *= 0.8;
+	}
       if (space > max_space)
 	{
 	  max_space = space;
@@ -748,10 +769,16 @@ Spacing_spanner::breakable_column_spacing (Grob*me, Item* l, Item *r,Moment shor
     Hmm.  we do 1/0 in the next thing. Perhaps we should check if this
     works on all architectures.
    */
-  
-  bool ragged = to_boolean (me->get_paper ()->get_scmvar ("raggedright"));
-  Real strength = (ragged) ? 1.0 : 1 / (max_space - max_fixed);
-  Real distance = (ragged) ? max_fixed : max_space;
+
+  /*
+    There used to be code that changed spacing depending on
+    raggedright setting.  Ugh.
+
+    Do it more cleanly, or rename the property. 
+    
+   */
+  Real strength = 1 / (max_space - max_fixed);
+  Real distance =  max_space;
   Spaceable_grob::add_spring (l, r, distance, strength, false);
 }
 
@@ -863,18 +890,16 @@ Spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
 
 
 ADD_INTERFACE (Spacing_spanner,"spacing-spanner-interface",
-  "
-The space taken by a note is dependent on its duration. Doubling a
-duration adds spacing-increment to the space. The most common shortest
-note gets shortest-duration-space. Notes that are even shorter are
-spaced proportonial to their duration.
-
-Typically, the increment is the width of a black note head.  In a
-piece with lots of 8th notes, and some 16th notes, the eighth note
-gets 2 note heads width (i.e. the space following a note is 1 note
-head width) A 16th note is followed by 0.5 note head width. The
-quarter note is followed by  3 NHW, the half by 4 NHW, etc.
-",
+"The space taken by a note is dependent on its duration. Doubling a\n"
+"duration adds spacing-increment to the space. The most common shortest\n"
+"note gets shortest-duration-space. Notes that are even shorter are\n"
+"spaced proportonial to their duration.\n"
+"\n"
+"Typically, the increment is the width of a black note head.  In a\n"
+"piece with lots of 8th notes, and some 16th notes, the eighth note\n"
+"gets 2 note heads width (i.e. the space following a note is 1 note\n"
+"head width) A 16th note is followed by 0.5 note head width. The\n"
+"quarter note is followed by  3 NHW, the half by 4 NHW, etc.\n",
   "grace-space-factor spacing-increment base-shortest-duration shortest-duration-space common-shortest-duration");
 
 

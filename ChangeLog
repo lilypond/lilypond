@@ -1,5 +1,21 @@
 2002-10-12  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/regression/spacing-to-grace.ly: new file.
+
+	* input/regression/spacing-end-of-line.ly: new file.
+
+	* lily/note-spacing.cc (get_spacing): take into account breakable
+	stuff sticking out at the left (time sig change at line break).
+
+	* lily/spacing-spanner.cc (breakable_column_spacing): junk weird
+	raggedright code.
+
+	* scm/music-functions.scm (make-voice-props-set): add
+	staff-position for mm rests.
+ 
+	* lily/spacing-spanner.cc (musical_column_spacing): shrink space
+	before grace notes a little.
+
 	* lily/parser.yy (sup_quotes): use '\'' for sup_quotes.
 
 	* lily/break-align-interface.cc (do_alignment): right-edge spacing

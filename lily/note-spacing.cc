@@ -108,9 +108,20 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
   *space = (base_space - increment) + *fixed +
     (extents[LEFT][RIGHT]
      - (left_head_wid.empty_b () ? 0.0 : left_head_wid[RIGHT]))/ 2;
-    ;
 
-  if (*space - *fixed < 2 * ((- extents[RIGHT][LEFT]) >? 0))
+  if (Item::breakable_b (right_col)
+      || right_col->original_)
+    {
+      /*
+	This is for the situation
+
+	rest | 3/4 (eol)
+	
+       */
+      *space += -extents[RIGHT][LEFT];
+      *fixed += -extents[RIGHT][LEFT];
+    }
+  else if (*space - *fixed < 2 * ((- extents[RIGHT][LEFT]) >? 0))
     {
       /*
     
@@ -216,14 +227,13 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 			me->get_grob_property ("right-items"));
 
   Drul_array<Grob*> beams_drul(0,0);
-  Real correction = 0.0;
   
   stem_dirs[LEFT] = stem_dirs[RIGHT] = CENTER;
   Interval intersect;
   Interval bar_xextent;
   Interval bar_yextent;  
   
-  bool correct = true;
+  bool correct_stem_dirs = true;
   Direction d = LEFT;
   bool acc_right = false;
   
@@ -260,7 +270,8 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	  
 	  if(Stem::invisible_b (stem))
 	    {
-	      return ;
+	      correct_stem_dirs = false;
+	      continue;
 	    }
 
 	  beams_drul[d] = Stem::get_beam (stem);
@@ -269,7 +280,8 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	  Direction sd = Stem::get_direction (stem);
 	  if (stem_dirs[d] && stem_dirs[d] != sd)
 	    {
-	      return ; 
+	      correct_stem_dirs = false;
+	      continue;
 	    }
 	  stem_dirs[d] = sd;
 
@@ -280,8 +292,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	  if (d == LEFT
 	      && Stem::duration_log (stem) > 2  && !Stem::get_beam (stem))
 	    {
-
-	      return;
+	      correct_stem_dirs = false;
 	    }
 	  
 
@@ -299,10 +310,11 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 
   /*
     don't correct if accidentals are sticking out of the right side.
-
   */
   if (acc_right)
     return ;
+
+  Real correction = 0.0;
 
   if (!bar_yextent.empty_b())
     {
@@ -310,7 +322,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
       stem_posns[RIGHT] = bar_yextent;
     }
   
-  if (correct &&stem_dirs[LEFT] *stem_dirs[RIGHT] == -1)
+  if (correct_stem_dirs && stem_dirs[LEFT] *stem_dirs[RIGHT] == -1)
     {
       if (beams_drul[LEFT] && beams_drul[LEFT] == beams_drul[RIGHT])
 	{
@@ -326,28 +338,29 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	{
 	  intersect = stem_posns[LEFT];  
 	  intersect.intersect(stem_posns[RIGHT]);
-	  correct = correct && !intersect.empty_b ();
+	  correct_stem_dirs = correct_stem_dirs && !intersect.empty_b ();
 
-	  if (!correct)
-	    return;
-	  
-	  correction = abs (intersect.length ());	  
+	  if (correct_stem_dirs)
+	    {
+	      correction =abs (intersect.length ());
 
       
-	  /*
-	    Ugh. 7 is hardcoded.
-	  */
-	  correction = (correction/7) <? 1.0;
-	  correction *= stem_dirs[LEFT] ;
-	  correction *= gh_scm2double (me->get_grob_property ("stem-spacing-correction"));
-
+	      /*
+		Ugh. 7 is hardcoded.
+	      */
+	      correction = (correction/7) <? 1.0;
+	      correction *= stem_dirs[LEFT] ;
+	      correction *=
+		gh_scm2double (me->get_grob_property ("stem-spacing-correction"));
+	    }
+	  
 	  if (!bar_yextent.empty_b())
 	    {
 	      correction *= 0.5;
 	    }
 	}
     }
-  else if (correct && stem_dirs[LEFT] *stem_dirs[RIGHT] == UP)
+  else if (correct_stem_dirs && stem_dirs[LEFT] *stem_dirs[RIGHT] == UP)
     {
       /*
 	Correct for the following situation:
@@ -384,10 +397,14 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
       correction=  -lowest * corr ;
     }
 
-  if (!bar_xextent.empty_b())
-    correction += - bar_xextent[LEFT];
-
   *space += correction;
+
+#if 0
+  /* there used to be a correction for bar_xextent() here, but
+     it's unclear what that was good for ?
+  */
+#endif
+
 }
  
 
