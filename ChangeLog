@@ -1,3 +1,7 @@
+2004-07-08  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* SConstruct (key): add HAVE_FLEXLEXER_YY_CURRENT_BUFFER check.
+
 2004-07-07  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* buildscripts/mf-to-table.py: Do not try to open ''.
