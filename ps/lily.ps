@@ -77,6 +77,53 @@
 	stroke 
 } bind def 
 
+/difficult_draw_ez_ball % ch letter_col ball_col font
+{
+	% font
+	findfont 0.7 scalefont setfont 
+	0.1 setlinewidth
+	0 0 moveto
+	0 setgray
+	0.5 0 0.5 0 360 arc closepath fill stroke
+	% ball_col
+	1 eq {
+		0.01 setlinewidth
+		1 setgray
+		0.5 0 0.4 0 360 arc closepath
+		fill stroke
+	} if 
+	% letter_col
+	setgray
+	% 0.25 is empiric centering. Change to taste
+	0.25 -0.25 moveto
+	% ch
+	show
+} bind def
+
+% simple, but does it work everywhere?
+/draw_ez_ball % ch letter_col ball_col font
+{
+	% font
+	findfont 0.85 scalefont setfont
+	/origin { 0.45 0 } def
+	0 setgray
+	1.1 setlinewidth
+	origin moveto
+	origin lineto stroke
+	% ball_col
+ 	setgray
+	0.9 setlinewidth
+	origin moveto
+	origin lineto stroke
+	% letter_col
+	setgray
+	% 0.25 is empiric centering. Change to taste
+	origin moveto
+	-0.28 -0.30 rmoveto
+	% ch
+	show
+} bind def
+
 /draw_volta % h w thick vert_start vert_end 
 { 
 	/vert_end exch def 

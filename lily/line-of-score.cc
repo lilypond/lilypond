@@ -321,28 +321,35 @@ Line_of_score::post_processing (bool last_line)
 			  gh_double2scm (height),
 			  SCM_UNDEFINED));
   
-  /*
-    all elements.
-   */ 
-  for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
-    {
-      Grob *sc = unsmob_grob (gh_car (s));
-      Molecule *m = sc->get_molecule ();
-      if (!m)
-	continue;
-      
-      Offset o (sc->relative_coordinate (this, X_AXIS),
-		sc->relative_coordinate (this, Y_AXIS));
-
-      SCM e = sc->get_grob_property ("extra-offset");
-      if (gh_pair_p (e))
-	{
-	  o[X_AXIS] += gh_scm2double (gh_car (e));
-	  o[Y_AXIS] += gh_scm2double (gh_cdr (e));      
-	}
-
-      output_molecule (m->get_expr (), o);
-    }
+  /* Output elements in three layers, 0, 1, 2.
+     The default layer is 1. */
+  for (int i = 0; i < 3; i++)
+    for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s);
+	 s = gh_cdr (s))
+      {
+	Grob *sc = unsmob_grob (gh_car (s));
+	Molecule *m = sc->get_molecule ();
+	if (!m)
+	  continue;
+	
+	SCM s = sc->get_grob_property ("layer");
+	int layer = gh_number_p (s) ? gh_scm2int (s) : 1;
+	if (layer != i)
+	  continue;
+	
+	Offset o (sc->relative_coordinate (this, X_AXIS),
+		  sc->relative_coordinate (this, Y_AXIS));
+	
+	SCM e = sc->get_grob_property ("extra-offset");
+	if (gh_pair_p (e))
+	  {
+	    o[X_AXIS] += gh_scm2double (gh_car (e));
+	    o[Y_AXIS] += gh_scm2double (gh_cdr (e));      
+	  }
+	
+	output_molecule (m->get_expr (), o);
+      }
+  
   if (last_line)
     {
       output_scheme (gh_list (ly_symbol2scm ("stop-last-line"), SCM_UNDEFINED));

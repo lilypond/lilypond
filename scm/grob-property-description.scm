@@ -179,6 +179,7 @@ FIXME: in Tie this is a pair of grob pointers, pointing to the two heads of the 
 For text,  this is `relative'(?) to the current alignment.
 
 For barline, space after a thick line.")
+(grob-property-description 'layer number? "The output layer [0..2].  The default is 1.")
 (grob-property-description 'left-padding number? "space left of accs.")
 (grob-property-description 'length number? "Stem length for unbeamed stems, only for user override.")
 (grob-property-description 'lengths list? "Stem length given multiplicity of flag.")
@@ -208,6 +209,7 @@ Also works as a scaling parameter for the length of hyphen. .")
 (grob-property-description 'no-spacing-rods boolean? "read from grobs: boolean that makes Separation_item ignore this item (MOVE ME TO ITEM).")
 (grob-property-description 'no-stem-extend boolean? "should stem not be extended to middle staff line?.")
 (grob-property-description 'non-default boolean? "not set because of existence of a bar?.")
+(grob-property-description 'note-character string? "character to print in a note head.")
 (grob-property-description 'note-width number? "unit for horizontal translation, measured in staff-space.")
 (grob-property-description 'number-gap number? "size of the gap for the number in a tuplet.")
 (grob-property-description 'old-accidentals list? "list of (pitch, accidental) pairs.")

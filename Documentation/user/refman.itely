@@ -33,6 +33,7 @@ has been revised for LilyPond 1.3.131
 * Music notation::              
 * Polyphony::                   
 * Spanners::                    
+* Ornaments::                   
 * Repeats::                     
 * Piano music::                 
 * Lyrics::                      
@@ -452,8 +453,8 @@ This command sets @code{Staff.keySignature}.
 
 @cindex @code{keySignature}
 
-@c .   {Clef changes}
-@subsubsection Clef changes
+@c .  {Clef}
+@subsection Clef changes
 @cindex @code{\clef}
 @example
   \clef @var{clefname} @code{;}
@@ -609,9 +610,6 @@ set different shift values.
 * Beam::                        
 * Slur ::                       
 * Phrasing slur::               
-* Ornaments::                   
-* Grace notes::                 
-* Bar check::                   
 @end menu
 
 
@@ -972,16 +970,18 @@ The slur syntax with parentheses is a shorthand for this.
 
 @c .  {Ornaments}
 @node Ornaments
-@subsection Ornaments
+@section Ornaments
 @cindex Ornaments
 @menu
 * Articulation::                
 * Text scripts::                
+* Grace notes::                 
+* Bar check::                   
 @end menu
 
 @c .   {Articulation}
 @node Articulation
-@subsubsection Articulation
+@subsection Articulation
 @cindex Articulation
 
 @cindex articulations
@@ -1030,9 +1030,9 @@ name of the corresponding symbol appearing underneath.
 
 @end lilypond
 
-@c .   {Text scripts}
+@c .  {Text scripts}
 @node Text scripts
-@subsubsection Text scripts
+@subsection Text scripts
 @cindex Text scripts
 
 In addition, it is possible to place arbitrary strings of text or markup
@@ -1046,7 +1046,7 @@ note ornaments appear in the printed output but have no effect on the
 MIDI rendering of the music.
 
 @c .    {Fingerings}
-@unnumberedsubsubsec Fingerings
+@subsubsection Fingerings
 @cindex Fingerings
 
 To save typing, fingering instructions (digits 0 to 9 are
@@ -2453,8 +2453,100 @@ multimeasure rest.
 
 @node Automatic part combining
 @subsection Automatic part combining
+@cindex automatic part combining
+@cindex part combiner
 
-[TODO]
+You will already have seen that LilyPond can combine several Threads
+into one Voice, and put several Voices onto one Staff.  The automatic
+part combiner takes this a step further.  Two parts of music can be
+combined together in an intelligent way, ie, when the two parts are
+identical for a period of time, only one can be showed.  In places where
+the two parts differ, stem directions can be set automatically.  That is
+why the part combiner is of great use for the typesetting of Hymns and
+orchestral scores.
+
+
+@subsubsection Part combine syntax
+
+The syntax for part combining is
+
+@example
+  \partcombine @var{context} @var{musicexpr1} @var{musicexpr2}
+@end example
+
+where the pieces of music @var{musicexpr1} and @var{musicexpr2} will be
+combined into one context @var{context}.  The names of the music
+expressions must start with the prefixes @code{one} and @code{two}.
+
+@subsubsection Part combine usage
+
+@cindex @code{Thread_devnull_engraver}
+@cindex @code{Voice_engraver}
+@cindex @code{A2_engraver}
+
+The most useful function of the part combiner to combining threads into
+one voice, as common for wind parts in orchestral scores:
+
+@lilypond[verbatim,singleline,fragment]
+  \context Staff <
+    \context Voice=one \partcombine Voice
+      \context Thread=one \notes\relative c'' {
+        g a b r
+      }
+      \context Thread=two \notes\relative c'' {
+        g r2 f4
+      }
+  >
+@end lilypond
+
+If you have developed a bit of a feel for LilyPond's functioning, you
+will notice that what you see above is quite unusual.  The first
+@code{g} appears only once, although it was specified twice (once in
+each Thread).  That is the work of the
+@code{Thread_devnull_engraver}@footnote{On unix systems, the file
+@file{/dev/null} is special device: anything written to it is
+discarded.}, that works closely together with the part combiner.  When
+the part combiner notices that two threads are identical, it tells the
+@code{Thread_devnull_engraver} to discard everything in the second
+thread.
+
+Similarly, the markings @emph{@`{a}2}, @emph{Solo} and @emph{Solo II},
+are created by the @code{A2_engraver}.  The @code{A2_engraver} also acts
+upon instructions of the part combiner.  Another thing that the
+@code{A2_engraver} does, is forcing of stem, slur and tie directions,
+always when both threads are not identical; up for the musicexpr called
+@code{one}, down for the musicexpr called @code{two}.
+
+There is actually a third engraver involved in part combining; the
+@code{Voice_devnull_engraver}.  This one takes care of removing
+redundant spanners such as beams, slurs, ties, crescendi, etc.
+
+If you just want the splitting of Threads and setting of directions, and
+not the textual markings, you may set the property @var{soloADue} to false:
+
+@lilypond[verbatim,singleline]
+  \score {
+    \notes \context Staff <
+    \context Voice=one \partcombine Voice
+      \context Thread=one\relative c'' {
+        b4 a c g
+      }
+      \context Thread=two\relative c'' {
+        d,2 a4 g'
+      }
+  >
+  \paper{
+    \translator {
+      \VoiceContext
+      soloADue = ##f
+    } }
+  }
+}
+@end lilypond
+
+There are a number of other properties that you can use to tweak the
+behavior of part combining, refer to the automatically generated
+documentation of the involved engravers and the examples in the tutorial.
 
 
 @c . {Custodes}
@@ -3005,6 +3097,12 @@ Assignments in the @code{\midi} block are not allowed.
 Context definitions follow precisely the same syntax as within the
 \paper block.  Translation modules for sound are called performers.
 The contexts for MIDI output are defined in @file{ly/performer.ly}.
+
+[Volume control]
+[Instrument Equaliser]
+
+FIXME: would it be useful to refer to files like scm/midi.scm,
+or to give examples of how to tweak MIDI output volume?
 
 
 @c .  {MIDI instrument names}
