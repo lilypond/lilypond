@@ -15,6 +15,7 @@
 struct Clef 
 {
   DECLARE_SCHEME_CALLBACK(before_line_breaking, (SCM ));
+  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
   static bool has_interface (Score_element*);
   static void set_interface (Score_element*);
 };

@@ -12,18 +12,7 @@
 
 #include "lily-proto.hh"
 
-/** Calc dimensions for the Separating_group_spanner; this has to be
-   an item to get dependencies correct.  It can't be an element_group
-   since these usually are in a different X_group
-
-   Properties:
-
-
-   elements -- list of items.
-   
-   no-spacing-rods -- read from elements: boolean that makes Separation_item ignore
-     this item
-   
+/**  
 */
 struct Separation_item
 {

@@ -213,8 +213,6 @@ Break_align_interface::do_alignment (Score_element *me)
   column->set_elt_property ("stretch-distance",
 			    gh_cons (gh_double2scm (-dists[0]),
 				     gh_double2scm (stretch_distance)));
-
-
 }
 
 

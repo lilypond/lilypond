@@ -10,13 +10,7 @@
 #include "lily-guile.hh"
 #include "lily-proto.hh"
 
-/**
 
-
-  Properties:
-
-
- */
 struct Key_item
 {
   static int calculate_position(Score_element*,SCM pair) ;

@@ -238,16 +238,10 @@ Stem::get_default_dir (Score_element*me)
   return to_dir (me->get_elt_property ("default-neutral-direction"));
 }
 
-/*
-  ugh. A is used for different purposes. This functionality should be
-  moved into scheme at some point to get rid of the silly
-  conversions. (but lets wait till we have namespaces in SCM)
- */
 Real
 Stem::get_default_stem_end_position (Score_element*me) 
 {
   bool grace_b = to_boolean (me->get_elt_property ("grace"));
-  String type_str = grace_b ? "grace-" : "";
   SCM s;
   Array<Real> a;
 
@@ -301,14 +295,14 @@ Stem::get_default_stem_end_position (Score_element*me)
    Real st = head_positions(me)[dir] + dir * length_f;
   
    bool no_extend_b = to_boolean (me->get_elt_property ("no-stem-extend"));
-    if (!grace_b && !no_extend_b && dir * st < 0)
+   if (!grace_b && !no_extend_b && dir * st < 0) // junkme?
       st = 0.0;
 
   return st;
 }
 
 /*
-  FIXME: wrong name
+  Number of hooks on the flag, ie. the log of the duration.
  */
 int
 Stem::flag_i (Score_element*me) 

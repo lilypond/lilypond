@@ -55,7 +55,7 @@ ChoirStaffContext = \translator {
 	\name ChoirStaff;
 	alignmentReference = \center;
 	\consists "System_start_delimiter_engraver";
-	systemStartDelimiterGlyph = #'bracket
+	SystemStartDelimiter \push #'glyph = #'bracket
 
 	\accepts "Staff";
 	\accepts "RhythmicStaff";
@@ -142,7 +142,7 @@ GraceContext=\translator {
 	\consists "Stem_engraver";
 	\consists "Beam_engraver";
 	\consists "Slur_engraver";
-	
+
 	\consists "Auto_beam_engraver";
 	\consists "Align_note_column_engraver";
 
@@ -194,7 +194,7 @@ GrandStaffContext=\translator{
 	\consists "Span_bar_engraver";
 	\consists "Span_arpeggio_engraver";
 	\consists "System_start_delimiter_engraver";
-	systemStartDelimiterGlyph = #'brace
+	SystemStartDelimiter \push #'glyph = #'brace
 	
 	\consists "Property_engraver";	
 	Generic_property_list = #generic-grand-staff-properties
@@ -220,7 +220,8 @@ StaffGroupContext= \translator {
 	\consists "Span_bar_engraver";
 	\consists "Span_arpeggio_engraver";
 	\consists "Output_property_engraver";	
-	systemStartDelimiterGlyph = #'bracket
+	SystemStartDelimiter \push #'glyph = #'bracket
+
 	\consists "System_start_delimiter_engraver";
 	\accepts "Staff";
 	\accepts "RhythmicStaff";
@@ -398,7 +399,7 @@ ScoreContext = \translator {
 	alignmentReference = \down;
 	defaultClef = #"treble"
 	defaultBarType = #"|"
-	systemStartDelimiterGlyph = #'bar-line
+
 	explicitClefVisibility = #all-visible
 	explicitKeySignatureVisibility = #all-visible
 	

@@ -35,6 +35,12 @@ scm_sizet free_smob (SCM s)
   return 0;
 }
 
+SCM
+ly_input_p (SCM x)
+{
+  return unsmob_input (x) ? SCM_BOOL_T : SCM_BOOL_F ;
+}
+
 static
 void start_input_smobs()
 {
@@ -42,6 +48,8 @@ void start_input_smobs()
     = scm_make_smob_type_mfpe ("input", 0,
 			       mark_smob, free_smob,
 			       print_smob, 0);
+  scm_make_gsubr ("ly-input-location?", 1, 0, 0, (Scheme_function_unknown)ly_input_p);
+ 
 }
 
 SCM
@@ -73,3 +81,4 @@ ADD_SCM_INIT_FUNC(input, start_input_smobs);
 
 
 Input dummy_input_global;
+

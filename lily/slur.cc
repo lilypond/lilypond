@@ -10,6 +10,7 @@
 /*
   [TODO]
     * fix broken interstaff slurs
+    * should avoid stafflines with horizontal part.
     * begin and end should be treated as a/acknowledge Scripts.
     * smart changing of endings
     * smart changing of (Y-?)offsets to avoid ugly beziers

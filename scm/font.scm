@@ -29,8 +29,6 @@
     (("medium upright music feta 20" . 0) . "feta20")
     (("medium upright music feta 16" . -1) . "feta16")
     (("medium upright music feta 13" . -2) . "feta13")
-    (("medium upright music feta 13" . -3) . "feta11")
-    (("medium upright music feta 13" . -4) . "feta11")
     (("medium upright music feta 23" . 1) . "feta23")
     (("medium upright music feta 26" . 2) . "feta26")
     (("medium upright braces feta-braces 20" . 0) . "feta-braces20")
@@ -98,9 +96,6 @@
 		   (if entry (cdr entry) "[^ ]+"))
 		 " "))
 	      '(font-series font-shape font-family font-name font-point font-size)))))
-    ;;(display "font-regexp: `")
-    ;;(display font-regexp)
-    ;;(display "'\n")
     (font-regexp-to-font-name paper font-regexp)))
 
 (define markup-abbrev-to-properties-alist
@@ -121,7 +116,7 @@
 	style-to-font-alist)))
   
 (define (markup-to-properties markup)
-  ;;(display "markup: `")
+  ;;  (display "markup: `")
   ;;(display markup)
   ;;(display "'\n")
   (if (pair? markup)

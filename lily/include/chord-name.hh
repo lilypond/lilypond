@@ -12,12 +12,7 @@
 #include "lily-guile.hh"
 #include "molecule.hh"
 
-/**
-   elt_properties:
-   pitches: list of musical-pitch
-   inversion(optional): musical-pitch
-   bass(optional): musical-pitch
- */
+
 class Chord_name
 {
 public:

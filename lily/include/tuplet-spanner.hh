@@ -9,20 +9,13 @@
 
 #include "lily-guile.hh"
 
-/** supportable plet: triplets, eentweetjes, ottava, etc.
+/*
 
     TODO: quantise, we don't want to collide with staff lines.
     (or should we be above staff?)
 
   todo: handle breaking elegantly.
-properties:
-
-  beams -- list of beam ptrs.
-
-  columns -- list of note-columns.
-
 */
-
 class Tuplet_spanner
 {
 public:

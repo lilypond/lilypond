@@ -64,10 +64,11 @@ Repeat_acknowledge_engraver::do_process_music ()
     return ; 
   
   SCM cs = get_property ("repeatCommands");
-
+  
   String s = "";
-  bool start  = false;
+  bool start = false;
   bool end = false;
+  bool volta_found = false;
   while (gh_pair_p (cs))
     {
       SCM command = gh_car (cs);
@@ -75,6 +76,8 @@ Repeat_acknowledge_engraver::do_process_music ()
 	start = true;
       else if (command == ly_symbol2scm ("end-repeat"))
 	end = true;
+      else if (gh_pair_p (command) && gh_car (command) == ly_symbol2scm ("volta"))
+	volta_found = true;
       cs = gh_cdr (cs);      
     }
 
@@ -85,7 +88,10 @@ Repeat_acknowledge_engraver::do_process_music ()
   else if (end)
     s = ":|";
 
-  if (s != "")
+  /*
+    TODO: line breaks might be allowed if we set whichBar to "". 
+   */
+  if (s != "" || (volta_found && !gh_string_p (get_property ("whichBar"))))
     {
       daddy_trans_l_->set_property ("whichBar", ly_str02scm(s.ch_C()));
     }

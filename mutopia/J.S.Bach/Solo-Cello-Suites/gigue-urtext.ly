@@ -66,6 +66,7 @@ gigue_notes = \context Staff \notes \relative c {
 	%72
 	cis'4 \stemBoth d16()c | bes(a g f e)d | cis(b a g f)e | d f a d f a |
 	d4
+	\bar "|.";		
 }
 
 gigue_b = \context Staff \notes \relative c {

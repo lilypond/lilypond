@@ -129,8 +129,7 @@ Side_position::aligned_on_self (SCM element_smob, SCM axis)
 	}
       else
 	{
-	  Real lambda = (0.5 - gh_scm2double (align) / 2.0);
-	  return gh_double2scm (- (lambda * ext[LEFT] + (1 - lambda) * ext[RIGHT]));
+	  return gh_double2scm (- ext.linear_combination (gh_scm2double (align)));
 	}
     }
   else if (unsmob_element (align))

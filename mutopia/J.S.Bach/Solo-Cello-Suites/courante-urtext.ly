@@ -54,6 +54,7 @@ courante_a = \context Staff \notes \relative c {
 	gis, d'(e f e d cis)d a d a cis |
 	d a f a d, f a, d 
 	d,8.
+	\bar "|.";		
 }
 
 courante_b = \notes \relative c {

@@ -11,22 +11,6 @@
 #include "column-x-positions.hh"
 #include "spanner.hh"
 
-/**
-   The columns of a score that form one line.  The toplevel element.
-   Any element has a Line_of_score as both X and Y reference
-   point. The Paper_score contains one element of this type. Control
-   enters the Score_element dependency calculation from this single
-   Line_of_score object.
-   
-   
-  properties:
-
-    all-elements -- list of all score elements in this line. Needed
-      for protecting elements from GC.
-
-    columns -- list of all paper columns
-
-  */
 class Line_of_score : public Spanner
 {
 public:

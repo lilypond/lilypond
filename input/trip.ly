@@ -205,7 +205,7 @@ fugaIIPedal = \notes \relative c {
       c2^^^-^\f 
  \time 3/4;
 
-  \fugaIIPedal }
+  \fugaIIPedal \bar "|." ; }
       
     >
   >

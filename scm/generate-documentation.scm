@@ -20,27 +20,9 @@
   )
   
 (define (self-evaluating? x)
-  (or (number? x) (string? x) (procedure? x))
+  (or (number? x) (string? x) (procedure? x) (boolean? x))
   )
 
-(define (type-name  predicate)
-  (cond
-   ((eq? predicate dir?) "direction")
-   ((eq? predicate ly-element?) "graphic element")
-   ((eq? predicate pair?) "pair")
-   ((eq? predicate integer?) "integer")
-   ((eq? predicate list?) "list")
-   ((eq? predicate symbol?) "symbol")
-   ((eq? predicate string?) "string")
-   ((eq? predicate boolean?) "string")
-   ((eq? predicate number?) "number")
-   ((eq? predicate char?) "char")
-   ((eq? predicate input-port?) "input port")
-   ((eq? predicate output-port?) "output port")   
-   ((eq? predicate vector?) "vector")
-   ((eq? predicate procedure?) "procedure") 
-   (else "(unknown)")
-  ))
 
 (define (htmlfy x)
   (let*
@@ -101,7 +83,7 @@
 	 (name (cdr (assoc 'name meta)))
 	 (ifaces (cdr (assoc 'interface-descriptions meta)))
 	 (ifacedoc (map (lambda (x) (document-interface x description))
-				ifaces))
+				(reverse ifaces)))
 	 (outname  (string-append name ".html"))
 	 (out (open-output-file outname))
 	 )

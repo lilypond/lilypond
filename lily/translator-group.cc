@@ -371,8 +371,10 @@ Translator_group::execute_single_pushpop_property (SCM prop, SCM eltprop, SCM va
 		      scm_display (eltprop,errport);
 		      scm_puts ( _(", value ").ch_C (), errport);
 		      scm_display (val, errport);
-		      scm_puts (_(" must satisfy ").ch_C (), errport);
-		      scm_display (predicate, errport);
+		      scm_puts (_(" must be of type ").ch_C (), errport);
+		      SCM typefunc = scm_eval2 (ly_symbol2scm ("type-name"), SCM_EOL);
+	    
+		      scm_display (gh_call1 (typefunc, predicate), errport);
 		      scm_puts ("\n", errport);		      
 		    }
 		}

@@ -11,8 +11,6 @@
 #include "lily-proto.hh"
 #include "rod.hh"
 
-/**
-*/
 class Slur
 {
 public:

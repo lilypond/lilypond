@@ -81,6 +81,7 @@ sarabande_b = \context Staff \notes \relative c {
 	f'4 fis4. s8 |
 	<d4 g,> gis4. s8 |
 	s2.*2
+	\bar "|.";	
 }
 
 

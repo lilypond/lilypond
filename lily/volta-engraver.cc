@@ -162,3 +162,7 @@ Volta_engraver::do_pre_move_processing ()
       end_volta_span_p_ =0;
     }
 }
+
+/*
+  TODO: should attach volta to paper-column if no bar is found.
+ */

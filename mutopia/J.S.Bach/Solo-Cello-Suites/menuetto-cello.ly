@@ -95,6 +95,9 @@ menuetto_ii_cello_staff = \context Staff <
 		}
 	}
 	\midi{ \tempo 4 = 130; }
-	\header{ piece = "Menuetto II"; }
+	\header{
+		piece = "Menuetto II";
+		opus = "";
+	}
 }
 

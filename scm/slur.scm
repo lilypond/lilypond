@@ -115,6 +115,6 @@
    (y-free . 0.75)
    (attachment-offset . ((0 . 0) . (0 . 0)))
    (slope-limit . 0.8)
-   (meta . ,(element-description "Slur" general-element-interface slur-interface))
+   (meta . ,(element-description "Slur" slur-interface))
    )
   )
