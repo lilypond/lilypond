@@ -13,7 +13,7 @@
 #  * articulation
 #  * grace notes
 #  * tuplets
-
+#
 
 # todo:
 #  * slur/stem directions
@@ -22,9 +22,9 @@
 #  * beams (better use autobeam?)
 #  * more robust: try entertainer.etf (freenote)
 #  * dynamics
-#  * automatic `deletion' of invalid items
+#  * empty measures (eg. twopt03.etf from freenote)
 #
-
+# 
 
 program_name = 'etf2ly'
 version = '@TOPLEVEL_VERSION@'
@@ -225,16 +225,16 @@ class Tuplet:
 			sys.stderr.write ("\nHuh? Tuplet starting at entry %d was too short." % self.start_note)
 		
 class Slur:
-	def __init__ (self, number):
+	def __init__ (self, number, params):
 		self.number = number
-		self.finale = []
+		self.finale = params
 
 	def append_entry (self, finale_e):
 		self.finale.append (finale_e)
 
 	def calculate (self, chords):
-		startnote = self.finale[0][5]
-		endnote = self.finale[3][2]
+		startnote = self.finale[5]
+		endnote = self.finale[3*6 + 2]
 		try:
 			cs = chords[startnote]
 			ce = chords[endnote]
@@ -254,7 +254,9 @@ class Global_measure:
 		self.number = number
 		self.keysignature = None
 		self.scale = None
-
+		self.force_break = 0
+		
+		self.repeats = []
 		self.finale = []
 
 	def __str__ (self):
@@ -274,32 +276,60 @@ class Global_measure:
 		self.keysignature = k
 		self.scale = find_scale (k)
 
+	def set_flags (self,flag1, flag2):
+		
+		# flag1 isn't all that interesting.
+		if flag2 & 0x8000:
+			self.force_break = 1
+			
+		if flag2 & 0x0008:
+			self.repeats.append ('start')
+		if flag2 & 0x0004:
+			self.repeats.append ('stop')
+			
+		if flag2 & 0x0002:
+			if flag2 & 0x0004:
+				self.repeats.append ('bracket')
 
 articulation_dict ={
-	11: '\\prall',
-	12: '\\mordent',
-	8: '\\fermata',
-	4: '^',
-	1: '.',
-	3: '>',
-	18: '"arp"' , # arpeggio
+	94: '^',
+	109: '\\prall',
+	84: '\\turn',
+	62: '\\mordent',
+	85: '\\fermata',
+	46: '.',
+#	3: '>',
+#	18: '\arpeggio' ,
 }
 
+class Articulation_def:
+	def __init__ (self, n, a, b):
+		self.finale_glyph = a & 0xff
+		self.number = n
+
+	def dump (self):
+		try:
+			return articulation_dict[self.finale_glyph]
+		except KeyError:
+			sys.stderr.write ("\nUnknown articulation no. %d" % self.finale_glyph)
+			sys.stderr.write ("\nPlease add an entry to articulation_dict in the Python source")			
+			return None
+	
 class Articulation:
 	def __init__ (self, a,b, finale):
-		self.type = finale[0]
+		self.definition = finale[0]
 		self.notenumber = b
-	def calculate (self, chords):
+		
+	def calculate (self, chords, defs):
 		c = chords[self.notenumber]
 
-		try:
-			a = articulation_dict[self.type]
-		except KeyError:
-			sys.stderr.write ("\nUnknown articulation no. %d on note no. %d" % (self.type, self.notenumber))
-			sys.stderr.write ("\nPlease add an entry to articulation_dict in the Python source")
-			a = '"art"'
-			
-		c.note_suffix = '-' + a + c.note_suffix
+		adef = defs[self.definition]
+		lystr =adef.dump()
+		if lystr == None:
+			lystr = '"art"'
+			sys.stderr.write ("\nThis happened on note %d" % self.notenumber)
+
+		c.note_suffix = '-' + lystr
 
 class Syllable:
 	def __init__ (self, a,b , finale):
@@ -355,8 +385,6 @@ class Measure:
 		self.staff = None
 		self.valid = 1
 		
-	def add_finale_entry (self, entry):
-		self.finale.append (entry)
 
 	def valid (self):
 		return self.valid
@@ -365,13 +393,11 @@ class Measure:
 
 		if len (self.finale) < 2:
 			fs = self.finale[0]
-			fs = map (string.atoi, list (fs))
+
 			self.clef = fs[1]
 			self.frames = [fs[0]]
 		else:
-			fs = self.finale[0] + self.finale[1]
-			
-			fs = map (string.atoi, list (fs))
+			fs = self.finale
 			self.clef = fs[0]
 			self.flags = fs[1]
 			self.frames = fs[2:]
@@ -438,14 +464,12 @@ class Staff:
 		self.measures = []
 
 	def get_measure (self, no):
-		if len (self.measures) <= no:
-			self.measures = self.measures + [None]* (1 + no - len (self.measures))
+		fill_list_to (self.measures, no)
 
 		if self.measures[no] == None:
 			m = Measure (no)
 			self.measures [no] =m
 			m.staff = self
-
 
 		return self.measures[no]
 	def staffid (self):
@@ -465,13 +489,35 @@ class Staff:
 			
 			g = m.global_measure
 			e = ''
-			if g and last_key <> g.keysignature:
-				e = e + "\\key %s \\major " % lily_notename (g.keysignature)
-				last_key = g.keysignature
-			if g and last_time <> g.timesig :
-				e = e + "\\time %d/%d " % g.timesig
-				last_time = g.timesig
+			
+			if g:
+				if last_key <> g.keysignature:
+					e = e + "\\key %s \\major " % lily_notename (g.keysignature)
+					last_key = g.keysignature
+				if last_time <> g.timesig :
+					e = e + "\\time %d/%d " % g.timesig
+					last_time = g.timesig
 
+				if 'start' in g.repeats:
+					e = e + ' \\bar "|:" ' 
+
+
+				# we don't attempt voltas since they fail easily.
+				if 0 : # and g.repeat_bar == '|:' or g.repeat_bar == ':|:' or g.bracket:
+					strs = []
+					if g.repeat_bar == '|:' or g.repeat_bar == ':|:' or g.bracket == 'end':
+						strs.append ('#f')
+
+					
+					if g.bracket == 'start':
+						strs.append ('"0."')
+
+					str = string.join (map (lambda x: '(volta %s)' % x, strs))
+					
+					e = e + ' \\property Score.repeatCommands =  #\'(%s) ' % str
+
+				if g.force_break:
+					e = e + ' \\break '  
 			
 			if last_clef <> m.clef :
 				e = e + '\\clef "%s"' % lily_clef (m.clef)
@@ -484,7 +530,8 @@ class Staff:
 				
 			if g:
 				gap = rat_add (gap, g.length ())
-
+				if 'stop' in g.repeats:
+					k = k + ' \\bar ":|" '
 				
 		k = '%sglobal = \\notes  { %s }\n\n ' % (self.staffid (), k)
 		return k
@@ -501,17 +548,15 @@ class Staff:
 			gap = (0,1)
 			for m in self.measures[1:]:
 				if not m or not m.valid:
-					sys.stderr.write ("Skipping non-existant measure")
+					sys.stderr.write ("Skipping non-existant or invalid measure\n")
 					continue
 
 				fr = None
 				try:
 					fr = m.frames[x]
 				except IndexError:
-					
-					sys.stderr.write ("Skipping nonexistent frame")
-					laystr = laystr + "% FOOBAR ! \n"
-					print laystr
+					sys.stderr.write ("Skipping nonexistent frame %d\n" % x)
+					laystr = laystr + "%% non existent frame %d (skipped) \n" % x
 				if fr:
 					first_frame = fr
 					if gap <> (0,1):
@@ -543,15 +588,24 @@ class Staff:
 
 				
 
+def ziplist (l):
+	if len (l) < 2:
+		return []
+	else:
+		return [(l[0], l[1])] + ziplist (l[2:])
+
 
 class Chord:
-	def __init__ (self, finale_entry):
+	def __init__ (self, number, contents):
 		self.pitches = []
 		self.frame = None
-		self.finale = finale_entry
+		self.finale = contents[:7]
+
+		self.notelist = ziplist (contents[7:])
 		self.duration  = None
 		self.next = None
 		self.prev = None
+		self.number = number
 		self.note_prefix= ''
 		self.note_suffix = ''
 		self.chord_suffix = ''
@@ -579,37 +633,37 @@ class Chord:
 			mylen = rat_multiply (mylen, self.tuplet.factor())
 		return mylen
 		
-	def number (self):
-		return self.finale[0][0]
 
 	def EDU_duration (self):
-		return self.finale[0][3]
+		return self.finale[2]
 	def set_duration (self):
 		self.duration = EDU_to_duration(self.EDU_duration ())
+		
 	def calculate (self):
 		self.find_realpitch ()
 		self.set_duration ()
 
-		flag = self.finale[0][5]
+		flag = self.finale[4]
 		if Chord.GRACE_MASK & flag:
 			self.grace = 1
 		
-		
+	
 	def find_realpitch (self):
-		
-		((no, prev, next, dur, pos, entryflag, extended, follow), notelist) = self.finale
 
 		meas = self.measure ()
 		tiestart = 0
 		if not meas or not meas.global_measure  :
-			print 'note %d not in measure' % self.number ()
+			sys.stderr.write ('note %d not in measure\n' % self.number)
 		elif not meas.global_measure.scale:
-			print  'note %d: no scale in this measure.' % self.number ()
+			sys.stderr.write ('note %d: no scale in this measure.' % self.number)
 		else:
-			for p in notelist:
+			
+			for p in self.notelist:
 				(pitch, flag) = p
-				
+
+
 				nib1 = pitch & 0x0f
+				
 				if nib1 > 8:
 					nib1 = -(nib1 - 8)
 				rest = pitch / 16
@@ -632,7 +686,8 @@ class Chord:
 
 		rest = ''
 
-		if not (self.finale[0][5] & Chord.REST_MASK):
+
+		if not (self.finale[4] & Chord.REST_MASK):
 			rest = 'r'
 		
 		for p in self.pitches:
@@ -664,40 +719,137 @@ class Chord:
 		s = self.chord_prefix + s + self.chord_suffix
 		return s
 
-GFre = re.compile(r"""^\^GF\(([0-9-]+),([0-9-]+)\) ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+)""")
-BCre = re.compile (r"""^\^BC\(([0-9-]+)\) ([0-9-]+) .*$""")
-eEre = re.compile(r"""^\^eE\(([0-9-]+)\) ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+) \$([0-9A-Fa-f]+) ([0-9-]+) ([0-9-]+)""")
-FRre = re.compile (r"""^\^FR\(([0-9-]+)\) ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+)""")
-MSre = re.compile (r"""^\^MS\(([0-9-]+)\) ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+)""")
-note_re = re.compile (r"""^ +([0-9-]+) \$([A-Fa-f0-9]+)""")
-Sxre  = re.compile (r"""^\^Sx\(([0-9-]+)\) ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+)""")
-IMre = re.compile (r"""^\^IM\(([0-9-]+),([0-9-]+)\) ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+)""")
-vere = re.compile(r"""^\^(ve|ch|se)\(([0-9-]+),([0-9-]+)\) ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+)""")
-versere = re.compile(r"""^\^verse\(([0-9]+)\)(.*)\^end""")
 
-TPre = re.compile(r"""^\^TP\(([0-9]+),([0-9]+)\) *([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+)""")
+def fill_list_to (list, no):
+	"""
+Add None to LIST until it contains entry number NO.
+	"""
+	while len (list) <= no:
+		list.extend ([None] * (no - len(list) + 1))
+	return list
+
+def read_finale_value (str):
+	while str and str[0] in ' \t\n':
+		str = str[1:]
+
+	if not str:
+		return (None,str)
+	
+	if str[0] == '$':
+		str = str [1:]
+
+		hex = ''
+		while str and str[0] in '0123456789ABCDEF':
+			hex = hex  + str[0]
+			str = str[1:]
+
+		
+		return (string.atol (hex, 16), str)
+	elif str[0] == '"':
+		str = str[1:]
+		s = ''
+		while str and str[0] <> '"':
+			s = s + str[0]
+			str = str[1:]
+
+		return (s,str)
+	elif str[0] in '-0123456789':
+		dec = ''
+		while str and str[0] in '-0123456789':
+			dec = dec  + str[0]
+			str = str[1:]
+			
+		return (string.atoi (dec), str)
+	else:
+		sys.stderr.write ("Can't convert `%s'\n" % str)
+		return (None, str)
+
+
+
+	
+def parse_etf_file (fn, tag_dict):
+
+	""" Read FN, putting ETF info into
+	a giant dictionary.  The keys of TAG_DICT indicate which tags
+	to put into the dict.
+	"""
+	
+	sys.stderr.write ('parsing ... ' )
+	f = open (fn)
+	
+	gulp = re.sub ('[\n\r]+', '\n',  f.read ())
+	ls = string.split (gulp, '\n^')
+
+	etf_file_dict = {}
+	for k in tag_dict.keys (): 
+		etf_file_dict[k] = {}
+
+	last_tag = None
+	last_numbers = None
+
+
+	for l in  ls:
+		m = re.match ('^([a-zA-Z0-9&]+)\(([^)]+)\)', l)
+		if m and tag_dict.has_key (m.group (1)):
+			tag = m.group (1)
+
+			indices = tuple (map (string.atoi, string.split (m.group (2), ',')))
+			content = l[m.end (2)+1:]
+
+
+			tdict = etf_file_dict[tag]
+			if not tdict.has_key (indices):
+				tdict[indices] = []
+
+
+			parsed = []
+
+			if tag == 'verse' or tag == 'block':
+				m2 = re.match ('(.*)\^end', content)
+				if m2:
+					parsed = [m2.group (1)]
+			else:
+				while content:
+					(v, content) = read_finale_value (content)
+					if v <> None:
+						parsed.append (v)
+
+			tdict [indices].extend (parsed)
+
+			last_indices = indices
+			last_tag = tag
+
+			continue
+
+# let's not do this: this really confuses when eE happens to be before  a ^text.
+#		if last_tag and last_indices:
+#			etf_file_dict[last_tag][last_indices].append (l)
+			
+	sys.stderr.write ('\n') 
+	return etf_file_dict
+
+	
+
 
 
 class Etf_file:
 	def __init__ (self, name):
 		self.measures = [None]
-		self.entries = [None]
 		self.chords = [None]
 		self.frames = [None]
 		self.tuplets = [None]
 		self.staffs = [None]
-		self.slur_dict = {}
+		self.slurs = [None]
 		self.articulations = [None]
 		self.syllables = [None]
 		self.verses = [None]
-		
+		self.articulation_defs = [None]
+
 		## do it
 		self.parse (name)
 
 	def get_global_measure (self, no):
-		if len (self.measures) <= no:
-			self.measures = self.measures + [None]* (1 + no - len (self.measures))
-
+		fill_list_to (self.measures, no)
 		if self.measures[no] == None:
 			self.measures [no] = Global_measure (no)
 
@@ -705,178 +857,124 @@ class Etf_file:
 
 		
 	def get_staff(self,staffno):
-		if len (self.staffs) <= staffno:
-			self.staffs = self.staffs + [None] * (1 + staffno - len (self.staffs))
-
+		fill_list_to (self.staffs, staffno)
 		if self.staffs[staffno] == None:
 			self.staffs[staffno] = Staff (staffno)
 
 		return self.staffs[staffno]
 
 	# staff-spec
-	def try_IS (self, l):
+	def try_IS (self, indices, contents):
 		pass
 
-	def try_BC (self, l):
-		m =  BCre.match  (l)
-		if m:
-			bn = string.atoi (m.group (1))
-			where = string.atoi (m.group (2)) / 1024.0
-		return m
-	def try_TP(self, l):
-		m = TPre.match (l)
-		if m:
-			(nil, num) = map (string.atoi, (m.groups ()[0:2]))
-			entries = map (string.atoi, (m.groups ()[2:]))
+	def try_BC (self, indices, contents):
+		bn = indices[0]
+		where = contents[0] / 1024.0
+	def try_TP(self,  indices, contents):
+		(nil, num) = indices
 
-			if self.tuplets[-1] == None or num <> self.tuplets[-1].start_note:
-				self.tuplets.append (Tuplet (num))
+		if self.tuplets[-1] == None or num <> self.tuplets[-1].start_note:
+			self.tuplets.append (Tuplet (num))
 
-			self.tuplets[-1].append_finale (entries)
-			
-	def try_IM (self, l):
-		m = IMre.match (l)
-		if m:
-			a = string.atoi (m.group (1))
-			b = string.atoi (m.group (2))
+		self.tuplets[-1].append_finale (contents)
 
-			fin = map (string.atoi, m.groups ()[2:])
+	def try_IM (self, indices, contents):
+		(a,b) = indices
+		fin = contents
+		self.articulations.append (Articulation (a,b,fin))
+	def try_verse (self, indices, contents):
+		a = indices[0]
+		body = contents[0]
 
-			self.articulations.append (Articulation (a,b,fin))
-		return m
-	def try_verse (self,l):
-		m =  versere .match (l)
-		if m:
-			a = string.atoi (m.group (1))
-			body =m.group (2)
+		body = re.sub (r"""\^[a-z]+\([^)]+\)""", "", body)
+		body = re.sub ("\^[a-z]+", "", body)
+		self.verses.append (Verse (a, body))
+	def try_ve (self,indices, contents):
+		(a,b) = indices
+		self.syllables.append (Syllable (a,b,contents))
 
-			body = re.sub (r"""\^[a-z]+\([^)]+\)""", "", body)
-			body = re.sub ("\^[a-z]+", "", body)
-			self.verses.append (Verse (a, body))
-			
-		return m
-	def try_ve (self,l):
-		m = vere .match (l)
-		if m:
-			a = string.atoi (m.group (1))
-			b = string.atoi (m.group (2))
+	def try_eE (self,indices, contents):
+		no = indices[0]
+		(prev, next, dur, pos, entryflag, extended, follow) = contents[:7]
 
-			fin = map (string.atoi, m.groups ()[2:])
+		fill_list_to (self.chords, no)
+		self.chords[no]  =Chord (no, contents)
 
-			self.syllables.append (Syllable (a,b,fin))
-		return m
-	def try_eE (self, l):
-		m = eEre.match (l)
-		if m:
-			tup = m.groups()
-			(no, prev, next, dur, pos, entryflag, extended, follow) = tup
-			(no, prev, next, dur, pos,extended, follow) \
-			  = tuple (map (string.atoi, [no,prev,next,dur,pos,extended,follow]))
+	def try_Sx(self,indices, contents):
+		slurno = indices[0]
+		fill_list_to (self.slurs, slurno)
+		self.slurs[slurno] = Slur(slurno, contents)
 
-			entryflag = string.atol (entryflag,16)
-			if len (self.entries) <= no:
-				# missing entries seem to be quite common.
-				# we fill'em up with None.
-				self.entries = self.entries + [None] * (no - len (self.entries) + 1)
-					
-			current_entry = ((no, prev, next, dur, pos, entryflag, extended, follow), [])
-			self.entries[no] = current_entry
-		return m
+	def try_IX (self, indices, contents):
+		n = indices[0]
+		a = contents[0]
+		b = contents[1]
 
-	def try_Sx(self,l):
-		m = Sxre.match (l)
-		if m:
-			slurno = string.atoi (m.group (1))
+		ix= None
+		try:
+			ix = self.articulation_defs[n]
+		except IndexError:
+			ix = Articulation_def (n,a,b)
+			self.articulation_defs.append (Articulation_def (n, a, b))
 
-			sl = None
-			try:
-				sl = self.slur_dict[slurno]
-			except KeyError:
-				sl = Slur (slurno)
-				self.slur_dict[slurno] = sl
+	def try_GF(self, indices, contents):
+		(staffno,measno) = indices
 
-			params = list (m.groups ()[1:])
-			params = map (string.atoi, params)
-			sl.append_entry (params)
-
-		return m	
-	def try_GF(self, l):
-		m = GFre.match (l)
-		if m:
-			(staffno,measno) = m.groups ()[0:2]
-			s = string.atoi (staffno)
-			me = string.atoi (measno)
-			
-			entry = m.groups () [2:]
-			st = self.get_staff (s)
-			meas = st.get_measure (me)
-			meas.add_finale_entry (entry)
+		st = self.get_staff (staffno)
+		meas = st.get_measure (measno)
+		meas.finale = contents
 		
-	# frame  ?
-	def try_FR(self, l):
-		m = FRre.match (l)
-		if m:
-			(frameno, startnote, endnote, foo, bar) = m.groups ()
-			(frameno, startnote, endnote)  = tuple (map (string.atoi, [frameno, startnote, endnote]))
-			if len (self.frames) <= frameno:
-				self.frames = self.frames + [None]  * (frameno - len(self.frames) + 1)
-			
-			self.frames[frameno] = Frame ((frameno, startnote, endnote))
-			
-		return m
+	def try_FR(self, indices, contents):
+		frameno = indices [0]
+		
+		startnote = contents[0]
+		endnote = contents[1]
+
+		fill_list_to (self.frames, frameno)
 	
-	def try_MS (self, l):
-		m = MSre.match (l)
-		if m:
-			measno = string.atoi (m.group (1))
-			keynum = string.atoi (m.group (3))
-			meas =self. get_global_measure (measno)
-			meas.set_keysig (keynum)
+		self.frames[frameno] = Frame ((frameno, startnote, endnote))
+	
+	def try_MS (self, indices, contents):
+		measno = indices[0]
+		keynum = contents[1]
+		meas =self. get_global_measure (measno)
+		meas.set_keysig (keynum)
 
-			beats = string.atoi (m.group (4))
-			beatlen = string.atoi (m.group (5))
-			meas.set_timesig ((beats, beatlen))
-						
-		return m
+		beats = contents[2]
+		beatlen = contents[3]
+		meas.set_timesig ((beats, beatlen))
 
-	def try_note (self, l):
-		m = note_re.match (l)
-		if m:
-			(pitch, flag) = m.groups ()
-			pitch = string.atoi (pitch)
-			flag = string.atol (flag,16)
-			self.entries[-1][1].append ((pitch,flag))
+		meas_flag1 = contents[4]
+		meas_flag2 = contents[5]
 
-	def parse (self, name):
-		sys.stderr.write ('parsing ...')
+		meas.set_flags (meas_flag1, meas_flag2);
+
+
+	routine_dict = {
+		'MS': try_MS,
+		'FR': try_FR,
+		'GF': try_GF,
+		'IX': try_IX,
+		'Sx' : try_Sx,
+		'eE' : try_eE,
+		'verse' : try_verse,
+		've' : try_ve,
+		'IM' : try_IM,
+		'TP' : try_TP,
+		'BC' : try_BC,
+		'IS' : try_IS,
+		}
+	
+	def parse (self, etf_dict):
+		sys.stderr.write ('reconstructing ...')
 		sys.stderr.flush ()
 
-		gulp = open (name).read ()
-
-		gulp = re.sub ('[\n\r]+', '\n',  gulp)
-		ls = string.split (gulp, '\n')
-		
-		for l in ls:
-			m = None
-			if not m: 
-				m = self.try_MS (l)
-			if not m: 
-				m = self.try_FR (l)
-			if not m: 
-				m = self.try_GF (l)
-			if not m: 
-				m = self.try_note (l)
-			if not m: 
-				m = self.try_eE (l)
-			if not m:
-				m = self.try_IM (l)
-			if not m:
-				m = self.try_Sx (l)
-			if not m:
-				m = self.try_TP (l)
-			if not m:
-				m = self.try_verse (l)
-
+		for (tag,routine) in Etf_file.routine_dict.items ():
+			ks = etf_dict[tag].keys ()
+			ks.sort ()
+			for k in ks:
+				routine (self, k, etf_dict[tag][k])
+			
 		sys.stderr.write ('processing ...')
 		sys.stderr.flush ()
 
@@ -925,10 +1023,12 @@ class Etf_file:
 		for t in self.tuplets[1:]:
 			t.calculate (self.chords)
 			
-		for s in self.slur_dict.values():
-			s.calculate (self.chords)
+		for s in self.slurs[1:]:
+			if s:
+				s.calculate (self.chords)
+			
 		for s in self.articulations[1:]:
-			s.calculate (self.chords)
+			s.calculate (self.chords, self.articulation_defs)
 			
 	def get_thread (self, startno, endno):
 
@@ -942,7 +1042,7 @@ class Etf_file:
 			return []
 
 		
-		while c and c.number () <> endno:
+		while c and c.number <> endno:
 			thread.append (c)
 			c = c.next
 
@@ -978,24 +1078,18 @@ class Etf_file:
 		return 'ETF FILE %s %s' % (self.measures,  self.entries)
 	
 	def unthread_entries (self):
-		self.chords = [None]
-		for e in self.entries[1:]:
-			ch = None
-			if e:		
-				ch = Chord (e)
-			self.chords.append (ch)
-				
 		for e in self.chords[1:]:
 			if not e:
 				continue
-			e.prev = self.chords[e.finale[0][1]]
-			e.next = self.chords[e.finale[0][2]]
+
+			e.prev = self.chords[e.finale[0]]
+			e.next = self.chords[e.finale[1]]
 
 def identify():
 	sys.stderr.write ("%s from LilyPond %s\n" % (program_name, version))
 
 def help ():
-	print """Usage: etf2ly [OPTION]... ETF-FILE
+	sys.stdout.write("""Usage: etf2ly [OPTION]... ETF-FILE
 
 Convert ETF to LilyPond.
 
@@ -1011,17 +1105,17 @@ ready-to-use lilypond file.
 Report bugs to bug-gnu-music@gnu.org
 
 Written by  Han-Wen Nienhuys <hanwen@cs.uu.nl>
-"""
+""")
 
 def print_version ():
-	print r"""etf2ly (GNU lilypond) %s
+	sys.stdout.write (r"""etf2ly (GNU lilypond) %s
 
 This is free software.  It is covered by the GNU General Public License,
 and you are welcome to change it and/or distribute copies of it under
 certain conditions.  Invoke as `midi2ly --warranty' for more information.
 
 Copyright (c) 2000 by Han-Wen Nienhuys <hanwen@cs.uu.nl>
-""" % version
+""" % version)
 
 
 
@@ -1052,7 +1146,9 @@ for f in files:
 		f = ''
 
 	sys.stderr.write ('Processing `%s\'\n' % f)
-	e = Etf_file(f)
+
+	dict = parse_etf_file (f, Etf_file.routine_dict)
+	e = Etf_file(dict)
 	if not out_filename:
 		out_filename = os.path.basename (re.sub ('(?i).etf$', '.ly', f))
 		
