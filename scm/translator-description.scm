@@ -98,15 +98,7 @@ interesting items (ie. note heads, lyric syllables and normal rests)"
      "Clef_engraver"
      "Determine and set reference point for pitches"
      '(Clef OctavateEight)
-     '(
-      clefPosition
-      clefGlyph
-      centralCPosition
-      clefOctavation
-      explicitClefVisibility
-      clefPitches
-
-      )))
+     '( clefPosition clefGlyph centralCPosition clefOctavation explicitClefVisibility )))
    
    (cons
     'A2_engraver
@@ -144,7 +136,6 @@ up for the musicexpr called @code{one}, down for the musicexpr called
      "Generate object to put grace notes from left to right."
      '(GraceAlignment)
      '(
-      
       graceAlignPosition
       graceAccidentalSpace
       )))
