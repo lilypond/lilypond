@@ -233,10 +233,10 @@ Beam::connect_beams (Grob *me)
     Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
 
   Slice last_int;
-  last_int.set_empty();
+  last_int.set_empty ();
   SCM last_beaming = SCM_EOL;
   Direction last_dir = CENTER;
-  for (int i = 0; i< stems.size(); i++)
+  for (int i = 0; i< stems.size (); i++)
     {
       Grob *this_stem = stems[i];
       SCM this_beaming = this_stem->get_property ("beaming");
@@ -252,10 +252,10 @@ Beam::connect_beams (Grob *me)
 	  Slice new_slice ; 
 	  do
 	    {
-	      if (d == RIGHT && i == stems.size()-1)
+	      if (d == RIGHT && i == stems.size ()-1)
 		continue;
 	      
-	      new_slice.set_empty();
+	      new_slice.set_empty ();
 	      SCM s = index_get_cell (this_beaming, d);
 	      for (; gh_pair_p (s); s = gh_cdr (s))
 		{
@@ -279,7 +279,7 @@ Beam::connect_beams (Grob *me)
 	  SCM s = gh_cdr (this_beaming);
 	  for (; gh_pair_p (s); s = gh_cdr (s))
 	    {
-	      int np = - this_dir * gh_scm2int (gh_car(s));
+	      int np = - this_dir * gh_scm2int (gh_car (s));
 	      gh_set_car_x (s, scm_int2num (np));
 	      last_int.add_point (np);
 	    }
@@ -356,9 +356,9 @@ Beam::print (SCM grob)
   Stencil the_beam;
   Real lt = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
   
-  for (int i = 0; i<= stems.size(); i++)
+  for (int i = 0; i<= stems.size (); i++)
     {
-      Grob * st = (i < stems.size()) ? stems[i] : 0;
+      Grob * st = (i < stems.size ()) ? stems[i] : 0;
       
       SCM this_beaming = st ? st->get_property ("beaming") : SCM_EOL;
       Real xposn = st ? st->relative_coordinate (xcommon, X_AXIS) : 0.0;
@@ -380,7 +380,7 @@ Beam::print (SCM grob)
 	   gh_pair_p (s); s =gh_cdr (s))
 	{
 	  int b = gh_scm2int (gh_car (s));
-	  if (scm_memq (gh_car(s), right) != SCM_BOOL_F)
+	  if (scm_memq (gh_car (s), right) != SCM_BOOL_F)
 	    {
 	      full_beams.push (b);
 	    }
@@ -393,7 +393,7 @@ Beam::print (SCM grob)
 	   gh_pair_p (s); s =gh_cdr (s))
 	{
 	  int b = gh_scm2int (gh_car (s));
-	  if (scm_memq (gh_car(s), left) == SCM_BOOL_F)
+	  if (scm_memq (gh_car (s), left) == SCM_BOOL_F)
 	    {
 	      rfliebertjes.push (b);
 	    }
@@ -447,7 +447,7 @@ Beam::print (SCM grob)
 	  the_beam.add_stencil (b);	      
 	}
 	  
-      if (lfliebertjes.size() || rfliebertjes.size())
+      if (lfliebertjes.size () || rfliebertjes.size ())
 	{
 	  Real nw_f;
 
@@ -467,7 +467,7 @@ Beam::print (SCM grob)
 	  Real lw = nw_f;
 	  Real rw = nw_f;
 	  if (i > 0)
-	    rw = nw_f <? ((xposn - last_xposn) / 2);
+	    rw = nw_f <? ( (xposn - last_xposn) / 2);
 	  else
 	    /*
 	      TODO: 0.5 is a guess.
@@ -476,21 +476,21 @@ Beam::print (SCM grob)
 	      - 0.5;
 	  
 	  if (st)
-	    lw = nw_f <? ((xposn - last_xposn) / 2);
+	    lw = nw_f <? ( (xposn - last_xposn) / 2);
 	  else
-	    lw = me->get_bound(RIGHT)->relative_coordinate (xcommon, X_AXIS)
+	    lw = me->get_bound (RIGHT)->relative_coordinate (xcommon, X_AXIS)
 	      - last_xposn;
 
 	  Stencil rhalf = Lookup::beam (dydx, rw, thick, blot);
 	  Stencil lhalf = Lookup::beam (dydx, lw, thick, blot);
-	  for (int j = lfliebertjes.size(); j--;)
+	  for (int j = lfliebertjes.size (); j--;)
 	    {
 	      Stencil b (lhalf);
 	      b.translate_axis (last_xposn -  x0, X_AXIS);
 	      b.translate_axis (dydx * (last_xposn-x0) + bdy * lfliebertjes[j], Y_AXIS);
 	      the_beam.add_stencil (b);	      
 	    }
-	  for (int j = rfliebertjes.size(); j--;)
+	  for (int j = rfliebertjes.size (); j--;)
 	    {
 	      Stencil b (rhalf);
 	      b.translate_axis (xposn -  x0 - rw , X_AXIS);
@@ -523,14 +523,14 @@ Beam::print (SCM grob)
       SCM properties = Font_interface::font_alist_chain (me);
 
       Stencil tm = *unsmob_stencil (Text_item::interpret_markup
-	(me->get_paper ()->self_scm (), properties, quant_score));
+	 (me->get_paper ()->self_scm (), properties, quant_score));
       the_beam.add_at_edge (Y_AXIS, UP, tm, 5.0, 0);
     }
 #endif
     
   
   
-  return the_beam.smobbed_copy();
+  return the_beam.smobbed_copy ();
 }
   
 
@@ -553,7 +553,7 @@ Beam::get_default_dir (Grob *me)
       Grob *s = stems[i];
       Direction sd = get_grob_direction (s);
 
-      int center_distance = int(- d * Stem::head_positions (s) [-d]) >? 0;
+      int center_distance = int (- d * Stem::head_positions (s) [-d]) >? 0;
       int current = sd	? (1 + d * sd)/2 : center_distance;
 
       if (current)
@@ -608,14 +608,14 @@ struct Int_set
 {
   Array<Interval> allowed_regions_;
 
-  Int_set()
+  Int_set ()
   {
-    set_full();
+    set_full ();
   }
 
-  void set_full()
+  void set_full ()
   {
-    allowed_regions_.clear();
+    allowed_regions_.clear ();
     Interval s;
     s.set_full ();
     allowed_regions_.push (s);
@@ -623,7 +623,7 @@ struct Int_set
 
   void remove_interval (Interval rm)
   {
-    for (int i = 0; i < allowed_regions_.size(); )
+    for (int i = 0; i < allowed_regions_.size (); )
       {
 	Interval s = rm;
 
@@ -689,7 +689,7 @@ Beam::consider_auto_knees (Grob* me)
 	continue;
 
       Interval hps = Stem::head_positions (stem);
-      if(!hps.is_empty ())
+      if (!hps.is_empty ())
 	{
 	  hps[LEFT] += -1;
 	  hps[RIGHT] += 1; 
@@ -717,19 +717,19 @@ Beam::consider_auto_knees (Grob* me)
   Interval max_gap;
   Real max_gap_len =0.0;
 
-  for (int i  = gaps.allowed_regions_.size() -1;  i >=  0 ; i--)
+  for (int i  = gaps.allowed_regions_.size () -1;  i >=  0 ; i--)
     {
       Interval gap = gaps.allowed_regions_[i];
 
       /*
 	the outer gaps are not knees.
        */
-      if (isinf (gap[LEFT]) || isinf(gap[RIGHT]))
+      if (isinf (gap[LEFT]) || isinf (gap[RIGHT]))
 	continue;
       
       if (gap.length () >= max_gap_len)
 	{
-	  max_gap_len = gap.length();
+	  max_gap_len = gap.length ();
 	  max_gap = gap;
 	}
     }
@@ -737,7 +737,7 @@ Beam::consider_auto_knees (Grob* me)
   if (max_gap_len > threshold)
     {
       int j = 0;
-      for (int i = 0; i < stems.size(); i++)
+      for (int i = 0; i < stems.size (); i++)
 	{
 	  Grob* stem = stems[i];
 	  if (Stem::is_invisible (stem))
@@ -746,7 +746,7 @@ Beam::consider_auto_knees (Grob* me)
 	  Interval hps = hps_array[j++];
 
 
-	  Direction d =  (hps.center () < max_gap.center()) ?
+	  Direction d =  (hps.center () < max_gap.center ()) ?
 	    UP : DOWN ;
 	  
 	  stem->set_property ("direction", scm_int2num (d));
@@ -775,7 +775,7 @@ Beam::set_stem_shorten (Grob *me)
   /*
     shortening looks silly for x staff beams
    */
-  if (is_knee(me))
+  if (is_knee (me))
     return ;
   
   Real forced_fraction = 1.0 * forced_stem_count (me)
@@ -1038,7 +1038,7 @@ Beam::shift_region_to_valid (SCM grob)
       
   if (feasible_left_point.is_empty ())
     {
-      warning (_("Not sure that we can find a nice beam slope (no viable initial configuration found)."));
+      warning (_ ("Not sure that we can find a nice beam slope (no viable initial configuration found)."));
     }
   else if (!feasible_left_point.contains (y))
     {
@@ -1057,7 +1057,6 @@ Beam::shift_region_to_valid (SCM grob)
   return SCM_UNSPECIFIED;
 }
 
-
 MAKE_SCHEME_CALLBACK (Beam, check_concave, 1);
 SCM
 Beam::check_concave (SCM smob)
@@ -1067,12 +1066,25 @@ Beam::check_concave (SCM smob)
   Link_array<Grob> stems = 
     Pointer_group_interface__extract_grobs (me, (Grob*) 0, "stems");
 
+  Direction beam_dir = CENTER;
   for (int i = 0; i < stems.size ();)
     {
       if (Stem::is_invisible (stems[i]))
 	stems.del (i);
       else
-	i++;
+	{
+	  if (Direction sd = Stem::get_direction (stems[i]))
+	    {
+	      /*
+		Don't do knee beams.
+	       */
+	      if (beam_dir && sd && sd != beam_dir)
+		return SCM_UNSPECIFIED;
+	      
+	      beam_dir = sd;
+	    }
+	  i++;
+	}
     }
   
   if (stems.size () < 3)
@@ -1089,11 +1101,9 @@ Beam::check_concave (SCM smob)
      different directions. --hwn
      
   */
-  bool concaveness1 = false;
+  bool is_concave1 = false;
   SCM gap = me->get_property ("concaveness-gap");
-  if (gh_number_p (gap)
-      && Stem::get_direction(stems.top ())
-         == Stem::get_direction(stems[0]))
+  if (gh_number_p (gap))
     {
       Real r1 = gh_scm2double (gap);
       Real dy = Stem::chord_start_y (stems.top ())
@@ -1105,10 +1115,11 @@ Beam::check_concave (SCM smob)
       Real y0 = Stem::chord_start_y (stems[0]);
       for (int i = 1; i < stems.size () - 1; i++)
 	{
-	  Real c = (Stem::chord_start_y (stems[i]) - y0) - i * slope;
-	  if (c > r1)
+	  Real c =
+	    beam_dir *((Stem::chord_start_y (stems[i]) - y0) - i * slope);
+	  if (c - r1 > 0)
 	    {
-	      concaveness1 = true;
+	      is_concave1 = true;
 	      break;
 	    }
 	}
@@ -1129,50 +1140,26 @@ Beam::check_concave (SCM smob)
   Real concaveness2 = 0;
   SCM thresh = me->get_property ("concaveness-threshold");
   Real r2 = infinity_f;
-  if (!concaveness1 && gh_number_p (thresh)
-      && Stem::get_direction(stems.top ())
-         == Stem::get_direction(stems[0]))
+  if (!is_concave1 && gh_number_p (thresh))
     {
       r2 = gh_scm2double (thresh);
-
-      Direction dir = Stem::get_direction(stems.top ());
-      Real concave = 0;
-      Interval iv (Stem::chord_start_y (stems[0]),
-		   Stem::chord_start_y (stems.top ()));
       
-      if (iv[MAX] < iv[MIN])
-	iv.swap ();
+      Interval iv;
+      iv.add_point (Stem::chord_start_y (stems[0]));
+      iv.add_point (Stem::chord_start_y (stems.top ()));
       
       for (int i = 1; i < stems.size () - 1; i++)
 	{
 	  Real f = Stem::chord_start_y (stems[i]);
-	  concave += ((f - iv[MAX] ) >? 0) +
-	    ((f - iv[MIN] ) <? 0);
+	  concaveness2 += ( (f - iv[MAX] ) >? 0) +
+	    ( (f - iv[MIN] ) <? 0);
 	}
-      concave *= dir;
-      concaveness2 = concave / (stems.size () - 2);
       
-      /*
-
-      ugh: this is the a kludge to get
-      input/regression/beam-concave.ly to behave as
-      baerenreiter.
-
-      */
-
-      /*
-	huh? we're dividing twice (which is not scalable) meaning that
-	the longer the beam, the more unlikely it will be
-	concave. Maybe you would even expect the other way around??
-
-	--hwn.
-	
-       */
-      concaveness2 /= (stems.size () - 2);
+      concaveness2 *= beam_dir / (stems.size () - 2);
     }
   
   /* TODO: some sort of damping iso -> plain horizontal */
-  if (concaveness1 || concaveness2 > r2)
+  if (is_concave1 || concaveness2 > r2)
     {
       Drul_array<Real> pos = ly_scm2interval (me->get_property ("positions"));
       Real r = linear_combination (pos, 0);
@@ -1234,11 +1221,11 @@ Beam::slope_damping (SCM smob)
   and (cdr BEAMING)
  */
 Slice
-where_are_the_whole_beams(SCM beaming)
+where_are_the_whole_beams (SCM beaming)
 {
   Slice l; 
   
-  for( SCM s = gh_car (beaming); gh_pair_p (s) ; s = gh_cdr (s))
+  for ( SCM s = gh_car (beaming); gh_pair_p (s) ; s = gh_cdr (s))
     {
       if (scm_memq (gh_car (s), gh_cdr (beaming)) != SCM_BOOL_F)
 	
@@ -1278,7 +1265,7 @@ Beam::calc_stem_y (Grob *me, Grob* s, Grob ** common,
     }
   else
     {
-      Slice bm = Stem::beam_multiplicity(s);
+      Slice bm = Stem::beam_multiplicity (s);
       if (!bm.is_empty ())
 	stem_y +=bm[my_dir] * beam_translation;
     }
@@ -1304,7 +1291,7 @@ Beam::set_stem_lengths (Grob *me)
   
   Grob *common[2];
   for (int a = 2; a--;)
-    common[a] = common_refpoint_of_array (stems, me, Axis(a));
+    common[a] = common_refpoint_of_array (stems, me, Axis (a));
   
   Drul_array<Real> pos = ly_scm2realdrul (me->get_property ("positions"));
   Real staff_space = Staff_symbol_referencer::staff_space (me);
@@ -1316,7 +1303,7 @@ Beam::set_stem_lengths (Grob *me)
       &&gh_scm2int (me->get_property ("gap-count")))
     {
       gap = true;
-      thick = get_thickness(me);
+      thick = get_thickness (me);
     }
       
   // ugh -> use commonx
@@ -1364,8 +1351,8 @@ Beam::set_beaming (Grob *me, Beaming_info_list *beaming)
       do
 	{
 	  /* Don't set beaming for outside of outer stems */	  
-	  if ((d == LEFT && i == 0)
-	      ||(d == RIGHT && i == stems.size () -1))
+	  if ( (d == LEFT && i == 0)
+	      || (d == RIGHT && i == stems.size () -1))
 	    continue;
 
 	  Grob *st =  stems[i];
@@ -1375,9 +1362,9 @@ Beam::set_beaming (Grob *me, Beaming_info_list *beaming)
 	    {
 	      int b = beaming->infos_.elem (i).beams_i_drul_[d];
 	      if (i>0
-		  && i < stems.size() -1
+		  && i < stems.size () -1
 		  && Stem::is_invisible (st))
-		b = b <? beaming->infos_.elem(i).beams_i_drul_[-d];
+		b = b <? beaming->infos_.elem (i).beams_i_drul_[-d];
 	      
 	      Stem::set_beaming (st, b, d);
 	    }
@@ -1518,7 +1505,7 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
   Real minimum_distance =
     staff_space * robust_scm2double (rest->get_property ("minimum-distance"), 0.0);
 
-  Real shift = d * (((beam_y - d * minimum_distance) - rest_dim) * d  <? 0.0);
+  Real shift = d * ( ((beam_y - d * minimum_distance) - rest_dim) * d  <? 0.0);
 
   shift /= staff_space;
   Real rad = Staff_symbol_referencer::line_count (rest) * staff_space / 2;
@@ -1527,7 +1514,7 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
   shift = ceil (fabs (shift * 2.0)) / 2.0 * sign (shift);
 
   /* Inside staff, move by whole spaces*/
-  if ((rest->extent (common_y, Y_AXIS)[d] + staff_space * shift) * d
+  if ( (rest->extent (common_y, Y_AXIS)[d] + staff_space * shift) * d
       < rad
       || (rest->extent (common_y, Y_AXIS)[-d] + staff_space * shift) * -d
       < rad)

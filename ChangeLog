@@ -1,5 +1,15 @@
 2004-02-27  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/define-grobs.scm (all-grob-descriptions): tune concaveness
+	gap/threshold.
+
+	* lily/beam-quanting.cc (score_slopes_dy): remove
+	ROUND_TO_ZERO_SLOPE kludge.
+
+	* lily/beam.cc (check_concave): remove old concaveness2 kludge.
+
+	* input/regression/beam-concave.ly (texidoc): add morgenlied example.
+
 	* lily/global-context.cc (Global_context): alway accept Score
 	(run_iterator_on_me): cast Context to Score_context, not
 	Context_def.

@@ -6,7 +6,10 @@ texidoc = "Concave beams should be horizontal. Informally spoken,
   concave refers to the shape of the notes that are opposite a
   beam. If an up-beam has high notes on its center stems, then we call
   it concave.  This example shows borderline cases. Only the beams
-  that are marked `horiz' should be printed horizontally.  " }
+  that are marked `horiz' should be printed horizontally.  "
+
+
+}
 
 
 %{
@@ -67,13 +70,32 @@ beams this way."
 
     
 %%% Han-Wen: this should be concave
+	\break
      a,16[^"horiz." a' a a]
-
     \clef treble
 
 %%%% This should not be concave (hwn)
     \stemUp bes8[  \stemDown d'8 bes8]  
-  }
+
+
+	\stemBoth
+%% morgenlied:
+	f16[^"horiz" b dis b f b]
+
+
+%% sarabande m 25
+%{
+	this beam is horiz. in baerenreiter, but it is not really concave IMO.
+
+
+	\clef bass
+	\key f \major
+	\stemUp
+	a,16[ b c b ]
+	\stemBoth
+%}
+
+}
   \paper{
     raggedright = ##t
   }
