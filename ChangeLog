@@ -1,5 +1,10 @@
 2005-01-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/general-scheme.cc: new file. 
+
+	* lily/font-select.cc (get_font_by_design_size): retrieve
+	PangoFont for (designsize . "pango-descr") entries.
+
 	* lily/lily-parser-scheme.cc: new file.
 
 	* lily/output-def-scheme.cc: new file.
