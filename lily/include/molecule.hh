@@ -1,7 +1,7 @@
 #ifndef MOLECULE_HH
 #define MOLECULE_HH
 
-#include "proto.hh"
+#include "lily-proto.hh"
 #include "plist.hh"
 #include "boxes.hh"
 #include "symbol.hh"
@@ -23,7 +23,7 @@ struct Atom {
 
     void print() const;
 
-    String TeXstring() const;
+    String TeX_string() const;
 };
 
 
@@ -47,7 +47,7 @@ struct Molecule {
     /// how big is #this#? 
     Box extent() const;
 
-    String TeXstring() const;
+    String TeX_string() const;
 
     Molecule(const Molecule&s);
     void print() const;
