@@ -29,10 +29,7 @@ Repeat_engraver::do_try_music (Music* m)
   if (Repeated_music* r = dynamic_cast<Repeated_music *> (m))
     {
       if (repeated_music_l_)
-	{
-	  m->warning ("Already have repeated music.");
-	  return false;
-	}
+	return false;
       
       if (r->semi_fold_b_)
 	{
@@ -58,7 +55,8 @@ Repeat_engraver::queue_events ()
   Music_sequence* alt = repeated_music_l_->alternatives_p_;
   Moment walk_mom = now_mom () + repeated_music_l_->repeat_body_p_->length_mom ();
 
-      
+  bool create_volta = ! get_property ("noVoltaBraces",0).to_bool ();
+
   Cons_list<Bar_create_event> becel;
   becel.append (new Bar_create_event (now_mom (), "|:"));
 
@@ -92,16 +90,18 @@ Repeat_engraver::queue_events ()
 	    }
 
 	  
-	  Bar_create_event * c = new Bar_create_event (walk_mom, last_number+ 1,
-						       volta_number);
-
-	  if (!i->next_)
-	    c->last_b_ = true;
-	  
-	  becel.append (c);
-	  last_number = volta_number;
-	  volta_number ++;
-
+	  if (create_volta)
+	    {
+	      Bar_create_event * c = new Bar_create_event (walk_mom, last_number+ 1,
+							   volta_number);
+	      
+	      if (!i->next_)
+		c->last_b_ = true;
+	      
+	      becel.append (c);
+	      last_number = volta_number;
+	      volta_number ++;
+	    }
 	  // should think about voltaSpannerDuration
 	  walk_mom += i->car_->length_mom();
 
