@@ -180,6 +180,6 @@ ENTER_DESCRIPTION(Tab_note_heads_engraver,
 /* descr */       "Generate one or more tablature noteheads from Music of type Note_req.",
 /* creats*/       "TabNoteHead Dots",
 /* acks  */       "",
-/* reads */       "centralCPosition stringTunings minimumFret",
+/* reads */       "centralCPosition stringTunings minimumFret tablatureFormat",
 /* write */       "");
 

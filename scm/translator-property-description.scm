@@ -342,6 +342,7 @@ to true then text placed above or below the staff is not assumed to
 have zero width.  @code{\fatText} and @code{\emptyText} are predefined
 settings.
 .")
+(translator-property-description 'tablatureFormat procedure? "DOCME.")
 (translator-property-description 'tieMelismaBusy boolean? "Signal ties when automaticMelismata is set.")
 (translator-property-description 'timeSignatureFraction number-pair? "
 pair of numbers,  signifying the time signature. For example #'(4 . 4) is a 4/4time signature.")
