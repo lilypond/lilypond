@@ -15,8 +15,6 @@ inclinatum =
   \once \property Voice.NoteHead \override #'inclinatum = ##t
 auctum =
   \once \property Voice.NoteHead \override #'auctum = ##t
-aucta =
-  \once \property Voice.NoteHead \override #'auctum = ##t
 descendens =
   \once \property Voice.NoteHead \override #'descendens = ##t
 ascendens =
@@ -29,8 +27,6 @@ oriscus =
   \once \property Voice.NoteHead \override #'oriscus = ##t
 quilisma =
   \once \property Voice.NoteHead \override #'quilisma = ##t
-semivocalis =
-  \once \property Voice.NoteHead \override #'deminutum = ##t
 deminutum =
   \once \property Voice.NoteHead \override #'deminutum = ##t
 
