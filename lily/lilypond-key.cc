@@ -28,6 +28,7 @@ Lilypond_grob_key::derived_mark () const
   scm_gc_mark (context_->self_scm ());
 }
 
+// todo: reverse order of comparison for efficiency reasons.
 int
 Lilypond_grob_key::do_compare (Object_key const* key) const
 {
