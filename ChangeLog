@@ -1,3 +1,10 @@
+2005-03-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/framework-ps.scm (dump-page): use output-units for landscape.
+
+	* buildscripts/gen-emmentaler-scripts.py (i): lower case file
+	name.
+
 2005-03-06  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/main.cc (do_chroot_jail): Small cleanups.  Avoid constant
