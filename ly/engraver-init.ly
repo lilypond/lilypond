@@ -442,7 +442,7 @@ AncientRemoveEmptyStaffContext = \context {
     drumStyleTable = #drums-style
     
     melismaBusyProperties = #default-melisma-properties
-    
+    tieWaitForNote = ##f
     clefGlyph = #"clefs.G"
     clefPosition = #-2
     middleCPosition = #-6

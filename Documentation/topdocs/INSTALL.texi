@@ -69,19 +69,18 @@ You need the following packages to compile LilyPond:
 
 @itemize
 
-@item @uref{http://www.freetype.org/,Freetype} version 2.
 
 @item @uref{http://fontforge.sf.net/,FontForge} 20041211 or newer.
 
-@item @uref{http://www.xs4all.nl/~hanwen/mftrace/,mftrace} (1.0.33 or
+@item @uref{http://www.xs4all.nl/~hanwen/mftrace/,mftrace} (1.1.0 or
 newer),
 
-  You will need to install some additional packages to get mftrace to
+You will need to install some additional packages to get mftrace to
 work.
 
-@item @uref{http://www.gnu.org/software/guile/guile.html,GUILE} (version 1.6.0 or newer).
-If you are installing a binary packages, you may need to install
-guile-devel or guile-dev or libguile-dev too.
+@item @uref{http://www.gnu.org/software/guile/guile.html,GUILE}
+ (version 1.6.5 or newer).  If you are installing a binary packages,
+you may need to install guile-devel or guile-dev or libguile-dev too.
 
 @item  @uref{http://www.gnu.org/software/flex/,Flex} (version 2.5.4a or newer). 
 
@@ -123,8 +122,11 @@ GNU LilyPond does use a lot of resources. For operation you need the
 following software:
 
 @itemize @bullet
-@item @uref{http://lilypond.org/download/fonts,ec-fonts-mftraced}  (version 1.0.5 or newer).
-@item @uref{http://www.gnu.org/software/guile/guile.html,GUILE} (version 1.6.0 or newer).
+
+@item @uref{http://www.freetype.org/,Freetype} (version 2)
+@item @uref{http://www.pango.org/,Pango}  (version 1.6 or newer).
+@item @uref{http://www.gnu.org/software/guile/guile.html,GUILE}
+(version 1.6.5 or newer).
 @item @uref{http://www.python.org,Python} (version 2.1 or newer).
 @item @TeX{}.
 @item @uref{http://www.ghostscript.com,Ghostscript} (version 8.15 or
