@@ -1,7 +1,5 @@
 dnl WARNING WARNING WARNING WARNING
 dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
-dnl WARNING WARNING WARNING WARNING
-dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
 dnl aclocal.m4   -*-shell-script-*-
 dnl StepMake subroutines for configure.in
 
@@ -179,9 +177,15 @@ AC_DEFUN(AC_STEPMAKE_GUILE, [
     fi
     AC_MSG_CHECKING("Guile version")
     need_guile_version="1.3.4"
-    guile_version=`expr "\`$guile_config --version 2>&1\`" : ".*\($need_guile_version\).*"`
+    need_guile_version_numeric=100304
+    guile_version=`$guile_config --version 2>&1 | awk '{print $NF}'`
+    guile_version_numeric=`echo $guile_version | awk -F. '
+{if ([$]3) {last = [$]3}
+else {last =0}}
+{printf "%s%s%s\n",[$]1*100, [$]2*10,last}'`
     AC_MSG_RESULT("$guile_version")
-    if test "$guile_version" != "$need_guile_version"; then
+    if test $guile_version_numeric -lt $need_guile_version_numeric
+    then
         AC_STEPMAKE_WARN("Guile version "$need_guile_version" or newer is needed")
     fi
     GUILE_FLAGS
