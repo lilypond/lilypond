@@ -11,7 +11,7 @@ forcedLastBreak = \notes { \break }
 #(define (assert-system-count smob n)
   (let ((systems (length (get-broken-into
 			  (get-original
-			   (get-line smob))))))
+			   (get-system smob))))))
     (if (not (equal? n systems))
 	;; Can't use error yet, as we know that we're not using 6...
 	;;(error

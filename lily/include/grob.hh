@@ -88,7 +88,7 @@ public:
     add a dependency. It may be the 0 pointer, in which case, it is ignored.
     */
   void add_dependency (Grob*);    
-  virtual System * line_l () const;
+  virtual System * get_system () const;
   bool linked_b () const;
 
 

@@ -23,10 +23,10 @@ public:
   int  rank_i_;
   virtual void do_break_processing ();
   virtual Paper_column *column_l () const;
-  virtual System *line_l () const;
+  virtual System *get_system () const;
   
   /// if lines are broken then this column is in #line#
-  System *line_l_;
+  System *system_;
 
   static int rank_i (Grob*);
 

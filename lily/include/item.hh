@@ -30,18 +30,18 @@ public:
   Item (SCM);
   Item (Item const &);
 
-  static bool breakable_b (Grob*me);
+  static bool breakable_b (Grob *);
   bool broken_b () const;
   
   Direction break_status_dir () const;
   
-  Item * find_prebroken_piece (Direction) const;
-  Grob * find_broken_piece (System*) const;    
+  Item *find_prebroken_piece (Direction) const;
+  Grob *find_broken_piece (System *) const;    
 
-  virtual System * line_l () const;
-  virtual Paper_column * column_l () const;
+  virtual System *get_system () const;
+  virtual Paper_column *column_l () const;
   virtual void handle_prebroken_dependencies ();
-  static  bool has_interface (Grob*);
+  static  bool has_interface (Grob *);
 protected:
   virtual void discretionary_processing ();
   void copy_breakable_items ();

@@ -111,11 +111,11 @@ System::output_lines ()
   
   for (int i=0; i < broken_into_l_arr_.size (); i++)
     {
-      System *line_l = dynamic_cast<System*> (broken_into_l_arr_[i]);
+      System *system = dynamic_cast<System*> (broken_into_l_arr_[i]);
 
       if (verbose_global_b)
 	progress_indication ("[");
-      line_l->post_processing (i+1 == broken_into_l_arr_.size ());
+      system->post_processing (i+1 == broken_into_l_arr_.size ());
 
       if (verbose_global_b)
 	{
@@ -125,7 +125,7 @@ System::output_lines ()
 
       if (i < broken_into_l_arr_.size () - 1)
 	{
-	  SCM lastcol =  ly_car (line_l->get_grob_property ("columns"));
+	  SCM lastcol =  ly_car (system->get_grob_property ("columns"));
 	  Grob*  e = unsmob_grob (lastcol);
 
 	  SCM between = ly_symbol2scm ("between-system-string");
@@ -155,7 +155,7 @@ set_loose_columns (System* which, Column_x_positions const *posns)
       Item *loose = dynamic_cast<Item*> (posns->loose_cols_[i]);
       Paper_column* col = dynamic_cast<Paper_column*> (loose);
       
-      if (col->line_l_)
+      if (col->system_)
 	continue;
 
       
@@ -203,7 +203,7 @@ set_loose_columns (System* which, Column_x_positions const *posns)
 
 	  Paper_column *thiscol = dynamic_cast<Paper_column*> (loose);
 
-	  thiscol->line_l_ = which;
+	  thiscol->system_ = which;
 	  thiscol->translate_axis (lx + j*(rx - lx)/divide_over, X_AXIS);
 
 	  j ++;	
@@ -245,7 +245,7 @@ set_loose_columns (System* which, Column_x_positions const *posns)
       else
 	dx *= 0.5;
 
-      col->line_l_ = which;
+      col->system_ = which;
       col->translate_axis (lx + dx - cval[LEFT], X_AXIS); 
 #endif
     }
@@ -257,21 +257,21 @@ System::break_into_pieces (Array<Column_x_positions> const &breaking)
 {
   for (int i=0; i < breaking.size (); i++)
     {
-      System *line_l = dynamic_cast <System*> (clone ());
-      line_l->rank_i_ = i;
-      //      line_l->set_immutable_grob_property ("rank", gh_int2scm (i));
+      System *system = dynamic_cast <System*> (clone ());
+      system->rank_i_ = i;
+      //      system->set_immutable_grob_property ("rank", gh_int2scm (i));
       Link_array<Grob> c (breaking[i].cols_);
-      pscore_l_->typeset_line (line_l);
+      pscore_l_->typeset_line (system);
       
-      line_l->set_bound (LEFT,c[0]);
-      line_l->set_bound (RIGHT,c.top ());
+      system->set_bound (LEFT,c[0]);
+      system->set_bound (RIGHT,c.top ());
       for (int j=0; j < c.size (); j++)
 	{
 	  c[j]->translate_axis (breaking[i].config_[j],X_AXIS);
-	  dynamic_cast<Paper_column*> (c[j])->line_l_ = line_l;
+	  dynamic_cast<Paper_column*> (c[j])->system_ = system;
 	}
-      set_loose_columns (line_l, &breaking[i]);
-      broken_into_l_arr_.push (line_l);
+      set_loose_columns (system, &breaking[i]);
+      broken_into_l_arr_.push (system);
     }
 }
 
@@ -498,7 +498,7 @@ System::broken_col_range (Item const*l, Item const*r) const
   while (gh_pair_p (s) && ly_car (s) != l->self_scm ())
     {
       Paper_column*c = dynamic_cast<Paper_column*> (unsmob_grob (ly_car (s)));
-      if (Item::breakable_b (c) && !c->line_l_)
+      if (Item::breakable_b (c) && !c->system_)
 	ret.push (c);
 
       s = ly_cdr (s);

@@ -64,7 +64,7 @@ Spanner::do_break_processing ()
 	}
     }
   
-  if (line_l () || broken_b ())
+  if (get_system () || broken_b ())
     return;
 
   if (left == right)
@@ -78,14 +78,14 @@ Spanner::do_break_processing ()
 	  Item* bound = left->find_prebroken_piece (d);
 	  if (!bound)
 	    programming_error ("no broken bound");
-	  else if (bound->line_l ())
+	  else if (bound->get_system ())
 	    {
 	      Spanner * span_p = dynamic_cast<Spanner*> (clone ());
 	      span_p->set_bound (LEFT, bound);
 	      span_p->set_bound (RIGHT, bound);
 
-	      assert (span_p->line_l ()); 
-	      span_p->line_l ()->typeset_grob (span_p);
+	      assert (span_p->get_system ()); 
+	      span_p->get_system ()->typeset_grob (span_p);
 	      broken_into_l_arr_.push (span_p);
 	    }
 	}
@@ -93,7 +93,7 @@ Spanner::do_break_processing ()
     }
   else
     {
-      Link_array<Item> break_points = pscore_l_->line_l_->broken_col_range (left,right);
+      Link_array<Item> break_points = pscore_l_->system_->broken_col_range (left,right);
 
       break_points.insert (left,0);
       break_points.push (right);
@@ -106,7 +106,7 @@ Spanner::do_break_processing ()
 	  Direction d = LEFT;
 	  do
 	    {
-	      if (!bounds[d]->line_l ())
+	      if (!bounds[d]->get_system ())
 		bounds[d] = bounds[d]->find_prebroken_piece (- d);
 	    }
 	  while ((flip (&d))!= LEFT);
@@ -121,17 +121,17 @@ Spanner::do_break_processing ()
 	  span_p->set_bound (LEFT,bounds[LEFT]);
 	  span_p->set_bound (RIGHT,bounds[RIGHT]);
 
-	  if (!bounds[LEFT]->line_l () 
+	  if (!bounds[LEFT]->get_system () 
 	    
-	      || !bounds[RIGHT]->line_l ()
-	      || bounds[LEFT]->line_l () != bounds[RIGHT]->line_l ())
+	      || !bounds[RIGHT]->get_system ()
+	      || bounds[LEFT]->get_system () != bounds[RIGHT]->get_system ())
 	    {
 	      programming_error ("bounds of spanner are invalid");
 	      span_p->suicide ();
 	    }
 	  else
 	    {
-	      bounds[LEFT]->line_l ()->typeset_grob (span_p);
+	      bounds[LEFT]->get_system ()->typeset_grob (span_p);
 	      broken_into_l_arr_.push (span_p);
 	    }
 	}
@@ -145,7 +145,7 @@ Spanner::set_my_columns ()
   Direction i = (Direction) LEFT;
   do 
     {
-      if (!spanned_drul_[i]->line_l ())
+      if (!spanned_drul_[i]->get_system ())
 	set_bound (i,spanned_drul_[i]->find_prebroken_piece ((Direction) -i));
     } 
   while (flip (&i) != LEFT);
@@ -240,13 +240,13 @@ Spanner::spanner_length () const
 }
 
 System *
-Spanner::line_l () const
+Spanner::get_system () const
 {
   if (!spanned_drul_[LEFT] || !spanned_drul_[RIGHT])
     return 0;
-  if (spanned_drul_[LEFT]->line_l () != spanned_drul_[RIGHT]->line_l ())
+  if (spanned_drul_[LEFT]->get_system () != spanned_drul_[RIGHT]->get_system ())
     return 0;
-  return spanned_drul_[LEFT]->line_l ();
+  return spanned_drul_[LEFT]->get_system ();
 }
 
 
@@ -265,7 +265,7 @@ Spanner::find_broken_piece (System*l) const
 int
 Spanner::compare (Spanner * const &p1, Spanner * const &p2)
 {
-  return  p1->line_l ()->rank_i_ - p2->line_l ()->rank_i_;
+  return  p1->get_system ()->rank_i_ - p2->get_system ()->rank_i_;
 }
 
 bool

@@ -7,11 +7,11 @@
 }
 
 #(define (display-systemno smob)
-  (let* ((this-line (get-line smob))
+  (let* ((this-system (get-line smob))
 	 (systems (get-broken-into
-		   (get-original this-line))))
+		   (get-original this-system))))
     (display smob)
-    (display (list-index systems this-line))
+    (display (list-index systems this-system))
     (newline)))
   
 
@@ -19,7 +19,7 @@
   (display (length
 	    (get-broken-into
 	     (get-original
-	      (get-line smob))))))
+	      (get-system smob))))))
 
   
   

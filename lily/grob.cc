@@ -303,22 +303,22 @@ Grob::do_break_processing ()
 
 
 System *
-Grob::line_l () const
+Grob::get_system () const
 {
   return 0;
 }
 
-LY_DEFINE (get_line,
-	   "get-line",
+LY_DEFINE (get_system,
+	   "get-system",
 	   1, 0, 0, (SCM grob),
 	   "
-Return the Line Grob of @var{grob}.
+Return the System Grob of @var{grob}.
 ")
 {
   Grob *me = unsmob_grob (grob);
   SCM_ASSERT_TYPE (me, grob, SCM_ARG1, __FUNCTION__, "grob");
   
-  if (Grob *g = me->line_l ())
+  if (Grob *g = me->get_system ())
     return g->self_scm ();
     
   return SCM_EOL;
@@ -361,7 +361,7 @@ Grob::handle_broken_dependencies ()
       for (int i = 0;  i< s->broken_into_l_arr_ .size (); i++)
 	{
 	  Grob * sc = s->broken_into_l_arr_[i];
-	  System * l = sc->line_l ();
+	  System * l = sc->get_system ();
 
 	  sc->substitute_mutable_properties (l ? l->self_scm () : SCM_UNDEFINED,
 				   mutable_property_alist_);
@@ -369,12 +369,12 @@ Grob::handle_broken_dependencies ()
     }
 
 
-  System *line = line_l ();
+  System *system = get_system ();
 
   if (live ()
-      && line && common_refpoint (line, X_AXIS) && common_refpoint (line, Y_AXIS))
+      && system && common_refpoint (system, X_AXIS) && common_refpoint (system, Y_AXIS))
     {
-      substitute_mutable_properties (line ? line->self_scm () : SCM_UNDEFINED,
+      substitute_mutable_properties (system ? system->self_scm () : SCM_UNDEFINED,
 			       mutable_property_alist_);
     }
   else if (dynamic_cast <System*> (this))
@@ -682,9 +682,9 @@ Grob::fixup_refpoint (SCM smob)
       if (!parent)
 	continue;
       
-      if (parent->line_l () != me->line_l () && me->line_l ())
+      if (parent->get_system () != me->get_system () && me->get_system ())
 	{
-	  Grob * newparent = parent->find_broken_piece (me->line_l ());
+	  Grob * newparent = parent->find_broken_piece (me->get_system ());
 	  me->set_parent (newparent, ax);
 	}
 

@@ -21,7 +21,7 @@
 Array<int>
 Break_algorithm::find_break_indices () const
 {
-  Link_array<Grob> all = pscore_l_->line_l_->column_l_arr ();
+  Link_array<Grob> all = pscore_l_->system_->column_l_arr ();
   Array<int> retval;
 
   for (int i=0; i < all.size (); i++)
@@ -39,7 +39,7 @@ Break_algorithm::find_break_indices () const
 Link_array<Grob>
 Break_algorithm::find_breaks () const
 {
-  Link_array<Grob> all = pscore_l_->line_l_->column_l_arr ();
+  Link_array<Grob> all = pscore_l_->system_->column_l_arr ();
   Link_array<Grob> retval;
 
   for (int i=0; i < all.size (); i++)

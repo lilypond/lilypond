@@ -28,7 +28,7 @@ public:
   Paper_def *paper_l_;
 
   Paper_outputter *outputter_l_;  
-  System * line_l_;
+  System *system_;
   
   Paper_score ();
 

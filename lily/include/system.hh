@@ -5,8 +5,8 @@
   (c) 1996--2002 Han-Wen Nienhuys
 */
 
-#ifndef SCORELINE_HH
-#define SCORELINE_HH
+#ifndef SYSTEM_HH
+#define SYSTEM_HH
 
 
 #include "column-x-positions.hh"
@@ -46,5 +46,5 @@ protected:
   VIRTUAL_COPY_CONS (Grob);
 };
 
-#endif
+#endif /* SYSTEM_HH */
 

@@ -28,7 +28,7 @@
  */
 Score_engraver::Score_engraver ()
 {
-  scoreline_l_ =0;
+  system_ =0;
   command_column_l_ =0;
   musical_column_l_ =0;
   breaks_i_ =0;
@@ -114,8 +114,8 @@ Score_engraver::initialize ()
   pscore_p_->typeset_line (new System (props));
   
   make_columns ();
-  scoreline_l_ = pscore_p_->line_l_;
-  scoreline_l_->set_bound (LEFT, command_column_l_);
+  system_ = pscore_p_->system_;
+  system_->set_bound (LEFT, command_column_l_);
   command_column_l_->set_grob_property ("breakable", SCM_BOOL_T);
 
   Engraver_group_engraver::initialize ();
@@ -129,7 +129,7 @@ Score_engraver::finalize ()
 
   Grob * cc
     = unsmob_grob (get_property ("currentCommandColumn"));
-  scoreline_l_->set_bound (RIGHT, cc);
+  system_->set_bound (RIGHT, cc);
   cc->set_grob_property ("breakable", SCM_BOOL_T);
   
   typeset_all ();
@@ -167,7 +167,7 @@ void
 Score_engraver::announce_grob (Grob_info info)
 {
   announce_info_arr_.push (info);
-  pscore_p_->line_l_->typeset_grob (info.grob_l_);
+  pscore_p_->system_->typeset_grob (info.grob_l_);
 }
 
 void
@@ -222,7 +222,7 @@ Score_engraver::typeset_all ()
 	    }
 	}
       if (!elem_p->get_parent (Y_AXIS))
-	Axis_group_interface::add_element (scoreline_l_, elem_p);
+	Axis_group_interface::add_element (system_, elem_p);
     }
   elem_p_arr_.clear ();
 }
@@ -242,8 +242,8 @@ Score_engraver::stop_translation_timestep ()
     }
 
 
-  scoreline_l_->add_column (command_column_l_);
-  scoreline_l_->add_column (musical_column_l_);
+  system_->add_column (command_column_l_);
+  system_->add_column (musical_column_l_);
   
   command_column_l_ = 0;
   musical_column_l_ = 0;

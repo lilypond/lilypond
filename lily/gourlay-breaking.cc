@@ -57,7 +57,7 @@ Gourlay_breaking::do_solve () const
 {
   Array<Break_node> optimal_paths;
   Link_array<Grob> all =
-    pscore_l_->line_l_->column_l_arr ();
+    pscore_l_->system_->column_l_arr ();
   
   Array<int> breaks = find_break_indices ();
   
