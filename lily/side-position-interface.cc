@@ -97,7 +97,7 @@ Side_position_interface::side_position (Dimension_cache const * c)
   Direction dir = Side_position_interface (me).get_direction ();
     
   SCM pad = me->remove_elt_property ("padding");
-  if (pad != SCM_UNDEFINED)
+  if (gh_number_p (pad))
     {
       off += gh_scm2double (pad) * dir;
     }
@@ -161,7 +161,7 @@ Side_position_interface::quantised_position (Dimension_cache const *c)
 	  rp += d;
 	}
 
-      return (rp - p) * si.staff_line_leading_f () / 2.0;
+      return (rp - p) * si.staff_space () / 2.0;
     }
   return 0.0;
 }

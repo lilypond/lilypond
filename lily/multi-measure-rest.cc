@@ -72,7 +72,7 @@ Multi_measure_rest::do_brew_molecule_p () const
   Molecule s;
   bool rest_symbol=true;
   SCM alt_symbol_sym =get_elt_property ("alt-symbol");
-  if (alt_symbol_sym != SCM_UNDEFINED)
+  if (gh_string_p (alt_symbol_sym))
     {
       s = lookup_l () -> afm_find (ly_scm2string (alt_symbol_sym));
       rest_symbol = false;
@@ -90,7 +90,7 @@ Multi_measure_rest::do_brew_molecule_p () const
   
   mol_p->add_molecule (s);
   Real interline_f
-    = staff_symbol_referencer_interface (this).staff_line_leading_f ();
+    = staff_symbol_referencer_interface (this).staff_space ();
   if (measures_i_ == 1 && rest_symbol)
     {
       mol_p->translate_axis (interline_f, Y_AXIS);

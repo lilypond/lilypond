@@ -175,7 +175,7 @@ Beam::set_stem_directions ()
     {
       Stem *s = stem (i);
       SCM force = s->remove_elt_property ("dir-forced");
-      if (force == SCM_UNDEFINED)
+      if (!gh_boolean_p (force) || !gh_scm2bool (force))
 	s->set_direction (d);
     }
 } 
@@ -200,7 +200,7 @@ Beam::auto_knee (String gap_str, bool interstaff_b)
   bool knee_b = false;
   int knee_y = 0;
   SCM gap = get_elt_property (gap_str);
-  if (gap != SCM_UNDEFINED)
+  if (gh_number_p (gap))
     {
       int auto_gap_i = gh_scm2int (gap);
       for (int i=1; i < stem_count (); i++)
@@ -254,7 +254,7 @@ Beam::set_stem_shorten ()
     gh_int2scm (multiplicity), 
     SCM_UNDEFINED));
   Real shorten_f = gh_scm2double (shorten) 
-    * Staff_symbol_referencer_interface (this).staff_line_leading_f ();
+    * Staff_symbol_referencer_interface (this).staff_space ();
 
   /* cute, but who invented this -- how to customise ? */
   if (forced_fraction < 1)
@@ -265,7 +265,7 @@ Beam::set_stem_shorten ()
       Stem* s = stem (i);
       if (s->invisible_b ())
         continue;
-      if (s->get_elt_property ("shorten") == SCM_UNDEFINED)
+      if (gh_number_p (s->get_elt_property ("shorten")))
 	s->set_elt_property ("shorten", gh_double2scm (shorten_f));
     }
 }
@@ -296,14 +296,14 @@ Beam::do_post_processing ()
 
   /* set or read dy as necessary */
   SCM s = get_elt_property ("height");
-  if (s != SCM_UNDEFINED)
+  if (gh_number_p (s))
     dy = gh_scm2double (s);
   else
     set_elt_property ("height", gh_double2scm (dy));
 
   /* set or read y as necessary */
   s = get_elt_property ("y-position");
-  if (s != SCM_UNDEFINED)
+  if (gh_number_p (s))
     {
       y = gh_scm2double (s);
       set_stem_length (y, dy);
@@ -404,7 +404,7 @@ Beam::calc_slope_damping_f (Real dy) const
 {
   SCM damp = get_elt_property ("damping"); // remove?
   int damping = 1;		// ugh.
-  if (damp != SCM_UNDEFINED)
+  if (gh_number_p (damp))
     damping = gh_scm2int (damp);
 
   if (damping)
@@ -516,7 +516,7 @@ Beam::quantise_dy_f (Real dy) const
     return dy;
 
   Staff_symbol_referencer_interface st (this);
-  Real interline_f = st.staff_line_leading_f ();
+  Real interline_f = st.staff_space ();
   
   Real staffline_f = paper_l ()->get_var ("stafflinethickness");
   Real beam_f = gh_scm2double (get_elt_property ("beam-thickness"));;
@@ -565,7 +565,7 @@ Beam::quantise_y_f (Real y, Real dy, int quant_dir)
    */
 
   Staff_symbol_referencer_interface sinf (this);
-  Real space = sinf.staff_line_leading_f ();
+  Real space = sinf.staff_space ();
   Real staffline_f = paper_l ()->get_var ("stafflinethickness");
   Real beam_f = gh_scm2double (get_elt_property ("beam-thickness"));;
 
@@ -709,7 +709,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       Real gap_f = 0;
 
       SCM gap = get_elt_property ("beam-gap");
-      if (gap != SCM_UNDEFINED)
+      if (gh_number_p (gap))
 	{
 	  int gap_i = gh_scm2int ( (gap));
 	  int nogap = rwholebeams - gap_i;

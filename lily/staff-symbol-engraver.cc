@@ -63,11 +63,11 @@ Staff_symbol_engraver::do_removal_processing()
   SCM sz (get_property ("staffLineLeading", 0));
   if (gh_number_p(sz))
     {
-      span_p_->staff_line_leading_f_ = gh_scm2double (sz);
+      span_p_->staff_space_ = gh_scm2double (sz);
     }
   else
     {
-      span_p_->staff_line_leading_f_ = paper_l ()->get_var ("interline");
+      span_p_->staff_space_ = paper_l ()->get_var ("interline");
     }
   span_p_->set_bounds(RIGHT,get_staff_info().command_pcol_l ());
   typeset_element (span_p_);

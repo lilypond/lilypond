@@ -30,8 +30,8 @@ Note_column::shift_compare (Note_column *const &p1, Note_column*const&p2)
   SCM s1 = p1->get_elt_property ("horizontal-shift");
   SCM s2 = p2->get_elt_property ("horizontal-shift");
 
-  int h1 = (s1 == SCM_UNDEFINED) ? 0 : gh_scm2int (s1);
-  int h2 = (s2 == SCM_UNDEFINED) ? 0 : gh_scm2int (s2);
+  int h1 = (gh_number_p (s1))?  gh_scm2int (s1) :0;
+  int h2 = (gh_number_p (s2)) ? gh_scm2int (s2):0;
   return h1 - h2;
 }
 
@@ -122,7 +122,7 @@ Note_column::translate_rests (int dy_i)
       Score_element * se = unsmob_element (gh_car (s));
       Staff_symbol_referencer_interface si (se);
 
-      se->translate_axis (dy_i * si.staff_line_leading_f ()/2.0, Y_AXIS);
+      se->translate_axis (dy_i * si.staff_space ()/2.0, Y_AXIS);
     }
 }
 
@@ -162,11 +162,11 @@ Note_column::do_post_processing ()
   Real beam_y = 0;
 
   SCM s = b->get_elt_property ("height");
-  if (s != SCM_UNDEFINED)
+  if (gh_number_p (s))
     beam_dy = gh_scm2double (s);
   
   s = b->get_elt_property ("y-position");
-  if (s != SCM_UNDEFINED)
+  if (gh_number_p (s))
     beam_y = gh_scm2double (s);
 
   Real x0 = b->first_visible_stem ()->hpos_f ();
@@ -179,7 +179,7 @@ Note_column::do_post_processing ()
   Score_element * se = unsmob_element (gh_car (s));
   Staff_symbol_referencer_interface si (se);
 
-  Real staff_space = si.staff_line_leading_f ();      
+  Real staff_space = si.staff_space ();      
   Real rest_dim = extent (Y_AXIS)[d]*2.0  /staff_space ;
 
   Real minimum_dist

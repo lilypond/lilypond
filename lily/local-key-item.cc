@@ -69,7 +69,7 @@ Local_key_item::do_brew_molecule_p() const
 {
   Molecule*output = new Molecule;
   Staff_symbol_referencer_interface si (this);
-  Real note_distance = si.staff_line_leading_f ()/2;
+  Real note_distance = si.staff_space ()/2;
   Molecule *octave_mol_p = 0;
   int lastoct = -100;
   

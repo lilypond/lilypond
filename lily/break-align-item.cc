@@ -95,10 +95,10 @@ Break_align_item::do_pre_processing()
 
   // urg
   SCM first_pair = elems[0]->get_elt_property ("minimum-space");
-  if (first_pair == SCM_UNDEFINED)
-    first_pair = gh_cons (gh_double2scm (0.0), gh_double2scm (0.0));
-  else
+  if (gh_pair_p (first_pair))
     first_pair = first_pair;
+  else
+    first_pair = gh_cons (gh_double2scm (0.0), gh_double2scm (0.0));
   
   scm_set_car_x (first_pair, gh_double2scm (-dists[0]));
   elems[0]->set_elt_property ("minimum-space", first_pair);

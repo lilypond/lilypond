@@ -30,10 +30,10 @@ Bow::do_brew_molecule_p () const
 
   Molecule a;
   SCM d =  get_elt_property ("dashed");
-  if (d == SCM_UNDEFINED)
-    a = lookup_l ()->slur (one, get_direction () * thick, thick);
-  else
+  if (gh_number_p (d))
     a = lookup_l ()->dashed_slur (one, thick, gh_scm2int (d));
+  else
+    a = lookup_l ()->slur (one, get_direction () * thick, thick);
   
   return new Molecule (a); 
 }
@@ -57,9 +57,6 @@ Bow::curve_extent (Axis a) const
 Bezier
 Bow::get_curve () const
 {
-
-
-  
   Bezier_bow b (paper_l (),
 		get_encompass_offset_arr (), get_direction ());
   

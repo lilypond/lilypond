@@ -1,5 +1,6 @@
-#include "warn.hh"
 #include <stream.h>
+#include "warn.hh"
+
 
 void
 error (String s)
@@ -34,9 +35,3 @@ programming_error (String s)
   cerr << _("programming error: ") << s << _(" (Continuing; cross thumbs)") << '\n';
 }
 
-void
-programming_warning (String m)
-{
-  cerr << _ ("programming warning: ") << m <<endl;
-
-}

@@ -14,7 +14,6 @@
 #include "string.hh"
 #include "proto.hh"
 #include "warn.hh"
-#include "thank-you-cygnus.hh"
 #include "source-file.hh"
 #include "simple-file-storage.hh"
 #include "string-storage.hh"

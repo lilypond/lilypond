@@ -49,11 +49,11 @@ Staff_symbol_referencer_interface::staff_symbol_l () const
 }
 
 Real
-Staff_symbol_referencer_interface::staff_line_leading_f () const
+Staff_symbol_referencer_interface::staff_space () const
 {
   Staff_symbol * st = staff_symbol_l ();
   if (st)
-    return st->staff_line_leading_f_;
+    return st->staff_space_;
   else if (elt_l_->pscore_l_ && elt_l_->paper_l ())
     elt_l_->paper_l ()->get_var ("interline");
  
@@ -72,7 +72,7 @@ Staff_symbol_referencer_interface::position_f () const
       Real y = elt_l_->relative_coordinate (c, Y_AXIS)
 	- st->relative_coordinate (c, Y_AXIS);
 
-      p += 2.0 * y / st->staff_line_leading_f ();
+      p += 2.0 * y / st->staff_space ();
     }
   else
     {
@@ -99,7 +99,7 @@ Staff_symbol_referencer_interface::callback (Dimension_cache const * c)
   Real off =0.0;
   if (gh_number_p (pos))
     {
-      Real space = staff_symbol_referencer_interface (sc).staff_line_leading_f ();
+      Real space = staff_symbol_referencer_interface (sc).staff_space ();
       off = gh_scm2double (pos) * space/2.0;
     }
   sc->set_elt_property ("staff-position", gh_double2scm (0.0));

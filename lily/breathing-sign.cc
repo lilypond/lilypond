@@ -33,7 +33,7 @@ Breathing_sign::do_brew_molecule_p () const
 {
   Staff_symbol_referencer_interface si (this);
   
-  Real dl = si.staff_line_leading_f();
+  Real dl = si.staff_space();
   Interval i1(0, dl / 6), i2(-dl / 2, dl / 2);
   Box b(i1, i2);
 
@@ -45,7 +45,7 @@ Breathing_sign::do_brew_molecule_p () const
 void
 Breathing_sign::do_post_processing()
 {
-  Real dl = Staff_symbol_referencer_interface (this).staff_line_leading_f();
+  Real dl = Staff_symbol_referencer_interface (this).staff_space();
 
   translate_axis(2.0 * dl * get_direction (), Y_AXIS);
 }
