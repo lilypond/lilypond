@@ -1,5 +1,9 @@
 2004-07-25  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/test/lyrics-melisma-variants.ly (texidoc): new file.
+
+	* input/test/lyrics-melisma-faster.ly: new file.
+
 	* lily/new-lyric-combine-music-iterator.cc (find_voice): allow
 	change of melody by setting associatedVoice.
 

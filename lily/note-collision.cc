@@ -268,6 +268,19 @@ check_meshing_chords (Grob *me,
     {
       Grob *d = unsmob_grob (nd->get_property ("dot"));
       Grob *parent = d->get_parent (X_AXIS);
+
+
+      /*
+	FIXME:
+        
+              |
+	 x . o
+	|
+
+	
+	the . is put right of o which is erroneous o force-shifted
+	far to the right.
+      */
       if (Dot_column::has_interface (parent))
 	Side_position_interface::add_support (parent, nu);
     }

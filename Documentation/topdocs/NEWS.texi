@@ -21,7 +21,8 @@ a grouping object, composed of @code{AmbitusLine},
 @code{AmbitusAccidental} and @code{AmbitusNoteHead}. These objects may
 be tuned similar to accidentals and note heads.
 
-@item Ledger lines are now shortened to prevent them from colliding.
+@item Ledger lines are now shortened when the spacing is tight. This
+prevents ledger lines from colliding with each other.
 
 @item Slur formatting has been rewritten. The new slur code
 works similar to the Beam formatter: scores are assigned for all
@@ -31,8 +32,8 @@ account collisions with staff lines, scripts (like staccato and
 accent) and accidentals.
 
 
-@item In the LilyPond  emacs mode, the @code{|} will now display the
-  current beat within the measure. 
+@item In the LilyPond  emacs mode, entering @code{|} will  display the
+  current beat within the measure.
 
 @item Colliding notes are now correctly aligned relative to notes in other staves.
 
