@@ -1,7 +1,13 @@
 % -*- Fundamental -*-
 
 accreg_dot_size# := .5interline#;
-accreg_linethickness# := 1.3stafflinethickness#;
+
+% 'strange turning path' in accBayanbase:
+%     mf '\mode=laserjet; input feta11'
+% accreg_linethickness# := 1.3stafflinethickness#;
+
+% so, do thinner lines, for now
+accreg_linethickness# := 1.2stafflinethickness#;
 
 % This dimention is the same on all registersymbols.
 % The different symbols should calculate their other

@@ -546,6 +546,7 @@ AC_DEFUN(AC_STEPMAKE_TEXMF, [
     AC_CHECK_PROGS(METAPOST, mp, no)
     if test "x$METAPOST" = "xno"; then
 	AC_CHECK_PROGS(MPOST, mpost, -echo no mp or mpost)
+
 	METAPOST=$MPOST
     fi
 
@@ -561,8 +562,20 @@ AC_DEFUN(AC_STEPMAKE_TEXMF, [
 	INIMETAPOST=$INIMPOST
     fi
 
+    AC_MSG_CHECKING(for working metafont mode)
+    modelist='ljfour lj4 lj3 lj2 ljet laserjet'
+    for MFMODE in $modelist; do
+    	$METAFONT "\mode:=$MFMODE; mode_setup; end." > /dev/null 2>&1
+	if test -f mfput.tfm; then
+	    break;
+	fi
+    done
+    rm -f mfput.*
+    AC_MSG_RESULT($MFMODE)
+
     AC_SUBST(METAFONT)
     AC_SUBST(METAPOST)
+    AC_SUBST(MFMODE)
     AC_SUBST(INIMETAFONT)
     AC_SUBST(INIMETAPOST)
 ])

@@ -15,7 +15,12 @@ Grep for TODO and ugh/ugr/urg.
 .  * ps/lily.ps see comments.
 . * devise standard for functioning of Vertical_align_element.
 . * midi key.
-
+. * Repeats
+.  * unfold broken: 
+.   * without alternatives: repeat unfold 4 { a b c d }
+.   * count > alternatives: repeat unfold 79 { a b c d } 
+\alternative { { c c c c } { d d d d } }
+.  * kind of 'initial property' iso fold/volta(semi)/unfold strings
 . * fix singleStaffBracket
 . * declare performers in \midi
 . * fix MIDI

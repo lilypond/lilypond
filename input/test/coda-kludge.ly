@@ -32,19 +32,19 @@ Hi,
 			c c c c
 			% coda-klugde: let volta span only one bar
 			\property Staff.voltaSpannerDuration = "1"
-			\repeat 5 { d d d d }
+			\repeat semi 5 { d d d d }
 				\alternative { { e e e e f f f f }
 			{ g g g g } }
 		}
 		\context Lyrics \lyrics{
 			intro1
-			\repeat 5 {}
-			\alternative <
+			\repeat fold 5 {}
+			\alternative {
 				{ chorus1 one verse1 }
 				{ chorus1 two verse1 }
 				{ chorus1 three verse }
 				{ chorus1 four verse }
-			>
+			}
 			five1
 		}
 	>

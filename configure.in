@@ -67,7 +67,7 @@ for i in $LOCALES; do
 done
 rm -f afm; ln -sf $LILYPONDPREFIX/mf/out afm
 rm -f tfm; ln -sf $LILYPONDPREFIX/mf/out tfm
-rm -f cmtfm; ln -sf `dirname $TEX_TFMDIR` cmtfm
+rm -f cmtfm; ln -sf $TEX_TFMDIR cmtfm
 AC_MSG_RESULT(ok)
 
 AC_STEPMAKE_END

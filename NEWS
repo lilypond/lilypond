@@ -1,3 +1,9 @@
+pl 43.crypton1
+	- bf: repeat :| placement + core dump
+	  input/test/repeat.ly
+	  input/test/coda-kludge.ly
+	- bf: mf without ljfour
+
 pl 43.jcn1
 	- configure, set-lily.sh, release stuff
 

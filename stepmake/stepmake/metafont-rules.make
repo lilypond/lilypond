@@ -11,7 +11,7 @@ $(outdir)/%.log: %.mf
 	rm $(basename $< ).*gf
 
 $(outdir)/%.tfm: %.mf
-	$(METAFONT) '\mode:=ljfour;  input $<;'
+	$(METAFONT) "\mode:=$(MFMODE); input $<;"
 	mv $(@F) $(outdir)
 	rm $(basename $<).*gf $(basename $<).*log
 
