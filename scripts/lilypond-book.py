@@ -106,6 +106,7 @@ process_cmd = lilypond_binary
 default_ly_options = {}
 
 AFTER = 'after'
+FILTER = 'filter'
 BEFORE = 'before'
 FRAGMENT = 'fragment'
 HTML = 'html'
@@ -211,6 +212,11 @@ ly_options = {
 
 output = {
 	HTML : {
+	FILTER: r'''<lilypond %(options)s>
+%(code)s
+</lilypond>
+''',
+	
 	AFTER: r'''
   </a>
 </p>''',
@@ -241,9 +247,15 @@ output = {
 	VERBATIM: r'''\begin{verbatim}
 %(verb)s\end{verbatim}
 ''',
+	FILTER: r'''\begin{lilypond}[%(options)s]
+%(code)s
+\end{lilypond}''',
 	},
 
 	TEXINFO : {
+	FILTER: r'''@lilypond[%(options)s]
+%(code)s
+@lilypond''',
 	AFTER: '',
 	BEFORE: '',
 	OUTPUT: r'''
@@ -405,6 +417,10 @@ def split_options (option_string):
 class Chunk:
 	def replacement_text (self):
 		return ''
+	
+	def filter_text (self):
+		return self.replacement_text ()
+
 
 	def is_outdated (self):
 		return 0
@@ -432,9 +448,6 @@ class Snippet (Chunk):
 	def substring (self, s):
 		return self.match.group (s)
 
-	def filter_code (self):
-		pass # todo
-
 	def __repr__ (self):
 		return `self.__class__`  +  " type =  " + self.type
 
@@ -457,12 +470,7 @@ class Lilypond_snippet (Snippet):
 			self.options = split_options (os)
 
 	def ly (self):
-		if self.type == 'lilypond_file':
-			name = self.substring ('filename')
-			return '\\renameinput \"%s\"\n' % name\
-			       + open (find_file (name)).read ()
-		else:
-			return self.substring ('code')
+		return self.substring ('code')
 		
 	def full_ly (self):
 		s = self.ly ()
@@ -498,6 +506,15 @@ class Lilypond_snippet (Snippet):
 			# (ps, png) and m/ctimes
 			return None
 		return self
+	
+	def filter_text (self):
+		code  = self.substring ('code')
+		s = run_filter (code)
+		d = {'code' : s,
+		     'options': self.match.group ('options')
+		     }
+		# TODO
+		return output[self.format][FILTER] % d
 	
 	def replacement_text (self):
 		func = Lilypond_snippet.__dict__ ['output_' + self.format]
@@ -589,9 +606,16 @@ class Lilypond_snippet (Snippet):
 		str += '\n'
 
 		return str
+
+class Lilypond_file_snippet (Lilypond_snippet):
+	def ly (self):
+		name = self.substring ('filename')
+		return '\\renameinput \"%s\"\n' % name\
+			       + open (find_file (name)).read ()
+	
 			
 snippet_type_to_class = {
-	'lilypond_file' : Lilypond_snippet,
+	'lilypond_file' : Lilypond_file_snippet,
 	'lilypond_block' : Lilypond_snippet,
 	'lilypond' : Lilypond_snippet,
 	'include' : Include_snippet,
@@ -693,6 +717,19 @@ def filter_pipe (input, cmd):
 	
 def run_filter (s):
 	return filter_pipe (s, filter_cmd)
+
+def is_derived (object, base):
+	def recurse (cl,  baseclass):
+		if cl == baseclass:
+			return True
+		for b in cl.__bases__:
+			if recurse (b, baseclass):
+				return True
+		return False
+			
+	cl = object.__class__
+	return recurse (cl, base)
+	
 
 def process_snippets (cmd, snippets):
 	names = filter (lambda x: x, map (Lilypond_snippet.basename, snippets))
@@ -850,9 +887,11 @@ def do_file (input_filename):
 					break
 
 	if filter_cmd:
-		pass # todo
+		output_file.writelines ([c.filter_text () for c in chunks])
+		
+		
 	elif process_cmd:
-		outdated = filter (lambda x: x.__class__ == Lilypond_snippet \
+		outdated = filter (lambda x: is_derived (x, Lilypond_snippet) \
 				   and x.is_outdated (), chunks)
 		ly.progress (_ ("Writing snippets..."))
 		map (Lilypond_snippet.write_ly, outdated)
@@ -878,7 +917,7 @@ def do_file (input_filename):
 		do_file (name)
 		
 	map (process_include,
-	     filter (lambda x: x.__class__ == Include_snippet, chunks))
+	     filter (lambda x: is_derived (x, Include_snippet), chunks))
 
 def do_options ():
 	global format, output_name
