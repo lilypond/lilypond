@@ -1,5 +1,5 @@
 /*   
-  script.cc --  implement Script_interface
+  script-interface.cc --  implement Script_interface
   
   source file of the GNU LilyPond music typesetter
   
@@ -9,7 +9,7 @@
 
 #include "directional-element-interface.hh"
 #include "warn.hh"
-#include "script.hh"
+#include "script-interface.hh"
 #include "font-interface.hh"
 #include "side-position-interface.hh"
 #include "output-def.hh"
@@ -20,7 +20,7 @@
 #include "note-column.hh"
 
 Stencil
-Script_interface::get_stencil (Grob * me, Direction d)
+Script_interface::get_stencil (Grob *me, Direction d)
 {
   SCM s = me->get_property ("script-stencil");
   assert (ly_c_pair_p (s));
@@ -29,54 +29,47 @@ Script_interface::get_stencil (Grob * me, Direction d)
   if (key == ly_symbol2scm ("feta"))
     {
       SCM name_entry = ly_cdr (s);
-
-      SCM str = (ly_c_pair_p (name_entry)) ? index_get_cell (name_entry, d) :  name_entry;
-      return Font_interface::get_default_font (me)->find_by_name ("scripts-" +
-								  ly_scm2string (str));
+      SCM str = ((ly_c_pair_p (name_entry)) ? index_get_cell (name_entry, d)
+		 : name_entry);
+      return Font_interface::get_default_font (me)
+	->find_by_name ("scripts-" + ly_scm2string (str));
     }
- else if (key == ly_symbol2scm ("accordion"))
-    {
-      return Lookup::accordion (ly_cdr (s), 1.0, Font_interface::get_default_font (me));
-    }
+  else if (key == ly_symbol2scm ("accordion"))
+    return Lookup::accordion (ly_cdr (s), 1.0,
+			      Font_interface::get_default_font (me));
   else
     assert (false);
 
   return Stencil ();
 }
 
-MAKE_SCHEME_CALLBACK (Script_interface,before_line_breaking,1);
+MAKE_SCHEME_CALLBACK (Script_interface, before_line_breaking, 1);
 SCM
 Script_interface::before_line_breaking (SCM smob)
 {
-  Grob * me = unsmob_grob (smob);
+  Grob *me = unsmob_grob (smob);
 
   Direction d = Side_position_interface::get_direction (me);
 
   if (!d)
     {
-      /*
-	we should not have `arbitrary' directions. 
-      */
+      /* FIXME: This should never happen: `arbitrary' directions.  */
       programming_error ("Script direction not yet known!");
       d = DOWN;
     }
-  
+
   set_grob_direction (me, d);
 
-  if (Grob * par = me->get_parent (X_AXIS))
+  if (Grob *par = me->get_parent (X_AXIS))
     {
-      Grob * stem = Note_column::get_stem (par);
+      Grob *stem = Note_column::get_stem (par);
       if (stem && Stem::first_head (stem))
-	{
-	  me->set_parent (Stem::first_head (stem), X_AXIS);
-	}
+	me->set_parent (Stem::first_head (stem), X_AXIS);
     }
-  
   return SCM_UNSPECIFIED;
 }
 
-
-MAKE_SCHEME_CALLBACK (Script_interface,print,1);
+MAKE_SCHEME_CALLBACK (Script_interface, print, 1);
 
 SCM
 Script_interface::print (SCM smob)
@@ -87,22 +80,14 @@ Script_interface::print (SCM smob)
   if (!dir)
     {
       programming_error ("Script direction not known, but stencil wanted.");
-      dir= DOWN;
+      dir = DOWN;
     }
-  
   return get_stencil (me, dir).smobbed_copy ();
 }
 
-
-
 struct Text_script
 {
-    static bool has_interface (Grob*);
-};
-
-struct Skript
-{
-    static bool has_interface (Grob*);
+  static bool has_interface (Grob*);
 };
 
 ADD_INTERFACE (Text_script,"text-script-interface",

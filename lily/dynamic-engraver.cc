@@ -18,7 +18,7 @@
 #include "directional-element-interface.hh"
 #include "context.hh"
 #include "axis-group-interface.hh"
-#include "script.hh"
+#include "script-interface.hh"
 
 /*
   TODO:

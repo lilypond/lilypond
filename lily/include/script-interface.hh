@@ -1,14 +1,13 @@
 /*   
-  script.hh -- declare Script
-  
-  source file of the GNU LilyPond music typesetter
-  
-  (c) 1999--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+  script-interface.hh -- 
 
-#ifndef SCRIPT_HH
-#define SCRIPT_HH
+  source file of the GNU LilyPond music typesetter
+
+  (c) 1999--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+*/
+
+#ifndef SCRIPT_INTERFACE_HH
+#define SCRIPT_INTERFACE_HH
 
 #include "lily-guile.hh"
 #include "lily-proto.hh"
@@ -21,16 +20,14 @@
 class Script_interface
 {
 public:
-  static Stencil get_stencil (Grob*,Direction d);
-  
-  static bool  has_interface (Grob*);
+  static Stencil get_stencil (Grob *, Direction d);
+  static bool has_interface (Grob *);
   DECLARE_SCHEME_CALLBACK (print, (SCM ));
-  DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM ));
+  DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
 };
 
-void make_script_from_event (Grob *p,
-			     SCM * descr, Context *tg,
-			     SCM type, 
-			     int index);
-#endif /* Stem_SCRIPT_HH */
+void make_script_from_event (Grob *p, SCM *descr, Context *tg,
+			     SCM type, int index);
+
+#endif /* SCRIPT_INTERFACE_HH */
 

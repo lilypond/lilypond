@@ -761,7 +761,7 @@ env.Command (www_ball, web_ball,
 	     ['rm -rf $out/tmp',
 	      'mkdir -p $absbuild/$out/tmp',
 	      'tar -C $absbuild/$out/tmp -xzf $SOURCE',
-	      'cd $absbuild/$out/tmp && for i in $$(find . -name "$out"; do mv $i out-www; done',
+	      'cd $absbuild/$out/tmp && for i in $$(find . -name "$out"); do mv $$i $$(dirname $$i)/out-www; done',
 	      'tar -C $absbuild/$out/tmp -czf $TARGET .'])
 env.Alias ('web', www_ball)
 

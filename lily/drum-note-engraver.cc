@@ -11,7 +11,7 @@
 #include "engraver.hh"
 #include "warn.hh"
 #include "side-position-interface.hh"
-#include "script.hh"
+#include "script-interface.hh"
 #include "stem.hh"
 #include "note-column.hh"
 

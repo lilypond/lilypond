@@ -6,17 +6,17 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "staff-symbol-referencer.hh"
-#include "rhythmic-head.hh"
-#include "stem.hh"
-#include "event.hh"
-#include "misc.hh"
-#include "stem-tremolo.hh"
-#include "item.hh"
 #include "context.hh"
-
+#include "directional-element-interface.hh"
 #include "engraver.hh"
-
+#include "event.hh"
+#include "item.hh"
+#include "misc.hh"
+#include "rhythmic-head.hh"
+#include "script-interface.hh"
+#include "staff-symbol-referencer.hh"
+#include "stem-tremolo.hh"
+#include "stem.hh"
 
 
 /**
@@ -24,17 +24,18 @@
  */
 class Stem_engraver : public Engraver
 {
-  TRANSLATOR_DECLARATIONS (Stem_engraver);
-protected:
-  virtual void acknowledge_grob (Grob_info);
-  virtual void stop_translation_timestep ();
-  virtual bool try_music (Music*);
-  
-private:
   Grob  *stem_;
   Grob *tremolo_;
   Music *rhythmic_ev_;
   Music* tremolo_ev_;
+  TRANSLATOR_DECLARATIONS (Stem_engraver);
+
+protected:
+  void add_script (Grob *);
+  void make_stem (Grob_info);
+  virtual void acknowledge_grob (Grob_info);
+  virtual void stop_translation_timestep ();
+  virtual bool try_music (Music *);
 };
 
 Stem_engraver::Stem_engraver ()
@@ -45,103 +46,106 @@ Stem_engraver::Stem_engraver ()
   rhythmic_ev_ =0;
 }
 
+void
+Stem_engraver::make_stem (Grob_info gi)
+{
+  /* Announce the cause of the head as cause of the stem.  The
+     stem needs a rhythmic structure to fit it into a beam.  */
+  stem_ = make_item ("Stem", gi.music_cause ()->self_scm ());
+
+  int duration_log = gi.music_cause ()->duration_log ();
+  stem_->set_property ("duration-log", scm_int2num (duration_log));
+
+  if (tremolo_ev_)
+    {
+      /* Stem tremolo is never applied to a note by default,
+	 is must me requested.  But there is a default for the
+	 tremolo value:
+
+	 c4:8 c c:
+
+	 the first and last (quarter) note bothe get one tremolo flag.  */
+      int requested_type
+	= ly_scm2int (tremolo_ev_->get_property ("tremolo-type"));
+      SCM f = get_property ("tremoloFlags");
+      if (!requested_type)
+	{
+	  if (ly_c_number_p (f))
+	    requested_type = ly_scm2int (f);
+	  else
+	    requested_type = 8;
+	}
+      else
+	context ()->set_property ("tremoloFlags", scm_int2num (requested_type));
+
+      int tremolo_flags = intlog2 (requested_type) - 2
+	- (duration_log > 2 ? duration_log - 2 : 0);
+      if (tremolo_flags <= 0)
+	{
+	  tremolo_ev_->origin ()->warning (_("tremolo duration is too long"));
+	  tremolo_flags = 0;
+	}
+
+      if (tremolo_flags)
+	{
+	  tremolo_ = make_item ("StemTremolo", tremolo_ev_->self_scm ());
+
+	  /* The number of tremolo flags is the number of flags of the
+	    tremolo-type minus the number of flags of the note itself.  */
+	  tremolo_->set_property ("flag-count", scm_int2num (tremolo_flags));
+	  tremolo_->set_parent (stem_, X_AXIS);
+	  stem_->set_property ("tremolo-flag", tremolo_->self_scm ());
+	  tremolo_->set_property ("stem", stem_->self_scm ());
+	}
+    }
+}
 
 void
-Stem_engraver::acknowledge_grob (Grob_info i)
+Stem_engraver::add_script (Grob *script)
 {
-  Grob* h = i.grob_;
-  if (Rhythmic_head::has_interface (h))
+  Direction d = get_grob_direction (script);
+  if (d == UP || d == DOWN)
     {
-      if (Rhythmic_head::get_stem (h))
+      char const *property = d == UP ? "script-up" : "script-down";
+      stem_->set_property (property,
+			   scm_cons (script->self_scm (),
+				     stem_->get_property (property)));
+    }
+}
+
+void
+Stem_engraver::acknowledge_grob (Grob_info gi)
+{
+  if (Rhythmic_head::has_interface (gi.grob_))
+    {
+      if (Rhythmic_head::get_stem (gi.grob_))
 	return;
-
-      /* Reverted to the old method so chord tremolos work again. /MB 
-      */
-      int duration_log = 0;
-
-      Music * m = i.music_cause ();
-      if (m->is_mus_type ("rhythmic-event"))
-	duration_log = unsmob_duration (m->get_property ("duration"))-> duration_log (); 
       
-      if (!stem_) 
-	{
-	  /*
-	    We announce the cause of the head as cause of the stem.
-	    The stem needs a rhythmic structure to fit it into a beam.  */
-	  stem_ = make_item ("Stem",i.music_cause ()->self_scm ());
-
-	  stem_->set_property ("duration-log", scm_int2num (duration_log));
-
-	  if (tremolo_ev_)
-	    {
-	      /*
-		Stem tremolo is never applied to a note by default,
-		is must me evuested.  But there is a default for the
-		tremolo value:
-
-		   c4:8 c c:
-
-		the first and last (quarter) note bothe get one tremolo flag.
-	       */
-	      int requested_type = ly_scm2int (tremolo_ev_->get_property ("tremolo-type"));
-	      SCM f = get_property ("tremoloFlags");
-	      if (!requested_type)
-		if (ly_c_number_p (f))
-		  requested_type = ly_scm2int (f);
-		else
-		  requested_type = 8; 
-	      else
-		context ()->set_property ("tremoloFlags", scm_int2num (requested_type));
-
-	      int tremolo_flags = intlog2 (requested_type) - 2
-		- (duration_log > 2 ? duration_log - 2 : 0);
-	      if (tremolo_flags <= 0)
-		{
-		  tremolo_ev_->origin ()->warning (_("tremolo duration is too long"));
-		  tremolo_flags = 0;
-		}
-
-	      if (tremolo_flags)
-		{
-		  tremolo_ = make_item ("StemTremolo", tremolo_ev_->self_scm ());
-
-		  /*
-		    The number of tremolo flags is the number of flags of
-		    the tremolo-type minus the number of flags of the note
-		    itself.
-		   */
-		  tremolo_->set_property ("flag-count",
-					       scm_int2num (tremolo_flags));
-		  tremolo_->set_parent (stem_, X_AXIS);
-		  stem_->set_property ("tremolo-flag", tremolo_->self_scm ());
-		  tremolo_->set_property ("stem",
-					  stem_->self_scm ());
-		}
-	    }
-
-	}
-
+      if (!stem_)
+	make_stem (gi);
+      
+      int duration_log = gi.music_cause ()->duration_log ();
       if (Stem::duration_log (stem_) != duration_log)
 	{
-	  i.music_cause ()->origin ()->warning (_f ("Adding note head to incompatible stem (type = %d)", 1 <<  Stem::duration_log (stem_))
-						+ _f ("Don't you want polyphonic voices instead?")
-						);
+	  // FIXME: 
+	  gi.music_cause ()->origin ()->warning (_f ("Adding note head to incompatible stem (type = %d)", 1 << Stem::duration_log (stem_)));
+	  
+	  gi.music_cause ()->origin ()->warning (_f ("Don't you want polyphonic voices instead?"));
 	}
 
-      Stem::add_head (stem_,h);
+      Stem::add_head (stem_, gi.grob_);
     }
+  else if (Script_interface::has_interface (gi.grob_))
+    add_script (gi.grob_);
 }
 
 void
 Stem_engraver::stop_translation_timestep ()
 {
   tremolo_ = 0;
-
   if (stem_)
     {
-      /*
-	toDO: junk these properties.
-       */
+      /* FIXME: junk these properties.  */
       SCM prop = get_property ("stemLeftBeamCount");
       if (ly_c_number_p (prop))
 	{
@@ -154,21 +158,17 @@ Stem_engraver::stop_translation_timestep ()
 	  Stem::set_beaming (stem_,ly_scm2int (prop), RIGHT);
 	  context ()->unset_property (ly_symbol2scm ("stemRightBeamCount"));
 	}
-
-      
       stem_ = 0;
     }
-
-
   tremolo_ev_ = 0;
 }
 
 bool
-Stem_engraver::try_music (Music* r)
+Stem_engraver::try_music (Music *m)
 {
-  if (r->is_mus_type ("tremolo-event"))
+  if (m->is_mus_type ("tremolo-event"))
     {
-      tremolo_ev_ = r;
+      tremolo_ev_ = m;
       return true;
     }
   return false;
