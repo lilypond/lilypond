@@ -1,5 +1,7 @@
 2005-02-08  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* GNUmakefile.in: teTeX-3.0 build fix: add map symlink.
+
 	* tex/GNUmakefile: teTeX-3.0 fix: install .enc in fonts/enc.  Add
 	2.0.x compatibility.
 
