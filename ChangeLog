@@ -1,3 +1,7 @@
+2005-02-07  Erik Sandberg  <ersa9195@student.uu.se>
+
+	* ChangeLog: Added a bunch of bug hunters.
+
 2005-02-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/framework-ps.scm (output-preview-framework): bugfix.
