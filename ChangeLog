@@ -1,3 +1,8 @@
+2002-07-31 Rune Zedeler <rune@zedeler.dk>
+
+	* input/SondagMorgen/*.ly: Added. TODO: Lots of cleanups but now
+	it's there.
+
 2002-07-31  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/parser.yy (chord_notes): typo. 
@@ -11,6 +16,12 @@
 	* lily/translator-group (find_existing_translator): If
 	n=="Current", return this context.
 	
+	* lily/tab-note-heads-engraver.cc: add algorithm for automatically
+	selecting frets when none given by user. Read property
+	"minimumFret".
+
+	* scm/translator-property-description.scm: add "minimumFret"
+
 	* lily/rest.cc:
 	* lily/time-signature.cc: spacing for even number of staff lines.
 	
