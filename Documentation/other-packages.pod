@@ -9,11 +9,6 @@ packages. Feel free to add info (and mail it to me).
 
 =head2 Free packages (with source)
 
-=item G Sharp, http://dept-info.labri.u-bordeaux.fr/~strandh/Gsharp
-
-An alpha version notation editor for X in Scheme. Source available on
-request.
-
 =item Rosegarden, http://www.bath.ac.uk/~masjpf/rose.html
 
 A Notation editor/Sequencer for X (windows95 port underway). Outputs musictex.
@@ -51,7 +46,7 @@ MusixTeX is a macro package for TeX to typeset polyphonic or
 instrumental music by Daniel Taupin, Ross Mitchell and Andreas
 Egler. It includes a full-featured set of fonts.
 
-=item ABC2MTeX, http://www.gmd.de/Misc/Music/
+=item ABC2MTeX, http://www.gre.ac.uk/~c.walshaw/abc
 
 A preprocessor to MusixTeX by Chris Walshaw for transcribing folk and
 traditional music.
