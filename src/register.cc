@@ -11,14 +11,15 @@ Staff_elem_info::Staff_elem_info(Staff_elem*s_l, Request*r_l,
     elem_p_ = s_l;
     voice_l_ = r_l->elt_l_->voice_l_;
     req_l_ = r_l;
-    group = 0;
+    group_regs_l_ = 0;
     origin_reg_l_ = reg_l;
 }
 Staff_elem_info::Staff_elem_info()
 {
     elem_p_ = 0;
     voice_l_ = 0;
-    group = 0;
+
+    group_regs_l_ = 0;
     origin_reg_l_ = 0;
     req_l_ = 0;
 }
@@ -86,7 +87,7 @@ Local_key_register::acknowledge_element(Staff_elem_info info)
 	
 
 	    if (!key_item_p_) {
-		key_item_p_ = new Local_key_item(-2);
+		key_item_p_ = new Local_key_item(walk_l_->clef_.c0_pos);
 		key_item_p_->c0_position = walk_l_->clef_.c0_pos;
 	    }
 	    
