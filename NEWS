@@ -1,3 +1,9 @@
+pl 27.jcn4
+	- measure-end hinterfleish patch
+	- input/test/coda-kludge.ly
+	- bf: volta-number placement
+	- volta: support for "1.-2."  "3"
+
 pl 27.jcn3
 	- bf's: zero-length repeats
 	- Auto beamer:

@@ -682,8 +682,8 @@ Spring_spacer::calc_idealspacing()
 	  */
 	  if (i + 1 < cols_.size () && scol_l(i+1)->breakable_b_)
 	    {
-	      // one interline minimum seems ok for last column too?
-	      dist = dist >? interline_f;
+	      // two interline minimum ok for last column?
+	      dist = dist >? 2 * interline_f;
 
 	      // set minimum rod 
 	      /*
@@ -703,7 +703,7 @@ Spring_spacer::calc_idealspacing()
 		-- jcn
 	       */
 
-	      cols_[i].width_[RIGHT] = cols_[i].width_[RIGHT] >? interline_f;
+	      cols_[i].width_[RIGHT] = cols_[i].width_[RIGHT] >? 2 * interline_f;
 	    }
 
 	  // ugh, do we need this?

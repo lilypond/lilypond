@@ -49,26 +49,38 @@ Repeat_engraver::do_try_music (Music* m)
 	    }
 	  repeated_music_arr_.push (r);
 	  stop_mom_arr_.push (stop_mom);
-	  /*
-	    TODO: 
-	    figure out what we don't want.
-	    
-	    we don't want to print more than one set of
-	    |: :| and volta brackets on one staff.
-	    
-	    counting nested repeats, it seems safest to forbid
-	    two pieces of alternative music to start at the same time.
-	  */
 	}
+
+      /* 
+	 Counting nested repeats, it seems safest to forbid
+	 two pieces of alternative music to start at the same time.
+      */
       for (int i = 0; i < alternative_start_mom_arr_.size (); i++)
         if (alternative_start_mom_arr_[i] == alt_mom)
 	  return false;
-      // moved stop_mom_arr_.push (stop_mom);
+
+      /*
+	Coda kludge: see input/test/coda-kludge.ly
+       */
+      Moment span_mom;
+      Scalar prop = get_property ("voltaSpannerDuration", 0);
+      if (prop.length_i ())
+	span_mom = prop.to_rat ();
+      int alt_i = r->repeats_i_ + 1 - alt->music_p_list_p_->size () >? 1;
       for (PCursor<Music*> i (alt->music_p_list_p_->top ()); i.ok (); i++)
         {
 	  alternative_music_arr_.push (i.ptr ());
 	  alternative_start_mom_arr_.push (alt_mom);
-	  alternative_stop_mom_arr_.push (alt_mom + i->length_mom ());
+	  if (span_mom)
+	    alternative_stop_mom_arr_.push (alt_mom + span_mom);
+	  else
+	    alternative_stop_mom_arr_.push (alt_mom + i->length_mom ());
+	  String str;
+	  if ((alt_i != 1) && (alt_i != r->repeats_i_) && (i == alt->music_p_list_p_->top ()))
+	    str = "1.-";
+	  str += to_str (alt_i) + ".";
+	  alt_i++;
+	  alternative_str_arr_.push (str);
 	  if (!dynamic_cast<Simultaneous_music *> (alt))
 	    alt_mom += i->length_mom ();
 	}
@@ -123,16 +135,16 @@ Repeat_engraver::do_process_requests ()
 	    bar_engraver_l->request_bar (":|");
 	}
     }
-  int bees = volta_p_arr_.size ();
   for (int i = volta_p_arr_.size (); i < alternative_music_arr_.size (); i++)
     {
       Volta_spanner* v = new Volta_spanner;
       Scalar prop = get_property ("voltaVisibility", 0);
       v->visible_b_ = prop.to_bool ();
-      if (i == alternative_music_arr_.size () - 1)
+      prop = get_property ("voltaSpannerDuration", 0);
+      if ((i == alternative_music_arr_.size () - 1) || prop.length_i ())
         v->last_b_ = true;
       Text_def* t = new Text_def;
-      t->text_str_ = to_str (i - bees + 1) + ".";
+      t->text_str_ = alternative_str_arr_[i];
       v->number_p_.set_p (t);
       volta_p_arr_.push (v);
       announce_element (Score_element_info (v, alternative_music_arr_[i]));
@@ -166,6 +178,7 @@ Repeat_engraver::do_pre_move_processing ()
 	  alternative_music_arr_.del (i);
 	  alternative_start_mom_arr_.del (i);
 	  alternative_stop_mom_arr_.del (i);
+	  alternative_str_arr_.del (i);
 	}
     }
 }

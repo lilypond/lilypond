@@ -59,7 +59,11 @@ Volta_spanner::do_brew_molecule_p () const
     dy = dy >? note_column_arr_[i]->extent (Y_AXIS).max ();
   dy -= h;
 
-  Real gap = num.dim_.x ().length () / 2;
+  Text_def two_text;
+  two_text.text_str_ = "2";
+  two_text.style_str_ = number_p_->style_str_;
+  Atom two (two_text.get_atom(paper (), LEFT));
+  Real gap = two.dim_.x ().length () / 2;
   Offset off (num.dim_.x ().length () + gap, 
 	      h / internote_f - gap);
   num.translate (off);

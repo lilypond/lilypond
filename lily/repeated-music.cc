@@ -27,6 +27,7 @@ Repeated_music::~Repeated_music ()
 Repeated_music::Repeated_music (Repeated_music const& s)
   : Music (s)
 {
+  repeats_i_ = s.repeats_i_;
   repeat_p_ = (s.repeat_p_) ? s.repeat_p_->clone () : 0;
   // urg?
   alternative_p_ = (s.alternative_p_) ? dynamic_cast <Music_sequence*> (s.alternative_p_->clone ()) : 0;
