@@ -11,7 +11,6 @@ TestedFeatures = 	 "beams and beamflags"
 
 \score{
 	<
-%		\property Score.beamQuantisation = #'none
 		\context GrandStaff < 
 \context Staff = SA		\notes\transpose c' { 
 

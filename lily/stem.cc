@@ -335,6 +335,10 @@ Stem::get_default_stem_end_position (Grob*me)
   Interval hp = head_positions (me);  
   Real st = hp[dir] + dir * length_f;
 
+
+  /*
+    TODO: change name  to extend-stems to staff/center/'()
+  */
   bool no_extend_b = to_boolean (me->get_grob_property ("no-stem-extend"));
   if (!grace_b && !no_extend_b && dir * st < 0) // junkme?
     st = 0.0;

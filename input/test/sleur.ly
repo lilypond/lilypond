@@ -20,14 +20,6 @@ dirs =  \notes\transpose c' {
 
 	c'1() g' () c () g () c |
 }
-
-complex =  \notes{
-\transpose c'{
-	c,16( e,( g,( b,( d( f( a( c'())))))))c4 c4 |}
-\transpose c'''{
-	c,16( a( f( d( b,( g,( e,( c,())))))))c4 c4 |}
-}
-
 over =  \notes\transpose c'{
 
 
@@ -175,7 +167,6 @@ clipping =  \notes\transpose c'{
 % {
 		\shortlong
 		\dirs
-		\complex
 		\over
 		\under
 		\eccentric

@@ -163,4 +163,4 @@ Accidental_interface::brew_molecule (SCM smob)
 
 ADD_INTERFACE (Accidental_interface, "accidental-interface",
 	      "a single accidental",
-	       "cautionary-style style tie accidentals");
+	       "cautionary cautionary-style style tie accidentals");

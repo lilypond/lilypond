@@ -1,6 +1,8 @@
 \version "1.5.68"
 
-
+\header {
+texidoc = "ottava spanners."
+}
 
 \score{
     \notes\relative c''{
@@ -23,13 +25,13 @@
         a \spanrequest \stop "text"
 
 
-        \property Staff."c0-position" = #-13
+        \property Staff.centralCPosition = #-13
 
         \property Voice.TextSpanner \override #'dash-length = #5
-        \property Voice.TextSpanner \override #'line-thickness = #10
+        \property Voice.TextSpanner \override #'thickness = #10
         a \spanrequest \start "text"
 	b c 
         a \spanrequest \stop "text"
-        \property Staff."c0-position" = #-6
+        \property Staff.centralCPosition = #-6
     }
 }

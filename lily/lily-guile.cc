@@ -584,6 +584,12 @@ type_check_assignment (SCM sym, SCM val,  SCM type_symbol)
 		     ly_symbol2string (type_symbol).to_str0 ()
 
 		     ));
+
+	/*
+	  Be strict when being anal :)
+	  */
+	if (internal_type_checking_global_b)
+	  abort();
       }
   else
     {

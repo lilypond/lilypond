@@ -1,5 +1,16 @@
 2002-08-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/lily-guile.cc (type_check_assignment): if
+	internal-type-checking set, abort if we find an unknown property.
+
+	* input/regression/GNUmakefile,input/test/GNUmakefile: be anal
+	with typechecks
+
+	* lily/beam.cc: add 'knee to interface
+
+	* input/test/*.ly: remove or update files using deprecated
+	properties
+
 	* lily/system.cc (spanner_count): new function
 
 	* lily/break-substitution.cc (fast_fubstitute_grob_list): special

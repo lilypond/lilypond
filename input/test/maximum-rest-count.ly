@@ -1,15 +1,18 @@
 \version "1.5.68"
+\header {
+    texidoc = "Control the number of rests in a collision   with maximum-rest-count."
+}
 
 \score{
 \context Staff \notes\relative c''<
 	\context Voice = x {
 		a4 
 		r 
-		\property Voice.maximumRestCount = #3
+		\property Staff. RestCollision \set #'maximum-rest-count = #1
 		r 
-		\property Staff.maximumRestCount = #2
+		\property Staff. RestCollision \set #'maximum-rest-count = #2
 		r 
-		\property Staff.maximumRestCount = #1
+		\property Staff. RestCollision \set #'maximum-rest-count = #3
 		r 
 		r8 r8
 		c

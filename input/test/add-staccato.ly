@@ -10,7 +10,6 @@ one would not use scm constructs.  See separate-staccato.ly first."
 #(define (make-script x)
    (let ((m (ly-make-music "Articulation_req")))
      (ly-set-mus-property! m 'articulation-type x)
-     (ly-set-mus-property! m 'script x)
      m))
     
 #(define (add-script m x)
