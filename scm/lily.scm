@@ -119,18 +119,6 @@
 (define-public default-toplevel-score-handler print-score-as-book)
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Unassorted utility functions.
-
-
-;; modules
-(define-public (ly:modules-lookup modules sym)
-  "DOCME."
-  (let ((v (module-variable (car modules) sym)))
-    (if (and v (variable-bound? v) (variable-ref v))
-	(variable-ref v)
-	(if (module? (cdr modules)) (ly:modules-lookup (cdr modules) sym)))))
-
 
 ;;;;;;;;;;;;;;;;
 ; alist
@@ -471,6 +459,7 @@ L1 is copied, L2 not.
        "define-grobs.scm"
        "define-grob-interfaces.scm"
        "page-layout.scm"
+       
        "paper.scm"
 
        ; last:

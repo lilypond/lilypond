@@ -16,7 +16,7 @@
 #include "paper-score.hh"
 #include "stencil.hh"
 #include "warn.hh"
-#include "book-paper-def.hh"
+
 
 // JUNKME
 SCM
@@ -39,6 +39,8 @@ Paper_book::Paper_book ()
 {
   copyright_ = SCM_EOL;
   tagline_ = SCM_EOL;
+  global_header_ = SCM_EOL;
+  
   bookpaper_ = 0;
   smobify_self ();
 }
@@ -63,7 +65,7 @@ Paper_book::mark_smob (SCM smob)
   scm_gc_mark (b->copyright_);
   if (b->bookpaper_)
     scm_gc_mark (b->bookpaper_->self_scm ());
-
+  scm_gc_mark (b->global_header_);
   return b->tagline_;
 }
 
@@ -80,6 +82,12 @@ Paper_book::print_smob (SCM smob, SCM port, scm_print_state*)
   return 1;
 }
 
+
+/*
+  TODO: there is too much code dup, and the interface is not
+  clear. FIXME.
+ */
+
 void
 Paper_book::output (String outname)
 {
@@ -90,11 +98,10 @@ Paper_book::output (String outname)
   /* Generate all stencils to trigger font loads.  */
   SCM pages = this->pages ();
 
-  Output_def *paper = score_lines_[0].paper_;
   Paper_outputter *out = get_paper_outputter (outname);
   int page_count = scm_ilength (pages);
 
-  out->output_header (paper->parent_, scopes (0), page_count, false);
+  out->output_header (bookpaper_, global_header_, page_count, false);
 
   for (SCM s = pages; s != SCM_EOL; s = ly_cdr (s))
     {
@@ -108,12 +115,6 @@ Paper_book::output (String outname)
   progress_indication ("\n");
 }
 
-SCM
-Paper_book::scopes (int i)
-{
-  return score_lines_[i].scopes ();
-}
-
 
 Stencil
 Paper_book::title (int i)
@@ -125,16 +126,25 @@ Paper_book::title (int i)
 	       : ly_symbol2scm ("scoreTitle"));
 
   Stencil title;
-  SCM scopes = this->scopes (i);
-  SCM s = ly_modules_lookup (scopes, field);
-  if (s != SCM_UNDEFINED && scm_variable_bound_p (s) == SCM_BOOL_T)
+
+  // ugh code dup
+  SCM scopes = SCM_EOL;
+  if (ly_c_module_p (global_header_))
+    scopes = scm_cons (global_header_, scopes);
+
+  if (ly_c_module_p (score_lines_[i].header_))
+    scopes = scm_cons (score_lines_[i].header_, scopes);
+   //end ugh
+  
+  SCM s = ly_modules_lookup (scopes, field, SCM_BOOL_F);
+  if (s != SCM_BOOL_F)
     title = *unsmob_stencil (scm_call_2 (user_title,
-					 score_lines_[0].paper_->self_scm (),
-					scm_variable_ref (s)));
+					 bookpaper_->self_scm (),
+					 s));
   else
     title = *unsmob_stencil (scm_call_2 (i == 0 ? book_title : score_title,
-					 score_lines_[0].paper_->self_scm (),
-					scopes));
+					 bookpaper_->self_scm (),
+					 scopes));
   if (!title.is_empty ())
     title.align_to (Y_AXIS, UP);
   
@@ -144,14 +154,22 @@ Paper_book::title (int i)
 void
 Paper_book::classic_output (String outname)
 {
-  int count = score_lines_.size ();
   Paper_outputter *out = get_paper_outputter (outname);
 
-  Output_def * p = score_lines_.top ().paper_;
+  Output_def * p = bookpaper_;
   while (p && p->parent_)
     p = p->parent_;
+
+  // ugh code dup
+  SCM scopes = SCM_EOL;
+  if (ly_c_module_p (global_header_))
+    scopes = scm_cons (global_header_, scopes);
+
+  if (ly_c_module_p (score_lines_[0].header_))
+    scopes = scm_cons (score_lines_[0].header_, scopes);
+  //end ugh
   
-  out->output_header (p, scopes (count - 1), 0, true);
+  out->output_header (p, global_header_, 0, true);
 
   SCM top_lines = score_lines_.top ().lines_;
   Paper_line *first = unsmob_paper_line (scm_vector_ref (top_lines,
@@ -200,8 +218,11 @@ Paper_book::init ()
 	}
     }
 
-  Output_def *paper = score_lines_[0].paper_;
-  SCM scopes = this->scopes (0);
+  Output_def *paper = bookpaper_;
+  
+  SCM scopes = SCM_EOL;
+  if (ly_c_module_p (global_header_))
+    scopes = scm_cons (global_header_, scopes);
 
   SCM make_tagline = paper->c_variable ("make-tagline");
   tagline_ = scm_call_2 (make_tagline, paper->self_scm (), scopes);
@@ -243,7 +264,8 @@ Paper_book::pages ()
 {
   init ();
   Page::page_count_ = 0;
-  Output_def *paper = score_lines_[0].paper_;
+
+  Output_def *paper = bookpaper_;
   Page *page = new Page (paper, 1);
 
   Real text_height = page->text_height ();
@@ -347,31 +369,13 @@ LY_DEFINE (ly_ragged_page_breaks, "ly:ragged-page-breaks",
 Score_lines::Score_lines ()
 {
   lines_ = SCM_EOL;
-  global_header_ = SCM_EOL;
   header_ = SCM_EOL;
-  paper_ = 0;
 }
 
 void
 Score_lines::gc_mark ()
 {
   scm_gc_mark (lines_);
-  scm_gc_mark (global_header_);
   scm_gc_mark (header_);
-  if (paper_)
-    scm_gc_mark (paper_->self_scm ());
 }
 
-
-SCM 
-Score_lines::scopes ()
-{
-  SCM scopes = SCM_EOL;
-  if (header_)
-    scopes = scm_cons (header_, scopes);
-  if (SCM_MODULEP(global_header_)
-      && global_header_ != header_)
-    scopes = scm_cons (global_header_, scopes);
-
-  return scopes;
-}

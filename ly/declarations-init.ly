@@ -48,65 +48,29 @@ melismaEnd = #(make-span-event 'ManualMelismaEvent STOP)
 % ugh
 \include "midi-init.ly"
 
+\include "book-paper-defaults.ly"
 
-% Do units first; must be done before any units are specified.
 \paper {
-    unit = #(ly:unit)
-    mm = 1.0
-    in = 25.4
+    mm = #(ly:output-def-lookup $defaultbookpaper  'mm)
+    unit = #(ly:output-def-lookup $defaultbookpaper  'unit)
+
+    in = #(* 25.4 mm)
     pt = #(/  in 72.27)
     cm = #(* 10 mm)
-
-    inputencoding = #"TeX"
-    raggedright = ##f
-    raggedlast = ##f 
-    packed = ##f
     
-    #(define $is-paper #t)
-    
-    #(define font-defaults
-      '((font-encoding . fetaMusic)))
-
-    #(define text-font-defaults
-      '((font-encoding . latin1)
-	(baseline-skip . 2)
-	(word-space . 0.6)))
-
-    #(define page-breaking ly:ragged-page-breaks)
-    %%#(define page-breaking ly:optimal-page-breaks)
-
-    #(define page-to-stencil ly:page-header-lines-footer-stencil)
-
-    #(define make-header plain-header)
-    #(define make-footer plain-footer)
-    %%#(define make-footer empty-markup)
-    #(define make-tagline TAGLINE-or-tagline-from-header)
-    #(define make-copyright copyright-from-header)
-
     \include "engraver-init.ly"
 }
 
-%
-% 20pt staff, 5 pt = 1.75 mm
-%
-
-#(define-public $defaultbookpaper (ly:make-bookpaper 1.7573))
-
-\include "book-paper-defaults.ly"
 
 #(set-default-paper-size "a4")
 
 
+
 %{
 
-; note:
-; you can add fonts manually  in the paper block by issuing
+%% these would supercede defaults in \bookpaper.
+% let's comment this out for now. 
 
-#(set! fonts (append ...myfonts... fonts))
-
-for the format of myfonts, see font.scm
-
-%}
 
 paperEleven = \paper {
     #(paper-set-staff-size (* 11.0 pt))
@@ -137,6 +101,8 @@ paperTwentysix = \paper {
 }
 
 \paper { \paperTwenty }
+
+%}
 
 partCombineListener = \paper {
  \context {

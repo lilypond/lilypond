@@ -11,12 +11,12 @@
 	 (ss (/ sz 4))
 	 (pt (eval 'pt m)) 
 	 (mm (eval 'mm m)))
-   
+
+    (module-define! m 'outputscale ss)
     (module-define! m 'fonts (make-cmr-tree (/  sz (* 20 pt))))
     (module-define! m 'staffheight sz)
     (module-define! m 'staff-space ss)
     (module-define! m 'staffspace ss)
-
 
     ;; !! synchronize with feta-params.mf
     (module-define! m 'linethickness (+ (* 0.3 pt) (* 0.04 ss)))
@@ -34,19 +34,23 @@
 (define-public (set-global-staff-size sz)
   "Set the default staff size, where SZ is thought to be in PT."
   (let* ((old-mod (current-module))
-	 (pap (eval '$defaultpaper old-mod))
-	 (is-paper? (module-defined? old-mod '$defaultpaper))
-	
+	 (pap (eval '$defaultbookpaper old-mod))
+	 (in-paper? (or (module-defined? old-mod 'is-bookpaper)
+			(module-defined? old-mod 'is-paper)))
 
-	 ;; Huh? Why is it necessary to clone object? 
+	 ; maybe not necessary.
+	 ; but let's be paranoid. Maybe someone still refers to the
+	 ; old one. 
 	 (new-paper (ly:output-def-clone pap))
+	 
 	 (new-scope (ly:output-def-scope new-paper)))
-    (if (not is-paper?)
+    
+    (if in-paper?
 	(ly:warn "Not in toplevel scope"))
     (set-current-module new-scope)
     (paper-set-staff-size (* sz (eval 'pt new-scope)))
     (set-current-module old-mod)
-    (module-define! old-mod '$defaultpaper new-paper)))
+    (module-define! old-mod '$defaultbookpaper new-paper)))
 
 (define paper-alist
   '(("a6" . (cons (* 105 mm) (* 148.95 mm)))
@@ -75,11 +79,11 @@
 
 (define (internal-set-paper-size module name)
   (let* ((entry (assoc name paper-alist))
-	 (is-paper? (module-defined? module '$is-paper))
+	 (is-bookpaper? (module-defined? module 'is-bookpaper))
 	 (mm (eval 'mm module)))
     
     (cond
-     ((not is-paper?)
+     ((not is-bookpaper?)
       (ly:warning "This is not a \\paper {} object:")
       (display module))
      ((pair? entry)
@@ -94,28 +98,33 @@
     ))
 
 (define-public (set-default-paper-size name)
-  (internal-set-paper-size (ly:output-def-scope (eval '$defaultpaper (current-module)))
+  (internal-set-paper-size (ly:output-def-scope (eval '$defaultbookpaper (current-module)))
 			   name))
 
 (define-public (set-paper-size name)
-  (if (module-defined? (current-module) '$is-paper)
+  (if (module-defined? (current-module) 'is-paper)
       (internal-set-paper-size (current-module) name)
 
       ;;; TODO: should raise (generic) exception with throw, and catch
       ;;; that in parse-scm.cc
       (ly:warn "Must use #(set-paper-size .. ) within \\paper { ... }")))
 
-(define-public (scale-paper pap bookpap)
+(define-public (scale-paper pap scale)
   (let*
-      ((scale (ly:bookpaper-outputscale bookpap))
-       (new-pap (ly:output-def-clone pap))
+      ((new-pap (ly:output-def-clone pap))
        (dim-vars (ly:output-def-lookup pap 'dimension-variables))
        (scope (ly:output-def-scope new-pap)))
 
     (for-each
      (lambda (v)
-       (module-define! scope v
-		       (/ (ly:output-def-lookup pap v) scale)))
+       (define val (ly:output-def-lookup pap v))
+       (if (number? val)
+	   (module-define! scope v
+			   (/ val scale))
+
+	   ;; spurious warnings, eg. for hsize, vsize. 
+;	   (ly:warn (format "not a number, ~S = ~S " v  val))
+	   ))
      
      dim-vars)
 

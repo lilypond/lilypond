@@ -8,7 +8,7 @@
 */
 
 #include "book.hh"
-#include "book-paper-def.hh"
+
 #include "file-name.hh"
 #include "file-path.hh"
 #include "lily-version.hh"
@@ -378,6 +378,8 @@ get_paper (My_lily_parser *parser)
   Output_def *paper = unsmob_output_def (id);
   paper = paper ? paper->clone () : new Output_def;
   paper->set_variable (ly_symbol2scm ("is-paper"), SCM_BOOL_T);
+
+  paper->parent_ =unsmob_output_def (parser->lexer_->lookup_identifier ("$defaultbookpaper"));
   return paper;
 }
 
@@ -393,13 +395,13 @@ get_midi (My_lily_parser *parser)
 }
 
 
-Book_output_def*
+Output_def*
 get_bookpaper (My_lily_parser *parser)
 {
   SCM id = parser->lexer_->lookup_identifier ("$defaultbookpaper");
-  Book_output_def *paper = unsmob_book_output_def (id);
+  Output_def *paper = unsmob_output_def (id);
 
-  paper = paper ? dynamic_cast<Book_output_def*> (paper->clone ()) : new Book_output_def;
+  paper = paper ? dynamic_cast<Output_def*> (paper->clone ()) : new Output_def;
   paper->set_variable (ly_symbol2scm ("is-bookpaper"), SCM_BOOL_T);
   return paper;
 }
@@ -420,7 +422,7 @@ LY_DEFINE (ly_parser_print_score, "ly:parser-print-score",
   SCM_ASSERT_TYPE (parser, parser_smob, SCM_ARG1, __FUNCTION__, "parser");
   SCM_ASSERT_TYPE (score, score_smob, SCM_ARG2, __FUNCTION__, "score");
 
-  SCM header = is_module (score->header_) ? score->header_
+  SCM header = ly_c_module_p (score->header_) ? score->header_
     : parser->header_.to_SCM ();
   
   File_name outname (parser->output_basename_);
@@ -430,9 +432,10 @@ LY_DEFINE (ly_parser_print_score, "ly:parser-print-score",
   (*c)++;
 
   SCM os = scm_makfrom0str (outname.to_string ().to_str0 ());
+  SCM bookpaper = get_bookpaper (parser)->self_scm ();
   for (int i = 0; i < score->defs_.size (); i++)
     default_rendering (score->music_, score->defs_[i]->self_scm (),
-		       get_bookpaper (parser)->self_scm (),
+		       bookpaper,
 		       header, os);
 
   if (score->defs_.is_empty ())
@@ -453,7 +456,7 @@ LY_DEFINE (ly_parser_print_book, "ly:parser-print-book",
 {
   My_lily_parser *parser = unsmob_my_lily_parser (parser_smob);
   Book *book = unsmob_book (book_smob);
-  Book_output_def *bp = unsmob_book_output_def (parser->lexer_->lookup_identifier ("$defaultbookpaper"));
+  Output_def *bp = unsmob_output_def (parser->lexer_->lookup_identifier ("$defaultbookpaper"));
   
   SCM_ASSERT_TYPE (parser, parser_smob, SCM_ARG1, __FUNCTION__, "Lilypond parser");
   SCM_ASSERT_TYPE (book, book_smob, SCM_ARG2, __FUNCTION__, "Book");
@@ -467,8 +470,11 @@ LY_DEFINE (ly_parser_print_book, "ly:parser-print-book",
   if (*c)
     outname.base_ += "-" + to_string (*c);
   (*c)++;
+
   Output_def *paper = get_paper (parser);
+
   book->process (outname.to_string (), paper, header);
+
   scm_gc_unprotect_object (paper->self_scm ());
   return SCM_UNDEFINED;
 }

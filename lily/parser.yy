@@ -26,7 +26,7 @@ TODO:
 
 
 #include "book.hh"
-#include "book-paper-def.hh"
+
 #include "context-def.hh"
 #include "dimensions.hh"
 #include "event.hh"
@@ -193,7 +193,6 @@ of the parse stack onto the heap. */
 
 %union {
 	Book *book;
-	Book_output_def *bookpaper;
 	Output_def *outputdef;
 	SCM scm;
 	String *string;
@@ -363,7 +362,7 @@ or
 %type <scm> markup markup_line markup_list  markup_list_body full_markup
 
 %type <book>	book_block book_body
-%type <bookpaper> book_paper_head book_paper_block book_paper_body
+%type <outputdef> book_paper_head book_paper_block book_paper_body
 
 %type <i>	exclamations questions dots optional_rest
 %type <i>  	bass_mod
@@ -473,15 +472,17 @@ toplevel_expression:
 	}
 	| output_def {
 		SCM id = SCM_EOL;
+		Output_def * od = $1;
+
 		if ($1->c_variable ("is-paper") == SCM_BOOL_T)
 			id = ly_symbol2scm ("$defaultpaper");
 		else if ($1->c_variable ("is-midi") == SCM_BOOL_T)
 			id = ly_symbol2scm ("$defaultmidi");
-		else if ($1->c_variable ("is-book-paper") == SCM_BOOL_T)
+		else if ($1->c_variable ("is-bookpaper") == SCM_BOOL_T)
 			id = ly_symbol2scm ("$defaultbookpaper");
 
-		THIS->lexer_->set_identifier (id, $1->self_scm ());
-		scm_gc_unprotect_object ($1->self_scm ());
+		THIS->lexer_->set_identifier (id, od->self_scm ());
+		scm_gc_unprotect_object (od->self_scm ());
 	}
 	| book_paper_block {
 		THIS->lexer_->set_identifier (ly_symbol2scm ("$defaultbookpaper"), $1->self_scm ());
@@ -620,11 +621,13 @@ context_def_spec_body:
 book_paper_block:
 	book_paper_body '}' {
 		$$ = $1;
+		THIS->lexer_->remove_scope ();
 	}
 	;
 book_paper_head:
 	BOOKPAPER '{' {
 		$$ = get_bookpaper (THIS);
+		$$->input_origin_ = THIS->here_input ();
 		THIS->lexer_->add_scope ($$->scope_);
 	}
 	;
@@ -653,7 +656,7 @@ book_body:
 	{
 		$$ = new Book;
 		$$->set_spot (THIS->here_input ());
-		$$->bookpaper_ = dynamic_cast<Book_output_def*> (unsmob_book_output_def (THIS->lexer_->lookup_identifier ("$defaultbookpaper"))->clone ());
+		$$->bookpaper_ = dynamic_cast<Output_def*> (unsmob_output_def (THIS->lexer_->lookup_identifier ("$defaultbookpaper"))->clone ());
 		scm_gc_unprotect_object ($$->bookpaper_->self_scm ());
 	}
 	| book_body book_paper_block {
@@ -730,6 +733,9 @@ score_body:
 output_def:
 	music_output_def_body '}' {
 		$$ = $1;
+		if ($1->parent_)
+			THIS->lexer_->remove_scope ();
+
 		THIS->lexer_->remove_scope ();
 		THIS->lexer_->pop_state ();
 	}
@@ -744,6 +750,8 @@ music_output_def_head:
 	| PAPER 	{
 		Output_def* p = get_paper (THIS);
 
+		if (p->parent_)
+			THIS->lexer_->add_scope (p->parent_->scope_);
 
 		THIS->lexer_->add_scope (p->scope_);
 		$$ = p;
@@ -754,7 +762,7 @@ music_output_def_head:
 music_output_def_body:
 	music_output_def_head '{' {
 		$$ = $1;
-		$$->input_origin_. set_spot (THIS->here_input ());
+		$$->input_origin_.set_spot (THIS->here_input ());
 		THIS->lexer_->push_initial_state ();
 	}
 	| music_output_def_head '{' MUSIC_OUTPUT_DEF_IDENTIFIER 	{

@@ -56,4 +56,10 @@ Font_metric *select_font (Output_def *paper, SCM chain);
 
 DECLARE_UNSMOB (Output_def, output_def);
 
+
+Font_metric *find_scaled_font (Output_def * od,
+			       Font_metric *f, Real m, SCM input_enc_name);
+Output_def *scale_output_def (Output_def *def, Real scale);
+Real output_scale (Output_def*);
+
 #endif /* MUSIC_OUTPUT_DEF_HH */

@@ -1,74 +1,50 @@
 \version "2.3.2"
 
 \bookpaper {
-#(define-public is-bookpaper #t)
-    
-#(define-public (book-title paper scopes)
-  "Generate book title from header strings."
-  
-  (define (get sym)
-    (let ((x (ly:modules-lookup scopes sym)))
-      (if (and x (not (unspecified? x))) x "")))
-  
-  (let ((props (page-properties paper)))
-    
-    (interpret-markup
-     paper props
-     (markup
-      #:column
-      (#:override '(baseline-skip . 4)
-      #:column
-      (#:fill-line
-       (#:normalsize (get 'dedication))
-       #:fill-line
-       (#:huge #:bigger #:bigger #:bigger #:bigger #:bold (get 'title))
-       #:override '(baseline-skip . 3)
-       #:column
-       (#:fill-line
-	(#:large #:bigger #:bigger #:bold (get 'subtitle))
-	#:fill-line (#:bigger #:bigger #:bold (get 'subsubtitle)))
-       #:override '(baseline-skip . 5)
-       #:column ("")
-       #:override '(baseline-skip . 2.5)
-       #:column
-       (#:fill-line
-	(#:bigger (get 'poet) #:large #:bigger #:caps (get 'composer))
-	#:fill-line (#:bigger (get 'texttranslator) #:bigger (get 'opus))
-	#:fill-line
-	(#:bigger (get 'meter) #:bigger (get 'arranger))
-	""
-	#:fill-line (#:large #:bigger (get 'instrument))
-	" "
-	#:fill-line (#:large #:bigger #:caps (get 'piece) ""))))))))
+    unit = #(ly:unit)
+    mm = 1.0
+    in = 25.4
+    pt = #(/  in 72.27)
+    cm = #(* 10 mm)
 
-#(define-public (user-title paper markup)
-  "Generate book title from header markup."
-  (if (markup? markup)
-      (let ((props (page-properties paper))
-	    (baseline-skip (chain-assoc-get 'baseline-skip props 2)) )
-	(stack-lines DOWN 0 BASELINE-SKIP
-		     (list (interpret-markup paper props markup))))))
-
-#(define-public (score-title paper scopes)
-  "Generate score title from header strings."
-  
-  (define (get sym)
-    (let ((x (ly:modules-lookup scopes sym)))
-      (if (and x (not (unspecified? x))) x "")))
-  
-  (let ((props (page-properties paper)))
+    inputencoding = #"TeX"
     
-    (interpret-markup
-     paper props
-     (markup
-      #:column
-      (#:override '(baseline-skip . 4)
-      #:column
-      (#:fill-line
-       ("" (get 'opus))
-       #:fill-line (#:large #:bigger #:caps (get 'piece) "")))))))
+   %
+   % 20pt staff, 5 pt = 1.75 mm
+   %
+
+   outputscale = #1.7573
+    
+    #(define-public score-title default-score-title)
+    #(define-public user-title default-user-title)
+    #(define-public book-title default-book-title)
+
+    %
+    % ugh. hard coded?
+    %
+    
+    #(paper-set-staff-size (* 20.0 pt))
 
 
   papersize = "a4"
 
+    #(define font-defaults
+      '((font-encoding . fetaMusic)))
+
+    #(define text-font-defaults
+      '((font-encoding . latin1)
+	(baseline-skip . 2)
+	(word-space . 0.6)))
+
+    #(define page-breaking ly:ragged-page-breaks)
+    %%#(define page-breaking ly:optimal-page-breaks)
+
+    #(define page-to-stencil ly:page-header-lines-footer-stencil)
+
+    #(define make-header plain-header)
+    #(define make-footer plain-footer)
+    %%#(define make-footer empty-markup)
+    #(define make-tagline TAGLINE-or-tagline-from-header)
+    #(define make-copyright copyright-from-header)
+   
 }

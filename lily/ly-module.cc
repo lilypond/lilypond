@@ -104,12 +104,11 @@ entry_to_alist (void *closure, SCM key, SCM val, SCM result)
   return scm_cons (scm_cons (key, scm_variable_ref (val)), result);
 }
 
-SCM
-ly_module_to_alist (SCM mod)
+LY_DEFINE(ly_module_to_alist, "ly:module->alist",
+	  1,0,0, (SCM mod),
+	  "Dump the contents of  module @var{mod} as an alist.")
 {
   SCM_VALIDATE_MODULE (1, mod);
-  
-  
   SCM obarr= SCM_MODULE_OBARRAY (mod);
 
   return scm_internal_hash_fold ((Hash_cl_func) &entry_to_alist, NULL, SCM_EOL, obarr); 
@@ -130,18 +129,25 @@ ly_module_lookup (SCM module, SCM sym)
   Lookup SYM in a list of modules, which do not have to be related.
   Return the first instance.
  */
-SCM
-ly_modules_lookup (SCM modules, SCM sym)
+LY_DEFINE(ly_modules_lookup, "ly:modules-lookup",
+	  2, 1, 0,
+	  (SCM modules, SCM sym, SCM def),
+	  "Lookup @var{sym} in the list @var{modules}, returning the "
+	  "first occurence. If not found, return @var{default}, or @code{#f}.")
 {
-  for (SCM s = ly_car (modules); SCM_MODULEP (s); s = ly_cdr (s))
+  for (SCM s = modules; SCM_MODULEP (s); s = ly_cdr (s))
     {
-      SCM v = scm_sym2var (sym, scm_module_lookup_closure (s), SCM_UNDEFINED);
-      if (v != SCM_UNDEFINED)
-	return v;
+      SCM mod = ly_car (s);      
+      SCM v = scm_sym2var (sym, scm_module_lookup_closure (mod), SCM_UNDEFINED);
+      if (SCM_VARIABLEP(v)  && SCM_VARIABLE_REF(v) != SCM_UNDEFINED)
+	return SCM_VARIABLE_REF(v);
     }
-  return SCM_UNDEFINED;
-}
 
+  if (def != SCM_UNDEFINED)
+    return def;
+  else
+    return SCM_BOOL_F;
+}
 
 void
 ly_export (SCM module, SCM namelist)
