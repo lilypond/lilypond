@@ -4,48 +4,43 @@
 ;;;; 
 ;;;; (c)  2004 Jan Nieuwenhuizen <janneke@gnu.org>
 
-
 ;;; HIP -- hack in progress
 ;;;
 ;;; You need:
 ;;;
 ;;;   * guile-1.6.4 (NOT CVS)
 ;;;   * Rotty's g-wrap--tng, possibly Janneke's if you have libffi-3.4.
-;;;   * lilypond branch: lilypond_2_3_2b; the framework-* backend
-;;;     loads output-gnome.scm at startup, which seems to break g-wrapped
-;;;     goops.
 ;;;
 ;;; see also: guile-gtk-general@gnu.org
 ;;;
 ;;; Try it
 ;;;
-;;;   * Install g-wrap, guile-gnome (see script below)
+;;;   * Install gnome/gtk development stuff and g-wrap, guile-gnome
+;;;     see buildscripts/guile-gnome.sh
 ;;;  
 ;;;   * Use latin1 encoding for gnome backend, do
-;;;       make -C mf clean
-;;;       make -C mf ENCODING_FILE=$(kpsewhich cork.enc)
-;;;       (cd mf/out && mkfontdir)
-;;;       xset +fp $(pwd)/mf/out
-;;;
-;;;   * Setup PATHs:
-
 "
-# do not use guile CVS:
-export PATH=/usr/bin/:$PATH
-# use g-wrap and guile-gnome from usr/pkg
+       make -C mf clean
+       make -C mf ENCODING_FILE=$(kpsewhich cork.enc)
+       (cd mf/out && mkfontdir)
+       xset +fp $(pwd)/mf/out
+"
+;;;
+;;;   * Setup environment
+"
 export GUILE_LOAD_PATH=$HOME/usr/pkg/g-wrap/share/guile/site:$HOME/usr/pkg/g-wrap/share/guile/site/g-wrap:$HOME/usr/pkg/guile-gnome/share/guile
 export LD_LIBRARY_PATH=$HOME/usr/pkg/g-wrap/lib:$HOME/usr/pkg/guile-gnome/lib
+export XEDITOR='/usr/bin/emacsclient --no-wait +%l:%c %f'
+"
+;;;  * For GNOME point-and-click, add
+;;;     #(ly:set-point-and-click 'line-column)
+;;;    to your .ly; just click an object on the canvas.
+;;;
+;;;  * Run lily:
+"
+lilypond-bin -fgnome input/simple-song.ly
 "
 
-;;;  * Set XEDITOR and add
-;;;     #(ly:set-point-and-click 'line-column)
-;;;    to your .ly to get point-and-click
-;;;
-;;;  * Run lily: lilypond-bin -fgnome input/simple-song.ly
-;;;
-;;;
-;;;      todo: hmm --output-base broken?
-;;;   ### cd mf && mftrace --encoding=$(kpsewhich cork.enc) --autotrace --output-base=feta-cork-20 feta20.mf && mv feta20.pfa out
 
 ;;; TODO:
 ;;;  * pango+feta font (see archives gtk-i18n-list@gnome.org and
@@ -60,106 +55,7 @@ export LD_LIBRARY_PATH=$HOME/usr/pkg/g-wrap/lib:$HOME/usr/pkg/guile-gnome/lib
 ;;;  * cleanups: (too many) global vars
 ;;;  * papersize, outputscale from book
 
-;;; Note: this install information is volatile
-;;;       you'll probably want to pull all from
-;;;       from guile-gnome-devel@gnu.org--2004 soon
-;;;   
 
-"
-#!/bin/bash
-
-set -ex
-
-# no CVS guile.
-export PATH=/usr/bin/:$PATH
-
-if  [ -d $HOME/usr/pkg/libffi/ ] ; then
- export LDFLAGS=-L$HOME/usr/pkg/libffi/lib/
- export CPPFLAGS=-I$HOME/usr/pkg/libffi/include
-fi 
-
-export AUTOMAKE=automake-1.8
-export AUTOCONF=autoconf2.50 
-
-rm -rf test
-mkdir test
-cd test
-
-## 1.  install gnome-devel (Debian/unstable: apt-get install gnome-devel)
-
-## 2.  *** NOTE: use guile-1.6 for g-wrap and guile-gnome ***
-##### using GUILE CVS g-wrap/guile-gnome is experimental (read: segfaults)
-PATH=/usr/bin:$PATH
-
-
-## 3.  get g-wrap 2.0
-tla register-archive a.rottmann@gmx.at--2004-main http://people.debian.org/~rotty/arch/a.rottmann@gmx.at/2004-main || true
-
-rm -rf g-wrap
-## tla get a.rottmann@gmx.at--2004-main/g-wrap--tng g-wrap
-## pull latest g-wrap from janneke -- this step is probably no longer
-## necessary when you read this
-tla register-archive janneke@gnu.org--2004-gnome http://lilypond.org/~janneke/{arch}/2004-gnome || true
-tla get janneke@gnu.org--2004-gnome/g-wrap--janneke g-wrap
-cd g-wrap
-
-rm -rf $HOME/usr/pkg/g-wrap
-sh autogen.sh --noconfigure
-mkdir =build
-cd =build
-../configure --prefix=$HOME/usr/pkg/g-wrap
-make install
-
-# cp srfi-34.scm from CVS head ?  --hwn
-(cd $HOME/usr/pkg/g-wrap/share/guile/site
- mv srfi-34.scm srfi-34.scm-g-wrap
- cp $HOME/usr/pkg/guile/share/guile-1.7/srfi/srfi-34.scm .)
-
-cd ../..
-
-## 4.  get guile-gnome
-tla register-archive guile-gnome-devel@gnu.org--2004 http://people.debian.org/~rotty/arch/guile-gnome-devel@gnu.org/2004/ || true
-rm -rf guile-gnome
-tla get guile-gnome-devel@gnu.org--2004/dists--dev guile-gnome
-cd guile-gnome
-tla build-config -r configs/gnu.org/dev
-cd src
-
-## 5.  get the gnome canvas module
-tla get guile-gnome-devel@gnu.org--2004/libgnomecanvas--dev libgnomecanvas
-
-## pull latest defs from janneke -- this step is probably no longer
-## necessary when you read this
-## tla register-archive janneke@gnu.org--2004-gnome http://lilypond.org/~janneke/{arch}/2004-gnome || true
-## rm -rf defs
-## tla get janneke@gnu.org--2004-gnome/defs--janneke defs
-
-rm -rf $HOME/usr/pkg/guile-gnome
-sh autogen.sh --noconfigure
-mkdir ../=build
-cd ../=build
-
-export GUILE_LOAD_PATH=$HOME/usr/pkg/g-wrap/share/guile/site:$GUILE_LOAD_PATH
-export LD_LIBRARY_PATH=$HOME/usr/pkg/g-wrap/lib:$LD_LIBRARY_PATH
-export PKG_CONFIG_PATH=$HOME/usr/pkg/g-wrap/lib/pkgconfig:$PKG_CONFIG_PATH
-
-../src/configure --prefix=$HOME/usr/pkg/guile-gnome
-
-
-# requires 800mb RAM with -O2
-(cd libgnomecanvas/gnome/gw; perl  -i~  -pe 's/-O2//g' Makefile)
-
-G_WRAP_MODULE_DIR=$HOME/usr/pkg/g-wrap/share/guile/site make install
-
-export GUILE_LOAD_PATH=$HOME/usr/pkg/guile-gnome/share/guile:$GUILE_LOAD_PATH
-export LD_LIBRARY_PATH=$HOME/usr/pkg/guile-gnome/lib:$LD_LIBRARY_PATH
-guile -s ../src/libgnomecanvas/examples/canvas.scm
-
-
-# simple test
-guile -s ../src/libgnomecanvas/examples/canvas.scm
-
-"
 
 (debug-enable 'backtrace)
 
@@ -173,12 +69,35 @@ guile -s ../src/libgnomecanvas/examples/canvas.scm
  (srfi srfi-13)
  (lily)
  (gnome gtk)
- (gnome gtk gdk-event)
- ;; the name of the module will change to canvas rsn
- ;;(gnome gw libgnomecanvas))
- (gnome gw canvas))
+ (gnome gtk gdk-event))
+
+;; the name of the module will change to canvas rsn
+(if (resolve-module '(gnome gw canvas))
+    (use-modules (gnome gw canvas))
+    (use-modules (gnome gw libgnomecanvas)))
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; module entry
+(define-public (gnome-output-expression expr port)
+  (display (dispatch expr) port))
+
+(define (dispatch expr)
+  (if (pair? expr)
+      (let ((keyword (car expr)))
+	(cond
+	 ((eq? keyword 'some-func) "")
+	 ;;((eq? keyword 'placebox) (dispatch (cadddr expr)))
+	 (else
+	  (if (module-defined? this-module keyword)
+	      (apply (eval keyword this-module) (cdr expr))
+	      (begin
+		(display
+		 (string-append "undefined: " (symbol->string keyword) "\n"))
+		"")))))
+      expr))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Lily output interface --- fix silly names and docme
 
 "
@@ -190,11 +109,12 @@ guile -s ../src/libgnomecanvas/examples/canvas.scm
  beam
  bezier-sandwich
  bracket
+ char
+ filledbox
+ text
  ...
 
  Commands:
- define-fonts
- header
  placebox
  ...
 
@@ -215,38 +135,14 @@ guile -s ../src/libgnomecanvas/examples/canvas.scm
 ;; minimal intercept list:
 (define output-interface-intercept
   '(comment
-    define-fonts
-    end-output
-    header
-    header-end
-    lily-def
-    no-origin
-    output-scopes
-    start-page
-    stop-page
-    start-system
-    stop-system))
+    define-origin
+    no-origin))
 
 (map (lambda (x) (module-define! this-module x dummy))
      output-interface-intercept)
 
-(define-public (gnome-output-expression expr port)
-  (display (dispatch expr) port))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define (dispatch expr)
-  (if (pair? expr)
-      (let ((keyword (car expr)))
-	(cond
-	 ((eq? keyword 'some-func) "")
-	 ;;((eq? keyword 'placebox) (dispatch (cadddr expr)))
-	 (else
-	  (if (module-defined? this-module keyword)
-	      (apply (eval keyword this-module) (cdr expr))
-	      (begin
-		(display
-		 (string-append "undefined: " (symbol->string keyword) "\n"))
-		"")))))
-      expr))
 
 ;;; Global vars
 (define main-window #f)
@@ -273,15 +169,9 @@ guile -s ../src/libgnomecanvas/examples/canvas.scm
 
 (define font-paper #f)
 
-;;(define pixels-per-unit 1.0)
 (define pixels-per-unit 2.0)
-
-;; TODO: use canvas scaling, use output-scale for paper/canvas dimensions?
-;;(define output-scale (* 2 2.83464566929134))
-;;(define output-scale 2.83464566929134)
 (define OUTPUT-SCALE 2.83464566929134)
 (define output-scale (* OUTPUT-SCALE pixels-per-unit))
-;;(define output-scale 1)
 
 ;; helper functions -- sort this out
 (define (stderr string . rest)
@@ -312,6 +202,132 @@ guile -s ../src/libgnomecanvas/examples/canvas.scm
   (if (< i 80)
       (utf8 i)
       (utf8 (+ #xee00 i))))
+
+;;; hmm?
+(define (draw-rectangle x1 y1 x2 y2 color width-units)
+  (make <gnome-canvas-rect>
+    #:parent (root main-canvas) #:x1 x1 #:y1 y1 #:x2 x2 #:y2 y2
+    #:fill-color color #:width-units width-units))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; stencil outputters
+;;;;
+
+(define (char font i)
+  (text font (utf8 i)))
+
+(define (placebox x y expr)
+  (stderr "item: ~S\n" expr)
+  (let ((item expr))
+    ;;(if item
+    ;; FIXME ugly hack to skip #unspecified ...
+    (if (and item (not (eq? item (if #f #f))))
+	(begin
+	  (move item
+		(* output-scale (+ (car system-origin) x))
+		(* output-scale (- (car system-origin) y)))
+	  (affine-relative item output-scale 0 0 output-scale 0 0)
+	  
+	  (gtype-instance-signal-connect item 'event item-event)
+	  (if location
+	      (hashq-set! item-locations item location))
+	  item)
+	#f)))
+
+(define (round-filled-box breapth width depth height blot-diameter)
+  ;; FIXME: no rounded corners on rectangle...
+  ;; FIXME: blot?
+  (draw-rectangle (- breapth) depth width (- height) "black" blot-diameter))
+
+(define (pango-font-name font)
+  (cond
+   ((equal? (ly:font-name font) "GNU-LilyPond-feta-20")
+    "lilypond-feta, regular 32")
+   (else
+    (ly:font-name font))))
+
+(define (pango-font-size font)
+  (let* ((designsize (ly:font-design-size font))
+	 (magnification (* (ly:font-magnification font)))
+	 ;;(ops (ly:paper-lookup paper 'outputscale))
+	 ;;(ops (* pixels-per-unit OUTPUT-SCALE))
+	 ;;(ops (* pixels-per-unit pixels-per-unit))
+	 (ops (* (/ 12 20) (* pixels-per-unit pixels-per-unit)))
+	 (scaling (* ops magnification designsize)))
+    scaling))
+
+(define (text font string)
+  (stderr "font-name: ~S\n" (ly:font-name font))
+  ;; TODO s/filename/file-name/
+  (stderr "font-filename: ~S\n" (ly:font-filename font))
+  
+  (stderr "pango-font-name: ~S\n" (pango-font-name font))
+  (stderr "pango-font-size: ~S\n" (pango-font-size font))
+  (set!
+   text-items
+   (cons
+    (make <gnome-canvas-text>
+      #:parent (root main-canvas)
+      #:x 0 #:y 0
+      #:font (pango-font-name font)
+      #:size-points (pango-font-size font)
+      #:size-set #t
+
+      ;;apparently no effect :-(
+      ;;#:scale 1.0
+      ;;#:scale-set #t
+      
+      #:fill-color "black"
+      #:text string
+      #:anchor 'west)
+    text-items))
+  (car text-items))
+
+(define (filledbox a b c d)
+  (round-filled-box a b c d 0.001))
+
+;; WTF is this in every backend?
+(define (horizontal-line x1 x2 thickness)
+  ;;(let ((thickness 2))
+  (filledbox (- x1) (- x2 x1) (* .5 thickness) (* .5 thickness)))
+
+;; origin -- bad name
+(define (define-origin file line col)
+  ;; ughr, why is this not passed as [part of] stencil object
+  (set! location (if (procedure? point-and-click)
+		     ;; duh, only silly string append
+		     ;; (point-and-click line col file)
+		     (list line col file)
+		     #f)))
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; gnome stuff  --- move to framework-gnome
+(define (dump-page number)
+  (if (or (not page-stencils)
+	  (< number 0)
+	  (>= number (vector-length page-stencils)))
+      (stderr "No such page: ~S\n" (1+ number))
+      
+      (let* ((old-canvas main-canvas)
+	     (canvas (new-canvas)))
+	(set! page-number number)
+	
+	;; no destroy method for gnome-canvas-text?
+	;;(map destroy (gtk-container-get-children main-canvas))
+	;;(map destroy text-items)
+
+	;;Hmm
+	;;(set! main-canvas canvas)
+	(set! text-items '())
+	(ly:outputter-dump-stencil output-canvas
+				   (vector-ref page-stencils page-number))
+	
+	(if old-canvas (destroy old-canvas))
+	(add main-scrolled canvas)
+	(show canvas))))
 
 (define x-editor #f)
 (define (get-x-editor)
@@ -398,143 +414,27 @@ guile -s ../src/libgnomecanvas/examples/canvas.scm
 	   (dump-page (1+ page-number))))
     #f))
 
-(define (char font i)
-  (text font (utf8 i)))
-
-(define (placebox x y expr)
-  (stderr "item: ~S\n" expr)
-  (let ((item expr))
-    ;;(if item
-    ;; FIXME ugly hack to skip #unspecified ...
-    (if (and item (not (eq? item (if #f #f))))
-	(begin
-	  (move item
-		(* output-scale (+ (car system-origin) x))
-		(* output-scale (- (car system-origin) y)))
-	  (affine-relative item output-scale 0 0 output-scale 0 0)
-	  
-	  (gtype-instance-signal-connect item 'event item-event)
-	  (if location
-	      (hashq-set! item-locations item location))
-	  item)
-	#f)))
-
-(define (round-filled-box breapth width depth height blot-diameter)
-  ;; FIXME: no rounded corners on rectangle...
-  ;; FIXME: blot?
-  (draw-rectangle (- breapth) depth width (- height) "black" blot-diameter))
-
-(define (pango-font-name font)
-  (cond
-   ((equal? (ly:font-name font) "GNU-LilyPond-feta-20")
-    "lilypond-feta, regular 32")
-   (else
-    (ly:font-filename font))))
-
-(define (pango-font-size font)
-  (let* ((designsize (ly:font-design-size font))
-	 (magnification (* (ly:font-magnification font)))
-	 ;;(ops (ly:paper-lookup paper 'outputscale))
-	 ;;(ops (* pixels-per-unit OUTPUT-SCALE))
-	 ;;(ops (* pixels-per-unit pixels-per-unit))
-	 (ops (* (/ 12 20) (* pixels-per-unit pixels-per-unit)))
-	 (scaling (* ops magnification designsize)))
-    scaling))
-
-(define (text font string)
-  (stderr "font-name: ~S\n" (ly:font-name font))
-  ;; TODO s/filename/file-name/
-  (stderr "font-filename: ~S\n" (ly:font-filename font))
-  
-  (stderr "pango-font-name: ~S\n" (pango-font-name font))
-  (stderr "pango-font-size: ~S\n" (pango-font-size font))
-  (set!
-   text-items
-   (cons
-    (make <gnome-canvas-text>
-      #:parent (root main-canvas)
-      #:x 0 #:y 0
-      ;;    #:font "new century schoolbook, i bold 20"
-      #:font (pango-font-name font)
-      ;; #:size-points 12
-      #:size-points (pango-font-size font)
-      ;;#:size (pango-font-size font)
-      #:size-set #t
-
-      ;;apparently no effect :-(
-      ;;#:scale 1.0
-      ;;#:scale-set #t
-      
-      #:fill-color "black"
-      #:text string
-      #:anchor 'west)
-    text-items))
-  (car text-items))
-
-(define (filledbox a b c d)
-  (round-filled-box a b c d 0.001))
-
-;; WTF is this in every backend?
-(define (horizontal-line x1 x2 thickness)
-  ;;(let ((thickness 2))
-  (filledbox (- x1) (- x2 x1) (* .5 thickness) (* .5 thickness)))
-
-(define (start-system origin . rest)
-  (set! system-origin origin))
-
-;; origin -- bad name
-(define (define-origin file line col)
-  ;; ughr, why is this not passed as [part of] stencil object
-  (set! location (if (procedure? point-and-click)
-		     ;; duh, only silly string append
-		     ;; (point-and-click line col file)
-		     (list line col file)
-		     #f)))
-
-
-;;;;;;;;;;;;;;;; 
-;;;;;;;;;;;;;;;; gnome stuff
-;;;;;;;;;;;;;;;; 
-(define (dump-page number)
-  (if (or (not page-stencils)
-	  (< number 0)
-	  (>= number (vector-length page-stencils)))
-      (stderr "No such page: ~S\n" (1+ number))
-      
-      (let* ((old-canvas main-canvas)
-	     (canvas (new-canvas)))
-	(set! page-number number)
-	
-	;; no destroy method for gnome-canvas-text?
-	;;(map destroy (gtk-container-get-children main-canvas))
-	;;(map destroy text-items)
-
-	;;Hmm
-	;;(set! main-canvas canvas)
-	(set! text-items '())
-	(ly:outputter-dump-stencil output-canvas
-				   (vector-ref page-stencils page-number))
-	
-	(if old-canvas (destroy old-canvas))
-	(add main-scrolled canvas)
-	(show canvas)
-	)))
-
-
 (define (papersize window paper)
   (let* ((hsize (ly:output-def-lookup paper 'hsize))
 	 (vsize (ly:output-def-lookup paper 'vsize))
-	 ;; 2?
-	 (width (inexact->exact (ceiling (* output-scale 2 hsize))))
-	 (height (inexact->exact (ceiling (* output-scale 2 vsize))))
+	 (width (inexact->exact (ceiling (* output-scale hsize))))
+	 (height (inexact->exact (ceiling (* output-scale vsize))))
 	 (max-width (gdk-screen-width))
-	 (max-height (gdk-screen-height)))
+	 (max-height (gdk-screen-height))
+	 (scrollbar-size 20))
 
     ;; ughr: panels?
     (set! max-height (- max-height 80))
+
+    ;; hmm?
+    ;;(set! OUTPUT-SCALE (ly:bookpaper-outputscale paper))
+    ;;(set! output-scale (* OUTPUT-SCALE pixels-per-unit))
+
+    ;; huh, *2?
     
-    (set! window-width (min width max-width))
-    (set! window-height (min height max-height))
+    (set! window-width (min (+ scrollbar-size (* width 2)) max-width))
+    (set! window-height (min (+ button-height scrollbar-size (* height 2))
+			     max-height))
     
     (set! canvas-width width)
     (set! canvas-height height)))
@@ -554,11 +454,6 @@ guile -s ../src/libgnomecanvas/examples/canvas.scm
     
     canvas))
 
-(define (draw-rectangle x1 y1 x2 y2 color width-units)
-  (make <gnome-canvas-rect>
-    #:parent (root main-canvas) #:x1 x1 #:y1 y1 #:x2 x2 #:y2 y2
-    #:fill-color color #:width-units width-units))
-
 (define (main outputter bookpaper pages)
   (let* ((window (make <gtk-window> #:type 'toplevel))
 	 (button (make <gtk-button> #:label "Exit"))
@@ -571,7 +466,6 @@ guile -s ../src/libgnomecanvas/examples/canvas.scm
 
     (papersize window bookpaper)
     (set-size-request window window-width window-height)
-    ;;; (ly:bookpaper-outputscale bookpaper))))
     
     (add window vbox)
     (add vbox scrolled)

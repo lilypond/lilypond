@@ -1,9 +1,10 @@
 /*
   accidental.cc -- implement Accidental_interface
 
-  (c) 2001--2004 Han-Wen Nienhuys
+  source file of the GNU LilyPond music typesetter
   
- */
+  (c) 2001--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+*/
 #include "font-interface.hh"
 #include "item.hh"
 #include "stencil.hh"
