@@ -274,7 +274,9 @@ class Tex_output:
                 compile('dvips -E -o %s %s' %(g[1]+'.eps', g[1]+'.dvi'), outdir,
                         g[1]+'.dvi', g[1]+'.eps')
     def write_outfile(self):
-        file = open(self.output_fn+'.latex', 'w')
+        outfn = self.output_fn+'.latex'
+	sys.stderr.write ('Writing output to `%s\'\n'% outfn)
+        file = open(outfn, 'w')
         file.write('% Created by mudela-book\n')
         for line in self.__lines:
             if type(line)==type([]):
@@ -456,7 +458,8 @@ Options:\n
 
 def write_deps (fn, out,  deps):
 	out_fn = outdir + '/' + fn
-	print '`writing `%s\'\n\'' % out_fn
+	out_fn = re.sub ('//', '/', out_fn)
+	print 'writing `%s\'\n' % out_fn
 	
 	f = open (out_fn, 'w')
 	f.write ('%s: %s\n'% (outdir + '/' + out + '.dvi',
@@ -526,7 +529,7 @@ def main():
         my_depname = my_outname + '.dep'        
         inp = Main_tex_input (input_filename, my_outname)
         inp.do_it ()
-        print "LaTeX output to %s%s.latex" %(outdir, my_outname)
+
 
         if do_deps:
             write_deps (my_depname, my_outname, inp.deps)
