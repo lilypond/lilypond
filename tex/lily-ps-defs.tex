@@ -7,12 +7,14 @@
 % header info (macros/defs, etc) should go into a \special{! ... }, 
 % note the ! sign.  See dvips.info for details.
 %
+% escape the colon with \string to avoid problems with french babel
+%
 \def\lilySpace{ }
 \def\turnOnPostScript{%
         % This sets CTM so that you get to the currentpoint
         % by executing a 0 0 moveto
         \def\embeddedps##1{%
-                \special{ps: @beginspecial @setspecial
+                \special{ps\string: @beginspecial @setspecial
                         \lilypondpaperoutputscale\lilySpace 
                         \lilypondpaperoutputscale\lilySpace scale 
                         ##1 @endspecial}%
