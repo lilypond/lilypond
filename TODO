@@ -9,6 +9,8 @@ Most of the items are marked in the code as well
 Grep for TODO and ugh/ugr/urg.  
 
 .* BUGS
+. * header for PS enteredby = "bla <bla@bar.com>"
+. * ps/lily.ps
 . * AFM for BlueSky AFM files.
 . * staff size for post/prebreaks
 . * .ly files
@@ -50,8 +52,6 @@ Grep for TODO and ugh/ugr/urg.
 . *P.P.S. It can be cool in mudela-book to distinguish in pre,postMudelaExample,
 whether MudelaExample is epsed or not: ( if this fragment is floating eps, than 1,
 otherwise 2). say preMudelaExample[eps]{}, and change it in document body sometimes.
-
-. * tetex: mfplain.mem
 . * fix singleStaffBracket
 . * declare performers in \midi
 . * fix MIDI
@@ -74,6 +74,7 @@ present, they're not properly distinguished) but no distinct way to
 specify the third.  Should there be?
 
 .* TODO before 1.2
+. * \selectmusic to cut pieces from music. 
 . * break priority setting from SCM.
 . * Gade score
 .  * remove [] in favour of auto-beamer
@@ -313,6 +314,8 @@ touching it.
 . * glibc 2.0:
 	  f = fopen ("/dev/null", "r")
 	  assert (feof (f))
+
+. * tetex: mfplain.mem
 .* 3RD PARTY PROJECTS:
 . * make GCC warn about ctor that leaves member vars  uninitialised.
 . * GNU patch 
@@ -439,12 +442,12 @@ with a broadcast/acknowledge process.
 
 So the best way of handling this, is
 
-* supporting dynamic settings in Audio_note
+  1 supporting dynamic settings in Audio_note
 
-* mimicking the broadcast/acknowledge mechanism of the Engravers in
+  2 mimicking the broadcast/acknowledge mechanism of the Engravers in
   the Performers
 
-* using that mechanism to write a Dynamics_performer that will modify
+  3 using that mechanism to write a Dynamics_performer that will modify
   any notes it finds to set appropriate strengths.
 
 You could also kludge this by deriving from Performer_group_performer

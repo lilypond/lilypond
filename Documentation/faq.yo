@@ -393,13 +393,34 @@ file(buildscripts/clean-fonts.sh).
 
 question(How does PS output work?)
 
-Make Type-1 fonts: issue
+itemize(
+ it()
+Generate the PostScript Type-3 fonts. In the file(mf/) 
+subdirectory, issue:
 verb(
 	make pfa
-) in the mf/ subdirectory
-Set GS_FONTPATH to the directory containing the pfas. In the source
-tree, this is file(mf/out/).  Run lilypond with option tt(-f ps).
+) in the mf/ subdirectory.  This will also  make file(mfplain) for metapost.
+it()
+Run lilypond with option tt(-f ps):
+verb(
+    lilypond -fps foo.ly
+)
+it() To view the file(.ps) output with GhostView, set GS_FONTPATH to the 
+directory containing the file(pfa)s, and set GS_LIB to the directory containing the file(.ps) library files of LilyPond.  In the source tree, these are file(mf/out/) and file(ps/).
 
+
+i.e. do something like:
+verb(
+   export GS_FONTPATH=$HOME/usr/src/lilypond/mf/out
+   export GS_LIB=$HOME/usr/src/lilypond/ps
+   gv foo.ps &
+)
+)
+
+Direct PS output is still experimental.  For creating nice looking ps 
+output, use TeX() and code(dvips).
+
+  
 question(The beams and slurs are gone if use the XDvi magnifying glass!?)
 
 The beams and slurs are done in PostScript.  XDvi doesn't show
