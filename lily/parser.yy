@@ -2408,6 +2408,8 @@ property_op_to_music (SCM op)
 	if (grob_sym != SCM_UNDEFINED)
 		{
 		bool itc = internal_type_checking_global_b;
+		/* UGH.
+		*/
 		bool autobeam = gh_equal_p (symbol, ly_symbol2scm ("autoBeamSettings"));
 		if (autobeam)
 			internal_type_checking_global_b = false;

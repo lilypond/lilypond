@@ -250,7 +250,7 @@ another non-natural.
 (translator-property-description 'finalizations list? "List of expressions to evaluate before proceeding to next time step. Internal variable.")
 (translator-property-description 'followVoice boolean?
 				 "if set, note heads are tracked  across staff switches by a thin line")
-(translator-property-description 'fontSize integer?
+(translator-property-description 'fontSize number?
 				 "Used to set the relative size of all grobs
 in a context. This is done using the @code{Font_size_engraver}.")
 
