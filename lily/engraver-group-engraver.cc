@@ -68,12 +68,7 @@ Engraver_group_engraver::do_announces()
 }
 
 
-Staff_info
-Engraver_group_engraver::get_staff_info() const
-{
-  Staff_info inf = Engraver::get_staff_info();
-  return inf;
-}
+
 
 
 

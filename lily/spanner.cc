@@ -30,12 +30,6 @@ Spanner::do_break_processing ()
   if (!left || !right)
     return;
   
-  if  (left == right)
-    {
-      warning (_f ("Spanner `%s' has equal left and right spanpoints",
-		   classname (this)));
-    }
-
   /*
     Check if our parent in X-direction spans equally wide
     or wider than we do.
@@ -175,11 +169,6 @@ Spanner::set_bound(Direction d, Score_element*s)
     {
       set_parent (i, X_AXIS);
     }
-  
-  if (spanned_drul_[Direction(-d)] == spanned_drul_[d]
-       && i)
-    warning (_f ("Spanner `%s' has equal left and right spanpoints",
-		 classname (this)));
 }
 
 
@@ -314,3 +303,11 @@ Spanner::do_derived_mark ()
   while (flip (&d) != LEFT);
 }
 
+void
+add_bound_item (Spanner* sp, Item*it)
+{
+  if (!sp->get_bound (LEFT))
+    sp->set_bound (LEFT, it);
+  else
+    sp->set_bound (RIGHT, it);
+}

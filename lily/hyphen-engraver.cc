@@ -89,7 +89,7 @@ Hyphen_engraver::do_removal_processing ()
   if (hyphen_p_)
     {
       req_l_->warning (_ ("unterminated hyphen"));
-      hyphen_p_->set_bound(RIGHT, get_staff_info ().command_pcol_l ());
+      hyphen_p_->set_bound(RIGHT, unsmob_element (get_property ("currentCommandColumn")));
     }
 }
 

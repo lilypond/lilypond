@@ -45,7 +45,7 @@ protected:
 
 protected:
   /* Engraver_group_engraver interface */
-  virtual Staff_info get_staff_info() const;
+
   virtual bool do_try_music (Music*);
   virtual void do_creation_processing();
   virtual void do_removal_processing();

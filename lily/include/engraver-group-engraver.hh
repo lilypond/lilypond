@@ -30,7 +30,6 @@ protected:
 public:
   VIRTUAL_COPY_CONS(Translator);
     
-  virtual Staff_info get_staff_info() const;
   virtual void do_announces();
   virtual void announce_element (Score_element_info);
 };

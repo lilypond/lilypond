@@ -25,13 +25,13 @@ Separating_line_group_engraver::do_creation_processing ()
 {
   sep_span_p_ = new Separating_group_spanner (SCM_EOL);
   announce_element (Score_element_info (sep_span_p_, 0));
-  sep_span_p_->set_bound (LEFT, get_staff_info ().command_pcol_l ());
+  sep_span_p_->set_bound (LEFT, unsmob_element (get_property ("currentCommandColumn")));
 }
 
 void
 Separating_line_group_engraver::do_removal_processing ()
 {
-  sep_span_p_->set_bound (RIGHT, get_staff_info ().command_pcol_l ());
+  sep_span_p_->set_bound (RIGHT, unsmob_element (get_property ("currentCommandColumn")));
   typeset_element (sep_span_p_);
   sep_span_p_ =0;
 }

@@ -96,7 +96,7 @@ Extender_engraver::do_removal_processing ()
   if (extender_p_)
     {
       req_l_->warning (_ ("unterminated extender"));
-      extender_p_->set_bound(RIGHT, get_staff_info ().command_pcol_l ());
+      extender_p_->set_bound(RIGHT, unsmob_element (get_property ("currentCommandColumn")));
     }
 }
 

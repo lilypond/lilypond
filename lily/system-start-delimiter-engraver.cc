@@ -65,7 +65,7 @@ void
 System_start_delimiter_engraver::do_creation_processing()
 {
   delim_ = new System_start_delimiter (get_property ("basicSystemStartDelimiterProperties"));
-  delim_->set_bound (LEFT, get_staff_info ().command_pcol_l ());
+  delim_->set_bound (LEFT, unsmob_element (get_property ("currentCommandColumn")));
 
   /*
     You can't override the glyph using \property, you must do it in
@@ -88,7 +88,7 @@ System_start_delimiter_engraver::do_removal_processing ()
   if (gh_number_p (collapse))
     delim_->set_elt_property ("collapse-height", collapse);
       
-  delim_->set_bound (RIGHT, get_staff_info ().command_pcol_l ());
+  delim_->set_bound (RIGHT, unsmob_element (get_property ("currentCommandColumn")));
   typeset_element (delim_);
 }
 

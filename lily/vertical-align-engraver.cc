@@ -43,7 +43,7 @@ Vertical_align_engraver::do_creation_processing()
   valign_p_->set_elt_property ("stacking-dir",
 			       gh_int2scm (DOWN));
   
-  valign_p_->set_bound(LEFT,get_staff_info().command_pcol_l ());
+  valign_p_->set_bound(LEFT,unsmob_element (get_property ("currentCommandColumn")));
   announce_element (Score_element_info (valign_p_ , 0));
 }
 
@@ -61,7 +61,7 @@ Vertical_align_engraver::do_removal_processing()
     valign_p_->set_elt_property ("threshold",
 				 gh_cons (min,max));
   }
-  valign_p_->set_bound(RIGHT,get_staff_info().command_pcol_l ());
+  valign_p_->set_bound(RIGHT,unsmob_element (get_property ("currentCommandColumn")));
   typeset_element (valign_p_);
   valign_p_ =0;
 }
