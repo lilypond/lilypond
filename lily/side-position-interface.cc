@@ -21,7 +21,6 @@ Side_position_interface::Side_position_interface (Score_element const *e)
   elt_l_ = (Score_element*)e;
 }
 
-
 void
 Side_position_interface::add_support (Score_element*e)
 {
@@ -61,12 +60,9 @@ Side_position_interface::get_direction () const
  */
 
 Real
-Side_position_interface::side_position (Dimension_cache const * c)
+Side_position_interface::side_position (Score_element const *cme, Axis axis)
 {
-  Score_element * me =  (c->element_l ());
-
-  Interval dim;
-  Axis  axis = c->axis ();
+  Score_element* me = (Score_element*)cme;
   Score_element *common = me->parent_l (axis);
   SCM support = me->get_elt_property ("side-support");
   for (SCM s = support; s != SCM_EOL; s = gh_cdr (s))
@@ -76,6 +72,7 @@ Side_position_interface::side_position (Dimension_cache const * c)
 	common = common->common_refpoint (e, axis);
     }
   
+  Interval dim;
   for (SCM s = support; s != SCM_EOL; s = gh_cdr (s))
     {
 
@@ -118,12 +115,12 @@ Side_position_interface::side_position (Dimension_cache const * c)
   callback that centers the element on itself
  */
 Real
-Side_position_interface::aligned_on_self (Dimension_cache const *c)
+Side_position_interface::aligned_on_self (Score_element const*elm, Axis ax)
 {
   String s ("self-alignment-");
-  Axis ax = c->axis ();
+
   s +=  (ax == X_AXIS) ? "X" : "Y";
-  Score_element *elm = c->element_l ();
+
   SCM align (elm->get_elt_property (s));
   if (isdir_b (align))
     {
@@ -160,9 +157,8 @@ directed_round (Real f, Direction d)
   Callback that quantises in staff-spaces, rounding in the direction
   of the elements "direction" elt property. */
 Real
-Side_position_interface::quantised_position (Dimension_cache const *c)
+Side_position_interface::quantised_position (Score_element const *me, Axis a)
 {
-  Score_element * me =  (c->element_l ());
   Side_position_interface s(me);
   Direction d = s.get_direction ();
   Staff_symbol_referencer_interface si (me);
@@ -188,13 +184,11 @@ Side_position_interface::quantised_position (Dimension_cache const *c)
   Position next to support, taking into account my own dimensions and padding.
  */
 Real
-Side_position_interface::aligned_side (Dimension_cache const *c)
+Side_position_interface::aligned_side (Score_element const*me, Axis ax)
 {
-  Score_element * me =  (c->element_l ());
   Side_position_interface s(me);
   Direction d = s.get_direction ();
-  Axis ax = c->axis ();
-  Real o = side_position (c);
+  Real o = side_position (me,ax);
 
   Interval iv =  me->extent (ax);
 
@@ -213,11 +207,8 @@ Side_position_interface::aligned_side (Dimension_cache const *c)
   Position centered on parent.
  */
 Real
-Side_position_interface::centered_on_parent (Dimension_cache const *c)
+Side_position_interface::centered_on_parent (Score_element const* me, Axis a)
 {
-
-  Score_element *me = c->element_l ();
-  Axis a = c->axis ();
   Score_element *him = me->parent_l (a);
 
   return him->extent (a).center ();  
@@ -295,9 +286,3 @@ Side_position_interface::supported_b () const
 }
 
 
-Side_position_interface
-side_position (Score_element* e)
-{
-  Side_position_interface si (e);
-  return si;
-}

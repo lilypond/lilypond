@@ -31,15 +31,7 @@ ly_str02scm (char const*c)
 }
 
 
-#if 0
-/*
-  this all really sucks, LilyPond should not communicate with GUILE using strings.
- */
-SCM
-ly_eval_str (String s);
-#endif
 
-  
 /*
   Pass string to scm parser, evaluate one expression.
   Return result value and #chars read.

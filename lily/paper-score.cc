@@ -1,5 +1,5 @@
 /*
-  p-score.cc -- implement Paper_score
+  paper-score.cc -- implement Paper_score
 
   source file of the GNU LilyPond music typesetter
 
@@ -67,6 +67,8 @@ Paper_score::calc_breaking ()
 void
 Paper_score::process ()
 {
+  progress_indication ( _f("Element count %d ",  line_l_->element_count ()));
+  
   progress_indication (_ ("Preprocessing elements...") + " ");
 
   /*
@@ -81,7 +83,6 @@ Paper_score::process ()
  
   Array<Column_x_positions> breaking = calc_breaking ();
   line_l_->break_into_pieces (breaking);
-
   
   outputter_l_ = new Paper_outputter (paper_l_->paper_stream_p ());
 ;
@@ -113,7 +114,6 @@ Paper_score::process ()
 
   scm = gh_list (ly_symbol2scm ("end-output"), SCM_UNDEFINED);
   outputter_l_->output_scheme (scm);
-
 
   // huh?
   delete outputter_l_;

@@ -438,9 +438,9 @@ Stem::flag () const
 }
 
 Interval
-Stem::dim_callback (Dimension_cache const* c) 
+Stem::dim_callback (Score_element const *se, Axis ) 
 {
-  Stem * s = dynamic_cast<Stem*> (c->element_l ());
+  Stem * s = dynamic_cast<Stem*> ((Score_element*)se);
   
   Interval r (0, 0);
   if (unsmob_element (s->get_elt_property ("beam")) || abs (s->flag_i ()) <= 2)
@@ -493,9 +493,9 @@ Stem::do_brew_molecule () const
 }
 
 Real
-Stem::off_callback (Dimension_cache const * c)
+Stem::off_callback (Score_element const* se, Axis)
 {
-  Stem * st = dynamic_cast<Stem*> (c->element_l ());
+  Stem *st = dynamic_cast<Stem*> ((Score_element*)se);
 
   Real r=0;
   if (Note_head * f = st->first_head ())

@@ -29,6 +29,13 @@ Line_of_score::Line_of_score()
   Axis_group_interface (this).set_axes (Y_AXIS,X_AXIS);
 }
 
+int
+Line_of_score::element_count () const
+{
+  return scm_ilength ( get_elt_property ("all-elements"));
+}
+
+
 /*
   Ugh.  this is grossly hairy.
  */
@@ -48,20 +55,21 @@ Line_of_score::output_lines ()
     {
       unsmob_element (gh_car (s))->do_break_processing ();
     }
-
   /*
     fixups must be done in broken line_of_scores, because new elements
     are put over there.  */
+  int count = 0;
   for (int i=0; i < broken_into_l_arr_.size (); i++)
     {
       Score_element *se = broken_into_l_arr_[i];
-
-      for (SCM s = se->get_elt_property ("all-elements");
-	   gh_pair_p (s); s = gh_cdr (s))
+      SCM all = se->get_elt_property ("all-elements");
+      for (SCM s = all; gh_pair_p (s); s = gh_cdr (s))
 	{
 	  unsmob_element (gh_car (s))->fixup_refpoint ();
 	}
+      count += scm_ilength (all);
     }
+
   
   /*
     needed for doing items.
@@ -78,6 +86,8 @@ Line_of_score::output_lines ()
       unsmob_element (gh_car (s))->handle_broken_dependencies ();
     }
   handle_broken_dependencies ();
+  progress_indication ( _f("Element count %d.",  count + element_count()));
+
   
   for (int i=0; i < broken_into_l_arr_.size (); i++)
     {
@@ -214,7 +224,11 @@ void
 Line_of_score::pre_processing ()
 {
   for (SCM s = get_elt_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
-    unsmob_element (gh_car (s))->do_breakable_col_processing ();
+    unsmob_element (gh_car (s))->discretionary_processing ();
+
+  progress_indication ( _f("Element count %d ",  element_count ()));
+
+  
   for (SCM s = get_elt_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
     unsmob_element (gh_car (s))->handle_prebroken_dependencies ();
   

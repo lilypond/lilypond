@@ -58,7 +58,7 @@ list is alphabetically ordered.
      `http://www.iro.umontreal.ca/~pinard/'     parts of
      Documentation/Vocab*, started internationalization stuff
 
-   * Stephen Peters <portnoy@ai.mit.edu>, pdfTeX support
+   * Stephen Peters <portnoy@ai.mit.edu>,     pdfTeX support
 
    * Glen Prideaux <glenprideaux@iname.com>,     minor bug fix to
      script used to generate doc++ documentation
@@ -70,6 +70,5 @@ list is alphabetically ordered.
 
    * Shay Rojanski     Some mudela source.
 
-   Your name could be here! If you want to fix something, do it, and
-send us a patch!
+   * August S.Sigov <august@infran.ru>     Russian translation
 

@@ -18,28 +18,25 @@
   not compute anything, but a side effect of a->do_side_processing ()
   is that the elements are placed correctly.  */
 Real
-Align_interface::alignment_callback (Dimension_cache const *c)
+Align_interface::alignment_callback (Score_element const *sc, Axis ax)
 {
-  Axis ax = c->axis ();
-  Score_element * sc = c->element_l ()->parent_l (ax);
-
-  if (sc && sc->get_elt_property ("alignment-done") == SCM_UNDEFINED) 
+  Score_element * par = sc->parent_l (ax);
+  if (par && par->get_elt_property ("alignment-done") == SCM_UNDEFINED) 
     {
-      Align_interface (sc).do_side_processing (ax);
+      Align_interface (par).do_side_processing (ax);
     }
   return 0.0;
 }
 
 
 Real
-Align_interface::center_on_element (Dimension_cache const *c)
+Align_interface::center_on_element (Score_element const *me, Axis a)
 {
-  Score_element *me = c->element_l ();
   Score_element *cent = unsmob_element (me->get_elt_property ("group-center-element"));
 
   if (cent)
     {
-      Real r = cent->relative_coordinate (me,  c->axis ());
+      Real r = cent->relative_coordinate (me,  a);
       return -r;
     }
   return 0;
@@ -154,7 +151,6 @@ Align_interface::add_element (Score_element* s)
 {
   s->add_offset_callback (alignment_callback, axis ());
   Axis_group_interface (elt_l_).add_element (s);
-  
 }
 
 Align_interface::Align_interface (Score_element const*s)

@@ -20,7 +20,7 @@
 /**
   Adminstration of offset dimension info. 
  */
-class Dimension_cache
+struct Dimension_cache
 {
   bool valid_b_;
   Interval dim_;
@@ -28,47 +28,21 @@ class Dimension_cache
     The offset wrt. to the center of #parent_l_#
    */
 
-  Real extra_offset_;
-  Real basic_offset_;
-  bool off_valid_b_;
+  Real offset_;
 
-  Score_element *elt_l_;
-  friend class Score_element;
 
-  void init ();
-  Array<Offset_cache_callback> off_callbacks_;
+  
+  Array<Offset_callback> off_callbacks_;
+
   /**
      What to call to find extent.  Nil means empty. 
    */
-public:
   Dim_cache_callback extent_callback_l_;
-  static Interval point_dimension_callback (Dimension_cache const* );
-  Axis axis () const;
-  Real get_offset () const;
-  void set_extent_callback (Dim_cache_callback);
-  Dimension_cache * parent_l_;
-
-  Score_element *element_l () const { return elt_l_; }
+  Score_element * parent_l_;
 
   Dimension_cache(Dimension_cache const&);
   Dimension_cache ();
-
-
-  /**
-     Find the offset relative to D.  If   D equals THIS, then it is 0.
-     Otherwise, it recursively defd as
-
-     OFFSET_ + PARENT_L_->relative_coordinate (D)
-   */
-  Real relative_coordinate (Dimension_cache *d) const;
-  Dimension_cache*common_refpoint (Dimension_cache const* s) const;
-
-  void set_empty (bool);
-  void translate (Real);
-
-  bool valid_b () const { return valid_b_; }
-  bool empty_b() const;
-  Interval get_dim () const;
+  void init ();
 };
 
 

@@ -24,7 +24,7 @@ Extender_spanner::Extender_spanner ()
   : Spanner ()
 {
   dx_f_drul_[LEFT] = dx_f_drul_[RIGHT] = 0.0;
-  dim_cache_[Y_AXIS]->set_extent_callback (Dimension_cache::point_dimension_callback);
+  set_extent_callback (Score_element::point_dimension_callback, Y_AXIS);
 }
 
 

@@ -80,17 +80,17 @@ public:
 
 protected:
   friend class Stem_tremolo;	// ugh.
-  Real  get_default_stem_end_position () const;
+  Real get_default_stem_end_position () const;
   void position_noteheads();
 
 
   Real stem_end_position () const;
-  static Real off_callback (Dimension_cache const*);
+  static Real off_callback (Score_element const*, Axis);
 protected:
   Molecule flag () const;
 
   virtual void before_line_breaking();
-  static Interval dim_callback (Dimension_cache const*);
+  static Interval dim_callback (Score_element const*,Axis);
   virtual Molecule do_brew_molecule() const;
 
   void set_spacing_hints () ;

@@ -159,9 +159,12 @@ Script_engraver::do_pre_move_processing()
 {
   for (int i=0; i < script_p_arr_.size(); i++) 
     {
-      if (to_boolean (script_p_arr_[i]->remove_elt_property ("staff-support")))
-	side_position (script_p_arr_[i]).add_staff_support ();
-      typeset_element (script_p_arr_[i]);
+      Script * sc = script_p_arr_[i];
+      if (to_boolean (sc->remove_elt_property ("staff-support")))
+	{
+	  Side_position_interface (sc).add_staff_support ();
+	}
+      typeset_element (sc);
     }
   script_p_arr_.clear();
 }

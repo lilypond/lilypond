@@ -1,5 +1,22 @@
+1.3.53.uu1
+==========
+
+* Bugfix: don't crash on tuplet spanners that don't contain any notes.
+
+* Small cleanup of Dimension_cache: removed a few redundant
+fields. Slightly lower memory usage. Dimension_cache is now a `dumb'
+struct again.
+
+* Add array index to priority field of text scripts to ensure that
+order is unique, and sensible.
+
+* Added an element count statistic.
+
 1.3.53
 ======
+
+* russian.po (thank you, August.)
+
 * Small cleanups in Molecule interface 
 
 * Spacing related elements perform suicide after calculating

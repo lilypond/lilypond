@@ -9,7 +9,7 @@
 #include <math.h>
 #include "config.h"
 
-
+#include "libc-extension.hh"
 #include "bezier.hh"
 #include "polynomial.hh"
 

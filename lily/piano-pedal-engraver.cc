@@ -225,7 +225,7 @@ Piano_pedal_engraver::do_pre_move_processing ()
     {
       if (p->item_p_)
 	{
-	  side_position (p->item_p_).add_staff_support ();
+	  Side_position_interface (p->item_p_).add_staff_support ();
 	  /*
 	    Hmm.
 	  */

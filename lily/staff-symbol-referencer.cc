@@ -23,9 +23,7 @@ Staff_symbol_referencer_interface::set_interface ()
 {
   elt_l_->set_elt_property ("staff-position", gh_double2scm (0.0));
   elt_l_->add_offset_callback (callback, Y_AXIS);
-  
 }
-
 
 bool
 Staff_symbol_referencer_interface::has_interface_b ()
@@ -91,11 +89,8 @@ Staff_symbol_referencer_interface::position_f () const
   should use offset callback!
  */
 Real
-Staff_symbol_referencer_interface::callback (Dimension_cache const * c)
+Staff_symbol_referencer_interface::callback (Score_element const* sc,Axis )
 {
-  Score_element * sc = dynamic_cast<Score_element*> (c->element_l ());
-
-  
   SCM pos = sc->get_elt_property ("staff-position");
   Real off =0.0;
   if (gh_number_p (pos))

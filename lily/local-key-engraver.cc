@@ -125,8 +125,8 @@ Local_key_engraver::process_acknowledged ()
 	      if (!key_item_p_) 
 		{
 		  key_item_p_ = new Local_key_item;
-		  side_position (key_item_p_).set_axis (X_AXIS);
-		  side_position (key_item_p_).set_direction (LEFT);
+		  Side_position_interface (key_item_p_).set_axis (X_AXIS);
+		  Side_position_interface (key_item_p_).set_direction (LEFT);
 		  staff_symbol_referencer(key_item_p_).set_interface ();
 			 
 		  announce_element (Score_element_info (key_item_p_, 0));
@@ -135,7 +135,7 @@ Local_key_engraver::process_acknowledged ()
 	      key_item_p_->add_pitch (note_l->pitch_,
 	  			      note_l->cautionary_b_,
 				      local_key_.double_to_single_acc(note_l->pitch_));
-	      side_position (key_item_p_).add_support (support_l);
+	      Side_position_interface (key_item_p_).add_support (support_l);
 	    }
 	  
 	  if (!forget)
@@ -154,7 +154,7 @@ Local_key_engraver::process_acknowledged ()
     }
   if (key_item_p_ && grace_align_l_)
     {
-      side_position (grace_align_l_).add_support (key_item_p_);
+      Side_position_interface (grace_align_l_).add_support (key_item_p_);
       grace_align_l_ =0;
     }
   
@@ -172,7 +172,7 @@ Local_key_engraver::do_pre_move_processing()
   if (key_item_p_)
     {
       for (int i=0; i < support_l_arr_.size(); i++)
-	side_position (key_item_p_).add_support (support_l_arr_[i]);
+	Side_position_interface (key_item_p_).add_support (support_l_arr_[i]);
 
       typeset_element (key_item_p_);
       key_item_p_ =0;

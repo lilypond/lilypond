@@ -43,7 +43,7 @@ Axis_group_engraver::do_removal_processing ()
   if (gh_pair_p (dims) && gh_number_p (gh_car (dims))
       && gh_number_p (gh_cdr (dims)))
     {
-      staffline_p_->dim_cache_[Y_AXIS]->set_extent_callback (&Score_element::preset_extent);
+      staffline_p_->set_extent_callback (&Score_element::preset_extent, Y_AXIS);
       staffline_p_->set_elt_property ("extent-Y", dims);
     }
 

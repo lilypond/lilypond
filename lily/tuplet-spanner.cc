@@ -161,6 +161,9 @@ Tuplet_spanner::calc_position_and_height (Real *offset, Real * dy) const
 
 
   *offset = - d * infinity_f;
+
+  if (!column_arr.size ())
+    return;
   
   Real x0 = column_arr[0]->relative_coordinate (0, X_AXIS);
   Real x1 = column_arr.top ()->relative_coordinate (0, X_AXIS);

@@ -72,8 +72,12 @@ Item::broken_b () const
   return broken_to_drul_[LEFT] || broken_to_drul_[RIGHT];
 }
 
+
+/*
+  Generate items for begin and end-of line.
+ */
 void
-Item::do_breakable_col_processing()
+Item::discretionary_processing()
 {
   if (broken_b ())
     return;

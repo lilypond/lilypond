@@ -26,7 +26,7 @@ public:
   void set_interface ();
   bool has_interface_b ();
   void set_position (Real);
-  static Real callback (Dimension_cache const*); 
+  static Real callback (Score_element const*, Axis a);
 
   /**
      Leading are the lead strips between the sticks (lines) of

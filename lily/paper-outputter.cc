@@ -34,11 +34,6 @@
 
 Paper_outputter::Paper_outputter (Paper_stream  * ps )
 {
-#if 0 
-  molecules_ = gh_cons (SCM_EOL, SCM_EOL);
-  last_cons_ = molecules_;
-#endif
-
  /*
    lilypond -f scm x.ly
    guile -s x.scm
@@ -124,27 +119,13 @@ Paper_outputter::output_comment (String str)
 void
 Paper_outputter::output_scheme (SCM scm)
 {
-#if 0
-  SCM c = gh_cons (scm,gh_cdr (last_cons_));
-  gh_set_cdr_x(last_cons_, c);
-  last_cons_ = c;
-#endif
-
+  /*
+    we don't rename dump_scheme, because we might in the future want
+    to remember Scheme. We don't now, because it sucks up a lot of memory.
+  */
   dump_scheme (scm);
 }
 
-
-#if 0
-void
-Paper_outputter::dump ()
-{
-
-  for (SCM s = gh_cdr (molecules_); gh_pair_p (s); s = gh_cdr (s))
-    {
-      dump_scheme (gh_car (s));
-    }
-}
-#endif
 
 void
 Paper_outputter::dump_scheme (SCM s)

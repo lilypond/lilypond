@@ -26,9 +26,9 @@ Span_bar::add_bar (Score_element*b)
 
 
 Interval
-Span_bar::width_callback (Dimension_cache const * c)
+Span_bar::width_callback (Score_element const *se, Axis a)
 {
-  Span_bar*  s= dynamic_cast<Span_bar*> (c->element_l ());  
+  Span_bar*  s= dynamic_cast<Span_bar*> ((Score_element*)se);
   String gl = ly_scm2string (s->get_elt_property ("glyph"));
 
   /*
@@ -94,7 +94,7 @@ Span_bar::evaluate_empty ()
 Interval
 Span_bar::get_spanned_interval () const
 {
-  return Axis_group_interface::group_extent_callback (dim_cache_[Y_AXIS]);  
+  return Axis_group_interface::group_extent_callback (this, Y_AXIS);  
 }
 
 
@@ -113,10 +113,10 @@ Span_bar::get_bar_size () const
 Span_bar::Span_bar ()
 {
   group (this).set_interface ();
-  dim_cache_[X_AXIS]->set_extent_callback (width_callback);
+  set_extent_callback (width_callback, X_AXIS);
   
   // dim_cache_[Y_AXIS]->set_extent_callback (Axis_group_interface::group_extent_callback);
 
-  dim_cache_[Y_AXIS]->set_extent_callback (0);
+  set_extent_callback (0, Y_AXIS);
 }
 

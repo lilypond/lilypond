@@ -55,7 +55,7 @@ public:
   virtual Paper_column * column_l () const;
   virtual void handle_prebroken_dependencies ();
 protected:
-  virtual void do_breakable_col_processing();
+  virtual void discretionary_processing ();
   void copy_breakable_items();
 };
 

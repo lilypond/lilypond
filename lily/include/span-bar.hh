@@ -32,7 +32,7 @@ public:
 protected:
   void evaluate_empty ();
 
-  static Interval width_callback(Dimension_cache const*) ;
+  static Interval width_callback(Score_element const*, Axis) ;
   
   virtual Real get_bar_size () const;
   virtual void before_line_breaking ();

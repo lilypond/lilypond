@@ -102,20 +102,12 @@ Bezier_bow::get_default_bezier (Real h_inf, Real r_0) const
 Real
 Bezier_bow::get_default_height (Real h_inf, Real r_0, Real b) const
 {
-#if 0
-  Real pi = M_PI;
 
-  Real alpha = 2.0 * h_inf / pi;
-  Real beta = pi * r_0 / (2.0 * h_inf);
-
-  return alpha * atan (beta * b);
-#else
   SCM h = scm_eval (scm_listify (ly_symbol2scm ("slur-default-height"),
 				 gh_double2scm (h_inf),
 				 gh_double2scm (r_0),
 				 gh_double2scm (b),
 				 SCM_UNDEFINED));
   return gh_scm2double (h);
-#endif
 }
   

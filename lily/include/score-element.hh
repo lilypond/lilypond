@@ -12,10 +12,10 @@
 #include "lily-guile.hh"
 #include "lily-proto.hh"
 #include "smobs.hh"
-#include "dimension-cache-callback.hh"
+#include "dimension-cache.hh"
 
-
-
+typedef Interval (*Extent_callback)(Score_element const *,Axis);
+typedef Real (*Offset_callback)(Score_element const *,Axis);
 
 
 /**
@@ -85,12 +85,16 @@ public:
   bool used_b_;
   
   char const * name () const;
-  
+
+  /*
+    IDEA: make this a global variable. This is the same for all
+    elements, I think it is safe to assume that we will not have
+    scores being formatted multithreadedly.
+   */
   Paper_score *pscore_l_;
 
   Score_element ();
   Score_element (Score_element const&);
-  virtual void print () const;
 
   /*
     properties
@@ -114,9 +118,6 @@ public:
      
    */
   SCM remove_elt_property (String nm);
-
-  void Score_element::set_real (String, Real);
-  Real Score_element::get_real (String s) const;
 
   /*
     related classes.
@@ -148,13 +149,12 @@ public:
 
 
   static SCM handle_broken_smobs (SCM, SCM criterion);
-  void recurse_into_smobs (SCM s, void (Score_element::*meth_ptr)());
 
   virtual void do_break_processing ();
   virtual Score_element *find_broken_piece (Line_of_score*) const;
   /// generate rods & springs
   virtual void do_space_processing ();
-  virtual void do_breakable_col_processing ();
+  virtual void discretionary_processing ();
 
   /// do calculations before determining horizontal spacing
   virtual void before_line_breaking ();
@@ -163,9 +163,10 @@ public:
 
   Molecule get_molecule () const;
   void suicide ();
-
-  static Interval preset_extent (Dimension_cache const*);
-  static Interval molecule_extent (Dimension_cache const*);
+  
+  static Interval preset_extent (Score_element const*,Axis);
+  static Interval point_dimension_callback (Score_element const*,Axis );
+  static Interval molecule_extent (Score_element const*,Axis);
 
 protected:
 
@@ -174,13 +175,10 @@ protected:
     be handled by GUILE gc.  */
   virtual ~Score_element ();
   
-  /// do printing of derived info.
-  virtual void do_print () const;
   /// generate the molecule    
   virtual Molecule do_brew_molecule () const;
   ///executed directly after the item is added to the Paper_score
   virtual void do_add_processing ();
-
     
   static Interval dim_cache_callback (Dimension_cache const*);
   
@@ -196,9 +194,9 @@ public:
 
   void init ();
 
-public:
-  Dimension_cache *dim_cache_[NO_AXES];
+  Dimension_cache dim_cache_[NO_AXES];
 
+public:
   bool empty_b (Axis a) const;
   Interval extent (Axis) const;
  
@@ -208,6 +206,12 @@ public:
     
   void translate_axis (Real, Axis);
 
+  /**
+     Find the offset relative to D.  If   D equals THIS, then it is 0.
+     Otherwise, it recursively defd as
+
+     OFFSET_ + PARENT_L_->relative_coordinate (D)
+   */
   Real relative_coordinate (Score_element const* refp, Axis) const;
   /**
     Find the group-element which has both #this# and #s#
@@ -215,10 +219,15 @@ public:
   Score_element*common_refpoint (Score_element const* s, Axis a) const;
   Score_element*common_refpoint (SCM elt_list, Axis a) const;
 
-  bool has_offset_callback_b (Offset_cache_callback, Axis)const;
-  void add_offset_callback (Offset_cache_callback, Axis);
-  void set_extent_callback (Dim_cache_callback , Axis);
-  
+  bool has_offset_callback_b (Offset_callback, Axis)const;
+  void add_offset_callback (Offset_callback, Axis);
+  bool has_extent_callback_b (Extent_callback, Axis)const;  
+  void set_extent_callback (Extent_callback , Axis);
+
+  /**
+    Invoke callbacks to get offset relative to parent.
+   */
+  Real get_offset (Axis a) const;
   /**
      Set the  parent refpoint of THIS to E
    */
