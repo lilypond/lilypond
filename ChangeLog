@@ -1,3 +1,7 @@
+2004-06-24  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/my-lily-parser.cc (parse_string): switch module too.
+
 2004-06-24  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/topdocs/INSTALL.texi (Top): Add guile, python and

@@ -121,6 +121,10 @@ My_lily_parser::parse_string (String ly_code)
   lexer_ = (parent == 0 ? new My_lily_lexer (sources_)
 	    : new My_lily_lexer (*parent));
 
+
+  SCM oldmod = scm_current_module ();
+  scm_set_current_module (ly_car (lexer_->scopes_));
+  
   // TODO: use $parser 
   lexer_->set_identifier (ly_symbol2scm ("parser"),
 			  self_scm ());
@@ -152,6 +156,7 @@ My_lily_parser::parse_string (String ly_code)
       parent->main_input_b_ = lexer_->main_input_b_;
     }
 
+  scm_set_current_module (oldmod);
   delete lexer_;
   lexer_ = 0;
 }
