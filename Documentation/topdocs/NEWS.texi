@@ -8,8 +8,10 @@
 
 @itemize @bullet
 
-@item A experimental GNOME output backend is available for developers.
-It depends on several unreleased softwares such as gnome-guile TLA and
+@item Collisions are now correctly aligned relative to notes in other staves.
+
+@item An experimental GNOME output backend is available for developers.
+It depends on several unreleased packages such as gnome-guile TLA and
 Pango CVS.  The output interface coverage is sparse, but it already
 does support point-and-click on the GNOME Canvas.  See also
 @file{scm/output-gnome.scm}.
