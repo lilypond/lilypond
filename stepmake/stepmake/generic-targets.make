@@ -163,13 +163,9 @@ diff:
 release: 
 	$(PYTHON) $(step-bindir)/release.py --outdir=$(topdir)/$(outdir) --package=$(topdir)
 
-rpm-mandrake: $(depth)/$(package-icon) dist
-	$(MAKE) -C $(depth)/make
-	cd $(depth) && rpm -ba make/$(outdir)/lilypond.mandrake.spec
+local-WWW:
+local-WWW-post:
 
-rpm: $(depth)/$(package-icon) dist
-	@echo "Assuming Red Hat system"	#FIXME: check distro, then issue rpm
-	$(MAKE) -C $(depth)/make
-	cd $(depth) && rpm -bb make/$(outdir)/lilypond.redhat.spec
-#	su -c 'rpm -tb $(depth)/$(outdir)/$(distname).tar.gz'
-
+WWW: local-WWW
+	$(LOOP)
+	$(MAKE) local-WWW-post

@@ -14,7 +14,6 @@ include $(depth)/make/stepmake.make
 
 local-check: $(addsuffix .dvi, $(addprefix $(outdir)/, $(examples)))
 
-$(outdir)/nereides.ly: les-nereides.ly
-	cpp -P -traditional -o $@ -DFAKE_GRACE $<
 
-
+local-WWW-post:
+	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(builddir)/examples.html input/

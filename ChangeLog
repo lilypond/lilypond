@@ -1,3 +1,10 @@
+2003-07-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* GNUmakefile.in: clean up web building.
+
+	* stepmake/stepmake/generic-targets.make (WWW): add WWW as generic
+	target.
+
 2003-07-21  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-font-lock.el: do not try to match two-char slurs \) \].

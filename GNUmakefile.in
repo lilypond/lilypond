@@ -29,19 +29,8 @@ INSTALLATION_FILES=$(configuration) VERSION
 #
 STEPMAKE_TEMPLATES=toplevel po install
 include $(depth)/make/stepmake.make 
-#
 
-footify:
-	$(footify) --index=./ `$(FIND) . -maxdepth 1 -name '*.html' -print`
-	$(footify-all-command)
-
-fonts:
-	$(MAKE) -C $(depth)/mf
-
-run-reqs: builddir-setup fonts lily
-web-reqs: run-reqs pfa-fonts
-
-doc: run-reqs
+doc: 
 	$(MAKE) -C Documentation
 
 pfa-fonts:
@@ -63,55 +52,31 @@ final-install:
 	@echo " *** login scripts. For more information, see Invoking LilyPond in the manual."
 	@echo 
 
-TOP_HTMLS = index.html examples.html
-
-examples: web-reqs
-	$(MAKE) out=www -C input WWW
-	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(builddir)/$@.html input/
-
-lily: lily/$(outdir)/lilypond
-
-lily/$(outdir)/lilypond:
-	$(MAKE) -C lily
-
-topdocs-web:
-	$(MAKE) out=www LILYPOND_BOOK_FORMAT=texi-html -C Documentation/topdocs WWW
-	$(MAKE) footify
-
-local-web: topdocs-web $(TOP_HTMLS:%.html=%) footify do-top-doc top-web
-
-
 web-ext = gz html midi pdf png txt ly
-top-web:
+
+local-WWW-post:
+	$(footify) --index=./ `$(FIND) . -maxdepth 1 -name '*.html' -print`
+	$(footify-all-command)
 	cd $(builddir) && rm -f `find . -name \*.html~ -print`
 	cd $(builddir) && find Documentation input \
 		$(web-ext:%=-path '*/out-www/*.%' -or) -false \
 		> $(outdir)/weblist
-	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(builddir)/$@.html input/
+	echo '<META HTTP-EQUIV="refresh" content="2;URL=Documentation/out-www/">' > $(builddir)/index.html
 	cd $(builddir) && ls *.png *.html >> $(outdir)/weblist
 	cat $(outdir)/weblist | (cd $(builddir); GZIP=-9v tar -czf $(outdir)/web.tar.gz  -T -)
 
 src-ext = c cc yy ll hh icc py scm tex ps texi itexi tely itely sh
+
 ALL-TAGS:
 	etags $(shell find . $(src-ext:%=-name '*.%' -or) -false | grep -v '/out')
 
-local-WWW:
-
-web: local-web
-html-doc: web
-index: web
-
-local-WWW-clean: top-WWW-clean
-
-WWW-clean:
-	$(MAKE) -C Documentation WWW-clean
-	$(MAKE) -C input WWW-clean
-
-top-WWW-clean:
-	cd $(builddir) && rm -f $(TOP_HTMLS) lily-[0-9]*.png
+web-clean:
 	$(SHELL) $(buildscript-dir)/clean-fonts.sh
+	$(MAKE) out=www clean
+
 
 WWW:
+	$(LOOP)
 
 default: $(config_h) builddir-setup
 
