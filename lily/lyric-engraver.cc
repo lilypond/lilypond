@@ -106,6 +106,7 @@ get_voice_to_lyrics (Context *lyrics)
 
   return voice;
 }
+
 Grob *
 get_current_note_head (Context * voice)
 {

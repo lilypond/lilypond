@@ -124,7 +124,7 @@ Accidental_engraver::initialize ()
 */
 static int
 number_accidentals_from_sig (bool *different,
-			     SCM sig, Pitch *pitch, SCM scurbarnum, SCM lazyness, 
+			     SCM sig, Pitch *pitch, SCM scurbarnum, SCM laziness, 
 			     bool ignore_octave)
 {
   int curbarnum = gh_scm2int (scurbarnum);
@@ -132,56 +132,45 @@ number_accidentals_from_sig (bool *different,
   int n = pitch->get_notename ();
   int o = pitch->get_octave ();
   int a = pitch->get_alteration ();
-  int accbarnum = -1;
 
-  SCM prevs[3];
-  int bar_nums[3] = {-1,-1,-1};
-  int prev_idx = 0;
-  
+  SCM prev_alt = SCM_BOOL_F;
+
   if (!ignore_octave)
     {
-      prevs[prev_idx] = scm_assoc (scm_cons (scm_int2num (o), scm_int2num (n)), sig);
+      SCM prev_local
+	= scm_assoc (scm_cons (scm_int2num (o), scm_int2num (n)), sig);
 
-      if (gh_pair_p (prevs[prev_idx]))
-	prev_idx++;
-    }
-  
-  prevs[prev_idx] = scm_assoc (scm_int2num (n), sig);
-  if (gh_pair_p (prevs[prev_idx]))
-    prev_idx++;
-
-  for (int i= 0; i < prev_idx; i++)
-    {
-      if (gh_pair_p (prevs[i])
-	  && gh_pair_p (gh_cdr (prevs[i])))
+      if (gh_pair_p (prev_local))
 	{
-	  bar_nums[i]  = gh_scm2int (gh_cddr (prevs[i]));
-	  prevs[i] = scm_cons (gh_car (prevs[i]), gh_cadr (prevs[i]));
-	}
-    }
-  
+	  if (gh_pair_p (ly_cdr (prev_local))
+	      && gh_number_p (laziness)
+	      )
+	    {
+	      int barnum = gh_scm2int (ly_cddr (prev_local));
 
-  SCM prev_acc = scm_int2num (0);
-  for (int i= 0; i < prev_idx; i++)
-    {
-      if (accbarnum < 0
-	  || (gh_number_p (lazyness)
-	      && curbarnum > accbarnum + gh_scm2int (lazyness)))
-	{
-	  prev_acc = gh_cdr (prevs[i]);
-	  break;
+	      prev_local = scm_cons (ly_car (prev_local), ly_cadr (prev_local));
+	      if (curbarnum <= barnum + gh_scm2int (laziness))
+		prev_alt = prev_local;
+	    }
 	}
     }
 
+  if (prev_alt == SCM_BOOL_F)
+    prev_alt = scm_assoc (scm_int2num (n), sig);
+
+
+  prev_alt =  (prev_alt == SCM_BOOL_F) ? scm_int2num (0) : ly_cdr (prev_alt); 
+    
   /*
     UGH. prev_acc can be #t in case of ties. What is this for?
     
    */
-  int p = gh_number_p (prev_acc) ? gh_scm2int (prev_acc) : 0;
+  int p = gh_number_p (prev_alt) ? gh_scm2int (prev_alt) : 0;
+
 
 
   int num;
-  if (a == p && gh_number_p (prev_acc))
+  if (a == p && gh_number_p (prev_alt))
     num = 0;
   else if ( (abs (a)<abs (p) || p*a<0) && a != 0 )
     num = 2;

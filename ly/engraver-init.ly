@@ -553,9 +553,6 @@ AncientRemoveEmptyStaffContext = \context {
 	(Voice Beam space-function ,(lambda (beam mult)
 				     (* 0.8 (Beam::space_function
 					     beam mult))))
-	(Voice Beam position-callbacks (,Beam::least_squares
-					,Beam::check_concave
-					,Beam::slope_damping))
 	(Voice Accidental font-size -4)
 	(Voice Slur direction -1)
     )

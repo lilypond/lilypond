@@ -71,6 +71,9 @@ Bar_line::compound_barline (Grob*me, String str, Real h)
   colon.translate_axis (-dist/2,Y_AXIS);
 
   Stencil m;
+  if (str == "||:")
+    str = "|:";
+  
   
   if (str == "")
     {
