@@ -1,4 +1,4 @@
-
+#include "idealspacing.hh"
 #include "plist.hh"
 #include "pcol.hh"
 #include "item.hh"
@@ -9,7 +9,7 @@
 #include "staffline.hh"
 
 
-#include "plist.cc"
+#include "plist.tcc"
 
 
 #define IPLC_instantiate(a) IPL_instantiate(a); PL_instantiate(const a)

@@ -16,7 +16,7 @@ Score::process()
     
     /// distribute commands to disciples
     pscore_ = new PScore(paper_);
-    for (PCursor<Staff*> i(staffs_); i.ok(); i++) {
+    for (iter_top(staffs_,i); i.ok(); i++) {
 	i->process_commands(last());
 	i->set_output(pscore_);
 	i->process();
@@ -48,10 +48,10 @@ Score::process()
 void
 Score::clean_cols()
 {    
-    for (PCursor<Staff * > i(staffs_); i.ok(); i++)
+    for (iter_top(staffs_,i); i.ok(); i++)
 	i->clean_cols();
     
-    for (PCursor<Score_column*> c(cols_); c.ok(); ) {
+    for (iter_top(cols_,c); c.ok(); ) {
 	if (!c->pcol_->used()) {
 	    c.del();
 	} else {
@@ -76,7 +76,7 @@ Score::create_cols(Moment w)
     c1->musical = false;
     c2->musical = true;
     
-    PCursor<Score_column*> i(cols_);
+    iter_top(cols_,i);
 
     for (; i.ok(); i++) {
 	assert(i->when != w);
@@ -100,7 +100,7 @@ Score::create_cols(Moment w)
 PCursor<Score_column*>
 Score::find_col(Moment w,bool mus)
 {
-    PCursor<Score_column*> i(cols_);
+    iter_top(cols_,i);
     for (; i.ok(); i++) {
 	if (i->when == w && i->musical == mus)
 	    return i;
@@ -116,7 +116,7 @@ Score::find_col(Moment w,bool mus)
 void
 Score::do_pcols()
 {
-    PCursor<Score_column*> i(cols_);
+    iter_top(cols_,i);
     for (; i.ok(); i++) {
 	pscore_->add(i->pcol_);
     }
@@ -125,7 +125,7 @@ Moment
 Score::last() const
 {    
     Moment l = 0;
-    for (PCursor<Staff*> i(staffs_); i.ok(); i++) {
+    for (iter_top(staffs_,i); i.ok(); i++) {
 	l = l>? i->last();
     }
     return l;
@@ -135,13 +135,13 @@ void
 Score::OK() const
 {
 #ifndef NDEBUG
-    for (PCursor<Staff*> i(staffs_); i.ok(); i++) {
+    for (iter_top(staffs_,i); i.ok(); i++) {
 	i->OK();
 	assert(i->score_ == this);
     }
     staffs_.OK();
     cols_.OK();
-    for (PCursor<Score_column*> cc(cols_); cc.ok() && (cc+1).ok(); cc++) {
+    for (iter_top(cols_,cc); cc.ok() && (cc+1).ok(); cc++) {
 	assert(cc->when <= (cc+1)->when);
     }
 #endif    
@@ -153,10 +153,10 @@ Score::print() const
 {
 #ifndef NPRINT
     mtor << "score {\n"; 
-    for (PCursor<Staff*> i(staffs_); i.ok(); i++) {
+    for (iter_top(staffs_,i); i.ok(); i++) {
 	i->print();
     }
-    for (PCursor<Score_column*> i(cols_); i.ok(); i++) {
+    for (iter_top(cols_,i); i.ok(); i++) {
 	i->print();
     }
     if (pscore_)
