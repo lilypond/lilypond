@@ -54,7 +54,7 @@ class Score_elem : private Directed_graph_node {
 	DELETED,		// to catch malloc mistakes.
     };
     
-    Status status;
+    Status status_;
 
 public:
     PScore *pscore_l_;    
@@ -74,6 +74,7 @@ public:
     Interval height() const;
     virtual void translate_x(Real);
     virtual void translate_y(Real);
+    Status status() const;
     
      /**
       translate the symbol. The symbol does not have to be created yet. 
@@ -92,6 +93,7 @@ public:
 
     void unlink();
     void unlink_all();
+    void substitute_dependency(Score_elem*,Score_elem*);
     void remove_dependency(Score_elem*);
     /**
       add a dependency. It may be the 0 pointer, in which case, it is ignored.
@@ -104,6 +106,15 @@ public:
     virtual Item * item() { return 0; }
     virtual Line_of_score * line_l() const;
     SCORE_ELEM_CLONE(Score_elem);
+    Score_elem* dependency(int) const;
+    Score_elem* dependent(int) const;
+    int dependent_size() const;
+    int dependency_size() const;
+    
+    /// no dimension, translation is noop
+    bool empty_b_;
+    /// do not print anything black
+    bool transparent_b_;
 protected:
 
     virtual  Interval do_height()const;
@@ -128,16 +139,8 @@ protected:
     virtual void handle_broken_dependencies();
     virtual void handle_prebroken_dependencies();
 
-    Score_elem* dependency(int) const;
-    Score_elem* dependent(int) const;
-    int dependent_size() const;
-    int dependency_size() const;
 
 
-    /// no dimension, translation is noop
-    bool empty_b_;
-    /// do not print anything black
-    bool transparent_b_;
 };
 
 
