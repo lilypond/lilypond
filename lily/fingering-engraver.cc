@@ -145,7 +145,7 @@ Fingering_engraver::Fingering_engraver ()
 
 }
 
-ENTER_DESCRIPTION (Fingering_engraver,
+ADD_TRANSLATOR (Fingering_engraver,
 /* descr */       "Create fingering-scripts",
 /* creats*/       "Fingering",
 /* accepts */     "fingering-event",

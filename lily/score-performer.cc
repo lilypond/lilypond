@@ -17,7 +17,7 @@
 #include "context-def.hh"
 #include "output-def.hh"
 
-ENTER_DESCRIPTION (Score_performer,
+ADD_TRANSLATOR (Score_performer,
 /* descr */       "",
 /* creats*/       "",
 /* accepts */     "",

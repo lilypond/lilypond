@@ -114,7 +114,7 @@ Timing_engraver::stop_translation_timestep ()
 }
 
 
-ENTER_DESCRIPTION (Timing_engraver,
+ADD_TRANSLATOR (Timing_engraver,
 /* descr */       " Responsible for synchronizing timing information from staves.  "
 "Normally in @code{Score}.  In order to create polyrhythmic music, "
 "this engraver should be removed from @code{Score} and placed in "

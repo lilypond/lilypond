@@ -124,7 +124,7 @@ Dynamic_performer::try_music (Music* r)
   return false;
 }
 
-ENTER_DESCRIPTION (Dynamic_performer,
+ADD_TRANSLATOR (Dynamic_performer,
 		  /*descr*/		  "",
 		  /* creats*/ "",
 		  /* accepts */     "absolute-dynamic-event",

@@ -99,7 +99,7 @@ Span_arpeggio_engraver::stop_translation_timestep ()
 
 
 
-ENTER_DESCRIPTION (Span_arpeggio_engraver,
+ADD_TRANSLATOR (Span_arpeggio_engraver,
 /* descr */       "",
 /* creats*/       "Arpeggio",
 /* accepts */     "",

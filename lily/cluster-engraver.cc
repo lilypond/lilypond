@@ -125,7 +125,7 @@ Cluster_spanner_engraver::acknowledge_grob (Grob_info info)
     }
 }
 
-ENTER_DESCRIPTION (Cluster_spanner_engraver,
+ADD_TRANSLATOR (Cluster_spanner_engraver,
 /* descr */	"Engraves a cluster using Spanner notation ",
 /* creats*/	"ClusterSpanner ClusterSpannerBeacon",
 /* accepts */	"cluster-note-event busy-playing-event",

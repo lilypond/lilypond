@@ -37,7 +37,7 @@ Staff_collecting_engraver::acknowledge_grob (Grob_info gi)
 }
 
 
-ENTER_DESCRIPTION (Staff_collecting_engraver,
+ADD_TRANSLATOR (Staff_collecting_engraver,
 /* descr */       "Maintain the stavesFound variable",
 
 /* creats*/       "",

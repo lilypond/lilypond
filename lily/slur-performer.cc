@@ -89,6 +89,6 @@ Slur_performer::try_music (Music *m)
   return false;
 }
 
-ENTER_DESCRIPTION (Slur_performer,"","",
+ADD_TRANSLATOR (Slur_performer,"","",
 		  "slur-event","","","");
 

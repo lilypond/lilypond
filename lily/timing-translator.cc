@@ -151,7 +151,7 @@ Timing_translator::start_translation_timestep ()
   context ()->set_property ("measurePosition", measposp.smobbed_copy ());
 }
 
-ENTER_DESCRIPTION (Timing_translator,
+ADD_TRANSLATOR (Timing_translator,
 		   "This engraver adds the alias "
 		   "@code{Timing} to its containing context."
 		   ,

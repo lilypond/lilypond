@@ -36,7 +36,7 @@ Forbid_line_break_engraver::start_translation_timestep ()
 }
 
 
-ENTER_DESCRIPTION (Forbid_line_break_engraver,
+ADD_TRANSLATOR (Forbid_line_break_engraver,
 /* descr */       "Forbid line breaks when note heads are still playing at some point.",
 /* creats*/       "",
 /* accepts */     "",

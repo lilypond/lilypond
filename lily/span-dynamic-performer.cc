@@ -180,7 +180,7 @@ Span_dynamic_performer::try_music (Music* r)
     }
   return false;
 }
-ENTER_DESCRIPTION (Span_dynamic_performer,
+ADD_TRANSLATOR (Span_dynamic_performer,
 		   "", "",
 		   "crescendo-event decrescendo-event", 
 		   "", "", "");

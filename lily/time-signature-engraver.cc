@@ -72,7 +72,7 @@ Time_signature_engraver::stop_translation_timestep ()
 }
  
 
-ENTER_DESCRIPTION (Time_signature_engraver,
+ADD_TRANSLATOR (Time_signature_engraver,
 /* descr */       "Create a TimeSignature whenever @code{timeSignatureFraction} changes",
 /* creats*/       "TimeSignature",
 /* accepts */     "",

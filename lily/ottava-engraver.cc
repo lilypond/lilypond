@@ -122,7 +122,7 @@ Ottava_spanner_engraver::finalize ()
   last_ottavation_ = SCM_EOL;
 }
 
-ENTER_DESCRIPTION (Ottava_spanner_engraver,
+ADD_TRANSLATOR (Ottava_spanner_engraver,
 /* descr */       "Create a text spanner when the ottavation property changes..",
 /* creats*/       "OttavaBracket",
 /* accepts */     "",

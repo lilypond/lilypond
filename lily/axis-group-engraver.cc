@@ -194,7 +194,7 @@ Hara_kiri_engraver::Hara_kiri_engraver ()
 {
 }
 
-ENTER_DESCRIPTION (Hara_kiri_engraver,
+ADD_TRANSLATOR (Hara_kiri_engraver,
 /* descr */       "Like Axis_group_engraver, but make a hara-kiri spanner, and add "
 "interesting items (ie. note heads, lyric syllables and normal rests) ",
 /* creats*/       "RemoveEmptyVerticalGroup",
@@ -203,7 +203,7 @@ ENTER_DESCRIPTION (Hara_kiri_engraver,
 /* reads */       "",
 /* write */       "");
 
-ENTER_DESCRIPTION (Axis_group_engraver,
+ADD_TRANSLATOR (Axis_group_engraver,
 /* descr */       "Group all objects created in this context in a VerticalAxisGroup spanner.",
 /* creats*/       "VerticalAxisGroup",
 /* accepts */     "",

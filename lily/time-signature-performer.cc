@@ -65,4 +65,4 @@ Time_signature_performer::stop_translation_timestep ()
     }
 }
 
-ENTER_DESCRIPTION (Time_signature_performer,"","","","","","");
+ADD_TRANSLATOR (Time_signature_performer,"","","","","","");

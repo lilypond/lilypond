@@ -1,5 +1,10 @@
 2004-12-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/include/type-swallow-translator.hh
+	(DECLARE_EVENT_SWALLOWER): ENTER_DESCRIPTION -> ADD_TRANSLATOR
+
+	* lily/*.cc: cosmetics around = sign.
+
 	* lily/paper-column.cc (Paper_column): copy rank_. This fixes
 	lyric spacing on the penultimate column.
 

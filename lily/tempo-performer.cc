@@ -73,13 +73,13 @@ Tempo_performer::try_music (Music* req)
   if (tempo_req_)
     return false;
 
-      tempo_req_ = req;
-      return true;
+  tempo_req_ = req;
+  return true;
 }
 
 
 
 
-ENTER_DESCRIPTION (Tempo_performer, "","",
+ADD_TRANSLATOR (Tempo_performer, "","",
 		   "metronome-change-event",
 		   "","","" );

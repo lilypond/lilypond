@@ -158,7 +158,7 @@ Rhythmic_column_engraver::stop_translation_timestep ()
 
 
 
-ENTER_DESCRIPTION (Rhythmic_column_engraver,
+ADD_TRANSLATOR (Rhythmic_column_engraver,
 /* descr */       "Generates NoteColumn, an objects that groups stems, noteheads and rests.",
 /* creats*/       "NoteColumn NoteSpacing",
 /* accepts */     "",

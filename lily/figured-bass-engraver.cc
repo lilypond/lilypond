@@ -86,7 +86,7 @@ Figured_bass_engraver::process_music ()
 }
 
   
-ENTER_DESCRIPTION (Figured_bass_engraver,
+ADD_TRANSLATOR (Figured_bass_engraver,
 /* descr */       "Make figured bass numbers.",
 /* creats*/       "BassFigure",
 /* accepts */     "rest-event bass-figure-event",

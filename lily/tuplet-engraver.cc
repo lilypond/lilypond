@@ -136,7 +136,7 @@ Tuplet_engraver::Tuplet_engraver ()
 {
 }
 
-ENTER_DESCRIPTION (Tuplet_engraver,
+ADD_TRANSLATOR (Tuplet_engraver,
 /* descr */       "Catch Time_scaled_music and generate appropriate bracket  ",
 /* creats*/       "TupletBracket",
 /* accepts */     "time-scaled-music",

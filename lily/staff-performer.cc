@@ -41,7 +41,7 @@ private:
   Audio_tempo* tempo_;
 };
 
-ENTER_DESCRIPTION (Staff_performer, "", "",
+ADD_TRANSLATOR (Staff_performer, "", "",
 		   "",
 		   "", "", "");
 

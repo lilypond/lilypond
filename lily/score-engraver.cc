@@ -319,7 +319,7 @@ Score_engraver::acknowledge_grob (Grob_info gi)
 
 
 
-ENTER_DESCRIPTION (Score_engraver,
+ADD_TRANSLATOR (Score_engraver,
 /* descr */       "Top level engraver. Takes care of generating columns and the complete  system (ie. System) "
 "\n\n "
 "This engraver decides whether a column is breakable. The default is "

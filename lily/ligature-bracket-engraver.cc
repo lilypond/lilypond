@@ -53,7 +53,7 @@ Ligature_bracket_engraver::acknowledge_grob (Grob_info info)
     }
 }
 
-ENTER_DESCRIPTION (Ligature_bracket_engraver,
+ADD_TRANSLATOR (Ligature_bracket_engraver,
 /* descr */       "Handles Ligature_events by engraving Ligature brackets.",
 /* creats*/       "TupletBracket",
 /* accepts */     "ligature-event",

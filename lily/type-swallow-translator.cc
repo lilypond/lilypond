@@ -31,7 +31,7 @@ public:
 
 Skip_event_swallow_translator::Skip_event_swallow_translator (){}
 
-ENTER_DESCRIPTION (Skip_event_swallow_translator,
+ADD_TRANSLATOR (Skip_event_swallow_translator,
 		  "Swallow \\skip.",
 		  "",
 		  "skip-event",
@@ -42,7 +42,7 @@ ENTER_DESCRIPTION (Skip_event_swallow_translator,
 
 Rest_swallow_translator::Rest_swallow_translator (){}
 
-ENTER_DESCRIPTION (Rest_swallow_translator,
+ADD_TRANSLATOR (Rest_swallow_translator,
 		  "Swallow rest",
 		  "",
 		  "rest-event",
@@ -63,7 +63,7 @@ public:
 
 Note_swallow_translator::Note_swallow_translator (){}
 
-ENTER_DESCRIPTION (Note_swallow_translator,
+ADD_TRANSLATOR (Note_swallow_translator,
 		  "Swallow notes",
 		  "",
 		  "note-event",

@@ -31,7 +31,7 @@ struct TYPE ## _swallow_translator : public Type_swallow_translator {	\
   TYPE ## _swallow_translator :: TYPE ## _swallow_translator() {\
       swallow_string_ =  #TYPE;						\
   }									\
-ENTER_DESCRIPTION(TYPE ## _swallow_translator,				\
+ADD_TRANSLATOR(TYPE ## _swallow_translator,				\
 		  "Swallow events of " #TYPE " type.",		\
 		  "",							\
 	"general-music",\

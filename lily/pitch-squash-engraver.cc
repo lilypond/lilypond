@@ -35,7 +35,7 @@ Pitch_squash_engraver::Pitch_squash_engraver ()
 {
 }
 
-ENTER_DESCRIPTION (Pitch_squash_engraver,
+ADD_TRANSLATOR (Pitch_squash_engraver,
 /* descr */       
 		  "Set the vertical position of noteheads to "
 		  "@code{squashedPosition}, if that "

@@ -148,7 +148,7 @@ Hyphen_engraver::stop_translation_timestep ()
 
 
 
-ENTER_DESCRIPTION (Hyphen_engraver,
+ADD_TRANSLATOR (Hyphen_engraver,
 /* descr */       "Create lyric hyphens",
 /* creats*/       "LyricHyphen",
 /* accepts */     "hyphen-event",

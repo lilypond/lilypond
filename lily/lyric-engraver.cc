@@ -146,7 +146,7 @@ Lyric_engraver::stop_translation_timestep ()
 }
 
 
-ENTER_DESCRIPTION (Lyric_engraver,
+ADD_TRANSLATOR (Lyric_engraver,
 /* descr */       "",
 /* creats*/       "LyricText",
 /* accepts */     "lyric-event",

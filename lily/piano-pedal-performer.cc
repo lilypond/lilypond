@@ -140,6 +140,6 @@ Piano_pedal_performer::try_music (Music* r)
   return false;
 }
 
-ENTER_DESCRIPTION (Piano_pedal_performer, "","",
+ADD_TRANSLATOR (Piano_pedal_performer, "","",
 		   "pedal-event",
 		   "","","" );

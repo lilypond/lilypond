@@ -123,7 +123,7 @@ Text_engraver::Text_engraver ()
 {
 }
 
-ENTER_DESCRIPTION (Text_engraver,
+ADD_TRANSLATOR (Text_engraver,
 /* descr */       "Create text-scripts",
 /* creats*/       "TextScript",
 /* accepts */     "text-script-event",

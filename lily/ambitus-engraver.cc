@@ -182,7 +182,7 @@ Ambitus_engraver::finalize ()
     }
 }
 
-ENTER_DESCRIPTION (Ambitus_engraver,
+ADD_TRANSLATOR (Ambitus_engraver,
 /* descr */       "",
 /* creats*/       "Ambitus AmbitusLine AmbitusNoteHead AmbitusAccidental",
 /* accepts */ "",

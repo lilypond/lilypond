@@ -444,7 +444,7 @@ Mensural_ligature_engraver::build_ligature (Spanner *ligature,
   join_primitives (primitives);
 }
 
-ENTER_DESCRIPTION (Mensural_ligature_engraver,
+ADD_TRANSLATOR (Mensural_ligature_engraver,
 /* descr */       "Handles Mensural_ligature_events by glueing special ligature heads together.",
 /* creats*/       "MensuralLigature",
 /* accepts */     "ligature-event",

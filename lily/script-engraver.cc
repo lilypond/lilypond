@@ -239,7 +239,7 @@ Script_engraver::stop_translation_timestep ()
   scripts_.clear ();
 }
 
-ENTER_DESCRIPTION (Script_engraver,
+ADD_TRANSLATOR (Script_engraver,
 /* descr */       "Handles note scripted articulations.",
 /* creats*/       "Script",
 /* accepts */     "script-event articulation-event",

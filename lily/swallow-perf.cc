@@ -29,7 +29,7 @@ Swallow_performer::try_music (Music *m)
 Swallow_performer::Swallow_performer ()
 {}
 
-ENTER_DESCRIPTION (Swallow_performer,
+ADD_TRANSLATOR (Swallow_performer,
 /* descr */       "",
 /* creats*/       "",
 /* accepts */     "general-music",

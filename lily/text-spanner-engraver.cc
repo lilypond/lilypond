@@ -141,7 +141,7 @@ Text_spanner_engraver::finalize ()
     }
 }
 
-ENTER_DESCRIPTION (Text_spanner_engraver,
+ADD_TRANSLATOR (Text_spanner_engraver,
 /* descr */       "Create text spanner from a Music.",
 /* creats*/       "TextSpanner",
 /* accepts */     "text-span-event",

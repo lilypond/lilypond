@@ -73,7 +73,7 @@ Staff_symbol_engraver::acknowledge_grob (Grob_info s)
 
 
 
-ENTER_DESCRIPTION (Staff_symbol_engraver,
+ADD_TRANSLATOR (Staff_symbol_engraver,
 /* descr */       "Create the constellation of five (default) "
 "staff lines.",
 /* creats*/       "StaffSymbol",
@@ -110,7 +110,7 @@ Tab_staff_symbol_engraver::Tab_staff_symbol_engraver ()
 {
 }
 
-ENTER_DESCRIPTION (Tab_staff_symbol_engraver,
+ADD_TRANSLATOR (Tab_staff_symbol_engraver,
 /* descr */       "Create a staff-symbol, but look at stringTunings for the number of lines."
 "staff lines.",
 /* creats*/       "StaffSymbol",

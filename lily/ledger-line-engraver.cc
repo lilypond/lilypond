@@ -55,7 +55,7 @@ Ledger_line_engraver::acknowledge_grob (Grob_info s)
     Pointer_group_interface::add_grob (span_, ly_symbol2scm ("note-heads"),
 				       s.grob_);
 }
-ENTER_DESCRIPTION (Ledger_line_engraver,
+ADD_TRANSLATOR (Ledger_line_engraver,
 		   "Creates the spanner to draw ledger lines, and notices objects that need ledger lines",
 		   /* creats*/       "LedgerLineSpanner",
 		   /* accepts */     "",

@@ -249,7 +249,7 @@ Volta_engraver::stop_translation_timestep ()
   TODO: should attach volta to paper-column if no bar is found.
  */
 
-ENTER_DESCRIPTION (Volta_engraver,
+ADD_TRANSLATOR (Volta_engraver,
 /* descr */       "Make volta brackets.",
 /* creats*/       "VoltaBracket",
 /* accepts */     "",

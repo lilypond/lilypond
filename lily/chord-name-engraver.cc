@@ -151,7 +151,7 @@ Chord_name_engraver::stop_translation_timestep ()
   The READs description is not strictly accurate:
   which properties are read depend on the chord naming function active.
 */
-ENTER_DESCRIPTION (Chord_name_engraver,
+ADD_TRANSLATOR (Chord_name_engraver,
 /* descr */       "Catch note-events "
 "and generate the appropriate chordname.",
 /* creats*/       "ChordName",

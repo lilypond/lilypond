@@ -158,7 +158,7 @@ Slur_engraver::stop_translation_timestep ()
   events_[START] = events_[STOP] = 0;
 }
 
-ENTER_DESCRIPTION (Slur_engraver,
+ADD_TRANSLATOR (Slur_engraver,
   /* descr */       "Build slurs grobs from slur events",
   /* creats*/       "Slur",
   /* accepts */     "slur-event",

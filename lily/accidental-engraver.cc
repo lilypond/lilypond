@@ -528,7 +528,7 @@ Accidental_engraver::process_music ()
     update_local_key_signature ();
 }
 
-ENTER_DESCRIPTION (Accidental_engraver,
+ADD_TRANSLATOR (Accidental_engraver,
 		   "Make accidentals.  "
 		   "Catch note heads, ties and notices key-change events.  "
 		   "This engraver usually lives at Staff level, but "

@@ -131,7 +131,7 @@ Slash_repeat_engraver::stop_translation_timestep ()
 
 
 
-ENTER_DESCRIPTION (Slash_repeat_engraver,
+ADD_TRANSLATOR (Slash_repeat_engraver,
 /* descr */       "Make beat repeats.",
 /* creats*/       "RepeatSlash",
 /* accepts */     "repeated-music",

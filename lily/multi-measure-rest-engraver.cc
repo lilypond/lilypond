@@ -245,7 +245,7 @@ Multi_measure_rest_engraver::finalize ()
 {
 }
 
-ENTER_DESCRIPTION (Multi_measure_rest_engraver,
+ADD_TRANSLATOR (Multi_measure_rest_engraver,
 /* descr */
 		  "Engraves multi-measure rests that are produced with @code{R}.  Reads "
 "measurePosition and currentBarNumber to determine what number to print "

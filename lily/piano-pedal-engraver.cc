@@ -538,7 +538,7 @@ Piano_pedal_engraver::typeset_all (Pedal_info * p)
     }
 }
 
-ENTER_DESCRIPTION (Piano_pedal_engraver,
+ADD_TRANSLATOR (Piano_pedal_engraver,
 		   /* descr */       "Engrave piano pedal symbols and brackets.",
 		   /* creats*/       "SostenutoPedal SustainPedal UnaCordaPedal SostenutoPedalLineSpanner SustainPedalLineSpanner UnaCordaPedalLineSpanner",
 		   /* accepts */     "pedal-event",
