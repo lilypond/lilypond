@@ -97,8 +97,8 @@ and @emph{not} to us personally.  See @file{Documentation/links.yo} for more inf
 @section windows 32
 
 If you have received this file as part of a DOS/Window32 distribution
-(LilyPond-*.zip), then it is advisable to also download the source
-package, since it might contain more documentation
+(@file{LilyPond-*.zip}), then it is advisable to also download the
+source package, since it might contain more documentation
 @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/}
 
 If you decide to build LilyPond from source, please read the INSTALL.txt
@@ -120,9 +120,9 @@ a script to do this for you is in @file{buildscripts/clean-fonts.sh}
 @node bugs, cdrom distributions, caveats, This is the toplevel README to LilyPond
 @section bugs
 
-Send bug reports to bug-gnu-music@@gnu.org.  For help and questions use
-help-gnu-music@@gnu.org and gnu-music-discuss@@gnu.org.  Please consult
-the faq before mailing your problems.
+Send bug reports to @email{bug-gnu-music@@gnu.org}.  For help and questions use
+ @email{help-gnu-music@@gnu.org} and @email{gnu-music-discuss@@gnu.org}.
+Please consult the faq before mailing your problems.
 
 @node cdrom distributions, Top, bugs, This is the toplevel README to LilyPond
 @section cdrom distributions

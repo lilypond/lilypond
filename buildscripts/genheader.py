@@ -9,8 +9,7 @@
 import os
 import sys
 import pwd
-import regex
-import regsub
+import re
 import string
 import getopt
 import time
@@ -31,19 +30,19 @@ def name():
 #   return pwd.getpwuid(os.getuid())[4]
 
 def c_commentify(str):
-    return  '/* ' + regsub.gsub('^','  ', str) + '\n */';
+    return  '/* ' + re.sub('^','  ', str) + '\n */';
 
 def sh_commentify(str):
-    return regsub.gsub('^', '# ', str)
+    return re.sub('^', '# ', str)
 
 def tex_commentify(str):
-    return regsub.gsub('^', '% ', str)
+    return re.sub('^', '% ', str)
 
 def project_str():
     cwd = os.getcwd()
-    if regex.search('flower', cwd) <> -1:
+    if re.search('flower', cwd):
 	PROJECT = "the Flower Library"
-    elif regex.search('mf$', cwd) <> -1:
+    elif re.search('mf$', cwd):
 	PROJECT = "the Feta (defintively not an abbreviation for Font-En-Tja) music font"
     else:
 	PROJECT = "the GNU LilyPond music typesetter"
@@ -123,7 +122,7 @@ def do_file(nm):
 
 def extension(ext,nm):
     ext = '\\.' + ext
-    return regex.search(ext, nm) <> -1
+    return re.search(ext, nm) <> None
 
 def c_extension(nm):
     return extension('hh',nm) or extension('cc',nm) \

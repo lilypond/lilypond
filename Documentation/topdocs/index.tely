@@ -59,10 +59,10 @@ LilyPond handling real music.  MIDI, view PNG, PostScript, and Source.
     
 
 @itemize @bullet
-@item @uref{http://www.gnu.org/software/...}  LilyPond is part of the GNU
+@item @uref{http://www.gnu.org/software/lilypond}  LilyPond is part of the GNU
 project.  The webpages for the stable version reside at GNU.
 
-@item @uref{http://www.cs.uu.nl/people/hanwen/lilypond/} Han-Wen's site
+@item @uref{http://www.cs.uu.nl/~hanwen/lilypond/} Han-Wen's site
 has the development pages.
 @item @uref{http://sca.uwaterloo.ca/lilypond/} Eric's mirror
 @item @uref{http://home.austin.rr.com/jbr/jeff/lilypond/} Jeff's Windows NT Distribution site

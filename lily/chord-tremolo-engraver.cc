@@ -38,7 +38,7 @@ Chord_tremolo_engraver::do_try_music (Music* m)
 
       if ((d == STOP) && !abeam_p_)
 	{
-	  m->warning (_ ("No abbreviation beam to end"));
+	  m->warning (_ ("no tremolo beam to end"));
 	  return false;
 	}
 
@@ -55,7 +55,7 @@ Chord_tremolo_engraver::do_process_requests ()
   if (reqs_drul_[STOP])
     {
       if (!abeam_p_)
-	reqs_drul_[STOP]->warning (_("No abbreviation beam to end"));
+	reqs_drul_[STOP]->warning (_("no tremolo beam to end"));
       prev_start_req_ = 0;
       finished_abeam_p_ = abeam_p_;
       abeam_p_ = 0;
@@ -80,7 +80,7 @@ Chord_tremolo_engraver::do_process_requests ()
     {
       if (abeam_p_)
 	{
-	  reqs_drul_[START]->warning (_ ("Already have an abbreviation beam"));
+	  reqs_drul_[START]->warning (_ ("already have a tremolo beam"));
 	  return;
 	}
 
@@ -121,7 +121,7 @@ Chord_tremolo_engraver::do_removal_processing ()
   typeset_beam ();
   if (abeam_p_)
     {
-      prev_start_req_->warning (_ ("Unfinished abbreviation beam"));
+      prev_start_req_->warning (_ ("unfinished tremolo beam"));
       finished_abeam_p_ = abeam_p_;
       typeset_beam ();
     }

@@ -338,7 +338,7 @@ msgstr "kan niet vinden"
 
 #: lookup.cc:103
 msgid "can't find font: `%s'"
-msgstr "kan font niet vinden: `%s'\n"
+msgstr "kan font niet vinden: `%s'"
 
 #: lookup.cc:105
 msgid "Aborting"

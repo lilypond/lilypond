@@ -10,13 +10,10 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 
 .* TODO
 . * use Rhythmic_head::position_i () for all Staff_referenced 
-. * bug: dots.
+. * rerun profile
 . * mmrests
-. * web: download link.
-. * guile detection.
 . * Break_req handling is silly (break_forbid () + \break fucks up.)
 . * script engraver
-
 . * HaraKiriStaffContext removes bar lines and doesn't remove
     staff margin text on removed staff lines.
 . * Mondrup:

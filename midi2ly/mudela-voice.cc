@@ -17,26 +17,55 @@ extern Mudela_score* mudela_score_l_g;
 Mudela_voice::Mudela_voice (Mudela_staff* mudela_staff_l)
 {
   mudela_staff_l_ = mudela_staff_l;
+  last_item_l_ =0;
 }
 
 void
 Mudela_voice::add_item (Mudela_item* mudela_item_l)
 {
+  last_item_l_  = mudela_item_l;
   mudela_item_l_list_.append (new Cons<Mudela_item> (mudela_item_l, 0));
 }
 
+/**
+   analyse pitches to determine clef.
+ */
+String
+Mudela_voice::get_clef () const
+{
+  Mudela_note * n =0;
+
+  for (Cons<Mudela_item> *cp = mudela_item_l_list_.head_; !n && cp; cp = cp->next_)
+    {
+      n = dynamic_cast<Mudela_note*> (cp->car_);
+    }
+  
+  if (!n)
+    return "";
+
+  const int c0_pitch = 60;
+  int p = n->pitch_i_;
+
+  if (p < 56)
+    return "\\clef \"bass\";\n";
+  else if (p > 67)
+    return "\\clef \"treble\";\n";
+  else
+    return "";
+}
 
 static int const FAIRLY_LONG_VOICE_i = 6;
 
 void
 Mudela_voice::output (Mudela_stream& mudela_stream_r)
 {
-  if (!mudela_item_l_list_.size_i ())
-    return;
-  
+  mudela_stream_r << "{ ";
   if (mudela_item_l_list_.size_i () > FAIRLY_LONG_VOICE_i)
     mudela_stream_r << '\n';
 
+
+  mudela_stream_r << get_clef () << '\n';
+  
   int current_bar_i = 0;
   Moment bar_mom = mudela_staff_l_->mudela_time_signature_l_->bar_mom ();
 
@@ -65,5 +94,8 @@ Mudela_voice::output (Mudela_stream& mudela_stream_r)
 
   if (mudela_item_l_list_.size_i () > FAIRLY_LONG_VOICE_i)
     mudela_stream_r << '\n';
+
+  mudela_stream_r << "} ";
 }
+
 

@@ -5,22 +5,7 @@
 @node Top, , , (dir)
 @top
 
-
-
-
-@unnumberedsec NAME
-    
-
-The Documentation of LilyPond -- the GNU Project music typesetter
-
-@unnumberedsec DESCRIPTION
-    
-
-Note: These pages are created from the latest @strong{development snapshots}
-of LilyPond.  You can look at the bottom if you want to know which
-version this was.
-
-@unnumberedsubsec Documentation: Introduction
+@unnumberedsubsec Introduction
 
 @itemize @bullet
 @item @uref{DEDICATION.html,DEDICATION}
@@ -33,8 +18,8 @@ version this was.
 
 @itemize @bullet
 @item  @uref{AIMS.txt,Why?}
-@item @uref{../pictures/out-www/lelieblond.png,The logo} large size}
-@item @uref{../pictures/out-www/lelie_logo.png,The logo} medium size}
+@item @uref{../pictures/out-www/lelieblond.png,The logo} large size
+@item @uref{../pictures/out-www/lelie_logo.png,The logo} medium size
 @end itemize
 
 @unnumberedsubsec Documentation: manuals

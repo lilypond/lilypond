@@ -25,8 +25,10 @@ class Line_spacer
 {
     
 public:
-  Paper_def * paper_l_;
-  Paper_def *paper_l() const;
+  Real indent_f_;
+  Real line_len_f_;
+  Real default_space_f_;
+
   Line_spacer();
     
   /** solve the spacing problem
@@ -38,27 +40,13 @@ public:
     return a lower bound on the energy
     */
   virtual void lower_bound_solution (Column_x_positions *) const=0;
-    
-  /** add a col to the problem. columns have to be added left to
-    right. The column contains info on it's minimum width.  */
-  virtual void add_column (Paper_column  *, bool fixed=false, Real fixpos=0.0)=0;
+   
 
   /**
-    can the posed problem be solved?
-      
-    @pre
+     Define the problem. LINELEN < 0 signifies natural width spacing.
+   */
 
-    prepare() was called
-      
-    */
-  virtual bool check_constraints (Vector v) const=0;
-
-  /**
-    generate a solution which can't fail
-    */
-  virtual Vector default_solution() const=0;
-
-    
+  virtual void add_columns (Link_array<Paper_column>)=0;
   virtual void OK() const{}
   virtual void print() const{}
     

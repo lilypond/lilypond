@@ -26,7 +26,7 @@ except KeyError:
 	pass
 
 
-webmaster= ''
+webmaster= mail_address
 try:
 	webmaster= os.environ['WEBMASTER']
 except KeyError:

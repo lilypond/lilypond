@@ -8,17 +8,16 @@
 
 
 #include "line-spacer.hh"
+#include "dimensions.hh"
 
 Line_spacer::Line_spacer()
 {
-  paper_l_ =0;
+  indent_f_ =0.0;
+  default_space_f_ = 20 PT;
 }
-Paper_def*
-Line_spacer::paper_l() const
-{ 
-  return paper_l_ ;
-}
+
 
 Line_spacer::~Line_spacer ()
 {
 }
+

@@ -282,6 +282,8 @@ stem_default_neutral_direction = 1.0;
 % in interline
 articulation_script_padding_default = 1.0;
 
+% 1.0 -> faster.
+simple_spacing_solver = 1.0;
 \include "engraver.ly";
 
 
