@@ -3995,16 +3995,15 @@ This saves some space. This style is called `French Score'.
 
 @syntax
 
-This is supported through the @code{FrenchStaff}. This staff is
+This is supported through the @code{RemoveEmptyStaff}. This staff is
 removed when it turns out empty (or containing multimeasure rests)
 after the line-breaking process.
-
 
 For @internalsref{Lyrics}, @internalsref{LyricsVoice},
 @internalsref{ChordNames} and @internalsref{FiguredBass}, this is
 switched on by default. For normal staffs, it is available as a
 specialized @internalsref{Staff} context, with the name variable
-@code{\FrenchStaffContext}.  Observe how the second staff in this
+@code{\RemoveEmptyStaffContext}.  Observe how the second staff in this
 example disappears in the second line.
 
 @lilypond[verbatim]
@@ -4015,7 +4014,7 @@ example disappears in the second line.
   >
   \paper {
     linewidth = 6.\cm 
-    \translator { \FrenchStaffContext }
+    \translator { \RemoveEmptyStaffContext }
   }
 }
 @end lilypond
@@ -4047,7 +4046,7 @@ output.
 @cindex Petrucci
 @cindex mensural
 
-[TODO: write introduction on ancient notation]
+@c [TODO: write introduction on ancient notation]
 
 @menu
 * Ancient note heads::          

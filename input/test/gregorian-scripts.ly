@@ -1,4 +1,4 @@
-\version "1.7.18"
+\version "1.7.19"
 \header {
     title	= "Gregorian Scripts"
     date	= "2003"
@@ -92,7 +92,7 @@ cantus = \notes \relative c' {
       Custos \set #'adjust-if-on-staffline = ##t
     }
     \translator {
-      \HaraKiriStaffContext
+      \RemoveEmptyStaffContext
       \accepts VaticanaVoice
     }
     \translator {

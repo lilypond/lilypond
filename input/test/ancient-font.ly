@@ -1,4 +1,4 @@
-\version "1.7.18"
+\version "1.7.19"
 \header {
     title	= "ancient font test"
     date	= "2002"
@@ -284,7 +284,7 @@ lowerStaff =  \context MensuralStaff = lowerStaff <
 	    clefOctavation = #0 
 	}
 	\translator {
-	    \HaraKiriStaffContext
+	    \RemoveEmptyStaffContext
 	    \accepts MensuralVoice
 	    \accepts GregorianVoice
         }

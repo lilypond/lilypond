@@ -1,4 +1,4 @@
-\version "1.7.18"
+\version "1.7.19"
 
 \header {
 texidoc="Template for part-combining orchestral scores"
@@ -216,7 +216,7 @@ archiGroup =  \context StaffGroup = archi_group <
     textheight = 285.0\mm
     linewidth = 190.0\mm
 
-    \translator{ \HaraKiriStaffContext }
+    \translator{ \RemoveEmptyStaffContext }
     %
     % The Voice combine hierarchy
     %
@@ -234,7 +234,7 @@ archiGroup =  \context StaffGroup = archi_group <
       \accepts "VoiceCombineThread"
     }
     \translator{
-      \HaraKiriStaffContext
+      \RemoveEmptyStaffContext
       \consists "Mark_engraver"
       \name "VoiceCombineStaff"
       \accepts "VoiceCombineVoice"
@@ -254,7 +254,7 @@ archiGroup =  \context StaffGroup = archi_group <
       \consists "Thread_devnull_engraver"
     }
     \translator {
-      \HaraKiriStaffContext
+      \RemoveEmptyStaffContext
       \name "StaffCombineStaff"
       \accepts "StaffCombineVoice"
 
@@ -272,7 +272,7 @@ archiGroup =  \context StaffGroup = archi_group <
       \accepts "VoiceCombineStaff"
       \accepts "StaffCombineStaff"
     }
-    \translator{ \HaraKiriStaffContext }
+    \translator{ \RemoveEmptyStaffContext }
 
     \translator {
       %\ScoreContext

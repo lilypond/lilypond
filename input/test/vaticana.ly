@@ -1,4 +1,4 @@
-\version "1.7.18"
+\version "1.7.19"
 \header {
     title	= "vaticana ligature test"
     date	= "2003"
@@ -75,7 +75,7 @@ verba = \context Lyrics = verba \lyrics {
       Custos \set #'adjust-if-on-staffline = ##t
     }
     \translator {
-      \HaraKiriStaffContext
+      \RemoveEmptyStaffContext
       \accepts VaticanaVoice
     }
     \translator {

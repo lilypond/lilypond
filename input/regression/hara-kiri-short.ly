@@ -1,4 +1,4 @@
-\version "1.7.18"
+\version "1.7.19"
 \header{
 texidoc="
 Hara kiri staves kill themselves if they are empty.  This example really
@@ -39,7 +39,7 @@ zagers =  \context StaffGroup <
 	\paper{
 		linewidth = 80.0\mm
 
-		\translator { \HaraKiriStaffContext }
+		\translator { \RemoveEmptyStaffContext }
 %uh?
 
 	}

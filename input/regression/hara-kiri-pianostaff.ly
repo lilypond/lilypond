@@ -1,4 +1,4 @@
-\version "1.7.18"
+\version "1.7.19"
 \header {
 texidoc = "Hara kiri should not upset fixed distance alignment like in pianostaff. In this example the middle staff is harakiried."
 }
@@ -12,7 +12,7 @@ texidoc = "Hara kiri should not upset fixed distance alignment like in pianostaf
  >
  \paper {
   \translator {
-   \HaraKiriStaffContext
+   \RemoveEmptyStaffContext
   }
  }
 }

@@ -1,4 +1,4 @@
-\version "1.7.18"
+\version "1.7.19"
 \header {
     title	= "mensural ligature test"
     date	= "2002"
@@ -70,7 +70,7 @@ voice = \notes \transpose c c' {
 	    clefOctavation = #-0
 	}
 	\translator {
-	    \HaraKiriStaffContext
+	    \RemoveEmptyStaffContext
 	    \accepts MensuralVoice
         }
 	\translator {

@@ -1,4 +1,4 @@
-\version "1.7.18"
+\version "1.7.19"
 
 \score{
 	\context PianoStaff <
@@ -31,7 +31,7 @@
 		textheight = 295.0\mm
 		linewidth = 180.0\mm
 
-		\translator{ \HaraKiriStaffContext }
+		\translator{ \RemoveEmptyStaffContext }
 		%
 		% The Voice combine hierarchy
 		%
@@ -49,7 +49,7 @@
 			\accepts "VoiceCombineThread"
 		}
 		\translator{
-			\HaraKiriStaffContext
+			\RemoveEmptyStaffContext
 			\consists "Mark_engraver"
 			\name "VoiceCombineStaff"
 			\accepts "VoiceCombineVoice"
@@ -69,7 +69,7 @@
 			\consists "Thread_devnull_engraver"
 		}
 		\translator {
-			\HaraKiriStaffContext
+			\RemoveEmptyStaffContext
 			\name "StaffCombineStaff"
 			\accepts "StaffCombineVoice"
 
@@ -86,7 +86,7 @@
 			\accepts "VoiceCombineStaff"
 			\accepts "StaffCombineStaff"
 		}
-		\translator{ \HaraKiriStaffContext }
+		\translator{ \RemoveEmptyStaffContext }
 
 		\translator {
 			\ScoreContext

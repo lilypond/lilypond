@@ -362,7 +362,7 @@ ChordNamesContext = \translator {
 }
 
 
-FrenchStaffContext = \translator {
+RemoveEmptyStaffContext = \translator {
 	\StaffContext
 	\remove "Axis_group_engraver"
 	\consistsend "Hara_kiri_engraver"
@@ -373,7 +373,7 @@ FrenchStaffContext = \translator {
 	Beam \override #'auto-knee-gap = #'()
 }
 
-HaraKiriStaffContext = \translator { \FrenchStaffContext }
+HaraKiriStaffContext = \translator { \RemoveEmptyStaffContext }
 
 ScoreContext = \translator {
 	\type Score_engraver

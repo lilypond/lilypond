@@ -1,4 +1,4 @@
-\version "1.7.18"
+\version "1.7.19"
 \header {
 texidoc="Multi measure rests of second voice should not disappear."
 }
@@ -47,7 +47,7 @@ two = \notes \relative c'' {
       \consists Bar_engraver
     }
     \translator {
-      \HaraKiriStaffContext
+      \RemoveEmptyStaffContext
       \remove Multi_measure_rest_engraver
       \remove Bar_engraver
     }

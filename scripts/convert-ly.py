@@ -1188,12 +1188,12 @@ if 1:
 
 if 1:
 	def conv(str):
-		if re.search( r'\\GraceContext'):
+		if re.search( r'\\GraceContext', str):
 			sys.stderr.write ("GraceContext has been removed")
 			sys.stderr.write ("please use #(add-to-grace-init .. )")
 			raise FatalConversionError()
 
-		str = re.sub ('HaraKiriStaffContext', 'FrenchStaffContext', str)
+		str = re.sub ('HaraKiriStaffContext', 'RemoveEmptyStaffContext', str)
 		return str
 	
 	conversions.append (((1,7,19), conv,"remove GraceContext"))
