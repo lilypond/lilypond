@@ -84,8 +84,9 @@ else
 	## export GS_LIB
 
 	# For direct ps output fonts. Add all available TeX Type1 fonts
-	## GS_FONTPATH=`kpsewhich -expand-path=\\$T1FONTS`:${GS_FONTPATH:=""}
-	## export GS_FONTPATH
+	tmppfadir=`kpsewhich ecrm10.pfa`
+	GS_FONTPATH=$datadir/pfa:`dirname $tmppfadir`:${GS_FONTPATH:=""}
+	export GS_FONTPATH
 
 fi # remove for zsh
  	

@@ -7,15 +7,15 @@
 */
 
 #include "scm-hash.hh"
-
-#include "warn.hh"
-#include "music-output-def.hh"
-#include "global-context.hh"
 #include "context-def.hh"
-#include "main.hh"
 #include "file-path.hh"
+#include "global-context.hh"
 #include "lily-guile.hh"
 #include "ly-module.hh"
+#include "main.hh"
+#include "music-output-def.hh"
+#include "paper-def.hh"
+#include "warn.hh"
 
 #include "ly-smobs.icc"
 
@@ -161,4 +161,21 @@ LY_DEFINE (ly_output_def_clone, "ly:output-def-clone",
   scm_gc_unprotect_object (s);
   return s;
 }
+
+LY_DEFINE(ly_output_description, "ly:output-description",
+	  1,0,0,
+	  (SCM output_def),
+	  "Return the description of translators in @var{output-def}.")
+{
+  Music_output_def *id = unsmob_music_output_def (output_def);
+  SCM al = id->translator_tab_->to_alist ();
+  SCM l = SCM_EOL;
+  for (SCM s = al ; is_pair (s); s = ly_cdr (s))
+    {
+      Context_def * td = unsmob_context_def (ly_cdar (s));
+      l = scm_cons (scm_cons (ly_caar (s), td->to_alist ()),  l);
+    }
+  return l;  
+}
+  
 

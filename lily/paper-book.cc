@@ -273,7 +273,8 @@ Paper_book::scopes (int i)
   SCM scopes = SCM_EOL;
   if (headers_[i])
     scopes = scm_cons (headers_[i], scopes);
-  if (global_headers_[i] && global_headers_[i] != headers_[i])
+  if (global_headers_.size ()
+      && global_headers_[i] && global_headers_[i] != headers_[i])
     scopes = scm_cons (global_headers_[i], scopes);
   return scopes;
 }

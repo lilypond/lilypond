@@ -79,7 +79,10 @@ Paper_def::get_paper_outputter (String outname) const
 {
   progress_indication (_f ("paper output to `%s'...",
 			   outname == "-" ? String ("<stdout>") : outname));
-  global_input_file->target_strings_.push (outname);
+
+  // fixme: dependencies
+  //  add_target_file (outname);
+  
   Paper_outputter * po = new Paper_outputter (outname);
   Path p = split_path (outname);
   p.ext = "";

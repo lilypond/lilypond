@@ -225,11 +225,10 @@ ly_init_ly_module (void *)
   scm_primitive_load_path (scm_makfrom0str ("lily.scm"));
 }
 
-
 SCM global_lily_module;
 
 void
-ly_init_guile ()
+ly_c_init_guile ()
 {
   global_lily_module = scm_c_define_module ("lily", ly_init_ly_module, 0);
   scm_c_use_module ("lily");

@@ -13,31 +13,32 @@
 #include "main.hh"
 #include "parser.hh"
 #include "input-file-results.hh"
+#include "ly-module.hh"
 #include "scm-hash.hh"
 
-My_lily_parser::My_lily_parser (Input_file_results * source)
+My_lily_parser::My_lily_parser (Sources * sources)
 {
-  input_file_ = source;
+  book_count_ = 0;
+  score_count_ = 0;
   lexer_ = 0;
+  sources_ = sources;
   default_duration_ = Duration (2,0);
   error_level_ = 0;
   last_beam_start_ = SCM_EOL;
 
-  default_header_ =0;
+  header_ = ly_make_anonymous_module ();
 }
 
 My_lily_parser::~My_lily_parser ()
 {
   delete lexer_;
-  if (default_header_)
-    scm_gc_unprotect_object (default_header_->self_scm ());
 }
 
 /* Process one .ly file, or book.  */
 void
 My_lily_parser::parse_file (String init, String in_file, String out_file)
 {
-  lexer_ = new My_lily_lexer;
+  lexer_ = new My_lily_lexer (sources_);
   output_basename_ = out_file;
   
   lexer_->main_input_name_ = in_file;
@@ -46,7 +47,7 @@ My_lily_parser::parse_file (String init, String in_file, String out_file)
   progress_indication ("\n");
 
   set_yydebug (0);
-  lexer_->new_input (init, &input_file_->sources_);
+  lexer_->new_input (init, sources_);
 
   /* Read .ly IN_FILE, lex, parse, write \score blocks from IN_FILE to
      OUT_FILE (unless IN_FILE redefines output file name).  */
@@ -58,7 +59,8 @@ My_lily_parser::parse_file (String init, String in_file, String out_file)
       error_level_ = 1;
     }
 
-  input_file_->inclusion_names_ = lexer_->filename_strings_;
+  // fixme: dependencies
+  //input_file_->inclusion_names_ = lexer_->filename_strings_;
 
   error_level_ = error_level_ | lexer_->errorlevel_; // ugh naming.
 }
@@ -97,14 +99,14 @@ My_lily_parser::here_input () const
   /*
     Parsing looks ahead , so we really want the previous location of the
     lexer, not lexer_->here_input ().
-   */
+  */
   /*
     Actually, that gets very icky when there are white space, because
     the line-numbers are all wrong.  Let's try the character before
     the current token. That gets the right result for
     note/duration stuff, but doesn't mess up for errors in the 1st token of the line. 
     
-   */
+  */
   Input hi (lexer_->here_input ());
 
   char const * bla = hi.defined_str0_;
@@ -114,30 +116,3 @@ My_lily_parser::here_input () const
   
   return Input (hi.source_file_, bla);
 }
-
-#include "paper-def.hh"
-#include "context-def.hh"
-
-My_lily_parser * current_parser;
-
-MAKE_SCHEME_CALLBACK (My_lily_parser,paper_description, 0);
-
-SCM
-My_lily_parser::paper_description ()
-{
-  My_lily_parser * me = current_parser;
-
-  Music_output_def *id = unsmob_music_output_def (me->lexer_->lookup_identifier ("$defaultpaper"));
-  Paper_def *p = dynamic_cast<Paper_def*> (id->clone ());
-
-  SCM al = p->translator_tab_->to_alist ();
-  SCM l = SCM_EOL;
-  for (SCM s = al ; is_pair (s); s = ly_cdr (s))
-    {
-      Context_def * td = unsmob_context_def (ly_cdar (s));
-      l = scm_cons (scm_cons (ly_caar (s), td->to_alist ()),  l);
-    }
-  return l;  
-}
-  
-

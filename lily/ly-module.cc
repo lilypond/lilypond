@@ -23,30 +23,12 @@ ly_init_anonymous_module (void * data)
   scm_c_use_module ("lily");
 }
 
-Protected_scm anon_modules;
-
 SCM
 ly_make_anonymous_module ()
 {
   String s = "*anonymous-ly-" + to_string (module_count++) +  "*";
   SCM mod = scm_c_define_module (s.to_str0(), ly_init_anonymous_module, 0);
-  anon_modules = scm_cons (mod, anon_modules);
   return mod;
-}
-
-void
-ly_clear_anonymous_modules ()
-{
-  SCM s = anon_modules;
-  anon_modules = SCM_EOL;
-  
-  for (; is_pair (s) ; s = ly_cdr (s))
-    {
-      SCM tab= scm_c_make_hash_table (2);
-      /* UGH. */
-      SCM_STRUCT_DATA (ly_car (s))[scm_module_index_obarray]
-	= (long unsigned int) tab;
-    }
 }
 
 #define FUNC_NAME __FUNCTION__

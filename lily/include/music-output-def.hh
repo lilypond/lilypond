@@ -24,7 +24,7 @@ class Music_output_def
 public:
   Scheme_hash_table * translator_tab_;
   Input input_origin_;
-  
+  Array<String> targets_;
   SCM scope_;
 
   virtual void derived_mark ();
@@ -39,6 +39,8 @@ public:
   SCM get_scmvar (String id) const;
   SCM lookup_variable (SCM sym) const;
   void set_variable (SCM, SCM sym);
+  // fixme: dependencies
+  //  virtual void add_target_file (String);
   
   DECLARE_SMOBS (Music_output_def,);
 };

@@ -422,15 +422,15 @@ lilypond:	/* empty */
 
 toplevel_expression:
 	lilypond_header {
-		THIS->input_file_->header_ = $1;
+		THIS->header_ = $1;
 	}
 	| add_quote {
 	}
 	| book_block {
 		Book *book = $1;
-		SCM header = THIS->input_file_->header_.to_SCM ();
+		SCM header = THIS->header_;
 		Path outname = split_path (THIS->output_basename_);
-		int *c = &THIS->input_file_->book_count_;
+		int *c = &THIS->book_count_;
 		if (*c)
  			outname.base += "-" + to_string (*c);
 		(*c)++;
@@ -443,10 +443,10 @@ toplevel_expression:
 	| score_block {
 		Score *sc = $1;
 		SCM head = is_module (sc->header_) ? sc->header_
-			: THIS->input_file_->header_.to_SCM ();
+			: THIS->header_.to_SCM ();
 
 		Path p = split_path (THIS->output_basename_);
-		int *c = &THIS->input_file_->score_count_;
+		int *c = &THIS->score_count_;
 		if (*c)
 			p.base += "-" + to_string (*c);
 
@@ -2387,12 +2387,9 @@ My_lily_parser::set_yydebug (bool )
 #endif
 }
 
-extern My_lily_parser *current_parser;
-
 void
 My_lily_parser::do_yyparse ()
 {
-	current_parser = this;;
 	yyparse ((void*)this);
 }
 

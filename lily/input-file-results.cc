@@ -1,5 +1,5 @@
 /*
-  scores.cc -- implement some globals
+  input-file-results.cc -- implement some globals
 
   source file of the GNU LilyPond music typesetter
 
@@ -57,8 +57,7 @@ LY_DEFINE (ly_set_point_and_click, "ly:set-point-and-click", 1, 0, 0,
     val = scm_c_eval_string ("line-location");
 
   scm_module_define (global_lily_module, ly_symbol2scm ("point-and-click"), val);
-
-  store_locations_global_b =is_procedure (val);
+  store_locations_global_b = is_procedure (val);
   return SCM_UNSPECIFIED;
 }
 
@@ -100,57 +99,6 @@ write_dependency_file (String fn,
   fprintf (f, "%s\n",  out.to_str0 ());
 }
 
-
-void
-Input_file_results::do_deps (String output)
-{
-  if (dependency_global_b)
-    {
-      Path p = split_path (output);
-      p.ext = "dep";
-      write_dependency_file (p.to_string (),
-			     target_strings_,
-			     inclusion_names_);
-    }
-}
-
-Input_file_results::~Input_file_results ()
-{
-  inclusion_names_.clear ();
-  if (header_)
-    header_ = SCM_EOL;
-
-  global_input_file = 0;
-
-  ly_clear_anonymous_modules ();
-}
-
-Input_file_results* global_input_file;
-
-Input_file_results::Input_file_results (String init,
-					String in_file, String out_file)
-{
-  header_ = ly_make_anonymous_module ();
-  global_input_file = this;
-  book_count_ = 0;
-  score_count_ = 0;
-  sources_.set_path (&global_path);
-  
-  progress_indication (_f ("Now processing `%s'", in_file.to_str0 ()));
-  progress_indication ("\n");
-
-  My_lily_parser parser (this);
-  parser.parse_file (init, in_file, out_file);
-  
-  if (parser.error_level_)
-    {
-      exit_status_global  = 1;
-      failed_files.push (in_file);
-    }
-  
-  do_deps (out_file);
-}
-
 /* Distill full input file name from command argument.  PATH describes
    file name with added default extension, ".ly" if none.  "-" is
    STDIN.  */
@@ -179,10 +127,15 @@ distill_inname (String str)
   return p;
 }
 
-/* ugr. */
-void
-do_one_file (char const *file)
+LY_DEFINE(ly_parse_file, "ly:parse-file",
+	  1,0,0,
+	  (SCM name),
+	  "Parse a single @code{.ly} file."
+	  )
 {
+  SCM_ASSERT_TYPE (is_string (name), name, SCM_ARG1, __FUNCTION__, "string");
+  char const *file = SCM_STRING_CHARS(name);
+  
   String infile (file);
   Path inpath = distill_inname (infile);
   
@@ -212,14 +165,41 @@ do_one_file (char const *file)
     {
       warning (_f ("can't find file: `%s'", init));
       warning (_f ("(search path: `%s')", global_path.to_string ().to_str0 ()));
-      return;
+      return SCM_UNSPECIFIED;
     }
 
   if ((in_file != "-") && global_path.find (in_file).is_empty ())
     {
       warning (_f ("can't find file: `%s'", in_file));
-      return;
+      return SCM_UNSPECIFIED;
+    }
+  
+  Sources sources;
+  sources.set_path (&global_path);
+  
+  progress_indication (_f ("Now processing `%s'", in_file.to_str0 ()));
+  progress_indication ("\n");
+
+  My_lily_parser parser (&sources);
+  parser.parse_file (init, in_file, out_file);
+  
+  if (parser.error_level_)
+    {
+      exit_status_global = 1;
+      failed_files.push (in_file);
     }
 
-  Input_file_results inp_file (init, in_file, out_file);
+#if 0
+  // fixme dependencies
+  if (dependency_global_b)
+    {
+      Path p = split_path (output);
+      p.ext = "dep";
+      write_dependency_file (p.to_string (),
+			     target_strings_,
+			     inclusion_names_);
+    }
+#endif
+
+  return SCM_UNSPECIFIED;
 }
