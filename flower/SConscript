@@ -3,17 +3,17 @@
 import glob
 import os
 
+Import ('env')
 here = os.getcwd ()
 reldir = str (Dir ('.').srcnode ())
 os.chdir (reldir)
 sources = glob.glob ('*.cc')
 includes = glob.glob ('include/*.hh')
 os.chdir (here)
+outdir = os.path.join (env['build'], reldir, env['out'])
 
 name = 'flower'
-Import ('env')
 e = env.Copy ()
-outdir = os.path.join (env['build'], reldir, env['out'])
 e.Append (CPPPATH = [outdir, 'include'])
 if env['static']:
 	e.Library (name, sources) 

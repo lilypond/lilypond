@@ -6,7 +6,7 @@ include $(depth)/make/stepmake.make
 
 AF_FILES = $(wildcard *.af) 
 
-EXTRA_DIST_FILES += README feta.tex cmr.enc
+EXTRA_DIST_FILES += README feta.tex cmr.enc.in
 
 # We don't use $(MF_FILES), because there's more .mf cruft here
 FETA_MF_FILES = $(wildcard feta[0-9]*.mf)\
@@ -207,5 +207,5 @@ $(SAUTER_FONTS:%=$(outdir)/%.bla):
 $(outdir)/%.pfa: $(outdir)/%.bla
 	$(MFTRACE) -I $(outdir)/ --pfa --simplify --keep-trying $(notdir $(basename $@))  && mv $(notdir $@) $(outdir)/
 
-$(outdir)/%.enc: %.enc
+$(outdir)/%.enc.in: %.enc
 	cp $< $@

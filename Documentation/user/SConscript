@@ -5,14 +5,13 @@ import os
 import re
 import sys
 
+Import ('env')
 here = os.getcwd ()
 reldir = str (Dir ('.').srcnode ())
 os.chdir (reldir)
 sources = glob.glob ('*.tely')
 pngs = glob.glob ('*.png')
 os.chdir (here)
-
-Import ('env')
 outdir = os.path.join (env['build'], reldir, env['out'])
 
 def verbose_opt (env, opt):

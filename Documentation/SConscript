@@ -3,30 +3,13 @@
 import glob
 import os
 
+Import ('env')
 here = os.getcwd ()
 reldir = str (Dir ('.').srcnode ())
 os.chdir (reldir)
 sources = ['index.html.in', 'texinfo.css']
 os.chdir (here)
-
-Import ('env')
-
-#SConscript (os.path.join (b, 'SConscript'))
-
-# build = env['build']
-# out = env['out']
-
-# subdirs = ['user',]
-# for d in subdirs:
-# 	b = os.path.join (build, d, out)
-# 	# Support clean sourctree build (srcdir build)
-# 	# and outdir build.
-# 	# TODO: figure out SConscript (dir, builddir, duplicate)) feature
-# 	if (build and build != '.') \
-# 	   or (out and out != '.'):
-# 		env.BuildDir (b, d, duplicate=0)
-# 	SConscript (os.path.join (b, 'SConscript'))
-#SConscript (os.path.join ('user', 'SConscript'))
+outdir = os.path.join (env['build'], reldir, env['out'])
 
 #testing
 all_sources = ['SConscript',] + sources
