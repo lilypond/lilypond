@@ -1,3 +1,8 @@
+2004-04-16  Heikki Junes <janneke@gnu.org>
+
+	* po/fi.po: do "make po && make -C po po-update" at top-level,
+	then "cp po/out/fi.po po/fi.po" and update fields.
+
 2004-04-15  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/user/introduction.itely (About this manual): Fix
