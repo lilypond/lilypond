@@ -50,7 +50,7 @@ make all
 # even if documentation fails to build
 
 make -C Documentation  || true
-make htmldoc || true
+make web || true
 
 %install
 
@@ -80,10 +80,8 @@ cp buildscripts/out/lilypond-login $RPM_BUILD_ROOT%{_prefix}/../etc/profile.d/li
 #%install documentation
 #line 63: second %install
 # again, make sure that main package installs even if doco fails
-mkdir -p htmldocs/out
-tar -C htmldocs -xzf out/htmldoc.tar.gz || true
-mkdir -p out/examples/
-tar -cf - input/  | tar -C out/examples/ -xf- || true
+mkdir -p web/out
+tar -C web -xzf out/web.tar.gz || true
 
 %ifos cygwin
 # urg, this symlink doesn't come through on cygwin
@@ -154,6 +152,4 @@ fi
 # this gets too messy...
 # %doc input/*.ly
 # verbatim include of input: list the directory without issuing a %dir 
-%doc htmldocs/
-%doc out/examples/
-%doc mutopia/
+%doc web/

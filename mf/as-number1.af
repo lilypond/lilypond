@@ -35,13 +35,13 @@
 4
  C 53; WX 1; N Numeral-5; B 0 0 1000 1000;
 5
- C 53; WX 1; N Numeral-6; B 0 0 1000 1000;
+ C 54; WX 1; N Numeral-6; B 0 0 1000 1000;
 6
- C 53; WX 1; N Numeral-7; B 0 0 1000 1000;
+ C 55; WX 1; N Numeral-7; B 0 0 1000 1000;
 7
- C 53; WX 1; N Numeral-8; B 0 0 1000 1000;
+ C 56; WX 1; N Numeral-8; B 0 0 1000 1000;
 8
- C 53; WX 1; N Numeral-9; B 0 0 1000 1000;
+ C 57; WX 1; N Numeral-9; B 0 0 1000 1000;
 9
 	EndCharMetrics
 	EndFontMetrics %d

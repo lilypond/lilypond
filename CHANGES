@@ -1,3 +1,13 @@
+1.3.144.jcn2
+============
+
+* Fixed ascii art output.  Started some doco on different output formats.
+
+* Fixed scheme font lookup to handle new font lists with wildcards.
+
+* Bugfix: all-font-metrics.cc: don't assume that from each afm there's a tfm;
+only try to find/make tfm when producing tex output.
+
 1.3.144.jcn1
 ============
 
