@@ -2480,6 +2480,13 @@ Nevertheless, here are some variables you may want to use or change:
     Sets the width of the lines.  If set to -1.0, a single
     unjustified line is produced.
 
+  @item @code{textheight}@indexcode{textheight}  
+    Sets the total height of the music on each page. Only used by
+    ly2dvi.
+
+  @item @code{interscoreline}@indexcode{interscoreline}  
+    Sets the spacing between the score lines. Defaults to 16 pt.
+
   @item @code{output}@indexcode{output}  
     Specifies an alternate name for the the output @file{s}.
     A @file{.tex}, @file{.midi} or @file{.ps} extension will be 
