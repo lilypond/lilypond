@@ -53,8 +53,8 @@ properties_to_pango_description (SCM chain, Real text_size)
 Font_metric *
 select_pango_font (Output_def *layout, SCM chain)
 {
-  PangoFontDescription *pfd =properties_to_pango_description (chain,
-							      point_constant * layout->get_dimension (ly_symbol2scm ("text-font-size")));
+  PangoFontDescription *pfd = properties_to_pango_description (chain,
+							       point_constant * layout->get_dimension (ly_symbol2scm ("text-font-size")));
   
   Font_metric * fm = all_fonts_global->find_pango_font (pfd);
 

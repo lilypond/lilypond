@@ -17,14 +17,6 @@
 #include "main.hh"
 
 
-bool
-wild_compare (SCM field_val, SCM val)
-{
-  return (val == SCM_BOOL_F
-	  || field_val == ly_symbol2scm ("*")
-	  || field_val == val);
-}
-
 Font_metric *
 get_font_by_design_size (Output_def *layout, Real requested,
 			 SCM font_vector)
@@ -118,30 +110,37 @@ select_encoded_font (Output_def *layout, SCM chain)
   else
     name = scm_cdr (name);
 
+#if HAVE_PANGO_FT2
   if (scm_is_string (name)
       && is_pango_format_global)
     {
-      SCM mag = ly_chain_assoc (ly_symbol2scm ("font-magnification"), chain);
-      Real rmag = (scm_is_pair (mag)
-		   ? robust_scm2double (scm_cdr (mag), 1.0)
-		   : 1);
-      Font_metric *fm = all_fonts_global->find_font (ly_scm2string (name));
+      select_pango_font (layout, chain);
+    }
+  else
+#endif
+    if (scm_is_string (name))
+      {
+	SCM mag = ly_chain_assoc (ly_symbol2scm ("font-magnification"), chain);
+	Real rmag = (scm_is_pair (mag)
+		     ? robust_scm2double (scm_cdr (mag), 1.0)
+		     : 1);
+	Font_metric *fm = all_fonts_global->find_font (ly_scm2string (name));
 		
-      return find_scaled_font (layout, fm, rmag);
-    }
-  else if (scm_instance_p (name))
-    {
-      SCM base_size  = scm_slot_ref (name, ly_symbol2scm ("default-size"));
-      SCM vec = scm_slot_ref (name, ly_symbol2scm ("size-vector"));
+	return find_scaled_font (layout, fm, rmag);
+      }
+    else if (scm_instance_p (name))
+      {
+	SCM base_size  = scm_slot_ref (name, ly_symbol2scm ("default-size"));
+	SCM vec = scm_slot_ref (name, ly_symbol2scm ("size-vector"));
 
-      SCM font_size = ly_chain_assoc (ly_symbol2scm ("font-size"), chain);
-      Real req = 0;
-      if (scm_is_pair (font_size))
-	req = scm_to_double (scm_cdr (font_size));
+	SCM font_size = ly_chain_assoc (ly_symbol2scm ("font-size"), chain);
+	Real req = 0;
+	if (scm_is_pair (font_size))
+	  req = scm_to_double (scm_cdr (font_size));
 
-      return get_font_by_mag_step (layout, req, vec,
-				   scm_to_double (base_size));
-    }
+	return get_font_by_mag_step (layout, req, vec,
+				     scm_to_double (base_size));
+      }
 
   assert (0);
   return 0;

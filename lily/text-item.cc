@@ -40,6 +40,7 @@ Text_interface::interpret_string (SCM layout_smob,
   return fm->text_stencil (str).smobbed_copy();
 }
 
+
 MAKE_SCHEME_CALLBACK (Text_interface, interpret_markup, 3)
 SCM
 Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
