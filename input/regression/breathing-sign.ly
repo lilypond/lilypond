@@ -72,17 +72,17 @@ finalis, the latter three looking similar to bar glyphs.
       \context Voice = one { \stemUp g4 as g }
     > |
 
-% \divisiominima is a simple vertical stroke through the uppermost
+% \divisioMinima is a simple vertical stroke through the uppermost
 % staffline, just like the original implementation of breathing signs.
-    < \context Voice = two { \stemDown es4 \divisiominima bes es }
+    < \context Voice = two { \stemDown es4 \divisioMinima bes es }
       \context Voice = one { \stemUp g4 as g }
     > |
 % \divisio{maior,maxima} and \finalis look like bars and are vertically
 % centered on the staff; the direction property has no effect
-    < \context Voice = two { \stemDown es4 \divisiomaior bes es }
+    < \context Voice = two { \stemDown es4 \divisioMaior bes es }
       \context Voice = one { \stemUp g4 as g }
     > |
-    < \context Voice = two { \stemDown es4 \divisiomaxima bes es }
+    < \context Voice = two { \stemDown es4 \divisioMaxima bes es }
       \context Voice = one { \stemUp g4 as g }
     > |
 
