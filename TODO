@@ -78,7 +78,6 @@ Fix: set bar-number to 0 if first bar is an anacrouse?
 . * make ly2dvi test page.
 . * Try to use Killing_cons iso. Pointer_list
 . * make dependencies () a virtual function.
-. * fix Repeated_music_iterator::ok() (constness.)
 . * one big ly2dvi input that includes *all* tests.
 . * Don't use boolean properties (0,1), instead check existence
 of property.

@@ -19,6 +19,7 @@ Repeated_music_iterator::Repeated_music_iterator ()
   alternative_iter_p_ = 0;
   here_mom_ = 0;
   unfold_i_ = -1; 
+  done_b_ = false;
 }
 
 Repeated_music_iterator::~Repeated_music_iterator ()
@@ -37,6 +38,7 @@ Repeated_music_iterator::do_print () const
 void
 Repeated_music_iterator::construct_children ()
 {
+  done_b_ = false;
   repeat_iter_p_ = get_iterator_p (dynamic_cast<Repeated_music const*> (music_l_)->repeat_p_);
 }
 
@@ -49,10 +51,20 @@ Repeated_music_iterator::do_process_and_next (Moment m)
       if (!success)
 	music_l_->warning ( _("No one to print a volta bracket"));
     }
+
+  if (!ok ())
+    start_next_element ();
+
+  //  if (!ok())
+     // return;
+      
   if (repeat_iter_p_ && repeat_iter_p_->ok ())
     repeat_iter_p_->process_and_next (m - here_mom_);
-  else
+  else if (alternative_iter_p_ && alternative_iter_p_->ok ())
     alternative_iter_p_->process_and_next (m - here_mom_);
+  else
+    return;
+  
   Music_iterator::do_process_and_next (m);
 }
 
@@ -69,34 +81,18 @@ Repeated_music_iterator::next_moment () const
   return r->alternative_p_->length_mom () + here_mom_;
 }
 
-/*
-  FIXME
- */
 bool
 Repeated_music_iterator::ok () const
 {
-  if (!repeat_iter_p_ && !alternative_iter_p_)
-    return false;
-
-  if ((repeat_iter_p_ && repeat_iter_p_->ok ())
-    || (alternative_iter_p_ && alternative_iter_p_->ok ()))
-    return true;
-
-  Repeated_music_iterator *urg = (Repeated_music_iterator*)this;
-  // urg, we're const
-  urg->start_next_element ();
-
-  return ok ();
+  return !done_b_;
 }
-
 
 void
 Repeated_music_iterator::start_next_element ()
 {
   Repeated_music const*rep =dynamic_cast<Repeated_music const*> (music_l_);
 
-
- if (repeat_iter_p_)
+  if (repeat_iter_p_)
     {
       assert (!repeat_iter_p_->ok ());
       assert (!alternative_iter_p_);
@@ -120,17 +116,21 @@ Repeated_music_iterator::start_next_element ()
 	  unfold_i_--;
 	  repeat_iter_p_ = get_iterator_p (rep->repeat_p_);
 	  // urg, assume same length alternatives for now...
-//	  here_mom_ += rep->alternative_p_->music_p_list_p_->top ()->length_mom ();
+	  //	  here_mom_ += rep->alternative_p_->music_p_list_p_->top ()->length_mom ();
 	  /*
 	    URG
 	    this is *wrong* but at least it doesn't dump core
 	    when unfolding, the alternative (sequential) music 
 	    shouldn't automatically move to the next alternative
-
+	    
 	    how to intercept this...
-	   */
+	  */
 	  here_mom_ += rep->alternative_p_->length_mom ();
 	}
     }
+
+  if ((!repeat_iter_p_ || !repeat_iter_p_->ok ())
+      && (!alternative_iter_p_ || !alternative_iter_p_->ok ()))
+    done_b_ = true;
 }
 
