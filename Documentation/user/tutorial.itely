@@ -52,11 +52,13 @@ your first sheets of music.
 @menu
 * First steps::                 
 * Running LilyPond::            
-* More about pitches ::         
+* More about pitches::          
 * Octave entry::                
 * Combining music into compound expressions::  
 * Adding articulation marks to notes::  
 * Combining notes into chords::  
+* Basic rhythmical commands::   
+* Commenting input files::      
 * Printing lyrics::             
 * A lead sheet::                
 * Listening to output::         
@@ -964,13 +966,9 @@ r4 <c e g>8\>( <c e g> <c e g>  <c f a>8\!)
 
 
 
-@menu
-* Basic rhythmical commands::   
-* Commenting input files::      
-@end menu
 
 @node Basic rhythmical commands
-@subsection  Basic rhythmical commands
+@section  Basic rhythmical commands
 
 @cindex pickup
 @cindex anacruse
@@ -1024,7 +1022,7 @@ see @ref{Partial measures}.
 
 
 @node Commenting input files
-@subsection Commenting input files
+@section Commenting input files
 
 @cindex comments
 @cindex line comment

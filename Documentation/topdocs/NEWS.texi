@@ -18,14 +18,20 @@ Version 2.1.13
 
 @itemize @bullet
 
-@item The lilypond-book script has been rewritten.  It now supports
+@item Melismata in lyrics are also properly handled  in the MIDI output.
+
+@item The lilypond-book script has been rewritten.
+It is shorter, cleaner and faster.  The special construct
+@code{mbinclude} has been removed, plain @code{@@include} or
+@code{\\input} can be used now.
+
+@ignore
+It now supports
 running convert-ly on the lilypond snippets like so:
 @example
     lilypond-book --filter='convert-ly --from=2.0.0' my-book.tely
 @end example
-It is also twice as short and thrice as fast.  The special construct
-@code{mbinclude} has been removed, plain @code{@@include} or
-@code{\\input} can be used now.
+@end ignore
 
 @item The @code{Lyrics} context has been removed. Lyrics should only
 be constructed in @code{LyricsVoice}.
@@ -40,15 +46,14 @@ are now constructed at @code{Voice} level.
 @end example
 
 @item Drum notation is now supported  as a regular feature:
-percussion may be entered in @code{\drums} mode, and printed in a
-@code{DrumStaff} context:
+percussion may be entered in @code{\drums} mode, and printed or
+performed in a @code{DrumStaff} context:
 
 @example
   \score @{
     \drums \new DrumStaff @{ hihat4 cowbell8 @}
   @}
 @end example
-
 
 @item The automatic staff changer was internally rewritten. As a
 result, the syntax has been simplified as well:

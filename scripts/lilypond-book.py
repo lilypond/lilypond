@@ -548,8 +548,7 @@ snippet_type_to_class = {
 	}
 	
 
-def find_toplevel_snippets (infile, types):
-	s = infile.read ()
+def find_toplevel_snippets (s, types):
         res = {}
         for i in types:
                 res[i] = ly.re.compile (snippet_res[format][i])
@@ -714,9 +713,9 @@ def do_file (input_filename):
 
 	ly.progress (_ ("Reading %s...") % input_filename)
 	if not input_filename or input_filename == '-':
-		ih = sys.stdin
+		in_handle = sys.stdin
 	else:
-		ih = open (input_filename)
+		in_handle = open (input_filename)
 
 	ly.progress ('\n')
 
@@ -749,8 +748,9 @@ def do_file (input_filename):
 		output_file = open (output_filename, 'w')
 		os.chdir (output_name)
 
-		
-	chunks = find_toplevel_snippets (ih, snippet_types)
+
+	source = in_handle.read ()
+	chunks = find_toplevel_snippets (source, snippet_types)
 	ly.progress ('\n')
 
 	global default_ly_options
