@@ -3,7 +3,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 1998--2003 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1998--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
 #include "music-list.hh"

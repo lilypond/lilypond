@@ -1,7 +1,7 @@
 /*
   slur.hh -- declare Slur
 
-  (c)  1996--2003 Han-Wen Nienhuys
+  (c) 1996--2004 Han-Wen Nienhuys
 */
 
 #ifndef SLUR_HH

@@ -3,7 +3,7 @@ untransposable-music.cc --  implement Untransposable_music
 
 source file of the GNU LilyPond music typesetter
 
-(c) 2001--2003  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+(c) 2001--2004  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
  */
 

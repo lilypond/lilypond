@@ -3,7 +3,7 @@
 
   source file of the LilyPond music typesetter
 
-  (c) 1997--2003 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -18,15 +18,15 @@
 
 Sources::Sources ()
 {
-  sourcefile_p_list_ = 0;
+  sourcefile_list_ = 0;
   path_C_= 0;
-  binary_b_ = false;
+  is_binary_ = false;
 }
 
 void
 Sources::set_binary (bool bo)
 {
-  binary_b_ = bo;
+  is_binary_ = bo;
 }
 
 void
@@ -61,12 +61,12 @@ Sources::get_file (String &file_string) //UGH
 void
 Sources::add (Source_file* sourcefile)
 {
-  sourcefile_p_list_ = new Killing_cons<Source_file> (sourcefile, sourcefile_p_list_);
+  sourcefile_list_ = new Killing_cons<Source_file> (sourcefile, sourcefile_list_);
 }
 
 Sources::~Sources ()
 {
-  delete sourcefile_p_list_;
+  delete sourcefile_list_;
 }
 /**
   search the list for file whose map contains pointer #str0#
@@ -77,7 +77,7 @@ Source_file*
 Sources::get_sourcefile (char const* str0)
 {
 
-  for (Cons<Source_file> *i = sourcefile_p_list_; i; i = i->next_)
+  for (Cons<Source_file> *i = sourcefile_list_; i; i = i->next_)
     if (i->car_->in_b (str0))	
       return i->car_;
   return 0;

@@ -1,7 +1,7 @@
 /*
   tuplet-bracket.hh -- part of GNU LilyPond
 
-  (c)  1997--2003 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1997--2004 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #ifndef Tuplet_bracket_HH

@@ -3,7 +3,7 @@
   
   source file of the LilyPond music typesetter
 
-  (c)  1997--2003 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1997--2004 Jan Nieuwenhuizen <janneke@gnu.org>
 
 */
 

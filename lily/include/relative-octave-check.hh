@@ -3,7 +3,7 @@
   
   source file of  GNU LilyPond
   
-  (c) 2003 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 2003--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
 

@@ -1,7 +1,7 @@
 /*
   accidental.cc -- implement Accidental_interface
 
-  (c) 2001--2003 Han-Wen Nienhuys
+  (c) 2001--2004 Han-Wen Nienhuys
   
  */
 #include "font-interface.hh"
