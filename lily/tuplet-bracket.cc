@@ -426,7 +426,7 @@ Tuplet_bracket::before_line_breaking (SCM smob)
       if (b)
 	me->add_dependency (b);
     }
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 MAKE_SCHEME_CALLBACK (Tuplet_bracket,after_line_breaking,1);

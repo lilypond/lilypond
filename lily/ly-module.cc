@@ -84,7 +84,7 @@ LY_DEFINE (ly_import_module, "ly:import-module",
   SCM_VALIDATE_MODULE (1, src);
   scm_internal_hash_fold ((Hash_cl_func) &ly_module_define, (void*) dest,
 			  SCM_EOL, SCM_MODULE_OBARRAY (src));
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 static SCM

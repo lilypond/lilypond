@@ -47,7 +47,7 @@ LY_DEFINE (ly_context_pushpop_property, "ly:context-pushpop-property",
 
   execute_pushpop_property (tg, grob, eltprop, val);
 
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 LY_DEFINE (ly_context_property, "ly:context-property",
