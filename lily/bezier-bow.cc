@@ -221,10 +221,14 @@ Bezier_bow::calc_return (Real begin_alpha, Real end_alpha)
   return_.control_[2] = curve_.control_[1] - thick * complex_exp (Offset (0, 90 - begin_alpha));  
 }
 
+static Real const FUDGE = 1e-8;
+
 /*
-This function calculates 2 center control points, based on 
+  This function calculates 2 center control points,
+  based on lines through c_0 --> left disturbing
+  and c_3--> right disturbing encompass points.
   
- See Documentation/fonts.tex
+  See Documentation/fonts.tex
  */
 void
 Bezier_bow::calc_tangent_controls ()
@@ -275,19 +279,23 @@ Bezier_bow::calc_tangent_controls ()
   Direction d = LEFT;
   do
     {
-      maxtan[d] *= rc_correct;
-      angles[d] = atan (-d * maxtan[d]);
+      maxtan[d] *= -d * rc_correct;
+      angles[d] = atan (maxtan[d]);
     }
   while (flip(&d) != LEFT);
 
   Real rc3 = 0.0;
 
-  // if we have two disturbing points, have line through those...
-  if (disturb[LEFT][Y_AXIS] != disturb[RIGHT][Y_AXIS])
+  /* 
+    if we have two disturbing points, have line through those...
+    in order to get a sane line, make sure points are reasonably far apart
+    X distance must be reasonably(!) big (division)
+   */
+  if (abs (disturb[LEFT][X_AXIS] - disturb[RIGHT][X_AXIS]) > FUDGE)
     rc3 = (disturb[RIGHT][Y_AXIS] - disturb[LEFT][Y_AXIS]) / (disturb[RIGHT][X_AXIS] - disturb[LEFT][X_AXIS]);
 
   else
-    rc3 = tan ((angles[RIGHT] - angles[LEFT]) / 2);
+    rc3 = tan ((angles[LEFT] - angles[RIGHT]) / 2);
 
 
   // ugh: be less steep

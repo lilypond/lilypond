@@ -1,3 +1,6 @@
+pl 13.jcn1
+	- bezier-bow fix
+
 pl 12.hwn1
 	- polynomial.hh
 	- bf: generic properties
