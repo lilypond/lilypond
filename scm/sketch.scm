@@ -31,8 +31,12 @@
 
 
 ;; guile < 1.4 compatibility for eval
-(define (ly-eval e m)
-  (eval-in-module e m))
+(if (or (equal? (minor-version) "4")
+	(equal? (minor-version) "3.4"))
+    (define (ly-eval e m)
+      (eval-in-module e m))
+    (define (ly-eval e m)
+      (eval e m)))
 
 (define-module (scm sketch))
 (debug-enable 'backtrace)

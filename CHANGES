@@ -1,7 +1,11 @@
 1.5.23.jcn1
 ===========
 
-* Fixes for guile 1.4.
+* Rewrote new conditional guile >= 1.5 compilation switches, to keep
+  code clean from conditionals and have a concentrated sets of
+  compatitility fixes for old guile versions.
+
+* Fixes for guile 1.4, including embedded ps.
 
 1.5.23
 ======

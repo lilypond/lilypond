@@ -51,6 +51,10 @@
 #define fix_guile_1_4_scm_primitive_eval(form) scm_eval_3 (form, 1, SCM_EOL)
 #define scm_primitive_eval(form) fix_guile_1_4_scm_primitive_eval (form)
 
+#define scm_current_module() (SCM)0
+#define scm_set_current_module(x) (void)x
+#define scm_c_resolve_module(x) (SCM)0
+
 #define scm_c_define_gsubr scm_make_gsubr
 #define scm_c_eval_string(str) gh_eval_str ((char*)str)
 #define scm_c_memq scm_sloppy_memq
