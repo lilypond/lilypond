@@ -83,7 +83,6 @@ static Keyword_ent the_key_tab[]={
   {"script", SCRIPT},
   {"stylesheet", STYLESHEET},
   {"skip", SKIP},
-  {"textscript", TEXTSCRIPT},
   {"tempo", TEMPO},
   {"translator", TRANSLATOR},
   {"transpose", TRANSPOSE},

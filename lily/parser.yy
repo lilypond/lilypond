@@ -140,7 +140,6 @@ yylex (YYSTYPE *s,  void * v_l)
 %token APPLY
 %token ARPEGGIO
 %token DYNAMICSCRIPT
-%token TEXTSCRIPT
 %token ACCEPTS
 %token ALTERNATIVE
 %token BAR
@@ -1263,12 +1262,6 @@ verbose_request:
 		d->set_mus_property ("text", $2);
 		d->set_spot (THIS->here_input ());
 		$$ = d;
-	}
-	| TEXTSCRIPT embedded_scm {
-		Text_script_req *t = new Text_script_req;
-		t->set_mus_property ("text", $2);
-		t->set_spot (THIS->here_input ());
-		$$ = t;
 	}
 	| SPANREQUEST bare_int STRING {
 		Span_req * sp_p = new Span_req;
