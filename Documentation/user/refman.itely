@@ -1,4 +1,4 @@
-@c Note: -*-texinfo-*-
+q@c Note: -*-texinfo-*-
 @c
 @c A menu is needed before every deeper *section nesting of @node's; run
 @c     M-x texinfo-all-menus-update
@@ -1185,6 +1185,7 @@ Resolving collisions is a intricate subject, and only a few situations
 are handled. When LilyPond cannot cope, the @code{force-hshift}
 property of the @internalsref{NoteColumn} object and pitched rests can
 be used to override typesetting decisions.
+
 
 @node Beaming
 @section Beaming
