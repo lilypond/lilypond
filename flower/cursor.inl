@@ -55,25 +55,6 @@ Cursor<T>::insert( const T& th )
 }
 
 template<class T>
-inline void
-Cursor<T>::backspace()
-{
-    Cursor<T> c(*this);
-    c--;        
-    list_.remove( *this );
-}
-
-template<class T>
-inline void
-Cursor<T>::del()
-{
-    Cursor<T> c(*this);
-    c++;
-    list_.remove( *this );    
-    *this = c;
-}
-
-template<class T>
 inline const List<T>&
 Cursor<T>::list() const
 {
@@ -106,6 +87,27 @@ inline bool
 Cursor<T>::ok()
 {
     return ( pointer_ != 0 );
+}
+
+
+template<class T>
+inline Cursor<T> 
+Cursor<T>::operator ++( int )    
+{
+    Cursor<T> r (*this);
+    assert( pointer_ );
+    pointer_ = pointer_->next();
+    return r;
+}
+
+template<class T>
+inline Cursor<T>
+Cursor<T>::operator --( int )
+{
+    Cursor<T> r (*this);
+    assert( pointer_ );
+    pointer_ = pointer_->previous();
+    return r;
 }
 
 #endif
