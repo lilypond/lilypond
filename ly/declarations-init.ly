@@ -30,8 +30,6 @@ melismaEnd = \property Staff.melismaBusy = ##f
 \include "engraver-init.ly"
 \include "grace-init.ly"
 
-singleLine = \paper { linewidth = 1. }
-
 % ugh
 \include "midi-init.ly"
 

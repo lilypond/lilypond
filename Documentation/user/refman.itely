@@ -4201,10 +4201,9 @@ The most basic settings influencing the spacing are @code{linewidth}
 and @code{indent}, both set in the @code{\paper} block.  They control
 the indentation of the first line of music, and the lengths of the
 lines.  If @code{linewidth} set to a negative value, a single
-unjustified line is produced.  The shorthand @code{\singleLine}
-defines a default paper block that produces a single line.  A similar
-effect for scores that are longer than one line, can be produced by
-setting @code{raggedright} to true in the @code{\paper} block.
+unjustified line is produced.  A similar effect for scores that are
+longer than one line, can be produced by setting @code{raggedright} to
+true in the @code{\paper} block.
 
 @cindex page layout
 

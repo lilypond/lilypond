@@ -66,15 +66,11 @@ ifeq ($(KPATHSEA),0)
 endif
 
 
-TOP_HTMLS = index.html short-examples.html long-examples.html
+TOP_HTMLS = index.html examples.html
 
-short-examples: web-reqs
+examples: web-reqs
 	$(MAKE) out=www -C input WWW
 	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(builddir)/$@.html input/
-
-long-examples: web-reqs
-	$(MAKE) out=www -C mutopia WWW
-	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(builddir)/$@.html mutopia/
 
 lily: lily/$(outdir)/lilypond
 
@@ -86,7 +82,7 @@ local-web: web-doc $(TOP_HTMLS:%.html=%) footify do-top-doc top-web
 web-ext = gz html midi pdf png txt
 top-web:
 	cd $(builddir) && rm -f `find . -name \*.html~ -print`
-	cd $(builddir) && find Documentation input mutopia \
+	cd $(builddir) && find Documentation input \
 		$(web-ext:%=-path '*/out-www/*.%' -or) -false \
 		> $(outdir)/weblist
 	cd $(builddir) && ls *.png *.html >> $(outdir)/weblist

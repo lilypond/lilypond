@@ -88,7 +88,7 @@ mkdir -p $RPM_DOC_ROOT/HTML
 tar -C $RPM_DOC_ROOT/HTML -xzf out/web.tar.gz
 ln -s HTML/input $RPM_DOC_ROOT/Examples
 ln -s HTML/input/test $RPM_DOC_ROOT/Tricks
-ln -s HTML/mutopia $RPM_DOC_ROOT/Mutopia
+
 mkdir -p $RPM_DOC_ROOT/Printable
 ln -s ../HTML/Documentation/user/out-www/lilypond.ps.gz $RPM_DOC_ROOT/Printable/Manual.ps.gz
 ln -s ../HTML/Documentation/user/out-www/glossary.ps.gz $RPM_DOC_ROOT/Printable/Glossary.ps.gz

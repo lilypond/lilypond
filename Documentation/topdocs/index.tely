@@ -56,12 +56,9 @@ bug-free.  You can access the website for the stable releases
 @unnumberedsec Want to know more?
 
 If you want to know more, visit the
-@uref{Documentation/out-www/index.html, documentation page}. If you want
-to see some sheet music, then have a look at the examples: we have
-@uref{short-examples.html,short examples} and
-@uref{long-examples.html,longer examples}.  For even more sheet music,
-head over to @uref{http://www.mutopiaproject.org, the mutopia project}.
-
-
+@uref{Documentation/out-www/index.html, documentation page}. If you
+want to see some sheet music, then have a look at the
+@uref{examples.html, examples}.  For even more sheet music, head over
+to @uref{http://www.mutopiaproject.org, the mutopia project}.
 
 @bye

@@ -146,4 +146,4 @@ chkfontpath --remove=/usr/share/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
 
 %doc web/
 %doc input/
-%doc mutopia/ 
+

@@ -1,6 +1,6 @@
 # mutopia/J.S.Bach/Petites-Preludes/Makefile
 
-depth = ../../..
+depth = ../../../..
 
 EXTRA_DIST_FILES=
 
