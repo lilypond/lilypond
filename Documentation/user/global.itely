@@ -320,15 +320,6 @@ The header and footer are created by the functions @code{make-footer}
 and @code{make-header}, defined in @code{\paper}.  The default
 implementations are in @file{scm/@/page@/-layout@/.scm}.
 
-The following settings influence the header and footer layout.
-
-@quotation
-@table @code
-@item printpagenumber
-  this boolean controls whether a pagenumber is printed. 
-@end table
-@end quotation
-
 The page layout itself is done by two functions in the
 @code{\paper} block, @code{page-music-height} and
 @code{page-make-stencil}.  The former tells the line-breaking algorithm

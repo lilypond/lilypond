@@ -1,3 +1,7 @@
+2005-03-14  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/user/global.itely (Page layout): remove printpagenumber.
+
 2005-03-13  Jürgen Reuter  <reuter@ipd.uka.de>
 
 	* input/regression/mensural-ligatures.ly: new file (with examples
