@@ -691,9 +691,9 @@ column location.
 @c move this elsewhere?
 
 LilyPond also comes with support files for emacs: lilypond-mode for
-emacs provides indentation, syntax coloring and handy compile
-short-cuts. If lilypond-mode is not installed on your platform, then
-refer to the installation instructions for more information
+emacs provides indentation, autocompletion, syntax coloring and handy
+compile short-cuts. If lilypond-mode is not installed on your platform,
+then refer to the installation instructions for more information.
 
 @cindex emacs
 @cindex emacs mode

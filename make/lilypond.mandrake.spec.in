@@ -79,7 +79,7 @@ make prefix="$RPM_BUILD_ROOT%{_prefix}" infodir="$RPM_BUILD_ROOT%{_infodir}" MAK
 %endif
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/emacs/site-lisp/site-start.d
-install -m 644 lilypond-mode.el lilypond-font-lock.el lilypond-indent.el $RPM_BUILD_ROOT%{_datadir}/emacs/site-lisp/
+install -m 644 lilypond-mode.el lilypond-font-lock.el lilypond-indent.el lilypond.words $RPM_BUILD_ROOT%{_datadir}/emacs/site-lisp/
 install -m 644 lilypond-init.el $RPM_BUILD_ROOT%{_datadir}/emacs/site-lisp/site-start.d
 
 bzip2 $RPM_BUILD_ROOT%{_mandir}/man1/*
