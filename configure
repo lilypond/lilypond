@@ -3068,7 +3068,7 @@ EOF
  
 else
   echo "$ac_t""no" 1>&6
-{ echo "configure: error: Cannot find kpathsea functions.  Rerun with --without-kpathsea." 1>&2; exit 1; } 
+{ echo "configure: error: Cannot find kpathsea functions.  You should install kpathsea; see INSTALL.txt.  Rerun ./configure --without-kpathsea only if kpathsea is not available for your platform." 1>&2; exit 1; }
 fi
 done
 
