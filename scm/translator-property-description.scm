@@ -78,39 +78,20 @@ The head of the list:
 
 @end example")
 
-(translator-property-description 'autoAccidentals list? "List of
-different ways to typeset an accidental. All algorithms in the list
-are tried, and the one returning the most accidentals is used.
-The algorithms are:
-@table @samp
-@item same-octave: This is the default algorithm. Accidentals are
-typeset if the note changes the accidental of that note in that octave.
-@item any-octave: Accidentals are typeset if the note is different from 
-the previous note on the same pitch in any octave.
-@item lazy-same-octave: Shows accidentals as if the key signature does
-not get reset at every barline. This means that an alteration lasts until it is
-changed - perhaps many measures later. See oneMeasureLazy, though.
-@item lazy-any-octave: Yeah, you probably guessed that one.
-@end table
-")
-
-(translator-property-description 'autoCautionaries list? "List similar to
-autoAccidentals, but it controls cautionary accidentals rather than
-normal ones. Both lists are tried, and the one giving the most accidentals
-wins. In case of draw, a normal accidental is typeset.
-")
-
 (translator-property-description 'automaticPhrasing boolean? " If set,
 the @ref{Lyric_phrasing_engraver} will match note heads of context
 called Voice X to syllables from LyricsVoice called
 X-<something>. This feature is turned on by default. See the example
 file @file{lyrics-multi-stanza.ly}.
-")
 
+")
 (translator-property-description 'automaticMelismata boolean? " If
 set, \addlyrics will assume that beams, slurs and ties signal
 melismata, and align lyrics accordingly.
 ")
+
+(translator-property-description 'autoReminders symbol? "If set to @samp{accidental} or @samp{cautionary},
+a (reminder) accidental automatically is inserted whenever an accidental is reverted - even after a bar.")
 
 (translator-property-description 'barAlways boolean? " If set to true a bar line is drawn after each note.
 ")
@@ -197,10 +178,7 @@ procedure? "visibility-lambda function for explicit Key changes;
 \override of #'visibility-lambda will set the visibility for normal
 (ie. at the start of the line) key signatures.")
 
-(translator-property-description 'extraNatural boolean? "Whether to typeset an
-extra natural sign before accidentals changing from a non-natural to 
-another non-natural.
-")
+
 (translator-property-description 'followVoice boolean?
 				 "if set, note heads are tracked  across staff switches by a thin line")
 (translator-property-description 'fontSize integer?
@@ -238,11 +216,8 @@ The format is (NAME . ALTER), where NAME is from 0 .. 6 and ALTER from  -1, 1.
 (translator-property-description 'lastKeySignature list? "Last key
 signature before a key signature change.")
 
-(translator-property-description 'lazyKeySignature list? "a lazy version of
-localKeySignature, only being reset according to oneMeasureLazy."
-) 
 (translator-property-description 'localKeySignature list? "the key
-signature at this point in the measure.  The format is the same as for keySignature. Is reset at every bar line."
+signature at this point in the measure.  The format is the same as for keySignature. "
 ) 
 
 (translator-property-description 'measureLength moment? "Length of one
@@ -261,13 +236,15 @@ MIDI instrument to use ")
 (translator-property-description 'noAutoBeaming boolean? "If set to true then beams are not generated automatically.
 ")
 (translator-property-description 'noDirection boolean? "Don't set directions by a2-engraver when part-combining.")
-(translator-property-description 'oneBeat moment? "  How long does one beat in the current time signature last?")
-(translator-property-description 'oneMeasureLazy boolean? "If false, the lazy
-time-signature is never reset, causing lazy accidentals (see
-autoAccidentals) to last until the next key change. If true, the lazy
-key signature only last one measure longer than the normal one - accidentals
-being reset at the end of the measure after the one in which they occur.
+(translator-property-description 'noResetKey boolean? "Do not
+reset local key to the value of keySignature at the start of a measure,
+as determined by measurePosition.
+
+Do not reset the key at the start of a measure.  Accidentals will be
+printed only once and are in effect until overridden, possibly many
+measures later.
 ")
+(translator-property-description 'oneBeat moment? "  How long does one beat in the current time signature last?")
 (translator-property-description 'pedalSustainStrings list? "List of   string to print for sustain-pedal. Format is
  (UP UPDOWN DOWN), where each of the three is the string to print when
 this is done with the pedal.")
@@ -324,7 +301,7 @@ help with debugging large scores.")
 (translator-property-description 'squashedPosition integer? " Vertical position of
 squashing for Pitch_squash_engraver.")
 (translator-property-description 'stavesFound list? "list of all staff-symbols found.")
-(translator-property-description 'stanza string? "Stanza `number' to print at start of a verse. Use in LyricsVoice context.")
+(translator-property-description 'stanza markup? "Stanza `number' to print at start of a verse. Use in LyricsVoice context.")
 
 
 (translator-property-description 'stemLeftBeamCount integer? "
@@ -333,7 +310,7 @@ Overrides automatic beaming.  The value is only used once, and then it
 is erased.
 .")
 (translator-property-description 'stemRightBeamCount integer? "idem, for the right side.")
-(translator-property-description 'stz string? "Abbreviated form for a stanza, see also Stanza property.")
+(translator-property-description 'stz markup? "Abbreviated form for a stanza, see also Stanza property.")
 (translator-property-description 'subdivideBeams boolean? "If set, multiple beams will be subdivided at beat
 positions - by only drawing one beam over the beat.")
 (translator-property-description 'textNonEmpty boolean? " If set

@@ -64,7 +64,7 @@ Gourlay_breaking::do_solve () const
 
   Real worst_force = 0.0;
   
-  for (  int break_idx=1; break_idx< breaks.size (); break_idx++) 
+  for (int break_idx=1; break_idx< breaks.size (); break_idx++) 
     {
       /*
 	start with a short line, add measures. At some point 
@@ -187,6 +187,10 @@ Gourlay_breaking::Gourlay_breaking ()
 
 /*
   TODO: uniformity parameter to control rel. importance of spacing differences.
+
+  TODO:
+
+  mixing break penalties and constraint-failing solutions is confusing.
  */
 Real
 Gourlay_breaking::combine_demerits (Column_x_positions const &prev,
@@ -197,7 +201,7 @@ Gourlay_breaking::combine_demerits (Column_x_positions const &prev,
   if (pc->original_l_)
     {
       SCM pen = pc->get_grob_property ("penalty");
-      if (gh_number_p (pen))
+      if (gh_number_p (pen) && fabs (gh_scm2double (pen)) < 10000)
 	{
 	  break_penalties += gh_scm2double (pen);
 	}
@@ -212,9 +216,12 @@ Gourlay_breaking::combine_demerits (Column_x_positions const &prev,
        /*
 	 If it doesn't satisfy constraints, we make this one
 	 really unattractive.
-       */
-       demerit += 10;
-       demerit *= 100;
+
+	 add 20000 to the demerits, so that a break penalty
+	 of -10000 won't change the result */
+       demerit = (demerit + 20000) >? 2000;
+       
+       demerit *= 10;
      }
 
    return demerit;

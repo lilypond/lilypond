@@ -160,38 +160,6 @@ fatText = \property Voice.textNonEmpty = ##t
 showStaffSwitch = \property PianoStaff.followVoice = ##t
 hideStaffSwitch = \property PianoStaff.followVoice = ##f
 
-% FIXME: Move this docu (to where?)
-
-% accidentals as they were common in the 18th century.
-defaultAccidentals = {
-  \property Score.extraNatural = ##t
-  \property Score.autoAccidentals = #'(same-octave)
-  \property Score.autoCautionaries = #'()  
-}
-
-% accidentals as suggested by Kurt Stone, Music Notation in the 20th century.
-modernAccidentals = {
-  \property Score.extraNatural = ##f
-  \property Score.oneMeasureLazy = ##t
-  \property Score.autoAccidentals = #'(same-octave any-octave lazy-any-octave)
-  \property Score.autoCautionaries = #'()  
-}
-
-% the accidentals that Stone adds to the old standard as cautionaries
-modernCautionaries = {
-  \property Score.extraNatural = ##f
-  \property Score.oneMeasureLazy = ##t
-  \property Score.autoAccidentals = #'(same-octave)
-  \property Score.autoCautionaries = #'(any-octave lazy-any-octave)  
-}
-
-% accidentals not being reset at the bar-lines
-noResetKey = {
-  \property Score.oneMeasureLazy = ##f
-  \property Score.autoAccidentals = #'(lazy-same-octave)
-  \property Score.autoCautionaries = #'()
-}
-
 
 % To remove a Volta bracet or some other graphical object,
 % set it to turnOff. Example: \property Staff.VoltaBracket = \turnOff

@@ -8,7 +8,7 @@
  */
 #include "script-column.hh"
 #include "side-position-interface.hh"
-
+#include "warn.hh"
 #include "group-interface.hh"
 
 void
@@ -46,8 +46,15 @@ Script_column::before_line_breaking (SCM smob)
 				     
   for (int i=0; i < staff_sided.size (); i++)
     {
-      arrs[Side_position_interface::get_direction (staff_sided[i])]
-	.push (staff_sided[i]);
+      Direction d = Side_position_interface::get_direction (staff_sided[i]);
+      if (!d)
+	{
+	  programming_error ( "No direction for script?");
+	  d = DOWN;
+	  staff_sided[i]->set_grob_property ("direction", gh_int2scm (d));
+	}
+      
+      arrs[d].push (staff_sided[i]);
     }
 
   Direction d = DOWN;

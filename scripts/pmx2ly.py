@@ -211,6 +211,12 @@ class Clef:
 	def dump(self):
 		return '\\clef %s' % self.type
 
+class Key:
+	def __init__ (self, key):
+		self.type = key
+	def dump(self):
+		return '\\key %s' % self.type
+
 clef_table = {
 	'b':'bass'  ,
 	'r':'baritone',
@@ -220,7 +226,22 @@ clef_table = {
 	's':'soprano',
 	't':'treble',
 	'f':'frenchviolin',
-	} 
+	}
+key_table = {
+	'+0':'c \major',
+	'+1':'g \major',
+	'+2':'d \major',
+	'+3':'a \major',
+	'+4':'e \major',
+	'+5':'b \major',
+	'+6':'fis \major',
+	'-1':'f \major',
+	'-2':'bes \major',
+	'-3':'ees \major',
+	'-4':'aes \major',
+	'-5':'des \major',
+	'-6':'ges \major'
+	}
 class Staff:
 	def __init__ (self): 
 		self.voices = (Voice (), Voice())
@@ -228,6 +249,7 @@ class Staff:
 		self.instrument = 0
 		self.voice_idx = 0
 		self.number = None
+		self.key = 0
 		
 		i = 0
 		for v  in self.voices:
@@ -237,7 +259,8 @@ class Staff:
 	def set_clef (self, letter):
 		clstr = clef_table[letter]
 		self.voices[0].add_nonchord (Clef (clstr))
-		
+
+	
 	def current_voice (self):
 		return self.voices[self.voice_idx]
 	def next_voice (self):
@@ -531,45 +554,60 @@ Huh? expected duration, found %d Left was `%s'""" % (durdigit, str[:20]))
 			str = str[1:]
 					
 		return str
-	
+
+	def parse_key (self, str):
+		key = ""
+		#The key is changed by a string of the form K[+-]<num>[+-]<num>
+		#where the first number is the transposition and the second number is the
+		#new key signature.  For now, we won't bother with the transposition.
+		if str[2] != '0':
+			sys.stderr.write("Transposition not implemented yet: ")
+			while str[0] in '+-0123456789':
+				str = str[1:]
+		else:
+			str=str[3:]
+			key = ''
+			while str[0] in '+-0123456789':
+				key=key + str[0]
+				str=str[1:]
+			keystr = key_table[key]
+			self.current_voice().add_nonchord (Key(keystr))
+		return(str)
+
 
 	def parse_header  (self, ls):
-		while ls[0][0] == '%':
+		def atonum(a):
+			if re.search('\\.', a):
+				return string.atof (a)
+			else:
+				return string.atoi (a)
+
+		number_count = 12
+		numbers = []
+
+		while len (numbers) < number_count:
+			opening = ls[0]
 			ls = ls[1:]
 
-		opening = ls[0]
-		ls = ls[1:]
-		
-		opening = re.sub ('^[ \t]+', '', opening)
-		opening = re.sub ('[ \t]+$', '', opening) 		
-		opening = re.split ('[\t ]+', opening)
+			opening = re.sub ('[ \t\n]+', ' ', opening)
+			opening = re.sub ('^ ', '', opening)
+			opening = re.sub (' $', '', opening)						
+			if opening == '':
+				continue
+			opening = string.split (opening, ' ')
 
-		(no_staffs, no_instruments, timesig_num,timesig_den, ptimesig_num,
-		 ptimesig_den, pickup_beats,keysig_number) = opening
-		(no_staffs, no_instruments, timesig_num, timesig_den, ptimesig_num, ptimesig_den, keysig_number) = tuple (map (string.atoi , [no_staffs, no_instruments, timesig_num, timesig_den, ptimesig_num, ptimesig_den, keysig_number]))
-		try: 
-			pickup_beats = string.atoi (pickup_beats)
-		except ValueError:
-			pickup_beats = string.atof (pickup_beats)
-		
+			numbers = numbers + map (atonum, opening)
 
-		while ls[0][0] == '%':
-			ls = ls[1:]
-			
-		opening = ls[0]
-		ls = ls[1:]
+		(no_staffs, no_instruments, timesig_num, timesig_den, ptimesig_num,
+		 ptimesig_den, pickup_beats,keysig_number) = tuple (numbers[0:8])
+		(no_pages,no_systems, musicsize, fracindent) = tuple (numbers[8:])
 
 		# ignore this.
 		# opening = map (string.atoi, re.split ('[\t ]+', opening))
-		# (no_pages,no_systems, musicsize, fracindent) = tuple (opening)
-
+		
 		instruments = []
 		while len (instruments) < no_instruments:
 			instruments.append (ls[0])
-			ls = ls[1:]
-
-
-		while ls[0][0] == '%':
 			ls = ls[1:]
 
 		l = ls[0]
@@ -582,9 +620,6 @@ Huh? expected duration, found %d Left was `%s'""" % (durdigit, str[:20]))
 			l = l[1:]
 
 		# dump path 
-		while ls[0][0] == '%':
-			ls = ls[1:]
-
 		ls = ls[1:] 
 
 		# dump more ?
@@ -691,6 +726,11 @@ Huh? expected duration, found %d Left was `%s'""" % (durdigit, str[:20]))
 				left = self.parse_ornament (left)
 			elif c == 'x':
 				left = self.parsex (left)
+			elif c == 'C':
+				self.current_staff().set_clef(str(left[1]))
+				left = left[2:]
+			elif c == 'K':
+				left = self.parse_key (left)
 			elif c in "[]":
 				left = self.parse_beams (left)
 			elif left[:2] == "//":
@@ -722,6 +762,9 @@ Huh? Unknown directive `%s', before `%s'""" % (c, left[:20] ))
 
 	def parse (self,fn):
 		ls = open (fn).readlines ()
+		def subst(s):
+			return re.sub ('%.*$', '', s)
+		ls = map (subst, ls)
 		ls = self.parse_header (ls)
 		left = string.join (ls, ' ')
 

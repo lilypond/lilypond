@@ -231,17 +231,6 @@ issuing
    * pnmtopng. The original is at in the pnmtopng FTP site
      (ftp://swrinde.nde.swri.edu/pub/png/applications/pnmtopng-2.37.2.tar.gz).
 
-   * Bibtex2html (http://www.lri.fr/~filliatr/ftp/bibtex2html/), or
-     Bib2html (http://www.uni-koblenz.de/ag-ki/ftp/bib2html/).
-     Bibtex2html is available in debian, while bib2html is in some rpm
-     based distributions.  Bib2html, in turn depends on man2html for
-     proper installation.  man2html can be had from
-     http://askdonald.ask.uni-karlsruhe.de/hppd/hpux/Networking/WWW/Man2html-1.05
-     (http://askdonald.ask.uni-karlsruhe.de/hppd/hpux/Networking/WWW/Man2html-1.05).
-
-     The website will build without bib converter utility, but you will
-     not see our hypertextified bibliography.
-
    * texinfo (a development release) The documentation will build with
      texinfo-4.0, but if you want split html pages, you're best off
      using the lates pretest version from texinfo-4.0b
@@ -462,8 +451,6 @@ in addition to the those needed for running:
 
    * groff, texinfo
 
-   * bibtex2html (not in Debian 2.2)
-
    * tetex-base, tetex-bin, tetex-extra, libkpathsea-dev or tetex-dev
 
    * dpkg-dev, debhelper, fakeroot
@@ -490,7 +477,7 @@ by running \`apt-get' as root before building the package:
      	apt-get install binutils cpp gcc libc6-dev \
              	g++ libstdc++2.10-dev \
      		python-base libguile-dev tetex-bin libkpathsea-dev \
-     		tetex-extra flex bison texinfo bibtex2html groff gs \
+     		tetex-extra flex bison texinfo  groff gs \
      		netpbm m4 gettext
 
    And, just so that old fonts from previous versions of LilyPond won't

@@ -12,7 +12,6 @@
 #include "translator-group.hh"
 #include "warn.hh"
 #include "music-output-def.hh"
-
 #include "ly-smobs.icc"
 
 int
@@ -41,17 +40,6 @@ Translator_def::mark_smob (SCM smob)
   return me->type_name_;
 }
 
-SCM push_sym;
-SCM assign_sym;
-
-static void
-foo_init ()
-{
-  push_sym = scm_permanent_object (ly_symbol2scm ("push"));
-  assign_sym = scm_permanent_object (ly_symbol2scm ("assign"));
-}
-
-ADD_SCM_INIT_FUNC (transdef, foo_init);
 
 Translator_def::Translator_def ()
 {
@@ -138,14 +126,14 @@ Translator_def::add_last_element (SCM s)
 void
 Translator_def::add_push_property (SCM props, SCM syms,  SCM vals)
 {
-  this->property_ops_ = gh_cons (scm_list_n (push_sym, props, syms, vals, SCM_UNDEFINED),
+  this->property_ops_ = gh_cons (scm_list_n (ly_symbol2scm ("push"), props, syms, vals, SCM_UNDEFINED),
 				 this->property_ops_);
 }
 
 void
 Translator_def::add_pop_property (SCM props, SCM syms)
 {
-  this->property_ops_ = gh_cons (scm_list_n (push_sym, props, syms, SCM_UNDEFINED),
+  this->property_ops_ = gh_cons (scm_list_n (ly_symbol2scm ("push"), props, syms, SCM_UNDEFINED),
 				 this->property_ops_);
 }
 
@@ -248,6 +236,10 @@ Translator_def::instantiate (Music_output_def* md)
   tg->output_def_l_ = md;
   tg->definition_ = self_scm ();
   tg->type_str_ = ly_scm2string (type_name_);
+
+  /*
+    TODO: ugh. we're reversing CONSISTS_NAME_LIST_ here
+   */
   SCM l1 = trans_list (consists_name_list_, tg);
   SCM l2 =trans_list (end_consists_name_list_,tg);
   l1 = scm_reverse_x (l1, l2);
@@ -268,14 +260,14 @@ Translator_def::apply_property_operations (Translator_group*tg)
       SCM type = ly_car (entry);
       entry = ly_cdr (entry); 
       
-      if (type == push_sym)
+      if (type == ly_symbol2scm ("push"))
 	{
 	  SCM val = ly_cddr (entry);
 	  val = gh_pair_p (val) ? ly_car (val) : SCM_UNDEFINED;
 
 	  apply_pushpop_property (tg, ly_car (entry), ly_cadr (entry), val);
 	}
-      else if (type == assign_sym)
+      else if (type == ly_symbol2scm ("assign"))
 	{
 	  tg->internal_set_property (ly_car (entry), ly_cadr (entry));
 	}
@@ -299,7 +291,7 @@ Translator_def::make_scm ()
 void
 Translator_def::add_property_assign (SCM nm, SCM val)
 {
-  this->property_ops_ = gh_cons (scm_list_n (assign_sym, scm_string_to_symbol (nm), val, SCM_UNDEFINED),
+  this->property_ops_ = gh_cons (scm_list_n (ly_symbol2scm ("assign"), scm_string_to_symbol (nm), val, SCM_UNDEFINED),
 				 this->property_ops_);
 }
 

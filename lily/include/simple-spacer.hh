@@ -69,7 +69,7 @@ struct Simple_spacer
   Real indent_f_;
   Real line_len_f_;
   Real default_space_f_;
-
+  int active_count_;
 
   Simple_spacer ();
   

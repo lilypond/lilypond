@@ -141,9 +141,9 @@ VoiceContext = \translator {
  Must come before text_engraver, but after note_column engraver.
 
 %}
+	\consists "Text_engraver"
 	\consists "Dynamic_engraver"
 	\consists "Fingering_engraver"
-%	\consists "Text_engraver"
 
 	\consists "Script_engraver"
 	\consists "Script_column_engraver"
@@ -382,10 +382,6 @@ ScoreContext = \translator {
 	tupletNumberFormatFunction = #denominator-tuplet-formatter
 	
 	subdivideBeams = ##f
-	extraNatural = ##t
-	autoAccidentals = #'(same-octave)
-	autoCautionaries = #'()  
-
 
        keyAccidentalOrder = #'(
          (6 . -1) (2  . -1) (5 . -1 ) (1  . -1) (4  . -1) (0  . -1) (3  . -1)

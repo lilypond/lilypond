@@ -22,7 +22,6 @@
 #include "direction.hh"
 #include "offset.hh"
 #include "interval.hh"
-#include "pitch.hh"
 
 SCM
 ly_last (SCM list)
@@ -516,23 +515,6 @@ ly_assoc_chain (SCM key, SCM achain)
       else
 	return ly_assoc_chain (key, ly_cdr (achain));
     }
-  else
-    return SCM_BOOL_F;
-}
-
-/* looks the key up in the cdrs of the alist-keys
-   - ignoring the car and ignoring non-pair keys.
-   Returns first match found. */
-SCM
-ly_assoc_cdr (SCM key, SCM alist)
-{
-  if (gh_pair_p (alist)) {
-    SCM trykey = ly_caar(alist);
-    if(gh_pair_p(trykey) && to_boolean(scm_equal_p(key,ly_cdr(trykey))))
-      return ly_car(alist);
-    else
-      return ly_assoc_cdr (key, ly_cdr (alist));
-  }
   else
     return SCM_BOOL_F;
 }

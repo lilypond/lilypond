@@ -1,4 +1,5 @@
 #!@PYTHON@
+
 # Run lilypond, latex, dvips.
 #
 # This is the third incarnation of ly2dvi.
@@ -14,7 +15,7 @@
 # TODO: should allow to switch off pk cache.
 #
 
-
+#
 # Note: gettext work best if we use ' for docstrings and "
 #       for gettextable strings.
 #       --> DO NOT USE """ for docstrings.

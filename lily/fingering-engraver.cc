@@ -129,7 +129,7 @@ Fingering_engraver::process_music ()
 	{
 	  /*
 	    chuck out reqs that have no pitch.  We put them over the note by default.
-	*/
+	  */
 	  up_reqs_.push (pitch_sorted_reqs [i]);
 	  pitch_sorted_reqs.del (i);
 	}
