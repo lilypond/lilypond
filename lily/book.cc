@@ -69,7 +69,6 @@ Paper_book *
 Book::process (String outname, Output_def *default_def)
 {
   Paper_book *paper_book = new Paper_book ();
-        
   Real scale = ly_scm2double (bookpaper_->c_variable ("outputscale"));
   
   Output_def * scaled_bookdef = scale_output_def (bookpaper_, scale);

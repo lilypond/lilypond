@@ -420,11 +420,11 @@ Paper_book::pages ()
   SCM all = lines ();
   SCM proc = paper->c_variable ("page-breaking");
   SCM pages = scm_apply_0 (proc, scm_list_n (all,
-					      self_scm (),
-					      scm_make_real (text_height),
-					      scm_make_real (-copy_height),
-					      scm_make_real (-tag_height),
-					      SCM_UNDEFINED));
+					     self_scm (),
+					     scm_make_real (text_height),
+					     scm_make_real (-copy_height),
+					     scm_make_real (-tag_height),
+					     SCM_UNDEFINED));
 
 
   SCM *page_tail = &pages_;

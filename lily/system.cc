@@ -339,7 +339,6 @@ System::get_line ()
   SCM exprs = SCM_EOL;
   SCM *tail = &exprs;
 
-  Real penalty = 0;
   for (int i = LAYER_COUNT; i--;)
     for (SCM s = all; ly_c_pair_p (s); s = ly_cdr (s))
       {
@@ -366,31 +365,10 @@ System::get_line ()
 	*tail = scm_cons (st.expr (), SCM_EOL);
 	tail = SCM_CDRLOC(*tail);
 	
-	/*
-	  UGH. back-end should extract this info from the System? 
-	 */
-	if (g->original_)
-	  {
-	    /*
-	      Huh ? penalties from all columns are added ??!! --hwn
-	     */
-	    if (Item *it = dynamic_cast <Item*> (g))
-	      {
-		Grob *col = it->get_column ();
-		SCM s = col->get_property ("page-penalty");
-		
-		// FIXME; page breaking is not discrete at +-10000
-		if (ly_c_number_p (s)) // && fabs (ly_scm2double (s)) < 10000)
-		  penalty += ly_scm2double (s);
-	      }
-	  }
       }
 
-  /*
-    TODO: fix user penalties.
-    
-    */
   
+
   Interval x (extent (this, X_AXIS));
   Interval y (extent (this, Y_AXIS));
   Stencil sys_stencil (Box (x,y),
@@ -399,6 +377,12 @@ System::get_line ()
   
   Paper_line *pl = new Paper_line (sys_stencil, false);
 
+
+
+  Item * break_point =this->get_bound(LEFT);
+  pl->penalty_ =
+    robust_scm2double (break_point->get_property ("page-penalty"), 0.0);
+  
   return scm_gc_unprotect_object (pl->self_scm ());
 }
 
