@@ -5,14 +5,15 @@
 ;; Author: 2001-2003: Heikki Junes
 ;;  * Emacs-mode: new keywords, reserved words, identifiers, notenames, 
 ;;    some dynamics and brackets are font-lock-keywords
-;;  * File lilypond.words gives keywords, identifiers and reserved words
+;;  * File lilypond.words contains \keywords, \Identifiers and 
+;;    ReservedWords notenames.
 ;;  * context-dependent syntax-tables
 ;; Author: 1997: Han-Wen Nienhuys
 ;; Author: 1995-1996 Barry A. Warsaw
 ;;         1992-1994 Tim Peters
 ;; Created:       Feb 1992
-;; Version:       1.7.25
-;; Last Modified: 20JUL2003
+;; Version:       1.9.7
+;; Last Modified: 18SEP2003
 ;; Keywords: lilypond languages music notation
 
 ;; This software is provided as-is, without express or implied
@@ -31,7 +32,10 @@
 (defconst LilyPond-font-lock-keywords
   (let* ((kwregex (mapconcat (lambda (x) (concat "\\" x))  LilyPond-keywords "\\|"))
 	 (iregex (mapconcat (lambda (x) (concat "\\" x))  LilyPond-identifiers "\\|"))
-	 (rwregex (mapconcat (lambda (x) (concat "" x))  LilyPond-reserved-words "\\|"))
+	 (ncrwregex (mapconcat (lambda (x) (concat "" x))  LilyPond-non-capitalized-reserved-words "\\|"))
+	 (rwregex (mapconcat (lambda (x) (concat "" x))  LilyPond-Capitalized-Reserved-Words "\\|"))
+	 (duration "\\([ \t]*\\(\\\\breve\\|128\\|6?4\\|3?2\\|16?\\|8\\)[.]*\\([ \t]*[*][ \t]*[0-9]+\\(/[1-9][0-9]*\\)?\\)?\\)") 
+	 (longduration "\\([ \t]*\\(\\\\\\(longa\\|breve\\|maxima\\)\\)[.]*\\([ \t]*[*][ \t]*[0-9]+\\(/[1-9][0-9]*\\)?\\)?\\)") 
 )
 
     (list 
@@ -64,8 +68,8 @@
 ;; ... keywords (defined above, see kwregex)
       (cons (concat "\\(\\([_^-]?\\(" kwregex "\\)\\)+\\)\\($\\|[] \t(~{}>\\\\_()^*-]\\)") '(1 font-lock-keyword-face))
 
-;; ... user defined identifiers \[a-zA-Z]+, but not \breve or \longa (durations)
-      '("\\([_^-]?\\\\\\([ac-km-zA-Z]\\|l[a-np-zA-Z]\\|b[a-qs-zA-Z]\\|lo[a-mo-zA-Z]\\|br[a-df-zA-Z]\\|lon[a-fh-zA-Z]\\|bre[a-uw-zA-Z]\\|long[b-zA-Z]\\|brev[a-df-zA-Z]\\|\\(longa\\|breve\\)[a-zA-Z]\\)[a-zA-Z]*\\)" 1 font-lock-constant-face)
+;; ... user defined identifiers \[a-zA-Z]+
+      '("\\([_^-]?\\\\\\([a-zA-Z][a-zA-Z]*\\)\\)" 1 font-lock-constant-face)
 
 ;; ... the left side of '=' -mark
       '("\\([_a-zA-Z.0-9-]+\\)[ \t]*=[ \t]*" 1 font-lock-variable-name-face)
@@ -76,10 +80,11 @@
 ;; ... reserved words (defined above, see rwregex)
       (cons (concat "\\(" rwregex "\\)") 'font-lock-variable-name-face)
 
-;; ... note or rest with (an accidental and) a duration (multiplied), e.g., b,?16.*3/4
-      '("\\(^\\|[ <\{[/~(!)\t\\\|]\\)\\(\\(\\(\\(bb\\|as[ae]s\\|eses\\|\\(do\\|re\\|[ms]i\\|[fl]a\\|sol\\)\\(bb?\\|dd?\\|ss?\\)?\\)\\|\\([a-h]\\(\\(flat\\)+\\|\\(sharp\\)+\\|is\\(siss\\|i?s\\)?\\|es\\(sess\\|e?s\\)?\\|ff?\\|ss?\\)?\\)\\)[,']*[?!]?\\|[srR]\\)\\([ \t]*\\(128\\|6?4\\|3?2\\|16?\\|8\\|\\\\\\(breve\\|longa\\)\\)[.]*\\([ \t]*[*][ \t]*[0-9]+\\(/[1-9][0-9]*\\)?\\)?\\)\\)" 2 font-lock-type-face)
-;; ... note or rest (with an accidental), e.g., b,? -- allows cis\longaX
-      '("\\(^\\|[ <\{[/~(!)\t\\\|]\\)\\(\\(\\(bb\\|as[ae]s\\|eses\\|\\(do\\|re\\|[ms]i\\|[fl]a\\|sol\\)\\(bb?\\|dd?\\|ss?\\)?\\)\\|\\([a-h]\\(\\(flat\\)+\\|\\(sharp\\)+\\|is\\(siss\\|i?s\\)?\\|es\\(sess\\|e?s\\)?\\|ff?\\|ss?\\)?\\)\\)[,']*[?!]?\\|[srR]\\)" 2 font-lock-type-face)
+;; ... note or rest with (an accidental and) a duration, e.g., b,?16.*3/4
+      (cons (concat "\\(^\\|[ <\{[/~(!)\t\\\|]\\)\\(\\(\\(" ncrwregex "\\)[,']*[?!]?\\|[srR]\\)" duration "?\\)") '(2 font-lock-type-face))
+
+;; "on top", ... notes and rests with a long duration
+      (cons (concat longduration) '(0 font-lock-type-face t))
 
 ;; "on top", ... lyrics-mode: fontify everything between '<'...'>' or '{'...'}'
 ;            URGH, does not know anything about inner brackets.
@@ -95,7 +100,7 @@
 ;; "on top", ... vertical grouping:
 ;;               - '<>'-chord brackets with '\\'-voice sep., not marcato '->'
 ;;               - '<< a b >>8' -chords
-      '("\\(\\(-.\\)+\\|[^-^_]\\)\\([<>]+\\(\\(128\\|6?4\\|3?2\\|16?\\|8\\|\\\\\\(breve\\|longa\\)\\)[.]*\\([ \t]*[*][ \t]*[0-9]+\\(/[1-9][0-9]*\\)?\\)?\\)?\\|\\\\\\\\\\)" 3 font-lock-function-name-face t)
+      (cons (concat "\\(\\(-.\\)+\\|[^-^_]\\)\\([<>]+\\(" duration "\\|" longduration "\\)?\\|\\\\\\\\\\)") '(3 font-lock-function-name-face t))
 
 ;; "on top", ... expressional grouping, also as postfix syntax '-*':
 ;;               - slurs ( ), \( \), [-^_][()]

@@ -1,3 +1,13 @@
+2003-09-18  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* buildscripts/lilypond.words.py: extract note names.
+
+	* lilypond-mode.el: take note names from lilypond.words -file.
+	small fix in the use of string-match.
+
+	* lilypond-font-lock.el: use lilypond.words for note names, add 
+	maxima to note a duration.
+
 2003-09-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	*  debian/rules: small corrections in the (Pedro K)

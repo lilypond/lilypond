@@ -74,6 +74,53 @@ for name in [
 	    outlines = outlines + [prekw + m.group(2)]
     F.close()
 
+# more identifiers
+for name in [
+'ly/declarations-init.ly',
+'ly/paper11-init.ly',
+'ly/paper13-init.ly',
+'ly/paper16-init.ly',
+'ly/paper19-init.ly',
+'ly/paper20-init.ly',
+'ly/paper23-init.ly',
+'ly/paper26-init.ly',
+'ly/paper-as5-init.ly',
+'ly/paper-as9-init.ly',
+'ly/paper-init.ly',
+'ly/params-init.ly',
+'ly/params-as-init.ly',
+]:
+    F = open(name, 'r')
+    for line in F.readlines():
+        m = re.search(r"^(\s*)([a-zA-Z]+)(\s*=)",line)
+        if m:
+	    outlines = outlines + [prekw + m.group(2)]
+    F.close()
+
+# note names
+for name in [
+'ly/catalan.ly',
+'ly/deutsch.ly',
+'ly/drumpitch-init.ly',
+'ly/english.ly',
+'ly/espanol.ly',
+'ly/italiano.ly',
+'ly/nederlands.ly',
+'ly/norsk.ly',
+'ly/suomi.ly',
+'ly/svenska.ly',
+]:
+    F = open(name, 'r')
+    for line in F.readlines():
+      	for pattern in [
+	r"^(\s*\()([a-z]+)([^l]+ly:make-pitch)",
+	]:
+	    m = re.search(pattern,line)
+	    if m:
+                print(m.group(2))
+	        outlines = outlines + ['' + m.group(2)]
+    F.close()
+    
 # reserved words
 for name in [
 'ly/engraver-init.ly',
