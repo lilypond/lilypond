@@ -51,7 +51,6 @@ private:
   SCM cursor_;
   Grace_fixup * grace_fixups_;
   
-  virtual void descend_to_child ();
 };
 
 #endif /* SEQUENTIAL_ITERATOR_HH */

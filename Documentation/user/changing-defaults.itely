@@ -256,7 +256,7 @@ Full description of all available contexts is in the program
 reference, see
 @ifhtml
 @internalsref{Contexts}
-@end ifhtml.
+@end ifhtml
 @ifnothtml 
 Translation @arrow{} Context.
 @end ifnothtml
@@ -328,21 +328,21 @@ Another possibility is funneling two different music expressions into
 one context. In the following example, articulations and notes are
 entered separately,
 
-@example
+@verbatim
 music = \notes { c4 c4 }
 arts = \notes  { s4-. s4-> }
-@end example
+@end verbatim
 
 They are combined by sending both to the same @context{Voice} context,
 
-@example
+@verbatim
   << \new Staff \context Voice = "A" \music
      \context Voice = "A" \arts
   >>
-@end example
+@end verbatim
 @lilypond[raggedright]
-music = \notes \context Voice = "one" { c4 c4 }
-arts = \notes \context Voice = "one"  { s4-. s4-> }
+music = \notes { c4 c4 }
+arts = \notes  { s4-. s4-> }
 \score {
   << \new Staff \context Voice = "A" \music
      \context Voice = "A" \arts
@@ -359,8 +359,8 @@ The third command for creating contexts is
 
 
 @noindent
-It is similar to @code{\context} with @code{= @var{id}}, but now it
-matches any context of type @var{type}, regardless of its given name.
+This is similar to @code{\context} with @code{= @var{id}}, but matches
+any context of type @var{type}, regardless of its given name.
 
 This variant is used with music expressions that can be interpreted at
 several levels. For example, the @code{\applyoutput} command (see
@@ -403,8 +403,8 @@ multi rests are condensed.  The value assigned is a Scheme object. In
 this case, it is @code{#t}, the boolean True value.
 
 If the @var{context} argument is left out, then the current
-bottom-most context (typically ChordNames, @context{Voice} or Lyrics) is used.
-In this example,
+bottom-most context (typically ChordNames, @context{Voice} or Lyrics)
+is used.  In this example,
 
 @lilypond[verbatim,relative=2]
   c8 c c c
@@ -414,11 +414,13 @@ In this example,
 
 @noindent
 the @var{context} argument to @code{\set} is left out, and the current
-@internalsref{Voice} is used.  Contexts are hierarchical, so if a
-bigger context was specified, for example @code{Staff}, then the
-change would apply to all Voices in the current stave. The change is
-applied `on-the-fly', during the music, so that the setting only
-affects the second group of eighth notes.
+@internalsref{Voice} is used.
+
+Contexts are hierarchical, so if a bigger context was specified, for
+example @code{Staff}, then the change would also apply to all
+@context{Voice}s in the current stave. The change is applied
+`on-the-fly', during the music, so that the setting only affects the
+second group of eighth notes.
 
 There is also an @code{\unset} command,
 @quotation
@@ -435,8 +437,8 @@ the definition if it is set in @var{context}. In
 @end example
 
 @noindent
-the current voice does not have the property, and the definition at
-staff level remains intact.
+the current @context{Voice} does not have the property, and the
+definition at @context{Staff} level remains intact.
 
 Settings that should only apply to a single time-step can be entered
 easily with @code{\once}, for example in
@@ -448,7 +450,8 @@ easily with @code{\once}, for example in
   c4
 @end lilypond
 
-@code{fontSize} is unset after the third note.
+the property @code{fontSize} is unset automatically after the third
+note.
 
 A full description of all available context properties is in the
 program reference, see
@@ -479,7 +482,7 @@ Program reference @arrow Translation @arrow{} Engravers.
 Every context described in
 @ifhtml
 @internalsref{Contexts}
-@end ifhtml.
+@end ifhtml
 @ifnothtml 
 Program reference @arrow Translation @arrow{} Context.
 @end ifnothtml
@@ -488,7 +491,7 @@ lists the engravers used for that context.
 
 It can be useful to shuffle around these plug-ins. This is done by
 starting a new context, with @code{\new} or @code{\context}, and
-modifying it like this, 
+modifying them like this, 
 
 @example
  \new @var{context} \with @{
@@ -510,17 +513,17 @@ example which removes @code{Time_signature_engraver} and
     f2 g
   }
   \new Staff \with {
-     \remove Time_signature_engraver
-     \remove Clef_engraver
+     \remove "Time_signature_engraver"
+     \remove "Clef_engraver"
   } {
     f2 g2
   }
 >>
-@end example
+@end lilypond
 
 In the second stave there are no time signature or clef symbols.  This
 is a rather crude method of making objects disappear, it will affect
-the entire staff. More sophisticated method is shown in TODO.
+the entire staff. More sophisticated methods are shown in (TODO).
 
 The next example shows a practical application.  Bar lines and time
 signatures are normally synchronized across the score.  This is done
@@ -534,16 +537,16 @@ have score where each staff has its own time signature.
 
 @lilypond[relative=1,raggedright,verbatim]
 \new Score \with {
-  \remove Timing_engraver
+  \remove "Timing_engraver"
 } <<
   \new Staff \with {
-    \consists Timing_engraver
+    \consists "Timing_engraver"
   } {
       \time 3/4
       c4 c c c c c
   }
   \new Staff \with {
-    \consists Timing_engraver {
+    \consists "Timing_engraver"
   } {
        \time 2/4
        c4 c c c c c
@@ -779,7 +782,6 @@ Adding variables on top of this existing definition overrides the
 system default, and alters the resulting appearance of the layout
 object.
 
-@syntax
 
 
 Changing a variable for only one object is commonly achieved with
@@ -1652,8 +1654,6 @@ reliably choose page breaks in longer pieces.
 @section Interpretation context
 
 @menu
-* Creating contexts::           
-* Default contexts::            
 * Context properties::          
 * Defining contexts::           
 * Changing contexts locally::   
@@ -1691,89 +1691,6 @@ performance contexts can be found in @file{ly/engraver-init.ly} and
 @file{ly/performer-init.ly}, respectively.
 
 
-@node Creating contexts
-@subsection Creating contexts
-@cindex @code{\context}
-@cindex context selection
-
-Contexts for a music expression can be selected manually, using one of
-the following music expressions:
-
-@example
-\new @var{contexttype} @var{musicexpr}
-\context @var{contexttype} [= @var{contextname}] @var{musicexpr}
-@end example
-
-@noindent
-This means that @var{musicexpr} should be interpreted within a context
-of type @var{contexttype} (with name @var{contextname} if specified).
-If no such context exists, it will be created:
-
-@lilypond[verbatim,raggedright]
-\score {
-  \notes \relative c'' {
-    c4 <<d4 \context Staff = "another" e4>> f
-  }
-}
-@end lilypond
-
-@noindent
-In this example, the @code{c} and @code{d} are printed on the default
-staff.  For the @code{e}, a context @code{Staff} called @code{another}
-is specified; since that does not exist, a new context is created.
-Within @code{another}, a (default) Voice context is created for the
-@code{e4}.  A context is ended when when all music referring it has
-finished, so after the third quarter, @code{another} is removed.
-
-The @code{\new} construction creates a context with a
-generated, unique @var{contextname}. An expression with
-@code{\new} always leads to a new context. This is convenient
-for creating multiple staves, multiple lyric lines, etc.
-
-When using automatic staff changes, automatic phrasing, etc., the
-context names have special meanings, so @code{\new} cannot be
-used.
-
-
-@node Default contexts
-@subsection Default contexts
-
-Every top level music is interpreted by the @code{Score} context; in
-other words, you may think of @code{\score} working like
-
-@example
-\score @{
-  \context Score @var{music}
-@}
-@end example
-
-Music expressions  inherit their context from the enclosing music
-expression. Hence, it is not necessary to explicitly specify
-@code{\context} for most expressions.  In
-the following example, only the sequential expression has an explicit
-context. The notes contained therein inherit the @code{goUp} context
-from the enclosing music expression.
-
-@lilypond[verbatim,raggedright]
-  \notes \context Voice = goUp { c'4 d' e' }
-@end lilypond
-
-
-Second, contexts are created automatically to be able to interpret the
-music expressions.  Consider the following example:
-
-@lilypond[verbatim,raggedright]
-  \score { \notes { c'4-( d' e'-) } }
-@end lilypond
-
-@noindent
-The sequential music is interpreted by the Score context initially,
-but when a note is encountered, contexts are setup to accept that
-note.  In this case, a @code{Voice}, and @code{Staff}
-context are created.  The rest of the sequential music is also
-interpreted with the same @code{Voice}, and
-@code{Staff} context, putting the notes on the same staff, in the same
-voice.
 
 @node Context properties
 @subsection Context properties

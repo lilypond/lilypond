@@ -160,7 +160,6 @@ internals document,  @internalsref{\NAME\}
 
 @end macro
 
-@ifhtml
 @macro context{NAME}
 @code{NAME}@c should use internalsref
 @cindex \NAME\@c

@@ -7289,11 +7289,8 @@ accurately.  Use @code{<g a>8 <e a>8} instead.
 
 
 Contemporary music notation frequently uses special fermata symbols to
-indicate fermatas of differing lengths.
-
-@syntax
-
-The following are supported
+indicate fermatas of differing lengths.  The following fermatas are
+supported
 
 @lilypond[raggedright]
 \score {
