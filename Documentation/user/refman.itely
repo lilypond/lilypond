@@ -9,7 +9,7 @@
 
 @macro refbugs
 @strong{BUGS}
-g@end macro
+@end macro
 
 
 @c .{Reference Manual}
