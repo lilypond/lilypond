@@ -35,17 +35,5 @@ Event::Event (SCM i)
 
 ADD_MUSIC (Event);
 
-Key_change_ev::Key_change_ev (SCM x)
-  : Event (x)
-{
-}
-void
-Key_change_ev::transpose (Pitch p)
-{
-  SCM pa = get_property ("pitch-alist");
-  set_property ("pitch-alist", ly_transpose_key_alist (pa, p.smobbed_copy ()));
 
-  Event::transpose (p);
-}
 
-ADD_MUSIC (Key_change_ev);

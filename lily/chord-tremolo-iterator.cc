@@ -21,9 +21,10 @@
 void
 Chord_tremolo_iterator::construct_children ()
 {
-  Repeated_music * rep = dynamic_cast<Repeated_music*> (get_music ());
+  Music *m = get_music();
+  
   factor_  = Moment (Rational (1, 1));
-  child_iter_ = unsmob_iterator (get_iterator (rep->body ()));
+  child_iter_ = unsmob_iterator (get_iterator (Repeated_music::body (m)));
 }
 
 Chord_tremolo_iterator::Chord_tremolo_iterator ()

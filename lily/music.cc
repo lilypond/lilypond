@@ -157,15 +157,8 @@ Music::print_smob (SCM s, SCM p, scm_print_state*)
 }
 
 Pitch
-Music::to_relative_octave (Pitch last)
+Music::generic_to_relative_octave (Pitch last)
 {
-  SCM callback = get_property ("to-relative-callback");
-  if (ly_c_procedure_p (callback))
-    {
-      Pitch * p = unsmob_pitch (scm_call_2 (callback, self_scm(), last.smobbed_copy ()));
-      return *p;
-    }
-
   SCM elt = get_property ("element");
   Pitch *old_pit = unsmob_pitch (get_property ("pitch"));
   if (old_pit)
@@ -191,12 +184,24 @@ Music::to_relative_octave (Pitch last)
       last = new_pit;
     }
 
-  
   if (Music *m = unsmob_music (elt))
     last = m->to_relative_octave (last);
 
   last = music_list_to_relative (get_property ("elements"), last, false);
   return last;
+}
+
+Pitch
+Music::to_relative_octave (Pitch last)
+{
+  SCM callback = get_property ("to-relative-callback");
+  if (ly_c_procedure_p (callback))
+    {
+      Pitch * p = unsmob_pitch (scm_call_2 (callback, self_scm(), last.smobbed_copy ()));
+      return *p;
+    }
+
+  return generic_to_relative_octave (last);
 }
 
 void
@@ -243,6 +248,16 @@ Music::transpose (Pitch delta)
     m->transpose (delta);
 
   transpose_music_list (get_property ("elements"), delta);
+
+  /*
+    UGH - how do this more generically? 
+  */
+  SCM pa = get_property ("pitch-alist");
+  if (scm_is_pair (pa))
+    {
+      set_property ("pitch-alist", ly_transpose_key_alist (pa, delta.smobbed_copy ()));
+    }
+
 }
 
 IMPLEMENT_TYPE_P (Music, "ly:music?");

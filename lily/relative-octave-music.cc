@@ -38,7 +38,7 @@ Relative_octave_music::relative_callback (SCM music, SCM pitch)
       lily_1_8_compatibility_used = true;
       /*  last-pitch should be junked some time, when
 	  we ditch 1.8 compat too.
-cvs-
+
 	 When you do, B should start where A left off.
 
 	\relative { A \relative { ...} B }  */
