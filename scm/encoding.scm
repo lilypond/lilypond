@@ -8,12 +8,7 @@
 ;; cp /usr/share/texmf/dvips/base/*.enc mf/out
 ;; cp /usr/share/texmf/dvips/tetex/*.enc mf/out
 ;; encoding.ly:
-;;#(display (reencode-string "T1" "T1" "hellö"))
-;;#(format (current-error-port) "a:~S\n"
-;;  (encoded-index "TeX text" "TeX text" 65))
-;;
-;;#(format (current-error-port) "b:~S\n"
-;;  (encoded-index "TeX text" "TeX extended ASCII" 176))
+;; #(display (reencode-string "adobe" "latin1" "hellö fóebär"))
 ;;
 
 (define coding-file-alist
@@ -29,6 +24,9 @@
     
     ("T1" . "tex256.enc")
 
+    ;; for testing -- almost adome
+    ("adobe" . "ad.enc")
+    ("latin1" . "cork.enc")
     
     ;; LilyPond.
     ("feta braces" . "feta-braces0.enc")
@@ -70,7 +68,7 @@
   (let* ((font (get-coding-table font-coding))
 	 (in (get-coding-vector input-coding))
 	 (char (vector-ref in code)))
-    (format (current-error-port) "CHAR: ~S\ng" char)
+    (format (current-error-port) "CHAR: ~S\n" char)
     (hash-ref font char)))
 
 (define-public (reencode-string font-coding input-coding s)
@@ -78,5 +76,6 @@
   (list->string
    (map integer->char 
 	(map (lambda (x) (encoded-index font-coding input-coding x))
-	     (map char->integer (string->list s))))))
+	     ;;(map char->integer (string->list s))))))
+	     (map char->integer (plain-string->list s))))))
 
