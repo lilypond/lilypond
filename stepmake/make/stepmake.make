@@ -32,7 +32,7 @@ else
     configuration=$(depth)/config$(CONFIGSUFFIX).make
   else
     # user package
-    # configuration=$(depth)/$(builddir)/config$(CONFIGSUFFIX).make
+    configuration=$(depth)/$(builddir)/config$(CONFIGSUFFIX).make
     # stepmake package
     configuration=$(depth)/../$(builddir)/stepmake/config$(CONFIGSUFFIX).make
   endif
@@ -41,7 +41,7 @@ endif
 include $(configuration)
 
 ifeq ($(builddir),.)
-  outroot=.
+  outroot=$(builddir)
 else
   outroot=$(depth)/$(builddir)/$(patsubst $(shell cd $(depth); pwd)%,%,$(shell cd .; pwd))
 endif

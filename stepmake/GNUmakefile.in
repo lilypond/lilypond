@@ -1,0 +1,54 @@
+# -*-Makefile-*-
+# title	 specific top level makefile for StepMake
+
+# subdir level:
+#
+depth = .
+#
+
+# descent order into subdirectories:
+#
+ifeq ($(PACKAGE),STEPMAKE)
+SUBDIRS = bin make stepmake 
+else
+SUBDIRS =
+endif
+#
+
+# list of distribution files:
+#
+SCRIPTS = configure aclocal.m4
+README_FILES = CHANGES README TODO
+README_TXT_FILES = AUTHORS.txt INSTALL.txt
+EXTRA_DIST_FILES = $(IN_FILES) VERSION $(README_FILES)  $(SCRIPTS) INSTALL.texi
+NON_ESSENTIAL_DIST_FILES = $(README_TXT_FILES)
+#
+
+# bootstrap stepmake:
+#
+STEPMAKE_TEMPLATES=toplevel texinfo
+include $(depth)/make/stepmake.make 
+#
+
+# descent order into subdirectories:
+#
+ifeq ($(PACKAGE),STEPMAKE)
+SUBDIRS = bin make stepmake 
+else
+SUBDIRS =
+endif
+#
+
+#urg urg
+stepmake/aclocal.m4:
+	-$(LN) aclocal.m4 $@
+
+ifeq ($(PACKAGE),STEPMAKE)
+INSTALLATION_DIR=$(datadir)
+INSTALLATION_FILES=$(DIST_FILES) $(NON_ESSENTIAL_DIST_FILES) GNUmakefile config.make config.status
+include $(stepdir)/install-targets.make
+endif
+
+localclean:
+	rm -f bin/*.pyc
+	rm -f stepmake/stepmake stepmake/bin stepmake/aclocal.m4

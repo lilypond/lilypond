@@ -35,7 +35,7 @@ config = config$(CONFIGSUFFIX).make
 
 include $(config)
 
-SRCDIR=$(MAKE) -C $(srcdir) builddir=$(builddir) $@
+SRCDIR=$(MAKE) -C $(srcdir) -f GNUmakefile.in builddir=$(builddir) $@
 
 default: all
 

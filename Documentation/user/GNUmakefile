@@ -3,7 +3,6 @@
 depth=../..
 
 
-
 LATEX_FILES =$(wildcard *.latex)
 
 
