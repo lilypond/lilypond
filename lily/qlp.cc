@@ -7,10 +7,7 @@
 */
 
 #include "debug.hh"
-#include "const.hh"
 #include "qlp.hh"
-#include "choleski.hh"
-
 
 void
 Mixed_qp::add_equality_cons(Vector , double )
