@@ -10,7 +10,7 @@ void
 Directional_spanner::do_pre_processing()
 {
   if (!dir_)
-	set_default_dir();
+    set_default_dir();
 }
 
 Directional_spanner::Directional_spanner()
