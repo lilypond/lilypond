@@ -10,33 +10,22 @@
 #include "proto.hh"
 #include "varray.hh"
 #include "request.hh"
-#include "staffeleminfo.hh"
-
+#include "staff-elem-info.hh"
 
 /**
   a struct which processes requests, and creates the #Staff_elem#s.
-   Hungarian postfix: reg
+  It may use derived classes. Hungarian postfix: register
   */
 class Request_register {
+    friend class Register_group_register;
     /**
-      Warning: you can't copy a #Request_register#
-      */
-    Request_register(Request_register const &);
-public:
-    Complex_walker * walk_l_;
-    Array<Request*> accepted_req_arr_;
-    
-    Request_register(Complex_walker*);
-    Request_register();
-    virtual ~Request_register(){}
+      You cannot copy a Request_register
+     */
+    Request_register(const Request_register&){}
+protected:
 
-    /**
-      take note of item/spanner
-      put item in spanner. Adjust local key; etc.
-
-      Default: ignore the info
-      */
-    virtual void acknowledge_element(Staff_elem_info){}
+    /// utility
+    virtual Paper_def * paper() const;
 
     /**
       try to fit the request in this register
@@ -46,48 +35,71 @@ public:
 
       true: request swallowed. Don't try to put the request elsewhere.
 
-      (may be we could use C++ exceptions.. :-)
 
-      #Request_register::try_request# always returns false
+      Default: always return false
       */
     virtual bool try_request(Request *req_l);
     
     /// make items/spanners with the requests you got
-    virtual void process_request(){}
+    virtual void process_requests(){}
 
-    /// typeset any spanners. Empty #accepted_req_arr_#
-    void pre_move_processing();
-    /// reset any appropriate data.
-    void post_move_processing();
-    virtual bool acceptable_request_b(Request*) const;    
-    virtual void set_dir(int){}
-protected:
-    /// utility
-    Paperdef * paper() const;
-
-
-     /**
-      invoke walker method to typeset element
-      */
-    void typeset_element(Staff_elem*elem_p);
-
+    /** typeset any items/spanners. Default: do nothing
+     */
+    virtual void pre_move_processing(){}
+    /** reset any appropriate data. Default: do nothing
+     */
+    virtual void post_move_processing(){}
+   
+    /**
+      Is this request eligible to be processed? Default: return false.
+     */
+    virtual bool acceptable_request_b(Request*) const;
 
     /**
-      typeset a "command" item.
+      typeset a "command" item. Default: pass on to daddy.
       If the column is not breakable, #pre_p# and #post_p# are junked
       */
-    void typeset_breakable_item(Item * pre_p , Item * nobreak_p, Item * post_p);
-    /** virtual, called by #pre_move_processing()#
-      #Request_register::do_pre_move_process()# defaults to NOP
-      */
-    virtual void do_pre_move_process(){}
-    /** virtual, called by #post_move_processing#,
-      #Request_register::do_post_move_process()# defaults to NOP */
-    virtual void do_post_move_process(){}
+    virtual void typeset_breakable_item(Item * pre_p ,
+					Item * nobreak_p, Item * post_p);
     /**
-      Announce element to walker. Utility
+      Invoke walker method to typeset element. Default: pass on to daddy.
       */
-    void announce_element(Staff_elem_info);
+    virtual void typeset_element(Staff_elem*elem_p);
+    
+     /**
+      take note of item/spanner
+      put item in spanner. Adjust local key; etc.
+
+      Default: ignore the info
+      */
+    virtual void acknowledge_element(Staff_elem_info) {}
+    /**
+      Announce element. Default: pass on to daddy. Utility
+      */
+    virtual void announce_element(Staff_elem_info);
+    /**
+      Set features of the register(s). Default: ignore features.
+     */
+    virtual void set_feature(Features){}
+    /**
+      Does this equal or contain a certain register?
+     */
+    virtual bool contains_b(Request_register*reg_l);
+    /**
+      Get information on the staff. Default: ask daddy.
+      */
+    virtual Staff_info get_staff_info();
+    
+    virtual void do_print()const;  
+public:
+    /** Every Request_register (except for the 'top' which is directly
+      inside the Staff_walker, is a element of a group.  */
+    Register_group_register * daddy_reg_l_;
+
+    Request_register();
+    virtual ~Request_register(){}
+    NAME_MEMBERS(Request_register);
+    void print() const;
 };
 
 
