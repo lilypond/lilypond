@@ -83,7 +83,6 @@ Global_translator::finish ()
 void
 Global_translator::run_iterator_on_me (Music_iterator * iter)
 {
-
   while (iter->ok () || moments_left_i ())
     {
       Moment w;

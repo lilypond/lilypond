@@ -109,16 +109,6 @@ Mark_engraver::create_items (Request *rq)
 
   Side_position::set_axis (text_p_, Y_AXIS);
 
-  /*
-    -> Generic props.
-   */
-  SCM prop = get_property ("markDirection");
-  if (!isdir_b (prop))
-    {
-      prop = gh_int2scm (UP);
-    }
-  text_p_->set_elt_property ("direction", prop);
-  
   announce_element (text_p_, rq);
 }
 

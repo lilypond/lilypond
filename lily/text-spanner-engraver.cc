@@ -75,7 +75,7 @@ Text_spanner_engraver::do_try_music (Music *m)
 	}
       else if (s->span_type_str_ == "text")
 	{
-	  req_drul_[s->span_dir_] = s;
+	  req_drul_[s->get_span_dir()] = s;
 	  return true;
 	}
     }

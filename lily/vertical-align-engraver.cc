@@ -42,18 +42,6 @@ Vertical_align_engraver::do_creation_processing()
 void
 Vertical_align_engraver::do_removal_processing()
 {
-  SCM min = get_property ("maxVerticalAlign");
-  SCM max = get_property ("minVerticalAlign");
-
-  if (gh_number_p (min) || gh_number_p (max))
-    {
-      min = gh_number_p (min) ? min : gh_double2scm (0.0);
-      max = gh_number_p (max) ? max : gh_double2scm (infinity_f);    
-    
-      valign_p_->set_elt_property ("threshold",
-				   gh_cons (min,max));
-    }
-  
   valign_p_->set_bound(RIGHT,unsmob_element (get_property ("currentCommandColumn")));
   typeset_element (valign_p_);
   valign_p_ =0;

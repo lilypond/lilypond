@@ -1,9 +1,9 @@
 Name: lilypond
-Version: 1.3.102
+Version: 1.3.103
 Release: 1
 License: GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.3.102.tar.gz
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.3.103.tar.gz
 Summary: A program for printing sheet music.
 URL: http://www.cs.uu.nl/~hanwen/lilypond
 # Icon: lilypond-icon.gif
@@ -94,6 +94,7 @@ fi
 %files
 # hairy to hook it in (possibly non-existing) emacs
 %doc lilypond-mode.el
+%doc lilypond-font-lock.el
 
 %ifnos cygwin
 %{_prefix}/bin/abc2ly

@@ -51,3 +51,19 @@ Script_req::get_direction () const
 }
 
 
+Direction
+Span_req::get_span_dir () const
+{
+  SCM d = get_mus_property ("span-direction");
+
+  return (isdir_b (d)) ?  to_dir (d) : CENTER;
+}
+
+void
+Span_req::set_span_dir (Direction d)
+{
+  set_mus_property ("span-direction", gh_int2scm (d));
+}
+
+
+

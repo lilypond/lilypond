@@ -55,7 +55,7 @@ void
 Hyphen_engraver::acknowledge_element (Score_element_info i)
 {
   // -> text-item
-  if (i.elem_l_->has_interface (ly_symbol2scm ("text-item-interface")))
+  if (i.elem_l_->has_interface (ly_symbol2scm ("lyric-syllable-interface")))
     {
       current_lyric_l_ = i.elem_l_;
       if (hyphen_p_

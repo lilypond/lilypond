@@ -23,8 +23,9 @@
 #include "moment.hh"
 
 static Keyword_ent the_key_tab[]={
-  {"autochange", AUTOCHANGE},
+  {"apply", APPLY},
   {"arpeggio", ARPEGGIO },
+  {"autochange", AUTOCHANGE},
   {"spanrequest", SPANREQUEST},
   {"commandspanrequest", COMMANDSPANREQUEST},  
   {"simultaneous", SIMULTANEOUS},

@@ -30,8 +30,6 @@ Melodic_req::transpose (Musical_pitch delta)
     }
 }
 
-
-
 bool
 Melodic_req::do_equal_b (Request const* r) const
 {
@@ -44,10 +42,6 @@ Melodic_req::compare (Melodic_req const &m1 , Melodic_req const&m2)
 {
   return Musical_pitch::compare (m1.pitch_, m2.pitch_);
 }
-
-
-
-
 
 int
 Rhythmic_req::compare (Rhythmic_req const &r1, Rhythmic_req const &r2)
@@ -101,12 +95,11 @@ bool
 Span_req::do_equal_b (Request const*r) const
 {
   Span_req const* s = dynamic_cast <Span_req const*> (r);
-  return s && span_dir_ == s->span_dir_;
+  return s && get_span_dir () == s->get_span_dir ();
 }
 
 Span_req::Span_req ()
 {
-  span_dir_ = CENTER;
 }
 
 

@@ -31,6 +31,7 @@
 
   - create dots if appropriate.
 
+  - create  TremoloBeam iso Beam?
  */
 
 class Chord_tremolo_engraver : public Engraver

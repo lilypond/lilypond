@@ -16,7 +16,7 @@
 (defconst LilyPond-version "1.3.103"
   "`LilyPond-mode' version number.")
 
-(defconst LilyPond-help-address "help-gnu-music@gnu.org"
+(defconst LilyPond-help-address "bug-gnu-music@gnu.org"
   "Address accepting submission of bug reports.")
 
 (defvar LilyPond-mode-hook nil

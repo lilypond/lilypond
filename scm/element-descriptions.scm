@@ -84,7 +84,7 @@
 	   (meta . ,(element-description "Clef" clef-interface font-interface break-aligned-interface ))
 	))
 
-	(ChordNames . (
+	(ChordName . (
 		(molecule-callback . ,Chord_name::brew_molecule)
 		(after-line-breaking-callback . ,Chord_name::after_line_breaking)
 		(chord-name-function . ,default-chord-name-function)
@@ -242,7 +242,8 @@
 	))
 	
 	(RehearsalMark . (
-		(molecule-callback . ,Text_item::brew_molecule)	
+		(molecule-callback . ,Text_item::brew_molecule)
+		(direction . 1)
 		(breakable . #t)
 		(font-family . number)
 		(font-relative-size . 1)

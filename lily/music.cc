@@ -181,3 +181,55 @@ Music::~Music ()
 {
   
 }
+
+SCM
+ly_get_mus_property (SCM mus, SCM sym)
+{
+  Music * sc = unsmob_music (mus);
+  
+  if (sc)
+    {
+      return sc->get_mus_property (sym);
+    }
+  else
+    {
+      warning (_("ly_get_mus_property (): Not a Music"));
+      scm_write (mus, scm_current_error_port ());
+    }
+  return SCM_EOL;
+}
+
+
+SCM
+ly_set_mus_property (SCM mus, SCM sym, SCM val)
+{
+  Music * sc = unsmob_music (mus);
+
+  if (!gh_symbol_p (sym))
+    {
+      warning (_("ly_set_mus_property (): Not a symbol"));
+      scm_write (mus, scm_current_error_port ());      
+
+      return SCM_UNSPECIFIED;
+    }
+
+  if (sc)
+    {
+      sc->set_mus_property (sym, val);
+    }
+  else
+    {
+      warning (_("ly_set_mus_property ():  not of type Music"));
+      scm_write (mus, scm_current_error_port ());
+    }
+
+  return SCM_UNSPECIFIED;
+}
+
+static void
+init_functions ()
+{
+  scm_make_gsubr ("ly-get-mus-property", 2, 0, 0, (Scheme_function_unknown)ly_get_mus_property);
+  scm_make_gsubr ("ly-set-mus-property", 3, 0, 0, (Scheme_function_unknown)ly_set_mus_property);
+}
+ADD_SCM_INIT_FUNC(musicscm,init_functions);

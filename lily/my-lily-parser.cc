@@ -22,7 +22,7 @@ My_lily_parser::My_lily_parser (Sources * source_l)
   default_duration_.durlog_i_ = 2;
   error_level_i_ = 0;
 
-  fatal_error_i_ = 0;
+
   default_header_p_ =0;
 }
 
@@ -77,8 +77,6 @@ void
 My_lily_parser::parser_error (String s)
 {
   here_input().error (s);
-  if (fatal_error_i_)
-    exit (fatal_error_i_);
   error_level_i_ = 1;
   exit_status_i_ = 1;
 }
@@ -124,7 +122,7 @@ My_lily_parser::paper_description ()
   for (SCM s = al ; gh_pair_p (s); s = gh_cdr (s))
     {
       Translator_def * td = unsmob_translator_def (gh_cdar (s));
-      l = gh_cons (td->to_alist (),  l);
+      l = gh_cons (gh_cons (gh_caar (s), td->to_alist ()),  l);
     }
   return l;  
 }

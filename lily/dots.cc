@@ -43,11 +43,6 @@ SCM
 Dots::brew_molecule (SCM d)
 {
   Score_element *sc = unsmob_element (d);
-  /*
-    Molecule mol (Lookup::blank (Box (Interval (0,0),
-				    Interval (0,0))));
-  */
-
   Molecule mol;
   
   SCM c = sc->get_elt_property ("dot-count");
@@ -56,8 +51,14 @@ Dots::brew_molecule (SCM d)
     {
       Molecule d = Font_interface::get_default_font (sc)->find_by_name (String ("dots-dot"));
       Real dw = d.extent (X_AXIS).length ();
-      //      d.translate_axis (-dw, X_AXIS);
+      
 
+      /*
+	we need to add a real blank box, to assure that
+	side-positioning doth not cancel the left-most padding.  */
+      mol = Lookup::blank (Box (Interval (0,0),
+				Interval (0,0)));
+  
       for (int i = gh_scm2int (c); i--; )
 	{
 	  d.translate_axis (2*dw,X_AXIS);

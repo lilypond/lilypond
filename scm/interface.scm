@@ -13,6 +13,7 @@
 	)
   )
 
+(define (boolean-or-symbol? x) (or boolean? x) (or symbol? x))
 
 (define (uniqued-alist  alist acc)
   (if (null? alist) acc
@@ -127,7 +128,12 @@ more than this (in staffspace)")
    (list
     (elt-property-description 'horizontal-shift integer? "integer that identifies ranking of note-column for horizontal shifting.")
     (elt-property-description 'force-hshift number? "amount of collision_note_width that overides automatic collision settings.")
-    (elt-property-description 'merge-differently-dotted boolean? "merge black noteheads with differing dot count in collisions.")
+    (elt-property-description 'merge-differently-dotted boolean? "merge black noteheads with differing dot count in collisions.
+<p>
+Merge noteheads in collisions, even if they have a different number of
+dots. This normal notation for polyphonic guitar music.
+
+")
     ))
   )
 
@@ -282,6 +288,14 @@ This procedure is called (using dependency resolution) after line breaking. Retu
     (elt-property-description 'columns list? " list of note-columns.")
     (elt-property-description 'number-gap number? "")
     (elt-property-description 'delta-y number? "amount of ascension")
+    (elt-property-description 'tuplet-bracket-visibility boolean-or-symbol? "
+This controls the visibility of the tuplet bracket.
+Setting it to false will prevent printing of the
+bracket. Setting the property to #'if-no-beam will make it
+print only if there is no beam associated with this tuplet bracket.")
+    (elt-property-description 'tuplet-number-visibility boolean-or-symbol? "
+Like <code>tuplet-bracket-visibility</code>, but for the number.")
+    (elt-property-description 'parallel-beam boolean? "internal: true if there is a beam just as wide as the bracket ")
     (elt-property-description 'thick number? "thickness, in stafflinethickness")
     )
 ))

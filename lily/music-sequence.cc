@@ -14,7 +14,7 @@
 void
 Music_sequence::truncate (int k)
 {
-  SCM l = get_mus_property ("list");
+  SCM l = get_mus_property ("elements");
   if (k == 0)
     {
       l = SCM_EOL;
@@ -31,13 +31,13 @@ Music_sequence::truncate (int k)
 	  gh_set_cdr_x (s, SCM_EOL);
 	}
     }
-  set_mus_property ("list", l);
+  set_mus_property ("elements", l);
 }
 
 SCM
 Music_sequence::music_list ()const
 {
-  return get_mus_property ("list");
+  return get_mus_property ("elements");
 }
 
 /*
@@ -46,14 +46,14 @@ Music_sequence::music_list ()const
 void
 Music_sequence::append_music (Music *m)
 {
-  set_mus_property ("list",
+  set_mus_property ("elements",
 		    gh_append2( music_list(), gh_cons (m->self_scm (), SCM_EOL)));
   scm_unprotect_object (m->self_scm ());
 }
 
 Music_sequence::Music_sequence(SCM h)
 {
-  set_mus_property ("list", h);
+  set_mus_property ("elements", h);
 }
 
 void

@@ -127,6 +127,7 @@ yylex (YYSTYPE *s,  void * v_l)
 
 /* tokens which are not keywords */
 %token AUTOCHANGE
+%token APPLY
 %token ARPEGGIO
 %token DYNAMICSCRIPT
 %token TEXTSCRIPT
@@ -772,6 +773,15 @@ Composite_music:
 		$$ = new Transposed_music ($3, *$2);
 		delete $2; // ugh
 	}
+	| APPLY embedded_scm Music  {
+		SCM ret = gh_call1 ($2, $3->self_scm ());
+		Music *m = unsmob_music (ret);
+		if (!m) {
+			THIS->parser_error ("\\apply must return a Music");
+			m = new Music ();
+			}
+		$$ = m;
+	}
 	| NOTES
 		{ THIS->lexer_p_->push_note_state (); }
 	Music
@@ -935,13 +945,13 @@ shorthand_command_req:
 	}
 	| '['		{
 		Span_req*b= new Span_req;
-		b->span_dir_ = START;
+		b->set_span_dir(START);
 		b->span_type_str_ = "beam";
 		$$ =b;
 	}
 	| ']'		{
 	     Span_req*b= new Span_req;
-	     b->span_dir_ = STOP;
+	     b->set_span_dir( STOP);
 	     b->span_type_str_ = "beam";
 	     $$ = b;
 	}
@@ -958,7 +968,7 @@ verbose_command_req:
 	}
 	| COMMANDSPANREQUEST bare_int STRING {
 		Span_req * sp_p = new Span_req;
-		sp_p-> span_dir_  = Direction($2);
+		sp_p-> set_span_dir ( Direction($2));
 		sp_p->span_type_str_ = ly_scm2string ($3);
 		sp_p->set_spot (THIS->here_input ());
 		$$ = sp_p;
@@ -1080,7 +1090,7 @@ verbose_request:
 	}
 	| SPANREQUEST bare_int STRING {
 		Span_req * sp_p = new Span_req;
-		sp_p->span_dir_  = Direction($2);
+		sp_p->set_span_dir( Direction($2));
 		sp_p->span_type_str_ = ly_scm2string ($3);
 		sp_p->set_spot (THIS->here_input ());
 		$$ = sp_p;
@@ -1196,7 +1206,7 @@ hyphen_req:
 close_request:
 	close_request_parens {
 		$$ = $1;
-		dynamic_cast<Span_req*> ($$)->span_dir_ = START;
+		dynamic_cast<Span_req*> ($$)->set_span_dir ( START);
 	}
 	
 close_request_parens:
@@ -1221,7 +1231,7 @@ close_request_parens:
 open_request:
 	open_request_parens {
 		$$ = $1;
-		dynamic_cast<Span_req*> ($$)->span_dir_ = STOP;
+		dynamic_cast<Span_req*> ($$)->set_span_dir ( STOP);
 	}
 	;
 
@@ -1416,8 +1426,8 @@ simple_element:
 
 		Span_req *sp1 = new Span_req;
 		Span_req *sp2 = new Span_req;
-		sp1-> span_dir_ = START;
-		sp2-> span_dir_ = STOP;
+		sp1-> set_span_dir ( START);
+		sp2-> set_span_dir ( STOP);
 		sp1->span_type_str_ = sp2->span_type_str_ = "rest";
 
 		Request_chord * rqc1 = new Request_chord (gh_list (sp1->self_scm (), SCM_UNDEFINED));

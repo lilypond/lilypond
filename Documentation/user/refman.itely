@@ -141,18 +141,10 @@ internal use.  The following commands access the interpreter
 directly.
 
 @example
-  \scm @keyindex{scm} @var{scheme} ;
+  #@var{scheme}
 @end example
 
 Evaluates the specified Scheme code.  The result is discarded.
-
-@example
-\scmfile@keyindex{scmfile} @var{filename};
-@end example
-
-Reads Scheme code from the specified file.  The result is discarded.
-
-
 
 Identifier assignments may appear at top level.  Semicolons are
 forbidden after top level assignments.
@@ -181,6 +173,8 @@ They cannot be nested.
 
 Keywords start with a backslash, followed by a number of lower case
 alphabetic characters.  These are all the keywords.
+
+[FIXME]
 
 @example
   \accepts
@@ -1040,24 +1034,23 @@ Beaming can be generated automatically; see section XREF-autobeam [FIXME].
 
 [OUTDATED, FIXME]
 
-To place tremolo marks 
+To place tremolo marks between notes, use @code{\repeat} with tremolo
+style.
 @cindex tremolo beams
- between two notes, begin
-with `@code{[:}@var{length}' and end with `@code{]}'.  Tremolo marks
-will appear instead of beams.  Putting more than two notes in such a
-construction will produce odd effects.  To create tremolo beams on a
-single note, simply attach `@code{:}@var{length}' to the note itself
-(see also section XREF-tremolo [FIXME]).
+  To create tremolo beams on a single note, simply attach
+`@code{:}@var{length}' to the note itself (see also section
+XREF-tremolo [FIXME]).
   
-@ignore
-@mu dela[fragment,verbatim,center]
-  [:16 e'1 g'] [:8 e'4 f']
+
+@mudela[fragment,verbatim,center]
+  \repeat "tremolo" 8 { c16 d16 }
+  \repeat "tremolo" 4 { c16 d16 }    
 @end mudela
-  
-@mud ela[fragment,verbatim,center]
-  c'4:32 [:16 c'8 d'8]
+
+@mudela[fragment,verbatim,center]
+  c'4:32
 @end mudela
-@end ignore
+
 
 @cindex --@@@code{-}@code{-}
 
@@ -2246,85 +2239,6 @@ These are the contexts supplied with the package.  They are defined
 in the initialization file @file{ly/engraver.ly}.
 
 @table @samp
-  @item @code{Grace}@indexcode{Grace} 
-    The context for handling grace notes.  It is instantiated
-    automatically when you use @code{\grace}.  Basically, it is an
-    `embedded' miniature of the Score context.  Since this context
-    needs special interaction with the rest of LilyPond, you should
-    not explicitly instantiate it.
-
-  @item @code{LyricVoice}@indexcode{LyricVoice}  
-    Corresponds to a voice with lyrics.  Handles the printing of a
-    single line of lyrics.
-
-  @item @code{Thread}@indexcode{Thread}  
-    Handles note heads, and is contained in the Voice context.  You
-    have to instantiate this explicitly if you want to adjust the
-    style of individual note heads.
-
-  @item @code{Voice}@indexcode{Voice}  
-    Corresponds to a voice on a staff.  This context handles the
-    conversion of dynamic signs, stems, beams, super- and subscripts,
-    slurs, ties, and rests.
-
-    You have to instantiate this explicitly if you want to have
-    multiple voices on the same staff.
-
-  @item @code{ChordNamesVoice}@indexcode{ChordNamesVoice}  
-    A voice with chord names.  Handles printing of a line of chord
-    names.
-
-  @item @code{ChordNames}@indexcode{ChordNames}  
-    Typesets chord names.  Can contain @code{ChordNamesVoice}
-    contexts.
-
-  @item @code{Lyrics}@indexcode{Lyrics}  
-    Typesets lyrics.  It can contain @code{LyricVoice} contexts.
-
-  @item @code{Staff}@indexcode{Staff}  
-    Handles clefs, bar lines, keys, accidentals.  It can contain
-    @code{Voice} contexts.
-
-  @item @code{RhythmicStaff}@indexcode{RhythmicStaff}  
-    A context like @code{Staff} but for printing rhythms.  Pitches are
-    ignored; the notes are printed on one line.  It can contain
-    @code{Voice} contexts.
-
-  @item @code{GrandStaff}@indexcode{GrandStaff}  
-    Contains @code{Staff} or @code{RhythmicStaff} contexts.  It adds a
-    brace on the left side, grouping the staffs together.  The bar
-    lines of the contained staffs are connected vertically.  It can
-    contain @code{Staff} contexts.
-
-  @item @code{PianoStaff}@indexcode{PianoStaff}  
-    Just like @code{GrandStaff} but with @code{minVerticalAlign} set
-    equal to @code{maxVerticalAlign} so that interstaff beaming and
-    slurring can be used.
-
-  @item @code{StaffGroup}@indexcode{StaffGroup}  
-    Contains @code{Staff} or @code{RhythmicStaff} contexts.  Adds a
-    bracket on the left side, grouping the staffs together.  The bar
-    lines of the contained staffs are connected vertically.  It can
-    contain @code{Staff}, @code{RhythmicStaff}, @code{GrandStaff}, or
-    @code{Lyrics} contexts.
-
-  @item @code{ChoirStaff}@indexcode{ChoirStaff}  
-    Identical to @code{StaffGroup} except that the contained staffs
-    are not connected vertically.
-
-  @item @code{Score}@indexcode{Score}  
-    This is the top level notation context.  No other context can
-    contain a @code{Score} context.  This context handles the
-    administration of time signatures.  It also makes sure that items
-    such as clefs, time signatures, and key-signatures are aligned
-    across staffs.  It can contain @code{Lyrics}, @code{Staff},
-    @code{RhythmicStaff}, @code{GrandStaff}, @code{StaffGroup}, and
-    @code{ChoirStaff} contexts.
-
-    You cannot explicitly instantiate a Score context (since it is
-    not contained in any other context).  It is instantiated
-    automatically when an output definition (a @code{\score} or
-    @code{\paper} block) is processed.
 @end table
 
 
@@ -2417,16 +2331,14 @@ where each of the items is one of
        dimensions will define the characeristics of all lines beyond
        those explicitly specified.
 
-  @item  A font declaration.  Its syntax is
+  @item  \stylesheet  declaration.  Its syntax is
 
        @example
-
-         @var{fontsize} @code{=} \font@keyindex{font} @var{fontname}
+		\stylesheet @var{scm}
        @end example
 
-       @var{fontsize} is an integer describing the font to be used. 
-       0 is the default font.  @var{fontname} is the basename of
-       a font (usually a member of the Feta family).
+
+	See font.scm for details of @var{scm} 
 @end itemize
 
 
@@ -2498,12 +2410,7 @@ Nevertheless, here are some variables you may want to use or change:
     case @code{interscoreline} specifies the minimum spacing.
     Defaults to 0.
 
-  @item @code{output}@indexcode{output}  
-    Specifies an alternate name for the the output @file{s}.
-    A @file{.tex}, @file{.midi} or @file{.ps} extension will be 
-    added to the string you specify.
-
-  @item @code{rulethickness}@indexcode{rulethickness}  
+  @item @code{stafflinethickness}@indexcode{stafflinethickness}  
     Determines the thickness of staff and bar lines. 
 @end table
 
@@ -2676,143 +2583,6 @@ translator:
 @end quotation
 
       
-
-@node engravers, , ,  Reference Manual
-
-The engravers for paper output are:
-
-[incomplete, FIXME]
-
-@table @samp
-  @item @code{Bar_engraver}@indexcode{Bar_engraver}  
-    Engraves bar lines.  Normally in @code{Staff} and
-    @code{RhythmicStaff}.
-
-  @item @code{Bar_number_engraver}@indexcode{Bar_number_engraver}  
-    Engrave bar numbers.  These numbers appear at the start of each
-    line.  Part of @code{Score} context.
-
-  @item @code{Beam_engraver}@indexcode{Beam_engraver}  
-    Handles beam requests by engraving beams.  Normally appears in
-    the @code{Voice} translator.  If omitted, then notes will be
-    printed with flags instead of beams.
-
-  @item @code{Beam_req_swallow_translator}
-    @indexcode{Beam_req_swallow_translator}  
-    Swallows beam requests.  In @code{LyricVoice}.  
-
-  @item @code{Chord_name_engraver}@indexcode{Chord_name_engraver}  
-    Engraves chord names.  Normally in @code{ChordNameVoice} .
-
-  @item @code{Chord_tremolo_engraver}@indexcode{Chord_tremolo_engraver}
-
-  @item @code{Clef_engraver}@indexcode{Clef_engraver}  
-    Engraves the clef symbol.  Normally in @code{Staff}.
-
-  @item @code{Collision_engraver}@indexcode{Collision_engraver}
-
-  @item @code{Dot_column_engraver}@indexcode{Dot_column_engraver}  
-    Engraves dots on dotted notes shifted to the right of the note. 
-    Normally in @code{Voice}.  If omitted, then dots appear on top of
-    the notes.
-
-  @item @code{Dynamic_engraver}@indexcode{Dynamic_engraver}  
-    Engraves dynamics symbols.  Normally in @code{Voice}.
-
-  @item @code{Font_size_engraver}@indexcode{Font_size_engraver}
-
-  @item @code{Key_engraver}@indexcode{Key_engraver}  
-    Engraves the key signature.  Normally in @code{Staff}.
-
-  @item @code{Local_key_engraver}@indexcode{Local_key_engraver}
-
-  @item @code{Lyric_engraver}@indexcode{Lyric_engraver}  
-    Engraves lyrics.  Normally in @code{LyricVoice}.
-
-  @item @code{Multi_measure_rest_engraver}
-    @indexcode{Multi_measure_rest_engraver}  
-    Engraves multi-measure rests that are produced with @code{R}. 
-    Normally in @code{Voice}.
-
-  @item @code{Piano_bar_engraver}@indexcode{Piano_bar_engraver}
-
-  @item @code{Pitch_squash_engraver}@indexcode{Pitch_squash_engraver}  
-    Treat all pitches as middle C.  Used in @code{RhythmicStaff}. 
-    Note that the notes move, but the locations of accidentals stay
-    the same.
-
-	Vertical position of squashing can be controlled through
-@indexcode{squashedPosition}.
-
-  @item @code{Priority_horizontal_align_engraver}
-    @indexcode{Priority_horizontal_align_engraver}
-
-  @item @code{Repeat_engraver}@indexcode{Repeat_engraver}  
-    Handles repeats?  In @code{Staff} and @code{RhythmicStaff}.
-
-  @item @code{Rest_collision_engraver}@indexcode{Rest_collision_engraver}  
-    Handles collisions of rests.  In @code{Staff}.
-
-  @item @code{Rest_engraver}@indexcode{Rest_engraver}  
-    Engraves rests.  Normally in @code{Voice}.
-
-  @item @code{Rhythmic_column_engraver}@indexcode{Rhythmic_column_engraver}
-
-  @item @code{Score_priority_engraver}@indexcode{Score_priority_engraver}
-
-  @item @code{Script_engraver}@indexcode{Script_engraver}  
-    Handles note ornaments generated by @code{\script}.  Normally in
-    @code{Voice}.
-
-  @item @code{Separating_line_group_engraver}
-    @indexcode{Separating_line_group_engraver}
-
-  @item @code{Skip_req_swallow_translator}
-    @indexcode{Skip_req_swallow_translator}
-
-  @item @code{Slur_engraver}@indexcode{Slur_engraver}  
-    Engraves slurs.  Normally in @code{Voice}.
-
-  @item @code{Span_bar_engraver}@indexcode{Span_bar_engraver}  
-    Engraves lines across multiple staffs.  Normally in
-    @code{Staffgroup} and @code{GrandStaff}.  Removing this from
-    @code{StaffGroup} gives the definition of @code{ChoirStaff}.
-
-  @item @code{Span_score_bar_engraver}@indexcode{Span_score_bar_engraver}
-
-  @item @code{Staff_group_bar_engraver}@indexcode{Staff_group_bar_engraver}
-
-  @item @code{Instrument_name_engraver}@indexcode{Instrument_name_engraver}
-    Prints the name of the instrument (specified by
-    @code{Staff.instrument} and @code{Staff.instr}) at the left of the
-    staff.
-
-  @item @code{Staff_sym_engraver}@indexcode{Staff_sym_engraver}
-
-  @item @code{Stem_engraver}@indexcode{Stem_engraver}  
-    Engraves stems.  Normally in @code{Voice}.
-
-  @item @code{Ties_engraver}@indexcode{Ties_engraver}  
-    Engraves ties.  Normally in @code{Voice}.
-
-  @item @code{Time_signature_engraver}@indexcode{Time_signature_engraver}  
-    Engraves the time signature.  Normally in @code{Staff} and
-    @code{RhythmicStaff}.
-
-  @item @code{Timing_engraver}@indexcode{Timing_engraver}  
-    Responsible for synchronizing timing information from staffs. 
-    Normally in @code{Score}.  In order to create polyrhythmic music,
-    this engraver should be removed from @code{Score} and placed in
-    @code{Staff}.
-
-  @item @code{Tuplet_engraver}@indexcode{Tuplet_engraver}  
-    Engraves tuplet brackets?  In @code{Staff}.
-
-  @item @code{Vertical_align_engraver}@indexcode{Vertical_align_engraver} 
-@end table
-
-
-
 @node Sound output, , ,  Reference Manual
 @section Sound output
 

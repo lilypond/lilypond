@@ -18,21 +18,6 @@
 #include "item.hh"
 
 
-/*
-   TODO:
-     * it would be really cool if an engraver could be initialised with a
-       string, ie:
-
-          Piano_pedal_engraver::"sostenuto"
-          Piano_pedal_engraver::"sustain"
-          Piano_pedal_engraver::"una-chorda"
-
- */
-
-/*
-  Would it? The semantics are unclear, and real benefits are muddy
-  too.  --hwn
-*/
 
 
 
@@ -135,7 +120,7 @@ Piano_pedal_engraver::do_try_music (Music *m)
 	{
 	  if (s->span_type_str_ == p->name_)
 	    {
-	      p->req_l_drul_[s->span_dir_] = s;
+	      p->req_l_drul_[s->get_span_dir()] = s;
 	      return true;
 	    }
 	}

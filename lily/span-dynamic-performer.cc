@@ -183,7 +183,7 @@ Span_dynamic_performer::do_try_music (Music* r)
       if (s-> span_type_str_ == "crescendo"
 	  || s->span_type_str_ == "decrescendo")
 	{
-	  span_req_l_drul_[s->span_dir_] = s;
+	  span_req_l_drul_[s->get_span_dir()] = s;
 	  return true;
 	}
     }

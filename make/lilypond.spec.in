@@ -94,6 +94,7 @@ fi
 %files
 # hairy to hook it in (possibly non-existing) emacs
 %doc lilypond-mode.el
+%doc lilypond-font-lock.el
 
 %ifnos cygwin
 %{_prefix}/bin/abc2ly

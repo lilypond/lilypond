@@ -77,7 +77,7 @@ Beam_engraver::do_try_music (Music *m)
       else if (c->span_type_str_ == "beam")
 	{
       
-	  Direction d =c->span_dir_;
+	  Direction d =c->get_span_dir ();
 
 	  if (d == STOP && !beam_p_)
 	    {
