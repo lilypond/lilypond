@@ -223,6 +223,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <i>	dots
 %token <i>	DIGIT
 %token <pitch>	NOTENAME_PITCH
+%token <pitch>	TONICNAME_PITCH
 %token <pitch>	CHORDMODIFIER_PITCH
 %token <id>	DURATION_IDENTIFIER
 %token <id>	IDENTIFIER
@@ -266,11 +267,12 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <symtables>	symtables symtables_body
 
 %type <pitch>   explicit_musical_pitch steno_musical_pitch musical_pitch absolute_musical_pitch
+%type <pitch>   steno_tonic_pitch
 %type <notereq>	steno_notepitch
 %type <pitch_arr>	pitch_list
-%type <music>	chord
-%type <pitch_arr>       chord_additions chord_subtractions
-%type <pitch>           chord_note
+%type <music>	chord notemode_chord
+%type <pitch_arr>	chord_additions chord_subtractions
+%type <pitch>	chord_addsub chord_note
 %type <midi>	midi_block midi_body
 %type <duration>	duration_length
 
@@ -297,7 +299,8 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <tempo> 	tempo_request
 %type <notenametab> notenames_body notenames_block chordmodifiers_block
 
-%expect 6
+/* 5 extra for notemode_chord */
+%expect 15
 
 
 %left '-' '+'
@@ -613,6 +616,11 @@ optional_semicolon:
 	| ';'
 	;
 
+optional_dot:
+	/* empty */
+	| '.'
+	;
+
 paper_def_body:
 	/* empty */		 	{
 		Paper_def *p = THIS->default_paper_p ();
@@ -817,6 +825,10 @@ Composite_music:
 	| Simultaneous_music		{ $$ = $1; }
 	| Sequential_music		{ $$ = $1; }
 	| TRANSPOSE musical_pitch Music {
+		$$ = new Transposed_music ($3, *$2);
+		delete $2;
+	}
+	| TRANSPOSE steno_tonic_pitch Music {
 		$$ = new Transposed_music ($3, *$2);
 		delete $2;
 	}
@@ -1068,6 +1080,20 @@ steno_musical_pitch:
 		$$->octave_i_ +=  $2;
 	}
 	| NOTENAME_PITCH sub_quotes	 {
+		$$ = $1;
+		$$->octave_i_ += - $2;
+	}
+	;
+
+steno_tonic_pitch:
+	TONICNAME_PITCH	{
+		$$ = $1;
+	}
+	| TONICNAME_PITCH sup_quotes 	{
+		$$ = $1;
+		$$->octave_i_ +=  $2;
+	}
+	| TONICNAME_PITCH sub_quotes	 {
 		$$ = $1;
 		$$->octave_i_ += - $2;
 	}
@@ -1425,8 +1451,7 @@ abbrev_type:
 
 simple_element:
 	steno_notepitch notemode_duration  {
-		if (!THIS->lexer_p_->note_state_b ()
-		  && !THIS->lexer_p_->chord_state_b ())
+		if (!THIS->lexer_p_->note_state_b ())
 			THIS->parser_error (_ ("have to be in Note mode for notes"));
 		$1->duration_ = *$2;
 		$$ = THIS->get_note_element ($1, $2);
@@ -1508,9 +1533,12 @@ chord_subtractions:
 	{
 		$$ = new Array<Musical_pitch>;
 	}
-	| '^' chord_subtractions chord_note {
-		$2->push (*$3);
-		$$ = $2;
+	| '^' {
+		$$ = new Array<Musical_pitch>;
+	}
+	| chord_subtractions chord_addsub {
+		$$ = $1;
+		$$->push (*$2);
 	}
 	;
 

@@ -292,6 +292,9 @@ EXTENDER	[_][_]
 	{NOTECOMMAND}	{
 		return scan_escaped_word (YYText () + 1);
 	}
+	{NOTECOMMAND}	{
+		return scan_escaped_word (YYText () + 1);
+	}
 	{UNSIGNED}		{
 		yylval.i = String_convert::dec2_i (String (YYText ()));
 		return UNSIGNED;
@@ -443,7 +446,7 @@ My_lily_lexer::scan_bare_word (String str)
 		    yylval.pitch = new Musical_pitch (lookup_notename (str));
 		    yylval.pitch->set_spot (Input (source_file_l (), 
 		      here_ch_C ()));
-		    return NOTENAME_PITCH;
+                    return (YYSTATE == notes) ? NOTENAME_PITCH : TONICNAME_PITCH;
 		} else if (chordmodifier_b (str)) {
 		    DOUT << "(chordmodifier)\n";
 		    yylval.pitch = new Musical_pitch (lookup_chordmodifier (str));

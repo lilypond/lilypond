@@ -3,27 +3,49 @@
 %{
 Would this be acceptable/good enough/convenient for entry?
 
-   Convention/Standard    Logical/Lily(?)
+   Convention/Standard    Lily
    
    C#                     cis
    Cb                     ces
-   Cm/Cmin                c3-     
-   Caug                   c5+
-   Cdim                   c5-
-   Cmaj7                  c7
-   C7                     c7-
-   Csus/Csus4             c4^3
+   Cm; Cmin               c-3-; c-m; c-min
+   Caug                   c-5+; c-aug;
+   Cdim                   c-5-; c-dim
+   Cmaj7                  c-7+; c-maj
+   C7                     c-7
+   Csus; Csus4            c-4; c-sus
 %}
 
 scales = \notes\transpose c''\chords{
-		*c *g *d *a *e *b *fis
-		*c *f *bes *es *as *des *ges
-                *c6 *c7 *c9 *c11 *c13
+		%<c1 e g>
+		c1-m c-min c4-dim c-aug c-sus c-maj
+                c1-6 c4-7 c-9 c-11 c-13
+		c1 g d a e b fis
+                c1 f bes es as des ges
+	}
+
+keys = \notes{
+                s1
+                s1 s1 s1
+                s1 s1
+                s1
+                \key g; s1
+                \key d; s1 
+                \key a; s1 
+                \key e; s1 
+                \key b; s1 
+                \key fis; s1
+                \key c; s1 
+                \key f; s1 
+                \key bes; s1
+                \key es; s1
+                \key as; s1
+                \key des; s1
+                \key ges; s1
 	}
 
 \score{
 	<
 		\type ChordNames \scales
-		\type Staff \scales
+		\type Staff < \scales \keys >
 	>
 }

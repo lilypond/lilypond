@@ -1,3 +1,23 @@
+pl 12.jcn2
+	- bf: package-diff
+	- new chord syntax, again: TONIC [DURATION] ['-' MODIFIERS/ADDITIONS]
+	- shorthand prefix for note-mode: '@', no shorthand for notes in chord
+           mode...
+ 
+pl 12.jcn1
+pl 11.jcn6
+	- bf: ly2dvi: better guess LILYPONDPREFIX: <bin>../share/lilypond
+	- chord-table; urg bugs:
+	   * note-collisions
+	   * accidental-placement
+	- bf: cis m (\textsharpm, urg)
+  
+pl 11.jcn5
+	- bib entry, twinkle-pop
+	- bf's: chords
+
+pl 11.jcn4
+
 pl 13
 	- mutopia stuff (thanks, Peter)
 	- bugfix : \maininput

@@ -17,11 +17,7 @@ deb:
 	  dpkg-buildpackage -b; \
 	)'
 
-# urg urg
-# this one works for unix (try 'make diff help==' or 'make diff release==')
-makeflags=$(patsubst %==, %, $(patsubst %----,%,$(MAKEFLAGS:%=--%)))
-# and this one for nt
-# makeflags=$(patsubst %==, %, $(patsubst %----,%,$($(MAKEFLAGS:%=--%):--unix%=%)))
+makeflags=$(patsubst %==, %, $(patsubst ----%,,$(MAKEFLAGS:%=--%)))
 
 diff:
 	$(PYTHON) $(step-bindir)/package-diff.py --package=$(topdir) $(makeflags)

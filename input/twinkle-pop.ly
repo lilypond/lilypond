@@ -11,31 +11,32 @@ copyright =	 "public domain";
 Tested Features		lyrics and chords
 %}
 
-\version "1.0.10";
-
+\version "1.0.12";
+  
 melodie = \notes\relative c'' {
         \clef "violin";
-        \time 2/4 ;
-
+          \time 2/4 ;
+  
         c4 c  | g' g | a a | g2  |
         f4 f  | e e  | d d | c2  |
         g'4 g | f f  | e e | d d |
         g  g  | f f  | e e | d d |
-	% copy 1-8
+      % copy 1-8
         c4 c  | g' g | a a | g2  |
-        f4 f  | e e  | d d | c2  |
+        f4 f  | e e  | d d | c2 \bar "|.";
 }
 
 acc = \chords {
-	% why don't \skip, s4 work?
-        @2c @c @f @c
-        @f @c @g7 @c
-	@g @f @c  @g7 % urg, bug!
-        @g @f @c  @g7
-	% copy 1-8
-        @2c @c @f @c
-        @f @c @g7 @c
-}
+      % why don't \skip, s4 work?
+        c2 c f c
+        f c g-7 c
+      g f c  g-7 % urg, bug!
+        g f c  g-7
+      % copy 1-8
+        c2 c f c
+        f c g-7 c
+  }
+  
 
 text = \lyrics{ 
         \property Lyrics . textstyle =  "italic"
@@ -51,10 +52,24 @@ text = \lyrics{
 
 \score {
         <  
-	   \chords \type ChordNames \acc
-%	   \notes \type Staff=chords \acc
-	   \notes \type Staff=melody \melodie
+         \type ChordNames \acc
+         \type Staff=melody \melodie
+           \type Lyrics \text
+          >
+      \header{
+              title = "Ah, vous dirais-je, maman ";
+      }
+          \paper {  }
+  }
+
+\score {
+        <  
+         \chords \type ChordNames \transpose bes\acc
+         \notes \type Staff=melody \transpose bes\melodie
            \lyrics \type Lyrics \text
         >
+      \header{
+              piece = "clarinet in B\\textflat";
+      }
         \paper {  }
 }
