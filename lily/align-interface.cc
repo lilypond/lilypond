@@ -8,7 +8,6 @@
  */
 
 #include "align-interface.hh"
-
 #include "score-element.hh"
 #include "group-interface.hh"
 #include "axis-group-interface.hh"
@@ -18,15 +17,18 @@
   This callback is set in the children of the align element. It does
   not compute anything, but a side effect of a->do_side_processing ()
   is that the elements are placed correctly.  */
-Real
-Align_interface::alignment_callback (Score_element *sc, Axis ax)
+MAKE_SCHEME_CALLBACK(Align_interface,alignment_callback,2);
+SCM
+Align_interface::alignment_callback (SCM element_smob, SCM axis)
 {
-  Score_element * par = sc->parent_l (ax);
+  Score_element * sun = unsmob_element (element_smob);
+  Axis ax = (Axis )gh_scm2int (axis);
+  Score_element * par = sun->parent_l (ax);
   if (par && !to_boolean (par->get_elt_property ("alignment-done")))
     {
       Align_interface::do_side_processing (par, ax);
     }
-  return 0.0;
+  return gh_double2scm (0.0);
 }
 
 
@@ -138,7 +140,7 @@ Align_interface::get_count (Score_element*me,Score_element*s)
 void
 Align_interface::add_element (Score_element*me,Score_element* s)
 {
-  s->add_offset_callback (alignment_callback, Align_interface::axis (me));
+  s->add_offset_callback (Align_interface::alignment_callback_proc, Align_interface::axis (me));
   Axis_group_interface::add_element (me, s);
 }
 

@@ -14,6 +14,9 @@
 #include "item.hh"
 
 
+
+
+
 /**
    Position victim object (ELT_L_) next to other objects (the support).
 
@@ -46,11 +49,11 @@
 struct Side_position
 {
 public:
-  static Real side_position (Score_element *, Axis);
-  static Real aligned_on_self (Score_element *, Axis);
-  static Real aligned_side (Score_element *, Axis);  
-  static Real quantised_position (Score_element *, Axis);
-  static Real centered_on_parent (Score_element *, Axis);
+  DECLARE_SCHEME_CALLBACK(side_position, (SCM  element, SCM axis));
+  DECLARE_SCHEME_CALLBACK(aligned_on_self, (SCM  element, SCM axis));
+  DECLARE_SCHEME_CALLBACK(aligned_side, (SCM element, SCM axis));  
+  DECLARE_SCHEME_CALLBACK(quantised_position, (SCM element, SCM axis));
+  DECLARE_SCHEME_CALLBACK(centered_on_parent, (SCM element, SCM axis));
   static void set_axis (Score_element*,Axis);
   static void set_minimum_space (Score_element*,Real);
   static void set_padding (Score_element*,Real);

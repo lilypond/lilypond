@@ -20,7 +20,7 @@ public:
   static void set_interface (Score_element*me);
   static bool has_interface (Score_element*);
   static void add_tie (Score_element*me,Score_element*);
-  static SCM after_line_breaking (SCM);
+  DECLARE_SCHEME_CALLBACK(after_line_breaking, (SCM ));
   static void set_directions (Score_element*me);
 };
 

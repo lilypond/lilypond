@@ -24,7 +24,7 @@ public:
   static void set_interface (Score_element*);
   static bool has_interface (Score_element*);
   static void set_position (Score_element*,Real);
-  static Real callback (Score_element *, Axis a);
+  DECLARE_SCHEME_CALLBACK(callback, (SCM element, SCM axis));
 
   /**
      Leading are the lead strips between the sticks (lines) of

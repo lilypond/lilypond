@@ -21,10 +21,10 @@
 class Chord_name
 {
 public:
-  static SCM brew_molecule (SCM);
+  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
   static Molecule ly_word2molecule (Score_element*, SCM scm, Real* x) ;
   static Molecule ly_text2molecule (Score_element*, SCM scm) ;
-  static SCM after_line_breaking (SCM);
+  DECLARE_SCHEME_CALLBACK(after_line_breaking, (SCM ));
 };
 
 #endif // CHORD_NAME_HH

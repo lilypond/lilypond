@@ -17,7 +17,7 @@ class Separating_group_spanner
 public:
   static void add_spacing_unit (Score_element*me, Item*);
   static void set_interface (Score_element*);
-  static SCM set_spacing_rods (SCM);
+  DECLARE_SCHEME_CALLBACK(set_spacing_rods, (SCM ));
 };
 
 #endif /* SEPARATING_GROUP_SPANNER_HH */

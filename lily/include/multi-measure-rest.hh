@@ -29,9 +29,9 @@ class Multi_measure_rest
 public:
   static void set_interface (Score_element*);
   static bool has_interface (Score_element*);
-  static SCM brew_molecule (SCM);
+  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
   static  void add_column (Score_element*,Item*);
-  static SCM set_spacing_rods (SCM);
+  DECLARE_SCHEME_CALLBACK(set_spacing_rods, (SCM ));
 };
 
 #endif /* MULTI_MEASURE_REST_HH */

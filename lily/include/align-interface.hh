@@ -12,6 +12,8 @@
 
 #include "axes.hh"
 #include "lily-proto.hh"
+#include "lily-guile.hh"
+
 
 /*
   Order elements top to bottom/left to right/right to left etc.
@@ -51,7 +53,7 @@
   
 */
 struct Align_interface {
-  static Real alignment_callback (Score_element *,Axis);
+  DECLARE_SCHEME_CALLBACK(alignment_callback, (SCM element, SCM axis));
   static void do_side_processing (Score_element*,Axis a);
   static void set_axis (Score_element*,Axis);
   static Axis axis (Score_element*) ;
@@ -59,7 +61,7 @@ struct Align_interface {
   static int get_count (Score_element*,Score_element*);
   static void set_interface (Score_element*);
   static bool has_interface (Score_element*);
-  static Real center_on_element (Score_element *c, Axis);
+  DECLARE_SCHEME_CALLBACK(center_on_element, (SCM element, SCM axis));
 };
 
 #endif /* ALIGN_INTERFACE_HH */

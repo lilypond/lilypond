@@ -36,7 +36,7 @@ public:
   Spanner* elt_l_;
   Hyphen_spanner  (Spanner*);
   void set_textitem (Direction, Score_element*);
-  static SCM brew_molecule (SCM);
+  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
 };
 
 #endif // HYPHEN_SPANNER_HH
