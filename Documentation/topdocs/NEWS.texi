@@ -8,6 +8,23 @@
 
 @itemize @bullet
 @item
+Grace notes following a main note, used to be entered by letting the
+grace notes follow a skip in a parallel expression, for example,
+
+@verbatim
+  << { d1 }
+     { s2 \grace { c16[ d] } } >>
+  c4
+@end verbatim
+
+@noindent
+This can verbose input can now be shortened, by doing
+
+@example
+\afterGrace { d1 } { c16[ d] } 
+@end example 
+
+@item
 Pagebreaks can now be forced or forbidden after title blocks. This is
 achieved by setting @code{breakbefore} in the @code{\header} block to
 true or false.

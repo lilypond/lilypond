@@ -11,6 +11,17 @@
 
 2004-11-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/moment.cc (LY_DEFINE):
+	ly:moment-main-{denominator,numberator}, new function.
+
+	* lily/score-engraver.cc (typeset_all): assign to column on basis
+	of axis-group-parent-X setting.
+
+	* lily/axis-group-engraver.cc (process_acknowledged_grobs): do
+	add_element() on basis of axis-group-parent-Y setting.
+
+	* lily/grob.cc: add axis-group-parent-{XY} properties.
+
 	* input/regression/spacing-stick-out.ly: new file.
 
 	* lily/simple-spacer.cc (add_columns): use binary search for
@@ -40,6 +51,8 @@
 	music function as well.
 	
 2004-11-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* VERSION: release 2.5.2
 
 	* Documentation/user/changing-defaults.itely (Creating titles):
 	add breakbefore variable.
