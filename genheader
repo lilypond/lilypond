@@ -1,22 +1,31 @@
-#!/bin/sh
-def=`echo $1 | sed s/\\\./_/ | tr a-z A-Z`
+#!/usr/bin/perl -w
 
-cat << HERE
-/*
-  $1 -- part of LilyPond
+die "arg needed\n" if (!($#ARGV+1));
+my $fn = $ARGV[0];
+my $hh_q = ($fn =~ /hh$/ );
+my $MAILADRESS=$ENV{MAILADRESS};
+my @pw=(getpwuid($<));
+my $username=$pw[6];
+my $what="implement ";
+$what = "declare " if ($hh_q);
+my $headstr ="/*
+  $fn -- $what
 
-  (c) 1997 $USERNAME <$MAILADRESS>
-*/
+  source file of the LilyPond music typesetter
 
-HERE
+  (c) 1997 $username <$MAILADRESS>
+*/\n";
 
-if [ $1 != `basename .hh` ]
-then
-cat <<EOF
-#ifndef $def
-#define $def
+my $startdef= $fn;
+$startdef =~ s/\./_/;
+$startdef =~ tr/a-z/A-Z/;
+my $terminatestr="\n";
+if ($hh_q) {
+    $headstr .= "\n\n#ifndef $startdef\n#define $startdef\n";
+    $terminatestr .= "#endif // $startdef\n"  
+}
+
+print $headstr, $terminatestr;
 
 
-#endif // $def
-EOF
-fi
+
