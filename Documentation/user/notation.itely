@@ -4396,7 +4396,7 @@ The transposition is entered after the keyword @code{\transposition}
   \transposition bes   %%  B-flat clarinet
 @end example
 
-This command sets the property @code{instrumentTuning}. The value of
+This command sets the property @code{instrumentTransposition}. The value of
 this property is used for MIDI output and quotations.  It does not
 affect how notes are printed in the current staff.
 
