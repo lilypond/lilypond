@@ -265,14 +265,13 @@ binsearch_array (Array<T> const &arr, T t, int (*compare) (T const&,T const&))
 template<class T>
 int
 binsearch_link_array (Link_array<T> const &arr, T *t,
-		      int (*compare) (T *const&,T *const&))
+		      int (*compare) (T *const&,T *const&),
+		      int lo = 0, int hi = -1 )
 {
-  int lo;
-  int hi;
   int cmp;
   int result;
-  lo = 0;
-  hi = arr.size ();
+  if (hi< 0)
+    hi = arr.size ();
 
   if (hi == 0)
     return -1;

@@ -1,6 +1,9 @@
 \version "1.3.146"
 %K000.ly LilyPond 1.2.16
-
+\header {
+title="John's Scarlatti quotes"
+composer = "Domenico Scarlatti"
+}
 
 
 \include "scarlatti-properties.ly"
@@ -45,7 +48,7 @@ xb={\property Voice.noAutoBeaming=##t}
 \context Voice=va< \zs
 \su
 \context Thread=ta{ \n
-\rh \sm[\times 2/3{a'32_"John's Scarlatti quotes" d'' fis''}\n a''16]a'8 g'~
+\rh \sm[\times 2/3{a'32 d'' fis''}\n a''16]a'8 g'~
 %a2
 g'8 _"1 Aug 2000" \times 2/3{a'16 b' cis'' d'' fis'' g''}|
 %a3

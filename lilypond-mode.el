@@ -31,6 +31,9 @@
 (defvar LilyPond-kick-xdvi nil
   "If true, no simultaneous xdvi's are started, but reload signal is sent.")
 
+(defvar LilyPond-command-history nil
+  "Command history list.")
+	
 (defvar LilyPond-regexp-alist
   '(("\\([a-zA-Z]?:?[^:( \t\n]+\\)[:( \t]+\\([0-9]+\\)[:) \t]" 1 2))
   "Regexp used to match LilyPond errors.  See `compilation-error-regexp-alist'.")
@@ -228,7 +231,7 @@ Must be the car of an entry in `LilyPond-command-alist'."
 	 (answer (or LilyPond-command-force
 		     (completing-read
 		      (concat "Command: (default " default ") ")
-		      LilyPond-command-alist nil t))))
+		      LilyPond-command-alist nil t nil 'LilyPond-command-history))))
 
     ;; If the answer is "LilyPond" it will not be expanded to "LilyPond"
     (let ((answer (car-safe (assoc answer LilyPond-command-alist))))
@@ -454,7 +457,7 @@ LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
   (setq comment-start-skip "%{? *")
 
   (make-local-variable 'comment-end)
-  (setq comment-end "\n")
+  (setq comment-end "")
 
   (make-local-variable 'block-comment-start)
   (setq block-comment-start "%{")

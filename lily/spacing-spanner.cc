@@ -23,6 +23,73 @@ Spacing_spanner::set_interface (Grob*me)
   me->set_extent_callback (SCM_EOL, Y_AXIS) ; 
 }
 
+#if 0  
+struct Note_run
+{
+  Array<int> idxes;
+  int start, end;
+  Moment duration;
+  int count;
+};
+
+int
+column_compare (Grob  *const &t1, Grob *const &t2)
+{
+  return Moment::compare (Paper_column::when_mom (t1),
+			  Paper_column::when_mom (t2));
+}
+
+
+Note_run
+run_length (Moment dt, int i, Array<Moment> const &moms,
+	    Link_array<Note_run> runs)
+{
+  int k = 0;
+  Array<int> idxes;
+
+  idxes.push (i);
+  while (1)
+    {
+      Moment next = moms[i] + dt;
+      while (i < moms.size () && moms[i] < next)
+	i++;
+      if (i == moms.size () || moms[i] != next)
+	break;
+
+      idxes.push (i);
+      k++;
+    }
+
+  Moment dur = idxes.size ()
+}
+
+void
+find_runs (Grob*me, Link_array<Grob> cols) 
+{
+  Link_array<Grob> filter_cols;
+  Array<Moment> col_moments;
+  for (int i = 0; i < cols.size (); i++)
+    {
+      Moment w =  Paper_column::when_mom (cols[i]);
+      
+      if (!w.grace_mom_ && Paper_column::musical_b (cols[i]))
+	{
+	  filter_cols.push (cols[i]);
+	  col_moments.push (w);
+	}
+    }
+
+  Moment end_mom = col_moments.top ();
+  for (int i = 0; i < col_moments.size () ; i++)
+    {
+      for (int j = i+1; j < col_moments.size (); j++)
+	{
+	  Moment dt = Paper_column::col_momentsfilter_cols 
+	}
+    }
+}
+#endif  
+
 /*
 
   The algorithm is partly taken from :
@@ -51,7 +118,7 @@ Spacing_spanner::do_measure (Grob*me, Link_array<Grob> cols)
   int n = 0;
   for (int i =0 ; i < cols.size (); i++)  
     {
-      if (dynamic_cast<Paper_column*> (cols[i])->musical_b ())
+      if (Paper_column::musical_b (cols[i]))
 	{
 	  Moment *when = unsmob_moment (cols[i]->get_grob_property  ("when"));
 
@@ -116,11 +183,11 @@ Spacing_spanner::do_measure (Grob*me, Link_array<Grob> cols)
 	      left_distance = gh_scm2double (gh_cdr (hint)); 
 	    }
 	   // 2nd condition should be (i+1 < col_count ()), ie. not the last column in score.  FIXME
-	  else if (!lc->musical_b () && i+1 < cols.size ()) 
+	  else if (!Paper_column::musical_b (lc) && i+1 < cols.size ()) 
 	    {
 	      left_distance= default_bar_spacing (me,lc,rc,shortest <? base_shortest_duration);
 	    }
-	  else if (lc->musical_b ())
+	  else if (Paper_column::musical_b ( lc))
 	    {
 	      left_distance  = note_spacing (me,lc, rc, shortest <? base_shortest_duration);
 	    }
@@ -161,7 +228,7 @@ Spacing_spanner::do_measure (Grob*me, Link_array<Grob> cols)
 	  /*
 	    don't want to create too much extra space for accidentals
 	  */
-	  if (rc->musical_b ())
+	  if (Paper_column::musical_b (rc))
 	   {
 	      if (to_boolean (rc->get_grob_property ("contains-grace")))
 		right_dist *= gh_scm2double (rc->get_grob_property ("before-grace-spacing-factor")); // fixme.
@@ -271,7 +338,13 @@ Spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
     }
   Moment delta_t = Paper_column::when_mom (rc) - Paper_column::when_mom (lc);
   Real dist = get_duration_space (me, shortest_playing_len, shortest);
-  dist *= (double) (delta_t / shortest_playing_len);
+
+
+  /*
+    ugh: 0.1 is an arbitrary distance.
+   */
+  dist *= (double) (delta_t.main_part_ / shortest_playing_len.main_part_)
+    + 0.1 * (double) (delta_t.grace_mom_ / shortest_playing_len.main_part_);
 
 
 

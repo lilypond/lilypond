@@ -108,3 +108,41 @@ Array<T>::slice (int lower, int upper) const
   return r;
 }
 
+
+/*
+  lookup with binsearch, return array index.
+*/
+template<class T>
+int
+binary_search (Array<T> const &table,
+	       T const &key, int (*compare) (T const&, T const &),
+	       int lo = 0,
+	       int hi = -1
+	       ) 
+{
+  int cmp;
+  int result;
+  if (hi < 0)
+    hi = table.size ();
+
+  /* binary search */
+  do
+  {
+      cmp = (lo + hi) / 2;
+
+      result = (*compare)  (key, table[cmp]);
+
+      if (result < 0)
+          hi = cmp;
+      else
+          lo = cmp;
+    }
+  while (hi - lo > 1);
+  if (! (*compare) (key, table[lo]))
+    {
+      return lo;
+    }
+  else
+    return -1;              /* not found */
+}
+

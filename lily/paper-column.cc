@@ -59,19 +59,20 @@ Paper_column::when_mom (Grob*me)
     }
   return s;
 }
-  
+
 bool
-Paper_column::musical_b () const
+Paper_column::musical_b (Grob *me)
 {
-  SCM m = get_grob_property ("shortest-starter-duration");
+  SCM m = me->get_grob_property ("shortest-starter-duration");
   Moment s (0);
   if (unsmob_moment (m))
     {
       s = *unsmob_moment (m);
     }
   return s != Moment (0);
+  
 }
-
+  
 bool
 Paper_column::used_b (Grob*me)
 {

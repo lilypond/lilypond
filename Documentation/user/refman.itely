@@ -395,7 +395,7 @@ should last.  With this, you can make lots of tuplets while typing
 
 @lilypond[fragment,  relative, singleline, verbatim]
 \property Voice.tupletSpannerDuration = #(make-moment 1 4)
-\times 2/3 { c''8 c c c c c }
+\times 2/3 { c'8 c c c c c }
 @end lilypond
 
 The format of the number is determined by the property
@@ -975,7 +975,7 @@ after the last note:
 
 @lilypond[fragment,relative,verbatim]
   \context Staff {
-    r4 [r8 g'' a r8] r8 [g | a] r8
+    r4 [r8 g' a r8] r8 [g | a] r8
   }
 @end lilypond
 Whenever an manual beam is busy, the automatic beamer will not produce
@@ -991,7 +991,7 @@ property, it's value will be used only once, and then it is erased.
 
 @lilypond[fragment,relative,verbatim]
   \context Staff {
-    [f'8 r16 f g a]
+    [f8 r16 f g a]
     [f8 r16 \property Voice.stemLeftBeamCount = #1 f g a]
   }
 @end lilypond
@@ -1009,7 +1009,7 @@ Set @code{height} to zero, to get horizontal beams:
 @lilypond[fragment,relative,verbatim]
   \property Voice.Beam \set #'direction = #1
   \property Voice.Beam \set #'height = #0
-  [a''8 e' d c]
+  [a'8 e' d c]
 @end lilypond
 
 Here's how you'd specify a weird looking beam that instead of being
@@ -1018,7 +1018,7 @@ horizontal, falls two staff spaces:
 @lilypond[fragment,relative,verbatim]
   \property Voice.Beam \set #'staff-position = #4
   \property Voice.Beam \set #'height = #-4
-  [c'8 c] 
+  [c8 c] 
 @end lilypond
 @cindex @code{default-neutral-direction}
 
@@ -1055,7 +1055,7 @@ pair of symbols, specifying the attachment type of the left and right end points
 @lilypond[fragment,relative,verbatim]
   \property Voice.Slur \set #'direction = #1
   \property Voice.Stem \set #'length = #5.5
-  g''8(g)g4
+  g'8(g)g4
   \property Voice.Slur \set #'attachment = #'(stem . stem)
   g8(g)g4
 @end lilypond
@@ -1067,7 +1067,7 @@ stems might look better:
 @lilypond[fragment,relative,verbatim]
   \property Voice.Stem \set #'direction = #1
   \property Voice.Slur \set #'direction = #1
-  d'32( d'4 )d8..
+  d32( d'4 )d8..
   \property Voice.Slur \set #'attachment = #'(stem . stem)
   d,32( d'4 )d8..
 @end lilypond
@@ -1085,7 +1085,7 @@ indicate this preference by increasing the @code{beautiful} value:
 @lilypond[verbatim,singleline,relative]
   \property Voice.Beam \override #'direction = #-1
   \property Voice.Slur \override #'direction = #1
-  c'16( a' f' a a f a, )c,
+  c16( a' f' a a f a, )c,
   c( a' f' a a f d, )c
   \property Voice.Slur \override #'beautiful = #5.0
   c( a' f' a a f d, )c
@@ -1109,7 +1109,7 @@ indicate a musical sentence. It is started using @code{\(} and @code{\)}
 respectively.
 
 @lilypond[fragment,verbatim,center,relative]
-  \time 6/4 c'' \( ( d ) e f ( e ) \) d
+  \time 6/4 c' \( ( d ) e f ( e ) \) d
 @end lilypond
 
 Typographically, the phrasing slur behaves almost exactly like a normal
@@ -1398,7 +1398,7 @@ A glissando line (grob @code{Voice.Glissando}) can be requested by attaching a
 @code{\glissando} to a note:
 
 @lilypond[fragment,relative,verbatim]
-  c''-\glissando c'
+  c'-\glissando c'
 @end lilypond
 
 @refbugs
@@ -1440,7 +1440,7 @@ note: @code{c4-\ff}.  The available dynamic marks are: @code{\ppp},
 @code{\sp}, @code{\spp}, @code{\sfz}, and @code{\rfz}.
 
 @lilypond[verbatim,singleline,fragment,relative]
-  c''\ppp c\pp c \p c\mp c\mf c\f c\ff c\fff
+  c'\ppp c\pp c \p c\mp c\mf c\f c\ff c\fff
   c2\sf c\rfz
 @end lilypond
 
@@ -1478,7 +1478,7 @@ is an example how to do it:
   \context Voice {
     \property Voice.crescendoText = "cresc."
     \property Voice.crescendoSpanner = #'dashed-line
-    a''2\mf\< a a \!a 
+    a'2\mf\< a a \!a 
   }
 @end lilypond
 
@@ -1858,7 +1858,7 @@ You can specify an arpeggio sign on a chord by attaching an
 
 
 @lilypond[fragment,relative,verbatim]
-  \context Voice <c'\arpeggio e g c>
+  \context Voice <c\arpeggio e g c>
 @end lilypond
 
 When an arpeggio crosses staffs in piano music, you attach an arpeggio
@@ -1868,7 +1868,7 @@ to the chords in both staffs, and set
 @lilypond[fragment,relative,verbatim]
   \context PianoStaff <
     \property PianoStaff.connectArpeggios = ##t
-    \context Voice = one  { <c''\arpeggio e g c> }
+    \context Voice = one  { <c'\arpeggio e g c> }
     \context Voice = other { \clef bass  <c,,\arpeggio e g>}
   >  
 @end lilypond
@@ -1900,7 +1900,7 @@ can be printed automatically. This is enabled if the property
   \context PianoStaff <
     \property PianoStaff.followVoice = ##t
     \context Staff \context Voice {
-      c'1
+      c1
       \translator Staff=two
       b2 a
     }
@@ -3247,7 +3247,7 @@ commands won't work with direct PostScript output (see @ref{PostScript
 output}).
 
 @lilypond[fragment,relative,verbatim]
-  a''^"3 $\\times$ \\`a deux"
+  a'^"3 $\\times$ \\`a deux"
 @end lilypond
 
 You can also use raw PostScript commands embedded in text scripts.  This

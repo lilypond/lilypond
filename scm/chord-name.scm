@@ -52,7 +52,11 @@
 	(((0 . 0) (3 . 0) (4 . 0)) . ("" (super "4") " " ))
 	;; Cdim iso Cm5-
 	(((0 . 0) (2 . -1) (4 . -1)) . ("dim"))
-	; Co iso Cm5-7-
+	; URG: Simply C:m5-/maj7 iso Cdim maj7
+	(((0 . 0) (2 . -1) (4 . -1) (6 . 0)) . ("m" (super "5-/maj7" " ")))
+	; URG: Simply C:m5-/7 iso Cdim7
+	(((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . ("m" (super "5-/7" " ")))
+	; Co iso C:m5-/7-
         (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . ("" (super "o") " "))
 	; Cdim9
 	(((0 . 0) (2 . -1) (4 . -1) (6 . -2) (1 . -1)) . ("dim" (super "9") " "))
@@ -308,18 +312,19 @@
 ;; additions, subtractions and bass or inversion into chord name
 (define (chord::inner-name-banter tonic exception-part additions subtractions
 				  bass-and-inversion steps)
-  (let ((tonic-text (pitch->chord-name-text-banter tonic steps))
-	(except-text exception-part)
-	(sep-text (if (and (string-match "super" (format "~s" exception-part))
+  (let* ((tonic-text (pitch->chord-name-text-banter tonic steps))
+	 (except-text exception-part)
+	 (sep-text (if (and (string-match "super" (format "~s" except-text))
 			    (or (pair? additions)
 				(pair? subtractions)))
 		       (list simple-super "/")))
-	(adds-text (chord::additions->text-banter additions subtractions))
-	(subs-text (chord::subtractions->text-banter subtractions))
-	(b+i-text (chord::bass-and-inversion->text-banter bass-and-inversion)))
+	 (adds-text (chord::additions->text-banter additions subtractions))
+	 (subs-text (chord::subtractions->text-banter subtractions))
+	 (b+i-text (chord::bass-and-inversion->text-banter bass-and-inversion)))
     (text-append
-     tonic-text except-text sep-text
-     (list (list simple-super) adds-text subs-text)
+     tonic-text except-text " " sep-text
+     ;;(list (list simple-super) adds-text subs-text)
+     (list (list '((raise . 1) (font-relative-size . -1))) adds-text subs-text)
      b+i-text)))
 
 (define (chord::name-banter tonic exception-part unmatched-steps

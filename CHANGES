@@ -1,8 +1,18 @@
-*** WARNING(reminder): all output via TeX (ie: using ly2dvi or plain
-*** lilypond) still yields broken stems, bars and staff lines.
+1.5.1.hwn1
+==========
+
+* small bugfixes for grace-init.ly
+
+* Bugfix: don't mess up spacing when combining different tuplets.
+
+* Small bugfixes for lilypond-mode.el.
+
+* property-init.ly: bugfix for dot directions in polyphonic music.
 
 1.5.1.jcn3
 ==========
+
+* Bugfix: text2html: escape entities inside <pre>.
 
 * Added some template .ly's for evaluation.
 
@@ -23,7 +33,6 @@ that uses Thread contexts.
 
 1.5.0
 =====
-
 1.5.0.jcn1
 ==========
 

@@ -298,6 +298,10 @@ Chord::tonic_add_sub_to_pitches (SCM tonic, SCM add, SCM sub)
   for (SCM i = add; gh_pair_p (i); i = gh_cdr (i))
     {
       Pitch* p = unsmob_pitch (gh_car (i));
+      /* Ugr
+	This chord modifier stuff should really be fixed
+       Cmaj7 yields C 7/7-
+      */
       if (p->octave_i ()  == -100)
         {
           p->octave_i_ = 0;
@@ -322,7 +326,10 @@ Chord::tonic_add_sub_to_pitches (SCM tonic, SCM add, SCM sub)
   if (highest_step < 5)
     tmp = ly_snoc (fifth, tmp);
   else if (dim_b)
-    add = lower_step (tonic, add, gh_int2scm (5));
+    {
+      add = lower_step (tonic, add, gh_int2scm (5));
+      add = lower_step (tonic, add, gh_int2scm (7));
+    }
 
   /* find missing thirds */
   SCM missing = missing_thirds (tmp);

@@ -7,11 +7,13 @@
 #ifndef KEYWORD_HH
 #define KEYWORD_HH
 
+#include "array.hh"
+
 /* for the keyword table */
 struct Keyword_ent
 {
-  char const *name;
-  int     tokcode;
+  char const *name_;
+  int     tokcode_;
 };
 
 /*
@@ -19,8 +21,8 @@ struct Keyword_ent
  */
 struct Keyword_table
 {
-  Keyword_ent *table;
-  int     maxkey;
+  Array<Keyword_ent> table_;
+
   Keyword_table (Keyword_ent *);
   int     lookup (char const *s) const;
 };
