@@ -1,7 +1,7 @@
 \version "1.7.18"
 
 \header {
-  texidoc = "simple piano music" 
+  texidoc = "Simple piano music." 
 }
 
 upper = \notes\relative c'' {

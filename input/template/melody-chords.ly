@@ -1,7 +1,7 @@
 \version "1.7.18"
 
 \header {
-  texidoc = "lead sheet format: chords with melody."
+  texidoc = "Lead sheet format: chords with melody."
 }
 
 harmonies = \chords {
