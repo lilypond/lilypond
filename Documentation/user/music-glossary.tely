@@ -1120,7 +1120,7 @@ D: dal segno,
 NL: dal segno,
 DK: dal segno,
 S: dal segno,
-FI: dal segno, merkkiin asti.
+FI: dal segno, lähtien merkistä.
 
 Abbreviated ``d.s.''.  Repetition, not from the beginning, but from
 another place frequently near the beginning marked by a sign:
@@ -1129,7 +1129,7 @@ another place frequently near the beginning marked by a sign:
 %\override TextScript   #'font-style = #'large
 \override TextScript   #'font-shape = #'italic
 \key g \major \time 4/4
-\notes\relative c'' { d1 | g,4^\segno  a b c | b a g2_"d.s." \bar "|." }
+\notes\relative c'' { d1 | g,4^\segno  a b c | b a g2_\markup{ \line < "d.s. " \small \raise #1 \musicglyph #"scripts-segno" > } \bar "|." }
 @end lilypond
 
 @aitem{decrescendo}
