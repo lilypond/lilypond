@@ -14,7 +14,7 @@
 Dimension_cache::Dimension_cache (Dimension_cache const &d)
 {
   init();
-  callback_l_ = d.callback_l_;
+  extent_callback_l_ = d.extent_callback_l_;
   basic_offset_ = d.basic_offset_;
   extra_offset_ = d.extra_offset_;
   off_valid_b_ = d.off_valid_b_;
@@ -30,7 +30,7 @@ Dimension_cache::Dimension_cache ()
 void
 Dimension_cache::init()
 {
-  callback_l_ =0;
+  extent_callback_l_ =0;
   basic_offset_ =0.0;
   extra_offset_ =0.0;
   
@@ -113,13 +113,13 @@ Dimension_cache::get_dim () const
 {
   Interval r;
   Dimension_cache *nc = ((Dimension_cache*)this);
-  if (!callback_l_)
+  if (!extent_callback_l_)
     {
       nc->dim_.set_empty ();
     }
   else if (!valid_b_)
     {
-      nc->dim_= (*callback_l_ ) (nc);
+      nc->dim_= (*extent_callback_l_ ) (nc);
       nc->valid_b_ = true;
     }
 
@@ -130,7 +130,7 @@ Dimension_cache::get_dim () const
 void
 Dimension_cache::set_callback (Dim_cache_callback c)
 {
-  callback_l_ =c;
+  extent_callback_l_ =c;
 }
 
 

@@ -11,13 +11,6 @@
 #include "group-interface.hh"
 
 Link_array<Score_element>
-Axis_group_element::get_extra_dependencies() const
-{
-  Link_array<Score_element> e(elem_l_arr ());
-  return e;
-}
-
-Link_array<Score_element>
 Axis_group_element::elem_l_arr () const
 {  
   return
@@ -44,9 +37,6 @@ Axis_group_element::get_children ()
 
 Axis_group_element::Axis_group_element()
 {
-  axes_[0] = (Axis)-1 ; 
-  axes_[1] = (Axis)-1 ;
-
   set_elt_property ("elements", SCM_EOL);
   set_elt_property ("transparent", SCM_BOOL_T);
 }
@@ -54,8 +44,13 @@ Axis_group_element::Axis_group_element()
 void
 Axis_group_element::set_axes (Axis a1, Axis a2)
 {
-  axes_[0] = a1 ; 
-  axes_[1] = a2 ;
+  SCM ax = gh_cons (gh_int2scm (a1), SCM_EOL);
+  if (a1 != a2)
+    ax= gh_cons (gh_int2scm (a2), ax);
+
+  
+  set_elt_property ("axes", ax);
+
   if (a1 != X_AXIS && a2 != X_AXIS)
     set_empty (X_AXIS);
   if (a1 != Y_AXIS && a2 != Y_AXIS)
@@ -87,19 +82,29 @@ Axis_group_element::extent_callback (Dimension_cache const *c)
 }
 
 
+bool
+Axis_group_element::axis_b (Axis a )const
+{
+  return dim_cache_[a]->extent_callback_l_ == extent_callback;
+}
+
 
 void
 Axis_group_element::add_element (Score_element *e)
 {
   used_b_ =true;
   e->used_b_ = true;
-  
-  for (int i = 0; i < 2; i++)
+
+  for (SCM ax = get_elt_property ("axes"); ax != SCM_EOL ; ax = gh_cdr (ax))
     {
-      if (!e->parent_l (axes_[i]))
-	e->set_parent (this, axes_[i]);
+      Axis a = (Axis) gh_scm2int (gh_car (ax));
+      
+      if (!e->parent_l (a))
+	e->set_parent (this, a);
     }
   Group_interface gi (this);
   gi.add_element (e);
+
+  add_dependency (e);
 }
 

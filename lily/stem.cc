@@ -219,7 +219,7 @@ Stem::Stem ()
   set_elt_property ("heads", SCM_EOL);
   set_elt_property ("rests", SCM_EOL);
 
-  dim_cache_[X_AXIS]->off_callbacks_.push ( &Stem::off_callback);
+  add_offset_callback ( &Stem::off_callback, X_AXIS);
 }
 
 bool

@@ -96,6 +96,9 @@ output_dict= {
 # override EndLilyPondOutput, since @tex is done
 # in a sandbox, you can't do \input lilyponddefs at the
 # top of the document.
+
+# should also support fragment in
+		  
 		  'output-all': r"""@tex
 \catcode`\@=12
 \input lilyponddefs
@@ -104,6 +107,7 @@ output_dict= {
 \catcode`\@=0
 @end tex
 @html
+<p>
 <img src=%s.png>
 @end html
 """,

@@ -97,8 +97,7 @@ Staff_margin_engraver::create_text (SCM text)
       Text_item* t = new Text_item;
 
       t->set_elt_property ("self-alignment-Y", gh_int2scm (0));
-      t->dim_cache_[Y_AXIS]->off_callbacks_.push
-	(Side_position_interface::aligned_on_self);
+      t->add_offset_callback (Side_position_interface::aligned_on_self, Y_AXIS);
 
       t->set_parent (l, X_AXIS);
       t->set_parent (l, Y_AXIS);

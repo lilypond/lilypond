@@ -34,24 +34,18 @@
   Which side to align?  -1: left side, 0: centered (around
      center_l_ if not nil, or around center of width), 1: right side
 
-  *****
-
-  align-dir: deprecate! Use Side_pos_interface::self_align
-  
 
 */
 class Align_element : public virtual Axis_group_element {
 public:
-  Interval threshold_interval_ ;
-
   Axis axis () const;
-  
-  Align_element ();
+
   void set_axis (Axis);
   int get_count (Score_element*)const;
+  void add_element (Score_element *);
+  static Real alignment_callback (Dimension_cache const *);
 protected:
-  virtual void after_line_breaking () ;
-  virtual void before_line_breaking ();
-  virtual void do_side_processing ();
+  virtual void do_side_processing (Axis);
+  
 };
 #endif // VERTICAL_ALIGN_ITEM_HH

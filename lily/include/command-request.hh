@@ -106,7 +106,9 @@ class Key_change_req  : public Request
 {
 public:
   Key_change_req ();
-  Key_def key_;
+  ~Key_change_req();
+  Key_change_req(Key_change_req const &);
+  Key_def *key_;
 
 protected:
   VIRTUAL_COPY_CONS(Music);

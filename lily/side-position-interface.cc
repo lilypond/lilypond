@@ -230,26 +230,22 @@ Side_position_interface::set_axis (Axis a)
   if (elt_l_->get_elt_property ("side-support") == SCM_UNDEFINED)
     elt_l_->set_elt_property ("side-support" ,SCM_EOL);
 
-  elt_l_->dim_cache_[a]->off_callbacks_.push (aligned_side);
+  elt_l_->add_offset_callback (aligned_side, a);
 }
 
 
 void
 Side_position_interface::set_quantised (Axis a)
 {
-  Dimension_cache * c = elt_l_->dim_cache_[a];
-  
-  c->off_callbacks_.push (quantised_position);
+  elt_l_->add_offset_callback (quantised_position, a);
 }
 
 Axis
 Side_position_interface::get_axis () const
 {
-  Dimension_cache * c =  elt_l_->dim_cache_[X_AXIS];
-  for (int i=0 ; i < c->off_callbacks_.size();i ++)
-    if (c->off_callbacks_[i] == side_position
-	||c->off_callbacks_[i] == aligned_side)
-      return X_AXIS;
+  if (elt_l_->has_offset_callback_b (&side_position, X_AXIS)
+      || elt_l_->has_offset_callback_b (&aligned_side , X_AXIS))
+    return X_AXIS;
 
   
   return Y_AXIS;

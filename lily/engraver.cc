@@ -25,7 +25,9 @@ void
 Engraver::announce_element (Score_element_info i)
 {
   Score_element *  e = i.elem_l_;
-  group (e, "interfaces").add_thing (ly_symbol2scm (e->name()));
+
+  if (e->get_elt_property ("interfaces") == SCM_EOL)
+    group (e, "interfaces").add_thing (ly_symbol2scm (e->name()));
   
   if (!i.origin_trans_l_)
     i.origin_trans_l_ = this;

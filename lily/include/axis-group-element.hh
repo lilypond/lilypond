@@ -21,19 +21,13 @@
 */
 class Axis_group_element : public virtual Score_element
 {
-  /// modify fields of E for removal.
-  void do_remove (Score_element*e);
-
 protected:
-  virtual Link_array<Score_element> get_extra_dependencies() const;
   virtual Link_array<Score_element> elem_l_arr() const;
   static Interval extent_callback (Dimension_cache const*);
 
 public:
-  Axis axes_[2];
-    
   void add_element (Score_element*);
-
+  bool axis_b (Axis) const;
   Axis_group_element ();
   void set_axes (Axis,Axis);
 

@@ -14,10 +14,8 @@
 #include "real.hh"
 #include "lily-proto.hh"
 #include "parray.hh"
+#include "dimension-cache-callback.hh"
 
-class Dimension_cache;
-typedef Interval (*Dim_cache_callback)(Dimension_cache const *);
-typedef Real (*Offset_cache_callback)(Dimension_cache const *);
 
 /**
   Adminstration of offset dimension info. 
@@ -38,12 +36,12 @@ class Dimension_cache
   friend class Score_element;
 
   void init ();
-public:
   Array<Offset_cache_callback> off_callbacks_;
   /**
      What to call to find extent.  Nil means empty. 
    */
-  Dim_cache_callback callback_l_;
+public:
+  Dim_cache_callback extent_callback_l_;
   static Interval point_dimension_callback (Dimension_cache const* );
   Axis axis () const;
   Real get_offset () const;

@@ -124,7 +124,7 @@ Clef_engraver::acknowledge_element (Score_element_info info)
 	}
       else if (Key_item *k = dynamic_cast<Key_item*>(it_l))
 	{
-	  k-> set_c_position (c0_position_i_);
+	  k->set_elt_property ("c0-position", gh_int2scm (c0_position_i_));
 	}
     } 
 }

@@ -106,17 +106,25 @@ Tempo_req::do_equal_b (Request const *r) const
 void
 Key_change_req::do_print () const
 {
-#ifndef NPRINT
-  for (int i=0; i < key_.pitch_arr_.size (); i++)
-    {
-      key_.pitch_arr_[i].print ();
-    }
+#if 0
+  key_->print();
 #endif
 }
 
 Key_change_req::Key_change_req ()
 {
+  key_ = 0;
 }
+Key_change_req::Key_change_req (Key_change_req const&s)
+  : Request (s)
+{
+  key_ = new Key_def (*s.key_);
+}
+Key_change_req::~Key_change_req ()
+{
+  delete key_;
+}
+
 
 Break_req::Break_req ()
 {
@@ -134,8 +142,6 @@ Mark_req::do_equal_b (Request const * r) const
 void
 Key_change_req::transpose (Musical_pitch p)
 {
-  key_.transpose (p);
+  key_->transpose (p);
 }
 
-
-			   

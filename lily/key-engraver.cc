@@ -131,6 +131,9 @@ Key_engraver::do_pre_move_processing ()
 void
 Key_engraver::read_req (Key_change_req const * r)
 {
+  if (!r->key_)
+    return;
+  
   old_accidental_idx_arr_ = accidental_idx_arr_;
   key_.clear ();
   SCM prop = get_property ("keyOctaviation");
@@ -139,9 +142,9 @@ Key_engraver::read_req (Key_change_req const * r)
   
   accidental_idx_arr_.clear ();
 
-  if (r->key_.ordinary_key_b_) 
+  if (r->key_->ordinary_key_b_) 
     {
-      int no_of_acc = r->key_.ordinary_accidentals_i ();
+      int no_of_acc = r->key_->ordinary_accidentals_i ();
 
       // Hmm, can't these be handled/constructed by Key_change_req?
       if (no_of_acc < 0) 
@@ -181,9 +184,9 @@ Key_engraver::read_req (Key_change_req const * r)
     }
   else // Special key
     {
-      for (int i = 0; i < r->key_.pitch_arr_.size (); i ++) 
+      for (int i = 0; i < r->key_->pitch_arr_.size (); i ++) 
 	{
-	  Musical_pitch m_l =r->key_.pitch_arr_[i];
+	  Musical_pitch m_l =r->key_->pitch_arr_[i];
 	  if (key_.multi_octave_b_)
 	    key_.set (m_l);
 	  else

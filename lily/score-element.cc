@@ -202,14 +202,14 @@ Score_element::add_processing()
   if (get_elt_property ("self-alignment-X") != SCM_UNDEFINED
       && !dim_cache_[X_AXIS]->off_callback_l_)
     {
-      dim_cache_[X_AXIS]->off_callbacks_.push (Side_position_interface::aligned_on_self);
+      add_offset_callback (Side_position_interface::aligned_on_self,X_AXIS);
     }
   
   if (get_elt_property ("self-alignment-Y") != SCM_UNDEFINED
       && !dim_cache_[X_AXIS]->off_callback_l_)
       
     {
-      dim_cache_[Y_AXIS]->set_offset_callback (Side_position_interface::aligned_on_self);
+      add_offset_callback (Side_position_interface::aligned_on_self, Y_AXIS);
     }
 #endif
   
@@ -228,16 +228,12 @@ Score_element::calculate_dependencies (int final, int busy,
   assert (status_i_!= busy);
   status_i_= busy;
 
-  Link_array<Score_element> dependency_arr =
-    Group_interface__extract_elements (this, (Score_element*)0, "dependencies");
-  
-  for (int i=0; i < dependency_arr.size(); i++)
-    dependency_arr[i]->calculate_dependencies (final, busy, funcptr);
+  for (SCM d=  get_elt_property ("dependencies"); d != SCM_EOL; d = gh_cdr (d))
+    {
+      unsmob_element (gh_car (d))
+	->calculate_dependencies (final, busy, funcptr);
+    }
 
-  Link_array<Score_element> extra (get_extra_dependencies());
-  for (int i=0; i < extra.size(); i++)
-    extra[i]->calculate_dependencies (final, busy, funcptr);
-  
   (this->*funcptr)();
   status_i_= final;
 }
@@ -453,13 +449,6 @@ Score_element::handle_prebroken_dependencies()
     }
 }
 
-Link_array<Score_element>
-Score_element::get_extra_dependencies() const
-{
-  Link_array<Score_element> empty;
-  return empty;
-}
-
 bool
 Score_element::linked_b() const
 {
@@ -499,13 +488,13 @@ Score_element::common_refpoint (Score_element const* s, Axis a) const
 void
 Score_element::set_empty (Axis a)
 {
-  dim_cache_[a]->callback_l_ =0;
+  dim_cache_[a]->extent_callback_l_ =0;
 }
 
 bool
 Score_element::empty_b (Axis a)const
 {
-  return !dim_cache_[a]->callback_l_;
+  return !dim_cache_[a]->extent_callback_l_;
 }
 
 Interval
@@ -542,6 +531,22 @@ Score_element::name () const
   return classname (this);
 }
 
+void
+Score_element::add_offset_callback (Offset_cache_callback cb, Axis a)
+{
+  dim_cache_[a]->off_callbacks_.push (cb);
+}
+
+bool
+Score_element::has_offset_callback_b (Offset_cache_callback cb, Axis a)const
+{
+  for (int i= dim_cache_[a]->off_callbacks_.size (); i--;)
+    {
+      if (dim_cache_[a]->off_callbacks_[i] == cb)
+	return true;
+    }
+  return false;
+}
 
 void
 Score_element::set_parent (Score_element *g, Axis a)
