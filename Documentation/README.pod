@@ -1,0 +1,165 @@
+=head1 NAME
+
+Lilypond - a music typesetter
+
+=head1 SYNOPSIS
+
+	lilypond [options] [inputfiles]
+
+=head1 DESCRIPTION
+
+LilyPond typesets music. It translates script files (mudela files or
+F<.ly>'s) into TeX input.
+
+=head1 OPTIONS
+
+=item 	B<-d,--debug>
+debugging
+
+=item 	B<-w,--warranty>
+warranty
+
+=item  B<-o,--output>
+default output file
+
+=item 	B<-h,--help>
+help
+
+=head1 LICENSE
+
+GNU GPL. See file COPYING
+
+=head1 PREREQUISITES
+
+Compilation:
+
+=over 5
+
+=item	- Unix (any decent Linux distribution is fine)
+
+=item	- GNU C++ v2.7  or better (with libg++ )
+
+=item	- GNU make.
+
+=item	- flex (2.5.1 or better)
+
+=item	- bison/yacc
+
+=item	- The "flower" library, which should be available from the
+	same source you got this from.
+
+=item	- perl
+
+=back
+
+Operation:
+
+=over 5
+
+=item	- TeX
+
+=item	- the MusixTeX fonts
+
+=back
+
+The Makefile uses  perl for trivial operations,  and you could  tinker
+with it to use sed or awk.
+
+=head1 COMPILING
+
+Do:
+
+	tar zxf flower-1.11.9.tar.gz
+	mv flower-1.11.9 flower
+	cd flower; make; cd ..
+	tar zxf lilypond-1.2.13.tar.gz
+	cd lilypond-1.2.13
+	make
+
+why G++ >= 2.7? LilyPond & flower lib uses:
+
+	builtin bool
+	typeof
+	operator <?, operator >?
+	the new for-scope
+	class Rational (libg++)
+
+=head1 AUTHOR
+
+Han-Wen Nienhuys <hanwen@stack.nl>, <jan@digicash.com>
+
+=head1 EXAMPLES
+
+At this time, LilyPond is only suited for Quick & Dirty jobs (the
+output quality still is too low). If you're not discouraged; this is
+what I type in my xterm:
+
+	lilypond someinput.ly
+	tex test
+	xdvi test&
+
+This is what the output looks like over here:
+
+	hw:~/musix/spacer$ lilypond maartje.ly
+	LilyPond 0.0.17/FlowerLib 1.0.14. Compile: Dec 17 1996, 11:33:54 (g++ 2.7.2)
+	Parsing ... [symbol.ini][maartje.ly]
+	Processing ... Calculating ... Postprocessing ... 
+	output to lelie.uit...
+
+	hw:~/musix/spacer$ tex test
+	This is TeX, Version 3.14159 (C version 6.1)
+	(test.tex
+	Hyphenation patterns for english, dutch, loaded.
+	(lilyponddefs.tex) (lelie.uit) [1] [2] )
+	Output written on test.dvi (2 pages, 8072 bytes).
+	Transcript written on test.log.
+
+	hw:~/musix/spacer$ xdvi test&
+	[1] 1468
+
+Check out kortjakje.ly, it has some comments
+
+
+=head1 PROBLEMS
+
+If LilyPond bombs out, then please recompile using B<-g>, and send a gdb
+stacktrace of the crash. It also helps if you can print the values of the objects. So if you trace is
+
+	(gdb) backtrace 12
+	#0  Interval::operator+= (this=0x11fffec60..)
+	    at ../flower/interval.hh:50
+	#1  0x12005195c in Item::width (this=0x14008a680) at src/item.cc:39
+	#2  0x12008fdbc in itemlist_width (its=0x11fffed58 ..
+	  :
+	  :
+
+Than it would help if you send a dump of the Interval and the Item
+(use: 'print *this' or use LilyPond print() methods).
+
+This is a beta version of LilyPond. Please send your helpful comments
+and patches to me,
+
+LilyPond is updated very frequently, the latest version is always available at:
+
+F<ftp://pcnov095.win.tue.nl/pub/lilypond>
+
+
+=head1 FILES
+
+F<symbol.ini> The initialisation file with symbol tables etc.
+
+=head1 HOW DOES IT WORK
+
+=over 5
+
+Use The Source, Luke. If you don't know C++, you can try editing
+the file F<.dstreamrc> for copious debugging output. (use B<-d>)
+
+the subdir Documentation/ contains some more-in-depth matter on LilyPond
+
+The source is commented in the DOC++ style.
+Check out doc++ at
+
+	http://www.ZIB-Berlin.DE/VisPar/doc++/doc++.html
+
+=back

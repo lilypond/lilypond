@@ -1,0 +1,99 @@
+=head1 NAME
+
+CodingStyle - standards while programming for LilyPond
+
+=head1 DESCRIPTION
+
+Please use these standards while doing programming for LilyPond
+
+
+
+Functions and methods do not return errorcodes, but use assert for
+checking status. 
+
+=head2 INDENTATION
+
+in emacs:
+
+
+	(add-hook 'c-mode-hook
+		  '(lambda ()(setq c-basic-offset 4)))
+
+
+	(add-hook 'c++-mode-hook
+		  '(lambda() (c-set-style "Stroustrup")
+		     )
+		  )
+
+
+=head2 CLASSES and TYPES:
+
+	This_is_a_class
+	AClass_name	(for Abbreviation_class_name)
+
+=head2 DATA MEMBERS
+
+	Class::member
+
+if the member's name resembles its type, then I use
+
+	class Fubular { ..}
+
+	Class::fubular_
+
+=head2 COMMENTS
+
+	/// short description
+	class Class {
+		///
+		Data data_member_;
+		/**
+			..
+		*/
+
+		/****************/
+
+		/// short memo
+		member();
+		/**
+			long doco of member()
+		*/
+	};
+	/**
+		Class documentation.
+	*/
+
+Unfortunately most of the code isn't really documented that good.
+
+=head2 CLASSNAMES (2)
+
+A lot of classes in LilyPond start with 'P', this is to distinguish
+certain parts of LilyPond: the P stands for Printer, and the P-classes
+are supposed to be more lowlevel than the others. Example:
+
+Staff uses PStaff, PScore and PCol to do the typesetting of
+symbols. Staff is  the "brains" for PStaff
+
+NB: in PCursor (which is part of the library) P stands for PointerCursor
+
+
+=head2 MEMBERS(2)
+
+Standard methods:
+
+	///check that *this satisfies its invariants, abort if not.
+	void OK() const
+
+	/// print *this (and substructures) to debugging log
+	void print() const
+
+	/// add some data to *this; 
+	add( .. )
+	/**
+	Presence of these methods usually imply that it is not feasible to this
+	via  a constructor
+	*/
+
+	/// replace some data of *this
+	set( .. )
+
