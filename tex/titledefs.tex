@@ -49,5 +49,17 @@
   \global\let\lilypondpiece\relax%
   \global\let\mustmakelilypondpiecetitle\undefined%
 }
+% header -- head ?
+% these names can't be changed: they're uses in mutopia headers
+\def\theheader
+{
+  \ifx\lilypondhead\undefined\else%
+    \parbox{\textwidth}{\mbox{}\lilypondhead}\fi
+}
+\def\thefooter
+{
+  \ifx\lilypondfooter\undefined\else%
+    \parbox{\textwidth}{\mbox{}\lilypondfooter}\fi
+}
 \endinput
 

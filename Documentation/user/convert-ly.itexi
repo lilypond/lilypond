@@ -11,20 +11,22 @@ detect the old version number.
 @subsection Invoking convert-ly
 
 @example
-        convert-ly [options] [files]
+        convert-ly [OPTION]... [FILE]...
 @end example
 
 
 @table @code
-@item --output
-    The output file to write.  
+@item --assume-old
+    If version number cannot be determined, apply all conversions.
 @item --edit
     Do an inline edit of the input file. override @code{--output}
-@item --show-rules
-    shows all known conversions, and exit
 @item --from=@var{FROM_PATCHLEVEL}
     Set the level to convert from. If this is not set, convert-ly will
     guess this, on the basis of @code{\version} strings in the file
+@item --output
+    The output file to write.  
+@item --show-rules
+    shows all known conversions, and exit
 @item --to=@var{TO_PATCHLEVEL}
     Set the goal version of the conversion. It defaults to the latest
     available version.

@@ -441,7 +441,7 @@ violoncello =  \notes \relative c {
 	R1|
 	\!c4\p r r2|
 	R1|
-	g4-#'((font-shape . upright) "pizz.") r r2|
+	g4-#"pizz." r r2|
 	
 	%295
 	R1|
@@ -472,7 +472,7 @@ violoncello =  \notes \relative c {
 	\!c,\pp r r2|
 	R1|
 	% no mistake: octave lower than contrabass, ie, sounding equal
-	c,4-#'((font-shape . upright) "pizz.") r r2|
+	c,4-#"pizz." r r2|
 	c4 r r2|
 	c4 r r2|
 }
