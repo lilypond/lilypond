@@ -1,3 +1,7 @@
+2003-09-23  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/topdocs/INSTALL.texi: Update emacs mode.
+
 2003-09-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* Documentation/user/cheatsheet.itely: more verbose examples.

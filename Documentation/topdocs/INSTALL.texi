@@ -227,25 +227,25 @@ and for the profiling version, I specify a different configuration:
 @section Emacs mode
 
 An Emacs mode for entering music and running LilyPond is contained in
-the source archive as @file{lilypond-mode.el},
-@file{lilypond-indent.el}, @file{lilypond-font-lock.el} and
-@file{lilypond.words.el}.  You should install these files to a directory
-included in your @var{load-path}. File @file{lilypond-init.el} should
-be placed to @var{load-path}@file{/site-start.d/} or appended to your
-@file{~/.emacs} or @file{~/.emacs.el}.
+the source archive in the @file{elisp} directory.  @command{make
+install} installs it @var{elispdir}.  The file @file{lilypond-init.el}
+should be placed to @var{load-path}@file{/site-start.d/} or appended
+to your @file{~/.emacs} or @file{~/.emacs.el}.
 
 As a user, you may want add your source path or, e.g., @file{~/site-lisp/} 
 to your @var{load-path}. Append the following line (modified) to your 
 @file{~/.emacs}:
+@c any reason we do not advise:  (push "~/site-lisp" load-path)
 @quotation
 @example
-	(setq load-path (append (list (expand-file-name "~/site-lisp")) load-path))
+(setq load-path (append (list (expand-file-name "~/site-lisp")) load-path))
 @end example
 @end quotation
 
 
 @section Vim mode
 
+@c lilypond.words.el for vim auto-completion?
 A Vim mode for entering music and running LilyPond is contained in
 the source archive. Append the content of @file{vimrc} to @file{~/.vimrc}
 to get shortcuts. Install file @file{lilypond.words.el} to @file{~/.vim/} to 
