@@ -437,17 +437,17 @@ c4. r8 |
 R2*8 |
 e4. \f r8 |
 e4. r8 |
-r4 e-> ~ |
-d8 r e4-> ~ |
-d8 r d4 ~ |
-e8 r r4 |
-r e ~ |
-d8 r e4 ~ |
-d8 r d4 ~ |
-e8 r r4 |
-r e_"dim." ~ |
-d8 r e4 ~ |
-d8 r r4 |
+r4 e-> ( |
+) d8 r e4-> ( |
+) d8 r d4 ( |
+) e8 r r4 |
+r e ( |
+) d8 r e4 ( |
+) d8 r d4 ( |
+) e8 r r4 |
+r e_"dim." |
+) d8 r e4 ( |
+) d8 r r4 |
 R2*47 |
 g,2 \f ~ |
 g4 r |
@@ -497,9 +497,9 @@ e r |
 d r |
 d r |
 g, r |
-e' ~ d8 r |
+e' () d8 r |
 g,4 r |
-e' ~ d8 r |
+e' () d8 r |
 e4-. r |
 d-. r |
 d8-. r d-. r |
@@ -583,7 +583,7 @@ R2*12 |
 g2 \f ~ |
 g4 r |
 g r |
-g' ~ fis8 r |
+g' () fis8 r |
 R2 |
 d'4 r |
 R2 |
@@ -599,17 +599,17 @@ c4. r8 |
 R2*8 |
 e4. \f r8 |
 e4. r8 |
-r4 g4 ~ |
-fis8 r g4 ~ |
-fis8 r d'4 ~ |
-e8 r r4 |
-r g, ~ |
-fis8  r g4 ~ |
-fis8  r d'4 ~ |
-e8 r r4 |
-r g, ~ |
-fis8_"dim." r g4 ~ |
-fis8 r r4 |
+r4 g4 ( |
+) fis8 r g4 ( |
+) fis8 r d'4 ( |
+) e8 r r4 |
+r g, ( |
+) fis8  r g4 ( |
+) fis8  r d'4 ( |
+) e8 r r4 |
+r g, ( |
+) fis8_"dim." r g4 ( |
+) fis8 r r4 |
 R2*47 |
 g,2 \f ~ |
 g4. r8 |
@@ -654,9 +654,9 @@ e r |
 d' r |
 d r |
 g,, r |
-c' ~ g8 r |
+c' () g8 r |
 g,4 r |
-c' ~ g8 r |
+c' () g8 r |
 g4 r |
 fis r |
 g8-. r g-. r | % Staccato copied from trp. I
@@ -684,8 +684,8 @@ R2.*5 |
 f2.:32 \pp ~ |
 f2.:32 ~ |
 f2.:32 ~ |
-f2.:32 ~ |
-c'4 r r |
+f2.:32 ( |
+) c'4 r r |
 R2.*3 |
 c2.:32 \pp |
 c2.:32 |

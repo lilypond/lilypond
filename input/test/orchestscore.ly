@@ -88,17 +88,11 @@ c1 | c2 c | c c | c c | c c | c c | c c | c c |
     textheight = 260.\mm;
     \translator {
 	\OrchestralScoreContext
-        minVerticalAlign = 3.5*\staffheight; % No effect!!??
+        minVerticalAlign = 2.2*\staffheight; 
     }
     \translator { \StaffContext
 	\consists "Staff_margin_engraver";
         marginScriptPadding = 15.0;
-    }
-    \translator { \StaffGroupContext
-        minVerticalAlign = 2.5*\staffheight;
-    }
-    \translator { \GrandStaffContext
-        minVerticalAlign = 2.5*\staffheight;
     }
   }
 }
