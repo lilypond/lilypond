@@ -29,7 +29,7 @@
 	   (side-relative-direction .  -1)))
 	 
 	 ("portato" .
-	  ((script-stencil . (feta . ("dportato" . "uportato")))
+	  ((script-stencil . (feta . ("uportato" . "dportato")))
 	   (side-relative-direction . -1)))
 
 	 ("accentus" .
