@@ -1,3 +1,10 @@
+2004-09-19  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* ly/init.ly: reverse collected scores.
+
+	* scm/page-layout.scm (ly:optimal-page-breaks): use non-ragged
+	layout to determine force.
+	
 2004-09-18  Werner Lemberg  <wl@gnu.org>
 
 	* ly/engraver-init.ly <Score> [quotedEventTypes]: Add tuplets and
