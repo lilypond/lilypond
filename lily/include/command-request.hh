@@ -26,6 +26,7 @@ public:
     virtual Meter_change_req * meterchange() { return 0; }
     virtual Bar_req *bar() { return 0; }
     virtual Cadenza_req *cadenza() { return 0; }
+    virtual Disallow_break_req *disallowbreak() { return 0; }
     virtual Timing_req*timing() {  return 0; }
     virtual Command_script_req*commandscript() { return 0;}
 };
@@ -36,6 +37,11 @@ public:
     REQUESTMETHODS(Command_script_req, commandscript);
 };
 
+
+class Disallow_break_req : public Command_req {
+public:
+    REQUESTMETHODS(Disallow_break_req, disallowbreak);
+};
 
 
 /** Baseclass for meter/partial req. It has to be handled by
