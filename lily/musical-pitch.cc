@@ -10,12 +10,11 @@
 #include "debug.hh"
 #include "main.hh"
 
-Musical_pitch::Musical_pitch (int n, int a, int o, bool c)
+Musical_pitch::Musical_pitch (int n, int a, int o)
 {
   notename_i_ = n;
   accidental_i_ = a;
   octave_i_ = o;
-  cautionary_b_ = c;
 }
 
 void

@@ -9,13 +9,13 @@
 #include "span-bar.hh"
 #include "lookup.hh"
 #include "dimensions.hh"
-
 #include "paper-def.hh"
 #include "molecule.hh"
 #include "align-element.hh"
+#include "warn.hh"
 
 void
-Span_bar::add_bar (Bar*b)
+Span_bar::add_bar (Score_element*b)
 {
   spanning_l_arr_.push (b);
   add_dependency (b);
@@ -117,9 +117,16 @@ Molecule*
 Span_bar::do_brew_molecule_p () const
 {
   Interval iv (get_spanned_interval ());
-  Molecule*output = new Molecule (lookup_l ()->bar (type_str_, iv.length ()));
-
-  output->translate_axis (iv.center (), Y_AXIS);
+  Molecule*output = new Molecule;
+  if (!iv.empty_b())
+    {
+      output->add_molecule (lookup_l ()->bar (type_str_, iv.length ()));
+      output->translate_axis (iv.center (), Y_AXIS);
+    }
+  else
+    {
+      warning("Huh? My children deflated (FIXME)");
+    }
   return output;
 }
 

@@ -14,7 +14,7 @@
 #include "engraver.hh"
 
 struct CHead_melodic_tuple {
-  Melodic_req *mel_l_ ;
+  Melodic_req *req_l_ ;
   Note_head *head_l_;
   Moment end_;
   CHead_melodic_tuple ();
@@ -29,6 +29,13 @@ inline int compare (CHead_melodic_tuple const &a, CHead_melodic_tuple const &b)
 }
 
 
+/**
+   Manufacture ties.  Acknowledge noteheads, and put them into a
+   priority queue. If we have a Tie_req, connect the notes that finish
+   just at this time, and note that start at this time.
+
+   TODO: should share code with Beam_engraver, Extender_engraver?
+ */
 class Tie_engraver : public Engraver
 {
   PQueue<CHead_melodic_tuple> past_notes_pq_;

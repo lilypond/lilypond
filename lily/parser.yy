@@ -1153,12 +1153,12 @@ close_request_parens:
 	| E_SMALLER {
 		Span_dynamic_req*s =new Span_dynamic_req;
 		$$ = s;
-		s->dynamic_dir_ = SMALLER;
+		s->dynamic_dir_ = UP;
 	}
 	| E_BIGGER {
 		Span_dynamic_req*s =new Span_dynamic_req;
 		$$ = s;
-		s->dynamic_dir_ = BIGGER;
+		s->dynamic_dir_ = DOWN;
 	}
 	;
 

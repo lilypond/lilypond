@@ -29,19 +29,22 @@ Local_key_item::add_support (Item*head_l)
 }
 
 void
-Local_key_item::add (Musical_pitch p)
+Local_key_item::add_pitch (Musical_pitch p, bool cautionary)
 {
-  for (int i=0; i< accidental_pitch_arr_.size(); i++)
-    if (!Musical_pitch::compare (p, accidental_pitch_arr_[i]))
+  for (int i=0; i< accidental_arr_.size(); i++)
+    if (!Musical_pitch::compare (p, accidental_arr_[i].pitch_))
       return;
-  
-  accidental_pitch_arr_.push (p);
+
+  Local_key_cautionary_tuple t;
+  t.pitch_ = p;
+  t.cautionary_b_ = cautionary;
+  accidental_arr_.push (t);
 }
 
 void
 Local_key_item::do_pre_processing()
 {
-  accidental_pitch_arr_.sort (Musical_pitch::compare);
+  accidental_arr_.sort (Local_key_cautionary_tuple::compare);
 }
 
 Molecule*
@@ -51,10 +54,11 @@ Local_key_item::do_brew_molecule_p() const
 
   Molecule *octave_mol_p = 0;
   int lastoct = -100;
-  for  (int i = 0; i <  accidental_pitch_arr_.size(); i++) 
+  for  (int i = 0; i <  accidental_arr_.size(); i++) 
     {
+      Musical_pitch p (accidental_arr_[i].pitch_);
       // do one octave
-      if (accidental_pitch_arr_[i].octave_i_ != lastoct) 
+      if (p.octave_i_ != lastoct) 
 	{
 	  if (octave_mol_p)
 	    {
@@ -66,12 +70,12 @@ Local_key_item::do_brew_molecule_p() const
 	  octave_mol_p= new Molecule;
 	}
       
-      lastoct = accidental_pitch_arr_[i].octave_i_;
+      lastoct = p.octave_i_;
       Real dy =
-	(c0_position_i_ + accidental_pitch_arr_[i].notename_i_)
+	(c0_position_i_ + p.notename_i_)
 	* paper()->internote_f ();
-      Molecule m (lookup_l ()->accidental (accidental_pitch_arr_[i].accidental_i_, 
-	      accidental_pitch_arr_[i].cautionary_b_));
+      Molecule m (lookup_l ()->accidental (p.accidental_i_, 
+					   accidental_arr_[i].cautionary_b_));
 
       m.translate_axis (dy, Y_AXIS);
       octave_mol_p->add_at_edge (X_AXIS, RIGHT, m, 0);
@@ -85,7 +89,7 @@ Local_key_item::do_brew_molecule_p() const
       delete octave_mol_p;
     }
   
- if (accidental_pitch_arr_.size()) 
+ if (accidental_arr_.size()) 
     {
       Box b(Interval (0, paper()->internote_f ()), Interval (0,0));
       Molecule m (lookup_l ()->fill (b));
@@ -116,8 +120,6 @@ Local_key_item::do_brew_molecule_p() const
 void
 Local_key_item::do_substitute_element_pointer (Score_element*o,Score_element*n)
 {
-  Item* o_l = dynamic_cast <Item *> (o);
-  Item* n_l = n?dynamic_cast <Item *> (n):0;
-
-  support_items_.substitute (o_l, n_l);
+  if (Item* o_l = dynamic_cast <Item *> (o))
+    support_items_.substitute (o_l,dynamic_cast <Item *> (n));
 }

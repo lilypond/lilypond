@@ -60,18 +60,24 @@ Tie_engraver::do_process_requests ()
 void
 Tie_engraver::process_acknowledged ()
 {
+  bool old_behavior = get_property ("oldTieBehavior", 0).to_bool ();
+  
   if (req_l_)
     {
-      if (now_heads_.size () != stopped_heads_.size ())
+      if (old_behavior)
 	{
-	  req_l_->warning ("Unequal number of note heads for tie");
-	}
-      int sz = now_heads_.size () <? stopped_heads_.size ();
+	  if (now_heads_.size () != stopped_heads_.size ())
+	    {
+	      req_l_->warning ("Unequal number of note heads for tie");
+	    }
+	  int sz = now_heads_.size () <? stopped_heads_.size ();
 
-      // hmm. Should do something more sensible.
-      // because, we assume no more noteheads come along after the 1st pass.
-      if (sz > tie_p_arr_.size ())
-	{
+	  /* hmm. Should do something more sensible.
+       because, we assume no more noteheads come along after the 1st pass.
+	  */
+	  if (sz <= tie_p_arr_.size ())
+	    return;
+
 	  now_heads_.sort (CHead_melodic_tuple::pitch_compare);
 	  stopped_heads_.sort(CHead_melodic_tuple::pitch_compare);
 
@@ -82,6 +88,46 @@ Tie_engraver::process_acknowledged ()
 	      p->set_head (RIGHT, now_heads_[i].head_l_);
 	      tie_p_arr_.push (p);
 	      announce_element (Score_element_info (p, req_l_));
+	    }
+	}
+      else
+	{
+	  now_heads_.sort (CHead_melodic_tuple::pitch_compare);
+	  stopped_heads_.sort(CHead_melodic_tuple::pitch_compare);
+	  int i=0;
+	  int j=0;
+	  int tie_count=0;
+	  while  ( i < now_heads_.size () && j < stopped_heads_.size ())
+	    {
+	      int comp
+		= Musical_pitch::compare (now_heads_[i].req_l_->pitch_ ,
+					  stopped_heads_[j].req_l_->pitch_);
+
+	      if (comp)
+		{
+		  (comp < 0) ? i ++ : j++;
+		  continue;
+		}
+	      else
+		{
+		  tie_count ++;
+
+		  /* don't go around recreating ties that were already
+		  made. Not infallible. Due to reordering in sort (),
+		  we will make the wrong ties when noteheads are
+		  added.  */
+		  if (tie_count > tie_p_arr_.size ())
+		    {
+		      Tie * p = new Tie;
+		      p->set_head (LEFT, stopped_heads_[j].head_l_);
+		      p->set_head (RIGHT, now_heads_[i].head_l_);
+		      tie_p_arr_.push (p);
+		      announce_element (Score_element_info (p, req_l_));
+		    }
+		  i++;
+		  j++;
+
+		}
 	    }
 	}
     }
@@ -128,14 +174,14 @@ ADD_THIS_TRANSLATOR(Tie_engraver);
 CHead_melodic_tuple::CHead_melodic_tuple ()
 {
   head_l_ =0;
-  mel_l_ =0;
+  req_l_ =0;
   end_ = 0;
 }
 
 CHead_melodic_tuple::CHead_melodic_tuple (Note_head *h, Melodic_req*m, Moment mom)
 {
   head_l_ = h;
-  mel_l_ = m;
+  req_l_ = m;
   end_ = mom;
 }
 
@@ -143,7 +189,7 @@ int
 CHead_melodic_tuple::pitch_compare (CHead_melodic_tuple const&h1,
 			     CHead_melodic_tuple const &h2)
 {
-  return Melodic_req::compare (*h1.mel_l_, *h2.mel_l_);
+  return Melodic_req::compare (*h1.req_l_, *h2.req_l_);
 }
 
 int
