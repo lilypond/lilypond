@@ -91,8 +91,10 @@ def parse_logfile (fn):
 			#urg
 			if 0: #testing
 				tags.append ('Regular')
+			tags[5] = re.sub (' ','-', tags[5])
 			name = tags[1:]
 			global_info['DesignSize'] = string.atof (tags[4])
+			print tags
 			global_info['FontName'] = string.join (name,'-')
 			global_info['FullName'] = string.join (name,' ')
 			global_info['FamilyName'] = string.join (name[1:-1],
@@ -101,6 +103,7 @@ def parse_logfile (fn):
 				global_info['Weight'] = tags[4]
 			else: #testing
 				global_info['Weight'] = tags[-1]
+				
 			global_info['FontBBox'] = '0 0 1000 1000'
 			global_info['Ascender'] = '0'
 			global_info['Descender'] = '0'
