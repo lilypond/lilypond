@@ -18,8 +18,10 @@
 #include "input.hh"
 #include "smobs.hh"
 
-#define get_property(x) internal_get_property(ly_symbol2scm(x))
-
+/* copied from lily-guile.hh */
+#ifndef get_property
+#define get_property(x) internal_get_property (ly_symbol2scm (x))
+#endif
 
 #define TRANSLATOR_DECLARATIONS(NAME)			\
 public:							\
