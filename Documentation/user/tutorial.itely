@@ -363,7 +363,7 @@ d
 Adding all alterations explicitly might require a little more effort
 when typing, but the advantage is that transposing is easier, and
 accidentals can be printed according to different conventions.  See
-@ref{Accidentals}, for some examples how accidentals can be printed
+@ref{Automatic accidentals}, for some examples how accidentals can be printed
 according to different rules.
 
 
@@ -372,7 +372,7 @@ For more information on
 @quotation
 @table @asis
 @item Accidentals
-see @ref{Accidentals}.
+see @ref{Automatic accidentals}.
 
 @item Key signature
 see @ref{Key signature}.
