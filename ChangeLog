@@ -195,7 +195,6 @@
 	scm/grob-property-description.scm, scripts/convert-ly.py: renamed
 	Stem properties: flag-style -> stroke-style, style -> flag-style.
 
-
 2002-09-22  Werner Lemberg  <wl@gnu.org>
 
 	* scripts/lilypond-book.py: Add option `notime' to suppress

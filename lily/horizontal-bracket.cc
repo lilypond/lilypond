@@ -1,7 +1,7 @@
 /*   
-horizontal-bracket.cc --  implement 
+  horizontal-bracket.cc --  implement  Horizontal_bracket
 
-source file of the GNU LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
 (c) 2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
