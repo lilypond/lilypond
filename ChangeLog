@@ -1,5 +1,10 @@
 2005-01-03  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* configure.in (gui_b): Remove handy developer-only
+	PKG_CONFIG_PATH settings that cater for Jan-and-Han-Wen ~/usr/pkg/
+	CVS source installations (but break other non-default but correct
+	PKG_CONFIG_PATH setups), as this is no longer developer-only.
+
 	* SConstruct: 
 	* ps/GNUmakefile (INSTALLATION_FILES): teTeX-3.0
 	compatibility (backportme).
