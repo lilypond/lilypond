@@ -56,7 +56,7 @@ Auto_change_iterator::change_to (Music_iterator *it, SCM to_type_sym,
       current = current->get_parent_context ();
     }
 
-  if (current && current->id_string_ == to_id)
+  if (current && current->id_string () == to_id)
     {
       String msg;
       msg += _ ("Can't switch translators, I'm there already");

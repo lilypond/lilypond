@@ -35,9 +35,11 @@ protected:
   SCM accepts_list_;
   SCM aliases_;
   SCM implementation_;
+  String id_string_;
 
   friend class Context_def;
 public:
+  String id_string () const { return id_string_; } 
   SCM children_contexts () const { return context_list_; }
   SCM default_child_context_name () const;
 
@@ -78,7 +80,6 @@ public:
   Link_array<Context> path_to_acceptable_context (SCM alias,
 						  Music_output_def*) const;
 
-  String id_string_;
 };
 
 /*
