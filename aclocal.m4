@@ -439,6 +439,7 @@ AC_DEFUN(AC_STEPMAKE_YODL, [
 	AC_CHECK_PROGS(YODL2HTML, yodl2html, -echo no yodl)
 	AC_CHECK_PROGS(YODL2LATEX, yodl2latex, )
 	AC_CHECK_PROGS(YODL2MAN, yodl2man, -echo no yodl)
+	AC_CHECK_PROGS(YODL2MSLESS, yodl2msless, -echo no yodl)
 	AC_CHECK_PROGS(YODL2TEXINFO, yodl2texinfo, -echo no yodl)
 	AC_CHECK_PROGS(YODL2TXT, yodl2txt, -echo no yodl)
     else
@@ -446,9 +447,10 @@ AC_DEFUN(AC_STEPMAKE_YODL, [
 	AC_SUBST(YODL2HTML)
 	AC_SUBST(YODL2LATEX)
 	AC_SUBST(YODL2MAN)
+	AC_SUBST(YODL2MSLESS)
 	AC_SUBST(YODL2TEXINFO)
 	AC_SUBST(YODL2TXT)
-	export YODL YODL2HTML YODL2LATEX YODL2MAN YODL2TEXINFO YODL2TXT
+	export YODL YODL2HTML YODL2LATEX YODL2MAN YODL2MSLESS YODL2TEXINFO YODL2TXT
     fi
     if test "x$YODL" = "-echo no yodl"; then
 	AC_STEPMAKE_WARN(Did not find YODL (Yodl is Yet Oneother Document Language, see http://www.cs.uu.nl/~hanwen/yodl))
