@@ -1,0 +1,546 @@
+@node Properties, , , Top
+
+@cindex properties!Lyrics
+
+@table @samp
+  @item @code{textStyle}@indexcode{textStyle}  
+    Set the font for lyrics.  The available font choices are
+    @code{roman}, @code{italic}, @code{bold}, @code{large}, @code{Large},
+    @code{typewriter}, and @code{finger}.  The @code{finger} font can
+    only display numbers.  Note also that you must be careful when
+    using @code{\property} in Lyrics mode, because of the way strings
+    are parsed.  Either put quotes around the arguments to
+    @code{\property} or be sure to leave a space on both sides of the
+    dot.
+@end table
+
+
+@cindex properties!Thread
+
+@table @samp
+  @item @code{noteheadStyle}@indexcode{noteheadStyle}  
+    Selects type of note head.  Choices are @code{cross},
+    @code{diamond}, @code{harmonic}, @code{transparent}, and @code{""}. 
+    They are shown in that order below.
+
+    @mudela[center]
+
+      \score {
+        \notes { 
+          \property Staff.barNonAuto = 1
+          \property Voice.noteHeadStyle = cross 
+          a'
+          \property Voice.noteHeadStyle = diamond
+          a'
+          \property Voice.noteHeadStyle = harmonic
+          a'
+          \property Voice.noteHeadStyle = transparent
+          a' 
+          \property Voice.noteHeadStyle = ""
+          a'
+        }
+        \paper {
+          linewidth = -1.;
+        }
+      }
+    
+@end mudela
+@end table
+
+@subsubheading Grace properties
+
+@cindex properties!Grace
+
+ 
+@table @samp  
+  @item @code{stemStyle}@indexcode{stemStyle}  
+    By default set to @code{"grace"} meaning that all unbeamed 
+    notes with flags are typeset with a slash through the flag. 
+    Setting to @code{""} gives standard flags.
+@end table
+
+
+@subsubheading Voice properties
+
+@cindex properties!Voice
+
+@table @samp  
+  @item @code{abbrev}@indexcode{abbrev}  
+    Set length for tremolo to be used if no length is explicitly
+    specified. 
+
+  @item @code{articulationScriptPadding}@indexcode{articulationScriptPadding}
+     
+    Determines the extra space added between articulation marks, such
+    as staccato, tenuto, trill, up/down bow or fermata, and the
+    closest staff line or note.
+
+  @item @code{articulationScriptVerticalDirection}
+    @indexcode{articulationScriptVerticalDirection}  
+    Determines the location of articulation marks.  Set to @code{\up}
+    to print marks above the staff; set to @code{\down} to print marks
+    below the staff.  This property does not override explicit
+    directions marked with `@code{^}' or `@code{_}' in the mudela file.
+    
+  @item @code{noAutoBeaming}@indexcode{beamAuto}  
+    If set to 1 then beams are not generated automatically.
+
+  @item @code{beamAutoEnd}@indexcode{beamAutoEnd}  
+    Specifies when automatically generated beams can end.  See
+    section XREF-autobeam [FIXME].
+
+  @item @code{beamAutoBegin}@indexcode{beamAutoBegin}  
+    Specifies when automatically generated beams can start.  See
+    section XREF-autobeam [FIXME].
+
+  @item @code{beamquantisation}@indexcode{beamquantisation}  
+    Set to @code{\none} for no quantization.  Set to @code{\normal} to
+    quantize position and slope.  Set to @code{\traditional} to avoid
+    wedges.  These three settings are available via
+    @code{\beamposfree}@keyindex{beamposfree},
+    @code{\beamposnormal}@keyindex{beamposnormal}, and
+    @code{\beampostraditional}@keyindex{beampostraditional}.
+
+  @item @code{beamslopedamping}@indexcode{beamslopedamping}  
+    Set to @code{\none} for undamped beams.  Set to @code{\normal} for
+    damped beams.  Set to @code{\infinity} for beams with zero slope. 
+    The identifiers
+    @code{\beamslopeproportional}@keyindex{beamslopeproportional},
+    @code{\beamslopedamped}@keyindex{beamslopedamped}, and
+    @code{\beamslopezero}@keyindex{beamslopezero} each set the
+    corresponding value.
+
+  @item @code{dynamicDirection}@indexcode{dynamicDirection}  
+    Determines location of dynamic marks.  Set to @code{\up} to print
+    marks above the staff; set to @code{\down} to print marks below
+    the staff.
+
+  @item @code{dynamicStyle}@indexcode{dynamicStyle}  
+    Set the text style for dynamics.  
+
+  @item @code{fontSize}@indexcode{fontSize}  
+    Can be used to select smaller font sizes for music.  The normal
+    font size is 0, and the two smaller sizes are -1
+    and -2.
+
+   @item @code{forceHorizontalShift}@indexcode{forceHorizontalShift}  
+    Force horizontal shift for collision resolution.  It overrides
+    automatic collision resolution.  The value is the shift amount
+    expressed in @code{note_width}, as set in the paper section.
+
+[FIXME: this should be moved]
+
+Lilypond always arranges note heads on alternate sides of a stem (that
+is, within a single voice) as necessary to prevent collisions (note head
+overlaps).  For up stems, the upper note of a colliding pair is placed
+on the right side of the stem, the lower on the left. For down stems,
+the algorithm works in reverse.
+  
+Lily also attempts to prevent collisions of note heads in different
+voices. A situation where chords of two or more voices are played
+simultaneously within one staff.
+
+By default, if only two voices (and both have opposite stem directions)
+are in this 'collision group', the notes both are shifted by @code{0.5
+\quartwidth} if there are unisons or seconds between the voices.
+
+If there are more than two voices in a collision group, shifting is
+inactive by default, since in this case, there are multiple chords with
+the same stem direction. By  distinguish between those chords, LilyPond
+can do collision resolution in these cases as well.  
+
+Distinguishing between voices with the same stem direction, is done by
+setting the property @code{Voice.horizontalNoteShift}.  It must be set
+to a different integer for each voice. Then, all note heads in collision
+groups (not just unisons and seconds) will be offset, one voice relative
+another.  The following fragment of sheet music shows how shifting is
+done, with values of @code{horizontalNoteShift} printed over and under
+the notes. In this case the chords are just simple notes.
+
+@c URG : mudela book bug.
+@mudela[singleline]
+\score {
+        \notes \context Staff <
+        	\context Voice  = VA { \stemup f''4^"0" }
+        	\context Voice  = VB {\stemup
+		\property Voice.horizontalNoteShift = 1 d''4^" 1" }
+        	\context Voice  = VC { \stemup \property
+Voice.horizontalNoteShift = 2 b'4^"  2" }
+        	\context Voice  = VD { \stemdown \property
+Voice.horizontalNoteShift = 1 g'4_"1 " }
+        	\context Voice  = VE { \stemdown e'4_"0" }
+        >
+}
+@end mudela
+
+If you are not satisfied with the collision resolution of LilyPond, you
+can override the horizontal shift value of the chord of one Voice, by
+setting @code{forceHorizontalShift}.  This sets the amount shift,
+measured in black note head widths.
+
+To take complete control of note position shifts in complex passages,
+you have set things up for normal collisions and override all shifts by
+setting @code{forceHorizontalShift} to zero everywhere
+@example
+\property Voice.horizontalNoteShift = <n>
+\property Voice.forceHorizontalShift = "0.0"
+@end example
+
+Then you can set the force property to a suitable value before each note
+that really needs it (unisons and seconds), and reset it to 0.0 after
+the note.  
+
+  @item @code{horizontalNoteShift}@indexcode{horizontalNoteShift}  
+    Enable LilyPond to shift notes horizontally if they collide with
+    other notes.  This is useful when typesetting many voices on one
+    staff.  The identifier @code{\shift}@keyindex{shift} is defined to
+    enable this.  Traditionally, the outer chords (the upmost and
+    downmost voices), should have no @code{horizontalNoteShift}.
+
+  @item @code{markScriptPadding}@indexcode{markScriptPadding}  
+    Determines the extra space added between the mark and the closest
+    staff line or note.
+
+  @item @code{markDirection}@indexcode{markDirection}  
+    Determines if marks should be printed above or below the staff.
+    Set to @code{\up} to print marks above the staff; set to
+    @code{\down} to print marks below the staff.
+
+  @item @code{midiInstrument}@indexcode{midiInstrument}  
+    Sets the instrument for MIDI output.  If this property is not set
+    then LilyPond will use the @code{instrument} property.  This must
+    be set to one of the strings on the list of MIDI instruments that
+    appears in section XREF-midilist [FIXME].  If you use a string which
+    is not listed, LilyPond will silently substitute piano.
+
+  @item @code{oldTieBehavior}@indexcode{oldTieBehavior}  
+    Set to 1 in order to get old tie behavior where ties would
+    connect unequal pitches.  This property is deprecated, and its
+    use is not recommended.
+
+  @item @code{restStyle}@indexcode{restStyle}  
+    Change the layout of rests shorter than quarter notes. 
+    Currently, the standard layout @code{""} and mensural notation
+    @code{"mensural"} are available. Mensural rests of duration
+    32 or shorter are not available.
+    
+  @item @code{scriptHorizontal}@indexcode{scriptHorizontal}  
+    Put scripts left or right of note heads.  Support for this is
+    limited.  Accidentals will collide with scripts.
+    
+  @item @code{slurVerticalDirection}@indexcode{slurVerticalDirection}  
+    Set to @code{\free} for free choice of slur direction, set to
+    @code{\up} to force slurs up, set to @code{\down} to force slurs
+    down.  The shorthands @code{\slurup}@keyindex{slurup},
+    @code{\slurdown}@keyindex{slurdown}, and
+    @code{\slurboth}@keyindex{slurboth} are available.
+
+  @item @code{slurDash}@indexcode{slurDash}  
+    Set to 0 for normal slurs, 1 for dotted slurs, and a
+    larger value for dashed slurs.  Identifiers
+    @code{\slurnormal}@keyindex{slurnormal} and
+    @code{\slurdotted}@keyindex{slurdotted} are predefined to set the
+    first two settings.
+
+@item @code{stemLength}@indexcode{stemLength}  
+    Set length of stems.  Unit is `@code{interline}/2', so
+    @code{stemLength} defaults to 7.
+
+  @item @code{stemLeftBeamCount}@indexcode{stemLeftBeamCount}  
+    Specify the number of beams to draw on the left side of the next
+    note.  Overrides automatic beaming.  The value is only used once,
+    and then it is erased.
+
+  @item @code{stemRightBeamCount}@indexcode{stemRightBeamCount}  
+    Specify the number of beams to draw on the right side of the next
+    note.  Overrides automatic beaming.  The value is only used once,
+    and then it is erased.
+  @item @code{tieVerticalDirection}@indexcode{tieVerticalDirection}  
+    Set to @code{\free} for free choice of tie direction, set to
+    @code{\up} to force ties up, set to @code{\down} to force ties
+    down.
+
+  @item @code{transposing}@indexcode{transposing}  
+    Transpose the MIDI output.  Set this property to the number of
+    half-steps to transpose by.
+
+  
+  @item @code{textEmptyDimension}@indexcode{textEmptyDimension}  
+    If set to 1 then text placed above or below the staff is
+    assumed to have zero width.
+  
+  @item @code{textStyle}@indexcode{textStyle}  
+    Set the text style for superscripts and subscripts.  See above
+    for list of text styles.
+
+  @item @code{textScriptPadding}@indexcode{textScriptPadding}  
+    Determines the extra space added between superscripted resp.
+    subscripted text and the closest staff line or note.
+
+  @item @code{verticalDirection}@indexcode{verticalDirection}  
+    Determines the direction of stems, subscripts, beams, slurs, and
+    ties.  Set to @code{\down} to force them down, @code{\up} to force
+    them up, or @code{\free} to let LilyPond decide.  This can be used
+    to distinguish between voices on the same staff.  The
+    @code{\stemdown}@keyindex{stemdown}, @code{\stemup}@keyindex{stemup},
+    and @code{\stemboth}@keyindex{stemboth} identifiers set this
+    property.
+    
+
+  @item @code{tupletDirection}@indexcode{tupletDirection}  
+    Determines the direction of triplets and other tuplets.  Set to
+    @code{\down} to force them below the staff, @code{\up} to force
+    them above, or @code{\free} to let LilyPond decide.
+
+  @item @code{tupletVisibility}@indexcode{tupletVisibility}  
+    Determines whether tuplets of notes are labelled.  Setting
+    to 0 shows nothing; setting to 1 shows a number;
+    setting to 2 shows a number and a bracket if there is no
+    beam; setting to 3 shows a number, and if there is no beam
+    it adds a bracket; setting to 4 shows both a number and a
+    bracket unconditionally.
+
+@end table
+
+@subsubheading Staff properties
+
+@cindex properties!Staff
+
+@table @samp
+ 
+  @item @code{barNonAuto}@indexcode{barNonAuto}  
+    If set to 1 then bar lines will not be printed
+    automatically; they must be explicitly created with @code{\bar}
+    keywords.  Unlike with the @code{\cadenza} keyword, measures are
+    still counted.  Bar generation will resume according to that
+    count if this property is set to zero.
+
+  @item @code{barNumberDirection}@indexcode{barNumberDirection}  
+    Set to @code{\up} or @code{\down} to put bar numbers above or below
+    the staff.
+
+  @item @code{barNumberHangOnClef}@indexcode{barNumberHangOnClef}  
+    Set to 1 to cause bar numbers to appear above or below the
+    clef instead of on the bar line.  This property is deprecated. 
+    Do not use.
+
+  @item @code{barNumberScriptPadding}@indexcode{barNumberScriptPadding}  
+    Sets extra space between the bar number and the bar it labels.
+
+  @item @code{barSize}@indexcode{barSize}  
+    Specify the height of the bar lines if it should be different
+    than the staff height.
+
+  @item @code{barAtLineStart}@indexcode{barAtLineStart}  
+    Set to 1 to produce a bar line after the clef at the start
+    of each line (but not at the beginning of the music).
+
+  @item @code{clefStyle}@indexcode{clefStyle}  
+    Determines how clefs are typeset.  If set to @code{transparent},
+    the clefs are not printed at all, if set to
+    @code{fullSizeChanges}, clef changes in the middle of a line are
+    typeset with a full size clef.  By default, clef changes are
+    typeset in smaller size.
+
+  @item @code{createKeyOnClefChange}@indexcode{createKeyOnClefChange}  
+    Set to a nonempty string if you want key signatures to be printed
+    when the clef changes.  Set to the empty string if you do not
+    want key signatures printed.
+
+  @item @code{createInitdefaultClef}@indexcode{createInitdefaultClef}  
+    Specify whether clefs are created on default?  (Doesn't seem to
+    do anything.)
+
+  @item @code{defaultClef}@indexcode{defaultClef}  
+    Determines the default clef.  See @code{\clef} keyword.
+
+  @item @code{markHangOnClef}@indexcode{markHangOnClef}  
+    Set to 1 to cause marks to appear by clefs instead of by bar
+    lines.  Deprecated, use is not recommended.
+
+  @item @code{marginDirection}@indexcode{marginDirection}  
+    Set to @code{\left} or @code{\right} to specify location of
+    marginal scripts.
+
+  @item @code{marginScriptPadding}@indexcode{marginScriptPadding}  
+    Specify extra space for marginal scripts.
+
+  @item @code{forgetAccidentals}@indexcode{forgetAccidentals}  
+    Causes accidentals to be printed at every note instead of
+    remembered for the duration of a measure.
+
+  @item @code{noResetKey}@indexcode{noResetKey}  
+    Do not reset the key at the start of a measure.  Accidentals will
+    be printed only once and are in effect until overridden, possibly
+    many measures later.
+
+  @item @code{staffLineLeading}@indexcode{staffLineLeading}  
+    Specifies the distance (in points) between lines of the staff.
+
+  @item @code{numberOfStaffLines}@indexcode{numberOfStaffLines}  
+    Specifies the number of staff lines.  The default is 5.
+
+  @item @code{postBreakPadding}@indexcode{postBreakPadding}  
+    Extra space in points to be added after the clef, time signature
+    and key signature on the staff.  Deprecated, do not use.
+
+  @item @code{noVoltaBraces}@indexcode{noVoltaBraces}  
+    Set to true to suppress the printing of brackets over alternate
+    endings specified by the command @code{\alternative}.
+
+  @item @code{numberOfStaffLines}@indexcode{numberOfStaffLines}  
+    Sets the number of lines that the staff has.
+ 
+  @item @code{barAlways}@indexcode{barAlways}  
+    If set to 1 a bar line is drawn after each note.
+
+  @item @code{defaultBarType}@indexcode{defaultBarType}  
+    Sets the default type of bar line. See Section XREF-barlines [FIXME] 
+    for a list of available bar types.
+
+  @item @code{instrument}, @code{instr}
+    @indexcode{instrument}@indexcode{instr}  
+    If @code{Staff_margin_engraver}
+@cindex Staff_margin_engraver
+ is
+    added to the Staff translator, then the @code{instrument} property
+    is used to label the first line of the staff and the @code{instr}
+    property is used to label subsequent lines.  If the
+    @code{midiInstrument} property is not set, then @code{instrument}
+    is used to determine the instrument for MIDI output.
+
+  @item @code{keyOctaviation}@indexcode{keyOctaviation}  
+    If set to 1, then keys are the same in all octaves.  If set
+    to 0 then the key signature for different octaves can be
+    different and is specified independently:
+
+    @example
+      \keysignature bes fis'
+    @end example
+
+    The default value is 1.  Can be set to zero with
+    @code{\specialkey} or reset to 1 with @code{\normalkey}.
+
+  @item @code{timeSignatureStyle}@indexcode{timeSignatureStyle}  
+    Changes the default two-digit layout for time signatures.  The
+    following values are recognized:
+
+    @table @samp
+      @item @code{C}@indexcode{C}  
+        4/4 and 2/2 are typeset as C and struck C, respectively.  All
+        other time signatures are written with two digits.
+
+      @item @code{old}@indexcode{old}  
+        2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8 and 9/8 are
+        typeset with old-style mensuration marks.  All other time
+        signatures are written with two digits.
+
+      @item @code{1}@indexcode{1}  
+        All time signatures are typeset with a single
+        digit, e.g. 3/2 is written as 3.
+
+      @item @indexcode{CM/N}@code{C}@var{M}@code{/}@var{N}, 
+      @indexcode{oldM/N}@code{old}@var{M}@code{/}@var{N} or
+      @code{old6/8alt}@indexcode{old6/8alt}  
+        Tells LilyPond to use a specific symbol as time signature.
+    @end table
+
+    The different time signature characters are shown below with its
+    names:
+
+    @mudela[center]
+
+      \score {
+        \notes\relative c'' {
+          \property Voice.textStyle = typewriter
+          \property Staff.timeSignatureStyle = "C2/2"
+          \time 2/2; a2^"C2/2" a2 
+          \property Staff.timeSignatureStyle = "C4/4"
+          \time 2/2; a2^"C4/4" a2 
+          \property Staff.timeSignatureStyle = "old2/2"
+          \time 2/2; a2^"old2/2" a2 
+          \property Staff.timeSignatureStyle = "old3/2"
+          \time 2/2; a2^"old3/2" a2 
+          \property Staff.timeSignatureStyle = "old2/4"
+          \time 2/2; a2^"old2/4" a2 
+          \property Staff.timeSignatureStyle = "old4/4"
+          \time 2/2; a2^"old4/4" a2 
+          \property Staff.timeSignatureStyle = "old6/4"
+          \time 2/2; a2^"old6/4" a2 
+          \property Staff.timeSignatureStyle = "old9/4"
+          \time 2/2; a2^"old9/4" a2 
+          \property Staff.timeSignatureStyle = "old4/8"
+          \time 2/2; a2^"old4/8" a2 
+          \property Staff.timeSignatureStyle = "old6/8"
+          \time 2/2; a2^"old6/8" a2 
+          \property Staff.timeSignatureStyle = "old6/8alt"
+          \time 2/2; a2^"old6/8alt" a2 
+          \property Staff.timeSignatureStyle = "old9/8"
+          \time 2/2; a2^"old9/8" a2 
+        }
+        \paper {
+          linewidth = 4.5 \in;
+        }
+      }
+    
+@end mudela
+
+  @item @code{voltaSpannerDuration}@indexcode{voltaSpannerDuration}  
+    Set to an integer to control the size of the brackets printed by
+    @code{\alternative}.  The integer specifies the number of whole
+    notes duration to use for the brackets.  It is rounded to the
+    nearest measure.  This can be used to shrink the length of
+    brackets in the situation where one alternative is very large. 
+    It may have odd effects if the specified duration is longer than
+    the music given in an @code{\alternative}.
+@end table
+   
+
+@cindex properties!GrandStaff
+
+@table @samp 
+  @item @code{alignmentReference}@indexcode{alignmentReference}  
+    Set to @code{\center} for vertical alignment reference point to be
+    in the center of the vertical group.  Set to @code{\up} to put the
+    reference point at the top of the group.
+
+  @item @code{maxVerticalAlign}@indexcode{maxVerticalAlign}  
+    Set the maximum vertical distance between staffs.
+
+  @item @code{minVerticalAlign}@indexcode{minVerticalAlign}  
+    Set the minimum vertical distance between staffs.  
+@end table
+
+
+@cindex properties!Score
+
+@table @samp
+  @item @code{skipBars}@indexcode{skipBars}  
+    Set to 1 to skip the empty bars that are produced by
+    multimeasure notes and rests.  These bars will not appear on the
+    printed output.  Set to zero (the default) to expand multimeasure
+    notes and rests into their full length, printing the appropriate
+    number of empty bars so that synchronization with other voices is
+    preserved.
+
+    @quotation
+
+@mudela[fragment,verbatim,center]
+r1 r1*3 R1*3\property Score.skipBars=1 r1*3 R1*3
+
+@end mudela
+    @end quotation
+
+@end table
+
+
+@cindex properties!ChordNamesVoice
+
+@table @samp
+  @item @code{chordInversion}@indexcode{chordInversion}  
+    Determines whether LilyPond should look for chord inversions when
+    translating from notes to chord names.  Set to 1 to find
+    inversions.  The default is 0 which does not look for
+    inversions.
+@end table
+
