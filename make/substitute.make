@@ -11,6 +11,7 @@ ATVARIABLES = \
   GUILE\
   date\
   datadir\
+  lilypond_datadir\
   local_lilypond_datadir\
   localedir\
   PACKAGE\

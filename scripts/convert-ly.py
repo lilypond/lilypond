@@ -1,10 +1,12 @@
 #!@PYTHON@
 #
-# convert-ly.py -- convertor for lilypond versions
+# convert-ly.py -- Update old LilyPond input files (fix name?)
 # 
 # source file of the GNU LilyPond music typesetter
 # 
-# (c) 1998--2001
+# (c) 1998--2002  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+#                 Jan Nieuwenhuizen <janneke@gnu.org>
+
 
 # TODO
 #   use -f and -t for -s output

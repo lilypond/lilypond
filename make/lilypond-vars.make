@@ -8,7 +8,7 @@ export PATH:=$(builddir)/lily/$(outconfbase):$(builddir)/buildscripts/$(outconfb
 # PREFIX incorrect.
 export LILYPONDPREFIX:=$(build_lilypond_datadir)
 
-export PYTHONPATH:=$(topdir)/python:$(PYTHONPATH)
+export PYTHONPATH:=$(builddir)/python/$(outdir):$(PYTHONPATH)
 
 ## arg, TEXINPUTS, TFMFONTS, MFINPUTS may still override and thus break this
 export TEXMF:={$(LILYPONDPREFIX),$(shell kpsexpand \$$TEXMF)}

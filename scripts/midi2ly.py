@@ -22,24 +22,30 @@ TODO:
      other converters, while leaving midi specific stuff here
 '''
 
-import os
-import sys
 import getopt
-import sys
+import os
 import string
+import sys
 
 
-# do fuddling: we must load the midi module from the right directory. 
+################################################################
+# Users of python modules should include this snippet.
+#
+# If set, LILYPONDPREFIX must take prevalence
+# if datadir is not set, we're doing a build and LILYPONDPREFIX
 datadir = '@local_lilypond_datadir@'
-if os.environ.has_key ('LILYPONDPREFIX'):
+if not os.path.isdir (datadir):
+	datadir = '@lilypond_datadir@'
+if os.environ.has_key ('LILYPONDPREFIX') :
 	datadir = os.environ['LILYPONDPREFIX']
-else:
-	datadir = '@local_lilypond_datadir@'
+	while datadir[-1] == os.sep:
+		datadir= datadir[:-1]
 
-sys.path.append (os.path.join (datadir, 'python'))
-sys.path.append (os.path.join (datadir, 'python/out'))
+sys.path.insert (0, os.path.join (datadir, 'python'))
+################################################################
 
 import midi
+
 
 ################################################################
 ################ CONSTANTS

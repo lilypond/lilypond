@@ -1,6 +1,6 @@
-PY_MODULES = $(wildcard *.py)
-PY_IN_FILES = $(wildcard *.py.in)
-OUT_PY_MODULES = $($(addprefix $(outdir)/, $(PY_IN_FILES:.in=)
+PY_MODULES_IN = $(wildcard *.py)
+OUT_PY_MODULES = $(PY_MODULES_IN:%=$(outdir)/%)
+OUT_PYC_MODULES = $(OUT_PY_MODULES:%.py=%.pyc)
 ifneq ($(CYGWIN_BUILD),)
 SHARED_MODULE_SUFFIX = .dll
 else

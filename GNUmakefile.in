@@ -8,9 +8,10 @@ depth = .
 
 # descent order into subdirectories
 # 
-SUBDIRS = buildscripts scripts flower lily \
+SUBDIRS = buildscripts python scripts \
+	flower lily \
 	mf ly tex ps scm \
-	python po make \
+	po make \
 	cygwin debian $(builddir)/stepmake \
 	Documentation input
 #
