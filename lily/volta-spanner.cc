@@ -45,7 +45,7 @@ Volta_spanner::do_brew_molecule_p () const
   Atom num (number_p_->get_atom (paper (), LEFT));
   Atom dot (dot_p_->get_atom (paper (), LEFT));
   Real dy = column_arr_.top ()->extent (Y_AXIS) [UP] > 
-    column_arr_[0]->extent (Y_AXIS) [UP];
+     column_arr_[0]->extent (Y_AXIS) [UP];
   dy += 2 * h;
 
   /*
@@ -75,7 +75,11 @@ Volta_spanner::do_add_processing ()
   if (column_arr_.size ())
     {
       set_bounds (LEFT, column_arr_[0]);
-      set_bounds (RIGHT, column_arr_.top ());  
+      //      set_bounds (RIGHT, column_arr_.top ());  
+      // huh?
+      // array.top () == last element??
+      // list.top () == first element
+      set_bounds (RIGHT, column_arr_[column_arr_.size () - 1]);  
     }
   number_p_->style_str_ = "number-1";
   dot_p_->text_str_ = ".";

@@ -1,4 +1,12 @@
-pl 23.mb1
+--- ../lilypond-1.1.23.jcn3/NEWS	Thu Jan 21 18:57:17 1999
+++ b/NEWS	Fri Jan 22 17:54:13 1999
+@@ -1,3 +1,6 @@
+pl 23.jcn4
+	- hakken aan repeat-engaver
+
+ pl 23.jcn3
+ 	- succussfully removed []s from wtk1-fugue2.ly
+ 	- bf + smarter autobeamerpl 23.mb1
 	- bf: Position and possible SIGSEGV in Mark_engraver
 	- Added padding support in G_staff_side_item
 	- bf: Correct direction of textual scripts. 
