@@ -1,5 +1,9 @@
 2003-02-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION: 1.6.8 released
+	
+	* Documentation/user/converters.itely: URL fix.
+
 	* input/regression/percent-repeat-skipbars.ly: new file.
 
 	* lily/percent-repeat-engraver.cc (try_music): also insert correct
@@ -12,6 +16,8 @@
 
 2003-01-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION: 1.6.7 released
+	
 	* make/lilypond.redhat.spec.in: set docdir to %{_docdir}/lilypond/
 	(without version number.)
 
