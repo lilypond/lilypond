@@ -229,7 +229,7 @@ yylex (YYSTYPE *s,  void * v_l)
 
 %type <pitch_arr>	pitch_list
 %type <music>	chord
-%type <pitch_arr>	chord_additions chord_subtractions chord_notes
+%type <pitch_arr>	chord_additions chord_subtractions chord_notes chord_step
 %type <pitch>	chord_note chord_inversion
 %type <midi>	midi_block midi_body
 %type <duration>	duration_length
@@ -747,11 +747,12 @@ Simple_music:
 	| property_def
 	| translator_change
 	| Simple_music '*' unsigned '/' unsigned 	{
-		/* urg */
-		$$ = new Time_scaled_music ($3, $5, $1);
+		$$ = $1;
+		$$->compress (Moment($3, $5 ));
 	}
 	| Simple_music '*' unsigned		 {
-		$$ = new Time_scaled_music ($3, 1, $1);
+		$$ = $1;
+		$$->compress (Moment ($3, 1));
 	}
 	;
 
@@ -1414,24 +1415,15 @@ chord_additions:
 	| '-' chord_notes {
 		$$ = $2;
 	}
-	| '-' CHORDMODIFIER_PITCH {
-		$$ = new Array<Musical_pitch>;
-		$$->push (*$2);
-	}
-	| '-' CHORDMODIFIER_PITCH chord_notes {
-		$$ = $3;
-		$$->push (*$2);
-	}
 	;
 
 chord_notes:
-	chord_note {
-		$$ = new Array<Musical_pitch>;
-		$$->push (*$1);
+	chord_step {
+		$$ = $1
 	}
-	| chord_notes '.' chord_note {
+	| chord_notes '.' chord_step {
 		$$ = $1;
-		$$->push (*$3);
+		$$->concat (*$3);
 	}
 	;
 
@@ -1455,6 +1447,22 @@ chord_inversion:
 	}
 	| '/' steno_tonic_pitch {
 		$$ = $2
+	}
+	;
+
+chord_step:
+	chord_note {
+		$$ = new Array<Musical_pitch>;
+		$$->push (*$1);
+	}
+	| CHORDMODIFIER_PITCH {
+		$$ = new Array<Musical_pitch>;
+		$$->push (*$1);
+	}
+	| CHORDMODIFIER_PITCH chord_note {
+		$$ = new Array<Musical_pitch>;
+		$$->push (*$1);
+		$$->push (*$2);
 	}
 	;
 
