@@ -583,6 +583,16 @@ command."
 		      (LilyPond-shell-process name buffer-xdvi command)))
 		  (LilyPond-shell-process name buffer-xdvi command)))
 	    (progn
+	      (if (member name (list "Midi" "MidiAll"))
+		  (if (file-newer-than-file-p
+		       (LilyPond-master-file)
+		       (concat (substring (LilyPond-master-file) 0 -3) ".midi"))
+		      (if (y-or-n-p "Midi older than source. Reformat midi?")
+			  (progn
+			    (LilyPond-command-formatmidi)
+			    (while (LilyPond-running)
+			      (message "Starts playing midi once it is built.")
+			      (sit-for 0 100))))))
 	      (if (string-equal name "Midi")
 		  (progn
 		    (setq command (concat LilyPond-midi-command " " (LilyPond-string-current-midi)))
@@ -604,7 +614,8 @@ command."
 			    (progn
 			      (setq job-string "no jobs")
 			      (LilyPond-kill-jobs)
-			      (sit-for 0 500 nil)) ; should wait killing
+			      (while (LilyPond-running)
+				(sit-for 0 100)))
 			  (setq job-string nil)))))
 
 	      (setq LilyPond-command-default name)
