@@ -100,12 +100,7 @@ Music_sequence::do_relative_octave (Pitch p, bool ret_first)
   Pitch last = p;
   for (SCM s = music_list (); gh_pair_p (s);  s = ly_cdr (s))
     {
-      Music *m = unsmob_music (ly_car (s));
-      if (!m)
-	{
-	  programming_error ("Music_sequence should only contain music!");
-	}
-      else
+      if (Music *m = unsmob_music (ly_car (s)))
 	{
 	  last = m->to_relative_octave (last);
 	  if (!count ++)
@@ -113,15 +108,10 @@ Music_sequence::do_relative_octave (Pitch p, bool ret_first)
 	}
     }
 
-  if (ret_first && first != last)
-    {
-      String str = _("Changing relative definition causes pitch change.");
-      str += "\nWas: " +  first.to_string ()
-	+ "Will be: " + last.to_string () + "\n";
-      
-      origin()->warning (str);
-    }
-  return last;
+  if (ret_first)
+    return first;
+  else
+    return last;
 }
 
 void

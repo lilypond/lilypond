@@ -1,8 +1,12 @@
 2003-08-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/mutopia/F.Schubert/standchen.ly (trebleThrough): fixes
+
+	* lily/simultaneous-music.cc (to_relative_octave): add Event_chord.
+
 	* lily/music.cc (var): add ly:music-transpose function.
 
-	* Lily/parser.yy (pre_events): remove prefix articulations.
+	* lily/parser.yy (pre_events): remove prefix articulations.
 
 	* lily/music-sequence.cc (do_relative_octave): change relative meaning.
 

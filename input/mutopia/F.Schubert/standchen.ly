@@ -152,15 +152,23 @@ trebleVerseOne =  \notes\relative c{
 	r8 <<f g b>> <<g b d>> <<f g b>> <<g b d>> <<f g b>> |
 	r8 <<es g c>> <<g c es>> <<es g c>> <<g c es>> <<es g c>> |
 	<<g'' b,>>4.-( <<f d>>8-)
-	\times 2/3 < {  f-[( es  d-) ] } { d c b } > |
+	\times 2/3 { <<f d>>-(-[ <<es c>>-]-) <<d b>> }
+
 	%10
 	<<c es>>2. |
 	r8 <<g, c>> <<c es>> <<g c>> <<c es>> <<g c>> |
 	r8 <<f c'>> <<c' d>> <<f, c'>> <<c' d>> <<f, c'>> |
 	r8 <<f as bes>> <<as bes d>> <<f as bes>> <<as bes d>> <<f as bes>> |
-	r8 < {  es-[ g es g ] } { g bes g bes } { bes es bes es } >
-	<{ es'(  d4.-)( f8-)}{ c' | bes4.  as8 } >
-	\times 2/3 < {  f-[( es  d-) ] } { as' g f } > |
+	r8
+	<<es g bes>>-[
+	<<g bes es>>
+	<<es g bes>>
+	<<g bes es>>-]
+	<<es' c'>>-(
+	<<d bes>>4.-(-)
+	<<f as>>8-)
+	
+	\times 2/3 { <<f as>>-(-[ <<es g>> <<d f>>-)-] }
 	%16
 	<<es g>>2. |
 	r8 <<f, g>> <<g b>> <<f g>> <<g b>> <<f g>> |
@@ -169,15 +177,16 @@ trebleVerseOne =  \notes\relative c{
 	%20
 	r8 <<es g bes>> <<g bes es>> <<es g bes>> <<g bes es>> <<es g bes>> |
 	\property Voice.Slur \override #'attachment = #'(stem . stem)
-	\grace {  as'32-[( bes ] } \times 2/3 {  as8-[-)( g as] } c4.->  as8-) |
+	\grace {  as'32-[( bes ] }
+	\times 2/3 {  as8-[-)( g as] } c4.->  as8-) |
 	\property Voice.Slur \revert #'attachment
 	g2. |
 	r8 <<f, g>> <<g b>> <<f g>> <<g b>> <<f g>> |
 	r8 <<e g>> <<g c>> <<e g>> <<g c>> <<e g>> |
 	r8 <<f a c>> <<a c f>> <<f a c>> <<a c f>> <<f a c>> |
 	r8 <<e g c>> <<g c e>> <<e g c>> <<g c e>> <<e g c>> |
-	\times 2/3 < {  f'8-[-\f( e f] } {  f' e f } >
-	< {a4.- >  f8-)}  { a'4. f8 }  > |
+	\times 2/3  { <<f f'>>-\f-( <<e e'>> <<f f'>> }
+	<<a a'>>4.-> <<f f'>>8-)  |
 }
 
 trebleEentje =  \notes \relative c' \context Voice {
@@ -227,7 +236,7 @@ trebleThrough =  \notes \relative c'{
 	<<e e'>>2. |
 	<<es! es'! >>2. |
 	\property Voice . TextScript \override #'font-shape = #'italic
-	<d2._"decresc." d'> |
+	<<d d'>>2._"decresc."
 	\property Voice . TextScript \revert #'font-shape
 
 	%75
@@ -241,7 +250,7 @@ trebleThrough =  \notes \relative c'{
 	%80
 
 	\property Voice . TextScript \override #'font-shape = #'italic
-	<e2._"dim." g> |
+	<<e g>>_"dim."
 	\property Voice . TextScript \revert #'font-shape
 
 	<<g, e' g>>2. |
@@ -304,7 +313,7 @@ bassEentje =  \notes\relative c{
 bassThrough =  \notes\relative c{
 	\dynamicUp
 	%61
-	<g,8^"cresc." g'> [<<g' b d>> <<b d f>> <<g b d>> <<as! b d >>-> <<b d f>>] |
+	<<g, g'>>8^"cresc." [<<g' b d>> <<b d f>> <<g b d>> <<as! b d >>-> <<b d f>>] |
 	<<g, g'>>8 [<<g' d'>> <<d' f>> <<g, d'>> <<as b d >>-> <<b d f>>] |
 	% copied
 	<<g, g'>>8 [<<g' d'>> <<d' f>> <<g, d'>> <<as b d >>-> <<b d f>>] |

@@ -2129,11 +2129,12 @@ step_number:
 
 /*
 	UTILITIES
+
+TODO: should deprecate in favor of Scheme?
+
  */
 number_expression:
 	number_expression '+' number_term {
-
-		THIS->
 		$$ = scm_sum ($1, $3);
 	}
 	| number_expression '-' number_term {
