@@ -2,6 +2,7 @@
 
 	* lily/simultaneous-music-iterator.cc
 	(Simultaneous_music_iterator): protection bugfix.
+	(get_pending_events): bugfix: don't use s twice.
 
 	* debian/: debian patches by Anthony Fok.
 	

@@ -236,8 +236,8 @@ Music_iterator::derived_mark()const
 void
 Music_iterator::quit ()
 {
-  handle_.quit ();
   do_quit ();
+  handle_.quit ();
 }
 
 void

@@ -48,12 +48,12 @@ Simultaneous_music_iterator::derived_mark()const
 SCM
 Simultaneous_music_iterator::get_pending_events (Moment m)const
 {
-  SCM s = SCM_EOL;
+  SCM l = SCM_EOL;
   for (SCM s = children_list_; gh_pair_p (s); s = gh_cdr(s))
     {
-      s = gh_append2 (unsmob_iterator (gh_car (s))->get_pending_events (m), s);
+      l = gh_append2 (unsmob_iterator (gh_car (s))->get_pending_events (m), l);
     }
-  return s;
+  return l;
 }
 
 void
