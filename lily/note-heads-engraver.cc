@@ -25,24 +25,15 @@ class Note_heads_engraver : public Engraver
   Moment note_end_mom_;
 public:
   VIRTUAL_COPY_CONS(Translator);
-  Note_heads_engraver();
   
 protected:
   virtual void start_translation_timestep ();
   virtual bool try_music (Music *req_l) ;
   virtual void create_grobs ();
   virtual void acknowledge_grob (Grob_info) ;
-  void deprecated_process_music();
   virtual void stop_translation_timestep();
 };
 
-
-
-
-
-Note_heads_engraver::Note_heads_engraver()
-{
-}
 
 bool
 Note_heads_engraver::try_music (Music *m) 
@@ -63,19 +54,13 @@ Note_heads_engraver::try_music (Music *m)
 }
 
 void
-Note_heads_engraver::create_grobs ()
-{
-  deprecated_process_music ();
-}
-
-void
 Note_heads_engraver::acknowledge_grob (Grob_info)
 {
-  //deprecated_process_music ();
+  //create_grobs ();
 }
 
 void
-Note_heads_engraver::deprecated_process_music()
+Note_heads_engraver::create_grobs ()
 {
   if (note_p_arr_.size ())
     return ;

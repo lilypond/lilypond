@@ -28,7 +28,7 @@ public:
 protected:
   virtual void stop_translation_timestep ();
   virtual void acknowledge_grob (Grob_info i);
-  void deprecated_process_music ();
+  virtual void create_grobs ();
   virtual bool try_music (Music *);
 
 private:
@@ -77,24 +77,6 @@ Chord_name_engraver::try_music (Music* m)
   return false;
 }
 
-/* Uh, if we do acknowledge_grob, shouldn't we postpone
-  deprecated_process_music until do_process_acknowlegded?
-
-   Sigh, I can *never* remember how this works, can't we
-   possibly-please just number these functions:
-
-     do_creation0
-     
-     post_move1
-     try_music2
-  deprecated_process_music3 (or is it acknowledge_grob3 ?)
-     acknowledge_grob4
-  
-     do_pre_move9
-     
-     do_removal99
-
-  and what was the deal with this ``do'' prefix again? */
 void
 Chord_name_engraver::acknowledge_grob (Grob_info i)
 {
@@ -103,23 +85,10 @@ Chord_name_engraver::acknowledge_grob (Grob_info i)
 }
 
 void
-Chord_name_engraver::deprecated_process_music ()
+Chord_name_engraver::create_grobs ()
 {
   if (!chord_name_p_ && gh_car (chord_) != SCM_EOL)
     {
-#if 0
-      bool find_inversion_b = false;
-      SCM chord_inversion = get_property ("chordInversion");
-      if (gh_boolean_p (chord_inversion))
-	find_inversion_b = gh_scm2bool (chord_inversion);
-
-      chord_ = Chord::pitches_and_requests_to_chord (pitches_,
-						     inversion_,
-						     bass_,
-						     find_inversion_b);
-
-#endif
-      
       chord_name_p_ = new Item (get_property ("ChordName"));
       chord_name_p_->set_grob_property ("chord", chord_);
       announce_grob (chord_name_p_, 0);

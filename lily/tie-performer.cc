@@ -39,8 +39,10 @@ inline int compare (CNote_melodic_tuple const &a, CNote_melodic_tuple const &b)
 class Tie_performer : public Performer
 {
 public:
-  VIRTUAL_COPY_CONS(Translator);
+  VIRTUAL_COPY_CONS (Translator);
 
+  Tie_performer ();
+  
 private:
   bool done_;
   PQueue<CNote_melodic_tuple> past_notes_pq_;
@@ -50,6 +52,7 @@ private:
   Link_array<Audio_tie> tie_p_arr_;
   
 protected:
+  virtual void do_creation_processing ();
   virtual void start_translation_timestep ();
   virtual void stop_translation_timestep ();
   virtual void acknowledge_grob (Audio_element_info);
@@ -58,6 +61,24 @@ protected:
 };
 
 ADD_THIS_TRANSLATOR (Tie_performer);
+
+
+Tie_performer::Tie_performer ()
+{
+  // URG
+  // if we don't do this, lily dumps core
+  // which means that ``do_creation_processing'' and
+  // ``start_translation_timestep'' did not happen?!
+  do_creation_processing ();
+}
+
+void
+Tie_performer::do_creation_processing ()
+{
+  req_l_ = 0;
+  done_ = false;
+}
+
 
 bool
 Tie_performer::try_music (Music *m)

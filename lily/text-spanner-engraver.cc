@@ -29,7 +29,6 @@ protected:
   virtual void do_removal_processing ();
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music *);
-  void deprecated_process_music ();
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
   virtual void create_grobs ();
@@ -86,12 +85,6 @@ Text_spanner_engraver::try_music (Music *m)
 
 void
 Text_spanner_engraver::create_grobs ()
-{
-  deprecated_process_music ();
-}
-
-void
-Text_spanner_engraver::deprecated_process_music ()
 {
   /////
   if (req_drul_[STOP])

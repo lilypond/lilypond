@@ -48,7 +48,7 @@ protected:
   virtual void create_grobs ();
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music*);
-  void deprecated_process_music ();
+
 public:
   Beam_engraver ();
   VIRTUAL_COPY_CONS (Translator);
@@ -116,7 +116,7 @@ Beam_engraver::set_melisma (bool m)
 
 
 void
-Beam_engraver::deprecated_process_music ()
+Beam_engraver::create_grobs ()
 {
   if (reqs_drul_[STOP])
     {
@@ -227,13 +227,6 @@ Beam_engraver::do_removal_processing ()
 #endif
     }
 }
-
-void
-Beam_engraver::create_grobs ()
-{
-  deprecated_process_music ();
-}
-
 
 void
 Beam_engraver::acknowledge_grob (Grob_info info)

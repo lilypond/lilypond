@@ -57,7 +57,6 @@ protected:
   virtual void do_removal_processing ();
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music *req_l);
-  void deprecated_process_music ();
   virtual void stop_translation_timestep ();
   virtual void create_grobs ();
   virtual void start_translation_timestep ();
@@ -122,7 +121,7 @@ Dynamic_engraver::try_music (Music * m)
 }
 
 void
-Dynamic_engraver::deprecated_process_music ()
+Dynamic_engraver::create_grobs ()
 {
   if (accepted_spanreqs_drul_[START] || accepted_spanreqs_drul_[STOP] || script_req_l_)
     
@@ -284,12 +283,6 @@ void
 Dynamic_engraver::stop_translation_timestep ()
 {
   typeset_all ();
-}
-
-void
-Dynamic_engraver::create_grobs ()
-{
-  deprecated_process_music ();
 }
 
 void

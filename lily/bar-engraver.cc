@@ -28,7 +28,6 @@ public:
     
 protected:
   virtual void do_removal_processing ();
-  void deprecated_process_music();
   virtual void stop_translation_timestep();
   virtual void create_grobs ();
 
@@ -70,18 +69,12 @@ Bar_engraver::do_removal_processing ()
   modify whichBar in  deprecated_process_music () be typeset
 */
 void
-Bar_engraver::deprecated_process_music()
+Bar_engraver::create_grobs ()
 {
   if (!bar_p_ && gh_string_p (get_property ("whichBar")))
     {
       create_bar ();
     }
-}
-
-void
-Bar_engraver::create_grobs ()
-{
-  deprecated_process_music ();
 }
 
 void

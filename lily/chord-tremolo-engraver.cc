@@ -58,7 +58,6 @@ protected:
   
 protected:
   virtual void do_removal_processing();
-  void deprecated_process_music();
   virtual bool try_music (Music*);
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep();
@@ -95,12 +94,6 @@ Chord_tremolo_engraver::try_music (Music * m)
 
 void
 Chord_tremolo_engraver::create_grobs ()
-{
-  deprecated_process_music ();
-}
-
-void
-Chord_tremolo_engraver::deprecated_process_music ()
 {
   if (repeat_ && !beam_p_)
     {

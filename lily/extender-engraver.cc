@@ -39,7 +39,6 @@ public:
 protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void do_removal_processing();
-  void deprecated_process_music();
   virtual bool try_music (Music*);
   virtual void stop_translation_timestep();
   virtual void start_translation_timestep ();
@@ -103,12 +102,6 @@ Extender_engraver::do_removal_processing ()
 
 void
 Extender_engraver::create_grobs ()
-{
-  deprecated_process_music ();
-}
-
-void
-Extender_engraver::deprecated_process_music ()
 {
   if (req_l_ && ! extender_p_)
     {

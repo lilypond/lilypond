@@ -35,7 +35,6 @@ protected:
   virtual void do_removal_processing ();
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music*r);
-  void deprecated_process_music ();
   virtual void start_translation_timestep ();
   virtual void create_grobs ();
 };
@@ -65,12 +64,6 @@ Tuplet_engraver::try_music (Music *r)
 
 void
 Tuplet_engraver::create_grobs ()
-{
-  deprecated_process_music ();
-}
-
-void
-Tuplet_engraver::deprecated_process_music ()
 {
   SCM v = get_property ("tupletInvisible");
   if (to_boolean (v))

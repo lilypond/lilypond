@@ -10,5 +10,5 @@
 	\grace  { \property Grace.graceAlignPosition = \right c16} c4
 }
 \paper {linewidth = -1.;}
-%%\midi{ }
+\midi{ }
 }

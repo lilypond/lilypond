@@ -25,7 +25,6 @@ class Slur_engraver : public Engraver
 
 protected:
   virtual bool try_music (Music*);
-  void deprecated_process_music ();
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
@@ -88,12 +87,6 @@ Slur_engraver::try_music (Music *req_l)
 }
 
 void
-Slur_engraver::create_grobs ()
-{
-  deprecated_process_music ();
-}
-
-void
 Slur_engraver::set_melisma (bool m)
 {
   daddy_trans_l_->set_property ("slurMelismaBusy", m ? SCM_BOOL_T :SCM_BOOL_F);
@@ -137,7 +130,7 @@ Slur_engraver::do_removal_processing ()
 }
 
 void
-Slur_engraver::deprecated_process_music ()
+Slur_engraver::create_grobs ()
 {
   Link_array<Grob> start_slur_l_arr;
   for (int i=0; i< new_slur_req_l_arr_.size (); i++)

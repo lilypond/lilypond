@@ -40,7 +40,6 @@ protected:
   virtual void do_creation_processing();
   virtual void do_removal_processing ();
   virtual bool try_music (Music *req_l);
-  void deprecated_process_music();
   virtual void stop_translation_timestep();
   virtual void start_translation_timestep();
   virtual void create_grobs ();
@@ -130,12 +129,6 @@ Key_engraver::acknowledge_grob (Grob_info info)
 
 void
 Key_engraver::create_grobs ()
-{
-  deprecated_process_music ();
-}
-
-void
-Key_engraver::deprecated_process_music ()
 {
   if (keyreq_l_ || old_accs_ != get_property ("keySignature"))
     {

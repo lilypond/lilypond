@@ -22,7 +22,6 @@ public:
   VIRTUAL_COPY_CONS (Translator);
   
 protected:
-  void deprecated_process_music ();
   virtual void acknowledge_grob (Grob_info);
 
   virtual void create_grobs ();
@@ -43,7 +42,7 @@ A2_engraver::A2_engraver ()
 
 
 void
-A2_engraver::deprecated_process_music ()
+A2_engraver::create_grobs ()
 {
   if (!to_boolean (get_property ("combineParts")))
     return ;
@@ -159,12 +158,6 @@ A2_engraver::acknowledge_grob (Grob_info i)
 	    }
 	}
     }
-}
-
-void
-A2_engraver::create_grobs ()
-{
-  deprecated_process_music ();
 }
 
 void 

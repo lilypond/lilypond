@@ -29,8 +29,7 @@ public:
   
 protected:
   virtual bool try_music (Music *req_l);
-  void deprecated_process_music();
-
+  virtual void create_grobs ();
   virtual void stop_translation_timestep();
   virtual void start_translation_timestep();
 
@@ -58,7 +57,7 @@ Breathing_sign_engraver::try_music (Music*r_l)
 }
 
 void
-Breathing_sign_engraver::deprecated_process_music()
+Breathing_sign_engraver::create_grobs ()
 {
   if(breathing_sign_req_l_ && ! breathing_sign_p_)
     {
@@ -68,6 +67,7 @@ Breathing_sign_engraver::deprecated_process_music()
       Breathing_sign::set_interface (breathing_sign_p_);
 
       announce_grob (breathing_sign_p_, breathing_sign_req_l_);
+      breathing_sign_req_l_ = 0;
     }
 }
 

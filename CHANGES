@@ -1,3 +1,11 @@
+1.3.109.jcn1
+============
+
+* Collapsed all ``void Foo::create_grobs () { deprecated_process_music
+(); }'' occurences, and reactivated some disabled code (note-name,
+chord-name, custos, lyrics).  Reactivated Timing_translator using
+process_music ().
+
 1.3.108.uu1
 ===========
 

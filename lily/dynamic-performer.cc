@@ -25,11 +25,9 @@ public:
   VIRTUAL_COPY_CONS (Translator);
   
   Dynamic_performer ();
-  ~Dynamic_performer ();
 
 protected:
   virtual bool try_music (Music* req_l);
-  void deprecated_process_music ();
   virtual void stop_translation_timestep ();
   virtual void create_grobs ();
 
@@ -46,13 +44,8 @@ Dynamic_performer::Dynamic_performer ()
   audio_p_ = 0;
 }
 
-Dynamic_performer::~Dynamic_performer ()
-{
-}
-
-
 void
-Dynamic_performer::deprecated_process_music ()
+Dynamic_performer::create_grobs ()
 {
   if (script_req_l_)
     {
@@ -117,12 +110,6 @@ Dynamic_performer::deprecated_process_music ()
       announce_element (info);
       script_req_l_ = 0;
     }
-}
-
-void
-Dynamic_performer::create_grobs ()
-{
-  deprecated_process_music ();
 }
 
 void

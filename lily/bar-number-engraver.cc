@@ -29,14 +29,14 @@ protected:
   virtual void do_creation_processing ();
   virtual void create_grobs ();
   void create_items();
-  void  deprecated_process_music ();
+
 public:
   VIRTUAL_COPY_CONS(Translator);
   Bar_number_engraver();
 };
 
 void
-Bar_number_engraver::deprecated_process_music ()
+Bar_number_engraver::create_grobs ()
 {
   // todo include (&&!time->cadenza_b_ )
   SCM bn = get_property("currentBarNumber");
@@ -53,13 +53,6 @@ Bar_number_engraver::deprecated_process_music ()
 				 ly_str02scm (to_str (gh_scm2int (bn)).ch_C()));
     }
 }
-
-void
-Bar_number_engraver::create_grobs ()
-{
-  deprecated_process_music ();
-}
-
 
 ADD_THIS_TRANSLATOR(Bar_number_engraver);
 

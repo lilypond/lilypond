@@ -27,9 +27,9 @@ public:
 protected: 
   virtual void do_creation_processing ();
   virtual bool try_music (Music *req_l);
-  void deprecated_process_music();
-  virtual void stop_translation_timestep();
-  virtual void start_translation_timestep();
+  virtual void process_music ();
+  virtual void stop_translation_timestep ();
+  virtual void start_translation_timestep ();
 
 public:
   Moment measure_position () const;

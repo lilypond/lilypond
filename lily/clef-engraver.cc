@@ -33,9 +33,7 @@ public:
   Direction octave_dir_;
 
 protected:
-  void deprecated_process_music ();
   virtual void stop_translation_timestep ();
-  virtual void do_creation_processing ();
   virtual void start_translation_timestep ();
   virtual void create_grobs ();
   virtual void acknowledge_grob (Grob_info);
@@ -114,7 +112,7 @@ Clef_engraver::set_glyph ()
 void
 Clef_engraver::acknowledge_grob (Grob_info info)
 {
-  deprecated_process_music ();
+  create_grobs ();
   Item * item =dynamic_cast <Item *> (info.elem_l_);
   if (item)
     {
@@ -144,13 +142,6 @@ Clef_engraver::acknowledge_grob (Grob_info info)
 	}
     } 
 }
-
-void
-Clef_engraver::do_creation_processing ()
-{
-}
-
-
 
 void
 Clef_engraver::create_clef ()
@@ -185,12 +176,6 @@ Clef_engraver::create_clef ()
 
 void
 Clef_engraver::create_grobs ()
-{
-  deprecated_process_music ();
-}
-
-void
-Clef_engraver::deprecated_process_music ()
 {
   SCM glyph = get_property ("clefGlyph");
   SCM clefpos = get_property ("clefPosition");
