@@ -133,6 +133,11 @@ Do not generate the full pages.  Useful in combination with
 @item -s,--safe
 Do not trust the @code{.ly} input.
 
+When LilyPond formatting is available through a web server, either the
+@code{--safe} or the @code{--jail} option @b{MUST} be passed.  The
+@code{--safe} option will prevent inline Scheme code from wreaking
+havoc, for example
+
 When LilyPond formatting is available through a web server, the
 @code{--safe} @b{MUST} be passed.  This will prevent inline Scheme
 code from wreaking havoc, for example
@@ -162,6 +167,73 @@ possible to make the program hang indefinitely, for example by feeding
 cyclic data structures into the backend.  Therefore, if using LilyPond
 on a publicly accessible webserver, the process should be limited in
 both CPU and memory usage.
+
+Note that @code{--safe} will prevent many useful LilyPond snippets from
+being compiled.  For a softer but secure alternative you can use the
+@code{--jail} option.
+
+
+@item -j,--jail=@var{user},@var{group},@var{jail},@var{dir}
+Run LilyPond in a jail.
+
+The @code{--jail} option provides a more flexible alternative to 
+@code{--safe} when LilyPond formatting is available through a web
+server or whenever LilyPond executes externally provided
+sources.
+
+The @code{--jail} option works by changing the root of LilyPond to
+@var{jail} just before starting the actual compilation process.  The user
+and group are then changed to match those provided, and the current
+directory is changed to @var{dir}.  This setup guarantees that it is not
+possible (at least in theory) to escape from the jail.  Note that for
+@code{--jail} to work LilyPond must be run as root, which is usually
+accomplished in a safe way using @command{sudo}.
+
+Setting up a jail is a slightly delicate matter, as we must be sure that
+LilyPond is able to find whatever it needs to compile the source
+@emph{inside the jail}. A typical setup comprises the following items:
+
+@table @asis
+@item Setting up a separate filesystem
+A separate filesystem should be created for LilyPond, so that it can be
+mounted with safe options such as @code{noexec}, @code{nodev}, and
+@code{nosuid}.  In this way, it is impossible to run executables or to
+write directly to a device from LilyPond.  If you do not want to create a
+separate partition, just create a file of reasonable size and use it to
+mount a loop device.  A separate filesystem also guarantees that LilyPond
+cannot write more space than it is allowed.
+
+@item Setting up a separate user
+A separate user and group (say, @samp{lily}/@samp{lily}) with low
+privileges should be used to run LilyPond inside the jail.  There should
+be a single directory writable by this user, which should be passed in
+@var{dir}.
+
+@item Preparing the jail
+LilyPond needs to read a number of files while running.  All these files
+are to be copied into the jail, under the same path they apper in the
+real root filesystem.  The entire content of the LilyPond installation
+(e.g., @file{/usr/share/lilypond}), and the content of the @file{fonts},
+@file{dvips} and @file{web2c} directories of the @TeX{} installation
+(usually under @file{/usr/share/texmf}) should be copied, too.  If your
+@Tex{} installation uses @file{ls-R} caches, copy also the cache inside the root
+of the installation.
+
+If problems arise, the simplest way to trace them down is to run
+LilyPond using @command{strace}, which will allow you to determine which
+files are missing.
+
+@item Running LilyPond
+In a jail mounted with @code{noexec} it is impossible to execute any external
+program.  Therefore LilyPond must be run with a backend that does not
+require any such program.  As we already mentioned, it must be also run
+with superuser privileges (which, of course, it will lose immediately),
+possibly using @command{sudo}.  It is a good idea to limit the number of
+seconds of CPU time LilyPond can use (e.g., using @command{ulimit
+-t}), and, if your operating system supports it, the amount of memory
+that can be allocated.
+@end table
+
 
 @item -v,--version
 Show version information.
