@@ -1,3 +1,11 @@
+2002-10-21  Werner Lemberg  <wl@gnu.org>
+
+	* tex/lily-ps-defs.tex (\lilypondsetdimen): Define ID macro.
+	(\lilypondpostscript): Define PS macros `lyscaleXXX' (`XXX' is the
+	scaling factor) only once and use them in the definition of
+	\embeddedps.
+	* ps/music-drawing-routines.ps (skeel): Removed.
+
 2002-10-21  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/topdocs/INSTALL.texi: Add note about using ksh for
