@@ -28,10 +28,13 @@
 
 /* Flex >= 2.5.29 fix; FlexLexer.h's multiple include bracing breaks
    when building the actual lexer.  */
+
 #define LEXER_CC
 
 #include <iostream>
+
 using namespace std;
+
 #include "music-function.hh"
 #include "source-file.hh"
 #include "parse-scm.hh"
