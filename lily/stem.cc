@@ -797,13 +797,11 @@ Stem::calc_stem_info (Grob*me)
     a.push (gh_scm2double (ly_car (q)));
 
   Real stem_length =  a[multiplicity <? (a.size () - 1)] * staff_space;
-  Real shortest_y = ideal_y; 
 
   if (multiplicity)
-    {
-      ideal_y += thick + (multiplicity - 1) * interbeam_f;
-    }
+    ideal_y += thick + (multiplicity - 1) * interbeam_f;
 
+  Real shortest_y = ideal_y; 
 
   ideal_y += stem_length;
   shortest_y += minimum_length;
@@ -846,7 +844,6 @@ Stem::calc_stem_info (Grob*me)
   
   ideal_y += interstaff_f;
   shortest_y += interstaff_f;
-
 
   ideal_y *= mydir;
   shortest_y *= mydir; 
