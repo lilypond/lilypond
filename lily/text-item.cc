@@ -17,6 +17,7 @@
 #include "main.hh"
 #include "all-font-metrics.hh"
 #include "afm.hh"
+#include "lookup.hh"
 
 
 /*
@@ -96,6 +97,7 @@ Text_item::lookup_text (Grob *me, Font_metric*fm, SCM text)
   return Molecule (fm->text_dimension (ly_scm2string (text)), list);
 }
 
+
 /*
   TODO:
 
@@ -154,73 +156,37 @@ Text_item::markup_text2molecule (Grob *me, SCM markup_text,
       extent_b = true;
     }
 
-  Offset o (0, (axis == Y_AXIS ? - kern[axis] : 0));
+  Offset o (kern[X_AXIS], raise - kern[Y_AXIS]);
 
-  Molecule mol;
+  
+  Molecule mol = Lookup::filledbox (Box (Interval (0,0), Interval (0,0)));
+  
   while (gh_pair_p (text))
     {
-   
       Molecule m = text2molecule (me, ly_car (text), p);
-
-      /*
-	TODO: look at padding?
-	
-	Look ahead here for kern and raise.
-
-	(cols "foo" ((raise . 1) "bar"))
-	(cols "foo" ((bold (raise . 1)) "bar"))
-
-	When constructing the molecule for bar, all normal extra
-	properties found, such as bold, are used for the construction
-	of bar's molecule.  But for kern or raise, it seems that we're
-	too late then, translating bar's molecule has no effect (or
-	maybe the effect of translating gets nullified when bar's
-	molecule is `added_to_edge' of the molecule for foo?)
-
-	So, while constructing foo's molecule, we look ahead for the
-	raise of bar.  The HEAD of the description of bar may be a
-	single property, or a list, so we must check that too.
-      */
-	
-      SCM next_p = SCM_EOL;
-      if (gh_pair_p (ly_car (text)))
-	next_p = scm_list_n (gh_call2 (f, sheet, ly_caar (text)), SCM_UNDEFINED);
-      SCM next_k = ly_assoc_chain (ly_symbol2scm ("kern"), next_p);
-      Real next_kern = kern[axis];
-      if (gh_pair_p (next_k) && gh_number_p (ly_cdr (next_k)))
-	next_kern = gh_scm2double (ly_cdr (next_k)) * staff_space;
-
-      SCM next_r = ly_assoc_chain (ly_symbol2scm ("raise"), next_p);
-      Real next_raise = 0;
-      if (gh_pair_p (next_r) && gh_number_p (ly_cdr (next_r)))
-	next_raise = gh_scm2double (ly_cdr (next_r)) * staff_space;
-
-      o[Y_AXIS] = next_raise;
 
       if (!m.empty_b ())
 	{
-	  m.translate (o);
-	  if (mol.empty_b ())
-	    mol = m;
-	  else
-	    {
-	      if (axis == Y_AXIS && baseline_skip)
-		next_kern += baseline_skip - m.extent (Y_AXIS)[UP];
-	      mol.add_at_edge (axis, axis == X_AXIS ? RIGHT : DOWN, m, next_kern);
-	    }
+	  m.translate_axis (mol.extent (axis)[axis == X_AXIS ? RIGHT : DOWN]
+			    - (axis == Y_AXIS ? baseline_skip : 0),
+			    axis);
+	  mol.add_molecule (m);
 	}
       text = ly_cdr (text);
     }
   
+  /* Set extend to markup requested value. */
   if (extent_b)
     {
-      /* we're not setting extents for unknown reasons. */
       Box b = mol.extent_box ();
       SCM expr = mol.get_expr ();
 
       b[axis] = extent;
       mol = Molecule (b, expr);
-    }  
+    }
+  
+  mol.translate (o);
+  
   return mol;
 }
 
