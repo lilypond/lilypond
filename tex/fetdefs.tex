@@ -11,12 +11,9 @@
         \font\vetfont=feta-beams20
         \font\fetanummer=feta-nummer10
 }
-
-% \def\fetdef#1#2{\def#1{\fetchar{#2}}}
-% ugh, linewidth, ugh, tablexx.ly balldims not used!
-\def\fetdef#1#2{%
+\def\fetdef#1#2{\def#1{%
         % what the fuck is this?
-        \def#1{\lower.3884\staffrulethickness
+        %\lower.3884\staffrulethickness
         \hbox{\fetchar{#2}}}}
 
 \def\fetchar#1{\fontentja\char#1}
@@ -44,7 +41,6 @@
         \openin\checkexists #1
         \ifeof\checkexists
                  \closein\checkexists
-                 \relax
         \else
                 \closein\checkexists
                 \input #1
@@ -60,40 +56,72 @@
         \immediate\closeout\embedfile
 }
 \def\turnOnExperimentalFeatures{
-% 
-% yeah.  By far not finished yet. 
-% Don't do this by default.  gs takes a long time to start in xdvi 
-%
-\special{ps: /drawslur {
-        currentpoint  /texoriginy exch def
-        /texoriginx exch def    
+
+% draw a slur in embedded postscript
+\special{ps:
+/xbow 1 3 div def
+/ybow 1 4 div def
+/thin 0.2 def
+/thick thin 5 mul def
+/draw_slur { 
+        % up or down?
         /dir exch def
-        /lift 30 def
-        /desty exch def
-        /destx exch def
-        /slurfactor .4 def
-        destx slurfactor mul
-        texoriginx add 
-        desty slurfactor mul
-        texoriginy add 
-        lift dir mul add
-        destx 1 slurfactor sub mul
-        texoriginx add 
-        desty 1 slurfactor sub mul
-        texoriginy add 
-        lift dir mul add
-        destx
-        texoriginx add 
-        desty
-        texoriginy add 
-        curveto
-        stroke
-} def
-}
+%       
+%       for mo*tex shift
+%       exch
+%       1 copy /dx exch def
+%       exch
+%
+        % calc angle alpha
+        2 copy exch atan /alpha exch def
+        % calc len(gth)
+        2 exp exch 2 exp add sqrt /len exch def
+%
+        % add and calc z2, z3
+        len xbow mul
+        len ybow mul dir mul
+        1 xbow sub len mul
+        len ybow mul dir mul
+%       
+        % add z4, z1
+        len 0 
+        0 0
+%
+        % add and calc z5..z8 
+        8 copy
+        thin dir mul sub
+        8 2 roll
+        thin dir mul sub
+        8 2 roll
+        thick dir mul sub
+        8 2 roll
+        thick dir mul sub
+%
+        % reverse order, must be cycle
+        8 6 roll
+        6 2 roll
+        4 2 roll
+        8 6 roll
+%       
+        % set z1..z4
+        16 8 roll
+%
+        alpha rotate
+%       silly mo*tex convention
+%       dx 2 div -1 mul 0 translate
+        % draw z1..z4
+        moveto curveto
+        % draw z5..z8
+        lineto curveto
+        % cycle
+        0 0 lineto
+        fill
+} def }
 }
 
+\def\embeddedtex#1{#1}
 \def\embeddedps#1{
-        \special{ps: #1}
+        \special{ps: @beginspecial @setspecial #1 @endspecial}       
 }
 \def\embeddedmf#1{
         \edef\embedid{feta-sleur-\number\embedcount}
@@ -102,13 +130,17 @@
         \immediate\write\embedfile{#1}
         \immediate\closeout\embedfile
         \font\expandafter\embedid\expandafter=\embedid
-        \hbox{\embedid\char0}
+        \embedid\char0
 }
 
+\def\notex{\def\embeddedtex##1{}}
 \def\nopostscript{\def\embeddedps##1{}}
 \def\nometafont{\def\embeddedmf##1{}}
 
-\nometafont
+% dat heb je handig gedaan, lieverd!
+%\nometafont
+\nopostscript
+\notex
 
 \def\EndLilyPondOutput{
         \storeembedcount
