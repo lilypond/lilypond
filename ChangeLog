@@ -1,3 +1,8 @@
+2002-09-13  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
+
+	* ly/a3-init.ly, scripts/ly2dvi.py (ly_paper_to_latexpaper): 
+	Add support for A3 paper.
+
 2002-09-13  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/tuplet-bracket.cc (brew_molecule): don't crash on broken
