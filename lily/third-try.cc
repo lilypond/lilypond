@@ -25,6 +25,11 @@
     left-neighbors = idem
 
     (TODO: property-doc these!)
+
+  Don't be confused by right-items: each spacing wish can also contain
+  a number of items, with which a spacing constraint may be kept. It's
+  a little baroque, but it might come in handy later on?
+    
  */
 
 class Third_spacing_spanner
@@ -74,7 +79,7 @@ loose_column (Grob *l, Grob *c, Grob *r)
 
     the column containing the clef is really loose, and should be
     attached right to the first column, but that is a lot of work for
-    such a border line case.
+    such a borderline case.
 
     )
     
@@ -384,12 +389,13 @@ Third_spacing_spanner::do_measure (Grob*me, Link_array<Grob> *cols)
 	{
 	  Grob * wish = unsmob_grob (gh_car (s));
 
-	  /*
-	    TODO: configgable.
+	  if (Note_spacing::left_column (wish) != lc
+	      || Note_spacing::right_column (wish) != rc)
+	    continue;
 
-	    TODO: don't do stem-dir correction in polyphonic
-	    stuff. It wastes CPU time.
-	  */
+	  /*
+	    This is probably a waste of time in the case of polyphonic
+	    music.  */
 	  if (Note_spacing::has_interface (wish))
 	    {
 	      hinterfleisch = hinterfleisch >?
@@ -402,18 +408,13 @@ Third_spacing_spanner::do_measure (Grob*me, Link_array<Grob> *cols)
 	    }
 	}
 
-      // ? why.
-      if (gh_pair_p (seq))
-	stretch_distance -= headwid;
-
-	  /*
-	    something failed, or we get ridiculous close.
-	   */
       if (hinterfleisch < 0)
 	{
 	  // maybe should issue a programming error.
 	  hinterfleisch = note_space;
 	}
+      else
+	stretch_distance -= headwid; // why?
 
       if (max_factor == 0.0)
 	max_factor = 1.0; 

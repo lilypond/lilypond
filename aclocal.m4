@@ -482,10 +482,12 @@ AC_DEFUN(AC_STEPMAKE_LEXYACC, [
     AC_CHECK_SEARCH_RESULT($BISON, bison,  Please install Bison, 1.25 or newer)
     AC_CHECK_SEARCH_RESULT($FLEX,  flex, Please install Flex, 2.5 or newer)
 
+
+## Urg. We should fix this configure test. -- so clumsy
     if test $BISON != "error"; then
-	bison_version=`$BISON --version | sed 's/^.*version 1.//g'`
-	if test `echo $bison_version | sed 's/\..*$//g'` -lt 25; then
-	    AC_STEPMAKE_WARN(Your bison is a bit old (1.$bison_version). You might have to install 1.25)
+	bison_version=`$BISON --version | head -1 | sed 's/^.* 1\.//g'`
+	if test $bison_version -lt 25; then
+	    AC_STEPMAKE_WARN(The bison installed might be too old (1.$bison_version). You might have to install 1.25)
 	fi	
     fi
 
@@ -693,23 +695,10 @@ AC_DEFUN(AC_STEPMAKE_TEXMF, [
 	METAFONT=$MFONT
     fi
 
-    AC_CHECK_PROGS(METAPOST, mp, no)
-    if test "x$METAPOST" = "xno"; then
-	AC_CHECK_PROGS(MPOST, mpost, -echo no mp or mpost)
-
-	METAPOST=$MPOST
-    fi
-
     AC_CHECK_PROGS(INIMETAFONT, inimf, no)
     if test "x$INIMETAFONT" = "xno"; then
 	AC_CHECK_PROGS(INIMFONT, inimfont, -echo no inimf or inimfont)
 	INIMETAFONT=$INIMFONT
-    fi
-
-    AC_CHECK_PROGS(INIMETAPOST, inimp, no)
-    if test "x$INIMETAPOST" = "xno"; then
-	AC_CHECK_PROGS(INIMPOST, inimpost, -echo no inimp or inimpost)
-	INIMETAPOST=$INIMPOST
     fi
 
     AC_MSG_CHECKING(for working metafont mode)
@@ -722,30 +711,11 @@ AC_DEFUN(AC_STEPMAKE_TEXMF, [
     done
     AC_MSG_RESULT($MFMODE)
 
-    AC_MSG_CHECKING(for mfplain.mp)
-    #
-    # For now let people define these in their environments
-    #
-    : ${MFPLAIN_MP=`kpsewhich --format mp mfplain.mp`}
-    AC_MSG_RESULT($MFPLAIN_MP)
-
-    AC_MSG_CHECKING(for inimetapost flags)
-    if test  ${INIMETAPOST} = "inimp" ; then
-       : ${INIMETAPOST_FLAGS=''}
-    else
-       : ${INIMETAPOST_FLAGS='-interaction=nonstopmode'}
-    fi
-    AC_MSG_RESULT($INIMETAPOST_FLAGS)
-
     rm -f mfput.*
 
     AC_SUBST(METAFONT)
-    AC_SUBST(METAPOST)
     AC_SUBST(MFMODE)
     AC_SUBST(INIMETAFONT)
-    AC_SUBST(INIMETAPOST)
-    AC_SUBST(MFPLAIN_MP)
-    AC_SUBST(INIMETAPOST_FLAGS)
 ])
 
 AC_DEFUN(AC_STEPMAKE_WARN, [

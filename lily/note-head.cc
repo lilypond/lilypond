@@ -17,10 +17,45 @@
 #include "rhythmic-head.hh"
 
 /*
-  Note_head contains the code for printing note heads and the ledger lines.
+  Note_head contains the code for printing note heads.
+
+
+
+  Ledger lines:
+
+  It also contains the ledger lines, for historical reasons.  Ledger
+  lines are somewhat of a PITA. In some cases, they take up no space, in
+  some cases they don't:
+
+  DO take space:
+
+  - when ledgered notes are juxtaposed: there should be some white
+   space between the ledger lines.
+
+  - when accidentals are near: the accidentals should not be on the ledger lines
+
+  [both tips by Heinz Stolba from Universal Edition].
+
+  DO NOT take space into account:
+
+  - for basically everything else, e.g. swapping ledgered notes on
+   clustered chords, spacing between ledgered and unledgered notes.
+
   
-  TODO: maybe it's worthwhile to split away the Ledger lines into a
-  separate grob.  */
+  TODO: fix this. It is not feasible to have a special grob for
+  ledgers, since you basically don't know if there will be ledgers,
+  unless you know at interpretation phase already 1. the Y-position,
+  2. the number of staff lines. It's not yet specced when both pieces
+  of information are there, so for now, it is probably better to build
+  special support for ledgers into the accidental and separation-item
+  code.
+
+  (Besides a separate ledger seems overkill. For what else would
+  it be useful?)
+  
+
+
+*/
 
 #include "staff-symbol-referencer.hh"
 
@@ -133,13 +168,17 @@ internal_brew_molecule (Grob *me,  bool ledger_take_space)
   return out;
 }
 
-MAKE_SCHEME_CALLBACK (Note_head,brew_molecule,1);
 
+MAKE_SCHEME_CALLBACK (Note_head,brew_molecule,1);
 SCM
 Note_head::brew_molecule (SCM smob)  
 {
   Grob *me = unsmob_grob (smob);
-  return internal_brew_molecule (me, true).smobbed_copy ();
+
+  /*
+    ledgers don't take space. See top of file.
+   */
+  return internal_brew_molecule (me, false).smobbed_copy ();
 }
 
 /*

@@ -136,10 +136,13 @@
 	(BreathingSign . (
 		(break-align-symbol . Breathing_sign)
 		(breakable . #t )
-		(molecule-callback . ,Breathing_sign::brew_molecule)
+		(molecule-callback . ,Text_item::brew_molecule)
+		(lookup . name)
+		(font-family . music)
+		(text . "scripts-rcomma")
 		(Y-offset-callbacks . (,Breathing_sign::offset_callback))
 		(visibility-lambda . ,begin-of-line-invisible)
-		(meta . ,(grob-description  break-aligned-interface))
+		(meta . ,(grob-description  break-aligned-interface text-interface font-interface))
 	))
 
 	(Clef . (
@@ -426,6 +429,7 @@
 	
 	(PaperColumn . (
 		(axes 0)
+;	        (molecule-callback . ,Paper_column::brew_molecule) (font-name . "cmr8")
  		(meta . ,(grob-description paper-column-interface axis-group-interface spaceable-element-interface))
 	))
 	(PhrasingSlur . (
@@ -452,6 +456,7 @@
 	
 	(NonMusicalPaperColumn . (
                 (axes 0)
+;	(molecule-callback . ,Paper_column::brew_molecule) (font-name . "cmr8")
  		(meta . ,(grob-description paper-column-interface axis-group-interface spaceable-element-interface))
         ))
 

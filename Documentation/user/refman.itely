@@ -3139,7 +3139,9 @@ Type1 usually come as ``one design fits all sizes''.
 @code{cmti}, etc. Setting this overrides font-family, font-shape and
 font-series.
 
+
 @end table
+
 
 The font is selected by taking the first font that satisfies all
 qualifiers specified. You can override any of these fields through
@@ -3163,13 +3165,19 @@ and @code{dynamic}.
 The style sheets and tables for selecting fonts are located in
 @file{scm/font.scm}. Refer to this file for more information.
 
+
+Setting @code{font-name} overrides all other qualifiers. The value for
+this property should be a string, the file name of the font. You may use
+this to use special fonts, which are not a part of the style sheet, or
+which have special encodings.
+
+The size of the font may be set with the grob property
+@code{font-magnification}.  It is the size of font, relative to its
+standard size. For example, @code{1.0} is normal size.
+
 @refbugs
 
 Relative size is not linked to any real size.
-
-There is no mechanism to select magnification of particular fonts,
-meaning that you don't have access to continuously scaled fonts.  You
-can scale the entire output, of course, see @ref{Output scaling}.
 
 There is no style sheet provided for other fonts besides the @TeX{}
 family.
@@ -3541,19 +3549,19 @@ details, see the file @file{scm/font.scm}.
 @cindex @code{papersize}
 
 To change the paper size, you must first set the
-@code{papersize} variable at top level.  Set it to
+@code{papersize} paper variable variable.  Set it to
 the strings @code{a4}, @code{letter}, or @code{legal}.  After this
 specification, you must set the font as described above.  If you want
 the default font, then use the 20 point font.
 
 @example
-        papersize = "a4"
+        \paper@{ papersize = "a4" @}
         \include "paper16.ly"
 @end example
 
 The file @code{paper16.ly}  will now include a file named @file{a4.ly}, which
 will set the paper variables @code{hsize} and @code{vsize} (used by
-@code{ly2dvi})
+Lilypond and @code{ly2dvi})
 
 @c .  {Line break}
 @node Line break

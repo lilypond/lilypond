@@ -76,21 +76,29 @@ ly_font_interface_get_default_font (SCM grob)
   return Font_interface::get_default_font (gr)->self_scm ();
 }
 
+
 Font_metric *
 Font_interface::get_font (Grob *me, SCM chain)
 {
+  SCM name = me->get_grob_property ("font-name");
   
-  SCM ss = me->paper_l ()->style_sheet_;
+  if (!gh_string_p (name))
+    {
+      SCM ss = me->paper_l ()->style_sheet_;
 
-  SCM proc = ly_cdr (scm_assoc (ly_symbol2scm ("properties-to-font"),
-				ss));
+      SCM proc = ly_cdr (scm_assoc (ly_symbol2scm ("properties-to-font"),
+				    ss));
 
-  SCM fonts = ly_cdr (scm_assoc (ly_symbol2scm ("fonts"), ss));
+      SCM fonts = ly_cdr (scm_assoc (ly_symbol2scm ("fonts"), ss));
 
-  assert (gh_procedure_p (proc));
-  SCM font_name = gh_call2 (proc, fonts, chain);
-
-  Font_metric *fm = me->paper_l ()->find_font (font_name, 1.0);
+      assert (gh_procedure_p (proc));
+      name = gh_call2 (proc, fonts, chain);
+    }
+  
+  SCM mag = me->get_grob_property ("font-magnification");
+  Real rmag = gh_number_p (mag) ? gh_scm2double (mag) : 1.0;
+  
+  Font_metric *fm = me->paper_l ()->find_font (name, rmag);
   return fm;
 }
 
@@ -130,13 +138,12 @@ so a 14% speedup.
 
 */
 
-static SCM name_sym, shape_sym, family_sym, series_sym, rel_sz_sym, design_sz_sym, wild_sym;
+static SCM shape_sym, family_sym, series_sym, rel_sz_sym, design_sz_sym, wild_sym;
 
 
 static void
 init_syms ()
 {
-  name_sym = scm_permanent_object (ly_symbol2scm ("font-name"));
   shape_sym  = scm_permanent_object (ly_symbol2scm ("font-shape"));
   family_sym = scm_permanent_object (ly_symbol2scm ("font-family"));
   series_sym = scm_permanent_object (ly_symbol2scm ("font-series"));
@@ -162,8 +169,6 @@ MAKE_SCHEME_CALLBACK (Font_interface,properties_to_font_name,2);
 SCM
 Font_interface::properties_to_font_name (SCM fonts, SCM alist_chain)
 {
-  SCM name = ly_assoc_chain (name_sym, alist_chain);
-
   SCM shape = SCM_BOOL_F;
   SCM family = SCM_BOOL_F;
   SCM series = SCM_BOOL_F;
@@ -172,21 +177,16 @@ Font_interface::properties_to_font_name (SCM fonts, SCM alist_chain)
   SCM point_sz = ly_assoc_chain (design_sz_sym, alist_chain);
   SCM rel_sz = SCM_BOOL_F;
 
-  if (!gh_pair_p (name))
-    {
-       shape = ly_assoc_chain (shape_sym, alist_chain);
-       family = ly_assoc_chain (family_sym, alist_chain);
-       series = ly_assoc_chain (series_sym, alist_chain);
+  shape = ly_assoc_chain (shape_sym, alist_chain);
+  family = ly_assoc_chain (family_sym, alist_chain);
+  series = ly_assoc_chain (series_sym, alist_chain);
 
-       if (gh_pair_p (shape))
-	 shape = ly_cdr (shape);
-       if (gh_pair_p (family))
-	 family = ly_cdr (family);
-       if (gh_pair_p (series))
-	 series = ly_cdr (series);
-    }
-  else
-    name = ly_cdr (name);
+  if (gh_pair_p (shape))
+    shape = ly_cdr (shape);
+  if (gh_pair_p (family))
+    family = ly_cdr (family);
+  if (gh_pair_p (series))
+    series = ly_cdr (series);
 
 
   if (gh_pair_p (point_sz))
@@ -202,41 +202,22 @@ Font_interface::properties_to_font_name (SCM fonts, SCM alist_chain)
     {
       SCM qlist = ly_caar (s);
 
-      if (name != SCM_BOOL_F)
-	{
-	  if (!wild_compare (scm_list_ref (qlist, gh_int2scm (4)), name))
-	    continue;
-	}
-      else
-	{
-	  if (!wild_compare (scm_list_ref (qlist, gh_int2scm (1)), series))
-	    continue;
-	  if (!wild_compare (scm_list_ref (qlist, gh_int2scm (2)), shape))
-	    continue;
-	  if (!wild_compare (scm_list_ref (qlist, gh_int2scm (3)), family))
-	    continue;
-	}
+      if (!wild_compare (scm_list_ref (qlist, gh_int2scm (1)), series))
+	continue;
+      if (!wild_compare (scm_list_ref (qlist, gh_int2scm (2)), shape))
+	continue;
+      if (!wild_compare (scm_list_ref (qlist, gh_int2scm (3)), family))
+	continue;
   
-      if (point_sz != SCM_BOOL_F)
-	{
-	  // This if statement will always be true since name must 
-	  // be SCM_BOOL_F here, right?  /MB
-	  if (!wild_compare (scm_list_ref (qlist, gh_int2scm (4)), name))
-	    continue;
-	}
-      else
-	{
-	  if (!wild_compare (ly_car (qlist), rel_sz))
-	    continue;
-	}
-
-      
+      if (point_sz == SCM_BOOL_F && !wild_compare (ly_car (qlist), rel_sz))
+	continue;
+          
       SCM qname = ly_cdar (s);
       return qname;
     }
 
   warning (_ ("couldn't find any font satisfying "));
-  scm_write (scm_list_n (name, point_sz, shape, series , family, rel_sz, SCM_UNDEFINED), scm_current_error_port ());
+  scm_write (scm_list_n (point_sz, shape, series , family, rel_sz, SCM_UNDEFINED), scm_current_error_port ());
   scm_flush (scm_current_error_port ());
  
   return ly_str02scm ("cmr10");
