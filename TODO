@@ -5,13 +5,25 @@ done, or is an idea that I want to think about
 
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr
+	* Generate TeX titles from MudelaHeader
+
+	* integrate midi-elts from mi2mu and lily
+
+	* virtualise PCols to make encapsulated spacing problems
+
+	* fix spacing: standchen: distance bar-note, 
+ 	  strange stretching and compressing of 8's
+ 
+	* Doc Mutopia (Music To The People) 
+
+	* context in spring-spacer.
+
+	* don't count bars which are not on first beat.
 
 	* generate stuff in out/default, out/sun5-irix etc iso out/ 
-and out-sun5/
+	and out-sun5/
 
-	* derive dstream, texstream from ostream?
-
-	* A typical pop-music example.
+	* derive lily_stream, Dstream, texstream from ostream?
 
 	* check libtool, automake
 
@@ -31,13 +43,13 @@ and out-sun5/
 
 	* get rid of gif files.
 
-	* set_midi_channel/staff() out of performer.
-
 	* dots into separate item.
 
 	* use String iso Text_def for lyrics.
 
 	* use position 0 for center of staff iso bottom.
+
+	* Klavarskribo?
 
 	* return status on exit
 
@@ -45,7 +57,7 @@ and out-sun5/
 
 	* rewire acknowledge_element() logic with a process_acknowledged()
 	
-	* Global type registration.  
+	* Global type registration.
 
 		My_class * p = create_object( My_class )
 		Type t = get_type ( *p );
@@ -68,10 +80,12 @@ and out-sun5/
 
 3RD PARTY BUGS:
 
+	* collision.cc: 138, g++ errors
+
 	* bugreport to doc++ devel: struct not in class hier; public
 	virtual baseclasses
 
-	* DOC++ bugs/ newer version?
+	* DOC++ bugs/newer version?
 
 	* Rational infty(HUGE_VAL) on glibc / w32
 
@@ -81,9 +95,19 @@ and out-sun5/
 	yy_scan_buffer in C++..
 
 	* (where are the) gcc compile warnings on linux
-	
+
+LILY BUGS
+
+	\score { < 
+		\melodic { \id "Staff" ""; c'4 g'4 }
+		\lyric {   \id "Lyric" ""; hello4 bye4 < a chord > }
+		\lyric {   \id "Lyric" ""; bye4 hello4 }
+		\melodic { \id "Staff" ""; c'4 g'4 }
+	> }
 
 PROJECTS
+
+	* emacs-mode for mudela
 
 	* input converters
 	- NIFF?
@@ -174,17 +198,23 @@ PROJECTS
 	  besides lists of flats/sharps, possibly via declaration
 	- key transposition. 
 	- key undo: \key bes; .. . \key; should print natural	
-	- special key: \key 'b bes bis';
+	- special key: \key bes 'b bis';
 	- spacing, national styles?
 
-PARSER
-	* Duration -> Musical_duration, typedef Rational Duration?
+	* Support for TAB
+	- redo Notehead to allow digits as heads
+	- add a \tablature {} lexer mode for easy entering
 
-BUGS
 
 	* should adjust stemlength for flag number.
 
-	* lilypond - -> crash
+	* breaking:
+	- caching breakpoints
+	- saving them
+	- allowing users to set them.
+	- penalties
+	- specify number of lines
+	- set linelength per line
 
 SEVERELY LACKING:
 
@@ -272,8 +302,6 @@ SMALLISH PROJECTS
 
 	* centered whole rest
 
-	* caching breakpoints / saving them. 
-
 	* use dstream feature in mi2mu
 
         * qtor, btor, mtor-> tor( QUIET_ver ), tor( DEBUG_ver ), etc.
@@ -307,10 +335,6 @@ SMALLISH PROJECTS
 	parser.
 
 	* configure idealspacing: arithmetic spacing
-
-	* LilyPond .deb. Other packaging methods?
-
-	* detect -pipe
 
 DOC
 	* Score_elem structure.
@@ -346,7 +370,6 @@ FUTURE
 	* volta
 
 IDEAS
-	* check out CORBA for Score_elems?
 
 	* derive PCol from Score_elem? More in Score_elems? Spacing?
 
@@ -388,7 +411,7 @@ IDEAS
 	  % fingering:        footing:
 	    < a-4 c-2 g-1 >   < c-\ltoe e-\lheel >
 
-	* parameterised scripts for fingering and footing:
+	* stackparameterised scripts for fingering and footing:
 
             % toe to bheel   four to five
 	    %   ^_u            4_5  
