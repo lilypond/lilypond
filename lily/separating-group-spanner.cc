@@ -19,9 +19,14 @@ Separating_group_spanner::find_rods (Item * r, SCM next)
 {
 
   /*
-    This is an inner loop, however, in most cases, the interesting L
-    will just be the first entry of NEXT, making it linear in most of
-    the cases.  */
+    This is an inner loop: look for the first normal (unbroken) Left
+    grob.  This looks like an inner loop (ie. quadratic total), but in
+    most cases, the interesting L will just be the first entry of
+    NEXT, making it linear in most of the cases.
+  */
+  if (Separation_item::width (r).empty_b ())
+    return; 
+  
   for(; gh_pair_p (next); next = ly_cdr (next))
     {
       Item *l = dynamic_cast<Item*> (unsmob_grob (ly_car( next)));
@@ -39,8 +44,6 @@ Separating_group_spanner::find_rods (Item * r, SCM next)
 	      rod.item_l_drul_[RIGHT] = r;
 
 	      rod.distance_f_ = li[RIGHT] - ri[LEFT];
-	
-	      rod.columnize ();
 	      rod.add_to_cols ();
 	    }
 	}
@@ -56,16 +59,15 @@ Separating_group_spanner::find_rods (Item * r, SCM next)
 
 	  rod.distance_f_ = li[RIGHT] - ri[LEFT];
 	
-	  rod.columnize ();
 	  rod.add_to_cols ();
-
 	  break;
 	}
-      else
-	/*
-	  this grob doesn't cause a constraint. We look further until we
-	  find one that does.  */
-	;
+
+      /*
+	this grob doesn't cause a constraint. We look further until we
+	find one that does.
+      */
+
     }
 }
 

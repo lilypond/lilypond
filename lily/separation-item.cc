@@ -27,11 +27,15 @@ Separation_item::add_conditional_item (Grob* me , Grob *e)
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("conditional-elements"), e);
 }
 
+/*
+  Return the width of ME given that we are considering the object on
+  the LEFT.
+ */
 Interval
 Separation_item::conditional_width (Grob * me, Grob * left)
 {
   Interval w = width (me);
-
+  
   Item *item = dynamic_cast<Item*> (me);
   Paper_column * pc = item->column_l ();
   

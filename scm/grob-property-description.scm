@@ -306,7 +306,7 @@ taking grob as argument, returning a smobbed Molecule.
 All visible, i.e. non-transparent, grobs have a callback to create a
 Molecule. The callback should be a Scheme function taking one argument
 (the grob) and returning a Molecule.  Most molecule callbacks are
-written in C++, but you can also write them in Scheme. An examlily/lilypond/ple is
+written in C++, but you can also write them in Scheme. An example is
 provided in @code{input/regression/molecule-hacking.ly}.
 ")
 
