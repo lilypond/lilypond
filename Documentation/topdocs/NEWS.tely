@@ -57,7 +57,7 @@ music expression, for example,
 \relative @{ c' d e @}
 \markup @{ first text @}
 \markup @{ second text @}
-i@end example
+@end example
 @c FIXME, cannot use toplevel music examples in lilypond-book,
 @c but it works at toplevel too, as shown.
 @lilypond[quote,raggedright]
