@@ -25,7 +25,7 @@ OTF_TABLES = $(addsuffix .otf-table, $(addprefix $(outdir)/feta, $(STAFF_SIZES))
  $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
 FETA_FONTS = $(FETA_MF_FILES:.mf=)
 SVG_FILES = $(OTF_FILES:%.otf=%.svg) $(ALL_FONTS:%=$(outdir)/%.svg)
-CFF_FILES = $(OTF_FILES:%.otf=%.cff) $(ALL_FONTS:%=$(outdir)/%.cff)
+CFF_FILES = $(OTF_FILES:%.otf=%.cff)
 
 
 $(outdir)/aybabtu.otf-table: $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
