@@ -1,4 +1,4 @@
-#(ly:set-option 'old-relative)
+
 \version "1.9.1"
 \header {
   texidoc="Manual hack for nested tuplets, move outer tuplet up."

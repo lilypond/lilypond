@@ -1,4 +1,4 @@
-#(ly:set-option 'old-relative)
+
 \header {
 
 texidoc = "The flags of 8th notes take some space, but not
