@@ -1,3 +1,50 @@
+
+1.3.28
+======
+
+* Update of the glossary by Christian Mondrup 
+
+* Moved horn-concerto-3 out of tarball to private website, removed
+W.A.Mozart subdirectory.
+
+1.3.27.hwn1
+===========
+
+* Bugfix: don't make giant ties if the horizontal part of tie is near
+the center.
+
+* Small optimizations to be a little more careful with mem usage. 
+
+* Website change: put all examples in one directory.
+
+* Removed Atom as a separate type.  Now use SCM, and since we use
+function composition, Atoms are immutable, so they don't have to be
+copied. This makes life easier, hopefully this is quicker and uses
+less memory.
+
+1.3.27.jcn1
+===========
+
+* Bezier_bow: minimise_enclosed_area
+
+1.3.27
+======
+
+1.3.26.hwn4
+===========
+
+* Tuplet-spanner slope calculation now looks better on tupletted rests
+(patch courtesy Laurent Martelli)
+
+* Bugfix (Staff_performer::new_instrument_str ()) check type of
+\property "instrument"
+
+* New mechanism for breaking lines: do not copy & prune the element
+property list separately, but combine these steps. Dramatically
+reduces memory usage for large scores.
+
+1.3.27
+======
 1.3.26.jcn2
 ===========
 
