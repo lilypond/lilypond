@@ -34,8 +34,10 @@ srcdir = @srcdir@
 stepmake = @stepmake@
 
 CC = @CC@
+GCC = @GCC@
 CROSS = @cross_compiling@
 CXX = @CXX@
+GXX = @GXX@
 LD = @LD@
 CONFIGSUFFIX = @CONFIGSUFFIX@
 MAKEINFO = @MAKEINFO@

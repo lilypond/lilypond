@@ -1,4 +1,5 @@
-dnl WARNING WARNING WARNING WARNING
+dnl aclocal.m4   -*-shell-script-*-
+dnl WARNING WARNING WARNING
 dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
 dnl aclocal.m4   -*-shell-script-*-
 dnl StepMake subroutines for configure.in
@@ -108,7 +109,6 @@ AC_DEFUN(STEPMAKE_BISON, [
 	STEPMAKE_CHECK_VERSION(BISON, $1, $2)
     fi
 ])
-    
 
 
 AC_DEFUN(STEPMAKE_COMPILE, [
@@ -193,9 +193,6 @@ AC_DEFUN(STEPMAKE_CXX, [
     AC_LANG_CPLUSPLUS
     AC_PROG_CXX
     STEPMAKE_OPTIONAL_REQUIRED(CXX, c++, $1)
-
-    AC_CHECK_HEADER(FlexLexer.h, true,
-	STEPMAKE_WARN(cannot find flex header.  Please install Flex headers correctly))
 
     CPPFLAGS="$CPPFLAGS $DEFINES"
     CXXFLAGS="$CXXFLAGS $OPTIMIZE"
@@ -301,6 +298,24 @@ AC_DEFUN(STEPMAKE_FLEX, [
 ])
 
 
+AC_DEFUN(STEPMAKE_FLEXLEXER, [
+    AC_HAVE_HEADERS(FlexLexer.h, true, false)
+    if test $? -ne 0; then
+	warn='FlexLexer.h (flex package)'
+	STEPMAKE_ADD_ENTRY($1, $warn)
+    fi
+])
+
+
+AC_DEFUN(STEPMAKE_GCC, [
+    if test "$GCC" = "yes"; then
+        STEPMAKE_CHECK_VERSION(CC, $1, $2)
+    else
+	warn="$CC (Please install *GNU* cc)"
+	STEPMAKE_ADD_ENTRY($1, $warn)
+    fi
+])
+
 
 AC_DEFUN(STEPMAKE_GETTEXT, [
     DIR_LOCALEDIR=${localedir}
@@ -371,7 +386,6 @@ AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
 	fi
     done
     STEPMAKE_OPTIONAL_REQUIRED(GUILE_CONFIG, $guile_config, $1)
-    #if expr "$GUILE_CONFIG" : '.*\(echo\)' >/dev/null; then
     if test $? -ne 0; then
         STEPMAKE_ADD_ENTRY($1, 'guile-config (guile-devel, guile-dev or libguile-dev package)')
     fi 
@@ -396,23 +410,13 @@ AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
 
 
 AC_DEFUN(STEPMAKE_GXX, [
-    AC_MSG_CHECKING("g++ version")
-    cxx_version=`$CXX --version`
-    AC_MSG_RESULT("$cxx_version")
-    changequote(<<, >>)dnl
-    # urg, egcs: how to check for egcs >= 1.1?
-    if expr "$cxx_version" : '.*2\.[89]' > /dev/null ||
-	expr "$cxx_version" : '.*egcs' > /dev/null ||
-	expr "$cxx_version" : '3\.[0-9]' > /dev/null
-    changequote([, ])dnl
-    then
-	    true
+    if test "$GXX" = "yes"; then
+        STEPMAKE_CHECK_VERSION(CXX, $1, $2)
     else
-	STEPMAKE_WARN(cannot find g++ 2.8, 2.9, 3.x or egcs 1.1)
-        STEPMAKE_ADD_ENTRY($1, 'g++ >= 2.95 (gcc package)')
+	warn="$CXX (Please install *GNU* c++)"
+	STEPMAKE_ADD_ENTRY($1, $warn)
     fi
 ])
-
 
 
 AC_DEFUN(STEPMAKE_INIT, [
@@ -564,7 +568,7 @@ AC_DEFUN(STEPMAKE_INIT, [
  	$MAKE -v 2> /dev/null | grep GNU > /dev/null
 	if test "$?" = 1; then
 	    warn='make (Please install *GNU* make)'
-	    STEPMAKE_WARN($warn)
+	    # STEPMAKE_WARN($warn)
 	    STEPMAKE_ADD_ENTRY(REQUIRED, $warn)
         fi
     fi 
@@ -765,9 +769,10 @@ AC_DEFUN(STEPMAKE_PERL, [
 
 
 AC_DEFUN(STEPMAKE_PYTHON_DEVEL, [
-    AC_HAVE_HEADERS(python2.2/Python.h python2.1/Python.h python2.0/Python.h python2/Python.h python/Python.h python1.5/Python.h Python.h)
-    if test $? -ne 0; then
-	STEPMAKE_ADD_ENTRY($1, 'python.h (python-devel, python-dev or libpython-dev package)')
+    AC_HAVE_HEADERS(python2.2/Python.h python2.1/Python.h python2.0/Python.h python2/Python.h python/Python.h python1.5/Python.h Python.h, PYTHON_HEADER=yes)
+    if test -z "$PYTHON_HEADER"; then
+	warn='python.h (python-devel, python-dev or libpython-dev package)'
+	STEPMAKE_ADD_ENTRY($1, $warn)
     fi
 ])
 

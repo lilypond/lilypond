@@ -1,11 +1,11 @@
 GNUmakefile
 TAGS
+configure
 config.cache
 config.h
 config.log
 config.make
 config.status
-configure
 .dstreamrc
 .gdbinit
 *~
