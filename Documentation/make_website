@@ -25,12 +25,17 @@ foreach $a (<*.html>)
 
 foreach $a (@examples) {
     $texfile="test";
-    system "cd ..; lilypond input/$a; tex $texfile;";
-    system "dvips -o $texfile.ps $texfile;";    
-    system "mv ../$texfile.ps $a.ps;".
-	"gs -q -sDEVICE=ppmraw -sOutputFile=- -r200 -dNOPAUSE  $a.ps -c quit |pnmscale 0.5| ppmtogif > $a.gif"
+    system "ln ../input/$a.ly ./$a.ly.txt";
+    system "cd ..; lilypond input/$a; tex $texfile;".
+	"dvips -o $texfile.ps $texfile;";
+
+    # generate the pixmap at twice the size, then rescale (for antialiasing)
+    if ( ! -f "$a.gif" ) {
+    system "mv ../$texfile.ps $a.ps; ".
+	"mv ../lelie.midi $a.midi; ".
+        "gs -q -sDEVICE=ppmraw -sOutputFile=- -r200 -dNOPAUSE  $a.ps -c quit |pnmscale 0.5| ppmtogif > $a.gif";
+    }   
 }
 
-system "mkdir docxx; make -C.. docxx; ln ../docxx/* ./docxx/;" .
-	 "tar cf website.tar *.html *.gif *.png *.ps docxx/;" .
-	"gzip -9 website.tar;"
+system "tar hcf website.tar *.html *.gif lelie_logo.png *.ps *.ly.txt *.midi docxx/;" .
+    "gzip -f9 website.tar;"
