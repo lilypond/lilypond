@@ -1,9 +1,14 @@
 #!@PYTHON@
+#
+# The bugs you find are made by Tom Cato Amundsen <tomcato@xoommail.com>
+# Send patches/questions/bugreports to a mailinglist:
+#  gnu-music-discuss@gnu.org
+#  bug-gnu-music@gnu.org
+#  help-gnu-music@gnu.org
+#
 # All non-english comments are NOT in swedish, they are norwegian!
 #  TODO:
 # * center option (??)
-# * mudela-book should treat \begin{verbatim} that contains inline mudela
-#   correctly.
 # * make mudela-book understand usepackage{geometry}
 # * check that linewidth set in \paper is not wider than actual linewidth?
 # * the following fails because mudelabook doesn't care that the
@@ -36,10 +41,18 @@
 #   - mudela-book will scan the mudela code to find out if it has to add
 #     paper-definition and \score{\notes{...}}
 #   - possible to define commands that look like this: \mudela{ c d e }
+#   - don't produce .dvi output, it was a silly idea...
 # 0.5.1:
 #   - removed init/mudela-book-defs.py, \mudela is defined inside mudela-book
 #   - fragment and nonfragment options will override autodetection of type of
 #     in mudela-block (voice contents or complete code)
+# 0.5.2:
+#   - fixed verbatim option behaviour: don't show \begin{mudela} \end{mudela}
+#     and show both mudela code and music
+#   - veryverbatim option, same as verbatim but show \begin{mudela}
+#     and \end{mudela}. (saves keystrokes in mudela-book-doc.doc)
+#   - intertext="bla bla bla" option
+#   - mudela-book now understand latex \begin{verbatim}
 
 import os
 import string
@@ -49,7 +62,7 @@ import sys
 
 outdir = 'out'
 initfile = ''
-program_version = '0.5.1'
+program_version = '0.5.2'
 
 out_files = []
 
@@ -58,6 +71,8 @@ fontsize_i2a = {11:'eleven', 13:'thirteen', 16:'sixteen',
 fontsize_pt2i = {'11pt':11, '13pt':13, '16pt':16, '20pt':20, '26pt':26}
 
 begin_mudela_re = re.compile ('^ *\\\\begin{mudela}')
+begin_verbatim_re = re.compile ('^ *\\\\begin{verbatim}')
+end_verbatim_re = re.compile ('^ *\\\\end{verbatim}')
 extract_papersize_re = re.compile('\\\\documentclass[\[, ]*(\w*)paper[\w ,]*\]\{\w*\}')
 extract_fontsize_re = re.compile('[ ,\[]*([0-9]*)pt')
 begin_mudela_opts_re = re.compile('\[[^\]]*\]')
@@ -73,6 +88,7 @@ onecolumn_re = re.compile('\\\\onecolumn')
 preMudelaExample_re = re.compile('\\\\def\\\\preMudelaExample')
 postMudelaExample_re = re.compile('\\\\def\\\\postMudelaExample')
 boundingBox_re = re.compile('%%BoundingBox: ([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)')
+intertext_re = re.compile("intertext=\"([^\"]*)\"")
 
 def file_exist_b(name):
     try: 
@@ -255,7 +271,6 @@ class Mudela_output:
             self.code_type = 'fly'
         if self.code_type_override:
             self.code_type = self.code_type_override
-            print "override:", self.code_type_override
         self.write_red_tape()
         for l in self.__lines:
             self.file.write(l)
@@ -287,11 +302,14 @@ class Tex_output:
     def __init__ (self, name):
         self.output_fn = '%s/%s' % (outdir, name)
         self.__lines = []
-    def open_verbatim (self, line):
+    def open_verbatim (self, line, level):
         self.__lines.append('\\begin{verbatim}\n')
-        s = re.sub('[\s,]*verbatim[\s]*', '', line)
-        s = re.sub('\[\]', '', s)
-        self.__lines.append(s);
+        if level == 2:
+            s = re.sub('veryverbatim[\s,]*', '', line)
+            s = re.sub('intertext=\"([^\"]*)\"[\s,]*', '', s)
+            s = re.sub(',\s*\]', ']', s)
+            s = re.sub('\[\]', '', s)
+            self.__lines.append(s);
     def close_verbatim (self):
         self.__lines.append('\\end{verbatim}\n')
     def write (self, s):
@@ -452,6 +470,8 @@ class Main_tex_input(Tex_input):
     def do_it(self):
         preMudelaDef = postMudelaDef = 0
         (lines, self.deps) = self.get_lines ()
+        #HACK
+        latex_verbatim = 0
         for line in lines:
             if documentclass_re.search (line):
                 p = self.extract_papersize_from_documentclass (line)
@@ -468,12 +488,16 @@ class Main_tex_input(Tex_input):
                 preMudelaDef = 1
             elif postMudelaExample_re.search (line):
                 postMudelaDef = 1
+            elif begin_verbatim_re.search (line):
+                latex_verbatim = 1
+            elif end_verbatim_re.search (line):
+                latex_verbatim = 0
             elif begin_document_re.search (line):
                 if not preMudelaDef:
                     self.mudtex.write ('\\def\\preMudelaExample{}\n')
                 if not postMudelaDef:
                     self.mudtex.write ('\\def\\postMudelaExample{}\n')
-            elif begin_mudela_re.search (line):
+            elif begin_mudela_re.search (line) and not latex_verbatim:
                 Props.clear_for_new_block()
                 if __debug__:
                     if self.mode == 'mudela':
@@ -483,33 +507,47 @@ class Main_tex_input(Tex_input):
                 if r:
                     o = r.group()[1:][:-1]
                     optlist =  re.compile('[ ,]*').split(o)
+                    m = intertext_re.search(r.group())
+                    if m:
+                        self.intertext = m.groups()[0]
+                    else:
+                        self.intertext = None
                 else:
                     optlist = []
-                if ('verbatim' in optlist) or (Props.force_verbatim_b):
+                if ('veryverbatim' in optlist):
+                    self.verbatim = 2
+                elif ('verbatim' in optlist) or (Props.force_verbatim_b):
                     self.verbatim = 1
-                    self.mudtex.open_verbatim (line)
-                    continue
                 else:
                     self.verbatim = 0
-                    self.mudela = Mudela_output (self.gen_basename ())
-            elif end_mudela_re.search (line):
+                if self.verbatim:
+                    self.mudtex.open_verbatim (line, self.verbatim)
+                self.mudela = Mudela_output (self.gen_basename ())
+                self.mudela.write (line)
+                continue
+            elif end_mudela_re.search (line) and not latex_verbatim:
                 if __debug__:
                     if self.mode != 'mudela':
                         raise AssertionError
-                if self.mudela:
-                    self.mudela.close ()
-                    self.mudtex.write (self.mudela.insert_me_string())
-                    del self.mudela
-                    self.mudela = None
-                    self.fine_count = self.fine_count + 1
-                else:                    
-                    self.mudtex.write (line)
+
+                if self.verbatim:
+                    if self.verbatim == 2:
+                        self.mudtex.write (line)
                     self.mudtex.close_verbatim ()
+                self.mudela.close ()
+                if self.verbatim and self.intertext:
+                    self.mudtex.write(self.intertext)
+                self.mudtex.write (self.mudela.insert_me_string())
+                del self.mudela
+                self.mudela = None
+                self.fine_count = self.fine_count + 1
                 self.mode = 'latex'
                 continue
 
-            if self.mode == 'mudela' and not self.verbatim:
+            if self.mode == 'mudela':
                 self.mudela.write (line)
+                if self.verbatim:
+                    self.mudtex.write (line)
             else:
                 self.mudtex.write (line)
                 self.set_sections(line)

@@ -1,3 +1,4 @@
+% -*-LaTeX-*-
 \documentclass[a4paper, 12pt]{article}
 
 \usepackage{t1enc,isolatin1}
@@ -30,8 +31,7 @@ This document assumes you have basic knowledge of GNU LilyPond and
 send a patch.
 
 So what does this look like? Well, here is an example:
-
-\begin{mudela}[verbatim]
+\begin{mudela}[veryverbatim, intertext="produces this music:"]
 \score{
   \notes\relative c'{
     \time 5/8;
@@ -42,21 +42,6 @@ So what does this look like? Well, here is an example:
   }
 }
 \end{mudela}
-
-\noindent produces this music:
-
-\begin{mudela}
-\score{
-  \notes\relative c'{
-    \time 5/8;
-    [e16( g b c a g][e a b d] | )e2 d,8 |
-    [e16( g b c a g][e a b d] | )b2 [a16( f] |
-    [e a b d] )e4 c8 | [es16( bes a as g es][d c b! )g] |
-    [f( a b d b a][f a b d] | )e2
-  }
-}
-\end{mudela}
-
 If you are lucky, the above example show a nice feature of LilyPond
 and \LaTeX. Since LilyPond can output the music as \TeX~graphics,
 \LaTeX~can insert pagebreaks between the lines of music.
@@ -81,23 +66,7 @@ music, another file than \verb|paper16.ly| will be included.
 If you want to make the music not so wide, you can insert a
 \verb|\paper| statement that set the linewidth:
 
-\begin{mudela}[verbatim]
-\score{
-  \notes\relative c'{
-    \time 5/8;
-    [e16( g b c a g][e a b d] | )e2 d,8 |
-    [e16( g b c a g][e a b d] | )b2 [a16( f] |
-    [e a b d] )e4 c8 | [es16( bes a as g es][d c b! )g] |
-    [f( a b d b a][f a b d] | )e2
-  }
-  \paper{linewidth = 10.\cm;}
-}
-\end{mudela}
-
-\noindent produces this music:
-
-\begin{mudela}
-% dette er en kommentar
+\begin{mudela}[veryverbatim, intertext="produces this music:"]
 \score{
   \notes\relative c'{
     \time 5/8;
@@ -118,12 +87,7 @@ If you only write voice-contents in the mudela block, mudela-book
 will set the \verb|linewidth| variable to -1, so Lilypond
 will make the music as short as possible but without breaking the
 line. Here is a well know harmonic progression:
-\begin{mudela}
-% dette er en kommentar
-  <c' e' g'> <b d' g'> <c'2 e' g'>
-\end{mudela}
-\noindent that is made by this code:
-\begin{mudela}[verbatim]
+\begin{mudela}[veryverbatim, intertext="produce a well known harmonic progression:"]
   <c' e' g'> <b d' g'> <c'2 e' g'>
 \end{mudela}
 
@@ -136,9 +100,11 @@ eps graphics and include it into the document with the
 \verb|\includegraphics| command.
 
 The code used look like this:
-\begin{mudela}[eps, verbatim]
+\begin{verbatim}
+\begin{mudela}[eps]
   <c' e' g'> <b d' g'> <c'2 e' g'>
 \end{mudela}
+\end{verbatim}
 
 You can also use the \verb|eps| option if the block is a complete
 mudela source. This 5 cm long empty line, 
@@ -149,24 +115,29 @@ mudela source. This 5 cm long empty line,
 }
 \end{mudela}
 was created with this code:
-\begin{mudela}[eps, verbatim]
+\begin{verbatim}
+\begin{mudela}[eps]
 \score{
   \notes{s}
   \paper{ linewidth = 5.\cm;}
 }
 \end{mudela}
+\end{verbatim}
+
 To avoid that \LaTeX~places the music on a line of its one, there should
 be no empty lines between the normal text and the mudela
 environment. 
 
 \section{Fontsize options}
 You can use all lilypond fontsizes in mudela-book. 
-% LONG line just to test multiple mudela on one line
+% LONG line just to test multiple \mudela on one line
 The default 16pt fontsize, \mudela{<c' e' g'>}, is probably to big to be included in the middle of the text. 11pt, \mudela[11pt]{<c' e' g'>} or 13pt, \mudela[13pt]{<c' e' g'>} is probably better.
 The code can look like this:
-\begin{mudela}[13pt, eps, verbatim]
+\begin{verbatim}
+\begin{mudela}[13pt, eps]
 <c' e' g'>
 \end{mudela}
+\end{verbatim}
 
 The following options set the fontsize:
 \begin{itemize}
@@ -216,39 +187,29 @@ Mudela-book defines the \verb|\mudela| command, and let you define
 your own commands in a file specified by 
 the command line option \verb|--initfile=filename|. The format for the
 file is a definition of a python dictionary:
-% mudela-book should really respect \begin{verbatim}
 
-\verb|{    'mudela': r"""|
-
-\verb|\begin|\verb|{mudela}[eps \fontoptions]|
-
-\verb|    \maininput|
-
-\verb|\end|\verb|{mudela}|
-
-\verb|""",|
-
-\verb|    'mudelaRhythm': r"""|
-
-\verb|\begin|\verb|{mudela}[eps \fontoptions]|
 \begin{verbatim}
+{    'mudela': r"""
+\begin{mudela}[eps \fontoptions]
+    \maininput
+\end{mudela}
+""",
+    'mudelaRhythm': r"""
+\begin{mudela}[eps \fontoptions]
 \score{
     \type RhythmicStaff{
         \notes{\stemup \maininput}
     }
     \paper{linewidth = -1.\cm;}
 }
+\end{mudela}
+"""
+}
 \end{verbatim}
-\verb|\end|\verb|{mudela}|
-
-\verb|"""|
-
-\verb|}|
-
 The above code show how \verb|\mudela| could have been defined, and
 also defines a new command \verb|mudelaRhythm|. Notice that you can
 send fontsize options to the defined commands. 
-\verb|\mudelaRhytm[11pt]{c4 c8 [c16 c] c4 c}| produce this music:
+\verb|\mudelaRhythm[11pt]{c4 c8 [c16 c] c4 c}| produce this music:
 \begin{mudela}[eps, 11pt]
 \score{
   \type RhythmicStaff{
@@ -266,7 +227,7 @@ wrong.
 
 Since there is no finder's fee which doubles every year, there is no
 need to wait for the price money to grow. So send a bug report today
-if you need this one of this options.
+if you need this one of these options.
 
 \section{Examples}
 This was all options to \verb|\begin{mudela}|. The rest of the
@@ -289,11 +250,11 @@ and marginspars just as any other included eps graphics.
 \begin{mudela}
 \score{
   \notes\relative c'{ 
-	\time 12/8;  
-	r4-\fermata [b16-.( )b-.] [f'8-- dis16-.( )dis-. gis8--]
-	[f16-.( )f-. dis8-- gis16-.( )gis-.] cis4.-\fermata |
-	
-	r4.-\fermata [cis,16 cis g'8 f16 f b8][g16 g f8 b16 b] dis4.-\fermata
+        \time 12/8;  
+        r4-\fermata [b16-.( )b-.] [f'8-- dis16-.( )dis-. gis8--]
+        [f16-.( )f-. dis8-- gis16-.( )gis-.] cis4.-\fermata |
+        
+        r4.-\fermata [cis,16 cis g'8 f16 f b8][g16 g f8 b16 b] dis4.-\fermata
   }
   \paper{linewidth = 7.\cm;}
 }
@@ -314,7 +275,7 @@ to the same value. The code looks like this:
     \time 12/8;  
     r4.-\fermata [b16-.( )b-.] [f'8-- dis16-.( )dis-. gis8--]
     [f16-.( )f-. dis8-- gis16-.( )gis-.] cis8.-\fermata |
-	
+        
     r4.-\fermata [cis,16 cis g'8 f16 f b8]
     [g16 g f8 b16 b] dis4.-\fermata
   }
@@ -368,22 +329,14 @@ Sinse the version number is quite low, you should be careful not to
 mix braces that belongs to mudela-book and \LaTeX~on the same
 line. The following code will probably break:
 
-\verb|\footnote{\begin{mudela}|
-
-\verb|\relative c''{ \key es; r8 [g g g] es2} |
-
-\verb|\end{mudela}}|
-
+\begin{verbatim}
+\footnote{\begin{mudela}
+\relative c''{ \key es; r8 [g g g] es2}
+\end{mudela}}
+\end{verbatim}
 Mudela-book does know about \verb|\onecolumn| and \verb|\twocolumn|. 
 So the music will be adjusted to the new linewith:
-\begin{mudela}[verbatim]
-\score{
-    \notes\relative c'{c d e f | g2 g | a4 a a a | g1 |
-         f4 f f f | e2 e | d4 d d d | c1}
-}
-\end{mudela}
-produces
-\begin{mudela}
+\begin{mudela}[veryverbatim, intertext="produces"]
 \score{
     \notes\relative c'{c d e f | g2 g | a4 a a a | g1 |
          f4 f f f | e2 e | d4 d d d | c1}
@@ -396,3 +349,6 @@ environment when you don't want \LaTeX~to do any linebreaking)
 
 \end{document}
 
+\begin{verbatim}
+
+\end{verbatim}
