@@ -2,17 +2,10 @@
  title: Das Wohltemperirte Clavier I, Fuga II (c-minor)
  description: following Henle's Urtext
  composer(s): JS Bach
- entered-by: HWN
- corrected-by: Werner Lemberg (tested with pl 64; 1997-05-17)
+ entered-by: HWN and Werner Lemberg
  copyright: Public Domain 
 
  Tested Features: stem direction, multivoice, forced accidentals.
-
- Remarks: the stem direction algorithm is severely broken (look at the
-bass dux) with pl64. [this is supposedly fixed in pl68, can anybody
-knowledgeable remove this comment if it's not appropriate anymore?]
-    
-
 
 %}
 
@@ -38,9 +31,10 @@ dux =
         [es c' b a] [g f! es d] [c8 es' d' c'] |
         [bes a bes c'] [fis g a fis] |
 %% 5
-        g4 r16 [c d es] [f g as8~] [as16 d es f]|
-        [g a bes8~] [bes16 es f g] [as g f es] [d8 c'16 b]|
-        c'4 r4 r8 [f' es' d'] 
+        g4 r16 [c d es] [f g as8~] [as16 d es f] |
+        [g a bes8~] [bes16 es f g] [as g f es] [d8 c'16 b!] |
+                                                    % forced accident!
+        c'4 r4 r8 [f' es' d'] |
         r8 [as g f] [g f16 es] [f8 d] | 
         g4 r8 b [c' c'16 b] [c'8 g] |
 %% 10   
@@ -50,16 +44,9 @@ dux =
         [bes8 c' bes as] [bes g f es] |
         [f des' c' bes] [c' as g f] |
 %% 15
-        g8 \octave c'; [g16 fis] [g8 c] [es g16 fis] [g8 a] |
-%        [d g16 fis] [g8 a] [c16 d] es4 [d16 c] |
-        [d g16 fis] [g8 a] [c16 d] es4 [d16 c] |
-                                    % wouldn't it be better if I can write
-                                    % `a' instead of `a!' here to get really
-                                    % an `a natural'? Processing this melody
-                                    % alone (only having `a') would yield a
-                                    % different result! (WL)
-%% I don't understand the complaint. The ! makes no difference in output. HWN
-
+        g8 \octave c'; [g16 fis] [g8 c] [es g16 fis!] [g8 a] |
+        [d g16 fis] [g8 a!] [c16 d] es4 [d16 c] |
+                                                    % forced accident!
         'bes8 r8 r16 [d e fis] [g a bes8~] [bes16 e f g] |
         [a bes c'8~] [c'16 fis16 g a] [bes8 es!16 d] [es8 'g] |
         ['as f16 es] [f8 'a8] ['bes g16 f] [g8 'b] |
@@ -77,12 +64,7 @@ dux =
         [f16 d es c]~ [c8 B] c4 r8 e |
 %% 30
         f4 r8 f [f es16 d] [es8 <f as]> |
-%        f4 r8 <f as b> [f es16 d] [es8 <f as]> |
-                                    % bug! if you say
-                                    %   f4 r8 <f as b> ...
-                                    % the chord overlaps. WL
-%% confirmed. added to TODO. HWN
-	<B d> r <B d> r <G2 c> |
+        <B d> r <B d> r <G2 c> |
     }
 
 
@@ -97,7 +79,7 @@ comes =
 %% 5
         ['bes8 es16 d] [es8 'g8] ['as f16 es] [f8 'a] 
         ['bes8 g16 f] [g8 'b] [c8 d16 es] f4~ |
-        [f8 es16 d] [c16 'bes 'as 'g] ['f8 as g f] 
+        [f8 es16 d] [c16 'bes! 'as 'g] ['f8 as g f] 
         [es d es f] ['b c d 'b] |
         [c g16 fis] [g8 d] es4 r8 e8 |
 %% 10 
@@ -107,9 +89,9 @@ comes =
         [G16 Es F G] [As Bes c d] [es d c d] [es f g a] |
         [bes F G As] [Bes c d e] [f es d es] [ f g a b] |
 %% 15
-        [c'8 b16 a] [g f es d] [c8 es d c] |
+        [c'8 b16 a] [g f! es d] [c8 es d c] |
         [Bes A Bes c] [Fis! G A Fis] |
-                                    % see comment above about forced acc. 
+                                                    % forced accident
         [G8 d16 c] d8 r8 r8 [e16 d] e8 r8 |
         r [fis16 e] fis8 r r [G16 F] G8 r8 |
         r8 [A16 G] A8 r r [B16 A] B8 r |
@@ -144,13 +126,7 @@ bassdux =
         r8 [c16 B] [c8 G] [As c16 B] [c8 d] |
         [G c16 B] [c8 d] [F16 G] As4 [G16 F] | 
         \octave c; [es c' b a] [g f es d] [c d es d] [c Bes! As! G] |
-                                    % I think we shouldn't need to force
-                                    % accidents here because they are in
-                                    % another octave range. WL
-
-%% I don't understand the complaint. Accidentals are valid for one octave range
-%% only. Without ! (and printed flat), this still is valid. HWN
-
+                                                    % -> \classic_accidentals
 %% 10
         [F bes as g] [f es d c] [Bes c d c] [Bes As G F] |
         [Es as g f] [es des c Bes] [As8 c' bes as] |
@@ -164,13 +140,13 @@ bassdux =
         [f d'16 c'] [d'8 fis] g4 r16 [G A B] |
         [c16 d es8~] [es16 A Bes c] [d es f8~] [f16 'b c d] |
 %% 20    
-        es8 r r e [f F Es! D] |     % see comment above about octave range
+        es8 r r e [f F Es! D] |                     % -> \classic_accidentals
         r [As G F] [G F16 Es] [F8 G] |
         [c16 d  es d] [c Bes As G] [F bes as g] [f es d c] |
         [Bes c d c] [Bes As G F] [Es as g f] [es d c Bes] |
         [As Bes c Bes] [As G F Es] [D g f es] [d c B A] |
 %% 25
-        g4 r4 r16 [G A B] [c d es f] |
+        G4 r4 r16 [G A B] [c d es f] |
         [g f as g] [f es d c] [B8 c16 B] [c8 G] |
         [As c16 B] [c8 d] [G c16 B] [c8 d] |
         [F16 G] As4 [G16 F] Es4 r8 es |
@@ -182,22 +158,20 @@ bassdux =
         >
     }
 
-
-
         
 \score {
- 	\melodic < \multi 1;
-		< \multi 2; 
-			\global 
-			\dux
-			\comes 
-		>
-		< \multi 2;
-			\global
-			\bassdux
-		>
-		
-	>
+    \melodic < \multi 1;
+                 < \multi 2; 
+                       \global 
+                       \dux
+                       \comes 
+                 >
+                 < \multi 2;
+                       \global
+                       \bassdux
+                 >
+             >
+
     \paper{}
     \midi {
         \tempo 4:84;
@@ -205,5 +179,3 @@ bassdux =
 }
 
 % EOF
-
-
