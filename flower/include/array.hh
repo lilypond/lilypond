@@ -111,6 +111,10 @@ public:
       return Tarray;
     }
 
+  T const *access_array () const
+    {
+      return array_p_;
+    }
   void operator=(Array const & src) 
     {
       set_size (src.size_);

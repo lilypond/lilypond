@@ -1,4 +1,21 @@
-pl 39
+pl 39.mb2
+	- added more mensural style time signatures, old3/4, old6/8, old9/8
+	- redesigned old6/4, old9/4
+	- Updated refman.yo, lilypond-regtest.doc, clefs.ly, time.fly
+
+pl 39.hwn1
+	- consified mi2mu (pl 37.jcn1)
+
+pl 39.mb1
+	- bf: invisible clefs don't take any space, moved _8 below clef
+	- updated incipit example and macro
+
+pl 39.uu1
+	- delete graphical objects  in reverse
+	- faq updates.
+
+********
+pl 39 (april 12)
 	- \property textstyle -> textStyle
 
 pl 38.tca1

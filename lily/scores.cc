@@ -92,11 +92,8 @@ do_scores()
 void
 clear_scores ()
 {
-  for (int i=0; i < score_global_array.size(); i++)
-    {
-      delete score_global_array[i];
-    }
-  score_global_array.clear();
+  junk_pointer_array (score_global_array);
+
   inclusion_global_array.clear ();
   delete  header_global_p ;
   header_global_p =0; 

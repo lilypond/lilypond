@@ -36,6 +36,12 @@ class Link_array : private Array<void *>
 public:
   Link_array()
     {}
+
+  Link_array(T * const *tp, int n)
+    : Array<void*> ((void **)tp, n)
+    {
+    }
+
   Link_array (Link_array<T> const &src)
     : Array<void*> (src)
     {
@@ -123,6 +129,10 @@ public:
   Array<void*>::empty;
   Array<void*>::reverse;
   Array<void*>::tighten_maxsize;
+  T ** access_array () const
+    {
+      return (T**) Array<void*>::access_array();
+    }
   T * get (int i)
     {
       return (T*) Array<void*>::get (i);
@@ -184,6 +194,17 @@ Link_array<T>::sort (int (*compare)(T *const&,T *const&),
   swap (lower, last);
   sort (compare, lower, last-1);
   sort (compare, last+1, upper);
+}
+
+template<class T>
+void
+junk_pointer_array (Link_array<T> &a)
+{
+  for (int i=0; i < a.size ();  i++)
+    {
+      delete a[i];
+    }
+  a.clear ();
 }
 
 #endif // PARRAY_HH
