@@ -6,16 +6,11 @@
 	- lo-res fixes.
 	- work out sizes of character fonts.
 	- more symbols
-	  * some scripts:
+	  * some scripts: flageolet
 	  * piano pedals,
 	  * trills
 	  * maxima notehead
 	  * coda signs.
-	  * 0 - 9: 
-	    - small(1/4staff) bold + bold slanted
-	    - normal(1/5staff) bold
-	    - large(3/4staff) bold
-
 	- 128th flags
 	- include important spacing dims in fetalog 
 

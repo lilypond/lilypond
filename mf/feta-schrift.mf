@@ -171,9 +171,7 @@ fet_endchar;
 %
 % The down marcato char (not very much used). 
 % Contrary to what some MF/TeX `gurus' believe
-% it is *point*-symmetric with the "up" version; (at least [Chlapik] and 
-% and [Wanske] agree with us)
-%
+% it is *point*-symmetric with the "up" version
 fet_beginchar("marcato down", "dmarcato", "dmarcato")
 	draw_marcato;
 	xy_mirror_char;
