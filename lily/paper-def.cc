@@ -40,7 +40,7 @@ Paper_def::Paper_def(Lookup *l)
     linewidth = 15 *CM_TO_PT;		// in cm for now
     whole_width = 8 * note_width();
     geometric_ = sqrt(2);
-    outfile = "lelie.out";
+    outfile = "lelie.tex";
 }
 
 Paper_def::~Paper_def()

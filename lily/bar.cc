@@ -1,11 +1,17 @@
+/*
+  bar.cc -- implement Bar
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include "bar.hh"
 #include "string.hh"
 #include "molecule.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
 #include "debug.hh"
-
-
 
 Bar::Bar( String t)
 {

@@ -33,6 +33,17 @@ Register_group_register::set_feature(Feature d)
 }
 
 void
+Register_group_register::sync_features()
+{
+    iter_top(reg_list_, i);
+    while (i.ok()) {
+
+	Request_register *reg_l = i++; 
+	reg_l->sync_features();
+    }
+}
+
+void
 Register_group_register::pre_move_processing()
 {
     iter_top(reg_list_, i);
