@@ -232,10 +232,11 @@ MAKE_SCHEME_CALLBACK (Cluster_beacon,height,2);
 SCM
 Cluster_beacon::height (SCM g, SCM ax)
 {
+  (void) ax;
   Grob *me = unsmob_grob (g);
-
-  Interval v = robust_scm2interval (me->get_property ("positions"), Interval (0,0));
-  return ly_interval2scm (Staff_symbol_referencer::staff_space (me) * 0.5  * v);
+  Interval v = robust_scm2interval (me->get_property ("positions"),
+				    Interval (0,0));
+  return ly_interval2scm (Staff_symbol_referencer::staff_space (me) * 0.5 * v);
 }
 
 
