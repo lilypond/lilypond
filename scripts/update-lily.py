@@ -9,21 +9,26 @@
 
 '''
 TODO:
+
+    * use urllib iso ftplib
+
     * more flexible build/ftp/patches/releases paths
-    * flexible build command
-    * show only?
+
+    
+    show only: --command='echo "latest is: %n-%v"'
 '''
 
-import os
+import ftplib
 import fnmatch
+import getopt
+import re
+import operator
+import os
+import tempfile
 import stat
 import string
-import re
-import getopt
 import sys
 import __main__
-import operator
-import tempfile
 
 try:
 	import gettext
@@ -262,29 +267,22 @@ def list_file (user, passwd, host, dir, file):
 
 list_ = list_file
 
-#
-# ugh: use ftp module.
-#
 def list_ftp (user, passwd, host, dir, file):
 	if user == 'None':
 		user = 'anonymous'
 	if passwd == 'None':
 		passwd = program_name
 
-	command = '''
-open -u%s,%s -p21 %s
-set passive-mode off
-cd "%s"
-ls -1 "%s"
-''' % (user, passwd, host, dir, file)
-	temp = tempfile.mktemp (program_name)
-	f = open (temp, 'w')
-	f.write (command)
-	f.close ()
-	p = os.popen ('lftp -f %s' % temp, 'r')
-	s = p.read ()
-	status = p.close ()
-	return string.split (s[:-1], '\n')
+	ftp = ftplib.FTP (host)
+	ftp.login (user, passwd)
+	ftp.set_pasv (1)
+	ftp.cwd (dir)
+	list = ftp.nlst (file)
+	try:
+		ftp.quit ()
+	except:
+		ftp.close ()
+	return list
 	
 def split_url (url):
 	m = re.match ('([^:/]*)(:)?(/*([^:]*):)?(/*([^@]*)@)?(//([^/]*))?(.*)/(.*)',
@@ -334,20 +332,29 @@ def copy_ftp (user, passwd, host, dir, file):
 	if passwd == 'None':
 		passwd = program_name
 
-	command = '''
-open -u%s,%s -p21 %s
-set passive-mode off
-cd "%s"
-get "%s"
-''' % (user, passwd, host, dir, file)
-	temp = tempfile.mktemp (program_name)
-	f = open (temp, 'w')
-	f.write (command)
-	f.close ()
-	p = os.popen ('lftp -f %s' % temp, 'r')
-	s = p.read ()
-	status = p.close ()
+	ftp = ftplib.FTP (host)
+	ftp.login (user, passwd)
+	ftp.set_pasv (1)
+	t = tempfile.mktemp (program_name)
+	try:
+		f = open (t, 'w')
+		ftp.retrbinary ('RETR %s/%s' % (dir, file),
+			lambda x, f=f: f.write (x))
+		f.close ()
+		# huh? Invalid cross-device link
+		# os.rename (t, file)
+		system ('mv %s %s' % (t, file))
+	except:
+		os.remove (t)
+		raise 'Foo'
+	try:
+		ftp.quit ()
+	except:
+		ftp.close ()
+	return list
 	
+
+
 def copy_url (url, dir):
 	os.chdir (dir)
 	s = "copy_%s ('%s', '%s', '%s', '%s', '%s')" % split_url (url)
@@ -414,7 +421,8 @@ for opt in options:
 if 1:
 	latest = find_latest (url)
 
-	if os.path.isdir ('%s/%s' % (build_root, latest)):
+	# if os.path.isdir ('%s/%s' % (build_root, latest)):
+	if os.path.exists ('%s/%s/index.html' % (build_root, latest)):
 		progress (_ ("latest is: %s") % latest)
 		progress (_ ("relax, %s is up to date" % package_name))
 		sys.exit (0)
@@ -429,6 +437,7 @@ if 1:
 
 	if not os.path.isdir (build_root):
 		build_root = temp_dir
+		
 	if not os.path.isdir (release_dir):
 		release_dir = temp_dir
 		setup_temp ()
@@ -447,7 +456,7 @@ if 1:
 
 	progress (_ ("building %s...") % latest)
 	os.chdir (build_root)
-	if build (latest):
+	if not build (latest):
 		if previous and remove_previous_p:
 			system ('rm -rf %s' % os.path.join (build_root, previous))
 	else:
