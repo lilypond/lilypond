@@ -18,10 +18,14 @@ map [20~ :w:se makeprg=make\ -k:make
 map [21~ :w:se makeprg=lilypond\ %:t:make
 "
 " F11 check buffer for quarts
-map [23~ :w:se makeprg=lilypond\ -Q%:t:make
+map [23~ :w:se makeprg=lilypond\ -Q\ %:t:make
+"
+" shift F10: run buffer through lily -M
+map [34~ :w:se makeprg=lilypond\ -M\ %:t:make
 "
 "
 " errorformat for lily (with columns) and gcc
 " (how to see multiple-line error messages?)
 "
 se errorformat=%f:%l:%c:\ %m,%f:%l:\ %m,In\ file\ included\ from\ %f:%l:,\^I\^Ifrom\ %f:%l%m
+
