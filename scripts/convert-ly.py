@@ -1286,28 +1286,28 @@ if 1:
 		while last_str <> str:
 		  last_str = str
 		  def sub_dyn_end (m):
-			  dyns.append (' -\!')
+			  dyns.append (' \!')
 			  return ' ' + m.group(2)
 
 		  str = re.sub (r'(\\!)\s*([a-z]+)', sub_dyn_end, str)
 		  def sub_slurs(m):
 			  if '-)' not in slur_strs:
-				  slur_strs.append ( '-)')
+				  slur_strs.append ( ')')
 			  return m.group(1)
 		  def sub_p_slurs(m):
 			  if '-\)' not in slur_strs:
-				  slur_strs.append ( '-\)')
+				  slur_strs.append ( '\)')
 			  return m.group(1)
 		  str = re.sub (r"\)[ ]*([a-z]+)", sub_slurs, str)
 		  str = re.sub (r"\\\)[ ]*([a-z]+)", sub_p_slurs, str)
 		  def sub_begin_slurs(m):
 			  if '-(' not in slur_strs:
-				  slur_strs.append ( '-(')
+				  slur_strs.append ( '(')
 			  return m.group(1)
 		  str = re.sub (r"([a-z]+[,'!?0-9 ]*)\(", sub_begin_slurs, str)
 		  def sub_begin_p_slurs(m):
 			  if '-\(' not in slur_strs:
-				  slur_strs.append ( '-\(')
+				  slur_strs.append ( '\(')
 			  return m.group(1)
 
 		  str = re.sub (r"([a-z]+[,'!?0-9 ]*)\\\(", sub_begin_p_slurs, str)
@@ -1315,11 +1315,11 @@ if 1:
 		  def sub_dyns (m):
 			  s = m.group(0)
 			  if s == '@STARTCRESC@':
-				  slur_strs.append ("-\\<")
+				  slur_strs.append ("\\<")
 			  elif s == '@STARTDECRESC@':
-				  slur_strs.append ("-\\>")
+				  slur_strs.append ("\\>")
 			  elif s == r'-?\\!':
-				  slur_strs.append ('-\\!')
+				  slur_strs.append ('\\!')
 			  return ''
 
 		  str = re.sub (r'@STARTCRESC@', sub_dyns, str)
@@ -1336,7 +1336,7 @@ if 1:
 		  str = re.sub (r"([_^-][>_.+|^-])", sub_articulations, str)
 
 		  def sub_pslurs(m):
-			  slur_strs.append ( ' -\\)')
+			  slur_strs.append ( ' \\)')
 			  return m.group(1)
 		  str = re.sub (r"\\\)[ ]*([a-z]+)", sub_pslurs, str)
 
@@ -1354,6 +1354,7 @@ if 1:
 		simstart = "<" 
 		chordstart = '<<'
 		chordend = '>>'
+		marker_str = '%% new-chords-done %%'
 
 		if re.search (marker_str,str):
 			return str
@@ -1362,11 +1363,11 @@ if 1:
 		str= re.sub (r'([_^-])>', r'\1@ACCENT@', str)
 		str = re.sub ('<([^<>{}]+)>', sub_chord, str)
 
-		str = re.sub (r'\[ *(@STARTCHORD@[^@]+@ENDCHORD@[0-9.]+)',
-			      r'\1-[',
+		str = re.sub (r'\[ *(@STARTCHORD@[^@]+@ENDCHORD@[0-9.]*)',
+			      r'\1[',
 			      str)
-		str = re.sub (r'\\! *(@STARTCHORD@[^@]+@ENDCHORD@[0-9.]+)',
-			      r'\1-\\!',
+		str = re.sub (r'\\! *(@STARTCHORD@[^@]+@ENDCHORD@[0-9.]*)',
+			      r'\1\\!',
 			      str)
 		str = re.sub ('<([^?])', r'%s\1' % simstart, str)
 		str = re.sub ('>([^?])', r'%s\1' % simend,  str)
@@ -1380,11 +1381,11 @@ if 1:
 
 	def articulation_substitute (str):
 		str = re.sub (r"""([^-])\[ *([a-z]+[,']*[!?]?[0-9:]*\.*)""",
-			      r" \1 \2-[", str)
+			      r" \1 \2[", str)
 		str = re.sub (r"""([^-])\) *([a-z]+[,']*[!?]?[0-9:]*\.*)""",
-			      r"\1 \2-)", str)
+			      r"\1 \2)", str)
 		str = re.sub (r"""([^-])\\! *([a-z]+[,']*[!?]?[0-9:]*\.*)""",
-			      r"\1 \2-\\!", str)
+			      r"\1 \2\\!", str)
 		return str
 	
 	def conv_relative(str):
@@ -1395,15 +1396,14 @@ if 1:
 	
 	def conv (str):
 		str =  conv_relative (str)
-		if re.search (marker_str, str) == None :
-			str = sub_chords (str)
+		str = sub_chords (str)
 
 		str = articulation_substitute (str)
 		
 		return str
 	
 	conversions.append (((1,9,0), conv, """New relative mode,
-Postfix articulations, new chord syntax."))
+Postfix articulations, new chord syntax."""))
 
 ################################
 #	END OF CONVERSIONS	
@@ -1555,4 +1555,5 @@ for f in files:
 		else:
 			sys.stderr.write ("%s: skipping: `%s' " % (program_name,  f))
 		pass
+
 sys.stderr.write ('\n')

@@ -13,8 +13,6 @@ This chapter details the technicalities of running LilyPond.
 * Invoking ly2dvi::             Titling LilyPond scores.
 @end menu
 
-
-
 @node Invoking the lilypond binary
 @section Invoking the lilypond binary
 @cindex Invoking LilyPond

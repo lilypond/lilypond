@@ -657,9 +657,10 @@ once again.
 @end example
 
 
-The octave of a note following an octave check is determined  with
+The octave of a note following an octave check is determined with
 respect to the note preceding it. In the next fragment, the last note
-is  a @code{a'}, above central C. 
+is a @code{a'}, above central C. Hence, the @code{\octave} check may
+be deleted without changing the meaning of the piece.
 
 @lilypond[verbatim,fragment] 
    \relative c' {

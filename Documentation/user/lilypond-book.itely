@@ -33,6 +33,8 @@ text and music}.  For more information about La@TeX{}
 Short Introduction to LaTeX} provides a introction to using La@TeX{}.
 
 
+
+
 @menu
 * Integrating Texinfo and music::  
 * Integrating LaTeX and music::  
@@ -380,6 +382,20 @@ following to the top of the La@TeX{} file:
 \def\preLilyPondExample@{\def\mustmakelilypondtitle@{@}@}
 @end example
 
+@cindex outline fonts
+@cindex type1 fonts
+@cindex dvips
+@cindex invoking dvips
+
+For printing the LaTeX  document, you will need  to use dvips. For
+producing PS  with scalable fonts, add the following options to the dvips
+command line:
+@example
+ -Ppdf -u +lilypond.map
+@end example 
+
+
+
 @command{lilypond-book} accepts the following command line options:
 
 @table @code
@@ -431,6 +447,7 @@ Print version information.
 @item @option{--help}
 Print a short help message.
 @end table
+
 
 
 @section Bugs
