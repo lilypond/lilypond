@@ -21,6 +21,7 @@ class Quote_iterator : public Music_iterator
 {
 public:
   Quote_iterator ();
+  Moment vector_moment (int idx) const;
   
   Moment start_moment_;
   SCM event_vector_;
@@ -136,22 +137,24 @@ Quote_iterator::ok () const
 Moment
 Quote_iterator::pending_moment () const
 {
-  SCM entry = SCM_VECTOR_REF (event_vector_, event_idx_);
-  return *unsmob_moment (scm_caar (entry)) - start_moment_;
+  return vector_moment (event_idx_) - start_moment_;
 }
+
+Moment
+Quote_iterator::vector_moment (int idx) const
+{
+  SCM entry = SCM_VECTOR_REF (event_vector_, idx);
+  return *unsmob_moment (scm_caar (entry));
+}
+  
 
 void
 Quote_iterator::process (Moment m)
 {
-  SCM entry = SCM_EOL;
-
   m += start_moment_;
-  while (event_idx_ < end_idx_)
+  while (event_idx_ <= end_idx_)
     {
-      entry = SCM_VECTOR_REF (event_vector_, event_idx_);
-
-      Moment em = *unsmob_moment (scm_caar (entry));
-
+      Moment em = vector_moment (event_idx_);
       if (em > m)
 	return ;
 
@@ -161,8 +164,9 @@ Quote_iterator::process (Moment m)
       event_idx_++;
     }
 
-  if (scm_is_pair (entry))
+  if (event_idx_ <= end_idx_)
     {
+      SCM entry = SCM_VECTOR_REF (event_vector_, event_idx_);
       Pitch * quote_pitch = unsmob_pitch (scm_cdar (entry));
 
       /*

@@ -12,20 +12,29 @@ things are quoted. In this example, a 16th rests is not quoted, since
     raggedright = ##t
 }
 
-\addquote bla \relative c' {
-    fis4 r16  a8.-> b-\ff }
 
-\relative c'' {
+quoteMe = \relative c' { fis4 r16  a8.-> b4-\ff }
 
-    \set Staff.quotedEventTypes = #'(note-event articulation-event)
-    c8 d8  <<
-	s2 
-	\new Voice {
-	    \set fontSize = #-2
-	    \quote bla 2
+\addquote quoteMe \quoteMe 
+original = \relative c'' { c8 d s2 es8 gis8 }
 
-	} >>
-    es8 gis
-	
+<<
+    \new Staff {
+	\set Staff.instrument = "quoteMe"
+	\quoteMe
     }
-
+    \new Staff {
+	\set Staff.instrument = "orig"
+	\original
+    }
+    \new Staff \relative c'' <<
+	\set Staff.quotedEventTypes = #'(note-event articulation-event)
+	\original
+	\new Voice {
+	    s4
+	    \set fontSize = #-4
+	    \override Stem #'lengths = #'(2.5 2.5 3.0 3.0)
+	    \quote quoteMe 2.
+	}
+    >>
+>>

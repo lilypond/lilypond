@@ -2,8 +2,8 @@
 
 \header {
 
-    texidoc = "A volta repeat may begin with a grace. Consecutive ending and
-    starting repeat bars are into one @code{:||:}."
+    texidoc = "A volta repeat may begin with a grace. Consecutive
+    ending and starting repeat bars are merged into one @code{:||:}."
 
       }
 

@@ -1,6 +1,15 @@
 
 \header {
-    texidoc = "Scoring based slur formatting."
+
+    texidoc = "Slur formatting is based on scoring. A large number of
+    slurs are generated. Each esthetic aspect gets demerits, the best
+    configuration (with least demerits) wins. This must be tested in
+    one big file, since changing one score parameter for one situation
+    may affect several other situations.
+
+    Tunable parameters are in @file{scm/slur.scm}. 
+"
+
 }
 
 \version "2.3.22"

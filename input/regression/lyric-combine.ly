@@ -2,15 +2,15 @@
 \version "2.3.22"
 
 \header{
-    texidoc= "Lyrics can be set to a melody automatically.  Excess lyrics will be
-discarded.  Lyrics will not be set over rests.  You can have melismata
-either by setting a property melismaBusy, or by setting
+
+    texidoc= "Lyrics can be set to a melody automatically.  Excess
+lyrics will be discarded.  Lyrics will not be set over rests.  You can
+have melismata either by setting a property melismaBusy, or by setting
 automaticMelismas (which will set melismas during slurs and ties).  If
 you want a different order than first Music, then Lyrics, you must
-precook a chord of staves/lyrics and label those.  Of course,
-@code{\rhythm} ignores any other rhythms in the piece.  Hyphens and
-extenders do not assume anything about lyric lengths, so they continue
-to work."
+precook a chord of staves/lyrics and label those.  Of course, the
+lyrics ignores any other rhythms in the piece."
+
 }
 
 \layout { raggedright= ##t }
@@ -28,8 +28,13 @@ m = \relative c'' {
 
 noise = \repeat unfold 6  \relative c'' { g16 g g g }
 
-textI = \context Lyrics = "middle-1" \lyricmode { la2 __ la -- la __ la la la la la  }
-textII = \context Lyrics = "middle-1" \lyricmode { da -- da __ da -- da da da da da  }
+textI = \lyricmode {
+    la2 __ la -- la __ la la la la la
+}
+
+textII = \lyricmode {
+    da -- da __ da -- da da da da da
+}
 
 
 << \context Staff = SA \noise
@@ -38,12 +43,9 @@ textII = \context Lyrics = "middle-1" \lyricmode { da -- da __ da -- da da da da
    \context Lyrics = LB { s1 }
    \context Staff = SC \noise
    
-   \oldaddlyrics
-   \context Staff = SB \context Voice="middle" \m
-   << \context Lyrics = LA \textI
-      \context Lyrics = LB \textII
-  >>
-   
+   \context Staff = SB  \context Voice = middle \m 
+   \context Lyrics = LA \lyricsto "middle" \textI
+   \context Lyrics = LB \lyricsto "middle" \textII 
 >>
 
 
