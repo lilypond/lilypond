@@ -965,13 +965,6 @@ if 1:
 	
 	conversions.append (((1,5,72), conv, 'set! point-and-click -> set-point-and-click!'))
 
-if 1:
-	def conv (str):
-		str = re.sub ('ly-make-music', 'make-music-by-name', str)
-		return str
-	
-	conversions.append (((1,7,1), conv, 'ly-make-music -> make-music-by-name'))
-
 
 if 1:
 	def conv (str):
@@ -982,6 +975,17 @@ if 1:
 	
 	conversions.append (((1,6,5), conv, 'Stems: flag-style -> stroke-style; style -> flag-style'))
 
+
+if 1:
+	def subst_req_name (match):
+		return "(make-music-by-name \'%sEvent)" % regularize_id (match.group(1))
+
+	def conv (str):
+		str = re.sub ('\\(ly-make-music *\"([A-Z][a-z_]+)_req\"\\)', subst_req_name, str)
+		str = re.sub ('Request_chord', 'EventChord', str)
+		return str
+	
+	conversions.append (((1,7,1), conv, 'ly-make-music foo_bar_req -> make-music-by-name FooBarEvent'))
 
 ################################
 #	END OF CONVERSIONS	

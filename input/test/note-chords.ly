@@ -1,3 +1,8 @@
+\header {
+
+    texidoc= "Chord names don't attempt to find inversions and
+bass notes."  }
+
 \version "1.5.68"
 
 scheme = \notes {
@@ -8,7 +13,7 @@ scheme = \notes {
 
 \score {
   <
-    \context ChordNamesVoice \scheme
+    \context ChordNames \scheme
     \context Staff \scheme
   >
   \paper { linewidth = -1. }

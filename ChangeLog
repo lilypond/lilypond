@@ -1,5 +1,10 @@
 2002-10-06  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scripts/convert-ly.py (FatalConversionError.conv): add rule for
+	(ly-make-music "Foo_bar") -> (make-music-by-name 'FooBarEvent).
+
+	* mf/feta-din.mf (test): add x-height and space.
+
 	* lily/dynamic-engraver.cc (process_music): take dynamic direction
 	from ^_ for crescendi. Idem for slurs and phrasing slurs.
 

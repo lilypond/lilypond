@@ -93,7 +93,7 @@
   (define (make-prop-set props)
     (let*
 	(
-	 (m     (make-music-by-name 'PropertySet))
+	 (m (make-music-by-name 'PropertySet))
 	 )
 
       (map (lambda (x) (ly-set-mus-property! m (car x) (cdr x))) props)
@@ -148,7 +148,7 @@
 	  )
 	(begin
 	  (ly-warn (format "Unknown clef type `~a'
-See scm/lily.scm for supported clefs"))
+See scm/lily.scm for supported clefs" cl))
 	  (make-music-by-name 'Music)
 	  
 	)
