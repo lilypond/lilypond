@@ -6,8 +6,6 @@ Group: Applications/Publishing
 Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-@TOPLEVEL_VERSION@.tar.gz
 Summary: A program for printing sheet music.
 URL: http://www.cs.uu.nl/~hanwen/lilypond
-# get Packager from (undocumented?) ~/.rpmmacros!
-# Packager: Han-Wen Nienhuys <hanwen@cs.uu.nl>
 # Icon: @package@-icon.gif
 BuildRoot: /tmp/lilypond-install
 Prereq: tetex
@@ -31,9 +29,10 @@ The documentation of LilyPond, both in HTML and PostScript.
 %prep
 %setup
 %build
-./configure --disable-checking --disable-debugging --enable-printing --prefix=/usr --disable-optimise --enable-shared
+#./configure --disable-checking --disable-debugging --enable-printing --prefix=/usr --disable-optimise --enable-shared
+%{configure} --disable-checking --disable-debugging --enable-printing --prefix=%{_prefix} --disable-optimise --enable-shared
 make all
-ln -s /usr/share/texmf/fonts/tfm/public/cm/ tfm
+ln -s %{_prefix}/share/texmf/fonts/tfm/public/cm/ tfm
 
 # urg
 # %build documentation
@@ -48,12 +47,12 @@ rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/tmp/lilypond-rpm-doc
 
 strip lily/out/lilypond midi2ly/out/midi2ly
-make prefix="$RPM_BUILD_ROOT/usr" install
-# gzip -9fn $RPM_BUILD_ROOT/usr/info/* || true
+make prefix="$RPM_BUILD_ROOT%{_prefix}" install
+# gzip -9fn $RPM_BUILD_ROOT%{_prefix}/info/* || true
 
-mkdir -p $RPM_BUILD_ROOT/etc/profile.d
-cp buildscripts/out/lilypond-profile $RPM_BUILD_ROOT/etc/profile.d/lilypond.sh
-cp buildscripts/out/lilypond-login $RPM_BUILD_ROOT/etc/profile.d/lilypond.csh
+mkdir -p $RPM_BUILD_ROOT%{_prefix}/../etc/profile.d
+cp buildscripts/out/lilypond-profile $RPM_BUILD_ROOT%{_prefix}/../etc/profile.d/lilypond.sh
+cp buildscripts/out/lilypond-login $RPM_BUILD_ROOT%{_prefix}/../etc/profile.d/lilypond.csh
 
 # urg
 #%install documentation
@@ -68,11 +67,11 @@ tar -cf - input/  | tar -C out/examples/ -xf- || true
 
 touch /tmp/.lilypond-install
 rm `find /var/lib/texmf -name 'feta*pk -print' -or -name 'feta*tfm -print'` /tmp/.lilypond-install
-# /sbin/install-info /usr/info/lilypond.info.gz /usr/info/dir || true
+# /sbin/install-info %{_prefix}/info/lilypond.info.gz %{_prefix}/info/dir || true
 
 %preun
 if [ $1 = 0 ]; then
- true #   /sbin/install-info --delete /usr/info/lilypond.info.gz /usr/info/dir || true
+ true #   /sbin/install-info --delete %{_prefix}/info/lilypond.info.gz %{_prefix}/info/dir || true
 fi
 
 
@@ -80,20 +79,21 @@ fi
 # hairy to hook it in (possibly non-existing) emacs
 %doc mudela-mode.el
 
-/usr/bin/abc2ly
-/usr/bin/convert-mudela
-/usr/bin/mudela-book
-/usr/bin/ly2dvi
-/usr/bin/lilypond
-/usr/bin/midi2ly
-/usr/man/man1/midi2ly.1
-/usr/man/man1/lilypond.1
-/usr/man/man1/mudela-book.1
-/usr/man/man1/ly2dvi.1
-/usr/man/man1/convert-mudela.1
-/usr/share/lilypond/
-/usr/share/locale/*/LC_MESSAGES/lilypond.mo
-/etc/profile.d/lilypond.*
+%{_prefix}/bin/abc2ly
+%{_prefix}/bin/convert-mudela
+%{_prefix}/bin/mudela-book
+%{_prefix}/bin/ly2dvi
+%{_prefix}/bin/lilypond
+%{_prefix}/bin/midi2ly
+%{_prefix}/man/man1/midi2ly.1
+%{_prefix}/man/man1/lilypond.1
+%{_prefix}/man/man1/mudela-book.1
+%{_prefix}/man/man1/ly2dvi.1
+%{_prefix}/man/man1/convert-mudela.1
+%{_prefix}/share/lilypond/
+%{_prefix}/share/locale/*/LC_MESSAGES/lilypond.mo
+# urg?
+%{_prefix}/../etc/profile.d/lilypond.*
 
 %files documentation
 # this gets too messy...

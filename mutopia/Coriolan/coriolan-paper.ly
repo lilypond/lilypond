@@ -21,7 +21,8 @@
 		%%\consists "Line_number_engraver";
 		verticalDirection = #1
 		stemVerticalDirection = #1
-		dynamicDirection = #-1
+		%dynamicDirection = #-1
+		dynamicDirection = #1
 	}
 	\translator {
 		\VoiceContext

@@ -25,12 +25,11 @@ accompany = \notes \relative c{
 
 \score{
 	\notes \context PianoStaff <
-%		\global
 		\context Staff=up < 
 			\global
 			\context Voice=foo {
-			\property Voice.verticalDirection = 1
-			\property Voice.scriptVerticalDirection = 1
+			\property Voice.verticalDirection = #1
+			\property Voice.scriptVerticalDirection = #1
 			\melody 
 			}
 		>
@@ -46,20 +45,24 @@ accompany = \notes \relative c{
 		indent = 8.\mm;
 		textheight = 295.\mm;
 
-		% no slur damping
-		slur_slope_damping = 100.0;
+		% ugly is beautiful
+		slur_beautiful = 5.0;
 
+		\translator{ 
+			\PianoStaffContext
+			defaultBarType = #"" 
+		}
 		\translator{ 
 			\StaffContext
 			% don't auto-generate bars: not a good idea: -> no breakpoints
 			% barAuto = "0";
-			% urg defaultBarType = "";
-			defaultBarType = "empty";
+			% urg defaultBarType = #""
+			defaultBarType = #"" 
 			\remove "Time_signature_engraver";
 
-			slurVerticalDirection = 1;
-			verticalDirection = -1;
-			beamAutoEnd = "1/2";
+			slurVerticalDirection = #1
+			verticalDirection = -1
+			beamAutoEnd = #(make-moment 1 2)
 		}
 	}
 	\midi {

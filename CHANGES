@@ -1,3 +1,44 @@
+1.3.40.jcn3
+===========
+
+* mutopia/Coriolan/violino-2.ly: Bugfix: wrong pitch.
+
+* input/test: Removed stale AutoStaffSwitch examples.
+
+* mutopia/E.Saite: Fixed gnossiene-4, doing \autochange.  Removed
+stale copy of gnossiene-4.
+
+* buildscripts/make-cygwin-cross.sh: Made some small .zip package fixes.
+
+* make/lilypond.spec.in: Made some bugfixes for _prefix, preparations
+for cross-building to Cygwin.
+
+* buildscripts/make-cygwin-cross.sh: Now using rpm packages.
+
+1.3.40.hwn2
+===========
+
+* added \property XXXMinimumVerticalExtent, \property XXXExtraVerticalExtent
+
+* New_chord_tremolo_engraver: make tremolo beams from
+
+	\repeat "tremolo" NUMBER <Music-expression>
+
+Removed support for "old-style" tremolos.
+
+* Add a convert-mudela function for the conversion "\key A;" to "\key a; 
+
+* Read \property measurePosition within the engraver code, instead of
+looking up the Timing_translator.
+
+* star-spangled-banner.ly: add Bar_engraver to LyricsVoice 
+
+* Changed all .fly and .sly files to .ly files.  Propose to dump .fly
+and .sly.
+
+1.3.40
+======
+
 1.3.39.jbr1
 ===========
 
@@ -25,8 +66,6 @@ XXXVerticalExtent, so hard code the size of a vertical group.
 
 * Don't fix up reference points for originals of broken
 spanners. Fixes spurious "orphaned score-element" warnings.
-
-2000-03-24    <janneke@gnu.org>
 
 * buildscripts/make-cygwin-cross.sh: Use rx-1.5 instead of regex (Jeffrey).
 

@@ -13,27 +13,13 @@
 #
 #  * all development tools to build a native LilyPond, see INSTALL.txt
 #
-#  * pre-release cygnus sources (and a binary) from:
+#  * RPM distribution of the cygwin pre-release sources, from:
+#
+#      http://appel.dyndns.org/lilypond/gnu-windows/redhat/SRPMS/
+#
+#    The tarballs were fetched from:
 #
 #      ftp://sourceware.cygnus.com/pub/cygwin/private/cygwin-net-485/
-#
-#          binutils/binutils-19990818-1-src.tar.gz
-#          bison/bison-src.tar.gz
-#          cygwin/cygwin-20000301.tar.gz
-#          flex/flex-src.tar.gz
-#          gcc/gcc-2.95.2-1-src.tar.gz
-#
-#      ftp.xraylith.wisc.edu/pub/khan/gnu-win32/mingw32/runtime/
-#
-#          bin-crtdll-2000-02-03.tar.gz  (mingw only)
-#
-#  * rx-1.5.tar.gz
-#
-#  * guile-1.3.4.tar.gz
-#
-#  * lilypond-1.3.38.jcn1.tar.gz
-#
-#  * lots of disk space, ca 353MB
 #
 
 ################
@@ -51,18 +37,22 @@ else
 	TARGET_ARCH=i386-pc-mingw32
 fi
 PREFIX=$ROOT/usr
-NATIVE_PREFIX=/Cygnus/usr
+NATIVE_ROOT=/Cygnus
+NATIVE_PREFIX=$NATIVE_ROOT/usr
 
 # urg
 DEVEL=/home/fred
-WWW=$DEVEL/WWW/lilypond/gnu-windows
-#WWW=/tmp
+distdir=$DEVEL/WWW/lilypond/gnu-windows/lily-w32
+#distdir=/tmp
 
-CYGWIN_SOURCE=$DEVEL/sourceware.cygnus.com/pub/cygwin/private/cygwin-net-485
-MINGW_SOURCE=$DEVEL/ftp.xraylith.wisc.edu/pub/khan/gnu-win32/mingw32/runtime
-SOURCE_PATH=$DEVEL/usr/src/releases:$DEVEL/usr/src/patches:$DEVEL/usr/src/lilypond/Documentation/ntweb:$MINGW_SOURCE:/usr/src/redhat/SOURCES
+SOURCE_PATH=$DEVEL/usr/src/releases:$DEVEL/usr/src/redhat/SRPMS
 
-HOST=`uname -m`-gnu-`uname -s | tr '[A-Z]' '[a-z]'`
+ARCH=`uname -m`
+OS=`uname -s | tr '[A-Z]' '[a-z]'`
+HOST=$ARCH-gnu-$OS
+CROSS_TARGET_ARCH=$ARCH-x-$TARGET_ARCH
+cta=$ARCH-x-cygwin
+ta=i686-cygwin
 
 cygwin_binary=cygwin-20000301.tar.gz
 mingw_binary=bin-crtdll-2000-02-03.tar.gz
@@ -76,110 +66,33 @@ MINWG_DLL=mingwc10-net-485.dll
 # cross packages
 ################
 
-cross_packages="
+cross_rpm="
 binutils-19990818
-gcc-2.95.2
-flex
 bison
+flex
+gcc-2.95.2
 "
 
-not_yet_needed="
-cygwin-2000301
-rpm-3.04
-"
-
-cross_configure='--prefix=$PREFIX --target=$TARGET_ARCH'
-gcc_make='LANGUAGES="c++"'
-cygwin_make='-k || true'
-
-rpm_patch='patchm.ring.diff'
-
-#################
-# native packages
-#################
-
-# Typically, we install native packages under
-#
-#   /Cygnus/usr/package-x.y.z
-#
-# so that's how we configure them.
-#
-native_configure='--target=$TARGET_ARCH --build=$TARGET_ARCH --host=$HOST --oldincludedir=$PREFIX/include --prefix=$NATIVE_PREFIX/$package --program-suffix='
-native_config_site='$PREFIX/share/native-config.site'
-
-rx_install='prefix=$PREFIX'
-
-guile_patch='guile-1.3.4-gnu-windows.patch'
-if [ $target = mingw ]; then
-	guile_patch1='guile-1.3.4-mingw.patch'
-	guile_cflags='-I $PREFIX/$TARGET_ARCH/include -I $PREFIX/i686-pc-cygwin/include'
-fi
-guile_ldflags='-L$PREFIX/lib $PREFIX/bin/$CYGWIN_DLL'
-guile_make='oldincludedir=$PREFIX/include'
-
-# We need to get guile properly installed for cross-development, ie
-# at our prefix: $PREFIX.  When packaging, the prefix we configured
-# for, will be used.
-#
-guile_install='prefix=$PREFIX'
+#guile_after_rpm='ln -f $NATIVE_PREFIX/bin/i686-redhat-cygwin-guile-config $NATIVE_PREFIX/bin/i686-pc-cygwin-guile-config'
 
 lilypond_version=@TOPLEVEL_VERSION@
-if [ $target = mingw ]; then
-	lilypond_cflags='-I $PREFIX/$TARGET_ARCH/include -I $PREFIX/i686-pc-cygwin/include'
-fi
-lilypond_ldflags='-L$PREFIX/lib -lguile $PREFIX/bin/$CYGWIN_DLL'
-lilypond_configure='--enable-tex-tfmdir=/texmf/fonts/tfm/public/cm'
-## URG, help2man: doesn't know about cross-compilation.
-#lilypond_make='-k || make -k || true'
-lilypond_patch=lilypond-manpages.patch
-# Don't install lilypond
-lilypond_install='--just-print'
-lilypond_before_zip='cp -pr $PREFIX/src/$package/input $install_prefix \; cp -p \`find $PREFIX/src/$package -type f -maxdepth 1\` $install_prefix'
 
-native_packages="
+native_rpm="
 rx-1.5
+zlib-1.1.3
+db-2.7.7
 guile-1.3.4
+rpm-3.0.4
 lilypond-$lilypond_version
-"
-
-not_yet_needed="
-rpm-3.04
 "
 
 #######################
 # end of config section
 #######################
 
-cygwin_dirs=`/bin/ls -d1 $CYGWIN_SOURCE/*`
-cygwin_source_path=`echo $CYGWIN_SOURCE $cygwin_dirs`
-source_path=`echo $SOURCE_PATH:$cygwin_source_path | sed 's/:/ /g'`
-
 ###########
 # functions
 ###########
-
-untar ()
-{(
-	set -x
-	tarball=$1
-	dest_dir=$2
-
-	first_dir=`tar tzf $tarball | head -1`
-	src_dir=`dirname $first_dir`
-
-	if [ "$src_dir" = "src" -o "$src_dir" = "./src" \
-	  -o "$src_dir" = "." ]; then
-		src_dir=$first_dir
-	fi
-
-	tar xzf $tarball
-
-	if [ "$src_dir" != "$dest_dir" -a "$src_dir" != "$dest_dir/" ]; then
-		mv $src_dir $dest_dir
-		rm -rf ./$first_dir
-	fi
-)
-}
 
 expand ()
 {(
@@ -194,10 +107,13 @@ find_path ()
 {(
 	set -
 	expr=$1
+	source_path=${2:-$SOURCE_PATH}
+	path_list=`echo $source_path | sed 's/:/ /g'`
+
 	found=
-	for i in $source_path; do
+	for i in $path_list; do
 		found=`/bin/ls -d1 $i/$expr 2>/dev/null | head -1`
-		if [ -e "$found" ]; then
+		if [ "$found" != "" ] && [ -e $found ]; then
 			break
 		fi
 	done
@@ -205,130 +121,72 @@ find_path ()
 )
 }
 
-fix_extension ()
-{
-	file=$1
-	ext=$2
-	expr="$3"
-	base=`basename $file $ext`
-	if [ $base$ext != $i ]; then
-		type="`file $file`"
-		if expr "$type" : "$expr"; then
-			mv -f $file $base$ext
-		fi
-	fi
-}
-
 build ()
 {(
 	package=$1
-	set -
-	if [ -d $package ]; then
-		echo "$package: directory exists"
-		echo "$package: skipping"
+        name=`echo $package | sed 's/-.*//'`
+
+	if [ $type = "cross" ]; then
+		target_arch=$CROSS_TARGET_ARCH
+		a=$cta
+	else
+		target_arch=$TARGET_ARCH
+		a=$ta
+	fi
+
+	rpm_package=`find_path $name*.rpm "$topdir/RPMS/$cta:$topdir/RPMS/$ta"`
+	if [ "$rpm_package" != "" ]; then
+		echo "$rpm_package: package exists"
+		echo "$rpm_package: just updating db"
+		rpm -ivv --justdb --ignoreos --ignorearch --nodeps --force\
+			--dbpath $NATIVE_ROOT/var/lib/rpm \
+			$topdir/RPMS/$a/$name*.rpm
 		exit 0
 	fi
 
-        name=`echo $package | sed 's/-.*//'`
-        name_cflags=`expand $name _cflags`
-        name_ldflags=`expand $name _ldflags`
-        name_configure=`expand $name _configure`
-        type_config_site=`expand $type _config_site`
-        type_configure=`expand $type _configure`
-        name_make=`expand $name _make`
-        name_before_install="`expand $name _before_install`"
-        name_install=`expand $name _install`
-
-	found=`find_path $package*src.tar.gz`
-	if [ "$found" = "" ]; then
-		found=`find_path $package.tar.gz`
-	fi
-	if [ "$found" = "" ]; then
-		found=`find_path $name*tar.gz`
-	fi
-	if [ "$found" = "" ]; then
-		echo "$package: no such tarball"
-		exit 1
-	fi
-	
-	untar $found $package
-	patch=`expand $name _patch`
-	count=0
-	while [ "x$patch" != "x" ]; do
-		(
-		cd $package
-		set -x
-		found=`find_path $patch`
-		if [ "$found" = "" ]; then
-			echo "$patch: no such file"
-			exit 1
+	cd $topdir
+	found=`find_path $package*src.rpm`
+	if [ "$found" != "" ]; then
+		rpm --root $NATIVE_ROOT -ivv $found || exit 1
+		rpm --target=$target_arch -ba SPECS/$name*.spec || exit 1
+	else
+		tarball=`/bin/ls -d1 SOURCES/$package*tar.gz 2>/dev/null | head -1`
+		if [ "SPECS/$name.spec" != "" ] && [ "$tarball" != "" ]; then
+			rpm --target=$target_arch -ba SPECS/$name.spec || exit 1
+		else
+			found=`find_path $package*tar.gz`
+			if [ "$found" != "" ]; then
+				rpm --target=$target_arch -ta $found || exit 1
+			else
+				echo "$package: no such rpm or tarball"
+				exit 1
+			fi
 		fi
-		patch -p1 -E < $found
-		)
-		count=`expr $count + 1`
-		patch=`expand $name _patch$count`
-	done
-	mkdir $type-$package
-	cd $type-$package
-
-	rm -f config.cache
-	CONFIG_SITE="$type_config_site" CFLAGS="$name_cflags" LDFLAGS="$name_ldflags" ../$package/configure $type_configure $name_configure || exit 1
-	make $name_make || exit 1
-	`eval $name_before_install` || exit 1
-	make install $name_install || exit 1
-)
-}
-
-## urg, let's hope Cygnus uses rpm for packaging its next release
-pack ()
-{(
-	set -
-	package=$1
-
-	zip=$WWW/$package.zip
-	if [ -e $zip ]; then
-		echo "$zip: package exists"
-		echo "$zip: skipping"
-		exit 0
 	fi
+	name=`echo $package | sed 's/-.*//'`
 
-        name=`echo $package | sed 's/-.*//'`
-        name_pack_install=`expand $name _pack_install`
-	install_root=/tmp/$package-install
-	install_prefix=$install_root/$NATIVE_PREFIX/$package
-	name_before_zip=`expand $name _before_zip`
-
-	set -x
-	rm -rf $install_root
-	mkdir -p $install_prefix
-
-	cd $PREFIX/src/$type-$package || exit 1
-	make install prefix=$install_prefix $name_pack_install
-
-        ## duh, rename executables,
-	## for people that use a dumb shell instead of bash
-	cd $install_prefix/bin &&
-	for i in `/bin/ls -d1 *`; do
-		fix_extension $i .exe '.*Windows.*\(executable\).*'
-		fix_extension $i .py '.*\(python\).*'
-	done
-
-        rm -f $zip
-	`eval $name_before_zip` || exit 1
-        cd $install_root && zip -ry $zip .$NATIVE_PREFIX
+	rpm -ivv --ignoreos --ignorearch --nodeps --force\
+		--dbpath $NATIVE_ROOT/var/lib/rpm \
+		$topdir/RPMS/$a/$name*.rpm
 )
 }
+
 ##################
 # end of functions
 ##################
 
-#
+#######
 # setup
-#
+#######
 
 set -x
 mkdir -p $ROOT
-if [ ! -d $PREFIX ]; then
+if [ ! -d $PREFIX/bin ]; then
+	mkdir -p $PREFIX
+	cd $PREFIX
+	mkdir -p include
+	mkdir -p $TARGET_ARCH
+	cd $TARGET_ARCH && ln -s ../include .
 	cd $ROOT
 	found=`find_path $cygwin_binary`
 	if [ "$found" = "" ]; then
@@ -338,12 +196,6 @@ if [ ! -d $PREFIX ]; then
 	tar xzf $found
 	# urg, bug in gcc's cross-make configuration
 	mkdir -p $PREFIX/lib/gcc-lib/$TARGET_ARCH/2.95.2
-
-	cd $PREFIX
-
-	# urg, bug in gcc's cross-make configuration
-	rm -f include
-	ln -s $PREFIX/$TARGET_ARCH/include .
 else
 	echo "$PREFIX: already exists"
 	echo "$cygwin_binary: skipping"
@@ -366,35 +218,18 @@ if [ ! -d $PREFIX/$TARGET_ARCH ]; then
 	ln -s $PREFIX/$TARGET_ARCH/include .
 fi
 
-if [ ! -e $NATIVE_PREFIX ]; then
-	ln -s $ROOT /Cygnus || exit 1
+rm -f $NATIVE_ROOT
+if [ ! -e $NATIVE_ROOT ]; then
+	ln -s $ROOT $NATIVE_ROOT || exit 1
 fi
 
-mkdir -p $PREFIX/src
-cd $PREFIX/src
-PATH=$PATH:$PREFIX/bin
+#mv $PREFIX/bin/cygwin1.dll $PREFIX/bin/$CYGWIN_DLL
+#mv $PREFIX/bin/mingwc10.dll $PREFIX/bin/$MINGW_DLL
 
-type=cross
-for i in $cross_packages; do
-	if build $i; then
-		true
-	else
-		echo "$i: build failed"
-		exit 1
-	fi
-done
+mkdir -p $ROOT/var/redhat
+mkdir -p $PREFIX/src/redhat
 
-# urg, bug in gcc's cross-make install
-mv $PREFIX/bin/cygwin1.dll $PREFIX/bin/$CYGWIN_DLL
-mv $PREFIX/bin/mingwc10.dll $PREFIX/bin/$MINGW_DLL
-ln -f $PREFIX/bin/$TARGET_ARCH-gcc $PREFIX/$TARGET_ARCH/bin/cc 
-ln -f $PREFIX/bin/$TARGET_ARCH-c++ $PREFIX/$TARGET_ARCH/bin/c++
-ln -f $PREFIX/bin/$TARGET_ARCH-g++ $PREFIX/$TARGET_ARCH/bin/g++
-
-PATH=$PREFIX/$TARGET_ARCH/bin:$PREFIX/bin:$PATH 
-
-mkdir -p $PREFIX/src
-cd $PREFIX/src
+native_config_site='$PREFIX/share/native-config.site'
 
 ncs=`eval echo $native_config_site`
 rm -f $ncs
@@ -403,17 +238,252 @@ cat > $ncs <<EOF
 ac_cv_sizeof_int=4
 ac_cv_sizeof_long=4
 ac_cv_sys_restartable_syscalls=yes
+ac_cv_sprintf_count=yes
+ac_cv_spinlocks=no
+db_cv_sprintf_count=yes
+db_cv_spinlocks=no
 EOF
 
+cross_rpm_dir=$NATIVE_PREFIX/lib/rpm/$cta
+cross_rpm_link=/usr/lib/rpm/$cta
+mkdir -p $cross_rpm_dir
+rm -f $cross_rpm_link
+ln -s $NATIVE_PREFIX/lib/rpm/$cta $cross_rpm_link
+
+native_rpm_dir=$NATIVE_PREFIX/lib/rpm/$ta
+native_rpm_link=/usr/lib/rpm/$ta
+mkdir -p $native_rpm_dir
+rm -f $native_rpm_link
+ln -s $NATIVE_PREFIX/lib/rpm/$ta $native_rpm_link
+
+cross_macros=$cross_rpm_dir/macros
+native_macros=$native_rpm_dir/macros
+
+base_macros=$NATIVE_PREFIX/lib/rpm/base-macros
+rm -f $base_macros
+cat > $base_macros <<EOF
+%root		/Cygnus
+%_prefix	/Cygnus/usr
+%prefix		/Cygnus/usr
+%native_prefix	/Cygnus/usr
+
+%_topdir	%{native_prefix}/src/redhat
+%_sourcedir	%{native_prefix}/src/redhat/SOURCES
+%_builddir	%{native_prefix}/src/redhat/BUILD
+%_srcrpmdir	%{native_prefix}/src/redhat/SRPMS
+%_rpmdir	%{native_prefix}/src/redhat/RPMS
+
+#%DocDir		%{native_prefix}/doc
+%DocDir		/Cygnus/usr/doc
+%_defaultdocdir /Cygnus/usr/doc
+
+%cygwin_dll	%{native_prefix}/bin/cygwin1.dll
+
+%cflags		%{optflags}
+
+%sourcedir	.
+EOF
+
+cp -f $base_macros $cross_macros
+cat >> $cross_macros <<EOF
+%_rpmfilename	%%{ARCH}-x-cygwin/%%{NAME}-%%{VERSION}-%%{RELEASE}.%%{ARCH}-x-cygwin.rpm
+
+%config_site	%{nil}
+%ldflags	%{nil}
+%_target_platform $TARGET_ARCH
+
+%configure	\
+  CFLAGS="%{cflags}" LDFLAGS="%{ldflags}" CONFIG_SITE=%{config_site} \
+  %{sourcedir}/configure \
+  --host=%{_host} --target=%{_target_platform} --prefix=%{native_prefix}
+EOF
+
+cp -f $base_macros $native_macros
+cat >> $native_macros <<EOF
+%config_site	%{_prefix}/share/native-config.site
+#%program_suffix .exe
+%program_suffix %{nil}
+
+#%_arch		i686-cygwin
+#%_vendor	pc
+#%_os		cygwin
+
+%_rpmfilename	%%{ARCH}-cygwin/%%{NAME}-%%{VERSION}-%%{RELEASE}.%%{ARCH}-cygwin.rpm
+
+%__find_provides	%{native_prefix}/lib/rpm/cygwin.prov
+%__find_requires	%{native_prefix}/lib/rpm/cygwin.req
+
+%ldflags	-L%{native_prefix}/lib %{cygwin_dll}
+%configure	\
+  CFLAGS="%{cflags}" LDFLAGS="%{ldflags}" CONFIG_SITE=%{config_site} \
+  %{sourcedir}/configure --host=%{_host} --target=%{_target_platform} \
+  --prefix=%{native_prefix} --program-suffix=%{program_suffix}
+EOF
+
+rm -f $native_rpm_dir/cygwin.prov
+cat > $native_rpm_dir/cygwin.prov <<EOF
+#!/bin/sh
+while read f ; do
+       f=\`echo $f | tr '[:upper:]' '[:lower:]'\`
+       case \$f in
+       *.dll)  basename \$f
+               ;;
+       esac
+done | sort -u
+EOF
+chmod 755 $native_rpm_dir/cygwin.prov
+
+rm -f $native_rpm_dir/cygwin.req
+cat > $native_rpm_dir/cygwin.req <<EOF
+#!/bin/sh
+
+while read f ; do
+       case \$f in
+       *.dll|*.exe)    objdump -p $f | grep "DLL Name:" | cut -f3 -d" " | tr '[
+upper:]' '[:lower:]'
+                       ;;
+       esac
+done | sort -u
+
+EOF
+chmod 755 $native_rpm_dir/cygwin.req
+
+
 set -x
-type=native
-for i in $native_packages; do
+type=rpm
+rm -rf $NATIVE_ROOT/var/lib/rpm
+mkdir -p $NATIVE_ROOT/var/lib/rpm
+rpm --root $NATIVE_ROOT --initdb
+
+topdir=$NATIVE_PREFIX/src/redhat
+mkdir -p $topdir/{BUILD,RPMS/{$ta,$cta},SOURCES,SPECS,SRPMS}
+
+##############
+# end of setup
+##############
+
+
+PATH=$PREFIX/bin:$PATH
+
+mkdir -p $PREFIX/src
+cd $PREFIX/src
+type=cross
+for i in $cross_rpm; do
 	if build $i; then
-		pack $i
-		continue
+		true
+	else
+		echo "$i: rpm build failed"
+		exit 1
 	fi
-	exit 1
 done
 
-rm -f $WWW/$CYGWIN_DLL.zip
-cd $PREFIX/bin && zip $WWW/$CYGWIN_DLL.zip $CYGWIN_DLL
+# urg, bug in binutil's cross-make install
+(
+cd $PREFIX/$TARGET_ARCH/bin
+ln -f ../../bin/$TARGET_ARCH-objdump objdump
+ln -f ../../bin/$TARGET_ARCH-objcopy objcopy
+)
+# urg, bug in gcc's cross-make install
+(
+cd $PREFIX/$TARGET_ARCH/bin
+ln -f ../../bin/$TARGET_ARCH-gcc cc
+ln -f ../../bin/$TARGET_ARCH-gcc gcc
+ln -f ../../bin/$TARGET_ARCH-c++ c++
+ln -f ../../bin/$TARGET_ARCH-g++ g++
+)
+
+PATH=$PREFIX/$TARGET_ARCH/bin:$PATH
+
+cd $PREFIX/src
+type=native
+for i in $native_rpm; do
+	if build $i; then
+		true
+	else
+		echo "$i: rpm build failed"
+		exit 1
+	fi
+done
+
+cd $NATIVE_PREFIX/src/redhat/BUILD
+
+rm -f $distdir/$CYGWIN_DLL.gz
+cd $distdir && cp -f $PREFIX/bin/$CYGWIN_DLL . && gzip -f $CYGWIN_DLL
+
+rm -f $distdir/rpm2cpio.gz
+cd $distdir && cp -f $PREFIX/bin/rpm2cpio . && gzip -f rpm2cpio
+
+
+cat > $distdir/setup.sh <<EOF
+#!/bin/bash
+set -x
+ROOT=/Cygnus
+PREFIX=\$ROOT/usr
+gunzip rpm2cpio.gz || exit 1
+# currently, the cygwin1.dll's conflict.
+# it's been reported one can't have both in PATH
+dll=\$ROOT/net-485
+mkdir -p \$dll
+gzip -dc cygwin.dll.gz > \$dll/cygwin1.dll
+here=\`pwd\`
+cd \$ROOT/.. && (PATH=\$dll \$here/rpm2cpio \$here/rpm*.rpm ) | cpio -ivmd 
+PATH=\$dll rpm --root=\$ROOT --initdb
+cd \$here
+for i in RPMS/$ta/*.rpm; do
+	PATH=\$dll rpm -ivv --ignoreos --ignorearch --nodeps --force\
+		  --dbpath \$ROOT/var/lib/rpm \
+		  \$i
+done
+EOF
+
+cat > $distdir/setup.bat <<EOF
+bash setup.sh
+if errorlevel 0 goto exit
+@echo "setup.bat: can't find bash"
+@echo "setup.bat: please install usertools from"
+@echo "setup.bat: http://sourceware.cygnus.com/cygwin/"
+:exit
+EOF
+
+cat > $distdir/lilypond.sh <<EOF
+#!/bin/bash
+ROOT=/Cygnus
+PREFIX=\$ROOT/usr
+# currently, the cygwin1.dll's conflict.
+# it's been reported one can't have both in PATH
+dll=\$ROOT/net-485
+PATH=\$dll \$ROOT/bin/lilypond \$*
+EOF
+
+cat > $distdir/midi2ly.sh <<EOF
+#!/bin/bash
+ROOT=/Cygnus
+PREFIX=\$ROOT/usr
+# currently, the cygwin1.dll's conflict.
+# it's been reported one can't have both in PATH
+dll=\$ROOT/net-485
+PATH=\$dll \$ROOT/bin/midi2ly \$*
+EOF
+
+cat > $distdir/lilypond.bat <<EOF
+bash lilypond.sh %1 %2 %3 %4 %5 %6 %7 %8 %9
+EOF
+
+cat > $distdir/midi2ly.bat <<EOF
+bash midi2ly.sh %1 %2 %3 %4 %5 %6 %7 %8 %9
+EOF
+
+distbase=`basename $distdir`
+cd $distdir
+rm -f RPMS
+ln -s ../redhat/RPMS .
+
+www=`dirname $distdir`
+cd $www
+for i in guile-1 rpm lilypond; do
+	rpm=`find_path $i*.rpm $distbase/RPMS/$ta`
+	dist_rpms="$dist_rpms $rpm"
+done
+
+rm -f $www/setup.zip
+cd $www && zip setup.zip lily-w32 $distbase/* $dist_rpms

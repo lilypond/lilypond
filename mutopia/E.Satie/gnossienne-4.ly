@@ -2,7 +2,6 @@
   filename =    "gnossienne-4.ly";
   title =       "Gnossienne";
   subtitle =	"4";
-  source =      "";
   composer =    "Erik Satie (1866-1925)";
   enteredby =   "jcn";
   copyright =   "Public Domain";
@@ -14,19 +13,17 @@
 
 \version "1.3.5";
 
-\include "nederlands.ly"
-
 global = \notes {
-  \key a \minor;
-  \time 6/4;
-  \skip 1.*34;
-%  \bar ".|";
+	\key a \minor;
+	\time 6/4;
+	\skip 1.*34;
+	\bar "|.";
 }
-  
+
 melody = \notes\relative c''{
   \clef violin;
-  \property Voice.verticalDirection = 1
-  \property Voice.graceFraction = "1/4"
+  \property Voice.verticalDirection = #1
+  \property Voice.graceFraction = #(make-moment 1 4)
   r2 r r 
   r2 r r
   r4 a'8--(\< a--  a-- a-- c-- \!b-- a--\> gis f \!e 
@@ -57,11 +54,10 @@ melody = \notes\relative c''{
   a,2( \grace e'8() f4 ~ )f8 r r2
   r2 r r
   fis,4( \grace dis8<)cis4 ais> r2 r
-  <e1 g b e> ~ <e g b e>
+  <e1*6/4 g b e> ~ <e g b e>
 }
 
 basloopje = \notes\relative c{
-%  d,8( a' d f a \translator Staff=treble d f d \translator Staff=bass a f d )a
   d,8( a' d f a d f d a f d )a
 }
 
@@ -100,94 +96,48 @@ accompany = \notes \relative c{
   \notes\relative c \basloopje
   \notes\relative c \basloopje
   \transpose e' \notes\relative c{ \basloopje }
-  < e1 b' e> ~ < e b' e> 
+  < e1*6/4 b' e> ~ < e b' e> 
 }
-
 
 \score{
-  \notes{
-    \context AutoSwitchGrandStaff \relative c <
-      \context Staff=upper <
-        \global
-        \context Voice=foo{
-	  \property Voice.verticalDirection = 1
-	  \property Voice.scriptVerticalDirection = 1
-	  \melody 
-        }
-      >
-      \context AutoSwitchContext <
-        \global
-	\accompany
-      >
-    >
-  }
-  \paper {
-    gourlay_maxmeasures = 4.;
-    indent = 8.\mm;
-    textheight = 295.\mm;
+	\notes \context PianoStaff <
+		\context Staff=up < 
+			\global
+			\context Voice=foo {
+			\property Voice.verticalDirection = #1
+			\property Voice.scriptVerticalDirection = #1
+			\melody 
+			}
+		>
+		\context Staff=down <
+			\global
+			\clef bass;
+			\autochange Staff \accompany
+		>
+	>
 
-    % no slur damping
-    slur_slope_damping = 100.0;
+	\paper {
+		gourlay_maxmeasures = 4.;
+		indent = 8.\mm;
+		textheight = 295.\mm;
 
-    \translator{ 
-      \StaffContext
-      % don't auto-generate bars: not a good idea: -> no breakpoints
-      % barAuto = "0";
-      % urg defaultBarType = "";
-      defaultBarType = "empty";
-      \remove "Time_signature_engraver";
-    }
-    \translator{ 
-      \GraceContext
-      \remove "Local_key_engraver";
-    }
-    \translator { 
-      \ScoreContext
-      \accepts "AutoSwitchGrandStaff";
-    }
-    \translator{
-      \type "Engraver_group_engraver";
-      \name AutoSwitchGrandStaff;
-      \consists "Span_bar_engraver";
-      \consists "Vertical_align_engraver";
-      \consists "Piano_bar_engraver";
-      \consistsend "Axis_group_engraver";
-      minVerticalAlign = 2.*\staffheight;
-      maxVerticalAlign = 2.*\staffheight;	
-      switcherName = "Voice";
-      acceptorName = "Thread";
-      staffContextName = "Staff";
+		% ugly is beautiful
+		slur_beautiful = 5.0;
 
-      \accepts "AutoSwitchContext";
-      \accepts "Staff";
-      slurVerticalDirection = 1;
-      verticalDirection = -1;
-      beamAutoEnd  = #(make-moment 1 2)
-    }
-    \translator {
-      \type "Engraver_group_engraver";
-      \name AutoSwitchContext;
-      \consists "Staff_switching_translator";
-    }
-  }
-  \midi {
-    \tempo 4 = 54;
-    \translator {
-      \ScoreContext
-      \accepts "AutoSwitchGrandStaff";
-    }
-    \translator {
-      \type "Performer_group_performer";
-      \name AutoSwitchGrandStaff;
-      \accepts "AutoSwitchContext";
-      \accepts "Staff";
-    }
-    \translator {
-      \type "Staff_performer";
-      \name AutoSwitchContext;
-      \accepts "Voice";
-      \consists "Key_performer";
-      \consists "Time_signature_performer";
-    }
-  }
+		\translator{ 
+			\StaffContext
+			% don't auto-generate bars: not a good idea: -> no breakpoints
+			% barAuto = #f
+			defaultBarType = #""
+			\remove "Time_signature_engraver";
+
+			slurVerticalDirection = #1
+			verticalDirection = #-1
+			beamAutoEnd = #(make-moment 1 2)
+		}
+	}
+	\midi {
+		\tempo 4 = 54;
+	}
 }
+
