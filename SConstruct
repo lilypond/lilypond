@@ -63,6 +63,7 @@ import string
 # to be done, building or installing
 # TODO: Documentation/*, input/*/*, vim, po
 # rename Documentation/* to ./doc?
+
 subdirs = ['flower', 'lily', 'mf', 'scm', 'ly', 'Documentation',
 	   'Documentation/user', 'input', 'scripts', 'elisp',
 	   'buildscripts', 'cygwin', 'debian']
@@ -73,27 +74,22 @@ scons [KEY=VALUE].. [TARGET]..
 where TARGET is config|lily|all|fonts|doc|tar|dist|release
 '''
       
-env = Environment ()
 
-# Without target arguments, build lily only
-if not COMMAND_LINE_TARGETS:
-	env.Default ('lily')
+config_cache = 'config.cache'
 
-# All builds everything (all directories)
-env.Alias ('all', ['lily', 'mf', 'input', 'Documentation'])
-
-#?
-env.Depends ('Documentation', ['lily', 'mf'])
-env.Depends ('input', ['lily', 'mf'])
-env.Depends ('doc', ['lily', 'mf'])
-env.Depends ('doc', 'mf')
-env.Depends ('input', ['lily', 'mf'])
-
-
-## FIXME: opts in function
+config_vars = (
+	'BASH',
+	'CFLAGS',
+	'CPPPATH',
+	'CXXFLAGS',
+	'DEFINES',
+	'LIBS',
+	'METAFONT'
+	'PYTHON',
+	)
 
 # Put your favourite stuff in custom.py
-opts = Options (['config.cache', 'custom.py'], ARGUMENTS)
+opts = Options ([config_cache, 'custom.py'], ARGUMENTS)
 opts.Add ('prefix', 'Install prefix', '/usr/')
 opts.Add ('out', 'Output directory', 'out-scons')
 opts.Add ('build', 'Build directory', '.')
@@ -114,30 +110,68 @@ opts.AddOptions (
 		    0),
 	)
 
-Help (usage + opts.GenerateHelpText (env))
-
-env = Environment (options = opts)
-
-opts.Update (env)
-opts.Save ('config.cache', env)
-
-env.CacheDir (os.path.join (env['build'], '=build-cache'))
+srcdir = Dir ('.').srcnode ().abspath
 
 #ugh
-sys.path.append (os.path.join ('.', 'stepmake', 'bin'))
+sys.path.append (os.path.join (srcdir, 'stepmake', 'bin'))
 import packagepython
-package = packagepython.Package ('.')
+package = packagepython.Package (srcdir)
 
-env['version'] = packagepython.version_tuple_to_str (package.version)
-env['bindir'] = os.path.join (env['prefix'], 'bin')
-env['sharedir'] = os.path.join (env['prefix'], 'share')
-env['libdir'] = os.path.join (env['prefix'], 'lib')
-env['localedir'] = os.path.join (env['sharedir'], 'locale')
 
-env['sharedir_package'] = os.path.join (env['sharedir'], package.name)
-env['sharedir_package_version'] = os.path.join (env['sharedir_package'],
-						 env['version'])
-env['lilypondprefix'] = os.path.join (env['sharedir_package_version'])
+prefix = '/usr/local'
+
+version = packagepython.version_tuple_to_str (package.version)
+bindir = os.path.join (prefix, 'bin')
+sharedir = os.path.join (prefix, 'share')
+libdir = os.path.join (prefix, 'lib')
+localedir = os.path.join (sharedir, 'locale')
+sharedir_package = os.path.join (sharedir, package.name)
+sharedir_package_version = os.path.join (sharedir_package, version)
+lilypondprefix = sharedir_package_version
+
+ENV = { 'PATH' : os.environ['PATH'] }
+for key in ['LD_LIBRARY_PATH', 'GUILE_LOAD_PATH', 'PKG_CONFIG_PATH']:
+    	if os.environ.has_key(key):
+        	ENV[key] = os.environ[key]
+
+env = Environment (
+	ENV = ENV,
+
+	srcdir = srcdir,
+
+	bindir = bindir,
+	sharedir = sharedir,
+	TOPLEVEL_VERSION = version,
+	lilypond_datadir = sharedir_package,
+	local_lilypond_datadir = sharedir_package_version,
+	lilypondprefix = lilypondprefix,
+	sharedir_package = sharedir_package,
+	sharedir_package_version = sharedir_package_version,
+
+
+	SH = '/bin/sh',
+	BASH = '/bin/bash',
+	PYTHON = '/usr/bin/python',
+	MAKEINFO = 'LANG= makeinfo',
+	
+	LILYPOND_BOOK = srcdir + '/scripts/lilypond-book.py',
+	LILYPOND_PY = srcdir + '/scripts/lilypond.py',
+	
+	ABC2LY_PY = srcdir + '/scripts/abc2ly.py',
+	MF_TO_TABLE_PY = srcdir + '/buildscripts/mf-to-table.py',
+	LILYPOND_BOOK_FLAGS = '',
+	LILYPOND_BOOK_FORMAT = 'texi-html',
+	
+	TEXINFO_PAPERSIZE_OPTION = '-t @afourpaper',
+	MFMODE = 'ljfour'
+	)
+
+
+Help (usage + opts.GenerateHelpText (env))
+
+map (lambda x: opts.AddOptions ((x,)), config_vars)
+opts.Update (env)
+env.CacheDir (os.path.join (env['build'], '=build-cache'))
 
 if env['debugging']:
 	env.Append (CFLAGS = '-g')
@@ -156,15 +190,29 @@ if env['warnings']:
 if env['verbose']:
 	env['__verbose'] = '--verbose'
 
-build = env['build']
-out = env['out']
+env['srcdir'] = Dir ('.').srcnode ().abspath
 
-outdir = Dir ('.').path
-abs_srcdir = Dir ('.').srcnode ().abspath
-srcdir = abs_srcdir
-abs_outdir = Dir ('.').abspath
+outdir = os.path.join (Dir (env['build']).abspath, env['out'])
+config_h = os.path.join (outdir, 'config.h')
+version_h = os.path.join (outdir, 'version.hh')
+config_h = os.path.join (outdir, 'config.h')
+env.Alias ('config', config_h)
 
-env['srcdir'] = srcdir
+
+## Explicit dependencies
+
+# Without target arguments, build lily only
+if not COMMAND_LINE_TARGETS:
+	env.Default ('lily')
+env.Alias ('all', '.')
+env.Alias ('doc',
+	   'Documentation',
+	   'Documentation/user',
+	   'Documentation/topdocs')
+
+env.Depends ('doc', ['lily', 'mf'])
+env.Depends ('input', ['lily', 'mf'])
+env.Depends ('doc', ['lily', 'mf'])
 
 
 def list_sort (lst):
@@ -172,13 +220,7 @@ def list_sort (lst):
 	sorted.sort ()
 	return sorted
 
-env['MFMODE'] = 'ljfour'
-config_h = os.path.join (outdir, 'config.h')
-env.Alias ('config', config_h)
-
-def configure (env):
-	conf = Configure (env)
-
+def configure (target, source, env):
 	vre = re.compile ('^.*[^-.0-9]([0-9][0-9]*\.[0-9][.0-9]*).*$', re.DOTALL)
 	def get_version (program):
 		command = '(%(program)s --version || %(program)s -V) 2>&1' % vars ()
@@ -189,8 +231,7 @@ def configure (env):
 		v = re.sub (vre, '\\1', output)
 		return string.split (v, '.')
 
-	def assert_version (lst, program, minimal, description, package):
-		global required
+	def test_program (lst, program, minimal, description, package):
 		sys.stdout.write ('Checking %s version... ' % program)
 		actual = get_version (program)
 		if not actual:
@@ -205,39 +246,55 @@ def configure (env):
 				     string.join (actual, '.')))
 
 	required = []
-	assert_version (required, 'gcc', '2.8', 'GNU C compiler', 'gcc')
-	assert_version (required, 'g++', '3.0.5', 'GNU C++ compiler', 'g++')
-	assert_version (required, 'python', '2.1', 'Python (www.python.org)', 'python')
-	assert_version (required, 'guile-config', '1.6', 'GUILE development',
+	test_program (required, 'gcc', '2.8', 'GNU C compiler', 'gcc')
+	test_program (required, 'g++', '3.0.5', 'GNU C++ compiler', 'g++')
+	test_program (required, 'python', '2.1', 'Python (www.python.org)', 'python')
+	test_program (required, 'guile-config', '1.6', 'GUILE development',
 			'libguile-dev or guile-devel')
 	# Do not use bison 1.50 and 1.75.
-	assert_version (required, 'bison', '1.25', 'Bison -- parser generator',
+	test_program (required, 'bison', '1.25', 'Bison -- parser generator',
 			'bison')
-	assert_version (required, 'flex', '0.0', 'Flex -- lexer generator', 'flex')
+	test_program (required, 'flex', '0.0', 'Flex -- lexer generator', 'flex')
 
 
 	optional = []
-	assert_version (optional, 'makeinfo', '4.7', 'Makeinfo tool', 'texinfo')
-	assert_version (optional, 'guile', '1.6', 'GUILE scheme',
+	test_program (optional, 'makeinfo', '4.7', 'Makeinfo tool', 'texinfo')
+	test_program (optional, 'guile', '1.6', 'GUILE scheme',
 			'libguile-dev or guile-devel')
-	assert_version (optional, 'mftrace', '1.0.27', 'Metafont tracing Type1',
+	test_program (optional, 'mftrace', '1.0.27', 'Metafont tracing Type1',
 			'mftrace')
-	assert_version (optional, 'perl', '4.0',
+	test_program (optional, 'perl', '4.0',
 			'Perl practical efficient readonly language', 'perl')
-	#assert_version (optional, 'foo', '2.0', 'Foomatic tester', 'bar')
+	#test_program (optional, 'foo', '2.0', 'Foomatic tester', 'bar')
 
+	def CheckYYCurrentBuffer (context):
+		context.Message ('Checking for yy_current_buffer... ')
+		ret = conf.TryCompile ("""using namespace std;
+		#include <FlexLexer.h>
+		class yy_flex_lexer: public yyFlexLexer
+		{
+		public:
+		yy_flex_lexer ()
+		{
+		yy_current_buffer = 0;
+		}
+		};""", '.cc')
+		context.Result (ret)
+
+	conf = Configure (env, custom_tests = { 'CheckYYCurrentBuffer'
+						: CheckYYCurrentBuffer })
 
 	defines = {
 	   'DIRSEP' : "'/'",
 	   'PATHSEP' : "':'",
-	   'TOPLEVEL_VERSION' : '"' + env['version'] + '"',
+	   'TOPLEVEL_VERSION' : '"' + version + '"',
 	   'PACKAGE': '"' + package.name + '"',
-	   'DATADIR' : '"' + env['sharedir'] + '"',
-	   'LILYPOND_DATADIR' : '"' + env['sharedir_package'] + '"',
-	   'LOCAL_LILYPOND_DATADIR' : '"' + env['sharedir_package_version'] + '"',
-	   'LOCALEDIR' : '"' + env['localedir'] + '"',
+	   'DATADIR' : '"' + sharedir + '"',
+	   'LILYPOND_DATADIR' : '"' + sharedir_package + '"',
+	   'LOCAL_LILYPOND_DATADIR' : '"' + sharedir_package_version + '"',
+	   'LOCALEDIR' : '"' + localedir + '"',
 	}
-
+	conf.env.Append (DEFINES = defines)
 
 	command = r"""python -c 'import sys; sys.stdout.write ("%s/include/python%s" % (sys.prefix, sys.version[:3]))'""" #"
 	PYTHON_INCLUDE = os.popen (command).read ()
@@ -247,52 +304,34 @@ def configure (env):
 	for i in headers:
 		if conf.CheckCHeader (i):
 			key = re.sub ('[./]', '_', 'HAVE_' + string.upper (i))
-			defines[key] = '1'
+			conf.env['DEFINES'][key] = 1
 
 	ccheaders = ('sstream',)
 	for i in ccheaders:
 		if conf.CheckCXXHeader (i):
 			key = re.sub ('[./]', '_', 'HAVE_' + string.upper (i))
-			defines[key] = '1'
+			conf.env['DEFINES'][key] = 1
 
 	functions = ('gettext', 'isinf', 'memmem', 'snprintf', 'vsnprintf')
 	for i in functions:
 		if 0 or conf.CheckFunc (i):
 			key = re.sub ('[./]', '_', 'HAVE_' + string.upper (i))
-			defines[key] = '1'
+			conf.env['DEFINES'][key] = 1
 
-	key = 'HAVE_FLEXLEXER_YY_CURRENT_BUFFER'
-
-	sys.stdout.write('Checking for yy_current_buffer ... ')
-	sys.stdout.flush()
-	res = conf.TryCompile ("""using namespace std;
-	#include <FlexLexer.h>
-	class yy_flex_lexer: public yyFlexLexer
-	{
-	  public:
-	    yy_flex_lexer ()
-	    {
-	      yy_current_buffer = 0;
-	    }
-	};""", '.cc')
-	if res:
-		defines[key] = '1'
-		sys.stdout.write('yes\n')
-	else:
-		sys.stdout.write('no\n')
-
+	if conf.CheckYYCurrentBuffer ():
+		conf.env['DEFINES']['HAVE_FLEXLEXER_YY_CURRENT_BUFFER'] = 1
 
 	if conf.CheckLib ('dl'):
 		pass
 
 	if conf.CheckLib ('kpathsea'):
-		defines['KPATHSEA'] = '1'
+		conf.env['DEFINES']['KPATHSEA'] = 1
 
 	# huh? 
 	if conf.CheckLib ('kpathsea', 'kpse_find_file'):
-		defines['HAVE_KPSE_FIND_FILE'] = '1'
+		conf.env['DEFINES']['HAVE_KPSE_FIND_FILE'] = '1'
 	if conf.CheckLib ('kpathsea', 'kpse_find_tfm'):
-		defines['HAVE_KPSE_FIND_TFM'] = '1'
+		conf.env['DEFINES']['HAVE_KPSE_FIND_TFM'] = '1'
 
 	#this could happen after flower...
 	env.ParseConfig ('guile-config compile')
@@ -302,25 +341,12 @@ def configure (env):
 		env.ParseConfig ('pkg-config --cflags --libs gtk+-2.0')
 		env.ParseConfig ('pkg-config --cflags --libs pango')
 		if conf.CheckCHeader ('pango/pangofc-fontmap.h'):
-			defines['HAVE_PANGO_PANGOFC_FONTMAP_H'] = '1'
+			conf.env['DEFINES']['HAVE_PANGO_PANGOFC_FONTMAP_H'] = '1'
 
 		if conf.CheckLib ('pango-1.0',
 				  'pango_fc_font_map_add_decoder_find_func'):
-			defines['HAVE_PANGO_CVS'] = '1'
-			defines['HAVE_PANGO_FC_FONT_MAP_ADD_DECODER_FIND_FUNC'] = '1'
-
-	# use Command
-	if not os.path.exists (outdir):
-		os.mkdir (outdir)
-
-	config = open (config_h, 'w')
-	for i in list_sort (defines.keys ()):
-		config.write ('#define %s %s\n' % (i, defines[i]))
-	config.close ()
-
-	os.system (sys.executable \
-		   + ' ./stepmake/bin/make-version.py VERSION > '\
-		   + os.path.join (outdir, 'version.hh'))
+			conf.env['DEFINES']['HAVE_PANGO_CVS'] = '1'
+			conf.env['DEFINES']['HAVE_PANGO_FC_FONT_MAP_ADD_DECODER_FIND_FUNC'] = '1'
 
 	if required:
 		print
@@ -339,63 +365,57 @@ def configure (env):
 
 	return conf.Finish ()
 
-# Hmm.  Must configure when building lily, to get compiler and linker
-# flags set-up.
-# FIXME
-if 1 or not os.path.exists (config_h) or 'config' in COMMAND_LINE_TARGETS:
-	env = configure (env)
+if os.path.exists (config_cache) and 'config' in COMMAND_LINE_TARGETS:
+	os.unlink (config_cache)
+# WTF?
+# scons: *** Calling Configure from Builders is not supported.
+# env.Command (config_cache, None, configure)
+if not os.path.exists (config_cache):
+	env = configure (None, None, env)
+	map (lambda x: opts.AddOptions ((x,)), config_vars)
+	opts.Save (config_cache, env)
 
+def config_header (target, source, env):
+	config = open (str (target[0]), 'w')
+	for i in list_sort (env['DEFINES'].keys ()):
+		config.write ('#define %s %s\n' % (i, env['DEFINES'][i]))
+	config.close ()
+env.Command (config_h, config_cache, config_header)
 
-#ugr
-if build == '.':
-	absbuild = os.getcwd ()
-else:
-	absbuild = build
-env['absbuild'] = absbuild
+env.Command (version_h, '#/VERSION',
+	     '$PYTHON ./stepmake/bin/make-version.py VERSION > $TARGET')
 
-env.Append (LIBPATH = [os.path.join (absbuild, 'flower', out),],
-	    CPPPATH = [outdir, '#',])
+absbuild = Dir (env['build']).abspath
+run_prefix = os.path.join (absbuild, os.path.join (env['out'], 'usr'))
+
+env.Append (
+	absbuild = absbuild,
+	run_prefix = run_prefix,
+	LILYPONDPREFIX = os.path.join (run_prefix, 'share/lilypond'),
+
+	LIBPATH = [os.path.join (absbuild, 'flower', env['out']),],
+	CPPPATH = [outdir, '#',],
+	LILYPOND_BIN = os.path.join (absbuild, 'lily', env['out'],
+				     'lilypond-bin'),
+	LILYPOND_BOOK_PATH = ['.', '#/input', '#/input/regression',
+			      '#/input/test', '#/input/tutorial',
+			      os.path.join (absbuild, 'mf', env['out']),
+			      '#/Documentation/user',
+			      os.path.join (absbuild, 'Documentation',
+					    env['out']),
+			      os.path.join (absbuild, 'Documentation/user',
+					    env['out']),
+			      ],
+	MAKEINFO_PATH = ['.', '#/Documentation/user',
+			 os.path.join (absbuild, 'Documentation/user',
+				       env['out'])],
+	)
 
 Export ('env')
-
-env['MAKEINFO'] = 'LANG= makeinfo'
-env['PYTHON'] = 'python'
-env['LILYPOND_BIN'] = os.path.join (absbuild, 'lily', out, 'lilypond-bin')
-env['LILYPONDPREFIX'] =	os.path.join (absbuild, out, 'usr/share/lilypond')
-env['LILYPOND_BOOK'] = srcdir + '/scripts/lilypond-book.py'
-env['ABC2LY_PY'] = srcdir + '/scripts/abc2ly.py'
-env['MF_TO_TABLE_PY'] = srcdir + '/buildscripts/mf-to-table.py'
-env['LILYPOND_PY'] = srcdir + '/scripts/lilypond.py'
-env['LILYPOND_BOOK_FLAGS'] = ''
-env['LILYPOND_BOOK_FORMAT'] = 'texi-html'
-# ugh?
-env['LILYPOND_BOOK_PATH'] = ['.', '#/input', '#/input/regression',
-			     '#/input/test', '#/input/tutorial',
-			     os.path.join (absbuild, 'mf', out),
-			     '#/Documentation/user',
-			     os.path.join (absbuild, 'Documentation', out),
-			     os.path.join (absbuild, 'Documentation/user', out),
-			     ]
-			     
-env['MAKEINFO_PATH'] = ['.', '#/Documentation/user',
-			os.path.join (absbuild, 'Documentation/user', out)]
-
-## TEXINFO_PAPERSIZE_OPTION= $(if $(findstring $(PAPERSIZE),a4),,-t @afourpaper)
-env['TEXINFO_PAPERSIZE_OPTION'] = '-t @afourpaper'
-
 SConscript ('buildscripts/builder.py')
 
-for d in subdirs:
-	if os.path.exists (os.path.join (d, 'SConscript')):
-		b = os.path.join (build, d, out)
-		# Support clean sourcetree build (--srcdir build)
-		# and ./out build.
-		if (build and build != '.') or (out and out != '.'):
-			env.BuildDir (b, d, duplicate=0)
-       		SConscript (os.path.join (b, 'SConscript'))
 
-# as a builder?
-def symlink_tree (prefix):
+def symlink_tree (target, source, env):
 	def mkdirs (dir):
 		def mkdir (dir):
 			if not dir:
@@ -417,6 +437,7 @@ def symlink_tree (prefix):
 			depth = len (string.split (dir, '/'))
 			frm = os.path.join ('../' * depth, src, out)
 		os.symlink (frm, os.path.basename (dst))
+	prefix = os.path.join (env['out'], 'usr')
 	map (lambda x: symlink (x[0], os.path.join (prefix, x[1])),
 	     (('python', 'lib/lilypond/python'),
 	      # UGHR, lilypond.py uses lilypond-bin from PATH
@@ -434,25 +455,46 @@ def symlink_tree (prefix):
 	os.chdir (srcdir)
 
 if env['debugging']:
-	prefix = os.path.join (out, 'usr')
-	if not os.path.exists (os.path.join (absbuild, prefix)):
-		symlink_tree (prefix)
+	print 'run_prefix:' + run_prefix
+	env.Command (os.path.join (run_prefix, 'stamp'), 'VERSION',
+		     [symlink_tree, 'touch $TARGET'])
 
 #### dist, tar
-def cvs_files (dir):
-	entries = open (os.path.join (dir, 'CVS/Entries')).readlines ()
-	files = filter (lambda x: x[0] != 'D', entries)
-	return map (lambda x: os.path.join (dir, x[1:x[1:].index ('/')+1]),
-		    files)
+def plus (a, b):
+	a + b
 
+def cvs_entry_is_dir (line):
+	return line[0] == 'D' and line[-2] == '/'
+
+def cvs_entry_is_file (line):
+	return line[0] == '/' and line[-2] == '/'
+
+def cvs_dirs (dir):
+	ENTRIES = os.path.join (dir, 'CVS/Entries')
+	if not os.path.exists (ENTRIES):
+		return []
+	entries = open (ENTRIES).readlines ()
+	dir_entries = filter (cvs_entry_is_dir, entries)
+	dirs = map (lambda x: os.path.join (dir, x[2:x[2:].index ('/')+3]),
+		    dir_entries)
+	return dirs + map (cvs_dirs, dirs)
+
+def cvs_files (dir):
+	ENTRIES = os.path.join (dir, 'CVS/Entries')
+	entries = open (ENTRIES).readlines ()
+	file_entries = filter (cvs_entry_is_file, entries)
+	files = map (lambda x: x[1:x[1:].index ('/')+1], file_entries)
+	return map (lambda x: os.path.join (dir, x), files)
+
+#subdirs = reduce (lambda x, y: x + y, cvs_dirs ('.'))
+#print `subdirs`
 readme_files = ['AUTHORS', 'README', 'INSTALL', 'NEWS']
-foo = map (lambda x: env.Texi2txt (x + '.txt',
-				   os.path.join ('Documentation/topdocs',
-						 x)),
+foo = map (lambda x: env.TXT (x + '.txt',
+			      os.path.join ('Documentation/topdocs', x)),
 	   readme_files)
 txt_files = map (lambda x: x + '.txt', readme_files)
 src_files = reduce (lambda x, y: x + y, map (cvs_files, subdirs))
-tar_base = package.name + '-' + env['version']
+tar_base = package.name + '-' + version
 tar_name = tar_base + '.tar.gz'
 ball_prefix = os.path.join (outdir, tar_base)
 tar_ball = os.path.join (outdir, tar_name)
@@ -476,3 +518,12 @@ patch = env.PATCH (patch_name, tar_ball)
 env.Depends (patch_name, dist_ball)
 env.Alias ('release', patch)
 
+
+for d in subdirs:
+	if os.path.exists (os.path.join (d, 'SConscript')):
+		b = os.path.join (env['build'], d, env['out'])
+		# Support clean sourcetree build (--srcdir build)
+		# and ./out build.
+		if os.path.abspath (b) != os.path.abspath (d):
+			env.BuildDir (b, d, duplicate = 0)
+       		SConscript (os.path.join (b, 'SConscript'))

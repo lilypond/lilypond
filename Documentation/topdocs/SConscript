@@ -1,0 +1,10 @@
+# -*-python-*-
+
+import os
+
+Import ('env')
+telys = env['base_glob'] (env, '*.tely')
+texis = env['base_glob'] (env, '*.texi') + map (env.TELY, telys)
+
+htmls = map (env.HTML, texis)
+env.Alias ('doc', htmls)

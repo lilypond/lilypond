@@ -1,5 +1,5 @@
 # -*-python-*-
 
 Import ('env')
-sources = ['index.html.in', 'texinfo.css']
+env.AT_COPY ('index.html')
 

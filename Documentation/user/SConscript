@@ -13,7 +13,6 @@ userbuild = os.path.join (env['absbuild'], 'Documentation/user', env['out'])
 
 env.Depends ('lilypond.texi', env['LILYPOND_BIN'])
 env.Depends ('lilypond.texi', 'lilypond-internals.texi')
-env.Depends ('doc', mfbuild)
 
 png_stems = map (lambda x: os.path.splitext (x)[0], pngs)
 epss = map (env.Png2eps, png_stems)
@@ -26,7 +25,7 @@ env.Command ('lilypond-internals.texi', env['LILYPOND_BIN'],
 	     $lydir/generate-documentation')
 
 doc_stems = map (lambda x: os.path.splitext (x)[0], sources)
-texis = map (env.Tely2texi, doc_stems)
+texis = map (env.TELY, doc_stems)
 dvis = map (env.Texi2dvi, doc_stems)
 pss = map (env.PostScript, map (lambda x: x + '.dvi', doc_stems))
 pdfs = map (env.Dvi2pdf, doc_stems)
