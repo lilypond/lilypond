@@ -12,7 +12,7 @@ AC_CONFIG_AUX_DIR([stepmake/bin])
 
 
 
-. VERSION 
+. $srcdir/VERSION 
 
 STEPMAKE_INIT
 
