@@ -88,12 +88,20 @@ ly_write2scm (SCM s)
 
   Need guile-1.3.4 (>1.3 anyway) for ftell on str ports -- jcn
 */
+/*
+  should move this func elsewhere (?)
+ */
 SCM
-ly_parse_scm (char const* s, int* n)
+ly_parse_scm (char const* s, int* n, Input ip)
 {
   SCM str = ly_str02scm (s);
   SCM port = scm_mkstrport (SCM_INUM0, str, SCM_OPN | SCM_RDNG,
                             "ly_eval_scm_0str");
+
+  scm_set_port_filename_x (port, scm_makfrom0str (ip.file_string ().str0()));
+  scm_set_port_line_x (port,  gh_int2scm (ip.line_number ()));
+  scm_set_port_column_x (port,  gh_int2scm (ip.column_number()));
+  
   SCM from = scm_ftell (port);
 
   SCM form;

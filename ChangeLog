@@ -1,3 +1,8 @@
+2002-07-29  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/lily-guile.cc (ly_parse_scm): add line/col/file
+	locations SCM  port for parser.
+
 2002-07-28  Rune Zedeler <rune@zedeler.dk>
 	
 	* lily/note-spacing.cc (stem_dir_correction) Add property

@@ -258,7 +258,7 @@ HYPHEN		--
 		yylval.scm =  SCM_EOL;
 		return SCM_T;
 	}
-	yylval.scm = ly_parse_scm (s, &n);
+	yylval.scm = ly_parse_scm (s, &n, here_input());
 	
 	for (int i=0; i < n; i++)
 	{

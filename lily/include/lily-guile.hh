@@ -156,8 +156,8 @@ Interval ly_scm2interval (SCM);
 Slice int_list_to_slice (SCM l);
 SCM ly_interval2scm (Drul_array<Real>);
 
-
-SCM ly_parse_scm (char const* s, int* n);
+struct Input;
+SCM ly_parse_scm (char const* s, int *, Input);
 SCM ly_quote_scm (SCM s);
 SCM ly_type (SCM);
 bool type_check_assignment (SCM val, SCM sym,  SCM type_symbol) ;

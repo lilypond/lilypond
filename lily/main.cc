@@ -338,7 +338,8 @@ main_prog (void *, int, char **)
       /* Junk this.  We should make real modules iso. just loading files. */
       prepend_load_path (String (prefix_directory[i]) + "/scm");
     }
-      
+
+  SCM_RECORD_POSITIONS_P = 1; 
   if (verbose_global_b)
     dirinfo (stderr);
   
