@@ -26,7 +26,6 @@ public:
   Book ();
 
   Paper_book* process (String, Output_def*);
-  SCM to_stencil (Output_def*);
 };
 DECLARE_UNSMOB (Book, book);
 
