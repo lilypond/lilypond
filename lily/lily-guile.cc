@@ -768,3 +768,21 @@ taint (SCM * foo)
     nop.
    */
 }
+
+/*
+  display stuff without using stack
+ */
+SCM
+display_list (SCM s)
+{
+  SCM p = scm_current_output_port();
+
+  scm_puts ("(", p);
+  for (; gh_pair_p(s); s =gh_cdr(s))
+    {
+      scm_display (gh_car(s), p);
+      scm_puts (" ", p);      
+    }
+  scm_puts (")", p);
+  return SCM_UNSPECIFIED;
+}

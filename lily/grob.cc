@@ -394,8 +394,8 @@ SCM
 do_break_substitution (SCM src)
 {
  again:
-  Grob *sc = unsmob_grob (src);
-  if (sc)
+ 
+  if (Grob *sc = unsmob_grob (src))
     {
       if (SCM_INUMP (break_criterion))
 	{
@@ -441,13 +441,12 @@ do_break_substitution (SCM src)
 	  return SCM_UNDEFINED;
 	}
     }
-  else if (ly_pair_p (src)) // SCM_CONSP (src))  // huh?
+  else if (ly_pair_p (src)) 
     {
-      SCM oldcar =ly_car (src);
       /*
 	UGH! breaks on circular lists.
       */
-      SCM newcar = do_break_substitution (oldcar);
+      SCM newcar = do_break_substitution (ly_car (src));
       SCM oldcdr = ly_cdr (src);
       
       if (newcar == SCM_UNDEFINED
@@ -456,7 +455,7 @@ do_break_substitution (SCM src)
 	  /*
 	    This is tail-recursion, ie. 
 	    
-	    return do_break_substution (cdr, break_criterion);
+	    return do_break_substution (cdr);
 
 	    We don't want to rely on the compiler to do this.  Without
 	    tail-recursion, this easily crashes with a stack overflow.  */
@@ -464,8 +463,7 @@ do_break_substitution (SCM src)
 	  goto again;
 	}
 
-      SCM newcdr = do_break_substitution (oldcdr);
-      return scm_cons (newcar, newcdr);
+      return scm_cons (newcar, do_break_substitution (oldcdr));
     }
   else
     return src;
