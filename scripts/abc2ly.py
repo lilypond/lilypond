@@ -102,7 +102,6 @@ nobarlines = 0
 global_key = [0] * 7			# UGH
 names = ["One", "Two", "Three"]
 DIGITS='0123456789'
-alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"	
 HSPACE=' \t'
 midi_specs = ''
 
@@ -112,6 +111,9 @@ def error (msg):
 	if strict:
 		sys.exit (1)
 	
+
+def alphabet (i):
+	return chr (i + ord('A'))
 	
 def check_clef(s):
 	if not s:
@@ -164,12 +166,10 @@ def select_voice (name, rol):
 				elif keyword == "name":
 					value = re.sub ('\\\\','\\\\\\\\', value)
 					## < 2.2
-					##voices_append ("\\property Staff.instrument = %s\n" % value )
 					voices_append ("\\set Staff.instrument = %s\n" % value )
 					
 					__main__.part_names = 1
 				elif keyword == "sname" or keyword == "snm":
-					##voices_append ("\\property Staff.instr = %s\n" % value )
 					voices_append ("\\set Staff.instr = %s\n" % value )
 		else:
 			break
@@ -185,7 +185,7 @@ def dump_header (outf,hdr):
 
 def dump_lyrics (outf):
 	if (len(lyrics)):
-		outf.write("\n\\score\n{\n    \\context Lyrics\n    <<\n")
+		outf.write("\n\\score\n{\n \\lyrics\n <<\n")
 		for i in range (len (lyrics)):
 			outf.write ( lyrics [i])
 			outf.write ("\n")
@@ -196,7 +196,6 @@ def dump_default_bar (outf):
 	Nowadays abc2ly outputs explicits barlines (?)
 	"""
 	## < 2.2
-	##outf.write ("\n\\property Score.defaultBarType = \"empty\"\n")
 	outf.write ("\n\\set Score.defaultBarType = \"empty\"\n")
 
 
@@ -205,12 +204,12 @@ def dump_slyrics (outf):
 	ks.sort ()
 	for k in ks:
 		if re.match('[1-9]', k):
-			m = alphabet[string.atoi(k)]
+			m = chr(string.atoi(k) + 'A')
 		else:
 			m = k
 		for i in range (len(slyrics[voice_idx_dict[k]])):
-			l=alphabet[i]
-			outf.write ("\nwords%sV%s =   {" % (m, l))
+			l= alphabet(i)
+			outf.write ("\nwords%sV%s = \lyricmode {" % (m, l))
 			outf.write ("\n" + slyrics [voice_idx_dict[k]][i])
 			outf.write ("\n}")
 
@@ -220,7 +219,7 @@ def dump_voices (outf):
 	ks.sort ()
 	for k in ks:
 		if re.match ('[1-9]', k):
-			m = alphabet[string.atoi(k)]
+			m = chr(string.atoi(k) + 'A')
 		else:
 			m = k
 		outf.write ("\nvoice%s =  {" % m)
@@ -253,7 +252,9 @@ def try_parse_q(a):
 		sys.stderr.write("abc2ly: Warning, unable to parse Q specification: %s\n" % a)
         
 def dump_score (outf):
-	outf.write (r"""\score{
+	outf.write (r"""
+
+\score{
          <<
 """)
 
@@ -261,28 +262,28 @@ def dump_score (outf):
 	ks.sort ()
 	for k in  ks:
 		if re.match('[1-9]', k):
-			m = alphabet[string.atoi(k)]
+			m = alphabet (string.atoi(k))
 		else:
 			m = k
 		if k == 'default' and len (voice_idx_dict) > 1:
 			break
-		if len ( slyrics [voice_idx_dict[k]] ):
-			outf.write ("\n        \\addlyrics")
 		outf.write ("\n\t\\context Staff=\"%s\"\n\t{\n" %k ) 
 		if k != 'default':
 			outf.write ("\t    \\voicedefault\n")
 		outf.write ("\t    \\voice%s " % m)
 		outf.write ("\n\t}\n")
-		if len ( slyrics [voice_idx_dict[k]] ):
-			outf.write ("\n\t\\context Lyrics=\"%s\" \n\t<<\t" % k)
+
+		l = ord( 'A' )
+		for lyrics in slyrics [voice_idx_dict[k]]:
+			outf.write ("\n\t\\addlyrics { \n")
 			if re.match('[1-9]',k):
-				m = alphabet[string.atoi(k)]
+				m = alphabet (string.atoi(k))
 			else:
 				m = k
-			for i in range (len(slyrics[voice_idx_dict[k]])):
-				l=alphabet[i]
-				outf.write("\n\t  { \\words%sV%s }" % ( m, l) )
-			outf.write ( "\n\t>>\n" )
+
+			outf.write ( " \\words%sV%s } " % ( m, chr (l)) )
+			l += 1
+
 	outf.write ("\n    >>")
 	outf.write ("\n\t\\layout {\n")
 	if part_names:
@@ -644,12 +645,12 @@ def try_parse_header_line (ln, state):
 			if a == 'C':
 				if not state.common_time:
 					state.common_time = 1
-					voices_append ("\\property Staff.TimeSignature \\override #\'style = #'C\n")
+					voices_append (" \\override Staff.TimeSignature #\'style = #'C\n")
 				a = '4/4'
 			if a == 'C|':
 				if not state.common_time:
 					state.common_time = 1
-					voices_append ("\\property Staff.TimeSignature \\override #\'style = #'C\n")
+					voices_append ("\\override Staff.TimeSignature #\'style = #'C\n")
 				a = '2/2'
 			if not length_specified:
 				set_default_len_from_time_sig (a)
@@ -1386,6 +1387,8 @@ for f in files:
 		out_filename = os.path.basename (os.path.splitext (f)[0]) + ".ly"
 	sys.stderr.write ('lilypond output to: `%s\'...' % out_filename)
 	outf = open (out_filename, 'w')
+
+	outf.write ('\\version "2.3.25"\n')
 
 #	dump_global (outf)
 	dump_header (outf, header)
