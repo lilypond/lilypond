@@ -353,22 +353,18 @@ Fonts are  available in a default set of sizes: 11, 13, 16, 20, 23 and
 26pt staffheight.  Sizes of the text fonts and symbol fonts are made
 to match the staff dimensions.    
 
-FIXME
+@mudelafile[nonfragment]{size11.ly}
 
-@ignore
-@c nofly broken 
-@mudelafile[nofly]{size11.ly}
+@mudelafile[nonfragment]{size13.ly}
 
-@mudelafile[nofly]{size13.ly}
+@mudelafile[nonfragment]{size16.ly}
 
-@mudelafile[nofly]{size16.ly}
+@mudelafile[nonfragment]{size20.ly}
 
-@mudelafile[nofly]{size20.ly}
+@mudelafile[nonfragment]{size23.ly}
 
-@mudelafile[nofly]{size23.ly}
+@mudelafile[nonfragment]{size26.ly}
 
-@mudelafile[nofly]{size26.ly}
-@end ignore
 
 @section Clefs and Time Signatures
 
