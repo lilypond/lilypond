@@ -164,23 +164,6 @@ Melodic_req::pitch() const
     return  pitch_byte_a[ notename_i_ % 7 ] + accidental_i_ + octave_i_ * 12;
 }
 
-Plet_req::Plet_req()
-{
-    type_c_ = ']';
-    dur_i_ = 1;
-    type_i_ = 1;
-}
-
-IMPLEMENT_STATIC_NAME(Plet_req);
-
-void
-Plet_req::do_print() const
-{
-#ifndef NPRINT
-    mtor << "plet: " << type_c_ << ": " << dur_i_ << "/" << type_i_;
-#endif
-}
-
 /* *************** */
 int
 Rhythmic_req::compare(Rhythmic_req const &r1, Rhythmic_req const &r2)
@@ -283,24 +266,23 @@ Span_req::Span_req()
 }
 
 /* *************** */
-Script_req::Script_req(int d , Script_def*def)
+Script_req::Script_req(Script_req const&s)
 {
-    dir_i_ = d;
-    scriptdef_p_ = def;
+    dir_i_ = s.dir_i_;
+    scriptdef_p_ = s.scriptdef_p_ ? s.scriptdef_p_->clone() : 0;
 }
 
 int
 Script_req::compare(Script_req const &d1, Script_req const &d2)
 {
     return d1.dir_i_ == d2.dir_i_ &&
-	d1.scriptdef_p_->compare(*d2.scriptdef_p_);
+	d1.scriptdef_p_->equal_b(*d2.scriptdef_p_);
 }
 
-Script_req::Script_req(Script_req const &s)
-    : Request( s )
+Script_req::Script_req()
 {
-    dir_i_ = s.dir_i_;
-    scriptdef_p_ = new Script_def(*s.scriptdef_p_);
+    dir_i_ = 0;
+    scriptdef_p_ = 0;
 }
 
 IMPLEMENT_STATIC_NAME(Script_req);
@@ -312,6 +294,12 @@ Script_req::do_print() const
     scriptdef_p_->print();
 }
 
+void
+Musical_script_req::do_print() const
+{}
+
+IMPLEMENT_STATIC_NAME(Musical_script_req);
+
 
 Script_req::~Script_req()
 {
@@ -322,7 +310,7 @@ int
 Text_req:: compare(Text_req const &r1, Text_req const &r2)
 {
     bool b1 = (r1.dir_i_ == r2.dir_i_);
-    bool b2 = (r1.tdef_p_ ->compare(*r2.tdef_p_));
+    bool b2 = (r1.tdef_p_ ->equal_b(*r2.tdef_p_));
     return b1 && b2;
 }
 Text_req::~Text_req()
@@ -451,3 +439,5 @@ Span_dynamic_req::do_print()const
 }
 
 IMPLEMENT_STATIC_NAME(Tie_req);
+
+
