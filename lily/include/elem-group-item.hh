@@ -24,8 +24,8 @@ protected:
   virtual void do_unlink () { Horizontal_vertical_group_element::do_unlink (); }
   SCORE_ELEM_CLONE(Horizontal_vertical_group_item);
 public:
-  virtual void add_element (Score_elem*e) { Horizontal_vertical_group_element::add_element (e); }
-  virtual void remove_element (Score_elem*e) { Horizontal_vertical_group_element::remove_element (e); }
+  virtual void add_element (Graphical_element*e) { Horizontal_vertical_group_element::add_element (e); }
+  virtual void remove_element (Graphical_element*e) { Horizontal_vertical_group_element::remove_element (e); }
 
   DECLARE_MY_RUNTIME_TYPEINFO;
 };
