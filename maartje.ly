@@ -2,7 +2,9 @@
 
 
 score {
-%	output "maartje.uit"
+	paper {
+		unitspace 3 cm
+	}
 	rhythmstaff {
 		voice { $ c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 $ }
 	}
@@ -11,12 +13,11 @@ score {
 		r2 r4 r1
 	$ }
 	}
-	
-	bar 2  bar 3
-	bar 4.5 bar 5 bar 5.5
-	bar 6 bar 7 bar 8
-
-	meter 2 4 4 % after bars.
-
+	commands {
+		meter 4 4
+		skip 3:0
+		meter 2 4
+		skip 8:0
+	}
 }
 

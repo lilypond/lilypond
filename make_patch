@@ -28,4 +28,4 @@ fi
 #(cd $nm$old; touch depend; make clean)
 #(cd $nm$new; touch depend; make clean)
 (cd $nm$new; diff -P -c  ../$nm$old . > ../patch-$new)
-rm -rf $nm$old
+rm -rf $nm$old $nm$new
