@@ -1,4 +1,4 @@
-\input texinfo @c -*-texinfo-*-
+\input texinfo @c -*- coding: latin-1; mode: texinfo; -*-
 @setfilename lilypond.info
 @settitle GNU LilyPond
 @iftex
@@ -83,6 +83,9 @@ This document is also available in @uref{../lilypond.ps.gz,gzipped
 PostScript} and @uref{../lilypond.pdf,PDF}.
 @end ifhtml
 
+
+@documentlanguage en
+@documentencoding ISO-8859-1
 
 @syncodeindex fn cp
 @syncodeindex ky cp

@@ -19,6 +19,8 @@
 	    { c1 c1 } 
 	    \new Staff \with {
 		\remove "Time_signature_engraver"
+		fontSize = #-2
+		\override StaffSymbol #'staff-space = #(magstep -2)  
 	    } {
 		c,4^"ossia" es f fis g1
 	    }
@@ -26,7 +28,11 @@
 	  c1 \break c c }
 
 	%% solution 2
-	\new Staff { R1*2 c,4^"ossia" es f fis g1 R1 * 3 }
+	\new Staff \with {
+	    fontSize = #-2
+	    \override StaffSymbol #'staff-space = #(magstep -2)  
+	  
+	} { R1*2 c,4^"ossia" es f fis g1 R1 * 3 }
     >>
     
 

@@ -144,6 +144,9 @@
    ;; prepend GNU for dir, must be unique
    "\n* GNU " name ": (" file-name ").          " name "."
    "\n@end direntry"
+   "@documentlanguage en\n"
+   "@documentencoding ISO-8859-1\n"
+
    ))
 
 

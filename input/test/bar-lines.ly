@@ -10,6 +10,8 @@
 \layout { raggedright = ##t }
 
 \relative {
+    \override Score.Mark #'padding = #3
+    
     c4 \bar "|" \mark \markup {  \simple #"|" }
     c \bar "|:" \mark \markup {  \simple #"|:" }
     c \bar "||" \mark \markup {  \simple #"||" }
