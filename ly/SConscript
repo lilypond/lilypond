@@ -2,6 +2,6 @@
 
 Import ('env')
 sources = env['src_glob'] (env, '*.scm')
-dir = env['sharedir_package_version'] + '/ly'
+dir = env['DESTDIR'] + env['sharedir_package_version'] + '/ly'
 env.Install (dir, sources)
 env.Alias ('install', dir)

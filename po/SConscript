@@ -3,7 +3,7 @@
 Import ('env')
 pos = env['glob'] (env, '*.po')
 mos = map (env.MO, pos)
-dir = env['localedir']
+dir = env['DESTDIR'] + env['localedir']
 env.Install (dir, mos)
 env.Alias ('install', dir)
 

@@ -1,7 +1,7 @@
 2004-07-15  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* SConstruct (symlink): Add dvips and music-drawing-routines.ps.
-	(web_path): Fixes for webball.
+	(web_path): Fixes for webball.  Install fixes, add DESTDIR option.
 
 	* lily/slur.cc: Add quant-score to interface.  Fixes web build.
 

@@ -30,8 +30,9 @@ e.ParseConfig ('guile-config link')
 
 name = 'lilypond-bin'
 lily = e.Program (name, sources)
-env.Install (env['bindir'], lily)
-env.Alias ('install', env['bindir'])
+dir = env['DESTDIR'] + env['bindir']
+env.Install (dir, lily)
+env.Alias ('install', dir)
 
 po = env.Command ('lilypond.po', cc_sources + includes, env['pocommand'])
 env.Alias ('po-update', po)
