@@ -10,12 +10,28 @@
 #include "ly-module.hh"
 #include "output-def.hh"
 #include "modified-font-metric.hh"
+#include "pango-font.hh"
 
 Real
 output_scale (Output_def *od)
 {
   return scm_to_double (od->lookup_variable (ly_symbol2scm ("outputscale")));
 }
+
+
+SCM
+get_font_table (Output_def *def)
+{
+  SCM font_table = def->lookup_variable (ly_symbol2scm ("scaled-fonts"));
+  if (scm_hash_table_p (font_table) != SCM_BOOL_T)
+    {
+      font_table = scm_c_make_hash_table (11);
+      def->set_variable (ly_symbol2scm ("scaled-fonts"), font_table);
+    }
+  return font_table;
+}
+  
+
 
 /* TODO: should add nesting for Output_def here too. */
 Font_metric *
@@ -27,14 +43,9 @@ find_scaled_font (Output_def *mod, Font_metric *f, Real m,
   
   Real lookup_mag = m / output_scale (mod);
 
-
-  SCM font_table = mod->lookup_variable (ly_symbol2scm ("scaled-fonts"));
-  if (scm_hash_table_p (font_table) != SCM_BOOL_T)
-    {
-      font_table = scm_c_make_hash_table (11);
-      mod->set_variable (ly_symbol2scm ("scaled-fonts"), font_table);
-    }
   
+  
+  SCM font_table = get_font_table (mod);
   SCM sizes = scm_hashq_ref (font_table, f->self_scm (), SCM_BOOL_F);
   if (sizes != SCM_BOOL_F)
     {
@@ -92,7 +103,8 @@ LY_DEFINE (ly_paper_fonts, "ly:paper-fonts",
 	    {
 	      Font_metric *fm = unsmob_metrics (scm_cdar (t));
 
-	      if (dynamic_cast<Modified_font_metric*> (fm))
+	      if (dynamic_cast<Modified_font_metric*> (fm)
+		  || dynamic_cast<Pango_font*> (fm))
 		ell = scm_cons (fm->self_scm (), ell);
 	    }
 	}

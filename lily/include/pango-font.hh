@@ -24,7 +24,12 @@ struct Pango_font : Font_metric
   PangoContext *context_;
   PangoAttrList *attribute_list_;
   Real scale_;
+  SCM subfonts_;
 public:
+  virtual SCM sub_fonts () const;
+  SCM font_file_name () const;
+  virtual void derived_mark () const;
+  void register_font_file (String, String);
   Stencil text_stencil (String) const;
   Pango_font (PangoFT2FontMap *,
 	      int dpi, 
@@ -38,7 +43,10 @@ symbols_to_pango_font_description(SCM family,
 				  SCM variant,
 				  SCM weight,
 				  SCM stretch,
-				  SCM size);
+				  Real size);
+
+Font_metric *
+select_pango_font (Output_def *layout, SCM chain);
 
 #endif
 #endif /* PANGO_FONT_HH */

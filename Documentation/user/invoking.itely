@@ -57,7 +57,7 @@ information.
 
 
 @item -f,--format=@var{format}
-A comma separated list of back-end output formats to use.  Choices are
+the output format to use for the back-end.  Choices are
 @table @code
 @item tex
 for @TeX{} output, to be processed with La@TeX{}
@@ -65,7 +65,7 @@ for @TeX{} output, to be processed with La@TeX{}
  for PostScript
 @cindex PostScript output
 @item svg
- for SVG (Scalable Vector Graphics.)
+ for SVG (Scalable Vector Graphics)
 @cindex SVG (Scalable Vector Graphics)
 @item scm
  for a dump of the raw, internal Scheme-based drawing commands.

@@ -25,7 +25,7 @@ All_font_metrics::All_font_metrics (String path)
   tfm_dict_ = new Scheme_hash_table;
   otf_dict_ = new Scheme_hash_table;
 
-#ifdef HAVE_PANGO16
+#if HAVE_PANGO_FT2
   PangoFontMap*pfm =     pango_ft2_font_map_new ();
 
   pango_ft2_fontmap_ =
@@ -53,7 +53,7 @@ All_font_metrics::All_font_metrics (All_font_metrics const&)
 {
 }
 
-#ifdef HAVE_PANGO16
+#if HAVE_PANGO_FT2
 Pango_font *
 All_font_metrics::find_pango_font (PangoFontDescription*description)
 {

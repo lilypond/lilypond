@@ -11,12 +11,16 @@
 
 #include <math.h>
 
+#include "main.hh" 
+#include "config.hh"
+#include "pango-font.hh"
 #include "warn.hh"
 #include "grob.hh"
 #include "font-interface.hh"
 #include "output-def.hh"
 #include "modified-font-metric.hh"
 #include "ly-module.hh"
+
 
 MAKE_SCHEME_CALLBACK (Text_interface, interpret_string, 4)
 SCM
@@ -32,12 +36,17 @@ Text_interface::interpret_string (SCM layout_smob,
 
   String str = ly_scm2string (markup);
 
-#if 0
+#if HAVE_PANGO_FT2
+  if (output_format_global != "tex")
+    {
+      Font_metric *fm = select_pango_font (layout, props);
+      return fm->text_stencil (str).smobbed_copy ();
+    }
+#endif
+  
   SCM_ASSERT_TYPE (input_encoding == SCM_EOL || scm_is_symbol (input_encoding),
 		   input_encoding, SCM_ARG2, __FUNCTION__, "symbol");
-  
 
-  String str = ly_scm2string (markup);
   if (!scm_is_symbol (input_encoding))
     {
       SCM enc = layout->lookup_variable (ly_symbol2scm ("inputencoding"));
@@ -49,32 +58,8 @@ Text_interface::interpret_string (SCM layout_smob,
   
   Font_metric *fm = select_encoded_font (layout, props, input_encoding);
 
-  SCM lst = SCM_EOL;      
-  Box b;
-  if (Modified_font_metric* mf = dynamic_cast<Modified_font_metric*> (fm))
-    {
-      lst = scm_list_3 (ly_symbol2scm ("text"),
-			mf->self_scm (),
-			markup);
-	
-      b = mf->text_dimension (str);
-    }
-  else
-    {
-      /* ARGH. */
-      programming_error ("Must have Modified_font_metric for text.");
-      scm_display (fm->description_, scm_current_error_port ());
-    }
-      
-  return Stencil (b, lst).smobbed_copy ();
-#else
-  
-  
-  Font_metric *fm = select_encoded_font (layout, props, input_encoding);
-  return fm->text_stencil (str).smobbed_copy (); 
-#endif
+  return fm->text_stencil (str).smobbed_copy();
 }
-
 
 MAKE_SCHEME_CALLBACK (Text_interface, interpret_markup, 3)
 SCM
