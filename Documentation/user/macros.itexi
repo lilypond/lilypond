@@ -46,7 +46,8 @@
 @unnumberedsubsubsection \word\
 @end macro
 
-@end ignore
-
 @macro c_ {word}
 @end macro
+
+@end ignore
+

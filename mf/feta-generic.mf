@@ -1,4 +1,4 @@
-i% 
+% 
 % feta-generic.mf --  implement generic stuff: include lots of files, but don't
 %  set dims.
 %
