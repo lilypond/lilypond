@@ -22,6 +22,6 @@
 % insert a score otherwise lilypond-book gets confused. 
 \score {
   \notes {
-  c4
+  c'4
   }
 } 
