@@ -19,10 +19,16 @@ void
 Text_spanner::set_support (Directional_spanner*d)
 {
   if (support_span_l_)
-	remove_dependency (support_span_l_);
+    remove_dependency (support_span_l_);
   
   support_span_l_ =d;
   add_dependency (d);
+}
+void
+Text_spanner::do_add_processing ()
+{
+  set_bounds (LEFT, support_span_l_->spanned_drul_[LEFT]);
+  set_bounds (RIGHT, support_span_l_->spanned_drul_[RIGHT]);
 }
 
 Text_spanner::Text_spanner()

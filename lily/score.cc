@@ -17,8 +17,9 @@
 #include "global-translator.hh"
 #include "header.hh"
 #include "cpu-timer.hh"
+#include "main.hh"
+#include "paper-def.hh"
 
-extern String default_out_fn;
 
 Score::Score()
 {
@@ -75,11 +76,14 @@ Score::run_translator (Music_output_def *odef_l)
 	{
 	  w = iter->next_moment();
 	  DOUT << "proccing: " << w <<"\n";
-	  iter->print();
+	  if (!monitor->silent_b ("walking"))
+	    iter->print();
 	}
+      
       trans_p->modify_next (w);
       trans_p->prepare (w);
-      trans_p->print();
+      if (!monitor->silent_b ("walking"))
+	trans_p->print();
 
       iter->process_and_next (w);
       trans_p->process();
@@ -100,7 +104,6 @@ Score::run_translator (Music_output_def *odef_l)
 
 
   output->header_l_ = header_p_;
-  output->default_out_str_ = default_out_fn;
   output->origin_str_ =  location_str();
 
   *mlog << endl;
@@ -116,9 +119,13 @@ Score::process()
 
   print();
   for (int i=0; i < def_p_arr_.size (); i++)
-    run_translator (def_p_arr_[i]);
+    {
+      if (no_paper_global_b 
+	  && def_p_arr_[i]->is_type_b (Paper_def::static_name ()))
+	continue;
+      run_translator (def_p_arr_[i]);
+    }
 }
-
 
 
 

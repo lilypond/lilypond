@@ -7,20 +7,16 @@ Most of the items are marked in the code as well, with full explanation.
 grep for TODO and ugh/ugr
 
 0.2:
-	* -M bug
 
-	* unended beam: [c4
+	* beam quanting
 
-	* continued hairpins
+	* disable spaces in TeX stuff
 
 	* height of dyns.
 	
-	* output naming:
-	- default to basename[-serialnumber].{midi,tex}
-	
 	* handle ^C for tmp/file creation.
 
-	* PS for beams.
+	* WWW mirror/archive for the mailing lists.
 
 	* dots & rest collisions.
 
@@ -32,17 +28,11 @@ grep for TODO and ugh/ugr
 	
 	* documentation
 
-	* spurious "Junk beam" warnings
-
-	* standchen: warning: Excentric column (Meter dims?)
-
 	* naming Mozarella, Madeira, Muella?
 
 	* versioning for Feta
 
 	* bf: abbrevs over whole note
-
-	* bf: wtk1-fug2 ending
 
 STUFF
 
@@ -71,13 +61,18 @@ STUFF
 	- MIDI instrument
 	- staff title
 
-	* optimal pagebreaking.
+	* page handling:
+	- papersizes
+	- PS output
+	- optimal pagebreaking.
 
 	* put errorlevel in Input class
 
 	* AFM for font input?
 
 3RD PARTY BUGS:
+
+	* xdvi: PS magnifying glass.
 
 	* Rational infty(HUGE_VAL) on glibc / w32
 
@@ -93,14 +88,11 @@ PROJECTS
 
 	* Spring_spacer:
 	- write a faster Spring_spacer (without matrices if possible)
-	- use straight QP to find minimal "fitting force"
+	- use straight LP to find minimal "fitting force"
 	- relate energybound to linelen unitspace fontsize etc.
 	- used fixed point fp
 
 	* \header
-	- write perl/python script for handling it into databases
-	- write TeX macros to generate titles
-	- adapt make-website to use \header info.
 	- output header info to MIDI too.
 
 
@@ -296,8 +288,6 @@ SMALLISH PROJECTS
 	* half-sharps, half-flats
 
 	* adaptive accidental spacing.
-
-	* unix style paths for LILYINCLUDE env
 
 	* handle EOF graciously in error messages.
 

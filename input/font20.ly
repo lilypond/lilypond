@@ -1,7 +1,16 @@
+%	 "This file is a stub to fool make-website"
+
 \header{
-TestedFeatures =	 "This file is a stub to fool make-website"
-	"this will display the 20pt version of the proofsheet";
+title= "The Feta font";
+subtitle = "proofsheet"; 
+enteredby =	 "jcn";
+copyright =	 "public domain";
+description = "This file tests the Feta music-font";
+TestedFeatures =	 
+	 "(Feta definitively is not an abbreviation of Font-En-TjA)";
 }
+
+
 
 
 

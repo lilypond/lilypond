@@ -8,7 +8,7 @@
   TODO
   This doth suck. We should have PS output, and read spacing info from TFMs
 
-  Glissando, bracket
+  Glissando, 
 
 */
 
@@ -157,7 +157,7 @@ Lookup::streepje (int type) const
 }
 
 Atom
-Lookup::hairpin (Real &wid, bool decresc) const
+Lookup::hairpin (Real &wid, bool decresc, bool continued) const
 {
   bool embedded_b = postscript_global_b;
   String embed;
@@ -167,7 +167,8 @@ Lookup::hairpin (Real &wid, bool decresc) const
       Real height = 2 PT;
       embed = "\\embeddedps{\n" ;
       embed += String (wid) + " " 
-	+ String (height)
+	+ String (height) + " " 
+	+ String (continued ? height/2 : 0) + 
 	+ " draw_"  + String(decresc ? "de" : "") + "cresc}\n";
       ret.tex_ = embed;
     }
@@ -237,7 +238,7 @@ Lookup::vbrace (Real &y) const
   Interval ydims = brace.dim_[Y_AXIS];
   Real min_y = ydims[LEFT];
   Real max_y = ydims[RIGHT];
-  Real step = 2.0 PT;
+  Real step = 1.0 PT;
  
   if (y < min_y)
     {

@@ -19,8 +19,6 @@ MIDI file.  Features include multiple staffs, meters,
 clefs, keys, lyrics, versatile input-language, 
 cadenzas, beams, slurs, triplets.
 
-[you need the musixtex fonts to use LilyPond]
-
 %prep
 %setup
 %build

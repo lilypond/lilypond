@@ -8,15 +8,6 @@ language.pod -- state of the art mudela-vapourware.
 implementation progresses. If you want to see our previous musings,
 take out an old version of lilypond]
 
-here are some thoughts on the language. Most of the examples are in
-pseudo current mudela.  Some stuff gratuitously taken from your mails.
-
-
-=head1 NOTE
-
-I dislike vapourware. That's why I oppose to concrete plans on how to
-do input for features we don't know how to produce on paper 
-
 =head1 REQUIREMENTS
 
 =head1 CONCRETE PROPOSALS
@@ -24,39 +15,10 @@ do input for features we don't know how to produce on paper
 
 =head1 Decisions (Sat 1997-3-15, dommelpijpje no21)
 
-=over 4
-
-=item *
-
-abbrev: [c2 c2]\noplet{1/2} (wat bout [c2 c2]1/2\noplet?),
-
-=item *
-
-abbrev: c4=16 (heu, =?),
-
-=item *
-
-plet === midi-note: c4*2/3; c4*385/384,
-
-=item *
-
-drop \music,
-
-=item *
-
-\meter compulsory in Simple mudela,
-
-=item *
-
-C<+> is  merge
 
 
-=item *
 
 	\extract{ \from 2:3*4 \to 5 oboe }
-
-=back
-
 
 
 =head1 THOUGHTS
@@ -101,14 +63,6 @@ As simple fix, we might do key declarations:
 
 
 
-[LOOSE THOUGHT]
-
-We might drop this {} argument altogether, by merely enforcing
-that each "statement" (music,score,staff,chord) takes a LIST as
-argument, and use the {} to group lists. This is admittedly perl. This
-is very sketchy.
-
-
 =head2 Requests
 
 I want to give the user some access to the internals. Technically,
@@ -124,25 +78,6 @@ mudela to LilyPond. That I don't mind, but it hampers
 portability. Suppose some commercial systems want to read mudela too.
 
 =head2 Command placement:
-
-Mats is an arduous fan of having the commands inside music. I am
-not. I see the Mudela music as something which can be plugged into
-different staffs, transposed, translated in time, copied, quoted,
-etc. Encouraging "inline" commands would be bad since they hinder this
-reuse of typed music.
-
-The way I figure it, the bad part is essentially counting
-bars/wholes. Maybe we can get rid of it, by reinstalling the "mark"
-commands.
-
-I definitely want  to avoid complicated logic  ("Hey there is  another
-bar request, should we merge this bar with another staff's", this kind
-of "smartness" makes a  lot M$ software inconsistent) inside LilyPond,
-by making the input unambiguous in this respect.
-
-There is another complication: some symbols (bars) sometimes are
-linked across staffs. I should first think of a way to do this in
-LilyPond, before even considering a syntax.
 
 
 =head2 Volta
@@ -192,7 +127,6 @@ editions:
 Just ideas:
 
 	|| && !		filter syntax 
-	+		merging of voices
 
 =head2 Quoting
 

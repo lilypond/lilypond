@@ -50,26 +50,37 @@ Beam_engraver::do_try_request(Request*r)
 void
 Beam_engraver::do_process_requests()
 {
-  if ( !beam_p_ && span_reqs_drul_[LEFT]) {
-    current_grouping_p_ = new Rhythmic_grouping;
-    beam_p_ = new Beam;
-    if (span_reqs_drul_[LEFT]->nplet)
-      {
-	plet_spanner_p_ = new Text_spanner();
-	Text_def *defp = new Text_def;
-	plet_spanner_p_->set_support (beam_p_);
-
-	// ugh
-	plet_spanner_p_->set_bounds (LEFT, get_staff_info ().command_pcol_l ());
+  if ( !beam_p_ && span_reqs_drul_[LEFT])
+    {
+      current_grouping_p_ = new Rhythmic_grouping;
+      beam_p_ = new Beam;
+      if (span_reqs_drul_[LEFT]->nplet)
+	{
+	  plet_spanner_p_ = new Text_spanner;
+	  Text_def *defp = new Text_def;
+	  plet_spanner_p_->set_support (beam_p_);
 	
-	defp->align_i_ = 0;
-	defp->text_str_ = span_reqs_drul_[LEFT]->nplet;
-	defp->style_str_="italic";
-	plet_spanner_p_->spec_p_  = defp;
-	announce_element (Score_elem_info(plet_spanner_p_,0));
-      }
-    announce_element (Score_elem_info (beam_p_, span_reqs_drul_[LEFT]));
-  }
+	  defp->align_i_ = 0;
+	  defp->text_str_ = span_reqs_drul_[LEFT]->nplet;
+	  defp->style_str_="italic";
+	  plet_spanner_p_->spec_p_  = defp;
+	  announce_element (Score_elem_info(plet_spanner_p_,0));
+	}
+
+      Scalar prop = get_property ("beamslopedamping");
+      if (prop.isnum_b ()) 
+	{
+	  beam_p_->damping_i_ = prop;
+	}
+
+      prop = get_property ("beamquantisaton");
+      if (prop.isnum_b ()) 
+	{
+	  beam_p_->quantisation_ = (Beam::Quantise)(int)prop;
+	}
+     
+      announce_element (Score_elem_info (beam_p_, span_reqs_drul_[LEFT]));
+    }
 }
 
 void

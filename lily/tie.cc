@@ -61,13 +61,16 @@ void
 Tie::do_post_processing()
 {
   Real nw_f = paper()->note_width ();
+  Real space_f = paper()->interline_f ();
   assert (head_l_drul_[LEFT] || head_l_drul_[RIGHT]);
 
   Direction d = LEFT;
   do
     {
-      pos_i_drul_[d] =  (head_l_drul_[d])?
-	head_l_drul_[d]->position_i_ : head_l_drul_[(Direction)-d]->position_i_;
+      dy_f_drul_[d] =  
+	.5 *space_f * (head_l_drul_[d] 
+		       ? head_l_drul_[d]->position_i_
+		       : head_l_drul_[(Direction)-d]->position_i_);
     }
   while ((d *= -1) != LEFT);
 
@@ -75,16 +78,16 @@ Tie::do_post_processing()
     {
       if (head_l_drul_[d] && head_l_drul_[d]->extremal_i_)
 	{
-	  pos_i_drul_[d] += 2*dir_;
-	  dx_f_drul_[d] += d * 0.25;
+	  dy_f_drul_[d] += dir_ * space_f;
+	  dx_f_drul_[d] += d * 0.25 * nw_f;
 	}
       else if (head_l_drul_[d])
-	dx_f_drul_[d] += d*0.5;
+	dx_f_drul_[d] += d*0.5 * nw_f;
       else
 	{
-	  pos_i_drul_[d] = pos_i_drul_[(Direction) -d];
-	  dx_f_drul_[d] = -d
-	    *(spanned_drul_[d]->width ().length ()/nw_f -0.5);
+	  dy_f_drul_[d] = dy_f_drul_[(Direction) -d];
+	  dx_f_drul_[d] = -d *(spanned_drul_[d]->width ().length () 
+			       -0.5* nw_f);
 	}
     }
   while ((d *= -1) != LEFT);

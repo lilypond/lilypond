@@ -38,7 +38,6 @@ Paper_def::Paper_def (Paper_def const&s)
   lookup_p_ = s.lookup_p_? new Lookup (*s.lookup_p_) : 0;
   lookup_p_->paper_l_ = this;
   real_vars_p_ = new Dictionary<Real> (*s.real_vars_p_);
-  outfile_str_ = s.outfile_str_;
 }
 
 void
@@ -143,7 +142,6 @@ Paper_def::print() const
 #ifndef NPRINT
   Music_output_def::print ();
   DOUT << "Paper {";
-  DOUT << "out: " <<outfile_str_;
   lookup_p_->print();
   for (Assoc_iter<String,Real> i (*real_vars_p_); i.ok(); i++)
     {
@@ -165,10 +163,17 @@ IMPLEMENT_IS_TYPE_B1(Paper_def, Music_output_def);
 String
 Paper_def::TeX_output_settings_str () const
 {
-  
   String s("\n ");
   s +=  lookup_p_->texsetting + "%(Tex id)\n";
   for (Assoc_iter<String,Real> i (*real_vars_p_); i.ok(); i++)
     s += String ("\\def\\mudelapaper") + i.key () + "{" + i.val () + "}\n";
   return s;
+}
+
+int Paper_def::default_count_i_ = 0;
+
+int
+Paper_def::get_next_default_count () const
+{
+  return default_count_i_ ++;
 }

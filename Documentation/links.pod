@@ -65,13 +65,13 @@ The following newsgroups all contain material relevant to LilyPond
 
 =over 4
 
-=item news:comp.music.research
+=item news://comp.music.research
 
-=item news:rec.music.compose
+=item news://rec.music.compose
 
-=item news:gnu.announce
+=item news://gnu.announce
 
-=item news:comp.os.linux.announce
+=item news://comp.os.linux.announce
 
 =back
 
@@ -82,30 +82,30 @@ mailing list have been setup:
 
 =over 4
 
-=item info-gnu-music@vuse.vanderbilt.edu
+=item info-gnu-music@gnu.org
 
 A moderated list for information on the GNU Music project, to
 subscribe: send mail with subject "subscribe" to
-info-gnu-music-request@vuse.vanderbilt.edu
+info-gnu-music-request@gnu.org
 
-=item help-gnu-music@vuse.vanderbilt.edu
+=item help-gnu-music@gnu.org
 
 For help with programs from the GNU music project. To subscribe: send
 mail with subject "subscribe" to
-help-gnu-music-request@vuse.vanderbilt.edu
+help-gnu-music-request@gnu.org
 
-=item bug-gnu-music@vuse.vanderbilt.edu
+=item bug-gnu-music@gnu.org
 
 If you have bugreports, you should send them to this list. If you want
 to read all bugreports, you should subscribe to this list.  To
 subscribe: send mail with subject "subscribe" to
-bug-gnu-music-request@vuse.vanderbilt.edu
+bug-gnu-music-request@gnu.org
 	
-=item gnu-music-discuss@vuse.vanderbilt.edu,
+=item gnu-music-discuss@gnu.org,
 
 For discussions concerning the GNU Music project, to subscribe: send
 mail with subject "subscribe" to
-gnu-music-discuss-request@vuse.vanderbilt.edu
+gnu-music-discuss-request@gnu.org
 
 =back
 

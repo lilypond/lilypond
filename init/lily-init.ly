@@ -16,7 +16,6 @@ Wordwrap = 0.0
 \include "paper16.ly"
 \include "paper20.ly"
 
-
 default_paper = \paper{
 	\paper_sixteen
 }
@@ -29,21 +28,8 @@ left = -1
 right = 1
 up = 1
 down = -1
+% zillie spellink?
 center=0
 
-
-stemup = {
-	\skip 1*0;
-	% Stupid hack to make < { \stemup } > work
-	\property Voice.ydirection = \up 
-	}
-stemboth= {
-	\skip 1*0;
-	\property Voice.ydirection = \center
-}
-stemdown = { 	
-	\skip 1*0;
-	\property Voice.ydirection = \down
-}
-
+\include "property.ly"
 

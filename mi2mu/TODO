@@ -6,6 +6,8 @@ grep for TODO and ugh/ugr
 
 IMPORTANT
 
+	* if multiple channels per track: output each to separate voice
+
 	* get rid of (last few?) midi-specifics in mudela-*
 
 	* find / remove trend (tempo) of mudela columns

@@ -132,7 +132,7 @@ ESCAPED		[nt\\'"]
 	String s (YYText ()+1);
 	s = s.left_str (s.length_i ()-1);
 	DOUT << "#include `" << s << "\'\n";
-	new_input (s,source_l_g);
+	new_input (s,source_global_l);
 	yy_pop_state ();
 }
 <incl>\"[^"]*   { // backup rule

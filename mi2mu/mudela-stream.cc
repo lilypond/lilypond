@@ -46,7 +46,7 @@ Mudela_stream::operator << (String str)
       if  (!i)
 	i = str.length_i();
       String word = str.left_str (i);
-      str = str.mid_str (i, str.length_i());
+      str = str.cut (i, str.length_i());
       output_wrapped (word);
     }
   return *this;

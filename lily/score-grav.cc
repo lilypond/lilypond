@@ -131,16 +131,20 @@ Score_engraver::typeset_all()
 	  Spanner *s = elem_p->spanner ();
 	  pscore_p_->typeset_unbroken_spanner (s);
 
-	  /*
+
+
+	    	  /*
 	    do something sensible if spanner not 
 	    spanned on 2 items.
 	   */
 	  Direction d = LEFT;
 	  do {
 	    if (!s->spanned_drul_[d])
-	      s->set_bounds(d, command_column_l_);
+	      {
+		s->set_bounds(d, command_column_l_);
+		warning ("Unbound spanner");
+	      }
 	  } while ((d *= -1) != LEFT);
-	  
 	}
       else 
 	{

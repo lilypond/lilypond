@@ -10,22 +10,30 @@
 #include "directional-spanner.hh"
 #include "plist.hh"
 
-/** a beam connects multiple stems Beam adjusts the stems its owns to
-  make sure that they reach the beam and that point in the correct
-  direction */
+/** a beam connects multiple stems.
+
+  Beam adjusts the stems its owns to make sure that they reach the
+  beam and that point in the correct direction */
 class Beam:  public Directional_spanner {
 public:
   enum Pos { NONE, SIT = 1, STRADDLE = 2, HANG = 4, INTER = 8 };
+  // ugh, silly C++
+  enum Quantise { NUN, NORMAL, TRADITIONAL };
 
-  Link_array<Stem> stems;
+  Link_array<Stem> stems_;
   /// the slope of the beam in posns / point (dimension)   
-  Real slope_f;
+  Real slope_f_;
 
   /// position of leftmost end of beam  
-  Real left_y;
-   
+  Real left_y_;
+  /// should beam slope be damped? 0: no, 1: yes, 100000: horizontal beams
+  int damping_i_;
+  /// should beam pos / slope be quantised? 0: no, 1: yes, 2: traditional
+  Quantise quantisation_;
+  /// maximum number of beams (for opening-up of beam-spacing)
+  int multiple_i_;
 
-  /* *************** */
+
   DECLARE_MY_RUNTIME_TYPEINFO;
   Beam();
   void add (Stem*);

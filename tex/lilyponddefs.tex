@@ -53,7 +53,7 @@
 \newdimen\interlinedist
 \newdimen\stemthickness
 \newcount\n
-\newdimen\balkheight
+\newdimen\staffheight
 \newdimen\notewidth
 \newdimen\noteheight
 \newdimen\staffrulethickness
@@ -64,20 +64,32 @@
 % set fonts and primary dimensions
 % ugh
 \def\musixtwentydefs{
-        \balkheight=20pt
+        \staffheight=20pt
         \notewidth=7.15pt
         \noteheight=5pt
-        \musixtwentyfonts
-        \font\textmusic=cmmi12
+        \twentyfonts
         \musixcalc
 }
 
+\def\cmrtwenty{
+        \font\meterfont=cmbx15
+        \font\italicfont=cmti10
+        \font\musicmathfont=cmsy10
+        \font\normaltextfont=cmr10 %\textfont is a primitive
+        \font\smalltextfont=cmr8
+}
+\def\cmrsixteen{
+        \font\smalltextfont=cmr6
+        \font\normaltextfont=cmr8 %\textfont is a primitive
+        \font\meterfont=cmbx12
+        \font\italicfont=cmti8
+        \font\textmusic=cmmi10
+}
 \def\musixsixteendefs{
-        \balkheight=16pt
+        \staffheight=16pt
         \notewidth=5.93pt
         \noteheight=4pt
-        \musixsixteenfonts
-        \font\textmusic=cmmi10
+        \sixteenfonts
         \musixcalc
 }
 
@@ -96,9 +108,8 @@
 
 % this has to be synced with the font definition
 \def\musixcalc{
-        \interlinedist=\fontdimen5\musicfnt
         \smallspace=.3\interlinedist
-        \interstaffrule=\balkheight
+        \interstaffrule=\staffheight
         \divide\interstaffrule by 4
 
         %  [D.K.Roush & J.S.Gourlay] say this should be 0.072
@@ -115,19 +126,20 @@
 % stacked horizontal lines 
 
 \input dyndefs
+\input fetdefs
 
-\input taupindefs
+%\input taupindefs
 %\input eglerdefs
 
 
 \def\emptybar{}
 
-\def\defaultthinbar{\thinbar{\balkheight}}
-\def\defaultthickbar{\thickbar{\balkheight}}
+\def\defaultthinbar{\thinbar{\staffheight}}
+\def\defaultthickbar{\thickbar{\staffheight}}
 %? what-s wrong with rightalign?
 \def\repeatstopbar{\hss\rightalign{\repeatcolon\hskip2\smallspace\defaultthinbar\hskip\smallspace\defaultthickbar}}
 \def\repeatstartbar{\hbox{\defaultthickbar\kern\smallspace\defaultthinbar\kern2\smallspace\repeatcolon}}
-\def\repeatstopstart{\hbox{\repeatcolon\kern2\smallspace\defaultthinbar\kern\smallspace\defaultthickbar\kern\smallspace\defaultthickbar\kern\smallspace\defaultthinbar\kern2\smallspace\repeatcolon}}
+\def\repeatstopstart{\hbox{\repeatcolon\kern2\smallspace\defaultthickbar\kern\smallspace\defaultthickbar\kern2\smallspace\repeatcolon}}
 
 %compatibility
 \def\repeatbar{\repeatstopbar}

@@ -215,7 +215,7 @@ def draw_gclef (expr exact_center, reduction)=
 	
 	set_char_box(
 		left_space# +
-		-xpart exact_center + 1.1 * breapth_factor* reduced_il#, 
+		-xpart exact_center + 1.0 * breapth_factor* reduced_il#, 
 		right_space# +
 		xpart exact_center + .66 breapth_factor* reduced_il#,
 		-ypart exact_center + 3 * reduced_il#,

@@ -21,7 +21,7 @@ global =
     \melodic {
          \meter 4/4;                % should be \meter C
          \keyCminor 
-	 \skip 1*32;
+	 \skip 1*31;
 	 \bar "|."; |
     }
   

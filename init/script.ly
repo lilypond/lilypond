@@ -51,4 +51,6 @@ rftoe = \script { "ftoe" 0 0 1 0 0 }
 back = \script { "back" 0 -1 -1  0 0 }
 front = \script { "front" 0 -1 1 0 0 }
 
-trill =\script { "trill" 0 0 1 0 0 }
+trill =\script { "trill" 0 0 1 0 
+	2000   % be above text. 
+}

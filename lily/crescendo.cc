@@ -12,11 +12,12 @@
 #include "lookup.hh"
 #include "paper-def.hh"
 #include "debug.hh"
+#include "score-column.hh"
 
 Crescendo::Crescendo()
 {
   grow_dir_ =0;
-  dir_ = DOWN ;
+  dir_ = DOWN;
   dyn_b_drul_[LEFT] = dyn_b_drul_[RIGHT] =false;
 }
 
@@ -47,7 +48,16 @@ Crescendo::get_symbol() const
       w_dim = 0;
     }
 
-  return Atom (paper()->lookup_l ()->hairpin (w_dim, grow_dir_ < 0));
+  Drul_array<bool> broken;
+  Direction d = LEFT;
+  do {
+    Score_column* s = (Score_column* )spanned_drul_[d] ; // UGH
+    broken[d] = (!s->musical_b());
+  } while ((d *= -1) != LEFT);
+  
+
+  bool continued = broken[(Direction)-grow_dir_];
+  return Atom (paper()->lookup_l ()->hairpin (w_dim, grow_dir_ < 0, continued));
 }
 
 Molecule*

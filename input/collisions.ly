@@ -81,6 +81,7 @@ restsII = \melodic {
 	\two_voice_steminvert 
 	\three_voice  
 	\rests 
+	% UGH ! bug!
 	%\restsII 
 	}
 	

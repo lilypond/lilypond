@@ -19,6 +19,7 @@
 #include "debug.hh"
 #include "lookup.hh"
 #include "misc.hh"
+#include "main.hh"
 
 Atom
 Lookup::beam_element (int sidx, int widx, Real slope) const
@@ -51,8 +52,31 @@ Lookup::rule_symbol (Real height, Real width) const
   return bs;
 }
 
+Atom 
+Lookup::beam(Real &slope, Real width, Real y_thick) const
+{
+  if (postscript_global_b)
+    {
+      return ps_beam (slope, width, y_thick);
+    }
+  else
+    return tex_beam(slope, width);
+}
+
 Atom
-Lookup::beam (Real &slope, Real width) const
+Lookup::ps_beam (Real  slope, Real width, Real y_thickness)const
+{
+  Atom ret;
+  String ps(String (width) + " "+ String(slope) 
+	    + " " + String(y_thickness) + " draw_beam");
+  ret.tex_ = String("\\embeddedps{" + ps + "}");
+  ret.dim_[X_AXIS] = Interval(0, width);
+  ret.dim_[Y_AXIS] = Interval(0, slope * width + y_thickness);
+  return ret;
+}
+
+Atom
+Lookup::tex_beam (Real &slope, Real width) const
 {
   const Real MAX_SLOPE = 0.6;
   const Real SLOPES = 20.0;

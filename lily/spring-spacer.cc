@@ -20,7 +20,7 @@
 #include "paper-def.hh"
 #include "dimen.hh"
 #include "colhpos.hh"
-
+#include "main.hh"		// experimental_fietsers
 
 Vector
 Spring_spacer::default_solution() const
@@ -175,14 +175,8 @@ Spring_spacer::check_constraints (Vector v) const
   return true;
 }
 
-bool
-Spring_spacer::check_feasible() const
-{
-  Vector sol (try_initial_solution());
-  return check_constraints (sol);
-}
-
-/// generate a solution which obeys the min distances and fixed positions
+/// try to generate a solution which obeys the min distances and fixed
+/// positions
 Vector
 Spring_spacer::try_initial_solution() const
 {
@@ -198,10 +192,7 @@ Spring_spacer::try_initial_solution() const
 	    {
 	      Real r =initsol (i-1)  + cols[i-1].width_[RIGHT];
 	      if (initsol (i) < r)
-		{
-		  warning (_("overriding fixed position"));
 		  initsol (i) =r;
-		}
 	    }
 
 	}
@@ -219,14 +210,6 @@ Spring_spacer::try_initial_solution() const
 }
 
 
-
-Vector
-Spring_spacer::find_initial_solution() const
-{
-  Vector v (try_initial_solution());
-  assert (check_constraints (v));
-  return v;
-}
 
 // generate the matrices
 void
@@ -259,8 +242,6 @@ Spring_spacer::set_fixed_cols (Mixed_qp &qp) const
   for (int j=0; j < cols.size(); j++)
     if (cols[j].fixed())
       qp.add_fixed_var (j,cols[j].fixed_position());
-
-
 }
 
 // put the constraints into the LP problem
@@ -306,6 +287,7 @@ Spring_spacer::lower_bound_solution (Col_hpositions*positions) const
   start.fill (0.0);
   Vector solution_vec (lp.solve (start));
 
+  DOUT << "Lower bound sol: " << solution_vec;
   positions->energy_f_ = calculate_energy_f (solution_vec);
   positions->config = solution_vec;
   positions->satisfies_constraints_b_ = check_constraints (solution_vec);
@@ -314,26 +296,32 @@ Spring_spacer::lower_bound_solution (Col_hpositions*positions) const
 void
 Spring_spacer::solve (Col_hpositions*positions) const
 {
-  assert (check_feasible());
-
-  Mixed_qp lp (cols.size());
-  make_matrices (lp.quad,lp.lin, lp.const_term);
-  make_constraints (lp);
-  set_fixed_cols (lp);
-  Vector start=find_initial_solution();
-  Vector solution_vec (lp.solve (start));
-
-
-  positions->satisfies_constraints_b_ = check_constraints (solution_vec);
-  if (!positions->satisfies_constraints_b_)
+  Vector solution_try (try_initial_solution());
+  
+  if  (check_constraints (solution_try))
     {
-      WARN << _("solution doesn't satisfy constraints.\n") ;
-    }
-  position_loose_cols (solution_vec);
-  positions->energy_f_ = calculate_energy_f (solution_vec);
-  positions->config = solution_vec;
-  positions->error_col_l_arr_ = error_pcol_l_arr();
+      Mixed_qp lp (cols.size());
+      make_matrices (lp.quad,lp.lin, lp.const_term);
+      make_constraints (lp);
+      set_fixed_cols (lp);
 
+      Vector solution_vec (lp.solve (solution_try));
+
+
+      positions->satisfies_constraints_b_ = check_constraints (solution_vec);
+      if (!positions->satisfies_constraints_b_)
+	{
+	  WARN << _("solution doesn't satisfy constraints.\n") ;
+	}
+      position_loose_cols (solution_vec);
+      positions->energy_f_ = calculate_energy_f (solution_vec);
+      positions->config = solution_vec;
+      positions->error_col_l_arr_ = error_pcol_l_arr();
+    }
+  else
+    {
+      positions->set_stupid_solution (solution_try);
+    }
 }
 
 /**
@@ -445,8 +433,10 @@ Spring_spacer::get_ruling_durations(Array<Moment> &shortest_playing_arr,
 				    Array<Moment> &context_shortest_arr)
 {
   for (int i=0; i < cols.size(); i++)
-    scol_l (i)->preprocess();
-
+    {
+      scol_l (i)->preprocess();
+      scol_l (i)->print ();
+    }
   int start_context_i=0;
   Moment context_shortest = infinity_mom;
   context_shortest_arr.set_size(cols.size());
@@ -467,6 +457,7 @@ Spring_spacer::get_ruling_durations(Array<Moment> &shortest_playing_arr,
 	{
 	  context_shortest = context_shortest <? scol_l(i)->durations[0];
 	}
+      
       // ji was j, but triggered ICE
       for (int ji=i+1; ji --;)
 	{
@@ -517,23 +508,26 @@ Spring_spacer::calc_idealspacing()
   Array<Moment> context_shortest_arr;
   get_ruling_durations(shortest_playing_arr, context_shortest_arr);
 
+  Real interline_f = paper_l ()->interline_f ();
 
   Array<Real> ideal_arr_;
   Array<Real> hooke_arr_;
-  for (int i=0; i < cols.size(); i++){
+  for (int i=0; i < cols.size() - 1; i++){
     ideal_arr_.push (-1.0);
     hooke_arr_.push (1.0);
   }
 
+  /* 
+     First do all non-musical columns
+   */
   for (int i=0; i < cols.size(); i++)
     {
-      if (!scol_l (i)->musical_b())
+      if (!scol_l (i)->musical_b() && i+1 < cols.size())
 	{
 	  Real symbol_distance =cols[i].width_[RIGHT] + 2 PT;
 	  Real durational_distance = 0;
 
-	  if (i+1 < cols.size())
-	    {
+	  
 	      Moment delta_t =  scol_l (i+1)->when() - scol_l (i)->when () ;
 
 	      Real k=  paper_l()->arithmetic_constant(context_shortest_arr[i]);
@@ -543,12 +537,16 @@ Spring_spacer::calc_idealspacing()
 	      if (delta_t)
 		durational_distance =  paper_l()->duration_to_dist (delta_t,k);
 	      symbol_distance += -cols[i+1].width_[LEFT];
-	    }
+ 
 
 	  ideal_arr_[i] = symbol_distance >? durational_distance;
-	  hooke_arr_[i] = 2.0;
+	  hooke_arr_[i] = 1; //2.0;
 	}
     }
+
+  /* 
+     Then musicals
+     */
   for (int i=0; i < cols.size(); i++)
     {
       if (scol_l (i)->musical_b())
@@ -572,25 +570,71 @@ Spring_spacer::calc_idealspacing()
 	  Real dist = paper_l()->duration_to_dist (shortest_playing_len, k);
 	  dist *= delta_t / shortest_playing_len;
 
-	  /* all sorts of ugliness to avoid running into bars/clefs, but not taking
-	     extra space if this is not needed */
-	  if (!scol_l (i+1)->musical_b())
-	    {
-	      Real minimum_dist =  - cols[i+1].width_[LEFT] + 2 PT + cols[i].width_[RIGHT];
-	      if (ideal_arr_[i+1] + minimum_dist < dist)
-		{
-		  ideal_arr_[i] = dist - ideal_arr_[i+1];
-		  // hooke_arr_[i+1] =1.0;
-		} else {
-		  ideal_arr_[i] = minimum_dist;
-		}
+	  /*
+	     According to [Ross] and [Wanske], and from what i've seen:
+	     
+	     * whitespace at the begin of the bar should be fixed at 
+	     (about) one interline.
+	     [Ross]:
+	     when spacing gets real tight, a smaller fixed value may be 
+	     used, so that there are two discrete amounts of whitespace 
+	     possible at the begin of a bar; but this is not implemented 
+	     right now.
+	     
+	     * whitespace at the end of the bar is the normal amount of 
+	     "hinterfleish" that would have been used, had there been
+	     yet another note in the bar.  
+	     [Ross]:
+	     some editors argue that the bar line should not take any 
+	     space, not to hinder the flow of music spaced around a bar 
+	     line.  
+	     [Ross] and [Wanske] do not suggest this, however.  Further, 
+	     it introduces some spacing problems and think that it is ugly 
+	     too.
+	     [jcn]
+	   */
 
-	    } else
-	      ideal_arr_[i] = dist;
+	  /* 
+	     first musical column of bar
+	   */
+	  if (i && scol_l (i - 1)->breakable_b_)
+	    {
+	      // fixed: probably should set minimum (rod/spring)?
+	      cols[i-1].width_[RIGHT] += interline_f;
+	      // should adjust dist too?
+	      ideal_arr_[i-1] = ideal_arr_[i-1] >? interline_f;
+	    }
+
+	  /* 
+	     last musical column of bar
+	   */
+	  if (i + 1 < cols.size () && scol_l(i+1)->breakable_b_)
+	    {
+	      // hmm, how bout?
+	      dist = dist >? interline_f;
+
+	      /*
+	        uhuh, this code looks fine, already?
+		someone was junking this last "hinterfleisch" whitespace?!
+
+		but this seems to be fixed now :-)
+	       */
+	       // set minimum rod 
+	      cols[i].width_[RIGHT] += interline_f;
+	    }
+
+	  // ugh, do we need this?
+	  if (i < cols.size () - 1 && !scol_l (i + 1)->musical_b ())
+	    {
+	      Real minimum = -cols[i + 1].width_[LEFT] + cols[i].width_[RIGHT]
+		+ interline_f / 2;
+	      dist = dist >? minimum;
+	    }
+	  ideal_arr_[i] = dist;
 	}
     }
 
-  for (int i=0; i < ideal_arr_.size()-1; i++)
+  for (int i=0; i < ideal_arr_.size(); i++)
     {
       assert (ideal_arr_[i] >=0 && hooke_arr_[i] >=0);
       connect (i, i+1, ideal_arr_[i], hooke_arr_[i]);

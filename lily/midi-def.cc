@@ -23,7 +23,6 @@
 
 Midi_def::Midi_def()
 {
-  outfile_str_ = ""; 
   // ugh
   set_tempo (Moment (1, 4), 60);
 }
@@ -61,12 +60,19 @@ void
 Midi_def::print() const
 {
 #ifndef NPRINT
+  Music_output_def::print ();
   DOUT << "Midi {";
   DOUT << "4/min: " << Real (60) / (whole_in_seconds_mom_ * 4);
-  DOUT << "out: " << outfile_str_;
   DOUT << "}\n";
 #endif
 }
 
 
 IMPLEMENT_IS_TYPE_B1(Midi_def, Music_output_def);
+
+int Midi_def::default_count_i_=0;
+int
+Midi_def::get_next_default_count () const
+{
+  return default_count_i_++;
+}

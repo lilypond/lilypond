@@ -56,9 +56,6 @@ class Spring_spacer : public Line_spacer {
   /// generate an (nonoptimal) solution
   Vector find_initial_solution() const;
 
-  /// check if problem is too tight
-  bool check_feasible() const;
-
   /// does #this# contain the column #w#? 
   bool contains (Paper_column const *w);
 

@@ -13,6 +13,8 @@ InitLexer		1
 Lexer			1
 
 
+walking		1
+
 # flower lib
 File_path		1
 Matrix			1

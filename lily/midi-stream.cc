@@ -36,12 +36,12 @@ Midi_stream::~Midi_stream()
 Midi_stream&
 Midi_stream::operator <<(String str)
 {
-  if (check_debug && !monitor->silence("Midistrings"))
+  if (check_debug && !monitor->silent_b("Midistrings"))
     str = String_convert::bin2hex_str (str);
 
   *os_p_ << str;
 
-  if (check_debug && !monitor->silence("Midistrings"))
+  if (check_debug && !monitor->silent_b ("Midistrings"))
     *os_p_ << "\n";
 
   return *this;
@@ -52,7 +52,7 @@ Midi_stream::operator <<(Midi_item const& mitem_c_r)
 {
   //    *this << mitem_c_r.str();
   mitem_c_r.output (this);
-  if (check_debug && !monitor->silence("Midistrings"))
+  if (check_debug && !monitor->silent_b("Midistrings"))
     *os_p_ << "\n";
   return *this;
 }

@@ -10,7 +10,7 @@ TestedFeatures =	 "beams and beamflags";
 \version "0.1.7";
 
 \score{
-	\melodic \multi 3 < 
+	\melodic { \multi 3 < 
 		{ \octave c'; 
 			\meter 8/4;
 			\duration8;
@@ -23,6 +23,7 @@ TestedFeatures =	 "beams and beamflags";
 			\stemup [c c'' a' f']
 			\duration128;
 			\stemup [c c'' a' f']
+			r32
 
 			\duration 8;
 			\stemup ['g 'g 'g 'g]
@@ -34,9 +35,10 @@ TestedFeatures =	 "beams and beamflags";
 			\stemup ['g 'g 'g 'g]
 			\duration 128;
 			\stemup ['g 'g 'g 'g]
+			r32
 		}
 	
-	{ \octave c'; 
+	{ \octave c';  
 			\meter 8/4;
 			\duration8;
 			\stemdown [a' 'a c e]
@@ -48,6 +50,7 @@ TestedFeatures =	 "beams and beamflags";
 			\stemdown [a' 'a c e]
 			\duration128;
 			\stemdown [a' 'a c e]
+			r32
 
 			\octave c;
 			\duration 8;
@@ -60,7 +63,34 @@ TestedFeatures =	 "beams and beamflags";
 			\stemdown [d'' d'' d'' d'']
 			\duration 128;
 			\stemdown [d'' d'' d'' d'']
+			r32
+
+		} >
+		
+		{\duration "last";
+			% ugh, "duration mode"
+			
+			[g8 g] [a a] [b b] [c' c']
+			
+			[g16 g ] [a a] [b b] [c' c']
+			[g32 g] [a a] [b b] [c' c']
+			
+			[g64 g ] [c' c' ]
 		}
-	>}
+		{
+			\transpose d {
+			\octave c''';
+			| [g8 g] [a a] [b b] [c' c']
+			[g16 g ] [a a] [b b] [c' c']
+			[g32 g] [a a] [b b] [c' c']
+			[g64 g]
+			[c' c']
+			}
+		}
+	}
+	\paper{
+		gourlay_maxmeasures = 1.;
+	}
+}
 
 

@@ -34,9 +34,13 @@ sub gen_mufile
     return "$outdir/$outname$mudcount.ly";
 }
 
+sub gen_texbase
+{
+    return "$outname$mudcount.tex";
+}
 sub gen_texfile
 {
-    return "$outdir/$outname$mudcount.tex";
+    return "$outdir/" . gen_texbase;
 }
 
 sub close_mudela
@@ -64,7 +68,7 @@ sub close_mudela
     
     if ( ! -f gen_texfile) {
 	my_system "lilypond ". gen_mufile;
-	rename "lelie.tex", gen_texfile;
+	rename gen_texbase, gen_texfile;
     }
     print BOOK "\\preexample\\input " . gen_texfile . "\n\\postexample\n";
 	

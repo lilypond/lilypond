@@ -298,7 +298,7 @@ bool
 Span_req:: do_equal_b (Request*r) const
 {
   Span_req * s = r->span();
-  return spantype - s->spantype;
+  return spantype == s->spantype;
 }
 
 Span_req::Span_req()

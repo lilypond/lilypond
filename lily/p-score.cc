@@ -192,8 +192,15 @@ Paper_score::tex_output ()
   // output
   String outname = paper_l_->outfile_str_ ;
   if (outname.empty_b ())
-    outname = default_out_str_+ ".tex";
-
+    {
+      outname = default_outname_base_global;
+      int def = paper_l_->get_next_default_count ();
+      if (def)
+	{
+	  outname += "-" + String(def);
+	}
+      outname += ".tex";
+    }
   *mlog << _("TeX output to ") <<  outname << " ...\n";
 
   Tex_stream tex_out (outname);

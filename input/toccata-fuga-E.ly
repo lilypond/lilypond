@@ -1,8 +1,8 @@
 \header{
 filename =	 "toccata-fuga-E.ly";
 title =	 "toccata and fuga in E-major ";
-opus =	 "BWV 566"
-	 "toccata		3 bar excerpt"
+opus =	 "BWV 566";
+description = "toccata 3 bar excerpt, "
 	 "2nd fuga	transposed subject --- 4 bar excerpt";
 
 composer =	 "Johann Sebastian Bach (1685-1750)";

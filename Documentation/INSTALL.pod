@@ -13,8 +13,7 @@ You do something which looks remotely like
 	configure
 	make
 	make install
-	tar -C /usr/lib/texmf/fonts/source/ -zxf musixtex-T73.tgz 'mf/*'
-	
+
 The detailed instructions follow here.
 
 =head1 PREREQUISITES
@@ -63,28 +62,9 @@ TeX
 
 =item *
 
-The MusixTeX fonts (I included those found in MusixTeX T.73). Beware,
-the clef symbol seems to have changed its position in some versions,
-(notably Egler's, a.k.a. OpusTeX). The MusixTeX fonts are included in
-MusixTeX (T73 or better), which can be had from any CTAN site, e.g. at
-
-=over 4
-
-=item ftp://ftp.shsu.edu/tex-archive/macros/musixtex/taupin
-
-=item ftp://ftp.tex.ac.uk/tex-archive/macros/musixtex/taupin
-
-=item ftp://ftp.dante.de/tex-archive/macros/musixtex/taupin
+A PostScript printer and/or viewer (such as Ghostscript). 
 
 =back
-
-You only need the contents of the F<mf/> subdirectory of the
-package. The primary site of the Taupin version is
-ftp://hprib.lps.u-psud.fr/pub/music_zips/musixtex.zip
-
-Andreas Egler's version of MusixTeX, now called OpusTeX, will also
-work. Andreas moved some characters around in the fonts, so you have
-to edit the definitions in tex/eglerdefs.tex (patch appreciated)
 
 
 =head1 RECOMMENDED
@@ -167,35 +147,35 @@ other options include:
 
 =over 4
 
-=item --enable-shared
+=item B<--enable-shared>
 
 Make a shared library (gnu/linux, solaris (?) only ) 
 
-=item --enable-printing
+=item B<--enable-printing>
 
 Enable debugging print routines (lilypond B<-d> option)
 
-=item --enable-optimise
+=item B<--enable-optimise>
 
 Set maximum optimisation: compile with B<-O2>
 
-=item --enable-profiling
+=item B<--enable-profiling>
 
 Compile with support for profiling
 
-=item --enable-tex-prefix
+=item B<--enable-tex-prefix>
 
 Set the directory where TeX and Metafont live
 
-=item --enable-tex-dir
+=item B<--enable-tex-dir>
 
 Set then directory TeX input is in (detected as a subdir of tex-prefix)
 
-=item --enable-mf-dir
+=item B<--enable-mf-dir>
 
 Set the directory mf input is in (idem)
 
-=item --enable-out-dir
+=item B<--enable-out-dir>
 
 Set the directory for machine generated output.
 
@@ -248,17 +228,6 @@ If you have done a successful C<make>, then a simple
 
 should do the trick. 
 
-Install the musixtex fonts in a directory which TeX and MF knows (if
-you are root, look for a directory which contains the directories with
-AMS and CM source (*.mf) files. Create a subdir lilypond or musixtex
-and copy the fonts into that). Do not forget to rehash TeX (if
-applicable)
-
-Example: my fonts are in F</usr/local/lib/texfonts/musixtex/>, and I
-have a symlink pointing to that in
-F</usr/lib/texmf/texmf/fonts/source/public/>. After I copied the
-files, I ran "texhash"
-
 =head1 CAVEATS
 
 =over 5
@@ -268,9 +237,9 @@ files, I ran "texhash"
 The -O2 option to gcc triggers a gcc bug on DEC Alpha in dstream.cc. You
 should turn off this flag for this file.
 
-=item * 
+=item *
 
-Perl5.003 and Perl5.004 use different syntax for pod2html:
+Perl5.003 and Perl5.004 use different syntax for pod2html.
 
 =back
 
@@ -279,8 +248,8 @@ Perl5.003 and Perl5.004 use different syntax for pod2html:
 This is what I type in my xterm:
 
 	lilypond someinput.ly
-	tex lelie.tex
-	xdvi test&
+	tex someinput.tex
+	xdvi someinput&
 
 This is what the output looks like over here:
 
@@ -292,11 +261,11 @@ This is what the output looks like over here:
 	Preprocessing elements... 
 	Calculating column positions ... [14][25]
 	Postprocessing elements...
-	TeX output to lelie.tex ...
-	Creating MIDI elements ...MIDI output to lelie.midi ...
+	TeX output to someinput.tex ...
+	Creating MIDI elements ...MIDI output to someinput.midi ...
 
 
-	hw:~/musix/spacer$ xdvi lelie&
+	hw:~/musix/spacer$ xdvi someinput&
 	[1] 855
 
 Check out the input files, some of them have comments
@@ -305,15 +274,16 @@ Please refer to the man page for more information.
 =head1 REDHAT LINUX
 
 RedHat Linux users should be able to get a RPM. A spec file is in
-F<make/out/lilypond.spec>. You should be able to create an rpm as a normal
-user. Be sure you have a ~/.rpmrc, and edit the RPM-dir in
+F<make/out/lilypond.spec>. You should be able to create an rpm as a
+normal user. Be sure you have a F<~/.rpmrc>, and edit the RPM-dir in
 F<Variables.make>. (If you create the RPM as a normal user the
 permissions will not be set correctly, unfortunately)
 
 
 =head1 DEBIAN GNU/LINUX
 
-A Debian package is in the works
+A Debian package is also available; contact Anthony Fok
+<foka@debian.org>.  The build scripts are in the subdirectory debian/
 
 
 =head1 WINDOWS NT/95
@@ -332,6 +302,52 @@ B<Note> If you rely on broken DOS/Windows tools such as pkzip/WinZIP
 to unpack the distribution, make sure the B<entire> source tree 
 is unpacked correctly, in particular the empty out directories 
 (F<flower/out>, F<lib/out> et. al.)
+
+=head1 MUSIXTEX
+
+Previous versions (before 0.1.39) used fonts from the TeX macro
+package "MusixTeX".  You can still use these, but they are not
+supported.  Since LilyPond's Feta font is much prettier, you'd be
+stupid to use them, but anyway, here are the installation instructions
+for those deprecated fonts.
+
+
+[obsolete] I use the MusixTeX fonts those found in MusixTeX
+T.73. Beware, the clef symbol seems to have changed its position in
+some versions, (notably Egler's, a.k.a. OpusTeX). The MusixTeX fonts
+are included in MusixTeX (T73 or better), which can be had from any
+CTAN site, e.g. at
+
+=over 4
+
+=item ftp://ftp.shsu.edu/tex-archive/macros/musixtex/taupin
+
+=item ftp://ftp.tex.ac.uk/tex-archive/macros/musixtex/taupin
+
+=item ftp://ftp.dante.de/tex-archive/macros/musixtex/taupin
+
+=back 
+
+You only need the contents of the F<mf/> subdirectory of the
+package. The primary site of the Taupin version is
+ftp://hprib.lps.u-psud.fr/pub/music_zips/musixtex.zip
+
+Install the musixtex fonts in a directory which TeX and MF knows (if
+you are root, look for a directory which contains the directories with
+AMS and CM source (*.mf) files. Create a subdir lilypond or musixtex
+and copy the fonts into that). Do not forget to rehash TeX (if
+applicable)
+
+Example: my fonts are in F</usr/local/lib/texfonts/musixtex/>, and I
+have a symlink pointing to that in
+F</usr/lib/texmf/texmf/fonts/source/public/>. After I copied the
+files, I ran "texhash"
+
+Andreas Egler's version of MusixTeX, now called OpusTeX, will also
+work. Andreas moved some characters around in the fonts, so you have
+to edit the definitions in F<tex/eglerdefs.tex>.
+
+
 
 =head1 AUTHORS
 

@@ -34,7 +34,7 @@ SUBDIRS = bin flower lib lily mf mi2mu debian\
 # list of distribution files:
 #
 SCRIPTS = configure configure.in install-sh aclocal.m4
-README_FILES = BUGS DEDICATION ANNOUNCE COPYING ONEWS NEWS README TODO \
+README_FILES = BUGS DEDICATION ANNOUNCE-0.1 ANNOUNCE  COPYING ONEWS NEWS README TODO \
 	INSTALL.text AUTHORS.text
 EXTRA_DISTFILES = .dstreamrc mudela-mode.el VERSION $(README_FILES) $(SCRIPTS) $(SYMLINKS)
 

@@ -117,6 +117,7 @@ class Lilydirs:
 	return v
 
 
+
 lilydirs = Lilydirs()
 
 if __name__ == '__main__':
@@ -127,3 +128,56 @@ if __name__ == '__main__':
     print version_tuple_to_str(pv), prev_version(pv), next_version(pv)
     print version_tuple_to_str((0,1,1,''))    
     print mv, version_str_to_tuple(mv)
+
+
+    
+def dump_file(f, s):
+    i = open(f, 'w')
+    i.write(s)
+    i.close ()
+
+def gulp_file(f):
+    i = open(f)
+    i.seek (0, 2)
+    len = i.tell ()
+    i.seek (0,0)
+    return i.read (len)
+
+
+header_regex = regex.compile('\\header[ \t\n]*{\([^}]*\)}')
+header_entry_regex = regex.compile('[\n\t ]*\([^\n\t ]+\)[\n\t ]*=[\n \t]*\([^;]+\)[\n \t]*;')
+
+#
+# FIXME breaks on multiple strings.
+#
+def read_mudela_header (fn):
+    s = gulp_file(fn)
+    s = regsub.gsub('%.*$', '', s)
+    s = regsub.gsub('\n', ' ', s)    
+
+    dict = {}
+    if header_regex.search(s) <> -1:
+	h = header_regex.group(1)
+    else:
+	return dict
+
+    while regex.search('=', h) <> -1: 
+
+	if header_entry_regex.search (h) == -1:
+
+	    raise 'format error'
+
+	h = regsub.sub(header_entry_regex, '', h)
+	left = header_entry_regex.group(1)
+	right = header_entry_regex.group(2)
+
+	right = regsub.gsub('\([^\\]\)\"', '\\1', right)
+	right = regsub.gsub('^"', '', right)	
+	left = regsub.gsub('\([^\\]\)\"', '', left)
+	left = regsub.gsub('^"', '', left)
+
+	dict[left] = right
+
+    return dict
+   
+	

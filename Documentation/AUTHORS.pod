@@ -36,16 +36,19 @@ logs/longa/brevis etc
 
 TeX titling and lytodvi.sh
 
+=item * Shay Rojanski
+
+Some mudela source.
+
 =item * Werner Lemberg <xlwy01@uxp1.hrz.uni-dortmund.de>,
 
-misc bugfixes, some
-Beam and Stem code. 
+misc bugfixes, some Beam and Stem code. 
 
 =item * Donald Ervin Knuth, http://www.cs.stanford.edu/~?
 
 mf/ital-*.mf (these were taken from the CM fonts)
 
-=item * Alexandre Oliva <oliva@dcc.unicamp.br>, http://?.unicamp.br/
+=item * Alexandre Oliva <oliva@dcc.unicamp.br>, http://sunsite.unicamp.br/?
 
 testing
 
@@ -60,6 +63,10 @@ Documentation/Vocab*, internationalization stuff
 =item *  Neil Jerram <nj104@cus.cam.ac.uk>. 
 
 Documentation/Vocab*
+
+=item * David R. Linn <drl@vuse.vanderbilt.edu>,
+
+Mailing list maintenance.
 
 =back
 

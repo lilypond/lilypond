@@ -115,8 +115,18 @@ Performance::process()
 
   String out=midi_l_->outfile_str_;
   if (out.empty_b ())
-    out = default_out_str_ + ".midi";
+    {
+      
+      out = default_outname_base_global;
+      int def = midi_l_->get_next_default_count ();
+      if (def)
+	{
+	  out += "-" + String(def);
+	}
 
+      out += ".midi";
+    }
+  
   Midi_stream midi_stream (out);
   *mlog << _("MIDI output to ") << out<< " ..." << endl;
 

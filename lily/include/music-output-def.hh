@@ -37,6 +37,7 @@ public:
   void assign_translator (String, Translator*);
   String outfile_str_;
   Translator * find_translator_l (String) const;
+  virtual int get_next_default_count () const;
 };
 
 #endif // Music_output_DEF_HH

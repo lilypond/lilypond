@@ -3,7 +3,7 @@
 
 staffsize#:=20pt#;
 
-input autometric;
+input feta-autometric;
 fet_beginfont("feta", 20);
 
 % AFBLIJVEN! Gebruik feta-test16/20, anders verneuk je de distributie.

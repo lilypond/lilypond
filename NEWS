@@ -1,3 +1,45 @@
+pl 39
+	- 0.2 ANNOUNCE sketch
+	- unix style paths for LILYINCLUDE env
+	- show all output pages on website
+	- ps-to-gifs.sh
+	- bf: wtk1-fugue2
+	- python make-website
+	- higher brace resolution 
+	- phased out musixtex stuff
+	- bf: rhythm.ly
+	- PS slurs
+	- PS beams
+	- Bow units
+	- turn on PS by default
+	- turn off barnumbers by default.
+	- bf: halfbeam size.
+	- bf: -M bug
+	- stafflinethick in PS (crescendi)
+	- continued (de)crescendi (in PS)
+	- bf: spurious beam reqs
+	- handle unfeasible spacing cleanly. 
+	- ML-address change
+	- output naming: default to basename[-serialnumber].{midi,tex}
+	- bf: clef width
+
+pl 39.jcn2
+	- make-examples.sh
+	- leftright repeat sign + repeatbar dims
+	- smaller minimum sized rod at end of bar
+	- bf: spacing.ly 
+	- less space at begin of bar
+	- experimental whitespace fixes at begin and end of bar
+	- added to beams.ly
+	- open-up beam spacing for mult > 3
+	- fixed hang/sit to overlap iso aligne with staffline
+	- fixed inter beam spacing, paper*.ly
+	- scsii-menuetto.ly fixes
+	- init/property.ly
+	- property settings for beam quantiseing and damping
+	- provisionary multiple-beam fix
+
+******
 pl 38
 	- bf: \> \! \ff (crescendo overlap)
 	- misc feta-fixes, flageolet sign.

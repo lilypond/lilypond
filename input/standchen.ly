@@ -493,8 +493,9 @@ themusic =
 	\paper{
 		\paper_twenty
 		% 20pt music uses whole pagewidth
-		% ja Vette Pech.  Koop maar aan A4 printer
-		linewidth= 185.\mm;
+		% ja Vette Pech.  Koop maar een A3 printer
+		% huh? [jcn]
+		linewidth= 195.\mm;
 		arithmetic_multiplier = 7.\pt;
 		
 		gourlay_maxmeasures = 9.;

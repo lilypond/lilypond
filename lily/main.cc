@@ -21,10 +21,11 @@
 #include "my-lily-parser.hh"
 
 static bool version_ignore_b = false;
-Sources* source_l_g = 0;
-bool only_midi = false;
+Sources* source_global_l = 0;
+bool no_paper_global_b = false;
+
 bool experimental_features_global_b = false;
-bool postscript_global_b = false;
+bool postscript_global_b = true;
 int exit_status_i_;
 
 void destill_inname (String &name_str_r);
@@ -37,8 +38,8 @@ Long_option_init theopts[] = {
   {0, "debug", 'd'},
   {1, "init", 'i'},
   {1, "include", 'I'},
-  {0, "midi", 'M'},
-  {0, "postscript", 'p'},
+  {0, "no-midi", 'M'},
+  {0, "no-postscript", 'P'},
   {0, "ignore-version", 'V'},
   {0,0,0}
 };
@@ -47,7 +48,7 @@ void
 usage()
 {
   cout <<
-    _("Usage: lilypond [options] [mudela-file]\n"
+    _("Usage: lilypond [options] [mudela-files]\n"
     "Typeset and or produce midi output from mudela-file or stdin\n"
     "\n"
     "Options:\n"
@@ -58,9 +59,9 @@ usage()
     "  -w, --warranty         show warranty and copyright\n"
     "  -o, --output=FILE      set FILE as default output\n"
     "  -t, --test             switch on experimental features\n"
-    "  -M, --midi             produce midi output only\n"
+    "  -M, --no-paper         produce midi output only\n"
     "  -V, --ignore-version   ignore mudela version\n"
-    "  -p, --postscript       try to use PostScript\n"
+    "  -P, --no-postscript    don't use PostScript\n"
     "\n"
     "GNU LilyPond was compiled with the following settings:\n")
 #ifdef NDEBUG
@@ -87,7 +88,7 @@ notice()
   cout <<
     _("\n"
     "GNU LilyPond -- The GNU Project music typesetter.\n"
-    "Copyright 1996,97 by\n"
+    "Copyright 1996, 97, 98 by\n"
     "  Han-Wen Nienhuys <hanwen@stack.nl>\n"
     "  Jan Nieuwenhuizen <jan@digicash.com>\n"
     "\n"
@@ -124,13 +125,22 @@ do_one_file (String init_str, String file_str)
     }
 
   Sources sources;
-  source_l_g = &sources;
-  source_l_g->set_path (&path);
+  source_global_l = &sources;
+  source_global_l->set_path (&path);
   {
-    My_lily_parser parser (source_l_g);
+    My_lily_parser parser (source_global_l);
     parser.set_version_check (version_ignore_b);
     parser.parse_file (init_str, file_str);
-
+    
+    if (file_str.length_i() && file_str[0] != '-')
+      {
+	String a,b,c,d;
+	split_path (file_str, a, b, c, d);
+	default_outname_base_global = c;
+      }
+    else
+      default_outname_base_global = "lelie";
+  
     if (parser.error_level_i_)
       {
 	exit_status_i_  = 1;
@@ -139,28 +149,33 @@ do_one_file (String init_str, String file_str)
       do_scores();
     clear_scores ();
   }
-  source_l_g = 0;
+  source_global_l = 0;
+}
+
+void
+identify ()
+{
+  cout << get_version_str() << endl;
 }
 
 int
 main (int argc, char **argv)
 {
+  identify ();
   debug_init();		// should be first
 
 
   // must override (come before) "/usr/local/share/lilypond"!
-  char const * env_l=getenv ("LILYINCLUDE");
-  if (env_l)
-    {
-      path.add (env_l);
-    }
+  char const *env_sz = getenv ("LILYINCLUDE");
+  if (env_sz)
+    path.parse_path (env_sz);
+
   path.add ("");
   path.add (String (DIR_DATADIR) + "/init/");
 
   path.push (DIR_DATADIR);
 
   Getopt_long oparser (argc, argv,theopts);
-  cout << get_version_str() << endl;
   String init_str ("lily-init.ly");
 
   while (Long_option_init const * opt = oparser())
@@ -171,7 +186,7 @@ main (int argc, char **argv)
 	  experimental_features_global_b = true;
 	  break;
 	case 'o':
-	  set_default_output (oparser.optional_argument_ch_C_);
+	  default_outname_base_global = oparser.optional_argument_ch_C_;
 	  break;
 	case 'w':
 	  notice();
@@ -190,14 +205,14 @@ main (int argc, char **argv)
 	case 'V':
 	  version_ignore_b = true;
 	  break;
-	case 'p':
-	  postscript_global_b = true;
+	case 'P':
+	  postscript_global_b = false;
 	  break;
 	case 'd':
 	  set_debug (true);
 	  break;
 	case 'M':
-	  only_midi = true;
+	  no_paper_global_b = true;
 	  break;
 	default:
 	  assert (false);

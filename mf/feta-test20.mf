@@ -4,7 +4,7 @@
 % font_identifier:="font-en-tja20";
 % font_size 20pt#;
 
-input autometric;
+input feta-autometric;
 fet_beginfont("feta-test", 20);
 staffsize#:=20pt#;
 test:=1;

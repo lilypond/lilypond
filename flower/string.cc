@@ -34,10 +34,10 @@ void
 String::print_on (ostream& os) const
 {
   if (!strh_.is_binary_bo())
-      os << ch_C();
+    os << ch_C();
   else
-	for (int i = 0; i < length_i(); i++)
-	    os << (Byte)(*this)[ i ];
+    for (int i = 0; i < length_i(); i++)
+      os << (Byte)(*this)[ i ];
 }
 
 /*
@@ -153,7 +153,7 @@ String::compare_i (String const& s1, String const& s2)
   Byte const* p1 = s1.byte_C();
   Byte const* p2 = s2.byte_C();
   if (p1 == p2)
-	return 0;
+    return 0;
 
   int i1 = s1.length_i();
   int i2 = s2.length_i();
@@ -167,12 +167,12 @@ int
 String::index_last_i (char const c) const
 {
   if (!length_i()) 
-	return -1;
+    return -1;
 
   char const* me = strh_.ch_C();
   char const* p = memrchr (me, length_i(), c);
   if (p)
-	return p - me;
+    return p - me;
   return -1;
 }
 
@@ -182,17 +182,17 @@ String::index_last_i (char const* string) const // UGK!
   assert (false);		// broken
   int length = strlen (string); // ugrh
   if (!length_i() || !length) 
-	return -1;
+    return -1;
   
   int next_i = index_i (string);
   if (next_i == -1)
-	return -1;
+    return -1;
   
   int index_i = 0;
   while (next_i >= 0) 
     {
-	index_i += next_i;
-	next_i = right_str (length_i() - index_i - length).index_i (string );
+      index_i += next_i;
+      next_i = right_str (length_i() - index_i - length).index_i (string );
     }
   return index_i;
 }
@@ -211,7 +211,7 @@ String::index_i (char c) const
   char const* me = strh_.ch_C();
   char const* p = (char const *) memchr (me,c,  length_i());
   if (p)
-	return p - me;
+    return p - me;
   return -1;
 }
 
@@ -226,12 +226,12 @@ String::index_i (String searchfor) const
 {
   char const* me = strh_.ch_C();
   char const* p = (char const *) memmem (
-	me, length_i(), searchfor.ch_C(), searchfor.length_i ());
+					 me, length_i(), searchfor.ch_C(), searchfor.length_i ());
   
   if (p)
-	return p - me;
+    return p - me;
   else
-	return -1;
+    return -1;
 }
 
 /** find chars of a set.
@@ -244,16 +244,16 @@ String::index_any_i (String set) const
 {
   int n = length_i();
   if (!n)
-	return -1;
+    return -1;
 
   void const * me_l = (void const *) strh_.ch_C();
   for (int i=0; i  < set.length_i(); i++) 
     {
-	char * found=(char*) memchr (me_l, set[i], n );
-	if (found) 
-	  {
-	    return found - me_l;
-	  }
+      char * found=(char*) memchr (me_l, set[i], n );
+      if (found) 
+	{
+	  return found - me_l;
+	}
     }
   return -1;
 }
@@ -262,11 +262,11 @@ String
 String::left_str (int n) const
 {
   if (n >= length_i())
-	return *this;
+    return *this;
 
   String retval;    	
   if (n < 1)
-      return retval;
+    return retval;
   
   retval = *this;
   retval.strh_.trunc (n);
@@ -277,10 +277,10 @@ String
 String::right_str (int n) const
 {
   if (n > length_i())
-	return *this;
+    return *this;
   
   if (n < 1)
-      return "";
+    return "";
   
   return String (strh_.byte_C() + length_i() - n, n); 
 }
@@ -291,34 +291,31 @@ String::nomid_str (int index_i, int n) const
 {
   if (index_i < 0) 
     {
-	n += index_i;
-	index_i = 0;
+      n += index_i;
+      index_i = 0;
     }
   if (n <= 0)
-	return *this;
+    return *this;
   
   return
-	left_str (index_i)   +
-	right_str (length_i() - index_i - n) ;
+    left_str (index_i)   +
+    right_str (length_i() - index_i - n) ;
 }
 
-/*
-  proposal: change to "cut()"
- */
 String
-String::mid_str (int index_i, int n) const
+String::cut (int index_i, int n) const
 {
   if (index_i <0) 
     {
-	n += index_i;
-	index_i=0;
+      n += index_i;
+      index_i=0;
     }
   
   if (!length_i() || (index_i < 0) || (index_i >= length_i () ) || (n < 1 ) )
-	return String();
+    return String();
 
   if ((n > length_i()) ||  (index_i + n > length_i () ) )
-	n = length_i() - index_i;
+    n = length_i() - index_i;
 
   return String (byte_C() + index_i, n);
 }
