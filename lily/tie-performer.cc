@@ -94,7 +94,7 @@ Tie_performer::acknowledge_audio_element (Audio_element_info i)
     {
       Music *m = i.req_;
       if (m->is_mus_type ("note-event"))
-	now_notes_.push (CNote_melodic_tuple (nh, m, now_mom ()+ m->length_mom ()));
+	now_notes_.push (CNote_melodic_tuple (nh, m, now_mom ()+ m->get_length ()));
     }
 }
 

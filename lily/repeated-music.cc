@@ -62,7 +62,7 @@ Repeated_music::compress (Moment p)
 }
 
 Moment
-Repeated_music::alternatives_length_mom (bool fold) const
+Repeated_music::alternatives_get_length (bool fold) const
 {
   if (!alternatives ())
     return 0;
@@ -76,7 +76,7 @@ Repeated_music::alternatives_length_mom (bool fold) const
   SCM p = alternatives ();
   while (gh_pair_p (p) && done < repeat_count ())
     {
-      m = m + unsmob_music (ly_car (p))->length_mom ();
+      m = m + unsmob_music (ly_car (p))->get_length ();
       done ++;
       if (repeat_count () - done < scm_ilength (alternatives ()))
 	p = ly_cdr (p);
@@ -89,7 +89,7 @@ Repeated_music::alternatives_length_mom (bool fold) const
   of volta repeats, where the alternatives are iterated just as they
   were entered.  */
 Moment
-Repeated_music::alternatives_volta_length_mom () const
+Repeated_music::alternatives_volta_get_length () const
 {
   if (!alternatives ())
     return 0;
@@ -98,7 +98,7 @@ Repeated_music::alternatives_volta_length_mom () const
   SCM p = alternatives ();
   while (gh_pair_p (p))
     {
-      m = m + unsmob_music (ly_car (p))->length_mom ();
+      m = m + unsmob_music (ly_car (p))->get_length ();
       p = ly_cdr (p);
     }
   return m;
@@ -109,12 +109,12 @@ Repeated_music::alternatives_volta_length_mom () const
   Length of the body in THIS. Disregards REPEAT-COUNT. 
  */
 Moment
-Repeated_music::body_length_mom () const
+Repeated_music::body_get_length () const
 {
   Moment m = 0;
   if (body ())
     {
-      m = body ()->length_mom ();
+      m = body ()->get_length ();
     }
   return m;
 }
@@ -135,7 +135,7 @@ Repeated_music::unfolded_music_length (SCM m)
 {
   Repeated_music* r = dynamic_cast<Repeated_music*> (unsmob_music (m));
   
-  Moment l = Moment (r->repeat_count ()) * r->body_length_mom () + r->alternatives_length_mom (false);
+  Moment l = Moment (r->repeat_count ()) * r->body_get_length () + r->alternatives_get_length (false);
   return l.smobbed_copy ();
 }
 
@@ -144,7 +144,7 @@ Repeated_music::folded_music_length (SCM m)
 {
   Repeated_music* r = dynamic_cast<Repeated_music*> (unsmob_music (m));
  
-  Moment l =  r->body_length_mom () + r->alternatives_length_mom (true);
+  Moment l =  r->body_get_length () + r->alternatives_get_length (true);
   return l.smobbed_copy ();
 }
 
@@ -152,7 +152,7 @@ SCM
 Repeated_music::volta_music_length (SCM m)
 {
   Repeated_music* r = dynamic_cast<Repeated_music*> (unsmob_music (m));
-  Moment l =  r->body_length_mom () + r->alternatives_volta_length_mom ();
+  Moment l =  r->body_get_length () + r->alternatives_volta_get_length ();
   return l.smobbed_copy ();
 }
 

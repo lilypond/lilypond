@@ -29,7 +29,7 @@ public:
   VIRTUAL_COPY_CONS (Music);
   virtual void compress (Moment);
   virtual void transpose (Pitch);
-  virtual Moment length_mom () const;
+  virtual Moment get_length () const;
   virtual Pitch to_relative_octave (Pitch);
 };
 

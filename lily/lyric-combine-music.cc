@@ -26,9 +26,9 @@ Lyric_combine_music::transpose (Pitch p)
 
 
 Moment
-Lyric_combine_music::length_mom () const
+Lyric_combine_music::get_length () const
 {
-  return get_music ()->length_mom ();
+  return get_music ()->get_length ();
 }
 
 Pitch

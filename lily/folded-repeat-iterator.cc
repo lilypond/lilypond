@@ -118,7 +118,7 @@ Folded_repeat_iterator::leave_body ()
 
   main_iter_->quit ();
   main_iter_ = 0;
-  main_length_mom_ +=  mus->body ()->length_mom ();
+  main_length_mom_ +=  mus->body ()->get_length ();
 }
 
 void

@@ -96,7 +96,7 @@ Porrectus_engraver::acknowledge_grob (Grob_info info_)
       if (m->is_mus_type ("note-event"))
 	right_heads_.push (Grob_pitch_tuple (info_.grob_, m,
 					     now_mom () +
-					     m->length_mom ()));
+					     m->get_length ()));
     }
 }
 

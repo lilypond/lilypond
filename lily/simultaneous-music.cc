@@ -5,7 +5,7 @@
 #include "music-list.hh"
 
 Moment
-Simultaneous_music::length_mom () const
+Simultaneous_music::get_length () const
 {
   return Music_sequence::maximum_length (get_mus_property ("elements"));
 }

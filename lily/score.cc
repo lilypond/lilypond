@@ -91,7 +91,7 @@ Score::run_translator (Music_output_def *odef)
   progress_indication (_ ("Interpreting music..."));
   Music * music = unsmob_music (music_);
   
-  trans->final_mom_ = music->length_mom ();
+  trans->final_mom_ = music->get_length ();
   SCM protected_iter =  Music_iterator::get_static_get_iterator (music);
   Music_iterator * iter = unsmob_iterator (protected_iter);
   iter->init_translator (music, trans);

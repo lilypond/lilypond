@@ -109,7 +109,7 @@ Spacing_engraver::acknowledge_grob (Grob_info i)
       Music *r = i.music_cause ();
       if (r && r->is_mus_type ("rhythmic-event"))
 	{
-	  Moment len = r->length_mom ();
+	  Moment len = r->get_length ();
 	  Rhythmic_tuple t (i, now_mom () + len);
 	  now_durations_.push (t);
 	}
@@ -123,7 +123,7 @@ Spacing_engraver::stop_translation_timestep ()
   shortest_playing.set_infinite (1);
   for (int i=0; i < playing_durations_.size (); i++)
     {
-      Moment m = (playing_durations_[i].info_.music_cause ())->length_mom ();
+      Moment m = (playing_durations_[i].info_.music_cause ())->get_length ();
       shortest_playing = shortest_playing <? m;
     }
   
@@ -132,7 +132,7 @@ Spacing_engraver::stop_translation_timestep ()
 
   for (int i=0; i < now_durations_.size (); i++)
     {
-      Moment m = now_durations_[i].info_.music_cause ()->length_mom ();
+      Moment m = now_durations_[i].info_.music_cause ()->get_length ();
       if (m.to_bool ())
 	{
 	  starter = starter <? m;

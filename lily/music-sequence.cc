@@ -54,7 +54,7 @@ Music_sequence::cumulative_length (SCM l)
 
   for (SCM s = l; gh_pair_p (s);  s = ly_cdr (s))
     {
-      Moment l = unsmob_music (ly_car (s))->length_mom ();
+      Moment l = unsmob_music (ly_car (s))->get_length ();
       if (last_len.grace_part_ && l.main_part_)
 	{
 	  last_len.grace_part_ = Rational (0);
@@ -83,7 +83,7 @@ Music_sequence::maximum_length (SCM l)
   for (SCM s = l; gh_pair_p (s);  s = ly_cdr (s))
     {
       Music * m = unsmob_music (ly_car (s));
-      Moment l = m->length_mom ();
+      Moment l = m->get_length ();
       dur = dur >? l;
     }
 
@@ -154,7 +154,7 @@ Music_sequence::first_start (SCM l)
   for (SCM s = l; gh_pair_p (s);  s = ly_cdr (s))
     {
       Music * mus = unsmob_music (ly_car (s));
-      Moment l = mus->length_mom ();
+      Moment l = mus->get_length ();
       Moment s = mus->start_mom ();
       if (l.to_bool () || s.to_bool ())
 	return s;

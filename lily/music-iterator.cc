@@ -106,14 +106,14 @@ Music_iterator::get_static_get_iterator (Music *m)
 
   p->music_ = m;
   assert (m);
-  p->music_length_ = m->length_mom ();
+  p->music_length_ = m->get_length ();
   p->start_mom_ = m->start_mom ();
   return iter;
 }
 
 
 Moment
-Music_iterator::music_length_mom () const
+Music_iterator::music_get_length () const
 {
   return music_length_;
 }

@@ -90,7 +90,7 @@ Music::mark_smob (SCM m)
 }
 
 Moment
-Music::length_mom () const
+Music::get_length () const
 {
   SCM l = get_mus_property ("length");
   if (unsmob_moment (l))

@@ -247,14 +247,14 @@ Part_combine_music_iterator::get_state (Moment)
 	    {
 	      scm_sort_list_x (first_durations,
 			       scm_primitive_eval (ly_symbol2scm ("Duration::less_p")));
-	      first_mom += unsmob_duration (ly_car (first_durations))->length_mom ();
+	      first_mom += unsmob_duration (ly_car (first_durations))->get_length ();
 	    }
 	  
 	  if (second_durations != SCM_EOL)
 	    {
 	      scm_sort_list_x (second_durations,
 			       scm_primitive_eval (ly_symbol2scm ("Duration::less_p")));
-	      second_mom += unsmob_duration (ly_car (second_durations))->length_mom ();
+	      second_mom += unsmob_duration (ly_car (second_durations))->get_length ();
 	    }
 	  
 	  if (first_pitches != SCM_EOL && second_pitches == SCM_EOL

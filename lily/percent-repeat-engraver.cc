@@ -88,7 +88,7 @@ Percent_repeat_engraver::try_music (Music * m)
          == Percent_repeat_iterator::constructor_proc
       && !repeat_)
     {
-      body_length_ = rp->body_length_mom ();
+      body_length_ = rp->body_get_length ();
       int count =   rp->repeat_count ();
       
       Moment now = now_mom ();

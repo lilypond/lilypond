@@ -661,7 +661,7 @@ music_output_def_body:
 		Duration *d = unsmob_duration ($2->get_mus_property ("duration"));
 		Midi_def * md = dynamic_cast<Midi_def*> ($$);
 		if (md)
-			md->set_tempo (d->length_mom (), m);
+			md->set_tempo (d->get_length (), m);
 	}
 	| music_output_def_body error {
 
@@ -1223,7 +1223,7 @@ command_element:
 		csm->set_mus_property ("context-type", scm_makfrom0str ("Timing"));
 	}
 	| PARTIAL duration_length  	{
-		Moment m = - unsmob_duration ($2)->length_mom ();
+		Moment m = - unsmob_duration ($2)->get_length ();
 		Music * p = set_property_music (ly_symbol2scm ( "measurePosition"),m.smobbed_copy ());
 
 		Music * sp = MY_MAKE_MUSIC("ContextSpeccedMusic");
@@ -1234,25 +1234,13 @@ command_element:
 		sp-> set_mus_property ("context-type", scm_makfrom0str ("Timing"));
 	}
 	| CLEF STRING  {
-		SCM func = scm_primitive_eval (ly_symbol2scm ("clef-name-to-properties"));
-		SCM result = gh_call1 (func, $2);
+		static SCM proc ;
+		if (!proc)
+			proc = scm_c_eval_string ("make-clef-set");
 
-		SCM l = SCM_EOL;
-		for (SCM s = result ; gh_pair_p (s); s = ly_cdr (s)) {
-			Music * p = MY_MAKE_MUSIC("Music");
-			set_music_properties (p, ly_car (s));
-			l = scm_cons (p->self_scm (), l);
-			scm_gc_unprotect_object (p->self_scm ());
-		}
-		Music * seq = MY_MAKE_MUSIC("SequentialMusic");
-		seq->set_mus_property ("elements", l);
-
-		Music * sp = MY_MAKE_MUSIC("ContextSpeccedMusic");
-		sp->set_mus_property ("element", seq->self_scm ());
-		scm_gc_unprotect_object (seq->self_scm ());
-
-		$$ =sp ;
-		sp-> set_mus_property ("context-type", scm_makfrom0str ("Staff"));
+		SCM result = scm_call_1 (proc, $2);
+		scm_gc_protect_object (result);
+		$$ = unsmob_music (result);
 	}
 	| TIME_T fraction  {
 		Music * p1 = set_property_music (ly_symbol2scm ( "timeSignatureFraction"), $2);
