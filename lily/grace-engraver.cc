@@ -14,7 +14,7 @@ class Grace_engraver : public Engraver
 {
 protected:
   virtual void start_translation_timestep ();
-  virtual void derived_mark ();
+  virtual void derived_mark () const;
 
   TRANSLATOR_DECLARATIONS (Grace_engraver);
   Moment last_moment_;
@@ -28,9 +28,10 @@ Grace_engraver::Grace_engraver ()
 }
 
 void
-Grace_engraver::derived_mark ()
+Grace_engraver::derived_mark () const
 {
   scm_gc_mark (grace_settings_);
+  Engraver::derived_mark ();
 }
 
 void

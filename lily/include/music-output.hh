@@ -16,7 +16,10 @@
 class Music_output
 {
 public:
-  virtual SCM process (String) {return SCM_EOL;}
+  virtual SCM process (String)
+  {
+    return SCM_EOL;
+  }
   virtual ~Music_output () {}
 };
 

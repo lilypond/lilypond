@@ -82,13 +82,11 @@ Paper_score::process (String)
   Array<Column_x_positions> breaking = calc_breaking ();
   system_->break_into_pieces (breaking);
   SCM lines = system_->get_lines ();
-#if 0
-  /* gourlay:do_solve also prints newline.  */
-  progress_indication ("\n");
-#endif
 
-  /* Only keep result stencils in lines_, *title_; delete all grobs.  */
-  systems_ = SCM_EOL;
-
+  /*
+    retain Grobs, since they are pointed to by the point & click data
+    structures, and are not marked fully, because child -> parent
+    links aren't marked.
+   */
   return lines;
 }
