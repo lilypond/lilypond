@@ -1,3 +1,9 @@
+2004-10-13  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/examples.itely: added lilypond-book template.
+
+	* Documentation/user/lilypond-book.itely: added filename extension page.
+
 2004-10-13  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* debian/rules (binary-indep): Link images for info.
