@@ -18,16 +18,23 @@ Version 2.1.13
 
 @itemize @bullet
 
+@item Property functions can now be used as arguments of @code{set!},
+for example
+
+@example
+  (set! (ly:grob-property grob 'beam) ... )
+@end example
+
 @item In anticipation of Emacs 21.4 or 22.1, the info documentation contains
 images.
 
 @item Cue notes can be quoted directly from the parts that
-contain them. This will take into account tunings of source and target
+contain them. This will take into account transposition of source and target
 instrument. For example,
 
 @verbatim
 \addquote clarinet \notes\relative c' {
-  \tuning bes
+  \transposition bes
   fis4 fis fis fis
 }
 
@@ -39,11 +46,11 @@ instrument. For example,
 @end verbatim
 
 @item The transposition of an instrument can be specified using the
-@code{\tuning} command. The following command specifies an E-flat alto
-saxophone:
+@code{\transposition} command. The following command specifies an
+E-flat alto saxophone:
 
 @example
-  \tuning es'
+  \transposition es'
 @end example 
 
 @item The naming of exported Scheme functions now follows Scheme conventions.

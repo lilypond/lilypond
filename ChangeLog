@@ -43,6 +43,8 @@
 
 2004-02-29  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* VERSION: 2.1.28 released
+	
 	* scripts/convert-ly.py (conv): 
 
 2004-02-29  Heikki Junes <hjunes@cc.hut.fi>

@@ -88,7 +88,7 @@ Show version information.
 Be verbose. This prints out commands as they are executed, and more
 information about the formatting process is printed.
 @item --debug
-Print even more information. This is useful when generating bugreports.
+Print even more information. This is useful when generating bug reports.
 @item -w,--warranty
 Show the warranty with which GNU LilyPond comes. (It comes with 
 @strong{NO WARRANTY}!)
@@ -173,7 +173,7 @@ so you can add multiple packages using multiple @code{-s=latexpackages} options.
     Specify additional options for the La@TeX{}
 @code{\documentclass}. You can put any valid value here. This was
 designed to allow @code{lilypond} to produce output for double-sided
-paper, with balanced margins and pagenumbers on alternating sides. To
+paper, with balanced margins and page numbers on alternating sides. To
 achieve this specify @code{twoside}.
 
 @item orientation

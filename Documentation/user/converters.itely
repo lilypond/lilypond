@@ -106,7 +106,7 @@ The following options are supported by midi2ly:
 @item -a, --absolute-pitches
     Print absolute pitches.
 @item -d, --duration-quant=@var{DUR}
-    Quantise note durations on @var{DUR}.
+    Quantize note durations on @var{DUR}.
 @item -e, --explicit-durations
     Print explicit durations.
 @item -h,--help
@@ -117,7 +117,7 @@ The following options are supported by midi2ly:
 @item -o, --output=@var{file}
     Write output to @var{file}.
 @item -s, --start-quant=@var{DUR}
-    Quantise note starts on DUR.
+    Quantize note starts on DUR.
 @item -t, --allow-tuplet=@var{DUR}*@var{NUM}/@var{DEN}
     Allow tuplet durations @var{DUR}*@var{NUM}/@var{DEN}.
 @item -V, --verbose
@@ -170,7 +170,7 @@ etf2ly. Sequences of grace notes are ended improperly sometimes.
 
 @cindex ABC
 
-ABC is a fairly simple ASCII based format. It is described at the abc site:
+ABC is a fairly simple ASCII based format. It is described at the ABC site:
 @quotation
 @uref{http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt}.
 @end quotation
@@ -214,7 +214,7 @@ into the current line of lyrics.
 @refbugs
 
 The ABC standard is not very ``standard''. For extended features
-(eg. polyphonic music) different conventions exist. 
+(e.g. polyphonic music) different conventions exist. 
 
 Multiple tunes in one file cannot be converted.
 
@@ -264,13 +264,13 @@ distribution. pmx2ly cannot parse more recent PMX files.
 @node Invoking musedata2ly
 @section Invoking musedata2ly
 
-@cindex Musedata
+@cindex MuseData
 @cindex CCARH
 
-Musedata (see @uref{http://www.musedata.org/}) is an electronic library of
+MuseData (see @uref{http://www.musedata.org/}) is an electronic library of
 classical music scores, currently comprising about 800 composition
-dating from 1700 to 1825.  The music is encoded in so-called Musedata
-format.  musedata2ly converts a set of musedata files to one .ly file,
+dating from 1700 to 1825.  The music is encoded in so-called MuseData
+format.  musedata2ly converts a set of MuseData files to one .ly file,
 and will include a @code{\header} field if a @file{.ref} file is
 supplied. It is invoked as follows:
 
@@ -294,17 +294,17 @@ version information
 
 @refbugs
 
-@file{musedata2ly} converts only a small subset of musedata. 
+@file{musedata2ly} converts only a small subset of MuseData. 
 
 @node Invoking mup2ly
 @section Invoking mup2ly
 
-MUP (Music Publisher) is a shareware music notation program by Arkkra
+Mup (Music Publisher) is a shareware music notation program by Arkkra
 Enterprises.  Mup2ly will convert part of a Mup file to LilyPond
 format. It is invoked as follows:
 
 @cindex Music Publisher
-@cindex MUP
+@cindex Mup
 @cindex Arkkra
 
 @example
