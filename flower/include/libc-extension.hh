@@ -37,6 +37,12 @@ int isinf (double x);
 
 #endif
 
+
+#if ! HAVE_LRINT
+#define lrint(__x) ((long) (round (__x)))
+#endif
+
+
 Byte *memrchr (Byte const * p, int n, char c);
 Byte *strrev (Byte* byte, int length_i);
 

@@ -36,10 +36,6 @@ strnupr (char* start, int n)
 }
 
 
-#if ! HAVE_LRINT
-#define lrint(__x) ((long) (round (__x)
-#endif
-
 
 #if !HAVE_ISINF
 int
