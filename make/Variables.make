@@ -118,7 +118,7 @@ LIBLILY = $(depth)/lib/$(outdir)/$(LIB_PREFIX)lily$(LIB_SUFFIX)
 # compile and link options:
 #
 ARFLAGS = ru
-CFLAGS = $(DEFINES) $(INCLUDES) $(USER_CFLAGS) $(EXTRA_CFLAGS)
+CFLAGS = $(ICFLAGS) $(DEFINES) $(INCLUDES) $(USER_CFLAGS) $(EXTRA_CFLAGS)
 
 # added two warnings that are treated by cygwin32's gcc 2.7.2 as errors.
 # huh, but still, no warnings even provoced with linux's gcc 2.7.2.1?
@@ -130,7 +130,7 @@ EXTRA_CXXFLAGS= -Wall -W -Wmissing-prototypes -Wmissing-declarations -Wconversio
 CXXFLAGS = $(CFLAGS) $(USER_CXXFLAGS) $(EXTRA_CXXFLAGS) $(MODULE_CXXFLAGS)
 INCLUDES = -Iinclude -I$(outdir) -I$(include-lib) -I$(libout) -I$(include-flower) -I$(flowerout) 
 CXX_OUTPUT_OPTION = $< -o $@
-LDFLAGS = $(EXTRA_LDFLAGS) $(MODULE_LDFLAGS) -L$(depth)/lib/out -L$(depth)/flower/out
+LDFLAGS = $(ILDFLAGS) $(USER_LDFLAGS) $(EXTRA_LDFLAGS) $(MODULE_LDFLAGS) -L$(depth)/lib/out -L$(depth)/flower/out
 LOADLIBES = $(EXTRA_LIBES) $(MODULE_LIBES) -lg++ # need lg++ for win32, really!
 #
 
