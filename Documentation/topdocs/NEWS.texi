@@ -8,6 +8,13 @@
 @chapter New features in 2.1 since 2.0
 
 @itemize
+@item Font sizes can now truly be scaled continuously: the  @code{font-size}
+is similar to the old @code{font-relative-size}, but may be set to
+fractional values; the closest design size will be scaled to achieve
+the desired size. As a side-effect, there are now no longer
+limitations in using smaller fonts (eg. grace notes) at small staff
+sizes.
+
 @item The appearance of stem tips is now also engraved with rounded corners.
 
 @item

@@ -1,3 +1,67 @@
+<<<<<<< ChangeLog
+2003-12-20  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
+
+	* lily/recording-group-engraver.cc (finalize): set protected_scm
+	member to '() before finalizing.
+
+	* lily/translator-group.cc (finalize): remove removal_processing () 
+
+	* lily/recording-group-engraver.cc: new engraver: record
+	synchronized start & end times for each music object.
+
+	* lily/parser.yy (toplevel_expression): execute score rendering
+	during parsing. Cleanup output-filename handling; this is no
+	longer done with global variables.
+	(translator_spec_body): allow \type modification too.
+
+	* lily/score.cc:  ly:run-translator: new function
+	(LY_DEFINE): ly:render-output new function.
+
+	Separate interpreting and rendering, and make available as
+	functions at Scheme level.
+
+2003-12-17  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/to-xml.scm (<xml-node>): New class to build xml-doc.
+	(musicxml-node->string):
+	(xml-node->string):
+	(music-to-musicxml): New function.
+
+2003-12-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* VERSION: 2.1.2 released
+
+	* lily/include/lily-guile.hh (SCM_VECTOR_REF): compat glue
+
+	* scm/font.scm (paper20-font-vector): discouple font design sizes
+	from sizes specified in .ly file: store all design sizes of a font
+	in a single vector.
+
+	* lily/font-select.cc (get_font_by_design_size): new function
+
+	* mf/feta*,parmesan*: use 2^{1/6} as scaling factor for fonts.
+	add parmesan,feta in sizes 14 and 18.
+	
+	* mf/feta-toevallig.mf: use blot diameter for double sharp.
+
+	* lily/font-size-engraver.cc (acknowledge_grob): change definition
+	of fontSize: this now sets font-size
+
+2003-12-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* VERSION: 2.1.1 released
+	
+	* Documentation/user/refman.itely (Tuning objects): add note about
+	concurrent tweaks in different contexts. 
+
+	* lily/tie-engraver.cc (acknowledge_grob): use
+	Staff_symbol_referencer::get_position iso. reading staff-position
+	directly.
+
+	* lily/piano-pedal-engraver.cc (create_bracket_grobs): don't take
+	currentMusicalColumn as left span-point for bracket. The bracket
+	is too long when there are accidentals.
+
 2003-12-03  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* buildscripts/lilypond-profile.sh,
@@ -94,6 +158,8 @@
 
 2003-10-11  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION: release 2.1.0
+	
 	* lily/note-performer.cc (try_music): accept busy-playing-event.
 
 	* lily/swallow-perf.cc (try_music): return false for
