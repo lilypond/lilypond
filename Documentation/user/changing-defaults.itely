@@ -1,4 +1,4 @@
-@c -*-texinfo-*-
+@c -*- coding: latin-1; mode: texinfo; -*-
 @node Changing defaults
 @chapter Changing defaults
 
@@ -1546,13 +1546,13 @@ the following will usually not produce ba@ss{}tuba in the title.
 @verbatim
   \header {
     title = "Grazing cow"
-    instrument = "Ba√ütuba"
+    instrument = "Baﬂtuba"
   }
 @end verbatim
 
 Rather, you should say
 @verbatim
-    instrument = \markup { Ba√ütuba }
+    instrument = \markup { Baﬂtuba }
 @end verbatim
 
 @noindent

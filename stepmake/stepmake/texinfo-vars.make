@@ -11,7 +11,8 @@ GENERATE_OMF = $(PYTHON) $(depth)/buildscripts/texi2omf.py --format $(1) --locat
 
 TEXINFO_PAPERSIZE_OPTION= $(if $(findstring $(PAPERSIZE),a4),,-t @afourpaper)
 
-MAKEINFO = LANG= $(MAKEINFO_PROGRAM)
+MAKEINFO = LANG= $(MAKEINFO_PROGRAM)  --enable-encoding
+
 
 # info stuff
 INFO_INSTALL_FILES = $(wildcard $(addsuffix *, $(INFO_FILES)))

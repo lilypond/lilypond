@@ -19,7 +19,7 @@ grob. " }
 
 \override Score.RehearsalMark  #'print-function =
    #(make-stencil-boxer 0.15 0.3 0.3 Text_interface::print)
-      c8
+      b8
 \revert Stem #'print-function
 
       c4. c4 \mark "F" c1 

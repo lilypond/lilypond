@@ -466,7 +466,7 @@
 	(Y-extent-callback . #f)			 
 	(after-line-breaking-callback . ,Line_spanner::after_line_breaking)
 	(print-function . ,Line_spanner::print)
-	(meta . ((interfaces . (line-spanner-interface spanner-interface))))
+	(meta . ((interfaces . (line-interface line-spanner-interface spanner-interface))))
 	))
 
     (Hairpin

@@ -1,5 +1,24 @@
 2004-10-24  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* tex/GNUmakefile (TEX_FILES): add texinfo.cnf
+
+	* stepmake/stepmake/texinfo-vars.make (MAKEINFO): add
+	--enable-encoding
+
+	* Documentation/user/lilypond.tely: add -*- coding: latin-1 -*- everywhere. 
+
+	* Documentation/user/changing-defaults.itely (Text encoding):
+	change to latin1.
+
+	* Documentation/user/lilypond.tely: add language and encoding.
+
+	* scm/define-grobs.scm (all-grob-descriptions): add
+	line-interface.
+
+	* configure.in (PKG_CONFIG_PATH): bump makeinfo version to 4.7
+
+	* input/test/ossia.ly: font sizes for ossia.
+
 	* scripts/convert-ly.py (conv): \context Foo = NOTENAME
 	-> \context Foo = "NOTENAME".
 

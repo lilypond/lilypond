@@ -7,9 +7,6 @@
 @unnumbered New features in 2.4 since 2.2
 
 @itemize @bullet
-@item @code{\bookpaper} and @code{\paper} have been renamed to
-@code{\paper} and @code{\layout} respectively, to better match their
-function.
 
 @item Parts that use @code{\quote} can now be transposed.
 
@@ -112,11 +109,12 @@ following code may be used.
 @}
 @end example
 
-@item A new block, @code{\bookpaper} has been introduced to
-hold settings for paper size and output scaling. Further options
-include @code{raggedbottom} (if set, systems are not vertically filled
-to reach the bottom of the page), and @code{raggedlastbottom}.
-
+@item
+The @code{\paper} block has been renamed to @code{\layout}.  A new
+@code{\paper} block has been introduced to hold settings for paper
+size and output scaling.  Further options include @code{raggedbottom}
+(if set, systems are not vertically filled to reach the bottom of the
+page), and @code{raggedlastbottom}.
 
 
 @item Support for fret diagrams  has been contributed by Carl
@@ -167,7 +165,7 @@ introduced using a @code{$} character (@code{$$} results in a single
 
 @item A music list at toplevel is interpreted as implicit @code{\score}
 a @code{\score} block at toplevel is interpreted as an implicit
-@code{\book} and @code{\notes} mode is the default lexer mode.  The
+@code{\book} and @code{\notemode} mode is the default lexer mode.  The
 result is that
 
 @example
@@ -181,7 +179,7 @@ is interpreted as
 \header @{ title = "The Title" @}
 \book @{
   \score @{
-    \notes @{ a b c @}
+    \notemode @{ a b c @}
   @}
 @}    
 @end example
@@ -193,20 +191,19 @@ This is handled by the function defined in
 results can be obtained.
 
 @item Mode changing commands,
-such as @code{\chords} and @code{\figures} must now be directly
+such as @code{\chordmode} and @code{\figuremode} must now be directly
 followed by delimiters. The following example demonstrates the new
 behavior,
 
 @verbatim
-  \figures \context Figures { .. } % wrong
-  \context Figures \figures { .. } % right
+  \figuremode \context Figures { .. } % wrong
+  \context Figures \figuremode { .. } % right
 @end verbatim 
 
 
 @item The starting pitch for @code{relative} music is optional for music lists.
 The default value is middle C.
 
-@c update-me?  formal definition of newaddlyrics, once it works
 @item Combining lyrics with music can be done with @code{\addlyrics}
 
 @example
@@ -214,15 +211,17 @@ The default value is middle C.
 	\clef bass
 	d2 d c4 bes a2 \break
     @}
-    \newlyrics @{
+    \addlyrics @{
 	My first Li -- ly song,
     @}
-    \newlyrics @{
+    \addlyrics @{
 	Not much can go wrong!
     @}
 @end example
 
-Syntactically, @code{\addlyrics} acts like an infix operator.  
+Syntactically, @code{\addlyrics} is an infix operator. It is a
+shortcut for a combination of @code{\new Lyrics}, @code{\lyricmode}
+and @code{\lyricsto}.
 
 @item The parser is encapsulated in a Scheme function
 @code{ly:parse-file}, so the following fragment processes two files
@@ -257,14 +256,16 @@ entity. For example, two scores are combined in one book with
 @item
 Titling and page breaks are handled by LilyPond.  Page breaks may be
 inserted manually with
+
 @example
   \pageBreak
 @end example
 
 @item
-The @code{lilypond} program does not generate La@TeX{} titles or page
-layout.  If you need La@TeX{} titles, you can use the
-@code{lilypond-book} program.
+Invoking @code{lilypond} runs the actual binary, which not use
+La@TeX{} for titling or page layout.  If you need La@TeX{} code in
+titles, you can use the @code{lilypond-book} program. The former
+@code{lilypond} script has been retained as @code{lilypond-latex}.
 
 @item There is now less of a noticeable ``hook'' at the end of a long slur.
 
@@ -272,6 +273,10 @@ layout.  If you need La@TeX{} titles, you can use the
  assigning a music expression to @code{pipeSymbol}.
  
 @end itemize
+
+
+
+@c ****************************************************************
 
 @unnumbered New features in 2.2 since 2.0
 

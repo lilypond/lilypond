@@ -1,0 +1,196 @@
+@c We map some latin-1 characters to corresponding texinfo macros.
+
+@tex
+\global\catcode`^^a0\active % ` '
+\gdef^^a0{\tie}
+\global\catcode`^^a1\active % ¡
+\gdef^^a1{\exclamdown}
+%\global\catcode`^^a2\active % ¢
+%\gdef^^a2{}
+\global\catcode`^^a3\active % £
+\gdef^^a3{\pounds}
+%\global\catcode`^^a4\active % ¤
+%\gdef^^a4{}
+%\global\catcode`^^a5\active % ¥
+%\gdef^^a5{}
+%\global\catcode`^^a6\active % ¦
+%\gdef^^a6{}
+%\global\catcode`^^a7\active % §
+%\gdef^^a7{}
+\global\catcode`^^a8\active % ¨
+\gdef^^a8{\"{ }}
+\global\catcode`^^a9\active % ©
+\gdef^^a9{\copyright}
+\global\catcode`^^aa\active % ª
+\gdef^^aa{\ordf}
+%\global\catcode`^^ab\active % «
+%\gdef^^ab{}
+%\global\catcode`^^ac\active % ¬
+%\gdef^^ac{}
+%\global\catcode`^^ad\active % ­
+%\gdef^^ad{}
+\global\catcode`^^ae\active % ®
+\gdef^^ae{\registeredsymbol}
+\global\catcode`^^af\active % ¯
+\gdef^^af{\={ }}
+\global\catcode`^^b0\active % °
+\gdef^^b0{\ringaccent{ }}
+%\global\catcode`^^b1\active % ±
+%\gdef^^b1{}
+%\global\catcode`^^b2\active % ²
+%\gdef^^b2{}
+%\global\catcode`^^b3\active % ³
+%\gdef^^b3{}
+\global\catcode`^^b4\active % ´
+\gdef^^b4{\'{ }}
+%\global\catcode`^^b5\active % µ
+%\gdef^^b5{}
+%\global\catcode`^^b6\active % ¶
+%\gdef^^b6{}
+%\global\catcode`^^b7\active % ·
+%\gdef^^b7{}
+\global\catcode`^^b8\active % ¸
+\gdef^^b8{\,{ }}
+%\global\catcode`^^b9\active % ¹
+%\gdef^^b9{}
+\global\catcode`^^ba\active % º
+\gdef^^ba{\ordm}
+%\global\catcode`^^bb\active % »
+%\gdef^^bb{}
+%\global\catcode`^^bc\active % ¼
+%\gdef^^bc{}
+%\global\catcode`^^bd\active % ½
+%\gdef^^bd{}
+%\global\catcode`^^be\active % ¾
+%\gdef^^be{}
+\global\catcode`^^bf\active % ¿
+\gdef^^bf{\exclamdown}
+\global\catcode`^^c0\active % À
+\gdef^^c0{\`A}
+\global\catcode`^^c1\active % Á
+\gdef^^c1{\'A}
+\global\catcode`^^c2\active % Â
+\gdef^^c2{\^A}
+\global\catcode`^^c3\active % Ã
+\gdef^^c3{\~A}
+\global\catcode`^^c4\active % Ä
+\gdef^^c4{\"A}
+\global\catcode`^^c5\active % Å
+\gdef^^c5{\AA}
+\global\catcode`^^c6\active % Æ
+\gdef^^c6{\AE}
+\global\catcode`^^c7\active % Ç
+\gdef^^c7{\,{C}}
+\global\catcode`^^c8\active % È
+\gdef^^c8{\`E}
+\global\catcode`^^c9\active % É
+\gdef^^c9{\'E}
+\global\catcode`^^ca\active % Ê
+\gdef^^ca{\^E}
+\global\catcode`^^cb\active % Ë
+\gdef^^cb{\"E}
+\global\catcode`^^cc\active % Ì
+\gdef^^cc{\`I}
+\global\catcode`^^cd\active % Í
+\gdef^^cd{\'I}
+\global\catcode`^^ce\active % Î
+\gdef^^ce{\^I}
+\global\catcode`^^cf\active % Ï
+\gdef^^cf{\"I}
+%\global\catcode`^^d0\active % Ð
+%\gdef^^d0{}
+\global\catcode`^^d1\active % Ñ
+\gdef^^d1{\~N}
+\global\catcode`^^d2\active % Ò
+\gdef^^d2{\`O}
+\global\catcode`^^d3\active % Ó
+\gdef^^d3{\'O}
+\global\catcode`^^d4\active % Ô
+\gdef^^d4{\^O}
+\global\catcode`^^d5\active % Õ
+\gdef^^d5{\~O}
+\global\catcode`^^d6\active % Ö
+\gdef^^d6{\"O}
+%\global\catcode`^^d7\active % ×
+%\gdef^^d7{}
+\global\catcode`^^d8\active % Ø
+\gdef^^d8{\O}
+\global\catcode`^^d9\active % Ù
+\gdef^^d9{\`U}
+\global\catcode`^^da\active % Ú
+\gdef^^da{\'U}
+\global\catcode`^^db\active % Û
+\gdef^^db{\^U}
+\global\catcode`^^dc\active % Ü
+\gdef^^dc{\"U}
+\global\catcode`^^dd\active % Ý
+\gdef^^dd{\'Y}
+%\global\catcode`^^de\active % Þ
+%\gdef^^de{}
+\global\catcode`^^df\active % ß
+\gdef^^df{\ss}
+\global\catcode`^^e0\active % à
+\gdef^^e0{\`a}
+\global\catcode`^^e1\active % á
+\gdef^^e1{\'a}
+\global\catcode`^^e2\active % â
+\gdef^^e2{\^a}
+\global\catcode`^^e3\active % ã
+\gdef^^e3{\~a}
+\global\catcode`^^e4\active % ä
+\gdef^^e4{\"a}
+\global\catcode`^^e5\active % å
+\gdef^^e5{\aa}
+\global\catcode`^^e6\active % æ
+\gdef^^e6{\ae}
+\global\catcode`^^e7\active % ç
+\gdef^^e7{\,{c}}
+\global\catcode`^^e8\active % è
+\gdef^^e8{\`e}
+\global\catcode`^^e9\active % é
+\gdef^^e9{\'e}
+\global\catcode`^^ea\active % ê
+\gdef^^ea{\^e}
+\global\catcode`^^eb\active % ë
+\gdef^^eb{\"e}
+\global\catcode`^^ec\active % ì
+\gdef^^ec{\`{\dotless{i}}}
+\global\catcode`^^ed\active % í
+\gdef^^ed{\'{\dotless{i}}}
+\global\catcode`^^ee\active % î
+\gdef^^ee{\^{\dotless{i}}}
+\global\catcode`^^ef\active % ï
+\gdef^^ef{\"{\dotless{i}}}
+%\global\catcode`^^f0\active % ð
+%\gdef^^f0{}
+\global\catcode`^^f1\active % ñ
+\gdef^^f1{\~n}
+\global\catcode`^^f2\active % ò
+\gdef^^f2{\`o}
+\global\catcode`^^f3\active % ó
+\gdef^^f3{\'o}
+\global\catcode`^^f4\active % ô
+\gdef^^f4{\^o}
+\global\catcode`^^f5\active % õ
+\gdef^^f5{\~o}
+\global\catcode`^^f6\active % ö
+\gdef^^f6{\"o}
+%\global\catcode`^^f7\active % ÷
+%\gdef^^f7{}
+\global\catcode`^^f8\active % ø
+\gdef^^f8{\o}
+\global\catcode`^^f9\active % ù
+\gdef^^f9{\`u}
+\global\catcode`^^fa\active % ú
+\gdef^^fa{\'u}
+\global\catcode`^^fb\active % û
+\gdef^^fb{\^u}
+\global\catcode`^^fc\active % ü
+\gdef^^fc{\"u}
+\global\catcode`^^fd\active % ý
+\gdef^^fd{\'y}
+%\global\catcode`^^fe\active % þ
+%\gdef^^fe{}
+\global\catcode`^^ff\active % ÿ
+\gdef^^ff{\"y}
+@end tex
