@@ -68,17 +68,16 @@ Slash_repeat_engraver::try_music (Music * m)
       == Percent_repeat_iterator::constructor_proc)
     {
       body_length_ = Repeated_music::body_get_length (m);
-      int count =   Repeated_music::repeat_count (m);
+      int count = Repeated_music::repeat_count (m);
       
       Moment now = now_mom ();
       start_mom_ = now;
       stop_mom_ = start_mom_ + Moment (count) * body_length_;
       next_moment_ = start_mom_ + body_length_;
 
-      Moment meas_len = robust_scm2moment (m->get_property ("measureLength"), Moment (0));
-      if (body_length_ < meas_len 
-	  && meas_len.main_part_.mod_rat (body_length_.main_part_)
-	  == Moment (Rational (0, 0)))
+      Moment meas_length
+	= robust_scm2moment (get_property ("measureLength"), Moment (0));
+      if (body_length_ < meas_length )
 	{
 	  repeat_ = m;
 	}
