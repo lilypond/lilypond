@@ -227,8 +227,7 @@ L1 is copied, L2 not.
 	(list x)
 	(cons x  (cons between y))
 	))
-  (fold-right conc #f lst)
-  )
+  (fold-right conc #f lst))
 
 ;;;;;;;;;;;;;;;;
 ; other

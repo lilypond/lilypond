@@ -371,6 +371,17 @@ for the reader.
    (car rest))
   ))
 
+(define-public (box-markup grob props . rest)
+  "Syntax: \\box MARKUP"
+  (let*
+      (
+       (th 0.1)
+       (pad 0.2)
+       (m (interpret-markup grob props (car rest)))
+       )
+    (box-molecule m th pad)
+  ))
+
 (define (markup-signature-to-keyword sig)
   " (A B C) -> a0-b1-c2 "
   
@@ -529,6 +540,8 @@ for the reader.
    (cons raise-markup (list number? markup?))
    (cons magnify-markup (list number? markup?))
    (cons fontsize-markup (list number? markup?))
+
+   (cons box-markup  (list markup?))
    )
   )
 
