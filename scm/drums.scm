@@ -3,13 +3,7 @@
 
 ;;;; changed eval to primitive-eval for guile 1.4/1.4.1 compatibility --jcn
 
-(define (seq-music-list elts)
-   (let* ( (ml (ly-make-music "Sequential_music")) )
-   (ly-set-mus-property ml 'elements elts)
-   ml 
-))
-
-(define (make-art-script x) 
+(define (make-articulation-script x) 
      (let* (  (m (ly-make-music "Articulation_req"))
            )
      (ly-set-mus-property m 'articulation-type x)
@@ -18,17 +12,17 @@
  )
 
 ;; adds the articulation script x to m if x is not #f.
-(define (add-art-script m x)
+(define (add-articulation-script m x)
   (if x
    (if (and x (equal? (ly-music-name m) "Request_chord"))
      (ly-set-mus-property m 'elements
-       (cons (make-art-script x) (ly-get-mus-property m 'elements))
+       (cons (make-articulation-script x) (ly-get-mus-property m 'elements))
      )
      (let* ( (es (ly-get-mus-property m 'elements))
             (e (ly-get-mus-property m 'element)) )
-       (map (lambda (y) (add-art-script y x)) es)
+       (map (lambda (y) (add-articulation-script y x)) es)
        (if (music? e)
-         (add-art-script e x))
+         (add-articulation-script e x))
      )
    )
   )
@@ -80,9 +74,9 @@
 	      (script (cadr pap))
 	      (pitch (caddr pap))
 	      (ht (make-head-type style))
-	      (seq (seq-music-list (list ht req-ch)))
+	      (seq (make-sequential-music (list ht req-ch)))
              )
-         (add-art-script req-ch script)
+         (add-articulation-script req-ch script)
          (ly-set-mus-property fe 'pitch pitch)
          (set! req-ch (make-thread-context style seq))
 	 req-ch

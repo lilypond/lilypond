@@ -100,9 +100,17 @@ Music_sequence::do_relative_octave (Pitch p, bool ret_first)
   Pitch last = p;
   for (SCM s = music_list (); gh_pair_p (s);  s = ly_cdr (s))
     {
-      last = unsmob_music (ly_car (s))->to_relative_octave (last);
-      if (!count ++)
-	retval = last;
+      Music *m = unsmob_music (ly_car (s));
+      if (!m)
+	{
+	  programming_error ("Music_sequence should only contain music!");
+	}
+      else
+	{
+	  last = m->to_relative_octave (last);
+	  if (!count ++)
+	    retval = last;
+	}
     }
 
   if (!ret_first)

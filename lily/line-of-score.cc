@@ -172,9 +172,14 @@ set_loose_columns (Line_of_score* which, Column_x_positions const *posns)
 	}
       while (1);
       
+    
+#if 0
       Real rx = right->relative_coordinate (right->get_parent (X_AXIS), X_AXIS);
       Real lx = left->relative_coordinate (left->get_parent (X_AXIS), X_AXIS);
 
+      /*
+	divide space equally over loose columns.
+       */
       int j = 1;
       loose = col;
       while (1)
@@ -191,6 +196,45 @@ set_loose_columns (Line_of_score* which, Column_x_positions const *posns)
 	  j ++;	
 	  loose = dynamic_cast<Item*> (unsmob_grob (ly_cdr (between)));
 	}
+#else
+      /*
+	We divide the remaining space of the column over the left and
+	right side. At the moment, we  
+	
+      */
+      Grob * common = right->common_refpoint (left, X_AXIS);
+      
+      Real rx =	right->extent(common, X_AXIS)[LEFT];
+      Real lx =  left->extent(common, X_AXIS)[RIGHT];
+      Real total_dx = rx - lx;
+      Interval cval =col->extent (col, X_AXIS);
+
+      /*
+	
+	We put it in the middle. This is not an ideal solution -- the
+	break alignment code inserts a fixed space before the clef
+	(about 1 SS), while the space following the clef is
+	flexible. In tight situations, the clef will almost be on top
+	of the following note. 
+	
+      */
+      Real dx = rx-lx - cval.length ();
+      if (total_dx < 2* cval.length ())
+	{
+	  /*
+	    todo: this is discontinuous. I'm too tired to
+	    invent a sliding mechanism. Duh.
+
+	    TODO.
+	   */
+	  dx *= 0.25;
+	}
+      else
+	dx *= 0.5;
+
+      col->line_l_ = which;
+      col->translate_axis (lx + dx - cval[LEFT], X_AXIS); 
+#endif
     }
 }
 

@@ -74,9 +74,10 @@ def draw_six =
 	save t; t=tense;
 	fill z7{right}..z2r{right}..tension t..z3r{down}
 		..tension t..z4r{left}
-		..tension t..z7r{up}..tension t..z6r{right}
-		..z6l{left}..tension t..z7l{down}..z10l{up}..cycle;
-	draw_flare(z6r,0,-90,hair,flare);
+		..tension t..z7r{up}..tension t..
+		flare_path (z6r,0,-90,hair,flare, 1)
+		..tension t..z7l{down}..z10l{up}..cycle;
+
 	unfill z2l{right}..tension t..z3l{down}..tension t
 		..z4l{left}..tension t..z10l{up}..tension t..cycle;
 	enddef;
@@ -203,10 +204,10 @@ fet_beginchar("Numeral 2", "2", "two")
 	penlabels(5,6);
 	save t; t=tense;
 	fill z1l{dir(beta)}..tension t..z4r{up}
-		..tension t..z5r{left}..z5l{right}
+		..tension t..
+	 	flare_path(z5r,180,90,thin,flare,1)
 		..z4l{down}..tension t
 		..{dir(180+beta)}z1r..cycle;
-	draw_flare(z5r,180,90,thin,flare);
 fet_endchar;
 
 fet_beginchar("Numeral 3", "3", "three")
@@ -230,16 +231,24 @@ fet_beginchar("Numeral 3", "3", "three")
 	penlabels(1,2,3,4,5,6,7);
 	save alpha; alpha=25;
 	save t; t=tense;
-	fill z1l{right}..tension t..z2l{down}..z7r{dir(180+alpha)}
-		..z7l{dir(-alpha)}..z5r{down}..tension t..z6r{left}
-		..z6l{right}..tension t..z5l{up}
+	pickup pencircle scaled 1;
+%	draw
+	fill
+		flare_path (z1l, 180, 90, hair, 7/8 flare, -1) ..tension t..
+		z2l{down}..z7r{dir(180+alpha)}
+		..z7l{dir(-alpha)}..z5r{down}..tension t..
+
+		flare_path (z6r, 180, -90, hair, flare, 1) ..tension t..
+
+		z5l{up}
 		..tension t..z3l{left}..z4l{left}
 		..z4r{right}..z3r{right}..tension t..z2r{up}
-		..tension t..z1r{left}..cycle;
-	draw_flare(z1l,180,90,hair,7/8flare);
-	draw_flare(z6r,180,-90,hair,flare);
+		..tension t.. cycle
+;
 fet_endchar;
 
+
+	
 fet_beginchar("Numeral 4", "4", "four")
 	set_char_box(0, 4/5height#*widen, 0, height#);
 	message "w:"&decimal w;
@@ -312,10 +321,11 @@ fet_beginchar("Numeral 5", "5", "five")
 	save beta; beta=45;
 	save t; t=tense;
 	fill z8r{dir(beta)}..z9r{right}..tension t..z10r{down}
-		..tension t..z11r{left}
+		..tension t..
+		flare_path(z11r,180,-90,hair,flare, 1)
 		..z11l{right}..tension t..z10l{up}..tension t
 		..z9l{left}..z8l{dir(180+beta+10)}..cycle;
-	draw_flare(z11r,180,-90,hair,flare);
+
 fet_endchar;
 
 fet_beginchar("Numeral 6", "6", "six")

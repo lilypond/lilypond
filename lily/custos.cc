@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
- (C) 2000 Juergen Reuter <reuterj@ira.uka.de>
+ (C) 2000, 2002 Juergen Reuter <reuter@ipd.uka.de>
 */
 
 /* TODO:
@@ -15,14 +15,13 @@
 
  - do not show if a clef change immediately follows in the next line
 
- - make custos direction control configurable
-
  - decide: do or do not print custos if the next line starts with a rest
 
 */
 
 
 #include <stdio.h>
+#include "direction.hh"
 #include "staff-symbol-referencer.hh"
 #include "custos.hh"
 #include "molecule.hh"
@@ -30,6 +29,7 @@
 #include "note-head.hh"
 #include "item.hh"
 #include "font-interface.hh"
+#include "math.h" // rint
 
 /*
    This function is a patched and hopefully much more understandable
@@ -146,26 +146,55 @@ Custos::brew_molecule (SCM smob)
   if (gh_symbol_p (scm_style))
     {
       String style = ly_scm2string (scm_symbol_to_string (scm_style));
+      bool adjust =
+	to_boolean (me->get_grob_property ("adjust-if-on-staffline"));
 
-      String idx = "custodes-";
-      int interspaces = Staff_symbol_referencer::line_count (me)-1;
+      String idx = "custodes-" + style + "-";
 
-      Real pos = Staff_symbol_referencer::position_f (me);
-      
-      if (pos > (interspaces/2 + 1)) // TODO: make this rule configurable
-	idx += "r";
-      idx += style;
+      int neutral_pos;
+      SCM ntr_pos = me->get_grob_property ("neutral-position");
+      if (gh_number_p (ntr_pos))
+	neutral_pos = gh_scm2int (ntr_pos);
+      else
+	neutral_pos = 0;
+
+      Direction neutral_direction =
+	to_dir (me->get_grob_property ("neutral-direction"));
+
+      int pos = (int)rint (Staff_symbol_referencer::position_f (me));
+      int sz = Staff_symbol_referencer::line_count (me)-1;
+
+      if (pos < neutral_pos)
+	idx += "u";
+      else if (pos > neutral_pos)
+	idx += "d";
+      else if (neutral_direction == UP)
+	idx += "u";
+      else if (neutral_direction == DOWN)
+	idx += "d";
+      else // auto direction; not yet supported -> use "d"
+	idx += "d";
+
+      if (adjust)
+        {
+	  idx += (((pos ^ sz) & 0x1) == 0) ? "1" : "0";
+	}
+      else
+        {
+	  idx += "2";
+	}
+
       Molecule molecule
 	= Font_interface::get_default_font (me)->find_by_name (idx);
       if (molecule.empty_b ())
         {
-	  String message = "unknown custos style: `" + style + "'";
+	  String message = "no such custos: `" + idx + "'";
 	  warning (_ (message.ch_C ()));
 	  return SCM_EOL;
 	}
       else
         {
-	  add_streepjes (me, (int)pos, interspaces, &molecule);
+	  add_streepjes (me, (int)pos, sz, &molecule);
 	  return  molecule.smobbed_copy ();
 	}
     }

@@ -13,6 +13,7 @@
 #include "time-signature.hh"
 #include "paper-def.hh"
 #include "font-interface.hh"
+#include "warn.hh"
 
 MAKE_SCHEME_CALLBACK (Time_signature,brew_molecule,1);
 /*
@@ -79,6 +80,11 @@ Time_signature::special_time_signature (Grob*me, String s, int n, int d)
   m = feta->find_by_name ("timesig-" + s);
   if (!m.empty_b ()) 
     return m;
+
+  String message =
+      "unknown time signature `" + s +
+      "'; resorting to default layout with numbers";
+  warning (_ (message.ch_C ()));
 
   // Resort to default layout with numbers
   return time_signature (me, n, d);

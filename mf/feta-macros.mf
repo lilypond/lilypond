@@ -166,7 +166,18 @@ def draw_brush(expr a,w,b,v) =
 	fill z3r{z3r-z5l}..z4l..{z5r-z3l}z3l..z5r{z5r-z3l}..z6l..{z3r-z5l}z5l..cycle;
 enddef;
 
-def draw_flare(expr pos,alpha,beta,line,flare) =
+
+
+
+
+%
+% alpha = start direction.
+% beta = which side to turn to.
+% flare = diameter of the bulb
+% line = diameter of line attachment
+% direction = is ink on left or right side (1 or -1)
+%
+def flare_path(expr pos,alpha,beta,line,flare, direction) =
 	begingroup;
 	clearxy;
 	penpos1(line,180+beta+alpha);
@@ -175,15 +186,61 @@ def draw_flare(expr pos,alpha,beta,line,flare) =
 	z2=z3;
 	penpos3(flare,0+alpha);
 	z3l=z1r+(1/2+0.43)*flare*dir(alpha+beta);
-	z4=z2r-line*dir(alpha);
+	save taille;
+	taille = 0.0;
+	z4=z2r-  line * dir(alpha);
 	penlabels(1,2,3,4);
 	pickup pencircle;
 	save t; t=0.833;
-	fill z1r{dir(alpha)}..z3r{dir(180+alpha-beta)}..z2l{dir(alpha+180)}
+	save p; 
+	path p;
+	p:=z1r{dir(alpha)}..z3r{dir(180+alpha-beta)}..z2l{dir(alpha+180)}
 		..z3l{dir(180+alpha+beta)}..tension t
-		..z4{dir(180+alpha+beta)}..z1l{dir(alpha+180)}..cycle;
-	endgroup;
+		..z4{dir(180+alpha+beta)}..z1l{dir(alpha+180)};
+
+	if direction = 1:
+		p
+	else:
+		reverse p
+	fi
+	endgroup
 	enddef;
+
+def flare_path_t(expr pos,alpha,beta,line, flare, bulb, direction) =
+	begingroup;
+	clearxy;
+	penpos1(line, 180+beta+alpha);
+	z1r=pos;
+	penpos2(bulb, 180+beta+alpha);
+	z2=z3;
+	penpos3(bulb, 0+alpha);
+	save taille,roundness;
+
+	taille = -0.5;
+	roundness = 0.5;
+	z3r = z1  + flare * (dir (alpha) + dir (alpha +beta));
+	z4=  z2r - taille * line * dir(alpha)
+		+ roundness * line *dir (alpha - beta)
+		;
+
+	penlabels(1,2,3,4);
+	pickup pencircle;
+	save t; t=0.833;
+	save p; 
+	path p;
+	p:=z1r{dir(alpha)}..z3r{dir(180+alpha-beta)}..z2l{dir(alpha+180)}
+		..z3l{dir(180+alpha+beta)}..tension t
+		..z4{dir(180+alpha+beta)}
+		..z1l{dir(alpha+180)};
+
+	if direction = 1:
+		p
+	else:
+		reverse p
+	fi
+	endgroup
+	enddef;
+
 
 def brush(expr a,w,b,v) =
 	begingroup;

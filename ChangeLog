@@ -1,10 +1,70 @@
+2002-02-25  Han-Wen  <hanwen@cs.uu.nl>
+
+	* VERSION: 1.5.33 released.
+
+	* mf/feta-macros.mf (flare_path): removed draw_flare, replace by
+	flare_path everywhere (c-clef, numbers).	
+
+	* lily/bar-number-engraver.cc (process_music): also print bar
+	number if measure starts with grace note.	
+
+	* input/regression/grace-bar-number.ly: new test.
+
+2002-02-24  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/figured-bass-engraver.cc (stop_translation_timestep): reset
+	rest as well.
+
+	* scm/music-functions.scm (voicify-music):  split chords into
+	different voices automatically.
+
+	* lily/music.cc (ly_music_list_p): new function
+
+	* lily/music-sequence.cc (do_relative_octave): robustification
+
+	* scm/music-functions.scm: many utility functions 
+
+	* lily/music.cc (ly_set_mus_property): add type checks to the
+	Scheme property assignment.
+
+	* buildscripts/lilypond-profile,lilypond-login.sh (TEXCONFIG):
+	dvips fixes
+
+	* mf/lilypond.map: .map file from Mats' page. 
+
+2002-02-21  Juergen Reuter <reuter@ipd.uka.de>
+
+	* Some more parmesan related fixes;
+
+	* Custos: varying shape (in particular, stem length), depending on the
+	  vertical position of the custos (on staffline / between stafflines);
+
+	* Custos: added grob property "neutral-direction" (same semantics as
+	  with stem); introduced new grob property "neutral-position";
+
+	* Time-signature: print a warning when resorting to default layout.
+
+2002-02-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/translator-group.cc (add_fresh_simple_translator): remove
+	function; initialize() is called through
+	Translator_group::initialize().
+
+	* lily/third-try.cc (prune_loose_colunms): add constraints (rods)
+	for the neighbors of a loose column.
+
+	* lily/line-of-score.cc (set_loose_columns): be more intelligent:
+	position loose columns so that they don't collide.
+
 2002-02-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* VERSION: 1.5.32 released.
 
 	* scm/font.scm: remove font-name symbol.
 
 	* mf/GNUmakefile: use pktrace for making PFAs
 
-	* make/lilypond.redhat.spec.in: use pktrace when making specs
+	* make/lilypond.redhat.spec.in: use pktrace when making RPMs
 
 	* lily/rest-collision.cc (do_shift): read direction field from
 	rest-column in case of note-rest collision. This should fix some

@@ -1,5 +1,5 @@
 %define name lilypond
-%define version 1.5.32
+%define version 1.5.33
 %define release 1mdk
 
 Name: %{name}

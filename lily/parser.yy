@@ -242,6 +242,7 @@ yylex (YYSTYPE *s,  void * v_l)
 
 /* escaped */
 %token E_CHAR E_EXCLAMATION E_SMALLER E_BIGGER E_OPEN E_CLOSE E_TILDE
+%token E_BACKSLASH
 %token CHORD_BASS CHORD_COLON CHORD_MINUS CHORD_CARET 
 
 %type <i>	exclamations questions dots
@@ -1112,7 +1113,12 @@ command_element:
 		$$-> set_spot (THIS->here_input ());
 		$1-> set_spot (THIS->here_input ());
 	}
+	| E_BACKSLASH {
+		$$ = new Music (gh_list (gh_cons (ly_symbol2scm ("name"), ly_symbol2scm ("separator")), SCM_UNDEFINED));
+		$$->set_spot (THIS->here_input ());
+	}
 	| '|'      {
+
 		extern Music * get_barcheck();
 		$$ = get_barcheck ();
 		$$->set_spot (THIS->here_input ());

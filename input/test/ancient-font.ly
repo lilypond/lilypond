@@ -25,10 +25,15 @@ upperVoice =  \context Staff = upperVoice <
 
     \notes \transpose c' {
 	\property Staff.Clef \set #'font-family = #'ancient
+	\property Staff.KeySignature \set #'font-family = #'ancient
 	\property Staff.KeySignature \override #'style = #'vaticana
+	\property Staff.Accidentals \set #'font-family = #'ancient
 	\property Staff.Accidentals \override #'style = #'vaticana
 	\property Staff.Custos \set #'font-family = #'ancient
 	\property Staff.Custos \override #'style = #'vaticana
+	\property Staff.Custos \override #'neutral-position = #4
+	\property Staff.Custos \override #'neutral-direction = #-1
+	\property Staff.Custos \override #'adjust-if-on-staffline = ##t
 	\property Voice.NoteHead \set #'font-family = #'ancient
 	\property Voice.NoteHead \override #'style = #'vaticana_punctum
 	\property Voice.Porrectus \override #'style = #'vaticana
@@ -125,10 +130,15 @@ lowerVoice =  \context Staff = lowerNotes <
     \notes \transpose c' {
 	\property Voice.noAutoBeaming = ##t
 	\property Staff.Clef \set #'font-family = #'ancient
+	\property Staff.KeySignature \set #'font-family = #'ancient
 	\property Staff.KeySignature \override #'style = #'mensural
+	\property Staff.Accidentals \set #'font-family = #'ancient
 	\property Staff.Accidentals \override #'style = #'mensural
 	\property Staff.Custos \set #'font-family = #'ancient
 	\property Staff.Custos \override #'style = #'mensural
+	\property Staff.Custos \override #'neutral-position = #3
+	\property Staff.Custos \override #'neutral-direction = #-1
+	\property Staff.Custos \override #'adjust-if-on-staffline = ##t
 	\property Voice.NoteHead \set #'font-family = #'ancient
 	\property Voice.NoteHead \override #'style = #'neo_mensural
 	\property Voice.Stem \set #'font-family = #'ancient % ancient flags

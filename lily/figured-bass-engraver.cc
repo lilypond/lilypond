@@ -35,6 +35,7 @@ Figured_bass_engraver::stop_translation_timestep ()
     }
 
   figures_.clear ();
+  rest_req_ = 0;
 }
 
 bool

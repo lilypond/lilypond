@@ -21,11 +21,10 @@ class Bar_number_engraver : public Engraver
 {
 protected:
   Item* text_p_;
-
 protected:
   virtual void stop_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
-  virtual void create_grobs ();
+  virtual void process_music ();
   void create_items ();
   TRANSLATOR_DECLARATIONS(  Bar_number_engraver );
 };
@@ -36,22 +35,30 @@ protected:
   every 5 measures?  */
 
 void
-Bar_number_engraver::create_grobs ()
+Bar_number_engraver::process_music ()
 {
   // todo include (&&!time->cadenza_b_)
-  SCM bn = get_property ("currentBarNumber");
-  SCM smp = get_property ("measurePosition");
-  Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
-  
-  if (gh_number_p (bn) &&
-      !mp.to_bool () && now_mom () > Moment (0))
-    {
-      create_items ();
 
-      // guh.
-      text_p_->set_grob_property ("text",
-				 ly_str02scm (to_str (gh_scm2int (bn)).ch_C ()));
+  SCM wb = get_property ("whichBar");
+  
+  if (gh_string_p (wb))
+    {
+      SCM bn = get_property ("currentBarNumber");
+      SCM smp = get_property ("measurePosition");
+      int ibn = gh_number_p (bn) ? gh_scm2int(bn) : 1;
+      
+      Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
+      if (mp.main_part_ == Rational (0)
+	  && ibn != 1)
+	{
+	  create_items ();
+	  
+	  // guh.
+	  text_p_->set_grob_property ("text",
+				      ly_str02scm (to_str (gh_scm2int (bn)).ch_C ()));
+	}
     }
+
 }
 
 

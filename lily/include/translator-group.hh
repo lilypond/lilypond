@@ -51,7 +51,6 @@ public:
   Translator_group (Translator_group const &);
   Translator_group ();
   void add_fresh_group_translator (Translator *trans_p);
-  void add_fresh_simple_translator (Translator *trans_p);  
   void add_used_group_translator (Translator *trans_p);
   
   /// Score_register = 0, Staff_registers = 1, etc)

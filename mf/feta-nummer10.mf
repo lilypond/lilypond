@@ -2,7 +2,7 @@
 % part of LilyPond's pretty-but-neat music font
 
 design_size:=10; % feta20 = 20pt
-
+% mode := smoke;
 input feta-nummer;
 
 end.

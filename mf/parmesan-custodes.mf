@@ -14,6 +14,15 @@ fet_begingroup ("custodes")
 noteheight#:=staff_space#+ (1 + overdone_heads) *stafflinethickness#;
 define_pixels(noteheight);
 
+save between_staff_lines, on_staff_line, anywhere;
+between_staff_lines = 0;
+on_staff_line = 1;
+anywhere = 2;
+
+save dir_up, dir_down;
+dir_up = 1;
+dir_down = -1;
+
 
 %%%%%%%%
 %
@@ -22,254 +31,295 @@ define_pixels(noteheight);
 %
 %
 
-% stem up
-fet_beginchar("Custos Hufnagel", "hufnagel", "hufnagel")
-	save b_h,a_w;
-	a_b:=1.54; % b_h*a_b/a_w = wd/ht
-	b_h:=0.85;
-	a_w:=1.09;
+% parameterized hufnagel custos
+def custos_hufnagel(expr verbose_name, internal_name, mudela_name,
+		    direction, staffline_adjustment) =
 
-	save a, beta, ht, wd;
-	ht# =noteheight#;
-	2beta#=ht#*b_h;
-	a# = beta#*a_b;
-	wd# = 2a# / a_w;
-	set_char_box(0, wd#, ht#/2, ht#/2);
-	black_notehead_width# := wd#;
+	fet_beginchar(verbose_name, internal_name, mudela_name)
 
-	save rh_width, rh_height, rh_edge; % rhombus dimensions
-	rh_width#=0.7ht#; % ht*tan(35)
-	rh_height#=1.0ht#;
-	rh_edge#=0.61ht#; % (ht/2)/cos(35)
+		save b_h, a_w;
+		a_b := 1.54; % b_h * a_b / a_w = wd / ht
+		b_h := 0.85;
+		a_w := 1.09;
 
-	define_pixels(rh_width, rh_height, rh_edge);
-	pickup pencircle
-	  xscaled stafflinethickness
-	  yscaled rh_edge rotated -35;
-	z1=(0.5rh_width,+0.25rh_height);
-	z2=(1.0rh_width,-0.25rh_height);
-	z3=(2.0rh_width,+0.50rh_height);
-	draw z1 -- z2 -- z3;
-fet_endchar;
+		save a, beta, ht, wd;
+		ht# = noteheight#;
+		2beta# = ht# * b_h;
+		a# = beta# * a_b;
+		wd# = 2a# / a_w;
+		set_char_box(0, wd#, ht# / 2, ht# / 2);
+		black_notehead_width# := wd#;
 
-% stem down
-fet_beginchar("Reverse Custos Hufnagel", "rhufnagel", "rhufnagel")
-	save b_h,a_w;
-	a_b:=1.54; % b_h*a_b/a_w = wd/ht
-	b_h:=0.85;
-	a_w:=1.09;
+		save rh_width, rh_height, rh_edge; % rhombus dimensions
+		rh_width# / ht# = tand(35);
+		rh_height# = 1.0ht#;
+		rh_edge# * cosd(35) = ht# / 2;
 
-	save a, beta, ht, wd;
-	ht# =noteheight#;
-	2beta#=ht#*b_h;
-	a# = beta#*a_b;
-	wd# = 2a# / a_w;
-	set_char_box(0, wd#, ht#/2, ht#/2);
-	black_notehead_width# := wd#;
+		save stem_size;
+		if staffline_adjustment = between_staff_lines:
+			stem_size = 0.25;
+		elseif staffline_adjustment = on_staff_line:
+			stem_size = 0.75;
+		else: % staffline_adjustment = anywhere
+			stem_size = 0.50;
+		fi;
 
-	save rh_width, rh_height, rh_edge; % rhombus dimensions
-	rh_width#=0.7ht#; % ht*tan(35)
-	rh_height#=1.0ht#;
-	rh_edge#=0.61ht#; % (ht/2)/cos(35)
+		define_pixels(rh_width, rh_height, rh_edge);
+		pickup pencircle
+		  xscaled stafflinethickness
+		  yscaled rh_edge
+		  rotated (-35*direction);
+		z1=(0.5rh_width,+0.25direction*rh_height);
+		z2=(1.0rh_width,-0.25direction*rh_height);
+		z3-z2=(stem_size*rh_width,+0.75*stem_size*direction*rh_height);
+		draw z1 -- z2 -- z3;
 
-	define_pixels(rh_width, rh_height, rh_edge);
-	pickup pencircle
-	  xscaled stafflinethickness
-	  yscaled rh_edge rotated +35;
-	z1=(0.5rh_width,-0.25rh_height);
-	z2=(1.0rh_width,+0.25rh_height);
-	z3=(2.0rh_width,-0.50rh_height);
-	draw z1 -- z2 -- z3;
-fet_endchar;
+	fet_endchar;
+enddef;
 
+% custos hufnagel, stem up, between staff lines
+custos_hufnagel("Custos Hufnagel", "hufnagel-u0", "hufnagel_u0",
+		dir_up, between_staff_lines);
+
+% custos hufnagel, stem up, on staff line
+custos_hufnagel("Custos Hufnagel", "hufnagel-u1", "hufnagel_u1",
+		dir_up, on_staff_line);
+
+% custos hufnagel, stem up, anywhere
+custos_hufnagel("Custos Hufnagel", "hufnagel-u2", "hufnagel_u2",
+		dir_up, anywhere);
+
+% custos hufnagel, stem down, between staff lines
+custos_hufnagel("Reverse Custos Hufnagel", "hufnagel-d0", "hufnagel_d0",
+		dir_down, between_staff_lines);
+
+% custos hufnagel, stem down, on staff line
+custos_hufnagel("Reverse Custos Hufnagel", "hufnagel-d1", "hufnagel_d1",
+		dir_down, on_staff_line);
+
+% custos hufnagel, stem down, anywhere
+custos_hufnagel("Reverse Custos Hufnagel", "hufnagel-d2", "hufnagel_d2",
+		dir_down, anywhere);
 
 %%%%%%%%
+%
 %
 % Medicaea style
 %
+%
 
-% stem up
-fet_beginchar("Custos Med.", "medicaea", "medicaea")
-	save b_h, a_w;
-	a_b := 1.54; % b_h*a_b/a_w = wd/ht
-	b_h := 0.85;
-	a_w := 1.09;
+def custos_medicaea(expr verbose_name, internal_name, mudela_name,
+		    direction, staffline_adjustment) =
 
-	save a, beta, ht, wd;
-	ht# = noteheight# * mag;
-	2beta# = ht# * b_h;
-	a# = beta# * a_b;
-	wd# = 0.4a# / a_w;
-	set_char_box(0, wd#, ht#/2, ht#/2); % width intentionally too small
-	black_notehead_width# := wd#;
+	fet_beginchar(verbose_name, internal_name, mudela_name)
 
-	define_pixels(ht, wd);
+		save b_h, a_w;
+		a_b := 1.54; % b_h * a_b / a_w = wd / ht
+		b_h := 0.85;
+		a_w := 1.09;
 
-	% head
-	pickup pencircle xscaled blot_diameter yscaled 1.0ht;
-	z1 = (0.0wd, 0.0ht);
-	z2 = z1 + (1.0wd - blot_diameter/2, 0);
-	draw z1 .. z2;
+		save a, beta, ht, wd;
+		ht# = noteheight# * mag;
+		2beta# = ht# * b_h;
+		a# = beta# * a_b;
+		wd# = 0.4a# / a_w;	% width intentionally too small
+		set_char_box(0, wd#, ht# / 2, ht# / 2);
+		black_notehead_width# := wd#;
 
-	% stem
-	pickup pencircle scaled stafflinethickness;
-	z3 = (1.0wd - stafflinethickness/2, 0.0ht);
-	z4 = z3 + (0, +1.0ht);
-	draw z3 .. z4;
-fet_endchar;
+		define_pixels(ht, wd);
 
+		save stem_size;
+		if staffline_adjustment = between_staff_lines:
+			stem_size = 0.90;
+		elseif staffline_adjustment = on_staff_line:
+			stem_size = 1.40;
+		else: % staffline_adjustment = anywhere
+			stem_size = 1.15;
+		fi;
 
-% stem down
-fet_beginchar("Reverse Custos Med.", "rmedicaea", "rmedicaea")
-	save b_h, a_w;
-	a_b := 1.54; % b_h*a_b/a_w = wd/ht
-	b_h := 0.85;
-	a_w := 1.09;
+		pickup pencircle xscaled blot_diameter yscaled 1.0ht;
+		z1 = (0.0wd, 0.0ht);
+		z2 = z1 + (1.0wd - blot_diameter/2, 0);
+		draw z1 .. z2;
 
-	save a, beta, ht, wd;
-	ht# = noteheight# * mag;
-	2beta# = ht# * b_h;
-	a# = beta# * a_b;
-	wd# = 0.4a# / a_w;
-	set_char_box(0, wd#, ht#/2, ht#/2); % width intentionally too small
-	black_notehead_width# := wd#;
+		pickup pencircle scaled stafflinethickness;
+		z3 = (1.0wd - stafflinethickness/2, 0.0ht);
+		z4 = z3 + (0, +direction*stem_size*ht);
+		draw z3 .. z4;
 
-	define_pixels(ht, wd);
+	fet_endchar;
+enddef;
 
-	% head
-	pickup pencircle xscaled blot_diameter yscaled 1.0ht;
-	z1 = (0.0wd, 0.0ht);
-	z2 = z1 + (1.0wd - blot_diameter/2, 0);
-	draw z1 .. z2;
+% custos medicaea, stem up, between staff lines
+custos_medicaea("Custos Med.", "medicaea-u0", "medicaea_u0",
+		dir_up, between_staff_lines);
 
-	% stem
-	pickup pencircle scaled stafflinethickness;
-	z3 = (1.0wd - stafflinethickness/2, 0.0ht);
-	z4 = z3 + (0, -1.0ht);
-	draw z3 .. z4;
-fet_endchar;
+% custos medicaea, stem up, on staff line
+custos_medicaea("Custos Med.", "medicaea-u1", "medicaea_u1",
+		dir_up, on_staff_line);
 
+% custos medicaea, stem up, anywhere
+custos_medicaea("Custos Med.", "medicaea-u2", "medicaea_u2",
+		dir_up, anywhere);
+
+% custos medicaea, stem down, between staff lines
+custos_medicaea("Reverse Custos Med.", "medicaea-d0", "medicaea_d0",
+		dir_down, between_staff_lines);
+
+% custos medicaea, stem down, on staff line
+custos_medicaea("Reverse Custos Med.", "medicaea-d1", "medicaea_d1",
+		dir_down, on_staff_line);
+
+% custos medicaea, stem down, anywhere
+custos_medicaea("Reverse Custos Med.", "medicaea-d2", "medicaea_d2",
+		dir_down, anywhere);
 
 %%%%%%%%
+%
 %
 % Editio Vaticana style
 %
+%
 
-% stem up
-fet_beginchar("Custos Ed. Vat.", "vaticana", "vaticana")
-	save b_h, a_w;
-	a_b := 1.54; % b_h*a_b/a_w = wd/ht
-	b_h := 0.85;
-	a_w := 1.09;
+def custos_vaticana(expr verbose_name, internal_name, mudela_name,
+		    direction, staffline_adjustment) =
 
-	save a, beta, ht, wd;
-	ht# = noteheight# * mag;
-	2beta# = ht# * b_h;
-	a# = beta# * a_b;
-	wd# = 0.4a# / a_w;
-	set_char_box(0, wd#, ht#/2, ht#/2);
-	black_notehead_width# := wd#;
+	fet_beginchar(verbose_name, internal_name, mudela_name)
 
-	define_pixels(ht, wd);
-	pickup pencircle scaled stafflinethickness;
+		save b_h, a_w;
+		a_b := 1.54; % b_h * a_b / a_w = wd / ht
+		b_h := 0.85;
+		a_w := 1.09;
 
-	z1 = (0.0wd, +0.05ht);
-	z2 = (1.0wd + 0.5stafflinethickness, 0.0ht);
-	penpos1(0.5ht, 90);
-	penpos2(0.5ht, 90);
-	penstroke z1e{z2 - z1} .. {right}z2e;
+		save a, beta, ht, wd;
+		ht# = noteheight# * mag;
+		2beta# = ht# * b_h;
+		a# = beta# * a_b;
+		wd# = 0.4a# / a_w;
+		set_char_box(0, wd#, ht# / 2, ht# / 2);
+		black_notehead_width# := wd#;
 
-	z3=(1.0wd, +0.0ht);
-	z4=(1.0wd, +1.0ht);
-	draw z3 -- z4;
-fet_endchar;
+		save stem_size;
+		if staffline_adjustment = between_staff_lines:
+			stem_size = 0.60;
+		elseif staffline_adjustment = on_staff_line:
+			stem_size = 1.10;
+		else: % staffline_adjustment = anywhere
+			stem_size = 0.85;
+		fi;
 
+		define_pixels(ht, wd);
+		pickup pencircle scaled stafflinethickness;
 
-% stem down
-fet_beginchar("Reverse Custos Ed. Vat.", "rvaticana", "rvaticana")
-	save b_h, a_w;
-	a_b := 1.54; % b_h*a_b/a_w = wd/ht
-	b_h := 0.85;
-	a_w := 1.09;
+		z1 = (0.0wd, +direction*0.05ht);
+		z2 = (1.0wd + 0.5stafflinethickness, 0.0ht);
+		penpos1(0.5ht, 90);
+		penpos2(0.5ht, 90);
+		penstroke z1e{z2 - z1} .. {right}z2e;
 
-	save a, beta, ht, wd;
-	ht# = noteheight# * mag;
-	2beta# = ht# * b_h;
-	a# = beta# * a_b;
-	wd# = 0.4a# / a_w;
-	set_char_box(0, wd#, ht#/2, ht#/2);
-	black_notehead_width# := wd#;
+		z3=(1.0wd, +0.0ht);
+		z4=(1.0wd, +direction*stem_size*ht);
+		draw z3 -- z4;
 
-	define_pixels(ht, wd);
-	pickup pencircle scaled stafflinethickness;
+	fet_endchar;
+enddef;
 
-	z1 = (0.0wd, -0.05ht);
-	z2 = (1.0wd + 0.5stafflinethickness, -0.0ht);
-	penpos1(0.5ht, 90);
-	penpos2(0.5ht, 90);
-	penstroke z1e{z2 - z1} .. {right}z2e;
+% custos vaticana, stem up, between staff lines
+custos_vaticana("Custos Ed. Vat.", "vaticana-u0", "vaticana_u0",
+		dir_up, between_staff_lines);
 
-	z3=(1.0wd, -0.0ht);
-	z4=(1.0wd, -1.0ht);
-	draw z3 -- z4;
-fet_endchar;
+% custos vaticana, stem up, on staff line
+custos_vaticana("Custos Ed. Vat.", "vaticana-u1", "vaticana_u1",
+		dir_up, on_staff_line);
 
+% custos vaticana, stem up, anywhere
+custos_vaticana("Custos Ed. Vat.", "vaticana-u2", "vaticana_u2",
+		dir_up, anywhere);
+
+% custos vaticana, stem down, between staff lines
+custos_vaticana("Reverse Custos Ed. Vat.", "vaticana-d0", "vaticana_d0",
+		dir_down, between_staff_lines);
+
+% custos vaticana, stem down, on_staff_line
+custos_vaticana("Reverse Custos Ed. Vat.", "vaticana-d1", "vaticana_d1",
+		dir_down, on_staff_line);
+
+% custos vaticana, stem down, anywhere
+custos_vaticana("Reverse Custos Ed. Vat.", "vaticana-d2", "vaticana_d2",
+		dir_down, anywhere);
 
 %%%%%%%%
 %
+%
 % Mensural style
 %
+%
 
-% stem up
-fet_beginchar("Custos Mensural", "mensural", "mensural")
-	save b_h,a_w;
-	a_b:=1.54; % b_h*a_b/a_w = wd/ht
-	b_h:=0.85;
-	a_w:=1.09;
+def custos_mensural(expr verbose_name, internal_name, mudela_name,
+		    direction, staffline_adjustment) =
 
-	save a, beta, ht, wd;
-	ht# =noteheight#;
-	2beta#=ht#*b_h;
-	a# = beta#*a_b;
-	wd# = 2a# / a_w;
-	set_char_box(0, wd#, ht#/2, ht#/2); % width intentionally too small
-	black_notehead_width# := wd#;
+	fet_beginchar(verbose_name, internal_name, mudela_name)
 
-	define_pixels(ht, wd);
-	pickup pencircle xscaled stafflinethickness yscaled 0.4ht rotated -35;
-	z1=(0.0wd,-0.2ht);
-	z2=(0.2wd,+0.2ht);
-	z3=(0.4wd,-0.2ht);
-	z4=(0.6wd,+0.2ht);
-	z5=(0.8wd,-0.2ht);
-	z6=(1.6wd,+1.4ht);
-	draw z1 -- z2 -- z3 -- z4 -- z5 -- z6;
-fet_endchar;
+		save b_h,a_w;
+		a_b:=1.54; % b_h * a_b / a_w = wd / ht
+		b_h:=0.85;
+		a_w:=1.09;
 
-% stem down
-fet_beginchar("Reverse Custos Mensural", "rmensural", "rmensural")
-	save b_h,a_w;
-	a_b:=1.54; % b_h*a_b/a_w = wd/ht
-	b_h:=0.85;
-	a_w:=1.09;
+		save a, beta, ht, wd;
+		ht# = noteheight#;
+		2beta# = ht# * b_h;
+		a# = beta# * a_b;
+		wd# = 2a# / a_w;	% width intentionally too small
+		set_char_box(0, wd#, ht# / 2, ht# / 2);
+		black_notehead_width# := wd#;
 
-	save a, beta, ht, wd;
-	ht# =noteheight#;
-	2beta#=ht#*b_h;
-	a# = beta#*a_b;
-	wd# = 2a# / a_w;
-	set_char_box(0, wd#, ht#/2, ht#/2); % width intentionally too small
-	black_notehead_width# := wd#;
+		save stem_size;
+		if staffline_adjustment = between_staff_lines:
+			stem_size = 0.85;
+		elseif staffline_adjustment = on_staff_line:
+			stem_size = 1.35;
+		else: % staffline_adjustment = anywhere
+			stem_size = 1.10;
+		fi;
 
-	define_pixels(ht, wd);
-	pickup pencircle xscaled stafflinethickness yscaled 0.4ht rotated +35;
-	z1=(0.0wd,+0.2ht);
-	z2=(0.2wd,-0.2ht);
-	z3=(0.4wd,+0.2ht);
-	z4=(0.6wd,-0.2ht);
-	z5=(0.8wd,+0.2ht);
-	z6=(1.6wd,-1.4ht);
-	draw z1 -- z2 -- z3 -- z4 -- z5 -- z6;
-fet_endchar;
+		define_pixels(ht, wd);
+		pickup pencircle
+		  xscaled stafflinethickness
+		  yscaled 0.4ht
+		  rotated (-35*direction);
+		z1=(0.0wd,-direction*0.2ht);
+		z2=(0.2wd,+direction*0.2ht);
+		z3=(0.4wd,-direction*0.2ht);
+		z4=(0.6wd,+direction*0.2ht);
+		z5=(0.8wd,-direction*0.2ht);
+		z6-z5=(stem_size*0.5wd,+direction*stem_size*ht);
+		draw z1 -- z2 -- z3 -- z4 -- z5 -- z6;
+
+	fet_endchar;
+enddef;
+
+% custos mensural, stem up, between staff lines
+custos_mensural("Custos Mensural", "mensural-u0", "mensural_u0",
+		dir_up, between_staff_lines);
+
+% custos mensural, stem up, on staff line
+custos_mensural("Custos Mensural", "mensural-u1", "mensural_u1",
+		dir_up, on_staff_line);
+
+% custos mensural, stem up, anywhere
+custos_mensural("Custos Mensural", "mensural-u2", "mensural_u2",
+		dir_up, anywhere);
+
+% custos mensural, stem down, between staff lines
+custos_mensural("Reverse Custos Mensural", "mensural-d0", "mensural_d0",
+		dir_down, between_staff_lines);
+
+% custos mensural, stem down, on staff line
+custos_mensural("Reverse Custos Mensural", "mensural-d1", "mensural_d1",
+		dir_down, on_staff_line);
+
+% custos mensural, stem down, anywhere
+custos_mensural("Reverse Custos Mensural", "mensural-d2", "mensural_d2",
+		dir_down, anywhere);
 
 fet_endgroup ("custodes")

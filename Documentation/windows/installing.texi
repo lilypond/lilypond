@@ -20,15 +20,14 @@ bugreport, following the guidelines in the section on bugreports below.
 @section Windows binary setup 
 
 If you run Windows NT, 2000 or XP, please become administrator first
-(currently, installing as an ordinary user will not work).  All the
-software you need is installed by downloading and running
-@uref{http://www.lilypond.org/gnu-windows/setup.exe, setup.exe}.  You
-will be asked some questions. If you are unsure just click "Next".  Do
-not change the default install directory @file{c:/cygwin}.
+(currently, installing as an ordinary user will not work).  Download and
+run @uref{http://www.lilypond.org/gnu-windows/setup.exe, setup.exe}.
+You will be asked some questions. If you are unsure just click "Next".
+Do not change the default install directory @file{c:/cygwin}.
 
-This installs LilyPond, and Cygwin, GUILE, Python, teTeX and GSView.  If
-you already have some of that software under @file{c:/cygwin}, then
-don't worry: nothing will be installed twice.
+This installs LilyPond, and Cygwin, GUILE, Python, teTeX (MikTeX is not
+supported) and GSView.  If you already have some of that software under
+@file{c:/cygwin}, then don't worry: nothing will be installed twice.
 
 If you want to install any of this software by hand, do this
 @strong{before} you run @file{setup.exe}, otherwise your LilyPond setup
@@ -140,6 +139,7 @@ want to see the output of the  following commands:
 You can also check out
 @uref{http://lilypond.org/wiki/?TroubleshootingWindows} for more
 instructions on how to make a bug report.
+
 @ignore
 @subsection Additional software
 
@@ -162,7 +162,6 @@ installation is supported (packages tetex-beta and texmf-base).  It is
 part of Cygwin and much more robust for use with LilyPond than MiKTeX.
 See @file{/usr/doc/Cygwin/tetex-beta-20001218.README} and
 @file{/usr/doc/Cygwin/texmf-20000804-2.README} for details.
-
 
 @item Ghostview.
 

@@ -75,12 +75,6 @@ Translator_group::add_translator (SCM list, Translator *t)
   return list;
 }
 
-void
-Translator_group::add_fresh_simple_translator (Translator*t)
-{
-  simple_trans_list_ = add_translator (simple_trans_list_, t);
-  t->initialize ();
-}
 
 void
 Translator_group::add_used_group_translator (Translator *t)
@@ -409,42 +403,6 @@ Translator_group::finalize ()
   each (&Translator::removal_processing);
 }
 
-
-bool
-type_check_assignment (SCM val, SCM sym,  SCM type_symbol) 
-{
-  bool ok = true;
-  SCM type_p = SCM_EOL;
-
-  if (gh_symbol_p (sym))
-    type_p = scm_object_property (sym, type_symbol);
-
-  if (type_p != SCM_EOL && !gh_procedure_p (type_p))
-      {
-	warning (_f ("Can't find property type-check for `%s'.  Perhaps you made a typing error? Doing assignment anyway.",
-		     ly_symbol2string (sym).ch_C ()));
-      }
-  else
-    {
-      if (val != SCM_EOL
-	  && gh_procedure_p (type_p)
-	  && gh_call1 (type_p, val) == SCM_BOOL_F)
-	{
-	  SCM errport = scm_current_error_port ();
-	  ok = false;
-	  SCM typefunc = scm_primitive_eval (ly_symbol2scm ("type-name"));
-	  SCM type_name = gh_call1 (typefunc, type_p);
-
-	  scm_puts (_f ("Type check for `%s' failed; value `%s' must be of type `%s'",
-			ly_symbol2string (sym).ch_C (),
-			ly_scm2string (ly_write2scm (val)).ch_C (),
-			ly_scm2string (type_name).ch_C ()).ch_C (),
-		    errport);
-	  scm_puts ("\n", errport);		      
-	}
-    }
-  return ok;
-}
 
 SCM
 ly_get_trans_property (SCM context, SCM name)
