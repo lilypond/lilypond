@@ -120,11 +120,18 @@ internal_brew_molecule (Grob *me,  bool ledger_take_space)
   SCM exp = scm_list_n (ly_symbol2scm ("find-notehead-symbol"), log,
 			ly_quote_scm (style),
 			SCM_UNDEFINED);
-  String name = "noteheads-" + ly_scm2string (scm_primitive_eval (exp));
-  Molecule out = Font_interface::get_default_font (me)->find_by_name (name);
-  if (out.empty_b())
-    {
-      warning (_f("Symbol not found, ", name.to_str0 ()));
+  SCM scm_pair = scm_primitive_eval (exp);
+  SCM scm_font_char = ly_car (scm_pair);
+  SCM scm_font_family = ly_cdr (scm_pair);
+  String font_char = "noteheads-" + ly_scm2string (scm_font_char);
+  String font_family = ly_scm2string (scm_font_family);
+  
+   me->set_grob_property("font-family", ly_symbol2scm (font_family.to_str0 ()));
+   Molecule out =
+     Font_interface::get_default_font (me)->find_by_name (font_char);
+   if (out.empty_b())
+     {
+       warning (_f("Symbol not found, ", font_char.to_str0()));
     }
   
   int interspaces = Staff_symbol_referencer::line_count (me)-1;
@@ -235,7 +242,8 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
     return 0.0;
 
   SCM st = me->get_grob_property ("style");
-  SCM result = gh_apply (v, scm_list_n (st, SCM_UNDEFINED));
+  SCM log = gh_int2scm (get_balltype (me));
+  SCM result = gh_apply (v, scm_list_n (st, log, SCM_UNDEFINED));
 
   if (!gh_pair_p (result))
     return 0.0;

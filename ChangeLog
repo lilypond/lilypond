@@ -1,3 +1,9 @@
+2002-07-27  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* scm/output-lib.scm, lily/note-head.cc: fixed broken baroque
+	note-head style by setting grob property font-family
+	automatically.
+
 2002-07-26  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/user/lilypond-book.itely (Insert music snippets
