@@ -9,10 +9,10 @@
 }
 
 \score{
-   \notes\relative c'''{\key a \minor \time 2/4
+   \notes\relative c''{\key a \minor \time 2/4
      \repeat "volta" 2 {
-     \grace {  a16[( c] }  c,4 c4  |
-     \grace {  e'16[( gis] } c,4 c4 |
+     \grace {  a16[ b] }  c4 c4  |
+     \grace {  d16[ b] } c4 c4 |
      
      }
    }

@@ -1,4 +1,3 @@
-#(ly:set-option 'old-relative)
 \version "1.9.8"
 \header {
 
@@ -12,7 +11,7 @@ Completion heads are not fooled by polyphony with a different rhythm.
 \score{ 
 	\context Staff \notes \relative c'' << 
 	    { c2. c bes2 } \\
-	    { c,2. a8 g4 f4. g4 f  }
+	    { c2. a8 g4 f4. g4 f  }
 	>>
 
 	\paper {

@@ -4,7 +4,7 @@
 \header {
 texidoc="
 This shows how accidentals in different octaves are handled.
-FIXME: Shorten and docu.
+(DOCME)
 "
 
 
@@ -47,38 +47,9 @@ mel = \notes \transpose c c' {
   \bar "|." \break
 }
 
-mus = \notes {
-   \mel
-
-%% FIXME.
-%   \property Score.oneMeasureLazy = ##t
-
-
-   \property Score.autoAccidentals = #'(Staff (same-octave . 0))
-   << s1^""^""^"$\\backslash$property Score.autoAccidentals = \\#'(Staff (same-octave . 0))" \mel >>
-   \property Score.autoAccidentals = #'(Staff (same-octave . 1))
-   << s1^""^""^"$\\backslash$property Score.autoAccidentals = \\#'(Staff (same-octave . 1))" \mel >>
-   \property Score.autoAccidentals = #'(Staff (any-octave . 0))
-   << s1^""^""^"$\\backslash$property Score.autoAccidentals = \\#'(Staff (any-octave . 0))" \mel >>
-   \property Score.autoAccidentals = #'(Staff (any-octave . 1))
-   << s1^""^""^"$\\backslash$property Score.autoAccidentals = \\#'(Staff (any-octave . 1))" \mel >>
-   \modernAccidentals
-   << s1^""^""^"$\\backslash$modernAccidentals" \mel >>
-   \modernCautionaries
-   << s1^""^""^"$\\backslash$modernCautionaries" \mel >>
-   \noResetKey
-   << s1^""^""^"$\\backslash$noResetKey" \mel >>
-   \forgetAccidentals
-   << s1^""^""^"$\\backslash$forgetAccidentals" \mel >>
-}
-
-
 \score {
-  << \context Staff \mus
-    \context NoteNames \apply #no-octaves \mus
+  << \context Staff \mel
+     \context NoteNames \apply #no-octaves \mel
   >>
-  \paper {
-    indent=0.0
-  }
 }
 

@@ -3,7 +3,7 @@
 %     scm/midi.scm for list of midi-drumkits.
 
 \header {
-texidoc = "Drum notation, although kludgy, should work. Though, < chord > does not work because the chords need to be split into threads."
+texidoc = "Drum notation, although kludgy, should work."
 }
 
 \include "drumpitch-init.ly"

@@ -27,10 +27,4 @@ chs = \notes
     }
 	\context Staff \notes \transpose c c' { \chs }
     >>
-    \paper{
-	\translator { 
-	    \ChordNamesContext
-	    ChordName \override #'word-space = #1 
-	}
-    }
 }
