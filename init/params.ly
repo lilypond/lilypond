@@ -2,6 +2,7 @@
 % generic paper parameters
 
 paperfile = \papersize + ".ly";
+% paperfile = "a4.ly";
 \include \paperfile;
 \include "paper.ly";
 
@@ -9,10 +10,33 @@ interline = \staffheight / 4.0;
 internote = \interline / 2.0;
 staffline = \interline / 10.0;
 
-beam_thickness = 0.48 * (\interline - \staffline);
+beam_thickness = 0.52 * (\interline - \staffline);
 interbeam = (2.0 * \interline - \beam_thickness) / 2.0;
 interbeam4 = (3.0 * \interline - \beam_thickness) / 3.0;
+%
 
+% stems and beams
+%
+% not used for beams
+stem_length = 7.0*\internote;
+%
+% stems in unnatural (forced) direction should be shortened,
+% according to [Roush & Gourlay].  Their suggestion to knock off
+% a whole staffspace seems a bit drastical though?
+%
+forced_stem_shorten = 1.0 * \interline;
+%
+% there are several ways to calculate the direction of a beam
+% 
+% * MAJORITY : number count of up or down notes
+% * MEAN     : mean centre distance of all notes
+% * MEDIAN   : mean centre distance weighted per note
+%
+% enum Dir_algorithm { DOWN=-1, UP=1, MAJORITY=2, MEAN, MEDIAN };
+%
+beam_dir_algorithm = 2.0;
+%
+%
 % some beam-stemlength settings...
 %
 %    beam_*1 : multiplicity < beam_multiple_break
@@ -29,7 +53,7 @@ beam_slope_damp_correct_factor = 0.0;
 % OSU: suggested gap = ss / 5;
 slur_x_gap = \interline / 5.0;
 slur_x_minimum = 2.0 * \interline;
-slur_slope_damping = 0.3;
+slur_slope_damping = 0.5;
 tie_x_minimum = \slur_x_minimum;
 tie_x_gap = \slur_x_gap;
 tie_slope_damping = 0.3;
