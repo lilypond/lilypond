@@ -13,7 +13,7 @@ Unreleased:
 @itemize
 @end itemize
 
-Version 2.1.9
+Version 2.1.13
 @end ignore
 
 @itemize @bullet
@@ -44,7 +44,7 @@ spaces below the box.
 setting staff sizes. Both are demonstrated in this fragment:
 
 @example
-  #(set-staff-size 15)
+  #(set-global-staff-size 15)
   \paper @{
     #(paper-set-staff-size (* 15 pt))
   @}   
