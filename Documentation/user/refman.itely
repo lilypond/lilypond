@@ -1685,11 +1685,11 @@ voices in the same staff share accidentals, but staves do not.
       same-octave.
       @end table
 
-@item lazyness
+@item laziness
 
                         Over how many barlines the accidental lasts.
-                              If @var{lazyness} is @code{-1} then the accidental is forget
-                        immediately, and if @var{lazyness} is @code{#t} then the accidental
+                              If @var{laziness} is @code{-1} then the accidental is forget
+                        immediately, and if @var{laziness} is @code{#t} then the accidental
                               lasts forever.
 @end table
 
@@ -4495,7 +4495,11 @@ measure.
 
 @code{\partcombine} can not be inside @code{\times}. 
 
-
+Internally, the @code{\partcombine} interprets both arguments as
+@code{Voice}s named @code{one} and @code{two}, and then decides when
+the parts can be combined. Consequently, if the arguments switch to
+differently named @internalsref{Voice} contexts, then the events in
+those will be ignored.
 
 @node Hiding staves
 @subsection Hiding staves

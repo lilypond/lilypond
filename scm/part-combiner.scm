@@ -250,14 +250,9 @@ Voice-state objects
      ((m (make-music-by-name 'PartCombineMusic))
       (m1 (context-spec-music (car music-list) 'Voice "one"))
       (m2 (context-spec-music (cadr music-list) 'Voice "two"))
-      (props '((denies Thread)
-	       (consists Rest_engraver)
-	       (consists Note_heads_engraver)
-	       )))
+       )
     
     (ly:music-set-property! m 'elements (list m1 m2))
-    (ly:music-set-property! m1 'property-operations props)
-    (ly:music-set-property! m2 'property-operations props)
     (ly:run-translator m2 part-combine-listener)
     (ly:run-translator m1 part-combine-listener)
     (ly:music-set-property! m 'split-list

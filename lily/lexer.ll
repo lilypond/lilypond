@@ -645,9 +645,9 @@ My_lily_lexer::pop_state ()
 }
 
 int
-My_lily_lexer::identifier_type(SCM sid)
+My_lily_lexer::identifier_type (SCM sid)
 {
-	int k = try_special_identifiers(&yylval.scm , sid);
+	int k = try_special_identifiers (&yylval.scm , sid);
 	return k >= 0  ? k : SCM_IDENTIFIER;
 }
 
@@ -777,7 +777,7 @@ is_valid_version (String s)
 	
 
 /*
-  substittute _ adn \,
+  substitute _ and \,
 */
 String
 lyric_fudge (String s)

@@ -2417,7 +2417,8 @@ My_lily_lexer::try_special_identifiers (SCM * destination, SCM sid)
 		*destination =sc->self_scm ();
 		return SCORE_IDENTIFIER;
 	} else if (Music * mus =unsmob_music (sid)) {
-		*destination = unsmob_music (sid)->clone ()->self_scm();
+		mus = mus->clone ();
+		*destination = mus->self_scm();
 		unsmob_music (*destination)->
 			set_property ("origin", make_input (last_input_));
 		return dynamic_cast<Event*> (mus)
