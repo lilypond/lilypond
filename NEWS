@@ -1,4 +1,12 @@
---- ../lilypond-1.1.31.jcn2/NEWS	Wed Feb 17 17:03:12 1999
+--- ../lilypond-1.1.31.jcn3/NEWS	Sun Feb 21 14:29:39 1999
+++ b/NEWS	Sun Feb 21 17:53:29 1999
+@@ -1,3 +1,6 @@
+pl 31.jcn4
+	- bf: toplevel install, kpsewhich
+
+ pl 31.jcn3
+ 	- sm 71, require yodl-1.31.11
+ 	- fix: slur macros--- ../lilypond-1.1.31.jcn2/NEWS	Wed Feb 17 17:03:12 1999
 ++ b/NEWS	Sun Feb 21 14:29:39 1999
 @@ -1,3 +1,8 @@
 pl 31.jcn3
