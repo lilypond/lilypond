@@ -163,27 +163,16 @@ smallerPaper = \paper {
     linewidth = 146.8 \mm
 }
 
-baerPaper = \paper {
-    indent = 7. \mm
-    linewidth =183.5 \mm
-%    interscoreline=4.0\mm
-    \context {
-	     \Score
-%	     \override System #'print-function = #box-grob-stencil
-    }
-}
-
 \bookpaper {
   raggedbottom = ##t
+  indent = 7. \mm
+  linewidth =183.5 \mm
   betweensystemspace = 25\mm 
   betweensystempadding = 0\mm
 }
 
 \score{
   \sarabandeCelloStaff
-  \paper{
-    \baerPaper
-  }
   \midi{ \tempo 4 = 40 }
   \header{
     opus= "" 
