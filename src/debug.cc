@@ -6,12 +6,18 @@
 #include "dstream.hh"
 #include "vector.hh"
 
-Dstream monitor(&cout,".dstreamrc");
+Dstream *monitor=0;
 ostream * nulldev =0;
 
 struct _Dinit {
-    _Dinit() { nulldev = new ofstream("/dev/null");}
-    ~_Dinit() { delete nulldev; }
+    _Dinit() {
+	nulldev = new ofstream("/dev/null");
+	monitor = new Dstream(&cout,".dstreamrc");
+    }
+    ~_Dinit() {
+	delete nulldev;
+	delete monitor;
+    }
 } dinit;
 
 
@@ -38,7 +44,7 @@ debug_init()
 #ifndef NDEBUG
     set_new_handler(&mynewhandler);
 #endif
-    set_matrix_debug(monitor);
+    set_matrix_debug(*monitor);
     signal(SIGFPE, float_handler);
 }   
 
