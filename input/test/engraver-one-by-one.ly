@@ -4,7 +4,7 @@
     
 texidoc = "The notation problem, creating a certain symbol,
     is handled by plugins. Each plugin is called Engraver. In this example,
-engravers is switched on one by one, in the following order:
+engravers are switched on one by one, in the following order:
 
 @itemize
 @item note heads,
