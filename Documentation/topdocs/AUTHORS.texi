@@ -60,19 +60,19 @@ list is alphabetically ordered.
     @uref{http://www.iro.umontreal.ca/~pinard/}
     parts of Documentation/Vocab*, started internationalization stuff
 @c urg: @c,{} in @email{} barfs.
-@item @email{portnoy@@ai.mit.edu,Stephen Peters}, pdfTeX support
+@item @email{portnoy@@ai.mit.edu,Stephen Peters},
+    pdfTeX support
 @item @email{glenprideaux@@iname.com, Glen Prideaux},
     minor bug fix to script used to generate doc++ documentation
 @item @email{Roy.Rankin@@alcatel.com.au, Roy R. Rankin},
     major extension, fixes to abc2ly, lilypond bug fixes
 @item @email{daboys@@austin.rr.com, Jeffrey B. Reed},
     Windows-NT support.
+
 @item Shay Rojanski
     Some mudela source.
+@item @email{august@@infran.ru, August S.Sigov}
+    Russian translation
 @end itemize
-
-Your name could be here! If you want to fix something, do it, and send
-us a patch!
-
 
 @bye
