@@ -42,8 +42,8 @@ NATIVE_PREFIX=$NATIVE_ROOT/usr
 
 # urg
 DEVEL=/home/fred
-WWW=$DEVEL/WWW/lilypond/gnu-windows
-#WWW=/tmp
+distdir=$DEVEL/WWW/lilypond/gnu-windows/lily-w32
+#distdir=/tmp
 
 SOURCE_PATH=$DEVEL/usr/src/releases:$DEVEL/usr/src/redhat/SRPMS
 
@@ -85,7 +85,6 @@ guile-1.3.4
 rpm-3.0.4
 lilypond-$lilypond_version
 "
-
 
 #######################
 # end of config section
@@ -274,7 +273,9 @@ cat > $base_macros <<EOF
 %_srcrpmdir	%{native_prefix}/src/redhat/SRPMS
 %_rpmdir	%{native_prefix}/src/redhat/RPMS
 
-%DocDir		%{native_prefix}/doc
+#%DocDir		%{native_prefix}/doc
+%DocDir		/Cygnus/usr/doc
+%_defaultdocdir /Cygnus/usr/doc
 
 %cygwin_dll	%{native_prefix}/bin/cygwin1.dll
 
@@ -406,13 +407,15 @@ done
 
 cd $NATIVE_PREFIX/src/redhat/BUILD
 
-rm -f $WWW/$CYGWIN_DLL.gz
-cd $WWW && cp -f $PREFIX/bin/$CYGWIN_DLL . && gzip -f $CYGWIN_DLL
+rm -f $distdir/$CYGWIN_DLL.gz
+cd $distdir && cp -f $PREFIX/bin/$CYGWIN_DLL . && gzip -f $CYGWIN_DLL
 
-rm -f $WWW/rpm2cpio.gz
-cd $WWW && cp -f $PREFIX/bin/rpm2cpio . && gzip -f rpm2cpio
+rm -f $distdir/rpm2cpio.gz
+cd $distdir && cp -f $PREFIX/bin/rpm2cpio . && gzip -f rpm2cpio
 
-cat > $WWW/setup.sh <<EOF
+
+cat > $distdir/setup.sh <<EOF
+#!/bin/bash
 set -x
 ROOT=/Cygnus
 PREFIX=\$ROOT/usr
@@ -426,14 +429,14 @@ here=\`pwd\`
 cd \$ROOT/.. && (PATH=\$dll \$here/rpm2cpio \$here/rpm*.rpm ) | cpio -ivmd 
 PATH=\$dll rpm --root=\$ROOT --initdb
 cd \$here
-for i in redhat/RPMS/$ta/*.rpm; do
+for i in RPMS/$ta/*.rpm; do
 	PATH=\$dll rpm -ivv --ignoreos --ignorearch --nodeps --force\
 		  --dbpath \$ROOT/var/lib/rpm \
 		  \$i
 done
 EOF
 
-cat > $WWW/setup.bat <<EOF
+cat > $distdir/setup.bat <<EOF
 bash setup.sh
 if errorlevel 0 goto exit
 @echo "setup.bat: can't find bash"
@@ -442,7 +445,8 @@ if errorlevel 0 goto exit
 :exit
 EOF
 
-cat > $WWW/lilypond.sh <<EOF
+cat > $distdir/lilypond.sh <<EOF
+#!/bin/bash
 ROOT=/Cygnus
 PREFIX=\$ROOT/usr
 # currently, the cygwin1.dll's conflict.
@@ -451,7 +455,8 @@ dll=\$ROOT/net-485
 PATH=\$dll \$ROOT/bin/lilypond \$*
 EOF
 
-cat > $WWW/midi2ly.sh <<EOF
+cat > $distdir/midi2ly.sh <<EOF
+#!/bin/bash
 ROOT=/Cygnus
 PREFIX=\$ROOT/usr
 # currently, the cygwin1.dll's conflict.
@@ -460,17 +465,25 @@ dll=\$ROOT/net-485
 PATH=\$dll \$ROOT/bin/midi2ly \$*
 EOF
 
-cat > $WWW/lilypond.bat <<EOF
+cat > $distdir/lilypond.bat <<EOF
 bash lilypond.sh %1 %2 %3 %4 %5 %6 %7 %8 %9
 EOF
 
-cat > $WWW/midi2ly.bat <<EOF
+cat > $distdir/midi2ly.bat <<EOF
 bash midi2ly.sh %1 %2 %3 %4 %5 %6 %7 %8 %9
 EOF
 
+distbase=`basename $distdir`
+cd $distdir
+rm -f RPMS
+ln -s ../redhat/RPMS .
+
+www=`dirname $distdir`
+cd $www
 for i in guile-1 rpm lilypond; do
-	rpm=`find_path $i*.rpm redhat/RPMS/$ta`
+	rpm=`find_path $i*.rpm $distbase/RPMS/$ta`
 	dist_rpms="$dist_rpms $rpm"
 done
-rm -f $WWW/setup.zip
-cd $WWW && zip -r setup.zip *.gz $dist_rpms *.bat *.sh
+
+rm -f $www/setup.zip
+cd $www && zip setup.zip lily-w32 $distbase/* $dist_rpms

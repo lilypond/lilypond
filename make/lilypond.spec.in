@@ -50,9 +50,9 @@ strip lily/out/lilypond midi2ly/out/midi2ly
 make prefix="$RPM_BUILD_ROOT%{_prefix}" install
 # gzip -9fn $RPM_BUILD_ROOT%{_prefix}/info/* || true
 
-mkdir -p $RPM_BUILD_ROOT/etc/profile.d
-cp buildscripts/out/lilypond-profile $RPM_BUILD_ROOT/etc/profile.d/lilypond.sh
-cp buildscripts/out/lilypond-login $RPM_BUILD_ROOT/etc/profile.d/lilypond.csh
+mkdir -p $RPM_BUILD_ROOT%{_prefix}/../etc/profile.d
+cp buildscripts/out/lilypond-profile $RPM_BUILD_ROOT%{_prefix}/../etc/profile.d/lilypond.sh
+cp buildscripts/out/lilypond-login $RPM_BUILD_ROOT%{_prefix}/../etc/profile.d/lilypond.csh
 
 # urg
 #%install documentation

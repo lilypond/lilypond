@@ -1,3 +1,10 @@
+1.3.40.jcn2
+===========
+
+* buildscripts/make-cygwin-cross.sh: Made some small .zip package fixes.
+
+* make/lilypond.spec.in: Made some bugfixes for _prefix.
+
 1.3.40.jcn1
 ===========
 
