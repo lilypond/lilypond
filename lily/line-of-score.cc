@@ -47,14 +47,14 @@ Line_of_score::set_breaking (Array<Column_x_positions> const &breaking, int j) c
   for (int i=0; i < errors.size(); i++)
     errors[i]->error_mark_b_ = true;
 
-  const Line_of_score *line_l=0;
+  Line_of_score *line_l=0;
 	
   if (breaking.size() >1) 
     {
       line_l = (Line_of_score*)clone()->access_Spanner ();
     }
   else 
-    line_l =  this;
+    line_l = (Line_of_score*) this;
 	
   ((Array<Paper_column*> &)line_l->cols) = curline;
   line_l->set_bounds(LEFT,curline[0]);

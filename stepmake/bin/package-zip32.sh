@@ -55,6 +55,11 @@ if ! make install ; then
     exit 1
 fi
 
+if ! make -C Documentation/man doc ; then
+    echo "make -C documentation/man doc failed"
+    exit 1
+fi
+
 #
 # Post install clean up
 #
@@ -64,12 +69,26 @@ if [ ! -e $CYGWIN_LIB ]; then
     exit 1
 fi
 
-cd $distdir/bin
-cp $CYGWIN_LIB .
-mv ly2dvi32 ly2dvi.py
+#
+# copy cygwin lib into bin
+#
+cp $CYGWIN_LIB $distdir/bin
+
+#
+# Rename ly2dvi32 to ly2dvi.py
+#
+mv $distdir/bin/ly2dvi32 $distdir/bin/ly2dvi.py
+
+#
+# copy man documentation to doc directory
+#
+mkdir $distdir/doc
+cp Documentation/man/out/*.txt $distdir/doc
+mv $distdir/doc/ly2dvi32.txt $distdir/doc/ly2dvi_py.txt
 cd $distdir/..
 $ZIP_CMD $ZIP_FILE $name
 echo "Wrote $ZIP_FILE"
+rm -rf $name
 exit 0
 
 
