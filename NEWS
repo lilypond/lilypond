@@ -1,3 +1,12 @@
+pl 23
+	- feta changes: 1/4 rest, flat, bf 8-128 rest
+	- bf: cadenza
+	- bf: scripts
+	- bf: rest-collision
+	- bf: meter placement
+	- junked cpgento.sh
+*********
+
 pl 22
 	- bf: lyric 's- Zondags
 	- bf: colliding accidentals: renamed translate(Real,Axis) to translate_axis()
@@ -11,6 +20,7 @@ pl 22
 	- moved staff to centerline == 0;
 
 ********
+
 pl 21
 	- shrinking uses more energy  than stretching
 	- check IO error on writing (disk full?)
