@@ -1,6 +1,6 @@
 /* @configure_input@ */
 #ifndef CONFIG_HH
 #define CONFIG_HH
-#define  DIR_DATADIR "@DIR_DATADIR@"
+#define  DIR_DATADIR "@datadir@/lilypond"
 
 #endif

@@ -52,7 +52,7 @@ LOADLIBES +=
 # MAINTARGET = $(bindir)/$(EXECUTABLE)# huh?
 MAINTARGET = $(outdir)/$(LIBRARY)# huh?
 
-default: $(MAINTARGET)
+default: configheader $(MAINTARGET)
 #
 
 localclean:
@@ -68,3 +68,10 @@ include ./$(depth)/make/Rules.make
 -include $(DEPFILES)
 #
 
+.PHONY: configheader
+
+configheader: $(outdir)/config.hh
+
+# Ugh ugh
+$(outdir)/config.hh: config.hh.in
+	sed 's!@datadir@!$(datadir)!'<  $< > $@
