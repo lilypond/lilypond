@@ -1,5 +1,7 @@
 #include <fstream.h>
+#include <time.h>
 #include "tex.hh"
+#include "misc.hh"
 #include "tstream.hh"
 #include "debug.hh"
 
@@ -11,8 +13,17 @@ Tex_stream::Tex_stream(String filename)
 	error("can't open " + filename);
     nest_level = 0;
     outputting_comment=false;
+    header();
 }
-
+void
+Tex_stream::header()
+{
+    *os << "% Creator: " << get_version() << "\n";
+    *os << "% Automatically generated, at ";
+    time_t t(time(0));
+    *os << ctime(&t)<<"\n";
+//*os << "% from input file ..\n";    
+}
 Tex_stream::~Tex_stream()
 {
     assert(nest_level == 0);
