@@ -1,5 +1,9 @@
 2004-11-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/example-[1-3].ly: simplify.
+
+	* lily/cluster-engraver.cc (try_music): react to busy-playing-event
+
 	* scm/output-ps.scm (new-text): new function. Use glyphshow to
 	show glyphs.
 

@@ -5,7 +5,7 @@
 % Type:
 %
 %     lilypond example-1
-%     xdvi example-1     # or your dvi viewer here
+%     xpdf example-1     # or your PDF viewer here
 %
 
 %%
@@ -13,10 +13,6 @@
 %% user-manual.
 %% 
 
-\score { 
-  \context Voice \relative c {
-    c' d e f g a b c
-  }
-  \layout {  }  
-  \midi { }
+\relative {
+  c d e f g a b c
 }

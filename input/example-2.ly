@@ -4,7 +4,7 @@
 % Type:
 %
 %     lilypond example-2
-%     xdvi example-2     # or your dvi viewer here
+%     xpdf example-2     # or your PDF viewer here
 %
 
 %%
@@ -12,10 +12,6 @@
 %% user-manual.
 %% 
 
-\score { 
-  \context Voice \relative c {
-    a''2 ~ a4( e8[ )e] a,16[ a a a]
-  }
-  \layout {  }  
-  \midi { }
+\relative {
+  a'2 ~ a4( e8[ )e] a,16[ a a a]
 }

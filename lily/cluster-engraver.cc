@@ -28,7 +28,7 @@ private:
 
   void typeset_grobs ();
   Spanner *spanner_;
-  Spanner * finished_spanner_ ;
+  Spanner *finished_spanner_ ;
 };
 
 Cluster_spanner_engraver::Cluster_spanner_engraver ()
@@ -62,6 +62,9 @@ Cluster_spanner_engraver::try_music (Music *m)
       cluster_notes_.push (m);
       return true;
     }
+  else if (m->is_mus_type ("busy-playing-event"))
+    return cluster_notes_.size ();
+  
   return false;
 }
 
@@ -109,9 +112,7 @@ void
 Cluster_spanner_engraver::stop_translation_timestep ()
 {
   typeset_grobs ();
-
   cluster_notes_.clear ();
-  
 }
 
 void
@@ -127,7 +128,7 @@ Cluster_spanner_engraver::acknowledge_grob (Grob_info info)
 ENTER_DESCRIPTION (Cluster_spanner_engraver,
 /* descr */	"Engraves a cluster using Spanner notation ",
 /* creats*/	"ClusterSpanner ClusterSpannerBeacon",
-/* accepts */	"cluster-note-event",
+/* accepts */	"cluster-note-event busy-playing-event",
 /* acks  */	"note-column-interface",
 /* reads */	"",
 /* write */	"");

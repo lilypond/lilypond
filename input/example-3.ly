@@ -1,30 +1,26 @@
-#(ly:set-option 'old-relative)
 \version "2.4.0"
 
-one = \relative c{
-	c'' d e f
+one = \relative {
+	c' d e f
 }
 
-two = \relative c{
+two = \relative {
 	\clef "bass"
-	c'2 g2
+	c2 g2
 }
 
-\score{
-	<<
-		\one
-		\two
-	>>
-	\layout{}
-	\midi{}
-}
+<<
+  \new Staff \one
+  \new Staff \two
+>>
+
 
 % A full example with two staves
 %
 % Type:
 %
 %     lilypond example-3
-%     xdvi example-3     # or your dvi viewer here
+%     xpdf example-3     # or your PDF viewer here
 
 %%
 %% For learning LilyPond, please read the tutorial, included in the
