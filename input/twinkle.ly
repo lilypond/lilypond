@@ -118,13 +118,13 @@ textiii = \lyrics{
 \score{
 	<
 		\context Staff=i \repeat semi 2 < \global\melody >
-		\context Lyrics=top \context LyricVoice \repeat semi 2 {} \alternative < \tekst \texte >
+		\context Lyrics=top \context LyricVoice \repeat fold 2 {} \alternative { \tekst \texte }
 		\context GrandStaff <
 			\context Staff=ii \repeat semi 2 < \global\melody >
 			\context Staff=iii \repeat semi 2 < \global\accompany >
 		>
-		\context Lyrics =bottom \context LyricVoice \repeat semi 3 {} 
-			\alternative < \texti \textii \textiii >
+		\context Lyrics =bottom \context LyricVoice \repeat fold 3 {} 
+			\alternative { \texti \textii \textiii }
 	>
 	\paper{
 		gourlay_maxmeasures = 14.0;
