@@ -27,6 +27,7 @@
 	     bracket
 	     dashed-slur
 	     char
+	     named-glyph
 	     dashed-line
 	     zigzag-line
 	     ez-ball
@@ -114,6 +115,11 @@
   (string-append 
     (ps-font-command font) " setfont " 
    "(\\" (ly:inexact->string i 8) ") show" ))
+
+(define (named-glyph font glyph)
+  (string-append 
+    (ps-font-command font) " setfont " 
+   "/" glyph " glyphshow "))
 
 (define (dashed-line thick on off dx dy)
   (string-append 

@@ -50,19 +50,19 @@
 	 (font-names (uniq-list (sort (map ly:font-file-name fonts) string<?)))
 	 (pfas (map
 		(lambda (x)
-		
-		  (let* ((aname (string-append x ".pfa"))
+
+		  (let* ((t42name (string-append x ".t42"))
+			 (aname (string-append x ".pfa"))
+			 (bname (string-append x ".pfb"))
+			 (t42path (ly:find-file t42name))
 			 (apath (ly:kpathsea-find-file aname))
-			 
-			 (bpath (if (not apath)
-				    (ly:kpathsea-find-file
-				     (string-append x ".pfb"))
-				    #f)))
+			 (bpath (ly:kpathsea-find-file bname)))
 		    (cond
+		     (t42path (ly:gulp-file t42path))
 		     (apath (ly:gulp-file apath))
 		     (bpath (ly:pfb->pfa bpath))
 		     (else
-		      (ly:warn "cannot find PFA font ~S" x)
+		      (ly:warn "cannot find T42/PFA/PFB font ~S" x)
 		      ""))))
 		(filter string? font-names))))
   

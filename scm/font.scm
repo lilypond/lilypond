@@ -182,6 +182,7 @@
 		  ,(delay (ly:make-virtual-font
 			   (ly:font-load "feta20")
 			   (ly:font-load "parmesan20")))
+;		  ,(delay (ly:make-virtual-font (ly:font-load "bigcheese20")))
 		  ,(delay (ly:make-virtual-font
 			   (ly:font-load "feta23")
 			   (ly:font-load "parmesan23")))

@@ -42,9 +42,10 @@ Font_metric::find_by_name (String s) const
   SCM expr = SCM_EOL;
   if (idx >= 0)
     {
-      expr = scm_list_3 (ly_symbol2scm ("char"),
+      expr = scm_list_3 (ly_symbol2scm ("named-glyph"),
 			 self_scm (),
-			 scm_int2num (index_to_ascii (idx)));
+			 scm_makfrom0str (s.to_str0 ())
+			 );
       b = get_indexed_char (idx);
     }
   
