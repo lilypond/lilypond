@@ -1,5 +1,12 @@
 2004-03-21  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/staff-symbol.cc (print): span staff-symbol on column
+	extents for non-broken columns. 
+
+	* ly/engraver-init.ly (breakAlignOrder): put staff-bar behind key-signature.
+
+	* tex/titledefs.tex: don't use smallcaps for piece.
+
 	* lily/system.cc (uniquify_list): bugfix. This fixes spuriously
 	translated stencils in the output.
 
