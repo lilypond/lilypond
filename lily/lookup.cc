@@ -337,13 +337,13 @@ Lookup::vbrace (Real &y) const
   if (y < min_y)
     {
       warning (_ ("piano brace") 
-	+ " " + _ ("too small") +  "(" + print_dimen (y) + ")");
+	+ " " + _ ("too small") +  " (" + print_dimen (y) + ")");
       y = min_y;
     }
   if (y > max_y)
     {
       warning (_ ("piano brace")
-       + " " + _ ("too big") + "(" + print_dimen (y)+ ")");
+       + " " + _ ("too big") + " (" + print_dimen (y) + ")");
       y = max_y;
     }
 
@@ -388,13 +388,13 @@ Lookup::vbracket (Real &y) const
   if (y < min_y)
     {
       warning (_ ("bracket")
-	+ " " + _ ("too small") +  "(" + print_dimen (y) + ")");
+	+ " " + _ ("too small") +  " (" + print_dimen (y) + ")");
       y = min_y;
     }
   if (y > max_y)
     {
       warning (_ ("bracket")
-       + " " + _ ("too big") + "(" + print_dimen (y)+ ")");
+       + " " + _ ("too big") + " (" + print_dimen (y) + ")");
       y = max_y;
     }
 

@@ -130,8 +130,8 @@ main (int argc_i, char* argv_sz_a[])
 {
 
 #if HAVE_GETTEXT
-  setlocale (LC_ALL, "");
-//  setlocale (LC_MESSAGES, "");
+  setlocale (LC_ALL, ""); /* enable locales */
+  setlocale (LC_NUMERIC, "C"); /* musn't have comma's in output */
   String name (PACKAGE);
   name.to_lower ();
   bindtextdomain (name.ch_C (), DIR_LOCALEDIR);

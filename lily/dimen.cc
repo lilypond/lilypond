@@ -40,7 +40,7 @@ print_dimen (Real r)
       warning (_ ("NaN"));
       s = "0.0";
     }
-  s += "pt ";
+  s += "pt";
   return s;
 }
 
