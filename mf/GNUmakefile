@@ -25,7 +25,11 @@ OTF_TABLES = $(addsuffix .otf-table, $(addprefix $(outdir)/feta, $(STAFF_SIZES))
  $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
 FETA_FONTS = $(FETA_MF_FILES:.mf=)
 
+$(outdir)/aybabtu.otf-table: $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
+	cat $^ > $@
 
+$(outdir)/aybabtu.otf-gtable: $(BRACES:%=$(outdir)/feta-braces-%.otf-gtable)
+	echo '(foe . 0)' > $@
 
 LOG_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.log)
 LISP_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.lisp)
@@ -58,7 +62,7 @@ $(outdir)/%.otf: $(outdir)/%.pe
 $(outdir)/%.otf-table: $(outdir)/%.lisp
 	cat $< $(subst parmesan,feta,$<) > $@
 
-$(outdir)/aybabtu.otf: $(outdir)/aybabtu.subfonts
+$(outdir)/aybabtu.otf: $(outdir)/aybabtu.subfonts $(outdir)/aybabtu.otf-table $(outdir)/aybabtu.otf-gtable
 
 $(outdir)/aybabtu.subfonts: 
 	 echo $(subst .mf,,$(wildcard feta-braces-[a-z].mf)) > $@

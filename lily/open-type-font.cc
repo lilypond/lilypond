@@ -147,9 +147,7 @@ Open_type_font::get_indexed_char (int signed_idx) const
       char name[len];
       int code = FT_Get_Glyph_Name (face_, signed_idx, name, len);
       if (code)
-	{
-	  warning ("FT_Get_Glyph_Name() returned error");
-	}
+	warning (_f ("FT_Get_Glyph_Name() returned error: %d", code));
 	
       SCM sym = ly_symbol2scm (name);
       SCM alist = scm_hashq_ref (lily_character_table_, sym, SCM_BOOL_F);
@@ -202,14 +200,6 @@ Open_type_font::index_to_charcode (int i) const
 {
   return ((Open_type_font*) this)->index_to_charcode_map_[i];
 }
-
-#if 0
-unsigned
-Open_type_font::glyph_name_to_index (String glyph_name) const
-{
-  return ((Open_type_font*) this)->glyph_name_to_charcode_map_[glyph_name];
-}
-#endif
 
 int
 Open_type_font::count () const

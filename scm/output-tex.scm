@@ -56,6 +56,12 @@
 	     (scm framework-tex)
 	     (lily))
 
+;; helper functions
+(define (stderr string . rest)
+  (apply format (cons (current-error-port) (cons string rest)))
+  (force-output (current-error-port)))
+
+
 ;;;;;;;;
 ;;;;;;;; DOCUMENT ME!
 ;;;;;;;;
@@ -89,11 +95,10 @@
 (define (dashed-slur thick dash l)
   (embedded-ps (list 'dashed-slur thick dash `(quote ,l))))
 
-
 (define (named-glyph font name)
-  (let*
-      ((info  (ly:otf-font-glyph-info font name)))
-
+  (let* ((info (ly:otf-font-glyph-info font name)))
+    ;;(stderr "INFO: ~S\n" info)
+    ;;(stderr "FONT: ~S\n" font)
     (string-append "\\" (tex-font-command-raw
 			 (assoc-get 'subfont info)
 			 (ly:font-magnification font))
@@ -106,21 +111,16 @@
   (embedded-ps (list 'zigzag-line centre? zzw zzh thick dx dy)))
 
 (define (ez-ball c l b)
-  (embedded-ps (list 'ez-ball  c  l b)))
-
-
+  (embedded-ps (list 'ez-ball c l b)))
 
 (define (embedded-ps expr)
   (let ((ps-string
 	 (with-output-to-string
 	   (lambda () (ps-output-expression expr (current-output-port))))))
     (string-append "\\embeddedps{" ps-string "}")))
-  
 
 (define (repeat-slash w a t)
   (embedded-ps (list 'repeat-slash  w a t)))
-
-
 
 (define (number->dim x)
   (string-append

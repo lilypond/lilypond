@@ -32,7 +32,6 @@
   (string-append
    "\\def\\" prefix (symbol->tex-key key) "{" number "}%\n"))
 
-
 (define-public (digits->letters str)
   (regexp-substitute/global
    #f "[-\\._]"
@@ -51,7 +50,6 @@
    'pre ""
    'post))
 
-
 (define-public (tex-font-command-raw name magnification)
   (string-append
    "magfont"
@@ -65,26 +63,21 @@
   (tex-font-command-raw
    (ly:font-file-name font) (ly:font-magnification font)))
 
-
 (define (otf-font-load-command paper font)
-  (let*
-      ((sub-fonts (ly:font-sub-fonts font)))
-
+  (let* ((sub-fonts (ly:font-sub-fonts font)))
     (string-append
      (apply string-append
 	    (map
 	     (lambda (sub-name)
-	       (string-append
-		"\\font\\" (tex-font-command-raw
-			    (symbol->string sub-name)
-			    (ly:font-magnification font))
-		"=" (symbol->string sub-name)
-		" scaled "
-		(ly:number->string (inexact->exact
-				    (round (* 1000
-					      (ly:font-magnification font)
-					      (ly:paper-outputscale paper)))))
-		"%\n"))
+	       (format #f "\\font\\~a=~a scaled ~a%\n"
+		       (tex-font-command-raw
+			sub-name (ly:font-magnification font))
+		       sub-name
+		       (ly:number->string
+			(inexact->exact
+			 (round (* 1000
+				   (ly:font-magnification font)
+				   (ly:paper-outputscale paper)))))))
 	     sub-fonts)))))
 
 (define (simple-font-load-command paper font)

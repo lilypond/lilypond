@@ -37,8 +37,8 @@ PRIVATE AREA
 endloop
 
 LoadTableFromFile("LILF", "aybabtu.subfonts")
-LoadTableFromFile("LILC", "feta-braces-a.otf-table")
-LoadTableFromFile("LILY", "feta-braces-a.otf-gtable")
+LoadTableFromFile("LILC", "aybabtu.otf-table")
+LoadTableFromFile("LILY", "aybabtu.otf-gtable")
 
 Generate("aybabtu.otf");
 Generate("aybabtu.cff");
