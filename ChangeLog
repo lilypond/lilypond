@@ -1,9 +1,13 @@
+2004-04-17  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/font.scm (add-cmr-fonts): Narrow bold is ecrb.
+
 2004-04-17  Heikki Junes <hjunes@cc.hut.fi>
 
 	* input/regression/accidental-octave.ly: doc automatic showing
 	of note names.
 
-2004-04-16  Heikki Junes <hjunes@cc.hut.fi>
+2004-04-16  Heikki Junes <janneke@gnu.org>
 
 	* po/fi.po: do "make po && make -C po po-update" at top-level,
 	then "cp po/out/fi.po po/fi.po" and update fields.
