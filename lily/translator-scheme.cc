@@ -54,7 +54,10 @@ LY_DEFINE(ly_context_property_where_defined,
   SCM_ASSERT_TYPE(tr, context, SCM_ARG1, __FUNCTION__, "Context");
   SCM_ASSERT_TYPE(gh_symbol_p (name), name, SCM_ARG2, __FUNCTION__, "symbol");
 
-  return tr->where_defined (name)->self_scm();
+
+  tr = tr->where_defined (name);
+  if (tr)
+    return tr?  tr->self_scm():  SCM_EOL;
 }
 
 LY_DEFINE(ly_unset_context_property,
