@@ -9,8 +9,6 @@
 #include "request.hh"
 #include "debug.hh"
 
-
-
 bool
 Request::equal_b (Request const* r) const
 {
@@ -23,14 +21,11 @@ Request::do_equal_b (Request const*) const
   return true;
 }
   
-
 Request::Request ()
   : Music (SCM_EOL)
 {
   set_mus_property ("type", ly_symbol2scm ("request"));
 }
-
-
 
 Script_req::Script_req ()
 {
@@ -51,7 +46,6 @@ Script_req::get_direction () const
   return (isdir_b (d)) ?  to_dir (d) : CENTER;
 }
 
-
 Direction
 Span_req::get_span_dir () const
 {
@@ -65,6 +59,8 @@ Span_req::set_span_dir (Direction d)
 {
   set_mus_property ("span-direction", gh_int2scm (d));
 }
+
+
 
 
 
