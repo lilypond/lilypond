@@ -513,7 +513,7 @@ class Lilypond_snippet (Snippet):
 		base = self.basename ()
 
 		require = ['.ly', '.tex']
-		if format == HTML:
+		if format == HTML or format == TEXINFO:
 			require.append ('.png')
 		require = [os.path.exists (base + x) for x in require]
 		if reduce (lambda a,b: a and b, require) \
