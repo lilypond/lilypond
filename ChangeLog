@@ -1,5 +1,19 @@
 2003-09-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/beam.cc (set_stem_lengths): single-stem-beam fix.
+
+	* stepmake/stepmake/c-rules.make ($(outdir)/%.c): use -o for flex.
+
+	* lily/beam-quanting.cc (quanting): check french-beaming per stem.
+	(score_stem_lengths): do something sensible for single stem beams.
+
+	* lily/beam.cc (least_squares): add kludge for single stem beams.
+
+	* scripts/convert-ly.py (FatalConversionError.sub_alteration): add
+	keySignature to list of broken things.
+
+	* input/regression/keys.ly: fix.
+
 	* VERSION (PACKAGE_NAME): release 1.9.7
 
 	* Documentation/topdocs/NEWS.texi (Top): add quarter tones.

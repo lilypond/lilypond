@@ -1,5 +1,5 @@
 
-\version "1.9.4"
+\version "1.9.7"
 \header{
 texidoc="
 Key signatures appear on key  changes. They may also
@@ -22,7 +22,7 @@ also created on a clef change.
     \break
     \key bes \major % \major
     c2 \clef alto c2   \key d \major \clef treble c2
-  	\property Staff. keySignature = #'((2 . -1)  (6 . -1) (4 . -1))
+  	\property Staff. keySignature = #'((2 . -1)  (6 . 3) (4 . -2))
 	e2
   }
 }

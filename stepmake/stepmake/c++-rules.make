@@ -25,4 +25,4 @@ $(outdir)/%.hh: %.yy
 	rm -f $(outdir)/$(*F).cc # avoid recompiling the .cc file 
 
 $(outdir)/%.cc: %.ll
-	$(FLEX) -Cfe -p -p -t $< > $@
+	$(FLEX) -Cfe -p -p -o$@ $< 
