@@ -3,9 +3,8 @@
 
 include $(depth)/make/Include.make
 LYFILES = $(wildcard *.ly)
-TEXFILES = $(wildcard *.tex)
 M4FILES = $(wildcard *.m4)
-DISTFILES = Makefile $(EXTRA_DISTFILES) $(LYFILES) $(TEXFILES) $(wildcard *.m4)
+DISTFILES = Makefile $(EXTRA_DISTFILES) $(LYFILES) $(wildcard *.m4)
 #
 
 OUTFILES = $(addprefix $(outdir)/,$(M4FILES:%.m4=%))

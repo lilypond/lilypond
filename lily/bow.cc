@@ -21,16 +21,22 @@ Bow::Bow ()
 {
   dy_f_drul_[LEFT] = dy_f_drul_[RIGHT] = 0.0;
   dx_f_drul_[LEFT] = dx_f_drul_[RIGHT] = 0.0;
+  dash_i_ = 0;
 }
 
 Molecule*
 Bow::brew_molecule_p () const
 {
-  Molecule* mol_p = new Molecule;
-  
+  Real thick = paper ()->get_var ("slur_thickness");
   Array<Offset> c = get_controls ();
-  Atom a = paper ()->lookup_l ()->slur (c);
   Real dy = c[3].y () - c[0].y ();
+  Atom a;
+
+  if (!dash_i_)
+    a = paper ()->lookup_l ()->slur (c);
+  else
+    a = paper ()->lookup_l ()->dashed_slur (c, thick, dash_i_);
+
   if (check_debug && !monitor->silent_b ("Bow"))
     {
       static int i = 1;
@@ -46,6 +52,7 @@ Bow::brew_molecule_p () const
     }
   a.translate (Offset (dx_f_drul_[LEFT], dy_f_drul_[LEFT]));
 
+  Molecule* mol_p = new Molecule;
   mol_p->add (a);
 
   return mol_p;

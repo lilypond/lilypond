@@ -162,7 +162,7 @@ void
 Stem::set_default_stemlen ()
 {
   Real len = STEMLEN;
-  Real dy = paper ()->interbeam_f ();
+  Real dy = paper ()->interbeam_f (mult_i_);
 
   if (!dir_)
     set_default_dir ();

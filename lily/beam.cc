@@ -11,7 +11,6 @@
 
 /*
   [TODO]
-    * lowest beam of (UP) beam must never be lower than second staffline
     * centre beam symbol
     * less hairy code
     * redo grouping 
@@ -68,10 +67,7 @@ Beam::brew_molecule_p () const
 {
   Molecule *mol_p = new Molecule;
 
-  Real interline_f = paper ()->interline_f ();
-  Real internote_f = interline_f / 2;
-  Real staffline_f = paper ()->rule_thickness ();
-  Real beam_f = 0.48 * (interline_f - staffline_f);
+  Real internote_f = paper ()->internote_f ();
 
   Real x0 = stems_[0]->hpos_f ();
   for (int j=0; j <stems_.size (); j++)
@@ -275,7 +271,7 @@ Beam::quantise_dy ()
   Real interline_f = paper ()->interline_f ();
   Real internote_f = interline_f / 2;
   Real staffline_f = paper ()->rule_thickness ();
-  Real beam_f = 0.48 * (interline_f - staffline_f);
+  Real beam_f = paper ()->beam_thickness_f ();
 
   Real dx_f = stems_.top ()->hpos_f () - stems_[0]->hpos_f ();
 
@@ -330,12 +326,16 @@ Beam::quantise_left_y (bool extend_b)
        hang       straddle   sit        inter      hang
    */
 
-  Real interbeam_f = paper ()->interbeam_f ();
   Real interline_f = paper ()->interline_f ();
-  Real internote_f = interline_f / 2;
+  Real internote_f = paper ()->internote_f ();
   Real staffline_f = paper ()->rule_thickness ();
-  Real beam_f = 0.48 * (interline_f - staffline_f);
-  Real symbol_f = beam_f + interbeam_f * (multiple_i_ - 1);
+  Real beam_f = paper ()->beam_thickness_f ();
+
+  /*
+    [TODO]
+    it would be nice to have all allowed positions in a runtime matrix:
+    (multiplicity, minimum_beam_dy, maximum_beam_dy)
+   */
 
   Real straddle = 0;
   Real sit = beam_f / 2 - staffline_f / 2;
@@ -354,25 +354,28 @@ Beam::quantise_left_y (bool extend_b)
   // dim(left_y_) = internote
   Real dy_f = dir_ * left_y_ * internote_f;
 
+  Real beamdx_f = stems_.top ()->hpos_f () - stems_[0]->hpos_f ();
+  Real beamdy_f = beamdx_f * slope_f_ * internote_f;
+
   Array<Real> allowed_position;
   if (quantisation_ != TEST)
     {
       if (quantisation_ <= NORMAL) 
 	{
-	  if ((multiple_i_ <= 2) || (abs (dy_f) >= staffline_f / 2))
+	  if ((multiple_i_ <= 2) || (abs (beamdy_f) >= staffline_f / 2))
 	    allowed_position.push (straddle);
-	  if ((multiple_i_ <= 1) || (abs (dy_f) >= staffline_f / 2))
+	  if ((multiple_i_ <= 1) || (abs (beamdy_f) >= staffline_f / 2))
 	    allowed_position.push (sit);
 	  allowed_position.push (hang);
 	}
       else
         // TODO: check and fix TRADITIONAL
 	{
-	  if ((multiple_i_ <= 2) || (abs (dy_f) >= staffline_f / 2))
+	  if ((multiple_i_ <= 2) || (abs (beamdy_f) >= staffline_f / 2))
 	    allowed_position.push (straddle);
-	  if ((multiple_i_ <= 1) && (dy_f <= staffline_f / 2))
+	  if ((multiple_i_ <= 1) && (beamdy_f <= staffline_f / 2))
 	    allowed_position.push (sit);
-	  if (dy_f >= -staffline_f / 2)
+	  if (beamdy_f >= -staffline_f / 2)
 	    allowed_position.push (hang);
 	}
     }
@@ -420,18 +423,7 @@ Beam::quantise_left_y (bool extend_b)
 void
 Beam::set_stemlens ()
 {
-  Real interbeam_f = paper ()->interbeam_f ();
-  Real interline_f = paper ()->interline_f ();
-  Real internote_f = interline_f / 2;
   Real staffline_f = paper ()->rule_thickness ();
-  Real beam_f = 0.48 * (interline_f - staffline_f);
-
-  /*
-    if we have more than three beams they must open-up
-    in order to not collide with staff lines
-   */
-  if (multiple_i_ > 3)
-    interbeam_f += 2.0 * staffline_f / 4;
 
   Real x0 = stems_[0]->hpos_f ();
   Real dy = 0;
@@ -456,13 +448,6 @@ Beam::set_stemlens ()
 	    dy = dy >? info.miny_f_ - y;
 	}
     } while (abs (dy) > epsilon);
-
-  // ugh asymmetric symbol ?
-  if (dir_ == UP)
-    left_y_ -= dir_ * staffline_f / 4;
-
-  if ((multiple_i_ >= 3) && (dir_ == UP))
-    left_y_ -= dir_ * staffline_f / 4;
 
   test_pos++;
   test_pos %= 4;
@@ -519,13 +504,10 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
   assert (!prev || prev->hpos_f () < here->hpos_f ());
 
   Real staffline_f = paper ()->rule_thickness ();
-  Real interbeam_f = paper ()->interbeam_f ();
-  Real internote_f =paper ()->internote_f (); 
-  Real interline_f = 2 * internote_f;
-  Real beamheight_f = 0.48 * (interline_f - staffline_f);
+  Real interbeam_f = paper ()->interbeam_f (multiple_i_);
+  Real internote_f = paper ()->internote_f (); 
+  Real beam_f = paper ()->beam_thickness_f ();
 
-  if (multiple_i_ > 3)
-    interbeam_f += 2.0 * staffline_f / 4;
   Real dy = interbeam_f;
   Real stemdx = staffline_f;
   Real sl = slope_f_* internote_f;
@@ -542,7 +524,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       Real w = (here->hpos_f () - prev->hpos_f ())/4 <? paper ()->note_width ();;
       Atom a;
       if (lhalfs)		// generates warnings if not
-	a =  paper ()->lookup_l ()->beam (sl, w, beamheight_f);
+	a =  paper ()->lookup_l ()->beam (sl, w, beam_f);
       a.translate (Offset (-w, -w * sl));
       for (int j = 0; j  < lhalfs; j++)
 	{
@@ -558,7 +540,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       int rwholebeams = here->beams_right_i_ <? next->beams_left_i_;
 
       Real w = next->hpos_f () - here->hpos_f ();
-      Atom a = paper ()->lookup_l ()->beam (sl, w + stemdx, beamheight_f);
+      Atom a = paper ()->lookup_l ()->beam (sl, w + stemdx, beam_f);
       a.translate_axis( - stemdx/2, X_AXIS);
       int j = 0;
       Real gap_f = 0;
@@ -574,7 +556,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 	  // TODO: notehead widths differ for different types
 	  gap_f = paper ()->note_width () / 2;
 	  w -= 2 * gap_f;
-	  a = paper ()->lookup_l ()->beam (sl, w + stemdx, beamheight_f);
+	  a = paper ()->lookup_l ()->beam (sl, w + stemdx, beam_f);
 	}
 
       for (; j  < rwholebeams; j++)
@@ -586,7 +568,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 
       w = w/4 <? paper ()->note_width ();
       if (rhalfs)
-	a = paper ()->lookup_l ()->beam (sl, w, beamheight_f);
+	a = paper ()->lookup_l ()->beam (sl, w, beam_f);
 
       for (; j  < rwholebeams + rhalfs; j++)
 	{

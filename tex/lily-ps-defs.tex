@@ -120,7 +120,7 @@ staffrulethickness 1.2 mul /plet_t exch def
 	plet_dx plet_dy lineto
 	stroke
 } bind def
-staffheight 2 div /slurhtlimit exch def
+%
 /draw_slur
 {
 	staffrulethickness setlinewidth
@@ -132,7 +132,18 @@ staffheight 2 div /slurhtlimit exch def
 	fill
 	grestore
 	stroke
-	} bind def
+} bind def
+%
+/draw_dashed_slur
+{
+	1 setlinecap
+	1 setlinejoin
+	setdash
+	setlinewidth
+	moveto
+	curveto
+	stroke
+} bind def
 %
 staffheight 4 div /interline exch def
 %

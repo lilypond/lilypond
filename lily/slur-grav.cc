@@ -81,6 +81,9 @@ Slur_engraver::do_process_requests()
 	  // push a new slur onto stack.
 	  //(use temp. array to wait for all slur STOPs)
 	  Slur * s_p =new Slur;
+	  Scalar prop = get_property ("slurdash");
+	  if (prop.isnum_b ()) 
+	    s_p->dash_i_ = prop;
 	  requests_arr_.push (slur_req_l);
 	  start_slur_l_arr_.push (s_p);
 	  announce_element (Score_elem_info (s_p, slur_req_l));

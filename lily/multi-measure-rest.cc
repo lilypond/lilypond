@@ -44,7 +44,7 @@ Multi_measure_rest::brew_molecule_p () const
   Real interline_f = paper ()->interline_f ();
   mol_p->translate_axis (interline_f, Y_AXIS);
 
-  if (measures_i_)
+  if (measures_i_ > 1)
     {
       Text_def text;
       text.text_str_ = measures_i_;

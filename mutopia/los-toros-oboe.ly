@@ -1,18 +1,19 @@
 \header{
 filename =	 "los-toros-oboe.ly";
-title =	         "La Feria"
+title =	         "La Feria";
 subtitle = "Los Toros";
 opus =	         "";
 composer =	 "Paul Lac\\^ome d'Estalenx (1838-1920)";
 enteredby =	 "jcn";
 copyright =	 "public domain";
+latexheaders=    "headers";
 } 
+
+\include "paper16.ly"
 
 %{
 Silly latex file dropped; use ly2dvi
 %}
-
-\include "paper20.ly"
 
 hoboonestart = \melodic{
 % ugh: can't copy: allegro/primo tempo
@@ -101,14 +102,14 @@ hoboonemid = \melodic{
 %	d'4(\^"Un peu plus lent et \\'el\\'egant"<
 	\textstyle "italic"; 
 	d'4(\<
-	[e'8 \!f'8] |
+	[e'8 \!fis'8] |
 %	[)b'-. a'-.] [g16( fis' e' )d'] |
 	\textstyle "bold";
 	[)b'-.^"Un peu plus lent et \\'el\\'egant" a'-.] [g16( fis' e' )d'] |
 	\textstyle "italic"; 
-	[d'( c' b\< c'] [)\!f'8-. e'-.] |
+	[d'( c' b\< c'] [)\!fis'8-. e'-.] |
 	d4-> ~ [d16 e( fis g] |
-	[a b\< d' fis] [)\!a'8-. g'-.] |
+	[a b\< d' fis'] [)\!a'8-. g'-.] |
 	[fis'16( e' a )c'] e'4 ~ |
 	[e'16 d'( e c'] [)b8-. a-.] |
 	g2 ~ |
@@ -122,8 +123,8 @@ hoboonemid = \melodic{
 	fis'2-> ~ |
 	[fis'16 g'-.\< a'-. b'-.] [\!c''8-. c'-.] |
 	[es'8.->(-"espress.") d'16] d'4 ~ |
-	[d'16 e'( fis a'] [)g'8 b-.] |
-	[b8.->( )c'16] c4 ~ |
+	[d'16 e'( fis' a'] [)g'8 b-.] |
+	[b8.->( )c'16] c'4 ~ |
 	[c'16\< cis'( d' \!dis'] [)e'8-.-"dim." fis-.] |
 	[fis8.->( g16] )g4 ~ |
 
@@ -167,7 +168,7 @@ hoboonelast = \melodic{
 	[fis'16-.\p  fis'-. fis'-. fis'-.] [fis'8-. g'-.] |
 	% same measure
 	[fis'16-.\p  fis'-. fis'-. fis'-.] [fis'8-. g'-.] |
-	[fis'8-. g-. fis-. g-.] |
+	[fis'8-. g'-. fis'-. g'-.] |
 	[a'-. bes'-. a'-. bes'-. ] |
 	[a'-.\f bes'-. a'-. bes'-. ] |
 	[c''-.-"cresc." f'-. g'-. a'-.] |
@@ -187,8 +188,11 @@ hoboonelast = \melodic{
 %	r2^"Un peu plus lent et \\'el\\'egant"
 %	r2^"\\fetanummer8"
 	r2*8
-	r4 r8\p bes |
-	g2->^"Un peu plus lent et \\'el\\'egant" ~ |
+%	r4 r8\p bes |
+	r4^"Un peu plus lent et \\'el\\'egant"
+	r8\p bes |
+%	g2->^"Un peu plus lent et \\'el\\'egant" ~ |
+	g2-> ~ |
 	\textstyle "italic";
 	g8 r r c' |
 	c'2-> ~ |
@@ -198,7 +202,7 @@ hoboonelast = \melodic{
 	d'2-> ~ |
 	[d'16-"dim."( es' f' g'] [)as'8 as-.] |
 	[ces'8.->\p( )bes16-.] bes4 ~ |
-	[bes16( c' d' f] [)es'8 g-.] |
+	[bes16( c'! d' f'] [)es'8 g-.] |
 	[g8.->( )as16] as4 ~ |
 	[as16( a bes b] [)c'8-. d-.] |
 	% a deux
@@ -211,39 +215,39 @@ hoboonelast = \melodic{
 	[bes'8.-> g'16-.] [es'16-. bes-. g-. as-.] |
 	[bes-. c'-. d'-. es'-.] [f'-. g'-. as'-. bes'-.] |
 	d''8-. r c''4-> ~ |
-	[c''16 f-. g'-. a-.] [bes'-. c'-. d'-. es'-.] |
+	[c''16 f'-. g'-. a'-.] [bes'-. c'-. d'-. es'-.] |
 	g'8-. r f'4-> ~ |
-	[f'16 bes-. c'-. d-.] [es'-. f'-. g-. as-.] |
+	[f'16 bes-. c'-. d'-.] [es'-. f'-. g'-. as'-.] |
 	c''8 r bes'4 ~ |
 	[bes'8 as'-. g'8.-. e'16-.] |
-	g'8-. r f4-> ~ |
+	g'8-. r f'4-> ~ |
 	[f'8 es'-. ces'8.-. as16-.] |
 	% `a deux
 	\textstyle "large";
 	[ces'8.->^"Plus vite" bes16-.(] [a bes es' d'] |
 	\textstyle "italic";
-	[)c!8.-> bes16] [a( bes es' )d'] |
+	[)c'!8.-> bes16] [a( bes es' )d'] |
 	[c'->( bes es' )d'] [c'->( bes es' )d'] |
 	% same measure
 	[c'->( bes es' )d'] [c'->( bes es' )d'] |
-	[c'( bes a bes] [c' d es' e] |
+	[c'( bes a bes] [c' d' es' e'] |
 	[g' )f' d'( es'] [f' g' as' a'] |
 	[c'' )bes' bes( c'] [d' es' f' g'] |
 	[as' g' f' g'] [as' bes' c'' d''] |
 	\textstyle "large";
-	[)es''-.^"Tempo 1$^o$" g'-. g'-. g-.] [g'8-. g'-.] |
+	[)es''-.^"Tempo 1$^o$" g'-. g'-. g'-.] [g'8-. g'-.] |
 	\textstyle "italic";
 	bes'4.-> g'8-. |
 	gis'2->( |
 	)as'! |
-	[g'16-. g'-. g'-. g-.] [g'8-. g'-.] |
+	[g'16-. g'-. g'-. g'-.] [g'8-. g'-.] |
 	bes'4.-> g'8-. |
 	gis'2->( |
 %	)as'! |
 	)as' |
-	[bes'16-. bes'-. bes'-. bes-.] [bes'8-. bes'-.] |
+	[bes'16-. bes'-. bes'-. bes'-.] [bes'8-. bes'-.] |
 	bes'4.-> g'8-. |
-	[g'16-._"h\\^atez" g'-. g'-. g-.] [g'8-. g'-.] |
+	[g'16-._"h\\^atez" g'-. g'-. g'-.] [g'8-. g'-.] |
 	g'4.-> g'8-. |
 	es'4.-> es'8-. |
 	bes4.-> bes8-. |
@@ -251,7 +255,7 @@ hoboonelast = \melodic{
 	g'4.->^"Presto" g'8-. |
 	\textstyle "italic";
 	es'4.-> es'8-. |
-	[bes-. bes-. es'-. g-.] |
+	[bes-. bes-. es'-. g'-.] |
 	[bes'-. bes-. es'-. g'-.] |
 	bes'-. r r4 |
 	g'8-. r r4 |
@@ -288,7 +292,7 @@ $staff_hoboone = \type Staff = hoboonestaff <
 >
 
 a4 = \paper{
-	\paper_twenty
+%	\paper_twenty
 	linewidth= 185.\mm;
 	gourlay_maxmeasures = 10.0;
 	Staff = \translator {
@@ -313,6 +317,7 @@ a4 = \paper{
 }
 
 a4sixteen = \paper{
+	\paper_sixteen
 	linewidth= 193.\mm;
 	Staff = \translator {
 		\type "Engraver_group_engraver";

@@ -30,6 +30,13 @@ My_lily_parser::My_lily_parser (Sources * source_l)
   last_duration_mode_b_ = true;
   fatal_error_i_ = 0;
   default_header_p_ =0;
+
+  relative_octave_mode_b_ = false;
+
+  last_melodic_ = new Melodic_req;
+  last_melodic_->octave_i_ = 0; // -1; // huh?
+  last_melodic_->notename_i_ = 0;
+  last_melodic_->accidental_i_ = 0;
 }
 
 My_lily_parser::~My_lily_parser()
@@ -105,6 +112,23 @@ My_lily_parser::set_duration_mode (String s)
 }
 
 void
+My_lily_parser::set_octave_mode (String s)
+{
+  s = s.upper_str();
+  if (s == "RELATIVE")
+    {
+      relative_octave_mode_b_ = true;
+      // must reset these
+      last_melodic_ = new Melodic_req;
+      last_melodic_->octave_i_ = 0; // -1; // huh?
+      last_melodic_->notename_i_ = 0;
+      last_melodic_->accidental_i_ = 0;
+    }
+  else
+    relative_octave_mode_b_ = false;
+}
+
+void
 My_lily_parser::set_abbrev_beam (int type_i)
 {
   abbrev_beam_type_i_ = type_i;
@@ -132,6 +156,71 @@ My_lily_parser::set_last_duration (Duration const *d)
     }
 }
 
+String
+My_lily_parser::notename_str (Melodic_req* melodic)
+{
+  // ugh
+  String str ((char)('a' + ((melodic->notename_i_ + 2) % 7)));
+  int i = melodic->accidental_i_;
+  while (i-- > 0) 
+    str += "is";
+  i++;
+  while (i++ < 0)
+    str += "es";
+  return str;
+}
+
+Melodic_req* 
+My_lily_parser::get_melodic_req (Melodic_req* melodic, int quotes)
+{
+  if (relative_octave_mode_b_)
+    {
+      set_nearest (melodic);
+      int d = melodic->pitch () - last_melodic_->pitch ();
+      if (quotes && (sign (d) == sign (quotes)))
+	quotes -= sign (quotes);
+      melodic->octave_i_ += quotes;
+    }
+  else
+    {
+      Melodic_req nearest (*melodic);
+      set_nearest (&nearest);
+      melodic->octave_i_ += quotes;
+
+      if (find_quarts_global_b)
+	{
+	  int e = melodic->pitch () - nearest.pitch ();
+	  if (e)
+	    {
+	      int d = melodic->pitch () - last_melodic_->pitch ();
+	      String str = _("Interval bigger than quart");
+	      int n = 1 + (abs (d) - 1) / 12;
+	      String quote_str ('\'', n);
+#if 0
+	      str += d < 0 ? _(", prepend: ") : _(", append: ");
+	      str += quote_str;
+#else
+	      str += _(", relative: ");
+	      String name_str = notename_str (melodic);
+	      str += d < 0 ? quote_str + name_str : name_str + quote_str;
+#endif
+	      melodic->warning (str);
+	    }
+	}
+    }
+  delete last_melodic_;
+  last_melodic_ = melodic->clone ()->musical ()->melodic ();
+  return melodic;
+}
+
+void
+My_lily_parser::set_nearest (Melodic_req* melodic)
+{
+  melodic->octave_i_ = last_melodic_->octave_i_;
+  int d = melodic->pitch () - last_melodic_->pitch ();
+  if (abs (d) > 6)
+    melodic->octave_i_ -= sign (d);
+}
 
 Chord*
 My_lily_parser::get_word_element (Text_def* tdef_p, Duration * duration_p)
@@ -149,6 +238,7 @@ My_lily_parser::get_word_element (Text_def* tdef_p, Duration * duration_p)
   return velt_p;
 }
 
+
 Chord *
 My_lily_parser::get_rest_element (String s,  Duration * duration_p)
 {
@@ -162,16 +252,6 @@ My_lily_parser::get_rest_element (String s,  Duration * duration_p)
 
       skip_p->set_spot (here_input());
       velt_p->add (skip_p);
-    }
-  else if ((duration_p->plet_.type_i_ == 1) && (duration_p->plet_.iso_i_ > 1))
-    {
-      Multi_measure_rest_req* m = new Multi_measure_rest_req;
-      // these shouldn't be necessary anymore
-//      plet_.iso_i_ = 1;
-//      default_duration_.plet_.iso_i_ = 1;
-      m->duration_ = *duration_p;
-      m->set_spot (here_input());
-      velt_p->add (m);
     }
   else
     {
@@ -337,3 +417,4 @@ My_lily_parser::add_notename (String s, Melodic_req * m_p)
 {
   lexer_p_->add_notename (s, m_p);
 }
+

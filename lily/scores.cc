@@ -106,12 +106,12 @@ do_one_file (String init_str, String file_str)
 {
   if (init_str.length_i () && path.find (init_str).empty_b ())
     {
-      error (_("Can not find `") + init_str +"\'");
+      warning (_("Can not find `") + init_str +"\'");
       return ;
     }
   if (file_str.length_i () && path.find (file_str).empty_b ())
     {
-      error (_("Can not find `") + file_str + "'");
+      warning (_("Can not find `") + file_str + "'");
       return ;
     }
 

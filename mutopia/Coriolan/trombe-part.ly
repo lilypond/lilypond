@@ -13,10 +13,9 @@ copyright =	 "public domain";
 
 \include "global.ly"
 \include "trombe.ly"
-
+\include "part-paper.ly"
 \score{
-%	\property Score.part = 1
-	\$trombe_staff
+	\$trombe_staff 
 	\paper{}
 }
 

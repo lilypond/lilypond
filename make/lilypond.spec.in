@@ -9,16 +9,17 @@ URL: http://www.cs.uu.nl/~hanwen/lilypond
 Packager: Han-Wen Nienhuys <hanwen@cs.uu.nl>
 Icon: lelie_icon.gif
 Buildroot: /tmp/lilypond-install
+Prereq: tetex
 
 %description 
-LilyPond is the GNU Project music typesetter.  The program
-generates visual or auditive output from a music 
-definition file: it can typeset formatted sheet music 
-to a TeX file and play (mechanical) performances to a 
+LilyPond is the GNU Project music typesetter.  This program can print
+beautiful sheet music from a  music 
+definition file.  It can also play a play (mechanical) performances to a 
 MIDI file.  Features include multiple staffs, meters, 
 clefs, keys, lyrics, versatile input-language, 
 cadenzas, beams, slurs, triplets.
 It includes a nice font of musical symbols.
+
 
 %prep
 %setup
@@ -53,8 +54,8 @@ make prefix="$RPM_BUILD_ROOT/usr" install
 /usr/share/lilypond/
 %post
 
-ln -s 
+
+ln -s  /usr/lib/texmf/texmf/tex/lilypond  /usr/lib/texmf/texmf/tex/latex/lilypond # suck me plenty
 texhash		# takes some time...
 rm `find /var/lib/texmf -name 'feta*pk' -or -name 'feta*tfm'`
 
-ln -s  /usr/lib/texmf/texmf/tex/lilypond  /usr/lib/texmf/texmf/tex/latex/lilypond # suck me plenty

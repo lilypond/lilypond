@@ -259,6 +259,36 @@ obsoleted the technical justification for following some of these
 strict rules, notably the avoiding of so-called wedges.
 
 
+\subsection{Thickness and spacing}
+
+The spacing of double and triple beams (sixteenth and thirtysecond beams)
+is the same, quadruple and quintuple (thirtyfourth and hundredtwentyeighth
+beams) is wider.
+All beams are equally thick.  Using the layout of triple beams and the 
+beam-thickness $bt$ we can calculate the inter-beam spacing $ib$.
+
+Three beams span two interlines, including stafflines:
+\begin{eqnarray*}
+ 2 ib + bt &=& 2 il\\
+ ib &=& (2 il - bt) / 2
+\end{eqnarray*}
+
+We choose
+\begin{eqnarray*}
+  bt &=& 0.48(il - st)
+\end{eqnarray*}
+
+\subsubsection{Quadruple beams}
+
+If we have more than three beams they must open-up
+in order to not collide with staff lines.  The only valid
+position that remains is for the upper beam to hang.
+
+\begin{eqnarray*}
+ 3 ib_{4+} + bt &=& 3 il\\
+ ib_{4+} &=& (3 il - bt) / 3
+\end{eqnarray*}
+
 
 \bibliographystyle{plain}
 \bibliography{engraving}

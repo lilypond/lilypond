@@ -260,6 +260,8 @@ Rest_req::do_print () const
 
 /* *************** */
 
+
+
 IMPLEMENT_IS_TYPE_B1 (Multi_measure_rest_req, Rhythmic_req);
 
 void
@@ -267,6 +269,7 @@ Multi_measure_rest_req::do_print () const
 {
       Rhythmic_req::do_print ();
 }
+
 
 /* *************** */
 

@@ -30,6 +30,9 @@ packages. Please refer to the installation instructions.
 For your convenience, a formatted copy of the INSTALL instructions are
 in the toplevel directory, as INSTALL.text
 
+The process is fairly straightforward, but chances are that you have
+to specify directories for TeX to configure (--enable-tex-dir,
+--enable-mf-dir)
 
 4. DOCUMENTATION
 

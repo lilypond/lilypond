@@ -20,7 +20,7 @@ class Score_engraver :
   public Engraver_group_engraver, public Global_translator 
 {
   Line_of_score * scoreline_l_;
-  bool disallow_break_b_;
+  int break_penalty_i_;
   int breaks_i_;
 
   Link_array<Score_elem> elem_p_arr_;

@@ -46,24 +46,6 @@ Bar_engraver::create_bar ()
     }
 }
 
-void
-Bar_engraver::acknowledge_element (Score_elem_info i)
-{
-  if (!bar_p_ || !i.elem_l_->is_type_b (Multi_measure_rest::static_name ()))
-    return;
-
-#if 0
-  if (!bar_p_ || !i.req_l_ || !i.req_l_->musical () 
-    || !i.req_l_->musical ()->multi_measure ())
-    return;
-
-  // would this be enough?
-  //urg segfault
-  bar_p_->unlink ();
-  delete bar_p_;
-  bar_p_ = 0;
-#endif
-}
 
 void 
 Bar_engraver::do_creation_processing ()
@@ -101,8 +83,9 @@ Bar_engraver::do_process_requests()
   
   if (!bar_p_)
     {
-      Disallow_break_req r;
-      daddy_grav_l()->try_request (&r);
+      Break_req r;
+      r.penalty_i_ = Break_req::DISALLOW;
+      daddy_grav_l ()->try_request (&r);
     }
 }
 

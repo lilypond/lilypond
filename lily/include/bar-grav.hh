@@ -26,7 +26,6 @@ public:
 
      
 protected:
-  virtual void acknowledge_element (Score_elem_info);
   virtual void do_creation_processing ();
   virtual void do_removal_processing ();
   virtual bool do_try_request (Request *req_l);

@@ -17,6 +17,10 @@ pletvisibility		1 	show number
 pletvisibility		2 	show number, and bracket-if-no-beam
 pletvisibility		4 	show number, and bracket
 
+slurdash		0	normal slurs
+slurdash	        1	dotted slurs
+slurdash	        >1	dashed slurs
+
 [Score?]
 beamslopedamping	0	no damping		\beamslopeproportional	
 beamslopedamping	1	damping1)		\beamslopedamped
@@ -125,5 +129,13 @@ beamposnormal = {
 
 beampostraditional = {
 	\property Score.beamquantisation = \traditional
+}
+
+slurnormal = {
+	\property Voice.slurdash = 0
+}
+
+slurdotted = {
+	\property Voice.slurdash = 1
 }
 

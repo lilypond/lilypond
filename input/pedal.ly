@@ -39,10 +39,10 @@
 			< 'c-\ltoe-\lheel 'e > < c'-\rtoe-\rheel e' >
 			< 'c-\lheel-\ltoe 'e > < c'-\rheel-\rtoe e' > |
 			% 46
-			\duration 16; 
-			[d-\lfheel e-\rbtoe fis-\ltoe e-\rbtoe]
+
+			[d16-\lfheel e-\rbtoe fis-\ltoe e-\rbtoe]
 			[d-\lfheel e-\rbtoe fis-\lheel e] [d e fis e] [d e fis e] |
-			d4 r4 r4 [b-\rtoe a-\ltoe b-\rtoe fis-\ltoe] |
+			d4 r4 r4 [b16-\rtoe a-\ltoe b-\rtoe fis-\ltoe] |
 	}
 	\paper{}
 }

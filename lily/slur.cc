@@ -26,7 +26,7 @@
 #include "boxes.hh"
 #include "bezier.hh"
 #include "encompass-info.hh"
-// #include "main.hh"
+#include "main.hh"
 
 IMPLEMENT_IS_TYPE_B1(Slur,Bow);
 
@@ -95,10 +95,10 @@ Slur::do_post_processing ()
   if (!dir_)
     set_default_dir ();
 
-  Real interline = paper ()->interline_f ();
-  Real internote = interline / 2;
-  Real notewidth = paper ()->note_width ();
-  Real const SLUR_MIN = 2.0 * interline;
+  Real interline_f = paper ()->interline_f ();
+  Real internote_f = interline_f / 2;
+  Real notewidth_f = paper ()->note_width ();
+  Real slur_min = paper ()->get_var ("slur_x_minimum");
 
   /* 
    [OSU]: slur and tie placement
@@ -109,12 +109,10 @@ Slur::do_post_processing ()
    * y = length < 5ss : horizontal raakpunt + d * 0.25 ss
      y = length >= 5ss : y next interline - d * 0.25 ss
      --> height <= 5 length ?? we use <= 3 length, now...
-
-   * suggested gap = ss / 5;
    */
-  // jcn: 1/5 seems so small?
-  Real gap_f = interline / 2; // 5;
   
+  Real gap_f = paper ()->get_var ("slur_x_gap");
+
   Drul_array<Note_column*> extrema;
   extrema[LEFT] = encompass_arr_[0];
   extrema[RIGHT] = encompass_arr_.top ();
@@ -129,29 +127,17 @@ Slur::do_post_processing ()
       if (extrema[d] != spanned_drul_[d]) 
 	{
 	  dx_f_drul_[d] = -d 
-	    *(spanned_drul_[d]->width ().length () -0.5*notewidth);
-	  Direction u = d;
-	  flip(&u);
-	  if ((extrema[u] == spanned_drul_[u]) && extrema[u]->stem_l_)
-	    {
-	      dy_f_drul_[d] = extrema[u]->stem_l_->height ()[dir_];
-	      dy_f_drul_[u] = extrema[u]->stem_l_->height ()[dir_];
-	    }
+	    *(spanned_drul_[d]->width ().length () -0.5 * notewidth_f);
 
 	  // prebreak
 	  if (d == RIGHT)
 	    {
 	      dx_f_drul_[LEFT] = spanned_drul_[LEFT]->width ().length ();
-//	      dx_f_drul_[LEFT] -= 2 * notewidth;
 
 	      // urg
 	      if (encompass_arr_.size () > 1)
-		dx_f_drul_[RIGHT] += notewidth;
+		dx_f_drul_[RIGHT] += notewidth_f;
 	    }
-
-	  // postbreak
-	  if (d == LEFT)
-	    dy_f_drul_[d] += 2.0 * dir_ * internote;
 	}
       /*
         normal slur
@@ -159,21 +145,21 @@ Slur::do_post_processing ()
       else if (extrema[d]->stem_l_ && !extrema[d]->stem_l_->transparent_b_) 
         {
 	  dy_f_drul_[d] = (int)rint (extrema[d]->stem_l_->height ()[dir_]);
-	  dx_f_drul_[d] += 0.5 * notewidth - d * gap_f;
+	  dx_f_drul_[d] += 0.5 * notewidth_f - d * gap_f;
 	  if (dir_ == extrema[d]->stem_l_->dir_)
 	    {
 	      if (dir_ == d)
-		dx_f_drul_[d] += 0.5 * (dir_ * d) * d * notewidth;
+		dx_f_drul_[d] += 0.5 * (dir_ * d) * d * notewidth_f;
 	      else
-		dx_f_drul_[d] += 0.25 * (dir_ * d) * d * notewidth;
+		dx_f_drul_[d] += 0.25 * (dir_ * d) * d * notewidth_f;
 	    }
 	}
       else 
         {
 	  dy_f_drul_[d] = (int)rint (extrema[d]->head_positions_interval ()
-	    [dir_])* internote;
+	    [dir_]) * internote_f;
 	}
-      dy_f_drul_[d] += dir_ * interline;
+      dy_f_drul_[d] += dir_ * interline_f;
     }
   while (flip(&d) != LEFT);
 
@@ -185,14 +171,22 @@ Slur::do_post_processing ()
        */
       if (extrema[d] != spanned_drul_[d]) 
         {
-	  // pre and post
-	  if (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT] < SLUR_MIN)
-	    {
-	      dx_f_drul_[d] -= d * SLUR_MIN 
-		- (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
-	      dx_f_drul_[d] = dx_f_drul_[(Direction)-d] + d * SLUR_MIN;
-	    }
+	  Direction u = d;
+	  flip(&u);
+
+	  // postbreak
+	  if (d == LEFT)
+	    dy_f_drul_[u] += dir_ * internote_f;
+
 	  dy_f_drul_[d] = dy_f_drul_[(Direction)-d];
+
+	  // pre and post
+	  if (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT] < slur_min)
+	    {
+	      dx_f_drul_[d] -= d * slur_min 
+		- (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
+	      dx_f_drul_[d] = dx_f_drul_[(Direction)-d] + d * slur_min;
+	    }
 	}
      }
   while (flip(&d) != LEFT);

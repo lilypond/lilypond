@@ -11,8 +11,6 @@ enteredby =	 "jcn";
 copyright =	 "public domain";
 }
 
-\include "paper20.ly"
-
 one = \melodic{
 	\octave c';
 	\skip 4*4; |
@@ -115,8 +113,7 @@ grand_staff = \type Grand_staff <
 >
 
 a4 = \paper{
-	\paper_twenty
-	linewidth = 195.\mm;
+	linewidth = 193.\mm;
 }
 
 \score{

@@ -1,43 +1,5 @@
 
-This is a font of music symbols.  All MF sources are original.  The
-symbols are modelled after various editions of music, notably
-
-	- Baerenreiter
-	- Hofmeister
-	- Breitkopf
-	- Durand & C'ie
-
-The best references on Music engraving are [Wanske] and [Ross], some
-of their insights have also been used.  Although a matter of taste,
-I'd say that Baerenreiter has the finest typography of all.
-
-Traditional engraving uses a set of 9 standardised sizes for Staffs
-(running from 0 to 8).  
-
-I tried measuring those (helped by a magnifying glass), and I get the
-staffsizes in the following table.  One should note that these are
-estimates, so I think there could be a measuring error of ~ .5 pt.
-Moreover [Ross] states that not all engravers use exactly those sizes.
-
-Staffsize	Numbers		Name
-
-26.2pt		No. 0
-22.6pt		No. 1		Giant/English
-21.3pt		No. 2		Giant/English
-19.9pt		No. 3		Regular, Ordinary, Common
-19.1pt		No. 4		Peter
-17.1pt		No. 5		Large middle
-15.9pt		No. 6		Small middle
-13.7pt		No. 7		Cadenza
-11.1pt		No. 8		Pearl
-
-
-This table is partially taken from [Ross].  Most music is set in No.3,
-but the papersizes usually are bigger than standard printer paper
-(such as A4).  If you plot these, you'll notice that the sizes (With
-exception of 26) almost (but not quite) form a arithmetic progression.
-
-[Ross] states that the dies (the stamps to make the symbols) come in
-12 different sizes.
-
+This is a font of music symbols.  All MF sources are original.  Most
+of the doco is in comments in the MF code, and in
+Documentation/tex/fonts.doc
 

@@ -163,6 +163,7 @@ public:
 class Multi_measure_rest_req : public Rhythmic_req  {
 public:
   REQUESTMETHODS(Multi_measure_rest_req, multi_measure);
+
 };
 
 /**

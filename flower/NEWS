@@ -1,3 +1,6 @@
+pl 42.jcn1
+	- String_convert::split_arr
+
 pl 42
 	- interval.*: Slice (Interval of int)
 	trying to get rid of 2.8 ice:

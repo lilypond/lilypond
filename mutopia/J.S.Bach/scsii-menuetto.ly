@@ -12,7 +12,8 @@ copyright =	 "public domain";
 }
 
 %{
- Tested Features:breaking algorithm, chords, multivoice, accents
+ Tested Features:breaking algorithm, chords, multivoice, accents, 
+ dotted slurs
 %}
 
 \version "0.1.10";
@@ -27,131 +28,62 @@ copyright =	 "public domain";
 % \slope{30}		% Fool MusiXTeX into 30 / 10 steeper beam
 %		% because piece is set very tightly
 
+%{
+  This file has a long heritage.
+  It should probably be rewritten as two separate voices.
+%}
+
+
 IImenuetto = \melodic{
-%	\property Voice.beamslopedamping = \infinity
 	\clef"alto";
 	\property Staff.instrument = cello
 	\meter 3/4;
 	\key bes;
 	\octave c';
 
-	\duration 8;
-		< a2 f2 d2 \f > bes4-.  |
-%%2
-	\textstyle "finger";		% ugh.
-	
-	\multi 2 < 
-		{ \stemup; [ bes8^"1"( )a8 bes8-. g8-. ] a4-.^"4" }
-		
-		{ \stemdown; < e8_"2" c8_"4" > }
-	> |
-	\stemboth;
-%%3
-%	\property Voice.beamslopedamping = \normal
-	< d4 'bes4-. > g4-. [ f8-. e8-. ] |
-%	\property Voice.beamslopedamping = \infinity
-%%4
-	\multi 2 < 
-		{ \stemup; [ f8( e8 )d8 cis8-. 'b8-. 'a8-. ] }
-		{ \stemdown; 'a }
-	> |
-	\stemboth;
-%%5
-	< a2 f2 d2 > bes!4-. |
-%%6
-	\multi 2 < 
-		{ \stemup; [ bes8 a8 bes8-. g8-. ] }
-		{ \stemdown; e8 }
-	>
-	\stemboth;
-	c'!4-. |
-%%7
-	< a4-. f4>
-	< d'4-.-\upbow f4 'bes4 >
-	< e'4-.-\downbow g4 'g4 > |
-%%8
-	< cis'2.-\upbow e2. 'a2. > 
-	\bar ":|:";
-%%9
+	<a2 f d \f> bes4-.  |
+	<{\voiceone; [bes8^1 a bes-. g-.] a4-.^4 } {\voicetwo; <e8_2 c_4> }> |
+	\onevoice;
+	<d4 'bes-.> g-. [f8-. e-.] |
+	<{\voiceone; [f8( e )d cis-. 'b-. 'a-.] } {\voicetwo; 'a8 }> |
+	\onevoice;
+	<a2 f d> bes!4-. |
+	<{\voiceone; [bes8 a bes-. g-.] } {\voicetwo; e8 }>
+	\onevoice;
+	c'!4-. | <a-. f> <d'-.-\upbow f 'bes>
+	<e'-.-\downbow g 'g> | <cis'2.-\upbow e 'a> \bar ":|:";
 	\clef "violin";
-	< e'2 a2 \f >
-%	\property Voice.beamslopedamping = \normal
-	[ d'8( e'16 )f'16 ] |
-%	\property Voice.beamslopedamping = \infinity
-%%10
-	\multi 2 < 
-		{ \stemup; [ e'8( d' cis'_"2" )e' a( )g8 ] }
-		{ \stemdown; g8 }
-	> |
-	\stemboth;
-%%11
-	\multi 2 <
-		{ \stemup; a4( )d'4 cis'4-. }
-		{ \stemdown; f2 e4 } 
-	> |
-	\stemboth;
-%%12
-	\multi 2 < 
-		{ \stemup; [ g'8^"4"( f' e' )f' d'^"3"( ) c' ] } 
-		{ \stemdown; d8 }
-	> |
-	\stemboth;
-%%13
+	<e'2 a\f>
+	[d'8( e'16 )f'] |
+	\slurdotted;
+	<{\voiceone; [e'8( d' cis'_2 )e' a( )g] } {\voicetwo; g8 }> |
+	\onevoice;
+	<{\voiceone; a4 ~ d' cis'-. } {\voicetwo; f2 e4 }> |
+	\onevoice;
+	<{\voiceone; [g'8^4( f' e' )f' d'^3( ) c'] } {\voicetwo; d8 }> |
+	\onevoice;
 	\clef "alto";
-	\multi 2 <
-		
-		{ \stemup; bes2 c'4 }
-		{ \stemdown; g4( )f4 e4 }% ugh
-	> |
-	\stemboth;
-%%14
-	\multi 2 < 
-		{ \stemup; [ a8 g8 a8 f8 ] } 
-		{ \stemdown; f8 }
-	>
-	\stemboth;
-	< d'4-\upbow e4 'bes4 > |
-%%15
-	< c'4-\downbow f4 'a4 > [ bes8( )a8 g8 a8 ] |
-%%16
-	[ f( e8 )f a8-. g8-. bes8-. ] |
-%%17
-	< a2^"0"^\trill fis2_"3" > bes4 |
-%%18
-	\multi 2 < 
-		{ \stemup; [ c'8( )bes8 c' a8 ] } 
-		{ \stemdown; es8 }
-	>
-	\stemboth;
+	<{\voiceone; bes2 c'4 } {\voicetwo; g4 ~ f e }> |
+	\onevoice;
+	<{\voiceone; [a8 g a f] } {\voicetwo; f8 }>
+	\onevoice;
+	<d'4-\upbow e 'bes> |
+	<c'-\downbow f 'a> [bes8 a g a] |
+	[f8( e )f a-. g-. bes-.] |
+	<a2^"0"^\trill fis_3> bes4 |
+	<{\voiceone; [c'8 bes c' a] } {\voicetwo; es8 }>
+	\onevoice;
 	fis4^\trill |
-%%19
-	< d'4-\downbow g4 'bes4 > < c'4-\upbow g4 c4 > < [ bes8 d8 > a8 ] |
-%%20
-	\multi 2 < 
-		{ \stemup; [ c'8( bes8 a8 )bes g( )bes8 ] }
-		{ \stemdown; < d8  g8  > }
-	> |
-	\stemboth;
-%%21
-	\multi 2 <  
-		{ \stemup; d'4( )cis'4 d'4 }  
-		{ \stemdown; g2 f4 }
-	> |
-	\stemboth;
-%%22
-	\multi 2 < 
-		{ \stemup; [ g8( )f8 g8 e8 ] f4 }
-		{ \stemdown; cis8 d4 }
-	> |
-	\stemboth;
-%%23
-%	\property Voice.beamslopedamping = \normal
-	[ 'g8 g8 ] < e4.^\trill 'a4. > d8-\upbow |
-%	\property Voice.beamslopedamping = \infinity
-%%24
-	\textstyle "roman";		% ugh
-	< d2.^"fine" 'a2. 'd2._"3 mins."> 
-	\bar ":|";
+	<d'4-\downbow g 'bes> <c'-\upbow g c> <[bes8( d> )a] |
+	<{\voiceone; [c'8( bes a )bes g( )bes] } {\voicetwo; <d8 g> }> |
+	\onevoice;
+	<{\voiceone; d'4 ~ cis' d' }  {\voicetwo; g2 f4 }> |
+	\onevoice;
+	<{\voiceone; [g8 f g e] f4 } {\voicetwo; cis8 d4 }> |
+	\onevoice;
+	['g8 g] <'a4. { e^\trill ~ d8-\upbow }> |
+	\textstyle "italic";		% ugh
+	<d2._"fine" 'a 'd> \bar ":|";
 }
 
 \score{
@@ -159,16 +91,9 @@ IImenuetto = \melodic{
 		\IImenuetto 
 	}
 	\paper{
-		linewidth= 150.0\mm;
-		% how does this work?
-		% why does space not have dim?
-		arithmetic_basicspace = 3.2;
-		% how can multiplier have dim?
-		arithmetic_mulitplier = 9.\pt;
-		%\output "scsii-menuetto.out";
+		linewidth= 185.0\mm;
 	}
 	\midi{ 
 		\tempo 4 = 120;
-		%\output "scsii-menuetto.midi";
 	}
 }

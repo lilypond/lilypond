@@ -32,12 +32,11 @@ options = Options()
 def help():
     sys.stdout.write(
 	'Generate a patch to go to this version.\n'
-	'  --from=FROM, -f FROM    old is FROM\n'
-	'  --to=TO, -t TO          to version TO\n'  
-	'  --dir=DIR, -d TO        directory\n'  
+	'  -f, --from=FROM      old is FROM\n'
+	'  -d, --dir=DIR        diff to (or from) directory DIR\n'  
+	'  -r, --release        diff against latest release\n'  
+	'  -t, --to=TO          to version TO\n'  
 	)
-
-
 
 def untar(fn):
     # os.system('pwd');
@@ -81,13 +80,13 @@ def makepatch(fromdir, todir, patfile_nm):
     os.system('pwd')
     print ('diff -urN ../%s . >> %s' % (fromdir, patfile_nm))
     os.system('diff -urN ../%s . >> %s' % (fromdir, patfile_nm))
-    os.system('gzip -9f %s' % patfile_nm)
+    os.system('gzip --quiet -9f %s' % patfile_nm)
    
 def main():
     os.environ['GZIP'] = '-q'
     sys.stderr.write('This is make-patch version %s\n' % mp_version)
     (cl_options, files) = getopt.getopt(sys.argv[1:], 
-	'd:hf:o:t:', ['output=', 'help', 'from=', 'to='])
+	'd:hf:o:rt:', ['output=', 'help', 'from=', 'to='])
     outfn = ''
     srcdir = ''
 
@@ -106,11 +105,17 @@ def main():
 	elif o == '--dir' or o == '-d':
 	    srcdir = a;
 	    to_b=0
-	elif o== '--help' or o == '-h':
+	elif o == '--help' or o == '-h':
 	    help()
 	    return 0;
 	elif o == '--output' or o == '-o':
 	    outfn = os.path.join(os.getcwd(), a)
+	elif o == '--release' or o == '-r':
+# huh?
+#	    if options.from_version[3]:
+#		options.from_version[3] = '';
+	    options.from_version = (options.from_version[0], 
+		options.from_version[1], options.from_version[2], '');
 	else:
 	    raise getopt.error
 

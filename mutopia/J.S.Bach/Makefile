@@ -5,6 +5,7 @@
 depth = ../..
 #
 
+EXTRA_DISTFILES=preludes.tex
 # descent order into subdirectories:
 #
 SUBDIRS = 

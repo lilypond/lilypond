@@ -25,6 +25,8 @@ public:
 
   DECLARE_MY_RUNTIME_TYPEINFO;
 
+  int dash_i_;
+
 protected:
   virtual Molecule* brew_molecule_p () const;
   virtual Interval do_width () const;    

@@ -23,6 +23,8 @@ dnl should cache result.
 dnl should  look in $prefix first.
 dnl should probably assume TDS
 
+
+
 AC_DEFUN(AC_TEX_PREFIX, [
     
 
@@ -76,6 +78,30 @@ AC_DEFUN(AC_FIND_DIR_IN_PREFIX, [
     fi
     $2=$find_dirdir
     AC_MSG_RESULT($1/$find_dirdir)
+])
+
+# ugh.  this is hopeless
+AC_DEFUN(AC_KPSE_TEX_DIR, [
+	kpse_paths=`(kpsepath -n latex tex; kpsepath -n tex tex) | sed 's/:/ /g' | tr ' ' '\012' |sort | uniq -d`
+	kpse_syspaths=`echo $kpse_paths | grep '!'| sed 's/!//g'`
+	echo $kpse_paths
+	if test -w "$kpse_syspaths";
+	then
+		dir=`echo $kpse_syspaths | head -1`
+	else
+		dir=`echo $kpse_paths | grep -v '!'| head -1`
+	fi
+	if test "$prefix" = "NONE"; then
+		local_prefix=$ac_default_prefix
+		local_prefix_quote='${prefix}'
+
+	else
+		local_prefix=$prefix
+		local_prefix_quote=$prefix
+	fi
+	echo $local_prefix_quote = $local_prefix
+	echo $dir
+	echo $dir  | sed 's!'$local_prefix'!\$local_prefix_quote!g'
 ])
 
 AC_DEFUN(AC_TEX_SUBDIR, [

@@ -51,7 +51,9 @@ Piano_brace::do_width() const
 Atom
 Staff_bracket::get_bar_sym (Real dy) const
 {
-  return paper()->lookup_l ()->vbracket (dy);
+  Atom a = paper()->lookup_l ()->vbracket (dy);
+  a.translate_axis (- 1.5 * a.extent ().x ().length (), X_AXIS);
+  return a;
 }
 
 Interval
