@@ -238,10 +238,13 @@ Grob::get_uncached_stencil () const
     {
       if (to_boolean (get_property ("transparent")))
 	stil = Stencil (m->extent_box (), SCM_EOL).smobbed_copy ();
-      else if (point_and_click_global) 
+      else
 	{
-	  SCM expr = scm_list_3 (ly_symbol2scm ("grob-cause"), self_scm (),
-				 m->expr ());
+	  
+	  SCM expr = m->expr ();
+	  if (point_and_click_global)
+	    expr = scm_list_3 (ly_symbol2scm ("grob-cause"), self_scm (), expr);
+	  
 	  stil = Stencil (m->extent_box (), expr).smobbed_copy ();
 	}
 

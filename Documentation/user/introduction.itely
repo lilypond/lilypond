@@ -113,11 +113,11 @@ spot which fragment is which?
 {
    \override Staff.NoteSpacing #'stem-spacing-correction = #0.6
    c'4 e''4 e'4 b'4 |
-   \stemDown b'4 e''4 a'4 e''4 | \bar "||"
+   \stemDown b'8[ e'' a' e''] | \bar "||"
    \override Staff.NoteSpacing #'stem-spacing-correction = #0.0
    \override Staff.StaffSpacing #'stem-spacing-correction = #0.0
    \stemNeutral c'4 e''4 e'4 b'4 |
-   \stemDown b'4 e''4 a'4 e''4 |
+   \stemDown b'8[ e'' a' e''] |
 }
 @end lilypond
 
