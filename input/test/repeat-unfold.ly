@@ -1,9 +1,9 @@
 
-\score { \notes\context Staff\relative c'' {
-\repeat unfold 3 { c^"3$\\times$ 0alt" d }
+\score { \notes\relative c'' {
+\repeat unfold 3 { c^"3x 0a" d }
 % less alts than body
-\repeat unfold 4 { c^"4$\\times$ 2alt" d } \alternative { e f }
+\repeat unfold 4 { c^"4x 0a" d } \alternative { e f }
 % more alts than body
-\repeat unfold 2 { c^"2$\\times$ 3alt" d } \alternative { e f g } 
+\repeat unfold 2 { c^"2x 3a" d } \alternative { e f g } 
 }}
 

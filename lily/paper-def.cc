@@ -43,6 +43,7 @@ Paper_def::~Paper_def ()
 Paper_def::Paper_def (Paper_def const&s)
   : Music_output_def (s)
 {
+  shape_int_a_ = s.shape_int_a_;
   lookup_p_tab_p_ = new Hash_table<int, Lookup*>;
   lookup_p_tab_p_->hash_func_ = int_hash;
   
@@ -106,11 +107,13 @@ Interval
 Paper_def::line_dimensions_int (int n) const
 {
   if (!shape_int_a_.size ())
-    if (n)
-      return Interval (0, linewidth_f ());
-    else
-      return Interval (get_var ("indent"), linewidth_f ());
-
+    {
+      if (n)
+	return Interval (0, linewidth_f ());
+      else
+	return Interval (get_var ("indent"), linewidth_f ());
+    }
+  
   if (n >= shape_int_a_.size ())
     n = shape_int_a_.size () -1;
 
@@ -257,7 +260,7 @@ Paper_def::paper_outputter_p (Paper_stream* os_p, Header* header_l, String origi
     p->output_scope (scope_p_, "mudelapaper");
   
 
-  *p->outstream_l_  << *scope_p_->elem (String (output_global_ch) + "setting")->access_content_String (false);
+  //  *p->outstream_l_  << *scope_p_->elem (String (output_global_ch) + "setting")->access_content_String (false);
 
   SCM scm = gh_list (ly_symbol ("experimental-on"), SCM_UNDEFINED);
   p->output_scheme (scm);

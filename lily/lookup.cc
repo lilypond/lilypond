@@ -506,7 +506,7 @@ Lookup::staff_brace (Real y, int staff_size) const
   Real step  = 1.0;
   int minht  = 2 * staff_size;
   int maxht = 7 *  minht;
-  int idx = ((maxht - step) <? y - minht) / step;
+  int idx = int (((maxht - step) <? y - minht) / step);
   idx = idx >? 0;
   
   SCM f =  ly_symbol (String ("feta-braces" + to_str (staff_size)));

@@ -20,7 +20,6 @@
    A Dynamic Programming type of algorithm
    similar to TeX's is in Gourlay_breaking
 
-
    UGH.  Should think about pre/post break columns.
    */
 Array<Column_x_positions>
@@ -36,7 +35,6 @@ Word_wrap::do_solve () const
   assert (breakpoints.size ()>=2);
 
   int break_idx=0;
-  int line_no = 0;
   while (break_idx < breakpoints.size () -1)
     {
       Column_x_positions minimum;
@@ -44,7 +42,7 @@ Word_wrap::do_solve () const
 
 
       // do  another line
-      line_no ++;
+
       Item *post = breakpoints[break_idx]->find_prebroken_piece (RIGHT);
       Paper_column *postcol =dynamic_cast<Paper_column*>(post);
       
@@ -67,7 +65,7 @@ Word_wrap::do_solve () const
 	  current.add_paper_column (precol);
 
 	  current.spacer_l_ = generate_spacing_problem (current.cols_, 
-	    pscore_l_->paper_l_->line_dimensions_int (line_no));
+	    pscore_l_->paper_l_->line_dimensions_int (breaking.size ()));
 
 	  // try to solve
 	  if (!feasible (current.cols_))

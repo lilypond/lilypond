@@ -53,7 +53,7 @@ Align_note_column_engraver::do_removal_processing ()
   Scalar al = get_property ("graceAlignPosition", 0);
   if (al.isdir_b ())
     {
-      align_item_p_->notehead_align_dir_ = int (al);
+      align_item_p_->notehead_align_dir_ = Direction (int (al));
     }
   
   typeset_element (align_item_p_);

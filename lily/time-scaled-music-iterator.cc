@@ -1,5 +1,5 @@
 /*   
-  time-scaled-music-iterator.cc --  implement Time_scaled_music_iterator
+  time-scaled-music-iterator.cc -- implement Time_scaled_music_iterator
   
   source file of the GNU LilyPond music typesetter
   
@@ -13,15 +13,15 @@
 #include "translator-group.hh"
 #include "command-request.hh"
 
-
-
 void
 Time_scaled_music_iterator::do_process_and_next (Moment m)
 {
-  if (first_b_)
+  if (!m)
     {
-      bool success = report_to_l ()->try_music (dynamic_cast<Time_scaled_music const*> (music_l_));
-      if (!success)
+      Music_iterator *yeah = try_music (music_l_);
+      if (yeah)
+	set_translator (yeah->report_to_l ());
+      else
 	music_l_->warning ( _("No one to print a tuplet start bracket"));
     }
 

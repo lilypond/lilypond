@@ -9,11 +9,10 @@
 
 #ifndef SIMULTANEOUS_MUSIC_ITERATOR_HH
 #define SIMULTANEOUS_MUSIC_ITERATOR_HH
-
+#include "music-iterator.hh"
 #include "cons.hh"
-#include "music-list-iterator.hh"
 
-class Simultaneous_music_iterator : public Music_list_iterator
+class Simultaneous_music_iterator : public Music_iterator
 {
 public:
 
@@ -30,6 +29,8 @@ public:
 protected:
   virtual void do_print () const;
   virtual void do_process_and_next (Moment);
+  virtual Music_iterator *try_music_in_children (Music const*) const;
+
 
 private:
   Cons_list<Music_iterator> children_p_list_;

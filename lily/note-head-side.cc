@@ -50,3 +50,8 @@ Note_head_side:: Note_head_side()
 {
   notehead_align_dir_ = LEFT;
 }
+bool
+Note_head_side::supported_b ()const
+{
+  return support_l_arr_.size ();
+}

@@ -36,14 +36,10 @@ ritme = \notes\transpose c'' {
 	
 
 another = 
-	\notes{ \time 6/4; 
+	\relative c'' \notes{ \time 6/4; 
 		c1.  c1. \time 4/4;c4 c4 c4 c4  c1 c1 c1
 	 }
 
-
-%
-% Beams are incorrect for the next staff.  They cut through the whole notes.
-%
 
 yanother = 
 	\notes{ \time 4/4; 

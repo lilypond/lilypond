@@ -102,3 +102,11 @@ Simultaneous_music_iterator::ok() const
   return children_p_list_.head_;
 }
 
+Music_iterator*
+Simultaneous_music_iterator::try_music_in_children (Music const*m) const
+{
+  Music_iterator * b=0;
+  for (Cons<Music_iterator> *p = children_p_list_.head_; !b && p; p = p->next_)
+    b =p->car_->try_music (m);
+  return b;
+}

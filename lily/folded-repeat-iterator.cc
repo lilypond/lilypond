@@ -59,12 +59,10 @@ Folded_repeat_iterator::do_process_and_next (Moment m)
 {
   if (!m)
     {
-      bool success = report_to_l ()->try_music (music_l_);
+      bool success = try_music (music_l_);
       if (!success)
-	music_l_->warning ( _("No one to print a volta bracket"));
+	music_l_->warning ( _("No one to print a repeat brace"));
     }
-  
-  Repeated_music const * mus = dynamic_cast<Repeated_music const*> (music_l_);
   
   if (main_iter_p_)
     {
@@ -118,4 +116,16 @@ Folded_repeat_iterator::do_print () const
 {
 #ifndef NPRINT
 #endif
+}
+
+Music_iterator*
+Folded_repeat_iterator::try_music_in_children (Music const* m) const
+{
+  if (main_iter_p_)
+    {
+      return main_iter_p_->try_music (m);
+    }
+  if (alternative_iter_p_)
+    return alternative_iter_p_->try_music (m);
+  return 0;
 }

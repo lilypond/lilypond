@@ -68,15 +68,21 @@
 #   - changed RE to search for pre/postMudelaExample to make it possible to
 #     comment out a definition.
 #   - use sys.stderr and sys.stdout instead of print
+# 1.1.62
+#   - junked separate versioning
+#   - pass -I options to lily.
+#   - portability stuff (os.sep).
+
 import os
 import string
 import re
 import getopt
 import sys
+import __main__
 
 outdir = 'out'
 initfile = ''
-program_version = '0.5.6'
+program_version = '@TOPLEVEL_VERSION@'
 include_path = ['.']
 
 out_files = []
@@ -162,6 +168,7 @@ def need_recompile_b(infile, outfile):
 def compile (command, workingdir, infile, outfile):
     "Test if infile is newer than outfile. If so, cd to workingdir"
     "and execute command"
+    print "COMPILE!!"
     indate = file_mtime (workingdir+infile)
     try:
         outdate = file_mtime (workingdir+outfile)
@@ -381,8 +388,18 @@ class Tex_output:
         for g in g_vec:
             if need_recompile_b(outdir+g[1]+'.ly', outdir+g[1]+'.tex'):
                     s = s + ' ' + g[1]+'.ly'
+
+        lilyoptions = ''
+	for inc in __main__.include_path :
+		p = inc[:]
+		if p[0] <> os.sep and outdir:		# UGH-> win32 ?
+			p = '..' + os.sep + p 
+		lilyoptions = lilyoptions + " -I \"%s\"" % p
+		
         if s != '':
-            e = os.system('cd %s; lilypond %s' %(outdir, s))
+	    cmd = 'cd %s; lilypond %s %s' %(outdir, lilyoptions, s)
+	    sys.stderr.write ('invoking command %s'  % cmd)
+            e = os.system(cmd)
             if e:
                 sys.stderr.write("error: lilypond exited with value %i\n" % e)
                 sys.exit(e)
@@ -758,8 +775,8 @@ def main():
             Props.force_verbatim_b = 1
         elif o == '--init':
             initfile =  a
-    if outdir[-1:] != '/':
-        outdir = outdir + '/'
+    if outdir[-1:] != os.sep:
+        outdir = outdir + os.sep
 
     # r""" ... """ means: leave escape seqs alone.
     defined_mudela_cmd = {'mudela': r"""

@@ -494,5 +494,5 @@ vThreeSwitch = \context Voice = voiceThree \notes{
 	>
 	\paper{
 	}
-	\midi{\tempo=60;}
+	\midi{\tempo 4 =60;}
 }

@@ -26,8 +26,8 @@ public:
   void set_path (File_path*p_C);
   void set_binary (bool);
 
-private:
   const File_path * path_C_;
+private:
   Cons<Source_file> *sourcefile_p_list_;
   bool binary_b_ ;
 };

@@ -52,11 +52,6 @@ Simultaneous_music::to_relative_octave (Musical_pitch p)
   return do_relative_octave (p, true);
 }
 
-Music_iterator*
-Simultaneous_music::to_rhythm (Music_iterator* r)
-{
-  return do_rhythm (r);
-}
 
 Musical_pitch
 Music_sequence::do_relative_octave (Musical_pitch p, bool b)
@@ -64,11 +59,6 @@ Music_sequence::do_relative_octave (Musical_pitch p, bool b)
   return music_p_list_p_->do_relative_octave (p, b);  
 }
 
-Music_iterator*
-Music_sequence::do_rhythm (Music_iterator* r)
-{
-  return music_p_list_p_->do_rhythm (r);
-}
 
 Musical_pitch 
 Music_list::do_relative_octave (Musical_pitch last, bool ret_first)
@@ -88,18 +78,9 @@ Music_list::do_relative_octave (Musical_pitch last, bool ret_first)
   return retval;
 }
 
-Music_iterator*
-Music_list::do_rhythm (Music_iterator* r)
-{
-  for (Cons<Music> *i = head_; i ; i = i->next_)
-    {
-      r = i->car_->to_rhythm (r);
-    }
-  return r;
-}
 
 Music_list::Music_list (Music_list const &s)
-  : Cons_list<Music> (s)
+  : Cons_list<Music> (s), Input (s)
 {
   Cons_list<Music>::init ();
   clone_killing_cons_list (*this, s.head_);
@@ -136,34 +117,6 @@ Request_chord::to_relative_octave (Musical_pitch last)
   return last;
 }
 
-Music_iterator*
-Request_chord::to_rhythm (Music_iterator* it)
-{
-  for (Cons<Music>* i = music_p_list_p_->head_; i ; i = i->next_)
-    {
-      if (Rhythmic_req* r= dynamic_cast <Rhythmic_req*> (i->car_))
-	{
-	  for (Music*m = it->next_music_l (); m; m = it->next_music_l ())
-	    {
-#if 0
-	      // is it sane to assume we don't want rests on lyrics/in rhythm?
-	      if (dynamic_cast <Rest_req*> (r)
-		  || dynamic_cast <Multi_measure_rest_req*> (r)
-		  || dynamic_cast <Skip_req*> (r))
-		  {
-		    continue;
-		  }
-#endif
-	      if (Rhythmic_req* d= dynamic_cast <Rhythmic_req*> (m))
-		{
-		  r->duration_ = d->duration_;
-		  return it;
-		}
-	    }
-	}
-    }
-  return it;
-}
 
 Music_list::Music_list ()
 {

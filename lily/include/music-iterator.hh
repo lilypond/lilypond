@@ -49,12 +49,21 @@ protected:
    */
   Music_iterator* get_iterator_p (Music const*mus) const;
 
-  /** Do the actual reporting.  This should be overriden in derived
+  /** Do the actual move.  This should be overriden in derived
     classes.  It is called by #process_and_next#, the public interface 
     */
   virtual void do_process_and_next (Moment until);
 
+
+  virtual Music_iterator* try_music_in_children (Music const *) const;
+  
 public:
+
+  /**
+     Do the reporting.  Will try MUSIC_L_ in its own translator first,
+     then its children. Returns the iterator that succeeded
+  */
+  Music_iterator *  try_music (Music const *) const;
 
   /**
     The translation unit that we this iterator is reporting  to now.
@@ -74,8 +83,6 @@ public:
   ///  Find the next interesting point in time.
   virtual Moment next_moment() const;
 
-  ///  Return next Music item
-  virtual Music* next_music_l ();
 
   ///Are we finished with this piece of music?
   virtual bool ok() const;

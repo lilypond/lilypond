@@ -33,10 +33,5 @@ Transposed_music::to_relative_octave (Musical_pitch p)
   return p;
 }
 
-Music_iterator*
-Transposed_music::to_rhythm (Music_iterator* r)
-{
-  return r;
-}
 
 

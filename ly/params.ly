@@ -28,6 +28,12 @@ stem_length1 = 5.;
 stem_length2 = 4.;
 stem_length3 = 3.;
 
+%
+arithmetic_basicspace = 2.;
+arithmetic_multiplier = 0.9 * \quartwidth ;
+
+
+
 % urg.
 % if only these ugly arrays were scm,
 % we could override them in the Grace context

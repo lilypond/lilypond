@@ -31,12 +31,20 @@
 #include "interval.hh"
 #include "parser.hh"
 #include "debug.hh"
-#include "parseconstruct.hh"
 #include "main.hh"
 #include "musical-request.hh"
 #include "identifier.hh"
+#include "mudela-version.hh"
+#include "version.hh"
+
 void strip_trailing_white (String&);
 void strip_leading_white (String&);
+
+
+bool
+valid_version_b (String s);
+
+
 
 #define start_quote()	\
 	yy_push_state (quote);\
@@ -62,6 +70,7 @@ LYRICS		({AA}|{TEX})[^0-9 \t\n\f]*
 %option never-interactive 
 %option warn
 
+%x version
 %x chords
 %x incl
 %x lyrics
@@ -118,6 +127,21 @@ HYPHEN		--
   }
 }
 
+<INITIAL,chords,lyrics,notes>\\version{WHITE}*	{
+	yy_push_state (version);
+}
+<version>\"[^"]*\";?   { /* got the include file name */
+	String s (YYText ()+1);
+	s = s.left_str (s.index_last_i ('"'));
+	DOUT << "#version `" << s << "\'\n";
+	if (!valid_version_b (s))
+		return INVALID;
+	yy_pop_state ();
+}
+<version>. 	{
+	LexerError ("No quoted string found after \\version");
+	yy_pop_state ();
+}
 <longcomment>{
 	[^\%]* 		{
 	}
@@ -220,7 +244,6 @@ HYPHEN		--
 		yylval.i = String_convert::dec2_i (String (YYText ()));
 		return DIGIT;
 	}
-
 	{UNSIGNED}		{
 		yylval.i = String_convert::dec2_i (String (YYText ()));
 		return UNSIGNED;
@@ -397,7 +420,7 @@ My_lily_lexer::pop_state ()
 
 int
 My_lily_lexer::scan_escaped_word (String str)
-{	
+{
 	DOUT << "\\word: `" << str<<"'\n";
 	int l = lookup_keyword (str);
 	if (l != -1) {
@@ -496,3 +519,20 @@ strip_trailing_white (String&s)
 	s = s.left_str (i+1);
 }
 
+
+
+
+bool
+valid_version_b (String s)
+{
+  Mudela_version current ( MAJOR_VERSION "." MINOR_VERSION "." PATCH_LEVEL );
+  Mudela_version ver (s);
+  if (!((ver >= oldest_version) && (ver <= current)))
+	{	
+		error (_f ("incorrect mudela version: %s (%s, %s)", ver.str (), oldest_version.str (), current.str ()));
+		if (!version_ignore_global_b)
+			return false;
+    }
+  return true;
+}
+	

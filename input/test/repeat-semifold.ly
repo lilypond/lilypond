@@ -1,6 +1,7 @@
 
 %  no alts.
-\score { \notes\context Staff\relative c'' {
+\score { \notes
+  \relative c'' {
 \repeat semi 3 { c^"3$\\times$ 0alt" d }
 % less alts than body
 \repeat semi 4 { c^"4$\\times$ 2alt" d } \alternative { e f }

@@ -17,24 +17,20 @@
 
 
 /**
-  Generate an centred hyphen.  Should make a Hyphen_spanner that typesets
-  a nice centred hyphen of varying length depending on the gap between syllables.
+  Generate an centred hyphen.  Should make a Hyphen_spanner that
+  typesets a nice centred hyphen of varying length depending on the
+  gap between syllables.
 
-  We remember all Text_items that come across, and store their
-  termination times. When we get a request, we create the spanner, and
-  attach the left point to the finished lyrics, and the right point to
-  any lyrics we receive by then.
-*/
+  We remember the last Text_item that come across. When we get a
+  request, we create the spanner, and attach the left point to the
+  last lyrics, and the right point to any lyrics we receive by
+  then.  */
 class Hyphen_engraver : public Engraver
 {
-  PQueue<Text_lyric_tuple> past_lyrics_pq_;
-  Array<Text_lyric_tuple> now_lyrics_;
-  Array<Text_lyric_tuple> stopped_lyrics_;  
-  
+  Text_item *  last_lyric_l_;
+  Text_item * current_lyric_l_;
   Hyphen_req* req_l_;
   Hyphen_spanner* hyphen_spanner_p_;
-
-  
 public:
   Hyphen_engraver ();
   VIRTUAL_COPY_CONS (Translator);

@@ -8,6 +8,8 @@
 
 #include <strstream.h>
 
+
+#include "file-path.hh"
 #include "includable-lexer.hh"
 #include "source-file.hh"
 #include "source.hh"
@@ -43,7 +45,9 @@ Includable_lexer::new_input (String s, Sources  * global_sources)
   if (!sl)
     {
       String msg = _f ("can't find file: `%s\'", s);
+      msg += _f ("\nSearch path is `%s'\n", global_sources->path_C_->str ().ch_C());
       LexerError (msg.ch_C ());
+
       return;
     }
   filename_str_arr_.push (sl->name_str ());

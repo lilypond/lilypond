@@ -29,9 +29,9 @@ manpagesynopsis()
 manpageoptions()
 description(
 dit(--output)
-    The output file to write [FIXME, doesn't work]
+    The output file to write.  
 dit(--edit)
-    Do an inline edit of the input file. override @samp{--output}
+    Do an inline edit of the input file. override code(--output)
 dit(--show-rules)
     shows all known conversions, and exit
 dit(--from=FROM_PATCHLEVEL)

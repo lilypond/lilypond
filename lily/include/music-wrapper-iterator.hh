@@ -26,12 +26,13 @@ public:
 
   virtual void construct_children  () ;
   virtual Moment next_moment () const;
-  virtual Music* next_music_l ();
   virtual bool ok () const;
 
 protected:
   virtual void do_print () const;
   virtual void do_process_and_next (Moment) ;
+  virtual Music_iterator *try_music_in_children (Music const *) const;
+
   Music_iterator *child_iter_p_;
 };
 

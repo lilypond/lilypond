@@ -23,10 +23,10 @@ Input::Input ()
   defined_ch_C_ = 0;
 }
 
-Input::Input (Input const &s)
+Input
+Input::spot () const
 {
-  source_file_l_ = s.source_file_l_;
-  defined_ch_C_ = s.defined_ch_C_;
+  return *this;
 }
 
 void
@@ -104,3 +104,4 @@ Input::location_str () const
   else
     return "(" + _ ("position unknown") + ")";
 }
+

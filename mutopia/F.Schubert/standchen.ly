@@ -11,7 +11,7 @@ copyright =	 "public domain";
 } 
 
 %{
- Tested Features: multivoice accents lyrics chords piano music
+ Tested Features@ multivoice accents lyrics chords piano music
 multiple \paper{}s in one \score 
 Note: Original key F.
 %}
@@ -69,62 +69,104 @@ vocalThrough = \notes\relative c{
 	e2 r4 |
 }
 
-lyricVerseOne = \lyrics{
-	Lei- " " se fleh- en mei- " " ne Lie- der " "
-	Durch die Nacht " " zu dir; " "
-	" "
-	" "
-	In " " den stil- len Hain " " her- nie- der
-	Lieb- chen, komm " " zu mir! " "
-	" "
-	" "
-	Fl\"us- ternd schlan- ke Wip- fel rau- schen
-	In " " des Mon- des Licht,
-	In " " des Mon- des Licht;
-
-	Des Ver- r\"a- ters feind- lich Lau- schen
-	F\"urch- " " te, Hol- de, nicht,
-	f\"urch- " " te, Hol- de, nicht.
+lyricVerse1 = \lyrics{
+% 5
+	\times 2/3 {  Lei-4 se8 } fleh-4. en8 |
+	\times 2/3 {  mei-4 ne8 } Lie-4 der8 " "8 |
+	Durch4. die8 \times 2/3 {  Nacht4 zu8 } |
+	dir;2 " "4 |
+	" "2.*2
+%{	" "4 " " " " |
+	" " " " " " |%}
+% 11
+	\times 2/3 {  In4 den8 } stil-4. len8 |
+	\times 2/3 {  Hain4 her-8 } nie-4. der8 |
+	Lieb-4. chen,8 \times 2/3 {  komm4 zu8 } |
+	mir!2 " "4 |
+		" "2.*2
+%{	" "4 " " " " |
+	" " " " " " |%}
+% 17
+	Fl\"us-8. ternd16 schlan-4. ke8 |
+	Wip-8. fel16 rau-4. schen8 |
+	\times 2/3 {  In4 des8 } Mon-4. des8 |
+	Licht;2. |
+	\times 2/3 {  In4 des8 } Mon-4. des8 |
+	Licht;2. |
+% 23 
+	Des8. Ver-16 r\"a-4. thers8 |
+	feind-8. lich16 Lau-4. schen8 |
+	\times 2/3 {  F\"urch-4 te8 } Hol-4. de8 |
+	nicht2. |
+	\times 2/3 {  f\"urch-4 te8 } Hol-4. de8 |
+	nicht.2. |
 }
 	
-lyricVerseTwo = \lyrics{
-	H\"orst " " die Nach- ti- gal- " " len schla- gen? " "
-	Ach! sie fleh- " " en dich, " "
-	" "
-	" "
-	Mit " " der T\"o- ne s\"u- " " "\ss en" Kla- gen
-	Fleh- en sie " " f\"ur mich. " "
-	" "
-	" "
-	Sie- ver- "steh'n" des Bus- ens Seh- nen
-	Ken- " " nen Lieb- es- schmerz,
-	Ken- " " nen Lieb- es- schmerz.
+lyricVerse2 = \lyrics{
+% 5
+	\times 2/3 {  H\"orst4 die8 } Nach-4. ti-8 
+	\times 2/3 {  gal-4 len8 } schla-4 gen?8 " "8
+	ach!4. sie8 \times 2/3 {  fleh-4 en8 } 
+	dich,2 " "4
+	" "2.*2
+%{	" "4 " " " " 
+	" "4" " " "
+%}
+% 11
+	\times 2/3 {  Mit4 der8 } T\"o-4. ne8
+ 	\times 2/3 {  s\"u-4 "\ss en"8 } Kla-4. gen8
+	Fleh-4. en8 \times 2/3 {  sie4 f\"ur8 }
+	mich2 " "4
+	" "2.*2
+%{	" "4" " " " 
+	" "4" " " "
+%}
+% 17
+	Sie-8. ver-16 stehn4. des8
+	Bus-8. ens16 Seh-4. nen8
+	\times 2/3 {  Ken-4 nen8 } Lieb-4. es-8 
+	schmerz,2.
+	\times 2/3 {  Ken-4 nen8 } Lieb-4. es-8 
+	schmerz.2.
 
-	R\"uh- ren mit den Sil- ber- t\"o- nen
-	Jed- " " es wei- che Herz,
-	Jed- " " es wei- che Herz.
+% 23
+	R\"uh-8. ren16 mit4. den8 
+	Sil-8. ber-16 t\"o-4. nen8
+	\times 2/3 {  jed-4 es8 } wei-4. che8 
+	Herz,2.
+	\times 2/3 {  jed-4 es8 } wei-4. che8 
+	Herz.2.
 }
 
 lyricThrough = \lyrics{
-	La\ss auch dir die Brust be- we- gen " "
-	Lieb- chen, h\"o- re mich! " "
-	Be- bend harr' " " ich dir ent- ge- gen! " "
-	" "
-	" "
-	Komm, " " be- "gl\"uk-" ke mich!
-	Komm, " " be- "gl\"uk-" ke mich, __ " "  " "
-	Be- "gl\"uk-" ke mich!
+% 37
+	La\ss8. auch16 dir8. die16 Brust8. be-16 |
+	we-4 gen " " |
+	Lieb-4. chen,8 h\"o-8. re16 |
+	mich!2 " "4 |
+	Be-4. bend8 \times 2/3 {  harr'4 ich8} |
+	dir8. ent-16 ge-4 gen!8 " "8 |
+	" "2. |
+	" "2. |
+	\times 2/3 {  Komm4 be-8 } gl\"u4. cke8 |
+	mich!2. |
+	\times 2/3 {  Komm4 be-8 } gl\"u4. cke8 |
+	mich,2. __ |
+	" "2 be-4 |
+	gl\"u-2. |
+	cke2. |
+	mich!2 " "4 |
 }
 
 trebleIntro = \notes\relative c{
-	r8^"\bf M\\\"a\\ss ig"\pp <g'-. c-.> <c-. es-.> <g-. c-.> <c-. es-.> <g-. c-.> |
+	r8^"\bf m\\\"a\\\ss ig"\pp <g'-. c-.> <c-. es-.> <g-. c-.> <c-. es-.> <g-. c-.> |
 	r8 <as-. c-.> <c-. es-.> <as-. c-.> <c-. es-.> <as-. c-.> |
 	r8 <as-. c-.> <c-. d-.> <as-. c-.> <c-. d-.> <as-. c-.> |
 	r8 <g-. b-.> <b-. d-.> <g-. b-.> <b-. d-.> <g-. b-.> |
 	\break
 }
 
-trebleVerseOne = \notes\relative c{
+trebleVerse1 = \notes\relative c{
 	%5
 	r8 <g' c> <c es> <g c> <c es> <g c> |
 	r8 <f c'> <c' d> <f, c'> <c' d> <f, c'> |
@@ -232,7 +274,7 @@ bassIntro = \notes\relative c{
 	<g2 g'> r4 |
 }
 
-bassVerseOne = \notes\relative c{
+bassVerse1 = \notes\relative c{
 %	\clef bass;
 	\property Voice.dynamicDir=1
 %5
@@ -320,13 +362,24 @@ global = \notes{
 }
 
 
-allLyrics = \lyrics {
-	" "4 * 12
-	\rhythm \vocalVerse \lyricVerseOne
-	" "4 * 12
-	" "4 * 12
-	\rhythm \vocalVerse \lyricVerseTwo
-	\rhythm \vocalThrough \lyricThrough
+lyricFour = \lyrics{
+	" "2.*4
+%{	" "4 " " " "
+	" " " " " "
+	" " " " " "
+	" " " " " "%}
+}
+ 
+allLyrics = {
+	\time 3/4; 
+%	\skip 4 * 12; 
+	\lyricFour
+	\lyricVerse1
+%	\skip 4 * 24; 
+	\lyricFour
+	\lyricFour
+	\lyricVerse2
+	\lyricThrough
 }
 
 lyricStaff = \context Lyrics = lyric<
@@ -337,6 +390,7 @@ vocals = \notes{
 	\clef treble;
  	% certainly no auto-beaming for vocals
  	\property Voice.beamAuto=0
+ 
 
 	\property Voice.dynamicDir = \up
 	\skip 4 * 12; 
@@ -356,9 +410,9 @@ treble = {
 	\clef treble;
 	\property Voice.beamAutoBegin=0
 	\trebleIntro 
-	\trebleVerseOne 
+	\trebleVerse1 
 	\trebleEentje
-	\trebleVerseOne 
+	\trebleVerse1 
 	\trebleThrough
 }
 
@@ -370,9 +424,9 @@ trebleStaff = \context Staff = treble<
 bass = {
 	\clef bass;
 	\bassIntro 
-	\bassVerseOne 
+	\bassVerse1 
 	\bassEentje
-	\bassVerseOne 
+	\bassVerse1 
 	\bassThrough
 }
 
@@ -401,9 +455,12 @@ grandStaff = \context PianoStaff <
 		{ \notes { \grandStaff } }
 	>
 	\paper { 
+%		\translator { \OrchestralScoreContext }
+%		\translator { \OrchestralPartStaffContext }
 		\translator { \HaraKiriStaffContext }
 	}
-	\midi{
-		\tempo 4 = 54;
-	}
+%broken 1.1.51
+%	\midi{
+%		\tempo 4 = 54;
+%	}
 }

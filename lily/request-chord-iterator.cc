@@ -50,24 +50,6 @@ Request_chord_iterator::next_moment() const
   return m;
 }
 
-Music*
-Request_chord_iterator::next_music_l ()
-{
-  if (first_b_)
-    {
-      cursor_ = elt_l ()->music_p_list_p_->head_;
-      first_b_ = false;
-    }
-  else
-    {
-      if (cursor_)
-	cursor_ = cursor_->next_;
-    }
-  if (cursor_)
-    return cursor_->car_;
-  else
-    return 0;
-}
 
 void
 Request_chord_iterator::do_print() const
@@ -86,7 +68,7 @@ Request_chord_iterator::do_process_and_next (Moment mom)
 	{
 	  if (Request * req_l = dynamic_cast<Request*> (i->car_))
 	    {
-	      bool gotcha = report_to_l()->try_music (req_l);
+	      bool gotcha = try_music (req_l);
 	      if (!gotcha)
 		req_l->warning (_f ("junking request: `%s\'", classname( req_l)));
 	    }

@@ -44,6 +44,8 @@ Spacing_spanner::scol (int i)const
   John S. Gourlay. ``Spacing a Line of Music,'' Technical Report
   OSU-CISRC-10/87-TR35, Department of Computer and Information
   Science, The Ohio State University, 1987.
+
+  TOO HAIRY.
   
  */
 Array<Spring>
@@ -90,63 +92,73 @@ Spacing_spanner::do_measure (int col1, int col2) const
 	  
 	  SCM hint = lc->get_elt_property (extra_space_scm_sym);
 	  SCM next_hint = rc->get_elt_property (extra_space_scm_sym);
-	  SCM stretch_hint = rc->get_elt_property (stretch_distance_scm_sym);
-	    
+	  SCM stretch_hint = lc->get_elt_property (stretch_distance_scm_sym);
+	  SCM next_stretch_hint = rc->get_elt_property (stretch_distance_scm_sym);	  
+
+	  Real left_distance;
 	  if (hint != SCM_BOOL_F)
 	    {
 	      hint = SCM_CDDR (hint);
 	      
-	      s.distance_f_ = gh_scm2double (hint); 
-	      if (!lc->musical_b ())
-		s.strength_f_ = non_musical_space_strength; // fixed after complaints by michael krause 2.0;
+	      left_distance = gh_scm2double (hint); 
 	    }
 	  else if (!lc->musical_b() && i+1 < col_count())
 	    {
-	      s.distance_f_ = default_bar_spacing (lc,rc,shortest);
+	      left_distance= default_bar_spacing (lc,rc,shortest);
 	    }
 	  else if (lc->musical_b())
 	    {
-	      s.distance_f_ = note_spacing (lc, rc, shortest);
-	      
+	      left_distance  = note_spacing (lc, rc, shortest);
 	    }
-	  
+
+	  s.distance_f_ = left_distance;
+	  if (!lc->musical_b () || !rc->musical_b ())
+	    s.strength_f_ = non_musical_space_strength;
+
+	  Real right_dist = 0.0;
 	  if (next_hint != SCM_BOOL_F)
 	    {
-	     next_hint = SCM_CADR(next_hint);
-	     s.distance_f_ += gh_scm2double (next_hint);
+	      next_hint = SCM_CADR(next_hint);
+	      right_dist += gh_scm2double (next_hint);
 	    }
 	  else
 	    {
 	      Interval ext (rc->extent (X_AXIS));
-	      Real correction =  ext.empty_b() ? 0.0 : - ext [LEFT];
-
-	      /*
-		don't want to create too much extra space for accidentals
-	       */
-	      if (lc->musical_b () && rc->musical_b ())
-		correction /= 2.0;
-
-	      s.distance_f_ += correction;
+	      right_dist =  ext.empty_b() ? 0.0 : - ext [LEFT];
 	    }
 
-	  if (s.distance_f_ == 0.0)
+	  /*
+	    don't want to create too much extra space for accidentals
+	  */
+	  if (lc->musical_b () && rc->musical_b ())
+	    right_dist /= 2.0;
+
+	  s.distance_f_ = left_distance + right_dist;
+	    
+	  Real stretch_dist = 0.;
+	  if (stretch_hint != SCM_BOOL_F)
+	    stretch_dist += gh_scm2double (SCM_CDDR (stretch_hint));
+	  else
+	    stretch_dist += left_distance;
+	  
+	  if (next_stretch_hint != SCM_BOOL_F)
+	    {
+	      // see regtest spacing-tight
+	      //	      stretch_dist += gh_scm2double (SCM_CADR (next_stretch_hint));
+	    }
+	  else
+	    stretch_dist += right_dist;
+
+	  if (stretch_dist == 0.0)
 	    {
 	      /*
 		\bar "".  We give it 0 space, with high strength. 
 	       */
-	      s.distance_f_ = 0.0 PT;
 	      s.strength_f_ = 20.0; 
 	    }
-	  else if (stretch_hint != SCM_BOOL_F)
-	    {
-	      Real hint_sp = gh_scm2double (SCM_CDR (stretch_hint));
-	      s.strength_f_ /= hint_sp;
-	    }
 	  else
-	    {
-	      s.strength_f_ /= s.distance_f_; 
-	    }
-
+	    s.strength_f_ /= stretch_dist;
+	  
 	  meas_springs.push (s);	
 	}
     }
@@ -158,7 +170,8 @@ Spacing_spanner::do_measure (int col1, int col2) const
    Do something if breakable column has no spacing hints set.
  */
 Real
-Spacing_spanner::default_bar_spacing (Score_column *lc, Score_column *rc, Moment shortest) const
+Spacing_spanner::default_bar_spacing (Score_column *lc, Score_column *rc,
+				      Moment shortest) const
 {
   Real symbol_distance = lc->extent (X_AXIS)[RIGHT] ;
   Real durational_distance = 0;

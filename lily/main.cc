@@ -243,7 +243,7 @@ setup_paths ()
     global_path.parse_path (env_sz);
 
 
-  char *suffixes[] = {"ly", "afm", "scm", "tfm", "cmtfm", 0};
+  char *suffixes[] = {"ly", "afm", "scm", "tfm", "cmtfm", "ps", 0};
   for (char **s = suffixes; *s; s++){
     if (!prefix_directory.empty_b())
       global_path.add (prefix_directory + to_str ('/') + String (*s));

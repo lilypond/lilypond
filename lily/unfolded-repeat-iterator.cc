@@ -138,8 +138,10 @@ Unfolded_repeat_iterator::do_process_and_next (Moment m)
 {
   if (!m)
     {
-      bool success = report_to_l ()->try_music (music_l_);
-      if (!success)
+      Music_iterator *yeah = try_music (music_l_);
+      if (yeah)
+	set_translator (yeah->report_to_l ());
+      else
 	music_l_->warning ( _("No one to print a volta bracket"));
     }
   while (1)
@@ -167,4 +169,10 @@ Unfolded_repeat_iterator::do_print () const
   DOUT << "current: ";
   current_iter_p_->print();
 #endif
+}
+
+Music_iterator* 
+Unfolded_repeat_iterator::try_music_in_children (Music const * m) const
+{
+  return  current_iter_p_->try_music (m);
 }

@@ -25,6 +25,7 @@ public:
   Direction notehead_align_dir_;
 
   Note_head_side ();
+  bool supported_b () const;
   void add_support (Item*);
   VIRTUAL_COPY_CONS (Score_element);
 protected:

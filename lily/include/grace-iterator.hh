@@ -18,8 +18,8 @@ public:
   ~Grace_iterator ();
   virtual void construct_children () ;
   virtual void do_process_and_next (Moment);
+
   Moment next_moment () const;
-  Music* next_music_l ();
 };
 
 

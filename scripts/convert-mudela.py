@@ -470,7 +470,7 @@ outfile_name = ''
 
 identify ()
 (options, files) = getopt.getopt (
-	sys.argv[1:], 'f:t:seh', ['show-rules', 'help', 'edit', 'from', 'to'])
+	sys.argv[1:], 'o:f:t:seh', ['output', 'show-rules', 'help', 'edit', 'from', 'to'])
 
 for opt in options:
 	o = opt[0]
@@ -486,6 +486,8 @@ for opt in options:
 	elif o== '--show-rules' or o == '-s':
 		show_rules (sys.stdout)
 		sys.exit(0)
+	elif o == '--output' or o == '-o':
+		outfile_name = a
 	else:
 		print o
 		raise getopt.error

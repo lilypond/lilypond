@@ -25,7 +25,7 @@ struct Character_metric
 
 struct Font_metric
 {
-  virtual Character_metric *get_char (int ascii, bool warn) const=0;
+  virtual Character_metric const *get_char (int ascii, bool warn) const=0;
   virtual ~Font_metric () {}
 };
 

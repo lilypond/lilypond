@@ -135,3 +135,5 @@ endincipit = \notes{
     \nobreak \bar "";
 }
 
+autoBeamOff = \property Voice.beamAuto = ""
+autoBeamOn = \property Voice.beamAuto = "1"  

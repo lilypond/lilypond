@@ -26,6 +26,8 @@
 #include "unfolded-repeat-iterator.hh"
 #include "grace-iterator.hh"
 #include "grace-music.hh"
+#include "lyric-combine-music.hh"
+#include "lyric-combine-music-iterator.hh"
 
 void
 Music_iterator::do_print() const
@@ -39,8 +41,8 @@ Music_iterator::print() const
   if (!check_debug)
     return ;
   DOUT << classname(this) << "{";
-  DOUT << "report to " << 
-    report_to_l() << " (" << classname (report_to_l ()) << ")\n";
+  Translator_group *t =     report_to_l();
+  DOUT << "report to " << t->type_str_ << " = " << t->id_str_ << "\n";
   if (ok())
     DOUT << "next at " << next_moment() << " ";
   else
@@ -90,11 +92,6 @@ Music_iterator::next_moment() const
   return 0;
 }
 
-Music*
-Music_iterator::next_music_l ()
-{
-  return 0;
-}
 
 void
 Music_iterator::process_and_next (Moment m)
@@ -121,6 +118,8 @@ Music_iterator::static_get_iterator_p (Music const *m)
   
   if (dynamic_cast<Request_chord  const *> (m))
     p = new Request_chord_iterator;
+  else if (dynamic_cast<Lyric_combine_music const*> (m))
+    p = new Lyric_combine_music_iterator;
   else if (dynamic_cast<Simultaneous_music  const *> (m)) 
     p =  new Simultaneous_music_iterator;
   else if (dynamic_cast<Sequential_music  const *> (m)) 
@@ -183,4 +182,19 @@ Music_iterator::Music_iterator()
   first_b_ = true;
 }
 
+Music_iterator*
+Music_iterator::try_music (Music const *m) const
+{
+  bool b = report_to_l ()->try_music ((Music*)m); // ugh
+  Music_iterator * it = b ? (Music_iterator*) this : 0;	// ugh
+  if (!it)
+    it = try_music_in_children (m);
+  return it;
+}
+
+Music_iterator*
+Music_iterator::try_music_in_children (Music const *  ) const
+{
+  return 0;
+}
 

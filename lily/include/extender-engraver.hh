@@ -3,7 +3,8 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1998--1999 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1999 Glen Prideaux <glenprideaux@iname.com>,
+  Han-Wen Nienhuys, Jan Nieuwenhuizen.
 */
 
 #ifndef EXTENDER_ENGRAVER_HH
@@ -13,44 +14,24 @@
 #include "drul-array.hh"
 #include "extender-spanner.hh"
 #include "pqueue.hh"
-
-struct Text_lyric_tuple {
-  Rhythmic_req *req_l_ ;
-  Text_item *text_l_;
-  Moment end_;
-  
-  Text_lyric_tuple ();
-  Text_lyric_tuple (Text_item*, Rhythmic_req*, Moment);
-  static int time_compare (Text_lyric_tuple const &, Text_lyric_tuple const &);
-};
-
-inline int compare (Text_lyric_tuple const &a, Text_lyric_tuple const &b)
-{
-  return Text_lyric_tuple::time_compare (a,b);
-}
-
-
+#include "extender-engraver.hh"
 
 
 /**
-  Generate an extender.  Should make an Extender_spanner that typesets
-  a nice extender line.
+  Generate an centred extender.  Should make a Extender_spanner that
+  typesets a nice centred extender of varying length depending on the
+  gap between syllables.
 
-  We remember all Text_items that come across, and store their
-  termination times. When we get a request, we create the spanner, and
-  attach the left point to the finished lyrics, and the right point to
-  any lyrics we receive by then.
-*/
+  We remember the last Text_item that come across. When we get a
+  request, we create the spanner, and attach the left point to the
+  last lyrics, and the right point to any lyrics we receive by
+  then.  */
 class Extender_engraver : public Engraver
 {
-  PQueue<Text_lyric_tuple> past_lyrics_pq_;
-  Array<Text_lyric_tuple> now_lyrics_;
-  Array<Text_lyric_tuple> stopped_lyrics_;  
-  
+  Text_item *  last_lyric_l_;
+  Text_item * current_lyric_l_;
   Extender_req* req_l_;
   Extender_spanner* extender_spanner_p_;
-
-  
 public:
   Extender_engraver ();
   VIRTUAL_COPY_CONS (Translator);

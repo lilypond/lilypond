@@ -75,7 +75,8 @@ dit(--outname=FILE)
     The name of LaTeX() file to output. If this option  is not given,
 the output name derived from the input name.
 dit(--outdir=DIRECTORY)
-    The directory to output lilypond output and input to.
+    The name of the directory to output lilypond output and input to.
+    This must be a name; the subdirectory will be created in the cwd. [FIXME]
 dit(--help)
 	Print a short help message
 dit(--dependencies)

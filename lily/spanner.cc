@@ -21,7 +21,7 @@ Spanner::do_print() const
        << " and " << classname (spanned_drul_[RIGHT]) << '\n';
 
   if (broken_b ())
-    DOUT << "Broken in " << to_str (broken_info_.size ()) << " pieces";
+    DOUT << "Broken in " << to_str (broken_into_l_arr_.size ()) << " pieces";
 #endif
 }
 
@@ -56,7 +56,7 @@ Spanner::break_into_pieces ()
 	  Item *&pc_l = info.bounds_[d] ;
 	  if (!pc_l->line_l())
 	    pc_l =  pc_l->find_prebroken_piece(- d);
-
+	  
 	  assert (pc_l);
 	  if (!info.line_l_)
 	    info.line_l_ = pc_l-> line_l ();
@@ -65,8 +65,16 @@ Spanner::break_into_pieces ()
 	  
 	}
       while ((flip(&d))!= LEFT);
-      info.broken_spanner_l_ = 0;
-      broken_info_.push (info);
+
+      Spanner *span_p = dynamic_cast<Spanner*>(clone ());
+      span_p->set_bounds(LEFT,info.bounds_[LEFT]);
+      span_p->set_bounds(RIGHT,info.bounds_[RIGHT]);
+      pscore_l_->typeset_element (span_p);
+	      
+      info.broken_spanner_l_ = span_p;
+      span_p->handle_broken_dependencies();
+
+      broken_into_l_arr_.push (span_p);
     }
 }
 
@@ -149,25 +157,10 @@ Spanner::line_l() const
 Spanner*
 Spanner::find_broken_piece (Line_of_score*l) const
 {
-  for (int i=0; i < broken_info_.size (); i++)
+  for (int i=0; i < broken_into_l_arr_.size (); i++)
     {
-      Spanner *me =(Spanner*) this;
-      Breaking_information &info  = me->broken_info_[i];
-      if (info.line_l_ == l)
-	{
-	  if (!info.broken_spanner_l_)
-	    {
-	      Spanner *span_p = dynamic_cast<Spanner*>(clone ());
-	      span_p->set_bounds(LEFT,info.bounds_[LEFT]);
-	      span_p->set_bounds(RIGHT,info.bounds_[RIGHT]);
-	      pscore_l_->typeset_element (span_p);
-	      
-	      info.broken_spanner_l_ = span_p;
-	      span_p->handle_broken_dependencies();
-
-	    }
-	  return info.broken_spanner_l_;
-	}
+      if (broken_into_l_arr_[i]->line_l () == l)
+	return broken_into_l_arr_[i];
     }
 
   return 0;				   
@@ -176,7 +169,7 @@ Spanner::find_broken_piece (Line_of_score*l) const
 bool
 Spanner::broken_b() const
 {
-  return broken_info_.size();
+  return broken_into_l_arr_.size();
 }
 
 Array<Rod>
@@ -209,30 +202,24 @@ Spanner::do_space_processing ()
     }
 }
 
+/*
+  UGH.
+ */
 void
 Spanner::handle_broken_dependents ()
 {
-#if 0 // need to remove delayd breaking.
-  if (original_l_ && !original_l_->line_l ())
+  Spanner *unbrok = dynamic_cast<Spanner*> (original_l_);
+  if (!unbrok || dim_cache_[Y_AXIS]->parent_l_)
+    return;
+  
+  Spanner *refpoint = dynamic_cast<Spanner*> (unbrok->parent_l (Y_AXIS));
+  
+  if (refpoint)
     {
-      
-      /* we're the broken pieces of a spanner.
-	 Check if our Y-leaning point is sane.
-       */
-      Dimension_cache *d = dim_cache_[Y_AXIS]->parent_l_;
-      if (d)
-	return;
-
-      Score_element *  ref_elt = dynamic_cast<Score_element*>(d->element_l());
-      Spanner *ref_span = dynamic_cast<Spanner*> (ref_elt);      
-      if (!ref_elt->line_l () && ref_span)
-	{
-	  Spanner *broken_refpoint =  ref_span->find_broken_piece (line_l ());
-	  if (broken_refpoint)
-	    dim_cache_[Y_AXIS]->parent_l_ = broken_refpoint->dim_cache_[Y_AXIS];
-	  else
-	    programming_error ("Spanner y -refpoint lost.");
-	}
+      Spanner * broken_refpoint = refpoint->find_broken_piece (line_l ());
+      if (broken_refpoint)
+	dim_cache_[Y_AXIS]->parent_l_ = broken_refpoint->dim_cache_[Y_AXIS];
+      else
+	programming_error ("Spanner y -refpoint lost.");
     }
-#endif
 }

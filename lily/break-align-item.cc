@@ -101,14 +101,13 @@ Break_align_item::do_pre_processing()
   
   scm_set_car_x (first_pair, gh_double2scm (-dists[0]));
   elems[0]->set_elt_property (minimum_space_scm_sym, first_pair);
-			       
-
   
   Axis_align_item::do_pre_processing();
 
   Real pre_space = elems[0]->extent (X_AXIS)[LEFT];
   Real spring_len = elems.top ()->extent (X_AXIS)[RIGHT];
-  Real stretch_distance =0.;  
+  Real stretch_distance =0.;
+  
   if (SCM_CAR (symbol_list) == extra_space_scm_sym)
     {
       spring_len += dists.top ();
@@ -120,7 +119,6 @@ Break_align_item::do_pre_processing()
       stretch_distance = spring_len;
     }
 
-
   /*
     Hint the spacing engine how much space to put in.
   */
@@ -129,7 +127,8 @@ Break_align_item::do_pre_processing()
 					   gh_double2scm (spring_len)));
 
   column_l ()->set_elt_property (stretch_distance_scm_sym,
-				 gh_double2scm (stretch_distance));
+				 gh_cons (gh_double2scm (dists[0]),
+					  gh_double2scm (stretch_distance)));
 				 
 }
 

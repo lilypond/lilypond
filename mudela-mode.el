@@ -37,7 +37,7 @@
 		     "spanrequest" "grace" "scmfile" "lyrics"
 		     "in" "translator" "context" "key" "maininput" "notes"
 		     "musical_pitch" "time" "midi" "mm" "header"
-		     "notenames" "octave" "output" "partial" "paper" "plet" "name"
+		     "notenames" "octave" "output" "partial" "paper" "plet" "name" "addlyrics"
 		     "property" "pt" "shape" "relative" "include" "score"
 		     "scm" "scmfile"
 		     "script" "skip"  "table" "times" "textscript" "symboltables" "type"

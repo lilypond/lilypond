@@ -37,8 +37,14 @@ Repeat_engraver::do_try_music (Music* m)
       if (r->semi_fold_b_)
 	{
 	  repeated_music_l_ = r;
-	  return true;
 	}
+
+      /*
+	We acknowledge other types of unfolded music as well, to
+	get auto context selection right.
+       */
+      return true;
+
     }
   return false;
 }
