@@ -136,7 +136,7 @@ Tie_engraver::acknowledge_grob (Grob_info i)
 
       if (ties_.size () && ! tie_column_)
 	{
-	  tie_column_ = make_spanner ("TieColumn", ties[0]->self_scm ());
+	  tie_column_ = make_spanner ("TieColumn", ties_[0]->self_scm ());
 	}
 
       if (tie_column_)
