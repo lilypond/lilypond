@@ -42,7 +42,20 @@ help()
 	"--init, -i             set init file\n"
         "--include, -I		add to file search path.\n"
 	"--midi, -M             midi output only\n"
+	"\n"
+	"LilyPond was compiled with the following settings:\n"
+#ifdef NDEBUG
+	"NDEBUG "	
+#endif
+#ifdef NPRINT
+	"NPRINT "
+#endif
+#ifdef STRING_UTILS_INLINED
+	"STRING_UTILS_INLINED "
+#endif
+	"datadir= " DIR_DATADIR "\n" 
 	;
+    
     
 }
 
@@ -54,8 +67,8 @@ notice()
 	"LilyPond, a music typesetter.\n"
 	"Copyright (C) 1996,97 by\n"
 	"  Han-Wen Nienhuys <hanwen@stack.nl>\n"
-	"Contributors\n"
 	"  Jan Nieuwenhuizen <jan@digicash.com>\n"
+	"Contributors\n"
 	"  Mats Bengtsson <matsb@s3.kth.se>\n"
 	"\n"
 	"    This program is free software; you can redistribute it and/or\n"
@@ -76,8 +89,8 @@ notice()
 static File_path * path =0;
 struct Main_init {
     Main_init() {
-	path = new File_path(LIBDIR);
-	path->push(String(LIBDIR)+"init/");
+	path = new File_path(String(DIR_DATADIR)+"/init/");
+	path->push(DIR_DATADIR );
 	debug_init();
     }
     ~Main_init() {
@@ -89,7 +102,7 @@ int
 main (int argc, char **argv)
 {    
     Getopt_long oparser(argc, argv,theopts);
-    cout << get_version();
+    cout << get_version_str() << endl;
     String init_str("symbol.ini");
     
     while (Long_option_init * opt = oparser()) {
