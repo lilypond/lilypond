@@ -82,7 +82,7 @@ global _;_=ly._
 global re;re = ly.re
 
 # lilylib globals
-program_name = 'lilypond-latex'
+program_name = sys.argv[0]
 program_version = '@TOPLEVEL_VERSION@'
 # input without \book, use classic latex definitions
 classic_p = 0

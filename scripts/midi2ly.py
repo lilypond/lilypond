@@ -80,7 +80,7 @@ except:
 	def _ (s):
 		return s
 
-program_name = 'midi2ly'
+program_name = sys.argv[0]
 program_version = '@TOPLEVEL_VERSION@'
 
 errorport = sys.stderr

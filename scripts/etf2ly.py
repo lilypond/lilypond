@@ -26,11 +26,6 @@
 #
 
 
-program_name = 'etf2ly'
-version = '@TOPLEVEL_VERSION@'
-if version == '@' + 'TOPLEVEL_VERSION' + '@':
-	version = '(unknown version)'	   # uGUHGUHGHGUGH
-  
 import __main__
 import getopt
 import sys
@@ -38,6 +33,12 @@ import re
 import string
 import os
 
+program_name = sys.argv[0]
+
+version = '@TOPLEVEL_VERSION@'
+if version == '@' + 'TOPLEVEL_VERSION' + '@':
+	version = '(unknown version)'	   # uGUHGUHGHGUGH
+  
 finale_clefs= ['treble', 'alto', 'tenor', 'bass', 'percussion', 'treble_8', 'bass_8', 'baritone']
 
 def lily_clef (fin):

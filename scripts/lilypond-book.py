@@ -67,7 +67,7 @@ global re;re = ly.re
 
 # lilylib globals
 program_version = '@TOPLEVEL_VERSION@'
-program_name = 'lilypond-book'
+program_name = sys.argv[0]
 verbose_p = 0
 pseudo_filter_p = 0
 original_dir = os.getcwd ()

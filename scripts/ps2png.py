@@ -27,7 +27,7 @@ global re;re = ly.re
 preview_resolution = 90
 
 # lilylib globals
-program_name = 'ps2png'
+program_name = sys.argv[0]
 verbose_p = 0
 program_version = '@TOPLEVEL_VERSION@'
 pseudo_filter_p = 0 # ugr.

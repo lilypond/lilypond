@@ -66,12 +66,7 @@
 # UNDEF -> None
 #
   
-  
-program_name = 'abc2ly'
-version = '@TOPLEVEL_VERSION@'
-if version == '@' + 'TOPLEVEL_VERSION' + '@':
-	version = '(unknown version)'		# uGUHGUHGHGUGH
-  
+
 import __main__
 import getopt
 import sys
@@ -79,6 +74,11 @@ import re
 import string
 import os
 
+program_name = sys.argv[0]
+
+version = '@TOPLEVEL_VERSION@'
+if version == '@' + 'TOPLEVEL_VERSION' + '@':
+	version = '(unknown version)'		# uGUHGUHGHGUGH  
 
 UNDEF = 255
 state = UNDEF

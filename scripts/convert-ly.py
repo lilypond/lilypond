@@ -15,9 +15,6 @@
 # 0.2
 #  - rewrite in python
 
-program_name = 'convert-ly'
-version = '@TOPLEVEL_VERSION@'
-
 import os
 import sys
 import __main__
@@ -25,6 +22,10 @@ import getopt
 import  string
 import re
 import time
+
+program_name = sys.argv[0]
+
+version = '@TOPLEVEL_VERSION@'
 
 # Did we ever have \mudela-version?  I doubt it.
 # lilypond_version_re_str = '\\\\version *\"(.*)\"'
