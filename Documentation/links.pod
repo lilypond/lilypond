@@ -11,7 +11,7 @@ of interest to LilyPond users.
 
 =over 4
 
-=item http://www.gnu.ai.mit.edu/
+=item http://www.gnu.org/
 
 LilyPond is part of the GNU Project started by the Free Software
 Foundation to create a system of free software for the world-community
@@ -54,7 +54,7 @@ These development releases will also be at
 
 =item ftp://pcnov095.win.tue.nl/pub/lilypond/development
 
-=item ftp://alpha.gnu.ai.mit.edu/gnu/lilypond/development
+=item ftp://alpha.gnu.org/gnu/lilypond/development
 
 =back
 

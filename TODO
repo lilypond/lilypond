@@ -18,13 +18,11 @@ grep for TODO and ugh/ugr
 
 	* AFM for font input?
 
-	* Make general "spanning"-elements and "placer"-elements
+	* naming Mozarella, Madeira, Muella?
 
-	- naming Mozarella, Madeira, Muella?
+	* bf: abbrevs over whole note
 
-	- bf: abbrevs over whole note
-
-	- scoping for properties
+	* scoping for properties
 
 	{	c4
 		\multi 2  < { \stemup .. } { \stemdown .. } >
@@ -52,12 +50,7 @@ grep for TODO and ugh/ugr
 	* Score_bar/Piano_braces, are *not* ordinary bars 
 
 3RD PARTY BUGS:
-
-	* ICE: spring-spacer::calcideal()
-
-	* collision.cc: 138, g++ errors
-
-	* Rational infty(HUGE_VAL) on glibc / w32
+* Rational infty(HUGE_VAL) on glibc / w32
 
 	* Fix profiling. gprof bugreport?
 

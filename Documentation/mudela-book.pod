@@ -55,4 +55,4 @@ Doesn't handle incorrect input sanely.
 
 =head1 AUTHOR
 
-Han-Wen Nienhuys <hanwen@gnu.ai.mit.edu>
+Han-Wen Nienhuys <hanwen@gnu.org>
