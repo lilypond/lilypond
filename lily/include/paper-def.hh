@@ -61,7 +61,8 @@ public:
    */
   Real get_realvar (SCM symbol) const;
   Real get_var (String id) const;
-  SCM get_scmvar (String id)const; 
+  SCM get_scmvar (String id)const;
+  SCM get_scmvar_scm  (SCM sym) const;
   void reinit ();
   Paper_def ();
   Paper_def (Paper_def const&);

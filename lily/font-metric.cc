@@ -137,14 +137,11 @@ Font_metric::find_by_name (String) const
 SCM
 ly_find_glyph_by_name (SCM font, SCM name)
 {
-  if (!unsmob_metrics (font) || !gh_string_p (name))
-    {
-      warning ("ly-find-glyph-by-name: invalid argument.");
-      Molecule m;
-      return m.smobbed_copy ();
-    }
+  Font_metric *fm = unsmob_metrics (font);
+  SCM_ASSERT_TYPE(fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
+  SCM_ASSERT_TYPE(gh_string_p (name), name, SCM_ARG2, __FUNCTION__, "string");
 
-  return unsmob_metrics (font)->find_by_name (ly_scm2string (name)).smobbed_copy ();
+  return fm->find_by_name (ly_scm2string (name)).smobbed_copy ();
 }
 
 
@@ -152,17 +149,11 @@ SCM
 ly_text_dimension (SCM font, SCM text)
 {
   Box b;
-  
-  if (!unsmob_metrics (font) || !gh_string_p(text))
-    {
-      warning ("ly-find-glyph-by-name: invalid argument.");
-      Molecule m;
-      return m.smobbed_copy ();
-    }
-  else
-    {
-      b = unsmob_metrics (font)->text_dimension (ly_scm2string (text));
-    }
+  Font_metric *fm = unsmob_metrics (font);
+  SCM_ASSERT_TYPE(fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
+  SCM_ASSERT_TYPE(gh_string_p (text), text, SCM_ARG2, __FUNCTION__, "string");
+
+  b = fm->text_dimension (ly_scm2string (text));
   
   return gh_cons (ly_interval2scm (b[X_AXIS]), ly_interval2scm(b[Y_AXIS]));
 }

@@ -1744,12 +1744,14 @@ bass_figure:
 
 br_bass_figure:
 	'[' bass_figure {
-		unsmob_music ($2)->set_mus_property ("bracket-start", SCM_BOOL_T);
+		$$ = $2;
+		unsmob_music ($$)->set_mus_property ("bracket-start", SCM_BOOL_T);
 	}
 	| bass_figure	{
-
+		$$ = $1;
 	}
 	| br_bass_figure ']' {
+		$$ = $1;
 		unsmob_music ($1)->set_mus_property ("bracket-stop", SCM_BOOL_T);
 	}
 	;

@@ -272,12 +272,6 @@ HYPHEN		--
 	_	{
 		return FIGURE_SPACE;
 	}
-	\]	{
-		return FIGURE_BRACKET_CLOSE;
-	}
-	\[	{
-		return FIGURE_BRACKET_OPEN;
-	}
 	\>		{
 		return FIGURE_CLOSE;
 	}
