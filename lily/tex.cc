@@ -1,7 +1,14 @@
+/*
+  tex.cc -- implement TeX related misc functions
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 1996,1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include "dimen.hh"
 #include "tex.hh"
 #include "symbol.hh"
-#include "const.hh"
 #include "varray.hh"
 
 String

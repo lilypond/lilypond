@@ -1,5 +1,4 @@
 #include "boxes.hh"
-#include "const.hh"
 #include "varray.hh"
 
 
