@@ -1,5 +1,7 @@
 2004-07-15  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* SConstruct (symlink): Add dvips and music-drawing-routines.ps.
+
 	* lily/slur.cc: Add quant-score to interface.  Fixes web build.
 
 	* python/SConscript:
