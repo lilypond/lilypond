@@ -4,11 +4,9 @@ input feta-params;
 
 font_coding_scheme "feta braces";
 
-
-fet_beginfont("feta-braces", 16);
+fet_beginfont("feta-braces", font_count * 10 );
 mode_setup;
 
-staffsize#:=16pt#;
 
 save code;
 code := -1;
@@ -30,8 +28,9 @@ def draw_brace (expr height_sharp, width_sharp, slt_sharp) =
 	width# := width_sharp;
 	slt# := slt_sharp;
 
-fet_beginchar("brace number "&(decimal code), "brace"&abc_encode_int(code),
-		"brace"&abc_encode_int (code))
+%% +1  is needed because fet_beginchar increments after dumping the strings.
+fet_beginchar("brace number "&(decimal (code + 1)), "brace"&abc_encode_int(code+1),
+		"brace"&abc_encode_int (code+1))
 
 	set_char_box (0, width#, height#/2, height#/2);
 	  
