@@ -752,7 +752,7 @@ Spacing_spanner::breakable_column_spacing (Grob*me, Item* l, Item *r,Moment shor
 
       (here no StaffSpacing from Y to X is found.)
     */      
-      programming_error ("No StaffSpacing wishes found");
+      warning ("No spacing wishes found. Does your score have a staff?");
       max_space = 2.0;
       max_fixed = 1.0;
     }
