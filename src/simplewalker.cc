@@ -21,6 +21,7 @@
 #include "slur.hh"
 #include "localkeyitem.hh"
 #include "textitem.hh"
+#include "lyricitem.hh"
 
 Rhythmic_grouping
 parse_grouping(Array<Scalar> a, Moment one_beat)
@@ -195,6 +196,10 @@ Simple_walker::process_requests()
 	c->typeset_item(new Text_item(c->text_, 10)); // UGR
     }
 
+//    if (c->lreq_p_) {
+//	c->typeset_item(new Lyric_item(c->lreq_p_, 10)); // UGR
+//    }
+
     if (c->stem_) {
 	stem_ = s->get_stem(c->stem_->stem(), c->stem_requester_len);
     }
@@ -221,13 +226,13 @@ Simple_walker::process_requests()
     if (c->beam_&& c->beam_->spantype == Span_req::STOP) {
 	default_grouping.extend(current_grouping->interval());
 	beam_->set_grouping(default_grouping, *current_grouping);
-	pscore_->typeset_spanner(beam_, s->theline);
+	pscore_->typeset_spanner(beam_, s->theline_l_);
 
 	if (c->beam_->nplet) {
 	    Text_spanner* t = new Text_spanner(beam_);
-	    t->spec.align = 0;
-	    t->spec.text = c->beam_->nplet;
-	    pscore_->typeset_spanner(t, s->theline);
+	    t->spec.align_i_ = 0;
+	    t->spec.text_str_ = c->beam_->nplet;
+	    pscore_->typeset_spanner(t, s->theline_l_);
 	}
 
 	beam_ = 0;
@@ -255,7 +260,7 @@ Simple_walker::process_requests()
 		error_t("can't find slur to end; ", *c->tdescription_);
 	    
 	    pscore_->typeset_spanner(pending_slurs[idx],
-				     s->theline);
+				     s->theline_l_);
 	    pending_slurs.del(idx);
 	    pending_slur_reqs.del(idx);
 	}	
@@ -264,7 +269,7 @@ Simple_walker::process_requests()
 }
 
 Simple_walker::Simple_walker(Simple_staff*s)
-    : Staff_walker(s, s->theline->pscore_l_)
+    : Staff_walker(s, s->theline_l_->pscore_l_)
 {
     stem_ = 0;
     beam_ =0;
