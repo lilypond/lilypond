@@ -5,8 +5,18 @@ This section of the manual contains templates with the LilyPond score
 already set up for you.  Just add notes, run LilyPond, and enjoy
 beautiful printed scores!
 
+Note that all templates contain a @code{\version "x.y.z"} string.  We
+highly recommend that you always include the @code{\version}, no matter
+how small your file is.  Speaking from personal experience, it's
+quite frustrating to try to remember which version of LilyPond you were
+using a few years ago.  @code{convert-ly} requires you to declare
+which version of LilyPond you used.
+
 @menu
 * Single staff::
+* Piano templates::
+* Small ensembles::
+* Jazz combo::
 @end menu
 
 @c   more sections to come soon.
@@ -25,6 +35,7 @@ add notes, and you're finished!
 
 @lilypond[verbatim,raggedright]
 
+\version "2.3.11"
 melody = \relative c' {
 \clef treble
 \key c \major
@@ -51,6 +62,7 @@ line.
 
 @lilypond[verbatim,raggedright]
 
+\version "2.3.11"
 melody = \relative c' {
 \clef treble
 \key c \major
@@ -83,6 +95,7 @@ Want to prepare a lead sheet with a melody and chords?  Look no farther!
 
 @lilypond[verbatim,raggedright]
 
+\version "2.3.11"
 melody =  \relative c' {
 \clef treble
 \key c \major
@@ -117,6 +130,7 @@ This template allows you to prepare a song with melody, words, and chords.
 
 @lilypond[verbatim,raggedright]
 
+\version "2.3.11"
 melody =  \relative c' {
 \clef treble
 \key c \major
@@ -147,6 +161,450 @@ harmonies = \chords {
   >>
   \paper { }
   \midi  { \tempo 4=60}
+}
+
+@end lilypond
+
+@node Piano templates
+@section Piano templates
+@subsection Solo piano
+
+Here's a simple piano staff.
+
+@lilypond[verbatim,raggedright]
+
+\version "2.3.11"
+upper = \relative c'' {
+\clef treble
+\key c \major
+\time 4/4
+
+  a b c d
+}
+
+lower = \relative c {
+\clef bass
+\key c \major
+\time 4/4
+
+  a2 c
+}
+
+\score {
+  \context PianoStaff <<
+    \set PianoStaff.instrument = "Piano  "
+    \context Staff = upper \upper
+    \context Staff = lower \lower
+    >>  
+  \paper { }  
+  \midi { \tempo 4=60 }  
+}
+
+@end lilypond
+
+@subsection Piano and melody with lyrics
+
+Here's a typical song format: one staff with the melody and lyrics, with
+piano accompaniment underneath.
+
+@lilypond[verbatim,raggedright]
+
+\version "2.3.11"
+melody =  \relative c'' {
+\clef treble
+\key c \major
+\time 4/4
+
+  a b c d
+}
+
+text = \lyrics {
+  Aaa Bee Cee Dee
+}
+
+upper = \relative c'' {
+\clef treble
+\key c \major
+\time 4/4
+
+  a b c d
+}
+
+lower = \relative c {
+\clef bass
+\key c \major
+\time 4/4
+
+  a2 c
+}
+
+\score {
+  <<
+      \context Voice = mel {
+	  \autoBeamOff
+	  \melody
+      }
+      \lyricsto mel \new Lyrics \text
+
+      \context PianoStaff <<
+	  \context Staff = upper \upper
+	  \context Staff = lower \lower
+      >>
+  >>
+  \paper {
+      \context { \RemoveEmptyStaffContext }
+  }  
+  \midi { \tempo 4=60}
+}
+
+@end lilypond
+
+@node Small ensembles
+@section Small ensembles
+@subsection SATB vocal score
+
+Here's a standard four-part SATB vocal score.  With larger ensembles,
+it's often useful to include a section which is included in all
+parts.  For example, the time signature and key signatures are almost
+always the same for all parts.
+
+@lilypond[verbatim,raggedright]
+
+\version "2.3.11"
+global = {
+\key c \major
+\time 3/4
+}
+
+sopMusic = \relative c'' {
+c4 c c8[( b)] c4
+}
+sopWords = \lyrics { hi4 hi hi hi  }
+
+altoMusic = \relative c' {
+e4 f d e 
+}
+altoWords =\lyrics { ha4 ha ha ha }
+
+tenorMusic = \relative c' {
+g4 a f g
+}
+tenorWords = \lyrics { hu4 hu hu hu }
+
+bassMusic = \relative c {
+c4 c g c
+}
+bassWords = \lyrics { ho4 ho ho ho }
+
+\score { 
+	  \context StaffGroup <<
+	      \context Lyrics = sopranos { s1 }
+	      \context Staff = women <<
+		  \context Voice = sopranos { \voiceOne << \global \sopMusic >> }
+		  \context Voice = altos { \voiceTwo << \global \altoMusic >> }
+	      >>
+	      \context Lyrics = altos { s1 }
+	      \context Lyrics = tenors { s1 }
+	      \context Staff = men <<
+		  \clef bass
+		  \context Voice = tenors { \voiceOne <<\global \tenorMusic >> }
+		  \context Voice = basses { \voiceTwo <<\global \bassMusic >> }
+	      >>
+	      \context Lyrics = basses { s1 }
+
+	      
+	      \context Lyrics = sopranos \lyricsto sopranos \sopWords
+	      \context Lyrics = altos \lyricsto altos \altoWords
+	      \context Lyrics = tenors \lyricsto tenors \tenorWords
+	      \context Lyrics = basses \lyricsto basses \bassWords
+	  
+	  >>
+  \paper {
+    \context {
+
+	% a little smaller so lyrics can be closer to the staff. 
+	\Staff
+	minimumVerticalExtent = #'(-3 . 3) 
+    }
+  }
+}
+
+@end lilypond
+
+@subsection String quartet
+
+TODO
+
+@c @lilypond[verbatim,raggedright]
+@c @end lilypond
+
+
+@node Jazz combo
+@section Jazz combo
+
+This is a much more complicated template, for a jazz ensemble.  Note that all
+instruments are notated @code{\key c \major}.  This refers to the key in
+concert pitch; LilyPond will automatically transpose the key if the music
+is within a @code{\transpose} section.
+
+@c TODO must clean up this example.
+@c   - transpositions stated in names (ie "trumpet in Bb" or whatever)
+@c   - one global section, instead of "global" (time) and "key"
+@c   - does it need those wierd macros?  sl, nsl, etc.
+@c   - maybe ask Amelie Zapf to clean it up, or whether I should just
+@c     make whatever changes I feel like.
+
+@lilypond[verbatim,raggedright]
+
+\version "2.3.11"
+\header {
+        title = "Song"
+        subtitle = "(tune)"
+        composer = "Me"
+        meter = "moderato"
+        piece = "Swing"
+	tagline = "LilyPond example file by Amelie Zapf, Berlin 07/07/2003"
+	texidoc = "Jazz tune for combo (horns, guitar, piano, bass, drums)."
+}
+
+#(set-global-staff-size 16)
+\include "english.ly"
+
+%%%%%%%%%%%% Some macros %%%%%%%%%%%%%%%%%%%
+
+sl = {
+    \override NoteHead  #'style = #'slash
+    \override Stem  #'transparent = ##t
+}
+nsl = {
+    \revert NoteHead #'style
+    \revert Stem #'transparent
+}
+cr = \override NoteHead  #'style = #'cross
+ncr = \revert NoteHead #'style
+
+%% insert chord name style stuff here.
+
+jzchords = { } 
+
+
+%%%%%%%%%%%% Keys'n'thangs %%%%%%%%%%%%%%%%%
+
+global =  {
+    \time 4/4
+}
+
+Key =  { \key c \major }
+
+% ############ Horns ############
+% ------ Trumpet ------
+trpt =  \transpose c d \relative c'' {
+    \Key
+    c1 c c
+}
+
+trpharmony = \transpose c' d { \jzchords }
+trumpet = {
+    \global 
+    \set Staff.instrument = #"Trumpet"
+    \clef treble
+    \context Staff <<
+	\trpt
+    >>
+}
+
+% ------ Alto Saxophone ------
+alto = \transpose c a \relative c' {
+	\Key
+        c1 c c
+}
+
+altoharmony = \transpose c' a { \jzchords }
+altosax = {
+        \global
+        \set Staff.instrument = #"Alto Sax"
+        \clef treble
+        \context Staff <<
+                \alto
+        >>
+}
+
+% ------ Baritone Saxophone ------
+bari = \transpose c a' \relative c {
+	\Key
+        c1 c \sl d4^"Solo" d d d \nsl
+}
+
+bariharmony = \transpose c' a \chords { \jzchords s1 s d2:maj e:m7 }
+barisax = {
+        \global
+        \set Staff.instrument = #"Bari Sax"
+        \clef treble
+        \context Staff <<
+                \bari
+        >>
+}
+% ------ Trombone ------
+tbone =  \relative c {
+	\Key
+        c1 c c
+}
+
+tboneharmony = \chords { \jzchords }
+trombone = {
+        \global
+        \set Staff.instrument = #"Trombone"
+        \clef bass
+        \context Staff <<
+                \tbone
+        >>
+}
+% ############ Rhythm Section #############
+% ------ Guitar ------
+gtr =  \relative c'' {
+	\Key
+        c1 \sl b4 b b b \nsl c1
+}
+
+gtrharmony = \chords { \jzchords
+        s1 c2:min7+ d2:maj9
+}
+
+guitar = {
+        \global
+        \set Staff.instrument = #"Guitar"
+        \clef treble
+        \context Staff <<
+        	\gtr
+        >>
+}
+
+%% ------ Piano ------
+rhUpper =  \relative c'' {
+        \voiceOne
+	\Key
+        c1 c c
+}
+
+rhLower =  \relative c' {
+        \voiceTwo
+	\Key
+        e1 e e
+}
+
+lhUpper =  \relative c' {
+        \voiceOne
+	\Key
+        g1 g g
+}
+
+lhLower =  \relative c {
+        \voiceTwo
+	\Key
+        c1 c c
+}
+
+PianoRH = {
+        \clef treble
+        \global
+        \set Staff.midiInstrument = "acoustic grand"
+        \context Staff <<
+                \context Voice = one \rhUpper
+        	\context Voice = two \rhLower
+        >>
+}
+
+PianoLH = {
+        \clef bass
+        \global
+        \set Staff.midiInstrument = "acoustic grand"
+        \context Staff <<
+        	\context Voice = one \lhUpper
+        	\context Voice = two \lhLower
+        >>
+}
+
+piano = {
+	\context PianoStaff <<
+		\set PianoStaff.instrument = #"Piano"
+        	\context Staff = upper \PianoRH
+        	\context Staff = lower \PianoLH
+        >>
+}
+
+% ------ Bass Guitar ------
+bass =  \relative c {
+	\Key
+        c1 c c
+}
+
+bass = {
+    \global
+    \set Staff.instrument = #"Bass"
+    \clef bass
+    \context Staff <<
+	\bass
+    >>
+}
+
+				% ------ Drums ------
+
+up = \drums {
+    hh4 <hh sn>4 hh <hh sn> hh <hh sn>4
+    hh4 <hh sn>4
+    hh4 <hh sn>4
+    hh4 <hh sn>4
+}
+
+down = \drums {
+    bd4 s bd s bd s bd s bd s bd s
+}
+
+drumContents = {
+	\global
+	<<
+		\set DrumStaff.instrument = #"Drums"
+		\new DrumVoice { \voiceOne \up }
+		\new DrumVoice { \voiceTwo \down }
+	>>
+}
+
+%%%%%%%%% It All Goes Together Here %%%%%%%%%%%%%%%%%%%%%%
+
+\score {
+<<
+        \context StaffGroup = horns <<
+                \context Staff = trumpet \trumpet
+
+                \context Staff = altosax \altosax
+
+		\context ChordNames = barichords \bariharmony
+
+                \context Staff = barisax \barisax
+
+                \context Staff = trombone \trombone
+        >>
+
+        \context StaffGroup = rhythm <<
+		\context ChordNames = chords \gtrharmony
+                \context Staff = guitar \guitar
+		\context PianoStaff = piano \piano
+                
+                \context Staff = bass \bass
+                
+                \new DrumStaff { \drumContents }
+        >>
+>>
+        \paper {
+                \context { \RemoveEmptyStaffContext }
+                \context {
+                        \Score
+                        \override BarNumber #'padding = #3
+                        \override RehearsalMark #'padding = #2
+                        skipBars = ##t
+                }
+        }
+        \midi { \tempo 4 = 75 }
 }
 
 @end lilypond

@@ -1,3 +1,7 @@
+2004-08-26  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/examples.itely: second, third, and fourth sections added.
+
 2004-08-26  Juergen Reuter   <reuter@ipd.uka.de>
 
 	* lily/stem.cc: bugfix: adjust-if-on-staffline: use
