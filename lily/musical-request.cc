@@ -340,6 +340,9 @@ Dynamic_req::loudness_static_str (Loudness l)
 {
   switch (l)
     {
+    case FFFFFF: return "ffffff";
+    case FFFFF : return "fffff";
+    case FFFF: return "ffff";
     case FFF: return "fff";
     case FF: return "ff";
     case F: return "f";
@@ -348,9 +351,17 @@ Dynamic_req::loudness_static_str (Loudness l)
     case P: return "p";
     case PP: return "pp";
     case PPP: return "ppp";
+    case PPPP: return "pppp";
+    case PPPPP: return "ppppp";
+    case PPPPPP: return "pppppp";    
+
     case FP: return "fp";
     case SF: return "sf";
+    case SFF: return "sff";
     case SFZ: return "sfz";
+    case SP: return "sp";
+    case SPP: return "spp";
+    case RFZ: return "rfz";
     }
   return "";
 }

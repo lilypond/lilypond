@@ -170,8 +170,7 @@ public:
     for FP, SF, SFZ (FP is *not* louder than FFF)
    */
   enum Loudness {
-    FFF, FF, F, MF, MP, P, PP, PPP, FP, SF, SFZ
-  };
+    FFFFFF, FFFFF, FFFF, FFF, FF, F, MF, MP, P, PP, PPP, PPPP, PPPPP, PPPPPP, FP, SF, SFF, SFZ, SP, SPP, RFZ };
   static String loudness_static_str (Loudness);
   REQUESTMETHODS(Dynamic_req);
 };
