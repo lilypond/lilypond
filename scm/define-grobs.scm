@@ -702,7 +702,7 @@
 	(Y-extent-callback . #f)			 
 	(print-function . ,Line_spanner::print)
 	(after-line-breaking-callback . ,Line_spanner::after_line_breaking)
-	(meta . ((interfaces . (line-spanner-interface spanner-interface))))
+	(meta . ((interfaces . (line-spanner-interface line-interface spanner-interface))))
 	))
 
     (NoteName
