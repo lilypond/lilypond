@@ -60,7 +60,7 @@ which substitutes some @AT_VARIABLES@ as well.
 	<a href="@TOP@Documentation/user/out-www/lilypond/Tutorial.html">Tutorial</a><br>
 	<a href="@TOP@Documentation/user/out-www/lilypond/lilypond.html">Manual</a><br>
 	<a href="@TOP@Documentation/user/out-www/glossary.html">Glossary</a><br>
-	<a href="@TOP@Documentation/out-www/index.html">other ...</a><br>
+	<a href="@TOP@Documentation/out-www/index.html">Index</a><br>
 	<br>
       </font></td></tr>
       <tr><td bgcolor="#e8e8ff">

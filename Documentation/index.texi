@@ -21,8 +21,9 @@
 @item @uref{DEDICATION.html,Dedication}  Lily is  dedicated to our friends.
 @item @uref{http://www.gnu.org/copyleft/gpl.html,GPL} it is released under
   the GNU GPL.
-@item @uref{http://www.lilypond.org/wiki, Lilypond Wiki} A wikiwiki site
-  dedicated to lilypond.
+@item @uref{http://www.lilypond.org/wiki, LilyPond Wiki} A wikiwiki site
+  devoted to LilyPond.  Also available as a local
+  @uref{wiki-dump/LilyPond.html, Frozen Copy}.
 @end itemize
 
 @html
@@ -55,7 +56,7 @@ How to install on Windows.
 @unnumberedsubsubsec Support
 
 @itemize @bullet
-@item @uref{../../index.html,index} What is Lilypond?
+@item @uref{../../index.html,Front Page} What is LilyPond?
 @item @uref{../topdocs/out-www/FAQ.html,mini-FAQ} Mini FAQ -- very
 frequently asked questions, with answers.
 @item @uref{http://www.lilypond.org/wiki?LilyPondFaqs,FAQs} Frequently
@@ -91,29 +92,32 @@ the mailing lists.
 
 @item
 @uref{../user/out-www/lilypond/Reference-Manual.html,Reference-Manual}
-The reference manual.
+The reference manual, and 
+@uref{../user/out-www/lilypond/Index.html,Master Index}.
 
-@item @uref{../user/out-www/lilypond/lilypond.html,lilypond} The complete
+@item @uref{../user/out-www/lilypond/lilypond.html,Top Table of Contents} The complete
 user manual, (in @uref{../user/out-www/lilypond.ps.gz,PostScript} and
 @uref{../user/out-www/lilypond.pdf,PDF}). This manual contains among
 others the tutorial, the reference manual.  The HTML version is also
 available as @uref{../user/out-www/lilypond.html,one big page}.
 
 @c glossary maybe for new users?
-@item @uref{../user/out-www/glossary.html,glossary} A glossary of musical
+@item @uref{../user/out-www/glossary.html,Glossary} A glossary of musical
 terms, including translations.  (in
-@uref{../user/out-www/glossary.ps.gz,Postscript}
+@uref{../user/out-www/glossary.ps.gz,PostScript}
 and
-@uref{../user/out-www/glossary.pdf,PDF})  Read this if you're not
+@uref{../user/out-www/glossary.pdf,PDF}) Read this if you're not
 familiar with English terms for notation.
 
-@item @uref{../user/out-www/lilypond-internals/lilypond-internals.html,lilypond-internals}
+@item @uref{../user/out-www/lilypond-internals/lilypond-internals.html,Lilypond-Internals}
 Full documentation of internals, generated from the sources.  If you
 want to fine-tune output, you need the information in this document.
 
 @item @uref{../../input/test/out-www/test.html,Input snippets}
 All of the example input snippets, with the corresponding output
-shown.
+shown.  Also available in
+@uref{../../input/test/out-www/test.ps.gz,PostScript} and
+@uref{../../input/test/out-www/test.pdf,PDF} formats.
 @end itemize
 
 
@@ -129,22 +133,23 @@ shown.
 
 @itemize @bullet
 @item @uref{../../input/regression/out-www/regression.html,Regression Tests}
-A large document that tests all kinds of features.  (also as
-@uref{../out-www/regression-test.ps.gz,Postscript} and
-@uref{../out-www/regression-test.pdf,PDF}).
+A large document with snippets that test all basic features.  Also
+available in
+@uref{../../input/regression/out-www/regression.ps.gz,PostScript} and
+@uref{../../input/regression/out-www/regression.pdf,PDF} formats.
 @item
-@uref{http://www2.iro.umontreal.ca/~pinard/po/registry.cgi?domain=lilypond">Translations,lilypond
-textual domain
-}  in the Translation Project.
+@uref{http://www2.iro.umontreal.ca/~pinard/po/registry.cgi?domain=lilypond">Translations,Lilypond
+Textual Domain
+} in the Translation Project.
 @item Compiling for @uref{../windows/out-www/compiling.html,Windows/Cygwin}.
 @end itemize
 
 
 @unnumberedsubsec Logo
 @itemize @bullet
-@item @uref{../pictures/out-www/lelieblond.png, logo} in large size
-@item @uref{../pictures/out-www/lelie-logo.png, logo} in medium size
-@item @uref{../pictures/out-www/lelie-icon.png, logo} in small size
+@item Logo at @uref{../pictures/out-www/lelieblond.png, large} size.
+@item Logo at @uref{../pictures/out-www/lelie-logo.png, medium} size.
+@item Logo at @uref{../pictures/out-www/lelie-icon.png, small} size.
 @end itemize
 
 
