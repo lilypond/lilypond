@@ -1,3 +1,12 @@
+2004-06-20  Heikki Junes   <hjunes@cc.hut.fi>
+ 
+	* Documentation/user/GNUmakefile:
+	* stepmake/stepmake/texinfo-rules: add Cascading Style Sheet using
+	--include-css=.../texinfo.css; command includes css into the html.
+
+	* Documentation/texinfo.css: add file.
+	define <hr> as black and thin.            
+ 
 2004-06-20  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/stencil.cc (interpret_stencil_expression): add grob-cause

@@ -5,7 +5,7 @@ $(outdir)/%.info: $(outdir)/%.texi
 	$(MAKEINFO) -I $(outdir) --output=$@ $<
 
 $(outdir)/%.html: $(outdir)/%.texi
-	$(MAKEINFO) -I $(outdir) --output=$@ --html --no-split --no-headers $<
+	$(MAKEINFO) -I $(outdir) --output=$@ --css-include=$(builddir)/Documentation/texinfo.css --html --no-split --no-headers $<
 
 $(outdir)/%.html.omf: %.texi
 	$(call GENERATE_OMF,html)
@@ -18,7 +18,7 @@ $(outdir)/%.ps.gz.omf: %.texi
 
 # Generic rule not possible?
 $(outdir)/%/%.html: $(outdir)/%.texi 
-	$(MAKEINFO) --output=$@ --html $<
+	$(MAKEINFO) --output=$@ --css-include=$(builddir)/Documentation/texinfo.css --html $<
 
 
 $(outdir)/%.dvi: $(outdir)/%.texi
