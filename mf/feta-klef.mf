@@ -151,7 +151,6 @@ begingroup;
 		  .. tension 1.1
                   .. z1'{-dir (turning_dir* 90)};
 	after := z2'{dir (turning_dir * 90)}
-		 .. tension 1.05 
 		 .. end_point{dir (end_angle)};
 	(u, v) = before intersectiontimes after;
 
@@ -307,13 +306,13 @@ def draw_gclef (expr reduction) =
 	reduced_ss# = staff_space# * reduction;
 	define_pixels (reduced_ss);
 
-	thinness = 0.10 staff_space + 0.65 linethickness;
+	thinness = 0.095 staff_space + 0.75 linethickness;
 	downstroke_dir = unitvector (14, -75);
 	downstroke_angle = angle downstroke_dir;
 	bot_angle = -180;		% downstroke_angle - 87
 
 	upward_swoosh_angle = 132;
-	start_angle = -99;
+	start_angle = -97;
 
 	breapth_factor = 21.0 /14;
 	inner_thick_end = 45;
@@ -367,7 +366,7 @@ def draw_gclef (expr reduction) =
 %	z10 = center + whatever * dir (downstroke_angle - 1.5);
 	x10 = x6 - 2 thinnib;
 	y10 = ypart center + 3.5 reduced_ss;
-	y10l - y10r = 1.2 thickness;
+	y10l - y10r = 1.0 thickness;
 	z10r - z10l = .7 thinnib * dir (downstroke_angle + 90)
 		      + whatever * downstroke_dir;
 	z10 = .5 [z10l, z10r];
@@ -409,7 +408,7 @@ def draw_gclef (expr reduction) =
 
 	pat := z10{down}
 	       .. z6
-	       .. tension 1.02
+	       .. tension 1.1
 	       .. z11{dir (start_angle)};
 
 	penpos6 (thinnib, angle (direction 1 of pat) + 90);
@@ -434,7 +433,7 @@ def draw_gclef (expr reduction) =
 
 	fill new_bulb (z12r, bot_angle, z13r, z12l, bot_angle + 180,
 		       0.45 reduced_ss, 0.38 reduced_ss,
-		       thinnib + .075 staff_space, 1, -1)
+		       thinnib + .05 staff_space, 1, -1)
 	     -- cycle;
 
 	penlabels (range 1 thru 20);
