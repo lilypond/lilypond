@@ -532,16 +532,6 @@
 	(meta . ((interfaces . (rhythmic-head-interface font-interface note-head-interface staff-symbol-referencer-interface))))
 	))
 
-    (TabNoteHead
-     . (
-	(font-family . roman)
-	(style . default)
-	(molecule-callback . ,tablature-molecule-callback)
-	(Y-offset-callbacks  . (,Staff_symbol_referencer::callback))
-	(stem-attachment-function . ,tablature-stem-attachment-function)
-	(meta . ((interfaces . (rhythmic-head-interface font-interface note-head-interface staff-symbol-referencer-interface))))
-	))
-
     (Glissando
      . (
 	(type . line)
@@ -958,6 +948,17 @@
 	(direction . 1)
 	(meta . ((interfaces . (text-spanner-interface side-position-interface font-interface))))		
 	))
+    
+    (TabNoteHead
+     . (
+	(font-family . roman)
+	(style . default)
+	(molecule-callback . ,tablature-molecule-callback)
+	(Y-offset-callbacks  . (,Staff_symbol_referencer::callback))
+	(stem-attachment-function . ,tablature-stem-attachment-function)
+	(meta . ((interfaces . (rhythmic-head-interface font-interface note-head-interface staff-symbol-referencer-interface))))
+	))
+
 
     (Tie
      . (
@@ -1105,3 +1106,5 @@
        (set-object-property! (car x) 'translation-type? list?))
      all-grob-descriptions)
 
+
+(set! all-grob-descriptions (sort all-grob-descriptions alist<?))

@@ -40,7 +40,7 @@
  	     (document-paper "interpretation contexts")
  	     (document-all-engravers "engravers")
 	     (document-all-engraver-properties "context properties")
- 	     (document-all-grobs "backend")
+ 	     (document-all-grobs "grob overview")
  	     (document-all-interfaces "interfaces")
 
 	     (node "backend properties")
@@ -71,7 +71,7 @@
        ("interpretation contexts" . "Hierarchy and grouping of Engravers")
        ("engravers" . "Engravers create Grobs")
        ("context properties" . "context properties")       
-       ("backend" . "Detailed description of all Grobs")
+       ("grob overview" . "Detailed description of all Grobs")
        ("interfaces" . "Grob Interfaces")
        ("backend properties" . "Grob properties")
        ("function documentation" . "Grob properties")       

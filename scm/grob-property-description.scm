@@ -48,9 +48,10 @@ This procedure is called (using dependency resolution) after line breaking. Retu
 (grob-property-description 'arpeggio ly-grob? "pointer to arpeggio object.") 
 (grob-property-description 'arpeggio-direction dir? "If set, put an
 arrow on the arpeggio squiggly line.")
-(grob-property-description 'attachment pair? "cons of symbols, '(LEFT-TYPE . RIGHT-TYPE), where both types may be alongside-stem, stem, head or loose-end.")
-
-
+(grob-property-description 'attachment pair? "cons of symbols
+indicating how a slur should be attached at the ends. The format is
+'(LEFT-TYPE . RIGHT-TYPE), where both TYPEs are symbols. The values of
+these symbols may be alongside-stem, stem, head or loose-end.")
 (grob-property-description 'attachment-offset pair? "cons of offsets,
 '(LEFT-offset . RIGHT-offset).  This offset is added to the
 attachments to prevent ugly slurs.  [fixme: we need more documentation here].

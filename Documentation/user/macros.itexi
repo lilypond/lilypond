@@ -131,3 +131,13 @@ $\\flat$
 
 @end ignore
 
+
+@ifhtml
+@macro internalsref{NAME}
+@uref{../lilypond-internals/\NAME\.html,\NAME\}
+@cindex \NAME\
+@end macro
+@macro seeinternals{NAME}
+See @internalsref{\NAME\}
+@end macro
+@end ifhtml
