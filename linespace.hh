@@ -39,7 +39,7 @@ class Spacing_problem {
     bool contains(const PCol *w);
 
     /// make the energy function
-    void make_matrices(Matrix &quad, Vector &lin) const;
+    void make_matrices(Matrix &quad, Vector &lin,Real&) const;
 
     /// generate the LP constraints
     void make_constraints(Optimisation_problem& lp) const;
