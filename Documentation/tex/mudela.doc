@@ -20,7 +20,6 @@
 \usepackage{a4wide}
 \title{Mudela}
 \author{Jan Nieuwenhuizen \& Han-Wen Nienhuys}
-\date{March 2, 1998}
 
 \def\file#1{\verb+#1+}
 
@@ -71,7 +70,7 @@
 
 \chapter{A tutorial}
 
-\emph{\Large ***Under construction***}
+\emph{\Large ***Under construction: april 98***}
 
 \section{Introduction}
 
@@ -188,7 +187,7 @@ special words and punctation.  The remainder of this document explains
 how to combine these elements to express a piece of music in the
 language that LilyPond understands.  In other words, we try to explain
 how to use LilyPond, and not how LilyPond works.  For want of a better
-name we call this language Mudela (short for Music Description
+name we call the language Mudela (short for Music Description
 Language).
 
 This document does not cover all of Mudela.  Due to technical details,
@@ -329,9 +328,9 @@ to cs), Italian, Swedish, Norwegian
 
 \section{Handy input}
 
-% \subsection{Durations}
 
-However, having only quarter notes may get a bit dull.
+\chapter{Features}
+
 Durations are entered as their reciproce values
 % a1 a2 a4 a a8 a a16 a a32 a a64 a a a a
 \begin{mudela}[fragment,verbatim,center]
