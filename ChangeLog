@@ -1,3 +1,18 @@
+2004-10-31  Werner Lemberg  <wl@gnu.org>
+
+	Resetting @exampleindent to `5' gives ugly results with texinfo's
+	DVI output.  Use `@format @exampleindent 0 ... @end format' instead
+	(if not quoting) to change @exampleindent only locally.
+
+	* scripts/lilypond-book.py (NOQUOTE): New variable.
+	(output) [LATEX]: Remove AFTER and BEFORE.
+	[TEXINFO]: Remove AFTER and BEFORE.
+	Fix QUOTE and VERBATIM pattern.
+	Add NOQUOTE pattern.
+	(Lilypond_snippet) [output_info, output_latex]: Don't handle AFTER
+	and BEFORE.
+	[output_texinfo]: Use NOQUOTE.
+
 2004-10-31  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/changing-defaults.itely: clarify paper
@@ -75,7 +90,6 @@
 	* scm/lily.scm (ly:system): new function. Catches uninstalled
 	ps2png.
 
->>>>>>> 1.2778
 2004-10-29  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/user/notation.itely: remove
@@ -90,6 +104,7 @@
 	(ly_options): Remove NOINDENT and EXAMPLEINDENT patterns.
 	(compose_ly): Use `no_options' and `simple_options'.
 	Fix logic of option handling.
+	Handle `linewidth' option without parameter.
 
 2004-10-29  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
