@@ -66,7 +66,7 @@ Melodic_staff::get_rest(Rest_req*rq)
 {
     Rest*r = Simple_staff::get_rest(rq);
     if (rq->balltype <= 2)
-	r->translate(Offset(0, (NO_LINES-1) * paper()->internote()));
+	r->translate(Offset(0, NO_LINES * paper()->internote()));
     return r;
 }
 
