@@ -1,4 +1,18 @@
-1.5.18.jcn1
+--- ../lilypond-1.5.18/CHANGES	Sat Oct 27 08:12:57 2001
+++ b/CHANGES	Sat Oct 27 07:46:59 2001
+@@ -1,3 +1,12 @@
+1.5.18.moh1
+===========
+
+* Further work on more flexible control of lyric alignment.
+   - new properties "alignment", "ignore-length-mismatch", "begin-alignment" and "end-alignment" to control non-centered lyric alignment
+
+1.5.18
+======
+
+ 1.5.17.jcn6 - aka: `pgwit!  Ah, dacht dat-i zo wel aardig was.'
+ ===========
+ 1.5.18.jcn1
 ===========
 
 * Moved python modules to ./python.

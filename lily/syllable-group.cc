@@ -104,7 +104,7 @@ Syllable_group::set_lyric_align (const char *punc, Grob *default_notehead_l)
 
   Grob * lyric;
   alignment_i_ = appropriate_alignment (punc);
-
+  
   // If there was no notehead in the matching voice context, use the first 
   // notehead caught from any voice context (any port in a storm).
   if (!notehead_l_) {
@@ -131,7 +131,7 @@ Syllable_group::set_lyric_align (const char *punc, Grob *default_notehead_l)
 /** determine the distance to translate lyrics to get correct alignment
     Rules: If alignment is centre, translate = 0
            Otherwise,
-	      If (length of longest lyric) < property("end-alignment") * (length of shortest lyric),
+	      If (length of longest lyric) < (property {begin,end}-alignment) * (length of shortest lyric),
 	         - centre longest lyric on notehead
 	      Otherwise
 	         - move so shortest lyric just reaches notehead centre
@@ -141,11 +141,20 @@ Syllable_group::amount_to_translate ()
 {
   Real translate = 0.0;
   if (alignment_i_ != CENTER) {
-    // FIXME: do we really know the lyric extent here? Some font sizing comes later?
-    Real l1 = longest_lyric_l_->extent (longest_lyric_l_, X_AXIS).length () / gh_scm2double (longest_lyric_l_->get_grob_property("end-alignment"));
-    Real l2 = shortest_lyric_l_->extent (shortest_lyric_l_, X_AXIS).length ();
-
-    translate = l1 <? l2;
+    switch (alignment_i_) {
+      // FIXME: do we really know the lyric extent here? Some font sizing comes later?
+    case LEFT: 
+      translate =  longest_lyric_l_->extent (longest_lyric_l_, X_AXIS).length () / gh_scm2double (longest_lyric_l_->get_grob_property("begin-alignment"));
+      break;
+    case RIGHT: 
+      translate =   longest_lyric_l_->extent (longest_lyric_l_, X_AXIS).length () / gh_scm2double (longest_lyric_l_->get_grob_property("end-alignment"));
+      break;
+    }
+    if (!gh_scm2bool(longest_lyric_l_->get_grob_property("ignore-length-mismatch"))) {
+      Real l = shortest_lyric_l_->extent (shortest_lyric_l_, X_AXIS).length ();
+      translate = l <? translate;
+    }
+    
     translate *= alignment_i_ ;
   }
   return translate;
@@ -153,13 +162,20 @@ Syllable_group::amount_to_translate ()
 
 
 /** determine what alignment we want.
-    Rules: if first_in_phrase_b_ is set, then alignment is LEFT.
+    Rules: if property alignment is set it specifies the alignment
+           if first_in_phrase_b_ is set, then alignment is LEFT.
            otherwise if each syllable ends in punctuation, then alignment is RIGHT
 	   otherwise alignment is centre.
 */
 int 
 Syllable_group::appropriate_alignment (const char *punc)
 {
+
+  SCM s=this->longest_lyric_l_->get_grob_property ("alignment");
+    if (s!=SCM_EOL) {
+      return gh_scm2int (s);
+    }
+
   if (first_in_phrase_b_)
     return LEFT;
 
