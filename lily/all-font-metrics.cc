@@ -126,6 +126,8 @@ All_font_metrics::find_tfm (String name)
       
       if (file_name.is_empty ())
 	{
+	  /* FIXME: should add "cork-" prefix to lm* fonts.  How to do
+	     that, cleanly?  */
 	  String p = kpathsea_find_tfm (name.to_str0 ());
 	  if (p.length ())
 	    file_name = p;
@@ -187,7 +189,7 @@ All_font_metrics::find_font (String name)
     f = find_afm (def_name);
 
   if (!f)
-    f =  find_tfm (def_name);
+    f = find_tfm (def_name);
 
   if (!f)
     {
@@ -208,7 +210,7 @@ LY_DEFINE (ly_font_load, "ly:font-load", 1, 0, 0,
 {
   SCM_ASSERT_TYPE (scm_is_string (name), name, SCM_ARG1, __FUNCTION__, "string");
 
-  Font_metric * fm = all_fonts_global->find_font (ly_scm2string (name));
+  Font_metric *fm = all_fonts_global->find_font (ly_scm2string (name));
 
   return fm->self_scm ();
 }
