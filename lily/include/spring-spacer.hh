@@ -46,7 +46,8 @@
 
 class Spring_spacer : public Line_spacer {
   friend class Durations_iter;
-
+private:
+  Spring_spacer (Spring_spacer const&){}
   Cons<Idealspacing> *ideal_p_list_;
   Array<Column_info> cols_;
   Array<Column_info> loose_col_arr_;
@@ -86,6 +87,7 @@ public:
   static Line_spacer *constructor();
   Real energy_normalisation_f_;
   Spring_spacer ();
+  virtual ~Spring_spacer ();  
   virtual void solve (Column_x_positions*) const;
   virtual void lower_bound_solution (Column_x_positions*) const;
   virtual void add_column (Paper_column  *, bool fixed=false, Real fixpos=0.0);
@@ -95,7 +97,6 @@ public:
   virtual void OK() const;
   virtual void print() const;
   virtual void prepare();
-  virtual ~Spring_spacer(){}
 };
 
 #endif // SPRING_SPACER_HH

@@ -119,3 +119,8 @@ Request_chord::to_relative_octave (Musical_pitch last)
 Music_list::Music_list ()
 {
 }
+
+Music_sequence::~Music_sequence ()
+{
+  delete music_p_list_p_;
+}
