@@ -66,8 +66,9 @@ Timing_engraver::do_pre_move_processing ()
 bool
 Timing_engraver::do_try_music (Music*m)
 {
-  if (Bar_req  * b= dynamic_cast <Bar_req *> (m))
+  if (0) // 
     {
+      Bar_req  * b= dynamic_cast <Bar_req *> (m);
       if (bar_req_l_ && !bar_req_l_->equal_b (b)) 
 	return false;
       
@@ -81,7 +82,4 @@ Timing_engraver::do_try_music (Music*m)
 void
 Timing_engraver::do_process_music ()
 {
-  if (bar_req_l_)
-    daddy_trans_l_->set_property ("whichBar", bar_req_l_->get_mus_property ("type"));
 }
-
