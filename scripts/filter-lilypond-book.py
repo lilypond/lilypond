@@ -140,68 +140,71 @@ LINEWIDTH = 'linewidth'
 # (?m) -- multiline regex: make ^ and $ match at each line
 # (?s) -- make the dot match all characters including newline
 no_match = 'a\ba'
-re_dict = {
+snippet_res = {
 	HTML: {
-		'include':  no_match,
-		'input': no_match,
-		'header': no_match,
-		'landscape': no_match,
-		'verbatim': r'''(?s)(?P<code><pre>\s.*?</pre>\s)''',
-		'verb': r'''(?P<code><pre>.*?</pre>)''',
-		'lilypond-file': r'(?m)(?P<match><lilypondfile(?P<options>[^>]+)?>\s*(?P<filename>[^<]+)\s*</lilypondfile>)',
-		'lilypond' : '(?m)(?P<match><lilypond((?P<options>[^:]*):)(?P<code>.*?)/>)',
-		'lilypond-block': r'''(?ms)(?P<match><lilypond(?P<options>[^>]+)?>(?P<code>.*?)</lilypond>)''',
-		'option-sep' : '\s*',
-		'intertext': r',?\s*intertext=\".*?\"',
-		'multiline-comment': r"(?sm)\s*(?!@c\s+)(?P<code><!--\s.*?!-->)\s",
-		'singleline-comment': no_match,
-		'numcols': no_match,
-		'multicols': no_match,
-		'ly2dvi': r'(?m)(?P<match><ly2dvifile(?P<options>[^>]+)?>\s*(?P<filename>[^<]+)\s*</ly2dvifile>)',
-		},
+	#'header': no_match,
+	#'input': no_match,
+	#'landscape': no_match,
+	#'ly2dvi': r'(?m)(?P<match><ly2dvifile(?P<options>[^>]+)?>\s*(?P<filename>[^<]+)\s*</ly2dvifile>)',
+	#'multicols': no_match,
+	#'numcols': no_match,
+	'include':  no_match,
+	'lilypond' : '(?m)(?P<match><lilypond((?P<options>[^:]*):)(?P<code>.*?)/>)',
+	'lilypond-block': r'''(?ms)(?P<match><lilypond(?P<options>[^>]+)?>(?P<code>.*?)</lilypond>)''',
+	'lilypond-file': r'(?m)(?P<match><lilypondfile(?P<options>[^>]+)?>\s*(?P<filename>[^<]+)\s*</lilypondfile>)',
+	'multiline-comment': r"(?sm)\s*(?!@c\s+)(?P<code><!--\s.*?!-->)\s",
+	'singleline-comment': no_match,
+	'verb': r'''(?P<code><pre>.*?</pre>)''',
+	'verbatim': r'''(?s)(?P<code><pre>\s.*?</pre>\s)''',
+	},
 
 	LATEX: {
-		'include': r'(?m)^[^%\n]*?(?P<match>\\input{(?P<filename>[^}]+)})',
-		'option-sep' : ',\s*',
-		'header': r"\n*\\documentclass\s*(\[.*?\])?",
-		'verbatim': r"(?s)(?P<code>\\begin\s*{verbatim}.*?\\end{verbatim})",
-		'verb': r"(?P<code>\\verb(?P<del>.).*?(?P=del))",
-		'lilypond-file': r'(?m)^[^%\n]*?(?P<match>\\lilypondfile\s*(\[(?P<options>.*?)\])?\s*\{(?P<filename>.+)})',
-		'lilypond' : r'(?m)^[^%\n]*?(?P<match>\\lilypond\s*(\[(?P<options>.*?)\])?\s*{(?P<code>.*?)})',
-		'lilypond-block': r"(?sm)^[^%\n]*?(?P<match>\\begin\s*(\[(?P<options>.*?)\])?\s*{lilypond}(?P<code>.*?)\\end{lilypond})",
-		'def-post-re': r"\\def\\postLilyPondExample",
-		'def-pre-re': r"\\def\\preLilyPondExample",
-		'usepackage-graphics': r"\usepackage\s*{graphics}",
-		'intertext': r',?\s*intertext=\".*?\"',
-		'multiline-comment': no_match,
-		'singleline-comment': r"(?m)^.*?(?P<match>(?P<code>^%.*$\n+))",
-		'numcols': r"(?P<code>\\(?P<num>one|two)column)",
-		'multicols': r"(?P<code>\\(?P<be>begin|end)\s*{multicols}({(?P<num>\d+)?})?)",
-		'ly2dvi': no_match,
-
-		},
-
-	# why do we have distinction between @mbinclude and @include?
+	#'def-post-re': r"\\def\\postLilyPondExample",
+	#'def-pre-re': r"\\def\\preLilyPondExample",
+	#'header': r"\n*\\documentclass\s*(\[.*?\])?",
+	#'ly2dvi': no_match,
+	#'multicols': r"(?P<code>\\(?P<be>begin|end)\s*{multicols}({(?P<num>\d+)?})?)",
+	#'numcols': r"(?P<code>\\(?P<num>one|two)column)",
+	#'usepackage-graphics': r"\usepackage\s*{graphics}",
+	'include': r'(?m)^[^%\n]*?(?P<match>\\input{(?P<filename>[^}]+)})',
+	'lilypond' : r'(?m)^[^%\n]*?(?P<match>\\lilypond\s*(\[(?P<options>.*?)\])?\s*{(?P<code>.*?)})',
+	'lilypond-block': r"(?sm)^[^%\n]*?(?P<match>\\begin\s*(\[(?P<options>.*?)\])?\s*{lilypond}(?P<code>.*?)\\end{lilypond})",
+	'lilypond-file': r'(?m)^[^%\n]*?(?P<match>\\lilypondfile\s*(\[(?P<options>.*?)\])?\s*\{(?P<filename>.+)})',
+	'multiline-comment': no_match,
+	'singleline-comment': r"(?m)^.*?(?P<match>(?P<code>^%.*$\n+))",
+	'verb': r"(?P<code>\\verb(?P<del>.).*?(?P=del))",
+	'verbatim': r"(?s)(?P<code>\\begin\s*{verbatim}.*?\\end{verbatim})",
+	},
 
 	TEXINFO: {
-		'junkmeinclude':  '(?m)^[^%\n]*?(?P<match>@mbinclude\s+(?P<filename>\S*))',
-		'include':  '(?m)^[^%\n]*?(?P<match>@include\s+(?P<filename>\S*))',
-		'input': no_match,
-		'header': no_match,
-		'landscape': no_match,
-		'verbatim': r'''(?s)(?P<code>@example\s.*?@end example\s)''',
-		'verb': r'''(?P<code>@code{.*?})''',
-		'lilypond-file': '(?m)^(?P<match>@lilypondfile(\[(?P<options>[^]]*)\])?{(?P<filename>[^}]+)})',
-		'lilypond' : '(?m)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?{(?P<code>.*?)})',
-		'lilypond-block': r'''(?ms)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?\s(?P<code>.*?)@end lilypond)\s''',
-		'option-sep' : ',\s*',
-		'intertext': r',?\s*intertext=\".*?\"',
-		'multiline-comment': r"(?sm)^\s*(?!@c\s+)(?P<code>@ignore\s.*?@end ignore)\s",
-		'singleline-comment': r"(?m)^.*?(?P<match>(?P<code>@c.*$\n+))",
-		'numcols': no_match,
-		'multicols': no_match,
-		'ly2dvi': no_match,
-		}
+	#'header': no_match,
+	#'landscape': no_match,
+	#'multicols': no_match,
+	#'numcols': no_match,
+	'include':  '(?m)^[^%\n]*?(?P<match>@include\s+(?P<filename>\S*))',
+	'lilypond' : '(?m)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?{(?P<code>.*?)})',
+	'lilypond-block': r'''(?ms)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?\s(?P<code>.*?)@end lilypond)\s''',
+	'lilypond-file': '(?m)^(?P<match>@lilypondfile(\[(?P<options>[^]]*)\])?{(?P<filename>[^}]+)})',
+	'multiline-comment': r"(?sm)^\s*(?!@c\s+)(?P<code>@ignore\s.*?@end ignore)\s",
+	'singleline-comment': r"(?m)^.*?(?P<match>(?P<code>@c.*$\n+))",
+	'verb': r'''(?P<code>@code{.*?})''',
+	'verbatim': r'''(?s)(?P<code>@example\s.*?@end example\s)''',
+	},
+	}
+
+format_res = {
+	HTML: {
+	'option-sep' : '\s*',
+	'intertext': r',?\s*intertext=\".*?\"',
+	},
+	LATEX: {
+	'intertext': r',?\s*intertext=\".*?\"',
+	'option-sep' : ',\s*',
+	},
+	TEXINFO: {
+	'intertext': r',?\s*intertext=\".*?\"',
+	'option-sep' : ',\s*',
+	},
 	}
 
 NOTES = 'body'
@@ -348,9 +351,6 @@ def to_eps (file):
 	ly.system ('dvips -Ppdf -u+lilypond.map -E -o %s.eps %s' \
 		   % (file, file))
 
-## make source, index statics of Snippet?
-index = 0
-
 def find_file (name):
 	for i in include_path:
 		full = os.path.join (i, name)
@@ -371,11 +371,16 @@ def verbatim_texinfo (s):
 			       re.sub ('@', '@@', s)))
 
 def split_options (option_string):
-	return re.split (re_dict[format]['option-sep'], option_string)
-	
+	return re.split (format_res[format]['option-sep'], option_string)
+
+
+## make index static of Snippet?
+index = 0
+
 class Snippet:
-	def __init__ (self, type, index, match):
+	def __init__ (self, type, source, index, match):
 		self.type = type
+		self.source = source
 		self.index = index
 		self.match = match
 		self.hash = 0
@@ -386,104 +391,152 @@ class Snippet:
 	def end (self, s):
 		return self.index + self.match.end (s)
 
-	def substring (self, source, s):
-		return source[self.start (s):self.end (s)]
+	def substring (self, s):
+		return self.source[self.start (s):self.end (s)]
 
-	def ly (self, source):
+	def ly (self):
 		s = ''
 		if self.type == 'lilypond-block' or self.type == 'lilypond':
-			s = self.substring (source, 'code')
+			s = self.substring ('code')
 		elif self.type == 'lilypond-file':
-			name = self.substring (source, 'filename')
+			name = self.substring ('filename')
 			s = open (find_file (name)).read ()
 		return s
 		
-	def full_ly (self, source):
-		s = self.ly (source)
+	def full_ly (self):
+		s = self.ly ()
 		if s:
 			return compose_ly (s, self.match.group ('options'))
 		return ''
 	
-	def get_hash (self, source):
+	def get_hash (self):
 		if not self.hash:
-			self.hash = abs (hash (self.ly (source)))
+			self.hash = abs (hash (self.ly ()))
 		if not self.hash:
 			print 'TYPE:: ' + self.type
-			print 'CODE:: ' + self.substring (source, 0)
+			print 'CODE:: ' + self.substring (0)
 			raise 'URG'
 		return self.hash
 
-	def basename (self, source):
+	def basename (self):
 		if use_hash_p:
-			return 'lily-%d' % self.get_hash (source)
+			return 'lily-%d' % self.get_hash ()
 		raise 'to be done'
 
-	def write_ly (self, source):
+	def write_ly (self):
 		if self.type == 'lilypond-block' or self.type == 'lilypond'\
 		       or self.type == 'lilypond-file':
-			h = open (self.basename (source) + '.ly', 'w')
-			h.write (self.full_ly (source))
+			h = open (self.basename () + '.ly', 'w')
+			h.write (self.full_ly ())
 			h.close ()
 
-	def output_html (self, source):
-		base = self.basename (source)
+	def output_html (self):
+		base = self.basename ()
 		option_string = self.match.group ('options')
 		if option_string and VERBATIM in split_options (option_string)\
 		   and format == HTML:
-			verb = verbatim_html (self.substring (source, 'code'))
+			verb = verbatim_html (self.substring ('code'))
 			h.write (output[HTML][VERBATIM] % vars ())
 		h.write (output[HTML][BEFORE])
 		h.write (output[HTML][OUTPUT] % vars ())
 		h.write (output[HTML][AFTER])
 			
-	def output_latex (self, source):
+	def output_latex (self):
 		option_string = self.match.group ('options')
 		if option_string and VERBATIM in split_options (option_string)\
 		   and format == LATEX:
-			verb = self.substring (source, 'code')
+			verb = self.substring ('code')
 			h.write (output[LATEX][VERBATIM] % vars ())
 		h.write (output[LATEX][BEFORE])
-		base = self.basename (source)
+		base = self.basename ()
 		h.write (output[LATEX][OUTPUT] % vars ())
 		h.write (output[LATEX][AFTER])
 			
-	def output_texinfo (self, source):
+	def output_texinfo (self):
 		option_string = self.match.group ('options')
 		if option_string and VERBATIM in split_options (option_string):
-			verb = verbatim_texinfo (self.substring (source,
-								 'code'))
+			verb = verbatim_texinfo (self.substring ('code'))
 			h.write (output[TEXINFO][VERBATIM] % vars ())
 		h.write ('\n@tex\n')
-		self.output_latex (source)
+		self.output_latex ()
 		h.write ('\n@end tex\n')
 		
 		h.write ('\n@html\n')
-		self.output_html (source)
+		self.output_html ()
 		h.write ('\n@end html\n')
 			
-	def outdated_p (self, source):
+	def outdated_p (self):
 		if self.type != 'lilypond-block' and self.type != 'lilypond'\
 		       and self.type != 'lilypond-file':
 			return None
-		base = self.basename (source)
+		base = self.basename ()
 		if os.path.exists (base + '.ly') \
 		   and os.path.exists (base + '.tex') \
 		   and (use_hash_p \
-			or self.ly (source) == open (base + '.ly').read ()):
+			or self.ly () == open (base + '.ly').read ()):
 			# TODO: something smart with target formats
 			# (ps, png) and m/ctimes
 			return None
 		return self
 
-def find_snippets (s, type):
-	re = ly.re.compile (re_dict[format][type])
-	i = 0
+	def filter_code (self):
+		global index
+		# Hmm, why is verbatim's group called 'code'; rename to 'verb'?
+		#if snippet.match.group ('code'):
+		# urg
+		if self.type == 'lilypond' or self.type == 'lilypond-block':
+			h.write (self.source[index:self.start ('code')])
+			h.write (run_filter (self.substring ('code')))
+			h.write (self.source[self.end ('code'):self.end (0)])
+		else:
+			h.write (self.source[index:self.end (0)])
+		index = self.end (0)
+
+	def compile_output (self):
+		global index
+		# Hmm, why is verbatim's group called 'code'; rename to 'verb'?
+		# if snippet.match.group ('code'):
+		# urg
+		if self.type == 'lilypond' \
+		       or self.type == 'lilypond-block'\
+		       or self.type == 'lilypond-file':
+			h.write (self.source[index:self.start (0)])
+			snippet_output = eval ("Snippet.output_" + format)
+			snippet_output (self)
+		elif self.type == 'include':
+			h.write (self.source[index:self.start ('filename')])
+			base = os.path.splitext (self.substring ('filename'))[0]
+			h.write (base + format2ext[format])
+			h.write (self.source[self.end ('filename'):self.end (0)])
+		else:
+			h.write (self.source[index:self.end (0)])
+ 		index = self.end (0)
+
+def find_toplevel_snippets (s, types):
+	res = {}
+	for i in types:
+		res[i] = ly.re.compile (snippet_res[format][i])
+
 	snippets = []
-	m = re.search (s[i:])
-	while m:
-		snippets.append (Snippet (type, i, m))
-		i = i + m.end (0)
-		m = re.search (s[i:])
+	index = 0
+	while 1:
+		matches = {}
+		first = 0
+		endex = 1 << 30
+		for i in types:
+			matches[i] = res[i].search (s[index:index+endex])
+			if matches[i]:
+				start = matches[i].start (0)
+				if start < endex:
+					endex = start
+				if not first \
+				       or start < matches[first].start (0):
+					first = i
+		if not first:
+			break
+		snippets.append (Snippet (first, s, index, matches[first]))
+		index = index + matches[first].end (0)
+		
 	return snippets
 
 def filter_pipe (input, cmd):
@@ -519,45 +572,8 @@ def filter_pipe (input, cmd):
 def run_filter (s):
 	return filter_pipe (s, filter_cmd)
 
-def compare_index (a, b):
-	return a.start (0) - b.start (0)
-
-# apply FUNC to every toplevel block in SNIPPETS, ie, enclosed
-# snippets are skipped.  return list with all non-empty return values
-# of FUNC
-
-# Hmm, do we need enclosed snippets at all?  Maybe use MAP_SNIPPETS
-# once and use simple filter/map on that resulting toplevel list iso
-# silly map_snippets/do_snippets.
-def map_snippets (source, snippets, func):
-	global index
-	index = 0
-	lst = []
- 	for i in snippets:
- 		if i.start (0) < index:
- 			continue
-		# lst.append (func (i, source))
-		x = func (i, source)
-		if x:
-			lst.append (x)
- 		index = i.end (0)
-	return lst
-
-# apply FUNC to every toplevel block in SNIPPETS, ie, enclosed
-# snippets are skipped.  return last snippet's index
-def do_snippets (source, snippets, func):
-	global index
-	index = 0
- 	for i in snippets:
- 		if i.start (0) < index:
- 			continue
-		func (i, source)
-		# ugr, moved to FUNC
- 		#index = i.end ('code')
-	return index
-
-def process_snippets (source, snippets, cmd):
-	names = map_snippets (source, snippets, Snippet.basename)
+def process_snippets (cmd, snippets):
+	names = filter (lambda x:x, map (Snippet.basename, snippets))
 	if names:
 		ly.system (string.join ([cmd] + names))
 
@@ -620,6 +636,8 @@ format2ext = {
 	}
 
 def do_file (input_filename):
+
+	print 'do_file: ' + input_filename
 	global format
 	
 	if not format:
@@ -641,14 +659,7 @@ def do_file (input_filename):
 	ly.progress ('\n')
 
 	ly.progress (_ ("Dissecting..."))
-	snippet_types = ('verbatim', 'verb',
-			 'multiline-comment', 'singleline-comment',
-			 'lilypond', 'lilypond-block', 'lilypond-file',
-			 'include',)
-	snippets = []
-	for i in snippet_types:
-		snippets += find_snippets (source, i)
-	snippets.sort (compare_index)
+	snippets = find_toplevel_snippets (source, snippet_res[format].keys ())
 	ly.progress ('\n')
 
 	if output_name == '-' or not output_name:
@@ -666,39 +677,6 @@ def do_file (input_filename):
 		h = open (output_filename, 'w')
 		os.chdir (output_name)
 
-	def filter_source (snippet, source):
-		global index
-		# Hmm, why is verbatim's group called 'code'; rename to 'verb'?
-		#if snippet.match.group ('code'):
-		# urg
-		if snippet.type == 'lilypond' or snippet.type == 'lilypond-block':
-			h.write (source[index:snippet.start ('code')])
-			h.write (run_filter (snippet.substring (source, 'code')))
-			h.write (source[snippet.end ('code'):snippet.end (0)])
-		else:
-			h.write (source[index:snippet.end (0)])
-		index = snippet.end (0)
-
-	snippet_output = eval ("Snippet.output_" + format)
-	def compile_output (snippet, source):
-		global index
-		# Hmm, why is verbatim's group called 'code'; rename to 'verb'?
-		# if snippet.match.group ('code'):
-		# urg
-		if snippet.type == 'lilypond' \
-		       or snippet.type == 'lilypond-block'\
-		       or snippet.type == 'lilypond-file':
-			h.write (source[index:snippet.start (0)])
-			snippet_output (snippet, source)
-		elif snippet.type == 'include':
-			h.write (source[index:snippet.start ('filename')])
-			base = os.path.splitext (snippet.substring (source, 'filename'))[0]
-			h.write (base + format2ext[format])
-			h.write (source[snippet.end ('filename'):snippet.end (0)])
-		else:
-			h.write (source[index:snippet.end (0)])
- 		index = snippet.end (0)
-
 	global default_ly_options
 	textwidth = 0
 	if format == LATEX and LINEWIDTH not in default_ly_options.keys ():
@@ -707,37 +685,41 @@ def do_file (input_filename):
 
 	global index
 	if filter_cmd:
-		index = do_snippets (source, snippets, filter_source)
+		index = 0
+		map (Snippet.filter_code, snippets)
 		h.write (source[index:])
 	elif process_cmd:
-		outdated = map_snippets (source, snippets, Snippet.outdated_p)
+		outdated = filter (lambda x:x,
+				   map (Snippet.outdated_p, snippets))
 		ly.progress (_ ("Writing snippets..."))
-		do_snippets (source, snippets, Snippet.write_ly)
+		map (Snippet.write_ly, snippets)
 		ly.progress ('\n')
+		
 		if outdated:
 			ly.progress (_ ("Processing..."))
-			process_snippets (source, outdated, process_cmd)
+			process_snippets (process_cmd, outdated)
 		else:
 			ly.progress (_ ("All snippets are up to date..."))
 		ly.progress ('\n')
+		
 		ly.progress (_ ("Compiling %s...") % output_filename)
-		do_snippets (source, snippets, compile_output)
+		index = 0
+		map (Snippet.compile_output, snippets)
 		h.write (source[index:])
 		ly.progress ('\n')
 
-	includes = find_snippets (source, 'include')
-	for i in includes:
-		os.chdir (original_dir)
- 		options = []
- 		if textwidth:
- 			options.append ('--linewidth=%f' % textwidth)
+	if h != sys.stdout:
+		h.close ()
 
-		name = i.substring (source, 'filename')
+	def process_include (snippet):
+		print 'type: ' + snippet.type
+		os.chdir (original_dir)
+		name = snippet.substring ('filename')
 		ly.progress (_ ('Processing include: %s') % name)
 		ly.progress ('\n')
-		cmd = 'python ' + string.join (sys.argv[:-1]) \
-		      + string.join (options) + ' ' + name
-		ly.system (cmd)
+		do_file (name)
+
+	map (process_include, filter (lambda x: x.type == 'include', snippets))
 
 def do_options ():
 	global format, output_name
