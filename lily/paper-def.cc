@@ -81,7 +81,7 @@ Paper_def::get_realvar (SCM s) const
 Interval
 Paper_def::line_dimensions_int (int n) const
 {
-  SCM s = default_properties_ [ly_symbol2scm ("margin-shape")];
+  SCM s = default_properties_.get (ly_symbol2scm ("margin-shape"));
   if (!gh_pair_p (s))
     {
       Real lw =  get_var ("linewidth");

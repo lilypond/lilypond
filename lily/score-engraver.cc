@@ -171,28 +171,31 @@ void
 Score_engraver::set_columns (Paper_column *new_command_l, 
 			     Paper_column *new_musical_l)
 {
-  if (command_column_l_ && command_column_l_->linked_b()) 
-    {
-      pscore_p_->add_column (command_column_l_);
-      scoreline_l_->add_column (command_column_l_);
-    }
-  else 
-    command_column_l_ =0;
+  Paper_column * news[] = {new_command_l, new_musical_l};
+  Paper_column **current[] = {&command_column_l_, &musical_column_l_};
 
-  if (new_command_l) 
-    command_column_l_ = new_command_l;
+  for (int i=00; i< 2; i++) 
+    {
+      if (*current[i])
+	{
+	  if ((*current[i])->linked_b()) 
+	    {
+	      pscore_p_->add_column ((*current[i]));
+	      scoreline_l_->add_column ((*current[i]));
+	    }
+	  else
+	    {
+	      /*
+		We're forgetting about this column. Dump it, and make SCM
+		forget it.
 
-  if (musical_column_l_ && musical_column_l_->linked_b()) 
-    {
-      pscore_p_->add_column (musical_column_l_);
-      scoreline_l_->add_column (musical_column_l_);      
-    }
-  else 
-    musical_column_l_ = 0;
-  
-  if (new_musical_l) 
-    {
-      musical_column_l_ = new_musical_l;
+		(UGH.)  */
+	      scm_unprotect_object ((*current[i])->self_scm_);
+	      *current[i]  =0;
+	    }
+	}
+      if (news[i])
+	*current[i] = news[i];
     }
 }
 

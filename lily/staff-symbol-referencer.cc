@@ -55,7 +55,7 @@ Staff_symbol_referencer_interface::staff_space () const
   if (st)
     return st->staff_space ();
   else if (elt_l_->pscore_l_ && elt_l_->paper_l ())
-    elt_l_->paper_l ()->get_var ("interline");
+    return elt_l_->paper_l ()->get_var ("interline");
  
   return 0.0;
 }

@@ -39,21 +39,27 @@ Moment::print_smob (SCM s, SCM port, scm_print_state *)
 
 void
 Moment::do_smobify_self ()
-{}
+{
+}
 
 SCM
 make_rational (SCM n, SCM d)
 {
+  Moment *r;
+  SCM retval = SCM_EOL;
   if (SCM_INUMP (n) && SCM_INUMP(d))
     {
-      Moment *r = new Moment (gh_scm2int (n), gh_scm2int (d));
-      return r->smobify_self ();
+      r= new Moment (gh_scm2int (n), gh_scm2int (d));
     }
   else
     {
-      ::error ("Not a number");
-      assert(false);
+      ::error ("make-moment takes two integer arguments.");
+      r = new Moment (1,1);
     }
+
+  retval = r->smobify_self ();
+  scm_unprotect_object (r->self_scm_);
+  return retval ;  
 }
 
 #include "ly-smobs.icc"

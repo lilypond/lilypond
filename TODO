@@ -14,10 +14,35 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
   lilypond --paper=paper16 foo.ly
   lilypond --paper=paper20 foo.ly
   lilypond --paper=paper-as9 foo.ly
+. * entangle ly/* paper-params papersize stuff
 . * fix tremolos.
 . * change ) c4  to c4-)
 . * internationalize GUILE msgs.
 . * unbroken marks.
+. * chubb:
+-- Take a piece of early music, and typeset it as closely as possible to
+the original edition.  This means: moveable clefs, sometimes funny or no
+time signatures, few or no bar lines, few or no ties, slurs or
+phrasemarks, ornaments implied by the structure of the music, or
+indicated by, e.g., one or more thick lines through the stem of a note
+(Purcell and Farnaby both use this extensively, but with rather
+different meanings).  For Dowland's music it may also mean being able
+to rotate one or more staves (but I can do this in LaTeX).
+
+-- Add to this music a set of critical marks that:
+   * regularises clef, time and key signature.
+   * add slurs, phrase marks, articulation, etc.
+   * Halve or quarter the durations, so that minims become crotchets, say.
+   * add ornaments (mordents, trills, turns etc)
+   * add regular barlines (which sometimes will mean splitting a note
+     and adding a tie, e.g., in some of Byrd's music)
+   * Add footnotes to particular symbols, groups of notes, etc.
+   * When translating from chant notation, add a square bracket over a
+     group of notes to indicate a ligature in the original
+etc.
+   * Discretionary sharp or flat signs, for Musica Ficta
+
+-- print out both editions from the same source.
 . * write smobifying howto.
 . * put property test files in refman.
 . * alignment within @itemize
@@ -27,7 +52,6 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 . * \grace { c d } c1 in midi
 . * \prop slurdir in grace notes
 . * Make fingering and playing instructions Music_wrappers?
-. * \eltproperty "=Context" "Elt_name" "prop-name" #value
 . * script columns
 . * Must stop before this music ends:
 verse=\lyrics {
@@ -71,9 +95,6 @@ level elements (key, clef, meter, etc). This construction makes
 - if I change the property minVerticalAlign in a multi staff score with
 lyrics the change affects the lyrics too. I would like the change to
 _only_ affect staves.
-
-- I would like to be able to influence the sloping of xtuplet brackets
-
 - after the leading measure in the above mentioned score I want a double
 bar line fully drawn across the staves and after that keep to the
 ChoirStaff bar line types in the rest of the scores
@@ -101,8 +122,6 @@ ChoirStaff bar line types in the rest of the scores
 . * [c8. c16 c16 c16] in 6/8 timesig.
 . * Rewrite Stem, Beam (hairy)
 .  * beams over barlines
-. * Rests and beams don't work too well together. Example:
-   [ r8 g''16 des'] [r8 c16 a] 
 . * autoBeamMelisma: if I explicitly beam notes in a staff with auto
 beaming disabled I would like to have these beams also to be
 melismatic.
@@ -192,12 +211,10 @@ repeated section with different words for each repeat.
 . * \selectmusic to cut pieces from music. 
 . * formatting of input stuff. 
 .  * deps for ly2dvi
-. * TODO: merge atom & molecule; make  tree from molecule.
 . * Align_element::padding  ?
 . * use streambufs and iostream
 to provide IO handling for TeX stream, mudela stream, data-file.
 . * seriously buffer TeX output (do profile of writing .5 mb TeX file.)
-. * fix partial measures in meaningful way.
 . * uniformise recent feta contributions.
 .  * bigger and fatter 4/4 C
 . * relative mode for midi2ly
@@ -215,10 +232,6 @@ to provide IO handling for TeX stream, mudela stream, data-file.
 . * text-items clash with stems/beams
 . * --include, -I option for ly2dvi (pass on to lily)
 . * fix placement of beam-less abbrev
-. * \meter 3/4;
-	<{\voiceone cis4. cis8 cis4 | cis4 cis cis | r1 }
-	 {\voicetwo cis,4 r r | r2. | r1 }> |
-	}
 . * Musical_pitch (analogous to Duration and Rhythmic_req)
 	  think about, analogous to pitch: 
 	   * { a4 a16 } c <-- duration of c?
@@ -235,15 +248,12 @@ to provide IO handling for TeX stream, mudela stream, data-file.
   I understand the implementation of repeats well enough.
 . * add mudela-book-doc source to webstie.
 . * fix singleStaffBracket
-. * rename
-.  * partial -> anacrouse
 . * move paper vars into engraver properties
 . * add new glyphs to font.ly
 . * more intelligent file searching
 . * disable spaces in TeX stuff
 . * handle ^C for tmp/file creation.
 . * make LilyPond RPM fully relocatable
-. * better hshift (dots, distance, head dependent)
 . * didot / big point.
 . * clefs (AG): The "8" should appear closer to the actual clef,
 touching it.
@@ -253,6 +263,7 @@ touching it.
 
 .* FONT
 . * the bracket is ugly (wings are too parabolic, should be more circular)
+. * fix accordion turning paths.
 . * versioning for Feta
 . * rewrite dynamic signs.  They're kind of spaghetti now. 
 . * The `3' in the meter key is a one or two pixels too thin (at 600dpi)
@@ -266,7 +277,6 @@ touching it.
 . * work out sizes of character fonts.
 . * more symbols
 .  * piano pedals: Ped/*
-.  * maxima notehead
 .  * coda signs: Segno, O+
 .  * glissando, arpeggio
 .  * lengthened trill
@@ -285,34 +295,11 @@ touching it.
             do_one_file(String,String) [scores.cc:124]
       Reading 4 bytes from 0xefffeca8 on the stack.
       Address 0xefffeca8 is 728 bytes below frame pointer in function 
-. *  Array<Axis [2] > axeses;
-
-  for (int i=0; i < loose_elems.size (); i++)
-    {
-      Score_element* elt = loose_elems[i];
-      /*
-	    with which axes do we have to meddle?
-      */
-      int j =0;
-      Axis as [2];
-      for (int a = X_AXIS; a < NO_AXES; ++a)
-	if (elt->parent_l (Axis (a)) == this)
-	  as[j++] = Axis (a);
-      if (j == 1)
-	as[j++] = as[0];
-
-      axeses.push (as);
-    }
-
 . * patch: don't touch timestamp if all patches fail.
 . * MetaPost: should not generate setgray for unfill
-. * check out GCC signatures?
 . * glibc 2.0:
 	  f = fopen ("/dev/null", "r")
 	  assert (feof (f))
-. * tetex: mfplain.mem -> INSTALL
-. * mfplain.ini not in tetex 0.9 -> INSTALL
-
 
 .* PROJECTS
 . * Scripts:
@@ -363,14 +350,6 @@ touching it.
 . * \header
 .  * output header info to MIDI too.
 .  * dump \header into easily parsable format.
-
-. * a musical dictionary. See Documentation/vocabulary-*, other
-languages:
-.  * explanations
-.  * italian
-.  * german
-.  * dutch
-.  * swedish
 
 . * chords
 .  * guitar chords (fret diagrams)

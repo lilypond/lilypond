@@ -51,6 +51,7 @@ Score_element::Score_element()
 
 
   set_elt_property ("dependencies", SCM_EOL);
+  set_elt_property ("interfaces", SCM_EOL);
 }
 
 SCM ly_deep_copy (SCM);
@@ -164,7 +165,11 @@ Score_element::molecule_extent(Dimension_cache const *c)
 {
   Score_element *s = dynamic_cast<Score_element*>(c->element_l());
   Molecule*m = s->do_brew_molecule_p();
-  return  m->extent()[c->axis ()];
+  
+  Interval iv =  m->extent()[c->axis ()];
+
+  delete m;
+  return iv;
 }
 
 
@@ -647,3 +652,62 @@ Score_element::equal_p (SCM a, SCM b)
 {
   return gh_cdr(a) == gh_cdr(b) ? SCM_BOOL_T : SCM_BOOL_F;
 }
+
+
+SCM
+Score_element::ly_set_elt_property (SCM elt, SCM sym, SCM val)
+{
+  Score_element * sc = unsmob_element (elt);
+
+  if (!gh_symbol_p (sym))
+    {
+      error ("Not a symbol");
+      ly_display_scm (sym);
+      return SCM_UNDEFINED;
+    }
+
+  if (sc)
+    {
+      sc->element_property_alist_ = scm_assoc_set_x (sc->element_property_alist_, sym, val);
+    }
+  else
+    {
+      error ("Not a score element");
+      ly_display_scm (elt);
+    }
+
+  return SCM_UNDEFINED;
+}
+
+
+SCM
+Score_element::ly_get_elt_property (SCM elt, SCM sym)
+{
+  Score_element * sc = unsmob_element (elt);
+  
+  if (sc)
+    {
+      SCM s = scm_assq(sym, sc->element_property_alist_);
+
+      if (s != SCM_BOOL_F)
+	return gh_cdr (s); 
+      else
+	return SCM_UNDEFINED;
+    }
+  else
+    {
+      error ("Not a score element");
+      ly_display_scm (elt);
+    }
+  return SCM_UNDEFINED;
+}
+
+
+static void
+init_functions ()
+{
+  scm_make_gsubr ("ly-get-elt-property", 2, 0, 0, (SCM(*)(...))Score_element::ly_get_elt_property);
+  scm_make_gsubr ("ly-set-elt-property", 3, 0, 0, (SCM(*)(...))Score_element::ly_set_elt_property);
+}
+
+ADD_SCM_INIT_FUNC(scoreelt, init_functions);

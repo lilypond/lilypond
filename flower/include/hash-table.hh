@@ -151,8 +151,8 @@ public:
     }
 
   /**
-     Find and return element.  If #s# is not in the table, create an entry in the table, and init
-   */
+     Find and return element.  If #s# is not in the table, create an
+     entry in the table, and init */
   V& elem (K s)
     {
       int l;

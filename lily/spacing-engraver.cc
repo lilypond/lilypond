@@ -97,11 +97,14 @@ Spacing_engraver::do_pre_move_processing ()
   Paper_column * sc
     = dynamic_cast<Paper_column*> (get_staff_info ().musical_pcol_l ());
 
-  sc->set_elt_property ("shortest-playing-duration",
-			(new Moment (shortest_playing))->smobify_self ());
+  SCM sh = (new Moment (shortest_playing))->smobify_self ();
+  SCM st = (new Moment (starter))->smobify_self ();
+
+  scm_unprotect_object (st);
+  scm_unprotect_object (sh);
   
-  sc->set_elt_property ("shortest-starter-duration",
-			(new Moment (starter))->smobify_self ());
+  sc->set_elt_property ("shortest-playing-duration", sh);  
+  sc->set_elt_property ("shortest-starter-duration", st);
 }
 
 void

@@ -10,6 +10,7 @@
 #include <time.h>
 #include <fstream.h>
 #include <math.h>
+#include <iostream.h>
 
 #include "dimensions.hh"
 #include "dictionary-iter.hh"
@@ -132,6 +133,21 @@ Paper_outputter::output_scheme (SCM scm)
 }
 
 
+int
+count_cells (SCM s)
+{
+  if (Atom * a = unsmob_atom (s))
+    {
+      return 2 + count_cells (a->func_);
+    }
+  else if (gh_pair_p (s))
+    {
+      return 2 + count_cells (gh_car (s))+ count_cells (gh_cdr (s));
+    }
+  else
+    return 1;
+}
+
 void
 Paper_outputter::dump_onto (Paper_stream *ps)
 {
@@ -206,7 +222,7 @@ Paper_outputter::dump_onto (Paper_stream *ps)
 	  *ps << c;
 	  free (c);
 	}
-    }
+  }
 }
 
 void
@@ -283,7 +299,7 @@ Paper_outputter::output_Real_def (String k, Real v)
 		     SCM_UNDEFINED);
   output_scheme (scm);
 
-  gh_define (k.ch_l (), gh_double2scm (v));
+  //  gh_define (k.ch_l (), gh_double2scm (v));
 }
 
 void
@@ -296,7 +312,7 @@ Paper_outputter::output_String_def (String k, String v)
 		     SCM_UNDEFINED);
   output_scheme (scm);
 
-  gh_define (k.ch_l (), ly_str02scm (v.ch_l ()));
+  // gh_define (k.ch_l (), ly_str02scm (v.ch_l ()));
 }
 
 void
@@ -308,7 +324,7 @@ Paper_outputter::output_int_def (String k, int v)
 		     SCM_UNDEFINED);
   output_scheme (scm);
 
-  gh_define (k.ch_l (), gh_int2scm (v));
+  // gh_define (k.ch_l (), gh_int2scm (v));
 }
 
 

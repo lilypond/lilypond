@@ -6,6 +6,7 @@
   (c) 1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
+#include <stdio.h>
 
 #include "scm-hash.hh"
 #include "hash-table-iter.hh"
@@ -63,6 +64,9 @@ int
 Scheme_hash_table::print_smob (SCM s, SCM p, scm_print_state*)
 {
   assert (SMOB_IS_TYPE_B (Scheme_hash_table, s));
+  char str[1000];
+  sprintf (str, "#<Scheme_hash_table 0x%0x ", s);
+  scm_puts (str, p);      
   Scheme_hash_table *me = SMOB_TO_TYPE(Scheme_hash_table,s);
   for (Hash_table_iter<SCM,SCM> i (*me); i.ok(); i++)
     {
@@ -71,10 +75,23 @@ Scheme_hash_table::print_smob (SCM s, SCM p, scm_print_state*)
       scm_display (i.val (), p);
       scm_puts ("\n",p);            
     }
+  scm_puts ("> ",p);        
   return 1;
 }
 
 
+void
+Scheme_hash_table::set (SCM k, SCM v)
+{
+  elem (k ) = v; 
+  scm_unprotect_object (v);
+}
+
+SCM
+Scheme_hash_table::get (SCM k)const
+{
+  return const_elem (k);
+}
 
 
 Scheme_hash_table::~Scheme_hash_table( )

@@ -73,9 +73,13 @@ Slur::do_add_processing ()
 {
   Link_array<Note_column> encompass_arr =
     Group_interface__extract_elements (this, (Note_column*)0, "note-columns");
-  set_bounds (LEFT, encompass_arr[0]);    
-  if (encompass_arr.size () > 1)
-    set_bounds (RIGHT, encompass_arr.top ());
+
+  if (encompass_arr.size ())
+    {
+      set_bounds (LEFT, encompass_arr[0]);    
+      if (encompass_arr.size () > 1)
+	set_bounds (RIGHT, encompass_arr.top ());
+    }
 }
 
 
