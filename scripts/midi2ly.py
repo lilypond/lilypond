@@ -503,10 +503,9 @@ class Key:
 
 		s = ''
 		if self.sharps and self.flats:
-			s = '\\keysignature %s ' % 'TODO'
+                        pass
 		else:
-			
-			if self.flats:
+                        if self.flats:
 				k = (ord ('cfbeadg'[self.flats % 7]) - ord ('a') - 2 -2 * self.minor + 7) % 7
 			else:
 				k = (ord ('cgdaebf'[self.sharps % 7]) - ord ('a') - 2 -2 * self.minor + 7) % 7
@@ -1064,6 +1063,7 @@ for opt in options:
  		else:
  			flats = - alterations
 		key = Key (sharps, flats, minor)
+                print key
 	elif o == '--start-quant' or o == '-s':
 		start_quant = string.atoi (a)
 	elif o == '--allow-tuplet' or o == '-t':
