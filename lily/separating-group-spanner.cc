@@ -9,31 +9,36 @@
 
 #include "separating-group-spanner.hh"
 #include "single-malt-grouping-item.hh"
+#include "p-col.hh"
 
 Array<Rod>
 Separating_group_spanner::get_rods () const
 {
   Array<Rod> a;
-
+  
   for (int i=0; i < spacing_unit_l_arr_.size () -1; i++)
     {
       a.push (Rod (spacing_unit_l_arr_[i], spacing_unit_l_arr_[i+1]));
-      bool lb =spacing_unit_l_arr_[i]->breakable_b_;
+      bool lb =spacing_unit_l_arr_[i]->column_l ()->breakable_b_;
       if (lb)
 	{
-	  a.push (Rod ((Single_malt_grouping_item*) spacing_unit_l_arr_[i]->find_prebroken_piece (RIGHT),
+	  a.push (Rod ((Single_malt_grouping_item*)
+		       spacing_unit_l_arr_[i]->find_prebroken_piece (RIGHT),
 		       spacing_unit_l_arr_[i+1]));
 	}
-      bool rb=spacing_unit_l_arr_[i+1]->breakable_b_;
+      bool rb=spacing_unit_l_arr_[i+1]->column_l ()->breakable_b_;
       if (rb)
 	{
 	  a.push (Rod (spacing_unit_l_arr_[i],
-		     (Single_malt_grouping_item*)  spacing_unit_l_arr_[i+1]->find_prebroken_piece (LEFT)));
+		       (Single_malt_grouping_item*)
+		       spacing_unit_l_arr_[i+1]->find_prebroken_piece (LEFT)));
 	}
       if (lb && rb)
 	{
-	  a.push (Rod ((Single_malt_grouping_item*)spacing_unit_l_arr_[i]->find_prebroken_piece (RIGHT),
-		     (Single_malt_grouping_item*)  spacing_unit_l_arr_[i+1]->find_prebroken_piece (LEFT)));
+	  a.push (Rod ((Single_malt_grouping_item*)
+		       spacing_unit_l_arr_[i]->find_prebroken_piece (RIGHT),
+		       (Single_malt_grouping_item*)
+		       spacing_unit_l_arr_[i+1]->find_prebroken_piece (LEFT)));
 	}
 	
     }
