@@ -98,6 +98,10 @@
 (define (experimental-on)
   "")
 
+(define (horizontal-line x1 x2 th)
+  (filledbox (- x1)  (- x2 x1) (* .5 th)  (* .5 th )))
+
+
 (define (filledbox breapth width depth height)
   (let ((dx (+ width breapth))
 	(dy (+ depth height)))

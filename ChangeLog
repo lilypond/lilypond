@@ -1,5 +1,13 @@
 2003-07-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/output-ps.scm (lily-traced-cm-fonts): substitution for lily
+	cm fonts.
+
+	* mf/feta-beugel.mf: don't multiply font_count by 10.
+
+	* lily/lookup.cc (horizontal_line): new function. Use
+	horizontal-line in output backends.
+
 	* Documentation/user/tutorial.itely (An orchestral part): new
 	section on orchestral stuff and identifiers.
 

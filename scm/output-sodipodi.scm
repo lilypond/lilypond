@@ -172,7 +172,7 @@
    sodipodi:docname='/tmp/x'>
   <defs
      id='defs3' />
-  <sodipodi:namedview
+  <podi:namedview
      id='base' />
   <g transform='translate(10,10) scale (1.0)'>
   ")
@@ -275,6 +275,10 @@
 
 (define (end-output)
   "</g></svg>")
+
+;;TODO
+;(define (horizontal-line x1 x2 th)
+;  (draw-line th x1  0 x2 0))
 
 (define (filledbox breapth width depth height)
   (roundfilledbox breapth width depth height line-thickness))

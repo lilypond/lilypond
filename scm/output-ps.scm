@@ -14,13 +14,14 @@
 
 (use-modules
  (guile)
+ (ice-9 regex)
  (lily))
 
 
 
 ;;; Lily output interface --- cleanup and docme
 
-
+;; TODO: fucks up if outputting strings with parentheses.
 
 ;; Module entry
 (define-public (ps-output-expression expr port)
@@ -114,14 +115,31 @@
    (ly:number->string (* 10 thick))
    " ] 0 draw_dashed_slur"))
 
+(define lily-traced-cm-fonts
+  (map symbol->string
+       '(cmbx14
+	 cmbx17
+	 cmbxti12
+	 cmbxti14
+	 cmbxti7
+	 cmbxti8
+	 cmcsc12
+	 cmcsc7
+	 cmtt17)))
+  
 (define (define-fonts internal-external-name-mag-pairs)
   
   (define (font-load-command name-mag command)
-    
+
+    ;; frobnicate NAME to jibe with external definitions.
     (define (possibly-capitalize-font-name name)
-      (if (equal? (substring name 0 2) "cm")
-	  (string-upcase name)
-	  name))
+      (cond
+       ((and (equal? (substring name 0 2) "cm")
+	     (not (member name lily-traced-cm-fonts)))
+	(string-upcase name))
+       ((equal? (substring name 0 4) "feta")
+	(regexp-substitute/global #f "feta([a-z-]*)([0-9]+)" name 'pre "GNU-LilyPond-feta" 1 "-" 2 'post))
+       (else name)))
     
     (string-append
      "/" command
@@ -209,7 +227,10 @@
 
 (define (filledbox breapth width depth height) 
   (string-append (numbers->string (list breapth width depth height))
-		 " draw_box" ))
+		 " draw_box"))
+
+(define (horizontal-line x1 x2 th)
+  (draw-line th x1  0 x2 0))
 
 (define (fontify name-mag-pair exp)
 
