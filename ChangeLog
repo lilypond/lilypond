@@ -10,6 +10,16 @@
 
 2002-08-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/mensural-ligature-engraver.cc:
+	* scm/grob-property-description.scm: Add head-width, join-left,
+	primitive.
+	
+	* lily/mensural-ligature.cc: 
+	* lily/ligature-bracket.cc: 
+	* scm/grob-property-description.scm: 
+
+	* lily/ligature-head.cc: Add ligature-primitive-callback.
+
 	* input/test/beam-control.ly: 
 	* input/test/bar-script-visibility.ly: Update.
 

@@ -144,6 +144,6 @@ Ligature_bracket::brew_molecule (SCM smob)
   return bracket.smobbed_copy ();
 }
 
-ADD_INTERFACE(Ligature_bracket, "ligature-bracket-interface",
-	      "A bracket indicating a ligature in the original edition",
-	      "width thickness height");
+ADD_INTERFACE (Ligature_bracket, "ligature-bracket-interface",
+	       "A bracket indicating a ligature in the original edition",
+	       "width thickness height ligature-primitive-callback");
