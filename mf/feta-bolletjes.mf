@@ -164,27 +164,33 @@ fet_endchar;
 def draw_mensural_head (expr wid, open) =
       save head_width;
       head_width# = wid;
-      set_char_box (0, head_width#,
+      set_char_box (head_width#/2, head_width#/2,
 		    noteheight#/2, noteheight#/2);
 
       define_pixels(head_width, noteheight);
 
-      x2 = head_width/2;
-      y2 = 1.1 noteheight/2;
-      y1 = 0;
-      (x2 - x1) / (y2 - y1) = tand(30);
-      z3 = (2x2 - x1, y1);
-      z4 = z3 + z1 - z2;
+      x1 = -x3;
+      y1 = x2 = y3 = x4 = 0;
+      y4 = -y2;
+      y2 = 1.4 noteheight/2;
+      tand(30) = x3 / y2;
 
       pickup pencircle
-	     xscaled 0.18 head_width
-	     yscaled 0.36 head_width
+	     xscaled 0.15 head_width
+	     yscaled 0.30 head_width
 	     rotated -30;
 
+      % pencircle width correction
+      save zc, zd; pair zc, zd;
+      zc = (+0.150 head_width * sind(30), +0.150 head_width * cosd(30));
+      zd = (+0.075 head_width * sind(30), -0.075 head_width * cosd(30));
+
       if open:
-	      draw z1 -- z2 -- z3 -- z4 -- cycle;
+	      draw (z1+zc+zd) -- (z2-zc+zd) --
+		   (z3-zc-zd) -- (z4+zc-zd) -- cycle;
       else:
-	      filldraw z1 -- z2 -- z3 -- z4 -- cycle;
+	      filldraw (z1+zc+zd) -- (z2-zc+zd) --
+		       (z3-zc-zd) -- (z4+zc-zd) -- cycle;
       fi;
 enddef;
 
