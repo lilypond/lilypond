@@ -93,10 +93,9 @@ for i := 0 step 1 until font_count:
     % must never get bigger than infinity
     y := y + increment;
 
-    if y >  infinity/hppp:
-		message "Resolution/magnification is too high.";
-		foobar ;
-		
+    if y > infinity/hppp:
+      message "Resolution/magnification is too high";
+      error please report: <bug-lilypond@gnu.org>;
     fi
 
     % x should be about one staff space, taking brace to have
