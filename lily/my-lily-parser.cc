@@ -281,8 +281,8 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
       My_lily_parser *parser = new My_lily_parser (&sources);
 
       // TODO: use $parser 
-      scm_module_define (global_lily_module, ly_symbol2scm ("parser"),
-			 parser->self_scm ());
+      parser->lexer_->set_identifier (ly_symbol2scm ("parser"),
+				      parser->self_scm ());
       parser->parse_file (init, file_name, out_file);
 
       bool error = parser->error_level_;
@@ -377,7 +377,7 @@ get_paper (My_lily_parser *parser)
   paper = paper ? paper->clone () : new Output_def;
   paper->set_variable (ly_symbol2scm ("is-paper"), SCM_BOOL_T);
 
-  paper->parent_ =unsmob_output_def (parser->lexer_->lookup_identifier ("$defaultbookpaper"));
+  paper->parent_ = unsmob_output_def (parser->lexer_->lookup_identifier ("$defaultbookpaper"));
   return paper;
 }
 

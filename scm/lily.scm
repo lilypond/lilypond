@@ -94,7 +94,7 @@
 
 ;; parser stuff.
 (define-public (print-music-as-book parser music)
-  (let* ((score (ly:music-scorify music))
+  (let* (
 	 (head  (ly:parser-lookup parser '$globalheader))
 	 (book (ly:score-bookify score head)))
     (ly:parser-print-book parser book)))
@@ -111,12 +111,15 @@
 	(book (ly:score-bookify score head)))
     (ly:parser-print-score parser book)))
 		
-(define-public default-toplevel-music-handler print-music-as-book)
-(define-public default-toplevel-book-handler ly:parser-print-book)
-(define-public default-toplevel-score-handler print-score-as-book)
+(define-public (collect-scores-for-book  parser score)
+  (let*
+      ((oldval (ly:parser-lookup parser 'toplevel-scores)))
+    (ly:parser-define parser 'toplevel-scores (cons score oldval))
+    ))
 
-
-
+(define-public (collect-music-for-book parser music)
+  (collect-scores-for-book parser (score (ly:music-scorify music))))
+  
 ;;;;;;;;;;;;;;;;
 ; alist
 (define-public (assoc-get key alist . default)
