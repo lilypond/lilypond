@@ -1,8 +1,16 @@
 \input texinfo @c -*-texinfo-*-
+@setfilename NEWS.info
+@settitle NEWS
+
+
+
+@node Top, , , 
+@top
+@unnumbered New features in 2.5 since 2.4
 
 @ifhtml
 @macro inputfileref{DIR,NAME}
-@uref{../../../../\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
+@uref{../../../\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
 @end macro
 @end ifhtml
 
@@ -11,13 +19,6 @@
 @file{\DIR\/\NAME\}@c
 @end macro
 @end ifnothtml
-
-@setfilename NEWS.info
-@settitle NEWS
-
-@node Top, , , 
-@top
-@unnumbered New features in 2.5 since 2.4
 
 @itemize @bullet
 
@@ -129,7 +130,12 @@ achieved by setting @code{breakbefore} in the @code{\header} block to
 true or false.
 
 @item
-Shaped note heads. This feature has been sponsored by Jonathan Walther.
+Shaped note heads. This feature has been sponsored by Jonathan Walther,
+
+@lilypond[relative=1,fragment,verbatim,raggedright]
+  \set shapeNoteStyles = ##(do re mi fa #f la ti)
+  c d e f g a b c d e f g a b c
+@end lilypond
 
 @item
 Layout for titles, page header and footer can now be entered as
@@ -149,7 +155,13 @@ Layout for titles, page header and footer can now be entered as
 This will set stem directions and put the cue notes in the @code{cue}
 @code{Voice}
 
+
 @item Stemlets, short stems over beamed rests, have been added.
+
+@lilypond[relative=1,verbatim,fragment,raggedright]
+\override Stem #'stemlet-length = #0.75
+c8[ r8 c16 r16 c8]
+@end lilypond
 
 @end itemize
 
