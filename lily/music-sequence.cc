@@ -4,15 +4,20 @@
   source file of the GNU LilyPond music typesetter
   
   (c) 1998--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
+
 #include "music-list.hh"
 #include "warn.hh"
 #include "pitch.hh"
 #include "input.hh"
 
+Music_sequence::Music_sequence ()
+  : Music ()
+{
+}
+
 SCM
-Music_sequence::music_list ()const
+Music_sequence::music_list () const
 {
   return get_property ("elements");
 }
@@ -24,19 +29,14 @@ void
 Music_sequence::append_music (Music *m)
 {
   set_property ("elements",
-		    ly_append2 (music_list (), scm_cons (m->self_scm (), SCM_EOL)));
+		ly_append2 (music_list (), scm_cons (m->self_scm (), SCM_EOL)));
   scm_gc_unprotect_object (m->self_scm ());
 }
 
-Music_sequence::Music_sequence ( )
-  : Music ()
-{
-}
-
 void
-transpose_music_list (SCM l,  Pitch rq)
+transpose_music_list (SCM lst, Pitch rq)
 {
-  for (SCM s = l; scm_is_pair (s);  s = scm_cdr (s))
+  for (SCM s = lst; scm_is_pair (s);  s = scm_cdr (s))
     unsmob_music (scm_car (s))->transpose (rq);    
 }
 

@@ -63,14 +63,14 @@ protected:
   DECLARE_SMOBS (Music,);
   SCM immutable_property_alist_;
   SCM mutable_property_alist_;
-  friend SCM ly_extended_make_music(SCM,SCM);
+  friend SCM ly_extended_make_music (SCM, SCM);
 };
 
 DECLARE_TYPE_P(Music);
 DECLARE_UNSMOB(Music,music);
 
-Music* make_music_by_name (SCM sym);
-SCM ly_deep_mus_copy (SCM);
+Music *make_music_by_name (SCM sym);
+SCM ly_music_deep_copy (SCM);
 SCM ly_music_scorify (SCM, SCM);
 
 #endif /* MUSIC_HH */

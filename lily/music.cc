@@ -56,7 +56,7 @@ Music::Music (Music const &m)
      stack vars that hold the copy might be optimized away, meaning
      that they won't be protected from GC. */
   smobify_self ();
-  mutable_property_alist_ = ly_deep_mus_copy (m.mutable_property_alist_);
+  mutable_property_alist_ = ly_music_deep_copy (m.mutable_property_alist_);
   set_spot (*m.origin ());
 }
 
@@ -348,7 +348,7 @@ LY_DEFINE (ly_music_list_p,"ly:music-list?",
   return SCM_BOOL_T;
 }
 
-LY_DEFINE (ly_deep_mus_copy, "ly:music-deep-copy",
+LY_DEFINE (ly_music_deep_copy, "ly:music-deep-copy",
 	  1, 0, 0, (SCM m),
 	  "Copy @var{m} and all sub expressions of @var{m}")
 {
@@ -359,8 +359,8 @@ LY_DEFINE (ly_deep_mus_copy, "ly:music-deep-copy",
       scm_gc_unprotect_object (copy);
     }
   else if (scm_is_pair (m))
-    copy = scm_cons (ly_deep_mus_copy (scm_car (m)),
-		    ly_deep_mus_copy (scm_cdr (m)));
+    copy = scm_cons (ly_music_deep_copy (scm_car (m)),
+		    ly_music_deep_copy (scm_cdr (m)));
   return copy;
 }
 

@@ -242,7 +242,7 @@ Quote_iterator::process (Moment m)
 
 		  Pitch diff = pitch_interval (qp, mp);
 
-		  SCM copy = ly_deep_mus_copy (mus->self_scm ());
+		  SCM copy = ly_music_deep_copy (mus->self_scm ());
 		  mus = unsmob_music (copy);
 		  
 		  transposed_musics_ = scm_cons (copy, transposed_musics_);

@@ -13,12 +13,12 @@
 #include "warn.hh"
 #include "music-constructor.hh"
 
-typedef Music* (*Music_ctor) ();
+typedef Music *(*Music_ctor) ();
 
 static std::map<String,Music_ctor> *ctors_map_;
 
 void
-add_music_ctor (String s,  Music_ctor c)
+add_music_ctor (String s, Music_ctor c)
 {
   if (!ctors_map_)
     ctors_map_ = new std::map<String, Music_ctor>;
@@ -26,17 +26,16 @@ add_music_ctor (String s,  Music_ctor c)
  (*ctors_map_)[s] = c;
 }
 
-
 Music_ctor
 get_music_ctor (String s)
 {
   if (ctors_map_->find (s) == ctors_map_->end ())
     return 0;
 
-  return (* ctors_map_)[s];
+  return (*ctors_map_)[s];
 }
 
-Music* 
+Music * 
 make_music (String s)
 {
   Music_ctor c = get_music_ctor (s);

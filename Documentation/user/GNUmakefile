@@ -11,7 +11,8 @@ IMAGES=$(wildcard *.png)
 OUT_EPS_IMAGES=$(addprefix $(outdir)/,$(IMAGES:.png=.eps))
 OUT_PNG_IMAGES=$(addprefix $(outdir)/,$(IMAGES))
 OUT_ITEXI_FILES=$(addprefix $(outdir)/,$(ITELY_FILES:.itely=.itexi) 
-HTML_FILES = $(addprefix $(outdir)/, $(TELY_FILES:.tely=.html))
+HTML_FILES = $(addprefix $(outdir)/, $(TELY_FILES:.tely=.html))\
+ $(outdir)/lilypond-internals.html
 
 PS_FILES = $(DVI_FILES:.dvi=.ps)
 PDF_FILES = $(DVI_FILES:.dvi=.pdf)
@@ -93,25 +94,39 @@ extra-local-help:
 $(outdir)/lilypond.texi: $(outdir)/lilypond-internals.texi
 $(outdir)/lilypond.nexi: $(outdir)/lilypond-internals.texi
 
-
-$(outdir)/lilypond/lilypond.html: $(outdir)/lilypond.texi 
+#
+# The split user manual
+#
+$(outdir)/lilypond/index.html: $(outdir)/lilypond.texi
 	mkdir -p $(dir $@)
 	$(MAKEINFO) -I$(outdir) --output=$(outdir)/lilypond --css-include=$(abs-srcdir)/Documentation/texinfo.css --html $<
-	$(MAKEINFO) -I$(outdir) --output=$@ --css-include=$(abs-srcdir)/Documentation/texinfo.css --html --no-split --no-headers $<
-	perl -i~ -pe 's!../lilypond-internals!lilypond-internals/!g' $(outdir)/lilypond.html
 	find $(outdir)/lilypond/ -name '*'.png -o -name '*'.ly | xargs rm -f
 # symbolic links to save space 
 	(cd $(outdir)/lilypond/ ; ln -sf ../*.png ../*.ly . )
 
-$(outdir)/lilypond-internals/lilypond-internals.html: $(outdir)/lilypond-internals.texi
-	mkdir -p $(dir $@)
-	$(MAKEINFO) --output=$(outdir)/lilypond-internals --css-include=$(abs-srcdir)/Documentation/texinfo.css --html $<
+#
+# One big page manual
+#
+$(outdir)/lilypond.html: $(outdir)/lilypond.texi
 	$(MAKEINFO) -I$(outdir) --output=$@ --css-include=$(abs-srcdir)/Documentation/texinfo.css --html --no-split --no-headers $<
 
-$(outdir)/lilypond/lilypond.xml: $(outdir)/lilypond.texi 
+#
+# The split internals reference
+#
+$(outdir)/lilypond-internals/index.html: $(outdir)/lilypond-internals.texi
+	mkdir -p $(dir $@)
+	$(MAKEINFO) --output=$(outdir)/lilypond-internals --css-include=$(abs-srcdir)/Documentation/texinfo.css --html $<
+
+#
+# One big page internals reference
+#
+$(outdir)/lilypond-internals.html: $(outdir)/lilypond-internals.texi
+	$(MAKEINFO) --output=$@ --css-include=$(abs-srcdir)/Documentation/texinfo.css --html --no-split --no-headers $<
+
+
+$(outdir)/lilypond.xml: $(outdir)/lilypond.texi 
 	mkdir -p $(dir $@)
 	$(MAKEINFO) -I$(outdir) --output=$@ --docbook $<
-	perl -i~ -pe 's!../lilypond-internals!lilypond-internals/!g' $(outdir)/lilypond.xml
 
 $(outdir)/lilypond-internals/lilypond-internals.xml: $(outdir)/lilypond-internals.texi
 	mkdir -p $(dir $@)
@@ -127,8 +142,10 @@ $(outdir)/%.png: %.png
 $(outdir)/%.eps: %.png
 	convert $< $@
 
-DEEP_HTML_FILES = $(outdir)/lilypond/lilypond.html $(outdir)/lilypond-internals/lilypond-internals.html
-
+DEEP_HTML_FILES =\
+ $(outdir)/lilypond/index.html\
+ $(outdir)/lilypond-internals/index.html
+	
 else
 
 # Links referred to by Documentation index
@@ -143,8 +160,8 @@ deep-symlinks:
 
 endif
 
-
-local-WWW: $(HTML_FILES) $(datafiles) $(PDF_FILES) $(PS_GZ_FILES) $(DEEP_HTML_FILES) info info-dir
+local-WWW: $(HTML_FILES) $(DEEP_HTML_FILES)\
+ $(datafiles) $(PDF_FILES) $(PS_GZ_FILES) info info-dir
 
 local-WWW-clean: deep-WWW-clean
 
