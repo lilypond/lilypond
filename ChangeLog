@@ -1,3 +1,7 @@
+2004-11-14  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/output-gnome.scm (text): comment dribble.
+
 2004-11-14  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/output-gnome.scm (bezier-sandwich): New function.
